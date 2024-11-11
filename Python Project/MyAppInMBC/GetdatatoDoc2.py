@@ -1,8 +1,13 @@
-# Su dung selenium vs pyautogui
+# Su dung selenium vs pyautogui vs pywinauto new
 import os
 import time
 import pyautogui
+import pywinauto
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait 
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from docx import Document
 from urllib.parse import urljoin
@@ -10,21 +15,81 @@ from bs4 import BeautifulSoup
 import requests
 
 def copy_and_paste_content(driver, document):
-    pyautogui.hotkey('ctrl', 'a')
-    time.sleep(1)
+    
+    # Tìm phần tử div cần chọn
+    element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "uk-margin-small-top")))
+
+    # print(element.text)
+    
+    # Thực hiện lệnh JavaScript để chọn phần tử
+    element.click()
+    time.sleep(2)
+
     # Sao chép nội dung
     pyautogui.hotkey('ctrl', 'c')
     time.sleep(1)
-    # Mở file Word
-    pyautogui.hotkey('ctrl', 'o')
-    time.sleep(1)
+    
+    
+     # Khởi động Word
+    app = pywinauto.application.Application()
+    app.start("C:\\Program Files (x86)\\Microsoft Office\\root\\Office16\\winword.exe")
+    
+    # Kiểm tra xem Word đã mở chưa, nếu chưa thì mở mới
+    if not app.windows():
+        app.start("C:\\Program Files (x86)\\Microsoft Office\\root\\Office16\\winword.exe")
+    
+    # Gửi phím tắt Ctrl+ N để mở hộp thoại New
+    
+    try:
+        dlg = app.window(title_re=".*Word.*")
+        dlg.wait('ready')
+        
+        # Gửi phím tắt Ctrl+N để tạo tài liệu mới
+        dlg.type_keys('^n')
+
+        # Tìm cửa sổ tài liệu mới (nếu cần)
+        new_doc = app.window(title_re=".*Document.*")
+        new_doc.wait('ready')
+
+    except pywinauto.findwindows.ElementNotFoundError:
+        print("Không tìm thấy cửa sổ Word")
+    
+    # Gửi phím tắt Ctrl+O để mở hộp thoại Open
+    dlg.type_keys('^o')
+    
+    # Thêm thời gian chờ để đảm bảo hộp thoại mở ra
+    dlg.wait('ready', timeout=10)
+
+    # Điều hướng bằng các phím mũi tên và nhấn Enter
+    dlg.type_keys('{RIGHT}{DOWN}{DOWN}{DOWN}{DOWN}{DOWN}{ENTER}')
+    
+    # Kết nối với hộp thoại Open mới
+    dlgnew = app.window(title_re=".*Open.*")
+    dlgnew.wait('ready', timeout=10)
+
+    # Tìm hộp thoại Open và nhập đường dẫn file
     output_path = os.path.abspath('output.docx')
-    pyautogui.write(output_path)
-    pyautogui.press('enter')
+    edit_box = dlgnew.child_window(title="File name:", control_type="Edit")
+    edit_box.type_keys(output_path)
+
+    # Nhấn nút Open
+    open_button = dlgnew.child_window(title="Open", control_type="Button")
+    open_button.click()
+
+    # Chờ một chút để Word load xong
     time.sleep(2)
-    # Dán nội dung vào file Word
+
+    # Đặt con trỏ vào vị trí cuối cùng của tài liệu
+    dlgnew.Edit.type_keys("^end")
+
+    # Dán nội dung
     pyautogui.hotkey('ctrl', 'v')
     time.sleep(1)
+    # Lưu file (thay đổi đường dẫn và tên file nếu cần)
+    dlg.menu_select("File -> Save")
+    time.sleep(1)
+    pyautogui.press('enter')   
+
     
 def get_absolute_url(base_url, relative_url):
     """
@@ -75,8 +140,7 @@ def create_word_document(url):
         absolute_url = get_absolute_url(base_url, href)
         driver = webdriver.Chrome()
         driver.get(absolute_url)
-        time.sleep(2)
-
+        
         copy_and_paste_content(driver, document)
         output_path = os.path.abspath('output.docx')
         print(output_path)

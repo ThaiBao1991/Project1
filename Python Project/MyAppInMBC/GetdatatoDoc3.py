@@ -45,7 +45,7 @@ def copy_and_paste_content(driver, document):
         dlg.wait('ready')
         
         # Gửi phím tắt Ctrl+N để tạo tài liệu mới
-        dlg.send_keys('^n')
+        dlg.type_keys('^n')
 
         # Tìm cửa sổ tài liệu mới (nếu cần)
         new_doc = app.window(title_re=".*Document.*")
@@ -55,23 +55,32 @@ def copy_and_paste_content(driver, document):
         print("Không tìm thấy cửa sổ Word")
     
     # Gửi phím tắt Ctrl+O để mở hộp thoại Open
-    dlg.send_keys('^o')
+    dlg.type_keys('^o')
     
+    # Thêm thời gian chờ để đảm bảo hộp thoại mở ra
+    dlg.wait('ready', timeout=10)
+
+    # Điều hướng bằng các phím mũi tên và nhấn Enter
+    dlg.type_keys('{RIGHT}{DOWN}{DOWN}{DOWN}{DOWN}{DOWN}{ENTER}')
+    
+    # Kết nối với hộp thoại Open mới
+    dlgnew = app.window(title_re=".*Open.*")
+    dlgnew.wait('ready', timeout=10)
+
     # Tìm hộp thoại Open và nhập đường dẫn file
-    # (Phần này có thể thay đổi tùy thuộc vào giao diện của hộp thoại Open)
     output_path = os.path.abspath('output.docx')
-    edit_box = dlg.child_window(title="File name:", control_type="Edit")
-    edit_box.set_edit_text(output_path)
+    dlgnew.type_keys('{output_path}{ENTER}')
+
 
     # Nhấn nút Open
-    open_button = dlg.child_window(title="Open", control_type="Button")
+    open_button = dlgnew.child_window(title="Open", control_type="Button")
     open_button.click()
 
     # Chờ một chút để Word load xong
     time.sleep(2)
 
     # Đặt con trỏ vào vị trí cuối cùng của tài liệu
-    dlg.Edit.type_keys("^end")
+    dlgnew.Edit.type_keys("^end")
 
     # Dán nội dung
     pyautogui.hotkey('ctrl', 'v')
