@@ -1,0 +1,13 @@
+{% extends 'home.html' %}
+{% load static %}
+{% block content %}
+<br>
+<div class="container " style="border:5px solid black">
+    <br>
+    <form action="" method='POST' enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}  <!-- # Đưa các thẻ trong model nếu không có tự add dữ liệu vào trong tag <p></p> -->
+        <input class="btn btn-success" type="submit" name="Add">
+    </form>
+</div>
+{% endblock %}
