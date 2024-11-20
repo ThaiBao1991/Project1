@@ -16,7 +16,7 @@ import requests
 import pyautogui
 import os
 from tkinter import Tk, filedialog
-
+from pathlib import Path
 
 def select_image_file(default_path):
     root = Tk()
@@ -81,7 +81,7 @@ def copy_and_paste_content(driver, document):
         if not image_path:
             print("Không có file ảnh nào được chọn.")
         
-        for i in range(5):
+        for i in range(10):
             browse_button_location = pyautogui.locateCenterOnScreen(image_path, confidence=0.8)
             if browse_button_location:
                 break
@@ -106,11 +106,12 @@ def copy_and_paste_content(driver, document):
         time.sleep(2)
         pyautogui.click(browse_button_location)
         # Tìm hộp thoại Open và nhập đường dẫn file
-        user_dir = "C:\\Users\\12953 bao\\Desktop\\desktop\\work\\Project\\Python\\BasicLearnPython\\W3schools"
-        output_path = os.path.abspath(r"C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\output.docx")
+        user_dir = Path("C:/Users/12953 bao/Desktop/desktop/work/Project/Python/BasicLearnPython/W3schools")
+        output_path =user_dir / "output.docx"
+        print(output_path)
         dlg_open = app.window(title_re=".*Open.*")
         dlg_open.wait('ready', timeout=10)
-        dlg_open.type_keys(output_path)
+        dlg_open.type_keys(str(output_path), with_spaces=True, pause=0.1)
         time.sleep(10)
 
         # Nhấn Enter để mở file
@@ -118,16 +119,34 @@ def copy_and_paste_content(driver, document):
         time.sleep(10)  # Chờ để Word tải xong tài liệu
 
         # Đặt con trỏ vào vị trí cuối của tài liệu
-        dlg.type_keys("^end")
-
+        dlg = app.window(title_re=".*output.docx.*")  # Đảm bảo rằng bạn đang tham chiếu đúng cửa sổ tài liệu
+        dlg.type_keys('^{END}') 
+        dlg.type_keys('{ENTER}')
+        
         # Dán nội dung
         pyautogui.hotkey('ctrl', 'v')
         time.sleep(10)
 
         # Lưu file (thay đổi đường dẫn và tên file nếu cần)
-        dlg.menu_select("File -> Save")
-        time.sleep(10)
-        pyautogui.press('enter')
+        try:
+             # Sử dụng menu_select linh hoạt hơn
+            menu_item = dlg.child_window(title="File", control_type="MenuItem")
+            menu_item.invoke()
+            save_item = dlg.child_window(title="Save", control_type="MenuItem")
+            save_item.invoke()
+            
+            # Hoặc sử dụng send_keys nếu cần
+            # dlg.type_keys('^s')  # Nhấn Ctrl+S để lưu
+
+            time.sleep(10)
+            pyautogui.press('enter')
+        except pywinauto.application.ElementNotFoundError as e:
+            print(f"Không tìm thấy menu: {e}")
+        except Exception as e:
+            print(f"Lỗi không xác định: {e}")
+        finally:
+            # Đóng ứng dụng Word
+            dlg.close()
     except pywinauto.findwindows.ElementNotFoundError:
         print("Không tìm thấy cửa sổ Word")
     # except Exception as e:
@@ -180,9 +199,6 @@ def create_word_document(url):
         driver.get(absolute_url)
         
         copy_and_paste_content(driver, document)
-        output_path = os.path.abspath('output.docx')
-        print(output_path)
-        document.save('output.docx')
         driver.quit()
     # Lưu file Word
     document.save('output.docx') 
