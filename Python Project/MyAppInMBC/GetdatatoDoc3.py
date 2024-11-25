@@ -130,16 +130,14 @@ def copy_and_paste_content(driver, document):
         # Lưu file (thay đổi đường dẫn và tên file nếu cần)
         try:
              # Sử dụng menu_select linh hoạt hơn
-            menu_item = dlg.child_window(title="File", control_type="MenuItem")
-            menu_item.invoke()
-            save_item = dlg.child_window(title="Save", control_type="MenuItem")
-            save_item.invoke()
+            # menu_item = dlg.child_window(title="File", control_type="MenuItem")
+            # menu_item.invoke()
+            # save_item = dlg.child_window(title="Save", control_type="MenuItem")
+            # save_item.invoke()
             
-            # Hoặc sử dụng send_keys nếu cần
-            # dlg.type_keys('^s')  # Nhấn Ctrl+S để lưu
-
+            pyautogui.hotkey('ctrl', 's') # Nhấn Ctrl+S để lưu
             time.sleep(10)
-            pyautogui.press('enter')
+            
         except pywinauto.application.ElementNotFoundError as e:
             print(f"Không tìm thấy menu: {e}")
         except Exception as e:
@@ -163,7 +161,7 @@ base_url = 'https://vi.extendoffice.com'
 document = Document()
 document.add_paragraph('')  # Tạo một đoạn văn bản trống để dán nội dung
 document.save('output.docx') 
-# URL của trang web chứa danh sách các link
+# # URL của trang web chứa danh sách các link
 
 
 
@@ -174,7 +172,6 @@ def create_word_document(url):
 
     # Tìm tất cả các thẻ <a> bên trong ul có id="ul-search"
     links = soup.find('ul', id='ul-search').find_all('a')
-
 
     # Tạo mục lục
     document.add_heading('Mục lục', level=0)
@@ -200,8 +197,11 @@ def create_word_document(url):
         
         copy_and_paste_content(driver, document)
         driver.quit()
+         # Lưu lại document sau mỗi lần copy paste
+        document.save(output_path)
+        time.sleep(10)
     # Lưu file Word
-    document.save('output.docx') 
+    # document.save('output.docx') 
     
 
 

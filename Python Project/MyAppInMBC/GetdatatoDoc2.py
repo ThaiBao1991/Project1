@@ -13,6 +13,22 @@ from docx import Document
 from urllib.parse import urljoin
 from bs4 import BeautifulSoup
 import requests
+import pyautogui
+import os
+from tkinter import Tk, filedialog
+from pathlib import Path
+
+def select_image_file(default_path):
+    root = Tk()
+    root.withdraw()  # Ẩn cửa sổ chính của Tkinter
+    root.attributes('-topmost', True)  # Đưa hộp thoại lên trên cùng
+
+    # Hiển thị hộp thoại chọn file với đường dẫn mặc định
+    file_path = filedialog.askopenfilename(initialdir=os.path.dirname(default_path), title="Select Image File",
+                                           filetypes=(("PNG files", "*.png"), ("All files", "*.*")))
+    root.destroy()  # Đóng cửa sổ Tkinter
+
+    return file_path
 
 def copy_and_paste_content(driver, document):
     
@@ -23,7 +39,7 @@ def copy_and_paste_content(driver, document):
 
     # Sao chép nội dung
     pyautogui.hotkey('ctrl', 'c')
-    time.sleep(2)
+    time.sleep(10)
     
     
     # Đường dẫn mặc định đầu tiên
@@ -48,49 +64,91 @@ def copy_and_paste_content(driver, document):
      
     try:
         dlg = app.window(title_re=".*Word.*")
-        dlg.wait('visible', timeout=10)
+        dlg.wait('visible', timeout=40)
         
         # Gửi phím tắt Ctrl+O để mở hộp thoại Open
         dlg.type_keys('^o')
-        time.sleep(2)  # Thời gian chờ để hộp thoại Open mở ra
+        time.sleep(15)  # Thời gian chờ để hộp thoại Open mở ra
 
         # Điều hướng bằng các phím mũi tên và nhấn Enter
         # dlg.type_keys('{RIGHT}{DOWN}{DOWN}{DOWN}{DOWN}{DOWN}{ENTER}')
         
         # Sử dụng pyautogui để nhấp vào nút “Browse”
-        browse_button_location = pyautogui.locateCenterOnScreen('browse_button_image.png')  # Cần ảnh của nút “Browse”
+        image_path = 'Python Tutorial\\browse_button_image.png'
+        if not os.path.exists(image_path):
+            print(f"Không tìm thấy file ảnh tại {image_path}. Vui lòng chọn file ảnh mới.")
+            image_path = select_image_file(image_path)
+        if not image_path:
+            print("Không có file ảnh nào được chọn.")
+        
+        for i in range(10):
+            browse_button_location = pyautogui.locateCenterOnScreen(image_path, confidence=0.8)
+            if browse_button_location:
+                break
+        
         if browse_button_location:
-            pyautogui.click(browse_button_location)
+            print(f"Đã tìm thấy file ảnh tại {image_path}.")           
         else:
-            print("Không tìm thấy nút 'Browse'")
-            return
-
+            print(f"Không tìm thấy file ảnh tại {image_path}. Vui lòng chọn file ảnh mới.")
+            new_image_path = select_image_file(image_path)
+            if new_image_path:
+                imagePath = new_image_path
+                browse_button_location = pyautogui.locateCenterOnScreen(image_path)
+                if browse_button_location:
+                    print(f"Đã tìm thấy file ảnh tại {image_path}.")
+                else:
+                    print("Không tìm thấy nút 'Browse' trong file ảnh mới.")
+            else:
+                print("Không có file ảnh nào được chọn.")
+                    
+        print(f"Moving to: {browse_button_location}")
+        pyautogui.moveTo(browse_button_location)
+        time.sleep(2)
+        pyautogui.click(browse_button_location)
         # Tìm hộp thoại Open và nhập đường dẫn file
-        output_path = os.path.abspath('output.docx')
+        user_dir = Path("C:/Users/12953 bao/Desktop/desktop/work/Project/Python/BasicLearnPython/W3schools")
+        output_path =user_dir / "output.docx"
+        print(output_path)
         dlg_open = app.window(title_re=".*Open.*")
         dlg_open.wait('ready', timeout=10)
-        dlg_open.type_keys(output_path)
-        time.sleep(1)
+        dlg_open.type_keys(str(output_path), with_spaces=True, pause=0.1)
+        time.sleep(10)
 
         # Nhấn Enter để mở file
         dlg_open.type_keys('{ENTER}')
-        time.sleep(2)  # Chờ để Word tải xong tài liệu
+        time.sleep(10)  # Chờ để Word tải xong tài liệu
 
         # Đặt con trỏ vào vị trí cuối của tài liệu
-        dlg.type_keys("^end")
-
+        dlg = app.window(title_re=".*output.docx.*")  # Đảm bảo rằng bạn đang tham chiếu đúng cửa sổ tài liệu
+        dlg.type_keys('^{END}') 
+        dlg.type_keys('{ENTER}')
+        
         # Dán nội dung
         pyautogui.hotkey('ctrl', 'v')
-        time.sleep(1)
+        time.sleep(10)
 
         # Lưu file (thay đổi đường dẫn và tên file nếu cần)
-        dlg.menu_select("File -> Save")
-        time.sleep(1)
-        pyautogui.press('enter')
+        try:
+             # Sử dụng menu_select linh hoạt hơn
+            # menu_item = dlg.child_window(title="File", control_type="MenuItem")
+            # menu_item.invoke()
+            # save_item = dlg.child_window(title="Save", control_type="MenuItem")
+            # save_item.invoke()
+            
+            pyautogui.hotkey('ctrl', 's') # Nhấn Ctrl+S để lưu
+            time.sleep(10)
+            
+        except pywinauto.application.ElementNotFoundError as e:
+            print(f"Không tìm thấy menu: {e}")
+        except Exception as e:
+            print(f"Lỗi không xác định: {e}")
+        finally:
+            # Đóng ứng dụng Word
+            dlg.close()
     except pywinauto.findwindows.ElementNotFoundError:
         print("Không tìm thấy cửa sổ Word")
-    except Exception as e:
-        print("Lỗi khác:", e)
+    # except Exception as e:
+    #     print("Lỗi khác:", e)
     
     
 
@@ -103,7 +161,7 @@ base_url = 'https://vi.extendoffice.com'
 document = Document()
 document.add_paragraph('')  # Tạo một đoạn văn bản trống để dán nội dung
 document.save('output.docx') 
-# URL của trang web chứa danh sách các link
+# # URL của trang web chứa danh sách các link
 
 
 
@@ -114,7 +172,6 @@ def create_word_document(url):
 
     # Tìm tất cả các thẻ <a> bên trong ul có id="ul-search"
     links = soup.find('ul', id='ul-search').find_all('a')
-
 
     # Tạo mục lục
     document.add_heading('Mục lục', level=0)
@@ -139,12 +196,9 @@ def create_word_document(url):
         driver.get(absolute_url)
         
         copy_and_paste_content(driver, document)
-        output_path = os.path.abspath('output.docx')
-        print(output_path)
-        document.save('output.docx')
         driver.quit()
     # Lưu file Word
-    document.save('output.docx') 
+    # document.save('output.docx') 
     
 
 
