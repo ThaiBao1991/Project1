@@ -2,26 +2,57 @@ import os
 import time
 import pyautogui
 import pywinauto
+
+import requests
+
+import sys
+
+
+from docx import Document
+from urllib.parse import urljoin
+from bs4 import BeautifulSoup
+
+from tkinter import Tk, filedialog, messagebox
+from pathlib import Path
+from pywinauto.findwindows import ElementNotFoundError
+from PIL import ImageGrab, ImageChops
+from PIL import Image
+from io import BytesIO
+
+import win32com.client
+from pywinauto.application import Application
+import pyperclip
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait 
 from selenium.webdriver.support import expected_conditions as EC
-from docx import Document
-from urllib.parse import urljoin
-from bs4 import BeautifulSoup
-import requests
-from tkinter import Tk, filedialog, messagebox
-from pathlib import Path
-from pywinauto.findwindows import ElementNotFoundError
-from PIL import ImageGrab, ImageChops
-import win32com.client
-from pywinauto.application import Application
-import pyperclip
 from selenium.common.exceptions import TimeoutException
+
+import base64
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 user_dir = Path("C:/Users/12953 bao/Desktop/desktop/work/Project/Python/BasicLearnPython/W3schools")
 output_path = user_dir / "output.docx"
+base_url = 'https://vi.extendoffice.com'
+
+# Thư mục lưu trữ ảnh tạm thời
+
+def convert_webp_to_png(webp_path, png_path):
+    """Chuyển đổi ảnh .webp sang .png."""
+    try:
+        img = Image.open(webp_path)
+        img.save(png_path, "PNG")
+        print(f"Đã chuyển đổi ảnh: {png_path}")
+    except Exception as e:
+        print(f"Lỗi khi chuyển đổi ảnh: {e}")
+
+def image_to_base64(image_path):
+    """Chuyển đổi ảnh thành base64."""
+    with open(image_path, "rb") as image_file:
+        return base64.b64encode(image_file.read()).decode("utf-8")
 
 def select_image_file(default_path):
     root = Tk()
@@ -143,33 +174,124 @@ def find_element_with_timeout(driver, locator, timeout=10): # Giảm timeout đ�
         print(f"Lỗi không xác định: {e}")
         return None
 
-def process_element(driver, element, minimum_margin_top=30):
+
+def process_element(driver, element):
+    image_dir = os.path.join("project", "imagetmp")
+    os.makedirs(image_dir, exist_ok=True)
+    
+     # Lấy danh sách URL của các ảnh .webp
+    js_get_webp_images = """
+    var images = document.querySelectorAll('img');
+    var webpUrls = [];
+    images.forEach(img => {
+        if (img.src.endsWith('.webp')) {
+            webpUrls.push(img.src);
+        }
+    });
+    return webpUrls;
+    """
+    webp_urls = driver.execute_script(js_get_webp_images)
+
+    # Tải từng ảnh về thư mục imagetmp
+    for i, url in enumerate(webp_urls):
+        try:
+            # Tải ảnh từ URL
+            absolute_url = get_absolute_url(base_url, url)
+            print("Đang tải ảnh từ URL:", absolute_url)
+
+            # Tải ảnh với SSL verify=False
+            response = requests.get(absolute_url, verify=False)
+            if response.status_code == 200:
+                # Lưu ảnh vào thư mục imagetmp
+                webp_path = os.path.join(image_dir, f"image_{i}.webp")
+                with open(webp_path, "wb") as f:
+                    f.write(response.content)
+                print(f"Đã tải ảnh: {webp_path}")
+
+                # Chuyển đổi ảnh .webp sang .png
+                png_path = os.path.join(image_dir, f"image_{i}.png")
+                convert_webp_to_png(webp_path, png_path)
+
+                # Xóa file .webp sau khi chuyển đổi (tùy chọn)
+                os.remove(webp_path)
+                print(f"Đã xóa file .webp: {webp_path}")
+                
+                
+                # Thay thế src của ảnh .webp bằng ảnh .png đã chuyển đổi
+                png_base64 = image_to_base64(png_path)  # Chuyển ảnh PNG thành base64
+                js_replace_src = f"""
+                var images = document.querySelectorAll('img');
+                images.forEach(img => {{
+                    if (img.src === "{absolute_url}") {{
+                        img.src = "data:image/png;base64,{png_base64}";
+                    }}
+                }});
+                """
+                driver.execute_script(js_replace_src)
+                print(f"Đã thay thế src của ảnh: {absolute_url}")
+            else:
+                print(f"Không thể tải ảnh từ URL: {absolute_url}")
+        except Exception as e:
+            print(f"Lỗi khi tải ảnh: {e}")
+            
+    # Xóa các đối tượng có class "uk-margin-remove-last-child custom" và phần tử con là <h3> với text cụ thể
+    js_remove_elements = """
+    var elements = document.querySelectorAll('.uk-margin-remove-last-child.custom');
+    elements.forEach(element => {
+        var firstChild = element.firstElementChild;
+        if (firstChild && firstChild.tagName === 'H3' && firstChild.innerText.trim() === 'Công cụ năng suất văn phòng tốt nhất') {
+            element.parentNode.removeChild(element);
+        }
+    });
+    """
+    driver.execute_script(js_remove_elements)
+    print("Đã xóa các đối tượng thỏa mãn điều kiện.")
+    
+    # Xóa các file .png trong thư mục imagetmp
+    for filename in os.listdir(image_dir):
+        if filename.endswith(".png"):
+            file_path = os.path.join(image_dir, filename)
+            os.remove(file_path)
+            print(f"Đã xóa file .png: {file_path}")
+    
     if not element:
         print("Không có element nào để xử lý.")
         return
 
+    # Đảm bảo phần tử được chọn (focus)
     driver.execute_script("arguments[0].scrollIntoView();", element)
-    time.sleep(1)
+    driver.execute_script("arguments[0].focus();", element)
+    time.sleep(1)  # Chờ một chút để đảm bảo phần tử được chọn
 
-    js_code = f"""
+    # JavaScript để chọn nội dung của phần tử và xử lý các phần tử không mong muốn
+    js_code = """
     var element = arguments[0];
-    var minimumMarginTop = {minimum_margin_top};
-    var stopElement = document.querySelector('h1, h2, h3[style*="margin-top: ' + minimumMarginTop + 'px"]');
+    var stopElement = document.querySelector('.uk-margin-remove-last-child.custom h3[style="margin-top: ' + arguments[1] + 'px;"]');
     var range = document.createRange();
 
-    range.setStartBefore(element);
-
-    if (stopElement) {{
+    if (stopElement) {
+        range.setStartBefore(element);
         range.setEndBefore(stopElement);
-    }} else {{
+    } else {
+        range.setStartBefore(element);
         range.setEndAfter(document.body.lastChild);
-    }}
+    }
+
+    // Lấy tất cả các phần tử <div> có class 'uk-margin-remove-last-child custom'
+    var divs = document.querySelectorAll('.uk-margin-remove-last-child.custom');
+
+    divs.forEach(function(div) {
+        // Kiểm tra nếu phần tử con tiếp theo là <style>
+        if (div.querySelector('style')) {
+            div.parentNode.removeChild(div);
+        }
+    });
 
     var sel = window.getSelection();
     sel.removeAllRanges();
     sel.addRange(range);
 
-    // Hiển thị bảng thông báo
+    // Hiển thị thông báo (tùy chọn)
     var messageBox = document.createElement('div');
     messageBox.style.position = 'fixed';
     messageBox.style.top = '10px';
@@ -182,12 +304,17 @@ def process_element(driver, element, minimum_margin_top=30):
     messageBox.innerText = 'Đã chọn đối tượng!';
     document.body.appendChild(messageBox);
 
-    setTimeout(function() {{
+    setTimeout(function() {
         document.body.removeChild(messageBox);
-    }}, 2000);
+    }, 2000);
     """
+    # Thực thi JavaScript
     driver.execute_script(js_code, element)
 
+    # Sao chép nội dung đã chọn vào clipboard
+    pyautogui.hotkey('ctrl', 'c')
+    time.sleep(1)  # Chờ một chút để đảm bảo sao chép hoàn tất
+    
 
 def find_element_by_multiple_locators(driver, locators):
     for by, value in locators:
@@ -198,8 +325,25 @@ def find_element_by_multiple_locators(driver, locators):
         except:
             continue
     return None
-   
-def copy_and_paste_content(driver, document, output_path):
+
+def copy_element_content(driver, element):
+    if not element:
+        print("Không có element nào để xử lý.")
+        return
+
+    # Sử dụng JavaScript để sao chép nội dung
+    driver.execute_script("""
+        const element = arguments[0];
+        const range = document.createRange();
+        range.selectNodeContents(element);
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        document.execCommand('copy');
+        selection.removeAllRanges();
+    """, element)
+
+def copy_and_paste_content(driver, document, output_path): 
     locators = [
         (By.CLASS_NAME, "uk-margin-small-top"),
         (By.CSS_SELECTOR, ".uk-width-expand\\@m.uk-first-column"),
@@ -209,11 +353,12 @@ def copy_and_paste_content(driver, document, output_path):
 
     try:
         element = find_element_by_multiple_locators(driver, locators)
+        print (element)
         if element:
             process_element(driver, element)
             time.sleep(1)  # Đảm bảo rằng đối tượng đã được chọn
+            # Bỏ chọn phần tử không mong muốn
             pyautogui.hotkey('ctrl', 'c')  # Thực hiện sao chép nội dung
-            return  # Dừng lại sau khi xử lý xong element
         else:
             print("Không tìm thấy element nào với các locator đã cho.")
             driver.execute_script("""
@@ -235,40 +380,7 @@ def copy_and_paste_content(driver, document, output_path):
             """)
     except Exception as e:
         print(f"Lỗi tổng quát: {e}")
-    
-    if not element: # Nếu element class trên không tìm thấy thì tìm element class khác
-        try:
-            element = find_element_with_timeout(driver, (By.CSS_SELECTOR, ".uk-width-expand\\@m.uk-first-column"))
-            if element:
-                print("Đã tìm thấy element với CSS selector '.uk-width-expand\\@m.uk-first-column'")
-                process_element(driver, element)
-                time.sleep(1)  # Đảm bảo rằng đối tượng đã được chọn
-                pyautogui.hotkey('ctrl', 'c')  # Thực hiện sao chép nội dung
-                return  # Dừng lại sau khi xử lý xong element
-            else:
-                print("Không tìm thấy element với CSS selector '.uk-width-expand\\@m.uk-first-column'")
-                driver.execute_script("""
-                var messageBox = document.createElement('div');
-                messageBox.style.position = 'fixed';
-                messageBox.style.top = '10px';
-                messageBox.style.left = '50%';
-                messageBox.style.transform = 'translateX(-50%)';
-                messageBox.style.padding = '10px';
-                messageBox.style.backgroundColor = 'lightcoral';
-                messageBox.style.border = '1px solid red';
-                messageBox.style.zIndex = '10000';
-                messageBox.innerText = 'Không tìm thấy đối tượng!';
-                document.body.appendChild(messageBox);
 
-                setTimeout(function() {
-                    document.body.removeChild(messageBox);
-                }, 2000);
-                """)
-        except Exception as e:
-            print(f"Lỗi tổng quát: {e}")
-
-    time.sleep(1)
-    pyautogui.hotkey('ctrl', 'c')
     path1 = "C:\\Program Files (x86)\\Microsoft Office\\root\\Office16\\winword.exe"
     path2 = "C:\\Program Files\\Microsoft Office\\root\\Office16\\winword.exe"
     if os.path.exists(path1):
@@ -292,17 +404,23 @@ def copy_and_paste_content(driver, document, output_path):
         dlg = app.window(title_re=".*Word.*")
         dlg.wait('visible', timeout=40)
         initial_screenshot = capture_screenshot(dlg)
+
         # Thử nhấn Ctrl+O và kiểm tra sự thay đổi của cửa sổ
         max_attempts = 5
         attempt = 0
+
         while attempt < max_attempts:
-            dlg.type_keys('^o')
+            dlg.type_keys('^o')  # Nhấn Ctrl+O để mở cửa sổ mới
             time.sleep(2)  # Chờ một chút để cửa sổ có thể thay đổi
+
+            # Kiểm tra xem cửa sổ đã thay đổi chưa
             if has_window_changed(dlg, initial_screenshot):
-                print("Cửa sổ đã thay đổi.")
-                break
+                print("Cửa sổ đã thay đổi. Tiếp tục thực thi...")
+                break  # Thoát khỏi vòng lặp nếu cửa sổ đã thay đổi
+
             attempt += 1
             print(f"Thử lần {attempt} không thành công, thử lại...")
+
         if attempt == max_attempts:
             print("Mở file chờ 15s chưa có tín hiệu.")
         else:
@@ -310,33 +428,46 @@ def copy_and_paste_content(driver, document, output_path):
             pass
         
         image_path = 'Python Tutorial\\browse_button_image.png'
+
+        # Kiểm tra xem file ảnh có tồn tại không
         if not os.path.exists(image_path):
             print(f"Không tìm thấy file ảnh tại {image_path}. Vui lòng chọn file ảnh mới.")
             image_path = select_image_file(image_path)
-        if not image_path:
-            print("Không có file ảnh nào được chọn.")
-        for i in range(10):
+            if not image_path:
+                print("Không có file ảnh nào được chọn.")
+                return  # Dừng chương trình nếu không có file ảnh
+
+        # Tìm vị trí của nút "Browse" trên màn hình
+        browse_button_location = None
+        for i in range(10):  # Thử tối đa 10 lần
             browse_button_location = pyautogui.locateCenterOnScreen(image_path, confidence=0.8)
             if browse_button_location:
+                print(f"Đã tìm thấy file ảnh tại {image_path}.")
                 break
-        if browse_button_location:
-            print(f"Đã tìm thấy file ảnh tại {image_path}.")
-        else:
+            time.sleep(1)  # Chờ 1 giây trước khi thử lại
+
+        # Nếu không tìm thấy, yêu cầu chọn file ảnh mới
+        if not browse_button_location:
             print(f"Không tìm thấy file ảnh tại {image_path}. Vui lòng chọn file ảnh mới.")
             new_image_path = select_image_file(image_path)
             if new_image_path:
-                imagePath = new_image_path
-                browse_button_location = pyautogui.locateCenterOnScreen(imagePath)
+                image_path = new_image_path
+                browse_button_location = pyautogui.locateCenterOnScreen(image_path, confidence=0.8)
                 if browse_button_location:
-                    print(f"Đã tìm thấy file ảnh tại {imagePath}.")
+                    print(f"Đã tìm thấy file ảnh tại {image_path}.")
                 else:
                     print("Không tìm thấy nút 'Browse' trong file ảnh mới.")
+                    return  # Dừng chương trình nếu không tìm thấy nút "Browse"
             else:
                 print("Không có file ảnh nào được chọn.")
+                return  # Dừng chương trình nếu không có file ảnh
+
+        # Di chuyển và nhấp vào nút "Browse"
         print(f"Moving to: {browse_button_location}")
         pyautogui.moveTo(browse_button_location)
-        time.sleep(2)
+        time.sleep(0.5)  # Giảm thời gian chờ
         pyautogui.click(browse_button_location)
+        
         # user_dir = Path("C:/Users/12953 bao/Desktop/desktop/work/Project/Python/BasicLearnPython/W3schools")
         # output_path = user_dir / "output.docx"
         print(output_path)
@@ -348,11 +479,16 @@ def copy_and_paste_content(driver, document, output_path):
         # print("file name là : ", file_name)
         
         dlg_open = app.window(title_re=".*Open.*")
-        dlg_open.wait('ready', timeout=3)
+        
+        start_time = time.time()
+        dlg_open.wait('ready', timeout=1)
+        end_time = time.time()
+        print(f"Thời gian chờ thực tế bảng open ready: {end_time - start_time} giây")
+        
         dlg_open.type_keys(str(new_patch), with_spaces=True, pause=0.1)
-        time.sleep(2)
+        time.sleep(0.3)
         dlg_open.type_keys('{ENTER}')
-        time.sleep(2)
+        time.sleep(0.3)
         
         find_doc_name = ".*" + file_name+ ".*"
         print("find_doc_name là :", find_doc_name)
@@ -363,7 +499,20 @@ def copy_and_paste_content(driver, document, output_path):
         try:
             # Sử dụng title_re phù hợp với ứng dụng Word của bạn. Ví dụ: ".*Document.* - Word"
             dlg_word_open = app.window(title_re=find_doc_name)
-            dlg_word_open.wait('ready', timeout=10) # Đảm bảo cửa sổ word đã sẵn sàng
+            
+            max_attempts = 6
+            attempt = 0
+            while attempt < max_attempts:
+                try:
+                    start_time = time.time()
+                    dlg_word_open.wait('ready', timeout=1.5) # Đảm bảo cửa sổ word đã sẵn sàng
+                    end_time = time.time()
+                    print(f"Thời gian chờ thực tế bảng dlg_word_open ready: {end_time - start_time} giây")
+                    break
+                except Exception as e:
+                    attempt += 1
+                    print(f"Thử lần {attempt} không thành công, thử lại...")
+                    
             print("File Word đã mở xong.")
             time.sleep(2)
             dlg_word_open.type_keys('^{END}')
@@ -448,8 +597,6 @@ def get_existing_links(document):
             existing_links.append(paragraph.text)
     return existing_links
 
-base_url = 'https://vi.extendoffice.com'
-
 def create_word_document(url, document, output_path):
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
@@ -457,7 +604,7 @@ def create_word_document(url, document, output_path):
 
     # Gỡ lỗi: In thứ tự các liên kết
     for i, link in enumerate(links):
-        if i<10 :
+        if i<20 :
             print(f"Link {i}: {link.text.strip()} - {link['href']}")
 
     existing_links = get_existing_links(document)
