@@ -485,8 +485,8 @@ def copy_and_paste_content(driver, document, output_path):
         end_time = time.time()
         print(f"Thời gian chờ thực tế bảng open ready: {end_time - start_time} giây")
         
-        dlg_open.type_keys(str(new_patch), with_spaces=True, pause=0.1)
-        time.sleep(0.3)
+        dlg_open.type_keys(str(new_patch), with_spaces=True, pause=0)
+        time.sleep(0.1)
         dlg_open.type_keys('{ENTER}')
         time.sleep(0.3)
         
@@ -514,7 +514,7 @@ def copy_and_paste_content(driver, document, output_path):
                     print(f"Thử lần {attempt} không thành công, thử lại...")
                     
             print("File Word đã mở xong.")
-            time.sleep(2)
+            time.sleep(0.5)
             dlg_word_open.type_keys('^{END}')
             dlg_word_open.type_t.docxkeys('{ENTER}')
         except pywinauto.findwindows.ElementNotFoundError:
