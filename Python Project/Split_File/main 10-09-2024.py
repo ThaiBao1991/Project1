@@ -1,37 +1,54 @@
 import tkinter as tk
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 import os
-# CHỉ hoạt động được với split by count còn chưa thể merge hoặc split by size
+
 def split_by_size(file_path, size_mb):
     try:
         size_bytes = int(size_mb) * 1024 * 1024
+        if size_bytes <= 0:
+            messagebox.showerror("Error", "Size must be greater than 0 MB")
+            return False
+
         with open(file_path, 'rb') as f:
             data = f.read()
-            total_parts = len(data) // size_bytes + 1
+            total_parts = (len(data) + size_bytes - 1) // size_bytes
+            base_name = file_path + ".part_"
+
             for i in range(total_parts):
                 part_data = data[i * size_bytes:(i + 1) * size_bytes]
-                part_filename = f"{file_path}.{str(i + 1).zfill(3)}"
+                part_filename = f"{base_name}{str(i + 1).zfill(3)}"
                 with open(part_filename, 'wb') as part_file:
                     part_file.write(part_data)
+
+        messagebox.showinfo("Success", f"File split into {total_parts} parts successfully!")
         return True
     except Exception as e:
-        print(f"Error splitting file: {str(e)}")
+        messagebox.showerror("Error", f"Error splitting file: {str(e)}")
         return False
 
 def split_by_count(file_path, count):
     try:
+        count = int(count)
+        if count <= 0:
+            messagebox.showerror("Error", "Count must be greater than 0")
+            return False
+
         with open(file_path, 'rb') as f:
             data = f.read()
-            total_parts = count
-            size_bytes = len(data) // total_parts + 1
-            for i in range(total_parts):
-                part_data = data[i * size_bytes:(i + 1) * size_bytes]
-                part_filename = f"{file_path}.{str(i + 1).zfill(3)}"
+            total_size = len(data)
+            part_size = (total_size + count - 1) // count
+            base_name = file_path + ".part_"
+
+            for i in range(count):
+                part_data = data[i * part_size:(i + 1) * part_size]
+                part_filename = f"{base_name}{str(i + 1).zfill(3)}"
                 with open(part_filename, 'wb') as part_file:
                     part_file.write(part_data)
+
+        messagebox.showinfo("Success", f"File split into {count} parts successfully!")
         return True
     except Exception as e:
-        print(f"Error splitting file: {str(e)}")
+        messagebox.showerror("Error", f"Error splitting file: {str(e)}")
         return False
 
 def merge_files(file_path):
@@ -39,13 +56,13 @@ def merge_files(file_path):
         file_dir = os.path.dirname(file_path)
         file_name = os.path.basename(file_path)
         base_name, ext = os.path.splitext(file_name)
-        merged_filename = os.path.join(file_dir, f"{base_name}.merged{ext}")
+        merged_filename = os.path.join(file_dir, f"{base_name}_merged{ext}")
 
         # Tìm tất cả các phần tệp tin có cùng tên gốc
-        part_files = [f for f in os.listdir(file_dir) if f.startswith(base_name) and f != file_name]
+        part_files = [f for f in os.listdir(file_dir) if f.startswith(base_name + ".part_")]
 
         # Sắp xếp theo thứ tự số phần
-        part_files.sort(key=lambda x: int(x.split('.')[-1]))
+        part_files.sort(key=lambda x: int(x.split('_')[-1]))
 
         with open(merged_filename, 'wb') as merged_file:
             for part_filename in part_files:
@@ -58,9 +75,10 @@ def merge_files(file_path):
             part_path = os.path.join(file_dir, part_filename)
             os.remove(part_path)
 
+        messagebox.showinfo("Success", "Files merged successfully!")
         return True
     except Exception as e:
-        print(f"Error merging files: {str(e)}")
+        messagebox.showerror("Error", f"Error merging files: {str(e)}")
         return False
 
 def open_file_dialog():
@@ -82,7 +100,7 @@ def split_by_size_dialog():
         entry_label.pack()
         size_entry = tk.Entry(top)
         size_entry.pack()
-        split_button = tk.Button(top, text="Split", command=lambda: split_by_size(file_path, float(size_entry.get())))
+        split_button = tk.Button(top, text="Split", command=lambda: split_by_size(file_path, size_entry.get()))
         split_button.pack()
 
 def split_by_count_dialog():
@@ -95,7 +113,7 @@ def split_by_count_dialog():
         entry_label.pack()
         count_entry = tk.Entry(top)
         count_entry.pack()
-        split_button = tk.Button(top, text="Split", command=lambda: split_by_count(file_path, int(count_entry.get())))
+        split_button = tk.Button(top, text="Split", command=lambda: split_by_count(file_path, count_entry.get()))
         split_button.pack()
 
 root = tk.Tk()
