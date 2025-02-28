@@ -1,136 +1,174 @@
-import pandas as pd
 import tkinter as tk
-from tkinter import filedialog, messagebox
+from tkinter import filedialog, ttk, messagebox
+import openpyxl
+import pyxlsb
+import os
+from pyxlsb import open_workbook
+import time
 
-class App:
-    def __init__(self, root):
-        self.root = root
-        self.root.title("Ứng dụng đa năng")
-        self.root.geometry("450x320")
-        self.show_menu()
+excel_link = None
+excel_file_extension = None
 
-    def clear_window(self):
-        # Xóa toàn bộ nội dung trong cửa sổ
-        for widget in self.root.winfo_children():
-            widget.destroy()
+def Pick_ExcelFile():
+    global excel_link, excel_file_extension
+    excel_link_temp = filedialog.askopenfilename(filetypes=[("Excel Files", "*.xlsb;*.xls;*.xlsx;*.xlsm")])
+    if excel_link_temp:
+        excel_link = excel_link_temp
+        excel_file_extension = os.path.splitext(excel_link)[1].lower()
+        print(f"Đã chọn file Excel: {excel_link} (Định dạng: {excel_file_extension})")
+    else:
+        print("Bạn chưa chọn file Excel.")
+        excel_link = None
+        excel_file_extension = None
 
-    def show_menu(self):
-        self.clear_window()
-        tk.Label(self.root, text="Chọn tính năng", font=("Arial", 14, "bold")).pack(pady=20)
+def get_max_row_with_data(file_path, sheet_index=1):
+    max_row = 0
+    with open_workbook(file_path) as wb:
+        with wb.get_sheet(sheet_index) as sheet:
+            for row_idx, row in enumerate(sheet.rows(), start=1):
+                if any(cell.v is not None for cell in row):
+                    max_row = row_idx
+    return max_row
 
-        tk.Button(self.root, text="1. Đổi file .xlsb sang .csv", font=("Arial", 12), 
-                  command=self.show_xlsb_to_csv, width=25).pack(pady=10)
-        tk.Button(self.root, text="2. Gửi email tự động", font=("Arial", 12), 
-                  command=self.show_email_sender, width=25).pack(pady=10)
+def get_column_data_and_write(file_path, txt_file_path, sheet_index=1, start_row=6, column_index=1, progress_window=None):
+    # Sử dụng set để tăng tốc độ kiểm tra trùng lặp
+    existing_data = set(read_existing_data(txt_file_path))
+    new_data_added = False  # Theo dõi xem có dữ liệu mới được thêm không
+    with open_workbook(file_path) as wb:
+        with wb.get_sheet(sheet_index) as sheet:
+            max_row = get_max_row_with_data(file_path)
+            total_rows = max_row - start_row + 1  # Số dòng cần xử lý
+            current_row = start_row
+            for row_idx, row in enumerate(sheet.rows(), start=1):
+                if start_row <= row_idx <= max_row:
+                    try:
+                        cell_value = row[column_index].v
+                        if cell_value is not None:
+                            cell_value_str = str(cell_value).strip()  # Chuyển đổi và loại bỏ khoảng trắng
+                            if cell_value_str not in existing_data:
+                                existing_data.add(cell_value_str)
+                                write_unique_data(txt_file_path, [cell_value_str])
+                                new_data_added = True
+                                # Cập nhật giao diện tiến độ theo thời gian thực
+                                if progress_window:
+                                    progress = ((current_row - start_row) / total_rows) * 100
+                                    progress_window.update_progress(f"Đang xử lý dòng {row_idx}: {cell_value_str}", progress)
+                                    progress_window.listbox.insert(tk.END, f"Dòng {row_idx}: {cell_value_str}")
+                                    progress_window.listbox.see(tk.END)  # Cuộn xuống cuối danh sách
+                                    # Đảm bảo giao diện cập nhật ngay lập tức
+                                    progress_window.window.update()
+                        current_row += 1
+                        time.sleep(0.05)  # Giảm độ trễ để xử lý nhanh hơn nhưng vẫn mượt
+                    except IndexError:
+                        continue
+    # Nếu không có dữ liệu mới, thông báo cho người dùng
+    if not new_data_added and progress_window:
+        messagebox.showinfo("Thông báo", "Không có mã hàng mới để thêm vào file DataMSMR.txt.")
 
-    def show_xlsb_to_csv(self):
-        self.clear_window()
-        self.xlsb_converter = XlsbToCsvConverter(self.root, self.show_menu)
+def read_existing_data(file_path):
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            # Đọc từng dòng, bỏ qua dòng trống và loại bỏ ký tự đặc biệt
+            existing_data = {line.strip() for line in f if line.strip() and not line.isspace()}
+    except FileNotFoundError:
+        existing_data = set()
+    except Exception as e:
+        print(f"Lỗi khi đọc file {file_path}: {str(e)}")
+        existing_data = set()
+    return existing_data
 
-    def show_email_sender(self):
-        self.clear_window()
-        self.email_sender = EmailSender(self.root, self.show_menu)
+def write_unique_data(file_path, data):
+    with open(file_path, 'a', encoding='utf-8') as f:
+        for item in data:
+            f.write(f"{item}\n")
 
-class XlsbToCsvConverter:
-    def __init__(self, root, back_to_menu_callback):
-        self.root = root
-        self.back_to_menu = back_to_menu_callback
+class ProgressWindow:
+    def __init__(self, parent):
+        self.window = tk.Toplevel(parent)
+        self.window.title("Tiến trình xử lý")
+        self.window.geometry("400x500")
+        
+        # Frame chứa các thành phần
+        main_frame = tk.Frame(self.window)
+        main_frame.pack(pady=5, padx=10, fill=tk.BOTH, expand=True)
+        
+        # Label tiêu đề
+        self.label = tk.Label(main_frame, text="Tiến trình xử lý dữ liệu:")
+        self.label.pack(pady=5)
+        
+        # Listbox để hiển thị mã hàng
+        self.listbox = tk.Listbox(main_frame, height=15, width=50)
+        self.listbox.pack(pady=5, fill=tk.BOTH, expand=True)
+        
+        # Frame cho Progressbar và nhãn phần trăm
+        progress_frame = tk.Frame(main_frame)
+        progress_frame.pack(pady=5)
+        
+        # Progressbar với màu xanh lá cây
+        self.progress = ttk.Progressbar(progress_frame, length=300, mode='determinate', style='green.Horizontal.TProgressbar')
+        self.progress.pack(side=tk.LEFT, padx=5)
+        
+        # Nhãn phần trăm
+        self.progress_percent = tk.Label(progress_frame, text="0%")
+        self.progress_percent.pack(side=tk.LEFT)
+        
+        # Label tiến độ
+        self.progress_label = tk.Label(main_frame, text="")
+        self.progress_label.pack(pady=5)
+        
+        # Nút đóng
+        self.close_button = tk.Button(main_frame, text="Đóng", command=self.window.destroy)
+        self.close_button.pack(pady=5)
 
-        # Biến lưu đường dẫn và dòng tiêu đề
-        self.file_xlsb = None
-        self.file_csv = None
-        self.header_row = tk.StringVar(value="0")
+    def update_progress(self, message, progress):
+        self.progress_label.config(text=message)
+        self.progress['value'] = progress
+        self.progress_percent.config(text=f"{int(progress)}%")
+        self.window.update()
 
-        tk.Label(root, text="Chuyển đổi .xlsb sang .csv", font=("Arial", 14, "bold")).pack(pady=10)
-        frame = tk.Frame(root)
-        frame.pack(pady=10)
-
-        # Nút chọn file .xlsb
-        self.select_xlsb_button = tk.Button(frame, text="Chọn file .xlsb", command=self.select_xlsb, font=("Arial", 10))
-        self.select_xlsb_button.grid(row=0, column=0, padx=5, pady=5)
-        self.xlsb_label = tk.Label(frame, text="Chưa chọn file .xlsb", font=("Arial", 10))
-        self.xlsb_label.grid(row=0, column=1, padx=5, pady=5)
-
-        # Nút chọn nơi lưu .csv
-        self.select_csv_button = tk.Button(frame, text="Chọn nơi lưu .csv", command=self.select_csv, font=("Arial", 10))
-        self.select_csv_button.grid(row=1, column=0, padx=5, pady=5)
-        self.csv_label = tk.Label(frame, text="Chưa chọn nơi lưu .csv", font=("Arial", 10))
-        self.csv_label.grid(row=1, column=1, padx=5, pady=5)
-
-        # Ô nhập dòng tiêu đề
-        tk.Label(frame, text="Chọn dòng làm tiêu đề:", font=("Arial", 10)).grid(row=2, column=0, padx=5, pady=5)
-        self.header_entry = tk.Entry(frame, textvariable=self.header_row, width=5, font=("Arial", 10), justify="center")
-        self.header_entry.grid(row=2, column=1, padx=5, pady=5, sticky="w")
-        tk.Label(frame, text="(0 là dòng đầu, 1 là dòng thứ hai,...)", font=("Arial", 8, "italic")).grid(row=3, column=1, padx=5, pady=0, sticky="w")
-
-        # Nút Start
-        self.start_button = tk.Button(root, text="Start", command=self.start_conversion, font=("Arial", 12, "bold"), 
-                                      bg="green", fg="white", width=10, state="disabled")
-        self.start_button.pack(pady=10)
-
-        # Nút Quay lại menu
-        tk.Button(root, text="Quay lại menu", command=self.back_to_menu, font=("Arial", 10), bg="gray", fg="white").pack(pady=10)
-
-        self.header_row.trace("w", self.validate_header_input)
-
-    def validate_header_input(self, *args):
-        value = self.header_row.get()
-        if not value.isdigit() and value != "":
-            self.header_row.set("0")
-        self.check_start_button()
-
-    def select_xlsb(self):
-        self.file_xlsb = filedialog.askopenfilename(title="Chọn file .xlsb", filetypes=[("Excel Binary Files", "*.xlsb"), ("All Files", "*.*")])
-        if self.file_xlsb:
-            self.xlsb_label.config(text=f"File: {self.file_xlsb.split('/')[-1]}")
-            self.check_start_button()
-        else:
-            self.xlsb_label.config(text="Chưa chọn file .xlsb")
-
-    def select_csv(self):
-        self.file_csv = filedialog.asksaveasfilename(title="Lưu file .csv", defaultextension=".csv", filetypes=[("CSV Files", "*.csv"), ("All Files", "*.*")])
-        if self.file_csv:
-            self.csv_label.config(text=f"Lưu tại: {self.file_csv.split('/')[-1]}")
-            self.check_start_button()
-        else:
-            self.csv_label.config(text="Chưa chọn nơi lưu .csv")
-
-    def check_start_button(self):
-        header_value = self.header_row.get()
-        if self.file_xlsb and self.file_csv and header_value.isdigit():
-            self.start_button.config(state="normal")
-        else:
-            self.start_button.config(state="disabled")
-
-    def start_conversion(self):
+def CheckData():
+    print("Excel link là :", excel_link)
+    print("Excel extension là:", excel_file_extension)
+    if not excel_link:
+        messagebox.showwarning("Cảnh báo", "Vui lòng chọn file Excel trước khi bắt đầu.")
+        return
+    if excel_file_extension == '.xlsb':
+        print("Đang xử lý file .xlsb bằng pyxlsb...")
         try:
-            header_row = int(self.header_row.get())
-            if header_row < 0:
-                raise ValueError("Dòng tiêu đề không thể là số âm!")
-            df = pd.read_excel(self.file_xlsb, engine="pyxlsb", header=header_row)
-            df.to_csv(self.file_csv, index=False, encoding='utf-8-sig')
-            messagebox.showinfo("Thành công", f"Đã chuyển đổi từ {self.file_xlsb.split('/')[-1]} sang {self.file_csv.split('/')[-1]} "
-                                             f"với tiêu đề lấy từ dòng {header_row}")
-        except ValueError as ve:
-            messagebox.showerror("Lỗi", f"Giá trị dòng tiêu đề không hợp lệ: {str(ve)}")
+            # Tạo và hiển thị cửa sổ tiến trình ngay lập tức
+            progress_window = ProgressWindow(root)
+            progress_window.window.update()  # Đảm bảo cửa sổ hiển thị trước khi xử lý
+            
+            workbook = pyxlsb.open_workbook(excel_link)
+            sheet_name = workbook.sheets[0]
+            print("Sheet name là :", sheet_name)
+            
+            max_row = get_max_row_with_data(excel_link, 1)
+            print(f"Max row là : {max_row}")
+            get_column_data_and_write(excel_link, 'DataMSMR.txt', sheet_index=1, start_row=6, column_index=1, progress_window=progress_window)
+            
+            messagebox.showinfo("Hoàn thành", "Xử lý file Excel thành công!")
+            progress_window.window.destroy()
+            
+        except FileNotFoundError:
+            messagebox.showerror("Lỗi", f"File Excel {excel_file_extension} không tồn tại.")
         except Exception as e:
-            messagebox.showerror("Lỗi", f"Đã xảy ra lỗi: {str(e)}")
+            messagebox.showerror("Lỗi", f"Lỗi trong quá trình xử lý file {excel_file_extension}: {str(e)}")
+    else:
+        messagebox.showwarning("Cảnh báo", f"Định dạng file {excel_file_extension} không được hỗ trợ.")
 
-class EmailSender:
-    def __init__(self, root, back_to_menu_callback):
-        self.root = root
-        self.back_to_menu = back_to_menu_callback
+# Định nghĩa style cho Progressbar màu xanh lá cây
+root = tk.Tk()
+root.title("Chương trình xử lý dữ liệu Excel")
 
-        tk.Label(root, text="Gửi email tự động", font=("Arial", 14, "bold")).pack(pady=20)
-        tk.Label(root, text="Tính năng đang phát triển...", font=("Arial", 10, "italic")).pack(pady=10)
+# Tạo style cho Progressbar màu xanh lá cây
+style = ttk.Style()
+style.configure("green.Horizontal.TProgressbar", background='green')
 
-        # Nút Quay lại menu
-        tk.Button(root, text="Quay lại menu", command=self.back_to_menu, font=("Arial", 10), bg="gray", fg="white").pack(pady=20)
+btn_chon_file = tk.Button(root, text="Chọn file Excel", command=Pick_ExcelFile)
+btn_chon_file.pack(pady=10)
 
-def main():
-    root = tk.Tk()
-    app = App(root)
-    root.mainloop()
+btn_start = tk.Button(root, text="Start", command=CheckData)
+btn_start.pack(pady=5)
 
-if __name__ == "__main__":
-    main()
+root.mainloop()
