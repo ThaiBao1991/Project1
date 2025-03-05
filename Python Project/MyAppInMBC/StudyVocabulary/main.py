@@ -6,7 +6,7 @@ import Chinese
 
 def open_english():
     root.withdraw()  # Ẩn cửa sổ chính
-    English.english_menu(root)  # Truyền root làm parent
+    English.english_menu(root)
 
 def open_japan():
     root.withdraw()
@@ -17,7 +17,7 @@ def open_chinese():
     Chinese.chinese_menu(root)
 
 def exit_program():
-    root.destroy()
+    root.quit()  # Thoát hoàn toàn chương trình
 
 # Tạo cửa sổ chính
 root = tk.Tk()
@@ -40,6 +40,9 @@ btn_chinese.pack(pady=5)
 
 btn_exit = tk.Button(root, text="Thoát", command=exit_program, width=20)
 btn_exit.pack(pady=5)
+
+# Bind Esc để thoát hoàn toàn
+root.bind("<Escape>", lambda event: root.quit())
 
 # Chạy chương trình
 root.mainloop()

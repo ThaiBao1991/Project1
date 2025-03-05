@@ -9,3 +9,5 @@ def chinese_menu(parent):
     tk.Label(root, text="Ôn tập tiếng Trung", font=("Arial", 14)).pack(pady=20)
     tk.Label(root, text="Chức năng đang phát triển!").pack(pady=10)
     tk.Button(root, text="Quay lại", command=lambda: [root.destroy(), parent.deiconify()], width=20).pack(pady=5)
+
+    root.bind("<Escape>", lambda event: [root.destroy(), parent.deiconify()])
