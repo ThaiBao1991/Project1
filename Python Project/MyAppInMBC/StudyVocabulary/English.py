@@ -164,6 +164,7 @@ def test_vocab_window(parent):
     vocab = load_vocab()
     if not vocab:
         messagebox.showinfo("Thông báo", "Chưa có từ vựng nào!")
+        parent.deiconify()  # Hiện lại menu nếu không có từ vựng
         return
 
     test_window = tk.Toplevel(parent)
@@ -177,6 +178,7 @@ def test_vocab_window(parent):
     if not available_words:
         messagebox.showinfo("Thông báo", "Không có từ nào để kiểm tra!")
         test_window.destroy()
+        parent.deiconify()  # Hiện lại menu nếu không có từ để kiểm tra
         return
 
     current_word = random.choice(list(available_words.keys()))
@@ -215,6 +217,7 @@ def test_vocab_window(parent):
         if not available_words:
             messagebox.showinfo("Thông báo", "Không còn từ nào để kiểm tra!")
             test_window.destroy()
+            parent.deiconify()  # Hiện lại menu khi hết từ
             return
 
         current_word = random.choice(list(available_words.keys()))
@@ -226,6 +229,7 @@ def test_vocab_window(parent):
         answer_entry.focus_set()
 
     tk.Button(test_window, text="Kiểm tra", command=check_answer).pack(pady=10)
+    # Hiện lại menu khi nhấn "Quay lại"
     tk.Button(test_window, text="Quay lại", command=lambda: [test_window.destroy(), parent.deiconify()]).pack(pady=5)
 
     test_window.bind("<Return>", lambda event: check_answer())
@@ -239,7 +243,8 @@ def english_menu(parent):
 
     tk.Label(root, text="Ôn tập tiếng Anh", font=("Arial", 14)).pack(pady=20)
     tk.Button(root, text="Thêm từ vựng", command=lambda: add_vocab_window(root), width=20).pack(pady=5)
-    tk.Button(root, text="Kiểm tra từ vựng", command=lambda: test_vocab_window(root), width=20).pack(pady=5)
+    # Khi nhấn "Kiểm tra từ vựng", ẩn root đi
+    tk.Button(root, text="Kiểm tra từ vựng", command=lambda: [root.withdraw(), test_vocab_window(root)], width=20).pack(pady=5)
     tk.Button(root, text="Quay lại", command=lambda: [root.destroy(), parent.deiconify()]).pack(pady=5)
 
     root.bind("<Escape>", lambda event: [root.destroy(), parent.deiconify()])
