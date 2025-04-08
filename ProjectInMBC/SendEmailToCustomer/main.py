@@ -1,5 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox
+import pandas as pd
+import os
 
 # Hàm chọn file Excel
 def chon_file_excel():
@@ -49,7 +51,7 @@ def on_release(event):
 def chon_file_data():
     file_path = filedialog.askopenfilename(
         title="Chọn file Data",
-        filetypes=[("Excel files", "*.xlsx *.xls"), ("All files", "*.*")]
+        filetypes=[("Excel files", "*.xlsx *.xls *.xlsm *.xlsb"), ("All files", "*.*")]
     )
     if file_path:
         entry_data_path.delete(0, tk.END)
@@ -58,14 +60,64 @@ def chon_file_data():
 # Hàm xử lý nút "Xuất Data"
 def xuat_data():
     data_path = entry_data_path.get()
-    if data_path:
-        messagebox.showinfo("Thông báo", f"Đang xuất dữ liệu từ: {data_path}")
-    else:
+    if not data_path:
         messagebox.showwarning("Cảnh báo", "Vui lòng chọn file Data trước khi xuất!")
+        return
+
+    try:
+        # Đọc file Excel
+        df = pd.read_excel(data_path, header=1)  # Bỏ qua dòng tiêu đề đầu tiên, lấy dòng thứ 2 làm header
+        
+        # In danh sách cột để kiểm tra
+        print("Danh sách cột trong file Excel:", df.columns.tolist())
+        
+        # Tên cột thực tế trong file của bạn
+        column_k = 'Gửi Lot DAI DIEN: "DD" Gửi TOAN BO Lot: "TB"'
+        
+        # Kiểm tra xem cột K có tồn tại không
+        if column_k not in df.columns:
+            messagebox.showerror("Lỗi", f"Không tìm thấy cột '{column_k}' trong file Excel!")
+            return
+        
+        # Đổi tên cột theo chỉ số của bạn (B, C, F, I, K, L, O, P)
+        columns_to_keep = {
+            'SS': 'SS',  # Cột B
+            'Mã hàng': 'Mã hàng',  # Cột C
+            'MSKH': 'MSKH',  # Cột F
+            'Tên khách hàng': 'Tên khách hàng',  # Cột I
+            column_k: 'Gửi Lot',  # Cột K
+            'Gửi dữ liệu [M]': 'Gửi dữ liệu',  # Cột L
+            'Nội dung gửi mail': 'Nội dung gửi email',  # Cột O
+            'Địa chỉ gửi mail': 'Địa chỉ gửi email'  # Cột P
+        }
+        
+        # Kiểm tra xem tất cả các cột cần giữ có tồn tại không
+        missing_cols = [col for col in columns_to_keep.keys() if col not in df.columns]
+        if missing_cols:
+            messagebox.showerror("Lỗi", f"Không tìm thấy các cột sau trong file Excel: {missing_cols}")
+            return
+        
+        # Lọc dữ liệu có giá trị "TB" hoặc "DD" trong cột K
+        filtered_df = df[df[column_k].isin(['TB', 'DD'])]
+
+        # Chỉ giữ lại các cột cần thiết
+        filtered_df = filtered_df[list(columns_to_keep.keys())]
+        
+        # Đổi tên cột trong file xuất
+        filtered_df.columns = list(columns_to_keep.values())
+
+        # Đường dẫn file CSV đầu ra (lưu cùng thư mục với file Excel đầu vào)
+        output_path = os.path.splitext(data_path)[0] + "_filtered.csv"
+        
+        # Xuất ra file CSV
+        filtered_df.to_csv(output_path, index=False, encoding='utf-8-sig')
+        
+        messagebox.showinfo("Thông báo", f"Dữ liệu đã được xuất thành công ra file: {output_path}")
+    except Exception as e:
+        messagebox.showerror("Lỗi", f"Đã xảy ra lỗi khi xử lý file: {str(e)}")
 
 # Hàm mở cửa sổ Config khi nhấn phím tắt
 def open_config(event=None):
-    # Ẩn cửa sổ chính
     root.withdraw()
 
     config_window = tk.Toplevel(root)
@@ -74,19 +126,15 @@ def open_config(event=None):
     config_window.configure(bg="#e8ecef")
     config_window.resizable(False, False)
 
-    # Khi đóng Config, hiển thị lại cửa sổ chính
     def on_config_close():
         config_window.destroy()
         root.deiconify()
 
-    # Gán sự kiện đóng cửa sổ Config
     config_window.protocol("WM_DELETE_WINDOW", on_config_close)
 
-    # Frame chứa Label, Entry và Button
     frame_config = tk.Frame(config_window, bg="#e8ecef")
     frame_config.pack(pady=20)
 
-    # Dòng 1: "Cập nhật dữ liệu khách hàng" + Entry + Button("Chọn file Data") + Button("Xuất Data")
     label_data_update = tk.Label(frame_config, text="Cập nhật dữ liệu khách hàng:", 
                                 font=("Helvetica", 14, "bold"), bg="#e8ecef", fg="#2c3e50")
     label_data_update.grid(row=0, column=0, padx=20, pady=20, sticky="e")
@@ -105,7 +153,6 @@ def open_config(event=None):
                                 activebackground="#e67e22", bd=0, padx=20, pady=10)
     btn_export_data.grid(row=0, column=3, padx=20, pady=20)
 
-    # Dòng 2: "Địa chỉ lưu dữ liệu" + Entry + Button
     label_save_path = tk.Label(frame_config, text="Địa chỉ lưu dữ liệu:", 
                               font=("Helvetica", 14, "bold"), bg="#e8ecef", fg="#2c3e50")
     label_save_path.grid(row=1, column=0, padx=20, pady=20, sticky="e")
@@ -119,7 +166,6 @@ def open_config(event=None):
                                 activebackground="#219653", bd=0, padx=20, pady=10)
     btn_choose_path.grid(row=1, column=2, padx=20, pady=20)
 
-    # Frame chứa các nút Save và Close
     frame_buttons = tk.Frame(config_window, bg="#e8ecef")
     frame_buttons.pack(pady=20)
 

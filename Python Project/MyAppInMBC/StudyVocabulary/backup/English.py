@@ -29,27 +29,16 @@ def save_vocab(vocab):
 def add_vocab_window(parent):
     add_window = tk.Toplevel(parent)
     add_window.title("Thêm từ vựng tiếng Anh")
-    add_window.geometry("600x450")
+    add_window.geometry("600x400")
 
-    tk.Label(add_window, text="Từ tiếng Anh (Ctrl+V để dán):").pack(pady=5)
-    eng_entry = tk.Entry(add_window, width=40)
+    tk.Label(add_window, text="Từ tiếng Anh:").pack(pady=5)
+    eng_entry = tk.Entry(add_window, width=30)
     eng_entry.pack()
     eng_entry.focus_set()
 
-    tk.Label(add_window, text="Nghĩa tiếng Việt (Ctrl+V để dán):").pack(pady=5)
-    viet_entry = tk.Entry(add_window, width=40)
+    tk.Label(add_window, text="Nghĩa tiếng Việt:").pack(pady=5)
+    viet_entry = tk.Entry(add_window, width=30)
     viet_entry.pack()
-
-    tk.Label(add_window, text="Loại từ (type, Ctrl+V để dán):").pack(pady=5)
-    type_entry = tk.Entry(add_window, width=40)
-    type_entry.pack()
-
-    tk.Label(add_window, text="Phát âm (pronounce, Ctrl+V để dán):").pack(pady=5)
-    pronounce_entry = tk.Entry(add_window, width=40)
-    pronounce_entry.pack()
-
-    # Gợi ý cách dán nhiều từ
-    tk.Label(add_window, text="Dán nhiều từ: 'từ - nghĩa - loại - phát âm' (dùng dấu gạch ngang)", fg="gray").pack(pady=2)
 
     vocab = load_vocab()
     count_label = tk.Label(add_window, text=f"Tổng số từ: {len(vocab)}")
@@ -57,19 +46,15 @@ def add_vocab_window(parent):
 
     tree_frame = tk.Frame(add_window)
     tree_frame.pack(pady=10, fill=tk.BOTH, expand=True)
-    tree = ttk.Treeview(tree_frame, columns=("English", "Vietnamese", "Type", "Pronounce", "CorrectCount", "CompletedDate"), show="headings", height=10)
+    tree = ttk.Treeview(tree_frame, columns=("English", "Vietnamese", "CorrectCount", "CompletedDate"), show="headings", height=10)
     tree.heading("English", text="Từ tiếng Anh")
     tree.heading("Vietnamese", text="Nghĩa tiếng Việt")
-    tree.heading("Type", text="Loại từ")
-    tree.heading("Pronounce", text="Phát âm")
     tree.heading("CorrectCount", text="Số lần đúng")
     tree.heading("CompletedDate", text="Ngày hoàn thành")
-    tree.column("English", width=100)
-    tree.column("Vietnamese", width=100)
-    tree.column("Type", width=100)
-    tree.column("Pronounce", width=100)
-    tree.column("CorrectCount", width=80)
-    tree.column("CompletedDate", width=100)
+    tree.column("English", width=150)
+    tree.column("Vietnamese", width=150)
+    tree.column("CorrectCount", width=100)
+    tree.column("CompletedDate", width=150)
     tree.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
     scrollbar = ttk.Scrollbar(tree_frame, orient="vertical", command=tree.yview)
@@ -82,7 +67,7 @@ def add_vocab_window(parent):
         vocab = load_vocab()
         for eng, data in vocab.items():
             if filter_text.lower() in eng.lower():
-                tree.insert("", tk.END, values=(eng, data["meaning"], data["type"], data["pronounce"], data["correct_count"], data["completed_date"]))
+                tree.insert("", tk.END, values=(eng, data["meaning"], data["correct_count"], data["completed_date"]))
         count_label.config(text=f"Tổng số từ: {len(vocab)}")
 
     update_tree_and_count()
@@ -94,49 +79,22 @@ def add_vocab_window(parent):
     eng_entry.bind("<KeyRelease>", filter_vocab)
 
     def save_new_word():
-        eng_text = eng_entry.get().strip()
+        eng = eng_entry.get().strip().lower()
         viet = viet_entry.get().strip()
-        word_type = type_entry.get().strip()
-        pronounce = pronounce_entry.get().strip()
-
-        # Nếu dán nhiều từ cùng lúc (định dạng: từ - nghĩa - loại - phát âm)
-        if "-" in eng_text and not (viet or word_type or pronounce):
-            parts = [p.strip() for p in eng_text.split("-")]
-            if len(parts) >= 2:  # Cần ít nhất từ và nghĩa
-                eng = parts[0].lower()
-                viet = parts[1]
-                word_type = parts[2] if len(parts) > 2 else "N/A"
-                pronounce = parts[3] if len(parts) > 3 else "N/A"
-            else:
-                messagebox.showwarning("Lỗi", "Định dạng không đúng! Dùng: từ - nghĩa - loại - phát âm")
-                eng_entry.focus_set()
-                return
-        else:
-            eng = eng_text.lower()
-
         if not eng or not viet:
-            messagebox.showwarning("Lỗi", "Vui lòng nhập ít nhất từ tiếng Anh và nghĩa tiếng Việt!")
+            messagebox.showwarning("Lỗi", "Vui lòng nhập đầy đủ!")
             eng_entry.focus_set()
             return
-        
         vocab = load_vocab()
         if eng in vocab:
             messagebox.showinfo("Thông báo", "Từ này đã tồn tại!")
             eng_entry.focus_set()
         else:
-            vocab[eng] = {
-                "meaning": viet,
-                "type": word_type if word_type else "N/A",
-                "pronounce": pronounce if pronounce else "N/A",
-                "correct_count": 0,
-                "completed_date": None
-            }
+            vocab[eng] = {"meaning": viet, "correct_count": 0, "completed_date": None}
             save_vocab(vocab)
             messagebox.showinfo("Thành công", f"Đã thêm: {eng} - {viet}")
             eng_entry.delete(0, tk.END)
             viet_entry.delete(0, tk.END)
-            type_entry.delete(0, tk.END)
-            pronounce_entry.delete(0, tk.END)
             update_tree_and_count()
             eng_entry.focus_set()
 
@@ -150,22 +108,12 @@ def add_vocab_window(parent):
 
         edit_window = tk.Toplevel(add_window)
         edit_window.title(f"Sửa thông tin: {eng}")
-        edit_window.geometry("300x250")
+        edit_window.geometry("300x200")
 
         tk.Label(edit_window, text="Nghĩa tiếng Việt:").pack(pady=5)
         viet_edit = tk.Entry(edit_window, width=30)
         viet_edit.insert(0, data["meaning"])
         viet_edit.pack()
-
-        tk.Label(edit_window, text="Loại từ (type):").pack(pady=5)
-        type_edit = tk.Entry(edit_window, width=30)
-        type_edit.insert(0, data["type"])
-        type_edit.pack()
-
-        tk.Label(edit_window, text="Phát âm (pronounce):").pack(pady=5)
-        pronounce_edit = tk.Entry(edit_window, width=30)
-        pronounce_edit.insert(0, data["pronounce"])
-        pronounce_edit.pack()
 
         tk.Label(edit_window, text="Số lần đúng:").pack(pady=5)
         count_edit = tk.Entry(edit_window, width=30)
@@ -188,8 +136,6 @@ def add_vocab_window(parent):
                 
                 vocab[eng] = {
                     "meaning": viet_edit.get().strip(),
-                    "type": type_edit.get().strip() if type_edit.get().strip() else "N/A",
-                    "pronounce": pronounce_edit.get().strip() if pronounce_edit.get().strip() else "N/A",
                     "correct_count": new_count,
                     "completed_date": new_date if new_date else None
                 }
@@ -262,7 +208,7 @@ def add_vocab_window(parent):
     context_menu.add_command(label="Xóa", command=delete_selected_words)
 
     def show_context_menu(event):
-        selected_items = tree.selection()
+        selected_items = tree.selection 
         if selected_items:
             context_menu.post(event.x_root, event.y_root)
 
@@ -290,7 +236,7 @@ def test_vocab_window(parent):
 
     test_window = tk.Toplevel(parent)
     test_window.title("Kiểm tra từ vựng")
-    test_window.geometry("300x300")
+    test_window.geometry("300x250")
 
     today = datetime.datetime.now().date()
     available_words = {k: v for k, v in vocab.items() if v["correct_count"] < 20 or 
@@ -306,20 +252,13 @@ def test_vocab_window(parent):
     current_data = vocab[current_word]
 
     meaning_label = tk.Label(test_window, text=f"Nghĩa: {current_data['meaning']}", font=("Arial", 12))
-    meaning_label.pack(pady=5)
-
-    type_label = tk.Label(test_window, text=f"Loại từ: {current_data['type']}", font=("Arial", 12))
-    type_label.pack(pady=5)
-
-    pronounce_label = tk.Label(test_window, text=f"Phát âm: {current_data['pronounce']}", font=("Arial", 12))
-    pronounce_label.pack(pady=5)
+    meaning_label.pack(pady=10)
 
     status_label = tk.Label(test_window, text=f"Số lần đúng: {current_data['correct_count']}/20")
-    status_label.pack(pady=5)
+    status_label.pack()
 
-    tk.Label(test_window, text="Nhập từ tiếng Anh:").pack(pady=5)
     answer_entry = tk.Entry(test_window, width=30)
-    answer_entry.pack(pady=5)
+    answer_entry.pack(pady=10)
     answer_entry.focus_set()
 
     def check_answer():
@@ -352,8 +291,6 @@ def test_vocab_window(parent):
         current_data = vocab[current_word]
         
         meaning_label.config(text=f"Nghĩa: {current_data['meaning']}")
-        type_label.config(text=f"Loại từ: {current_data['type']}")
-        pronounce_label.config(text=f"Phát âm: {current_data['pronounce']}")
         status_label.config(text=f"Số lần đúng: {current_data['correct_count']}/20")
         answer_entry.delete(0, tk.END)
         answer_entry.focus_set()
@@ -376,12 +313,3 @@ def english_menu(parent):
     tk.Button(root, text="Quay lại", command=lambda: [root.destroy(), parent.deiconify()]).pack(pady=5)
 
     root.bind("<Escape>", lambda event: [root.destroy(), parent.deiconify()])
-
-# Main window
-if __name__ == "__main__":
-    main_window = tk.Tk()
-    main_window.title("Ứng dụng học tiếng Anh")
-    main_window.geometry("300x200")
-    tk.Label(main_window, text="Chào mừng!", font=("Arial", 14)).pack(pady=20)
-    tk.Button(main_window, text="Bắt đầu", command=lambda: english_menu(main_window), width=20).pack(pady=5)
-    main_window.mainloop()
