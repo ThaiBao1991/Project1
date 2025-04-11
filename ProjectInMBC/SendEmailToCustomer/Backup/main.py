@@ -1,7 +1,8 @@
 import tkinter as tk
-from tkinter import filedialog, messagebox, ttk
+from tkinter import filedialog, messagebox
 import pandas as pd
 import os
+from File.Data.file_data import open_data_window  # Import từ thư mục con data_module
 
 # Hàm chọn file Excel
 def chon_file_excel():
@@ -143,134 +144,6 @@ def save_config():
     else:
         messagebox.showwarning("Cảnh báo", "Vui lòng chọn địa chỉ lưu dữ liệu trước!")
 
-# Hàm mở cửa sổ Data
-def open_data_window():
-    global csv_file_path, data_df
-    csv_file_path = None
-    data_df = pd.DataFrame(columns=["SS", "Mã hàng", "MSKH", "Tên khách hàng", "Gửi Lot", "Gửi dữ liệu", "Nội dung gửi email", "Địa chỉ gửi email"])
-
-    data_window = tk.Toplevel(root)
-    data_window.title("Data")
-    data_window.geometry("1200x600")
-    data_window.configure(bg="#e8ecef")
-
-    # Frame cho bảng dữ liệu
-    frame_table = tk.Frame(data_window, bg="#e8ecef")
-    frame_table.pack(pady=10, fill="both", expand=True)
-
-    # Tạo Treeview để hiển thị bảng
-    tree = ttk.Treeview(frame_table, columns=list(data_df.columns), show="headings", height=20)
-    for col in data_df.columns:
-        tree.heading(col, text=col)
-        tree.column(col, width=150, anchor="center")
-    tree.pack(side=tk.LEFT, fill="both", expand=True)
-
-    # Thanh cuộn
-    scrollbar = ttk.Scrollbar(frame_table, orient="vertical", command=tree.yview)
-    scrollbar.pack(side=tk.RIGHT, fill="y")
-    tree.configure(yscrollcommand=scrollbar.set)
-
-    # Frame cho các nút
-    frame_buttons = tk.Frame(data_window, bg="#e8ecef")
-    frame_buttons.pack(pady=10)
-
-    # Hàm cập nhật bảng
-    def update_table(df):
-        tree.delete(*tree.get_children())
-        for _, row in df.iterrows():
-            tree.insert("", "end", values=tuple(row))
-
-    # Hàm thêm dữ liệu
-    def add_data():
-        add_window = tk.Toplevel(data_window)
-        add_window.title("Add Data")
-        add_window.geometry("400x500")
-        add_window.configure(bg="#e8ecef")
-
-        entries = {}
-        for i, col in enumerate(data_df.columns):
-            tk.Label(add_window, text=f"{col}:", font=("Helvetica", 12), bg="#e8ecef").grid(row=i, column=0, padx=10, pady=10, sticky="e")
-            entry = tk.Entry(add_window, width=30, font=("Helvetica", 12))
-            entry.grid(row=i, column=1, padx=10, pady=10)
-            entries[col] = entry
-
-        def save_data():
-            global data_df
-            new_data = {col: entries[col].get() for col in data_df.columns}
-            if all(new_data.values()):  # Kiểm tra không để trống
-                data_df = pd.concat([data_df, pd.DataFrame([new_data])], ignore_index=True)
-                update_table(data_df)
-                add_window.destroy()
-            else:
-                messagebox.showwarning("Cảnh báo", "Vui lòng điền đầy đủ thông tin!")
-
-        tk.Button(add_window, text="Save", command=save_data, font=("Helvetica", 12, "bold"), bg="#3498db", fg="white", padx=20, pady=10).grid(row=len(data_df.columns), column=0, columnspan=2, pady=20)
-
-    # Hàm xóa dữ liệu
-    def delete_data():
-        selected = tree.selection()
-        if not selected:
-            messagebox.showwarning("Cảnh báo", "Vui lòng chọn một dòng để xóa!")
-            return
-        global data_df
-        index = int(tree.index(selected[0]))
-        data_df = data_df.drop(index).reset_index(drop=True)
-        update_table(data_df)
-
-    # Hàm cập nhật file CSV
-    def update_csv_link():
-        global csv_file_path, data_df
-        file_path = filedialog.askopenfilename(title="Chọn file CSV", filetypes=[("CSV files", "*.csv")])
-        if file_path:
-            csv_file_path = file_path
-            new_df = pd.read_csv(file_path, encoding='utf-8-sig')
-            # Đồng bộ hóa cột với data_df
-            new_df = new_df.reindex(columns=data_df.columns, fill_value="")
-            # Gộp dữ liệu, thay thế nếu trùng SS, Mã hàng, MSKH
-            combined_df = pd.concat([data_df, new_df]).drop_duplicates(subset=["SS", "Mã hàng", "MSKH"], keep="last").reset_index(drop=True)
-            data_df = combined_df
-            update_table(data_df)
-            messagebox.showinfo("Thông báo", f"Đã cập nhật dữ liệu từ file: {file_path}")
-
-    # Hàm lọc dữ liệu
-    def filter_data():
-        filter_window = tk.Toplevel(data_window)
-        filter_window.title("Filter Data")
-        filter_window.geometry("400x300")
-        filter_window.configure(bg="#e8ecef")
-
-        tk.Label(filter_window, text="Chọn cột để lọc:", font=("Helvetica", 12), bg="#e8ecef").pack(pady=10)
-        column_var = tk.StringVar(value=data_df.columns[0])
-        tk.OptionMenu(filter_window, column_var, *data_df.columns).pack(pady=10)
-        tk.Label(filter_window, text="Giá trị lọc:", font=("Helvetica", 12), bg="#e8ecef").pack(pady=10)
-        filter_entry = tk.Entry(filter_window, width=30, font=("Helvetica", 12))
-        filter_entry.pack(pady=10)
-
-        def apply_filter():
-            global data_df
-            col = column_var.get()
-            value = filter_entry.get()
-            filtered_df = data_df[data_df[col].astype(str).str.contains(value, case=False, na=False)]
-            update_table(filtered_df)
-
-        tk.Button(filter_window, text="Apply Filter", command=apply_filter, font=("Helvetica", 12, "bold"), bg="#3498db", fg="white", padx=20, pady=10).pack(pady=20)
-
-    # Các nút trong frame_buttons
-    tk.Button(frame_buttons, text="Add Data", command=add_data, font=("Helvetica", 12, "bold"), bg="#27ae60", fg="white", padx=20, pady=10).pack(side=tk.LEFT, padx=10)
-    tk.Button(frame_buttons, text="Delete Data", command=delete_data, font=("Helvetica", 12, "bold"), bg="#e74c3c", fg="white", padx=20, pady=10).pack(side=tk.LEFT, padx=10)
-    tk.Button(frame_buttons, text="Update CSV Link", command=update_csv_link, font=("Helvetica", 12, "bold"), bg="#f39c12", fg="white", padx=20, pady=10).pack(side=tk.LEFT, padx=10)
-    tk.Button(frame_buttons, text="Filter Data", command=filter_data, font=("Helvetica", 12, "bold"), bg="#3498db", fg="white", padx=20, pady=10).pack(side=tk.LEFT, padx=10)
-
-    # Hàm lưu dữ liệu khi đóng cửa sổ
-    def on_data_close():
-        global csv_file_path, data_df
-        if csv_file_path and not data_df.empty:
-            data_df.to_csv(csv_file_path, index=False, encoding='utf-8-sig')
-            messagebox.showinfo("Thông báo", f"Dữ liệu đã được lưu vào: {csv_file_path}")
-        data_window.destroy()
-
-    data_window.protocol("WM_DELETE_WINDOW", on_data_close)
-
 # Tạo cửa sổ chính
 root = tk.Tk()
 root.title("Gửi Dữ Liệu Khách Hàng")
@@ -289,7 +162,7 @@ menu_bar = tk.Menu(root)
 root.config(menu=menu_bar)
 file_menu = tk.Menu(menu_bar, tearoff=0)
 menu_bar.add_cascade(label="File", menu=file_menu)
-file_menu.add_command(label="Data", command=open_data_window)
+file_menu.add_command(label="Data", command=lambda: open_data_window(root))
 file_menu.add_separator()
 file_menu.add_command(label="Exit", command=thoat)
 

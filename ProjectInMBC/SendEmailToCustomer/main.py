@@ -1,200 +1,148 @@
 import tkinter as tk
-from tkinter import filedialog, messagebox
-import pandas as pd
+from tkinter import filedialog, messagebox, ttk
+from File.Data.file_data import open_data_window
 import os
+import pandas as pd
 
-# Hàm chọn file Excel
-def chon_file_excel():
-    file_path = filedialog.askopenfilename(
-        title="Chọn file Excel",
-        filetypes=[("Excel files", "*.xlsx *.xls")]
-    )
-    if file_path:
-        entry_file_excel.delete(0, tk.END)
-        entry_file_excel.insert(0, file_path)
+# Tạo thư mục Data Test nếu chưa có
+if not os.path.exists("Data Test"):
+    os.makedirs("Data Test")
 
-# Hàm chọn file TXT
+def thoat():
+    if messagebox.askokcancel("Thoát", "Bạn có chắc chắn muốn thoát?"):
+        root.destroy()
+
+def on_resize(event):
+    width = root.winfo_width()
+    height = root.winfo_height()
+    root.title(f"Gửi Dữ Liệu Khách Hàng - {width}x{height}")
+
+def on_release(event):
+    root.title("Gửi Dữ Liệu Khách Hàng")
+
+def show_send_frame(period):
+    frame_buttons.pack_forget()
+    send_frame.pack(pady=10, fill="both", expand=True)
+
+    label_file.config(text=f"Chọn file TXT dữ liệu {period.lower()}:")
+    btn_send.config(command=lambda: gui_du_lieu(entry_file.get(), period, data_df))
+
+    # Đường dẫn file trạng thái
+    status_file = f"Data Test/data_{period.lower()}.csv"
+    columns = ["SS", "Mã hàng", "MSKH", "Gửi Lot", "Status"]
+    
+    # Tải dữ liệu từ data.csv và file status
+    base_data = pd.read_csv("data.csv", encoding='utf-8-sig')[["SS", "Mã hàng", "MSKH", "Gửi Lot"]]
+    if os.path.exists(status_file):
+        status_data = pd.read_csv(status_file, encoding='utf-8-sig')
+        global data_df
+        data_df = base_data.merge(status_data[["SS", "Mã hàng", "MSKH", "Status"]], 
+                                 on=["SS", "Mã hàng", "MSKH"], how="left").reindex(columns=columns, fill_value="")
+    else:
+        data_df = base_data.reindex(columns=columns, fill_value="")
+        data_df["Status"] = ""
+        data_df.to_csv(status_file, index=False, encoding='utf-8-sig')
+
+    # Cập nhật bảng
+    update_table(data_df)
+
+def back_to_main():
+    send_frame.pack_forget()
+    frame_buttons.pack(pady=50)
+
 def chon_file_txt():
     file_path = filedialog.askopenfilename(
         title="Chọn file TXT",
         filetypes=[("Text files", "*.txt")]
     )
     if file_path:
-        entry_file_txt.delete(0, tk.END)
-        entry_file_txt.insert(0, file_path)
+        entry_file.delete(0, tk.END)
+        entry_file.insert(0, file_path)
+        convert_txt_to_csv(file_path)
 
-# Hàm xử lý nút "Gửi dữ liệu khách hàng"
-def gui_du_lieu():
-    file_excel = entry_file_excel.get()
-    file_txt = entry_file_txt.get()
-    if file_excel and file_txt:
-        messagebox.showinfo("Thông báo", f"File Excel: {file_excel}\nFile TXT: {file_txt}\nChức năng gửi dữ liệu đang được thực thi!")
+def convert_txt_to_csv(txt_file):
+    encodings = ['utf-8-sig', 'utf-16', 'latin1']
+    for encoding in encodings:
+        try:
+            txt_data = pd.read_csv(txt_file, sep=',', encoding=encoding)  # Dùng dấu phẩy vì dữ liệu mẫu là CSV
+            txt_data.to_csv("data_work.csv", index=False, encoding='utf-8-sig')
+            messagebox.showinfo("Thông báo", f"Dữ liệu từ {txt_file} đã được chuyển sang data_work.csv (encoding: {encoding})")
+            return
+        except Exception as e:
+            continue
+    messagebox.showerror("Lỗi", f"Không thể đọc file TXT: {txt_file}\nVui lòng kiểm tra định dạng hoặc mã hóa của file.")
+
+def gui_du_lieu(file_txt, period, df):
+    if not file_txt:
+        messagebox.showwarning("Cảnh báo", "Vui lòng chọn file TXT trước!")
+        return
+    
+    work_df = pd.read_csv("data_work.csv", encoding='utf-8-sig')
+    updated = False
+    for index, row in df.iterrows():
+        if row["Status"] != "Đã gửi":  # Chỉ xử lý các dòng chưa gửi
+            ss = row["SS"]
+            mskh = row["MSKH"]
+            filtered_data = work_df[(work_df["Invoice No"] == ss) & (work_df["End Customer No"] == mskh)]
+            if not filtered_data.empty:
+                df.at[index, "Status"] = "Đã gửi"
+                updated = True
+    
+    if updated:
+        save_status(period, df)
+        update_table(df)
+        messagebox.showinfo("Thông báo", f"Đã gửi dữ liệu cho các dòng chưa có trạng thái 'Đã gửi' trong {period}!")
     else:
-        messagebox.showwarning("Cảnh báo", "Vui lòng chọn cả file Excel và file TXT trước!")
+        messagebox.showinfo("Thông báo", "Không có dữ liệu nào cần gửi!")
 
-# Hàm thoát chương trình
-def thoat():
-    if messagebox.askokcancel("Thoát", "Bạn có chắc chắn muốn thoát?"):
-        root.destroy()
+def show_details(event):
+    selected = tree.selection()
+    if not selected:
+        return
+    index = int(tree.index(selected[0]))
+    ss = data_df.at[index, "SS"]
+    mskh = data_df.at[index, "MSKH"]
 
-# Hàm hiển thị kích thước khi kéo thả
-def on_resize(event):
-    width = root.winfo_width()
-    height = root.winfo_height()
-    root.title(f"Gửi Dữ Liệu Khách Hàng - {width}x{height}")
+    work_df = pd.read_csv("data_work.csv", encoding='utf-8-sig')
+    filtered_data = work_df[(work_df["Invoice No"] == ss) & (work_df["End Customer No"] == mskh)][["End Customer No", "Sales Part No", "Lot No"]]
 
-# Hàm reset tiêu đề khi thả ra
-def on_release(event):
-    root.title("Gửi Dữ Liệu Khách Hàng")
-
-# Hàm chọn file Data trong Config
-def chon_file_data():
-    file_path = filedialog.askopenfilename(
-        title="Chọn file Data",
-        filetypes=[("Excel files", "*.xlsx *.xls *.xlsm *.xlsb"), ("All files", "*.*")]
-    )
-    if file_path:
-        entry_data_path.delete(0, tk.END)
-        entry_data_path.insert(0, file_path)
-
-# Hàm xử lý nút "Xuất Data"
-def xuat_data():
-    data_path = entry_data_path.get()
-    if not data_path:
-        messagebox.showwarning("Cảnh báo", "Vui lòng chọn file Data trước khi xuất!")
+    if filtered_data.empty:
+        messagebox.showinfo("Thông báo", "Không tìm thấy dữ liệu chi tiết!")
         return
 
-    try:
-        # Đọc file Excel
-        df = pd.read_excel(data_path, header=1)  # Bỏ qua dòng tiêu đề đầu tiên, lấy dòng thứ 2 làm header
-        
-        # In danh sách cột để kiểm tra
-        print("Danh sách cột trong file Excel:", df.columns.tolist())
-        
-        # Tên cột thực tế trong file của bạn
-        column_k = 'Gửi Lot DAI DIEN: "DD" Gửi TOAN BO Lot: "TB"'
-        
-        # Kiểm tra xem cột K có tồn tại không
-        if column_k not in df.columns:
-            messagebox.showerror("Lỗi", f"Không tìm thấy cột '{column_k}' trong file Excel!")
-            return
-        
-        # Đổi tên cột theo chỉ số của bạn (B, C, F, I, K, L, O, P)
-        columns_to_keep = {
-            'SS': 'SS',  # Cột B
-            'Mã hàng': 'Mã hàng',  # Cột C
-            'MSKH': 'MSKH',  # Cột F
-            'Tên khách hàng': 'Tên khách hàng',  # Cột I
-            column_k: 'Gửi Lot',  # Cột K
-            'Gửi dữ liệu [M]': 'Gửi dữ liệu',  # Cột L
-            'Nội dung gửi mail': 'Nội dung gửi email',  # Cột O
-            'Địa chỉ gửi mail': 'Địa chỉ gửi email'  # Cột P
-        }
-        
-        # Kiểm tra xem tất cả các cột cần giữ có tồn tại không
-        missing_cols = [col for col in columns_to_keep.keys() if col not in df.columns]
-        if missing_cols:
-            messagebox.showerror("Lỗi", f"Không tìm thấy các cột sau trong file Excel: {missing_cols}")
-            return
-        
-        # Lọc dữ liệu có giá trị "TB" hoặc "DD" trong cột K
-        filtered_df = df[df[column_k].isin(['TB', 'DD'])]
+    detail_window = tk.Toplevel(root)
+    detail_window.title(f"Chi tiết - SS: {ss}, MSKH: {mskh}")
+    detail_window.geometry("600x400")
 
-        # Chỉ giữ lại các cột cần thiết
-        filtered_df = filtered_df[list(columns_to_keep.keys())]
-        
-        # Đổi tên cột trong file xuất
-        filtered_df.columns = list(columns_to_keep.values())
+    detail_tree = ttk.Treeview(detail_window, columns=["End Customer No", "Sales Part No", "Lot No"], show="headings")
+    for col in ["End Customer No", "Sales Part No", "Lot No"]:
+        detail_tree.heading(col, text=col)
+        detail_tree.column(col, width=180, anchor="center")
+    detail_tree.pack(fill="both", expand=True)
 
-        # Đường dẫn file CSV đầu ra (lưu cùng thư mục với file Excel đầu vào)
-        output_path = os.path.splitext(data_path)[0] + "_filtered.csv"
-        
-        # Xuất ra file CSV
-        filtered_df.to_csv(output_path, index=False, encoding='utf-8-sig')
-        
-        messagebox.showinfo("Thông báo", f"Dữ liệu đã được xuất thành công ra file: {output_path}")
-    except Exception as e:
-        messagebox.showerror("Lỗi", f"Đã xảy ra lỗi khi xử lý file: {str(e)}")
+    for _, row in filtered_data.iterrows():
+        detail_tree.insert("", "end", values=(row["End Customer No"], row["Sales Part No"], row["Lot No"]))
 
-# Hàm mở cửa sổ Config khi nhấn phím tắt
-def open_config(event=None):
-    root.withdraw()
+def update_table(df):
+    tree.delete(*tree.get_children())
+    for _, row in df.iterrows():
+        tree.insert("", "end", values=tuple(row))
 
-    config_window = tk.Toplevel(root)
-    config_window.title("Config")
-    config_window.geometry("1150x300")
-    config_window.configure(bg="#e8ecef")
-    config_window.resizable(False, False)
+def save_status(period, df):
+    status_file = f"Data Test/data_{period.lower()}.csv"
+    df.to_csv(status_file, index=False, encoding='utf-8-sig')
 
-    def on_config_close():
-        config_window.destroy()
-        root.deiconify()
+def reset_status():
+    selected = tree.selection()
+    if not selected:
+        messagebox.showwarning("Cảnh báo", "Vui lòng chọn một dòng để reset trạng thái!")
+        return
+    global data_df
+    data_df["Status"] = ""
+    save_status(current_period.get(), data_df)
+    update_table(data_df)
+    messagebox.showinfo("Thông báo", "Đã reset toàn bộ trạng thái!")
 
-    config_window.protocol("WM_DELETE_WINDOW", on_config_close)
-
-    frame_config = tk.Frame(config_window, bg="#e8ecef")
-    frame_config.pack(pady=20)
-
-    label_data_update = tk.Label(frame_config, text="Cập nhật dữ liệu khách hàng:", 
-                                font=("Helvetica", 14, "bold"), bg="#e8ecef", fg="#2c3e50")
-    label_data_update.grid(row=0, column=0, padx=20, pady=20, sticky="e")
-
-    global entry_data_path
-    entry_data_path = tk.Entry(frame_config, width=40, font=("Helvetica", 12), bd=2, relief="sunken", bg="#ffffff")
-    entry_data_path.grid(row=0, column=1, padx=20, pady=20)
-
-    btn_choose_data = tk.Button(frame_config, text="Chọn file Data", command=chon_file_data, 
-                                font=("Helvetica", 11, "bold"), bg="#27ae60", fg="white", 
-                                activebackground="#219653", bd=0, padx=20, pady=10)
-    btn_choose_data.grid(row=0, column=2, padx=20, pady=20)
-
-    btn_export_data = tk.Button(frame_config, text="Xuất Data", command=xuat_data, 
-                                font=("Helvetica", 11, "bold"), bg="#f39c12", fg="white", 
-                                activebackground="#e67e22", bd=0, padx=20, pady=10)
-    btn_export_data.grid(row=0, column=3, padx=20, pady=20)
-
-    label_save_path = tk.Label(frame_config, text="Địa chỉ lưu dữ liệu:", 
-                              font=("Helvetica", 14, "bold"), bg="#e8ecef", fg="#2c3e50")
-    label_save_path.grid(row=1, column=0, padx=20, pady=20, sticky="e")
-
-    global entry_save_path
-    entry_save_path = tk.Entry(frame_config, width=40, font=("Helvetica", 12), bd=2, relief="sunken", bg="#ffffff")
-    entry_save_path.grid(row=1, column=1, padx=20, pady=20)
-
-    btn_choose_path = tk.Button(frame_config, text="Chọn nơi lưu dữ liệu", command=chon_noi_luu, 
-                                font=("Helvetica", 11, "bold"), bg="#27ae60", fg="white", 
-                                activebackground="#219653", bd=0, padx=20, pady=10)
-    btn_choose_path.grid(row=1, column=2, padx=20, pady=20)
-
-    frame_buttons = tk.Frame(config_window, bg="#e8ecef")
-    frame_buttons.pack(pady=20)
-
-    btn_save = tk.Button(frame_buttons, text="Save", command=save_config, 
-                         font=("Helvetica", 12, "bold"), bg="#3498db", fg="white", 
-                         activebackground="#2980b9", bd=0, padx=20, pady=10)
-    btn_save.pack(side=tk.LEFT, padx=20)
-
-    btn_close = tk.Button(frame_buttons, text="Close", command=on_config_close, 
-                          font=("Helvetica", 12, "bold"), bg="#e74c3c", fg="white", 
-                          activebackground="#c0392b", bd=0, padx=20, pady=10)
-    btn_close.pack(side=tk.LEFT, padx=20)
-
-# Hàm chọn nơi lưu dữ liệu
-def chon_noi_luu():
-    folder_path = filedialog.askdirectory(title="Chọn nơi lưu dữ liệu")
-    if folder_path:
-        entry_save_path.delete(0, tk.END)
-        entry_save_path.insert(0, folder_path)
-
-# Hàm lưu cấu hình
-def save_config():
-    save_path = entry_save_path.get()
-    if save_path:
-        messagebox.showinfo("Thông báo", f"Địa chỉ lưu dữ liệu đã được lưu: {save_path}")
-    else:
-        messagebox.showwarning("Cảnh báo", "Vui lòng chọn địa chỉ lưu dữ liệu trước!")
-
-# Tạo cửa sổ chính
 root = tk.Tk()
 root.title("Gửi Dữ Liệu Khách Hàng")
 root.geometry("1200x600")
@@ -205,52 +153,73 @@ root.iconphoto(True, icon)
 
 root.bind("<Configure>", on_resize)
 root.bind("<ButtonRelease-1>", on_release)
-root.bind("<Alt-Shift-S>", open_config)
 
+# Menu
+menu_bar = tk.Menu(root)
+root.config(menu=menu_bar)
+file_menu = tk.Menu(menu_bar, tearoff=0)
+menu_bar.add_cascade(label="File", menu=file_menu)
+file_menu.add_command(label="Data", command=lambda: open_data_window(root))
+file_menu.add_separator()
+file_menu.add_command(label="Exit", command=thoat)
+
+send_menu = tk.Menu(menu_bar, tearoff=0)
+menu_bar.add_cascade(label="Gửi dữ liệu", menu=send_menu)
+send_menu.add_command(label="Email Tháng", command=lambda: show_send_frame("Tháng"))
+send_menu.add_command(label="Email Ngày", command=lambda: show_send_frame("Ngày"))
+send_menu.add_command(label="Email Tuần", command=lambda: show_send_frame("Tuần"))
+
+# Frame chính ban đầu
 frame_title = tk.Frame(root, bg="#e8ecef")
 frame_title.pack(pady=20)
+tk.Label(frame_title, text="GỬI EMAIL KHÁCH HÀNG TỰ ĐỘNG", font=("Helvetica", 24, "bold"), bg="#e8ecef", fg="#2c3e50").pack()
 
-label_title = tk.Label(frame_title, text="GỬI EMAIL KHÁCH HÀNG TỰ ĐỘNG", 
-                      font=("Helvetica", 24, "bold"), bg="#e8ecef", fg="#2c3e50")
-label_title.pack()
+frame_buttons = tk.Frame(root, bg="#e8ecef")
+frame_buttons.pack(pady=50)
+tk.Button(frame_buttons, text="Gửi Email Tháng", command=lambda: show_send_frame("Tháng"), font=("Helvetica", 14, "bold"), bg="#3498db", fg="white", padx=30, pady=15).pack(side=tk.LEFT, padx=20)
+tk.Button(frame_buttons, text="Gửi Email Tuần", command=lambda: show_send_frame("Tuần"), font=("Helvetica", 14, "bold"), bg="#27ae60", fg="white", padx=30, pady=15).pack(side=tk.LEFT, padx=20)
+tk.Button(frame_buttons, text="Gửi Email Ngày", command=lambda: show_send_frame("Ngày"), font=("Helvetica", 14, "bold"), bg="#f39c12", fg="white", padx=30, pady=15).pack(side=tk.LEFT, padx=20)
 
-frame_top = tk.Frame(root, bg="#e8ecef")
-frame_top.pack(pady=50)
+# Frame gửi dữ liệu (ẩn ban đầu)
+send_frame = tk.Frame(root, bg="#e8ecef")
+label_file = tk.Label(send_frame, text="", font=("Helvetica", 14, "bold"), bg="#e8ecef", fg="#2c3e50")
+label_file.pack(pady=10)
+entry_file = tk.Entry(send_frame, width=60, font=("Helvetica", 12), bd=2, relief="sunken", bg="#ffffff")
+entry_file.pack(pady=10)
+tk.Button(send_frame, text="Chọn file", command=chon_file_txt, font=("Helvetica", 11, "bold"), bg="#27ae60", fg="white", padx=20, pady=10).pack(pady=10)
 
-label_file_excel = tk.Label(frame_top, text="Chọn file Excel 4 Điểm:", font=("Helvetica", 14, "bold"), bg="#e8ecef", fg="#2c3e50")
-label_file_excel.grid(row=0, column=0, padx=20, pady=20, sticky="e")
+# Bảng trạng thái
+frame_table = tk.Frame(send_frame, bg="#e8ecef")
+frame_table.pack(pady=10, fill="both", expand=True)
+tree = ttk.Treeview(frame_table, columns=["SS", "Mã hàng", "MSKH", "Gửi Lot", "Status"], show="headings", height=10)
+for col in ["SS", "Mã hàng", "MSKH", "Gửi Lot", "Status"]:
+    tree.heading(col, text=col)
+    tree.column(col, width=150, anchor="center")
+tree.pack(side=tk.LEFT, fill="both", expand=True)
+scrollbar = ttk.Scrollbar(frame_table, orient="vertical", command=tree.yview)
+scrollbar.pack(side=tk.RIGHT, fill="y")
+tree.configure(yscrollcommand=scrollbar.set)
+tree.bind("<Double-1>", show_details)  # Double-click để xem chi tiết
 
-entry_file_excel = tk.Entry(frame_top, width=60, font=("Helvetica", 12), bd=2, relief="sunken", bg="#ffffff")
-entry_file_excel.grid(row=0, column=1, padx=20, pady=20)
+# Nút điều khiển trạng thái
+frame_status_buttons = tk.Frame(send_frame, bg="#e8ecef")
+frame_status_buttons.pack(pady=10)
+tk.Button(frame_status_buttons, text="Gửi dữ liệu", command=lambda: gui_du_lieu(entry_file.get(), current_period.get(), data_df), 
+          font=("Helvetica", 12, "bold"), bg="#27ae60", fg="white", padx=20, pady=10).pack(side=tk.LEFT, padx=10)
+tk.Button(frame_status_buttons, text="Reset", command=reset_status, 
+          font=("Helvetica", 12, "bold"), bg="#e74c3c", fg="white", padx=20, pady=10).pack(side=tk.LEFT, padx=10)
 
-btn_chon_file_excel = tk.Button(frame_top, text="Chọn file", command=chon_file_excel, 
-                                font=("Helvetica", 11, "bold"), bg="#27ae60", fg="white", 
-                                activebackground="#219653", bd=0, padx=20, pady=10)
-btn_chon_file_excel.grid(row=0, column=2, padx=20, pady=20)
+btn_send = tk.Button(send_frame, text="Gửi dữ liệu khách hàng", font=("Helvetica", 14, "bold"), bg="#3498db", fg="white", padx=30, pady=15)
+btn_send.pack(pady=10)
+btn_back = tk.Button(send_frame, text="Quay lại", command=back_to_main, font=("Helvetica", 14, "bold"), bg="#e74c3c", fg="white", padx=30, pady=15)
+btn_back.pack(pady=10)
 
-label_file_txt = tk.Label(frame_top, text="Chọn file TXT dữ liệu tháng:", font=("Helvetica", 14, "bold"), bg="#e8ecef", fg="#2c3e50")
-label_file_txt.grid(row=1, column=0, padx=20, pady=20, sticky="e")
+# Biến toàn cục
+current_period = tk.StringVar()
 
-entry_file_txt = tk.Entry(frame_top, width=60, font=("Helvetica", 12), bd=2, relief="sunken", bg="#ffffff")
-entry_file_txt.grid(row=1, column=1, padx=20, pady=20)
+# Cập nhật period khi nhấp nút
+for period in ["Tháng", "Tuần", "Ngày"]:
+    send_menu.entryconfig(f"Email {period}", command=lambda p=period: [current_period.set(p), show_send_frame(p)])
+    frame_buttons.winfo_children()[["Tháng", "Tuần", "Ngày"].index(period)].config(command=lambda p=period: [current_period.set(p), show_send_frame(p)])
 
-btn_chon_file_txt = tk.Button(frame_top, text="Chọn file", command=chon_file_txt, 
-                              font=("Helvetica", 11, "bold"), bg="#27ae60", fg="white", 
-                              activebackground="#219653", bd=0, padx=20, pady=10)
-btn_chon_file_txt.grid(row=1, column=2, padx=20, pady=20)
-
-frame_bottom = tk.Frame(root, bg="#e8ecef")
-frame_bottom.pack(pady=50)
-
-btn_gui = tk.Button(frame_bottom, text="Gửi dữ liệu khách hàng", command=gui_du_lieu, 
-                    font=("Helvetica", 14, "bold"), bg="#3498db", fg="white", 
-                    activebackground="#2980b9", bd=0, padx=30, pady=15)
-btn_gui.pack(side=tk.LEFT, padx=40)
-
-btn_thoat = tk.Button(frame_bottom, text="Thoát", command=thoat, 
-                      font=("Helvetica", 14, "bold"), bg="#e74c3c", fg="white", 
-                      activebackground="#c0392b", bd=0, padx=30, pady=15)
-btn_thoat.pack(side=tk.LEFT, padx=40)
-
-# Chạy chương trình
 root.mainloop()

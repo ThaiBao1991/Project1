@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import ttk
+from tkinter import filedialog
 import json
 import random
 import datetime
@@ -29,7 +30,7 @@ def save_vocab(vocab):
 def add_vocab_window(parent):
     add_window = tk.Toplevel(parent)
     add_window.title("Thêm từ vựng tiếng Anh")
-    add_window.geometry("600x450")
+    add_window.geometry("600x900")
 
     tk.Label(add_window, text="Từ tiếng Anh (Ctrl+V để dán):").pack(pady=5)
     eng_entry = tk.Entry(add_window, width=40)
@@ -48,7 +49,6 @@ def add_vocab_window(parent):
     pronounce_entry = tk.Entry(add_window, width=40)
     pronounce_entry.pack()
 
-    # Gợi ý cách dán nhiều từ
     tk.Label(add_window, text="Dán nhiều từ: 'từ - nghĩa - loại - phát âm' (dùng dấu gạch ngang)", fg="gray").pack(pady=2)
 
     vocab = load_vocab()
@@ -99,10 +99,9 @@ def add_vocab_window(parent):
         word_type = type_entry.get().strip()
         pronounce = pronounce_entry.get().strip()
 
-        # Nếu dán nhiều từ cùng lúc (định dạng: từ - nghĩa - loại - phát âm)
         if "-" in eng_text and not (viet or word_type or pronounce):
             parts = [p.strip() for p in eng_text.split("-")]
-            if len(parts) >= 2:  # Cần ít nhất từ và nghĩa
+            if len(parts) >= 2:
                 eng = parts[0].lower()
                 viet = parts[1]
                 word_type = parts[2] if len(parts) > 2 else "N/A"
@@ -207,9 +206,8 @@ def add_vocab_window(parent):
 
     tree.bind("<Double-1>", edit_vocab)
 
-    # Tính năng 1: Thêm thư viện từ có sẵn
     def add_vocab_library():
-        file_path = tk.filedialog.askopenfilename(filetypes=[("JSON files", "*.json")])
+        file_path = filedialog.askopenfilename(filetypes=[("JSON files", "*.json")])
         if not file_path:
             return
         try:
@@ -234,7 +232,6 @@ def add_vocab_window(parent):
         except Exception as e:
             messagebox.showerror("Lỗi", f"Không thể mở file: {str(e)}")
 
-    # Tính năng 2 & 4: Xóa từ đã chọn (bao gồm chuột phải)
     def delete_selected_words():
         selected_items = tree.selection()
         if not selected_items:
@@ -249,7 +246,6 @@ def add_vocab_window(parent):
             update_tree_and_count()
             messagebox.showinfo("Thành công", "Đã xóa các từ đã chọn!")
 
-    # Tính năng 3: Xóa hết từ điển
     def delete_all_vocab():
         if messagebox.askyesno("Xác nhận", "Bạn có chắc muốn xóa hết từ điển không?"):
             vocab = {}
@@ -257,7 +253,6 @@ def add_vocab_window(parent):
             update_tree_and_count()
             messagebox.showinfo("Thành công", "Đã xóa hết từ điển!")
 
-    # Tính năng 4: Menu chuột phải
     context_menu = tk.Menu(add_window, tearoff=0)
     context_menu.add_command(label="Xóa", command=delete_selected_words)
 
@@ -268,7 +263,6 @@ def add_vocab_window(parent):
 
     tree.bind("<Button-3>", show_context_menu)
 
-    # Thêm các nút
     button_frame = tk.Frame(add_window)
     button_frame.pack(pady=5)
     tk.Button(button_frame, text="Lưu", command=save_new_word).pack(side=tk.LEFT, padx=5)
@@ -290,20 +284,57 @@ def test_vocab_window(parent):
 
     test_window = tk.Toplevel(parent)
     test_window.title("Kiểm tra từ vựng")
-    test_window.geometry("300x300")
+    test_window.geometry("300x400")  # Tăng chiều cao để chứa thêm ô nhập
+
+    # Ô nhập khoảng từ vựng
+    tk.Label(test_window, text="Ôn từ số (1 đến tổng số từ):").pack(pady=5)
+    range_frame = tk.Frame(test_window)
+    range_frame.pack(pady=5)
+    tk.Label(range_frame, text="Từ:").pack(side=tk.LEFT)
+    start_entry = tk.Entry(range_frame, width=5)
+    start_entry.pack(side=tk.LEFT, padx=5)
+    tk.Label(range_frame, text="Đến:").pack(side=tk.LEFT)
+    end_entry = tk.Entry(range_frame, width=5)
+    end_entry.pack(side=tk.LEFT, padx=5)
 
     today = datetime.datetime.now().date()
-    available_words = {k: v for k, v in vocab.items() if v["correct_count"] < 20 or 
-                       (v["completed_date"] and (today - datetime.datetime.strptime(v["completed_date"], "%Y-%m-%d").date()).days >= 20)}
 
+    # Lấy danh sách từ vựng theo khoảng
+    def get_filtered_vocab():
+        vocab_list = list(load_vocab().items())
+        total_words = len(vocab_list)
+        
+        start_text = start_entry.get().strip()
+        end_text = end_entry.get().strip()
+        
+        # Nếu thiếu một trong hai ô hoặc không nhập gì, lấy toàn bộ
+        if not start_text or not end_text:
+            filtered_vocab = {k: v for k, v in vocab_list if v["correct_count"] < 20 or 
+                              (v["completed_date"] and (today - datetime.datetime.strptime(v["completed_date"], "%Y-%m-%d").date()).days >= 20)}
+            return filtered_vocab, total_words
+        
+        try:
+            start = int(start_text) - 1  # Chuyển về chỉ số 0-based
+            end = int(end_text)
+            if start < 0 or end > total_words or start >= end:
+                raise ValueError("Khoảng không hợp lệ!")
+            filtered_list = vocab_list[start:end]
+            filtered_vocab = {k: v for k, v in filtered_list if v["correct_count"] < 20 or 
+                              (v["completed_date"] and (today - datetime.datetime.strptime(v["completed_date"], "%Y-%m-%d").date()).days >= 20)}
+            return filtered_vocab, total_words
+        except ValueError as e:
+            messagebox.showwarning("Lỗi", str(e) if str(e) != "Khoảng không hợp lệ!" else "Khoảng không hợp lệ! Vui lòng nhập số hợp lệ.")
+            return None, total_words
+
+    available_words, total_words = get_filtered_vocab()
     if not available_words:
-        messagebox.showinfo("Thông báo", "Không có từ nào để kiểm tra!")
+        messagebox.showinfo("Thông báo", "Không có từ nào để kiểm tra trong khoảng này!")
         test_window.destroy()
         parent.deiconify()
         return
 
     current_word = random.choice(list(available_words.keys()))
-    current_data = vocab[current_word]
+    current_data = available_words[current_word]
 
     meaning_label = tk.Label(test_window, text=f"Nghĩa: {current_data['meaning']}", font=("Arial", 12))
     meaning_label.pack(pady=5)
@@ -337,19 +368,19 @@ def test_vocab_window(parent):
             messagebox.showerror("Sai", f"Đáp án đúng: {current_word}. Số lần đúng còn: {current_data['correct_count']}")
             answer_entry.focus_set()
 
+        vocab = load_vocab()
         vocab[current_word] = current_data
         save_vocab(vocab)
 
-        available_words = {k: v for k, v in vocab.items() if v["correct_count"] < 20 or 
-                           (v["completed_date"] and (today - datetime.datetime.strptime(v["completed_date"], "%Y-%m-%d").date()).days >= 20)}
+        available_words, _ = get_filtered_vocab()
         if not available_words:
-            messagebox.showinfo("Thông báo", "Không còn từ nào để kiểm tra!")
+            messagebox.showinfo("Thông báo", "Không còn từ nào để kiểm tra trong khoảng này!")
             test_window.destroy()
             parent.deiconify()
             return
 
         current_word = random.choice(list(available_words.keys()))
-        current_data = vocab[current_word]
+        current_data = available_words[current_word]
         
         meaning_label.config(text=f"Nghĩa: {current_data['meaning']}")
         type_label.config(text=f"Loại từ: {current_data['type']}")
