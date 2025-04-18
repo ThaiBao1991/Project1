@@ -1,0 +1,24 @@
+# Directory Tree for: C:/Users/12953 bao/Desktop/desktop/work/Project/Python/BasicLearnPython/W3schools/Python Tutorial/ProjectInMBC/SendEmailToCustomer
+
+- SendEmailToCustomer/
+    - directory_treemap.png
+    - generate_tree.py
+    - main.py
+    - tree.md
+    - Backup/
+        - main(26.03.2025).py
+        - main.py
+        - File/
+            - Data/
+                - file_data.py
+    - ult/
+        - SendEmail/
+            - __init__.py
+            - File/
+                - Data/
+                    - file_data.py
+            - Guidle/
+                - config.py
+                - data.py
+                - gui.py
+                - state.py
