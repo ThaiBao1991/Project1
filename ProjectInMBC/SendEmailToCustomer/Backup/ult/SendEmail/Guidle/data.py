@@ -7,119 +7,8 @@ import math
 from .config import load_config
 import datetime
 import shutil
-import zipfile
-from PyPDF2 import PdfReader, PdfWriter
-from PIL import Image
-import io
-
 
 selected_row_details={}
-
-def compress_pdf(input_path, output_path, quality=50):
-    """Giảm dung lượng file PDF bằng cách nén hình ảnh"""
-    try:
-        reader = PdfReader(input_path)
-        writer = PdfWriter()
-
-        # Sao chép các trang từ file gốc
-        for page in reader.pages:
-            writer.add_page(page)
-
-        # Nén hình ảnh trong PDF
-        for page in writer.pages:
-            if '/Resources' in page and '/XObject' in page['/Resources']:
-                x_object = page['/Resources']['/XObject'].get_object()
-                for obj in x_object:
-                    if x_object[obj]['/Subtype'] == '/Image':
-                        img_obj = x_object[obj]
-                        if '/Filter' in img_obj and img_obj['/Filter'] in ['/DCTDecode', '/FlateDecode']:
-                            try:
-                                # Lấy dữ liệu hình ảnh
-                                img_data = img_obj._data
-                                img = Image.open(io.BytesIO(img_data))
-                                if img.mode != 'RGB':
-                                    img = img.convert('RGB')
-                                
-                                # Nén hình ảnh
-                                output_buffer = io.BytesIO()
-                                img.save(output_buffer, format='JPEG', quality=quality, optimize=True)
-                                compressed_data = output_buffer.getvalue()
-                                
-                                # Cập nhật dữ liệu hình ảnh đã nén
-                                img_obj._data = compressed_data
-                                img_obj['/Filter'] = '/DCTDecode'  # Sử dụng JPEG sau khi nén
-                                img_obj['/ColorSpace'] = '/DeviceRGB'
-                                img_obj['/BitsPerComponent'] = 8
-                                img_obj['/Width'] = img.width
-                                img_obj['/Height'] = img.height
-                            except Exception as e:
-                                print(f"Lỗi khi nén hình ảnh trong PDF: {e}")
-                                continue
-
-        # Lưu file đã nén
-        with open(output_path, "wb") as f:
-            writer.write(f)
-
-        # Kiểm tra kích thước file
-        original_size = os.path.getsize(input_path)
-        compressed_size = os.path.getsize(output_path)
-        if compressed_size >= original_size:
-            print(f"Cảnh báo: File nén ({compressed_size} bytes) không nhỏ hơn file gốc ({original_size} bytes). Sử dụng file gốc.")
-            shutil.copy2(input_path, output_path)  # Ghi đè file nén bằng file gốc
-            return False
-        else:
-            print(f"Nén PDF thành công: {original_size} -> {compressed_size} bytes")
-            return True
-
-    except Exception as e:
-        print(f"Lỗi khi nén PDF: {e}")
-        shutil.copy2(input_path, output_path)  # Sao chép file gốc nếu lỗi
-        return False
-    
-def zip_folder_by_size(folder_path, output_prefix, max_size_mb):
-    try:
-        file_list = []
-        total_size = 0
-        for root, dirs, files in os.walk(folder_path):
-            for file in files:
-                file_path = os.path.join(root, file)
-                file_size = os.path.getsize(file_path)
-                total_size += file_size
-                file_list.append((file_path, file_size))
-        
-        file_list.sort(key=lambda x: x[1], reverse=True)
-        
-        part_num = 1
-        current_size = 0
-        current_files = []
-        max_size_bytes = (max_size_mb - 0.3) * 1024 * 1024
-        
-        for file_path, file_size in file_list:
-            if current_size + file_size > max_size_bytes and current_files:
-                zip_path = f"{output_prefix}_{part_num:02d}.zip"
-                with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
-                    for f_path, _ in current_files:
-                        arcname = os.path.relpath(f_path, folder_path)
-                        zipf.write(f_path, arcname)
-                
-                part_num += 1
-                current_files = []
-                current_size = 0
-            
-            current_files.append((file_path, file_size))
-            current_size += file_size
-        
-        if current_files:
-            zip_path = f"{output_prefix}_{part_num:02d}.zip"
-            with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
-                for f_path, _ in current_files:
-                    arcname = os.path.relpath(f_path, folder_path)
-                    zipf.write(f_path, arcname)
-        
-        return True
-    except Exception as e:
-        print(f"Lỗi khi nén thư mục: {e}")
-        return False
 
 def similar(a, b):
     """Tính tỷ lệ giống nhau giữa hai chuỗi, bỏ qua khoảng trắng và chuẩn hóa chữ thường"""
@@ -461,22 +350,10 @@ def convert_txt_to_csv(txt_file):
     messagebox.showerror("Lỗi", f"Không thể đọc file TXT: {txt_file}\nDữ liệu không được tách thành cột với các tùy chọn thử. Vui lòng kiểm tra định dạng file hoặc encoding.")
 
 
-def gui_du_lieu(file_txt, period, df, month_year):
+def gui_du_lieu(file_txt, period, df):
     """Xác nhận dữ liệu từ data_work.csv, copy file PDF và cập nhật status"""
-    global data_df, selected_row_details, current_period
+    global data_df, selected_row_details
     
-    # Lấy ngày từ month_year
-    try:
-        selected_date = datetime.datetime.strptime(month_year, "%m/%Y")
-        selected_year = selected_date.strftime("%Y")  # THÊM DÒNG NÀY
-        selected_day = datetime.datetime.now().day
-        formatted_date = f"{selected_date.strftime('%y.%m')}.{selected_day:02d}"
-    except:
-        selected_date = datetime.datetime.now()
-        selected_year = selected_date.strftime("%Y")  # THÊM DÒNG NÀY
-        formatted_date = selected_date.strftime("%y.%m.%d")
-    
-    # Validate input
     if not file_txt or not os.path.exists(file_txt):
         messagebox.showwarning("Cảnh báo", "Vui lòng chọn file TXT trước!")
         return
@@ -501,13 +378,16 @@ def gui_du_lieu(file_txt, period, df, month_year):
         work_df = pd.read_csv("data_work.csv", encoding='utf-8-sig')
         required_work_cols = ["Sales Part No", "End Customer No", "Lot No"]
         
-        # Validate columns
         if not all(col in work_df.columns for col in required_work_cols):
             missing = [col for col in required_work_cols if col not in work_df.columns]
             messagebox.showerror("Lỗi", f"File data_work.csv thiếu các cột bắt buộc: {', '.join(missing)}")
             return
 
-        # Xác nhận dữ liệu
+        updated = False
+        temp_df = df.copy()
+        selected_year = datetime.datetime.now().strftime("%Y")
+        
+        # Bước 1: Xác nhận dữ liệu trước
         temp_df = df.copy()
         confirmed_count = 0
         for index, row in temp_df.iterrows():
@@ -521,7 +401,7 @@ def gui_du_lieu(file_txt, period, df, month_year):
             if not ss or not mskh:
                 continue
 
-            # Kiểm tra khớp dữ liệu
+            # Kiểm tra khớp dữ liệu với data_work.csv
             matched_data = work_df[
                 (work_df["Sales Part No"].astype(str).str.strip() == ss) &
                 (work_df["End Customer No"].astype(str).str.strip() == mskh)
@@ -538,10 +418,10 @@ def gui_du_lieu(file_txt, period, df, month_year):
         data_df = temp_df.copy()
         save_status(period, data_df)
         
-        # Xử lý file PDF
+        # Bước 2: Xử lý copy file PDF
         copied_files_count = 0
+        # Dictionary để lưu các thư mục đã tạo theo từng nơi nhận
         created_folders = {}
-        noi_nhan = None  # Lưu lại nơi nhận cho phần nén
         
         for index, row in data_df.iterrows():
             if str(row.get("Status", "")).strip() != "Đã xác nhận":
@@ -550,20 +430,23 @@ def gui_du_lieu(file_txt, period, df, month_year):
             ss = str(row.get("SS", "")).strip()
             mskh = str(row.get("MSKH", "")).strip()
             ma_hang = str(row.get("Mã hàng", "")).strip()
-            noi_nhan = str(row.get("Nơi nhận dữ liệu", "")).strip()  # Lấy nơi nhận
-            
+            noi_nhan = str(row.get("Nơi nhận dữ liệu", "")).strip()
+            gui_lot = str(row.get("Gửi Lot DAI DIEN: 'DD' Gửi TOAN BO Lot: 'TB'", "")).strip().upper()
+
+            # Lấy danh sách LotNo và W/d/r No
             filtered_data = work_df[
                 (work_df["Sales Part No"].astype(str).str.strip() == ss) &
                 (work_df["End Customer No"].astype(str).str.strip() == mskh)
             ]
             
-            # Xử lý từng Lot
-            if filtered_data.empty:
+            if gui_lot == "DD":
+                lot_data = [filtered_data.iloc[0]]
+            elif gui_lot == "TB":
+                lot_data = filtered_data.to_dict('records')
+            else:
                 continue
             
-            lot_data = filtered_data.to_dict('records')
-            
-            # Copy file
+            # Xử lý từng LotNo
             files_copied_for_row = 0
             for lot_row in lot_data:
                 lot_no = str(lot_row["Lot No"]).strip()
@@ -573,6 +456,7 @@ def gui_du_lieu(file_txt, period, df, month_year):
                 if not os.path.exists(lot_folder):
                     continue
                     
+                # Tìm file PDF phù hợp
                 for file in os.listdir(lot_folder):
                     if not file.lower().endswith('.pdf'):
                         continue
@@ -582,20 +466,23 @@ def gui_du_lieu(file_txt, period, df, month_year):
                         ma_hang.upper() in file_name and 
                         mskh.upper() in file_name):
                         
+                        # Tạo thư mục đích với cấu trúc mới
                         if noi_nhan not in created_folders:
                             base_folder = os.path.join(
                                 data_temp_path,
                                 f"Gửi {noi_nhan}",
                                 selected_year,
-                                f"Gửi {formatted_date}"
+                                f"Gửi {datetime.datetime.now().strftime('%y.%m.%d')}"
                             )
                             os.makedirs(base_folder, exist_ok=True)
                             created_folders[noi_nhan] = base_folder
                             
+                        # Tạo thư mục con theo SS
                         ss_folder = os.path.join(created_folders[noi_nhan], ss)
                         os.makedirs(ss_folder, exist_ok=True)
                         
-                        new_filename = f"{lot_no}-{ma_hang}-{mskh}.pdf" if not wdr_no else f"{lot_no}-{ma_hang}-{mskh}-{wdr_no}.pdf"
+                        # Đổi tên file theo yêu cầu
+                        new_filename = f"{lot_no}-{ma_hang}-{mskh}-{wdr_no}.pdf" if wdr_no else f"{lot_no}-{ma_hang}-{mskh}.pdf"
                         src_file = os.path.join(lot_folder, file)
                         dest_file = os.path.join(ss_folder, new_filename)
                         
@@ -609,46 +496,19 @@ def gui_du_lieu(file_txt, period, df, month_year):
             if files_copied_for_row > 0:
                 data_df.loc[index, "Status"] = "Đã copy dữ liệu"
         
+        # Cập nhật trạng thái cuối cùng
         save_status(period, data_df)
         from .gui import update_table
         update_table(data_df)
         
         if copied_files_count > 0:
-            # Nén thư mục
-            
-            source_folder = os.path.join(data_temp_path, f"Gửi {noi_nhan}", selected_year, f"Gửi {formatted_date}")
-            output_folder = os.path.join(data_temp_path, f"Gửi {noi_nhan}", selected_year)
-            
-            print("sourcefolder la",source_folder)
-            print("outputfolder la",output_folder)
-            os.makedirs(output_folder, exist_ok=True)
-            zip_filename = f"Gửi {formatted_date}.zip"
-            zip_path = os.path.join(output_folder, zip_filename)
-            
-            total_size = sum(os.path.getsize(os.path.join(root, file)) for root, dirs, files in os.walk(source_folder) for file in files)
-            total_size_mb = total_size / (1024 * 1024)
-            max_size_mb = 10.0  # Dung lượng tối đa cho mỗi file zip
-            
-            if total_size_mb <= max_size_mb:
-                # Nén thành 1 file
-                with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
-                    for root, dirs, files in os.walk(source_folder):
-                        for file in files:
-                            file_path = os.path.join(root, file)
-                            arcname = os.path.relpath(file_path, source_folder)
-                            zipf.write(file_path, arcname)
-                
-                print(f"Đã nén thành công: {zip_path}")
-            else:
-                # Nén thành nhiều file nếu cần
-                zip_folder_by_size(source_folder, os.path.join(output_folder, f"Gửi {formatted_date}"), max_size_mb)
-            
             messagebox.showinfo("Thành công", 
                 f"Đã xác nhận {confirmed_count} dòng dữ liệu\n"
-                f"Đã copy {copied_files_count} file PDF và nén thành công!")
+                f"Đã copy {copied_files_count} file PDF vào thư mục đích")
         else:
             messagebox.showinfo("Thông báo", 
                 "Đã xác nhận dữ liệu nhưng không tìm thấy file PDF phù hợp để copy!")
+
     except Exception as e:
         messagebox.showerror("Lỗi", f"Đã xảy ra lỗi khi xử lý dữ liệu: {str(e)}")
 

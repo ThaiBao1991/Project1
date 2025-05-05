@@ -166,7 +166,7 @@ def show_send_frame(root, period):
     tree.bind("<Double-1>", lambda event: show_details(root, event))
 
     tk.Button(frame_status_buttons, text="Xác nhận dữ liệu",
-              command=lambda: gui_du_lieu(entry_file.get(), current_period.get() if current_period else period, data_df, month_year_var.get()),
+              command=lambda: gui_du_lieu(entry_file.get(), current_period.get() if current_period else period, data_df),
               font=("Helvetica", 12, "bold"), bg="#27ae60", fg="white", padx=20, pady=10).pack(side=tk.LEFT, padx=10)
     tk.Button(frame_status_buttons, text="Reset", command=reset_status,
               font=("Helvetica", 12, "bold"), bg="#e74c3c", fg="white", padx=20, pady=10).pack(side=tk.LEFT, padx=10)
