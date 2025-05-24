@@ -1,2 +1,2 @@
-*.ecrb filter=lfs diff=lfs merge=lfs -text
-__pycache__/** filter=lfs diff=lfs merge=lfs -text
+# *.ecrb filter=lfs diff=lfs merge=lfs -text
+# __pycache__/** filter=lfs diff=lfs merge=lfs -text
