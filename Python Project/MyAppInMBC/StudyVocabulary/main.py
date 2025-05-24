@@ -3,18 +3,48 @@ from tkinter import messagebox
 import English
 import Japan
 import Chinese
+import sys
+import os
+
+# Xử lý sys.stdout/sys.stderr cho --noconsole
+if sys.stdout is None:
+    sys.stdout = open(os.devnull, "w")
+if sys.stderr is None:
+    sys.stderr = open(os.devnull, "w")
+
+def resource_path(relative_path):
+    """Lấy đường dẫn tuyệt đối đến tài nguyên, hoạt động cho cả dev và PyInstaller"""
+    if hasattr(sys, '_MEIPASS'):
+        # Đường dẫn đến thư mục tạm khi chạy file .exe
+        base_path = sys._MEIPASS
+    else:
+        # Đường dẫn khi chạy mã nguồn
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 
 def open_english():
     root.withdraw()  # Ẩn cửa sổ chính
-    English.english_menu(root)
+    try:
+        English.english_menu(root)
+    except Exception as e:
+        messagebox.showerror("Lỗi", f"Không thể mở module tiếng Anh: {str(e)}")
+        root.deiconify()
 
 def open_japan():
     root.withdraw()
-    Japan.japan_menu(root)
+    try:
+        Japan.japan_menu(root)
+    except Exception as e:
+        messagebox.showerror("Lỗi", f"Không thể mở module tiếng Nhật: {str(e)}")
+        root.deiconify()
 
 def open_chinese():
     root.withdraw()
-    Chinese.chinese_menu(root)
+    try:
+        Chinese.chinese_menu(root)
+    except Exception as e:
+        messagebox.showerror("Lỗi", f"Không thể mở module tiếng Trung: {str(e)}")
+        root.deiconify()
 
 def exit_program():
     root.quit()  # Thoát hoàn toàn chương trình

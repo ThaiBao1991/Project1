@@ -47,7 +47,7 @@ def main():
     root.bind("<Configure>", lambda e: root.title(f"Gửi Dữ Liệu Khách Hàng - {root.winfo_width()}x{root.winfo_height()}"))
     root.bind("<ButtonRelease-1>", lambda e: root.title("Gửi Dữ Liệu Khách Hàng"))
 
-    # Cập nhật lệnh cho nút
+    # Cập nhật lệnh cho nút 
     buttons = frame_buttons.winfo_children()
     if len(buttons) == 3:  # Đảm bảo có 3 nút
         for period, button in zip(["Tháng", "Tuần", "Ngày"], buttons):

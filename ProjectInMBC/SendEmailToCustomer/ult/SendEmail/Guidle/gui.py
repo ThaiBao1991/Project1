@@ -2,7 +2,7 @@ import tkinter as tk
 import os
 from tkinter import filedialog, messagebox, ttk
 # Đảm bảo các biến global được import đúng
-from .state import data_df, original_df, filters, current_period, tree, frame_buttons, send_frame, label_file, entry_file, frame_table, frame_status_buttons, btn_back
+from .state import data_df, original_df, filters, current_period, tree, frame_buttons, send_frame, label_file, entry_file, frame_table, frame_status_buttons, btn_back, month_year_var
 # Import các hàm từ .data
 from .data import initialize_data, gui_du_lieu, send_all_data, send_selected_data, reset_status, convert_txt_to_csv, update_data
 import pandas as pd
@@ -30,9 +30,11 @@ def create_main_window(root):
     return frame_buttons
 
 def show_send_frame(root, period):
-    """Hiển thị frame gửi dữ liệu với Treeview và các nút điều khiển"""
-    global current_period, send_frame, label_file, entry_file, frame_table, tree, frame_status_buttons, btn_back, data_df
-
+    global current_period, send_frame, label_file, entry_file, frame_table, tree, frame_status_buttons, btn_back, data_df, month_year_var
+    
+    if month_year_var is None:
+        month_year_var = tk.StringVar()
+        month_year_var.set(datetime.datetime.now().strftime("%m/%Y"))
     # Ẩn frame chính nếu đang hiển thị
     if frame_buttons:
         frame_buttons.pack_forget()
@@ -106,7 +108,7 @@ def show_send_frame(root, period):
             now = datetime.datetime.now()
             month, year = now.month, now.year
         
-        # Tạo calendar
+        # Tạo calendar với date_pattern chỉ hiển thị tháng/năm
         cal = Calendar(
             top,
             selectmode='day',
@@ -125,8 +127,10 @@ def show_send_frame(root, period):
                 dt = datetime.datetime.strptime(selected_date, "%Y-%m-%d")
                 month_year_var.set(dt.strftime("%m/%Y"))
                 month_year_btn.config(text=month_year_var.get())
-            except ValueError:
-                messagebox.showerror("Lỗi", "Định dạng ngày không hợp lệ")
+                # Debug: In ra giá trị để kiểm tra
+                print(f"Giá trị đã chọn: {month_year_var.get()}")
+            except ValueError as e:
+                messagebox.showerror("Lỗi", f"Định dạng ngày không hợp lệ: {str(e)}")
             top.destroy()
         
         tk.Button(
@@ -136,6 +140,9 @@ def show_send_frame(root, period):
             font=("Helvetica", 12),
             width=10
         ).pack(pady=10)
+        
+        # Đảm bảo cửa sổ này nhận focus
+        top.grab_set()
 
     # Tạo Treeview
     frame_table = tk.Frame(send_frame, bg="#e8ecef")
@@ -405,7 +412,7 @@ def show_details(root, event):
                     data_temp_path,
                     f"Gửi {noi_nhan}",
                     selected_year,
-                    f"Gửi {datetime.datetime.now().strftime('%y.%m.%d')}",
+                    f"Gửi {datetime.datetime.now().strftime('%y.%m')}",
                     ss
                 )
                 

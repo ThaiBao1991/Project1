@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 from tkinter import messagebox
-from .state import data_df, original_df, filters, tree, current_period
+from .state import data_df, original_df, filters, current_period, tree, frame_buttons, send_frame, label_file, entry_file, frame_table, frame_status_buttons, btn_back, month_year_var
 from difflib import SequenceMatcher
 import math
 from .config import load_config
@@ -11,9 +11,81 @@ import zipfile
 from PyPDF2 import PdfReader, PdfWriter
 from PIL import Image
 import io
+import win32com.client as win32
+import re
 
 
 selected_row_details={}
+
+def send_email_via_outlook(subject, body, to_email, attachment_paths):
+    """Gửi email qua Outlook với các file đính kèm"""
+    try:
+        outlook = win32.Dispatch('Outlook.Application')
+        mail = outlook.CreateItem(0)
+        mail.Subject = subject
+        mail.Body = body
+        mail.To = to_email
+        
+        for attachment in attachment_paths:
+            if os.path.exists(attachment):
+                mail.Attachments.Add(attachment)
+        
+        # mail.Display(True)  # Hiển thị cửa sổ soạn email để người dùng xem trước
+        mail.Send()  # Nếu muốn gửi tự động không cần xem trước thì dùng dòng này
+        
+        return True
+    except Exception as e:
+        print(f"Lỗi khi gửi email: {e}")
+        return False
+
+def get_email_components(row, month_year):
+    """Tạo subject và body email từ dữ liệu row"""
+    try:
+        # Kiểm tra nếu month_year là None hoặc rỗng
+        if not month_year or not isinstance(month_year, str):
+            now = datetime.datetime.now()
+            month_year = now.strftime("%m/%Y")
+        
+        # Xử lý month_year từ định dạng mm/yyyy
+        try:
+            month, year = month_year.split('/')
+            month_name = datetime.datetime.strptime(month, "%m").strftime("%B")
+            formatted_month_year = f"{month_name}-{year}"
+        except:
+            # Nếu định dạng không đúng, sử dụng tháng hiện tại
+            now = datetime.datetime.now()
+            month_name = now.strftime("%B")
+            formatted_month_year = f"{month_name}-{now.year}"
+        
+        noi_nhan = str(row.get("Nơi nhận dữ liệu", "")).strip()
+        ss = str(row.get("SS", "")).strip()
+        ma_hang = str(row.get("Mã hàng", "")).strip()
+        email_content = str(row.get("Nội dung gửi mail", "")).strip()
+        
+        # Tách subject và content từ email_content
+        subject_match = re.search(r'Subject:\s*(.*?)\n', email_content, re.IGNORECASE)
+        content_match = re.search(r'Content:\s*(.*)', email_content, re.IGNORECASE | re.DOTALL)
+        
+        if subject_match and content_match:
+            subject_template = subject_match.group(1)
+            content_template = content_match.group(1)
+        else:
+            # Template mặc định nếu không tìm thấy
+            subject_template = "<Noi_Nhan> Motor outgoing inspection record on <Month-Year> <SS>-<Ma_Hang>"
+            content_template = "I send you the outgoing data in shipment on <Month-Year>.\nPlease see attached file.\nIf you have any question, please contact to me.\nThanks and best regard."
+        
+        # Thay thế các placeholder
+        subject = subject_template.replace("<Noi_Nhan>", noi_nhan) \
+                                .replace("<Month-Year>", formatted_month_year) \
+                                .replace("<SS>", ss) \
+                                .replace("<Ma_Hang>", ma_hang)
+                                
+        body = content_template.replace("<Month-Year>", formatted_month_year)
+        
+        return subject, body
+    except Exception as e:
+        print(f"Lỗi khi tạo nội dung email: {e}")
+        return None, None
 
 def compress_pdf(input_path, output_path, quality=50):
     """Giảm dung lượng file PDF bằng cách nén hình ảnh"""
@@ -463,18 +535,31 @@ def convert_txt_to_csv(txt_file):
 
 def gui_du_lieu(file_txt, period, df, month_year):
     """Xác nhận dữ liệu từ data_work.csv, copy file PDF và cập nhật status"""
-    global data_df, selected_row_details, current_period
+    # Kiểm tra nếu month_year là None hoặc rỗng
+    if not month_year or not isinstance(month_year, str):
+        month_year = datetime.datetime.now().strftime("%m/%Y")
     
-    # Lấy ngày từ month_year
+    global month_year_var
+    
+    # Lấy giá trị tháng/năm từ biến StringVar
+    current_month_year = month_year_var.get() if month_year_var else datetime.datetime.now().strftime("%m/%Y")
+    
+    # Kiểm tra nếu giá trị không hợp lệ thì sử dụng tháng/năm hiện tại
+    if not current_month_year or not isinstance(current_month_year, str):
+        current_month_year = datetime.datetime.now().strftime("%m/%Y")
+    
     try:
-        selected_date = datetime.datetime.strptime(month_year, "%m/%Y")
-        selected_year = selected_date.strftime("%Y")  # THÊM DÒNG NÀY
-        selected_day = datetime.datetime.now().day
-        formatted_date = f"{selected_date.strftime('%y.%m')}.{selected_day:02d}"
+        selected_date = datetime.datetime.strptime(current_month_year, "%m/%Y")
+        selected_year = selected_date.strftime("%Y")
+        formatted_date = selected_date.strftime("%y.%m")  # Định dạng yy.mm
+        
+        print(f"Sử dụng tháng/năm: {current_month_year}")
+        print(f"Định dạng ngày: {formatted_date}")
     except:
+        # Nếu có lỗi khi parse, sử dụng tháng/năm hiện tại
         selected_date = datetime.datetime.now()
-        selected_year = selected_date.strftime("%Y")  # THÊM DÒNG NÀY
-        formatted_date = selected_date.strftime("%y.%m.%d")
+        selected_year = selected_date.strftime("%Y")
+        formatted_date = selected_date.strftime("%y.%m")
     
     # Validate input
     if not file_txt or not os.path.exists(file_txt):
@@ -583,6 +668,16 @@ def gui_du_lieu(file_txt, period, df, month_year):
                         mskh.upper() in file_name):
                         
                         if noi_nhan not in created_folders:
+                            # Tạo thư mục tạm (_temp)
+                            base_folder_temp = os.path.join(
+                                data_temp_path,
+                                f"Gửi {noi_nhan}",
+                                selected_year,
+                                f"Gửi {formatted_date}_temp"
+                            )
+                            os.makedirs(base_folder_temp, exist_ok=True)
+                            
+                            # Tạo thư mục chính thức
                             base_folder = os.path.join(
                                 data_temp_path,
                                 f"Gửi {noi_nhan}",
@@ -590,21 +685,40 @@ def gui_du_lieu(file_txt, period, df, month_year):
                                 f"Gửi {formatted_date}"
                             )
                             os.makedirs(base_folder, exist_ok=True)
-                            created_folders[noi_nhan] = base_folder
                             
-                        ss_folder = os.path.join(created_folders[noi_nhan], ss)
-                        os.makedirs(ss_folder, exist_ok=True)
+                            created_folders[noi_nhan] = {
+                                'temp': base_folder_temp,
+                                'final': base_folder
+                            }
                         
+                        # Tạo thư mục con theo SS trong thư mục tạm
+                        ss_folder_temp = os.path.join(created_folders[noi_nhan]['temp'], ss)
+                        os.makedirs(ss_folder_temp, exist_ok=True)
+                        
+                        # Tạo thư mục con theo SS trong thư mục chính thức
+                        ss_folder_final = os.path.join(created_folders[noi_nhan]['final'], ss)
+                        os.makedirs(ss_folder_final, exist_ok=True)
+                        
+                        # Tạo tên file mới
                         new_filename = f"{lot_no}-{ma_hang}-{mskh}.pdf" if not wdr_no else f"{lot_no}-{ma_hang}-{mskh}-{wdr_no}.pdf"
+                        
+                        # Bước 1: Copy file gốc vào thư mục tạm
                         src_file = os.path.join(lot_folder, file)
-                        dest_file = os.path.join(ss_folder, new_filename)
+                        temp_file = os.path.join(ss_folder_temp, new_filename)
                         
                         try:
-                            shutil.copy2(src_file, dest_file)
+                            shutil.copy2(src_file, temp_file)
                             copied_files_count += 1
                             files_copied_for_row += 1
+                            
+                            # Bước 2: Nén file PDF trong thư mục tạm
+                            compressed_file = os.path.join(ss_folder_final, new_filename)
+                            if not compress_pdf(temp_file, compressed_file):
+                                # Nếu nén thất bại, copy file gốc
+                                shutil.copy2(temp_file, compressed_file)
+                            
                         except Exception as e:
-                            print(f"Lỗi khi copy file {file}: {e}")
+                            print(f"Lỗi khi xử lý file {file}: {e}")
             
             if files_copied_for_row > 0:
                 data_df.loc[index, "Status"] = "Đã copy dữ liệu"
@@ -614,34 +728,93 @@ def gui_du_lieu(file_txt, period, df, month_year):
         update_table(data_df)
         
         if copied_files_count > 0:
-            # Nén thư mục
+            # Tạo dictionary để lưu các thư mục cần nén theo từng nơi nhận
+            folders_to_zip = {}
             
-            source_folder = os.path.join(data_temp_path, f"Gửi {noi_nhan}", selected_year, f"Gửi {formatted_date}")
-            output_folder = os.path.join(data_temp_path, f"Gửi {noi_nhan}", selected_year)
+            # Sau khi copy và nén xong, xóa thư mục tạm
+            for noi_nhan, folders in created_folders.items():
+                temp_folder = folders['temp']
+                if os.path.exists(temp_folder):
+                    try:
+                        shutil.rmtree(temp_folder)
+                        print(f"Đã xóa thư mục tạm: {temp_folder}")
+                    except Exception as e:
+                        print(f"Lỗi khi xóa thư mục tạm: {e}")
             
-            print("sourcefolder la",source_folder)
-            print("outputfolder la",output_folder)
-            os.makedirs(output_folder, exist_ok=True)
-            zip_filename = f"Gửi {formatted_date}.zip"
-            zip_path = os.path.join(output_folder, zip_filename)
+            # Chỉ xét các dòng đã copy thành công
+            for index, row in data_df[data_df["Status"] == "Đã copy dữ liệu"].iterrows():
+                noi_nhan = str(row.get("Nơi nhận dữ liệu", "")).strip()
+                if not noi_nhan:
+                    continue
+                    
+                # Tạo key riêng cho mỗi nơi nhận
+                if noi_nhan not in folders_to_zip:
+                    # Đường dẫn đến thư mục cần nén
+                    source_folder = os.path.join(
+                        data_temp_path, 
+                        f"Gửi {noi_nhan}",
+                        selected_year,
+                        f"Gửi {formatted_date}"
+                    )
+                    
+                    # Chỉ thêm vào danh sách nếu thư mục tồn tại và có file
+                    if os.path.exists(source_folder) and any(os.listdir(source_folder)):
+                        folders_to_zip[noi_nhan] = {
+                            'source': source_folder,
+                            'output': os.path.join(data_temp_path, f"Gửi {noi_nhan}", selected_year)
+                        }
             
-            total_size = sum(os.path.getsize(os.path.join(root, file)) for root, dirs, files in os.walk(source_folder) for file in files)
-            total_size_mb = total_size / (1024 * 1024)
-            max_size_mb = 10.0  # Dung lượng tối đa cho mỗi file zip
-            
-            if total_size_mb <= max_size_mb:
-                # Nén thành 1 file
-                with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
-                    for root, dirs, files in os.walk(source_folder):
-                        for file in files:
-                            file_path = os.path.join(root, file)
-                            arcname = os.path.relpath(file_path, source_folder)
-                            zipf.write(file_path, arcname)
+            # Thực hiện nén cho từng thư mục
+            for noi_nhan, paths in folders_to_zip.items():
+                source_folder = paths['source']
+                output_folder = paths['output']
                 
-                print(f"Đã nén thành công: {zip_path}")
-            else:
-                # Nén thành nhiều file nếu cần
-                zip_folder_by_size(source_folder, os.path.join(output_folder, f"Gửi {formatted_date}"), max_size_mb)
+                print(f"Đang xử lý nén cho {noi_nhan}:")
+                print(f"- Thư mục nguồn: {source_folder}")
+                print(f"- Thư mục đích: {output_folder}")
+                
+                os.makedirs(output_folder, exist_ok=True)
+                zip_filename = f"{noi_nhan.replace(' ', '_')}_{formatted_date.replace('.', '-')}.zip"
+                zip_path = os.path.join(output_folder, zip_filename)
+                
+                # Tính toán dung lượng
+                total_size = 0
+                for root, dirs, files in os.walk(source_folder):
+                    for file in files:
+                        total_size += os.path.getsize(os.path.join(root, file))
+                
+                total_size_mb = total_size / (1024 * 1024)
+                max_size_mb = float(df.iloc[0, df.columns.get_loc("DUNG LƯỢNG 1 LẦN GỬI")]) if "DUNG LƯỢNG 1 LẦN GỬI" in df.columns else 10.0
+                
+                print(f"Tổng dung lượng: {total_size_mb:.2f} MB - Giới hạn: {max_size_mb} MB")
+                
+                if total_size_mb <= max_size_mb:
+                    # Nén thành 1 file
+                    try:
+                        with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
+                            for root, dirs, files in os.walk(source_folder):
+                                for file in files:
+                                    file_path = os.path.join(root, file)
+                                    arcname = os.path.relpath(file_path, source_folder)
+                                    zipf.write(file_path, arcname)
+                        
+                        print(f"Đã nén thành công: {zip_path}")
+                        
+                        # Xóa thư mục nguồn sau khi nén
+                        try:
+                            # shutil.rmtree(source_folder)
+                            print(f"Đã xóa thư mục nguồn: {source_folder}")
+                        except Exception as e:
+                            print(f"Lỗi khi xóa thư mục nguồn: {e}")
+                            
+                    except Exception as e:
+                        print(f"Lỗi khi nén: {e}")
+                else:
+                    # Nén thành nhiều file nếu cần
+                    if zip_folder_by_size(source_folder, 
+                                    os.path.join(output_folder, f"{noi_nhan.replace(' ', '_')}_{formatted_date.replace('.', '-')}"),
+                                    max_size_mb):
+                        print(f"Đã nén thành nhiều file cho {noi_nhan}")
             
             messagebox.showinfo("Thành công", 
                 f"Đã xác nhận {confirmed_count} dòng dữ liệu\n"
@@ -653,91 +826,294 @@ def gui_du_lieu(file_txt, period, df, month_year):
         messagebox.showerror("Lỗi", f"Đã xảy ra lỗi khi xử lý dữ liệu: {str(e)}")
 
 def send_all_data(period, df):
-    """Gửi toàn bộ dữ liệu đã xác nhận"""
-    global data_df
+    """Gửi toàn bộ dữ liệu đã xác nhận và gửi email"""
+    global original_df,data_df,month_year_var
+    
+    # Lọc từ original_df thay vì df đang filter
+    rows_to_send = original_df[original_df["Status"] == "Đã copy dữ liệu"]
+    
+    # Lấy giá trị tháng/năm từ biến StringVar
+    current_month_year = month_year_var.get() if month_year_var else datetime.datetime.now().strftime("%m/%Y")
+
     if df is None or df.empty:
         messagebox.showwarning("Cảnh báo", "Không có dữ liệu để gửi!")
         return
-    if "Status" in df.columns:
-        # Chỉ cập nhật trạng thái của các dòng "Đã xác nhận"
-        df.loc[df["Status"] == "Đã xác nhận", "Status"] = "Đã gửi dữ liệu"
-        data_df = df.copy()
-        save_status(period, data_df)
-        try:
-            from .gui import update_table
-            update_table(data_df)
-        except ImportError: pass
-        messagebox.showinfo("Thông báo", "Đã gửi toàn bộ dữ liệu đã xác nhận!")
-    else:
-         messagebox.showwarning("Cảnh báo", "Không tìm thấy cột 'Status' trong dữ liệu.")
+        
+    if "Status" not in df.columns:
+        messagebox.showwarning("Cảnh báo", "Không tìm thấy cột 'Status' trong dữ liệu.")
+        return
+   
+    # Lọc các dòng đã copy dữ liệu
+    rows_to_send = df[df["Status"] == "Đã copy dữ liệu"]
+    if rows_to_send.empty:
+        messagebox.showwarning("Cảnh báo", "Không có dữ liệu nào ở trạng thái 'Đã copy dữ liệu' để gửi!")
+        return
+
+    config = load_config()
+    data_temp_path = config.get("data_temp_path", "")
+    if not data_temp_path:
+        messagebox.showerror("Lỗi", "Không tìm thấy đường dẫn thư mục tạm trong cấu hình!")
+        return
+
+        # Kiểm tra nếu giá trị không hợp lệ thì sử dụng tháng/năm hiện tại
+    if not current_month_year or not isinstance(current_month_year, str):
+        current_month_year = datetime.datetime.now().strftime("%m/%Y")
+    
+    try:
+        selected_date = datetime.datetime.strptime(current_month_year, "%m/%Y")
+        selected_year = selected_date.strftime("%Y")
+        formatted_date = selected_date.strftime("%y.%m")  # Định dạng yy.mm
+        
+        print(f"Sử dụng tháng/năm: {current_month_year}")
+        print(f"Định dạng ngày: {formatted_date}")
+    except Exception as e:
+                print(f"[ERROR] Bị lỗi: {e}")    
+
+    success_count = 0
+    fail_count = 0
+    
+    # Tạo dictionary để nhóm theo nơi nhận
+    recipients_dict = {}
+    
+    # Lọc các dòng đã copy dữ liệu từ original_df
+    rows_to_send = original_df[original_df["Status"] == "Đã copy dữ liệu"]
+    
+    # Nhóm dữ liệu theo nơi nhận
+    for index, row in rows_to_send.iterrows():
+        noi_nhan = str(row.get("Nơi nhận dữ liệu", "")).strip()
+        email_address = str(row.get("Địa chỉ gửi mail", "")).strip()
+        
+        if not noi_nhan or not email_address:
+            print(f"Bỏ qua dòng {index} - thiếu thông tin nơi nhận hoặc email")
+            fail_count += 1
+            continue
+            
+        if noi_nhan not in recipients_dict:
+            recipients_dict[noi_nhan] = {
+                'email': email_address,
+                'rows': [index],
+                'subject_body': get_email_components(row, current_month_year)
+            }
+        else:
+            recipients_dict[noi_nhan]['rows'].append(index)
+    
+    # Xử lý gửi email cho từng nơi nhận
+    for noi_nhan, data in recipients_dict.items():
+        # Tạo đường dẫn đến file zip
+        base_folder = os.path.join(
+            data_temp_path,
+            f"Gửi {noi_nhan}",
+            selected_year
+        )
+        
+        # Tìm file zip (có thể có nhiều file nếu chia nhỏ)
+        zip_files = []
+        zip_prefix = f"{noi_nhan.replace(' ', '_')}_{formatted_date.replace('.', '-')}"
+        
+        # Kiểm tra file zip đơn
+        single_zip = os.path.join(base_folder, f"{zip_prefix}.zip")
+        if os.path.exists(single_zip):
+            zip_files.append(single_zip)
+        else:
+            # Kiểm tra các file zip chia nhỏ
+            i = 1
+            while True:
+                part_zip = os.path.join(base_folder, f"{zip_prefix}_{i:02d}.zip")
+                if os.path.exists(part_zip):
+                    zip_files.append(part_zip)
+                    i += 1
+                else:
+                    break
+        
+        if not zip_files:
+            print(f"Không tìm thấy file zip cho {noi_nhan}")
+            fail_count += 1
+            continue
+            
+        # Lấy thông tin email
+        subject, body = data['subject_body']
+        if not subject or not body:
+            print(f"Không thể tạo nội dung email cho {noi_nhan}")
+            fail_count += 1
+            continue
+        
+        # Gửi từng email riêng cho mỗi file zip
+        for zip_file in zip_files:
+            if send_email_via_outlook(subject, body, data['email'], [zip_file]):
+                success_count += 1
+            else:
+                fail_count += 1
+        
+        # Cập nhật status sau khi gửi tất cả file
+        if success_count > 0:
+            for row_index in data['rows']:
+                original_df.loc[row_index, "Status"] = "Đã gửi dữ liệu"
+    
+    # Cập nhật lại data_df sau khi filter
+    data_df = original_df.copy()
+    for col, value in filters.items():
+        data_df = data_df[data_df[col].astype(str).str.contains(value, case=False, na=False)]
+    
+    save_status(period, original_df)
+    update_table(data_df)
+    
+    messagebox.showinfo("Kết quả", 
+        f"Đã gửi {success_count} email thành công\n"
+        f"Gửi thất bại {fail_count} email")
 
 
 def send_selected_data(period, df):
-    """Gửi các dòng dữ liệu được chọn"""
-    global data_df, tree
+    """Gửi các dòng dữ liệu được chọn và gửi email"""
+    global original_df, tree, data_df
+    
+    selected_items = tree.selection()
+    temp_original_df = original_df.copy()
+    
     if df is None or df.empty:
         messagebox.showwarning("Cảnh báo", "Không có dữ liệu để gửi!")
         return
+        
     if tree is None or not tree.winfo_exists():
-         messagebox.showwarning("Cảnh báo", "Giao diện bảng chưa sẵn sàng.")
-         return
+        messagebox.showwarning("Cảnh báo", "Giao diện bảng chưa sẵn sàng.")
+        return
 
     selected_items = tree.selection()
     if not selected_items:
         messagebox.showwarning("Cảnh báo", "Vui lòng chọn các dòng để gửi!")
         return
 
-    updated = False
-    temp_df = df.copy()
+    # Lấy thông tin tháng/năm từ GUI (cần import từ state)
+    from .state import month_year_var
+    current_month_year = month_year_var.get() if month_year_var else datetime.datetime.now().strftime("%m/%Y")
+    
+    config = load_config()
+    data_temp_path = config.get("data_temp_path", "")
+    if not data_temp_path:
+        messagebox.showerror("Lỗi", "Không tìm thấy đường dẫn thư mục tạm trong cấu hình!")
+        return
 
-    if "Status" not in temp_df.columns:
-         messagebox.showwarning("Cảnh báo", "Không tìm thấy cột 'Status' trong dữ liệu.")
-         return
+    # Lấy ngày hiện tại
+    selected_date = datetime.datetime.strptime(current_month_year, "%m/%Y")
+    selected_year = selected_date.strftime("%Y")
+    selected_day = datetime.datetime.now().day
+    formatted_date = f"{selected_date.strftime('%y.%m')}.{selected_day:02d}"
 
-    # Tạo một mapping từ item id của Treeview sang index của DataFrame
-    # Đây là cách an toàn hơn so với dựa vào vị trí hiển thị
-    # Cần đảm bảo khi populate Treeview, ta lưu trữ index DataFrame vào item
-    # Hiện tại code gốc không làm điều này. Tạm thời giữ nguyên logic dựa vào index vị trí,
-    # nhưng cần lưu ý đây có thể là nguồn lỗi nếu có lọc/sắp xếp.
-    # Một cách tốt hơn là lấy giá trị SS/MSKH từ item và tìm trong DataFrame gốc (original_df)
-    # để lấy index chính xác.
-
-    # Dựa trên cách update_table hiện tại, index vị trí có thể tạm dùng nếu không có sắp xếp/lọc phức tạp.
-    df_indices_to_update = []
+    success_count = 0
+    fail_count = 0
+    recipients_dict = {}  # Dictionary để nhóm theo nơi nhận
+    
     for item in selected_items:
         try:
-            # Lấy index vị trí trong Treeview
             tree_index = tree.index(item)
-            # Nếu DataFrame chưa bị lọc/sắp xếp, index này có thể tương ứng index DataFrame
-            if tree_index < len(temp_df):
-                 # Kiểm tra trạng thái trước khi thêm vào danh sách cập nhật
-                 if temp_df.iloc[tree_index].get("Status", "") == "Đã xác nhận":
-                      df_indices_to_update.append(tree_index)
-                 # else:
-                      # print(f"Send Selected: Row at tree index {tree_index} not 'Đã xác nhận'. Status: {temp_df.iloc[tree_index].get('Status', '')}") # Debug print
-
+            if tree_index >= len(original_df):
+                continue
+                
+            row = original_df.iloc[tree_index]
+            if str(row.get("Status", "")).strip() != "Đã copy dữ liệu":
+                continue
+                
+            noi_nhan = str(row.get("Nơi nhận dữ liệu", "")).strip()
+            email_address = str(row.get("Địa chỉ gửi mail", "")).strip()
+            
+            if not noi_nhan or not email_address:
+                print(f"Bỏ qua dòng {tree_index} - thiếu thông tin nơi nhận hoặc email")
+                fail_count += 1
+                continue
+                
+            if noi_nhan not in recipients_dict:
+                recipients_dict[noi_nhan] = {
+                    'email': email_address,
+                    'rows': [tree_index],
+                    'subject_body': get_email_components(row, current_month_year)
+                }
+            else:
+                recipients_dict[noi_nhan]['rows'].append(tree_index)
+                
         except Exception as e:
-            print(f"Lỗi khi xử lý item được chọn {item}: {e}")
+            print(f"Lỗi khi xử lý dòng được chọn: {e}")
+            fail_count += 1
+    
+    # Xử lý gửi email cho từng nơi nhận
+    for noi_nhan, data in recipients_dict.items():
+        # Tạo đường dẫn đến file zip
+        base_folder = os.path.join(
+            data_temp_path,
+            f"Gửi {noi_nhan}",
+            selected_year
+        )
+        
+        # Tìm file zip
+        zip_files = []
+        zip_prefix = f"{noi_nhan.replace(' ', '_')}_{formatted_date.replace('.', '-')}"
+        
+        single_zip = os.path.join(base_folder, f"{zip_prefix}.zip")
+        if os.path.exists(single_zip):
+            zip_files.append(single_zip)
+        else:
+            i = 1
+            while True:
+                part_zip = os.path.join(base_folder, f"{zip_prefix}_{i:02d}.zip")
+                if os.path.exists(part_zip):
+                    zip_files.append(part_zip)
+                    i += 1
+                else:
+                    break
+        
+        if not zip_files:
+            print(f"Không tìm thấy file zip cho {noi_nhan}")
+            fail_count += 1
             continue
+            
+        # Gửi từng email riêng cho mỗi file zip
+        subject, body = data['subject_body']
+        if not subject or not body:
+            print(f"Không thể tạo nội dung email cho {noi_nhan}")
+            fail_count += 1
+            continue
+            
+        for zip_file in zip_files:
+            if send_email_via_outlook(subject, body, data['email'], [zip_file]):
+                success_count += 1
+            else:
+                fail_count += 1
+        
+        # Cập nhật status sau khi gửi tất cả file
+        if success_count > 0:
+            for row_index in data['rows']:
+                original_df.loc[row_index, "Status"] = "Đã gửi dữ liệu"
+    
+    # Cập nhật lại data_df sau khi filter
+    data_df = original_df.copy()
+    for col, value in filters.items():
+        data_df = data_df[data_df[col].astype(str).str.contains(value, case=False, na=False)]
+    
+    save_status(period, original_df)
+    update_table(data_df)
+    
+    messagebox.showinfo("Kết quả", 
+        f"Đã gửi {success_count} email thành công\n"
+        f"Gửi thất bại {fail_count} email")
 
-    # Chỉ cập nhật trạng thái cho các index đã xác định và có trạng thái "Đã xác nhận"
-    if df_indices_to_update:
-         for index in df_indices_to_update:
-              temp_df.loc[index, "Status"] = "Đã gửi dữ liệu"
-         updated = True
+def update_table(df):
+    """Cập nhật dữ liệu vào Treeview - Phiên bản tối ưu"""
+    global tree
+    
+    if tree is None or not tree.winfo_exists():
+        return
 
-
-    if updated:
-        data_df = temp_df.copy()
-        save_status(period, data_df)
-        try:
-            from .gui import update_table
-            update_table(data_df)
-        except ImportError: pass
-        messagebox.showinfo("Thông báo", "Đã gửi các dòng dữ liệu đang chọn!")
-    else:
-        messagebox.showinfo("Thông báo", "Không có dòng nào được chọn hoặc các dòng được chọn chưa ở trạng thái 'Đã xác nhận'.")
-
+    # Xóa và thêm lại toàn bộ dữ liệu
+    tree.delete(*tree.get_children())
+    
+    if df is not None and not df.empty:
+        for row in df.itertuples(index=False):
+            tree.insert("", "end", values=tuple(str(getattr(row, col)) for col in df.columns))
+    
+    # Cập nhật tiêu đề cột
+    for col in tree["columns"]:
+        tree.heading(col, text=f"{col} (filter)" if col in filters and filters[col] else col)
+    
+    # Force update GUI
+    tree.update_idletasks()
 
 def save_status(period, df):
     """Lưu trạng thái vào file CSV"""
@@ -761,24 +1137,34 @@ def save_status(period, df):
 
 
 def reset_status():
-    """Reset trạng thái về rỗng cho dữ liệu đang hiển thị"""
-    global data_df, current_period
-    if data_df is not None and not data_df.empty:
-        if "Status" in data_df.columns:
-            # Sử dụng .copy() để tránh SettingWithCopyWarning
-            temp_df = data_df.copy()
-            temp_df["Status"] = ""
-            data_df = temp_df.copy() # Cập nhật biến global
-
-            period_to_save = current_period.get() if current_period and current_period.get() else "Tháng"
-            save_status(period_to_save, data_df)
-            try:
-                from .gui import update_table
-                update_table(data_df)
-            except ImportError: pass
-            messagebox.showinfo("Thông báo", "Đã reset toàn bộ trạng thái!")
-        else:
-             messagebox.showwarning("Cảnh báo", "Không tìm thấy cột 'Status' để reset.")
-
-    else:
+    """Reset trạng thái về rỗng cho toàn bộ dữ liệu (kể cả khi đang filter)"""
+    global data_df, original_df, current_period, filters
+    
+    if original_df is None or original_df.empty:
         messagebox.showinfo("Thông báo", "Không có dữ liệu trong bảng để reset trạng thái!")
+        return
+
+    if "Status" not in original_df.columns:
+        messagebox.showwarning("Cảnh báo", "Không tìm thấy cột 'Status' để reset.")
+        return
+
+    # Reset toàn bộ status trong original_df
+    original_df.loc[:, "Status"] = ""
+    
+    # Áp dụng lại filter hiện tại
+    data_df = original_df.copy()
+    for col, value in filters.items():
+        data_df = data_df[data_df[col].astype(str).str.contains(value, case=False, na=False)]
+    
+    # Lưu trạng thái
+    period_to_save = current_period.get() if current_period else "Tháng"
+    save_status(period_to_save, original_df)
+    
+    # Cập nhật GUI
+    try:
+        from .gui import update_table
+        update_table(data_df)
+    except ImportError: 
+        pass
+    
+    messagebox.showinfo("Thông báo", "Đã reset toàn bộ trạng thái!")

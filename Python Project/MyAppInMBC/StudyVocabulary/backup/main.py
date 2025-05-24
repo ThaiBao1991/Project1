@@ -46,3 +46,6 @@ root.bind("<Escape>", lambda event: root.quit())
 
 # Chạy chương trình
 root.mainloop()
+
+# cd "C:\Project\StudyVocabulary"
+# "C:\Users\12953 bao\AppData\Roaming\Python\Python312\Scripts\pyinstaller.exe" --onefile --noconsole --add-data "C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\english_vocab.json;." --add-data "directory_treemap.png;." --add-data "tree.md;." main.py
