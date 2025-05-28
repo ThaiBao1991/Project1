@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BasicJS</title>
+  <link rel="stylesheet" href="./static/bootstrap4.6/css/bootstrap.min.css">
+</head>
+
+<body>
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BasicJS</title>
+    <link rel="stylesheet" href="./static/bootstrap4.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./static/style.css">
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <h1>BASIC EXAMPLE ABOUT JAVASCRIPT</h1>
+          <div class="row m-auto d-flex align-items-stretch" id="BasicExample">
+            <div class="col-4"">
+              <form name=" Example1">
+              <h1>Example 1: Xác định số đã nhập có phải là nguyên dương hay không</h1>
+              <div class="form-group">
+                <label for="a">Số A</label>
+                <input type="text" class="form-control" id="NumberA" aria-describedby="NumberHelp"
+                  placeholder="Enter NumberA">
+                <small id="NumberHelp" class="d-none form-text text-muted">Enter Number Only.</small>
+                <label for="kq">kết quả</label>
+                <input type="text" class="form-control" id="result" placeholder="Kết quả">
+              </div>
+              <button type="submit" class="btn btn-primary">Tính toán</button>
+              </form>
+            </div>
+            <div class="col-4">
+              <form name="Example2">
+                <h1>Example 2: Xác định số đã nhập có phải là nguyên âm hay không</h1>
+                <div class="form-group">
+                  <label for="a">Số A</label>
+                  <input type="text" class="form-control" id="NumberA" aria-describedby="NumberHelp"
+                    placeholder="Enter NumberA">
+                  <small id="NumberHelp" class="d-none form-text text-muted">Enter Number Only.</small>
+                  <label for="kq">kết quả</label>
+                  <input type="text" class="form-control" id="result" placeholder="Kết quả">
+                </div>
+                <button type="submit" class="btn btn-primary">Tính toán</button>
+              </form>
+            </div>
+            <div class="col-4">
+              <form name="Example3">
+                <h1>Example 3: Tính tổng 2 số nguyên</h1>
+                <div class="form-group">
+                  <label for="a">Số A</label>
+                  <input type="text" class="form-control" id="NumberA" aria-describedby="NumberHelp"
+                    placeholder="Enter NumberA">
+                  <small id="NumberHelpA" class="d-none form-text text-muted">Enter Number Only.</small>
+                  <label for="b">Số B</label>
+                  <input type="text" class="form-control" id="NumberB" aria-describedby="NumberHelp"
+                    placeholder="Enter NumberB">
+                  <small id="NumberHelpB" class="d-none form-text text-muted">Enter Number Only.</small>
+                  <label for="kq">kết quả</label>
+                  <input type="text" class="form-control" id="result" placeholder="Kết quả">
+                </div>
+                <button type="submit" class="btn btn-primary">Tính toán</button>
+              </form>
+            </div>
+            <div class="col-4">
+              <form name="Example4">
+                <h1>Example 4: Tính tổng của một array được nhập vào</h1>
+                <div class="form-group">
+                  <label for="a">Nhập vào số phần tử của mảng</label>
+                  <input type="number" class="form-control" id="NumberA" aria-describedby="NumberHelp"
+                    placeholder="Nh ập vào số phần tử của mảng">
+                  <small id="NumberHelpA" class="d-none form-text text-muted">Enter Number Only.</small>
+                  <button type="submit" class="btn btn-primary">Xác nhận</button>
+
+                  <div id="arrayInputs"></div>
+                  <div class="d-none">
+                    <button onclick="calculate()">Tính toán</button>
+                    <button onclick="reset()">Reset</button>=
+                    <p id="result"></p>
+                  </div>
+
+
+
+                  <label for="b">Số B</label>
+                  <input type="text" class="form-control" id="NumberB" aria-describedby="NumberHelp"
+                    placeholder="Enter NumberB">
+                  <small id="NumberHelpB" class="d-none form-text text-muted">Enter Number Only.</small>
+                  <label for="kq">kết quả</label>
+                  <input type="text" class="form-control" id="result" placeholder="Kết quả">
+                </div>
+
+              </form>
+            </div>
+            <!-- <div class="col-4">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  placeholder="Enter email">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                  else.</small>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            <div class="col-4">
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-2">
+                  1 of 3
+                </div>
+                <div class="col-md-auto">
+                  Variable width content
+                </div>
+                <div class="col col-lg-2">
+                  3 of 3
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  1 of 3
+                </div>
+                <div class="col-md-auto">
+                  Variable width content
+                </div>
+                <div class="col col-lg-2">
+                  3 of 3
+                </div>
+              </div>
+            </div> -->
+            <!-- <div class="col-4">
+              // Tạo nút Gọi bài 2
+              let btn = document.createElement("button");
+              btn.id = "Exercices2";
+              btn.innerHTML = "Gọi bài 2";
+              document.body.appendChild(btn);
+
+              // Tạo mẫu kiểm tra số nguyên âm
+              let form = document.createElement("form");
+              form.id = "form";
+              form.innerHTML = `
+              <input id="number" type="number" placeholder="Nhập số của bạn" required>
+              <button type="submit">Tính toán</button>
+              `;
+              document.body.appendChild(form);
+              form.style.display = "none";
+
+              // Tạo kết quả và đồng hồ đếm ngược
+              let result = document.createElement("div");
+              result.id = "result";
+              document.body.appendChild(result);
+              result.style.display = "none";
+
+              // Xử lý sự kiện click cho nút Gọi bài 2
+              btn.addEventListener("click", function() {
+              this.style.display = "none";
+              form.style.display = "block";
+              });
+
+              // Xử lý sự kiện submit cho mẫu
+              form.addEventListener("submit", function(e) {
+              e.preventDefault();
+              let number = document.getElementById("number").value;
+              let isNegative = number < 0; result.innerHTML=isNegative ? "Đây là một số nguyên âm."
+                : "Đây không phải là số nguyên âm." ; result.style.display="block" ; form.style.display="none" ; // Bắt
+                đầu đồng hồ đếm ngược let countdown=120; // 2 phút let intervalId=setInterval(function() { countdown--;
+                if (countdown <=0) { clearInterval(intervalId); result.style.display="none" ; btn.style.display="block"
+                ; } }, 1000); }); </div>
+            </div> -->
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+    <script>
+      // Hàm sử dụng public
+      function CheckNumer(str) {
+        if (/^-?\d+$/.test(str)) {
+          return parseInt(str, 10);
+        } else {
+          return NaN;
+        }
+      }
+
+      // Hàm Example1
+      function Example1(event) {
+        event.preventDefault(); // Ngăn form gửi đí
+        var thisform = document.forms["Example1"]
+        thisform.querySelector("#result").value = ""
+        var a = thisform["NumberA"].value
+        console.log(a)
+        var check = Number.isInteger(CheckNumer(thisform["NumberA"].value));
+        console.log(check)
+        if ((check)) {
+          if (a > 0) {
+            console.log("Số đã cho là nguyên dương")
+            thisform.querySelector("#result").value = "Số đã cho là số nguyên dương"
+          } else {
+            console.log("Số đã cho không phải là số nguyên dương")
+            thisform.querySelector("#result").value = "Số đã cho không phải là số nguyên dương"
+          }
+        } else {
+          thisform["NumberA"].value = "";
+          thisform["NumberA"].placeholder = "Vui lòng nhập giá trị là số"
+          thisform.querySelector("#NumberHelp").classList.remove("d-none")
+          setTimeout(() => {
+            thisform.querySelector("#NumberHelp").classList.add("d-none")
+          }, 3000);
+        }
+      }
+      // Gán biểu thứ function vào form1
+      var form1 = document.querySelector('form[name="Example1"]');
+      var submitButton = form1.querySelector('button[type="submit"]');
+      submitButton.addEventListener('click', Example1);
+
+      // Hàm Example2
+      function Example2(event) {
+        event.preventDefault(); // Ngăn form gửi đí
+        var thisform = document.forms["Example2"]
+        thisform.querySelector("#result").value = ""
+        var a = thisform["NumberA"].value
+        var check = Number.isInteger(CheckNumer(thisform["NumberA"].value));
+        console.log(check)
+        if ((check)) {
+          if (a < 0) {
+            console.log("Số đã cho là nguyên âm")
+            thisform.querySelector("#result").value = "Số đã cho là số nguyên âm"
+          } else {
+            console.log("Số đã cho không phải là số nguyên âm")
+            thisform.querySelector("#result").value = "Số đã cho không phải là số nguyên âm"
+          }
+        } else {
+          thisform["NumberA"].value = "";
+          thisform["NumberA"].placeholder = "Vui lòng nhập giá trị là số"
+          thisform.querySelector("#NumberHelp").classList.remove("d-none")
+          setTimeout(() => {
+            thisform.querySelector("#NumberHelp").classList.add("d-none")
+          }, 3000);
+        }
+      }
+      // Gán biểu thứ function vào form2
+      var form2 = document.querySelector('form[name="Example2"]');
+      var submitButton = form2.querySelector('button[type="submit"]');
+      submitButton.addEventListener('click', Example2);
+
+      // Hàm Example3
+      function Example3(event) {
+        event.preventDefault(); // Ngăn form gửi đi
+        var thisform = document.forms["Example3"]
+        thisform.querySelector("#result").value = ""
+        var a = Number(thisform["NumberA"].value)
+        var b = Number(thisform["NumberB"].value)
+        var check = Number.isInteger(CheckNumer(thisform["NumberA"].value)) & Number.isInteger(CheckNumer(thisform["NumberB"].value));
+        console.log(check)
+        if ((check)) {
+          console.log("Tổng 2 số là :", a + b)
+          thisform.querySelector("#result").value = a + b
+        } else {
+          if (Number.isInteger(CheckNumer(thisform["NumberA"].value))) {
+            thisform["NumberB"].value = "";
+            thisform["NumberB"].placeholder = "Vui lòng nhập giá trị là số"
+            thisform.querySelector("#NumberHelpB").classList.remove("d-none")
+            setTimeout(() => {
+              thisform.querySelector("#NumberHelpB").classList.add("d-none")
+            }, 3000);
+          } else {
+            thisform["NumberA"].value = "";
+            thisform["NumberA"].placeholder = "Vui lòng nhập giá trị là số"
+            thisform.querySelector("#NumberHelpA").classList.remove("d-none")
+            setTimeout(() => {
+              thisform.querySelector("#NumberHelpA").classList.add("d-none")
+            }, 3000);
+          }
+        }
+      }
+      // Gán biểu thứ function vào form3
+      var form3 = document.querySelector('form[name="Example3"]');
+      var submitButton = form3.querySelector('button[type="submit"]');
+      submitButton.addEventListener('click', Example3);
+
+      // Hàm Example4
+      var thisform = document.forms["Example4"]
+      function Ex4createInput() {
+        var num = thisform["NumberA"].value
+      }
+      function Example4(event) {
+        event.preventDefault(); // Ngăn form gửi đi
+
+        thisform.querySelector("#result").value = ""
+        var a = Number(thisform["NumberA"].value)
+        var b = Number(thisform["NumberB"].value)
+        var check = Number.isInteger(CheckNumer(thisform["NumberA"].value)) & Number.isInteger(CheckNumer(thisform["NumberB"].value));
+        console.log(check)
+        if ((check)) {
+          console.log("Tổng 2 số là :", a + b)
+          thisform.querySelector("#result").value = a + b
+        } else {
+          if (Number.isInteger(CheckNumer(thisform["NumberA"].value))) {
+            thisform["NumberB"].value = "";
+            thisform["NumberB"].placeholder = "Vui lòng nhập giá trị là số"
+            thisform.querySelector("#NumberHelpB").classList.remove("d-none")
+            setTimeout(() => {
+              thisform.querySelector("#NumberHelpB").classList.add("d-none")
+            }, 3000);
+          } else {
+            thisform["NumberA"].value = "";
+            thisform["NumberA"].placeholder = "Vui lòng nhập giá trị là số"
+            thisform.querySelector("#NumberHelpA").classList.remove("d-none")
+            setTimeout(() => {
+              thisform.querySelector("#NumberHelpA").classList.add("d-none")
+            }, 3000);
+          }
+        }
+      }
+      // Gán biểu thứ function vào form4
+      var form3 = document.querySelector('form[name="Example4"]');
+      var submitButton = form3.querySelector('button[type="submit"]');
+      submitButton.addEventListener('click', Example4);
+    </script>
+  </body>
+
+  </html>

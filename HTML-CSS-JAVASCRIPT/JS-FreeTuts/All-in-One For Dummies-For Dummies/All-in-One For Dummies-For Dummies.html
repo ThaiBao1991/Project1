@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .myList>li:not(.classNot) {
+            background-color: blue;
+        }
+
+        .myList>li:nth-child(1) {
+            background-color: red;
+        }
+
+        .myList>li:nth-child(3n + 3) {
+            background-color: green;
+        }
+
+        .myList>li:nth-child(even) {
+            background-color: yellow;
+        }
+
+        .gray-background {
+            background-color: gray;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Tạo dạng ghi chú -->
+    <dl>
+        <dt>IE</dt>
+        <dd>IE cũ rồi</dd>
+
+        <dt>Firefox</dt>
+        <dd>FireFox khá mới</dd>
+    </dl>
+
+    <!-- Sắp xếp dạng ul li -->
+    <ul>
+        <li>
+            <h3>USA</h3>
+            <ol>
+                <li>Tiger</li>
+                <li>Lion</li>
+                <li>Mouse</li>
+            </ol>
+        </li>
+
+        <li>
+            <h3>VN</h3>
+            <ol>
+                <li>Cat</li>
+                <li>Dog</li>
+                <li>Mouse</li>
+            </ol>
+        </li>
+    </ul>
+
+    <!-- Tạo table -->
+    <table border="1">
+        <caption>
+            <p>My Schedule</p>
+        </caption>
+        <tr>
+            <th></th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+        </tr>
+
+        <tr>
+            <th>Breakfast</th>
+            <td>In lair</td>
+            <td>with cronies</td>
+            <td>In lair</td>
+            <td>in lair</td>
+            <td>in lair</td>
+        </tr>
+
+        <tr>
+            <th>Morning</th>
+            <td colspan="2">Design traps</td>
+            <td colspan="3">Improve Hideout</td>
+        </tr>
+
+        <tr>
+            <th>Afternoon</th>
+            <td>train minions</td>
+            <td>train minions</td>
+            <td>train minions</td>
+            <td>train minions</td>
+            <td rowspan="2">world domination</td>
+        </tr>
+
+        <tr>
+            <th>Evening</th>
+            <td>manaical laughter</td>
+            <td>manaical laughter</td>
+            <td>manaical laughter</td>
+            <td>manaical laughter</td>
+        </tr>
+
+    </table>
+
+    <!-- Gắn link -->
+    <ul>
+        <li>This little pig went to
+            <a href="market.html">market</a>
+        </li>
+        <li>This little pig stayed
+            <a href="home.html">home</a>.
+        </li>
+        <li>This little pig had
+            <a href="roastBeef.html">roast beef</a>
+        </li>
+        <!-- Dẫn link tới hình ảnh -->
+        <li>This little pig had
+            <a href="./All-in-One For Dummies-For Dummies/static/img/Capture001.png">none</a>.
+        </li>
+        <!-- Link to id -->
+        <li>This little pig went
+            <a href="#wee">'wee wee wee'</a>
+            all the way home.
+        </li>
+
+        <p id="market">market</p>
+        <hr>
+        <p id="wee">wee</p>
+        <hr>
+    </ul>
+    <!-- create form -->
+    <form action="">
+        <fieldset>
+            <legend>Please check off your life goals </legend>
+            <p>
+                <input type="checkbox" id="chkPeace" value="peace" />World peace
+            </p>
+            <p>
+                <input type="checkbox" id="chkHarmony" value="harmony" />Harmony and brotherhood
+            </p>
+            <p>
+                <input type="checkbox" id="chkCash" value="cash" />Cash
+            </p>
+        </fieldset>
+    </form>
+
+    <ul class="myList">
+        <li class="classNot">selection</li>
+        <li class="classNot">selection</li>
+        <li class="classNot">selection</li>
+        <li class="classNot">selection</li>
+        <li class="classNot">selection</li>
+        <li class="classNot">selection</li>
+        <li class="classNot">selection</li>
+        <li class="">selection</li>
+        <li class="classNot">selection</li>
+    </ul>
+    
+    <div class="collectionjsBtn">
+        <!-- Xuất prompt nhập tên rồi ra alert gọi lại tên đó -->
+        <button id="btnjs1" onclick="js1()" class="btn btn-success">Simple JS1</button>
+        <!-- Xuất prompt nhập tên hiện ra alert báo số ký tự có tên đó -->
+        <button id="btnjs2" class="btn btn-success">Simple JS2</button>
+        <!-- Thay đổi màu sắc của background thẻ body -->
+        <button id="btnjs3" class="btn btn-success">Simple JS3</button>
+    </div>
+    <script>
+        function js1() {
+            var person = "";
+            person = prompt("What is your name?");
+            alert("Hi there, " + person + "!");
+        }
+        function js2() {
+            var person = prompt("Please enter your name.");
+            var length = person.length;
+
+            alert("Hi, " + person + "!");
+            alert("The name " + person + " is " + length + " characters long.");
+        }
+        function js3() {
+            document.body.classList.toggle("gray-background");
+        }
+        document.getElementById("btnjs2").onclick = function () { js2() };
+        document.getElementById("btnjs3").addEventListener("click", js3);
+    </script>
+</body>
+
+</html>
