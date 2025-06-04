@@ -31,6 +31,9 @@ def create_main_window(root):
 
 def show_send_frame(root, period):
     global current_period, send_frame, label_file, entry_file, frame_table, tree, frame_status_buttons, btn_back, data_df, month_year_var
+    # --- Thêm biến chế độ lọc ---
+    global filter_mode_var, entry_file_kjs
+    filter_mode_var = tk.StringVar(value="MAP_ERP")  # Mặc định là MAP_ERP
     
     if month_year_var is None:
         month_year_var = tk.StringVar()
@@ -62,19 +65,43 @@ def show_send_frame(root, period):
     frame_file_month.pack(fill="x", padx=20, pady=10)
     
     # Label và Entry chọn file - bố cục ngang
+    # --- Dòng chọn file MAP_ERP ---
     frame_file_select = tk.Frame(frame_file_month, bg="#e8ecef")
     frame_file_select.pack(fill="x", pady=5)
-    
+    cb_map_erp = tk.Radiobutton(
+        frame_file_select, text="Lọc dữ liệu theo MAP-ERP", variable=filter_mode_var, value="MAP_ERP",
+        font=("Helvetica", 12), bg="#e8ecef", command=lambda: update_file_entries())
+    cb_map_erp.pack(side=tk.LEFT)
     tk.Label(frame_file_select, text=f"Chọn file TXT dữ liệu {period.lower()}:", 
             font=("Helvetica", 12), bg="#e8ecef").pack(side=tk.LEFT)
-    
-    entry_file = tk.Entry(frame_file_select, width=80, font=("Helvetica", 12), 
-                         bd=2, relief="sunken", bg="#ffffff")
+    entry_file = tk.Entry(frame_file_select, width=60, font=("Helvetica", 12), bd=2, relief="sunken", bg="#ffffff")
     entry_file.pack(side=tk.LEFT, padx=10)
-    
-    tk.Button(frame_file_select, text="Chọn file", command=chon_file_txt, 
-             font=("Helvetica", 11, "bold"), bg="#27ae60", fg="white", 
-             padx=20, pady=5).pack(side=tk.LEFT)
+    tk.Button(frame_file_select, text="Chọn file", command=lambda: chon_file_txt("MAP_ERP"),
+             font=("Helvetica", 11, "bold"), bg="#27ae60", fg="white", padx=20, pady=5).pack(side=tk.LEFT)
+
+    # --- Dòng chọn file KJS ---
+    frame_file_select_kjs = tk.Frame(frame_file_month, bg="#e8ecef")
+    frame_file_select_kjs.pack(fill="x", pady=5)
+    cb_kjs = tk.Radiobutton(
+        frame_file_select_kjs, text="Lọc dữ liệu theo KJS", variable=filter_mode_var, value="KJS",
+        font=("Helvetica", 12), bg="#e8ecef", command=lambda: update_file_entries())
+    cb_kjs.pack(side=tk.LEFT)
+    tk.Label(frame_file_select_kjs, text=f"Chọn file TXT/CSV KJS:", 
+            font=("Helvetica", 12), bg="#e8ecef").pack(side=tk.LEFT)
+    entry_file_kjs = tk.Entry(frame_file_select_kjs, width=60, font=("Helvetica", 12), bd=2, relief="sunken", bg="#ffffff")
+    entry_file_kjs.pack(side=tk.LEFT, padx=10)
+    tk.Button(frame_file_select_kjs, text="Chọn file", command=lambda: chon_file_txt("KJS"),
+             font=("Helvetica", 11, "bold"), bg="#27ae60", fg="white", padx=20, pady=5).pack(side=tk.LEFT)
+
+    # --- Ẩn/hiện entry theo chế độ ---
+    def update_file_entries():
+        if filter_mode_var.get() == "MAP_ERP":
+            entry_file.config(state="normal")
+            entry_file_kjs.config(state="disabled")
+        else:
+            entry_file.config(state="disabled")
+            entry_file_kjs.config(state="normal")
+    update_file_entries()
 
     # Label và nút chọn tháng
     frame_month_select = tk.Frame(frame_file_month, bg="#e8ecef")
@@ -173,8 +200,22 @@ def show_send_frame(root, period):
     tree.bind("<Double-1>", lambda event: show_details(root, event))
 
     tk.Button(frame_status_buttons, text="Xác nhận dữ liệu",
-              command=lambda: gui_du_lieu(entry_file.get(), current_period.get() if current_period else period, data_df, month_year_var.get()),
-              font=("Helvetica", 12, "bold"), bg="#27ae60", fg="white", padx=20, pady=10).pack(side=tk.LEFT, padx=10)
+        command=lambda: gui_du_lieu(
+            entry_file.get() if filter_mode_var.get() == "MAP_ERP" else entry_file_kjs.get(),
+            current_period.get() if current_period else period,
+            data_df,
+            month_year_var.get(),
+            filter_mode_var.get()  # truyền chế độ lọc
+        ),
+        font=("Helvetica", 12, "bold"), bg="#27ae60", fg="white", padx=20, pady=10
+    ).pack(side=tk.LEFT, padx=10)
+     # Nút nén dữ liệu
+    tk.Button(
+        frame_status_buttons, text="Nén dữ liệu",
+        command=lambda: nen_du_lieu(data_df, period),
+        font=("Helvetica", 12, "bold"), bg="#2980b9", fg="white", padx=20, pady=10
+    ).pack(side=tk.LEFT, padx=10)
+    
     tk.Button(frame_status_buttons, text="Reset", command=reset_status,
               font=("Helvetica", 12, "bold"), bg="#e74c3c", fg="white", padx=20, pady=10).pack(side=tk.LEFT, padx=10)
 
@@ -202,7 +243,7 @@ def show_send_frame(root, period):
     # Cài đặt các cột trước khi initialize_data chạy
     display_columns = [
         "SS", "Mã hàng", "MSKH", "Tên khách hàng", "Đối tượng gửi dữ liệu",
-        "Part Number", "Gửi Lot DAI DIEN: 'DD' Gửi TOAN BO Lot: 'TB'",
+        "Part Number", "Gui_DL",
         "Nơi nhận dữ liệu", "Nội dung gửi mail", "Địa chỉ gửi mail", "DUNG LƯỢNG 1 LẦN GỬI", "Status"
     ]
     tree["columns"] = display_columns
@@ -232,48 +273,43 @@ def back_to_main():
     if frame_buttons:
         frame_buttons.pack(pady=50, fill="both", expand=True)
 
-def chon_file_txt():
-    """Chọn file TXT hoặc CSV và chuyển thành data_work.csv"""
-    global entry_file, current_period, data_df
-    
-    # Mở hộp thoại chọn file với cả 2 loại TXT và CSV
+def chon_file_txt(mode="MAP_ERP"):
+    """Chọn file TXT hoặc CSV cho từng chế độ"""
+    global entry_file, entry_file_kjs, current_period, data_df
+
     file_path = filedialog.askopenfilename(
         title="Chọn file dữ liệu (TXT hoặc CSV)",
         filetypes=[("Text files", "*.txt"), ("CSV files", "*.csv"), ("All files", "*.*")]
     )
-    
     if not file_path:
         return
-    
-    entry_file.delete(0, tk.END)
-    entry_file.insert(0, file_path)
-    
+
+    if mode == "MAP_ERP":
+        entry_file.delete(0, tk.END)
+        entry_file.insert(0, file_path)
+    else:
+        entry_file_kjs.delete(0, tk.END)
+        entry_file_kjs.insert(0, file_path)
+
     try:
-        # Xử lý file CSV trực tiếp
         if file_path.lower().endswith('.csv'):
-            # Kiểm tra encoding và đọc file CSV
             encodings = ['utf-8-sig', 'utf-8', 'latin1', 'iso-8859-1', 'utf-16']
             for encoding in encodings:
                 try:
                     df = pd.read_csv(file_path, encoding=encoding)
                     if not df.empty:
-                        # Lưu thẳng vào data_work.csv
                         df.to_csv("data_work.csv", index=False, encoding='utf-8-sig')
                         messagebox.showinfo("Thành công", "Đã sử dụng file CSV trực tiếp")
                         break
-                except Exception as e:
+                except Exception:
                     continue
             else:
                 messagebox.showerror("Lỗi", "Không thể đọc file CSV với bất kỳ encoding nào")
                 return
-        # Xử lý file TXT như cũ
         else:
             convert_txt_to_csv(file_path)
-        
-        # Load lại dữ liệu sau khi có file mới
         from .data import initialize_data
         initialize_data(current_period.get() if current_period else "Tháng")
-        
     except Exception as e:
         messagebox.showerror("Lỗi", f"Không thể xử lý file: {str(e)}")
 
@@ -397,7 +433,13 @@ def show_details(root, event):
         detail_window.geometry("800x400")
         detail_window.transient(root)
         detail_window.grab_set()
-        
+        def on_root_close(*args):
+            try:
+                detail_window.destroy()
+            except:
+                pass
+        root.protocol("WM_DELETE_WINDOW", on_root_close)
+        detail_window.protocol("WM_DELETE_WINDOW", detail_window.destroy)
         # Tạo dictionary row từ values và tree_columns
         row = {}
         for i, col in enumerate(tree_columns):
@@ -485,7 +527,7 @@ def show_details(root, event):
             detail_tree.insert("", "end", values=values, tags=tag)
 
         detail_tree.pack(fill="both", expand=True)
-
+        
     except Exception as e:
         messagebox.showerror("Lỗi", f"Lỗi khi hiển thị chi tiết: {str(e)}")
 
@@ -541,3 +583,6 @@ def clear_filter():
     filters.clear()
     data_df = original_df.copy()
     update_table(data_df)
+def nen_du_lieu(data_df, period):
+    from .data import nen_du_lieu as nen_func
+    nen_func(data_df, period)

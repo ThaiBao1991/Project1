@@ -231,7 +231,7 @@ def initialize_data(period):
     status_file = f"Data Test/data_{period.lower()}.csv"
     display_columns = [
         "SS", "Mã hàng", "MSKH", "Tên khách hàng", "Đối tượng gửi dữ liệu",
-        "Part Number", "Gửi Lot DAI DIEN: 'DD' Gửi TOAN BO Lot: 'TB'",
+        "Part Number", "Gui_DL",
         "Nơi nhận dữ liệu", "Nội dung gửi mail", "Địa chỉ gửi mail", "DUNG LƯỢNG 1 LẦN GỬI", "Status"
     ]
 
@@ -305,7 +305,7 @@ def update_data(period, root):
     status_file = f"Data Test/data_{period.lower()}.csv"
     display_columns = [
         "SS", "Mã hàng", "MSKH", "Tên khách hàng", "Đối tượng gửi dữ liệu",
-        "Part Number", "Gửi Lot DAI DIEN: 'DD' Gửi TOAN BO Lot: 'TB'",
+        "Part Number", "Gui_DL",
         "Nơi nhận dữ liệu", "Nội dung gửi mail", "Địa chỉ gửi mail", "DUNG LƯỢNG 1 LẦN GỬI", "Status"
     ]
     data_columns = [
@@ -532,328 +532,319 @@ def convert_txt_to_csv(txt_file):
 
     messagebox.showerror("Lỗi", f"Không thể đọc file TXT: {txt_file}\nDữ liệu không được tách thành cột với các tùy chọn thử. Vui lòng kiểm tra định dạng file hoặc encoding.")
 
+def gui_du_lieu(file_path, period, data_df, month_year, filter_mode="MAP_ERP"):
+    global original_df, month_year_var  # Thêm global original_df ở đây
 
-def gui_du_lieu(file_txt, period, df, month_year):
-    """Xác nhận dữ liệu từ data_work.csv, copy file PDF và cập nhật status"""
-    global original_df, data_df, month_year_var  # Thêm global original_df ở đây
-    # Kiểm tra nếu month_year là None hoặc rỗng
-    if not month_year or not isinstance(month_year, str):
-        month_year = datetime.datetime.now().strftime("%m/%Y")
-        
-    # Lấy giá trị tháng/năm từ biến StringVar
-    current_month_year = month_year_var.get() if month_year_var else datetime.datetime.now().strftime("%m/%Y")
-    
-    # Kiểm tra nếu giá trị không hợp lệ thì sử dụng tháng/năm hiện tại
-    if not current_month_year or not isinstance(current_month_year, str):
-        current_month_year = datetime.datetime.now().strftime("%m/%Y")
-    
-    try:
-        selected_date = datetime.datetime.strptime(current_month_year, "%m/%Y")
-        selected_year = selected_date.strftime("%Y")
-        formatted_date = selected_date.strftime("%y.%m")  # Định dạng yy.mm
-        
-        print(f"Sử dụng tháng/năm: {current_month_year}")
-        print(f"Định dạng ngày: {formatted_date}")
-    except:
-        # Nếu có lỗi khi parse, sử dụng tháng/năm hiện tại
-        selected_date = datetime.datetime.now()
-        selected_year = selected_date.strftime("%Y")
-        formatted_date = selected_date.strftime("%y.%m")
-    
-    # Validate input
-    if not file_txt or not os.path.exists(file_txt):
-        messagebox.showwarning("Cảnh báo", "Vui lòng chọn file TXT trước!")
-        return
+    if filter_mode == "MAP_ERP":
+        # Kiểm tra nếu month_year là None hoặc rỗng
+        if not month_year or not isinstance(month_year, str):
+            month_year = datetime.datetime.now().strftime("%m/%Y")
+        current_month_year = month_year_var.get() if month_year_var else datetime.datetime.now().strftime("%m/%Y")
+        if not current_month_year or not isinstance(current_month_year, str):
+            current_month_year = datetime.datetime.now().strftime("%m/%Y")
+        try:
+            selected_date = datetime.datetime.strptime(current_month_year, "%m/%Y")
+            selected_year = selected_date.strftime("%Y")
+            formatted_date = selected_date.strftime("%y.%m")  # Định dạng yy.mm
+        except:
+            selected_date = datetime.datetime.now()
+            selected_year = selected_date.strftime("%Y")
+            formatted_date = selected_date.strftime("%y.%m")
 
-    if df is None or df.empty:
-        messagebox.showwarning("Cảnh báo", "Không có dữ liệu trong bảng để xác nhận!")
-        return
-
-    if not os.path.exists("data_work.csv"):
-        messagebox.showwarning("Cảnh báo", "Không tìm thấy file data_work.csv!\nVui lòng chọn file TXT để tạo.")
-        return
-
-    try:
-        config = load_config()
-        data_origin_path = config.get("data_origin_path", "")
-        data_temp_path = config.get("data_temp_path", "")
-        
-        if not data_origin_path or not data_temp_path:
-            messagebox.showerror("Lỗi", "Vui lòng cấu hình đường dẫn thư mục gốc và thư mục tạm trước!")
+        # Validate input
+        if not file_path or not os.path.exists(file_path):
+            messagebox.showwarning("Cảnh báo", "Vui lòng chọn file TXT trước!")
             return
 
-        work_df = pd.read_csv("data_work.csv", encoding='utf-8-sig')
-        required_work_cols = ["Sales Part No", "End Customer No", "Lot No"]
-        
-        # Validate columns
-        if not all(col in work_df.columns for col in required_work_cols):
-            missing = [col for col in required_work_cols if col not in work_df.columns]
-            messagebox.showerror("Lỗi", f"File data_work.csv thiếu các cột bắt buộc: {', '.join(missing)}")
+        if data_df is None or data_df.empty:
+            messagebox.showwarning("Cảnh báo", "Không có dữ liệu trong bảng để xác nhận!")
             return
 
-        # Xác nhận dữ liệu
-        temp_df = df.copy()
-        confirmed_count = 0
-        for index, row in temp_df.iterrows():
-            current_status = str(row.get("Status", "")).strip()
-            if current_status in ["Đã xác nhận", "Đã copy dữ liệu", "Đã gửi dữ liệu"]:
-                continue
-                
-            ss = str(row.get("SS", "")).strip()
-            mskh = str(row.get("MSKH", "")).strip()
-            
-            if not ss or not mskh:
-                continue
-
-            # Kiểm tra khớp dữ liệu
-            matched_data = work_df[
-                (work_df["Sales Part No"].astype(str).str.strip() == ss) &
-                (work_df["End Customer No"].astype(str).str.strip() == mskh)
-            ]
-            
-            if not matched_data.empty:
-                temp_df.loc[index, "Status"] = "Đã xác nhận"
-                confirmed_count += 1
-
-        if confirmed_count == 0:
-            messagebox.showinfo("Thông báo", "Không có dữ liệu mới nào được xác nhận!")
+        if not os.path.exists("data_work.csv"):
+            messagebox.showwarning("Cảnh báo", "Không tìm thấy file data_work.csv!\nVui lòng chọn file TXT để tạo.")
             return
-            
-        data_df = temp_df.copy()
-        save_status(period, data_df)
         
-        # Xử lý file PDF
-        copied_files_count = 0
-        created_folders = {}
-        noi_nhan = None  # Lưu lại nơi nhận cho phần nén
-        
-        # Tạo bản sao để làm việc
-        temp_df = df.copy()
-        temp_original_df = original_df.copy() if original_df is not None else pd.DataFrame()
-        
-        for index, row in data_df.iterrows():
-            if str(row.get("Status", "")).strip() != "Đã xác nhận":
-                continue
-                
-            ss = str(row.get("SS", "")).strip()
-            mskh = str(row.get("MSKH", "")).strip()
-            ma_hang = str(row.get("Mã hàng", "")).strip()
-            noi_nhan = str(row.get("Nơi nhận dữ liệu", "")).strip()  # Lấy nơi nhận
-            part_number = str(row.get("Part Number", "")).strip()
-            if part_number in ["", "NAN", "NaN", "nan", "-"]:
-                part_number = ""
+        # Validate input
+        if not file_path or not os.path.exists(file_path):
+            messagebox.showwarning("Cảnh báo", "Vui lòng chọn file TXT trước!")
+            return
+
+        if data_df is None or data_df.empty:
+            messagebox.showwarning("Cảnh báo", "Không có dữ liệu trong bảng để xác nhận!")
+            return
+
+        if not os.path.exists("data_work.csv"):
+            messagebox.showwarning("Cảnh báo", "Không tìm thấy file data_work.csv!\nVui lòng chọn file TXT để tạo.")
+            return
+
+        try:
+            config = load_config()
+            data_origin_path = config.get("data_origin_path", "")
+            data_temp_path = config.get("data_temp_path", "")
             
-             # Tạo tên thư mục SS
-            folder_name = ss
-            if part_number:
-                folder_name = f"{ss} ({part_number})"
+            if not data_origin_path or not data_temp_path:
+                messagebox.showerror("Lỗi", "Vui lòng cấu hình đường dẫn thư mục gốc và thư mục tạm trước!")
+                return
+
+            work_df = pd.read_csv("data_work.csv", encoding='utf-8-sig')
+            required_work_cols = ["Sales Part No", "End Customer No", "Lot No"]
             
-            filtered_data = work_df[
-                (work_df["Sales Part No"].astype(str).str.strip() == ss) &
-                (work_df["End Customer No"].astype(str).str.strip() == mskh)
-            ]
-            
-            # Xử lý từng Lot
-            if filtered_data.empty:
-                continue
-            
-            lot_data = filtered_data.to_dict('records')
-            
-            # Copy file
-            files_copied_for_row = 0
-            for lot_row in lot_data:
-                lot_no = str(lot_row["Lot No"]).strip()
-                wdr_no = str(lot_row.get("W/d/r No", "")).strip() if "W/d/r No" in lot_row else ""
-                lot_folder = os.path.join(data_origin_path, selected_year, ss, lot_no)
-                
-                if not os.path.exists(lot_folder):
+            # Validate columns
+            if not all(col in work_df.columns for col in required_work_cols):
+                missing = [col for col in required_work_cols if col not in work_df.columns]
+                messagebox.showerror("Lỗi", f"File data_work.csv thiếu các cột bắt buộc: {', '.join(missing)}")
+                return
+
+            # Xác nhận dữ liệu
+            temp_df = data_df.copy()
+            confirmed_count = 0
+            for index, row in temp_df.iterrows():
+                current_status = str(row.get("Status", "")).strip()
+                if current_status in ["Đã xác nhận", "Đã copy dữ liệu", "Đã gửi dữ liệu"]:
                     continue
                     
-                for file in os.listdir(lot_folder):
-                    if not file.lower().endswith('.pdf'):
+                ss = str(row.get("SS", "")).strip()
+                mskh = str(row.get("MSKH", "")).strip()
+                
+                if not ss or not mskh:
+                    continue
+
+                # Kiểm tra khớp dữ liệu
+                matched_data = work_df[
+                    (work_df["Sales Part No"].astype(str).str.strip() == ss) &
+                    (work_df["End Customer No"].astype(str).str.strip() == mskh)
+                ]
+                
+                if not matched_data.empty:
+                    temp_df.loc[index, "Status"] = "Đã xác nhận"
+                    confirmed_count += 1
+
+            if confirmed_count == 0:
+                messagebox.showinfo("Thông báo", "Không có dữ liệu mới nào được xác nhận!")
+                return
+                
+            data_df = temp_df.copy()
+            save_status(period, data_df)
+            
+            # Xử lý file PDF
+            copied_files_count = 0
+            created_folders = {}
+            noi_nhan = None  # Lưu lại nơi nhận cho phần nén
+            
+            # Tạo bản sao để làm việc
+            temp_df = data_df.copy()
+            temp_original_df = original_df.copy() if original_df is not None else pd.DataFrame()
+            
+            for index, row in data_df.iterrows():
+                if str(row.get("Status", "")).strip() != "Đã xác nhận":
+                    continue
+                    
+                ss = str(row.get("SS", "")).strip()
+                mskh = str(row.get("MSKH", "")).strip()
+                ma_hang = str(row.get("Mã hàng", "")).strip()
+                noi_nhan = str(row.get("Nơi nhận dữ liệu", "")).strip()  # Lấy nơi nhận
+                part_number = str(row.get("Part Number", "")).strip()
+                if part_number in ["", "NAN", "NaN", "nan", "-"]:
+                    part_number = ""
+                
+                # Tạo tên thư mục SS
+                folder_name = ss
+                if part_number:
+                    folder_name = f"{ss} ({part_number})"
+                
+                filtered_data = work_df[
+                    (work_df["Sales Part No"].astype(str).str.strip() == ss) &
+                    (work_df["End Customer No"].astype(str).str.strip() == mskh)
+                ]
+                
+                # Xử lý từng Lot
+                if filtered_data.empty:
+                    continue
+                
+                lot_data = filtered_data.to_dict('records')
+                
+                # Copy file
+                files_copied_for_row = 0
+                
+                if row.get("Gui_DL", "").upper() == "DD":
+                    # Copy đại diện mỗi W/d/r No
+                    seen_wdr = set()
+                    for lot_row in lot_data:
+                        wdr_no = str(lot_row.get("W/d/r No", "")).strip()
+                        if wdr_no in seen_wdr:
+                            continue
+                        seen_wdr.add(wdr_no)
+                        lot_folder = os.path.join(data_origin_path, selected_year, ss, lot_no)
+                    
+                    if not os.path.exists(lot_folder):
                         continue
                         
-                    file_name = file.upper()
-                    if (lot_no.upper() in file_name and 
-                        ma_hang.upper() in file_name and 
-                        mskh.upper() in file_name):
-                        
-                        if noi_nhan not in created_folders:
-                            # Tạo thư mục tạm (_temp)
-                            base_folder_temp = os.path.join(
-                                data_temp_path,
-                                f"Gửi {noi_nhan}",
-                                selected_year,
-                                f"Gửi {formatted_date}_temp"
-                            )
-                            os.makedirs(base_folder_temp, exist_ok=True)
+                    for file in os.listdir(lot_folder):
+                        if not file.lower().endswith('.pdf'):
+                            continue
                             
-                            # Tạo thư mục chính thức
-                            base_folder = os.path.join(
-                                data_temp_path,
-                                f"Gửi {noi_nhan}",
-                                selected_year,
-                                f"Gửi {formatted_date}"
-                            )
-                            os.makedirs(base_folder, exist_ok=True)
+                        file_name = file.upper()
+                        if (lot_no.upper() in file_name and 
+                            ma_hang.upper() in file_name and 
+                            mskh.upper() in file_name):
                             
-                            created_folders[noi_nhan] = {
-                                'temp': base_folder_temp,
-                                'final': base_folder
-                            }
-                        
-                        # Tạo thư mục con theo SS-PartNumber trong thư mục tạm
-                        ss_folder_temp = os.path.join(created_folders[noi_nhan]['temp'], folder_name)
-                        os.makedirs(ss_folder_temp, exist_ok=True)
-                        
-                        # Tạo thư mục con theo SS-PartNumber trong thư mục chính thức
-                        ss_folder_final = os.path.join(created_folders[noi_nhan]['final'], folder_name)
-                        os.makedirs(ss_folder_final, exist_ok=True)
-                        
-                        # Tạo tên file mới
-                        new_filename = f"{lot_no}-{ma_hang}-{mskh}.pdf" if not wdr_no else f"{lot_no}-{ma_hang}-{mskh}-{wdr_no}.pdf"
-                        
-                        # Bước 1: Copy file gốc vào thư mục tạm
-                        src_file = os.path.join(lot_folder, file)
-                        temp_file = os.path.join(ss_folder_temp, new_filename)
-                        
-                        try:
-                            shutil.copy2(src_file, temp_file)
-                            copied_files_count += 1
-                            files_copied_for_row += 1
+                            if noi_nhan not in created_folders:
+                                # Tạo thư mục tạm (_temp)
+                                base_folder_temp = os.path.join(
+                                    data_temp_path,
+                                    f"Gửi {noi_nhan}",
+                                    selected_year,
+                                    f"Gửi {formatted_date}_temp"
+                                )
+                                os.makedirs(base_folder_temp, exist_ok=True)
+                                
+                                # Tạo thư mục chính thức
+                                base_folder = os.path.join(
+                                    data_temp_path,
+                                    f"Gửi {noi_nhan}",
+                                    selected_year,
+                                    f"Gửi {formatted_date}"
+                                )
+                                os.makedirs(base_folder, exist_ok=True)
+                                
+                                created_folders[noi_nhan] = {
+                                    'temp': base_folder_temp,
+                                    'final': base_folder
+                                }
                             
-                            # Bước 2: Nén file PDF trong thư mục tạm
-                            compressed_file = os.path.join(ss_folder_final, new_filename)
-                            if not compress_pdf(temp_file, compressed_file):
-                                # Nếu nén thất bại, copy file gốc
-                                shutil.copy2(temp_file, compressed_file)
+                            # Tạo thư mục con theo SS-PartNumber trong thư mục tạm
+                            ss_folder_temp = os.path.join(created_folders[noi_nhan]['temp'], folder_name)
+                            os.makedirs(ss_folder_temp, exist_ok=True)
                             
-                        except Exception as e:
-                            print(f"Lỗi khi xử lý file {file}: {e}")
-            
-            if files_copied_for_row > 0:
-                # Cập nhật trên cả temp_df và temp_original_df
-                temp_df.loc[index, "Status"] = "Đã copy dữ liệu"
-                
-                # Tìm và cập nhật trên original_df
-                if not temp_original_df.empty:
-                    mask = (temp_original_df["SS"] == row["SS"]) & (temp_original_df["MSKH"] == row["MSKH"])
-                    temp_original_df.loc[mask, "Status"] = "Đã copy dữ liệu"
-        
-        # Cập nhật lại các dataframe global
-        data_df = temp_df.copy()
-        original_df = temp_original_df.copy()
-        
-        # Lưu trạng thái
-        save_status(period, original_df)
-        
-        # Cập nhật data_df sau filter
-        data_df = original_df.copy()
-        for col, value in filters.items():
-            data_df = data_df[data_df[col].astype(str).str.contains(value, case=False, na=False)]
-        
-        # Cập nhật Treeview ngay lập tức
-        from .gui import update_table
-        update_table(data_df)
-        
-        if copied_files_count > 0:
-            # Tạo dictionary để lưu các thư mục cần nén theo từng nơi nhận
-            folders_to_zip = {}
-            
-            # Sau khi copy và nén xong, xóa thư mục tạm
-            for noi_nhan, folders in created_folders.items():
-                temp_folder = folders['temp']
-                if os.path.exists(temp_folder):
-                    try:
-                        shutil.rmtree(temp_folder)
-                        print(f"Đã xóa thư mục tạm: {temp_folder}")
-                    except Exception as e:
-                        print(f"Lỗi khi xóa thư mục tạm: {e}")
-            
-            # Chỉ xét các dòng đã copy thành công
-            for index, row in data_df[data_df["Status"] == "Đã copy dữ liệu"].iterrows():
-                noi_nhan = str(row.get("Nơi nhận dữ liệu", "")).strip()
-                if not noi_nhan:
-                    continue
-                    
-                # Tạo key riêng cho mỗi nơi nhận
-                if noi_nhan not in folders_to_zip:
-                    # Đường dẫn đến thư mục cần nén
-                    source_folder = os.path.join(
-                        data_temp_path, 
-                        f"Gửi {noi_nhan}",
-                        selected_year,
-                        f"Gửi {formatted_date}"
-                    )
-                    
-                    # Chỉ thêm vào danh sách nếu thư mục tồn tại và có file
-                    if os.path.exists(source_folder) and any(os.listdir(source_folder)):
-                        folders_to_zip[noi_nhan] = {
-                            'source': source_folder,
-                            'output': os.path.join(data_temp_path, f"Gửi {noi_nhan}", selected_year)
-                        }
-            
-            # Thực hiện nén cho từng thư mục
-            for noi_nhan, paths in folders_to_zip.items():
-                source_folder = paths['source']
-                output_folder = paths['output']
-                
-                print(f"Đang xử lý nén cho {noi_nhan}:")
-                print(f"- Thư mục nguồn: {source_folder}")
-                print(f"- Thư mục đích: {output_folder}")
-                
-                os.makedirs(output_folder, exist_ok=True)
-                zip_filename = f"{noi_nhan.replace(' ', '_')}_{formatted_date.replace('.', '-')}.zip"
-                zip_path = os.path.join(output_folder, zip_filename)
-                
-                # Tính toán dung lượng
-                total_size = 0
-                for root, dirs, files in os.walk(source_folder):
-                    for file in files:
-                        total_size += os.path.getsize(os.path.join(root, file))
-                
-                total_size_mb = total_size / (1024 * 1024)
-                max_size_mb = float(df.iloc[0, df.columns.get_loc("DUNG LƯỢNG 1 LẦN GỬI")]) if "DUNG LƯỢNG 1 LẦN GỬI" in df.columns else 10.0
-                
-                print(f"Tổng dung lượng: {total_size_mb:.2f} MB - Giới hạn: {max_size_mb} MB")
-                
-                if total_size_mb <= max_size_mb:
-                    # Nén thành 1 file
-                    try:
-                        with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
-                            for root, dirs, files in os.walk(source_folder):
-                                for file in files:
-                                    file_path = os.path.join(root, file)
-                                    arcname = os.path.relpath(file_path, source_folder)
-                                    zipf.write(file_path, arcname)
-                        
-                        print(f"Đã nén thành công: {zip_path}")
-                        
-                        # Xóa thư mục nguồn sau khi nén
-                        try:
-                            # shutil.rmtree(source_folder)
-                            print(f"Đã xóa thư mục nguồn: {source_folder}")
-                        except Exception as e:
-                            print(f"Lỗi khi xóa thư mục nguồn: {e}")
+                            # Tạo thư mục con theo SS-PartNumber trong thư mục chính thức
+                            ss_folder_final = os.path.join(created_folders[noi_nhan]['final'], folder_name)
+                            os.makedirs(ss_folder_final, exist_ok=True)
                             
-                    except Exception as e:
-                        print(f"Lỗi khi nén: {e}")
+                            # Tạo tên file mới
+                            new_filename = f"{lot_no}-{ma_hang}-{mskh}.pdf" if not wdr_no else f"{lot_no}-{ma_hang}-{mskh}-{wdr_no}.pdf"
+                            
+                            # Bước 1: Copy file gốc vào thư mục tạm
+                            src_file = os.path.join(lot_folder, file)
+                            temp_file = os.path.join(ss_folder_temp, new_filename)
+                            
+                            try:
+                                shutil.copy2(src_file, temp_file)
+                                copied_files_count += 1
+                                files_copied_for_row += 1
+                                
+                                # Bước 2: Nén file PDF trong thư mục tạm
+                                compressed_file = os.path.join(ss_folder_final, new_filename)
+                                if not compress_pdf(temp_file, compressed_file):
+                                    # Nếu nén thất bại, copy file gốc
+                                    shutil.copy2(temp_file, compressed_file)
+                                
+                            except Exception as e:
+                                print(f"Lỗi khi xử lý file {file}: {e}")
                 else:
-                    # Nén thành nhiều file nếu cần
-                    if zip_folder_by_size(source_folder, 
-                                    os.path.join(output_folder, f"{noi_nhan.replace(' ', '_')}_{formatted_date.replace('.', '-')}"),
-                                    max_size_mb):
-                        print(f"Đã nén thành nhiều file cho {noi_nhan}")
+                    for lot_row in lot_data:
+                        lot_no = str(lot_row["Lot No"]).strip()
+                        wdr_no = str(lot_row.get("W/d/r No", "")).strip() if "W/d/r No" in lot_row else ""
+                        lot_folder = os.path.join(data_origin_path, selected_year, ss, lot_no)
+                        
+                        if not os.path.exists(lot_folder):
+                            continue
+                            
+                        for file in os.listdir(lot_folder):
+                            if not file.lower().endswith('.pdf'):
+                                continue
+                                
+                            file_name = file.upper()
+                            if (lot_no.upper() in file_name and 
+                                ma_hang.upper() in file_name and 
+                                mskh.upper() in file_name):
+                                
+                                if noi_nhan not in created_folders:
+                                    # Tạo thư mục tạm (_temp)
+                                    base_folder_temp = os.path.join(
+                                        data_temp_path,
+                                        f"Gửi {noi_nhan}",
+                                        selected_year,
+                                        f"Gửi {formatted_date}_temp"
+                                    )
+                                    os.makedirs(base_folder_temp, exist_ok=True)
+                                    
+                                    # Tạo thư mục chính thức
+                                    base_folder = os.path.join(
+                                        data_temp_path,
+                                        f"Gửi {noi_nhan}",
+                                        selected_year,
+                                        f"Gửi {formatted_date}"
+                                    )
+                                    os.makedirs(base_folder, exist_ok=True)
+                                    
+                                    created_folders[noi_nhan] = {
+                                        'temp': base_folder_temp,
+                                        'final': base_folder
+                                    }
+                                
+                                # Tạo thư mục con theo SS-PartNumber trong thư mục tạm
+                                ss_folder_temp = os.path.join(created_folders[noi_nhan]['temp'], folder_name)
+                                os.makedirs(ss_folder_temp, exist_ok=True)
+                                
+                                # Tạo thư mục con theo SS-PartNumber trong thư mục chính thức
+                                ss_folder_final = os.path.join(created_folders[noi_nhan]['final'], folder_name)
+                                os.makedirs(ss_folder_final, exist_ok=True)
+                                
+                                # Tạo tên file mới
+                                new_filename = f"{lot_no}-{ma_hang}-{mskh}.pdf" if not wdr_no else f"{lot_no}-{ma_hang}-{mskh}-{wdr_no}.pdf"
+                                
+                                # Bước 1: Copy file gốc vào thư mục tạm
+                                src_file = os.path.join(lot_folder, file)
+                                temp_file = os.path.join(ss_folder_temp, new_filename)
+                                
+                                try:
+                                    shutil.copy2(src_file, temp_file)
+                                    copied_files_count += 1
+                                    files_copied_for_row += 1
+                                    
+                                    # Bước 2: Nén file PDF trong thư mục tạm
+                                    compressed_file = os.path.join(ss_folder_final, new_filename)
+                                    if not compress_pdf(temp_file, compressed_file):
+                                        # Nếu nén thất bại, copy file gốc
+                                        shutil.copy2(temp_file, compressed_file)
+                                    
+                                except Exception as e:
+                                    print(f"Lỗi khi xử lý file {file}: {e}")
+                if files_copied_for_row > 0:
+                    # Cập nhật trên cả temp_df và temp_original_df
+                    temp_df.loc[index, "Status"] = "Đã copy dữ liệu"
+                    
+                    # Tìm và cập nhật trên original_df
+                    if not temp_original_df.empty:
+                        mask = (temp_original_df["SS"] == row["SS"]) & (temp_original_df["MSKH"] == row["MSKH"])
+                        temp_original_df.loc[mask, "Status"] = "Đã copy dữ liệu"
             
-            messagebox.showinfo("Thành công", 
-                f"Đã xác nhận {confirmed_count} dòng dữ liệu\n"
-                f"Đã copy {copied_files_count} file PDF và nén thành công!")
-        else:
-            messagebox.showinfo("Thông báo", 
-                "Đã xác nhận dữ liệu nhưng không tìm thấy file PDF phù hợp để copy!")
-    except Exception as e:
-        messagebox.showerror("Lỗi", f"Đã xảy ra lỗi khi xử lý dữ liệu: {str(e)}")
+            # Cập nhật lại các dataframe global
+            data_df = temp_df.copy()
+            original_df = temp_original_df.copy()
+            
+            # Lưu trạng thái
+            save_status(period, original_df)
+            
+            # Cập nhật data_df sau filter
+            data_df = original_df.copy()
+            for col, value in filters.items():
+                data_df = data_df[data_df[col].astype(str).str.contains(value, case=False, na=False)]
+            
+            # Cập nhật Treeview ngay lập tức
+            from .gui import update_table
+            update_table(data_df)
+            
+            
+        except Exception as e:
+            messagebox.showerror("Lỗi", f"Đã xảy ra lỗi khi xử lý dữ liệu: {str(e)}")
+    elif filter_mode == "KJS":
+        print("Chế độ KJS không được hỗ trợ trong gui_du_lieu.")
+def nen_du_lieu(data_df, period):
 
+    # (copy phần nén từ gui_du_lieu sang đây)
+    messagebox.showinfo("Thành công", "Đã nén dữ liệu thành công!")
+    
 def send_all_data(period, df):
     """Gửi toàn bộ dữ liệu đã xác nhận và gửi email"""
     global original_df,data_df,month_year_var
