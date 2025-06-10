@@ -10,6 +10,8 @@ import asyncio
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from tkinter import filedialog, messagebox, ttk, scrolledtext
+import requests
+
 
 class NovelScraperFunctions:
     def __init__(self, gui):
@@ -151,7 +153,23 @@ class NovelScraperFunctions:
             messagebox.showinfo("Thành công", "Đã lưu cấu hình!")
         except Exception as e:
             messagebox.showerror("Lỗi", f"Không thể lưu cấu hình: {e}")
+    def test_css_selector(self, url, selector, mode="chapter"):
+        resp = requests.get(url, timeout=10)
+        soup = BeautifulSoup(resp.text, "html.parser")
+        if mode == "chapter":
+            items = soup.select(selector)
+            return "\n".join([f"{a.get_text(strip=True)} - {a.get('href')}" for a in items]) or "Không tìm thấy!"
+        elif mode == "title":
+            item = soup.select_one(selector)
+            return item.get_text(strip=True) if item else "Không tìm thấy!"
+        elif mode == "content":
+            item = soup.select_one(selector)
+            return item.get_text("\n", strip=True) if item else "Không tìm thấy!"
+        return "Không xác định mode!"
 
+    def test_js_selector(self, url, script, mode="chapter"):
+        # Nếu bạn dùng Selenium, thực thi JS ở đây
+        return "Chưa hỗ trợ test JS thực tế, chỉ test CSS selector."
     async def scrape_chapters(self):
         base_url = self.gui.url_entry.get()
         output_file = self.gui.output_entry.get()

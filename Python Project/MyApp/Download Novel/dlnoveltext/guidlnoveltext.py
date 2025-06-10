@@ -212,36 +212,34 @@ class NovelScraperGUI:
             if script_type == 'chapter':
                 if self.chapter_method.get() == "css":
                     selector = self.chapter_list_css.get()
-                    result = f"Kết quả CSS Selector '{selector}' sẽ trả về danh sách các thẻ <a> có class 'chapter-title'"
+                    result = self.functions.test_css_selector(url, selector, mode="chapter")
                 else:
                     script = self.chapter_list_script.get("1.0", tk.END).strip()
-                    result = f"Kết quả JavaScript:\n{script}\n\nSẽ trả về mảng các URL chương"
+                    result = self.functions.test_js_selector(url, script, mode="chapter")
                 result_box = self.chapter_result
             elif script_type == 'title':
                 if self.title_method.get() == "css":
                     selector = self.title_css.get()
-                    result = f"Kết quả CSS Selector '{selector}' sẽ trả về nội dung thẻ <h1>"
+                    result = self.functions.test_css_selector(url, selector, mode="title")
                 else:
                     script = self.title_script.get("1.0", tk.END).strip()
-                    result = f"Kết quả JavaScript:\n{script}\n\nSẽ trả về tiêu đề chương"
+                    result = self.functions.test_js_selector(url, script, mode="title")
                 result_box = self.title_result
             else:  # content
                 if self.content_method.get() == "css":
                     selector = self.content_css.get()
-                    result = f"Kết quả CSS Selector '{selector}' sẽ trả về nội dung thẻ div có id 'chapter-content'"
+                    result = self.functions.test_css_selector(url, selector, mode="content")
                 else:
                     script = self.content_script.get("1.0", tk.END).strip()
-                    result = f"Kết quả JavaScript:\n{script}\n\nSẽ trả về HTML nội dung chương"
+                    result = self.functions.test_js_selector(url, script, mode="content")
                 result_box = self.content_result
 
             result_box.config(state='normal')
             result_box.delete('1.0', tk.END)
             result_box.insert(tk.END, result)
             result_box.config(state='disabled')
-            messagebox.showinfo("Thành công", "Test script thành công!")
         except Exception as e:
             messagebox.showerror("Lỗi", f"Lỗi khi test script: {str(e)}")
-
     def hide_window(self):
         if self.top_level:
             self.top_level.withdraw()
