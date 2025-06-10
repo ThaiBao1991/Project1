@@ -563,20 +563,6 @@ def gui_du_lieu(file_path, period, data_df, month_year, filter_mode="MAP_ERP"):
         if not os.path.exists("data_work.csv"):
             messagebox.showwarning("Cảnh báo", "Không tìm thấy file data_work.csv!\nVui lòng chọn file TXT để tạo.")
             return
-        
-        # Validate input
-        if not file_path or not os.path.exists(file_path):
-            messagebox.showwarning("Cảnh báo", "Vui lòng chọn file TXT trước!")
-            return
-
-        if data_df is None or data_df.empty:
-            messagebox.showwarning("Cảnh báo", "Không có dữ liệu trong bảng để xác nhận!")
-            return
-
-        if not os.path.exists("data_work.csv"):
-            messagebox.showwarning("Cảnh báo", "Không tìm thấy file data_work.csv!\nVui lòng chọn file TXT để tạo.")
-            return
-
         try:
             config = load_config()
             data_origin_path = config.get("data_origin_path", "")
@@ -605,6 +591,7 @@ def gui_du_lieu(file_path, period, data_df, month_year, filter_mode="MAP_ERP"):
                     
                 ss = str(row.get("SS", "")).strip()
                 mskh = str(row.get("MSKH", "")).strip()
+                gui_dl = str(row.get("Gui_DL", "")).strip().upper()
                 
                 if not ss or not mskh:
                     continue
@@ -759,8 +746,99 @@ def gui_du_lieu(file_path, period, data_df, month_year, filter_mode="MAP_ERP"):
             # Cập nhật Treeview ngay lập tức
             from .gui import update_table
             update_table(data_df)
-            
-            
+            if copied_files_count > 0:
+                # Tạo dictionary để lưu các thư mục cần nén theo từng nơi nhận
+                folders_to_zip = {}
+                
+                # Sau khi copy và nén xong, xóa thư mục tạm
+                for noi_nhan, folders in created_folders.items():
+                    temp_folder = folders['temp']
+                    if os.path.exists(temp_folder):
+                        try:
+                            shutil.rmtree(temp_folder)
+                            print(f"Đã xóa thư mục tạm: {temp_folder}")
+                        except Exception as e:
+                            print(f"Lỗi khi xóa thư mục tạm: {e}")
+                
+                # Chỉ xét các dòng đã copy thành công
+                for index, row in data_df[data_df["Status"] == "Đã copy dữ liệu"].iterrows():
+                    noi_nhan = str(row.get("Nơi nhận dữ liệu", "")).strip()
+                    if not noi_nhan:
+                        continue
+                        
+                    # Tạo key riêng cho mỗi nơi nhận
+                    if noi_nhan not in folders_to_zip:
+                        # Đường dẫn đến thư mục cần nén
+                        source_folder = os.path.join(
+                            data_temp_path, 
+                            f"Gửi {noi_nhan}",
+                            selected_year,
+                            f"Gửi {formatted_date}"
+                        )
+                        
+                        # Chỉ thêm vào danh sách nếu thư mục tồn tại và có file
+                        if os.path.exists(source_folder) and any(os.listdir(source_folder)):
+                            folders_to_zip[noi_nhan] = {
+                                'source': source_folder,
+                                'output': os.path.join(data_temp_path, f"Gửi {noi_nhan}", selected_year)
+                            }
+                # Thực hiện nén cho từng thư mục
+                for noi_nhan, paths in folders_to_zip.items():
+                    source_folder = paths['source']
+                    output_folder = paths['output']
+                    
+                    print(f"Đang xử lý nén cho {noi_nhan}:")
+                    print(f"- Thư mục nguồn: {source_folder}")
+                    print(f"- Thư mục đích: {output_folder}")
+                    
+                    os.makedirs(output_folder, exist_ok=True)
+                    zip_filename = f"{noi_nhan.replace(' ', '_')}_{formatted_date.replace('.', '-')}.zip"
+                    zip_path = os.path.join(output_folder, zip_filename)
+                    
+                    # Tính toán dung lượng
+                    total_size = 0
+                    for root, dirs, files in os.walk(source_folder):
+                        for file in files:
+                            total_size += os.path.getsize(os.path.join(root, file))
+                    
+                    total_size_mb = total_size / (1024 * 1024)
+                    max_size_mb = float(data_df.iloc[0, data_df.columns.get_loc("DUNG LƯỢNG 1 LẦN GỬI")]) if "DUNG LƯỢNG 1 LẦN GỬI" in data_df.columns else 10.0
+                    
+                    print(f"Tổng dung lượng: {total_size_mb:.2f} MB - Giới hạn: {max_size_mb} MB")
+                    
+                    if total_size_mb <= max_size_mb:
+                        # Nén thành 1 file
+                        try:
+                            with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
+                                for root, dirs, files in os.walk(source_folder):
+                                    for file in files:
+                                        file_path = os.path.join(root, file)
+                                        arcname = os.path.relpath(file_path, source_folder)
+                                        zipf.write(file_path, arcname)
+                            
+                            print(f"Đã nén thành công: {zip_path}")
+                            
+                            # Xóa thư mục nguồn sau khi nén
+                            try:
+                                # shutil.rmtree(source_folder)
+                                print(f"Đã xóa thư mục nguồn: {source_folder}")
+                            except Exception as e:
+                                print(f"Lỗi khi xóa thư mục nguồn: {e}")
+                                
+                        except Exception as e:
+                            print(f"Lỗi khi nén: {e}")
+                    else:
+                        # Nén thành nhiều file nếu cần
+                        if zip_folder_by_size(source_folder, 
+                                        os.path.join(output_folder, f"{noi_nhan.replace(' ', '_')}_{formatted_date.replace('.', '-')}"),
+                                        max_size_mb):
+                            print(f"Đã nén thành nhiều file cho {noi_nhan}")
+                
+                messagebox.showinfo("Thành công", 
+                    f"Đã xác nhận {confirmed_count} dòng dữ liệu\n"
+                    f"Đã copy {copied_files_count} file PDF và nén thành công!")
+            else:
+                messagebox.showinfo("Thông báo", "Không có file PDF nào được copy hoặc nén.")
         except Exception as e:
             messagebox.showerror("Lỗi", f"Đã xảy ra lỗi khi xử lý dữ liệu: {str(e)}")
     elif filter_mode == "KJS":

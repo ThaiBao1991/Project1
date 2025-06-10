@@ -243,7 +243,7 @@ def show_send_frame(root, period):
     # Cài đặt các cột trước khi initialize_data chạy
     display_columns = [
         "SS", "Mã hàng", "MSKH", "Tên khách hàng", "Đối tượng gửi dữ liệu",
-        "Part Number", "Gửi Lot DAI DIEN: 'DD' Gửi TOAN BO Lot: 'TB'",
+        "Part Number", "Gui_DL",
         "Nơi nhận dữ liệu", "Nội dung gửi mail", "Địa chỉ gửi mail", "DUNG LƯỢNG 1 LẦN GỬI", "Status"
     ]
     tree["columns"] = display_columns
@@ -373,13 +373,13 @@ def show_details(root, event):
         mskh_index = tree_columns.index("MSKH") if "MSKH" in tree_columns else -1
         mh_index = tree_columns.index("Mã hàng") if "Mã hàng" in tree_columns else -1
         noinhan_index = tree_columns.index("Nơi nhận dữ liệu") if "Nơi nhận dữ liệu" in tree_columns else -1
-        gui_lot_index = tree_columns.index("Gửi Lot DAI DIEN: 'DD' Gửi TOAN BO Lot: 'TB'") if "Gửi Lot DAI DIEN: 'DD' Gửi TOAN BO Lot: 'TB'" in tree_columns else -1
+        gui_dl_index = tree_columns.index("Gui_DL") if "Gui_DL" in tree_columns else -1
         
         ss = str(values[ss_index]).strip() if ss_index != -1 and len(values) > ss_index else ""
         mskh = str(values[mskh_index]).strip() if mskh_index != -1 and len(values) > mskh_index else ""
         ma_hang=str(values[mh_index]).strip() if mh_index != -1 and len(values) > mh_index else ""
         noinhan=str(values[noinhan_index]).strip() if noinhan_index != -1 and len(values) > noinhan_index else ""
-        gui_lot = str(values[gui_lot_index]).strip() if gui_lot_index != -1 and len(values) > gui_lot_index else ""
+        gui_dl = str(values[gui_dl_index]).strip() if gui_dl_index != -1 and len(values) > gui_dl_index else ""
 
         if not ss or not mskh:
             messagebox.showwarning("Cảnh báo", "Không tìm thấy giá trị SS hoặc MSKH trong dòng được chọn.")
@@ -418,7 +418,7 @@ def show_details(root, event):
             'mskh': mskh,
             'ma_hang': ma_hang,
             'noi_nhan': noinhan,
-            'gui_lot': gui_lot,
+            'gui_dl': gui_dl,
             'lot_nos': filtered_data["Lot No"].unique().tolist(),
             'wdr_nos': filtered_data["W/d/r No"].unique().tolist() if "W/d/r No" in filtered_data.columns else []
         }
@@ -428,99 +428,124 @@ def show_details(root, event):
             return
         
         # Tạo cửa sổ chi tiết
-        detail_window = tk.Toplevel(root)
-        detail_window.title(f"Chi tiết - SS: {ss}, MSKH: {mskh}")
-        detail_window.geometry("800x400")
-        detail_window.transient(root)
-        detail_window.grab_set()
-        
-        # Tạo dictionary row từ values và tree_columns
-        row = {}
-        for i, col in enumerate(tree_columns):
-            if i < len(values):
-                row[col] = values[i]
-            else:
-                row[col] = ""
-        
-         # Thêm nút mở thư mục nếu đã copy file
-        if str(row.get("Status", "")).strip() == "Đã copy dữ liệu":
-            def open_target_folder():
-                config = load_config()
-                data_temp_path = config.get("data_temp_path", "")
-                if not data_temp_path:
-                    messagebox.showerror("Lỗi", "Không tìm thấy đường dẫn thư mục tạm!")
-                    return
-                
-                # Sử dụng giá trị noi_nhan đã lấy từ đầu hàm (đã kiểm tra)
-                noi_nhan = selected_row_details['noi_nhan']  # Sử dụng giá trị đã lưu trong selected_row_details
-                
-                print("Giá trị nơi nhận:", repr(noi_nhan))  # Debug in ra giá trị thực sự
-                
-                if not noi_nhan:
-                    messagebox.showerror("Lỗi", "Không có thông tin nơi nhận trong dữ liệu!")
-                    return
-                    
-                selected_year = datetime.datetime.now().strftime("%Y")
-                ss_index = tree_columns.index("SS") if "SS" in tree_columns else -1
-                ss = str(values[ss_index]).strip() if ss_index != -1 and len(values) > ss_index else ""
-                
-                if not ss:
-                    messagebox.showerror("Lỗi", "Không có thông tin SS trong dữ liệu!")
-                    return
-                    
-                target_folder = os.path.join(
-                    data_temp_path,
-                    f"Gửi {noi_nhan}",
-                    selected_year,
-                    f"Gửi {datetime.datetime.now().strftime('%y.%m')}",
-                    ss
-                )
-                
-                print("Đường dẫn đích:", target_folder)
-                
-                if os.path.exists(target_folder):
-                    os.startfile(target_folder)
-                else:
-                    messagebox.showinfo("Thông báo", f"Không tìm thấy thư mục:\n{target_folder}")
+        try:
+            detail_window = tk.Toplevel(root)
+            detail_window.title(f"Chi tiết - SS: {ss}, MSKH: {mskh}")
+            detail_window.geometry("800x400")
+            detail_window.transient(root)
+            detail_window.grab_set()
             
-            btn_open_folder = tk.Button(
-                detail_window, 
-                text="Mở thư mục đã copy",
-                command=open_target_folder,
-                font=("Helvetica", 12, "bold"),
-                bg="#3498db",
-                fg="white"
-            )
-            btn_open_folder.pack(pady=10)
-        else:
-            lbl_status = tk.Label(
-                detail_window,
-                text="Chưa copy file vào thư mục đích",
-                font=("Helvetica", 12),
-                fg="red"
-            )
-            lbl_status.pack(pady=10)
+            # Tạo dictionary row từ values và tree_columns
+            row = {}
+            for i, col in enumerate(tree_columns):
+                if i < len(values):
+                    row[col] = values[i]
+                else:
+                    row[col] = ""
+            
+            # Thêm nút mở thư mục nếu đã copy file
+            if str(row.get("Status", "")).strip() == "Đã copy dữ liệu":
+                def open_target_folder():
+                    config = load_config()
+                    data_temp_path = config.get("data_temp_path", "")
+                    if not data_temp_path:
+                        messagebox.showerror("Lỗi", "Không tìm thấy đường dẫn thư mục tạm!")
+                        return
+                    
+                    # Sử dụng giá trị noi_nhan đã lấy từ đầu hàm (đã kiểm tra)
+                    noi_nhan = selected_row_details['noi_nhan']  # Sử dụng giá trị đã lưu trong selected_row_details
+                    
+                    print("Giá trị nơi nhận:", repr(noi_nhan))  # Debug in ra giá trị thực sự
+                    
+                    if not noi_nhan:
+                        messagebox.showerror("Lỗi", "Không có thông tin nơi nhận trong dữ liệu!")
+                        return
+                        
+                    selected_year = datetime.datetime.now().strftime("%Y")
+                    ss_index = tree_columns.index("SS") if "SS" in tree_columns else -1
+                    ss = str(values[ss_index]).strip() if ss_index != -1 and len(values) > ss_index else ""
+                    
+                    if not ss:
+                        messagebox.showerror("Lỗi", "Không có thông tin SS trong dữ liệu!")
+                        return
+                        
+                    target_folder = os.path.join(
+                        data_temp_path,
+                        f"Gửi {noi_nhan}",
+                        selected_year,
+                        f"Gửi {datetime.datetime.now().strftime('%y.%m')}",
+                        ss
+                    )
+                    
+                    print("Đường dẫn đích:", target_folder)
+                    
+                    if os.path.exists(target_folder):
+                        os.startfile(target_folder)
+                    else:
+                        messagebox.showinfo("Thông báo", f"Không tìm thấy thư mục:\n{target_folder}")
+                
+                btn_open_folder = tk.Button(
+                    detail_window, 
+                    text="Mở thư mục đã copy",
+                    command=open_target_folder,
+                    font=("Helvetica", 12, "bold"),
+                    bg="#3498db",
+                    fg="white"
+                )
+                btn_open_folder.pack(pady=10)
+            else:
+                lbl_status = tk.Label(
+                    detail_window,
+                    text="Chưa copy file vào thư mục đích",
+                    font=("Helvetica", 12),
+                    fg="red"
+                )
+                lbl_status.pack(pady=10)
 
-        # Tạo Treeview
-        detail_tree = ttk.Treeview(detail_window, columns=display_cols, show="headings")
-        for col in display_cols:
-            detail_tree.heading(col, text=col)
-            detail_tree.column(col, width=150, anchor="center")
+            # Tạo Treeview
+            detail_tree = ttk.Treeview(detail_window, columns=display_cols, show="headings")
+            for col in display_cols:
+                detail_tree.heading(col, text=col)
+                detail_tree.column(col, width=150, anchor="center")
 
-        # Highlight dòng theo DD/TB
-        detail_tree.tag_configure("highlight", background="#3498db", foreground="white")
+            # Cấu hình màu highlight
+            detail_tree.tag_configure("highlight", background="#3498db", foreground="white")
 
-        # Thêm dữ liệu
-        for i, (_, row) in enumerate(filtered_data.iterrows()):
-            values = [str(row[col]) for col in display_cols]
-            tag = ()
-            if gui_lot.upper() == "DD" and i == 0:
-                tag = ("highlight",)
-            elif gui_lot.upper() == "TB":
-                tag = ("highlight",)
-            detail_tree.insert("", "end", values=values, tags=tag)
+            # Xử lý highlight và thêm dữ liệu theo Gui_DL
+            if gui_dl.upper() == "DD":
+                # Tạo set để lưu W/d/r No đã gặp
+                seen_wdr = set()
+                highlighted_rows = []
+                
+                for _, row in filtered_data.iterrows():
+                    values = [str(row[col]) for col in display_cols]
+                    wdr_no = str(row.get("W/d/r No", "")).strip() if "W/d/r No" in row else ""
+                    
+                    tag = ()
+                    # Nếu là W/d/r No mới, highlight và thêm vào seen_wdr
+                    if wdr_no and wdr_no not in seen_wdr:
+                        seen_wdr.add(wdr_no)
+                        tag = ("highlight",)
+                        highlighted_rows.append(values)
+                    
+                    detail_tree.insert("", "end", values=values, tags=tag)
+                
+                # Lưu các dòng được highlight để dùng cho việc copy
+                selected_row_details['highlighted_rows'] = highlighted_rows
+                
+            elif gui_dl.upper() == "TB":
+                # Highlight và copy tất cả các dòng
+                highlighted_rows = []
+                for _, row in filtered_data.iterrows():
+                    values = [str(row[col]) for col in display_cols]
+                    detail_tree.insert("", "end", values=values, tags=("highlight",))
+                    highlighted_rows.append(values)
+                
+                selected_row_details['highlighted_rows'] = highlighted_rows
 
-        detail_tree.pack(fill="both", expand=True)
+            detail_tree.pack(fill="both", expand=True)
+        except Exception as e:
+            messagebox.showerror("Lỗi", f"Lỗi khi hiển thị chi tiết: {str(e)}")
 
     except Exception as e:
         messagebox.showerror("Lỗi", f"Lỗi khi hiển thị chi tiết: {str(e)}")

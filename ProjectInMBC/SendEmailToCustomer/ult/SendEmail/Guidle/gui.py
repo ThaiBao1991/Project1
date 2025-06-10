@@ -199,15 +199,21 @@ def show_send_frame(root, period):
     
     tree.bind("<Double-1>", lambda event: show_details(root, event))
 
-    tk.Button(frame_status_buttons, text="Xác nhận dữ liệu",
+    tk.Button(
+        frame_status_buttons, 
+        text="Xác nhận dữ liệu",
         command=lambda: gui_du_lieu(
             entry_file.get() if filter_mode_var.get() == "MAP_ERP" else entry_file_kjs.get(),
             current_period.get() if current_period else period,
             data_df,
             month_year_var.get(),
-            filter_mode_var.get()  # truyền chế độ lọc
+            filter_mode_var.get()
         ),
-        font=("Helvetica", 12, "bold"), bg="#27ae60", fg="white", padx=20, pady=10
+        font=("Helvetica", 12, "bold"), 
+        bg="#27ae60", 
+        fg="white", 
+        padx=20, 
+        pady=10
     ).pack(side=tk.LEFT, padx=10)
      # Nút nén dữ liệu
     tk.Button(
@@ -353,6 +359,8 @@ def update_table(df):
 def show_details(root, event):
     """Hiển thị bảng chi tiết khi double-click dòng - Bổ sung cột W/d/r No"""
     global data_df, selected_row_details
+    global detail_window
+    
     
     if tree is None or not tree.winfo_exists() or not tree.winfo_toplevel().winfo_exists():
         messagebox.showwarning("Cảnh báo", "Giao diện bảng chưa sẵn sàng.")
@@ -373,13 +381,13 @@ def show_details(root, event):
         mskh_index = tree_columns.index("MSKH") if "MSKH" in tree_columns else -1
         mh_index = tree_columns.index("Mã hàng") if "Mã hàng" in tree_columns else -1
         noinhan_index = tree_columns.index("Nơi nhận dữ liệu") if "Nơi nhận dữ liệu" in tree_columns else -1
-        gui_lot_index = tree_columns.index("Gửi Lot DAI DIEN: 'DD' Gửi TOAN BO Lot: 'TB'") if "Gửi Lot DAI DIEN: 'DD' Gửi TOAN BO Lot: 'TB'" in tree_columns else -1
+        gui_dl_index = tree_columns.index("Gửi Lot DAI DIEN: 'DD' Gửi TOAN BO Lot: 'TB'") if "Gửi Lot DAI DIEN: 'DD' Gửi TOAN BO Lot: 'TB'" in tree_columns else -1
         
         ss = str(values[ss_index]).strip() if ss_index != -1 and len(values) > ss_index else ""
         mskh = str(values[mskh_index]).strip() if mskh_index != -1 and len(values) > mskh_index else ""
         ma_hang=str(values[mh_index]).strip() if mh_index != -1 and len(values) > mh_index else ""
         noinhan=str(values[noinhan_index]).strip() if noinhan_index != -1 and len(values) > noinhan_index else ""
-        gui_lot = str(values[gui_lot_index]).strip() if gui_lot_index != -1 and len(values) > gui_lot_index else ""
+        gui_dl = str(values[gui_dl_index]).strip() if gui_dl_index != -1 and len(values) > gui_dl_index else ""
 
         if not ss or not mskh:
             messagebox.showwarning("Cảnh báo", "Không tìm thấy giá trị SS hoặc MSKH trong dòng được chọn.")
@@ -418,7 +426,7 @@ def show_details(root, event):
             'mskh': mskh,
             'ma_hang': ma_hang,
             'noi_nhan': noinhan,
-            'gui_lot': gui_lot,
+            'gui_dl': gui_dl,
             'lot_nos': filtered_data["Lot No"].unique().tolist(),
             'wdr_nos': filtered_data["W/d/r No"].unique().tolist() if "W/d/r No" in filtered_data.columns else []
         }
@@ -433,13 +441,17 @@ def show_details(root, event):
         detail_window.geometry("800x400")
         detail_window.transient(root)
         detail_window.grab_set()
-        def on_root_close(*args):
+        
+        # Thêm protocol để đóng cửa sổ chi tiết khi đóng app chính
+        def on_root_close():
             try:
                 detail_window.destroy()
+                root.destroy()
             except:
                 pass
+        
         root.protocol("WM_DELETE_WINDOW", on_root_close)
-        detail_window.protocol("WM_DELETE_WINDOW", detail_window.destroy)
+        
         # Tạo dictionary row từ values và tree_columns
         row = {}
         for i, col in enumerate(tree_columns):
@@ -516,18 +528,31 @@ def show_details(root, event):
         # Highlight dòng theo DD/TB
         detail_tree.tag_configure("highlight", background="#3498db", foreground="white")
 
-        # Thêm dữ liệu
+        # Thêm dữ liệu và highlight
+        seen_wdr = set()
+        highlighted_rows = []
+
         for i, (_, row) in enumerate(filtered_data.iterrows()):
             values = [str(row[col]) for col in display_cols]
+            wdr_no = str(row.get("W/d/r No", "")).strip() if "W/d/r No" in row else ""
             tag = ()
-            if gui_lot.upper() == "DD" and i == 0:
+            
+            if gui_dl.upper() == "DD":
+                if wdr_no and wdr_no not in seen_wdr:
+                    seen_wdr.add(wdr_no)
+                    tag = ("highlight",)
+                    highlighted_rows.append(values)  # Lưu lại các dòng được highlight
+            elif gui_dl.upper() == "TB":
                 tag = ("highlight",)
-            elif gui_lot.upper() == "TB":
-                tag = ("highlight",)
+                highlighted_rows.append(values)  # Lưu tất cả với TB
+            
             detail_tree.insert("", "end", values=values, tags=tag)
 
+        # Lưu thông tin highlight vào selected_row_details
+        selected_row_details['highlighted_rows'] = highlighted_rows
+
         detail_tree.pack(fill="both", expand=True)
-        
+
     except Exception as e:
         messagebox.showerror("Lỗi", f"Lỗi khi hiển thị chi tiết: {str(e)}")
 
