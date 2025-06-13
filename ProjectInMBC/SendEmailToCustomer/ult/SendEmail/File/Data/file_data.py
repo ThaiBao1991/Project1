@@ -4,9 +4,19 @@ import pandas as pd
 import os
 import math
 
+# Thêm các biến định nghĩa cột cần thiết ở đầu file
+REQUIRED_COLUMNS = [
+    "SS", "Mã hàng", "MSKH", "Part Number", "Đối tượng gửi dữ liệu",
+    "Yêu cầu đặc biệt khi gửi dữ liệu", 'Gửi Lot DAI DIEN: "DD"\nGửi TOAN BO Lot: "TB"',
+    "Nơi nhận dữ liệu", "DUNG LƯỢNG 1 LẦN GỬI"
+]
+
 def open_data_window(parent):
     global csv_file_path, data_df, original_df, filters
-    csv_file_path = "data.csv"
+    # Tạo thư mục DataSETC nếu chưa tồn tại
+    data_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "DataSETC")
+    os.makedirs(data_dir, exist_ok=True)
+    csv_file_path = os.path.join(data_dir, "data.csv")
     
     if os.path.exists(csv_file_path):
         encodings = ['utf-8-sig', 'utf-8', 'latin1', 'iso-8859-1', 'utf-16']
@@ -74,12 +84,16 @@ def open_data_window(parent):
                 tree_widget.heading(col, text=col)
 
     def save_to_csv():
-        global csv_file_path, original_df
-        if not original_df.empty:
-            original_df.to_csv(csv_file_path, index=False, encoding='utf-8-sig')
-        else:
-            with open(csv_file_path, 'w', encoding='utf-8-sig') as f:
-                f.write("")
+        try:
+            # Đảm bảo thư mục tồn tại
+            os.makedirs(os.path.dirname(csv_file_path), exist_ok=True)
+            # Lưu file
+            if not original_df.empty:
+                original_df.to_csv(csv_file_path, index=False, encoding='utf-8-sig')
+            else:
+                pd.DataFrame(columns=REQUIRED_COLUMNS).to_csv(csv_file_path, index=False, encoding='utf-8-sig')
+        except Exception as e:
+            messagebox.showerror("Lỗi", f"Không thể lưu file: {str(e)}")
 
     def load_from_csv():
         global csv_file_path, data_df, original_df
@@ -142,15 +156,15 @@ def open_data_window(parent):
         main_frame.rowconfigure(0, weight=1)
 
         # Chia label thành các cột
-        required_fields = ["SS", "Mã hàng", "MSKH"] if all(col in data_df.columns for col in ["SS", "Mã hàng", "MSKH"]) else []
-        for idx, col in enumerate(data_df.columns):
+        columns_to_show = [col for col in REQUIRED_COLUMNS if col in data_df.columns]
+        for idx, col in enumerate(columns_to_show):
             grid_col = idx // rows_per_col
             grid_row = idx % rows_per_col
             tk.Label(scrollable_frame, text=f"{col}:", font=("Helvetica", 12), bg="#e8ecef").grid(row=grid_row, column=grid_col*3, padx=10, pady=5, sticky="e")
             entry = tk.Entry(scrollable_frame, width=30, font=("Helvetica", 12))
             entry.grid(row=grid_row, column=grid_col*3+1, padx=10, pady=5)
             entries[col] = entry
-            if col in required_fields:
+            if col in columns_to_show:
                 tk.Label(scrollable_frame, text="*", fg="red", bg="#e8ecef").grid(row=grid_row, column=grid_col*3+2, sticky="w")
 
         # Tính kích thước cửa sổ
@@ -161,8 +175,8 @@ def open_data_window(parent):
         def save_data():
             global data_df, original_df
             new_data = {col: entries[col].get() for col in data_df.columns}
-            required_data = {k: new_data[k] for k in required_fields if k in new_data}
-            if required_fields and not all(required_data.values()):
+            required_data = {k: new_data[k] for k in columns_to_show if k in new_data}
+            if columns_to_show and not all(required_data.values()):
                 messagebox.showwarning("Cảnh báo", "Vui lòng điền đầy đủ các trường bắt buộc (SS, Mã hàng, MSKH nếu có)!")
                 return
             data_df = pd.concat([data_df, pd.DataFrame([new_data])], ignore_index=True)
@@ -220,9 +234,10 @@ def open_data_window(parent):
         main_frame.rowconfigure(0, weight=1)
 
         # Điền dữ liệu hiện tại
-        current_data = data_df.iloc[index].to_dict()
-        required_fields = ["SS", "Mã hàng", "MSKH"] if all(col in data_df.columns for col in ["SS", "Mã hàng", "MSKH"]) else []
-        for idx, col in enumerate(data_df.columns):
+        columns_to_show = [col for col in REQUIRED_COLUMNS if col in data_df.columns]
+        current_data = data_df.iloc[index][columns_to_show].to_dict()
+        
+        for idx, col in enumerate(columns_to_show):
             grid_col = idx // rows_per_col
             grid_row = idx % rows_per_col
             tk.Label(scrollable_frame, text=f"{col}:", font=("Helvetica", 12), bg="#e8ecef").grid(row=grid_row, column=grid_col*3, padx=10, pady=5, sticky="e")
@@ -230,7 +245,7 @@ def open_data_window(parent):
             entry.grid(row=grid_row, column=grid_col*3+1, padx=10, pady=5)
             entry.insert(0, str(current_data.get(col, "")))
             entries[col] = entry
-            if col in required_fields:
+            if col in columns_to_show:
                 tk.Label(scrollable_frame, text="*", fg="red", bg="#e8ecef").grid(row=grid_row, column=grid_col*3+2, sticky="w")
 
         # Tính kích thước cửa sổ
@@ -241,8 +256,8 @@ def open_data_window(parent):
         def save_modified_data():
             global data_df, original_df
             modified_data = {col: entries[col].get() for col in data_df.columns}
-            required_data = {k: modified_data[k] for k in required_fields if k in modified_data}
-            if required_fields and not all(required_data.values()):
+            required_data = {k: modified_data[k] for k in columns_to_show if k in modified_data}
+            if columns_to_show and not all(required_data.values()):
                 messagebox.showwarning("Cảnh báo", "Vui lòng điền đầy đủ các trường bắt buộc (SS, Mã hàng, MSKH nếu có)!")
                 return
             data_df.iloc[index] = pd.Series(modified_data)
@@ -289,32 +304,48 @@ def open_data_window(parent):
         global csv_file_path, data_df, original_df
         file_path = filedialog.askopenfilename(title="Chọn file CSV", filetypes=[("CSV files", "*.csv")])
         if file_path:
-            encodings = ['utf-8-sig', 'utf-8', 'latin1', 'iso-8859-1', 'utf-16']
-            new_df = None
-            for encoding in encodings:
-                try:
-                    new_df = pd.read_csv(file_path, encoding=encoding)
-                    break
-                except Exception as e:
-                    print(f"Lỗi với encoding {encoding} khi đọc {file_path}: {e}")
-                    continue
-            if new_df is None:
-                messagebox.showerror("Lỗi", f"Không thể đọc file CSV: {file_path}\nVui lòng kiểm tra định dạng hoặc encoding file.")
-                return
-            all_columns = list(new_df.columns)
-            new_df = new_df.reindex(columns=all_columns, fill_value="")
-            if not data_df.empty:
-                data_df = data_df.reindex(columns=all_columns, fill_value="")
-                data_df = pd.concat([data_df, new_df], ignore_index=True)
-            else:
-                data_df = new_df
-            if all(col in all_columns for col in ["SS", "Mã hàng", "MSKH"]):
-                data_df = data_df.drop_duplicates(subset=["SS", "Mã hàng", "MSKH"], keep="last").reset_index(drop=True)
-            original_df = data_df.copy()
-            save_to_csv()
-            load_from_csv()
-            update_table(data_df)
-            messagebox.showinfo("Thông báo", f"Đã cập nhật dữ liệu từ file: {file_path} vào data.csv")
+            try:
+                # Đọc file với các encoding khác nhau
+                new_df = None
+                encodings = ['utf-8-sig', 'utf-8', 'latin1', 'iso-8859-1', 'utf-16']
+                for encoding in encodings:
+                    try:
+                        new_df = pd.read_csv(file_path, encoding=encoding)
+                        break
+                    except Exception as e:
+                        continue
+
+                if new_df is None:
+                    messagebox.showerror("Lỗi", "Không thể đọc file CSV với bất kỳ encoding nào")
+                    return
+
+                # Chỉ lấy các cột cần thiết nếu có
+                available_columns = [col for col in REQUIRED_COLUMNS if col in new_df.columns]
+                if not available_columns:
+                    messagebox.showwarning("Cảnh báo", "File không chứa các cột cần thiết!")
+                    return
+
+                new_df = new_df[available_columns]
+
+                # Cập nhật DataFrame
+                if not data_df.empty:
+                    data_df = data_df.reindex(columns=available_columns, fill_value="")
+                    data_df = pd.concat([data_df, new_df], ignore_index=True)
+                else:
+                    data_df = new_df
+
+                # Xóa dòng trùng lặp dựa trên SS, Mã hàng, MSKH
+                if all(col in available_columns for col in ["SS", "Mã hàng", "MSKH"]):
+                    data_df = data_df.drop_duplicates(subset=["SS", "Mã hàng", "MSKH"], keep="last")
+
+                original_df = data_df.copy()
+                save_to_csv()
+                update_table(data_df)
+                messagebox.showinfo("Thành công", f"Đã cập nhật dữ liệu từ file: {file_path}")
+
+            except Exception as e:
+                messagebox.showerror("Lỗi", f"Lỗi khi cập nhật dữ liệu: {str(e)}")
+
 
     def show_filter_entry(column, tree_widget, parent_window):
         filter_window = tk.Toplevel(parent_window)
