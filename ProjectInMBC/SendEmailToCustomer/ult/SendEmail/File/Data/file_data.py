@@ -6,15 +6,31 @@ import math
 
 # Thêm các biến định nghĩa cột cần thiết ở đầu file
 REQUIRED_COLUMNS = [
-    "SS", "Mã hàng", "MSKH", "Part Number", "Đối tượng gửi dữ liệu",
+    "SS", "Mã hàng", "MSKH", "Part Number", "Đối tượng gửi dữ liệu","Nguồn dữ liệu",
     "Yêu cầu đặc biệt khi gửi dữ liệu", 'Gửi Lot DAI DIEN: "DD"\nGửi TOAN BO Lot: "TB"',
     "Nơi nhận dữ liệu", "DUNG LƯỢNG 1 LẦN GỬI"
 ]
 
+import os
+
+def find_project_root(current_path, marker_file_or_dir=".git"):
+    """
+    Tìm thư mục gốc của dự án bằng cách đi lên các cấp thư mục
+    cho đến khi tìm thấy một file/thư mục đánh dấu.
+    """
+    current_dir = current_path
+    while not os.path.exists(os.path.join(current_dir, marker_file_or_dir)):
+        parent_dir = os.path.dirname(current_dir)
+        if parent_dir == current_dir: # Đã đến thư mục gốc của hệ thống (ví dụ: C:\)
+            raise FileNotFoundError(f"Không tìm thấy thư mục gốc dự án với dấu hiệu '{marker_file_or_dir}'")
+        current_dir = parent_dir
+    return current_dir
+
 def open_data_window(parent):
     global csv_file_path, data_df, original_df, filters
-    # Tạo thư mục DataSETC nếu chưa tồn tại
-    data_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "DataSETC")
+    data_dir = find_project_root(os.path.dirname(os.path.abspath(__file__)), marker_file_or_dir=".git")
+    data_dir = os.path.join(data_dir, "DataSETC")
+    print("Data dir là :",data_dir)
     os.makedirs(data_dir, exist_ok=True)
     csv_file_path = os.path.join(data_dir, "data.csv")
     

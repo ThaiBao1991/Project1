@@ -9,7 +9,7 @@ import pandas as pd
 from tkcalendar import Calendar, DateEntry
 import datetime
 from .config import load_config
-
+from ..File.Data.file_data import find_project_root
 selected_row_details = {}
 
 def create_main_window(root):
@@ -64,44 +64,28 @@ def show_send_frame(root, period):
     frame_file_month = tk.Frame(send_frame, bg="#e8ecef")
     frame_file_month.pack(fill="x", padx=20, pady=10)
     
-    # Label và Entry chọn file - bố cục ngang
-    # --- Dòng chọn file MAP_ERP ---
+    # Thay thế phần radio buttons bằng 2 file entry
     frame_file_select = tk.Frame(frame_file_month, bg="#e8ecef")
     frame_file_select.pack(fill="x", pady=5)
-    cb_map_erp = tk.Radiobutton(
-        frame_file_select, text="Lọc dữ liệu theo MAP-ERP", variable=filter_mode_var, value="MAP_ERP",
-        font=("Helvetica", 12), bg="#e8ecef", command=lambda: update_file_entries())
-    cb_map_erp.pack(side=tk.LEFT)
-    tk.Label(frame_file_select, text=f"Chọn file TXT dữ liệu {period.lower()}:", 
+    
+    # Label và Entry chọn file - bố cục ngang
+    # Entry cho MAP-ERP
+    tk.Label(frame_file_select, text=f"Chọn file TXT MAP-ERP:", 
             font=("Helvetica", 12), bg="#e8ecef").pack(side=tk.LEFT)
-    entry_file = tk.Entry(frame_file_select, width=60, font=("Helvetica", 12), bd=2, relief="sunken", bg="#ffffff")
+    entry_file = tk.Entry(frame_file_select, width=50, font=("Helvetica", 12))
     entry_file.pack(side=tk.LEFT, padx=10)
-    tk.Button(frame_file_select, text="Chọn file", command=lambda: chon_file_txt("MAP_ERP"),
+    tk.Button(frame_file_select, text="Chọn file", command=lambda: chon_file_txt("MAP_ERP", entry_file),
              font=("Helvetica", 11, "bold"), bg="#27ae60", fg="white", padx=20, pady=5).pack(side=tk.LEFT)
 
-    # --- Dòng chọn file KJS ---
-    frame_file_select_kjs = tk.Frame(frame_file_month, bg="#e8ecef")
-    frame_file_select_kjs.pack(fill="x", pady=5)
-    cb_kjs = tk.Radiobutton(
-        frame_file_select_kjs, text="Lọc dữ liệu theo KJS", variable=filter_mode_var, value="KJS",
-        font=("Helvetica", 12), bg="#e8ecef", command=lambda: update_file_entries())
-    cb_kjs.pack(side=tk.LEFT)
-    tk.Label(frame_file_select_kjs, text=f"Chọn file TXT/CSV KJS:", 
+    # Entry cho KJS
+    frame_file_kjs = tk.Frame(frame_file_month, bg="#e8ecef")
+    frame_file_kjs.pack(fill="x", pady=5)
+    tk.Label(frame_file_kjs, text=f"Chọn file TXT/CSV KJS:", 
             font=("Helvetica", 12), bg="#e8ecef").pack(side=tk.LEFT)
-    entry_file_kjs = tk.Entry(frame_file_select_kjs, width=60, font=("Helvetica", 12), bd=2, relief="sunken", bg="#ffffff")
+    entry_file_kjs = tk.Entry(frame_file_kjs, width=50, font=("Helvetica", 12))
     entry_file_kjs.pack(side=tk.LEFT, padx=10)
-    tk.Button(frame_file_select_kjs, text="Chọn file", command=lambda: chon_file_txt("KJS"),
+    tk.Button(frame_file_kjs, text="Chọn file", command=lambda: chon_file_txt("KJS", entry_file_kjs),
              font=("Helvetica", 11, "bold"), bg="#27ae60", fg="white", padx=20, pady=5).pack(side=tk.LEFT)
-
-    # --- Ẩn/hiện entry theo chế độ ---
-    def update_file_entries():
-        if filter_mode_var.get() == "MAP_ERP":
-            entry_file.config(state="normal")
-            entry_file_kjs.config(state="disabled")
-        else:
-            entry_file.config(state="disabled")
-            entry_file_kjs.config(state="normal")
-    update_file_entries()
 
     # Label và nút chọn tháng
     frame_month_select = tk.Frame(frame_file_month, bg="#e8ecef")
@@ -199,22 +183,18 @@ def show_send_frame(root, period):
     
     tree.bind("<Double-1>", lambda event: show_details(root, event))
 
+    # Sửa lại nút xác nhận dữ liệu
     tk.Button(
         frame_status_buttons, 
         text="Xác nhận dữ liệu",
-        command=lambda: gui_du_lieu(
-            entry_file.get() if filter_mode_var.get() == "MAP_ERP" else entry_file_kjs.get(),
-            current_period.get() if current_period else period,
-            data_df,
-            month_year_var.get(),
-            filter_mode_var.get()
-        ),
+        command=lambda: validate_and_process_data(entry_file.get(), entry_file_kjs.get()),
         font=("Helvetica", 12, "bold"), 
         bg="#27ae60", 
         fg="white", 
         padx=20, 
         pady=10
     ).pack(side=tk.LEFT, padx=10)
+    
      # Nút nén dữ liệu
     tk.Button(
         frame_status_buttons, text="Nén dữ liệu",
@@ -269,7 +249,28 @@ def show_send_frame(root, period):
         # Tăng thời gian chờ lên 200ms để chắc chắn hơn
         root.after(200, lambda: update_table(data_df))
     
+# Thêm hàm kiểm tra và xử lý dữ liệu
+def validate_and_process_data(map_erp_file, kjs_file):
+    if not map_erp_file or not kjs_file:
+        messagebox.showwarning("Cảnh báo", "Vui lòng chọn cả file MAP-ERP và KJS!")
+        return
 
+    # Đọc nguồn dữ liệu từ data.csv
+    data_dir=find_project_root(os.path.dirname(os.path.abspath(__file__)),".git")
+    data_dir = os.path.join(data_dir, "DataSETC")
+    csv_file_path = os.path.join(data_dir, "data.csv")
+    
+    try:
+        df = pd.read_csv(csv_file_path)
+        print(df.head())    # In ra 5 dòng đầu tiên để kiểm tra dữ liệu
+        for index, row in df.iterrows():
+            source = str(row.get("Nguồn dữ liệu", "")).strip().upper()
+            if source == "MAP-ERP":
+                gui_du_lieu(map_erp_file, current_period.get(), data_df, month_year_var.get(), "MAP_ERP")
+            elif source == "KJS":
+                gui_du_lieu(kjs_file, current_period.get(), data_df, month_year_var.get(), "KJS")
+    except Exception as e:
+        messagebox.showerror("Lỗi", f"Lỗi khi xử lý dữ liệu: {str(e)}")
 
 def back_to_main():
     """Quay lại frame chính"""
@@ -279,23 +280,15 @@ def back_to_main():
     if frame_buttons:
         frame_buttons.pack(pady=50, fill="both", expand=True)
 
-def chon_file_txt(mode="MAP_ERP"):
-    """Chọn file TXT hoặc CSV cho từng chế độ"""
-    global entry_file, entry_file_kjs, current_period, data_df
-
+# Sửa lại hàm chọn file
+def chon_file_txt(mode, entry_widget):
     file_path = filedialog.askopenfilename(
-        title="Chọn file dữ liệu (TXT hoặc CSV)",
+        title=f"Chọn file {'MAP-ERP' if mode == 'MAP_ERP' else 'KJS'}",
         filetypes=[("Text files", "*.txt"), ("CSV files", "*.csv"), ("All files", "*.*")]
     )
-    if not file_path:
-        return
-
-    if mode == "MAP_ERP":
-        entry_file.delete(0, tk.END)
-        entry_file.insert(0, file_path)
-    else:
-        entry_file_kjs.delete(0, tk.END)
-        entry_file_kjs.insert(0, file_path)
+    if file_path:
+        entry_widget.delete(0, tk.END)
+        entry_widget.insert(0, file_path)
 
     try:
         if file_path.lower().endswith('.csv'):
