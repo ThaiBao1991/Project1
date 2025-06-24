@@ -228,9 +228,9 @@ def show_send_frame(root, period):
     # Khởi tạo dữ liệu và cập nhật Treeview
     # Cài đặt các cột trước khi initialize_data chạy
     display_columns = [
-        "SS", "Mã hàng", "MSKH", "Tên khách hàng", "Đối tượng gửi dữ liệu",
-        "Part Number", "Gui_DL",
-        "Nơi nhận dữ liệu", "Nội dung gửi mail", "Địa chỉ gửi mail", "DUNG LƯỢNG 1 LẦN GỬI", "Status"
+        "SS", "Mã hàng", "MSKH", "Đối tượng gửi dữ liệu","Nguồn dữ liệu","Yêu cầu đặc biệt khi gửi dữ liệu",
+        "Part Number", "Gửi Lot DAI DIEN: 'DD' Gửi TOAN BO Lot: 'TB'",
+        "Nơi nhận dữ liệu", "DUNG LƯỢNG 1 LẦN GỬI", "Status"
     ]
     tree["columns"] = display_columns
     for col in display_columns:
@@ -256,8 +256,7 @@ def validate_and_process_data(map_erp_file, kjs_file):
         return
 
     # Đọc nguồn dữ liệu từ data.csv
-    data_dir=find_project_root(os.path.dirname(os.path.abspath(__file__)),".git")
-    data_dir = os.path.join(data_dir, "DataSETC")
+    data_dir = os.path.join(os.getcwd(), "DATASETC")
     csv_file_path = os.path.join(data_dir, "data.csv")
     
     try:
@@ -387,11 +386,11 @@ def show_details(root, event):
             return
 
         # Đọc file data_work.csv
-        if not os.path.exists("data_work.csv"):
+        if not os.path.join(os.getcwd(), "DATASETC", "data.csv"):
             messagebox.showwarning("Cảnh báo", "Không tìm thấy file data_work.csv!\nVui lòng chọn file TXT để tạo.")
             return
 
-        work_df = pd.read_csv("data_work.csv", encoding='utf-8-sig')
+        work_df = pd.read_csv(os.path.join(os.getcwd(), "DATASETC", "data.csv"), encoding='utf-8-sig')
 
         # Kiểm tra và lấy tên cột thứ 22 (W/d/r No)
         wdr_col = work_df.columns[21] if len(work_df.columns) > 21 else None

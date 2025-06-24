@@ -28,8 +28,7 @@ def find_project_root(current_path, marker_file_or_dir=".git"):
 
 def open_data_window(parent):
     global csv_file_path, data_df, original_df, filters
-    data_dir = find_project_root(os.path.dirname(os.path.abspath(__file__)), marker_file_or_dir=".git")
-    data_dir = os.path.join(data_dir, "DataSETC")
+    data_dir = os.path.join(os.getcwd(), "DATASETC")
     print("Data dir là :",data_dir)
     os.makedirs(data_dir, exist_ok=True)
     csv_file_path = os.path.join(data_dir, "data.csv")

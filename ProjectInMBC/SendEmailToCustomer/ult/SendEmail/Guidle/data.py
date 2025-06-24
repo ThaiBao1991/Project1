@@ -235,15 +235,14 @@ def initialize_data(period):
 
     # Đường dẫn file trạng thái
     status_file = os.path.join(customer_time_dir, f"data_{period.lower()}.csv")
+    print(f"Đang khởi tạo dữ liệu từ file: {status_file}")
     display_columns = [
-        "SS", "Mã hàng", "MSKH", "Tên khách hàng", "Đối tượng gửi dữ liệu",
+        "SS", "Mã hàng", "MSKH", "Đối tượng gửi dữ liệu","Nguồn dữ liệu","Yêu cầu đặc biệt khi gửi dữ liệu",
         "Part Number", "Gửi Lot DAI DIEN: 'DD' Gửi TOAN BO Lot: 'TB'",
-        "Nơi nhận dữ liệu", "Nội dung gửi mail", "Địa chỉ gửi mail", "DUNG LƯỢNG 1 LẦN GỬI", "Status"
+        "Nơi nhận dữ liệu", "DUNG LƯỢNG 1 LẦN GỬI", "Status"
     ]
 
-    if not os.path.exists("Data Test"):
-        os.makedirs("Data Test")
-        print("Đã tạo thư mục Data Test")
+    os.makedirs(os.path.join(os.getcwd(), "DATASETC", "DATA_customer_time"), exist_ok=True)
     
     # Đảm bảo khởi tạo original_df ngay cả khi đọc file thất bại
     if original_df is None:
@@ -308,21 +307,19 @@ def update_data(period, root):
     """Xóa data_{period}.csv, tạo lại từ data.csv, và cập nhật Treeview"""
     # Giữ nguyên logic này nếu mục đích của nút "Update dữ liệu" là làm mới file trạng thái từ data.csv
     global data_df, original_df, filters
-    status_file = f"Data Test/data_{period.lower()}.csv"
+    status_file = os.path.join(os.getcwd(), "DATASETC", "DATA_customer_time", f"data_{period.lower()}.csv")
     display_columns = [
-        "SS", "Mã hàng", "MSKH", "Tên khách hàng", "Đối tượng gửi dữ liệu",
+        "SS", "Mã hàng", "MSKH", "Đối tượng gửi dữ liệu","Nguồn dữ liệu","Yêu cầu đặc biệt khi gửi dữ liệu",
         "Part Number", "Gửi Lot DAI DIEN: 'DD' Gửi TOAN BO Lot: 'TB'",
-        "Nơi nhận dữ liệu", "Nội dung gửi mail", "Địa chỉ gửi mail", "DUNG LƯỢNG 1 LẦN GỬI", "Status"
+        "Nơi nhận dữ liệu", "DUNG LƯỢNG 1 LẦN GỬI", "Status"
     ]
     data_columns = [
-        "SS", "Mã hàng", "MSKH", "Tên khách hàng", "Đối tượng gửi dữ liệu",
+        "SS", "Mã hàng", "MSKH", "Đối tượng gửi dữ liệu","Nguồn dữ liệu","Yêu cầu đặc biệt khi gửi dữ liệu",
         "Part Number", "Gửi Lot DAI DIEN: 'DD' Gửi TOAN BO Lot: 'TB'",
-        "Nơi nhận dữ liệu", "Nội dung gửi mail", "Địa chỉ gửi mail", "DUNG LƯỢNG 1 LẦN GỬI"
+        "Nơi nhận dữ liệu", "DUNG LƯỢNG 1 LẦN GỬI"
     ]
 
-    if not os.path.exists("Data Test"):
-        os.makedirs("Data Test")
-        print("Đã tạo thư mục Data Test trong update_data")
+    os.makedirs(os.path.join(os.getcwd(), "DATASETC"), exist_ok=True)
 
 
     try:
@@ -338,7 +335,7 @@ def update_data(period, root):
 
 
         # Đọc data.csv để tạo lại file trạng thái
-        if not os.path.exists("data.csv"):
+        if not os.path.exists(os.path.join(os.getcwd(), "DATASETC", "data.csv")):
             messagebox.showerror("Lỗi", "Không tìm thấy file data.csv! Không thể cập nhật dữ liệu trạng thái.")
             data_df = pd.DataFrame(columns=display_columns)
             original_df = data_df.copy()
@@ -352,7 +349,7 @@ def update_data(period, root):
         base_data = None
         for encoding in encodings:
             try:
-                base_data = pd.read_csv("data.csv", encoding=encoding)
+                base_data = pd.read_csv(os.path.join(os.getcwd(), "DATASETC", "data.csv"), encoding=encoding)
                 print(f"Đã thử đọc data.csv với encoding {encoding} trong update_data")
                 if base_data is not None and not base_data.empty and not base_data.columns.empty:
                     break # Đọc thành công
@@ -585,7 +582,7 @@ def gui_du_lieu(file_path, period, data_df, month_year, filter_mode="MAP_ERP"):
                 messagebox.showerror("Lỗi", "Vui lòng cấu hình đường dẫn thư mục gốc và thư mục tạm trước!")
                 return
 
-            data_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "DATASETC")
+            data_dir = os.path.join(os.getcwd(), "DATASETC")
             work_file = os.path.join(data_dir, f"data_work_{filter_mode}.csv")
 
             if not os.path.exists(work_file):
@@ -1398,7 +1395,7 @@ def send_all_data(period, df):
     
     # Đảm bảo original_df đã được cập nhật
     if original_df is None:
-        status_file = f"Data Test/data_{period.lower()}.csv"
+        status_file = os.path.join(os.getcwd(), "DATASETC", "DATA_customer_time", f"data_{period.lower()}.csv")
         if os.path.exists(status_file):
             original_df = pd.read_csv(status_file, encoding='utf-8-sig')
     

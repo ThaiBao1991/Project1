@@ -35,8 +35,6 @@ def get_column_data_and_write(file_path, txt_file_path, sheet_index=1, start_row
     with open_workbook(file_path) as wb:
         with wb.get_sheet(sheet_index) as sheet:
             max_row = get_max_row_with_data(file_path)
-            total_rows = max_row - start_row + 1  # Số dòng cần xử lý (từ start_row đến max_row)
-            current_row = start_row
             for row_idx, row in enumerate(sheet.rows(), start=1):
                 if start_row <= row_idx <= max_row:
                     try:
@@ -46,13 +44,11 @@ def get_column_data_and_write(file_path, txt_file_path, sheet_index=1, start_row
                             write_unique_data(txt_file_path, [cell_value])
                             # Cập nhật giao diện tiến độ theo thời gian thực
                             if progress_window:
-                                progress = ((current_row - start_row) / total_rows) * 100
-                                progress_window.update_progress(f"Đang xử lý dòng {row_idx}: {cell_value}", progress)
+                                progress_window.update_progress(f"Đang xử lý dòng {row_idx}: {cell_value}")
                                 progress_window.listbox.insert(tk.END, f"Dòng {row_idx}: {cell_value}")
                                 progress_window.listbox.see(tk.END)  # Cuộn xuống cuối danh sách
                                 # Đảm bảo giao diện cập nhật ngay lập tức
                                 progress_window.window.update()
-                        current_row += 1
                         time.sleep(0.1)  # Thêm độ trễ nhỏ để giao diện cập nhật mượt mà
                     except IndexError:
                         continue
@@ -76,42 +72,37 @@ class ProgressWindow:
         self.window.title("Tiến trình xử lý")
         self.window.geometry("400x500")
         
-        # Frame chứa các thành phần
-        main_frame = tk.Frame(self.window)
-        main_frame.pack(pady=5, padx=10, fill=tk.BOTH, expand=True)
-        
         # Label tiêu đề
-        self.label = tk.Label(main_frame, text="Tiến trình xử lý dữ liệu:")
+        self.label = tk.Label(self.window, text="Tiến trình xử lý dữ liệu:")
         self.label.pack(pady=5)
         
         # Listbox để hiển thị mã hàng
-        self.listbox = tk.Listbox(main_frame, height=15, width=50)
-        self.listbox.pack(pady=5, fill=tk.BOTH, expand=True)
+        self.listbox = tk.Listbox(self.window, height=20, width=50)
+        self.listbox.pack(pady=5, padx=10, fill=tk.BOTH, expand=True)
         
-        # Frame cho Progressbar và nhãn phần trăm
-        progress_frame = tk.Frame(main_frame)
-        progress_frame.pack(pady=5)
-        
-        # Progressbar với màu xanh lá cây (mặc định của ttk)
-        self.progress = ttk.Progressbar(progress_frame, length=300, mode='determinate', style='green.Horizontal.TProgressbar')
-        self.progress.pack(side=tk.LEFT, padx=5)
-        
-        # Nhãn phần trăm
-        self.progress_percent = tk.Label(progress_frame, text="0%")
-        self.progress_percent.pack(side=tk.LEFT)
+        # Progress bar
+        self.progress = ttk.Progressbar(self.window, length=300, mode='determinate')
+        self.progress.pack(pady=5)
         
         # Label tiến độ
-        self.progress_label = tk.Label(main_frame, text="")
+        self.progress_label = tk.Label(self.window, text="")
         self.progress_label.pack(pady=5)
         
-        # Nút đóng
-        self.close_button = tk.Button(main_frame, text="Đóng", command=self.window.destroy)
+        # Nút đóng (có thể ẩn hoặc để tùy chọn)
+        self.close_button = tk.Button(self.window, text="Đóng", command=self.window.destroy)
         self.close_button.pack(pady=5)
 
-    def update_progress(self, message, progress):
+    def update_progress(self, message):
         self.progress_label.config(text=message)
-        self.progress['value'] = progress
-        self.progress_percent.config(text=f"{int(progress)}%")
+        # Cập nhật tiến độ dựa trên số dòng
+        try:
+            row_num = int(message.split("đường")[1].split(":")[0].strip())
+            total_rows = get_max_row_with_data(excel_link) - 5  # Giả sử bắt đầu từ dòng 6
+            if total_rows > 0:
+                progress = (row_num - 5) / total_rows * 100
+                self.progress['value'] = progress
+        except (IndexError, ValueError):
+            pass
         self.window.update()
 
 def CheckData():
@@ -145,13 +136,9 @@ def CheckData():
     else:
         messagebox.showwarning("Cảnh báo", f"Định dạng file {excel_file_extension} không được hỗ trợ.")
 
-# Định nghĩa style cho Progressbar màu xanh lá cây
+# Tạo cửa sổ giao diện
 root = tk.Tk()
 root.title("Chương trình xử lý dữ liệu Excel")
-
-# Tạo style cho Progressbar màu xanh lá cây
-style = ttk.Style()
-style.configure("green.Horizontal.TProgressbar", background='green')
 
 btn_chon_file = tk.Button(root, text="Chọn file Excel", command=Pick_ExcelFile)
 btn_chon_file.pack(pady=10)
