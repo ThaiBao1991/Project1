@@ -29,7 +29,7 @@ def find_project_root(current_path, marker_file_or_dir=".git"):
 def open_data_window(parent):
     global csv_file_path, data_df, original_df, filters
     data_dir = os.path.join(os.getcwd(), "DATASETC")
-    print("Data dir là :",data_dir)
+    # print("Data dir là :",data_dir)
     os.makedirs(data_dir, exist_ok=True)
     csv_file_path = os.path.join(data_dir, "data.csv")
     
@@ -38,6 +38,14 @@ def open_data_window(parent):
         for encoding in encodings:
             try:
                 data_df = pd.read_csv(csv_file_path, encoding=encoding)
+                col_mapping = {
+                    'Gửi Lot DAI DIEN: "DD"\nGửi TOAN BO Lot: "TB"': "Gui_DL",
+                    'Gửi Lot DAI DIEN: "DD" Gửi TOAN BO Lot: "TB"': "Gui_DL",
+                    "Gửi Lot DAI DIEN: 'DD' Gửi TOAN BO Lot: 'TB'": "Gui_DL",
+                    "Gửi Lot DAI DIEN: 'DD'  Gửi TOAN BO Lot: 'TB'": "Gui_DL",
+                    "Gửi Lot DAI DIEN: 'DD'\nGửi TOAN BO Lot: 'TB'": "Gui_DL"
+                }
+                data_df = data_df.rename(columns=col_mapping)
                 break
             except Exception as e:
                 print(f"Lỗi với encoding {encoding} khi đọc data.csv: {e}")
@@ -48,6 +56,8 @@ def open_data_window(parent):
     else:
         data_df = pd.DataFrame()
         data_df.to_csv(csv_file_path, index=False, encoding='utf-8-sig')
+    
+    
     
     original_df = data_df.copy()
     filters = {}
@@ -103,8 +113,8 @@ def open_data_window(parent):
             # Đảm bảo thư mục tồn tại
             os.makedirs(os.path.dirname(csv_file_path), exist_ok=True)
             # Lưu file
-            if not original_df.empty:
-                original_df.to_csv(csv_file_path, index=False, encoding='utf-8-sig')
+            if not data_df.empty:
+                data_df.to_csv(csv_file_path, index=False, encoding='utf-8-sig')
             else:
                 pd.DataFrame(columns=REQUIRED_COLUMNS).to_csv(csv_file_path, index=False, encoding='utf-8-sig')
         except Exception as e:
@@ -352,8 +362,20 @@ def open_data_window(parent):
                 # Xóa dòng trùng lặp dựa trên SS, Mã hàng, MSKH
                 if all(col in available_columns for col in ["SS", "Mã hàng", "MSKH"]):
                     data_df = data_df.drop_duplicates(subset=["SS", "Mã hàng", "MSKH"], keep="last")
+                    
+                print(data_df.head())            
+                
+                
+                if len(data_df.columns) > 7:
+                    old_column_name = data_df.columns[7]
+                    data_df = data_df.rename(columns={old_column_name: "Gui_DL"})
+                    print(f"Đã đổi tên cột thứ 8 từ '{old_column_name}' thành 'Gui_DL' trong new_df")
+                else:
+                    print("File CSV có ít hơn 8 cột, không thể đổi tên cột thứ 8")
 
-                original_df = data_df.copy()
+                
+                print(data_df.head())
+               
                 save_to_csv()
                 update_table(data_df)
                 messagebox.showinfo("Thành công", f"Đã cập nhật dữ liệu từ file: {file_path}")

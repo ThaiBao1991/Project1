@@ -50,7 +50,7 @@ def main():
     # Cập nhật lệnh cho nút 
     buttons = frame_buttons.winfo_children()
     if len(buttons) == 3:  # Đảm bảo có 3 nút
-        for period, button in zip(["Tháng", "Tuần", "Ngày"], buttons):
+        for period, button in zip(["Month", "Week", "Day"], buttons):
             button.config(command=lambda p=period: show_send_frame(root, p))
 
     root.mainloop()

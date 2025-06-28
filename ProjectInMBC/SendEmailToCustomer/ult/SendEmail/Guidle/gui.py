@@ -2,7 +2,7 @@ import tkinter as tk
 import os
 from tkinter import filedialog, messagebox, ttk
 # Đảm bảo các biến global được import đúng
-from .state import data_df, original_df, filters, current_period, tree, frame_buttons, send_frame, label_file, entry_file, frame_table, frame_status_buttons, btn_back, month_year_var
+from .state import data_df,period, original_df, filters, current_period, tree, frame_buttons, send_frame, label_file, entry_file, frame_table, frame_status_buttons, btn_back, month_year_var
 # Import các hàm từ .data
 from .data import initialize_data, gui_du_lieu, send_all_data, send_selected_data, reset_status, convert_txt_to_csv, update_data
 import pandas as pd
@@ -21,11 +21,11 @@ def create_main_window(root):
 
     frame_buttons = tk.Frame(root, bg="#e8ecef")
     tk.Button(frame_buttons, text="Gửi Email Tháng", font=("Helvetica", 14, "bold"), bg="#3498db", fg="white", padx=30, pady=15,
-              command=lambda: show_send_frame(root, "Tháng")).pack(side=tk.LEFT, padx=20)
+              command=lambda: show_send_frame(root, "month")).pack(side=tk.LEFT, padx=20)
     tk.Button(frame_buttons, text="Gửi Email Tuần", font=("Helvetica", 14, "bold"), bg="#27ae60", fg="white", padx=30, pady=15,
-              command=lambda: show_send_frame(root, "Tuần")).pack(side=tk.LEFT, padx=20)
+              command=lambda: show_send_frame(root, "week")).pack(side=tk.LEFT, padx=20)
     tk.Button(frame_buttons, text="Gửi Email Ngày", font=("Helvetica", 14, "bold"), bg="#f39c12", fg="white", padx=30, pady=15,
-              command=lambda: show_send_frame(root, "Ngày")).pack(side=tk.LEFT, padx=20)
+              command=lambda: show_send_frame(root, "day")).pack(side=tk.LEFT, padx=20)
 
     return frame_buttons
 
@@ -159,8 +159,8 @@ def show_send_frame(root, period):
     frame_table = tk.Frame(send_frame, bg="#e8ecef")
     frame_table.pack(pady=10, fill="both", expand=True)
     
-    tree = ttk.Treeview(frame_table, columns=data_df.columns.tolist() if data_df is not None else [], 
-                       show="headings", height=10)
+    columns = list(data_df.columns) if not data_df.empty else []
+    tree = ttk.Treeview(frame_table, columns=columns, show="headings", height=20)
     
     # Thêm thanh cuộn
     scrollbar_y = ttk.Scrollbar(frame_table, orient="vertical", command=tree.yview)
@@ -229,7 +229,7 @@ def show_send_frame(root, period):
     # Cài đặt các cột trước khi initialize_data chạy
     display_columns = [
         "SS", "Mã hàng", "MSKH", "Đối tượng gửi dữ liệu","Nguồn dữ liệu","Yêu cầu đặc biệt khi gửi dữ liệu",
-        "Part Number", "Gửi Lot DAI DIEN: 'DD' Gửi TOAN BO Lot: 'TB'",
+        "Part Number", "Gui_DL",
         "Nơi nhận dữ liệu", "DUNG LƯỢNG 1 LẦN GỬI", "Status"
     ]
     tree["columns"] = display_columns
@@ -255,21 +255,16 @@ def validate_and_process_data(map_erp_file, kjs_file):
         messagebox.showwarning("Cảnh báo", "Vui lòng chọn cả file MAP-ERP và KJS!")
         return
 
-    # Đọc nguồn dữ liệu từ data.csv
-    data_dir = os.path.join(os.getcwd(), "DATASETC")
-    csv_file_path = os.path.join(data_dir, "data.csv")
+    # print Đọc nguồn dữ liệu từ 
+    data_dir = os.path.join(os.getcwd(), "DATASETC", "DATA_customer_time")
+    csv_file_path = os.path.join(data_dir, f"data_{current_period.get()}.csv")
+    # print(pd.read_csv(csv_file_path, encoding='utf-8-sig').head())  # In ra 5 dòng đầu tiên của file CSV
     
-    try:
-        df = pd.read_csv(csv_file_path)
-        print(df.head())    # In ra 5 dòng đầu tiên để kiểm tra dữ liệu
-        for index, row in df.iterrows():
-            source = str(row.get("Nguồn dữ liệu", "")).strip().upper()
-            if source == "MAP-ERP":
-                gui_du_lieu(map_erp_file, current_period.get(), data_df, month_year_var.get(), "MAP_ERP")
-            elif source == "KJS":
-                gui_du_lieu(kjs_file, current_period.get(), data_df, month_year_var.get(), "KJS")
-    except Exception as e:
-        messagebox.showerror("Lỗi", f"Lỗi khi xử lý dữ liệu: {str(e)}")
+    gui_du_lieu(csv_file_path,current_period.get(),month_year_var.get(), data_df)
+    
+    # gui_du_lieu(map_erp_file, current_period.get(), data_df, month_year_var.get(), "MAP_ERP")
+    # gui_du_lieu(kjs_file, current_period.get(), data_df, month_year_var.get(), "KJS")
+   
 
 def back_to_main():
     """Quay lại frame chính"""
@@ -283,20 +278,24 @@ def back_to_main():
 def chon_file_txt(mode, entry_widget):
     file_path = filedialog.askopenfilename(
         title=f"Chọn file {'MAP-ERP' if mode == 'MAP_ERP' else 'KJS'}",
-        filetypes=[("Text files", "*.txt"), ("CSV files", "*.csv"), ("All files", "*.*")]
+        filetypes=[("CSV files", "*.csv"), ("Text files", "*.txt"), ("All files", "*.*")],
+        defaultextension=".csv"  # Prioritize CSV as default
     )
+    output_dir = os.path.join(os.getcwd(), "DATASETC", "Data by classification")
+    os.makedirs(output_dir, exist_ok=True)
+    output_filename = f"data_work_{mode}.csv"
+    output_file = os.path.join(output_dir, output_filename)
     if file_path:
         entry_widget.delete(0, tk.END)
         entry_widget.insert(0, file_path)
-
     try:
         if file_path.lower().endswith('.csv'):
             encodings = ['utf-8-sig', 'utf-8', 'latin1', 'iso-8859-1', 'utf-16']
             for encoding in encodings:
                 try:
-                    df = pd.read_csv(file_path, encoding=encoding)
+                    df = pd.read_csv(file_path, encoding=encoding,low_memory=False)
                     if not df.empty:
-                        df.to_csv("data_work.csv", index=False, encoding='utf-8-sig')
+                        df.to_csv(output_file, index=False, encoding='utf-8-sig')
                         messagebox.showinfo("Thành công", "Đã sử dụng file CSV trực tiếp")
                         break
                 except Exception:
@@ -373,7 +372,7 @@ def show_details(root, event):
         mskh_index = tree_columns.index("MSKH") if "MSKH" in tree_columns else -1
         mh_index = tree_columns.index("Mã hàng") if "Mã hàng" in tree_columns else -1
         noinhan_index = tree_columns.index("Nơi nhận dữ liệu") if "Nơi nhận dữ liệu" in tree_columns else -1
-        gui_dl_index = tree_columns.index("Gửi Lot DAI DIEN: 'DD' Gửi TOAN BO Lot: 'TB'") if "Gửi Lot DAI DIEN: 'DD' Gửi TOAN BO Lot: 'TB'" in tree_columns else -1
+        gui_dl_index = tree_columns.index("Gui_DL") if "Gui_DL" in tree_columns else -1
         
         ss = str(values[ss_index]).strip() if ss_index != -1 and len(values) > ss_index else ""
         mskh = str(values[mskh_index]).strip() if mskh_index != -1 and len(values) > mskh_index else ""
@@ -386,11 +385,11 @@ def show_details(root, event):
             return
 
         # Đọc file data_work.csv
-        if not os.path.join(os.getcwd(), "DATASETC", "data.csv"):
-            messagebox.showwarning("Cảnh báo", "Không tìm thấy file data_work.csv!\nVui lòng chọn file TXT để tạo.")
+        if not os.path.join(os.getcwd(), "DATASETC","DATA_customer_time", f"data_{period}.csv"):
+            messagebox.showwarning("Cảnh báo", f"Không tìm thấy file data_{period}.csv !\nVui lòng chọn file TXT để tạo.")
             return
 
-        work_df = pd.read_csv(os.path.join(os.getcwd(), "DATASETC", "data.csv"), encoding='utf-8-sig')
+        work_df = pd.read_csv(os.path.join(os.getcwd(), "DATASETC","DATA_customer_time", f"data_{period}.csv"), encoding='utf-8-sig')
 
         # Kiểm tra và lấy tên cột thứ 22 (W/d/r No)
         wdr_col = work_df.columns[21] if len(work_df.columns) > 21 else None
