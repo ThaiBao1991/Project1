@@ -2315,72 +2315,113 @@ def gui_du_lieu(file_path, period,month_year, data_df):
     #         messagebox.showerror("Lỗi", f"Đã xảy ra lỗi khi xử lý dữ liệu: {str(e)}")
      
 def nen_du_lieu(data_df, period):
+    EMAIL_DIR = os.path.join(os.getcwd(), "DATASETC", "Email")
+    EMAIL_JSON = os.path.join(EMAIL_DIR, "email.json")
+
     """Nén dữ liệu đã copy thành các file zip"""
     try:
+        
         config = load_config()
+        data_origin_path = config.get("data_origin_path", "")
         data_temp_path = config.get("data_temp_path", "")
+        if not data_origin_path or not data_temp_path:
+            messagebox.showerror("Lỗi", "Vui lòng cấu hình đường dẫn thư mục gốc và thư mục tạm trước trong config!")
+            return
+        with open(EMAIL_JSON, 'r', encoding='utf-8') as f:
+            dataemail = json.load(f)
         
-        if not data_temp_path or not os.path.exists(data_temp_path):
-            messagebox.showerror("Lỗi", "Không tìm thấy đường dẫn thư mục tạm!")
-            return False
-
-        # Khởi tạo biến đếm và theo dõi
-        copied_files_count = 0
-        created_folders = {}
         
-        # Duyệt qua từng dòng dữ liệu
-        for index, row in data_df.iterrows():
-            if str(row.get("Status", "")).strip() != "Đã copy dữ liệu":
-                continue
+        
+        # # Đọc dữ liệu từ file JSON
+        # with open('data.json', 'r', encoding='utf-8') as f:
+        #     data = json.load(f)
 
-            ss = str(row.get("SS", "")).strip()
-            mskh = str(row.get("MSKH", "")).strip()
-            noi_nhan = str(row.get("Nơi nhận dữ liệu", "")).strip()
+        # # Hàm nén thư mục
+        # def zip_folder(folder_path, output_path):
+        #     shutil.make_archive(output_path, 'zip', folder_path)
+
+        # # Duyệt qua từng mã hàng trong dữ liệu
+        # for ma_hang, info in data.items():
+        #     ten_kh = info["Tên KH"]
+        #     category_email = info["CategoryEmail"]
+        #     ma_hang_list = info["MÃ HÀNG"]
+
+        #     # Tạo tên file nén
+        #     zip_filename = f"{ten_kh}_{category_email}"
+
+        #     # Kiểm tra nếu "MÃ HÀNG" là "ALL"
+        #     if ma_hang_list == ["ALL"]:
+        #         # Nén toàn bộ thư mục gửi KRO
+        #         zip_folder(f'gửi {ten_kh}', zip_filename)
+        #     else:
+        #         # Nén các thư mục chứa mã hàng cụ thể
+        #         ma_hang_list = ma_hang_list.split(',')
+        #     for ma in ma_hang_list:
+        #         for root, dirs, files in os.walk(f'gửi {ten_kh}'):
+        #             if any(ma in d for d in dirs):
+        #                 zip_folder(os.path.join(root, d), f"{zip_filename}_{ma}")
+
+        # print("Hoàn thành nén các thư mục.")
+
+
+
+    #     # Khởi tạo biến đếm và theo dõi
+    #     copied_files_count = 0
+    #     created_folders = {}
+        
+    #     # Duyệt qua từng dòng dữ liệu
+    #     for index, row in data_df.iterrows():
+    #         if str(row.get("Status", "")).strip() != "Đã copy dữ liệu":
+    #             continue
+
+    #         ss = str(row.get("SS", "")).strip()
+    #         mskh = str(row.get("MSKH", "")).strip()
+    #         noi_nhan = str(row.get("Nơi nhận dữ liệu", "")).strip()
             
-            # Tạo đường dẫn thư mục
-            customer_folder = os.path.join(data_temp_path, f"{ss}_{mskh}")
-            if not os.path.exists(customer_folder):
-                continue
+    #         # Tạo đường dẫn thư mục
+    #         customer_folder = os.path.join(data_temp_path, f"{ss}_{mskh}")
+    #         if not os.path.exists(customer_folder):
+    #             continue
 
-            # Nén thư mục PDF thành zip
-            pdf_folder = os.path.join(customer_folder, "PDF")
-            if os.path.exists(pdf_folder):
-                # Tính tổng kích thước các file PDF
-                total_size = sum(os.path.getsize(os.path.join(pdf_folder, f)) 
-                               for f in os.listdir(pdf_folder) 
-                               if f.lower().endswith('.pdf'))
+    #         # Nén thư mục PDF thành zip
+    #         pdf_folder = os.path.join(customer_folder, "PDF")
+    #         if os.path.exists(pdf_folder):
+    #             # Tính tổng kích thước các file PDF
+    #             total_size = sum(os.path.getsize(os.path.join(pdf_folder, f)) 
+    #                            for f in os.listdir(pdf_folder) 
+    #                            if f.lower().endswith('.pdf'))
                 
-                # Nén file dựa trên kích thước
-                max_size_mb = float(str(row.get("DUNG LƯỢNG 1 LẦN GỬI", "10")).replace("MB", "").strip())
+    #             # Nén file dựa trên kích thước
+    #             max_size_mb = float(str(row.get("DUNG LƯỢNG 1 LẦN GỬI", "10")).replace("MB", "").strip())
                 
-                if total_size > max_size_mb * 1024 * 1024:
-                    # Chia nhỏ file zip
-                    zip_folder_by_size(
-                        pdf_folder,
-                        os.path.join(customer_folder, f"{ss}_{mskh}_{noi_nhan}"),
-                        max_size_mb
-                    )
-                else:
-                    # Tạo một file zip duy nhất
-                    zip_name = os.path.join(customer_folder, f"{ss}_{mskh}_{noi_nhan}.zip")
-                    with zipfile.ZipFile(zip_name, 'w', zipfile.ZIP_DEFLATED) as zipf:
-                        for root_dir, _, files in os.walk(pdf_folder):
-                            for file in files:
-                                file_path = os.path.join(root_dir, file)
-                                arcname = os.path.relpath(file_path, pdf_folder)
-                                zipf.write(file_path, arcname)
+    #             if total_size > max_size_mb * 1024 * 1024:
+    #                 # Chia nhỏ file zip
+    #                 zip_folder_by_size(
+    #                     pdf_folder,
+    #                     os.path.join(customer_folder, f"{ss}_{mskh}_{noi_nhan}"),
+    #                     max_size_mb
+    #                 )
+    #             else:
+    #                 # Tạo một file zip duy nhất
+    #                 zip_name = os.path.join(customer_folder, f"{ss}_{mskh}_{noi_nhan}.zip")
+    #                 with zipfile.ZipFile(zip_name, 'w', zipfile.ZIP_DEFLATED) as zipf:
+    #                     for root_dir, _, files in os.walk(pdf_folder):
+    #                         for file in files:
+    #                             file_path = os.path.join(root_dir, file)
+    #                             arcname = os.path.relpath(file_path, pdf_folder)
+    #                             zipf.write(file_path, arcname)
 
-            created_folders[customer_folder] = True
-            copied_files_count += 1
+    #         created_folders[customer_folder] = True
+    #         copied_files_count += 1
 
-        if copied_files_count > 0:
-            messagebox.showinfo("Thành công", 
-                              f"Đã nén {copied_files_count} thư mục dữ liệu thành công!")
-            return True
-        else:
-            messagebox.showwarning("Cảnh báo", 
-                                 "Không có dữ liệu nào được nén!\nVui lòng xác nhận copy dữ liệu trước.")
-            return False
+    #     if copied_files_count > 0:
+    #         messagebox.showinfo("Thành công", 
+    #                           f"Đã nén {copied_files_count} thư mục dữ liệu thành công!")
+    #         return True
+    #     else:
+    #         messagebox.showwarning("Cảnh báo", 
+    #                              "Không có dữ liệu nào được nén!\nVui lòng xác nhận copy dữ liệu trước.")
+    #         return False
 
     except Exception as e:
         messagebox.showerror("Lỗi", f"Lỗi khi nén dữ liệu: {str(e)}")
