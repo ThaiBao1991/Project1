@@ -1,7 +1,7 @@
 import json
 import os
 import tkinter as tk
-from tkinter import filedialog, messagebox
+from tkinter import filedialog, messagebox,ttk
 import pandas as pd
 
 CONFIG_FILE = "config.json"
@@ -85,6 +85,108 @@ def show_email_config_window(root):
     entry_data = tk.Entry(frame_data, width=50, font=("Helvetica", 12))
     entry_data.pack(side=tk.LEFT, padx=10)
     entry_data.insert(0, config.get("data_file_path", ""))
+    
+    # --- Thêm phần chọn file Excel và convert ---
+    frame_excel = tk.Frame(email_config_window, bg="#e8ecef")
+    frame_excel.pack(pady=10, fill="x", padx=20)
+    tk.Label(frame_excel, text="File Excel:", font=("Helvetica", 12), bg="#e8ecef").pack(side=tk.LEFT)
+    entry_excel = tk.Entry(frame_excel, width=50, font=("Helvetica", 12))
+    entry_excel.pack(side=tk.LEFT, padx=10)
+    entry_excel.insert(0, config.get("excel_convert_path", ""))
+
+    def select_excel_file():
+        file_path = filedialog.askopenfilename(
+            title="Chọn file Excel",
+            filetypes=[("Excel files", "*.xlsx *.xls")]
+        )
+        if file_path:
+            entry_excel.delete(0, tk.END)
+            entry_excel.insert(0, file_path)
+
+    tk.Button(frame_excel, text="Chọn", command=select_excel_file,
+              font=("Helvetica", 12, "bold"), bg="#3498db", fg="white", padx=10).pack(side=tk.LEFT)
+
+    def convert_excel_to_csv():
+        excel_path = entry_excel.get()
+        if not excel_path or not os.path.exists(excel_path):
+            messagebox.showwarning("Cảnh báo", "Vui lòng chọn file Excel hợp lệ!")
+            return
+        try:
+            # Đọc danh sách sheet
+            xl = pd.ExcelFile(excel_path)
+            sheet_names = xl.sheet_names
+
+            # Tạo cửa sổ chọn sheet và vùng dữ liệu
+            select_window = tk.Toplevel(email_config_window)
+            select_window.title("Chọn sheet và vùng dữ liệu")
+            select_window.geometry("400x300")
+            select_window.configure(bg="#e8ecef")
+
+            tk.Label(select_window, text="Chọn sheet:", font=("Helvetica", 12), bg="#e8ecef").pack(pady=5)
+            sheet_var = tk.StringVar(value=sheet_names[0])
+            sheet_menu = ttk.Combobox(select_window, textvariable=sheet_var, values=sheet_names, state="readonly", font=("Helvetica", 12))
+            sheet_menu.pack(pady=5)
+
+            tk.Label(select_window, text="Dòng bắt đầu (từ 0):", font=("Helvetica", 12), bg="#e8ecef").pack()
+            entry_row_start = tk.Entry(select_window, width=10, font=("Helvetica", 12))
+            entry_row_start.pack(pady=2)
+            entry_row_start.insert(0, "0")
+
+            tk.Label(select_window, text="Dòng kết thúc (từ 0, để trống lấy hết):", font=("Helvetica", 12), bg="#e8ecef").pack()
+            entry_row_end = tk.Entry(select_window, width=10, font=("Helvetica", 12))
+            entry_row_end.pack(pady=2)
+
+            tk.Label(select_window, text="Cột bắt đầu (từ 0):", font=("Helvetica", 12), bg="#e8ecef").pack()
+            entry_col_start = tk.Entry(select_window, width=10, font=("Helvetica", 12))
+            entry_col_start.pack(pady=2)
+            entry_col_start.insert(0, "0")
+
+            tk.Label(select_window, text="Cột kết thúc (từ 0, để trống lấy hết):", font=("Helvetica", 12), bg="#e8ecef").pack()
+            entry_col_end = tk.Entry(select_window, width=10, font=("Helvetica", 12))
+            entry_col_end.pack(pady=2)
+
+            def do_convert():
+                try:
+                    sheet = sheet_var.get()
+                    row_start = entry_row_start.get().strip()
+                    row_end = entry_row_end.get().strip()
+                    col_start = entry_col_start.get().strip()
+                    col_end = entry_col_end.get().strip()
+
+                    df = pd.read_excel(excel_path, sheet_name=sheet, header=None)
+                    # Không bỏ qua dòng đầu tiên
+
+                    # Xử lý chỉ số dòng/cột
+                    row_start = int(row_start) if row_start else 0
+                    row_end = int(row_end) if row_end else None
+                    col_start = int(col_start) if col_start else 0
+                    col_end = int(col_end) if col_end else None
+
+                    df = df.iloc[row_start:row_end, col_start:col_end]
+
+                    base_name = os.path.splitext(os.path.basename(excel_path))[0]
+                    output_csv = os.path.join(os.path.dirname(excel_path), f"{base_name}convertcsv.csv")
+                    df.to_csv(output_csv, index=False, header=False, encoding='utf-8-sig')
+
+                    # Lưu lại đường dẫn vào config
+                    config = load_config()
+                    config["excel_convert_path"] = excel_path
+                    config["excel_convert_csv"] = output_csv
+                    save_config(config)
+                    messagebox.showinfo("Thành công", f"Đã convert file Excel sang CSV:\n{output_csv}")
+                    select_window.destroy()
+                except Exception as e:
+                    messagebox.showerror("Lỗi", f"Không thể convert file Excel: {e}")
+
+            tk.Button(select_window, text="Convert", command=do_convert,
+                    font=("Helvetica", 12, "bold"), bg="#f39c12", fg="white", padx=10).pack(pady=15)
+
+        except Exception as e:
+            messagebox.showerror("Lỗi", f"Không thể đọc file Excel: {e}")
+
+    tk.Button(frame_excel, text="Convert to CSV", command=convert_excel_to_csv,
+              font=("Helvetica", 12, "bold"), bg="#f39c12", fg="white", padx=10).pack(side=tk.LEFT)
+    # --- Kết thúc phần chọn file Excel và convert ---
     tk.Button(frame_data, text="Chọn", command=lambda: select_file(entry_data), 
               font=("Helvetica", 12, "bold"), bg="#3498db", fg="white", padx=10).pack(side=tk.LEFT)
 
@@ -96,6 +198,7 @@ def show_email_config_window(root):
 
     tk.Button(email_config_window, text="Quay lại", command=lambda: [email_config_window.destroy(), show_config_window(root)], 
               font=("Helvetica", 12, "bold"), bg="#e74c3c", fg="white", padx=20, pady=10).pack(pady=10)
+    
 
 def select_folder(entry):
     """Chọn thư mục và cập nhật entry"""

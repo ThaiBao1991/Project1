@@ -11,6 +11,11 @@ REQUIRED_COLUMNS = [
     "Nơi nhận dữ liệu", "DUNG LƯỢNG 1 LẦN GỬI"
 ]
 
+SHOW_COLUMNS = [
+    "SS", "Mã hàng", "MSKH", "Part Number", "Đối tượng gửi dữ liệu","Nguồn dữ liệu",
+    "Yêu cầu đặc biệt khi gửi dữ liệu", 'Gui_DL',
+    "Nơi nhận dữ liệu", "DUNG LƯỢNG 1 LẦN GỬI"
+]
 import os
 
 def find_project_root(current_path, marker_file_or_dir=".git"):
@@ -259,7 +264,7 @@ def open_data_window(parent):
         main_frame.rowconfigure(0, weight=1)
 
         # Điền dữ liệu hiện tại
-        columns_to_show = [col for col in REQUIRED_COLUMNS if col in data_df.columns]
+        columns_to_show = [col for col in SHOW_COLUMNS if col in data_df.columns]
         current_data = data_df.iloc[index][columns_to_show].to_dict()
         
         for idx, col in enumerate(columns_to_show):

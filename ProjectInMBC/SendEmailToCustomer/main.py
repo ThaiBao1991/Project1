@@ -4,6 +4,7 @@ import os
 from ult.SendEmail.Guidle.gui import create_main_window, show_send_frame
 from ult.SendEmail.Guidle.config import open_config_window
 from ult.SendEmail.File.Data.file_data import open_data_window
+from ult.SendEmail.File.email import open_email_window
 
 def main():
     root = tk.Tk()
@@ -29,6 +30,7 @@ def main():
     file_menu = tk.Menu(menu_bar, tearoff=0)
     menu_bar.add_cascade(label="File", menu=file_menu)
     file_menu.add_command(label="Data", command=lambda: open_data_window(root))
+    file_menu.add_command(label="Email", command=lambda: open_email_window(root))
     file_menu.add_separator()
     file_menu.add_command(label="Exit", command=lambda: root.destroy() if messagebox.askokcancel("Thoát", "Bạn có chắc chắn muốn thoát?") else None)
 

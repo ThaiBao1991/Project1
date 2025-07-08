@@ -317,11 +317,11 @@ def update_table(df):
     
     # Kiểm tra widget (giữ mức độ vừa phải)
     if tree is None or not tree.winfo_exists():
-        print("[DEBUG] Treeview không khả dụng")  # Log ngắn gọn
+        # print("[DEBUG] Treeview không khả dụng")  # Log ngắn gọn
         return
 
     # Debug log cần thiết
-    print(f"[DEBUG] Cập nhật Treeview với {len(df) if df is not None else 0} dòng")
+    # print(f"[DEBUG] Cập nhật Treeview với {len(df) if df is not None else 0} dòng")
     
     # Xóa dữ liệu cũ
     tree.delete(*tree.get_children())
