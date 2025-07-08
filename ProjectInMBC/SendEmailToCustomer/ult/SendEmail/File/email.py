@@ -110,6 +110,8 @@ def open_email_window(parent):
 
     def import_csv():
         file_path = filedialog.askopenfilename(title="Chọn file CSV", filetypes=[("CSV files", "*.csv")])
+        data_month_csv= os.path.join(os.getcwd(),"DATASETC","DATA_customer_time","data_month.csv")
+        data_month_df= pd.read_csv(data_month_csv,encoding='utf-8-sig')
         if file_path:
             try:
                 new_df = pd.read_csv(file_path, encoding='utf-8-sig')
@@ -122,6 +124,16 @@ def open_email_window(parent):
                 nonlocal df
                 df = pd.concat([df, new_df], ignore_index=True)
                 df = df.drop_duplicates(subset=["Tên KH", "MÃ HÀNG", "Địa chỉ gửi mail"], keep="last")
+                df = df.merge(
+                data_month_df[['Nơi nhận dữ liệu', 'DUNG LƯỢNG 1 LẦN GỬI']],
+                left_on='Tên KH',
+                right_on='Nơi nhận dữ liệu',
+                how='left'  # Giữ nguyên tất cả dòng của df
+                )
+                # Đổi tên cột 'DUNG LƯỢNG 1 LẦN GỬI' thành 'Max MB'
+                df.rename(columns={'DUNG LƯỢNG 1 LẦN GỬI': 'Max MB'}, inplace=True)
+                # (Tùy chọn) Xóa cột dư nếu muốn
+                df.drop(columns=['Nơi nhận dữ liệu'], inplace=True)
                 save_to_csv_and_json()
                 update_table()
                 messagebox.showinfo("Thành công", f"Đã nhập dữ liệu từ file: {file_path}")
