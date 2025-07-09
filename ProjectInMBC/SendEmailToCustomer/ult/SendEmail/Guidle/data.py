@@ -16,6 +16,9 @@ import re
 import json
 
 selected_row_details={}
+ZIP_DIR = os.path.join(os.getcwd(), "DATASETC", "ZipFile")
+os.makedirs(ZIP_DIR, exist_ok=True)
+ZIP_LOG_JSON = os.path.join(ZIP_DIR, "zipfile.json")
 
 def send_email_via_outlook(subject, body, to_email, attachment_paths):
     """Gửi email qua Outlook với các file đính kèm"""
@@ -2313,119 +2316,167 @@ def gui_du_lieu(file_path, period,month_year, data_df):
     #             return True
     #     except Exception as e:
     #         messagebox.showerror("Lỗi", f"Đã xảy ra lỗi khi xử lý dữ liệu: {str(e)}")
-     
+def split_and_zip(folder_path, zip_prefix, max_mb):
+    """
+    Nén các file PDF trong folder_path thành nhiều file zip nhỏ hơn max_mb (MB).
+    Trả về danh sách đường dẫn các file zip đã tạo.
+    """
+    max_bytes = int((max_mb - 1) * 1024 * 1024)  # Trừ 1MB để an toàn
+    pdf_files = []
+    for root, _, files in os.walk(folder_path):
+        for file in files:
+            if file.lower().endswith('.pdf'):
+                pdf_files.append(os.path.join(root, file))
+    zip_files = []
+    part = 1
+    current_zip_files = []
+    current_size = 0
+    for pdf in pdf_files:
+        size = os.path.getsize(pdf)
+        if current_size + size > max_bytes and current_zip_files:
+            zip_name = f"{zip_prefix}_{part:02d}.zip" if part > 1 else f"{zip_prefix}.zip"
+            zip_path = os.path.join(ZIP_DIR, zip_name)
+            with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zf:
+                for f in current_zip_files:
+                    arcname = os.path.relpath(f, folder_path)
+                    zf.write(f, arcname)
+            zip_files.append(zip_path)
+            part += 1
+            current_zip_files = []
+            current_size = 0
+        current_zip_files.append(pdf)
+        current_size += size
+    if current_zip_files:
+        zip_name = f"{zip_prefix}_{part:02d}.zip" if part > 1 else f"{zip_prefix}.zip"
+        zip_path = os.path.join(ZIP_DIR, zip_name)
+        with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zf:
+            for f in current_zip_files:
+                arcname = os.path.relpath(f, folder_path)
+                zf.write(f, arcname)
+        zip_files.append(zip_path)
+    return zip_files
+
+def group_and_zip_folders(folder_paths, zip_prefix, max_mb, zip_dir):
+    """
+    Gộp liên tiếp các thư mục mã hàng vào file zip nhỏ hơn max_mb (MB).
+    Nếu một thư mục mã hàng vượt quá max_mb thì chia nhỏ riêng thư mục đó.
+    """
+    import zipfile
+
+    max_bytes = int((max_mb - 1) * 1024 * 1024)
+    zip_files = []
+    part = 1
+    i = 0
+    while i < len(folder_paths):
+        folder = folder_paths[i]
+        # Tính tổng dung lượng thư mục hiện tại
+        folder_size = 0
+        pdf_files = []
+        for root, _, files in os.walk(folder):
+            for file in files:
+                if file.lower().endswith('.pdf'):
+                    file_path = os.path.join(root, file)
+                    pdf_files.append(file_path)
+                    folder_size += os.path.getsize(file_path)
+        # Nếu thư mục này vượt quá max_bytes, chia nhỏ riêng nó
+        if folder_size > max_bytes:
+            # Chia nhỏ từng phần của thư mục này
+            zip_files += split_and_zip(folder, f"{zip_prefix}_{part:02d}", max_mb)
+            part += len(zip_files)
+            i += 1
+            continue
+        # Gom nhiều thư mục nhỏ lại
+        current_files = pdf_files.copy()
+        current_size = folder_size
+        j = i + 1
+        while j < len(folder_paths):
+            next_folder = folder_paths[j]
+            next_size = 0
+            next_files = []
+            for root, _, files in os.walk(next_folder):
+                for file in files:
+                    if file.lower().endswith('.pdf'):
+                        file_path = os.path.join(root, file)
+                        next_files.append(file_path)
+                        next_size += os.path.getsize(file_path)
+            if current_size + next_size > max_bytes:
+                break
+            current_files += next_files
+            current_size += next_size
+            j += 1
+        # Nén các thư mục đã gom lại
+        zip_name = f"{zip_prefix}_{part:02d}.zip" if part > 1 else f"{zip_prefix}.zip"
+        zip_path = os.path.join(zip_dir, zip_name)
+        with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zf:
+            for f in current_files:
+                arcname = os.path.relpath(f, os.path.commonpath(folder_paths))
+                zf.write(f, arcname)
+        zip_files.append(zip_path)
+        part += 1
+        i = j
+    return zip_files
 def nen_du_lieu(data_df, period):
     EMAIL_DIR = os.path.join(os.getcwd(), "DATASETC", "Email")
     EMAIL_JSON = os.path.join(EMAIL_DIR, "email.json")
+    ZIP_DIR = os.path.join(os.getcwd(), "DATASETC", "ZipFile")
+    os.makedirs(ZIP_DIR, exist_ok=True)
+    ZIP_LOG_JSON = os.path.join(ZIP_DIR, "zipfile.json")
 
-    """Nén dữ liệu đã copy thành các file zip"""
-    try:
-        
-        config = load_config()
-        data_origin_path = config.get("data_origin_path", "")
-        data_temp_path = config.get("data_temp_path", "")
-        if not data_origin_path or not data_temp_path:
-            messagebox.showerror("Lỗi", "Vui lòng cấu hình đường dẫn thư mục gốc và thư mục tạm trước trong config!")
-            return
-        with open(EMAIL_JSON, 'r', encoding='utf-8') as f:
-            dataemail = json.load(f)
-        
-        
-        
-        # # Đọc dữ liệu từ file JSON
-        # with open('data.json', 'r', encoding='utf-8') as f:
-        #     data = json.load(f)
+    with open(EMAIL_JSON, "r", encoding="utf-8") as f:
+        email_dict = json.load(f)
 
-        # # Hàm nén thư mục
-        # def zip_folder(folder_path, output_path):
-        #     shutil.make_archive(output_path, 'zip', folder_path)
+    config = load_config()
+    data_temp_path = config.get("data_temp_path", "")
+    selected_year = datetime.datetime.now().strftime("%Y")
+    formatted_date = datetime.datetime.now().strftime("%y.%m")
 
-        # # Duyệt qua từng mã hàng trong dữ liệu
-        # for ma_hang, info in data.items():
-        #     ten_kh = info["Tên KH"]
-        #     category_email = info["CategoryEmail"]
-        #     ma_hang_list = info["MÃ HÀNG"]
+    zip_log = []
 
-        #     # Tạo tên file nén
-        #     zip_filename = f"{ten_kh}_{category_email}"
+    for key, info in email_dict.items():
+        ten_kh = info["Tên KH"]
+        category = info["CategoryEmail"]
+        ma_hang_list = info["MÃ HÀNG"]
+        max_mb = info.get("Max MB", "")
+        try:
+            max_mb = float(max_mb)
+            if max_mb <= 0 or max_mb > 1000:
+                max_mb = 8.0
+        except:
+            max_mb = 8.0
 
-        #     # Kiểm tra nếu "MÃ HÀNG" là "ALL"
-        #     if ma_hang_list == ["ALL"]:
-        #         # Nén toàn bộ thư mục gửi KRO
-        #         zip_folder(f'gửi {ten_kh}', zip_filename)
-        #     else:
-        #         # Nén các thư mục chứa mã hàng cụ thể
-        #         ma_hang_list = ma_hang_list.split(',')
-        #     for ma in ma_hang_list:
-        #         for root, dirs, files in os.walk(f'gửi {ten_kh}'):
-        #             if any(ma in d for d in dirs):
-        #                 zip_folder(os.path.join(root, d), f"{zip_filename}_{ma}")
+        customer_folder = os.path.join(data_temp_path, f"Gửi {ten_kh}", selected_year, f"Gửi {formatted_date}")
+        if not os.path.exists(customer_folder):
+            continue
 
-        # print("Hoàn thành nén các thư mục.")
+        # Lấy danh sách thư mục con cần nén
+        if ma_hang_list == ["ALL"]:
+            # Lấy tất cả thư mục con
+            folder_paths = [os.path.join(customer_folder, d) for d in os.listdir(customer_folder)
+                            if os.path.isdir(os.path.join(customer_folder, d))]
+            zip_prefix = f"{ten_kh}_{category}"
+        else:
+            # Lấy các thư mục con chứa mã hàng trong ma_hang_list
+            folder_paths = []
+            for ma in ma_hang_list:
+                for d in os.listdir(customer_folder):
+                    if ma in d:
+                        folder_paths.append(os.path.join(customer_folder, d))
+            zip_prefix = f"{ten_kh}_{category}"
 
+        # Gom và nén các thư mục lại
+        zip_files = group_and_zip_folders(folder_paths, zip_prefix, max_mb, ZIP_DIR)
+        for zip_path in zip_files:
+            zip_log.append({
+                "Tên KH": ten_kh,
+                "CategoryEmail": category,
+                "MÃ HÀNG": "ALL" if ma_hang_list == ["ALL"] else ",".join(ma_hang_list),
+                "zip_path": zip_path,
+                "noi_dung": info.get("Nội dung gửi mail", "")
+            })
 
-
-    #     # Khởi tạo biến đếm và theo dõi
-    #     copied_files_count = 0
-    #     created_folders = {}
-        
-    #     # Duyệt qua từng dòng dữ liệu
-    #     for index, row in data_df.iterrows():
-    #         if str(row.get("Status", "")).strip() != "Đã copy dữ liệu":
-    #             continue
-
-    #         ss = str(row.get("SS", "")).strip()
-    #         mskh = str(row.get("MSKH", "")).strip()
-    #         noi_nhan = str(row.get("Nơi nhận dữ liệu", "")).strip()
-            
-    #         # Tạo đường dẫn thư mục
-    #         customer_folder = os.path.join(data_temp_path, f"{ss}_{mskh}")
-    #         if not os.path.exists(customer_folder):
-    #             continue
-
-    #         # Nén thư mục PDF thành zip
-    #         pdf_folder = os.path.join(customer_folder, "PDF")
-    #         if os.path.exists(pdf_folder):
-    #             # Tính tổng kích thước các file PDF
-    #             total_size = sum(os.path.getsize(os.path.join(pdf_folder, f)) 
-    #                            for f in os.listdir(pdf_folder) 
-    #                            if f.lower().endswith('.pdf'))
-                
-    #             # Nén file dựa trên kích thước
-    #             max_size_mb = float(str(row.get("DUNG LƯỢNG 1 LẦN GỬI", "10")).replace("MB", "").strip())
-                
-    #             if total_size > max_size_mb * 1024 * 1024:
-    #                 # Chia nhỏ file zip
-    #                 zip_folder_by_size(
-    #                     pdf_folder,
-    #                     os.path.join(customer_folder, f"{ss}_{mskh}_{noi_nhan}"),
-    #                     max_size_mb
-    #                 )
-    #             else:
-    #                 # Tạo một file zip duy nhất
-    #                 zip_name = os.path.join(customer_folder, f"{ss}_{mskh}_{noi_nhan}.zip")
-    #                 with zipfile.ZipFile(zip_name, 'w', zipfile.ZIP_DEFLATED) as zipf:
-    #                     for root_dir, _, files in os.walk(pdf_folder):
-    #                         for file in files:
-    #                             file_path = os.path.join(root_dir, file)
-    #                             arcname = os.path.relpath(file_path, pdf_folder)
-    #                             zipf.write(file_path, arcname)
-
-    #         created_folders[customer_folder] = True
-    #         copied_files_count += 1
-
-    #     if copied_files_count > 0:
-    #         messagebox.showinfo("Thành công", 
-    #                           f"Đã nén {copied_files_count} thư mục dữ liệu thành công!")
-    #         return True
-    #     else:
-    #         messagebox.showwarning("Cảnh báo", 
-    #                              "Không có dữ liệu nào được nén!\nVui lòng xác nhận copy dữ liệu trước.")
-    #         return False
-
-    except Exception as e:
-        messagebox.showerror("Lỗi", f"Lỗi khi nén dữ liệu: {str(e)}")
-        return False
+    with open(ZIP_LOG_JSON, "w", encoding="utf-8") as f:
+        json.dump(zip_log, f, ensure_ascii=False, indent=2)
+    messagebox.showinfo("Thành công", f"Đã nén và ghi log {len(zip_log)} file zip vào {ZIP_LOG_JSON}")
     
 def send_all_data(period, df):
     """Gửi toàn bộ dữ liệu đã xác nhận và gửi email"""
@@ -2775,3 +2826,73 @@ def reset_status():
         pass
     
     messagebox.showinfo("Thông báo", "Đã reset toàn bộ trạng thái!")
+
+def send_email_via_outlook(subject, body, to_email, attachment_paths):
+    try:
+        outlook = win32.Dispatch('Outlook.Application')
+        mail = outlook.CreateItem(0)
+        mail.Subject = subject
+        mail.Body = body
+        mail.To = to_email
+        for attachment in attachment_paths:
+            if os.path.exists(attachment):
+                mail.Attachments.Add(attachment)
+        mail.Send()
+        return True
+    except Exception as e:
+        print(f"Lỗi khi gửi email: {e}")
+        return False
+
+def send_zip_emails():
+    ZIP_LOG_JSON = os.path.join(os.getcwd(), "DATASETC", "ZipFile", "zipfile.json")
+    EMAIL_JSON = os.path.join(os.getcwd(), "DATASETC", "Email", "email.json")
+    if not os.path.exists(ZIP_LOG_JSON):
+        messagebox.showerror("Lỗi", "Không tìm thấy file zipfile.json!")
+        return
+    if not os.path.exists(EMAIL_JSON):
+        messagebox.showerror("Lỗi", "Không tìm thấy file email.json!")
+        return
+
+    with open(ZIP_LOG_JSON, "r", encoding="utf-8") as f:
+        zip_log = json.load(f)
+    with open(EMAIL_JSON, "r", encoding="utf-8") as f:
+        email_dict = json.load(f)
+
+    success, fail = 0, 0
+    for entry in zip_log:
+        ten_kh = entry["Tên KH"]
+        category = str(entry["CategoryEmail"])
+        zip_path = entry["zip_path"]
+        noi_dung = entry["noi_dung"]
+
+        # Tìm key trong email_dict để lấy địa chỉ gửi mail
+        to_email = ""
+        for k, info in email_dict.items():
+            if info["Tên KH"] == ten_kh and str(info["CategoryEmail"]) == category:
+                to_email = info.get("Địa chỉ gửi mail", "")
+                break
+
+        if not to_email:
+            print(f"Không tìm thấy địa chỉ gửi mail cho {ten_kh} - {category}")
+            fail += 1
+            continue
+
+        subject = f"Gửi dữ liệu {ten_kh} - {category}"
+        body = noi_dung
+
+        # Soạn email (không gửi luôn)
+        try:
+            outlook = win32.Dispatch('Outlook.Application')
+            mail = outlook.CreateItem(0)
+            mail.Subject = subject
+            mail.Body = body
+            mail.To = to_email
+            if os.path.exists(zip_path):
+                mail.Attachments.Add(zip_path)
+            mail.Display(True)  # Hiển thị cửa sổ soạn email, không gửi luôn
+            success += 1
+        except Exception as e:
+            print(f"Lỗi khi soạn email cho {ten_kh}: {e}")
+            fail += 1
+
+    messagebox.showinfo("Kết quả", f"Đã soạn {success} email thành công\nLỗi: {fail} email")

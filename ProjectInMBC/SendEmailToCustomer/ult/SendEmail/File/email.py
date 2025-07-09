@@ -17,6 +17,8 @@ EMAIL_JSON = os.path.join(EMAIL_DIR, "email.json")
 
 def open_email_window(parent):
     os.makedirs(EMAIL_DIR, exist_ok=True)
+    filters = {}
+    original_df = None
     # Đọc dữ liệu từ CSV
     if os.path.exists(EMAIL_CSV):
         try:
@@ -27,34 +29,6 @@ def open_email_window(parent):
     else:
         df = pd.DataFrame(columns=EMAIL_COLUMNS)
 
-    # --- Lấy bảng MB duy nhất ---
-    data_month_csv = os.path.join(os.getcwd(), "DATASETC", "DATA_customer_time", "data_month.csv")
-    mb_map = {}
-    if os.path.exists(data_month_csv):
-        try:
-            data_month_df = pd.read_csv(data_month_csv, encoding='utf-8-sig')
-            # Chỉ lấy 2 cột, loại trùng "Nơi nhận dữ liệu"
-            data_month_df = data_month_df[['Nơi nhận dữ liệu', 'DUNG LƯỢNG 1 LẦN GỬI']].drop_duplicates(subset=['Nơi nhận dữ liệu'], keep='first')
-            # Tạo dict ánh xạ: nơi nhận dữ liệu -> MB
-            mb_map = dict(zip(data_month_df['Nơi nhận dữ liệu'], data_month_df['DUNG LƯỢNG 1 LẦN GỬI']))
-        except Exception as e:
-            print(f"Lỗi khi xử lý file MB: {e}")
-
-    # Xóa cột Max MB cũ nếu có
-    if "Max MB" in df.columns:
-        df = df.drop(columns=["Max MB"])
-    df = df.merge(
-        data_month_df[['Nơi nhận dữ liệu', 'DUNG LƯỢNG 1 LẦN GỬI']].drop_duplicates(subset=['Nơi nhận dữ liệu'], keep='first'),
-        left_on='Tên KH',
-        right_on='Nơi nhận dữ liệu',
-        how='left'
-    )
-    df.rename(columns={'DUNG LƯỢNG 1 LẦN GỬI': 'Max MB'}, inplace=True)
-    if 'Nơi nhận dữ liệu' in df.columns:
-        df = df.drop(columns=['Nơi nhận dữ liệu'])
-    # Nếu vẫn thiếu cột Max MB (do không khớp), thêm vào cho đủ
-    if "Max MB" not in df.columns:
-        df["Max MB"] = ""
     email_window = tk.Toplevel(parent)
     email_window.title("Quản lý Email Khách Hàng")
     email_window.geometry("1100x600")
@@ -68,7 +42,7 @@ def open_email_window(parent):
     columns = EMAIL_COLUMNS
     tree = ttk.Treeview(frame_table, columns=columns, show="headings", height=20)
     for col in columns:
-        tree.heading(col, text=col)
+        tree.heading(col, text=col, command=lambda c=col: show_filter_entry(c, tree, email_window))
         tree.column(col, width=180, anchor="center")
     tree.pack(fill="both", expand=True)
 
@@ -109,11 +83,47 @@ def open_email_window(parent):
 
     tree.bind("<Double-1>", lambda event: modify_email())
 
-    def update_table():
+    def update_table(filtered_df=None):
         tree.delete(*tree.get_children())
-        for _, row in df.iterrows():
+        display_df = filtered_df if filtered_df is not None else df
+        for _, row in display_df.iterrows():
             tree.insert("", "end", values=tuple(row[col] if col in row else "" for col in columns))
+        # Đánh dấu cột đang filter
+        for col in columns:
+            if col in filters and filters[col]:
+                tree.heading(col, text=f"{col} (filter)")
+            else:
+                tree.heading(col, text=col)
+    def show_filter_entry(column, tree_widget, parent_window):
+        nonlocal filters, original_df, df
+        filter_window = tk.Toplevel(parent_window)
+        filter_window.title(f"Filter {column}")
+        filter_window.geometry("300x150")
+        filter_window.configure(bg="#e8ecef")
+        filter_window.transient(parent_window)
+        filter_window.grab_set()
 
+        tk.Label(filter_window, text=f"Nhập giá trị lọc cho {column}:", font=("Helvetica", 12), bg="#e8ecef").pack(pady=10)
+        entry = tk.Entry(filter_window, width=30, font=("Helvetica", 12))
+        entry.pack(pady=10)
+        entry.insert(0, filters.get(column, ""))
+
+        def apply_filter():
+            value = entry.get().strip()
+            nonlocal df, original_df, filters
+            if original_df is None:
+                original_df = df.copy()
+            if value:
+                filters[column] = value
+            else:
+                filters.pop(column, None)
+            filtered_df = original_df.copy()
+            for col, val in filters.items():
+                filtered_df = filtered_df[filtered_df[col].astype(str).str.contains(val, case=False, na=False)]
+            update_table(filtered_df)
+            filter_window.destroy()
+
+        tk.Button(filter_window, text="Apply", command=apply_filter, font=("Helvetica", 12, "bold"), bg="#3498db", fg="white", padx=20, pady=10).pack(pady=10)
     def save_to_csv_and_json():
         df.to_csv(EMAIL_CSV, index=False, encoding='utf-8-sig')
         json_dict = {}
@@ -174,10 +184,12 @@ def open_email_window(parent):
 
     def import_csv():
         file_path = filedialog.askopenfilename(title="Chọn file CSV", filetypes=[("CSV files", "*.csv")])
-        data_month_csv = os.path.join(os.getcwd(), "DATASETC", "DATA_customer_time", "data_month.csv")
-        data_month_df = pd.read_csv(data_month_csv, encoding='utf-8-sig')
-        # Giữ lại dòng đầu tiên cho mỗi khách hàng (Nơi nhận dữ liệu)
-        data_month_df = data_month_df.drop_duplicates(subset=['Nơi nhận dữ liệu'], keep='first')
+        data_csv = os.path.join(os.getcwd(), "DATASETC", "data.csv")  # Sử dụng data.csv
+        def normalize_name(name):
+            if pd.isna(name):
+                return ""
+            return str(name).lstrip().replace('\n', '').replace('\r', '')
+
         if file_path:
             try:
                 new_df = pd.read_csv(file_path, encoding='utf-8-sig')
@@ -189,14 +201,21 @@ def open_email_window(parent):
                 nonlocal df
                 df = pd.concat([df, new_df], ignore_index=True)
                 df = df.drop_duplicates(subset=["Tên KH", "MÃ HÀNG", "Địa chỉ gửi mail"], keep="last")
-                df = df.merge(
-                    data_month_df[['Nơi nhận dữ liệu', 'DUNG LƯỢNG 1 LẦN GỬI']],
-                    left_on='Tên KH',
-                    right_on='Nơi nhận dữ liệu',
-                    how='left'
-                )
-                df.rename(columns={'DUNG LƯỢNG 1 LẦN GỬI': 'Max MB'}, inplace=True)
-                df.drop(columns=['Nơi nhận dữ liệu'], inplace=True)
+
+                # Chỉ cập nhật Max MB nếu thiếu hoặc rỗng
+                if os.path.exists(data_csv):
+                    data_full_df = pd.read_csv(data_csv, encoding='utf-8-sig')
+                    # Chuẩn hóa tên để ánh xạ chính xác
+                    data_full_df['Nơi nhận dữ liệu chuẩn'] = data_full_df['Nơi nhận dữ liệu'].apply(normalize_name)
+                    mb_map = dict(zip(data_full_df['Nơi nhận dữ liệu chuẩn'], data_full_df['DUNG LƯỢNG 1 LẦN GỬI']))
+                    df['Tên KH chuẩn'] = df['Tên KH'].apply(normalize_name)
+                    def get_mb(row):
+                        if pd.isna(row.get("Max MB", "")) or str(row.get("Max MB", "")).strip() == "":
+                            return mb_map.get(row["Tên KH chuẩn"], "")
+                        return row["Max MB"]
+                    df["Max MB"] = df.apply(get_mb, axis=1)
+                    df = df.drop(columns=['Tên KH chuẩn'], errors='ignore')
+
                 save_to_csv_and_json()
                 update_table()
                 messagebox.showinfo("Thành công", f"Đã nhập dữ liệu từ file: {file_path}")
@@ -229,9 +248,15 @@ def open_email_window(parent):
     tk.Button(frame_buttons, text="Nhập CSV", command=import_csv, font=("Helvetica", 12, "bold"), bg="#f39c12", fg="white", padx=20, pady=10).pack(side=tk.LEFT, padx=10)
     tk.Button(frame_buttons, text="Xóa đã chọn", command=delete_selected, font=("Helvetica", 12, "bold"), bg="#e74c3c", fg="white", padx=20, pady=10).pack(side=tk.LEFT, padx=10)
     tk.Button(frame_buttons, text="Xóa toàn bộ", command=delete_all, font=("Helvetica", 12, "bold"), bg="#e74c3c", fg="white", padx=20, pady=10).pack(side=tk.LEFT, padx=10)
-
+    tk.Button(frame_buttons, text="Clear Filter", command=lambda: clear_filter(), font=("Helvetica", 12, "bold"), bg="#3498db", fg="white", padx=20, pady=10).pack(side=tk.LEFT, padx=10)
     update_table()
-
+    def clear_filter():
+        nonlocal filters, original_df, df
+        filters.clear()
+        if original_df is not None:
+            update_table(original_df)
+        else:
+            update_table(df)
     def on_close():
         save_to_csv_and_json()
         email_window.destroy()

@@ -40,9 +40,6 @@ def main():
     send_menu.add_command(label="Email Ngày", command=lambda: show_send_frame(root, "Ngày"))
     send_menu.add_command(label="Email Tuần", command=lambda: show_send_frame(root, "Tuần"))
 
-    # Tạo frame chính
-    frame_buttons = create_main_window(root)
-    frame_buttons.pack(pady=50, fill="both", expand=True)
 
     # Bind phím tắt
     root.bind("<Shift-Alt-S>", lambda event: open_config_window(root))
@@ -50,10 +47,13 @@ def main():
     root.bind("<ButtonRelease-1>", lambda e: root.title("Gửi Dữ Liệu Khách Hàng"))
 
     # Cập nhật lệnh cho nút 
-    buttons = frame_buttons.winfo_children()
-    if len(buttons) == 3:  # Đảm bảo có 3 nút
-        for period, button in zip(["Month", "Week", "Day"], buttons):
-            button.config(command=lambda p=period: show_send_frame(root, p))
+    btn_email_month, btn_email_week, btn_email_day, btn_monthly = create_main_window(root)
+
+    # Gán lệnh cho các nút
+    btn_email_month.config(command=lambda: show_send_frame(root, "Tháng"))
+    btn_email_week.config(command=lambda: show_send_frame(root, "Tuần"))
+    btn_email_day.config(command=lambda: show_send_frame(root, "Ngày"))
+    btn_monthly.config(command=lambda: messagebox.showinfo("Thông báo", "Chức năng Gửi Monthly đang phát triển!"))
 
     root.mainloop()
 

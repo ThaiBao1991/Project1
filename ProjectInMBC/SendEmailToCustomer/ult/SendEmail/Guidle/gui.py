@@ -13,26 +13,42 @@ from ..File.Data.file_data import find_project_root
 selected_row_details = {}
 
 def create_main_window(root):
-    """Tạo frame chính với các nút Gửi Email Tháng/Tuần/Ngày"""
-    global frame_buttons
-    frame_title = tk.Frame(root, bg="#e8ecef")
-    frame_title.pack(pady=20, fill="x")
-    tk.Label(frame_title, text="GỬI EMAIL KHÁCH HÀNG TỰ ĐỘNG", font=("Helvetica", 24, "bold"), bg="#e8ecef", fg="#2c3e50").pack()
+    global main_frame
+    main_frame = tk.Frame(root, bg="#e8ecef")
+    main_frame.pack(fill="both", expand=True)
 
-    frame_buttons = tk.Frame(root, bg="#e8ecef")
-    tk.Button(frame_buttons, text="Gửi Email Tháng", font=("Helvetica", 14, "bold"), bg="#3498db", fg="white", padx=30, pady=15,
-              command=lambda: show_send_frame(root, "month")).pack(side=tk.LEFT, padx=20)
-    tk.Button(frame_buttons, text="Gửi Email Tuần", font=("Helvetica", 14, "bold"), bg="#27ae60", fg="white", padx=30, pady=15,
-              command=lambda: show_send_frame(root, "week")).pack(side=tk.LEFT, padx=20)
-    tk.Button(frame_buttons, text="Gửi Email Ngày", font=("Helvetica", 14, "bold"), bg="#f39c12", fg="white", padx=30, pady=15,
-              command=lambda: show_send_frame(root, "day")).pack(side=tk.LEFT, padx=20)
+    # Frame Gửi Email Khách Hàng
+    frame_email = tk.LabelFrame(main_frame, text="Gửi Email Khách Hàng", font=("Helvetica", 14, "bold"), bg="#e8ecef", padx=20, pady=20, fg="#2c3e50")
+    frame_email.pack(side="left", fill="both", expand=True, padx=30, pady=30)
 
-    return frame_buttons
+    btn_email_month = tk.Button(frame_email, text="Gửi Email Tháng", font=("Helvetica", 13, "bold"), bg="#3498db", fg="white", height=2)
+    btn_email_week = tk.Button(frame_email, text="Gửi Email Tuần", font=("Helvetica", 13, "bold"), bg="#27ae60", fg="white", height=2)
+    btn_email_day = tk.Button(frame_email, text="Gửi Email Ngày", font=("Helvetica", 13, "bold"), bg="#f39c12", fg="white", height=2)
+
+    btn_email_month.pack(fill="x", pady=10)
+    btn_email_week.pack(fill="x", pady=10)
+    btn_email_day.pack(fill="x", pady=10)
+
+    # Frame Gửi dữ liệu MonthData
+    frame_monthdata = tk.LabelFrame(main_frame, text="Gửi dữ liệu MonthData", font=("Helvetica", 14, "bold"), bg="#e8ecef", padx=20, pady=20, fg="#2c3e50")
+    frame_monthdata.pack(side="left", fill="both", expand=True, padx=30, pady=30)
+
+    btn_monthly = tk.Button(frame_monthdata, text="Gửi Monthly", font=("Helvetica", 13, "bold"), bg="#8e44ad", fg="white", height=2)
+    btn_monthly.pack(fill="x", pady=10)
+
+    # Trả về các nút để main.py gán lệnh
+    return btn_email_month, btn_email_week, btn_email_day, btn_monthly
 
 def show_send_frame(root, period):
     global current_period, send_frame, label_file, entry_file, frame_table, tree, frame_status_buttons, btn_back, data_df, month_year_var
     # --- Thêm biến chế độ lọc ---
     global filter_mode_var, entry_file_kjs
+    global main_frame, frame_buttons
+    # Ẩn frame chính nếu đang hiển thị
+    if 'main_frame' in globals() and main_frame and main_frame.winfo_ismapped():
+        main_frame.pack_forget()
+    if 'frame_buttons' in globals() and frame_buttons and frame_buttons.winfo_ismapped():
+        frame_buttons.pack_forget()
     filter_mode_var = tk.StringVar(value="MAP_ERP")  # Mặc định là MAP_ERP
     
     if month_year_var is None:
@@ -221,9 +237,9 @@ def show_send_frame(root, period):
               command=lambda: update_data(period, root),
               font=("Helvetica", 12, "bold"), bg="#9b59b6", fg="white", padx=20, pady=10).pack(side=tk.LEFT, padx=10)
 
-    btn_back = tk.Button(send_frame, text="Quay lại", font=("Helvetica", 14, "bold"), bg="#e74c3c", fg="white", padx=30, pady=15,
-                          command=back_to_main)
-    btn_back.pack(pady=10)
+
+    btn_back = tk.Button(send_frame, text="← Quay lại", font=("Helvetica", 12, "bold"), bg="#e74c3c", fg="white", padx=20, pady=10, command=back_to_main)
+    btn_back.pack(anchor="nw", padx=20, pady=20)
     
     # Khởi tạo dữ liệu và cập nhật Treeview
     # Cài đặt các cột trước khi initialize_data chạy
@@ -267,13 +283,13 @@ def validate_and_process_data(map_erp_file, kjs_file):
    
 
 def back_to_main():
-    """Quay lại frame chính"""
-    global send_frame, frame_buttons
+    global send_frame, main_frame, frame_buttons
     if send_frame:
         send_frame.pack_forget()
-    if frame_buttons:
+    if 'main_frame' in globals() and main_frame:
+        main_frame.pack(fill="both", expand=True)
+    elif 'frame_buttons' in globals() and frame_buttons:
         frame_buttons.pack(pady=50, fill="both", expand=True)
-
 # Sửa lại hàm chọn file
 def chon_file_txt(mode, entry_widget):
     file_path = filedialog.askopenfilename(
