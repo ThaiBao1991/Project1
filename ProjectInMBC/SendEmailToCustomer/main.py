@@ -1,6 +1,6 @@
 import tkinter as tk
-from tkinter import messagebox
 import os
+from tkinter import messagebox
 from ult.SendEmail.Guidle.gui import create_main_window, show_send_frame
 from ult.SendEmail.Guidle.config import open_config_window
 from ult.SendEmail.File.Data.file_data import open_data_window

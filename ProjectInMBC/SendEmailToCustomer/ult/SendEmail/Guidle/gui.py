@@ -2,7 +2,8 @@ import tkinter as tk
 import os
 from tkinter import filedialog, messagebox, ttk
 # Đảm bảo các biến global được import đúng
-from .state import data_df,period, original_df, filters, current_period, tree, frame_buttons, send_frame, label_file, entry_file, frame_table, frame_status_buttons, btn_back, month_year_var
+from ult.SendEmail.Guidle import state
+from .state import data_df,period, original_df, filters, current_period, tree, frame_buttons, send_frame, label_file, entry_file, frame_table, frame_status_buttons, btn_back, month_year_var,month_year_value
 # Import các hàm từ .data
 from .data import initialize_data, gui_du_lieu, send_all_data, send_selected_data, reset_status, convert_txt_to_csv, update_data
 import pandas as pd
@@ -111,7 +112,6 @@ def show_send_frame(root, period):
             font=("Helvetica", 12), bg="#e8ecef").pack(side=tk.LEFT)
     
     # Tạo DateEntry chỉ hiển thị tháng/năm
-    month_year_var = tk.StringVar()
     month_year_var.set(datetime.datetime.now().strftime("%m/%Y"))  # Định dạng mặc định: mm/yyyy
     month_year_btn = tk.Button(
         frame_month_select,
@@ -156,6 +156,8 @@ def show_send_frame(root, period):
                 month_year_btn.config(text=month_year_var.get())
                 # Debug: In ra giá trị để kiểm tra
                 print(f"Giá trị đã chọn: {month_year_var.get()}")
+                state.month_year_value = month_year_var.get()
+                state.month_year_var= month_year_var
             except ValueError as e:
                 messagebox.showerror("Lỗi", f"Định dạng ngày không hợp lệ: {str(e)}")
             top.destroy()
@@ -276,7 +278,7 @@ def validate_and_process_data(map_erp_file, kjs_file):
     csv_file_path = os.path.join(data_dir, f"data_{current_period.get()}.csv")
     # print(pd.read_csv(csv_file_path, encoding='utf-8-sig').head())  # In ra 5 dòng đầu tiên của file CSV
     
-    gui_du_lieu(csv_file_path,current_period.get(),month_year_var.get(), data_df)
+    gui_du_lieu(csv_file_path,current_period.get(),state.month_year_var.get(), data_df)
     
     # gui_du_lieu(map_erp_file, current_period.get(), data_df, month_year_var.get(), "MAP_ERP")
     # gui_du_lieu(kjs_file, current_period.get(), data_df, month_year_var.get(), "KJS")
