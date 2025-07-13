@@ -13,6 +13,10 @@ from .config import load_config
 from ..File.Data.file_data import find_project_root
 selected_row_details = {}
 
+def standardize_period(period):
+    period_map = {"tháng": "MONTH", "tuần": "WEEK", "ngày": "DAY", "month": "MONTH", "week": "WEEK", "day": "DAY"}
+    return period_map.get(str(period).strip().lower(), "MONTH")
+
 def create_main_window(root):
     global main_frame
     main_frame = tk.Frame(root, bg="#e8ecef")
@@ -277,8 +281,10 @@ def validate_and_process_data(map_erp_file, kjs_file):
     data_dir = os.path.join(os.getcwd(), "DATASETC", "DATA_customer_time")
     csv_file_path = os.path.join(data_dir, f"data_{current_period.get()}.csv")
     # print(pd.read_csv(csv_file_path, encoding='utf-8-sig').head())  # In ra 5 dòng đầu tiên của file CSV
-    
-    gui_du_lieu(csv_file_path,current_period.get(),state.month_year_var.get(), data_df)
+    if state.month_year_value ==None or state.month_year_value == "":
+        state.month_year_value = datetime.datetime.now().strftime("%m/%Y")
+        
+    gui_du_lieu(csv_file_path,current_period.get(),state.month_year_value, data_df)
     
     # gui_du_lieu(map_erp_file, current_period.get(), data_df, month_year_var.get(), "MAP_ERP")
     # gui_du_lieu(kjs_file, current_period.get(), data_df, month_year_var.get(), "KJS")
@@ -324,7 +330,7 @@ def chon_file_txt(mode, entry_widget):
         else:
             convert_txt_to_csv(file_path)
         from .data import initialize_data
-        initialize_data(current_period.get() if current_period else "Tháng")
+        initialize_data(current_period.get() if current_period else "MONTH")
     except Exception as e:
         messagebox.showerror("Lỗi", f"Không thể xử lý file: {str(e)}")
 
@@ -364,206 +370,89 @@ def update_table(df):
     # Force update nếu cần
     tree.update_idletasks()
 
-
 def show_details(root, event):
-    """Hiển thị bảng chi tiết khi double-click dòng - Bổ sung cột W/d/r No"""
-    global data_df, selected_row_details
-    global detail_window
-    
-    
-    if tree is None or not tree.winfo_exists() or not tree.winfo_toplevel().winfo_exists():
-        messagebox.showwarning("Cảnh báo", "Giao diện bảng chưa sẵn sàng.")
-        return
+    import json
+    import os
+    from tkinter import messagebox
 
+    # Lấy dòng được chọn
     selected = tree.selection()
     if not selected:
         return
-        
-    try:
-        # Lấy thông tin từ dòng được chọn
-        item_id = selected[0]
-        values = tree.item(item_id, 'values')
-        tree_columns = tree["columns"]
-        
-        # Lấy các giá trị cần thiết
-        ss_index = tree_columns.index("SS") if "SS" in tree_columns else -1
-        mskh_index = tree_columns.index("MSKH") if "MSKH" in tree_columns else -1
-        mh_index = tree_columns.index("Mã hàng") if "Mã hàng" in tree_columns else -1
-        noinhan_index = tree_columns.index("Nơi nhận dữ liệu") if "Nơi nhận dữ liệu" in tree_columns else -1
-        gui_dl_index = tree_columns.index("Gui_DL") if "Gui_DL" in tree_columns else -1
-        
-        ss = str(values[ss_index]).strip() if ss_index != -1 and len(values) > ss_index else ""
-        mskh = str(values[mskh_index]).strip() if mskh_index != -1 and len(values) > mskh_index else ""
-        ma_hang=str(values[mh_index]).strip() if mh_index != -1 and len(values) > mh_index else ""
-        noinhan=str(values[noinhan_index]).strip() if noinhan_index != -1 and len(values) > noinhan_index else ""
-        gui_dl = str(values[gui_dl_index]).strip() if gui_dl_index != -1 and len(values) > gui_dl_index else ""
 
-        if not ss or not mskh:
-            messagebox.showwarning("Cảnh báo", "Không tìm thấy giá trị SS hoặc MSKH trong dòng được chọn.")
+    item_id = selected[0]
+    values = tree.item(item_id, 'values')
+    tree_columns = tree["columns"]
+
+    # Lấy các giá trị cần thiết
+    ss = str(values[tree_columns.index("SS")]).strip() if "SS" in tree_columns else ""
+    mskh = str(values[tree_columns.index("MSKH")]).strip() if "MSKH" in tree_columns else ""
+    ma_hang = str(values[tree_columns.index("Mã hàng")]).strip() if "Mã hàng" in tree_columns else ""
+
+    # Đọc file json_data_Month.json
+    json_file = os.path.join(os.getcwd(), "DATASETC", "Data by classification", "json_data_Month.json")
+    if not os.path.exists(json_file):
+        messagebox.showerror("Lỗi", f"Không tìm thấy file {json_file}")
+        return
+
+    with open(json_file, "r", encoding="utf-8") as f:
+        json_data = json.load(f)
+
+    # Tìm tất cả các lot thuộc mọi key bắt đầu bằng key_prefix
+    key_prefix = f"{ss}|{ma_hang}|{mskh}"
+    lot_list = []
+    for k, lots in json_data.items():
+        if k.startswith(key_prefix):
+            lot_list.extend(lots)
+
+    if not lot_list:
+        messagebox.showinfo("Thông báo", f"Không tìm thấy dữ liệu cho {key_prefix}!")
+        return
+
+    # Tạo cửa sổ chi tiết
+    detail_window = tk.Toplevel(root)
+    detail_window.title(f"Chi tiết - SS: {ss}, Mã hàng: {ma_hang}, MSKH: {mskh}")
+    detail_window.geometry("900x400")
+    detail_window.transient(root)
+    detail_window.grab_set()
+
+    # Tạo Treeview
+    display_cols = ["Lot No", "W/d/r No", "FolderLink"]
+    detail_tree = ttk.Treeview(detail_window, columns=display_cols, show="headings")
+    for col in display_cols:
+        detail_tree.heading(col, text=col)
+        detail_tree.column(col, width=200, anchor="center")
+
+    # Thêm dữ liệu
+    for lot in lot_list:
+        lot_no = lot.get("Lot No", "")
+        wdr_no = lot.get("W/d/r No", "")
+        folder_link = lot.get("FolderLink", None)
+        detail_tree.insert("", "end", values=(lot_no, wdr_no, folder_link if folder_link else ""))
+
+    detail_tree.pack(fill="both", expand=True, pady=10)
+
+    # Nếu có FolderLink, tạo nút mở thư mục
+    def open_selected_folder():
+        selected_items = detail_tree.selection()
+        if not selected_items:
+            messagebox.showwarning("Cảnh báo", "Vui lòng chọn một dòng có FolderLink!")
             return
-
-        # Đọc file data_work.csv
-        if not os.path.join(os.getcwd(), "DATASETC","DATA_customer_time", f"data_{period}.csv"):
-            messagebox.showwarning("Cảnh báo", f"Không tìm thấy file data_{period}.csv !\nVui lòng chọn file TXT để tạo.")
-            return
-
-        work_df = pd.read_csv(os.path.join(os.getcwd(), "DATASETC","DATA_customer_time", f"data_{period}.csv"), encoding='utf-8-sig')
-
-        # Kiểm tra và lấy tên cột thứ 22 (W/d/r No)
-        wdr_col = work_df.columns[21] if len(work_df.columns) > 21 else None
-        
-        # Danh sách cột cần hiển thị
-        display_cols = ["Sales Part No", "End Customer No", "Lot No"]
-        if wdr_col:
-            display_cols.append(wdr_col)
-        
-        # Kiểm tra cột tồn tại
-        missing_cols = [col for col in display_cols if col not in work_df.columns]
-        if missing_cols:
-            messagebox.showerror("Lỗi", f"Thiếu các cột: {', '.join(missing_cols)}")
-            return
-
-        # Lọc dữ liệu
-        filtered_data = work_df[
-            (work_df["Sales Part No"].astype(str).str.strip() == ss) &
-            (work_df["End Customer No"].astype(str).str.strip() == mskh)
-        ][display_cols]
-        
-         # Lưu thông tin chi tiết vào biến toàn cục
-        selected_row_details = {
-            'ss': ss,
-            'mskh': mskh,
-            'ma_hang': ma_hang,
-            'noi_nhan': noinhan,
-            'gui_dl': gui_dl,
-            'lot_nos': filtered_data["Lot No"].unique().tolist(),
-            'wdr_nos': filtered_data["W/d/r No"].unique().tolist() if "W/d/r No" in filtered_data.columns else []
-        }
-
-        if filtered_data.empty:
-            messagebox.showinfo("Thông báo", f"Không tìm thấy dữ liệu cho SS: {ss}, MSKH: {mskh}!")
-            return
-        
-        # Tạo cửa sổ chi tiết
-        detail_window = tk.Toplevel(root)
-        detail_window.title(f"Chi tiết - SS: {ss}, MSKH: {mskh}")
-        detail_window.geometry("800x400")
-        detail_window.transient(root)
-        detail_window.grab_set()
-        
-        # Thêm protocol để đóng cửa sổ chi tiết khi đóng app chính
-        def on_root_close():
-            try:
-                detail_window.destroy()
-                root.destroy()
-            except:
-                pass
-        
-        root.protocol("WM_DELETE_WINDOW", on_root_close)
-        
-        # Tạo dictionary row từ values và tree_columns
-        row = {}
-        for i, col in enumerate(tree_columns):
-            if i < len(values):
-                row[col] = values[i]
-            else:
-                row[col] = ""
-        
-         # Thêm nút mở thư mục nếu đã copy file
-        if str(row.get("Status", "")).strip() == "Đã copy dữ liệu":
-            def open_target_folder():
-                config = load_config()
-                data_temp_path = config.get("data_temp_path", "")
-                if not data_temp_path:
-                    messagebox.showerror("Lỗi", "Không tìm thấy đường dẫn thư mục tạm!")
-                    return
-                
-                # Sử dụng giá trị noi_nhan đã lấy từ đầu hàm (đã kiểm tra)
-                noi_nhan = selected_row_details['noi_nhan']  # Sử dụng giá trị đã lưu trong selected_row_details
-                
-                print("Giá trị nơi nhận:", repr(noi_nhan))  # Debug in ra giá trị thực sự
-                
-                if not noi_nhan:
-                    messagebox.showerror("Lỗi", "Không có thông tin nơi nhận trong dữ liệu!")
-                    return
-                    
-                selected_year = datetime.datetime.now().strftime("%Y")
-                ss_index = tree_columns.index("SS") if "SS" in tree_columns else -1
-                ss = str(values[ss_index]).strip() if ss_index != -1 and len(values) > ss_index else ""
-                
-                if not ss:
-                    messagebox.showerror("Lỗi", "Không có thông tin SS trong dữ liệu!")
-                    return
-                    
-                target_folder = os.path.join(
-                    data_temp_path,
-                    f"Gửi {noi_nhan}",
-                    selected_year,
-                    f"Gửi {datetime.datetime.now().strftime('%y.%m')}",
-                    ss
-                )
-                
-                print("Đường dẫn đích:", target_folder)
-                
-                if os.path.exists(target_folder):
-                    os.startfile(target_folder)
-                else:
-                    messagebox.showinfo("Thông báo", f"Không tìm thấy thư mục:\n{target_folder}")
-            
-            btn_open_folder = tk.Button(
-                detail_window, 
-                text="Mở thư mục đã copy",
-                command=open_target_folder,
-                font=("Helvetica", 12, "bold"),
-                bg="#3498db",
-                fg="white"
-            )
-            btn_open_folder.pack(pady=10)
+        item = selected_items[0]
+        folder_link = detail_tree.item(item, "values")[2]
+        if folder_link and os.path.exists(folder_link):
+            os.startfile(folder_link)
         else:
-            lbl_status = tk.Label(
-                detail_window,
-                text="Chưa copy file vào thư mục đích",
-                font=("Helvetica", 12),
-                fg="red"
-            )
-            lbl_status.pack(pady=10)
+            messagebox.showinfo("Thông báo", f"Không tìm thấy thư mục:\n{folder_link}")
 
-        # Tạo Treeview
-        detail_tree = ttk.Treeview(detail_window, columns=display_cols, show="headings")
-        for col in display_cols:
-            detail_tree.heading(col, text=col)
-            detail_tree.column(col, width=150, anchor="center")
-
-        # Highlight dòng theo DD/TB
-        detail_tree.tag_configure("highlight", background="#3498db", foreground="white")
-
-        # Thêm dữ liệu và highlight
-        seen_wdr = set()
-        highlighted_rows = []
-
-        for i, (_, row) in enumerate(filtered_data.iterrows()):
-            values = [str(row[col]) for col in display_cols]
-            wdr_no = str(row.get("W/d/r No", "")).strip() if "W/d/r No" in row else ""
-            tag = ()
-            
-            if gui_dl.upper() == "DD":
-                if wdr_no and wdr_no not in seen_wdr:
-                    seen_wdr.add(wdr_no)
-                    tag = ("highlight",)
-                    highlighted_rows.append(values)  # Lưu lại các dòng được highlight
-            elif gui_dl.upper() == "TB":
-                tag = ("highlight",)
-                highlighted_rows.append(values)  # Lưu tất cả với TB
-            
-            detail_tree.insert("", "end", values=values, tags=tag)
-
-        # Lưu thông tin highlight vào selected_row_details
-        selected_row_details['highlighted_rows'] = highlighted_rows
-
-        detail_tree.pack(fill="both", expand=True)
-
-    except Exception as e:
-        messagebox.showerror("Lỗi", f"Lỗi khi hiển thị chi tiết: {str(e)}")
+    tk.Button(
+        detail_window,
+        text="Mở thư mục đã copy",
+        command=open_selected_folder,
+        font=("Helvetica", 12, "bold"),
+        bg="#3498db",
+        fg="white"
+    ).pack(pady=10)
 
 def show_filter_entry(column, tree_widget, parent_window):
     """Hiển thị cửa sổ nhập bộ lọc cho cột"""

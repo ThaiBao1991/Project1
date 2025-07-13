@@ -5,6 +5,7 @@ from ult.SendEmail.Guidle.gui import create_main_window, show_send_frame
 from ult.SendEmail.Guidle.config import open_config_window
 from ult.SendEmail.File.Data.file_data import open_data_window
 from ult.SendEmail.File.email import open_email_window
+# from ult.SendEmail.Guidle.GuiMontlyData import open_gui_monthly_data
 
 def main():
     root = tk.Tk()
@@ -40,7 +41,11 @@ def main():
     send_menu.add_command(label="Email Ngày", command=lambda: show_send_frame(root, "Ngày"))
     send_menu.add_command(label="Email Tuần", command=lambda: show_send_frame(root, "Tuần"))
 
-
+     # Thêm menu Gửi Monthly
+    monthly_menu = tk.Menu(menu_bar, tearoff=0)
+    menu_bar.add_cascade(label="Gửi Monthly", menu=monthly_menu)
+    monthly_menu.add_command(label="Gửi Monthly Data", command=lambda: open_gui_monthly_data(root))
+    
     # Bind phím tắt
     root.bind("<Shift-Alt-S>", lambda event: open_config_window(root))
     root.bind("<Configure>", lambda e: root.title(f"Gửi Dữ Liệu Khách Hàng - {root.winfo_width()}x{root.winfo_height()}"))
@@ -50,9 +55,9 @@ def main():
     btn_email_month, btn_email_week, btn_email_day, btn_monthly = create_main_window(root)
 
     # Gán lệnh cho các nút
-    btn_email_month.config(command=lambda: show_send_frame(root, "Tháng"))
-    btn_email_week.config(command=lambda: show_send_frame(root, "Tuần"))
-    btn_email_day.config(command=lambda: show_send_frame(root, "Ngày"))
+    btn_email_month.config(command=lambda: show_send_frame(root, "MONTH"))
+    btn_email_week.config(command=lambda: show_send_frame(root, "WEEK"))
+    btn_email_day.config(command=lambda: show_send_frame(root, "DAY"))
     btn_monthly.config(command=lambda: messagebox.showinfo("Thông báo", "Chức năng Gửi Monthly đang phát triển!"))
 
     root.mainloop()

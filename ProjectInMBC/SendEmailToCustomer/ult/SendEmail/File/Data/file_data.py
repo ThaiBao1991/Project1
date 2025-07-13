@@ -222,7 +222,19 @@ def open_data_window(parent):
         if not selected:
             messagebox.showwarning("Cảnh báo", "Vui lòng chọn một dòng để sửa!")
             return
-        index = int(tree_widget.index(selected[0]))
+        item = selected[0]
+        values = tree_widget.item(item, "values")
+        # Xác định các cột khóa (ví dụ: "SS", "Mã hàng", "MSKH")
+        mask = (
+            (data_df["SS"].astype(str) == values[data_df.columns.get_loc("SS")]) &
+            (data_df["Mã hàng"].astype(str) == values[data_df.columns.get_loc("Mã hàng")]) &
+            (data_df["MSKH"].astype(str) == values[data_df.columns.get_loc("MSKH")])
+        )
+        idx_list = data_df[mask].index.tolist()
+        if not idx_list:
+            messagebox.showwarning("Cảnh báo", "Không tìm thấy dòng dữ liệu để sửa!")
+            return
+        index = idx_list[0]
         if index >= len(data_df):
             messagebox.showwarning("Cảnh báo", "Dữ liệu không hợp lệ!")
             return

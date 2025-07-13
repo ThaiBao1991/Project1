@@ -35,6 +35,7 @@ def open_email_window(parent):
     email_window.configure(bg="#e8ecef")
     email_window.lift()
     email_window.grab_set()
+    email_window.state('zoomed')# Thêm dòng này để phóng to cửa sổ
 
     frame_table = tk.Frame(email_window, bg="#e8ecef")
     frame_table.pack(pady=10, fill="both", expand=True)
@@ -51,7 +52,22 @@ def open_email_window(parent):
         if not selected:
             messagebox.showwarning("Cảnh báo", "Vui lòng chọn một dòng để sửa!")
             return
-        index = int(tree.index(selected[0]))
+        item = selected[0]
+        values = tree.item(item, "values")
+        # Tìm đúng index trong df dựa trên giá trị các cột (ưu tiên các cột khóa)
+        # Ở đây dùng "Tên KH", "MÃ HÀNG", "CategoryEmail", "Địa chỉ gửi mail"
+        mask = (
+            (df["Tên KH"] == values[EMAIL_COLUMNS.index("Tên KH")]) &
+            (df["MÃ HÀNG"].astype(str) == values[EMAIL_COLUMNS.index("MÃ HÀNG")]) &
+            (df["CategoryEmail"].astype(str) == values[EMAIL_COLUMNS.index("CategoryEmail")]) &
+            (df["Địa chỉ gửi mail"] == values[EMAIL_COLUMNS.index("Địa chỉ gửi mail")])
+        )
+        idx_list = df[mask].index.tolist()
+        if not idx_list:
+            messagebox.showwarning("Cảnh báo", "Không tìm thấy dòng dữ liệu để sửa!")
+            return
+        index = idx_list[0]
+        
         if index >= len(df):
             messagebox.showwarning("Cảnh báo", "Dữ liệu không hợp lệ!")
             return
@@ -68,7 +84,7 @@ def open_email_window(parent):
             entries[col] = entry
 
         def save_modified():
-            nonlocal df
+            nonlocal df,original_df
             new_row = {col: entries[col].get() for col in EMAIL_COLUMNS}
             if not new_row["Tên KH"]:
                 messagebox.showwarning("Cảnh báo", "Tên KH không được để trống!")
@@ -76,7 +92,9 @@ def open_email_window(parent):
             for col in EMAIL_COLUMNS:
                 df.at[index, col] = new_row[col]
             save_to_csv_and_json()
+            original_df = df.copy()  # Cập nhật lại bản gốc
             update_table()
+            modify_win.destroy()
             modify_win.destroy()
 
         tk.Button(modify_win, text="Lưu", command=save_modified, font=("Helvetica", 12, "bold"), bg="#27ae60", fg="white", padx=20, pady=10).grid(row=len(EMAIL_COLUMNS)+1, column=0, columnspan=2, pady=20)
@@ -177,6 +195,7 @@ def open_email_window(parent):
                 return
             df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
             save_to_csv_and_json()
+            original_df = df.copy()
             update_table()
             add_win.destroy()
 

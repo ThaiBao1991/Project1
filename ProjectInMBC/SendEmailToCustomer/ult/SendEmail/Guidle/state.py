@@ -1,6 +1,5 @@
 import tkinter as tk
 from tkinter import ttk
-import pandas as pd
 import datetime
 # Biến toàn cục
 data_df = None
