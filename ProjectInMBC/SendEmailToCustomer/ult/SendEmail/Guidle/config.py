@@ -3,19 +3,34 @@ import os
 import tkinter as tk
 from tkinter import filedialog, messagebox,ttk
 import pandas as pd
-# from ult.SendEmail.Guidle.GuiMontlyData import open_config_monthly_window
-CONFIG_FILE = "config.json"
+
+config_dir = os.path.join(os.getcwd(), "DATASETC", "config")
+CONFIG_FILE_SendEmail = os.path.join(config_dir, "ConfigSendEmail.json")
+CONFIG_FILE_MontlyData = os.path.join(config_dir, "ConfigMontlyData.json")
+
 
 def load_config():
     """Đọc cấu hình từ config.json"""
-    if os.path.exists(CONFIG_FILE):
-        with open(CONFIG_FILE, 'r') as f:
+    if os.path.exists(CONFIG_FILE_SendEmail):
+        with open(CONFIG_FILE_SendEmail, 'r') as f:
             return json.load(f)
     return {}
 
 def save_config(config):
     """Lưu cấu hình vào config.json"""
-    with open(CONFIG_FILE, 'w') as f:
+    with open(CONFIG_FILE_SendEmail, 'w') as f:
+        json.dump(config, f, indent=4)
+
+def load_monthly_config():
+    """Đọc cấu hình từ config.json"""
+    if os.path.exists(CONFIG_FILE_MontlyData):
+        with open(CONFIG_FILE_MontlyData, 'r') as f:
+            return json.load(f)
+    return {}
+
+def save_monthly_config(config):
+    """Lưu cấu hình vào config.json"""
+    with open(CONFIG_FILE_MontlyData, 'w') as f:
         json.dump(config, f, indent=4)
 
 def open_config_window(root, event=None):
@@ -49,7 +64,8 @@ def show_config_window(root):
     config_menu = tk.Menu(menu_bar, tearoff=0)
     menu_bar.add_cascade(label="Config", menu=config_menu)
     config_menu.add_command(label="Config Gửi Email Tự động", command=lambda: [config_window.destroy(), show_email_config_window(root)])
-    config_menu.add_command(label="Config Montly Data", command=config_monthly_data)
+    from ult.FileMontlyData.Guidle.GuiMontlyData import open_config_monthly_window
+    config_menu.add_command(label="Config Montly Data", command=lambda: open_config_monthly_window(root))
     config_window.config(menu=menu_bar)
 
 def show_email_config_window(root):
