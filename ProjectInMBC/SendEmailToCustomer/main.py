@@ -61,7 +61,7 @@ def main():
     btn_email_week.config(command=lambda: show_send_frame(root, "WEEK"))
     btn_email_day.config(command=lambda: show_send_frame(root, "DAY"))
     # btn_monthly.config(command=lambda: messagebox.showinfo("Thông báo", "Chức năng Gửi Monthly đang phát triển!"))
-    btn_monthly.config(command=lambda: open_gui_monthly_data(root))
+    btn_monthly.config(command=lambda: open_gui_monthly_data(root, parent_window=root))
     
     root.mainloop()
 
