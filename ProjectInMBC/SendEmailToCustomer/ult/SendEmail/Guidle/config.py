@@ -4,6 +4,7 @@ import os
 import tkinter as tk
 from tkinter import filedialog, messagebox,ttk
 import pandas as pd
+from ult.FileMontlyData.Guidle.GuiMontlyData import open_config_monthly_window
 
 config_dir = os.path.join(os.getcwd(), "DATASETC", "config")
 CONFIG_FILE_SendEmail = os.path.join(config_dir, "ConfigSendEmail.json")
@@ -65,7 +66,6 @@ def show_config_window(root):
     config_menu = tk.Menu(menu_bar, tearoff=0)
     menu_bar.add_cascade(label="Config", menu=config_menu)
     config_menu.add_command(label="Config Gửi Email Tự động", command=lambda: [config_window.destroy(), show_email_config_window(root)])
-    from ult.FileMontlyData.Guidle.GuiMontlyData import open_config_monthly_window
     config_menu.add_command(label="Config Montly Data", command=lambda: open_config_monthly_window(root))
     config_window.config(menu=menu_bar)
 

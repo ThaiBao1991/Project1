@@ -4,12 +4,170 @@ import os
 import pandas as pd
 import calendar
 import datetime
+from ult.FileMontlyData.Guidle import stateMontly
 
 CHECK_DIR = os.path.join(os.getcwd(), "DATASETC", "dataMontlydata", "Check")
 os.makedirs(CHECK_DIR, exist_ok=True)
 CHECK_CSV = os.path.join(CHECK_DIR, "DataMontlyCheck.csv")
 DATA_CSV = os.path.join(os.getcwd(), "DATASETC", "dataMontlydata", "dataMontly.csv")
 DISPLAY_COLUMNS = ["Chủng loại", "Mã hàng", "Khách hàng", "Link", "Status"]
+def open_config_monthly_window(root):
+    window = tk.Toplevel(root)
+    window.title("Config Monthly Data")
+    window.geometry("900x420")
+    window.configure(bg="#e8ecef")
+
+    from ult.SendEmail.Guidle.config import load_monthly_config, save_monthly_config
+
+    config = load_monthly_config()
+
+    # ====== Địa chỉ file nguồn ======
+    frame_tempt = tk.Frame(window, bg="#e8ecef")
+    frame_tempt.pack(pady=15, fill="x", padx=30)
+    tk.Label(frame_tempt, text="Chọn thư mục tạm:", font=("Helvetica", 12), bg="#e8ecef").pack(side=tk.LEFT)
+    entry_tempt = tk.Entry(frame_tempt, width=40, font=("Helvetica", 12))
+    entry_tempt.pack(side=tk.LEFT, padx=10)
+    entry_tempt.insert(0, config.get("tempt_path", ""))
+    def select_tempt_folder():
+        folder = filedialog.askdirectory(title="Chọn thư mục tạm")
+        if folder:
+            entry_tempt.delete(0, tk.END)
+            entry_tempt.insert(0, folder)
+    tk.Button(frame_tempt, text="Chọn", command=select_tempt_folder,
+            font=("Helvetica", 11, "bold"), bg="#3498db", fg="white", padx=10).pack(side=tk.LEFT)
+
+
+    # ====== Địa chỉ file gốc ======
+    frame_origin = tk.Frame(window, bg="#e8ecef")
+    frame_origin.pack(pady=15, fill="x", padx=30)
+    tk.Label(frame_origin, text="Địa chỉ file gốc:", font=("Helvetica", 12), bg="#e8ecef").pack(side=tk.LEFT)
+    entry_origin = tk.Entry(frame_origin, width=40, font=("Helvetica", 12))
+    entry_origin.pack(side=tk.LEFT, padx=10)
+    entry_origin.insert(0, config.get("origin_path", ""))
+    def select_origin_folder():
+        folder = filedialog.askdirectory(title="Chọn thư mục gốc")
+        if folder:
+            entry_origin.delete(0, tk.END)
+            entry_origin.insert(0, folder)
+    tk.Button(frame_origin, text="Chọn", command=select_origin_folder,
+              font=("Helvetica", 11, "bold"), bg="#3498db", fg="white", padx=10).pack(side=tk.LEFT)
+
+    # ====== File Excel ======
+    frame_excel = tk.Frame(window, bg="#e8ecef")
+    frame_excel.pack(pady=15, fill="x", padx=30)
+    tk.Label(frame_excel, text="File Excel:", font=("Helvetica", 12), bg="#e8ecef").pack(side=tk.LEFT)
+    entry_excel = tk.Entry(frame_excel, width=32, font=("Helvetica", 12))
+    entry_excel.pack(side=tk.LEFT, padx=10)
+    entry_excel.insert(0, config.get("excel_path", ""))
+
+    def select_excel_file():
+        file_path = filedialog.askopenfilename(
+            title="Chọn file Excel",
+            filetypes=[("Excel files", "*.xlsx *.xls *.xlsm *.csv"), ("All files", "*.*")]
+        )
+        if file_path:
+            entry_excel.delete(0, tk.END)
+            entry_excel.insert(0, file_path)
+
+    tk.Button(frame_excel, text="Chọn", command=select_excel_file,
+              font=("Helvetica", 11, "bold"), bg="#3498db", fg="white", padx=10).pack(side=tk.LEFT)
+
+    def convert_excel_to_csv():
+        excel_path = entry_excel.get()
+        if not excel_path or not os.path.exists(excel_path):
+            messagebox.showwarning("Cảnh báo", "Vui lòng chọn file Excel hợp lệ!")
+            return
+        try:
+            xl = pd.ExcelFile(excel_path)
+            sheet_names = xl.sheet_names
+
+            select_window = tk.Toplevel(window)
+            select_window.title("Chọn sheet và vùng dữ liệu")
+            select_window.geometry("420x320")
+            select_window.configure(bg="#e8ecef")
+
+            tk.Label(select_window, text="Chọn sheet:", font=("Helvetica", 12), bg="#e8ecef").pack(pady=8)
+            sheet_var = tk.StringVar(value=sheet_names[0])
+            sheet_menu = ttk.Combobox(select_window, textvariable=sheet_var, values=sheet_names, state="readonly", font=("Helvetica", 12))
+            sheet_menu.pack(pady=5)
+
+            row_frame = tk.Frame(select_window, bg="#e8ecef")
+            row_frame.pack(pady=5)
+            tk.Label(row_frame, text="Dòng bắt đầu (từ 0):", font=("Helvetica", 12), bg="#e8ecef").pack(side=tk.LEFT)
+            entry_row_start = tk.Entry(row_frame, width=6, font=("Helvetica", 12))
+            entry_row_start.pack(side=tk.LEFT, padx=5)
+            entry_row_start.insert(0, "0")
+
+            tk.Label(row_frame, text="Dòng kết thúc (từ 0, để trống lấy hết):", font=("Helvetica", 12), bg="#e8ecef").pack(side=tk.LEFT)
+            entry_row_end = tk.Entry(row_frame, width=6, font=("Helvetica", 12))
+            entry_row_end.pack(side=tk.LEFT, padx=5)
+
+            col_frame = tk.Frame(select_window, bg="#e8ecef")
+            col_frame.pack(pady=5)
+            tk.Label(col_frame, text="Cột bắt đầu (từ 0):", font=("Helvetica", 12), bg="#e8ecef").pack(side=tk.LEFT)
+            entry_col_start = tk.Entry(col_frame, width=6, font=("Helvetica", 12))
+            entry_col_start.pack(side=tk.LEFT, padx=5)
+            entry_col_start.insert(0, "0")
+
+            tk.Label(col_frame, text="Cột kết thúc (từ 0, để trống lấy hết):", font=("Helvetica", 12), bg="#e8ecef").pack(side=tk.LEFT)
+            entry_col_end = tk.Entry(col_frame, width=6, font=("Helvetica", 12))
+            entry_col_end.pack(side=tk.LEFT, padx=5)
+
+            def do_convert():
+                try:
+                    sheet = sheet_var.get()
+                    row_start = entry_row_start.get().strip()
+                    row_end = entry_row_end.get().strip()
+                    col_start = entry_col_start.get().strip()
+                    col_end = entry_col_end.get().strip()
+
+                    df = pd.read_excel(excel_path, sheet_name=sheet, header=None)
+                    row_start = int(row_start) if row_start else 0
+                    row_end = int(row_end) if row_end else None
+                    col_start = int(col_start) if col_start else 0
+                    col_end = int(col_end) if col_end else None
+
+                    df = df.iloc[row_start:row_end, col_start:col_end]
+
+                    base_name = os.path.splitext(os.path.basename(excel_path))[0]
+                    output_csv = os.path.join(os.path.dirname(excel_path), f"{base_name}_monthly_convert.csv")
+                    df.to_csv(output_csv, index=False, header=False, encoding='utf-8-sig')
+
+                    # Lưu lại đường dẫn vào config
+                    config = load_monthly_config()
+                    config["excel_path"] = excel_path
+                    config["excel_csv"] = output_csv
+                    save_monthly_config(config)
+                    messagebox.showinfo("Thành công", f"Đã convert file Excel sang CSV:\n{output_csv}")
+                    select_window.destroy()
+                except Exception as e:
+                    messagebox.showerror("Lỗi", f"Không thể convert file Excel: {e}")
+
+            tk.Button(select_window, text="Convert", command=do_convert,
+                      font=("Helvetica", 12, "bold"), bg="#f39c12", fg="white", padx=18).pack(pady=18)
+
+        except Exception as e:
+            messagebox.showerror("Lỗi", f"Không thể đọc file Excel: {e}")
+
+    tk.Button(frame_excel, text="Convert to CSV", command=convert_excel_to_csv,
+              font=("Helvetica", 11, "bold"), bg="#f39c12", fg="white", padx=10).pack(side=tk.LEFT, padx=8)
+
+    # ====== Nút lưu và đóng ======
+    frame_btn = tk.Frame(window, bg="#e8ecef")
+    frame_btn.pack(pady=30)
+    def save():
+        config = {
+        "tempt_path": entry_tempt.get(),
+        "origin_path": entry_origin.get(),
+        "excel_path": entry_excel.get()
+    }
+        save_monthly_config(config)
+        messagebox.showinfo("Thành công", "Đã lưu cấu hình Monthly Data!")
+
+    tk.Button(frame_btn, text="Lưu cấu hình", command=save, font=("Helvetica", 12, "bold"),
+              bg="#27ae60", fg="white", padx=20, pady=6).pack(side=tk.LEFT, padx=20)
+    tk.Button(frame_btn, text="Đóng", command=window.destroy, font=("Helvetica", 12, "bold"),
+              bg="#e74c3c", fg="white", padx=20, pady=6).pack(side=tk.LEFT, padx=20)
 
 def update_check_data():
     # Xóa file cũ nếu có
@@ -39,6 +197,54 @@ def load_check_data():
 
 def save_check_data(df):
     df.to_csv(CHECK_CSV, index=False, encoding="utf-8-sig")
+    
+    
+def edit_content():
+    # Đọc config
+    from ult.SendEmail.Guidle.config import load_monthly_config
+    config = load_monthly_config()
+    tempt_dir = config.get("tempt_path", "")
+    origin_dir = config.get("origin_path", "")
+
+    # Đọc tháng/năm từ stateMontly
+    import ult.FileMontlyData.Guidle.stateMontly as state_monthly
+    month = state_monthly.MonthSelect or datetime.datetime.now().strftime("%m")
+    year = state_monthly.YearsSelect or datetime.datetime.now().strftime("%Y")
+
+    # Đọc DataMontlyCheck.csv
+    df = load_check_data()
+    copied_files = []
+    for _, row in df.iterrows():
+        if str(row["Status"]) != "Xác nhận có dữ liệu KJS":
+            continue
+        # Lấy thông tin
+        chungloaiMini = ""
+        tenmahangMini = ""
+        parts = str(row["Mã hàng"]).split("-")
+        if len(parts) >= 3:
+            chungloaiMini = parts[1]
+            tenmahangMini = parts[2]
+        khach_hang = str(row["Khách hàng"])
+        # Tìm file nguồn
+        src_folder = os.path.join(origin_dir, f"Hang {chungloaiMini}", f"Ma Hang {tenmahangMini}", year)
+        if not os.path.exists(src_folder):
+            continue
+        # Tìm file theo pattern
+        pattern = f"{tenmahangMini}-{year}.{month}"
+        for fname in os.listdir(src_folder):
+            if pattern in fname:
+                src_file = os.path.join(src_folder, fname)
+                # Đích: tempt_dir/{Year}/{Month}/{KhachHang}/
+                dest_folder = os.path.join(tempt_dir, year, month, khach_hang)
+                os.makedirs(dest_folder, exist_ok=True)
+                dest_file = os.path.join(dest_folder, fname)
+                try:
+                    import shutil
+                    shutil.copy2(src_file, dest_file)
+                    copied_files.append(dest_file)
+                except Exception as e:
+                    print(f"Lỗi copy {src_file}: {e}")
+    messagebox.showinfo("Kết quả", f"Đã copy {len(copied_files)} file vào thư mục tạm.")
 
 def open_gui_monthly_data(root, parent_window=None):
     window = tk.Toplevel(root)
@@ -75,23 +281,26 @@ def open_gui_monthly_data(root, parent_window=None):
     def pick_month():
         top = tk.Toplevel(window)
         top.title("Chọn tháng")
-        top.geometry("300x120")
+        top.geometry("300x350")
         top.configure(bg="#e8ecef")
 
-        # Chọn tháng
         tk.Label(top, text="Tháng:", font=("Helvetica", 12), bg="#e8ecef").pack(pady=5)
         month_cb = ttk.Combobox(top, values=[f"{i:02d}" for i in range(1, 13)], width=5, font=("Helvetica", 12), state="readonly")
         month_cb.pack()
         month_cb.set(datetime.datetime.now().strftime("%m"))
 
-        # Chọn năm
         tk.Label(top, text="Năm:", font=("Helvetica", 12), bg="#e8ecef").pack(pady=5)
         year_cb = ttk.Combobox(top, values=[str(y) for y in range(datetime.datetime.now().year-3, datetime.datetime.now().year+4)], width=7, font=("Helvetica", 12), state="readonly")
         year_cb.pack()
         year_cb.set(datetime.datetime.now().strftime("%Y"))
 
         def set_month():
-            month_var.set(f"{month_cb.get()}/{year_cb.get()}")
+            month = month_cb.get()
+            year = year_cb.get()
+            month_var.set(f"{month}/{year}")
+            # Lưu vào stateMontly
+            stateMontly.MonthSelect = month
+            stateMontly.YearsSelect = year
             top.destroy()
         tk.Button(top, text="Chọn", command=set_month, font=("Helvetica", 12, "bold"), bg="#27ae60", fg="white").pack(pady=10)
 
@@ -155,6 +364,18 @@ def open_gui_monthly_data(root, parent_window=None):
 
         for idx, row in df.iterrows():
             ma_hang = str(row["Mã hàng"])
+            # Chủng loại: lấy 2 phần đầu, ghép lại không dấu "-"
+            parts = ma_hang.split("-")
+            if len(parts) >= 2:
+                chung_loai = parts[0] + parts[1]
+                ChungloaiMini = parts[1]
+                tenmahangMini=parts[2]
+            else:
+                chung_loai = ma_hang
+                ChungloaiMini=""
+                tenmahangMini=""
+            khach_hang = str(row["Khách hàng"])  # lấy từ dòng hiện tại
+
             # Lấy phần cuối sau dấu "-"
             if "-" in ma_hang:
                 code = ma_hang.split("-")[-1].strip()
@@ -170,9 +391,12 @@ def open_gui_monthly_data(root, parent_window=None):
                 found_count += 1
                 for _, kjs_row in matched.iterrows():
                     filter_rows.append(kjs_row)
-                    # Sửa ở đây: mỗi ITEM là 1 list các dict
                     item_key = str(kjs_row["ITEM"])
                     item_info = {
+                        "ChungLoai": chung_loai,
+                        "ChungloaiMini": ChungloaiMini,
+                        "TenmahangMini": tenmahangMini,
+                        "KhachHang": khach_hang,
                         "LOT_NO": kjs_row.get("LOT_NO", ""),
                         "CUSTOMER": kjs_row.get("CUSTOMER", ""),
                         "ACCEPT_QTY": kjs_row.get("ACCEPT_QTY", ""),
@@ -213,8 +437,8 @@ def open_gui_monthly_data(root, parent_window=None):
             bg="#27ae60", fg="white", padx=18, pady=6,
             command=confirm_data).pack(side=tk.LEFT, padx=10)
     tk.Button(frame_btn, text="Chỉnh sửa nội dung", font=("Helvetica", 12, "bold"),
-              bg="#3498db", fg="white", padx=18, pady=6,
-              command=lambda: messagebox.showinfo("Thông báo", "Chức năng chỉnh sửa đang phát triển!")).pack(side=tk.LEFT, padx=10)
+          bg="#3498db", fg="white", padx=18, pady=6,
+          command=edit_content).pack(side=tk.LEFT, padx=10)
     tk.Button(frame_btn, text="Nén file", font=("Helvetica", 12, "bold"),
               bg="#f39c12", fg="white", padx=18, pady=6,
               command=lambda: messagebox.showinfo("Thông báo", "Chức năng nén file đang phát triển!")).pack(side=tk.LEFT, padx=10)

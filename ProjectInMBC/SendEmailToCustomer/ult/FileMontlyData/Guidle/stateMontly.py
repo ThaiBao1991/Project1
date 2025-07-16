@@ -13,5 +13,5 @@ entry_file = None
 frame_table = None
 frame_status_buttons = None
 btn_back = None
-month_year_var = None
-month_year_value = None
+MonthSelect = None
+YearsSelect = None
