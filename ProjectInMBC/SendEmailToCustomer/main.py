@@ -7,6 +7,23 @@ from ult.SendEmail.File.Data.file_data import open_data_window
 from ult.SendEmail.File.email import open_email_window
 from ult.FileMontlyData.Guidle.GuiMontlyData import open_gui_monthly_data
 from ult.FileMontlyData.File.file_data_montlydata import open_data_montly_window
+import shutil
+import sys
+def extract_datasetc_if_needed():
+    target_dir = os.path.join(os.getcwd(), "DATASETC")
+    if hasattr(sys, "_MEIPASS"):
+        source_dir = os.path.join(sys._MEIPASS, "DATASETC")
+    else:
+        return
+    if os.path.exists(target_dir):
+        return
+    try:
+        shutil.copytree(source_dir, target_dir)
+    except Exception as e:
+        print(f"Lỗi giải nén DATASETC: {e}")
+
+extract_datasetc_if_needed()
+
 
 def main():
     root = tk.Tk()

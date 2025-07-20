@@ -5,12 +5,17 @@ import pandas as pd
 import calendar
 import datetime
 from ult.FileMontlyData.Guidle import stateMontly
+import openpyxl
+import json
+import xlwings as xw
 
 CHECK_DIR = os.path.join(os.getcwd(), "DATASETC", "dataMontlydata", "Check")
 os.makedirs(CHECK_DIR, exist_ok=True)
 CHECK_CSV = os.path.join(CHECK_DIR, "DataMontlyCheck.csv")
 DATA_CSV = os.path.join(os.getcwd(), "DATASETC", "dataMontlydata", "dataMontly.csv")
 DISPLAY_COLUMNS = ["Chủng loại", "Mã hàng", "Khách hàng", "Link", "Status"]
+
+
 def open_config_monthly_window(root):
     window = tk.Toplevel(root)
     window.title("Config Monthly Data")
@@ -199,53 +204,8 @@ def save_check_data(df):
     df.to_csv(CHECK_CSV, index=False, encoding="utf-8-sig")
     
     
-def edit_content():
-    # Đọc config
-    from ult.SendEmail.Guidle.config import load_monthly_config
-    config = load_monthly_config()
-    tempt_dir = config.get("tempt_path", "")
-    origin_dir = config.get("origin_path", "")
 
-    # Đọc tháng/năm từ stateMontly
-    import ult.FileMontlyData.Guidle.stateMontly as state_monthly
-    month = state_monthly.MonthSelect or datetime.datetime.now().strftime("%m")
-    year = state_monthly.YearsSelect or datetime.datetime.now().strftime("%Y")
-
-    # Đọc DataMontlyCheck.csv
-    df = load_check_data()
-    copied_files = []
-    for _, row in df.iterrows():
-        if str(row["Status"]) != "Xác nhận có dữ liệu KJS":
-            continue
-        # Lấy thông tin
-        chungloaiMini = ""
-        tenmahangMini = ""
-        parts = str(row["Mã hàng"]).split("-")
-        if len(parts) >= 3:
-            chungloaiMini = parts[1]
-            tenmahangMini = parts[2]
-        khach_hang = str(row["Khách hàng"])
-        # Tìm file nguồn
-        src_folder = os.path.join(origin_dir, f"Hang {chungloaiMini}", f"Ma Hang {tenmahangMini}", year)
-        if not os.path.exists(src_folder):
-            continue
-        # Tìm file theo pattern
-        pattern = f"{tenmahangMini}-{year}.{month}"
-        for fname in os.listdir(src_folder):
-            if pattern in fname:
-                src_file = os.path.join(src_folder, fname)
-                # Đích: tempt_dir/{Year}/{Month}/{KhachHang}/
-                dest_folder = os.path.join(tempt_dir, year, month, khach_hang)
-                os.makedirs(dest_folder, exist_ok=True)
-                dest_file = os.path.join(dest_folder, fname)
-                try:
-                    import shutil
-                    shutil.copy2(src_file, dest_file)
-                    copied_files.append(dest_file)
-                except Exception as e:
-                    print(f"Lỗi copy {src_file}: {e}")
-    messagebox.showinfo("Kết quả", f"Đã copy {len(copied_files)} file vào thư mục tạm.")
-
+  
 def open_gui_monthly_data(root, parent_window=None):
     window = tk.Toplevel(root)
     window.title("Gửi Monthly Data")
@@ -255,11 +215,13 @@ def open_gui_monthly_data(root, parent_window=None):
     window.grab_set()
     window.focus_force()
     if parent_window:
-        parent_window.withdraw()  # Ẩn cửa sổ gốc
+        parent_window.withdraw()
         def on_close():
             parent_window.deiconify()
             window.destroy()
         window.protocol("WM_DELETE_WINDOW", on_close)
+
+    
     # ==== Khu vực chọn file KJS và chọn tháng ====
     frame_top = tk.Frame(window, bg="#e8ecef")
     frame_top.pack(pady=10, fill="x")
@@ -428,6 +390,416 @@ def open_gui_monthly_data(root, parent_window=None):
 
         messagebox.showinfo("Kết quả", f"Đã xác nhận xong!\nCó {found_count} mã hàng tìm thấy dữ liệu KJS.\n"
                                     f"Đã xuất file DataMontlyFilter.csv{' và DataMontlyFilter.json' if filter_rows else ''}.")
+    
+    def open_file_from_tree(event):
+        selected = tree.selection()
+        if not selected:
+            return
+        item = selected[0]
+        values = tree.item(item, "values")
+        excel_path = values[3]  # Cột "Link"
+        if excel_path and os.path.exists(excel_path):
+            os.startfile(excel_path)
+        else:
+            messagebox.showerror("Lỗi", f"Không tìm thấy file: {excel_path}")
+    tree.bind("<Double-1>", open_file_from_tree)
+    
+    filter_vars = {col: tk.StringVar() for col in DISPLAY_COLUMNS}
+    def apply_filters():
+        filtered = df.copy()
+        for col in DISPLAY_COLUMNS:
+            val = filter_vars[col].get().strip()
+            if val:
+                filtered = filtered[filtered[col].astype(str).str.contains(val, case=False, na=False)]
+        return filtered
+
+    def show_filter(col):
+        filter_win = tk.Toplevel(window)
+        filter_win.title(f"Lọc theo {col}")
+        filter_win.geometry("400x180")
+        filter_win.configure(bg="#e8ecef")
+        filter_win.lift()
+        filter_win.grab_set()
+        tk.Label(filter_win, text=f"Nhập giá trị lọc cho {col}:", font=("Helvetica", 12), bg="#e8ecef").pack(pady=15)
+        entry = tk.Entry(filter_win, width=35, font=("Helvetica", 12))
+        entry.pack(pady=10)
+        entry.insert(0, filter_vars[col].get())
+        def apply_filter():
+            filter_vars[col].set(entry.get().strip())
+            refresh_tree(apply_filters())
+            filter_win.destroy()
+        tk.Button(filter_win, text="Lọc", command=apply_filter, font=("Helvetica", 12, "bold"),
+                bg="#3498db", fg="white", padx=20, pady=8).pack(pady=15)
+
+    for col in DISPLAY_COLUMNS:
+        tree.heading(col, text=col, command=lambda c=col: show_filter(c))
+    
+    
+       
+    def edit_content():
+        from ult.SendEmail.Guidle.config import load_monthly_config
+        config = load_monthly_config()
+        tempt_dir = config.get("tempt_path", "")
+        origin_dir = config.get("origin_path", "")
+
+        import ult.FileMontlyData.Guidle.stateMontly as state_monthly
+        month = state_monthly.MonthSelect or datetime.datetime.now().strftime("%m")
+        year = state_monthly.YearsSelect or datetime.datetime.now().strftime("%Y")
+
+        # Đọc DataMontlyCheck.csv
+        df = load_check_data()
+        copied_files = []
+        for _, row in df.iterrows():
+            if str(row["Status"]) != "Xác nhận có dữ liệu KJS":
+                continue
+            chungloaiMini = ""
+            tenmahangMini = ""
+            parts = str(row["Mã hàng"]).split("-")
+            if len(parts) >= 3:
+                chungloaiMini = parts[1]
+                tenmahangMini = parts[2]
+            khach_hang = str(row["Khách hàng"])
+            src_folder = os.path.join(origin_dir, f"Hang {chungloaiMini}", f"Ma Hang {tenmahangMini}", year)
+            if not os.path.exists(src_folder):
+                continue
+            pattern = f"{tenmahangMini}-{year}.{month}"
+            for fname in os.listdir(src_folder):
+                if pattern in fname and fname.endswith(('.xls', '.xlsx')):
+                    src_file = os.path.join(src_folder, fname)
+                    dest_folder = os.path.join(tempt_dir, year, month, khach_hang)
+                    os.makedirs(dest_folder, exist_ok=True)
+                    dest_file = os.path.join(dest_folder, fname)
+                    if not os.path.exists(dest_file):
+                        try:
+                            import shutil
+                            shutil.copy2(src_file, dest_file)
+                            copied_files.append(dest_file)
+                        except Exception as e:
+                            print(f"Lỗi copy {src_file}: {e}")
+
+        messagebox.showinfo("Kết quả", f"Đã copy {len(copied_files)} file vào thư mục tạm.")
+
+        # Sau khi copy xong, tiếp tục các bước chỉnh sửa dữ liệu như hiện tại
+        # ... (phần xử lý chỉnh sửa file .xls/.xlsx giữ nguyên như bạn đã viết ở dưới) ...
+        
+        df = load_check_data()
+        filter_json_path = os.path.join(CHECK_DIR, "DataMontlyFilter.json")
+        with open(filter_json_path, "r", encoding="utf-8") as f:
+            filter_data = json.load(f)
+            
+        total_files = 0
+        completed_files = 0
+        empty_files = 0
+        error_files = 0
+
+        for idx, row in df.iterrows():
+            if str(row["Status"]) != "Xác nhận có dữ liệu KJS":
+                continue
+            ma_hang = str(row["Mã hàng"])
+            khach_hang = str(row["Khách hàng"])
+            parts = ma_hang.split("-")
+            if len(parts) >= 3:
+                chungloaiMini = parts[1]
+                tenmahangMini = parts[2]
+            else:
+                continue
+
+            dest_folder = os.path.join(tempt_dir, year, month, khach_hang)
+            pattern = f"{tenmahangMini}-{year}.{month}"
+            excel_files = [f for f in os.listdir(dest_folder) if pattern in f and f.endswith(('.xls', '.xlsx'))]
+            if not excel_files:
+                df.at[idx, "Status"] = "Không tìm thấy file"
+                error_files += 1
+                continue
+            for excel_file in excel_files:
+                file_path = os.path.join(dest_folder, excel_file)
+                total_files += 1
+                try:
+                    found_lot = False
+                    checked_lot = set()
+                    code = ma_hang.split("-")[-1].strip()
+                    lot_list = []
+                    for item_key, lots in filter_data.items():
+                        if code in item_key:
+                            for lot in lots:
+                                lot_list.append(lot["LOT_NO"].replace("-", ""))
+                    # Xử lý file .xlsx
+                    if excel_file.lower().endswith('.xlsx'):
+                        wb = openpyxl.load_workbook(file_path, data_only=True)
+                        ws = wb.active
+                        cell_C8 = ws["C8"].value
+                        if cell_C8 != ma_hang:
+                            df.at[idx, "Status"] = "File lỗi dữ liệu"
+                            error_files += 1
+                            continue
+                        for id_lot, start_row in enumerate(range(25, 1000, 39)):
+                            cell_E = ws[f"E{start_row}"].value
+                            if not cell_E:
+                                df.at[idx, "Status"] = "Dữ liệu bị trống"
+                                empty_files += 1
+                                break
+                            lot_no_excel = str(cell_E).replace("-", "")
+                            if lot_no_excel in checked_lot:
+                                continue
+                            checked_lot.add(lot_no_excel)
+                            if lot_no_excel in lot_list:
+                                error_cells = []
+                                for j in range(start_row+32, start_row-1, -1):
+                                    val = ws[f"I{j}"].value
+                                    if val in [None, "#DIV/0!"]:
+                                        error_cells.append(j)
+                                for j in error_cells:
+                                    for col in ["I", "J", "K", "L", "M"]:
+                                        ws[f"{col}{j}"].value = None
+                                found_lot = True
+                                if id_lot == 0 and len(lot_list) == 1:
+                                    for r in range(start_row+39, 1001):
+                                        for col in ["A", "B", "C", "D", "E"]:
+                                            ws[f"{col}{r}"].value = None
+                                break
+                        if found_lot:
+                            order_no = ws["P1"].value
+                            if order_no and "ORDER No:" in str(order_no):
+                                pass
+                            for j in range(25, 6, -1):
+                                val = ws[f"X{j}"].value
+                                if val in [None, "#DIV/0!"]:
+                                    for col in range(ord("P"), ord("A")+24):
+                                        ws[f"{chr(col)}{j}"].value = None
+                            wb.save(file_path)
+                            df.at[idx, "Status"] = "Hoàn thành chỉnh sửa dữ liệu"
+                            completed_files += 1
+                        elif not found_lot:
+                            df.at[idx, "Status"] = "File lỗi dữ liệu"
+                            error_files += 1
+
+                    # Xử lý file .xls
+                    elif excel_file.lower().endswith('.xls'):
+                        app = xw.App(visible=False)
+                        wb = app.books.open(file_path)
+                        ws = wb.sheets[0]
+                        
+                        khach_hang = str(row["Khách hàng"]).strip().upper()
+                        json_key = f"{parts[0]}{parts[1]}{parts[2]}"
+                        lots = filter_data.get(json_key, [])
+                        order_no_list = []
+                        found_lot = False
+                        part_ranges_to_delete = []  # Lưu vùng cần xóa sau khi duyệt
+                        
+                        if khach_hang == "CANON":
+                            cell_C8 = ws.range("C8").value
+                            if cell_C8 != ma_hang:
+                                df.at[idx, "Status"] = "File lỗi dữ liệu"
+                                error_files += 1
+                                wb.close()
+                                app.quit()
+                                continue
+                            order_no_list = []
+                            found_lot = False
+                            
+                            # Xét từng phần (E25, E64, E103, ...)
+                            for id_lot, start_row in enumerate(range(25, 1000, 39)):
+                                cell_E = ws.range(f"E{start_row}").value
+                                if not cell_E:
+                                    part_ranges_to_delete.append((start_row, start_row+38))
+                                    continue
+                                lot_no_excel = str(cell_E).replace("-", "")
+                                lot_info = next((lot for lot in lots if lot["LOT_NO"].replace("-", "") == lot_no_excel), None)
+                                if lot_info:
+                                    ws.range(f"H{start_row}").value = lot_info.get("PRODUCTION_ORDER_NO", "")
+                                    ws.range(f"I{start_row}").value = lot_info.get("ACCEPT_QTY", "")
+                                    ws.range(f"L{start_row}").value = lot_info.get("CUSTOMER", "")
+                                    po_no = lot_info.get("PRODUCTION_ORDER_NO", "")
+                                    if po_no and po_no not in order_no_list:
+                                        order_no_list.append(po_no)
+                                    found_lot = True
+
+                            # Xét các dòng W7 -> W32 (của toàn sheet)
+                            rows_to_delete = []
+                            for j in range(7, 32):  # W7 đến W32 (bao gồm cả 31)
+                                cell_W = ws.range(f"W{j}").value
+                                if cell_W in [None, "#DIV/0!", "#REF!", "0", "0.00", "0.000"]:
+                                    rows_to_delete.append(j)
+                                else:
+                                    try:
+                                        if float(cell_W) == 0:
+                                            rows_to_delete.append(j)
+                                    except Exception:
+                                        pass
+
+                            # Xóa các dòng W7-W31 theo range P-AX, xóa từ dòng lớn đến nhỏ
+                            for j in sorted(rows_to_delete, reverse=True):
+                                ws.range(f"P{j}:AX{j}").delete(shift="up")
+
+                            # Xóa các vùng phần không có dữ liệu (sau khi duyệt xong)
+                            for start, end in sorted(part_ranges_to_delete, reverse=True):
+                                ws.range(f"A{start}:M{end}").delete(shift="up") 
+
+                            # Ghi vào ô P1 chỉ các mã PO khác nhau
+                            order_no_text = "ORDER No:"
+                            if order_no_list:
+                                ws.range("P1").value = f"{order_no_text} {', '.join(order_no_list)}"
+
+                            wb.save()
+                            wb.close()
+                            app.quit()
+                            if found_lot:
+                                df.at[idx, "Status"] = "Hoàn thành chỉnh sửa dữ liệu"
+                                completed_files += 1
+                            else:
+                                df.at[idx, "Status"] = "File lỗi dữ liệu"
+                                error_files += 1
+
+                        elif khach_hang == "HP":
+                            cell_C14 = ws.range("C14").value
+                            if cell_C14 != ma_hang:
+                                df.at[idx, "Status"] = "File lỗi dữ liệu"
+                                error_files += 1
+                                wb.close()
+                                app.quit()
+                                continue
+                            order_no_list = []
+                            found_lot = False
+                            part_ranges_to_delete = []
+                            # Xét từng phần (E31, E70, E109, ...)
+                            for id_lot, start_row in enumerate(range(31, 3930, 39)):
+                                cell_E = ws.range(f"E{start_row}").value
+                                if not cell_E:
+                                    part_ranges_to_delete.append((start_row, start_row+38))
+                                    continue
+                                lot_no_excel = str(cell_E).replace("-", "")
+                                lot_info = next((lot for lot in lots if lot["LOT_NO"].replace("-", "") == lot_no_excel), None)
+                                if lot_info:
+                                    ws.range(f"H{start_row}").value = lot_info.get("PRODUCTION_ORDER_NO", "")
+                                    ws.range(f"K{start_row}").value = lot_info.get("ACCEPT_QTY", "")
+                                    ws.range(f"N{start_row}").value = lot_info.get("CUSTOMER", "")
+                                    ws.range(f"R{start_row}").value = cell_E  # Giá trị hiện tại của E
+                                    po_no = lot_info.get("PRODUCTION_ORDER_NO", "")
+                                    if po_no and po_no not in order_no_list:
+                                        order_no_list.append(po_no)
+                                    found_lot = True
+                            # Xét các dòng W7 -> W32 (của toàn sheet)
+                            rows_to_delete = []
+                            for j in range(13, 38):  # W7 đến W32 (bao gồm cả 31)
+                                cell_W = ws.range(f"AA{j}").value
+                                if cell_W in [None, "#DIV/0!", "#REF!", "0", "0.00", "0.000"]:
+                                    rows_to_delete.append(j)
+                                else:
+                                    try:
+                                        if float(cell_W) == 0:
+                                            rows_to_delete.append(j)
+                                    except Exception:
+                                        pass
+
+                            # Xóa các dòng W7-W31 theo range P-AX, xóa từ dòng lớn đến nhỏ
+                            for j in sorted(rows_to_delete, reverse=True):
+                                ws.range(f"U{j}:BJ{j}").delete(shift="up")
+
+                            # Xóa các vùng phần không có dữ liệu (sau khi duyệt xong)
+                            for start, end in sorted(part_ranges_to_delete, reverse=True):
+                                ws.range(f"A{start}:S{end}").delete(shift="up") 
+                            # Ghi vào ô P1
+                            order_no_text = "ORDER No:"
+                            if order_no_list:
+                                ws.range("P3").value = f"{order_no_text} {', '.join(order_no_list)}"
+                            wb.save()
+                            wb.close()
+                            app.quit()
+                            if found_lot:
+                                df.at[idx, "Status"] = "Hoàn thành chỉnh sửa dữ liệu (HP)"
+                                completed_files += 1
+                            else:
+                                df.at[idx, "Status"] = "File lỗi dữ liệu"
+                                error_files += 1
+
+                        elif khach_hang == "DENSO":
+                            cell_C24 = ws.range("C8").value
+                            if cell_C24 != ma_hang:
+                                df.at[idx, "Status"] = "File lỗi dữ liệu"
+                                error_files += 1
+                                wb.close()
+                                app.quit()
+                                continue
+                            order_no_list = []
+                            found_lot = False
+                            part_ranges_to_delete = []
+                            # Xét từng phần (E24, E43, E62, ...)
+                            for id_lot, start_row in enumerate(range(24, 593, 19)):
+                                cell_E = ws.range(f"E{start_row}").value
+                                if not cell_E:
+                                    part_ranges_to_delete.append((start_row, start_row+18))
+                                    continue
+                                lot_no_excel = str(cell_E).replace("-", "")
+                                lot_info = next((lot for lot in lots if lot["LOT_NO"].replace("-", "") == lot_no_excel), None)
+                                if lot_info:
+                                    ws.range(f"H{start_row}").value = lot_info.get("PRODUCTION_ORDER_NO", "")
+                                    ws.range(f"J{start_row}").value = lot_info.get("ACCEPT_QTY", "")
+                                    ws.range(f"L{start_row}").value = lot_info.get("CUSTOMER", "")
+                                    po_no = lot_info.get("PRODUCTION_ORDER_NO", "")
+                                    if po_no and po_no not in order_no_list:
+                                        order_no_list.append(po_no)
+                                    found_lot = True
+                            # Xét các dòng W7 -> W32 (của toàn sheet)
+                            rows_to_delete = []
+                            for j in range(7, 32):  # W7 đến W32 (bao gồm cả 31)
+                                cell_W = ws.range(f"AC{j}").value
+                                if cell_W in [None, "#DIV/0!", "#REF!", "0", "0.00", "0.000"]:
+                                    rows_to_delete.append(j)
+                                else:
+                                    try:
+                                        if float(cell_W) == 0:
+                                            rows_to_delete.append(j)
+                                    except Exception:
+                                        pass
+
+                            # Xóa các dòng W7-W31 theo range P-AX, xóa từ dòng lớn đến nhỏ
+                            for j in sorted(rows_to_delete, reverse=True):
+                                ws.range(f"N{j}:AD{j}").delete(shift="up")
+
+                            # Xóa các vùng phần không có dữ liệu (sau khi duyệt xong)
+                            for start, end in sorted(part_ranges_to_delete, reverse=True):
+                                ws.range(f"A{start}:L{end}").delete(shift="up") 
+                            # Ghi vào ô N1
+                            order_no_text = "ORDER No:"
+                            if order_no_list:
+                                ws.range("N1").value = f"{order_no_text} {', '.join(order_no_list)}"
+                            # Lưu file
+                            wb.save()
+                            wb.close()
+                            app.quit()
+                            if found_lot:
+                                df.at[idx, "Status"] = "Hoàn thành chỉnh sửa dữ liệu (DENSO)"
+                                completed_files += 1
+                            else:
+                                df.at[idx, "Status"] = "File lỗi dữ liệu"
+                                error_files += 1
+
+                        else:
+                            wb.close()
+                            app.quit()
+                            df.at[idx, "Status"] = "Khách hàng không hỗ trợ"
+                            error_files += 1
+                except Exception as e:
+                    df.at[idx, "Status"] = "File lỗi dữ liệu"
+                    error_files += 1
+                    print(f"Lỗi xử lý file {file_path}: {e}")
+
+        save_check_data(df)
+        refresh_tree()
+        window = tk._get_default_root()
+        window.lift()
+        window.focus_force()
+        window.update()  # Đảm bảo cửa sổ Monthly Data lên trên cùng
+        # messagebox.showinfo(
+        #     "Kết quả",
+        #     f"Đã xử lý {total_files} file.\n"
+        #     f"Hoàn thành: {completed_files}\n"
+        #     f"Trống: {empty_files}\n"
+        #     f"Lỗi: {error_files}"
+        # ) 
+        
+        
+        
         
     # Nút chức năng
     frame_btn = tk.Frame(window, bg="#e8ecef")
@@ -450,3 +822,5 @@ def open_gui_monthly_data(root, parent_window=None):
               command=update_data).pack(side=tk.LEFT, padx=10)
     tk.Button(window, text="Đóng", command=window.destroy, font=("Helvetica", 12, "bold"),
               bg="#8e44ad", fg="white", padx=20, pady=8).pack(pady=12)
+    tk.Button(window, text="Quay lại", command=on_close, font=("Helvetica", 12, "bold"),
+            bg="#e74c3c", fg="white", padx=20, pady=8).pack(pady=12)
