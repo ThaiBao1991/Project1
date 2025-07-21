@@ -49,6 +49,17 @@ def show_send_frame(root, period):
     # --- Thêm biến chế độ lọc ---
     global filter_mode_var, entry_file_kjs
     global main_frame, frame_buttons
+    
+    # Ẩn hoặc hủy các frame cũ trước khi tạo frame mới
+    if send_frame and send_frame.winfo_exists():
+        send_frame.pack_forget()
+        send_frame.destroy()
+        send_frame = None
+    if main_frame and main_frame.winfo_exists():
+        main_frame.pack_forget()
+    if frame_buttons and frame_buttons.winfo_exists():
+        frame_buttons.pack_forget()
+    
     # Ẩn frame chính nếu đang hiển thị
     if 'main_frame' in globals() and main_frame and main_frame.winfo_ismapped():
         main_frame.pack_forget()

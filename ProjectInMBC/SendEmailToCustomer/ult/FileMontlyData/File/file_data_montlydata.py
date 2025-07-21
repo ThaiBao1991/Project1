@@ -51,10 +51,39 @@ def open_data_montly_window(root):
     filters = {}
 
     def refresh_tree(data=None):
+        nonlocal df
+        if data is None:
+            data = df
         tree.delete(*tree.get_children())
-        show_df = data if data is not None else df
-        for _, row in show_df.iterrows():
-            tree.insert("", "end", values=(row["Chủng loại"], row["Mã hàng"], row["Khách hàng"]))
+        for _, row in data.iterrows():
+            tree.insert("", "end", values=(row["Chủng loại"], row["Mã hàng"], row["Khách hàng"], row["Link"], row["Status"]))
+
+    def apply_filters():
+        filtered = df.copy()
+        for col in DISPLAY_COLUMNS:
+            val = filter_vars[col].get().strip()
+            if val:
+                filtered = filtered[filtered[col].astype(str).str.contains(val, case=False, na=False)]
+        return filtered
+
+    def show_filter(col):
+        filter_win = tk.Toplevel(window)
+        filter_win.title(f"Lọc theo {col}")
+        filter_win.geometry("400x180")
+        filter_win.configure(bg="#e8ecef")
+        filter_win.lift()
+        filter_win.grab_set()
+        tk.Label(filter_win, text=f"Nhập giá trị lọc cho {col}:", font=("Helvetica", 12), bg="#e8ecef").pack(pady=15)
+        entry = tk.Entry(filter_win, width=35, font=("Helvetica", 12))
+        entry.pack(pady=10)
+        entry.insert(0, filter_vars[col].get())
+        def apply_filter():
+            filter_vars[col].set(entry.get().strip())
+            filtered_data = apply_filters()
+            refresh_tree(filtered_data)
+            filter_win.destroy()
+        tk.Button(filter_win, text="Lọc", command=apply_filter, font=("Helvetica", 12, "bold"),
+                bg="#3498db", fg="white", padx=20, pady=8).pack(pady=15)
 
     refresh_tree()
 
@@ -168,32 +197,7 @@ def open_data_montly_window(root):
 
     # Filter logic
     filter_vars = {col: tk.StringVar() for col in DISPLAY_COLUMNS}
-    def apply_filters():
-        filtered = df.copy()
-        for col in DISPLAY_COLUMNS:
-            val = filter_vars[col].get().strip()
-            if val:
-                filtered = filtered[filtered[col].astype(str).str.contains(val, case=False, na=False)]
-        return filtered
-
-    def show_filter(col):
-        filter_win = tk.Toplevel(window)
-        filter_win.title(f"Lọc theo {col}")
-        filter_win.geometry("400x180")
-        filter_win.configure(bg="#e8ecef")
-        filter_win.lift()
-        filter_win.grab_set()
-        tk.Label(filter_win, text=f"Nhập giá trị lọc cho {col}:", font=("Helvetica", 12), bg="#e8ecef").pack(pady=15)
-        entry = tk.Entry(filter_win, width=35, font=("Helvetica", 12))
-        entry.pack(pady=10)
-        entry.insert(0, filter_vars[col].get())
-        def apply_filter():
-            filter_vars[col].set(entry.get().strip())
-            refresh_tree(apply_filters())
-            filter_win.destroy()
-        tk.Button(filter_win, text="Lọc", command=apply_filter, font=("Helvetica", 12, "bold"),
-                  bg="#3498db", fg="white", padx=20, pady=8).pack(pady=15)
-
+    
     for col in DISPLAY_COLUMNS:
         tree.heading(col, text=col, command=lambda c=col: show_filter(c))
 

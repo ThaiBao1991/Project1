@@ -449,7 +449,7 @@ def open_gui_monthly_data(root, parent_window=None):
         # Đọc DataMontlyCheck.csv
         df = load_check_data()
         copied_files = []
-        for _, row in df.iterrows():
+        for idx, row in df.iterrows():
             if str(row["Status"]) != "Xác nhận có dữ liệu KJS":
                 continue
             chungloaiMini = ""
@@ -463,6 +463,7 @@ def open_gui_monthly_data(root, parent_window=None):
             if not os.path.exists(src_folder):
                 continue
             pattern = f"{tenmahangMini}-{year}.{month}"
+            found_link = ""
             for fname in os.listdir(src_folder):
                 if pattern in fname and fname.endswith(('.xls', '.xlsx')):
                     src_file = os.path.join(src_folder, fname)
@@ -476,7 +477,11 @@ def open_gui_monthly_data(root, parent_window=None):
                             copied_files.append(dest_file)
                         except Exception as e:
                             print(f"Lỗi copy {src_file}: {e}")
-
+                    found_link = dest_file  # Lưu đường dẫn file vừa copy
+                    break  # Nếu chỉ lấy 1 file đầu tiên khớp
+            # Cập nhật cột Link cho dòng hiện tại
+            df.at[idx, "Link"] = found_link
+        save_check_data(df)    
         messagebox.showinfo("Kết quả", f"Đã copy {len(copied_files)} file vào thư mục tạm.")
 
         # Sau khi copy xong, tiếp tục các bước chỉnh sửa dữ liệu như hiện tại
