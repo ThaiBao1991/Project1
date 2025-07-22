@@ -8,6 +8,7 @@ from ult.FileMontlyData.Guidle import stateMontly
 import openpyxl
 import json
 import xlwings as xw
+import zipfile
 
 CHECK_DIR = os.path.join(os.getcwd(), "DATASETC", "dataMontlydata", "Check")
 os.makedirs(CHECK_DIR, exist_ok=True)
@@ -240,6 +241,7 @@ def open_gui_monthly_data(root, parent_window=None):
     # Chọn tháng
     tk.Label(frame_top, text="Chọn tháng:", font=("Helvetica", 12), bg="#e8ecef").pack(side=tk.LEFT, padx=(30,0))
     month_var = tk.StringVar()
+    
     def pick_month():
         top = tk.Toplevel(window)
         top.title("Chọn tháng")
@@ -273,7 +275,9 @@ def open_gui_monthly_data(root, parent_window=None):
     # Nút Update dữ liệu
     def update_data():
         update_check_data()
-        refresh_tree()
+        nonlocal full_df
+        full_df = load_check_data()
+        refresh_check_tree()
 
     # TreeView
     frame_table = tk.Frame(window, bg="#e8ecef")
@@ -289,13 +293,94 @@ def open_gui_monthly_data(root, parent_window=None):
 
     # Load data
     df = load_check_data()
-    def refresh_tree():
-        nonlocal df
-        df = load_check_data()
+    full_df = df.copy()  # DataFrame gốc, luôn giữ nguyên
+    def filter_check_df():
+        filtered = full_df.copy()
+        for col in DISPLAY_COLUMNS:
+            val = filter_vars[col].get().strip()
+            if val:
+                filtered = filtered[filtered[col].astype(str).str.contains(val, case=False, na=False)]
+        return filtered
+
+    def refresh_check_tree(data=None):
         tree.delete(*tree.get_children())
-        for _, row in df.iterrows():
-            tree.insert("", "end", values=(row["Chủng loại"], row["Mã hàng"], row["Khách hàng"], row["Link"], row["Status"]))
-    refresh_tree()
+        if data is None:
+            data = full_df
+        for _, row in data.iterrows():
+            tree.insert(
+                "",
+                "end",
+                values=(
+                    row.get("Chủng loại", ""),
+                    row.get("Mã hàng", ""),
+                    row.get("Khách hàng", ""),
+                    row.get("Link", ""),
+                    row.get("Status", "")
+                )
+            )
+    refresh_check_tree()
+    
+    def nen_file():
+        # Lấy tháng/năm từ stateMontly
+        month = stateMontly.MonthSelect or datetime.datetime.now().strftime("%m")
+        year = stateMontly.YearsSelect or datetime.datetime.now().strftime("%Y")
+        # Thư mục gốc cần nén
+        from ult.SendEmail.Guidle.config import load_monthly_config
+        config = load_monthly_config()
+        tempt_dir = config.get("tempt_path", "")
+        origin_dir = config.get("origin_path", "")
+        base_dir = os.path.join(config.get("tempt_path", ""), year, month)
+        if not os.path.exists(base_dir):
+            messagebox.showwarning("Thiếu thư mục", f"Không tìm thấy thư mục: {base_dir}")
+            return
+
+        khach_hangs = ["CANON", "HP", "DENSO"]
+        zipped = []
+        for kh in khach_hangs:
+            folder = os.path.join(base_dir, kh)
+            if not os.path.exists(folder):
+                continue
+            zip_path = os.path.join(base_dir, f"{kh}_{month}.zip")
+            try:
+                with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
+                    for root_, dirs, files in os.walk(folder):
+                        for file in files:
+                            file_path = os.path.join(root_, file)
+                            arcname = os.path.relpath(file_path, folder)
+                            zipf.write(file_path, arcname)
+                zipped.append(zip_path)
+            except Exception as e:
+                messagebox.showerror("Lỗi", f"Lỗi nén {kh}: {e}")
+        if zipped:
+            messagebox.showinfo("Thành công", f"Đã nén: \n" + "\n".join(zipped))
+        else:
+            messagebox.showwarning("Không có dữ liệu", "Không tìm thấy thư mục khách hàng để nén!")
+    
+    def filter_check_df():
+        filtered = full_df.copy()
+        for col in DISPLAY_COLUMNS:
+            val = filter_vars[col].get().strip()
+            if val:
+                filtered = filtered[filtered[col].astype(str).str.contains(val, case=False, na=False)]
+        return filtered
+
+    def refresh_check_tree(data=None):
+        tree.delete(*tree.get_children())
+        if data is None:
+            data = full_df
+        for _, row in data.iterrows():
+            tree.insert(
+                "",
+                "end",
+                values=(
+                    row.get("Chủng loại", ""),
+                    row.get("Mã hàng", ""),
+                    row.get("Khách hàng", ""),
+                    row.get("Link", ""),
+                    row.get("Status", "")
+                )
+            )
+
 
     def confirm_data():
         kjs_path = entry_kjs.get().strip()
@@ -372,7 +457,9 @@ def open_gui_monthly_data(root, parent_window=None):
 
         # Lưu lại DataMontlyCheck.csv
         save_check_data(df)
-        refresh_tree()
+        nonlocal full_df
+        full_df = load_check_data()
+        refresh_check_tree()
 
         # Lưu DataMontlyFilter.csv
         if filter_rows:
@@ -410,7 +497,7 @@ def open_gui_monthly_data(root, parent_window=None):
         for col in DISPLAY_COLUMNS:
             val = filter_vars[col].get().strip()
             if val:
-                filtered = filtered[filtered[col].astype(str).str.contains(val, case=False, na=False)]
+                filtered = filtered[filtered[col].astype(str).str.contains(val, case=False, na=False)]        
         return filtered
 
     def show_filter(col):
@@ -426,7 +513,8 @@ def open_gui_monthly_data(root, parent_window=None):
         entry.insert(0, filter_vars[col].get())
         def apply_filter():
             filter_vars[col].set(entry.get().strip())
-            refresh_tree(apply_filters())
+            filtered_data = filter_check_df()
+            refresh_check_tree(filtered_data)
             filter_win.destroy()
         tk.Button(filter_win, text="Lọc", command=apply_filter, font=("Helvetica", 12, "bold"),
                 bg="#3498db", fg="white", padx=20, pady=8).pack(pady=15)
@@ -481,7 +569,10 @@ def open_gui_monthly_data(root, parent_window=None):
                     break  # Nếu chỉ lấy 1 file đầu tiên khớp
             # Cập nhật cột Link cho dòng hiện tại
             df.at[idx, "Link"] = found_link
-        save_check_data(df)    
+        save_check_data(df)
+        nonlocal full_df
+        full_df = load_check_data()
+        refresh_check_tree()    
         messagebox.showinfo("Kết quả", f"Đã copy {len(copied_files)} file vào thư mục tạm.")
 
         # Sau khi copy xong, tiếp tục các bước chỉnh sửa dữ liệu như hiện tại
@@ -551,7 +642,7 @@ def open_gui_monthly_data(root, parent_window=None):
                                 error_cells = []
                                 for j in range(start_row+32, start_row-1, -1):
                                     val = ws[f"I{j}"].value
-                                    if val in [None, "#DIV/0!"]:
+                                    if val in ["#DIV/0!"]:
                                         error_cells.append(j)
                                 for j in error_cells:
                                     for col in ["I", "J", "K", "L", "M"]:
@@ -568,7 +659,7 @@ def open_gui_monthly_data(root, parent_window=None):
                                 pass
                             for j in range(25, 6, -1):
                                 val = ws[f"X{j}"].value
-                                if val in [None, "#DIV/0!"]:
+                                if val in ["#DIV/0!"]:
                                     for col in range(ord("P"), ord("A")+24):
                                         ws[f"{chr(col)}{j}"].value = None
                             wb.save(file_path)
@@ -622,15 +713,16 @@ def open_gui_monthly_data(root, parent_window=None):
                             # Xét các dòng W7 -> W32 (của toàn sheet)
                             rows_to_delete = []
                             for j in range(7, 32):  # W7 đến W32 (bao gồm cả 31)
-                                cell_W = ws.range(f"W{j}").value
-                                if cell_W in [None, "#DIV/0!", "#REF!", "0", "0.00", "0.000"]:
+                                cell = ws.range(f"W{j}")
+                                cell_W = cell.value
+                                cell_formula = cell.formula
+                                
+                                if isinstance(cell_W, str) and cell_W.startswith("#"):
                                     rows_to_delete.append(j)
-                                else:
-                                    try:
-                                        if float(cell_W) == 0:
-                                            rows_to_delete.append(j)
-                                    except Exception:
-                                        pass
+                                elif cell_W is None:
+                                    if isinstance(cell_formula, str) and cell_formula.startswith("="):
+                                        # Công thức bị lỗi (giá trị None nhưng là công thức)
+                                        rows_to_delete.append(j)
 
                             # Xóa các dòng W7-W31 theo range P-AX, xóa từ dòng lớn đến nhỏ
                             for j in sorted(rows_to_delete, reverse=True):
@@ -686,15 +778,15 @@ def open_gui_monthly_data(root, parent_window=None):
                             # Xét các dòng W7 -> W32 (của toàn sheet)
                             rows_to_delete = []
                             for j in range(13, 38):  # W7 đến W32 (bao gồm cả 31)
+                                cell = ws.range(f"AA{j}")
                                 cell_W = ws.range(f"AA{j}").value
-                                if cell_W in [None, "#DIV/0!", "#REF!", "0", "0.00", "0.000"]:
+                                cell_formula = cell.formula
+                                if isinstance(cell_W, str) and cell_W.startswith("#"):
                                     rows_to_delete.append(j)
-                                else:
-                                    try:
-                                        if float(cell_W) == 0:
-                                            rows_to_delete.append(j)
-                                    except Exception:
-                                        pass
+                                elif cell_W is None:
+                                    if isinstance(cell_formula, str) and cell_formula.startswith("="):
+                                        # Công thức bị lỗi (giá trị None nhưng là công thức)
+                                        rows_to_delete.append(j)
 
                             # Xóa các dòng W7-W31 theo range P-AX, xóa từ dòng lớn đến nhỏ
                             for j in sorted(rows_to_delete, reverse=True):
@@ -706,7 +798,7 @@ def open_gui_monthly_data(root, parent_window=None):
                             # Ghi vào ô P1
                             order_no_text = "ORDER No:"
                             if order_no_list:
-                                ws.range("P3").value = f"{order_no_text} {', '.join(order_no_list)}"
+                                ws.range("U3").value = f"{order_no_text} {', '.join(order_no_list)}"
                             wb.save()
                             wb.close()
                             app.quit()
@@ -747,15 +839,16 @@ def open_gui_monthly_data(root, parent_window=None):
                             # Xét các dòng W7 -> W32 (của toàn sheet)
                             rows_to_delete = []
                             for j in range(7, 32):  # W7 đến W32 (bao gồm cả 31)
+                                cell = ws.range(f"AC{j}")
                                 cell_W = ws.range(f"AC{j}").value
-                                if cell_W in [None, "#DIV/0!", "#REF!", "0", "0.00", "0.000"]:
+                                cell_formula = cell.formula
+
+                                if isinstance(cell_W, str) and cell_W.startswith("#"):
                                     rows_to_delete.append(j)
-                                else:
-                                    try:
-                                        if float(cell_W) == 0:
-                                            rows_to_delete.append(j)
-                                    except Exception:
-                                        pass
+                                elif cell_W is None:
+                                    if isinstance(cell_formula, str) and cell_formula.startswith("="):
+                                        # Công thức bị lỗi (giá trị None nhưng là công thức)
+                                        rows_to_delete.append(j)
 
                             # Xóa các dòng W7-W31 theo range P-AX, xóa từ dòng lớn đến nhỏ
                             for j in sorted(rows_to_delete, reverse=True):
@@ -790,7 +883,8 @@ def open_gui_monthly_data(root, parent_window=None):
                     print(f"Lỗi xử lý file {file_path}: {e}")
 
         save_check_data(df)
-        refresh_tree()
+        full_df = load_check_data()
+        refresh_check_tree()
         window = tk._get_default_root()
         window.lift()
         window.focus_force()
@@ -817,11 +911,11 @@ def open_gui_monthly_data(root, parent_window=None):
           bg="#3498db", fg="white", padx=18, pady=6,
           command=edit_content).pack(side=tk.LEFT, padx=10)
     tk.Button(frame_btn, text="Nén file", font=("Helvetica", 12, "bold"),
-              bg="#f39c12", fg="white", padx=18, pady=6,
-              command=lambda: messagebox.showinfo("Thông báo", "Chức năng nén file đang phát triển!")).pack(side=tk.LEFT, padx=10)
+          bg="#f39c12", fg="white", padx=18, pady=6,
+          command=nen_file).pack(side=tk.LEFT, padx=10)
     tk.Button(frame_btn, text="Reset", font=("Helvetica", 12, "bold"),
               bg="#e74c3c", fg="white", padx=18, pady=6,
-              command=refresh_tree).pack(side=tk.LEFT, padx=10)
+              command=refresh_check_tree).pack(side=tk.LEFT, padx=10)
     tk.Button(frame_btn, text="Update dữ liệu", font=("Helvetica", 12, "bold"),
               bg="#f39c12", fg="white", padx=18, pady=6,
               command=update_data).pack(side=tk.LEFT, padx=10)

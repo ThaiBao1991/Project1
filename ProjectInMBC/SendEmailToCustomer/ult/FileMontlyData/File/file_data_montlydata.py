@@ -7,7 +7,7 @@ DATA_DIR = os.path.join(os.getcwd(), "DATASETC", "dataMontlydata")
 os.makedirs(DATA_DIR, exist_ok=True)
 CSV_PATH = os.path.join(DATA_DIR, "dataMontly.csv")
 
-DISPLAY_COLUMNS = ["Chủng loại", "Mã hàng", "Khách hàng"]
+DISPLAY_COLUMNS = ["Chủng loại", "Mã hàng", "Khách hàng" ]
 
 def load_data():
     if os.path.exists(CSV_PATH):
@@ -56,7 +56,16 @@ def open_data_montly_window(root):
             data = df
         tree.delete(*tree.get_children())
         for _, row in data.iterrows():
-            tree.insert("", "end", values=(row["Chủng loại"], row["Mã hàng"], row["Khách hàng"], row["Link"], row["Status"]))
+            tree.insert(
+                "",
+                "end",
+                values=(
+                    row.get("Chủng loại", ""),
+                    row.get("Mã hàng", ""),
+                    row.get("Khách hàng", "")
+                )
+            )
+
 
     def apply_filters():
         filtered = df.copy()
@@ -79,14 +88,18 @@ def open_data_montly_window(root):
         entry.insert(0, filter_vars[col].get())
         def apply_filter():
             filter_vars[col].set(entry.get().strip())
-            filtered_data = apply_filters()
-            refresh_tree(filtered_data)
+            filtered_data = filter_datamonthly_df()
+            refresh_datamonthly_tree(filtered_data)
             filter_win.destroy()
         tk.Button(filter_win, text="Lọc", command=apply_filter, font=("Helvetica", 12, "bold"),
                 bg="#3498db", fg="white", padx=20, pady=8).pack(pady=15)
 
     refresh_tree()
-
+    def clear_filter():
+        for c in DISPLAY_COLUMNS:
+            filter_vars[c].set("")
+        refresh_datamonthly_tree(df)
+    
     # AddData
     def add_data():
         add_win = tk.Toplevel(window)
@@ -231,6 +244,31 @@ def open_data_montly_window(root):
         y = frame_btn.winfo_rooty() + btn_delete.winfo_y() + btn_delete.winfo_height()
         menu.tk_popup(x, y)
 
+    def filter_datamonthly_df():
+        filtered = df.copy()
+        for col in DISPLAY_COLUMNS:
+            val = filter_vars[col].get().strip()
+            if val:
+                filtered = filtered[filtered[col].astype(str).str.contains(val, case=False, na=False)]
+        return filtered
+
+    def refresh_datamonthly_tree(data=None):
+        nonlocal df
+        if data is None:
+            data = df
+        tree.delete(*tree.get_children())
+        for _, row in data.iterrows():
+            tree.insert(
+                "",
+                "end",
+                values=(
+                    row.get("Chủng loại", ""),
+                    row.get("Mã hàng", ""),
+                    row.get("Khách hàng", "")
+                )
+            )
+
+
     # Nút chức năng
     tk.Button(frame_btn, text="Add Data", command=add_data, font=("Helvetica", 12, "bold"),
               bg="#27ae60", fg="white", padx=18, pady=6).pack(side=tk.LEFT, padx=10)
@@ -240,8 +278,8 @@ def open_data_montly_window(root):
     btn_delete.bind("<Button-1>", show_delete_menu)
     tk.Button(frame_btn, text="UpdateExcelFileXlsx", command=update_excel, font=("Helvetica", 12, "bold"),
               bg="#f39c12", fg="white", padx=18, pady=6).pack(side=tk.LEFT, padx=10)
-    tk.Button(frame_btn, text="Clear Filter", command=lambda: [filter_vars[c].set("") for c in DISPLAY_COLUMNS] or refresh_tree(), font=("Helvetica", 12, "bold"),
-              bg="#3498db", fg="white", padx=18, pady=6).pack(side=tk.LEFT, padx=10)
+    tk.Button(frame_btn, text="Clear Filter", command=clear_filter, font=("Helvetica", 12, "bold"),
+          bg="#3498db", fg="white", padx=18, pady=6).pack(side=tk.LEFT, padx=10)
 
     tk.Button(window, text="Đóng", command=window.destroy, font=("Helvetica", 12, "bold"),
               bg="#8e44ad", fg="white", padx=20, pady=8).pack(pady=12)
