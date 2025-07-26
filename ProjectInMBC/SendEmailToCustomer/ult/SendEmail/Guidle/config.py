@@ -19,6 +19,8 @@ def load_config():
     return {}
 
 def save_config(config):
+    config_dir = os.path.dirname(CONFIG_FILE_SendEmail)
+    os.makedirs(config_dir, exist_ok=True)  # Đảm bảo thư mục tồn tại
     """Lưu cấu hình vào config.json"""
     with open(CONFIG_FILE_SendEmail, 'w') as f:
         json.dump(config, f, indent=4)
@@ -31,6 +33,8 @@ def load_monthly_config():
     return {}
 
 def save_monthly_config(config):
+    config_dir = os.path.dirname(CONFIG_FILE_MontlyData)
+    os.makedirs(config_dir, exist_ok=True)  # Đảm bảo thư mục tồn tại
     """Lưu cấu hình vào config.json"""
     with open(CONFIG_FILE_MontlyData, 'w') as f:
         json.dump(config, f, indent=4)
