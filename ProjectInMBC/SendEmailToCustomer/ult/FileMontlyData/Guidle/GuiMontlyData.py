@@ -885,21 +885,23 @@ def open_gui_monthly_data(root, parent_window=None):
         save_check_data(df)
         full_df = load_check_data()
         refresh_check_tree()
+        
         window = tk._get_default_root()
+        import time
         window.lift()
         window.focus_force()
-        window.update()  # Đảm bảo cửa sổ Monthly Data lên trên cùng
-        # messagebox.showinfo(
-        #     "Kết quả",
-        #     f"Đã xử lý {total_files} file.\n"
-        #     f"Hoàn thành: {completed_files}\n"
-        #     f"Trống: {empty_files}\n"
-        #     f"Lỗi: {error_files}"
-        # ) 
-        
-        
-        
-        
+        window.update()
+        time.sleep(0.2)  # Cho hệ điều hành kịp chuyển focus  # Đảm bảo cửa sổ Monthly Data lên trên cùng
+        # Hiện messagebox và KHÔNG gọi lại window.lift() sau đó!
+        messagebox.showinfo(
+            "Kết quả",
+            f"Đã xử lý {total_files} file.\n"
+            f"Hoàn thành: {completed_files}\n"
+            f"Trống: {empty_files}\n"
+            f"Lỗi: {error_files}",
+            parent=window
+        )
+                
     # Nút chức năng
     frame_btn = tk.Frame(window, bg="#e8ecef")
     frame_btn.pack(pady=10)
