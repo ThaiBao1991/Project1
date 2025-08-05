@@ -123,71 +123,32 @@ def show_send_frame(root, period):
     frame_month_select = tk.Frame(frame_file_month, bg="#e8ecef")
     frame_month_select.pack(fill="x", pady=5)
     
-    tk.Label(frame_month_select, text="Chọn tháng:", 
-            font=("Helvetica", 12), bg="#e8ecef").pack(side=tk.LEFT)
-    
-    # Tạo DateEntry chỉ hiển thị tháng/năm
-    month_year_var.set(datetime.datetime.now().strftime("%m/%Y"))  # Định dạng mặc định: mm/yyyy
-    month_year_btn = tk.Button(
-        frame_month_select,
-        text=month_year_var.get(),
-        font=("Helvetica", 12),
-        relief="groove",
-        command=lambda: show_month_year_picker(root, month_year_var))
-    month_year_btn.pack(side=tk.LEFT, padx=10)
-    
-    def show_month_year_picker(parent, month_year_var):
-        top = tk.Toplevel(parent)
-        top.title("Chọn tháng/năm")
-        top.geometry("300x280")
-        top.resizable(False, False)
-        
-        # Lấy tháng/năm hiện tại từ biến
-        current_value = month_year_var.get()
-        try:
-            month, year = map(int, current_value.split('/'))
-        except:
-            now = datetime.datetime.now()
-            month, year = now.month, now.year
-        
-        # Tạo calendar với date_pattern chỉ hiển thị tháng/năm
-        cal = Calendar(
-            top,
-            selectmode='day',
-            year=year,
-            month=month,
-            day=1,
-            showweeknumbers=False,
-            date_pattern='y-mm-dd'  # Định dạng mặc định
-        )
-        cal.pack(pady=20, padx=20)
-        
-        def apply_selection():
-            selected_date = cal.get_date()
-            # Chuyển đổi thành định dạng mm/yyyy
-            try:
-                dt = datetime.datetime.strptime(selected_date, "%Y-%m-%d")
-                month_year_var.set(dt.strftime("%m/%Y"))
-                month_year_btn.config(text=month_year_var.get())
-                # Debug: In ra giá trị để kiểm tra
-                print(f"Giá trị đã chọn: {month_year_var.get()}")
-                state.month_year_value = month_year_var.get()
-                state.month_year_var= month_year_var
-            except ValueError as e:
-                messagebox.showerror("Lỗi", f"Định dạng ngày không hợp lệ: {str(e)}")
-            top.destroy()
-        
-        tk.Button(
-            top,
-            text="Chọn",
-            command=apply_selection,
-            font=("Helvetica", 12),
-            width=10
-        ).pack(pady=10)
-        
-        # Đảm bảo cửa sổ này nhận focus
-        top.grab_set()
+    tk.Label(frame_month_select, text="Chọn tháng:", font=("Helvetica", 12), bg="#e8ecef").pack(side=tk.LEFT)
 
+    # Combobox chọn tháng
+    month_values = [f"{i:02d}" for i in range(1, 13)]
+    current_month = datetime.datetime.now().strftime("%m")
+    month_cb = ttk.Combobox(frame_month_select, values=month_values, width=4, font=("Helvetica", 12), state="readonly")
+    month_cb.set(current_month)
+    month_cb.pack(side=tk.LEFT, padx=5)
+
+    # Combobox chọn năm
+    current_year = datetime.datetime.now().year
+    year_values = [str(y) for y in range(current_year - 3, current_year + 4)]
+    year_cb = ttk.Combobox(frame_month_select, values=year_values, width=6, font=("Helvetica", 12), state="readonly")
+    year_cb.set(str(current_year))
+    year_cb.pack(side=tk.LEFT, padx=5)
+    
+    def update_month_year_var(event=None):
+        value = f"{month_cb.get()}/{year_cb.get()}"
+        month_year_var.set(value)
+        state.month_year_value = value
+        state.month_year_var = month_year_var
+
+    month_cb.bind("<<ComboboxSelected>>", update_month_year_var)
+    year_cb.bind("<<ComboboxSelected>>", update_month_year_var)
+    update_month_year_var()
+    
     # Tạo Treeview
     frame_table = tk.Frame(send_frame, bg="#e8ecef")
     frame_table.pack(pady=10, fill="both", expand=True)
