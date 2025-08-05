@@ -1,1 +1,0 @@
-{"CANON.xls": "0.ecrb", "DENSO.xls": "1.ecrb", "DU LIEU {M} (CAM XOA) (version 1).xlsx": "2.ecrb", "DU LIEU {M}.xlsx": "3.ecrb", "HP.xls": "4.ecrb", "LIST QUAN LY BO 4 DIEM GETDATA.xlsx": "5.ecrb", "LIST QUAN LY BO 4 DIEM GETDATAconvertcsv.csv": "6.ecrb", "LIST QUAN LY BO 4 DIEM GETDATA_filtered.csv": "7.ecrb"}

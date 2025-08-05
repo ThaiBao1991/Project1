@@ -702,9 +702,9 @@ def open_gui_monthly_data(root, parent_window=None):
                                 lot_no_excel = str(cell_E).replace("-", "")
                                 lot_info = next((lot for lot in lots if lot["LOT_NO"].replace("-", "") == lot_no_excel), None)
                                 if lot_info:
-                                    ws.range(f"H{start_row}").value = lot_info.get("PRODUCTION_ORDER_NO", "")
-                                    ws.range(f"I{start_row}").value = lot_info.get("ACCEPT_QTY", "")
-                                    ws.range(f"L{start_row}").value = lot_info.get("CUSTOMER", "")
+                                    # ws.range(f"H{start_row}").value = lot_info.get("PRODUCTION_ORDER_NO", "")
+                                    ws.range(f"J{start_row}").value = lot_info.get("ACCEPT_QTY", "")
+                                    # ws.range(f"L{start_row}").value = lot_info.get("CUSTOMER", "")
                                     po_no = lot_info.get("PRODUCTION_ORDER_NO", "")
                                     if po_no and po_no not in order_no_list:
                                         order_no_list.append(po_no)
@@ -748,7 +748,7 @@ def open_gui_monthly_data(root, parent_window=None):
                                 error_files += 1
 
                         elif khach_hang == "HP":
-                            cell_C14 = ws.range("C14").value
+                            cell_C14 = ws.range("D14").value
                             if cell_C14 != ma_hang:
                                 df.at[idx, "Status"] = "File lỗi dữ liệu"
                                 error_files += 1
@@ -767,10 +767,10 @@ def open_gui_monthly_data(root, parent_window=None):
                                 lot_no_excel = str(cell_E).replace("-", "")
                                 lot_info = next((lot for lot in lots if lot["LOT_NO"].replace("-", "") == lot_no_excel), None)
                                 if lot_info:
-                                    ws.range(f"H{start_row}").value = lot_info.get("PRODUCTION_ORDER_NO", "")
-                                    ws.range(f"K{start_row}").value = lot_info.get("ACCEPT_QTY", "")
-                                    ws.range(f"N{start_row}").value = lot_info.get("CUSTOMER", "")
-                                    ws.range(f"R{start_row}").value = cell_E  # Giá trị hiện tại của E
+                                    # ws.range(f"I{start_row}").value = lot_info.get("PRODUCTION_ORDER_NO", "")
+                                    ws.range(f"L{start_row}").value = lot_info.get("ACCEPT_QTY", "")
+                                    # ws.range(f"O{start_row}").value = lot_info.get("CUSTOMER", "")
+                                    # ws.range(f"R{start_row}").value = cell_E  # Giá trị hiện tại của E
                                     po_no = lot_info.get("PRODUCTION_ORDER_NO", "")
                                     if po_no and po_no not in order_no_list:
                                         order_no_list.append(po_no)
@@ -790,11 +790,11 @@ def open_gui_monthly_data(root, parent_window=None):
 
                             # Xóa các dòng W7-W31 theo range P-AX, xóa từ dòng lớn đến nhỏ
                             for j in sorted(rows_to_delete, reverse=True):
-                                ws.range(f"U{j}:BJ{j}").delete(shift="up")
+                                ws.range(f"R{j}:AN{j}").delete(shift="up")
 
                             # Xóa các vùng phần không có dữ liệu (sau khi duyệt xong)
                             for start, end in sorted(part_ranges_to_delete, reverse=True):
-                                ws.range(f"A{start}:S{end}").delete(shift="up") 
+                                ws.range(f"A{start}:T{end}").delete(shift="up") 
                             # Ghi vào ô P1
                             order_no_text = "ORDER No:"
                             if order_no_list:
