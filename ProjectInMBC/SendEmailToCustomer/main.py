@@ -101,7 +101,7 @@ def main():
     # Menu
     menu_bar = tk.Menu(root)
     root.config(menu=menu_bar)
-    
+     
     file_menu = tk.Menu(menu_bar, tearoff=0)
     menu_bar.add_cascade(label="File", menu=file_menu)
     file_menu.add_command(label="Data", command=lambda: open_data_window(root))

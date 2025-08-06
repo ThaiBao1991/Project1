@@ -187,10 +187,12 @@ def update_check_data():
             df["Link"] = ""
         if "Status" not in df.columns:
             df["Status"] = ""
-        df = df[["Chủng loại", "Mã hàng", "Khách hàng", "Link", "Status"]]
+        if "Link nguồn" not in df.columns:
+            df["Link nguồn"] = ""
+        df = df[["Chủng loại", "Mã hàng", "Khách hàng", "Link", "Status", "Link nguồn"]]
         df.to_csv(CHECK_CSV, index=False, encoding="utf-8-sig")
     else:
-        df = pd.DataFrame(columns=DISPLAY_COLUMNS)
+        df = pd.DataFrame(columns=DISPLAY_COLUMNS + ["Link", "Status", "Link nguồn"])
         df.to_csv(CHECK_CSV, index=False, encoding="utf-8-sig")
 
 def load_check_data():
@@ -563,6 +565,7 @@ def open_gui_monthly_data(root, parent_window=None):
                             import shutil
                             shutil.copy2(src_file, dest_file)
                             copied_files.append(dest_file)
+                            df.at[idx, "Link nguồn"] = src_file  # Lưu lại đường dẫn nguồn
                         except Exception as e:
                             print(f"Lỗi copy {src_file}: {e}")
                     found_link = dest_file  # Lưu đường dẫn file vừa copy
@@ -724,18 +727,25 @@ def open_gui_monthly_data(root, parent_window=None):
                                         # Công thức bị lỗi (giá trị None nhưng là công thức)
                                         rows_to_delete.append(j)
 
+
+                            col_left, col_right = find_col_range_to_delete(ws, 7, "R", "AD")
                             # Xóa các dòng W7-W31 theo range P-AX, xóa từ dòng lớn đến nhỏ
                             for j in sorted(rows_to_delete, reverse=True):
-                                ws.range(f"P{j}:AX{j}").delete(shift="up")
+                                ws.range(f"{col_left}{j}:{col_right}{j}").delete(shift="up")
+
+                            col_left1, col_right1 = find_col_range_to_delete(ws, 28, "D", "F")
+
 
                             # Xóa các vùng phần không có dữ liệu (sau khi duyệt xong)
                             for start, end in sorted(part_ranges_to_delete, reverse=True):
-                                ws.range(f"A{start}:M{end}").delete(shift="up") 
+                                ws.range(f"{col_left1}{start}:{col_right1}{end}").delete(shift="up") 
+
+                            order_no_cell = find_order_no_cell(ws)
 
                             # Ghi vào ô P1 chỉ các mã PO khác nhau
                             order_no_text = "ORDER No:"
                             if order_no_list:
-                                ws.range("P1").value = f"{order_no_text} {', '.join(order_no_list)}"
+                                ws.range(order_no_cell).value = f"{order_no_text} {', '.join(order_no_list)}"
 
                             wb.save()
                             wb.close()
@@ -915,6 +925,10 @@ def open_gui_monthly_data(root, parent_window=None):
     tk.Button(frame_btn, text="Nén file", font=("Helvetica", 12, "bold"),
           bg="#f39c12", fg="white", padx=18, pady=6,
           command=nen_file).pack(side=tk.LEFT, padx=10)
+    # Thêm ở đây
+    tk.Button(frame_btn, text="Di chuyển File", font=("Helvetica", 12, "bold"),
+            bg="#f39c12", fg="white", padx=18, pady=6,
+            command=move_files_back).pack(side=tk.LEFT, padx=10)
     tk.Button(frame_btn, text="Reset", font=("Helvetica", 12, "bold"),
               bg="#e74c3c", fg="white", padx=18, pady=6,
               command=refresh_check_tree).pack(side=tk.LEFT, padx=10)
@@ -925,3 +939,120 @@ def open_gui_monthly_data(root, parent_window=None):
               bg="#8e44ad", fg="white", padx=20, pady=8).pack(pady=12)
     tk.Button(window, text="Quay lại", command=on_close, font=("Helvetica", 12, "bold"),
             bg="#e74c3c", fg="white", padx=20, pady=8).pack(pady=12)
+def move_files_back():
+    df = load_check_data()
+    moved_count = 0
+    error_count = 0
+    for idx, row in df.iterrows():
+        link = str(row.get("Link", "")).strip()
+        link_src = str(row.get("Link nguồn", "")).strip()
+        if link and link_src and os.path.exists(link):
+            try:
+                # Đảm bảo thư mục nguồn tồn tại
+                os.makedirs(os.path.dirname(link_src), exist_ok=True)
+                import shutil
+                shutil.copy2(link, link_src)
+                moved_count += 1
+            except Exception as e:
+                print(f"Lỗi copy ngược {link} -> {link_src}: {e}")
+                error_count += 1
+    messagebox.showinfo("Kết quả", f"Đã di chuyển {moved_count} file về nguồn.\nLỗi: {error_count}")
+    
+def find_col_range_to_delete(ws, row, col_start, col_end):
+    """
+    Tìm cột đầu/cuối không blank trên dòng row, từ col_start đến col_end (theo ký tự cột).
+    Trả về (col_left, col_right) là vùng cần xóa (bao gồm cả col_left và col_right).
+    """
+    # Chuyển ký tự cột sang số
+    def col2num(col): return ord(col.upper()) - ord('A') + 1
+    def num2col(num): return chr(ord('A') + num - 1)
+
+    left = col2num(col_start)
+    right = col2num(col_end)
+
+    # Tìm cột trái đầu tiên không blank
+    for c in range(left, right+1):
+        val = ws.range(f"{num2col(c)}{row}").value
+        if val is not None and str(val).strip() != "":
+            col_left = c
+            break
+    else:
+        col_left = left
+
+    # Tìm cột phải cuối cùng không blank
+    for c in range(right, left-1, -1):
+        val = ws.range(f"{num2col(c)}{row}").value
+        if val is not None and str(val).strip() != "":
+            col_right = c
+            break
+    else:
+        col_right = right
+
+    # Nếu có cột blank ở đầu/cuối, trả về vùng cần xóa
+    return num2col(col_left), num2col(col_right)
+
+def find_row_range_to_delete(ws, col, row_start, row_end):
+    """
+    Tìm dòng đầu/cuối không blank trên cột col, từ row_start đến row_end.
+    Trả về (row_top, row_bottom) là vùng cần xóa (bao gồm cả row_top và row_bottom).
+    """
+    # Tìm dòng trên đầu tiên không blank
+    for r in range(row_start, row_end+1):
+        val = ws.range(f"{col}{r}").value
+        if val is not None and str(val).strip() != "":
+            row_top = r
+            break
+    else:
+        row_top = row_start
+
+    # Tìm dòng dưới cuối cùng không blank
+    for r in range(row_end, row_start-1, -1):
+        val = ws.range(f"{col}{r}").value
+        if val is not None and str(val).strip() != "":
+            row_bottom = r
+            break
+    else:
+        row_bottom = row_end
+
+    return row_top, row_bottom
+
+def find_order_no_cell(ws):
+    """
+    Tìm ô (hoặc vùng merge) từ dòng 1-12 có chứa "ORDER No".
+    Trả về địa chỉ ô đầu tiên tìm thấy, hoặc None nếu không có.
+    """
+    for row in range(1, 13):
+        for col in range(1, ws.used_range.last_cell.column+1):
+            cell = ws.range((row, col))
+            val = cell.value
+            if val and "ORDER No" in str(val):
+                return cell.get_address(False, False)
+    return None
+
+def find_order_no_cell(ws):
+    """
+    Tìm vùng merge từ dòng 1-12 có chứa "ORDER No".
+    Trả về địa chỉ vùng merge (vd: 'P1:R1'), hoặc địa chỉ ô nếu không merge, hoặc None nếu không có.
+    """
+    # Kiểm tra các vùng merge trước
+    for merge_range in ws.api.UsedRange.MergeCells:
+        try:
+            merged = merge_range.MergeArea
+            first_cell = merged.Cells(1, 1)
+            val = first_cell.Value
+            row = first_cell.Row
+            if 1 <= row <= 12 and val and "ORDER No" in str(val):
+                # Lấy địa chỉ vùng merge
+                address = merged.Address.replace('$', '')
+                return address
+        except Exception:
+            continue
+
+    # Nếu không tìm thấy trong merge, kiểm tra từng ô
+    for row in range(1, 13):
+        for col in range(1, ws.used_range.last_cell.column+1):
+            cell = ws.range((row, col))
+            val = cell.value
+            if val and "ORDER No" in str(val):
+                return cell.get_address(False, False)
+    return None
