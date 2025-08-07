@@ -14,7 +14,7 @@ CONFIG_FILE_MontlyData = os.path.join(config_dir, "ConfigMontlyData.json")
 def load_config():
     """Đọc cấu hình từ config.json"""
     if os.path.exists(CONFIG_FILE_SendEmail):
-        with open(CONFIG_FILE_SendEmail, 'r') as f:
+        with open(CONFIG_FILE_SendEmail, 'r', encoding='utf-8') as f:
             return json.load(f)
     return {}
 
@@ -22,8 +22,8 @@ def save_config(config):
     config_dir = os.path.dirname(CONFIG_FILE_SendEmail)
     os.makedirs(config_dir, exist_ok=True)  # Đảm bảo thư mục tồn tại
     """Lưu cấu hình vào config.json"""
-    with open(CONFIG_FILE_SendEmail, 'w') as f:
-        json.dump(config, f, indent=4)
+    with open(CONFIG_FILE_SendEmail, 'w', encoding='utf-8') as f:
+        json.dump(config, f, ensure_ascii=False, indent=4)
 
 def load_monthly_config():
     """Đọc cấu hình từ config.json"""
