@@ -1,5 +1,6 @@
 import tkinter as tk
 import os
+from pathlib import Path
 from tkinter import filedialog, messagebox, ttk
 # Đảm bảo các biến global được import đúng
 from ult.SendEmail.Guidle import state
@@ -362,8 +363,9 @@ def show_details(root, event):
     ma_hang = str(values[tree_columns.index("Mã hàng")]).strip() if "Mã hàng" in tree_columns else ""
 
     # Đọc file json_data_Month.json
-    json_file = os.path.join(os.getcwd(), "DATASETC", "Data by classification", "json_data_Month.json")
-    if not os.path.exists(json_file):
+    period = current_period.get() if current_period else "MONTH"
+    json_file = Path.cwd() / "DATASETC" / "Data by classification" / f"json_data_{period.upper()}.json"
+    if not json_file.exists():
         messagebox.showerror("Lỗi", f"Không tìm thấy file {json_file}")
         return
 

@@ -552,7 +552,7 @@ def open_gui_monthly_data(root, parent_window=None):
             src_folder = os.path.join(origin_dir, f"Hang {chungloaiMini}", f"Ma Hang {tenmahangMini}", year)
             if not os.path.exists(src_folder):
                 continue
-            pattern = f"{tenmahangMini}-{year}.{month}"
+            pattern = f"{tenmahangMini}-{year}."
             found_link = ""
             for fname in os.listdir(src_folder):
                 if pattern in fname and fname.endswith(('.xls', '.xlsx')):
@@ -604,7 +604,7 @@ def open_gui_monthly_data(root, parent_window=None):
                 continue
 
             dest_folder = os.path.join(tempt_dir, year, month, khach_hang)
-            pattern = f"{tenmahangMini}-{year}.{month}"
+            pattern = f"{tenmahangMini}-{year}."
             excel_files = [f for f in os.listdir(dest_folder) if pattern in f and f.endswith(('.xls', '.xlsx'))]
             if not excel_files:
                 df.at[idx, "Status"] = "Không tìm thấy file"
@@ -619,7 +619,7 @@ def open_gui_monthly_data(root, parent_window=None):
                     code = ma_hang.split("-")[-1].strip()
                     lot_list = []
                     for item_key, lots in filter_data.items():
-                        if code in item_key:
+                        if code in item_key and isinstance(lots, list):
                             for lot in lots:
                                 lot_list.append(lot["LOT_NO"].replace("-", ""))
                     # Xử lý file .xlsx
@@ -956,16 +956,28 @@ def move_files_back():
             except Exception as e:
                 print(f"Lỗi copy ngược {link} -> {link_src}: {e}")
                 error_count += 1
-    messagebox.showinfo("Kết quả", f"Đã di chuyển {moved_count} file về nguồn.\nLỗi: {error_count}")
+    messagebox.showinfo("Kết quả", f"Đã di chuyển {moved_count} file về nguồn.\nLỗi: {error_count}")   
     
+
 def find_col_range_to_delete(ws, row, col_start, col_end):
     """
     Tìm cột đầu/cuối không blank trên dòng row, từ col_start đến col_end (theo ký tự cột).
     Trả về (col_left, col_right) là vùng cần xóa (bao gồm cả col_left và col_right).
     """
     # Chuyển ký tự cột sang số
-    def col2num(col): return ord(col.upper()) - ord('A') + 1
-    def num2col(num): return chr(ord('A') + num - 1)
+    def col2num(col):
+        col = col.upper()
+        num = 0
+        for c in col:
+            num = num * 26 + (ord(c) - ord('A') + 1)
+        return num
+
+    def num2col(num):
+        col = ""
+        while num > 0:
+            num, rem = divmod(num - 1, 26)
+            col = chr(rem + ord('A')) + col
+        return col
 
     left = col2num(col_start)
     right = col2num(col_end)
