@@ -552,7 +552,7 @@ def open_gui_monthly_data(root, parent_window=None):
             src_folder = os.path.join(origin_dir, f"Hang {chungloaiMini}", f"Ma Hang {tenmahangMini}", year)
             if not os.path.exists(src_folder):
                 continue
-            pattern = f"{tenmahangMini}-{year}."
+            pattern = f"{tenmahangMini}-{year}.{month}"
             found_link = ""
             for fname in os.listdir(src_folder):
                 if pattern in fname and fname.endswith(('.xls', '.xlsx')):
@@ -604,7 +604,7 @@ def open_gui_monthly_data(root, parent_window=None):
                 continue
 
             dest_folder = os.path.join(tempt_dir, year, month, khach_hang)
-            pattern = f"{tenmahangMini}-{year}."
+            pattern = f"{tenmahangMini}-{year}.{month}"
             excel_files = [f for f in os.listdir(dest_folder) if pattern in f and f.endswith(('.xls', '.xlsx'))]
             if not excel_files:
                 df.at[idx, "Status"] = "Không tìm thấy file"
@@ -619,7 +619,7 @@ def open_gui_monthly_data(root, parent_window=None):
                     code = ma_hang.split("-")[-1].strip()
                     lot_list = []
                     for item_key, lots in filter_data.items():
-                        if code in item_key and isinstance(lots, list):
+                        if code in item_key:
                             for lot in lots:
                                 lot_list.append(lot["LOT_NO"].replace("-", ""))
                     # Xử lý file .xlsx
@@ -705,9 +705,9 @@ def open_gui_monthly_data(root, parent_window=None):
                                 lot_no_excel = str(cell_E).replace("-", "")
                                 lot_info = next((lot for lot in lots if lot["LOT_NO"].replace("-", "") == lot_no_excel), None)
                                 if lot_info:
-                                    # ws.range(f"H{start_row}").value = lot_info.get("PRODUCTION_ORDER_NO", "")
+                                    ws.range(f"H{start_row}").value = lot_info.get("PRODUCTION_ORDER_NO", "")
                                     ws.range(f"J{start_row}").value = lot_info.get("ACCEPT_QTY", "")
-                                    # ws.range(f"L{start_row}").value = lot_info.get("CUSTOMER", "")
+                                    ws.range(f"L{start_row}").value = lot_info.get("CUSTOMER", "")
                                     po_no = lot_info.get("PRODUCTION_ORDER_NO", "")
                                     if po_no and po_no not in order_no_list:
                                         order_no_list.append(po_no)
@@ -727,25 +727,18 @@ def open_gui_monthly_data(root, parent_window=None):
                                         # Công thức bị lỗi (giá trị None nhưng là công thức)
                                         rows_to_delete.append(j)
 
-
-                            col_left, col_right = find_col_range_to_delete(ws, 7, "R", "AD")
                             # Xóa các dòng W7-W31 theo range P-AX, xóa từ dòng lớn đến nhỏ
                             for j in sorted(rows_to_delete, reverse=True):
-                                ws.range(f"{col_left}{j}:{col_right}{j}").delete(shift="up")
-
-                            col_left1, col_right1 = find_col_range_to_delete(ws, 28, "D", "F")
-
+                                ws.range(f"P{j}:AX{j}").delete(shift="up")
 
                             # Xóa các vùng phần không có dữ liệu (sau khi duyệt xong)
                             for start, end in sorted(part_ranges_to_delete, reverse=True):
-                                ws.range(f"{col_left1}{start}:{col_right1}{end}").delete(shift="up") 
-
-                            order_no_cell = find_order_no_cell(ws)
+                                ws.range(f"A{start}:M{end}").delete(shift="up") 
 
                             # Ghi vào ô P1 chỉ các mã PO khác nhau
                             order_no_text = "ORDER No:"
                             if order_no_list:
-                                ws.range(order_no_cell).value = f"{order_no_text} {', '.join(order_no_list)}"
+                                ws.range("P1").value = f"{order_no_text} {', '.join(order_no_list)}"
 
                             wb.save()
                             wb.close()
@@ -777,9 +770,9 @@ def open_gui_monthly_data(root, parent_window=None):
                                 lot_no_excel = str(cell_E).replace("-", "")
                                 lot_info = next((lot for lot in lots if lot["LOT_NO"].replace("-", "") == lot_no_excel), None)
                                 if lot_info:
-                                    # ws.range(f"I{start_row}").value = lot_info.get("PRODUCTION_ORDER_NO", "")
+                                    ws.range(f"H{start_row}").value = lot_info.get("PRODUCTION_ORDER_NO", "")
                                     ws.range(f"L{start_row}").value = lot_info.get("ACCEPT_QTY", "")
-                                    # ws.range(f"O{start_row}").value = lot_info.get("CUSTOMER", "")
+                                    ws.range(f"N{start_row}").value = lot_info.get("CUSTOMER", "")
                                     # ws.range(f"R{start_row}").value = cell_E  # Giá trị hiện tại của E
                                     po_no = lot_info.get("PRODUCTION_ORDER_NO", "")
                                     if po_no and po_no not in order_no_list:
@@ -956,115 +949,4 @@ def move_files_back():
             except Exception as e:
                 print(f"Lỗi copy ngược {link} -> {link_src}: {e}")
                 error_count += 1
-    messagebox.showinfo("Kết quả", f"Đã di chuyển {moved_count} file về nguồn.\nLỗi: {error_count}")   
-    
-
-def find_col_range_to_delete(ws, row, col_start, col_end):
-    """
-    Tìm cột đầu/cuối không blank trên dòng row, từ col_start đến col_end (theo ký tự cột).
-    Trả về (col_left, col_right) là vùng cần xóa (bao gồm cả col_left và col_right).
-    """
-    # Chuyển ký tự cột sang số
-    def col2num(col):
-        col = col.upper()
-        num = 0
-        for c in col:
-            num = num * 26 + (ord(c) - ord('A') + 1)
-        return num
-
-    def num2col(num):
-        col = ""
-        while num > 0:
-            num, rem = divmod(num - 1, 26)
-            col = chr(rem + ord('A')) + col
-        return col
-
-    left = col2num(col_start)
-    right = col2num(col_end)
-
-    # Tìm cột trái đầu tiên không blank
-    for c in range(left, right+1):
-        val = ws.range(f"{num2col(c)}{row}").value
-        if val is not None and str(val).strip() != "":
-            col_left = c
-            break
-    else:
-        col_left = left
-
-    # Tìm cột phải cuối cùng không blank
-    for c in range(right, left-1, -1):
-        val = ws.range(f"{num2col(c)}{row}").value
-        if val is not None and str(val).strip() != "":
-            col_right = c
-            break
-    else:
-        col_right = right
-
-    # Nếu có cột blank ở đầu/cuối, trả về vùng cần xóa
-    return num2col(col_left), num2col(col_right)
-
-def find_row_range_to_delete(ws, col, row_start, row_end):
-    """
-    Tìm dòng đầu/cuối không blank trên cột col, từ row_start đến row_end.
-    Trả về (row_top, row_bottom) là vùng cần xóa (bao gồm cả row_top và row_bottom).
-    """
-    # Tìm dòng trên đầu tiên không blank
-    for r in range(row_start, row_end+1):
-        val = ws.range(f"{col}{r}").value
-        if val is not None and str(val).strip() != "":
-            row_top = r
-            break
-    else:
-        row_top = row_start
-
-    # Tìm dòng dưới cuối cùng không blank
-    for r in range(row_end, row_start-1, -1):
-        val = ws.range(f"{col}{r}").value
-        if val is not None and str(val).strip() != "":
-            row_bottom = r
-            break
-    else:
-        row_bottom = row_end
-
-    return row_top, row_bottom
-
-def find_order_no_cell(ws):
-    """
-    Tìm ô (hoặc vùng merge) từ dòng 1-12 có chứa "ORDER No".
-    Trả về địa chỉ ô đầu tiên tìm thấy, hoặc None nếu không có.
-    """
-    for row in range(1, 13):
-        for col in range(1, ws.used_range.last_cell.column+1):
-            cell = ws.range((row, col))
-            val = cell.value
-            if val and "ORDER No" in str(val):
-                return cell.get_address(False, False)
-    return None
-
-def find_order_no_cell(ws):
-    """
-    Tìm vùng merge từ dòng 1-12 có chứa "ORDER No".
-    Trả về địa chỉ vùng merge (vd: 'P1:R1'), hoặc địa chỉ ô nếu không merge, hoặc None nếu không có.
-    """
-    # Kiểm tra các vùng merge trước
-    for merge_range in ws.api.UsedRange.MergeCells:
-        try:
-            merged = merge_range.MergeArea
-            first_cell = merged.Cells(1, 1)
-            val = first_cell.Value
-            row = first_cell.Row
-            if 1 <= row <= 12 and val and "ORDER No" in str(val):
-                # Lấy địa chỉ vùng merge
-                address = merged.Address.replace('$', '')
-                return address
-        except Exception:
-            continue
-
-    # Nếu không tìm thấy trong merge, kiểm tra từng ô
-    for row in range(1, 13):
-        for col in range(1, ws.used_range.last_cell.column+1):
-            cell = ws.range((row, col))
-            val = cell.value
-            if val and "ORDER No" in str(val):
-                return cell.get_address(False, False)
-    return None
+    messagebox.showinfo("Kết quả", f"Đã di chuyển {moved_count} file về nguồn.\nLỗi: {error_count}")

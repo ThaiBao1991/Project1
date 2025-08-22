@@ -17,6 +17,8 @@ import win32com.client as win32
 import re
 import json
 from pathlib import Path
+import threading
+
 
 selected_row_details = {}
 ZIP_DIR = Path.cwd() / "DATASETC" / "ZipFile"
@@ -773,6 +775,7 @@ def gui_du_lieu(file_path, period,month_year, data_df):
                         if part_number:
                             folder_name = f"{ss} ({part_number})"
                         lot_folder = Path(data_origin_path) / selected_year / ss / lot_no
+                        
                         if not lot_folder.exists():
                             continue
                         for file in lot_folder.iterdir():
@@ -797,6 +800,7 @@ def gui_du_lieu(file_path, period,month_year, data_df):
                                 temp_file = ss_folder_temp / new_filename
                                 compressed_file = ss_folder_final / new_filename
                                 try:
+                                    
                                     shutil.copy2(str(file), str(temp_file))
                                     if not compress_pdf(str(temp_file), str(compressed_file)):
                                         shutil.copy2(str(temp_file), str(compressed_file))
@@ -831,7 +835,7 @@ def gui_du_lieu(file_path, period,month_year, data_df):
                                     shutil.rmtree(str(temp_folder))
                                 except Exception as e:
                                     print(f"Lỗi khi xóa thư mục tạm: {e}")
-        messagebox.showinfo("Lỗi", "Đang thực hiện copy dữ liệu")
+        messagebox.showinfo("Lỗi", "Đã hoàn thành copy dữ liệu")
     except Exception as e:
         messagebox.showerror("Lỗi", f"Đã bị lỗi lúc copy dữ liệu {e}")
 def split_and_zip(folder_path, zip_prefix, max_mb):
@@ -1053,7 +1057,8 @@ def send_all_data(period, df):
             mail.CC = cc_email
             if os.path.exists(zip_path):
                 mail.Attachments.Add(zip_path)
-            mail.Display(True)  # Chỉ mở cửa sổ email, không gửi luôn
+            # mail.Display(True)  # Chỉ mở cửa sổ email, không gửi luôn
+            mail.Save()
             success += 1
         except Exception as e:
             print(f"Lỗi khi soạn email cho {to_email}: {e}")
@@ -1375,6 +1380,19 @@ def save_status(period, df):
         messagebox.showerror("Lỗi", f"Không thể lưu trạng thái: {str(e)}")
 
 
+def create_and_display_email(subject, body, to_email, zip_path):
+    try:
+        outlook = win32.Dispatch('Outlook.Application')
+        mail = outlook.CreateItem(0)
+        mail.Subject = subject
+        mail.Body = body
+        mail.To = to_email
+        if zip_path.exists():
+            mail.Attachments.Add(str(zip_path))
+        mail.Display(True)
+    except Exception as e:
+        print(f"Lỗi khi soạn email: {e}")
+
 def reset_status():
     """Reset trạng thái về rỗng cho toàn bộ dữ liệu (kể cả khi đang filter)"""
     global data_df, original_df, current_period, filters
@@ -1425,6 +1443,8 @@ def send_zip_emails():
         email_dict = json.load(f)
 
     success, fail = 0, 0
+    threads = []
+
     for entry in zip_log:
         ten_kh = entry["Tên KH"]
         category = str(entry["CategoryEmail"])
@@ -1444,19 +1464,29 @@ def send_zip_emails():
 
         subject = f"Gửi dữ liệu {ten_kh} - {category}"
         body = noi_dung
+        
+        # Gui từng email
+        # try:
+        #     outlook = win32.Dispatch('Outlook.Application')
+        #     mail = outlook.CreateItem(0)
+        #     mail.Subject = subject
+        #     mail.Body = body
+        #     mail.To = to_email
+        #     if zip_path.exists():
+        #         mail.Attachments.Add(str(zip_path))
+        #     mail.Display(True)
+        #     success += 1
+        # except Exception as e:
+        #     print(f"Lỗi khi soạn email cho {ten_kh}: {e}")
+        #     fail += 1
+        
+        # Tạo luồng mới cho mỗi email
+        t = threading.Thread(target=create_and_display_email, args=(subject, body, to_email, zip_path))
+        t.start()
+        threads.append(t)
+        success += 1
 
-        try:
-            outlook = win32.Dispatch('Outlook.Application')
-            mail = outlook.CreateItem(0)
-            mail.Subject = subject
-            mail.Body = body
-            mail.To = to_email
-            if zip_path.exists():
-                mail.Attachments.Add(str(zip_path))
-            mail.Display(True)
-            success += 1
-        except Exception as e:
-            print(f"Lỗi khi soạn email cho {ten_kh}: {e}")
-            fail += 1
-
+    # Chờ tất cả các luồng hoàn thành
+    for t in threads:
+        t.join()
     messagebox.showinfo("Kết quả", f"Đã soạn {success} email thành công\nLỗi: {fail} email")
