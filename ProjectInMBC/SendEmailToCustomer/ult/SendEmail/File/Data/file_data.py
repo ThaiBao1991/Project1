@@ -204,10 +204,16 @@ def open_data_window(parent):
 
         def save_data():
             global data_df, original_df
-            new_data = {col: entries[col].get() for col in data_df.columns}
+            # Chỉ lấy các cột có trong entries, nếu thiếu thì để ""
+            new_data = {col: entries[col].get() if col in entries else "" for col in data_df.columns}
+            columns_to_show = [col for col in REQUIRED_COLUMNS if col in data_df.columns]
             required_data = {k: new_data[k] for k in columns_to_show if k in new_data}
-            if columns_to_show and not all(required_data.values()):
-                messagebox.showwarning("Cảnh báo", "Vui lòng điền đầy đủ các trường bắt buộc (SS, Mã hàng, MSKH nếu có)!")
+            missing_fields = [col for col, val in required_data.items() if not val]
+            if missing_fields:
+                messagebox.showwarning(
+                    "Cảnh báo",
+                    f"Vui lòng điền đầy đủ các trường bắt buộc!\nThiếu: {', '.join(missing_fields)}"
+                )
                 return
             data_df = pd.concat([data_df, pd.DataFrame([new_data])], ignore_index=True)
             original_df = data_df.copy()
