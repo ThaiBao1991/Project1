@@ -18,6 +18,7 @@ import re
 import json
 from pathlib import Path
 import threading
+import collections
 
 
 selected_row_details = {}
@@ -843,7 +844,7 @@ def split_and_zip(folder_path, zip_prefix, max_mb):
     Nén các file PDF trong folder_path thành nhiều file zip nhỏ hơn max_mb (MB).
     Trả về danh sách đường dẫn các file zip đã tạo.
     """
-    max_bytes = int((max_mb - 1) * 1024 * 1024)  # Trừ 1MB để an toàn
+    max_bytes = int((max_mb - 0.1) * 1024 * 1024)  # Trừ 0.1MB để an toàn
     pdf_files = []
     for root, _, files in os.walk(folder_path):
         for file in files:
@@ -885,7 +886,7 @@ def group_and_zip_folders(folder_paths, zip_prefix, max_mb, zip_dir):
     """
     import zipfile
 
-    max_bytes = int((max_mb - 1) * 1024 * 1024)
+    max_bytes = int((max_mb - 0.1) * 1024 * 1024)
     zip_files = []
     part = 1
     i = 0
@@ -1025,44 +1026,54 @@ def send_all_data(period, df):
     with open(ZIP_LOG_JSON, "r", encoding="utf-8") as f:
         zip_log = json.load(f)
 
-    success, fail = 0, 0
+    # Nhóm các entry theo (Tên KH, CategoryEmail)
+    grouped = collections.defaultdict(list)
     for entry in zip_log:
-        to_email = entry.get("dia_chi_email", "")
-        cc_email = "p.baoph.sgc@mabuchi-motor.com"
-        zip_path = entry.get("zip_path", "")
-        noi_dung = entry.get("noi_dung", "")
+        key = (entry.get("Tên KH", ""), str(entry.get("CategoryEmail", "")))
+        grouped[key].append(entry)
+        
+    
+    success, fail = 0, 0
+    for key, entries in grouped.items():
+        total_parts = len(entries)
+        for idx, entry in enumerate(entries, 1):
+            to_email = entry.get("dia_chi_email", "")
+            cc_email = "p.baoph.sgc@mabuchi-motor.com"
+            zip_path = entry.get("zip_path", "")
+            noi_dung = entry.get("noi_dung", "")
 
-        # Tách subject và body
-        subject = ""
-        body = ""
-        if noi_dung.lower().startswith("subject:"):
-            parts = noi_dung.split("\n", 1)
-            subject = parts[0][8:].strip()  # Bỏ "Subject:"
-            body = parts[1].strip() if len(parts) > 1 else ""
-        else:
-            subject = "Gửi dữ liệu khách hàng"
-            body = noi_dung
+            # Tách subject và body
+            subject = ""
+            body = ""
+            if noi_dung.lower().startswith("subject:"):
+                parts = noi_dung.split("\n", 1)
+                subject = parts[0][8:].strip()
+                body = parts[1].strip() if len(parts) > 1 else ""
+            else:
+                subject = "Gửi dữ liệu khách hàng"
+                body = noi_dung
 
-        # Thay thế <Month-Year> trong subject/body
-        subject = subject.replace("<Month-Year>", month_year_str)
-        body = body.replace("<Month-Year>", month_year_str)
+            subject = subject.replace("<Month-Year>", month_year_str)
+            body = body.replace("<Month-Year>", month_year_str)
 
-        # Soạn email (chỉ mở cửa sổ, không gửi luôn)
-        try:
-            outlook = win32.Dispatch('Outlook.Application')
-            mail = outlook.CreateItem(0)
-            mail.Subject = subject
-            mail.Body = body
-            mail.To = to_email
-            mail.CC = cc_email
-            if os.path.exists(zip_path):
-                mail.Attachments.Add(zip_path)
-            # mail.Display(True)  # Chỉ mở cửa sổ email, không gửi luôn
-            mail.Save()
-            success += 1
-        except Exception as e:
-            print(f"Lỗi khi soạn email cho {to_email}: {e}")
-            fail += 1
+            # Thêm thông tin part vào subject
+            part_info = f" (part {idx}/{total_parts})" if total_parts > 1 else ""
+            subject_with_part = subject + part_info
+
+            try:
+                outlook = win32.Dispatch('Outlook.Application')
+                mail = outlook.CreateItem(0)
+                mail.Subject = subject_with_part
+                mail.Body = body
+                mail.To = to_email
+                mail.CC = cc_email
+                if os.path.exists(zip_path):
+                    mail.Attachments.Add(zip_path)
+                mail.Save()
+                success += 1
+            except Exception as e:
+                print(f"Lỗi khi soạn email cho {to_email}: {e}")
+                fail += 1
 
     messagebox.showinfo("Kết quả", f"Đã soạn {success} email thành công\nLỗi: {fail} email")
     
@@ -1319,8 +1330,11 @@ def send_selected_data(period, df):
             fail_count += 1
             continue
             
-        for zip_file in zip_files:
-            if send_email_via_outlook(subject, body, data['email'], [zip_file]):
+        total_parts = len(zip_files)
+        for idx, zip_file in enumerate(zip_files, 1):
+            part_info = f" (part {idx}/{total_parts})" if total_parts > 1 else ""
+            subject_with_part = subject + part_info
+            if send_email_via_outlook(subject_with_part, body, data['email'], [zip_file]):
                 success_count += 1
             else:
                 fail_count += 1
