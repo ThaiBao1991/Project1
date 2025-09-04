@@ -11,6 +11,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from tkinter import filedialog, messagebox, ttk, scrolledtext
 import requests
+from urllib.parse import urlparse
 
 
 class NovelScraperFunctions:
@@ -255,3 +256,27 @@ class NovelScraperFunctions:
         except Exception as e:
             self.gui.progress_label.config(text="Lỗi xảy ra!")
             messagebox.showerror("Lỗi", f"Lỗi khi tải: {e}")
+
+def test_scrape(url, username=None, password=None, timeout=15):
+    """
+    Thử kết nối / fetch trang để kiểm tra:
+    - trả về (True, 'OK') nếu fetch được
+    - hoặc (False, error_message)
+    Lưu ý: đây là hàm mẫu, bạn thay bằng logic lấy danh sách chương thực tế.
+    """
+    try:
+        parsed = urlparse(url)
+        base = f"{parsed.scheme}://{parsed.netloc}"
+        headers = {"User-Agent": "Mozilla/5.0 (compatible)"}
+        sess = requests.Session()
+        if username and password:
+            # ví dụ login (tùy site) - placeholder: set auth or cookie
+            sess.auth = (username, password)
+        r = sess.get(url, headers=headers, timeout=timeout)
+        if r.status_code == 200 and r.text:
+            # Có thể kiểm tra xem r.text có chứa list chương, ví dụ bằng selector hoặc keyword
+            return True, f"Fetched {len(r.text)} chars from {base}"
+        else:
+            return False, f"HTTP {r.status_code}"
+    except Exception as e:
+        return False, str(e)
