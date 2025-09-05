@@ -19,7 +19,6 @@ import json
 from pathlib import Path
 import threading
 import collections
-import subprocess
 
 
 selected_row_details = {}
@@ -101,79 +100,16 @@ def get_email_components(row, month_year):
         return None, None
 
 def compress_pdf(input_path, output_path, quality=50):
-    """
-    Nén PDF ưu tiên theo thứ tự: PDFsam > Ghostscript > PyPDF2/Pillow.
-    """
-    def is_pdfsam_available():
-        # Kiểm tra PDFsam CLI (pdfsam-console) có trong PATH không
-        try:
-            result = subprocess.run(["pdfsam", "--help"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            return result.returncode == 0 or b"pdfsam" in result.stdout or b"pdfsam" in result.stderr
-        except Exception:
-            return False
-
-    def is_ghostscript_available():
-        # Kiểm tra Ghostscript có trong PATH không
-        for gs_cmd in ["gswin64c", "gswin32c", "gs"]:
-            try:
-                result = subprocess.run([gs_cmd, "--version"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                if result.returncode == 0:
-                    return gs_cmd
-            except Exception:
-                continue
-        return None
-
-    # 1. Nén bằng PDFsam nếu có
-    if is_pdfsam_available():
-        try:
-            # PDFsam CLI nén file (ví dụ: pdfsam --compress input.pdf output.pdf)
-            cmd = ["pdfsam", "--compress", input_path, output_path]
-            result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
-            if os.path.getsize(output_path) < os.path.getsize(input_path):
-                return True
-            else:
-                shutil.copy2(input_path, output_path)
-                return False
-        except Exception as e:
-            print(f"Lỗi nén PDF bằng PDFsam: {e}")
-            shutil.copy2(input_path, output_path)
-            return False
-
-    # 2. Nén bằng Ghostscript nếu có
-    gs_cmd = is_ghostscript_available()
-    if gs_cmd:
-        try:
-            gs_quality = "ebook"  # Có thể chỉnh "screen", "ebook", "printer", "prepress"
-            cmd = [
-                gs_cmd,
-                "-sDEVICE=pdfwrite",
-                "-dCompatibilityLevel=1.4",
-                f"-dPDFSETTINGS=/{gs_quality}",
-                "-dNOPAUSE",
-                "-dQUIET",
-                "-dBATCH",
-                f"-sOutputFile={output_path}",
-                input_path
-            ]
-            result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
-            if os.path.getsize(output_path) < os.path.getsize(input_path):
-                return True
-            else:
-                shutil.copy2(input_path, output_path)
-                return False
-        except Exception as e:
-            print(f"Lỗi nén PDF bằng Ghostscript: {e}")
-            shutil.copy2(input_path, output_path)
-            return False
-
-    # 3. Nén bằng code hiện tại (PyPDF2 + Pillow)
+    """Giảm dung lượng file PDF bằng cách nén hình ảnh"""
     try:
         reader = PdfReader(input_path)
         writer = PdfWriter()
 
+        # Sao chép các trang từ file gốc
         for page in reader.pages:
             writer.add_page(page)
 
+        # Nén hình ảnh trong PDF
         for page in writer.pages:
             if '/Resources' in page and '/XObject' in page['/Resources']:
                 x_object = page['/Resources']['/XObject'].get_object()
@@ -182,15 +118,20 @@ def compress_pdf(input_path, output_path, quality=50):
                         img_obj = x_object[obj]
                         if '/Filter' in img_obj and img_obj['/Filter'] in ['/DCTDecode', '/FlateDecode']:
                             try:
+                                # Lấy dữ liệu hình ảnh
                                 img_data = img_obj._data
                                 img = Image.open(io.BytesIO(img_data))
                                 if img.mode != 'RGB':
                                     img = img.convert('RGB')
+                                
+                                # Nén hình ảnh
                                 output_buffer = io.BytesIO()
                                 img.save(output_buffer, format='JPEG', quality=quality, optimize=True)
                                 compressed_data = output_buffer.getvalue()
+                                
+                                # Cập nhật dữ liệu hình ảnh đã nén
                                 img_obj._data = compressed_data
-                                img_obj['/Filter'] = '/DCTDecode'
+                                img_obj['/Filter'] = '/DCTDecode'  # Sử dụng JPEG sau khi nén
                                 img_obj['/ColorSpace'] = '/DeviceRGB'
                                 img_obj['/BitsPerComponent'] = 8
                                 img_obj['/Width'] = img.width
@@ -199,21 +140,24 @@ def compress_pdf(input_path, output_path, quality=50):
                                 print(f"Lỗi khi nén hình ảnh trong PDF: {e}")
                                 continue
 
+        # Lưu file đã nén
         with open(output_path, "wb") as f:
             writer.write(f)
 
+        # Kiểm tra kích thước file
         original_size = os.path.getsize(input_path)
         compressed_size = os.path.getsize(output_path)
         if compressed_size >= original_size:
             print(f"Cảnh báo: File nén ({compressed_size} bytes) không nhỏ hơn file gốc ({original_size} bytes). Sử dụng file gốc.")
-            shutil.copy2(input_path, output_path)
+            shutil.copy2(input_path, output_path)  # Ghi đè file nén bằng file gốc
             return False
         else:
+            # print(f"Nén PDF thành công: {original_size} -> {compressed_size} bytes")
             return True
 
     except Exception as e:
-        print(f"Lỗi khi nén PDF bằng PyPDF2/Pillow: {e}")
-        shutil.copy2(input_path, output_path)
+        print(f"Lỗi khi nén PDF: {e}")
+        shutil.copy2(input_path, output_path)  # Sao chép file gốc nếu lỗi
         return False
     
 def zip_folder_by_size(folder_path, output_prefix, max_size_mb):
