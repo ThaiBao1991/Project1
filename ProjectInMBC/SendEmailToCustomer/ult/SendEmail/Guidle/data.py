@@ -451,14 +451,20 @@ def gui_du_lieu(file_path, period,month_year, data_df):
     input_dir.mkdir(parents=True, exist_ok=True)
     data_ERP = input_dir / "data_work_MAP_ERP.csv"
     data_KJS = input_dir / "data_work_KJS.csv"
-    json_file = input_dir / f"json_data_{period}.json"
+    # dùng UPPER để đồng nhất với gui.show_details
+    json_file = input_dir / f"json_data_{period.upper()}.json"
     created_folders = {}
 
     selected_year = None
 
+    # Load json hiện có (KHÔNG xóa)
+    json_data = {}
     if json_file.exists():
-        json_file.unlink()  # pathlib: xóa file
-
+        try:
+            with json_file.open("r", encoding="utf-8") as jf:
+                json_data = json.load(jf) or {}
+        except Exception as e:
+            print(f"Không thể đọc {json_file}: {e}")
     # Đọc file CSV trước khi kiểm tra cột
     try:
         data_ERP_df = pd.read_csv(data_ERP, encoding='utf-8-sig', low_memory=False)
@@ -583,7 +589,6 @@ def gui_du_lieu(file_path, period,month_year, data_df):
         current_df = current_df.sort_values("Nơi nhận dữ liệu").drop_duplicates(
             subset=["SS", "Mã hàng", "MSKH"], keep="first"
         )
-        json_data = {}
         for index, row in current_df.iterrows():               
             current_status = str(row.get("Status", "")).strip()
             if current_status in ["Đã xác nhận", "Đã copy dữ liệu", "Đã gửi dữ liệu","Không có dữ liệu"]:
@@ -611,46 +616,51 @@ def gui_du_lieu(file_path, period,month_year, data_df):
                     ]
                     if lot_data.empty:
                         current_df.loc[index, "Status"] = "Không có dữ liệu"
-                    
-                    # Copy file
+                        save_status(period, current_df)
+                        from .gui import update_table
+                        update_table(current_df)
+                        continue
+
+                    # DD: copy 1 file đại diện cho mỗi W/d/r (W/d/r bắt buộc)
                     seen_wdr = set()
+                    copied_count = 0
+                    # remember existing json entries for this key to detect new ones
+                    key = f"{ss}|{mahang}|{mskh}|{noi_nhan}"
+                    existing_len = len(json_data.get(key, []))
                     for _, lot_row in lot_data.iterrows():
                         lot_no = str(lot_row.get("Lot No", "")).strip()
                         wdr_no = str(lot_row.get("W/d/r No", "")).strip()
                         if not wdr_no or wdr_no in seen_wdr:
                             continue
                         seen_wdr.add(wdr_no)
-                        current_df.loc[index, "Status"] = "Đã xác nhận"
-                        key = f"{ss}|{mahang}|{mskh}|{noi_nhan}"
-                        if key not in json_data:
-                            json_data[key] = []
-                        folder_name = ss
-                        if part_number:
-                            folder_name = f"{ss} ({part_number})"
+
+                        folder_name = ss if not part_number else f"{ss} ({part_number})"
                         lot_folder = os.path.join(data_origin_path, selected_year, ss, lot_no)
                         if not os.path.exists(lot_folder):
                             continue
+
+                        # tìm 1 file đại diện cho W/d/r này
+                        found_for_wdr = False
                         for file in os.listdir(lot_folder):
                             if not file.lower().endswith('.pdf'):
                                 continue
                             file_name = file.upper()
                             if (lot_no.upper() in file_name and mahang.upper() in file_name and mskh.upper() in file_name and wdr_no.upper() in file_name):
+                                # tạo thư mục temp/final nếu cần
                                 if noi_nhan not in created_folders:
                                     base_folder_temp = Path(data_temp_path) / f"Gửi {noi_nhan}" / selected_year / f"Gửi {formatted_date}_temp"
-                                    base_folder_temp.mkdir(parents=True, exist_ok=True)
                                     base_folder = Path(data_temp_path) / f"Gửi {noi_nhan}" / selected_year / f"Gửi {formatted_date}"
+                                    base_folder_temp.mkdir(parents=True, exist_ok=True)
                                     base_folder.mkdir(parents=True, exist_ok=True)
-                                    created_folders[noi_nhan] = {
-                                        'temp': base_folder_temp,
-                                        'final': base_folder
-                                    }
+                                    created_folders[noi_nhan] = {'temp': base_folder_temp, 'final': base_folder}
+
                                 ss_folder_temp = created_folders[noi_nhan]['temp'] / folder_name
                                 ss_folder_temp.mkdir(parents=True, exist_ok=True)
                                 ss_folder_final = created_folders[noi_nhan]['final'] / folder_name
                                 ss_folder_final.mkdir(parents=True, exist_ok=True)
-                                # Lấy thêm biến strNo từ lot_row
+
+                                # Lấy Straight No nếu có, giữ naming hiện tại
                                 str_no = str(lot_row.get("Straight No", "")).strip()
-                                # Tạo tên file mới
                                 if not wdr_no:
                                     new_filename = f"{lot_no}-{mahang}-{mskh}.pdf"
                                 else:
@@ -658,44 +668,45 @@ def gui_du_lieu(file_path, period,month_year, data_df):
                                         new_filename = f"{lot_no}-{mahang}-{mskh}-{wdr_no} ({str_no}).pdf"
                                     else:
                                         new_filename = f"{lot_no}-{mahang}-{mskh}-{wdr_no}.pdf"
+
                                 temp_file = ss_folder_temp / new_filename
-                                compressed_file = ss_folder_final / new_filename
+                                final_file = ss_folder_final / new_filename
                                 try:
-                                    shutil.copy2(str(file), str(temp_file))
-                                    if not compress_pdf(str(temp_file), str(compressed_file)):
-                                        shutil.copy2(str(temp_file), str(compressed_file))
+                                    shutil.copy2(os.path.join(lot_folder, file), str(temp_file))
+                                    if not compress_pdf(str(temp_file), str(final_file)):
+                                        shutil.copy2(str(temp_file), str(final_file))
+                                    # kiểm tra file final tồn tại trước khi ghi json
+                                    if os.path.exists(str(final_file)):
+                                        json_data.setdefault(key, [])
+                                        json_data[key].append({
+                                            "Lot No": lot_no,
+                                            "W/d/r No": wdr_no,
+                                            "FolderLink": str(ss_folder_final)
+                                        })
+                                        copied_count += 1
+                                        found_for_wdr = True
                                 except Exception as e:
                                     print(f"Lỗi khi xử lý file {file}: {e}")
-                                # Tạo key là tuple (SS, Mã hàng, MSKH)
-                                key = f"{ss}|{mahang}|{mskh}|{noi_nhan}"
-                                # Kiểm tra xem key đã tồn tại trong json_data chưa
-                                if key not in json_data:
-                                    # Nếu key chưa có, khởi tạo một danh sách mới cho key đó
-                                    json_data[key] = []
-                                # Thêm thông tin lô vào danh sách
-                                json_data[key].append({
-                                    "Lot No": lot_no,
-                                    "W/d/r No": wdr_no,  # hoặc "PRODUCTION_ORDER_NO" với KJS
-                                    "FolderLink": str(ss_folder_final)
-                                })
-                                
-                                # 3. Ghi toàn bộ json_data đã cập nhật trở lại file MỘT LẦN sau khi vòng lặp kết thúc
-                                with open(json_file, "w", encoding="utf-8") as f:
-                                    json.dump(json_data, f, ensure_ascii=False, indent=2)
-                                save_status(period, current_df)
-                                                   
+                                # chỉ lấy 1 file đại diện cho mỗi W/d/r
+                                if found_for_wdr:
+                                    break
+
+                    # Sau khi duyệt xong tất cả W/d/r: chỉ set trạng thái nếu có file thực sự được copy
+                    if copied_count > 0 or len(json_data.get(key, [])) > existing_len:
                         current_df.loc[index, "Status"] = "Đã copy dữ liệu"
-                        save_status(period, current_df)
-                        from .gui import update_table
-                        update_table(current_df)
-                        
-                        for noi_nhan, folders in created_folders.items():
-                            temp_folder = folders['temp']
-                            if temp_folder.exists():
-                                try:
-                                    shutil.rmtree(str(temp_folder))
-                                except Exception as e:
-                                    print(f"Lỗi khi xóa thư mục tạm: {e}")
+                    else:
+                        current_df.loc[index, "Status"] = "Không có dữ liệu"
+                    save_status(period, current_df)
+                    from .gui import update_table
+                    update_table(current_df)
+                    # Xóa thư mục tạm
+                    for nn, flds in created_folders.items():
+                        tempf = flds['temp']
+                        if tempf.exists():
+                            try:
+                                shutil.rmtree(str(tempf))
+                            except Exception:
+                                pass
                 elif gui_dl == "TB":
                    # Kiểm tra khớp dữ liệu với data_ERP
                     lot_data = filtered_ERP_df[
@@ -764,9 +775,7 @@ def gui_du_lieu(file_path, period,month_year, data_df):
                                     "W/d/r No": wdr_no,  # hoặc "PRODUCTION_ORDER_NO" với KJS
                                     "FolderLink": str(ss_folder_final)
                                 })
-                                # 3. Ghi toàn bộ json_data đã cập nhật trở lại file MỘT LẦN sau khi vòng lặp kết thúc
-                                with open(json_file, "w", encoding="utf-8") as f:
-                                    json.dump(json_data, f, ensure_ascii=False, indent=2)
+                                # (GHI json được thực hiện 1 lần ở cuối hàm)
                                 save_status(period, current_df)
                                                    
                         current_df.loc[index, "Status"] = "Đã copy dữ liệu"
@@ -853,9 +862,7 @@ def gui_du_lieu(file_path, period,month_year, data_df):
                                     "W/d/r No": wdr_no,  # hoặc "PRODUCTION_ORDER_NO" với KJS
                                     "FolderLink": str(ss_folder_final)
                                 })
-                                # 3. Ghi toàn bộ json_data đã cập nhật trở lại file MỘT LẦN sau khi vòng lặp kết thúc
-                                with open(json_file, "w", encoding="utf-8") as f:
-                                    json.dump(json_data, f, ensure_ascii=False, indent=2)
+                                # (GHI json được thực hiện 1 lần ở cuối hàm)
                                 save_status(period, current_df)
                                                    
                         current_df.loc[index, "Status"] = "Đã copy dữ liệu"
@@ -871,8 +878,17 @@ def gui_du_lieu(file_path, period,month_year, data_df):
                                 except Exception as e:
                                     print(f"Lỗi khi xóa thư mục tạm: {e}")
         messagebox.showinfo("Lỗi", "Đã hoàn thành copy dữ liệu")
+         # Ghi json_data cập nhật 1 lần (file name đã là PERIOD upper)
+        try:
+             json_file.parent.mkdir(parents=True, exist_ok=True)
+             with json_file.open("w", encoding="utf-8") as jf:
+                 json.dump(json_data, jf, ensure_ascii=False, indent=2)
+        except Exception as e:
+             print(f"Lỗi khi ghi file json {json_file}: {e}")
+        messagebox.showinfo("Thông báo", "Đã hoàn thành copy dữ liệu")
     except Exception as e:
         messagebox.showerror("Lỗi", f"Đã bị lỗi lúc copy dữ liệu {e}")
+
 def split_and_zip(folder_path, zip_prefix, max_mb):
     """
     Nén các file PDF trong folder_path thành nhiều file zip nhỏ hơn max_mb (MB).
