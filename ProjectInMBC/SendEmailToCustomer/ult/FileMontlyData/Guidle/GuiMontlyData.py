@@ -10,6 +10,89 @@ import json
 import xlwings as xw
 import zipfile
 
+# Excel constants for Placement
+xlMoveAndSize = 1         # Move and size with cells
+xlMove = 2                # Move but don't size with cells
+xlFreeFloating = 3        # Don't move or size with cells
+
+def _set_objects_placement(ws, placement):
+    """Đổi Placement cho toàn bộ objects trên worksheet ws."""
+    # Shapes (ảnh, AutoShapes, text boxes, icons, ...)
+    shapes = ws.api.Shapes
+    for i in range(1, shapes.Count + 1):
+        shp = shapes.Item(i)
+        try:
+            shp.Placement = placement
+        except Exception:
+            pass
+
+    # ChartObjects (biểu đồ nhúng)
+    try:
+        charts = ws.api.ChartObjects()
+        for i in range(1, charts.Count + 1):
+            ch = charts.Item(i)
+            try:
+                ch.Placement = placement
+            except Exception:
+                pass
+    except Exception:
+        pass
+
+    # OLEObjects (nút Form, ActiveX, ... nếu có)
+    try:
+        oleobjs = ws.api.OLEObjects()
+        for i in range(1, oleobjs.Count + 1):
+            obj = oleobjs.Item(i)
+            try:
+                obj.Placement = placement
+            except Exception:
+                pass
+    except Exception:
+        pass
+
+
+def _move_all_objects_up(ws, delta_points):
+    """Dịch toàn bộ objects trên worksheet ws đi lên delta_points (đơn vị: points)."""
+    if not delta_points or delta_points <= 0:
+        return
+
+    # Shapes
+    shapes = ws.api.Shapes
+    for i in range(1, shapes.Count + 1):
+        shp = shapes.Item(i)
+        try:
+            shp.Top = max(0, shp.Top - float(delta_points))
+        except Exception:
+            pass
+
+    # ChartObjects
+    try:
+        charts = ws.api.ChartObjects()
+        for i in range(1, charts.Count + 1):
+            ch = charts.Item(i)
+            try:
+                ch.Top = max(0, ch.Top - float(delta_points))
+            except Exception:
+                pass
+    except Exception:
+        pass
+
+    # OLEObjects
+    try:
+        oleobjs = ws.api.OLEObjects()
+        for i in range(1, oleobjs.Count + 1):
+            obj = oleobjs.Item(i)
+            try:
+                obj.Top = max(0, obj.Top - float(delta_points))
+            except Exception:
+                pass
+    except Exception:
+        pass
+
+
+
+
+
 CHECK_DIR = os.path.join(os.getcwd(), "DATASETC", "dataMontlydata", "Check")
 os.makedirs(CHECK_DIR, exist_ok=True)
 CHECK_CSV = os.path.join(CHECK_DIR, "DataMontlyCheck.csv")
@@ -726,15 +809,38 @@ def open_gui_monthly_data(root, parent_window=None):
                                     if isinstance(cell_formula, str) and cell_formula.startswith("="):
                                         # Công thức bị lỗi (giá trị None nhưng là công thức)
                                         rows_to_delete.append(j)
+                            
+                            # 0) Đưa tất cả object về Don't move or size with cells
+                            _set_objects_placement(ws, xlFreeFloating)
+                            
+                            # 0.1) Tính tổng chiều cao (points) của các hàng dự kiến xóa
+                            rows_deleted = set(rows_to_delete)  # từ logic W7->W32 của bạn
+                            for start, end in part_ranges_to_delete:
+                                rows_deleted.update(range(start, end + 1))
 
-                            # Xóa các dòng W7-W31 theo range P-AX, xóa từ dòng lớn đến nhỏ
+                            total_deleted_height = 0.0
+                            for r in sorted(rows_deleted):
+                                try:
+                                    total_deleted_height += float(ws.api.Rows(r).RowHeight)
+                                except Exception:
+                                    pass
+                                
+                            # Xóa các dòng W7-W31 theo range P-AZ, xóa từ dòng lớn đến nhỏ
                             for j in sorted(rows_to_delete, reverse=True):
-                                ws.range(f"P{j}:AX{j}").delete(shift="up")
+                                ws.range(f"P{j}:AZ{j}").delete(shift="up")
 
                             # Xóa các vùng phần không có dữ liệu (sau khi duyệt xong)
                             for start, end in sorted(part_ranges_to_delete, reverse=True):
                                 ws.range(f"A{start}:M{end}").delete(shift="up") 
 
+                            
+                            # 3) Dịch toàn bộ objects lên tổng độ cao đã xoá
+                            _move_all_objects_up(ws, total_deleted_height)
+
+                            # 4) Trả lại chế độ Move and size with cells để objects đi theo nội dung về sau
+                            _set_objects_placement(ws, xlMoveAndSize)
+
+                            
                             # Ghi vào ô P1 chỉ các mã PO khác nhau
                             order_no_text = "ORDER No:"
                             if order_no_list:
@@ -790,14 +896,37 @@ def open_gui_monthly_data(root, parent_window=None):
                                     if isinstance(cell_formula, str) and cell_formula.startswith("="):
                                         # Công thức bị lỗi (giá trị None nhưng là công thức)
                                         rows_to_delete.append(j)
+                            
+                            # 0) Đưa tất cả object về Don't move or size with cells
+                            _set_objects_placement(ws, xlFreeFloating)
+                            
+                            # 0.1) Tính tổng chiều cao (points) của các hàng dự kiến xóa
+                            rows_deleted = set(rows_to_delete)  # từ logic W7->W32 của bạn
+                            for start, end in part_ranges_to_delete:
+                                rows_deleted.update(range(start, end + 1))
 
-                            # Xóa các dòng W7-W31 theo range P-AX, xóa từ dòng lớn đến nhỏ
+                            total_deleted_height = 0.0
+                            for r in sorted(rows_deleted):
+                                try:
+                                    total_deleted_height += float(ws.api.Rows(r).RowHeight)
+                                except Exception:
+                                    pass
+                            
+                            
+                            # Xóa các dòng W7-W31 theo range P-BP, xóa từ dòng lớn đến nhỏ
                             for j in sorted(rows_to_delete, reverse=True):
-                                ws.range(f"R{j}:AN{j}").delete(shift="up")
+                                ws.range(f"R{j}:BP{j}").delete(shift="up")
 
                             # Xóa các vùng phần không có dữ liệu (sau khi duyệt xong)
                             for start, end in sorted(part_ranges_to_delete, reverse=True):
                                 ws.range(f"A{start}:T{end}").delete(shift="up") 
+                            
+                             # 3) Dịch toàn bộ objects lên tổng độ cao đã xoá
+                            _move_all_objects_up(ws, total_deleted_height)
+
+                            # 4) Trả lại chế độ Move and size with cells để objects đi theo nội dung về sau
+                            _set_objects_placement(ws, xlMoveAndSize)
+                            
                             # Ghi vào ô P1
                             order_no_text = "ORDER No:"
                             if order_no_list:

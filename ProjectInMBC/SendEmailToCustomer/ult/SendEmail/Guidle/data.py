@@ -645,7 +645,7 @@ def gui_du_lieu(file_path, period,month_year, data_df):
                             if not file.lower().endswith('.pdf'):
                                 continue
                             file_name = file.upper()
-                            if (lot_no.upper() in file_name and mahang.upper() in file_name and mskh.upper() in file_name and wdr_no.upper() in file_name):
+                            if (lot_no.upper() in file_name and mahang.upper() in file_name and mskh.upper() in file_name):
                                 # tạo thư mục temp/final nếu cần
                                 if noi_nhan not in created_folders:
                                     base_folder_temp = Path(data_temp_path) / f"Gửi {noi_nhan}" / selected_year / f"Gửi {formatted_date}_temp"
@@ -672,6 +672,7 @@ def gui_du_lieu(file_path, period,month_year, data_df):
                                 temp_file = ss_folder_temp / new_filename
                                 final_file = ss_folder_final / new_filename
                                 try:
+                                    print(f"")
                                     shutil.copy2(os.path.join(lot_folder, file), str(temp_file))
                                     if not compress_pdf(str(temp_file), str(final_file)):
                                         shutil.copy2(str(temp_file), str(final_file))
