@@ -12,3 +12,9 @@ git config --global http.postBuffer 1048576000
 git lfs track "__pycache__/**"
 git lfs untrack "*"
 git lfs ls-files
+
+
+-----
+git remote add new https://github.com/ThaiBao1991/Project5
+git pull new master
+git reset --hard new/master
