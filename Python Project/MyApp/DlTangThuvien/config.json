@@ -1,0 +1,9 @@
+{
+  "storage_path": "storage",
+  "download_path": "downloads",
+  "default_site": "tangthuvien",
+  "browser": {
+    "headless": false,
+    "user_data_dir": "storage/browser_data"
+  }
+}
