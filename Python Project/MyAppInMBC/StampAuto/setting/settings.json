@@ -1,0 +1,34 @@
+{
+    "stamp_types": [
+        {
+            "id": "ktck",
+            "name": "Kiểm tra cơ khí",
+            "image": "condauKTCK.png",
+            "search_text": "Xác nhận",
+            "scale": 0.12,
+            "description": "Đóng dấu kiểm tra cơ khí - Đặt sát bên dưới text",
+            "position_offset": {
+                "y_bottom_offset": 2,
+                "height_offset": 6,
+                "x_offset": 0
+            }
+        },
+        {
+            "id": "hieuchinh",
+            "name": "Hiệu chỉnh",
+            "image": "condauHieuChinh.png",
+            "search_text": "Xác nhận",
+            "scale": 0.2,
+            "description": "Đóng dấu hiệu chỉnh - Dịch phải 50 đơn vị",
+            "position_offset": {
+                "y_bottom_offset": 1,
+                "height_offset": 5,
+                "x_offset": 0
+            }
+        }
+    ],
+    "output_folder": "processed",
+    "default_settings": {
+        "auto_open_folder": true
+    }
+}
