@@ -1,0 +1,445 @@
+# ==================================================
+# Path: C:/Users/games/Desktop/Project/Python/Python MyWork/Project1/Python Project/MyApp/Download Novel
+# Detected tech: python
+# ==================================================
+
+## DIRECTORY STRUCTURE
+```
+Download Novel/
+├── dlnoveltext/
+│   ├── __pycache__/
+│   ├── functiondlnoveltext.py
+│   └── guidlnoveltext.py
+└── main.py
+```
+
+## FILE CONTENTS
+
+### main.py
+```py
+import tkinter as tk
+from dlnoveltext.guidlnoveltext import NovelScraperGUI
+
+class MainApp:
+    def __init__(self, master):
+        self.master = master
+        self.master.title("Web Novel Scraper")
+        self.url_entry = tk.StringVar(value="https://metruyencv.com/truyen/chuyen-sinh-than-thu-ta-che-tao-am-binh-gia-toc")
+        self.create_menu()
+
+    def create_menu(self):
+        menubar = tk.Menu(self.master)
+        file_menu = tk.Menu(menubar, tearoff=0)
+        file_menu.add_command(label="Tùy chọn tải truyện chữ", command=self.open_novel_scraper)
+        menubar.add_cascade(label="File", menu=file_menu)
+        self.master.config(menu=menubar)
+
+    def open_novel_scraper(self):
+        NovelScraperGUI(self.master, self.url_entry)
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = MainApp(root)
+    root.mainloop()
+```
+
+### dlnoveltext\functiondlnoveltext.py
+```py
+# dlnoveltext/functiondlnoveltext.py
+import json
+import tkinter as tk
+import os
+from urllib.parse import urlparse, urljoin
+import http.cookiejar as cookiejar
+import cloudscraper
+from bs4 import BeautifulSoup
+import asyncio
+import platform
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+
+class NovelScraperFunctions:
+    def __init__(self, gui):
+        self.gui = gui
+        self.config_dir = "data_DlNovel"
+        self.config_file = os.path.join(self.config_dir, "config_dlnovel.json")
+        self.cookies_file = os.path.join(self.config_dir, "cookies_{}.txt")
+        self.scraper = cloudscraper.create_scraper()  # Cloudflare bypass
+        os.makedirs(self.config_dir, exist_ok=True)
+        self.load_cookies()
+
+    def load_cookies(self):
+        try:
+            base_url = self.get_base_url(self.gui.url_entry.get())
+            cookie_path = self.cookies_file.format(base_url.replace('://', '_').replace('/', '_'))
+            self.scraper.cookies = cookiejar.MozillaCookieJar(cookie_path)
+            if os.path.exists(cookie_path):
+                self.scraper.cookies.load(ignore_discard=True, ignore_expires=True)
+        except Exception as e:
+            from tkinter import messagebox
+            messagebox.showerror("Lỗi", f"Không thể tải cookies: {e}")
+
+    def save_cookies(self):
+        try:
+            base_url = self.get_base_url(self.gui.url_entry.get())
+            cookie_path = self.cookies_file.format(base_url.replace('://', '_').replace('/', '_'))
+            self.scraper.cookies = cookiejar.MozillaCookieJar(cookie_path)
+            
+            # Sử dụng Selenium để lấy cookies từ trình duyệt Chrome mặc định
+            chrome_options = Options()
+            chrome_options.add_argument("--headless")  # Chạy ẩn
+            driver = webdriver.Chrome(options=chrome_options)
+            driver.get(base_url)
+            cookies = driver.get_cookies()
+            driver.quit()
+            
+            # Chuyển cookies từ Selenium sang MozillaCookieJar
+            for cookie in cookies:
+                c = cookiejar.Cookie(
+                    version=0,
+                    name=cookie['name'],
+                    value=cookie['value'],
+                    port=None,
+                    port_specified=False,
+                    domain=cookie.get('domain', ''),
+                    domain_specified=bool(cookie.get('domain')),
+                    domain_initial_dot=cookie.get('domain', '').startswith('.'),
+                    path=cookie.get('path', '/'),
+                    path_specified=bool(cookie.get('path')),
+                    secure=cookie.get('secure', False),
+                    expires=cookie.get('expiry', None),
+                    discard=False,
+                    comment=None,
+                    comment_url=None,
+                    rest={'HttpOnly': cookie.get('httpOnly', False)},
+                    rfc2109=False
+                )
+                self.scraper.cookies.set_cookie(c)
+            
+            self.scraper.cookies.save(ignore_discard=True, ignore_expires=True)
+            from tkinter import messagebox
+            messagebox.showinfo("Thành công", f"Đã lưu cookies cho {base_url} từ trình duyệt!")
+        except Exception as e:
+            from tkinter import messagebox
+            messagebox.showerror("Lỗi", f"Không thể lưu cookies: {e}")
+
+    def get_base_url(self, url):
+        parsed = urlparse(url)
+        return f"{parsed.scheme}://{parsed.netloc}"
+
+    def load_config(self):
+        try:
+            if os.path.exists(self.config_file):
+                with open(self.config_file, 'r', encoding='utf-8') as f:
+                    config = json.load(f)
+                    base_url = self.get_base_url(self.gui.url_entry.get())
+                    if base_url in config:
+                        site_config = config[base_url]
+                        self.gui.url_entry.set(site_config.get('url', ''))
+                        self.gui.username_entry.delete(0, tk.END)
+                        self.gui.username_entry.insert(0, site_config.get('username', ''))
+                        self.gui.password_entry.delete(0, tk.END)
+                        self.gui.password_entry.insert(0, site_config.get('password', ''))
+                        self.gui.chapter_list_css.delete(0, tk.END)
+                        self.gui.chapter_list_css.insert(0, site_config.get('chapter_list_css', ''))
+                        self.gui.chapter_list_script.delete(0, tk.END)
+                        self.gui.chapter_list_script.insert(0, site_config.get('chapter_list_script', ''))
+                        self.gui.title_css.delete(0, tk.END)
+                        self.gui.title_css.insert(0, site_config.get('title_css', ''))
+                        self.gui.title_script.delete(0, tk.END)
+                        self.gui.title_script.insert(0, site_config.get('title_script', ''))
+                        self.gui.content_css.delete(0, tk.END)
+                        self.gui.content_css.insert(0, site_config.get('content_css', ''))
+                        self.gui.content_script.delete(0, tk.END)
+                        self.gui.content_script.insert(0, site_config.get('content_script', ''))
+                        self.gui.use_css_all.set(site_config.get('use_css_all', True))
+                        self.gui.use_css_chapters.set(site_config.get('use_css_chapters', True))
+                        self.gui.use_css_title.set(site_config.get('use_css_title', True))
+                        self.gui.use_css_content.set(site_config.get('use_css_content', True))
+                        self.gui.output_entry.delete(0, tk.END)
+                        self.gui.output_entry.insert(0, site_config.get('output_file', ''))
+        except Exception as e:
+            from tkinter import messagebox
+            messagebox.showerror("Lỗi", f"Không thể tải cấu hình: {e}")
+
+    def save_config(self):
+        from tkinter import messagebox
+        base_url = self.get_base_url(self.gui.url_entry.get())
+        config_data = {}
+        try:
+            if os.path.exists(self.config_file):
+                with open(self.config_file, 'r', encoding='utf-8') as f:
+                    config_data = json.load(f)
+            
+            config_data[base_url] = {
+                'url': self.gui.url_entry.get(),
+                'username': self.gui.username_entry.get(),
+                'password': self.gui.password_entry.get(),
+                'chapter_list_css': self.gui.chapter_list_css.get(),
+                'chapter_list_script': self.gui.chapter_list_script.get(),
+                'title_css': self.gui.title_css.get(),
+                'title_script': self.gui.title_script.get(),
+                'content_css': self.gui.content_css.get(),
+                'content_script': self.gui.content_script.get(),
+                'use_css_all': self.gui.use_css_all.get(),
+                'use_css_chapters': self.gui.use_css_chapters.get(),
+                'use_css_title': self.gui.use_css_title.get(),
+                'use_css_content': self.gui.use_css_content.get(),
+                'output_file': self.gui.output_entry.get()
+            }
+            
+            with open(self.config_file, 'w', encoding='utf-8') as f:
+                json.dump(config_data, f, ensure_ascii=False, indent=4)
+            messagebox.showinfo("Thành công", "Đã lưu cấu hình!")
+        except Exception as e:
+            messagebox.showerror("Lỗi", f"Không thể lưu cấu hình: {e}")
+
+    async def scrape_chapters(self):
+        base_url = self.gui.url_entry.get()
+        output_file = self.gui.output_entry.get()
+        use_css_chapters = self.gui.use_css_chapters.get()
+        use_css_title = self.gui.use_css_title.get()
+        use_css_content = self.gui.use_css_content.get()
+        chapter_list_css = self.gui.chapter_list_css.get()
+        chapter_list_script = self.gui.chapter_list_script.get()
+        title_css = self.gui.title_css.get()
+        title_script = self.gui.title_script.get()
+        content_css = self.gui.content_css.get()
+        content_script = self.gui.content_script.get()
+
+        try:
+            response = self.scraper.get(base_url)
+            soup = BeautifulSoup(response.text, 'html.parser')
+            if use_css_chapters:
+                chapter_links = soup.select(chapter_list_css)
+            else:
+                # Giả lập script (thực tế cần Selenium hoặc trình duyệt để chạy JS)
+                chapter_links = soup.select('a')  # Placeholder, cần điều chỉnh
+                print("Warning: JS script execution not fully supported, using CSS fallback")
+            
+            if not chapter_links:
+                from tkinter import messagebox
+                messagebox.showerror("Lỗi", "Không tìm thấy chương nào!")
+                return
+
+            total_chapters = len(chapter_links)
+            self.gui.progress_bar['maximum'] = total_chapters
+            html_content = ["<!DOCTYPE html>",
+                            "<html><head>",
+                            "<meta charset='UTF-8'>",
+                            "<title>Web Novel</title>",
+                            "<style>body { font-family: Arial, sans-serif; } .toc { margin: 20px; } .chapter { margin: 20px; padding: 10px; border: 1px solid #ccc; }</style>",
+                            "</head><body>",
+                            "<div class='toc'><h1>Mục lục</h1><ul>"]
+
+            for i, link in enumerate(chapter_links):
+                chapter_url = urljoin(base_url, link.get('href', ''))
+                self.gui.progress_label.config(text=f"Đang tải chương {i + 1}/{total_chapters}: {chapter_url}")
+                self.gui.progress_bar['value'] = i + 1
+                self.gui.master.update()
+
+                response = self.scraper.get(chapter_url)
+                chapter_soup = BeautifulSoup(response.text, 'html.parser')
+                
+                if use_css_title:
+                    title = chapter_soup.select_one(title_css)
+                    title_text = title.get_text(strip=True) if title else f"Chương {i + 1}"
+                else:
+                    title_text = f"Chương {i + 1}"  # Placeholder, cần Selenium cho JS
+                    print("Warning: JS script for title not fully supported")
+
+                if use_css_content:
+                    content = chapter_soup.select_one(content_css)
+                    content_text = content.decode_contents() if content else "Không có nội dung"
+                else:
+                    content_text = "Không có nội dung"  # Placeholder, cần Selenium cho JS
+                    print("Warning: JS script for content not fully supported")
+
+                html_content.append(f"<li><a href='#chapter{i + 1}'>{title_text}</a></li>")
+                html_content.append(f"</ul></div><div class='chapter' id='chapter{i + 1}'>")
+                html_content.append(f"<h2>{title_text}</h2>")
+                html_content.append(content_text)
+                html_content.append("</div>")
+
+                await asyncio.sleep(0.1)  # Giả lập delay để cập nhật GUI
+
+            html_content.append("</body></html>")
+            with open(output_file, "w", encoding="utf-8") as f:
+                f.write("\n".join(html_content))
+            self.gui.progress_label.config(text=f"Hoàn tất! File đã lưu tại {output_file}")
+            from tkinter import messagebox
+            messagebox.showinfo("Thành công", "Đã tạo file HTML thành công!")
+        except Exception as e:
+            self.gui.progress_label.config(text="Lỗi xảy ra!")
+            from tkinter import messagebox
+            messagebox.showerror("Lỗi", f"Lỗi khi tải: {e}")
+```
+
+### dlnoveltext\guidlnoveltext.py
+```py
+import tkinter as tk
+from tkinter import filedialog, messagebox, ttk
+from dlnoveltext.functiondlnoveltext import NovelScraperFunctions
+import webbrowser
+import os
+
+class NovelScraperGUI:
+    def __init__(self, master, url_entry):
+        self.master = master
+        self.url_entry = url_entry
+        self.top_level = None
+        self.functions = NovelScraperFunctions(self)
+        self.create_main_window()
+
+    def create_main_window(self):
+        if self.top_level is not None and self.top_level.winfo_exists():
+            self.top_level.deiconify()
+            self.top_level.lift()
+            return
+
+        self.top_level = tk.Toplevel(self.master)
+        self.top_level.title("Tải Truyện Chữ")
+        self.top_level.protocol("WM_DELETE_WINDOW", self.hide_window)
+
+        # Frame nhập URL và đăng nhập
+        input_frame = tk.LabelFrame(self.top_level, text="Cài đặt trang web", padx=5, pady=5)
+        input_frame.pack(padx=10, pady=5, fill=tk.X)
+
+        tk.Label(input_frame, text="URL danh sách chương:").grid(row=0, column=0, padx=5, pady=2, sticky=tk.W)
+        self.url_entry_widget = tk.Entry(input_frame, width=50, textvariable=self.url_entry)
+        self.url_entry_widget.grid(row=0, column=1, padx=5, pady=2)
+
+        open_btn = tk.Button(input_frame, text="Mở trình duyệt", command=self.open_browser)
+        open_btn.grid(row=0, column=2, padx=5, pady=2)
+
+        tk.Label(input_frame, text="Tên người dùng:").grid(row=1, column=0, padx=5, pady=2, sticky=tk.W)
+        self.username_entry = tk.Entry(input_frame, width=50)
+        self.username_entry.grid(row=1, column=1, padx=5, pady=2)
+
+        tk.Label(input_frame, text="Mật khẩu:").grid(row=2, column=0, padx=5, pady=2, sticky=tk.W)
+        self.password_entry = tk.Entry(input_frame, width=50, show="*")
+        self.password_entry.grid(row=2, column=1, padx=5, pady=2)
+
+        save_cookie_btn = tk.Button(input_frame, text="Lưu Cookie", command=self.functions.save_cookies)
+        save_cookie_btn.grid(row=3, column=1, padx=5, pady=2, sticky=tk.E)
+
+        tk.Label(input_frame, text="File lưu (mặc định):").grid(row=4, column=0, padx=5, pady=2, sticky=tk.W)
+        self.output_entry = tk.Entry(input_frame, width=50)
+        self.output_entry.grid(row=4, column=1, padx=5, pady=2)
+        self.output_entry.insert(0, "chuyen-sinh-than-thu-ta-che-tao-am-binh-gia-toc.html")
+
+        browse_btn = tk.Button(input_frame, text="Duyệt...", command=self.browse_output)
+        browse_btn.grid(row=4, column=2, padx=5, pady=2)
+
+        # Frame cài đặt script
+        script_frame = tk.LabelFrame(self.top_level, text="Cài đặt Script", padx=5, pady=5)
+        script_frame.pack(padx=10, pady=5, fill=tk.X)
+
+        self.use_css_all = tk.BooleanVar(value=True)
+        tk.Checkbutton(script_frame, text="Sử dụng CSS Selector cho tất cả", variable=self.use_css_all, command=self.toggle_scripts).grid(row=0, column=0, columnspan=2, padx=5, pady=2, sticky=tk.W)
+
+        # Danh sách chương
+        tk.Label(script_frame, text="Danh sách chương:").grid(row=1, column=0, padx=5, pady=2, sticky=tk.W)
+        self.use_css_chapters = tk.BooleanVar(value=True)
+        tk.Checkbutton(script_frame, text="CSS", variable=self.use_css_chapters, command=self.toggle_scripts).grid(row=1, column=1, padx=5, pady=2, sticky=tk.W)
+        self.chapter_list_css = tk.Entry(script_frame, width=50)
+        self.chapter_list_css.grid(row=1, column=2, padx=5, pady=2)
+        self.chapter_list_css.insert(0, "a.chapter-title")
+        
+        tk.Label(script_frame, text="Script:").grid(row=2, column=1, padx=5, pady=2, sticky=tk.W)
+        self.chapter_list_script = tk.Entry(script_frame, width=50)
+        self.chapter_list_script.grid(row=2, column=2, padx=5, pady=2)
+        self.chapter_list_script.insert(0, "return document.querySelectorAll('a.chapter-title')")
+
+        # Tiêu đề chương
+        tk.Label(script_frame, text="Tiêu đề chương:").grid(row=3, column=0, padx=5, pady=2, sticky=tk.W)
+        self.use_css_title = tk.BooleanVar(value=True)
+        tk.Checkbutton(script_frame, text="CSS", variable=self.use_css_title, command=self.toggle_scripts).grid(row=3, column=1, padx=5, pady=2, sticky=tk.W)
+        self.title_css = tk.Entry(script_frame, width=50)
+        self.title_css.grid(row=3, column=2, padx=5, pady=2)
+        self.title_css.insert(0, "h1")
+        
+        tk.Label(script_frame, text="Script:").grid(row=4, column=1, padx=5, pady=2, sticky=tk.W)
+        self.title_script = tk.Entry(script_frame, width=50)
+        self.title_script.grid(row=4, column=2, padx=5, pady=2)
+        self.title_script.insert(0, "return document.querySelector('h1').innerText")
+
+        # Nội dung chương
+        tk.Label(script_frame, text="Nội dung chương:").grid(row=5, column=0, padx=5, pady=2, sticky=tk.W)
+        self.use_css_content = tk.BooleanVar(value=True)
+        tk.Checkbutton(script_frame, text="CSS", variable=self.use_css_content, command=self.toggle_scripts).grid(row=5, column=1, padx=5, pady=2, sticky=tk.W)
+        self.content_css = tk.Entry(script_frame, width=50)
+        self.content_css.grid(row=5, column=2, padx=5, pady=2)
+        self.content_css.insert(0, "div#chapter-content")
+        
+        tk.Label(script_frame, text="Script:").grid(row=6, column=1, padx=5, pady=2, sticky=tk.W)
+        self.content_script = tk.Entry(script_frame, width=50)
+        self.content_script.grid(row=6, column=2, padx=5, pady=2)
+        self.content_script.insert(0, "return document.querySelector('div#chapter-content').innerHTML")
+
+        # Frame tiến trình
+        progress_frame = tk.LabelFrame(self.top_level, text="Tiến trình", padx=5, pady=5)
+        progress_frame.pack(padx=10, pady=5, fill=tk.X)
+
+        self.progress_label = tk.Label(progress_frame, text="Sẵn sàng...")
+        self.progress_label.pack(pady=2)
+
+        self.progress_bar = ttk.Progressbar(progress_frame, length=300, mode='determinate')
+        self.progress_bar.pack(pady=5)
+
+        # Frame nút điều khiển
+        button_frame = tk.Frame(self.top_level, padx=5, pady=5)
+        button_frame.pack(padx=10, pady=5, fill=tk.X)
+
+        start_btn = tk.Button(button_frame, text="Bắt đầu", command=self.start_scraping)
+        start_btn.pack(side=tk.LEFT, padx=5)
+
+        save_config_btn = tk.Button(button_frame, text="Lưu cấu hình", command=self.functions.save_config)
+        save_config_btn.pack(side=tk.LEFT, padx=5)
+
+        close_btn = tk.Button(button_frame, text="Đóng", command=self.hide_window)
+        close_btn.pack(side=tk.LEFT, padx=5)
+
+        self.functions.load_config()
+        self.toggle_scripts()
+
+    def hide_window(self):
+        if self.top_level:
+            self.top_level.withdraw()
+
+    def open_browser(self):
+        url = self.url_entry.get()
+        if url:
+            webbrowser.open(url, new=2)
+        else:
+            messagebox.showerror("Lỗi", "Vui lòng nhập URL!")
+
+    def browse_output(self):
+        file_path = filedialog.asksaveasfilename(
+            title="Chọn nơi lưu file",
+            defaultextension=".html",
+            filetypes=(("HTML Files", "*.html"), ("All Files", "*.*"))
+        )
+        if file_path:
+            self.output_entry.delete(0, tk.END)
+            self.output_entry.insert(0, file_path)
+
+    def toggle_scripts(self):
+        use_css_all = self.use_css_all.get()
+        self.use_css_chapters.set(use_css_all)
+        self.use_css_title.set(use_css_all)
+        self.use_css_content.set(use_css_all)
+        
+        self.chapter_list_css.config(state='normal' if self.use_css_chapters.get() else 'disabled')
+        self.chapter_list_script.config(state='disabled' if self.use_css_chapters.get() else 'normal')
+        self.title_css.config(state='normal' if self.use_css_title.get() else 'disabled')
+        self.title_script.config(state='disabled' if self.use_css_title.get() else 'normal')
+        self.content_css.config(state='normal' if self.use_css_content.get() else 'disabled')
+        self.content_script.config(state='disabled' if self.use_css_content.get() else 'normal')
+
+    def start_scraping(self):
+        if not self.url_entry.get() or not self.output_entry.get():
+            messagebox.showerror("Lỗi", "Vui lòng nhập đầy đủ URL và file lưu!")
+            return
+        self.functions.scrape_chapters()
+```
