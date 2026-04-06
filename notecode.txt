@@ -1,7 +1,7 @@
 git init
 git add .
 git commit -m "Initial commit"
-git remote add origin https://github.com/ThaiBao1991/Project5.git
+git remote add origin https://github.com/ThaiBao1991/Project1.git
 git push --set-upstream origin master
 
 
@@ -16,5 +16,5 @@ git lfs ls-files
 
 -----
 git remote add new https://github.com/ThaiBao1991/Project5
-git pull new master
-git reset --hard new/master
+git pull origin master
+git reset --hard origin/master

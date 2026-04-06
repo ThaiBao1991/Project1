@@ -10,10 +10,6 @@ class BaseStamp:
         self.settings = settings
         
     def stamp_pdf(self, pdf_path, output_path=None):
-        """
-        Đóng dấu vào file PDF
-        Nếu output_path là None, sẽ lưu đè lên file gốc
-        """
         try:
             # Kiểm tra file tồn tại
             if not os.path.exists(pdf_path):
@@ -40,12 +36,19 @@ class BaseStamp:
             x_offset = self.settings.get('position_offset', {}).get('x_offset', 0)
             
             total_stamps = 0
+            found = False  # Cờ đánh dấu đã tìm thấy và đóng dấu
             
             # Duyệt từng trang
             for page_num, page in enumerate(doc, 1):
+                if found:  # Nếu đã đóng dấu rồi thì thoát
+                    break
+                    
                 text_instances = page.search_for(search_text)
                 
-                for inst in text_instances:
+                # CHỈ XỬ LÝ INSTANCE ĐẦU TIÊN TÌM THẤY
+                if text_instances:
+                    # Lấy instance đầu tiên
+                    inst = text_instances[0]
                     x0, y0, x1, y1 = inst
                     
                     width = img_width * scale
@@ -60,8 +63,10 @@ class BaseStamp:
                     # Chèn ảnh
                     page.insert_image(stamp_rect, filename=self.stamp_image_path)
                     total_stamps += 1
+                    found = True  # Đánh dấu đã đóng dấu
                     
                     print(f"Đã chèn dấu tại trang {page_num}, vị trí: ({stamp_rect.x0}, {stamp_rect.y0})")
+                    print(f"ĐÃ ĐÓNG DẤU 1 LẦN DUY NHẤT - Dừng tìm kiếm")
             
             # Lưu file
             if output_path:
@@ -83,7 +88,7 @@ class BaseStamp:
         except Exception as e:
             traceback.print_exc()
             return False, str(e), 0
-    
+        
     def calculate_position(self, x0, y0, x1, y1, width, height, x_offset, y_bottom_offset, height_offset):
         """Tính toán vị trí đóng dấu - sẽ được override trong subclass"""
         return fitz.Rect(
