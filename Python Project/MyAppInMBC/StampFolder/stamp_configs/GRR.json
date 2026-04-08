@@ -1,0 +1,24 @@
+{
+    "folder_path": "C:/Users/12953 bao/Desktop/CodingTest",
+    "pdf_sample_path": "C:/Users/12953 bao/Desktop/CodingTest/28925.pdf",
+    "stamp_image_path": "C:/Users/12953 bao/Desktop/CodingTest/condauBao.png",
+    "stamp_bbox": [
+        164,
+        297,
+        237,
+        317
+    ],
+    "stamp_center": [
+        199,
+        307
+    ],
+    "exact_center": [
+        477.60000979515814,
+        738.2735935756137
+    ],
+    "scale_percent": 28.28548387096774,
+    "match_threshold": 44.354838709677416,
+    "file_format": "pdf",
+    "page_number": 7,
+    "use_template_matching": true
+}

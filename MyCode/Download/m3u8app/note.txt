@@ -1,0 +1,1 @@
+Dùng để donwload các file m3u8 về ts, rồi nối lại video
