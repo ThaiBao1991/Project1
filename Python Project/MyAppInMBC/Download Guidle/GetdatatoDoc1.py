@@ -1,667 +1,784 @@
 import os
 import time
-import pyautogui
-import pywinauto
-
+import json
 import requests
-
 import sys
-
-
-from docx import Document
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
+import re
 from bs4 import BeautifulSoup
-
-from tkinter import Tk, filedialog, messagebox
+from tkinter import Tk, filedialog, messagebox, StringVar, Entry, Button, Label, Listbox, END, Frame, Toplevel, Text
+from tkinter.scrolledtext import ScrolledText
+from tkinter import Radiobutton, Checkbutton, BooleanVar
+from docx import Document
+from docx.shared import Inches, Pt
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
 from pathlib import Path
-from pywinauto.findwindows import ElementNotFoundError
-from PIL import ImageGrab, ImageChops
 from PIL import Image
 from io import BytesIO
+import shutil
 
-import win32com.client
-from pywinauto.application import Application
-import pyperclip
+CONFIG_FILE = "config.json"
+CONFIG_DIR = "configs"
+DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
+SAVED_LINKS_DIR = os.path.join(DATA_DIR, "saved_links")
+IMAGE_TMP_DIR = os.path.join(DATA_DIR, "images")
+COMPLETED_LINKS_FILE = os.path.join(DATA_DIR, "completed_links.json")
 
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support.ui import WebDriverWait 
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
-
-import base64
-import urllib3
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-
-user_dir = Path("C:/Users/12953 bao/Desktop/desktop/work/Project/Python/BasicLearnPython/W3schools")
-output_path = user_dir / "output.docx"
-base_url = 'https://vi.extendoffice.com'
-
-# Thư mục lưu trữ ảnh tạm thời
-
-def convert_webp_to_png(webp_path, png_path):
-    """Chuyển đổi ảnh .webp sang .png."""
-    try:
-        img = Image.open(webp_path)
-        img.save(png_path, "PNG")
-        print(f"Đã chuyển đổi ảnh: {png_path}")
-    except Exception as e:
-        print(f"Lỗi khi chuyển đổi ảnh: {e}")
-
-def image_to_base64(image_path):
-    """Chuyển đổi ảnh thành base64."""
-    with open(image_path, "rb") as image_file:
-        return base64.b64encode(image_file.read()).decode("utf-8")
-
-def select_image_file(default_path):
-    root = Tk()
-    root.withdraw()
-    root.attributes('-topmost', True)
-    file_path = filedialog.askopenfilename(initialdir=os.path.dirname(default_path), title="Select Image File",
-                                           filetypes=(("PNG files", "*.png"), ("All files", "*.*")))
-    root.destroy()
-    return file_path
-
-def select_word_file():
-    root = Tk()
-    root.withdraw()
-    root.attributes('-topmost', True)
-    file_path = filedialog.askopenfilename(title="Select Word File",
-                                           filetypes=(("Word files", "*.docx"), ("All files", "*.*")))
-    root.destroy()
-    return file_path
-
-def has_window_changed(dlg, initial_screenshot):
-    # Hàm kiểm tra sự thay đổi của cửa sổ
-    current_screenshot = capture_screenshot(dlg)
-    return current_screenshot != initial_screenshot
-
-def open_file_dialog(dlg):
-    initial_screenshot = capture_screenshot(dlg)
-    max_attempts = 5
-    attempt = 0
-
-    while attempt < max_attempts:
-        dlg.set_focus()  # Đảm bảo cửa sổ Word được kích hoạt
-        dlg.type_keys('^o')  # Gửi phím tắt Ctrl+O
-        time.sleep(5)  # Tăng thời gian chờ
-
-        # Kiểm tra xem cửa sổ đã thay đổi chưa
-        if has_window_changed(dlg, initial_screenshot):
-            print("Cửa sổ đã thay đổi. Tiếp tục thực thi...")
-            return True  # Thoát khỏi hàm nếu thành công
-
-        attempt += 1
-        print(f"Thử lần {attempt} không thành công, thử lại...")
-
-    print("Mở file chờ 15s chưa có tín hiệu.")
-    return False  # Trả về False nếu không thành công sau max_attempts
-# Hàm chụp ảnh màn hình của cửa sổ
-def capture_screenshot(dlg):
-    rect = dlg.rectangle()
-    screenshot = ImageGrab.grab(bbox=(rect.left, rect.top, rect.right, rect.bottom))
-    return screenshot
-
-# Hàm kiểm tra sự thay đổi của cửa sổ
-def has_window_changed(dlg, initial_screenshot):
-    current_screenshot = capture_screenshot(dlg)
-    diff = ImageChops.difference(initial_screenshot, current_screenshot)
-    return diff.getbbox() is not None
-
-def wait_for_window(app,title_re, timeout=10):
-    start_time = time.time()
-    while time.time() - start_time < timeout:
-        try:
-            dlg = app.window(title_re=title_re)
-            if dlg.exists(timeout=1):
-                return dlg
-        except ElementNotFoundError:
-            pass
-        time.sleep(0.5)
-    return None
-
-def wait_for_save_completion(file_path, timeout=30):
-    start_time = time.time()
-    file_size = -1  # Kích thước file ban đầu
-
-    while time.time() - start_time < timeout:
-        try:
-            if os.path.exists(file_path):
-                current_size = os.path.getsize(file_path)
-                if current_size == file_size: # Kiểm tra xem kích thước file có thay đổi nữa không
-                    return True  # Kích thước file ổn định, coi như đã lưu xong
-                else:
-                    file_size = current_size
-                    time.sleep(1) # Chờ 1s rồi kiểm tra lại
-            else:
-                print("File không tồn tại.")
-                return False
-        except Exception as e:
-            print(f"Lỗi trong quá trình kiểm tra: {e}")
-            return False
-    return False
-
-def close_word_document(dlg):
-    try:
-        dlg.close()
-        print("Đã đóng cửa sổ Word.")
-    except pywinauto.application.findwindows.ElementNotFoundError:
-        print("Cửa sổ Word đã được đóng trước đó hoặc không tìm thấy.")
-    except Exception as e:
-        print(f"Lỗi khi đóng cửa sổ Word: {e}")
-def check_doc_is_open(document_name):
-    try:
-        word_app = win32com.client.GetObject(Class="Word.Application")
-    except win32com.client.com_error:
-        # Word might not be running, return None
-        return None
-    for doc in word_app.Documents:
-        if doc.Name == document_name:
-            print("doc is : ",doc)
-            return doc
-        else:
-            return word_app.ActiveDocument
-def get_word_count(document_name=None):
-    try:
-        # Kết nối với ứng dụng Word đang chạy
-        # word_app = win32com.client.Dispatch("Word.Application")
-        word_app = win32com.client.GetObject(Class="Word.Application")
-        # Kiểm tra xem có tài liệu nào đang mở không
-        doc= check_doc_is_open(document_name)
-        # Đếm số lượng từ
-        word_count = doc.Words.Count
-        return word_count
-    except AttributeError as e:
-        print(f"Lỗi thuộc tính: {e}")
-        return None
-    except Exception as e:
-        print(f"Lỗi không xác định: {e}")
-        return None
-
-
-def wait_for_paste_completion(initial_word_count,document_name, timeout=30):
-    start_time = time.time()
-    while time.time() - start_time < timeout:
-        current_word_count = get_word_count(document_name)
-        if current_word_count > initial_word_count:
-            return True
-        time.sleep(1)
-    return False
-
-def find_element_with_timeout(driver, locator, timeout=10): # Giảm timeout để test nhanh hơn
-    try:
-        element = WebDriverWait(driver, timeout).until(EC.presence_of_element_located(locator))
-        return element
-    except TimeoutException:
-        return None  # Trả về None nếu không tìm thấy
-    except Exception as e:
-        print(f"Lỗi không xác định: {e}")
-        return None
-
-
-def process_element(driver, element):
-    image_dir = os.path.join("project", "imagetmp")
-    os.makedirs(image_dir, exist_ok=True)
-    
-     # Lấy danh sách URL của các ảnh .webp
-    js_get_webp_images = """
-    var images = document.querySelectorAll('img');
-    var webpUrls = [];
-    images.forEach(img => {
-        if (img.src.endsWith('.webp')) {
-            webpUrls.push(img.src);
-        }
-    });
-    return webpUrls;
-    """
-    webp_urls = driver.execute_script(js_get_webp_images)
-
-    # Tải từng ảnh về thư mục imagetmp
-    for i, url in enumerate(webp_urls):
-        try:
-            # Tải ảnh từ URL
-            absolute_url = get_absolute_url(base_url, url)
-            print("Đang tải ảnh từ URL:", absolute_url)
-
-            # Tải ảnh với SSL verify=False
-            response = requests.get(absolute_url, verify=False)
-            if response.status_code == 200:
-                # Lưu ảnh vào thư mục imagetmp
-                webp_path = os.path.join(image_dir, f"image_{i}.webp")
-                with open(webp_path, "wb") as f:
-                    f.write(response.content)
-                print(f"Đã tải ảnh: {webp_path}")
-
-                # Chuyển đổi ảnh .webp sang .png
-                png_path = os.path.join(image_dir, f"image_{i}.png")
-                convert_webp_to_png(webp_path, png_path)
-
-                # Xóa file .webp sau khi chuyển đổi (tùy chọn)
-                os.remove(webp_path)
-                print(f"Đã xóa file .webp: {webp_path}")
-                
-                
-                # Thay thế src của ảnh .webp bằng ảnh .png đã chuyển đổi
-                png_base64 = image_to_base64(png_path)  # Chuyển ảnh PNG thành base64
-                js_replace_src = f"""
-                var images = document.querySelectorAll('img');
-                images.forEach(img => {{
-                    if (img.src === "{absolute_url}") {{
-                        img.src = "data:image/png;base64,{png_base64}";
-                    }}
-                }});
-                """
-                driver.execute_script(js_replace_src)
-                print(f"Đã thay thế src của ảnh: {absolute_url}")
-            else:
-                print(f"Không thể tải ảnh từ URL: {absolute_url}")
-        except Exception as e:
-            print(f"Lỗi khi tải ảnh: {e}")
-            
-    # Xóa các đối tượng có class "uk-margin-remove-last-child custom" và phần tử con là <h3> với text cụ thể
-    js_remove_elements = """
-    var elements = document.querySelectorAll('.uk-margin-remove-last-child.custom');
-    elements.forEach(element => {
-        var firstChild = element.firstElementChild;
-        if (firstChild && firstChild.tagName === 'H3' && firstChild.innerText.trim() === 'Công cụ năng suất văn phòng tốt nhất') {
-            element.parentNode.removeChild(element);
-        }
-    });
-    """
-    driver.execute_script(js_remove_elements)
-    print("Đã xóa các đối tượng thỏa mãn điều kiện.")
-    
-    # Xóa các file .png trong thư mục imagetmp
-    for filename in os.listdir(image_dir):
-        if filename.endswith(".png"):
-            file_path = os.path.join(image_dir, filename)
-            os.remove(file_path)
-            print(f"Đã xóa file .png: {file_path}")
-    
-    if not element:
-        print("Không có element nào để xử lý.")
-        return
-
-    # Đảm bảo phần tử được chọn (focus)
-    driver.execute_script("arguments[0].scrollIntoView();", element)
-    driver.execute_script("arguments[0].focus();", element)
-    time.sleep(1)  # Chờ một chút để đảm bảo phần tử được chọn
-
-    # JavaScript để chọn nội dung của phần tử và xử lý các phần tử không mong muốn
-    js_code = """
-    var element = arguments[0];
-    var stopElement = document.querySelector('.uk-margin-remove-last-child.custom h3[style="margin-top: ' + arguments[1] + 'px;"]');
-    var range = document.createRange();
-
-    if (stopElement) {
-        range.setStartBefore(element);
-        range.setEndBefore(stopElement);
-    } else {
-        range.setStartBefore(element);
-        range.setEndAfter(document.body.lastChild);
+def default_config():
+    return {
+        "config_name": "Cau hinh mac dinh",
+        "base_url": "https://vi.extendoffice.com",
+        "menu_selector": "ul#ul-search a",
+        "menu_selector_type": "css",
+        "ignore_selectors": [
+            ".uk-margin-remove-last-child.custom",
+            "div.uk-margin-remove-last-child.custom style",
+            ".related-articles",
+            ".social-share"
+        ],
+        "ignore_selectors_type": "css",
+        "output_docx": "output.docx",
+        "link_type": "absolute",
+        "relative_base_url": "",
+        "content_selectors": [
+            "article",
+            "main",
+            "div[class*='content']",
+            "div[class*='article']",
+            "div[class*='post']",
+            ".entry-content",
+            ".post-content"
+        ]
     }
 
-    // Lấy tất cả các phần tử <div> có class 'uk-margin-remove-last-child custom'
-    var divs = document.querySelectorAll('.uk-margin-remove-last-child.custom');
+if not os.path.exists(CONFIG_DIR):
+    os.makedirs(CONFIG_DIR)
+if not os.path.exists(DATA_DIR):
+    os.makedirs(DATA_DIR)
+if not os.path.exists(SAVED_LINKS_DIR):
+    os.makedirs(SAVED_LINKS_DIR)
+if not os.path.exists(IMAGE_TMP_DIR):
+    os.makedirs(IMAGE_TMP_DIR)
 
-    divs.forEach(function(div) {
-        // Kiểm tra nếu phần tử con tiếp theo là <style>
-        if (div.querySelector('style')) {
-            div.parentNode.removeChild(div);
-        }
-    });
+def save_config(config, name=None):
+    if name:
+        path = os.path.join(CONFIG_DIR, f"{name}.json")
+    else:
+        path = CONFIG_FILE
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(config, f, ensure_ascii=False, indent=2)
 
-    var sel = window.getSelection();
-    sel.removeAllRanges();
-    sel.addRange(range);
+def load_config(name=None):
+    if name:
+        path = os.path.join(CONFIG_DIR, f"{name}.json")
+        if os.path.exists(path):
+            with open(path, "r", encoding="utf-8") as f:
+                return json.load(f)
+    if os.path.exists(CONFIG_FILE):
+        with open(CONFIG_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return default_config()
 
-    // Hiển thị thông báo (tùy chọn)
-    var messageBox = document.createElement('div');
-    messageBox.style.position = 'fixed';
-    messageBox.style.top = '10px';
-    messageBox.style.left = '50%';
-    messageBox.style.transform = 'translateX(-50%)';
-    messageBox.style.padding = '10px';
-    messageBox.style.backgroundColor = 'lightgreen';
-    messageBox.style.border = '1px solid green';
-    messageBox.style.zIndex = '10000';
-    messageBox.innerText = 'Đã chọn đối tượng!';
-    document.body.appendChild(messageBox);
+def log_to_gui(log_widget, msg):
+    if not log_widget:
+        print(msg)
+        return
+    log_widget.config(state="normal")
+    log_widget.insert(END, msg + "\n")
+    log_widget.see(END)
+    log_widget.config(state="disabled")
 
-    setTimeout(function() {
-        document.body.removeChild(messageBox);
-    }, 2000);
-    """
-    # Thực thi JavaScript
-    driver.execute_script(js_code, element)
+def get_links_from_page_css(url, selector):
+    try:
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+        resp = requests.get(url, headers=headers, timeout=15)
+        soup = BeautifulSoup(resp.content, 'html.parser')
+        items = soup.select(selector)
+        results = []
+        for i in items:
+            text = i.get_text(strip=True)
+            href = i.get('href') or i.get('data-href')
+            if href and href.strip().startswith('javascript:'):
+                href = None
+            if href and not href.startswith('http') and not href.startswith('/'):
+                href = '/' + href
+            results.append((text, href))
+        return results
+    except Exception as e:
+        print(f"Lỗi get_links_from_page_css: {e}")
+        return []
 
-    # Sao chép nội dung đã chọn vào clipboard
-    pyautogui.hotkey('ctrl', 'c')
-    time.sleep(1)  # Chờ một chút để đảm bảo sao chép hoàn tất
+def get_links_from_page_js(url, selector, headless=True):
+    opts = Options()
+    if headless:
+        opts.add_argument('--headless')
+        opts.add_argument('--disable-gpu')
+    opts.add_argument('--no-sandbox')
+    opts.add_argument('--disable-dev-shm-usage')
+    driver = webdriver.Chrome(options=opts)
+    try:
+        driver.get(url)
+        time.sleep(2)
+        items = driver.find_elements(By.CSS_SELECTOR, selector)
+        results = []
+        for item in items:
+            text = item.text.strip()
+            href = item.get_attribute('href') or item.get_attribute('data-href')
+            results.append((text, href))
+        return results
+    except Exception as e:
+        print(f"Lỗi get_links_from_page_js: {e}")
+        return []
+    finally:
+        driver.quit()
+
+def test_ignore_selectors(url, ignore_selectors, ignore_type, log_widget=None):
+    opts = Options()
+    opts.add_argument('--headless')
+    opts.add_argument('--disable-gpu')
+    driver = webdriver.Chrome(options=opts)
+    try:
+        driver.get(url)
+        time.sleep(2)
+        
+        before_count = len(driver.find_elements(By.CSS_SELECTOR, "*"))
+        
+        if ignore_type == 'css':
+            for selector in ignore_selectors:
+                try:
+                    elements = driver.find_elements(By.CSS_SELECTOR, selector)
+                    for elem in elements:
+                        driver.execute_script("arguments[0].remove();", elem)
+                    log_to_gui(log_widget, f"Đã xóa {len(elements)} phần tử với selector: {selector}")
+                except Exception as e:
+                    log_to_gui(log_widget, f"Lỗi khi xóa {selector}: {e}")
+        else:
+            for js in ignore_selectors:
+                try:
+                    driver.execute_script(js)
+                    log_to_gui(log_widget, f"Đã thực thi JS: {js[:50]}...")
+                except Exception as e:
+                    log_to_gui(log_widget, f"Lỗi khi thực thi JS: {e}")
+        
+        after_count = len(driver.find_elements(By.CSS_SELECTOR, "*"))
+        log_to_gui(log_widget, f"Số phần tử trước: {before_count}, sau: {after_count}, đã xóa: {before_count - after_count}")
+        
+        return True
+    except Exception as e:
+        log_to_gui(log_widget, f"Lỗi khi test: {e}")
+        return False
+    finally:
+        driver.quit()
+
+def extract_main_blocks(driver, content_selectors):
+    js_traverse = f'''
+    function cleanText(text) {{
+        return text.replace(/\\s+/g, ' ').trim();
+    }}
     
+    function collect(root){{
+        var out = [];
+        function walk(node){{
+            if(!node) return;
+            if(node.nodeType === Node.TEXT_NODE){{
+                var t = cleanText(node.textContent);
+                if(t && t.length > 0) out.push({{t:'text', v:t}});
+            }} else if(node.nodeType === Node.ELEMENT_NODE){{
+                if(node.tagName === 'IMG'){{
+                    var src = node.src || node.getAttribute('data-src') || node.getAttribute('data-original');
+                    if(src && src.startsWith('http')) out.push({{t:'img', v:src}});
+                    return;
+                }}
+                if(node.tagName === 'BR'){{
+                    out.push({{t:'text', v:'\\n'}});
+                    return;
+                }}
+                if(node.tagName === 'H1' || node.tagName === 'H2' || node.tagName === 'H3'){{
+                    var t = cleanText(node.textContent);
+                    if(t) out.push({{t:'heading', v:t, level: parseInt(node.tagName[1])}});
+                    return;
+                }}
+                if(node.tagName === 'P'){{
+                    var t = cleanText(node.textContent);
+                    if(t) out.push({{t:'paragraph', v:t}});
+                    return;
+                }}
+                var children = node.childNodes;
+                for(var i=0;i<children.length;i++) walk(children[i]);
+            }}
+        }}
+        walk(root);
+        return out;
+    }}
+    var root = null;
+    var sels = {content_selectors};
+    for(var i=0;i<sels.length;i++){{
+        try{{ root = document.querySelector(sels[i]); if(root) break;}}catch(e){{}}
+    }}
+    if(!root) root = document.body;
+    return collect(root);
+    '''
+    try:
+        blocks = driver.execute_script(js_traverse)
+        return blocks
+    except Exception as e:
+        print(f"Lỗi extract_main_blocks: {e}")
+        return []
 
-def find_element_by_multiple_locators(driver, locators):
-    for by, value in locators:
-        try:
-            element = driver.find_element(by, value)
-            if element:
-                return element
-        except:
-            continue
+def save_image_from_url(img_url, absolute_url):
+    try:
+        if not img_url.startswith('http'):
+            img_url = urljoin(absolute_url, img_url)
+        
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+        resp = requests.get(img_url, headers=headers, stream=True, timeout=15)
+        if resp.status_code == 200:
+            content = resp.content
+            content_type = resp.headers.get('content-type', '')
+            
+            if 'webp' in content_type or img_url.lower().endswith('.webp'):
+                img = Image.open(BytesIO(content))
+                fname = f"img_{int(time.time()*1000)}.png"
+                fpath = os.path.join(IMAGE_TMP_DIR, fname)
+                img.save(fpath, 'PNG')
+                return fpath
+            else:
+                ext = 'jpg'
+                if 'png' in content_type or img_url.lower().endswith('.png'):
+                    ext = 'png'
+                fname = f"img_{int(time.time()*1000)}.{ext}"
+                fpath = os.path.join(IMAGE_TMP_DIR, fname)
+                with open(fpath, 'wb') as f:
+                    f.write(content)
+                return fpath
+    except Exception as e:
+        print(f"Lỗi tải ảnh {img_url}: {e}")
     return None
 
-def copy_element_content(driver, element):
-    if not element:
-        print("Không có element nào để xử lý.")
-        return
-
-    # Sử dụng JavaScript để sao chép nội dung
-    driver.execute_script("""
-        const element = arguments[0];
-        const range = document.createRange();
-        range.selectNodeContents(element);
-        const selection = window.getSelection();
-        selection.removeAllRanges();
-        selection.addRange(range);
-        document.execCommand('copy');
-        selection.removeAllRanges();
-    """, element)
-
-def copy_and_paste_content(driver, document, output_path): 
-    locators = [
-        (By.CLASS_NAME, "uk-margin-small-top"),
-        (By.CSS_SELECTOR, ".uk-width-expand\\@m.uk-first-column"),
-        (By.CSS_SELECTOR, ".some-other-class"), # Thêm các locator khác nếu cần
-        (By.ID, "some-id") # Tìm kiếm theo ID
-    ]
-
-    try:
-        element = find_element_by_multiple_locators(driver, locators)
-        print (element)
-        if element:
-            process_element(driver, element)
-            time.sleep(1)  # Đảm bảo rằng đối tượng đã được chọn
-            # Bỏ chọn phần tử không mong muốn
-            pyautogui.hotkey('ctrl', 'c')  # Thực hiện sao chép nội dung
-        else:
-            print("Không tìm thấy element nào với các locator đã cho.")
-            driver.execute_script("""
-            var messageBox = document.createElement('div');
-            messageBox.style.position = 'fixed';
-            messageBox.style.top = '10px';
-            messageBox.style.left = '50%';
-            messageBox.style.transform = 'translateX(-50%)';
-            messageBox.style.padding = '10px';
-            messageBox.style.backgroundColor = 'lightcoral';
-            messageBox.style.border = '1px solid red';
-            messageBox.style.zIndex = '10000';
-            messageBox.innerText = 'Không tìm thấy đối tượng!';
-            document.body.appendChild(messageBox);
-
-            setTimeout(function() {
-                document.body.removeChild(messageBox);
-            }, 2000);
-            """)
-    except Exception as e:
-        print(f"Lỗi tổng quát: {e}")
-
-    path1 = "C:\\Program Files (x86)\\Microsoft Office\\root\\Office16\\winword.exe"
-    path2 = "C:\\Program Files\\Microsoft Office\\root\\Office16\\winword.exe"
-    if os.path.exists(path1):
-        app_path = path1
-    elif os.path.exists(path2):
-        app_path = path2
-    else:
-        raise FileNotFoundError("Không tìm thấy Microsoft Word ở bất kỳ đường dẫn nào.")
-    app = pywinauto.Application().start(app_path)
-    
-    # # Khởi động ứng dụng Word (nếu chưa mở)
-    # try:
-    #     app = Application(backend="uia").connect(title_re=".*Word.*", timeout=5) # Thay đổi backend nếu cần
-    # except:
-    #     app = Application(backend="uia").start("WINWORD.EXE") # Thay đổi backend nếu cần
-
-    if not app.windows():
-        app.start(app_path)
-
-    try:
-        dlg = app.window(title_re=".*Word.*")
-        dlg.wait('visible', timeout=40)
-
-        if open_file_dialog(dlg):
-            # Tiếp tục các lệnh khác sau khi cửa sổ thay đổi
-            pass
-        else:
-            print("Không thể mở cửa sổ Open.")
-        
-        image_path = 'Python Tutorial\\browse_button_image.png'
-
-        # Kiểm tra xem file ảnh có tồn tại không
-        if not os.path.exists(image_path):
-            print(f"Không tìm thấy file ảnh tại {image_path}. Vui lòng chọn file ảnh mới.")
-            image_path = select_image_file(image_path)
-            if not image_path:
-                print("Không có file ảnh nào được chọn.")
-                return  # Dừng chương trình nếu không có file ảnh
-
-        # Tìm vị trí của nút "Browse" trên màn hình
-        browse_button_location = None
-        for i in range(10):  # Thử tối đa 10 lần
-            browse_button_location = pyautogui.locateCenterOnScreen(image_path, confidence=0.8)
-            if browse_button_location:
-                print(f"Đã tìm thấy file ảnh tại {image_path}.")
-                break
-            time.sleep(1)  # Chờ 1 giây trước khi thử lại
-
-        # Nếu không tìm thấy, yêu cầu chọn file ảnh mới
-        if not browse_button_location:
-            print(f"Không tìm thấy file ảnh tại {image_path}. Vui lòng chọn file ảnh mới.")
-            new_image_path = select_image_file(image_path)
-            if new_image_path:
-                image_path = new_image_path
-                browse_button_location = pyautogui.locateCenterOnScreen(image_path, confidence=0.8)
-                if browse_button_location:
-                    print(f"Đã tìm thấy file ảnh tại {image_path}.")
-                else:
-                    print("Không tìm thấy nút 'Browse' trong file ảnh mới.")
-                    return  # Dừng chương trình nếu không tìm thấy nút "Browse"
-            else:
-                print("Không có file ảnh nào được chọn.")
-                return  # Dừng chương trình nếu không có file ảnh
-
-        # Di chuyển và nhấp vào nút "Browse"
-        print(f"Moving to: {browse_button_location}")
-        pyautogui.moveTo(browse_button_location)
-        time.sleep(0.5)  # Giảm thời gian chờ
-        pyautogui.click(browse_button_location)
-        
-        # user_dir = Path("C:/Users/12953 bao/Desktop/desktop/work/Project/Python/BasicLearnPython/W3schools")
-        # output_path = user_dir / "output.docx"
-        print(output_path)
-        
-        directory_path = os.path.dirname(output_path)
-        file_name = os.path.basename(output_path)
-        new_patch = Path(directory_path) / file_name
-        
-        # print("file name là : ", file_name)
-        
-        dlg_open = app.window(title_re=".*Open.*")
-        
-        start_time = time.time()
-        dlg_open.wait('ready', timeout=1)
-        end_time = time.time()
-        print(f"Thời gian chờ thực tế bảng open ready: {end_time - start_time} giây")
-        
-        dlg_open.type_keys(str(new_patch), with_spaces=True, pause=0)
-        time.sleep(0.1)
-        dlg_open.type_keys('{ENTER}')
-        time.sleep(0.3)
-        
-        find_doc_name = ".*" + file_name+ ".*"
-        print("find_doc_name là :", find_doc_name)
-        
-        # dlg = app.window(title_re=".*output.docx.*")
-        # Chờ cửa sổ Word chính xuất hiện
-        dlg_word_open = None
+def load_completed_links():
+    if os.path.exists(COMPLETED_LINKS_FILE):
         try:
-            # Sử dụng title_re phù hợp với ứng dụng Word của bạn. Ví dụ: ".*Document.* - Word"
-            dlg_word_open = app.window(title_re=find_doc_name)
-            
-            max_attempts = 6
-            attempt = 0
-            while attempt < max_attempts:
-                try:
-                    start_time = time.time()
-                    dlg_word_open.wait('ready', timeout=1.5) # Đảm bảo cửa sổ word đã sẵn sàng
-                    end_time = time.time()
-                    print(f"Thời gian chờ thực tế bảng dlg_word_open ready: {end_time - start_time} giây")
-                    break
-                except Exception as e:
-                    attempt += 1
-                    print(f"Thử lần {attempt} không thành công, thử lại...")
-                    
-            print("File Word đã mở xong.")
-            time.sleep(0.5)
-            dlg_word_open.type_keys('^{END}')
-            dlg_word_open.type_t.docxkeys('{ENTER}')
-        except pywinauto.findwindows.ElementNotFoundError:
-            print("Không tìm thấy cửa sổ Word. Có thể có lỗi khi mở file.")
-        except Exception as e:
-            print(f"Lỗi: {e}")        
-        # Lấy số lượng từ ban đầu để kiểm tra sau khi dán
-        initial_word_count = get_word_count(file_name)
-        
-        print(f"so ky tu den duoc là initial_word_count := '{initial_word_count}'")
-        print("so ky tu den duoc là initial_word_count := ",initial_word_count)
-        
-        doc_check = check_doc_is_open(output_path)
-        words_before=0
-        words_after=0
-        # Lấy số lượng từ trước khi dán
-        if doc_check:
-            # Use doc_check for further processing (assuming it's the correct document)
-            try:
-                words_before = doc_check.Words.Count
-                print(f"Number of words before: {words_before}")
-            except Exception as e:
-                print(f"An error occurred while counting words: {e}")
-            else:
-                print(f"Document '{output_path}' not found open in Word.")
-           
-        
-        pyautogui.hotkey('ctrl', 'v')
-        # print("đã dán Ctrl + V")
-        # Chờ cho đến khi số lượng từ thay đổi
-        start_time = time.time()  # Ghi lại thời điểm bắt đầu
-        timeout = 5 * 60  # 5 phút tính bằng giây
-        
-        while True:
-            try:
-                words_after = doc_check.Words.Count
-                print(f"Number of words after: {words_after}")
-            except Exception as e:
-                print(f"An error occurred while counting words: {e}")
+            with open(COMPLETED_LINKS_FILE, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except:
+            return []
+    return []
 
-            if words_after > words_before:
-                break
-            else:
-                print("Không có sự thay đổi khi dán")
-            elapsed_time = time.time() - start_time
-            if elapsed_time > timeout:
-                print(f"Đã quá thời gian chờ ({timeout} giây). Dừng kiểm tra.")
-                break
+def save_completed_links(links):
+    with open(COMPLETED_LINKS_FILE, 'w', encoding='utf-8') as f:
+        json.dump(links, f, ensure_ascii=False, indent=2)
 
-            time.sleep(1)  # Chờ 1 giây trước khi kiểm tra lại
+def clear_completed_links():
+    if os.path.exists(COMPLETED_LINKS_FILE):
+        os.remove(COMPLETED_LINKS_FILE)
 
+def saved_links_path_for(base_url):
+    parsed = urlparse(base_url)
+    host = parsed.netloc.replace(':', '_') or 'default'
+    return os.path.join(SAVED_LINKS_DIR, f"{host}.json")
 
-        # Chờ dán hoàn thành
-        # if wait_for_paste_completion(initial_word_count,file_name, timeout=50):
-        #     print("Dán dữ liệu hoàn thành.")
-        # else:
-        #     print("Dán dữ liệu không hoàn thành trong thời gian chờ.")
-        # try:
-        pyautogui.hotkey('ctrl', 's')
-            
-        # Chờ lưu hoàn thành
-        if wait_for_save_completion(output_path, timeout=30):
-            print("Lưu file hoàn thành.")
-        else:
-            print("Lưu file không hoàn thành trong thời gian chờ.")
-        
-        dlg_word_open = app.window(title_re=find_doc_name)
-        # Đóng cửa sổ Word (sử dụng hàm riêng để xử lý lỗi)
-        close_word_document(dlg_word_open)
-    except pywinauto.findwindows.ElementNotFoundError:
-        print("Không tìm thấy cửa sổ Word")
+def load_saved_links(base_url):
+    path = saved_links_path_for(base_url)
+    if os.path.exists(path):
+        try:
+            with open(path, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except Exception:
+            return []
+    return []
 
-def get_absolute_url(base_url, relative_url):
-    return urljoin(base_url, relative_url)
+def save_saved_links(base_url, links):
+    path = saved_links_path_for(base_url)
+    with open(path, 'w', encoding='utf-8') as f:
+        json.dump(links, f, ensure_ascii=False, indent=2)
 
-def get_existing_links(document):
-    existing_links = []
-    for paragraph in document.paragraphs:
-        if paragraph.style.name == 'Heading 2':
-            existing_links.append(paragraph.text.strip())  # Chuẩn hóa văn bản
-    return existing_links
-
-def create_word_document(url, document, output_path):
-    response = requests.get(url)
-    soup = BeautifulSoup(response.content, 'html.parser')
-    links = soup.find('ul', id='ul-search').find_all('a')
-
-    # Gỡ lỗi: In thứ tự các liên kết
-    for i, link in enumerate(links):
-        if i<20 :
-            print(f"Link {i}: {link.text.strip()} - {link['href']}")
-
-    existing_links = get_existing_links(document)
-    with open('links.txt', 'w', encoding='utf-8') as file:
-        for i, link in enumerate(links):
-            text = link.text.strip()  # Chuẩn hóa văn bản
-            href = link['href']
-            file.write(f'Link {i}: {text} - {href}\n')
-            print(f"Link la : '{text}'")
-            
-            # Kiểm tra xem liên kết đã tồn tại trong tài liệu chưa
-            if text in existing_links:
-                print(f"Link '{text}' đã tồn tại trong tài liệu.")
-                continue
-            
-            absolute_url = get_absolute_url(base_url, href)
-            print(f"Đang truy cập link {i}: {absolute_url}")
-            driver = webdriver.Chrome()
-            driver.get(absolute_url)
-            copy_and_paste_content(driver, document, output_path)
-            driver.quit()
-            print(f"Đã hoàn thành link {i}")
-
-def main():
-    root = Tk()
-    root.withdraw()
-    root.attributes('-topmost', True)
-    response = messagebox.askyesno("Chọn tùy chọn", "Bạn có muốn tạo file mới không? (Chọn 'No' để cập nhật file cũ)")
-    root.destroy()
-
-    if response:
-        document = Document()
-        document.add_paragraph('')  # Tạo một đoạn văn bản trống để dán nội dung
-        current_dir = os.getcwd()
-        print("current dir là : " , current_dir)
-        output_path = 'output.docx'
-        output_path = os.path.join(current_dir, output_path)
-        document.save(output_path)
+def create_word_document_ext(config, output_path, log_widget=None, mode="append", headless=True):
+    base_url = config['base_url']
+    menu_selector = config['menu_selector']
+    menu_selector_type = config['menu_selector_type']
+    ignore_selectors = config['ignore_selectors']
+    ignore_selectors_type = config['ignore_selectors_type']
+    link_type = config['link_type']
+    relative_base_url = config['relative_base_url']
+    content_selectors = config.get('content_selectors', default_config()['content_selectors'])
+    
+    log_to_gui(log_widget, f"Bắt đầu lấy menu từ {base_url}")
+    
+    if menu_selector_type == 'css':
+        links = get_links_from_page_css(base_url, menu_selector)
     else:
-        word_file_path = select_word_file()
-        if word_file_path:
-            document = Document(word_file_path)
-            output_path = word_file_path
+        links = get_links_from_page_js(base_url, menu_selector, headless)
+    
+    log_to_gui(log_widget, f"Tìm thấy {len(links)} link trong menu")
+    
+    if mode == "new":
+        if os.path.exists(output_path):
+            os.remove(output_path)
+        clear_completed_links()
+        doc = Document()
+        doc.save(output_path)
+        log_to_gui(log_widget, f"Tạo file mới: {output_path}")
+    else:
+        if os.path.exists(output_path):
+            doc = Document(output_path)
         else:
-            print("Không có file nào được chọn.")
-            return
+            doc = Document()
+            doc.save(output_path)
+    
+    completed_links = load_completed_links()
+    saved_links = load_saved_links(base_url)
+    
+    existing_headings = [p.text.strip() for p in doc.paragraphs if p.style.name == 'Heading 2']
+    
+    new_links = []
+    for text, href in links:
+        if not href:
+            continue
+        if text in existing_headings or text in completed_links:
+            log_to_gui(log_widget, f"Bỏ qua '{text}' đã tồn tại")
+            continue
+        new_links.append((text, href))
+    
+    log_to_gui(log_widget, f"Cần xử lý {len(new_links)} link mới")
+    
+    for idx, (text, href) in enumerate(new_links):
+        if link_type == 'relative' and not href.startswith('http'):
+            absolute = urljoin(relative_base_url or base_url, href)
+        else:
+            absolute = href
+        
+        log_to_gui(log_widget, f"[{idx+1}/{len(new_links)}] Đang xử lý: {text}")
+        
+        opts = Options()
+        if headless:
+            opts.add_argument('--headless')
+            opts.add_argument('--disable-gpu')
+        opts.add_argument('--no-sandbox')
+        opts.add_argument('--disable-dev-shm-usage')
+        
+        driver = None
+        try:
+            driver = webdriver.Chrome(options=opts)
+            driver.get(absolute)
+            time.sleep(2)
+            
+            if ignore_selectors_type == 'css':
+                for selector in ignore_selectors:
+                    try:
+                        elements = driver.find_elements(By.CSS_SELECTOR, selector)
+                        for elem in elements:
+                            driver.execute_script("arguments[0].remove();", elem)
+                    except:
+                        pass
+            else:
+                for js in ignore_selectors:
+                    try:
+                        driver.execute_script(js)
+                    except:
+                        pass
+            
+            blocks = extract_main_blocks(driver, content_selectors)
+            
+            if blocks:
+                doc.add_heading(text, level=2)
+                inserted_images = []
+                
+                for block in blocks:
+                    if block.get('t') in ['text', 'paragraph']:
+                        para_text = block.get('v', '')
+                        if para_text:
+                            p = doc.add_paragraph(para_text)
+                            p.paragraph_format.space_after = Pt(6)
+                    elif block.get('t') == 'heading':
+                        level = block.get('level', 2)
+                        if level == 1:
+                            doc.add_heading(block.get('v', ''), level=1)
+                        else:
+                            doc.add_heading(block.get('v', ''), level=level)
+                    elif block.get('t') == 'img':
+                        img_path = save_image_from_url(block.get('v', ''), absolute)
+                        if img_path and os.path.exists(img_path):
+                            try:
+                                doc.add_picture(img_path, width=Inches(6))
+                                inserted_images.append(img_path)
+                            except:
+                                pass
+                
+                doc.save(output_path)
+                log_to_gui(log_widget, f"✓ Đã thêm '{text}' vào tài liệu")
+                
+                completed_links.append(text)
+                save_completed_links(completed_links)
+                
+                for img_path in inserted_images:
+                    try:
+                        os.remove(img_path)
+                    except:
+                        pass
+            else:
+                log_to_gui(log_widget, f"✗ Không lấy được nội dung cho {text}")
+                
+        except Exception as e:
+            log_to_gui(log_widget, f"✗ Lỗi khi xử lý {absolute}: {e}")
+        finally:
+            if driver:
+                driver.quit()
+        
+        time.sleep(1)
+    
+    save_saved_links(base_url, completed_links)
+    log_to_gui(log_widget, f"Hoàn thành! Đã xử lý {len(completed_links)} link")
 
-    url = "https://vi.extendoffice.com/documents/excel"
-    create_word_document(url, document, output_path)
+def show_ignore_tester(config, log_widget):
+    test_window = Toplevel()
+    test_window.title("Test bỏ qua phần tử")
+    test_window.geometry("800x600")
+    
+    Label(test_window, text="URL test:").pack(pady=5)
+    test_url_var = StringVar(value=config.get('base_url', ''))
+    Entry(test_window, textvariable=test_url_var, width=80).pack(pady=5)
+    
+    Label(test_window, text="Selectors/JS (mỗi dòng một selector):").pack(pady=5)
+    test_ignore_text = ScrolledText(test_window, width=90, height=10)
+    test_ignore_text.pack(pady=5)
+    test_ignore_text.insert('1.0', '\n'.join(config.get('ignore_selectors', [])))
+    
+    test_log = ScrolledText(test_window, width=90, height=20, state='disabled')
+    test_log.pack(pady=5)
+    
+    def run_test():
+        url = test_url_var.get().strip()
+        ignore_list = [s.strip() for s in test_ignore_text.get('1.0', END).splitlines() if s.strip()]
+        ignore_type = config.get('ignore_selectors_type', 'css')
+        
+        test_log.config(state='normal')
+        test_log.delete('1.0', END)
+        test_log.config(state='disabled')
+        
+        def test_log_func(msg):
+            test_log.config(state='normal')
+            test_log.insert(END, msg + "\n")
+            test_log.see(END)
+            test_log.config(state='disabled')
+        
+        test_ignore_selectors(url, ignore_list, ignore_type, test_log_func)
+    
+    Button(test_window, text="Test", command=run_test, bg='#4CAF50', fg='white').pack(pady=10)
 
-if __name__ == "__main__":
-    main()
+def show_saved_websites():
+    saved_window = Toplevel()
+    saved_window.title("Các trang web đã lưu")
+    saved_window.geometry("500x400")
+    
+    listbox = Listbox(saved_window, width=60, height=20)
+    listbox.pack(pady=10, padx=10, fill='both', expand=True)
+    
+    config_files = [f.replace('.json', '') for f in os.listdir(CONFIG_DIR) if f.endswith('.json')]
+    for cfg in config_files:
+        listbox.insert(END, cfg)
+    
+    def load_selected():
+        selection = listbox.curselection()
+        if selection:
+            name = listbox.get(selection[0])
+            saved_window.destroy()
+            return name
+        return None
+    
+    Button(saved_window, text="Chọn", command=lambda: load_selected()).pack(pady=5)
+
+def run_gui():
+    config = load_config()
+    root = Tk()
+    root.title("Web to Word Automation - Tool thu thập nội dung website")
+    root.geometry("1000x750")
+    
+    # Variables
+    config_name_var = StringVar(value=config.get('config_name', ''))
+    url_var = StringVar(value=config.get('base_url', ''))
+    menu_selector_var = StringVar(value=config.get('menu_selector', 'ul#ul-search a'))
+    menu_selector_type_var = StringVar(value=config.get('menu_selector_type', 'css'))
+    ignore_selectors_type_var = StringVar(value=config.get('ignore_selectors_type', 'css'))
+    output_var = StringVar(value=config.get('output_docx', 'output.docx'))
+    link_type_var = StringVar(value=config.get('link_type', 'absolute'))
+    relative_base_var = StringVar(value=config.get('relative_base_url', ''))
+    
+    # Notebook style layout
+    main_frame = Frame(root)
+    main_frame.pack(fill='both', expand=True, padx=10, pady=10)
+    
+    # Row 0: Config name
+    Label(main_frame, text="Tên cấu hình:").grid(row=0, column=0, sticky='e', pady=5)
+    Entry(main_frame, textvariable=config_name_var, width=30).grid(row=0, column=1, sticky='w', pady=5)
+    
+    Label(main_frame, text="Cấu hình đã lưu:").grid(row=0, column=2, sticky='e', pady=5)
+    config_listbox = Listbox(main_frame, width=25, height=6)
+    config_listbox.grid(row=0, column=3, rowspan=2, sticky='w', padx=5)
+    
+    def refresh_config_list():
+        config_listbox.delete(0, END)
+        for f in sorted([os.path.splitext(x)[0] for x in os.listdir(CONFIG_DIR) if x.endswith('.json')]):
+            config_listbox.insert(END, f)
+    refresh_config_list()
+    
+    # Row 1: URL
+    Label(main_frame, text="URL trang chủ:").grid(row=1, column=0, sticky='e', pady=5)
+    Entry(main_frame, textvariable=url_var, width=60).grid(row=1, column=1, columnspan=2, sticky='w', pady=5)
+    
+    # Row 2: Menu selector
+    Label(main_frame, text="Menu selector:").grid(row=2, column=0, sticky='e', pady=5)
+    Entry(main_frame, textvariable=menu_selector_var, width=60).grid(row=2, column=1, columnspan=2, sticky='w', pady=5)
+    frame_ms = Frame(main_frame)
+    frame_ms.grid(row=2, column=3, sticky='w')
+    Radiobutton(frame_ms, text='CSS', variable=menu_selector_type_var, value='css').pack(side='left')
+    Radiobutton(frame_ms, text='JavaScript', variable=menu_selector_type_var, value='javascript').pack(side='left')
+    
+    # Row 3: Content selectors
+    Label(main_frame, text="Selector nội dung (mỗi dòng 1):").grid(row=3, column=0, sticky='ne', pady=5)
+    content_text = ScrolledText(main_frame, width=60, height=4)
+    content_text.grid(row=3, column=1, columnspan=2, sticky='w', pady=5)
+    content_text.insert('1.0', '\n'.join(config.get('content_selectors', default_config()['content_selectors'])))
+    
+    # Row 4: Ignore selectors
+    Label(main_frame, text="Bỏ qua (mỗi dòng 1):").grid(row=4, column=0, sticky='ne', pady=5)
+    ignore_text = ScrolledText(main_frame, width=60, height=4)
+    ignore_text.grid(row=4, column=1, columnspan=2, sticky='w', pady=5)
+    ignore_text.insert('1.0', '\n'.join(config.get('ignore_selectors', [])))
+    frame_ig = Frame(main_frame)
+    frame_ig.grid(row=4, column=3, sticky='w')
+    Radiobutton(frame_ig, text='CSS', variable=ignore_selectors_type_var, value='css').pack(side='left')
+    Radiobutton(frame_ig, text='JavaScript', variable=ignore_selectors_type_var, value='javascript').pack(side='left')
+    
+    # Row 5: Output file
+    Label(main_frame, text="File Word đích:").grid(row=5, column=0, sticky='e', pady=5)
+    Entry(main_frame, textvariable=output_var, width=50).grid(row=5, column=1, sticky='w', pady=5)
+    
+    def choose_output_file():
+        path = filedialog.asksaveasfilename(defaultextension='.docx', filetypes=[('Word', '*.docx')])
+        if path:
+            output_var.set(path)
+    Button(main_frame, text='Chọn file', command=choose_output_file).grid(row=5, column=2, sticky='w', pady=5)
+    
+    # Row 6: Link type
+    Label(main_frame, text="Loại link:").grid(row=6, column=0, sticky='e', pady=5)
+    frame_link = Frame(main_frame)
+    frame_link.grid(row=6, column=1, sticky='w', pady=5)
+    Radiobutton(frame_link, text='Tuyệt đối', variable=link_type_var, value='absolute').pack(side='left')
+    Radiobutton(frame_link, text='Tương đối', variable=link_type_var, value='relative').pack(side='left')
+    Label(main_frame, text="Base URL (nếu tương đối):").grid(row=6, column=2, sticky='e', pady=5)
+    Entry(main_frame, textvariable=relative_base_var, width=30).grid(row=6, column=3, sticky='w', pady=5)
+    
+    # Row 7: Log
+    Label(main_frame, text="Log:").grid(row=7, column=0, sticky='ne', pady=5)
+    log_text = ScrolledText(main_frame, width=90, height=12, state='disabled')
+    log_text.grid(row=7, column=1, columnspan=3, sticky='w', pady=5)
+    
+    def update_config_from_gui(cfg):
+        cfg['config_name'] = config_name_var.get().strip() or 'config'
+        cfg['base_url'] = url_var.get().strip()
+        cfg['menu_selector'] = menu_selector_var.get().strip()
+        cfg['menu_selector_type'] = menu_selector_type_var.get()
+        cfg['ignore_selectors'] = [s.strip() for s in ignore_text.get('1.0', END).splitlines() if s.strip()]
+        cfg['ignore_selectors_type'] = ignore_selectors_type_var.get()
+        cfg['output_docx'] = output_var.get().strip()
+        cfg['link_type'] = link_type_var.get()
+        cfg['relative_base_url'] = relative_base_var.get().strip()
+        cfg['content_selectors'] = [s.strip() for s in content_text.get('1.0', END).splitlines() if s.strip()]
+        if not cfg['content_selectors']:
+            cfg['content_selectors'] = default_config()['content_selectors']
+    
+    def on_select_config(evt=None):
+        sel = config_listbox.curselection()
+        if sel:
+            name = config_listbox.get(sel[0])
+            loaded = load_config(name)
+            config_name_var.set(loaded.get('config_name', name))
+            url_var.set(loaded.get('base_url', ''))
+            menu_selector_var.set(loaded.get('menu_selector', 'ul#ul-search a'))
+            menu_selector_type_var.set(loaded.get('menu_selector_type', 'css'))
+            ignore_text.delete('1.0', END)
+            ignore_text.insert('1.0', '\n'.join(loaded.get('ignore_selectors', [])))
+            ignore_selectors_type_var.set(loaded.get('ignore_selectors_type', 'css'))
+            output_var.set(loaded.get('output_docx', 'output.docx'))
+            link_type_var.set(loaded.get('link_type', 'absolute'))
+            relative_base_var.set(loaded.get('relative_base_url', ''))
+            content_text.delete('1.0', END)
+            content_text.insert('1.0', '\n'.join(loaded.get('content_selectors', default_config()['content_selectors'])))
+            log_to_gui(log_text, f"Đã nạp cấu hình: {name}")
+    
+    config_listbox.bind('<<ListboxSelect>>', on_select_config)
+    
+    def on_save():
+        cfg = load_config()
+        update_config_from_gui(cfg)
+        save_config(cfg, cfg['config_name'])
+        refresh_config_list()
+        messagebox.showinfo('Thành công', f"Đã lưu cấu hình '{cfg['config_name']}'")
+    
+    def on_load():
+        sel = config_listbox.curselection()
+        if sel:
+            name = config_listbox.get(sel[0])
+            on_select_config()
+        else:
+            messagebox.showwarning('Chú ý', 'Vui lòng chọn cấu hình trong danh sách!')
+    
+    def on_test_menu():
+        cfg = load_config()
+        update_config_from_gui(cfg)
+        log_text.config(state='normal')
+        log_text.delete('1.0', END)
+        log_text.config(state='disabled')
+        
+        try:
+            if cfg['menu_selector_type'] == 'css':
+                links = get_links_from_page_css(cfg['base_url'], cfg['menu_selector'])
+            else:
+                links = get_links_from_page_js(cfg['base_url'], cfg['menu_selector'], headless=True)
+            
+            log_to_gui(log_text, f"Tìm thấy {len(links)} link trong menu:")
+            for i, (t, h) in enumerate(links[:20]):
+                log_to_gui(log_text, f"  {i+1}. {t[:50]} -> {h}")
+            if len(links) > 20:
+                log_to_gui(log_text, f"  ... và {len(links)-20} link khác")
+        except Exception as e:
+            log_to_gui(log_text, f"Lỗi: {e}")
+    
+    def on_test_ignore():
+        cfg = load_config()
+        update_config_from_gui(cfg)
+        show_ignore_tester(cfg, log_text)
+    
+    def on_test_download():
+        cfg = load_config()
+        update_config_from_gui(cfg)
+        
+        test_window = Toplevel(root)
+        test_window.title("Test tải một link")
+        test_window.geometry("600x400")
+        
+        Label(test_window, text="URL cần test:").pack(pady=5)
+        test_url = Entry(test_window, width=70)
+        test_url.pack(pady=5)
+        
+        Label(test_window, text="Tiêu đề:").pack(pady=5)
+        test_title = Entry(test_window, width=70)
+        test_title.pack(pady=5)
+        
+        test_log = ScrolledText(test_window, width=80, height=15, state='disabled')
+        test_log.pack(pady=5)
+        
+        def run_test():
+            url = test_url.get().strip()
+            title = test_title.get().strip() or "Test Page"
+            
+            if not url:
+                messagebox.showwarning('Chú ý', 'Vui lòng nhập URL!')
+                return
+            
+            def test_log_func(msg):
+                test_log.config(state='normal')
+                test_log.insert(END, msg + "\n")
+                test_log.see(END)
+                test_log.config(state='disabled')
+            
+            test_log_func(f"Đang test: {title} - {url}")
+            
+            opts = Options()
+            opts.add_argument('--headless')
+            opts.add_argument('--disable-gpu')
+            driver = webdriver.Chrome(options=opts)
+            
+            try:
+                driver.get(url)
+                time.sleep(2)
+                
+                for selector in cfg['ignore_selectors']:
+                    try:
+                        elements = driver.find_elements(By.CSS_SELECTOR, selector)
+                        for elem in elements:
+                            driver.execute_script("arguments[0].remove();", elem)
+                        if elements:
+                            test_log_func(f"Đã xóa {len(elements)} phần tử với selector: {selector}")
+                    except:
+                        pass
+                
+                blocks = extract_main_blocks(driver, cfg.get('content_selectors', default_config()['content_selectors']))
+                
+                if blocks:
+                    test_log_func(f"Lấy được {len(blocks)} block nội dung")
+                    text_blocks = sum(1 for b in blocks if b.get('t') in ['text', 'paragraph'])
+                    img_blocks = sum(1 for b in blocks if b.get('t') == 'img')
+                    test_log_func(f"  - Text blocks: {text_blocks}")
+                    test_log_func(f"  - Image blocks: {img_blocks}")
+                    
+                    test_doc = Document()
+                    test_doc.add_heading(title, level=2)
+                    
+                    for block in blocks[:10]:
+                        if block.get('t') in ['text', 'paragraph']:
+                            test_doc.add_paragraph(block.get('v', '')[:200])
+                    
+                    test_path = os.path.join(DATA_DIR, "test_output.docx")
+                    test_doc.save(test_path)
+                    test_log_func(f"Đã lưu file test tại: {test_path}")
+                else:
+                    test_log_func("Không lấy được nội dung!")
+                    
+            except Exception as e:
+                test_log_func(f"Lỗi: {e}")
+            finally:
+                driver.quit()
+        
+        Button(test_window, text="Chạy test", command=run_test, bg='#4CAF50', fg='white').pack(pady=10)
+    
+    def on_start_new():
+        cfg = load_config()
+        update_config_from_gui(cfg)
+        create_word_document_ext(cfg, cfg['output_docx'], log_widget=log_text, mode="new", headless=True)
+        messagebox.showinfo('Hoàn thành', 'Đã tạo file Word mới với toàn bộ nội dung!')
+    
+    def on_start_append():
+        cfg = load_config()
+        update_config_from_gui(cfg)
+        create_word_document_ext(cfg, cfg['output_docx'], log_widget=log_text, mode="append", headless=True)
+        messagebox.showinfo('Hoàn thành', 'Đã thêm nội dung mới vào file Word!')
+    
+    def on_forget_links():
+        cfg = load_config()
+        update_config_from_gui(cfg)
+        if messagebox.askyesno('Xác nhận', 'Bạn có chắc muốn xóa danh sách link đã tải?\nCác link này sẽ được tải lại từ đầu!'):
+            clear_completed_links()
+            log_to_gui(log_text, "Đã xóa danh sách link đã tải!")
+            messagebox.showinfo('Thành công', 'Đã xóa danh sách link!')
+    
+    def on_clear_log():
+        log_text.config(state='normal')
+        log_text.delete('1.0', END)
+        log_text.config(state='disabled')
+    
+    # Buttons
+    button_frame = Frame(main_frame)
+    button_frame.grid(row=8, column=0, columnspan=4, pady=10)
+    
+    Button(button_frame, text='💾 Lưu cấu hình', command=on_save, width=14, bg='#2196F3', fg='white').pack(side='left', padx=5)
+    Button(button_frame, text='📂 Tải cấu hình', command=on_load, width=14, bg='#FF9800', fg='white').pack(side='left', padx=5)
+    Button(button_frame, text='🔍 Test Menu', command=on_test_menu, width=14, bg='#9C27B0', fg='white').pack(side='left', padx=5)
+    Button(button_frame, text='🧪 Test bỏ qua', command=on_test_ignore, width=14, bg='#E91E63', fg='white').pack(side='left', padx=5)
+    Button(button_frame, text='📝 Test tải 1 link', command=on_test_download, width=14, bg='#3F51B5', fg='white').pack(side='left', padx=5)
+    
+    button_frame2 = Frame(main_frame)
+    button_frame2.grid(row=9, column=0, columnspan=4, pady=5)
+    
+    Button(button_frame2, text='🆕 Tạo mới (tải lại toàn bộ)', command=on_start_new, width=20, bg='#4CAF50', fg='white').pack(side='left', padx=5)
+    Button(button_frame2, text='➕ Thêm mới (chỉ tải link chưa có)', command=on_start_append, width=25, bg='#8BC34A', fg='white').pack(side='left', padx=5)
+    Button(button_frame2, text='🗑️ Xóa link đã tải', command=on_forget_links, width=16, bg='#F44336', fg='white').pack(side='left', padx=5)
+    Button(button_frame2, text='🗑️ Xóa log', command=on_clear_log, width=12, bg='#9E9E9E', fg='white').pack(side='left', padx=5)
+    
+    root.mainloop()
+
+if __name__ == '__main__':
+    run_gui()

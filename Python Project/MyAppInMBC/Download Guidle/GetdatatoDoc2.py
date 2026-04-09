@@ -14,10 +14,14 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from pathlib import Path
+from PIL import Image
+from io import BytesIO
 
 CONFIG_FILE = "config.json"
 CONFIG_DIR = "configs"
-SAVED_LINKS_DIR = "saved_links"
+DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
+SAVED_LINKS_DIR = os.path.join(DATA_DIR, "saved_links")
+IMAGE_TMP_DIR = os.path.join(DATA_DIR, "images")
 
 def default_config():
     return {
@@ -124,8 +128,12 @@ def apply_ignore_rules(driver, ignore_list, ignore_type):
                 continue
 
 def ensure_saved_links_dir():
+    if not os.path.exists(DATA_DIR):
+        os.makedirs(DATA_DIR)
     if not os.path.exists(SAVED_LINKS_DIR):
         os.makedirs(SAVED_LINKS_DIR)
+    if not os.path.exists(IMAGE_TMP_DIR):
+        os.makedirs(IMAGE_TMP_DIR)
 
 def saved_links_path_for(base_url):
     parsed = urlparse(base_url)
@@ -148,29 +156,55 @@ def save_saved_links(base_url, links):
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(links, f, ensure_ascii=False, indent=2)
 
-def extract_main_text(driver):
-    # Try some heuristics to get main article text
-    candidates = [
-        "article",
-        "main",
-        "div[class*='content']",
-        "div[class*='article']",
-        "div[class*='post']",
-    ]
-    for sel in candidates:
+# ensure data dirs exist on import
+ensure_saved_links_dir()
+
+def extract_main_blocks(driver):
+        # Return ordered blocks of text/imgs from main/article or body
+        candidates = [
+                "article",
+                "main",
+                "div[class*='content']",
+                "div[class*='article']",
+                "div[class*='post']",
+        ]
+        js_traverse = '''
+        function collect(root){
+            var out = [];
+            function walk(node){
+                if(!node) return;
+                if(node.nodeType === Node.TEXT_NODE){
+                    var t = node.textContent.replace(/\s+/g,' ').trim();
+                    if(t) out.push({t:'text', v:t});
+                } else if(node.nodeType === Node.ELEMENT_NODE){
+                    if(node.tagName === 'IMG'){
+                        out.push({t:'img', v: node.src || node.getAttribute('data-src') || ''});
+                        return;
+                    }
+                    if(node.tagName === 'BR'){
+                        out.push({t:'text', v:'\n'});
+                        return;
+                    }
+                    var children = node.childNodes;
+                    for(var i=0;i<children.length;i++) walk(children[i]);
+                }
+            }
+            walk(root);
+            return out;
+        }
+        var root = null;
+        var sels = %s;
+        for(var i=0;i<sels.length;i++){
+            try{ root = document.querySelector(sels[i]); if(root) break;}catch(e){}
+        }
+        if(!root) root = document.body;
+        return collect(root);
+        ''' % (str(candidates))
         try:
-            el = driver.find_elements(By.CSS_SELECTOR, sel)
-            if el and len(el) > 0:
-                text = driver.execute_script('return arguments[0].innerText', el[0])
-                if text and text.strip():
-                    return text.strip()
+                blocks = driver.execute_script(js_traverse)
+                return blocks
         except Exception:
-            continue
-    # fallback to body
-    try:
-        return driver.execute_script('return document.body.innerText') or ''
-    except Exception:
-        return ''
+                return []
 
 def create_word_document_ext(base_url, menu_selector, menu_selector_type, ignore_selectors, ignore_selectors_type, document, output_path, link_type="absolute", relative_base_url="", log_widget=None, headless=True):
     # Get list of links depending on selector type
@@ -212,18 +246,61 @@ def create_word_document_ext(base_url, menu_selector, menu_selector_type, ignore
             driver.get(absolute)
             apply_ignore_rules(driver, ignore_selectors, ignore_selectors_type)
             time.sleep(0.5)
-            body_text = extract_main_text(driver)
-            if body_text:
+            blocks = extract_main_blocks(driver)
+            if blocks:
                 document.add_heading(text, level=2)
-                # split into paragraphs
-                for para in body_text.split('\n\n'):
-                    if para.strip():
-                        document.add_paragraph(para.strip())
+                inserted_images = []
+                for b in blocks:
+                    if b.get('t') == 'text':
+                        # preserve paragraphs by double newline
+                        for para in b.get('v','').split('\n\n'):
+                            if para.strip():
+                                document.add_paragraph(para.strip())
+                    elif b.get('t') == 'img':
+                        img_url = b.get('v')
+                        if not img_url:
+                            continue
+                        if not img_url.startswith('http'):
+                            img_url = urljoin(absolute, img_url)
+                        try:
+                            resp = requests.get(img_url, stream=True, timeout=15)
+                            if resp.status_code == 200:
+                                content = resp.content
+                                ct = resp.headers.get('content-type','')
+                                ext = 'jpg'
+                                if 'png' in ct or img_url.lower().endswith('.png'):
+                                    ext = 'png'
+                                elif 'webp' in ct or img_url.lower().endswith('.webp'):
+                                    ext = 'png'
+                                elif 'jpeg' in ct or img_url.lower().endswith(('.jpg','.jpeg')):
+                                    ext = 'jpg'
+                                fname = f"img_{int(time.time()*1000)}.{ext}"
+                                fpath = os.path.join(IMAGE_TMP_DIR, fname)
+                                if ext == 'png' and ('webp' in ct or img_url.lower().endswith('.webp')):
+                                    try:
+                                        im = Image.open(BytesIO(content)).convert('RGB')
+                                        im.save(fpath, 'PNG')
+                                    except Exception:
+                                        continue
+                                else:
+                                    with open(fpath, 'wb') as f:
+                                        f.write(content)
+                                try:
+                                    document.add_picture(fpath)
+                                    inserted_images.append(fpath)
+                                except Exception:
+                                    pass
+                        except Exception:
+                            continue
                 document.save(output_path)
                 log_to_gui(log_widget, f"Đã thêm '{text}' vào tài liệu")
-                # add to saved_links for this base_url
                 if not any(s.get('text') == text for s in new_saved):
                     new_saved.append({'text': text, 'href': absolute})
+                for p in inserted_images:
+                    try:
+                        os.remove(p)
+                    except Exception:
+                        pass
             else:
                 log_to_gui(log_widget, f"Không có nội dung lấy được cho {absolute}")
         except Exception as e:
@@ -247,7 +324,7 @@ def run_gui():
     url_var = StringVar(value=config.get('base_url',''))
     menu_selector_var = StringVar(value=config.get('menu_selector','ul#ul-search a'))
     menu_selector_type_var = StringVar(value=config.get('menu_selector_type','css'))
-    ignore_var = StringVar(value=", ".join(config.get('ignore_selectors',[])))
+    # ignore selectors stored as multi-line text (each line is a selector or JS snippet)
     ignore_selectors_type_var = StringVar(value=config.get('ignore_selectors_type','css'))
     output_var = StringVar(value=config.get('output_docx','output.docx'))
     link_type_var = StringVar(value=config.get('link_type','absolute'))
@@ -272,7 +349,8 @@ def run_gui():
         cfg['base_url'] = url_var.get().strip()
         cfg['menu_selector'] = menu_selector_var.get().strip()
         cfg['menu_selector_type'] = menu_selector_type_var.get()
-        cfg['ignore_selectors'] = [s.strip() for s in ignore_var.get().split(',') if s.strip()]
+        raw = ignore_text.get('1.0', END)
+        cfg['ignore_selectors'] = [s.strip() for s in raw.splitlines() if s.strip()]
         cfg['ignore_selectors_type'] = ignore_selectors_type_var.get()
         cfg['output_docx'] = output_var.get().strip()
         cfg['link_type'] = link_type_var.get()
@@ -287,7 +365,8 @@ def run_gui():
             url_var.set(loaded.get('base_url',''))
             menu_selector_var.set(loaded.get('menu_selector','ul#ul-search a'))
             menu_selector_type_var.set(loaded.get('menu_selector_type','css'))
-            ignore_var.set(', '.join(loaded.get('ignore_selectors',[])))
+            ignore_text.delete('1.0', END)
+            ignore_text.insert('1.0', '\n'.join(loaded.get('ignore_selectors',[])))
             ignore_selectors_type_var.set(loaded.get('ignore_selectors_type','css'))
             output_var.set(loaded.get('output_docx','output.docx'))
             link_type_var.set(loaded.get('link_type','absolute'))
@@ -305,8 +384,10 @@ def run_gui():
     Radiobutton(Frame_ms, text='CSS', variable=menu_selector_type_var, value='css').pack(side='left')
     Radiobutton(Frame_ms, text='JavaScript', variable=menu_selector_type_var, value='javascript').pack(side='left')
 
-    Label(root, text="Yếu tố bỏ qua (phẩy):").grid(row=3, column=0, sticky='e')
-    Entry(root, textvariable=ignore_var, width=50).grid(row=3, column=1, columnspan=2, sticky='w')
+    Label(root, text="Yếu tố bỏ qua (mỗi dòng 1 selector/JS):").grid(row=3, column=0, sticky='ne')
+    ignore_text = ScrolledText(root, width=50, height=4)
+    ignore_text.grid(row=3, column=1, columnspan=2, sticky='w')
+    ignore_text.insert('1.0', "\n".join(config.get('ignore_selectors',[])))
     Frame_ig = Frame(root)
     Frame_ig.grid(row=3, column=3, sticky='w')
     Radiobutton(Frame_ig, text='CSS', variable=ignore_selectors_type_var, value='css').pack(side='left')
@@ -361,7 +442,8 @@ def run_gui():
             url_var.set(loaded.get('base_url',''))
             menu_selector_var.set(loaded.get('menu_selector','ul#ul-search a'))
             menu_selector_type_var.set(loaded.get('menu_selector_type','css'))
-            ignore_var.set(', '.join(loaded.get('ignore_selectors',[])))
+            ignore_text.delete('1.0', END)
+            ignore_text.insert('1.0', '\n'.join(loaded.get('ignore_selectors',[])))
             ignore_selectors_type_var.set(loaded.get('ignore_selectors_type','css'))
             output_var.set(loaded.get('output_docx','output.docx'))
             link_type_var.set(loaded.get('link_type','absolute'))
@@ -404,14 +486,18 @@ def run_gui():
             else:
                 absolute = href
             log_to_gui(log_text, f"Test lấy nội dung: {absolute}")
-            opts = Options(); opts.add_argument('--headless');
+            opts = Options()
+            opts.add_argument('--headless')
             driver = webdriver.Chrome(options=opts)
             try:
                 driver.get(absolute)
                 apply_ignore_rules(driver, cfg['ignore_selectors'], cfg['ignore_selectors_type'])
-                txt = extract_main_text(driver)
-                if txt:
-                    log_to_gui(log_text, f"Lấy được nội dung ({len(txt)} chars)")
+                blocks = extract_main_blocks(driver)
+                if blocks:
+                    texts = sum(1 for b in blocks if b.get('t') == 'text')
+                    imgs = sum(1 for b in blocks if b.get('t') == 'img')
+                    total_chars = sum(len(b.get('v','')) for b in blocks if b.get('t') == 'text')
+                    log_to_gui(log_text, f"Lấy được {texts} text-blocks, {imgs} ảnh, tổng {total_chars} chars")
                 else:
                     log_to_gui(log_text, 'Không lấy được nội dung')
             finally:
@@ -419,11 +505,118 @@ def run_gui():
         except Exception as e:
             log_to_gui(log_text, f"Lỗi khi test nội dung: {e}")
 
+    def clear_log():
+        log_text.config(state='normal')
+        log_text.delete(1.0, END)
+        log_text.config(state='disabled')
+
+    def forget_saved_links():
+        base = url_var.get().strip() or config.get('base_url','')
+        path = saved_links_path_for(base)
+        if os.path.exists(path):
+            try:
+                os.remove(path)
+                log_to_gui(log_text, f"Đã xóa saved links cho {base}")
+            except Exception as e:
+                log_to_gui(log_text, f"Lỗi khi xóa saved links: {e}")
+        else:
+            log_to_gui(log_text, f"Không tìm thấy saved links cho {base}")
+
+    def on_test_download_one():
+        cfg = load_config()
+        update_config_from_gui(cfg)
+        try:
+            if cfg['menu_selector_type'] == 'css':
+                links = get_links_from_page_css(cfg['base_url'], cfg['menu_selector'])
+            else:
+                links = get_links_from_page_js(cfg['base_url'], cfg['menu_selector'], headless=True)
+            if not links:
+                log_to_gui(log_text, 'Không tìm thấy link để test.')
+                return
+            text, href = links[0]
+            if cfg['link_type'] == 'relative' and not href.startswith('http'):
+                absolute = urljoin(cfg['relative_base_url'] or cfg['base_url'], href)
+            else:
+                absolute = href
+            log_to_gui(log_text, f"Test download link đầu tiên: {absolute}")
+            opts = Options(); opts.add_argument('--headless')
+            driver = webdriver.Chrome(options=opts)
+            try:
+                driver.get(absolute)
+                apply_ignore_rules(driver, cfg['ignore_selectors'], cfg['ignore_selectors_type'])
+                blocks = extract_main_blocks(driver)
+                if not blocks:
+                    log_to_gui(log_text, 'Không lấy được nội dung để test')
+                    return
+                # create temp doc
+                ensure_saved_links_dir()
+                tmp_doc = Document()
+                tmp_doc.add_heading(text, level=2)
+                inserted = []
+                for b in blocks:
+                    if b.get('t') == 'text':
+                        for para in b.get('v','').split('\n\n'):
+                            if para.strip():
+                                tmp_doc.add_paragraph(para.strip())
+                    elif b.get('t') == 'img':
+                        img_url = b.get('v')
+                        if not img_url:
+                            continue
+                        if not img_url.startswith('http'):
+                            img_url = urljoin(absolute, img_url)
+                        try:
+                            resp = requests.get(img_url, stream=True, timeout=15)
+                            if resp.status_code == 200:
+                                content = resp.content
+                                ct = resp.headers.get('content-type','')
+                                ext = 'jpg'
+                                if 'png' in ct or img_url.lower().endswith('.png'):
+                                    ext = 'png'
+                                elif 'webp' in ct or img_url.lower().endswith('.webp'):
+                                    ext = 'png'
+                                fname = f"img_test_{int(time.time()*1000)}.{ext}"
+                                fpath = os.path.join(IMAGE_TMP_DIR, fname)
+                                if ext == 'png' and ('webp' in ct or img_url.lower().endswith('.webp')):
+                                    try:
+                                        im = Image.open(BytesIO(content)).convert('RGB')
+                                        im.save(fpath, 'PNG')
+                                    except Exception:
+                                        continue
+                                else:
+                                    with open(fpath, 'wb') as f:
+                                        f.write(content)
+                                try:
+                                    tmp_doc.add_picture(fpath)
+                                    inserted.append(fpath)
+                                except Exception:
+                                    pass
+                        except Exception:
+                            continue
+                out = os.path.join(DATA_DIR, 'test_single.docx')
+                tmp_doc.save(out)
+                log_to_gui(log_text, f"Đã lưu file test vào {out}")
+                try:
+                    os.startfile(out)
+                except Exception:
+                    pass
+                for p in inserted:
+                    try:
+                        os.remove(p)
+                    except Exception:
+                        pass
+            finally:
+                driver.quit()
+        except Exception as e:
+            log_to_gui(log_text, f"Lỗi khi test download: {e}")
+
     Button(root, text='Start', command=on_start, width=12, bg='#4CAF50', fg='white').grid(row=7, column=0, pady=10)
     Button(root, text='Save', command=on_save, width=12, bg='#2196F3', fg='white').grid(row=7, column=1, pady=10)
     Button(root, text='Load', command=on_load, width=12, bg='#FFC107', fg='black').grid(row=7, column=2, pady=10)
     Button(root, text='Test Menu', command=on_test_menu, width=12, bg='#9C27B0', fg='white').grid(row=7, column=3, pady=10)
     Button(root, text='Test Content', command=on_test_content, width=12, bg='#FF5722', fg='white').grid(row=7, column=4, pady=10)
+    Button(root, text='Clear Log', command=clear_log, width=12, bg='#9E9E9E', fg='white').grid(row=8, column=0, pady=6)
+    Button(root, text='Forget Saved Links', command=forget_saved_links, width=16, bg='#607D8B', fg='white').grid(row=8, column=1, pady=6)
+    Button(root, text='Test Download 1', command=on_test_download_one, width=14, bg='#3E2723', fg='white').grid(row=8, column=2, pady=6)
 
     root.mainloop()
 
