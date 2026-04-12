@@ -21,8 +21,8 @@ def resource_path(relative_path):
         # Đường dẫn đến thư mục tạm khi chạy file .exe
         base_path = sys._MEIPASS
     else:
-        # Đường dẫn khi chạy mã nguồn
-        base_path = os.path.abspath(".")
+        # Đường dẫn khi chạy mã nguồn: dùng thư mục chứa file .py hiện tại
+        base_path = os.path.dirname(os.path.abspath(__file__))
     return os.path.join(base_path, relative_path)
 
 def get_vocab_file_path():
@@ -31,17 +31,113 @@ def get_vocab_file_path():
         # Khi chạy .exe, lấy thư mục chứa main.exe
         base_path = os.path.dirname(sys.executable)
     else:
-        # Khi chạy mã nguồn, lấy thư mục chứa main.py
-        base_path = os.path.abspath(".")
-    return os.path.join(base_path, "english_vocab.json")
+        # Khi chạy mã nguồn, lấy thư mục chứa file .py hiện tại
+        base_path = os.path.dirname(os.path.abspath(__file__))
+    # Lưu/đọc file trong thư mục VocabularyFile cạnh file .py / exe
+    return os.path.join(base_path, "VocabularyFile", "english_vocab.json")
 
 # Đường dẫn đến file vocab
 VOCAB_FILE = get_vocab_file_path()
-VOCAB_FILE_PACKAGED = resource_path("english_vocab.json")
+# Nếu có file đóng gói bên trong bundle, tìm trong thư mục đóng gói/VocabularyFile
+VOCAB_FILE_PACKAGED = resource_path(os.path.join("VocabularyFile", "english_vocab.json"))
+
+# Hỗ trợ nhiều file từ vựng: cho phép chọn file .json trong thư mục VocabularyFile
+def get_vocab_dir():
+    if hasattr(sys, '_MEIPASS'):
+        base_path = os.path.dirname(sys.executable)
+    else:
+        base_path = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(base_path, "VocabularyFile")
+
+def set_current_vocab_file(filename):
+    """Set global VOCAB_FILE to the chosen filename (just the basename)."""
+    global VOCAB_FILE
+    vocab_dir = get_vocab_dir()
+    os.makedirs(vocab_dir, exist_ok=True)
+    VOCAB_FILE = os.path.join(vocab_dir, filename)
+
+def list_vocab_files():
+    d = get_vocab_dir()
+    if not os.path.exists(d):
+        return []
+    return [f for f in os.listdir(d) if f.lower().endswith('.json')]
+
+def select_vocab_file_window(parent):
+    """Dialog to select or create a vocabulary JSON file in VocabularyFile folder.
+    Returns True if a file was selected/created, False if cancelled.
+    """
+    vocab_dir = get_vocab_dir()
+    os.makedirs(vocab_dir, exist_ok=True)
+
+    sel_win = tk.Toplevel(parent)
+    sel_win.title("Chọn từ điển")
+    sel_win.geometry("400x300")
+
+    tk.Label(sel_win, text="Chọn file từ điển (.json) để sử dụng:").pack(pady=5)
+    listbox = tk.Listbox(sel_win, height=10)
+    listbox.pack(fill=tk.BOTH, expand=True, padx=10)
+
+    def refresh_list():
+        listbox.delete(0, tk.END)
+        for fn in list_vocab_files():
+            listbox.insert(tk.END, fn)
+
+    refresh_list()
+
+    entry_frame = tk.Frame(sel_win)
+    entry_frame.pack(pady=5)
+    tk.Label(entry_frame, text="Tạo file mới:").pack(side=tk.LEFT)
+    new_entry = tk.Entry(entry_frame, width=25)
+    new_entry.pack(side=tk.LEFT, padx=5)
+
+    def create_new():
+        name = new_entry.get().strip()
+        if not name:
+            messagebox.showwarning("Lỗi", "Nhập tên file mới!")
+            return
+        if not name.lower().endswith('.json'):
+            name += '.json'
+        path = os.path.join(vocab_dir, name)
+        if os.path.exists(path):
+            messagebox.showinfo("Thông báo", "File đã tồn tại, chọn từ danh sách hoặc đổi tên.")
+            return
+        try:
+            with open(path, 'w', encoding='utf-8') as f:
+                json.dump({}, f, ensure_ascii=False, indent=4)
+            set_current_vocab_file(name)
+            sel_win.destroy()
+        except Exception as e:
+            messagebox.showerror("Lỗi", f"Không thể tạo file: {e}")
+
+    def select_existing():
+        sel = listbox.curselection()
+        if not sel:
+            messagebox.showwarning("Lỗi", "Vui lòng chọn 1 file trong danh sách!")
+            return
+        filename = listbox.get(sel[0])
+        set_current_vocab_file(filename)
+        sel_win.destroy()
+
+    btn_frame = tk.Frame(sel_win)
+    btn_frame.pack(pady=5)
+    tk.Button(btn_frame, text="Chọn", command=select_existing).pack(side=tk.LEFT, padx=5)
+    tk.Button(btn_frame, text="Tạo mới", command=create_new).pack(side=tk.LEFT, padx=5)
+    tk.Button(btn_frame, text="Hủy", command=lambda: [sel_win.destroy(), parent.deiconify()]).pack(side=tk.LEFT, padx=5)
+
+    sel_win.transient(parent)
+    sel_win.grab_set()
+    parent.wait_window(sel_win)
+    # If VOCAB_FILE was changed, return True
+    return os.path.exists(VOCAB_FILE)
 
 # Khởi tạo file nếu chưa tồn tại
 def initialize_vocab_file():
     try:
+        # Đảm bảo thư mục chứa file từ vựng tồn tại
+        vocab_dir = os.path.dirname(VOCAB_FILE)
+        if vocab_dir and not os.path.exists(vocab_dir):
+            os.makedirs(vocab_dir, exist_ok=True)
+
         if not os.path.exists(VOCAB_FILE):
             # Nếu file chưa tồn tại, sao chép từ file đóng gói
             if os.path.exists(VOCAB_FILE_PACKAGED):
@@ -480,10 +576,18 @@ def english_menu(parent):
     root = tk.Toplevel(parent)
     root.title("Ôn tiếng Anh")
     root.geometry("300x200")
+    # Chọn file từ điển khi vào menu (nếu có nhiều file trong VocabularyFile)
+    if not select_vocab_file_window(root):
+        # Nếu huỷ chọn, quay lại parent
+        root.destroy()
+        parent.deiconify()
+        return
 
-    tk.Label(root, text="Ôn tập tiếng Anh", font=("Arial", 14)).pack(pady=20)
+    tk.Label(root, text="Ôn tập tiếng Anh", font=("Arial", 14)).pack(pady=10)
+    tk.Label(root, text=f"Tệp hiện tại: {os.path.basename(VOCAB_FILE)}").pack(pady=2)
     tk.Button(root, text="Thêm từ vựng", command=lambda: add_vocab_window(root), width=20).pack(pady=5)
     tk.Button(root, text="Kiểm tra từ vựng", command=lambda: [root.withdraw(), test_vocab_window(root)], width=20).pack(pady=5)
+    tk.Button(root, text="Chọn tệp khác", command=lambda: [root.destroy(), english_menu(parent)], width=20).pack(pady=5)
     tk.Button(root, text="Quay lại", command=lambda: [root.destroy(), parent.deiconify()]).pack(pady=5)
 
     root.bind("<Escape>", lambda event: [root.destroy(), parent.deiconify()])
