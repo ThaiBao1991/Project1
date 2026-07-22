@@ -1,0 +1,48 @@
+{
+  "tangthuvien": {
+    "domain": "tangthuvien.net",
+    "name": "Tangthuvien.net",
+    "selectors": {
+      "toc": {
+        "type": "css",
+        "script": ".chapter-list a, .list-chapter a, .ds-list-chapter a"
+      },
+      "title": {
+        "type": "css",
+        "script": ".chapter-title, h1.chapter-title, .chap-title"
+      },
+      "content": {
+        "type": "css",
+        "script": ".chapter-content, .content-chapter, #chapter-content"
+      }
+    },
+    "toc_page": "/doc-truyen/{story_slug}/",
+    "chapter_pattern": "/doc-truyen/{story_slug}/chuong-{chapter_number}",
+    "needs_login": true,
+    "use_selenium": false,
+    "encoding": "utf-8"
+  },
+  "truyenfull": {
+    "domain": "truyenfull.vn",
+    "name": "TruyenFull",
+    "selectors": {
+      "toc": {
+        "type": "css",
+        "script": ".list-chapter a, #list-chapter a"
+      },
+      "title": {
+        "type": "css",
+        "script": ".chapter-title, h2.title"
+      },
+      "content": {
+        "type": "css",
+        "script": ".chapter-content, #chapter-content"
+      }
+    },
+    "toc_page": "/{story_slug}/",
+    "chapter_pattern": "/{story_slug}/chuong-{chapter_number}.html",
+    "needs_login": false,
+    "use_selenium": false,
+    "encoding": "utf-8"
+  }
+}

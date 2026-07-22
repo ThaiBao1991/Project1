@@ -1,0 +1,2 @@
+[v1] - 3/5/2026
+- Chỉ download lại dữ liệu của m3u8 nhưng còn sử dụng thủ công, chưa nén lại được

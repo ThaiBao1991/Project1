@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WYSIWYG Exercise Builder - {{ day }}</title>
+    
+    <!-- Highlight.js for Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+
+    <!-- Quill.js Core -->
+    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+
+    <!-- UIkit for styling -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.22/dist/css/uikit.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.22/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.22/dist/js/uikit-icons.min.js"></script>
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .header {
+            background-color: #0078d4;
+            color: white;
+            padding: 15px 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+        
+        .header h3 {
+            color: white;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .editor-container {
+            flex: 1;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #e0e0e0;
+            overflow: hidden;
+        }
+
+        #toolbar-container {
+            border-bottom: 1px solid #e0e0e0;
+            background-color: #fbfbfb;
+            padding: 8px;
+        }
+
+        #editor {
+            flex: 1;
+            overflow-y: auto;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        .ql-editor {
+            min-height: 100%;
+        }
+
+        .preview-container {
+            flex: 1;
+            background: #f0f2f5;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid #e0e0e0;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .preview-header {
+            position: sticky;
+            top: 0;
+            background: #e1e4e8;
+            padding: 10px 15px;
+            font-weight: bold;
+            color: #24292e;
+            border-bottom: 1px solid #d1d5da;
+            z-index: 10;
+        }
+
+        .preview-content {
+            padding: 20px;
+        }
+
+        /* Mock styles for preview to match target HTML */
+        .exercise-container {
+            margin-top: 20px;
+            padding: 20px;
+            border-top: 2px dashed #0078d4;
+            background-color: #f9f9f9;
+            font-family: sans-serif;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .action-bar {
+            padding: 15px 20px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .custom-file-button {
+            cursor: pointer;
+            padding: 4px 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: #f8f9fa;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .custom-file-button:hover {
+            background: #e2e6ea;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h3><span uk-icon="icon: file-edit; ratio: 1.2" class="uk-margin-small-right"></span>Soạn thảo bài tập: {{ day }}</h3>
+        <div>
+            <span class="uk-label uk-label-success uk-margin-small-right" id="status-label" style="display: none;">Đã lưu thành công!</span>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <!-- EDITOR -->
+        <div class="editor-container">
+            <div id="toolbar-container">
+                <span class="ql-formats">
+                    <select class="ql-header">
+                        <option value="1">Tiêu đề 1</option>
+                        <option value="2">Tiêu đề 2</option>
+                        <option value="3">Tiêu đề 3</option>
+                        <option selected>Bình thường</option>
+                    </select>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-bold"></button>
+                    <button class="ql-italic"></button>
+                    <button class="ql-underline"></button>
+                    <button class="ql-strike"></button>
+                </span>
+                <span class="ql-formats">
+                    <select class="ql-color"></select>
+                    <select class="ql-background"></select>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-list" value="ordered"></button>
+                    <button class="ql-list" value="bullet"></button>
+                    <select class="ql-align"></select>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-link"></button>
+                    <button class="ql-image"></button>
+                    <button class="ql-video"></button>
+                    <button class="ql-code-block"></button>
+                </span>
+                <span class="ql-formats">
+                    <!-- Nút đính kèm File Tùy chỉnh -->
+                    <button id="custom-attachment-btn" title="Đính kèm tệp tin (ZIP, RAR, PDF...)">
+                        <span uk-icon="icon: push"></span>
+                    </button>
+                    <input type="file" id="file-input" style="display: none;">
+                </span>
+            </div>
+            <div id="editor">
+                <!-- Nội dung hiện tại -->
+                {{ existing_content | safe }}
+            </div>
+        </div>
+
+        <!-- PREVIEW -->
+        <div class="preview-container">
+            <div class="preview-header">
+                <span uk-icon="icon: desktop" class="uk-margin-small-right"></span>Xem trước (Live Preview)
+            </div>
+            <div class="preview-content">
+                <div class="exercise-container">
+                    <h2 style="color: #0078d4;">Bài Tập & Lời Giải</h2>
+                    <div id="preview-body" class="ql-editor" style="padding: 0;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="action-bar">
+        <label><input class="uk-checkbox" type="checkbox" id="chk-completed"> Xác nhận hoàn thành</label>
+        
+        <select class="uk-select uk-width-auto" id="select-mode">
+            <option value="direct" {% if mode == 'direct' %}selected{% endif %}>Nhúng trực tiếp</option>
+            <option value="archival" {% if mode == 'archival' %}selected{% endif %}>Lưu trữ (Thư mục exercise)</option>
+        </select>
+        
+        <button class="uk-button uk-button-primary" id="btn-save" onclick="saveContent()">
+            <span uk-icon="icon: check"></span> Lưu Bài Tập
+        </button>
+    </div>
+
+    <!-- Debug Log Panel -->
+    <div id="debug-panel" style="margin: 20px auto; max-width: 1400px; padding: 10px; background: #333; color: #0f0; font-family: monospace; height: 150px; overflow-y: auto; border-radius: 5px; font-size: 12px;">
+        <div>--- Bảng Debug Hệ Thống ---</div>
+    </div>
+
+    <script>
+        // Data variables
+        const day = "{{ day }}";
+        const targetDir = "{{ target_dir|replace('\\', '\\\\') }}";
+
+        let isQuillInitialized = false;
+        
+        try {
+            // Chuẩn bị cấu hình module
+            let quillModules = {
+                toolbar: '#toolbar-container'
+            };
+
+            // Khởi tạo highlight.js an toàn
+            if (typeof window.hljs !== 'undefined') {
+                window.hljs.configure({
+                    languages: ['javascript', 'python', 'html', 'css', 'bash', 'java', 'cpp', 'sql', 'json']
+                });
+                quillModules.syntax = true;
+            }
+
+            // Khởi tạo Quill
+            var quill = new Quill('#editor', {
+                modules: quillModules,
+                placeholder: 'Viết nội dung bài tập ở đây...',
+                theme: 'snow'
+            });
+            isQuillInitialized = true;
+
+            // Update preview realtime
+            quill.on('text-change', function(delta, oldDelta, source) {
+                document.getElementById('preview-body').innerHTML = quill.root.innerHTML;
+                
+                // Re-highlight code blocks trong preview an toàn
+                if (typeof hljs !== 'undefined') {
+                    document.querySelectorAll('#preview-body pre').forEach((block) => {
+                        hljs.highlightElement(block);
+                    });
+                }
+            });
+
+            // Trigger lần đầu
+            document.getElementById('preview-body').innerHTML = quill.root.innerHTML;
+        } catch (initError) {
+            console.error("CRITICAL QUILL INIT ERROR:", initError);
+            alert("Lỗi khởi tạo trình soạn thảo: " + initError.message);
+        }
+
+        // Custom image upload handler
+        function selectLocalImage() {
+            const input = document.createElement('input');
+            input.setAttribute('type', 'file');
+            input.setAttribute('accept', 'image/*,audio/*,video/*');
+            input.click();
+
+            input.onchange = () => {
+                const file = input.files[0];
+                uploadFile(file, (url, type) => {
+                    const range = quill.getSelection(true);
+                    
+                    if (type === 'image') {
+                        quill.insertEmbed(range.index, 'image', '/' + url);
+                    } else if (type === 'audio') {
+                        // Insert raw HTML for audio
+                        const audioHtml = `<audio controls><source src="${url}"></audio><br/>`;
+                        quill.clipboard.dangerouslyPasteHTML(range.index, audioHtml);
+                    } else if (type === 'video') {
+                        // Insert raw HTML for video
+                        const videoHtml = `<video controls width="100%"><source src="${url}"></video><br/>`;
+                        quill.clipboard.dangerouslyPasteHTML(range.index, videoHtml);
+                    }
+                    quill.setSelection(range.index + 1);
+                });
+            };
+        }
+
+        // Thay thế image handler mặc định của Quill
+        quill.getModule('toolbar').addHandler('image', selectLocalImage);
+
+        // Custom File Attachment (ZIP, RAR, etc)
+        document.getElementById('custom-attachment-btn').addEventListener('click', function() {
+            document.getElementById('file-input').click();
+        });
+
+        document.getElementById('file-input').addEventListener('change', function(e) {
+            if (this.files && this.files.length > 0) {
+                const file = this.files[0];
+                uploadFile(file, (url, type, filename) => {
+                    const range = quill.getSelection(true);
+                    
+                    let icon = "📁";
+                    const ext = filename.split('.').pop().toLowerCase();
+                    if (['zip', 'rar', '7z'].includes(ext)) icon = "📦";
+                    if (['py', 'js', 'html', 'css'].includes(ext)) icon = "📄";
+                    
+                    const btnHtml = `<div class="ex-file" style="margin-bottom: 15px;">
+                        <a href="${url}" download style="display: inline-block; padding: 10px 15px; background: #2ea043; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">${icon} Tải xuống file đính kèm: ${filename}</a>
+                    </div><p><br></p>`;
+                    
+                    quill.clipboard.dangerouslyPasteHTML(range.index, btnHtml);
+                    quill.setSelection(range.index + 1);
+                });
+                this.value = ''; // reset
+            }
+        });
+
+        function uploadFile(file, callback) {
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('target_dir', targetDir);
+
+            UIkit.notification({message: 'Đang tải lên...', status: 'primary', timeout: 2000});
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    UIkit.notification({message: 'Lỗi tải lên: ' + data.error, status: 'danger'});
+                } else {
+                    callback(data.url, data.type, data.filename);
+                    UIkit.notification({message: 'Đã đính kèm ' + data.filename, status: 'success'});
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                UIkit.notification({message: 'Lỗi kết nối khi tải lên!', status: 'danger'});
+            });
+        }
+
+        function addDebugLog(msg) {
+            const panel = document.getElementById('debug-panel');
+            const time = new Date().toLocaleTimeString();
+            panel.innerHTML += `<div>[${time}] ${msg}</div>`;
+            panel.scrollTop = panel.scrollHeight;
+            console.log(`[${time}] ${msg}`);
+        }
+
+        // Save Content
+        function saveContent() {
+            addDebugLog("Bắt đầu thực thi saveContent()...");
+            const btn = document.getElementById('btn-save');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<div uk-spinner="ratio: 0.6"></div> Đang lưu...';
+            btn.disabled = true;
+
+            try {
+                if (!isQuillInitialized) {
+                    throw new Error("Trình soạn thảo Quill chưa được khởi tạo thành công (lỗi CDN hoặc JS). Không thể lưu!");
+                }
+                
+                addDebugLog("Đang lấy nội dung editor...");
+                const htmlContent = quill.root.innerHTML;
+                addDebugLog("Nội dung lấy thành công. Chiều dài: " + htmlContent.length + " ký tự.");
+                
+                const isCompleted = document.getElementById('chk-completed').checked;
+                const mode = document.getElementById('select-mode').value;
+                addDebugLog("Day: " + day + " | Mode: " + mode + " | isCompleted: " + isCompleted);
+
+                const payload = {
+                    day: day,
+                    target_dir: targetDir,
+                    html_content: htmlContent,
+                    is_completed: isCompleted,
+                    mode: mode
+                };
+                
+                addDebugLog("Đang khởi tạo fetch request tới /save...");
+
+                fetch('/save', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                })
+                .then(response => {
+                    addDebugLog("Nhận được HTTP Response: " + response.status + " " + response.statusText);
+                    return response.json();
+                })
+                .then(data => {
+                    addDebugLog("Giải mã JSON thành công: " + JSON.stringify(data));
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    
+                    if (data.error) {
+                        addDebugLog("Lỗi từ server: " + data.error);
+                        UIkit.notification({message: 'Lỗi: ' + data.error, status: 'danger'});
+                    } else {
+                        addDebugLog("Lưu bài tập hoàn tất!");
+                        document.getElementById('status-label').style.display = 'inline-block';
+                        UIkit.notification({message: 'Đã lưu bài tập thành công!', status: 'success'});
+                        setTimeout(() => {
+                            document.getElementById('status-label').style.display = 'none';
+                        }, 3000);
+                    }
+                })
+                .catch((error) => {
+                    addDebugLog("Lỗi (Exception) khi thực thi fetch: " + error.message);
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    console.error('Error:', error);
+                    UIkit.notification({message: 'Lỗi kết nối khi lưu!', status: 'danger'});
+                });
+            } catch(e) {
+                addDebugLog("LỖI JS NGHIÊM TRỌNG TRƯỚC FETCH: " + e.message);
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

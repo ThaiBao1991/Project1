@@ -1,0 +1,28 @@
+{
+    "folder_path": "C:/Users/12953 bao/Desktop/CodingTest/Test/Dong dau",
+    "pdf_sample_path": "C:/Users/12953 bao/Desktop/CodingTest/Test/Dong dau/L624605016-3.pdf",
+    "stamp_image_path": "C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png",
+    "template_image_path": "",
+    "scale_percent": 15.0,
+    "use_template_matching": true,
+    "match_threshold": 80.0,
+    "page_number": 0,
+    "stamp_bbox": null,
+    "stamp_bbox_pdf": null,
+    "stamp_center": [
+        902.0,
+        217.0
+    ],
+    "exact_center": [
+        460.02,
+        110.66580811332904
+    ],
+    "use_text_anchor": true,
+    "anchor_text": "Xác nhận",
+    "text_match_mode": "first",
+    "text_match_count": 1,
+    "text_offset_x": -20.0,
+    "text_offset_y": 15.0,
+    "use_annotation": false,
+    "file_format": "pdf"
+}

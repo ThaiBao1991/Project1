@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 320px;
+      padding: 15px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .container {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    h3 {
+      color: #333;
+      margin-bottom: 15px;
+      text-align: center;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .logo {
+      font-size: 24px;
+    }
+
+    button {
+      padding: 12px;
+      cursor: pointer;
+      border-radius: 8px;
+      width: 100%;
+      font-weight: bold;
+      margin-bottom: 10px;
+      border: none;
+      transition: all 0.3s;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    #startBtn {
+      background: linear-gradient(135deg, #28a745, #20c997);
+      color: white;
+    }
+
+    #stopBtn {
+      background: linear-gradient(135deg, #dc3545, #c82333);
+      color: white;
+    }
+
+    #status {
+      margin-top: 15px;
+      padding: 12px;
+      background: #f8f9fa;
+      font-size: 12px;
+      border-radius: 8px;
+      min-height: 70px;
+      border-left: 4px solid #667eea;
+      word-wrap: break-word;
+      font-family: 'Courier New', monospace;
+      max-height: 200px;
+      overflow-y: auto;
+      line-height: 1.5;
+    }
+
+    .info {
+      font-size: 11px;
+      color: #6c757d;
+      margin-top: 12px;
+      text-align: center;
+      border-top: 1px solid #dee2e6;
+      padding-top: 12px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #28a745;
+      color: white;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      margin-left: 5px;
+    }
+
+    .footer {
+      margin-top: 10px;
+      font-size: 10px;
+      text-align: center;
+      color: #6c757d;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h3>
+      <span class="logo">🤖</span>
+      Auto Process Tool
+      <span class="badge">v3.0</span>
+    </h3>
+
+    <button id="startBtn">
+      <span>▶</span> START
+    </button>
+
+    <button id="stopBtn">
+      <span>⏹</span> STOP
+    </button>
+
+    <div id="status">
+      ✅ Sẵn sàng...<br>
+      Nhấn START để bắt đầu
+    </div>
+
+    <div style="display: flex; gap: 5px; margin-top: 10px;">
+      <button id="exportLogBtn"
+        style="flex: 1; background: #555; color: white; padding: 5px; border: none; border-radius: 3px; cursor: pointer;">
+        📥 Lưu Log
+      </button>
+      <div
+        style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 5px; background: #f0f0f0; border-radius: 3px; padding: 5px;">
+        <span style="font-size: 11px;">Trễ (giây):</span>
+        <input type="number" id="delayInput" value="5" min="2" max="15"
+          style="width: 40px; text-align: center; border: 1px solid #ccc; border-radius: 3px;">
+      </div>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; margin-top: 10px; font-size: 12px; font-weight: bold;">
+      <div>Đã xử lý: <span id="totalProcessed">0</span></div>
+      <div>Vòng lặp: <span id="loopCount">0</span></div>
+    </div>
+
+    <div id="logContainer"
+      style="margin-top: 10px; height: 150px; overflow-y: auto; background: #2b2b2b; color: #00ff00; padding: 10px; border-radius: 5px; font-family: monospace; font-size: 11px;">
+      <!-- Logs will appear here -->
+    </div>
+
+    <div class="info">
+      💡 Hướng dẫn:<br>
+      1. Mở trang cần xử lý<br>
+      2. Nhấn START để bắt đầu<br>
+      3. Theo dõi log bên dưới
+    </div>
+
+    <div class="footer">
+      ⚡ Edge Extension | Auto Process
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+
+</html>

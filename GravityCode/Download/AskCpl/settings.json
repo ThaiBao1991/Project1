@@ -1,0 +1,123 @@
+{
+  "github": {
+    "username": "gamesvendn01",
+    "token": "ENC:WjZBS2Ewam9yS3dWd3pWQ0NIM0ZpcVdDbHBQT1ZoMlFFdzM1X3BoZw==",
+    "repo_name": "",
+    "pages_url": ""
+  },
+  "editor": {
+    "ex_dir": "D:/Code/Data Code/Course/Gemini_Thien_Dinh",
+    "ex_file": "day_3.html",
+    "note_dir": "C:/Users/12953 bao/Desktop/desktop/work/Project/Python/BasicLearnPython/W3schools/Python Tutorial/GravityCode/Download/AskCpl/Note",
+    "note_file": "Antigravity.html",
+    "note_filter": "day,index"
+  },
+  "server": {
+    "host": "192.168.43.52",
+    "port": 5678
+  },
+  "gemini": {
+    "api_key": "ENC:QVJueGZ6dDBhSXAxR2FJdlNVX2hrRzlRdWQzOUxLY1ZfMkU1NTlmM1NWREo2TlI4YkEuUUE=",
+    "api_keys": [
+      {
+        "key": "ENC:QVJueGZ6dDBhSXAxR2FJdlNVX2hrRzlRdWQzOUxLY1ZfMkU1NTlmM1NWREo2TlI4YkEuUUE=",
+        "email": "gamesvendn02",
+        "status": "exhausted",
+        "reset_time": 1784719716
+      },
+      {
+        "key": "ENC:Z3ZSMHFfX0NpOGd4MTdtbjdYcDZjRlJKbVg0Z3U1eERzTVl5SjFvX28wcEw2TlI4YkEuUUE=",
+        "email": "gamesvendn03",
+        "status": "exhausted",
+        "reset_time": 1784720030
+      },
+      {
+        "key": "ENC:Z0NaTi1nRzRkbmVYamhmdTk2dE9NYjVBYnYwU0s4WXRfV0V1T25wWEpxeko2TlI4YkEuUUE=",
+        "email": "gamesvendn04",
+        "status": "exhausted",
+        "reset_time": 1784721251
+      },
+      {
+        "key": "ENC:QTgtZWQwSTRXTnVKRktxTHVmQ04tT1ZzNnBxZjFKVVc2ejNsMm9fblc5X0o2TlI4YkEuUUE=",
+        "email": "svendn03",
+        "status": "exhausted",
+        "reset_time": 1784779828
+      },
+      {
+        "key": "ENC:Z2otd0tLeXBYMFBqUFkwWXJJWndyX0NZd3JNbG84OEVQWE5WdGdnVk5HREk2TlI4YkEuUUE=",
+        "email": "gamesvendn",
+        "status": "exhausted",
+        "reset_time": 1784780248
+      },
+      {
+        "key": "ENC:Z1l1OUtZQUJYSlVialhtMVpfSVp0ZUZZVVNsbW5PUG1OMEI4OWN0YXRmMUw2TlI4YkEuUUE=",
+        "email": "gamesvendn01",
+        "status": "exhausted",
+        "reset_time": 1784780630
+      },
+      {
+        "key": "ENC:QTdXSnVIN0swR1NsSlJTWl91WW40UVRWeFY3a1ZBaDRMYktocVl4cUFVLUs2TlI4YkEuUUE=",
+        "email": "gamesvendn05",
+        "status": "exhausted",
+        "reset_time": 1784781040
+      },
+      {
+        "key": "ENC:UXI3dTBZQXZtQm5KaFprd1BHQmxxRndDZWplZzJMZ3hoNzd6cmN1eWp1Y0s2TlI4YkEuUUE=",
+        "email": "gamesvendn06",
+        "status": "exhausted",
+        "reset_time": 1784781431
+      },
+      {
+        "key": "ENC:Z2pxb2FTOGxJbVg0M3VRN0ZYWHhmcHhVUnpCX3MyME9NOExvdW1vSUZxdks2TlI4YkEuUUE=",
+        "email": "gamesvendn07",
+        "status": "exhausted",
+        "reset_time": 1784781839
+      },
+      {
+        "key": "ENC:UTl4bVlENXY5ZURReER6eE9tNGJQYVctb3ExY005RGRLbjA1U3NxNjAxVks2TlI4YkEuUUE=",
+        "email": "gamesvendn08",
+        "status": "exhausted",
+        "reset_time": 1784782222
+      },
+      {
+        "key": "ENC:d2xYTGhTLUZSV0N6WGJrQVc4Z3MwTFNwNHhGQlBZVVNyc2FKeE9kalp3S0o2TlI4YkEuUUE=",
+        "email": "gamesvendn13",
+        "status": "exhausted",
+        "reset_time": 1784787845
+      },
+      {
+        "key": "ENC:US1yMnZiaWFYdGdwMlN4bXMtM0huVmtTSzIySXVEVmtRNy0wV1VfWF9MOUk2TlI4YkEuUUE=",
+        "email": "gamesvendn12",
+        "status": "exhausted",
+        "reset_time": 1784788269
+      },
+      {
+        "key": "ENC:Z0lmNnNKNFVST0kxVzdRbGdLM1AzYVR5bTM2aEtKZGNtRGItSEhmMVd3Z0o2TlI4YkEuUUE=",
+        "email": "gmv11",
+        "status": "exhausted",
+        "reset_time": 1784788787
+      },
+      {
+        "key": "ENC:Z0RkV1R1cGhNV2lKLUdJdUpWbzVYT2VZYXFUYlNvb2plXzdmemgtTm1ZWko2TlI4YkEuUUE=",
+        "email": "gmv10",
+        "status": "exhausted",
+        "reset_time": 1784789319
+      },
+      {
+        "key": "ENC:QUhzZUxJajg5aGxodXpFRkRvYzhrZFRWQldZVXdaeG9jaGtFMldNX1ZIMUs2TlI4YkEuUUE=",
+        "email": "gmv09",
+        "status": "exhausted",
+        "reset_time": 1784789815
+      },
+      {
+        "key": "ENC:d240aHlVb0xkMXRIbUxrZ1daQ1luQm1fN1hJZ1VVUXlwMWpQeGtmMTBMc0k2TlI4YkEuUUE=",
+        "email": "gmv15",
+        "status": "exhausted",
+        "reset_time": 1784790263
+      }
+    ],
+    "last_roadmap": "C:/Users/12953 bao/Desktop/desktop/work/Project/Python/BasicLearnPython/W3schools/Python Tutorial/GravityCode/Download/AskCpl\\roadmap_expanded.md",
+    "last_doc_dir": "C:/Users/12953 bao/Desktop/Data/v72_doc",
+    "last_out_dir": "C:/Users/12953 bao/Desktop/Data/Guidle"
+  }
+}

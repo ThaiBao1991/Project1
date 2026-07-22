@@ -1,0 +1,24 @@
+{
+    "folder_path": "C:/Users/12953 bao/Desktop/CodingTest",
+    "pdf_sample_path": "C:/Users/12953 bao/Desktop/CodingTest/FC140RE-72237E-00-0P-VDM-IMX-00.pdf",
+    "stamp_image_path": "C:/Users/12953 bao/Desktop/CodingTest/condauBao.png",
+    "stamp_bbox": [
+        218,
+        254,
+        252,
+        274
+    ],
+    "stamp_center": [
+        227,
+        269
+    ],
+    "exact_center": [
+        514.5333333333333,
+        608.7085714285714
+    ],
+    "scale_percent": 21.06075268817204,
+    "match_threshold": 80.0,
+    "file_format": "pdf",
+    "page_number": 0,
+    "use_template_matching": true
+}

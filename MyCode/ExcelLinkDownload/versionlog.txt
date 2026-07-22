@@ -1,0 +1,4 @@
+- ExcelLinkDownload18052026:
+Đã bắt được hyperlink trong formula nhưng chưa bắt được link gián tiêp ở hyperlink
+- ExcelLinkDownload18052026_02:
+Đã sửa thêm tính năng tải trong hyperlink bình thường

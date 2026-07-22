@@ -1,0 +1,427 @@
+:root {
+    --bg-color: #121212;
+    --card-bg: #1e1e1e;
+    --card-bg-alt: #2c2c2c;
+    --text-main: #ffffff;
+    --text-muted: #a0a0a0;
+    --accent: #bb86fc;
+    --accent-hover: #9965f4;
+    --border: #383838;
+    --success: #03dac6;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.7;
+}
+
+header {
+    background-color: var(--card-bg);
+    padding: 15px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--border);
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 1.5rem;
+    color: var(--accent);
+}
+
+select, input {
+    background-color: var(--card-bg-alt);
+    color: var(--text-main);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+    outline: none;
+}
+
+select:focus, input:focus {
+    border-color: var(--accent);
+}
+
+.search-bar input {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.filters {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+    overflow-x: auto;
+    padding-bottom: 5px;
+}
+
+.filters select {
+    flex: 1;
+    min-width: 110px;
+}
+
+.view-toggles {
+    display: flex;
+    gap: 10px;
+}
+
+.view-toggles button {
+    flex: 1;
+    padding: 10px;
+    background: var(--card-bg-alt);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.view-toggles button.active {
+    background: var(--accent);
+    color: #121212;
+    border-color: var(--accent);
+}
+
+main {
+    padding: 15px;
+}
+
+.view-container {
+    display: none;
+}
+
+.view-container.active {
+    display: block;
+}
+
+/* ═══════════════════════════════════════════
+   List View
+═══════════════════════════════════════════ */
+.vocab-item {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s;
+}
+
+.vocab-item:hover {
+    border-color: var(--accent);
+}
+
+.vocab-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.vocab-word {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--accent);
+}
+
+.vocab-pronunciation {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 2px;
+}
+
+.badge {
+    background-color: var(--card-bg-alt);
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    border: 1px solid var(--border);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* Nghĩa — dùng Markdown */
+.vocab-meaning {
+    font-size: 1rem;
+    font-family: Consolas, "Courier New", monospace;
+    margin-bottom: 10px;
+    word-break: break-word;
+    line-height: 1.7;
+    color: var(--text-main);
+}
+
+/* Ví dụ — có scroll nếu quá dài */
+.vocab-example {
+    background-color: var(--card-bg-alt);
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-family: Consolas, "Courier New", monospace;
+    word-break: break-word;
+    line-height: 1.7;
+    max-height: 280px;
+    overflow-y: auto;
+    border-left: 3px solid var(--accent);
+}
+
+.vocab-example::-webkit-scrollbar {
+    width: 5px;
+}
+.vocab-example::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 4px;
+}
+
+.vocab-example-meaning {
+    color: var(--text-muted);
+    margin-top: 8px;
+    word-break: break-word;
+}
+
+/* Toggle example ẩn/hiện */
+.toggle-example-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--accent);
+    font-size: 0.8rem;
+    padding: 3px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 6px;
+    transition: 0.2s;
+}
+.toggle-example-btn:hover {
+    background: var(--card-bg-alt);
+}
+
+/* ═══════════════════════════════════════════
+   Flashcard View
+═══════════════════════════════════════════ */
+.flashcard-container {
+    perspective: 1000px;
+    min-height: 380px;
+    max-height: 72vh;
+    margin-bottom: 20px;
+}
+
+.flashcard {
+    width: 100%;
+    min-height: 380px;
+    position: relative;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+
+.flashcard.is-flipped {
+    transform: rotateY(180deg);
+}
+
+.flashcard .front,
+.flashcard .back {
+    position: absolute;
+    width: 100%;
+    min-height: 380px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    background-color: var(--card-bg);
+    border-radius: 16px;
+    border: 1px solid var(--accent);
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+/* Mặt sau: scroll nếu nội dung dài */
+.flashcard .back {
+    transform: rotateY(180deg);
+    border-color: var(--border);
+    justify-content: flex-start;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    max-height: 72vh;
+}
+
+.flashcard .back::-webkit-scrollbar {
+    width: 5px;
+}
+.flashcard .back::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 4px;
+}
+
+/* Nghĩa trên flashcard — Markdown */
+.fc-meaning-text {
+    font-size: 1.15rem;
+    font-family: Consolas, "Courier New", monospace;
+    color: var(--text-main);
+    word-break: break-word;
+    text-align: left;
+    width: 100%;
+    line-height: 1.8;
+    margin-bottom: 10px;
+}
+
+.flashcard h2 {
+    font-size: 2rem;
+    color: var(--accent);
+    margin-bottom: 10px;
+    word-break: break-all;
+}
+
+.flashcard .pronunciation {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+}
+
+.flashcard .example-box {
+    margin-top: 16px;
+    background-color: var(--card-bg-alt);
+    padding: 14px;
+    border-radius: 10px;
+    width: 100%;
+    border-left: 3px solid var(--accent);
+    text-align: left;
+}
+
+.flashcard .example-box p {
+    word-break: break-word;
+    font-size: 0.88rem;
+    font-family: Consolas, "Courier New", monospace;
+    line-height: 1.7;
+    color: var(--text-main);
+}
+
+.flashcard .example-box .muted {
+    color: var(--text-muted);
+    margin-top: 8px;
+    font-size: 0.85rem;
+}
+
+.flashcard-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.flashcard-controls button {
+    background-color: var(--card-bg-alt);
+    color: var(--text-main);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.15s;
+}
+
+.flashcard-controls button:hover {
+    background-color: var(--accent);
+    color: #121212;
+}
+
+#fc-counter {
+    font-weight: bold;
+    color: var(--text-muted);
+}
+
+.flip-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--accent);
+    color: #121212;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.15s;
+}
+.flip-btn:hover {
+    background-color: var(--accent-hover);
+}
+
+.play-btn {
+    margin-top: 15px;
+    background-color: var(--success);
+    color: #121212;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.15s;
+}
+.play-btn:hover {
+    opacity: 0.85;
+}
+
+/* Scrollbar chung */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: var(--card-bg);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
+}
+
+/* ═══════════════════════════════════════════
+   Markdown Table Styling
+═══════════════════════════════════════════ */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    background-color: var(--card-bg-alt);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+th {
+    background-color: var(--card-bg);
+    color: var(--accent);
+    font-weight: 600;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+.vocab-meaning p, .vocab-example p, .fc-meaning-text p {
+    margin-bottom: 10px;
+}
+.vocab-meaning p:last-child, .vocab-example p:last-child, .fc-meaning-text p:last-child {
+    margin-bottom: 0;
+}

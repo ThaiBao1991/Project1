@@ -1,0 +1,22 @@
+{
+  "day_1.html": [
+    {
+      "type": "text",
+      "content": "Code bài mẫu"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "let\n    Source = Excel.CurrentWorkbook(){[Name=\"LensData\"]}[Content],\n    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\n    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Date\", type datetime}, {\"Line\", type text}, {\"Result\", type text}}),\n    ChangedType = Table.TransformColumnTypes(#\"Changed Type\",{\n    {\"Date\", type date},\n    {\"Line\", type text},\n    {\"Result\", type text}\n    }),\n    Filtered = Table.SelectRows(ChangedType, each [Result] = \"OK\")\nin\n    Filtered"
+    },
+    {
+      "type": "text",
+      "content": "Code bài tập tương tự như code"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "let\n    Source = Excel.CurrentWorkbook(){[Name=\"LensData\"]}[Content],\n    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\n    ChangedType = Table.TransformColumnTypes(#\"Promoted Headers\",{\n    {\"Date\", type date},\n    {\"Line\", type text},\n    {\"Result\", type text}\n    }),\n    FilteredNG = Table.SelectRows(ChangedType, each [Result] = \"OK\")\nin\n    FilteredNG"
+    }
+  ]
+}

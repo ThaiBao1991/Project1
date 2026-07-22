@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Copilot Auto Learner",
+  "version": "1.0",
+  "description": "Auto prompt and extract lessons from M365 Copilot into JSON.",
+  "permissions": ["activeTab", "scripting", "storage", "downloads", "unlimitedStorage"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Copilot Auto Learner"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": ["content_script.js"]
+    }
+  ]
+}

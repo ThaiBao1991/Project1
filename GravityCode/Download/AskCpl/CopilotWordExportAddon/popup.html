@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Copilot Auto Learner</title>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 15px; width: 320px; background: #f3f2f1; color: #323130; margin: 0; }
+    h3 { margin-top: 0; font-size: 16px; text-align: center; color: #0078d4; }
+    .input-group { margin-bottom: 10px; }
+    .input-row { display: flex; gap: 8px; margin-bottom: 10px; }
+    .input-row .input-group { flex: 1; margin-bottom: 0; }
+    label { display: block; font-size: 13px; margin-bottom: 4px; font-weight: 600; }
+    input[type="text"], input[type="number"], select { width: 100%; padding: 7px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; font-size: 13px; }
+    
+    .divider { border: none; border-top: 1px solid #ddd; margin: 12px 0; }
+    button { width: 100%; padding: 9px; margin-top: 6px; cursor: pointer; border: none; border-radius: 4px; font-weight: bold; font-size: 13px; transition: background 0.2s; }
+    
+    .btn-primary { background: #0078d4; color: white; }
+    .btn-primary:hover { background: #005a9e; }
+    .btn-danger { background: #d13438; color: white; }
+    .btn-danger:hover { background: #a4262c; }
+    .btn-secondary { background: #5c6bc0; color: white; }
+    .btn-secondary:hover { background: #3949ab; }
+    .btn-outline { background: transparent; border: 1px solid #ccc; color: #333; padding: 5px; font-size: 11px; }
+    .btn-outline:hover { background: #e0e0e0; }
+
+    #startBtn  { background: #107c10; color: white; font-size: 14px; padding: 10px; }
+    #startBtn:hover  { background: #0b5a0b; }
+    #stopBtn   { display: none; }
+    
+    #recoverBtn { background: #b146c2; color: white; display: none; }
+    #recoverBtn:hover { background: #8b1e9e; }
+    
+    #sessionInfo { margin-top: 8px; font-size: 12px; background: #e8f0fe; border: 1px solid #5c6bc0; border-radius: 4px; padding: 8px; display: none; line-height: 1.5; }
+    #clearSessionBtn { display: none; background: #888; margin-top: 4px; padding: 5px; font-size: 11px; }
+
+    /* Profile Section */
+    .profile-bar { display: flex; gap: 4px; margin-bottom: 12px; }
+    .profile-bar select { flex: 1; }
+    .profile-bar button { width: auto; margin: 0; padding: 6px 10px; }
+
+    /* Running Banner */
+    #runningBanner {
+      display: none; background: linear-gradient(135deg, #e6f4ea, #d4edda);
+      border: 1.5px solid #28a745; border-radius: 6px; padding: 9px 12px;
+      margin-bottom: 10px; font-size: 12px; color: #155724; line-height: 1.6;
+    }
+    #runningBanner .banner-icon { font-size: 16px; margin-right: 4px; animation: pulse 2s ease-in-out infinite; }
+    #runningBanner .banner-day  { font-size: 13px; font-weight: 700; color: #0a5c1e; }
+    #runningBanner .banner-note { font-size: 11px; color: #4a7c5a; margin-top: 3px; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+
+    /* Advanced Section */
+    .advanced-toggle { font-size: 13px; font-weight: bold; cursor: pointer; color: #0078d4; margin-bottom: 8px; user-select: none; }
+    #advancedPanel { display: none; background: #eef3f6; padding: 10px; border-radius: 6px; border: 1px solid #cce3f0; margin-bottom: 10px; }
+    .detail-item { background: #fff; padding: 8px; border: 1px dashed #ccc; border-radius: 4px; margin-bottom: 8px; position: relative; }
+    .detail-item .remove-btn { position: absolute; right: 5px; top: 5px; background: #d13438; color: white; border: none; border-radius: 3px; width: 20px; height: 20px; font-size: 10px; cursor: pointer; padding: 0; }
+
+    #status { margin-top: 12px; font-size: 12px; color: #605e5c; padding: 8px; background: #fff; border-radius: 4px; border: 1px solid #e1dfdd; min-height: 38px; word-wrap: break-word; }
+    #logArea { width: 100%; height: 90px; font-size: 11px; background: #1e1e1e; color: #4ec94e; border: none; padding: 5px; resize: none; box-sizing: border-box; border-radius: 3px; }
+    .section-title { font-size: 11px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  </style>
+</head>
+<body>
+  <h3>📚 Copilot Auto Learner</h3>
+
+  <!-- ── Quản lý Profile ── -->
+  <div class="profile-bar">
+    <select id="profileSelect"></select>
+    <button id="addProfileBtn" class="btn-outline" title="Tạo mới">+</button>
+    <button id="saveProfileBtn" class="btn-outline" title="Lưu">💾</button>
+    <button id="deleteProfileBtn" class="btn-outline" title="Xóa">🗑</button>
+  </div>
+
+  <!-- ── Running Banner ── -->
+  <div id="runningBanner">
+    <span class="banner-icon">🔄</span>
+    <strong>Vòng lặp đang chạy</strong><br>
+    <span id="bannerAgent" class="banner-day"></span><br>
+    <span id="bannerDay"></span>
+    <div class="banner-note">Đóng popup không ảnh hưởng — loop vẫn tiếp tục!</div>
+  </div>
+
+  <!-- ── Cài đặt chạy ── -->
+  <div class="section-title">Cài đặt chạy</div>
+  <div class="input-group">
+    <label>Nền tảng AI:</label>
+    <select id="platformSelect" style="margin-bottom:8px;">
+      <option value="copilot">M365 Copilot</option>
+      <option value="gemini">Google Gemini</option>
+      <option value="chatgpt">ChatGPT Free</option>
+    </select>
+  </div>
+  <div class="input-group">
+    <label>Tên Agent (tên thư mục):</label>
+    <input type="text" id="agentInput" placeholder="Ví dụ: EnglishCopilot">
+  </div>
+  <div class="input-row">
+    <div class="input-group">
+      <label>Tiền tố</label>
+      <input type="text" id="prefixInput" value="Day ">
+    </div>
+    <div class="input-group">
+      <label>Bắt đầu (Day)</label>
+      <input type="number" id="startDayInput" value="1" min="1">
+    </div>
+    <div class="input-group">
+      <label>Kết thúc</label>
+      <input type="number" id="endDayInput" placeholder="Trống = ∞" min="1">
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── CHẾ ĐỘ PROMPT (MỚI) ── -->
+  <div class="section-title">Nội dung Gửi (Prompt Mode)</div>
+  <div class="input-group">
+    <select id="promptModeSelect" style="font-weight:bold; color:#0078d4;">
+      <option value="basic">1. Cơ bản (Chỉ gửi "Day 1")</option>
+      <option value="advanced">2. Phỏng vấn sâu (Advanced Memory)</option>
+      <option value="table_md">3. Từ Bảng Markdown (Table)</option>
+      <option value="file_md">4. Đọc file Roadmap (.md)</option>
+    </select>
+  </div>
+
+  <!-- Panel: Advanced Memory -->
+  <div id="panel-advanced" style="display:none; background:#eef3f6; padding:10px; border-radius:6px; border:1px solid #cce3f0; margin-bottom:10px;">
+    <div class="input-group">
+      <label>Câu hỏi lấy Chủ đề:</label>
+      <input type="text" id="topicPromptInput" value="Cho tôi biết tên chủ đề của bài học này ngắn gọn nhất có thể (chỉ tên, không giải thích).">
+    </div>
+    <div class="input-group">
+      <label>Số bài mục tiêu / Chủ đề:</label>
+      <input type="number" id="targetCountInput" value="4" min="1">
+    </div>
+    <div class="section-title" style="margin-top:10px;">Các chi tiết (Từ vựng, Ngữ pháp...)</div>
+    <div id="detailsContainer"></div>
+    <button id="addDetailBtn" class="btn-outline" style="margin-top:0;">+ Thêm câu hỏi chi tiết</button>
+  </div>
+
+  <!-- Panel: Table Markdown -->
+  <div id="panel-table-md" style="display:none; background:#fff; padding:10px; border-radius:6px; border:1px solid #ccc; margin-bottom:10px;">
+    <div class="input-group">
+      <label>Dán bảng Markdown (| Ngày | Chương | Chủ đề | Yêu cầu |):</label>
+      <textarea id="roadmapInput" placeholder="| 1 | Chương 1 | Biến | Học let/const |" style="width: 100%; height: 60px; font-size: 11px; padding: 5px; resize: vertical;"></textarea>
+      <button id="parseRoadmapBtn" class="btn-outline" style="width: 100%; margin-top: 4px;">Parse & Lưu Table</button>
+    </div>
+  </div>
+
+  <!-- Panel: File MD -->
+  <div id="panel-file-md" style="display:none; background:#fff; padding:10px; border-radius:6px; border:1px solid #ccc; margin-bottom:10px;">
+    <div class="input-group">
+      <label>Upload file Roadmap.md (Format ## Day N):</label>
+      <input type="file" id="roadmapFileInput" accept=".md,.txt" style="display:none">
+      <button id="loadRoadmapFileBtn" class="btn-secondary" style="background:#0078d4; font-size:12px;">📂 Chọn file Roadmap .md</button>
+      <div id="roadmapFileInfo" style="margin-top:5px; font-size:11px; color:#555;">Chưa có file nào được nạp.</div>
+    </div>
+  </div>
+
+  <pre id="roadmapPreview" style="font-size: 10px; background: #fff; border: 1px dashed #0078d4; padding: 5px; max-height: 100px; overflow-y: auto; display: none; margin-bottom: 10px; white-space: pre-wrap;"></pre>
+
+  <hr class="divider">
+
+  <!-- ── Nút chính ── -->
+  <button id="startBtn">▶ BẮT ĐẦU AUTO RUN</button>
+  <button id="stopBtn" class="btn-danger">⏹ Dừng &amp; Lưu</button>
+  <button id="recoverBtn">📥 Tải lại dữ liệu cũ (storage)</button>
+
+  <hr class="divider">
+
+  <!-- ── Resume từ session.json ── -->
+  <div class="section-title">Tiếp tục phiên cũ</div>
+  <input type="file" id="sessionFileInput" accept=".json" style="display:none">
+  <button id="loadSessionBtn" class="btn-secondary">📂 Chọn file session.json</button>
+  <button id="clearSessionBtn">✕ Bỏ chọn phiên</button>
+  <div id="sessionInfo"></div>
+
+  <hr class="divider">
+
+  <!-- ── Status & Log ── -->
+  <div id="status">Sẵn sàng. Chọn Agent hoặc tải phiên cũ để bắt đầu!</div>
+  <div style="margin-top: 10px;">
+    <label style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;">Logs</label>
+    <textarea id="logArea" readonly></textarea>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

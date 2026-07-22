@@ -1,0 +1,2 @@
+- DeleteFileInfolder13052026:
+Delete Tat ca file con trong folder

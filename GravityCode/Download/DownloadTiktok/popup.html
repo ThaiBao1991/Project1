@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>mycustomFaveTT</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 360px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #1a1a2e;
+      color: #e0e0e0;
+      font-size: 13px;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #fe2c55, #25f4ee);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header h1 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    .header .version {
+      font-size: 10px;
+      color: rgba(255,255,255,0.8);
+    }
+
+    /* Action buttons */
+    .actions {
+      padding: 10px 14px;
+      display: flex;
+      gap: 8px;
+    }
+    .btn {
+      flex: 1;
+      padding: 8px 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+    .btn:hover { opacity: 0.85; }
+    .btn:active { transform: scale(0.97); }
+    .btn-tiktok {
+      background: #fe2c55;
+      color: #fff;
+    }
+    .btn-update {
+      background: #f0b429;
+      color: #1a1a2e;
+    }
+    .btn-clear {
+      flex: 0;
+      padding: 8px;
+      background: #2d2d44;
+      color: #aaa;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 11px;
+    }
+    .btn-clear:hover { color: #fff; }
+
+    /* Update status */
+    #update-status {
+      display: none;
+      padding: 6px 14px;
+      background: #2d2d44;
+      color: #f0b429;
+      font-size: 11px;
+      text-align: center;
+    }
+
+    /* Log section */
+    .log-header {
+      padding: 6px 14px 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid #2d2d44;
+    }
+    .log-header span {
+      font-size: 11px;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    #log-count {
+      background: #2d2d44;
+      color: #aaa;
+      border-radius: 10px;
+      padding: 1px 7px;
+      font-size: 10px;
+    }
+
+    #log-container {
+      height: 220px;
+      overflow-y: auto;
+      padding: 6px 8px;
+      background: #0f0f1a;
+      border-top: 1px solid #2d2d44;
+    }
+
+    #log-container::-webkit-scrollbar { width: 4px; }
+    #log-container::-webkit-scrollbar-track { background: transparent; }
+    #log-container::-webkit-scrollbar-thumb { background: #3d3d5c; border-radius: 2px; }
+
+    .log-empty {
+      text-align: center;
+      color: #555;
+      padding: 30px 10px;
+      font-size: 12px;
+    }
+
+    .log-item {
+      padding: 5px 8px;
+      margin-bottom: 4px;
+      border-radius: 6px;
+      font-size: 11px;
+      line-height: 1.5;
+      word-break: break-all;
+      animation: fadeIn 0.2s ease;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; } }
+
+    .log-item.downloading {
+      background: #1a2744;
+      border-left: 3px solid #25f4ee;
+      color: #cce8ff;
+    }
+    .log-item.done {
+      background: #132213;
+      border-left: 3px solid #4caf50;
+      color: #a8d8a8;
+    }
+    .log-item.error {
+      background: #2a1111;
+      border-left: 3px solid #fe2c55;
+      color: #ffaaaa;
+    }
+    .log-item.info {
+      background: #1e1e30;
+      border-left: 3px solid #666;
+      color: #aaa;
+    }
+
+    .log-item .log-time {
+      font-size: 9px;
+      color: #666;
+      margin-right: 5px;
+    }
+    .log-item .log-icon { margin-right: 4px; }
+    .log-item .log-id {
+      font-weight: 600;
+      color: inherit;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>mycustomFaveTT</h1>
+    <span class="version">v1.12.63-custom</span>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-tiktok" id="btn-open-tiktok">▶ Mở TikTok</button>
+    <button class="btn btn-update" id="btn-update-ui">🔄 Cập nhật UI</button>
+    <button class="btn-clear" id="btn-clear-log" title="Xoá log">🗑</button>
+  </div>
+
+  <div id="update-status"></div>
+
+  <div class="log-header">
+    <span>📋 Download Log</span>
+    <span id="log-count">0</span>
+  </div>
+
+  <div id="log-container">
+    <div class="log-empty" id="log-empty">Chưa có log. Vào TikTok và bắt đầu tải video.</div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

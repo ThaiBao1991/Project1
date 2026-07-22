@@ -1,0 +1,160 @@
+{
+  "agentName": "Power Query Tutor",
+  "folderName": "Power_Query_Tutor",
+  "prefix": "Day ",
+  "lastDay": 31,
+  "totalSaved": 30,
+  "savedAt": "2026-06-25T09:24:07.319Z",
+  "days": [
+    {
+      "day": "Day 1",
+      "filename": "Power_Query_Tutor/day_1.html",
+      "timestamp": "2026-06-25T07:30:45.579Z"
+    },
+    {
+      "day": "Day 2",
+      "filename": "Power_Query_Tutor/day_2.html",
+      "timestamp": "2026-06-25T07:31:44.809Z"
+    },
+    {
+      "day": "Day 3",
+      "filename": "Power_Query_Tutor/day_3.html",
+      "timestamp": "2026-06-25T07:32:34.554Z"
+    },
+    {
+      "day": "Day 4",
+      "filename": "Power_Query_Tutor/day_4.html",
+      "timestamp": "2026-06-25T07:33:40.558Z"
+    },
+    {
+      "day": "Day 5",
+      "filename": "Power_Query_Tutor/day_5.html",
+      "timestamp": "2026-06-25T07:34:58.025Z"
+    },
+    {
+      "day": "Day 6",
+      "filename": "Power_Query_Tutor/day_6.html",
+      "timestamp": "2026-06-25T07:36:15.551Z"
+    },
+    {
+      "day": "Day 7",
+      "filename": "Power_Query_Tutor/day_7.html",
+      "timestamp": "2026-06-25T07:39:29.552Z"
+    },
+    {
+      "day": "Day 8",
+      "filename": "Power_Query_Tutor/day_8.html",
+      "timestamp": "2026-06-25T07:41:29.028Z"
+    },
+    {
+      "day": "Day 9",
+      "filename": "Power_Query_Tutor/day_9.html",
+      "timestamp": "2026-06-25T07:42:48.555Z"
+    },
+    {
+      "day": "Day 10",
+      "filename": "Power_Query_Tutor/day_10.html",
+      "timestamp": "2026-06-25T07:44:55.576Z"
+    },
+    {
+      "day": "Day 11",
+      "filename": "Power_Query_Tutor/day_11.html",
+      "timestamp": "2026-06-25T07:46:18.547Z"
+    },
+    {
+      "day": "Day 12",
+      "filename": "Power_Query_Tutor/day_12.html",
+      "timestamp": "2026-06-25T07:48:10.560Z"
+    },
+    {
+      "day": "Day 13",
+      "filename": "Power_Query_Tutor/day_13.html",
+      "timestamp": "2026-06-25T07:49:33.584Z"
+    },
+    {
+      "day": "Day 14",
+      "filename": "Power_Query_Tutor/day_14.html",
+      "timestamp": "2026-06-25T07:52:29.552Z"
+    },
+    {
+      "day": "Day 15",
+      "filename": "Power_Query_Tutor/day_15.html",
+      "timestamp": "2026-06-25T07:57:29.567Z"
+    },
+    {
+      "day": "Day 16",
+      "filename": "Power_Query_Tutor/day_16.html",
+      "timestamp": "2026-06-25T08:02:29.556Z"
+    },
+    {
+      "day": "Day 17",
+      "filename": "Power_Query_Tutor/day_17.html",
+      "timestamp": "2026-06-25T08:07:29.553Z"
+    },
+    {
+      "day": "Day 18",
+      "filename": "Power_Query_Tutor/day_18.html",
+      "timestamp": "2026-06-25T08:12:29.571Z"
+    },
+    {
+      "day": "Day 19",
+      "filename": "Power_Query_Tutor/day_19.html",
+      "timestamp": "2026-06-25T08:17:29.555Z"
+    },
+    {
+      "day": "Day 20",
+      "filename": "Power_Query_Tutor/day_20.html",
+      "timestamp": "2026-06-25T08:22:29.555Z"
+    },
+    {
+      "day": "Day 21",
+      "filename": "Power_Query_Tutor/day_21.html",
+      "timestamp": "2026-06-25T08:27:29.557Z"
+    },
+    {
+      "day": "Day 22",
+      "filename": "Power_Query_Tutor/day_22.html",
+      "timestamp": "2026-06-25T08:31:03.557Z"
+    },
+    {
+      "day": "Day 23",
+      "filename": "Power_Query_Tutor/day_23.html",
+      "timestamp": "2026-06-25T08:32:23.565Z"
+    },
+    {
+      "day": "Day 24",
+      "filename": "Power_Query_Tutor/day_24.html",
+      "timestamp": "2026-06-25T08:33:46.334Z"
+    },
+    {
+      "day": "Day 25",
+      "filename": "Power_Query_Tutor/day_25.html",
+      "timestamp": "2026-06-25T08:34:22.003Z"
+    },
+    {
+      "day": "Day 26",
+      "filename": "Power_Query_Tutor/day_26.html",
+      "timestamp": "2026-06-25T08:35:43.565Z"
+    },
+    {
+      "day": "Day 27",
+      "filename": "Power_Query_Tutor/day_27.html",
+      "timestamp": "2026-06-25T08:37:29.587Z"
+    },
+    {
+      "day": "Day 28",
+      "filename": "Power_Query_Tutor/day_28.html",
+      "timestamp": "2026-06-25T08:40:01.581Z"
+    },
+    {
+      "day": "Day 29",
+      "filename": "Power_Query_Tutor/day_29.html",
+      "timestamp": "2026-06-25T08:43:29.547Z"
+    },
+    {
+      "day": "Day 30",
+      "filename": "Power_Query_Tutor/day_30.html",
+      "timestamp": "2026-06-25T08:48:29.554Z"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "domains": {
+    "rosivy.top": {
+      "base_url": "https://rosivy.top/",
+      "extensions": [],
+      "last_used_ext": "ts",
+      "last_processed": "2026-05-10T15:43:45.111276",
+      "filter_keyword": ""
+    },
+    "video.megatech.global": {
+      "base_url": "https://video.megatech.global/",
+      "extensions": [],
+      "last_used_ext": "ts",
+      "last_processed": null,
+      "use_robust_merge": true,
+      "use_custom_bat": false,
+      "bat_script": "@echo off\nsetlocal enabledelayedexpansion\nchcp 65001 >nul\ntitle Chuyen PNG sang MP4 - Xu ly da phuong phap\n\necho ===================================================\necho BAT DAU XU LY CHUYEN DOI FILE PNG SANG MP4\necho ===================================================\necho.\n\nREM Tao thu muc log\nif not exist logs mkdir logs\nset /a total=0\nset /a success=0\nset /a failed=0\n\nREM Dem tong so file png/ts/m4s trung gian\nfor %%i in (*.png) do set /a total+=1\nif !total! equ 0 (\n    for %%i in (*.ts) do set /a total+=1\n)\nif !total! equ 0 (\n    for %%i in (*.m4s) do set /a total+=1\n)\necho Tong so file segments: %total%\necho.\n\nREM Tao file list cho cac phuong phap\nif exist tslist.txt del tslist.txt\nif exist mylist.txt del mylist.txt\n\nset /a count=0\nREM Xu ly tung file\nfor %%i in (*.png *.ts *.m4s) do (\n    set /a count+=1\n    set filename=%%~ni\n    echo [%count%/%total%] Dang xu ly: %%i\n    \n    REM Thu cac phuong phap theo thu tu\n    call :ProcessFile \"%%i\" \"%%~ni\"\n    \n    if !errorlevel! equ 0 (\n        set /a success+=1\n        echo   -> THANH CONG: %%~ni.ts\n        echo file '%%~ni.ts' >> tslist.txt\n    ) else (\n        set /a failed+=1\n        echo   -> THAT BAI: %%~ni.ts\n        echo %%i >> failed_files.txt\n    )\n    echo.\n)\n\necho ===================================================\necho KET QUA XU LY:\necho   Tong so: %total%\necho   Thanh cong: %success%\necho   That bai: %failed%\necho ===================================================\n\nif %success% gtr 0 (\n    echo.\n    echo Dang tien hanh ghep cac file TS thanh MP4...\n    \n    REM Thu cac phuong phap ghep\n    call :ConcatFiles\n    \n    if exist final_output.mp4 (\n        echo.\n        echo HOAN THANH! File ket qua: final_output.mp4\n    ) else (\n        echo.\n        echo LOI: Khong the ghep file!\n    )\n) else (\n    echo.\n    echo KHONG CO FILE NAO XU LY THANH CONG!\n)\n\necho.\nexit /b\n\n:ProcessFile\nset input=%~1\nset output=%~2\nset output_ts=%output%.ts\nset logfile=logs\\%output%.log\n\necho     Thu phuong phap 1: Copy truc tiep voi BSF > %logfile%\nffmpeg -f mpegts -i %input% -c copy -bsf:v h264_mp4toannexb -y %output_ts% >> %logfile% 2>&1\nif %errorlevel% equ 0 (\n    if exist %output_ts% (\n        exit /b 0\n    )\n)\n\necho     Thu phuong phap 2: Encode video (libx264) >> %logfile%\nffmpeg -f mpegts -i %input% -c:v libx264 -preset ultrafast -crf 23 -c:a copy -bsf:a aac_adtstoasc -y %output_ts% >> %logfile% 2>&1\nif %errorlevel% equ 0 (\n    if exist %output_ts% (\n        exit /b 0\n    )\n)\n\necho     Thu phuong phap 3: Encode ca video va audio >> %logfile%\nffmpeg -f mpegts -i %input% -c:v libx264 -preset ultrafast -crf 23 -c:a aac -b:a 128k -y %output_ts% >> %logfile% 2>&1\nif %errorlevel% equ 0 (\n    if exist %output_ts% (\n        exit /b 0\n    )\n)\n\necho     Thu phuong phap 4: Bo qua loi (ignore_err) >> %logfile%\nffmpeg -f mpegts -err_detect ignore_err -i %input% -c:v libx264 -preset ultrafast -c:a copy -y %output_ts% >> %logfile% 2>&1\nif %errorlevel% equ 0 (\n    if exist %output_ts% (\n        exit /b 0\n    )\n)\n\necho     Thu phuong phap 5: Extract H264 va dong goi lai >> %logfile%\nffmpeg -f mpegts -i %input% -c:v copy -bsf:v h264_mp4toannexb -f h264 -y temp.h264 >> %logfile% 2>&1\nif %errorlevel% equ 0 (\n    ffmpeg -f h264 -i temp.h264 -i %input% -map 0:v -map 1:a? -c:v copy -c:a copy -y %output_ts% >> %logfile% 2>&1\n    if %errorlevel% equ 0 (\n        if exist %output_ts% (\n            del temp.h264 2>nul\n            exit /b 0\n        )\n    )\n)\ndel temp.h264 2>nul\n\necho     Thu phuong phap 6: Chuyen sang MP4 truoc >> %logfile%\nffmpeg -f mpegts -i %input% -c:v libx264 -preset ultrafast -c:a aac -movflags +faststart -y temp.mp4 >> %logfile% 2>&1\nif %errorlevel% equ 0 (\n    ffmpeg -i temp.mp4 -c copy -f mpegts -y %output_ts% >> %logfile% 2>&1\n    if %errorlevel% equ 0 (\n        if exist %output_ts% (\n            del temp.mp4 2>nul\n            exit /b 0\n        )\n    )\n)\ndel temp.mp4 2>nul\n\nexit /b 1\n\n:ConcatFiles\necho     Thu phuong phap ghep 1: Copy truc tiep\nffmpeg -f concat -safe 0 -i tslist.txt -c copy -y final_output.mp4 2> concat.log\nif %errorlevel% equ 0 (\n    if exist final_output.mp4 (\n        echo     -> THANH CONG\n        exit /b 0\n    )\n)\n\necho     Thu phuong phap ghep 2: Them genpts\nffmpeg -f concat -safe 0 -i tslist.txt -c copy -fflags +genpts -y final_output.mp4 2>> concat.log\nif %errorlevel% equ 0 (\n    if exist final_output.mp4 (\n        echo     -> THANH CONG\n        exit /b 0\n    )\n)\n\necho     Thu phuong phap ghep 3: Them BSF audio\nffmpeg -f concat -safe 0 -i tslist.txt -c copy -bsf:a aac_adtstoasc -fflags +genpts -y final_output.mp4 2>> concat.log\nif %errorlevel% equ 0 (\n    if exist final_output.mp4 (\n        echo     -> THANH CONG\n        exit /b 0\n    )\n)\n\necho     Thu phuong phap ghep 4: Ghep thanh TS truoc\nffmpeg -f concat -safe 0 -i tslist.txt -c copy -f mpegts -y temp_all.ts 2>> concat.log\nif %errorlevel% equ 0 (\n    ffmpeg -i temp_all.ts -c copy -bsf:a aac_adtstoasc -y final_output.mp4 2>> concat.log\n    if %errorlevel% equ 0 (\n        if exist final_output.mp4 (\n            del temp_all.ts 2>nul\n            echo     -> THANH CONG\n            exit /b 0\n        )\n    )\n)\ndel temp_all.ts 2>nul\n\nexit /b 1\n",
+      "custom_seg_cmd": "",
+      "custom_concat_cmd": ""
+    },
+    "sv3.uptobox-ggcdn.top": {
+      "base_url": "https://sv3.uptobox-ggcdn.top/",
+      "extensions": [],
+      "last_used_ext": "ts",
+      "last_processed": null
+    }
+  },
+  "extensions": [
+    "ts",
+    "mp4",
+    "m4s"
+  ],
+  "processing_methods": {
+    "concat_copy": true,
+    "concat_genpts": true,
+    "concat_bsf": true,
+    "concat_to_ts_then_mp4": true,
+    "reencode_video": true,
+    "reencode_both": true,
+    "ignore_errors": true
+  }
+}

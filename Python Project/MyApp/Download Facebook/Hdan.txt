@@ -1,0 +1,6 @@
+Lấy mã token
+curl -i -X GET "https://graph.facebook.com/{graph-api-version}/oauth/access_token?  
+    grant_type=fb_exchange_token&          
+    client_id={2124825828354490}&
+    client_secret={daaeb9224e43f6e72e9b8d0cb844c2bc}&
+    fb_exchange_token={EAAcf1m91Q28BQpARBCaZBeEZAke93ZAtSE2VwTZAFQHEE3TWQmQjTfUjIkY2tPHBtHUoA2IGVJMJZCRZBliDug7FK0o3zkY5xNZBik4KXWDlFNUfEko1fpmWFoocZAg3uA249tzomT8x2ttSJEQ1li5DcgT5Nb4h392RDj6EMlzEHpQWVE9isdshwbv7DcZALSlii1fAoY0bTC1gjK5Q9JhZBbzUSxYvJaYLdMZC9LN6tJe2REINoZAhaM55U4aRXxQCM4F4cWjILZAhvF0QSMruEVMoU7GyWZBquZAkpcBE0ihYPWXammXSUjnhyGcaJbrvZB4tKeDkrRsZD}" 

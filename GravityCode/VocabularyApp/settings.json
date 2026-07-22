@@ -1,0 +1,16 @@
+{
+  "github": {
+    "username": "gamesvendn01",
+    "token": "ENC:WjZBS2Ewam9yS3dWd3pWQ0NIM0ZpcVdDbHBQT1ZoMlFFdzM1X3BoZw==",
+    "repo_name": "VocabularyApp",
+    "branch": "main",
+    "pages_url": "https://gamesvendn01.github.io/VocabularyApp/"
+  },
+  "gdrive": {
+    "connected": false,
+    "folder_id_mp3": "",
+    "folder_id_mp4": "",
+    "root_folder_id": "",
+    "root_folder_name": "VocabularyApp"
+  }
+}

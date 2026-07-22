@@ -1,0 +1,2 @@
+- StamFolder03.py:
+Đã hoạt động được tương đối

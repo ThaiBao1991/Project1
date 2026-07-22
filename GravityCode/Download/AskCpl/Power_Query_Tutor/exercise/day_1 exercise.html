@@ -1,0 +1,49 @@
+<!-- EXERCISE START -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bài tập - day_1</title>
+  <style>body { font-family: sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }</style>
+</head>
+<body>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+  <a href="../index.html" style="display: inline-block; margin-bottom: 20px; padding: 10px 15px; background: #0078d4; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">⬅ Quay lại Index</a>
+<div class="exercise-container" style="margin-top: 20px; padding: 20px; border-top: 2px dashed #0078d4; background-color: #f9f9f9; font-family: sans-serif; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-radius: 8px;">
+  <h2 style="color: #0078d4;">Bài Tập & Lời Giải</h2>
+  <div class="ex-text" style="margin-bottom: 15px; font-size: 16px; line-height: 1.5;">Code bài mẫu</div>
+  <div class="ex-code" style="margin-bottom: 15px; border-radius: 6px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+    <pre><code class="language-javascript">let
+    Source = Excel.CurrentWorkbook(){[Name="LensData"]}[Content],
+    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Date", type datetime}, {"Line", type text}, {"Result", type text}}),
+    ChangedType = Table.TransformColumnTypes(#"Changed Type",{
+    {"Date", type date},
+    {"Line", type text},
+    {"Result", type text}
+    }),
+    Filtered = Table.SelectRows(ChangedType, each [Result] = "OK")
+in
+    Filtered</code></pre>
+  </div>
+  <div class="ex-text" style="margin-bottom: 15px; font-size: 16px; line-height: 1.5;">Code bài tập tương tự như code</div>
+  <div class="ex-code" style="margin-bottom: 15px; border-radius: 6px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+    <pre><code class="language-javascript">let
+    Source = Excel.CurrentWorkbook(){[Name="LensData"]}[Content],
+    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+    ChangedType = Table.TransformColumnTypes(#"Promoted Headers",{
+    {"Date", type date},
+    {"Line", type text},
+    {"Result", type text}
+    }),
+    FilteredNG = Table.SelectRows(ChangedType, each [Result] = "OK")
+in
+    FilteredNG</code></pre>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</body>
+</html>
+<!-- EXERCISE END -->
