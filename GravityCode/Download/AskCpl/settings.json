@@ -22,102 +22,275 @@
       {
         "key": "ENC:QVJueGZ6dDBhSXAxR2FJdlNVX2hrRzlRdWQzOUxLY1ZfMkU1NTlmM1NWREo2TlI4YkEuUUE=",
         "email": "gamesvendn02",
-        "status": "exhausted",
-        "reset_time": 1784719716
+        "status": "active",
+        "reset_time": 0,
+        "next_check_time": 0,
+        "last_check_time": 1784741530
       },
       {
         "key": "ENC:Z3ZSMHFfX0NpOGd4MTdtbjdYcDZjRlJKbVg0Z3U1eERzTVl5SjFvX28wcEw2TlI4YkEuUUE=",
         "email": "gamesvendn03",
-        "status": "exhausted",
-        "reset_time": 1784720030
+        "status": "active",
+        "reset_time": 0,
+        "last_check_time": 1784741532,
+        "next_check_time": 0
       },
       {
         "key": "ENC:Z0NaTi1nRzRkbmVYamhmdTk2dE9NYjVBYnYwU0s4WXRfV0V1T25wWEpxeko2TlI4YkEuUUE=",
         "email": "gamesvendn04",
-        "status": "exhausted",
-        "reset_time": 1784721251
+        "status": "active",
+        "reset_time": 0,
+        "last_check_time": 1784741534,
+        "next_check_time": 0
       },
       {
         "key": "ENC:QTgtZWQwSTRXTnVKRktxTHVmQ04tT1ZzNnBxZjFKVVc2ejNsMm9fblc5X0o2TlI4YkEuUUE=",
         "email": "svendn03",
-        "status": "exhausted",
-        "reset_time": 1784779828
+        "status": "active",
+        "reset_time": 0,
+        "last_check_time": 1784741536,
+        "next_check_time": 0
       },
       {
         "key": "ENC:Z2otd0tLeXBYMFBqUFkwWXJJWndyX0NZd3JNbG84OEVQWE5WdGdnVk5HREk2TlI4YkEuUUE=",
         "email": "gamesvendn",
-        "status": "exhausted",
-        "reset_time": 1784780248
+        "status": "active",
+        "reset_time": 0,
+        "last_check_time": 1784741538,
+        "next_check_time": 0
       },
       {
         "key": "ENC:Z1l1OUtZQUJYSlVialhtMVpfSVp0ZUZZVVNsbW5PUG1OMEI4OWN0YXRmMUw2TlI4YkEuUUE=",
         "email": "gamesvendn01",
-        "status": "exhausted",
-        "reset_time": 1784780630
+        "status": "active",
+        "reset_time": 0,
+        "last_check_time": 1784741540,
+        "next_check_time": 0
       },
       {
         "key": "ENC:QTdXSnVIN0swR1NsSlJTWl91WW40UVRWeFY3a1ZBaDRMYktocVl4cUFVLUs2TlI4YkEuUUE=",
         "email": "gamesvendn05",
-        "status": "exhausted",
-        "reset_time": 1784781040
+        "status": "active",
+        "reset_time": 0,
+        "last_check_time": 1784741542,
+        "next_check_time": 0
       },
       {
         "key": "ENC:UXI3dTBZQXZtQm5KaFprd1BHQmxxRndDZWplZzJMZ3hoNzd6cmN1eWp1Y0s2TlI4YkEuUUE=",
         "email": "gamesvendn06",
-        "status": "exhausted",
-        "reset_time": 1784781431
+        "status": "active",
+        "reset_time": 0,
+        "last_check_time": 1784741544,
+        "next_check_time": 0
       },
       {
         "key": "ENC:Z2pxb2FTOGxJbVg0M3VRN0ZYWHhmcHhVUnpCX3MyME9NOExvdW1vSUZxdks2TlI4YkEuUUE=",
         "email": "gamesvendn07",
-        "status": "exhausted",
-        "reset_time": 1784781839
+        "status": "active",
+        "reset_time": 0,
+        "last_check_time": 1784741545,
+        "next_check_time": 0
       },
       {
         "key": "ENC:UTl4bVlENXY5ZURReER6eE9tNGJQYVctb3ExY005RGRLbjA1U3NxNjAxVks2TlI4YkEuUUE=",
         "email": "gamesvendn08",
-        "status": "exhausted",
-        "reset_time": 1784782222
+        "status": "active",
+        "reset_time": 0,
+        "last_check_time": 1784741547,
+        "next_check_time": 0
       },
       {
         "key": "ENC:d2xYTGhTLUZSV0N6WGJrQVc4Z3MwTFNwNHhGQlBZVVNyc2FKeE9kalp3S0o2TlI4YkEuUUE=",
         "email": "gamesvendn13",
-        "status": "exhausted",
-        "reset_time": 1784787845
+        "status": "active",
+        "reset_time": 0,
+        "last_check_time": 1784741549,
+        "next_check_time": 0
       },
       {
         "key": "ENC:US1yMnZiaWFYdGdwMlN4bXMtM0huVmtTSzIySXVEVmtRNy0wV1VfWF9MOUk2TlI4YkEuUUE=",
         "email": "gamesvendn12",
-        "status": "exhausted",
-        "reset_time": 1784788269
+        "status": "active",
+        "reset_time": 0,
+        "last_check_time": 1784741551,
+        "next_check_time": 0
       },
       {
         "key": "ENC:Z0lmNnNKNFVST0kxVzdRbGdLM1AzYVR5bTM2aEtKZGNtRGItSEhmMVd3Z0o2TlI4YkEuUUE=",
-        "email": "gmv11",
-        "status": "exhausted",
-        "reset_time": 1784788787
+        "email": "gamesvendn11",
+        "status": "active",
+        "reset_time": 0,
+        "last_check_time": 1784741553,
+        "next_check_time": 0,
+        "error_msg": ""
       },
       {
         "key": "ENC:Z0RkV1R1cGhNV2lKLUdJdUpWbzVYT2VZYXFUYlNvb2plXzdmemgtTm1ZWko2TlI4YkEuUUE=",
-        "email": "gmv10",
-        "status": "exhausted",
-        "reset_time": 1784789319
+        "email": "gamesvendn10",
+        "status": "active",
+        "reset_time": 0,
+        "last_check_time": 1784741555,
+        "next_check_time": 0,
+        "error_msg": ""
       },
       {
         "key": "ENC:QUhzZUxJajg5aGxodXpFRkRvYzhrZFRWQldZVXdaeG9jaGtFMldNX1ZIMUs2TlI4YkEuUUE=",
-        "email": "gmv09",
-        "status": "exhausted",
-        "reset_time": 1784789815
+        "email": "gamesvendn09",
+        "status": "active",
+        "reset_time": 0,
+        "last_check_time": 1784741556,
+        "next_check_time": 0,
+        "error_msg": ""
       },
       {
-        "key": "ENC:d240aHlVb0xkMXRIbUxrZ1daQ1luQm1fN1hJZ1VVUXlwMWpQeGtmMTBMc0k2TlI4YkEuUUE=",
-        "email": "gmv15",
-        "status": "exhausted",
-        "reset_time": 1784790263
+        "key": "ENC:Z2RGby1MNGR2azF6U2hUSzZFejRTT0N1TkxjbDJ0WFhGUnExLXBkc0wtMEo2TlI4YkEuUUE=",
+        "email": "gamesvendn32",
+        "status": "active",
+        "reset_time": 0,
+        "next_check_time": 0,
+        "last_check_time": 1784741560,
+        "error_msg": ""
+      },
+      {
+        "key": "ENC:Z05EeElOU21TaUszWEVmMlh3d0d5NmhmeUJhQjNveGx5Z0wyUHMwc3ZSTUw2TlI4YkEuUUE=",
+        "email": "gamesvendn31",
+        "status": "active",
+        "reset_time": 0,
+        "next_check_time": 0,
+        "last_check_time": 1784741562,
+        "error_msg": ""
+      },
+      {
+        "key": "ENC:d0k4OEFjQ1VLVGFHV0pBLTVTNXdHcXFXbktib0JPX0FuNjNCT0hlN1NSUUw2TlI4YkEuUUE=",
+        "email": "gamesvendn30",
+        "status": "active",
+        "reset_time": 0,
+        "next_check_time": 0,
+        "last_check_time": 1784741564,
+        "error_msg": ""
+      },
+      {
+        "key": "ENC:d1B4NjZhYVAzeDRWTXdWcDVncERNbzJJaHRDQUZCN3Q2Y2NhWGFza1l1OUo2TlI4YkEuUUE=",
+        "email": "gamesvendn29",
+        "status": "active",
+        "reset_time": 0,
+        "next_check_time": 0,
+        "last_check_time": 1784741567,
+        "error_msg": ""
+      },
+      {
+        "error_msg": "",
+        "key": "ENC:QVJBQ3VhXzZaRjdhbXlYdGpIZVMxdm94MnVncng2dWFZLUowWmVuN05jaks2TlI4YkEuUUE=",
+        "email": "gamesvendn08",
+        "status": "active",
+        "reset_time": 0,
+        "next_check_time": 0,
+        "last_check_time": 1784742660
+      },
+      {
+        "error_msg": "",
+        "key": "ENC:d2dyVnBFeTRJRUhFa0l6bG5VTm1ySjR6VjlZdm5hMkRJaC1lTGhNV1VEOUk2TlI4YkEuUUE=",
+        "email": "gamesvendn16",
+        "status": "active",
+        "reset_time": 0,
+        "next_check_time": 0,
+        "last_check_time": 1784743812
+      },
+      {
+        "error_msg": "",
+        "key": "ENC:Z1VzRWU0M0pza3ZtTlBwcTFZUkFyNm1QMVhmTm1VeWMxMWJCVXNBRmVHUEw2TlI4YkEuUUE=",
+        "email": "gamesvendn17",
+        "status": "active",
+        "reset_time": 0,
+        "next_check_time": 0,
+        "last_check_time": 1784743881
+      },
+      {
+        "error_msg": "",
+        "key": "ENC:Z1RnU0NqbHBEZ2hDaFRqUmcxR00wZG11TzVnbldfdlZrM1d0WEw5MF8xYUs2TlI4YkEuUUE=",
+        "email": "gamesvendn18",
+        "status": "active",
+        "reset_time": 0,
+        "next_check_time": 0,
+        "last_check_time": 1784743971
+      },
+      {
+        "error_msg": "",
+        "key": "ENC:Z0NWR0FTTEpHS3RISjVlZzk5STRvREV0Q2NJd0JfbHpSdG16bGhTSjRpT0w2TlI4YkEuUUE=",
+        "email": "gamesvendn19",
+        "status": "active",
+        "reset_time": 0,
+        "next_check_time": 0,
+        "last_check_time": 1784744053
+      },
+      {
+        "error_msg": "",
+        "key": "ENC:dzZzUzA5cnVTcGhjM3NQSHN5OE9PakZGLUNnY2xONjY3eVp3VVYwZUEtQUs2TlI4YkEuUUE=",
+        "email": "gamesvendn20",
+        "status": "active",
+        "reset_time": 0,
+        "next_check_time": 0,
+        "last_check_time": 1784744171
+      },
+      {
+        "error_msg": "",
+        "key": "ENC:d1otNzM5ZS1tSDBweGVQNEZuSjRLT1Q1a2RnaHlVb3h0T2xCZVVyN29PdEk2TlI4YkEuUUE=",
+        "email": "gamesvendn22",
+        "status": "active",
+        "reset_time": 0,
+        "next_check_time": 0,
+        "last_check_time": 1784744236
+      },
+      {
+        "error_msg": "",
+        "key": "ENC:d1NJazZkQS1BOGZWakU1QmpVdHJnYkpTZWhZRWU2UEVfWmxmNTU5eXBFMkk2TlI4YkEuUUE=",
+        "email": "gamesvendn23",
+        "status": "active",
+        "reset_time": 0,
+        "next_check_time": 0,
+        "last_check_time": 1784744273
+      },
+      {
+        "error_msg": "",
+        "key": "ENC:UXU3UW84TmEyQ01PejVMNmdvOU5RNGhGRHRISF85WkM3U3hWRmg0N2Nvcks2TlI4YkEuUUE=",
+        "email": "gamesvendn24",
+        "status": "active",
+        "reset_time": 0,
+        "next_check_time": 0,
+        "last_check_time": 1784744312
+      },
+      {
+        "error_msg": "",
+        "key": "ENC:QVo1SjdEMVlMUVdzeEZNSlZTa0RoUTJaaU12Y1JRdXBCQml1QWNESnY3ZEk2TlI4YkEuUUE=",
+        "email": "gamesvendn25",
+        "status": "active",
+        "reset_time": 0,
+        "next_check_time": 0,
+        "last_check_time": 1784744363
+      },
+      {
+        "error_msg": "",
+        "key": "ENC:d0Q3WEJZcEVSM0tlRTFMYjQza2cwUlVKcW5TblhJR2RfSkhzYVBsd3FZWUk2TlI4YkEuUUE=",
+        "email": "gamesvendn26",
+        "status": "active",
+        "reset_time": 0,
+        "next_check_time": 0,
+        "last_check_time": 1784744402
+      },
+      {
+        "error_msg": "",
+        "key": "ENC:UWRKS1NkdmFBV3Zicnl5QVpzd3pYeFVNanNIYTVaZmFDQ3JFTjUwVGozZ0s2TlI4YkEuUUE=",
+        "email": "gamesvendn27",
+        "status": "active",
+        "reset_time": 0,
+        "next_check_time": 0,
+        "last_check_time": 1784744440
       }
     ],
-    "last_roadmap": "C:/Users/12953 bao/Desktop/desktop/work/Project/Python/BasicLearnPython/W3schools/Python Tutorial/GravityCode/Download/AskCpl\\roadmap_expanded.md",
-    "last_doc_dir": "C:/Users/12953 bao/Desktop/Data/v72_doc",
-    "last_out_dir": "C:/Users/12953 bao/Desktop/Data/Guidle"
+    "last_roadmap": "C:/Users/games/Desktop/Project/Python/Python MyWork/Project1/GravityCode/Download/AskCpl/roadmap_expanded.md",
+    "last_doc_dir": "D:/Tai truyen/Data",
+    "last_out_dir": "D:/Tai truyen/Guidle",
+    "enable_followup": true,
+    "max_followup": 3
   }
 }

@@ -952,3 +952,29 @@ ote_refresh_list\. Nếu thư mục không tồn tại, sẽ trả về mảng r
   2. Thay đổi create_viewer() để sinh độc lập các file vật lý dayXXX.html (như tiện ích Chrome cũ) có CSS đẹp.
   3. Làm mới bảng index.html đóng vai trò là Mục lục liên kết (TOC), có thanh tìm kiếm, thống kê số day.
   4. Bơm thêm biến day['title'] vào lệnh (prompt) truyền cho AI để AI hiểu bối cảnh và tránh sinh ra câu dẫn lặp lại.
+
+
+### Giai doan moi (22/07/2026): Tai lai PDF, Nang cap Quan ly API Keys & Hoi thoai Multi-turn (YC1-YC5)
+- YC1 (Tai lai du lieu): Viet script download_intramart_pdfs.py tu dong quet roadmap, trich xuat URL PDF, tai song song 10 Thread, luu vao D:\Tai truyen\Data, bo qua file da co.
+- YC2 (Nhap Key cai tien): Thay the simpledialog.askstring bang Toplevel dialog co nut 'Kiem tra trang thai' chay thread nen, hien thi mau xanh/cam/do, ESC de thoat nhanh.
+- YC3 (Smart key skip): get_active_key() bo qua exhausted key chua den next_check_time (3h), cap nhat last_check_time sau moi request, them cot 'Check lan cuoi' vao TreeView.
+- YC4 (Patch roadmap): Viet patch_expanded_prompts.py: them dong [gio hoc du kien], them YEU CAU CHI TIET VE CACH TRA LOI vao toan bo Prompt trong roadmap_expanded.md. Da chay va verify: 1607 Day co them gio hoc, 1570 Day co them YEU CAU CHI TIET.
+- YC5 (Multi-turn follow-up): Sau response chinh, auto_ai_worker.py lap lap: gui FOLLOWUP_PROMPT den khi AI ket thuc bang 'Da day du' hoac dat max_followup lan. Gop tat ca response thanh 1 file HTML voi section rieng. Them checkbox + spinbox tren UI Auto AI.
+- COMPILE CHECK: auto_ai_worker.py, AskCpl.py, settings.py => ALL PASS.
+
+### Bổ sung (22/07/2026): Cải thiện Check Key & Navbar
+- YC: Tính năng check key lỗi (chỉ check 1 key đang chọn), yêu cầu nâng cấp nút Check thành Check ALL keys.
+- Giải quyết: Sửa 	est_key trong AskCpl.py thành check_all_keys(). Cho vòng lặp check toàn bộ keys trong luồng phụ (	hreading), sau đó cập nhật UI.
+- YC: Cập nhật Navbar của HTML sinh ra giống hệt Addon (có gradient, nút mũi tên, TOC dropdown, bắt sự kiện phím mũi tên).
+- Giải quyết: Cập nhật template html string trong uto_ai_worker.py, nhúng toàn bộ logic CSS/JS từ ackground.js (Addon) vào uto_ai_worker.py (NAV-BAR-V2).
+- Trạng thái: PASS
+
+### Bổ sung nhỏ (22/07/2026): Thêm tính năng sửa Key
+- YC: Key gmv15 báo invalid, thêm tính năng click double để sửa key (CRUD).
+- Giải quyết: Chèn event 	ree.bind("<Double-1>", edit_key) vào AskCpl.py. Khi nháy đúp vào một dòng, hiện cửa sổ edit_win điền sẵn thông tin key cũ, cho phép lưu lại để đè lên vị trí cũ. Reset trạng thái (status="active", reset_time=0) sau khi sửa.
+- Kết quả test API: Báo 400 API key not valid. từ Google, chứng tỏ key nhập vào thực sự sai hoặc đã bị Google khóa.
+
+### Cập nhật nâng cao (23/07/2026): Quản lý API Keys
+- YC1: Form Sửa Key (Modify) bổ sung nút 'Check Key' y hệt lúc Thêm mới.
+- YC2: Kiểm tra trùng lặp mã API Key khi Thêm hoặc Sửa. Nếu trùng báo lỗi và từ chối lưu.
+- YC3: Cải tiến Check ALL keys: Bắt được thông điệp lỗi (như lỗi 403 Access Denied) và lưu lại vào trường error_msg, đồng thời hiển thị chi tiết lỗi đó trên cột Trạng thái của TreeView để người dùng biết chính xác nguyên nhân invalid.
