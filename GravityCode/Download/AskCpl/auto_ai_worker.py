@@ -8,6 +8,8 @@ from datetime import datetime
 import requests
 import concurrent.futures
 
+STOP_REQUESTED = False
+
 def _ts():
     """Trở về timestamp hiện tại dạng [HH:MM:SS]"""
     return datetime.now().strftime("[%H:%M:%S]")
@@ -18,14 +20,39 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
     Chạy tự động phân tích lộ trình học bằng Gemini API.
     Tham số mới:
       - enable_followup: Bật/tắt hỏi bổ sung (YC5)
-      - max_followup: Số lượt hỏi bổ sung tối đa
     """
+    global STOP_REQUESTED
     def log(msg):
         log_callback(f"{_ts()} {msg}")
         
+    def update_key_on_disk(k_obj):
+        try:
+            from settings import load_settings, update_gemini_settings
+            st = load_settings()
+            disk_keys = st.get("gemini", {}).get("api_keys", [])
+            for dk in disk_keys:
+                if dk.get("key") == k_obj.get("key"):
+                    dk["status"] = k_obj.get("status", "active")
+                    dk["reset_time"] = k_obj.get("reset_time", 0)
+                    dk["next_check_time"] = k_obj.get("next_check_time", 0)
+                    dk["last_check_time"] = k_obj.get("last_check_time", 0)
+                    break
+            update_gemini_settings(api_keys=disk_keys)
+            if update_keys_cb:
+                update_keys_cb(disk_keys)
+        except Exception as e:
+            log(f"Lỗi đồng bộ key: {e}")
+
     def get_active_key():
+        try:
+            from settings import load_settings
+            st = load_settings()
+            current_keys = st.get("gemini", {}).get("api_keys", [])
+        except Exception:
+            current_keys = api_keys_list
+            
         now = int(time.time())
-        for k in api_keys_list:
+        for k in current_keys:
             status = k.get("status", "active")
             reset_time = k.get("reset_time", 0)
             next_check = k.get("next_check_time", 0)
@@ -37,7 +64,7 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
                     k["status"] = "active"
                     k["reset_time"] = 0
                     k["next_check_time"] = 0
-                    if update_keys_cb: update_keys_cb(api_keys_list)
+                    update_key_on_disk(k)
                     return k
                 
                 # Nếu chưa đến kỳ hạn check lại (3 tiếng) -> Bỏ qua
@@ -60,15 +87,15 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
         k["reset_time"] = now + 86400          # Thời hạn hồi phục hoàn toàn là 24h sau
         k["next_check_time"] = now + 10800     # 3 tiếng sau mới check lại (3h * 3600 = 10800s)
         k["last_check_time"] = now
-        log(f"⚠ Key {k.get('email')} bị đánh dấu Exhausted. Sẽ check lại sau 3 tiếng.")
-        if update_keys_cb: update_keys_cb(api_keys_list)
+        log(f"⚠ Key {k.get('email')} (Project: {k.get('project_id', 'N/A')}) bị đánh dấu Exhausted. Sẽ check lại sau 3 tiếng.")
+        update_key_on_disk(k)
         
     def mark_key_invalid(k):
         now = int(time.time())
         k["status"] = "invalid"
         k["last_check_time"] = now
-        log(f"✗ Key {k.get('email')} bị đánh dấu Invalid.")
-        if update_keys_cb: update_keys_cb(api_keys_list)
+        log(f"✗ Key {k.get('email')} (Project: {k.get('project_id', 'N/A')}) bị đánh dấu Invalid.")
+        update_key_on_disk(k)
 
     def call_gemini_api(prompt_text, log_prefix=""):
         """Gọi Gemini REST API trực tiếp với cơ chế chọn key thông minh và tự động retry."""
@@ -100,6 +127,9 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
                         future = executor.submit(requests.post, url, headers=headers, json=payload, timeout=180)
                         last_printed = 0
                         while not future.done():
+                            if STOP_REQUESTED:
+                                log(f"{log_prefix}🛑 Nhận lệnh dừng khi đang chờ API...")
+                                return None, False, False
                             elapsed = int(time.time() - start_time)
                             if elapsed > 0 and elapsed % 10 == 0 and elapsed != last_printed:
                                 log(f"{log_prefix}   ... Đang chờ AI phản hồi ({elapsed}s) ...")
@@ -124,7 +154,7 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
                         current_key_obj["reset_time"] = 0
                         current_key_obj["next_check_time"] = 0
                     
-                    if update_keys_cb: update_keys_cb(api_keys_list)
+                    update_key_on_disk(current_key_obj)
                     return generated_text, True, False
                     
                 except requests.exceptions.Timeout:
@@ -138,7 +168,7 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
                     # Quá hạn ngạch (429)
                     if any(x in error_msg for x in ["429", "RESOURCE_EXHAUSTED", "503", "UNAVAILABLE"]):
                         if "PerDay" in error_msg:
-                            log(f"{log_prefix}⚠ Key {key_email} Hết quota ngày. Chuyển key...")
+                            log(f"{log_prefix}⚠ Key {key_email} (Project: {current_key_obj.get('project_id', 'N/A')}) Hết quota ngày. Chuyển key...")
                             mark_key_exhausted(current_key_obj)
                             key_failed = True
                             break
@@ -152,7 +182,7 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
                             log(f"{log_prefix}⏳ API quá tải (phút). Chờ {wait_sec}s rồi thử lại...")
                             time.sleep(wait_sec)
                         else:
-                            log(f"{log_prefix}⚠ Key {key_email} bị lỗi quá tải liên tục.")
+                            log(f"{log_prefix}⚠ Key {key_email} (Project: {current_key_obj.get('project_id', 'N/A')}) bị lỗi quá tải liên tục.")
                             mark_key_exhausted(current_key_obj) # Đánh dấu tạm chờ
                             key_failed = True
                             break
@@ -160,7 +190,7 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
                         log(f"{log_prefix} Lỗi Gemini: {error_msg}")
                         # API key hỏng/sai/403
                         if any(x in error_msg for x in ["API_KEY_INVALID", "400", "403", "PERMISSION_DENIED"]):
-                            log(f"{log_prefix}⚠ Key {key_email} bị từ chối truy cập (403/Invalid). Chuyển key...")
+                            log(f"{log_prefix}⚠ Key {key_email} (Project: {current_key_obj.get('project_id', 'N/A')}) bị từ chối truy cập (403/Invalid). Chuyển key...")
                             mark_key_invalid(current_key_obj)
                             key_failed = True
                         else:
@@ -248,8 +278,9 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
                 if content:
                     if content.startswith('"') and content.endswith('"'):
                         content = content[1:-1]
-                        decoded_str = base64.b64decode(content).decode('utf-8')
-                        session_data = json.loads(decoded_str)
+                        decoded_bytes = base64.b64decode(content)
+                        json_str = decoded_bytes.decode('utf-8')
+                        session_data = json.loads(json_str)
                     else:
                         session_data = json.loads(content)
                         
@@ -273,6 +304,10 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
             session_data = []
     
     for idx, day in enumerate(days_parsed):
+        if STOP_REQUESTED:
+            log("🛑 Đã dừng tiến trình theo yêu cầu (Stop).")
+            break
+            
         day_clean_title = day['title'].replace("## ", "").strip()
         
         if start_day > 0 and get_day_num(day['title']) > 0 and get_day_num(day['title']) < start_day:
@@ -285,8 +320,10 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
         log(f"\n--- Đang xử lý [{idx+1}/{len(days_parsed)}]: {day['title']} ---")
         prompt = day['prompt']
         
+        is_resume_followup = day_clean_title in incomplete_days_refs
+        
         pdf_text = ""
-        if day['pdf']:
+        if day['pdf'] and not is_resume_followup:
             pdf_path = find_file(doc_dir, day['pdf'])
             if pdf_path:
                 log(f"📖 Đang đọc PDF: {day['pdf']} ...")
@@ -349,6 +386,10 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
             )
             
             for turn in range(max_followup):
+                if STOP_REQUESTED:
+                    log("🛑 Đã dừng tiến trình theo yêu cầu (Stop) khi đang follow-up.")
+                    break
+                    
                 log(f"💬 [Lượt {turn + 2}] Hỏi bổ sung ({turn + 1}/{max_followup})...")
                 context_prompt = ""
                 for idx_resp, resp_t in enumerate(all_responses):
@@ -423,6 +464,9 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
         
         # Chờ 3s giữa các ngày học
         time.sleep(3)
+        if STOP_REQUESTED:
+            log("🛑 Đã dừng tiến trình theo yêu cầu (Stop) khi đang chờ giữa các ngày.")
+            break
         
     log(f"\n✓ Hoàn tất! Đã xử lý {len(session_data)} Days.")
     save_session(session_data, out_dir)
