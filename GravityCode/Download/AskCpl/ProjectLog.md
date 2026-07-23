@@ -978,3 +978,14 @@ ote_refresh_list\. Nếu thư mục không tồn tại, sẽ trả về mảng r
 - YC1: Form Sửa Key (Modify) bổ sung nút 'Check Key' y hệt lúc Thêm mới.
 - YC2: Kiểm tra trùng lặp mã API Key khi Thêm hoặc Sửa. Nếu trùng báo lỗi và từ chối lưu.
 - YC3: Cải tiến Check ALL keys: Bắt được thông điệp lỗi (như lỗi 403 Access Denied) và lưu lại vào trường error_msg, đồng thời hiển thị chi tiết lỗi đó trên cột Trạng thái của TreeView để người dùng biết chính xác nguyên nhân invalid.
+
+
+## 2026-07-23: Fix Quota Exhaustion & Add Start Day
+- Cập nhật AskCpl.py: Thêm ô nhập Bắt đầu từ Day để cho phép chọn ngày tải lại (bỏ qua/xóa các ngày sau).
+- Cập nhật auto_ai_worker.py: Lưu lại raw_responses vào session.json để tự động resume (chạy tiếp) tiến trình hỏi follow-up đang dang dở khi bị hết quota, không bị lãng phí chạy lại từ Lượt 1.
+- Cập nhật AskCpl.py: Tự động đọc session.json khi chọn thư mục xuất để báo Day hoàn thành gần nhất/đang dang dở và tự điền Day kế tiếp vào ô bắt đầu.
+
+
+## 2026-07-23: Follow-up Mode UI + Key Manager Upgrade
+- AskCpl.py: Thay ô nhập "so luot toi da" bang 2 radio button: "Hoi den khi hoan thanh" (mac dinh, max=999) va "Hoi toi da N luot".
+- AskCpl.py: Key Manager nang cap: them cot Project ID, nut Tu dong dieu chinh, to do key trung project ID, tu dong check truoc khi luu key moi.

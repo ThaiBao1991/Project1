@@ -5,7 +5,7 @@ import threading
 import sys
 import subprocess
 import tkinter as tk
-from tkinter import Tk, filedialog, messagebox, Button, Label, Frame, StringVar, IntVar, Entry, Text, END, Listbox, Scrollbar, BooleanVar, Checkbutton, simpledialog, Toplevel
+from tkinter import Tk, filedialog, messagebox, Button, Label, Frame, StringVar, IntVar, Entry, Text, END, Listbox, Scrollbar, BooleanVar, Checkbutton, Radiobutton, simpledialog, Toplevel
 from tkinter import ttk
 
 
@@ -156,6 +156,13 @@ class AskCplApp:
         self.ai_force_restart_var = IntVar(value=0)
         Checkbutton(f_opts, text="🗑️ Xóa session cũ & Chạy lại từ Đầu (Day 1)", variable=self.ai_force_restart_var, fg="red").pack(side='left')
         
+        Label(f_opts, text="   HOẶC Bắt đầu từ Day:").pack(side='left')
+        self.ai_start_day_var = StringVar(value="")
+        Entry(f_opts, textvariable=self.ai_start_day_var, width=5).pack(side='left', padx=5)
+        
+        self.lbl_session_status = Label(f_opts, text="", fg="#d35400", font=("Arial", 9, "bold"))
+        self.lbl_session_status.pack(side='left', padx=10)
+        
         # YC5 options row
         f_opts_followup = Frame(self.tab_auto_ai)
         f_opts_followup.pack(fill='x', padx=20, pady=3)
@@ -163,9 +170,33 @@ class AskCplApp:
         Checkbutton(f_opts_followup, text="Bật hỏi bổ sung (Follow-up) để AI làm rõ thêm (YC5)", 
                     variable=self.ai_enable_followup_var).pack(side='left')
         
-        Label(f_opts_followup, text="   Số lượt hỏi tối đa:").pack(side='left')
+        # Follow-up mode: unlimited vs limited
+        f_followup_mode = Frame(self.tab_auto_ai)
+        f_followup_mode.pack(fill='x', padx=40, pady=2)
+        self.ai_followup_mode_var = StringVar(value=gemini_settings.get("followup_mode", "unlimited"))
+        
+        rb_unlimited = Radiobutton(f_followup_mode, text="Hỏi đến khi AI xác nhận hoàn thành  (Khuyến nghị)",
+                                   variable=self.ai_followup_mode_var, value="unlimited",
+                                   fg="#27ae60", font=("Arial", 9, "bold"))
+        rb_unlimited.pack(side='left')
+        
+        rb_limited = Radiobutton(f_followup_mode, text="Hỏi tối đa:",
+                                 variable=self.ai_followup_mode_var, value="limited")
+        rb_limited.pack(side='left', padx=(15, 2))
+        
         self.ai_max_followup_var = StringVar(value=str(gemini_settings.get("max_followup", 3)))
-        Entry(f_opts_followup, textvariable=self.ai_max_followup_var, width=4).pack(side='left', padx=2)
+        self.entry_max_followup = Entry(f_followup_mode, textvariable=self.ai_max_followup_var, width=4)
+        self.entry_max_followup.pack(side='left', padx=2)
+        Label(f_followup_mode, text="lượt").pack(side='left')
+        
+        def _toggle_followup_entry(*args):
+            if self.ai_followup_mode_var.get() == "limited":
+                self.entry_max_followup.config(state='normal')
+            else:
+                self.entry_max_followup.config(state='disabled')
+        self.ai_followup_mode_var.trace_add("write", _toggle_followup_entry)
+        _toggle_followup_entry()  # set initial state
+
         
         # Expand roadmap section
         f_expand = Frame(self.tab_auto_ai)
@@ -200,6 +231,73 @@ class AskCplApp:
         self.ai_log.pack(fill='both', expand=True)
         log_scroll.config(command=self.ai_log.yview)
         
+        self.ai_out_var.trace_add("write", self.check_auto_ai_session)
+        self.check_auto_ai_session()
+        
+    def check_auto_ai_session(self, *args):
+        out_dir = self.ai_out_var.get()
+        if not out_dir or not os.path.isdir(out_dir):
+            if hasattr(self, 'lbl_session_status'):
+                self.lbl_session_status.config(text="")
+            return
+            
+        session_file = os.path.join(out_dir, "session.json")
+        if not os.path.exists(session_file):
+            self.lbl_session_status.config(text="Chưa có dữ liệu session")
+            self.ai_start_day_var.set("")
+            return
+            
+        try:
+            import base64
+            import re
+            
+            with open(session_file, 'r', encoding='utf-8') as f:
+                content = f.read().strip()
+                if not content:
+                    self.lbl_session_status.config(text="Session trống")
+                    self.ai_start_day_var.set("")
+                    return
+                if content.startswith('"') and content.endswith('"'):
+                    content = content[1:-1]
+                    decoded_str = base64.b64decode(content).decode('utf-8')
+                    session_data = json.loads(decoded_str)
+                else:
+                    session_data = json.loads(content)
+                    
+            if not session_data:
+                self.lbl_session_status.config(text="Session trống")
+                self.ai_start_day_var.set("")
+                return
+                
+            last_completed_day = -1
+            incomplete_day = -1
+            
+            for item in session_data:
+                m = re.search(r'Day\s+(\d+)', item.get("day", ""), re.IGNORECASE)
+                if not m: continue
+                d_num = int(m.group(1))
+                
+                if item.get("completed"):
+                    if item.get("followup_complete", True):
+                        if d_num > last_completed_day:
+                            last_completed_day = d_num
+                    else:
+                        incomplete_day = d_num
+                        
+            if incomplete_day > 0:
+                self.lbl_session_status.config(text=f"Đang dang dở tại: Day {incomplete_day}")
+                self.ai_start_day_var.set(str(incomplete_day))
+            elif last_completed_day > 0:
+                self.lbl_session_status.config(text=f"Hoàn thành gần nhất: Day {last_completed_day}")
+                self.ai_start_day_var.set(str(last_completed_day + 1))
+            else:
+                self.lbl_session_status.config(text="Chưa có hoàn thành nào")
+                self.ai_start_day_var.set("")
+                
+        except Exception as e:
+            if hasattr(self, 'lbl_session_status'):
+                self.lbl_session_status.config(text="Lỗi đọc session")
+                
     def update_keys_label(self):
         gemini_settings = self.settings.get("gemini", {})
         keys = gemini_settings.get("api_keys", [])
@@ -209,7 +307,7 @@ class AskCplApp:
     def open_api_key_manager(self):
         top = Toplevel(self.root)
         top.title("Quản lý API Keys (Multi-Key)")
-        top.geometry("800x420")
+        top.geometry("980x440")
         top.transient(self.root)
         top.grab_set()
 
@@ -218,21 +316,54 @@ class AskCplApp:
         import time
         import requests
         import threading
-        
-        columns = ("email", "key", "status", "last_check", "reset_time")
+        import re as _re
+
+        # === HELPER: extract raw key (decode ENC: if needed) ===
+        def decode_key(raw_key):
+            if raw_key.startswith("ENC:"):
+                try:
+                    import base64
+                    return base64.b64decode(raw_key[4:]).decode("utf-8")
+                except Exception:
+                    return raw_key
+            return raw_key
+
+        # === HELPER: extract project ID from error response ===
+        def extract_project_id(resp_json):
+            try:
+                details = resp_json.get("error", {}).get("details", [])
+                for d in details:
+                    consumer = d.get("consumer", "")
+                    if consumer.startswith("projects/"):
+                        return consumer.replace("projects/", "")
+            except Exception:
+                pass
+            return ""
+
+        # === TREEVIEW ===
+        columns = ("email", "key", "project", "status", "last_check", "reset_time")
         tree = ttk.Treeview(top, columns=columns, show="headings")
         tree.heading("email", text="Email / Tên")
         tree.heading("key", text="API Key")
+        tree.heading("project", text="Project ID")
         tree.heading("status", text="Trạng thái")
         tree.heading("last_check", text="Check lần cuối")
         tree.heading("reset_time", text="Khôi phục sau")
-        
+
         tree.column("email", width=120)
-        tree.column("key", width=220)
+        tree.column("key", width=200)
+        tree.column("project", width=120)
         tree.column("status", width=95)
-        tree.column("last_check", width=135)
-        tree.column("reset_time", width=145)
-        tree.pack(fill="both", expand=True, padx=10, pady=10)
+        tree.column("last_check", width=120)
+        tree.column("reset_time", width=120)
+
+        # Tag màu đỏ cho key trùng project
+        tree.tag_configure("dup_project", background="#ffcccc", foreground="#c0392b")
+
+        vsb = ttk.Scrollbar(top, orient="vertical", command=tree.yview)
+        tree.configure(yscrollcommand=vsb.set)
+        tree.pack(fill="both", expand=True, padx=10, pady=(10, 0), side="left")
+        vsb.pack(fill="y", pady=(10, 0), side="left")
 
         def edit_key(event=None):
             selected = tree.selection()
@@ -241,42 +372,42 @@ class AskCplApp:
             gemini_settings = self.settings.get("gemini", {})
             keys = gemini_settings.get("api_keys", [])
             if idx < 0 or idx >= len(keys): return
-            
+
             k_obj = keys[idx]
-            
+
             edit_win = Toplevel(top)
             edit_win.title("Sửa API Key")
-            edit_win.geometry("460x280")
+            edit_win.geometry("460x310")
             edit_win.transient(top)
             edit_win.grab_set()
             edit_win.bind("<Escape>", lambda e: edit_win.destroy())
-            
+
             Label(edit_win, text="Nhập API Key:", anchor='w').pack(fill='x', padx=20, pady=(15, 2))
             entry_key = Entry(edit_win, width=50)
             entry_key.pack(fill='x', padx=20, pady=2)
             entry_key.insert(0, k_obj.get("key", ""))
-            
+
             Label(edit_win, text="Tên/Email gợi nhớ:", anchor='w').pack(fill='x', padx=20, pady=(10, 2))
             entry_email = Entry(edit_win, width=50)
             entry_email.pack(fill='x', padx=20, pady=2)
             entry_email.insert(0, k_obj.get("email", ""))
-            
+
             disp_s = k_obj.get("status", "active")
             if disp_s == "invalid" and k_obj.get("error_msg"):
                 disp_s = f"Lỗi: {k_obj.get('error_msg')}"
             status_var = StringVar(value=disp_s)
             lbl_status = Label(edit_win, textvariable=status_var, fg="gray", font=("Arial", 10, "bold"))
             lbl_status.pack(pady=10)
-            
+
             def check_new_key():
-                api_key = entry_key.get().strip()
+                api_key = decode_key(entry_key.get().strip())
                 if not api_key:
                     messagebox.showerror("Lỗi", "Vui lòng nhập API Key trước khi kiểm tra!", parent=edit_win)
                     return
                 status_var.set("Đang kiểm tra...")
                 lbl_status.config(fg="blue")
                 edit_win.update_idletasks()
-                
+
                 def run_check():
                     try:
                         url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
@@ -287,35 +418,35 @@ class AskCplApp:
                             edit_win.after(0, lambda: [status_var.set("Hoạt động (Active)"), lbl_status.config(fg="green")])
                         else:
                             msg = resp.json().get("error", {}).get("message", "Lỗi không xác định")
+                            proj = extract_project_id(resp.json())
+                            if proj:
+                                keys[idx]["project_id"] = proj
                             if "Quota" in msg or "exhausted" in msg.lower():
                                 edit_win.after(0, lambda: [status_var.set("Hết Quota (Exhausted)"), lbl_status.config(fg="orange")])
                             else:
                                 edit_win.after(0, lambda: [status_var.set(f"Lỗi: {msg[:35]}"), lbl_status.config(fg="red")])
                     except Exception as e:
                         edit_win.after(0, lambda: [status_var.set(f"Lỗi: {str(e)[:35]}"), lbl_status.config(fg="red")])
-                import threading
-                import requests
                 threading.Thread(target=run_check, daemon=True).start()
-                
+
             def do_save():
                 k_val = entry_key.get().strip()
                 e_val = entry_email.get().strip()
                 if not k_val:
                     messagebox.showerror("Lỗi", "Vui lòng nhập API Key!", parent=edit_win)
                     return
-                
-                # Check duplicate (bỏ qua chính nó)
+
                 for i, k in enumerate(keys):
                     if i != idx and k.get("key") == k_val:
                         messagebox.showerror("Lỗi", "API Key này đã tồn tại trong danh sách!", parent=edit_win)
                         return
-                        
+
                 cur_status = status_var.get()
                 status_mapped = k_obj.get("status", "active")
                 reset_time = k_obj.get("reset_time", 0)
                 next_check_time = k_obj.get("next_check_time", 0)
                 error_msg = k_obj.get("error_msg", "")
-                
+
                 if "Exhausted" in cur_status:
                     status_mapped = "exhausted"
                     reset_time = int(time.time()) + 86400
@@ -328,20 +459,20 @@ class AskCplApp:
                     reset_time = 0
                     next_check_time = 0
                     error_msg = ""
-                    
+
                 keys[idx]["key"] = k_val
                 keys[idx]["email"] = e_val
                 keys[idx]["status"] = status_mapped
                 keys[idx]["reset_time"] = reset_time
                 keys[idx]["next_check_time"] = next_check_time
                 keys[idx]["error_msg"] = error_msg
-                
+
                 from settings import update_gemini_settings
                 update_gemini_settings(api_keys=keys)
                 self.settings = load_settings()
                 refresh_list()
                 edit_win.destroy()
-                
+
             f_btns = Frame(edit_win)
             f_btns.pack(fill="x", padx=20, pady=5)
             Button(f_btns, text="🔍 Kiểm tra", command=check_new_key, bg="#f39c12", fg="white", width=12).pack(side="left", padx=5)
@@ -355,139 +486,174 @@ class AskCplApp:
                 tree.delete(item)
             gemini_settings = self.settings.get("gemini", {})
             keys = gemini_settings.get("api_keys", [])
+
+            # Tìm project_id trùng
+            project_counts = {}
+            for k in keys:
+                pid = k.get("project_id", "")
+                if pid:
+                    project_counts[pid] = project_counts.get(pid, 0) + 1
+            dup_projects = {pid for pid, cnt in project_counts.items() if cnt > 1}
+
             for idx, k in enumerate(keys):
                 masked_key = k.get("key", "")
                 if len(masked_key) > 10:
                     masked_key = masked_key[:4] + "*" * (len(masked_key)-8) + masked_key[-4:]
-                
+
                 rt = k.get("reset_time", 0)
-                if rt > 0:
-                    rt_str = datetime.datetime.fromtimestamp(rt).strftime('%Y-%m-%d %H:%M:%S')
-                else:
-                    rt_str = "-"
-                    
+                rt_str = datetime.datetime.fromtimestamp(rt).strftime('%Y-%m-%d %H:%M') if rt > 0 else "-"
+
                 lc = k.get("last_check_time", 0)
-                if lc > 0:
-                    lc_str = datetime.datetime.fromtimestamp(lc).strftime('%Y-%m-%d %H:%M:%S')
-                else:
-                    lc_str = "-"
-                    
+                lc_str = datetime.datetime.fromtimestamp(lc).strftime('%Y-%m-%d %H:%M') if lc > 0 else "-"
+
                 disp_status = k.get("status", "active")
                 if disp_status == "invalid" and k.get("error_msg"):
                     disp_status = f"invalid: {k.get('error_msg')}"
-                    
+
+                pid = k.get("project_id", "")
+                tag = ("dup_project",) if pid and pid in dup_projects else ()
+
                 tree.insert("", "end", iid=str(idx), values=(
                     k.get("email", ""),
                     masked_key,
+                    pid if pid else "-",
                     disp_status,
                     lc_str,
                     rt_str
-                ))
+                ), tags=tag)
             self.update_keys_label()
 
         def add_key():
             add_win = Toplevel(top)
             add_win.title("Thêm API Key Mới")
-            add_win.geometry("460x260")
+            add_win.geometry("460x310")
             add_win.transient(top)
             add_win.grab_set()
-            
-            # YC2: Bấm nút ESC có thể thoát bảng nhập key
             add_win.bind("<Escape>", lambda e: add_win.destroy())
-            
+
             Label(add_win, text="Nhập API Key:", anchor='w').pack(fill='x', padx=20, pady=(15, 2))
             entry_key = Entry(add_win, width=50)
             entry_key.pack(fill='x', padx=20, pady=2)
             entry_key.focus_set()
-            
-            Label(add_win, text="Tên/Email gợi nhớ:", anchor='w').pack(fill='x', padx=20, pady=(10, 2))
+
+            Label(add_win, text="Tên/Email gợi nhớ (để trống để tự điền sau):", anchor='w').pack(fill='x', padx=20, pady=(10, 2))
             entry_email = Entry(add_win, width=50)
             entry_email.pack(fill='x', padx=20, pady=2)
-            entry_email.insert(0, "Chưa đặt tên")
-            
+
             status_var = StringVar(value="Chưa kiểm tra trạng thái")
             lbl_status = Label(add_win, textvariable=status_var, fg="gray", font=("Arial", 10, "bold"))
             lbl_status.pack(pady=10)
-            
+
+            _check_result = {"project_id": "", "status": "", "done": False}
+
+            def run_check_inner(api_key_raw, on_done=None):
+                api_key = decode_key(api_key_raw)
+                try:
+                    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
+                    headers = {'Content-Type': 'application/json'}
+                    payload = {"contents": [{"parts": [{"text": "Hello"}]}]}
+                    resp = requests.post(url, headers=headers, json=payload, timeout=10)
+                    if resp.status_code == 200:
+                        _check_result["status"] = "active"
+                        add_win.after(0, lambda: [status_var.set("Hoạt động (Active)"), lbl_status.config(fg="green")])
+                    else:
+                        rj = resp.json()
+                        msg = rj.get("error", {}).get("message", "Lỗi không xác định")
+                        proj = extract_project_id(rj)
+                        _check_result["project_id"] = proj
+                        if "Quota" in msg or "exhausted" in msg.lower():
+                            _check_result["status"] = "exhausted"
+                            add_win.after(0, lambda: [status_var.set("Hết Quota (Exhausted)"), lbl_status.config(fg="orange")])
+                        else:
+                            _check_result["status"] = "invalid"
+                            _check_result["errmsg"] = msg[:35]
+                            add_win.after(0, lambda: [status_var.set(f"Lỗi: {msg[:35]}"), lbl_status.config(fg="red")])
+                except Exception as e:
+                    _check_result["status"] = "invalid"
+                    _check_result["errmsg"] = str(e)[:35]
+                    add_win.after(0, lambda: [status_var.set(f"Lỗi: {str(e)[:35]}"), lbl_status.config(fg="red")])
+                _check_result["done"] = True
+                if on_done:
+                    add_win.after(0, on_done)
+
             def check_new_key():
-                api_key = entry_key.get().strip()
-                if not api_key:
+                api_key_raw = entry_key.get().strip()
+                if not api_key_raw:
                     messagebox.showerror("Lỗi", "Vui lòng nhập API Key trước khi kiểm tra!", parent=add_win)
                     return
+                _check_result["done"] = False
                 status_var.set("Đang kiểm tra...")
                 lbl_status.config(fg="blue")
                 add_win.update_idletasks()
-                
-                def run_check():
-                    try:
-                        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
-                        headers = {'Content-Type': 'application/json'}
-                        payload = {"contents": [{"parts": [{"text": "Hello"}]}]}
-                        resp = requests.post(url, headers=headers, json=payload, timeout=10)
-                        if resp.status_code == 200:
-                            add_win.after(0, lambda: [status_var.set("Hoạt động (Active)"), lbl_status.config(fg="green")])
-                        else:
-                            msg = resp.json().get("error", {}).get("message", "Lỗi không xác định")
-                            if "Quota" in msg or "exhausted" in msg.lower():
-                                add_win.after(0, lambda: [status_var.set("Hết Quota (Exhausted)"), lbl_status.config(fg="orange")])
-                            else:
-                                add_win.after(0, lambda: [status_var.set(f"Lỗi: {msg[:35]}"), lbl_status.config(fg="red")])
-                    except Exception as e:
-                        add_win.after(0, lambda: [status_var.set(f"Lỗi: {str(e)[:35]}"), lbl_status.config(fg="red")])
-                threading.Thread(target=run_check, daemon=True).start()
-                
+                threading.Thread(target=run_check_inner, args=(api_key_raw,), daemon=True).start()
+
             def do_save():
                 k_val = entry_key.get().strip()
-                e_val = entry_email.get().strip()
+                e_val = entry_email.get().strip() or "(chưa đặt tên)"
                 if not k_val:
                     messagebox.showerror("Lỗi", "Vui lòng nhập API Key!", parent=add_win)
                     return
-                    
-                cur_status = status_var.get()
+
+                # Nếu chưa kiểm tra → tự động check trước khi lưu
+                if not _check_result["done"]:
+                    _check_result["done"] = False
+                    status_var.set("Đang tự động kiểm tra trước khi lưu...")
+                    lbl_status.config(fg="blue")
+                    btn_save.config(state="disabled", text="Đang kiểm tra...")
+                    add_win.update_idletasks()
+                    def after_check():
+                        btn_save.config(state="normal", text="Lưu")
+                        _do_save_inner(k_val, e_val)
+                    threading.Thread(target=run_check_inner, args=(k_val, after_check), daemon=True).start()
+                    return
+                _do_save_inner(k_val, e_val)
+
+            def _do_save_inner(k_val, e_val):
+                cur_status = _check_result.get("status", "active")
                 status_mapped = "active"
                 reset_time = 0
                 next_check_time = 0
-                
-                if "Exhausted" in cur_status:
+
+                if cur_status == "exhausted":
                     status_mapped = "exhausted"
                     reset_time = int(time.time()) + 86400
                     next_check_time = int(time.time()) + 10800
-                elif "Lỗi" in cur_status:
+                elif cur_status == "invalid":
                     status_mapped = "invalid"
-                
+
                 gemini_settings = self.settings.get("gemini", {})
                 if "api_keys" not in gemini_settings:
                     gemini_settings["api_keys"] = []
-                    
-                # KIỂM TRA TRÙNG LẶP
+
                 for k_obj in gemini_settings["api_keys"]:
                     if k_obj.get("key") == k_val:
                         messagebox.showerror("Lỗi", "API Key này đã tồn tại trong danh sách!", parent=add_win)
                         return
-                        
-                error_msg = cur_status.replace("Lỗi: ", "") if status_mapped == "invalid" else ""
-                    
+
+                error_msg = _check_result.get("errmsg", "") if status_mapped == "invalid" else ""
+
                 gemini_settings["api_keys"].append({
                     "error_msg": error_msg,
                     "key": k_val,
                     "email": e_val,
+                    "project_id": _check_result.get("project_id", ""),
                     "status": status_mapped,
                     "reset_time": reset_time,
                     "next_check_time": next_check_time,
                     "last_check_time": int(time.time())
                 })
-                
+
                 from settings import update_gemini_settings
                 update_gemini_settings(api_keys=gemini_settings["api_keys"])
                 self.settings = load_settings()
                 refresh_list()
                 add_win.destroy()
-                
+
             f_btns = Frame(add_win)
             f_btns.pack(fill="x", padx=20, pady=5)
-            
             Button(f_btns, text="🔍 Kiểm tra trạng thái", command=check_new_key, bg="#f39c12", fg="white", width=18).pack(side="left", padx=5)
-            Button(f_btns, text="Lưu", command=do_save, bg="#27ae60", fg="white", width=8).pack(side="left", padx=5)
+            btn_save = Button(f_btns, text="Lưu", command=do_save, bg="#27ae60", fg="white", width=8)
+            btn_save.pack(side="left", padx=5)
             Button(f_btns, text="Hủy", command=add_win.destroy, bg="#e74c3c", fg="white", width=8).pack(side="right", padx=5)
 
         def del_key():
@@ -507,27 +673,32 @@ class AskCplApp:
             gemini_settings = self.settings.get("gemini", {})
             keys = gemini_settings.get("api_keys", [])
             if not keys: return
-            
+
             btn_check.config(state="disabled", text="Đang kiểm tra...")
             top.update_idletasks()
-            
+
             def run_checks():
                 for key_obj in keys:
-                    api_key = key_obj.get("key")
-                    if not api_key: continue
+                    raw_key = key_obj.get("key")
+                    if not raw_key: continue
+                    api_key = decode_key(raw_key)
                     try:
                         url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
                         headers = {'Content-Type': 'application/json'}
                         payload = {"contents": [{"parts": [{"text": "Hello"}]}]}
                         resp = requests.post(url, headers=headers, json=payload, timeout=10)
                         key_obj["last_check_time"] = int(time.time())
-                        
+
                         if resp.status_code == 200:
                             key_obj["status"] = "active"
                             key_obj["reset_time"] = 0
                             key_obj["next_check_time"] = 0
                         else:
-                            msg = resp.json().get("error", {}).get("message", "")
+                            rj = resp.json()
+                            msg = rj.get("error", {}).get("message", "")
+                            proj = extract_project_id(rj)
+                            if proj:
+                                key_obj["project_id"] = proj
                             if "Quota" in msg or "exhausted" in msg.lower():
                                 key_obj["status"] = "exhausted"
                                 key_obj["reset_time"] = int(time.time()) + 86400
@@ -539,18 +710,82 @@ class AskCplApp:
                     except Exception as e:
                         key_obj["status"] = "invalid"
                         key_obj["error_msg"] = str(e)[:35]
-                
-                # Sau khi check xong, cập nhật UI trên main thread
+
                 top.after(0, update_ui_after_check, keys)
-                
+
             def update_ui_after_check(keys):
                 update_gemini_settings(api_keys=keys)
                 self.settings = load_settings()
                 refresh_list()
                 btn_check.config(state="normal", text="Kiểm tra tất cả")
                 messagebox.showinfo("Hoàn tất", "Đã kiểm tra xong toàn bộ API Keys!", parent=top)
-                
+
             threading.Thread(target=run_checks, daemon=True).start()
+
+        def auto_adjust():
+            """Check tất cả key, lấy project ID từ error, tô đỏ key trùng project."""
+            gemini_settings = self.settings.get("gemini", {})
+            keys = gemini_settings.get("api_keys", [])
+            if not keys: return
+
+            btn_auto.config(state="disabled", text="Đang điều chỉnh...")
+            top.update_idletasks()
+
+            def run_adjust():
+                for key_obj in keys:
+                    raw_key = key_obj.get("key")
+                    if not raw_key: continue
+                    api_key = decode_key(raw_key)
+                    try:
+                        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
+                        headers = {'Content-Type': 'application/json'}
+                        payload = {"contents": [{"parts": [{"text": "Hello"}]}]}
+                        resp = requests.post(url, headers=headers, json=payload, timeout=10)
+                        key_obj["last_check_time"] = int(time.time())
+
+                        if resp.status_code == 200:
+                            key_obj["status"] = "active"
+                            key_obj["reset_time"] = 0
+                        else:
+                            rj = resp.json()
+                            msg = rj.get("error", {}).get("message", "")
+                            proj = extract_project_id(rj)
+                            if proj:
+                                key_obj["project_id"] = proj
+                            if "Quota" in msg or "exhausted" in msg.lower():
+                                key_obj["status"] = "exhausted"
+                                key_obj["reset_time"] = int(time.time()) + 86400
+                                key_obj["next_check_time"] = int(time.time()) + 10800
+                            else:
+                                key_obj["status"] = "invalid"
+                                key_obj["error_msg"] = msg[:35]
+                    except Exception as e:
+                        key_obj["status"] = "invalid"
+                        key_obj["error_msg"] = str(e)[:35]
+
+                # Tìm project ID trùng
+                project_counts = {}
+                for k in keys:
+                    pid = k.get("project_id", "")
+                    if pid:
+                        project_counts[pid] = project_counts.get(pid, 0) + 1
+                dup_count = sum(1 for cnt in project_counts.values() if cnt > 1)
+
+                top.after(0, done_adjust, keys, dup_count)
+
+            def done_adjust(keys, dup_count):
+                update_gemini_settings(api_keys=keys)
+                self.settings = load_settings()
+                refresh_list()
+                btn_auto.config(state="normal", text="🔄 Tự động điều chỉnh")
+                active_c = sum(1 for k in keys if k.get("status") == "active")
+                exhaust_c = sum(1 for k in keys if k.get("status") == "exhausted")
+                msg = f"✅ Hoàn tất!\n• {active_c} key Active\n• {exhaust_c} key Hết Quota"
+                if dup_count > 0:
+                    msg += f"\n• ⚠ {dup_count} Project ID bị TRÙNG — đã tô đỏ trong danh sách, bạn hãy tự xóa bớt."
+                messagebox.showinfo("Tự động điều chỉnh xong", msg, parent=top)
+
+            threading.Thread(target=run_adjust, daemon=True).start()
 
         def set_active():
             selected = tree.selection()
@@ -566,12 +801,15 @@ class AskCplApp:
             refresh_list()
 
         btn_frame = Frame(top)
-        btn_frame.pack(fill="x", padx=10, pady=10)
+        btn_frame.pack(fill="x", padx=10, pady=10, side="bottom")
         Button(btn_frame, text="Thêm Key Mới", command=add_key, bg="#27ae60", fg="white").pack(side="left", padx=5)
         btn_check = Button(btn_frame, text="Kiểm tra tất cả", command=check_all_keys, bg="#f39c12", fg="white")
         btn_check.pack(side="left", padx=5)
+        btn_auto = Button(btn_frame, text="🔄 Tự động điều chỉnh", command=auto_adjust, bg="#8e44ad", fg="white")
+        btn_auto.pack(side="left", padx=5)
         Button(btn_frame, text="Đặt Active", command=set_active, bg="#3498db", fg="white").pack(side="left", padx=5)
         Button(btn_frame, text="Xóa Key", command=del_key, bg="#e74c3c", fg="white").pack(side="right", padx=5)
+
 
         refresh_list()
 
@@ -657,7 +895,8 @@ class AskCplApp:
             last_doc_dir=self.ai_doc_var.get(),
             last_out_dir=self.ai_out_var.get(),
             enable_followup=bool(self.ai_enable_followup_var.get()),
-            max_followup=max_f
+            max_followup=max_f,
+            followup_mode=self.ai_followup_mode_var.get()
         )
         self.settings = load_settings()
         messagebox.showinfo("Thành công", "Đã lưu cấu hình Auto AI!")
@@ -685,11 +924,19 @@ class AskCplApp:
         self.btn_ai_start.config(state="disabled", text="⏳ Đang xử lý...")
         force = bool(self.ai_force_restart_var.get())
         
-        enable_followup = bool(self.ai_enable_followup_var.get())
         try:
-            max_followup = int(self.ai_max_followup_var.get())
+            start_day = int(self.ai_start_day_var.get().strip())
         except ValueError:
-            max_followup = 3
+            start_day = 0
+            
+        enable_followup = bool(self.ai_enable_followup_var.get())
+        if self.ai_followup_mode_var.get() == "unlimited":
+            max_followup = 999
+        else:
+            try:
+                max_followup = int(self.ai_max_followup_var.get())
+            except ValueError:
+                max_followup = 3
         
         def update_keys_cb(new_keys):
             from settings import update_gemini_settings
@@ -704,7 +951,7 @@ class AskCplApp:
                 auto_ai_worker.run_auto_ai(
                     api_keys, roadmap_path, doc_dir, out_dir, self.log_ai, 
                     force=force, update_keys_cb=update_keys_cb,
-                    enable_followup=enable_followup, max_followup=max_followup
+                    enable_followup=enable_followup, max_followup=max_followup, start_day=start_day
                 )
                 self.log_ai("🎉 Hoàn thành toàn bộ tiến trình!")
             except Exception as e:

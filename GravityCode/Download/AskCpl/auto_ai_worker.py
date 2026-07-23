@@ -13,7 +13,7 @@ def _ts():
     return datetime.now().strftime("[%H:%M:%S]")
 
 def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback, 
-                force=False, update_keys_cb=None, enable_followup=True, max_followup=3):
+                force=False, update_keys_cb=None, enable_followup=True, max_followup=3, start_day=0):
     """
     Chạy tự động phân tích lộ trình học bằng Gemini API.
     Tham số mới:
@@ -227,7 +227,14 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
     log(f"✓ Đã tìm thấy {len(days_parsed)} Days trong roadmap.")
     
     # === AUTO-RESUME ===
+    def get_day_num(title_str):
+        import re as _re
+        m = _re.search(r'Day\s+(\d+)', title_str, _re.IGNORECASE)
+        if m: return int(m.group(1))
+        return -1
+
     completed_days = set()
+    incomplete_days_refs = {}
     session_data = []
     session_file = os.path.join(out_dir, "session.json")
     
@@ -246,8 +253,16 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
                     else:
                         session_data = json.loads(content)
                         
+                    if start_day > 0:
+                        session_data = [item for item in session_data if get_day_num(item.get("day", "")) < start_day]
+                        log(f"⏭ Đã lọc bỏ các Day >= {start_day} trong session do bạn chọn Bắt đầu từ Day {start_day}")
+
                     for item in session_data:
                         if item.get("completed"):
+                            if enable_followup and not item.get("followup_complete", True):
+                                if item.get("raw_responses"):
+                                    incomplete_days_refs[item["day"].strip()] = item
+                                    continue
                             completed_days.add(item["day"].strip())
             log(f"↩ Auto-Resume: Đã khôi phục {len(completed_days)} Days đã hoàn thành từ trước.")
             if session_data:
@@ -259,6 +274,10 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
     
     for idx, day in enumerate(days_parsed):
         day_clean_title = day['title'].replace("## ", "").strip()
+        
+        if start_day > 0 and get_day_num(day['title']) > 0 and get_day_num(day['title']) < start_day:
+            continue
+            
         if day_clean_title in completed_days:
             log(f"⏭ Bỏ qua [{idx+1}/{len(days_parsed)}]: {day_clean_title} (Đã hoàn thành)")
             continue
@@ -299,20 +318,27 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
         # Lượt 1: Gửi câu hỏi chính
         daily_quota_hit = False
         day_success = False
-        
-        log(f"💬 [Lượt 1] Gửi câu hỏi chính ({len(full_prompt)} ký tự)...")
-        text1, ok1, quota_hit = call_gemini_api(full_prompt, log_prefix="  [Lượt 1] ")
-        
-        if quota_hit:
-            daily_quota_hit = True
-            break
-        if not ok1 or not text1:
-            log(f"✗ Lượt 1 thất bại cho {day_clean_title}. Dừng!")
-            break
+        all_responses = []
+        got_complete = False
+
+        if day_clean_title in incomplete_days_refs:
+            session_item = incomplete_days_refs[day_clean_title]
+            all_responses = list(session_item.get("raw_responses", []))
+            log(f"↪ Tiếp tục hỏi bổ sung cho {day_clean_title} (từ lượt {len(all_responses) + 1})...")
+        else:
+            log(f"💬 [Lượt 1] Gửi câu hỏi chính ({len(full_prompt)} ký tự)...")
+            text1, ok1, quota_hit = call_gemini_api(full_prompt, log_prefix="  [Lượt 1] ")
+            
+            if quota_hit:
+                daily_quota_hit = True
+                break
+            if not ok1 or not text1:
+                log(f"✗ Lượt 1 thất bại cho {day_clean_title}. Dừng!")
+                break
+                
+            all_responses = [text1]
             
         # YC5: Vòng lặp bổ sung (Multi-turn follow-up)
-        all_responses = [text1]
-        got_complete = False
         
         if enable_followup:
             FOLLOWUP_PROMPT = (
@@ -370,14 +396,23 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
             )
         html_res = "\n".join(combined_html_parts)
         
-        session_data.append({
-            "day": day['title'].replace("## ", ""),
-            "html": html_res,
-            "timestamp": int(time.time() * 1000),
-            "completed": True,
-            "followup_turns": len(all_responses) - 1,
-            "followup_complete": got_complete
-        })
+        if day_clean_title in incomplete_days_refs:
+            session_item = incomplete_days_refs[day_clean_title]
+            session_item["html"] = html_res
+            session_item["timestamp"] = int(time.time() * 1000)
+            session_item["followup_turns"] = len(all_responses) - 1
+            session_item["followup_complete"] = got_complete
+            session_item["raw_responses"] = all_responses
+        else:
+            session_data.append({
+                "day": day['title'].replace("## ", ""),
+                "html": html_res,
+                "timestamp": int(time.time() * 1000),
+                "completed": True,
+                "followup_turns": len(all_responses) - 1,
+                "followup_complete": got_complete,
+                "raw_responses": all_responses
+            })
         day_success = True
         
         if daily_quota_hit:
