@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "API Geminikey Auto Creator",
+  "version": "1.0",
+  "description": "Auto create API Keys on Google AI Studio",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://aistudio.google.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://aistudio.google.com/*"],
+      "js": ["content_script.js"],
+      "run_at": "document_start"
+    }
+  ]
+}

@@ -340,18 +340,20 @@ class AskCplApp:
         frame_tree = Frame(top)
         frame_tree.pack(side="top", fill="both", expand=True, padx=10, pady=(10, 0))
 
-        columns = ("email", "key", "project", "status", "last_check", "reset_time")
+        columns = ("email", "key", "project", "type", "status", "last_check", "reset_time")
         tree = ttk.Treeview(frame_tree, columns=columns, show="headings")
         tree.heading("email", text="Email / Tên")
         tree.heading("key", text="API Key")
         tree.heading("project", text="Project ID")
+        tree.heading("type", text="Loại API")
         tree.heading("status", text="Trạng thái")
         tree.heading("last_check", text="Check lần cuối")
         tree.heading("reset_time", text="Khôi phục sau")
 
         tree.column("email", width=120)
         tree.column("key", width=200)
-        tree.column("project", width=120)
+        tree.column("project", width=100)
+        tree.column("type", width=100)
         tree.column("status", width=95)
         tree.column("last_check", width=120)
         tree.column("reset_time", width=120)
@@ -401,6 +403,12 @@ class AskCplApp:
             entry_email.pack(fill='x', padx=20, pady=2)
             entry_email.insert(0, k_obj.get("email", ""))
 
+            Label(edit_win, text="Loại API:", anchor='w').pack(fill='x', padx=20, pady=(10, 2))
+            from tkinter.ttk import Combobox
+            combo_type = Combobox(edit_win, values=["GEMINI API", "CLAUDE API", "OPENAI API"], state="readonly")
+            combo_type.pack(fill='x', padx=20, pady=2)
+            combo_type.set(k_obj.get("type", "GEMINI API"))
+
             Label(edit_win, text="Project ID (Để phân biệt Quota):", anchor='w').pack(fill='x', padx=20, pady=(10, 2))
             entry_proj = Entry(edit_win, width=50)
             entry_proj.pack(fill='x', padx=20, pady=2)
@@ -429,7 +437,7 @@ class AskCplApp:
                     try:
                         url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
                         headers = {'Content-Type': 'application/json'}
-                        payload = {"contents": [{"parts": [{"text": "Hello"}]}]}
+                        payload = {"contents": [{"parts": [{"text": "Hello. " * 10}]}], "generationConfig": {"maxOutputTokens": 1000}}
                         resp = requests.post(url, headers=headers, json=payload, timeout=10)
                         if resp.status_code == 200:
                             edit_win.after(0, lambda: [status_var.set("Hoạt động (Active)"), lbl_status.config(fg="green")])
@@ -438,7 +446,7 @@ class AskCplApp:
                             proj = extract_project_id(resp.json())
                             if proj and not entry_proj.get().strip():
                                 edit_win.after(0, lambda p=proj: (entry_proj.delete(0, 'end'), entry_proj.insert(0, p)))
-                            if "Quota" in msg or "exhausted" in msg.lower():
+                            if "Quota" in msg or "exhausted" in msg.lower() or resp.status_code == 429:
                                 edit_win.after(0, lambda: [status_var.set("Hết Quota (Exhausted)"), lbl_status.config(fg="orange")])
                             else:
                                 edit_win.after(0, lambda: [status_var.set(f"Lỗi: {msg[:35]}"), lbl_status.config(fg="red")])
@@ -479,8 +487,11 @@ class AskCplApp:
 
                 keys[idx]["key"] = k_val
                 keys[idx]["email"] = e_val
+                keys[idx]["type"] = combo_type.get()
                 keys[idx]["project_id"] = entry_proj.get().strip()
                 keys[idx]["status"] = status_mapped
+                
+                self.last_added_type = combo_type.get()
                 keys[idx]["reset_time"] = reset_time
                 keys[idx]["next_check_time"] = next_check_time
                 keys[idx]["error_msg"] = error_msg
@@ -541,6 +552,7 @@ class AskCplApp:
                     k.get("email", ""),
                     masked_key,
                     pid if pid else "-",
+                    k.get("type", "GEMINI API"),
                     disp_status,
                     lc_str,
                     rt_str
@@ -565,6 +577,12 @@ class AskCplApp:
             entry_email.pack(fill='x', padx=20, pady=2)
             entry_email.insert(0, getattr(self, "last_added_email", ""))
 
+            Label(add_win, text="Loại API:", anchor='w').pack(fill='x', padx=20, pady=(10, 2))
+            from tkinter.ttk import Combobox
+            combo_type = Combobox(add_win, values=["GEMINI API", "CLAUDE API", "OPENAI API"], state="readonly")
+            combo_type.pack(fill='x', padx=20, pady=2)
+            combo_type.set(getattr(self, "last_added_type", "GEMINI API"))
+
             Label(add_win, text="Project ID (Để phân biệt Quota):", anchor='w').pack(fill='x', padx=20, pady=(10, 2))
             entry_proj = Entry(add_win, width=50)
             entry_proj.pack(fill='x', padx=20, pady=2)
@@ -584,7 +602,7 @@ class AskCplApp:
                 try:
                     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
                     headers = {'Content-Type': 'application/json'}
-                    payload = {"contents": [{"parts": [{"text": "Hello"}]}]}
+                    payload = {"contents": [{"parts": [{"text": "Hello. " * 10}]}], "generationConfig": {"maxOutputTokens": 1000}}
                     resp = requests.post(url, headers=headers, json=payload, timeout=10)
                     if resp.status_code == 200:
                         _check_result["status"] = "active"
@@ -596,7 +614,7 @@ class AskCplApp:
                         if proj: _check_result["project_id"] = proj
                         if proj and not entry_proj.get().strip():
                             add_win.after(0, lambda p=proj: (entry_proj.delete(0, 'end'), entry_proj.insert(0, p)))
-                        if "Quota" in msg or "exhausted" in msg.lower():
+                        if "Quota" in msg or "exhausted" in msg.lower() or resp.status_code == 429:
                             _check_result["status"] = "exhausted"
                             add_win.after(0, lambda: [status_var.set("Hết Quota (Exhausted)"), lbl_status.config(fg="orange")])
                         else:
@@ -671,6 +689,7 @@ class AskCplApp:
                     "error_msg": error_msg,
                     "key": k_val,
                     "email": e_val,
+                    "type": combo_type.get(),
                     "project_id": entry_proj.get().strip() or _check_result.get("project_id", ""),
                     "status": status_mapped,
                     "reset_time": reset_time,
@@ -680,6 +699,7 @@ class AskCplApp:
 
                 self.last_added_email = e_val
                 self.last_added_project = entry_proj.get().strip()
+                self.last_added_type = combo_type.get()
 
                 from settings import update_gemini_settings
                 update_gemini_settings(api_keys=gemini_settings["api_keys"])
@@ -728,15 +748,22 @@ class AskCplApp:
                     try:
                         url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
                         headers = {'Content-Type': 'application/json'}
-                        payload = {"contents": [{"parts": [{"text": "Hello"}]}]}
+                        payload = {"contents": [{"parts": [{"text": "Hello. " * 10}]}], "generationConfig": {"maxOutputTokens": 1000}}
                         resp = requests.post(url, headers=headers, json=payload, timeout=10)
                         key_obj["last_check_time"] = int(time.time())
 
                         if resp.status_code == 200:
-                            key_obj["status"] = "active"
-                            key_obj["reset_time"] = 0
-                            key_obj["next_check_time"] = 0
-                            self.log_ai(f"    ✅ Hoạt động tốt.")
+                            now = int(time.time())
+                            old_status = key_obj.get("status")
+                            next_check = key_obj.get("next_check_time", 0)
+                            if old_status == "exhausted" and next_check > now:
+                                remain_min = (next_check - now) // 60
+                                self.log_ai(f"    ⚠️ API OK, nhưng giữ án phạt Exhausted (Chờ {remain_min} phút).")
+                            else:
+                                key_obj["status"] = "active"
+                                key_obj["reset_time"] = 0
+                                key_obj["next_check_time"] = 0
+                                self.log_ai(f"    ✅ Hoạt động tốt.")
                         else:
                             rj = resp.json()
                             msg = rj.get("error", {}).get("message", "")
@@ -787,20 +814,27 @@ class AskCplApp:
                     try:
                         url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
                         headers = {'Content-Type': 'application/json'}
-                        payload = {"contents": [{"parts": [{"text": "Hello"}]}]}
+                        payload = {"contents": [{"parts": [{"text": "Hello. " * 10}]}], "generationConfig": {"maxOutputTokens": 1000}}
                         resp = requests.post(url, headers=headers, json=payload, timeout=10)
                         key_obj["last_check_time"] = int(time.time())
 
                         if resp.status_code == 200:
-                            key_obj["status"] = "active"
-                            key_obj["reset_time"] = 0
+                            now = int(time.time())
+                            old_status = key_obj.get("status")
+                            next_check = key_obj.get("next_check_time", 0)
+                            if old_status == "exhausted" and next_check > now:
+                                pass # Giữ nguyên trạng thái phạt
+                            else:
+                                key_obj["status"] = "active"
+                                key_obj["reset_time"] = 0
+                                key_obj["next_check_time"] = 0
                         else:
                             rj = resp.json()
                             msg = rj.get("error", {}).get("message", "")
                             proj = extract_project_id(rj)
                             if proj:
                                 key_obj["project_id"] = proj
-                            if "Quota" in msg or "exhausted" in msg.lower():
+                            if "Quota" in msg or "exhausted" in msg.lower() or resp.status_code == 429:
                                 key_obj["status"] = "exhausted"
                                 key_obj["reset_time"] = int(time.time()) + 86400
                                 key_obj["next_check_time"] = int(time.time()) + 10800
@@ -866,9 +900,83 @@ class AskCplApp:
             refresh_list()
             messagebox.showinfo("Hoàn tất", "Đã lưu vị trí thứ tự hiển thị của các API Keys!", parent=top)
 
+        def import_json_handler():
+            from tkinter import filedialog, messagebox
+            import json
+            filepath = filedialog.askopenfilename(
+                title="Chọn file JSON chứa API Keys",
+                filetypes=[("JSON Files", "*.json")]
+            )
+            if not filepath: return
+            
+            try:
+                with open(filepath, 'r', encoding='utf-8-sig') as f:
+                    new_keys_data = json.load(f)
+            except Exception as e:
+                messagebox.showerror("Lỗi", f"Không thể đọc file JSON:\n{e}", parent=top)
+                return
+            
+            gemini_settings = self.settings.get("gemini", {})
+            existing_keys = gemini_settings.get("api_keys", [])
+            
+            existing_key_values = set()
+            email_counts = {}
+            for k in existing_keys:
+                raw_k = k.get("key", "")
+                existing_key_values.add(decode_key(raw_k))
+                existing_key_values.add(raw_k)
+                em = k.get("email", "").strip().lower()
+                if em:
+                    email_counts[em] = email_counts.get(em, 0) + 1
+            
+            added_count = 0
+            for nk in new_keys_data:
+                if isinstance(nk, str):
+                    nk_val = nk
+                    nk_em = "imported@gmail.com"
+                    nk_type = "GEMINI API"
+                elif isinstance(nk, dict):
+                    nk_val = nk.get("key", "")
+                    nk_em = nk.get("email", "imported@gmail.com").strip()
+                    nk_type = nk.get("type", "GEMINI API")
+                else:
+                    continue
+                
+                if not nk_val or nk_val in existing_key_values:
+                    continue
+                
+                em_lower = nk_em.lower()
+                current_cnt = email_counts.get(em_lower, 0)
+                email_counts[em_lower] = current_cnt + 1
+                new_proj_id = str(current_cnt + 1)
+                
+                existing_keys.append({
+                    "key": nk_val,
+                    "email": nk_em,
+                    "project_id": new_proj_id,
+                    "type": nk_type,
+                    "status": "Chưa kiểm tra trạng thái",
+                    "reset_time": 0,
+                    "last_check_time": 0,
+                    "next_check_time": 0,
+                    "error_msg": ""
+                })
+                existing_key_values.add(nk_val)
+                added_count += 1
+            
+            if added_count > 0:
+                from settings import update_gemini_settings
+                update_gemini_settings(api_keys=existing_keys)
+                self.settings = load_settings()
+                refresh_list()
+                messagebox.showinfo("Thành công", f"Đã nhập {added_count} API Keys mới!", parent=top)
+            else:
+                messagebox.showinfo("Thông báo", "Không có API Key nào mới được thêm (tất cả bị trùng hoặc lỗi).", parent=top)
+
         btn_frame = Frame(top)
         btn_frame.pack(fill="x", padx=10, pady=10, side="bottom")
-        Button(btn_frame, text="Thêm Key Mới", command=add_key, bg="#27ae60", fg="white").pack(side="left", padx=5)
+        Button(btn_frame, text="Nhập từ JSON", command=import_json_handler, bg="#34495e", fg="white").pack(side="left", padx=5)
+        Button(btn_frame, text="Thêm Key", command=add_key, bg="#27ae60", fg="white").pack(side="left", padx=5)
         btn_check = Button(btn_frame, text="Kiểm tra tất cả", command=check_all_keys, bg="#f39c12", fg="white")
         btn_check.pack(side="left", padx=5)
         btn_auto = Button(btn_frame, text="🔄 Tự động điều chỉnh", command=auto_adjust, bg="#8e44ad", fg="white")

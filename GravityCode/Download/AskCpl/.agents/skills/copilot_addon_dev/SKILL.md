@@ -217,7 +217,6 @@ File phải được khai báo trong `web_accessible_resources` của `manifest.
 10. VERIFY:       Load unpacked → kiểm tra chạy song song với bản gốc
 ```
 
-**Script Python tải và giải nén CRX:**
 ```python
 import urllib.request, zipfile, io, os
 
@@ -232,4 +231,57 @@ def download_crx(ext_id, out_dir):
     with zipfile.ZipFile(io.BytesIO(crx[start:])) as z:
         z.extractall(out_dir)
 ```
+
+---
+
+### M. Bơm Script Trực Tiếp Vào MAIN World Bằng MV3 (Bypass CSP)
+
+**Bối cảnh:** Trong MV3, khi muốn ghi đè các hàm native (như `window.fetch`, `document.execCommand`...) hoặc chui ra khỏi Isolated World của Content Script, cách cũ là chèn thẻ `<script>` vào DOM. Nhưng cách này thường bị chặn bởi CSP (Content Security Policy) của trang đích.
+
+**Giải pháp (Từ HangMauIntramart):** Sử dụng API `chrome.scripting.executeScript` với cờ `world: 'MAIN'`. Điều này cho phép Extension bơm trực tiếp hàm JavaScript vào ngữ cảnh của trang đích mà không cần can thiệp DOM hay lo ngại CSP.
+
+```javascript
+// background.js:
+async function executeMainScript(tabId, delaySeconds) {
+    await chrome.scripting.executeScript({
+        target: { tabId: tabId, frameIds: [0] },
+        world: 'MAIN',  // <-- QUAN TRỌNG: Chạy thẳng vào context của trang
+        func: getInjectedAutomationCode,
+        args: [delaySeconds || 5]
+    });
+}
+
+function getInjectedAutomationCode(delaySeconds) {
+    // Đoạn mã này có toàn quyền truy cập window.* của trang web gốc
+    window.__my_custom_flag = true;
+    const originalFetch = window.fetch;
+    // ... Override native APIs thoải mái ...
+}
+```
+
+---
+
+### N. Chống Throttle Khi Chuyển Tab/Minimized Bằng AudioContext (Silent Oscillator)
+
+**Bối cảnh:** Chromium bóp (throttle) các hàm như `setTimeout` và `setInterval` khi tab không còn active (minimized, chuyển ứng dụng khác). Điều này làm các luồng tự động chạy ngầm bị delay nặng.
+
+**Giải pháp (Từ HangMauIntramart):** Sử dụng Web Audio API để giữ tab hoạt động hết công suất. Bằng cách tạo ra một luồng âm thanh "im lặng" (gain = 0), trình duyệt sẽ ưu tiên tab này và không throttle nó.
+
+```javascript
+function keepTabAwake() {
+    try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        gainNode.gain.value = 0; // Mute hoàn toàn (Im lặng)
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        oscillator.start();
+        console.log('🔊 Đã bật khiên chống ngủ gật cho Tab (Chạy nền 100% công lực)');
+    } catch(e) {
+        console.log('Không thể bật chống ngủ gật: ' + e.message);
+    }
+}
+```
+**Lưu ý:** `AudioContext` thường yêu cầu tương tác (User Gesture) từ người dùng trước khi được phép phát tiếng, nên gọi hàm này sau khi người dùng click một nút (ví dụ: nút Start). Có thể kết hợp cùng Web Locks API (`navigator.locks`) để tạo thành lớp bảo vệ kép.
 
