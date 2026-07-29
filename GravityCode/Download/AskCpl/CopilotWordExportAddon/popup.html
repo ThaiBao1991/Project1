@@ -161,6 +161,19 @@
 
   <hr class="divider">
 
+  <!-- ── CÀI ĐẶT FOLLOW-UP (MỚI) ── -->
+  <div class="section-title">Follow-up Tự Động</div>
+  <div class="input-group" style="flex-direction: row; align-items: center;">
+    <input type="checkbox" id="chkFollowUp" style="width: auto; margin-right: 5px;">
+    <label for="chkFollowUp" style="display:inline-block; margin-bottom:0;">Bật hỏi bồi (Follow-up) khi AI bị ngắt</label>
+  </div>
+  <div class="input-group" id="divFollowUpMax" style="display: none; margin-top:5px;">
+    <label>Số lượt hỏi bồi tối đa:</label>
+    <input type="number" id="numFollowUpMax" value="999" min="1" max="9999">
+  </div>
+
+  <hr class="divider">
+
   <!-- ── Nút chính ── -->
   <button id="startBtn">▶ BẮT ĐẦU AUTO RUN</button>
   <button id="stopBtn" class="btn-danger">⏹ Dừng &amp; Lưu</button>

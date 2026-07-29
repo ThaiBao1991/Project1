@@ -1,0 +1,81 @@
+{
+  "name": "quota-antigravity-ext",
+  "publisher": "antigravity",
+  "displayName": "Quota Antigravity Tracker",
+  "description": "IDE Extension to track quota limits for Antigravity AI accounts",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "quotaTracker.showPanel",
+        "title": "Quota: Mở bảng Quota Tracker"
+      },
+      {
+        "command": "quotaTracker.showMenu",
+        "title": "Quota: Mở Menu Tracker"
+      },
+      {
+        "command": "quotaTracker.markExhausted",
+        "title": "Quota: Đánh dấu Hết Quota (Email Hiện Tại)"
+      },
+      {
+        "command": "quotaTracker.setDataPath",
+        "title": "Quota: Chọn thư mục lưu file Data"
+      },
+      {
+        "command": "quotaTracker.refresh",
+        "title": "Quota: Làm mới danh sách"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "quotaTracker.markExhausted",
+        "key": "alt+q",
+        "mac": "alt+q",
+        "when": "editorFocus || !editorFocus"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "quota-tracker-explorer",
+          "title": "Quota Tracker",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "quota-tracker-explorer": [
+        {
+          "id": "quotaTrackerView",
+          "name": "Danh sách Email Quota",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "quotaTracker.refresh",
+          "when": "view == quotaTrackerView",
+          "group": "navigation"
+        },
+        {
+          "command": "quotaTracker.showPanel",
+          "when": "view == quotaTrackerView",
+          "group": "navigation"
+        }
+      ]
+    }
+  }
+}

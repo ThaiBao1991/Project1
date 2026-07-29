@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mkbrowser.MiniBrowserController">
+	<center>
+		<StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+			<children>
+				<WebView fx:id="wvMain" prefHeight="200.0" prefWidth="200.0" />
+			</children>
+		</StackPane>
+	</center>
+	<top>
+		<HBox alignment="CENTER_LEFT" focusTraversable="true" prefHeight="40.0" prefWidth="600.0" BorderPane.alignment="CENTER_RIGHT">
+			<children>
+				<Button fx:id="btnBackward" disable="true" mnemonicParsing="false" text="B">
+					<HBox.margin>
+						<Insets left="1.0" />
+					</HBox.margin>
+				</Button>
+				<Button fx:id="btnForward" disable="true" mnemonicParsing="false" text="F">
+					<HBox.margin>
+						<Insets left="1.0" />
+					</HBox.margin>
+				</Button>
+				<Button fx:id="btnRefresh" mnemonicParsing="false" text="R">
+					<HBox.margin>
+						<Insets left="1.0" />
+					</HBox.margin>
+				</Button>
+				<Button fx:id="btnHome" mnemonicParsing="false" text="H">
+					<HBox.margin>
+						<Insets left="1.0" />
+					</HBox.margin>
+				</Button>
+				<TextField fx:id="txtAddress" prefHeight="25.0" prefWidth="374.0">
+					<HBox.margin>
+						<Insets left="4.0" />
+					</HBox.margin>
+				</TextField>
+				<Button fx:id="btnGo" alignment="CENTER_RIGHT" mnemonicParsing="false" text="GO">
+					<HBox.margin>
+						<Insets />
+					</HBox.margin>
+				</Button>
+				<MenuButton fx:id="mnubFunction" mnemonicParsing="false" text="Function">
+					<items>
+                  <MenuItem fx:id="mnuSaveLoginInfo" mnemonicParsing="false" text="Save Login" />
+					</items>
+					<HBox.margin>
+						<Insets left="4.0" />
+					</HBox.margin>
+				</MenuButton>
+            <MenuButton fx:id="mnubSetting" mnemonicParsing="false" text="Setting">
+              <items>
+                <MenuItem fx:id="mnuEnableImage" mnemonicParsing="false" text="Enable/Disable Image" />
+              </items>
+               <HBox.margin>
+                  <Insets left="2.0" />
+               </HBox.margin>
+            </MenuButton>
+			</children>
+			<BorderPane.margin>
+				<Insets />
+			</BorderPane.margin>
+			<padding>
+				<Insets left="8.0" />
+			</padding>
+		</HBox>
+	</top>
+   <bottom>
+      <BorderPane prefHeight="20.0" prefWidth="200.0" BorderPane.alignment="CENTER_LEFT">
+         <right>
+            <ProgressBar fx:id="progressBar" prefWidth="200.0" progress="0.0" BorderPane.alignment="CENTER" />
+         </right>
+         <left>
+            <Label fx:id="lblStatus" prefHeight="17.0" prefWidth="388.0" BorderPane.alignment="CENTER" />
+         </left>
+      </BorderPane>
+   </bottom>
+</BorderPane>

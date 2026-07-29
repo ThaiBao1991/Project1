@@ -1,0 +1,48 @@
+{
+  "manifest_version": 3,
+  "name": "MBC Intramart Signal (Stamp Fixer)",
+  "version": "1.0.0",
+  "description": "Hỗ trợ cố định và điều chỉnh vị trí đóng dấu trong hệ thống Intramart để không bị lệch theo kích thước màn hình.",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "*://vdm-intramart/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "http://vdm-intramart/*",
+        "http://*/*"
+      ],
+      "css": [
+        "content_style.css"
+      ],
+      "js": [
+        "libs/pdf-lib.min.js",
+        "libs/pdf.min.js",
+        "libs/xlsx.mini.min.js",
+        "content_script.js"
+      ],
+      "all_frames": true,
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "libs/pdf.worker.min.js"
+      ],
+      "matches": [
+        "http://vdm-intramart/*",
+        "http://*/*"
+      ]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Cấu hình con dấu Intramart"
+  }
+}

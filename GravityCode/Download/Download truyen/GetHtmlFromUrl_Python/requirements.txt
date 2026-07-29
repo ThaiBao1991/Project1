@@ -1,0 +1,5 @@
+PyQt6==6.7.0
+beautifulsoup4==4.12.3
+requests==2.32.3
+lxml==5.2.2
+cloudscraper==1.2.71

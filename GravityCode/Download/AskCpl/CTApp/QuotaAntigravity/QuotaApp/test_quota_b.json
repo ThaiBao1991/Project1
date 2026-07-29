@@ -1,0 +1,265 @@
+{
+  "gamesvendn06@gmail.com": {
+    "exhaustedUntil": 0,
+    "lastUpdate": 1785317363348,
+    "source": "auto-sync",
+    "groupStatus": {
+      "gemini": {
+        "exhausted": true,
+        "resetTime": 1785485943000,
+        "percent": 0
+      },
+      "claude": {
+        "exhausted": false,
+        "resetTime": 1785921377000,
+        "percent": 100
+      },
+      "gpt": {
+        "exhausted": false,
+        "resetTime": 1785921377000,
+        "percent": 100
+      }
+    },
+    "availableGroups": [
+      "claude",
+      "gpt"
+    ],
+    "exhaustedGroups": [
+      "gemini"
+    ],
+    "overallResetTime": 1785921377000
+  },
+  "gamesvendn14@gmail.com": {
+    "exhaustedUntil": 1785918797000,
+    "lastUpdate": 1785317363348,
+    "source": "auto-sync",
+    "groupStatus": {
+      "gemini": {
+        "exhausted": true,
+        "resetTime": 1785490287000,
+        "percent": 0
+      },
+      "claude": {
+        "exhausted": true,
+        "resetTime": 1785918797000,
+        "percent": 0
+      },
+      "gpt": {
+        "exhausted": true,
+        "resetTime": 1785918797000,
+        "percent": 0
+      }
+    },
+    "availableGroups": [],
+    "exhaustedGroups": [
+      "gemini",
+      "claude",
+      "gpt"
+    ],
+    "overallResetTime": 1785918797000
+  },
+  "gamesvendn18@gmail.com": {
+    "exhaustedUntil": 1785503924000,
+    "lastUpdate": 1785317363348,
+    "source": "auto-sync",
+    "groupStatus": {
+      "gemini": {
+        "exhausted": true,
+        "resetTime": 1785500420000,
+        "percent": 0
+      },
+      "claude": {
+        "exhausted": true,
+        "resetTime": 1785503924000,
+        "percent": 0
+      },
+      "gpt": {
+        "exhausted": true,
+        "resetTime": 1785503924000,
+        "percent": 0
+      }
+    },
+    "availableGroups": [],
+    "exhaustedGroups": [
+      "gemini",
+      "claude",
+      "gpt"
+    ],
+    "overallResetTime": 1785503924000
+  },
+  "gamesvendn05@gmail.com": {
+    "exhaustedUntil": 1785912932000,
+    "lastUpdate": 1785317363348,
+    "source": "auto-sync",
+    "groupStatus": {
+      "gemini": {
+        "exhausted": true,
+        "resetTime": 1785912932000,
+        "percent": 0
+      },
+      "claude": {
+        "exhausted": true,
+        "resetTime": 1785906995000,
+        "percent": 0
+      },
+      "gpt": {
+        "exhausted": true,
+        "resetTime": 1785906995000,
+        "percent": 0
+      }
+    },
+    "availableGroups": [],
+    "exhaustedGroups": [
+      "gemini",
+      "claude",
+      "gpt"
+    ],
+    "overallResetTime": 1785912932000
+  },
+  "gamesvendn02@gmail.com": {
+    "exhaustedUntil": 0,
+    "lastUpdate": 1785317363348,
+    "source": "auto-sync",
+    "groupStatus": {
+      "gemini": {
+        "exhausted": false,
+        "resetTime": 1785921258000,
+        "percent": 76
+      },
+      "claude": {
+        "exhausted": true,
+        "resetTime": 1785919692000,
+        "percent": 0
+      },
+      "gpt": {
+        "exhausted": true,
+        "resetTime": 1785919692000,
+        "percent": 0
+      }
+    },
+    "availableGroups": [
+      "gemini"
+    ],
+    "exhaustedGroups": [
+      "claude",
+      "gpt"
+    ],
+    "overallResetTime": 1785921258000
+  },
+  "gamesvendn17@gmail.com": {
+    "exhaustedUntil": 1785462043000,
+    "lastUpdate": 1785317363348,
+    "source": "auto-sync",
+    "groupStatus": {
+      "gemini": {
+        "exhausted": true,
+        "resetTime": 1785462043000,
+        "percent": 0
+      },
+      "claude": {
+        "exhausted": true,
+        "resetTime": 1785387714000,
+        "percent": 0
+      },
+      "gpt": {
+        "exhausted": true,
+        "resetTime": 1785387714000,
+        "percent": 0
+      }
+    },
+    "availableGroups": [],
+    "exhaustedGroups": [
+      "gemini",
+      "claude",
+      "gpt"
+    ],
+    "overallResetTime": 1785462043000
+  },
+  "gamesvendn15@gmail.com": {
+    "exhaustedUntil": 1785684412000,
+    "lastUpdate": 1785317363348,
+    "source": "auto-sync",
+    "groupStatus": {
+      "gemini": {
+        "exhausted": true,
+        "resetTime": 1785684412000,
+        "percent": 0
+      },
+      "claude": {
+        "exhausted": true,
+        "resetTime": 1785681957000,
+        "percent": 0
+      },
+      "gpt": {
+        "exhausted": true,
+        "resetTime": 1785681957000,
+        "percent": 0
+      }
+    },
+    "availableGroups": [],
+    "exhaustedGroups": [
+      "gemini",
+      "claude",
+      "gpt"
+    ],
+    "overallResetTime": 1785684412000
+  },
+  "gamesvendn01@gmail.com": {
+    "exhaustedUntil": 1785892643000,
+    "overallResetTime": 1785892643000,
+    "lastUpdate": 1785317363348,
+    "source": "auto-sync",
+    "groupStatus": {
+      "gemini": {
+        "exhausted": true,
+        "resetTime": 1785844898000,
+        "percent": 0
+      },
+      "claude": {
+        "exhausted": true,
+        "resetTime": 1785892643000,
+        "percent": 0
+      },
+      "gpt": {
+        "exhausted": true,
+        "resetTime": 1785892643000,
+        "percent": 0
+      }
+    },
+    "availableGroups": [],
+    "exhaustedGroups": [
+      "gemini",
+      "claude",
+      "gpt"
+    ]
+  },
+  "gamesvendn07@gmail.com": {
+    "exhaustedUntil": 0,
+    "overallResetTime": 1785921938000,
+    "lastUpdate": 1785317363348,
+    "source": "auto-sync",
+    "groupStatus": {
+      "gemini": {
+        "exhausted": false,
+        "resetTime": 1785921938000,
+        "percent": 100
+      },
+      "claude": {
+        "exhausted": false,
+        "resetTime": 1785921938000,
+        "percent": 100
+      },
+      "gpt": {
+        "exhausted": false,
+        "resetTime": 1785921938000,
+        "percent": 100
+      }
+    },
+    "availableGroups": [
+      "gemini",
+      "claude",
+      "gpt"
+    ],
+    "exhaustedGroups": []
+  }
+}

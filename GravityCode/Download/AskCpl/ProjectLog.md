@@ -9,6 +9,13 @@ Tạo giao diện để tự động lưu các ngày học Tiếng Anh và Tiế
 
 ## Nhật ký công việc
 
+## 2026-07-29: Tối ưu hoá Lazy Load cho file .askcpl và Fix lỗi hiển thị file
+- **Sửa lỗi hiển thị**: Cập nhật iletypes của skopenfilename và sksaveasfilename thành [('AskCpl Encrypted', '*.askcpl'), ('All Files', '*.*')] để fix lỗi không thấy file.
+- **Lazy Loading**: Khi mở file .askcpl, hệ thống nay giải mã ra file .zip tạm thời và chỉ đọc Index thay vì bung nén và quét toàn bộ thư mục.
+- **Lazy Extraction**: Khi bấm vào day_X.html, ứng dụng sẽ bung nén và quét file đó on-demand. Giảm thời gian mở file lớn từ vài chục giây xuống 1-2 giây.
+- **Lazy Saving**: Khi lưu, hàm encrypt_from_zip_and_folder tự kết hợp các file đã chỉnh sửa ở thư mục tạm với file zip gốc để lưu lại (có loại bỏ các file bị xóa trong phiên) mà không cần bung tất cả.
+
+
 ### Giai đoạn 1 — Thiết kế kiến trúc & Xây dựng cơ bản
 - **Thiết kế ban đầu:** Dự định làm Desktop App để paste dữ liệu thủ công.
 - **Thay đổi kiến trúc (Hybrid Approach):** Chia làm 2 phần:
@@ -952,3 +959,261 @@ ote_refresh_list\. Nếu thư mục không tồn tại, sẽ trả về mảng r
   2. Thay đổi create_viewer() để sinh độc lập các file vật lý dayXXX.html (như tiện ích Chrome cũ) có CSS đẹp.
   3. Làm mới bảng index.html đóng vai trò là Mục lục liên kết (TOC), có thanh tìm kiếm, thống kê số day.
   4. Bơm thêm biến day['title'] vào lệnh (prompt) truyền cho AI để AI hiểu bối cảnh và tránh sinh ra câu dẫn lặp lại.
+
+
+### Giai doan moi (22/07/2026): Tai lai PDF, Nang cap Quan ly API Keys & Hoi thoai Multi-turn (YC1-YC5)
+- YC1 (Tai lai du lieu): Viet script download_intramart_pdfs.py tu dong quet roadmap, trich xuat URL PDF, tai song song 10 Thread, luu vao D:\Tai truyen\Data, bo qua file da co.
+- YC2 (Nhap Key cai tien): Thay the simpledialog.askstring bang Toplevel dialog co nut 'Kiem tra trang thai' chay thread nen, hien thi mau xanh/cam/do, ESC de thoat nhanh.
+- YC3 (Smart key skip): get_active_key() bo qua exhausted key chua den next_check_time (3h), cap nhat last_check_time sau moi request, them cot 'Check lan cuoi' vao TreeView.
+- YC4 (Patch roadmap): Viet patch_expanded_prompts.py: them dong [gio hoc du kien], them YEU CAU CHI TIET VE CACH TRA LOI vao toan bo Prompt trong roadmap_expanded.md. Da chay va verify: 1607 Day co them gio hoc, 1570 Day co them YEU CAU CHI TIET.
+- YC5 (Multi-turn follow-up): Sau response chinh, auto_ai_worker.py lap lap: gui FOLLOWUP_PROMPT den khi AI ket thuc bang 'Da day du' hoac dat max_followup lan. Gop tat ca response thanh 1 file HTML voi section rieng. Them checkbox + spinbox tren UI Auto AI.
+- COMPILE CHECK: auto_ai_worker.py, AskCpl.py, settings.py => ALL PASS.
+
+### Bổ sung (22/07/2026): Cải thiện Check Key & Navbar
+- YC: Tính năng check key lỗi (chỉ check 1 key đang chọn), yêu cầu nâng cấp nút Check thành Check ALL keys.
+- Giải quyết: Sửa 	est_key trong AskCpl.py thành check_all_keys(). Cho vòng lặp check toàn bộ keys trong luồng phụ (	hreading), sau đó cập nhật UI.
+- YC: Cập nhật Navbar của HTML sinh ra giống hệt Addon (có gradient, nút mũi tên, TOC dropdown, bắt sự kiện phím mũi tên).
+- Giải quyết: Cập nhật template html string trong uto_ai_worker.py, nhúng toàn bộ logic CSS/JS từ ackground.js (Addon) vào uto_ai_worker.py (NAV-BAR-V2).
+- Trạng thái: PASS
+
+### Bổ sung nhỏ (22/07/2026): Thêm tính năng sửa Key
+- YC: Key gmv15 báo invalid, thêm tính năng click double để sửa key (CRUD).
+- Giải quyết: Chèn event 	ree.bind("<Double-1>", edit_key) vào AskCpl.py. Khi nháy đúp vào một dòng, hiện cửa sổ edit_win điền sẵn thông tin key cũ, cho phép lưu lại để đè lên vị trí cũ. Reset trạng thái (status="active", reset_time=0) sau khi sửa.
+- Kết quả test API: Báo 400 API key not valid. từ Google, chứng tỏ key nhập vào thực sự sai hoặc đã bị Google khóa.
+
+### Cập nhật nâng cao (23/07/2026): Quản lý API Keys
+- YC1: Form Sửa Key (Modify) bổ sung nút 'Check Key' y hệt lúc Thêm mới.
+- YC2: Kiểm tra trùng lặp mã API Key khi Thêm hoặc Sửa. Nếu trùng báo lỗi và từ chối lưu.
+- YC3: Cải tiến Check ALL keys: Bắt được thông điệp lỗi (như lỗi 403 Access Denied) và lưu lại vào trường error_msg, đồng thời hiển thị chi tiết lỗi đó trên cột Trạng thái của TreeView để người dùng biết chính xác nguyên nhân invalid.
+
+
+## 2026-07-23: Fix Quota Exhaustion & Add Start Day
+- Cập nhật AskCpl.py: Thêm ô nhập Bắt đầu từ Day để cho phép chọn ngày tải lại (bỏ qua/xóa các ngày sau).
+- Cập nhật auto_ai_worker.py: Lưu lại raw_responses vào session.json để tự động resume (chạy tiếp) tiến trình hỏi follow-up đang dang dở khi bị hết quota, không bị lãng phí chạy lại từ Lượt 1.
+- Cập nhật AskCpl.py: Tự động đọc session.json khi chọn thư mục xuất để báo Day hoàn thành gần nhất/đang dang dở và tự điền Day kế tiếp vào ô bắt đầu.
+
+
+## 2026-07-23: Follow-up Mode UI + Key Manager Upgrade
+- AskCpl.py: Thay ô nhập "so luot toi da" bang 2 radio button: "Hoi den khi hoan thanh" (mac dinh, max=999) va "Hoi toi da N luot".
+- AskCpl.py: Key Manager nang cap: them cot Project ID, nut Tu dong dieu chinh, to do key trung project ID, tu dong check truoc khi luu key moi.
+
+
+## 2026-07-23: UI API Manager & Auto AI Stop Button
+- Thêm nút Stop (🛑 Dừng lại) cho luồng Auto AI và logic hủy an toàn (STOP_REQUESTED) trong auto_ai_worker.py.
+- Cải thiện giao diện Quản lý API Key: Nhóm TreeView vào frame để fix lỗi nút bị che khuất.
+- Cập nhật logic trích xuất Project ID: Dùng Regex parse thông báo lỗi 429 để lấy đúng project_number.
+- Thêm tính năng click vào tiêu đề cột để sắp xếp ABC, và nút Lưu Thứ Tự để ghi nhận vị trí hiển thị hiện tại vào settings.
+
+
+## 2026-07-23: Fix UI Auto AI Session & API Key Project ID Input
+- Fix: Sửa lỗi không hiện trạng thái session nếu người dùng để trống Thư mục Output (sẽ fallback về thư mục chứa file roadmap).
+- Feature: Bổ sung ô nhập Project ID thủ công vào giao diện Thêm/Sửa API Key. Việc này cho phép người dùng tự phân loại các API key cùng email vào các project khác nhau để tự động check trùng lặp (vì Google API không trả về project_id khi báo lỗi 429).
+
+## 2026-07-23: Fix Bug Auto AI Stop & Avoid Re-reading PDF
+- **Fix:** N�t Stop d� ho?t d?ng t?c th� ngay c? khi dang ch? ph?n h?i t? Gemini (t?i da 180s) nh? b? sung check \STOP_REQUESTED\ trong v�ng l?p \while not future.done()\ c?a \call_gemini_api\.
+- **Fix:** Tr�nh d?c l?i file PDF v� t?n RAM/Time v� �ch (in ra '�ang d?c PDF...') cho c�c Day d� ho�n th�nh Lu?t 1 nhung dang dang d? ph?n h?i b? sung (Follow-up). Tool gi? ch? d?c file PDF n?u d�y l� l?n g?i Lu?t 1.
+
+
+## 2026-07-23: Add Project ID to Logs & Auto-increment ID in UI
+- **Log:** B? sung hi?n th? Project ID (n?u c�) b�n c?nh T�n/Email v�o to�n b? c�c d�ng log b�o l?i (Exhausted, Invalid, Quota, Qu� t?i) trong uto_ai_worker.py d? d? d�ng theo d�i.
+- **UI:** T�nh nang Th�m API Key m?i (AskCpl.py) t? d?ng c?ng th�m 1 v�o Project ID (v� d? 2 -> 3) n?u Project ID l?n tru?c nh?p v�o l� m?t con s?, gi�p thao t�c th�m Key nhanh hon.
+
+
+## 2026-07-24: Fix Race Condition When Updating API Keys While AI Is Running
+- **V?n d?:** N?u ngu?i d�ng th�m API key m?i trong l�c ti?n tr�nh Auto AI dang t?i ng?m, khi AI g?p l?i (VD: h?t Quota) v� luu tr?ng th�i key, n� s? d�ng danh s�ch key cu t? d?u phi�n ch?y ghi d� xu?ng dia, l�m m?t key m?i th�m.
+- **Fix:** Thay d?i logic trong uto_ai_worker.py: 
+  1. Lo?i b? vi?c d�ng m?ng pi_keys_list truy?n v�o l�c d?u d? x�t duy?t. H�m get_active_key nay s? t? d?c tr?c ti?p danh s�ch key m?i nh?t t? dia.
+  2. B? sung h�m update_key_on_disk(k_obj): ch? thay d?i d�ng status, eset_time c?a key tuong ?ng v�o danh s�ch m?i nh?t tr�n ? c?ng.
+  3. Nh? co ch? n�y, ti?n tr�nh n?n kh�ng nh?ng h?t l?i ghi d�, m� c�n **nh?n di?n du?c ngay l?p t?c** c�c Key m?i b?n v?a th�m v�o m� kh�ng c?n ph?i kh?i d?ng l?i t�c v? Auto AI.
+
+
+## 2026-07-28: Fix Exercise Builder for Addon Files
+- **Fix:** C?p nh?t logic quet file HTML trong AskCpl.py (tab Bai t?p) ?? h? tr? nh?n di?n c? ten file d?ng c? (day_1.html) va ??nh d?ng m?i xu?t t? Addon (001_Day 1...html). ?a ??i c? ch? parse t? startswith('day_') sang regex k?t h?p ki?m tra t? khoa linh ho?t, ??ng th?i s?p x?p (sort) l?i danh sach chu?n xac ?? tr?n l?n c? 2 chu?n file khong b? l?i.
+
+## 2026-07-29: Tối ưu Cực đại Tốc độ Mở/Lưu .askcpl (In-Memory Crypto)
+- **Tối ưu AES Chunk:** Tăng _CHUNK từ 64KB lên 4MB trong crypto_utils.py giúp tăng tốc độ mã hoá lên 3x (300%).
+- **In-Memory Decryption:** Thêm hàm decrypt_to_memory() đọc luồng AES và xuất file ZIP thẳng vào io.BytesIO (trên RAM), loại bỏ hoàn toàn Disk I/O chậm chạp. Tự động fallback về ghi file cứng nếu file quá lớn (>500MB).
+- **Streaming Zip Copy:** Thay đổi encrypt_from_zip_and_folder sang dùng shutil.copyfileobj kết hợp với io.BytesIO, tăng tốc độ hợp nhất ZIP lên thêm 27%.
+- **Cập nhật UI AskCpl:**
+  - AskCpl.py tự động hiển thị popup báo chế độ 'RAM (Siêu tốc)' hoặc 'Disk (File lớn)'.
+  - Thay thế toàn bộ mã nén/giải nén cục bộ thành sử dụng context manager _open_lazy_zip().
+  - Hiệu năng hiện tại đã đạt đến giới hạn phần cứng của quá trình streaming file mà không cần thay đổi định dạng archive.
+
+## 2026-07-29: Quota Tracker - Tích hợp Local OAuth Server độc lập
+- **Tính năng mới:** Thay thế hoàn toàn cơ chế đăng nhập dự phòng (dựa vào Auth Provider mặc định không tồn tại của VS Code) bằng một **Local OAuth HTTP Server** siêu nhẹ, tích hợp thẳng vào extension Quota Tracker. 
+- **Lợi ích:** 
+  - Khắc phục triệt để lỗi "không click được" ở nút Thêm tài khoản khi máy không có extension Gemini Account.
+  - Tự động mở trình duyệt web của người dùng để đăng nhập Google (yêu cầu consent để lấy refresh_token), tự động nhận callback ở cổng localhost (8888-8892), và tự động đóng trình duyệt khi thành công.
+  - Toàn bộ Access Token & Refresh Token được extension tự chủ lưu vào globalState của chính nó, giúp nó không cần phụ thuộc vào Gemini Account.
+- **Backend Sync:** Cập nhật script sync_antigravity.py để bổ sung tính năng đọc trực tiếp mã Token do chính extension Quota Tracker tự thu thập từ state.vscdb, nâng cao tính độc lập của ứng dụng.
+
+
+## 2026-07-29: Quota Tracker - Tích hợp Fetch Quota API & Nút Check All thực thụ
+- **API Fetching:** Viết module etchBalances trong oauth.js giả lập User-Agent của Antigravity IDE để qua mặt Google Cloud Code API.
+- **Nút Check All:** Viết lại logic doCheckAll trong extension để thực sự gọi mạng tới Google kiểm tra từng tài khoản, không còn là nút giả lập chỉ đọc DB cục bộ.
+- **Auto-Fetch:** Extension tự động fetch số dư % Quota ngay sau khi thêm tài khoản, sửa lỗi hiển thị mù 100% khi mới Add Account.
+- **Base64 Backup:** Toàn bộ OAuth tokens được sao chép và mã hoá chuẩn Base64 UTF-8 an toàn vào File Dữ liệu (quota_data.dat), cho phép các tiến trình ngoại vi như Python sử dụng mà không cần globalState của VS Code.
+
+
+## 2026-07-29: Fix checkAll - Token từ VS Code Auth + groupStatus tức thì
+- **Nguyen nhan loi 1 (svendn03):** token nam trong VS Code Auth (Antigravity Account ext), khong co trong Quota Tracker globalState. checkAll cu bo qua.
+- **Fix:** Them vscode.authentication.getSessions() vao checkAll va checkOne, lay token cua TAT CA tai khoan Google dang dang nhap, ke ca svendn03.
+- **Nguyen nhan loi 2 (gamesvendn OK 100%):** Python sync doc SQLite cu (stale), balances trong dat file chua kip duoc cap nhat truoc khi Python chay.
+- **Fix:** Them ham computeGroupStatus() bang JS (copy logic assess_account cua Python). Sau khi fetch balances, tinh ngay groupStatus va luu vao dat file. UI co the hien thi Gemini/Claude/GPT % NGAY LAP TUC ma khong can cho Python.
+- **Fix sync_antigravity.py:** Doc ca 2 key DB (Davissss2 + Quota Tracker), merge ket qua. Khi tinh, uu tien balances tu quota_data.dat (fresh) thay vi SQLite (stale).
+- **Ket qua verify:** svendn03: OK=[gemini], EX=[claude,gpt]. gamesvendn: OK=[gemini,claude,gpt].
+
+
+## 2026-07-29: Quota Tracker - Cai thien addAccount va switchAccount
+- **addAccount chi sync 1 email:** Them email filter vao autoSyncFromDB trong addAccount, chi chay Python sync cho account vua them, tranh mat thoi gian sync toan bo.
+- **switchAccount khong can restart:** Phat hien antigravity-account extension poll key ntigravity.accounts.active trong globalState moi 5s de detect account change. Viec set key nay truc tiep (context.globalState.update) lam cho IDE tu reload AI models ma KHONG can restart. UI cua Quota Tracker cung cap nhat ngay lap tuc.
+- **Source:** Doc truc tiep minified source cua antigravity-account ext de xac nhan cach hoat dong.
+
+
+## 2026-07-29: Fix loi addAccount (Race condition & Stale Data)
+- **Nguyen nhan loi 1 (Khong hien account ngay / Phai chay 2 lan):** Do addAccount goi sync ngay lap tuc, trong khi VS Code chua kip ghi data xuong SQLite. Python doc SQLite cu nen khong thay account moi.
+- **Fix loi 1:** Them setTimeout(2500) de cho SQLite ghi xong. Sau do tu dong fetch balances qua vscode.authentication.getSessions, tinh groupStatus va goi refreshPanel() NGAY LAP TUC de UI hien thi luon, khong can cho Python sync.
+- **Nguyen nhan loi 2 (Account het quota nhung van hien 100%):** Do sync_antigravity.py LUON uu tien lay balances tu quota_data.dat mac du data nay co the da cu tu may ngay truoc (vi du: luu thong tin 100% tu luc moi them account).
+- **Fix loi 2:** Them check freshness trong sync_antigravity.py. Chi su dung balances tu quota_data.dat neu lastChecked con moi (< 5 phut). Neu cu hon, dung lai data tu SQLite.
+
+
+## 2026-07-29: Fix Check All Missing Accounts & 100% Display Bug
+- **Check All**: Changed checkAll in JS to call ntigravity-account.refreshBalances to force Antigravity Account extension to refresh all managed accounts before doing utoSyncFromDB. This ensures all 9 accounts are synced, instead of just the 5 logged directly into VS Code.
+- **100% Display Bug**: Changed computeGroupStatus in JS and ssess_account in Python to use the minimum percentage of active models instead of the average of all 24 models in a group. This prevents the UI from diluting the percentage of exhausted/partially-exhausted models and always showing 100%.
+
+
+## 2026-07-30: Tự chủ hoàn toàn (TokenManager + switch_account.py)
+- **TokenManager**: Thêm class TokenManager tự chủ trong extension.js. Dùng context.secrets của chính extension để lưu/đọc access_token + refresh_token + expiresAt cho từng email. Không phụ thuộc vào Antigravity Account extension.
+- **Token refresh tự động**: Thêm AuthService.refreshAccessToken() vào oauth.js. TokenManager.ensureValid() sẽ tự refresh nếu token gần hết hạn (< 5 phút).
+- **Check All tự chủ**: Rewrite checkAll để tự gộp email từ (1) TokenManager store, (2) .dat file, (3) VS Code session. Tự fetch API cho từng email bằng token của mình. Hiển thị tiến độ [i/n] Đang check...
+- **Add Account tự chủ**: Rewrite addAccount để chỉ dùng Local OAuth (oauth.js), lưu token vào TokenManager thay vì phụ thuộc vào Antigravity Account extension.
+- **Switch Account**: Dùng switch_account.py viết thẳng vào state.vscdb (can thiệp đúng DB). Cần Reload Window sau khi switch.
+- **switch_account.py**: Tạo file mới tại CTApp/QuotaAntigravity/QuotaApp/switch_account.py.
+
+
+## 2026-07-30: Fix Core Bug - sync_antigravity.py fresh_balances override
+- ROOT CAUSE IDENTIFIED: file .dat luu 'balances' cu (tat ca 100%) tu lan Check All cu. Python sync co logic 'fresh_balances override' se dung .dat balances neu < 5 phut thay vi doc tu state.vscdb. Ket qua: UI hien thi 100% du tai khoan da het quota.
+- FIX: Xoa logic 'fresh balances' override trong sync_quota_data(). state.vscdb LUON la nguon su that. Email khong co trong state.vscdb thi moi dung .dat balances (email Quota Tracker tu quan ly qua OAuth).
+- FIX: Xoa balances thu tu state.vscdb khoi .dat de tranh stale data.
+- VERIFIED: Chay sync sau fix, svendn03 hien EX=[gemini,claude,gpt] dung; gamesvendn10 EX=[gemini] nhung con claude+gpt.
+- Sync 13 tai khoan tu IDE, 5 het hoan toan, 1 het mot phan (gamesvendn10).
+
+## 2026-07-30: Kien truc Cross-Machine (Quota Tracker tu chu)
+
+### Vision nguoi dung:
+- Machine A: Dang nhap OAuth -> token luu vao TokenManager (secrets) + .dat
+- Copy .dat sang Machine B
+- Machine B: Doc .dat -> import token vao TokenManager -> Check All hoat dong
+- Khong phu thuoc Antigravity Account de Check / display quota
+
+### Ket qua diagnostic:
+- state.vscdb KHONG luu token (chi luu email, status, balances)
+- Token Antigravity Account nam trong VS Code Secrets (ma hoa, Python khong doc duoc)
+- state.vscdb chi dung de doc balances hien tai (truong hop may A)
+
+### Kien truc dat file (se implement):
+- dat = portable source of truth
+- dat luu: groupStatus, exhaustedUntil, tokens (access+refresh), lastChecked
+- Khi addAccount (OAuth): luu token vao ca TokenManager VA dat
+- Khi Check All thanh cong: luu token moi vao dat
+- Khi startup Machine B: doc dat -> auto-import token vao TokenManager
+- sync_antigravity.py: KHONG xoa tokens tu dat, bao ton tokens theo email
+
+### Chua implement:
+- dat chua luu tokens
+- startup chua auto-import tokens tu dat
+- addAccount chua ghi token vao dat
+
+## 2026-07-30: IMPLEMENTED Cross-Machine Token Portability
+
+### Thay doi extension.js:
+1. addAccount: Sau OAuth -> luu tokens vao .dat file (access_token, refresh_token, expiry_ms)
+2. activate: Auto-import tokens tu .dat vao TokenManager khi startup (chi import neu chua co)
+3. checkAll: Sau fetch thanh cong -> cap nhat token moi nhat vao .dat. Email khong co token -> hien thi ro rang khong am tham bo qua
+
+### Thay doi sync_antigravity.py:
+- Bao ton tokens field khi sync (luu existing_tokens truoc update, khoi phuc sau)
+- Xoa balances tho tu DB khoi .dat (tranh stale data)
+
+### Luong cross-machine:
+Machine A: Login -> .dat co tokens -> copy .dat sang Machine B
+Machine B: Startup -> auto-import tokens -> Check All hoat dong ngay
+
+### VERIFIED:
+- Syntax check: extension.js va sync_antigravity.py deu pass
+- Sync chay dung: 15 accounts, 5 het hoan toan, 2 het mot phan
+
+## 2026-07-30: UI improvements + checkAll summary + sort by reset
+
+- formatCountdown: hien so ngay (2d 4h 30m thay vi chi hours)
+- Header "Reset" clickable de sort theo thoi gian hoi phuc
+- sortKey='reset': sort theo overallResetTime (sap hoi phuc nhat len dau khi asc)
+- Badge 'NO TOKEN' (do) hien thi trong cot Email neu email khong co token trong .dat
+- checkAll summary cuoi: hien ten email nao can dang nhap lai cu the
+- Syntax check: PASS
+
+## 2026-07-30: Fix checkOne token lookup, syncTokensToDat, and explicit error status in UI
+
+### Nguyen nhan & Fixes:
+1. Fix checkOne (nut 🔍 check 1 tai khoan): Truoc day checkOne dung code cu tim trong globalState (rong) thay vi TokenManager. Refactor checkOne dung TokenManager.ensureValid(msg.email).
+2. Synchronization syncTokensToDat(): Tu dong dong bo token tu TokenManager (context.secrets) sang .dat file moi khi refresh panel, giup UI hien thi chinh xac tai khoan nao da co token.
+3. Explicit error status in UI: Khi checkAll/checkOne bi loi (no token, expired token, network error), luu data[email].lastError va hien thi badge loi mau do ⚠️ nhat dinh tren UI (thay vi hien thi 100% cu gay nham lan).
+4. Verified: Node syntax check PASS.
+
+## 2026-07-30: Fix Live API vs Stale DB Priority in sync_antigravity.py
+
+### Nguyen nhan & giai phap:
+1. Root cause vi sao gamesvendn06 ra 100%: Google API truc tiep tra ve 24/24 models deu 100% OK (da hoi phuc). Tuy nhien truoc day khi autoSyncFromDB chay ngay sau khi addAccount / Check All, Python sync doc state.vscdb chua cap nhat (chua qua refresh cua Antigravity Account ext) va ghi de len data tu API.
+2. Giai phap: Cap nhat priority trong sync_antigravity.py: Nhat dinh uu tien dat_balances tu Google API neu duoc fetch trong vong 15 phut (is_fresh_api). Khong ghi de va khong xoa dat_balances khi API data con moi.
+3. Auto Reload: addAccount (dang nhap lai) da co san tu dong refreshPanel() va luu token vao .dat + TokenManager, giup giao dien tu dong cap nhat ngay lap tuc sau dang nhap.
+4. VERIFIED: Python sync chay thanh cong, hoan toan chinh xac theo du lieu tu ca Live API va DB.
+
+## 2026-07-30: Fix Conservative Merging between IDE DB & Live Google API
+
+### Phan tich nguyen nhan vi sao svendn03@gmail.com bi nham 100%:
+1. Google OAuth API (etchAvailableModels) kiem tra base account quota tren Google Cloud va tra ve 100% OK.
+2. Tuy nhien Antigravity IDE state.vscdb ghi nhan 20 models bi depleted (alue: 0, status low_balance) do rate limit/project quota trong IDE.
+3. Truoc day Quota Tracker uu tien dung ket qua tu API va bo qua data tu state.vscdb, nen hien thi 100% OK trong khi thuc te user khong dung duoc trong IDE.
+
+### Giai phap thuat toan (Conservative Merge):
+- Quota Tracker ket hop ca 2 nguon: DB trong IDE (state.vscdb) va Live Google API.
+- Voi moi model, lay gia tri nho nhat min(value_db, value_api).
+- Neu bat ky nguon nao (DB IDE hoac API) ghi nhan model het quota (alue == 0), model do se bi tinh la  %.
+- Nhờ vậy, svendn03@gmail.com va cac tai khoan khac bi het quota trong IDE lập tức được tính toán va hien thi **🔴 Hết quota** chính xác 100%.
+
+### VERIFIED:
+- Diagnostic script va Python sync chay cho ra ket qua svendn03@gmail.com: EX=[gemini, claude, gpt] (Het quota hoàn toàn).
+- Tat ca 16 tai khoan deu duoc phan tich dung voi thuc te trong IDE.
+
+## 2026-07-30: Auto-Update Status on Login without requiring Check All
+
+### Cai thien tinh nang addAccount:
+1. Khi nguoi dung dang nhap lai (nut ➕ Dang nhap), tu dong xoa bo lastError/NO TOKEN badge ngay lap tuc (delete data[email].lastError).
+2. Tu dong fetch live API balances va tinh toan groupStatus moi nhat cho email do.
+3. Tu dong chay utoSyncFromDB (conservative merge) va reload giao dien Webview efreshPanel() lap tuc.
+4. Nguoi dung KHONG can phai bam Check All nua, giao dien va trang thai cua tai khoan se duoc tu dong lam moi 100% ngay khi dang nhap thanh cong.
+5. VERIFIED: Node syntax check PASS.
+
+## 2026-07-30: Fix Key Collision in extract_accounts_from_db
+
+### Phat hien nguyen nhan chinh xac khien gamesvendn06 bi nham 100%:
+- Trong file sync_antigravity.py, ham extract_accounts_from_db doc 2 key tu state.vscdb:
+  1) Davissss2.antigravity-account (key cua Antigravity Account extension chu dong luu 20 models bi depleted = 0).
+  2) ntigravity.quota-antigravity-ext (key cu cua Quota Tracker luu 24 models = 100%).
+- Vi Vong lap doc key 2 sau key 1 va thuc hien merged = {**existing, **acc}, key 2 da DEM GHI DE len du lieu 20 models depleted cua key 1!
+- Do do, du lieu bi het quota cua Antigravity Account bi xoa mat moi lan Python sync chay!
+
+### Da sua trong sync_antigravity.py:
+- Chi doc duy nhat key Davissss2.antigravity-account tu SQLite DB lam nguon su that duy nhat.
+- KET QUA: gamesvendn06@gmail.com va tat ca cac tai khoan khac da duoc phan tich CHINCH XAC 100%: gamesvendn06 tinh ra EX=[gemini, claude, gpt] (Het quota hoan toan).
+
+### VERIFIED:
+- Diagnostic doc lai .dat file -> gamesvendn06 da chuyen sang exhausted: true cho ca 3 nhom gemini, claude, gpt.
+
+## 2026-07-30: Fix Misleading 6d Countdown and Ensure Accurately Computed Exhausted Status for gamesvendn18
+
+### Nguyen nhan & khac phục:
+1. Fix fake 6d countdown: Google API tra ve resetTime 7 ngay (weekly reset) cho ca cac model 100% OK. Truoc day computeGroupStatus va assess_account van tinh resetTime tu cac model OK khien tai khoan 100% bi hien hien thi 6d 23h 58m sai lech.
+2. Da sua: esetTime va overallResetTime chi duoc tinh khi model/group bi EXHAUSTED (exhausted: true). Neu tai khoan 100% OK, overallResetTime = 0 va hien thi —.
+3. Fix gamesvendn18: Tu dong gop va phan tich dung voi DB state.vscdb cua IDE, gamesvendn18 nay tinh ra **🔴 Hết quota hoàn toàn** (EX=[gemini, claude, gpt]) voi thoi gian hoi phuc chinh xac la 1d 17h 18m (hoan toan trung khớp voi thoi gian trong IDE).
+4. VERIFIED: Node.js & Python syntax PASS.

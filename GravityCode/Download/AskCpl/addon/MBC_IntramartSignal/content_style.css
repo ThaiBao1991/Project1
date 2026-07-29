@@ -1,0 +1,187 @@
+/* content_style.css — MBC Stamp Fixer */
+
+/* ── TOOLBAR NỔI ── */
+#mbc-intramart-toolbar {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    padding: 12px 14px;
+    z-index: 99998;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    min-width: 200px;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 13px;
+}
+
+.mbc-toolbar-header {
+    font-weight: bold;
+    font-size: 14px;
+    color: #2c3e50;
+    margin-bottom: 4px;
+}
+
+.mbc-toolbar-sub {
+    font-size: 11px;
+    color: #6c757d;
+    margin: 0 0 8px 0;
+}
+
+#mbc-intramart-toolbar button {
+    width: 100%;
+    padding: 8px 10px;
+    background: #2980b9;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+    transition: background 0.2s;
+}
+
+#mbc-intramart-toolbar button:hover {
+    background: #1a6698;
+}
+
+/* ── MODAL CHÍNH ── */
+.mbc-modal-box {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px 28px;
+    width: 520px;
+    max-width: 95vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 13px;
+    color: #333;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+}
+
+.mbc-modal-title {
+    margin: 0 0 18px 0;
+    font-size: 17px;
+    color: #2c3e50;
+    border-bottom: 2px solid #2980b9;
+    padding-bottom: 10px;
+}
+
+/* ── STEP ── */
+.mbc-step {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.mbc-step-num {
+    background: #2980b9;
+    color: #fff;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.mbc-step-body {
+    flex: 1;
+    line-height: 1.6;
+}
+
+/* ── FILE INPUT ── */
+.mbc-file-label {
+    display: block;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #555;
+}
+
+.mbc-file-label input[type="file"] {
+    display: block;
+    margin-top: 4px;
+    font-size: 12px;
+}
+
+/* ── SIZE BOX ── */
+.mbc-size-box {
+    background: #eaf4fb;
+    border: 1px solid #b3d7ef;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    line-height: 1.8;
+    font-size: 12px;
+}
+
+/* ── HINT ── */
+.mbc-hint {
+    font-size: 12px;
+    color: #555;
+    margin-top: 4px;
+}
+
+/* ── FOOTER ── */
+.mbc-modal-footer {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid #e9ecef;
+}
+
+.mbc-btn-primary {
+    flex: 1;
+    padding: 10px;
+    background: #27ae60;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+    transition: background 0.2s;
+}
+
+.mbc-btn-primary:hover:not(:disabled) {
+    background: #1e8449;
+}
+
+.mbc-btn-primary:disabled {
+    background: #95a5a6;
+    cursor: not-allowed;
+}
+
+.mbc-btn-secondary {
+    padding: 10px 16px;
+    background: #ecf0f1;
+    color: #555;
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background 0.2s;
+}
+
+.mbc-btn-secondary:hover {
+    background: #d5dbdb;
+}
+
+.mbc-option-row {
+    padding: 8px 12px;
+    background: #fef9e7;
+    border: 1px solid #f9e79f;
+    border-radius: 6px;
+    margin-bottom: 8px;
+}

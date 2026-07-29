@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { width: 250px; padding: 10px; font-family: sans-serif; }
+    button { width: 100%; padding: 10px; margin: 5px 0; cursor: pointer; font-size: 14px; font-weight: bold; background: #0b57d0; color: white; border: none; border-radius: 4px; }
+    button.stop { background: #d93025; }
+    #status { margin-top: 10px; font-weight: bold; }
+    #log { margin-top: 10px; font-size: 12px; color: #555; max-height: 150px; overflow-y: auto; background: #f1f3f4; padding: 5px; border-radius: 4px;}
+  </style>
+</head>
+<body>
+  <h3 style="margin-top:0;">API Key Auto Creator</h3>
+  <div id="status">Status: Stopped</div>
+  <button id="btnToggle">Start Auto Create</button>
+  <button id="btnScrapeOld" style="background: #e67e22; margin-top: 10px;">Cào toàn bộ Key Cũ</button>
+  <button id="btnExport" style="background: #188038; margin-top: 10px;">Export API Keys (JSON)</button>
+  <div id="log">Waiting...</div>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -5,7 +5,7 @@ import threading
 import sys
 import subprocess
 import tkinter as tk
-from tkinter import Tk, filedialog, messagebox, Button, Label, Frame, StringVar, IntVar, Entry, Text, END, Listbox, Scrollbar, BooleanVar, Checkbutton, simpledialog, Toplevel
+from tkinter import Tk, filedialog, messagebox, Button, Label, Frame, StringVar, IntVar, Entry, Text, END, Listbox, Scrollbar, BooleanVar, Checkbutton, Radiobutton, simpledialog, Toplevel, Canvas
 from tkinter import ttk
 
 
@@ -110,21 +110,333 @@ class AskCplApp:
         
     # --- TAB 0: AUTO AI ---
     def setup_tab_auto_ai(self):
-        Label(self.tab_auto_ai, text="🤖 Auto AI - Sinh HTML tự động từ PDF", font=("Arial", 14, "bold")).pack(pady=10)
+        from tkinter import ttk
+        self.auto_ai_notebook = ttk.Notebook(self.tab_auto_ai)
+        self.auto_ai_notebook.pack(fill='both', expand=True, padx=5, pady=5)
         
+        self.sub_tab_keys = ttk.Frame(self.auto_ai_notebook)
+        self.sub_tab_roadmap_gen = ttk.Frame(self.auto_ai_notebook)
+        self.sub_tab_roadmap_run = ttk.Frame(self.auto_ai_notebook)
+        
+        self.auto_ai_notebook.add(self.sub_tab_keys, text="🔑 Quản lý API Keys")
+        self.auto_ai_notebook.add(self.sub_tab_roadmap_gen, text="🧠 Tạo Roadmap")
+        self.auto_ai_notebook.add(self.sub_tab_roadmap_run, text="▶️ Tải Roadmap (Auto AI)")
+        
+        self.setup_api_keys_tab()
+        self.setup_roadmap_gen_tab()
+        self.setup_roadmap_run_tab()
+
+    def setup_roadmap_gen_tab(self):
+        from tkinter import ttk, scrolledtext
+        import tkinter as tk
+        
+        # Region 1: Input
+        f_input = tk.Frame(self.sub_tab_roadmap_gen)
+        f_input.pack(fill='x', padx=10, pady=5)
+        tk.Label(f_input, text="Lĩnh vực / Từ khóa:", font=("Arial", 10, "bold"), width=15, anchor='w').pack(side='left')
+        self.ai_roadmap_domain_var = tk.StringVar()
+        tk.Entry(f_input, textvariable=self.ai_roadmap_domain_var, font=("Arial", 10)).pack(side='left', fill='x', expand=True, padx=10)
+        
+        tk.Button(f_input, text="1. Phân tích Khung (Skeleton)", bg="#8e44ad", fg="white", font=("Arial", 10, "bold"),
+                  command=lambda: self.roadmap_gen_step1()).pack(side='right')
+
+        # Region 1.5: Reference File
+        f_ref = tk.Frame(self.sub_tab_roadmap_gen)
+        f_ref.pack(fill='x', padx=10, pady=5)
+        tk.Label(f_ref, text="File tham khảo:", width=15, anchor='w').pack(side='left')
+        self.ai_roadmap_ref_var = tk.StringVar()
+        tk.Entry(f_ref, textvariable=self.ai_roadmap_ref_var, state='readonly').pack(side='left', fill='x', expand=True, padx=10)
+        
+        def select_ref_file():
+            from tkinter import filedialog
+            f = filedialog.askopenfilename(filetypes=[("Roadmap/JSON", "*.md *.json"), ("All Files", "*.*")])
+            if f: self.ai_roadmap_ref_var.set(f)
+            
+        tk.Button(f_ref, text="Chọn File (.md/.json)", command=select_ref_file).pack(side='right')
+
+        # Region 2: Settings (Save As)
+        f_opts = tk.Frame(self.sub_tab_roadmap_gen)
+        f_opts.pack(fill='x', padx=10, pady=5)
+        tk.Label(f_opts, text="Lưu file tại:").pack(side='left')
+        self.ai_roadmap_save_var = tk.StringVar()
+        tk.Entry(f_opts, textvariable=self.ai_roadmap_save_var, state='readonly', width=50).pack(side='left', padx=10)
+        tk.Button(f_opts, text="Chọn Thư Mục...", command=self.roadmap_gen_select_dir).pack(side='left')
+
+        # Region 3: Preview Skeleton
+        f_preview = tk.Frame(self.sub_tab_roadmap_gen)
+        f_preview.pack(fill='both', expand=True, padx=10, pady=5)
+        tk.Label(f_preview, text="Khung Chương Trình (Preview JSON/Text):", font=("Arial", 10, "bold")).pack(anchor='w')
+        
+        self.ai_roadmap_skeleton_text = scrolledtext.ScrolledText(f_preview, height=12, bg="#fffde7", font=("Consolas", 10))
+        self.ai_roadmap_skeleton_text.pack(fill='both', expand=True, pady=5)
+
+        # Region 4: Expansion
+        f_expand = tk.Frame(self.sub_tab_roadmap_gen)
+        f_expand.pack(fill='x', padx=10, pady=10)
+        
+        self.ai_roadmap_expand_mode = tk.StringVar(value="template")
+        tk.Radiobutton(f_expand, text="Chẻ bằng Template (Nhanh, tự động làm 3 mốc/ngày)", variable=self.ai_roadmap_expand_mode, value="template", font=("Arial", 9, "bold"), fg="#27ae60").pack(side='left')
+        tk.Radiobutton(f_expand, text="Chẻ bằng LLM (Thông minh, tốn thời gian)", variable=self.ai_roadmap_expand_mode, value="llm").pack(side='left', padx=10)
+
+        tk.Button(f_expand, text="2. Sinh Markdown Chi Tiết", bg="#e67e22", fg="white", font=("Arial", 10, "bold"),
+                  command=lambda: self.roadmap_gen_step3()).pack(side='right')
+
+        # Region 5: Log
+        f_log = tk.Frame(self.sub_tab_roadmap_gen)
+        f_log.pack(fill='x', padx=10, pady=5)
+        tk.Label(f_log, text="Tiến trình chạy:", font=("Arial", 10, "bold")).pack(anchor='w')
+        self.ai_roadmap_log_text = scrolledtext.ScrolledText(f_log, height=5, bg="#f4f4f4", font=("Consolas", 9), state='disabled')
+        self.ai_roadmap_log_text.pack(fill='x', expand=True)
+
+    def roadmap_gen_select_dir(self):
+        from tkinter import filedialog
+        d = filedialog.askdirectory()
+        if d:
+            self.ai_roadmap_save_var.set(d)
+
+    def roadmap_gen_log(self, msg):
+        import tkinter as tk
+        self.ai_roadmap_log_text.config(state='normal')
+        self.ai_roadmap_log_text.insert(tk.END, msg + "\\n")
+        self.ai_roadmap_log_text.see(tk.END)
+        self.ai_roadmap_log_text.config(state='disabled')
+        self.root.update_idletasks()
+
+    def roadmap_gen_step1(self):
+        import threading
+        threading.Thread(target=self._roadmap_gen_step1_thread, daemon=True).start()
+        
+    def _get_active_api_key(self):
         gemini_settings = self.settings.get("gemini", {})
+        keys = gemini_settings.get("api_keys", [])
+        active_keys = [k for k in keys if k.get("status") == "active"]
+        if not active_keys:
+            return None
+        # Decode the key
+        raw_key = active_keys[0].get("key", "")
+        if raw_key.startswith("ENC:"):
+            import base64
+            try:
+                return base64.b64decode(raw_key[4:]).decode("utf-8")
+            except:
+                return raw_key
+        return raw_key
+
+    def _roadmap_gen_step1_thread(self):
+        import tkinter as tk
+        import requests, json, os
+
+        domain = self.ai_roadmap_domain_var.get().strip()
+        ref_file = self.ai_roadmap_ref_var.get().strip()
         
-        # API Keys Manager
-        f1 = Frame(self.tab_auto_ai)
-        f1.pack(fill='x', padx=20, pady=5)
-        Label(f1, text="Gemini API Keys:", width=15, anchor='w').pack(side='left')
-        self.lbl_keys_status = Label(f1, text="Đang tải...", fg="blue")
-        self.lbl_keys_status.pack(side='left', padx=10)
-        Button(f1, text="🔑 Quản lý API Keys...", command=self.open_api_key_manager, bg="#8e44ad", fg="white").pack(side='right')
-        self.update_keys_label()
+        if not domain and not ref_file:
+            self.roadmap_gen_log("[LỖI] Cần nhập Lĩnh vực hoặc Chọn file tham khảo!")
+            return
+
+        api_key = self._get_active_api_key()
+        if not api_key:
+            self.roadmap_gen_log("[LỖI] Không tìm thấy API Key nào đang hoạt động!")
+            return
+
+        self.roadmap_gen_log(f"[BƯỚC 1] Bắt đầu phân tích khung cho: '{domain}'...")
+        
+        prompt_text = f"Hãy đóng vai là một Chuyên gia xây dựng giáo trình (Curriculum Architect). Lĩnh vực cần xây dựng là: {domain}\\n"
+        
+        if ref_file and os.path.exists(ref_file):
+            try:
+                with open(ref_file, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                prompt_text += f"\\nDưới đây là tài liệu tham khảo để bạn bám sát hoặc mở rộng thêm:\\n{content[:5000]}\\n"
+                self.roadmap_gen_log(f"[INFO] Đã nạp file tham khảo: {os.path.basename(ref_file)}")
+            except Exception as e:
+                self.roadmap_gen_log(f"[CẢNH BÁO] Lỗi đọc file tham khảo: {e}")
+
+        prompt_text += """
+Hãy lập ra một cấu trúc phân rã chi tiết (Roadmap Skeleton) để học hoặc thực hiện lĩnh vực trên. 
+Yêu cầu trả về đúng định dạng JSON Mảng (Array), trong đó mỗi phần tử là một object đại diện cho 1 Ngày (Day) hoặc 1 Bước (Step), bao gồm:
+[
+  {
+    "day": 1,
+    "topic": "Tên chủ đề lớn",
+    "details": ["Mục nhỏ 1", "Mục nhỏ 2", "Mục nhỏ 3"]
+  },
+  ...
+]
+Không sinh thêm văn bản thừa ngoài JSON.
+"""
+        
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
+        headers = {"Content-Type": "application/json"}
+        payload = {
+            "contents": [{"parts": [{"text": prompt_text}]}],
+            "generationConfig": {
+                "temperature": 0.3,
+                "response_mime_type": "application/json"
+            }
+        }
+
+        try:
+            resp = requests.post(url, headers=headers, json=payload, timeout=30)
+            resp.raise_for_status()
+            data = resp.json()
+            text_out = data["candidates"][0]["content"]["parts"][0]["text"]
+            
+            # Show in ScrolledText
+            self.ai_roadmap_skeleton_text.delete(1.0, tk.END)
+            self.ai_roadmap_skeleton_text.insert(tk.END, text_out)
+            
+            # Auto format if it's JSON
+            try:
+                parsed = json.loads(text_out)
+                num_days = len(parsed)
+                self.roadmap_gen_log(f"[THÀNH CÔNG] Đã sinh xong Khung chương trình gồm {num_days} mục (Day/Step).")
+                self.roadmap_gen_log("-> Hãy kiểm tra khung chương trình trong ô Preview, sửa lại JSON nếu cần trước khi chuyển sang Bước 2.")
+            except Exception:
+                self.roadmap_gen_log("[CẢNH BÁO] Kết quả trả về không chuẩn JSON, vui lòng sửa lại thủ công trong khung Preview.")
+                
+        except Exception as e:
+            self.roadmap_gen_log(f"[LỖI API] {e}")
+        import threading
+        threading.Thread(target=self._roadmap_gen_step3_thread, daemon=True).start()
+
+    def _roadmap_gen_step3_thread(self):
+        import tkinter as tk
+        import json, os, time, requests
+        
+        mode = self.ai_roadmap_expand_mode.get()
+        skeleton_text = self.ai_roadmap_skeleton_text.get(1.0, tk.END).strip()
+        
+        if not skeleton_text:
+            self.roadmap_gen_log("[LỖI] Khung chương trình (Preview) đang trống! Hãy chạy Bước 1 trước.")
+            return
+            
+        try:
+            skeleton_data = json.loads(skeleton_text)
+        except Exception:
+            self.roadmap_gen_log("[LỖI] Khung chương trình không đúng định dạng JSON chuẩn. Vui lòng sửa lại!")
+            return
+            
+        domain = self.ai_roadmap_domain_var.get().strip() or "Untitled"
+        save_dir = self.ai_roadmap_save_var.get().strip()
+        if not save_dir:
+            save_dir = os.path.dirname(os.path.abspath(__file__))
+            
+        import re
+        safe_domain = re.sub(r'[^a-zA-Z0-9_\-]', '_', domain)
+        out_file = os.path.join(save_dir, f"roadmap_{safe_domain}_auto.md")
+        
+        self.roadmap_gen_log(f"[BƯỚC 2] Bắt đầu sinh Markdown (Mode: {mode.upper()})...")
+        self.roadmap_gen_log(f"-> File đầu ra dự kiến: {out_file}")
+        
+        # ---------------------------------------------
+        # CHẾ ĐỘ 1: TEMPLATE CƠ HỌC (NHANH)
+        # ---------------------------------------------
+        if mode == "template":
+            try:
+                with open(out_file, 'w', encoding='utf-8') as f:
+                    f.write(f"# Roadmap: {domain}\\n\\n")
+                    f.write("> Sinh tự động bằng Template Cơ Học của AskCpl\\n\\n")
+                    
+                    for item in skeleton_data:
+                        day = item.get("day", 0)
+                        topic = item.get("topic", "Chưa có tên")
+                        details = item.get("details", [])
+                        
+                        f.write(f"## Day {day}: {topic}\\n\\n")
+                        
+                        # Chẻ thành các mục nhỏ a, b, c... (Ví dụ: 3 mục)
+                        # Giả định mỗi mục chiếm 5 trang ảo để AskCpl chạy Auto
+                        letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+                        for i, det in enumerate(details):
+                            let = letters[i] if i < len(letters) else str(i)
+                            f.write(f"### {day}{let}. {det}\\n")
+                            f.write("<!-- pages: 5 -->\\n")
+                            f.write(f"Hãy đóng vai là một giáo viên chuyên nghiệp, giảng bài chi tiết và dễ hiểu nhất về chủ đề: '{det}' (thuộc chương '{topic}'). Yêu cầu kèm ví dụ thực tế.\\n\\n")
+                            
+                self.roadmap_gen_log(f"[THÀNH CÔNG] Đã lưu file: {out_file}")
+            except Exception as e:
+                self.roadmap_gen_log(f"[LỖI TEMPLATE] {e}")
+
+        # ---------------------------------------------
+        # CHẾ ĐỘ 2: LLM BATCHING (THÔNG MINH)
+        # ---------------------------------------------
+        elif mode == "llm":
+            api_key = self._get_active_api_key()
+            if not api_key:
+                self.roadmap_gen_log("[LỖI] Không tìm thấy API Key nào đang hoạt động!")
+                return
+                
+            batch_size = 10
+            total_days = len(skeleton_data)
+            
+            # Khởi tạo file trống
+            with open(out_file, 'w', encoding='utf-8') as f:
+                f.write(f"# Roadmap Chi Tiết: {domain}\\n\\n")
+                f.write("> Sinh tự động bằng AskCpl AI Agent\\n\\n")
+                
+            for i in range(0, total_days, batch_size):
+                chunk = skeleton_data[i:i+batch_size]
+                chunk_json = json.dumps(chunk, ensure_ascii=False, indent=2)
+                
+                self.roadmap_gen_log(f"Đang gọi AI xử lý từ Day {chunk[0].get('day', i+1)} đến Day {chunk[-1].get('day', i+len(chunk))}... (Chờ chút nhé)")
+                
+                prompt = f"""
+Tôi đang xây dựng giáo trình cho lĩnh vực '{domain}'.
+Đây là danh sách các Ngày học (từ Ngày {chunk[0].get('day')} đến Ngày {chunk[-1].get('day')}):
+{chunk_json}
+
+Nhiệm vụ của bạn: Dựa vào JSON trên, hãy viết ra chi tiết chương trình học dưới dạng văn bản Markdown chuẩn xác, theo ĐÚNG cấu trúc sau:
+
+## Day [X]: [Tên Topic]
+
+### [X]a. [Tên mục nhỏ 1 - dựa theo details]
+<!-- pages: [Số trang ước lượng độ khó, ví dụ: 5 hoặc 10] -->
+[Đoạn Prompt ra lệnh cho giáo viên ảo giảng bài mục này, yêu cầu giảng thật chi tiết, có ví dụ và bài tập thực hành.]
+
+### [X]b. [Tên mục nhỏ 2]
+<!-- pages: [Số] -->
+[Prompt ra lệnh giảng bài...]
+
+TUYỆT ĐỐI chỉ trả về chuỗi Markdown kết quả, KHÔNG giải thích lằng nhằng, KHÔNG dùng bọc ```markdown. Bắt buộc phải có cú pháp <!-- pages: ... --> ở mỗi mục nhỏ để hệ thống tự động đọc được.
+"""
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
+                headers = {"Content-Type": "application/json"}
+                payload = {
+                    "contents": [{"parts": [{"text": prompt}]}],
+                    "generationConfig": {"temperature": 0.4}
+                }
+                
+                try:
+                    resp = requests.post(url, headers=headers, json=payload, timeout=45)
+                    resp.raise_for_status()
+                    data = resp.json()
+                    md_text = data["candidates"][0]["content"]["parts"][0]["text"]
+                    
+                    # Cắt bỏ tag ```markdown nếu AI lỡ viết vào
+                    md_text = md_text.replace("```markdown\\n", "").replace("```", "")
+                    
+                    with open(out_file, 'a', encoding='utf-8') as f:
+                        f.write(md_text + "\\n\\n")
+                        
+                    self.roadmap_gen_log(f"[OK] Đã xong Batch (Day {chunk[0].get('day')} -> {chunk[-1].get('day')})")
+                    
+                    # Quota delay nếu chưa phải batch cuối
+                    if i + batch_size < total_days:
+                        self.roadmap_gen_log("-> Sleep 4s để tránh rate limit...")
+                        time.sleep(4)
+                        
+                except Exception as e:
+                    self.roadmap_gen_log(f"[LỖI API BATCH] {e}. Vui lòng chạy lại!")
+                    break
+                    
+            self.roadmap_gen_log(f"[HOÀN THÀNH] Toàn bộ Roadmap đã được lưu tại: {out_file}")
+            
+    def setup_roadmap_run_tab(self):
+        gemini_settings = self.settings.get("gemini", {})
+        Label(self.sub_tab_roadmap_run, text="🤖 Auto AI - Tải và Sinh Nội Dung Tự Động", font=("Arial", 14, "bold")).pack(pady=10)
         
         # Roadmap File
-        f2 = Frame(self.tab_auto_ai)
+        f2 = Frame(self.sub_tab_roadmap_run)
         f2.pack(fill='x', padx=20, pady=5)
         Label(f2, text="File Roadmap:", width=15, anchor='w').pack(side='left')
         self.ai_roadmap_var = StringVar(value=gemini_settings.get("last_roadmap", ""))
@@ -132,7 +444,7 @@ class AskCplApp:
         Button(f2, text="Chọn Markdown", command=self.ai_select_roadmap).pack(side='right', padx=5)
         
         # Doc Dir
-        f3 = Frame(self.tab_auto_ai)
+        f3 = Frame(self.sub_tab_roadmap_run)
         f3.pack(fill='x', padx=20, pady=5)
         Label(f3, text="Thư mục Docs:", width=15, anchor='w').pack(side='left')
         self.ai_doc_var = StringVar(value=gemini_settings.get("last_doc_dir", ""))
@@ -140,7 +452,7 @@ class AskCplApp:
         Button(f3, text="Chọn thư mục chứa PDF", command=self.ai_select_doc_dir).pack(side='right', padx=5)
         
         # Output Dir
-        f4 = Frame(self.tab_auto_ai)
+        f4 = Frame(self.sub_tab_roadmap_run)
         f4.pack(fill='x', padx=20, pady=5)
         Label(f4, text="Thư mục Xuất:", width=15, anchor='w').pack(side='left')
         self.ai_out_var = StringVar(value=gemini_settings.get("last_out_dir", ""))
@@ -148,16 +460,58 @@ class AskCplApp:
         Button(f4, text="Chọn Output", command=self.ai_select_out_dir).pack(side='right', padx=5)
         
         # Save Settings
-        Button(self.tab_auto_ai, text="Lưu Cấu Hình AI", command=self.save_ai_settings, bg="#f39c12", fg="white").pack(pady=5)
+        Button(self.sub_tab_roadmap_run, text="Lưu Cấu Hình AI", command=self.save_ai_settings, bg="#f39c12", fg="white").pack(pady=5)
         
         # Options row
-        f_opts = Frame(self.tab_auto_ai)
+        f_opts = Frame(self.sub_tab_roadmap_run)
         f_opts.pack(fill='x', padx=20, pady=3)
         self.ai_force_restart_var = IntVar(value=0)
         Checkbutton(f_opts, text="🗑️ Xóa session cũ & Chạy lại từ Đầu (Day 1)", variable=self.ai_force_restart_var, fg="red").pack(side='left')
         
+        Label(f_opts, text="   HOẶC Bắt đầu từ Day:").pack(side='left')
+        self.ai_start_day_var = StringVar(value="")
+        Entry(f_opts, textvariable=self.ai_start_day_var, width=5).pack(side='left', padx=5)
+        
+        self.lbl_session_status = Label(f_opts, text="", fg="#d35400", font=("Arial", 9, "bold"))
+        self.lbl_session_status.pack(side='left', padx=10)
+        
+        # YC5 options row
+        f_opts_followup = Frame(self.sub_tab_roadmap_run)
+        f_opts_followup.pack(fill='x', padx=20, pady=3)
+        self.ai_enable_followup_var = IntVar(value=gemini_settings.get("enable_followup", 1))
+        Checkbutton(f_opts_followup, text="Bật hỏi bổ sung (Follow-up) để AI làm rõ thêm (YC5)", 
+                    variable=self.ai_enable_followup_var).pack(side='left')
+        
+        # Follow-up mode: unlimited vs limited
+        f_followup_mode = Frame(self.sub_tab_roadmap_run)
+        f_followup_mode.pack(fill='x', padx=40, pady=2)
+        self.ai_followup_mode_var = StringVar(value=gemini_settings.get("followup_mode", "unlimited"))
+        
+        rb_unlimited = Radiobutton(f_followup_mode, text="Hỏi đến khi AI xác nhận hoàn thành  (Khuyến nghị)",
+                                   variable=self.ai_followup_mode_var, value="unlimited",
+                                   fg="#27ae60", font=("Arial", 9, "bold"))
+        rb_unlimited.pack(side='left')
+        
+        rb_limited = Radiobutton(f_followup_mode, text="Hỏi tối đa:",
+                                 variable=self.ai_followup_mode_var, value="limited")
+        rb_limited.pack(side='left', padx=(15, 2))
+        
+        self.ai_max_followup_var = StringVar(value=str(gemini_settings.get("max_followup", 3)))
+        self.entry_max_followup = Entry(f_followup_mode, textvariable=self.ai_max_followup_var, width=4)
+        self.entry_max_followup.pack(side='left', padx=2)
+        Label(f_followup_mode, text="lượt").pack(side='left')
+        
+        def _toggle_followup_entry(*args):
+            if self.ai_followup_mode_var.get() == "limited":
+                self.entry_max_followup.config(state='normal')
+            else:
+                self.entry_max_followup.config(state='disabled')
+        self.ai_followup_mode_var.trace_add("write", _toggle_followup_entry)
+        _toggle_followup_entry()  # set initial state
+
+        
         # Expand roadmap section
-        f_expand = Frame(self.tab_auto_ai)
+        f_expand = Frame(self.sub_tab_roadmap_run)
         f_expand.pack(fill='x', padx=20, pady=3)
         Label(f_expand, text="📋 Tạo Roadmap Mở Rộng:", anchor='w').pack(side='left')
         self.ai_pages_per_day_var = StringVar(value="10")
@@ -167,7 +521,7 @@ class AskCplApp:
                bg="#1565c0", fg="white").pack(side='right', padx=5)
         
         # Output path for expanded roadmap
-        f_exp_out = Frame(self.tab_auto_ai)
+        f_exp_out = Frame(self.sub_tab_roadmap_run)
         f_exp_out.pack(fill='x', padx=20, pady=2)
         Label(f_exp_out, text="   ↳ Lưu expanded ra:", width=15, anchor='w').pack(side='left')
         self.ai_expanded_out_var = StringVar(value="")
@@ -175,13 +529,17 @@ class AskCplApp:
         Button(f_exp_out, text="Chọn", command=self.ai_select_expanded_out).pack(side='right', padx=5)
         Label(f_exp_out, text="(trống = cạnh file roadmap gốc)", fg="gray", font=("Arial", 8)).pack(side='right')
         
-        # Start button
-        self.btn_ai_start = Button(self.tab_auto_ai, text="▶ Bắt đầu Sinh Tự Động", command=self.start_ai_worker, bg="#2ea043", fg="white", font=("Arial", 12, "bold"), padx=20)
-        self.btn_ai_start.pack(pady=10)
+        # Action buttons (Start / Stop)
+        f_actions = Frame(self.sub_tab_roadmap_run)
+        f_actions.pack(pady=10)
+        self.btn_ai_start = Button(f_actions, text="▶ Bắt đầu Sinh Tự Động", command=self.start_ai_worker, bg="#2ea043", fg="white", font=("Arial", 12, "bold"), padx=20)
+        self.btn_ai_start.pack(side="left", padx=10)
+        self.btn_ai_stop = Button(f_actions, text="🛑 Dừng lại", command=self.stop_ai_worker, bg="#e74c3c", fg="white", font=("Arial", 12, "bold"), padx=20, state="disabled")
+        self.btn_ai_stop.pack(side="left", padx=10)
         
         # Logs (with scrollbar)
-        Label(self.tab_auto_ai, text="Tiến trình:", font=("Arial", 10, "bold"), anchor='w').pack(fill='x', padx=20)
-        f_log = Frame(self.tab_auto_ai)
+        Label(self.sub_tab_roadmap_run, text="Tiến trình:", font=("Arial", 10, "bold"), anchor='w').pack(fill='x', padx=20)
+        f_log = Frame(self.sub_tab_roadmap_run)
         f_log.pack(fill='both', expand=True, padx=20, pady=5)
         log_scroll = Scrollbar(f_log)
         log_scroll.pack(side='right', fill='y')
@@ -189,80 +547,547 @@ class AskCplApp:
         self.ai_log.pack(fill='both', expand=True)
         log_scroll.config(command=self.ai_log.yview)
         
+        self.ai_out_var.trace_add("write", self.check_auto_ai_session)
+        self.ai_roadmap_var.trace_add("write", self.check_auto_ai_session)
+        self.check_auto_ai_session()
+        
+    def check_auto_ai_session(self, *args):
+        out_dir = self.ai_out_var.get().strip()
+        if not out_dir:
+            roadmap = self.ai_roadmap_var.get().strip()
+            if roadmap and os.path.isfile(roadmap):
+                out_dir = os.path.dirname(roadmap)
+                
+        if not out_dir or not os.path.isdir(out_dir):
+            if hasattr(self, 'lbl_session_status'):
+                self.lbl_session_status.config(text="")
+            return
+            
+        session_file = os.path.join(out_dir, "session.json")
+        if not os.path.exists(session_file):
+            self.lbl_session_status.config(text="Chưa có dữ liệu session")
+            self.ai_start_day_var.set("")
+            return
+            
+        try:
+            import base64
+            import re
+            import urllib.parse
+            
+            with open(session_file, 'r', encoding='utf-8') as f:
+                content = f.read().strip()
+                if not content:
+                    self.lbl_session_status.config(text="Session trống")
+                    self.ai_start_day_var.set("")
+                    return
+                if content.startswith('"') and content.endswith('"'):
+                    content = content[1:-1]
+                    decoded_bytes = base64.b64decode(content)
+                    decoded_latin = decoded_bytes.decode('latin-1')
+                    json_str = urllib.parse.unquote(decoded_latin)
+                    session_data = json.loads(json_str)
+                else:
+                    session_data = json.loads(content)
+                    
+            if not session_data:
+                self.lbl_session_status.config(text="Session trống")
+                self.ai_start_day_var.set("")
+                return
+                
+            completed_count = sum(1 for item in session_data if item.get("completed") and item.get("followup_complete", True))
+            
+            if completed_count > 0:
+                self.lbl_session_status.config(text=f"Đã lưu: {completed_count}/{len(session_data)} phần. Tự động tiếp tục.")
+                self.ai_start_day_var.set("") # Xóa trống để dùng smart resume dựa trên session
+            else:
+                self.lbl_session_status.config(text="Chưa hoàn thành phần nào")
+                self.ai_start_day_var.set("")
+                
+        except Exception as e:
+            if hasattr(self, 'lbl_session_status'):
+                self.lbl_session_status.config(text=f"Lỗi đọc: {str(e)[:15]}")
+                
     def update_keys_label(self):
         gemini_settings = self.settings.get("gemini", {})
         keys = gemini_settings.get("api_keys", [])
         active = sum(1 for k in keys if k.get("status") == "active")
-        self.lbl_keys_status.config(text=f"Đang có {len(keys)} Key (Hoạt động: {active})")
+        if hasattr(self, 'lbl_keys_status'):
+            self.lbl_keys_status.config(text=f"Đang có {len(keys)} Key (Hoạt động: {active})")
 
-    def open_api_key_manager(self):
-        top = Toplevel(self.root)
-        top.title("Quản lý API Keys (Multi-Key)")
-        top.geometry("700x400")
-        top.transient(self.root)
-        top.grab_set()
+    def setup_api_keys_tab(self):
+        top = self.sub_tab_keys
 
-        from tkinter import ttk, simpledialog, messagebox
+        from tkinter import ttk, messagebox
         import datetime
         import time
         import requests
-        
-        columns = ("email", "key", "status", "reset_time")
-        tree = ttk.Treeview(top, columns=columns, show="headings")
+        import threading
+        import re as _re
+
+        # === HELPER: extract raw key (decode ENC: if needed) ===
+        def decode_key(raw_key):
+            if raw_key.startswith("ENC:"):
+                try:
+                    import base64
+                    return base64.b64decode(raw_key[4:]).decode("utf-8")
+                except Exception:
+                    return raw_key
+            return raw_key
+
+        # === HELPER: extract project ID from error response ===
+        def extract_project_id(resp_json):
+            try:
+                import json, re
+                s = json.dumps(resp_json)
+                m = re.search(r'(?:projects/|project_number:)(\d+)', s)
+                if m: return m.group(1)
+            except Exception:
+                pass
+            return ""
+
+        # === TREEVIEW ===
+        frame_tree = Frame(top)
+        frame_tree.pack(side="top", fill="both", expand=True, padx=10, pady=(10, 0))
+
+        columns = ("email", "key", "project_name", "project", "type", "status", "last_check", "reset_time")
+        tree = ttk.Treeview(frame_tree, columns=columns, show="headings")
         tree.heading("email", text="Email / Tên")
         tree.heading("key", text="API Key")
+        tree.heading("project_name", text="Project Name")
+        tree.heading("project", text="Project ID")
+        tree.heading("type", text="Loại API")
         tree.heading("status", text="Trạng thái")
+        tree.heading("last_check", text="Check lần cuối")
         tree.heading("reset_time", text="Khôi phục sau")
-        
-        tree.column("email", width=150)
-        tree.column("key", width=250)
-        tree.column("status", width=100)
-        tree.column("reset_time", width=150)
-        tree.pack(fill="both", expand=True, padx=10, pady=10)
+
+        tree.column("email", width=120)
+        tree.column("key", width=200)
+        tree.column("project_name", width=120)
+        tree.column("project", width=100)
+        tree.column("type", width=100)
+        tree.column("status", width=95)
+        tree.column("last_check", width=120)
+        tree.column("reset_time", width=120)
+
+        def tree_sort_column(col, reverse):
+            l = [(tree.set(k, col), k) for k in tree.get_children('')]
+            l.sort(reverse=reverse)
+            for index, (val, k) in enumerate(l):
+                tree.move(k, '', index)
+            tree.heading(col, command=lambda: tree_sort_column(col, not reverse))
+
+        for col in columns:
+            tree.heading(col, command=lambda c=col: tree_sort_column(c, False))
+
+        # Tag màu đỏ cho key trùng project
+        tree.tag_configure("dup_project", background="#ffcccc", foreground="#c0392b")
+
+        vsb = ttk.Scrollbar(frame_tree, orient="vertical", command=tree.yview)
+        tree.configure(yscrollcommand=vsb.set)
+        tree.pack(fill="both", expand=True, side="left")
+        vsb.pack(fill="y", side="left")
+
+        def edit_key(event=None):
+            selected = tree.selection()
+            if not selected: return
+            idx = int(selected[0])
+            gemini_settings = self.settings.get("gemini", {})
+            keys = gemini_settings.get("api_keys", [])
+            if idx < 0 or idx >= len(keys): return
+
+            k_obj = keys[idx]
+
+            edit_win = Toplevel(self.root)
+            edit_win.title("Sửa API Key")
+            edit_win.geometry("480x580")
+            edit_win.minsize(460, 500)
+            edit_win.resizable(True, True)
+            edit_win.transient(self.root)
+            edit_win.grab_set()
+            edit_win.bind("<Escape>", lambda e: edit_win.destroy())
+
+            # --- Frame nút (luôn hiển thị ở cuối, không bị cuộn) ---
+            f_btns = Frame(edit_win)
+            f_btns.pack(side="bottom", fill="x", padx=20, pady=8)
+            Button(f_btns, text="🔍 Kiểm tra", command=lambda: check_new_key(), bg="#f39c12", fg="white", width=12).pack(side="left", padx=5)
+            btn_save_edit = Button(f_btns, text="Lưu", command=lambda: do_save(), bg="#27ae60", fg="white", width=8)
+            btn_save_edit.pack(side="left", padx=5)
+            Button(f_btns, text="Hủy", command=edit_win.destroy, bg="#e74c3c", fg="white", width=8).pack(side="right", padx=5)
+
+            # --- Canvas + Scrollbar cho nội dung ---
+            canvas_edit = Canvas(edit_win, borderwidth=0)
+            scrollbar_edit = ttk.Scrollbar(edit_win, orient="vertical", command=canvas_edit.yview)
+            canvas_edit.configure(yscrollcommand=scrollbar_edit.set)
+            scrollbar_edit.pack(side="right", fill="y")
+            canvas_edit.pack(side="top", fill="both", expand=True)
+
+            scroll_frame = Frame(canvas_edit)
+            canvas_win_id = canvas_edit.create_window((0, 0), window=scroll_frame, anchor="nw")
+
+            def _on_frame_configure(event):
+                canvas_edit.configure(scrollregion=canvas_edit.bbox("all"))
+                canvas_edit.itemconfig(canvas_win_id, width=canvas_edit.winfo_width())
+            scroll_frame.bind("<Configure>", _on_frame_configure)
+            canvas_edit.bind("<Configure>", lambda e: canvas_edit.itemconfig(canvas_win_id, width=e.width))
+
+            def _on_mousewheel(event):
+                canvas_edit.yview_scroll(int(-1*(event.delta/120)), "units")
+            canvas_edit.bind_all("<MouseWheel>", _on_mousewheel)
+            edit_win.bind("<Destroy>", lambda e: canvas_edit.unbind_all("<MouseWheel>"))
+
+            # --- Nội dung form bên trong scroll_frame ---
+            Label(scroll_frame, text="Nhập API Key:", anchor='w').pack(fill='x', padx=20, pady=(15, 2))
+            entry_key = Entry(scroll_frame, width=50)
+            entry_key.pack(fill='x', padx=20, pady=2)
+            entry_key.insert(0, k_obj.get("key", ""))
+
+            Label(scroll_frame, text="Tên/Email gợi nhớ:", anchor='w').pack(fill='x', padx=20, pady=(10, 2))
+            entry_email = Entry(scroll_frame, width=50)
+            entry_email.pack(fill='x', padx=20, pady=2)
+            entry_email.insert(0, k_obj.get("email", ""))
+
+            Label(scroll_frame, text="Loại API:", anchor='w').pack(fill='x', padx=20, pady=(10, 2))
+            from tkinter.ttk import Combobox
+            combo_type = Combobox(scroll_frame, values=["GEMINI API", "CLAUDE API", "OPENAI API"], state="readonly")
+            combo_type.pack(fill='x', padx=20, pady=2)
+            combo_type.set(k_obj.get("type", "GEMINI API"))
+
+            Label(scroll_frame, text="Project Name:", anchor='w').pack(fill='x', padx=20, pady=(10, 2))
+            entry_proj_name = Entry(scroll_frame, width=50)
+            entry_proj_name.pack(fill='x', padx=20, pady=2)
+            entry_proj_name.insert(0, k_obj.get("project_name", ""))
+
+            Label(scroll_frame, text="Project ID (Để phân biệt Quota):", anchor='w').pack(fill='x', padx=20, pady=(10, 2))
+            entry_proj = Entry(scroll_frame, width=50)
+            entry_proj.pack(fill='x', padx=20, pady=2)
+            entry_proj.insert(0, k_obj.get("project_id", ""))
+
+            disp_s = k_obj.get("status", "active")
+            if disp_s == "invalid" and k_obj.get("error_msg"):
+                disp_s = f"Lỗi: {k_obj.get('error_msg')}"
+            status_var = StringVar(value=disp_s)
+            lbl_status = Label(scroll_frame, textvariable=status_var, fg="gray", font=("Arial", 10, "bold"))
+            lbl_status.pack(pady=10)
+
+            def check_new_key():
+                api_key = decode_key(entry_key.get().strip())
+                if not api_key:
+                    messagebox.showerror("Lỗi", "Vui lòng nhập API Key trước khi kiểm tra!", parent=edit_win)
+                    return
+                status_var.set("Đang kiểm tra...")
+                lbl_status.config(fg="blue")
+                edit_win.update_idletasks()
+
+                def run_check():
+                    try:
+                        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
+                        headers = {'Content-Type': 'application/json'}
+                        payload = {"contents": [{"parts": [{"text": "Hello. " * 10}]}], "generationConfig": {"maxOutputTokens": 1000}}
+                        resp = requests.post(url, headers=headers, json=payload, timeout=10)
+                        if resp.status_code == 200:
+                            edit_win.after(0, lambda: [status_var.set("Hoạt động (Active)"), lbl_status.config(fg="green")])
+                        else:
+                            msg = resp.json().get("error", {}).get("message", "Lỗi không xác định")
+                            proj = extract_project_id(resp.json())
+                            if proj and not entry_proj.get().strip():
+                                edit_win.after(0, lambda p=proj: (entry_proj.delete(0, 'end'), entry_proj.insert(0, p)))
+                            if "Quota" in msg or "exhausted" in msg.lower() or resp.status_code == 429:
+                                edit_win.after(0, lambda: [status_var.set("Hết Quota (Exhausted)"), lbl_status.config(fg="orange")])
+                            else:
+                                edit_win.after(0, lambda: [status_var.set(f"Lỗi: {msg[:35]}"), lbl_status.config(fg="red")])
+                    except Exception as e:
+                        edit_win.after(0, lambda: [status_var.set(f"Lỗi: {str(e)[:35]}"), lbl_status.config(fg="red")])
+                threading.Thread(target=run_check, daemon=True).start()
+
+            def do_save():
+                k_val = entry_key.get().strip()
+                e_val = entry_email.get().strip()
+                if not k_val:
+                    messagebox.showerror("Lỗi", "Vui lòng nhập API Key!", parent=edit_win)
+                    return
+
+                for i, k in enumerate(keys):
+                    if i != idx and k.get("key") == k_val:
+                        messagebox.showerror("Lỗi", "API Key này đã tồn tại trong danh sách!", parent=edit_win)
+                        return
+
+                cur_status = status_var.get()
+                status_mapped = k_obj.get("status", "active")
+                reset_time = k_obj.get("reset_time", 0)
+                next_check_time = k_obj.get("next_check_time", 0)
+                error_msg = k_obj.get("error_msg", "")
+
+                if "Exhausted" in cur_status:
+                    status_mapped = "exhausted"
+                    reset_time = int(time.time()) + 86400
+                    next_check_time = int(time.time()) + 10800
+                elif "Lỗi" in cur_status:
+                    status_mapped = "invalid"
+                    error_msg = cur_status.replace("Lỗi: ", "")
+                elif "Active" in cur_status:
+                    status_mapped = "active"
+                    reset_time = 0
+                    next_check_time = 0
+                    error_msg = ""
+
+                keys[idx]["key"] = k_val
+                keys[idx]["email"] = e_val
+                keys[idx]["type"] = combo_type.get()
+                keys[idx]["project_name"] = entry_proj_name.get().strip()
+                keys[idx]["project_id"] = entry_proj.get().strip()
+                keys[idx]["status"] = status_mapped
+                keys[idx]["reset_time"] = reset_time
+                keys[idx]["next_check_time"] = next_check_time
+                keys[idx]["error_msg"] = error_msg
+                self.last_added_type = combo_type.get()
+
+                from settings import update_gemini_settings
+                update_gemini_settings(api_keys=keys)
+                self.settings = load_settings()
+                refresh_list()
+                edit_win.destroy()
+
+            entry_proj.focus_set()
+            edit_win.bind("<Return>", lambda e: do_save())
+
+        tree.bind("<Double-1>", edit_key)
 
         def refresh_list():
             for item in tree.get_children():
                 tree.delete(item)
             gemini_settings = self.settings.get("gemini", {})
             keys = gemini_settings.get("api_keys", [])
+
+            # Tìm project_id trùng trên cùng một email
+            project_counts = {}
+            for k in keys:
+                pid = k.get("project_id", "")
+                email = k.get("email", "").strip().lower()
+                if pid and email:
+                    key_pair = (email, pid)
+                    project_counts[key_pair] = project_counts.get(key_pair, 0) + 1
+            dup_projects = {pair for pair, cnt in project_counts.items() if cnt > 1}
+
             for idx, k in enumerate(keys):
                 masked_key = k.get("key", "")
                 if len(masked_key) > 10:
                     masked_key = masked_key[:4] + "*" * (len(masked_key)-8) + masked_key[-4:]
-                
+
                 rt = k.get("reset_time", 0)
-                if rt > 0:
-                    rt_str = datetime.datetime.fromtimestamp(rt).strftime('%Y-%m-%d %H:%M:%S')
-                else:
-                    rt_str = "-"
-                    
+                rt_str = datetime.datetime.fromtimestamp(rt).strftime('%Y-%m-%d %H:%M') if rt > 0 else "-"
+
+                lc = k.get("last_check_time", 0)
+                lc_str = datetime.datetime.fromtimestamp(lc).strftime('%Y-%m-%d %H:%M') if lc > 0 else "-"
+
+                disp_status = k.get("status", "active")
+                if disp_status == "invalid" and k.get("error_msg"):
+                    disp_status = f"invalid: {k.get('error_msg')}"
+
+                pid = k.get("project_id", "")
+                pname = k.get("project_name", "")
+                email = k.get("email", "").strip().lower()
+                tag = ("dup_project",) if pid and email and (email, pid) in dup_projects else ()
+
                 tree.insert("", "end", iid=str(idx), values=(
                     k.get("email", ""),
                     masked_key,
-                    k.get("status", "active"),
+                    pname if pname else "-",
+                    pid if pid else "-",
+                    k.get("type", "GEMINI API"),
+                    disp_status,
+                    lc_str,
                     rt_str
-                ))
+                ), tags=tag)
             self.update_keys_label()
 
         def add_key():
-            key = simpledialog.askstring("API Key", "Nhập API Key:", parent=top)
-            if not key: return
-            email = simpledialog.askstring("Email", "Nhập Tên/Email gợi nhớ:", parent=top)
-            if not email: email = "Chưa đặt tên"
-            
-            gemini_settings = self.settings.get("gemini", {})
-            if "api_keys" not in gemini_settings:
-                gemini_settings["api_keys"] = []
-            
-            gemini_settings["api_keys"].append({
-                "key": key.strip(),
-                "email": email.strip(),
-                "status": "active",
-                "reset_time": 0
-            })
-            update_gemini_settings(api_keys=gemini_settings["api_keys"])
-            self.settings = load_settings()
-            refresh_list()
+            add_win = Toplevel(self.root)
+            add_win.title("Thêm API Key Mới")
+            add_win.geometry("480x580")
+            add_win.minsize(460, 500)
+            add_win.resizable(True, True)
+            add_win.transient(self.root)
+            add_win.grab_set()
+            add_win.bind("<Escape>", lambda e: add_win.destroy())
+
+            # --- Frame nút (luôn hiển thị ở cuối, không bị cuộn) ---
+            f_btns = Frame(add_win)
+            f_btns.pack(side="bottom", fill="x", padx=20, pady=8)
+
+            # --- Canvas + Scrollbar ---
+            canvas_add = Canvas(add_win, borderwidth=0)
+            scrollbar_add = ttk.Scrollbar(add_win, orient="vertical", command=canvas_add.yview)
+            canvas_add.configure(yscrollcommand=scrollbar_add.set)
+            scrollbar_add.pack(side="right", fill="y")
+            canvas_add.pack(side="top", fill="both", expand=True)
+
+            scroll_frame_add = Frame(canvas_add)
+            canvas_add_win_id = canvas_add.create_window((0, 0), window=scroll_frame_add, anchor="nw")
+
+            def _on_add_frame_configure(event):
+                canvas_add.configure(scrollregion=canvas_add.bbox("all"))
+                canvas_add.itemconfig(canvas_add_win_id, width=canvas_add.winfo_width())
+            scroll_frame_add.bind("<Configure>", _on_add_frame_configure)
+            canvas_add.bind("<Configure>", lambda e: canvas_add.itemconfig(canvas_add_win_id, width=e.width))
+
+            def _on_add_mousewheel(event):
+                canvas_add.yview_scroll(int(-1*(event.delta/120)), "units")
+            canvas_add.bind_all("<MouseWheel>", _on_add_mousewheel)
+            add_win.bind("<Destroy>", lambda e: canvas_add.unbind_all("<MouseWheel>"))
+
+            # --- Nội dung form ---
+            Label(scroll_frame_add, text="Nhập API Key:", anchor='w').pack(fill='x', padx=20, pady=(15, 2))
+            entry_key = Entry(scroll_frame_add, width=50)
+            entry_key.pack(fill='x', padx=20, pady=2)
+            entry_key.focus_set()
+
+            Label(scroll_frame_add, text="Tên/Email gợi nhớ (để trống để tự điền sau):", anchor='w').pack(fill='x', padx=20, pady=(10, 2))
+            entry_email = Entry(scroll_frame_add, width=50)
+            entry_email.pack(fill='x', padx=20, pady=2)
+            entry_email.insert(0, getattr(self, "last_added_email", ""))
+
+            Label(scroll_frame_add, text="Loại API:", anchor='w').pack(fill='x', padx=20, pady=(10, 2))
+            from tkinter.ttk import Combobox
+            combo_type = Combobox(scroll_frame_add, values=["GEMINI API", "CLAUDE API", "OPENAI API"], state="readonly")
+            combo_type.pack(fill='x', padx=20, pady=2)
+            combo_type.set(getattr(self, "last_added_type", "GEMINI API"))
+
+            Label(scroll_frame_add, text="Project Name:", anchor='w').pack(fill='x', padx=20, pady=(10, 2))
+            entry_proj_name = Entry(scroll_frame_add, width=50)
+            entry_proj_name.pack(fill='x', padx=20, pady=2)
+            entry_proj_name.insert(0, getattr(self, "last_added_project_name", ""))
+
+            Label(scroll_frame_add, text="Project ID (Để phân biệt Quota):", anchor='w').pack(fill='x', padx=20, pady=(10, 2))
+            entry_proj = Entry(scroll_frame_add, width=50)
+            entry_proj.pack(fill='x', padx=20, pady=2)
+            last_proj = getattr(self, "last_added_project", "")
+            if last_proj.isdigit():
+                last_proj = str(int(last_proj) + 1)
+            entry_proj.insert(0, last_proj)
+
+            status_var = StringVar(value="Chưa kiểm tra trạng thái")
+            lbl_status = Label(scroll_frame_add, textvariable=status_var, fg="gray", font=("Arial", 10, "bold"))
+            lbl_status.pack(pady=10)
+
+            _check_result = {"project_id": "", "status": "", "done": False}
+
+            def run_check_inner(api_key_raw, on_done=None):
+                api_key = decode_key(api_key_raw)
+                try:
+                    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
+                    headers = {'Content-Type': 'application/json'}
+                    payload = {"contents": [{"parts": [{"text": "Hello. " * 10}]}], "generationConfig": {"maxOutputTokens": 1000}}
+                    resp = requests.post(url, headers=headers, json=payload, timeout=10)
+                    if resp.status_code == 200:
+                        _check_result["status"] = "active"
+                        add_win.after(0, lambda: [status_var.set("Hoạt động (Active)"), lbl_status.config(fg="green")])
+                    else:
+                        rj = resp.json()
+                        msg = rj.get("error", {}).get("message", "Lỗi không xác định")
+                        proj = extract_project_id(rj)
+                        if proj: _check_result["project_id"] = proj
+                        if proj and not entry_proj.get().strip():
+                            add_win.after(0, lambda p=proj: (entry_proj.delete(0, 'end'), entry_proj.insert(0, p)))
+                        if "Quota" in msg or "exhausted" in msg.lower() or resp.status_code == 429:
+                            _check_result["status"] = "exhausted"
+                            add_win.after(0, lambda: [status_var.set("Hết Quota (Exhausted)"), lbl_status.config(fg="orange")])
+                        else:
+                            _check_result["status"] = "invalid"
+                            _check_result["errmsg"] = msg[:35]
+                            add_win.after(0, lambda: [status_var.set(f"Lỗi: {msg[:35]}"), lbl_status.config(fg="red")])
+                except Exception as e:
+                    _check_result["status"] = "invalid"
+                    _check_result["errmsg"] = str(e)[:35]
+                    add_win.after(0, lambda: [status_var.set(f"Lỗi: {str(e)[:35]}"), lbl_status.config(fg="red")])
+                _check_result["done"] = True
+                if on_done:
+                    add_win.after(0, on_done)
+
+            def check_new_key():
+                api_key_raw = entry_key.get().strip()
+                if not api_key_raw:
+                    messagebox.showerror("Lỗi", "Vui lòng nhập API Key trước khi kiểm tra!", parent=add_win)
+                    return
+                _check_result["done"] = False
+                status_var.set("Đang kiểm tra...")
+                lbl_status.config(fg="blue")
+                add_win.update_idletasks()
+                threading.Thread(target=run_check_inner, args=(api_key_raw,), daemon=True).start()
+
+            def do_save():
+                k_val = entry_key.get().strip()
+                e_val = entry_email.get().strip() or "(chưa đặt tên)"
+                if not k_val:
+                    messagebox.showerror("Lỗi", "Vui lòng nhập API Key!", parent=add_win)
+                    return
+
+                # Nếu chưa kiểm tra → tự động check trước khi lưu
+                if not _check_result["done"]:
+                    _check_result["done"] = False
+                    status_var.set("Đang tự động kiểm tra trước khi lưu...")
+                    lbl_status.config(fg="blue")
+                    btn_save.config(state="disabled", text="Đang kiểm tra...")
+                    add_win.update_idletasks()
+                    def after_check():
+                        btn_save.config(state="normal", text="Lưu")
+                        _do_save_inner(k_val, e_val)
+                    threading.Thread(target=run_check_inner, args=(k_val, after_check), daemon=True).start()
+                    return
+                _do_save_inner(k_val, e_val)
+
+            def _do_save_inner(k_val, e_val):
+                cur_status = _check_result.get("status", "active")
+                status_mapped = "active"
+                reset_time = 0
+                next_check_time = 0
+
+                if cur_status == "exhausted":
+                    status_mapped = "exhausted"
+                    reset_time = int(time.time()) + 86400
+                    next_check_time = int(time.time()) + 10800
+                elif cur_status == "invalid":
+                    status_mapped = "invalid"
+
+                gemini_settings = self.settings.get("gemini", {})
+                if "api_keys" not in gemini_settings:
+                    gemini_settings["api_keys"] = []
+
+                for k_obj in gemini_settings["api_keys"]:
+                    if k_obj.get("key") == k_val:
+                        messagebox.showerror("Lỗi", "API Key này đã tồn tại trong danh sách!", parent=add_win)
+                        return
+
+                error_msg = _check_result.get("errmsg", "") if status_mapped == "invalid" else ""
+
+                gemini_settings["api_keys"].append({
+                    "error_msg": error_msg,
+                    "key": k_val,
+                    "email": e_val,
+                    "type": combo_type.get(),
+                    "project_name": entry_proj_name.get().strip(),
+                    "project_id": entry_proj.get().strip() or _check_result.get("project_id", ""),
+                    "status": status_mapped,
+                    "reset_time": reset_time,
+                    "next_check_time": next_check_time,
+                    "last_check_time": int(time.time())
+                })
+
+                self.last_added_email = e_val
+                self.last_added_project = entry_proj.get().strip()
+                self.last_added_project_name = entry_proj_name.get().strip()
+                self.last_added_type = combo_type.get()
+
+                from settings import update_gemini_settings
+                update_gemini_settings(api_keys=gemini_settings["api_keys"])
+                self.settings = load_settings()
+                refresh_list()
+                add_win.destroy()
+
+            Button(f_btns, text="🔍 Kiểm tra trạng thái", command=check_new_key, bg="#f39c12", fg="white", width=18).pack(side="left", padx=5)
+            btn_save = Button(f_btns, text="Lưu", command=do_save, bg="#27ae60", fg="white", width=8)
+            btn_save.pack(side="left", padx=5)
+            Button(f_btns, text="Hủy", command=add_win.destroy, bg="#e74c3c", fg="white", width=8).pack(side="right", padx=5)
+            add_win.bind("<Return>", lambda e: do_save())
 
         def del_key():
             selected = tree.selection()
@@ -277,39 +1102,145 @@ class AskCplApp:
                 self.settings = load_settings()
                 refresh_list()
 
-        def test_key():
-            selected = tree.selection()
-            if not selected: return
-            idx = int(selected[0])
+        def check_all_keys():
             gemini_settings = self.settings.get("gemini", {})
             keys = gemini_settings.get("api_keys", [])
-            key_obj = keys[idx]
-            api_key = key_obj.get("key")
-            
-            try:
-                url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
-                headers = {'Content-Type': 'application/json'}
-                payload = {"contents": [{"parts": [{"text": "Hello"}]}]}
-                resp = requests.post(url, headers=headers, json=payload, timeout=10)
-                if resp.status_code == 200:
-                    key_obj["status"] = "active"
-                    key_obj["reset_time"] = 0
-                    messagebox.showinfo("OK", f"Key {key_obj['email']} hoạt động tốt!", parent=top)
-                else:
-                    msg = resp.json().get("error", {}).get("message", "Lỗi không xác định")
-                    if "Quota" in msg or "exhausted" in msg.lower():
-                        key_obj["status"] = "exhausted"
-                        key_obj["reset_time"] = int(time.time()) + 86400
-                        messagebox.showwarning("Exhausted", f"Key này đã hết Quota.\nĐã đánh dấu Exhausted.\nLỗi: {msg}", parent=top)
-                    else:
+            if not keys: return
+
+            btn_check.config(state="disabled", text="Đang kiểm tra...")
+            top.update_idletasks()
+            self.log_ai(f"🔄 Đang kiểm tra toàn bộ {len(keys)} API keys...")
+
+            def run_checks():
+                for key_obj in keys:
+                    raw_key = key_obj.get("key")
+                    if not raw_key: continue
+                    email = key_obj.get("email", "Không tên")
+                    self.log_ai(f"  - Đang kiểm tra: {email[:20]}...")
+                    api_key = decode_key(raw_key)
+                    try:
+                        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
+                        headers = {'Content-Type': 'application/json'}
+                        payload = {"contents": [{"parts": [{"text": "Hello. " * 10}]}], "generationConfig": {"maxOutputTokens": 1000}}
+                        resp = requests.post(url, headers=headers, json=payload, timeout=10)
+                        key_obj["last_check_time"] = int(time.time())
+
+                        if resp.status_code == 200:
+                            now = int(time.time())
+                            old_status = key_obj.get("status")
+                            next_check = key_obj.get("next_check_time", 0)
+                            if old_status == "exhausted" and next_check > now:
+                                remain_min = (next_check - now) // 60
+                                self.log_ai(f"    ⚠️ API OK, nhưng giữ án phạt Exhausted (Chờ {remain_min} phút).")
+                            else:
+                                key_obj["status"] = "active"
+                                key_obj["reset_time"] = 0
+                                key_obj["next_check_time"] = 0
+                                self.log_ai(f"    ✅ Hoạt động tốt.")
+                        else:
+                            rj = resp.json()
+                            msg = rj.get("error", {}).get("message", "")
+                            proj = extract_project_id(rj)
+                            if proj:
+                                key_obj["project_id"] = proj
+                                self.log_ai(f"    ℹ️ Project ID: {proj}")
+                            if "Quota" in msg or "exhausted" in msg.lower() or resp.status_code == 429:
+                                key_obj["status"] = "exhausted"
+                                key_obj["reset_time"] = int(time.time()) + 86400
+                                key_obj["next_check_time"] = int(time.time()) + 10800
+                                key_obj["error_msg"] = ""
+                                self.log_ai(f"    ⚠️ Hết Quota (Exhausted).")
+                            else:
+                                key_obj["status"] = "invalid"
+                                key_obj["error_msg"] = msg[:35]
+                                self.log_ai(f"    ❌ Lỗi: {msg[:35]}")
+                    except Exception as e:
                         key_obj["status"] = "invalid"
-                        messagebox.showerror("Invalid", f"Lỗi: {msg}", parent=top)
-            except Exception as e:
-                messagebox.showerror("Error", str(e), parent=top)
-            
-            update_gemini_settings(api_keys=keys)
-            self.settings = load_settings()
-            refresh_list()
+                        key_obj["error_msg"] = str(e)[:35]
+                        self.log_ai(f"    ❌ Lỗi kết nối: {str(e)[:35]}")
+
+                top.after(0, update_ui_after_check, keys)
+
+            def update_ui_after_check(keys):
+                update_gemini_settings(api_keys=keys)
+                self.settings = load_settings()
+                refresh_list()
+                btn_check.config(state="normal", text="Kiểm tra tất cả")
+                messagebox.showinfo("Hoàn tất", "Đã kiểm tra xong toàn bộ API Keys!", parent=top)
+
+            threading.Thread(target=run_checks, daemon=True).start()
+
+        def auto_adjust():
+            """Check tất cả key, lấy project ID từ error, tô đỏ key trùng project."""
+            gemini_settings = self.settings.get("gemini", {})
+            keys = gemini_settings.get("api_keys", [])
+            if not keys: return
+
+            btn_auto.config(state="disabled", text="Đang điều chỉnh...")
+            top.update_idletasks()
+
+            def run_adjust():
+                for key_obj in keys:
+                    raw_key = key_obj.get("key")
+                    if not raw_key: continue
+                    api_key = decode_key(raw_key)
+                    try:
+                        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
+                        headers = {'Content-Type': 'application/json'}
+                        payload = {"contents": [{"parts": [{"text": "Hello. " * 10}]}], "generationConfig": {"maxOutputTokens": 1000}}
+                        resp = requests.post(url, headers=headers, json=payload, timeout=10)
+                        key_obj["last_check_time"] = int(time.time())
+
+                        if resp.status_code == 200:
+                            now = int(time.time())
+                            old_status = key_obj.get("status")
+                            next_check = key_obj.get("next_check_time", 0)
+                            if old_status == "exhausted" and next_check > now:
+                                pass # Giữ nguyên trạng thái phạt
+                            else:
+                                key_obj["status"] = "active"
+                                key_obj["reset_time"] = 0
+                                key_obj["next_check_time"] = 0
+                        else:
+                            rj = resp.json()
+                            msg = rj.get("error", {}).get("message", "")
+                            proj = extract_project_id(rj)
+                            if proj:
+                                key_obj["project_id"] = proj
+                            if "Quota" in msg or "exhausted" in msg.lower() or resp.status_code == 429:
+                                key_obj["status"] = "exhausted"
+                                key_obj["reset_time"] = int(time.time()) + 86400
+                                key_obj["next_check_time"] = int(time.time()) + 10800
+                            else:
+                                key_obj["status"] = "invalid"
+                                key_obj["error_msg"] = msg[:35]
+                    except Exception as e:
+                        key_obj["status"] = "invalid"
+                        key_obj["error_msg"] = str(e)[:35]
+
+                # Tìm project ID trùng
+                project_counts = {}
+                for k in keys:
+                    pid = k.get("project_id", "")
+                    if pid:
+                        project_counts[pid] = project_counts.get(pid, 0) + 1
+                dup_count = sum(1 for cnt in project_counts.values() if cnt > 1)
+
+                top.after(0, done_adjust, keys, dup_count)
+
+            def done_adjust(keys, dup_count):
+                update_gemini_settings(api_keys=keys)
+                self.settings = load_settings()
+                refresh_list()
+                btn_auto.config(state="normal", text="🔄 Tự động điều chỉnh")
+                active_c = sum(1 for k in keys if k.get("status") == "active")
+                exhaust_c = sum(1 for k in keys if k.get("status") == "exhausted")
+                msg = f"✅ Hoàn tất!\n• {active_c} key Active\n• {exhaust_c} key Hết Quota"
+                if dup_count > 0:
+                    msg += f"\n• ⚠ {dup_count} Project ID bị TRÙNG — đã tô đỏ trong danh sách, bạn hãy tự xóa bớt."
+                messagebox.showinfo("Tự động điều chỉnh xong", msg, parent=top)
+
+            threading.Thread(target=run_adjust, daemon=True).start()
 
         def set_active():
             selected = tree.selection()
@@ -319,16 +1250,114 @@ class AskCplApp:
             keys = gemini_settings.get("api_keys", [])
             keys[idx]["status"] = "active"
             keys[idx]["reset_time"] = 0
+            keys[idx]["next_check_time"] = 0
             update_gemini_settings(api_keys=keys)
             self.settings = load_settings()
             refresh_list()
 
+        def save_sort_order():
+            gemini_settings = self.settings.get("gemini", {})
+            keys = gemini_settings.get("api_keys", [])
+            if not keys: return
+            new_keys = []
+            for item in tree.get_children():
+                try:
+                    idx = int(item)
+                    if 0 <= idx < len(keys):
+                        new_keys.append(keys[idx])
+                except:
+                    pass
+            from settings import update_gemini_settings
+            update_gemini_settings(api_keys=new_keys)
+            self.settings = load_settings()
+            refresh_list()
+            messagebox.showinfo("Hoàn tất", "Đã lưu vị trí thứ tự hiển thị của các API Keys!", parent=top)
+
+        def import_json_handler():
+            from tkinter import filedialog, messagebox
+            import json
+            filepath = filedialog.askopenfilename(
+                title="Chọn file JSON chứa API Keys",
+                filetypes=[("JSON Files", "*.json")]
+            )
+            if not filepath: return
+            
+            try:
+                with open(filepath, 'r', encoding='utf-8-sig') as f:
+                    new_keys_data = json.load(f)
+            except Exception as e:
+                messagebox.showerror("Lỗi", f"Không thể đọc file JSON:\n{e}", parent=top)
+                return
+            
+            gemini_settings = self.settings.get("gemini", {})
+            existing_keys = gemini_settings.get("api_keys", [])
+            
+            existing_key_values = set()
+            email_counts = {}
+            for k in existing_keys:
+                raw_k = k.get("key", "")
+                existing_key_values.add(decode_key(raw_k))
+                existing_key_values.add(raw_k)
+                em = k.get("email", "").strip().lower()
+                if em:
+                    email_counts[em] = email_counts.get(em, 0) + 1
+            
+            added_count = 0
+            for nk in new_keys_data:
+                if isinstance(nk, str):
+                    nk_val = nk
+                    nk_em = "imported@gmail.com"
+                    nk_type = "GEMINI API"
+                elif isinstance(nk, dict):
+                    nk_val = nk.get("key", "")
+                    nk_em = nk.get("email", "imported@gmail.com").strip()
+                    nk_type = nk.get("type", "GEMINI API")
+                else:
+                    continue
+                
+                if not nk_val or nk_val in existing_key_values:
+                    continue
+                
+                em_lower = nk_em.lower()
+                current_cnt = email_counts.get(em_lower, 0)
+                email_counts[em_lower] = current_cnt + 1
+                new_proj_id = str(current_cnt + 1)
+                
+                existing_keys.append({
+                    "key": nk_val,
+                    "email": nk_em,
+                    "project_id": new_proj_id,
+                    "type": nk_type,
+                    "status": "Chưa kiểm tra trạng thái",
+                    "reset_time": 0,
+                    "last_check_time": 0,
+                    "next_check_time": 0,
+                    "error_msg": ""
+                })
+                existing_key_values.add(nk_val)
+                added_count += 1
+            
+            if added_count > 0:
+                from settings import update_gemini_settings
+                update_gemini_settings(api_keys=existing_keys)
+                self.settings = load_settings()
+                refresh_list()
+                messagebox.showinfo("Thành công", f"Đã nhập {added_count} API Keys mới!", parent=top)
+            else:
+                messagebox.showinfo("Thông báo", "Không có API Key nào mới được thêm (tất cả bị trùng hoặc lỗi).", parent=top)
+
         btn_frame = Frame(top)
-        btn_frame.pack(fill="x", padx=10, pady=10)
+        btn_frame.pack(fill="x", padx=10, pady=10, side="bottom")
+        Button(btn_frame, text="Nhập từ JSON", command=import_json_handler, bg="#34495e", fg="white").pack(side="left", padx=5)
         Button(btn_frame, text="Thêm Key", command=add_key, bg="#27ae60", fg="white").pack(side="left", padx=5)
-        Button(btn_frame, text="Kiểm tra Key", command=test_key, bg="#f39c12", fg="white").pack(side="left", padx=5)
+        btn_check = Button(btn_frame, text="Kiểm tra tất cả", command=check_all_keys, bg="#f39c12", fg="white")
+        btn_check.pack(side="left", padx=5)
+        btn_auto = Button(btn_frame, text="🔄 Tự động điều chỉnh", command=auto_adjust, bg="#8e44ad", fg="white")
+        btn_auto.pack(side="left", padx=5)
         Button(btn_frame, text="Đặt Active", command=set_active, bg="#3498db", fg="white").pack(side="left", padx=5)
+        Button(btn_frame, text="Lưu Thứ Tự", command=save_sort_order, bg="#16a085", fg="white").pack(side="left", padx=5)
         Button(btn_frame, text="Xóa Key", command=del_key, bg="#e74c3c", fg="white").pack(side="right", padx=5)
+
 
         refresh_list()
 
@@ -404,10 +1433,18 @@ class AskCplApp:
         if d: self.ai_out_var.set(d)
         
     def save_ai_settings(self):
+        try:
+            max_f = int(self.ai_max_followup_var.get())
+        except ValueError:
+            max_f = 3
+            
         update_gemini_settings(
             last_roadmap=self.ai_roadmap_var.get(),
             last_doc_dir=self.ai_doc_var.get(),
-            last_out_dir=self.ai_out_var.get()
+            last_out_dir=self.ai_out_var.get(),
+            enable_followup=bool(self.ai_enable_followup_var.get()),
+            max_followup=max_f,
+            followup_mode=self.ai_followup_mode_var.get()
         )
         self.settings = load_settings()
         messagebox.showinfo("Thành công", "Đã lưu cấu hình Auto AI!")
@@ -419,6 +1456,16 @@ class AskCplApp:
             self.ai_log.see(END)
             self.ai_log.config(state='disabled')
         self.root.after(0, _log)
+        
+    def stop_ai_worker(self):
+        try:
+            import auto_ai_worker
+            auto_ai_worker.STOP_REQUESTED = True
+            if hasattr(self, 'btn_ai_stop'):
+                self.btn_ai_stop.config(state="disabled", text="Đang dừng...")
+            self.log_ai("🛑 Đã gửi lệnh dừng tiến trình, vui lòng đợi cho đến khi lưu xong session...")
+        except Exception as e:
+            self.log_ai(f"⚠ Không thể gửi lệnh dừng: {e}")
         
     def start_ai_worker(self):
         gemini_settings = self.settings.get("gemini", {})
@@ -433,7 +1480,23 @@ class AskCplApp:
             return
             
         self.btn_ai_start.config(state="disabled", text="⏳ Đang xử lý...")
+        if hasattr(self, 'btn_ai_stop'):
+            self.btn_ai_stop.config(state="normal", text="🛑 Dừng lại")
         force = bool(self.ai_force_restart_var.get())
+        
+        try:
+            start_day = int(self.ai_start_day_var.get().strip())
+        except ValueError:
+            start_day = 0
+            
+        enable_followup = bool(self.ai_enable_followup_var.get())
+        if self.ai_followup_mode_var.get() == "unlimited":
+            max_followup = 999
+        else:
+            try:
+                max_followup = int(self.ai_max_followup_var.get())
+            except ValueError:
+                max_followup = 3
         
         def update_keys_cb(new_keys):
             from settings import update_gemini_settings
@@ -445,13 +1508,20 @@ class AskCplApp:
             try:
                 import importlib, auto_ai_worker
                 importlib.reload(auto_ai_worker)
-                auto_ai_worker.run_auto_ai(api_keys, roadmap_path, doc_dir, out_dir, self.log_ai, force=force, update_keys_cb=update_keys_cb)
+                auto_ai_worker.STOP_REQUESTED = False
+                auto_ai_worker.run_auto_ai(
+                    api_keys, roadmap_path, doc_dir, out_dir, self.log_ai, 
+                    force=force, update_keys_cb=update_keys_cb,
+                    enable_followup=enable_followup, max_followup=max_followup, start_day=start_day
+                )
                 self.log_ai("🎉 Hoàn thành toàn bộ tiến trình!")
             except Exception as e:
                 self.log_ai(f"❌ LỖI NGHIÊM TRỌNG: {str(e)}")
             finally:
                 def _enable():
                     self.btn_ai_start.config(state="normal", text="▶ Bắt đầu Sinh Tự Động")
+                    if hasattr(self, 'btn_ai_stop'):
+                        self.btn_ai_stop.config(state="disabled", text="🛑 Dừng lại")
                 self.root.after(0, _enable)
                 
         threading.Thread(target=run, daemon=True).start()
@@ -748,7 +1818,7 @@ class AskCplApp:
         if not folder: return
         pwd = simpledialog.askstring("Mật khẩu", "Nhập mật khẩu để bảo vệ file:", show='*')
         if not pwd: return
-        output_file = filedialog.asksaveasfilename(title="Lưu file mã hóa", defaultextension=".askcpl", filetypes=[("AskCpl Encrypted", "*.askcpl")])
+        output_file = filedialog.asksaveasfilename(title="Lưu file mã hóa", defaultextension=".askcpl", filetypes=[("AskCpl Encrypted", "*.askcpl"), ("All Files", "*.*")])
         if not output_file: return
         
         try:
@@ -759,7 +1829,7 @@ class AskCplApp:
             messagebox.showerror("Lỗi", f"Lỗi mã hóa:\n{e}")
 
     def ex_tool_decrypt(self):
-        input_file = filedialog.askopenfilename(title="Chọn file .askcpl", filetypes=[("AskCpl Encrypted", "*.askcpl")])
+        input_file = filedialog.askopenfilename(title="Chọn file .askcpl", filetypes=[("AskCpl Encrypted", "*.askcpl"), ("All Files", "*.*")])
         if not input_file: return
         pwd = simpledialog.askstring("Mật khẩu", "Nhập mật khẩu để giải mã:", show='*')
         if not pwd: return
@@ -776,34 +1846,49 @@ class AskCplApp:
             messagebox.showerror("Lỗi", f"Lỗi giải mã:\n{e}")
 
     def ex_open_askcpl(self):
-        input_file = filedialog.askopenfilename(title="Chọn file .askcpl bài tập", filetypes=[("AskCpl Encrypted", "*.askcpl")])
+        input_file = filedialog.askopenfilename(title="Chọn file .askcpl bài tập", filetypes=[("AskCpl Encrypted", "*.askcpl"), ("All Files", "*.*")])
         if not input_file: return
         pwd = simpledialog.askstring("Mật khẩu", "Nhập mật khẩu để mở bài tập:", show='*')
         if not pwd: return
-        
+
         try:
-            import crypto_utils
-            import tempfile
-            import os
+            import crypto_utils, tempfile, os, zipfile, shutil
+
             temp_dir = os.path.join(tempfile.gettempdir(), "askcpl_workspace")
-            # dọn dẹp thư mục tạm cũ nếu có
             if os.path.exists(temp_dir):
-                import shutil
                 shutil.rmtree(temp_dir)
             os.makedirs(temp_dir)
-            
-            crypto_utils.decrypt_file(input_file, temp_dir, pwd)
-            
+
+            # === CHẾ ĐỘ TẢI NHANH: decrypt_to_memory — ưu tiên RAM, tự fallback ra đĩa nếu cần ===
+            source, is_memory = crypto_utils.decrypt_to_memory(input_file, pwd)
+            if is_memory:
+                self._lazy_zip_buffer = source      # io.BytesIO trong RAM
+                self.ex_lazy_zip_path = None        # Không có file tạm
+            else:
+                self._lazy_zip_buffer = None
+                self.ex_lazy_zip_path = source      # Đường dẫn temp .zip trên đĩa
+
             self.ex_current_dir = temp_dir
             self.ex_askcpl_source = input_file
             self.ex_askcpl_password = pwd
+            self.ex_deleted_files = set()
             self.btn_save_askcpl.config(state="normal")
-            
+
             self.ex_lbl_dir.config(text=f"Đang làm việc trên: {os.path.basename(input_file)}")
             self.settings.setdefault("editor", {})
             self.settings["editor"]["ex_dir"] = temp_dir
             update_editor_settings(ex_dir=temp_dir)
-            
+
+            # Giải nén duy nhất file exercises_data.json (cấu hình nhẹ)
+            try:
+                zf_obj = self._open_lazy_zip()
+                if zf_obj:
+                    with zf_obj as zf:
+                        if 'exercises_data.json' in zf.namelist():
+                            zf.extract('exercises_data.json', temp_dir)
+            except Exception:
+                pass
+
             json_path = os.path.join(self.ex_current_dir, "exercises_data.json")
             if os.path.exists(json_path):
                 try:
@@ -814,15 +1899,29 @@ class AskCplApp:
                     self.ex_blocks_data = {}
             else:
                 self.ex_blocks_data = {}
-                
+
             self.ex_refresh_listbox()
-            import threading
-            threading.Thread(target=self.ex_scan_archival_to_json, daemon=True).start()
-            messagebox.showinfo("Thành công", "Đã mở file bài tập thành công. Nhớ bấm 'Lưu lại vào .askcpl' sau khi làm xong!")
+            mode_label = "RAM (Siêu tốc)" if is_memory else "Disk (File lớn)"
+            messagebox.showinfo("Đã mở thành công", f"Đã mở bài tập thành công [{mode_label}].\nNhớ bấm 'Lưu lại vào .askcpl' sau khi làm xong!")
         except ValueError as ve:
             messagebox.showerror("Lỗi", str(ve))
         except Exception as e:
             messagebox.showerror("Lỗi", f"Lỗi mở file:\n{e}")
+
+    def _open_lazy_zip(self):
+        """Trả về zipfile.ZipFile context manager tự chọn nguồn (BytesIO hoặc đường dẫn).
+        Sử dụng dưới dạng:  with self._open_lazy_zip() as zf:  ...
+        Trả về None nếu chưa có nguồn zip nào (chế độ thư mục thường).
+        """
+        import zipfile, os
+        buf = getattr(self, '_lazy_zip_buffer', None)
+        if buf is not None:
+            buf.seek(0)
+            return zipfile.ZipFile(buf, 'r')
+        path = getattr(self, 'ex_lazy_zip_path', None)
+        if path and os.path.exists(path):
+            return zipfile.ZipFile(path, 'r')
+        return None
 
     def ex_save_askcpl(self):
         if not hasattr(self, 'ex_askcpl_source') or not self.ex_askcpl_source:
@@ -830,8 +1929,17 @@ class AskCplApp:
             return
             
         try:
-            import crypto_utils
-            crypto_utils.encrypt_folder(self.ex_current_dir, self.ex_askcpl_source, self.ex_askcpl_password)
+            import crypto_utils, os
+            deleted = getattr(self, 'ex_deleted_files', set())
+            buf = getattr(self, '_lazy_zip_buffer', None)
+            zip_path = getattr(self, 'ex_lazy_zip_path', None)
+            if buf is not None or (zip_path and os.path.exists(zip_path)):
+                old_src = buf if buf is not None else zip_path
+                crypto_utils.encrypt_from_zip_and_folder(
+                    old_src, self.ex_current_dir,
+                    self.ex_askcpl_source, self.ex_askcpl_password, deleted)
+            else:
+                crypto_utils.encrypt_folder(self.ex_current_dir, self.ex_askcpl_source, self.ex_askcpl_password)
             messagebox.showinfo("Thành công", f"Đã lưu các thay đổi lại vào file:\n{self.ex_askcpl_source}")
         except Exception as e:
             messagebox.showerror("Lỗi", f"Lỗi lưu file:\n{e}")
@@ -842,6 +1950,10 @@ class AskCplApp:
             self.ex_current_dir = folder
             self.ex_askcpl_source = ""
             self.ex_askcpl_password = ""
+            # Reset hoàn toàn trạng thái lazy khi mở thư mục thường
+            self.ex_lazy_zip_path = None
+            self._lazy_zip_buffer = None
+            self.ex_deleted_files = set()
             if hasattr(self, 'btn_save_askcpl'):
                 self.btn_save_askcpl.config(state="disabled")
                 
@@ -899,7 +2011,8 @@ class AskCplApp:
         MARKER = "<!-- EXERCISE START -->"
         try:
             for fname in os.listdir(current_dir):
-                if not (fname.startswith("day_") and fname.endswith(".html")):
+                fl = fname.lower()
+                if not (fl.endswith(".html") and "day" in fl and fl != "index.html" and " exercise.html" not in fl):
                     continue
                 if self.ex_blocks_data.get(fname):
                     continue
@@ -992,12 +2105,36 @@ class AskCplApp:
             return
             
         try:
-            files = [f for f in os.listdir(self.ex_current_dir) if f.startswith("day_") and f.endswith(".html")]
-        except FileNotFoundError:
             files = []
-        # Sort by day number
+            zf_obj = self._open_lazy_zip()
+            if zf_obj:
+                with zf_obj as zf:
+                    for f in zf.namelist():
+                        if '/' not in f: # Root level files
+                            fl = f.lower()
+                            if fl.endswith(".html") and "day" in fl and fl != "index.html" and " exercise.html" not in fl:
+                                files.append(f)
+            else:
+                for f in os.listdir(self.ex_current_dir):
+                    fl = f.lower()
+                    if fl.endswith(".html") and "day" in fl and fl != "index.html" and " exercise.html" not in fl:
+                        files.append(f)
+        except Exception:
+            files = []
+            
+        # Sắp xếp hỗ trợ cả định dạng cũ (day_1) và mới (001_Day)
+        import re
+        def sort_key(x):
+            match = re.match(r"^(\d+)_", x)
+            if match:
+                return int(match.group(1))
+            match = re.search(r"day_(\d+)", x, re.IGNORECASE)
+            if match:
+                return int(match.group(1)) * 1000
+            return 999999
+            
         try:
-            files.sort(key=lambda x: int(x.split("_")[1].split(".")[0]))
+            files.sort(key=sort_key)
         except:
             files.sort()
             
@@ -1013,11 +2150,71 @@ class AskCplApp:
             return
         item = self.ex_listbox.get(sel[0])
         self.ex_current_file = item[2:] # Bỏ 2 ký tự icon
+        
+        # --- LAZY EXTRACTION & SCAN ---
+        zf_obj = self._open_lazy_zip()
+        if zf_obj:
+            try:
+                with zf_obj as zf:
+                    # Tự động giải nén file đang chọn nếu chưa có
+                    target_path = os.path.join(self.ex_current_dir, self.ex_current_file)
+                    if not os.path.exists(target_path) and self.ex_current_file in zf.namelist():
+                        zf.extract(self.ex_current_file, self.ex_current_dir)
+                    
+                    # Cũng giải nén file archival (nếu có)
+                    day_base = os.path.splitext(self.ex_current_file)[0]
+                    archival_name = f"exercise/{day_base} exercise.html"
+                    archival_path = os.path.join(self.ex_current_dir, archival_name)
+                    if not os.path.exists(archival_path) and archival_name in zf.namelist():
+                        zf.extract(archival_name, self.ex_current_dir)
+            except Exception as e:
+                print(f"Lazy extract error: {e}")
+        
+        # Quét HTML nếu dữ liệu block chưa có (lazy load blocks)
+        if self.ex_current_file not in getattr(self, 'ex_blocks_data', {}):
+            self.ex_scan_single_file(self.ex_current_file)
+            
         self.ex_lbl_current.config(text=f"Đang soạn bài tập cho: {self.ex_current_file}")
         update_editor_settings(ex_file=self.ex_current_file)
         # Reload từ JSON để phản ánh thay đổi từ Web Editor
         self.ex_reload_from_json()
         self.ex_refresh_preview()
+
+    def ex_scan_single_file(self, filename):
+        if not self.ex_current_dir: return
+        changed = False
+        day_base = filename.replace(".html", "")
+        
+        # 1. Quét archival
+        archival_path = os.path.join(self.ex_current_dir, "exercise", f"{day_base} exercise.html")
+        if os.path.exists(archival_path):
+            try:
+                with open(archival_path, "r", encoding="utf-8") as f:
+                    html = self._extract_ql_content(f.read())
+                if html:
+                    self.ex_blocks_data[filename] = [{"type": "wysiwyg", "html": html}]
+                    changed = True
+            except: pass
+            
+        # 2. Quét direct
+        if not changed:
+            direct_path = os.path.join(self.ex_current_dir, filename)
+            if os.path.exists(direct_path):
+                try:
+                    with open(direct_path, "r", encoding="utf-8", errors="ignore") as f:
+                        html = self._extract_ql_content(f.read())
+                    if html:
+                        self.ex_blocks_data[filename] = [{"type": "wysiwyg", "html": html}]
+                        changed = True
+                except: pass
+                
+        if changed:
+            self.ex_persist_data()
+            # Khôi phục vị trí cuộn khi refresh listbox
+            if hasattr(self, 'ex_listbox'):
+                yview = self.ex_listbox.yview()
+                self.ex_refresh_listbox()
+                self.ex_listbox.yview_moveto(yview[0])
 
     def ex_reload_from_json(self):
         """Đọc lại exercises_data.json từ đĩa. Gọi sau khi Web Editor có thể đã cập nhật."""
@@ -1107,10 +2304,13 @@ class AskCplApp:
         if self.ex_current_file in self.ex_blocks_data and self.ex_blocks_data[self.ex_current_file]:
             block = self.ex_blocks_data[self.ex_current_file].pop()
             if block.get("type") == "file":
-                filepath = os.path.join(self.ex_current_dir, "attachments", block.get("filename", ""))
+                filename = block.get("filename", "")
+                filepath = os.path.join(self.ex_current_dir, "attachments", filename)
                 if os.path.exists(filepath):
                     try:
                         os.remove(filepath)
+                        if hasattr(self, 'ex_deleted_files'):
+                            self.ex_deleted_files.add(f"attachments/{filename}")
                     except:
                         pass
             self.ex_persist_data()
@@ -1127,10 +2327,13 @@ class AskCplApp:
             blocks = self.ex_blocks_data.get(self.ex_current_file, [])
             for block in blocks:
                 if block.get("type") == "file":
-                    filepath = os.path.join(self.ex_current_dir, "attachments", block.get("filename", ""))
+                    filename = block.get("filename", "")
+                    filepath = os.path.join(self.ex_current_dir, "attachments", filename)
                     if os.path.exists(filepath):
                         try:
                             os.remove(filepath)
+                            if hasattr(self, 'ex_deleted_files'):
+                                self.ex_deleted_files.add(f"attachments/{filename}")
                         except:
                             pass
             self.ex_blocks_data[self.ex_current_file] = []
@@ -1205,6 +2408,22 @@ class AskCplApp:
             return
         if not self.ex_current_dir:
             return
+        
+        # Trong chế độ Lazy: đảm bảo file HTML đã được bung ra thư mục tạm trước khi mở editor
+        zf_obj = self._open_lazy_zip()
+        if zf_obj:
+            try:
+                with zf_obj as zf:
+                    target_path = os.path.join(self.ex_current_dir, self.ex_current_file)
+                    if not os.path.exists(target_path) and self.ex_current_file in zf.namelist():
+                        zf.extract(self.ex_current_file, self.ex_current_dir)
+                    day_base = os.path.splitext(self.ex_current_file)[0]
+                    archival_name = f"exercise/{day_base} exercise.html"
+                    archival_path = os.path.join(self.ex_current_dir, archival_name)
+                    if not os.path.exists(archival_path) and archival_name in zf.namelist():
+                        zf.extract(archival_name, self.ex_current_dir)
+            except Exception as e:
+                print(f"Advanced editor lazy extract error: {e}")
             
         # TỰ ĐỘNG LƯU BLOCKS NẾU CÓ ĐỂ WEB EDITOR ĐỌC ĐƯỢC
         blocks = getattr(self, 'ex_blocks_data', {}).get(self.ex_current_file, [])

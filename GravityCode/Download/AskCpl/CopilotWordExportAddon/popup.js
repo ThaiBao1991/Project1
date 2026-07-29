@@ -49,7 +49,9 @@ function getDefaultConfig() {
     topicPrompt: 'Cho tôi biết tên chủ đề của bài học này ngắn gọn nhất có thể (chỉ tên, không giải thích).',
     targetCount: 4,
     details: [],
-    roadmapData: null
+    roadmapData: null,
+    autoFollowUp: true,
+    maxFollowUp: 999
   };
 }
 
@@ -71,6 +73,16 @@ function applyConfigToUI(config, profileKey) {
   container.innerHTML = '';
   if (config.details) {
     config.details.forEach(d => addDetailUI(d.name, d.prompt));
+  }
+
+  const chkFollowUp = document.getElementById('chkFollowUp');
+  if (chkFollowUp) {
+    chkFollowUp.checked = config.autoFollowUp !== undefined ? config.autoFollowUp : true;
+    document.getElementById('divFollowUpMax').style.display = chkFollowUp.checked ? 'flex' : 'none';
+  }
+  const numFollowUpMax = document.getElementById('numFollowUpMax');
+  if (numFollowUpMax) {
+    numFollowUpMax.value = config.maxFollowUp || 999;
   }
 
   // FIX GĐ 33: Load roadmap từ key riêng, không từ config (để tránh lưu dữ liệu khổng lồ trong addonConfigs)
@@ -106,7 +118,9 @@ function buildConfigFromUI() {
     topicPrompt: document.getElementById('topicPromptInput').value.trim(),
     targetCount: parseInt(document.getElementById('targetCountInput').value, 10) || 4,
     details: details,
-    roadmapData: currentRoadmapData
+    roadmapData: currentRoadmapData,
+    autoFollowUp: document.getElementById('chkFollowUp') ? document.getElementById('chkFollowUp').checked : true,
+    maxFollowUp: parseInt(document.getElementById('numFollowUpMax') ? document.getElementById('numFollowUpMax').value : "999", 10) || 999
   };
 }
 
@@ -414,6 +428,13 @@ function loadPersistedLogs() {
 }
 
 // Init
+const _chk = document.getElementById('chkFollowUp');
+if (_chk) {
+  _chk.addEventListener('change', (e) => {
+    document.getElementById('divFollowUpMax').style.display = e.target.checked ? 'flex' : 'none';
+  });
+}
+
 loadProfiles();
 syncRunningState();
 loadPersistedLogs();
@@ -460,7 +481,9 @@ document.getElementById('startBtn').addEventListener('click', async () => {
     topicPrompt: config.topicPrompt,
     targetCount: config.targetCount,
     details: config.details,
-    roadmapData: currentRoadmapData
+    roadmapData: currentRoadmapData,
+    autoFollowUp: config.autoFollowUp,
+    maxFollowUp: config.maxFollowUp
   };
 
   chrome.tabs.sendMessage(tab.id, payload).catch(() => {

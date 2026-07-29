@@ -15,18 +15,21 @@ NAV_MARKER = "<!-- NAV-BAR-V2 -->"
 NAV_END_MARKER = "<!-- END-NAV-BAR-V2 -->"
 
 
-def build_nav_html(current_day: int, day_map: dict, total_days: int) -> str:
+def build_nav_html(current_day: int, day_map: dict, total_days: int, file_map: dict = None) -> str:
     """
     Tạo HTML cho thanh điều hướng.
     day_map: { day_num: title_string } cho ±10 ngày xung quanh current_day
+    file_map: { day_num: filename } cho toàn bộ các ngày (để render link Prev/Next)
     """
+    import json
     toc_items_html = ""
     for d in sorted(day_map.keys()):
         title = day_map[d]
         css_class = "nav-toc-item nav-toc-current" if d == current_day else "nav-toc-item"
         marker = " \u2190" if d == current_day else ""
         safe_title = title.replace('"', '&quot;').replace('<', '&lt;').replace('>', '&gt;')
-        toc_items_html += f'<a class="{css_class}" href="day_{d}.html">Day {d} \u2014 {safe_title}{marker}</a>\n'
+        filename = file_map.get(d, f"day_{d}.html") if file_map else f"day_{d}.html"
+        toc_items_html += f'<a class="{css_class}" href="{filename}">Day {d} \u2014 {safe_title}{marker}</a>\n'
 
     prev_disabled = 'disabled' if current_day <= 1 else ''
     next_disabled = 'disabled' if current_day >= total_days else ''
@@ -161,12 +164,17 @@ body {{ padding-top: 52px !important; }}
 (function() {{
   var CURRENT_DAY = {current_day};
   var TOTAL_DAYS = {total_days};
+  var FILE_MAP = {json.dumps(file_map) if file_map else "{}"};
   var tocOpen = false;
 
   window.askcplNav = function(delta) {{
     var next = CURRENT_DAY + delta;
     if (next < 1 || next > TOTAL_DAYS) return;
-    window.location.href = 'day_' + next + '.html';
+    if (FILE_MAP[next]) {{
+        window.location.href = FILE_MAP[next];
+    }} else {{
+        window.location.href = 'day_' + next + '.html';
+    }}
   }};
 
   window.askcplToggleToc = function() {{
@@ -204,13 +212,26 @@ body {{ padding-top: 52px !important; }}
 
 
 def get_day_files(folder: str) -> list:
-    """Trả về list (day_num, filename) được sắp xếp."""
+    """Trả về list (day_num, filename) được sắp xếp, hỗ trợ cả định dạng cũ và mới (Addon)."""
     result = []
     for f in os.listdir(folder):
-        m = re.match(r'^day_(\d+)\.html$', f)
-        if m:
-            result.append((int(m.group(1)), f))
-    result.sort(key=lambda x: x[0])
+        fl = f.lower()
+        if not fl.endswith('.html') or fl == 'index.html' or ' exercise' in fl:
+            continue
+            
+        # Thử định dạng mới từ Addon: 001_Day 1...
+        m1 = re.match(r'^(\d+)_day', fl)
+        if m1:
+            result.append((int(m1.group(1)), f))
+            continue
+            
+        # Thử định dạng cũ: day_1.html, day_1b.html
+        m2 = re.search(r'day_(\d+)', fl)
+        if m2:
+            result.append((int(m2.group(1)), f))
+            
+    # Sắp xếp theo số ngày, nếu trùng số (vd: day_1, day_1b) thì xếp theo bảng chữ cái
+    result.sort(key=lambda x: (x[0], x[1]))
     return result
 
 
@@ -251,13 +272,13 @@ def remove_old_nav(content: str) -> str:
     return content
 
 
-def inject_nav_into_file(filepath: str, current_day: int, day_map: dict, total_days: int) -> bool:
+def inject_nav_into_file(filepath: str, current_day: int, day_map: dict, total_days: int, file_map: dict = None) -> bool:
     """Inject nav bar vào 1 file HTML. Trả về True nếu thành công."""
     try:
         with open(filepath, 'r', encoding='utf-8') as f:
             content = f.read()
         content = remove_old_nav(content)
-        nav_html = build_nav_html(current_day, day_map, total_days)
+        nav_html = build_nav_html(current_day, day_map, total_days, file_map)
         if '</body>' in content.lower():
             insert_pos = content.lower().rfind('</body>')
             content = content[:insert_pos] + nav_html + '\n' + content[insert_pos:]
@@ -294,8 +315,10 @@ def inject_all(folder: str, log_callback=None) -> dict:
 
     log("[*] Dang doc tieu de cac ngay...")
     full_title_map = {}
+    full_file_map = {}
     for day_num, fname in day_files:
         full_title_map[day_num] = get_day_title(os.path.join(folder, fname), day_num)
+        full_file_map[day_num] = fname
 
     success_count = 0
     failed_count = 0
@@ -306,7 +329,7 @@ def inject_all(folder: str, log_callback=None) -> dict:
         day_map = {d: full_title_map[d] for d in range(lo, hi + 1) if d in full_title_map}
         if day_num not in day_map:
             day_map[day_num] = f"Day {day_num}"
-        ok = inject_nav_into_file(fpath, day_num, day_map, total_days)
+        ok = inject_nav_into_file(fpath, day_num, day_map, total_days, full_file_map)
         if ok:
             success_count += 1
         else:

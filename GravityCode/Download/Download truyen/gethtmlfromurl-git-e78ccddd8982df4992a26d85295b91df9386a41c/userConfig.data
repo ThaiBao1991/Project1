@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_281" class="java.beans.XMLDecoder">
+ <object class="java.util.HashMap">
+  <void method="put">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>common.Enumeration$EnumConfigKey</class>
+    <string>STATUS</string>
+   </object>
+   <string>FULL 420/420</string>
+  </void>
+  <void method="put">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>common.Enumeration$EnumConfigKey</class>
+    <string>EBOOKCREATOR</string>
+   </object>
+   <string>mkbyme</string>
+  </void>
+  <void method="put">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>common.Enumeration$EnumConfigKey</class>
+    <string>SOURCE</string>
+   </object>
+   <string>&lt;a href=&quot;https://truyencv.com/dai-duong-hoang-that-co-nhi/&quot;&gt;https://truyencv.com/dai-duong-hoang-that-co-nhi/&lt;/a&gt;</string>
+  </void>
+  <void method="put">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>common.Enumeration$EnumConfigKey</class>
+    <string>LANGUAGE</string>
+   </object>
+   <string>vi</string>
+  </void>
+  <void method="put">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>common.Enumeration$EnumConfigKey</class>
+    <string>EBOOKNAME</string>
+   </object>
+   <string>Đại Đường Hoàng Thất Cô Nhi</string>
+  </void>
+  <void method="put">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>common.Enumeration$EnumConfigKey</class>
+    <string>INFO</string>
+   </object>
+   <string>【 bay lô Trung Văn Võng cấp A ký kết tác phẩm: Đại Đường hoàng thất con mồ côi ) đến từ hậu thế thiếu niên, xuyên việt đến Trịnh Quán năm đầu thời kỳ, trở thành Lý Thế Dân lưu lạc ở dân gian con trai trưởng. Mang theo siêu cấp văn minh gen hệ thống, mà xem hoàng thất con mồ côi làm sao dựa vào gen hệ thống, bay lô Đại Đường!
+
+&quot;Chúc mừng chủ nhân lấy ra con kiến gen, thu được Vô Thượng Thần Lực!&quot;
+
+&quot;Chúc mừng chủ nhân lấy ra thằn lằn gen, thu được siêu cấp khôi phục!&quot;
+
+&quot;Chúc mừng chủ nhân lấy ra ... . . .&quot; (Bản Cố Sự cùng nhân vật chỉ do hư cấu, như có tương đồng, chỉ do trùng hợp, không nên bắt chước. )
+
+TOP 1 B.faloo mảng đại đường ( hiện tại ) 
+TOP 2 B.faloo mảng quân sự
+
+Đăng trước hôm sau mới lên c , h chưa lên :v
+&lt;br/&gt;Được tạo bằng phần mềm: &lt;a href =&quot;https://sourceforge.net/projects/gethtmlfromurl/&quot;&gt;GetTextFromHtml-V1.5.3&lt;/a&gt;</string>
+  </void>
+  <void method="put">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>common.Enumeration$EnumConfigKey</class>
+    <string>IS_SHOW_PAGE_HAS_IMAGE</string>
+   </object>
+   <boolean>true</boolean>
+  </void>
+  <void method="put">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>common.Enumeration$EnumConfigKey</class>
+    <string>TWO_LEVEL_CHAPTER_TITLE</string>
+   </object>
+   <string>Chương</string>
+  </void>
+  <void method="put">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>common.Enumeration$EnumConfigKey</class>
+    <string>DELETE_ON_EXIST</string>
+   </object>
+   <string></string>
+  </void>
+  <void method="put">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>common.Enumeration$EnumConfigKey</class>
+    <string>ENCODING</string>
+   </object>
+   <string>UTF-8</string>
+  </void>
+  <void method="put">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>common.Enumeration$EnumConfigKey</class>
+    <string>MAXCONNECTION</string>
+   </object>
+   <int>1</int>
+  </void>
+  <void method="put">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>common.Enumeration$EnumConfigKey</class>
+    <string>CONVERTER</string>
+   </object>
+   <string>♰ܨ๖ۣۜLạc ๖ۣۜTử ᴸᵉᵍᵉᶯᵈ ♰</string>
+  </void>
+  <void method="put">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>common.Enumeration$EnumConfigKey</class>
+    <string>LINE_HEIGHT</string>
+   </object>
+   <int>16</int>
+  </void>
+  <void method="put">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>common.Enumeration$EnumConfigKey</class>
+    <string>TWO_LEVEL_BREAK_CHAPTER_COUNT</string>
+   </object>
+   <int>50</int>
+  </void>
+  <void method="put">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>common.Enumeration$EnumConfigKey</class>
+    <string>RECENT_FOLDER</string>
+   </object>
+   <string>C:\Users\Z\Desktop\Temp</string>
+  </void>
+  <void method="put">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>common.Enumeration$EnumConfigKey</class>
+    <string>TIME_OUT</string>
+   </object>
+   <int>120</int>
+  </void>
+  <void method="put">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>common.Enumeration$EnumConfigKey</class>
+    <string>AUTHOR</string>
+   </object>
+   <string>Thanh phạt hoàng tổ phụ</string>
+  </void>
+  <void method="put">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>common.Enumeration$EnumConfigKey</class>
+    <string>IS_USE_2_LEVEL_FOR_TOC</string>
+   </object>
+   <boolean>true</boolean>
+  </void>
+  <void method="put">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>common.Enumeration$EnumConfigKey</class>
+    <string>REMEMBER_ONE_PER_FILE</string>
+   </object>
+   <boolean>false</boolean>
+  </void>
+  <void method="put">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>common.Enumeration$EnumConfigKey</class>
+    <string>SHOW_TIPS_ON_DOWNLOAD_FAILED</string>
+   </object>
+   <boolean>true</boolean>
+  </void>
+  <void method="put">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>common.Enumeration$EnumConfigKey</class>
+    <string>ISLOADIMAGE</string>
+   </object>
+   <boolean>true</boolean>
+  </void>
+  <void method="put">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>common.Enumeration$EnumConfigKey</class>
+    <string>SLEEP_TIME</string>
+   </object>
+   <int>30</int>
+  </void>
+  <void method="put">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>common.Enumeration$EnumConfigKey</class>
+    <string>LOGIN_INFO</string>
+   </object>
+   <object class="java.util.ArrayList">
+    <void method="add">
+     <object class="models.LoginInfo">
+      <void property="cookies">
+       <string>PHPSESSID=3383d948ade2e9dbf5281e1eeda028ee; _ga=GA1.2.306548029.1564314256; _gid=GA1.2.782005997.1564314256; readingstory=a%3A1%3A%7Bi%3A24800%3Bi%3A1%3B%7D; reading=a%3A1%3A%7Bi%3A24800%3Bi%3A7745404%3B%7D; USER=TXb%2FdQA1DojN%3Ap443hxqpRxjPBlHZSjBMaBGVBpYFkC4tvBqkw2i1ZeHB; TAM=a%3A8%3A%7Bs%3A7%3A%22user_id%22%3Bs%3A96%3A%22736af47fddf04fd295f9f980fb5623b86989fd544a1967b5126fcf8a7c41e38c%C4ag%9A%5B%23%80%15%BF%A4I%FD%00%04%BD%13%F6%C6%F8%E9%FF%60%27%C0%EF%0Ag%CB4%3F%5D%B5%22%3Bs%3A10%3A%22user_level%22%3Bs%3A96%3A%224f64827eb51a921c6aa468627a8f70eadfbead272168f77c031124312b92198a%E0J%807ET%8Cf%1E%BC%19Q%F1%0C%D2N%B0%0C%FCj%E5%7D%C9%9F%E0B%EAX%1Fy%EB%2C%22%3Bs%3A9%3A%22user_name%22%3Bs%3A96%3A%226e41b41b0b0b1023554346e6d5917ebf32a328e09b8443c4e2bba501540c0ae46%A3%F1%CC%E4%99%E4%8A%E9%E5%5E%03%60%0C8%84%FBz%0B%7D%27%EC%97%17%A3%D9%A6%B6C%A6%F3%1F%22%3Bs%3A13%3A%22user_fullname%22%3Bs%3A96%3A%221702bcccf0882d6298d0833cd5d0c7aeaee6a3dbe2580a6c383afe689f7d38c9r9%9B%E7%89%93%E4%8D%CF%F5%AB%96%19X%A5%B7%D5%5E%EB%97f%FBNg%05T%94%18%F3%E4%9D%5C%22%3Bs%3A12%3A%22user_regdate%22%3Bs%3A96%3A%2295dbcbc2b5af2adfff47d055ed12cf5cef080505468d0e8c19b43da4f36cf95f%27Sp%D27%D5d%AB%F7%A09%8F%04%A4%5B%AD%B4%EB%A5%BA6%E9%CEVI%AE_%D0%1B%F5%CC%B4%22%3Bs%3A10%3A%22user_email%22%3Bs%3A96%3A%2230cce36e8a8c05d547d7834d285a282d226c40c0f41389873f41f2bcc2b6e6d4%3C%3Eg%25%EB%05W%2A%3E%D2%D6Y%C9%1F%AE%F4%BA%EB%06%CC%11%07%F9zP%BFN%40r%0B%EB%1F%22%3Bs%3A11%3A%22user_avatar%22%3Bs%3A144%3A%221fc8cf0d57be4698bd16d189124722c27faa582a411d2c477fe46eb41dec2646%D4%89%AB%2B%BD%09%3Bc%8F%A9%86%05%BE%C3%7B%03%CC%EF%AD%8F%02%89%0F%BA%E2%8F%EC%7C%2B%11%AA%C49%B6K%B8%AEO%02%F9%89%A6%EBn%0B%D2%19%82D%04P%98%DC%EA%E7Q%8El%A7%8EX%D52%E0%17F%C1%403%A1%7B%B2%BB%DEE%B8%DB%27%7B%BB%22%3Bs%3A15%3A%22user_day_online%22%3Bs%3A96%3A%22cf91e70293b79dd91552033d319bae3cc65e784969259dc75b5b11574991e713%85V%82%03%D4%C5%D7%1D%06%0B%96%03%93%D9%9EN%10%E9%0E%0D%B7%A5V%C4%E7x%D4%27%9D%BF%CC%CB%22%3B%7D; reada=14; _gat=1</string>
+      </void>
+      <void property="pageCode">
+       <string>truyencv.com</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="models.LoginInfo">
+      <void property="cookies">
+       <string>wkdth_code=eden; express.sid=s:1AorXwvpL92nBkwtjxTkGMsOFO1lv8eN.USGKZChwLBCTIAVhNjSli4e5nARk47+E5ZyacMro6m8</string>
+      </void>
+      <void property="pageCode">
+       <string>koanchay.com</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="models.LoginInfo">
+      <void property="cookies">
+       <string>_ga=GA1.2.962170533.1560527588</string>
+      </void>
+      <void property="pageCode">
+       <string>truyenfull.vn</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="models.LoginInfo">
+      <void property="cookies">
+       <string>__cfduid=ddffc7cfe77a4b5ae977f32175757039f1584789410; csrftoken=jXEwHcxNnMH7oHjrc0EJPTfvzVyGoLDK8qBnmWQJLkek20t1fasaAiMI4IPp7Hlh; _ga=GA1.2.253618993.1584789433; _gid=GA1.2.1280728425.1584789433; truyenyy_sessionid=r5cbma45hdzo798saz81mniif5xsq2eu; _gat=1</string>
+      </void>
+      <void property="pageCode">
+       <string>truyenyy.com</string>
+      </void>
+     </object>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

@@ -38,6 +38,8 @@ let targetCount      = 4;
 let detailConfigs    = [];
 let topicMemory      = {};
 let currentTabId     = null;
+let autoFollowUp     = true;
+let maxFollowUp      = 999;
 
 // ── Delay helper ──────────────────────────────────────────
 const delay = ms => new Promise(r => setTimeout(r, ms));
@@ -191,7 +193,9 @@ function autoSave() {
         isAdvanced: isAdvanced,
         topicPromptStr: topicPromptStr,
         targetCount: targetCount,
-        details: detailConfigs
+        details: detailConfigs,
+        autoFollowUp: autoFollowUp,
+        maxFollowUp: maxFollowUp
     };
     const sessionBase64 = btoa(unescape(encodeURIComponent(JSON.stringify(sessionObj))));
     
@@ -215,7 +219,8 @@ function saveStateForReload() {
         topicMemory, platform: currentPlatform,
         // FIX GĐ 44: KHÔNG lưu roadmapData vào đây — được giữ nguyên ở key 'roadmap_active'
         historySummaries, promptMode, isAdvanced,
-        topicPromptStr, targetCount, details: detailConfigs
+        topicPromptStr, targetCount, details: detailConfigs,
+        autoFollowUp, maxFollowUp
     };
     const sessionBase64 = btoa(unescape(encodeURIComponent(JSON.stringify(sessionObj))));
     return new Promise(resolve => {
@@ -242,6 +247,7 @@ function saveRunningState(nextDay, lastSaved) {
             tabId: currentTabId,
             currentDay: nextDay,
             endDay, promptMode, isAdvanced, topicPromptStr, targetCount, detailConfigs, topicMemory,
+            autoFollowUp, maxFollowUp,
             agentName: currentAgentName,
             folderName,
             prefix: prefixStr,
@@ -479,7 +485,9 @@ function saveSession() {
             isAdvanced: isAdvanced,
             topicPromptStr: topicPromptStr,
             targetCount: targetCount,
-            details: detailConfigs
+            details: detailConfigs,
+            autoFollowUp: autoFollowUp,
+            maxFollowUp: maxFollowUp
         }, null, 2),
         filename: `${folderName}/session.json`
     });
@@ -514,6 +522,8 @@ function handleResumeSessionRequest(request) {
         topicPromptStr = request.topicPrompt || "";
         targetCount    = request.targetCount || 4;
         detailConfigs  = request.details || [];
+        autoFollowUp   = request.autoFollowUp !== undefined ? request.autoFollowUp : (s.autoFollowUp !== undefined ? s.autoFollowUp : true);
+        maxFollowUp    = request.maxFollowUp || s.maxFollowUp || 999;
         topicMemory    = s.topicMemory || {};
         currentPlatform  = request.platform || s.platform || "copilot";
         historySummaries = (s.historySummaries || []).filter(h => parseInt(h.day, 10) < currentDay);
@@ -551,6 +561,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             topicPromptStr = request.topicPrompt || "";
             targetCount    = request.targetCount || 4;
             detailConfigs  = request.details || [];
+            autoFollowUp   = request.autoFollowUp !== undefined ? request.autoFollowUp : true;
+            maxFollowUp    = request.maxFollowUp || 999;
             topicMemory    = {};
             dayIndex   = [];
             currentPlatform  = request.platform || "copilot";
@@ -1114,7 +1126,43 @@ async function _runNextDayAttempt(retryCount, isAutoResumed = false) {
         if (!validateContent(responseHtml, currentAgentName)) return 'retry';
     }
 
-    // ── BƯỚC 1.5: AUTO SUMMARIZER FOR HIERARCHICAL ROADMAP ──
+    // ── BƯỚC 1.5: AUTO FOLLOW-UP LOGIC ──
+    let fullDayHtml = responseHtml;
+    if (autoFollowUp) {
+        let followUpCount = 0;
+        let isCompleted = /đã đầy đủ/i.test(fullDayHtml) || /hoàn tất ngày \d+/i.test(fullDayHtml) || /hoàn tất bài học/i.test(fullDayHtml);
+        
+        while (!isCompleted && followUpCount < maxFollowUp && isRunning) {
+            followUpCount++;
+            appLog(`🔄 Đang hỏi bồi lần ${followUpCount}/${maxFollowUp} cho Ngày ${currentDay}...`);
+            // Đổi prompt theo đúng ý user (bắt chước logic của askcpl.py)
+            let followUpPrompt = `Bạn có thấy bài học hôm nay còn điều gì cần bổ sung thêm để tôi hiểu rõ và đầy đủ hơn không?
+→ Nếu CÓ: hãy bổ sung ngay bên dưới.
+→ Nếu KHÔNG còn gì cần thêm: hãy chỉ trả lời đúng 1 dòng ở CUỐI phản hồi của bạn là:
+Đã đầy đủ`;
+            
+            let followUpHtml = await askSecondaryPrompt(followUpPrompt);
+            if (!isRunning) return 'stop';
+            
+            if (followUpHtml) {
+                fullDayHtml += "\\n<hr>\\n" + followUpHtml;
+                // Kiểm tra xem phản hồi có cụm từ "Đã đầy đủ" không
+                if (/đã đầy đủ/i.test(followUpHtml)) {
+                    isCompleted = true;
+                    appLog(`✅ AI đã xác nhận "Đã đầy đủ". Dừng hỏi bồi.`);
+                }
+            } else {
+                appLog(`⚠️ Không lấy được nội dung hỏi bồi, thử tiếp...`);
+            }
+        }
+        if (!isCompleted && isRunning) {
+            appLog(`⚠️ Đã đạt giới hạn hỏi bồi tối đa (${maxFollowUp} lần). Kết thúc Ngày ${currentDay}.`);
+        }
+    } else {
+        appLog(`ℹ️ Tính năng hỏi bồi (Auto Follow-up) đang bị tắt.`);
+    }
+
+    // ── BƯỚC 1.8: AUTO SUMMARIZER FOR HIERARCHICAL ROADMAP ──
     if (promptMode === 'table_md' && roadmapData) {
         appLog(`📝 Đang lấy tóm tắt của Ngày ${currentDay}...`);
         let summaryHtml = await askSecondaryPrompt("Hãy tóm tắt cực kỳ ngắn gọn (dưới 20 từ) những kiến thức cốt lõi bạn vừa dạy ở trên.");
@@ -1161,7 +1209,7 @@ async function _runNextDayAttempt(retryCount, isAutoResumed = false) {
         }
     }
 
-    await processExtractedContent(`Day ${currentDay}`, responseHtml);
+    await processExtractedContent(`Day ${currentDay}`, fullDayHtml);
     return 'ok';
 }
 

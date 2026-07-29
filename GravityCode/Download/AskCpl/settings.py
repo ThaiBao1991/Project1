@@ -38,7 +38,9 @@ DEFAULT_SETTINGS = {
         "api_keys": [],
         "last_roadmap": "",
         "last_doc_dir": "",
-        "last_out_dir": ""
+        "last_out_dir": "",
+        "enable_followup": True,
+        "max_followup": 3
     }
 }
 

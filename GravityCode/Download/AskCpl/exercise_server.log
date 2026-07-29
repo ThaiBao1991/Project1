@@ -118,3 +118,24 @@ DEBUG:root:Handling archival mode
 DEBUG:root:Updating index.html: C:/Users/12953 bao/Desktop/desktop/work/Project/Python/BasicLearnPython/W3schools/Python Tutorial/GravityCode/Download/AskCpl/Note\index.html
 DEBUG:root:exercises_data.json synced with wysiwyg block
 DEBUG:root:Done save successfully
+DEBUG:root:Saving day 001_Day 1 \u2014 [P0] Release Notes t\u1ed5ng th\u1ec3 (Ph\u1ea7n 113 - Tr.html with mode direct...
+DEBUG:root:Reading direct html path
+DEBUG:root:Writing direct html path
+DEBUG:root:Updating index.html: C:\Users\12953B~1\AppData\Local\Temp\askcpl_workspace\index.html
+DEBUG:root:exercises_data.json synced with wysiwyg block
+DEBUG:root:Done save successfully
+DEBUG:root:Saving day 001_Day 1 \u2014 [P0] Release Notes t\u1ed5ng th\u1ec3 (Ph\u1ea7n 113 - Tr.html with mode archival...
+DEBUG:root:Handling archival mode
+DEBUG:root:Updating index.html: C:\Users\12953B~1\AppData\Local\Temp\askcpl_workspace\index.html
+DEBUG:root:exercises_data.json synced with wysiwyg block
+DEBUG:root:Done save successfully
+DEBUG:root:Saving day 001_Day 1 \u2014 [P0] Release Notes t\u1ed5ng th\u1ec3 (Ph\u1ea7n 113 - Tr.html with mode archival...
+DEBUG:root:Handling archival mode
+DEBUG:root:Updating index.html: C:\Users\12953B~1\AppData\Local\Temp\askcpl_workspace\index.html
+DEBUG:root:exercises_data.json synced with wysiwyg block
+DEBUG:root:Done save successfully
+DEBUG:root:Saving day 006_Day 1f \u2014 [P0] Release Notes t\u1ed5ng th\u1ec3 (Ph\u1ea7n 613 - T.html with mode archival...
+DEBUG:root:Handling archival mode
+DEBUG:root:Updating index.html: C:\Users\12953B~1\AppData\Local\Temp\askcpl_workspace\index.html
+DEBUG:root:exercises_data.json synced with wysiwyg block
+DEBUG:root:Done save successfully
