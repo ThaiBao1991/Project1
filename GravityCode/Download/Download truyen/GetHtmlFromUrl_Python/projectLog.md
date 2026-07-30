@@ -58,6 +58,13 @@ GetHtmlFromUrl_Python/
 - [x] **Manual GET UI** (`gui/manual_get_ui.py`): Cho phép người dùng dán hàng loạt URL vào textarea và tải trực tiếp, không qua bước get mục lục. Tái sử dụng và nâng cấp `DownloadWorker` hỗ trợ `manual_links`.
 - [x] **PageConfigManager UI** (`gui/config_mgr_dialog.py`): Cửa sổ Splitter chia làm 2 phần: List bên trái và Form (trên 15 fields CSS/Regex/Checkbox) bên phải. Cho phép cập nhật `PageConfig` và ghi đè trực tiếp xuống `ghfuConfig.json` thông qua `page_config_mgr.py`.
 
+### ✅ Phase 5 — Tối ưu Tốc độ & Khôi phục thông minh (Multi-threading & Exact Resume) — HOÀN THÀNH
+- [x] **Multi-threading (Concurrent Downloads)**: Áp dụng `ThreadPoolExecutor` trong `DownloadWorker`, tự động tải nhiều chương cùng lúc theo cấu hình `max_connection` trong `QSettings`.
+- [x] **Auto-Retry 5 lần**: Nếu 1 chương tải thất bại, luồng sẽ tự động thử lại tối đa 5 lần (mỗi lần cách nhau 1s) trước khi đánh dấu lỗi hẳn.
+- [x] **Exact-Position Resume**: Cải tiến cấu trúc `_Resume.json` lưu trữ chi tiết danh sách chương, `save_dir` và trạng thái lỗi.
+- [x] **ResumeDialog**: Chuyển logic tải bù (Resume) từ việc mở form `Manual GET` sang việc khôi phục trực tiếp tiến trình (`DownloadWorker(resume_data=...)`), đảm bảo tải bù đúng các chương thiếu và chèn lại đúng vị trí trong mục lục (TOC).
+- [x] **Direct HTML Patching**: Hỗ trợ khả năng trực tiếp trích xuất dữ liệu từ file HTML tổng cũ. Không cần phụ thuộc vào thư mục chứa các file tạm (`save_dir`). Ứng dụng sẽ đọc các chương đã có, tải 10 chương thiếu, và tự ráp đúng vị trí vào file HTML tổng.
+
 ## 🔑 Kỹ thuật quan trọng
 1. **CSS Filter Logic**: filter_html() áp dụng CHỈ trên content element, KHÔNG trên toàn trang → title không bị xóa.
 2. **AJAX Mode**: Khi `page_config.ajax_list_chap_url != ""`, engine tự detect `book_id` từ pattern `page(BOOK_ID, PAGE)` trong JS HTML.

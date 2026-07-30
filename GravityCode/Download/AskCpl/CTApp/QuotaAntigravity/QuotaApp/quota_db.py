@@ -283,29 +283,37 @@ if __name__ == '__main__':
                 return str(c)
         return None
 
+    def _format_duration(ms):
+        if ms <= 0: return ""
+        d = int(ms // 86_400_000)
+        h = int((ms % 86_400_000) // 3_600_000)
+        m = int((ms % 3_600_000) // 60_000)
+        
+        parts = []
+        if d > 0: parts.append(f'{d}d')
+        if h > 0: parts.append(f'{h}h')
+        if m > 0: parts.append(f'{m}m')
+        if not parts: return '0m'
+        return ' '.join(parts)
+
     def _fmt_cd(exh_until, reset_ms=0):
-        """Tr\u1ea3 v\u1ec1 chu\u1ed7i \u0111\u1ebfm ng\u01b0\u1ee3c + th\u1eddi \u0111i\u1ec3m Renews (gi\u1ed1ng Antigravity Account)."""
         now_ms = time.time() * 1000
         parts = []
 
-        # Ph\u1ea7n \u0111\u1ebfm ng\u01b0\u1ee3c
+        cd_str = ""
         if exh_until and exh_until > now_ms:
-            rem = exh_until - now_ms
-            h = int(rem // 3_600_000)
-            m = int((rem % 3_600_000) // 60_000)
-            parts.append(f'{h}h {m:02d}m')
+            cd_str = _format_duration(exh_until - now_ms)
 
-        # Ph\u1ea7n Renews at (t\u1eeb overallResetTime)
         rt = reset_ms or exh_until or 0
+        rn_str = ""
         if rt and rt > now_ms:
-            import datetime
-            dt = datetime.datetime.fromtimestamp(rt / 1000)
-            renews_str = dt.strftime('\u21bb %H:%M')
-            # N\u1ebfu kh\u00e1c ng\u00e0y th\u00ec th\u00eam ng\u00e0y
-            if dt.date() != datetime.date.today():
-                renews_str = dt.strftime('\u21bb %d/%m %H:%M')
-            if renews_str not in parts:  # tr\u00e1nh tr\u00f9ng l\u1eb7p n\u1ebfu \u0111\u00e3 c\u00f3
-                parts.append(renews_str)
+            rn_str = '\u21bb ' + _format_duration(rt - now_ms)
+
+        if cd_str and rn_str and cd_str == rn_str[2:]:
+            parts.append(rn_str)
+        else:
+            if cd_str: parts.append(cd_str)
+            if rn_str: parts.append(rn_str)
 
         return '  '.join(parts)
 
@@ -314,7 +322,11 @@ if __name__ == '__main__':
         def __init__(self):
             super().__init__()
             self.title('⚡ Quota Tracker — Antigravity Account Manager')
-            self.geometry('980x580')
+            self.geometry('1080x600')
+            try:
+                self.state('zoomed')  # Phóng to toàn màn hình mặc định
+            except:
+                pass
             self.configure(bg=BG)
             self.minsize(720, 420)
 
@@ -387,14 +399,14 @@ if __name__ == '__main__':
             self._tv = ttk.Treeview(wrap, columns=cols, show='headings',
                                      style='Q.Treeview', selectmode='browse')
             hdrs = [('email',  'Email',         260, tk.W),
-                    ('status', 'Trạng thái %',  130, tk.CENTER),
-                    ('groups', 'Groups OK',      150, tk.CENTER),
-                    ('cd',     'Đếm ngược',      100, tk.CENTER),
-                    ('note',   'Ghi chú',        220, tk.W)]
+                    ('status', 'Trạng thái %',  180, tk.CENTER),
+                    ('groups', 'Groups OK',     180, tk.CENTER),
+                    ('cd',     'Đếm ngược',     160, tk.CENTER),
+                    ('note',   'Ghi chú',       250, tk.W)]
             for col, lbl, w, anc in hdrs:
                 self._tv.heading(col, text=lbl,
                                  command=lambda c=col: self._sort_by(c))
-                self._tv.column(col, width=w, anchor=anc,
+                self._tv.column(col, width=w, minwidth=w, anchor=anc,
                                 stretch=(col == 'note'))
 
             # Row tags
@@ -404,10 +416,13 @@ if __name__ == '__main__':
             self._tv.tag_configure('noag',  background='#2b1428', foreground=PINK)
             self._tv.tag_configure('nodata',background=CARD,       foreground=SUBTEXT)
 
-            sb = ttk.Scrollbar(wrap, orient=tk.VERTICAL, command=self._tv.yview)
-            self._tv.configure(yscrollcommand=sb.set)
+            sb_x = ttk.Scrollbar(wrap, orient=tk.HORIZONTAL, command=self._tv.xview)
+            sb_y = ttk.Scrollbar(wrap, orient=tk.VERTICAL, command=self._tv.yview)
+            self._tv.configure(xscrollcommand=sb_x.set, yscrollcommand=sb_y.set)
+            
+            sb_x.pack(side=tk.BOTTOM, fill=tk.X)
+            sb_y.pack(side=tk.RIGHT, fill=tk.Y)
             self._tv.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-            sb.pack(side=tk.RIGHT, fill=tk.Y)
 
             # Status bar
             sf = tk.Frame(self, bg=BG2, height=32)
@@ -481,12 +496,38 @@ if __name__ == '__main__':
                 else:
                     tag = 'ok'
 
-                rows.append((email, status, groups, cd, note, tag))
+                # —— Sort keys ——
+                sk_email = email.lower()
+                # Status: Ưu tiên tổng % (100+100 = 200 lớn nhất).
+                g = gem_pct if gem_pct is not None else -1
+                c = cld_pct if cld_pct is not None else -1
+                if gem_pct is not None and cld_pct is not None:
+                    sk_status = (0, -(g + c), -g, -c)
+                elif gem_pct is not None or cld_pct is not None:
+                    sk_status = (1, -max(g, c), 0, 0)
+                else:
+                    sk_status = (2, 0, 0, 0)
+                # Groups: Còn → Partial → Hết tất cả → không data
+                if avail and not exh_grps:
+                    sk_groups = 0
+                elif avail and exh_grps:
+                    sk_groups = 1
+                elif exh_grps:
+                    sk_groups = 2
+                else:
+                    sk_groups = 3
+                # CD: ms còn lại (nhỏ nhất = sớm nhất = đầu tiên)
+                rt_s = reset_ms if (reset_ms and reset_ms > now_ms) else (
+                    exh_until if (exh_until and exh_until > now_ms) else float('inf'))
+                sk_cd   = rt_s
+                sk_note = note.lower()
+                rows.append((email, status, groups, cd, note, tag,
+                             sk_email, sk_status, sk_groups, sk_cd, sk_note))
 
-            # Sort
-            idx = {'email': 0, 'status': 1, 'groups': 2, 'cd': 3, 'note': 4}.get(
-                self._sort_col, 0)
-            rows.sort(key=lambda r: (r[idx] or '').lower(), reverse=self._sort_rev)
+            # Sort — mỗi cột dùng sort key riêng (idx 6–10)
+            _SORT_IDX = {'email': 6, 'status': 7, 'groups': 8, 'cd': 9, 'note': 10}
+            idx = _SORT_IDX.get(self._sort_col, 6)
+            rows.sort(key=lambda r: r[idx], reverse=self._sort_rev)
 
             for r in rows:
                 self._tv.insert('', tk.END, values=r[:5], tags=(r[5],))

@@ -13,6 +13,7 @@ class ResumeDialog(QDialog):
         self.setMinimumSize(500, 350)
         self.main_window = main_window
         self.failed_links = []
+        self.resume_data = None
         
         self._build_ui()
         
@@ -41,15 +42,15 @@ class ResumeDialog(QDialog):
         layout.addWidget(self.txt_links, stretch=1)
         
         row_btn = QHBoxLayout()
-        btn_resume = QPushButton("Mở Manual GET để tải bù")
-        btn_resume.setStyleSheet("background-color: #f57c00; color: white; font-weight: bold;")
-        btn_resume.clicked.connect(self._on_resume)
+        self.btn_resume = QPushButton("Tải bù và gộp lại file gốc")
+        self.btn_resume.setStyleSheet("background-color: #f57c00; color: white; font-weight: bold;")
+        self.btn_resume.clicked.connect(self._on_resume)
         
         btn_close = QPushButton("Đóng")
         btn_close.clicked.connect(self.reject)
         
         row_btn.addStretch()
-        row_btn.addWidget(btn_resume)
+        row_btn.addWidget(self.btn_resume)
         row_btn.addWidget(btn_close)
         layout.addLayout(row_btn)
         
@@ -63,19 +64,22 @@ class ResumeDialog(QDialog):
             
         self.txt_file.setText(file_path)
         self.failed_links.clear()
+        self.resume_data = None
         
         try:
             if file_path.endswith('.json'):
                 with open(file_path, 'r', encoding='utf-8') as f:
-                    data = json.load(f)
-                    self.failed_links = data.get("failed_links", [])
-                    total = data.get("total_links", 0)
+                    self.resume_data = json.load(f)
+                    self.failed_links = self.resume_data.get("failed_links", [])
+                    total = len(self.resume_data.get("all_links", [])) or self.resume_data.get("total_links", 0)
                     self.lbl_status.setText(f"Trạng thái: Phát hiện {len(self.failed_links)} / {total} chương bị lỗi.")
+                    self.btn_resume.setText("Tải bù và gộp lại file gốc")
             else:
                 with open(file_path, 'r', encoding='utf-8') as f:
                     lines = f.read().splitlines()
                     self.failed_links = [l for l in lines if l.strip()]
                     self.lbl_status.setText(f"Trạng thái: Đã tải {len(self.failed_links)} link lỗi từ file TXT.")
+                    self.btn_resume.setText("Mở Manual GET để tải bù")
                     
             self.txt_links.setPlainText("\n".join(self.failed_links))
             
@@ -89,13 +93,21 @@ class ResumeDialog(QDialog):
             QMessageBox.warning(self, "Thông báo", "Không có link nào để tải bù.")
             return
             
-        # Mở Manual Get UI thông qua main_window và điền sẵn link
         self.accept()
         
-        try:
-            self.main_window._on_manual_get()
-            if hasattr(self.main_window, 'manual_get_ui') and self.main_window.manual_get_ui:
-                self.main_window.manual_get_ui.txt_urls.setPlainText(raw_text)
-                self.main_window.manual_get_ui.txt_log.append("📌 Đã tự động điền danh sách chương tải thiếu từ file Resume.")
-        except Exception as e:
-            pass
+        if self.resume_data and "save_dir" in self.resume_data:
+            # File JSON chuẩn mới, chuyển thẳng sang main_window
+            if hasattr(self.main_window, '_on_resume_from_data'):
+                self.main_window._on_resume_from_data(self.resume_data)
+            else:
+                QMessageBox.warning(self.main_window, "Lỗi", "Chức năng tải bù chưa được hỗ trợ trên phiên bản này.")
+        else:
+            # File TXT cũ hoặc file JSON bản cũ, dùng Manual Get UI thông qua main_window
+            try:
+                self.main_window._on_manual_get()
+                if hasattr(self.main_window, 'manual_get_ui') and self.main_window.manual_get_ui:
+                    self.main_window.manual_get_ui.txt_urls.setPlainText(raw_text)
+                    self.main_window.manual_get_ui.txt_log.append("📌 Đã tự động điền danh sách chương tải thiếu từ file log.")
+            except Exception as e:
+                pass
+

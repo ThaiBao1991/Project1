@@ -205,11 +205,15 @@ Mở IDE → Reload → **Tất cả tài khoản, tokens, balances sẵn sàng.
 - **✓ Check All:** Chạy `sync_antigravity.py --json` trong background thread → parse `ag_emails` → đánh dấu email chưa trong AG
 - **Config path:** Lưu vào `quota_db_gui.json` trong cùng thư mục script
 
-### Ngày 30/07/2026 — Thêm "Renews ↻ HH:MM" vào cột đếm ngược
-- Cột **Đếm ngược** hiện thêm thời gian phục hồi giống Antigravity Account:
-  - Trước: `2h 30m`
-  - Sau: `2h 30m  ↻ 15:30` (cùng ngày) / `2h 30m  ↻ 31/07 04:00` (khác ngày)
-- Nguồn: `overallResetTime` (ms epoch) từ `.dat`; fallback về `exhaustedUntil`.
+### Ngày 30/07/2026 — Thêm "Renews" đếm ngược và Smart Sort vào quota_db.py
+- Cải tiến logic cột **Đếm ngược** (`_fmt_cd`):
+  - Hiển thị theo format đếm ngược (countdown) giống extension Antigravity Account: `↻ 2d 18h 32m` (thay vì giờ thực tế trong ngày).
+  - Luôn hiển thị `↻ Xd Yh Zm` ngay cả khi tài khoản chưa bị giới hạn (còn % quota) nhưng có cài đặt thời gian reset (`overallResetTime > now`). 
+- Cải tiến **Smart Sort** khi nhấn vào header các cột:
+  - **Email / Ghi chú**: Sắp xếp A-Z / Z-A thuần túy không phân biệt hoa thường.
+  - **Trạng thái %**: Ưu tiên theo độ quan trọng: (1) Cả 2 có % ưu tiên đẩy lên đầu, (2) 1 cái có %, (3) Không có data/hết cả 2. Bên trong từng nhóm sẽ sort theo % từ cao xuống thấp.
+  - **Groups OK**: Theo trạng thái sử dụng: Còn (có sẵn) → Partial (hết 1 phần) → Tất cả hết.
+  - **Đếm ngược**: Ưu tiên thời gian đếm ngược ngắn nhất (sẽ reset sớm nhất) lên đầu danh sách.
 
 ---
 

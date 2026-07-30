@@ -452,6 +452,48 @@ class MainWindow(QMainWindow):
         """Tiếp tục tải (Resume) — đặt lại trạng thái và bắt đầu lại"""
         self._on_start_download()
 
+    def _on_resume_from_data(self, resume_data: dict):
+        """Khôi phục trạng thái tải từ file JSON mới"""
+        url = self.txt_url.text().strip()
+        if not url:
+            # Cố gắng tìm lại URL gốc hoặc dùng link đầu tiên
+            all_links = resume_data.get("all_links", [])
+            if all_links:
+                url = all_links[0]
+            else:
+                url = "http://resume" 
+            self.txt_url.setText(url)
+            
+        save_path = resume_data.get("final_path", "")
+        if save_path:
+            self.txt_save_path.setText(save_path)
+            
+        file_format = "txt" if save_path.endswith(".txt") else "html"
+
+        self._toggle_download_state(True)
+        self.txt_log.clear()
+        self.progress_bar.setValue(0)
+        self.lbl_status.setText("Đang khôi phục (Resume)...")
+
+        self.worker = DownloadWorker(
+            url=url,
+            config_mgr=self.config_mgr,
+            save_path=save_path,
+            is_divide_file=self.chk_one_file_per.isChecked(),
+            ebook_info=self._ebook_info_html,
+            start_idx=resume_data.get("start_idx", 0),
+            end_idx=resume_data.get("end_idx", -1),
+            file_format=file_format,
+            resume_data=resume_data
+        )
+        self.worker.log_signal.connect(self.txt_log.append)
+        self.worker.progress_signal.connect(self._on_progress)
+        self.worker.finished_signal.connect(self._on_finished)
+        self.worker.chapter_list_ready.connect(self._on_chapter_list_ready)
+        
+        self._total_chapters = len(resume_data.get("all_links", []))
+        self.worker.start()
+
     @pyqtSlot(int, str, str)
     def _on_progress(self, idx: int, status: str, error: str):
         self.lbl_status.setText(f"Chương {idx + 1}: {status}")

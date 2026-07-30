@@ -291,9 +291,11 @@ def sync_quota_data(quota_json_path, email_filter=None):
 
         bals_db = acc_db.get('balances', {}) if (acc_db and isinstance(acc_db, dict)) else {}
 
-        # Conservative merge: Kết hợp cả DB và Live API data
-        # Nếu BẤT KỲ nguồn nào (IDE DB hoặc Live API) ghi nhận model = 0 (hết quota),
-        # ta lấy min(value_db, value_api) = 0 để phản ánh chính xác trạng thái thực tế.
+        time_db = parse_iso_ms(acc_db.get('lastRefreshedAt') or acc_db.get('addedAt', '')) if isinstance(acc_db, dict) else 0
+        time_api = dat_entry.get('lastUpdate', 0)
+        use_db_as_truth = (time_db >= time_api)
+
+        # Merge data
         all_models = set(bals_db.keys()) | set(dat_balances.keys())
 
         if all_models:
@@ -302,15 +304,17 @@ def sync_quota_data(quota_json_path, email_filter=None):
                 info_db = bals_db.get(m)
                 info_api = dat_balances.get(m)
 
-                val_db = info_db.get('value', 100) if isinstance(info_db, dict) else 100
-                val_api = info_api.get('value', 100) if isinstance(info_api, dict) else 100
-
-                # Giá trị xấu nhất sẽ quyết định (nếu 1 trong 2 nguồn ghi 0% thì model = 0%)
-                final_val = min(val_db, val_api)
-
-                rst_db = info_db.get('resetTime') if isinstance(info_db, dict) else None
-                rst_api = info_api.get('resetTime') if isinstance(info_api, dict) else None
-                final_rst = rst_db or rst_api or ''
+                if use_db_as_truth and m in bals_db and isinstance(info_db, dict):
+                    final_val = info_db.get('value', 100)
+                    final_rst = info_db.get('resetTime', '')
+                elif not use_db_as_truth and m in dat_balances and isinstance(info_api, dict):
+                    final_val = info_api.get('value', 100)
+                    final_rst = info_api.get('resetTime', '')
+                else:
+                    # Fallback nếu nguồn chiến thắng không có model này
+                    fallback_info = info_db if (m in bals_db and isinstance(info_db, dict)) else info_api
+                    final_val = fallback_info.get('value', 100) if isinstance(fallback_info, dict) else 100
+                    final_rst = fallback_info.get('resetTime', '') if isinstance(fallback_info, dict) else ''
 
                 merged_bals[m] = {
                     'value': final_val,
@@ -341,7 +345,7 @@ def sync_quota_data(quota_json_path, email_filter=None):
             'balances': merged_bals,
             'exhaustedUntil': result['exhaustedUntil'],
             'overallResetTime': result['overallResetTime'],
-            'lastUpdate': now_ms,
+            'lastUpdate': max(time_db, time_api) if max(time_db, time_api) > 0 else now_ms,
             'source': 'auto-sync',
             'groupStatus': result['groupStatus'],
             'availableGroups': result['availableGroups'],
