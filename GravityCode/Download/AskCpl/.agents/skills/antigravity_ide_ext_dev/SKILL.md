@@ -445,9 +445,124 @@ Khi viết Extension cần xác thực OAuth (như Google) nhưng IDE không có
 **Quy trình (tham khảo từ antigravity-account):**
 1. **Tạo Local Server**: Dùng http.createServer() lắng nghe ở một cổng trống (thử từ mảng cổng định sẵn).
 2. **Mở Trình Duyệt**: Gọi scode.env.openExternal(Uri.parse(authUrl)) với edirect_uri chỉ về http://localhost:<port>/oauth-callback. Đừng quên thêm prompt=consent và ccess_type=offline nếu cần Refresh Token.
+2. **Mở Trình Duyệt**: Gọi  scode.env.openExternal(Uri.parse(authUrl)) với edirect_uri chỉ về http://localhost:<port>/oauth-callback. Đừng quên thêm prompt=consent và  ccess_type=offline nếu cần Refresh Token.
 3. **Đón Mã Code**: Server nhận Request tại /oauth-callback, trích xuất code từ URL query.
 4. **Phản hồi UI cho người dùng**: Server trả về một file HTML đẹp mắt thông báo thành công kèm theo đoạn script <script>window.close();</script> để tự động đóng tab. Sau đó đóng (close) server.
 5. **Exchange Token**: Gọi API bằng https hoặc 
 ode-fetch để đổi Code lấy Access Token / Refresh Token và lưu trữ vào globalState (hoặc SecretStorage).
 
 Đây là một pattern độc lập, an toàn và cực kỳ mượt mà, giúp extension của bạn không phụ thuộc vào các tiện ích mở rộng xác thực bên thứ 3.
+
+---
+
+## 15. ⚡ Kiến Trúc Dữ Liệu — AG = Nguồn Sự Thật, .dat = Cache Tạm
+
+> [!IMPORTANT]
+> Đây là quy tắc cốt lưi của toàn bộ hệ thống QuotaAntigravity. Vi phạm sẽ dẫn đến dữ liệu hiển thị sai.
+
+### 15.1 Luồng dữ liệu chính thức
+
+```
+state.vscdb (Antigravity Account IDE DB — ground truth)
+        ↓  sync_antigravity.py --json
+quota_data.dat  (cache tạm — ghi đè hoàn toàn sau mỗi sync)
+        ↓  loadData() / _load_dat()
+UI (extension WebView hoặc quota_db.py GUI)
+```
+
+### 15.2 Nguyên tắc bất biến
+
+| Nguồn | Vai trò | Được ghi bởi | Được đọc bởi |
+|---|---|---|---|
+| `state.vscdb` | Ground truth — quota %, resetTime, groups | Antigravity Account extension | `sync_antigravity.py` |
+| `quota_data.dat` | Cache tạm — kết quả cũ + track email thiếu | `sync_antigravity.py` | Extension JS / Python GUI |
+| `active_account.txt` | Email đang active trong IDE | `switch_account.py` / extension | Python GUI (status bar) |
+
+**Quy tắc ưu tiên:**
+1. **AG DB luôn thắng** — Sau `sync_antigravity.py`, `.dat` được ghi đè bằng data từ AG. Không bao giờ giữ `.dat` cũ khi AG có data mới hơn.
+2. **`.dat` chỉ có 2 mục đích:**
+   - Hiện kết quả cũ khi đang chờ sync (offline cache)
+   - Detect email nào **không có trong AG** → cảnh báo `lastError = 'Chưa có trong Antigravity Account'`
+3. **Email không trong AG:** Không thể có quota data thực — luôn hiển thị `⚠️` và hướng dẫn thêm vào AG.
+
+### 15.3 Pattern: "Check All" đúng chuẩn
+
+```javascript
+// extension.js — case 'checkAll'
+const syncResult = await runPython(['sync_antigravity.py', dataFilePath, '--json']);
+// syncResult = { status, synced, ag_emails: [...] }
+
+const data = loadData();  // đọc .dat vừa được sync_antigravity.py cập nhật từ AG
+const agEmails = new Set(syncResult.ag_emails || []);
+
+for (const [email, entry] of Object.entries(data)) {
+    if (!agEmails.has(email)) {
+        entry.lastError = 'Chưa có trong Antigravity Account — bấm ➕ Thêm để thêm vào';
+    } else if (entry.lastError?.includes('Antigravity Account')) {
+        delete entry.lastError;  // email đã được thêm vào AG → xóa warning
+    }
+}
+saveData(data);
+```
+
+```python
+# quota_db.py GUI — _on_sync_done()
+def _on_sync_done(self, res):
+    self._ag_emails = set(res.get('ag_emails') or [])
+    self._data = _load_dat(self._dat_path)  # .dat đã được sync_antigravity.py cập nhật từ AG
+
+    for email, entry in self._data.items():
+        if email not in self._ag_emails:
+            entry['lastError'] = 'Chưa có trong Antigravity Account — bấm ➕ Thêm'
+        elif 'Antigravity Account' in entry.get('lastError', ''):
+            del entry['lastError']
+    _save_dat(self._dat_path, self._data)
+    self._render()
+```
+
+### 15.4 Pattern: Hiển thị "Renews ↻ HH:MM" (giống Antigravity Account)
+
+Antigravity Account hiển thị thời gian phục hồi quota bên cạnh đếm ngược.
+Nguồn: `overallResetTime` (timestamp ms epoch) trong `.dat`.
+
+```python
+def _fmt_cd(exh_until, reset_ms=0):
+    """Trả về '2h 30m  ↻ 15:30' hoặc '↻ 31/07 04:00'."""
+    import datetime, time
+    now_ms = time.time() * 1000
+    parts = []
+
+    if exh_until and exh_until > now_ms:
+        rem = exh_until - now_ms
+        parts.append(f'{int(rem//3_600_000)}h {int((rem%3_600_000)//60_000):02d}m')
+
+    rt = reset_ms or exh_until or 0
+    if rt and rt > now_ms:
+        dt = datetime.datetime.fromtimestamp(rt / 1000)
+        fmt = '↻ %H:%M' if dt.date() == datetime.date.today() else '↻ %d/%m %H:%M'
+        renews_str = dt.strftime(fmt)
+        if renews_str not in parts:
+            parts.append(renews_str)
+
+    return '  '.join(parts)
+```
+
+**Trong `_render()`:**
+```python
+reset_ms = info.get('overallResetTime') or 0
+cd = _fmt_cd(exh_until, reset_ms) if (exh_until > now_ms or reset_ms > now_ms) else ''
+```
+
+### 15.5 Pattern: Row màu sắc trong Treeview GUI
+
+```python
+# Thứ tự ưu tiên xác định tag:
+not_in_ag = self._ag_emails and email not in self._ag_emails
+ag_err    = 'Antigravity Account' in last_err
+
+if not_in_ag or ag_err:  tag = 'noag'    # 💜 Chưa trong AG — cần thêm
+elif not gs:              tag = 'nodata'  # ⬛ Chưa sync
+elif not avail:           tag = 'exh'    # 🔴 Tất cả groups hết quota
+elif exh_grps:            tag = 'part'   # 🟡 Một số groups hết
+else:                     tag = 'ok'     # 🟢 Tất cả OK
+```

@@ -64,12 +64,11 @@ class QuotaApp(tk.Tk):
         self.tree.tag_configure('wait', foreground='red')
 
     def choose_path(self):
-        filepath = filedialog.askopenfilename(
-            title="Chọn thư mục chứa File Data (quota_data.dat)",
-            filetypes=[("Data files", "*.dat")]
+        dirpath = filedialog.askdirectory(
+            title="Chọn thư mục lưu File Data (quota_data.dat)"
         )
-        if filepath:
-            self.data_path = filepath
+        if dirpath:
+            self.data_path = os.path.join(dirpath, "quota_data.dat")
             if not os.path.exists(self.data_path):
                 import base64
                 with open(self.data_path, 'w', encoding='utf-8') as f:
@@ -138,20 +137,29 @@ class QuotaApp(tk.Tk):
             exhausted_until = info.get("exhaustedUntil", 0)
             available_groups = info.get("availableGroups", [])
             models_str = ",".join(available_groups).upper() if available_groups else "-"
+            last_err = info.get("lastError", "")
+
+            gemini_percent = 100
+            if "groupStatus" in info and "gemini" in info["groupStatus"]:
+                gemini_percent = info["groupStatus"]["gemini"].get("percent", 100)
+            
+            # Trạng thái chỉ báo %
+            status = f"Gemini: {gemini_percent}%"
+
+            display_email = email
+            if email == active_email:
+                display_email += " (ACTIVE)"
 
             if exhausted_until > now:
-                status = "Hết Quota"
                 remaining_ms = exhausted_until - now
                 hours = remaining_ms // (1000 * 60 * 60)
                 mins = (remaining_ms % (1000 * 60 * 60)) // (1000 * 60)
                 secs = (remaining_ms % (1000 * 60)) // 1000
                 countdown = f"{hours:02d}:{mins:02d}:{secs:02d}"
                 tag = 'wait'
+                if not last_err:
+                    display_email += " [🔴 Hết Quota]"
             else:
-                gemini_percent = 100
-                if "groupStatus" in info and "gemini" in info["groupStatus"]:
-                    gemini_percent = info["groupStatus"]["gemini"].get("percent", 100)
-                status = f"Sẵn sàng ({gemini_percent}%)"
                 overall_reset = info.get("overallResetTime", 0)
                 if overall_reset > now:
                     remaining_ms = overall_reset - now
@@ -164,9 +172,10 @@ class QuotaApp(tk.Tk):
                 tag = 'ready'
                 models_str = "ALL"
             
-            display_email = email
-            if email == active_email:
-                display_email += " (ACTIVE)"
+            # Hiện lỗi cạnh email
+            if last_err:
+                display_email += f" [⚠️ {last_err}]"
+                tag = 'wait'
                 
             self.tree.insert("", tk.END, values=(display_email, status, countdown, models_str), tags=(tag,))
 

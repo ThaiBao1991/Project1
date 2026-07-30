@@ -395,7 +395,8 @@ def sync_quota_data(quota_json_path, email_filter=None):
         'message': ' '.join(msg_parts),
         'synced': synced_count,
         'skipped': skipped_count,
-        'accounts': account_summaries
+        'accounts': account_summaries,
+        'ag_emails': list(all_accounts.keys()),  # danh sách email THỰC SỰ từ Antigravity Account DB
     }
 
 
@@ -414,20 +415,25 @@ if __name__ == '__main__':
                         help='Path to quota_data.dat file')
     parser.add_argument('--email', default=None,
                         help='Only sync this specific email (case-insensitive)')
+    parser.add_argument('--json', action='store_true',
+                        help='Output JSON result instead of human-readable text')
     args = parser.parse_args()
-
-    print(f'[sync] Target: {args.data_path}')
-    print(f'[sync] Email filter: {args.email or "ALL"}')
-    print(f'[sync] DB found: {db_available()}')
 
     res = sync_quota_data(args.data_path, email_filter=args.email)
 
-    print(f'[sync] Status : {res["status"]}')
-    print(f'[sync] Synced : {res["synced"]} | Skipped: {res.get("skipped", 0)}')
-    print(f'[sync] Message: {res["message"]}')
-    if res.get('accounts'):
-        print('[sync] Detail:')
-        for a in res['accounts']:
-            ok = ','.join(a['availableGroups']) or 'NONE'
-            ex = ','.join(a['exhaustedGroups']) or 'NONE'
-            print(f'  {a["email"]}: OK=[{ok}] EX=[{ex}]')
+    if args.json:
+        # Output JSON từ chương trình để extension.js có thể parse
+        print(json.dumps(res, ensure_ascii=False))
+    else:
+        print(f'[sync] Target: {args.data_path}')
+        print(f'[sync] Email filter: {args.email or "ALL"}')
+        print(f'[sync] DB found: {db_available()}')
+        print(f'[sync] Status : {res["status"]}')
+        print(f'[sync] Synced : {res["synced"]} | Skipped: {res.get("skipped", 0)}')
+        print(f'[sync] Message: {res["message"]}')
+        if res.get('accounts'):
+            print('[sync] Detail:')
+            for a in res['accounts']:
+                ok = ','.join(a['availableGroups']) or 'NONE'
+                ex = ','.join(a['exhaustedGroups']) or 'NONE'
+                print(f'  {a["email"]}: OK=[{ok}] EX=[{ex}]')

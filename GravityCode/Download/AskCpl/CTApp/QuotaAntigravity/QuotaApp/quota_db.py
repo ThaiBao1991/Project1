@@ -203,31 +203,434 @@ def merge_and_sync(dat_data: dict, db_path: str) -> dict:
     return merged
 
 
-# --- CLI (test) ---
+# ════════════════════════════════════════════════════════════════════════════
+#  GUI — chạy trực tiếp: python quota_db.py
+# ════════════════════════════════════════════════════════════════════════════
 if __name__ == '__main__':
     import sys
-    if len(sys.argv) < 2:
-        print('Usage: python quota_db.py <quota_data.dat>')
-        sys.exit(1)
+    import time
+    import json
+    import threading
+    import subprocess
+    import tkinter as tk
+    from tkinter import ttk, filedialog, messagebox
 
-    dat_path = sys.argv[1]
-    db_path  = get_db_path(dat_path)
-    print(f'DB path: {db_path}')
+    # ── Màu sắc (dark theme) ──────────────────────────────────────────────
+    BG      = '#13131f'
+    BG2     = '#1a1a2e'
+    BG3     = '#20203a'
+    CARD    = '#1e1e35'
+    ACCENT  = '#7c6eff'
+    GREEN   = '#50fa7b'
+    RED     = '#ff5555'
+    YELLOW  = '#ffb86c'
+    PINK    = '#ff79c6'
+    TEXT    = '#e2e8f0'
+    SUBTEXT = '#7f8eaa'
+    BORDER  = '#2d2d4a'
 
-    # Read existing dat
-    if os.path.exists(dat_path):
-        import base64 as b64
-        raw = open(dat_path, encoding='utf-8').read().strip()
-        if raw:
-            dat_data = json.loads(b64.b64decode(raw).decode('utf-8'))
-        else:
-            dat_data = {}
-    else:
-        dat_data = {}
+    # ── Helpers dữ liệu ──────────────────────────────────────────────────
+    SCRIPT_DIR = Path(__file__).parent
 
-    merged = merge_and_sync(dat_data, db_path)
-    print(f'Merged {len(merged)} accounts into DB.')
-    for email, info in merged.items():
-        avail = ','.join(info.get('availableGroups') or []) or 'NONE'
-        exh   = ','.join(info.get('exhaustedGroups') or []) or 'NONE'
-        print(f'  {email}: OK=[{avail}] EX=[{exh}]')
+    def _cfg_path():
+        return SCRIPT_DIR / 'quota_db_gui.json'
+
+    def _find_dat():
+        cfg = _cfg_path()
+        if cfg.exists():
+            try:
+                c = json.loads(cfg.read_text('utf-8'))
+                p = c.get('dat_path', '')
+                if p and os.path.exists(p):
+                    return p
+            except Exception:
+                pass
+        # Fallback: thư mục cha
+        p = SCRIPT_DIR.parent / 'quota_data.dat'
+        return str(p) if p.exists() else None
+
+    def _save_cfg(dat_path):
+        _cfg_path().write_text(json.dumps({'dat_path': dat_path}, ensure_ascii=False), 'utf-8')
+
+    def _load_dat(dat_path):
+        if not dat_path or not os.path.exists(dat_path):
+            return {}
+        try:
+            raw = open(dat_path, 'r', encoding='utf-8').read().strip()
+            if not raw:
+                return {}
+            return json.loads(base64.b64decode(raw).decode('utf-8'))
+        except Exception:
+            return {}
+
+    def _save_dat(dat_path, data):
+        raw = base64.b64encode(json.dumps(data, ensure_ascii=False).encode('utf-8')).decode('ascii')
+        open(dat_path, 'w', encoding='utf-8').write(raw)
+
+    def _find_sync_script():
+        up = os.environ.get('USERPROFILE', os.environ.get('HOME', ''))
+        candidates = [
+            SCRIPT_DIR / 'sync_antigravity.py',
+            Path(up) / 'Desktop' / 'desktop' / 'work' / 'Project' / 'Python' /
+                'BasicLearnPython' / 'W3schools' / 'Python Tutorial' / 'GravityCode' /
+                'Download' / 'AskCpl' / 'CTApp' / 'QuotaAntigravity' / 'QuotaApp' / 'sync_antigravity.py',
+            Path(up) / 'Desktop' / 'Project' / 'Python' / 'Python MyWork' /
+                'Project1' / 'GravityCode' / 'Download' / 'AskCpl' / 'CTApp' /
+                'QuotaAntigravity' / 'QuotaApp' / 'sync_antigravity.py',
+        ]
+        for c in candidates:
+            if Path(c).exists():
+                return str(c)
+        return None
+
+    def _fmt_cd(exh_until, reset_ms=0):
+        """Tr\u1ea3 v\u1ec1 chu\u1ed7i \u0111\u1ebfm ng\u01b0\u1ee3c + th\u1eddi \u0111i\u1ec3m Renews (gi\u1ed1ng Antigravity Account)."""
+        now_ms = time.time() * 1000
+        parts = []
+
+        # Ph\u1ea7n \u0111\u1ebfm ng\u01b0\u1ee3c
+        if exh_until and exh_until > now_ms:
+            rem = exh_until - now_ms
+            h = int(rem // 3_600_000)
+            m = int((rem % 3_600_000) // 60_000)
+            parts.append(f'{h}h {m:02d}m')
+
+        # Ph\u1ea7n Renews at (t\u1eeb overallResetTime)
+        rt = reset_ms or exh_until or 0
+        if rt and rt > now_ms:
+            import datetime
+            dt = datetime.datetime.fromtimestamp(rt / 1000)
+            renews_str = dt.strftime('\u21bb %H:%M')
+            # N\u1ebfu kh\u00e1c ng\u00e0y th\u00ec th\u00eam ng\u00e0y
+            if dt.date() != datetime.date.today():
+                renews_str = dt.strftime('\u21bb %d/%m %H:%M')
+            if renews_str not in parts:  # tr\u00e1nh tr\u00f9ng l\u1eb7p n\u1ebfu \u0111\u00e3 c\u00f3
+                parts.append(renews_str)
+
+        return '  '.join(parts)
+
+    # ── App chính ─────────────────────────────────────────────────────────
+    class QuotaDBApp(tk.Tk):
+        def __init__(self):
+            super().__init__()
+            self.title('⚡ Quota Tracker — Antigravity Account Manager')
+            self.geometry('980x580')
+            self.configure(bg=BG)
+            self.minsize(720, 420)
+
+            self._dat_path   = _find_dat()
+            self._data       = {}
+            self._ag_emails  = set()
+            self._status_var = tk.StringVar(value='Sẵn sàng')
+            self._sort_col   = 'email'
+            self._sort_rev   = False
+
+            self._build_ui()
+            self._refresh()
+            self._auto_poll()
+
+        # ── Xây dựng giao diện ──────────────────────────────────────────
+        def _build_ui(self):
+            # Header
+            hdr = tk.Frame(self, bg=BG2, height=54)
+            hdr.pack(fill=tk.X)
+            hdr.pack_propagate(False)
+            tk.Label(hdr, text='⚡  Quota Tracker',
+                     font=('Segoe UI', 15, 'bold'), bg=BG2, fg=ACCENT
+                     ).pack(side=tk.LEFT, padx=16, pady=10)
+            self._path_lbl = tk.Label(hdr, text=self._short_path(),
+                                       font=('Segoe UI', 9), bg=BG2, fg=SUBTEXT)
+            self._path_lbl.pack(side=tk.LEFT, padx=6)
+
+            # Toolbar
+            tb = tk.Frame(self, bg=BG3, height=46)
+            tb.pack(fill=tk.X)
+            tb.pack_propagate(False)
+
+            def _btn(parent, text, cmd, bg=BG3, fg=TEXT, abg=ACCENT):
+                b = tk.Button(parent, text=text, command=cmd, bg=bg, fg=fg,
+                              font=('Segoe UI', 9, 'bold'), relief=tk.FLAT,
+                              bd=0, padx=14, pady=7, activebackground=abg,
+                              activeforeground='#fff', cursor='hand2')
+                b.pack(side=tk.LEFT, padx=4, pady=6)
+                return b
+
+            _btn(tb, '➕  Thêm (qua Antigravity Account)', self._add, ACCENT, '#fff', '#6350ff')
+            _btn(tb, '✓  Check All (Sync từ AG)',          self._check_all, '#1a4731', GREEN, '#2d7a55')
+            _btn(tb, '📁  Chọn Data',                      self._choose_dat)
+            _btn(tb, '🔄  Làm mới',                        self._refresh)
+
+            self._del_btn = tk.Button(tb, text='🗑️  Xóa', command=self._delete_sel,
+                                       bg='#3a1111', fg=RED, font=('Segoe UI', 9, 'bold'),
+                                       relief=tk.FLAT, bd=0, padx=14, pady=7,
+                                       activebackground='#5c1a1a', cursor='hand2')
+            self._del_btn.pack(side=tk.RIGHT, padx=10, pady=6)
+
+            # Bảng tài khoản
+            wrap = tk.Frame(self, bg=BG)
+            wrap.pack(fill=tk.BOTH, expand=True, padx=12, pady=(10, 0))
+
+            style = ttk.Style()
+            style.theme_use('clam')
+            style.configure('Q.Treeview',
+                            background=CARD, foreground=TEXT,
+                            fieldbackground=CARD, rowheight=34,
+                            font=('Segoe UI', 10))
+            style.configure('Q.Treeview.Heading',
+                            background=BG3, foreground=ACCENT,
+                            font=('Segoe UI', 9, 'bold'), relief='flat')
+            style.map('Q.Treeview',
+                      background=[('selected', ACCENT)],
+                      foreground=[('selected', '#fff')])
+
+            cols = ('email', 'status', 'groups', 'cd', 'note')
+            self._tv = ttk.Treeview(wrap, columns=cols, show='headings',
+                                     style='Q.Treeview', selectmode='browse')
+            hdrs = [('email',  'Email',         260, tk.W),
+                    ('status', 'Trạng thái %',  130, tk.CENTER),
+                    ('groups', 'Groups OK',      150, tk.CENTER),
+                    ('cd',     'Đếm ngược',      100, tk.CENTER),
+                    ('note',   'Ghi chú',        220, tk.W)]
+            for col, lbl, w, anc in hdrs:
+                self._tv.heading(col, text=lbl,
+                                 command=lambda c=col: self._sort_by(c))
+                self._tv.column(col, width=w, anchor=anc,
+                                stretch=(col == 'note'))
+
+            # Row tags
+            self._tv.tag_configure('ok',    background='#142b14', foreground=GREEN)
+            self._tv.tag_configure('exh',   background='#2b1414', foreground=RED)
+            self._tv.tag_configure('part',  background='#2b2010', foreground=YELLOW)
+            self._tv.tag_configure('noag',  background='#2b1428', foreground=PINK)
+            self._tv.tag_configure('nodata',background=CARD,       foreground=SUBTEXT)
+
+            sb = ttk.Scrollbar(wrap, orient=tk.VERTICAL, command=self._tv.yview)
+            self._tv.configure(yscrollcommand=sb.set)
+            self._tv.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+            sb.pack(side=tk.RIGHT, fill=tk.Y)
+
+            # Status bar
+            sf = tk.Frame(self, bg=BG2, height=32)
+            sf.pack(fill=tk.X, side=tk.BOTTOM)
+            sf.pack_propagate(False)
+            tk.Label(sf, textvariable=self._status_var,
+                     font=('Segoe UI', 9), bg=BG2, fg=SUBTEXT
+                     ).pack(side=tk.LEFT, padx=12, pady=6)
+            self._count_lbl = tk.Label(sf, text='',
+                                        font=('Segoe UI', 9), bg=BG2, fg=SUBTEXT)
+            self._count_lbl.pack(side=tk.RIGHT, padx=12, pady=6)
+
+        def _short_path(self):
+            if self._dat_path:
+                p = Path(self._dat_path)
+                return f'📂 …\\{p.parent.name}\\{p.name}'
+            return '📂 Chưa chọn file Data'
+
+        # ── Render bảng ─────────────────────────────────────────────────
+        def _refresh(self):
+            self._data = _load_dat(self._dat_path)
+            self._render()
+
+        def _render(self):
+            for r in self._tv.get_children():
+                self._tv.delete(r)
+
+            now_ms = time.time() * 1000
+            rows = []
+            for email, info in self._data.items():
+                gs        = info.get('groupStatus') or {}
+                avail     = info.get('availableGroups') or []
+                exh_grps  = info.get('exhaustedGroups') or []
+                last_err  = info.get('lastError', '')
+                exh_until = info.get('exhaustedUntil') or 0
+
+                # Cột Trạng thái %
+                gem_pct = gs.get('gemini', {}).get('percent')
+                cld_pct = gs.get('claude', {}).get('percent')
+                if gem_pct is not None:
+                    status = f'Gemini: {gem_pct}%'
+                    if cld_pct is not None:
+                        status += f'  Claude: {cld_pct}%'
+                else:
+                    status = '— —' if gs else 'Chưa có data'
+
+                # Cột Groups OK
+                if avail:
+                    groups = ' ✓ '.join(g.capitalize() for g in avail)
+                    if exh_grps:
+                        groups += '  🔴 ' + ', '.join(g.capitalize() for g in exh_grps)
+                else:
+                    groups = '🔴 Tất cả hết' if gs else '—'
+
+                # C\u1ed9t \u0110\u1ebfm ng\u01b0\u1ee3c + Renews (gi\u1ed1ng Antigravity Account)
+                reset_ms = info.get('overallResetTime') or 0
+                cd = _fmt_cd(exh_until, reset_ms) if (exh_until > now_ms or reset_ms > now_ms) else ''
+                note = last_err[:60] + ('…' if len(last_err) > 60 else '') if last_err else ''
+
+                # Tag màu
+                not_in_ag = self._ag_emails and email not in self._ag_emails
+                ag_err    = 'Antigravity Account' in last_err
+                if not_in_ag or ag_err:
+                    tag = 'noag'
+                elif not gs:
+                    tag = 'nodata'
+                elif not avail:
+                    tag = 'exh'
+                elif exh_grps:
+                    tag = 'part'
+                else:
+                    tag = 'ok'
+
+                rows.append((email, status, groups, cd, note, tag))
+
+            # Sort
+            idx = {'email': 0, 'status': 1, 'groups': 2, 'cd': 3, 'note': 4}.get(
+                self._sort_col, 0)
+            rows.sort(key=lambda r: (r[idx] or '').lower(), reverse=self._sort_rev)
+
+            for r in rows:
+                self._tv.insert('', tk.END, values=r[:5], tags=(r[5],))
+
+            total = len(rows)
+            ok_n   = sum(1 for r in rows if r[5] == 'ok')
+            exh_n  = sum(1 for r in rows if r[5] == 'exh')
+            noag_n = sum(1 for r in rows if r[5] == 'noag')
+            self._count_lbl.config(
+                text=f'Tổng: {total}  |  ✅ OK: {ok_n}  |  🔴 Hết: {exh_n}  |  ⚠️ Chưa trong AG: {noag_n}')
+
+        def _sort_by(self, col):
+            self._sort_rev = (not self._sort_rev) if self._sort_col == col else False
+            self._sort_col = col
+            self._render()
+
+        # ── Hành động ────────────────────────────────────────────────────
+        def _choose_dat(self):
+            d = filedialog.askdirectory(title='Chọn thư mục chứa quota_data.dat')
+            if not d:
+                return
+            p = os.path.join(d, 'quota_data.dat')
+            if not os.path.exists(p):
+                raw = base64.b64encode(b'{}').decode('ascii')
+                open(p, 'w', encoding='utf-8').write(raw)
+            self._dat_path = p
+            _save_cfg(p)
+            self._path_lbl.config(text=self._short_path())
+            self._refresh()
+
+        def _add(self):
+            """Mở Antigravity Account để thêm tài khoản rồi auto-sync."""
+            launched = False
+            for exe in ['antigravity-ide', 'antigravity-ide.exe', 'antigravity']:
+                try:
+                    subprocess.Popen(
+                        [exe, '--command', 'antigravity-account.addAccount'],
+                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                    launched = True
+                    break
+                except (FileNotFoundError, OSError):
+                    continue
+
+            if launched:
+                self._status_var.set('🔐 Đã mở Antigravity Account — Đang chờ đăng nhập (auto-sync sau 8s)…')
+                self.after(8000, self._check_all)
+            else:
+                messagebox.showinfo(
+                    '➕ Thêm tài khoản qua Antigravity Account',
+                    'Để thêm tài khoản:\n\n'
+                    '  1. Mở Antigravity IDE\n'
+                    '  2. Mở panel Quota Tracker hoặc Antigravity Account\n'
+                    '  3. Bấm ➕ Đăng nhập / Thêm để đăng nhập Google\n'
+                    '  4. Quay lại đây bấm  ✓ Check All  để đồng bộ\n\n'
+                    'Lý do: Antigravity Account dùng đúng OAuth của IDE,\n'
+                    'nên không bao giờ bị lỗi 403 khi thêm tài khoản mới.'
+                )
+
+        def _check_all(self):
+            if not self._dat_path:
+                messagebox.showwarning('Chưa chọn Data', 'Vui lòng bấm 📁 Chọn Data trước.')
+                return
+            script = _find_sync_script()
+            if not script:
+                messagebox.showerror('Không tìm thấy script',
+                                     'Không tìm thấy sync_antigravity.py.\n'
+                                     'Đảm bảo file tồn tại trong thư mục QuotaApp.')
+                return
+
+            self._status_var.set('⏳ Đang đồng bộ từ Antigravity Account…')
+            self.update_idletasks()
+
+            def _run():
+                try:
+                    r = subprocess.run(
+                        [sys.executable, script, self._dat_path, '--json'],
+                        capture_output=True, text=True, timeout=25,
+                        encoding='utf-8', errors='replace')
+                    try:
+                        res = json.loads(r.stdout.strip())
+                    except Exception:
+                        res = {'status': 'error',
+                               'message': r.stdout or r.stderr,
+                               'ag_emails': [], 'synced': 0}
+                    self.after(0, lambda: self._on_sync_done(res))
+                except subprocess.TimeoutExpired:
+                    self.after(0, lambda: self._status_var.set('❌ Timeout — sync quá 25 giây'))
+                except Exception as exc:
+                    self.after(0, lambda: self._status_var.set(f'❌ Lỗi: {exc}'))
+
+            threading.Thread(target=_run, daemon=True).start()
+
+        def _on_sync_done(self, res):
+            ag = res.get('ag_emails') or []
+            self._ag_emails = set(ag)
+            synced = res.get('synced', 0)
+
+            # Đánh dấu email không có trong Antigravity Account
+            self._data = _load_dat(self._dat_path)
+            changed = False
+            not_in_ag = 0
+            for email, entry in self._data.items():
+                if email not in self._ag_emails:
+                    note = 'Chưa có trong Antigravity Account — bấm ➕ Thêm để thêm vào'
+                    if entry.get('lastError') != note:
+                        entry['lastError'] = note
+                        changed = True
+                    not_in_ag += 1
+                else:
+                    # Email có trong AG → xóa TOÀN BỘ lastError cũ
+                    # (kể cả lỗi API, Token hết hạn, Không có token — AG đã xác nhận email hợp lệ)
+                    if entry.get('lastError'):
+                        del entry['lastError']
+                        changed = True
+            if changed:
+                _save_dat(self._dat_path, self._data)
+
+            self._render()
+
+            if res.get('status') == 'error':
+                msg = f'❌ {res.get("message", "Lỗi đồng bộ")}'
+            elif synced == 0 and not ag:
+                msg = '⚠️ Không tìm thấy tài khoản nào trong Antigravity Account. Hãy Thêm trước.'
+            else:
+                msg = f'✅ Đồng bộ {synced} tài khoản từ Antigravity Account'
+                if not_in_ag:
+                    msg += f'  |  ⚠️ {not_in_ag} chưa có trong AG'
+            self._status_var.set(msg)
+
+        def _delete_sel(self):
+            sel = self._tv.selection()
+            if not sel:
+                return
+            email = self._tv.item(sel[0])['values'][0]
+            if not messagebox.askyesno('Xác nhận', f'Xóa "{email}" khỏi Quota Tracker?'):
+                return
+            self._data.pop(email, None)
+            _save_dat(self._dat_path, self._data)
+            self._render()
+            self._status_var.set(f'🗑️ Đã xóa {email}')
+
+        def _auto_poll(self):
+            self._refresh()
+            self.after(30_000, self._auto_poll)
+
+    QuotaDBApp().mainloop()
+

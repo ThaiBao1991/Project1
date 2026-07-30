@@ -217,10 +217,17 @@ function saveData(data) {
 // --- Script path finder helper ---
 function findScriptPath(name) {
     const base = dataFilePath ? path.dirname(dataFilePath) : '';
+    const userProfile = process.env.USERPROFILE || process.env.HOME || '';
     const candidates = [
-        path.join(process.env.USERPROFILE || '', 'Desktop', 'Project', 'Python', 'Python MyWork',
+        // Đường dẫn thực tế của máy này
+        path.join(userProfile, 'Desktop', 'desktop', 'work', 'Project', 'Python',
+            'BasicLearnPython', 'W3schools', 'Python Tutorial', 'GravityCode',
+            'Download', 'AskCpl', 'CTApp', 'QuotaAntigravity', 'QuotaApp', name),
+        // Đường dẫn cũ (fallback cho máy khác)
+        path.join(userProfile, 'Desktop', 'Project', 'Python', 'Python MyWork',
             'Project1', 'GravityCode', 'Download', 'AskCpl',
             'CTApp', 'QuotaAntigravity', 'QuotaApp', name),
+        // Tìm tương đối từ dataFilePath
         base ? path.join(base, name) : '',
         base ? path.join(base, '..', 'QuotaApp', name) : '',
     ].filter(Boolean);

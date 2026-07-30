@@ -157,3 +157,86 @@ Mở IDE → Reload → **Tất cả tài khoản, tokens, balances sẵn sàng.
 - ✅ Auto-refresh token — không bao giờ hết hạn.
 - ✅ Secrets obfuscated — push GitHub an toàn.
 - ✅ Logic hiển thị Key Model (Sonnet, Gemini 3.1 Pro High) — không bị nhiễu từ models phụ.
+
+### Ngày 30/07/2026 — Sửa lỗi giao diện và Xử lý Lỗi API Token
+- ✅ **Sửa luồng xử lý API (`oauth.js`)**: Bọc try-catch cho API `loadCodeAssist` để ngăn không cho lỗi chặn luồng fallback sang API `fetchAvailableModels`. Đồng thời ném lỗi ra ngoài thay vì trả về list rỗng nếu cả 2 API đều thất bại (giúp báo lỗi chuẩn xác 401/403 thay vì bị ngộ nhận là Token hết hạn).
+- ✅ **Cải tiến giao diện Extension (`extension.js`)**:
+  - Dòng trạng thái (Status) luôn hiển thị số `%` sử dụng cho dù có lỗi hay hết quota (vd: `Gemini: 0%`).
+  - Lỗi API hoặc thông báo `Hết quota` được chuyển xuống dòng dưới cùng cột tên Email, giúp UI gọn gàng và không bị ẩn phần trăm quota.
+  - Sửa nút Chọn Data (`setDataPath`) sang chế độ `askdirectory` để chọn thư mục lưu thay vì chọn file cụ thể.
+- ✅ **Cập nhật Python GUI (`quota_app.py`)**:
+  - `Trạng thái` luôn hiện `Gemini: X%`.
+  - Nếu có lỗi/hết quota, thông báo sẽ được append thẳng vào tên email (vd: `email@gmail.com [⚠️ Lỗi API...]`).
+  - Đổi hộp thoại chọn đường dẫn thành chọn thư mục (`askdirectory`).
+
+### Ngày 30/07/2026 — Fix lỗi 403 khi thêm tài khoản mới (bắt chước Antigravity Account)
+- **Vấn đề:** Khi bấm ➕ Thêm tài khoản mới, extension báo đỏ "Lỗi API: HTTP 403 PERMISSION_DENIED" dù đăng nhập OAuth thành công.
+- **Nguyên nhân gốc rễ:** API `loadCodeAssist` trả về 403 khi tài khoản chưa Accept ToS (tài khoản mới hoàn toàn bình thường). Code cũ `throw error` → bắt ở handler → ghi `lastError` đỏ vào UI.
+- **Phân tích từ Antigravity Account (chính chủ):** Họ dùng pattern `tryLoadCodeAssist()` — nếu 403/400 thì return `{ineligible: true}` thay vì throw. Handler ghi "Account added, but fetching balance failed. Will retry later." — không có đỏ lỗi.
+- **Fix áp dụng (oauth.js + extension.js):**
+  - `oauth.js` — `fetchBalances()` 3 bước: Primary (`daily-cloudcode-pa`) → Fallback (`cloudcode-pa`) → Last resort (`fetchAvailableModels`). Nếu 403/400 ở cả 2 bước đầu → return `{ineligible: true}` thay vì throw.
+  - `extension.js` — `addAccount`, `checkOne`, `checkAll` đều kiểm tra `balances.ineligible`:
+    - `true` → xóa `lastError`, hiện warning nhẹ "Quota chưa khả dụng (chưa Accept ToS). Sẽ tự cập nhật." — không ghi đỏ lỗi.
+    - Có data → cập nhật bình thường.
+    - Lỗi thật (5xx, network) → vẫn ghi `lastError` như cũ.
+- ✅ Tài khoản mới thêm vào sẽ không bao giờ hiện đỏ "Lỗi API 403" nữa.
+
+### Ngày 30/07/2026 — Refactor addAccount & checkAll (bắt chước hoàn toàn Antigravity Account)
+- **Vấn đề gốc rễ:** CLIENT_ID của cả 2 extension giống nhau. Nhưng Antigravity Account không 403 vì họ đã có session tồn tại, còn OAuth flow của mình là fresh session chưa kích hoạt.
+- **Giải pháp:**
+  1. **addAccount** → **Ủy quyền cho `antigravity-account.addAccount`** (không tự làm OAuth nữa). Sau khi user đăng nhập xong (2s delay), auto-sync từ state.vscdb. Không bao giờ 403 vì Antigravity Account xử lý hoàn toàn.
+  2. **checkAll** → **Đổi thành "Sync từ Antigravity Account"**:
+     - Gọi `sync_antigravity.py --json` để lấy structured JSON gồm `ag_emails` (danh sách email thực sự trong Antigravity Account)
+     - So sánh với .dat: email nào không có trong AG → ghi `lastError = 'Chưa có trong Antigravity Account — bấm ➕ Thêm'`
+     - Email đã có trong AG → xóa lastError cũ nếu do thiếu AG
+- **sync_antigravity.py** — Thêm field `ag_emails` vào return dict + `--json` flag để xuất JSON thay vì text.
+- ✅ Luồng hoàn toàn sạch: Thêm → Antigravity Account xử lý OAuth → Sync về. Không còn 403.
+
+### Ngày 30/07/2026 — Thêm GUI vào quota_db.py
+- **Tính năng:** `quota_db.py` khi chạy trực tiếp (`python quota_db.py`) bây giờ mở cửa sổ Tkinter dark-theme thay vì CLI.
+- **Giao diện:**
+  - Header + toolbar với: ➕ Thêm, ✓ Check All (Sync từ AG), 📁 Chọn Data, 🔄 Làm mới, 🗑️ Xóa
+  - Bảng 5 cột: Email | Trạng thái % | Groups OK | Đếm ngược | Ghi chú
+  - Status bar: Tổng | ✅ OK | 🔴 Hết | ⚠️ Chưa trong AG
+  - Auto-refresh 30 giây
+  - Sort theo từng cột khi click header
+- **Màu sắc (row tag):** 🟢 OK | 🔴 Hết | 🟡 Partial | 💜 Chưa trong AG | ⬛ Chưa có data
+- **➕ Thêm:** Thử mở Antigravity IDE CLI → auto-sync sau 8s; nếu không tìm thấy IDE → hiện hướng dẫn
+- **✓ Check All:** Chạy `sync_antigravity.py --json` trong background thread → parse `ag_emails` → đánh dấu email chưa trong AG
+- **Config path:** Lưu vào `quota_db_gui.json` trong cùng thư mục script
+
+### Ngày 30/07/2026 — Thêm "Renews ↻ HH:MM" vào cột đếm ngược
+- Cột **Đếm ngược** hiện thêm thời gian phục hồi giống Antigravity Account:
+  - Trước: `2h 30m`
+  - Sau: `2h 30m  ↻ 15:30` (cùng ngày) / `2h 30m  ↻ 31/07 04:00` (khác ngày)
+- Nguồn: `overallResetTime` (ms epoch) từ `.dat`; fallback về `exhaustedUntil`.
+
+---
+
+## ⚡ Kiến Trúc Dữ Liệu — Quy Tắc Ưu Tiên (QUAN TRỌNG)
+
+```
+state.vscdb (Antigravity Account IDE DB)
+        ↓  [sync_antigravity.py --json]
+quota_data.dat  (cache tạm — bị ghi đè hoàn toàn từ AG sau mỗi sync)
+        ↓  [loadData()]
+UI (extension WebView / quota_db.py GUI)
+```
+
+### Nguyên tắc bất biến:
+1. **AG DB = nguồn sự thật.** Quota %, reset time, group status đều lấy từ `state.vscdb`.
+2. **`.dat` = cache tạm.** Chỉ dùng để:
+   - Hiện kết quả cũ khi chờ sync
+   - Detect email **chưa có trong AG** → cảnh báo "bấm ➕ Thêm"
+3. **Sau sync:** `.dat` được `sync_antigravity.py` ghi đè bằng data từ AG → UI đọc `.dat` = đọc kết quả AG.
+4. **Email trong `.dat` nhưng không trong AG:** Ghi `lastError = 'Chưa có trong Antigravity Account'`.
+5. **Ưu tiên AG:** Khi AG có data mới hơn, luôn dùng data AG — không giữ lại `.dat` cũ.
+
+### Flow "Check All":
+```
+Bấm ✓ Check All
+  → sync_antigravity.py --json  (đọc state.vscdb → ghi .dat)
+  → parse { ag_emails, synced, ... }
+  → loadData()  (đọc .dat vừa cập nhật từ AG)
+  → render: email trong AG = show data AG | email thiếu = ⚠️
+```
