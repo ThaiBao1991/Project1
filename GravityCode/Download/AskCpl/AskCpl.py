@@ -137,22 +137,65 @@ class AskCplApp:
         self.ai_roadmap_domain_var = tk.StringVar()
         tk.Entry(f_input, textvariable=self.ai_roadmap_domain_var, font=("Arial", 10)).pack(side='left', fill='x', expand=True, padx=10)
         
-        tk.Button(f_input, text="1. Phân tích Khung (Skeleton)", bg="#8e44ad", fg="white", font=("Arial", 10, "bold"),
+        tk.Button(f_input, text="1. Lên Dàn ý Lõi (Core)", bg="#8e44ad", fg="white", font=("Arial", 10, "bold"),
                   command=lambda: self.roadmap_gen_step1()).pack(side='right')
 
-        # Region 1.5: Reference File
-        f_ref = tk.Frame(self.sub_tab_roadmap_gen)
-        f_ref.pack(fill='x', padx=10, pady=5)
-        tk.Label(f_ref, text="File tham khảo:", width=15, anchor='w').pack(side='left')
-        self.ai_roadmap_ref_var = tk.StringVar()
-        tk.Entry(f_ref, textvariable=self.ai_roadmap_ref_var, state='readonly').pack(side='left', fill='x', expand=True, padx=10)
+        # Region 1.2: Context
+        f_context = tk.Frame(self.sub_tab_roadmap_gen)
+        f_context.pack(fill='x', padx=10, pady=5)
+        tk.Label(f_context, text="Yêu cầu bổ sung / Tiêu chuẩn:", font=("Arial", 9), width=25, anchor='nw').pack(side='left', anchor='n')
+        self.ai_roadmap_context_text = scrolledtext.ScrolledText(f_context, height=3, font=("Arial", 9))
+        self.ai_roadmap_context_text.pack(side='left', fill='x', expand=True, padx=10)
+
+        # Region 1.3: Scale (Time & Days)
+        f_scale = tk.Frame(self.sub_tab_roadmap_gen)
+        f_scale.pack(fill='x', padx=10, pady=5)
+        tk.Label(f_scale, text="Thời lượng học/ngày:", width=20, anchor='w').pack(side='left')
+        self.ai_roadmap_time_var = tk.StringVar(value="2 tiếng")
+        tk.Entry(f_scale, textvariable=self.ai_roadmap_time_var, width=15).pack(side='left', padx=5)
         
-        def select_ref_file():
-            from tkinter import filedialog
-            f = filedialog.askopenfilename(filetypes=[("Roadmap/JSON", "*.md *.json"), ("All Files", "*.*")])
-            if f: self.ai_roadmap_ref_var.set(f)
+        tk.Label(f_scale, text="Tổng số ngày mong muốn:", width=20, anchor='w').pack(side='left', padx=(10,0))
+        self.ai_roadmap_days_var = tk.StringVar(value="Auto")
+        cb_days = ttk.Combobox(f_scale, textvariable=self.ai_roadmap_days_var, values=["Auto", "30", "60", "100", "150"], width=10)
+        cb_days.pack(side='left', padx=5)
+
+        # Region 1.5: Reference Files
+        self.f_refs_container = tk.Frame(self.sub_tab_roadmap_gen)
+        self.f_refs_container.pack(fill='x', padx=10, pady=5)
+        
+        self.ref_file_vars = []
+        
+        def add_ref_file(default_val=""):
+            if len(self.ref_file_vars) >= 5: return
+            f_row = tk.Frame(self.f_refs_container)
+            f_row.pack(fill='x', pady=2)
+            tk.Label(f_row, text=f"File tham khảo {len(self.ref_file_vars)+1}:", width=15, anchor='w').pack(side='left')
+            var = tk.StringVar(value=default_val)
+            self.ref_file_vars.append(var)
+            tk.Entry(f_row, textvariable=var, state='readonly').pack(side='left', fill='x', expand=True, padx=5)
             
-        tk.Button(f_ref, text="Chọn File (.md/.json)", command=select_ref_file).pack(side='right')
+            def select_file():
+                from tkinter import filedialog
+                f = filedialog.askopenfilename(filetypes=[("Roadmap/JSON", "*.md *.json"), ("All Files", "*.*")])
+                if f: var.set(f)
+            tk.Button(f_row, text="Chọn", command=select_file).pack(side='left', padx=2)
+            
+            def remove_file():
+                if len(self.ref_file_vars) > 1:
+                    self.ref_file_vars.remove(var)
+                    f_row.destroy()
+                    # Cập nhật lại label
+                    for i, child in enumerate(self.f_refs_container.winfo_children()):
+                        if i > 0: # Bỏ qua header
+                            child.winfo_children()[0].config(text=f"File tham khảo {i}:")
+            tk.Button(f_row, text="[-]", command=remove_file, fg="red").pack(side='left')
+            
+        f_ref_header = tk.Frame(self.f_refs_container)
+        f_ref_header.pack(fill='x')
+        tk.Label(f_ref_header, text="Các File Tham Khảo (Max 5):", font=("Arial", 9, "bold")).pack(side='left')
+        tk.Button(f_ref_header, text="[+] Thêm File", command=lambda: add_ref_file(), fg="green").pack(side='left', padx=10)
+        
+        add_ref_file()
 
         # Region 2: Settings (Save As)
         f_opts = tk.Frame(self.sub_tab_roadmap_gen)
@@ -165,20 +208,26 @@ class AskCplApp:
         # Region 3: Preview Skeleton
         f_preview = tk.Frame(self.sub_tab_roadmap_gen)
         f_preview.pack(fill='both', expand=True, padx=10, pady=5)
-        tk.Label(f_preview, text="Khung Chương Trình (Preview JSON/Text):", font=("Arial", 10, "bold")).pack(anchor='w')
+        tk.Label(f_preview, text="Dàn ý Kỹ thuật (JSON) - Chứa Profile và Skeleton:", font=("Arial", 10, "bold")).pack(anchor='w')
         
         self.ai_roadmap_skeleton_text = scrolledtext.ScrolledText(f_preview, height=12, bg="#fffde7", font=("Consolas", 10))
         self.ai_roadmap_skeleton_text.pack(fill='both', expand=True, pady=5)
 
-        # Region 4: Expansion
+        # Region 3.5: Step 2 - Nâng cấp Khung
+        f_step2 = tk.Frame(self.sub_tab_roadmap_gen)
+        f_step2.pack(fill='x', padx=10, pady=5)
+        tk.Button(f_step2, text="2. Phản biện & Mở rộng Khung (3 Passes)", bg="#3498db", fg="white", font=("Arial", 10, "bold"),
+                  command=lambda: self.roadmap_gen_step2()).pack(side='right')
+
+        # Region 4: Expansion (Step 3)
         f_expand = tk.Frame(self.sub_tab_roadmap_gen)
         f_expand.pack(fill='x', padx=10, pady=10)
         
-        self.ai_roadmap_expand_mode = tk.StringVar(value="template")
-        tk.Radiobutton(f_expand, text="Chẻ bằng Template (Nhanh, tự động làm 3 mốc/ngày)", variable=self.ai_roadmap_expand_mode, value="template", font=("Arial", 9, "bold"), fg="#27ae60").pack(side='left')
-        tk.Radiobutton(f_expand, text="Chẻ bằng LLM (Thông minh, tốn thời gian)", variable=self.ai_roadmap_expand_mode, value="llm").pack(side='left', padx=10)
+        self.ai_roadmap_expand_mode = tk.StringVar(value="llm")
+        tk.Radiobutton(f_expand, text="Chẻ bằng Template (Nhanh)", variable=self.ai_roadmap_expand_mode, value="template", font=("Arial", 9, "bold"), fg="#27ae60").pack(side='left')
+        tk.Radiobutton(f_expand, text="Chẻ bằng LLM 6-Pass (Master)", variable=self.ai_roadmap_expand_mode, value="llm").pack(side='left', padx=10)
 
-        tk.Button(f_expand, text="2. Sinh Markdown Chi Tiết", bg="#e67e22", fg="white", font=("Arial", 10, "bold"),
+        tk.Button(f_expand, text="3. Sinh Chi Tiết Master (3 Passes/Batch)", bg="#e67e22", fg="white", font=("Arial", 10, "bold"),
                   command=lambda: self.roadmap_gen_step3()).pack(side='right')
 
         # Region 5: Log
@@ -197,7 +246,7 @@ class AskCplApp:
     def roadmap_gen_log(self, msg):
         import tkinter as tk
         self.ai_roadmap_log_text.config(state='normal')
-        self.ai_roadmap_log_text.insert(tk.END, msg + "\\n")
+        self.ai_roadmap_log_text.insert(tk.END, msg + "\n")
         self.ai_roadmap_log_text.see(tk.END)
         self.ai_roadmap_log_text.config(state='disabled')
         self.root.update_idletasks()
@@ -205,32 +254,54 @@ class AskCplApp:
     def roadmap_gen_step1(self):
         import threading
         threading.Thread(target=self._roadmap_gen_step1_thread, daemon=True).start()
+
+    def roadmap_gen_step2(self):
+        import threading
+        threading.Thread(target=self._roadmap_gen_step2_thread, daemon=True).start()
         
-    def _get_active_api_key(self):
+    def _get_active_api_key(self, exclude_keys=None):
+        exclude_keys = exclude_keys or set()
         gemini_settings = self.settings.get("gemini", {})
         keys = gemini_settings.get("api_keys", [])
         active_keys = [k for k in keys if k.get("status") == "active"]
-        if not active_keys:
-            return None
-        # Decode the key
-        raw_key = active_keys[0].get("key", "")
-        if raw_key.startswith("ENC:"):
-            import base64
-            try:
-                return base64.b64decode(raw_key[4:]).decode("utf-8")
-            except:
-                return raw_key
-        return raw_key
+        
+        for ak in active_keys:
+            raw_key = ak.get("key", "")
+            if raw_key.startswith("ENC:"):
+                import base64
+                try:
+                    dec = base64.b64decode(raw_key[4:]).decode("utf-8")
+                except:
+                    dec = raw_key
+            else:
+                dec = raw_key
+                
+            if dec not in exclude_keys:
+                return dec
+        return None
+
+    def _clean_json(self, json_str):
+        import re
+        s = json_str.strip().replace("```json\n", "").replace("```json", "").replace("```", "").strip()
+        # Fix missing commas between objects/arrays
+        s = re.sub(r'\}\s*\{', '}, {', s)
+        s = re.sub(r'\]\s*\[', '], [', s)
+        s = re.sub(r'\}\s*\[', '}, [', s)
+        s = re.sub(r'\]\s*\{', '], {', s)
+        # Fix trailing commas
+        s = re.sub(r',\s*\]', ']', s)
+        s = re.sub(r',\s*\}', '}', s)
+        return s
 
     def _roadmap_gen_step1_thread(self):
         import tkinter as tk
-        import requests, json, os
+        import requests, json, os, time
 
         domain = self.ai_roadmap_domain_var.get().strip()
-        ref_file = self.ai_roadmap_ref_var.get().strip()
-        
-        if not domain and not ref_file:
-            self.roadmap_gen_log("[LỖI] Cần nhập Lĩnh vực hoặc Chọn file tham khảo!")
+        ref_files = [v.get().strip() for v in self.ref_file_vars if v.get().strip()]
+
+        if not domain:
+            self.roadmap_gen_log("[LỖI] Cần nhập Lĩnh vực / Từ khóa!")
             return
 
         api_key = self._get_active_api_key()
@@ -238,64 +309,248 @@ class AskCplApp:
             self.roadmap_gen_log("[LỖI] Không tìm thấy API Key nào đang hoạt động!")
             return
 
-        self.roadmap_gen_log(f"[BƯỚC 1] Bắt đầu phân tích khung cho: '{domain}'...")
-        
-        prompt_text = f"Hãy đóng vai là một Chuyên gia xây dựng giáo trình (Curriculum Architect). Lĩnh vực cần xây dựng là: {domain}\\n"
-        
-        if ref_file and os.path.exists(ref_file):
-            try:
-                with open(ref_file, 'r', encoding='utf-8') as f:
-                    content = f.read()
-                prompt_text += f"\\nDưới đây là tài liệu tham khảo để bạn bám sát hoặc mở rộng thêm:\\n{content[:5000]}\\n"
-                self.roadmap_gen_log(f"[INFO] Đã nạp file tham khảo: {os.path.basename(ref_file)}")
-            except Exception as e:
-                self.roadmap_gen_log(f"[CẢNH BÁO] Lỗi đọc file tham khảo: {e}")
+        time_per_day = self.ai_roadmap_time_var.get().strip() or "2 tiếng"
+        days_setting = self.ai_roadmap_days_var.get().strip()
+        context_text = self.ai_roadmap_context_text.get(1.0, tk.END).strip()
 
-        prompt_text += """
-Hãy lập ra một cấu trúc phân rã chi tiết (Roadmap Skeleton) để học hoặc thực hiện lĩnh vực trên. 
-Yêu cầu trả về đúng định dạng JSON Mảng (Array), trong đó mỗi phần tử là một object đại diện cho 1 Ngày (Day) hoặc 1 Bước (Step), bao gồm:
-[
-  {
-    "day": 1,
-    "topic": "Tên chủ đề lớn",
-    "details": ["Mục nhỏ 1", "Mục nhỏ 2", "Mục nhỏ 3"]
-  },
-  ...
-]
-Không sinh thêm văn bản thừa ngoài JSON.
-"""
-        
+        self.roadmap_gen_log(f"[BƯỚC 1] Bắt đầu phân tích khung cho: '{domain}' ({days_setting} ngày, {time_per_day}/ngày)...")
+
+        # --- Đọc tất cả file tham khảo ---
+        ref_content_block = ""
+        for i, rf in enumerate(ref_files):
+            if os.path.exists(rf):
+                try:
+                    with open(rf, 'r', encoding='utf-8') as f:
+                        rc = f.read()
+                    ref_content_block += f"\n--- File tham khảo {i+1}: {os.path.basename(rf)} ---\n{rc[:4000]}\n"
+                    self.roadmap_gen_log(f"[INFO] Đã nạp file tham khảo {i+1}: {os.path.basename(rf)}")
+                except Exception as e:
+                    self.roadmap_gen_log(f"[CẢNH BÁO] Lỗi đọc file {os.path.basename(rf)}: {e}")
+
         url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
         headers = {"Content-Type": "application/json"}
-        payload = {
-            "contents": [{"parts": [{"text": prompt_text}]}],
-            "generationConfig": {
-                "temperature": 0.3,
-                "response_mime_type": "application/json"
-            }
-        }
 
+        # ===================================================
+        # NHỊP 1: Sinh Mục lục Giai đoạn (Phase Milestones)
+        # ===================================================
+        days_instruction = (
+            f"Với thời lượng học {time_per_day} mỗi ngày, tự phán đoán số ngày cần thiết để nắm vững toàn bộ lĩnh vực (không giới hạn, tối đa 150 ngày)."
+            if days_setting == "Auto"
+            else f"Tổng cộng {days_setting} ngày."
+        )
+
+        prompt_phase = f"""Bạn là chuyên gia xây dựng giáo trình. Lĩnh vực: {domain}.
+Thời lượng học mỗi ngày: {time_per_day}. {days_instruction}
+{'Yêu cầu bổ sung: ' + context_text if context_text else ''}
+{ref_content_block}
+
+Nhiệm vụ: Chia toàn bộ lộ trình học thành các Giai đoạn (Phase). Mỗi Phase có từ 5-30 ngày.
+Yêu cầu trả về JSON theo định dạng sau (CHỈ JSON, không có văn bản thừa):
+{{
+  "domain_profile": {{
+    "persona": "Vai trò chuyên gia",
+    "core_books": "Sách/tài liệu nền tảng bắt buộc",
+    "supreme_commands": "3 nguyên tắc bất di bất dịch. Bắt buộc có lệnh: KHÔNG TƯƠNG TÁC.",
+    "total_days": 60
+  }},
+  "phases": [
+    {{"phase_id": 1, "phase_name": "Tên giai đoạn", "from_day": 1, "to_day": 15, "description": "Mục tiêu phase"}}
+  ]
+}}"""
+
+        self.roadmap_gen_log("[NHỊP 1] Đang sinh Mục lục Giai đoạn...")
         try:
-            resp = requests.post(url, headers=headers, json=payload, timeout=30)
+            resp = requests.post(url, headers=headers,
+                json={"contents": [{"parts": [{"text": prompt_phase}]}],
+                      "generationConfig": {"temperature": 0.3, "response_mime_type": "application/json"}},
+                timeout=45)
             resp.raise_for_status()
-            data = resp.json()
-            text_out = data["candidates"][0]["content"]["parts"][0]["text"]
+            phase_out = resp.json()["candidates"][0]["content"]["parts"][0]["text"]
             
-            # Show in ScrolledText
-            self.ai_roadmap_skeleton_text.delete(1.0, tk.END)
-            self.ai_roadmap_skeleton_text.insert(tk.END, text_out)
-            
-            # Auto format if it's JSON
-            try:
-                parsed = json.loads(text_out)
-                num_days = len(parsed)
-                self.roadmap_gen_log(f"[THÀNH CÔNG] Đã sinh xong Khung chương trình gồm {num_days} mục (Day/Step).")
-                self.roadmap_gen_log("-> Hãy kiểm tra khung chương trình trong ô Preview, sửa lại JSON nếu cần trước khi chuyển sang Bước 2.")
-            except Exception:
-                self.roadmap_gen_log("[CẢNH BÁO] Kết quả trả về không chuẩn JSON, vui lòng sửa lại thủ công trong khung Preview.")
-                
+            # Clean JSON wrapping and syntax errors
+            clean_phase_out = self._clean_json(phase_out)
+            phase_data = json.loads(clean_phase_out)
         except Exception as e:
-            self.roadmap_gen_log(f"[LỖI API] {e}")
+            self.roadmap_gen_log(f"[LỖI NHỊP 1] {e}")
+            return
+
+        domain_profile = phase_data.get("domain_profile", {})
+        phases = phase_data.get("phases", [])
+        total_days_planned = domain_profile.get("total_days", sum(p.get('to_day', 0) - p.get('from_day', 0) + 1 for p in phases))
+        self.roadmap_gen_log(f"[NHỊP 1 OK] Đã lên được {len(phases)} Giai đoạn - Tổng dự kiến {total_days_planned} ngày.")
+
+        # ===================================================
+        # NHỊP 2: Loop sinh chi tiết từng Giai đoạn
+        # ===================================================
+        all_skeleton = []
+        persona = domain_profile.get('persona', 'chuyên gia')
+        core_books = domain_profile.get('core_books', '')
+        supreme_commands = domain_profile.get('supreme_commands', 'KHÔNG TƯƠNG TÁC')
+
+        for ph in phases:
+            # Làm mới API key trước mỗi phase phòng quota
+            api_key = self._get_active_api_key() or api_key
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
+
+            ph_name = ph.get('phase_name', '')
+            from_day = ph.get('from_day', 0)
+            to_day = ph.get('to_day', 0)
+            ph_desc = ph.get('description', '')
+            self.roadmap_gen_log(f"[NHỊP 2] Đang sinh chi tiết Phase '{ph_name}' (Ngày {from_day} → {to_day})...")
+
+            prompt_days = f"""Bạn là {persona}. Lĩnh vực: {domain}.
+Giai đoạn: {ph_name} (Mục tiêu: {ph_desc}).
+Sách nền tảng: {core_books}.
+(⚠️ LỆNH TỐI THƯỢNG: {supreme_commands} | KHÔNG TƯƠNG TÁC)
+
+Nhiệm vụ: Sinh danh sách các bài học cốt lõi từ Ngày {from_day} đến Ngày {to_day} cho Giai đoạn này. KHÔNG CẦN CHI TIẾT SÂU, chỉ cần khung cơ bản.
+Yêu cầu trả về JSON MẢNG theo định dạng (CHỈ JSON, không văn bản thừa):
+[
+  {{"day": {from_day}, "phase": "{ph_name}", "topic": "Tên bài học", "details": ["Từ khóa chính 1", "Từ khóa chính 2"]}}
+]
+Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
+
+            try:
+                resp2 = requests.post(url, headers=headers,
+                    json={"contents": [{"parts": [{"text": prompt_days}]}],
+                          "generationConfig": {"temperature": 0.35, "response_mime_type": "application/json"}},
+                    timeout=60)
+                resp2.raise_for_status()
+                days_out = resp2.json()["candidates"][0]["content"]["parts"][0]["text"]
+                
+                # Clean JSON wrapping and syntax errors
+                clean_days_out = self._clean_json(days_out)
+                days_list = json.loads(clean_days_out)
+                
+                if isinstance(days_list, list):
+                    all_skeleton.extend(days_list)
+                    self.roadmap_gen_log(f"[OK] Phase '{ph_name}': {len(days_list)} ngày đã thêm vào Skeleton.")
+                else:
+                    self.roadmap_gen_log(f"[CẢNH BÁO] Phase '{ph_name}' trả về định dạng không mong đợi, bỏ qua.")
+            except Exception as e:
+                self.roadmap_gen_log(f"[LỖI NHỊP 2 - Phase '{ph_name}'] {e}")
+
+            # Delay nhỏ tránh rate limit
+            if ph != phases[-1]:
+                time.sleep(2)
+
+        # Ghép kết quả cuối
+        final_json = {"domain_profile": domain_profile, "skeleton": all_skeleton}
+        final_text = json.dumps(final_json, ensure_ascii=False, indent=2)
+
+        def _update_ui():
+            self.ai_roadmap_skeleton_text.delete(1.0, tk.END)
+            self.ai_roadmap_skeleton_text.insert(tk.END, final_text)
+        self.root.after(0, _update_ui)
+
+        self.roadmap_gen_log(f"[HOÀN TẤT BƯỚC 1] Đã tạo Dàn ý Lõi gồm {len(all_skeleton)} ngày. Hãy bấm '2. Phản biện & Mở rộng Khung'.")
+
+    def _roadmap_gen_step2_thread(self):
+        import tkinter as tk
+        import json, os, requests, re
+        
+        skeleton_text = self.ai_roadmap_skeleton_text.get(1.0, tk.END).strip()
+        if not skeleton_text:
+            self.roadmap_gen_log("[LỖI] Dàn ý Lõi đang trống. Hãy chạy Bước 1 trước!")
+            return
+            
+        api_key = self._get_active_api_key()
+        if not api_key:
+            self.roadmap_gen_log("[LỖI] Không tìm thấy API Key nào đang hoạt động!")
+            return
+            
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
+        headers = {"Content-Type": "application/json"}
+        
+        # Đọc tham khảo
+        ref_files = [v.get().strip() for v in self.ref_file_vars if v.get().strip()]
+        ref_content_block = ""
+        for i, rf in enumerate(ref_files):
+            if os.path.exists(rf):
+                try:
+                    with open(rf, 'r', encoding='utf-8') as f:
+                        ref_content_block += f"\n--- File tham khảo {i+1}: {os.path.basename(rf)} ---\n{f.read()[:4000]}\n"
+                except: pass
+
+        self.roadmap_gen_log("[BƯỚC 2] Bắt đầu quá trình Phản biện & Mở rộng Khung (3 Passes)...")
+        
+        bad_keys = set()
+        def call_llm(prompt, p_name=""):
+            rc = 0
+            while rc < 3:
+                cur_key = self._get_active_api_key(exclude_keys=bad_keys)
+                if not cur_key:
+                    self.roadmap_gen_log(f"[DỪNG] Không còn API Key nào khả dụng để tiếp tục {p_name}!")
+                    return None
+                    
+                cur_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={cur_key}"
+                try:
+                    resp = requests.post(cur_url, headers=headers, json={"contents": [{"parts": [{"text": prompt}]}], "generationConfig": {"temperature": 0.3}}, timeout=60)
+                    resp.raise_for_status()
+                    return resp.json()["candidates"][0]["content"]["parts"][0]["text"]
+                except Exception as e:
+                    err_str = str(e)
+                    if "429" in err_str or "quota" in err_str.lower() or "exhausted" in err_str.lower():
+                        self.roadmap_gen_log(f"[QUOTA HẾT] Đổi key... ({p_name})")
+                        bad_keys.add(cur_key)
+                        time.sleep(3)
+                        # Reset retry count because this is a quota issue, we want to try new keys
+                        rc = 0
+                    else:
+                        rc += 1
+                        self.roadmap_gen_log(f"[LỖI LLM {p_name}] {e} (Lần {rc}/3)")
+                        time.sleep(2)
+            return None
+
+        # PASS 1
+        self.roadmap_gen_log(">> Pass 1: Tự phản biện, Đa dạng hóa & Chia nhỏ chủ đề...")
+        p1_prompt = f"Đây là JSON Dàn ý Lõi hiện tại:\n```json\n{skeleton_text}\n```\nYêu cầu: Hãy đóng vai trò chuyên gia, phân tích xem có chủ đề nào quá lớn cần chẻ nhỏ ra nhiều ngày không? Có kiến thức hiện đại nào đang thiếu không? Hãy sắp xếp lại, chèn thêm các ngày học mới, bổ sung các chủ đề để đa dạng hóa lộ trình. TRẢ VỀ JSON DUY NHẤT (giữ nguyên cấu trúc domain_profile và skeleton, chỉ mở rộng mảng skeleton). (KHÔNG GIẢI THÍCH)"
+        out_p1 = call_llm(p1_prompt, "Pass 1")
+        if not out_p1: return
+        json_v2 = self._clean_json(out_p1)
+
+        # PASS 2
+        self.roadmap_gen_log(">> Pass 2: Kiểm duyệt & Ép chuẩn theo File Tham khảo/Skill...")
+        p2_prompt = f"Đây là JSON Lộ trình V2 (sau khi mở rộng):\n```json\n{json_v2}\n```\nCác tài liệu chuẩn:\n{ref_content_block}\nYêu cầu: Đối chiếu Lộ trình V2 với tài liệu chuẩn. Sửa lại các chủ đề/details nào vi phạm nguyên tắc sư phạm hoặc an toàn. Đảm bảo 100% tuân thủ các quy tắc tối thượng. TRẢ VỀ JSON DUY NHẤT (giữ nguyên cấu trúc, cập nhật nội dung cho cực chuẩn). (KHÔNG GIẢI THÍCH)"
+        out_p2 = call_llm(p2_prompt, "Pass 2")
+        if not out_p2: return
+        json_v3 = self._clean_json(out_p2)
+
+        # Cập nhật UI JSON
+        try:
+            parsed_v3 = json.loads(json_v3)
+            formatted_v3 = json.dumps(parsed_v3, ensure_ascii=False, indent=2)
+            def _update_ui():
+                self.ai_roadmap_skeleton_text.delete(1.0, tk.END)
+                self.ai_roadmap_skeleton_text.insert(tk.END, formatted_v3)
+            self.root.after(0, _update_ui)
+        except Exception as e:
+            self.roadmap_gen_log(f"[CẢNH BÁO Pass 2] JSON v3 lỗi cú pháp, dùng nguyên bản. Lỗi: {e}")
+            formatted_v3 = json_v3
+
+        # PASS 3
+        self.roadmap_gen_log(">> Pass 3: Xuất file Mục lục (Markdown TOC)...")
+        domain = self.ai_roadmap_domain_var.get().strip() or "Untitled"
+        p3_prompt = f"Từ JSON V3 hoàn hảo này:\n```json\n{formatted_v3}\n```\nHãy sinh ra một file Markdown CHỈ chứa Mục Lục (Table of Contents) cực kỳ đẹp mắt, sử dụng heading, danh sách, và bảng biểu nếu cần. Đây sẽ là trang bìa của lộ trình. TRẢ VỀ ĐỊNH DẠNG MARKDOWN."
+        out_p3 = call_llm(p3_prompt, "Pass 3")
+        if not out_p3: return
+        md_toc = out_p3.replace("```markdown", "").replace("```", "").strip()
+
+        # Lưu file
+        save_dir = self.ai_roadmap_save_var.get().strip() or os.path.dirname(os.path.abspath(__file__))
+        safe_domain = re.sub(r'[^a-zA-Z0-9_\-]', '_', domain)
+        out_file = os.path.join(save_dir, f"roadmap_{safe_domain}_auto.md")
+        
+        try:
+            with open(out_file, 'w', encoding='utf-8') as f:
+                f.write(md_toc + "\n\n")
+            self.roadmap_gen_log(f"[HOÀN TẤT BƯỚC 2] Khung Dàn ý đã nâng cấp lên Master và lưu Mục lục tại: {out_file}")
+            self.roadmap_gen_log(f"Hãy bấm '3. Sinh Chi Tiết Master' để viết nội dung bài giảng!")
+            os.startfile(out_file)
+        except Exception as e:
+            self.roadmap_gen_log(f"[LỖI GHI FILE] {e}")
+
+    def roadmap_gen_step3(self):
         import threading
         threading.Thread(target=self._roadmap_gen_step3_thread, daemon=True).start()
 
@@ -316,6 +571,25 @@ Không sinh thêm văn bản thừa ngoài JSON.
             self.roadmap_gen_log("[LỖI] Khung chương trình không đúng định dạng JSON chuẩn. Vui lòng sửa lại!")
             return
             
+        if isinstance(skeleton_data, dict):
+            domain_profile = skeleton_data.get("domain_profile", {})
+            skeleton_list = skeleton_data.get("skeleton", [])
+            # Robust fallback: if skeleton is missing, grab the first list
+            if not skeleton_list:
+                for v in skeleton_data.values():
+                    if isinstance(v, list):
+                        skeleton_list = v
+                        break
+        else:
+            domain_profile = {}
+            skeleton_list = skeleton_data
+            
+        persona = domain_profile.get("persona", "một chuyên gia")
+        core_books = domain_profile.get("core_books", "Không có")
+        supreme_commands = domain_profile.get("supreme_commands", "")
+        
+        commands_block = f"(⚠️ LỆNH TỐI THƯỢNG:\n{supreme_commands}\nQuy tắc chung: KHÔNG TƯƠNG TÁC, in ra toàn bộ nội dung mà không đặt câu đố chờ tôi trả lời.)" if supreme_commands else "(⚠️ LỆNH TỐI THƯỢNG: KHÔNG TƯƠNG TÁC, in ra toàn bộ nội dung mà không đặt câu đố chờ tôi trả lời.)"
+            
         domain = self.ai_roadmap_domain_var.get().strip() or "Untitled"
         save_dir = self.ai_roadmap_save_var.get().strip()
         if not save_dir:
@@ -334,26 +608,33 @@ Không sinh thêm văn bản thừa ngoài JSON.
         if mode == "template":
             try:
                 with open(out_file, 'w', encoding='utf-8') as f:
-                    f.write(f"# Roadmap: {domain}\\n\\n")
-                    f.write("> Sinh tự động bằng Template Cơ Học của AskCpl\\n\\n")
+                    f.write(f"# Roadmap: {domain}\n\n")
+                    f.write(f"> Bối cảnh: {persona}\n> Nền tảng: {core_books}\n\n")
                     
-                    for item in skeleton_data:
+                    for item in skeleton_list:
                         day = item.get("day", 0)
+                        phase = item.get("phase", "Chưa có Giai đoạn")
                         topic = item.get("topic", "Chưa có tên")
                         details = item.get("details", [])
                         
-                        f.write(f"## Day {day}: {topic}\\n\\n")
+                        f.write(f"## Day {day}: {topic} ({phase})\n\n")
                         
-                        # Chẻ thành các mục nhỏ a, b, c... (Ví dụ: 3 mục)
-                        # Giả định mỗi mục chiếm 5 trang ảo để AskCpl chạy Auto
                         letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
                         for i, det in enumerate(details):
                             let = letters[i] if i < len(letters) else str(i)
-                            f.write(f"### {day}{let}. {det}\\n")
-                            f.write("<!-- pages: 5 -->\\n")
-                            f.write(f"Hãy đóng vai là một giáo viên chuyên nghiệp, giảng bài chi tiết và dễ hiểu nhất về chủ đề: '{det}' (thuộc chương '{topic}'). Yêu cầu kèm ví dụ thực tế.\\n\\n")
+                            f.write(f"### {day}{let}. {det}\n")
+                            f.write("<!-- pages: 5 -->\n")
+                            f.write(f"**Prompt:**\nĐóng vai trò là {persona}. Hôm nay là Day {day}: {det} (thuộc bài '{topic}').\n")
+                            f.write(f"Giai đoạn: {phase}.\n")
+                            f.write(f"Sách nền tảng liên quan: {core_books}.\n\n")
+                            f.write(f"{commands_block}\n\n")
+                            f.write(f"Yêu cầu: Hãy giảng giải thật chi tiết, phân tích khách quan và kèm ví dụ minh họa rõ ràng.\n\n")
                             
                 self.roadmap_gen_log(f"[THÀNH CÔNG] Đã lưu file: {out_file}")
+                try:
+                    os.startfile(out_file)
+                except Exception:
+                    pass
             except Exception as e:
                 self.roadmap_gen_log(f"[LỖI TEMPLATE] {e}")
 
@@ -361,73 +642,126 @@ Không sinh thêm văn bản thừa ngoài JSON.
         # CHẾ ĐỘ 2: LLM BATCHING (THÔNG MINH)
         # ---------------------------------------------
         elif mode == "llm":
-            api_key = self._get_active_api_key()
-            if not api_key:
-                self.roadmap_gen_log("[LỖI] Không tìm thấy API Key nào đang hoạt động!")
-                return
-                
+            # Lấy API key linh hoạt - refresh trước mỗi batch
             batch_size = 10
-            total_days = len(skeleton_data)
-            
-            # Khởi tạo file trống
-            with open(out_file, 'w', encoding='utf-8') as f:
-                f.write(f"# Roadmap Chi Tiết: {domain}\\n\\n")
-                f.write("> Sinh tự động bằng AskCpl AI Agent\\n\\n")
-                
-            for i in range(0, total_days, batch_size):
-                chunk = skeleton_data[i:i+batch_size]
-                chunk_json = json.dumps(chunk, ensure_ascii=False, indent=2)
-                
-                self.roadmap_gen_log(f"Đang gọi AI xử lý từ Day {chunk[0].get('day', i+1)} đến Day {chunk[-1].get('day', i+len(chunk))}... (Chờ chút nhé)")
-                
-                prompt = f"""
-Tôi đang xây dựng giáo trình cho lĩnh vực '{domain}'.
-Đây là danh sách các Ngày học (từ Ngày {chunk[0].get('day')} đến Ngày {chunk[-1].get('day')}):
-{chunk_json}
+            total_days = len(skeleton_list)
 
-Nhiệm vụ của bạn: Dựa vào JSON trên, hãy viết ra chi tiết chương trình học dưới dạng văn bản Markdown chuẩn xác, theo ĐÚNG cấu trúc sau:
-
-## Day [X]: [Tên Topic]
-
-### [X]a. [Tên mục nhỏ 1 - dựa theo details]
-<!-- pages: [Số trang ước lượng độ khó, ví dụ: 5 hoặc 10] -->
-[Đoạn Prompt ra lệnh cho giáo viên ảo giảng bài mục này, yêu cầu giảng thật chi tiết, có ví dụ và bài tập thực hành.]
-
-### [X]b. [Tên mục nhỏ 2]
-<!-- pages: [Số] -->
-[Prompt ra lệnh giảng bài...]
-
-TUYỆT ĐỐI chỉ trả về chuỗi Markdown kết quả, KHÔNG giải thích lằng nhằng, KHÔNG dùng bọc ```markdown. Bắt buộc phải có cú pháp <!-- pages: ... --> ở mỗi mục nhỏ để hệ thống tự động đọc được.
-"""
-                url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
-                headers = {"Content-Type": "application/json"}
-                payload = {
-                    "contents": [{"parts": [{"text": prompt}]}],
-                    "generationConfig": {"temperature": 0.4}
-                }
-                
+            # Kiểm tra file đã tồn tại chưa để chọn append hay ghi mới
+            file_exists = os.path.exists(out_file)
+            if file_exists:
+                self.roadmap_gen_log(f"[INFO] File đã tồn tại, chế độ BỔ SUNG vào cuối file: {out_file}")
+                # Đọc ngày cuối cùng đã ghi để skip
                 try:
-                    resp = requests.post(url, headers=headers, json=payload, timeout=45)
-                    resp.raise_for_status()
-                    data = resp.json()
-                    md_text = data["candidates"][0]["content"]["parts"][0]["text"]
-                    
-                    # Cắt bỏ tag ```markdown nếu AI lỡ viết vào
-                    md_text = md_text.replace("```markdown\\n", "").replace("```", "")
-                    
-                    with open(out_file, 'a', encoding='utf-8') as f:
-                        f.write(md_text + "\\n\\n")
-                        
-                    self.roadmap_gen_log(f"[OK] Đã xong Batch (Day {chunk[0].get('day')} -> {chunk[-1].get('day')})")
-                    
-                    # Quota delay nếu chưa phải batch cuối
-                    if i + batch_size < total_days:
-                        self.roadmap_gen_log("-> Sleep 4s để tránh rate limit...")
-                        time.sleep(4)
-                        
+                    import re
+                    with open(out_file, 'r', encoding='utf-8') as f:
+                        existing = f.read()
+                    last_days = re.findall(r'## Day (\d+):', existing)
+                    last_day_done = int(last_days[-1]) if last_days else 0
+                    skeleton_list = [d for d in skeleton_list if d.get('day', 0) > last_day_done]
+                    if not skeleton_list:
+                        self.roadmap_gen_log("[INFO] Tất cả các ngày đã có trong file. Không cần bổ sung thêm.")
+                        return
+                    self.roadmap_gen_log(f"[INFO] Tiếp tục từ Ngày {skeleton_list[0].get('day')} (đã bỏ qua {last_day_done} ngày đã có).")
+                    total_days = len(skeleton_list)
                 except Exception as e:
-                    self.roadmap_gen_log(f"[LỖI API BATCH] {e}. Vui lòng chạy lại!")
-                    break
+                    self.roadmap_gen_log(f"[CẢNH BÁO] Không phân tích được file cũ, sẽ ghi thêm toàn bộ: {e}")
+            else:
+                with open(out_file, 'w', encoding='utf-8') as f:
+                    f.write(f"# Roadmap Chi Tiết: {domain}\n\n")
+                    f.write(f"> Bối cảnh: {persona}\n> Nền tảng: {core_books}\n\n")
+
+            bad_keys = set()
+            for i in range(0, total_days, batch_size):
+                chunk = skeleton_list[i:i+batch_size]
+                chunk_json = json.dumps(chunk, ensure_ascii=False, indent=2)
+
+                self.roadmap_gen_log(f"Đang xử lý Batch Day {chunk[0].get('day')} -> Day {chunk[-1].get('day')} (3 Passes)...")
+
+                def call_llm_batch(prompt_text, p_name):
+                    rc = 0
+                    while rc < 3:
+                        try:
+                            # Auto-rotate key if needed inside the loop
+                            cur_key = self._get_active_api_key(exclude_keys=bad_keys)
+                            if not cur_key:
+                                self.roadmap_gen_log(f"[DỪNG] Không còn API Key nào khả dụng để tiếp tục {p_name}!")
+                                return None
+                                
+                            b_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={cur_key}"
+                            payload = {"contents": [{"parts": [{"text": prompt_text}]}], "generationConfig": {"temperature": 0.4}}
+                            resp = requests.post(b_url, headers={"Content-Type": "application/json"}, json=payload, timeout=60)
+                            resp.raise_for_status()
+                            out = resp.json()["candidates"][0]["content"]["parts"][0]["text"]
+                            return out
+                        except Exception as e:
+                            err_str = str(e)
+                            if "429" in err_str or "quota" in err_str.lower() or "exhausted" in err_str.lower():
+                                self.roadmap_gen_log(f"[QUOTA HẾT] Đổi key... ({p_name})")
+                                if cur_key:
+                                    bad_keys.add(cur_key)
+                                time.sleep(3)
+                                rc = 0
+                            else:
+                                rc += 1
+                                self.roadmap_gen_log(f"[LỖI LLM {p_name}] {e} (Lần {rc}/3)")
+                                time.sleep(2)
+                    return None
+
+                # PASS 4: Draft Prompts
+                self.roadmap_gen_log("  -> Pass 4: Sinh nháp kịch bản Prompt...")
+                p4_prompt = f"""Tôi đang xây dựng giáo trình lĩnh vực '{domain}'.
+Danh sách bài học:
+{chunk_json}
+Nhiệm vụ: Viết NHÁP danh sách các Lời Yêu Cầu (Prompts) để tôi nạp vào AI (Copilot).
+Với mỗi bài học, hãy viết thành cấu trúc:
+## Day [X]: [Tên Topic] ([Phase])
+### [X]a. [Tên mục nhỏ 1]
+<!-- pages: 5 -->
+**Prompt:** Đóng vai trò là {persona}. Dạy bài [Tên mục nhỏ]... (lệnh tối thượng: {supreme_commands})"""
+                draft = call_llm_batch(p4_prompt, "Pass 4")
+                if not draft: return
+
+                # PASS 5: Master Enhancement
+                self.roadmap_gen_log("  -> Pass 5: Bơm thêm yêu cầu cấp Master...")
+                p5_prompt = f"""Đây là bản nháp các câu Prompt để dạy AI:
+{draft}
+Nhiệm vụ: Đọc và NÂNG CẤP các câu Prompt này lên cấp độ Master.
+- Thêm yêu cầu AI (Copilot) phải đưa ra các "Ví dụ thực tế", "Lỗi thường gặp (Edge cases)", "Mẹo vặt thực tiễn".
+- Ép AI phải giải thích thật sâu sắc, không nói hời hợt.
+Trữ lại nguyên vẹn cấu trúc (Day, pages, Prompt:)."""
+                enhanced = call_llm_batch(p5_prompt, "Pass 5")
+                if not enhanced: return
+
+                # PASS 6: Format & Polish
+                self.roadmap_gen_log("  -> Pass 6: Đánh bóng & Ép chuẩn Markdown...")
+                p6_prompt = f"""Hãy format và đánh bóng bản Prompt siêu việt này:
+{enhanced}
+BẮT BUỘC tuân thủ chặt chẽ định dạng Markdown sau, KHÔNG bọc ```markdown, KHÔNG giải thích lằng nhằng:
+## Day [X]: ...
+### [X]a. ...
+<!-- pages: [Số] -->
+**Prompt:** ..."""
+                final_md = call_llm_batch(p6_prompt, "Pass 6")
+                if not final_md: return
+
+                md_text = final_md.replace("```markdown\n", "").replace("```markdown", "").replace("```", "")
+
+                with open(out_file, 'a', encoding='utf-8') as f:
+                    f.write(md_text + "\n\n")
+
+                self.roadmap_gen_log(f"[OK] Đã ghi xong Batch Day {chunk[0].get('day')} -> {chunk[-1].get('day')}")
+
+                # Delay nhỏ giữa các batch
+                if i + batch_size < total_days:
+                    self.roadmap_gen_log("-> Sleep 4s để tránh rate limit...")
+                    time.sleep(4)
+
+            self.roadmap_gen_log(f"[HOÀN TẤT BATCHING] Đã lưu file: {out_file}")
+            try:
+                os.startfile(out_file)
+            except Exception:
+                pass
+
                     
             self.roadmap_gen_log(f"[HOÀN THÀNH] Toàn bộ Roadmap đã được lưu tại: {out_file}")
             
@@ -645,6 +979,24 @@ TUYỆT ĐỐI chỉ trả về chuỗi Markdown kết quả, KHÔNG giải thí
                 pass
             return ""
 
+        # === LOG HELPER (widget defined later, closure works at call-time) ===
+        _log_box = [None]  # mutable container cho ScrolledText widget bên dưới
+        def log_key(msg):
+            import datetime
+            ts = datetime.datetime.now().strftime("%H:%M:%S")
+            def _do():
+                w = _log_box[0]
+                if not w:
+                    return
+                try:
+                    w.config(state='normal')
+                    w.insert(END, f"[{ts}] {msg}\n")
+                    w.see(END)
+                    w.config(state='disabled')
+                except Exception:
+                    pass
+            top.after(0, _do)
+
         # === TREEVIEW ===
         frame_tree = Frame(top)
         frame_tree.pack(side="top", fill="both", expand=True, padx=10, pady=(10, 0))
@@ -779,24 +1131,49 @@ TUYỆT ĐỐI chỉ trả về chuỗi Markdown kết quả, KHÔNG giải thí
                 edit_win.update_idletasks()
 
                 def run_check():
+                    _kd = api_key[:8] + "***" + api_key[-4:] if len(api_key) > 12 else api_key[:4] + "***"
+                    log_key(f"🔍 Kiểm tra key: {_kd}")
                     try:
                         url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
+                        log_key(f"   → Gọi API gemini-flash-latest...")
                         headers = {'Content-Type': 'application/json'}
-                        payload = {"contents": [{"parts": [{"text": "Hello. " * 10}]}], "generationConfig": {"maxOutputTokens": 1000}}
-                        resp = requests.post(url, headers=headers, json=payload, timeout=10)
+                        payload = {"contents": [{"parts": [{"text": "Hi"}]}], "generationConfig": {"maxOutputTokens": 5}}
+                        resp = requests.post(url, headers=headers, json=payload, timeout=15)
+                        log_key(f"   ← HTTP {resp.status_code}")
                         if resp.status_code == 200:
-                            edit_win.after(0, lambda: [status_var.set("Hoạt động (Active)"), lbl_status.config(fg="green")])
+                            log_key(f"   ✅ Key hoạt động tốt!")
+                            edit_win.after(0, lambda: [status_var.set("✅ Hoạt động (Active)"), lbl_status.config(fg="green")])
                         else:
-                            msg = resp.json().get("error", {}).get("message", "Lỗi không xác định")
-                            proj = extract_project_id(resp.json())
+                            try:
+                                rj = resp.json()
+                            except Exception:
+                                rj = {}
+                            msg = rj.get("error", {}).get("message", "Lỗi không xác định")
+                            proj = extract_project_id(rj)
+                            log_key(f"   Phản hồi: {msg[:120]}")
                             if proj and not entry_proj.get().strip():
                                 edit_win.after(0, lambda p=proj: (entry_proj.delete(0, 'end'), entry_proj.insert(0, p)))
-                            if "Quota" in msg or "exhausted" in msg.lower() or resp.status_code == 429:
-                                edit_win.after(0, lambda: [status_var.set("Hết Quota (Exhausted)"), lbl_status.config(fg="orange")])
+                                log_key(f"   ℹ️ Project ID: {proj}")
+                            if resp.status_code == 503 or "currently experiencing" in msg.lower() or "overloaded" in msg.lower():
+                                log_key(f"   ⏸️ Model quá tải TẠM THỜI. Key vẫn hợp lệ! Thử lại sau vài phút.")
+                                edit_win.after(0, lambda: [status_var.set("⏸️ Model tạm quá tải (Key OK)"), lbl_status.config(fg="#e67e22")])
+                            elif "Quota" in msg or "exhausted" in msg.lower() or resp.status_code == 429:
+                                log_key(f"   ⚠️ Hết Quota!")
+                                edit_win.after(0, lambda: [status_var.set("⚠️ Hết Quota (Exhausted)"), lbl_status.config(fg="orange")])
                             else:
-                                edit_win.after(0, lambda: [status_var.set(f"Lỗi: {msg[:35]}"), lbl_status.config(fg="red")])
+                                log_key(f"   ❌ Key lỗi hoặc không hợp lệ.")
+                                edit_win.after(0, lambda: [status_var.set(f"❌ Lỗi: {msg[:40]}"), lbl_status.config(fg="red")])
+                    except requests.exceptions.ConnectionError as conn_err:
+                        log_key(f"   🌐 Lỗi kết nối mạng! (Key có thể vẫn hợp lệ)")
+                        log_key(f"      Chi tiết: {str(conn_err)[:150]}")
+                        log_key(f"      → Kiểm tra internet, VPN, hoặc thử lại sau.")
+                        edit_win.after(0, lambda: [status_var.set("🌐 Lỗi mạng (Key chưa xác định được)"), lbl_status.config(fg="#7f8c8d")])
+                    except requests.exceptions.Timeout:
+                        log_key(f"   ⏱️ Timeout! Server chưa phản hồi sau 15 giây. Key chưa xác định.")
+                        edit_win.after(0, lambda: [status_var.set("⏱️ Timeout (Key chưa xác định)"), lbl_status.config(fg="#7f8c8d")])
                     except Exception as e:
-                        edit_win.after(0, lambda: [status_var.set(f"Lỗi: {str(e)[:35]}"), lbl_status.config(fg="red")])
+                        log_key(f"   ❌ Exception: {type(e).__name__}: {str(e)[:150]}")
+                        edit_win.after(0, lambda: [status_var.set(f"❌ Lỗi: {str(e)[:40]}"), lbl_status.config(fg="red")])
                 threading.Thread(target=run_check, daemon=True).start()
 
             def do_save():
@@ -973,32 +1350,59 @@ TUYỆT ĐỐI chỉ trả về chuỗi Markdown kết quả, KHÔNG giải thí
 
             def run_check_inner(api_key_raw, on_done=None):
                 api_key = decode_key(api_key_raw)
+                _kd = api_key[:8] + "***" + api_key[-4:] if len(api_key) > 12 else api_key[:4] + "***"
+                log_key(f"🔍 Kiểm tra key mới: {_kd}")
                 try:
                     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
+                    log_key(f"   → Gọi API gemini-flash-latest...")
                     headers = {'Content-Type': 'application/json'}
-                    payload = {"contents": [{"parts": [{"text": "Hello. " * 10}]}], "generationConfig": {"maxOutputTokens": 1000}}
-                    resp = requests.post(url, headers=headers, json=payload, timeout=10)
+                    payload = {"contents": [{"parts": [{"text": "Hi"}]}], "generationConfig": {"maxOutputTokens": 5}}
+                    resp = requests.post(url, headers=headers, json=payload, timeout=15)
+                    log_key(f"   ← HTTP {resp.status_code}")
                     if resp.status_code == 200:
                         _check_result["status"] = "active"
-                        add_win.after(0, lambda: [status_var.set("Hoạt động (Active)"), lbl_status.config(fg="green")])
+                        log_key(f"   ✅ Key hoạt động tốt!")
+                        add_win.after(0, lambda: [status_var.set("✅ Hoạt động (Active)"), lbl_status.config(fg="green")])
                     else:
-                        rj = resp.json()
+                        try:
+                            rj = resp.json()
+                        except Exception:
+                            rj = {}
                         msg = rj.get("error", {}).get("message", "Lỗi không xác định")
                         proj = extract_project_id(rj)
-                        if proj: _check_result["project_id"] = proj
+                        log_key(f"   Phản hồi: {msg[:120]}")
+                        if proj:
+                            _check_result["project_id"] = proj
                         if proj and not entry_proj.get().strip():
                             add_win.after(0, lambda p=proj: (entry_proj.delete(0, 'end'), entry_proj.insert(0, p)))
-                        if "Quota" in msg or "exhausted" in msg.lower() or resp.status_code == 429:
+                            log_key(f"   ℹ️ Project ID: {proj}")
+                        if resp.status_code == 503 or "currently experiencing" in msg.lower() or "overloaded" in msg.lower():
+                            _check_result["status"] = "busy"
+                            log_key(f"   ⏸️ Model quá tải TẠM THỜI. Key vẫn hợp lệ!")
+                            add_win.after(0, lambda: [status_var.set("⏸️ Model tạm quá tải (Key OK)"), lbl_status.config(fg="#e67e22")])
+                        elif "Quota" in msg or "exhausted" in msg.lower() or resp.status_code == 429:
                             _check_result["status"] = "exhausted"
-                            add_win.after(0, lambda: [status_var.set("Hết Quota (Exhausted)"), lbl_status.config(fg="orange")])
+                            log_key(f"   ⚠️ Hết Quota!")
+                            add_win.after(0, lambda: [status_var.set("⚠️ Hết Quota (Exhausted)"), lbl_status.config(fg="orange")])
                         else:
                             _check_result["status"] = "invalid"
                             _check_result["errmsg"] = msg[:35]
-                            add_win.after(0, lambda: [status_var.set(f"Lỗi: {msg[:35]}"), lbl_status.config(fg="red")])
+                            log_key(f"   ❌ Key không hợp lệ.")
+                            add_win.after(0, lambda: [status_var.set(f"❌ Lỗi: {msg[:40]}"), lbl_status.config(fg="red")])
+                except requests.exceptions.ConnectionError as conn_err:
+                    _check_result["status"] = "network_error"
+                    log_key(f"   🌐 Lỗi kết nối mạng! (Key chưa xác định)")
+                    log_key(f"      Chi tiết: {str(conn_err)[:150]}")
+                    add_win.after(0, lambda: [status_var.set("🌐 Lỗi mạng (chưa xác định)"), lbl_status.config(fg="#7f8c8d")])
+                except requests.exceptions.Timeout:
+                    _check_result["status"] = "network_error"
+                    log_key(f"   ⏱️ Timeout! Server chưa phản hồi sau 15 giây.")
+                    add_win.after(0, lambda: [status_var.set("⏱️ Timeout (chưa xác định)"), lbl_status.config(fg="#7f8c8d")])
                 except Exception as e:
                     _check_result["status"] = "invalid"
                     _check_result["errmsg"] = str(e)[:35]
-                    add_win.after(0, lambda: [status_var.set(f"Lỗi: {str(e)[:35]}"), lbl_status.config(fg="red")])
+                    log_key(f"   ❌ Exception: {type(e).__name__}: {str(e)[:150]}")
+                    add_win.after(0, lambda: [status_var.set(f"❌ Lỗi: {str(e)[:40]}"), lbl_status.config(fg="red")])
                 _check_result["done"] = True
                 if on_done:
                     add_win.after(0, on_done)
@@ -1102,28 +1506,51 @@ TUYỆT ĐỐI chỉ trả về chuỗi Markdown kết quả, KHÔNG giải thí
                 self.settings = load_settings()
                 refresh_list()
 
-        def check_all_keys():
+        def check_all_keys(only_errors=False):
             gemini_settings = self.settings.get("gemini", {})
             keys = gemini_settings.get("api_keys", [])
             if not keys: return
 
-            btn_check.config(state="disabled", text="Đang kiểm tra...")
+            keys_to_check = keys
+            if only_errors:
+                keys_to_check = [k for k in keys if k.get("status") not in ["active", "exhausted"]]
+                if not keys_to_check:
+                    messagebox.showinfo("Thông báo", "Không có key nào bị lỗi để kiểm tra.", parent=top)
+                    return
+
+            stop_flag = [False]
+            def stop_check():
+                stop_flag[0] = True
+                btn_check.config(state="disabled", text="⏳ Đang dừng...")
+                log_key("🛑 Nhận lệnh dừng, đang đợi kết thúc key hiện tại...")
+
+            # Biến nút check tất cả thành nút Dừng
+            btn_check.config(state="normal", text="⏹ Dừng kiểm tra", command=stop_check, bg="#c0392b")
+            try:
+                btn_check_err.config(state="disabled")
+            except NameError:
+                pass
             top.update_idletasks()
-            self.log_ai(f"🔄 Đang kiểm tra toàn bộ {len(keys)} API keys...")
+            log_key(f"🔄 Bắt đầu kiểm tra {len(keys_to_check)} API keys...")
 
             def run_checks():
-                for key_obj in keys:
+                for key_obj in keys_to_check:
+                    if stop_flag[0]:
+                        break
                     raw_key = key_obj.get("key")
                     if not raw_key: continue
                     email = key_obj.get("email", "Không tên")
-                    self.log_ai(f"  - Đang kiểm tra: {email[:20]}...")
+                    log_key(f"──────────────────────────────")
+                    log_key(f"⏳ Kiểm tra: {email[:50]}")
                     api_key = decode_key(raw_key)
                     try:
                         url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
+                        log_key(f"   → Gọi API gemini-flash-latest...")
                         headers = {'Content-Type': 'application/json'}
-                        payload = {"contents": [{"parts": [{"text": "Hello. " * 10}]}], "generationConfig": {"maxOutputTokens": 1000}}
-                        resp = requests.post(url, headers=headers, json=payload, timeout=10)
+                        payload = {"contents": [{"parts": [{"text": "Hi"}]}], "generationConfig": {"maxOutputTokens": 5}}
+                        resp = requests.post(url, headers=headers, json=payload, timeout=15)
                         key_obj["last_check_time"] = int(time.time())
+                        log_key(f"   ← HTTP {resp.status_code}")
 
                         if resp.status_code == 200:
                             now = int(time.time())
@@ -1131,42 +1558,73 @@ TUYỆT ĐỐI chỉ trả về chuỗi Markdown kết quả, KHÔNG giải thí
                             next_check = key_obj.get("next_check_time", 0)
                             if old_status == "exhausted" and next_check > now:
                                 remain_min = (next_check - now) // 60
-                                self.log_ai(f"    ⚠️ API OK, nhưng giữ án phạt Exhausted (Chờ {remain_min} phút).")
+                                log_key(f"   ⚠️ API OK nhưng giữ án Exhausted ({remain_min} phút còn lại).")
                             else:
                                 key_obj["status"] = "active"
                                 key_obj["reset_time"] = 0
                                 key_obj["next_check_time"] = 0
-                                self.log_ai(f"    ✅ Hoạt động tốt.")
+                                log_key(f"   ✅ Hoạt động tốt!")
                         else:
-                            rj = resp.json()
+                            try:
+                                rj = resp.json()
+                            except Exception:
+                                rj = {}
                             msg = rj.get("error", {}).get("message", "")
+                            log_key(f"   Phản hồi API: {msg[:150]}")
                             proj = extract_project_id(rj)
                             if proj:
                                 key_obj["project_id"] = proj
-                                self.log_ai(f"    ℹ️ Project ID: {proj}")
-                            if "Quota" in msg or "exhausted" in msg.lower() or resp.status_code == 429:
+                                log_key(f"   ℹ️ Project ID: {proj}")
+                            # 503 hoặc model quá tải: KHÔNG đổi status key
+                            if resp.status_code == 503 or "currently experiencing" in msg.lower() or "overloaded" in msg.lower():
+                                log_key(f"   ⏸️ Model quá tải TẠM THỜI → Key vẫn hợp lệ! (Giữ nguyên status)")
+                            elif "Quota" in msg or "exhausted" in msg.lower() or resp.status_code == 429:
                                 key_obj["status"] = "exhausted"
                                 key_obj["reset_time"] = int(time.time()) + 86400
                                 key_obj["next_check_time"] = int(time.time()) + 10800
                                 key_obj["error_msg"] = ""
-                                self.log_ai(f"    ⚠️ Hết Quota (Exhausted).")
+                                log_key(f"   ⚠️ Hết Quota (Exhausted).")
                             else:
                                 key_obj["status"] = "invalid"
-                                key_obj["error_msg"] = msg[:35]
-                                self.log_ai(f"    ❌ Lỗi: {msg[:35]}")
+                                key_obj["error_msg"] = msg[:50]
+                                log_key(f"   ❌ Key không hợp lệ.")
+                    except requests.exceptions.ConnectionError as conn_err:
+                        # Lỗi mạng → KHÔNG đổi status
+                        log_key(f"   🌐 Lỗi kết nối mạng! (Key giữ nguyên status cũ)")
+                        log_key(f"      {str(conn_err)[:150]}")
+                        log_key(f"      → Key có thể vẫn hợp lệ. Kiểm tra internet.")
+                    except requests.exceptions.Timeout:
+                        log_key(f"   ⏱️ Timeout sau 15s (Key giữ nguyên status cũ)")
                     except Exception as e:
                         key_obj["status"] = "invalid"
-                        key_obj["error_msg"] = str(e)[:35]
-                        self.log_ai(f"    ❌ Lỗi kết nối: {str(e)[:35]}")
+                        key_obj["error_msg"] = str(e)[:50]
+                        log_key(f"   ❌ Exception: {type(e).__name__}: {str(e)[:150]}")
 
-                top.after(0, update_ui_after_check, keys)
+                    # Cập nhật giao diện và lưu ngay sau mỗi key
+                    def update_single():
+                        update_gemini_settings(api_keys=keys)
+                        self.settings = load_settings()
+                        refresh_list()
+                    top.after(0, update_single)
 
-            def update_ui_after_check(keys):
+                log_key(f"══════════════════════════════")
+                if stop_flag[0]:
+                    log_key(f"🛑 Đã dừng tiến trình kiểm tra!")
+                else:
+                    log_key(f"✅ Kiểm tra xong toàn bộ!")
+                top.after(0, lambda: update_ui_after_check(keys, stop_flag[0]))
+
+            def update_ui_after_check(keys, stopped):
                 update_gemini_settings(api_keys=keys)
                 self.settings = load_settings()
                 refresh_list()
-                btn_check.config(state="normal", text="Kiểm tra tất cả")
-                messagebox.showinfo("Hoàn tất", "Đã kiểm tra xong toàn bộ API Keys!", parent=top)
+                btn_check.config(state="normal", text="Kiểm tra tất cả", command=lambda: check_all_keys(False), bg="#f39c12")
+                try:
+                    btn_check_err.config(state="normal")
+                except NameError:
+                    pass
+                if not stopped:
+                    messagebox.showinfo("Hoàn tất", "Đã kiểm tra xong!", parent=top)
 
             threading.Thread(target=run_checks, daemon=True).start()
 
@@ -1350,14 +1808,35 @@ TUYỆT ĐỐI chỉ trả về chuỗi Markdown kết quả, KHÔNG giải thí
         btn_frame.pack(fill="x", padx=10, pady=10, side="bottom")
         Button(btn_frame, text="Nhập từ JSON", command=import_json_handler, bg="#34495e", fg="white").pack(side="left", padx=5)
         Button(btn_frame, text="Thêm Key", command=add_key, bg="#27ae60", fg="white").pack(side="left", padx=5)
-        btn_check = Button(btn_frame, text="Kiểm tra tất cả", command=check_all_keys, bg="#f39c12", fg="white")
+        btn_check = Button(btn_frame, text="Kiểm tra tất cả", command=lambda: check_all_keys(False), bg="#f39c12", fg="white")
         btn_check.pack(side="left", padx=5)
+        btn_check_err = Button(btn_frame, text="Kiểm tra key lỗi", command=lambda: check_all_keys(True), bg="#d35400", fg="white")
+        btn_check_err.pack(side="left", padx=5)
         btn_auto = Button(btn_frame, text="🔄 Tự động điều chỉnh", command=auto_adjust, bg="#8e44ad", fg="white")
         btn_auto.pack(side="left", padx=5)
         Button(btn_frame, text="Đặt Active", command=set_active, bg="#3498db", fg="white").pack(side="left", padx=5)
         Button(btn_frame, text="Lưu Thứ Tự", command=save_sort_order, bg="#16a085", fg="white").pack(side="left", padx=5)
         Button(btn_frame, text="Xóa Key", command=del_key, bg="#e74c3c", fg="white").pack(side="right", padx=5)
 
+        # === LOG PANEL (packed side=bottom → xuất hiện TRÊN btn_frame) ===
+        from tkinter.scrolledtext import ScrolledText as _ST
+        frame_log = Frame(top, bd=1, relief="sunken")
+        frame_log.pack(side="bottom", fill="x", padx=10, pady=(0, 3))
+        _log_hdr = Frame(frame_log, bg="#2c3e50")
+        _log_hdr.pack(fill='x')
+        Label(_log_hdr, text="📋 Log Kiểm Tra API:", font=("Arial", 9, "bold"), fg="#ecf0f1", bg="#2c3e50", anchor='w').pack(side='left', padx=6, pady=2)
+        def _clear_log():
+            if _log_box[0]:
+                _log_box[0].config(state='normal')
+                _log_box[0].delete('1.0', END)
+                _log_box[0].config(state='disabled')
+        Button(_log_hdr, text="Xóa Log", font=("Arial", 8), command=_clear_log,
+               relief="flat", bg="#34495e", fg="#ecf0f1", cursor="hand2", padx=4).pack(side='right', padx=4, pady=2)
+        _log_box[0] = _ST(frame_log, height=8, font=("Consolas", 9),
+                          bg="#0d1117", fg="#00e676", insertbackground="#00e676",
+                          state='disabled', wrap='word', relief='flat')
+        _log_box[0].pack(fill='x', pady=0)
+        log_key("📋 Log sẵn sàng. Nhấn 'Kiểm tra tất cả' hoặc 'Kiểm tra' từng key để xem tiến độ.")
 
         refresh_list()
 

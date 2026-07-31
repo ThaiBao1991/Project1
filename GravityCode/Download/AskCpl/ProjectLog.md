@@ -1217,3 +1217,77 @@ Machine B: Startup -> auto-import tokens -> Check All hoat dong ngay
 2. Da sua: esetTime va overallResetTime chi duoc tinh khi model/group bi EXHAUSTED (exhausted: true). Neu tai khoan 100% OK, overallResetTime = 0 va hien thi —.
 3. Fix gamesvendn18: Tu dong gop va phan tich dung voi DB state.vscdb cua IDE, gamesvendn18 nay tinh ra **🔴 Hết quota hoàn toàn** (EX=[gemini, claude, gpt]) voi thoi gian hoi phuc chinh xac la 1d 17h 18m (hoan toan trung khớp voi thoi gian trong IDE).
 4. VERIFIED: Node.js & Python syntax PASS.
+
+### [2026-07-31 10:34:14] Fix API Key Validation & Add Log Panel
+
+- **Vấn đề 1**: Chức năng kiểm tra API Key ở tab 'Quản lý API Key' im lặng, không có log (trước đây ghi log vào tab Auto AI nên người dùng không thấy).
+- **Vấn đề 2**: Các lỗi mạng (HTTPSConnectionPool, Timeout) hoặc server Google quá tải (503, 'model is currently experiencing...') bị hiểu lầm là lỗi key và tự động đánh dấu key là 'invalid'.
+- **Giải pháp đã thực hiện**:
+  1. Thêm ScrolledText widget vào panel cuối tab API Keys để hiển thị tiến trình (Log Panel).
+  2. Bổ sung hàm log_key() để ghi trực tiếp các trạng thái gọi API (HTTP status code, message) ngay trong lúc background thread đang chạy.
+  3. Cập nhật logic trong AskCpl.py (check_all_keys, dd_key, edit_key):
+     - ConnectionError & Timeout: Báo lỗi mạng nhưng GIỮ NGUYÊN trạng thái key.
+     - HTTP 503 / 'overloaded': Báo model bận nhưng GIỮ NGUYÊN trạng thái key (hoặc mark là 'busy' tạm thời).
+     - HTTP 429 / Quota: Cập nhật thành 'exhausted'.
+     - Lỗi thực sự từ key: Cập nhật thành 'invalid'.
+  4. Cập nhật nguyên tắc vào generate_roadmap/SKILL.md: Bất kỳ app Python Tkinter nào thực hiện request/thread đều phải có UI Log Panel để người dùng theo dõi (Rule số 10).
+- **Trạng thái**: ✅ Hoàn thành. Đã syntax check.
+
+### [2026-07-31 10:48:14] Add 'Kiểm tra key lỗi' button
+
+- **Yêu cầu**: Thêm nút chỉ kiểm tra các key đang báo lỗi (status khác active/exhausted) để tiết kiệm thời gian, đặt cạnh nút Kiểm tra tất cả.
+- **Giải pháp**:
+  - Thêm nút tn_check_err ('Kiểm tra key lỗi') ngay cạnh tn_check.
+  - Nâng cấp check_all_keys(only_errors=False): nếu only_errors=True thì list cần check sẽ được filter bỏ qua 'active' và 'exhausted'.
+  - Block/Unblock cả 2 nút trong thời gian test.
+- **Trạng thái**: ✅ Hoàn thành. Đã syntax check.
+
+### [2026-07-31 11:10:08] Fix Model Name Error (gemini-1.5-flash-latest)
+
+- **Vấn đề**: Người dùng báo lỗi API trả về models/gemini-1.5-flash-latest is not found for API version v1beta.
+- **Nguyên nhân**: Trong phiên bản cập nhật trước, model name trong URL bị thay đổi thành gemini-1.5-flash-latest - tên này không được Google API hỗ trợ (chỉ hỗ trợ gemini-1.5-flash hoặc gemini-flash-latest).
+- **Giải pháp**:
+  - Dùng script sửa lại toàn bộ gemini-1.5-flash-latest thành gemini-1.5-flash ở cả 3 hàm gọi (Thêm key, sửa key, và check toàn bộ).
+- **Trạng thái**: ✅ Hoàn thành.
+
+### [2026-07-31 11:12:23] Rollback Model Name to gemini-flash-latest
+
+- **Vấn đề**: Sai lầm chủ quan khi tự ý đổi tên model thành gemini-1.5-flash và gemini-1.5-flash-latest dẫn tới lỗi version v1beta không support. 
+- **Bài học**: Không đọc kỹ log quá khứ trong ProjectLog.md. User đã từng chốt phiên bản gemini-flash-latest là chuẩn nhất cho code này.
+- **Khắc phục**: Đã dùng script đổi toàn bộ gemini-1.5-flash về lại chính xác gemini-flash-latest trong file AskCpl.py.
+- **Trạng thái**: ✅ Hoàn thành sửa sai.
+
+### [2026-07-31 11:18:13] Thêm Nút Dừng & Lưu Real-time khi check API
+
+- **Yêu cầu 1**: Lưu và cập nhật giao diện ngay sau khi check xong từng key thay vì đợi hoàn tất toàn bộ.
+- **Yêu cầu 2**: Biến nút 'Kiểm tra tất cả' thành nút 'Dừng kiểm tra' màu đỏ trong lúc chạy.
+- **Giải pháp**:
+  - Dùng 	op.after(0, update_single) để gọi logic lưu JSON và 
+efresh_list() ngay bên trong vòng lặp sau mỗi lần gọi API trả kết quả.
+  - Thêm cờ stop_flag = [False]. Đổi text và lệnh của nút tn_check thành logic Dừng. Khi loop phát hiện cờ, vòng lặp dừng ngay lập tức. Sau đó khôi phục lại trạng thái cũ cho nút.
+- **Trạng thái**: ✅ Hoàn thành. Đã syntax check.
+
+- [x] **AskCpl.py - Nâng cấp Auto AI Roadmap (Context-Aware):**
+  - Bổ sung ô nhập [Yêu cầu bổ sung/Tiêu chuẩn] trên giao diện để nạp Prompt hoặc nội dung file SKILL.md.
+  - Step 1 (Phân tích Khung): Ép LLM sinh JSON Object chứa domain_profile (persona, sách nền tảng, lệnh tối thượng) và skeleton.
+  - Step 3 (Sinh Markdown): Đọc profile để tự động ghép/nối thành siêu Template chuyên sâu (như Nội đan luyện thần).
+  - Tự động gọi hệ thống mở file markdown bằng os.startfile() ngay khi hoàn thành Step 3.
+
+- [x] **AskCpl.py - Nâng cấp Roadmap Generator V3 (2-Stage + Quota Resilient):**
+  - UI: Thêm ô Thời lượng học/ngày, Dropdown Số ngày (Auto/30/60/100/150).
+  - UI: Thay File tham khảo đơn thành danh sách động hỗ trợ [+]/[-] tối đa 5 file.
+  - Step 1 viết lại thành 2-Stage Prompting: Nhịp 1 sinh Phase Milestones, Nhịp 2 loop sinh chi tiết từng Phase và Merge thành 1 JSON Skeleton hoàn chỉnh.
+  - Step 3 (LLM Mode) thêm: Auto-detect file tồn tại để Append thay vì Overwrite, Rotate API Key khi gặp lỗi Quota 429, Retry 3 lần trước khi dừng.
+
+## [2026-07-31] V4 Roadmap Generator - 6-Pass Reflexion Architecture
+- **UI Update**: Chia lai giao dien thanh 3 nut bam tuong ung voi 3 giai doan lon.
+- **Step 1 (Core Skeleton)**: Doi prompt de AI chi tap trung xuat Khung Xuong cot loi (nhanh, it token).
+- **Step 2 (3-Pass Expand & Critique)**: 
+  - Pass 1: Doc Dan y Loi -> Tu danh gia, che nho chu de lon, bo sung kien thuc hien dai -> JSON V2.
+  - Pass 2: Doc JSON V2 -> Doi chieu SKILL.md va Reference Files -> Ep chuan -> JSON V3 (Cap nhat len UI).
+  - Pass 3: Xuat JSON V3 ra file markdown duoi dang Muc Luc.
+- **Step 3 (3-Pass Master Details)**: Chay vong lap tung batch:
+  - Pass 4: Viet nhap cac cau Prompt bai giang.
+  - Pass 5: Dong vai chuyen gia Review, ep them Vi du, Loi thuong gap, Giai thich sau vao Prompt nhap.
+  - Pass 6: Danh bong van phong, ep format chuan va Append vao cuoi file.
+- **Toi uu Quota**: Tich hop Auto-Rotate API Key ngay trong vong lap 3-Pass cua Step 3.
