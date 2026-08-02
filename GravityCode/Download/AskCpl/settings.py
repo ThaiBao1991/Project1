@@ -39,6 +39,15 @@ DEFAULT_SETTINGS = {
         "last_roadmap": "",
         "last_doc_dir": "",
         "last_out_dir": "",
+        "roadmap_generator": {
+            "domain": "",
+            "time_per_day": "2 tiếng",
+            "days": "Auto",
+            "context": "",
+            "reference_files": [],
+            "save_dir": "",
+            "expand_mode": "llm"
+        },
         "enable_followup": True,
         "max_followup": 3
     }

@@ -1,0 +1,250 @@
+[
+  {
+    "day": 346,
+    "topic_id": "ky_thuat_che_tac_den_ngu_me_cung_anh_sang",
+    "topic": "Kỹ thuật chế tác đèn ngủ mê cung ánh sáng LED nghệ thuật",
+    "phase": "DIY Chuyên Nghiệp, Decor Nghệ Thuật & Dụng Cụ Dã Ngoại Đời Sống (18 - 25 Tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Mẫu thử mê cung ánh sáng acrylic và đế gỗ",
+    "materials": [
+      "Tấm acrylic 20x20cm",
+      "Đế gỗ sồi 15x5cm",
+      "Dây đèn LED 5V 1m"
+    ],
+    "definition_of_done": [
+      "Mê cung acrylic được khắc và chiếu sáng đều qua đĩa LED",
+      "Đế gỗ xẻ rãnh vừa khít tấm mica acrylic"
+    ],
+    "details": [
+      "Vẽ sơ đồ rãnh mê cung trên tấm acrylic",
+      "Dùng máy khắc cầm tay tạo đường rãnh phản quang",
+      "Lắp dải LED vào khe đế gỗ và kiểm tra hiệu ứng ánh sáng"
+    ],
+    "keywords": [
+      "đèn ngủ nghệ thuật",
+      "acrylic khắc laser",
+      "led nghệ thuật",
+      "diy decor"
+    ],
+    "source_files": [
+      "TaiLieu_CheTacDenNguArt.pdf"
+    ],
+    "prerequisites": [
+      "ky_thuat_cat_mai_bo_tron_go"
+    ]
+  },
+  {
+    "day": 347,
+    "topic_id": "che_tac_den_ngu_khong_gian_3d_led",
+    "topic": "Chế tác đèn ngủ mành gỗ xuyên sáng 3D nghệ thuật",
+    "phase": "DIY Chuyên Nghiệp, Decor Nghệ Thuật & Dụng Cụ Dã Ngoại Đời Sống (18 - 25 Tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Đèn ngủ mành gỗ lớp layer 3D khơi gợi không gian",
+    "materials": [
+      "Ván gỗ plywood 3mm 4 tấm 15x15cm",
+      "Đèn LED vi mạch USB 1 cái",
+      "Keo dán gỗ 1 chai 50ml"
+    ],
+    "definition_of_done": [
+      "Đèn 3D tạo chiều sâu bóng đổ đẹp mắt khi bật điện",
+      "Các lớp ván plywood cắt rỗng ghép khoảng cách đồng đều"
+    ],
+    "details": [
+      "Cắt tạo hình stencil rừng cây trên 4 lớp plywood",
+      "Ghép lớp spacer gỗ giữa các tấm plywood",
+      "Gắn đế đệm và đấu nối công tắc LED USB"
+    ],
+    "keywords": [
+      "đèn ngủ 3d",
+      "plywood stencil",
+      "decor phòng ngủ",
+      "chế tác gỗ"
+    ],
+    "source_files": [
+      "HuongDan_DenNgu3D_Layer.pdf"
+    ],
+    "prerequisites": [
+      "ky_thuat_che_tac_den_ngu_me_cung_anh_sang"
+    ]
+  },
+  {
+    "day": 348,
+    "topic_id": "ky_thuat_thiet_ke_ke_mo_dun_xap_xep_da_nang",
+    "topic": "Kỹ thuật thiết kế kệ mô-đun xếp chồng đa năng không dùng đinh",
+    "phase": "DIY Chuyên Nghiệp, Decor Nghệ Thuật & Dụng Cụ Dã Ngoại Đời Sống (18 - 25 Tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Mô hình kệ gỗ mô-đun 2 tầng xếp gọn",
+    "materials": [
+      "Gỗ thông tấm 30x15cm 4 tấm",
+      "Chốt gỗ mộng âm dương 8 cái",
+      "Giấy nhám nhẵn 2 tờ"
+    ],
+    "definition_of_done": [
+      "Các ô kệ kết nối chắc chắn không bị lắc lư",
+      "Dễ dàng tháo rời và tái định hình cấu trúc"
+    ],
+    "details": [
+      "Vẽ bản thiết kế khớp mộng rãnh trượt",
+      "Cắt rãnh mộng trên các cạnh tấm gỗ thông",
+      "Chà nhám bo tròn cạnh và lắp thử cấu trúc kệ"
+    ],
+    "keywords": [
+      "kệ mô đun",
+      "khớp mộng gỗ",
+      "decor tối giản",
+      "diy nội thất"
+    ],
+    "source_files": [
+      "GiaoTrinh_KeMoDun_ThongMinh.pdf"
+    ],
+    "prerequisites": [
+      "ky_thuat_cat_mai_bo_tron_go"
+    ]
+  },
+  {
+    "day": 349,
+    "topic_id": "che_tac_ke_mo_dun_luc_giac_treo_tuong",
+    "topic": "Chế tác kệ mô-đun hình lục giác nghệ thuật treo tường",
+    "phase": "DIY Chuyên Nghiệp, Decor Nghệ Thuật & Dụng Cụ Dã Ngoại Đời Sống (18 - 25 Tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Kệ treo tường lục giác gỗ ghép thông minh",
+    "materials": [
+      "Thanh gỗ thông 20x5x1.5cm 6 thanh",
+      "Keo ghép gỗ chuyên dụng 1 chai",
+      "Móc treo âm tường 2 bộ"
+    ],
+    "definition_of_done": [
+      "Khung lục giác chuẩn góc 60 độ, các góc ghép khít",
+      "Chịu tải được vật dụng trang trí nặng 2kg"
+    ],
+    "details": [
+      "Cắt vát góc 30 độ hai đầu thanh gỗ",
+      "Bôi keo ghép 6 thanh thành hình lục giác cân",
+      "Gắn móc treo âm phía sau và sơn bóng bảo vệ"
+    ],
+    "keywords": [
+      "kệ lục giác",
+      "kệ treo tường",
+      "decor không gian",
+      "diy chuyên nghiệp"
+    ],
+    "source_files": [
+      "HuongDan_KeLucGiac_Decor.pdf"
+    ],
+    "prerequisites": [
+      "ky_thuat_thiet_ke_ke_mo_dun_xap_xep_da_nang"
+    ]
+  },
+  {
+    "day": 350,
+    "topic_id": "on_tap_thiet_ke_den_ngu_va_ke_mo_dun_decor",
+    "topic": "Ôn tập và kiểm định kỹ thuật chế tác đèn nghệ thuật & kệ mô-đun",
+    "phase": "DIY Chuyên Nghiệp, Decor Nghệ Thuật & Dụng Cụ Dã Ngoại Đời Sống (18 - 25 Tuổi)",
+    "kind": "review",
+    "estimated_minutes": 30,
+    "concrete_project": "Bản đánh giá chất lượng kết cấu kệ và đèn LED nghệ thuật",
+    "materials": [
+      "Đèn ngủ 3D đã làm 1 cái",
+      "Kệ lục giác đã làm 1 cái",
+      "Thước đo góc và đồng hồ đo dòng 1 bộ"
+    ],
+    "definition_of_done": [
+      "Đạt 100% tiêu chí an toàn điện tử áp thấp và tải trọng cơ học",
+      "Hoàn thiện hồ sơ thiết kế kỹ thuật của 2 sản phẩm"
+    ],
+    "details": [
+      "Kiểm tra độ cách điện và nhiệt độ tỏa ra của đèn LED",
+      "Thử nghiệm tải trọng tĩnh 3kg lên kệ lục giác",
+      "Tùy chỉnh chà nhám lại các góc mộng chưa khít"
+    ],
+    "keywords": [
+      "ôn tập decor",
+      "kiểm định kệ gỗ",
+      "đèn nghệ thuật",
+      "chuẩn an toàn"
+    ],
+    "source_files": [
+      "KiemDinh_DoDecor_DoGo.pdf"
+    ],
+    "prerequisites": [
+      "che_tac_den_ngu_khong_gian_3d_led",
+      "che_tac_ke_mo_dun_luc_giac_treo_tuong"
+    ]
+  },
+  {
+    "day": 351,
+    "topic_id": "ky_thuat_thiet_ke_dieu_khi_dong_hoc_hop_kim",
+    "topic": "Kỹ thuật thiết kế diều khí động học khung carbon cao cấp",
+    "phase": "DIY Chuyên Nghiệp, Decor Nghệ Thuật & Dụng Cụ Dã Ngoại Đời Sống (18 - 25 Tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Cánh diều khí động học 2 dây điều khiển stunt kite",
+    "materials": [
+      "Vải nylon chống xé Ripstop 1m2",
+      "Thanh carbon phi 4mm 3 thanh",
+      "Dây diều siêu bền Dyneema 2 cuộn"
+    ],
+    "definition_of_done": [
+      "Cánh diều cân bằng chuẩn xác hai bên tả hữu",
+      "Khung carbon lắp ráp nhanh gọn, chịu áp lực gió lớn"
+    ],
+    "details": [
+      "May đường may đôi cho viền vải nylon Ripstop",
+      "Cắt và gắn các ống nối khung carbon vào thân diều",
+      "Buộc dây cân bằng lèo diều đúng góc đón gió 15 độ"
+    ],
+    "keywords": [
+      "diều khí động học",
+      "stunt kite",
+      "dụng cụ outdoor",
+      "vải ripstop"
+    ],
+    "source_files": [
+      "ThietKe_DieuKhiDongHoc_Stunt.pdf"
+    ],
+    "prerequisites": [
+      "ky_thuat_may_bat_tang_camping_chong_nuoc"
+    ]
+  },
+  {
+    "day": 352,
+    "topic_id": "be_phong_ten_lua_nuoc_van_xa_khai_thong_khi",
+    "topic": "Chế tác bệ phóng tên lửa nước khí nén van xả nhanh",
+    "phase": "DIY Chuyên Nghiệp, Decor Nghệ Thuật & Dụng Cụ Dã Ngoại Đời Sống (18 - 25 Tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Bệ phóng tên lửa nước ống PVC tích hợp khóa gài chốt an toàn",
+    "materials": [
+      "Ống nhựa PVC phi 21mm 2m",
+      "Van xe đạp / xe máy 1 cái",
+      "Khớp nối nhanh nắp chai PET 1 bộ"
+    ],
+    "definition_of_done": [
+      "Bệ phóng chịu được áp suất 6 bar không rò rỉ khí",
+      "Cơ chế giật chốt xả nhanh hoạt động trơn tru 100%"
+    ],
+    "details": [
+      "Cắt dán ống PVC tạo chân đế bệ phóng 3 chấu",
+      "Khoan lắp van nạp khí nén vào bình áp lực bệ phóng",
+      "Thử nghiệm cơ cấu chốt khóa cổ chai PET và dây giật xả"
+    ],
+    "keywords": [
+      "tên lửa nước",
+      "bệ phóng khí nén",
+      "stem outdoor",
+      "diy cơ khí"
+    ],
+    "source_files": [
+      "CheTao_BePhong_TenLuaNuoc.pdf"
+    ],
+    "prerequisites": [
+      "ky_thuat_khieu_khi_nen_ong_dan_an_toan"
+    ]
+  },
+  {
+    "day": 353,
+    "topic_id": "che_tac_dung_cu_dieu_hu

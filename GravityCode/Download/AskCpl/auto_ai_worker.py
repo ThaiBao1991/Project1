@@ -221,7 +221,10 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
         return
         
     # Tách theo Day X
-    days_blocks = re.split(r'\n## (Day \d+.*?)\n', "\n" + content)
+    # Only accept a real top-level roadmap heading.  Generated prompt content
+    # may itself mention "## Day" as an example; treating that as a new lesson
+    # created phantom days (45 real days were parsed as 55).
+    days_blocks = re.split(r'\n## (Day \d+[a-z]?\s+—\s+[^\n]+)\n', "\n" + content)
     days_parsed = []
     
     for i in range(1, len(days_blocks), 2):
@@ -232,6 +235,14 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
         url_match = re.search(r'\(http.*?/([^/]+\.pdf)\)', day_content, re.IGNORECASE)
         if url_match:
             pdf_filename = url_match.group(1)
+        else:
+            # Roadmaps generated from local reference files store the relevant
+            # PDF name as metadata; this keeps the Markdown readable while the
+            # loader can still extract the matching source document.
+            source_match = re.search(r'<!--\s*sources:\s*([^>]+)\s*-->', day_content, re.IGNORECASE)
+            if source_match:
+                candidates = [part.strip() for part in source_match.group(1).split(',')]
+                pdf_filename = next((part for part in candidates if part.lower().endswith('.pdf')), None)
             
         page_start = 0
         page_end = None

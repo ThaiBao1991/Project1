@@ -65,6 +65,9 @@ from settings import load_settings, update_github_settings, update_editor_settin
 from github_api import GitHubSync
 from exercise_builder import save_exercise_to_html, remove_exercise_from_html
 from nav_injector import inject_all, rebuild_index, get_day_files
+from roadmap_pipeline import (RoadmapValidationError, atomic_write, load_json_response,
+                              render_markdown, render_toc, restore_locked_day_identity,
+                              validate_plan, validate_revision)
 import webbrowser
 try:
     from exercise_server import run_server
@@ -129,12 +132,13 @@ class AskCplApp:
     def setup_roadmap_gen_tab(self):
         from tkinter import ttk, scrolledtext
         import tkinter as tk
+        saved_generator = self.settings.get("gemini", {}).get("roadmap_generator", {})
         
         # Region 1: Input
         f_input = tk.Frame(self.sub_tab_roadmap_gen)
         f_input.pack(fill='x', padx=10, pady=5)
         tk.Label(f_input, text="Lĩnh vực / Từ khóa:", font=("Arial", 10, "bold"), width=15, anchor='w').pack(side='left')
-        self.ai_roadmap_domain_var = tk.StringVar()
+        self.ai_roadmap_domain_var = tk.StringVar(value=saved_generator.get("domain", ""))
         tk.Entry(f_input, textvariable=self.ai_roadmap_domain_var, font=("Arial", 10)).pack(side='left', fill='x', expand=True, padx=10)
         
         tk.Button(f_input, text="1. Lên Dàn ý Lõi (Core)", bg="#8e44ad", fg="white", font=("Arial", 10, "bold"),
@@ -146,17 +150,18 @@ class AskCplApp:
         tk.Label(f_context, text="Yêu cầu bổ sung / Tiêu chuẩn:", font=("Arial", 9), width=25, anchor='nw').pack(side='left', anchor='n')
         self.ai_roadmap_context_text = scrolledtext.ScrolledText(f_context, height=3, font=("Arial", 9))
         self.ai_roadmap_context_text.pack(side='left', fill='x', expand=True, padx=10)
+        self.ai_roadmap_context_text.insert("1.0", saved_generator.get("context", ""))
 
         # Region 1.3: Scale (Time & Days)
         f_scale = tk.Frame(self.sub_tab_roadmap_gen)
         f_scale.pack(fill='x', padx=10, pady=5)
         tk.Label(f_scale, text="Thời lượng học/ngày:", width=20, anchor='w').pack(side='left')
-        self.ai_roadmap_time_var = tk.StringVar(value="2 tiếng")
+        self.ai_roadmap_time_var = tk.StringVar(value=saved_generator.get("time_per_day", "2 tiếng"))
         tk.Entry(f_scale, textvariable=self.ai_roadmap_time_var, width=15).pack(side='left', padx=5)
         
         tk.Label(f_scale, text="Tổng số ngày mong muốn:", width=20, anchor='w').pack(side='left', padx=(10,0))
-        self.ai_roadmap_days_var = tk.StringVar(value="Auto")
-        cb_days = ttk.Combobox(f_scale, textvariable=self.ai_roadmap_days_var, values=["Auto", "30", "60", "100", "150"], width=10)
+        self.ai_roadmap_days_var = tk.StringVar(value=saved_generator.get("days", "Auto"))
+        cb_days = ttk.Combobox(f_scale, textvariable=self.ai_roadmap_days_var, values=["Auto", "30", "60", "100", "150", "365", "1000", "3000"], width=10)
         cb_days.pack(side='left', padx=5)
 
         # Region 1.5: Reference Files
@@ -176,7 +181,7 @@ class AskCplApp:
             
             def select_file():
                 from tkinter import filedialog
-                f = filedialog.askopenfilename(filetypes=[("Roadmap/JSON", "*.md *.json"), ("All Files", "*.*")])
+                f = filedialog.askopenfilename(filetypes=[("Tài liệu roadmap", "*.md *.json *.pdf *.txt"), ("All Files", "*.*")])
                 if f: var.set(f)
             tk.Button(f_row, text="Chọn", command=select_file).pack(side='left', padx=2)
             
@@ -195,15 +200,20 @@ class AskCplApp:
         tk.Label(f_ref_header, text="Các File Tham Khảo (Max 5):", font=("Arial", 9, "bold")).pack(side='left')
         tk.Button(f_ref_header, text="[+] Thêm File", command=lambda: add_ref_file(), fg="green").pack(side='left', padx=10)
         
-        add_ref_file()
+        saved_references = saved_generator.get("reference_files", [])
+        for reference in saved_references[:5] if isinstance(saved_references, list) else []:
+            add_ref_file(reference)
+        if not self.ref_file_vars:
+            add_ref_file()
 
         # Region 2: Settings (Save As)
         f_opts = tk.Frame(self.sub_tab_roadmap_gen)
         f_opts.pack(fill='x', padx=10, pady=5)
         tk.Label(f_opts, text="Lưu file tại:").pack(side='left')
-        self.ai_roadmap_save_var = tk.StringVar()
+        self.ai_roadmap_save_var = tk.StringVar(value=saved_generator.get("save_dir", ""))
         tk.Entry(f_opts, textvariable=self.ai_roadmap_save_var, state='readonly', width=50).pack(side='left', padx=10)
         tk.Button(f_opts, text="Chọn Thư Mục...", command=self.roadmap_gen_select_dir).pack(side='left')
+        tk.Button(f_opts, text="Lưu cấu hình tạo roadmap", command=self.save_roadmap_generator_settings).pack(side='left', padx=8)
 
         # Region 3: Preview Skeleton
         f_preview = tk.Frame(self.sub_tab_roadmap_gen)
@@ -216,18 +226,18 @@ class AskCplApp:
         # Region 3.5: Step 2 - Nâng cấp Khung
         f_step2 = tk.Frame(self.sub_tab_roadmap_gen)
         f_step2.pack(fill='x', padx=10, pady=5)
-        tk.Button(f_step2, text="2. Phản biện & Mở rộng Khung (3 Passes)", bg="#3498db", fg="white", font=("Arial", 10, "bold"),
+        tk.Button(f_step2, text="2. Phản biện & Mở rộng Khung (5 Passes)", bg="#3498db", fg="white", font=("Arial", 10, "bold"),
                   command=lambda: self.roadmap_gen_step2()).pack(side='right')
 
         # Region 4: Expansion (Step 3)
         f_expand = tk.Frame(self.sub_tab_roadmap_gen)
         f_expand.pack(fill='x', padx=10, pady=10)
         
-        self.ai_roadmap_expand_mode = tk.StringVar(value="llm")
+        self.ai_roadmap_expand_mode = tk.StringVar(value=saved_generator.get("expand_mode", "llm"))
         tk.Radiobutton(f_expand, text="Chẻ bằng Template (Nhanh)", variable=self.ai_roadmap_expand_mode, value="template", font=("Arial", 9, "bold"), fg="#27ae60").pack(side='left')
         tk.Radiobutton(f_expand, text="Chẻ bằng LLM 6-Pass (Master)", variable=self.ai_roadmap_expand_mode, value="llm").pack(side='left', padx=10)
 
-        tk.Button(f_expand, text="3. Sinh Chi Tiết Master (3 Passes/Batch)", bg="#e67e22", fg="white", font=("Arial", 10, "bold"),
+        tk.Button(f_expand, text="3. Sinh Chi Tiết Master & Kiểm định", bg="#e67e22", fg="white", font=("Arial", 10, "bold"),
                   command=lambda: self.roadmap_gen_step3()).pack(side='right')
 
         # Region 5: Log
@@ -261,7 +271,9 @@ class AskCplApp:
         
     def _get_active_api_key(self, exclude_keys=None):
         exclude_keys = exclude_keys or set()
-        gemini_settings = self.settings.get("gemini", {})
+        # Always read the persisted state: the API-key manager and roadmap
+        # worker can update a key's quota status while a long generation runs.
+        gemini_settings = load_settings().get("gemini", {})
         keys = gemini_settings.get("api_keys", [])
         active_keys = [k for k in keys if k.get("status") == "active"]
         
@@ -279,6 +291,41 @@ class AskCplApp:
             if dec not in exclude_keys:
                 return dec
         return None
+
+    def _set_roadmap_key_status(self, key_value, status, error_msg=""):
+        """Persist status in the same model used by the API-key manager."""
+        now = int(time.time())
+        state = load_settings()
+        keys = state.get("gemini", {}).get("api_keys", [])
+        changed = False
+        for item in keys:
+            raw = item.get("key", "")
+            if raw.startswith("ENC:"):
+                import base64
+                try:
+                    raw = base64.b64decode(raw[4:]).decode("utf-8")
+                except Exception:
+                    pass
+            if raw != key_value:
+                continue
+            item["status"] = status
+            item["last_check_time"] = now
+            item["error_msg"] = error_msg[:120]
+            if status == "exhausted":
+                item["reset_time"] = now + 86400
+                item["next_check_time"] = now + 10800
+            elif status == "invalid":
+                item["reset_time"] = 0
+                item["next_check_time"] = 0
+            changed = True
+            break
+        if changed:
+            update_gemini_settings(api_keys=keys)
+            self.settings = load_settings()
+            try:
+                self.root.after(0, self.update_keys_label)
+            except Exception:
+                pass
 
     def _clean_json(self, json_str):
         import re
@@ -765,6 +812,607 @@ BẮT BUỘC tuân thủ chặt chẽ định dạng Markdown sau, KHÔNG bọc 
                     
             self.roadmap_gen_log(f"[HOÀN THÀNH] Toàn bộ Roadmap đã được lưu tại: {out_file}")
             
+    # Roadmap Generator V5 -------------------------------------------------
+    # These methods deliberately override the older V3/V4 methods above.  The
+    # old implementation mixed planning, review and file output in one file;
+    # V5 keeps JSON artifacts separate and validates every LLM boundary.
+    def roadmap_gen_log(self, msg):
+        def write_log():
+            try:
+                self.ai_roadmap_log_text.config(state='normal')
+                self.ai_roadmap_log_text.insert(tk.END, str(msg) + "\n")
+                self.ai_roadmap_log_text.see(tk.END)
+                self.ai_roadmap_log_text.config(state='disabled')
+            except tk.TclError:
+                pass
+        self.root.after(0, write_log)
+
+    def _roadmap_snapshot(self):
+        """Read Tk values on the UI thread before a worker starts."""
+        return {
+            "domain": self.ai_roadmap_domain_var.get().strip(),
+            "time_per_day": self.ai_roadmap_time_var.get().strip() or "2 tiếng",
+            "days": self.ai_roadmap_days_var.get().strip(),
+            "context": self.ai_roadmap_context_text.get("1.0", tk.END).strip(),
+            "refs": [item.get().strip() for item in self.ref_file_vars if item.get().strip()],
+            "save_dir": self.ai_roadmap_save_var.get().strip() or os.path.dirname(os.path.abspath(__file__)),
+            "skeleton": self.ai_roadmap_skeleton_text.get("1.0", tk.END).strip(),
+            "mode": self.ai_roadmap_expand_mode.get(),
+        }
+
+    def save_roadmap_generator_settings(self):
+        snapshot = self._roadmap_snapshot()
+        saved = {
+            "domain": snapshot["domain"],
+            "time_per_day": snapshot["time_per_day"],
+            "days": snapshot["days"],
+            "context": snapshot["context"],
+            "reference_files": snapshot["refs"],
+            "save_dir": self.ai_roadmap_save_var.get().strip(),
+            "expand_mode": snapshot["mode"],
+        }
+        update_gemini_settings(roadmap_generator=saved)
+        self.settings.setdefault("gemini", {})["roadmap_generator"] = saved
+        self.roadmap_gen_log("[ĐÃ LƯU] Đã lưu yêu cầu, tài liệu tham khảo và cấu hình tạo roadmap gần nhất.")
+
+    def _start_roadmap_task(self, worker, snapshot):
+        if not hasattr(self, "_roadmap_lock"):
+            self._roadmap_lock = threading.Lock()
+        if not self._roadmap_lock.acquire(blocking=False):
+            self.roadmap_gen_log("[ĐANG CHẠY] Một tác vụ roadmap đang chạy; hãy chờ hoàn tất.")
+            return
+
+        def run():
+            try:
+                worker(snapshot)
+            except Exception as exc:
+                self.roadmap_gen_log(f"[LỖI ROADMAP] {type(exc).__name__}: {exc}")
+            finally:
+                self._roadmap_lock.release()
+        threading.Thread(target=run, daemon=True).start()
+
+    def _roadmap_artifacts(self, snapshot):
+        import re
+        safe = re.sub(r'[^a-zA-Z0-9_-]', '_', snapshot["domain"] or "untitled")
+        root = os.path.join(snapshot["save_dir"], f"roadmap_{safe}")
+        return {
+            "skeleton": root + ".skeleton.json",
+            "reviewed": root + ".reviewed.json",
+            "toc": root + ".toc.md",
+            "final": root + ".md",
+        }
+
+    def _load_saved_roadmap_plan(self, snapshot, prefer_reviewed=False):
+        """Load the last durable generator artifact when the preview is empty."""
+        artifacts = self._roadmap_artifacts(snapshot)
+        names = ("reviewed", "skeleton") if prefer_reviewed else ("skeleton", "reviewed")
+        expected = None if snapshot["days"] == "Auto" else int(snapshot["days"])
+        errors = []
+        for name in names:
+            path = artifacts[name]
+            try:
+                with open(path, "r", encoding="utf-8") as handle:
+                    plan = json.load(handle)
+                validate_plan(plan, expected, require_micro=True)
+                return plan, path
+            except FileNotFoundError:
+                continue
+            except (OSError, json.JSONDecodeError, RoadmapValidationError) as exc:
+                errors.append(f"{path}: {exc}")
+        detail = "; ".join(errors[:2]) or "không tìm thấy file skeleton/reviewed"
+        raise RoadmapValidationError(f"Không nạp được roadmap đã lưu: {detail}")
+
+    def _show_saved_plan_and_snapshot(self, snapshot, prefer_reviewed=False):
+        """Return a snapshot backed by disk, and repopulate the UI preview."""
+        plan, path = self._load_saved_roadmap_plan(snapshot, prefer_reviewed)
+        snapshot = dict(snapshot)
+        snapshot["skeleton"] = json.dumps(plan, ensure_ascii=False, indent=2)
+        self._show_skeleton(plan)
+        self.roadmap_gen_log(f"[NẠP LẠI] Đã nạp roadmap đã lưu: {path}")
+        return snapshot
+
+    def _read_reference_text(self, paths):
+        blocks = []
+        for path in paths:
+            try:
+                if path.lower().endswith(".pdf"):
+                    import fitz
+                    document = fitz.open(path)
+                    try:
+                        content = "\n".join(page.get_text() for page in document[:min(len(document), 20)])
+                    finally:
+                        document.close()
+                else:
+                    with open(path, "r", encoding="utf-8") as handle:
+                        content = handle.read()
+                # Keep a bounded but useful excerpt from both ends of a file.
+                excerpt = content if len(content) <= 12000 else content[:9000] + "\n...[đã rút gọn]...\n" + content[-3000:]
+                blocks.append(f"--- Tài liệu: {os.path.basename(path)} ---\n{excerpt}")
+            except (OSError, UnicodeError) as exc:
+                self.roadmap_gen_log(f"[CẢNH BÁO] Không đọc được tài liệu {os.path.basename(path)}: {exc}")
+        return "\n\n".join(blocks)
+
+    def _registry_path(self):
+        return os.path.join(os.path.dirname(os.path.abspath(__file__)), "topics_registry.md")
+
+    def _registry_context(self):
+        try:
+            with open(self._registry_path(), "r", encoding="utf-8") as handle:
+                return handle.read()[-12000:]
+        except FileNotFoundError:
+            return "(Chưa có topic nào được đăng ký.)"
+
+    def _update_topic_registry(self, plan, roadmap_file):
+        """Append only new topic ids after a reviewed plan has passed validation."""
+        path = self._registry_path()
+        try:
+            existing = open(path, "r", encoding="utf-8").read()
+        except FileNotFoundError:
+            existing = "# Topics registry (AskCpl)\n\n| ID | Topic | Roadmap |\n|---|---|---|\n"
+        rows = []
+        for item in plan["skeleton"]:
+            topic_id, title = item["topic_id"], item["topic"].replace("|", "\\|")
+            if f"| {topic_id} |" not in existing:
+                rows.append(f"| {topic_id} | {title} | {os.path.basename(roadmap_file)} |")
+        if rows:
+            atomic_write(path, existing.rstrip() + "\n" + "\n".join(rows) + "\n")
+
+    def _call_roadmap_llm(self, prompt, label, json_mode=True, retries=3):
+        import requests
+        transient_attempt = 0
+        while True:
+            key = self._get_active_api_key()
+            if not key:
+                raise RoadmapValidationError("Không còn API key trạng thái active; hãy kiểm tra Quản lý API Keys.")
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={key}"
+            config = {"temperature": 0.1, "maxOutputTokens": 8192}
+            if json_mode:
+                config["responseMimeType"] = "application/json"
+            try:
+                self.roadmap_gen_log(f"[{label}] Gửi yêu cầu Gemini (retry mạng {transient_attempt}/{retries})...")
+                response = requests.post(url, headers={"Content-Type": "application/json"},
+                    json={"contents": [{"parts": [{"text": prompt}]}], "generationConfig": config}, timeout=60)
+                if response.status_code == 429:
+                    self._set_roadmap_key_status(key, "exhausted", "HTTP 429 / quota exhausted during roadmap generation")
+                    self.roadmap_gen_log(f"[{label}] Key đã chuyển sang exhausted (kiểm tra lại sau 3 giờ); đang tìm key active khác.")
+                    continue
+                if response.status_code in (400, 401, 403):
+                    try:
+                        api_message = response.json().get("error", {}).get("message", "")
+                    except Exception:
+                        api_message = ""
+                    if response.status_code in (401, 403) or "API key not valid" in api_message:
+                        self._set_roadmap_key_status(key, "invalid", f"HTTP {response.status_code}: {api_message}")
+                        self.roadmap_gen_log(f"[{label}] Key bị từ chối và đã chuyển sang invalid; đang tìm key active khác.")
+                        continue
+                    raise RoadmapValidationError(f"{label} bị HTTP {response.status_code} do request/schema, key vẫn active: {api_message[:160]}")
+                if response.status_code >= 500:
+                    transient_attempt += 1
+                    self.roadmap_gen_log(f"[{label}] Gemini HTTP {response.status_code} tạm thời; key vẫn active ({transient_attempt}/{retries}).")
+                    if transient_attempt >= retries:
+                        raise RoadmapValidationError(f"{label} gặp Gemini HTTP {response.status_code} sau {retries} lần; thử lại batch sau.")
+                    time.sleep(min(2 * transient_attempt, 6))
+                    continue
+                if response.status_code >= 400:
+                    # A non-quota 4xx is deterministic (usually request or
+                    # model configuration), so retrying it as a network error
+                    # only makes the progress screen appear to run forever.
+                    try:
+                        api_message = response.json().get("error", {}).get("message", "")
+                    except Exception:
+                        api_message = response.text[:160]
+                    raise RoadmapValidationError(
+                        f"{label} bị HTTP {response.status_code}; không retry: {api_message[:160]}"
+                    )
+                response.raise_for_status()
+                payload = response.json()
+                candidates = payload.get("candidates", [])
+                candidate = candidates[0] if candidates else {}
+                parts = candidate.get("content", {}).get("parts", [])
+                text = parts[0].get("text", "") if parts else ""
+                if not text:
+                    raise RoadmapValidationError("Gemini không trả về nội dung có thể dùng.")
+                finish_reason = candidate.get("finishReason", "UNKNOWN")
+                self.roadmap_gen_log(f"[{label}] Đã nhận {len(text):,} ký tự (finish={finish_reason}); đang kiểm tra định dạng.")
+                return text
+            except requests.exceptions.Timeout:
+                transient_attempt += 1
+                self.roadmap_gen_log(f"[{label}] Timeout ({transient_attempt}/{retries}); key vẫn giữ active.")
+            except requests.RequestException as exc:
+                transient_attempt += 1
+                http_status = getattr(getattr(exc, "response", None), "status_code", None)
+                status_note = f" HTTP {http_status}" if http_status else ""
+                self.roadmap_gen_log(f"[{label}] Lỗi mạng/API: {type(exc).__name__}{status_note} ({transient_attempt}/{retries}); key vẫn giữ active.")
+            if transient_attempt >= retries:
+                raise RoadmapValidationError(f"{label} lỗi mạng/timeout sau {retries} lần; key không bị đổi trạng thái.")
+            time.sleep(min(2 * transient_attempt, 6))
+
+    def _show_skeleton(self, plan):
+        formatted = json.dumps(plan, ensure_ascii=False, indent=2)
+        def update():
+            self.ai_roadmap_skeleton_text.delete("1.0", tk.END)
+            self.ai_roadmap_skeleton_text.insert(tk.END, formatted)
+        self.root.after(0, update)
+
+    def roadmap_gen_step1(self):
+        snapshot = self._roadmap_snapshot()
+        if not snapshot["domain"]:
+            self.roadmap_gen_log("[LỖI] Cần nhập Lĩnh vực / Từ khóa.")
+            return
+        self.save_roadmap_generator_settings()
+        self._start_roadmap_task(self._roadmap_v5_step1, snapshot)
+
+    def _roadmap_v5_step1(self, snapshot):
+        import re
+        expected = None if snapshot["days"] == "Auto" else int(snapshot["days"])
+        references = self._read_reference_text(snapshot["refs"])
+        registry = self._registry_context()
+        day_rule = ("Tự chọn tổng 10-3000 Day phù hợp. KHÔNG tiết kiệm Day: mỗi Day chỉ là một buổi 30 phút và có thể cần hàng trăm Day cho một mảng lớn." if expected is None
+                    else f"Phải có CHÍNH XÁC {expected} Day.")
+        self.roadmap_gen_log("[BƯỚC 1/3 • 1A] Đang lập knowledge map và chia phase (chưa sinh Day)...")
+        map_prompt = f"""Bạn là kiến trúc sư giáo trình. Hãy lập knowledge map cho '{snapshot['domain']}'.
+Thời lượng: {snapshot['time_per_day']}/ngày. {day_rule}
+Ngữ cảnh người dùng: {snapshot['context']}
+Tài liệu tham khảo:\n{references}
+Topic registry của các roadmap cũ (không lặp lại nếu đã có):\n{registry}
+
+Trả về JSON DUY NHẤT, NGẮN GỌN, KHÔNG tạo skeleton Day ở bước này: {{"domain_profile":{{"title":"...","total_days":N,"persona":"..."}},"coverage":[{{"area":"...","required":true}}],"phases":[{{"id":"phase_id","name":"...","days":10,"goal":"..."}}]}}.
+Mỗi phase 5-30 Day; tổng phase.days phải đúng total_days. Coverage phải bao gồm nền tảng, thực hành, lỗi/edge case, testing, hiệu năng/bảo mật nếu phù hợp, công cụ hiện đại, case study và dự án. Quy tắc bắt buộc: Day là MỘT buổi 30 phút, không được đặt một chủ đề/dự án lớn vào một Day; phải phân rã thành nhiều micro-Day. LUÔN dùng tiếng Việt."""
+        phase_map = None
+        for attempt in range(1, 4):
+            try:
+                phase_map = load_json_response(self._call_roadmap_llm(map_prompt, f"PASS 1A lần {attempt}"))
+                phases = phase_map.get("phases", []) if isinstance(phase_map, dict) else []
+                total = sum(item.get("days", 0) for item in phases if isinstance(item, dict))
+                target = expected if expected is not None else phase_map.get("domain_profile", {}).get("total_days")
+                auto_minimum = 365 if re.search(r'\b0\s*[-–]\s*\d+\s*(?:tuổi|tuoi)\b', snapshot["domain"], re.IGNORECASE) else 10
+                if not phases or not isinstance(target, int) or total != target or not auto_minimum <= target <= 3000:
+                    raise RoadmapValidationError(f"phase map phải đủ {auto_minimum}-3000 Day và tổng phase.days phải khớp.")
+                if any(not isinstance(item.get("days"), int) or not 5 <= item["days"] <= 500 for item in phases):
+                    raise RoadmapValidationError("mỗi macro phase phải có 5-500 micro-Day.")
+                break
+            except RoadmapValidationError as exc:
+                self.roadmap_gen_log(f"[PASS 1A • lần {attempt}/3] Chưa dùng được: {exc}. Đang retry...")
+                map_prompt += f"\nPhản hồi trước lỗi: {exc}. Trả lại JSON hoàn chỉnh, ngắn gọn."
+        else:
+            raise RoadmapValidationError("Không tạo được phase map hợp lệ sau 3 lần.")
+
+        # A long Auto roadmap must resume the exact approved phase map rather
+        # than asking Gemini for a new total (which could change 365 to 900).
+        previous_artifacts = self._roadmap_artifacts(snapshot)
+        previous_checkpoint_path = previous_artifacts["skeleton"] + ".progress.json"
+        if expected is None:
+            try:
+                previous_checkpoint = json.loads(open(previous_checkpoint_path, "r", encoding="utf-8").read())
+                if (previous_checkpoint.get("domain") == snapshot["domain"]
+                        and isinstance(previous_checkpoint.get("phase_map"), dict)
+                        and previous_checkpoint.get("skeleton")):
+                    phase_map = previous_checkpoint["phase_map"]
+                    self.roadmap_gen_log(
+                        f"[RESUME] Dùng lại phase map {previous_checkpoint.get('target')} Day và checkpoint "
+                        f"{len(previous_checkpoint['skeleton'])} Day; không tạo kế hoạch mới."
+                    )
+            except (FileNotFoundError, json.JSONDecodeError, OSError):
+                pass
+
+        phases = phase_map["phases"]
+        target = expected if expected is not None else phase_map["domain_profile"]["total_days"]
+        artifacts = self._roadmap_artifacts(snapshot)
+        checkpoint_path = artifacts["skeleton"] + ".progress.json"
+        all_days = []
+        try:
+            checkpoint = json.loads(open(checkpoint_path, "r", encoding="utf-8").read())
+            if checkpoint.get("domain") == snapshot["domain"] and checkpoint.get("target") == target:
+                all_days = checkpoint.get("skeleton", [])
+                self.roadmap_gen_log(f"[RESUME] Đã khôi phục {len(all_days)}/{target} micro-Day từ checkpoint.")
+        except (FileNotFoundError, json.JSONDecodeError, OSError):
+            pass
+        start_day = len(all_days) + 1
+        local_pdf_sources = [os.path.basename(path) for path in snapshot["refs"] if path.lower().endswith(".pdf")]
+        self.roadmap_gen_log(f"[BƯỚC 1/3 • 1A OK] {len(phases)} phase, tổng {target} Day. Bắt đầu sinh skeleton từng phase...")
+        phase_start = 1
+        for index, phase in enumerate(phases, start=1):
+            already_in_phase = max(0, min(len(all_days) - phase_start + 1, phase["days"]))
+            remaining, batch_number = phase["days"] - already_in_phase, already_in_phase // 5
+            # Five rich micro-days are substantially more reliable than ten
+            # when Gemini must return nested JSON lists.
+            batch_limit = 5
+            while remaining:
+                batch_number += 1
+                count = min(batch_limit, remaining)
+                end_day = start_day + count - 1
+                self.roadmap_gen_log(f"[BƯỚC 1/3 • 1B] Macro phase {index}/{len(phases)} • batch {batch_number}: Day {start_day}-{end_day} (đang gọi Gemini)...")
+                known_ids = [item["topic_id"] for item in all_days]
+                phase_prompt = f"""Tạo CHÍNH XÁC {count} MICRO-DAY cho phase '{phase.get('name')}' của roadmap '{snapshot['domain']}', Day {start_day}..{end_day}. Mục tiêu: {phase.get('goal')}.
+Trả JSON MẢNG, mỗi object: {{"day":N,"topic_id":"snake_case_duy_nhat","topic":"tiêu đề micro-Day DUY NHẤT (tối đa 80 ký tự)","phase":"{phase.get('name')}","kind":"lesson|review|capstone","estimated_minutes":30,"concrete_project":"một món đồ/sản phẩm cụ thể","materials":["tối đa 3 vật liệu + số lượng/kích thước"],"definition_of_done":["tối đa 2 tiêu chí kiểm tra"],"details":["tối đa 3 việc nhỏ có thể làm trong 30 phút"],"keywords":["tối đa 4 từ khóa"],"prerequisites":["topic_id đã học trước đó"]}}.
+ID đã tồn tại từ phase trước: {known_ids}. prerequisites chỉ được dùng ID trong danh sách này hoặc Day đứng trước ngay trong response; nếu không chắc, dùng []. Không bọc markdown, không thiếu Day, không trùng Day, topic_id không trùng. {"Day cuối cùng của roadmap phải kind='capstone'." if index == len(phases) and remaining == count and len(phases) >= 2 else ""} LUÔN dùng tiếng Việt."""
+                for attempt in range(1, 4):
+                    try:
+                        response_text = self._call_roadmap_llm(phase_prompt, f"PASS 1B phase {index}.{batch_number} lần {attempt}")
+                        generated = load_json_response(response_text)
+                        if not isinstance(generated, list) or [item.get("day") for item in generated if isinstance(item, dict)] != list(range(start_day, end_day + 1)):
+                            raise RoadmapValidationError("batch trả về thiếu, trùng hoặc sai thứ tự Day.")
+                        known = set(known_ids)
+                        for item in generated:
+                            if not isinstance(item, dict) or not item.get("topic_id") or item["topic_id"] in known:
+                                raise RoadmapValidationError("batch có topic_id rỗng hoặc trùng.")
+                            prerequisites = item.get("prerequisites", [])
+                            if not isinstance(prerequisites, list) or any(value not in known for value in prerequisites):
+                                raise RoadmapValidationError("batch tham chiếu prerequisite chưa học.")
+                            known.add(item["topic_id"])
+                            # Reference metadata is deterministic local data,
+                            # not something the model needs to print in every
+                            # JSON object (which previously caused truncation).
+                            item["source_files"] = list(local_pdf_sources)
+                        all_days.extend(generated)
+                        atomic_write(checkpoint_path, json.dumps({
+                            "domain": snapshot["domain"], "target": target,
+                            "phase_map": phase_map, "skeleton": all_days,
+                        }, ensure_ascii=False, indent=2))
+                        self.roadmap_gen_log(f"[PASS 1B • Macro {index} • batch {batch_number} OK] Đã nhận {len(generated)} Day; tổng {len(all_days)}/{target}.")
+                        if attempt > 1 and batch_limit > 2:
+                            batch_limit = max(2, batch_limit // 2)
+                            self.roadmap_gen_log(f"[PASS 1B • Macro {index}] JSON vừa cần retry; giữ batch {batch_limit} Day cho các lượt sau để ổn định.")
+                        break
+                    except RoadmapValidationError as exc:
+                        if 'response_text' in locals():
+                            debug_path = checkpoint_path + f".invalid_macro{index}_batch{batch_number}.txt"
+                            atomic_write(debug_path, response_text)
+                        self.roadmap_gen_log(f"[PASS 1B • Macro {index} • batch {batch_number} • lần {attempt}/3] JSON lỗi: {exc}. Retry...")
+                        phase_prompt += f"\nLỗi trước: {exc}. Trả MẢNG JSON hoàn chỉnh, không cắt ngang."
+                else:
+                    if count > 1:
+                        batch_limit = max(1, count // 2)
+                        self.roadmap_gen_log(
+                            f"[PASS 1B • Macro {index}] Batch {count} Day vẫn lỗi JSON sau 3 lần; "
+                            f"tự giảm xuống batch {batch_limit} Day và tiếp tục từ Day {start_day}."
+                        )
+                        continue
+                    raise RoadmapValidationError(
+                        f"Macro phase {index}, Day {start_day} không tạo được JSON hợp lệ sau 3 lần; xem file .invalid_*.txt."
+                    )
+                remaining -= count
+                start_day = end_day + 1
+            phase_start += phase["days"]
+
+        plan = {"domain_profile": phase_map["domain_profile"], "coverage": phase_map.get("coverage", []), "skeleton": all_days}
+        validate_plan(plan, target, require_micro=True)
+        atomic_write(artifacts["skeleton"], json.dumps(plan, ensure_ascii=False, indent=2))
+        try:
+            os.remove(checkpoint_path)
+        except OSError:
+            pass
+        self._show_skeleton(plan)
+        self.roadmap_gen_log(f"[✅ BƯỚC 1/3 HOÀN TẤT] JSON skeleton {len(all_days)} Day đã kiểm định và lưu: {artifacts['skeleton']}")
+        self.roadmap_gen_log("[TIẾP THEO] JSON đã sẵn sàng. Bấm '2. Phản biện & Mở rộng Khung' để chạy các pass kiểm tra/bổ sung trước khi sinh roadmap cuối.")
+
+    def roadmap_gen_step2(self):
+        snapshot = self._roadmap_snapshot()
+        if not snapshot["skeleton"]:
+            try:
+                snapshot = self._show_saved_plan_and_snapshot(snapshot, prefer_reviewed=False)
+            except RoadmapValidationError as exc:
+                self.roadmap_gen_log(f"[LỖI] Hãy tạo hoặc nạp skeleton trước. {exc}")
+                return
+        self.save_roadmap_generator_settings()
+        self._start_roadmap_task(self._roadmap_v5_step2, snapshot)
+
+    def _roadmap_v5_step2(self, snapshot):
+        expected = None if snapshot["days"] == "Auto" else int(snapshot["days"])
+        current = load_json_response(snapshot["skeleton"])
+        validate_plan(current, expected, require_micro=True)
+        references = self._read_reference_text(snapshot["refs"])
+        plan_json = json.dumps(current, ensure_ascii=False)
+        reviews = []
+        reviewer_jobs = [
+            ("PASS 2/8 Coverage", "Tìm các mảng kiến thức, công nghệ, khái niệm hoặc kỹ năng bị thiếu."),
+            ("PASS 3/8 Thực hành", "Tìm thiếu sót về bài tập, dự án, lỗi thực tế, testing, bảo mật và hiệu năng."),
+            ("PASS 4/8 Prerequisite", "Tìm prerequisite sai thứ tự, topic quá lớn, vòng phụ thuộc hoặc nội dung trùng."),
+            ("PASS 5/8 Red-team", "Đóng vai reviewer khắt khe: tìm nội dung lỗi thời, thiếu case study và tiêu chí nghề nghiệp."),
+        ]
+        # Never ask Gemini to reprint a 45-150 Day JSON document.  It is
+        # likely to be truncated.  Revise one phase at a time, then validate
+        # the complete result locally.
+        self.roadmap_gen_log("[PASS 6/8] Tích hợp phản biện theo từng phase nhỏ để tránh JSON bị cắt...")
+        revised_days = []
+        phase_groups = []
+        for item in current["skeleton"]:
+            if (not phase_groups or phase_groups[-1][0] != item.get("phase")
+                    or len(phase_groups[-1][1]) >= 5):
+                phase_groups.append((item.get("phase"), [item]))
+            else:
+                phase_groups[-1][1].append(item)
+        reviews_json = json.dumps(reviews, ensure_ascii=False)
+        artifacts = self._roadmap_artifacts(snapshot)
+        progress_path = artifacts["reviewed"] + ".progress.json"
+        import hashlib
+        source_digest = hashlib.sha256(plan_json.encode("utf-8")).hexdigest()
+        progress = {"domain": snapshot["domain"], "source_digest": source_digest,
+                    "reviews": reviews, "revised_days": []}
+        try:
+            with open(progress_path, "r", encoding="utf-8") as handle:
+                saved_progress = json.load(handle)
+            if (saved_progress.get("domain") == snapshot["domain"]
+                    and saved_progress.get("source_digest") == source_digest):
+                progress = saved_progress
+                reviews = progress.get("reviews", reviews)
+                reviews_json = json.dumps(reviews, ensure_ascii=False)
+                self.roadmap_gen_log(f"[RESUME BƯỚC 2] Đã nạp {len(progress.get('revised_days', []))} Day phản biện đã lưu.")
+        except (FileNotFoundError, OSError, json.JSONDecodeError):
+            pass
+
+        # Re-run missing reviewers only. Their work is durable before the
+        # phase integration begins, so an app exit never discards all passes.
+        for job_index, (label, task) in enumerate(reviewer_jobs):
+            if job_index < len(reviews):
+                continue
+            self.roadmap_gen_log(f"[{label}] Đang phản biện độc lập...")
+            output = self._call_roadmap_llm(
+                f"Roadmap JSON:\n{plan_json}\nTài liệu:\n{references}\n{task}\n"
+                "Chỉ trả JSON {\"gaps\":[{\"id\":\"snake_case\",\"reason\":\"...\",\"suggestion\":\"...\"}],\"warnings\":[\"...\"]}. Không viết lại roadmap.", label)
+            reviews.append(load_json_response(output))
+            progress["reviews"] = reviews
+            atomic_write(progress_path, json.dumps(progress, ensure_ascii=False, indent=2))
+        reviews_json = json.dumps(reviews, ensure_ascii=False)
+        revised_days = progress.get("revised_days", [])
+        expected_prefix = current["skeleton"][:len(revised_days)]
+        if ([item.get("day") for item in revised_days if isinstance(item, dict)]
+                != [item["day"] for item in expected_prefix]
+                or [item.get("topic_id") for item in revised_days if isinstance(item, dict)]
+                != [item["topic_id"] for item in expected_prefix]):
+            self.roadmap_gen_log("[CẢNH BÁO RESUME BƯỚC 2] Checkpoint không khớp skeleton hiện tại; chạy lại phần tích hợp.")
+            revised_days = []
+            progress["revised_days"] = []
+            atomic_write(progress_path, json.dumps(progress, ensure_ascii=False, indent=2))
+        completed_days = len(revised_days)
+        for phase_index, (phase_name, phase_days) in enumerate(phase_groups, start=1):
+            if completed_days >= len(phase_days):
+                completed_days -= len(phase_days)
+                continue
+            if completed_days:
+                raise RoadmapValidationError("Checkpoint Bước 2 dừng giữa một nhóm Day; không thể resume an toàn.")
+            expected_day_numbers = [item["day"] for item in phase_days]
+            expected_ids = [item["topic_id"] for item in phase_days]
+            self.roadmap_gen_log(f"[PASS 6/8 • Phase {phase_index}/{len(phase_groups)}] Tích hợp Day {expected_day_numbers[0]}-{expected_day_numbers[-1]}...")
+            phase_prompt = f"""Chỉ chỉnh sửa phase JSON nhỏ sau theo các phản biện, không tạo roadmap toàn bộ.
+Phase hiện tại: {json.dumps(phase_days, ensure_ascii=False)}
+Phản biện: {reviews_json}
+Trả JSON MẢNG đầy đủ với ĐÚNG các Day {expected_day_numbers} và ĐÚNG các topic_id {expected_ids}. Giữ mọi kiến thức cũ, bổ sung kiến thức thiếu vào topic/details/keywords; sửa prerequisite nếu cần. Mỗi object bắt buộc có day, topic_id, topic, phase, kind, estimated_minutes (5-30), concrete_project, materials (mảng), definition_of_done (mảng), details (tối đa 3 việc 30 phút), keywords (mảng), prerequisites (mảng). Không trả source_files (ứng dụng tự giữ nguồn gốc từ skeleton). Không bọc Markdown, chỉ JSON, tiếng Việt."""
+            for attempt in range(1, 4):
+                response_text = None
+                try:
+                    # Network/API failures must participate in the phase retry
+                    # loop too; otherwise one temporary 503 aborts Step 2.
+                    response_text = self._call_roadmap_llm(
+                        phase_prompt, f"PASS 6 phase {phase_index} lần {attempt}"
+                    )
+                    candidate_days, restored_ids = restore_locked_day_identity(
+                        phase_days, load_json_response(response_text)
+                    )
+                    if restored_ids:
+                        changed_days = ", ".join(str(day) for day, _generated, _saved in restored_ids)
+                        self.roadmap_gen_log(
+                            f"[PASS 6 • Phase {phase_index}] Gemini đổi topic_id ở Day {changed_days}; "
+                            "đã giữ ID gốc để không hỏng prerequisite/registry."
+                        )
+                    revised_days.extend(candidate_days)
+                    progress["revised_days"] = revised_days
+                    atomic_write(progress_path, json.dumps(progress, ensure_ascii=False, indent=2))
+                    self.roadmap_gen_log(f"[PASS 6/8 • Phase {phase_index} OK] Đã tích hợp {len(candidate_days)} Day.")
+                    break
+                except RoadmapValidationError as exc:
+                    if response_text is not None:
+                        debug_path = artifacts["reviewed"] + f".invalid_pass6_phase{phase_index}_attempt{attempt}.txt"
+                        atomic_write(debug_path, response_text)
+                        self.roadmap_gen_log(f"[PASS 6 • Phase {phase_index} • lần {attempt}/3] JSON lỗi: {exc}. Đã lưu phản hồi để kiểm tra: {debug_path}")
+                    else:
+                        self.roadmap_gen_log(f"[PASS 6 • Phase {phase_index} • lần {attempt}/3] Lỗi mạng/API: {exc}. Checkpoint vẫn giữ nguyên; sẽ thử lại phase.")
+                    phase_prompt += f"\nLỗi ở lần trước: {exc}. Trả lại JSON MẢNG hoàn chỉnh, không giải thích."
+                    if attempt < 3:
+                        time.sleep(min(2 ** attempt, 8))
+            else:
+                raise RoadmapValidationError(
+                    f"Không tích hợp được phase {phase_index} sau 3 lần. "
+                    f"Checkpoint đã giữ Day 1-{len(revised_days)}; mở lại và bấm Bước 2 để tiếp tục."
+                )
+        revised = dict(current)
+        revised["skeleton"] = revised_days
+        validate_revision(current, revised, expected, require_micro=True)
+        atomic_write(artifacts["reviewed"], json.dumps(revised, ensure_ascii=False, indent=2))
+        atomic_write(artifacts["toc"], render_toc(revised))
+        self._update_topic_registry(revised, artifacts["final"])
+        self._show_skeleton(revised)
+        try:
+            os.remove(progress_path)
+        except OSError:
+            pass
+        self.roadmap_gen_log(f"[✅ BƯỚC 2/3 HOÀN TẤT] JSON đã phản biện/lưu: {artifacts['reviewed']} | TOC: {artifacts['toc']}")
+        self.roadmap_gen_log("[TIẾP THEO] Bấm '3. Sinh Chi Tiết Master & Kiểm định' để tạo file Markdown roadmap cuối.")
+
+    def roadmap_gen_step3(self):
+        snapshot = self._roadmap_snapshot()
+        if not snapshot["skeleton"]:
+            try:
+                snapshot = self._show_saved_plan_and_snapshot(snapshot, prefer_reviewed=True)
+            except RoadmapValidationError as exc:
+                self.roadmap_gen_log(f"[LỖI] Hãy chạy Bước 1 và Bước 2 trước. {exc}")
+                return
+        self.save_roadmap_generator_settings()
+        self._start_roadmap_task(self._roadmap_v5_step3, snapshot)
+
+    def _roadmap_v5_step3(self, snapshot):
+        expected = None if snapshot["days"] == "Auto" else int(snapshot["days"])
+        plan = load_json_response(snapshot["skeleton"])
+        validate_plan(plan, expected, require_micro=True)
+        artifacts = self._roadmap_artifacts(snapshot)
+        lessons = []
+        if snapshot["mode"] == "template":
+            for item in plan["skeleton"]:
+                focus = "; ".join(item["details"])
+                lessons.append({"day": item["day"],
+                    "prompt": f"LUÔN TRẢ LỜI BẰNG TIẾNG VIỆT. Đây là MỘT buổi {item['estimated_minutes']} phút. Mục tiêu duy nhất: {item['concrete_project']}. Vật liệu: {'; '.join(item['materials'])}. Việc nhỏ: {focus}. Hoàn thành khi: {'; '.join(item['definition_of_done'])}. Nếu hệ thống đính kèm văn bản PDF/tài liệu, chỉ dùng phần liên quan làm bằng chứng/hướng dẫn, không tóm tắt toàn bộ tài liệu. Hãy trả lời tối đa 1.000 từ, theo thứ tự: kế hoạch thời gian, vật liệu, các bước làm, an toàn/lỗi thường gặp, checklist hoàn thành. Không giảng lý thuyết lan man và không tạo quiz tương tác; nếu có câu hỏi, in đáp án mẫu cùng lúc.",
+                    "exercises": [f"Thực hành {focus}", "Tự kiểm tra edge case và đối chiếu đáp án mẫu"],
+                    "tags": ["#roadmap", f"#day{item['day']}", *[f"#{str(tag).replace(' ', '_')}" for tag in item.get("keywords", [])]]})
+        else:
+            import hashlib
+            progress_path = artifacts["final"] + ".progress.json"
+            source_digest = hashlib.sha256(
+                json.dumps(plan, ensure_ascii=False, sort_keys=True).encode("utf-8")
+            ).hexdigest()
+            try:
+                with open(progress_path, "r", encoding="utf-8") as handle:
+                    progress = json.load(handle)
+                if progress.get("domain") == snapshot["domain"] and progress.get("source_digest") == source_digest:
+                    lessons = progress.get("lessons", [])
+                    expected_prefix = [item["day"] for item in plan["skeleton"][:len(lessons)]]
+                    if [item.get("day") for item in lessons if isinstance(item, dict)] != expected_prefix:
+                        raise RoadmapValidationError("checkpoint Bước 3 không khớp Day của roadmap hiện tại.")
+                    self.roadmap_gen_log(f"[RESUME BƯỚC 3] Đã nạp {len(lessons)}/{len(plan['skeleton'])} Day nội dung đã lưu.")
+                else:
+                    lessons = []
+            except FileNotFoundError:
+                pass
+            start_at = len(lessons)
+            for start in range(start_at, len(plan["skeleton"]), 8):
+                chunk = plan["skeleton"][start:start + 8]
+                self.roadmap_gen_log(f"[BƯỚC 3/3 • Sinh nội dung] Day {chunk[0]['day']}-{chunk[-1]['day']}...")
+                prompt = f"""Tạo nội dung roadmap bằng tiếng Việt cho JSON micro-Day sau: {json.dumps(chunk, ensure_ascii=False)}
+Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"...","exercises":["..."],"tags":["#..."]}}. Trong prompt BẮT BUỘC nêu đúng concrete_project, materials, definition_of_done và estimated_minutes của Day. Nếu module Tải Roadmap đính kèm văn bản PDF/tài liệu, prompt phải yêu cầu dùng đúng đoạn liên quan, không tóm tắt toàn bộ tài liệu. Ép AI trả lời tối đa 1.000 từ, chỉ một buổi 5-30 phút, theo cấu trúc: phân bổ thời gian, vật liệu, từng bước, an toàn/lỗi thường gặp, checklist hoàn thành. Không được thay thế bằng lý thuyết tổng quát; không tạo quiz tương tác chờ trả lời; không viết dòng heading bắt đầu bằng '## Day'. Không đổi day."""
+                for attempt in range(1, 4):
+                    try:
+                        generated = load_json_response(self._call_roadmap_llm(
+                            prompt, f"PASS 8 Day {chunk[0]['day']}-{chunk[-1]['day']} lần {attempt}"
+                        ))
+                        if (not isinstance(generated, list)
+                                or {x.get("day") for x in generated if isinstance(x, dict)} != {x["day"] for x in chunk}):
+                            raise RoadmapValidationError(
+                                f"PASS 8 trả về thiếu/trùng Day cho batch {chunk[0]['day']}-{chunk[-1]['day']}."
+                            )
+                        break
+                    except RoadmapValidationError as exc:
+                        self.roadmap_gen_log(
+                            f"[BƯỚC 3/3 • Day {chunk[0]['day']}-{chunk[-1]['day']} • lần {attempt}/3] "
+                            f"chưa hoàn tất: {exc}. Checkpoint vẫn giữ nguyên."
+                        )
+                        if attempt == 3:
+                            raise RoadmapValidationError(
+                                f"Bước 3 dừng tại Day {chunk[0]['day']}-{chunk[-1]['day']}; "
+                                f"đã lưu {len(lessons)} Day, mở lại và bấm Bước 3 để tiếp tục."
+                            )
+                        time.sleep(min(2 ** attempt, 8))
+                lessons.extend(generated)
+                atomic_write(progress_path, json.dumps({
+                    "domain": snapshot["domain"], "source_digest": source_digest,
+                    "lessons": lessons,
+                }, ensure_ascii=False, indent=2))
+        markdown = render_markdown(plan, lessons)
+        atomic_write(artifacts["final"], markdown)
+        try:
+            os.remove(artifacts["final"] + ".progress.json")
+        except OSError:
+            pass
+        self.roadmap_gen_log(f"[✅ BƯỚC 3/3 HOÀN TẤT] Roadmap Markdown cuối đã kiểm định và lưu: {artifacts['final']}")
+
     def setup_roadmap_run_tab(self):
         gemini_settings = self.settings.get("gemini", {})
         Label(self.sub_tab_roadmap_run, text="🤖 Auto AI - Tải và Sinh Nội Dung Tự Động", font=("Arial", 14, "bold")).pack(pady=10)

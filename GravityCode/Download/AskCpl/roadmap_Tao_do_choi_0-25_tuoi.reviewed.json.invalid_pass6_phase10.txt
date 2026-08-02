@@ -1,0 +1,387 @@
+[
+  {
+    "day": 91,
+    "topic_id": "ky_thuat_thiet_ke_can_bang_logic",
+    "topic": "Kỹ thuật thiết kế đòn bẩy cân bằng logic",
+    "phase": "Phase 2: Đồ chơi Logic, Phát triển Ngôn ngữ & Kỹ năng Sống (3-6 tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Mô hình đòn bẩy gỗ cân bằng đơn giản với 2 đĩa treo theo nhân trắc học trẻ 3-6 tuổi",
+    "materials": [
+      "Thanh gỗ pơ mu 30x2x1cm",
+      "Đế gỗ 15x10x2cm",
+      "Chốt kim loại tròn phi 5mm",
+      "2 cốc nhựa nhẹ phi 6cm",
+      "Dây dù nhẹ 1m"
+    ],
+    "definition_of_done": [
+      "Trục đòn bẩy xoay tự do không bị kẹt",
+      "Cân đạt trạng thái thăng bằng khi hai bên đĩa không có vật nặng",
+      "Góc nghiêng nhạy khi lệch trọng lượng 5g và đáp ứng giới hạn lực tầm tay trẻ 3-6 tuổi"
+    ],
+    "details": [
+      "Xác định tâm đối xứng và thông số nhân trắc học cầm nắm trên thanh gỗ đòn bẩy",
+      "Khoan lỗ trục trung tâm và 2 lỗ treo dây ở hai đầu thanh gỗ",
+      "Lắp ráp trụ đứng vào đế và gắn thanh đòn bẩy thử nghiệm độ nhạy"
+    ],
+    "keywords": [
+      "đòn bẩy",
+      "cân bằng logic",
+      "trục xoay",
+      "tỉ lệ trọng lượng",
+      "nhân trắc học"
+    ],
+    "source_files": [
+      "TLTK_Thiết_Kế_Cơ_Khí_Đồ_Choi_Logic_V1.pdf"
+    ],
+    "prerequisites": [
+      "ky_thuat_cat_mai_bo_tron_go",
+      "on_tap_thiet_ke_tu_duy_khong_gian"
+    ]
+  },
+  {
+    "day": 92,
+    "topic_id": "can_bang_ro_go_so_hoc",
+    "topic": "Cân bằng rổ gỗ số học phát triển tư duy toán học",
+    "phase": "Phase 2: Đồ chơi Logic, Phát triển Ngôn ngữ & Kỹ năng Sống (3-6 tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Bộ cân đĩa gỗ kèm 10 khối gỗ trọng lượng chuẩn theo số lượng",
+    "materials": [
+      "Mô hình cân đĩa từ Day 91",
+      "10 khối gỗ lập phương 3x3x3cm",
+      "Chì tấm nhỏ hoặc đất sét dán bên trong khối gỗ để chỉnh trọng lượng",
+      "Sơn nước an toàn đạt chuẩn EN71-3"
+    ],
+    "definition_of_done": [
+      "Khối số 2 có trọng lượng gấp đôi khối số 1 chính xác",
+      "Khi đặt khối số 3 vào một bên, bên còn lại đặt khối 1 và 2 cân phải thăng bằng",
+      "Các khối gỗ được mài nhẵn, bo góc an toàn chống trầy xước"
+    ],
+    "details": [
+      "Cắt và mài 10 khối gỗ lập phương chuẩn kích thước nhân trắc học tay cầm trẻ 3-6 tuổi",
+      "Khoan rỗng đáy khối gỗ, chèn chì/đất sét để chuẩn hóa khối lượng theo tỉ lệ 1 đến 10",
+      "Sơn màu an toàn EN71-3 và ghi số rõ ràng lên mặt từng khối gỗ"
+    ],
+    "keywords": [
+      "cân đĩa",
+      "số học visual",
+      "trọng lượng chuẩn",
+      "toán học Montessori",
+      "an toàn bề mặt"
+    ],
+    "source_files": [
+      "TLTK_Giao_Duc_Montessori_Toan_Hoc_3-6.pdf"
+    ],
+    "prerequisites": [
+      "ky_thuat_thiet_ke_can_bang_logic"
+    ]
+  },
+  {
+    "day": 93,
+    "topic_id": "hop_phan_loai_mau_sac_va_so_luong",
+    "topic": "Hộp phân loại màu sắc và số lượng 4 ngăn",
+    "phase": "Phase 2: Đồ chơi Logic, Phát triển Ngôn ngữ & Kỹ năng Sống (3-6 tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Hộp gỗ 4 ngăn có nắp trượt đục lỗ phân loại thẻ gỗ cắt vector",
+    "materials": [
+      "Gỗ ép plywood 3mm kích thước 20x20x10cm",
+      "20 thẻ gỗ tròn phi 4cm",
+      "Keo dán gỗ dán nhanh",
+      "Sơn acrylic 4 màu cơ bản (đỏ, vàng, xanh dương, xanh lá)"
+    ],
+    "definition_of_done": [
+      "Hộp được chia 4 ngăn đều nhau, nắp trượt tháo dỡ dễ dàng",
+      "Nắp có 4 khe thả thẻ thiết kế rập 2D chuẩn xác tương ứng 4 màu",
+      "Thẻ gỗ chui qua khe lọt mịn, không trầy xước ngón tay trẻ"
+    ],
+    "details": [
+      "Vẽ thiết kế vector 2D bản cắt rập nắp trượt và phôi hộp 4 ngăn",
+      "Cắt phôi gỗ ép ghép thành hộp có rãnh nắp trượt trơn tru",
+      "Chuốt mịn toàn bộ góc cạnh và sơn phủ phân loại màu cho khe cùng thẻ"
+    ],
+    "keywords": [
+      "hộp phân loại",
+      "nắp trượt",
+      "khe thả thẻ",
+      "thông số vector",
+      "phân loại màu sắc"
+    ],
+    "source_files": [
+      "TLTK_Do_Choi_Phan_Loai_Logic.pdf"
+    ],
+    "prerequisites": [
+      "hop_phan_loai_hinh_khoi_3d_go"
+    ]
+  },
+  {
+    "day": 94,
+    "topic_id": "duong_ray_bong_lan_ong_hut_nam_cham",
+    "topic": "Đường ray bóng lăn ghép nối ống hút nam châm",
+    "phase": "Phase 2: Đồ chơi Logic, Phát triển Ngôn ngữ & Kỹ năng Sống (3-6 tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Bộ đường ray 6 đoạn ống gắn nam châm dán bảng từ an toàn",
+    "materials": [
+      "Ống nhựa PVC nhẹ phi 32mm dài 20cm (6 đoạn)",
+      "Viên nam châm neodymium phi 8mm x12 viên",
+      "Keo epoxy 2 thành phần",
+      "Bóng gỗ phi 25mm"
+    ],
+    "definition_of_done": [
+      "Mỗi đoạn ống gắn chắc 2 viên nam châm âm chốt, không bong tróc gây nguy hiểm nuốt",
+      "Bóng gỗ lăn mượt qua joints nối giữa các đoạn ống",
+      "Ống nhựa được bo mài cạnh viền đạt chuẩn an toàn va chạm"
+    ],
+    "details": [
+      "Cắt đôi ống PVC theo chiều dọc tạo 6 lòng xói thả bóng và mài nhẵn viền cắt",
+      "Trộn keo epoxy dán âm nam châm vào mặt sau ống, khắc phục sự cố bung keo",
+      "Thử nghiệm đính đường ray lên bảng từ và điều chỉnh độ nghiêng tối ưu cho bóng"
+    ],
+    "keywords": [
+      "đường ray bóng lăn",
+      "nam châm",
+      "keo epoxy",
+      "xử lý sự cố gia công",
+      "động lực học"
+    ],
+    "source_files": [
+      "TLTK_Thiet_Ke_Do_Choi_STEM_Nam_Cham.pdf"
+    ],
+    "prerequisites": [
+      "duong_ray_bong_lan_pheu_xoay"
+    ]
+  },
+  {
+    "day": 95,
+    "topic_id": "on_tap_thiet_ke_do_choi_so_hoc_va_vat_ly_don_gian",
+    "topic": "Ôn tập thiết kế đồ chơi số học và cơ chế vật lý",
+    "phase": "Phase 2: Đồ chơi Logic, Phát triển Ngôn ngữ & Kỹ năng Sống (3-6 tuổi)",
+    "kind": "review",
+    "estimated_minutes": 30,
+    "concrete_project": "Bản đánh giá chất lượng cơ chế đòn bẩy, đường ray nam châm và xử lý lỗi kỹ thuật",
+    "materials": [
+      "Bộ cân đĩa Day 92",
+      "Bộ đường ray Day 94",
+      "Thước đo độ nghiêng góc",
+      "Bảng kiểm checklist an toàn đồ chơi EN71-3"
+    ],
+    "definition_of_done": [
+      "Kiểm tra đạt 100% độ bám nam châm và cơ chế thăng bằng đòn bẩy",
+      "Không còn bất kỳ gờ sắc nhọn nào trên nhựa PVC hay gỗ",
+      "Khắc phục xong các lỗi kẹt khớp, bong keo hoặc sai số trọng lượng"
+    ],
+    "details": [
+      "Đo thử góc nghiêng tối thiểu để bóng lăn mượt và rà soát các gờ sắc",
+      "Kiểm tra lại sai số trọng lượng khối gỗ, hiệu chỉnh lại nếu cân bị lệch",
+      "Thực hiện quy trình khắc phục sự cố gia công (Troubleshooting) cho đòn bẩy và nam châm"
+    ],
+    "keywords": [
+      "ôn tập logic",
+      "kiểm định vật lý",
+      "troubleshooting",
+      "an toàn EN71-3",
+      "nhân trắc học"
+    ],
+    "source_files": [
+      "TLTK_Quy_Chuan_An_Toan_Do_Choi_Co_Hoc.pdf"
+    ],
+    "prerequisites": [
+      "can_bang_ro_go_so_hoc",
+      "duong_ray_bong_lan_ong_hut_nam_cham"
+    ]
+  },
+  {
+    "day": 96,
+    "topic_id": "roi_ngon_tay_dong_vat_rung_xanh",
+    "topic": "Rối ngón tay động vật rừng xanh kích thích diễn đạt",
+    "phase": "Phase 2: Đồ chơi Logic, Phát triển Ngôn ngữ & Kỹ năng Sống (3-6 tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Bộ 5 rối ngón tay vải nỉ hình động vật chuẩn kích thước ngón tay",
+    "materials": [
+      "Vải nỉ dày 1mm nhiều màu (xanh, vàng, nâu, xám)",
+      "Chỉ khâu cotton đa sắc",
+      "Kim khâu tay",
+      "Mắt vải nỉ thêu (thay cho mắt nhựa để chống nuốt)"
+    ],
+    "definition_of_done": [
+      "Kích thước đường xỏ ngón tay vừa vặn với kích thước ngón tay trẻ và người lớn",
+      "Các chi tiết tai, mũi, bờm được may đính chắc chắn không bong tróc",
+      "Nhận diện rõ ràng 5 con vật với chất liệu an toàn không gây dị ứng"
+    ],
+    "details": [
+      "Vẽ thiết kế vector 2D rập rối ngón tay phù hợp nhân trắc học tay trẻ 3-6 tuổi",
+      "May viền hai thân rối bằng mũi khâu thùa bộc chắc chắn bằng chỉ cotton",
+      "Thêu đính chi tiết mắt, mũi, tai bằng vải nỉ để đảm bảo an toàn tuyệt đối"
+    ],
+    "keywords": [
+      "rối ngón tay",
+      "vải nỉ",
+      "rập vector 2D",
+      "nhân trắc học",
+      "phát triển ngôn ngữ"
+    ],
+    "source_files": [
+      "TLTK_Nghe_Thuat_Roi_Ngon_Tay_Tre_Em.pdf"
+    ],
+    "prerequisites": [
+      "roi_ngon_tay_gia_dinh_vai_ni"
+    ]
+  },
+  {
+    "day": 97,
+    "topic_id": "bang_banh_rang_truyen_dong_logic",
+    "topic": "Bảng bánh răng truyền động liên hoàn 5 trục",
+    "phase": "Phase 2: Đồ chơi Logic, Phát triển Ngôn ngữ & Kỹ năng Sống (3-6 tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Bảng gỗ 25x25cm gắn 5 bánh răng khớp nhau quay bằng tay quay an toàn",
+    "materials": [
+      "Bảng gỗ Plywood 25x25cm dày 10mm",
+      "5 bánh răng gỗ cắt laser phi 6-10cm theo file vector",
+      "5 chốt gỗ phi 8mm",
+      "Vòng đệm nhựa dẻo"
+    ],
+    "definition_of_done": [
+      "Xoay 1 bánh răng kéo theo cả 4 bánh răng còn lại quay mượt mà",
+      "Các răng gỗ khớp chính xác, khe hở khoảng cách đạt chuẩn chống kẹp tay (không nằm trong khoảng 5-12mm)",
+      "Khoảng cách các trục được định vị chuẩn xác"
+    ],
+    "details": [
+      "Xuất file vector bánh răng 2D chuẩn khoảng cách mô-đun răng",
+      "Khoan lỗ định vị 5 trục bánh răng trên bảng gỗ đảm bảo an toàn ngón tay trẻ",
+      "Lắp bánh răng, chèn vòng đệm và căn chỉnh chống kẹt dính khi xoay"
+    ],
+    "keywords": [
+      "bánh răng truyền động",
+      "cơ chế liên hoàn",
+      "vector bánh răng",
+      "an toàn kẹp tay",
+      "busy board"
+    ],
+    "source_files": [
+      "TLTK_Co_Khai_Khieu_Do_Choi_Truyen_Dong.pdf"
+    ],
+    "prerequisites": [
+      "bang_banh_rang_go_guong_mini"
+    ]
+  },
+  {
+    "day": 98,
+    "topic_id": "capstone_bo_do_choi_logic_ngon_ngu_p1_thiet_ke_cat_phoi",
+    "topic": "Capstone Bộ đồ chơi Logic & Ngôn ngữ - Phần 1: Cắt phôi và tạo khung",
+    "phase": "Phase 2: Đồ chơi Logic, Phát triển Ngôn ngữ & Kỹ năng Sống (3-6 tuổi)",
+    "kind": "capstone",
+    "estimated_minutes": 30,
+    "concrete_project": "Khung bảng bối cảnh đa năng 40x30cm bằng gỗ Plywood bo góc an toàn",
+    "materials": [
+      "Tấm Plywood 40x30cm dày 12mm",
+      "Thanh gỗ nẹp 2x2cm dài 1.5m",
+      "Cưa tay vạn năng",
+      "Giấy nhám thô P120 và mịn P240"
+    ],
+    "definition_of_done": [
+      "Khung gỗ hoàn thiện kết cấu chắc chắn, bo tròn 4 góc r = 2cm chuẩn nhân trắc học",
+      "Bề mặt gỗ nhẵn mịn hoàn toàn, không có dằm gỗ gây tổn thương",
+      "Kích thước chuẩn theo bản vẽ thiết kế vector Capstone"
+    ],
+    "details": [
+      "Lập phác thảo thiết kế vector 2D bố trí tổng thể cho khung đa năng",
+      "Cưa cắt phôi khung nền và các thanh nẹp viền theo chuẩn kích thước",
+      "Chà nhám toàn bộ bề mặt và bo tròn các góc r = 2cm đảm bảo an toàn"
+    ],
+    "keywords": [
+      "capstone",
+      "cắt phôi",
+      "thiết kế vector",
+      "bo góc an toàn",
+      "nhân trắc học"
+    ],
+    "source_files": [
+      "TLTK_Capstone_Logic_Language_Board_Spec.pdf"
+    ],
+    "prerequisites": [
+      "on_tap_thiet_ke_do_choi_so_hoc_va_vat_ly_don_gian",
+      "roi_ngon_tay_dong_vat_rung_xanh",
+      "bang_banh_rang_truyen_dong_logic"
+    ]
+  },
+  {
+    "day": 99,
+    "topic_id": "capstone_bo_do_choi_logic_ngon_ngu_p2_lap_rap_module",
+    "topic": "Capstone Bộ đồ chơi Logic & Ngôn ngữ - Phần 2: Lắp ráp module logic và sân khấu rối",
+    "phase": "Phase 2: Đồ chơi Logic, Phát triển Ngôn ngữ & Kỹ năng Sống (3-6 tuổi)",
+    "kind": "capstone",
+    "estimated_minutes": 30,
+    "concrete_project": "Tích hợp module bánh răng, đòn bẩy mini và phông nền sân khấu rối",
+    "materials": [
+      "Khung phôi từ Day 98",
+      "Cụm bánh răng truyền động Day 97",
+      "Bộ rối ngón tay Day 96",
+      "Vít gỗ 3mm, bản lề mini x2"
+    ],
+    "definition_of_done": [
+      "Module bánh răng được gắn cố định vào góc trái bảng đảm bảo chuyển động trơn tru",
+      "Khung sân khấu rối vải nỉ gắn ở phần trên có nắp gập bản lề an toàn",
+      "Tất cả chi tiết hoạt động trơn tru không xung đột không gian hay gây va chạm"
+    ],
+    "details": [
+      "Bắt vít cố định trục bánh răng lên khung bảng Capstone đúng vị trí thiết kế",
+      "Lắp dựng phần khung rèm sân khấu rối bằng nỉ dán velcro tiện tháo lắp",
+      "Thực hiện bài kiểm tra tương tác giữa các module và sửa lỗi kẹt khớp nếu có"
+    ],
+    "keywords": [
+      "capstone",
+      "lắp ráp module",
+      "sân khấu rối",
+      "truyền động bánh răng",
+      "xử lý sự cố"
+    ],
+    "source_files": [
+      "TLTK_Capstone_Logic_Language_Board_Spec.pdf"
+    ],
+    "prerequisites": [
+      "capstone_bo_do_choi_logic_ngon_ngu_p1_thiet_ke_cat_phoi"
+    ]
+  },
+  {
+    "day": 100,
+    "topic_id": "capstone_bo_do_choi_logic_ngon_ngu_p3_kiem_dinh_hoan_thien",
+    "topic": "Capstone Bộ đồ chơi Logic & Ngôn ngữ - Phần 3: Kiểm định an toàn và sơn phủ hoàn thiện",
+    "phase": "Phase 2: Đồ chơi Logic, Phát triển Ngôn ngữ & Kỹ năng Sống (3-6 tuổi)",
+    "kind": "capstone",
+    "estimated_minutes": 30,
+    "concrete_project": "Sản phẩm hoàn chỉnh Bộ đồ chơi Logic & Ngôn ngữ Đa năng đạt chuẩn an toàn EN71",
+    "materials": [
+      "Bộ sản phẩm tích hợp Day 99",
+      "Dầu lau gỗ an toàn gốc thực vật (Linseed oil)",
+      "Cọ quét sơn mềm",
+      "Thước kẹp đo khe hở an toàn"
+    ],
+    "definition_of_done": [
+      "Sản phẩm phủ lớp dầu lau gỗ bảo vệ mờ mịn, tuyệt đối không độc hại khi trẻ tiếp xúc",
+      "Không có khe hở đe dọa kẹp tay trẻ (khe hở tuân thủ <5mm hoặc >12mm)",
+      "Hoàn thành bảng đánh giá kiểm định an toàn EN71-3 và dán tem xuất xưởng"
+    ],
+    "details": [
+      "Rà soát kiểm tra kỹ các gờ, khe hở bằng thước kẹp đảm bảo không kẹp tay trẻ",
+      "Lau lớp dầu thực vật bảo vệ toàn bộ bề mặt gỗ và lau khô bóng",
+      "Thực hiện kiểm tra thả rơi nhẹ từ độ cao 50cm và hoàn thiện bảng kiểm định Capstone"
+    ],
+    "keywords": [
+      "capstone",
+      "sơn phủ an toàn",
+      "kiểm định EN71-3",
+      "an toàn kẹp tay",
+      "hoàn thiện sản phẩm"
+    ],
+    "source_files": [
+      "TLTK_Capstone_Logic_Language_Board_Spec.pdf"
+    ],
+    "prerequisites": [
+      "capstone_bo_do_choi_logic_ngon_ngu_p2_lap_rap_module"
+    ]
+  }
+]

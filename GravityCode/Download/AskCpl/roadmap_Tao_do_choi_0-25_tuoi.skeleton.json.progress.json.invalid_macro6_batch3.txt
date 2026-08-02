@@ -1,0 +1,207 @@
+[
+  {
+    "day": 286,
+    "topic_id": "ky_thuat_dieu_khien_dong_co_servo_vi_dieu_khien",
+    "topic": "Kỹ thuật điều khiển động cơ Servo với vi điều khiển",
+    "phase": "Mạch Điện Tử, Động Cơ Automata & Mô Hình Thông Minh (15 - 18 Tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Mạch điều khiển Servo xoay theo góc định sẵn",
+    "materials": [
+      "1 vi điều khiển Arduino Mini",
+      "1 động cơ Servo SG90",
+      "1 biến trở xoay 10k"
+    ],
+    "definition_of_done": [
+      "Servo xoay chính xác góc từ 0 đến 180 độ theo biến trở",
+      "Mạch cắm gọn gàng trên breadboard"
+    ],
+    "details": [
+      "Tìm hiểu nguyên lý băm xung PWM điều khiển Servo",
+      "Lắp mạch nối vi điều khiển với Servo SG90",
+      "Nạp code đọc biến trở và quay góc Servo tương ứng"
+    ],
+    "keywords": [
+      "dong co servo",
+      "vi dieu khien",
+      "xung pwm",
+      "goc quay"
+    ],
+    "source_files": [
+      "tailieu_dieu_khien_servo.pdf"
+    ],
+    "prerequisites": [
+      "ky_thuat_lap_trinh_vi_dieu_khien_don_gian"
+    ]
+  },
+  {
+    "day": 287,
+    "topic_id": "mo_hinh_automata_dong_mo_canh_quat_servo",
+    "topic": "Mô hình Automata đóng mở cánh quạt bằng động cơ Servo",
+    "phase": "Mạch Điện Tử, Động Cơ Automata & Mô Hình Thông Minh (15 - 18 Tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Mô hình bông hoa Automata tự nở bằng Servo",
+    "materials": [
+      "1 động cơ Servo SG90",
+      "3 tấm gỗ balsa cắt cánh hoa",
+      "1 vi điều khiển Arduino"
+    ],
+    "definition_of_done": [
+      "Cánh hoa Automata mở và gập lại mượt mà qua cơ cấu đòn nối Servo",
+      "Góc mở không bị kẹt cơ khí"
+    ],
+    "details": [
+      "Thiết kế cơ cấu khớp nối chuyển quay từ Servo sang đẩy ngang",
+      "Cắt và gắn cánh hoa vào khung khớp đòn",
+      "Lập trình chu kỳ đóng mở tự động cho hoa Automata"
+    ],
+    "keywords": [
+      "automata servo",
+      "co cau don noi",
+      "bong hoa tu dong",
+      "chuyen dong co khi"
+    ],
+    "source_files": [
+      "tailieu_automata_co_khi.pdf"
+    ],
+    "prerequisites": [
+      "ky_thuat_dieu_khien_dong_co_servo_vi_dieu_khien"
+    ]
+  },
+  {
+    "day": 288,
+    "topic_id": "ky_thuat_lap_trinh_dieu_khien_tu_xa_bluetooth",
+    "topic": "Kỹ thuật lập trình điều khiển từ xa qua module Bluetooth",
+    "phase": "Mạch Điện Tử, Động Cơ Automata & Mô Hình Thông Minh (15 - 18 Tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Mạch bật tắt đèn LED và Servo bằng ứng dụng điện thoại Bluetooth",
+    "materials": [
+      "1 module Bluetooth HC-05",
+      "1 vi điều khiển Arduino",
+      "1 động cơ Servo SG90"
+    ],
+    "definition_of_done": [
+      "Gửi tín hiệu từ điện thoại điều khiển Servo xoay đúng lệnh",
+      "Kết nối Bluetooth ổn định trong phạm vi 3m"
+    ],
+    "details": [
+      "Đấu nối module HC-05 với vi điều khiển qua cổng UART",
+      "Viết mã nguồn nhận ký tự từ Bluetooth để điều khiển thiết bị",
+      "Kết nối ứng dụng điện thoại và kiểm thử truyền nhận lệnh"
+    ],
+    "keywords": [
+      "bluetooth hc05",
+      "dieu khien tu xa",
+      "uart",
+      "truyen tin hieu"
+    ],
+    "source_files": [
+      "tailieu_lap_trinh_bluetooth.pdf"
+    ],
+    "prerequisites": [
+      "ky_thuat_dieu_khien_dong_co_servo_vi_dieu_khien"
+    ]
+  },
+  {
+    "day": 289,
+    "topic_id": "on_tap_tich_hop_dong_co_servo_va_dieu_khien_tu_xa",
+    "topic": "Ôn tập tích hợp động cơ Servo và điều khiển từ xa",
+    "phase": "Mạch Điện Tử, Động Cơ Automata & Mô Hình Thông Minh (15 - 18 Tuổi)",
+    "kind": "review",
+    "estimated_minutes": 30,
+    "concrete_project": "Bản báo cáo kỹ thuật và sơ đồ nguyên lý mạch Servo Bluetooth",
+    "materials": [
+      "1 sổ tay kỹ thuật",
+      "1 bộ mạch Bluetooth Servo đã lắp",
+      "1 đồng hồ đo điện đa năng"
+    ],
+    "definition_of_done": [
+      "Đo đạc và xác nhận dòng điện hoạt động dưới 500mA",
+      "Khắc phục triệt để các lỗi nhiễu nguồn gây rung Servo"
+    ],
+    "details": [
+      "Đánh giá lại sự ổn định của kết nối không dây",
+      "Đo điện áp và dòng tiêu thụ khi Servo hoạt động",
+      "Cơ cấu lại dây dẫn và viết sơ đồ mạch hoàn chỉnh"
+    ],
+    "keywords": [
+      "on tap servo",
+      "bluetooth review",
+      "do dong dien",
+      "so do mach"
+    ],
+    "source_files": [
+      "tailieu_ot_dong_co.pdf"
+    ],
+    "prerequisites": [
+      "mo_hinh_automata_dong_mo_canh_quat_servo",
+      "ky_thuat_lap_trinh_dieu_khien_tu_xa_bluetooth"
+    ]
+  },
+  {
+    "day": 290,
+    "topic_id": "mo_hinh_xe_thong_minh_dieu_khien_bluetooth",
+    "topic": "Mô hình xe ô tô thông minh điều khiển qua Bluetooth",
+    "phase": "Mạch Điện Tử, Động Cơ Automata & Mô Hình Thông Minh (15 - 18 Tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Xe 2 bánh động cơ DC điều khiển bằng smartphone",
+    "materials": [
+      "1 khung xe mica 2 bánh",
+      "1 mạch cầu H L298N",
+      "1 module Bluetooth HC-05"
+    ],
+    "definition_of_done": [
+      "Xe di chuyển tiến, lùi, rẽ trái, rẽ phải theo phím bấm app điện thoại",
+      "Tốc độ xe phản hồi nhạy bén không trễ quá 0.5s"
+    ],
+    "details": [
+      "Gắn mạch L298N và module HC-05 lên khung xe",
+      "Lập trình giải mã các phím điều hướng qua Bluetooth",
+      "Chạy thử nghiệm điều khiển xe di chuyển thực tế"
+    ],
+    "keywords": [
+      "xe bluetooth",
+      "dong co dc",
+      "cau h l298n",
+      "dieu khien smartphone"
+    ],
+    "source_files": [
+      "tailieu_xe_bluetooth.pdf"
+    ],
+    "prerequisites": [
+      "ky_thuat_dieu_khien_dong_co_dc_cau_h",
+      "ky_thuat_lap_trinh_dieu_khien_tu_xa_bluetooth"
+    ]
+  },
+  {
+    "day": 291,
+    "topic_id": "ky_thuat_ket_hop_cam_bien_gia_toc_dieu_khien_cu_chi",
+    "topic": "Kỹ thuật kết hợp cảm biến gia tốc điều khiển bằng cử chỉ",
+    "phase": "Mạch Điện Tử, Động Cơ Automata & Mô Hình Thông Minh (15 - 18 Tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Găng tay cử chỉ điều khiển thiết bị bằng MPU6050",
+    "materials": [
+      "1 cảm biến gia tốc MPU6050",
+      "1 găng tay vải",
+      "1 vi điều khiển Arduino"
+    ],
+    "definition_of_done": [
+      "Xác định chính xác góc nghiêng găng tay theo 2 trục X và Y",
+      "Chuyển đổi góc nghiêng thành lệnh điều khiển góc Servo"
+    ],
+    "details": [
+      "Gắn cảm biến MPU6050 lên găng tay vải",
+      "Đọc dữ liệu góc quay qua giao tiếp I2C",
+      "Lập trình quy đổi góc nghiêng tay thành tín hiệu điều khiển"
+    ],
+    "keywords": [
+      "mpu6050",
+      "cam bien gia toc",
+      "dieu khien cu chi",
+      "i2c"
+    ],
+    "source_files":

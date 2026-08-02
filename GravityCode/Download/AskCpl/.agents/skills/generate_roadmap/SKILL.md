@@ -1,5 +1,7 @@
 ---
 name: Generate Roadmap
+
+resume_requirement: "For long-running multi-stage or API-backed workflows, persist an atomic checkpoint after each batch/pass; load the newest validated upstream artifact (reviewed before detail generation, skeleton before review); validate source identity and completed IDs before resuming; do not depend only on preview UI or regenerate a verified stage; retain final artifacts and delete temporary checkpoints only after validation. Optional only for small non-batched local actions."
 description: Use this skill when the user asks to create, edit, extend, or optimize a learning Roadmap file (language learning: English/Japanese/Chinese/Korean, or any other domain: IT/programming, music, business, sports, etc.) or the Python generator scripts (generate_*_roadmap.py). Covers auto-detecting difficulty and choosing cycle length (10/15/20/25-30 day cycles) when the user doesn't know the domain well, duplicate-topic and duplicate-content prevention across roadmaps via topics_registry.md, coverage-completeness checks against real-world curricula/certifications, prerequisite ordering, spaced cumulative review, a final Capstone for pro-level mastery, Non-Interactive prompt rules, Markdown parsing format for the AskCpl-style addon, and verification/encoding checks. Trigger on mentions of 'roadmap', 'lộ trình', 'sinh roadmap', 'generate_*_roadmap.py', 'chu kỳ 15 ngày' / '25 ngày', 'trùng lặp topic', 'đầy đủ nội dung', or requests to add new topics/days to an existing roadmap file.
 ---
 

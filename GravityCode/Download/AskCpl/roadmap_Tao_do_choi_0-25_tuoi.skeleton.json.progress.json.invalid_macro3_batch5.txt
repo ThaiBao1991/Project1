@@ -1,0 +1,151 @@
+[
+  {
+    "day": 166,
+    "topic_id": "ky_thuat_thiet_ke_thanh_lien_ket_tay_quay",
+    "topic": "Kỹ thuật thiết kế cơ cấu thanh liên kết và tay quay slider-crank",
+    "phase": "Phase 3: Đồ chơi STEM Động lực học, Thủy lực & Mạch điện cơ bản (6-12 tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Mô hình minh họa cơ cấu tay quay con trượt bằng tăm gỗ và đinh ghim",
+    "materials": [
+      "Thước kẻ, compa",
+      "Bìa carton cứng 3mm 1 tấm 20x20cm",
+      "Đinh ghim bảng 5 cái",
+      "Tăm gỗ 5 chiếc",
+      "Keo 502 hoặc keo nến"
+    ],
+    "definition_of_done": [
+      "Vẽ và cắt 3 thanh liên kết đúng tỉ lệ chuẩn",
+      "Lắp ráp cố định đinh ghim xoay trơn tru không dắt",
+      "Xoay tay quay 360 độ khiến thanh trượt chuyển động tịnh tiến liên tục"
+    ],
+    "details": [
+      "Tính toán chiều dài thanh quay và thanh truyền cơ học",
+      "Đục lỗ pivot trên bìa carton và gia cố bằng đệm nhựa mini",
+      "Lắp thử nghiệm cơ cấu và kiểm tra độ trơn chuyển động"
+    ],
+    "keywords": [
+      "thanh liên kết",
+      "slider crank",
+      "tay quay con trượt",
+      "STEM động lực học"
+    ],
+    "source_files": [
+      "Tai_Lieu_STEM_Co_Hoc_Chuyen_Dong.pdf"
+    ],
+    "prerequisites": [
+      "ky_thuat_thiet_ke_truc_cam_va_co_cau_lien_ket"
+    ]
+  },
+  {
+    "day": 167,
+    "topic_id": "mo_hinh_automaton_tay_quay_lien_ket",
+    "topic": "Mô hình Automaton chim vỗ cánh chuyển động tay quay thanh liên kết",
+    "phase": "Phase 3: Đồ chơi STEM Động lực học, Thủy lực & Mạch điện cơ bản (6-12 tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Mô hình chim carton vỗ cánh khi quay tay quay",
+    "materials": [
+      "Bìa carton 3mm (20x20cm)",
+      "Que gỗ tròn 3mm 2 cái",
+      "Đinh xỏ đệm nhựa 4 bộ",
+      "Keo nến 1 cây",
+      "Màu vẽ trang trí"
+    ],
+    "definition_of_done": [
+      "Cắt hình thân chim và 2 cánh rời đúng mẫu vẽ",
+      "Kết nối khớp cánh với thanh truyền tay quay chắc chắn",
+      "Quay tay quay chim vỗ cánh nhịp nhàng liên tục không bị kẹt"
+    ],
+    "details": [
+      "Cắt các chi tiết thân chim và 2 khớp cánh rời bằng carton",
+      "Lắp tay quay đáy nối thanh truyền lên 2 gốc cánh chim",
+      "Trang trí màu sắc và vận hành kiểm tra độ bền cơ học"
+    ],
+    "keywords": [
+      "automaton",
+      "chim vỗ cánh",
+      "cơ cấu tay quay",
+      "đồ chơi cơ khí"
+    ],
+    "source_files": [
+      "STEM_Automaton_Paper_Mechanics.pdf"
+    ],
+    "prerequisites": [
+      "ky_thuat_thiet_ke_thanh_lien_ket_tay_quay"
+    ]
+  },
+  {
+    "day": 168,
+    "topic_id": "mo_hinh_may_xuc_thuy_luc_gau_muc",
+    "topic": "Mô hình máy xúc thủy lực gầu múc 3 xilanh ống tiêm",
+    "phase": "Phase 3: Đồ chơi STEM Động lực học, Thủy lực & Mạch điện cơ bản (6-12 tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Máy xúc thủy lực carton múc được vật nhỏ bằng 3 xilanh ống tiêm",
+    "materials": [
+      "Ống tiêm y tế 10ml 6 chiếc",
+      "Ống dẫn nước dẻo 2m",
+      "Bìa carton dày 3mm",
+      "Tăm nhọn, ốc vít mini 6 bộ",
+      "Nước pha màu thực phẩm"
+    ],
+    "definition_of_done": [
+      "Lắp 3 cặp xilanh điều khiển Cần lớn, Cần nhỏ và Gầu múc",
+      "Bơm nước xả toàn bộ bọt khí trong ống dẫn",
+      "Điều khiển gầu múc nâng được 1 viên sỏi nhỏ nâng cao 5cm"
+    ],
+    "details": [
+      "Cắt phôi tay cần và gầu múc bằng carton cứng",
+      "Định vị khớp xoay và gắn 3 xilanh chấp hành vào thân xe",
+      "Kết nối ống dẫn nước màu và chạy thử múc nâng hạ"
+    ],
+    "keywords": [
+      "máy xúc thủy lực",
+      "gầu múc",
+      "xilanh ống tiêm",
+      "thủy lực 3 trục"
+    ],
+    "source_files": [
+      "Thuy_Luc_Ung_Dung_STEM.pdf"
+    ],
+    "prerequisites": [
+      "canh_tay_thuy_luc_2_truc",
+      "mo_hinh_can_cau_thuy_luc_xoay"
+    ]
+  },
+  {
+    "day": 169,
+    "topic_id": "mo_hinh_ten_lua_phong_khi_nen",
+    "topic": "Mô hình bệ phóng tên lửa giấy bằng xilanh khí nén áp suất",
+    "phase": "Phase 3: Đồ chơi STEM Động lực học, Thủy lực & Mạch điện cơ bản (6-12 tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Tên lửa giấy phóng cao 3m bằng xilanh nén khí 60ml",
+    "materials": [
+      "Ống tiêm xilanh 60ml 1 cái",
+      "Ống dẫn khí nhựa 50cm",
+      "Giấy A4 cứng 2 tờ",
+      "Băng dính trong",
+      "Ống hút nhựa to làm bệ phóng 1 cái"
+    ],
+    "definition_of_done": [
+      "Cuộn thân tên lửa giấy vừa khít ống hướng dẫn không bị hở",
+      "Nối xilanh 60ml vào bệ phóng đảm bảo kín hơi",
+      "Ấn đẩy nhanh xilanh làm tên lửa bay xa hoặc bay cao tối thiểu 2m"
+    ],
+    "details": [
+      "Gấp cuộn thân và chóp tên lửa giấy khít hơi",
+      "Lắp ráp bệ phóng cố định với ống tiêm nén đẩy khí",
+      "Phóng thử nghiệm và điều chỉnh độ kín khí ở đuôi tên lửa"
+    ],
+    "keywords": [
+      "tên lửa khí nén",
+      "áp suất khí",
+      "xilanh nén",
+      "STEM động học"
+    ],
+    "source_files": [
+      "Pneumatics_STEM_Projects.pdf"
+    ],
+    "prerequisites":

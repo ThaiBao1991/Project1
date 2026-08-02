@@ -154,6 +154,24 @@ Không cần đồng bộ thủ công. Chỉ cần cùng trỏ đến 1 file.
 
 ## ❓ FAQ
 
+## Codex Quota Tracker (VS Code)
+
+Extension mới nằm tại `games.codex-quota-tracker-1.0.0`. Nó theo dõi quota Codex của account đang đăng nhập trên chính máy đó và ghi snapshot vào `codex_quota_data.dat`.
+
+### Cài extension local
+
+1. Copy thư mục `openai.codex-quota-tracker-1.0.0` vào thư mục extensions của VS Code.
+2. Khởi động lại hoàn toàn VS Code.
+3. Mở Activity Bar **Codex Quota** và nhấn **Refresh** sau khi đã dùng Codex ít nhất một lần.
+
+Mặc định dữ liệu nằm ở `~/.quota-tracker/codex_quota_data.dat`. Có thể đổi bằng setting `codexQuotaTracker.dataDirectory`. Bạn có thể đặt `codexQuotaTracker.accountLabel` thành tên dễ nhớ như `Codex Work` hoặc `Codex Personal`, vì session local không cung cấp email account một cách an toàn. Nếu chọn cùng thư mục với `quota_data.dat`, Python `quota_db.py` sẽ hiển thị cả Antigravity và Codex trong một bảng.
+
+### An toàn và di chuyển máy
+
+- Snapshot Codex chỉ chứa quota, thời điểm reset, loại plan và tên máy; không chứa `auth.json`, token hay API key.
+- Copy `codex_quota_data.dat` cùng dữ liệu QuotaApp để xem snapshot ở máy khác.
+- Dữ liệu chỉ mới nhất khi máy nguồn đã chạy Codex/Refresh; máy tắt sẽ chỉ có snapshot lần đồng bộ gần nhất.
+
 **Q: Extension có tự reset sau 24h không?**  
 A: Có. Bảng tự cập nhật mỗi 30 giây, Status Bar cập nhật mỗi phút. Không cần làm gì thêm.
 

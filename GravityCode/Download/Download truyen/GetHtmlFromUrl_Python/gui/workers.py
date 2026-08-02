@@ -47,7 +47,8 @@ class DownloadWorker(QThread):
     def __init__(self, url: str, config_mgr: PageConfigManager, save_path: str,
                  is_divide_file: bool = False, ebook_info: str = "",
                  start_idx: int = 0, end_idx: int = -1, file_format: str = "html",
-                 manual_links: list[str] = None, page_config=None, resume_data: dict = None):
+                 manual_links: list[str] = None, page_config=None, resume_data: dict = None,
+                 delete_folder: bool = False):
         super().__init__()
         self.url = url
         self.config_mgr = config_mgr
@@ -60,6 +61,7 @@ class DownloadWorker(QThread):
         self.manual_links = manual_links
         self.forced_page_config = page_config
         self.resume_data = resume_data
+        self.delete_folder = delete_folder
 
         self.engine = GetHtmlEngine()
         self.is_running = True
@@ -89,9 +91,21 @@ class DownloadWorker(QThread):
             # 1. KHỞI TẠO HOẶC KHÔI PHỤC TIẾN TRÌNH (RESUME)
             if self.resume_data:
                 self.log_signal.emit("🔄 Đang khôi phục tiến trình tải (Resume)...")
-                all_links = self.resume_data.get("all_links", [])
-                self.start_idx = self.resume_data.get("start_idx", 0)
-                self.end_idx = self.resume_data.get("end_idx", len(all_links) - 1)
+                
+                # Backward compatibility cho file _Resume.json cũ (không có all_links)
+                if "all_links" not in self.resume_data:
+                    old_selected = self.resume_data.get("selected_links", [])
+                    self.start_idx = self.resume_data.get("start_idx", 0)
+                    all_links = [""] * self.start_idx + old_selected
+                    self.end_idx = self.start_idx + len(old_selected) - 1
+                else:
+                    all_links = self.resume_data.get("all_links", [])
+                    self.start_idx = self.resume_data.get("start_idx", 0)
+                    self.end_idx = self.resume_data.get("end_idx", -1)
+                    
+                if self.end_idx == -1:
+                    self.end_idx = len(all_links) - 1
+                    
                 selected_links = all_links[self.start_idx : self.end_idx + 1]
                 
                 chapters_status = self.resume_data.get("chapters_status", [])
@@ -178,7 +192,7 @@ class DownloadWorker(QThread):
                     self.log_signal.emit(f"🔎 Đang tải thủ công {len(all_links)} link...")
                 else:
                     self.log_signal.emit("🔎 Đang phân tích mục lục...")
-                    all_links = self.engine.get_list_chapter_links(self.url, page_config)
+                    all_links = self.engine.get_list_chapter_links(self.url, page_config, log_fn=self.log_signal.emit)
 
                 if not all_links:
                     self.log_signal.emit("❌ Không tìm thấy danh sách chương nào.")
@@ -250,34 +264,52 @@ class DownloadWorker(QThread):
                 # Cập nhật _Resume.json liên tục sau mỗi chương
                 self._save_resume_state(story_title, final_path, all_links, save_dir, chapters_status)
 
-            # 4. CHẠY THREADPOOL EXECUTOR
-            max_workers = self._get_max_workers()
-            with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
-                futures = []
-                for idx, link in enumerate(selected_links):
-                    if not self.is_running:
-                        break
-                    if self.resume_data and chapters_status[idx].get("status") == "done":
-                        continue
-                        
-                    futures.append(executor.submit(download_single, idx, link))
-                    time.sleep(delay_ms) # Khoảng nghỉ tránh spam request quá nhanh
-                
-                # Chờ tất cả xong
-                for future in concurrent.futures.as_completed(futures):
-                    pass
+            # 4. CHẠY THREADPOOL EXECUTOR CÓ AUTO-RESUME TỐI ĐA 5 LẦN
+            for auto_resume_attempt in range(5):
+                if not self.is_running:
+                    break
+                    
+                max_workers = self._get_max_workers()
+                with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+                    futures = []
+                    for idx, link in enumerate(selected_links):
+                        if not self.is_running:
+                            break
+                        # Bỏ qua nếu đã tải xong (từ lần trước hoặc lần thử nghiệm trong cùng session)
+                        if chapters_status[idx].get("status") == "done":
+                            continue
+                            
+                        futures.append(executor.submit(download_single, idx, link))
+                        time.sleep(delay_ms) # Khoảng nghỉ tránh spam request quá nhanh
+                    
+                    # Chờ tất cả xong
+                    for future in concurrent.futures.as_completed(futures):
+                        pass
+
+                if not self.is_running:
+                    break
+
+                # Kiểm tra xem đã hoàn thành 100% chưa
+                if all(ch is not None for ch in self.chapters):
+                    break # Success 100%
+                    
+                # Nếu chưa, đếm số chương lỗi và thử lại
+                failed_count = sum(1 for ch in self.chapters if ch is None)
+                if auto_resume_attempt < 4:
+                    self.log_signal.emit(f"🔄 Auto-resume lần {auto_resume_attempt + 1}/5: còn {failed_count} chương lỗi. Đang thử lại...")
+                    time.sleep(2)
+                else:
+                    self.log_signal.emit(f"❌ Đã thử tải tự động 5 lần nhưng vẫn còn {failed_count} chương lỗi.")
 
         except Exception as e:
-            logger.error(f"Error in run: {e}")
-            self.finished_signal.emit("Lỗi hệ thống")
+            import traceback
+            err_msg = traceback.format_exc()
+            logger.error(f"Error in run: {e}\n{err_msg}")
+            self.finished_signal.emit(f"Lỗi: {e}")
+            self.log_signal.emit(f"❌ CHI TIẾT LỖI:\n{err_msg}")
             return
 
         # 5. XỬ LÝ SAU KHI TẢI XONG
-        # Gộp file nếu không chia
-        if self.is_running and not self.is_divide_file and final_path:
-            self.log_signal.emit("📝 Đang ghi file tổng hợp...")
-            self._save_concatenate_file(story_title, final_path)
-
         # Ghi log lỗi TXT để tương thích với chức năng tải tay
         if self.failed_links and final_path:
             error_log_path = os.path.join(str(Path(final_path).parent), f"{story_title}_ErrorLog.txt")
@@ -287,24 +319,41 @@ class DownloadWorker(QThread):
                 self.log_signal.emit(f"📝 Đã ghi danh sách {len(self.failed_links)} link lỗi vào: {error_log_path}")
             except Exception as e:
                 logger.error(f"Lỗi ghi error log: {e}")
-                
+
         # Kiểm tra xem có thành công 100% không
         all_done = all(ch is not None for ch in self.chapters)
-        
-        # Dọn dẹp thư mục tạm và file Resume nếu tải thành công 100%
-        if not self.is_divide_file and all_done and save_dir:
-            import shutil
-            try:
-                shutil.rmtree(save_dir)
-                resume_path = os.path.join(str(Path(final_path).parent), f"{story_title}_Resume.json")
-                if os.path.exists(resume_path):
-                    os.remove(resume_path)
-                self.log_signal.emit("🧹 Đã dọn dẹp thư mục tải tạm và file Resume.")
-            except Exception as e:
-                pass
 
-        failed_msg = f" ({self.download_failed_count} chương thất bại)" if not all_done else ""
-        self.finished_signal.emit(f"Hoàn tất{failed_msg}")
+        # Xóa _Resume.json sau khi RESUME hoàn tất thành công (0 lỗi)
+        # Không xóa khi tải mới (self.resume_data is None)
+        if self.resume_data and all_done and final_path:
+            resume_path = os.path.join(str(Path(final_path).parent), f"{story_title}_Resume.json")
+            if os.path.exists(resume_path):
+                try:
+                    os.remove(resume_path)
+                    self.log_signal.emit("🧹 Đã xóa file Resume (resume hoàn tất 100%).")
+                except Exception:
+                    pass
+
+        if all_done:
+            self.log_signal.emit(f"✅ Tải xong {len(self.chapters)} chương. Đang tự động gộp file...")
+            
+            # Tự động gộp
+            if final_path:
+                self._save_concatenate_file(story_title, final_path)
+                self.log_signal.emit(f"✅ Đã gộp thành công vào: {final_path}")
+                
+                # Tự động xóa thư mục nếu user đã check
+                if self.delete_folder and save_dir and os.path.exists(save_dir):
+                    import shutil
+                    try:
+                        shutil.rmtree(save_dir, ignore_errors=True)
+                        self.log_signal.emit(f"🧹 Đã xóa thư mục tạm: {save_dir}")
+                    except Exception as e:
+                        self.log_signal.emit(f"⚠️ Lỗi xóa thư mục tạm: {e}")
+                        
+            self.finished_signal.emit("Hoàn tất và đã gộp file tự động!")
+        else:
+            self.finished_signal.emit(f"Hoàn tất ({self.download_failed_count} chương thất bại). Xem ErrorLog để tải lại.")
 
     # ------------------------------------------------------------------
     # Private Helpers
@@ -316,7 +365,7 @@ class DownloadWorker(QThread):
         return path_part.replace("-", " ").title()
 
     def _prepare_save_paths(self, story_title: str):
-        """Chuẩn bị đường dẫn lưu file."""
+        """Chuẩn bị đường dẫn lưu file. Dùng URL slug làm tên thư mục cố định."""
         if not self.save_path:
             return None, None
 
@@ -325,10 +374,10 @@ class DownloadWorker(QThread):
         if not base_name.endswith(ext):
             base_name = base_name + ext
 
-        timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
         parent_dir = str(Path(base_name).parent)
-        folder_name = f"{Path(base_name).stem}_GHFU_{timestamp}"
-        save_dir = os.path.join(parent_dir, folder_name)
+        # Dùng URL slug làm tên thư mục cố định (không dùng timestamp nữa)
+        slug = self.url.rstrip("/").split("/")[-1] if self.url else story_title.replace(" ", "-").lower()
+        save_dir = os.path.join(parent_dir, slug)
         os.makedirs(save_dir, exist_ok=True)
 
         return save_dir, base_name
@@ -342,8 +391,11 @@ class DownloadWorker(QThread):
 
             with open(file_path, "w", encoding="utf-8") as f:
                 if self.file_format == "html":
+                    content_str = chapter.content or ""
+                    content_str = re.sub(r'(?<!>)\n(?!<)', '<br/>\n', content_str)
+                    
                     f.write(f"<h2>{chapter.title}</h2>\n")
-                    f.write(chapter.content or "")
+                    f.write(f"<div class='chapter-content'>\n{content_str}\n</div>\n")
                 else:
                     f.write(f"{chapter.title}\n\n")
                     f.write(html_to_text(chapter.content or ""))
@@ -384,6 +436,7 @@ class DownloadWorker(QThread):
                     f.write(f"<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n")
                     f.write(f"<title>{story_title}</title>\n</head>\n<body>\n")
                     
+                    f.write(f"<style> .chapter-content {{ white-space: pre-wrap; line-height: 1.6; word-wrap: break-word; }} </style>\n")
                     if self.ebook_info:
                         f.write(f"<div id='ebook-info'>{self.ebook_info}</div>\n<hr/>\n")
                     
@@ -397,11 +450,15 @@ class DownloadWorker(QThread):
                     for i, ch in valid_chapters:
                         f.write(f"<a name='chap-{i}'></a>\n")
                         content_str = ch.content or ""
+                        
+                        # Fix lỗi mất dòng: chuyển \n thành <br/> (trừ khi nó nằm cạnh tag HTML)
+                        content_str = re.sub(r'(?<!>)\n(?!<)', '<br/>\n', content_str)
+                        
                         # Nếu nội dung chưa có thẻ h2 (trường hợp không resume), chèn thêm
                         if not content_str.strip().startswith("<h2>"):
                             f.write(f"<h2>{ch.title}</h2>\n")
-                        f.write(content_str)
-                        f.write("\n<hr/>\n")
+                            
+                        f.write(f"<div class='chapter-content'>\n{content_str}\n</div>\n<hr/>\n")
                     f.write("</body></html>\n")
                 else:
                     # TXT format
@@ -419,3 +476,148 @@ class DownloadWorker(QThread):
         except Exception as e:
             self.log_signal.emit(f"❌ Lỗi ghi file: {e}")
             logger.error(f"Lỗi ghi file tổng hợp: {e}")
+
+
+class MergeWorker(QThread):
+    """
+    Worker gộp các file chương HTML riêng lẻ thành 1 file tổng hợp.
+    Scan tất cả *.html trong folder, sort theo tên file (0001_, 0002_,...),
+    ghi ra file HTML tổng có TOC và nội dung đầy đủ.
+    """
+    log_signal = pyqtSignal(str)
+    finished_signal = pyqtSignal(str)
+
+    def __init__(self, folder_path: str, output_path: str, story_title: str, ebook_info: str = ""):
+        super().__init__()
+        self.folder_path = folder_path
+        self.output_path = output_path
+        self.story_title = story_title
+        self.ebook_info = ebook_info
+
+    def run(self):
+        try:
+            html_files = sorted([
+                f for f in os.listdir(self.folder_path) if f.lower().endswith(".html")
+            ])
+            if not html_files:
+                self.log_signal.emit("❌ Không tìm thấy file HTML nào trong thư mục.")
+                self.finished_signal.emit("Lỗi: Không tìm thấy file HTML trong thư mục.")
+                return
+
+            self.log_signal.emit(f"📂 Tìm thấy {len(html_files)} file chương. Đang gộp...")
+
+            chapters = []  # list of (index, title, raw_content)
+            for i, fname in enumerate(html_files):
+                fpath = os.path.join(self.folder_path, fname)
+                try:
+                    with open(fpath, "r", encoding="utf-8", errors="ignore") as f:
+                        raw = f.read()
+                    # Trích title từ thẻ <h2>
+                    m = re.search(r"<h2[^>]*>(.*?)</h2>", raw, re.IGNORECASE | re.DOTALL)
+                    title = m.group(1) if m else f"Chương {i + 1}"
+                    chapters.append((i, title, raw))
+                    if (i + 1) % 100 == 0:
+                        self.log_signal.emit(f"  📖 Đã đọc {i + 1}/{len(html_files)} chương...")
+                except Exception as e:
+                    self.log_signal.emit(f"  ⚠️ Lỗi đọc {fname}: {e}")
+
+            self.log_signal.emit(f"💾 Đang ghi file tổng hợp ({len(chapters)} chương)...")
+
+            with open(self.output_path, "w", encoding="utf-8-sig") as f:
+                f.write("<!DOCTYPE html><html lang='vi'>\n<head>\n")
+                f.write('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />\n')
+                f.write(f"<title>{self.story_title}</title>\n</head>\n<body>\n")
+                
+                f.write(f"<style> .chapter-content {{ white-space: pre-wrap; line-height: 1.6; word-wrap: break-word; }} </style>\n")
+
+                if self.ebook_info:
+                    f.write(f"<div id='ebook-info'>{self.ebook_info}</div>\n<hr/>\n")
+
+                # Mục lục
+                f.write("<div id='toc'><h2>Mục lục</h2><ul>\n")
+                for i, title, _ in chapters:
+                    f.write(f"  <li><a href='#chap-{i}'>{title}</a></li>\n")
+                f.write("</ul></div>\n<hr/>\n")
+
+                # Nội dung
+                for i, title, raw in chapters:
+                    f.write(f"<a name='chap-{i}'></a>\n")
+                    # Break long lines for KindleGen to avoid memory overflow (Crash/WinError 32)
+                    raw_safe = raw.replace("<br>", "<br/>\n").replace("<br/>", "<br/>\n")
+                    f.write(raw_safe)
+                    f.write("\n<hr/>\n")
+
+                f.write("</body></html>\n")
+            self.log_signal.emit(f"✅ Đã gộp xong → {self.output_path}")
+            self.finished_signal.emit(f"Gộp hoàn tất! {len(chapters)} chương → {os.path.basename(self.output_path)}")
+
+        except Exception as e:
+            self.log_signal.emit(f"❌ Lỗi gộp file: {e}")
+            self.finished_signal.emit(f"Lỗi gộp: {e}")
+            logger.error(f"MergeWorker error: {e}")
+
+class PrcWorker(QThread):
+    """
+    Worker xử lý việc tải kindlegen.exe và biên dịch file HTML thành PRC.
+    Chạy trong luồng nền để không chặn giao diện.
+    """
+    log_signal = pyqtSignal(str)
+    progress_signal = pyqtSignal(int)
+    finished_signal = pyqtSignal(bool, str) # success (True/False), message
+
+    def __init__(self, html_path: str, base_dir: str, final_prc_path: str = None):
+        super().__init__()
+        self.html_path = html_path
+        self.base_dir = base_dir
+        self.final_prc_path = final_prc_path
+        self._is_running = True
+        self.compiler = None
+
+    def stop(self):
+        self._is_running = False
+        if self.compiler:
+            self.compiler.cancel()
+        self.quit()
+
+    def run(self):
+        try:
+            # Load PrcCompiler dynamically inside run to avoid circular import if any
+            from core.prc_compiler import PrcCompiler
+            self.compiler = PrcCompiler(self.base_dir)
+
+            self.log_signal.emit("🔎 Đang kiểm tra công cụ biên dịch PRC...")
+            # progress callback
+            def on_progress(msg):
+                self.log_signal.emit(msg)
+            
+            def on_percent(pct):
+                self.progress_signal.emit(pct)
+
+            if not self.compiler.check_and_download_kindlegen(progress_callback=on_progress):
+                self.finished_signal.emit(False, "Lỗi: Không thể tải hoặc tìm thấy kindlegen.exe")
+                return
+
+            if not self._is_running:
+                return
+
+            self.log_signal.emit("🚀 Bắt đầu quá trình biên dịch HTML sang PRC...")
+            success = self.compiler.compile_html_to_prc(
+                self.html_path, 
+                log_callback=on_progress, 
+                percent_callback=on_percent,
+                final_prc_path=self.final_prc_path
+            )
+            
+            if not self._is_running:
+                return
+
+            if success:
+                self.finished_signal.emit(True, "Biên dịch PRC thành công!")
+            else:
+                self.finished_signal.emit(False, "Biên dịch PRC thất bại!")
+                
+        except Exception as e:
+            self.log_signal.emit(f"❌ Lỗi PrcWorker: {e}")
+            self.finished_signal.emit(False, f"Lỗi ngoại lệ: {e}")
+            import logging
+            logging.error(f"PrcWorker error: {e}")

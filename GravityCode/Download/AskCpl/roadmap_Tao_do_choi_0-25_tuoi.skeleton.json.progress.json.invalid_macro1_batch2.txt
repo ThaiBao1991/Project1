@@ -1,0 +1,227 @@
+[
+  {
+    "day": 11,
+    "topic_id": "ke_chu_a_treo_do_choi",
+    "topic": "Lắp ráp kệ treo đồ chơi kích thích thị giác và với tay",
+    "phase": "Phase 1 (0-3 tuổi): Đồ chơi Phát triển Cảm quan, Thị giác & Vận động Thô",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Kệ chữ A bằng khung gỗ tự nhiên 50x40cm treo 3 món đồ chơi",
+    "materials": [
+      "4 thanh gỗ tròn đường kính 2cm dài 50cm",
+      "1 thanh ngang tròn đường kính 2cm dài 40cm",
+      "Dây dù chắc chắn 1m"
+    ],
+    "definition_of_done": [
+      "Khung đứng vững không lắc lư nghiêng đổ",
+      "Các góc gỗ được bo tròn mịn không dằm xước",
+      "Thanh ngang chịu được tải trọng kéo ít nhất 2kg"
+    ],
+    "details": [
+      "Chải nhám mịn các thanh gỗ bằng giấy nhám mịn",
+      "Khoan lỗ và buộc dây cố định khớp nối khung chữ A",
+      "Treo thử nghiệm các món đồ chơi nhẹ lên thanh ngang"
+    ],
+    "keywords": [
+      "kệ chữ A",
+      "vận động thô",
+      "với tay",
+      "gỗ tự nhiên"
+    ],
+    "source_files": [
+      "Tai_lieu_Thiet_ke_Do_choi_Montessori_P1.pdf"
+    ],
+    "prerequisites": [
+      "capstone_bo_do_choi_cam_quan_so_sinh"
+    ]
+  },
+  {
+    "day": 12,
+    "topic_id": "bong_vai_montessori_takane",
+    "topic": "Khâu quả bóng Montessori Takane kích thích cầm nắm bằng 2 tay",
+    "phase": "Phase 1 (0-3 tuổi): Đồ chơi Phát triển Cảm quan, Thị giác & Vận động Thô",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Bóng Takane vải 12 múi đường kính 12cm có chuông bên trong",
+    "materials": [
+      "Vải cotton tương phản 2 màu 30x30cm",
+      "Bông gòn nhân tạo 100g",
+      "Chuông lục lạc nhỏ 1 cái"
+    ],
+    "definition_of_done": [
+      "Bóng có dáng múi tròn rãnh sâu giúp bé dễ bám ngón tay",
+      "Chuông giấu kín sâu bên trong an toàn",
+      "Mối khâu giấu chỉ chắc chắn không bung bông"
+    ],
+    "details": [
+      "Cắt 12 múi vải theo rập chuẩn Takane",
+      "Khâu ghép các múi bóng lại và dồn bông kèm chuông",
+      "Khâu đóng kín tâm bóng và kiểm tra lực kéo căng mối chỉ"
+    ],
+    "keywords": [
+      "bóng Takane",
+      "Montessori",
+      "cầm nắm",
+      "thị giác"
+    ],
+    "source_files": [
+      "Huong_dan_May_do_choi_vai_cho_be.pdf"
+    ],
+    "prerequisites": [
+      "bong_xuc_giac_da_chat_lieu"
+    ]
+  },
+  {
+    "day": 13,
+    "topic_id": "khoi_lap_phuong_xuc_giac",
+    "topic": "Làm khối lập phương xúc giác đa bề mặt phát tiếng còi",
+    "phase": "Phase 1 (0-3 tuổi): Đồ chơi Phát triển Cảm quan, Thị giác & Vận động Thô",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Khối lập phương mút bọc vải 10x10cm có 6 bề mặt khác nhau",
+    "materials": [
+      "Khối mút xốp 10x10x10cm",
+      "Vải dạ, vải nhung, vải xô, da nhân tạo 12x12cm mỗi loại",
+      "Còi bóp chip chip 1 cái"
+    ],
+    "definition_of_done": [
+      "Khối mút có 6 mặt mang 6 chất liệu xúc giác khác nhau",
+      "Âm thanh còi bóp hoạt động tốt khi bóp nhẹ",
+      "Đường khâu bọc mút không bị rách nát khi đè nén"
+    ],
+    "details": [
+      "Bọc còi chip chip vào lõi trung tâm khối mút xốp",
+      "Khâu ghép 6 mảnh vải đa chất liệu phủ quanh các mặt",
+      "May viền cố định mép khối và kiểm tra độ nhạy âm thanh"
+    ],
+    "keywords": [
+      "khối lập phương",
+      "xúc giác",
+      "thính giác",
+      "mút xốp"
+    ],
+    "source_files": [
+      "Tai_lieu_Thiet_ke_Do_choi_Montessori_P1.pdf"
+    ],
+    "prerequisites": [
+      "mieng_vai_so_soat_cam_quan"
+    ]
+  },
+  {
+    "day": 14,
+    "topic_id": "guong_an_toan_tap_lay",
+    "topic": "Thiết kế bảng gương mica an toàn hỗ trợ bé tập lẫy tummy time",
+    "phase": "Phase 1 (0-3 tuổi): Đồ chơi Phát triển Cảm quan, Thị giác & Vận động Thô",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Bảng gương mica dẻo 20x30cm bọc viền xốp an toàn",
+    "materials": [
+      "Tấm gương mica dẻo acrylic 20x30cm",
+      "Bìa carton cứng 20x30cm",
+      "Vải xốp bọc viền 1m"
+    ],
+    "definition_of_done": [
+      "Gương soi rõ hình không vỡ hay nứt khi va đập",
+      "Viền bọc xốp êm ái không có cạnh sắc nhọn",
+      "Có dây buộc hỗ trợ đặt nghiêng góc 45 độ"
+    ],
+    "details": [
+      "Dán phẳng tấm gương mica lên tấm đế bìa cứng",
+      "Bọc xốp gờ viền xung quanh thật kín bằng keo dán",
+      "Gắn dây buộc gia cố chắc chắn ở hai góc trên"
+    ],
+    "keywords": [
+      "gương an toàn",
+      "tummy time",
+      "tập lẫy",
+      "mica"
+    ],
+    "source_files": [
+      "An_toan_Do_choi_Tre_em_ISO8124.pdf"
+    ],
+    "prerequisites": [
+      "tham_cam_quan_tummy_time"
+    ]
+  },
+  {
+    "day": 15,
+    "topic_id": "vong_go_ruy_bang_cau_vong",
+    "topic": "Làm vòng gỗ gắn ruy băng cầu vồng luyện vận động cánh tay",
+    "phase": "Phase 1 (0-3 tuổi): Đồ chơi Phát triển Cảm quan, Thị giác & Vận động Thô",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Vòng gỗ tự nhiên phi 7cm gắn 7 dải ruy băng màu 30cm",
+    "materials": [
+      "Vòng gỗ mộc đường kính 7cm không sơn",
+      "7 dải ruy băng lụa màu sắc cơ bản (mỗi dải dài 60cm)",
+      "Sáp ong tự nhiên đánh bóng gỗ"
+    ],
+    "definition_of_done": [
+      "Vòng gỗ bóng mịn không xơ dằm",
+      "Các mối thắt ruy băng chắc chắn không bung khi kéo nhẹ",
+      "Chiều dài ruy băng sau thắt dưới 30cm đảm bảo an toàn"
+    ],
+    "details": [
+      "Đánh bóng vòng gỗ bằng sáp ong tự nhiên",
+      "Cắt và hơ nhẹ mép 7 dải ruy băng để chống xơ sợi",
+      "Thắt nút đầu đạn cố định các dải ruy băng vào vòng gỗ"
+    ],
+    "keywords": [
+      "vòng gỗ",
+      "ruy băng",
+      "Waldorf",
+      "vận động cánh tay"
+    ],
+    "source_files": [
+      "Tai_lieu_Thiet_ke_Do_choi_Montessori_P1.pdf"
+    ],
+    "prerequisites": [
+      "an_toan_vat_lieu_so_sinh"
+    ]
+  },
+  {
+    "day": 16,
+    "topic_id": "trong_lan_go_mini",
+    "topic": "Chế tạo trống lăn bằng gỗ kích thích bé bò đuổi theo",
+    "phase": "Phase 1 (0-3 tuổi): Đồ chơi Phát triển Cảm quan, Thị giác & Vận động Thô",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Trống lăn gỗ mini 10x15cm chứa hạt chuông gỗ bên trong",
+    "materials": [
+      "2 đĩa gỗ tròn phi 10cm có khoan lỗ",
+      "6 thanh đũa gỗ tròn phi 0.8cm dài 15cm",
+      "2 hạt chuông tròn gỗ 2cm",
+      "Keo dán gỗ an toàn"
+    ],
+    "definition_of_done": [
+      "Trống lăn mượt mà trên mặt phẳng sàn",
+      "Hạt chuông bên trong không thể lọt ra ngoài rãnh",
+      "Khung gỗ dán keo cực kỳ chắc chắn"
+    ],
+    "details": [
+      "Gắn cố định 5 thanh gỗ vào 2 đĩa tròn bằng keo dán",
+      "Thả hạt chuông gỗ vào bên trong khung lồng",
+      "Lắp thanh gỗ cuối cùng, ép chặt và lau sạch keo thừa"
+    ],
+    "keywords": [
+      "trống lăn",
+      "tập bò",
+      "vận động thô",
+      "Montessori"
+    ],
+    "source_files": [
+      "Huong_dan_Gia_cong_Do_choi_Go_Co_ban.pdf"
+    ],
+    "prerequisites": [
+      "ke_chu_a_treo_do_choi"
+    ]
+  },
+  {
+    "day": 17,
+    "topic_id": "tui_cam_quan_chat_long",
+    "topic": "Làm túi cảm quan chất lỏng không loang màu kích thích ngón tay",
+    "phase": "Phase 1 (0-3 tuổi): Đồ chơi Phát triển Cảm quan, Thị giác & Vận động Thô",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Túi cảm quan dung dịch gel 20x20cm chứa hạt kim tuyến",
+    "materials":

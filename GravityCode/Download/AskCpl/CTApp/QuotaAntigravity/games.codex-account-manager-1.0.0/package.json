@@ -1,0 +1,35 @@
+{
+  "name": "codex-account-manager",
+  "publisher": "games",
+  "displayName": "Codex Account Manager",
+  "description": "Manage local Codex logins and monitor each account's quota and reset time.",
+  "version": "1.0.0",
+  "engines": { "vscode": "^1.85.0" },
+  "categories": ["Other"],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "codexAccountManager.open", "title": "Codex Account Manager: Open" },
+      { "command": "codexAccountManager.add", "title": "Codex Account Manager: Add Account" },
+      { "command": "codexAccountManager.refreshAll", "title": "Codex Account Manager: Refresh All" },
+      { "command": "codexAccountManager.configureProxy", "title": "Codex Account Manager: Configure Network / Proxy" },
+      { "command": "codexAccountManager.testNetwork", "title": "Codex Account Manager: Test Network / Proxy IP" },
+      { "command": "codexAccountManager.applyVsCodeProxy", "title": "Codex Account Manager: Apply Network / Proxy to VS Code" },
+      { "command": "codexAccountManager.openDataFolder", "title": "Codex Account Manager: Open Snapshot Folder" }
+    ],
+    "viewsContainers": {
+      "activitybar": [{ "id": "codex-account-manager", "title": "Codex Accounts", "icon": "media/icon.svg" }]
+    },
+    "views": {
+      "codex-account-manager": [{ "type": "webview", "id": "codexAccountManager.dashboard", "name": "Accounts" }]
+    },
+    "configuration": {
+      "title": "Codex Account Manager",
+      "properties": {
+        "codexAccountManager.snapshotDirectory": { "type": "string", "default": "", "description": "Folder for codex_quota_data.dat. Empty uses ~/.quota-tracker." },
+        "codexAccountManager.autoRefreshMinutes": { "type": "number", "default": 10, "minimum": 1, "maximum": 120, "description": "Refresh interval for all logged-in profiles." }
+      }
+    }
+  }
+}

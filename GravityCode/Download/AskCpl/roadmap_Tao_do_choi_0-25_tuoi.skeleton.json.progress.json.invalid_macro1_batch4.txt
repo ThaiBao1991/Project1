@@ -1,0 +1,195 @@
+[
+  {
+    "day": 31,
+    "topic_id": "ke_choi_chu_a_treo_chuong_go",
+    "topic": "Kệ chơi chữ A bằng gỗ treo chuông thanh xới",
+    "phase": "Phase 1 (0-3 tuổi): Đồ chơi Phát triển Cảm quan, Thị giác & Vận động Thô",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Kệ gỗ chữ A mini treo 3 quả chuông lục lạc gỗ",
+    "materials": [
+      "4 thanh gỗ thông 40cm",
+      "1 thanh tròn ngang 50cm",
+      "3 chuông lục lạc kèm dây dù"
+    ],
+    "definition_of_done": [
+      "Kệ đứng vững chãi không lắc lượi",
+      "Chuông reo vừa phải khi gõ nhẹ",
+      "Các góc bo tròn mài mịn không xước"
+    ],
+    "details": [
+      "Cắt mài 4 thanh gỗ chân chữ A",
+      "Khoan lỗ xỏ thanh ngang và buộc dây treo chuông",
+      "Bo tròn các góc gỗ và xoa dầu dừa bảo vệ"
+    ],
+    "keywords": [
+      "kệ chữ A",
+      "đồ chơi gỗ",
+      "thính giác",
+      "vận động thô"
+    ],
+    "source_files": [
+      "TaiLieu_GiauDuc_GiacQuan_Montessori.pdf"
+    ],
+    "prerequisites": [
+      "trong_lan_go_tieng_chuong"
+    ]
+  },
+  {
+    "day": 32,
+    "topic_id": "bang_cam_quan_busy_board_mini_vai",
+    "topic": "Bảng cảm quan bận rộn mini bằng vải dạ felt",
+    "phase": "Phase 1 (0-3 tuổi): Đồ chơi Phát triển Cảm quan, Thị giác & Vận động Thô",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Bảng vải felt 20x20cm gắn khóa kéo, dây buộc và cúc bấm",
+    "materials": [
+      "2 miếng vải felt cứng 20x20cm",
+      "1 dây kéo plastic 15cm",
+      "2 bộ cúc bấm nhựa",
+      "1 dây ruy băng"
+    ],
+    "definition_of_done": [
+      "Bảng vải may chắc chắn các phụ kiện",
+      "Khóa kéo trơn tru không mắc kẹt",
+      "Các nút cúc bấm vừa tay bé gỡ"
+    ],
+    "details": [
+      "Cắt tấm vải felt nền và may cố định khóa kéo",
+      "Khâu cúc bấm nhựa và dây ruy băng buộc thắt",
+      "May viền chắp 2 mặt bảng vải tạo độ dày"
+    ],
+    "keywords": [
+      "busy board",
+      "vải felt",
+      "vận động tinh",
+      "cảm quan"
+    ],
+    "source_files": [
+      "HuongDan_May_DoChoi_Vai.pdf"
+    ],
+    "prerequisites": [
+      "thap_vong_vai_mem_tap_xep"
+    ]
+  },
+  {
+    "day": 33,
+    "topic_id": "ong_tao_tieng_mua_rainmaker_cam_quan",
+    "topic": "Ống tạo tiếng mưa Rainmaker cảm quan thính giác",
+    "phase": "Phase 1 (0-3 tuổi): Đồ chơi Phát triển Cảm quan, Thị giác & Vận động Thô",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Ống nhựa trong dài 25cm chứa hạt gỗ phát tiếng mưa rơi",
+    "materials": [
+      "1 ống nhựa PVC trong suốt dài 25cm (đường kính 4cm)",
+      "50 hạt gỗ nhỏ",
+      "2 nắp đậy silicone kín",
+      "keo nến"
+    ],
+    "definition_of_done": [
+      "Ống phát tiếng lắc vui tai giống tiếng mưa",
+      "Nắp bọc niêm phong tuyệt đối không rơi hạt",
+      "Bề mặt nhựa nhẵn mịn"
+    ],
+    "details": [
+      "Tạo các vách ngăn hình xoắn bên trong ống nhựa",
+      "Cho hạt gỗ nhỏ vào ống và thử âm thanh",
+      "Dán keo bịt kín 2 đầu nắp silicone"
+    ],
+    "keywords": [
+      "rainmaker",
+      "tiếng mưa",
+      "cảm quan thính giác",
+      "ống âm thanh"
+    ],
+    "source_files": [
+      "TaiLieu_GiauDuc_GiacQuan_Montessori.pdf"
+    ],
+    "prerequisites": [
+      "chai_am_thanh_cam_quan"
+    ]
+  },
+  {
+    "day": 34,
+    "topic_id": "xe_go_keo_con_vat_phat_tieng_dong",
+    "topic": "Xe gỗ kéo hình chú vịt phát tiếng gõ",
+    "phase": "Phase 1 (0-3 tuổi): Đồ chơi Phát triển Cảm quan, Thị giác & Vận động Thô",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Mô hình xe vịt gỗ kéo dây phát tiếng gõ lách cách",
+    "materials": [
+      "1 khối gỗ hình chú vịt 15x10cm",
+      "4 bánh xe gỗ đường kính 4cm",
+      "1 dây dù dài 50cm",
+      "1 thanh gõ hạt gỗ mini"
+    ],
+    "definition_of_done": [
+      "Bánh xe quay đều không kẹt",
+      "Khi kéo phát ra tiếng gõ nhịp nhàng",
+      "Đã bo tròn mọi cạnh sắc"
+    ],
+    "details": [
+      "Khoan lỗ bánh xe và trục khớp lệch tâm tạo cơ cấu gõ",
+      "Lắp 4 bánh xe vào thân chú vịt gỗ",
+      "Buộc dây kéo chắc chắn ở đầu xe"
+    ],
+    "keywords": [
+      "xe kéo gỗ",
+      "vận động thô",
+      "tập đi",
+      "đồ chơi âm thanh"
+    ],
+    "source_files": [
+      "GiaoTrinh_ThietKe_DoChoi_Go.pdf"
+    ],
+    "prerequisites": [
+      "trong_lan_go_tieng_chuong"
+    ]
+  },
+  {
+    "day": 35,
+    "topic_id": "review_kiem_soat_am_luong_do_choi_thinh_giac",
+    "topic": "Đánh giá kiểm soát âm lượng và tính an toàn đồ chơi thính giác",
+    "phase": "Phase 1 (0-3 tuổi): Đồ chơi Phát triển Cảm quan, Thị giác & Vận động Thô",
+    "kind": "review",
+    "estimated_minutes": 30,
+    "concrete_project": "Bảng kiểm độ ồn (<65dB) và độ kín cơ học của đồ chơi thính giác",
+    "materials": [
+      "Các sản phẩm Day 31-34",
+      "Ứng dụng đo dB trên điện thoại",
+      "Thước đo chi tiết nhỏ"
+    ],
+    "definition_of_done": [
+      "Đạt mức âm lượng an toàn <65dB ở khoảng cách 10cm",
+      "Không mảnh vỡ hay hạt bị rơi khi thả từ 1m",
+      "Ghi chép xong bảng checklist kiểm thử"
+    ],
+    "details": [
+      "Dùng app đo cường độ âm thanh của Rainmaker và kệ chuông",
+      "Thử nghiệm độ rơi va đập từ độ cao 1 mét xuống sàn",
+      "Tổng hợp và khắc phục các điểm chưa đạt"
+    ],
+    "keywords": [
+      "kiểm thử âm lượng",
+      "độ bền",
+      "an toàn thính giác",
+      "review"
+    ],
+    "source_files": [
+      "AnToan_ThietKe_DoChoi_TreEm.pdf"
+    ],
+    "prerequisites": [
+      "ke_choi_chu_a_treo_chuong_go",
+      "ong_tao_tieng_mua_rainmaker_cam_quan",
+      "xe_go_keo_con_vat_phat_tieng_dong"
+    ]
+  },
+  {
+    "day": 36,
+    "topic_id": "hop_vinh_cuu_doi_tuong_montessori",
+    "topic": "Hộp vĩnh cửu đối tượng (Object Permanence Box) kèm bóng gỗ",
+    "phase": "Phase 1 (0-3 tuổi): Đồ chơi Phát triển Cảm quan, Thị giác & Vận động Thô",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Hộp gỗ 15x15x10cm có khay nhô ra và 1 quả bóng gỗ",
+    "materials":

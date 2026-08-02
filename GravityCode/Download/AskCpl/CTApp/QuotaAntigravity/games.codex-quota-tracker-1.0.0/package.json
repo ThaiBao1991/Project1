@@ -1,0 +1,28 @@
+{
+  "name": "codex-quota-tracker",
+  "publisher": "games",
+  "displayName": "Codex Quota Tracker",
+  "description": "Local, token-free Codex quota dashboard and portable snapshot writer.",
+  "version": "1.0.0",
+  "engines": { "vscode": "^1.85.0" },
+  "categories": ["Other"],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "codexQuotaTracker.open", "title": "Codex Quota Tracker: Open Dashboard" },
+      { "command": "codexQuotaTracker.refresh", "title": "Codex Quota Tracker: Refresh" },
+      { "command": "codexQuotaTracker.openDataFolder", "title": "Codex Quota Tracker: Open Data Folder" }
+    ],
+    "viewsContainers": { "activitybar": [{ "id": "codex-quota-tracker", "title": "Codex Quota", "icon": "media/icon.svg" }] },
+    "views": { "codex-quota-tracker": [{ "type": "webview", "id": "codexQuotaTracker.dashboard", "name": "Codex Quota" }] },
+    "configuration": {
+      "title": "Codex Quota Tracker",
+      "properties": {
+        "codexQuotaTracker.dataDirectory": { "type": "string", "default": "", "description": "Folder for codex_quota_data.dat. Empty uses ~/.quota-tracker." },
+        "codexQuotaTracker.accountLabel": { "type": "string", "default": "", "description": "Optional label for the active Codex account (for example Work Codex). The extension does not read credentials." },
+        "codexQuotaTracker.refreshIntervalSeconds": { "type": "number", "default": 60, "minimum": 30, "description": "Automatic local snapshot refresh interval." }
+      }
+    }
+  }
+}

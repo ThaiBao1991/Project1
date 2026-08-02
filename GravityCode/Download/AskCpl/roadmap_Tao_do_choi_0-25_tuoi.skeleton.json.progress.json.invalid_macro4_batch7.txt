@@ -1,0 +1,180 @@
+[
+  {
+    "day": 181,
+    "topic_id": "che_tao_xe_phan_luc_khi_tai_che",
+    "topic": "Chế Tạo Xe Chạy Bằng Phản Lực Khí Nén Từ Chai Nhựa Tái Chế",
+    "phase": "Đồ Chơi STEM, Cơ Học & Thủy Lực / Khí Nén Nhập Môn (6 - 10 Tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Xe chai nhựa phản lực bong bóng",
+    "materials": [
+      "1 chai nhựa 500ml",
+      "1 quả bóng bay + 1 ống hút",
+      "4 nắp chai + 2 que xiên"
+    ],
+    "definition_of_done": [
+      "Xe di chuyển thẳng ít nhất 2 mét bằng lực đẩy không khí",
+      "Bánh xe quay trơn tru không bị kẹt vào thân chai"
+    ],
+    "details": [
+      "Đục lỗ gắn trục que xiên và nắp chai làm 4 bánh xe",
+      "Gắn bóng bay vào đầu ống hút và cố định trên lưng chai",
+      "Thổi căng bóng bay và buông tay để kiểm tra lực đẩy xe"
+    ],
+    "keywords": [
+      "phản lực khí",
+      "chai nhựa",
+      "động lực học",
+      "tái chế"
+    ],
+    "source_files": [
+      "STEM_Recycled_Toys_Guide.pdf"
+    ],
+    "prerequisites": [
+      "xe_phan_luc_bong_bong_khi_nen"
+    ]
+  },
+  {
+    "day": 182,
+    "topic_id": "canh_tay_robot_thuy_luc_ong_tiem",
+    "topic": "Chế Tạo Cánh Tay Robot Thủy Lực Từ Ống Tiêm Và Bìa Carton",
+    "phase": "Đồ Chơi STEM, Cơ Học & Thủy Lực / Khí Nén Nhập Môn (6 - 10 Tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Cánh tay robot 1 khớp kẹp bằng thủy lực",
+    "materials": [
+      "2 ống tiêm 10ml + ống truyền",
+      "Bìa carton dày 3mm (20x30cm)",
+      "Nước màu + 4 chốt tăm"
+    ],
+    "definition_of_done": [
+      "Khớp tay nâng hạ mượt mà khi đẩy pít-tông",
+      "Hệ thống truyền dẫn kín nước không bị rò rỉ"
+    ],
+    "details": [
+      "Cắt và ghép khung bìa carton làm cánh tay robot",
+      "Đẩy nước màu vào 2 ống tiêm và nối kín bằng dây truyền",
+      "Lắp pít-tông vào khung khớp và thử nghiệm nâng vật nhẹ"
+    ],
+    "keywords": [
+      "thủy lực",
+      "ống tiêm",
+      "cánh tay robot",
+      "truyền lực"
+    ],
+    "source_files": [
+      "Hydraulic_Robotics_DIY.pdf"
+    ],
+    "prerequisites": [
+      "canh_tay_thuy_luc_2_truc"
+    ]
+  },
+  {
+    "day": 183,
+    "topic_id": "may_chieu_phim_mini_hop_giay",
+    "topic": "Chế Tạo Máy Chiếu Phim Mini Từ Kính Lúp Và Hộp Giày",
+    "phase": "Đồ Chơi STEM, Cơ Học & Thủy Lực / Khí Nén Nhập Môn (6 - 10 Tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Máy chiếu hình ảnh điện thoại qua kính lúp",
+    "materials": [
+      "1 hộp giày bìa carton",
+      "1 kính lúp đường kính 7cm",
+      "1 kẹp giữ điện thoại"
+    ],
+    "definition_of_done": [
+      "Hình ảnh chiếu lên tường rõ nét khi điều chỉnh khoảng cách",
+      "Kính lúp được cố định kín ánh sáng xung quanh mép"
+    ],
+    "details": [
+      "Đục lỗ tròn trên đầu hộp giày vừa vặn với kính lúp",
+      "Cố định kính lúp chắc chắn và dán kín khe hở bằng băng dính đen",
+      "Đặt điện thoại bên trong hộp và điều chỉnh cự ly chiếu"
+    ],
+    "keywords": [
+      "máy chiếu mini",
+      "quang học",
+      "kính lúp",
+      "hộp giày"
+    ],
+    "source_files": [
+      "Optics_Projector_DIY.pdf"
+    ],
+    "prerequisites": [
+      "may_chieu_mini_thau_kinh_led"
+    ]
+  },
+  {
+    "day": 184,
+    "topic_id": "mach_dien_dc_dong_co_quat_mini",
+    "topic": "Chế Tạo Mạch Điện DC Đơn Giản Lắp Quạt Mini Từ Đồ Tái Chế",
+    "phase": "Đồ Chơi STEM, Cơ Học & Thủy Lực / Khí Nén Nhập Môn (6 - 10 Tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Quạt mini chạy pin DC có công tắc tuốt dây",
+    "materials": [
+      "1 động cơ DC 3V - 6V",
+      "1 khay pin AA + 2 pin",
+      "1 vỏ chai nhựa làm cánh quạt"
+    ],
+    "definition_of_done": [
+      "Quạt quay mạnh khi bật công tắc và dừng khi tắt",
+      "Mối nối điện chắc chắn, được bọc cách điện an toàn"
+    ],
+    "details": [
+      "Cắt vỏ chai nhựa thành 4 cánh quạt và gắn vào trục động cơ",
+      "Đấu nối dây điện từ khay pin qua công tắc đến động cơ DC",
+      "Bật công tắc kiểm tra chiều quay và thử nghiệm độ mát"
+    ],
+    "keywords": [
+      "mạch điện DC",
+      "động cơ 3V",
+      "quạt mini",
+      "tái chế"
+    ],
+    "source_files": [
+      "Basic_DC_Circuits_Guide.pdf"
+    ],
+    "prerequisites": [
+      "mach_dien_dc_led_don_gian"
+    ]
+  },
+  {
+    "day": 185,
+    "topic_id": "capstone_bo_do_choi_stem_tai_che_tong_hop",
+    "topic": "Capstone: Tích Hợp Mô Hình STEM Tái Chế Hoàn Chỉnh",
+    "phase": "Đồ Chơi STEM, Cơ Học & Thủy Lực / Khí Nén Nhập Môn (6 - 10 Tuổi)",
+    "kind": "capstone",
+    "estimated_minutes": 30,
+    "concrete_project": "Bộ sản phẩm STEM tái chế liên hoàn",
+    "materials": [
+      "Các mô hình đã làm từ Day 181-184",
+      "Băng dính/keo nến + kéo",
+      "Bìa carton chân đế (40x40cm)"
+    ],
+    "definition_of_done": [
+      "Cả 4 mô hình hoạt động ổn định trên sa bàn trưng bày",
+      "Trình bày được nguyên lý hoạt động cơ bản của từng mô hình"
+    ],
+    "details": [
+      "Gắn kết các mô hình lên đế sa bàn bằng bìa carton",
+      "Kiểm định lại toàn bộ chuyển động khí nén, thủy lực và mạch DC",
+      "Hoàn thiện trang trí sa bàn triển lãm đồ chơi STEM tái chế"
+    ],
+    "keywords": [
+      "capstone",
+      "STEM tái chế",
+      "tích hợp",
+      "sa bàn"
+    ],
+    "source_files": [
+      "STEM_Recycled_Toys_Guide.pdf"
+    ],
+    "prerequisites": [
+      "che_tao_xe_phan_luc_khi_tai_che",
+      "canh_tay_robot_thuy_luc_ong_tiem",
+      "may_chieu_phim_mini_hop_giay",
+      "mach_dien_dc_dong_co_quat_mini"
+    ]
+  }
+]

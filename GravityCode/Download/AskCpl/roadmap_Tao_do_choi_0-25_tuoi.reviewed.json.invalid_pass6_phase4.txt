@@ -1,0 +1,181 @@
+[
+  {
+    "day": 31,
+    "topic_id": "ky_thuat_su_dung_guong_an_toan_acrylic",
+    "topic": "Kỹ thuật ứng dụng gương Acrylic an toàn & nhân trắc học góc bo cho đồ chơi",
+    "phase": "Phase 1: Vật liệu An toàn & Đồ chơi Kích thích Cảm quan (0-3 tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Gương soi cảm quan khung gỗ bo tròn 15x15cm chuẩn nhân trắc học",
+    "materials": [
+      "Gương nhựa Acrylic không vỡ 15x15cm x 1 tấm",
+      "Khung gỗ pơ mu bo góc tròn 18x18cm x 1 chiếc",
+      "Keo dán gỗ keo dán silicon an toàn x 1 tuýp",
+      "Giấy nhám mịn grit 320 x 1 tờ"
+    ],
+    "definition_of_done": [
+      "Gương Acrylic gắn chặt vào khung gỗ, không bong tróc khi va đập nhẹ",
+      "Mặt gương phẳng không biến dạng hình ảnh quá mức",
+      "Toàn bộ mép gương và viền gỗ được chà nhám láng mịn, góc bo R>=5mm đạt chuẩn nhân trắc học 0-3 tuổi"
+    ],
+    "details": [
+      "Cắt và mài nhẵn viền tấm gương Acrylic 15x15cm bằng giấy nhám mịn",
+      "Dùng keo silicon cố định gương vào lòng khung gỗ đã xẻ rãnh âm",
+      "Kiểm tra phản chiếu, bo tròn góc R>=5mm đảm bảo nhân trắc học an toàn cho trẻ"
+    ],
+    "keywords": [
+      "gương acrylic",
+      "gương an toàn",
+      "nhận biết bản thân",
+      "khung gỗ bo tròn",
+      "nhân trắc học trẻ em"
+    ],
+    "source_files": [
+      "Tai_Lieu_An_Toan_Vat_Lieu_Tre_Em.pdf"
+    ],
+    "prerequisites": [
+      "ky_thuat_cat_mai_bo_tron_go",
+      "phan_biet_vat_lieu_an_toan"
+    ]
+  },
+  {
+    "day": 32,
+    "topic_id": "xe_go_lan_cam_quan_hat_phat_tieng",
+    "topic": "Làm xe gỗ lăn kết hợp hạt âm thanh chuẩn nhân trắc học tay cầm",
+    "phase": "Phase 1: Vật liệu An toàn & Đồ chơi Kích thích Cảm quan (0-3 tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Xe gỗ lăn 4 bánh tích hợp hạt lục lạc tròn tay cầm ergonomic",
+    "materials": [
+      "Khối gỗ thông 10x6x5cm x 1 khối",
+      "Bánh xe gỗ đường kính 4cm x 4 bánh",
+      "Chốt gỗ chốt trục x 2 đoạn 8cm",
+      "Hạt lục lạc inox 1.5cm x 2 hạt"
+    ],
+    "definition_of_done": [
+      "Xe di chuyển trơn tru trên mặt phẳng khi đẩy nhẹ",
+      "Hạt lục lạc phát ra âm thanh vui tai khi xe chuyển động",
+      "Kích thước thân xe bo tròn vừa nấc nắm tay trẻ 1-3 tuổi, các trục bánh chịu lực kéo >70N"
+    ],
+    "details": [
+      "Khoét hộc rỗng giữa thân gỗ để chứa hạt lục lạc sound-maker",
+      "Lắp bánh xe vào trục gỗ và đóng chốt cố định bằng keo dán gỗ",
+      "Chà nhám bo góc thân xe theo thông số nhân trắc học tay cầm trẻ và chạy thử độ lăn"
+    ],
+    "keywords": [
+      "xe gỗ lăn",
+      "vận động thô",
+      "thính giác",
+      "chuyển động cơ học",
+      "nhân trắc học tay cầm"
+    ],
+    "source_files": [
+      "Gia_Cong_Go_Tho_Co_Ban.pdf"
+    ],
+    "prerequisites": [
+      "ky_thuat_cat_mai_bo_tron_go",
+      "chuong_lac_thinh_giac_go"
+    ]
+  },
+  {
+    "day": 33,
+    "topic_id": "dan_go_phat_nhac_cam_quan_don_gian",
+    "topic": "Chế tạo đàn gõ gỗ mini tạo âm thanh tự nhiên chuẩn kích thước tay cầm",
+    "phase": "Phase 1: Vật liệu An toàn & Đồ chơi Kích thích Cảm quan (0-3 tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Đàn phím gỗ mini 4 phím âm thanh 10x15cm kèm dùi gõ nhân trắc học",
+    "materials": [
+      "Thanh gỗ tần bì kích thước khác nhau x 4 thanh",
+      "Khung đế gỗ 10x15cm x 1 chiếc",
+      "Đệm cao su xốp x 8 miếng nhỏ",
+      "Dùi gõ đầu gỗ x 1 chiếc"
+    ],
+    "definition_of_done": [
+      "4 phím gỗ phát ra 4 âm vực cao thấp khác nhau rõ rệt khi gõ",
+      "Đệm cao su giúp âm thanh ngân vang không bị đục",
+      "Dùi gõ dính kèm dây đay an toàn dài dưới 22cm, đường kính cán dùi 1.2cm vừa tay trẻ"
+    ],
+    "details": [
+      "Cắt 4 thanh gỗ tần bì với độ dài chênh lệch 2cm để tạo độ cao âm thanh",
+      "Dán đệm cao su xốp lên khung đế rồi đặt thanh gỗ lên cố định nhẹ",
+      "Gõ thử điều chỉnh âm thanh và bo láng cán dùi gõ theo chuẩn nhân trắc học"
+    ],
+    "keywords": [
+      "nhạc cụ gỗ",
+      "phát triển thính giác",
+      "tần số âm thanh",
+      "đàn gõ mini",
+      "ergonomics"
+    ],
+    "source_files": [
+      "Huong_Dan_Lam_Do_Choi_Am_Thanh.pdf"
+    ],
+    "prerequisites": [
+      "do_choi_phat_am_thanh_tu_nhien",
+      "ky_thuat_cat_mai_bo_tron_go"
+    ]
+  },
+  {
+    "day": 34,
+    "topic_id": "bo_ghep_doi_mau_sac_xuc_giac",
+    "topic": "Làm bộ đĩa ghép đôi màu sắc và kết cấu bề mặt chống nuốt EN71",
+    "phase": "Phase 1: Vật liệu An toàn & Đồ chơi Kích thích Cảm quan (0-3 tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Bộ ghép cặp 6 đĩa cảm quan màu sắc đường kính 6cm chuẩn EN71",
+    "materials": [
+      "Đĩa gỗ tròn đường kính 6cm x 6 đĩa",
+      "Vải len, vải dạ, vải nhám, da nhân tạo x 1 miếng mỗi loại",
+      "Sơn nước an toàn màu đỏ, xanh, vàng x 1 hũ mỗi màu",
+      "Keo nến an toàn x 1 cây"
+    ],
+    "definition_of_done": [
+      "Tạo được 3 cặp đĩa tương ứng nhau về màu sắc và chất liệu bề mặt",
+      "Đường kính 6cm vượt tiêu chuẩn chống nuốt nghẹn (>4.5cm) cho trẻ 0-3 tuổi",
+      "Màu sơn bám chắc, không bong tróc khi lau khăn ẩm"
+    ],
+    "details": [
+      "Sơn màu tương ứng lên 3 cặp đĩa gỗ và chờ khô",
+      "Cắt các miếng vải/da thành hình tròn 5cm vừa vặn lòng đĩa gỗ",
+      "Dán chất liệu lên mặt đĩa và kiểm tra độ bám dính cùng kích thước an toàn"
+    ],
+    "keywords": [
+      "phân loại màu sắc",
+      "khớp cặp xúc giác",
+      "đĩa gỗ cảm quan",
+      "chống nuốt EN71",
+      "nhân trắc học"
+    ],
+    "source_files": [
+      "Phat_Trien_Tri_Tue_Senso.pdf"
+    ],
+    "prerequisites": [
+      "the_xuc_giac_da_chat_lieu",
+      "bo_hinh_khoi_cam_quan_vai_ni"
+    ]
+  },
+  {
+    "day": 35,
+    "topic_id": "on_tap_quy_trinh_hoan_thien_va_an_toan_tong_hop",
+    "topic": "Ôn tập quy trình kiểm định an toàn & nhân trắc học đồ chơi đa vật liệu",
+    "phase": "Phase 1: Vật liệu An toàn & Đồ chơi Kích thích Cảm quan (0-3 tuổi)",
+    "kind": "review",
+    "estimated_minutes": 30,
+    "concrete_project": "Bảng checklist đánh giá an toàn 10 tiêu chuẩn và nhân trắc học đồ chơi Phase 1",
+    "materials": [
+      "Sổ tay thiết kế đồ chơi x 1 quyển",
+      "Thước kẹp me, ống đo chi tiết nhỏ EN71 x 1 bộ",
+      "Các mẫu đồ chơi đã làm từ Day 31 đến 34"
+    ],
+    "definition_of_done": [
+      "Hoàn thiện bảng checklist an toàn và nhân trắc học cho trẻ 0-3 tuổi",
+      "Đánh giá thành công các đồ chơi đã làm theo tiêu chí EN71/ASTM F963 và Ergonomics",
+      "Ghi nhận và khắc phục các lỗi xơ dăm, dây dài quá khổ hoặc chi tiết góc nhọn"
+    ],
+    "details": [
+      "Hệ thống hóa các tiêu chí an toàn: kích thước, lực xé/kéo, nhân trắc học góc bo",
+      "Đo đạc kiểm tra các đồ chơi đã hoàn thành với ống test chi tiết nhỏ",
+      "Lập biên bản đánh giá và rút ra bài học cho đợt Capstone cuối Phase"
+    ],
+    "keywords":

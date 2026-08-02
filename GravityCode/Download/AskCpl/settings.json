@@ -22,20 +22,20 @@
       {
         "key": "ENC:Z2otd0tLeXBYMFBqUFkwWXJJWndyX0NZd3JNbG84OEVQWE5WdGdnVk5HREk2TlI4YkEuUUE=",
         "email": "gamesvendn",
-        "status": "active",
-        "reset_time": 0,
-        "last_check_time": 1785488458,
-        "next_check_time": 0,
+        "status": "exhausted",
+        "reset_time": 1785770845,
+        "last_check_time": 1785684445,
+        "next_check_time": 1785695245,
         "project_id": "1",
         "error_msg": ""
       },
       {
         "key": "ENC:Z1l1OUtZQUJYSlVialhtMVpfSVp0ZUZZVVNsbW5PUG1OMEI4OWN0YXRmMUw2TlI4YkEuUUE=",
         "email": "gamesvendn01",
-        "status": "active",
-        "reset_time": 0,
-        "last_check_time": 1785488460,
-        "next_check_time": 0,
+        "status": "exhausted",
+        "reset_time": 1785772080,
+        "last_check_time": 1785685680,
+        "next_check_time": 1785696480,
         "project_id": "1",
         "error_msg": ""
       },
@@ -44,173 +44,173 @@
         "key": "ENC:QXlKd09pY0JDeEZ2OERVZlNIQmZfRnFCNlpIM1dqUzR0MnlZczBhQ3YwNUk2TlI4YkEuUUE=",
         "email": "gamesvendn01",
         "project_id": "2",
-        "status": "active",
-        "reset_time": 0,
-        "next_check_time": 0,
-        "last_check_time": 1785488461
+        "status": "exhausted",
+        "reset_time": 1785773186,
+        "next_check_time": 1785697586,
+        "last_check_time": 1785686786
       },
       {
-        "error_msg": "",
+        "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "key": "ENC:UWVCZkw3WU5TNHFBdV9vcXNkMGxIa0hiQmtnZGo5SklFTEhCcE11OExKQUw2TlI4YkEuUUE=",
         "email": "gamesvendn01",
         "project_id": "3",
-        "status": "active",
-        "reset_time": 0,
-        "next_check_time": 0,
-        "last_check_time": 1785488463
+        "status": "exhausted",
+        "reset_time": 1785774243,
+        "next_check_time": 1785698643,
+        "last_check_time": 1785687843
       },
       {
-        "error_msg": "",
+        "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "key": "ENC:Z2NneEFueDBJemFmSkl3RFRzREFHQzBBN0JBWThjeG9WdUJhRXpQMzhLOUs2TlI4YkEuUUE=",
         "email": "gamesvendn01",
         "project_id": "4",
-        "status": "active",
-        "reset_time": 0,
-        "next_check_time": 0,
-        "last_check_time": 1785488465
+        "status": "exhausted",
+        "reset_time": 1785774269,
+        "next_check_time": 1785698669,
+        "last_check_time": 1785687869
       },
       {
-        "error_msg": "",
+        "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "key": "ENC:QWwwNTZnc0ppTTNnUkRsbEhNTUhBTlpPSklOWkh0S242V0lWOE84N1BJZEs2TlI4YkEuUUE=",
         "email": "gamesvendn01",
         "project_id": "5",
-        "status": "active",
-        "reset_time": 0,
-        "next_check_time": 0,
-        "last_check_time": 1785488466
+        "status": "exhausted",
+        "reset_time": 1785775073,
+        "next_check_time": 1785699473,
+        "last_check_time": 1785688673
       },
       {
-        "error_msg": "",
+        "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "key": "ENC:Z3BCOWJMamhZejZCczZSU203R1M3dXJaOVpKMDJuajhMbUVSSmotSlMxcEw2TlI4YkEuUUE=",
         "email": "gamesvendn01",
         "project_id": "6",
-        "status": "active",
-        "reset_time": 0,
-        "next_check_time": 0,
-        "last_check_time": 1785466412,
+        "status": "exhausted",
+        "reset_time": 1785776433,
+        "next_check_time": 1785700833,
+        "last_check_time": 1785690033,
         "type": "GEMINI API",
         "project_name": ""
       },
       {
-        "error_msg": "",
+        "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "key": "ENC:QUJKVWc1YklvaWNFRTZuWmswTlN0N2xvazc0RmkzNkcwOW5Vdk5DWjdxaUo2TlI4YkEuUUE=",
         "email": "gamesvendn01",
         "project_id": "7",
-        "status": "active",
-        "reset_time": 0,
-        "next_check_time": 0,
-        "last_check_time": 1785471061,
+        "status": "exhausted",
+        "reset_time": 1785766509,
+        "next_check_time": 1785690909,
+        "last_check_time": 1785680109,
         "type": "GEMINI API",
         "project_name": ""
       },
       {
-        "error_msg": "",
+        "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "key": "ENC:QTB6RmUwOFVxSzlyS2JPQnlnODhMLUdUUi0yNDI4b0ZfNkdhNFFvNjBnbkk2TlI4YkEuUUE=",
         "email": "gamesvendn01",
         "project_id": "8",
-        "status": "active",
-        "reset_time": 0,
-        "next_check_time": 0,
-        "last_check_time": 1785466422
+        "status": "exhausted",
+        "reset_time": 1785767044,
+        "next_check_time": 1785691444,
+        "last_check_time": 1785680644
       },
       {
-        "error_msg": "models/gemini-1.5-flash is not found for API versi",
+        "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "key": "ENC:dzdfSDlxOWVkWG9OcExUY1AzM2NyaXVJTmM0VGlPR2FXSXZZdmtXWWhHR0s2TlI4YkEuUUE=",
         "email": "gamesvendn01",
         "project_id": "9",
-        "status": "active",
-        "reset_time": 0,
-        "next_check_time": 0,
-        "last_check_time": 1785471184
+        "status": "exhausted",
+        "reset_time": 1785767777,
+        "next_check_time": 1785692177,
+        "last_check_time": 1785681377
       },
       {
-        "error_msg": "",
+        "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "key": "ENC:Z1NNM2UxRjhsdnYzemtWTkMwX3NvX2l1QllHWTRpajRVQ0RDdjVPUGgxS0o2TlI4YkEuUUE=",
         "email": "gamesvendn01",
         "project_id": "10",
-        "status": "active",
-        "reset_time": 0,
-        "next_check_time": 0,
-        "last_check_time": 1785466428
+        "status": "exhausted",
+        "reset_time": 1785768468,
+        "next_check_time": 1785692868,
+        "last_check_time": 1785682068
       },
       {
         "key": "ENC:QVJueGZ6dDBhSXAxR2FJdlNVX2hrRzlRdWQzOUxLY1ZfMkU1NTlmM1NWREo2TlI4YkEuUUE=",
         "email": "gamesvendn02",
-        "status": "active",
-        "reset_time": 0,
-        "next_check_time": 0,
-        "last_check_time": 1785471185,
+        "status": "exhausted",
+        "reset_time": 1785769178,
+        "next_check_time": 1785693578,
+        "last_check_time": 1785682778,
         "project_id": "1",
-        "error_msg": "models/gemini-1.5-flash is not found for API versi"
+        "error_msg": "HTTP 429 / quota exhausted during roadmap generation"
       },
       {
         "key": "ENC:Z3ZSMHFfX0NpOGd4MTdtbjdYcDZjRlJKbVg0Z3U1eERzTVl5SjFvX28wcEw2TlI4YkEuUUE=",
         "email": "gamesvendn03",
-        "status": "active",
-        "reset_time": 0,
-        "last_check_time": 1785466447,
-        "next_check_time": 0,
-        "error_msg": "",
+        "status": "exhausted",
+        "reset_time": 1785769940,
+        "last_check_time": 1785683540,
+        "next_check_time": 1785694340,
+        "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "project_id": "1"
       },
       {
         "key": "ENC:Z0NaTi1nRzRkbmVYamhmdTk2dE9NYjVBYnYwU0s4WXRfV0V1T25wWEpxeko2TlI4YkEuUUE=",
         "email": "gamesvendn04",
-        "status": "active",
-        "reset_time": 0,
-        "last_check_time": 1785466455,
-        "next_check_time": 0,
+        "status": "exhausted",
+        "reset_time": 1785770661,
+        "last_check_time": 1785684261,
+        "next_check_time": 1785695061,
         "project_id": "1",
-        "error_msg": ""
+        "error_msg": "HTTP 429 / quota exhausted during roadmap generation"
       },
       {
         "key": "ENC:QTdXSnVIN0swR1NsSlJTWl91WW40UVRWeFY3a1ZBaDRMYktocVl4cUFVLUs2TlI4YkEuUUE=",
         "email": "gamesvendn05",
-        "status": "active",
-        "reset_time": 0,
-        "last_check_time": 1785471187,
-        "next_check_time": 0,
-        "error_msg": "models/gemini-1.5-flash is not found for API versi",
+        "status": "exhausted",
+        "reset_time": 1785771652,
+        "last_check_time": 1785685252,
+        "next_check_time": 1785696052,
+        "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "project_id": "1"
       },
       {
         "key": "ENC:UXI3dTBZQXZtQm5KaFprd1BHQmxxRndDZWplZzJMZ3hoNzd6cmN1eWp1Y0s2TlI4YkEuUUE=",
         "email": "gamesvendn06",
-        "status": "active",
-        "reset_time": 0,
-        "last_check_time": 1785466463,
-        "next_check_time": 0,
-        "error_msg": "",
+        "status": "exhausted",
+        "reset_time": 1785771958,
+        "last_check_time": 1785685558,
+        "next_check_time": 1785696358,
+        "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "project_id": "1"
       },
       {
         "key": "ENC:Z2pxb2FTOGxJbVg0M3VRN0ZYWHhmcHhVUnpCX3MyME9NOExvdW1vSUZxdks2TlI4YkEuUUE=",
         "email": "gamesvendn07",
-        "status": "active",
-        "reset_time": 0,
-        "last_check_time": 1785466466,
-        "next_check_time": 0,
-        "error_msg": "",
+        "status": "exhausted",
+        "reset_time": 1785772061,
+        "last_check_time": 1785685661,
+        "next_check_time": 1785696461,
+        "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "project_id": "1"
       },
       {
-        "error_msg": "",
+        "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "key": "ENC:QVJBQ3VhXzZaRjdhbXlYdGpIZVMxdm94MnVncng2dWFZLUowWmVuN05jaks2TlI4YkEuUUE=",
         "email": "gamesvendn08",
-        "status": "active",
-        "reset_time": 0,
-        "next_check_time": 0,
-        "last_check_time": 1785466469,
+        "status": "exhausted",
+        "reset_time": 1785772114,
+        "next_check_time": 1785696514,
+        "last_check_time": 1785685714,
         "project_id": "1"
       },
       {
         "key": "ENC:UTl4bVlENXY5ZURReER6eE9tNGJQYVctb3ExY005RGRLbjA1U3NxNjAxVks2TlI4YkEuUUE=",
         "email": "gamesvendn08",
-        "status": "active",
-        "reset_time": 0,
-        "last_check_time": 1784951843,
-        "next_check_time": 0,
-        "error_msg": "",
+        "status": "exhausted",
+        "reset_time": 1785772147,
+        "last_check_time": 1785685747,
+        "next_check_time": 1785696547,
+        "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "project_id": "2",
         "type": "GEMINI API",
         "project_name": ""
@@ -218,50 +218,50 @@
       {
         "key": "ENC:QUhzZUxJajg5aGxodXpFRkRvYzhrZFRWQldZVXdaeG9jaGtFMldNX1ZIMUs2TlI4YkEuUUE=",
         "email": "gamesvendn09",
-        "status": "active",
-        "reset_time": 0,
-        "last_check_time": 1785466483,
-        "next_check_time": 0,
-        "error_msg": "",
+        "status": "exhausted",
+        "reset_time": 1785772196,
+        "last_check_time": 1785685796,
+        "next_check_time": 1785696596,
+        "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "project_id": "1"
       },
       {
         "key": "ENC:Z0RkV1R1cGhNV2lKLUdJdUpWbzVYT2VZYXFUYlNvb2plXzdmemgtTm1ZWko2TlI4YkEuUUE=",
         "email": "gamesvendn10",
-        "status": "active",
-        "reset_time": 0,
-        "last_check_time": 1785471188,
-        "next_check_time": 0,
-        "error_msg": "models/gemini-1.5-flash is not found for API versi",
+        "status": "exhausted",
+        "reset_time": 1785772403,
+        "last_check_time": 1785686003,
+        "next_check_time": 1785696803,
+        "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "project_id": "1"
       },
       {
         "key": "ENC:Z0lmNnNKNFVST0kxVzdRbGdLM1AzYVR5bTM2aEtKZGNtRGItSEhmMVd3Z0o2TlI4YkEuUUE=",
         "email": "gamesvendn11",
-        "status": "active",
-        "reset_time": 0,
-        "last_check_time": 1785471190,
-        "next_check_time": 0,
-        "error_msg": "models/gemini-1.5-flash is not found for API versi",
+        "status": "exhausted",
+        "reset_time": 1785772578,
+        "last_check_time": 1785686178,
+        "next_check_time": 1785696978,
+        "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "project_id": "1"
       },
       {
         "key": "ENC:US1yMnZiaWFYdGdwMlN4bXMtM0huVmtTSzIySXVEVmtRNy0wV1VfWF9MOUk2TlI4YkEuUUE=",
         "email": "gamesvendn12",
-        "status": "active",
-        "reset_time": 0,
-        "last_check_time": 1785466514,
-        "next_check_time": 0,
-        "error_msg": "",
+        "status": "exhausted",
+        "reset_time": 1785772595,
+        "last_check_time": 1785686195,
+        "next_check_time": 1785696995,
+        "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "project_id": "1"
       },
       {
         "key": "ENC:d2xYTGhTLUZSV0N6WGJrQVc4Z3MwTFNwNHhGQlBZVVNyc2FKeE9kalp3S0o2TlI4YkEuUUE=",
         "email": "gamesvendn13",
-        "status": "active",
-        "reset_time": 0,
-        "last_check_time": 1785466520,
-        "next_check_time": 0,
+        "status": "exhausted",
+        "reset_time": 1785772928,
+        "last_check_time": 1785686528,
+        "next_check_time": 1785697328,
         "error_msg": "",
         "project_id": "1"
       },
@@ -269,50 +269,50 @@
         "error_msg": "",
         "key": "ENC:d2dyVnBFeTRJRUhFa0l6bG5VTm1ySjR6VjlZdm5hMkRJaC1lTGhNV1VEOUk2TlI4YkEuUUE=",
         "email": "gamesvendn16",
-        "status": "active",
-        "reset_time": 0,
-        "next_check_time": 0,
-        "last_check_time": 1785466522,
+        "status": "exhausted",
+        "reset_time": 1785773620,
+        "next_check_time": 1785698020,
+        "last_check_time": 1785687220,
         "project_id": "1"
       },
       {
         "error_msg": "models/gemini-1.5-flash is not found for API versi",
         "key": "ENC:Z1VzRWU0M0pza3ZtTlBwcTFZUkFyNm1QMVhmTm1VeWMxMWJCVXNBRmVHUEw2TlI4YkEuUUE=",
         "email": "gamesvendn17",
-        "status": "active",
-        "reset_time": 0,
-        "next_check_time": 0,
-        "last_check_time": 1785471191,
+        "status": "exhausted",
+        "reset_time": 1785774993,
+        "next_check_time": 1785699393,
+        "last_check_time": 1785688593,
         "project_id": "1"
       },
       {
         "error_msg": "",
         "key": "ENC:Z1RnU0NqbHBEZ2hDaFRqUmcxR00wZG11TzVnbldfdlZrM1d0WEw5MF8xYUs2TlI4YkEuUUE=",
         "email": "gamesvendn18",
-        "status": "active",
-        "reset_time": 0,
-        "next_check_time": 0,
-        "last_check_time": 1785466536,
+        "status": "exhausted",
+        "reset_time": 1785775821,
+        "next_check_time": 1785700221,
+        "last_check_time": 1785689421,
         "project_id": "1"
       },
       {
         "error_msg": "",
         "key": "ENC:Z0NWR0FTTEpHS3RISjVlZzk5STRvREV0Q2NJd0JfbHpSdG16bGhTSjRpT0w2TlI4YkEuUUE=",
         "email": "gamesvendn19",
-        "status": "active",
-        "reset_time": 0,
-        "next_check_time": 0,
-        "last_check_time": 1785466539,
+        "status": "exhausted",
+        "reset_time": 1785776434,
+        "next_check_time": 1785700834,
+        "last_check_time": 1785690034,
         "project_id": "1"
       },
       {
         "error_msg": "models/gemini-1.5-flash is not found for API versi",
         "key": "ENC:dzZzUzA5cnVTcGhjM3NQSHN5OE9PakZGLUNnY2xONjY3eVp3VVYwZUEtQUs2TlI4YkEuUUE=",
         "email": "gamesvendn20",
-        "status": "active",
-        "reset_time": 0,
-        "next_check_time": 0,
-        "last_check_time": 1785471192,
+        "status": "exhausted",
+        "reset_time": 1785776985,
+        "next_check_time": 1785701385,
+        "last_check_time": 1785690585,
         "project_id": "1"
       },
       {
@@ -322,7 +322,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466558,
+        "last_check_time": 1785690737,
         "project_id": "1"
       },
       {
@@ -332,7 +332,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466567,
+        "last_check_time": 1785641903,
         "project_id": "1"
       },
       {
@@ -342,7 +342,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466570,
+        "last_check_time": 1785641904,
         "project_id": "1"
       },
       {
@@ -352,7 +352,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466573,
+        "last_check_time": 1785641905,
         "project_id": "1"
       },
       {
@@ -362,7 +362,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466576,
+        "last_check_time": 1785641906,
         "project_id": "1"
       },
       {
@@ -372,7 +372,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466582,
+        "last_check_time": 1785641907,
         "project_id": "1"
       },
       {
@@ -381,7 +381,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785471193,
+        "last_check_time": 1785641908,
         "error_msg": "models/gemini-1.5-flash is not found for API versi",
         "project_id": "1"
       },
@@ -391,7 +391,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466596,
+        "last_check_time": 1785641909,
         "error_msg": "",
         "project_id": "1"
       },
@@ -401,7 +401,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466602,
+        "last_check_time": 1785641910,
         "error_msg": "",
         "project_id": "1"
       },
@@ -411,7 +411,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466607,
+        "last_check_time": 1785641911,
         "error_msg": "",
         "project_id": "1"
       },
@@ -423,14 +423,14 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785471195
+        "last_check_time": 1785641912
       },
       {
         "key": "ENC:QTgtZWQwSTRXTnVKRktxTHVmQ04tT1ZzNnBxZjFKVVc2ejNsMm9fblc5X0o2TlI4YkEuUUE=",
         "email": "svendn03",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1785466613,
+        "last_check_time": 1785641913,
         "next_check_time": 0,
         "project_id": "1",
         "error_msg": ""
@@ -443,7 +443,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785471066,
+        "last_check_time": 1785641915,
         "type": "GEMINI API",
         "project_name": ""
       },
@@ -455,7 +455,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785471212
+        "last_check_time": 1785641916
       },
       {
         "error_msg": "models/gemini-1.5-flash is not found for API versi",
@@ -465,7 +465,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785471213
+        "last_check_time": 1785641917
       },
       {
         "error_msg": "",
@@ -475,7 +475,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466640
+        "last_check_time": 1785641918
       },
       {
         "error_msg": "",
@@ -485,7 +485,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466644
+        "last_check_time": 1785641919
       },
       {
         "error_msg": "models/gemini-1.5-flash is not found for API versi",
@@ -495,7 +495,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785471215
+        "last_check_time": 1785641920
       },
       {
         "error_msg": "",
@@ -505,7 +505,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466663
+        "last_check_time": 1785641921
       },
       {
         "error_msg": "",
@@ -515,17 +515,17 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466667
+        "last_check_time": 1785641922
       },
       {
         "error_msg": "",
         "key": "ENC:UU1Bel9ueTktSFVUYzhqbmVxTWhHOE1ZRDU4R1h3VWlLVHNJWFdScnM3Wks2TlI4YkEuUUE=",
         "email": "gamesvendn",
         "project_id": "2",
-        "status": "active",
-        "reset_time": 0,
-        "next_check_time": 0,
-        "last_check_time": 1785466670
+        "status": "exhausted",
+        "reset_time": 1785728322,
+        "next_check_time": 1785652722,
+        "last_check_time": 1785641922
       },
       {
         "error_msg": "",
@@ -535,7 +535,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466673
+        "last_check_time": 1785641923
       },
       {
         "error_msg": "",
@@ -545,7 +545,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466678
+        "last_check_time": 1785641924
       },
       {
         "error_msg": "models/gemini-1.5-flash is not found for API versi",
@@ -555,7 +555,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785471216
+        "last_check_time": 1785641925
       },
       {
         "error_msg": "",
@@ -565,7 +565,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466684
+        "last_check_time": 1785641927
       },
       {
         "error_msg": "",
@@ -575,7 +575,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466690
+        "last_check_time": 1785641928
       },
       {
         "error_msg": "",
@@ -585,7 +585,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466693
+        "last_check_time": 1785641929
       },
       {
         "error_msg": "",
@@ -595,7 +595,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466696
+        "last_check_time": 1785641930
       },
       {
         "error_msg": "",
@@ -605,7 +605,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466700
+        "last_check_time": 1785641931
       },
       {
         "error_msg": "",
@@ -615,7 +615,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466704
+        "last_check_time": 1785641932
       },
       {
         "error_msg": "models/gemini-1.5-flash is not found for API versi",
@@ -625,7 +625,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785471218
+        "last_check_time": 1785641933
       },
       {
         "error_msg": "models/gemini-1.5-flash is not found for API versi",
@@ -635,7 +635,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785471220
+        "last_check_time": 1785641934
       },
       {
         "error_msg": "models/gemini-1.5-flash is not found for API versi",
@@ -645,7 +645,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785471221
+        "last_check_time": 1785641935
       },
       {
         "error_msg": "",
@@ -655,7 +655,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466739
+        "last_check_time": 1785641936
       },
       {
         "error_msg": "",
@@ -665,7 +665,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466742
+        "last_check_time": 1785641937
       },
       {
         "error_msg": "",
@@ -675,7 +675,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466746
+        "last_check_time": 1785641938
       },
       {
         "error_msg": "",
@@ -685,7 +685,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466756
+        "last_check_time": 1785641939
       },
       {
         "error_msg": "models/gemini-1.5-flash is not found for API versi",
@@ -695,7 +695,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785471223
+        "last_check_time": 1785641940
       },
       {
         "error_msg": "",
@@ -705,7 +705,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466763
+        "last_check_time": 1785641941
       },
       {
         "error_msg": "models/gemini-1.5-flash is not found for API versi",
@@ -715,7 +715,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785471224
+        "last_check_time": 1785641942
       },
       {
         "error_msg": "",
@@ -725,7 +725,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466777
+        "last_check_time": 1785641943
       },
       {
         "error_msg": "",
@@ -735,7 +735,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466780
+        "last_check_time": 1785641944
       },
       {
         "error_msg": "",
@@ -745,7 +745,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466789
+        "last_check_time": 1785641946
       },
       {
         "error_msg": "models/gemini-1.5-flash is not found for API versi",
@@ -755,7 +755,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785471225
+        "last_check_time": 1785641946
       },
       {
         "error_msg": "",
@@ -765,7 +765,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466799
+        "last_check_time": 1785641948
       },
       {
         "error_msg": "",
@@ -775,7 +775,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466803
+        "last_check_time": 1785641948
       },
       {
         "error_msg": "HTTPSConnectionPool(host='generativ",
@@ -785,7 +785,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466811
+        "last_check_time": 1785641950
       },
       {
         "error_msg": "models/gemini-1.5-flash is not found for API versi",
@@ -795,7 +795,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785471227
+        "last_check_time": 1785641950
       },
       {
         "error_msg": "models/gemini-1.5-flash is not found for API versi",
@@ -805,7 +805,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785471228
+        "last_check_time": 1785641951
       },
       {
         "error_msg": "",
@@ -815,7 +815,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466838
+        "last_check_time": 1785641952
       },
       {
         "error_msg": "",
@@ -825,7 +825,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466843
+        "last_check_time": 1785641954
       },
       {
         "error_msg": "",
@@ -835,7 +835,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466847
+        "last_check_time": 1785641954
       },
       {
         "error_msg": "",
@@ -845,7 +845,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466850
+        "last_check_time": 1785641955
       },
       {
         "error_msg": "",
@@ -855,7 +855,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466853
+        "last_check_time": 1785641956
       },
       {
         "error_msg": "models/gemini-1.5-flash is not found for API versi",
@@ -865,7 +865,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785471236
+        "last_check_time": 1785641958
       },
       {
         "error_msg": "",
@@ -875,7 +875,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466866
+        "last_check_time": 1785641959
       },
       {
         "error_msg": "",
@@ -885,7 +885,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466869
+        "last_check_time": 1785641960
       },
       {
         "error_msg": "",
@@ -895,7 +895,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466879
+        "last_check_time": 1785641960
       },
       {
         "error_msg": "",
@@ -905,7 +905,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466882
+        "last_check_time": 1785641961
       },
       {
         "error_msg": "",
@@ -915,7 +915,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466886
+        "last_check_time": 1785641963
       },
       {
         "error_msg": "",
@@ -925,7 +925,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466889
+        "last_check_time": 1785641963
       },
       {
         "error_msg": "",
@@ -935,7 +935,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466894
+        "last_check_time": 1785641965
       },
       {
         "error_msg": "",
@@ -945,7 +945,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466896
+        "last_check_time": 1785641965
       },
       {
         "error_msg": "",
@@ -955,7 +955,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466899
+        "last_check_time": 1785641967
       },
       {
         "error_msg": "",
@@ -965,7 +965,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466905
+        "last_check_time": 1785641967
       },
       {
         "error_msg": "models/gemini-1.5-flash is not found for API versi",
@@ -975,7 +975,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785471237
+        "last_check_time": 1785641968
       },
       {
         "error_msg": "",
@@ -985,7 +985,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466919
+        "last_check_time": 1785641970
       },
       {
         "error_msg": "",
@@ -995,7 +995,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466924
+        "last_check_time": 1785641971
       },
       {
         "error_msg": "",
@@ -1005,7 +1005,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466926
+        "last_check_time": 1785641972
       },
       {
         "error_msg": "",
@@ -1015,7 +1015,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466930
+        "last_check_time": 1785641973
       },
       {
         "error_msg": "",
@@ -1025,7 +1025,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466933
+        "last_check_time": 1785641974
       },
       {
         "error_msg": "",
@@ -1035,7 +1035,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466937
+        "last_check_time": 1785641975
       },
       {
         "error_msg": "",
@@ -1045,7 +1045,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466940
+        "last_check_time": 1785641976
       },
       {
         "error_msg": "",
@@ -1055,7 +1055,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466943
+        "last_check_time": 1785641977
       },
       {
         "error_msg": "",
@@ -1065,7 +1065,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466945
+        "last_check_time": 1785641978
       },
       {
         "error_msg": "",
@@ -1075,7 +1075,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466948
+        "last_check_time": 1785641979
       },
       {
         "error_msg": "",
@@ -1085,7 +1085,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466951
+        "last_check_time": 1785641980
       },
       {
         "error_msg": "",
@@ -1095,7 +1095,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466954
+        "last_check_time": 1785641981
       },
       {
         "error_msg": "",
@@ -1105,7 +1105,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466956
+        "last_check_time": 1785641982
       },
       {
         "error_msg": "",
@@ -1115,7 +1115,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466961
+        "last_check_time": 1785641983
       },
       {
         "error_msg": "",
@@ -1125,7 +1125,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466963
+        "last_check_time": 1785641984
       },
       {
         "error_msg": "",
@@ -1135,7 +1135,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466966
+        "last_check_time": 1785641985
       },
       {
         "error_msg": "",
@@ -1145,7 +1145,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466969
+        "last_check_time": 1785641986
       },
       {
         "error_msg": "",
@@ -1155,7 +1155,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466972
+        "last_check_time": 1785641987
       },
       {
         "error_msg": "",
@@ -1165,7 +1165,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466974
+        "last_check_time": 1785641988
       },
       {
         "error_msg": "",
@@ -1175,7 +1175,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466977
+        "last_check_time": 1785641989
       },
       {
         "error_msg": "",
@@ -1185,7 +1185,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466980
+        "last_check_time": 1785641990
       },
       {
         "error_msg": "",
@@ -1195,7 +1195,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466983
+        "last_check_time": 1785641992
       },
       {
         "error_msg": "",
@@ -1205,7 +1205,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466985
+        "last_check_time": 1785641993
       },
       {
         "error_msg": "",
@@ -1215,7 +1215,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466988
+        "last_check_time": 1785641994
       },
       {
         "error_msg": "",
@@ -1225,7 +1225,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785466990
+        "last_check_time": 1785641995
       },
       {
         "error_msg": "models/gemini-1.5-flash is not found for API versi",
@@ -1235,7 +1235,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785471238
+        "last_check_time": 1785641996
       },
       {
         "error_msg": "",
@@ -1245,7 +1245,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785467004
+        "last_check_time": 1785641997
       },
       {
         "error_msg": "HTTPSConnectionPool(host='generativ",
@@ -1255,7 +1255,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785467011
+        "last_check_time": 1785641998
       },
       {
         "error_msg": "",
@@ -1265,7 +1265,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785467013
+        "last_check_time": 1785641999
       },
       {
         "error_msg": "",
@@ -1275,7 +1275,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785467016
+        "last_check_time": 1785642000
       },
       {
         "error_msg": "models/gemini-1.5-flash is not found for API versi",
@@ -1285,7 +1285,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785471240
+        "last_check_time": 1785642001
       },
       {
         "error_msg": "",
@@ -1295,7 +1295,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785467031
+        "last_check_time": 1785642002
       },
       {
         "error_msg": "",
@@ -1305,7 +1305,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785467034
+        "last_check_time": 1785642003
       },
       {
         "error_msg": "",
@@ -1315,7 +1315,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785467037
+        "last_check_time": 1785642004
       },
       {
         "error_msg": "",
@@ -1325,7 +1325,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785467039
+        "last_check_time": 1785642005
       },
       {
         "error_msg": "",
@@ -1335,7 +1335,7 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1785467043
+        "last_check_time": 1785642006
       },
       {
         "error_msg": "",
@@ -2855,6 +2855,18 @@
     "last_roadmap": "C:/Users/games/Desktop/Project/Python/Python MyWork/Project1/GravityCode/Download/AskCpl/roadmap_expanded.md",
     "last_doc_dir": "D:/Tai truyen/Data",
     "last_out_dir": "D:/Tai truyen/Guidle",
+    "roadmap_generator": {
+      "domain": "Tao do choi 0-25 tuoi",
+      "time_per_day": "30 phút",
+      "days": "Auto",
+      "context": "Tạo độ chơi cho con có khả năng làm tại nhà tiết kiệm chi phí\nCác làm hướng dẫn chi tiết, cần ra hình ảnh ví dụ hướng dẫn nếu cần\nDụng cụ chuẩn bị \nNhiều loại đồ chơi tăng kích thích trí thông minh, chế tạo, lắp ráp, nếu dược có thể chế đến mức vận dụng trong đời sống gia đình , đi chơi",
+      "reference_files": [
+        "C:/Users/games/Desktop/Project/Python/Python MyWork/Project1/GravityCode/Download/AskCpl/.agents/skills/generate_roadmap/SKILL.md",
+        "C:/Users/games/Desktop/Project/Python/Python MyWork/Project1/GravityCode/Download/AskCpl/roadmap_python_3000.md"
+      ],
+      "save_dir": "",
+      "expand_mode": "llm"
+    },
     "enable_followup": true,
     "max_followup": 3,
     "followup_mode": "unlimited"

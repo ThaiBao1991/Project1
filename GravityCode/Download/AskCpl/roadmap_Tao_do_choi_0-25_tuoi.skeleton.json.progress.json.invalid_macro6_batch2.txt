@@ -1,0 +1,297 @@
+[
+  {
+    "day": 276,
+    "topic_id": "ky_thuat_lap_trinh_vi_dieu_khien_servo",
+    "topic": "Kỹ thuật lập trình vi điều khiển Arduino điều khiển Servo",
+    "phase": "Mạch Điện Tử, Động Cơ Automata & Mô Hình Thông Minh (15 - 18 Tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Mạch Arduino điều khiển động cơ Servo SG90 quay góc 0-180 độ",
+    "materials": [
+      "1 bo Arduino Uno R3",
+      "1 dong co Servo SG90",
+      "5 day cam noi Breadboard"
+    ],
+    "definition_of_done": [
+      "Nắm vững nguyên lý điều khiển xung PWM cho Servo",
+      "Viết được code điều khiển Servo quét góc tự động từ 0 đến 180 độ"
+    ],
+    "details": [
+      "Tìm hiểu tín hiệu điều khiển PWM và nguyên lý hoạt động của Servo SG90",
+      "Kết nối Servo vào chân PWM của Arduino và nạp mã nguồn sweep cơ bản",
+      "Thử nghiệm thay đổi góc quay và thời gian hoãn (delay) trong lập trình"
+    ],
+    "keywords": [
+      "Arduino PWM",
+      "Servo SG90",
+      "dieu khien goc quay",
+      "lap trinh vi dieu khien"
+    ],
+    "source_files": [
+      "Tai lieu Arduino Servo SG90 Basic.pdf"
+    ],
+    "prerequisites": [
+      "capstone_automata_da_truc_p3_kiem_dinh_hoan_thien"
+    ]
+  },
+  {
+    "day": 277,
+    "topic_id": "mo_hinh_automata_dong_cua_servo_cam_bien",
+    "topic": "Chế tạo mô hình Automata đóng mở cửa bằng Servo và cảm biến siêu âm",
+    "phase": "Mạch Điện Tử, Động Cơ Automata & Mô Hình Thông Minh (15 - 18 Tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Mô hình cửa thông minh tự đóng mở khi có vật cản gần",
+    "materials": [
+      "1 bo Arduino Uno va Servo SG90",
+      "1 cam bien sieu am HC-SR04",
+      "Tam bia go balsa xop dan cua"
+    ],
+    "definition_of_done": [
+      "Lắp hoàn chỉnh cơ chế bản lề cửa kết nối tay gạt Servo",
+      "Cửa tự động mở ra khi phát hiện vật cản cách dưới 10cm"
+    ],
+    "details": [
+      "Lắp ráp cánh cửa gỗ mini và khớp nối tay gạt động cơ Servo",
+      "Kết nối cảm biến HC-SR04 vào Arduino và lập trình đo khoảng cách siêu âm",
+      "Thử nghiệm phản hồi đóng mở cửa mượt mà khi đưa tay lại gần"
+    ],
+    "keywords": [
+      "Automata Servo",
+      "cam bien sieu am",
+      "HC-SR04",
+      "cua tu dong"
+    ],
+    "source_files": [
+      "Huong dan lam Cua Tu Dong Arduino.pdf"
+    ],
+    "prerequisites": [
+      "ky_thuat_lap_trinh_vi_dieu_khien_servo"
+    ]
+  },
+  {
+    "day": 278,
+    "topic_id": "ky_thuat_tich_hop_cam_bien_anh_sang_ldr",
+    "topic": "Kỹ thuật tích hợp cảm biến ánh sáng LDR điều khiển thiết bị",
+    "phase": "Mạch Điện Tử, Động Cơ Automata & Mô Hình Thông Minh (15 - 18 Tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Mạch cảm biến LDR phát hiện tối để kích hoạt đèn LED",
+    "materials": [
+      "1 quang tro LDR va dien tro 10k Ohm",
+      "1 bo Arduino Uno",
+      "1 den LED va breadboard"
+    ],
+    "definition_of_done": [
+      "Hiểu nguyên lý thay đổi điện trở theo độ sáng của LDR",
+      "Đọc chính xác giá trị Analog từ LDR để bật tắt đèn LED tự động"
+    ],
+    "details": [
+      "Lắp mạch cầu chia điện áp với quang trở LDR và điện trở 10k Ohm",
+      "Viết lệnh analogRead đọc tín hiệu điện áp tại cổng đầu vào A0",
+      "Cấu hình ngưỡng ánh sáng (threshold) trong code để điều khiển LED"
+    ],
+    "keywords": [
+      "quang tro LDR",
+      "cam bien anh sang",
+      "AnalogRead",
+      "cau chia dien ap"
+    ],
+    "source_files": [
+      "Giao trinh LDR Sensor Arduino.pdf"
+    ],
+    "prerequisites": [
+      "ky_thuat_lap_trinh_vi_dieu_khien_servo"
+    ]
+  },
+  {
+    "day": 279,
+    "topic_id": "mo_hinh_quat_thong_minh_cam_bien_anh_sang",
+    "topic": "Chế tạo mô hình quạt thông minh tự bật khi trời tối",
+    "phase": "Mạch Điện Tử, Động Cơ Automata & Mô Hình Thông Minh (15 - 18 Tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Mô hình quạt gió mini tự quay khi che ánh sáng chiếu vào LDR",
+    "materials": [
+      "1 dong co DC kèm cánh quạt",
+      "1 module Ro-le 5V hoac Transistor TIP120",
+      "Mach Arduino va cam bien LDR"
+    ],
+    "definition_of_done": [
+      "Mạch động cơ DC điều khiển qua rơ-le/transistor hoạt động an toàn",
+      "Quạt tự động bật quay khi cường độ ánh sáng giảm xuống dưới ngưỡng đặt"
+    ],
+    "details": [
+      "Đấu nối động cơ DC với module rơ-le cách ly dòng điện",
+      "Gắn cảm biến LDR lên chân đế quạt và kết nối vi điều khiển Arduino",
+      "Lập trình logic điều khiển quạt và hiệu chỉnh độ nhạy ánh sáng"
+    ],
+    "keywords": [
+      "quat thong minh", "ro le 5v", "LDR sensor", "dong co DC"
+    ],
+    "source_files": [
+      "Thiet ke Quat Tu Dong LDR.pdf"
+    ],
+    "prerequisites": [
+      "ky_thuat_tich_hop_cam_bien_anh_sang_ldr"
+    ]
+  },
+  {
+    "day": 280,
+    "topic_id": "on_tap_lap_trinh_vi_dieu_khien_va_cam_bien",
+    "topic": "Ôn tập lập trình vi điều khiển và tích hợp cảm biến trong Automata",
+    "phase": "Mạch Điện Tử, Động Cơ Automata & Mô Hình Thông Minh (15 - 18 Tuổi)",
+    "kind": "review",
+    "estimated_minutes": 30,
+    "concrete_project": "Hệ thống cảnh báo kết hợp Servo, LDR và còi Buzzer mini",
+    "materials": [
+      "1 bo Arduino va Servo SG90",
+      "1 cam bien LDR va 1 coi Buzzer",
+      "1 tam mo hinh carton mini"
+    ],
+    "definition_of_done": [
+      "Tổng hợp thành công kỹ năng đọc cảm biến Analog/Digital và xuất tín hiệu điều khiển",
+      "Hệ thống báo động hoạt động chính xác khi có tác động ánh sáng hoặc vật cản"
+    ],
+    "details": [
+      "Rà soát mã nguồn điều khiển Servo, LDR và Buzzer cảnh báo",
+      "Tích hợp các thành phần vào một mô hình trải nghiệm hoàn chỉnh",
+      "Tối ưu hóa mã lập trình, xử lý hiện tượng dội tín hiệu cảm biến"
+    ],
+    "keywords": [
+      "on tap vi dieu khien",
+      "Buzzer alarm",
+      "tich hop cam bien",
+      "mach automata"
+    ],
+    "source_files": [
+      "Tong hop Mach Cam Bien Arduino.pdf"
+    ],
+    "prerequisites": [
+      "mo_hinh_automata_dong_cua_servo_cam_bien",
+      "mo_hinh_quat_thong_minh_cam_bien_anh_sang"
+    ]
+  },
+  {
+    "day": 281,
+    "topic_id": "robot_do_duong_cam_bien_hong_ngoai",
+    "topic": "Chế tạo robot dò đường đơn giản dùng cảm biến hồng ngoại (IR)",
+    "phase": "Mạch Điện Tử, Động Cơ Automata & Mô Hình Thông Minh (15 - 18 Tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Xe robot mini 2 bánh bám theo đường vạch đen trên nền trắng",
+    "materials": [
+      "2 module cam bien hong ngoai IR",
+      "1 mach cau H L298N",
+      "1 khung xe 2 banh kem dong co DC giam toc"
+    ],
+    "definition_of_done": [
+      "Xe tự động điều hướng bám theo đường băng dính đen trên sàn",
+      "Hiểu nguyên lý phản xạ tia hồng ngoại trên bề mặt màu sáng/tối"
+    ],
+    "details": [
+      "Lắp ráp khung xe 2 bánh cùng mạch cầu H L298N điều khiển động cơ",
+      "Gắn 2 module cảm biến IR sát mặt đường ở gầm trước xe",
+      "Lập trình so sánh giá trị 2 cảm biến để rẽ trái hoặc rẽ phải"
+    ],
+    "keywords": [
+      "robot do duong",
+      "cam bien IR",
+      "cau H L298N",
+      "line follower"
+    ],
+    "source_files": [
+      "Huong dan Robot Line Follower.pdf"
+    ],
+    "prerequisites": [
+      "on_tap_lap_trinh_vi_dieu_khien_va_cam_bien"
+    ]
+  },
+  {
+    "day": 282,
+    "topic_id": "xe_dieu_khien_tu_xa_bluetooth_mini",
+    "topic": "Kỹ thuật kết nối và chế tạo xe điều khiển từ xa qua Bluetooth",
+    "phase": "Mạch Điện Tử, Động Cơ Automata & Mô Hình Thông Minh (15 - 18 Tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Xe mô hình điều khiển tiến lùi rẽ hướng qua điện thoại Android",
+    "materials": [
+      "1 module Bluetooth HC-05 hoac HC-06",
+      "1 khung xe robot da rap dong co DC",
+      "1 bo pin Li-ion 7.4V"
+    ],
+    "definition_of_done": [
+      "Ghép nối thành công sóng Bluetooth giữa điện thoại và xe",
+      "Xe di chuyển chính xác theo ký tự lệnh truyền từ ứng dụng di động"
+    ],
+    "details": [
+      "Đấu nối module HC-05 vào cổng truyền thông UART/Serial của Arduino",
+      "Viết thuật toán nhận chuỗi ký tự điều khiển để chuyển thành hướng quay động cơ",
+      "Test khả năng điều khiển tiến, lùi, rẽ trái, rẽ phải từ khoảng cách 5m"
+    ],
+    "keywords": [
+      "Bluetooth HC05",
+      "xe dieu khien tu xa",
+      "UART Serial",
+      "RC Car"
+    ],
+    "source_files": [
+      "Bluetooth RC Car Tutorial.pdf"
+    ],
+    "prerequisites": [
+      "robot_do_duong_cam_bien_hong_ngoai"
+    ]
+  },
+  {
+    "day": 283,
+    "topic_id": "capstone_xe_thong_minh_p1_khung_co_khi",
+    "topic": "Capstone Xe thông minh - Phần 1: Thiết kế và lắp ráp khung cơ khí",
+    "phase": "Mạch Điện Tử, Động Cơ Automata & Mô Hình Thông Minh (15 - 18 Tuổi)",
+    "kind": "capstone",
+    "estimated_minutes": 30,
+    "concrete_project": "Khung xe thông minh 3 bánh hoàn chỉnh gá cắm linh kiện",
+    "materials": [
+      "1 khung xe mica hoac go balsa cut laser",
+      "2 dong co DC giam toc kem banh xe",
+      "1 banh xe xoay da huong caster"
+    ],
+    "definition_of_done": [
+      "Khung xe lắp chắc chắn, 2 bánh chủ động quay trơn tru",
+      "Đã bố trí gá đỡ cố định cho pin, vi điều khiển, Servo và các cảm biến"
+    ],
+    "details": [
+      "Cắt định hình khung xe 3 bánh bằng balsa/mica chịu lực tốt",
+      "Gắn chặt 2 động cơ DC giảm tốc và bánh xe điều hướng phía trước",
+      "Quy hoạch vị trí bắt ốc cho bo mạch vi điều khiển và khay pin"
+    ],
+    "keywords": [
+      "capstone xe thong minh",
+      "khung co khi",
+      "dong co giam toc",
+      "thiet ke xe"
+    ],
+    "source_files": [
+      "Smart Car Chassis Design.pdf"
+    ],
+    "prerequisites": [
+      "xe_dieu_khien_tu_xa_bluetooth_mini"
+    ]
+  },
+  {
+    "day": 284,
+    "topic_id": "capstone_xe_thong_minh_p2_mach_dien_lap_trinh",
+    "topic": "Capstone Xe thông minh - Phần 2: Lắp mạch điện và lập trình đa chức năng",
+    "phase": "Mạch Điện Tử, Động Cơ Automata & Mô Hình Thông Minh (15 - 18 Tuổi)",
+    "kind": "capstone",
+    "estimated_minutes": 30,
+    "concrete_project": "Mạch điện xe thông minh tích hợp né vật cản, dò đường và Bluetooth",
+    "materials": [
+      "1 bo Arduino va Cau H L298N",
+      "1 Servo SG90 va Cam bien HC-SR04",
+      "1 Module Bluetooth HC-05 va 2 cam bien IR"
+    ],
+    "definition_of_done": [
+      "Hệ thống đi dây mạch điện gọn gàng, cách điện an toàn",
+      "Nạp thành công chương trình điều khiển đa chế độ cho xe"
+    ],
+    "details":

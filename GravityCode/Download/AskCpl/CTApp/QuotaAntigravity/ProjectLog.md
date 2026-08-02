@@ -158,6 +158,13 @@ Mở IDE → Reload → **Tất cả tài khoản, tokens, balances sẵn sàng.
 - ✅ Secrets obfuscated — push GitHub an toàn.
 - ✅ Logic hiển thị Key Model (Sonnet, Gemini 3.1 Pro High) — không bị nhiễu từ models phụ.
 
+### Ngày 01/08/2026 — Thêm Codex Quota Tracker an toàn
+
+- Tạo extension local `games.codex-quota-tracker-1.0.0` cho VS Code: sidebar, Status Bar, refresh và ghi snapshot quota Codex.
+- Tạo `QuotaApp/sync_codex.py`: đọc event `rate_limits` mới nhất trong `~/.codex/sessions` và ghi `codex_quota_data.dat` dạng Base64 UTF-8.
+- Nâng cấp GUI `QuotaApp/quota_db.py`: gộp các dòng Antigravity cũ và Codex snapshot trong cùng bảng; thêm nút **Sync Codex**. Dữ liệu Codex được tách riêng, không thay đổi `quota_data.dat`.
+- Bảo mật: không đọc, lưu, xuất, nhập hoặc đồng bộ `auth.json`, OAuth token, API key hay mật khẩu Codex. Snapshot chỉ gồm quota/reset/plan/máy nguồn.
+
 ### Ngày 30/07/2026 — Sửa lỗi giao diện và Xử lý Lỗi API Token
 - ✅ **Sửa luồng xử lý API (`oauth.js`)**: Bọc try-catch cho API `loadCodeAssist` để ngăn không cho lỗi chặn luồng fallback sang API `fetchAvailableModels`. Đồng thời ném lỗi ra ngoài thay vì trả về list rỗng nếu cả 2 API đều thất bại (giúp báo lỗi chuẩn xác 401/403 thay vì bị ngộ nhận là Token hết hạn).
 - ✅ **Cải tiến giao diện Extension (`extension.js`)**:

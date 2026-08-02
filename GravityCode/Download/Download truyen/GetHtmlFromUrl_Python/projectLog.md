@@ -64,6 +64,12 @@ GetHtmlFromUrl_Python/
 - [x] **Exact-Position Resume**: Cải tiến cấu trúc `_Resume.json` lưu trữ chi tiết danh sách chương, `save_dir` và trạng thái lỗi.
 - [x] **ResumeDialog**: Chuyển logic tải bù (Resume) từ việc mở form `Manual GET` sang việc khôi phục trực tiếp tiến trình (`DownloadWorker(resume_data=...)`), đảm bảo tải bù đúng các chương thiếu và chèn lại đúng vị trí trong mục lục (TOC).
 - [x] **Direct HTML Patching**: Hỗ trợ khả năng trực tiếp trích xuất dữ liệu từ file HTML tổng cũ. Không cần phụ thuộc vào thư mục chứa các file tạm (`save_dir`). Ứng dụng sẽ đọc các chương đã có, tải 10 chương thiếu, và tự ráp đúng vị trí vào file HTML tổng.
+- [x] **Preserve Line Breaks**: Xử lý triệt để lỗi không có khoảng cách dòng (xuống dòng) trong định dạng HTML bằng cách dùng Regular Expression `re.sub(r'(?<!>)\n(?!<)', '<br/>\n', content)` kết hợp CSS `white-space: pre-wrap`, đảm bảo tương thích mọi trình duyệt và ứng dụng đọc eBook.
+
+### Phase 6: Hỗ trợ tự động tạo PRC (Mobi)
+- [x] **Auto-download KindleGen**: Tự động tải công cụ `kindlegen.exe` từ Internet Archive vào thư mục `tools` nếu chưa có.
+- [x] **Automated Pipeline**: Cập nhật logic để ngay khi tải và gộp HTML xong, tiến trình sẽ tự động kích hoạt `PrcWorker` chạy biên dịch ngầm HTML ra dạng sách `.prc`.
+- [x] **Manual Compile**: Hỗ trợ nút ấn "Tạo PRC" riêng biệt trên giao diện để có thể chuyển đổi bất cứ file HTML nào tuỳ ý.
 
 ## 🔑 Kỹ thuật quan trọng
 1. **CSS Filter Logic**: filter_html() áp dụng CHỈ trên content element, KHÔNG trên toàn trang → title không bị xóa.
@@ -78,6 +84,37 @@ GetHtmlFromUrl_Python/
 ## 🐛 Bug đã biết / Giới hạn
 - DownloadRangeDialog mở TRONG luồng tải — vẫn hoạt động nhờ signal/slot nhưng chưa block thread
 - Nếu site không có pattern `page(ID, PAGE)` trong JS → AJAX mode sẽ fallback về static mode
+
+### ✅ Phase 6 — Smart Resume & Manual Merge — HOÀN THÀNH (2026-07-31)
+- [x] **Slug Folder cố định**: `_prepare_save_paths()` nay dùng URL slug (`ta-mo-phong.../`) thay vì `_GHFU_timestamp/`. Thư mục chương tồn tại vĩnh viễn, không bị xóa.
+- [x] **Auto-detect Resume**: `_on_start_download()` tự kiểm tra slug folder đã có → nếu có `_Resume.json` → hiện popup hỏi: "Chỉ tải X chương còn thiếu?" hoặc "Tải lại từ đầu?".
+- [x] **_start_worker() helper**: Tách logic tạo DownloadWorker thành hàm riêng, dùng chung cho tải mới và resume.
+- [x] **Bỏ auto-merge**: Sau khi tải xong, KHÔNG tự gộp. Thay vào đó emit message "Nhấn [📚 Gộp] để tạo file tổng."
+- [x] **Bỏ auto-cleanup**: Thư mục slug không bị xóa sau khi tải xong. Chỉ xóa `_Resume.json` khi resume hoàn tất 0 lỗi.
+- [x] **MergeWorker(QThread)**: Class mới trong `workers.py` — scan *.html trong folder, sort theo tên, gộp thành file HTML tổng có TOC + UTF-8-SIG BOM.
+- [x] **Nút "📚 Gộp"** thêm vào row3 (cạnh "Tải Tiếp") và menu Công cụ → Gộp Truyện từ Thư Mục.
+- [x] **_on_merge_story()**: Mở dialog chọn folder → chọn output path → chạy MergeWorker.
+- [x] **Bugfix engine.py** (2026-07-31): Sửa 3 bug trong `core/engine.py`:
+  1. `get_chapter_title_and_content()` truyền `page_config.by_pass_cloudflare` (bool) vào `fetch_html()` thay vì `page_config` → scraper không được chọn đúng.
+  2. `_get_links_static()` cùng lỗi trên.
+  3. AJAX errors chỉ ghi vào `logger.error` (không hiển thị GUI) + không có retry → thoát vòng lặp im lặng sau 700 chương khi gặp timeout/rate-limit.
+  - Fix: thêm `log_fn` callback để emit lỗi ra GUI, thêm retry 3 lần với delay 2s mỗi AJAX page.
+
+### ✅ Phase 7 — Auto-Features — HOÀN THÀNH (2026-08-01)
+- [x] **Auto-fill Tên File**: Khi dán URL, tự động trích xuất slug, lọc dấu và định dạng "Title Case" để làm tên file. Tự động gắn kèm `last_save_dir` (nếu có).
+- [x] **Nhận Diện Host Nhanh**: Dán URL xong sẽ hiện ngay dòng trạng thái "✅ Đã nhận diện host..." hoặc "❌ Host chưa được hỗ trợ...".
+- [x] **Auto-Resume 5 Lần**: Xử lý lỗi Rate-limit/Timeout bằng cách tự động Retry những chương lỗi trong quá trình tải (tối đa 5 lần) trước khi kết thúc tiến trình.
+- [x] **Auto-Merge**: Khôi phục lại tính năng gộp file tự động nếu quá trình tải thành công 100%.
+- [x] **Delete Folder**: Thêm tùy chọn "Xóa thư mục tạm sau khi gộp" (lưu tùy chọn qua các lần chạy) dọn dẹp sạch sẽ rác nếu muốn.
+- [x] **Bổ sung host metruyenchuvn.org**: Đã tích hợp thành công cấu hình cho host `metruyenchuvn.org` vào `ghfuConfig.json`.
+- [x] **Giải quyết lỗi 700 chương trên truyennet.org**: Thuật toán lấy chương AJAX mới (cùng với tính năng Auto-Resume 5 lần) đã đảm bảo các request không bị ngắt giữa chừng.
+
+### ✅ Phase 8 — Nâng cấp công cụ PRC & Bổ sung Host mới — HOÀN THÀNH
+- [x] **Chuyển đổi Pipeline PRC (OPF Package)**: Để khắc phục việc KindleGen đứng máy hoặc hết RAM với các truyện khổng lồ (hàng ngàn chương), quá trình nén PRC nay đã được thiết kế lại. File HTML tổng sẽ được tự động bóc tách thành hàng ngàn file HTML lẻ (mỗi chương 1 file) cùng với file mục lục `.ncx` và `.opf` trong thư mục tạm, giúp KindleGen nén siêu tốc.
+- [x] **HTML Sanitization (Chống Crash)**: Đã thêm bộ lọc Regex trước khi nén để chặt đứt các thẻ `<input>`, `<button>`, `<script>`, `<form>`,... khỏi nội dung chương, ngăn chặn hoàn toàn lỗi KindleGen Access Violation (`3221225477`).
+- [x] **Trạng thái nén thời gian thực (Progress UI)**: KindleGen nay sẽ phản hồi tiến trình (từ 60% đến 95%) để hiển thị lên thanh ProgressBar thay vì kẹt mãi ở 50%.
+- [x] **Quản lý Process**: Đảm bảo `kindlegen.exe` sẽ bị `kill` ngay lập tức nếu người dùng đóng ứng dụng giữa chừng.
+- [x] **Bổ sung host metruyenhotvn.com**: Đã cập nhật rules JSON cho `metruyenhotvn.com` (và `metruyenhot.me`) với pagination `?page=` và CSS queries chuẩn xác.
 
 ## ⏭️ TODO tiếp theo
 - Login Browser nhúng (WebEngineView) thay thế cho chức năng Mở Trình Duyệt ngoài.

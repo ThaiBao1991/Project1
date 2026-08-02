@@ -1,0 +1,217 @@
+[
+  {
+    "day": 126,
+    "topic_id": "ky_thuat_dong_luc_hoc_khi_nen_co_ban",
+    "topic": "Kỹ thuật động lực học và khí nén cơ bản",
+    "phase": "Phase 3: Đồ chơi STEM Động lực học, Thủy lực & Mạch điện cơ bản (6-12 tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Mô hình thí nghiệm áp suất khí nén với bong bóng và xilanh nhựa",
+    "materials": [
+      "2 xilanh nhựa 20ml",
+      "1 đoạn ống nhựa dẻo 30cm",
+      "2 quả bóng bay nhỏ"
+    ],
+    "definition_of_done": [
+      "Hiểu và giải thích được nguyên lý nén khí tạo lực đẩy",
+      "Mô hình kết nối xilanh - ống dẻo truyền lực nén làm phồng bóng bay mà không rò rỉ khí"
+    ],
+    "details": [
+      "Cắt và nối ống dẻo vào đầu xilanh 20ml",
+      "Thử nghiệm nén pít-tông để đẩy luồng khí sang xilanh còn lại",
+      "Bịt kín khớp nối bằng băng dính chuyên dụng và kiểm tra độ kín khí"
+    ],
+    "keywords": [
+      "khí nén",
+      "áp suất",
+      "piston",
+      "động lực học",
+      "STEM"
+    ],
+    "source_files": [
+      "Giao_trinh_STEM_Co_hoc_Co_ban.pdf"
+    ],
+    "prerequisites": [
+      "on_tap_thiet_ke_do_choi_giao_thong_va_co_che_dieu_huong"
+    ]
+  },
+  {
+    "day": 127,
+    "topic_id": "xe_bong_bay_dong_luc_hoc",
+    "topic": "Chế tạo xe bóng bay động lực học khí nén",
+    "phase": "Phase 3: Đồ chơi STEM Động lực học, Thủy lực & Mạch điện cơ bản (6-12 tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Xe phản lực bóng bay vỏ bìa cứng chạy bằng lực đẩy khí nén",
+    "materials": [
+      "1 tấm bìa carton 10x15cm",
+      "4 nắp chai nhựa làm bánh xe",
+      "2 que xiên gỗ 15cm",
+      "2 ống hút dẻo",
+      "1 quả bóng bay lớn"
+    ],
+    "definition_of_done": [
+      "Xe tự di chuyển thẳng quãng đường tối thiểu 2m trên sàn phẳng nhờ lực xả khí bóng bay",
+      "Bánh xe lắp cân đối, quay trơn trượt không bị kẹt"
+    ],
+    "details": [
+      "Đục lỗ tâm nắp chai và cố định que gỗ làm trục bánh xe qua ống hút hướng dẫn",
+      "Dán trục bánh xe và ống hút dẫn khí bóng bay cố định lên khung bìa carton",
+      "Thổi căng bóng bay và buông tay thử nghiệm quãng đường phản lực của xe"
+    ],
+    "keywords": [
+      "xe bóng bay",
+      "lực phản lực",
+      "định luật Newton 3",
+      "khí động học"
+    ],
+    "source_files": [
+      "STEM_Physics_Toys_Guide.pdf"
+    ],
+    "prerequisites": [
+      "ky_thuat_dong_luc_hoc_khi_nen_co_ban"
+    ]
+  },
+  {
+    "day": 128,
+    "topic_id": "ten_lua_khi_nen_ong_hut",
+    "topic": "Chế tạo tên lửa khí nén phóng bằng chai nhựa",
+    "phase": "Phase 3: Đồ chơi STEM Động lực học, Thủy lực & Mạch điện cơ bản (6-12 tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Mô hình tên lửa xốp mini phóng bằng áp lực không khí khi nén chai",
+    "materials": [
+      "1 chai nhựa dẻo 500ml",
+      "1 ống hút to (bệ phóng)",
+      "1 ống hút nhỏ (vỏ thân tên lửa)",
+      "Giấy bìa màu làm cánh đuôi tên lửa",
+      "Đất sét nặn làm đầu tên lửa"
+    ],
+    "definition_of_done": [
+      "Tên lửa bay xa trên 3m khi dùng tay bóp mạnh vào chai nhựa",
+      "Đầu tên lửa bịt kín bằng đất sét giúp giữ áp suất và cân bằng trọng tâm"
+    ],
+    "details": [
+      "Làm thân tên lửa từ ống hút nhỏ, bịt kín đầu trên bằng đất sét",
+      "Cắt dán 3 cánh định hướng bằng bìa màu vào phần đuôi tên lửa",
+      "Nối chai nhựa với ống hút to và lồng tên lửa vào để phóng thử nghiệm"
+    ],
+    "keywords": [
+      "tên lửa khí nén",
+      "áp suất không khí",
+      "bệ phóng chai nhựa",
+      "quỹ đạo bay"
+    ],
+    "source_files": [
+      "Pneumatic_Launcher_Manual.pdf"
+    ],
+    "prerequisites": [
+      "ky_thuat_dong_luc_hoc_khi_nen_co_ban"
+    ]
+  },
+  {
+    "day": 129,
+    "topic_id": "xe_canh_quat_gio_carton",
+    "topic": "Chế tạo xe chạy bằng năng lượng gió cánh quạt",
+    "phase": "Phase 3: Đồ chơi STEM Động lực học, Thủy lực & Mạch điện cơ bản (6-12 tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Xe chong chóng cơ học chạy bằng lực xả dây thun quay cánh quạt",
+    "materials": [
+      "Tấm bìa carton 12x20cm",
+      "4 bánh xe nhựa siêu nhẹ",
+      "1 chong chóng nhựa 3 cánh",
+      "1 dây thun co dãn chịu lực",
+      "2 trục kim loại nhẹ"
+    ],
+    "definition_of_done": [
+      "Xe chuyển động tiến về phía trước khi chong chóng quay giải phóng năng lượng dây thun",
+      "Kết cấu khung xe nhẹ và vững chắc"
+    ],
+    "details": [
+      "Lắp ráp khung xe carton nhẹ với bộ trục bánh xe trơn trượt",
+      "Lắp hệ thống truyền động dây thun kết nối trực tiếp với trục cánh quạt",
+      "Xoay tích năng lượng dây thun và thả xe để kiểm tra lực đẩy gió"
+    ],
+    "keywords": [
+      "năng lượng gió",
+      "cánh quạt lực đẩy",
+      "chong chóng",
+      "dây thun truyền lực"
+    ],
+    "source_files": [
+      "Mechanical_Wind_Toys.pdf"
+    ],
+    "prerequisites": [
+      "xe_bong_bay_dong_luc_hoc"
+    ]
+  },
+  {
+    "day": 130,
+    "topic_id": "on_tap_dong_luc_hoc_khi_nen",
+    "topic": "Ôn tập nguyên lý động lực học và khí nén cơ bản",
+    "phase": "Phase 3: Đồ chơi STEM Động lực học, Thủy lực & Mạch điện cơ bản (6-12 tuổi)",
+    "kind": "review",
+    "estimated_minutes": 30,
+    "concrete_project": "Bảng sơ đồ tương tác so sánh hiệu suất các dòng xe phản lực khí nén",
+    "materials": [
+      "1 tấm bìa A3",
+      "Bút màu đánh dấu",
+      "Sản phẩm xe bóng bay và tên lửa khí nén từ Day 127, 128"
+    ],
+    "definition_of_done": [
+      "Đo đạc và lập bảng so sánh quãng đường, vận tốc của 3 mô hình khí nén",
+      "Tối ưu lại khớp nối rò rỉ khí giúp xe/tên lửa tăng 20% hiệu suất"
+    ],
+    "details": [
+      "Thử nghiệm lại các mô hình Day 127, 128, 129 và ghi chép thông số",
+      "Chỉnh sửa độ lệch trục bánh xe và gia cố các điểm nối khí nén",
+      "Vẽ sơ đồ minh họa dòng khí và lực phản lực lên bảng bìa A3"
+    ],
+    "keywords": [
+      "ôn tập khí nén",
+      "tối ưu chuyển động",
+      "kiểm định hiệu suất",
+      "độ kín khí"
+    ],
+    "source_files": [
+      "STEM_Review_Mechanics.pdf"
+    ],
+    "prerequisites": [
+      "xe_canh_quat_gio_carton",
+      "ten_lua_khi_nen_ong_hut"
+    ]
+  },
+  {
+    "day": 131,
+    "topic_id": "thuyen_may_paddle_steamer_hoac_khi_nen",
+    "topic": "Chế tạo thuyền mút xốp chân vịt dây thun",
+    "phase": "Phase 3: Đồ chơi STEM Động lực học, Thủy lực & Mạch điện cơ bản (6-12 tuổi)",
+    "kind": "lesson",
+    "estimated_minutes": 30,
+    "concrete_project": "Thuyền xốp Formex chạy bằng guồng chân vịt quay cơ học",
+    "materials": [
+      "1 miếng mút xốp Formex 15x25cm",
+      "1 dây thun vòng chịu lực tốt",
+      "2 tấm nhựa mỏng 4x6cm làm guồng chân vịt",
+      "Băng dính chống thấm nước"
+    ],
+    "definition_of_done": [
+      "Thuyền nổi cân bằng và lướt đi tối thiểu 2m trong chậu nước nhờ lực guồng chân vịt",
+      "Chân vịt quay không bị kẹt vào thân thuyền"
+    ],
+    "details": [
+      "Cắt gọt miếng xốp Formex thành thân thuyền thuôn nhọn khí động học",
+      "Ghép 2 tấm nhựa thành guồng chân vịt chữ X và xỏ dây thun cố định vào đuôi thuyền",
+      "Xoay cuộn dây thun tích năng lượng và thả thuyền xuống nước thử nghiệm"
+    ],
+    "keywords": [
+      "thuyền dây thun",
+      "guồng chân vịt",
+      "thủy động học",
+      "sức đẩy nước"
+    ],
+    "source_files": [
+      "Hydrodynamics_Toys_Design.pdf"
+    ],
+    "prerequisites":

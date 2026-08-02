@@ -267,6 +267,20 @@ if __name__ == '__main__':
         raw = base64.b64encode(json.dumps(data, ensure_ascii=False).encode('utf-8')).decode('ascii')
         open(dat_path, 'w', encoding='utf-8').write(raw)
 
+    def _find_codex_dat(dat_path):
+        candidates = []
+        if dat_path:
+            candidates.append(Path(dat_path).parent / 'codex_quota_data.dat')
+        candidates.append(Path.home() / '.quota-tracker' / 'codex_quota_data.dat')
+        for candidate in candidates:
+            if candidate.exists():
+                return str(candidate)
+        return str(candidates[0]) if candidates else None
+
+    def _load_codex_dat(dat_path):
+        data = _load_dat(dat_path)
+        return data if isinstance(data, dict) else {}
+
     def _find_sync_script():
         up = os.environ.get('USERPROFILE', os.environ.get('HOME', ''))
         candidates = [
@@ -282,6 +296,10 @@ if __name__ == '__main__':
             if Path(c).exists():
                 return str(c)
         return None
+
+    def _find_codex_sync_script():
+        candidate = SCRIPT_DIR / 'sync_codex.py'
+        return str(candidate) if candidate.exists() else None
 
     def _format_duration(ms):
         if ms <= 0: return ""
@@ -331,7 +349,9 @@ if __name__ == '__main__':
             self.minsize(720, 420)
 
             self._dat_path   = _find_dat()
+            self._codex_path = _find_codex_dat(self._dat_path)
             self._data       = {}
+            self._codex_data = {}
             self._ag_emails  = set()
             self._status_var = tk.StringVar(value='Sẵn sàng')
             self._sort_col   = 'email'
@@ -369,6 +389,7 @@ if __name__ == '__main__':
 
             _btn(tb, '➕  Thêm (qua Antigravity Account)', self._add, ACCENT, '#fff', '#6350ff')
             _btn(tb, '✓  Check All (Sync từ AG)',          self._check_all, '#1a4731', GREEN, '#2d7a55')
+            _btn(tb, '⌁  Sync Codex',                       self._sync_codex, '#11354a', '#8be9fd', '#1f6687')
             _btn(tb, '📁  Chọn Data',                      self._choose_dat)
             _btn(tb, '🔄  Làm mới',                        self._refresh)
 
@@ -415,6 +436,8 @@ if __name__ == '__main__':
             self._tv.tag_configure('part',  background='#2b2010', foreground=YELLOW)
             self._tv.tag_configure('noag',  background='#2b1428', foreground=PINK)
             self._tv.tag_configure('nodata',background=CARD,       foreground=SUBTEXT)
+            self._tv.tag_configure('codexok', background='#102b2b', foreground='#8be9fd')
+            self._tv.tag_configure('codexexh',background='#2b1d14', foreground=YELLOW)
 
             sb_x = ttk.Scrollbar(wrap, orient=tk.HORIZONTAL, command=self._tv.xview)
             sb_y = ttk.Scrollbar(wrap, orient=tk.VERTICAL, command=self._tv.yview)
@@ -444,6 +467,8 @@ if __name__ == '__main__':
         # ── Render bảng ─────────────────────────────────────────────────
         def _refresh(self):
             self._data = _load_dat(self._dat_path)
+            self._codex_path = _find_codex_dat(self._dat_path)
+            self._codex_data = _load_codex_dat(self._codex_path)
             self._render()
 
         def _render(self):
@@ -524,6 +549,29 @@ if __name__ == '__main__':
                 rows.append((email, status, groups, cd, note, tag,
                              sk_email, sk_status, sk_groups, sk_cd, sk_note))
 
+            # Codex snapshot is stored separately so it never changes Antigravity data.
+            for label, info in (self._codex_data.get('accounts') or {}).items():
+                primary = info.get('primary') or {}
+                secondary = info.get('secondary') or {}
+                used = primary.get('usedPercent')
+                remaining = primary.get('remainingPercent')
+                reset_s = primary.get('resetsAt') or 0
+                reset_ms = reset_s * 1000 if reset_s else 0
+                status = f'Codex: {remaining}% còn lại' if remaining is not None else 'Codex: chưa có data'
+                if secondary.get('remainingPercent') is not None:
+                    status += f' | Tuần: {secondary["remainingPercent"]}%'
+                groups = f'5h/chu kỳ: {used if used is not None else "—"}% đã dùng'
+                if secondary:
+                    groups += ' | Weekly'
+                cd = _fmt_cd(0, reset_ms) if reset_ms > now_ms else ''
+                machine = self._codex_data.get('sourceMachine', '')
+                note = f'Máy: {machine}' if machine else 'Snapshot Codex local'
+                tag = 'codexexh' if remaining == 0 else 'codexok'
+                display = f'[Codex] {label}'
+                rows.append((display, status, groups, cd, note, tag,
+                             display.lower(), (0, -(remaining if remaining is not None else -1), 0, 0),
+                             0 if remaining else 2, reset_ms or float('inf'), note.lower()))
+
             # Sort — mỗi cột dùng sort key riêng (idx 6–10)
             _SORT_IDX = {'email': 6, 'status': 7, 'groups': 8, 'cd': 9, 'note': 10}
             idx = _SORT_IDX.get(self._sort_col, 6)
@@ -536,8 +584,9 @@ if __name__ == '__main__':
             ok_n   = sum(1 for r in rows if r[5] == 'ok')
             exh_n  = sum(1 for r in rows if r[5] == 'exh')
             noag_n = sum(1 for r in rows if r[5] == 'noag')
+            codex_n = sum(1 for r in rows if r[5].startswith('codex'))
             self._count_lbl.config(
-                text=f'Tổng: {total}  |  ✅ OK: {ok_n}  |  🔴 Hết: {exh_n}  |  ⚠️ Chưa trong AG: {noag_n}')
+                text=f'Tổng: {total}  |  Antigravity OK: {ok_n}  |  🔴 Hết: {exh_n}  |  Codex: {codex_n}  |  ⚠️ Chưa trong AG: {noag_n}')
 
         def _sort_by(self, col):
             self._sort_rev = (not self._sort_rev) if self._sort_col == col else False
@@ -554,6 +603,7 @@ if __name__ == '__main__':
                 raw = base64.b64encode(b'{}').decode('ascii')
                 open(p, 'w', encoding='utf-8').write(raw)
             self._dat_path = p
+            self._codex_path = _find_codex_dat(p)
             _save_cfg(p)
             self._path_lbl.config(text=self._short_path())
             self._refresh()
@@ -657,11 +707,52 @@ if __name__ == '__main__':
                     msg += f'  |  ⚠️ {not_in_ag} chưa có trong AG'
             self._status_var.set(msg)
 
+        def _sync_codex(self):
+            script = _find_codex_sync_script()
+            if not script:
+                messagebox.showerror('Không tìm thấy script', 'Không tìm thấy QuotaApp/sync_codex.py.')
+                return
+            self._codex_path = _find_codex_dat(self._dat_path)
+            self._status_var.set('⌁ Đang đồng bộ quota Codex local…')
+
+            def _run():
+                try:
+                    r = subprocess.run([sys.executable, script, self._codex_path, '--json'],
+                                       capture_output=True, text=True, timeout=20,
+                                       encoding='utf-8', errors='replace')
+                    try:
+                        result = json.loads(r.stdout.strip())
+                    except Exception:
+                        result = {'status': 'error', 'message': r.stderr or r.stdout}
+                    self.after(0, lambda: self._on_codex_sync_done(result))
+                except Exception as exc:
+                    self.after(0, lambda: self._status_var.set(f'❌ Codex sync lỗi: {exc}'))
+
+            threading.Thread(target=_run, daemon=True).start()
+
+        def _on_codex_sync_done(self, result):
+            self._refresh()
+            if result.get('status') == 'ok':
+                self._status_var.set(f'✅ Codex đã đồng bộ: {result.get("account", "active account")}')
+            else:
+                self._status_var.set(f'⚠️ Codex: {result.get("message", "chưa có dữ liệu")})')
+
         def _delete_sel(self):
             sel = self._tv.selection()
             if not sel:
                 return
             email = self._tv.item(sel[0])['values'][0]
+            if email.startswith('[Codex] '):
+                if not messagebox.askyesno('Xác nhận', f'Xóa snapshot "{email}"?'):
+                    return
+                label = email[len('[Codex] '):]
+                accounts = self._codex_data.get('accounts') or {}
+                accounts.pop(label, None)
+                self._codex_data['accounts'] = accounts
+                _save_dat(self._codex_path, self._codex_data)
+                self._render()
+                self._status_var.set(f'🗑️ Đã xóa snapshot {label}')
+                return
             if not messagebox.askyesno('Xác nhận', f'Xóa "{email}" khỏi Quota Tracker?'):
                 return
             self._data.pop(email, None)
