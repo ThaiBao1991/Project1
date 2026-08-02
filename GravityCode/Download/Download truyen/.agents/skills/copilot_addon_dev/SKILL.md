@@ -1,6 +1,6 @@
 ---
 name: "chrome-ai-autochat-extractor-addon"
-description: "Use this skill for building or maintaining ANY Chrome/Edge Extension (Manifest V3) that automates looping a conversation with a web-based AI assistant (Copilot, Gemini, ChatGPT, Claude, etc.), extracts each reply, and downloads/exports the results — not limited to one specific addon; applies to clones, forks, or new addons built on the same pattern (content_script.js DOM injection + background.js service worker + popup UI, roadmap-driven day/topic loop). Trigger on: content script not injecting on a target site, downloads silently failing (CSP / blob: URL blocked in service worker), chrome.storage.local size limits, chrome.runtime.sendMessage / IPC payload dropped silently, Base64/UTF-8 double-encoding corruption, session.json / auto-save / resume-after-crash logic, tab throttling when minimized (setTimeout delay, keep-alive, Web Locks API, silent audio), multi-tab or multi-profile state collisions, false-positive error detection in scraped text, CJK/non-space-delimited language word-count bugs, or large roadmap data causing popup/UI freeze."
+description: "Build or maintain Chrome/Edge Manifest V3 extensions that automate conversations with web AI assistants, extract replies, and export results. Use for content-script injection, CSP or download failures, chrome.storage limits, dropped IPC payloads, Unicode/Base64 corruption, session resume and crash recovery, minimized-tab throttling, multi-tab/profile collisions, false-positive scraped errors, CJK word counts, or large roadmap data freezing the popup."
 ---
 
 # Hướng dẫn phát triển Addon Auto-Chat & Extract (mẫu: AskCpl)
@@ -32,18 +32,28 @@ Kỹ năng này cung cấp kiến thức nền tảng và tài liệu tham khả
 
 ## 3. QUY TẮC BẮT BUỘC KHI VIẾT CODE
 
-### ⚠️ VÀNG — Mã hóa Base64 2 chiều đồng bộ
-Khi lưu/đọc dữ liệu JSON qua Base64 (đặc biệt khi có tiếng Việt, ký hiệu Unicode):
+### ⚠️ VÀNG — Mã hóa Base64 UTF-8 hai chiều
+Khi lưu/đọc dữ liệu JSON qua Base64 có Unicode, dùng `TextEncoder` và `TextDecoder`. Không dùng `escape` hoặc `unescape` vì chúng đã lỗi thời.
 
 ```javascript
-// Khi LƯU (Encode):
-btoa(unescape(encodeURIComponent(JSON.stringify(obj))))
+const bytesToBinary = (bytes) => {
+  let binary = "";
+  for (let index = 0; index < bytes.length; index += 0x8000) {
+    binary += String.fromCharCode(...bytes.subarray(index, index + 0x8000));
+  }
+  return binary;
+};
 
-// Khi ĐỌC (Decode):
-JSON.parse(decodeURIComponent(escape(atob(str))))
+const encodeBase64Utf8 = (obj) =>
+  btoa(bytesToBinary(new TextEncoder().encode(JSON.stringify(obj))));
+
+const decodeBase64Utf8 = (encoded) => {
+  const bytes = Uint8Array.from(atob(encoded), (char) => char.charCodeAt(0));
+  return JSON.parse(new TextDecoder().decode(bytes));
+};
 ```
 
-**Hậu quả nếu thiếu `decodeURIComponent` khi đọc:** Chuỗi byte UTF-8 bị hiểu nhầm thành Latin-1. Sau hàng trăm vòng lặp Auto-Resume, dung lượng ký tự nhân đôi theo cấp số nhân → file JSON phình từ 4MB lên 50MB+ → IPC bị drop → Addon treo hoàn toàn.
+**Hậu quả nếu encode/decode không đối xứng:** Chuỗi byte UTF-8 có thể bị hiểu nhầm thành Latin-1. Sau nhiều vòng Auto-Resume, dữ liệu bị nhân bản/phình to → IPC bị drop → addon treo.
 
 ### ⚠️ IPC (sendMessage) giới hạn kích thước payload
 - `chrome.runtime.sendMessage` bị **drop im lặng** nếu payload quá lớn (~5-10MB).
@@ -80,8 +90,8 @@ JSON.parse(decodeURIComponent(escape(atob(str))))
 
 ### E. Encoding Loop → file JSON phình to [GĐ 45]
 - **Hiện tượng**: Sau nhiều ngày chạy, session.json phình từ 4MB lên 28-53MB. Nội dung xuất hiện ký tự lỗi "ÃÂÃÂ...".
-- **Nguyên nhân**: `btoa(unescape(encodeURIComponent(...)))` khi lưu, nhưng chỉ `atob(...)` khi đọc — thiếu `decodeURIComponent`.
-- **Giải pháp**: Sửa `atob(str)` → `decodeURIComponent(escape(atob(str)))` ở `content_script.js` dòng tải lại session sau reload.
+- **Nguyên nhân**: Dữ liệu Unicode bị đọc như Latin-1, hoặc encode/decode không đối xứng.
+- **Giải pháp**: Dùng cùng cặp `encodeBase64Utf8` / `decodeBase64Utf8` ở mọi điểm lưu và tải session.
 
 ### F. `isErrorContent` False Positive — Day 1503 bị reject [GĐ 46]
 - **Hiện tượng**: Add-on kẹt mãi ở bài có số chứa mã lỗi HTTP (VD: Day **1503** chứa **503**).
@@ -285,3 +295,43 @@ function keepTabAwake() {
 ```
 **Lưu ý:** `AudioContext` thường yêu cầu tương tác (User Gesture) từ người dùng trước khi được phép phát tiếng, nên gọi hàm này sau khi người dùng click một nút (ví dụ: nút Start). Có thể kết hợp cùng Web Locks API (`navigator.locks`) để tạo thành lớp bảo vệ kép.
 
+---
+
+### O. Bảo Toàn Trạng Thái Script Khi Frame Con Tải Lại (Top-Window Injection)
+
+**Bối cảnh:** Đối với các hệ thống doanh nghiệp (như Intramart) sử dụng thẻ `<frameset>` lồng nhau phức tạp. Nếu dùng cấu hình `all_frames: true` trong `manifest.json` để nhúng `content_script.js` vào frame con (vd: `IM_MAIN`), mỗi khi frame này chuyển trang hoặc tải lại dữ liệu, script sẽ bị trình duyệt "khai tử" (killed), làm đứt gãy hoàn toàn luồng tự động hóa đang chạy dở.
+
+**Giải pháp (Từ HangMauIntramart):** 
+1. Ép Script CHỈ khởi chạy và lưu trạng thái ở cửa sổ gốc (Top Window) bằng điều kiện `if (window === window.top)`. Top Window hiếm khi bị reload nên trạng thái vòng lặp được bảo toàn.
+2. Từ Top Window, dùng hàm đệ quy duyệt qua mảng `window.frames` để mò vào tận Frame con cần thao tác. Nhờ cơ chế cùng nguồn gốc (Same-Origin), code từ Top Frame có thể thao tác DOM của Sub-Frame dễ dàng.
+
+```javascript
+// content_script.js
+if (window === window.top) {
+    console.log("Khởi chạy ở Top Window, an toàn không lo bị reload.");
+    
+    // Hàm đệ quy xuyên thấu các lớp frame
+    function getMainFrame() {
+        let foundFrame = null;
+        function collectFrames(win) {
+            if (win.name === 'IM_MAIN') foundFrame = win;
+            if (foundFrame || !win.frames) return;
+            for (let i = 0; i < win.frames.length; i++) {
+                try { collectFrames(win.frames[i]); } catch(e) {}
+            }
+        }
+        collectFrames(window);
+        return foundFrame;
+    }
+
+    // Vòng lặp hoặc thao tác logic đặt ở Top Window
+    setInterval(() => {
+        const frame = getMainFrame();
+        if (frame && frame.document.readyState === 'complete') {
+            // Thao tác DOM an toàn vào frame con
+            const table = frame.document.getElementById('list_table');
+            if (table) console.log("Tìm thấy bảng dữ liệu!");
+        }
+    }, 1000);
+}
+```

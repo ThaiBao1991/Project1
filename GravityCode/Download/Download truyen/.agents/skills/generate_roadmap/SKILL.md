@@ -1,9 +1,11 @@
 ---
-name: Generate Roadmap
-description: Use this skill when the user asks to create, edit, extend, or optimize a learning Roadmap file (language learning: English/Japanese/Chinese/Korean, or any other domain: IT/programming, music, business, sports, etc.) or the Python generator scripts (generate_*_roadmap.py). Covers auto-detecting difficulty and choosing cycle length (10/15/20/25-30 day cycles) when the user doesn't know the domain well, duplicate-topic and duplicate-content prevention across roadmaps via topics_registry.md, coverage-completeness checks against real-world curricula/certifications, prerequisite ordering, spaced cumulative review, a final Capstone for pro-level mastery, Non-Interactive prompt rules, Markdown parsing format for the AskCpl-style addon, and verification/encoding checks. Trigger on mentions of 'roadmap', 'lộ trình', 'sinh roadmap', 'generate_*_roadmap.py', 'chu kỳ 15 ngày' / '25 ngày', 'trùng lặp topic', 'đầy đủ nội dung', or requests to add new topics/days to an existing roadmap file.
+name: generate-roadmap
+description: "Create, edit, extend, or validate learning roadmaps and their Python generator scripts. Use for requests mentioning roadmap, lộ trình, generate_*_roadmap.py, topic duplication, day-cycle planning, curriculum coverage, spaced review, capstones, Markdown parsing for AI addons, or roadmap encoding and verification."
 ---
 
 # Workflow Tạo Lộ Trình (Roadmap)
+
+Áp dụng quy tắc làm việc chung từ `AI_RULES.md` / `AGENTS.md` khi chúng có trong workspace. Skill này chỉ quy định workflow và kiểm tra riêng cho roadmap.
 
 Khi nhận được yêu cầu tạo hoặc cập nhật Roadmap, bạn phải thực hiện nghiêm ngặt theo quy trình sau:
 
@@ -221,3 +223,67 @@ Với roadmap dài (vài trăm-vài nghìn Day), cứ sau mỗi **5 topic** (t�
 ## 9. Ghi chú phạm vi
 
 Skill này chỉ chứa kiến thức kỹ thuật về thiết kế/sinh Roadmap (cấu trúc chu kỳ, format parsing, quy tắc Non-Interactive, chống trùng lặp, đảm bảo độ đầy đủ/chuẩn pro, encoding). Quy trình làm việc chung (đọc `ProjectLog.md` trước, xin duyệt plan, cập nhật log sau khi hoàn thành...) được quản lý tập trung trong `AGENTS.md` / `GEMINI.md` ở cấp workspace/global, không lặp lại ở đây.
+
+---
+
+## 10. Quy tắc bắt buộc: Log Panel trong mọi app Python Tkinter / GUI
+
+**Bối cảnh**: Khi tạo hoặc sửa Python Tkinter app có chức năng background (HTTP request, threading, xử lý file dài...), tuyệt đối không để user "bấm nút rồi nhìn chờ không biết đang làm gì".
+
+### 10.1 Khi nào phải có Log Panel
+- Bất kỳ chức năng nào chạy trong background thread (threading.Thread)
+- Bất kỳ chức năng nào gọi API bên ngoài (requests.get/post)
+- Bất kỳ chức năng nào xử lý nhiều item trong vòng lặp (check nhiều key, import nhiều file...)
+
+### 10.2 Cấu trúc Log Panel chuẩn (Tkinter)
+
+```python
+from tkinter.scrolledtext import ScrolledText as _ST
+
+# 1. Mutable container (closure trick — widget defined later, works at call-time)
+_log_box = [None]
+
+# 2. Thread-safe log function
+def log_status(msg):
+    import datetime
+    ts = datetime.datetime.now().strftime("%H:%M:%S")
+    def _do():
+        w = _log_box[0]
+        if not w: return
+        try:
+            w.config(state='normal')
+            w.insert(END, f"[{ts}] {msg}\n")
+            w.see(END)
+            w.config(state='disabled')
+        except Exception:
+            pass
+    root_or_frame.after(0, _do)  # luôn dùng after() để thread-safe
+
+# 3. Tạo widget (cuối hàm setup, TRƯỚC refresh_list/pack cuối)
+frame_log = Frame(parent, bd=1, relief="sunken")
+frame_log.pack(side="bottom", fill="x", padx=10, pady=(0, 3))
+_log_hdr = Frame(frame_log, bg="#2c3e50")
+_log_hdr.pack(fill='x')
+Label(_log_hdr, text="📋 Log:", font=("Arial", 9, "bold"), fg="#ecf0f1", bg="#2c3e50").pack(side='left', padx=6, pady=2)
+Button(_log_hdr, text="Xóa Log", command=lambda: [_log_box[0].config(state='normal'), _log_box[0].delete('1.0', END), _log_box[0].config(state='disabled')],
+       relief="flat", bg="#34495e", fg="#ecf0f1", cursor="hand2").pack(side='right', padx=4, pady=2)
+_log_box[0] = _ST(frame_log, height=8, font=("Consolas", 9), bg="#0d1117", fg="#00e676", state='disabled', wrap='word', relief='flat')
+_log_box[0].pack(fill='x')
+log_status("✅ Log sẵn sàng.")
+```
+
+### 10.3 Phân loại lỗi khi gọi API bên ngoài (requests)
+
+Khi xử lý kết quả API, LUÔN phân loại riêng các loại lỗi:
+
+| Loại lỗi | Nguyên nhân | Hành động đúng |
+|---|---|---|
+| `requests.exceptions.ConnectionError` (HTTPSConnectionPool...) | Lỗi mạng/DNS/VPN — KHÔNG liên quan key | **Giữ nguyên status cũ**, log chi tiết, hướng dẫn kiểm tra internet |
+| `requests.exceptions.Timeout` | Server chậm | **Giữ nguyên status cũ**, log timeout, thử lại sau |
+| HTTP 503 + "currently experiencing" | Model Google quá tải TẠM THỜI — key vẫn OK | **Giữ nguyên status cũ**, log "model busy" |
+| HTTP 429 / "Quota exhausted" | Hết quota | Đổi status = "exhausted" |
+| HTTP 400 + "API key not valid" | Key thực sự sai | Đổi status = "invalid" |
+| HTTP 200 | Key OK | Đổi status = "active" |
+
+**KHÔNG bao giờ** bọc tất cả vào một `except Exception as e: status = "invalid"` chung — sẽ gây mark nhầm key hợp lệ thành invalid khi mạng xấu.
+
