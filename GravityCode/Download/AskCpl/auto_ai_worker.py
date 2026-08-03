@@ -7,6 +7,27 @@ import urllib.parse
 from datetime import datetime
 import requests
 import concurrent.futures
+from adaptive_learning import (
+    LESSON_RESPONSE_SCHEMA,
+    build_day_context,
+    lesson_to_markdown,
+    load_profile,
+    load_state,
+    parse_lesson_response,
+    profile_questions,
+    record_generated_lesson,
+    save_state,
+    validate_lesson,
+)
+from gemini_image_pipeline import generate_visual_assets
+from verified_knowledge import (
+    build_fact_context,
+    evidence_for_claims,
+    load_pack,
+    pack_path_for_course,
+    validate_fact_claims,
+    validate_pack,
+)
 
 STOP_REQUESTED = False
 
@@ -15,7 +36,8 @@ def _ts():
     return datetime.now().strftime("[%H:%M:%S]")
 
 def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback, 
-                force=False, update_keys_cb=None, enable_followup=True, max_followup=3, start_day=0):
+                force=False, update_keys_cb=None, enable_followup=True, max_followup=3, start_day=0,
+                adaptive_mode=True, generate_visuals=False, image_model="gemini-2.5-flash-image"):
     """
     Chạy tự động phân tích lộ trình học bằng Gemini API.
     Tham số mới:
@@ -97,7 +119,7 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
         log(f"✗ Key {k.get('email')} (Project: {k.get('project_id', 'N/A')}) bị đánh dấu Invalid.")
         update_key_on_disk(k)
 
-    def call_gemini_api(prompt_text, log_prefix=""):
+    def call_gemini_api(prompt_text, log_prefix="", response_schema=None):
         """Gọi Gemini REST API trực tiếp với cơ chế chọn key thông minh và tự động retry."""
         max_retries = 3
         while True:
@@ -118,6 +140,13 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
                     "temperature": 0.7
                 }
             }
+            if response_schema:
+                # Gemini structured output: the app still validates semantic
+                # requirements after parsing; JSON syntax alone is not enough.
+                payload["generationConfig"].update({
+                    "responseMimeType": "application/json",
+                    "responseSchema": response_schema,
+                })
             
             key_failed = False
             for attempt in range(max_retries):
@@ -188,6 +217,12 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
                             break
                     else:
                         log(f"{log_prefix} Lỗi Gemini: {error_msg}")
+                        if response_schema and "400" in error_msg:
+                            # A model alias can change capabilities.  A schema
+                            # rejection is a request compatibility issue, not
+                            # proof that the user's API key is invalid.
+                            log(f"{log_prefix}⚠ Model không nhận structured output; chuyển sang render text tương thích, không vô hiệu hóa key.")
+                            return call_gemini_api(prompt_text, log_prefix=log_prefix, response_schema=None)
                         # API key hỏng/sai/403
                         if any(x in error_msg for x in ["API_KEY_INVALID", "400", "403", "PERMISSION_DENIED"]):
                             log(f"{log_prefix}⚠ Key {key_email} (Project: {current_key_obj.get('project_id', 'N/A')}) bị từ chối truy cập (403/Invalid). Chuyển key...")
@@ -211,6 +246,23 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
         
     if not os.path.exists(out_dir):
         os.makedirs(out_dir)
+
+    profile = load_profile(out_dir) if adaptive_mode else {}
+    learner_state = load_state(out_dir) if adaptive_mode else {}
+    knowledge_pack = load_pack(pack_path_for_course(out_dir, profile)) if adaptive_mode else {}
+    knowledge_errors = validate_pack(knowledge_pack) if adaptive_mode and knowledge_pack.get("sources") else []
+    missing_profile = profile_questions(profile) if adaptive_mode else []
+    adaptive_ready = adaptive_mode and not missing_profile
+    if adaptive_mode and not adaptive_ready:
+        log("ℹ Hồ sơ học chưa đủ; chạy tương thích legacy. Cần bổ sung: " + "; ".join(item["field"] for item in missing_profile))
+    elif adaptive_ready:
+        log(f"🧠 Adaptive mode: đã nạp hồ sơ '{profile.get('domain')}' và trạng thái người học.")
+        if knowledge_errors:
+            log("⚠ Knowledge Pack không hợp lệ; không dùng fact từ pack: " + "; ".join(knowledge_errors[:3]))
+        elif knowledge_pack.get("sources"):
+            log(f"📚 Knowledge Pack: {len(knowledge_pack.get('sources', []))} nguồn đã nạp; fact phải có entity/source hợp lệ.")
+        else:
+            log("⚠ Chưa có Knowledge Pack: AI chỉ được tạo quy trình học, không được coi chi tiết game là fact đã kiểm chứng.")
 
     log("Đang đọc file roadmap...")
     try:
@@ -359,15 +411,24 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
         
         # Gắn text vào prompt chính
         day_clean_title = day['title'].replace("## ", "").strip()
-        full_prompt = f"LƯU Ý: Đây là nội dung cho '{day_clean_title}'.\n\n{prompt}"
+        if adaptive_ready:
+            full_prompt = build_day_context(profile, learner_state, day_clean_title, prompt, [day['pdf']] if day['pdf'] else [])
+            if knowledge_pack.get("sources") and not knowledge_errors:
+                fact_context, coverage = build_fact_context(knowledge_pack, prompt)
+                full_prompt += "\n\n" + fact_context
+            else:
+                coverage = None
+        else:
+            full_prompt = f"LƯU Ý: Đây là nội dung cho '{day_clean_title}'.\n\n{prompt}"
         if pdf_text:
-            full_prompt = f"Dưới đây là toàn bộ văn bản được trích xuất trực tiếp từ file PDF cho '{day_clean_title}'.\nBẠN ĐÃ ĐỌC ĐƯỢC NỘI DUNG NÀY, DO ĐÓ KHÔNG ĐƯỢC nói rằng 'tôi không thể truy cập' hay 'tôi chưa thể truy cập'. Hãy trả lời trực tiếp dựa trên nội dung sau:\n\n{pdf_text[:120000]}\n\n---\n\n{prompt}"
+            full_prompt = f"{full_prompt}\n\nNGUỒN CỤC BỘ ĐÃ TRÍCH XUẤT (chỉ dùng phần liên quan, không bịa trích dẫn):\n{pdf_text[:120000]}"
             
         # Lượt 1: Gửi câu hỏi chính
         daily_quota_hit = False
         day_success = False
         all_responses = []
         got_complete = False
+        lesson_result = None
 
         if day_clean_title in incomplete_days_refs:
             session_item = incomplete_days_refs[day_clean_title]
@@ -375,7 +436,11 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
             log(f"↪ Tiếp tục hỏi bổ sung cho {day_clean_title} (từ lượt {len(all_responses) + 1})...")
         else:
             log(f"💬 [Lượt 1] Gửi câu hỏi chính ({len(full_prompt)} ký tự)...")
-            text1, ok1, quota_hit = call_gemini_api(full_prompt, log_prefix="  [Lượt 1] ")
+            text1, ok1, quota_hit = call_gemini_api(
+                full_prompt,
+                log_prefix="  [Lượt 1] ",
+                response_schema=LESSON_RESPONSE_SCHEMA if adaptive_ready else None,
+            )
             
             if quota_hit:
                 daily_quota_hit = True
@@ -384,11 +449,61 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
                 log(f"✗ Lượt 1 thất bại cho {day_clean_title}. Dừng!")
                 break
                 
-            all_responses = [text1]
+            if adaptive_ready:
+                lesson_result = parse_lesson_response(text1)
+                errors = validate_lesson(lesson_result) if lesson_result else ["JSON bài học"]
+                if not errors and knowledge_pack.get("sources") and not knowledge_errors:
+                    if "factual_claims" not in lesson_result:
+                        errors.append("factual_claims bắt buộc khi dùng Knowledge Pack")
+                    else:
+                        errors.extend(validate_fact_claims(lesson_result, knowledge_pack))
+                if errors:
+                    # Never discard a usable lesson because the provider/model
+                    # ignored a schema.  Preserve it, flag it, and keep legacy
+                    # rendering so a user can still read the result.
+                    log("⚠ Gemini trả bài adaptive chưa đạt schema: " + ", ".join(errors) + ". Dùng nội dung thô và không cập nhật state.")
+                    if knowledge_pack.get("sources") and not knowledge_errors:
+                        all_responses = [
+                            "## Bài học bị chặn để bảo vệ độ chính xác\n\n"
+                            "Gemini không trả được tham chiếu entity/source hợp lệ từ Knowledge Pack. "
+                            "Hệ thống không hiển thị nội dung thô để tránh đưa thông tin game chưa kiểm chứng. "
+                            "Hãy bổ sung nguồn hoặc chạy lại Day này."
+                        ]
+                        lesson_result = None
+                    else:
+                        all_responses = [text1]
+                else:
+                    if knowledge_pack.get("sources") and not knowledge_errors:
+                        lesson_result["verified_evidence"] = evidence_for_claims(lesson_result, knowledge_pack)
+                        lesson_result["coverage_report"] = coverage
+                    if generate_visuals and lesson_result.get("visual_plan", {}).get("needed"):
+                        visual_prompts = lesson_result["visual_plan"].get("prompts", [])
+                        key_object = get_active_key()
+                        try:
+                            assets = generate_visual_assets(
+                                key_object.get("key", "") if key_object else "", image_model,
+                                visual_prompts, out_dir, day_clean_title,
+                            )
+                            lesson_result["visual_assets"] = assets
+                            log(f"🖼 Đã lưu {len(assets)} ảnh minh họa cho {day_clean_title}.")
+                        except Exception as exc:
+                            lesson_result["visual_assets"] = []
+                            log(f"⚠ Không tạo được ảnh minh họa: {str(exc)[:180]}. Bài học văn bản vẫn được lưu.")
+                    all_responses = [lesson_to_markdown(lesson_result)]
+                    record_generated_lesson(learner_state, day_clean_title, lesson_result)
+                    save_state(out_dir, learner_state)
+                    log("✅ Bài học có schema hợp lệ; đã lưu đầu ra và câu hỏi cần xác nhận (nếu có).")
+            else:
+                all_responses = [text1]
             
         # YC5: Vòng lặp bổ sung (Multi-turn follow-up)
         
-        if enable_followup:
+        if adaptive_ready:
+            # The structured lesson already carries bounded questions for the
+            # learner. Generic self-follow-up produces repetition and cannot
+            # improve the saved learner state.
+            got_complete = True
+        elif enable_followup:
             FOLLOWUP_PROMPT = (
                 "Bạn có thấy còn điều gì cần bổ sung thêm để tôi hiểu rõ và đầy đủ hơn không?\n"
                 "→ Nếu CÓ: hãy bổ sung ngay bên dưới.\n"
@@ -455,6 +570,8 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
             session_item["followup_turns"] = len(all_responses) - 1
             session_item["followup_complete"] = got_complete
             session_item["raw_responses"] = all_responses
+            if adaptive_ready and lesson_result:
+                session_item["adaptive_lesson"] = lesson_result
         else:
             session_data.append({
                 "day": day['title'].replace("## ", ""),
@@ -465,6 +582,8 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
                 "followup_complete": got_complete,
                 "raw_responses": all_responses
             })
+            if adaptive_ready and lesson_result:
+                session_data[-1]["adaptive_lesson"] = lesson_result
         day_success = True
         
         if daily_quota_hit:
@@ -528,25 +647,33 @@ def create_viewer(out_dir, session_data=None):
     """
     
     index_css = """
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', Arial, sans-serif; background: #0f0c29; color: #e0e0f0; min-height: 100vh; }
-    .header { background: linear-gradient(135deg, #1a1a3e, #2d2b55); padding: 32px 24px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
-    .header h1 { font-size: 2em; color: #a78bfa; margin-bottom: 8px; }
-    .header p { color: #9090b0; font-size: 0.95em; }
-    .container { max-width: 820px; margin: 0 auto; padding: 24px 16px; }
-    .stats { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 12px 20px; margin-bottom: 20px; display: flex; gap: 24px; flex-wrap: wrap; }
-    .stats span { color: #a0a0c0; font-size: 0.9em; }
-    .stats b { color: #a78bfa; }
-    .search-box { width: 100%; padding: 10px 16px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.08); color: #e0e0f0; font-size: 14px; margin-bottom: 16px; outline: none; transition: border-color 0.2s; }
-    .search-box:focus { border-color: rgba(167,139,250,0.6); }
-    .day-list { display: flex; flex-direction: column; gap: 4px; }
-    .day-item { display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-radius: 8px; text-decoration: none; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); transition: all 0.18s; }
-    .day-item:hover { background: rgba(167,139,250,0.15); border-color: rgba(167,139,250,0.4); transform: translateX(4px); }
-    .day-num { font-size: 0.8em; font-weight: bold; color: #a78bfa; min-width: 64px; flex-shrink: 0; }
-    .day-title { color: #c0c0e0; font-size: 0.93em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:'Segoe UI',Arial,sans-serif; background:#f4f7fb; color:#162033; }
+    .header { background:linear-gradient(135deg,#14213d,#345995); color:#fff; padding:18px 24px; }
+    .header h1 { margin:0 0 5px; font-size:1.35rem; } .header p { margin:0; color:#dbeafe; }
+    .dashboard { display:grid; grid-template-columns:minmax(270px,340px) minmax(0,1fr); min-height:calc(100vh - 85px); }
+    .sidebar { padding:16px; background:#101827; color:#e5e7eb; border-right:1px solid #263247; }
+    .search-box { width:100%; padding:10px 12px; border:1px solid #46536b; border-radius:8px; background:#182235; color:#fff; margin:0 0 12px; }
+    .course-note { color:#aab8d3; font-size:.82rem; margin:0 0 12px; line-height:1.45; }
+    .day-list { display:flex; flex-direction:column; gap:6px; max-height:calc(100vh - 185px); overflow:auto; padding-right:3px; }
+    .day-item { width:100%; text-align:left; border:1px solid #263247; border-radius:8px; background:#182235; color:#e5e7eb; padding:10px; cursor:pointer; }
+    .day-item:hover,.day-item.active { background:#263d69; border-color:#78a6ff; }
+    .day-num { display:block; color:#93c5fd; font-weight:700; font-size:.8rem; margin-bottom:3px; }
+    .day-title { display:block; font-size:.88rem; line-height:1.3; }
+    .main { padding:24px; max-width:1050px; width:100%; margin:0 auto; }
+    .lesson-card { background:#fff; border:1px solid #d9e1ee; border-radius:12px; padding:24px; box-shadow:0 3px 12px rgba(15,23,42,.06); line-height:1.7; }
+    .lesson-card h1,.lesson-card h2,.lesson-card h3 { color:#153e75; } .lesson-card pre { overflow:auto; background:#f1f5f9; padding:12px; border-radius:7px; }
+    .lesson-card table { border-collapse:collapse; width:100%; } .lesson-card th,.lesson-card td { border:1px solid #cbd5e1; padding:8px; text-align:left; }
+    .lesson-card img { max-width:100%; border-radius:8px; border:1px solid #d9e1ee; }
+    .lesson-meta { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0 18px; } .badge { padding:4px 9px; border-radius:999px; font-size:.8rem; }
+    .badge.ok { background:#dcfce7; color:#166534; } .badge.warn { background:#fef3c7; color:#92400e; } .badge.info { background:#dbeafe; color:#1d4ed8; }
+    .source-box,.question-box { border-left:4px solid #f59e0b; background:#fffbeb; padding:10px 14px; margin:16px 0; } .source-box ul,.question-box ul { margin:6px 0 0; padding-left:20px; }
+    .open-page { float:right; font-size:.86rem; color:#1d4ed8; text-decoration:none; } .empty { color:#64748b; text-align:center; padding:80px 20px; }
+    @media (max-width:800px) { .dashboard { grid-template-columns:1fr; } .sidebar { border-right:0; } .day-list { max-height:220px; } .main { padding:14px; } }
     """
     
     import re
+    from html import escape as html_escape
     def safe_filename(name):
         return re.sub(r'[\\/*?:"<>|]', "", name).strip()
         
@@ -559,6 +686,7 @@ def create_viewer(out_dir, session_data=None):
         item['day_title'] = day_title
         
     items_html = ""
+    dashboard_items = []
     for idx, item in enumerate(session_data):
         day_title = item['day_title']
         file_name = item['file_name']
@@ -650,6 +778,26 @@ def create_viewer(out_dir, session_data=None):
 <!-- END-NAV-BAR-V2 -->"""
         
         followup_turns = item.get('followup_turns', 0)
+        lesson = item.get("adaptive_lesson") if isinstance(item.get("adaptive_lesson"), dict) else {}
+        verified_evidence = lesson.get("verified_evidence", []) if isinstance(lesson.get("verified_evidence", []), list) else []
+        evidence_html = ""
+        if verified_evidence:
+            cards = []
+            for evidence in verified_evidence:
+                entity = evidence.get("entity", {}) if isinstance(evidence, dict) else {}
+                sources = evidence.get("sources", []) if isinstance(evidence, dict) else []
+                label = html_escape(str(entity.get("name") or entity.get("id") or "Dữ kiện"))
+                claim = html_escape(str(evidence.get("claim", "")))
+                links = " ".join(
+                    f'<a href="{html_escape(str(src.get("url", "")), quote=True)}" target="_blank" rel="noreferrer">{html_escape(str(src.get("title") or src.get("id") or "Nguồn"))}</a>'
+                    for src in sources if isinstance(src, dict) and src.get("url")
+                ) or "Nguồn cục bộ đã đính kèm"
+                cards.append(f"<li><b>{label}</b>: {claim}<br><small>{links}</small></li>")
+            evidence_html = '<section class="verified-facts"><h2>Dữ kiện đã kiểm chứng</h2><ul>' + "".join(cards) + "</ul></section>"
+        coverage = lesson.get("coverage_report", {}) if isinstance(lesson.get("coverage_report"), dict) else {}
+        if coverage.get("requested_all") and not coverage.get("complete"):
+            evidence_html = '<section class="coverage-warning"><b>Chưa đủ dữ liệu để khẳng định “toàn bộ”.</b> Bài này chỉ hiển thị quy trình và các dữ kiện đã có bằng chứng.</section>' + evidence_html
+        content_html = item.get('html', '') + evidence_html
         followup_badge = (
             f'<span class="followup-badge">✓ Đã đầy đủ ({followup_turns} lượt bổ sung)</span>'
             if item.get('followup_complete') else
@@ -671,6 +819,8 @@ def create_viewer(out_dir, session_data=None):
   .followup-badge {{ display: inline-block; margin-top: 6px; padding: 3px 10px;
                      border-radius: 12px; font-size: 0.82em; background: #d1fae5; color: #065f46; }}
   .followup-badge.incomplete {{ background: #fef3c7; color: #92400e; }}
+  .verified-facts {{ margin:24px 0; padding:14px; background:#ecfdf5; border-left:4px solid #16a34a; }}
+  .coverage-warning {{ margin:20px 0; padding:14px; background:#fff7ed; border-left:4px solid #ea580c; }}
   </style>
 </head>
 <body>
@@ -678,7 +828,7 @@ def create_viewer(out_dir, session_data=None):
     <h1>{day_title}</h1>
     <p>Tóm tắt &amp; Dịch tự động bởi AI · {datetime.now().strftime('%d/%m/%Y %H:%M')} {followup_badge}</p>
   </header>
-  <div class="content">{item.get('html', '')}</div>
+  <div class="content">{content_html}</div>
   {nav_bar}
 </body>
 </html>"""
@@ -693,9 +843,26 @@ def create_viewer(out_dir, session_data=None):
             f'      <span class="day-title">{safe_title}</span>\n'
             f'    </a>\n'
         )
+        raw_html = content_html
+        # The dashboard is a local learner view.  Remove script tags from model
+        # output before embedding it in the index page.
+        safe_lesson_html = re.sub(r"(?is)<script[^>]*>.*?</script>", "", raw_html)
+        plain_summary = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", safe_lesson_html)).strip()
+        dashboard_items.append({
+            "day": day_num_str,
+            "title": day_title,
+            "file": file_name,
+            "html": safe_lesson_html,
+            "summary": plain_summary[:220],
+            "sources": [str(src.get("title") or src.get("id")) for row in verified_evidence for src in row.get("sources", []) if isinstance(src, dict)],
+            "questions": lesson.get("clarifying_questions", []) if isinstance(lesson.get("clarifying_questions", []), list) else [],
+            "visual_assets": lesson.get("visual_assets", []) if isinstance(lesson.get("visual_assets", []), list) else [],
+            "structured": bool(lesson),
+        })
 
     folder_name = os.path.basename(os.path.abspath(out_dir)) or "Tài liệu Sinh bởi AI"
     total_days = len(session_data)
+    dashboard_json = json.dumps(dashboard_items, ensure_ascii=False).replace("</", "<\\/")
     
     index_html = f"""<!DOCTYPE html>
 <html lang="vi">
@@ -710,22 +877,42 @@ def create_viewer(out_dir, session_data=None):
     <h1>📚 {folder_name}</h1>
     <p>Tổng cộng {total_days} phần đã xử lý</p>
   </div>
-  <div class="container">
-    <div class="stats">
-      <span>Tổng số Day: <b>{total_days}</b></span>
-    </div>
-    <input class="search-box" type="text" id="searchInput" placeholder="Tìm kiếm Day hoặc nội dung..." oninput="filterDays()">
-    <div class="day-list" id="dayList">
-{items_html}
-    </div>
+  <div class="dashboard">
+    <aside class="sidebar">
+      <input class="search-box" type="text" id="searchInput" placeholder="Tìm Day hoặc chủ đề..." oninput="filterDays()">
+      <p class="course-note">Chọn một Day để đọc bài chi tiết ngay tại đây. Menu chỉ định hướng; nội dung thực hành nằm ở khung bên phải.</p>
+      <div class="day-list" id="dayList"></div>
+    </aside>
+    <main class="main"><div id="lesson" class="lesson-card"></div></main>
   </div>
   <script>
+    const lessons = {dashboard_json};
+    const escapeHtml = (text) => String(text || '').replace(/[&<>"']/g, c => ({{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}}[c]));
+    function renderDay(index) {{
+      const item = lessons[index]; if (!item) return;
+      document.querySelectorAll('.day-item').forEach((node, i) => node.classList.toggle('active', i === index));
+      const sources = item.sources.length ? '<div class="source-box"><b>Nguồn AI khai báo:</b><ul>' + item.sources.map(x => '<li>' + escapeHtml(x) + '</li>').join('') + '</ul></div>' : '<div class="source-box"><b>Chưa có nguồn kiểm chứng đính kèm.</b> Nội dung này chỉ dùng làm khung học, không nên coi là thông số/sự thật đầy đủ.</div>';
+      const questions = item.questions.length ? '<div class="question-box"><b>Cần bạn xác nhận trước Day tiếp theo:</b><ul>' + item.questions.map(x => '<li>' + escapeHtml(x) + '</li>').join('') + '</ul></div>' : '';
+      const evidence = item.sources.length ? '<span class="badge info">Có khai báo nguồn</span>' : '<span class="badge warn">Cần dữ liệu nguồn</span>';
+      const visual = item.visual_assets.length ? '<span class="badge ok">' + item.visual_assets.length + ' ảnh đã lưu</span>' : '<span class="badge warn">Chưa có ảnh thật</span>';
+      document.getElementById('lesson').innerHTML = '<a class="open-page" href="' + encodeURI(item.file) + '">Mở trang riêng ↗</a><h1>Day ' + escapeHtml(item.day) + ' — ' + escapeHtml(item.title.replace(/^Day\\s+[^—]+—\\s*/, '')) + '</h1><div class="lesson-meta">' + evidence + visual + (item.structured ? '<span class="badge ok">Bài học có cấu trúc</span>' : '<span class="badge warn">Bản legacy</span>') + '</div>' + sources + questions + item.html;
+      history.replaceState(null, '', '#day-' + item.day);
+    }}
+    function buildList() {{
+      const list = document.getElementById('dayList');
+      list.innerHTML = lessons.map((item, i) => '<button class="day-item" onclick="renderDay(' + i + ')"><span class="day-num">Day ' + escapeHtml(item.day) + '</span><span class="day-title">' + escapeHtml(item.title.replace(/^Day\\s+[^—]+—\\s*/, '')) + '</span></button>').join('');
+    }}
     function filterDays() {{
       var q = document.getElementById('searchInput').value.toLowerCase();
-      document.querySelectorAll('.day-item').forEach(function(item) {{
-        item.style.display = item.textContent.toLowerCase().includes(q) ? 'flex' : 'none';
+      document.querySelectorAll('.day-item').forEach(function(item, index) {{
+        var data = lessons[index];
+        item.style.display = (data.title + ' ' + data.summary).toLowerCase().includes(q) ? 'block' : 'none';
       }});
     }}
+    buildList();
+    const requested = (location.hash.match(/#day-([^&]+)/) || [])[1];
+    const initial = Math.max(0, lessons.findIndex(x => String(x.day) === String(requested)));
+    if (lessons.length) renderDay(initial);
   </script>
 </body>
 </html>"""

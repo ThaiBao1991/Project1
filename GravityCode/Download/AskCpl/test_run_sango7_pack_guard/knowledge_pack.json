@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "title": "Sango 7 — pack chưa hoàn chỉnh",
+  "subject": "Tam Quốc Quần Anh Truyện VII",
+  "game_version": "Chưa xác định bản cài đặt",
+  "sources": [
+    {
+      "id": "cn_ali213_heroes",
+      "title": "游侠网 — 三国群英传7 武将资料列表",
+      "url": "https://gl.ali213.net/html/2010/14422.html",
+      "language": "zh-CN",
+      "game_version": "Cần đối chiếu với bản cài đặt",
+      "verification_status": "candidate"
+    }
+  ],
+  "entities": {"heroes": [], "units": [], "items": [], "secrets": [], "builds": []},
+  "coverage_targets": {"heroes": 1}
+}

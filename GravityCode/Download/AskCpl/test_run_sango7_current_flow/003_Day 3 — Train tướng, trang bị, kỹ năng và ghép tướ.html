@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 3 — Train tướng, trang bị, kỹ năng và ghép tướng</title>
+  <style>
+  
+    body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 860px; margin: 40px auto; padding: 0 20px; background: #f9f9f9; color: #1a1a1a; }
+    header { background: #0078d4; color: #fff; padding: 16px 24px; border-radius: 8px; margin-bottom: 24px; }
+    header h1 { margin: 0; font-size: 1.4em; }
+    header p { margin: 4px 0 0; font-size: 0.85em; opacity: 0.85; }
+    .content { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 24px; line-height: 1.7; }
+    a.back { display: inline-block; margin-top: 20px; color: #0078d4; text-decoration: none; font-size: 0.9em; }
+    a.back:hover { text-decoration: underline; }
+    h2, h3 { color: #005a9e; margin-top: 1.5em; }
+    code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-size: 0.9em; }
+    pre { background: #f0f0f0; padding: 12px; border-radius: 6px; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; margin: 15px 0; }
+    th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; }
+    th { background: #0078d4; color: #fff; }
+    tr:nth-child(even) { background: #f5f5f5; }
+    /* Loại bỏ CSS navbar cũ để thay bằng css của addon */
+    body { padding-top: 52px !important; }
+    
+  .main-section { margin-bottom: 24px; }
+  .supplement-section { margin-bottom: 24px; border-left: 4px solid #a78bfa; padding-left: 16px; }
+  .section-label { font-weight: bold; font-size: 0.95em; color: #005a9e; margin-bottom: 10px;
+                    padding: 4px 10px; background: #e8f0fe; border-radius: 4px; display: inline-block; }
+  .followup-badge { display: inline-block; margin-top: 6px; padding: 3px 10px;
+                     border-radius: 12px; font-size: 0.82em; background: #d1fae5; color: #065f46; }
+  .followup-badge.incomplete { background: #fef3c7; color: #92400e; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Day 3 — Train tướng, trang bị, kỹ năng và ghép tướng</h1>
+    <p>Tóm tắt &amp; Dịch tự động bởi AI · 04/08/2026 00:51 <span class="followup-badge">✓ Đã đầy đủ (0 lượt bổ sung)</span></p>
+  </header>
+  <div class="content"><div class="main-section">
+  <div class="section-label">📖 Nội dung chính</div>
+  <h1>Bài học Day 3: Phương pháp kiểm chứng Train tướng, Trang bị, Kỹ năng và Phối hợp nhóm</h1>
+<h2>1. Nguyên tắc kiểm chứng trong Sango Heroes 7</h2>
+<p>Mỗi bản game (gốc v1.0, v1.2, hoặc các bản Mod như Bá Vương Độc Lập, Bảo Thương, v.v.) có sự thay đổi lớn về chỉ số trang bị, lượng kinh nghiệm train tướng, và hiệu ứng kỹ năng/combo. Do đó, tuyệt đối không áp đặt bất kỳ 'công thức build chuẩn' nào từ internet mà phải thông qua quy trình thử nghiệm thực tế trên chính bản game bạn đang sở hữu.</p>
+<h2>2. Mẫu hồ sơ Build (Build Profile Template)</h2>
+<p>Một hồ sơ build tiêu chuẩn trong bảng tính của bạn cần bao gồm các trường dữ liệu:
+- <strong>Thông tin gốc</strong>: Mã phiên bản/Mod, Tên tướng, Nhóm tướng (Vũ tướng / Văn quan / Toàn năng), Cấp độ, Chỉ số gốc (Vũ lực, Trí lực).
+- <strong>Cấu hình thử nghiệm</strong>: Vũ khí, Ngựa, Đạo cụ bổ trợ, Kỹ năng cá nhân &amp; Kỹ năng tổ hợp (Combo skills).
+- <strong>Mục tiêu thử nghiệm</strong>: Khả năng dọn lính (AOE), Khả năng diệt tướng (Single-target), Độ bền (Máu/Thủ).</p>
+<h2>3. Quy trình thử nghiệm lặp lại (Iterative Testing Protocol)</h2>
+<ul>
+<li><strong>Bước 1 (Lập giả thuyết)</strong>: Đặt ra giả định (Ví dụ: 'Tướng A mang vũ khí X quét lính nhanh hơn 20% so với mang vũ khí Y').</li>
+<li><strong>Bước 2 (Cố định biến số)</strong>: Chọn môi trường thử nghiệm cố định (Cùng số lượng quân địch, cùng loại địa hình, cùng cấp độ tướng và quân).</li>
+<li><strong>Bước 3 (Thực nghiệm lặp lại)</strong>: Thực hiện tối thiểu 3 trận đánh độc lập dưới cùng điều kiện, ghi nhận thông số.</li>
+<li><strong>Bước 4 (Đối soát kết quả)</strong>: So sánh trung bình chỉ số thu được để xác nhận hoặc bác bỏ giả thuyết.</li>
+</ul>
+<h2>4. Các chỉ số đo lường kết quả (Metrics)</h2>
+<ul>
+<li><strong>Thời gian hoàn thành trận đánh</strong> (tính bằng giây/phút).</li>
+<li><strong>Lượng HP/MP hao hụt</strong> của tướng sau trận.</li>
+<li><strong>Tỷ lệ sát thương gây ra</strong> giữa Kỹ năng cá nhân và Kỹ năng tổ hợp (Ghép tướng).</li>
+<li><strong>Lượng EXP thu được trên đơn vị thời gian</strong> (EXP/phút).</li>
+</ul>
+<h2>5. Điều kiện nâng cấp giả thuyết thành 'Dữ liệu đã kiểm chứng'</h2>
+<p>Một mẹo (tip) hoặc công thức build chỉ được nâng hạng từ 'Giả thuyết' lên 'Đã kiểm chứng' khi:
+1. Đã trải qua tối thiểu 3 lần thử nghiệm lặp lại cho kết quả nhất quán (độ lệch sai số &lt; 5%).
+2. Đã gắn liền với mã phiên bản/mod cụ thể.
+3. Có số liệu đo lường định lượng kèm theo.</p>
+<h2>6. Các dữ kiện hiện chưa thể kết luận</h2>
+<ul>
+<li>Công thức kích hoạt kỹ năng ghép ẩn của từng cặp tướng cụ thể trên bản game của bạn.</li>
+<li>Trang bị nào là 'mạnh nhất' trong game (phụ thuộc hoàn toàn vào chỉ số được quy định trong file cấu hình của bản Mod/Patch bạn đang dùng).</li>
+</ul>
+<h2>Đầu ra cần nộp</h2>
+<p>Mẫu bảng tính 'Hồ sơ thử nghiệm Build' chứa ít nhất 2 bản ghi thử nghiệm (mỗi bản ghi gồm: Mã phiên bản, Tướng, Trang bị/Kỹ năng, Kết quả 3 lần test lặp lại, Chỉ số đo lường và Trạng thái kiểm chứng).</p>
+<h2>Checklist hoàn thành</h2>
+<ul>
+<li>[ ] Đã thiết lập đầy đủ các cột thông tin trong Mẫu hồ sơ Build trên bảng tính.</li>
+<li>[ ] Đã thực hiện thử nghiệm lặp lại 3 lần cho 1 cấu hình tướng/trang bị và ghi lại chỉ số đo lường cụ thể.</li>
+<li>[ ] Đánh dấu đúng trạng thái 'Giả thuyết' hoặc 'Đã kiểm chứng' dựa trên tiêu chuẩn đã đề xuất.</li>
+</ul>
+<h2>Cần bạn xác nhận trước Day tiếp theo</h2>
+<ul>
+<li>Bạn đang chơi bản Tam Quốc Quần Anh Truyện VII gốc (v1.0/v1.2) hay một bản Mod cụ thể nào (như Bá Vương Độc Lập, Bảo Thương)?</li>
+<li>Tướng bạn muốn thử nghiệm train đầu tiên thuộc nhóm thiên về Vũ lực (chém quét) hay Trí lực (dùng phép)?</li>
+</ul>
+<blockquote>
+<p>Hình minh họa nên có: Minh họa cấu trúc bảng ghi chép hồ sơ build tướng và quy trình thử nghiệm lặp lại để đo lường hiệu quả trang bị/kỹ năng.</p>
+</blockquote>
+</div></div>
+  <!-- NAV-BAR-V2 -->
+<style>
+#askcpl-nav{position:fixed;top:0;left:0;right:0;z-index:9999;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);color:#fff;padding:8px 16px;box-shadow:0 2px 12px rgba(0,0,0,.5);font-family:'Segoe UI',Arial,sans-serif;font-size:14px;box-sizing:border-box;height:48px;}
+#askcpl-nav button{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:15px;transition:background .2s;flex-shrink:0;}
+#askcpl-nav button:hover:not([disabled]){background:rgba(255,255,255,.3);}
+#askcpl-nav button[disabled]{opacity:.3;cursor:default;}
+#askcpl-nav-title{flex:1;text-align:center;cursor:pointer;padding:4px 12px;border-radius:6px;transition:background .2s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600;color:#e0d0ff;}
+#askcpl-nav-title:hover{background:rgba(255,255,255,.15);}
+#askcpl-nav-home{background:rgba(46,160,67,0.3);text-decoration:none;border:1px solid rgba(46,160,67,0.5);color:#fff;padding:6px 12px;border-radius:6px;font-size:14px;transition:background .2s;display:flex;align-items:center;}
+#askcpl-nav-home:hover{background:rgba(46,160,67,0.5);}
+#askcpl-toc{display:none;position:fixed;top:52px;left:50%;transform:translateX(-50%);background:#1e1e2e;border:1px solid rgba(167,139,250,.3);border-radius:10px;padding:8px 4px;min-width:320px;max-height:400px;overflow-y:auto;z-index:9998;box-shadow:0 8px 32px rgba(0,0,0,.7);}
+#askcpl-toc a{display:block;padding:7px 16px;color:#a0a0c0;text-decoration:none;border-radius:6px;margin:1px 4px;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+#askcpl-toc a:hover{background:rgba(167,139,250,.15);color:#e0d0ff;}
+#askcpl-toc a.cur{background:linear-gradient(90deg,#7c3aed,#4f46e5)!important;color:#fff!important;font-weight:bold;}
+</style>
+<div id="askcpl-nav">
+  <button id="nav-prev" onclick="askcplNav(-1)">◀ Prev</button>
+  <a id="askcpl-nav-home" href="index.html" title="Quay lại Menu Tổng">🏠 Menu</a>
+  <span id="askcpl-nav-title" onclick="askcplToggleToc()" title="Click xem Mục Lục">Day ... ▼</span>
+  <button id="nav-next" onclick="askcplNav(1)">Next ▶</button>
+</div>
+<div id="askcpl-toc"></div>
+<script>
+(function(){
+  var MAX_DAYS = 3;
+  var m = window.location.pathname.match(/(\d+)_.*\.html/i) 
+       || window.location.href.match(/(\d+)_.*\.html/i);
+  var cur = m ? parseInt(m[1]) : 3;
+  
+  document.getElementById('askcpl-nav-title').textContent = 'Day ' + cur + ' ▼';
+  document.getElementById('askcpl-nav-home').href = 'index.html#day-' + cur;
+
+  if(cur <= 1) document.getElementById('nav-prev').disabled = true;
+  if(cur >= MAX_DAYS) document.getElementById('nav-next').disabled = true;
+  
+  window.askcplNav = function(d){
+    var n = cur + d;
+    if(n < 1 || n > MAX_DAYS) return;
+    // Tìm file tương ứng với số n
+    var allFiles = ["001_Day 1 \u2014 C\u01a1 s\u1edf d\u1eef li\u1ec7u to\u00e0n b\u1ed9 t\u01b0\u1edbng v\u00e0 t\u01b0\u1edbng \u1ea9n.html", "002_Day 2 \u2014 Binh ch\u1ee7ng, b\u00ed m\u1eadt v\u00e0 d\u1eef li\u1ec7u c\u1ea7n x\u00e1c minh.html", "003_Day 3 \u2014 Train t\u01b0\u1edbng, trang b\u1ecb, k\u1ef9 n\u0103ng v\u00e0 gh\u00e9p t\u01b0\u1edb.html"];
+    if (n-1 >= 0 && n-1 < allFiles.length) {
+        window.location.href = allFiles[n-1];
+    }
+  };
+
+  var toc = document.getElementById('askcpl-toc');
+  window.askcplToggleToc = function(){
+    if(toc.style.display === 'block'){ toc.style.display='none'; return; }
+    if(!toc.innerHTML){
+      var html = '';
+      var lo = Math.max(1, cur-10), hi = Math.min(MAX_DAYS, cur+10);
+      var allFiles = ["001_Day 1 \u2014 C\u01a1 s\u1edf d\u1eef li\u1ec7u to\u00e0n b\u1ed9 t\u01b0\u1edbng v\u00e0 t\u01b0\u1edbng \u1ea9n.html", "002_Day 2 \u2014 Binh ch\u1ee7ng, b\u00ed m\u1eadt v\u00e0 d\u1eef li\u1ec7u c\u1ea7n x\u00e1c minh.html", "003_Day 3 \u2014 Train t\u01b0\u1edbng, trang b\u1ecb, k\u1ef9 n\u0103ng v\u00e0 gh\u00e9p t\u01b0\u1edb.html"];
+      for(var i=lo; i<=hi; i++){
+        var cls = (i===cur) ? 'cur' : '';
+        var mark = (i===cur) ? ' ← Hôm nay' : '';
+        var link = allFiles[i-1];
+        html += '<a class="'+cls+'" href="'+link+'">Day '+i+mark+'</a>';
+      }
+      toc.innerHTML = html;
+    }
+    toc.style.display = 'block';
+    var c = toc.querySelector('.cur');
+    if(c) c.scrollIntoView({block:'center'});
+  };
+
+  document.addEventListener('click', function(e){
+    var nav=document.getElementById('askcpl-nav');
+    if(!nav.contains(e.target) && !toc.contains(e.target)){
+      toc.style.display='none';
+    }
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA') return;
+    if(e.key==='ArrowLeft') askcplNav(-1);
+    if(e.key==='ArrowRight') askcplNav(1);
+    if(e.key==='Escape') toc.style.display='none';
+  });
+})();
+</script>
+<!-- END-NAV-BAR-V2 -->
+</body>
+</html>

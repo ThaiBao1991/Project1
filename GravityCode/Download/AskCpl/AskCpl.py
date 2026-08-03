@@ -68,6 +68,10 @@ from nav_injector import inject_all, rebuild_index, get_day_files
 from roadmap_pipeline import (RoadmapValidationError, atomic_write, load_json_response,
                               render_markdown, render_toc, restore_locked_day_identity,
                               validate_plan, validate_revision)
+from adaptive_learning import (default_profile, load_profile, profile_questions,
+                               record_learner_feedback, save_profile)
+from verified_knowledge import coverage_report, empty_pack, load_pack, validate_pack
+from knowledge_pack_importer import import_csv_folder
 import webbrowser
 try:
     from exercise_server import run_server
@@ -1440,6 +1444,23 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
         self.ai_out_var = StringVar(value=gemini_settings.get("last_out_dir", ""))
         Entry(f4, textvariable=self.ai_out_var, state='readonly').pack(side='left', fill='x', expand=True)
         Button(f4, text="Chọn Output", command=self.ai_select_out_dir).pack(side='right', padx=5)
+
+        # Adaptive learning control.  The profile lives beside session.json so
+        # each exported course keeps its own learner context and privacy scope.
+        f_adaptive = Frame(self.sub_tab_roadmap_run)
+        f_adaptive.pack(fill='x', padx=20, pady=4)
+        self.ai_adaptive_mode_var = IntVar(value=gemini_settings.get("adaptive_mode", 1))
+        Checkbutton(f_adaptive, text="🧠 Học thích nghi: dùng Hồ sơ + phản hồi Day trước",
+                    variable=self.ai_adaptive_mode_var, fg="#1565c0").pack(side='left')
+        Button(f_adaptive, text="Hồ sơ học thích nghi...", command=self.open_adaptive_profile,
+               bg="#1565c0", fg="white").pack(side='left', padx=8)
+        Button(f_adaptive, text="Ghi phản hồi Day...", command=self.open_day_feedback,
+               bg="#6c3483", fg="white").pack(side='left', padx=2)
+        Button(f_adaptive, text="Knowledge Pack...", command=self.open_knowledge_pack,
+               bg="#13795b", fg="white").pack(side='left', padx=8)
+        self.ai_generate_visuals_var = IntVar(value=gemini_settings.get("generate_visuals", 0))
+        Checkbutton(f_adaptive, text="Sinh ảnh Gemini khi Day yêu cầu", variable=self.ai_generate_visuals_var,
+                    fg="#8e44ad").pack(side='left', padx=10)
         
         # Save Settings
         Button(self.sub_tab_roadmap_run, text="Lưu Cấu Hình AI", command=self.save_ai_settings, bg="#f39c12", fg="white").pack(pady=5)
@@ -2558,7 +2579,153 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
     def ai_select_out_dir(self):
         d = filedialog.askdirectory(title="Chọn thư mục xuất (session.json & html)")
         if d: self.ai_out_var.set(d)
+
+    def _adaptive_output_dir(self):
+        out_dir = self.ai_out_var.get().strip()
+        if not out_dir:
+            messagebox.showerror("Thiếu thư mục xuất", "Hãy chọn Thư mục Xuất trước. Hồ sơ và tiến độ sẽ được lưu riêng tại đó.")
+            return ""
+        os.makedirs(out_dir, exist_ok=True)
+        return out_dir
+
+    def open_adaptive_profile(self):
+        out_dir = self._adaptive_output_dir()
+        if not out_dir:
+            return
+        profile = load_profile(out_dir)
+        dialog = Toplevel(self.root)
+        dialog.title("Hồ sơ học thích nghi")
+        dialog.geometry("650x590")
+        dialog.transient(self.root)
+        dialog.grab_set()
+        fields = [
+            ("domain", "Chủ đề / lĩnh vực"),
+            ("goal", "Mục tiêu đầu ra cụ thể"),
+            ("current_level", "Trình độ hiện tại"),
+            ("minutes_per_day", "Phút học mỗi ngày"),
+            ("available_resources", "Thiết bị, tài liệu, vật liệu sẵn có"),
+            ("constraints", "Giới hạn / độ tuổi / an toàn / ngân sách"),
+            ("learning_preference", "Cách học mong muốn"),
+        ]
+        widgets = {}
+        for key, label in fields:
+            Label(dialog, text=label + ":", anchor="w").pack(fill="x", padx=18, pady=(8, 2))
+            if key in {"available_resources", "constraints"}:
+                widget = Text(dialog, height=3, wrap="word")
+                widget.insert("1.0", str(profile.get(key, "")))
+            else:
+                widget = Entry(dialog)
+                widget.insert(0, str(profile.get(key, "")))
+            widget.pack(fill="x", padx=18)
+            widgets[key] = widget
+
+        status = Label(dialog, text="", fg="#c0392b", justify="left", wraplength=600)
+        status.pack(fill="x", padx=18, pady=8)
+
+        def value_of(key):
+            widget = widgets[key]
+            return widget.get("1.0", END).strip() if isinstance(widget, Text) else widget.get().strip()
+
+        def save():
+            values = default_profile()
+            values.update({key: value_of(key) for key, _ in fields})
+            try:
+                values["minutes_per_day"] = max(5, int(values["minutes_per_day"] or 30))
+            except ValueError:
+                status.config(text="Phút học mỗi ngày phải là số.")
+                return
+            saved = save_profile(out_dir, values)
+            questions = profile_questions(saved)
+            if questions:
+                status.config(text="Cần bổ sung trước khi AI cá nhân hóa hoàn toàn:\n" + "\n".join("• " + item["question"] for item in questions))
+                return
+            self.log_ai("🧠 Đã lưu Course Profile. Lần render kế tiếp sẽ dùng context cá nhân và phản hồi Day trước.")
+            dialog.destroy()
+            messagebox.showinfo("Đã lưu", "Hồ sơ học đã sẵn sàng. Gemini chỉ hỏi tiếp khi thông tin có thể làm thay đổi Day sau.")
+
+        buttons = Frame(dialog)
+        buttons.pack(fill="x", padx=18, pady=10)
+        Button(buttons, text="Lưu hồ sơ", command=save, bg="#2ea043", fg="white").pack(side="left")
+        Button(buttons, text="Đóng", command=dialog.destroy).pack(side="right")
+
+    def open_day_feedback(self):
+        out_dir = self._adaptive_output_dir()
+        if not out_dir:
+            return
+        dialog = Toplevel(self.root)
+        dialog.title("Ghi phản hồi sau Day")
+        dialog.geometry("590x390")
+        dialog.transient(self.root)
+        dialog.grab_set()
+        Label(dialog, text="Day (ví dụ: Day 1 — Cài Python):", anchor="w").pack(fill="x", padx=18, pady=(15, 2))
+        day_entry = Entry(dialog)
+        day_entry.pack(fill="x", padx=18)
+        Label(dialog, text="Bạn đã làm được gì, lỗi gì, hoặc muốn thay đổi gì?", anchor="w").pack(fill="x", padx=18, pady=(12, 2))
+        feedback = Text(dialog, height=9, wrap="word")
+        feedback.pack(fill="both", expand=True, padx=18)
+        Label(dialog, text="Mức nắm vững (ví dụ: đạt / cần ôn / chưa hiểu):", anchor="w").pack(fill="x", padx=18, pady=(8, 2))
+        mastery_entry = Entry(dialog)
+        mastery_entry.pack(fill="x", padx=18)
+
+        def save():
+            day, note = day_entry.get().strip(), feedback.get("1.0", END).strip()
+            if not day or not note:
+                messagebox.showerror("Thiếu thông tin", "Cần nhập Day và phản hồi thực tế của bạn.", parent=dialog)
+                return
+            record_learner_feedback(out_dir, day, note, mastery_entry.get().strip())
+            self.log_ai(f"📝 Đã lưu phản hồi {day}. Gemini sẽ dùng nó khi render Day liên quan tiếp theo.")
+            dialog.destroy()
+
+        Button(dialog, text="Lưu phản hồi", command=save, bg="#6c3483", fg="white").pack(pady=12)
         
+    def open_knowledge_pack(self):
+        """Attach a reviewed pack to this course; facts without it stay unverified."""
+        out_dir = self._adaptive_output_dir()
+        if not out_dir:
+            return
+        action = messagebox.askyesnocancel(
+            "Knowledge Pack",
+            "Yes: Chọn knowledge_pack.json đã kiểm chứng.\n"
+            "No: Nhập thư mục CSV (sources.csv, heroes.csv, units.csv...).\n"
+            "Cancel: Tạo mẫu knowledge_pack.json trống tại Output.",
+            parent=self.root,
+        )
+        if action is True:
+            path = filedialog.askopenfilename(title="Chọn Knowledge Pack", filetypes=[("JSON", "*.json")])
+            if not path:
+                return
+        elif action is False:
+            folder = filedialog.askdirectory(title="Chọn thư mục CSV Knowledge Pack")
+            if not folder:
+                return
+            path = os.path.join(out_dir, "knowledge_pack.json")
+            try:
+                import_csv_folder(folder, path, title="Knowledge Pack nhập từ CSV")
+            except Exception as exc:
+                messagebox.showerror("Không nhập được Pack", str(exc), parent=self.root)
+                return
+        else:
+            path = os.path.join(out_dir, "knowledge_pack.json")
+            if not os.path.exists(path):
+                with open(path, "w", encoding="utf-8", newline="\n") as handle:
+                    json.dump(empty_pack("Knowledge Pack mới"), handle, ensure_ascii=False, indent=2)
+
+        pack = load_pack(path)
+        errors = validate_pack(pack)
+        if errors:
+            messagebox.showerror("Knowledge Pack không hợp lệ", "\n".join(errors[:12]), parent=self.root)
+            return
+        profile = load_profile(out_dir)
+        profile["knowledge_pack_path"] = path
+        save_profile(out_dir, profile)
+        report = coverage_report(pack)
+        summary = ", ".join(
+            f"{row['type']}: {row['verified']}/{row['target'] if row['target'] is not None else '?'}"
+            for row in report["rows"]
+        )
+        self.log_ai(f"📚 Đã gắn Knowledge Pack: {path}")
+        messagebox.showinfo("Đã gắn Knowledge Pack", "Gemini chỉ được dùng fact có source_id hợp lệ.\n" + summary, parent=self.root)
+
     def save_ai_settings(self):
         try:
             max_f = int(self.ai_max_followup_var.get())
@@ -2571,7 +2738,9 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
             last_out_dir=self.ai_out_var.get(),
             enable_followup=bool(self.ai_enable_followup_var.get()),
             max_followup=max_f,
-            followup_mode=self.ai_followup_mode_var.get()
+            followup_mode=self.ai_followup_mode_var.get(),
+            adaptive_mode=bool(self.ai_adaptive_mode_var.get()),
+            generate_visuals=bool(self.ai_generate_visuals_var.get())
         )
         self.settings = load_settings()
         messagebox.showinfo("Thành công", "Đã lưu cấu hình Auto AI!")
@@ -2639,7 +2808,9 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
                 auto_ai_worker.run_auto_ai(
                     api_keys, roadmap_path, doc_dir, out_dir, self.log_ai, 
                     force=force, update_keys_cb=update_keys_cb,
-                    enable_followup=enable_followup, max_followup=max_followup, start_day=start_day
+                    enable_followup=enable_followup, max_followup=max_followup, start_day=start_day,
+                    adaptive_mode=bool(self.ai_adaptive_mode_var.get()),
+                    generate_visuals=bool(self.ai_generate_visuals_var.get())
                 )
                 self.log_ai("🎉 Hoàn thành toàn bộ tiến trình!")
             except Exception as e:

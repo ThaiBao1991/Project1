@@ -23,9 +23,9 @@
         "key": "ENC:Z2otd0tLeXBYMFBqUFkwWXJJWndyX0NZd3JNbG84OEVQWE5WdGdnVk5HREk2TlI4YkEuUUE=",
         "email": "gamesvendn",
         "status": "exhausted",
-        "reset_time": 1785770845,
-        "last_check_time": 1785684445,
-        "next_check_time": 1785695245,
+        "reset_time": 1785863419,
+        "last_check_time": 1785777019,
+        "next_check_time": 1785787819,
         "project_id": "1",
         "error_msg": ""
       },
@@ -33,9 +33,9 @@
         "key": "ENC:Z1l1OUtZQUJYSlVialhtMVpfSVp0ZUZZVVNsbW5PUG1OMEI4OWN0YXRmMUw2TlI4YkEuUUE=",
         "email": "gamesvendn01",
         "status": "exhausted",
-        "reset_time": 1785772080,
-        "last_check_time": 1785685680,
-        "next_check_time": 1785696480,
+        "reset_time": 1785865820,
+        "last_check_time": 1785779420,
+        "next_check_time": 1785790220,
         "project_id": "1",
         "error_msg": ""
       },
@@ -44,10 +44,10 @@
         "key": "ENC:QXlKd09pY0JDeEZ2OERVZlNIQmZfRnFCNlpIM1dqUzR0MnlZczBhQ3YwNUk2TlI4YkEuUUE=",
         "email": "gamesvendn01",
         "project_id": "2",
-        "status": "exhausted",
-        "reset_time": 1785773186,
-        "next_check_time": 1785697586,
-        "last_check_time": 1785686786
+        "status": "active",
+        "reset_time": 0,
+        "next_check_time": 0,
+        "last_check_time": 1785780251
       },
       {
         "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
@@ -316,23 +316,23 @@
         "project_id": "1"
       },
       {
-        "error_msg": "",
+        "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "key": "ENC:d1otNzM5ZS1tSDBweGVQNEZuSjRLT1Q1a2RnaHlVb3h0T2xCZVVyN29PdEk2TlI4YkEuUUE=",
         "email": "gamesvendn22",
-        "status": "active",
-        "reset_time": 0,
-        "next_check_time": 0,
-        "last_check_time": 1785690737,
+        "status": "exhausted",
+        "reset_time": 1785862351,
+        "next_check_time": 1785786751,
+        "last_check_time": 1785775951,
         "project_id": "1"
       },
       {
-        "error_msg": "",
+        "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "key": "ENC:d1NJazZkQS1BOGZWakU1QmpVdHJnYkpTZWhZRWU2UEVfWmxmNTU5eXBFMkk2TlI4YkEuUUE=",
         "email": "gamesvendn23",
-        "status": "active",
-        "reset_time": 0,
-        "next_check_time": 0,
-        "last_check_time": 1785641903,
+        "status": "exhausted",
+        "reset_time": 1785862599,
+        "next_check_time": 1785786999,
+        "last_check_time": 1785776199,
         "project_id": "1"
       },
       {
