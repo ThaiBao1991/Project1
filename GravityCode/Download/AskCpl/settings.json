@@ -23,9 +23,9 @@
         "key": "ENC:Z2otd0tLeXBYMFBqUFkwWXJJWndyX0NZd3JNbG84OEVQWE5WdGdnVk5HREk2TlI4YkEuUUE=",
         "email": "gamesvendn",
         "status": "exhausted",
-        "reset_time": 1785921540,
-        "last_check_time": 1785835140,
-        "next_check_time": 1785845940,
+        "reset_time": 1785939777,
+        "last_check_time": 1785853377,
+        "next_check_time": 1785864177,
         "project_id": "1",
         "error_msg": "HTTP 429 / quota exhausted during roadmap generation"
       },
@@ -33,9 +33,9 @@
         "key": "ENC:Z1l1OUtZQUJYSlVialhtMVpfSVp0ZUZZVVNsbW5PUG1OMEI4OWN0YXRmMUw2TlI4YkEuUUE=",
         "email": "gamesvendn01",
         "status": "exhausted",
-        "reset_time": 1785922001,
-        "last_check_time": 1785835601,
-        "next_check_time": 1785846401,
+        "reset_time": 1785939824,
+        "last_check_time": 1785853424,
+        "next_check_time": 1785864224,
         "project_id": "1",
         "error_msg": ""
       },
@@ -45,9 +45,9 @@
         "email": "gamesvendn01",
         "project_id": "2",
         "status": "exhausted",
-        "reset_time": 1785922411,
-        "next_check_time": 1785846811,
-        "last_check_time": 1785836011
+        "reset_time": 1785939856,
+        "next_check_time": 1785864256,
+        "last_check_time": 1785853456
       },
       {
         "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
@@ -55,9 +55,9 @@
         "email": "gamesvendn01",
         "project_id": "3",
         "status": "exhausted",
-        "reset_time": 1785923028,
-        "next_check_time": 1785847428,
-        "last_check_time": 1785836628
+        "reset_time": 1785939902,
+        "next_check_time": 1785864302,
+        "last_check_time": 1785853502
       },
       {
         "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
@@ -65,9 +65,9 @@
         "email": "gamesvendn01",
         "project_id": "4",
         "status": "exhausted",
-        "reset_time": 1785923562,
-        "next_check_time": 1785847962,
-        "last_check_time": 1785837162
+        "reset_time": 1785939945,
+        "next_check_time": 1785864345,
+        "last_check_time": 1785853545
       },
       {
         "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
@@ -75,9 +75,9 @@
         "email": "gamesvendn01",
         "project_id": "5",
         "status": "exhausted",
-        "reset_time": 1785924105,
-        "next_check_time": 1785848505,
-        "last_check_time": 1785837705
+        "reset_time": 1785939987,
+        "next_check_time": 1785864387,
+        "last_check_time": 1785853587
       },
       {
         "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
@@ -85,9 +85,9 @@
         "email": "gamesvendn01",
         "project_id": "6",
         "status": "exhausted",
-        "reset_time": 1785924515,
-        "next_check_time": 1785848915,
-        "last_check_time": 1785838115,
+        "reset_time": 1785940019,
+        "next_check_time": 1785864419,
+        "last_check_time": 1785853619,
         "type": "GEMINI API",
         "project_name": ""
       },
@@ -97,9 +97,9 @@
         "email": "gamesvendn01",
         "project_id": "7",
         "status": "exhausted",
-        "reset_time": 1785925068,
-        "next_check_time": 1785849468,
-        "last_check_time": 1785838668,
+        "reset_time": 1785940039,
+        "next_check_time": 1785864439,
+        "last_check_time": 1785853639,
         "type": "GEMINI API",
         "project_name": ""
       },
@@ -109,9 +109,9 @@
         "email": "gamesvendn01",
         "project_id": "8",
         "status": "exhausted",
-        "reset_time": 1785925529,
-        "next_check_time": 1785849929,
-        "last_check_time": 1785839129
+        "reset_time": 1785940092,
+        "next_check_time": 1785864492,
+        "last_check_time": 1785853692
       },
       {
         "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
@@ -119,9 +119,9 @@
         "email": "gamesvendn01",
         "project_id": "9",
         "status": "exhausted",
-        "reset_time": 1785926176,
-        "next_check_time": 1785850576,
-        "last_check_time": 1785839776
+        "reset_time": 1785940114,
+        "next_check_time": 1785864514,
+        "last_check_time": 1785853714
       },
       {
         "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
@@ -129,17 +129,17 @@
         "email": "gamesvendn01",
         "project_id": "10",
         "status": "exhausted",
-        "reset_time": 1785926673,
-        "next_check_time": 1785851073,
-        "last_check_time": 1785840273
+        "reset_time": 1785940172,
+        "next_check_time": 1785864572,
+        "last_check_time": 1785853772
       },
       {
         "key": "ENC:QVJueGZ6dDBhSXAxR2FJdlNVX2hrRzlRdWQzOUxLY1ZfMkU1NTlmM1NWREo2TlI4YkEuUUE=",
         "email": "gamesvendn02",
         "status": "exhausted",
-        "reset_time": 1785927314,
-        "next_check_time": 1785851714,
-        "last_check_time": 1785840914,
+        "reset_time": 1785940188,
+        "next_check_time": 1785864588,
+        "last_check_time": 1785853788,
         "project_id": "1",
         "error_msg": "HTTP 429 / quota exhausted during roadmap generation"
       },
@@ -147,9 +147,9 @@
         "key": "ENC:Z3ZSMHFfX0NpOGd4MTdtbjdYcDZjRlJKbVg0Z3U1eERzTVl5SjFvX28wcEw2TlI4YkEuUUE=",
         "email": "gamesvendn03",
         "status": "exhausted",
-        "reset_time": 1785927713,
-        "last_check_time": 1785841313,
-        "next_check_time": 1785852113,
+        "reset_time": 1785940269,
+        "last_check_time": 1785853869,
+        "next_check_time": 1785864669,
         "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "project_id": "1"
       },
@@ -157,9 +157,9 @@
         "key": "ENC:Z0NaTi1nRzRkbmVYamhmdTk2dE9NYjVBYnYwU0s4WXRfV0V1T25wWEpxeko2TlI4YkEuUUE=",
         "email": "gamesvendn04",
         "status": "exhausted",
-        "reset_time": 1785928262,
-        "last_check_time": 1785841862,
-        "next_check_time": 1785852662,
+        "reset_time": 1785940303,
+        "last_check_time": 1785853903,
+        "next_check_time": 1785864703,
         "project_id": "1",
         "error_msg": "HTTP 429 / quota exhausted during roadmap generation"
       },
@@ -167,9 +167,9 @@
         "key": "ENC:QTdXSnVIN0swR1NsSlJTWl91WW40UVRWeFY3a1ZBaDRMYktocVl4cUFVLUs2TlI4YkEuUUE=",
         "email": "gamesvendn05",
         "status": "exhausted",
-        "reset_time": 1785928755,
-        "last_check_time": 1785842355,
-        "next_check_time": 1785853155,
+        "reset_time": 1785940351,
+        "last_check_time": 1785853951,
+        "next_check_time": 1785864751,
         "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "project_id": "1"
       },
@@ -177,9 +177,9 @@
         "key": "ENC:UXI3dTBZQXZtQm5KaFprd1BHQmxxRndDZWplZzJMZ3hoNzd6cmN1eWp1Y0s2TlI4YkEuUUE=",
         "email": "gamesvendn06",
         "status": "exhausted",
-        "reset_time": 1785929273,
-        "last_check_time": 1785842873,
-        "next_check_time": 1785853673,
+        "reset_time": 1785940391,
+        "last_check_time": 1785853991,
+        "next_check_time": 1785864791,
         "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "project_id": "1"
       },
@@ -187,9 +187,9 @@
         "key": "ENC:Z2pxb2FTOGxJbVg0M3VRN0ZYWHhmcHhVUnpCX3MyME9NOExvdW1vSUZxdks2TlI4YkEuUUE=",
         "email": "gamesvendn07",
         "status": "exhausted",
-        "reset_time": 1785929856,
-        "last_check_time": 1785843456,
-        "next_check_time": 1785854256,
+        "reset_time": 1785940686,
+        "last_check_time": 1785854286,
+        "next_check_time": 1785865086,
         "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "project_id": "1"
       },
@@ -198,18 +198,18 @@
         "key": "ENC:QVJBQ3VhXzZaRjdhbXlYdGpIZVMxdm94MnVncng2dWFZLUowWmVuN05jaks2TlI4YkEuUUE=",
         "email": "gamesvendn08",
         "status": "exhausted",
-        "reset_time": 1785772114,
-        "next_check_time": 1785696514,
-        "last_check_time": 1785685714,
+        "reset_time": 1785940908,
+        "next_check_time": 1785865308,
+        "last_check_time": 1785854508,
         "project_id": "1"
       },
       {
         "key": "ENC:UTl4bVlENXY5ZURReER6eE9tNGJQYVctb3ExY005RGRLbjA1U3NxNjAxVks2TlI4YkEuUUE=",
         "email": "gamesvendn08",
         "status": "exhausted",
-        "reset_time": 1785772147,
-        "last_check_time": 1785685747,
-        "next_check_time": 1785696547,
+        "reset_time": 1785941221,
+        "last_check_time": 1785854821,
+        "next_check_time": 1785865621,
         "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "project_id": "2",
         "type": "GEMINI API",
@@ -219,9 +219,9 @@
         "key": "ENC:QUhzZUxJajg5aGxodXpFRkRvYzhrZFRWQldZVXdaeG9jaGtFMldNX1ZIMUs2TlI4YkEuUUE=",
         "email": "gamesvendn09",
         "status": "exhausted",
-        "reset_time": 1785772196,
-        "last_check_time": 1785685796,
-        "next_check_time": 1785696596,
+        "reset_time": 1785941566,
+        "last_check_time": 1785855166,
+        "next_check_time": 1785865966,
         "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "project_id": "1"
       },
@@ -229,9 +229,9 @@
         "key": "ENC:Z0RkV1R1cGhNV2lKLUdJdUpWbzVYT2VZYXFUYlNvb2plXzdmemgtTm1ZWko2TlI4YkEuUUE=",
         "email": "gamesvendn10",
         "status": "exhausted",
-        "reset_time": 1785772403,
-        "last_check_time": 1785686003,
-        "next_check_time": 1785696803,
+        "reset_time": 1785941942,
+        "last_check_time": 1785855542,
+        "next_check_time": 1785866342,
         "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "project_id": "1"
       },
@@ -239,9 +239,9 @@
         "key": "ENC:Z0lmNnNKNFVST0kxVzdRbGdLM1AzYVR5bTM2aEtKZGNtRGItSEhmMVd3Z0o2TlI4YkEuUUE=",
         "email": "gamesvendn11",
         "status": "exhausted",
-        "reset_time": 1785772578,
-        "last_check_time": 1785686178,
-        "next_check_time": 1785696978,
+        "reset_time": 1785942420,
+        "last_check_time": 1785856020,
+        "next_check_time": 1785866820,
         "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "project_id": "1"
       },
@@ -249,9 +249,9 @@
         "key": "ENC:US1yMnZiaWFYdGdwMlN4bXMtM0huVmtTSzIySXVEVmtRNy0wV1VfWF9MOUk2TlI4YkEuUUE=",
         "email": "gamesvendn12",
         "status": "exhausted",
-        "reset_time": 1785772595,
-        "last_check_time": 1785686195,
-        "next_check_time": 1785696995,
+        "reset_time": 1785942792,
+        "last_check_time": 1785856392,
+        "next_check_time": 1785867192,
         "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "project_id": "1"
       },
@@ -259,9 +259,9 @@
         "key": "ENC:d2xYTGhTLUZSV0N6WGJrQVc4Z3MwTFNwNHhGQlBZVVNyc2FKeE9kalp3S0o2TlI4YkEuUUE=",
         "email": "gamesvendn13",
         "status": "exhausted",
-        "reset_time": 1785772928,
-        "last_check_time": 1785686528,
-        "next_check_time": 1785697328,
+        "reset_time": 1785943117,
+        "last_check_time": 1785856717,
+        "next_check_time": 1785867517,
         "error_msg": "",
         "project_id": "1"
       },
@@ -270,9 +270,9 @@
         "key": "ENC:d2dyVnBFeTRJRUhFa0l6bG5VTm1ySjR6VjlZdm5hMkRJaC1lTGhNV1VEOUk2TlI4YkEuUUE=",
         "email": "gamesvendn16",
         "status": "exhausted",
-        "reset_time": 1785773620,
-        "next_check_time": 1785698020,
-        "last_check_time": 1785687220,
+        "reset_time": 1785943433,
+        "next_check_time": 1785867833,
+        "last_check_time": 1785857033,
         "project_id": "1"
       },
       {
@@ -280,9 +280,9 @@
         "key": "ENC:Z1VzRWU0M0pza3ZtTlBwcTFZUkFyNm1QMVhmTm1VeWMxMWJCVXNBRmVHUEw2TlI4YkEuUUE=",
         "email": "gamesvendn17",
         "status": "exhausted",
-        "reset_time": 1785774993,
-        "next_check_time": 1785699393,
-        "last_check_time": 1785688593,
+        "reset_time": 1785943785,
+        "next_check_time": 1785868185,
+        "last_check_time": 1785857385,
         "project_id": "1"
       },
       {
@@ -290,9 +290,9 @@
         "key": "ENC:Z1RnU0NqbHBEZ2hDaFRqUmcxR00wZG11TzVnbldfdlZrM1d0WEw5MF8xYUs2TlI4YkEuUUE=",
         "email": "gamesvendn18",
         "status": "exhausted",
-        "reset_time": 1785775821,
-        "next_check_time": 1785700221,
-        "last_check_time": 1785689421,
+        "reset_time": 1785944146,
+        "next_check_time": 1785868546,
+        "last_check_time": 1785857746,
         "project_id": "1"
       },
       {
@@ -300,9 +300,9 @@
         "key": "ENC:Z0NWR0FTTEpHS3RISjVlZzk5STRvREV0Q2NJd0JfbHpSdG16bGhTSjRpT0w2TlI4YkEuUUE=",
         "email": "gamesvendn19",
         "status": "exhausted",
-        "reset_time": 1785776434,
-        "next_check_time": 1785700834,
-        "last_check_time": 1785690034,
+        "reset_time": 1785944414,
+        "next_check_time": 1785868814,
+        "last_check_time": 1785858014,
         "project_id": "1"
       },
       {
@@ -310,9 +310,9 @@
         "key": "ENC:dzZzUzA5cnVTcGhjM3NQSHN5OE9PakZGLUNnY2xONjY3eVp3VVYwZUEtQUs2TlI4YkEuUUE=",
         "email": "gamesvendn20",
         "status": "exhausted",
-        "reset_time": 1785776985,
-        "next_check_time": 1785701385,
-        "last_check_time": 1785690585,
+        "reset_time": 1785944804,
+        "next_check_time": 1785869204,
+        "last_check_time": 1785858404,
         "project_id": "1"
       },
       {
@@ -320,9 +320,9 @@
         "key": "ENC:d1otNzM5ZS1tSDBweGVQNEZuSjRLT1Q1a2RnaHlVb3h0T2xCZVVyN29PdEk2TlI4YkEuUUE=",
         "email": "gamesvendn22",
         "status": "exhausted",
-        "reset_time": 1785862351,
-        "next_check_time": 1785786751,
-        "last_check_time": 1785775951,
+        "reset_time": 1785945154,
+        "next_check_time": 1785869554,
+        "last_check_time": 1785858754,
         "project_id": "1"
       },
       {
@@ -330,9 +330,9 @@
         "key": "ENC:d1NJazZkQS1BOGZWakU1QmpVdHJnYkpTZWhZRWU2UEVfWmxmNTU5eXBFMkk2TlI4YkEuUUE=",
         "email": "gamesvendn23",
         "status": "exhausted",
-        "reset_time": 1785862599,
-        "next_check_time": 1785786999,
-        "last_check_time": 1785776199,
+        "reset_time": 1785945547,
+        "next_check_time": 1785869947,
+        "last_check_time": 1785859147,
         "project_id": "1"
       },
       {
@@ -340,9 +340,9 @@
         "key": "ENC:UXU3UW84TmEyQ01PejVMNmdvOU5RNGhGRHRISF85WkM3U3hWRmg0N2Nvcks2TlI4YkEuUUE=",
         "email": "gamesvendn24",
         "status": "exhausted",
-        "reset_time": 1785896649,
-        "next_check_time": 1785821049,
-        "last_check_time": 1785810249,
+        "reset_time": 1785945985,
+        "next_check_time": 1785870385,
+        "last_check_time": 1785859585,
         "project_id": "1"
       },
       {
@@ -350,9 +350,9 @@
         "key": "ENC:QVo1SjdEMVlMUVdzeEZNSlZTa0RoUTJaaU12Y1JRdXBCQml1QWNESnY3ZEk2TlI4YkEuUUE=",
         "email": "gamesvendn25",
         "status": "exhausted",
-        "reset_time": 1785909809,
-        "next_check_time": 1785834209,
-        "last_check_time": 1785823409,
+        "reset_time": 1785946354,
+        "next_check_time": 1785870754,
+        "last_check_time": 1785859954,
         "project_id": "1"
       },
       {
@@ -360,19 +360,19 @@
         "key": "ENC:d0Q3WEJZcEVSM0tlRTFMYjQza2cwUlVKcW5TblhJR2RfSkhzYVBsd3FZWUk2TlI4YkEuUUE=",
         "email": "gamesvendn26",
         "status": "exhausted",
-        "reset_time": 1785910299,
-        "next_check_time": 1785834699,
-        "last_check_time": 1785823899,
+        "reset_time": 1785946836,
+        "next_check_time": 1785871236,
+        "last_check_time": 1785860436,
         "project_id": "1"
       },
       {
         "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "key": "ENC:UWRKS1NkdmFBV3Zicnl5QVpzd3pYeFVNanNIYTVaZmFDQ3JFTjUwVGozZ0s2TlI4YkEuUUE=",
         "email": "gamesvendn27",
-        "status": "exhausted",
-        "reset_time": 1785914730,
-        "next_check_time": 1785839130,
-        "last_check_time": 1785828330,
+        "status": "active",
+        "reset_time": 0,
+        "next_check_time": 0,
+        "last_check_time": 1785860449,
         "project_id": "1"
       },
       {
