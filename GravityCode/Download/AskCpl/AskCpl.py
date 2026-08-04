@@ -236,7 +236,7 @@ class AskCplApp:
                     # Cập nhật lại label
                     for i, child in enumerate(self.f_refs_container.winfo_children()):
                         if i > 0: # Bỏ qua header
-                            child.winfo_children()[0].config(text=f"File tham khảo {i}:")
+                            child.winfo_children()[0]["text"] = f"File tham khảo {i}:"
             tk.Button(f_row, text="[-]", command=remove_file, fg="red").pack(side='left')
             
         f_ref_header = tk.Frame(self.f_refs_container)
