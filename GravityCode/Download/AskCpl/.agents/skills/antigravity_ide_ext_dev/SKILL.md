@@ -5,6 +5,8 @@ description: "Use this skill for building, installing, or maintaining VSCode-bas
 
 # Hướng dẫn phát triển Extension cho Antigravity IDE
 
+Áp dụng quy tắc làm việc chung từ `AI_RULES.md` / `AGENTS.md` khi chúng có trong workspace. Skill này chỉ bổ sung kiến thức kỹ thuật riêng cho Antigravity IDE.
+
 Skill này ghi lại kiến thức từ dự án **QuotaAntigravity Tracker** — một VSCode Extension chạy trong Antigravity IDE. Áp dụng cho mọi extension local (không qua marketplace) cần cài thủ công vào Antigravity IDE.
 
 ---

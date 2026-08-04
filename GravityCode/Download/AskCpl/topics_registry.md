@@ -466,3 +466,313 @@
 | on_tap_thiet_ke_dung_cu_decor_va_da_ngoai_da_nang | Ôn tập thiết kế dụng cụ decor nghệ thuật và dã ngoại đa năng | roadmap_Tao_do_choi_0-25_tuoi.md |
 | capstone_tram_decor_outdoor_tong_hop_p1_khung_co_khi | Capstone Trạm Decor & Dã Ngoại Đa Năng - Phần 1: Khung cơ khí | roadmap_Tao_do_choi_0-25_tuoi.md |
 | capstone_tram_decor_outdoor_tong_hop_p2_mach_dien_hoan_thien | Capstone Trạm Decor & Dã Ngoại Đa Năng - Phần 2: Mạch điện & Hoàn thiện | roadmap_Tao_do_choi_0-25_tuoi.md |
+| khao_sat_8_kich_ban_lich_su | Khảo sát 8 Kịch bản Lịch sử & Case Study Thế lực Nhược tiểu (184 - 280) | roadmap_Sango_heros_7.md |
+| phan_tich_chu_ky_thiet_trieu | Phân tích Chu kỳ Thiết triều 2 Tháng và Nhịp vận hành Tín lệnh | roadmap_Sango_heros_7.md |
+| toi_uu_kinh_te_nong_nghiep | Tối ưu hóa Phát triển Kinh tế và Nông nghiệp Thành trì | roadmap_Sango_heros_7.md |
+| cung_co_quoc_phong_binh_luc | Củng cố Quốc phòng và Cung cấp Binh lực Thành trì | roadmap_Sango_heros_7.md |
+| capstone_ke_hoach_noi_chinh_nam_dau | Capstone: Lập Kế hoạch Nội chính và Thiết triều Toàn diện cho Thế lực Nhược tiểu | roadmap_Sango_heros_7.md |
+| phan_tich_tuong_quan_luc_luong_184_200 | Phân tích Tương quan Lực lượng, Điểm Nóng Địa chính trị 184-200 & Case Study Thế lực Nhược tiểu | roadmap_Sango_heros_7.md |
+| toi_uu_bo_nhiem_quan_lai_trung_thanh | Bổ nhiệm Tước vị, Quản lý Chỉ số Trung thành và Tối ưu Đặc tính Tước vị Ban thưởng | roadmap_Sango_heros_7.md |
+| ky_thuat_kham_pha_thanh_tri_vat_pham | Kỹ thuật Trinh sát Khám phá Thành trì, Tìm kiếm Nhân tài và Chiêu mộ Tướng Tự tạo/Ẩn | roadmap_Sango_heros_7.md |
+| xay_dung_tuyen_thuong_nghiep_lien_thanh | Điều phối Ngân sách, Thiết lập Mạng lưới Thương nghiệp Liên Thành và Tối ưu Lợi tức Vận tải | roadmap_Sango_heros_7.md |
+| capstone_ban_do_chien_luoc_10_thanh_tri | Capstone: Bản đồ Chiến lược Mở rộng, Quản trị 10 Thành trì và Vận hành Thiết triều Tự động | roadmap_Sango_heros_7.md |
+| phan_tich_kich_ban_208_280 | Phân tích Kịch bản Giai đoạn 208-280 và Chiến lược Sinh tồn Thế lực Nhược tiểu | roadmap_Sango_heros_7.md |
+| quan_ly_thien_tai_bao_dong | Ứng phó Thiên tai và Xử lý Bạo động Dân sự trong Kỳ Thiết triều | roadmap_Sango_heros_7.md |
+| nang_cap_cong_trinh_phong_thu | Thiết kế Quy hoạch Công trình Kỹ thuật và Phòng thủ Thành trì | roadmap_Sango_heros_7.md |
+| quan_ly_bao_vat_noi_chinh | Phân bổ Bảo vật và Trang bị Bổ trợ Chỉ số Nội chính Tướng sĩ | roadmap_Sango_heros_7.md |
+| capstone_mo_phong_noi_chinh_5_nam | Capstone: Mô hình Tổng thể Quản trị Nội chính và Sinh tồn Thế lực Nhược tiểu 5 Năm | roadmap_Sango_heros_7.md |
+| chinh_sach_ngoai_giao_thiet_trieu | Thiết Lập Liên Minh và Ngoại Giao Sinh Tồn Cho Thế Lực Nhược Tiểu Trong Thiết Triều | roadmap_Sango_heros_7.md |
+| dieu_phoi_dan_so_lao_dong | Điều Phối Dân Số và Tối Ưu Hóa Lực Lượng Lao Động Giữa Các Thành | roadmap_Sango_heros_7.md |
+| khiem_soat_su_kien_lich_su | Đón Đầu Sự Kiện Lịch Sử và Kích Hoạt Tướng Ẩn Giai Đoạn 184-280 | roadmap_Sango_heros_7.md |
+| on_tap_quy_trinh_thiet_trieu_noi_chinh | Rà Soát Toàn Diện Mệnh Lệnh Thiết Triều và Chu Chuỗi Nội Chính | roadmap_Sango_heros_7.md |
+| capstone_cam_nang_noi_chinh_kich_ban_hoan_chinh | Capstone: Cẩm Nang Điều Hành Nội Chính và Kịch Bản Tam Quốc Hoàn Chỉnh | roadmap_Sango_heros_7.md |
+| toi_uu_thu_tu_lenh_noi_chinh | Quản lý Thứ tự Ưu tiên Thi hành Lệnh Nội chính Theo Khung Thời gian & Case Study Thế lực Nhược tiểu | roadmap_Sango_heros_7.md |
+| kiem_soat_chi_so_khai_hoang_ky_nghe | Phương pháp Nâng cao Chỉ số Khai hoang, Kỹ nghệ Cho Hậu phương & Đặc tính Nội chính Võ tướng | roadmap_Sango_heros_7.md |
+| quan_ly_thuong_nhan_chuyen_cung_thiet_trieu | Tận dụng Kỳ Thiết triều Để Giao dịch Vật phẩm Hiếm & Quản lý Ngân sách Mua sắm | roadmap_Sango_heros_7.md |
+| danh_gia_hieu_qua_phat_trien_noi_chinh | Đánh giá Hiệu quả Phát triển Nội chính, Chuẩn Kịch bản 184-280 & Kiểm thử Cân bằng Game Design | roadmap_Sango_heros_7.md |
+| capstone_hoan_thien_he_thong_noi_chinh_184_280 | Capstone: Thiết kế Hệ thống Vận hành Nội chính Tối ưu Cho Kịch bản 184-280 & Case Study Sinh tồn | roadmap_Sango_heros_7.md |
+| phan_tich_chi_so_tuong_va_thuoc_tinh_an | Phân tích Chỉ số Sức mạnh, Trí tuệ, Thuộc tính Ẩn và Ma trận Đặc tính Võ tướng | roadmap_Sango_heros_7.md |
+| phan_loai_va_kich_hoat_ky_nang_doc_quyen | Phân loại, Kích hoạt Võ kỹ Độc quyền và Hệ thống Quân sư kỹ | roadmap_Sango_heros_7.md |
+| co_che_chieu_mo_va_ly_gian_tuong_dich | Cơ chế Chiêu mộ, Dụ dỗ, Ly gián Tướng Hàng ngũ Địch và Xử lý Hàng tướng | roadmap_Sango_heros_7.md |
+| ra_soat_mang_luoi_quan_he_than_toc_ket_nghia | Rà soát Mạng lưới Mối quan hệ Thân tộc, Kết nghĩa và Tình nghĩa kỹ | roadmap_Sango_heros_7.md |
+| capstone_ho_so_doi_hinh_vo_tuong_va_nhan_su_toi_uu | Capstone: Hồ sơ Đội hình Võ tướng, Đặc tính, Quân sư kỹ và Mạng lưới Nhân sự Tối ưu | roadmap_Sango_heros_7.md |
+| tinh_toan_tang_truong_chi_so_tuong | Tính Toán Tỷ Lệ Tăng Trưởng Chỉ Số Võ Tướng Và Ma Trận Đặc Tính Bẩm Sinh | roadmap_Sango_heros_7.md |
+| do_luong_khang_ngu_hanh_va_toc_do | Đo Lường Ảnh Hưởng Của Kháng Ngũ Hành, Thuộc Tính Tốc Độ Và Tác Động Của Quân Sư Kỹ | roadmap_Sango_heros_7.md |
+| phuong_phap_du_hang_tuong_trung_thanh_cao | Phương Pháp Dụ Hàng Tướng Tù Binh Trung Thành Cao Và Sử Dụng Quân Sư Kỹ Thu Mua Lòng Người | roadmap_Sango_heros_7.md |
+| tong_hop_kich_hoat_tuong_sinh_than_toc | Tổng Hợp Mối Kích Hoạt Tương Sinh Tương Khắc Thân Tộc Và Tổ Hợp Đặc Tính Võ Tướng Trận Chiến | roadmap_Sango_heros_7.md |
+| capstone_ma_tran_tuyen_dung_va_chi_so_danh_tuong | Capstone: Ma Trận Tuyển Dụng, Đặc Tính Bẩm Sinh Và Tối Ưu Bảng Chỉ Số Toàn Bộ Danh Tướng | roadmap_Sango_heros_7.md |
+| toi_uu_trang_bi_bao_vat_chiso_an | Phối hợp Trang bị Bảo vật & Đặc tính Võ tướng Nhằm Tối ưu Thuộc tính Ẩn | roadmap_Sango_heros_7.md |
+| tac_dong_uy_mi_quan_chu_chieu_mo | Đánh giá Ảnh hưởng của Uy Mị Quân chủ & Quân sư kỹ Tới Tỷ lệ Dụ Hàng Tướng | roadmap_Sango_heros_7.md |
+| kich_hoat_ky_nang_hop_kich_ket_nghia | Kỹ thuật Kích hoạt Kỹ năng Hợp kích Từ Mạng lưới Kết nghĩa Thân tộc & Tướng tương sinh | roadmap_Sango_heros_7.md |
+| on_tap_he_thong_danh_tuong_va_tuyen_dung | Ôn tập Tổng hợp Chuỗi Phát triển Chỉ số, Đặc tính và Kỹ năng Danh tướng | roadmap_Sango_heros_7.md |
+| capstone_so_tay_toan_thu_danh_tuong_sango_7 | Capstone: Sổ tay Toàn thư Chỉ số, Đặc tính, Kỹ năng và Mạng lưới Danh tướng | roadmap_Sango_heros_7.md |
+| tac_dong_dia_hinh_thoi_tiet_ky_nang | Đánh Giá Tác Động Địa Hình, Thời Tiết Và Đặc Tính Võ Tướng Đến Kỹ Năng | roadmap_Sango_heros_7.md |
+| phong_tuoc_quan_chuc_mo_khoa_chieu_an | Tối Ưu Phong Tước Quan Chức Mở Khóa Chiêu Thức Ẩn Và Đặc Tính Mới | roadmap_Sango_heros_7.md |
+| luyen_cap_tuong_nhanh_qua_san_binh_da_mang | Chiến Thuật Luyện Cấp Tướng Nhanh Qua Săn Binh Dã Mãng Và Sử Dụng Quân Sư Kỹ | roadmap_Sango_heros_7.md |
+| danh_gia_toan_dien_du_hang_va_quan_he | Đánh Giá Toàn Diện Hệ Thống Dụ Hàng, Mạng Lưới Quan Hệ Và Quân Sư Kỹ Hỗ Trợ | roadmap_Sango_heros_7.md |
+| capstone_cam_nang_phat_trien_tuong_sango_7 | Capstone: Cẩm Nang Phát Triển Võ Tướng, Tự Tạo Tướng Và Chiêu Mộ Nhân Tài | roadmap_Sango_heros_7.md |
+| co_che_suy_giam_trung_thanh_va_ly_gian_khi_thua_tran | Cơ chế Suy giảm Trung thành, Đặc tính Võ tướng và Kỹ thuật Ly gián Tướng khi Thua trận | roadmap_Sango_heros_7.md |
+| su_dung_duoc_thach_toi_uu_chi_so_tuong | Tối ưu hóa Thuốc tiên, Bảo thạch và Ma trận Đặc tính Bẩm sinh để Cực đại hóa Chỉ số Danh tướng | roadmap_Sango_heros_7.md |
+| thiet_ke_so_do_mang_luoi_than_toc_bien_che_quan_doan | Thiết kế Sơ đồ Mạng lưới Thân tộc và Kích hoạt Đặc tính Tổ hợp Biên chế Quân đoàn Chiến lược | roadmap_Sango_heros_7.md |
+| tong_dieu_tra_va_danh_gia_he_thong_quan_he_chiso_danh_tuong | Tổng Ôn tập Hệ thống Thuộc tính Ẩn, Đặc tính Võ tướng, Quân sư kỹ và Mạng lưới Quan hệ | roadmap_Sango_heros_7.md |
+| capstone_co_so_du_lieu_va_cam_nang_quan_tri_danh_tuong_sango_7 | Capstone: Cơ sở Dữ liệu và Cẩm nang Quản trị Danh tướng, Đặc tính & Quân sư kỹ Sango Heroes 7 | roadmap_Sango_heros_7.md |
+| tac_dong_toa_ky_binh_khi_huyen_thoai | Tác động của Tọa kỵ và Binh khí Huyền thoại tới Chỉ số Tướng | roadmap_Sango_heros_7.md |
+| ky_thuat_phan_loai_tu_binh_danh_tieng | Kỹ thuật Phân loại Tù binh và Tác động đến Danh tiếng Thế lực | roadmap_Sango_heros_7.md |
+| thiet_lap_doi_hinh_hop_kich_5v5 | Thiết lập Đội hình Hợp kích Danh tướng Trong Trận hình 5v5 | roadmap_Sango_heros_7.md |
+| tong_duyet_chi_so_an_va_chieu_mo | Tổng duyệt Toàn bộ Chỉ số Ẩn và Chiến thuật Chiêu mộ Danh tướng | roadmap_Sango_heros_7.md |
+| capstone_ban_co_nhan_su_va_ma_tran_quan_he | Capstone: Bàn cờ Nhân sự và Ma trận Quan hệ Tướng sĩ Sango 7 | roadmap_Sango_heros_7.md |
+| phan_loai_binh_khi_thu_cuoi_truyen_thuyet | Phân loại Chỉ số Vũ khí Hoàng kim, Thú cưỡi và Ma trận Đặc tính Trang bị | roadmap_Sango_heros_7.md |
+| quy_trinh_thu_thap_nguyen_lieu_ren_cao_cap | Quy trình Săn tìm, Thu thập Nguyên liệu Rèn Đồ Cao cấp và Vị trí Boss Dã ngoại | roadmap_Sango_heros_7.md |
+| ky_thuat_giai_ma_binh_khi_pho_va_ty_le_ren | Kỹ thuật Giải mã Binh khí Phổ, Tối ưu Tỷ lệ Rèn và Phân tích Cấu trúc Item.ini | roadmap_Sango_heros_7.md |
+| on_tap_quy_trinh_che_tao_trang_bi_hoang_kim | Ôn tập Chuỗi Chế tạo, Chu kỳ Thu thập Nguyên liệu và Rèn Thần binh Hoàng kim | roadmap_Sango_heros_7.md |
+| capstone_bang_tong_hop_trang_bi_thu_cuoi_cong_thuc_ren | Capstone: Cẩm nang Toàn thư Trang bị, Tọa kỵ, Đặc tính và Quy trình Rèn Hoàng kim | roadmap_Sango_heros_7.md |
+| chi_tiet_thuoc_tinh_toa_ky_va_than_binh | Phân Tích Chi Tiết Thuộc Tính Tọa Kỵ, Thần Binh Kèm Đặc Tính Võ Tướng | roadmap_Sango_heros_7.md |
+| phuong_phap_sankho_bau_va_tieu_diet_than_thu | Phương Pháp Khám Phá Sào Huyệt, Săn Thần Thú Và Tối Ưu Quân Sự Kỹ Support | roadmap_Sango_heros_7.md |
+| ky_thuat_kham_bao_thach_va_cuong_hoa_trang_bi | Kỹ Thuật Khảm Bảo Thạch, Cường Hóa Trang Bị Và Cân Bằng Chỉ Số Combat | roadmap_Sango_heros_7.md |
+| on_tap_toan_dien_he_thong_ren_va_than_binh | Rà Soát Hệ Thống Công Thức Rèn, Ma Trận Nguyên Liệu Và Cấu Trúc Item.ini | roadmap_Sango_heros_7.md |
+| capstone_so_tay_toan_thu_ren_trang_bi_hoang_kim | Capstone: Sổ Tay Toàn Thư Chế Tạo Trang Bị, Thần Binh Và Đặc Tính Sango 7 | roadmap_Sango_heros_7.md |
+| bang_tong_hop_ky_nang_tu_dong_binh_khi_hoang_kim | Bảng Tổng Hợp Kỹ Năng Tự Động Của Binh Khí Hoàng Kim | roadmap_Sango_heros_7.md |
+| ma_tran_ty_le_roi_nguyen_lieu_ren_tu_dong_phu | Ma Trận Tỷ Lệ Rơi Nguyên Liệu Rèn Từ Động Phủ Và Thần Thú | roadmap_Sango_heros_7.md |
+| toi_uu_ty_le_ren_vu_khi_than_cap_bang_tuong_may_man | Tối Ưu Tỷ Lệ Rèn Vũ Khí Thần Cấp Bằng Tướng Có Thuộc Tính May Mắn | roadmap_Sango_heros_7.md |
+| tong_on_toan_bo_cong_thuc_ren_hoan_chinh_va_lo_trinh_cay_nguyen_lieu | Tổng Ôn Toàn Bộ Công Thức Rèn Hoàn Chỉnh Và Lộ Trình Cày Nguyên Liệu | roadmap_Sango_heros_7.md |
+| capstone_bang_tong_tra_toan_tap_trang_bi_thu_cuoi_sango_7 | Capstone: Bảng Tổng Tra Toàn Tập Trang Bị, Thú Cưỡi Và Kỹ Thuật Rèn Hoàng Kim | roadmap_Sango_heros_7.md |
+| phoi_hop_toa_ky_than_cap_theo_dang_tuong | Phối Hợp Tọa Kỵ Thần Cấp Với Từng Dạng Tướng Sĩ Và Đặc Tính Bẩm Sinh | roadmap_Sango_heros_7.md |
+| ky_thuat_thu_thap_khoang_thach_hiem_phe_tich | Kỹ Thuật Thu Thập Khoáng Thạch Hiếm Tại Các Phế Tích Cổ Đại Và Quản Lý Tệp Item.ini | roadmap_Sango_heros_7.md |
+| quy_trinh_ep_ky_nang_an_binh_khi_hoang_kim | Quy Trình Ép Kỹ Năng Ẩn Vào Binh Khí Hoàng Kim Nhờ Bảo Thạch Và Tối Ưu Hitbox | roadmap_Sango_heros_7.md |
+| kiem_tra_hieu_ung_khang_thuoc_tinh_than_binh | Kiểm Tra Và Đánh Giá Hiệu Ứng Kháng Thuộc Tính Của Thần Binh Trong Trận Đánh Quy Mô Lớn | roadmap_Sango_heros_7.md |
+| capstone_cam_nang_tra_cuu_vu_khi_hoang_kim_va_toa_ky | Capstone: Cẩm Nang Tra Cứu Toàn Diện Vũ Khí Hoàng Kim, Tọa Kỵ Và Cân Bằng Trang Bị | roadmap_Sango_heros_7.md |
+| danh_gia_do_ben_bao_tri_trang_bi | Đánh Giá Độ Bền, Cơ Chế Bảo Trì Và Cân Bằng Chi Phí Sửa Trang Bị Hoàng Kim | roadmap_Sango_heros_7.md |
+| toi_uu_toc_do_tau_thoat_toa_ky | Tối Ưu Tốc Độ Di Chuyển, Tỷ Lệ Tẩu Thoát Và Đặc Tính Kèm Theo Của Tọa Kỵ | roadmap_Sango_heros_7.md |
+| ket_hop_trang_suc_hiem_kich_hoat_hao_quang | Kết Hợp Trang Sức Hiếm Với Thần Binh Để Kích Hoạt Hào Quang Và Hỗ Trợ Quân Sư Kỹ | roadmap_Sango_heros_7.md |
+| tong_danh_gia_quy_trinh_luyen_ren_than_binh | Tổng Đánh Giá Quy Trình Luyện Rèn Thần Binh Và Bảng Dữ Liệu Item.ini | roadmap_Sango_heros_7.md |
+| capstone_tuyet_pham_cam_nang_trang_bi_ren_than_binh | Capstone: Tuyệt Phẩm Cẩm Nang Hệ Thống Trang Bị, Rèn Thần Binh Và Ma Trận Item.ini | roadmap_Sango_heros_7.md |
+| ma_tran_khac_che_binh_chung_co_ban | Phân Tích Ma Trận Khắc Chế Binh Chủng Cơ Bản Theo Chỉ Số DPS/EHP | roadmap_Sango_heros_7.md |
+| khac_che_binh_chung_nang_cao_dac_biet | Chiến Thuật Khắc Chế Binh Chủng Nâng Cao Kết Hợp Hệ Thống Quân Sư Kỹ | roadmap_Sango_heros_7.md |
+| chien_thuat_1_tuong_choi_1000_quan | Kỹ Thuật 1 Tướng Tảo Thanh 1000 Binh Địch Dựa Trên Đặc Tính Võ Tướng Bẩm Sinh | roadmap_Sango_heros_7.md |
+| thu_thuat_lap_lenh_f3_va_vi_mo_vo_tuong_ky | Giải Mã Cơ Chế Game Engine Phím F3 Và Tối Ưu Hóa Animation Canceling | roadmap_Sango_heros_7.md |
+| capstone_ma_tran_khac_che_binh_chung_va_vi_mo_tran_dau | Capstone: Cẩm Nang Ma Trận Binh Chủng, Quân Sư Kỹ Và Thao Tác Vi Mô Trận Đấu | roadmap_Sango_heros_7.md |
+| binh_phap_doi_hinh_bat_quai_va_tien_phong | Ứng Dụng Bát Quái Trận, Quân Sư Kỹ Và Ma Trận Phòng Thủ Vi Mô | roadmap_Sango_heros_7.md |
+| dieu_khien_vi_mo_cung_thu_xung_xa | Kỹ Thuật Vi Mô Cung Binh, Khí Tài Phá Thành Và Tối Ưu FPS Trận Đánh Lớn | roadmap_Sango_heros_7.md |
+| ket_hop_vo_tuong_ky_voi_f3_ngat_nhip | Cơ Chế Engine Ngắt Nhịp F3 Và Tối Ưu Animation Canceling | roadmap_Sango_heros_7.md |
+| tong_on_chien_thuat_vi_mo_va_doi_hinh | Tổng Ôn Kỹ Thuật Điều Dinh Xung Trận, Vi Mô F3 Và Phối Hợp Quân Sư Kỹ | roadmap_Sango_heros_7.md |
+| capstone_cam_nang_vi_mo_tran_dau_va_doi_hinh | Capstone: Cẩm Nang Điều Binh Vi Mô, Binh Pháp Đội Hình Và Thiết Kế Game Design | roadmap_Sango_heros_7.md |
+| ky_thuat_du_dich_xuat_thanh_tac_chien_dong_bang | Kỹ Thuật Dụ Quân Địch Rời Thành Tác Chiến Tại Cánh Đồng & Ứng Dụng Quân Sư Kỹ | roadmap_Sango_heros_7.md |
+| toi_uu_cu_ly_di_chuyen_thuan_binh_ky_binh | Tối Ưu Cự Ly Di Chuyển, Tầm Đánh Thuẫn Binh - Kỵ Binh & Lệnh F3 Animation Canceling | roadmap_Sango_heros_7.md |
+| co_che_si_khi_va_the_luc_trong_giao_tran | Phân Tích Cơ Chế Sĩ Khí, Thể Lực Binh Sĩ & Tác Động Từ Đặc Tính Võ Tướng | roadmap_Sango_heros_7.md |
+| tong_on_dieu_khiem_vi_mo_va_chi_so_si_khi | Tổng Ôn Kỹ Thuật Dụ Địch, Vi Mô Cự Ly Lệnh F3 Và Quản Lý Sĩ Khí Trận Địa | roadmap_Sango_heros_7.md |
+| capstone_so_tay_thuc_chien_dieu_binh_vi_mo_va_si_khi | Capstone: Sổ Tay Thực Chiến Điều Binh Vi Mô, Lệnh F3 Và Kiểm Soát Sĩ Khí Trận Địa | roadmap_Sango_heros_7.md |
+| ky_thuat_chan_vien_binh_chia_cat_doi_hinh | Kỹ Thuật Chặn Viện Binh, Chia Cắt Đội Hình Và Phối hợp Quân Sư Kỹ Trận Địa | roadmap_Sango_heros_7.md |
+| thao_tac_phuc_kich_bao_vay_dia_hinh_hep | Thao Tác Phục Kích, Bao Vây Địa Hình Hẹp Và Tối Ưu Đặc Tính Tướng Địa Hình | roadmap_Sango_heros_7.md |
+| toi_uu_ky_nang_tuong_don_binh_dien_rong | Tối Ưu Thi Triển Võ Tướng Kỹ Dọn Binh Điểm Nhịp F3 Và Cơ Chế Animation Canceling | roadmap_Sango_heros_7.md |
+| on_tap_phuc_kich_chan_vien_don_binh | Tổng Ôn Kỹ Thuật Phục Kích, Chặn Viện Binh, Quân Sư Kỹ Và Dọn Binh F3 | roadmap_Sango_heros_7.md |
+| capstone_cam_nang_thao_tac_vi_mo_sa_ban_sango_7 | Capstone: Cẩm Nang Binh Pháp Vi Mô, Quân Sư Kỹ Và Chiến Thuật Sa Bàn Sango 7 | roadmap_Sango_heros_7.md |
+| phan_tich_he_so_sat_thuong_khac_che_binh_chung | Tính toán Hệ số Sát thương DPS/EHP và Khắc chế Thực tế giữa Binh chủng | roadmap_Sango_heros_7.md |
+| chokepoint_co_quan_doc_binh_1_vs_1000 | Tận dụng Chokepoint Địa hình Khe núi Cho Võ tướng 1 Đấu 1000 Binh | roadmap_Sango_heros_7.md |
+| toi_uu_chu_ky_f3_huy_dong_tac_vo_tuong_ky | Giải mã Cơ chế Engine và Kỹ thuật Animation Canceling Bằng Lệnh F3 | roadmap_Sango_heros_7.md |
+| tong_on_khac_che_binh_chung_va_solo_1000_quan | Tổng ôn Ma trận Sát thương Binh chủng và Kỹ thuật Vi mô Solo 1 Tướng | roadmap_Sango_heros_7.md |
+| capstone_bang_tra_cuu_khac_che_binh_chung_va_f3 | Capstone: Sổ tay Tra cứu Vi mô Chiến thuật, Ma trận Binh chủng & F3 Canceling | roadmap_Sango_heros_7.md |
+| dieu_phoi_tran_hinh_bien_hoan_va_am_duong | Biến Trận Hình Âm Dương Bát Quái Để Tối Đa Hóa Khả Năng Thủ Thành Vi Mô | roadmap_Sango_heros_7.md |
+| toi_uu_khai_hoa_vo_tuong_ky_dien_rong_f3 | Tối Ưu Thao Tác Ngắt Nhịp F3 Thi Triển Kỹ Năng Tướng Diệt Binh | roadmap_Sango_heros_7.md |
+| tong_on_quy_trinh_f3_va_khac_che_binh_chung | Tổng Ôn Quy Trình Phối Hợp Lệnh F3 Với Ma Trận Khắc Chế Và Quân Sư Kỹ | roadmap_Sango_heros_7.md |
+| capstone_cam_nang_master_vi_mo_f3_va_khac_che_binh_chung | Capstone: Cẩm Nang Binh Pháp Vi Mô F3 Và Khắc Chế Binh Chủng Sango 7 | roadmap_Sango_heros_7.md |
+| capstone_ma_tran_tac_chien_vi_mo_f3_sango_7 | Capstone: Bảng Ma Trận Vi Mô F3 Và Thống Trị Chiến Trường Sango 7 | roadmap_Sango_heros_7.md |
+| toi_uu_he_thong_thue_vu_thiet_trieu | Tối Ưu Hệ Thống Thu Mua Thuế Vụ, Kim Ngân Và Tỷ Lệ Tăng Trưởng Kinh Tế Mỗi Mùa Thiết Triều | roadmap_Sango_heros_7.md |
+| phan_dinh_quan_chuc_van_vo_thang_tuoc | Phân Định Tước Vị Văn Võ, Tối Ưu Chỉ Số Nội Chính Và Kỹ Năng Quân Sự Kỹ Khi Thăng Quan | roadmap_Sango_heros_7.md |
+| thao_tung_ngoai_giao_chu_hau_ep_xung_than | Thao Túng Ngoại Giao Chư Hầu, Phương Pháp Ép Hàng Xưng Thần Và Sinh Tồn Cho Thế Lực Nhược Tiểu | roadmap_Sango_heros_7.md |
+| tong_on_thue_vu_quan_chuc_va_ngoai_giao | Tổng Ôn Hệ Thống Thuế Vụ, Phong Tước Văn Võ, Quân Sư Kỹ Và Ngoại Giao Chư Hầu | roadmap_Sango_heros_7.md |
+| capstone_ma_tran_tai_chinh_quan_chuc_ngoai_giao | Capstone: Ma Trận Quản Lý Tài Chính, Thăng Quan Văn Võ, Quân Sư Kỹ Và Ngoại Giao Sango 7 | roadmap_Sango_heros_7.md |
+| ky_thuat_kich_hoat_su_kien_ky_ngo_an | Kỹ thuật Kích hoạt Các Sự kiện Kỳ ngộ và Động phủ Ẩn trên Sa bàn | roadmap_Sango_heros_7.md |
+| phuong_phap_sankho_va_chieu_mo_tuong_an | Phương pháp Săn tìm và Chiêu mộ Võ tướng Ẩn Thần thoại | roadmap_Sango_heros_7.md |
+| dieu_kien_mo_khoa_chuoi_su_kien_lich_su_an | Điều kiện Mở khóa Chuỗi Sự kiện Lịch sử và Ngoại giao Đặc biệt | roadmap_Sango_heros_7.md |
+| tong_on_su_kien_ky_ngo_va_tuong_an | Tổng ôn Quy trình Kích hoạt Kỳ ngộ, Chiêu mộ Tướng ẩn và Sự kiện | roadmap_Sango_heros_7.md |
+| capstone_so_tay_toan_thu_su_kien_ky_ngo_va_tuong_an | Capstone: Sổ tay Toàn thư Sự kiện Kỳ ngộ, Tướng ẩn và Ngoại giao Thần thoại | roadmap_Sango_heros_7.md |
+| can_bang_ngan_sach_chi_phi_nuoi_quan | Cân Bằng Thu Chi Ngân Sách, Chi Phí Nuôi Quân Định Kỳ Và Tối Ưu Hóa Thuế Vụ | roadmap_Sango_heros_7.md |
+| so_sanh_cay_bo_nhiem_quan_chuc_van_vo | So Sánh Cây Bổ Nhiệm Quan Chức Văn Võ Tích Hợp Ma Trận Đặc Tính Bẩm Sinh | roadmap_Sango_heros_7.md |
+| chien_thuat_lien_minh_doi_cong_nap_chu_hau | Chiến Thuật Liên Minh Anti-Phe Mạnh, Đòi Tiền Cống Nạp Và Kích Hoạt Quân Sư Kỹ Ngoại Giao | roadmap_Sango_heros_7.md |
+| tong_on_ngan_sach_tuoc_vi_ngoai_giao_chu_hau | Tổng Ôn Quản Lý Ngân Sách, Hệ Thống Tước Vi Quan Chức Và Sách Lược Chư Hầu | roadmap_Sango_heros_7.md |
+| capstone_mo_hinh_tai_chinh_va_ngoai_giao_sango_7 | Capstone: Mô Hình Tài Chính Vùng Miền, Ma Trận Tước Vị Và Bản Đồ Ngoại Giao Chư Hầu Sango 7 | roadmap_Sango_heros_7.md |
+| quy_truyen_kich_hoat_dong_phu_than_bo | Quy Trình Khai Phá Động Phủ Thần Bí Để Săn Lùng Kỳ Ngộ Ẩn Vận Dụng Đặc Tính Võ Tướng | roadmap_Sango_heros_7.md |
+| ky_thuat_thu_phat_chi_so_khi_thang_chuc | Kỹ Thuật Cắt Giảm Chi Phí Lương Bổng Khi Thăng Tước Quan Chức Và Tối Ưu Quân Sư Kỹ | roadmap_Sango_heros_7.md |
+| dieu_kien_chieu_mo_tuong_an_dac_biet | Phương Pháp Thu Phục Võ Tướng Ẩn Bằng Uy Vọng Quốc Gia Và Phân Tích Ma Trận Đặc Tính Võ Tướng | roadmap_Sango_heros_7.md |
+| tong_on_dong_phu_quan_chuc_va_tuong_an | Tổng Ôn Định Vị Động Phủ Ẩn, Tối Ưu Lương Quan Chức Và Thu Phục Tướng Ẩn | roadmap_Sango_heros_7.md |
+| capstone_cam_nang_toan_dien_ky_ngo_va_tiet_kiem_ngan_sach | Capstone: Cẩm Nang Khai Phá Động Phủ Ẩn, Tối Ưu Quan Chức Và Quản Lý Ngân Sách Quốc Gia | roadmap_Sango_heros_7.md |
+| giao_thuong_lien_minh_ngoai_giao_chu_hau | Thiết Lập Mạng Lưới Giao Thương Và Kỹ Thuật Ngoại Giao Ép Chư Hầu Thế Lực Nhược Tiểu | roadmap_Sango_heros_7.md |
+| chuyen_hoa_chi_so_khi_thang_chuc_cao_cap | Phân Tích Hệ Thống Võ Tướng Kỹ, Quân Sư Kỹ Và Đặc Tính Mở Khóa Khi Thăng Tước Cấp 10+ | roadmap_Sango_heros_7.md |
+| toa_do_va_dieu_kien_mo_pala_tien_dao | Định Vị Tọa Độ Đảo Bồng Lai Và Kích Hoạt Chuỗi Kỳ Ngộ Tiên Gia Săn Bảo Vật | roadmap_Sango_heros_7.md |
+| tong_on_ngoai_giao_quan_chuc_va_ky_ngo_an | Tổng Ôn Kỹ Thuật Ngoại Giao, Thăng Tước Quan Chức, Quân Sư Kỹ Và Săn Kỳ Ngộ Đảo Tiên | roadmap_Sango_heros_7.md |
+| capstone_master_tai_chinh_ngoai_giao_va_ky_ngo | Capstone: Master Chiến Lược Tài Chính, Cây Quan Chức, Quân Sư Kỹ Và Kỳ Ngộ Sango 7 | roadmap_Sango_heros_7.md |
+| phan_tich_hanh_vi_ai_theo_do_kho | Phân Tích Cơ Chế Hành Vi AI, Sách Lược Theo Độ Khó Và Tối Ưu Hiệu Năng Trận Đánh Lớn | roadmap_Sango_heros_7.md |
+| su_dung_patch_12_va_ma_lenh_debug | Kỹ Thuật Patch v1.2, Mã Lệnh Debug Và Khắc Phục Lỗi Tương Thích DirectDraw Win 10/11 | roadmap_Sango_heros_7.md |
+| cai_dat_va_van_hanh_cac_ban_mod_sango7 | Can Thiệp Cấu Trúc File Dữ Liệu (.ini, PAK) Và Vận Hành Mod Với Công Cụ Chuyên Dụng | roadmap_Sango_heros_7.md |
+| tong_on_hanh_vi_ai_patch_v12_va_modding | Tổng Ôn Hành Vi AI, Kỹ Thuật Modding Nâng Cao Và Kiểm Thử Cân Bằng Hệ Thống Game | roadmap_Sango_heros_7.md |
+| capstone_chien_luoc_thong_nhat_toan_cuc_sango_7 | Capstone: Thiết Kế Sách Lược Thống Nhất Toàn Cục Và Tài Liệu Cân Bằng Hệ Thống Sango 7 | roadmap_Sango_heros_7.md |
+| dieu_chinh_phan_ung_ai_do_kho_cao | Khống Chế Áp Lực AI Cấp Độ Khó & Xử Lý Trường Hợp Biên Trận Đánh Nhanh | roadmap_Sango_heros_7.md |
+| tinh_chinh_file_cau_hinh_mod_v12 | Kỹ Thuật Tinh Chỉnh File Cấu Hình Mod v1.2 & Can Thiệp Tệp Dữ Liệu .ini/.PAK | roadmap_Sango_heros_7.md |
+| chien_thuat_toc_chien_thong_nhat_cac_kich_ban | Lộ Trình Tốc Chiến Thống Nhất Mọi Kịch Bản & Kiểm Thử An Toàn File Save | roadmap_Sango_heros_7.md |
+| tong_on_toan_dien_ai_modding_va_toc_chien | Tổng Ôn Cơ Chế AI, Kỹ Thuật Modding Nâng Cao VÀ Sách Lược Tốc Chiến | roadmap_Sango_heros_7.md |
+| capstone_hoan_gia_thong_nhat_toan_thu_sango_7 | Capstone: Đại Tàn Cuộc Thống Nhất Sa Bàn Và Sổ Tay Toàn Thư Sango 7 | roadmap_Sango_heros_7.md |
+| xu_ly_thuat_toan_vien_binh_ai_va_do_hoa_mod | Xử Lý Thuật Toán Viện Binh AI Về Tối Ưu Tệp Đồ Họa Và Hiệu Năng Trận Đánh Lớn | roadmap_Sango_heros_7.md |
+| ung_dung_cheat_debug_va_mod_dac_thu_toc_chien | Ứng Dụng Cheat Debug, Mod Đặc Thụ Tốc Chiến Và Kiểm Thử Trường Hợp Biên | roadmap_Sango_heros_7.md |
+| ra_soat_thuat_toan_ai_va_kiem_loi_mod_v12 | Rà Soát Thuật Toán AI, Kiểm Lỗi File Mod v1.2 Và Rò Rỉ Bộ Nhớ Game | roadmap_Sango_heros_7.md |
+| capstone_cam_nang_modding_patch_v12_va_thong_nhat_ai | Capstone: Cẩm Nang Toàn Tập Modding Patch v1.2, Sử Dụng Tool Và Thống Nhất Sa Bàn AI | roadmap_Sango_heros_7.md |
+| capstone_bach_khoa_toan_thu_thong_nhat_sango_7 | Capstone: Bách Khoa Toàn Thư Thống Nhất Sa Bàn Và Làm Chủ AI Sango 7 | roadmap_Sango_heros_7.md |
+| doc_luong_phuc_hoi_the_luc_ai_v12 | Đo Lường Tốc Độ Phục Hồi Thể Lực, Sĩ Khí AI Hell Và Kiểm Thử Độ Tương Thích OS | roadmap_Sango_heros_7.md |
+| chinh_sua_script_su_kien_trong_mod_sango7 | Kỹ Thuật Chỉnh Sửa Script Event.ini Và Cấu Trúc File General.ini Bằng Sango7 Editor | roadmap_Sango_heros_7.md |
+| dieu_chinh_tan_suat_ra_quan_ai_mo_rong | Thao Tác Điều Chỉnh Tần Suất AI Tấn Công Đa Tuyến Và Kiểm Thử Tải Trận Đánh Lớn | roadmap_Sango_heros_7.md |
+| tong_on_script_mod_va_thuat_toan_ai_v12 | Tổng Ôn Kỹ Thuật Vi Cấu Hình AI Script Mod, Sửa Lỗi PAK Và Stability Testing | roadmap_Sango_heros_7.md |
+| capstone_cam_nang_toan_dien_ai_modding_v12 | Capstone: Cẩm Nang Toàn Thư AI Modding V1.2, Tối Ưu Bảng Dữ Liệu Và Thống Nhất Sa Bàn | roadmap_Sango_heros_7.md |
+| lap_trinh_dieu_huong_ai_phan_luong_tan_cong | Can Thiệp Dữ Liệu Sango7 Editor, PAK Unpacker Và Tối Ưu Điều Hướng AI | roadmap_Sango_heros_7.md |
+| capstone_hoan_thien_de_quoc_thong_nhat_sango_7 | Capstone: Tối Ưu Hiệu Năng Chiến Trường Quy Mô Lớn Và Độ Ôn Định Bản Mod v1.2 | roadmap_Sango_heros_7.md |
+| tong_on_dieu_khien_ai_cheat_mod_va_toc_chien_sango7 | Tổng Ôn Kỹ Thuật Can Thiệp AI, Mã Lệnh Debug Và Kiểm Thử Trường Hợp Biên (Edge Cases) | roadmap_Sango_heros_7.md |
+| capstone_dieu_khien_ai_mod_v12_chinh_phuc_moi_kich_ban_sango7 | Capstone: Cẩm Nang Tối Ưu Tướng Tự Tạo, Quân Sư Kỹ Và Tinh Chỉnh Mod v1.2 | roadmap_Sango_heros_7.md |
+| capstone_dinh_cao_thong_nhat_sango7_master_ai_mod | Capstone: Sách Trắng Thống Nhất Sa Bàn, Cân Bằng Game Design Và Master AI Mod v1.2 | roadmap_Sango_heros_7.md |
+| boc_tach_nguy_cao_thi_hoang_toc | Tướng Ngụy Lô 1: Tào Tháo & Dòng Họ Tào, Hạ Hầu - Schema & Parsing | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_nguy_ngu_tu_luong_tuong | Tướng Ngụy Lô 2: Ngũ Tử Lương Tướng & Mãnh Tướng - Automated Parsing | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_nguy_mou_si_quan_su | Tướng Ngụy Lô 3: Mưu Sĩ & Quân Sư Phe Ngụy - Data Validation | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_nguy_tu_ma_y_hau_ky | Tướng Ngụy Lô 4: Phe Tư Mã & Tướng Hậu Kỳ - Graph Relation Mapping | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_nguy_nu_tuong_phu_bieu | Tướng Ngụy Lô 5: Nữ Tướng & Chư Tướng Phụ - Deduplication & Export | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_nguy_hang_tuong_quy_thuan | Tướng Ngụy Lô 6: Hàng Tướng & Chư Hầu Quy Thuận Tào Ngụy | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_nguy_tran_thu_bien_gioi | Tướng Ngụy Lô 7: Chư Tướng Trấn Thủ Biên Ải Tây Bắc Ngụy | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_nguy_van_quan_noi_chinh | Tướng Ngụy Lô 8: Văn Quan & Tướng Nội Chính Phe Ngụy | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_nguy_to_doi_skill_combo | Tướng Ngụy Lô 9: Tuyệt Kỹ Hợp Thể & Combo Đội Hình Ngụy | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_nguy_binh_chung_dac_chuyen | Tướng Ngụy Lô 10: Tướng Chỉ Huy Hổ Báo Kỵ & Binh Chủng | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_thuc_ngu_ho_tuong_luu_thi | Tướng Thục Lô 1: Lưu Bị & Ngũ Hổ Tướng Phe Thục | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_thuc_mou_si_quan_su | Tướng Thục Lô 2: Gia Cát Lượng & Mưu Sĩ Quan Sự Phe Thục | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_thuc_hau_ky_bac_phat | Tướng Thục Lô 3: Khương Duy & Chư Tướng Hậu Kỳ Bắc Phạt | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_thuc_nu_tuong_than_toc | Tướng Thục Lô 4: Nữ Tướng & Thân Tộc Mãnh Tướng Phe Thục | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_thuc_skill_combo_vo_tuong | Tướng Thục Lô 5: Tuyệt Kỹ Hợp Thể & Combo Đội Hình Phe Thục | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_thuc_ich_chau_han_trung | Tướng Thục Lô 6: Chư Tướng Ích Châu & Quan Viên Trấn Thủ Hán Trung | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_thuc_nam_trung_tho_hao | Tướng Thục Lô 7: Tướng Lĩnh Nam Trung & Thổ Hào Quy Thuận Phe Thục | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_thuc_van_quan_hau_can | Tướng Thục Lô 8: Văn Quan Nội Chính & Tướng Hậu Cần Phe Thục | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_ngo_ton_thi_hoang_toc | Tướng Ngô Lô 1: Tôn Kiên, Tôn Sách, Tôn Quyền & Tôn Thị Hoàng Tộc | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_ngo_tu_dai_do_doc_mou_si | Tướng Ngô Lô 2: Tứ Đại Đô Đốc Chu Du, Lỗ Túc, Lữ Mông, Lục Tốn & Mưu Sĩ | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_ngo_giang_dong_thap_nhi_ho_than | Tướng Ngô Lô 3: Thái Sử Từ, Cam Ninh & Giang Đông Thập Nhị Hổ Thần | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_ngo_nu_tuong_hau_ky | Tướng Ngô Lô 4: Nữ Tướng Đông Ngô & Chư Tướng Hậu Kỳ Phe Ngô | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_ngo_skill_combo_thuy_quan | Tướng Ngô Lô 5: Skill Combo Hợp Thể & Binh Chủng Thủy Quân Đông Ngô | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_ngo_van_quan_noi_chinh | Tướng Ngô Lô 6: Văn Quan Nội Chính, Ngoại Giao & Tham Mưu Phe Ngô | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_ngo_hang_tuong_quy_thuan | Tướng Ngô Lô 7: Hàng Tướng Quy Thuận & Chư Hầu Trấn Thủ Giang Đông | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_ngo_tran_thu_bien_gioi_son_viet | Tướng Ngô Lô 8: Chư Tướng Trấn Thủ Cận Biên & Bình Định Sơn Việt | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_ngo_vo_binh_khi_dac_chung | Tướng Ngô Lô 9: Trang Bị Bảo Vật & Binh Khí Đặc Chủng Thủy Chiến Ngô | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_ngo_quan_su_ky_tinh_anh | Tướng Ngô Lô 10: Mưu Sĩ Hậu Kỳ & Quân Sư Kỹ Đặc Biệt Phe Ngô | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_quan_hung_dong_trac_lu_bo | Tướng Quần Hùng Lô 1: Đổng Trác, Lữ Bố & Tây Lương - Trích Xuất & Chuẩn Hóa Bảng Mã Big5/GBK | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_quan_hung_vien_thieu_vien_thuat | Tướng Quần Hùng Lô 2: Thế Lực Nhị Viên & Cross-Validation Dữ Liệu Quan Hệ | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_quan_hung_truong_giac_manh_hoach | Tướng Quần Hùng Lô 3: Khăn Vàng, Nam Man & Mô Hình Hóa Thuộc Tính Dị Tộc | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_quan_hung_chu_hau_cac_the_luc | Tướng Quần Hùng Lô 4: Các Chư Hầu Các Vùng & Thiết Lập Relational Graph Mapping | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_quan_hung_nu_tuong_combo_dac_biet | Tướng Quần Hùng Lô 5: Nữ Tướng, Skill Combo & Tích Hợp Knowledge Graph Quần Hùng | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_quan_hung_lieu_dong_dong_bac | Tướng Quần Hùng Lô 6: Chư Tướng Liêu Đông & Thế Lực Bộc Phát Đông Bắc | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_quan_hung_tay_luong_khung_hung_no | Tướng Quần Hùng Lô 7: Tướng Lĩnh Tây Lương & Các Tộc Khương, Hung Nô | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_quan_hung_mou_si_tham_muu | Tướng Quần Hùng Lô 8: Mưu Sĩ & Tham Mưu Độc Lập Chư Hầu | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_quan_hung_di_toc_nam_man_oa_quoc | Tướng Quần Hùng Lô 9: Thủ Lĩnh Dị Tộc Nam Man, Oa Quốc & Các Thủ Lĩnh Sơn Lâm | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_quan_hung_binh_chung_bao_vat_vu_khi | Tướng Quần Hùng Lô 10: Binh Chủng Đặc Chủng, Bảo Vật & Vũ Khí Quần Hùng | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_quan_hung_kinh_chau_giang_nam | Tướng Kinh Châu Lưu Biểu & Các Chư Hầu Độc Lập Giang Nam | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_quan_hung_ich_chau_han_trung | Tướng Ích Châu Lưu Chương & Thế Lực Ngũ Đấu Mễ Đạo Trương Lỗ | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_quan_hung_dao_si_tien_nhan | Đạo Sĩ, Tiên Nhân & Các Nhân Vật Ẩn Sĩ Kịch Bản Quần Hùng | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_tuong_nu_doc_quyen_an | Bóc Tách & Chuẩn Hóa Mã Font Big5/UTF-8 Nữ Tướng Độc Quyền & Nữ Tướng Ẩn Sĩ | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_oa_quoc_nhat_ban_himiko | Bóc Tách Dữ Liệu Tướng Oa Quốc Nhật Bản & Thiết Kế Schema Đồ Thị Phe Phái | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_nam_man_di_toc_thu_linh | Bóc Tách Thủ Lĩnh Dị Tộc Nam Man & Xây Dựng ETL Pipeline Tự Động Validation | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_tuong_than_thoai_tien_nhan | Bóc Tách Tướng Thần Thoại, Tiên Nhân & Reverse Engineering Unpack File Binary | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_tuong_an_phuc_sinh_bat_quai | Bóc Tách Thần Tướng Phục Sinh & Tích Hợp Đồ Thị Tri Thức Knowledge Graph | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_nu_tuong_nhat_ban_nam_man | Kỹ Năng & Chỉ Số Nữ Tướng Nhật Bản, Nam Man Độc Quyền | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_tuong_than_thoai_ma_vuong_vo_dien | Chỉ Số Tướng Thần Thoại Vô Diện & Ma Vương Kịch Bản | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_binh_chung_bo_binh_thuong_binh | Bóc tách Binh chủng Bộ Binh & Thương Binh Tier 1-3 và Chuẩn hóa Encoding | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_binh_chung_ky_binh_tuong_binh | Bóc tách Binh chủng Kỵ Binh & Tượng Binh Tier 1-3 và Mapping Schema | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_binh_chung_cung_binh_tam_xa | Bóc tách Cung Binh & Khí Giới Tầm Xa Tier 1-3 và Kiểm thử Toàn vẹn | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_binh_chung_dac_biet_thuy_quan_nu_binh | Bóc tách Binh chủng Đặc Biệt, Nữ Binh, Thủy Quân & Ninja Tier 1-3 | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_binh_chung_quai_vat_di_toc_than_binh | Bóc tách Binh chủng Dị Tộc, Quái Vật & Thần Binh Huyền Thoại và Tổng hợp Graph Data | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_binh_chung_tien_hoa_tier1_2_bo_binh | Bóc tách & Chuẩn hóa Binh chủng Tier 1-2: Bộ Binh, Đao Binh & Thương Binh | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_binh_chung_tien_hoa_tier1_2_ky_cung_binh | Bóc tách & Chuẩn hóa Binh chủng Tier 1-2: Kỵ Binh, Cung Binh & Nỗ Binh | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_binh_chung_tier3_tinh_anh_cao_cap | Bóc tách & Chuẩn hóa Binh chủng Tier 3: Tinh Anh Cấp Cao & Thần Binh | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_binh_chung_dac_biet_di_toc_nu_binh | Bóc tách & Chuẩn hóa Binh chủng Đặc biệt: Dị Tộc, Nữ Binh & Tượng Binh | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_binh_chung_khi_gioi_than_quai_trieu_hoan | Bóc tách Cơ Giới Công Thành & Sinh Vật Thần Thoại Triệu Hoán | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_vu_khi_kiem_dao_cap_cao | Bóc Tách & Chuẩn Hóa Vũ Khí Kiếm & Đao Cấp Cao | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_vu_khi_thuong_kich_than_binh | Bóc Tách & Validation Thương & Kích Thần Binh | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_cung_quat_truy_phu | Bóc Tách Cung, Quạt, Trùy & Phủ Cấp Cao | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_giap_mo_mu_bao_trang_bi | Bóc Tách & Relational Mapping Giáp Mão & Bào Kháp | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_chien_ma_than_thoai_bao_vat | Bóc Tách Chiến Mã Thần Thoại & Bảo Vật Kịch Bản | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_vu_khi_kiem_dao_huyen_thoai | Bóc Tách Kiếm Đạo Thần Binh & Đoản Nhẫn Cấp Cuối | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_vu_khi_truong_binh_long_kich | Bóc Tách Trường Binh Thần Thoại & Long Kích Bá Vương | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_vu_khi_cung_quat_bao_khi | Bóc Tách Cung Quạt Bá Vương & Kỳ Môn Bảo Khí | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_phong_cu_than_giap_hoang_kim | Bóc Tách Phòng Cụ Thần Giáp & Hoàng Kim Kháp Bào | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_toa_ky_danh_ma_bao_vat_doc_quyen | Bóc Tách Tọa Kỵ Danh Mã & Bảo Vật Độc Quyền | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_phu_tranh_binh_khi_ngoai_truyen | Trích Xuất & Chuẩn Hóa Binh Khí Phụ Bản, Ngoại Truyện | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_bao_vat_tri_lieu_phap_bao_doc_quyen | Trích Xuất & Mô Hình Hóa Thần Dược, Binh Pháp & Tráp Bảo | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_trang_bi_phong_thanh_trang_suc_dac_biet | Trích Xuất & Làm Sạch Dữ Liệu Giáp Mão, Bào Kháp | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_danh_ma_toa_ky_di_thu_huyen_thoai | Trích Xuất & Xây Dựng Graph Schema Tọa Kỵ, Dị Thú | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_than_binh_vu_khi_cuoi_game_kich_ban | Trích Xuất & Đóng Gói CSDL Thần Binh Cực Hạn Cuối Game | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_vu_khi_doan_binh_quy_toc | Trích Xuất & Chuẩn Hóa Đoản Binh Kiếm Đao Trung Cấp & Danh Môn | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_truong_binh_thuong_thien_nguyet_dao | Trích Xuất & Kiểm Thử Dữ Liệu Trường Binh Thương Kích & Đao Trụ | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_quat_phap_bao_dung_cu_phep | Trích Xuất & Đối Chiếu Quạt Pháp Bảo & Binh Khí Mưu Sĩ | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_trang_suc_phong_thu_bao_thach | Trích Xuất & Khử Trùng Lặp Trang Sức Phù Hiệu & Bảo Thạch | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_chien_ma_di_thu_ngoai_truyen | Trích Xuất & Tích Hợp Tọa Kỵ Chiến Mã Dị Thú Vào API Schema | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_vu_khi_truy_phu_nguyet_nhan | Bóc Tách & Chuẩn Hóa Binh Khí Trùy Phủ & Nguyệt Nhận Cấp Tinh Anh | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_phap_bao_tri_lieu_phong_thuc | Bóc Tách & Tích Hợp Schema Pháp Bảo Thuật Sĩ & Tráp Bảo Thuật | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_tien_nhan_cao_cap_an_si | Trích Xuất Chỉ Số Tiên Nhân, Đạo Sĩ & Các Nhân Vật Ẩn Sĩ Đặc Biệt | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_bi_kip_ky_nang_tuyet_hoc | Bóc Tách Bí Kíp Kỹ Năng Cấp Cao & Thuật Pháp Tuyệt Học | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_vat_pham_nang_cap_binh_phu | Trích Xuất Vật Phẩm Nâng Cấp Binh Chủng & Binh Phù Chuyển Chiêu | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_duoc_pham_tang_chi_so_tieu_thu | Bóc Tách Dược Phẩm Cực Tiêu & Vật Phẩm Tăng Chỉ Số Vĩnh Viễn | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_khoang_thach_da_ep_trang_bi | Trích Xuất Khoáng Thạch Nâng Cấp & Đá Ép Trang Bị Cực Hạn | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_tien_nhan_mat_cap_bi_truyen_duoc_lieu | Bóc Tách Dược Liệu Quý, Bí Truyền Thuật Pháp & Tiên Nhân | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_vo_tuong_ky_dao_kiem_truong_binh | Trích Xuất Võ Tướng Kỹ Đao Kiếm & Trường Binh & Chuẩn Hóa Schema Kỹ Năng | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_vo_tuong_ky_cung_no_phep_thuat | Bóc Tách Võ Tướng Kỹ Cung Nỗ & Phép Thuật & Validation Dữ Liệu Sát Thương | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_quan_su_ky_dieu_binh_hoi_phuc | Trích Xuất Quân Sư Kỹ Điều Binh & Hồi Phục & Xây Dựng Relational Mapping | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_tuyet_ky_hop_the_tinh_cam_huyen_thoai | Bóc Tách Tuyệt Kỹ Hợp Thể & Mô Hình Hóa Đồ Thị Tương Tác (Graph Schema) | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_dac_tinh_an_noi_tai_vo_tuong | Bóc Tách Đặc Tính Ẩn Nội Tại & Đóng Gói Pipeline Data Normalization | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_vo_tuong_ky_trieu_hoan_thien_tai | Võ Tướng Kỹ Triệu Hoán & Biến Hóa Thiên Tai Cấp Cao | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_quan_su_ky_cong_thanh_bay_ha | Quân Sư Kỹ Trận Pháp Bẫy Hạc & Khống Chế Chiến Trường | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_tuyet_ky_hop_the_tam_quoc_danh_tuong | Tuyệt Kỹ Hợp Thể Danh Tướng & Võ Hiệp Liên Hoàn | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_dac_tinh_an_kiem_vang_thuyet_phuc | Đặc Tính Nội Tại Kiếm Vang, Thuyết Phục & Hồi Phục Ẩn | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_quan_su_ky_tang_cuong_thuyet_phuc_hang_tuong | Quân Sư Kỹ Tăng Cường Chỉ Số, Chiêu Hàng & Trợ Chiến | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_vo_tuong_ky_nguyen_to_sat_thuong | Võ Tướng Kỹ Hệ Nguyên Tố Hỏa Lôi Băng & Chuẩn Hóa Dữ Liệu Sát Thương | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_quan_su_ky_phu_tro_thanh_tri | Quân Sư Kỹ Hỗ Trợ Thủ Thành & Kiểm Thử Ràng Buộc Điều Kiện Thi Thiếp | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_hop_the_ky_tinh_duyen_chu_than | Tuyệt Kỹ Hợp Thể Tình Duyên & Mô Hình Hóa Quan Hệ Đa Thực Thể | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_dac_tinh_an_danh_tuong_doc_quyen | Đặc Tính Ẩn Danh Tướng Độc Quyền & Phân Tích Thuộc Tính Nội Tại Nâng Cao | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_vo_tuong_quan_su_ky_ba_vuong | Kỹ Năng Bá Vương Cấp Cuối & Đóng Gói ETL Pipeline Phase Kỹ Năng | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_vo_tuong_ky_cam_bay_am_khi | Võ Tướng Kỹ Hệ Cạm Bẫy, Địa Đao & Ám Khí Sát Thương (Trích Xuất & Chuẩn Hóa Mã Font) | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_quan_su_ky_phong_an_giai_tru | Quân Sư Kỹ Phong Ấn, Giải Trừ Phép Thuật & Khống Chế Tuyệt Chiêu | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_hop_the_ky_tam_quoc_dien_nghia | Tuyệt Kỹ Hợp Thể Nhóm Danh Tướng Tam Quốc Diễn Nghĩa | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_dac_tinh_an_than_toc_bao_kich | Đặc Tính Nội Tại Thần Tốc, Né Tránh, Bạo Kích & Hút Máu | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_ky_nang_than_thoai_tien_nhan_di_toc | Kỹ Năng Độc Quyền Tiên Nhân, Thần Thoại & Thủ Lĩnh Dị Tộc | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_vo_tuong_ky_binh_khi_danh_gia_nhan_vat | Võ Tướng Kỹ Hệ Đao Quạt & Kiểm Định Pydantic Schema Dữ Liệu Skill | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_quan_su_ky_thien_van_dia_ly_khi_tuong | Quân Sư Kỹ Thời Tiết Địa Hình & Xây Dựng Ma Trận Tác Động Chiến Trường | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_tuyet_ky_hop_the_phu_the_ky_phung_dich_thu | Tuyệt Kỹ Hợp Thể Tri Kỷ & Ràng Buộc Khóa Ngoại (Foreign Key Integrity) | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_dac_tinh_an_hanh_quan_thong_linh_khang_phap | Đặc Tính Ẩn & Xử Lý Đối Soát Sai Lệch Chỉ Số Giữa Vanilla v1.2 Và Bản Mod | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_tuyet_hoc_ba_vuong_than_thoai_thuong_co | Tuyệt Học Bá Vương Thượng Cổ & Tổng Hợp Knowledge Graph Kỹ Năng | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_vo_tuong_ky_dao_kiem_thuong_kich_cao_cap | Võ Tướng Kỹ Hệ Đao Kiếm & Thương Kích Cấp Cao | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_quan_su_ky_bat_tran_vong_so_khong_che | Quân Sư Kỹ Bát Trận Đồ, Khống Chế Trận Thế & Giảm Sức Địch | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_tuyet_ky_hop_the_tam_nhan_tu_dai_danh_tuong | Tuyệt Kỹ Hợp Thể Nhóm Ba Tướng & Tứ Đại Hổ Tướng | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_dac_tinh_an_phap_thuat_tam_phap_vo_y | Đặc Tính Nội Tại Pháp Thuật, Tâm Pháp Võ Ý & Kháng Sát Thương | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_ky_nang_san_thu_than_quy_su_kien | Võ Tướng Kỹ & Quân Sư Kỹ Chuyên Trảm Thần Thú & Độc Bảo | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_vo_tuong_ky_dao_phap_kiem_khi_bat_quai | Bóc Tách & Chuẩn Hóa Dữ Liệu Võ Tướng Kỹ (Đao Pháp, Kiếm Khí & Bát Quái Cửu Cung) | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_quan_su_ky_dong_vien_khoa_mon_si_khi | Bóc Tách & Mô Hình Hóa Dữ Liệu Quân Sư Kỹ (Động Viên, Khóa Môn & Sĩ Khí) | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_tuyet_ky_hop_the_son_ha_xa_tac_dieu_lanh | Bóc Tách & Tích Hợp Đồ Thị Tuyệt Kỹ Hợp Thể & Đặc Tính Triệu Hóa | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_ban_do_thanh_tri_trung_nguyen | Bóc Tách & Chuẩn Hóa Tọa Độ Thành Trì Trung Nguyên (Game Data Parsing & Big5 Encoding) | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_ben_tau_thanh_tri_giang_dong_kinh_chau | Bóc Tách Dữ Liệu Bến Tàu & Thủy Lộ Giang Đông - Kinh Châu (Data Extraction & Validation) | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_thap_thu_thach_dai_tien_cung | Bóc Tách Tháp Thử Thách & Tiên Động Luân Hồi (Ontology Mapping & Event Data) | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_hang_dong_mo_co_quai_vat | Bóc Tách Hang Động & Mộ Cổ Săn Thần Khí (Drop Rate Analysis & ETL Parsing) | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_dia_diem_an_vung_bien_thuy_di_toc | Bóc Tách Địa Điểm Ẩn Biên Thùy & Đảo Quốc Ngoại Bang (Graph Integration & Data Consolidation) | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_thanh_tri_cua_ai_tay_bac_tay_luong | Bóc Tách Thành Trì & Cửa Ải Khu Vực Tây Bắc & Tây Lương | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_thanh_tri_cua_ai_ha_bac_liao_dong | Bóc Tách Thành Trì & Cửa Ải Khu Vực Hà Bắc & Liêu Đông | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_thanh_tri_cua_ai_ben_tau_ba_thuc_nam_trung | Bóc Tách Thành Trì, Cửa Ải & Bến Tàu Khu Vực Ba Thục & Nam Trung | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_hang_dong_mo_co_nam_man_tay_vuc | Bóc Tách Hang Động, Mộ Cổ & Địa Điểm Ẩn Vùng Nam Man & Tây Vực | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_tien_dong_thap_thu_thach_diem_an_bien_dao | Bóc Tách Tiên Động, Tháp Thử Thách & Điểm Ẩn Rơi Thần Khí Vùng Biển Đảo | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_toa_do_ben_tau_cua_ai_trung_tho_bien_gioi | Bóc Tách & Chuẩn Hóa Dữ Liệu Tọa Độ Cửa Ải, Bến Tàu & Điểm Kiểm Soát Tuyến Đường Trận Đồ | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_co_che_kiem_tien_kinh_te | Bóc Tách Cơ Chế Kinh Tế, Tài Chính & Thiết Kế Schema Dữ Liệu Kinh Tế Game | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_meo_bat_tuong_chieu_hang | Trích Xuất Cơ Chế Bắt Tướng, Chiêu Hàng & Xây Dựng Knowledge Graph Mapping | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_co_che_ep_cap_cay_exp | Bóc Tách Cơ Chế Ép Cấp, Cày EXP & Xây Dựng Logic Module Tính EXP Tự Động | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_anh_huong_thoi_tiet_dia_hinh | Bóc Tách Ảnh Hưởng Thời Tiết, Địa Hình & Xây Dựng Environment Modifier Matrix | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_su_kien_lich_su_bien_co | Bóc Tách Sự Kiện Lịch Sử & Đóng Gói Full Knowledge Graph Pipeline Cho Phase | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_co_che_giao_thuong_mieu_mung_tien | Kiếm Tiền Nhanh, Bán Đồ Cao Cấp & Khai Thác Mỏ Vàng (Xử Lý Bảng Mã Big5/GBK & Chuẩn Hóa Data) | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_meo_bay_co_danh_vong_bat_tuong | Mẹo Lừa Bắt Tướng 100%, Chiêu Hàng Võ Tướng & Tù Binh (Xây Dựng Rule Validation) | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_ep_cap_luyen_lv_exp_sieu_toc | Cơ Chế Ép Cấp, Cày EXP Siêu Tốc & Nâng Cấp Tướng (Xây Dựng Công Thức Ma Trận EXP) | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_tac_dong_thoi_tiet_dia_hinh_chien_truong | Ảnh Hưởng Thời Tiết, Địa Hình & Khí Tượng Trận Đồ (Mô Hình Hóa Đồ Thị Tương Tác) | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_su_kien_lich_su_bien_co_ngau_nhien | Sự Kiện Lịch Sử, Biến Cố Ngẫu Nhiên & Lễ Hội Vương Quốc (Xây Dựng REST API Tra Cứu) | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_co_che_tai_chinh_thu_thue_giao_thuong | Bóc Tách Cơ Chế Tài Chính, Thu Thuế, Thương Mại & Cướp Bóc Bán Đồ | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_meo_bat_tuong_chieu_hang_giam_trung_thanh | Bóc Tách Mẹo Bắt Tướng 100%, Chiêu Hàng Tù Binh & Giảm Trung Thành | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_co_che_ep_cap_cay_exp_solo_tien_dong | Bóc Tách Cơ Chế Ép Cấp, Cày EXP Solo Tiên Động & Tối Ưu Cấp Độ 99 | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_tac_dong_thoi_tiet_khi_tuong_dia_hinh | Bóc Tách Tác Động Thời Tiết Khí Tượng & Địa Hình Lên Chiến Trường | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_su_kien_lich_su_thien_tai_bien_co_ngau_nhien | Bóc Tách Sự Kiện Lịch Sử Kịch Bản, Thiên Tai & Biến Cố Ngẫu Nhiên | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_co_che_buon_ban_thuyet_khach_kiem_vang | Bóc Tách & Chuẩn Hóa Data Cơ Chế Kinh Tế, Buôn Bán & Kiếm Vàng Đầu Game | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_chiu_thuat_du_dich_vay_thanh_bat_tuong | Phân Tích & Mô Hình Hóa Đồ Thị Chiêu Thuật Dụ Địch & Mẹo Bắt Tướng | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_phuong_phap_cay_exp_don_doc_thien_dong | Xây Dựng Pipeline Trích Xuất & Kiểm Thử Dữ Liệu Ép Cấp, Cày EXP Tiên Động | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_bien_doi_thoi_tiet_dia_hinh_tuyet_mat | Lưu Trữ & Đánh Chỉ Mục (Indexing) Ma Trận Tương Tác Thời Tiết - Địa Hình | roadmap_Sango_Heroes_7__TQQAT_7_.md |
+| boc_tach_su_kien_lich_su_thien_tai_dinh_ky | Đóng Gói Knowledge Map & Xây Dựng RESTful API Truy Truy Vấn Sự Kiện Lịch Sử | roadmap_Sango_Heroes_7__TQQAT_7_.md |

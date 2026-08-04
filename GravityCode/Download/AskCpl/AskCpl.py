@@ -138,7 +138,15 @@ class AskCplApp:
         import tkinter as tk
         saved_generator = self.settings.get("gemini", {}).get("roadmap_generator", {})
         
-        # Region 1: Input
+        # Region 1.0: Mode Selection
+        f_mode = tk.Frame(self.sub_tab_roadmap_gen)
+        f_mode.pack(fill='x', padx=10, pady=5)
+        tk.Label(f_mode, text="Chế độ tạo (Mode):", font=("Arial", 10, "bold"), width=15, anchor='w').pack(side='left')
+        self.ai_roadmap_gen_mode_var = tk.StringVar(value=saved_generator.get("gen_mode", "learning"))
+        tk.Radiobutton(f_mode, text="Giáo trình (Learning Roadmap)", variable=self.ai_roadmap_gen_mode_var, value="learning", font=("Arial", 10)).pack(side='left', padx=10)
+        tk.Radiobutton(f_mode, text="Bách khoa (Wiki/Database)", variable=self.ai_roadmap_gen_mode_var, value="wiki", font=("Arial", 10)).pack(side='left', padx=10)
+        
+        # Region 1.1: Input
         f_input = tk.Frame(self.sub_tab_roadmap_gen)
         f_input.pack(fill='x', padx=10, pady=5)
         tk.Label(f_input, text="Lĩnh vực / Từ khóa:", font=("Arial", 10, "bold"), width=15, anchor='w').pack(side='left')
@@ -167,6 +175,38 @@ class AskCplApp:
         self.ai_roadmap_days_var = tk.StringVar(value=saved_generator.get("days", "Auto"))
         cb_days = ttk.Combobox(f_scale, textvariable=self.ai_roadmap_days_var, values=["Auto", "30", "60", "100", "150", "365", "1000", "3000"], width=10)
         cb_days.pack(side='left', padx=5)
+
+        # Region 1.4: Output Requirements
+        f_reqs = tk.LabelFrame(self.sub_tab_roadmap_gen, text="Cấu trúc đầu ra bắt buộc của AI", font=("Arial", 9, "bold"))
+        f_reqs.pack(fill='x', padx=10, pady=5)
+        
+        self.ai_req_time_var = tk.IntVar(value=saved_generator.get("req_time", 0))
+        self.ai_req_mat_var = tk.IntVar(value=saved_generator.get("req_mat", 0))
+        self.ai_req_step_var = tk.IntVar(value=saved_generator.get("req_step", 1))
+        self.ai_req_warn_var = tk.IntVar(value=saved_generator.get("req_warn", 1))
+        self.ai_req_check_var = tk.IntVar(value=saved_generator.get("req_check", 1))
+        self.ai_req_custom_var = tk.StringVar(value=saved_generator.get("req_custom", ""))
+        self.ai_req_sim_check_var = tk.IntVar(value=saved_generator.get("req_sim_check", 1))
+        self.ai_req_sim_ratio_var = tk.StringVar(value=str(saved_generator.get("req_sim_ratio", "96")))
+        
+        f_reqs_row1 = tk.Frame(f_reqs)
+        f_reqs_row1.pack(fill='x', padx=5, pady=2)
+        tk.Checkbutton(f_reqs_row1, text="Phân bổ thời gian", variable=self.ai_req_time_var).pack(side='left')
+        tk.Checkbutton(f_reqs_row1, text="Vật liệu chuẩn bị", variable=self.ai_req_mat_var).pack(side='left', padx=10)
+        tk.Checkbutton(f_reqs_row1, text="Từng bước thực hiện", variable=self.ai_req_step_var).pack(side='left')
+        
+        f_reqs_row2 = tk.Frame(f_reqs)
+        f_reqs_row2.pack(fill='x', padx=5, pady=2)
+        tk.Checkbutton(f_reqs_row2, text="An toàn/Lỗi thường gặp", variable=self.ai_req_warn_var).pack(side='left')
+        tk.Checkbutton(f_reqs_row2, text="Checklist hoàn thành", variable=self.ai_req_check_var).pack(side='left', padx=10)
+        
+        f_reqs_row3 = tk.Frame(f_reqs)
+        f_reqs_row3.pack(fill='x', padx=5, pady=2)
+        tk.Checkbutton(f_reqs_row3, text="Kiểm tra trùng lặp tiêu đề (%)", variable=self.ai_req_sim_check_var).pack(side='left')
+        tk.Entry(f_reqs_row3, textvariable=self.ai_req_sim_ratio_var, width=5).pack(side='left', padx=5)
+        
+        tk.Label(f_reqs_row3, text="Yêu cầu khác:").pack(side='left', padx=(10, 2))
+        tk.Entry(f_reqs_row3, textvariable=self.ai_req_custom_var, width=25).pack(side='left', fill='x', expand=True, padx=(0, 5))
 
         # Region 1.5: Reference Files
         self.f_refs_container = tk.Frame(self.sub_tab_roadmap_gen)
@@ -834,10 +874,19 @@ BẮT BUỘC tuân thủ chặt chẽ định dạng Markdown sau, KHÔNG bọc 
     def _roadmap_snapshot(self):
         """Read Tk values on the UI thread before a worker starts."""
         return {
+            "gen_mode": getattr(self, 'ai_roadmap_gen_mode_var', tk.StringVar(value="learning")).get().strip(),
             "domain": self.ai_roadmap_domain_var.get().strip(),
             "time_per_day": self.ai_roadmap_time_var.get().strip() or "2 tiếng",
             "days": self.ai_roadmap_days_var.get().strip(),
             "context": self.ai_roadmap_context_text.get("1.0", tk.END).strip(),
+            "req_time": self.ai_req_time_var.get(),
+            "req_mat": self.ai_req_mat_var.get(),
+            "req_step": self.ai_req_step_var.get(),
+            "req_warn": self.ai_req_warn_var.get(),
+            "req_check": self.ai_req_check_var.get(),
+            "req_custom": self.ai_req_custom_var.get().strip(),
+            "req_sim_check": self.ai_req_sim_check_var.get(),
+            "req_sim_ratio": self.ai_req_sim_ratio_var.get().strip(),
             "refs": [item.get().strip() for item in self.ref_file_vars if item.get().strip()],
             "save_dir": self.ai_roadmap_save_var.get().strip() or os.path.dirname(os.path.abspath(__file__)),
             "skeleton": self.ai_roadmap_skeleton_text.get("1.0", tk.END).strip(),
@@ -847,10 +896,19 @@ BẮT BUỘC tuân thủ chặt chẽ định dạng Markdown sau, KHÔNG bọc 
     def save_roadmap_generator_settings(self):
         snapshot = self._roadmap_snapshot()
         saved = {
+            "gen_mode": snapshot.get("gen_mode", "learning"),
             "domain": snapshot["domain"],
             "time_per_day": snapshot["time_per_day"],
             "days": snapshot["days"],
             "context": snapshot["context"],
+            "req_time": snapshot["req_time"],
+            "req_mat": snapshot["req_mat"],
+            "req_step": snapshot["req_step"],
+            "req_warn": snapshot["req_warn"],
+            "req_check": snapshot["req_check"],
+            "req_custom": snapshot["req_custom"],
+            "req_sim_check": snapshot.get("req_sim_check", 1),
+            "req_sim_ratio": snapshot.get("req_sim_ratio", "96"),
             "reference_files": snapshot["refs"],
             "save_dir": self.ai_roadmap_save_var.get().strip(),
             "expand_mode": snapshot["mode"],
@@ -1054,7 +1112,16 @@ BẮT BUỘC tuân thủ chặt chẽ định dạng Markdown sau, KHÔNG bọc 
         day_rule = ("Tự chọn tổng 10-3000 Day phù hợp. KHÔNG tiết kiệm Day: mỗi Day chỉ là một buổi 30 phút và có thể cần hàng trăm Day cho một mảng lớn." if expected is None
                     else f"Phải có CHÍNH XÁC {expected} Day.")
         self.roadmap_gen_log("[BƯỚC 1/3 • 1A] Đang lập knowledge map và chia phase (chưa sinh Day)...")
-        map_prompt = f"""Bạn là kiến trúc sư giáo trình. Hãy lập knowledge map cho '{snapshot['domain']}'.
+        if snapshot.get("gen_mode") == "wiki":
+            map_prompt = f"""Bạn là chuyên gia phân tích dữ liệu Bách khoa toàn thư. Hãy khảo sát và lập danh mục cấu trúc (knowledge map) để trích xuất toàn bộ dữ liệu cho '{snapshot['domain']}'.
+Mục tiêu: {day_rule.replace('Day', 'lô bóc tách (Batch)')} (Mỗi lô chứa tối đa 10-20 thực thể).
+Ngữ cảnh người dùng: {snapshot['context']}
+Tài liệu tham khảo:\n{references}
+
+Trả về JSON DUY NHẤT, NGẮN GỌN, KHÔNG tạo skeleton Day ở bước này: {{"domain_profile":{{"title":"...","total_days":N,"persona":"Chuyên gia phân tích data"}},"coverage":[{{"area":"...","required":true}}],"phases":[{{"id":"phase_id","name":"Tên Module (vd: Tướng Ngụy, Binh chủng, Vũ khí)","days":10,"goal":"Bóc tách toàn bộ thông số ẩn"}}]}}.
+Mỗi phase (Module) có từ 5-30 lô bóc tách (được đếm là days); tổng phase.days phải đúng total_days. Coverage phải bao gồm toàn bộ các mảng như: Nhân vật/Tướng, Binh chủng, Vũ khí/Trang bị, Cơ chế, Mẹo... Quy tắc bắt buộc: Mỗi lô bóc tách (day) chỉ xử lý một nhóm 10-20 thực thể cụ thể. LUÔN dùng tiếng Việt."""
+        else:
+            map_prompt = f"""Bạn là kiến trúc sư giáo trình. Hãy lập knowledge map cho '{snapshot['domain']}'.
 Thời lượng: {snapshot['time_per_day']}/ngày. {day_rule}
 Ngữ cảnh người dùng: {snapshot['context']}
 Tài liệu tham khảo:\n{references}
@@ -1111,7 +1178,45 @@ Mỗi phase 5-30 Day; tổng phase.days phải đúng total_days. Coverage phả
                 self.roadmap_gen_log(f"[RESUME] Đã khôi phục {len(all_days)}/{target} micro-Day từ checkpoint.")
         except (FileNotFoundError, json.JSONDecodeError, OSError):
             pass
+
+        # --- Quét checkpoint tìm tiêu đề trùng; cắt tại Day đó để sinh lại ---
+        from difflib import SequenceMatcher as _SM
+        _seen_titles: list[str] = []
+        _clean_days: list = []
+        _dup_from: int | None = None
+        
+        sim_check_enabled = snapshot.get("req_sim_check", 1)
+        try:
+            sim_threshold = float(snapshot.get("req_sim_ratio", 96)) / 100.0
+        except ValueError:
+            sim_threshold = 0.96
+
+        for _item in all_days:
+            _title = (_item.get("topic") or "").strip().lower()
+            if sim_check_enabled:
+                for _prev in _seen_titles:
+                    if _SM(None, _title, _prev).ratio() >= sim_threshold:
+                        _dup_from = _item["day"]
+                        break
+            if _dup_from is not None:
+                break
+            _seen_titles.append(_title)
+            _clean_days.append(_item)
+        if _dup_from is not None:
+            self.roadmap_gen_log(
+                f"[RESUME-FIX] Checkpoint có tiêu đề trùng tại Day {_dup_from}; "
+                f"cắt về {len(_clean_days)} Day và sinh lại từ Day {_dup_from}."
+            )
+            all_days = _clean_days
+            atomic_write(checkpoint_path, json.dumps(
+                {"domain": snapshot["domain"], "target": target,
+                 "phase_map": phase_map, "skeleton": all_days},
+                ensure_ascii=False, indent=2,
+            ))
+        # --- Hết quét ---
+
         start_day = len(all_days) + 1
+
         local_pdf_sources = [os.path.basename(path) for path in snapshot["refs"] if path.lower().endswith(".pdf")]
         self.roadmap_gen_log(f"[BƯỚC 1/3 • 1A OK] {len(phases)} phase, tổng {target} Day. Bắt đầu sinh skeleton từng phase...")
         phase_start = 1
@@ -1127,9 +1232,17 @@ Mỗi phase 5-30 Day; tổng phase.days phải đúng total_days. Coverage phả
                 end_day = start_day + count - 1
                 self.roadmap_gen_log(f"[BƯỚC 1/3 • 1B] Macro phase {index}/{len(phases)} • batch {batch_number}: Day {start_day}-{end_day} (đang gọi Gemini)...")
                 known_ids = [item["topic_id"] for item in all_days]
-                phase_prompt = f"""Tạo CHÍNH XÁC {count} MICRO-DAY cho phase '{phase.get('name')}' của roadmap '{snapshot['domain']}', Day {start_day}..{end_day}. Mục tiêu: {phase.get('goal')}.
+                known_titles = [item["topic"] for item in all_days]
+                if snapshot.get("gen_mode") == "wiki":
+                    phase_prompt = f"""Tạo CHÍNH XÁC {count} LÔ BÓC TÁCH (được gắn nhãn là 'day') cho Module '{phase.get('name')}' của kho dữ liệu '{snapshot['domain']}', từ lô số {start_day}..{end_day}. Mục tiêu: {phase.get('goal')}.
+Trả JSON MẢNG, mỗi object: {{"day":N,"topic_id":"snake_case_duy_nhat","topic":"Tiêu đề lô (ví dụ: Tướng Thục từ A-D) (tối đa 80 ký tự)","phase":"{phase.get('name')}","kind":"extraction","estimated_minutes":30,"concrete_project":"Trích xuất chi tiết các thực thể cụ thể (CẦN liệt kê đích danh 10-20 tên thực thể vào đây)","materials":[],"definition_of_done":["Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"],"details":["Trích xuất chỉ số Võ, Trí","Trích xuất năng lực ẩn"],"keywords":["tối đa 4 từ khóa"],"prerequisites":[]}}.
+ID đã tồn tại: {known_ids}. Mỗi lô (day) BẮT BUỘC phải liệt kê rõ 10-20 tên của các tướng/binh chủng/vũ khí sẽ trích xuất vào trường 'concrete_project'. KHÔNG để chung chung. LUÔN dùng tiếng Việt.
+CAM KẾT: trường 'topic' của MỖI lô mới PHẢI khác hoàn toàn với mọi tiêu đề sau đây (TUYỆT ĐỐI KHÔNG lặp lại): {known_titles[-80:] if len(known_titles) > 80 else known_titles}."""
+                else:
+                    phase_prompt = f"""Tạo CHÍNH XÁC {count} MICRO-DAY cho phase '{phase.get('name')}' của roadmap '{snapshot['domain']}', Day {start_day}..{end_day}. Mục tiêu: {phase.get('goal')}.
 Trả JSON MẢNG, mỗi object: {{"day":N,"topic_id":"snake_case_duy_nhat","topic":"tiêu đề micro-Day DUY NHẤT (tối đa 80 ký tự)","phase":"{phase.get('name')}","kind":"lesson|review|capstone","estimated_minutes":30,"concrete_project":"một món đồ/sản phẩm cụ thể","materials":["tối đa 3 vật liệu + số lượng/kích thước"],"definition_of_done":["tối đa 2 tiêu chí kiểm tra"],"details":["tối đa 3 việc nhỏ có thể làm trong 30 phút"],"keywords":["tối đa 4 từ khóa"],"prerequisites":["topic_id đã học trước đó"]}}.
-ID đã tồn tại từ phase trước: {known_ids}. prerequisites chỉ được dùng ID trong danh sách này hoặc Day đứng trước ngay trong response; nếu không chắc, dùng []. Không bọc markdown, không thiếu Day, không trùng Day, topic_id không trùng. {"Day cuối cùng của roadmap phải kind='capstone'." if index == len(phases) and remaining == count and len(phases) >= 2 else ""} LUÔN dùng tiếng Việt."""
+ID đã tồn tại từ phase trước: {known_ids}. prerequisites chỉ được dùng ID trong danh sách này hoặc Day đứng trước ngay trong response; nếu không chắc, dùng []. Không bọc markdown, không thiếu Day, không trùng Day, topic_id không trùng. {"Day cuối cùng của roadmap phải kind='capstone'." if index == len(phases) and remaining == count and len(phases) >= 2 else ""} LUÔN dùng tiếng Việt.
+CAM KẾT: trường 'topic' của MỖI Day mới PHẢI khác hoàn toàn với mọi tiêu đề sau đây (đây là danh sách tiêu đề đã tồn tại — TUYỆT ĐỐI KHÔNG được lặp lại hay diễn đạt lại bằng từ ngữ tương tự): {known_titles[-80:] if len(known_titles) > 80 else known_titles}."""
                 for attempt in range(1, 4):
                     try:
                         response_text = self._call_roadmap_llm(phase_prompt, f"PASS 1B phase {index}.{batch_number} lần {attempt}")
@@ -1163,7 +1276,17 @@ ID đã tồn tại từ phase trước: {known_ids}. prerequisites chỉ đư�
                             debug_path = checkpoint_path + f".invalid_macro{index}_batch{batch_number}.txt"
                             atomic_write(debug_path, response_text)
                         self.roadmap_gen_log(f"[PASS 1B • Macro {index} • batch {batch_number} • lần {attempt}/3] JSON lỗi: {exc}. Retry...")
-                        phase_prompt += f"\nLỗi trước: {exc}. Trả MẢNG JSON hoàn chỉnh, không cắt ngang."
+                        err_str = str(exc)
+                        if "trùng nội dung" in err_str:
+                            # Gom tất cả tiêu đề hiện tại và ép AI đặt tên khác hẳn
+                            forbidden = [item["topic"] for item in all_days]
+                            phase_prompt += (
+                                f"\nLỖI TRÙNG TIÊU ĐỀ: {exc}. "
+                                f"TUYỆT ĐỐI KHÔNG được dùng hoặc paraphrase bất kỳ tiêu đề nào trong danh sách cấm này: {forbidden[-80:] if len(forbidden) > 80 else forbidden}. "
+                                "Mỗi 'topic' phải khác biệt rõ ràng — đặt cụ thể theo nội dung hẹp của micro-Day đó, không dùng tên chung chung."
+                            )
+                        else:
+                            phase_prompt += f"\nLỗi trước: {exc}. Trả MẢNG JSON hoàn chỉnh, không cắt ngang."
                 else:
                     if count > 1:
                         batch_limit = max(1, count // 2)
@@ -1180,7 +1303,8 @@ ID đã tồn tại từ phase trước: {known_ids}. prerequisites chỉ đư�
             phase_start += phase["days"]
 
         plan = {"domain_profile": phase_map["domain_profile"], "coverage": phase_map.get("coverage", []), "skeleton": all_days}
-        validate_plan(plan, target, require_micro=True)
+        from roadmap_pipeline import validate_plan
+        validate_plan(plan, target, require_micro=True, sim_check_enabled=bool(snapshot.get("req_sim_check", 1)), sim_threshold=sim_threshold)
         atomic_write(artifacts["skeleton"], json.dumps(plan, ensure_ascii=False, indent=2))
         try:
             os.remove(checkpoint_path)
@@ -1207,6 +1331,16 @@ ID đã tồn tại từ phase trước: {known_ids}. prerequisites chỉ đư�
         validate_plan(current, expected, require_micro=True)
         references = self._read_reference_text(snapshot["refs"])
         plan_json = json.dumps(current, ensure_ascii=False)
+        # Condensed view for reviewer passes: only fields needed for gap analysis.
+        # Sending full plan_json (materials/details/done) to reviewers wastes tokens
+        # and causes MAX_TOKENS truncation on 150+ Day roadmaps.
+        _review_fields = ("day", "topic_id", "topic", "phase", "kind", "prerequisites")
+        condensed_plan = {
+            "domain_profile": current.get("domain_profile", {}),
+            "skeleton": [{k: item[k] for k in _review_fields if k in item}
+                         for item in current["skeleton"]],
+        }
+        condensed_plan_json = json.dumps(condensed_plan, ensure_ascii=False)
         reviews = []
         reviewer_jobs = [
             ("PASS 2/8 Coverage", "Tìm các mảng kiến thức, công nghệ, khái niệm hoặc kỹ năng bị thiếu."),
@@ -1245,18 +1379,44 @@ ID đã tồn tại từ phase trước: {known_ids}. prerequisites chỉ đư�
         except (FileNotFoundError, OSError, json.JSONDecodeError):
             pass
 
-        # Re-run missing reviewers only. Their work is durable before the
-        # phase integration begins, so an app exit never discards all passes.
         for job_index, (label, task) in enumerate(reviewer_jobs):
             if job_index < len(reviews):
                 continue
             self.roadmap_gen_log(f"[{label}] Đang phản biện độc lập...")
-            output = self._call_roadmap_llm(
-                f"Roadmap JSON:\n{plan_json}\nTài liệu:\n{references}\n{task}\n"
-                "Chỉ trả JSON {\"gaps\":[{\"id\":\"snake_case\",\"reason\":\"...\",\"suggestion\":\"...\"}],\"warnings\":[\"...\"]}. Không viết lại roadmap.", label)
-            reviews.append(load_json_response(output))
-            progress["reviews"] = reviews
-            atomic_write(progress_path, json.dumps(progress, ensure_ascii=False, indent=2))
+            # Use condensed plan to avoid MAX_TOKENS on large roadmaps.
+            # If still truncated, retry with first half of days only.
+            review_plan = condensed_plan_json
+            reviewer_ok = False
+            for rev_attempt in range(1, 4):
+                try:
+                    raw = self._call_roadmap_llm(
+                        f"Roadmap JSON (tóm tắt):\n{review_plan}\nTài liệu:\n{references}\n{task}\n"
+                        "Chỉ trả JSON {\"gaps\":[{\"id\":\"snake_case\",\"reason\":\"...\",\"suggestion\":\"...\"}],\"warnings\":[\"...\"]}. Không viết lại roadmap.",
+                        f"{label} lần {rev_attempt}"
+                    )
+                    parsed = load_json_response(raw)
+                    reviews.append(parsed)
+                    progress["reviews"] = reviews
+                    atomic_write(progress_path, json.dumps(progress, ensure_ascii=False, indent=2))
+                    reviewer_ok = True
+                    break
+                except RoadmapValidationError as exc:
+                    err = str(exc)
+                    self.roadmap_gen_log(f"[{label} • lần {rev_attempt}/3] Lỗi: {err}. Retry...")
+                    if "MAX_TOKENS" in err or "Expecting value" in err or "hợp lệ" in err:
+                        # Truncate the condensed plan to first half of days to shrink input
+                        skeleton_half = condensed_plan["skeleton"][:len(condensed_plan["skeleton"]) // 2]
+                        review_plan = json.dumps(
+                            {"domain_profile": condensed_plan["domain_profile"], "skeleton": skeleton_half},
+                            ensure_ascii=False,
+                        )
+                        self.roadmap_gen_log(f"[{label}] JSON bị cắt (MAX_TOKENS); gửi lại với {len(skeleton_half)} Day đầu.")
+                    # else: keep same review_plan, the error might be transient
+            if not reviewer_ok:
+                self.roadmap_gen_log(f"[{label}] Không phản biện được sau 3 lần; bỏ qua pass này và tiếp tục.")
+                reviews.append({"gaps": [], "warnings": [f"Pass {label} bị bỏ qua do lỗi MAX_TOKENS sau 3 lần retry."]})
+                progress["reviews"] = reviews
+                atomic_write(progress_path, json.dumps(progress, ensure_ascii=False, indent=2))
         reviews_json = json.dumps(reviews, ensure_ascii=False)
         revised_days = progress.get("revised_days", [])
         expected_prefix = current["skeleton"][:len(revised_days)]
@@ -1321,7 +1481,14 @@ Trả JSON MẢNG đầy đủ với ĐÚNG các Day {expected_day_numbers} và 
                 )
         revised = dict(current)
         revised["skeleton"] = revised_days
-        validate_revision(current, revised, expected, require_micro=True)
+        
+        sim_check_enabled = snapshot.get("req_sim_check", 1)
+        try:
+            sim_threshold = float(snapshot.get("req_sim_ratio", 96)) / 100.0
+        except ValueError:
+            sim_threshold = 0.96
+            
+        validate_revision(current, revised, expected, require_micro=True, sim_check_enabled=bool(sim_check_enabled), sim_threshold=sim_threshold)
         atomic_write(artifacts["reviewed"], json.dumps(revised, ensure_ascii=False, indent=2))
         atomic_write(artifacts["toc"], render_toc(revised))
         self._update_topic_registry(revised, artifacts["final"])
@@ -1349,12 +1516,32 @@ Trả JSON MẢNG đầy đủ với ĐÚNG các Day {expected_day_numbers} và 
         plan = load_json_response(snapshot["skeleton"])
         validate_plan(plan, expected, require_micro=True)
         artifacts = self._roadmap_artifacts(snapshot)
+        
+        struct_items = []
+        if snapshot.get("req_time"): struct_items.append("phân bổ thời gian")
+        if snapshot.get("req_mat"): struct_items.append("vật liệu chuẩn bị")
+        if snapshot.get("req_step"): struct_items.append("từng bước thực hiện")
+        if snapshot.get("req_warn"): struct_items.append("an toàn/lỗi thường gặp")
+        if snapshot.get("req_check"): struct_items.append("checklist hoàn thành")
+        if snapshot.get("req_custom"): struct_items.append(snapshot["req_custom"])
+        struct_str = ", ".join(struct_items) if struct_items else "tự do (theo ý bạn)"
+        
+        req_keys = ["concrete_project", "definition_of_done"]
+        if snapshot.get("req_time"): req_keys.append("estimated_minutes")
+        if snapshot.get("req_mat"): req_keys.append("materials")
+        req_keys_str = ", ".join(req_keys)
+        
         lessons = []
         if snapshot["mode"] == "template":
             for item in plan["skeleton"]:
                 focus = "; ".join(item["details"])
+                if snapshot.get("gen_mode") == "wiki":
+                    prompt_str = f"LUÔN TRẢ LỜI BẰNG TIẾNG VIỆT. Mục tiêu trích xuất: {item['concrete_project']}. Yêu cầu chi tiết: {focus}. Tiêu chuẩn: {'; '.join(item['definition_of_done'])}. TUYỆT ĐỐI KHÔNG dùng văn xuôi lan man, KHÔNG đóng vai giáo viên. BẮT BUỘC xuất toàn bộ dữ liệu dưới dạng BẢNG MARKDOWN nghiêm ngặt. Không được bỏ sót bất kỳ thực thể nào được liệt kê trong mục tiêu."
+                else:
+                    prompt_str = f"LUÔN TRẢ LỜI BẰNG TIẾNG VIỆT. Mục tiêu duy nhất: {item['concrete_project']}. Việc nhỏ: {focus}. Hoàn thành khi: {'; '.join(item['definition_of_done'])}. Nếu hệ thống đính kèm văn bản PDF/tài liệu, chỉ dùng phần liên quan làm bằng chứng/hướng dẫn, không tóm tắt toàn bộ tài liệu. Hãy trả lời tối đa 1.000 từ, theo cấu trúc: {struct_str}. Không giảng lý thuyết lan man và không tạo quiz tương tác; nếu có câu hỏi, in đáp án mẫu cùng lúc."
+                
                 lessons.append({"day": item["day"],
-                    "prompt": f"LUÔN TRẢ LỜI BẰNG TIẾNG VIỆT. Đây là MỘT buổi {item['estimated_minutes']} phút. Mục tiêu duy nhất: {item['concrete_project']}. Vật liệu: {'; '.join(item['materials'])}. Việc nhỏ: {focus}. Hoàn thành khi: {'; '.join(item['definition_of_done'])}. Nếu hệ thống đính kèm văn bản PDF/tài liệu, chỉ dùng phần liên quan làm bằng chứng/hướng dẫn, không tóm tắt toàn bộ tài liệu. Hãy trả lời tối đa 1.000 từ, theo thứ tự: kế hoạch thời gian, vật liệu, các bước làm, an toàn/lỗi thường gặp, checklist hoàn thành. Không giảng lý thuyết lan man và không tạo quiz tương tác; nếu có câu hỏi, in đáp án mẫu cùng lúc.",
+                    "prompt": prompt_str,
                     "exercises": [f"Thực hành {focus}", "Tự kiểm tra edge case và đối chiếu đáp án mẫu"],
                     "tags": ["#roadmap", f"#day{item['day']}", *[f"#{str(tag).replace(' ', '_')}" for tag in item.get("keywords", [])]]})
         else:
@@ -1380,8 +1567,12 @@ Trả JSON MẢNG đầy đủ với ĐÚNG các Day {expected_day_numbers} và 
             for start in range(start_at, len(plan["skeleton"]), 8):
                 chunk = plan["skeleton"][start:start + 8]
                 self.roadmap_gen_log(f"[BƯỚC 3/3 • Sinh nội dung] Day {chunk[0]['day']}-{chunk[-1]['day']}...")
-                prompt = f"""Tạo nội dung roadmap bằng tiếng Việt cho JSON micro-Day sau: {json.dumps(chunk, ensure_ascii=False)}
-Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"...","exercises":["..."],"tags":["#..."]}}. Trong prompt BẮT BUỘC nêu đúng concrete_project, materials, definition_of_done và estimated_minutes của Day. Nếu module Tải Roadmap đính kèm văn bản PDF/tài liệu, prompt phải yêu cầu dùng đúng đoạn liên quan, không tóm tắt toàn bộ tài liệu. Ép AI trả lời tối đa 1.000 từ, chỉ một buổi 5-30 phút, theo cấu trúc: phân bổ thời gian, vật liệu, từng bước, an toàn/lỗi thường gặp, checklist hoàn thành. Không được thay thế bằng lý thuyết tổng quát; không tạo quiz tương tác chờ trả lời; không viết dòng heading bắt đầu bằng '## Day'. Không đổi day."""
+                if snapshot.get("gen_mode") == "wiki":
+                    prompt = f"""Tạo nội dung Bách khoa toàn thư bằng tiếng Việt cho JSON lô bóc tách sau: {json.dumps(chunk, ensure_ascii=False)}
+Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"...","exercises":["..."],"tags":["#..."]}}. Trong prompt BẮT BUỘC liệt kê đích danh các thực thể từ {req_keys_str} của Day. Ép AI trả lời bằng BẢNG MARKDOWN nghiêm ngặt, TUYỆT ĐỐI KHÔNG dùng văn xuôi hay văn phong giáo viên. Không được thay thế bằng lý thuyết tổng quát. Không viết dòng heading bắt đầu bằng '## Day'. Không đổi day."""
+                else:
+                    prompt = f"""Tạo nội dung roadmap bằng tiếng Việt cho JSON micro-Day sau: {json.dumps(chunk, ensure_ascii=False)}
+Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"...","exercises":["..."],"tags":["#..."]}}. Trong prompt BẮT BUỘC nêu đúng {req_keys_str} của Day. Nếu module Tải Roadmap đính kèm văn bản PDF/tài liệu, prompt phải yêu cầu dùng đúng đoạn liên quan, không tóm tắt toàn bộ tài liệu. Ép AI trả lời tối đa 1.000 từ, chỉ một buổi 5-30 phút, theo cấu trúc: {struct_str}. Không được thay thế bằng lý thuyết tổng quát; không tạo quiz tương tác chờ trả lời; không viết dòng heading bắt đầu bằng '## Day'. Không đổi day."""
                 for attempt in range(1, 4):
                     try:
                         generated = load_json_response(self._call_roadmap_llm(

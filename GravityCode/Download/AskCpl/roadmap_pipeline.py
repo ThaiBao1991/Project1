@@ -106,7 +106,7 @@ def _cycles(edges: dict[str, list[str]]) -> bool:
     return any(visit(node) for node in edges)
 
 
-def validate_plan(plan: Any, expected_days: int | None = None, require_micro: bool = False) -> dict[str, Any]:
+def validate_plan(plan: Any, expected_days: int | None = None, require_micro: bool = False, sim_check_enabled: bool = True, sim_threshold: float = 0.96) -> dict[str, Any]:
     """Validate a reviewed skeleton and return it unchanged when it is safe."""
     if not isinstance(plan, dict):
         raise RoadmapValidationError("Roadmap phải là JSON object.")
@@ -159,46 +159,50 @@ def validate_plan(plan: Any, expected_days: int | None = None, require_micro: bo
     if sorted(days) != list(range(1, wanted + 1)):
         raise RoadmapValidationError(f"Day phải liên tục từ 1 đến {wanted}, không thiếu hoặc trùng.")
 
-    for position, (day, title) in enumerate(titles):
-        for other_day, other_title in titles[:position]:
-            ratio = _similar(title, other_title)
-            if ratio >= 0.96:
-                raise RoadmapValidationError(
-                    f"Day {day} trùng nội dung gần như hoàn toàn với Day {other_day} ({ratio:.0%})."
-                )
+    if sim_check_enabled:
+        for position, (day, title) in enumerate(titles):
+            for other_day, other_title in titles[:position]:
+                ratio = _similar(title, other_title)
+                if ratio >= sim_threshold:
+                    raise RoadmapValidationError(
+                        f"Day {day} trùng nội dung gần như hoàn toàn với Day {other_day} ({ratio:.0%})."
+                    )
 
-    edges: dict[str, list[str]] = {}
-    for item in skeleton:
-        topic_id, day = item["topic_id"], item["day"]
-        required = [_text(value) for value in item.get("prerequisites", [])]
-        missing = [value for value in required if value not in ids]
-        if missing:
-            raise RoadmapValidationError(f"Day {day} tham chiếu prerequisite chưa tồn tại: {', '.join(missing)}.")
-        later = [value for value in required if first_day[value] >= day and value != topic_id]
-        if later:
-            raise RoadmapValidationError(f"Day {day} học trước prerequisite: {', '.join(later)}.")
-        edges.setdefault(topic_id, []).extend(value for value in required if value != topic_id)
-    if _cycles(edges):
-        raise RoadmapValidationError("Đồ thị prerequisites có vòng lặp.")
+    is_wiki = any(_text(item.get("kind")).casefold() == "extraction" for item in skeleton)
+
+    if not is_wiki:
+        edges: dict[str, list[str]] = {}
+        for item in skeleton:
+            topic_id, day = item["topic_id"], item["day"]
+            required = [_text(value) for value in item.get("prerequisites", [])]
+            missing = [value for value in required if value not in ids]
+            if missing:
+                raise RoadmapValidationError(f"Day {day} tham chiếu prerequisite chưa tồn tại: {', '.join(missing)}.")
+            later = [value for value in required if first_day[value] >= day and value != topic_id]
+            if later:
+                raise RoadmapValidationError(f"Day {day} học trước prerequisite: {', '.join(later)}.")
+            edges.setdefault(topic_id, []).extend(value for value in required if value != topic_id)
+        if _cycles(edges):
+            raise RoadmapValidationError("Đồ thị prerequisites có vòng lặp.")
 
     phases = {_text(item.get("phase")) for item in skeleton if _text(item.get("phase"))}
     if len(phases) >= 2 and not any(_text(item.get("kind")).casefold() == "capstone" for item in skeleton):
-        raise RoadmapValidationError("Roadmap nhiều phase phải có ít nhất một Day kind='capstone'.")
+        if not is_wiki:
+            raise RoadmapValidationError("Roadmap nhiều phase phải có ít nhất một Day kind='capstone'.")
     return plan
 
 
-def validate_revision(previous: dict[str, Any], revised: dict[str, Any], expected_days: int | None,
-                      require_micro: bool = False) -> dict[str, Any]:
+def validate_revision(original_plan: dict, revised_plan: Any, expected_days: int | None = None, require_micro: bool = False, sim_check_enabled: bool = True, sim_threshold: float = 0.96) -> dict[str, Any]:
     """A critic may add material, but cannot silently delete existing topics."""
-    validate_plan(previous, expected_days, require_micro)
-    old_ids = {item["topic_id"] for item in previous["skeleton"]}
-    new_items = revised.get("skeleton", []) if isinstance(revised, dict) else []
+    validate_plan(original_plan, expected_days, require_micro, sim_check_enabled=sim_check_enabled, sim_threshold=sim_threshold)
+    old_ids = {item["topic_id"] for item in original_plan["skeleton"]}
+    new_items = revised_plan.get("skeleton", []) if isinstance(revised_plan, dict) else []
     new_ids = {item.get("topic_id") for item in new_items if isinstance(item, dict)}
     removed = old_ids - new_ids
     if removed:
         raise RoadmapValidationError("Bản phản biện làm mất topic cũ: " + ", ".join(sorted(removed)[:8]))
-    validate_plan(revised, expected_days, require_micro)
-    return revised
+    validate_plan(revised_plan, expected_days=expected_days, require_micro=require_micro, sim_check_enabled=sim_check_enabled, sim_threshold=sim_threshold)
+    return revised_plan
 
 
 def render_toc(plan: dict[str, Any]) -> str:
