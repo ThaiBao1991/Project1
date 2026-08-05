@@ -1,0 +1,1167 @@
+{
+  "domain_profile": {
+    "title": "Sango Heroes 7 (TQQAT 7) P2 - Khai Thác Kiệt Quệ 100% Dữ Liệu Ẩn",
+    "total_days": 45,
+    "persona": "Chuyên gia phân tích data Bách khoa toàn thư"
+  },
+  "coverage": [
+    {
+      "area": "Tướng & Võ tướng kỹ, Quân sư kỹ, Kỹ năng ẩn (Kiếm vang, Thuyết phục, Hồi máu...)",
+      "required": true
+    },
+    {
+      "area": "Binh chủng toàn cấp độ (HP, Tốc độ, Khắc chế, Bị khắc, Cấp tiến hóa)",
+      "required": true
+    },
+    {
+      "area": "Vũ khí, Tọa kỵ, Vật phẩm, Trú ẩn & Tiên nhân (Thuộc tính, Cấp độ, Kỹ năng ẩn)",
+      "required": true
+    },
+    {
+      "area": "Cơ chế ẩn: Kiếm tiền, Mẹo bắt tướng, Ép cấp, Thời tiết, Thần thú & Cheat codes",
+      "required": true
+    }
+  ],
+  "skeleton": [
+    {
+      "day": 1,
+      "topic_id": "luc_luong_thuc_han_danh_tuong_hoang_toc",
+      "topic": "Danh tướng và Hoàng tộc cốt lõi phe Thục Hán",
+      "phase": "Hệ Thống Tướng Phe Ngụy & Phe Thục (Danh tướng & Tướng phụ)",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất chỉ số và kỹ năng chi tiết cho 20 danh tướng Thục Hán: Lưu Bị, Gia Cát Lượng, Quan Vũ, Trương Phi, Triệu Vân, Hoàng Trung, Mã Siêu, Bàng Thống, Khương Duy, Pháp Chính, Ngụy Diên, Nghiêm Nhan, Mã Đới, Quan Bình, Trương Bao, Liêu Hóa, Tưởng Uyển, Phí Y, Đổng Doãn, Lưu Thiền.",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí",
+        "Trích xuất năng lực ẩn",
+        "Thống kê Võ tướng kỹ và Quân sư kỹ",
+        "Đề xuất hướng dẫn phối hợp đội hình"
+      ],
+      "keywords": [
+        "Tướng Thục",
+        "Ngũ Hổ Tướng",
+        "Gia Cát Lượng",
+        "Chỉ số tướng"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 2,
+      "topic_id": "luc_luong_thuc_han_tuong_phu_hau_ky",
+      "topic": "Tướng phụ và Võ tướng hậu kỳ phe Thục Hán",
+      "phase": "Hệ Thống Tướng Phe Ngụy & Phe Thục (Danh tướng & Tướng phụ)",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất chi tiết 20 tướng phụ và tướng hậu kỳ phe Thục: Quan Hưng, Triệu Quảng, Triệu Thống, Mã Tốt, Vương Bình, Đặng Chi, Trương Tích, Dương Nghi, Lý Hôi, Mạnh Đạt, Lưu Phong, Hứa Tĩnh, Trần Đao, Hoàng Quyền, Ngô Ý, Ngô Ban, Kiều Doãn, Phùng Tập, Trương Dực, Trương Ngược.",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí",
+        "Trích xuất năng lực ẩn",
+        "Thống kê Võ tướng kỹ và Quân sư kỹ",
+        "Lập bảng phối hợp binh chủng"
+      ],
+      "keywords": [
+        "Tướng phụ Thục",
+        "Hậu kỳ Thục",
+        "Vương Bình",
+        "Quan Hưng"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 3,
+      "topic_id": "luc_luong_cao_nguy_danh_tuong_hoang_toc",
+      "topic": "Danh tướng và Hoàng tộc cốt lõi phe Tào Ngụy",
+      "phase": "Hệ Thống Tướng Phe Ngụy & Phe Thục (Danh tướng & Tướng phụ)",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất chỉ số và kỹ năng chi tiết cho 20 danh tướng Tào Ngụy: Tào Tháo, Tào Phi, Tào Trực, Tư Mã Ý, Hạ Hầu Đôn, Hạ Hầu Uyên, Trương Liêu, Hứa Chử, Điển Vi, Tào Nhân, Tào Hồng, Trương Cáp, Từ Hoảng, Vu Cấm, Quách Gia, Tuân Úc, Tuân Du, Giả Hủ, Trình Dục, Lý Điển.",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí",
+        "Trích xuất năng lực ẩn",
+        "Thống kê Võ tướng kỹ và Quân sư kỹ",
+        "Đề xuất hướng dẫn phối hợp chiến thuật"
+      ],
+      "keywords": [
+        "Tướng Ngụy",
+        "Tào Tháo",
+        "Tư Mã Ý",
+        "Ngũ Tử Lương Tướng"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 4,
+      "topic_id": "luc_luong_cao_nguy_mưu_si_tuong_gioi",
+      "topic": "Mưu sĩ và Võ tướng trung kỳ phe Tào Ngụy",
+      "phase": "Hệ Thống Tướng Phe Ngụy & Phe Thục (Danh tướng & Tướng phụ)",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất dữ liệu đầy đủ cho 20 tướng và mưu sĩ Ngụy: Tư Mã Sư, Tư Mã Chiêu, Đặng Ngải, Chung Hội, Bàng Đức, Tào Chân, Hạ Hầu Bá, Mãn Sủng, Trần Quần, Hí Chí Tài, Vương Sưởng, Quách Hoài, Văn Sính, Hác Chiêu, Nhạc Tiến, Tào Duệ, Lưu Hạt, Điền Trù, Ngô Chất, Đổng Bộc.",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí",
+        "Trích xuất năng lực ẩn",
+        "Liệt kê Võ tướng kỹ và Quân sư kỹ",
+        "Hướng dẫn phối hợp tướng phòng thủ"
+      ],
+      "keywords": [
+        "Đặng Ngải",
+        "Chung Hội",
+        "Tư Mã Chiêu",
+        "Tướng Ngụy trung kỳ"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 5,
+      "topic_id": "luc_luong_cao_nguy_tuong_phu_thu_ve",
+      "topic": "Tướng phụ và Tướng thủ vệ quan trọng phe Tào Ngụy",
+      "phase": "Hệ Thống Tướng Phe Ngụy & Phe Thục (Danh tướng & Tướng phụ)",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất thuộc tính cho 20 tướng phụ phe Ngụy: Tào Sảng, Tào Hi, Tư Mã Vọng, Giả Sung, Tào Thuần, Hạ Hầu Mậu, Hàn Hạo, Sử Hoán, Ngưu Kim, Trương Yến, Tào Tẩu, Tào Lâm, Tào Vũ, Quách Nữ Vương, Biện Thị, Hạ Hầu Uy, Hạ Hầu Hòa, Vương Lăng, Quán Kh丘 Kiệm, Chư Cát Đản.",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí",
+        "Trích xuất năng lực ẩn",
+        "Phân tích Võ tướng kỹ và Quân sư kỹ",
+        "Đánh giá giá trị sử dụng tướng phụ"
+      ],
+      "keywords": [
+        "Tướng phụ Ngụy",
+        "Tào Thuần",
+        "Hạ Hầu Mậu",
+        "Chỉ số tướng phụ"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 6,
+      "topic_id": "muu_si_van_quan_thuc_han_sango7",
+      "topic": "Mưu sĩ và văn quan cốt lõi phe Thục Hán",
+      "phase": "Hệ Thống Tướng Phe Ngụy & Phe Thục (Danh tướng & Tướng phụ)",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Bóc tách chỉ số và kỹ năng của 12 mưu sĩ Thục: Gia Cát Lượng, Bàng Thống, Pháp Chính, Từ Thứ, Mã Lương, Mã Tốc, Tương Uyển, Phí Y, Giản Ung, Tôn Càn, Đặng Chi, Hứa Tĩnh.",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí",
+        "Trích xuất Võ tướng kỹ và Quân sư kỹ",
+        "Trích xuất năng lực ẩn và hướng dẫn phối hợp"
+      ],
+      "keywords": [
+        "mưu sĩ thục hán",
+        "gia cát lượng",
+        "bàng thống",
+        "chỉ số tướng"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 7,
+      "topic_id": "hau_due_va_tuong_tre_thuc_han_sango7",
+      "topic": "Hậu duệ và tướng trẻ thời kỳ sau của Thục Hán",
+      "phase": "Hệ Thống Tướng Phe Ngụy & Phe Thục (Danh tướng & Tướng phụ)",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Bóc tách chỉ số và kỹ năng của 13 võ tướng Thục: Khương Duy, Trương Dực, Trương Niệm, Liêu Hóa, La Hiến, Vương Bình, Quan Hưng, Trương Bao, Lưu Thiền, Mã Trung, Quan Bình, Trương Súng, Lưu Vĩnh.",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí",
+        "Trích xuất Võ tướng kỹ và Quân sư kỹ",
+        "Trích xuất năng lực ẩn và hướng dẫn phối hợp"
+      ],
+      "keywords": [
+        "khương duy",
+        "liêu hóa",
+        "vương bình",
+        "tướng trẻ thục"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 8,
+      "topic_id": "co_van_quan_su_phe_tao_nguy_sango7",
+      "topic": "Hệ thống cố vấn và quân sư kiệt xuất phe Tào Ngụy",
+      "phase": "Hệ Thống Tướng Phe Ngụy & Phe Thục (Danh tướng & Tướng phụ)",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Bóc tách chỉ số và kỹ năng của 12 quân sư Ngụy: Quách Gia, Tuân Úc, Tuân Du, Giả Hủ, Trình Dục, Tư Mã Ý, Dương Xiu, Tân Bì, Lưu Diệp, Mãn Sủng, Hứa Du, Trần Quần.",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí",
+        "Trích xuất Võ tướng kỹ và Quân sư kỹ",
+        "Trích xuất năng lực ẩn và hướng dẫn phối hợp"
+      ],
+      "keywords": [
+        "quách gia",
+        "tư mã ý",
+        "tuân úc",
+        "quân sư ngụy"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 9,
+      "topic_id": "ngu_tu_luong_tuong_than_ve_tao_nguy",
+      "topic": "Ngũ tử lương tướng và võ tướng hộ vệ Tào Ngụy",
+      "phase": "Hệ Thống Tướng Phe Ngụy & Phe Thục (Danh tướng & Tướng phụ)",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Bóc tách chỉ số và kỹ năng của 12 mãnh tướng Ngụy: Trương Liêu, Từ Hoảng, Trương Cáp, Vu Cấm, Nhạc Tiến, Điển Vi, Hứa Chử, Tào Nhân, Tào Hồng, Hạ Hầu Đôn, Hạ Hầu Uyên, Bàng Đức.",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí",
+        "Trích xuất Võ tướng kỹ và Quân sư kỹ",
+        "Trích xuất năng lực ẩn và hướng dẫn phối hợp"
+      ],
+      "keywords": [
+        "ngũ tử lương tướng",
+        "trương liêu",
+        "điển vi",
+        "hứa chử"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 10,
+      "topic_id": "tuong_linh_trung_hau_ky_tao_nguy_sango7",
+      "topic": "Tướng lĩnh trung hậu kỳ và hoàng tộc Tào Ngụy",
+      "phase": "Hệ Thống Tướng Phe Ngụy & Phe Thục (Danh tướng & Tướng phụ)",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Bóc tách chỉ số và kỹ năng của 13 tướng Ngụy: Đặng Ngải, Chung Hội, Tào Chân, Tào Sảng, Hạ Hầu Bá, Lý Điển, Văn Sính, Gia Cát Đán, Tào Phi, Tào Trực, Tào Phương, Tào Mao, Tào Hoán.",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí",
+        "Trích xuất Võ tướng kỹ và Quân sư kỹ",
+        "Trích xuất năng lực ẩn và hướng dẫn phối hợp"
+      ],
+      "keywords": [
+        "đặng ngải",
+        "chung hội",
+        "tào phi",
+        "tướng ngụy hậu kỳ"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 11,
+      "topic_id": "danh_tuong_hoang_toc_phe_dong_ngo",
+      "topic": "Danh tướng cốt lõi và Hoàng tộc phe Đông Ngô",
+      "phase": "Hệ Thống Tướng Phe Ngô, Quần Hùng & Thần Tướng/Tướng Ẩn",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất chi tiết Võ, Trí, Võ tướng kỹ, Quân sư kỹ và kỹ năng ẩn của 12 nhân vật: Tôn Kiên, Tôn Sách, Tôn Quyền, Chu Du, Lục Tốn, Lỗ Túc, Lã Mông, Thái Sử Từ, Cam Ninh, Trình Phổ, Hoàng Cái, Hàn Đương",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí",
+        "Trích xuất năng lực ẩn"
+      ],
+      "keywords": [
+        "tướng phe ngô",
+        "tôn sách chu du",
+        "chỉ số võ trí",
+        "kỹ năng quân sự"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 12,
+      "topic_id": "tuong_linh_van_quan_trung_hau_ky_phe_ngo",
+      "topic": "Tướng lĩnh và văn quan trung hậu kỳ phe Đông Ngô",
+      "phase": "Hệ Thống Tướng Phe Ngô, Quần Hùng & Thần Tướng/Tướng Ẩn",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất chi tiết Võ, Trí, Võ tướng kỹ, Quân sư kỹ và kỹ năng ẩn của 12 nhân vật: Đinh Phụng, Từ Thịnh, Chu Thái, Lăng Thống, Trương Chiêu, Trương Hoành, Gia Cát Cẩn, Bộ Chất, Cố Ung, Chu Phường, Lục Kháng, Tôn Hạo",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí",
+        "Trích xuất năng lực ẩn"
+      ],
+      "keywords": [
+        "văn quan đông ngô",
+        "chu thái đinh phụng",
+        "chỉ số tướng ngô",
+        "kỹ năng ẩn ngô"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 13,
+      "topic_id": "quan_hung_xuat_chung_lu_bu_dong_zhuo",
+      "topic": "Cơ cấu sức mạnh phe Quần Hùng và Chư Hầu",
+      "phase": "Hệ Thống Tướng Phe Ngô, Quần Hùng & Thần Tướng/Tướng Ẩn",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất chi tiết Võ, Trí, Võ tướng kỹ, Quân sư kỹ và kỹ năng ẩn của 12 nhân vật: Lữ Bố, Đổng Trác, Viên Thiệu, Viên Thuật, Công Tôn Toản, Trương Giác, Điêu Thuyền, Cao Thuận, Điền Phong, Hứa Du, Nhan Lương, Văn Xú",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí",
+        "Trích xuất năng lực ẩn"
+      ],
+      "keywords": [
+        "phe quần hùng",
+        "lữ bố đổng trác",
+        "viên thiệu trương giác",
+        "kỹ năng chư hầu"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 14,
+      "topic_id": "thu_linh_man_toc_phu_phuc_ngoai_bang",
+      "topic": "Thủ lĩnh Man Tộc và Thế lực Ngoại Bang",
+      "phase": "Hệ Thống Tướng Phe Ngô, Quần Hùng & Thần Tướng/Tướng Ẩn",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất chi tiết Võ, Trí, Võ tướng kỹ, Quân sư kỹ và kỹ năng ẩn của 12 nhân vật: Mạnh Hoạch, Chúc Dung, Mang Nha Trường, Mộc Lộc Đại Vương, Đóa Tư Đại Vương, Ngột Đột Cốt, Tề Nẫm, Hạp Cung, Khang Cứ, Khu Liên, Sơ Cạp, Tha Long",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí",
+        "Trích xuất năng lực ẩn"
+      ],
+      "keywords": [
+        "mạnh hoạch chúc dung",
+        "thủ lĩnh man tộc",
+        "chỉ số man tộc",
+        "kỹ năng ngoại bang"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 15,
+      "topic_id": "than_tuong_tuong_an_huyen_thoai_sango7",
+      "topic": "Hệ thống Thần Tướng và Tướng Ẩn Huyền Thoại",
+      "phase": "Hệ Thống Tướng Phe Ngô, Quần Hùng & Thần Tướng/Tướng Ẩn",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất chi tiết Võ, Trí, Võ tướng kỹ, Quân sư kỹ và kỹ năng ẩn của 12 nhân vật: Hạng Vũ, Lưu Bang, Hàn Tín, Phục Hy, Nữ Oa, Trương Lương, Anh Bố, Phạm Tăng, Nhạc Phi, Quản Trọng, Bành Việt, Tiêu Hà",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí",
+        "Trích xuất năng lực ẩn"
+      ],
+      "keywords": [
+        "thần tướng sango7",
+        "tướng ẩn huyền thoại",
+        "hạng vũ lưu bang",
+        "kỹ năng thần tướng"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 16,
+      "topic_id": "chi_so_vo_tri_ki_nang_tuong_ngo_nhom_1",
+      "topic": "Bóc tách Võ Trí Kỹ năng nhóm Tướng Đông Ngô mở rộng",
+      "phase": "Hệ Thống Tướng Phe Ngô, Quần Hùng & Thần Tướng/Tướng Ẩn",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất Võ, Trí, Võ tướng kỹ, Quân sư kỹ cho: Chu Thái, Đinh Phụng, Từ Thị, Tôn Thượng Hương, Tôn Kiên, Tôn Hoà, Tôn Hưu, Tôn Hạo, Chu Phường, Cố Ung, Gia Cát Cẩn, Bộ Chất, Lục Kháng, Đào Khiêm, Sái Mạo.",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí",
+        "Trích xuất năng lực ẩn"
+      ],
+      "keywords": [
+        "Đông Ngô",
+        "Võ tướng kỹ",
+        "Tôn Thượng Hương",
+        "Chu Thái"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 17,
+      "topic_id": "chi_so_vo_tri_ki_nang_quan_hung_chu_hau",
+      "topic": "Bóc tách chỉ số và tuyệt kỹ dàn Tướng Quần Hùng Chư Hầu",
+      "phase": "Hệ Thống Tướng Phe Ngô, Quần Hùng & Thần Tướng/Tướng Ẩn",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất Võ, Trí, kỹ năng ẩn cho: Viên Thiệu, Viên Thuật, Lưu Biểu, Lưu Chương, Công Tôn Toàn, Mã Đằng, Hàn Toại, Trương Lỗ, Trương Giác, Trương Báo, Trương Lương, Điền Phong, Hứa Du, Tăng Phách, Khổng Dung.",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí",
+        "Trích xuất năng lực ẩn"
+      ],
+      "keywords": [
+        "Quần Hùng",
+        "Viên Thiệu",
+        "Trương Giác",
+        "Kỹ năng ẩn"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 18,
+      "topic_id": "chi_so_vo_tri_ki_nang_man_toc_ngoai_bang",
+      "topic": "Bóc tách toàn bộ chỉ số Võ Trí kỹ năng Thủ lĩnh Man Tộc",
+      "phase": "Hệ Thống Tướng Phe Ngô, Quần Hùng & Thần Tướng/Tướng Ẩn",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất Võ, Trí, kỹ năng ẩn cho: Mạnh Hoạch, Chúc Dung, Mang Nha Trường, Kim Hoàn Tam Kết, Mộc Lộc Đại Vương, Đái Lai Động Chủ, Đột Cốt Hoạch, A Cối Nan, Sa Ma Kha, Khu Liên, Cốt Tiến, Đạt Vân, Ty Di Hô, Kiến Địch, Vu Đột Cốt.",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí",
+        "Trích xuất năng lực ẩn"
+      ],
+      "keywords": [
+        "Man Tộc",
+        "Mạnh Hoạch",
+        "Chúc Dung",
+        "Chỉ số võ trí"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 19,
+      "topic_id": "bo_tac_than_tuong_tuong_an_bi_truyen",
+      "topic": "Bóc tách chỉ số và kỹ năng Thần Tướng cùng Tướng Ẩn",
+      "phase": "Hệ Thống Tướng Phe Ngô, Quần Hùng & Thần Tướng/Tướng Ẩn",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất Võ, Trí, Võ tướng kỹ bí truyền cho: Thần Lữ Bố, Thần Triệu Vân, Thần Quan Vũ, Thần Gia Cát Lượng, Thần Tào Tháo, Thần Chu Du, Thần Điêu Thuyền, Kiếm Thần, Hổ Sát, Bát Trận Thần Tướng, Nữ Oa, Phục Hi, Hạng Vũ, Lưu Bang, Anh Thiết.",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí",
+        "Trích xuất năng lực ẩn"
+      ],
+      "keywords": [
+        "Thần Tướng",
+        "Tướng Ẩn",
+        "Thần Lữ Bố",
+        "Kỹ năng đặc biệt"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 20,
+      "topic_id": "bo_tac_ky_nang_an_kiem_vang_thuyet_phuc_hoi_mau",
+      "topic": "Bóc tách chi tiết Kỹ năng ẩn và Tuyệt kỹ đặc biệt hệ thống Tướng",
+      "phase": "Hệ Thống Tướng Phe Ngô, Quần Hùng & Thần Tướng/Tướng Ẩn",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất cơ chế kỹ năng Kiếm Vang, Thuyết Phục, Hồi Máu, Phục Sinh, Đội Đèn, Nhân Đức, Bá Vương, Động Sát, Phi Yến, Kiên Thủ, Tụ Khí, Đốc Tình, Võ Thánh, Đấu Chí, Đồ Sát của dàn Tướng Ẩn và Tướng Ngoại Bang.",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí",
+        "Trích xuất năng lực ẩn"
+      ],
+      "keywords": [
+        "Kỹ năng ẩn",
+        "Kiếm Vang",
+        "Thuyết Phục",
+        "Hồi Máu"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 21,
+      "topic_id": "bo_binh_kiem_binh_tien_hoa_sango7",
+      "topic": "Chỉ số tiến hóa Hệ Bộ Binh và Kiếm Binh",
+      "phase": "Toàn Bộ Binh Chủng, Cấp Tiến Hóa & Chỉ Số Chiến Đấu",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất chi tiết 15 binh chủng: Bộ binh, Trọng bộ binh, Thần kiếm binh, Đảo binh, Trọng đảo binh, Long nha kiếm binh, Độc giác binh, Nộ kiếm binh, Khiên binh, Trọng khiên binh, Tiên phong binh, Trảm mã binh, Thiết giáp binh, Thuẫn đao binh, Trường thuẫn binh.",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất Máu, Tốc độ, Tỷ lệ Khắc chế, Bị khắc",
+        "Chuỗi tiến hóa chi tiết từ Cấp 1 lên Cấp 3"
+      ],
+      "keywords": [
+        "bộ binh",
+        "kiếm binh",
+        "tiến hóa",
+        "chỉ số"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 22,
+      "topic_id": "thuong_binh_trich_binh_tien_hoa_sango7",
+      "topic": "Chỉ số tiến hóa Hệ Thương Binh và Kích Binh",
+      "phase": "Toàn Bộ Binh Chủng, Cấp Tiến Hóa & Chỉ Số Chiến Đấu",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất chi tiết 15 binh chủng: Thương binh, Trọng thương binh, Thần thương binh, Kích binh, Trọng kích binh, Thần kích binh, Trảo kích binh, Trường đao binh, Trọng trường đao binh, Đại đao binh, Trường thương binh, Ngân thương binh, Thiết thương binh, Xương thương binh, Bích thương binh.",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất Máu, Tốc độ, Tỷ lệ Khắc chế, Bị khắc",
+        "Chuỗi tiến hóa chi tiết từ Cấp 1 lên Cấp 3"
+      ],
+      "keywords": [
+        "thương binh",
+        "kích binh",
+        "tiến hóa",
+        "khắc chế"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 23,
+      "topic_id": "cung_binh_no_binh_tam_xa_sango7",
+      "topic": "Chỉ số tiến hóa Hệ Cung Binh và Nỏ Binh",
+      "phase": "Toàn Bộ Binh Chủng, Cấp Tiến Hóa & Chỉ Số Chiến Đấu",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất chi tiết 15 binh chủng: Cung binh, Trọng cung binh, Thần cung binh, Nỏ binh, Trọng nỏ binh, Thần nỏ binh, Mông Cổ cung binh, Tiêu thương binh, Trọng tiêu thương binh, Thần tiêu thương binh, Phủ đao binh, Trọng phủ binh, Liên nỏ binh, Đằng giáp cung binh, Tảo kỵ cung binh.",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất Máu, Tốc độ, Tỷ lệ Khắc chế, Bị khắc",
+        "Chuỗi tiến hóa chi tiết từ Cấp 1 lên Cấp 3"
+      ],
+      "keywords": [
+        "cung binh",
+        "nỏ binh",
+        "bắn xa",
+        "chỉ số"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 24,
+      "topic_id": "ky_binh_than_thu_tien_hoa_sango7",
+      "topic": "Chỉ số tiến hóa Hệ Kỵ Binh và Thần Thú Kỵ",
+      "phase": "Toàn Bộ Binh Chủng, Cấp Tiến Hóa & Chỉ Số Chiến Đấu",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất chi tiết 15 binh chủng: Kỵ binh, Trọng kỵ binh, Thần kỵ binh, Binh xa, Trọng binh xa, Hổ kỵ binh, Báo kỵ binh, Tượng binh, Trọng tượng binh, Thần tượng binh, Lang kỵ binh, Ngô kỵ binh, Thiết kỵ binh, Tây Lương kỵ binh, Thiết giáp kỵ binh.",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất Máu, Tốc độ, Tỷ lệ Khắc chế, Bị khắc",
+        "Chuỗi tiến hóa chi tiết từ Cấp 1 lên Cấp 3"
+      ],
+      "keywords": [
+        "kỵ binh",
+        "tượng binh",
+        "lang kỵ",
+        "tiến hóa"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 25,
+      "topic_id": "co_quan_binh_toc_la_dac_biet_sango7",
+      "topic": "Chỉ số tiến hóa Cơ Quan Binh và Tộc Lạ",
+      "phase": "Toàn Bộ Binh Chủng, Cấp Tiến Hóa & Chỉ Số Chiến Đấu",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất chi tiết 15 binh chủng: Mộc thú, Thiết mộc thú, Trọng mộc thú, Thiềm thừ xa, Xung thành xa, Pháo xa, Thạch xa, Nữ binh, Múa đao nữ binh, Vũ cơ, Hoàng diện binh, Yêu ma binh, Zombie binh, Long ngâm binh, Thần võ binh.",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất Máu, Tốc độ, Tỷ lệ Khắc chế, Bị khắc",
+        "Chuỗi tiến hóa chi tiết từ Cấp 1 lên Cấp 3"
+      ],
+      "keywords": [
+        "cơ quan binh",
+        "mộc thú",
+        "tộc lạ",
+        "chỉ số"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 26,
+      "topic_id": "binh_chung_nu_binh_dac_nhiem_sango7",
+      "topic": "Chỉ số tiến hóa Nữ Binh và Binh chủng Đặc nhiệm",
+      "phase": "Toàn Bộ Binh Chủng, Cấp Tiến Hóa & Chỉ Số Chiến Đấu",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất chỉ số chiến đấu và tiến hóa 3 cấp của 12 binh chủng nữ và đặc nhiệm: Vũ Nữ, Múa Đao Binh, Nữ Binh, Cận Vệ Nữ, Kiếm Vũ Binh, Tế Sĩ, Chu Tước Binh, Bạt Đao Binh, Ẩn Sĩ, Ám Sát Binh, Đáo Thủ, Phi Đao Binh.",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Máu, Tốc độ, Tỷ lệ Khắc chế",
+        "Trích xuất chuỗi tiến hóa từ Cấp 1 đến Cấp 3"
+      ],
+      "keywords": [
+        "nữ binh",
+        "tiến hóa",
+        "chỉ số sango7",
+        "khắc chế"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 27,
+      "topic_id": "binh_chung_thuy_quan_ho_tro_cong_thanh_sango7",
+      "topic": "Chỉ số tiến hóa Thủy Binh và Binh chủng Công thành",
+      "phase": "Toàn Bộ Binh Chủng, Cấp Tiến Hóa & Chỉ Số Chiến Đấu",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất chỉ số chiến đấu và tiến hóa 3 cấp của 12 binh chủng thủy quân và công thành: Thủy Binh, Kiếp Ngư Binh, Hải Tặc, Lãng Nhân, Xung Xa, Pháo Xa, Nỗ Xa, Thăng Long Xa, Hỏa Lực Xa, Đĩnh Xa, Ném Đá Xa, Sa Mạc Binh.",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Máu, Tốc độ, Tỷ lệ Khắc chế",
+        "Trích xuất chuỗi tiến hóa từ Cấp 1 đến Cấp 3"
+      ],
+      "keywords": [
+        "thủy binh",
+        "công thành",
+        "tiến hóa",
+        "chỉ số sango7"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 28,
+      "topic_id": "binh_chung_thien_binh_trieu_hoan_thần_binh_sango7",
+      "topic": "Chỉ số tiến hóa Thiên Binh và Triệu Hoán Thần Binh",
+      "phase": "Toàn Bộ Binh Chủng, Cấp Tiến Hóa & Chỉ Số Chiến Đấu",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất chỉ số chiến đấu và tiến hóa 3 cấp của 12 binh chủng tiên thần triệu hoán: Thi Binh, Cương Thi, Mộc Nhân, Đồng Nhân, Thiết Nhân, Thiên Binh, Hoàng Cân Binh, Tiên Sĩ, Long Âm Binh, Phượng Hoàng Binh, Kỳ Lân Binh, Cổ Hồn Binh.",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Máu, Tốc độ, Tỷ lệ Khắc chế",
+        "Trích xuất chuỗi tiến hóa từ Cấp 1 đến Cấp 3"
+      ],
+      "keywords": [
+        "thiên binh",
+        "triệu hoán",
+        "thần binh",
+        "chỉ số sango7"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 29,
+      "topic_id": "than_binh_vu_khi_cap_cao_sango7",
+      "topic": "Thần binh vũ khí thần cấp và tuyệt thế bảo kiếm",
+      "phase": "Vũ Khí, Tọa Kỵ, Bảo Vật, Trú Ẩn & Tiên Nhân Dã Ngoại",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất chỉ số Võ/Trí, kỹ năng ẩn và yêu cầu cấp độ của 12 thần binh: Hoàng Kim Kiếm, Thanh Long Yển Nguyệt Đao, Trượng Bát Xà Mao, Phương Thiên Họa Kích, Giáp Cốt Cung, Chu Tước Phiến, Trượng Tà Cổ Đao, Hỏa Thần Thương, Ngũ Hành Tiên Phiến, Bạt Sơn Thần Trượng, Tử Thiết Bát Đao, Kiền Khôn Thần Kiếm",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí cộng thêm",
+        "Trích xuất năng lực ẩn, kỹ năng đính kèm và yêu cầu level sử dụng"
+      ],
+      "keywords": [
+        "thần binh",
+        "vũ khí",
+        "chỉ số",
+        "kỹ năng ẩn"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 30,
+      "topic_id": "toa_ky_huyen_thoai_chien_ma_sango7",
+      "topic": "Tọa kỵ huyền thoại và thần thú chiến mã",
+      "phase": "Vũ Khí, Tọa Kỵ, Bảo Vật, Trú Ẩn & Tiên Nhân Dã Ngoại",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất chỉ số tốc độ, cộng thuộc tính và kỹ năng đặc biệt của 12 tọa kỵ: Xích Thố, Đích Lô, Tuyệt Ảnh, Trảo Hoàng Phi Điện, Thần Thú Kỳ Lân, Long Mã, Đốm Sương Báo, Bạch Long Câu, Tử Thủy Xích Thố, Tỳ Hưu, Hổ Thần, Sư Tử Tuyết",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất tốc độ di chuyển và thuộc tính cộng thêm",
+        "Trích xuất kỹ năng ẩn và yêu cầu cấp độ cưỡi"
+      ],
+      "keywords": [
+        "tọa kỵ",
+        "chiến mã",
+        "thần thú",
+        "tốc độ"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 31,
+      "topic_id": "bao_vat_sach_luoc_trang_phuc_sango7",
+      "topic": "Bảo vật sách lược, pháp bảo và thần giáp",
+      "phase": "Vũ Khí, Tọa Kỵ, Bảo Vật, Trú Ẩn & Tiên Nhân Dã Ngoại",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất chỉ số cộng thêm và hiệu ứng ẩn của 12 bảo vật: Tôn Tử Binh Pháp, Thái Công Binh Pháp, Mạnh Đức Tân Thư, Tam Lược, Lục Thao, Thái Cực Ngọc Bội, Tần Hoàng Cổ Thạch, Chu Tước Ngọc Hà, Bích Thủy Châu, Hoàng Kim Giáp, Long Sương Khải, Ngọc Sa Long Y",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất thuộc tính cộng thêm Võ/Trí/Thể/Lực",
+        "Trích xuất hiệu ứng mưu lược và kỹ năng ẩn phụ trợ"
+      ],
+      "keywords": [
+        "bảo vật",
+        "sách lược",
+        "trang phục",
+        "pháp bảo"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 32,
+      "topic_id": "diem_tru_an_dong_tien_huyet_mo_sango7",
+      "topic": "Điểm trú ẩn, động tiên và di tích huyệt mộ dã ngoại",
+      "phase": "Vũ Khí, Tọa Kỵ, Bảo Vật, Trú Ẩn & Tiên Nhân Dã Ngoại",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất vị trí, điều kiện khiêu chiến và phần thưởng của 12 địa điểm: Sa Mạc Động, Hoàng Đế Lăng, Nam Cực Tiên Động, Bổng Lai Tiên Đảo, Sơn Sấm Động, Thần Thú Cấm Địa, U Cốc, Bạch Hổ Động, Chu Tước Cốc, Huyền Vũ Cước, Thanh Long Đầm, Quỷ Vương Cốc",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất vị trí tọa độ địa lý trên bản đồ",
+        "Trích xuất quái vật canh giữ, điều kiện mở khóa và vật phẩm rơi ra"
+      ],
+      "keywords": [
+        "trú ẩn",
+        "động tiên",
+        "huyệt mộ",
+        "bản đồ"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 33,
+      "topic_id": "tien_nhan_than_thu_toa_tran_da_ngoai_sango7",
+      "topic": "Tiên nhân dã ngoại và thần thú tọa trấn bí cảnh",
+      "phase": "Vũ Khí, Tọa Kỵ, Bảo Vật, Trú Ẩn & Tiên Nhân Dã Ngoại",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất chỉ số, thuật pháp và phần thưởng đánh bại 12 tiên nhân/thần thú: Nam Cực Tiên Ông, Bắc Đẩu Tiên Ông, Thái Thượng Lão Quân, Tả Từ Tiên Nhân, Cát Hồng Tiên Nhân, Thanh Long Thần Thú, Bạch Hổ Thần Thú, Chu Tước Thần Thú, Huyền Vũ Thần Thú, Kỳ Lân Thần Thú, Vu Long Thần Thú, Vu Sư Đại Tế Tư",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số máu, mana, kỹ năng tiên thuật",
+        "Trích xuất vật phẩm/kỹ năng nhận được sau khi thu phục hoặc đánh bại"
+      ],
+      "keywords": [
+        "tiên nhân",
+        "thần thú",
+        "dã ngoại",
+        "bí cảnh"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 34,
+      "topic_id": "trich_xuat_cap_do_thuoc_tinh_than_binh_vu_khi_huyen_thoai",
+      "topic": "Chỉ số cấp độ thuộc tính Thần binh và Bảo kiếm huyền thoại",
+      "phase": "Vũ Khí, Tọa Kỵ, Bảo Vật, Trú Ẩn & Tiên Nhân Dã Ngoại",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất chỉ số yêu cầu, thuộc tính cộng thêm và kỹ năng ẩn của 12 thần binh: Hoàng Thiên Kiếm, Hoàng Đế Kiếm, Bối Thủy Kiếm, Lôi Thần Kiếm, Phương Thiên Họa Kích, Thanh Long Yển Nguyệt Đao, Trượng Bát Xà Thương, Ngũ Câu Thần Hoàng Thương, Trảm Tiên Kiếm, Hỗn Nguyên Nhất Khí Kiếm, Hỏa Thần Cung, Phá Thiên Cung",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất Yêu cầu cấp độ, Chỉ số Võ/Trí cộng thêm",
+        "Trích xuất Kỹ năng ẩn đính kèm và tỷ lệ xuất chiêu"
+      ],
+      "keywords": [
+        "thần binh",
+        "vũ khí huyền thoại",
+        "chỉ số cộng",
+        "kỹ năng ẩn"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 35,
+      "topic_id": "trich_xuat_thuoc_tinh_toa_ky_huyen_thoai_than_thu",
+      "topic": "Thuộc tính cộng thêm và cấp độ sử dụng Tọa kỵ Thần thú",
+      "phase": "Vũ Khí, Tọa Kỵ, Bảo Vật, Trú Ẩn & Tiên Nhân Dã Ngoại",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất thuộc tính tốc độ, lực kháng, kỹ năng ẩn của 11 tọa kỵ huyền thoại: Xích Thỏ Mã, Đích Lô, Tòng Vân Lực Ô Truy, Tuyết Hà Mã, Thất Tinh Hắc Mã, Bạch Ngô Mã, Hỏa Hồ Lô, Nguyệt Lô, Cửu Vĩ Hồ, Kỳ Lân, Tỳ Hưu",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất Yêu cầu cấp độ cưỡi, Tốc độ di chuyển",
+        "Trích xuất Thuộc tính sinh lực, nội lực và kháng tính đính kèm"
+      ],
+      "keywords": [
+        "tọa kỵ",
+        "thần thú",
+        "xích thỏ",
+        "tốc độ di chuyển"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 36,
+      "topic_id": "trich_xuat_du lieu_dong_tien_di_tich_tiem_nhan_da_ngoai",
+      "topic": "Dữ liệu thuộc tính Điểm trú ẩn Động tiên và Tiên nhân dã ngoại",
+      "phase": "Vũ Khí, Tọa Kỵ, Bảo Vật, Trú Ẩn & Tiên Nhân Dã Ngoại",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất tọa độ, sự kiện và phần thưởng tại 12 địa điểm trú ẩn & tiên nhân: Đào Hoa Nguyên, Lộc Phong Động, Bồng Lai Đảo, Tiên Nhân Cốc, Thần Thú Động, Tả Từ Cư Sĩ, Nam Hoa Lão Tiên, Vu Cát Tịnh Xá, Mộc Lộc Đại Vương Di Tích, Cửu Đỉnh Động, Thông Thiên Tháp, Phượng Hoàng Lăng",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất Vị trí địa lý và điều kiện kích hoạt",
+        "Trích xuất Phần thưởng bảo vật và danh hiệu khi vượt qua"
+      ],
+      "keywords": [
+        "động tiên",
+        "tiên nhân",
+        "trú ẩn dã ngoại",
+        "bí cảnh phần thưởng"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 37,
+      "topic_id": "bi_kip_kiem_tien_nhanh_meo_bat_tuong_100",
+      "topic": "Bí kíp kiếm tiền nhanh và mẹo bắt tướng 100% trong Sango 7",
+      "phase": "Cơ Chế Game, Mẹo Hack/Exploit, Thời Tiết & Thần Thú",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất chi tiết 12 mẹo/cơ chế hack/exploit kiếm tiền và chiêu bắt tướng: Mẹo Bán Thần Binh Tái Sinh, Mẹo Lừa Chiêu Hàng Tướng 100%, Mẹo Ép Cấp Tướng Bằng Sách, Mẹo Châm Ngang Địch Thủ, Mẹo Dụ Tướng Rời Thành, Mẹo Nhân Bản Item Chợ Tụ Bảo, Mẹo Tráo Đổi Vũ Khí Lợi Nhuận, Mẹo Bắt Tướng Hậu Phương, Mẹo Thua Để Nhặt Đồ, Mẹo Ép Chỉ Số Vĩnh Viễn, Mẹo Reset Tướng Chợ Tụ Bảo, Mẹo Hù Bại Quân Chiêu Hàng",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí",
+        "Trích xuất năng lực ẩn"
+      ],
+      "keywords": [
+        "kiem tien sango7",
+        "meo bat tuong",
+        "exploit sango7",
+        "ep cap tuong"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 38,
+      "topic_id": "anh_huong_thoi_tiet_dia_hinh_binh_chung_tuyet_ky",
+      "topic": "Ảnh hưởng Thời tiết và Địa hình lên Binh chủng và Tuyệt kỹ",
+      "phase": "Cơ Chế Game, Mẹo Hack/Exploit, Thời Tiết & Thần Thú",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất chỉ số ảnh hưởng của 12 trạng thái thời tiết và địa hình: Thời tiết Nắng Gắt, Thời tiết Mưa Rào, Thời tiết Bão Tuyết, Thời tiết Sương Mù, Thời tiết Gió Đại Ngàn, Địa hình Đồng Bằng, Địa hình Sơn Lâm, Địa hình Thủy Lộ, Địa hình Sa Mạc, Địa hình Trạch Địa, Địa hình Tuyết Nguyên, Địa hình Thành Trì",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí",
+        "Trích xuất năng lực ẩn"
+      ],
+      "keywords": [
+        "thoi tiet sango7",
+        "dia hinh sango7",
+        "tac dong tran dau",
+        "moi truong"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 39,
+      "topic_id": "he_thong_boss_da_ngoai_vi_tri_than_thu",
+      "topic": "Hệ thống Boss Dã Ngoại và Vị trí xuất hiện Thần Thú",
+      "phase": "Cơ Chế Game, Mẹo Hack/Exploit, Thời Tiết & Thần Thú",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất vị trí, cấp độ và đồ rớt của 12 Boss Dã Ngoại và Thần Thú: Boss Hắc Sát Long, Boss Kim Ngân Ma Long, Boss Hỏa Phượng Hoàng, Boss Thủy Long Cổ Đại, Boss Bạch Hổ Thượng Cổ, Boss Huyền Vũ Đại Cổ, Boss Kỳ Lân Bí Cảnh, Boss Cốt Long Động Tiên, Boss Ma Lăng Vương, Boss Thụ Tinh Ngàn Năm, Boss Lôi Thần Hàng Thế, Boss Mộc Nhân Cổ Tháp",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí",
+        "Trích xuất năng lực ẩn"
+      ],
+      "keywords": [
+        "boss da ngoai",
+        "than thu sango7",
+        "vi tri boss",
+        "san boss sango7"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 40,
+      "topic_id": "bang_ma_cheat_code_debug_sango7",
+      "topic": "Bảng mã Cheat Code đầy đủ và lệnh Hack Debug Sango 7",
+      "phase": "Cơ Chế Game, Mẹo Hack/Exploit, Thời Tiết & Thần Thú",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất cú pháp và tác dụng của 15 mã Cheat Code chính thức: Mã cheatmode, Mã sango7, Mã addgold, Mã additem, Mã exp, Mã win, Mã kill, Mã capt, Mã building, Mã tech, Mã godmode, Mã clear, Mã event, Mã time, Mã map",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí",
+        "Trích xuất năng lực ẩn"
+      ],
+      "keywords": [
+        "cheat code sango7",
+        "lenh hack sango7",
+        "ma cheat sango7",
+        "debug mode sango7"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 41,
+      "topic_id": "ky_thuat_ep_cap_toi_uu_chi_so_tuong",
+      "topic": "Kỹ thuật ép cấp tốc độ và tối ưu hóa chỉ số Tướng",
+      "phase": "Cơ Chế Game, Mẹo Hack/Exploit, Thời Tiết & Thần Thú",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất 12 kỹ thuật ép cấp và tối ưu hóa chỉ số nhân vật: Phương pháp Ép Cấp Bằng Tiên Nhân, Kỹ thuật Ép Cấp Động Tiên Huyệt Mộ, Mẹo Cày Cấp Thần Thú, Mẹo Ép Trí Lực Bằng Binh Pháp, Mẹo Ép Võ Lực Bằng Dược Phú, Mẹo Ép Cấp Bằng Tháp Thử Thách, Mẹo Cày Skill Quân Đội, Mẹo Nhân Đôi EXP Trận Đánh, Kỹ Thuật Đổi Tướng Cày Cấp, Mẹo Reset Cấp Độ Võ Công, Kỹ Thuật Solo Boss Cày Cấp, Mẹo Dẫn Quân Ép EXP Binh Chung",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí",
+        "Trích xuất năng lực ẩn"
+      ],
+      "keywords": [
+        "ep cap nhanh",
+        "toi uu chi so",
+        "cay exp sango7",
+        "meo tang cap"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 42,
+      "topic_id": "trich_xuat_meo_kiem_tien_cap_toc_chieu_hang_tuong",
+      "topic": "Trích xuất mẹo kiếm tiền cấp tốc và kỹ thuật chiêu hàng tướng 100%",
+      "phase": "Cơ Chế Game, Mẹo Hack/Exploit, Thời Tiết & Thần Thú",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất chi tiết các mẹo và thực thể cơ chế: Bán Đồ Chợ Đen, Mua Rẻ Bán Đắt Bảo Vật, Săn Thần Thú Bán Giáp, Chiêu Hàng Tướng Hàng Bại, Kỹ Năng Sơ Khai Thu Phục, Bùa Trảm Quan Chiêu Hàng, Ép Hàng Tướng Đỏ, Dùng Vàng Ép Trung Thành, Đấu Giá Thành Trì, Tảo Phái Sát Khí Chiêu Mộ, Đốt Lương Tích Lũy Vàng, Thủ Thuật Nhân Bản Bảo Vật, Lừa Bắt Tướng Bằng Sách Lược, Mẹo Thu Thập Tướng Khuyết Danh, Tráo Đổi Vũ Khí Tướng Hàng.",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí",
+        "Trích xuất năng lực ẩn"
+      ],
+      "keywords": [
+        "kiem tien nhanh",
+        "bat tuong 100",
+        "exploit sango7",
+        "chieu hang tuong"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 43,
+      "topic_id": "trich_xuat_thong_so_thoi_tiet_dia_hinh_anh_huong_chien_doan",
+      "topic": "Trích xuất thông số ảnh hưởng Thời tiết và Địa hình lên Tuyệt kỹ",
+      "phase": "Cơ Chế Game, Mẹo Hack/Exploit, Thời Tiết & Thần Thú",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất thông số tác động thời tiết địa hình: Mưa Lớn, Bão Tuyết, Sương Mù, Nắng Gắt, Gió Bão, Tuyết Rơi, Núi Cao, Đầm Lầy, Đồng Bằng, Rậm Rạp, Sông Sâu, Sa Mạc, Tuyệt Kỹ Hỏa Tiễn, Tuyệt Kỹ Thủy Triều, Tuyệt Kỹ Cuồng Phong, Tuyệt Kỹ Binh Độn.",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí",
+        "Trích xuất năng lực ẩn"
+      ],
+      "keywords": [
+        "thoi tiet sango7",
+        "dia hinh sango7",
+        "anh huong tuyet ky",
+        "thong so chien doan"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 44,
+      "topic_id": "trich_xuat_toa_do_boss_da_ngoai_than_thu_bi_canh",
+      "topic": "Trích xuất vị trí tọa độ Boss Dã Ngoại và Thần Thú trấn giữ Bí cảnh",
+      "phase": "Cơ Chế Game, Mẹo Hack/Exploit, Thời Tiết & Thần Thú",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất dữ liệu Boss/Thần Thú: Thanh Long, Bạch Hổ, Chu Tước, Huyền Vũ, Kỳ Lân, Thần Ngạc, Cự Đống, Ngô Đỉnh, Kim Mao Cửu Vĩ, Nhị Lang Thần, Cự Ma, Đạt Mỗ, Mộc Sát, Hỏa Đồ, Hắc Long, Bạch Linh.",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí",
+        "Trích xuất năng lực ẩn"
+      ],
+      "keywords": [
+        "boss da ngoai",
+        "vi tri than thu",
+        "toa do bi canh",
+        "sango7 boss"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    },
+    {
+      "day": 45,
+      "topic_id": "trich_xuat_bang_ma_cheat_code_debug_ky_thuat_ep_cap",
+      "topic": "Trích xuất chi tiết Bảng Mã Cheat Code Debug và Kỹ thuật ép cấp Tướng",
+      "phase": "Cơ Chế Game, Mẹo Hack/Exploit, Thời Tiết & Thần Thú",
+      "kind": "extraction",
+      "estimated_minutes": 30,
+      "concrete_project": "Trích xuất mã cheat code và kỹ thuật ép cấp: modeusecheat, cheatmoney, addthing, addkpoint, AI1, AI0, useitem, ep_cap_luyen_canh, ep_cap_tranh_ne_level_cap, farm_exp_da_ngoai, farm_exp_cong_thanh, max_exp_vo_tuong, max_exp_van_quan, ky_thuat_tieu_diet_boss_ep_cap.",
+      "materials": [],
+      "definition_of_done": [
+        "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+      ],
+      "details": [
+        "Trích xuất chỉ số Võ, Trí",
+        "Trích xuất năng lực ẩn"
+      ],
+      "keywords": [
+        "cheat code sango7",
+        "lenh debug",
+        "ky thuat ep cap",
+        "farm exp fast"
+      ],
+      "prerequisites": [],
+      "source_files": []
+    }
+  ]
+}

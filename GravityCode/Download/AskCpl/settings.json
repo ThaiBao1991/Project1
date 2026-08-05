@@ -369,10 +369,10 @@
         "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "key": "ENC:UWRKS1NkdmFBV3Zicnl5QVpzd3pYeFVNanNIYTVaZmFDQ3JFTjUwVGozZ0s2TlI4YkEuUUE=",
         "email": "gamesvendn27",
-        "status": "active",
-        "reset_time": 0,
-        "next_check_time": 0,
-        "last_check_time": 1785860449,
+        "status": "exhausted",
+        "reset_time": 1786031210,
+        "next_check_time": 1785955610,
+        "last_check_time": 1785944810,
         "project_id": "1"
       },
       {
@@ -458,14 +458,14 @@
         "last_check_time": 1785847416
       },
       {
-        "error_msg": "models/gemini-1.5-flash is not found for API versi",
+        "error_msg": "HTTP 429 / quota exhausted during roadmap generation",
         "key": "ENC:dzBYd0xfVFpRZEF4NHhLODNuODdqS2JHYUs1clJPTWxycnBXSTJFY2owMks2TlI4YkEuUUE=",
         "email": "svendn03",
         "project_id": "5",
-        "status": "active",
-        "reset_time": 0,
-        "next_check_time": 0,
-        "last_check_time": 1785641917
+        "status": "exhausted",
+        "reset_time": 1786031220,
+        "next_check_time": 1785955620,
+        "last_check_time": 1785944820
       },
       {
         "error_msg": "",
@@ -2857,7 +2857,7 @@
     "last_out_dir": "C:/Users/12953 bao/Desktop/Data/SG7_Guidle",
     "roadmap_generator": {
       "gen_mode": "wiki",
-      "domain": "Sango Heroes 7 (TQQAT 7)",
+      "domain": "Sango Heroes 7 (TQQAT 7) P2",
       "time_per_day": "1 tiếng",
       "days": "Auto",
       "context": "Cần trích xuất kiệt quệ 100% dữ liệu ẩn của Sango Heroes 7.\n\nVới Tướng: Bắt buộc liệt kê đầy đủ cả các tướng phụ, tướng có kỹ năng ẩn (Kiếm vang, Thuyết phục, Hồi máu...). Phải có cột: Võ, Trí, Võ tướng kỹ, Quân sư kỹ, Kỹ năng ẩn và Hướng dẫn phối hợp.\nVới Binh chủng: Liệt kê toàn bộ các cấp. Phải có: Máu, Tốc độ, Khắc chế, Bị khắc, Cấp độ tiến hóa.\nVới Vũ khí/Trú ẩn/Tiên nhân: Thuộc tính cộng thêm, Yêu cầu cấp độ, Kỹ năng ẩn đính kèm.\nVới Cơ chế: Bí kíp kiếm tiền, Mẹo lừa bắt tướng, Ép cấp, Ảnh hưởng của Thời tiết. Yêu cầu tuyệt đối: Liệt kê triệt để, KHÔNG được tóm tắt hay chỉ lấy \"Ví dụ Top 10\".",
@@ -2871,7 +2871,10 @@
       "req_sim_ratio": "96",
       "reference_files": [
         "C:/Users/games/Desktop/Project/Python/Python MyWork/Project1/GravityCode/Download/AskCpl/.agents/skills/generate_roadmap/SKILL.md",
-        "C:/Users/games/Desktop/Project/Python/Python MyWork/Project1/GravityCode/Download/AskCpl/roadmap_python_3000.md"
+        "C:/Users/games/Desktop/Project/Python/Python MyWork/Project1/GravityCode/Download/AskCpl/roadmap_python_3000.md",
+        "C:/Users/games/AppData/Local/Microsoft/Windows/INetCache/IE/FWMZZNM8/1653347[1].html",
+        "C:/Users/games/AppData/Local/Microsoft/Windows/INetCache/IE/E5S0JP3D/1466303[1].html",
+        "C:/Users/games/AppData/Local/Microsoft/Windows/INetCache/IE/FWMZZNM8/28133[1].html"
       ],
       "save_dir": "",
       "expand_mode": "llm"

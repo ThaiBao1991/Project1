@@ -140,7 +140,7 @@ class AskCplApp:
         
         # Region 1.0: Mode Selection
         f_mode = tk.Frame(self.sub_tab_roadmap_gen)
-        f_mode.pack(fill='x', padx=10, pady=5)
+        f_mode.pack(fill='x', padx=10, pady=2)
         tk.Label(f_mode, text="Chế độ tạo (Mode):", font=("Arial", 10, "bold"), width=15, anchor='w').pack(side='left')
         self.ai_roadmap_gen_mode_var = tk.StringVar(value=saved_generator.get("gen_mode", "learning"))
         tk.Radiobutton(f_mode, text="Giáo trình (Learning Roadmap)", variable=self.ai_roadmap_gen_mode_var, value="learning", font=("Arial", 10)).pack(side='left', padx=10)
@@ -148,7 +148,7 @@ class AskCplApp:
         
         # Region 1.1: Input
         f_input = tk.Frame(self.sub_tab_roadmap_gen)
-        f_input.pack(fill='x', padx=10, pady=5)
+        f_input.pack(fill='x', padx=10, pady=2)
         tk.Label(f_input, text="Lĩnh vực / Từ khóa:", font=("Arial", 10, "bold"), width=15, anchor='w').pack(side='left')
         self.ai_roadmap_domain_var = tk.StringVar(value=saved_generator.get("domain", ""))
         tk.Entry(f_input, textvariable=self.ai_roadmap_domain_var, font=("Arial", 10)).pack(side='left', fill='x', expand=True, padx=10)
@@ -158,15 +158,15 @@ class AskCplApp:
 
         # Region 1.2: Context
         f_context = tk.Frame(self.sub_tab_roadmap_gen)
-        f_context.pack(fill='x', padx=10, pady=5)
+        f_context.pack(fill='x', padx=10, pady=2)
         tk.Label(f_context, text="Yêu cầu bổ sung / Tiêu chuẩn:", font=("Arial", 9), width=25, anchor='nw').pack(side='left', anchor='n')
-        self.ai_roadmap_context_text = scrolledtext.ScrolledText(f_context, height=3, font=("Arial", 9))
+        self.ai_roadmap_context_text = scrolledtext.ScrolledText(f_context, height=2, font=("Arial", 9))
         self.ai_roadmap_context_text.pack(side='left', fill='x', expand=True, padx=10)
         self.ai_roadmap_context_text.insert("1.0", saved_generator.get("context", ""))
 
         # Region 1.3: Scale (Time & Days)
         f_scale = tk.Frame(self.sub_tab_roadmap_gen)
-        f_scale.pack(fill='x', padx=10, pady=5)
+        f_scale.pack(fill='x', padx=10, pady=2)
         tk.Label(f_scale, text="Thời lượng học/ngày:", width=20, anchor='w').pack(side='left')
         self.ai_roadmap_time_var = tk.StringVar(value=saved_generator.get("time_per_day", "2 tiếng"))
         tk.Entry(f_scale, textvariable=self.ai_roadmap_time_var, width=15).pack(side='left', padx=5)
@@ -178,7 +178,7 @@ class AskCplApp:
 
         # Region 1.4: Output Requirements
         f_reqs = tk.LabelFrame(self.sub_tab_roadmap_gen, text="Cấu trúc đầu ra bắt buộc của AI", font=("Arial", 9, "bold"))
-        f_reqs.pack(fill='x', padx=10, pady=5)
+        f_reqs.pack(fill='x', padx=10, pady=2)
         
         self.ai_req_time_var = tk.IntVar(value=saved_generator.get("req_time", 0))
         self.ai_req_mat_var = tk.IntVar(value=saved_generator.get("req_mat", 0))
@@ -210,18 +210,18 @@ class AskCplApp:
 
         # Region 1.5: Reference Files
         self.f_refs_container = tk.Frame(self.sub_tab_roadmap_gen)
-        self.f_refs_container.pack(fill='x', padx=10, pady=5)
+        self.f_refs_container.pack(fill='x', padx=10, pady=2)
         
         self.ref_file_vars = []
         
         def add_ref_file(default_val=""):
             if len(self.ref_file_vars) >= 5: return
             f_row = tk.Frame(self.f_refs_container)
-            f_row.pack(fill='x', pady=2)
+            f_row.pack(fill='x', pady=1)
             tk.Label(f_row, text=f"File tham khảo {len(self.ref_file_vars)+1}:", width=15, anchor='w').pack(side='left')
             var = tk.StringVar(value=default_val)
             self.ref_file_vars.append(var)
-            tk.Entry(f_row, textvariable=var, state='readonly').pack(side='left', fill='x', expand=True, padx=5)
+            tk.Entry(f_row, textvariable=var, state='normal').pack(side='left', fill='x', expand=True, padx=5)
             
             def select_file():
                 from tkinter import filedialog
@@ -252,30 +252,23 @@ class AskCplApp:
 
         # Region 2: Settings (Save As)
         f_opts = tk.Frame(self.sub_tab_roadmap_gen)
-        f_opts.pack(fill='x', padx=10, pady=5)
+        f_opts.pack(fill='x', padx=10, pady=2)
         tk.Label(f_opts, text="Lưu file tại:").pack(side='left')
         self.ai_roadmap_save_var = tk.StringVar(value=saved_generator.get("save_dir", ""))
         tk.Entry(f_opts, textvariable=self.ai_roadmap_save_var, state='readonly', width=50).pack(side='left', padx=10)
         tk.Button(f_opts, text="Chọn Thư Mục...", command=self.roadmap_gen_select_dir).pack(side='left')
         tk.Button(f_opts, text="Lưu cấu hình tạo roadmap", command=self.save_roadmap_generator_settings).pack(side='left', padx=8)
 
-        # Region 3: Preview Skeleton
-        f_preview = tk.Frame(self.sub_tab_roadmap_gen)
-        f_preview.pack(fill='both', expand=True, padx=10, pady=5)
-        tk.Label(f_preview, text="Dàn ý Kỹ thuật (JSON) - Chứa Profile và Skeleton:", font=("Arial", 10, "bold")).pack(anchor='w')
-        
-        self.ai_roadmap_skeleton_text = scrolledtext.ScrolledText(f_preview, height=12, bg="#fffde7", font=("Consolas", 10))
-        self.ai_roadmap_skeleton_text.pack(fill='both', expand=True, pady=5)
-
-        # Region 3.5: Step 2 - Nâng cấp Khung
-        f_step2 = tk.Frame(self.sub_tab_roadmap_gen)
-        f_step2.pack(fill='x', padx=10, pady=5)
-        tk.Button(f_step2, text="2. Phản biện & Mở rộng Khung (5 Passes)", bg="#3498db", fg="white", font=("Arial", 10, "bold"),
-                  command=lambda: self.roadmap_gen_step2()).pack(side='right')
+        # Region 5: Log
+        f_log = tk.Frame(self.sub_tab_roadmap_gen)
+        f_log.pack(side='bottom', fill='x', padx=10, pady=5)
+        tk.Label(f_log, text="Tiến trình chạy:", font=("Arial", 10, "bold")).pack(anchor='w')
+        self.ai_roadmap_log_text = scrolledtext.ScrolledText(f_log, height=5, bg="#f4f4f4", font=("Consolas", 9), state='disabled')
+        self.ai_roadmap_log_text.pack(fill='x', expand=True)
 
         # Region 4: Expansion (Step 3)
         f_expand = tk.Frame(self.sub_tab_roadmap_gen)
-        f_expand.pack(fill='x', padx=10, pady=10)
+        f_expand.pack(side='bottom', fill='x', padx=10, pady=10)
         
         self.ai_roadmap_expand_mode = tk.StringVar(value=saved_generator.get("expand_mode", "llm"))
         tk.Radiobutton(f_expand, text="Chẻ bằng Template (Nhanh)", variable=self.ai_roadmap_expand_mode, value="template", font=("Arial", 9, "bold"), fg="#27ae60").pack(side='left')
@@ -284,12 +277,19 @@ class AskCplApp:
         tk.Button(f_expand, text="3. Sinh Chi Tiết Master & Kiểm định", bg="#e67e22", fg="white", font=("Arial", 10, "bold"),
                   command=lambda: self.roadmap_gen_step3()).pack(side='right')
 
-        # Region 5: Log
-        f_log = tk.Frame(self.sub_tab_roadmap_gen)
-        f_log.pack(fill='x', padx=10, pady=5)
-        tk.Label(f_log, text="Tiến trình chạy:", font=("Arial", 10, "bold")).pack(anchor='w')
-        self.ai_roadmap_log_text = scrolledtext.ScrolledText(f_log, height=5, bg="#f4f4f4", font=("Consolas", 9), state='disabled')
-        self.ai_roadmap_log_text.pack(fill='x', expand=True)
+        # Region 3.5: Step 2 - Nâng cấp Khung
+        f_step2 = tk.Frame(self.sub_tab_roadmap_gen)
+        f_step2.pack(side='bottom', fill='x', padx=10, pady=5)
+        tk.Button(f_step2, text="2. Phản biện & Mở rộng Khung (5 Passes)", bg="#3498db", fg="white", font=("Arial", 10, "bold"),
+                  command=lambda: self.roadmap_gen_step2()).pack(side='right')
+
+        # Region 3: Preview Skeleton
+        f_preview = tk.Frame(self.sub_tab_roadmap_gen)
+        f_preview.pack(side='top', fill='both', expand=True, padx=10, pady=2)
+        tk.Label(f_preview, text="Dàn ý Kỹ thuật (JSON) - Chứa Profile và Skeleton:", font=("Arial", 10, "bold")).pack(anchor='w')
+        
+        self.ai_roadmap_skeleton_text = scrolledtext.ScrolledText(f_preview, height=8, bg="#fffde7", font=("Consolas", 10))
+        self.ai_roadmap_skeleton_text.pack(fill='both', expand=True, pady=2)
 
     def roadmap_gen_select_dir(self):
         from tkinter import filedialog
@@ -384,6 +384,39 @@ class AskCplApp:
         s = re.sub(r',\s*\}', '}', s)
         return s
 
+    def _read_ref_files(self, ref_files, log_func):
+        import os, requests
+        try:
+            from bs4 import BeautifulSoup
+        except ImportError:
+            BeautifulSoup = None
+        ref_content_block = ""
+        for i, rf in enumerate(ref_files):
+            if not rf:
+                continue
+            if os.path.exists(rf):
+                try:
+                    with open(rf, 'r', encoding='utf-8') as f:
+                        rc = f.read()
+                    ref_content_block += f"\n--- File tham khảo {i+1}: {os.path.basename(rf)} ---\n{rc[:300000]}\n"
+                    log_func(f"[INFO] Đã nạp file tham khảo {i+1}: {os.path.basename(rf)}")
+                except Exception as e:
+                    log_func(f"[CẢNH BÁO] Lỗi đọc file {os.path.basename(rf)}: {e}")
+            elif rf.startswith("http://") or rf.startswith("https://"):
+                try:
+                    resp = requests.get(rf, timeout=10)
+                    resp.raise_for_status()
+                    if BeautifulSoup:
+                        soup = BeautifulSoup(resp.content, 'html.parser')
+                        text = soup.get_text(separator=' ', strip=True)
+                    else:
+                        text = resp.text
+                    ref_content_block += f"\n--- File tham khảo {i+1} (URL): {rf} ---\n{text[:300000]}\n"
+                    log_func(f"[INFO] Đã nạp dữ liệu từ URL {i+1}: {rf}")
+                except Exception as e:
+                    log_func(f"[CẢNH BÁO] Lỗi tải URL {rf}: {e}")
+        return ref_content_block
+
     def _roadmap_gen_step1_thread(self):
         import tkinter as tk
         import requests, json, os, time
@@ -403,20 +436,12 @@ class AskCplApp:
         time_per_day = self.ai_roadmap_time_var.get().strip() or "2 tiếng"
         days_setting = self.ai_roadmap_days_var.get().strip()
         context_text = self.ai_roadmap_context_text.get(1.0, tk.END).strip()
+        mode = getattr(self, 'ai_roadmap_gen_mode_var', tk.StringVar(value="learning")).get()
 
-        self.roadmap_gen_log(f"[BƯỚC 1] Bắt đầu phân tích khung cho: '{domain}' ({days_setting} ngày, {time_per_day}/ngày)...")
+        self.roadmap_gen_log(f"[BƯỚC 1] Bắt đầu phân tích khung cho: '{domain}' (Mode: {mode.upper()}, {days_setting} ngày)...")
 
         # --- Đọc tất cả file tham khảo ---
-        ref_content_block = ""
-        for i, rf in enumerate(ref_files):
-            if os.path.exists(rf):
-                try:
-                    with open(rf, 'r', encoding='utf-8') as f:
-                        rc = f.read()
-                    ref_content_block += f"\n--- File tham khảo {i+1}: {os.path.basename(rf)} ---\n{rc[:4000]}\n"
-                    self.roadmap_gen_log(f"[INFO] Đã nạp file tham khảo {i+1}: {os.path.basename(rf)}")
-                except Exception as e:
-                    self.roadmap_gen_log(f"[CẢNH BÁO] Lỗi đọc file {os.path.basename(rf)}: {e}")
+        ref_content_block = self._read_ref_files(ref_files, self.roadmap_gen_log)
 
         url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
         headers = {"Content-Type": "application/json"}
@@ -430,7 +455,27 @@ class AskCplApp:
             else f"Tổng cộng {days_setting} ngày."
         )
 
-        prompt_phase = f"""Bạn là chuyên gia xây dựng giáo trình. Lĩnh vực: {domain}.
+        if mode == "wiki":
+            prompt_phase = f"""Bạn là hệ thống bóc tách dữ liệu bách khoa toàn thư. Lĩnh vực: {domain}.
+{'Yêu cầu bổ sung: ' + context_text if context_text else ''}
+{ref_content_block}
+
+Nhiệm vụ: Phân chia cấu trúc dữ liệu cần bóc tách thành các Lô (Batch/Phase). Mỗi lô chứa danh sách các thực thể/nhóm thông tin liên quan.
+BẮT BUỘC CHỈ SỬ DỤNG DỮ LIỆU TỪ FILE THAM KHẢO NẾU CÓ, KHÔNG TẠO BÀI TẬP LẬP TRÌNH, KHÔNG TẠO GIÁO TRÌNH HỌC TẬP.
+Yêu cầu trả về JSON theo định dạng sau (CHỈ JSON, không có văn bản thừa):
+{{
+  "domain_profile": {{
+    "persona": "Chuyên gia bóc tách dữ liệu bách khoa toàn thư",
+    "core_books": "Sách/tài liệu/website nền tảng",
+    "supreme_commands": "Bắt buộc có lệnh: KHÔNG TƯƠNG TÁC. CHỈ BÓC TÁCH DỮ LIỆU ĐÃ CHO, KHÔNG BỊA THÊM.",
+    "total_days": 150
+  }},
+  "phases": [
+    {{"phase_id": 1, "phase_name": "Tên Lô dữ liệu", "from_day": 1, "to_day": 15, "description": "Mục tiêu bóc tách của lô này"}}
+  ]
+}}"""
+        else:
+            prompt_phase = f"""Bạn là chuyên gia xây dựng giáo trình. Lĩnh vực: {domain}.
 Thời lượng học mỗi ngày: {time_per_day}. {days_instruction}
 {'Yêu cầu bổ sung: ' + context_text if context_text else ''}
 {ref_content_block}
@@ -489,7 +534,21 @@ Yêu cầu trả về JSON theo định dạng sau (CHỈ JSON, không có văn 
             ph_desc = ph.get('description', '')
             self.roadmap_gen_log(f"[NHỊP 2] Đang sinh chi tiết Phase '{ph_name}' (Ngày {from_day} → {to_day})...")
 
-            prompt_days = f"""Bạn là {persona}. Lĩnh vực: {domain}.
+            mode = getattr(self, 'ai_roadmap_gen_mode_var', tk.StringVar(value="learning")).get()
+            if mode == "wiki":
+                prompt_days = f"""Bạn là {persona}. Lĩnh vực: {domain}.
+Giai đoạn bóc tách: {ph_name} (Mục tiêu: {ph_desc}).
+Nguồn tài liệu: {core_books}.
+(⚠️ LỆNH TỐI THƯỢNG: {supreme_commands} | KHÔNG TƯƠNG TÁC | KHÔNG BỊA DỮ LIỆU)
+
+Nhiệm vụ: Sinh danh sách các nhóm thực thể/chủ đề dữ liệu từ phần {from_day} đến phần {to_day} (được đánh số là Day). KHÔNG tạo bài tập. Chỉ liệt kê tên mục dữ liệu.
+Yêu cầu trả về JSON MẢNG theo định dạng (CHỈ JSON, không văn bản thừa):
+[
+  {{"day": {from_day}, "phase": "{ph_name}", "topic": "Tên nhóm dữ liệu cần bóc tách", "details": ["Từ khóa/Thực thể 1", "Từ khóa/Thực thể 2"]}}
+]
+Bắt buộc có đủ từ Day {from_day} đến Day {to_day}."""
+            else:
+                prompt_days = f"""Bạn là {persona}. Lĩnh vực: {domain}.
 Giai đoạn: {ph_name} (Mục tiêu: {ph_desc}).
 Sách nền tảng: {core_books}.
 (⚠️ LỆNH TỐI THƯỢNG: {supreme_commands} | KHÔNG TƯƠNG TÁC)
@@ -555,13 +614,7 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
         
         # Đọc tham khảo
         ref_files = [v.get().strip() for v in self.ref_file_vars if v.get().strip()]
-        ref_content_block = ""
-        for i, rf in enumerate(ref_files):
-            if os.path.exists(rf):
-                try:
-                    with open(rf, 'r', encoding='utf-8') as f:
-                        ref_content_block += f"\n--- File tham khảo {i+1}: {os.path.basename(rf)} ---\n{f.read()[:4000]}\n"
-                except: pass
+        ref_content_block = getattr(self, '_read_ref_files', lambda rf, log: "")(ref_files, self.roadmap_gen_log)
 
         self.roadmap_gen_log("[BƯỚC 2] Bắt đầu quá trình Phản biện & Mở rộng Khung (3 Passes)...")
         
@@ -593,16 +646,26 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
                         time.sleep(2)
             return None
 
+        mode = getattr(self, 'ai_roadmap_gen_mode_var', tk.StringVar(value="learning")).get()
+
         # PASS 1
         self.roadmap_gen_log(">> Pass 1: Tự phản biện, Đa dạng hóa & Chia nhỏ chủ đề...")
-        p1_prompt = f"Đây là JSON Dàn ý Lõi hiện tại:\n```json\n{skeleton_text}\n```\nYêu cầu: Hãy đóng vai trò chuyên gia, phân tích xem có chủ đề nào quá lớn cần chẻ nhỏ ra nhiều ngày không? Có kiến thức hiện đại nào đang thiếu không? Hãy sắp xếp lại, chèn thêm các ngày học mới, bổ sung các chủ đề để đa dạng hóa lộ trình. TRẢ VỀ JSON DUY NHẤT (giữ nguyên cấu trúc domain_profile và skeleton, chỉ mở rộng mảng skeleton). (KHÔNG GIẢI THÍCH)"
+        if mode == "wiki":
+            p1_prompt = f"Đây là JSON Dàn ý Lõi bóc tách dữ liệu hiện tại:\n```json\n{skeleton_text}\n```\nYêu cầu: Hãy phân tích xem có nhóm dữ liệu nào quá lớn cần chẻ nhỏ ra không? Có thực thể nào đang thiếu không? Hãy chèn thêm để vét sạch mọi ngóc ngách của dữ liệu. TRẢ VỀ JSON DUY NHẤT (giữ nguyên cấu trúc domain_profile và skeleton, chỉ mở rộng mảng skeleton). TUYỆT ĐỐI KHÔNG TẠO BÀI TẬP. (KHÔNG GIẢI THÍCH)"
+        else:
+            p1_prompt = f"Đây là JSON Dàn ý Lõi hiện tại:\n```json\n{skeleton_text}\n```\nYêu cầu: Hãy đóng vai trò chuyên gia, phân tích xem có chủ đề nào quá lớn cần chẻ nhỏ ra nhiều ngày không? Có kiến thức hiện đại nào đang thiếu không? Hãy sắp xếp lại, chèn thêm các ngày học mới, bổ sung các chủ đề để đa dạng hóa lộ trình. TRẢ VỀ JSON DUY NHẤT (giữ nguyên cấu trúc domain_profile và skeleton, chỉ mở rộng mảng skeleton). (KHÔNG GIẢI THÍCH)"
+            
         out_p1 = call_llm(p1_prompt, "Pass 1")
         if not out_p1: return
         json_v2 = self._clean_json(out_p1)
 
         # PASS 2
         self.roadmap_gen_log(">> Pass 2: Kiểm duyệt & Ép chuẩn theo File Tham khảo/Skill...")
-        p2_prompt = f"Đây là JSON Lộ trình V2 (sau khi mở rộng):\n```json\n{json_v2}\n```\nCác tài liệu chuẩn:\n{ref_content_block}\nYêu cầu: Đối chiếu Lộ trình V2 với tài liệu chuẩn. Sửa lại các chủ đề/details nào vi phạm nguyên tắc sư phạm hoặc an toàn. Đảm bảo 100% tuân thủ các quy tắc tối thượng. TRẢ VỀ JSON DUY NHẤT (giữ nguyên cấu trúc, cập nhật nội dung cho cực chuẩn). (KHÔNG GIẢI THÍCH)"
+        if mode == "wiki":
+            p2_prompt = f"Đây là JSON Lộ trình V2 (sau khi mở rộng):\n```json\n{json_v2}\n```\nCác tài liệu chuẩn:\n{ref_content_block}\nYêu cầu: Rà soát nghiêm ngặt Lộ trình V2 so với tài liệu tham khảo. NẾU CÓ DỮ LIỆU NÀO KHÔNG TỒN TẠI TRONG TÀI LIỆU (ẢO GIÁC), HÃY XÓA BỎ NGAY LẬP TỨC. Nếu sót dữ liệu quan trọng trong tài liệu, hãy bổ sung. Đảm bảo 100% tuân thủ các quy tắc tối thượng. TRẢ VỀ JSON DUY NHẤT (giữ nguyên cấu trúc, cập nhật nội dung cho cực chuẩn). (KHÔNG GIẢI THÍCH)"
+        else:
+            p2_prompt = f"Đây là JSON Lộ trình V2 (sau khi mở rộng):\n```json\n{json_v2}\n```\nCác tài liệu chuẩn:\n{ref_content_block}\nYêu cầu: Đối chiếu Lộ trình V2 với tài liệu chuẩn. Sửa lại các chủ đề/details nào vi phạm nguyên tắc sư phạm hoặc an toàn. Đảm bảo 100% tuân thủ các quy tắc tối thượng. TRẢ VỀ JSON DUY NHẤT (giữ nguyên cấu trúc, cập nhật nội dung cho cực chuẩn). (KHÔNG GIẢI THÍCH)"
+            
         out_p2 = call_llm(p2_prompt, "Pass 2")
         if not out_p2: return
         json_v3 = self._clean_json(out_p2)
@@ -715,11 +778,19 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
                             let = letters[i] if i < len(letters) else str(i)
                             f.write(f"### {day}{let}. {det}\n")
                             f.write("<!-- pages: 5 -->\n")
-                            f.write(f"**Prompt:**\nĐóng vai trò là {persona}. Hôm nay là Day {day}: {det} (thuộc bài '{topic}').\n")
-                            f.write(f"Giai đoạn: {phase}.\n")
-                            f.write(f"Sách nền tảng liên quan: {core_books}.\n\n")
-                            f.write(f"{commands_block}\n\n")
-                            f.write(f"Yêu cầu: Hãy giảng giải thật chi tiết, phân tích khách quan và kèm ví dụ minh họa rõ ràng.\n\n")
+                            mode_step3 = getattr(self, 'ai_roadmap_gen_mode_var', tk.StringVar(value="learning")).get()
+                            if mode_step3 == "wiki":
+                                f.write(f"**Prompt:**\nĐóng vai trò là {persona}. Hãy bóc tách dữ liệu Day {day}: {det} (thuộc nhóm '{topic}').\n")
+                                f.write(f"Giai đoạn: {phase}.\n")
+                                f.write(f"Tài liệu tham khảo bắt buộc: {core_books}.\n\n")
+                                f.write(f"{commands_block}\n\n")
+                                f.write(f"Yêu cầu: Hãy bóc tách và trình bày dữ liệu thật chi tiết bằng bảng Markdown. TUYỆT ĐỐI KHÔNG tự bịa dữ liệu ngoài sách/nguồn tham khảo.\n\n")
+                            else:
+                                f.write(f"**Prompt:**\nĐóng vai trò là {persona}. Hôm nay là Day {day}: {det} (thuộc bài '{topic}').\n")
+                                f.write(f"Giai đoạn: {phase}.\n")
+                                f.write(f"Sách nền tảng liên quan: {core_books}.\n\n")
+                                f.write(f"{commands_block}\n\n")
+                                f.write(f"Yêu cầu: Hãy giảng giải thật chi tiết, phân tích khách quan và kèm ví dụ minh họa rõ ràng.\n\n")
                             
                 self.roadmap_gen_log(f"[THÀNH CÔNG] Đã lưu file: {out_file}")
                 try:
@@ -798,9 +869,22 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
                                 time.sleep(2)
                     return None
 
+                mode_step3 = getattr(self, 'ai_roadmap_gen_mode_var', tk.StringVar(value="learning")).get()
+
                 # PASS 4: Draft Prompts
                 self.roadmap_gen_log("  -> Pass 4: Sinh nháp kịch bản Prompt...")
-                p4_prompt = f"""Tôi đang xây dựng giáo trình lĩnh vực '{domain}'.
+                if mode_step3 == "wiki":
+                    p4_prompt = f"""Tôi đang xây dựng hệ thống bóc tách dữ liệu lĩnh vực '{domain}'.
+Danh sách dữ liệu cần bóc:
+{chunk_json}
+Nhiệm vụ: Viết NHÁP danh sách các Lời Yêu Cầu (Prompts) để tôi nạp vào AI (Copilot) để nó bóc tách số liệu.
+Với mỗi danh mục, hãy viết thành cấu trúc:
+## Day [X]: [Tên Topic] ([Phase])
+### [X]a. [Tên mục nhỏ 1]
+<!-- pages: 5 -->
+**Prompt:** Đóng vai trò là {persona}. Trích xuất dữ liệu [Tên mục nhỏ]... (lệnh tối thượng: {supreme_commands})"""
+                else:
+                    p4_prompt = f"""Tôi đang xây dựng giáo trình lĩnh vực '{domain}'.
 Danh sách bài học:
 {chunk_json}
 Nhiệm vụ: Viết NHÁP danh sách các Lời Yêu Cầu (Prompts) để tôi nạp vào AI (Copilot).
@@ -809,23 +893,33 @@ Với mỗi bài học, hãy viết thành cấu trúc:
 ### [X]a. [Tên mục nhỏ 1]
 <!-- pages: 5 -->
 **Prompt:** Đóng vai trò là {persona}. Dạy bài [Tên mục nhỏ]... (lệnh tối thượng: {supreme_commands})"""
+                    
                 draft = call_llm_batch(p4_prompt, "Pass 4")
                 if not draft: return
 
                 # PASS 5: Master Enhancement
                 self.roadmap_gen_log("  -> Pass 5: Bơm thêm yêu cầu cấp Master...")
-                p5_prompt = f"""Đây là bản nháp các câu Prompt để dạy AI:
+                if mode_step3 == "wiki":
+                    p5_prompt = f"""Đây là bản nháp các câu Prompt để bóc tách dữ liệu:
+{draft}
+Nhiệm vụ: Đọc và NÂNG CẤP các câu Prompt này lên cấp độ Master bóc tách.
+- Thêm yêu cầu AI (Copilot) phải bóc tách dữ liệu chi tiết, "định dạng bảng Markdown", "không tự bịa dữ liệu".
+- Ép AI phải liệt kê mọi ngóc ngách thông tin.
+Giữ lại nguyên vẹn cấu trúc (Day, pages, Prompt:)."""
+                else:
+                    p5_prompt = f"""Đây là bản nháp các câu Prompt để dạy AI:
 {draft}
 Nhiệm vụ: Đọc và NÂNG CẤP các câu Prompt này lên cấp độ Master.
 - Thêm yêu cầu AI (Copilot) phải đưa ra các "Ví dụ thực tế", "Lỗi thường gặp (Edge cases)", "Mẹo vặt thực tiễn".
 - Ép AI phải giải thích thật sâu sắc, không nói hời hợt.
-Trữ lại nguyên vẹn cấu trúc (Day, pages, Prompt:)."""
+Giữ lại nguyên vẹn cấu trúc (Day, pages, Prompt:)."""
+                    
                 enhanced = call_llm_batch(p5_prompt, "Pass 5")
                 if not enhanced: return
 
                 # PASS 6: Format & Polish
                 self.roadmap_gen_log("  -> Pass 6: Đánh bóng & Ép chuẩn Markdown...")
-                p6_prompt = f"""Hãy format và đánh bóng bản Prompt siêu việt này:
+                p6_prompt = f"""Hãy format và đánh bóng bản Prompt này:
 {enhanced}
 BẮT BUỘC tuân thủ chặt chẽ định dạng Markdown sau, KHÔNG bọc ```markdown, KHÔNG giải thích lằng nhằng:
 ## Day [X]: ...
