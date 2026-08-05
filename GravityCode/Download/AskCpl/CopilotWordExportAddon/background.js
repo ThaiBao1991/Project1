@@ -278,6 +278,21 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         sendResponse({ status: "downloading_html" });
     }
 
+    // ── Tải file HTML duy nhất (trích xuất thủ công từ popup) ──
+    // saveAs: true KHÔNG hoạt động trong MV3 SW (không có user gesture).
+    // Dùng dataUriDownload (pattern chuẩn giống day files) — file về Downloads folder với tên đã đặt.
+    else if (request.action === "download_single_html") {
+        const fullHtml = buildDayHtml(
+            request.rawContent,
+            request.dayLabel || "Trích xuất",
+            request.agentName || "Manual Extract",
+            request.timestamp,
+            1
+        );
+        dataUriDownload(fullHtml, "text/html;charset=utf-8", request.filename, "uniquify");
+        sendResponse({ status: "downloading_single_html" });
+    }
+
     // ── Cập nhật index.html — stagger 2s ──────────────────────
     else if (request.action === "download_index") {
         setTimeout(() => {

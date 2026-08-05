@@ -694,3 +694,71 @@ chrome.runtime.onMessage.addListener((message) => {
     logArea.scrollTop = logArea.scrollHeight;
   }
 });
+
+// ── Tab Switching Logic ──
+document.getElementById('btn-tab-auto').addEventListener('click', () => {
+  document.getElementById('btn-tab-auto').classList.add('active');
+  document.getElementById('btn-tab-extract').classList.remove('active');
+  document.getElementById('tab-auto').classList.add('active');
+  document.getElementById('tab-extract').classList.remove('active');
+});
+
+document.getElementById('btn-tab-extract').addEventListener('click', () => {
+  document.getElementById('btn-tab-extract').classList.add('active');
+  document.getElementById('btn-tab-auto').classList.remove('active');
+  document.getElementById('tab-extract').classList.add('active');
+  document.getElementById('tab-auto').classList.remove('active');
+});
+
+// ── Auto name từ tiêu đề tab hiện tại ──
+document.getElementById('extractAutoNameBtn').addEventListener('click', async () => {
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  if (!tab) return;
+  const title = (tab.title || 'extracted_page')
+    .replace(/[-|–—]\s*(Copilot|Gemini|ChatGPT|Microsoft|Google)\s*$/i, '')
+    .trim()
+    .replace(/[\\/:*?"<>|]/g, '_')
+    .replace(/\s+/g, '_')
+    .slice(0, 60);
+  const date = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+  document.getElementById('extractFilenameInput').value = `${title}_${date}.html`;
+});
+
+// ── Trích Xuất Logic ──
+document.getElementById('extractBtn').addEventListener('click', async () => {
+  const platform = document.getElementById('extractPlatformSelect').value;
+  let filename = document.getElementById('extractFilenameInput').value.trim();
+  if (!filename) filename = "extracted_page.html";
+  if (!filename.endsWith('.html')) filename += '.html';
+
+  const btn = document.getElementById('extractBtn');
+  const extractStatus = document.getElementById('extractStatus');
+  btn.disabled = true;
+  btn.textContent = '⏳ Đang trích xuất...';
+  extractStatus.style.display = 'none';
+  document.getElementById('status').innerText = 'Đang trích xuất HTML từ trang...';
+  
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  if (!tab) {
+    btn.disabled = false;
+    btn.textContent = '📥 Trích xuất & Lưu File HTML';
+    return;
+  }
+
+  chrome.tabs.sendMessage(tab.id, { 
+    action: "extract_current_page", 
+    platform: platform,
+    filename: filename
+  }).then((resp) => {
+    btn.disabled = false;
+    btn.textContent = '📥 Trích xuất & Lưu File HTML';
+    const blockCount = resp && resp.blockCount ? resp.blockCount : '?';
+    document.getElementById('status').innerText = `✅ Đã trích xuất ${blockCount} block hỏi/đáp → tải về Downloads!`;
+    extractStatus.style.display = 'block';
+    extractStatus.textContent = `✅ File: ${filename} — xem trong thanh tải xuống của trình duyệt.`;
+  }).catch(() => {
+    btn.disabled = false;
+    btn.textContent = '📥 Trích xuất & Lưu File HTML';
+    showError('Không tìm thấy Addon trên trang này. Hãy tải lại trang (F5).');
+  });
+});

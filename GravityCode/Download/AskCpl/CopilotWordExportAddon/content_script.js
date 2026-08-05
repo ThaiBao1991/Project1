@@ -598,6 +598,130 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         sendStatus("Đã dừng.");
         sendResponse({ status: "stopped" });
     }
+    else if (request.action === "extract_current_page") {
+        const platform = request.platform || "copilot";
+        let blocks = [];
+
+        // ── Helper: làm sạch clone node trước khi lấy HTML ──
+        function cloneClean(el) {
+            const clone = el.cloneNode(true);
+            // Xóa các tag không cần thiết: button, script, style, svg, form
+            clone.querySelectorAll('button, script, style, svg, form, [aria-hidden="true"], [data-askcpl-nav]').forEach(n => n.remove());
+            return clone.innerHTML;
+        }
+
+        if (platform === 'gemini') {
+            // Gemini: user-query-text = câu hỏi, message-content = câu trả lời
+            const turns = document.querySelectorAll('user-query, model-response');
+            if (turns.length > 0) {
+                turns.forEach(turn => {
+                    const isUser = turn.tagName.toLowerCase() === 'user-query';
+                    const textEl = turn.querySelector('user-query-text, .query-text, p') || turn;
+                    const contentEl = turn.querySelector('message-content, .response-content') || turn;
+                    if (isUser) {
+                        blocks.push(`<div class="qa-user"><strong>🧑 Câu hỏi:</strong><br>${cloneClean(textEl)}</div>`);
+                    } else {
+                        blocks.push(`<div class="qa-bot"><strong>🤖 Trả lời:</strong><br>${cloneClean(contentEl)}</div>`);
+                    }
+                });
+            } else {
+                // Fallback: chỉ lấy message-content (câu trả lời AI)
+                const msgs = document.querySelectorAll('message-content');
+                msgs.forEach(el => blocks.push(`<div class="qa-bot"><strong>🤖 Trả lời:</strong><br>${cloneClean(el)}</div>`));
+            }
+        } else if (platform === 'chatgpt') {
+            // ChatGPT: article[data-testid="conversation-turn-*"]
+            const turns = document.querySelectorAll('article[data-testid^="conversation-turn"]');
+            if (turns.length > 0) {
+                turns.forEach(turn => {
+                    const isUser = !!turn.querySelector('[data-message-author-role="user"]');
+                    const contentEl = turn.querySelector('.whitespace-pre-wrap, div.markdown, [data-message-author-role]') || turn;
+                    if (isUser) {
+                        blocks.push(`<div class="qa-user"><strong>🧑 Câu hỏi:</strong><br>${cloneClean(contentEl)}</div>`);
+                    } else {
+                        blocks.push(`<div class="qa-bot"><strong>🤖 Trả lời:</strong><br>${cloneClean(contentEl)}</div>`);
+                    }
+                });
+            } else {
+                // Fallback: chỉ lấy markdown blocks
+                const msgs = document.querySelectorAll('div.markdown');
+                msgs.forEach(el => blocks.push(`<div class="qa-bot"><strong>🤖 Trả lời:</strong><br>${cloneClean(el)}</div>`));
+            }
+        } else {
+            // Copilot (M365 / Bing): cib-chat-turn
+            // Thử selector cib-chat-turn (web component)
+            const turns = document.querySelectorAll('cib-chat-turn, .chat-turn, [class*="chat-turn"]');
+            if (turns.length > 0) {
+                turns.forEach(turn => {
+                    // User message
+                    const userEl = turn.querySelector('.user-turn-content, [class*="user-message"], cib-message[role="user"], .user-message');
+                    // Bot message  
+                    const botEl = turn.querySelector('cib-message-group[source="bot"] cib-message, .response-message, [class*="bot-response"], .ac-container');
+                    if (userEl) blocks.push(`<div class="qa-user"><strong>🧑 Câu hỏi:</strong><br>${cloneClean(userEl)}</div>`);
+                    if (botEl) blocks.push(`<div class="qa-bot"><strong>🤖 Trả lời:</strong><br>${cloneClean(botEl)}</div>`);
+                });
+            }
+            // Nếu không tìm được cib-chat-turn, thử lấy content từ shadow DOM hoặc fallback selectors
+            if (blocks.length === 0) {
+                const selectors = [
+                    '[data-testid*="message"]',
+                    '[class*="message-body"]',
+                    '[class*="chat-message"]',
+                    '.content-card',
+                    '[class*="response-message"]'
+                ];
+                for (const sel of selectors) {
+                    const found = document.querySelectorAll(sel);
+                    if (found.length > 0) {
+                        found.forEach(el => {
+                            if (el.innerText && el.innerText.trim().length > 10) {
+                                blocks.push(`<div class="qa-block">${cloneClean(el)}</div>`);
+                            }
+                        });
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Nếu vẫn không lấy được gì → fallback lấy text visible từ main
+        if (blocks.length === 0) {
+            appLog('⚠️ [Extract] Không tìm được message blocks, fallback main text');
+            const mainEl = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
+            // Chỉ lấy các đoạn có text thực sự, bỏ nav/header/footer/button
+            const textNodes = mainEl.querySelectorAll('p, h1, h2, h3, h4, li, pre, code, table, blockquote');
+            textNodes.forEach(el => {
+                if (el.innerText && el.innerText.trim().length > 5) {
+                    blocks.push(`<p>${el.innerHTML}</p>`);
+                }
+            });
+        }
+
+        // Build CSS cho Q&A style
+        const qaCss = `
+<style>
+.qa-user { background:#e8f0fe; border-left:4px solid #0078d4; padding:12px 16px; margin:16px 0; border-radius:0 8px 8px 0; }
+.qa-bot  { background:#f9f9f9; border-left:4px solid #107c10; padding:12px 16px; margin:16px 0; border-radius:0 8px 8px 0; }
+.qa-block{ background:#fff; border:1px solid #ddd; padding:12px; margin:12px 0; border-radius:6px; }
+</style>`;
+
+        const html = qaCss + blocks.join('\n<hr style="border:none;border-top:1px dashed #ccc;margin:8px 0;">\n');
+        const timestamp = new Date().toLocaleString('vi-VN');
+        const filename = request.filename || "extracted_page.html";
+        
+        safeSendMessage({
+            action: "download_single_html", 
+            rawContent: capHtml(html),
+            dayLabel: document.title.slice(0, 60) || "Trích xuất", 
+            agentName: document.title.slice(0, 30), 
+            filename: filename,
+            timestamp: timestamp
+        });
+        
+        sendStatus(`Đã trích xuất ${blocks.length} block. Trình duyệt đang tải xuống file...`);
+        sendResponse({ status: "extracted", blockCount: blocks.length });
+    }
+
     return true;
 });
 

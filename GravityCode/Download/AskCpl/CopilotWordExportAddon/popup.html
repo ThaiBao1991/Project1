@@ -59,11 +59,25 @@
     #status { margin-top: 12px; font-size: 12px; color: #605e5c; padding: 8px; background: #fff; border-radius: 4px; border: 1px solid #e1dfdd; min-height: 38px; word-wrap: break-word; }
     #logArea { width: 100%; height: 90px; font-size: 11px; background: #1e1e1e; color: #4ec94e; border: none; padding: 5px; resize: none; box-sizing: border-box; border-radius: 3px; }
     .section-title { font-size: 11px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+
+    /* Tabs */
+    .tabs { display: flex; border-bottom: 1px solid #ccc; margin-bottom: 15px; }
+    .tab-btn { flex: 1; background: #eef3f6; border: none; padding: 10px; cursor: pointer; font-weight: bold; color: #555; }
+    .tab-btn.active { background: #0078d4; color: white; border-radius: 4px 4px 0 0; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
   </style>
 </head>
 <body>
   <h3>📚 Copilot Auto Learner</h3>
 
+  <!-- ── Tabs ── -->
+  <div class="tabs">
+    <button class="tab-btn active" id="btn-tab-auto">Auto Run</button>
+    <button class="tab-btn" id="btn-tab-extract">Trích Xuất</button>
+  </div>
+
+  <div id="tab-auto" class="tab-content active">
   <!-- ── Quản lý Profile ── -->
   <div class="profile-bar">
     <select id="profileSelect"></select>
@@ -187,6 +201,34 @@
   <button id="loadSessionBtn" class="btn-secondary">📂 Chọn file session.json</button>
   <button id="clearSessionBtn">✕ Bỏ chọn phiên</button>
   <div id="sessionInfo"></div>
+
+  </div> <!-- End tab-auto -->
+
+  <!-- ── TAB TRÍCH XUẤT ── -->
+  <div id="tab-extract" class="tab-content">
+    <div style="background:#e8f0fe; border:1px solid #5c6bc0; border-radius:6px; padding:10px; margin-bottom:12px; font-size:12px; line-height:1.6;">
+      💡 <strong>Hướng dẫn:</strong> Mở trang Copilot/Gemini/ChatGPT đang có cuộc trò chuyện, chọn nền tảng, đặt tên file rồi click <strong>Trích xuất</strong>. File HTML sẽ tự động tải về thư mục <strong>Downloads</strong> của bạn.
+    </div>
+    <div class="section-title">Trích xuất trang đang hỏi</div>
+    <div class="input-group">
+      <label>Nền tảng AI:</label>
+      <select id="extractPlatformSelect" style="margin-bottom:8px;">
+        <option value="copilot">M365 Copilot</option>
+        <option value="gemini">Google Gemini</option>
+        <option value="chatgpt">ChatGPT Free</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label>Tên file lưu (<code>.html</code>):</label>
+      <div style="display:flex; gap:6px;">
+        <input type="text" id="extractFilenameInput" value="extracted_page.html" style="flex:1;">
+        <button id="extractAutoNameBtn" class="btn-outline" style="width:auto; padding:5px 8px; font-size:11px; white-space:nowrap;" title="Tự điền tên file từ tiêu đề trang">♻️ Auto</button>
+      </div>
+      <div style="font-size:10px; color:#888; margin-top:3px;">File sẽ tải về thư mục <strong>Downloads</strong> mặc định của trình duyệt.</div>
+    </div>
+    <button id="extractBtn" style="background: linear-gradient(135deg,#0f0c29,#302b63); color:white; margin-top: 10px; font-size:14px; padding:12px;">📥 Trích xuất &amp; Lưu File HTML</button>
+    <div id="extractStatus" style="margin-top:8px; font-size:12px; color:#107c10; display:none; padding:6px; background:#e6f4ea; border-radius:4px; border:1px solid #28a745;"></div>
+  </div>
 
   <hr class="divider">
 
