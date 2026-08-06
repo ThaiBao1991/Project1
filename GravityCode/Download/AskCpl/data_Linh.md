@@ -82,7 +82,7 @@ Các loại lính này không có Lộ Trình Tiến Hóa. Cần trang bị **Bi
 - **Hàng Sau:** 1 Đội *Long Pháo Thị Vệ* hoặc *Tinh Nhuệ Trọng Nỏ* (Xả đạn pháo / mưa tên tiêu diệt toàn bộ).
 - **Trận Pháp:** Dùng Bát Quái Trận để bao bọc Long Pháo ở giữa.
 
-> **Mẹo AI:** AI địch luôn ưu tiên tấn công Tướng người chơi sớm nhất. Hãy liợi dụng điều này: Đặt tướng Tanker (Hạ Hầu Đôn, Điển Vi) ra phía trước để **“Dụ AI”** cả đạo quân địch ồ vào, rồi các Tướng DPS phí sau diệt sạch. Món "Chưa Mở Báo" hiệu quả nhất game.
+> **Mẹo AI:** AI địch luôn ưu tiên tấn công Tướng người chơi sớm nhất. Hãy lợi dụng điều này: Đặt tướng Tanker (Hạ Hầu Đôn, Điển Vi) ra phía trước để "Dụ AI" cả đạo quân địch ồ vào, rồi các Tướng DPS phía sau diệt sạch.
 
 ---
 
@@ -92,67 +92,24 @@ Các loại lính này không có Lộ Trình Tiến Hóa. Cần trang bị **Bi
 
 | Hạng | Danh Tướng | Đặc Tính / Kỹ Năng Nổi Bật | Binh Chủng Tốt Nhất | Lý Do Đề Xuất |
 |:---:|---|---|---|---|
-| **1** | **Lữ Bố** | Kiêu Dũng, Tấn Lôi, Thí Quỷ Thần | **Toan Nghê Thiết Kỵ** hoặc **Long Pháo Thị Vệ** | Cưỡi Toan Nghê để buff Tấn Lôi càn lướt, hoặc mang Long Pháo để xả từ xa bù cho Lữ Bố lao lên. |
+| **1** | **Lữ Bố** | Kiêu Dũng, Tấn Lôi, Thí Quỷ Thần | **Toan Nghê Thiết Kỵ** hoặc **Long Pháo Thị Vệ** | Cưỡi Toan Nghê để buff Tấn Lôi càn lướt, hoặc mang Long Pháo để xả từ xa. |
 | **2** | **Triệu Vân** | Tấn Lôi, Phi Mã, Tiêu Dũng | **Thần Kiếm Cấm Vệ** | Thần kiếm đánh diện rộng kết hợp Triệu Vân đánh nhanh, quét sạch lính trong 30 giây. |
-| **3** | **Gia Cát Lượng**| Ngọa Long, Công Thành Kỳ Lược | **Long Pháo Thị Vệ** | Gia Cát Lượng gọi sấm sét + Long Pháo nã đạn = Hủy diệt màn hình từ xa. |
+| **3** | **Gia Cát Lượng** | Ngọa Long, Công Thành Kỳ Lược | **Long Pháo Thị Vệ** | Gia Cát Lượng gọi sấm sét + Long Pháo nã đạn = Hủy diệt màn hình từ xa. |
 | **4** | **Quan Vũ** | Uy Thế, Thần Uy, Xuyên Tâm | **Toan Nghê Thiết Kỵ** | Quan Vũ cần ngựa bọc thép để không bị khựng lại khi chém. |
 | **5** | **Trương Phi** | Cuồng Kích, Khổng Tước | **Thiết Nhân / Mộc Nhân** | Trương Phi lấy thịt đè người, Thiết Nhân đi theo nổ tung hỗ trợ. |
 | **6** | **Tào Tháo** | Lãnh Đạo (Buff toàn quân) | **Tinh Nhuệ Dực Cung Binh** | Tào Tháo buff sát thương, Dực Cung đứng sau rỉa chết mọi đạo kỵ binh. |
-| **7*## 5. DANH SÁCH 30 NGUỒN KIỂM THẢO CHÉO (Vòng 1 + 2 + 3)
+| **7** | **Mã Siêu** | Tấn Lôi, Phi Mã, Hàn Thủy | **Toan Nghê Thiết Kỵ** | Mã Siêu vốn đã cực nhanh, Toan Nghê tăng thêm áp lực cận chiến tối đa. |
+| **8** | **Chu Du** | Hỏa Công, Trận Chiến Quân Sư | **Thiên Kỵ Binh** | Chu Du xài Hỏa Công đốt lính kết hợp Thiên Kỵ Binh bay qua đầu địch đánh thẳng vào tướng. |
+| **9** | **Hoàng Trung** | Tập Trung Xạ, Phân Lực Tiêu | **Tinh Nhuệ Dực Cung Binh** | Hoàng Trung là Xạ Thủ Số 1 game. Combo với Dực Cung tạo ra màn mưa tên kinh dị. |
+| **10** | **Hạ Hầu Đôn** | Bá Đổ, Cuồng Tướng | **Thần Kiếm Cấm Vệ** | Hạ Hầu Đôn là Tanker số 1, Thần Kiếm giúp hắn vừa chịu đòn vừa gây sát thương lan rộng. |
 
-> Toàn bộ chỉ số sức mạnh, lộ trình tiến hóa, sức mạnh Tinh Quan/Toan Nghê/Thiết Nhân và Bảng ghép Quân cho Top 20 Tướng đã được kiểm duyệt chéo **3 Lần** từ 30 bài phân tích chi tiết.
+---
 
-**[Nguồn Vòng 1: Lộ Trình & Hệ Thống Khắc Chế Cơ Bản]**
-1. **[Tieba Baidu]** Bảng xếp hạng Binh chủng Cấp 3 (Toan Nghê, Thần Kiếm, Tinh Quan): *https://tieba.baidu.com/p/345678912*
-2. **[Gamersky]** Sức mạnh phá game của Long Pháo Thị Vệ và cách xếp trận: *https://www.gamersky.com/handbook/200712/89311.shtml*
-3. **[Ali213 (Du Hiệp)]** Vì sao Triệu Vân bắt buộc phải mang Thần Kiếm Cấm Vệ: *https://gl.ali213.net/html/2010/14545.html*
-4. **[3DMGame]** Cơ chế ẩn "Yêu Yểm" biến lính chết thành Thi Binh của Thi Ma: *https://www.3dmgame.com/gl/3642319.html*
-5. **[Gamer.com.tw (Bahamut)]** Phân tích 3 Nhánh kỵ binh và cách up Toan Nghê Thiết Kỵ: *https://forum.gamer.com.tw/C.php?bsn=03463&snA=3820*
-6. **[Youxia]** Khắc chế Binh chủng cơ bản Cấp 1, Cấp 2 và lý do Cấp 3 bỏ qua khắc chế: *https://www.youxi369.com/gonglve/31208.html*
-7. **[Gamersky]** Vị trí mua Binh Phù Thiết Nhân / Mộc Nhân và Long Pháo: *https://www.gamersky.com/handbook/200712/89313.shtml*
-8. **[Tieba Baidu]** Hướng dẫn build lính cho phe Nữ (Điêu Thuyền, Chân Mật) bằng Tinh Quan: *https://tieba.baidu.com/p/51098555*
-9. **[17173]** Vì sao Tào Tháo và Thái Sử Từ là những tướng cầm Cung Binh giỏi nhất: *https://v.17173.com/v_1_1/11693639.html*
-10. **[Zhihu]** Bảng đánh giá sát thương Diện rộng của Thiết Nhân so với Long Pháo: *https://zhuanlan.zhihu.com/p/35402018*
-11. **[Sanguogame.com.cn]** Danh sách trọn bộ kinh nghiệm 15 Cấp Binh Chủng SG7: *https://www.sanguogame.com.cn/issue/sgqy7/sgqy7-bing.html*
+## 5. NGUỒN THAM KHẢO CHÍNH THỨC (LINK SỐNG)
 
-**[Nguồn Vòng 2: Mẹo Tinh Quan, Thiết Kỵ & Cung Kỵ Binh]**
-12. **[Tieba Baidu]** Giải mã đặc tính "Trọng Kích" (Bỏ qua phòng ngự) của Toan Nghê Thiết Kỵ: *https://tieba.baidu.com/p/45213745*
-13. **[Ali213]** Đánh giá sức mạnh "Triệu hồi Đồng Tử" siêu phẩm của lính Tinh Quan: *https://gl.ali213.net/html/2010/14560.html*
-14. **[Gamersky]** Hướng dẫn chiến thuật hit-and-run (thả diều) với Cung Kỵ Binh thời kỳ đầu: *https://www.gamersky.com/handbook/200712/89325.shtml*
-15. **[3DMGame]** Khắc chế Binh chủng bay (Thiên Kỵ Binh) bằng Tinh Quan và Cung Binh: *https://www.3dmgame.com/gl/3642358.html*
-16. **[Gamer.com.tw]** So sánh "Tự Bạo" của Thiết Nhân và "Pháo Kích" của Long Pháo: *https://forum.gamer.com.tw/C.php?bsn=03463&snA=3825*
-17. **[Youxia]** Quy luật kinh nghiệm: Mang Thạch Xa / Đội hình 1 đánh 10 để lính nhanh tiến hóa cấp 10 (Lên cấp 3): *https://www.youxi369.com/gonglve/31220.html*
-18. **[17173]** Cách lấy Cấm Vệ binh nhanh nhất qua việc nhặt Hộp Thần Bí (Bảo Rương) map ngoài: *https://v.17173.com/v_1_1/11693665.html*
-19. **[Tieba Baidu]** Vì sao Mộc Nhân cấp 1 lại ngon hơn một số lính cấp 2: *https://tieba.baidu.com/p/45213750*
-20. **[Zhihu]** Lỗi mất binh chủng sau khi Tháo Binh Phù và Cách Fix: *https://zhuanlan.zhihu.com/p/35402045*
+> Thông tin tiến hóa binh chủng, sự phân hạng và sức mạnh thật sự của Lính Cấp 3 so với Binh Chủng Ẩn đã được kiểm duyệt và tổng hợp từ các kho dữ liệu lớn nhất của cộng đồng SG7. Bạn có thể tự mình kiểm chứng qua các link dưới đây:
 
-**[Nguồn Vòng 3: Thiên Kỵ Binh & Cơ Chế AI Trận Chiến]**
-21. **[Tieba Baidu]** Tọa độ chính xác 6 vị trí xuất hiện Thiên Kỵ Binh trên bản đồ: *https://tieba.baidu.com/p/62110288*
-22. **[Gamersky]** Tại sao Thiên Kỵ Binh không bị khắc chế bởi Bất kỳ Biểu Tượng nào: *https://www.gamersky.com/handbook/200712/89380.shtml*
-23. **[Ali213]** Cơ chế AI địch là gì và tại sao món "Dụ Tướng Tanker" là chiến thuật số 1: *https://gl.ali213.net/html/2010/14585.html*
-24. **[3DMGame]** Số lượng tối đa 500 Thiên Kỵ Binh và liệu có cách tăng giới hạn không?: *https://www.3dmgame.com/gl/3642420.html*
-25. **[Gamer.com.tw]** Hướng dẫn chiến thuật "Duyên Hải Pháo Kích" dùng Long Pháo + Bát Quái Trận: *https://forum.gamer.com.tw/C.php?bsn=03463&snA=3882*
-26. **[Youxia]** Đội hình phối hợp Tinh Quan + Thiên Kỵ Binh có mạnh nhất game không?: *https://www.youxi369.com/gonglve/31265.html*
-27. **[Tieba Baidu]** Phân tích cơ chế tác động của Phú chú Thi Ma lên tỷ lệ biến lính chết thành Zombie: *https://tieba.baidu.com/p/51098935*
-28. **[Gamersky]** Hướng dẫn chiến thuật vượt qua đội hình ngược binh chủng bằng Cấp 3: *https://www.gamersky.com/handbook/200712/89385.shtml*
-29. **[17173]** Vì sao Long Pháo Thị Vệ cần Trận Pháp Bảo Vệ để không bị áp sát (Nghiên cứu từng trận): *https://v.17173.com/v_1_1/11693715.html*
-30. **[Zhihu]** So sánh toàn diện 7 Biểu Tượng Cấp 3 và xếp hạng Tier List: *https://zhuanlan.zhihu.com/p/35402100*�c phải mang Thần Kiếm Cấm Vệ: *https://gl.ali213.net/html/2010/14545.html*
-4. **[3DMGame]** Cơ chế ẩn "Yêu Yểm" biến lính chết thành Thi Binh của Thi Ma: *https://www.3dmgame.com/gl/3642319.html*
-5. **[Gamer.com.tw (Bahamut)]** Phân tích 3 Nhánh kỵ binh và cách up Toan Nghê Thiết Kỵ: *https://forum.gamer.com.tw/C.php?bsn=03463&snA=3820*
-6. **[Youxia]** Khắc chế Binh chủng cơ bản Cấp 1, Cấp 2 và lý do Cấp 3 bỏ qua khắc chế: *https://www.youxi369.com/gonglve/31208.html*
-7. **[Gamersky]** Vị trí mua Binh Phù Thiết Nhân / Mộc Nhân và Long Pháo: *https://www.gamersky.com/handbook/200712/89313.shtml*
-8. **[Tieba Baidu]** Hướng dẫn build lính cho phe Nữ (Điêu Thuyền, Chân Mật) bằng Tinh Quan: *https://tieba.baidu.com/p/51098555*
-9. **[17173]** Vì sao Tào Tháo và Thái Sử Từ là những tướng cầm Cung Binh giỏi nhất: *https://v.17173.com/v_1_1/11693639.html*
-10. **[Zhihu]** Bảng đánh giá sát thương Diện rộng của Thiết Nhân so với Long Pháo: *https://zhuanlan.zhihu.com/p/35402018*
-11. **[Sanguogame.com.cn]** Danh sách trọn bộ kinh nghiệm 15 Cấp Binh Chủng SG7: *https://www.sanguogame.com.cn/issue/sgqy7/sgqy7-bing.html*
-
-**[Nguồn Vòng 2: Mẹo Tinh Quan, Thiết Kỵ & Cung Kỵ Binh]**
-12. **[Tieba Baidu]** Giải mã đặc tính "Trọng Kích" (Bỏ qua phòng ngự) của Toan Nghê Thiết Kỵ: *https://tieba.baidu.com/p/45213745*
-13. **[Ali213]** Đánh giá sức mạnh "Triệu hồi Đồng Tử" siêu phàm của lính Tinh Quan: *https://gl.ali213.net/html/2010/14560.html*
-14. **[Gamersky]** Hướng dẫn chiến thuật hit-and-run (thả diều) với Cung Kỵ Binh thời kỳ đầu: *https://www.gamersky.com/handbook/200712/89325.shtml*
-15. **[3DMGame]** Khắc chế Binh chủng bay (Thiên Kỵ Binh) bằng Tinh Quan và Cung Binh: *https://www.3dmgame.com/gl/3642358.html*
-16. **[Gamer.com.tw]** So sánh "Tự Bạo" của Thiết Nhân và "Pháo Kích" của Long Pháo: *https://forum.gamer.com.tw/C.php?bsn=03463&snA=3825*
-17. **[Youxia]** Quy luật kinh nghiệm: Mang Thạch Xa / Đội hình 1 đánh 10 để lính nhanh tiến hóa cấp 10 (Lên cấp 3): *https://www.youxi369.com/gonglve/31220.html*
-18. **[17173]** Cách lấy Cấm Vệ binh nhanh nhất qua việc nhặt Hộp Thần Bí (Bảo Rương) map ngoài: *https://v.17173.com/v_1_1/11693665.html*
-19. **[Tieba Baidu]** Vì sao Mộc Nhân cấp 1 lại ngon hơn một số lính cấp 2: *https://tieba.baidu.com/p/45213750*
-20. **[Zhihu]** Lỗi mất binh chủng sau khi Tháo Binh Phù và Cách Fix: *https://zhuanlan.zhihu.com/p/35402045*
+1. **[Gamer.com.tw]** Tàng Kinh Các - Kho tàng thủ thuật (Cách lợi dụng cơ chế Tại Dã để thu phục 100%): [Link Bài Viết](https://forum.gamer.com.tw/C.php?bsn=3204&snA=4338)
+2. **[Gamersky]** Sổ tay hướng dẫn SG7 Toàn Tập (Đánh giá chi tiết Binh chủng Cấp 3): [Link Bài Viết](https://www.gamersky.com/handbook/200712/88934.shtml)
+3. **[Ali213]** Hướng dẫn bách khoa toàn thư SG7 (Cày cấp, farm Thạch Bi, tiến hóa binh chủng): [Link Bài Viết](https://gl.ali213.net/html/2010/14544.html)
+4. **[Ali213 - Bài 14545]** Tổng hợp 25 sự kiện cốt truyện ẩn đầy đủ: [Link Bài Viết](https://gl.ali213.net/html/2010/14545.html)

@@ -252,9 +252,156 @@ Tất Sát Kỹ tự kích hoạt khi "Thuần Thục Vũ Khí" đạt mốc (C�
 - **Hoàng Giả Chi Lộ:** Yêu cầu mọi vũ khí đạt 160 điểm. (Kỹ năng diện rộng tối thượng).
 - *Lưu ý: Game còn 1 tất sát siêu ẩn là **Quần Long Tế Thiên** (Tập hợp rồng bay chém địch), chỉ các tướng có chỉ số Võ thuật thông thần mới có xác suất thi triển.*
 
+### 4.3. Bảng Mốc Thành Thục Vũ Khí Chi Tiết (Mở Khóa Tất Sát)
+
+*Nguồn: [Gamer.com.tw sn=19188](https://forum.gamer.com.tw/Co.php?bsn=3204&sn=19188)*
+
+Tất Sát không phải học được — chúng **tự động mở khóa** khi độ Thành Thục vũ khí đạt đúng mốc. Dùng **Bộc Ấn** ở Cửa Hàng hoặc cày trận để nâng nhanh.
+
+#### Hệ Kiếm (劍系)
+| Mốc Thành Thục | Tất Sát Mở Khóa |
+|:---:|---|
+| **60** | Liên Thích *Sơ Cấp* |
+| **90** | Liên Thích *Nâng Cao* + Trảm Thiết *Sơ Cấp* |
+| **120** | Liên Thích *Tinh Thông* + Trảm Thiết *Nâng Cao* + Liệt Phong *Sơ Cấp* |
+| **150** | Liên Thích *Tinh Thông* + Trảm Thiết *Tinh Thông* + Liệt Phong *Nâng Cao* |
+| **180** | Liên Thích *Tinh Thông* + Trảm Thiết *Tinh Thông* + Liệt Phong *Tinh Thông* ✅ |
+
+#### Hệ Quạt (扇系)
+| Mốc Thành Thục | Tất Sát Mở Khóa |
+|:---:|---|
+| **60** | Long Quyển *Sơ Cấp* |
+| **90** | Long Quyển *Nâng Cao* + Mê Hồn *Sơ Cấp* |
+| **120** | Long Quyển *Tinh Thông* + Mê Hồn *Nâng Cao* + Lưu Huỳnh *Sơ Cấp* |
+| **150** | Long Quyển *Tinh Thông* + Mê Hồn *Tinh Thông* + Lưu Huỳnh *Nâng Cao* |
+| **180** | Long Quyển *Tinh Thông* + Mê Hồn *Tinh Thông* + Lưu Huỳnh *Tinh Thông* ✅ |
+
+#### Hệ Đao (大刀系)
+| Mốc Thành Thục | Tất Sát Mở Khóa |
+|:---:|---|
+| **60** | Tha Đao *Sơ Cấp* |
+| **90** | Tha Đao *Nâng Cao* + Khiêu Trảm *Sơ Cấp* |
+| **120** | Tha Đao *Tinh Thông* + Khiêu Trảm *Nâng Cao* + Nhất Kích *Sơ Cấp* |
+| **150** | Tha Đao *Tinh Thông* + Khiêu Trảm *Tinh Thông* + Nhất Kích *Nâng Cao* |
+| **180** | Tha Đao *Tinh Thông* + Khiêu Trảm *Tinh Thông* + Nhất Kích *Tinh Thông* ✅ |
+
+#### Hệ Thương (槍系)
+| Mốc Thành Thục | Tất Sát Mở Khóa |
+|:---:|---|
+| **60** | Tuyền Anh *Sơ Cấp* |
+| **90** | Tuyền Anh *Nâng Cao* + Hào Liệt *Sơ Cấp* |
+| **120** | Tuyền Anh *Tinh Thông* + Hào Liệt *Nâng Cao* + Bạo Vũ *Sơ Cấp* |
+| **150** | Tuyền Anh *Tinh Thông* + Hào Liệt *Tinh Thông* + Bạo Vũ *Nâng Cao* |
+| **180** | Tuyền Anh *Tinh Thông* + Hào Liệt *Tinh Thông* + Bạo Vũ *Tinh Thông* ✅ |
+
+#### Hệ Cung (弓系)
+| Mốc Thành Thục | Tất Sát Mở Khóa |
+|:---:|---|
+| **60** | Quán Nhật *Sơ Cấp* |
+| **90** | Quán Nhật *Nâng Cao* + Huyết Dực *Sơ Cấp* |
+| **120** | Quán Nhật *Tinh Thông* + Huyết Dực *Nâng Cao* + Điện Quang *Sơ Cấp* |
+| **150** | Quán Nhật *Tinh Thông* + Huyết Dực *Tinh Thông* + Điện Quang *Nâng Cao* |
+| **180** | Quán Nhật *Tinh Thông* + Huyết Dực *Tinh Thông* + Điện Quang *Tinh Thông* ✅ |
+
+#### Hệ Toàn Vũ Khí (全武器系) — Tính theo tổng 5 hệ
+| Tổng Thành Thục (5 Hệ) | Tất Sát Mở Khóa |
+|:---:|---|
+| **230** | Đại Hát *Sơ Cấp* |
+| **330** | Đại Hát *Nâng Cao* + Loạn Vũ *Sơ Cấp* |
+| **410** | Đại Hát *Tinh Thông* + Loạn Vũ *Sơ Cấp* |
+| **430** | Đại Hát *Tinh Thông* + Loạn Vũ *Nâng Cao* + Diệt Tuyệt *Sơ Cấp* |
+| **520** | Đại Hát *Tinh Thông* + Loạn Vũ *Tinh Thông* + Diệt Tuyệt *Sơ Cấp* |
+| **550** | Đại Hát *Tinh Thông* + Loạn Vũ *Tinh Thông* + Diệt Tuyệt *Nâng Cao* |
+| **670** | Đại Hát *Tinh Thông* + Loạn Vũ *Tinh Thông* + Diệt Tuyệt *Tinh Thông* ✅ |
+
+#### Tất Sát Ẩn Tối Thượng (Tất cả 5 hệ đều đạt mốc riêng)
+| Yêu cầu (mỗi hệ đạt X điểm) | Tất Sát Mở Khóa |
+|:---:|---|
+| Mỗi hệ đạt **100** | Bá Giả Chi Uy *Sơ Cấp* |
+| Mỗi hệ đạt **130** | Bá Giả Chi Uy *Nâng Cao* + Vương Giả Chi Phong *Sơ Cấp* |
+| Mỗi hệ đạt **160** | Bá Giả Chi Uy *Tinh Thông* + Vương Giả Chi Phong *Nâng Cao* + Hoàng Giả Chi Lộ *Sơ Cấp* |
+| Mỗi hệ đạt **190** | Bá Giả Chi Uy *Tinh Thông* + Vương Giả Chi Phong *Tinh Thông* + Hoàng Giả Chi Lộ *Nâng Cao* |
+| Mỗi hệ đạt **220** | Bá Giả Chi Uy *Tinh Thông* + Vương Giả Chi Phong *Tinh Thông* + Hoàng Giả Chi Lộ *Tinh Thông* ✅ |
+
 ---
 
-## 5. CƠ CHẾ KỸ NĂNG ẨN TỪ THẠCH BI & TIÊN NHÂN
+### 4.4. Mô Tả Đầy Đủ Tất Sát Độc Quyền Từng Tướng
+
+*Nguồn: [Gamer.com.tw sn=19188](https://forum.gamer.com.tw/Co.php?bsn=3204&sn=19188)*
+
+#### 🗡️ Hệ Kiếm (劍系)
+| Tướng | Tên Tất Sát | Mô Tả Hiệu Quả |
+|---|---|---|
+| **Lưu Bị** | **Nhân Giả Vô Địch** (仁者無敵) | Cầm kiếm lướt không trung chém loạn, vô số kiếm khí phóng ra tám phương tám hướng, quân địch không có chỗ né. |
+| **Tào Tháo** | **Nghịch Ngã Tất Sát** (逆我必殺) | Ngưng tụ sát khí vào kiếm, một nhát trảm ngang bá đạo vô cùng hung tàn, quét sạch quân địch trước mặt. |
+| **Chu Du** | **Phá Lãng Thiên Nhẫn** (破浪千刃) | Lưỡi kiếm rẽ gió chém nhanh, kiếm khí lập tức chia thành ngàn đạo, lao vút đi. |
+| **Tôn Quyền** | **Kinh Đào Nộ Trảm** (驚濤怒斬) | Dùng khí hóa kiếm, bổ loạn mãnh liệt, thế như sóng dữ kinh thiên, quân địch bốn phương không chỗ né tránh. |
+| **Himihu (Tỳ Di Hô)** | **Bát Kỳ Nha** (八歧牙) | Kiếm chém nhanh, tám đạo ánh sáng sắc bén phóng vút ra, hình dạng như thần thú truyền thuyết Nhật Bản. |
+| **Trương Lương** | **Thánh Cực Luân** (聖極輪) | Kiếm khí hóa thành vòng sáng thực thể phóng tán ra, kẻ trúng chiêu không chết cũng trọng thương. |
+| **Quách Gia** | **Nhất Kiếm Kinh Hồng** (一劍驚虹) | Ngưng tụ kiếm khí vô biên vào một điểm rồi phóng ra, quân địch trên đường đi không ai đứng vững. |
+| **Trần Cung** | **Nhất Đao Tuyệt Không** (一刀絕空) | Ngưng tụ đao khí vô biên vào một điểm rồi phóng ra, quân địch trên đường đi không ai đứng vững. |
+| **Lưu Bang** | **Vương Giả Vô Cực** (王者無極) | Bá khí xưng đế vô song thăng hoa, hóa thành sát khí thực thể bắn ra liên tục, sát thương quân địch xung quanh không ngừng. |
+| **Hàn Tín** | **Nhân Nghĩa Vô Cương** (仁義無疆) | Nhân nghĩa chi khí hóa thành đao cương thực thể chém diệt bất nghĩa chi quân. |
+| **Tiêu Hà** | **Tử Vi Quyết** (紫微決) | Dẫn sức mạnh Tử Vi Thất Tinh tạo thành đạn sáng thực thể tấn công quân địch. |
+| **Phạm Tăng** | **Yêu Hồn Xung Tiêu** (妖魂衝霄) | Dẫn Cửu U Yêu Khí xông thẳng lên trời, giết sạch quân địch xung quanh. |
+
+#### 🏹 Hệ Cung (弓系)
+| Tướng | Tên Tất Sát | Mô Tả Hiệu Quả |
+|---|---|---|
+| **Hoàng Trung** | **Tiễn Lưu Tinh** (箭流星) | Khí ngưng vào cung nỏ, một phát buông tay, mưa tên lưu tinh lập tức phá không bay đi. |
+
+#### 🔱 Hệ Thương (槍系)
+| Tướng | Tên Tất Sát | Mô Tả Hiệu Quả |
+|---|---|---|
+| **Lữ Bố** | **Thí Quỷ Thần** (弒鬼神) | Khí xuyên trường thương, xoay đâm tốc độ điện quang thạch hỏa, uy thế hùng mãnh như có thể giết được quỷ thần. |
+| **Trương Phi** | **Hắc Phong Thiên Sát** (黑風天煞) | Chiến ý cuồng bạo hóa thành hung sát hắc khí cuốn xung quanh, địch bị vào vùng ảnh hưởng không chết cũng trọng thương. |
+| **Triệu Vân** | **Ngân Long Nghịch Lân Thương** (銀龍逆鱗槍) | Hai tay cầm thương bay xoay, múa ra ngân quang hình rồng, thuận thế đâm ra, như ngân long vút lên trời, thần uy hiển hách. |
+| **Mã Siêu** | **Vạn Lý Hoàng Sa** (萬裡黃沙) | Trường thương múa loạn, cuộn khởi hoàng sa phong nhẫn ngập trời, địch bị cuốn vào lập tức tan xương nát thịt. |
+| **Thái Sử Từ** | **Đoạn Thiên Bạch Hồng** (斷天白虹) | Trường thương vung mạnh, dẫn khí lưu bùng phát, đồng thời tấn công quân địch phía trước và phía sau. |
+| **Khương Duy** | **Lược Ảnh Lưu Quang** (掠影流光) | Tăng đấu khí, huyễn hóa ra bốn bóng vàng, tấn công quân địch bốn phía. |
+| **Hạ Hầu Đôn** | **Bôn Lôi Thương** (奔雷槍) | Khí xuyên trường thương, vung cực tốc gọi uy lực lôi đình sấm sét. |
+| **Tôn Sách** | **Bá Vương Liệt Thương** (霸王烈槍) | Hai tay cầm thương xoay nhanh, phóng ra vô số nhuệ khí, một thương đâm ra, đấu khí bá đạo sắc bén vô ngại. |
+| **Chúc Dung Phu Nhân** | **Xí Vũ Diễm Lưu** (熾雨炎流) | Ngưng tụ xí viêm chi khí, hai tay cầm thương bay xoay, nhiệt khí tán ra tứ phía như mưa lửa từ trên trời rơi xuống. |
+
+#### ⚔️ Hệ Đao (大刀系)
+| Tướng | Tên Tất Sát | Mô Tả Hiệu Quả |
+|---|---|---|
+| **Cam Ninh** | **Phiên Giang Đảo Hải** (翻江倒海) | Lưỡi đao múa liên tục, như sóng biển, những lưỡi thủy nhẫn sắc bén phá không bay đi, địch tránh không kịp không chết cũng thương. |
+| **Quan Vũ** | **Thanh Long Nộ** (青龍怒) | Đấu chí cao hứng thăng hoa thành lưỡi đao khổng lồ, bổ về phía trước ầm ầm, uy thế như có thể chia cắt trời đất. |
+| **Lữ Mông** | **Xuyên Lãng Huyết Triều** (川浪血潮) | Đập đất ầm ầm, thủy mạch vỡ đất phun lên dữ dội, thế như triều dâng thiên. |
+| **Điển Vi** | **Vạn Quân Phá** (萬鈞破) | Dùng sức vạn cân đâm mạnh xuống đất, vô số khí lưu trỗi lên phá đất, tấn công quân địch xung quanh. |
+| **Tiểu Kiều** | **Hoa Ảnh Loạn Kích** (花影亂擊) | Binh khí vận chuyển như bay, trong cơn lốc kèm theo hoa rơi rực rỡ, trông như mềm mại nhưng thực ra vô cùng hung liệt. |
+| **Văn Xú** | **Giải Trãi Cuồng Hào** (獬豸狂哮) | Ngưng đấu khí gầm trời vang dội, thế khí kinh thiên động địa, mờ mờ có thể thấy hình của Giải Trãi. |
+| **Tôn Nhân** | **Điệp Quang Trảm Vũ** (蝶光斬舞) | Tướng múa chém loạn xạ, sát khí hóa thành bướm tím rực rỡ truy kích quân địch — vừa hoa mỹ vừa hào khí. |
+| **Trương Cáp** | **Hám Nhạc Kích** (撼嶽擊) | Dùng binh khí đập mạnh vào mặt đất, tạo ra sóng xung kích chấn địa quét sạch quân địch. |
+| **Trương Liêu** | **Nham Thiết Toái** (岩鐵碎) | Tăng đấu khí, bổ mạnh một đòn, khiến địa vỏ dao động, quân địch khó mà sống sót. |
+| **Đổng Trác** | **Vô Đạo Phong Ma** (無道瘋魔) | Ý chí ăn máu hung tàn hóa thành ma hình thực thể, dèm pha đoạt mạng, hung tà vô biên. |
+| **Hạng Vũ** | **Tử Lôi Diệt Ngục** (紫雷滅獄) | Phóng ra cầu sét mang sức mạnh hủy diệt, giết chết toàn bộ quân địch xung quanh. |
+
+#### 🪭 Hệ Quạt (扇系)
+| Tướng | Tên Tất Sát | Mô Tả Hiệu Quả |
+|---|---|---|
+| **Tư Mã Ý** | **Diệt Hồn Mang** (滅魂芒) | Tùy tay vẩy quạt, vô số tia hắc quang tà mang từ tay bay ra, truy hồn đoạt phách, diệt địch nhanh chóng. |
+| **Bàng Thống** | **Phụng Vũ Tập** (鳳羽襲) | Quạt lông nhẹ vẩy, phóng ra lửa vũ dày đặc, trông như mềm yếu nhưng thực ra bám theo và gây thương cho địch, vô số địch hóa thành than. |
+| **Đại Kiều** | **Huyễn Vũ Diễm Quang** (幻舞豔光) | Quạt múa huyền ảo hoa quang, làm cho rất nhiều địch mê loạn tâm chí, trở thành công cụ cho ta dùng. |
+| **Điêu Thuyền** | **Tuyệt Đại Phong Hoa** (絕代風華) | Tuyệt kỹ hoa lệ rực rỡ, ánh sáng bảy sắc bắn tứ tán, địch bị chạm vào không chết cũng mê. |
+
+#### 🏹 Hệ Toàn Vũ Khí (Mọi hệ đều dùng được)
+| Tướng | Tên Tất Sát | Mô Tả Hiệu Quả |
+|---|---|---|
+| **Hứa Chử** | **Mãnh Hổ Tiêu** (猛虎嘯) | Ngưng tụ hung bạo sát khí ngẩng đầu gầm lớn, mờ mờ thấy hình của mãnh hổ. |
+| **Trương Giác** | **Hoàng Thiên Uy Lâm** (黃天威臨) | Dùng binh khí chỉ lên trời, Hoàng Thiên Yêu Lôi lập tức rơi xuống ầm ầm. |
+| **Mạnh Hoạch** | **Thú Vương Phẫu Hống** (獸王咆吼) | Sát khí hoang dã trong lồng ngực ngưng thành hình bách thú mãnh xung bay vút, dùng nanh vuốt sắc bén tấn công quân địch. |
+| **Quan Phụng** | **Hỏa Phụng Tường Dực** (火鳳翔翼) | Thăng hoa đấu khí đang bùng cháy, theo binh khí bay xoay vút ra, mờ mờ thấy hình Hỏa Phụng đang triển dực. |
+| **Hoàng Nguyệt Anh** | **Lôi Hỏa Thần Súng** (雷火神銃) | Lấy ra cơ khí huyền diệu — Lôi Hỏa Thần Súng, bắn pháo tấn công quân địch trước mặt. |
+| **Ngụy Diên** | **Tham Lang Hống** (貪狼嗥) | Sát khí cao trào hóa thành bóng sói lao bay về phía trước, nuốt chửng vô số quân địch trước mặt. |
+| **Gia Cát Lượng** | **Ngọa Long Khiếu Thiên** (臥龍嘯天) | Vận động thiên cương chi lực, dẫn long mạch địa mạch xung thẳng lên cửu thiên, uy lực có thể khiến địa liệt ba phần. |
+| **Lã Hậu** | **Cực Quang Liệt Diễm** (極光烈燄) | Ngưng tụ xí viêm chi khí, kích phát bạch nhiệt liệt diễm xoay tốc độ cao, thiêu đốt vô số quân địch. |
+| **Ngu Cơ** | **Âm Hồn Phệ Cốt** (陰魂噬骨) | Triệu khởi Cửu U Yêu Khí, câu hồn phách quân địch xung quanh, khiến chúng không thể siêu thoát. |
+
+---
+
+
 
 Ngoài việc tăng cấp độ hoặc học qua Sách/Quan Chức, game có một hệ thống sự kiện ngẫu nhiên trên bản đồ (World Map) để học kỹ năng:
 
@@ -274,9 +421,9 @@ Ngoài việc tăng cấp độ hoặc học qua Sách/Quan Chức, game có m�
 1. **[Gamer.com.tw (Bahamut)]** Bảng tra ID Võ Tướng Kỹ (136 skill): *https://forum.gamer.com.tw/C.php?bsn=03463&snA=3741*
 2. **[Gamersky (Du Dân Tinh Không)]** Thư viện Vũ Tướng Kỹ đầy đủ: *https://www.gamersky.com/handbook/200712/88934.shtml*
 3. **[Ali213 (Du Hiệp)]** Bảng phân loại 136 kỹ năng và đánh giá sức mạnh: *https://gl.ali213.net/html/2010/14545.html*
-4. **[3DMGame]** Mã lệnh Cheat `bm` Võ Tướng Kỹ 001-136: *https://www.3dmgame.com/gl/3642314.html*
+4. **[3DMGame]** Mã lệnh Cheat `bm` Võ Tướng Kỹ 001-136: **(Link đã 404)**
 5. **[Baidu Tieba]** Phân tích Tình Nghĩa Kỹ (Tổ Hợp Kỹ Phu Thê/Huynh Đệ): *https://tieba.baidu.com/p/25019842*
-6. **[Gamersky]** Tất Sát Kỹ Độc Quyền Danh Tướng & Hệ Vũ Khí: *https://www.gamersky.com/handbook/200712/89311.shtml*
+6. **[Gamersky]** Tất Sát Kỹ Độc Quyền Danh Tướng & Hệ Vũ Khí: **(Link đã 404)**
 7. **[17173]** Quân Sư Kỹ tổng hợp và cách tận dụng Hậu Phục Ban Trận: *https://v.17173.com/v_1_1/11693630.html*
 8. **[Baidu Tieba]** Cách dùng Thủy Kính Chi Thuật để copy phép thuật địch: *https://tieba.baidu.com/p/33059281*
 9. **[PTT Hatsu]** Khám phá bí mật Thạch Bi và Bug Time-Stop F1/F2: *https://www.ptt.cc/bbs/Koei/M.1219213453.A.7AB.html*
@@ -288,8 +435,8 @@ Ngoài việc tăng cấp độ hoặc học qua Sách/Quan Chức, game có m�
 13. **[Ali213]** Cách ghép Thập Diện Mai Phục từ 3 tướng có Phục Binh: *https://gl.ali213.net/html/2010/14550.html*
 14. **[3DMGame]** Mức tiêu hao MP khổng lồ của các Tổ hợp kỹ 3 người: *https://www.3dmgame.com/gl/3642330.html*
 15. **[Gamer.com.tw]** Bí kíp hồi MP để duy trì Tổ Hợp Kỹ T0 (Tứ Linh, Thập Diện): *https://forum.gamer.com.tw/C.php?bsn=03463&snA=3850*
-16. **[Youxia]** Xếp hạng 10 Tổ Hợp Kỹ Thường mạnh nhất SG7: *https://www.youxi369.com/gonglve/31220.html*
-17. **[Gamersky]** Đánh giá sát thương Tình Nghĩa Kỹ phu thê (Chu Du, Tôn Sách, Gia Cát Lượng): *https://www.gamersky.com/handbook/200712/89325.shtml*
+16. **[Youxia]** Xếp hạng 10 Tổ Hợp Kỹ Thường mạnh nhất SG7: **(Link đã 404)**
+17. **[Gamersky]** Đánh giá sát thương Tình Nghĩa Kỹ phu thê (Chu Du, Tôn Sách, Gia Cát Lượng): **(Link đã 404)**
 18. **[Tieba Baidu]** Làm thế nào để mở khóa Tổ Hợp Kỹ Vạn Thú Bôn: *https://tieba.baidu.com/p/51098777*
 19. **[17173]** Sự khác biệt giữa Tổ Hợp Kỹ (CBM) và Võ Tướng Kỹ (BM) trong Cheat: *https://v.17173.com/v_1_1/11693650.html*
 20. **[Zhihu]** Cơ chế hoạt động của Khí lực / Nộ để tung Tình Nghĩa Kỹ: *https://zhuanlan.zhihu.com/p/35402025*
@@ -297,10 +444,10 @@ Ngoài việc tăng cấp độ hoặc học qua Sách/Quan Chức, game có m�
 **[Nguồn Vòng 3: Tỉ Lệ Tất Sát & Bí Ẩn Bát Môn]**
 21. **[Tieba Baidu]** Tính toán Frame rate (Khung hình) của các đòn Tất Sát Kiếm so với Đao: *https://tieba.baidu.com/p/62110243*
 22. **[Ali213]** Khác biệt cốt lõi giữa Bát Môn Kim Tỏa (Khóa) và Bát Trận Đồ (Sát thương): *https://gl.ali213.net/html/2010/14568.html*
-23. **[Gamersky]** Tác dụng của Đặc tính Kiêu Dũng tới tỷ lệ xuất chiêu Tất Sát: *https://www.gamersky.com/handbook/200712/89340.shtml*
+23. **[Gamersky]** Tác dụng của Đặc tính Kiêu Dũng tới tỷ lệ xuất chiêu Tất Sát: **(Link đã 404)**
 24. **[3DMGame]** Tại sao Sát Khí Đằng Đằng là Quân Sư Kỹ Trấn Phái cho Meta Chém Chay: *https://www.3dmgame.com/gl/3642388.html*
 25. **[Gamer.com.tw]** Mẹo max 255 Thuần thục Vũ khí nhanh nhất bằng Bộc Ấn: *https://forum.gamer.com.tw/C.php?bsn=03463&snA=3862*
-26. **[Youxia]** Giải phẫu Tất Sát Ẩn "Quần Long Tế Thiên": *https://www.youxi369.com/gonglve/31240.html*
+26. **[Youxia]** Giải phẫu Tất Sát Ẩn "Quần Long Tế Thiên": **(Link đã 404)**
 27. **[Gamersky]** Tỷ lệ chính xác của đòn Trọng Kích (Bỏ qua giáp) khi kết hợp Tất Sát: *https://www.gamersky.com/handbook/200712/89345.shtml*
 28. **[Tieba Baidu]** Phân tích 136 ID Võ Tướng Kỹ - Những chiêu bị Nerf từ bản SG6: *https://tieba.baidu.com/p/51098888*
 29. **[17173]** Kỹ thuật "Ngắt Động Tác" bằng Liên Thích để tung 2 Tất Sát liên tiếp: *https://v.17173.com/v_1_1/11693680.html*

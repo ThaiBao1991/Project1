@@ -3,7 +3,7 @@
 > Chức Quan quyết định số lính mang theo, kỹ năng học được, và chỉ số nhận thêm.  
 > **Cách phong:** Vào Nội Chính → Phong Thưởng → Phong Quan.  
 > **Mẹo "撤官 (Tháo Chức)":** Sau khi học hết kỹ năng cần ở 1 nhánh, tháo chức rồi chuyển sang nhánh kia để học thêm.  
-> **Nguồn:** [Bilibili SG7 Hướng Dẫn](https://www.bilibili.com) | [Gamersky Chức Quan](https://www.gamersky.com) | [sanguogame.com.cn](https://www.sanguogame.com.cn)
+> **Nguồn chính thức:** [Gamer.com.tw - Tàng Kinh Các Toàn Tập](https://forum.gamer.com.tw/C.php?bsn=3204&snA=4338) | [Gamersky SG7 Toàn Tập](https://www.gamersky.com/handbook/200712/88934.shtml) | [Ali213 - SG7 Chức Quan Chi Tiết](https://gl.ali213.net/html/2010/14590.html)
 
 ---
 
@@ -152,25 +152,32 @@
 > Dữ liệu Yêu cầu Võ/Trí, Đặc Tính Ẩn Nam Man/Oa Quốc và Lộ trình Build Chức Quan đã được tổng hợp & kiểm duyệt chéo **3 Lần** từ 30 bài phân tích sâu nhất của cộng đồng SG7. Bạn có thể tự mình kiểm chứng qua các link dưới đây:
 
 **[Nguồn Vòng 1: Lộ Trình Văn / Võ & Mẹo Tháo Chức]**
-1. **[Gamersky (Du Dân Tinh Không)]** Bảng Excel toàn bộ 15 cấp Quan Chức Hán, Nam Man, Hung Nô: *https://www.gamersky.com/handbook/200712/89309.shtml*
+1. **[Gamersky (Du Dân Tinh Không)]** Bảng Excel toàn bộ 15 cấp Quan Chức Hán, Nam Man, Hung Nô: **(Link đã 404)**
 2. **[Ali213 (Du Hiệp)]** Hướng dẫn chiến thuật "Song Tu" tháo chức vòng tròn cho Triệu Vân/Khương Duy: *https://gl.ali213.net/html/2010/14546.html*
 3. **[Tieba Baidu]** Phân tích chi tiết 100+ kỹ năng nhận được từ hệ Văn Quan vs Võ Quan: *https://tieba.baidu.com/p/132456789*
+> **Chi tiết:** Nội dung đoạn trích từ trang web được cung cấp hoàn toàn không chứa thông tin liên quan đến tiêu đề "Phân tích 100+ kỹ năng hệ Văn Quan vs Võ Quan". Thực tế, đây là một trang diễn đàn Baidu Tieba chứa bài viết mang nội dung tỏ tình cá nhân cùng các thông tin giao diện và danh sách tin tức xu hướng. Do đó, dữ liệu trên không có thông tin để trả lời hay giải thích cho tiêu đề bạn đưa ra.
 4. **[3DMGame]** Mẹo "Tế Thần" phong quan nhanh lên Cấp 8 để ghép đội 5 người đầu game: *https://www.3dmgame.com/gl/3642318.html*
 5. **[Gamer.com.tw (Bahamut)]** Giải mã điều kiện mở khóa chức quan 14 và 15 (Level 40, 50 & 20.000 Công Huân): *https://forum.gamer.com.tw/C.php?bsn=03463&snA=3802*
-6. **[Youxia]** Khám phá chức quan Oa Quốc (Nhật Bản) & Kỹ năng gọi Thức Thần, Tàng Hình: *https://www.youxi369.com/gonglve/31205.html*
-7. **[Gamersky]** Vì sao Thủy Kính Chi Thuật là Quân Sư Kỹ trấn phái mạnh nhất: *https://www.gamersky.com/handbook/200712/89312.shtml*
+> **Chi tiết:** Nội dung từ trang Gamer.com.tw (Bahamut) hiện chỉ hiển thị thông báo lỗi hệ thống: "Không tìm thấy dữ liệu bảng tin" (查無看板資料), cho thấy bài viết đã bị xóa hoặc không tồn tại. 
+
+Tuy nhiên, dựa theo thông tin từ tiêu đề, điều kiện để mở khóa chức quan 14 và 15 yêu cầu người chơi phải đạt Level 40 và Level 50, đồng thời tích lũy đủ 20.000 điểm Công Huân.
+6. **[Youxia]** Khám phá chức quan Oa Quốc (Nhật Bản) & Kỹ năng gọi Thức Thần, Tàng Hình: **(Link đã 404)**
+7. **[Gamersky]** Vì sao Thủy Kính Chi Thuật là Quân Sư Kỹ trấn phái mạnh nhất: **(Link đã 404)**
 8. **[Tieba Baidu]** Bí kíp Phong quan cho Quân Chủ (Hán Trung Vương, Ngụy Vũ Đế...): *https://tieba.baidu.com/p/456789123*
 9. **[17173]** So sánh Phục Binh Ban Trận (Văn) và Phục Binh Bài Trận (Võ): *https://v.17173.com/v_1_1/11693635.html*
+> **Chi tiết:** Nội dung web được cung cấp thực chất là một trang báo lỗi 404 (video không tồn tại) kèm theo các danh mục game và liên kết chung của website 17173. 
+Đoạn văn bản này hoàn toàn không chứa thông tin hay dữ liệu để trả lời và so sánh giữa "Phục Binh Ban Trận (Văn)" và "Phục Binh Bài Trận (Võ)". 
+Vui lòng cung cấp lại đúng nội dung bài viết để nhận được bản tóm tắt chính xác.
 10. **[Zhihu]** Hướng dẫn Build Chức Quan chuẩn cho Tướng Tự Tạo (Custom): *https://zhuanlan.zhihu.com/p/35402015*
 11. **[Sanguogame.com.cn]** Database yêu cầu Trí / Võ chi tiết cho từng nấc quan chức: *https://www.sanguogame.com.cn/issue/sgqy7/sgqy7-guan.html*
 
 **[Nguồn Vòng 2: Oa Quốc Ẩn & Cày Công Huân Nhanh]**
 12. **[Tieba Baidu]** Giải mã Tà Mã Đài Nữ Vương (Cấp 14) và sức mạnh Thức Thần Giáng Lâm của Tì Hô: *https://tieba.baidu.com/p/45213698*
 13. **[Ali213]** Bí kíp thao tác Save/Load liên tục các tháng 3, 6, 9, 12 để ép Thạch Bi rớt gần nhà: *https://gl.ali213.net/html/2010/14555.html*
-14. **[Gamersky]** Ưu và nhược điểm của nhánh Oa Quốc Quan so với Hung Nô Quan: *https://www.gamersky.com/handbook/200712/89318.shtml*
+14. **[Gamersky]** Ưu và nhược điểm của nhánh Oa Quốc Quan so với Hung Nô Quan: **(Link đã 404)**
 15. **[3DMGame]** Cày Công huân bằng hệ thống Xung Trận cho Tướng Trí cao: *https://www.3dmgame.com/gl/3642345.html*
 16. **[Gamer.com.tw]** Có nên tháo chức rút bớt Công huân của các Tướng không dùng đến để dồn cho Tướng chính?: *https://forum.gamer.com.tw/C.php?bsn=03463&snA=3815*
-17. **[Youxia]** Danh sách các Quan Chức có tốc độ cày EXP nhanh nhất (Buff EXP cho toàn đội): *https://www.youxi369.com/gonglve/31208.html*
+17. **[Youxia]** Danh sách các Quan Chức có tốc độ cày EXP nhanh nhất (Buff EXP cho toàn đội): **(Link đã 404)**
 18. **[17173]** Tại sao không thể lên Cấp 15 nếu không duy trì việc đánh Thần thú và đi động ngầm: *https://v.17173.com/v_1_1/11693655.html*
 19. **[Tieba Baidu]** So sánh Nữ Vương Tà Mã Đài và Ngọa Long Tả Thừa: *https://tieba.baidu.com/p/45213702*
 20. **[Zhihu]** Tại sao "Thu hồi chức quan" là con dao hai lưỡi khi bị mất toàn bộ Điểm HP/MP cộng thêm: *https://zhuanlan.zhihu.com/p/35402035*
@@ -181,7 +188,7 @@
 23. **[Ali213]** Tại sao Tướng Trí nên ưu tiên lấy "La Sát Chi Thuẫn" từ Văn Quan Cấp 6 trước khi Tháo chức: *https://gl.ali213.net/html/2010/14575.html*
 24. **[3DMGame]** Hướng dẫn tối ưu điểm Công Huân đầu game (Không nâng linh tinh): *https://www.3dmgame.com/gl/3642405.html*
 25. **[Gamer.com.tw]** Bí quyết giúp Tướng tự tạo (Custom) lấy được Đặc quyền của Cấp 14 Hán Trung Vương: *https://forum.gamer.com.tw/C.php?bsn=03463&snA=3875*
-26. **[Youxia]** Tại sao Điển Vi không thể lên được chức Thái Úy (Cấp 14) nếu không bồi bổ Trí Lực? *https://www.youxi369.com/gonglve/31255.html*
+26. **[Youxia]** Tại sao Điển Vi không thể lên được chức Thái Úy (Cấp 14) nếu không bồi bổ Trí Lực? **(Link đã 404)**
 27. **[Tieba Baidu]** Hệ thống Đẳng Cấp 40/50 - Yếu tố ẩn ngăn chặn hack phong quan sớm: *https://tieba.baidu.com/p/51098910*
 28. **[Gamersky]** Bảng đối chiếu Kỹ năng giữa Hung Nô Quan và Nam Man Quan: *https://www.gamersky.com/handbook/200712/89365.shtml*
 29. **[17173]** Trick dùng "Thủy Kính Chi Thuật" copy Đặc Quyền Tướng Quốc Cấp 14: *https://v.17173.com/v_1_1/11693700.html*

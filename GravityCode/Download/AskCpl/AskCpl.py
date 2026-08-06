@@ -124,14 +124,20 @@ class AskCplApp:
         self.sub_tab_keys = ttk.Frame(self.auto_ai_notebook)
         self.sub_tab_roadmap_gen = ttk.Frame(self.auto_ai_notebook)
         self.sub_tab_roadmap_run = ttk.Frame(self.auto_ai_notebook)
+        self.sub_tab_wiki_fetch = ttk.Frame(self.auto_ai_notebook)
+        self.sub_tab_wiki_builder = ttk.Frame(self.auto_ai_notebook)
         
         self.auto_ai_notebook.add(self.sub_tab_keys, text="🔑 Quản lý API Keys")
         self.auto_ai_notebook.add(self.sub_tab_roadmap_gen, text="🧠 Tạo Roadmap")
         self.auto_ai_notebook.add(self.sub_tab_roadmap_run, text="▶️ Tải Roadmap (Auto AI)")
+        self.auto_ai_notebook.add(self.sub_tab_wiki_fetch, text="🔄 Quét Link Wiki")
+        self.auto_ai_notebook.add(self.sub_tab_wiki_builder, text="🌐 Wiki Builder")
         
         self.setup_api_keys_tab()
         self.setup_roadmap_gen_tab()
         self.setup_roadmap_run_tab()
+        self.setup_wiki_fetch_tab()
+        self.setup_wiki_builder_tab()
 
     def setup_roadmap_gen_tab(self):
         from tkinter import ttk, scrolledtext
@@ -4434,7 +4440,507 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
         threading.Thread(target=run, daemon=True).start()
 
 
+    def setup_wiki_fetch_tab(self):
+        import tkinter as tk
+        from tkinter import ttk, scrolledtext
+        
+        f_top = tk.Frame(self.sub_tab_wiki_fetch)
+        f_top.pack(fill='x', padx=10, pady=10)
+        
+        btn_start = ttk.Button(f_top, text="▶ Bắt đầu Quét Link (Cross-Check Toàn bộ File)", command=self.start_wiki_fetch)
+        btn_start.pack(side='left')
+        
+        f_log = tk.Frame(self.sub_tab_wiki_fetch)
+        f_log.pack(fill='both', expand=True, padx=10, pady=10)
+        self.wiki_log_text = scrolledtext.ScrolledText(f_log, height=15)
+        self.wiki_log_text.pack(fill='both', expand=True)
+        
+    def start_wiki_fetch(self):
+        import threading
+        threading.Thread(target=self._run_wiki_fetch, daemon=True).start()
+        
+    def _run_wiki_fetch(self):
+        import os, re, requests, time
+        from bs4 import BeautifulSoup
+        
+        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        
+        def log(msg):
+            self.wiki_log_text.after(0, lambda m=msg: (
+                self.wiki_log_text.insert('end', m + "\n"),
+                self.wiki_log_text.see('end')
+            ))
+            
+        log("=== BẮT ĐẦU QUÉT LINK WIKI ===")
+        api_key = self._get_active_api_key()
+        if not api_key:
+            log("[ERROR] Không tìm thấy API Key Gemini hợp lệ. Vui lòng thêm trong tab Quản lý API Keys.")
+            return
+            
+        all_md = [f for f in os.listdir(BASE_DIR) if f.startswith("data_") and f.endswith(".md")]
+        if not all_md:
+            log("[ERROR] Không tìm thấy file data_*.md nào.")
+            return
+            
+        # 1. Build Global Corpus (đọc toàn bộ nội dung các file data_*.md)
+        log("Đang đọc toàn bộ nội dung file để làm dữ liệu đối chiếu chéo (Cross-check)...")
+        global_corpus = ""
+        for file in all_md:
+            fpath = os.path.join(BASE_DIR, file)
+            try:
+                with open(fpath, 'r', encoding='utf-8') as f:
+                    global_corpus += f"\n--- Nội dung file {file} ---\n"
+                    global_corpus += f.read()
+            except Exception as e:
+                log(f"[WARN] Không thể đọc {file}: {e}")
+        
+        link_pattern = re.compile(r'^(.*?)\*(https?://[^\*]+)\*$')
+        
+        for file in all_md:
+            fpath = os.path.join(BASE_DIR, file)
+            log(f"\n>> Đang xử lý file: {file}")
+            try:
+                with open(fpath, 'r', encoding='utf-8') as f:
+                    lines = f.readlines()
+            except Exception:
+                continue
+                
+            new_lines = []
+            changes_made = False
+            
+            i = 0
+            while i < len(lines):
+                line = lines[i]
+                new_lines.append(line)
+                match = link_pattern.match(line.strip())
+                if match:
+                    question = match.group(1).strip()
+                    url = match.group(2).strip()
+                    log(f"  [LINK] {question[:50]}...")
+                    
+                    # Check nội bộ ngay dưới link (xem đã từng được script chạy add vào chưa)
+                    if i + 1 < len(lines) and lines[i+1].strip().startswith(">"):
+                        log("    -> [SKIPPED] Đã có giải đáp ở ngay dòng dưới.")
+                    else:
+                        # Cross check sử dụng AI (Semantic search trên toàn bộ corpus)
+                        log("    -> Đang hỏi AI xem thông tin đã tồn tại trong bất kỳ file nào chưa...")
+                        
+                        prompt = (
+                            f"Tôi có một kho dữ liệu của dự án Sango Heroes 7. Hãy trả lời ngắn gọn là 'YES' hoặc 'NO'.\n"
+                            f"Trong kho dữ liệu này ĐÃ CÓ phần nào giải thích chi tiết cho câu hỏi/chủ đề sau chưa?\n"
+                            f"Chủ đề: {question}\n"
+                            f"---- Kho dữ liệu (cắt ngắn) ----\n"
+                            f"{global_corpus[:80000]}\n"
+                            f"---- Hết kho dữ liệu ----\n"
+                            f"Nếu thông tin về '{question}' đã được giải thích rõ trong kho dữ liệu, trả lời YES. Nếu hoàn toàn chưa có, trả lời NO."
+                        )
+                        
+                        try:
+                            gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
+                            payload = {"contents": [{"parts": [{"text": prompt}]}]}
+                            resp = requests.post(gemini_url, json=payload, headers={'Content-Type': 'application/json'})
+                            if resp.status_code == 200:
+                                ans = resp.json().get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', '').strip().upper()
+                                if "YES" in ans:
+                                    log("    -> [SKIPPED] AI xác nhận thông tin ĐÃ TỒN TẠI trong dự án (Có thể ở file khác).")
+                                else:
+                                    log("    -> [FETCHING] Thông tin chưa có, tiến hành tải trang web...")
+                                    try:
+                                        html_resp = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'}, timeout=10)
+                                        if html_resp.status_code == 200:
+                                            soup = BeautifulSoup(html_resp.text, 'html.parser')
+                                            text_content = soup.get_text(separator=' ', strip=True)[:30000]
+                                            
+                                            sum_prompt = (
+                                                f"Dưới đây là bài viết tôi lấy từ web. Hãy đọc và tóm tắt thành 2-4 dòng để trả lời/giải thích cho tiêu đề sau:\n"
+                                                f"Tiêu đề: {question}\n\n"
+                                                f"Nội dung web: {text_content}\n\n"
+                                                f"Yêu cầu: Trả lời ngắn gọn, dịch chuẩn tiếng Việt, bỏ qua râu ria."
+                                            )
+                                            payload2 = {"contents": [{"parts": [{"text": sum_prompt}]}]}
+                                            sum_resp = requests.post(gemini_url, json=payload2, headers={'Content-Type': 'application/json'})
+                                            if sum_resp.status_code == 200:
+                                                sum_ans = sum_resp.json().get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', '').strip()
+                                                new_lines.append(f"> **Chi tiết:** {sum_ans}\n")
+                                                changes_made = True
+                                                log("    -> [ADDED] Đã bổ sung nội dung mới.")
+                                            else:
+                                                log(f"    -> [ERROR] Lỗi gọi AI tóm tắt: HTTP {sum_resp.status_code}")
+                                        else:
+                                            log(f"    -> [ERROR] Lỗi tải URL: HTTP {html_resp.status_code}")
+                                    except Exception as e:
+                                        log(f"    -> [ERROR] Không thể lấy nội dung web: {type(e).__name__}")
+                            else:
+                                log(f"    -> [ERROR] Gọi Gemini kiểm tra lỗi: HTTP {resp.status_code}")
+                        except Exception as e:
+                            log(f"    -> [ERROR] Lỗi kết nối API Check: {type(e).__name__}")
+                        time.sleep(1) # Tránh rate limit
+                i += 1
+                
+            if changes_made:
+                try:
+                    with open(fpath, 'w', encoding='utf-8') as f:
+                        f.writelines(new_lines)
+                    log(f"  [DONE] Đã lưu cập nhật file {file}")
+                except Exception as e:
+                    log(f"  [ERROR] Lỗi lưu file {file}: {type(e).__name__}")
+        log("=== QUÁ TRÌNH QUÉT CHÉO VÀ CẬP NHẬT HOÀN TẤT ===")
+
+
+    # ─────────────────────────────────────────────────────────────
+    # WIKI BUILDER — Autonomous Research Agent
+    # ─────────────────────────────────────────────────────────────
+    def setup_wiki_builder_tab(self):
+        import tkinter as tk
+        from tkinter import ttk, scrolledtext
+
+        parent = self.sub_tab_wiki_builder
+
+        # ── Row 1: Chủ đề ──
+        fr1 = tk.Frame(parent)
+        fr1.pack(fill='x', padx=12, pady=(10, 2))
+        tk.Label(fr1, text="Chủ đề Wiki:", font=("Arial", 10, "bold"), width=18, anchor='w').pack(side='left')
+        self.wb_topic_var = tk.StringVar()
+        tk.Entry(fr1, textvariable=self.wb_topic_var, font=("Arial", 10), width=50).pack(side='left', padx=4)
+
+        # ── Row 2: Thư mục lưu ──
+        fr2 = tk.Frame(parent)
+        fr2.pack(fill='x', padx=12, pady=2)
+        tk.Label(fr2, text="Thư mục lưu:", font=("Arial", 10, "bold"), width=18, anchor='w').pack(side='left')
+        self.wb_dir_var = tk.StringVar(value="")
+        tk.Entry(fr2, textvariable=self.wb_dir_var, font=("Arial", 10), width=50).pack(side='left', padx=4)
+        ttk.Button(fr2, text="Chọn...", command=self._wb_pick_dir).pack(side='left', padx=4)
+
+        # ── Row 3: Google Search API ──
+        fr3 = tk.Frame(parent)
+        fr3.pack(fill='x', padx=12, pady=2)
+        tk.Label(fr3, text="Google API Key:", font=("Arial", 10, "bold"), width=18, anchor='w').pack(side='left')
+        self.wb_gkey_var = tk.StringVar()
+        tk.Entry(fr3, textvariable=self.wb_gkey_var, font=("Arial", 10), width=40, show='*').pack(side='left', padx=4)
+
+        fr4 = tk.Frame(parent)
+        fr4.pack(fill='x', padx=12, pady=2)
+        tk.Label(fr4, text="Google CX ID:", font=("Arial", 10, "bold"), width=18, anchor='w').pack(side='left')
+        self.wb_gcx_var = tk.StringVar()
+        tk.Entry(fr4, textvariable=self.wb_gcx_var, font=("Arial", 10), width=40).pack(side='left', padx=4)
+        tk.Label(fr4, text="(Tạo tại: cse.google.com)", font=("Arial", 8), fg='gray').pack(side='left', padx=4)
+
+        # ── Row 5: Số mảng con tối đa ──
+        fr5 = tk.Frame(parent)
+        fr5.pack(fill='x', padx=12, pady=2)
+        tk.Label(fr5, text="Số mảng con (N):", font=("Arial", 10, "bold"), width=18, anchor='w').pack(side='left')
+        self.wb_n_var = tk.IntVar(value=5)
+        tk.Spinbox(fr5, textvariable=self.wb_n_var, from_=2, to=20, width=5, font=("Arial", 10)).pack(side='left', padx=4)
+        tk.Label(fr5, text="Số câu hỏi/mảng:", font=("Arial", 10, "bold")).pack(side='left', padx=(20, 4))
+        self.wb_q_var = tk.IntVar(value=10)
+        tk.Spinbox(fr5, textvariable=self.wb_q_var, from_=3, to=30, width=5, font=("Arial", 10)).pack(side='left', padx=4)
+
+        # ── Row 6: Nút bấm ──
+        fr6 = tk.Frame(parent)
+        fr6.pack(fill='x', padx=12, pady=8)
+        self.wb_btn_start = ttk.Button(fr6, text="🚀 Bắt đầu Build Wiki", command=self.start_wiki_build)
+        self.wb_btn_start.pack(side='left', padx=4)
+        self.wb_btn_stop = ttk.Button(fr6, text="⏹ Dừng", command=self._wb_stop, state='disabled')
+        self.wb_btn_stop.pack(side='left', padx=4)
+
+        # ── Log ──
+        fr_log = tk.LabelFrame(parent, text="Tiến trình", font=("Arial", 9))
+        fr_log.pack(fill='both', expand=True, padx=12, pady=4)
+        self.wb_log = scrolledtext.ScrolledText(fr_log, height=12, font=("Consolas", 9))
+        self.wb_log.pack(fill='both', expand=True)
+        self.wb_log.tag_config('ok',   foreground='#00cc66')
+        self.wb_log.tag_config('skip', foreground='#888888')
+        self.wb_log.tag_config('err',  foreground='#ff4444')
+        self.wb_log.tag_config('info', foreground='#4488ff')
+
+        self._wb_stop_flag = False
+
+    def _wb_pick_dir(self):
+        from tkinter import filedialog
+        d = filedialog.askdirectory()
+        if d:
+            self.wb_dir_var.set(d)
+
+    def _wb_stop(self):
+        self._wb_stop_flag = True
+        self.wb_btn_stop.config(state='disabled')
+
+    def start_wiki_build(self):
+        import threading
+        self._wb_stop_flag = False
+        self.wb_btn_start.config(state='disabled')
+        self.wb_btn_stop.config(state='normal')
+        self.wb_log.delete('1.0', 'end')
+        threading.Thread(target=self._run_wiki_build, daemon=True).start()
+
+    def _wb_log(self, msg, tag=''):
+        def _do():
+            self.wb_log.insert('end', msg + "\n", tag)
+            self.wb_log.see('end')
+        self.wb_log.after(0, _do)
+
+    def _google_search(self, query, gkey, gcx, num=5):
+        """Gọi Google Custom Search API, trả về list (title, url)."""
+        import requests
+        try:
+            resp = requests.get(
+                "https://www.googleapis.com/customsearch/v1",
+                params={"key": gkey, "cx": gcx, "q": query, "num": num},
+                timeout=10
+            )
+            if resp.status_code == 200:
+                items = resp.json().get("items", [])
+                return [(it.get("title", ""), it.get("link", "")) for it in items]
+            else:
+                self._wb_log(f"  [Google Error] HTTP {resp.status_code}: {resp.text[:200]}", 'err')
+                return []
+        except Exception as e:
+            self._wb_log(f"  [Google Error] {type(e).__name__}: {e}", 'err')
+            return []
+
+    def _run_wiki_build(self):
+        import os, re, json, requests, time
+        from bs4 import BeautifulSoup
+
+        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        topic    = self.wb_topic_var.get().strip()
+        save_dir = self.wb_dir_var.get().strip() or BASE_DIR
+        gkey     = self.wb_gkey_var.get().strip()
+        gcx      = self.wb_gcx_var.get().strip()
+        n_mang   = self.wb_n_var.get()
+        n_q      = self.wb_q_var.get()
+
+        try:
+            # ── Validate ──
+            if not topic:
+                self._wb_log("[ERROR] Vui lòng nhập chủ đề Wiki.", 'err')
+                return
+            if not gkey or not gcx:
+                self._wb_log("[ERROR] Cần điền Google API Key và CX ID.", 'err')
+                return
+
+            api_key = self._get_active_api_key()
+            if not api_key:
+                self._wb_log("[ERROR] Không có Gemini API Key. Vào tab Quản lý API Keys.", 'err')
+                return
+
+            gemini_url = (
+                f"https://generativelanguage.googleapis.com/v1beta/"
+                f"models/gemini-flash-latest:generateContent?key={api_key}"
+            )
+
+            def call_gemini(prompt_text):
+                payload = {"contents": [{"parts": [{"text": prompt_text}]}]}
+                r = requests.post(gemini_url, json=payload,
+                                  headers={"Content-Type": "application/json"}, timeout=60)
+                if r.status_code == 200:
+                    return (r.json().get("candidates", [{}])[0]
+                            .get("content", {}).get("parts", [{}])[0]
+                            .get("text", "").strip())
+                return ""
+
+            os.makedirs(save_dir, exist_ok=True)
+
+            # ══════════════════════════════════════════════════
+            # PHASE 1 — Phân rã chủ đề thành N mảng con
+            # ══════════════════════════════════════════════════
+            self._wb_log(f"=== WIKI BUILDER: {topic} ===", 'info')
+            self._wb_log(f"[Phase 1] Phân rã chủ đề thành {n_mang} mảng con...", 'info')
+
+            phase1_prompt = (
+                f'Tôi muốn xây dựng Wiki về chủ đề: "{topic}".\n'
+                f'Hãy liệt kê đúng {n_mang} mảng con (sub-categories) quan trọng nhất.\n'
+                f'Trả về JSON array, mỗi phần tử là object gồm:\n'
+                f'  "name": tên mảng con bằng tiếng Việt (ngắn gọn)\n'
+                f'  "slug": tên file (chỉ ký tự ASCII, dùng dấu gạch dưới, không dấu, ví dụ: mon_au)\n'
+                f'  "description": mô tả ngắn 1 câu\n'
+                f'Chỉ trả về JSON thuần, không có markdown code block.'
+            )
+            raw = call_gemini(phase1_prompt)
+            # Clean JSON nếu AI bọc trong ```
+            raw = re.sub(r'^```[a-z]*\n?', '', raw, flags=re.MULTILINE)
+            raw = re.sub(r'```$', '', raw, flags=re.MULTILINE).strip()
+            try:
+                sub_cats = json.loads(raw)
+            except Exception:
+                self._wb_log(f"[ERROR] AI không trả về JSON hợp lệ ở Phase 1:\n{raw[:300]}", 'err')
+                return
+
+            for cat in sub_cats:
+                self._wb_log(f"  ✔ {cat['name']} → data_{cat['slug']}.md", 'ok')
+            time.sleep(1)
+
+            # ── Đọc Global Corpus (toàn bộ data_*.md đã có) ──
+            self._wb_log("[Cross-check] Đọc toàn bộ data_*.md để tránh trùng lặp...", 'info')
+            global_corpus = ""
+            for f in os.listdir(save_dir):
+                if f.startswith("data_") and f.endswith(".md"):
+                    try:
+                        with open(os.path.join(save_dir, f), 'r', encoding='utf-8') as fp:
+                            global_corpus += f"\n--- {f} ---\n" + fp.read()
+                    except Exception:
+                        pass
+
+            # ══════════════════════════════════════════════════
+            # PHASE 2-6: Xử lý từng mảng con
+            # ══════════════════════════════════════════════════
+            for cat in sub_cats:
+                if self._wb_stop_flag:
+                    self._wb_log("⏹ Đã dừng theo yêu cầu.", 'err')
+                    break
+
+                name  = cat["name"]
+                slug  = cat["slug"]
+                desc  = cat.get("description", "")
+                fpath = os.path.join(save_dir, f"data_{slug}.md")
+
+                self._wb_log(f"\n══ Mảng: {name} ══", 'info')
+
+                # Header file nếu chưa tồn tại
+                file_lines = []
+                if os.path.exists(fpath):
+                    with open(fpath, 'r', encoding='utf-8') as fp:
+                        file_lines = fp.readlines()
+                    self._wb_log(f"  [File tồn tại] data_{slug}.md — sẽ bổ sung thêm.", 'skip')
+                else:
+                    header = (
+                        f"# {name}\n\n"
+                        f"> {desc}\n\n"
+                        f"---\n\n"
+                    )
+                    file_lines = [header]
+                    self._wb_log(f"  [Tạo mới] data_{slug}.md", 'ok')
+
+                file_content = "".join(file_lines)
+
+                # ── Phase 2: Sinh câu hỏi cần nghiên cứu ──
+                self._wb_log(f"  [Phase 2] Sinh {n_q} câu hỏi/chủ đề cần nghiên cứu...", 'info')
+                phase2_prompt = (
+                    f'Tôi đang xây dựng Wiki về mảng "{name}" thuộc chủ đề lớn "{topic}".\n'
+                    f'Hãy đặt ra {n_q} câu hỏi hoặc chủ đề cụ thể cần được giải đáp/mô tả trong mảng này.\n'
+                    f'Trả về JSON array, mỗi phần tử là string là một câu hỏi/chủ đề bằng tiếng Việt.\n'
+                    f'Chỉ trả về JSON thuần, không có markdown code block.'
+                )
+                raw2 = call_gemini(phase2_prompt)
+                raw2 = re.sub(r'^```[a-z]*\n?', '', raw2, flags=re.MULTILINE)
+                raw2 = re.sub(r'```$', '', raw2, flags=re.MULTILINE).strip()
+                try:
+                    questions = json.loads(raw2)
+                except Exception:
+                    self._wb_log(f"  [WARN] AI không trả về JSON Phase 2 hợp lệ, bỏ qua mảng này.", 'err')
+                    continue
+                time.sleep(1)
+
+                new_sections = []
+
+                for q in questions:
+                    if self._wb_stop_flag:
+                        break
+
+                    self._wb_log(f"  [Q] {q[:60]}...", '')
+
+                    # ── Phase 3: Cross-check với Global Corpus ──
+                    if q.lower()[:30] in global_corpus.lower() or q[:20] in file_content:
+                        self._wb_log("    → [SKIPPED] Từ khóa đã xuất hiện trong dữ liệu.", 'skip')
+                        continue
+
+                    # Cross-check bằng AI (semantic)
+                    check_prompt = (
+                        f'Kho dữ liệu sau đây có phần nào giải thích chi tiết về chủ đề này chưa?\n'
+                        f'Chủ đề: "{q}"\n'
+                        f'Kho dữ liệu (trích):\n{global_corpus[:60000]}\n'
+                        f'Chỉ trả lời YES hoặc NO.'
+                    )
+                    ans = call_gemini(check_prompt).upper()
+                    if "YES" in ans:
+                        self._wb_log("    → [SKIPPED] AI xác nhận đã có trong dự án.", 'skip')
+                        time.sleep(0.5)
+                        continue
+
+                    # ── Phase 4: Google Search ──
+                    self._wb_log("    → [SEARCH] Tìm kiếm Google...", 'info')
+                    search_query = f"{topic} {name} {q}"
+                    links = self._google_search(search_query, gkey, gcx, num=3)
+                    time.sleep(1)
+
+                    scraped_text = ""
+                    source_urls  = []
+
+                    # ── Phase 5: Cào nội dung từng link ──
+                    for title, url in links:
+                        if self._wb_stop_flag:
+                            break
+                        try:
+                            hr = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=8)
+                            if hr.status_code == 200:
+                                soup = BeautifulSoup(hr.text, 'html.parser')
+                                scraped_text += soup.get_text(separator=' ', strip=True)[:8000] + "\n"
+                                source_urls.append(url)
+                        except Exception:
+                            pass
+                        time.sleep(0.5)
+
+                    if not scraped_text:
+                        # Không cào được → nhờ AI tự viết từ kiến thức
+                        self._wb_log("    → [AI-ONLY] Không cào được web, AI tự viết.", 'skip')
+                        scraped_text = ""
+
+                    # ── Phase 6: AI tóm tắt + Ghi vào file ──
+                    sum_prompt = (
+                        f'Hãy viết một đoạn wiki ngắn (3-6 dòng, định dạng Markdown) '
+                        f'giải thích về chủ đề: "{q}" trong lĩnh vực {name} ({topic}).\n'
+                        + (f'Tham khảo nội dung sau:\n{scraped_text[:15000]}\n' if scraped_text else '')
+                        + f'Yêu cầu: Tiếng Việt, súc tích, chính xác. Không bịa thông tin.'
+                    )
+                    summary = call_gemini(sum_prompt)
+                    if not summary:
+                        self._wb_log("    → [ERROR] AI không trả về nội dung.", 'err')
+                        continue
+
+                    src_line = "\n".join([f"*Nguồn: {u}*" for u in source_urls]) if source_urls else ""
+                    section = (
+                        f"\n## {q}\n\n"
+                        f"{summary}\n\n"
+                        + (src_line + "\n" if src_line else "")
+                    )
+                    new_sections.append(section)
+                    # Cập nhật corpus để lần sau không bị trùng
+                    global_corpus += section
+                    file_content  += section
+                    self._wb_log(f"    → [ADDED] Đã tóm tắt và đưa vào hàng chờ ghi.", 'ok')
+                    time.sleep(1)
+
+                # Ghi file
+                if new_sections:
+                    combined = file_content if not os.path.exists(fpath) else file_content
+                    # Nếu file đã tồn tại, append thêm section mới
+                    write_mode = 'w' if not os.path.exists(fpath) else 'a'
+                    with open(fpath, write_mode, encoding='utf-8') as fp:
+                        if write_mode == 'w':
+                            fp.write(file_content)
+                        else:
+                            fp.write("".join(new_sections))
+                    self._wb_log(f"  [SAVED] Đã lưu {len(new_sections)} mục mới vào data_{slug}.md", 'ok')
+                else:
+                    # Vẫn tạo file header nếu là file mới mà không có section nào
+                    if not os.path.exists(fpath):
+                        with open(fpath, 'w', encoding='utf-8') as fp:
+                            fp.write(file_content)
+                        self._wb_log(f"  [CREATED] Tạo file trống data_{slug}.md (chưa có nội dung mới).", 'skip')
+
+            self._wb_log("\n=== WIKI BUILDER HOÀN TẤT ===", 'ok')
+        except Exception as e:
+            import traceback
+            self._wb_log(f"[CRITICAL ERROR] {type(e).__name__}: {e}\n{traceback.format_exc()}", 'err')
+        finally:
+            self.wb_log.after(0, lambda: (
+                self.wb_btn_start.config(state='normal'),
+                self.wb_btn_stop.config(state='disabled')
+            ))
+
+
 if __name__ == "__main__":
+
     root = Tk()
     app = AskCplApp(root)
     root.mainloop()

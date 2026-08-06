@@ -65,6 +65,21 @@ Tiền trong game dùng để Nâng cấp Thành, Mua Trang bị tại Tụ Bả
    - **Tụ Bảo Động**: Xuất hiện ngẫu nhiên. Luôn có 1 đạo quân mang sẵn 100.000 Vàng để mua trang bị trấn phái.
    - **Mở Kịch Bản Ẩn (Bá Vương Tái Lâm)**: Tại màn hình chính (Start menu), gõ chữ `useeventnation` hoặc vào file `Option.ini` sửa `WinNum = 1`.
 
+## 6. LỆNH ĂN GIAN (CHEATCODES)
+
+> [!WARNING]
+> Việc lạm dụng Cheatcode có thể làm mất đi sự hấp dẫn của quá trình khám phá game. Chỉ nên dùng khi bạn muốn test đội hình hoặc xả stress!
+
+1. **Cách kích hoạt:** Ở màn hình chọn Kịch Bản (hoặc Màn hình chính), gõ trực tiếp chữ `cheatmodeopen` trên bàn phím rồi ấn Enter. Nếu ở giữa màn hình hiện ra một vệt đen, tức là bạn đã bật Cheat thành công.
+2. **Cách nhập lệnh:** Vào trong game (Bản đồ lớn hoặc Đang chiến đấu), ấn phím **Ctrl** bên phải (Right Ctrl). Khung màu đen sẽ hiện ra ở giữa để bạn gõ chữ.
+3. **Danh sách các Lệnh cơ bản:**
+   - `addthing [ID vật phẩm] [Số lượng]`: Thêm vật phẩm vào Quốc khố (VD: `addthing 123 1`).
+   - `addvalue cmoney [ID Thành] [Số tiền]`: Thêm tiền cho thành trì.
+   - `addvalue exp [ID Tướng] [EXP]`: Cộng điểm kinh nghiệm cho tướng.
+   - `mode overwin`: Thắng thẳng (Kết thúc game ngay lập tức).
+   - `bfresult 0`: Thắng ngay trong một trận đánh (千人战).
+   - `sftime 1~100`: Tăng tốc độ thời gian trôi trên bản đồ lớn (Số càng nhỏ càng nhanh).
+
 ---
 
 ## 5. MẸO ĐÁNH THẦN THÚ KHÔNG TỐN MÁU (Săn Đồ Trấn Phái)
@@ -80,30 +95,4 @@ Thay vì cố giết Thần Thú rớt vũ khí (bị giới hạn Cấp độ k
 
 ---
 
-## 6. DANH SÁCH 20 NGUỒN KIỂM THẢO CHÉO (Vòng 1 + Vòng 2)
 
-> Toàn bộ các thủ thuật, Bug lợi ích, mẹo xung trận, nghệ thuật ngoại giao Sơn Trại và cách bắt tướng đã được kiểm chứng chéo **2 Lần** qua 20 kho dữ liệu uy tín của các "pháp sư" Trung Hoa. Bạn có thể tự mình kiểm chứng qua các link dưới đây:
-
-**[Nguồn Vòng 1: Bug Cơ Bản & Ngoại Giao]**
-1. **[Tieba Baidu]** Phân tích 5 bước thực hiện Bug F1 (Ngưng đọng thời gian) săn Cửu Thiên Huyền Thiết: *https://tieba.baidu.com/p/456123789*
-2. **[Gamersky]** Kỹ thuật Xung Trận cày kinh nghiệm (Bố trí Phù Lôi/Liên Hoa Lạc): *https://www.gamersky.com/handbook/200712/89314.shtml*
-3. **[3DMGame]** Bí kíp thả diều Thần Thú bằng Phong Võ Tướng Kỹ + Cung thủ: *https://www.3dmgame.com/gl/3642325.html*
-4. **[Ali213 (Du Hiệp)]** Hướng dẫn mở khóa kịch bản ẩn Bá Vương Tái Lâm bằng `Option.ini`: *https://gl.ali213.net/html/2010/14548.html*
-5. **[Gamer.com.tw (Bahamut)]** Giải ngố cơ chế Rút củi đáy nồi (Biến Tù Binh thành Tại Dã để bắt 100%): *https://forum.gamer.com.tw/C.php?bsn=03463&snA=3822*
-6. **[Youxia]** Tầm quan trọng của Ly Gián Kế trong việc thu phục Danh tướng: *https://www.youxi369.com/gonglve/31209.html*
-7. **[Gamersky]** Vị trí 5 Động Thần Thú & Phân Tích skill của Thanh Long, Bạch Hổ: *https://www.gamersky.com/handbook/200712/89315.shtml*
-8. **[Tieba Baidu]** Mẹo farm Tiền/Đồ cực nhanh bằng cách bắt nạt Tàu đắm (Thủy Yêu): *https://tieba.baidu.com/p/51098666*
-9. **[17173]** Bảng đánh giá các vị trí luyện cấp ngon nhất (Tiên Tần Cổ Mộ, Độc Long Uyên): *https://v.17173.com/v_1_1/11693640.html*
-10. **[Zhihu]** Vì sao cho Tướng "Mù Cấp" cầm vũ khí xịn sẽ làm vô tác dụng dòng thuộc tính ẩn: *https://zhuanlan.zhihu.com/p/35402019*
-11. **[Sanguogame.com.cn]** Tổng hợp mã Cheat (addthing, addvalue, mode overwin) và cách kích hoạt: *https://www.sanguogame.com.cn/issue/sgqy7/sgqy7-cheat.html*
-
-**[Nguồn Vòng 2: Mẹo Ngoại Giao Sơn Trại & Khai Thác Bia Đá]**
-12. **[Tieba Baidu]** Làm giàu từ Sơn Trại: Gửi tiền Tặng để lấy Cửu Thiên Huyền Thiết miễn phí: *https://tieba.baidu.com/p/45213760*
-13. **[Ali213]** Tại sao farm Bia Đá (Thạch Bi) đầu game ngon hơn farm Vũ Khí: *https://gl.ali213.net/html/2010/14565.html*
-14. **[Gamersky]** Fix lỗi Crash game khi Lạm dụng Bug F1 quá nhiều lần: *https://www.gamersky.com/handbook/200712/89330.shtml*
-15. **[3DMGame]** Mẹo mua lại đồ từ Chợ Cấp 3 và Thủ thuật Cày cấp Xung Trận (Không cần Tướng xịn): *https://www.3dmgame.com/gl/3642366.html*
-16. **[Gamer.com.tw]** Bí quyết phá vỡ 100% tỷ lệ thuyết phục thành công khi Danh Tướng ở ẩn Tại dã: *https://forum.gamer.com.tw/C.php?bsn=03463&snA=3830*
-17. **[Youxia]** Giải mã thuật toán rớt Thần Binh của 9 Tọa độ Cố định (Tháp Tiên Tần, Hầm Đại Hạ): *https://www.youxi369.com/gonglve/31225.html*
-18. **[17173]** Vì sao Mộc Nhân (Đồng Linh) nhặt từ Trầm Thuyền là chìa khóa dễ nhất phá đảo game: *https://v.17173.com/v_1_1/11693670.html*
-19. **[Tieba Baidu]** Bắt Tướng Hạng Vũ, Lưu Bang ngay trong năm đầu tiên bằng Trick Rút củi đáy nồi: *https://tieba.baidu.com/p/45213765*
-20. **[Zhihu]** Hướng dẫn cấu hình Option.ini để tắt các tính năng làm giật lag khi dùng Long Pháo Cấp 3: *https://zhuanlan.zhihu.com/p/35402050*

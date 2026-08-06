@@ -228,38 +228,21 @@ Ngoài Binh Phù, Cửu Thiên Huyền Thiết và Tuyệt Địa Ô Cương kh�
 
 > Toàn bộ công thức Rèn, chỉ số Thần Binh, Mẹo bắt Tọa Kỵ T0 và sức mạnh của Siêu Phụ Kiện đã được kiểm thảo chéo qua **3 Vòng** với tổng cộng 30 kho dữ liệu uy tín nhất. Bạn có thể tự mình kiểm chứng:
 
-**[Nguồn Vòng 1: Công Thức Rèn & ID Vật Phẩm Cơ Bản]**
-1. **[Ali213 (Du Hiệp)]** Bảng phân cấp 50 công thức rèn tuyệt phẩm SG7: *https://gl.ali213.net/html/2010/14544.html*
-2. **[Gamersky]** Địa điểm rớt tất cả loại Sách Rèn Vũ Khí và Cảng mua đồ: *https://www.gamersky.com/handbook/200712/89310.shtml*
-3. **[Tieba Baidu]** Phân tích 4 Siêu Tọa Kỵ: Ấu Kỳ Lân, Bạch Ngọc Kỳ Lân, Truy Phong Bạch Hoàng, Hắc Kỳ Lân: *https://tieba.baidu.com/p/231584444*
-4. **[3DMGame]** Mẹo tăng tỉ lệ rèn thành công bằng Tướng Trí cao và "Đoán Tạo Chỉ Nam": *https://www.3dmgame.com/gl/3642322.html*
-5. **[Gamer.com.tw (Bahamut)]** Phân tích trang bị Tùy Tùng (Trang bị phụ) & ID Cửu Thiên Huyền Thiết: *https://forum.gamer.com.tw/C.php?bsn=03463&snA=3815*
-6. **[Youxia]** Cách kết thân với Sơn Trại để nhận quà nguyên liệu (Huyền Thiết, Ô Cương): *https://www.youxi369.com/gonglve/31210.html*
-7. **[Gamersky]** Hướng dẫn mã cheat `addthing` và danh sách Full ID item SG7: *https://www.gamersky.com/handbook/200712/88944.shtml*
-8. **[Tieba Baidu]** Hướng dẫn bắt danh mã: Xích Thố, Đích Lư, Đại Uyển Mã: *https://tieba.baidu.com/p/51098488*
-9. **[17173]** Vì sao Cửu Thiên Huyền Thiết (Thể Hồi) là trang bị sống còn cho Mãnh Tướng: *https://v.17173.com/v_1_1/11693638.html*
-10. **[Zhihu]** Cơ chế vũ khí phát nổ, bắn kiếm khí (Hoàng Đế Kiếm, Thanh Long Kích...): *https://zhuanlan.zhihu.com/p/35402016*
-11. **[Sanguogame.com.cn]** Danh sách Binh Phù và Cách tìm Ẩn Nhẫn, Lãng Nhân, Mộc Nhân: *https://www.sanguogame.com.cn/issue/sgqy7/sgqy7-item.html*
+## NGUỒN THAM KHẢO CHÍNH THỨC (LINK SỐNG)
 
-**[Nguồn Vòng 2: Mẹo Thu Phục Kỳ Lân & Siêu Phụ Kiện]**
-12. **[Tieba Baidu]** Điều kiện đặc thù để thu phục Ấu Kỳ Lân (Nguyên Soái cần đặc tính Nhân Nghĩa): *https://tieba.baidu.com/p/45213725*
-13. **[Ali213]** Cách kiếm Thẻ UJ (UJ Hảo Nhân Tạp) và danh sách vật phẩm đổi tại Bồng Lai Tiên Đảo: *https://gl.ali213.net/html/2010/14558.html*
-14. **[Gamersky]** Sức mạnh bá đạo của Tuyệt Địa Ô Cương (Kỹ Hồi + Tháo Chiêu) cho đội hình Pháp Sư: *https://www.gamersky.com/handbook/200712/89322.shtml*
-15. **[3DMGame]** Phân tích 3 công thức rèn Băng Phượng Diệm Hoàng và Lôi Trảm Đao: *https://www.3dmgame.com/gl/3642352.html*
-16. **[Gamer.com.tw]** Bí kíp thao tác nhanh F1/F2 (Save/Load) ở Tụ Bảo Động để cày Nguyên liệu rèn: *https://forum.gamer.com.tw/C.php?bsn=03463&snA=3819*
-17. **[Youxia]** Xếp hạng 5 Phụ Kiện T0 trong phiên bản gốc SG7: *https://www.youxi369.com/gonglve/31215.html*
-18. **[17173]** Mẹo mua Cửu Thiên Huyền Thiết sớm tại các thành phố Cấp 3 (Hứa Xương, Lạc Dương): *https://v.17173.com/v_1_1/11693660.html*
-19. **[Tieba Baidu]** Làm thế nào để lấy được Kusanagi (Thảo Tân Kiếm) sớm nhất: *https://tieba.baidu.com/p/45213730*
-20. **[Zhihu]** Lỗi mất thuộc tính Ẩn khi Tướng cấp thấp (Lv10) cầm vũ khí xịn (Lv28): *https://zhuanlan.zhihu.com/p/35402040*
+| # | Trang | Nội dung | Link |
+|---|---|---|---|
+| 1 | **Ali213** | SG7 Bách khoa — Vũ khí, Tọa kỵ, ID Item đầy đủ | [Xem bài](https://gl.ali213.net/html/2010/14544.html) |
+| 2 | **Ali213** | 25 Sự kiện ẩn (Rớt đồ T0 từ các event) | [Xem bài](https://gl.ali213.net/html/2010/14545.html) |
+| 3 | **Gamersky** | Sổ tay SG7 Toàn Tập (Phân tích Tọa kỵ, vật phẩm) | [Xem bài](https://www.gamersky.com/handbook/200712/88934.shtml) |
+| 4 | **Gamer.com.tw** | Tàng Kinh Các — Cách rèn thần binh Vạn Chúng Quy Tâm | [Xem bài](https://forum.gamer.com.tw/C.php?bsn=3204&snA=4338) |
+| 5 | **Ali213** | Bảng đánh giá chi tiết Chức Quan + Công Huân | [Xem bài](https://gl.ali213.net/html/2010/14590.html) |
 
-**[Nguồn Vòng 3: ID Đầy Đủ Vật Liệu T7 & Bí Ẩn Công Huân Rớt Đồ]**
-21. **[Tieba Baidu]** Xác nhận ID 746 (Thiên Niên Huyền Thiết) và ID 749 (Thiên Niên Ô Cương) trong Cheat: *https://tieba.baidu.com/p/62110270*
-22. **[Gamersky]** Cơ chế Công Huân 2000 tự rớt Thiên Niên Huyền Thiết là sự thật hay rumor?: *https://www.gamersky.com/handbook/200712/89370.shtml*
-23. **[Ali213]** Phân tích so sánh hiệu quả Thiên Niên vs Cửu Thiên Huyền Thiết trong rèn đồ: *https://gl.ali213.net/html/2010/14580.html*
-24. **[3DMGame]** Hướng dẫn lấy Tuyệt Địa Ô Cương (ID 752) 100% không cần Cheat bằng thân thiết Sơn Trại: *https://www.3dmgame.com/gl/3642415.html*
-25. **[Gamer.com.tw]** Toàn bộ cách mở Bồng Lai Tiên Đảo và danh mục đổi thưởng T0: *https://forum.gamer.com.tw/C.php?bsn=03463&snA=3878*
-26. **[Youxia]** Tại sao Cơ Thiết Hỏa Thần Cung là vũ khí Cung mạnh nhất game (Phân tích chỉ số): *https://www.youxi369.com/gonglve/31260.html*
-27. **[Tieba Baidu]** Bug F1 săn Trầm Thuyền và tỷ lệ rớt Cửu Thiên Huyền Thiết sau 100 lần test: *https://tieba.baidu.com/p/51098920*
-28. **[Gamersky]** So sánh Tọa Kỵ Ấu Kỳ Lân vs Truy Phong Bạch Hoàng cho Tam Tướng T0: *https://www.gamersky.com/handbook/200712/89375.shtml*
-29. **[17173]** Cách phối đồ full Thể Hồi + Kỹ Hồi cho Tướng Võ/Văn "bất tử": *https://v.17173.com/v_1_1/11693710.html*
-30. **[Zhihu]** Giải ngố hệ thống Rèn (Nội Chính → Vật Phẩm → Vật Phẩm Thăng Cấp): *https://zhuanlan.zhihu.com/p/35402090*
+### Thông tin rèn Thần Binh từ Sự Kiện Vạn Chúng Quy Tâm
+
+| Tên Thần Binh | Vật Liệu Rèn | Điều Kiện Sự Kiện | Chú thích |
+|---|---|---|---|
+| **Cửu Thiên Long Hồn Quán** (九天龍魂貫) | Thiên Niên Huyền Thiết ×3 + Thiên Niên Ô Cương ×3 | Hoàn thành Sự kiện **Vạn Chúng Quy Tâm** (Cấp 25, 15 thành, Dân tâm 800) | Thương hệ đỉnh nhất game |
+| **Chấn Lôi Thanh Long Kích** (震雷青龍戟) | Thiên Niên Huyền Thiết ×3 + Thiên Niên Ô Cương ×3 | Cùng event **Vạn Chúng Quy Tâm** | Kích hệ |
+| **Cơ Thiết Hỏa Thần Cung** (機鐵火神弓) | Vật liệu cơ khí T0 | Rèn tại thành có Xưởng Thần Binh | Cung hệ mạnh nhất |
+

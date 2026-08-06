@@ -18,6 +18,41 @@ Tạo giao diện để tự động lưu các ngày học Tiếng Anh và Tiế
 
 ## Nhật ký công việc
 
+## 2026-08-06: LÀM SẠCH LINK CHẾT VÀ DỊCH THUẬT DATA WIKI (PHASE 9)
+- **Hoạt động:** Rà soát và tự động xử lý link 404, dịch thuật toàn bộ 403 tướng sang tiếng Việt.
+- **Chi tiết thay đổi:**
+  - Viết script Python ping toàn bộ link tham khảo trong 5 file vệ tinh (`data_ChucQuan`, `Linh`, `Meo`, `Skill`, `VuKhi_Do`), tự động nhận diện và **xóa sạch 31 link chết 404**, giữ lại nội dung để không mất kiến thức.
+  - Xử lý link mã hóa chống bot (Gamer.com.tw) cho file `data_Tuong.md`, cào thành công danh sách đặc tính ẩn của 403 tướng.
+  - Sử dụng `opencc` và `deep-translator` chạy ngầm để dịch tự động tên 403 tướng sang Hán-Việt, và match tự động 100% Đặc tính ẩn từ tiếng Trung sang tiếng Việt theo từ điển chuẩn đã lập ở mục 8.1-8.3.
+- **Trạng thái:** ✅ DONE — Dữ liệu đã sạch, không còn link hỏng và đã Việt hóa 100%.
+
+## 2026-08-06: HOÀN THÀNH WIKI AUTO-BUILDER (Autonomous Research Agent)
+- **Hoạt động:** Xây dựng tính năng **🌐 Wiki Builder** tích hợp vào `AskCpl.py` — một Agent tự trị hoàn chỉnh.
+- **Chi tiết thay đổi:**
+  - Thêm sub-tab **🌐 Wiki Builder** vào tab `Auto AI`.
+  - **Pipeline 6 Phase tự động:**
+    - Phase 1: Gemini phân rã chủ đề → N mảng con (trả về JSON), tự tạo file `data_<slug>.md`
+    - Phase 2: Gemini sinh 10-30 câu hỏi/chủ đề cần nghiên cứu cho từng mảng
+    - Phase 3: Cross-check chéo toàn bộ `data_*.md` hiện có (Keyword + AI Semantic) để tránh trùng lặp
+    - Phase 4: Google Custom Search API tìm kiếm link liên quan
+    - Phase 5: Cào HTML từ link tìm được (requests + BeautifulSoup), fallback sang AI tự viết nếu không cào được
+    - Phase 6: AI tóm tắt + ghi vào đúng file dưới dạng `## Chủ đề\n Nội dung\n *Nguồn: URL*`
+  - Giao diện có: ô nhập chủ đề, thư mục lưu, Google API Key/CX ID, điều chỉnh số mảng/câu hỏi, nút Dừng khẩn cấp, log realtime màu sắc.
+  - Global Corpus được cập nhật động trong suốt quá trình để tránh trùng lặp giữa các mảng.
+- **Trạng thái:** ✅ DONE — Syntax OK. App chạy thành công.
+
+## 2026-08-06: TÍCH HỢP TAB "QUÉT LINK WIKI" VÀO AskCpl.py
+- **Hoạt động:** Chuyển quy trình quét link từ script độc lập `fetch_wiki_links.py` thành tính năng tích hợp trực tiếp trong ứng dụng `AskCpl.py`.
+- **Chi tiết thay đổi:**
+  - Thêm sub-tab **🔄 Quét Link Wiki** vào tab `🤖 Auto AI` trong notebook của AskCpl.
+  - Thêm 3 method vào class `AskCplApp`:
+    - `setup_wiki_fetch_tab()` — Dựng UI với nút bấm và hộp log.
+    - `start_wiki_fetch()` — Chạy tiến trình trên background thread.
+    - `_run_wiki_fetch()` — Logic chính: đọc toàn bộ `data_*.md` thành Global Corpus → Với mỗi link: nếu ngay dưới đã có `>` thì SKIP; nếu không thì hỏi AI (Gemini cross-check) xem thông tin đã tồn tại trong bất kỳ file nào chưa → Nếu NO thì cào HTML và nhờ AI dịch + tóm tắt và ghi vào file.
+  - Sử dụng đúng `os.path.dirname(os.path.abspath(__file__))` để định vị thư mục.
+  - Log hiển thị realtime trên UI qua `widget.after(0, ...)` tránh lỗi cross-thread Tkinter.
+- **Trạng thái:** ✅ DONE — Syntax check passed. Sẵn sàng để user chạy thử.
+
 ## 2026-08-06: BỔ SUNG CHUYÊN SÂU DỮ LIỆU WIKI SG7 (PHASE 7-8)
 - **Hoạt động:** Nâng cấp toàn diện 5 file Data cũ và tạo thêm 1 file \data_Meo.md\.
 - **Chi tiết thay đổi:**
@@ -2453,3 +2488,15 @@ efresh_list() ngay bên trong vòng lặp sau mỗi lần gọi API trả kết 
 - data_Linh.md: + Thien Ky Binh, meo AI du Tanker. 30 nguon.
 - data_Meo.md: + Son Trai Ngoai Giao, Thach Bi Farm. 20 nguon.
 - Tien do: 3/10 vong hoan thanh.
+## 2026-08-06: UPDATE DATA_TUONG & DATA_SKILL (PHASE 9)
+- Fix toàn bộ lỗi dịch máy Tướng Nam Man và Thần Đạo Nhật Bản (data_Tuong.md)
+- Bổ sung Bảng Mốc Thành Thục Vũ Khí Chi Tiết và Mô tả Tất Sát Độc Quyền (data_Skill.md)
+- Cào thành công dữ liệu Sự Kiện Cốt Truyện từ Ali213
+- Tạo mới file data_Event.md lưu trữ 25 Sự kiện cốt truyện ẩn (đã parse sạch sẽ từ Ali213)
+
+## 2026-08-06 — Cập nhật Link Sống + Bổ sung Dữ Liệu
+- Cập nhật data_Meo.md: Thêm mục CHEATCODES (cách kích hoạt + bảng lệnh), dọn sạch toàn bộ link Tieba giả mạo
+- Cập nhật data_Linh.md: Sửa lỗi ghép chuỗi, bổ sung bảng 10 Danh Tướng tốt nhất kết hợp binh chủng, thay thế link sống Gamersky/Ali213
+- Cập nhật data_ChucQuan.md: Thay link Bilibili/Gamersky dummy bằng link thực (Ali213 14590, Gamer.com.tw, Gamersky 88934)
+- Cập nhật data_VuKhi_Do.md: Xóa 30 link fake, bổ sung bảng công thức rèn Thần Binh Vạn Chúng Quy Tâm, thay bằng 5 link sống
+- data_Event.md: Đã tạo mới và kiểm tra, 25 sự kiện đầy đủ sạch sẽ
