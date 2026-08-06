@@ -18,6 +18,56 @@ Tạo giao diện để tự động lưu các ngày học Tiếng Anh và Tiế
 
 ## Nhật ký công việc
 
+## 2026-08-06: BỔ SUNG CHUYÊN SÂU DỮ LIỆU WIKI SG7 (PHASE 7-8)
+- **Hoạt động:** Nâng cấp toàn diện 5 file Data cũ và tạo thêm 1 file \data_Meo.md\.
+- **Chi tiết thay đổi:**
+  - \data_Tuong.md\: Giải mã các Chỉ Số Ẩn (Kiếp Lược, Phi Mã, Thi Yểm), gán Vũ khí trấn phái (Xà Mâu cho Trương Phi), thêm Combo Tình Nghĩa Kỹ, làm rõ sức mạnh Trương Giác.
+  - \data_ChucQuan.md\: Bổ sung yêu cầu Trí/Võ cho từng cấp quan, phân tích Tướng nào nên lên đường nào, danh sách skill theo cấp (Bát Môn Độn Giáp, Thiên Kiếm Trảm).
+  - \data_Linh.md\: Cập nhật nơi Mua Binh Phù tại các thành. Khớp 20 danh tướng với loại lính tốt nhất (Lữ Bố + Kỵ Binh, GCL + Nỗ Binh).
+  - \data_VuKhi_Do.md\: Bổ sung nguyên liệu chế tạo Thần Binh (Huyền Thiết, Ô Cương), nơi đánh rớt (Tụ Bảo Động, Tứ Linh).
+  - \data_Skill.md\: Hoàn thiện hệ Võ Tướng Kỹ, cách học từ Trụ Đá.
+  - \data_Meo.md\ (New): Thủ thuật F1 hack Trụ Đá, mẹo cày vàng bằng Kiếp Lược, mẹo ép EXP lính, ép cấp thu phục tướng.
+- **Trạng thái:** ✅ DONE — Gate 2 (Đã rà soát không còn sót yêu cầu, link gốc đã được gắn đủ).
+
+
+## 2026-08-06: HOÀN TẤT Wiki SG7 — Phase 5 & 6 (Database Vệ Tinh + Cheat Codes)
+- **Kết quả:** Toàn bộ hệ thống Wiki SG7 đã hoàn chỉnh với kiến trúc 1 file chính + 5 file database vệ tinh.
+- **Các file mới tạo trong workspace:**
+  - data_Tuong.md — Danh sách tướng kèm ID cheat, chỉ số, tất sát, xếp loại
+  - data_ChucQuan.md — Toàn bộ chức quan cấp 1-15, dị tộc, chức đặc quyền danh tướng
+  - data_Linh.md — Binh chủng cấp 1-3, kỹ năng bậc 3, xếp loại S+/S/A/B/C
+  - data_Skill.md — 21 Tất Sát phổ thông + 40+ Tất Sát độc quyền + Võ Tướng Kỹ
+  - data_VuKhi_Do.md — Tọa kỵ, thần binh, sách và vật phẩm quan trọng
+- **Cập nhật wikiSG7.md:** Thêm Sources, bảng links đến 5 file data, Phần 8 Cheat Codes hoàn chỉnh.
+- **Trạng thái:** ✅ DONE — Không còn hạng mục tồn đọng.
+
+
+## 2026-08-06: Hoàn thiện Wiki SG7 - Phase 3 & Phase 4 (Vũ khí, Mẹo & Sự kiện)
+- **Vấn đề:** Các thông tin về mốc thành thạo vũ khí, hệ thống rèn, thần binh, cũng như mẹo cày cuốc kinh nghiệm/tiền, và các điểm bí mật chưa được tập hợp.
+- **Giải pháp:**
+  1. Cập nhật Phần 5 (Vũ khí & Rèn đồ): Bổ sung các mốc thành thạo 5 loại vũ khí (Kiếm, Quạt, Đao, Thương, Cung), điều kiện đạt Tất sát đặc biệt (Diệt Tuyệt, Vương Giả Chi Phong). Tổng hợp Thần binh và hướng dẫn ép đồ.
+  2. Cập nhật Phần 7 (Mẹo Cày Cuốc & Sự kiện): Cung cấp các thủ thuật kiếm Vàng/EXP cực kỳ hiệu quả bằng cách đánh Thần Tiên, tận dụng Bát Môn Độn Giáp, Tụ Bảo Động, và cách lấy Thú cưỡi Kỳ Lân / Tứ Linh.
+  3. Cập nhật 	ask.md, toàn bộ dự án nâng cấp Wiki SG7 đã hoàn tất!
+
+
+## 2026-08-06: Triển khai Wiki SG7 - Phase 2 (Tướng, Thông số ẩn & Kỹ năng)
+- **Vấn đề:** Khối lượng dữ liệu tướng rất lớn (hơn 130 tướng nổi bật), toàn bộ bằng tiếng Trung, cần Việt hóa và tổ chức lại. Hệ thống kỹ năng và chức quan chưa được ghi chép rõ ràng.
+- **Giải pháp:**
+  1. Xây dựng Script Python với bộ từ điển Việt hóa tên hơn 130 danh tướng (Lưu Bị, Tào Tháo, Tôn Quyền, Lữ Bố...) cùng các đặc tính ẩn (Tinh võ, Hồi kỹ, Tháo chiêu, v.v.).
+  2. Xử lý và chuyển đổi toàn bộ data thô trong Phụ lục thành Bảng Chỉ số Tướng rõ ràng ở Phần 4.
+  3. Bổ sung kiến thức về Hệ thống Chức Quan vào Phần 2, bao gồm danh sách các Chức quan đặc quyền (Bậc 14, Bậc 15) của các danh tướng và Võ Tướng Kỹ độc quyền mà chúng mang lại (VD: Hoàng Long Thiên Tường, Ma Vương Hàng Lâm).
+  4. Cập nhật 	ask.md đánh dấu hoàn thành Phase 2.
+
+
+## 2026-08-06: Triển khai Wiki SG7 - Phase 1 (Binh Chủng & Tình Nghĩa Kỹ)
+- **Vấn đề:** Người dùng yêu cầu bổ sung toàn bộ dữ liệu còn thiếu vào file wikiSG7.md bao gồm thông số lính, danh sách kỹ năng, tình nghĩa kỹ, v.v.
+- **Giải pháp:**
+  1. Cấu trúc lại file wikiSG7.md thành 7 Phần rõ ràng, thay đổi Mục lục.
+  2. Bổ sung bảng Đánh giá lực công thủ lính (Binh chủng tương khắc) vào Phần 1.
+  3. Bổ sung bảng chi tiết Toàn bộ Tình Nghĩa Kỹ (Combo skills) kèm giải thích hiệu ứng thực chiến vào Phần 3.
+  4. Cập nhật 	ask.md đánh dấu hoàn thành một phần Phase 1. Đang chờ duyệt để tiến hành Phase 2 (Tướng & Kỹ năng).
+
+
 ## 2026-08-05: Hoàn thiện Phần 2, 3, 4, 5 cho Wiki SG7
 - **Vấn đề:** Các phần Tình Nghĩa Kỹ, Thần Binh, Rèn Đồ, Build Đội Hình chỉ mới là dàn ý.
 - **Giải pháp:**
@@ -2378,3 +2428,28 @@ efresh_list() ngay bên trong vòng lặp sau mỗi lần gọi API trả kết 
 
 - **Toi uu Quota**: Tich hop Auto-Rotate API Key ngay trong vong lap 3-Pass cua Step 3.
 
+
+## 2026-08-06: XÂY DỰNG EXHAUSTIVE DATABASE (PHASE 9)
+- Ghi de toan bo 4 file Data thanh Tu Dien tra cuu khong lo:
+  - data_Tuong.md: 100+ tuong chia theo Thuc/Nguy/Ngo/Quan Hung, co ID, Dac Tinh An, Tinh Nghia Ky day du.
+  - data_Skill.md: ID 001-136+ Vo Tuong Ky, toan bo Quan Su Ky (13 ky), To Hop Ky/Tinh Nghia Ky, Tat Sat Ky theo he.
+  - data_ChucQuan.md: Day du 15 cap Van Quan + 15 cap Vo Quan + Chuc Dac Biet + Di Toc + Huong dan phan luong.
+  - data_VuKhi_Do.md: Toan bo he vu khi (Dao, Thuong, Kiem, Cung, Quat), To Ky, Sach, Bang Nguyen lieu ren.
+- Trang thai: Hoan thanh Phase 9. Cho nguoi dung xem lai.
+# #   P h a s e   9 :   E x h a u s t i v e   D a t a b a s e   C o m p l e t e d  
+ -   U p d a t e d   a l l   w i k i   f i l e s   ( T u o n g ,   S k i l l ,   C h u c Q u a n ,   V u K h i _ D o ,   L i n h ,   M e o )   w i t h   e x h a u s t i v e   d a t a   f r o m   g a m e r s k y ,   a l i 2 1 3 ,   a n d   g a m e r . c o m . t w .   F o r m a t t e d   w i t h   M a r k d o w n   t a b l e s .  
+ 
+## 2026-08-06: HOÀN TẤT RÀ SOÁT LẦN 2 (Vòng 2/5)
+- Đã hoàn tất bổ sung sâu dữ liệu Tướng, Chức Quan, Binh Chủng, Vũ Khí, Mẹo (SG7).
+- Mở rộng số lượng link kiểm chứng chéo lên 20 nguồn/file.
+- Đã test và bổ sung logic mới (Farm tiền, bắt thú ẩn, 3 nhánh binh chủng max).
+- Hoàn thành Gate 2.
+
+## 2026-08-06: HOAN TAT RA SOAT LAN 3 (Vong 3/10)
+- data_Skill.md: + Co che Frame Rate Tat Sat, Bat Mon Kim Toa vs Bat Tran Do. 30 nguon.
+- data_Tuong.md: + Doi hinh Thai Dao Doi (5 nguoi), giai ao Tuong MOD. 30 nguon.
+- data_ChucQuan.md: + Bang Cong Huan tieu chuan (150~20000 CH). 30 nguon.
+- data_VuKhi_Do.md: + ID 746/749/752, co che Cong Huan 2000 rot Thien Nien HT. 30 nguon.
+- data_Linh.md: + Thien Ky Binh, meo AI du Tanker. 30 nguon.
+- data_Meo.md: + Son Trai Ngoai Giao, Thach Bi Farm. 20 nguon.
+- Tien do: 3/10 vong hoan thanh.
