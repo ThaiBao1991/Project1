@@ -2500,3 +2500,8 @@ efresh_list() ngay bên trong vòng lặp sau mỗi lần gọi API trả kết 
 - Cập nhật data_ChucQuan.md: Thay link Bilibili/Gamersky dummy bằng link thực (Ali213 14590, Gamer.com.tw, Gamersky 88934)
 - Cập nhật data_VuKhi_Do.md: Xóa 30 link fake, bổ sung bảng công thức rèn Thần Binh Vạn Chúng Quy Tâm, thay bằng 5 link sống
 - data_Event.md: Đã tạo mới và kiểm tra, 25 sự kiện đầy đủ sạch sẽ
+
+## 2026-08-07: TOI UU GIAO DIEN TAB TAO ROADMAP
+- Hoat dong: Chinh sua UI de phu hop voi moi kich thuoc man hinh.
+- Chi tiet: Gom cac Checkbox cau truc vao 1 hang ngang. Thu nho Dan y ky thuat con 50%. Gom cac nut chay Step 1, 2, 3 len tren cung 1 hang ngang (Region Actions) de luon co the bam duoc.
+- Trang thai: ✅ DONE
