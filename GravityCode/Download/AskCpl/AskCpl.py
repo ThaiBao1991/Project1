@@ -158,9 +158,6 @@ class AskCplApp:
         tk.Label(f_input, text="Lĩnh vực / Từ khóa:", font=("Arial", 10, "bold"), width=15, anchor='w').pack(side='left')
         self.ai_roadmap_domain_var = tk.StringVar(value=saved_generator.get("domain", ""))
         tk.Entry(f_input, textvariable=self.ai_roadmap_domain_var, font=("Arial", 10)).pack(side='left', fill='x', expand=True, padx=10)
-        
-        tk.Button(f_input, text="1. Lên Dàn ý Lõi (Core)", bg="#8e44ad", fg="white", font=("Arial", 10, "bold"),
-                  command=lambda: self.roadmap_gen_step1()).pack(side='right')
 
         # Region 1.2: Context
         f_context = tk.Frame(self.sub_tab_roadmap_gen)
@@ -198,21 +195,17 @@ class AskCplApp:
         f_reqs_row1 = tk.Frame(f_reqs)
         f_reqs_row1.pack(fill='x', padx=5, pady=2)
         tk.Checkbutton(f_reqs_row1, text="Phân bổ thời gian", variable=self.ai_req_time_var).pack(side='left')
-        tk.Checkbutton(f_reqs_row1, text="Vật liệu chuẩn bị", variable=self.ai_req_mat_var).pack(side='left', padx=10)
+        tk.Checkbutton(f_reqs_row1, text="Vật liệu chuẩn bị", variable=self.ai_req_mat_var).pack(side='left', padx=3)
         tk.Checkbutton(f_reqs_row1, text="Từng bước thực hiện", variable=self.ai_req_step_var).pack(side='left')
+        tk.Checkbutton(f_reqs_row1, text="An toàn/Lỗi thường gặp", variable=self.ai_req_warn_var).pack(side='left', padx=3)
+        tk.Checkbutton(f_reqs_row1, text="Checklist hoàn thành", variable=self.ai_req_check_var).pack(side='left')
+        tk.Checkbutton(f_reqs_row1, text="Trùng lặp tiêu đề (%)", variable=self.ai_req_sim_check_var).pack(side='left', padx=3)
+        tk.Entry(f_reqs_row1, textvariable=self.ai_req_sim_ratio_var, width=4).pack(side='left')
         
         f_reqs_row2 = tk.Frame(f_reqs)
         f_reqs_row2.pack(fill='x', padx=5, pady=2)
-        tk.Checkbutton(f_reqs_row2, text="An toàn/Lỗi thường gặp", variable=self.ai_req_warn_var).pack(side='left')
-        tk.Checkbutton(f_reqs_row2, text="Checklist hoàn thành", variable=self.ai_req_check_var).pack(side='left', padx=10)
-        
-        f_reqs_row3 = tk.Frame(f_reqs)
-        f_reqs_row3.pack(fill='x', padx=5, pady=2)
-        tk.Checkbutton(f_reqs_row3, text="Kiểm tra trùng lặp tiêu đề (%)", variable=self.ai_req_sim_check_var).pack(side='left')
-        tk.Entry(f_reqs_row3, textvariable=self.ai_req_sim_ratio_var, width=5).pack(side='left', padx=5)
-        
-        tk.Label(f_reqs_row3, text="Yêu cầu khác:").pack(side='left', padx=(10, 2))
-        tk.Entry(f_reqs_row3, textvariable=self.ai_req_custom_var, width=25).pack(side='left', fill='x', expand=True, padx=(0, 5))
+        tk.Label(f_reqs_row2, text="Yêu cầu khác:").pack(side='left')
+        tk.Entry(f_reqs_row2, textvariable=self.ai_req_custom_var, width=25).pack(side='left', fill='x', expand=True, padx=(5, 5))
 
         # Region 1.5: Reference Files
         self.f_refs_container = tk.Frame(self.sub_tab_roadmap_gen)
@@ -265,36 +258,36 @@ class AskCplApp:
         tk.Button(f_opts, text="Chọn Thư Mục...", command=self.roadmap_gen_select_dir).pack(side='left')
         tk.Button(f_opts, text="Lưu cấu hình tạo roadmap", command=self.save_roadmap_generator_settings).pack(side='left', padx=8)
 
-        # Region 5: Log
+        # NEW Region: Actions (Step 1, 2, 3)
+        f_actions = tk.Frame(self.sub_tab_roadmap_gen)
+        f_actions.pack(side='top', fill='x', padx=10, pady=5)
+        
+        tk.Button(f_actions, text="1. Lên Dàn ý Lõi (Core)", bg="#8e44ad", fg="white", font=("Arial", 10, "bold"),
+                  command=lambda: self.roadmap_gen_step1()).pack(side='left', padx=2)
+                  
+        tk.Button(f_actions, text="2. Phản biện & Mở rộng Khung", bg="#3498db", fg="white", font=("Arial", 10, "bold"),
+                  command=lambda: self.roadmap_gen_step2()).pack(side='left', padx=2)
+                  
+        tk.Button(f_actions, text="3. Sinh Chi Tiết Master", bg="#e67e22", fg="white", font=("Arial", 10, "bold"),
+                  command=lambda: self.roadmap_gen_step3()).pack(side='left', padx=2)
+                  
+        self.ai_roadmap_expand_mode = tk.StringVar(value=saved_generator.get("expand_mode", "llm"))
+        tk.Radiobutton(f_actions, text="Template", variable=self.ai_roadmap_expand_mode, value="template", font=("Arial", 9, "bold"), fg="#27ae60").pack(side='left', padx=(10, 2))
+        tk.Radiobutton(f_actions, text="LLM 6-Pass", variable=self.ai_roadmap_expand_mode, value="llm").pack(side='left')
+
+        # Region 5: Log (Packed at bottom to always stay visible)
         f_log = tk.Frame(self.sub_tab_roadmap_gen)
         f_log.pack(side='bottom', fill='x', padx=10, pady=5)
         tk.Label(f_log, text="Tiến trình chạy:", font=("Arial", 10, "bold")).pack(anchor='w')
         self.ai_roadmap_log_text = scrolledtext.ScrolledText(f_log, height=5, bg="#f4f4f4", font=("Consolas", 9), state='disabled')
-        self.ai_roadmap_log_text.pack(fill='x', expand=True)
+        self.ai_roadmap_log_text.pack(fill='x', expand=False)
 
-        # Region 4: Expansion (Step 3)
-        f_expand = tk.Frame(self.sub_tab_roadmap_gen)
-        f_expand.pack(side='bottom', fill='x', padx=10, pady=10)
-        
-        self.ai_roadmap_expand_mode = tk.StringVar(value=saved_generator.get("expand_mode", "llm"))
-        tk.Radiobutton(f_expand, text="Chẻ bằng Template (Nhanh)", variable=self.ai_roadmap_expand_mode, value="template", font=("Arial", 9, "bold"), fg="#27ae60").pack(side='left')
-        tk.Radiobutton(f_expand, text="Chẻ bằng LLM 6-Pass (Master)", variable=self.ai_roadmap_expand_mode, value="llm").pack(side='left', padx=10)
-
-        tk.Button(f_expand, text="3. Sinh Chi Tiết Master & Kiểm định", bg="#e67e22", fg="white", font=("Arial", 10, "bold"),
-                  command=lambda: self.roadmap_gen_step3()).pack(side='right')
-
-        # Region 3.5: Step 2 - Nâng cấp Khung
-        f_step2 = tk.Frame(self.sub_tab_roadmap_gen)
-        f_step2.pack(side='bottom', fill='x', padx=10, pady=5)
-        tk.Button(f_step2, text="2. Phản biện & Mở rộng Khung (5 Passes)", bg="#3498db", fg="white", font=("Arial", 10, "bold"),
-                  command=lambda: self.roadmap_gen_step2()).pack(side='right')
-
-        # Region 3: Preview Skeleton
+        # Region 3: Preview Skeleton (Packed last so it takes the remaining space in the middle)
         f_preview = tk.Frame(self.sub_tab_roadmap_gen)
         f_preview.pack(side='top', fill='both', expand=True, padx=10, pady=2)
         tk.Label(f_preview, text="Dàn ý Kỹ thuật (JSON) - Chứa Profile và Skeleton:", font=("Arial", 10, "bold")).pack(anchor='w')
         
-        self.ai_roadmap_skeleton_text = scrolledtext.ScrolledText(f_preview, height=8, bg="#fffde7", font=("Consolas", 10))
+        self.ai_roadmap_skeleton_text = scrolledtext.ScrolledText(f_preview, height=4, bg="#fffde7", font=("Consolas", 10))
         self.ai_roadmap_skeleton_text.pack(fill='both', expand=True, pady=2)
 
     def roadmap_gen_select_dir(self):

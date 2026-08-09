@@ -2500,8 +2500,16 @@ efresh_list() ngay bên trong vòng lặp sau mỗi lần gọi API trả kết 
 - Cập nhật data_ChucQuan.md: Thay link Bilibili/Gamersky dummy bằng link thực (Ali213 14590, Gamer.com.tw, Gamersky 88934)
 - Cập nhật data_VuKhi_Do.md: Xóa 30 link fake, bổ sung bảng công thức rèn Thần Binh Vạn Chúng Quy Tâm, thay bằng 5 link sống
 - data_Event.md: Đã tạo mới và kiểm tra, 25 sự kiện đầy đủ sạch sẽ
+<<<<<<< HEAD
 
 ## [2026-08-07] Fix AskCpl CopilotWordExportAddon Follow-up Timeout
 - **Issue**: Addon bị treo (không tự retry/reload) khi hỏi bồi (autoFollowUp) mất quá nhiều thời gian hoặc AI không phản hồi kịp (chữ không thay đổi trong 60s). Logic waitForResponseComplete cũ bị lặp vô tận do hàm checkStable15s trả về false nhưng lại không được xử lý bẻ gãy vòng lặp while(true).
 - **Fix**: Sửa waitForResponseComplete trả về false khi hết thời gian chờ/kẹt mạng. Sửa hàm askSecondaryPrompt bắt kết quả false này và trả về __ASKCPL_TIMEOUT__. Tại _runNextDayAttempt, nếu hỏi bồi hoặc tóm tắt trả về __ASKCPL_TIMEOUT__ thì lập tức return 'retry' để hệ thống mở Chat mới và hỏi lại toàn bộ nội dung của Ngày hiện tại.
 - **Verify**: Code Javascript được cập nhật, cấu trúc while và logic retry đã có kết nối với nhau để chống kẹt vô hạn.
+=======
+
+## 2026-08-07: TOI UU GIAO DIEN TAB TAO ROADMAP
+- Hoat dong: Chinh sua UI de phu hop voi moi kich thuoc man hinh.
+- Chi tiet: Gom cac Checkbox cau truc vao 1 hang ngang. Thu nho Dan y ky thuat con 50%. Gom cac nut chay Step 1, 2, 3 len tren cung 1 hang ngang (Region Actions) de luon co the bam duoc.
+- Trang thai: ✅ DONE
+>>>>>>> 16045bf76e14c78ef6f587493db45b5ae6b334b6
