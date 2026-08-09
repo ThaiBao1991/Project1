@@ -1057,14 +1057,19 @@ async function waitForResponseComplete(promptLabel) {
     sendStatus(`"${promptLabel}" — Chờ AI phản hồi...`);
     const startTime = Date.now();
     await delay(MIN_WAIT);
-    if (!isRunning) return;
+    if (!isRunning) return false;
 
     while (Date.now() - startTime < MAX_TOTAL) {
         const stable = await checkStable15s();
-        if (stable) return;
+        if (stable === true) return true;
+        if (stable === false) {
+            appLog(`⚠️ Hủy chờ phản hồi do phát hiện kẹt/lỗi.`);
+            return false;
+        }
         await delay(POLL);
-        if (!isRunning) return;
+        if (!isRunning) return false;
     }
+    return false;
 }
 
 // ── ADVANCED MEMORY BUILDER ──────────────────────────────────
@@ -1120,8 +1125,9 @@ async function askSecondaryPrompt(promptText) {
         await delay(100);
         inputEl.dispatchEvent(new KeyboardEvent('keyup', opts));
     }
-    await waitForResponseComplete("Secondary prompt");
+    const waitResult = await waitForResponseComplete("Secondary prompt");
     if (!isRunning) return null;
+    if (waitResult === false) return "__ASKCPL_TIMEOUT__";
     return extractDeltaContent(snapshot);
 }
 
@@ -1239,8 +1245,12 @@ async function _runNextDayAttempt(retryCount, isAutoResumed = false) {
     }
 
     sendStatus(`Đã gửi Day ${currentDay}. Chờ AI...`);
-    await waitForResponseComplete(`Day ${currentDay}`);
+    const waitResult = await waitForResponseComplete(`Day ${currentDay}`);
     if (!isRunning) return 'stop';
+    if (waitResult === false) {
+        appLog(`⚠️ Phản hồi không hoàn chỉnh hoặc bị kẹt. Bắt đầu tải lại...`);
+        return 'retry';
+    }
 
     let responseHtml = extractDeltaContent(snapshot);
     if (!validateContent(responseHtml, currentAgentName)) {
@@ -1268,6 +1278,11 @@ async function _runNextDayAttempt(retryCount, isAutoResumed = false) {
             let followUpHtml = await askSecondaryPrompt(followUpPrompt);
             if (!isRunning) return 'stop';
             
+            if (followUpHtml === "__ASKCPL_TIMEOUT__") {
+                appLog(`❌ Lỗi mạng/kẹt trong lúc hỏi bồi. Tiến hành tải lại toàn bộ Ngày ${currentDay}...`);
+                return 'retry'; // Hủy luôn ngày hiện tại và retry lại từ đầu
+            }
+            
             if (followUpHtml) {
                 fullDayHtml += "\\n<hr>\\n" + followUpHtml;
                 // Kiểm tra xem phản hồi có cụm từ "Đã đầy đủ" không
@@ -1290,6 +1305,10 @@ async function _runNextDayAttempt(retryCount, isAutoResumed = false) {
     if (promptMode === 'table_md' && roadmapData) {
         appLog(`📝 Đang lấy tóm tắt của Ngày ${currentDay}...`);
         let summaryHtml = await askSecondaryPrompt("Hãy tóm tắt cực kỳ ngắn gọn (dưới 20 từ) những kiến thức cốt lõi bạn vừa dạy ở trên.");
+        if (summaryHtml === "__ASKCPL_TIMEOUT__") {
+            appLog(`❌ Kẹt mạng lúc lấy tóm tắt. Tải lại Ngày ${currentDay}...`);
+            return 'retry';
+        }
         if (summaryHtml) {
             let text = summaryHtml.replace(/<[^>]+>/g, '').trim();
             if (text) {
@@ -1303,6 +1322,7 @@ async function _runNextDayAttempt(retryCount, isAutoResumed = false) {
     if (isAdvanced && topicPromptStr) {
         appLog(`🧠 Bắt đầu hỏi Advanced Memory...`);
         let topicHtml = await askSecondaryPrompt(topicPromptStr);
+        if (topicHtml === "__ASKCPL_TIMEOUT__") return 'retry';
         if (topicHtml) {
             let topicName = topicHtml.replace(/<[^>]+>/g, '').trim().replace(/^\*\*|\*\*$/g, '').replace(/[:"]+/g, '').trim();
             if (topicName.length > 0 && topicName.length < 100) {
@@ -1316,6 +1336,7 @@ async function _runNextDayAttempt(retryCount, isAutoResumed = false) {
                     for (const detail of detailConfigs) {
                         if (!isRunning) return 'stop';
                         let detailHtml = await askSecondaryPrompt(detail.prompt);
+                        if (detailHtml === "__ASKCPL_TIMEOUT__") return 'retry';
                         if (detailHtml) {
                             let detailText = detailHtml.replace(/<[^>]+>/g, '').trim();
                             if (detailText.length > 0) {

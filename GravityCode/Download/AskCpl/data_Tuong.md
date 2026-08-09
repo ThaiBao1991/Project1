@@ -748,18 +748,18 @@ Game không có "Miễn Khống Chế" hay "Bất Tử" mặc định. Các thu�
 | **Ca Cụ Thổ** (迦具土) | Thủy Tướng, Khuyển Thần Giáng Lâm |
 | **Đại Sơn Tân Kiến** (大山津見) | Thủy Chiến Thục Luyện, Đồng Tử Giáng Lâm |
 | **Cửu Cửu Năng Trí** (久久能智) | Thủy Chiến Thục Luyện, Phi Tiêu (Nhật) |
-| **Shina Tohiko** (志那都彥) | Thủy Chiến Thục Luyện, Phi Tiêu (Nhật) |
+| **Chí Na Đô Ngạn** (志那都彥) | Thủy Chiến Thục Luyện, Phi Tiêu (Nhật) |
 | **Miên Tân Kiến** (棉津見) | Thủy Chiến Thục Luyện, Đồng Tử Giáng Lâm |
-| **Azan** (阿曇) | Thủy Tướng, Inugami Triệu Hồi |
-| **Hayato** (隼人) | Thủy Chiến Thục Luyện, Sự Xuất Hiện Của Inugami |
+| **A Đàm** (阿曇) | Thủy Tướng, Inugami Triệu Hồi |
+| **Tuấn Nhân** (隼人) | Thủy Chiến Thục Luyện, Sự Xuất Hiện Của Inugami |
 | **Thần Vũ** (神武) | Thủy Tướng, Sự Xuất Hiện Của Đứa Trẻ |
-| **Gokase** (五瀨) | Thủy Chiến Thục Luyện, Lời Mời Của Chàng Trai |
+| **Ngũ Lại** (五瀨) | Thủy Chiến Thục Luyện, Lời Mời Của Chàng Trai |
 | **Nguyệt Độc** (月讀) | Thủy Chiến Thục Luyện, Đồng Tử Giáng Lâm, Cơ Giáng Lâm |
 | **Ngọc Y Cơ** (玉依姬) | Thủy Chiến Thục Luyện, Cơ Giáng Lâm |
 | **Thị Thốn Đảo Cơ** (市寸島姬) | Thủy Chiến Thục Luyện, Cơ Giáng Lâm |
 | **Đa Kỷ Lý Cơ** (多紀理姬) | Thủy Chiến Thục Luyện, Cơ Giáng Lâm |
 | **Đa Kỳ Đô Cơ** (多岐都姬) | Thủy Chiến Thục Luyện, Cơ Giáng Lâm |
-| **Sakuyahime** (佐久夜姬) | Thủy Chiến Thục Luyện, Phi Tiêu (Nhật) |
+| **Tá Cửu Dạ Cơ** (佐久夜姬) | Thủy Chiến Thục Luyện, Phi Tiêu (Nhật) |
 | **Đệ Quất Cơ** (弟橘姬) | Thủy Chiến Thục Luyện, Cơ Giáng Lâm |
 | **Tu Thế Lý Cơ** (須勢理姬) | Thủy Tướng, Cơ Giáng Lâm |
 | **Phong Ngọc Cơ** (豐玉姬) | Thủy Chiến Thục Luyện, Cơ Giáng Lâm |
@@ -777,48 +777,209 @@ Game không có "Miễn Khống Chế" hay "Bất Tử" mặc định. Các thu�
 *Tổ Hợp Kỹ khi xếp các tướng có quan hệ đặc biệt vào cùng 1 Đạo Quân và đầy thanh Nộ.*
 *Nguồn: [Gamersky](https://www.gamersky.com/handbook/200801/91390.shtml) — 3 trang đầy đủ*
 
-| Tên Tình Nghĩa Kỹ | Tướng Kết Hợp | Mô Tả Hiệu Quả |
+Bản chất Sango 7 có **39 chiêu thức Tình Nghĩa Kỹ** (nếu tính cả chiêu cấp 1 và chiêu nâng cấp). Chúng được gom gọn vào **18 TỔ HỢP TƯỚNG (CẶP TƯỚNG)** Độc Quyền, chia theo từng phe phái dưới đây:
+
+### PHE THỤC HÁN (6 Tổ Hợp)
+| Tên Tình Nghĩa Kỹ | Tướng Kết Hợp | Đánh Giá & Mô Tả |
 |---|---|---|
-| **Hỏa Phượng Triển Dực** | **Tôn Sách Và Đại Kiều** | Thăng hoa sát khí của người chỉ huy quân sự, biến thành một con phượng hoàng lửa vật chất và bay lên, tấn công mọi kẻ thù trước mặt |
-| **Thần Hoàng Diệt Thế** | **Tôn Sách Và Đại Kiều** | Thăng hoa sát khí của các tướng, biến thành một con phượng hoàng lửa vật chất bay lên, tấn công và giết chết kẻ thù trước mặt; biến vô số quân địch thành than với sức mạnh hủy diệt. |
-| **Thanh Lam Tuyệt Kiếm** | **Chu Du Và Tiểu Kiều** | Sau khi ngưng tụ sát lực, anh ta bắn ra năng lượng kiếm vô hạn để tiêu diệt kẻ thù. |
-| **Hoa Lam Tuyệt Kiếm** | **Chu Du Và Tiểu Kiều** | Sau khi ngưng tụ sát khí, hắn phóng ra vô tận kiếm khí, sau đó cuộn lên Hoa Lan, bắn ra vô số kiếm khí giết chết kẻ địch. |
-| **Quỷ Thần Liệt Kích** | **Lữ Bố + Điêu Thuyền** (Vợ chồng) | Thăng hoa đấu khí thành Phương Thiên Họa Kích khổng lồ đập mạnh vào kẻ thù, đồng thời phóng ra vô số cánh bướm sắc màu truy hồn đoạt phách. |
-| **Bát Quái Hỏa Thần Pháo** | **Khổng Minh Và Hoàng Nhạc Anh** | Triệu hồi bốn khẩu pháo Bát quái để tấn công quân địch bằng sức mạnh của Ngũ hành và Bát quái |
-| **Bát Quái Diệt Nguyên Pháo** | **Khổng Minh Và Hoàng Nhạc Anh** | Triệu hồi bốn khẩu Đại bác Bát quái để sử dụng sức mạnh của Ngũ hành và Bát quái để thực hiện các cuộc tấn công tàn khốc vào quân địch. |
-| **Viêm Ma Phá Địa** | **Mạnh Hoạch + Chúc Dung Phu Nhân** (Vợ chồng, Nam Man) | Triệu hồi Viêm Ma từ lòng đất, dùng lửa hung hãn thiêu đốt kẻ thù. |
-| **Hỏa Thần Diệt Thế** | **Mạnh Hoạch + Chúc Dung Phu Nhân** (Vợ chồng, Nam Man) | Triệu hồi Hỏa Thần từ lòng đất, thiêu đốt kẻ thù bằng bức tường lửa rực đỏ. |
-| **Thiên Kiếm Kinh Lôi** | **Lưu Bang Và Lục Trĩ** | Triệu hồi thánh kiếm của hoàng đế rơi vào đội hình của kẻ thù, đồng thời phát động một đợt oanh tạc sấm sét, có sức mạnh hủy diệt trời đất. |
-| **Ma Đao Diệt Hồn** | **Hạng Vũ + Ngu Cơ** | Dùng Địa Ngục Bá Vương Ma Đao xoay tròn chém nát quân địch, đồng thời cuốn lên cơn bão âm hồn nuốt chửng kẻ địch. |
-| **Trung Nghĩa Ngạo Thế** | **Lưu Bị/quan Vũ/trương Phi** | Với lòng trung thành của ba anh em kết nghĩa ở Đào Viên, họ đã kích hoạt năng lượng rồng của trái đất để tấn công kẻ thù. |
-| **Nhân Nghĩa Tề Thiên** | **Lưu Bị/quan Vũ/trương Phi** | Với lòng trung thành của Taoyuan Three, họ khơi dậy năng lượng rồng trong mạch đất trỗi dậy và bắn năng lượng kiếm sét tấn công kẻ thù. |
-| **Hắc Giao Phẫn Phiên** | **Tôn Quân Và Chu Tài** | Triệu hồi con rồng đen ẩn náu trong các mạch nước và kích hoạt sức mạnh của các mạch nước để áp đảo kẻ thù. |
-| **Cộng Công Bá Hải** | **Tôn Quân Và Chu Tài** | Chiêu mộ Thủy Thần Gonggong tấn công kẻ địch bằng vô số tia nước đột phá và bom nước sao băng |
-| **Bách Kiếm Tuyệt Tung** | **Chu Du Và Tôn Sách** | Kích hoạt năng lượng kiếm từ mọi hướng, tiêu diệt tất cả kẻ thù trên đường đi và trực tiếp bắt giữ tướng địch, gây sát thương nghiêm trọng. |
-| **Bôn Lôi Tập Điện** | **Hạ Hầu Đôn + Hạ Hầu Uyên** | Tập hợp uy lực sấm sét từ tám phương, hóa thành đôi song thương sét tấn công quân địch. |
-| **Thiên Lôi Cực Điện** | **Hạ Hầu Đôn + Hạ Hầu Uyên** | Tập hợp uy lực sấm sét từ tám phương, hóa thành đôi song thương sét và kích hoạt cơn bão sấm sét tấn công quân địch. |
-| **Thanh Long Thiên Lang Nha** | **Trương Liêu Và Quan Vũ** | Thăng hoa tinh thần chiến đấu thành Thanh Long Kiếm và Thiên Lang Kiếm khổng lồ chém nát quân địch, kẻ nào lợi dụng đều sẽ bị lấm bùn. |
-| **Nghiêng Nước Nghiêng Thành** | **Đại Kiều Và Tiểu Kiều** | Vẻ đẹp vô song có thể làm say đắm một đất nước, có thể làm say đắm muôn loài chúng sinh và có thể được chúng ta sử dụng. |
-| **Kỳ Nhương Bí Nghi** | **Gia Cát Lượng Và Bàng Đồng** | Tăng cường đáng kể sức chiến đấu của quân ta với chiêu thức Bát Môn Đôn Gia |
-| **Hổ Tiêu Phá Quân** | **Ngũ Tướng Hổ** | Năm con hổ sẽ đồng thời hội tụ sát khí và biến thành những con hổ hung dữ tấn công kẻ thù. Sức mạnh của họ làm rung chuyển thế giới. |
-| **Ngũ Hổ Phá Cực** | **Ngũ Tướng Hổ** | Năm con hổ sẽ đồng thời hội tụ sát khí và biến thành những con hổ hung dữ tấn công kẻ thù. Sức mạnh của họ làm rung chuyển thế giới. |
-| **Bát Trận Hồi Thiên** | **Gia Cát Lượng Và Tưởng Vệ** | Sử dụng kỹ thuật Dunjia Bát Môn để khôi phục thể lực cho tất cả các tướng của chúng ta và ngăn chặn mọi hành động của kẻ thù cùng một lúc. |
-| **Bát Cực Quy Nguyên** | **Gia Cát Lượng Và Tưởng Vệ** | Sử dụng chiêu thức Bát Môn Đôn Gia để khôi phục thể lực đáng kể cho tất cả các tướng của chúng ta, đồng thời ngăn chặn mọi hành động của kẻ thù. |
-| **Tử Cái Đằng Long** | **Chân Mật Và Tào Phi** | Triệu hồi rồng tím hộ mệnh của Hoàng đế rồng đích thực để tấn công kẻ thù bằng năng lượng rồng vô hạn. |
-| **Long Phụng Thiên Vũ** | **Tôn Nhân + Lưu Bị** | Phát động Chân Long Đế Khí kết hợp Hỏa Phượng Ngao Tường Chi Uy, tiêu diệt toàn bộ bất nghĩa chi quân phía trước (kỹ năng trong đoạn video mở đầu game). |
-| **Nhất Khí Tam Long Đằng** | **Mã Ngôn Và Tổ Lãng** | Tập hợp Hunyuan Qi, bắn những quả bom tác động cực mạnh về phía trước, đồng thời kích hoạt thổ huyết long khí để tấn công kẻ thù. |
-| **Diệt Tuyệt Long Pháo** | **Sĩ Bích + Từ Chất** | Điều động một khẩu Diệt Nguyên Pháo và một số Long Pháo, bắn phá quân địch theo mọi hướng. |
-| **Diệt Tuyệt Pháo Trận** | **Sĩ Bích + Từ Chất** | Điều động hai khẩu Diệt Nguyên Pháo và một số Long Pháo, bắn phá quân địch theo mọi hướng. |
-| **Câu Hồn Đoạt Phách** | **Từ Hoảng + Yến Minh** | Từ Cửu U triệu tập âm hồn oán linh, dùng Điêu Hồn Dẫn và Âm Hồn Triền lên toàn bộ tướng địch, hút cạn thể lực và kỹ lực, nhanh chóng tiêu tán khí lực. |
-| **Âm Phong Thiên Sát** | **Vương Lãm + Từ Tha + Đơn Phúc** | Từ vực thẳm địa phủ triệu tập âm hồn oán linh, mang Cửu U Âm Phong càn quét quân địch nơi bí địa, đồng thời dùng Điêu Hồn Cường Dẫn và Âm Hồn Tử Triền lên toàn bộ tướng địch, hút cạn thể lực và kỹ lực, nhanh chóng tiêu giảm khí lực. |
-| **Đông Huyết Lôi Thiểm Đao** | **Vương Bình + Tôn Hoàn + Lưu Toán** | Dùng độn giáp chi thuật kích hoạt vô số băng phong và thiên lôi vào đội hình địch, đồng thời trang bị cho ba vị tướng Đông Huyết Đao (dao máu đông lạnh). |
-| **Thái Cực Chúc Dung Cung** | **Bộ Khâu Kiệm + Ngưu Kim + Tôn Dị** | Dùng pháp thuật kích hoạt Thái Cực Hỏa xung quanh ba vị tướng, đồng thời trang bị cho ba vị tướng Chúc Dung Liệt Hỏa Cung. |
-| **Bát Phương Lôi Minh Thương** | **Vương Lãm + Vương Bình + Tôn Tĩnh** | Dùng pháp thuật trút vô số sét xuống đội hình địch, đồng thời trang bị cho tướng ta Lôi Điện Thương. |
-| **Thần Binh Tuyệt Trận** | **Tôn Hoàn + Tôn Dị + Tôn Sách + Tôn Tĩnh** | Dùng pháp thuật triệu hồi Lôi Lệ Phong Hành, Băng Phong và Xích Diễm vào đội hình địch; sau đó bốn tướng lần lượt trang bị Chúc Dung Cung, Đông Huyết Đao, Ba Tiêu Phiến và Lôi Đình Điện Thiểm Thương. |
-| **Long Quyển Lôi Hồng** | **Tôn Du + Tôn Tĩnh + Vương Kháng + Linh Hồ Thiệu** | Dùng pháp thuật hút phong lôi dữ dội vào đội hình địch, đồng thời trang bị Ba Tiêu Long Quyển Phiến và Lôi Đình Điện Thiểm Thương cho các tướng. |
-| **Cửu U Minh Sát Trận** | **Từ Tha + Đơn Phúc + Tả Từ + Thạch Sùng** | Mở hai cổng Địa Ngục trong đội hình địch để hút quân địch vào, đồng thời hấp thụ thể lực và khí lực của toàn bộ tướng địch; triệu tập quỷ binh tấn công kẻ thù. |
-| **Liệt Địa Đông Thiên** | **Chu Tổn + Thái Sử Hưởng + Chu Tuấn + Tổ Mậu** | Thi triển Huyền Băng Huyết Đao trong đội hình địch, đất gầm thét dữ dội, Long Tuyền cuộn sóng, Thái Sơn đè xuống; tất cả quân địch bị sóng đánh đều không thể thoát chết. |
+| **Trung Nghĩa Ngạo Thế / Nhân Nghĩa Tề Thiên** | **Lưu Bị + Quan Vũ + Trương Phi** | **(9.5/10)** Sức mạnh biểu tượng Long Mạch sấm sét, dễ kích hoạt đầu game. |
+| **Hổ Tiêu Phá Quân / Ngũ Hổ Phá Cực** | **Ngũ Hổ Tướng (Quan, Trương, Triệu, Mã, Hoàng)** | **(9.5/10)** Năm mãnh hổ vồ nát kẻ thù, sát thương vật lý đỉnh cao. Khó gom người. |
+| **Bát Quái Hỏa Thần Pháo / Diệt Nguyên Pháo** | **Gia Cát Lượng + Hoàng Nguyệt Anh** | **(8.5/10)** Gọi 4 pháo Bát Quái nã đạn tàn khốc. Sát thương hỏa lực dồn siêu mạnh. |
+| **Bát Trận Hồi Thiên / Bát Cực Quy Nguyên** | **Gia Cát Lượng + Khương Duy** | **(10/10)** Khóa hành động địch, hồi HP cực lớn phe ta. Top 1 Đánh Boss/Thần Thú. |
+| **Kỳ Nhương Bí Nghi** | **Gia Cát Lượng + Bàng Thống** | **(9/10)** Bát Môn Độn Giáp buff cực đại sức chiến đấu. Kỹ năng hỗ trợ đỉnh nhất. |
+| **Long Phượng Thiên Vũ** | **Lưu Bị + Tôn Nhân (Tôn Thượng Hương)** | **(8.5/10)** Chân Long và Hỏa Phượng càn quét toàn bản đồ. (Skill ở Video Intro). |
+
+### PHE ĐÔNG NGÔ (6 Tổ Hợp)
+| Tên Tình Nghĩa Kỹ | Tướng Kết Hợp | Đánh Giá & Mô Tả |
+|---|---|---|
+| **Hỏa Phượng Triển Dực / Thần Hoàng Diệt Thế** | **Tôn Sách + Đại Kiều** | **(9.5/10)** Phượng hoàng lửa thiêu rụi toàn map. Dọn lính siêu tốc số 1. |
+| **Thanh Lam Tuyệt Kiếm / Hoa Lam Tuyệt Kiếm** | **Chu Du + Tiểu Kiều** | **(8.5/10)** Kiếm khí và hoa lan càn quét diện rộng cực đẹp. |
+| **Bách Kiếm Tuyệt Tung** | **Chu Du + Tôn Sách** | **(8.5/10)** Khóa chặt và trọng thương địch. Bộ đôi chuyên dùng bắt sống danh tướng. |
+| **Hắc Giao Phẫn Phiên / Cộng Công Bá Hải** | **Tôn Quyền + Chu Thái** | **(8/10)** Gọi Thủy Thần Cộng Công và Hắc Long thả sao băng nước. Dọn lính tốt. |
+| **Thanh Long Thiên Lang Nha** | **Trương Liêu + Quan Vũ** | **(8.5/10)** Chẻ đôi mặt đất, áp đảo đội hình. (Quan Vũ đầu hàng Tào Tháo chơi thân Trương Liêu). |
+| **Khuynh Quốc Khuynh Thành (Diễm Tuyệt Chúng Sinh)** | **Đại Kiều + Tiểu Kiều** | **(7.5/10)** Tẩy não lính địch cực tốt bằng nhan sắc. Phù hợp bắt lính. |
+
+### PHE TÀO NGỤY (2 Tổ Hợp)
+| Tên Tình Nghĩa Kỹ | Tướng Kết Hợp | Đánh Giá & Mô Tả |
+|---|---|---|
+| **Bôn Lôi Tập Điện / Thiên Lôi Cực Điện** | **Hạ Hầu Đôn + Hạ Hầu Uyên** | **(8/10)** Đôi song thương hội tụ sấm sét càn quét. Hiệu ứng mãn nhãn. |
+| **Tử Cái Đằng Long** | **Tào Phi + Chân Mật (Chân Cơ)** | **(8.5/10)** Chân Long hộ mệnh phun bão năng lượng tím. Skill mạnh nhất nhà Ngụy. |
+
+### PHE QUẦN HÙNG / NAM MAN / TƯỚNG ẨN (4 Tổ Hợp)
+| Tên Tình Nghĩa Kỹ | Tướng Kết Hợp | Đánh Giá & Mô Tả |
+|---|---|---|
+| **Quỷ Thần Liệt Kích** | **Lữ Bố + Điêu Thuyền** | **(9/10)** Kích Phương Thiên đập nát địch kèm bướm ảo ảnh. Bắt tướng cực mạnh. |
+| **Viêm Ma Phá Địa / Hỏa Thần Diệt Thế** | **Mạnh Hoạch + Chúc Dung** | **(8/10)** Gọi Viêm Ma và biển lửa từ lòng đất. Siêu dọn lính cận chiến. |
+| **Thiên Kiếm Kinh Lôi** | **Lưu Bang + Lữ Trĩ (Lã Hậu)** | **(9/10)** Thánh kiếm sấm sét diệt thế. Kỹ năng bá vương siêu khống chế. |
+| **Ma Đao Diệt Hồn** | **Hạng Vũ + Ngu Cơ** | **(9.5/10)** Ma đao và bão linh hồn tàn sát vạn vật. Sát thương tàn bạo nhất game. |
 
 ---
 
+### Sự Thật Về "Câu Hồn Đoạt Phách" và "Cửu U Minh Sát Trận" (Tổ Hợp Kỹ vs Tình Nghĩa Kỹ)
 
+Nhiều tài liệu trên mạng (ngay cả một số diễn đàn Trung Quốc) chép sai lầm rằng các chiêu như **Câu Hồn Đoạt Phách** (Từ Hoảng + Yến Minh) hay **Cửu U Minh Sát Trận** (Từ Thứ + Tả Từ + Thạch Sùng) là Tình Nghĩa Kỹ. 
+*Thạch Sùng là một thương nhân siêu giàu thời Tấn, được đưa vào game như NPC/Tướng phụ.*
+
+**Đính Chính Sự Thật:** 
+- Đây **KHÔNG PHẢI** là Tình Nghĩa Kỹ (độc quyền theo quan hệ). Chúng là **Tổ Hợp Kỹ Đa Tướng** (Generic Combo).
+- **Nguyên lý:** Game cho phép ghép 2, 3 hoặc 4 tướng BẤT KỲ nếu họ sở hữu các chiêu thức nguyên bản phù hợp. 
+  - *Ví dụ:* 1 tướng có chiêu Âm Hồn + 1 tướng có chiêu Rút Máu = Ghép ra "Câu Hồn Đoạt Phách". Người chơi nào đó tình cờ dùng Từ Hoảng và Yến Minh ghép ra được, thế là họ viết bừa lên mạng rằng "Từ Hoảng + Yến Minh là Tình Nghĩa Kỹ". 
+- Bạn hoàn toàn có thể dùng một tướng tự tạo kẹp với một tướng vô danh mang kỹ năng tương tự để thi triển các chiêu như Cửu U Minh Sát Trận, Diệt Tuyệt Long Pháo, Thần Binh Tuyệt Trận mà không cần quan tâm đến cốt truyện!
+
+---
+
+## 10. TẤT SÁT ĐỘC QUYỀN VÀ CƠ CHẾ ẨN BÁ ĐẠO TỪ VŨ KHÍ & KỸ NĂNG
+
+### 10.1 Tất Sát Độc Quyền Theo Vũ Khí
+
+**Hệ Kiếm:**
+- **Lưu Bị:** `Nhân Giả Vô Địch` (Bắn luồng kiếm khí vàng cực mạnh).
+- **Tào Tháo:** `Nghịch Ngã Tất Sát` (Cực ngầu, chém sát thương khổng lồ).
+- **Chu Du:** `Phá Lãng Thiên Nhẫn` (Phóng vô số thủy kiếm).
+- **Tôn Quyền:** `Kinh Đào Nộ Trảm` (Chém ra sóng dữ).
+- **Quách Gia:** `Nhất Kiếm Kinh Hồng` (Quách gia cũng có chiêu cầm kiếm riêng!).
+- **Trần Cung:** `Nhất Đao Tuyệt Không`.
+- **Ti Nô Hô (Himiko):** `Bát Kỳ Nha` (Triệu hồi ảo ảnh rắn 8 đầu cắn xé).
+- **Lưu Bang:** `Vương Giả Vô Cực`.
+- **Hàn Tín:** `Nhân Nghĩa Vô Cương`.
+- **Trương Lương:** `Thánh Cực Luân` (Phóng vòng luân xa).
+- **Tiêu Hà:** `Tử Vi Quyết`.
+- **Phạm Tăng:** `Yêu Hồn Xung Tiêu`.
+
+**Hệ Thương / Kích:**
+- **Lữ Bố:** `Thí Quỷ Thần` (Chiêu đâm 1 mục tiêu trừ máu khủng khiếp nhất).
+- **Triệu Vân:** `Ngân Long Nghịch Lân Thương` (Múa thương kèm ảo ảnh rồng bạc).
+- **Trương Phi:** `Hắc Phong Thiên Sát` (Lốc xoáy đen).
+- **Mã Siêu:** `Vạn Lý Hoàng Sa` (Bão cát).
+- **Hạ Hầu Đôn:** `Bôn Lôi Thương` (Lao tới với tia sét).
+- **Tôn Sách:** `Bá Vương Liệt Thương`.
+- **Thái Sử Từ:** `Đoạn Thiên Bạch Hồng` (Đâm ra tia sáng trắng chẻ đôi màn hình).
+- **Khương Duy:** `Lược Ảnh Lưu Quang` (Múa thương sinh ra vô số tàn ảnh).
+- **Chúc Dung Phu Nhân:** `Xích Vũ Viêm Lưu` (Mưa lửa rớt xuống).
+
+**Hệ Đại Đao / Trọng Khí:**
+- **Quan Vũ:** `Hoàng Long Nộ` (Triệu hồi Thanh Long dọn lính).
+- **Trương Liêu:** `Nham Thiết Toái` (Chém nát mặt đất, đá văng tứ tung).
+- **Đổng Trác:** `Vô Đạo Phong Ma` (Hóa điên chém loạn xạ, sức sát thương kinh khủng).
+- **Điển Vi:** `Vạn Quân Phá` (Đập vũ khí xuống đất tạo sóng xung kích).
+- **Cam Ninh:** `Phiên Giang Đảo Hải` (Tạo vòng xoáy nước chém lính).
+- **Lữ Mông:** `Xuyên Lãng Huyết Triều`.
+- **Trương Cáp:** `Hám Nhạc Kích`.
+- **Văn Xú:** `Giải Trãi Cuồng Hao` (Gọi thú Giải Trãi gầm).
+- **Tôn Nhân (Thượng Hương):** `Điệp Quang Trảm Vũ`.
+- **Tiểu Kiều:** `Hoa Ảnh Loạn Kích`.
+
+**Hệ Quạt (Phiến) & Hệ Cung:**
+- **Gia Cát Lượng:** `Ngọa Long Khiếu Thiên` (Triệu hồi rồng + sấm sét).
+- **Tư Mã Ý:** `Diệt Hồn Mang` (Bắn ra tia ám khí cực độc).
+- **Bàng Thống:** `Phượng Vũ Tập` (Gọi lông chim phượng hoàng rớt xuống thiêu lính).
+- **Đại Kiều:** `Huyễn Vũ Diễm Quang`.
+- **Điêu Thuyền:** `Tuyệt Đại Phong Hoa`.
+- **Hoàng Trung:** `Tiễn Lưu Tinh` (Hệ Cung duy nhất có Tất sát độc quyền).
+
+**Các Tướng Toàn Hệ Vũ Khí (Cầm vũ khí nào cũng kích hoạt được):**
+- **Hứa Chử:** `Mãnh Hổ Khiếu` (Tiếng gầm hổ vằn dọn lính xung quanh).
+- **Trương Giác:** `Hoàng Thiên Uy Lâm` (Gọi thiên thạch/sét giáng xuống).
+- **Mạnh Hoạch:** `Thú Vương Bào Hao` (Gọi vua thú ra gầm thét).
+- **Hoàng Nguyệt Anh:** `Lôi Hỏa Thần Súng` (Bắn pháo lôi hỏa).
+- **Ngụy Diên:** `Tham Lang Hao` (Gầm ra ma sói càn quét).
+- **Quan Phượng:** `Hỏa Phượng Tường Dực` (Triệu hồi phượng hoàng lửa bay lượn).
+
+### 10.2 Cơ Chế Tình Nghĩa Kỹ Đặc Biệt Qua Vũ Khí (Vũ Khí Combo)
+
+Trong Sango 7, không chỉ các cặp tướng lịch sử mới có Tình Nghĩa Kỹ (Combo). Một số vũ khí truyền thuyết có khả năng kích hoạt Combo nếu hai vị tướng (bất kể là ai) cùng trang bị chúng và ở chung một đạo quân:
+
+- **Can Tương - Mạc Tà:** Nếu Tướng A cầm "Can Tương Kiếm" và Tướng B cầm "Mạc Tà Kiếm" đi chung một đạo quân. Khi đầy nộ khí, cả hai có thể tung ra Tình Nghĩa Kỹ `Can Tương Mạc Tà Liệt Chấn` - Một đòn đánh cực kỳ uy lực chém rách bầu trời.
+
+### 10.3 Cơ Chế Kích Hoạt Tất Sát Độc Quyền (Độ Thục Luyện)
+
+Nhiều người chơi lầm tưởng cứ cầm đúng vũ khí là sẽ tung được Tất Sát độc quyền. Sự thật là:
+- **Độ thục luyện:** Mỗi tướng đều có độ thuần thục vũ khí riêng (từ Sơ cấp -> Chuyên Gia). 
+- **Cách cày:** Phải cho tướng trang bị đúng loại vũ khí đó, đi đánh trận và tự tay chém lính để tăng độ thục luyện.
+- **Kích hoạt:** Chỉ khi độ thục luyện của vũ khí (VD: Kiếm) đạt mốc **Chuyên Gia (Advanced)**, tướng mới có thể kích hoạt các chiêu Tất Sát cơ bản của hệ vũ khí đó VÀ chiêu **Tất Sát Độc Quyền** của riêng mình. 
+
+### 10.4 Cơ Chế Ẩn Tẩy Não Lính (Mị Lực / Hoặc Chúng)
+- Những tướng có thuộc tính ngầm là **Mị Lực** (như Điêu Thuyền, Đại Kiều, Tiểu Kiều, Chân Mật) hoặc **Hoặc Chúng** (như Trương Giác) có khả năng tự động "thu phục" lính địch.
+- Cứ mỗi lần chém trúng lính địch, có tỉ lệ nhất định tên lính đó không chết mà sẽ **đổi màu cờ**, lập tức quay sang chém lại quân nhà. Thuộc tính này đi kèm với Tốc độ đánh cao (như xài quạt/cung) sẽ tạo ra một đội quân "bất tử" vô hạn trên chiến trường.
+
+### 10.5 Tất Sát Kỹ Ẩn Chung (Toàn Bộ Tướng Đều Học Được)
+Nếu Tất Sát Độc Quyền là đặc quyền của danh tướng, thì game còn giấu 3 Tất Sát Kỹ cực kỳ cao cấp mà **BẤT KỲ TƯỚNG NÀO** cũng có thể học được nếu bạn đủ kiên nhẫn cày cuốc. 
+Điều kiện kích hoạt vô cùng khắc nghiệt:
+- **Bá Giả Chi Uy (霸者之威):** Đạt độ thuần thục của **TẤT CẢ** các loại vũ khí (Kiếm, Thương, Đao, Cung, Quạt) lên mức **100**.
+- **Vương Giả Chi Phong (王者之风):** Đạt độ thuần thục của **TẤT CẢ** vũ khí lên mức **130**.
+- **Hoàng Giả Chi Lộ (皇者之路):** Đạt độ thuần thục của **TẤT CẢ** vũ khí lên mức **160** (Siêu Tất Sát cực khủng, phát nổ toàn bản đồ).
+
+---
+
+## 11. BẢNG XẾP HẠNG & ĐÁNH GIÁ SỨC MẠNH KỸ NĂNG (THANG ĐIỂM 1-10)
+
+Dựa trên cộng đồng người chơi lão làng của Sango 7, sức mạnh của một kỹ năng không chỉ nằm ở sát thương mà còn phụ thuộc vào: **Phạm vi (AOE), Khả năng Hồi phục / Khống chế, và Đặc tính Võ tướng (như Kiêu Dũng, Tấn Lôi)**.
+
+### 11.1 Bảng Xếp Hạng Tình Nghĩa Kỹ (Combo Kỹ Toàn Tập)
+
+| Tên Kỹ Năng | Tướng Kết Hợp | Điểm | Đánh Giá (Lý do) |
+| :--- | :--- | :---: | :--- |
+| **Bát Trận Hồi Thiên / Bát Cực Quy Nguyên** | Gia Cát Lượng + Khương Duy | **10/10** | **Top 1 Chiến Thuật.** Khóa chết mọi hành động của địch, hồi lượng lớn HP. Đem vào đánh Boss, đánh Yêu Quái cực kỳ an toàn. |
+| **Nhân Nghĩa Tề Thiên / Trung Nghĩa Ngạo Thế** | Lưu Bị + Quan Vũ + Trương Phi | **9.5/10** | **Top Sát Thương Diện Rộng.** Đánh Boss hay dọn lính đều cực kỳ khỏe. Dễ ghép đội hình từ sớm. |
+| **Hổ Tiêu Phá Quân / Ngũ Hổ Phá Cực** | Ngũ Hổ Tướng (Quan, Trương, Triệu, Mã, Hoàng) | **9.5/10** | Sát thương AOE khủng khiếp nhất hệ vật lý. Khuyết điểm duy nhất là rất khó gom đủ 5 người vào một đạo quân ở đầu game. |
+| **Thần Hoàng Diệt Thế / Hỏa Phượng Triển Dực** | Tôn Sách + Đại Kiều | **9/10** | **Top 1 Dọn Lính.** Khả năng biến cả chiến trường thành biển lửa. Dọn sạch hàng ngàn lính trong nháy mắt. |
+| **Ma Đao Diệt Hồn** | Hạng Vũ + Ngu Cơ | **9/10** | Sát thương tàn bạo, kết hợp với các chỉ số và đặc tính gian lận của kịch bản "Bá Vương", đây là combo hủy diệt. |
+| **Thiên Kiếm Kinh Lôi** | Lưu Bang + Lữ Trĩ | **9/10** | Khả năng khống chế diện rộng bằng sấm sét và sát thương kiếm khí mạnh, hoàn hảo cho việc dọn sạch bản đồ. |
+| **Quỷ Thần Liệt Kích** | Lữ Bố + Điêu Thuyền | **8.5/10** | Uy lực cực cao, tập trung sát thương mạnh. Nghiêng về bắt tướng nhiều hơn dọn lính so với combo Lưu Quan Phi. |
+| **Thanh Long Thiên Lang Nha** | Quan Vũ + Trương Liêu | **8.5/10** | Hiệu ứng cực ngầu, chém ra đao khí khổng lồ xuyên thấu đội hình địch. |
+| **Bát Quái Hỏa Thần Pháo / Diệt Nguyên Pháo** | Gia Cát Lượng + Hoàng Nguyệt Anh | **8.5/10** | Gọi ra họng pháo nã liên tục vào chiến trường, hỏa lực tập trung cực mạnh, dọn dẹp các mục tiêu cứng cáp tốt. |
+| **Can Tương Mạc Tà Liệt Chấn** | Vũ Khí: Can Tương + Mạc Tà | **8.5/10** | Phụ thuộc vũ khí chứ không phụ thuộc tướng. Chém rách không gian, sát thương AOE cực mạnh và thực dụng. |
+| **Hỏa Thần Diệt Thế / Viêm Ma Phá Địa** | Mạnh Hoạch + Chúc Dung | **8/10** | Cơn bão lửa dọn lính rất tốt, có thể so sánh nhẹ với combo của Tôn Sách nhưng phạm vi hẹp hơn chút. |
+| **Long Phượng Thiên Vũ** | Lưu Bị + Tôn Nhân | **8/10** | Cân bằng giữa sát thương và hình ảnh (xuất hiện ở video intro của game). Dọn lính khá ổn định. |
+| **Thanh Lam Tuyệt Kiếm / Hoa Lam Tuyệt Kiếm** | Chu Du + Tiểu Kiều | **8/10** | Phóng kiếm khí diện rộng, dọn lính nhanh nhưng sát thương thiếu độ bùng nổ khi đánh tướng địch trâu bò. |
+
+### 11.2 Bảng Xếp Hạng Toàn Bộ Tất Sát Kỹ Độc Quyền
+
+| Tên Tất Sát | Võ Tướng | Vũ Khí | Điểm | Đánh Giá (Lý do) |
+| :--- | :--- | :--- | :---: | :--- |
+| **Thí Quỷ Thần** | Lữ Bố | Thương/Kích | **10/10** | **Độc Tôn Bắt Tướng.** Đâm cực thấu. Lữ Bố có sẵn "Kiêu Dũng" và "Tấn Lôi", khiến đối thủ bốc hơi trong nháy mắt. |
+| **Vương Giả Vô Cực** | Lưu Bang | Kiếm | **10/10** | Tất Sát hệ Kiếm mạnh nhất. Sát thương kiếm khí đa hướng kéo dài, dọn lính và rút máu tướng địch rất nhanh. |
+| **Tử Lôi Diệt Ngục** | Hạng Vũ | Thương/Kích | **9.5/10** | Vừa dọn lính vừa phá giáp siêu khủng. Phù hợp tuyệt đối với chỉ số bá đạo của Hạng Vũ. |
+| **Phá Lãng Thiên Nhẫn** | Chu Du | Kiếm | **9/10** | Kiếm khí bay loạn xạ, tốc độ dọn lính cực nhanh, rất phù hợp cho việc cày cuốc. |
+| **Ngân Long Nghịch Lân Thương** | Triệu Vân | Thương/Kích | **9/10** | Ảo ảnh rồng bạc quét rộng. Tốc độ đánh của Triệu Vân kết hợp chiêu này dọn lính và đấu tướng đều xuất sắc. |
+| **Hoàng Long Nộ** | Quan Vũ | Đại Đao | **9/10** | Triệu hồi rồng xanh càn quét. Là một trong những kỹ năng dọn lính bằng Đao hiệu quả và uy lực nhất. |
+| **Nhân Giả Vô Địch** | Lưu Bị | Kiếm | **8.5/10** | Bắn luồng kiếm khí vàng, tầm xa và xuyên thấu rất tốt, nhưng góc quét chưa đủ rộng. |
+| **Nghịch Ngã Tất Sát** | Tào Tháo | Kiếm | **8.5/10** | Cực ngầu và dồn sát thương bùng nổ mạnh mẽ, nhưng hơi thiếu tính đa dụng (AOE) khi lính địch rải rác. |
+| **Bát Kỳ Nha** | Ti Nô Hô | Kiếm | **8.5/10** | Triệu hồi ảo ảnh rắn 8 đầu bao phủ chiến trường. Cực kì khó chịu vì diện tích cắn xé bao quát. |
+| **Nhân Nghĩa Vô Cương** | Hàn Tín | Kiếm | **8.5/10** | Kiếm khí uy lực, tầm hoạt động tốt, mang lại sự linh hoạt cho một danh tướng cày cuốc như Hàn Tín. |
+| **Hắc Phong Thiên Sát** | Trương Phi | Thương/Kích | **8.5/10** | Vòng xoáy đen lan rộng, dọn lính mật độ cao tuyệt vời. Nếu địch đứng phân tán thì hơi phí. |
+| **Vạn Lý Hoàng Sa** | Mã Siêu | Thương/Kích | **8.5/10** | Bão cát cuốn diện rộng, gây khống chế nhẹ và sát thương kéo dài rất tốt khi địch tập trung. |
+| **Bá Vương Liệt Thương** | Tôn Sách | Thương/Kích | **8.5/10** | Uy lực càn lướt mạnh mẽ, rất hợp với lối chơi xông pha của Tôn Sách, phá vỡ đội hình địch dễ dàng. |
+| **Vạn Quân Phá** | Điển Vi | Đại Đao | **8.5/10** | Đập mạnh xuống đất tạo sóng xung kích. Sát thương cục bộ khổng lồ, phù hợp chống các đạo quân giáp dày. |
+| **Phiên Giang Đảo Hải** | Cam Ninh | Đại Đao | **8.5/10** | Vòng xoáy nước cắt nát lính. Tương tự như Hắc Phong Thiên Sát, rất tốt khi lính địch vây quanh. |
+| **Nham Thiết Toái** | Trương Liêu | Đại Đao | **8.5/10** | Sức phá hoại mặt đất kinh hoàng, đá văng lính bay tứ tung. Rất hiệu ứng và mạnh mẽ. |
+| **Điệp Quang Trảm Vũ** | Tôn Nhân | Đại Đao | **8.5/10** | Tung vô số kiếm quang sắc bén băm nát lính phía trước mặt. Dọn dẹp cực nhanh gọn. |
+| **Vô Đạo Phong Ma** | Đổng Trác | Đại Đao | **8.5/10** | Chém loạn xạ xung quanh bằng sức mạnh cuồng nộ. Bị vây càng đông chiêu này càng phát huy hiệu quả. |
+| **Tiễn Lưu Tinh** | Hoàng Trung | Cung | **8.5/10** | Bắn 3 dải sao băng rực sáng xuyên thấu. Kỹ năng Cung độc quyền duy nhất, cực kỳ giá trị cho lối chơi đánh xa. |
+| **Mãnh Hổ Khiếu** | Hứa Chử | Toàn Hệ | **8.5/10** | Kết hợp đặc tính "Kiêu Dũng" có sẵn, Hứa Chử tung tiếng gầm này liên tục đẩy lùi và băm nát lính. |
+| **Tham Lang Hao** | Ngụy Diên | Toàn Hệ | **8.5/10** | Gầm ra ma sói càn quét. Rất mạnh và tương tự như Mãnh Hổ Khiếu, nhưng mang tính chất sát phạt mạnh hơn. |
+| **Nhất Kiếm Kinh Hồng** | Quách Gia | Kiếm | **8/10** | Đẹp mắt, rút máu nhanh nhưng Quách Gia là tướng Trí, chém thường không thấm, đòi hỏi phải ép đồ Võ cao mới thấy uy lực thực. |
+| **Thánh Cực Luân** | Trương Lương | Kiếm | **8/10** | Phóng luân xa đa hướng, tốt nhưng không quá vượt trội so với các chiêu Kiếm AOE khác. |
+| **Yêu Hồn Xung Tiêu** | Phạm Tăng | Kiếm | **8/10** | Sát thương khá, kết hợp tốt với bộ kỹ năng khống chế của tướng này. |
+| **Đoạn Thiên Bạch Hồng** | Thái Sử Từ | Thương/Kích | **8/10** | Đâm tia sáng chẻ đôi chiến trường. Rất tập trung sát thương nhưng góc hẹp. |
+| **Lược Ảnh Lưu Quang** | Khương Duy | Thương/Kích | **8/10** | Tàn ảnh lướt nhanh, dọn lính và rút lui an toàn. Khá hoa mỹ. |
+| **Bôn Lôi Thương** | Hạ Hầu Đôn | Thương/Kích | **8/10** | Đâm lao kèm sét, chủ yếu để đục thủng 1 hướng, dọn lính không bằng AOE tròn. |
+| **Xuyên Lãng Huyết Triều** | Lữ Mông | Đại Đao | **8/10** | Mũi khoan máu lao đi, sát thương khá nhưng dễ bị trượt nếu địch di chuyển ngang. |
+| **Hám Nhạc Kích** | Trương Cáp | Đại Đao | **8/10** | Kỹ năng đập đất tương tự Điển Vi nhưng phạm vi nhỏ hơn đôi chút. |
+| **Giải Trãi Cuồng Hao** | Văn Xú | Đại Đao | **8/10** | Gọi linh thú hỗ trợ rống, dọn dẹp tốt nhưng không quá bùng nổ. |
+| **Hoa Ảnh Loạn Kích** | Tiểu Kiều | Đại Đao | **8/10** | Chiêu Đao hiếm hoi dành cho nữ. Nhanh nhẹn nhưng thiếu uy lực vũ bão. |
+| **Kinh Đào Nộ Trảm** | Tôn Quyền | Kiếm | **8/10** | Chém sóng dữ. Tốt nhưng dễ bị lép vế so với chiêu của Chu Du. |
+| **Huyễn Vũ Diễm Quang** | Đại Kiều | Quạt | **8/10** | Gây sát thương diện rộng khá đẹp mắt cho tướng dùng Quạt. |
+| **Tuyệt Đại Phong Hoa** | Điêu Thuyền | Quạt | **8/10** | Có kèm khống chế nhẹ (Mị Lực) nhưng Quạt sát thương vật lý gốc thường thấp. |
+| **Diệt Hồn Mang** | Tư Mã Ý | Quạt | **8/10** | Độc và sát thương chí mạng tốt, nhưng Tư Mã Ý đánh tay yếu. |
+| **Phượng Vũ Tập** | Bàng Thống | Quạt | **8/10** | Gọi lông phượng hoàng lửa thiêu đốt lính rất ngon. |
+| **Ngọa Long Khiếu Thiên** | Gia Cát Lượng | Toàn Hệ | **8/10** | Dọn lính ngon, nhưng vì không yêu cầu vũ khí nên thường bị thiếu sát thương vũ khí cộng thẳng. |
+| **Lôi Hỏa Thần Súng** | Hoàng Nguyệt Anh | Toàn Hệ | **8/10** | Bắn pháo nổ lan. Rất tốt để dọn lính từ xa. |
+| **Hoàng Thiên Uy Lâm** | Trương Giác | Toàn Hệ | **8/10** | Giáng thiên thạch xuống, phụ thuộc nhiều vào yếu tố dàn lính của địch. |
+| **Thú Vương Bào Hao** | Mạnh Hoạch | Toàn Hệ | **8/10** | Dọn lính cận chiến tốt, phù hợp đội hình vây ráp. |
+| **Hỏa Phượng Tường Dực** | Quan Phượng | Toàn Hệ | **8/10** | Hỏa Phượng bay thẳng, xuyên thấu tốt nhưng bề ngang hẹp. |
+| **Nhất Đao Tuyệt Không** | Trần Cung | Kiếm | **7.5/10** | Phá phách trận hình tốt nhưng sát thương tổng không cao bằng các chiêu khác. |
+| **Tử Vi Quyết** | Tiêu Hà | Kiếm | **7.5/10** | Kỹ năng thiên về biểu diễn nhiều hơn, thực chiến hơi kém do Tiêu Hà thuần Trí. |
+| **Xích Vũ Viêm Lưu** | Chúc Dung | Thương/Kích | **7.5/10** | Mưa lửa rớt xuống khá hên xui, lúc dọn sạch lúc thì hụt vài tên lính. |
+
+> **Tổng Kết:** Sức mạnh của kỹ năng bị ảnh hưởng cực lớn bởi **Đặc Tính Ẩn** của Võ Tướng. Lữ Bố mạnh không chỉ vì kỹ năng "Thí Quỷ Thần", mà vì hắn có "Kiêu Dũng" (tăng cực cao tỷ lệ tung Tất Sát). Một tướng cùi bắp dù có xài được kỹ năng mạnh nhất nhưng không có "Kiêu Dũng" thì cả trận cũng không tung nổi chiêu nào!
