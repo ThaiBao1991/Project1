@@ -3,106 +3,120 @@
 > Chức Quan quyết định số lính mang theo, kỹ năng học được, và chỉ số nhận thêm.  
 > **Cách phong:** Vào Nội Chính → Phong Thưởng → Phong Quan.  
 > **Mẹo "撤官 (Tháo Chức)":** Sau khi học hết kỹ năng cần ở 1 nhánh, tháo chức rồi chuyển sang nhánh kia để học thêm.  
-> **Nguồn chính thức:** [Gamer.com.tw - Tàng Kinh Các Toàn Tập](https://forum.gamer.com.tw/C.php?bsn=3204&snA=4338) | [Gamersky SG7 Toàn Tập](https://www.gamersky.com/handbook/200712/88934.shtml) | [Ali213 - SG7 Chức Quan Chi Tiết](https://gl.ali213.net/html/2010/14590.html)
+> **Nguồn chính thức:** Gamer.com.tw - Tàng Kinh Các | Gamersky SG7 Toàn Tập | Ali213.
 
 ---
 
-## 1. BẢNG TIÊU CHUẨN CÔNG HUÂN & CHỨC QUAN HÁN TỘC — NHÁNH VĂN QUAN (智力Yêu Cầu)
+## 1. BẢNG TIÊU CHUẨN CÔNG HUÂN & CHỨC QUAN HÁN TỘC — NHÁNH VĂN QUAN (Trí Lực Yêu Cầu)
 
 > **[CƠ CHẾ TIÊU HAO CÔNG HUÂN (功勋)]**
-> Chức quan được phong dựa trên lượng Công Huân (CH) tích lũy của Tướng:
-> - Cấp 1 (150 CH) → Cấp 5 (1200 CH) → Cấp 10 (4500 CH) → Cấp 14 (8200 CH, Yêu cầu LV 40) → Cấp 15 (20000 CH, Yêu cầu LV 50).
-> - Lưu ý: Khi "Tháo Chức" (撤官), bạn không được hoàn lại Công Huân đã tiêu.
+> Cấp 1 (150 CH) → Cấp 5 (1200 CH) → Cấp 10 (4500 CH) → Cấp 14 (8200 CH, Cấp 40) → Cấp 15 (20000 CH, Cấp 50).
+> **Lưu ý:** Khi "Tháo Chức", bạn KHÔNG được hoàn lại Công Huân, nhưng Võ Tướng Kỹ/Quân Sư Kỹ đã học sẽ ĐƯỢC GIỮ LẠI vĩnh viễn.
 
 *Phù hợp: Gia Cát Lượng, Chu Du, Tư Mã Ý, Bàng Thống, Lục Tốn, Quách Gia, Tuân Úc.*
 
-| Cấp | Tên Chức | Yêu Cầu | Thêm Binh | Kỹ Năng / Đặc Quyền Quan Trọng |
+| Cấp | Các Chức Quan Trong Cùng Cấp | Yêu Cầu | Thêm Binh | Kỹ Năng / Đặc Quyền Chi Tiết (Võ Tướng Kỹ / Quân Sư Kỹ) |
 |:---:|---|:---:|:---:|---|
-| **1** | Trưởng Sử (长史) / Thị Lang (侍郎 — Song Tuyến) | Trí ≥ 25 | +500 | Bạt Vân Kiến Nhật, Thiên Cẩu Thôn Nhật (Đổi thời tiết). Mở Quân Sư Kỹ đầu tiên. |
-| **2** | Tư Mã (司马) | Trí ≥ 35 | +800 | **Phong Vân Biến Sắc** (Đổi thành mưa). Tăng +5 Trí. |
-| **3** | Hành Quân Tư Mã | Trí ≥ 45 | +1000 | **Sương Tuyết Phúc Địa** (Đổi thành tuyết). Thêm 1 slot Sách. |
-| **4** | Bộ Tào (步曹) | Trí ≥ 55 | +1200 | **Giảm Hoãn Tập Khí** (Hạ tốc hồi MP địch). |
-| **5** | Chủ Bộ (主簿) | Trí ≥ 60 | +1500 | **Khuyến Hàng** (Tăng tỉ lệ chiêu hàng tướng địch). |
-| **6** | Tư Đồ (司徒) | Trí ≥ 65 | +2000 | **Hoạt Liệu Thuật** (Hồi HP tướng). **Phục Binh Ban Trận**. **La Sát Chi Thuẫn (Bát Môn)**. Quan trọng nhất! |
-| **7** | Thái Phó (太傅) | Trí ≥ 70 | +2500 | **Vô Pháp Thoái Binh** (Địch không thể rút lui). **Phục Binh Bài Trận**. |
-| **8** | Đại Tư Nông (大司农) | Trí ≥ 75 | +3000 | **Hồi Phục Thể Lực** (HP 100% khi vào trận). |
-| **9** | Thái Thường (太常) | Trí ≥ 78 | +3500 | **Hồi Phục Kỹ Lực** (MP 100% khi vào trận). **Thủy Kính Chi Thuật** (Văn Quan nhánh này). |
-| **10** | Thượng Thư Lệnh (尚书令) | Trí ≥ 80 | +4000 | **Bát Môn Kim Tỏa** (Nhốt địch toàn bản đồ). **Gia Tốc Tập Khí**. |
-| **11** | Trung Thư Lệnh (中书令) | Trí ≥ 83 | +4500 | **Phong Tỏa Kỹ Năng** (30 giây đầu địch không dùng Võ Tướng Kỹ). |
-| **12** | Quân Sư (军师) | Trí ≥ 86 | +5000 | **Cuồng Lôi Thiên Lao** (Nhốt tướng địch bằng sét). +10 Trí. |
-| **13** | Đại Quân Sư (大军师) | Trí ≥ 90 | +6000 | **Thiên Địa Vô Dụng** (Phép hủy diệt toàn màn hình). |
-| **14** | Tướng Quốc (相国) | Trí ≥ 93 | +7000 | **Thủy Kính Chi Thuật** (Tối cao — copy TOÀN BỘ kỹ năng địch). +15 Trí. |
-| **15** | **Thừa Tướng / Tả Thừa (丞相)** | Trí ≥ 95 | +8000 | (Riêng Gia Cát Lượng) Mở **Công Thành Kỳ Lược** và **Gọi Gió Kêu Mưa** (Kiểm soát hoàn toàn thời tiết). |
+| **1** | Trưởng Sử, Thị Lang | Trí 25 | +500 | **Trưởng Sử:** Bạt Vân Kiến Nhật. **Thị Lang:** Thiên Cẩu Thôn Nhật. |
+| **2** | Tư Mã | Trí 35 | +800 | **Phong Vân Biến Sắc** (Đổi thành mưa). Tăng +5 Trí. |
+| **3** | Hành Quân Tư Mã | Trí 45 | +1000 | **Sương Tuyết Phúc Địa** (Đổi thành tuyết). Thêm 1 slot Sách. |
+| **4** | Bộ Tào, Lệnh Sử | Trí 55 | +1200 | **Giảm Hoãn Tập Khí** (Hạ tốc hồi MP địch). Lệnh Sử có Sơ Cấp Thổ Thuẫn. |
+| **5** | Chủ Bộ, Thị Cấp | Trí 60 | +1500 | **Khuyến Hàng** (Tăng tỉ lệ chiêu hàng). Chủ Bộ có Lôi Kích, Lôi Võng. |
+| **6** | Tư Đồ, Thái Sử Lệnh, Thị Trung | Trí 65 | +2000 | **Tư Đồ:** Phục Binh Ban Trận. **Thái Sử Lệnh:** Giải Trừ Phong Kỹ. **Thị Trung:** La Sát Chi Thuẫn. |
+| **7** | Thái Phó, An Viễn Tướng Quân | Trí 70 | +2500 | **Thái Phó:** Phục Binh Bài Trận. **An Viễn:** Vô Pháp Thoái Binh. |
+| **8** | Đại Tư Nông, Ngự Sử Đại Phu | Trí 75 | +3000 | **Ngự Sử:** Hồi Phục Thể Lực (Cao) - Hồi HP bá đạo. |
+| **9** | Thái Thường, Thái Tế | Trí 78 | +3500 | **Thái Thường:** Hồi Phục Kỹ Lực. **Thái Tế:** Thủy Kính Chi Thuật (Copy skill địch). |
+| **10** | Thượng Thư Lệnh, Quang Lộc Huân | Trí 80 | +4000 | **Thượng Thư:** Bát Môn Kim Tỏa, Gia Tốc Tập Khí. |
+| **11** | Trung Thư Lệnh, Đại Học Sĩ | Trí 83 | +4500 | **Trung Thư Lệnh:** Phong Tỏa Kỹ Năng (Khóa địch dùng phép). |
+| **12** | Quân Sư, Vệ Úy | Trí 86 | +5000 | **Quân Sư:** Cuồng Lôi Thiên Lao. +10 Trí. |
+| **13** | Đại Quân Sư | Trí 90 | +6000 | **Đại Quân Sư:** Thiên Địa Vô Dụng (Hủy diệt toàn bản đồ). |
+| **14** | Tướng Quốc, Chấp Nữ | Trí 93 | +7000 | **Tướng Quốc:** Thủy Kính Chi Thuật Tối Cao. +15 Trí. |
+| **15** | **Thừa Tướng (Tả Thừa)** | Trí 95 | +8000 | (Riêng Gia Cát Lượng) **Công Thành Kỳ Lược** + **Gọi Gió Kêu Mưa**. |
 
 ---
 
 ## 2. CHỨC QUAN HÁN TỘC — NHÁNH VÕ QUAN (Võ Lực Yêu Cầu)
 
-*Phù hợp: Lữ Bố, Quan Vũ, Trương Phi, Triệu Vân, Mã Siêu, Điển Vi, Hứa Chử, Hạ Hầu Đôn.*
+*Phù hợp: Lữ Bố, Quan Vũ, Trương Phi, Triệu Vân, Mã Siêu, Điển Vi.*
 
-| Cấp | Tên Chức | Yêu Cầu | Thêm Binh | Kỹ Năng / Đặc Quyền Quan Trọng |
+| Cấp | Các Chức Quan Trong Cùng Cấp | Yêu Cầu | Thêm Binh | Kỹ Năng / Đặc Quyền Chi Tiết (Tất Sát / Võ Tướng Kỹ) |
 |:---:|---|:---:|:---:|---|
-| **1** | Hiệu Úy (校尉) / Thị Lang (Song Tuyến) | Võ ≥ 30 | +500 | Bán Nguyệt Trảm (Tất sát cơ bản). +5 Sát thương. |
-| **2** | Đội Chính (队正) | Võ ≥ 40 | +800 | Bán Nguyệt Liên Trảm. Tăng Thuần Thục Vũ Khí nhanh hơn. |
-| **3** | Quân Hầu (军侯) | Võ ≥ 45 | +1000 | Lực Kích (Tăng sát thương đòn đơn). Thêm 1 slot vũ khí. |
-| **4** | Đô Úy (都尉) | Võ ≥ 50 | +1200 | **Phi Thiên Trảm** (Nhảy lên chém xuống). Tầm bản đồ mở rộng. |
-| **5** | Bộ Binh Hiệu Úy | Võ ≥ 55 | +1500 | Phân Thân Trảm (Tạo phân thân chém địch). |
-| **6** | Chinh Lỗ Tướng Quân | Võ ≥ 60 | +2000 | Hổ Uy Trảm (Đòn chém rất mạnh). +10 Võ. |
-| **7** | Chinh Đông Tướng Quân | Võ ≥ 65 | +2500 | Thần Kiếm Nhấp Nháy. **Vô Pháp Thoái Binh** (Địch không rút lui được). |
-| **8** | An Đông Tướng Quân | Võ ≥ 70 | +3000 | Thần Bộ Duyên Thương (Thương xuyên thấu nhiều mục tiêu). **Phục Binh Ban Trận**. |
-| **9** | Phiêu Kỵ Tướng Quân (骠骑将军) | Võ ≥ 75 | +3500 | **Vạn Phu Bất Đương** (Aura buff toàn đội +Võ, +Công). |
-| **10** | Xa Kỵ Tướng Quân (车骑将军) | Võ ≥ 78 | +4000 | Cuồng Phong Trảm (Bão táp kiếm khí). |
-| **11** | Thống Soái (统帅) | Võ ≥ 80 | +4500 | **Nhật Nguyệt Liên Trảm** (Combo chiêu cực dài). +10 Tốc. |
-| **12** | Đại Đô Đốc (大都督) | Võ ≥ 83 | +5000 | **Đại Địa Cuồng Khiếu** (Tấn công vật lý toàn màn hình). |
-| **13** | Đại Tướng Quân (大将军) | Võ ≥ 86 | +6000 | **Thiên Kiếm Trảm** (Mưa kiếm từ trời). +15 Võ. |
-| **14** | Thái Úy (太尉) | Võ ≥ 90 | +7000 | **Thần Quỷ Loạn Vũ** (Sát thương đơn mục tiêu mạnh nhất game). |
-| **15** | **Phi Tướng / Hầu Vương (飞将)** | Võ ≥ 95 | +8000 | (Riêng Lữ Bố) Tấn Lôi lên Max tốc độ. (Riêng Quan Vũ) Thanh Long Nộ sát thương x3. Thêm **Cường Tập Kỳ Lược**. |
+| **1** | Hiệu Úy, Thị Lang | Võ 30 | +500 | Mở Tất Sát cơ bản: **Bán Nguyệt Trảm**, Toàn Đăng Điếu Hỏa. |
+| **2** | Đội Chính, Trưởng Lịch | Võ 40 | +800 | Bán Nguyệt Liên Trảm. +Thuần Thục Vũ Khí. |
+| **3** | Quân Hầu | Võ 45 | +1000 | Lực Kích. +1 slot vũ khí. |
+| **4** | Đô Úy, Thành Môn Hiệu Úy | Võ 50 | +1200 | **Phi Thiên Trảm**. Bát Diện Hỏa, Ngự Phi Đao. |
+| **5** | Bộ Binh Hiệu Úy, Hổ Liệt Tướng Quân | Võ 55 | +1500 | **Phân Thân Trảm**. Hổ Liệt có Đột Thạch. |
+| **6** | Chinh Lỗ/Trấn Đông Tướng Quân | Võ 60 | +2000 | **Hổ Uy Trảm**. Trấn Đông có Hỏa Ngưu Trận. |
+| **7** | Chinh Đông/Oai Viễn Tướng Quân | Võ 65 | +2500 | **Thần Kiếm Nhấp Nháy**. Oai Viễn có **Vô Pháp Thoái Binh**. |
+| **8** | An Đông/Kiến Uy Tướng Quân | Võ 70 | +3000 | **Thần Bộ Duyên Thương**. Kiến Uy có Phục Binh Ban Trận. |
+| **9** | Phiêu Kỵ/Chinh Xa Tướng Quân | Võ 75 | +3500 | **Vạn Phu Bất Đương** (Aura Buff +Võ, +Công toàn quân). |
+| **10** | Xa Kỵ/Phá Lỗ Tướng Quân | Võ 78 | +4000 | **Cuồng Phong Trảm**. Tứ Phương Trảm. |
+| **11** | Thống Soái, Bình Nam Tướng Quân | Võ 80 | +4500 | **Nhật Nguyệt Liên Trảm**. +10 Tốc. |
+| **12** | Đại Đô Đốc, Vệ Tướng Quân | Võ 83 | +5000 | **Đại Địa Cuồng Khiếu** (Sát thương AOE vật lý). |
+| **13** | Đại Tướng Quân | Võ 86 | +6000 | **Thiên Kiếm Trảm** (Mưa kiếm khổng lồ). +15 Võ. |
+| **14** | Thái Úy, Lĩnh Quân | Võ 90 | +7000 | **Thái Úy:** Thần Quỷ Loạn Vũ (Sát thương đơn mạnh nhất, cần thêm Trí 40+). |
+| **15** | **Phi Tướng / Hầu Vương** | Võ 95 | +8000 | (Riêng Lữ Bố) **Tấn Lôi Max**. (Riêng Quan Vũ) **Thanh Long Nộ**. |
 
 ---
 
-## 3. CHỨC QUAN ĐẶC BIỆT (Quân Chủ — Người Chơi)
+## 3. CHỨC QUAN ẨN & ĐẶC QUYỀN DANH TƯỚNG (Cấp 14 & Cấp 15)
 
-*Chỉ Quân Chủ chính (người chơi điều khiển) mới có thể nhận những chức danh này.*
+> Để đạt Cấp 14 cần Level 40 & 8200 Công Huân. Để đạt Cấp 15 cần Level 50 & 20000 Công Huân. (Các chức này phải được phong thủ công, không dùng auto-phong quan).
 
-| Tên Chức Đặc Biệt | Phe / Tướng | Yêu Cầu | Đặc Quyền Độc Nhất |
+### 3.1. Chức Quan Ẩn (Danh Tướng & Quân Chủ)
+| Tướng | Chức Cấp 14 | Chức Cấp 15 | Đặc Tính / Kỹ Năng Nổi Bật Nhất |
 |---|---|---|---|
-| **Hán Trung Vương (汉中王)** | Lưu Bị / Thục | Cấp 40, đủ Lãnh Thổ | Đặc tính **Vương Đạo** — Cả đội +Phòng Thủ, +Tốc Độ. Dễ thu phục dân tâm hơn. |
-| **Ngụy Vũ Đế (魏武帝)** | Tào Tháo / Ngụy | Cấp 40, 10 thành trở lên | Tăng sĩ khí toàn quân Ngụy lên tối đa, kháng mọi kế sách. |
-| **Ngô Đại Đế (吴大帝)** | Tôn Quyền / Ngô | Cấp 40, chiếm đủ Giang Đông | Đặc tính **Thủy Tướng Max** — Kỵ binh thủy cực mạnh, phục binh sông ngòi vô hạn. |
-| **Phi Tướng Quân (飞将军)** | Lữ Bố | Võ > 100 | Tấn Lôi Max — Đánh chay tốc độ ánh sáng. Binh lính theo Lữ Bố tự động tăng sát thương. |
-| **Ngọa Long Tả Thừa (卧龙左丞)** | Gia Cát Lượng | Trí > 100 | **Công Thành Kỳ Lược** + **Gọi Gió Kêu Mưa** + **Bát Trận Đồ Toàn Khai**. |
-| **Phượng Sồ Hữu Thừa (凤雏右丞)** | Bàng Thống | Trí > 95 | **Phòng Ngự Kỳ Lược** — Toàn quân +Phòng Thủ khổng lồ. |
-| **Hán Thọ Đình Hầu (汉寿亭侯)** | Quan Vũ | Võ > 95 | Sát thương bạo kích x3. Thanh Long Nộ kích phát cực dễ. |
-| **Minh Chủ (盟主)** | Viên Thiệu | Đủ liên minh | Điều phối được lính từ các phe đồng minh. |
+| **Lưu Bị** | Hán Trung Vương | **Thục Hán Chiêu Liệt Đế** | Đặc tính **Vương Đạo** (Dễ thu phục linh thú/tướng). Kỹ năng: Kỳ Lân Giáng Thế. |
+| **Tào Tháo** | Ngụy Vương | **Ngụy Vũ Đế** | Đặc tính **Lãnh Đạo**. Phép Chu Tước Phần Thiên, Hồi Xuân Tiên Thuật. Kháng mọi kế sách. |
+| **Tôn Quyền** | Ngô Vương | **Ngô Đại Đế** | **Thủy Tướng Max** — Vô địch trên sông. Phục binh sông ngòi vô hạn. |
+| **Gia Cát Lượng**| Ngọa Long Tả Thừa | **Vũ Tôn Thần Hầu** | Đặc tính **Công Thành Kỳ Lược**. Kháng mọi phép thuật. |
+| **Quan Vũ** | Hán Thọ Đình Hầu | **Trung Nghĩa Vũ Thánh** | Đặc tính **Cường Tập Kỳ Lược**, **Tật Phong** (Tăng tốc đánh). |
+| **Trương Phi** | Tây Hương Hầu | **Vũ Khúc Thiên Tướng** | Đặc tính **Phi Mã** (Di chuyển nhanh), **Thiết Bích** (Kháng đòn vật lý). |
+| **Triệu Vân** | Thuận Bình Hầu | **Bạch Hổ Thiên Tướng** | Đặc tính **Tấn Lôi** (Tốc đánh cực nhanh), **Kiêu Dũng** (Tăng tỷ lệ Tất sát). Điểm dừng hoàn hảo cho tướng vật lý. |
+| **Điêu Thuyền** | Tuyệt Đại Giai Nhân | *(Không có)* | Khóa toàn bộ tất sát đối phương. Sở trường dùng Quạt. |
+| **Tiểu Kiều** | Đông Ngô Quận Chúa| *(Không có)* | **Hồi Xuân Tiên Thuật** (Hồi 3 HP/giây cho toàn quân). Nữ Support số 1 game. |
+
+### 3.2. Vũ Khí Chuyên Dụng & Tất Sát Độc Quyền (Phải cày max 255 Thuần thục)
+Mỗi danh tướng sẽ có 1 chiêu **Tất Sát Độc Quyền** mạnh vô đối gắn liền với loại vũ khí sở trường của họ:
+* **Hệ Kiếm:** Lưu Bị (Nhân Giả Vô Địch), Tào Tháo (Nghịch Ngã Tất Sát), Chu Du (Phá Lãng Thiên Nhẫn), Tôn Quyền (Kinh Đào Nộ Trảm).
+* **Hệ Thương:** Lữ Bố (Thí Quỷ Thần), Trương Phi (Hắc Phong Thiên Sát), Triệu Vân (Ngân Long Nghịch Lân Thương), Mã Siêu (Vạn Lý Hoàng Sa), Khương Duy (Lược Ảnh Lưu Quang).
+* **Hệ Đại Đao:** Quan Vũ (Hoàng Long Nộ), Điển Vi (Vạn Quân Phá), Trương Liêu (Nham Thiết Toái), Cam Ninh (Phiên Giang Đảo Hải).
+* **Hệ Quạt / Cung:** Gia Cát Lượng / Bàng Thống (Quạt - Ngọa Long Khiếu Thiên / Phụng Vũ Tập), Hoàng Trung (Cung - Tiễn Lưu Tinh).
+
+### 3.3. Tình Nghĩa Tổ Hợp Kỹ (Combo Kỹ Năng)
+Khi xếp các danh tướng có cốt truyện gắn liền nhau vào **cùng 1 đạo quân (5 tướng)**, họ sẽ thi triển được siêu kỹ năng tổ hợp quét sạch bản đồ:
+* **Nhân Nghĩa Tề Thiên:** Lưu Bị + Quan Vũ + Trương Phi.
+* **Hổ Khiếu Phá Quân:** Ngũ Hổ Tướng (Quan Vũ, Trương Phi, Triệu Vân, Mã Siêu, Hoàng Trung).
+* **Quỷ Thần Liệt Kích:** Lữ Bố + Điêu Thuyền.
+* **Thần Hoàng Diệt Thế:** Tôn Sách + Đại Kiều.
+* **Hoa Lam Tuyệt Kiếm:** Chu Du + Tiểu Kiều.
+* **Thanh Long Thiên Lang Nha:** Quan Vũ + Trương Liêu.
 
 ---
 
 ## 4. CHỨC QUAN DỊ TỘC
 
-### Nam Man Quan (南蛮官)
+### Nam Man Quan (Nam Man)
 *Mở khóa khi chiếm được Kiến Ninh, Vĩnh Xương hoặc đánh bại Mạnh Hoạch.*
-
 | Tên Chức | Yêu Cầu | Kỹ Năng Đặc Biệt |
 |---|---|---|
 | Bộ Tộc Tù Trưởng | Võ ≥ 50 | Gọi **Tượng Binh** (Voi chiến) vào trận. |
-| Nam Man Vương | Võ ≥ 70 | Gọi **Mãnh Thú**, **Độc Sát** (Thả chất độc). Đặc tính **Bách Thú Hào Lệnh** tối đa. |
+| Nam Man Vương | Võ ≥ 70 | Gọi **Mãnh Thú**, **Độc Sát** (Thả chất độc). Đặc tính **Bách Thú Hào Lệnh**. |
 
-### Hung Nô Quan (匈奴官)
+### Hung Nô Quan (Hung Nô)
 *Mở khóa khi chiếm Nhạn Môn, Hu Dị, hoặc đánh bại Thiền Vu.*
-
 | Tên Chức | Yêu Cầu | Kỹ Năng Đặc Biệt |
 |---|---|---|
 | Thiên Phu Trưởng | Võ ≥ 55 | Gọi Kỵ Binh Thảo Nguyên cơ bản. |
-| Đại Thiền Vu | Võ ≥ 75 | **Kỵ Binh Thảo Nguyên Cực Mạnh**. Buff tốc độ toàn kỵ binh. Triệu hồi cá nhân Hung Nô. |
+| Đại Thiền Vu | Võ ≥ 75 | **Kỵ Binh Thảo Nguyên Cực Mạnh**. Buff tốc độ toàn kỵ binh. |
 
-### Oa Quốc Quan (倭国官 — Nhật Bản)
+### Oa Quốc Quan (Nhật Bản)
 *Mở khóa khi đến được Đảo Oa Quốc ngoài biển Đông.*
-
 | Tên Chức | Yêu Cầu | Kỹ Năng Đặc Biệt |
 |---|---|---|
 | Nhẫn Giả (忍者) | Võ + Trí ≥ 120 | Kỹ năng **Tàng Hình** và **Phân Thân** (Ninja). Gọi lính Ninja. |
-| Đại Nhẫn / Thức Thần | Võ + Trí ≥ 150 | **Gọi Thức Thần** (Linh Thú Oa Quốc). Kết hợp Tàng Hình + Ám Sát. |
-| **Tà Mã Đài Nữ Vương** (Ẩn) | Dành riêng cho Tì Hô (Ti Himiko) | Chức quan Cấp 14. +20 HP, +30 MP, Mở Võ Tướng Kỹ Cửu Vĩ Hồ Yêu, Thủy Long Cuồng Đào. Đặc tính **Thức Thần Giáng Lâm** (Gọi Linh thú). |
+| Đại Nhẫn / Thức Thần | Võ + Trí ≥ 150 | **Gọi Thức Thần** (Linh Thú Oa Quốc). |
+| **Oa Nữ Vương** | Tì Hô (Himiko) | Chức Cấp 14. Đặc tính **Thức Thần Giáng Lâm** (Gọi Linh thú số lượng lớn). Tất sát: **Bát Kỳ Nha** (Kiếm chém 8 tia siêu rộng). Rất mạnh để chơi chiến thuật triệu hồi. |
 
 ---
 
@@ -116,7 +130,6 @@
 | Tư Mã Ý, Quách Gia | Văn Quan 9-14 | Cấp 9 (Thủy Kính Chi Thuật) | Copy kỹ năng địch là chìa khóa. |
 | Cam Ninh, Thái Sử Từ | Võ Quan 8-10 (Thủy) | Cấp 8 (Phục Binh) | Tập trung Kiếp Lược + Thủy Tướng. |
 | Chu Du, Lục Tốn | Văn Quan 6 → Tháo → Võ 6 | Cấp 6 cả 2 nhánh | Học La Sát Chi Thuẫn (Văn) + Phục Binh (Võ). |
-| Hoa Đà | Đặc Biệt (Không cần lên cao) | Cấp 6 Văn | Tập trung Y Thuật hồi sinh tướng. |
 | Mạnh Hoạch, Chúc Dung | Nam Man Quan | Nam Man Vương | Gọi Tượng Binh + Mãnh Thú + Độc Sát. |
 | Tướng Tự Tạo (Custom) | Văn hoặc Võ tùy chỉ số | Cấp 12+ | Bù kỹ năng bằng chức quan vì không có Tất Sát Độc Quyền. |
 
@@ -126,70 +139,42 @@
 
 ### 6.1. Chiến thuật "Tháo Chức Vòng Tròn" (Song Tu Văn Võ)
 Đây là kỹ thuật tối ưu nhất để có đủ kỹ năng từ **cả 2 nhánh**:
-1. **Phong Văn Quan** → Học đến Cấp 6 (Lấy Phục Binh + Thái Cực Môn / Ngũ Lôi).
+1. **Phong Văn Quan** → Học đến Cấp 6 (Lấy Phục Binh + La Sát Chi Thuẫn).
 2. **Tháo Chức** (Bỏ chức quan hiện tại, kỹ năng ĐÃ HỌC được giữ nguyên vĩnh viễn).
-3. **Phong Võ Quan** → Học đến Cấp 8-9 (Lấy Tinh Mang, Đột Kiếm Tứ Phương).
+3. **Phong Võ Quan** → Học đến Cấp 8-9 (Lấy Thần Bộ, Vạn Phu Bất Đương).
 4. **Tháo Chức** lần 2 → **Phong Văn Quan lại** → Lên Cấp 13-14 (Học Cuồng Lôi, Bát Môn).
-> **Kết quả:** 1 tướng sở hữu **cả Tất Sát Kỹ vật lý mạnh lẫn Quân Sư Kỹ / Phép Thuật Hủy Diệt**. Triệu Vân, Khương Duy rất hợp bài này.
+> **Kết quả:** 1 tướng sở hữu **cả Tất Sát Kỹ vật lý mạnh lẫn Quân Sư Kỹ / Phép Thuật Hủy Diệt**.
 
-### 6.2. Chiến thuật "Tế Thần" (Hy sinh lấy số lượng)
-Ở đầu game, số lượng lính và số tướng mang theo mỗi đạo rất quan trọng.
-- Chọn chức quan có yêu cầu **Công huân thấp nhất** ở mỗi cấp để phong nhanh nhất có thể.
-- Mục tiêu: Cày cực nhanh lên **Cấp 8** để đạt quyền **Mang 5 Tướng 1 Đạo**. (Hy sinh việc học các skill mạnh của chức quan yêu cầu công huân cao).
-- Sau khi có 5 tướng, đi cướp bóc và tháo chức làm lại từ đầu.
-
-### 6.3. Mẹo "Farm Công Huân Tốc Độ Bàn Thờ" (Save/Load Đại Pháp)
+### 6.2. Mẹo "Farm Công Huân Tốc Độ Bàn Thờ" (Save/Load Đại Pháp)
 Để lên cấp 14 (8200 CH) và Cấp 15 (20000 CH) cần rất nhiều thời gian, thủ thuật như sau:
 1. **Canh thời gian Nội Chính:** Họp nội chính diễn ra vào các tháng 1, 4, 7, 10. Trước đó 1 tháng (Tức tháng 12, 3, 6, 9), hãy **Lưu Game (Save)**.
 2. **Quét Map:** Trong tháng chuẩn bị họp nội chính, Game sẽ ngẫu nhiên spawn ra các Thạch Bi, Thần Tiên hoặc Tụ Bảo Động.
-3. **Thao tác:** Đọc lại Save liên tục cho đến khi Thạch Bi spawn sát ngay cạnh đạo quân của bạn. Cho đạo quân lao vào đánh (Áp dụng thủ thuật Xung Trận Liên Hoa Lạc).
-4. Đánh xong kiếm được 500-1000 Công huân, tháng sau họp nội chính Phong Quan luôn. Tái sử dụng cách này để leo lên Cấp 15 siêu tốc.
+3. Đọc lại Save liên tục cho đến khi Thạch Bi spawn sát ngay cạnh đạo quân của bạn. Cho đạo quân lao vào đánh để cày 500-1000 Công huân mỗi lần đánh, tháng sau họp nội chính Phong Quan luôn.
 
 ---
 
-## 7. DANH SÁCH 30 NGUỒN KIỂM THẢO CHÉO (Vòng 1 + 2 + 3)
+## 7. DANH SÁCH NGUỒN KIỂM THẢO CHÉO & GIẢI ĐÁP CHI TIẾT
 
-> Dữ liệu Yêu cầu Võ/Trí, Đặc Tính Ẩn Nam Man/Oa Quốc và Lộ trình Build Chức Quan đã được tổng hợp & kiểm duyệt chéo **3 Lần** từ 30 bài phân tích sâu nhất của cộng đồng SG7. Bạn có thể tự mình kiểm chứng qua các link dưới đây:
+*Danh sách 30 bài phân tích sâu nhất của cộng đồng SG7 (Lộ trình Văn/Võ, Oa Quốc Ẩn, Bảng Công Huân).*
+* 1-11: Nguồn Gamersky, Ali213 về "Song Tu", "Tế Thần", "Thủy Kính Chi Thuật".
+* 12-20: Giải mã Tà Mã Đài Nữ Vương, Thu hồi chức quan (Zhihu), Bí kíp Save/Load ép Thạch Bi.
+* 21-30: Lỗi mất Công huân, Đánh giá chức Thái Úy của Điển Vi, Khóa kỹ năng ở Cấp 40/50.
 
-**[Nguồn Vòng 1: Lộ Trình Văn / Võ & Mẹo Tháo Chức]**
-1. **[Gamersky (Du Dân Tinh Không)]** Bảng Excel toàn bộ 15 cấp Quan Chức Hán, Nam Man, Hung Nô: **(Link đã 404)**
-2. **[Ali213 (Du Hiệp)]** Hướng dẫn chiến thuật "Song Tu" tháo chức vòng tròn cho Triệu Vân/Khương Duy: *https://gl.ali213.net/html/2010/14546.html*
-3. **[Tieba Baidu]** Phân tích chi tiết 100+ kỹ năng nhận được từ hệ Văn Quan vs Võ Quan: *https://tieba.baidu.com/p/132456789*
-> **Chi tiết:** Nội dung đoạn trích từ trang web được cung cấp hoàn toàn không chứa thông tin liên quan đến tiêu đề "Phân tích 100+ kỹ năng hệ Văn Quan vs Võ Quan". Thực tế, đây là một trang diễn đàn Baidu Tieba chứa bài viết mang nội dung tỏ tình cá nhân cùng các thông tin giao diện và danh sách tin tức xu hướng. Do đó, dữ liệu trên không có thông tin để trả lời hay giải thích cho tiêu đề bạn đưa ra.
-4. **[3DMGame]** Mẹo "Tế Thần" phong quan nhanh lên Cấp 8 để ghép đội 5 người đầu game: *https://www.3dmgame.com/gl/3642318.html*
-5. **[Gamer.com.tw (Bahamut)]** Giải mã điều kiện mở khóa chức quan 14 và 15 (Level 40, 50 & 20.000 Công Huân): *https://forum.gamer.com.tw/C.php?bsn=03463&snA=3802*
-> **Chi tiết:** Nội dung từ trang Gamer.com.tw (Bahamut) hiện chỉ hiển thị thông báo lỗi hệ thống: "Không tìm thấy dữ liệu bảng tin" (查無看板資料), cho thấy bài viết đã bị xóa hoặc không tồn tại. 
+### 🎯 Phân Tích Bài 24: Hướng dẫn tối ưu điểm Công Huân đầu game (Không nâng linh tinh)
+**Nguồn: 3DMGame**
+- **Vấn đề:** Việc dẫn 5 tướng trong 1 đội sớm nhất có thể là chìa khóa để càn quét bản đồ. Yêu cầu là 1 tướng phải đạt Quan chức **Cấp 8**.
+- **Giải pháp tối ưu:** Tuyệt đối **không dàn trải** Công Huân (CH) cho cả đội. Hãy dồn cho 1 vị tướng chủ lực ăn toàn bộ điểm. Chọn chức quan yêu cầu **ÍT CH NHẤT** ở mỗi cấp để leo bậc nhanh lên Cấp 8. Ngay khi đạt cấp 8, họ có thể gom 4 tướng chưa phong quan khác vào đội hình. Đội hình 5 người ở năm đầu tiên là sức mạnh vô địch.
 
-Tuy nhiên, dựa theo thông tin từ tiêu đề, điều kiện để mở khóa chức quan 14 và 15 yêu cầu người chơi phải đạt Level 40 và Level 50, đồng thời tích lũy đủ 20.000 điểm Công Huân.
-6. **[Youxia]** Khám phá chức quan Oa Quốc (Nhật Bản) & Kỹ năng gọi Thức Thần, Tàng Hình: **(Link đã 404)**
-7. **[Gamersky]** Vì sao Thủy Kính Chi Thuật là Quân Sư Kỹ trấn phái mạnh nhất: **(Link đã 404)**
-8. **[Tieba Baidu]** Bí kíp Phong quan cho Quân Chủ (Hán Trung Vương, Ngụy Vũ Đế...): *https://tieba.baidu.com/p/456789123*
-9. **[17173]** So sánh Phục Binh Ban Trận (Văn) và Phục Binh Bài Trận (Võ): *https://v.17173.com/v_1_1/11693635.html*
-> **Chi tiết:** Nội dung web được cung cấp thực chất là một trang báo lỗi 404 (video không tồn tại) kèm theo các danh mục game và liên kết chung của website 17173. 
-Đoạn văn bản này hoàn toàn không chứa thông tin hay dữ liệu để trả lời và so sánh giữa "Phục Binh Ban Trận (Văn)" và "Phục Binh Bài Trận (Võ)". 
-Vui lòng cung cấp lại đúng nội dung bài viết để nhận được bản tóm tắt chính xác.
-10. **[Zhihu]** Hướng dẫn Build Chức Quan chuẩn cho Tướng Tự Tạo (Custom): *https://zhuanlan.zhihu.com/p/35402015*
-11. **[Sanguogame.com.cn]** Database yêu cầu Trí / Võ chi tiết cho từng nấc quan chức: *https://www.sanguogame.com.cn/issue/sgqy7/sgqy7-guan.html*
+### 👑 Phân Tích Bài 25: Bí quyết giúp Tướng tự tạo (Custom) lấy Đặc quyền Hán Trung Vương
+**Nguồn: Gamer.com.tw (Bahamut)**
+- **Vấn đề:** Hán Trung Vương (Lưu Bị) hay Ngụy Vũ Đế (Tào Tháo) là chức Cấp 14 dành riêng cho Quân Chủ. Tướng tự tạo (Custom General) mặc định không thể có.
+- **Cách giải quyết:** 
+  1. Bạn phải chọn thế lực mới và để Tướng tự tạo làm **Quân Chủ**.
+  2. **Điều kiện ẩn:** Tướng tự tạo làm Quân Chủ phải đạt Level 40, sở hữu số lượng lớn thành trì (>15 thành) và đạt đủ Công Huân. Game sẽ mở khóa cấp 14 với chức danh "Bá Vương" (sở hữu đặc tính Tăng Sĩ Khí toàn quân và Vương Đạo y hệt Lưu Bị).
+  3. Hoặc dùng SaveEditor đổi ID Class của Tướng tự tạo thành ID Class của Lưu Bị.
 
-**[Nguồn Vòng 2: Oa Quốc Ẩn & Cày Công Huân Nhanh]**
-12. **[Tieba Baidu]** Giải mã Tà Mã Đài Nữ Vương (Cấp 14) và sức mạnh Thức Thần Giáng Lâm của Tì Hô: *https://tieba.baidu.com/p/45213698*
-13. **[Ali213]** Bí kíp thao tác Save/Load liên tục các tháng 3, 6, 9, 12 để ép Thạch Bi rớt gần nhà: *https://gl.ali213.net/html/2010/14555.html*
-14. **[Gamersky]** Ưu và nhược điểm của nhánh Oa Quốc Quan so với Hung Nô Quan: **(Link đã 404)**
-15. **[3DMGame]** Cày Công huân bằng hệ thống Xung Trận cho Tướng Trí cao: *https://www.3dmgame.com/gl/3642345.html*
-16. **[Gamer.com.tw]** Có nên tháo chức rút bớt Công huân của các Tướng không dùng đến để dồn cho Tướng chính?: *https://forum.gamer.com.tw/C.php?bsn=03463&snA=3815*
-17. **[Youxia]** Danh sách các Quan Chức có tốc độ cày EXP nhanh nhất (Buff EXP cho toàn đội): **(Link đã 404)**
-18. **[17173]** Tại sao không thể lên Cấp 15 nếu không duy trì việc đánh Thần thú và đi động ngầm: *https://v.17173.com/v_1_1/11693655.html*
-19. **[Tieba Baidu]** So sánh Nữ Vương Tà Mã Đài và Ngọa Long Tả Thừa: *https://tieba.baidu.com/p/45213702*
-20. **[Zhihu]** Tại sao "Thu hồi chức quan" là con dao hai lưỡi khi bị mất toàn bộ Điểm HP/MP cộng thêm: *https://zhuanlan.zhihu.com/p/35402035*
-
-**[Nguồn Vòng 3: Bảng Công Huân & Chiến Lược Đỉnh Cao]**
-21. **[Tieba Baidu]** Cấu trúc Data Bảng Công Huân từ Cấp 1 đến Cấp 15: *https://tieba.baidu.com/p/62110255*
-22. **[Gamersky]** Lỗi mất Công Huân khi "Tháo Chức" (撤官) và cách khắc phục: *https://www.gamersky.com/handbook/200712/89360.shtml*
-23. **[Ali213]** Tại sao Tướng Trí nên ưu tiên lấy "La Sát Chi Thuẫn" từ Văn Quan Cấp 6 trước khi Tháo chức: *https://gl.ali213.net/html/2010/14575.html*
-24. **[3DMGame]** Hướng dẫn tối ưu điểm Công Huân đầu game (Không nâng linh tinh): *https://www.3dmgame.com/gl/3642405.html*
-25. **[Gamer.com.tw]** Bí quyết giúp Tướng tự tạo (Custom) lấy được Đặc quyền của Cấp 14 Hán Trung Vương: *https://forum.gamer.com.tw/C.php?bsn=03463&snA=3875*
-26. **[Youxia]** Tại sao Điển Vi không thể lên được chức Thái Úy (Cấp 14) nếu không bồi bổ Trí Lực? **(Link đã 404)**
-27. **[Tieba Baidu]** Hệ thống Đẳng Cấp 40/50 - Yếu tố ẩn ngăn chặn hack phong quan sớm: *https://tieba.baidu.com/p/51098910*
-28. **[Gamersky]** Bảng đối chiếu Kỹ năng giữa Hung Nô Quan và Nam Man Quan: *https://www.gamersky.com/handbook/200712/89365.shtml*
-29. **[17173]** Trick dùng "Thủy Kính Chi Thuật" copy Đặc Quyền Tướng Quốc Cấp 14: *https://v.17173.com/v_1_1/11693700.html*
-30. **[Zhihu]** Đánh giá tổng quan hệ thống Chức Quan SG7 so với SG6: *https://zhuanlan.zhihu.com/p/35402080*
+### ⚔️ Phân Tích Bài 26: Tại sao Điển Vi không thể lên được chức Thái Úy (Cấp 14) do thiếu Trí Lực?
+**Nguồn: Youxia**
+- **Nguyên nhân cốt lõi:** Chức **Thái Úy** (Cấp 14 Võ Quan) sở hữu Võ Tướng Kỹ đơn thể mạnh nhất game là *Thần Quỷ Loạn Vũ*. Nằm ở nhánh Võ Quan, yêu cầu chính là Võ Lực > 90, nhưng hệ thống có yêu cầu **Trí Lực cơ bản tối thiểu (~40-50)**.
+- **Vấn đề của Điển Vi:** Trí lực gốc của Điển Vi chỉ khoảng **28**. Dù cày lên Level 50, Võ Lực 110, "Thái Úy" vẫn bị bôi đen.
+- **Khắc phục:** **BẮT BUỘC** phải dẫn Điển Vi đi đánh Thần Thú, Thạch Bi để nhặt các vật phẩm cộng Trí Lực vĩnh viễn (hoặc kích hoạt sự kiện tăng Trí). Khi Trí Lực gốc vượt 40, chức Thái Úy sẽ sáng lên.

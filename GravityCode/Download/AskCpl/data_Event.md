@@ -1,313 +1,299 @@
 # Bách Khoa Toàn Thư SG7: TỪ ĐIỂN SỰ KIỆN CỐT TRUYỆN (25 SỰ KIỆN ẨN)
 
-> Nguồn: Ali213
+> Nguồn: Dịch và tổng hợp từ cộng đồng Ali213 / Gamersky
+> **Lưu ý chung:** Tỷ lệ kích hoạt của các sự kiện đặc biệt thường rơi vào khoảng 80% khi đã đủ điều kiện. Nếu không xảy ra, hãy cho qua mùa (xuân, hạ, thu, đông) để hệ thống quét lại, hoặc dùng chiến thuật Save/Load trước các sự kiện lớn.
 
-### 1. 蜀汉八神兵
-
-**⚡ Điều kiện kích hoạt:**
-- 刘备为君主，等级大于20
-- 刘备军攻破金牛山、火焰山
-- 东极、南极、西级、北极、编驹、方土、波母、不周 皆未现时
-
-**🎁 Kết quả sự kiện:**
-刘备军获得东极、南极、西级、北极、编驹、方土、波母、不周
-
-### 2. 诸葛亮舌战群儒
+### 1. Thục Hán Bát Thần Binh (8 Món Vũ Khí Thần)
 
 **⚡ Điều kiện kích hoạt:**
-- 孙权+曹操+刘备为不同势力君主
-- 诸葛亮为刘备麾下
-- 孙权至少有一座城池（含两名武将）
-- 孙权+刘备=外交度大于60且未同盟情况下
+- Lưu Bị làm quân chủ, cấp độ (Level) > 20.
+- Quân Lưu Bị đánh chiếm Kim Ngưu Sơn (Kim Niu Shan) và Hỏa Diệm Sơn (Huo Yan Shan).
+- 8 món thần binh: Đông Cực, Nam Cực, Tây Cực, Bắc Cực, Biên Câu, Phương Thổ, Ba Mẫu, Bất Chu đều chưa xuất hiện trên bản đồ.
 
 **🎁 Kết quả sự kiện:**
-孙刘两方外交度+60，并且同盟
+- Quân Lưu Bị nhận được toàn bộ 8 món Thần binh nói trên.
 
-### 3. 孙权嫁妹
+### 2. Gia Cát Lượng Khẩu Chiến Quần Nho (Thuyết phục Đông Ngô)
 
 **⚡ Điều kiện kích hoạt:**
-- 孙权+曹操+刘备为不同势力君主
-- 孙权+刘备必须至少有一座城池
-- 孙权+刘备国库至少有两项物品
-- 孙权+刘备外交度大于60
-- 孙仁尚未出仕或属于孙权麾下
+- Tôn Quyền, Tào Tháo, Lưu Bị là 3 quân chủ của 3 thế lực khác nhau.
+- Gia Cát Lượng đang làm tướng dưới trướng Lưu Bị.
+- Tôn Quyền sở hữu ít nhất 1 thành trì (có từ 2 võ tướng trở lên).
+- Độ hảo cảm ngoại giao giữa Tôn Quyền và Lưu Bị > 60 và chưa đồng minh.
 
 **🎁 Kết quả sự kiện:**
+- Độ hảo cảm ngoại giao giữa Tôn Quyền và Lưu Bị +60, đồng thời 2 bên chính thức kết Đồng Minh.
 
-*（刘备答应迎娶）*
-- 刘备军以国库最高两项物品为聘礼
-- 刘备军以所有建物金钱综合的1/3为聘金
-- 孙权军也已上述相同数量为嫁妆
-- 孙仁加入刘备军，并且孙刘两方同盟
-
-*（刘备拒绝迎娶）*
-- 孙仁出仕孙权军，两方外交度-10
-
-### 4. 孙权代子求婚
+### 3. Tôn Quyền Gả Em Gái (Tôn Nhân)
 
 **⚡ Điều kiện kích hoạt:**
-- 孙权+曹操+刘备为不同势力君主
-- 关羽为刘备军麾下
-- 孙权+刘备必须至少有一座城池
-- 孙权+刘备国库至少有两项物品
-- 孙权+刘备外交度大于60
-- 关凤尚未出仕或属于刘备麾下
-- 孙休尚未出仕或属于孙权麾下
+- Tôn Quyền, Tào Tháo, Lưu Bị là 3 quân chủ khác nhau.
+- Tôn Quyền và Lưu Bị đều sở hữu ít nhất 1 thành trì.
+- Quốc khố của Tôn Quyền và Lưu Bị phải có ít nhất 2 món đồ.
+- Độ hảo cảm ngoại giao Tôn - Lưu > 60.
+- Tôn Nhân (Tôn Thượng Hương) chưa xuất sĩ (chưa theo ai) hoặc đang thuộc phe Tôn Quyền.
 
 **🎁 Kết quả sự kiện:**
 
-*（关羽答应嫁女）*
-- 刘备军以国库最高两项物品为聘礼
-- 刘备军以所有建物金钱综合的1/3为聘金
-- 孙权军也已上述相同数量为嫁妆
-- 孙休+关凤加入孙权军，并且两方联盟
+*（Nếu Lưu Bị đồng ý thú nhận/cưới）*
+- Quân Lưu Bị mất 2 món đồ có giá trị cao nhất trong quốc khố để làm sính lễ.
+- Quân Lưu Bị mất 1/3 tổng số tiền từ tất cả các thành trì để làm tiền sính lễ.
+- Quân Tôn Quyền cũng xuất ra số tiền và vật phẩm tương đương làm của hồi môn.
+- Tôn Nhân (Tôn Thượng Hương) gia nhập phe Lưu Bị, Tôn - Lưu kết Đồng Minh.
 
-*（关羽拒绝嫁女）*
-- 孙休出仕孙权军，关凤出仕刘备军两方外交度-10
+*（Nếu Lưu Bị từ chối）*
+- Tôn Nhân xuất sĩ dưới trướng Tôn Quyền, ngoại giao hai bên giảm 10 điểm (-10).
 
-### 5. 白门楼吕布乞命
-
-- 吕布+曹操+刘备为不同势力君主
-- 刘备军又玩家操控
-- 曹操+刘备外交度大于70并且同盟
-- 吕布军建物数小于或等于2
-- 吕布军麾下武将小于10
-- 曹操军建物数大于4,并且占领徐州
-- 刘备军建物数大于4,并且占领小沛
-
-**🎁 Kết quả sự kiện:**
-
-*（为吕布乞命）*
-- 吕布军消灭，全数钱付曹操军
-- 刘备军付出建物金钱总额80%给曹操军
-- 吕布加入刘备军，曹+刘外交度-50
-
-*（不为吕布乞命）*
-- 吕布军消灭，全数归付曹操军
-- 吕布死亡
-
-### 6. 陶谦让小沛
+### 4. Tôn Quyền Thay Con Cầu Hôn
 
 **⚡ Điều kiện kích hoạt:**
-- 刘备+陶谦为不同势力君主
-- 小沛为陶谦虽有，并且至少拥有三座建物及五名武将
-- 刘备至少有一座城池
-- 陶谦+刘备=外交度大于60
+- Tôn Quyền, Tào Tháo, Lưu Bị là 3 quân chủ khác nhau.
+- Quan Vũ đang ở phe Lưu Bị.
+- Tôn Quyền và Lưu Bị đều sở hữu ít nhất 1 thành trì và quốc khố có ít nhất 2 món đồ.
+- Ngoại giao Tôn - Lưu > 60.
+- Quan Phượng (Con gái Quan Vũ) chưa xuất sĩ hoặc đang ở phe Lưu Bị.
+- Tôn Hưu (Con Tôn Quyền) chưa xuất sĩ hoặc đang ở phe Tôn Quyền.
 
 **🎁 Kết quả sự kiện:**
-- （陶谦死亡）刘备军获得陶谦所有武将及物品
 
-### 7. 陶谦临终托刘备
+*（Nếu Quan Vũ đồng ý gả con）*
+- Quân Lưu Bị mất 2 món đồ cao nhất và 1/3 tổng tiền để làm sính lễ.
+- Quân Tôn Quyền xuất của hồi môn tương đương.
+- Tôn Hưu và Quan Phượng gia nhập phe Tôn Quyền, hai bên kết Đồng Minh.
+
+*（Nếu Quan Vũ từ chối - "Hổ nữ không thể gả cho khuyển tử"）*
+- Tôn Hưu theo Tôn Quyền, Quan Phượng theo Lưu Bị. Ngoại giao hai bên giảm 10.
+
+### 5. Lầu Bạch Môn - Lữ Bố Xin Tha Mạng
 
 **⚡ Điều kiện kích hoạt:**
-- 刘备+陶谦为不同势力君主
-- 刘备军为玩家操控
-- 徐州属于陶谦，陶/刘外交度大于60
-- 陶谦拥有小于一座建物，少于五名武将
-- 孙乾属于陶谦麾下或未出仕
+- Lữ Bố, Tào Tháo, Lưu Bị là 3 quân chủ khác nhau.
+- **Quân Lưu Bị do người chơi điều khiển.**
+- Ngoại giao Tào - Lưu > 70 và đang Đồng Minh.
+- Quân Lữ Bố sở hữu tối đa 2 thành trì (phải có Hạ Bì) và dưới 10 võ tướng.
+- Quân Tào Tháo có > 4 thành trì, phải chiếm được Từ Châu.
+- Quân Lưu Bị có > 4 thành trì, phải chiếm được Tiểu Bái.
 
 **🎁 Kết quả sự kiện:**
-- （陶谦死亡）刘备军获得陶谦所有武将及物品
 
-### 8. 三顾茅庐
+*（Nếu Lưu Bị xin tha mạng cho Lữ Bố）*
+- Thế lực Lữ Bố bị tiêu diệt, toàn bộ tiền bạc thuộc về quân Tào Tháo.
+- Quân Lưu Bị phải cống nạp 80% tổng tiền từ tất cả thành trì cho Tào Tháo.
+- Lữ Bố gia nhập phe Lưu Bị, ngoại giao Tào - Lưu giảm 50 điểm (-50).
+
+*（Nếu Lưu Bị KHÔNG xin tha mạng）*
+- Thế lực Lữ Bố bị tiêu diệt, toàn bộ tài sản và thuộc hạ quy hàng Tào Tháo.
+- Lữ Bố bị tử hình.
+
+### 6. Đào Khiêm Nhường Tiểu Bái
 
 **⚡ Điều kiện kích hoạt:**
-- 玩家君主进驻新野
-- 司马徽需在玩家君主麾下，且进驻新野
-- 诸葛亮+诸葛均尚未出仕
+- Lưu Bị và Đào Khiêm là 2 quân chủ khác nhau.
+- Đào Khiêm chiếm thành Tiểu Bái, sở hữu tổng cộng ít nhất 3 thành trì và 5 võ tướng.
+- Lưu Bị sở hữu ít nhất 1 thành trì.
+- Ngoại giao Đào - Lưu > 60.
 
 **🎁 Kết quả sự kiện:**
-- 诸葛亮+诸葛均归付进驻新野
+- (Đào Khiêm qua đời do bệnh). Quân Lưu Bị nhận được toàn bộ võ tướng và vật phẩm của Đào Khiêm.
 
-### 9. 曹操计诱徐庶
+### 7. Đào Khiêm Lâm Chung Thác Cô (Nhường Từ Châu)
 
 **⚡ Điều kiện kích hoạt:**
-- 曹操+刘备为不同势力君主
-- 单福为刘备麾下
+- Lưu Bị và Đào Khiêm là 2 quân chủ khác nhau, **Lưu Bị do người chơi điều khiển.**
+- Đào Khiêm chiếm Từ Châu, ngoại giao Đào - Lưu > 60.
+- Đào Khiêm chỉ còn lại 1 thành trì, dưới 5 võ tướng.
+- Tôn Càn đang theo Đào Khiêm hoặc chưa xuất sĩ.
 
 **🎁 Kết quả sự kiện:**
-- 单福恢复本名徐庶，离开刘备军
+- (Đào Khiêm qua đời). Quân Lưu Bị sát nhập toàn bộ thế lực, nhận được Từ Châu, võ tướng (bao gồm Trần Đăng, Tôn Càn) và vật phẩm của Đào Khiêm.
 
-*（曹操军平均民心大于700）*
-- 徐庶加入曹操军
-
-*（曹操军平均民心小于700）*
-- 徐庶逃离曹操军，一段时间重回刘备军
-
-### 10. 孙坚获玉玺
+### 8. Tam Cố Mao Lư (Ba Lần Thăm Lều Cỏ)
 
 **⚡ Điều kiện kích hoạt:**
-- 孙坚为君主并且等级大于10
+- Quân chủ do người chơi điều khiển phải tiến quân đóng tại **Tân Dã**.
+- Tư Mã Huy (Thủy Kính tiên sinh) phải là thuộc hạ của người chơi và đang đóng quân tại Tân Dã.
+- Gia Cát Lượng và Gia Cát Quân đều chưa xuất sĩ.
 
 **🎁 Kết quả sự kiện:**
-- 孙坚军获得传国玉玺
+- Gia Cát Lượng và Gia Cát Quân gia nhập phe người chơi tại Tân Dã.
 
-### 11. 袁术密书聊孙坚
+### 9. Tào Tháo Bày Mưu Dụ Từ Thứ
 
 **⚡ Điều kiện kích hoạt:**
-- 孙坚为君主，且为玩家所操控
-- 孙坚获玉玺的事件已发生
-- 孙坚军拥有传国玉玺
-- 韩当须为孙坚麾下
-- 与袁术外交度50以上
+- Tào Tháo và Lưu Bị là 2 quân chủ khác nhau.
+- Đơn Phúc (Từ Thứ) đang là thuộc hạ của Lưu Bị.
 
 **🎁 Kết quả sự kiện:**
+- Đơn Phúc khôi phục tên thật là Từ Thứ, rời bỏ quân Lưu Bị.
+- *（Nếu quân Tào Tháo có Dân tâm trung bình > 700）* Từ Thứ gia nhập quân Tào Tháo.
+- *（Nếu quân Tào Tháo có Dân tâm trung bình < 700）* Từ Thứ trốn khỏi quân Tào Tháo, sau một thời gian sẽ quay về với Lưu Bị.
 
-*（孙坚接受协议）*
-- 与袁术外交度+20士气+50长沙民心+200长沙金钱+500
-- 与刘表外交度-20
-
-*（孙坚不接受协议）*
-- 与袁术外交度-20士气-20长沙民心-50
-- 与刘表外交度+10
-
-### 12. 韩当谏孙坚
+### 10. Tôn Kiên Bắt Được Ngọc Tỷ
 
 **⚡ Điều kiện kích hoạt:**
-- 孙坚为君主，且为玩家所操控
-- 密书聊孙坚的事件已发生
-- 孙坚军拥有传国玉玺
-- 韩当须为孙坚麾下
-- 孙坚军建物拥有江夏
+- Tôn Kiên làm quân chủ và cấp độ (Level) > 10.
 
 **🎁 Kết quả sự kiện:**
+- Quân Tôn Kiên nhận được bảo vật "Truyền Quốc Ngọc Tỷ".
 
-*（孙坚接受劝谏）*
-- 与刘表外交度+10士气-20长沙民心+100
-
-*（孙坚不接受劝谏）*
-- 与刘表外交度-20士气+50长沙民心-50
-
-### 13. 孙坚攻江夏
+### 11. Viên Thuật Gửi Mật Thư Cho Tôn Kiên
 
 **⚡ Điều kiện kích hoạt:**
-- 孙坚为君主，且为玩家所操控，占领江夏
-- 韩当谏孙坚的事件已发生
-- 孙坚军拥有传国玉玺
-- 韩当须为孙坚麾下并进驻江夏
-- 刘表势力必须存在
+- Tôn Kiên làm quân chủ, **do người chơi điều khiển.**
+- Sự kiện "Tôn Kiên Bắt Được Ngọc Tỷ" đã xảy ra.
+- Quân Tôn Kiên đang giữ Truyền Quốc Ngọc Tỷ.
+- Hàn Đương là thuộc hạ của Tôn Kiên.
+- Ngoại giao với Viên Thuật > 50.
 
 **🎁 Kết quả sự kiện:**
 
-*（孙坚拒绝进攻）*
-- 孙坚+1000功勋，与刘表外交度-30
+*（Tôn Kiên chấp nhận thỏa thuận）*
+- Ngoại giao với Viên Thuật +20, Sĩ khí +50, Dân tâm Trường Sa +200, Tiền Trường Sa +500.
+- Ngoại giao với Lưu Biểu -20.
 
-*（孙坚坚持进攻）*
-- 孙坚死亡，孙策继位，孙策+1500功勋
-- 周瑜出仕孙策进驻江夏，与刘表外交度-100
+*（Tôn Kiên không chấp nhận thỏa thuận）*
+- Ngoại giao với Viên Thuật -20, Sĩ khí -20, Dân tâm Trường Sa -50.
+- Ngoại giao với Lưu Biểu +10.
 
-### 14. 董卓火烧洛阳
+### 12. Hàn Đương Khuyên Can Tôn Kiên
 
 **⚡ Điều kiện kích hoạt:**
-- 董卓为君主，且为玩家操控，位于洛阳，拥有长安
-- 李儒+吕布为董卓麾下
+- Kích hoạt sau sự kiện mật thư của Viên Thuật.
+- Các điều kiện tương tự: Tôn Kiên quân chủ (người chơi), có Ngọc Tỷ, Hàn Đương dưới trướng, có thành Giang Hạ.
 
 **🎁 Kết quả sự kiện:**
-- 董卓迁都长安，长安金钱+30000
-- 吕布进驻洛阳，获得“八宝灵灯”
-- 洛阳民心-400，人口-5000，开发度-200，防御-400，预备兵-500
 
-### 15. 收复洛阳
+*（Tôn Kiên nghe lời khuyên can）*
+- Ngoại giao Lưu Biểu +10, Sĩ khí -20, Dân tâm Trường Sa +100.
+
+*（Tôn Kiên KHÔNG nghe khuyên can）*
+- Ngoại giao Lưu Biểu -20, Sĩ khí +50, Dân tâm Trường Sa -50.
+
+### 13. Tôn Kiên Đánh Giang Hạ (Sự kiện sinh tử)
 
 **⚡ Điều kiện kích hoạt:**
-- 玩家君主位于洛阳
-- 与董卓外交度0
+- Tôn Kiên làm quân chủ (người chơi), đã chiếm được Giang Hạ.
+- Sự kiện Hàn Đương khuyên can đã xảy ra. Có Ngọc Tỷ, Hàn Đương ở Giang Hạ, Lưu Biểu vẫn tồn tại.
 
 **🎁 Kết quả sự kiện:**
-- 君主获得800功勋，获得宝物“暴君之首”
-- 洛阳民心+400，人口+2000，开发度+200，防御+400，预备兵+500
 
-### 16. 趁乱纳甄氏
+*（Tôn Kiên từ chối tiến công）*
+- Tôn Kiên nhận 1000 Công huân, ngoại giao với Lưu Biểu -30.
+
+*（Tôn Kiên kiên quyết tiến công）*
+- **Tôn Kiên trúng tên qua đời**, Tôn Sách lên kế vị và được +1500 Công huân.
+- Chu Du xuất sĩ gia nhập Tôn Sách tại Giang Hạ. Ngoại giao với Lưu Biểu giảm tột đáy (-100).
+
+### 14. Đổng Trác Phóng Hỏa Thiêu Lạc Dương
 
 **⚡ Điều kiện kích hoạt:**
-- 玩家君主位于邺城
-- 玩家君主若为曹操，则曹丕须为曹操麾下并位于邺城
-- 甄宓尚未出仕
+- Đổng Trác làm quân chủ (người chơi điều khiển), đóng quân tại Lạc Dương, sở hữu thành Trường An.
+- Lý Nho và Lữ Bố là thuộc hạ của Đổng Trác.
 
 **🎁 Kết quả sự kiện:**
-- 甄宓归付，进驻邺城
+- Đổng Trác dời đô về Trường An, Trường An nhận được 30.000 vàng.
+- Lữ Bố tiến trú Lạc Dương, nhận bảo vật "Bát Bảo Linh Đăng".
+- Lạc Dương Dân tâm -400, Nhân khẩu -5000, Độ phát triển -200, Phòng thủ -400, Lính dự bị -500 (Bị tàn phá nặng nề).
 
-### 17. 吕布叛丁原
+### 15. Thu Phục Lạc Dương
 
 **⚡ Điều kiện kích hoạt:**
-- 玩家君主不能为丁原且位于洛阳
-- 李儒为玩家君主麾下，且进驻洛阳
-- 玩家国库拥有大宛马
-- 如玩家君主为董卓，国库拥有赤兔马
+- Quân chủ do người chơi điều khiển tiến đánh và chiếm được Lạc Dương.
+- Ngoại giao với Đổng Trác bằng 0.
 
 **🎁 Kết quả sự kiện:**
-- 吕布归付，进驻洛阳
-- 丁原势力消灭
+- Quân chủ nhận 800 Công huân, nhận được bảo vật "Bạo Quân Chi Thủ".
+- Lạc Dương được hồi phục: Dân tâm +400, Nhân khẩu +2000, Phát triển +200, Phòng thủ +400, Lính dự bị +500.
 
-### 18. 李儒献赤兔
+### 16. Thừa Cơ Thu Nạp Chân Thị (Chân Mật)
 
 **⚡ Điều kiện kích hoạt:**
-- 李儒于董卓麾下且董卓及李儒等级大于10
+- Quân chủ do người chơi điều khiển đóng quân tại Nghiệp Thành (Ye Cheng).
+- Nếu người chơi là Tào Tháo, thì Tào Phi phải ở dưới trướng và cũng đóng tại Nghiệp Thành.
+- Chân Mật (Chân Thị) chưa xuất sĩ.
 
 **🎁 Kết quả sự kiện:**
-- 董卓军获得赤兔马
+- Chân Mật quy hàng, gia nhập phe người chơi tại Nghiệp Thành.
 
-### 19. 凤凰神枪
+### 17. Lữ Bố Phản Đinh Nguyên
 
 **⚡ Điều kiện kích hoạt:**
-- 孙策为君主，等级大于26
-- 凤凰枪尚未现世
+- Người chơi KHÔNG phải là Đinh Nguyên và đang đóng tại Lạc Dương.
+- Lý Nho là thuộc hạ của người chơi, cũng ở Lạc Dương.
+- Quốc khố người chơi có **Đại Uyển Mã** (Nếu người chơi là Đổng Trác thì phải có **Xích Thố Mã**).
 
 **🎁 Kết quả sự kiện:**
-- 孙策军获得“凤凰枪”
+- Lữ Bố phản bội, gia nhập phe người chơi tại Lạc Dương.
+- Thế lực Đinh Nguyên bị tiêu diệt hoàn toàn.
 
-### 20. 凄然宝刀
+### 18. Lý Nho Hiến Ngựa Xích Thố
 
 **⚡ Điều kiện kích hoạt:**
-- 邓艾等级大于15
-- 凄然尚未现世
+- Lý Nho làm thuộc hạ cho Đổng Trác. Cả Đổng Trác và Lý Nho đều có Level > 10.
 
 **🎁 Kết quả sự kiện:**
-- 邓艾所属势力获得“凄然”
+- Quân Đổng Trác nhận được bảo vật "Xích Thố Mã".
 
-### 21. 诸侯齐讨董卓
+### 19. Phượng Hoàng Thần Thương
 
 **⚡ Điều kiện kích hoạt:**
-- 袁绍+曹操+董卓为不同势力君主
+- Tôn Sách làm quân chủ, Level > 26.
+- Vũ khí Phượng Hoàng Thương chưa xuất hiện trên bản đồ.
 
 **🎁 Kết quả sự kiện:**
-- 袁绍，袁术，韩馥，孔牰，乔瑁，孔融，陶谦，马腾，公孙瓒外交度+30
-- 缔结同盟
+- Quân Tôn Sách nhận được thần binh "Phượng Hoàng Thương".
 
-### 22. 桃园三结义
+### 20. Thê Nhiên Bảo Đao
 
 **⚡ Điều kiện kích hoạt:**
-- 刘备为君主，关羽及张飞为其麾下
+- Đặng Ngải Level > 15.
+- Vũ khí Thê Nhiên chưa xuất hiện.
 
 **🎁 Kết quả sự kiện:**
-- 刘备+关羽+张飞=武力及智力各+1
+- Thế lực sở hữu Đặng Ngải sẽ nhận được thanh bảo đao "Thê Nhiên".
 
-### 23. 万众归心
+### 21. Chư Hầu Hội Phá Đổng Trác
 
 **⚡ Điều kiện kích hoạt:**
-- 玩家君主为自创武将
-- 占领15座城池
-- 全建物民心达800
-- 君主等级达25
+- Viên Thiệu, Tào Tháo, Đổng Trác là 3 quân chủ khác nhau.
 
 **🎁 Kết quả sự kiện:**
-- 获得2000功勋，
-- 获得“九天龙魂贯，震雷青龙戟锻造书，千年玄铁3个，千年乌钢3个”
-- 习得武将技“五龙腾”
-- 习得个人技“旋枪”
+- Viên Thiệu, Viên Thuật, Hàn Phức, Khổng Trụ, Kiều Mạo, Khổng Dung, Đào Khiêm, Mã Đằng, Công Tôn Toản được cộng +30 Ngoại giao với nhau và thiết lập Đồng Minh.
 
-### 24. 万民称道
+### 22. Đào Viên Tam Kết Nghĩa
 
 **⚡ Điều kiện kích hoạt:**
-- 拥有15座城池并且民心达900
+- Lưu Bị làm quân chủ, Quan Vũ và Trương Phi là thuộc hạ dưới trướng.
 
 **🎁 Kết quả sự kiện:**
-- 获得机铁秘术（可召唤机器兵器：机铁火轮术）
+- Lưu Bị, Quan Vũ, Trương Phi được vĩnh viễn cộng thêm +1 Võ Lực và +1 Trí Lực.
 
-### 25. 天命所归
+### 23. Vạn Chúng Quy Tâm (Danh Tướng Tự Tạo Lên Ngôi)
 
 **⚡ Điều kiện kích hoạt:**
-- 拥有25座城池并且民心达901
+- Người chơi điều khiển **Tướng Tự Tạo (Custom General)** làm Quân Chủ.
+- Đã chiếm được ít nhất **15 thành trì**.
+- Dân tâm tất cả các thành trì đạt mức **800**.
+- Quân chủ đạt **Level 25**.
 
 **🎁 Kết quả sự kiện:**
-- 获得真机铁秘术（可召唤机器兵器：机铁大将军）
+- Nhận 2000 Công huân.
+- Nhận được vũ khí Thần & Bản vẽ: "Cửu Thiên Long Hồn Quán", "Chấn Lôi Thanh Long Kích Sách (Bản vẽ)", "Thiên Niên Huyền Thiết (x3)", "Thiên Niên Ô Cương (x3)".
+- Quân chủ học được Võ tướng kỹ cực mạnh: **Ngũ Long Đằng** (5 Rồng bay).
+- Quân chủ học được Cá nhân kỹ (Tất sát): **Toàn Thương** (Múa thương xoay vòng).
+
+### 24. Vạn Dân Xưng Đạo (Vạn Dân Khen Ngợi)
+
+**⚡ Điều kiện kích hoạt:**
+- Người chơi chiếm giữ **15 thành trì** và Dân tâm trung bình đạt **900**.
+
+**🎁 Kết quả sự kiện:**
+- Nhận được "Cơ Thiết Bí Thuật" (Cho phép triệu hồi Cỗ Máy Hủy Diệt cấp 1: Cơ Thiết Hỏa Luân Xa).
+
+### 25. Thiên Mệnh Sở Quy (Thiên Mệnh Quy Tụ)
+
+**⚡ Điều kiện kích hoạt:**
+- Người chơi chiếm giữ **25 thành trì** và Dân tâm trung bình đạt mức tuyệt đối **901+**.
+
+**🎁 Kết quả sự kiện:**
+- Nhận được "Chân Cơ Thiết Bí Thuật" (Cho phép triệu hồi Cỗ Máy Hủy Diệt cấp 2: **Cơ Thiết Đại Tướng Quân** - Robot chiến đấu mạnh nhất game).
