@@ -44,6 +44,8 @@ Tạo một ứng dụng desktop quản lý từ vựng đa ngôn ngữ (Tiếng
 - [x] Tính năng Visual Table Editor và Tối ưu Responsive Layout (2026-06-24).
 - [x] Tự động nhận diện và paste Markdown table từ Gemini AI / ChatGPT (2026-06-24).
 - [x] Khắc phục tình trạng giật lag danh sách từ vựng bằng ttk.Treeview (2026-06-26).
+- [x] Thêm tính năng tự động kiểm tra và cài đặt thư viện khi khởi động (2026-08-11).
+- [x] **Thêm tính năng Luyện Viết (Có chấm điểm & Bảng nháp) trên cả Web App và Desktop App** (2026-08-11).
 
 ---
 

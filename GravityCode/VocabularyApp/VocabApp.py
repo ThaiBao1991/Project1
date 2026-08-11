@@ -14,7 +14,7 @@ import threading
 import webbrowser
 import tkinter as tk
 from tkinter import messagebox, filedialog, ttk
-import customtkinter as ctk
+import subprocess
 
 # Fix UnicodeEncodeError trên Windows terminal
 try:
@@ -28,6 +28,54 @@ def safe_print(msg: str):
         print(msg)
     except UnicodeEncodeError:
         print(msg.encode("ascii", errors="replace").decode("ascii"))
+
+# --- Auto check & install packages (Giống AskCpl) ---
+REQUIRED_PACKAGES = {
+    'customtkinter': 'customtkinter>=5.2.0',
+    'PIL': 'Pillow>=10.0.0',
+    'requests': 'requests>=2.31.0',
+    'google.auth': 'google-auth>=2.27.0',
+    'google_auth_oauthlib': 'google-auth-oauthlib>=1.2.0',
+    'googleapiclient': 'google-api-python-client>=2.118.0',
+    'qrcode': 'qrcode[pil]>=7.4.2',
+    'webview': 'pywebview>=4.4.1'
+}
+
+def check_and_install_packages():
+    missing = []
+    for module_name, pip_name in REQUIRED_PACKAGES.items():
+        try:
+            __import__(module_name)
+        except ImportError:
+            missing.append(pip_name)
+            
+    if missing:
+        safe_print(f"[*] Đang tự động cài đặt thư viện còn thiếu: {', '.join(missing)}")
+        try:
+            subprocess.check_call([sys.executable, "-m", "pip", "install", "--user", *missing])
+            safe_print("[*] Cài đặt thành công!")
+        except Exception as e:
+            root = tk.Tk()
+            root.withdraw()
+            err_win = tk.Toplevel(root)
+            err_win.title("Lỗi Thiếu Thư Viện")
+            err_win.geometry("550x300")
+            tk.Label(err_win, text="Ứng dụng thiếu một số thư viện cần thiết và không thể cài đặt tự động.", fg="red", font=("Arial", 11, "bold")).pack(pady=10)
+            tk.Label(err_win, text="Vui lòng copy dòng lệnh dưới đây và dán vào Terminal/CMD để cài đặt:", font=("Arial", 10)).pack(pady=5)
+            
+            txt = tk.Text(err_win, height=4, width=65, font=("Consolas", 11))
+            txt.pack(pady=10)
+            cmd = "python -m pip install --user " + " ".join(missing)
+            txt.insert(tk.END, cmd)
+            txt.config(state="disabled")
+            
+            tk.Button(err_win, text="Thoát ứng dụng", command=root.destroy, width=15).pack(pady=15)
+            root.mainloop()
+            sys.exit(1)
+
+check_and_install_packages()
+
+import customtkinter as ctk
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, BASE_DIR)
@@ -204,6 +252,166 @@ class PreviewDialog(ctk.CTkToplevel):
             tree.insert('', 'end', values=cols[:len(headers)])
             
         tree.pack(fill="x", padx=5, pady=10)
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Writing Practice Dialogs
+# ══════════════════════════════════════════════════════════════════════════════
+def run_webview_practice(word):
+    import tempfile
+    
+    html = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
+        <style>
+            body {{ font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; background-color: #1e1e1e; color: white; }}
+            #target {{ width: 250px; height: 250px; background-color: white; border-radius: 10px; }}
+            .controls {{ margin-top: 20px; display: flex; gap: 10px; }}
+            button {{ padding: 10px 20px; font-size: 16px; cursor: pointer; border:none; border-radius: 5px; background-color: #383838; color: white; }}
+            button:hover {{ background-color: #bb86fc; color: black; }}
+        </style>
+    </head>
+    <body>
+        <h2 style="color: #bb86fc;">Luyện viết</h2>
+        <div id="target"></div>
+        <div class="controls">
+            <button id="btn-prev">⬅️</button>
+            <span id="indicator" style="line-height: 40px; font-weight: bold;">1/1</span>
+            <button id="btn-next">➡️</button>
+        </div>
+        <p style="color: #a0a0a0; font-size: 13px; margin-top: 15px;">Hãy vẽ đè lên chữ mờ theo đúng thứ tự nét.</p>
+        <script>
+            const chars = "{word}".replace(/\\s+/g, '').split('');
+            if (chars.length === 0) {{
+                document.getElementById('target').innerHTML = "<p style='color:black;text-align:center;margin-top:100px;font-weight:bold;'>Từ vựng trống!</p>";
+            }} else {{
+                let idx = 0;
+                let writer = null;
+                function render() {{
+                    document.getElementById('target').innerHTML = "";
+                    document.getElementById('indicator').textContent = (idx+1) + "/" + chars.length;
+                    let char = chars[idx];
+                    HanziWriter.loadCharacterData(char).then(function(charData) {{
+                        writer = HanziWriter.create('target', char, {{
+                            width: 250, height: 250, padding: 5, strokeAnimationSpeed: 1, delayBetweenStrokes: 50,
+                            showOutline: true, showCharacter: false, outlineColor: '#e0e0e0', drawingColor: '#333333', drawingWidth: 15
+                        }});
+                        writer.quiz();
+                    }}).catch(function(error) {{
+                        document.getElementById('target').innerHTML = "<p style='color:black;text-align:center;margin-top:80px;font-weight:bold;font-size:18px;'>Ký tự <span style='font-size:30px;color:#d97706;'>" + char + "</span><br><br>Không được hệ thống<br>hỗ trợ chấm điểm!</p>";
+                        writer = null;
+                    }});
+                }}
+                document.getElementById('btn-prev').onclick = () => {{ if(idx > 0) {{ idx--; if(writer) writer.cancelQuiz(); render(); }} }};
+                document.getElementById('btn-next').onclick = () => {{ if(idx < chars.length-1) {{ idx++; if(writer) writer.cancelQuiz(); render(); }} }};
+                render();
+            }}
+        </script>
+    </body>
+    </html>
+    """
+    
+    script_py = f"""
+import webview
+import sys
+html_content = {repr(html)}
+webview.create_window("Luyện viết: {word}", html=html_content, width=400, height=550)
+webview.start()
+sys.exit(0)
+"""
+    with tempfile.NamedTemporaryFile('w', suffix='.py', delete=False, encoding='utf-8') as f:
+        f.write(script_py)
+        script_path = f.name
+        
+    subprocess.Popen([sys.executable, script_path])
+
+
+class CanvasPracticeDialog(ctk.CTkToplevel):
+    def __init__(self, parent, word):
+        super().__init__(parent)
+        self.title("Luyện viết (Bảng nháp)")
+        self.geometry("400x550")
+        self.configure(fg_color=C["bg"])
+        self.grab_set(); self.lift(); self.focus_force()
+        self._chars = word.replace(" ", "")
+        self._idx = 0
+        
+        lbl(self, "Bảng nháp (Tự do)", 16, "bold", C["accent"]).pack(pady=(15, 5))
+        lbl(self, "Vẽ tự do, không kiểm tra nét", 12, "normal", C["muted"]).pack(pady=(0, 10))
+        
+        self.canvas = tk.Canvas(self, width=300, height=300, bg="white", highlightthickness=0)
+        self.canvas.pack(pady=10)
+        
+        self.canvas.bind("<Button-1>", self.start_draw)
+        self.canvas.bind("<B1-Motion>", self.draw)
+        
+        self.last_x = 0
+        self.last_y = 0
+        
+        controls = ctk.CTkFrame(self, fg_color="transparent")
+        controls.pack(pady=10)
+        
+        btn(controls, "⬅️", C["card2"], C["border"] if "border" in C else "#444", w=40, h=30, cmd=self.prev_char).pack(side="left", padx=5)
+        self.lbl_idx = lbl(controls, "1/1", 14, "bold", C["text"])
+        self.lbl_idx.pack(side="left", padx=15)
+        btn(controls, "➡️", C["card2"], C["border"] if "border" in C else "#444", w=40, h=30, cmd=self.next_char).pack(side="left", padx=5)
+        btn(controls, "Xóa bảng", C["card2"], C["danger"], w=80, h=30, cmd=self.clear_board).pack(side="left", padx=15)
+        
+        self.render_char()
+        
+    def render_char(self):
+        if not self._chars: return
+        self.lbl_idx.configure(text=f"{self._idx + 1}/{len(self._chars)}")
+        self.clear_board()
+        
+    def prev_char(self):
+        if self._idx > 0:
+            self._idx -= 1
+            self.render_char()
+            
+    def next_char(self):
+        if self._idx < len(self._chars) - 1:
+            self._idx += 1
+            self.render_char()
+
+    def start_draw(self, event):
+        self.last_x = event.x
+        self.last_y = event.y
+        
+    def draw(self, event):
+        self.canvas.create_line(self.last_x, self.last_y, event.x, event.y, fill="#333333", width=8, capstyle=tk.ROUND, smooth=True)
+        self.last_x = event.x
+        self.last_y = event.y
+        
+    def clear_board(self):
+        self.canvas.delete("all")
+        if self._chars:
+            char = self._chars[self._idx]
+            self.canvas.create_text(150, 150, text=char, font=("Arial", 200, "bold"), fill="#e0e0e0")
+
+class PracticeChoiceDialog(ctk.CTkToplevel):
+    def __init__(self, parent, word):
+        super().__init__(parent)
+        self.title("Chọn chế độ luyện viết")
+        self.geometry("350x220")
+        self.configure(fg_color=C["bg"])
+        self.grab_set(); self.lift(); self.focus_force()
+        self._word = word
+        
+        lbl(self, "Luyện viết chữ", 16, "bold", C["accent"]).pack(pady=(20, 15))
+        
+        btn(self, "Có chấm điểm (Chữ Hán/Kanji)", C["accent"], C["accent2"], w=250, h=40, cmd=self.mode_hanzi).pack(pady=8)
+        btn(self, "Bảng nháp (Tự do)", C["card2"], C["border"] if "border" in C else "#444", w=250, h=40, cmd=self.mode_canvas).pack(pady=8)
+        
+    def mode_hanzi(self):
+        self.destroy()
+        run_webview_practice(self._word)
+        
+    def mode_canvas(self):
+        self.destroy()
+        CanvasPracticeDialog(self.master, self._word)
 
 # ══════════════════════════════════════════════════════════════════════════════
 # Table Editor Dialog
@@ -707,6 +915,7 @@ class VocabListTab(ctk.CTkFrame):
 
         btn(self.action_row, "Sửa", C["warn"], "#d97706", w=90, h=36, cmd=self._edit).pack(side="left", padx=4)
         btn(self.action_row, "Xóa", C["danger"], "#b91c1c", w=90, h=36, cmd=self._delete).pack(side="left", padx=4)
+        btn(self.action_row, "✏️ Luyện viết", C["success"], "#018786", w=120, h=36, cmd=self._practice_write).pack(side="left", padx=10)
 
     def _on_lang_change(self, choice):
         self.app.set_language(choice)
@@ -862,6 +1071,11 @@ class VocabListTab(ctk.CTkFrame):
             self.refresh_filters()
             self.refresh()
             self.app.update_stats()
+
+    def _practice_write(self):
+        if not self._selected: return
+        word = self._selected.get("word", "")
+        PracticeChoiceDialog(self.app, word)
 
 # ══════════════════════════════════════════════════════════════════════════════
 # Tab: Cai Dat & Dong Bo

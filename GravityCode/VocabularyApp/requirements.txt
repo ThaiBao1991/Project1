@@ -5,3 +5,4 @@ google-auth>=2.27.0
 google-auth-oauthlib>=1.2.0
 google-api-python-client>=2.118.0
 qrcode[pil]>=7.4.2
+pywebview>=4.4.1
