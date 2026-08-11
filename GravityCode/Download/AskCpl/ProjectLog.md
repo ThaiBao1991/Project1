@@ -18,6 +18,7 @@ Tạo giao diện để tự động lưu các ngày học Tiếng Anh và Tiế
 
 ## Nhật ký công việc
 
+
 ## 2026-08-06: LÀM SẠCH LINK CHẾT VÀ DỊCH THUẬT DATA WIKI (PHASE 9)
 - **Hoạt động:** Rà soát và tự động xử lý link 404, dịch thuật toàn bộ 403 tướng sang tiếng Việt.
 - **Chi tiết thay đổi:**
@@ -41,83 +42,7 @@ Tạo giao diện để tự động lưu các ngày học Tiếng Anh và Tiế
   - Global Corpus được cập nhật động trong suốt quá trình để tránh trùng lặp giữa các mảng.
 - **Trạng thái:** ✅ DONE — Syntax OK. App chạy thành công.
 
-## 2026-08-06: TÍCH HỢP TAB "QUÉT LINK WIKI" VÀO AskCpl.py
-- **Hoạt động:** Chuyển quy trình quét link từ script độc lập `fetch_wiki_links.py` thành tính năng tích hợp trực tiếp trong ứng dụng `AskCpl.py`.
-- **Chi tiết thay đổi:**
-  - Thêm sub-tab **🔄 Quét Link Wiki** vào tab `🤖 Auto AI` trong notebook của AskCpl.
-  - Thêm 3 method vào class `AskCplApp`:
-    - `setup_wiki_fetch_tab()` — Dựng UI với nút bấm và hộp log.
-    - `start_wiki_fetch()` — Chạy tiến trình trên background thread.
-    - `_run_wiki_fetch()` — Logic chính: đọc toàn bộ `data_*.md` thành Global Corpus → Với mỗi link: nếu ngay dưới đã có `>` thì SKIP; nếu không thì hỏi AI (Gemini cross-check) xem thông tin đã tồn tại trong bất kỳ file nào chưa → Nếu NO thì cào HTML và nhờ AI dịch + tóm tắt và ghi vào file.
-  - Sử dụng đúng `os.path.dirname(os.path.abspath(__file__))` để định vị thư mục.
-  - Log hiển thị realtime trên UI qua `widget.after(0, ...)` tránh lỗi cross-thread Tkinter.
-- **Trạng thái:** ✅ DONE — Syntax check passed. Sẵn sàng để user chạy thử.
 
-## 2026-08-06: BỔ SUNG CHUYÊN SÂU DỮ LIỆU WIKI SG7 (PHASE 7-8)
-- **Hoạt động:** Nâng cấp toàn diện 5 file Data cũ và tạo thêm 1 file \data_Meo.md\.
-- **Chi tiết thay đổi:**
-  - \data_Tuong.md\: Giải mã các Chỉ Số Ẩn (Kiếp Lược, Phi Mã, Thi Yểm), gán Vũ khí trấn phái (Xà Mâu cho Trương Phi), thêm Combo Tình Nghĩa Kỹ, làm rõ sức mạnh Trương Giác.
-  - \data_ChucQuan.md\: Bổ sung yêu cầu Trí/Võ cho từng cấp quan, phân tích Tướng nào nên lên đường nào, danh sách skill theo cấp (Bát Môn Độn Giáp, Thiên Kiếm Trảm).
-  - \data_Linh.md\: Cập nhật nơi Mua Binh Phù tại các thành. Khớp 20 danh tướng với loại lính tốt nhất (Lữ Bố + Kỵ Binh, GCL + Nỗ Binh).
-  - \data_VuKhi_Do.md\: Bổ sung nguyên liệu chế tạo Thần Binh (Huyền Thiết, Ô Cương), nơi đánh rớt (Tụ Bảo Động, Tứ Linh).
-  - \data_Skill.md\: Hoàn thiện hệ Võ Tướng Kỹ, cách học từ Trụ Đá.
-  - \data_Meo.md\ (New): Thủ thuật F1 hack Trụ Đá, mẹo cày vàng bằng Kiếp Lược, mẹo ép EXP lính, ép cấp thu phục tướng.
-- **Trạng thái:** ✅ DONE — Gate 2 (Đã rà soát không còn sót yêu cầu, link gốc đã được gắn đủ).
-
-
-## 2026-08-06: HOÀN TẤT Wiki SG7 — Phase 5 & 6 (Database Vệ Tinh + Cheat Codes)
-- **Kết quả:** Toàn bộ hệ thống Wiki SG7 đã hoàn chỉnh với kiến trúc 1 file chính + 5 file database vệ tinh.
-- **Các file mới tạo trong workspace:**
-  - data_Tuong.md — Danh sách tướng kèm ID cheat, chỉ số, tất sát, xếp loại
-  - data_ChucQuan.md — Toàn bộ chức quan cấp 1-15, dị tộc, chức đặc quyền danh tướng
-  - data_Linh.md — Binh chủng cấp 1-3, kỹ năng bậc 3, xếp loại S+/S/A/B/C
-  - data_Skill.md — 21 Tất Sát phổ thông + 40+ Tất Sát độc quyền + Võ Tướng Kỹ
-  - data_VuKhi_Do.md — Tọa kỵ, thần binh, sách và vật phẩm quan trọng
-- **Cập nhật wikiSG7.md:** Thêm Sources, bảng links đến 5 file data, Phần 8 Cheat Codes hoàn chỉnh.
-- **Trạng thái:** ✅ DONE — Không còn hạng mục tồn đọng.
-
-
-## 2026-08-06: Hoàn thiện Wiki SG7 - Phase 3 & Phase 4 (Vũ khí, Mẹo & Sự kiện)
-- **Vấn đề:** Các thông tin về mốc thành thạo vũ khí, hệ thống rèn, thần binh, cũng như mẹo cày cuốc kinh nghiệm/tiền, và các điểm bí mật chưa được tập hợp.
-- **Giải pháp:**
-  1. Cập nhật Phần 5 (Vũ khí & Rèn đồ): Bổ sung các mốc thành thạo 5 loại vũ khí (Kiếm, Quạt, Đao, Thương, Cung), điều kiện đạt Tất sát đặc biệt (Diệt Tuyệt, Vương Giả Chi Phong). Tổng hợp Thần binh và hướng dẫn ép đồ.
-  2. Cập nhật Phần 7 (Mẹo Cày Cuốc & Sự kiện): Cung cấp các thủ thuật kiếm Vàng/EXP cực kỳ hiệu quả bằng cách đánh Thần Tiên, tận dụng Bát Môn Độn Giáp, Tụ Bảo Động, và cách lấy Thú cưỡi Kỳ Lân / Tứ Linh.
-  3. Cập nhật 	ask.md, toàn bộ dự án nâng cấp Wiki SG7 đã hoàn tất!
-
-
-## 2026-08-06: Triển khai Wiki SG7 - Phase 2 (Tướng, Thông số ẩn & Kỹ năng)
-- **Vấn đề:** Khối lượng dữ liệu tướng rất lớn (hơn 130 tướng nổi bật), toàn bộ bằng tiếng Trung, cần Việt hóa và tổ chức lại. Hệ thống kỹ năng và chức quan chưa được ghi chép rõ ràng.
-- **Giải pháp:**
-  1. Xây dựng Script Python với bộ từ điển Việt hóa tên hơn 130 danh tướng (Lưu Bị, Tào Tháo, Tôn Quyền, Lữ Bố...) cùng các đặc tính ẩn (Tinh võ, Hồi kỹ, Tháo chiêu, v.v.).
-  2. Xử lý và chuyển đổi toàn bộ data thô trong Phụ lục thành Bảng Chỉ số Tướng rõ ràng ở Phần 4.
-  3. Bổ sung kiến thức về Hệ thống Chức Quan vào Phần 2, bao gồm danh sách các Chức quan đặc quyền (Bậc 14, Bậc 15) của các danh tướng và Võ Tướng Kỹ độc quyền mà chúng mang lại (VD: Hoàng Long Thiên Tường, Ma Vương Hàng Lâm).
-  4. Cập nhật 	ask.md đánh dấu hoàn thành Phase 2.
-
-
-## 2026-08-06: Triển khai Wiki SG7 - Phase 1 (Binh Chủng & Tình Nghĩa Kỹ)
-- **Vấn đề:** Người dùng yêu cầu bổ sung toàn bộ dữ liệu còn thiếu vào file wikiSG7.md bao gồm thông số lính, danh sách kỹ năng, tình nghĩa kỹ, v.v.
-- **Giải pháp:**
-  1. Cấu trúc lại file wikiSG7.md thành 7 Phần rõ ràng, thay đổi Mục lục.
-  2. Bổ sung bảng Đánh giá lực công thủ lính (Binh chủng tương khắc) vào Phần 1.
-  3. Bổ sung bảng chi tiết Toàn bộ Tình Nghĩa Kỹ (Combo skills) kèm giải thích hiệu ứng thực chiến vào Phần 3.
-  4. Cập nhật 	ask.md đánh dấu hoàn thành một phần Phase 1. Đang chờ duyệt để tiến hành Phase 2 (Tướng & Kỹ năng).
-
-
-## 2026-08-05: Hoàn thiện Phần 2, 3, 4, 5 cho Wiki SG7
-- **Vấn đề:** Các phần Tình Nghĩa Kỹ, Thần Binh, Rèn Đồ, Build Đội Hình chỉ mới là dàn ý.
-- **Giải pháp:**
-  1. **Phần 2 (Tình Nghĩa Kỹ):** Lên khung cấu trúc chuẩn (Tướng yêu cầu, Uy lực, Hiệu ứng). Cung cấp một số ví dụ mẫu nổi tiếng (Nhân Nghĩa Tề Thiên, Thần Quỷ Cộng Phẫn).
-  2. **Phần 3 & 4 (Thần Binh & Rèn Đồ):** Chuyển hóa toàn bộ dữ liệu thô (Công thức rèn, vật phẩm ẩn, nơi nhặt) từ Phụ lục lên các Bảng tra cứu trực quan. Nổi bật các vũ khí cuối như Thái A, Thần Quỷ Phương Thiên Kích.
-  3. **Phần 5 (Đội hình):** Dựa vào bài phân tích thực chiến, phân rã hướng dẫn thành 3 trường phái rõ rệt: Đơn đấu (Vạn Nhân Địch), Hỏa Công (Quân sư) và Đội hình binh chủng cuối game (Thần Kiếm + Dực Cung).
-  4. Tuân thủ tuyệt đối quy tắc báo cáo sự thật, các ô không có data nội bộ tiếp tục để [Chưa có data gốc].
-
-## 2026-08-05: Cải tổ cấu trúc Wiki SG7 (wikiSG7.md)
-- **Vấn đề:** File Wiki cũ (wikiSG7.md) lộn xộn, trộn lẫn số liệu quân lính, trang bị và kỹ năng vào chung một luồng, chưa có format chuẩn cho Database Võ Tướng Kỹ.
-- **Giải pháp:** 
-  1. Quy hoạch lại toàn bộ cấu trúc file thành 5 phần chính: P1 (Võ Tướng Kỹ), P2 (Tình Nghĩa Kỹ), P3 (Vũ khí/Thần binh), P4 (Rèn đồ), P5 (Build đội hình).
-  2. Tại Phần 1, thiết lập chuẩn Hồ sơ Võ Tướng Kỹ gồm 16 tiêu chí (Bao gồm 13 tiêu chí gốc + bổ sung: Loại sát thương, Đối tượng hiệu quả, Địa hình).
-  3. Áp dụng nguyên tắc Không Bịa Số Liệu: Những chỉ số (như ID, Uy lực, Mana) chưa có trong nguồn công khai sẽ được đánh dấu rõ là [Chưa có data gốc].
-  4. Bảo lưu toàn bộ dữ liệu thô (Bảng quân lính, ID võ tướng) xuống cuối file dưới mục Phụ Lục để không mất mát thông tin.
 
 ## 2026-08-05: Sửa lỗi UI bị che khuất vùng Log ở tab Tạo Roadmap
 - **Vấn đề:** Giao diện tab "Tạo Roadmap" bị lỗi hiển thị. Khi màn hình/cửa sổ không đủ chiều dọc, hộp văn bản "Tiến trình chạy" (Log) bị đẩy văng ra ngoài không thể nhìn thấy, do phần "Dàn ý Kỹ thuật" chiếm hết chỗ.
