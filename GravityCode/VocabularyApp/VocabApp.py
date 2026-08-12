@@ -259,59 +259,152 @@ class PreviewDialog(ctk.CTkToplevel):
 def run_webview_practice(word):
     import tempfile
     
-    html = f"""
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="utf-8">
-        <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
-        <style>
-            body {{ font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; background-color: #1e1e1e; color: white; }}
-            #target {{ width: 250px; height: 250px; background-color: white; border-radius: 10px; }}
-            .controls {{ margin-top: 20px; display: flex; gap: 10px; }}
-            button {{ padding: 10px 20px; font-size: 16px; cursor: pointer; border:none; border-radius: 5px; background-color: #383838; color: white; }}
-            button:hover {{ background-color: #bb86fc; color: black; }}
-        </style>
-    </head>
-    <body>
-        <h2 style="color: #bb86fc;">Luyện viết</h2>
-        <div id="target"></div>
-        <div class="controls">
-            <button id="btn-prev">⬅️</button>
-            <span id="indicator" style="line-height: 40px; font-weight: bold;">1/1</span>
-            <button id="btn-next">➡️</button>
-        </div>
-        <p style="color: #a0a0a0; font-size: 13px; margin-top: 15px;">Hãy vẽ đè lên chữ mờ theo đúng thứ tự nét.</p>
-        <script>
-            const chars = "{word}".replace(/\\s+/g, '').split('');
-            if (chars.length === 0) {{
-                document.getElementById('target').innerHTML = "<p style='color:black;text-align:center;margin-top:100px;font-weight:bold;'>Từ vựng trống!</p>";
-            }} else {{
-                let idx = 0;
-                let writer = null;
-                function render() {{
-                    document.getElementById('target').innerHTML = "";
-                    document.getElementById('indicator').textContent = (idx+1) + "/" + chars.length;
-                    let char = chars[idx];
-                    HanziWriter.loadCharacterData(char).then(function(charData) {{
-                        writer = HanziWriter.create('target', char, {{
-                            width: 250, height: 250, padding: 5, strokeAnimationSpeed: 1, delayBetweenStrokes: 50,
-                            showOutline: true, showCharacter: false, outlineColor: '#e0e0e0', drawingColor: '#333333', drawingWidth: 15
-                        }});
-                        writer.quiz();
-                    }}).catch(function(error) {{
-                        document.getElementById('target').innerHTML = "<p style='color:black;text-align:center;margin-top:80px;font-weight:bold;font-size:18px;'>Ký tự <span style='font-size:30px;color:#d97706;'>" + char + "</span><br><br>Không được hệ thống<br>hỗ trợ chấm điểm!</p>";
-                        writer = null;
-                    }});
-                }}
-                document.getElementById('btn-prev').onclick = () => {{ if(idx > 0) {{ idx--; if(writer) writer.cancelQuiz(); render(); }} }};
-                document.getElementById('btn-next').onclick = () => {{ if(idx < chars.length-1) {{ idx++; if(writer) writer.cancelQuiz(); render(); }} }};
-                render();
-            }}
-        </script>
-    </body>
-    </html>
-    """
+    html = f"""<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Luyện viết</title>
+    <style>
+        * {{ box-sizing: border-box; margin: 0; padding: 0; }}
+        body {{ font-family: sans-serif; background: #1e1e1e; color: #fff;
+               display: flex; flex-direction: column; align-items: center;
+               padding: 20px 15px; min-height: 100vh; }}
+        h2 {{ color: #bb86fc; margin-bottom: 10px; font-size: 1.3rem; }}
+        .practice-wrap {{ position: relative; width: 280px; height: 280px;
+            border-radius: 12px; overflow: hidden; box-shadow: 0 2px 14px rgba(0,0,0,.5);
+            cursor: crosshair; }}
+        .practice-wrap canvas {{ position: absolute; top: 0; left: 0; }}
+        #bg-c  {{ z-index: 1; }}
+        #draw-c {{ z-index: 2; }}
+        .controls {{ display: flex; gap: 10px; align-items: center;
+                    flex-wrap: wrap; justify-content: center; margin-top: 14px; }}
+        button {{ padding: 9px 16px; font-size: 15px; cursor: pointer; border: none;
+                 border-radius: 6px; background: #383838; color: #fff; }}
+        button:hover {{ background: #bb86fc; color: #111; }}
+        #btn-score {{ background: #03dac6; color: #111; font-weight: bold; }}
+        .score-ring {{ width: 100px; height: 100px; border-radius: 50%;
+            border: 6px solid #bb86fc; display: none; align-items: center;
+            justify-content: center; margin: 14px auto 4px;
+            font-size: 1.6rem; font-weight: bold; color: #bb86fc;
+            transition: border-color .4s, color .4s; }}
+        #score-msg {{ text-align: center; font-size: .9rem; color: #a0a0a0;
+                     margin-bottom: 6px; }}
+        #indicator {{ font-weight: bold; min-width: 42px; text-align: center; }}
+        .hint {{ font-size: .8rem; color: #888; margin-top: 10px; text-align: center; }}
+    </style>
+</head>
+<body>
+    <h2>✏️ Luyện viết — Có chấm điểm</h2>
+    <div class="practice-wrap">
+        <canvas id="ref-c" width="280" height="280" style="display:none;"></canvas>
+        <canvas id="bg-c"  width="280" height="280"></canvas>
+        <canvas id="draw-c" width="280" height="280"></canvas>
+    </div>
+    <div class="controls">
+        <button id="btn-prev">⬅️</button>
+        <span id="indicator">1/1</span>
+        <button id="btn-next">➡️</button>
+        <button id="btn-clear">🗑️ Xóa</button>
+    </div>
+    <div class="score-ring" id="score-ring"><span id="sv">0%</span></div>
+    <p id="score-msg"></p>
+    <div class="controls" style="margin-top:10px;">
+        <button id="btn-score">⭐ Chấm điểm</button>
+    </div>
+    <p class="hint">Vẽ đè lên chữ mờ rồi nhấn ⭐ Chấm điểm</p>
+    <script>
+    const chars = "{word}".replace(/\\s+/g,'').split('').filter(c=>c.trim()!=='');
+    let idx = 0;
+    const W = 280, H = 280;
+    const refC  = document.getElementById('ref-c');
+    const bgC   = document.getElementById('bg-c');
+    const drawC = document.getElementById('draw-c');
+    const rCtx  = refC.getContext('2d', {{willReadFrequently:true}});
+    const bCtx  = bgC.getContext('2d');
+    const dCtx  = drawC.getContext('2d', {{willReadFrequently:true}});
+    let drawing = false, lx=0, ly=0;
+
+    function render() {{
+        if (!chars.length) return;
+        document.getElementById('indicator').textContent = (idx+1)+'/'+chars.length;
+        document.getElementById('score-ring').style.display = 'none';
+        document.getElementById('score-msg').textContent = '';
+        const ch = chars[idx];
+        // Reference canvas
+        rCtx.clearRect(0,0,W,H); rCtx.fillStyle='white'; rCtx.fillRect(0,0,W,H);
+        rCtx.save(); rCtx.fillStyle='black'; rCtx.shadowColor='black'; rCtx.shadowBlur=6;
+        const fs = Math.floor(W*0.72);
+        rCtx.font='normal '+fs+'px "Noto Sans","MS Gothic","Meiryo","Arial Unicode MS",sans-serif';
+        rCtx.textAlign='center'; rCtx.textBaseline='middle'; rCtx.fillText(ch,W/2,H/2);
+        rCtx.restore();
+        // BG canvas (faint)
+        bCtx.clearRect(0,0,W,H); bCtx.fillStyle='white'; bCtx.fillRect(0,0,W,H);
+        bCtx.globalAlpha=0.10; bCtx.drawImage(refC,0,0); bCtx.globalAlpha=1;
+        // Clear draw
+        dCtx.clearRect(0,0,W,H);
+    }}
+    render();
+
+    function score() {{
+        const rd=rCtx.getImageData(0,0,W,H).data, dd=dCtx.getImageData(0,0,W,H).data;
+        let rp=0,up=0,ol=0;
+        for(let i=0;i<W*H;i++){{
+            const x=i*4;
+            if(rd[x]+rd[x+1]+rd[x+2]<450) rp++;
+            if(dd[x+3]>30) up++;
+            if(rd[x]+rd[x+1]+rd[x+2]<450 && dd[x+3]>30) ol++;
+        }}
+        if(!rp||!up) return 0;
+        const rec=ol/rp, pre=ol/up;
+        if(rec+pre===0) return 0;
+        return Math.round(2*rec*pre/(rec+pre)*100);
+    }}
+
+    document.getElementById('btn-score').onclick=()=>{{
+        const s=score();
+        const ring=document.getElementById('score-ring');
+        const sv=document.getElementById('sv');
+        const sm=document.getElementById('score-msg');
+        sv.textContent=s+'%';
+        let c,msg;
+        if(s>=85){{c='#03dac6';msg='🌟 Xuất sắc! Chữ rất chuẩn!';}}
+        else if(s>=70){{c='#bb86fc';msg='✅ Tốt! Cần luyện thêm một chút.';}}
+        else if(s>=50){{c='#ffb300';msg='👍 Khá ổn! Hãy thử lại nhé.';}}
+        else{{c='#cf6679';msg='💪 Hãy luyện thêm! Thử lại nào.';}}
+        ring.style.borderColor=c; sv.style.color=c;
+        ring.style.display='flex'; sm.textContent=msg;
+    }};
+    document.getElementById('btn-clear').onclick=()=>{{
+        dCtx.clearRect(0,0,W,H);
+        document.getElementById('score-ring').style.display='none';
+        document.getElementById('score-msg').textContent='';
+    }};
+    document.getElementById('btn-prev').onclick=()=>{{ if(idx>0){{idx--;render();}} }};
+    document.getElementById('btn-next').onclick=()=>{{ if(idx<chars.length-1){{idx++;render();}} }};
+
+    function getPos(e){{
+        const r=drawC.getBoundingClientRect();
+        const sx=W/r.width, sy=H/r.height;
+        const src=e.touches?e.touches[0]:e;
+        return {{x:(src.clientX-r.left)*sx, y:(src.clientY-r.top)*sy}};
+    }}
+    function stroke(x,y){{
+        dCtx.beginPath(); dCtx.moveTo(lx,ly); dCtx.lineTo(x,y);
+        dCtx.strokeStyle='#1a1a2e'; dCtx.lineWidth=20;
+        dCtx.lineCap='round'; dCtx.lineJoin='round'; dCtx.stroke();
+        lx=x; ly=y;
+    }}
+    drawC.addEventListener('mousedown',e=>{{drawing=true;const p=getPos(e);lx=p.x;ly=p.y;}});
+    drawC.addEventListener('mousemove',e=>{{if(!drawing)return;const p=getPos(e);stroke(p.x,p.y);}});
+    drawC.addEventListener('mouseup',()=>drawing=false);
+    drawC.addEventListener('mouseout',()=>drawing=false);
+    drawC.addEventListener('touchstart',e=>{{e.preventDefault();drawing=true;const p=getPos(e);lx=p.x;ly=p.y;}},{{passive:false}});
+    drawC.addEventListener('touchmove',e=>{{e.preventDefault();if(!drawing)return;const p=getPos(e);stroke(p.x,p.y);}},{{passive:false}});
+    drawC.addEventListener('touchend',()=>drawing=false);
+    </script>
+</body>
+</html>"""
     
     script_py = f"""
 import webview
@@ -381,7 +474,7 @@ class CanvasPracticeDialog(ctk.CTkToplevel):
         self.last_y = event.y
         
     def draw(self, event):
-        self.canvas.create_line(self.last_x, self.last_y, event.x, event.y, fill="#333333", width=8, capstyle=tk.ROUND, smooth=True)
+        self.canvas.create_line(self.last_x, self.last_y, event.x, event.y, fill="#333333", width=20, capstyle=tk.ROUND, smooth=True)
         self.last_x = event.x
         self.last_y = event.y
         
@@ -389,7 +482,7 @@ class CanvasPracticeDialog(ctk.CTkToplevel):
         self.canvas.delete("all")
         if self._chars:
             char = self._chars[self._idx]
-            self.canvas.create_text(150, 150, text=char, font=("Arial", 200, "bold"), fill="#e0e0e0")
+            self.canvas.create_text(150, 150, text=char, font=("Arial", 200, "normal"), fill="#e0e0e0")
 
 class PracticeChoiceDialog(ctk.CTkToplevel):
     def __init__(self, parent, word):

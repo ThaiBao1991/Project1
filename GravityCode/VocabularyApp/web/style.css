@@ -58,9 +58,31 @@ select:focus, input:focus {
     border-color: var(--accent);
 }
 
-.search-bar input {
+.search-wrapper {
+    position: relative;
     width: 100%;
     margin-bottom: 10px;
+}
+
+.search-wrapper input {
+    width: 100%;
+    padding-right: 30px; /* space for clear button */
+}
+
+.clear-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 20px;
+    cursor: pointer;
+    line-height: 1;
+    font-weight: bold;
+}
+
+.clear-btn:hover {
+    color: var(--text-main);
 }
 
 .filters {
@@ -120,11 +142,13 @@ main {
     padding: 15px;
     margin-bottom: 15px;
     border: 1px solid var(--border);
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 
 .vocab-item:hover {
     border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 .vocab-header {
@@ -166,24 +190,40 @@ main {
     color: var(--text-main);
 }
 
-/* Ví dụ — có scroll nếu quá dài */
+/* Ví dụ — Smooth Accordion */
 .vocab-example {
     background-color: var(--card-bg-alt);
-    padding: 12px 15px;
     border-radius: 8px;
+    border-left: 3px solid var(--accent);
+    
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0 15px;
+    margin-top: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease, margin 0.3s ease;
+}
+
+.vocab-example.expanded {
+    max-height: 400px;
+    opacity: 1;
+    padding: 12px 15px;
+    margin-top: 8px;
+}
+
+.vocab-example-content {
     font-size: 0.88rem;
     font-family: Consolas, "Courier New", monospace;
     word-break: break-word;
     line-height: 1.7;
     max-height: 280px;
     overflow-y: auto;
-    border-left: 3px solid var(--accent);
 }
 
-.vocab-example::-webkit-scrollbar {
+.vocab-example-content::-webkit-scrollbar {
     width: 5px;
 }
-.vocab-example::-webkit-scrollbar-thumb {
+.vocab-example-content::-webkit-scrollbar-thumb {
     background: var(--accent);
     border-radius: 4px;
 }
@@ -347,8 +387,18 @@ main {
     color: var(--text-muted);
 }
 
+/* Action buttons bên dưới flashcard */
+.flashcard-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
 .flip-btn {
-    width: 100%;
+    flex: 1;
+    min-width: 120px;
     padding: 15px;
     background-color: var(--accent);
     color: #121212;
@@ -361,6 +411,14 @@ main {
 }
 .flip-btn:hover {
     background-color: var(--accent-hover);
+}
+
+.write-btn {
+    background-color: var(--success) !important;
+    color: #121212 !important;
+}
+.write-btn:hover {
+    opacity: 0.85;
 }
 
 .play-btn {
@@ -505,55 +563,78 @@ tr:last-child td {
     border-radius: 10px;
 }
 
-.canvas-wrapper {
+/* ── Pixel-scoring practice canvas ── */
+.practice-wrapper {
     position: relative;
-    width: 250px;
-    height: 250px;
-    margin: 20px auto;
+    width: 280px;
+    height: 280px;
+    margin: 15px auto;
     background-color: #ffffff;
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
-}
-
-.canvas-bg-text {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 150px;
-    color: #e0e0e0;
-    pointer-events: none;
-    font-family: sans-serif;
-    user-select: none;
-}
-
-#scratch-canvas {
-    position: absolute;
-    top: 0; left: 0;
-    z-index: 10;
     cursor: crosshair;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+.practice-wrapper canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#bg-canvas  { z-index: 1; }
+#draw-canvas { z-index: 2; }
+
+/* ── Score Ring ── */
+.score-ring {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: 6px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 15px auto 8px;
+    transition: border-color 0.4s;
+}
+
+#score-value {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: var(--accent);
+    transition: color 0.4s;
+}
+
+#score-msg {
+    text-align: center;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
 }
 
 .writer-controls {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px;
-    margin-top: 15px;
+    gap: 10px;
+    margin-top: 12px;
+    flex-wrap: wrap;
 }
 
 .writer-controls button {
     background-color: var(--card-bg-alt);
     color: var(--text-main);
     border: 1px solid var(--border);
-    padding: 8px 15px;
+    padding: 8px 14px;
     border-radius: 6px;
     cursor: pointer;
+    font-size: 0.9rem;
 }
 
 .writer-hint {
-    margin-top: 15px;
-    font-size: 0.9rem;
+    margin-top: 12px;
+    font-size: 0.85rem;
     color: var(--text-muted);
+    text-align: center;
 }
+
