@@ -49,6 +49,8 @@ Tạo một ứng dụng desktop quản lý từ vựng đa ngôn ngữ (Tiếng
 - [x] **Fix luyện viết:** Thêm dual charDataLoader (JP dataset → fallback CN) để hỗ trợ Hiragana/Katakana/Kanji. Fix nút "Luyện viết" không hiện trên mobile (flex-wrap). Fix CSS bị hỏng (2026-08-12).
 - [x] **Đổi phương án chấm điểm:** Bỏ HanziWriter data-dependency. Thay bằng Pixel Similarity Scoring (F1 score). Dùng browser Canvas `fillText` để render chữ mờ, so sánh pixel người vẽ vs pixel gốc → % điểm. Hỗ trợ mọi ngôn ngữ không cần dataset (2026-08-12).
 - [x] **Tối ưu Hiệu suất & UI/UX (Web):** Thêm Debounce (300ms) cho thanh tìm kiếm chống treo trình duyệt. Implement Lazy Loading (Infinite Scroll) bằng `IntersectionObserver` tối ưu render danh sách lớn. Thêm nút Xoá nhanh tìm kiếm (Clear button), Smooth Accordion cho ví dụ và Micro-animations (hover effects) cho các thẻ từ vựng (2026-08-12).
+- [x] **Hybrid TTS Fallback (Web):** Nút 🔊 Play trên Flashcard luôn hiện. Nếu từ có `mp3_gdrive_id` → phát MP3 Google Drive như cũ. Nếu không có → dùng `Web Speech API` (SpeechSynthesis) đọc TTS với locale tự động map theo ngôn ngữ (en-US / ja-JP / zh-CN...). Không cần backend, không cần API key (2026-08-13).
+- [x] **TTS Hybrid trên Desktop App:** Thêm hàm `speak_word()` dùng `gTTS + pygame` (có mạng, giọng Google) hoặc fallback `pyttsx3` (offline, Windows SAPI). Thêm nút 🔊 cạnh ô "Từ vựng" trong form Thêm/Sửa và nút **🔊 Đọc** trong action bar của List View. Thư viện tự cài qua `check_and_install_packages()` khi khởi động (2026-08-13).
 
 ---
 

@@ -256,12 +256,17 @@ function renderFlashcard() {
 
     fcCounter.textContent = `${flashcardIndex + 1} / ${filteredVocabs.length}`;
 
+    // ── Audio: MP3 nếu có, fallback Web Speech API ──
+    fcAudioBox.style.display = "block"; // luôn hiện nút phát
     if (v.mp3_gdrive_id) {
-        fcAudioBox.style.display = "block";
         fcAudio.src = `https://docs.google.com/uc?export=download&id=${v.mp3_gdrive_id}`;
+        btnPlayAudio.title = "Phát MP3 gốc";
+        btnPlayAudio.dataset.ttsMode = "mp3";
     } else {
-        fcAudioBox.style.display = "none";
         fcAudio.src = "";
+        btnPlayAudio.title = "Đọc bằng TTS (Text-to-Speech)";
+        btnPlayAudio.dataset.ttsMode = "tts";
+        btnPlayAudio.dataset.ttsWord = v.word;
     }
 }
 
@@ -287,9 +292,49 @@ document.getElementById("btn-next").addEventListener("click", () => {
     }
 });
 
+// ─── Language → SpeechSynthesis locale mapping ────────────────────────────
+function getLangCode(langName) {
+    const name = (langName || "").toLowerCase();
+    if (name.includes("anh") || name.includes("english"))   return "en-US";
+    if (name.includes("nh\u1eadt") || name.includes("japan")) return "ja-JP";
+    if (name.includes("trung") || name.includes("chin"))    return "zh-CN";
+    if (name.includes("vi\u1ec7t") || name.includes("viet"))  return "vi-VN";
+    if (name.includes("h\u00e0n") || name.includes("korea"))  return "ko-KR";
+    if (name.includes("ph\u00e1p") || name.includes("french")) return "fr-FR";
+    if (name.includes("\u0111\u1ee9c") || name.includes("german")) return "de-DE";
+    return "en-US"; // fallback
+}
+
+// ─── Web Speech API TTS ────────────────────────────────────────────────────
+function speakWord(word, langCode) {
+    if (!window.speechSynthesis) {
+        alert("Trình duyệt của bạn không hỗ trợ Text-to-Speech.");
+        return;
+    }
+    window.speechSynthesis.cancel(); // dừng nếu đang đọc
+    const utter = new SpeechSynthesisUtterance(word);
+    utter.lang = langCode;
+    utter.rate = 0.9;  // tốc độ hơi chậm, dễ nghe
+    utter.pitch = 1.0;
+
+    // Thử chọn giọng native tốt nhất cho ngôn ngữ đó
+    const voices = window.speechSynthesis.getVoices();
+    const matched = voices.find(v => v.lang === langCode && !v.name.includes("Google"));
+    const googleVoice = voices.find(v => v.lang === langCode);
+    utter.voice = matched || googleVoice || null;
+
+    window.speechSynthesis.speak(utter);
+}
+
 btnPlayAudio.addEventListener("click", (e) => {
     e.stopPropagation();
-    fcAudio.play();
+    if (btnPlayAudio.dataset.ttsMode === "tts") {
+        const word     = btnPlayAudio.dataset.ttsWord || "";
+        const langName = langSelect ? langSelect.value : "";
+        speakWord(word, getLangCode(langName));
+    } else {
+        fcAudio.play();
+    }
 });
 
 // ─── Debounce helper ──────────────────────────────────────────────────────────

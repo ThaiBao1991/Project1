@@ -38,7 +38,10 @@ REQUIRED_PACKAGES = {
     'google_auth_oauthlib': 'google-auth-oauthlib>=1.2.0',
     'googleapiclient': 'google-api-python-client>=2.118.0',
     'qrcode': 'qrcode[pil]>=7.4.2',
-    'webview': 'pywebview>=4.4.1'
+    'webview': 'pywebview>=4.4.1',
+    'pyttsx3': 'pyttsx3>=2.90',
+    'gtts': 'gTTS>=2.3.2',
+    'pygame': 'pygame>=2.5.0',
 }
 
 def check_and_install_packages():
@@ -74,6 +77,65 @@ def check_and_install_packages():
             sys.exit(1)
 
 check_and_install_packages()
+
+# ─── TTS Hybrid: gTTS (online) → fallback pyttsx3 (offline) ──────────────────
+def _get_tts_lang_code(lang_name: str) -> str:
+    """Map tên ngôn ngữ trong app → mã ngôn ngữ TTS."""
+    n = (lang_name or "").lower()
+    if any(x in n for x in ["anh", "english"]):   return "en"
+    if any(x in n for x in ["nhật", "japan"]):     return "ja"
+    if any(x in n for x in ["trung", "chin"]):     return "zh-TW"
+    if any(x in n for x in ["việt", "viet"]):      return "vi"
+    if any(x in n for x in ["hàn", "korea"]):      return "ko"
+    if any(x in n for x in ["pháp", "french"]):    return "fr"
+    if any(x in n for x in ["đức", "german"]):     return "de"
+    return "en"
+
+def speak_word(word: str, lang_name: str = ""):
+    """Đọc từ bằng TTS trên thread riêng (không block UI).
+    Thử gTTS trước (cần internet, chất lượng tốt hơn).
+    Fallback pyttsx3 nếu không có mạng hoặc gTTS lỗi.
+    """
+    if not word or not word.strip():
+        return
+    lang_code = _get_tts_lang_code(lang_name)
+
+    def _run():
+        # --- Thử gTTS (online) ---
+        try:
+            import requests as _req
+            _req.get("https://www.google.com", timeout=2)  # kiểm tra mạng nhanh
+            from gtts import gTTS
+            import pygame, io as _io, tempfile, os as _os
+            tts = gTTS(text=word.strip(), lang=lang_code, slow=False)
+            buf = _io.BytesIO()
+            tts.write_to_fp(buf)
+            buf.seek(0)
+            pygame.mixer.init()
+            pygame.mixer.music.load(buf)
+            pygame.mixer.music.play()
+            return
+        except Exception:
+            pass  # fallback xuống pyttsx3
+
+        # --- Fallback pyttsx3 (offline) ---
+        try:
+            import pyttsx3
+            engine = pyttsx3.init()
+            # Thử chọn giọng phù hợp
+            voices = engine.getProperty('voices')
+            for v in voices:
+                if lang_code in (v.languages[0].decode() if v.languages else ""):
+                    engine.setProperty('voice', v.id)
+                    break
+            engine.setProperty('rate', 150)
+            engine.say(word.strip())
+            engine.runAndWait()
+            engine.stop()
+        except Exception as ex:
+            safe_print(f"[TTS] Lỗi pyttsx3: {ex}")
+
+    threading.Thread(target=_run, daemon=True).start()
 
 import customtkinter as ctk
 
@@ -625,8 +687,15 @@ class VocabFormDialog(ctk.CTkToplevel):
             w.pack(fill="x", expand=True)
             return w
 
-        # Từ vựng & Phát âm
-        self.e_word  = field("Từ vựng *", lambda: entry(scroll, "Nhập từ vựng..."))
+        # Từ vựng & Phát âm — có nút 🔊 TTS
+        word_row = ctk.CTkFrame(scroll, fg_color="transparent")
+        word_row.pack(fill="x", pady=(10,2))
+        lbl(word_row, "Từ vựng *", 12, "bold", C["accent"], anchor="w").pack(side="left")
+        btn(word_row, "🔊", C["card2"], C["accent"], w=44, h=24,
+            cmd=lambda: speak_word(self.e_word.get().strip(), self.app.current_language)
+        ).pack(side="left", padx=(10,0))
+        self.e_word = entry(scroll, "Nhập từ vựng...")
+        self.e_word.pack(fill="x", expand=True)
         self.e_pron  = field("Phát âm / Romaji / Pinyin", lambda: entry(scroll, "Cách đọc..."))
 
         # Nghĩa — dùng Textbox nhiều dòng
@@ -1009,6 +1078,12 @@ class VocabListTab(ctk.CTkFrame):
         btn(self.action_row, "Sửa", C["warn"], "#d97706", w=90, h=36, cmd=self._edit).pack(side="left", padx=4)
         btn(self.action_row, "Xóa", C["danger"], "#b91c1c", w=90, h=36, cmd=self._delete).pack(side="left", padx=4)
         btn(self.action_row, "✏️ Luyện viết", C["success"], "#018786", w=120, h=36, cmd=self._practice_write).pack(side="left", padx=10)
+        btn(self.action_row, "🔊 Đọc", C["card2"], C["accent"], w=90, h=36,
+            cmd=lambda: speak_word(
+                self._selected.get("word", "") if self._selected else "",
+                self.app.current_language
+            )
+        ).pack(side="left", padx=4)
 
     def _on_lang_change(self, choice):
         self.app.set_language(choice)
