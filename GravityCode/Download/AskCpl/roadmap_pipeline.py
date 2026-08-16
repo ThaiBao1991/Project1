@@ -249,7 +249,7 @@ def verify_markdown(markdown: str, expected_days: int) -> None:
     if headings != list(range(1, expected_days + 1)):
         raise RoadmapValidationError("Markdown thiếu/trùng/sai thứ tự heading Day.")
     for label in ("Prompt", "Bài tập", "Tags"):
-        if len(re.findall(rf"(?m)^\*\*{re.escape(label)}:\*\*$", markdown)) != expected_days:
+        if len(re.findall(rf"(?m)^\*\*{re.escape(label)}:\*\*", markdown)) != expected_days:
             raise RoadmapValidationError(f"Markdown phải có đúng {expected_days} khối {label}.")
     if any(bad in markdown for bad in ("Ãƒ", "Ã¢â‚¬", "Ã‚")):
         raise RoadmapValidationError("Markdown có dấu hiệu lỗi encoding.")

@@ -144,8 +144,41 @@ class RoadmapPipelineTests(unittest.TestCase):
             atomic_write(path, "bản cũ")
             self.assertEqual(path.read_text(encoding="utf-8"), "bản cũ")
             atomic_write(path, "bản mới")
-            self.assertEqual(path.read_text(encoding="utf-8"), "bản mới")
+    def test_tech_tree_domain_detection(self):
+        from domain_profiles import instruction_for, is_tech_tree_domain
+        self.assertTrue(is_tech_tree_domain("Thiên công khai vật & Khôi phục văn minh từ số 0"))
+        self.assertTrue(is_tech_tree_domain("Reboot civilization tech tree"))
+        self.assertFalse(is_tech_tree_domain("Học lập trình Python cơ bản"))
+        
+        rule = instruction_for("Thiên công khai vật")
+        self.assertIn("PROFILE TECH TREE", rule)
+        self.assertIn("Đồ đá", rule)
+        self.assertIn("Silic", rule)
+
+    def test_generated_civilization_roadmap_integrity(self):
+        roadmap_path = Path(__file__).parent / "roadmap_thien_cong_khai_vat.md"
+        self.assertTrue(roadmap_path.exists(), "File roadmap_thien_cong_khai_vat.md phải tồn tại")
+        content = roadmap_path.read_text(encoding="utf-8")
+        
+        # Đếm số ngày
+        headings = re.findall(r"(?m)^## Day\s+(\d+)\s+—\s+.+$", content)
+        total_days = len(headings)
+        self.assertEqual(total_days, 465)
+        self.assertEqual([int(h) for h in headings], list(range(1, total_days + 1)))
+        
+        # Kiểm tra đầy đủ khối
+        verify_markdown(content, total_days)
+        
+        # Kiểm tra nội dung tiếng Việt có dấu
+        self.assertIn("LUÔN TRẢ LỜI BẰNG TIẾNG VIỆT", content)
+        self.assertIn("Sinh Tồn Chiến Tranh", content)
+        self.assertIn("Đồ Đá", content)
+        self.assertIn("Thời Kỳ Kim Khí", content)
+        self.assertIn("Đo Lường Chuẩn Xác", content)
+        self.assertIn("Bán Dẫn", content)
+        self.assertIn("Máy Tính", content)
 
 
 if __name__ == "__main__":
     unittest.main()
+

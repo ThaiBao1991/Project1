@@ -1,0 +1,50 @@
+[
+  {
+    "day": 103,
+    "topic_id": "hoa_che_axit_sunfuric_buong_chi_va_xut_potash_tro_thuc_vat",
+    "topic": "Hóa chế axit sunfuric buồng chì và kiềm hóa Potash từ tro thực vật",
+    "phase": "Hóa chất Nền tảng: Axit Sunfuric, Xút & Muối Diêm",
+    "kind": "extraction",
+    "estimated_minutes": 30,
+    "concrete_project": "Trích xuất 12 hóa chất và thiết bị cốt lõi: Quặng Pirit sắt FeS2, Lưu huỳnh thăng hoa S, Khí Sunfurơ SO2, Khí Nitơ Dioxit NO2, Axit Nitrosylsulfuric, Tấm chì nguyên chất Pb, Tháp Glover hấp thụ, Tháp Gay-Lussac thu hồi, Axit Sunfuric buồng chì H2SO4, Kali Cacbonat K2CO3 từ tro, Vôi tôi Canxi Hydroxit Ca(OH)2, Dung dịch Kali Hydroxit KOH kiềm ăn da.",
+    "materials": [],
+    "definition_of_done": [
+      "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+    ],
+    "details": [
+      "Trích xuất chỉ số Võ, Trí",
+      "Trích xuất năng lực ẩn"
+    ],
+    "keywords": [
+      "axit sunfuric",
+      "buồng chì",
+      "kali cacbonat",
+      "kiềm xút"
+    ],
+    "prerequisites": []
+  },
+  {
+    "day": 104,
+    "topic_id": "thuy_phan_xa_phong_hoa_chat_beo_va_ket_tinh_diem_tieu_kno3",
+    "topic": "Thủy phân xà phòng hóa chất béo và kết tinh diêm tiêu KNO3 dã chiến",
+    "phase": "Hóa chất Nền tảng: Axit Sunfuric, Xút & Muối Diêm",
+    "kind": "extraction",
+    "estimated_minutes": 30,
+    "concrete_project": "Trích xuất 12 quy trình và hợp chất trung gian: Mỡ bò tinh luyện Tallow, Dầu dừa ép nguội, Phản ứng xà phòng hóa este béo, Muối Natri Stearat xà phòng cứng, Muối Kali Oleat xà phòng mềm, Nước ót chứa Glycerin thô, Glycerol tinh khiết C3H8O3, Đống ủ Nitrat hóa hữu cơ, Vi khuẩn Nitrosomonas và Nitrobacter, Dung dịch Canxi Nitrat Ca(NO3)2 ngâm chiết, Kali Nitrat KNO3 kết tinh hình kim, Thuốc súng đen truyền thống phối chế.",
+    "materials": [],
+    "definition_of_done": [
+      "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+    ],
+    "details": [
+      "Trích xuất chỉ số Võ, Trí",
+      "Trích xuất năng lực ẩn"
+    ],
+    "keywords": [
+      "xà phòng hóa",
+      "glycerin",
+      "diêm tiêu",
+      "kali nitrat"
+    ],
+    "prerequisites": []
+  }
+]

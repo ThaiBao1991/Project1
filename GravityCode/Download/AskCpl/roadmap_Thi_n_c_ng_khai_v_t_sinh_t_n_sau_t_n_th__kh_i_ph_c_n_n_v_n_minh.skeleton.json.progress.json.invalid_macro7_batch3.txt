@@ -1,0 +1,52 @@
+[
+  {
+    "day": 101,
+    "topic_id": "cong_nghe_axit_sunfuric_buong_chi_va_kiem_hoa_tro_cui",
+    "topic": "Vận hành buồng chì hóa sunfuric và trích ly muối kiềm Potash từ tro gỗ",
+    "phase": "Hóa chất Nền tảng: Axit Sunfuric, Xút & Muối Diêm",
+    "kind": "extraction",
+    "estimated_minutes": 30,
+    "concrete_project": "Trích xuất chi tiết 16 thực thể: Quặng Pirit sắt FeS2, Lưu huỳnh thăng hoa S, Khí Lưu huỳnh dioxit SO2, Khí Nitơ dioxit NO2 xúc tác, Axit Nitrosylsulfuric, Tháp Glover thu hồi oxit nitơ, Tháp Gay-Lussac hấp thụ khí thải, Tấm chì nguyên chất lót buồng, Axit Sunfuric buồng chì 65%, Tro gỗ cứng giàu K2CO3, Nước tro kiềm Potash thô, Bể ngâm chiết rửa kiềm tro, Dung dịch Kali Cacbonat tinh khiết, Canxi Hydroxit Ca(OH)2 xút hóa, Nồi cô đặc dung dịch kiềm bằng gang, Bùn Canxi Cacbonat kết tủa",
+    "materials": [],
+    "definition_of_done": [
+      "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào",
+      "Liệt kê đầy đủ công thức hóa học, nồng độ dung dịch và điều kiện vận hành từng phản ứng"
+    ],
+    "details": [
+      "Trích xuất nguyên lý chuyển hóa khí SO2 thành SO3 qua xúc tác oxit nitơ trong buồng chì",
+      "Trích xuất kỹ thuật rửa trôi tro gỗ, lắng lọc và xút hóa Potash bằng vôi tôi"
+    ],
+    "keywords": [
+      "axit sunfuric",
+      "buồng chì",
+      "kali cacbonat",
+      "xút hóa"
+    ],
+    "prerequisites": []
+  },
+  {
+    "day": 102,
+    "topic_id": "quy_trinh_xa_phong_hoa_va_tinh_che_diem_tieu_kno3",
+    "topic": "Nấu xà phòng dã chiến tách Glycerin và tinh chế muối Diêm tiêu từ luống ủ",
+    "phase": "Hóa chất Nền tảng: Axit Sunfuric, Xút & Muối Diêm",
+    "kind": "extraction",
+    "estimated_minutes": 30,
+    "concrete_project": "Trích xuất chi tiết 16 thực thể: Mỡ bò mỡ lợn tinh luyện, Dầu dừa ép nguội, Dung dịch kiềm Kali Hydroxit KOH, Muối ăn Natri Clorua析 muối, Khối xà phòng cứng xà phòng hóa, Dung dịch Glycerin thô, Nồi nấu xà phòng bằng đồng, Rơm rạ ủ vi sinh nitrat hóa, Nước tiểu gia súc giàu Urê, Đất mùn vôi tường cổ giàu Nitrat, Dung dịch Canxi Nitrat Ca(NO3)2 ngâm chiết, Kali Cacbonat K2CO3 phối phản ứng, Tinh thể Kali Nitrat KNO3 kết tinh nguội, Nước ót chứa muối tạp chất, Khay kết tinh diêm tiêu tráng men, Giấy lọc sợi thực vật dã chiến",
+    "materials": [],
+    "definition_of_done": [
+      "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào",
+      "Liệt kê chi tiết tỷ lệ phản ứng xà phòng hóa, kỹ thuật析 muối tách glycerin và chu trình hòa tan kết tinh phân đoạn diêm tiêu"
+    ],
+    "details": [
+      "Trích xuất phản ứng este hóa thủy phân chất béo kiềm tính và thu hồi glycerin",
+      "Trích xuất quy trình ủ đống Nitrat hóa vi sinh và phản ứng trao đổi muối điều chế KNO3"
+    ],
+    "keywords": [
+      "xà phòng hóa",
+      "glycerin",
+      "nitrat hóa",
+      "diêm tiêu KNO3"
+    ],
+    "prerequisites": []
+  }
+]

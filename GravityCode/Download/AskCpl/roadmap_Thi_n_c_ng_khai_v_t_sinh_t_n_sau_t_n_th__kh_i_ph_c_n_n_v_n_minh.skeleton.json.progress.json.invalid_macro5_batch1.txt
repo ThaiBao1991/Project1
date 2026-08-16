@@ -1,0 +1,50 @@
+[
+  {
+    "day": 59,
+    "topic_id": "cong_nghe_che_bien_dam_kho_uop_muoi_say_kho_hun_khoi",
+    "topic": "Công nghệ chế biến đạm khô, ướp muối bảo quản và xông khói thịt cá dã chiến",
+    "phase": "Chế biến, Lên men & Bảo quản Lương thực Dài hạn",
+    "kind": "extraction",
+    "estimated_minutes": 30,
+    "concrete_project": "Trích xuất chi tiết 12 kỹ thuật chế biến đạm dài hạn: Ướp muối hạt thô Dry-curing, Ngâm nước muối bão hòa Brining, Xông khói lạnh mùn cưa gỗ sồi, Hun khói nóng diệt khuẩn, Thịt sấy gió Biltong Nam Phi, Thịt khô Pemmican mỡ bò, Cá tuyết khô muối Bacalhau, Sấy thăng hoa tuyết tự nhiên Chuño, Thịt hộp dầm mỡ Confit, Lạp xưởng lên men phơi sương, Chà bông sao khô hạ ẩm, Bột đạm cá sấy khô nghiền mịn.",
+    "materials": [],
+    "definition_of_done": [
+      "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+    ],
+    "details": [
+      "Trích xuất thông số nồng độ muối, nhiệt độ khói và thời gian bảo quản",
+      "Trích xuất yêu cầu kỹ thuật ngăn ngừa vi khuẩn Clostridium botulinum"
+    ],
+    "keywords": [
+      "ướp muối khô",
+      "hun khói lạnh",
+      "pemmican",
+      "sấy thăng hoa"
+    ],
+    "prerequisites": []
+  },
+  {
+    "day": 60,
+    "topic_id": "ky_thuat_len_men_chiet_dau_beo_va_kho_silo_khang_nam_moc",
+    "topic": "Kỹ thuật lên men thực phẩm, trích ép dầu béo và bảo vệ kho thóc chống nấm mốc",
+    "phase": "Chế biến, Lên men & Bảo quản Lương thực Dài hạn",
+    "kind": "extraction",
+    "estimated_minutes": 30,
+    "concrete_project": "Trích xuất chi tiết 13 giải pháp lên men, ép dầu và bảo quản hạt: Muối chua bắp cải Sauerkraut, Muối dưa Kimchi truyền thống, Ủ tương hạt Koji Aspergillus oryzae, Giấm táo lên men acetic Acetobacter, Tương nén Tempeh lên men nấm Rhizopus, Rượu nếp cao độ sát trùng, Ép dầu lạc chày gỗ nêm chêm, Ép dầu mè trục xoắn cơ học, Lắng lọc và khử chua dầu thô, Bồ thóc đan tre trát bùn vôi, Kho Silo kín xông khí CO2 kỵ khí, Đệm lót tro trấu hút ẩm đáy bồ, Bột lá xoan chống mọt ngô tự nhiên.",
+    "materials": [],
+    "definition_of_done": [
+      "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+    ],
+    "details": [
+      "Trích xuất quy trình kiểm soát pH, độ ẩm và thông khí kho",
+      "Trích xuất kỹ thuật ép trích ly dầu thực vật và bảo quản chống ôi thiu"
+    ],
+    "keywords": [
+      "lên men lactic",
+      "ép dầu lạc",
+      "kho bồ cách ẩm",
+      "chống mốc mọt"
+    ],
+    "prerequisites": []
+  }
+]

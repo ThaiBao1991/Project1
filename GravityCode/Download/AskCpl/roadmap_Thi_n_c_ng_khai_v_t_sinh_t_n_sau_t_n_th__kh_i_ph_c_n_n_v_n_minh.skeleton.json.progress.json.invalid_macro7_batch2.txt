@@ -1,0 +1,122 @@
+[
+  {
+    "day": 96,
+    "topic_id": "che_tao_axit_sunfuric_buong_chi_va_thieu_ket_pirit",
+    "topic": "Sản xuất Axit Sunfuric quy trình buồng chì và thiêu kết quặng Pirit",
+    "phase": "Hóa chất Nền tảng: Axit Sunfuric, Xút & Muối Diêm",
+    "kind": "extraction",
+    "estimated_minutes": 30,
+    "concrete_project": "Quặng Pirit sắt FeS2, Lưu huỳnh nguyên tố S, Khí Lưu huỳnh dioxit SO2, Khí Nitơ dioxit NO2, Axit Nitric HNO3 mồi, Tháp Glover thu hồi khí, Tháp Gay-Lussac hấp thụ oxit nitơ, Buồng phản ứng lót chì Lead Chamber, Khí Sunfuro SO3 ngậm nước, Axit Sunfuric buồng chì H2SO4 65%, Axit Sunfuric đậm đặc 78%, Hệ thống béc phun sương hơi nước, Bể lắng cặn sunfat chì, Ống dẫn gốm chịu axit, Cát thạch anh lọc axit",
+    "materials": [],
+    "definition_of_done": [
+      "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+    ],
+    "details": [
+      "Trích xuất chỉ số Võ, Trí",
+      "Trích xuất năng lực ẩn"
+    ],
+    "keywords": [
+      "axit sunfuric",
+      "buồng chì",
+      "quặng pirit",
+      "hóa chất nền tảng"
+    ],
+    "prerequisites": []
+  },
+  {
+    "day": 97,
+    "topic_id": "chiet_xuat_kali_cacbonat_tro_thuc_vat_va_kiem_hoa",
+    "topic": "Chiết xuất Kali Cacbonat từ tro củi và điều chế dung dịch kiềm xút",
+    "phase": "Hóa chất Nền tảng: Axit Sunfuric, Xút & Muối Diêm",
+    "kind": "extraction",
+    "estimated_minutes": 30,
+    "concrete_project": "Tro củi gỗ cứng giàu kali, Tro rong biển bẹ giàu natri, Thùng ngâm chiết kiềm đáy vát, Nước tro lọc Lye thô, Kali cacbonat K2CO3, Natri cacbonat Na2CO3, Vôi tôi tôi nóng Ca(OH)2 xút hóa, Dung dịch Kali Hydroxit KOH dã chiến, Dung dịch Natri Hydroxit NaOH kiềm hóa, Chất chỉ thị màu bắp cải tím, Nồi cô đặc đáy gang, Muối Potash kết tinh thô, Bể lắng cặn bùn vôi CaCO3, Bình gốm tráng men chịu kiềm, Tỷ trọng kế trứng gà đo độ kiềm",
+    "materials": [],
+    "definition_of_done": [
+      "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+    ],
+    "details": [
+      "Trích xuất chỉ số Võ, Trí",
+      "Trích xuất năng lực ẩn"
+    ],
+    "keywords": [
+      "kali cacbonat",
+      "xút ăn da",
+      "tro củi",
+      "nước tro lye"
+    ],
+    "prerequisites": []
+  },
+  {
+    "day": 98,
+    "topic_id": "xa_phong_hoa_chat_beo_va_tach_chiet_glycerin",
+    "topic": "Phản ứng xà phòng hóa mỡ động vật và thu hồi Glycerin nguyên chất",
+    "phase": "Hóa chất Nền tảng: Axit Sunfuric, Xút & Muối Diêm",
+    "kind": "extraction",
+    "estimated_minutes": 30,
+    "concrete_project": "Mỡ lợn tinh chế Tallow, Mỡ bò nấu sạch tạp chất, Dầu dừa ép thô giàu axit lauric, Dung dịch xút chuẩn độ NaOH, Nước kiềm tro mềm KOH, Muối ăn NaCl tạo hạt析 xuất xà phòng Salting-out, Bánh xà phòng cứng đóng khối, Xà phòng lỏng kali bôi trơn, Nước cái chứa dung dịch Glycerin, Cồn chưng cất tách tạp chất béo, Than hoạt tính tẩy màu khử mùi, Tinh dầu thông kháng khuẩn, Khuôn ép xà phòng gỗ lót vải lanh, Nồi đun cách thủy gia nhiệt xà phòng hóa, Glycerin tinh khiết 95%",
+    "materials": [],
+    "definition_of_done": [
+      "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+    ],
+    "details": [
+      "Trích xuất chỉ số Võ, Trí",
+      "Trích xuất năng lực ẩn"
+    ],
+    "keywords": [
+      "xà phòng hóa",
+      "glycerin",
+      "mỡ động vật",
+      "tách muối"
+    ],
+    "prerequisites": []
+  },
+  {
+    "day": 99,
+    "topic_id": "khai_thac_u_sinh_hoc_va_tinh_luyen_diem_tieu_kno3",
+    "topic": "Kỹ thuật ủ đống Nitrat hóa và tinh luyện Diêm tiêu Kali Nitrat",
+    "phase": "Hóa chất Nền tảng: Axit Sunfuric, Xút & Muối Diêm",
+    "kind": "extraction",
+    "estimated_minutes": 30,
+    "concrete_project": "Đống ủ Nitary Bed phân chuồng rơm rạ, Nước tiểu hoai mục giàu amoniac, Bột đá vôi CaCO3 đệm bazơ, Chủng vi khuẩn Nitrosomonas hóa amoniac, Chủng vi khuẩn Nitrobacter sinh nitrat, Đất mùn chứa Canxi Nitrat Ca(NO3)2, Tro củi chứa K2CO3 hoán vị ion, Dung dịch muối Diêm Kali Nitrat KNO3 thô, Nồi kết tinh phân đoạn nhiệt độ, Tinh thể Diêm tiêu hình kim trắng, Bùn cặn Canxi Cacbonat lắng đáy, Vải lọc ép tinh thể muối diêm, Sàn phơi sấy muối diêm khô ráo, Hũ sành làm kín chống hút ẩm, Phép thử ngọn lửa tím đặc trưng Kali",
+    "materials": [],
+    "definition_of_done": [
+      "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+    ],
+    "details": [
+      "Trích xuất chỉ số Võ, Trí",
+      "Trích xuất năng lực ẩn"
+    ],
+    "keywords": [
+      "diêm tiêu",
+      "kali nitrat",
+      "đống ủ nitrat",
+      "kết tinh"
+    ],
+    "prerequisites": []
+  },
+  {
+    "day": 100,
+    "topic_id": "tong_hop_axit_nitric_va_chuoi_hoa_chat_dan_xuat_da_chien",
+    "topic": "Chưng cất Axit Nitric từ diêm tiêu và tổng hợp hóa chất dẫn xuất",
+    "phase": "Hóa chất Nền tảng: Axit Sunfuric, Xút & Muối Diêm",
+    "kind": "extraction",
+    "estimated_minutes": 30,
+    "concrete_project": "Diêm tiêu tinh luyện KNO3, Axit Sunfuric đậm đặc H2SO4, Bình cổ cong chưng cất Retort thủy tinh, Ống ngưng tụ làm mát bằng nước lạnh, Axit Nitric bốc khói đỏ HNO3, Hỗn hợp Nước cường toan Aqua Regia phân kim, Axit Clohydric HCl tổng hợp từ muối hạt và H2SO4, Muối Phèn chua KAl(SO4)2 lắng nước, Bột Lưu huỳnh hoa tinh chế nghiền mịn, Bột than gỗ liễu nghiền mịn sấy khô, Hỗn hợp thuốc nổ đen Black Powder tỷ lệ 75-15-10, Bình gốm tráng men nút kín sáp ong, Bẫy kiềm trung hòa khí NOx độc hại, Cân tiểu ly đòn bẩy độ nhạy cao, Giấy lọc tẩm hóa chất chống ẩm",
+    "materials": [],
+    "definition_of_done": [
+      "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+    ],
+    "details": [
+      "Trích xuất chỉ số Võ, Trí",
+      "Trích xuất năng lực ẩn"
+    ],
+    "keywords": [
+      "axit nitric",
+      "thuốc súng đen",
+      "nước cường toan",
+      "chưng cất hóa chất"
+    ],
+    "prerequisites": []
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "day": 94,
+    "topic_id": "phan_dinh_quang_thach_sat_dong_va_tuyen_loc_hop_kim_phe_thai",
+    "topic": "Phân định khoáng thạch sắt đồng và tuyển lọc hợp kim phế thải tàn tích",
+    "phase": "Thu gom Phế tích, Khai khoáng & Luyện kim Rèn đúc",
+    "kind": "extraction",
+    "estimated_minutes": 30,
+    "concrete_project": "Trích xuất chi tiết đặc tính nhận diện, thử vệt màu, tỷ trọng và độ từ tính của: Quặng sắt Magnetit, Quặng sắt Hematit, Quặng sắt Limonit, Quặng sắt Siderit, Quặng đồng Chalcopyrit, Quặng đồng Malachit, Quặng đồng Azurit, Quặng đồng Cuprit, Quặng đồng Bornit, Đồng thau phế liệu, Đồng thanh phế liệu, Thép hợp kim nhíp xe phế tích, Thép lò xo đàn hồi, Thép gió cắt gọt HSS, Hợp kim nhôm đúc Duralumin, Hợp kim kẽm kẹp Zamak",
+    "materials": [],
+    "definition_of_done": [
+      "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+    ],
+    "details": [
+      "Trích xuất chỉ số Võ, Trí",
+      "Trích xuất năng lực ẩn"
+    ],
+    "keywords": [
+      "quặng sắt đồng",
+      "hợp kim phế liệu",
+      "nhận diện quặng",
+      "thử từ tính"
+    ],
+    "prerequisites": []
+  },
+  {
+    "day": 95,
+    "topic_id": "che_tao_lo_cao_luyen_gang_tho_ky_thuat_toi_ram_thep_va_khuon_cat_chay",
+    "topic": "Chế tạo lò cao luyện gang thô, kỹ thuật tôi ram thép và khuôn cát cháy",
+    "phase": "Thu gom Phế tích, Khai khoáng & Luyện kim Rèn đúc",
+    "kind": "extraction",
+    "estimated_minutes": 30,
+    "concrete_project": "Trích xuất chi tiết thông số xây lò, nhiệt độ xử lý nhiệt và phương pháp đúc khuôn của: Lò cao mini dã chiến, Ống thổi gió Tuyere chịu nhiệt, Cửa tháo gang lỏng, Xỉ lò cao Silicat Canxi, Thỏi gang xám đúc thô, Thép carbon rèn dập, Quy trình tôi nước mặn hạ nhiệt nhanh, Quy trình tôi dầu thực vật, Phương pháp ủ mềm khử ứng suất, Quy trình ram nhiệt thấp chống giòn, Quy trình ram nhiệt cao tăng dẻo dai, Hỗn hợp cát đúc Bentonite, Hỗn hợp cát thủy tinh lỏng CO2, Ruột khuôn đúc cát cháy, Hòm khuôn đúc gỗ ép hai nửa, Hệ thống đậu ngót và rãnh rót gang lỏng",
+    "materials": [],
+    "definition_of_done": [
+      "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+    ],
+    "details": [
+      "Trích xuất chỉ số Võ, Trí",
+      "Trích xuất năng lực ẩn"
+    ],
+    "keywords": [
+      "lò cao luyện gang",
+      "tôi ram thép carbon",
+      "khuôn cát đúc",
+      "rãnh rót kim loại"
+    ],
+    "prerequisites": []
+  }
+]

@@ -1,0 +1,56 @@
+[
+  {
+    "day": 78,
+    "topic_id": "nhan_dien_quang_mo_phan_loai_phe_lieu_kim_loai",
+    "topic": "Khảo sát nhận diện quặng sắt đồng và phân loại kim loại phế tích đô thị",
+    "phase": "Thu gom Phế tích, Khai khoáng & Luyện kim Rèn đúc",
+    "kind": "extraction",
+    "estimated_minutes": 30,
+    "concrete_project": "Trích xuất đặc tính nhận diện 14 loại quặng và phế kim loại: Quặng Magnetite từ tính, Quặng Hematite đỏ, Quặng Limonite nâu dẻo, Quặng Chalcopyrite đồng vàng, Quặng Malachite đồng xanh, Thép lá nhíp xe 5160, Thép vòng bi 52100, Thép ray đường tàu cacbon cao, Vỏ lốc máy gang xám, Dây điện đồng đỏ nguyên chất, Khớp nối đồng thau brass, Vỏ hộp số hợp kim nhôm Silumin, Khung bồn thép không gỉ SUS304, Lò xo thép giảm xóc xoắn.",
+    "materials": [],
+    "definition_of_done": [
+      "Đúng bảng Markdown phân loại quặng mỏ và kim loại phế tích",
+      "Không bỏ sót bất kỳ thực thể nào trong danh sách khảo sát",
+      "Ghi nhận chính xác thử nghiệm hoa lửa mài và thử tính từ nam châm"
+    ],
+    "details": [
+      "Trích xuất dấu hiệu nhận biết màu vệt quặng trên sứ nhám và mật độ khối lượng",
+      "Trích xuất kiểu chùm hoa lửa mài đá cắt để xác định hàm lượng cacbon trong thép phế liệu",
+      "Phân lập phương pháp tách kim loại màu bằng chênh lệch điểm nóng chảy"
+    ],
+    "keywords": [
+      "nhận diện quặng",
+      "phân loại thép",
+      "hoa lửa mài",
+      "phế tích kim loại"
+    ],
+    "prerequisites": []
+  },
+  {
+    "day": 79,
+    "topic_id": "luyen_gang_lo_dung_ren_toi_ram_va_duc_cat_set",
+    "topic": "Thiết kế lò luyện sắt xốp dã chiến, kỹ nghệ rèn tôi ram và đúc cát sét",
+    "phase": "Thu gom Phế tích, Khai khoáng & Luyện kim Rèn đúc",
+    "kind": "extraction",
+    "estimated_minutes": 30,
+    "concrete_project": "Trích xuất thông số kỹ thuật 13 thiết bị và quy trình gia công kim loại: Lò luyện sắt xốp Bloomery gạch đất sét, Hệ thống bễ thổi da đôi cấp gió đáy, Đe rèn thép ray đế gỗ chìm, Búa rèn tay đầu vát 2kg, Kìm rèn gắp phôi miệng kẹp dài, Bể dầu tôi phôi nguội nhanh, Lò ram nhiệt kiểm soát màu oxit rơm vàng, Hòm đúc cát hai nửa Cope-Drag, Hỗn hợp cát đúc Bentonite kết dính ẩm, Mẫu gỗ định hình vật đúc, Hệ thống đậu ngót và rãnh rót gang lỏng, Phấn bột tro mịn chống dính bề mặt khuôn, Hàn rèn phôi lớp dùng trợ dung cát thạch anh Borax.",
+    "materials": [],
+    "definition_of_done": [
+      "Đúng bảng Markdown kết cấu lò nung, dụng cụ rèn đúc và quy trình tôi ram",
+      "Liệt kê đầy đủ nhiệt độ biến pha và màu sắc nung của thép carbon",
+      "Không bỏ sót bất kỳ công cụ hoặc thành phần nào đã nêu"
+    ],
+    "details": [
+      "Trích xuất biểu đồ nhiệt độ nung thép qua màu phát quang từ đỏ anh đào (750°C) đến vàng chanh (1100°C)",
+      "Trích xuất kỹ thuật khử xỉ ép mật độ cục sắt xốp thành phôi rèn đồng nhất",
+      "Quy trình tôi dầu tạo pha Martensite và ram nhiệt khử ứng suất giòn gãy"
+    ],
+    "keywords": [
+      "lò sắt xốp",
+      "kỹ thuật rèn",
+      "tôi ram thép",
+      "khuôn cát đúc"
+    ],
+    "prerequisites": []
+  }
+]

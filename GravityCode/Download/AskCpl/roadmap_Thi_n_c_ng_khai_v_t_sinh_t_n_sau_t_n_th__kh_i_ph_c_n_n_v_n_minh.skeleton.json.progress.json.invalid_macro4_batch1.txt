@@ -1,0 +1,122 @@
+[
+  {
+    "day": 41,
+    "topic_id": "danh_muc_cay_tinh_bot_ngu_coc_khang_han_nang_suat_cao",
+    "topic": "Bộ giống cây lương thực giàu calo thích nghi hạn hán và thổ nhưỡng khắc nghiệt",
+    "phase": "Nông nghiệp Sinh tồn, Hạt giống & Cây trồng Kháng chịu",
+    "kind": "extraction",
+    "estimated_minutes": 30,
+    "concrete_project": "Trích xuất đặc tính sinh thái và năng suất của 12 giống cây lương thực sinh tồn: Sắn củ đỏ kháng bệnh, Khoai lang ruột vàng Nhật Bản, Khoai sọ dại chịu ngập, Dong riềng đỏ vùng cao, Kê hạt đỏ chịu hạn (Pearl Millet), Bo bo chịu mặn, Kiều mạch hoa tam giác mạch, Đậu triều (Pigeon Pea), Đậu ngự leo giàn, Củ mài (Hoài sơn), Củ từ gai sinh tồn, Ngô nếp bản địa thụ phấn tự do",
+    "materials": [],
+    "definition_of_done": [
+      "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+    ],
+    "details": [
+      "Trích xuất chỉ số calo, thời gian thu hoạch và khả năng kháng chịu",
+      "Trích xuất kỹ thuật nhân giống vô tính và thu hoạch lưu trữ củ"
+    ],
+    "keywords": [
+      "cây lương thực",
+      "chịu hạn",
+      "tinh bột",
+      "sinh tồn"
+    ],
+    "prerequisites": []
+  },
+  {
+    "day": 42,
+    "topic_id": "quy_trinh_say_kho_kiem_soat_am_do_bao_quan_hat_giong_lau_nam",
+    "topic": "Phương pháp hạ ẩm độ, khử trùng và đóng hũ bảo quản hạt giống thuần OP",
+    "phase": "Nông nghiệp Sinh tồn, Hạt giống & Cây trồng Kháng chịu",
+    "kind": "extraction",
+    "estimated_minutes": 30,
+    "concrete_project": "Trích xuất quy trình bảo quản 10 nguồn gen hạt giống thuần OP: Hạt ngô thụ phấn tự do (Open-Pollinated Maize), Hạt lúa cạn chịu hạn, Hạt kê đuôi phụng, Hạt đậu đen xanh lòng dã sinh, Hạt đậu cô ve lùn, Hạt bí đỏ bản địa vỏ dày, Hạt ớt chỉ thiên kháng virus, Hạt cà chua bản địa quả to, Hạt rau dền đỏ chịu nhiệt, Hạt mướp đắng rừng kháng nấm",
+    "materials": [],
+    "definition_of_done": [
+      "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+    ],
+    "details": [
+      "Trích xuất ngưỡng ẩm độ bảo quản an toàn (dưới 8%)",
+      "Trích xuất kỹ thuật làm khô bằng vôi sống và tro trấu hút ẩm"
+    ],
+    "keywords": [
+      "hạt giống OP",
+      "hút ẩm",
+      "bảo tồn gen",
+      "trữ hạt"
+    ],
+    "prerequisites": []
+  },
+  {
+    "day": 43,
+    "topic_id": "cong_thuc_u_phan_nong_aerobic_can_bang_ty_le_c_n_va_khoang_npk",
+    "topic": "Kỹ thuật ủ phân hiếu khí Berkeley và chiết xuất dịch trà phân bón lá giàu NPK",
+    "phase": "Nông nghiệp Sinh tồn, Hạt giống & Cây trồng Kháng chịu",
+    "kind": "extraction",
+    "estimated_minutes": 30,
+    "concrete_project": "Trích xuất 10 công thức phối trộn phân ủ NPK dã chiến: Phân ủ nóng Berkeley 18 ngày, Đạm nước chiết xuất từ cây dã quỳ, Dịch lân hữu cơ từ tro xương động vật, Dịch kali hữu cơ từ tro vỏ chuối ngâm, Trà phân compost sục khí (ACT), Phân cá thủy phân bằng enzyme đu đủ, Phân chuồng ủ hoai bằng nấm Trichoderma, Phân xanh họ Đậu bổ sung vôi bột, Bột vỏ trứng bổ sung canxi đất, Bột lông vũ giàu đạm giải phóng chậm",
+    "materials": [],
+    "definition_of_done": [
+      "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+    ],
+    "details": [
+      "Trích xuất tỷ lệ C:N tối ưu 30:1 và biểu đồ nhiệt độ 55-65 độ C",
+      "Trích xuất hàm lượng N-P-K và vi lượng bổ sung cho từng loại cây trồng"
+    ],
+    "keywords": [
+      "phân ủ nóng",
+      "tỷ lệ C:N",
+      "trà compost",
+      "phân bón NPK"
+    ],
+    "prerequisites": []
+  },
+  {
+    "day": 44,
+    "topic_id": "thiet_ke_so_do_luan_canh_xen_canh_tuong_ho_va_che_pham_xua_sau",
+    "topic": "Chiến lược luân canh cải tạo đất, cây dẫn dụ thiên địch và bẫy cây trồng",
+    "phase": "Nông nghiệp Sinh tồn, Hạt giống & Cây trồng Kháng chịu",
+    "kind": "extraction",
+    "estimated_minutes": 30,
+    "concrete_project": "Trích xuất 11 mô hình xen canh tương hỗ và cây bảo vệ sinh học: Mô hình Luân canh 4 vụ họ Đậu - Cải - Rễ củ - Lúa ngô, Xen canh Cúc vạn thọ trừ tuyến trùng rễ, Trồng xen Cây húng quế cạnh cà chua ngăn sâu đục quả, Hàng rào Cây sả xua đuổi côn trùng, Vành đai Cây neem cản châu chấu, Bẫy cây trồng Hướng dương thu hút bọ xít, Xen canh Đậu phộng phủ gốc ngô, Vỏ tỏi ớt gừng ngâm cồn phun trừ rệp, Dầu khoáng nhũ hóa xua bọ trĩ, Tro bếp rải gốc ức chế ốc sên, Nước vôi trong khử nấm lá phấn trắng",
+    "materials": [],
+    "definition_of_done": [
+      "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+    ],
+    "details": [
+      "Trích xuất nguyên lý tương tác hóa học Allelopathy giữa các loài cây",
+      "Trích xuất chu kỳ luân canh cắt đứt vòng đời sâu bệnh"
+    ],
+    "keywords": [
+      "luân canh",
+      "thiên địch",
+      "bẫy cây trồng",
+      "thuốc trừ sâu thảo mộc"
+    ],
+    "prerequisites": []
+  },
+  {
+    "day": 45,
+    "topic_id": "tai_tao_he_vi_sinh_dat_biochar_u_dinh_duong_va_giu_nuoc_lau_dai",
+    "topic": "Quy trình kích hoạt than sinh học nạp dinh dưỡng và phục hồi lớp đất mặt thoái hóa",
+    "phase": "Nông nghiệp Sinh tồn, Hạt giống & Cây trồng Kháng chịu",
+    "kind": "extraction",
+    "estimated_minutes": 30,
+    "concrete_project": "Trích xuất 10 giải pháp phục hồi tầng đất mặt bằng than Biochar và sinh khối: Than sinh học hoạt hóa bằng nước tiểu động vật, Than Biochar nạp vi sinh vật bản địa (IMO-4), Lớp phủ rơm rạ giữ ẩm vi khí hậu (Mulching), Cày xới tối thiểu bảo vệ mạng nấm Mycorrhiza, Cây phân xanh Điền thanh cố định đạm rễ, Cây Cỏ Vetiver chống sạt lở rửa trôi đất, Luống gieo trồng giữ nước kiểu Hugelkultur chôn gỗ mục, Đất bùn ao kết hợp vôi cải tạo chua phèn, Hỗn hợp bột đá phospho tự nhiên bón lót, Nấm cộng sinh rễ Glomus intraradices",
+    "materials": [],
+    "definition_of_done": [
+      "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+    ],
+    "details": [
+      "Trích xuất cơ chế nạp điện tích và lỗ xốp than Biochar",
+      "Trích xuất kỹ thuật kích hoạt hệ nấm rễ tăng khả năng hấp thụ phốt pho"
+    ],
+    "keywords": [
+      "than biochar",
+      "hugelkultur",
+      "mycorrhiza",
+      "cải tạo đất"
+    ],
+    "prerequisites": []
+  }
+]

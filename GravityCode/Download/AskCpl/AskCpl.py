@@ -72,6 +72,7 @@ from adaptive_learning import (default_profile, load_profile, profile_questions,
                                record_learner_feedback, save_profile)
 from verified_knowledge import coverage_report, empty_pack, load_pack, validate_pack
 from knowledge_pack_importer import import_csv_folder
+from domain_profiles import instruction_for, is_tech_tree_domain
 import webbrowser
 try:
     from exercise_server import run_server
@@ -454,8 +455,11 @@ class AskCplApp:
             else f"Tổng cộng {days_setting} ngày."
         )
 
+        domain_rule = instruction_for(domain + " " + context_text)
+
         if mode == "wiki":
             prompt_phase = f"""Bạn là hệ thống bóc tách dữ liệu bách khoa toàn thư. Lĩnh vực: {domain}.
+{domain_rule}
 {'Yêu cầu bổ sung: ' + context_text if context_text else ''}
 {ref_content_block}
 
@@ -476,10 +480,12 @@ Yêu cầu trả về JSON theo định dạng sau (CHỈ JSON, không có văn 
         else:
             prompt_phase = f"""Bạn là chuyên gia xây dựng giáo trình. Lĩnh vực: {domain}.
 Thời lượng học mỗi ngày: {time_per_day}. {days_instruction}
+Quy tắc chuyên ngành bắt buộc:
+{domain_rule}
 {'Yêu cầu bổ sung: ' + context_text if context_text else ''}
 {ref_content_block}
 
-Nhiệm vụ: Chia toàn bộ lộ trình học thành các Giai đoạn (Phase). Mỗi Phase có từ 5-30 ngày.
+Nhiệm vụ: Chia toàn bộ lộ trình học thành các Giai đoạn (Phase) theo đúng thứ tự logic, không nhảy cóc. Mỗi Phase có từ 5-30 ngày.
 Yêu cầu trả về JSON theo định dạng sau (CHỈ JSON, không có văn bản thừa):
 {{
   "domain_profile": {{
@@ -538,6 +544,7 @@ Yêu cầu trả về JSON theo định dạng sau (CHỈ JSON, không có văn 
                 prompt_days = f"""Bạn là {persona}. Lĩnh vực: {domain}.
 Giai đoạn bóc tách: {ph_name} (Mục tiêu: {ph_desc}).
 Nguồn tài liệu: {core_books}.
+{domain_rule}
 (⚠️ LỆNH TỐI THƯỢNG: {supreme_commands} | KHÔNG TƯƠNG TÁC | KHÔNG BỊA DỮ LIỆU)
 
 Nhiệm vụ: Sinh danh sách các nhóm thực thể/chủ đề dữ liệu từ phần {from_day} đến phần {to_day} (được đánh số là Day). KHÔNG tạo bài tập. Chỉ liệt kê tên mục dữ liệu.
@@ -550,9 +557,10 @@ Bắt buộc có đủ từ Day {from_day} đến Day {to_day}."""
                 prompt_days = f"""Bạn là {persona}. Lĩnh vực: {domain}.
 Giai đoạn: {ph_name} (Mục tiêu: {ph_desc}).
 Sách nền tảng: {core_books}.
+Quy tắc chuyên ngành: {domain_rule}
 (⚠️ LỆNH TỐI THƯỢNG: {supreme_commands} | KHÔNG TƯƠNG TÁC)
 
-Nhiệm vụ: Sinh danh sách các bài học cốt lõi từ Ngày {from_day} đến Ngày {to_day} cho Giai đoạn này. KHÔNG CẦN CHI TIẾT SÂU, chỉ cần khung cơ bản.
+Nhiệm vụ: Sinh danh sách các bài học cốt lõi từ Ngày {from_day} đến Ngày {to_day} cho Giai đoạn này. Tuân thủ tính tuần tự, không nhảy cóc.
 Yêu cầu trả về JSON MẢNG theo định dạng (CHỈ JSON, không văn bản thừa):
 [
   {{"day": {from_day}, "phase": "{ph_name}", "topic": "Tên bài học", "details": ["Từ khóa chính 1", "Từ khóa chính 2"]}}
@@ -646,13 +654,16 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
             return None
 
         mode = getattr(self, 'ai_roadmap_gen_mode_var', tk.StringVar(value="learning")).get()
+        domain = self.ai_roadmap_domain_var.get().strip() or "Untitled"
+        context_text = self.ai_roadmap_context_text.get(1.0, tk.END).strip()
+        domain_rule = instruction_for(domain + " " + context_text)
 
         # PASS 1
-        self.roadmap_gen_log(">> Pass 1: Tự phản biện, Đa dạng hóa & Chia nhỏ chủ đề...")
+        self.roadmap_gen_log(">> Pass 1: Tự phản biện, Đa dạng hóa & Rà soát mắt xích công nghệ...")
         if mode == "wiki":
-            p1_prompt = f"Đây là JSON Dàn ý Lõi bóc tách dữ liệu hiện tại:\n```json\n{skeleton_text}\n```\nYêu cầu: Hãy phân tích xem có nhóm dữ liệu nào quá lớn cần chẻ nhỏ ra không? Có thực thể nào đang thiếu không? Hãy chèn thêm để vét sạch mọi ngóc ngách của dữ liệu. TRẢ VỀ JSON DUY NHẤT (giữ nguyên cấu trúc domain_profile và skeleton, chỉ mở rộng mảng skeleton). TUYỆT ĐỐI KHÔNG TẠO BÀI TẬP. (KHÔNG GIẢI THÍCH)"
+            p1_prompt = f"Đây là JSON Dàn ý Lõi bóc tách dữ liệu hiện tại:\n```json\n{skeleton_text}\n```\nQuy tắc chuyên ngành:\n{domain_rule}\nYêu cầu: Hãy phân tích xem có nhóm dữ liệu nào quá lớn cần chẻ nhỏ ra không? Có thực thể nào đang thiếu không? Hãy chèn thêm để vét sạch mọi ngóc ngách của dữ liệu. TRẢ VỀ JSON DUY NHẤT (giữ nguyên cấu trúc domain_profile và skeleton, chỉ mở rộng mảng skeleton). TUYỆT ĐỐI KHÔNG TẠO BÀI TẬP. (KHÔNG GIẢI THÍCH)"
         else:
-            p1_prompt = f"Đây là JSON Dàn ý Lõi hiện tại:\n```json\n{skeleton_text}\n```\nYêu cầu: Hãy đóng vai trò chuyên gia, phân tích xem có chủ đề nào quá lớn cần chẻ nhỏ ra nhiều ngày không? Có kiến thức hiện đại nào đang thiếu không? Hãy sắp xếp lại, chèn thêm các ngày học mới, bổ sung các chủ đề để đa dạng hóa lộ trình. TRẢ VỀ JSON DUY NHẤT (giữ nguyên cấu trúc domain_profile và skeleton, chỉ mở rộng mảng skeleton). (KHÔNG GIẢI THÍCH)"
+            p1_prompt = f"Đây là JSON Dàn ý Lõi hiện tại:\n```json\n{skeleton_text}\n```\nQuy tắc chuyên ngành bắt buộc:\n{domain_rule}\nYêu cầu: Hãy đóng vai trò chuyên gia, rà soát từng giai đoạn:\n1. Có chủ đề nào bị nhảy cóc (thiếu mắt xích tiền đề/vật liệu/công cụ đo lường) không? Nếu thiếu, hãy chèn thêm các Day bổ trợ.\n2. Có chủ đề nào quá lớn cần chẻ nhỏ ra nhiều ngày không?\n3. Đảm bảo toàn bộ chuỗi tiến hóa logic từ đầu đến cuối không bị đứt đoạn.\nTRẢ VỀ JSON DUY NHẤT (giữ nguyên cấu trúc domain_profile và skeleton, chỉ mở rộng/tinh chỉnh mảng skeleton). (KHÔNG GIẢI THÍCH)"
             
         out_p1 = call_llm(p1_prompt, "Pass 1")
         if not out_p1: return
@@ -661,9 +672,9 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
         # PASS 2
         self.roadmap_gen_log(">> Pass 2: Kiểm duyệt & Ép chuẩn theo File Tham khảo/Skill...")
         if mode == "wiki":
-            p2_prompt = f"Đây là JSON Lộ trình V2 (sau khi mở rộng):\n```json\n{json_v2}\n```\nCác tài liệu chuẩn:\n{ref_content_block}\nYêu cầu: Rà soát nghiêm ngặt Lộ trình V2 so với tài liệu tham khảo. NẾU CÓ DỮ LIỆU NÀO KHÔNG TỒN TẠI TRONG TÀI LIỆU (ẢO GIÁC), HÃY XÓA BỎ NGAY LẬP TỨC. Nếu sót dữ liệu quan trọng trong tài liệu, hãy bổ sung. Đảm bảo 100% tuân thủ các quy tắc tối thượng. TRẢ VỀ JSON DUY NHẤT (giữ nguyên cấu trúc, cập nhật nội dung cho cực chuẩn). (KHÔNG GIẢI THÍCH)"
+            p2_prompt = f"Đây là JSON Lộ trình V2 (sau khi mở rộng):\n```json\n{json_v2}\n```\nCác tài liệu chuẩn:\n{ref_content_block}\nQuy tắc:\n{domain_rule}\nYêu cầu: Rà soát nghiêm ngặt Lộ trình V2 so với tài liệu tham khảo. NẾU CÓ DỮ LIỆU NÀO KHÔNG TỒN TẠI TRONG TÀI LIỆU (ẢO GIÁC), HÃY XÓA BỎ NGAY LẬP TỨC. Nếu sót dữ liệu quan trọng trong tài liệu, hãy bổ sung. Đảm bảo 100% tuân thủ các quy tắc tối thượng. TRẢ VỀ JSON DUY NHẤT (giữ nguyên cấu trúc, cập nhật nội dung cho cực chuẩn). (KHÔNG GIẢI THÍCH)"
         else:
-            p2_prompt = f"Đây là JSON Lộ trình V2 (sau khi mở rộng):\n```json\n{json_v2}\n```\nCác tài liệu chuẩn:\n{ref_content_block}\nYêu cầu: Đối chiếu Lộ trình V2 với tài liệu chuẩn. Sửa lại các chủ đề/details nào vi phạm nguyên tắc sư phạm hoặc an toàn. Đảm bảo 100% tuân thủ các quy tắc tối thượng. TRẢ VỀ JSON DUY NHẤT (giữ nguyên cấu trúc, cập nhật nội dung cho cực chuẩn). (KHÔNG GIẢI THÍCH)"
+            p2_prompt = f"Đây là JSON Lộ trình V2 (sau khi mở rộng):\n```json\n{json_v2}\n```\nCác tài liệu chuẩn:\n{ref_content_block}\nQuy tắc:\n{domain_rule}\nYêu cầu: Đối chiếu Lộ trình V2 với tài liệu chuẩn và quy tắc chuyên ngành. Sửa lại các chủ đề/details nào vi phạm nguyên tắc sư phạm, nhảy cóc công nghệ hoặc an toàn. Đảm bảo 100% tuân thủ các quy tắc tối thượng. TRẢ VỀ JSON DUY NHẤT (giữ nguyên cấu trúc, cập nhật nội dung cho cực chuẩn). (KHÔNG GIẢI THÍCH)"
             
         out_p2 = call_llm(p2_prompt, "Pass 2")
         if not out_p2: return
@@ -1114,22 +1125,46 @@ BẮT BUỘC tuân thủ chặt chẽ định dạng Markdown sau, KHÔNG bọc 
 
     def _call_roadmap_llm(self, prompt, label, json_mode=True, retries=3):
         import requests
+        _FALLBACK_MODELS = ["gemini-flash-latest", "gemini-2.0-flash", "gemini-1.5-flash"]
         transient_attempt = 0
+        excluded_keys = set()
+        model_idx = 0
         while True:
-            key = self._get_active_api_key()
+            key = self._get_active_api_key(exclude_keys=excluded_keys)
             if not key:
-                raise RoadmapValidationError("Không còn API key trạng thái active; hãy kiểm tra Quản lý API Keys.")
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={key}"
+                if excluded_keys:
+                    excluded_keys.clear()
+                    model_idx += 1
+                    if model_idx < len(_FALLBACK_MODELS):
+                        self.roadmap_gen_log(
+                            f"[{label}] Đã thử qua toàn bộ key active trên model "
+                            f"'{_FALLBACK_MODELS[model_idx - 1]}'; "
+                            f"chuyển sang '{_FALLBACK_MODELS[model_idx]}' "
+                            f"(fallback {model_idx}/{len(_FALLBACK_MODELS) - 1})."
+                        )
+                        transient_attempt = 0  # reset counter mỗi lần đổi model
+                        time.sleep(5)
+                    else:
+                        raise RoadmapValidationError(
+                            f"{label} gặp lỗi tạm thời trên toàn bộ {len(_FALLBACK_MODELS)} "
+                            "model và toàn bộ key; thử lại batch sau."
+                        )
+                    key = self._get_active_api_key()
+                if not key:
+                    raise RoadmapValidationError("Không còn API key trạng thái active; hãy kiểm tra Quản lý API Keys.")
+            current_model = _FALLBACK_MODELS[model_idx]
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{current_model}:generateContent?key={key}"
             config = {"temperature": 0.1, "maxOutputTokens": 8192}
             if json_mode:
                 config["responseMimeType"] = "application/json"
             try:
-                self.roadmap_gen_log(f"[{label}] Gửi yêu cầu Gemini (retry mạng {transient_attempt}/{retries})...")
+                self.roadmap_gen_log(f"[{label}] Gửi yêu cầu Gemini (key #{len(excluded_keys)+1}, retry mạng {transient_attempt}/{retries})...")
                 response = requests.post(url, headers={"Content-Type": "application/json"},
                     json={"contents": [{"parts": [{"text": prompt}]}], "generationConfig": config}, timeout=60)
                 if response.status_code == 429:
                     self._set_roadmap_key_status(key, "exhausted", "HTTP 429 / quota exhausted during roadmap generation")
-                    self.roadmap_gen_log(f"[{label}] Key đã chuyển sang exhausted (kiểm tra lại sau 3 giờ); đang tìm key active khác.")
+                    self.roadmap_gen_log(f"[{label}] Key đã chuyển sang exhausted; tự động chuyển sang key active tiếp theo.")
+                    excluded_keys.add(key)
                     continue
                 if response.status_code in (400, 401, 403):
                     try:
@@ -1138,20 +1173,21 @@ BẮT BUỘC tuân thủ chặt chẽ định dạng Markdown sau, KHÔNG bọc 
                         api_message = ""
                     if response.status_code in (401, 403) or "API key not valid" in api_message:
                         self._set_roadmap_key_status(key, "invalid", f"HTTP {response.status_code}: {api_message}")
-                        self.roadmap_gen_log(f"[{label}] Key bị từ chối và đã chuyển sang invalid; đang tìm key active khác.")
+                        self.roadmap_gen_log(f"[{label}] Key bị từ chối và đã chuyển sang invalid; tự động chuyển sang key active tiếp theo.")
+                        excluded_keys.add(key)
                         continue
                     raise RoadmapValidationError(f"{label} bị HTTP {response.status_code} do request/schema, key vẫn active: {api_message[:160]}")
                 if response.status_code >= 500:
                     transient_attempt += 1
-                    self.roadmap_gen_log(f"[{label}] Gemini HTTP {response.status_code} tạm thời; key vẫn active ({transient_attempt}/{retries}).")
-                    if transient_attempt >= retries:
-                        raise RoadmapValidationError(f"{label} gặp Gemini HTTP {response.status_code} sau {retries} lần; thử lại batch sau.")
-                    time.sleep(min(2 * transient_attempt, 6))
+                    excluded_keys.add(key)
+                    _sleep = min(2 ** (transient_attempt // max(1, len(_FALLBACK_MODELS))), 30)
+                    self.roadmap_gen_log(
+                        f"[{label}] Gemini HTTP {response.status_code} tạm thời trên key hiện tại; "
+                        f"xoay sang key active khác trong danh sách (chờ {_sleep}s)..."
+                    )
+                    time.sleep(_sleep)
                     continue
                 if response.status_code >= 400:
-                    # A non-quota 4xx is deterministic (usually request or
-                    # model configuration), so retrying it as a network error
-                    # only makes the progress screen appear to run forever.
                     try:
                         api_message = response.json().get("error", {}).get("message", "")
                     except Exception:
@@ -1166,21 +1202,33 @@ BẮT BUỘC tuân thủ chặt chẽ định dạng Markdown sau, KHÔNG bọc 
                 parts = candidate.get("content", {}).get("parts", [])
                 text = parts[0].get("text", "") if parts else ""
                 if not text:
-                    raise RoadmapValidationError("Gemini không trả về nội dung có thể dùng.")
+                    # Phản hồi rỗng — xử lý như 503 tạm thời, xoay key thay vì raise ngay
+                    transient_attempt += 1
+                    excluded_keys.add(key)
+                    _sleep = min(2 ** (transient_attempt // max(1, len(_FALLBACK_MODELS))), 30)
+                    self.roadmap_gen_log(
+                        f"[{label}] Gemini trả về phản hồi rỗng (attempt {transient_attempt}); "
+                        f"xoay sang key active khác (chờ {_sleep}s)..."
+                    )
+                    time.sleep(_sleep)
+                    continue
                 finish_reason = candidate.get("finishReason", "UNKNOWN")
                 self.roadmap_gen_log(f"[{label}] Đã nhận {len(text):,} ký tự (finish={finish_reason}); đang kiểm tra định dạng.")
                 return text
             except requests.exceptions.Timeout:
                 transient_attempt += 1
-                self.roadmap_gen_log(f"[{label}] Timeout ({transient_attempt}/{retries}); key vẫn giữ active.")
+                excluded_keys.add(key)
+                _sleep = min(2 ** (transient_attempt // max(1, len(_FALLBACK_MODELS))), 30)
+                self.roadmap_gen_log(f"[{label}] Timeout trên key hiện tại ({transient_attempt}); xoay sang key active khác (chờ {_sleep}s)...")
+                time.sleep(_sleep)
             except requests.RequestException as exc:
                 transient_attempt += 1
+                excluded_keys.add(key)
                 http_status = getattr(getattr(exc, "response", None), "status_code", None)
                 status_note = f" HTTP {http_status}" if http_status else ""
-                self.roadmap_gen_log(f"[{label}] Lỗi mạng/API: {type(exc).__name__}{status_note} ({transient_attempt}/{retries}); key vẫn giữ active.")
-            if transient_attempt >= retries:
-                raise RoadmapValidationError(f"{label} lỗi mạng/timeout sau {retries} lần; key không bị đổi trạng thái.")
-            time.sleep(min(2 * transient_attempt, 6))
+                _sleep = min(2 ** (transient_attempt // max(1, len(_FALLBACK_MODELS))), 30)
+                self.roadmap_gen_log(f"[{label}] Lỗi mạng/API: {type(exc).__name__}{status_note}; xoay sang key active khác (chờ {_sleep}s)...")
+                time.sleep(_sleep)
 
     def _show_skeleton(self, plan):
         formatted = json.dumps(plan, ensure_ascii=False, indent=2)
@@ -1336,9 +1384,14 @@ CAM KẾT: trường 'topic' của MỖI lô mới PHẢI khác hoàn toàn vớ
 Trả JSON MẢNG, mỗi object: {{"day":N,"topic_id":"snake_case_duy_nhat","topic":"tiêu đề micro-Day DUY NHẤT (tối đa 80 ký tự)","phase":"{phase.get('name')}","kind":"lesson|review|capstone","estimated_minutes":30,"concrete_project":"một món đồ/sản phẩm cụ thể","materials":["tối đa 3 vật liệu + số lượng/kích thước"],"definition_of_done":["tối đa 2 tiêu chí kiểm tra"],"details":["tối đa 3 việc nhỏ có thể làm trong 30 phút"],"keywords":["tối đa 4 từ khóa"],"prerequisites":["topic_id đã học trước đó"]}}.
 ID đã tồn tại từ phase trước: {known_ids}. prerequisites chỉ được dùng ID trong danh sách này hoặc Day đứng trước ngay trong response; nếu không chắc, dùng []. Không bọc markdown, không thiếu Day, không trùng Day, topic_id không trùng. {"Day cuối cùng của roadmap phải kind='capstone'." if index == len(phases) and remaining == count and len(phases) >= 2 else ""} LUÔN dùng tiếng Việt.
 CAM KẾT: trường 'topic' của MỖI Day mới PHẢI khác hoàn toàn với mọi tiêu đề sau đây (đây là danh sách tiêu đề đã tồn tại — TUYỆT ĐỐI KHÔNG được lặp lại hay diễn đạt lại bằng từ ngữ tương tự): {known_titles[-80:] if len(known_titles) > 80 else known_titles}."""
-                for attempt in range(1, 4):
+                # json_attempt: đếm lỗi JSON format (không đếm lỗi tạm thời API)
+                # _transient_retries: đếm lỗi 503/timeout/rỗng để tránh vòng lặp vô hạn
+                json_attempt = 0
+                _transient_retries = 0
+                response_text = None
+                while json_attempt < 3:
                     try:
-                        response_text = self._call_roadmap_llm(phase_prompt, f"PASS 1B phase {index}.{batch_number} lần {attempt}")
+                        response_text = self._call_roadmap_llm(phase_prompt, f"PASS 1B phase {index}.{batch_number} lần {json_attempt + 1}")
                         generated = load_json_response(response_text)
                         if not isinstance(generated, list) or [item.get("day") for item in generated if isinstance(item, dict)] != list(range(start_day, end_day + 1)):
                             raise RoadmapValidationError("batch trả về thiếu, trùng hoặc sai thứ tự Day.")
@@ -1360,27 +1413,50 @@ CAM KẾT: trường 'topic' của MỖI Day mới PHẢI khác hoàn toàn vớ
                             "phase_map": phase_map, "skeleton": all_days,
                         }, ensure_ascii=False, indent=2))
                         self.roadmap_gen_log(f"[PASS 1B • Macro {index} • batch {batch_number} OK] Đã nhận {len(generated)} Day; tổng {len(all_days)}/{target}.")
-                        if attempt > 1 and batch_limit > 2:
+                        if json_attempt > 0 and batch_limit > 2:
                             batch_limit = max(2, batch_limit // 2)
                             self.roadmap_gen_log(f"[PASS 1B • Macro {index}] JSON vừa cần retry; giữ batch {batch_limit} Day cho các lượt sau để ổn định.")
                         break
                     except RoadmapValidationError as exc:
-                        if 'response_text' in locals():
+                        err_str = str(exc)
+                        # Phân biệt lỗi tạm thời API (503/timeout/rỗng) vs lỗi JSON format
+                        _is_transient = any(kw in err_str for kw in (
+                            "thử lại batch sau", "phản hồi rỗng", "mạng/timeout",
+                            "tạm thời", "toàn bộ model",
+                        ))
+                        if response_text is not None and not _is_transient:
                             debug_path = checkpoint_path + f".invalid_macro{index}_batch{batch_number}.txt"
                             atomic_write(debug_path, response_text)
-                        self.roadmap_gen_log(f"[PASS 1B • Macro {index} • batch {batch_number} • lần {attempt}/3] JSON lỗi: {exc}. Retry...")
-                        err_str = str(exc)
-                        if "trùng nội dung" in err_str:
-                            # Gom tất cả tiêu đề hiện tại và ép AI đặt tên khác hẳn
-                            forbidden = [item["topic"] for item in all_days]
-                            phase_prompt += (
-                                f"\nLỖI TRÙNG TIÊU ĐỀ: {exc}. "
-                                f"TUYỆT ĐỐI KHÔNG được dùng hoặc paraphrase bất kỳ tiêu đề nào trong danh sách cấm này: {forbidden[-80:] if len(forbidden) > 80 else forbidden}. "
-                                "Mỗi 'topic' phải khác biệt rõ ràng — đặt cụ thể theo nội dung hẹp của micro-Day đó, không dùng tên chung chung."
+                        if _is_transient:
+                            _transient_retries += 1
+                            _tsleep = min(30 * _transient_retries, 300)  # tối đa 5 phút
+                            self.roadmap_gen_log(
+                                f"[PASS 1B • Macro {index} • batch {batch_number}] "
+                                f"Lỗi tạm thời API lần {_transient_retries} ({exc}); "
+                                f"chờ {_tsleep}s rồi retry (KHÔNG tính vào {json_attempt}/3)..."
                             )
+                            if _transient_retries > 10:
+                                raise RoadmapValidationError(
+                                    f"Macro phase {index}, Day {start_day}: lỗi tạm thời lặp lại "
+                                    f"{_transient_retries} lần liên tiếp; dừng để bảo toàn dữ liệu."
+                                )
+                            time.sleep(_tsleep)
+                            # KHÔNG tăng json_attempt — thử lại ngay
                         else:
-                            phase_prompt += f"\nLỗi trước: {exc}. Trả MẢNG JSON hoàn chỉnh, không cắt ngang."
+                            json_attempt += 1
+                            self.roadmap_gen_log(f"[PASS 1B • Macro {index} • batch {batch_number} • lần {json_attempt}/3] JSON lỗi: {exc}. Retry...")
+                            if "trùng nội dung" in err_str:
+                                # Gom tất cả tiêu đề hiện tại và ép AI đặt tên khác hẳn
+                                forbidden = [item["topic"] for item in all_days]
+                                phase_prompt += (
+                                    f"\nLỖI TRÙNG TIÊU ĐỀ: {exc}. "
+                                    f"TUYỆT ĐỐI KHÔNG được dùng hoặc paraphrase bất kỳ tiêu đề nào trong danh sách cấm này: {forbidden[-80:] if len(forbidden) > 80 else forbidden}. "
+                                    "Mỗi 'topic' phải khác biệt rõ ràng — đặt cụ thể theo nội dung hẹp của micro-Day đó, không dùng tên chung chung."
+                                )
+                            else:
+                                phase_prompt += f"\nLỗi trước: {exc}. Trả MẢNG JSON hoàn chỉnh, không cắt ngang."
                 else:
+                    # json_attempt == 3: toàn bộ retry JSON format đều thất bại
                     if count > 1:
                         batch_limit = max(1, count // 2)
                         self.roadmap_gen_log(

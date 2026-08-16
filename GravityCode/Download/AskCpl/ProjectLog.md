@@ -1,3 +1,49 @@
+## 2026-08-17 — Nâng cấp Retry/Fallback cho PASS 1B
+
+### Vấn đề gốc
+PASS 1B bị dừng ở Day 105 / Macro 7 với lỗi `RoadmapValidationError: Macro phase 7, Day 105 không tạo được JSON hợp lệ sau 3 lần` do:
+1. Gemini trả về HTTP 503 hoặc phản hồi rỗng
+2. Lỗi tạm thời API bị tính chung vào 3-retry JSON format → dừng sớm
+3. Chỉ có 1 model (`gemini-flash-latest`); khi model bận không có fallback
+
+### Thay đổi: `AskCpl.py`
+
+#### A. `_call_roadmap_llm` (lines 1126-1202)
+- Thêm `_FALLBACK_MODELS = ["gemini-flash-latest", "gemini-2.0-flash", "gemini-1.5-flash"]`
+- Khi toàn bộ key exhausted cho 1 model → chuyển sang model tiếp theo (reset counter + sleep 5s)
+- Sau khi thử hết 3 models → raise để báo lên Pass 1B
+- Phản hồi rỗng từ Gemini → xoay key thay vì raise ngay (trước đây raise `RoadmapValidationError` ngay lập tức)
+- Exponential backoff: `sleep = min(2^(attempt // n_models), 30)` thay vì cố định 1s
+
+#### B. Pass 1B retry (lines 1358-1420)
+- Chuyển từ `for attempt in range(1, 4)` sang `while json_attempt < 3`
+- Thêm biến riêng: `json_attempt` (đếm lỗi JSON format) và `_transient_retries` (đếm lỗi API 503/timeout)
+- Lỗi tạm thời (`"thử lại batch sau"`, `"phản hồi rỗng"`, `"tạm thời"`, `"toàn bộ model"`) → **không tính vào `json_attempt`**, sleep tăng dần (30s→300s)
+- Safety cap: `_transient_retries > 10` → raise để tránh vòng lặp vô hạn (~5 phút chờ tối đa)
+- Lỗi JSON format thực sự → tính vào `json_attempt`, append error hint vào prompt
+
+### Kết quả test
+```
+Ran 18 tests in 0.066s — OK (18/18 PASS)
+```
+
+### Trạng thái
+✅ Code đã merge. Roadmap generation tiếp tục có thể tự chạy lại sau lỗi 503 mà không dừng.
+
+---
+
+# Project Log: Ứng dụng Quản lý Ngày học Copilot
+
+
+
+File này dùng để theo dõi quá trình làm việc, các quyết định quan trọng và tiến độ của dự án.
+
+
+
+## Mục tiêu
+
+Tạo giao diện để tự động lưu các ngày học Tiếng Anh và Tiếng Nhật từ các agent Copilot, sau đó kết xuất thành file Word (.docx) chất lượng cao.
+
 # Project Log: Ứng dụng Quản lý Ngày học Copilot
 
 
@@ -18,6 +64,20 @@ Tạo giao diện để tự động lưu các ngày học Tiếng Anh và Tiế
 
 ## Nhật ký công việc
 
+## 2026-08-16: NÂNG CẤP HỆ THỐNG SINH ROADMAP TECH TREE & TÁI THIẾT VĂN MINH TỪ SỐ 0
+- **Bối cảnh:** Xử lý yêu cầu tạo lộ trình tiến hóa công nghệ tự chủ *"Thiên Công Khai Vật & Khôi phục văn minh từ thời kỳ đồ đá/chiến tranh đến chế tạo máy tính từ cát/silicon"*.
+- **Vấn đề đã khắc phục:**
+  - AI LLM trước đây thường bị "Ảo giác nhảy cóc" (Abstraction Leaping), bỏ qua các mắt xích cơ khí chính xác, chuẩn đo lường (3-plate method, Whitworth), đèn chân không, quang khắc bán dẫn và kiến trúc CPU 8-bit.
+  - File generator cũ thiếu tiếng Việt có dấu và chưa có 10 Phase hoàn chỉnh.
+- **Chi tiết thay đổi:**
+  1. `domain_profiles.py`: Bổ sung Profile Tech Tree & Tái thiết văn minh (`is_tech_tree_domain`, `CIVILIZATION_TECH_TREE_MILESTONES`), bắt buộc AI tuân thủ chuỗi 10 kỷ nguyên công nghệ không nhảy cóc.
+  2. `AskCpl.py`: Tiêm `domain_rule` từ `domain_profiles.py` vào Bước 1 (Phase/Days prompt) và Bước 2 (Phản biện & rà soát mắt xích công nghệ thiếu) giúp AI nhận thức rõ ràng quy tắc chuyên ngành.
+  3. `roadmap_pipeline.py`: Cập nhật hàm `verify_markdown` nhận diện linh hoạt các khối `Tags` và kiểm tra encoding UTF-8.
+  4. `generate_civilization_reboot_roadmap.py`: Viết script benchmark sinh tự động 465 ngày bài bản (31 topic x 15 ngày/topic), 100% tiếng Việt có dấu, phủ trọn 10 Phase từ Sinh tồn chiến tranh -> Đồ đá -> Đồ gốm -> Kim khí -> Hóa chất & Giấy -> Đo lường & Cơ khí hơi nước -> Điện từ -> Đèn chân không & Logic -> Bán dẫn Silic -> Chế tạo CPU 8-bit & Máy tính từ con số 0.
+  5. `test_roadmap_pipeline.py`: Thêm unit tests kiểm tra domain profile và xác minh độ toàn vẹn 465 ngày của file `roadmap_thien_cong_khai_vat.md`.
+- **Kết quả kiểm thử:** Toàn bộ 26/26 unit tests (18 tests `test_roadmap_pipeline.py` + 8 tests các module khác) đều PASS ✅.
+
+---
 
 ## 2026-08-06: LÀM SẠCH LINK CHẾT VÀ DỊCH THUẬT DATA WIKI (PHASE 9)
 - **Hoạt động:** Rà soát và tự động xử lý link 404, dịch thuật toàn bộ 403 tướng sang tiếng Việt.
