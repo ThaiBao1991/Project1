@@ -784,8 +784,8 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
                         f.write(f"## Day {day}: {topic} ({phase})\n\n")
                         
                         letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
-                        for i, det in enumerate(details):
-                            let = letters[i] if i < len(letters) else str(i)
+                        for i_det, det in enumerate(details):
+                            let = letters[i_det] if i_det < len(letters) else str(i_det)
                             f.write(f"### {day}{let}. {det}\n")
                             f.write("<!-- pages: 5 -->\n")
                             mode_step3 = getattr(self, 'ai_roadmap_gen_mode_var', tk.StringVar(value="learning")).get()
@@ -801,7 +801,7 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
                                 f.write(f"Sách nền tảng liên quan: {core_books}.\n\n")
                                 f.write(f"{commands_block}\n\n")
                                 f.write(f"Yêu cầu: Hãy giảng giải thật chi tiết, phân tích khách quan và kèm ví dụ minh họa rõ ràng.\n\n")
-                            
+
                 self.roadmap_gen_log(f"[THÀNH CÔNG] Đã lưu file: {out_file}")
                 try:
                     os.startfile(out_file)
@@ -810,156 +810,163 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
             except Exception as e:
                 self.roadmap_gen_log(f"[LỖI TEMPLATE] {e}")
 
-        # ---------------------------------------------
-        # CHẾ ĐỘ 2: LLM BATCHING (THÔNG MINH)
-        # ---------------------------------------------
+        # =====================================================================
+        # CHẾDỘ LLM MỚI: 1 Day per call + Chunk-and-Merge
+        # Mỗi Day được ghi ra file .part riêng ngay sau khi nhận response.
+        # Sau khi tất cả Day xong → merge thành file .md cuối → xóa .chunks/
+        # Resume: nếu có .part file từ lần trước, bỏ qua Day đó.
+        # =====================================================================
         elif mode == "llm":
-            # Lấy API key linh hoạt - refresh trước mỗi batch
-            batch_size = 10
+            import random as _rnd, shutil
+
+            chunks_dir = out_file + ".chunks"
+            os.makedirs(chunks_dir, exist_ok=True)
             total_days = len(skeleton_list)
 
-            # Kiểm tra file đã tồn tại chưa để chọn append hay ghi mới
-            file_exists = os.path.exists(out_file)
-            if file_exists:
-                self.roadmap_gen_log(f"[INFO] File đã tồn tại, chế độ BỔ SUNG vào cuối file: {out_file}")
-                # Đọc ngày cuối cùng đã ghi để skip
-                try:
-                    import re
-                    with open(out_file, 'r', encoding='utf-8') as f:
-                        existing = f.read()
-                    last_days = re.findall(r'## Day (\d+):', existing)
-                    last_day_done = int(last_days[-1]) if last_days else 0
-                    skeleton_list = [d for d in skeleton_list if d.get('day', 0) > last_day_done]
-                    if not skeleton_list:
-                        self.roadmap_gen_log("[INFO] Tất cả các ngày đã có trong file. Không cần bổ sung thêm.")
-                        return
-                    self.roadmap_gen_log(f"[INFO] Tiếp tục từ Ngày {skeleton_list[0].get('day')} (đã bỏ qua {last_day_done} ngày đã có).")
-                    total_days = len(skeleton_list)
-                except Exception as e:
-                    self.roadmap_gen_log(f"[CẢNH BÁO] Không phân tích được file cũ, sẽ ghi thêm toàn bộ: {e}")
-            else:
-                with open(out_file, 'w', encoding='utf-8') as f:
-                    f.write(f"# Roadmap Chi Tiết: {domain}\n\n")
-                    f.write(f"> Bối cảnh: {persona}\n> Nền tảng: {core_books}\n\n")
+            # Resume: phát hiện .part file từ lần chạy trước
+            done_days = set()
+            for _fname in os.listdir(chunks_dir):
+                if _fname.endswith(".md.part"):
+                    try:
+                        done_days.add(int(_fname.replace("day_", "").replace(".md.part", "")))
+                    except ValueError:
+                        pass
+            if done_days:
+                self.roadmap_gen_log(
+                    f"[RESUME] Tìm thấy {len(done_days)} Day đã sinh; bỏ qua, tiếp tục từ Day còn lại."
+                )
 
-            bad_keys = set()
-            for i in range(0, total_days, batch_size):
-                chunk = skeleton_list[i:i+batch_size]
-                chunk_json = json.dumps(chunk, ensure_ascii=False, indent=2)
+            self.roadmap_gen_log(
+                f"[BƯỚC 3] Sinh Markdown từng Day riêng lẻ (1 call/Day, "
+                f"tổng {total_days} Days, rate-limit 3s+jitter)..."
+            )
 
-                self.roadmap_gen_log(f"Đang xử lý Batch Day {chunk[0].get('day')} -> Day {chunk[-1].get('day')} (3 Passes)...")
+            bad_keys: set = set()
+            _MIN_INTERVAL = 3.0
 
-                def call_llm_batch(prompt_text, p_name):
-                    rc = 0
-                    while rc < 3:
-                        try:
-                            # Auto-rotate key if needed inside the loop
-                            cur_key = self._get_active_api_key(exclude_keys=bad_keys)
-                            if not cur_key:
-                                self.roadmap_gen_log(f"[DỪNG] Không còn API Key nào khả dụng để tiếp tục {p_name}!")
-                                return None
-                                
-                            b_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={cur_key}"
-                            payload = {"contents": [{"parts": [{"text": prompt_text}]}], "generationConfig": {"temperature": 0.4}}
-                            resp = requests.post(b_url, headers={"Content-Type": "application/json"}, json=payload, timeout=60)
-                            resp.raise_for_status()
-                            out = resp.json()["candidates"][0]["content"]["parts"][0]["text"]
-                            return out
-                        except Exception as e:
-                            err_str = str(e)
-                            if "429" in err_str or "quota" in err_str.lower() or "exhausted" in err_str.lower():
-                                self.roadmap_gen_log(f"[QUOTA HẾT] Đổi key... ({p_name})")
-                                if cur_key:
-                                    bad_keys.add(cur_key)
-                                time.sleep(3)
-                                rc = 0
-                            else:
-                                rc += 1
-                                self.roadmap_gen_log(f"[LỖI LLM {p_name}] {e} (Lần {rc}/3)")
-                                time.sleep(2)
-                    return None
+            for item in skeleton_list:
+                day_num = item.get("day", 0)
+                if day_num in done_days:
+                    continue
 
-                mode_step3 = getattr(self, 'ai_roadmap_gen_mode_var', tk.StringVar(value="learning")).get()
+                topic     = item.get("topic", "")
+                phase_nm  = item.get("phase", "")
+                details   = item.get("details", [])
+                concrete  = item.get("concrete_project", "")
+                materials = item.get("materials", [])
+                done_crit = item.get("definition_of_done", [])
+                keywords  = item.get("keywords", [])
+                kind      = item.get("kind", "lesson")
 
-                # PASS 4: Draft Prompts
-                self.roadmap_gen_log("  -> Pass 4: Sinh nháp kịch bản Prompt...")
+                _details_str = "\n".join(f"- {d}" for d in details[:3])
+                _mat_str     = ", ".join(materials[:3]) if materials else "không cần"
+                _done_str    = "; ".join(done_crit[:2]) if done_crit else ""
+                _tags_str    = " ".join(f"#{k}" for k in keywords[:4]) if keywords else f"#{topic.split()[0].lower()}"
+                mode_step3   = getattr(self, 'ai_roadmap_gen_mode_var', tk.StringVar(value="learning")).get()
+
                 if mode_step3 == "wiki":
-                    p4_prompt = f"""Tôi đang xây dựng hệ thống bóc tách dữ liệu lĩnh vực '{domain}'.
-Danh sách dữ liệu cần bóc:
-{chunk_json}
-Nhiệm vụ: Viết NHÁP danh sách các Lời Yêu Cầu (Prompts) để tôi nạp vào AI (Copilot) để nó bóc tách số liệu.
-Với mỗi danh mục, hãy viết thành cấu trúc:
-## Day [X]: [Tên Topic] ([Phase])
-### [X]a. [Tên mục nhỏ 1]
-<!-- pages: 5 -->
-**Prompt:** Đóng vai trò là {persona}. Trích xuất dữ liệu [Tên mục nhỏ]... (lệnh tối thượng: {supreme_commands})"""
+                    _day_prompt = (
+                        f"Viết section Markdown bóc tách dữ liệu Day {day_num} của '{domain}'.\n"
+                        f"Day {day_num}: \"{topic}\" | Phase: {phase_nm}\n"
+                        f"Deliverable: {concrete}\n"
+                        f"Details:\n{_details_str}\n"
+                        f"Persona: {persona}\n"
+                        f"{commands_block}\n\n"
+                        f"BẮT BUỘC trả về đúng định dạng sau (KHÔNG ```markdown, KHÔNG giải thích thêm):\n"
+                        f"## Day {day_num}: {topic} ({phase_nm})\n\n"
+                        f"**Prompt:** [yêu cầu bóc tách dữ liệu cụ thể cho {persona}, 3-5 câu]\n\n"
+                        f"**Bài tập:** [mô tả bảng Markdown cần tạo, tiêu chí: {_done_str}]\n\n"
+                        f"**Tags:** {_tags_str}"
+                    )
                 else:
-                    p4_prompt = f"""Tôi đang xây dựng giáo trình lĩnh vực '{domain}'.
-Danh sách bài học:
-{chunk_json}
-Nhiệm vụ: Viết NHÁP danh sách các Lời Yêu Cầu (Prompts) để tôi nạp vào AI (Copilot).
-Với mỗi bài học, hãy viết thành cấu trúc:
-## Day [X]: [Tên Topic] ([Phase])
-### [X]a. [Tên mục nhỏ 1]
-<!-- pages: 5 -->
-**Prompt:** Đóng vai trò là {persona}. Dạy bài [Tên mục nhỏ]... (lệnh tối thượng: {supreme_commands})"""
-                    
-                draft = call_llm_batch(p4_prompt, "Pass 4")
-                if not draft: return
+                    _day_prompt = (
+                        f"Viết section Markdown cho Day {day_num} trong roadmap '{domain}'.\n"
+                        f"Day {day_num}: \"{topic}\" | Phase: {phase_nm} | Kind: {kind}\n"
+                        f"Deliverable: {concrete}\n"
+                        f"Details:\n{_details_str}\n"
+                        f"Vật liệu: {_mat_str}\n"
+                        f"Persona: {persona}\n"
+                        f"{commands_block}\n\n"
+                        f"BẮT BUỘC trả về đúng định dạng sau (KHÔNG ```markdown, KHÔNG giải thích thêm):\n"
+                        f"## Day {day_num}: {topic} ({phase_nm})\n\n"
+                        f"**Prompt:** [câu hỏi đầy đủ cho {persona}, 3-5 câu, tiếng Việt]\n\n"
+                        f"**Bài tập:** [mô tả bài thực hành cụ thể dựa trên deliverable: {concrete}, 2-3 câu]\n\n"
+                        f"**Tags:** {_tags_str}"
+                    )
 
-                # PASS 5: Master Enhancement
-                self.roadmap_gen_log("  -> Pass 5: Bơm thêm yêu cầu cấp Master...")
-                if mode_step3 == "wiki":
-                    p5_prompt = f"""Đây là bản nháp các câu Prompt để bóc tách dữ liệu:
-{draft}
-Nhiệm vụ: Đọc và NÂNG CẤP các câu Prompt này lên cấp độ Master bóc tách.
-- Thêm yêu cầu AI (Copilot) phải bóc tách dữ liệu chi tiết, "định dạng bảng Markdown", "không tự bịa dữ liệu".
-- Ép AI phải liệt kê mọi ngóc ngách thông tin.
-Giữ lại nguyên vẹn cấu trúc (Day, pages, Prompt:)."""
-                else:
-                    p5_prompt = f"""Đây là bản nháp các câu Prompt để dạy AI:
-{draft}
-Nhiệm vụ: Đọc và NÂNG CẤP các câu Prompt này lên cấp độ Master.
-- Thêm yêu cầu AI (Copilot) phải đưa ra các "Ví dụ thực tế", "Lỗi thường gặp (Edge cases)", "Mẹo vặt thực tiễn".
-- Ép AI phải giải thích thật sâu sắc, không nói hời hợt.
-Giữ lại nguyên vẹn cấu trúc (Day, pages, Prompt:)."""
-                    
-                enhanced = call_llm_batch(p5_prompt, "Pass 5")
-                if not enhanced: return
+                _elapsed = time.time() - getattr(self, '_last_roadmap_call_ts', 0)
+                if _elapsed < _MIN_INTERVAL:
+                    time.sleep(_MIN_INTERVAL - _elapsed + _rnd.uniform(0.3, 1.2))
+                self._last_roadmap_call_ts = time.time()
 
-                # PASS 6: Format & Polish
-                self.roadmap_gen_log("  -> Pass 6: Đánh bóng & Ép chuẩn Markdown...")
-                p6_prompt = f"""Hãy format và đánh bóng bản Prompt này:
-{enhanced}
-BẮT BUỘC tuân thủ chặt chẽ định dạng Markdown sau, KHÔNG bọc ```markdown, KHÔNG giải thích lằng nhằng:
-## Day [X]: ...
-### [X]a. ...
-<!-- pages: [Số] -->
-**Prompt:** ..."""
-                final_md = call_llm_batch(p6_prompt, "Pass 6")
-                if not final_md: return
+                result = None
+                for _attempt in range(3):
+                    try:
+                        cur_key = self._get_active_api_key(exclude_keys=bad_keys)
+                        if not cur_key:
+                            self.roadmap_gen_log("[DỮNG] Không còn API Key khả dụng!")
+                            return
+                        _url = (
+                            f"https://generativelanguage.googleapis.com/v1beta/"
+                            f"models/gemini-flash-latest:generateContent?key={cur_key}"
+                        )
+                        _payload = {
+                            "contents": [{"parts": [{"text": _day_prompt}]}],
+                            "generationConfig": {"temperature": 0.3, "maxOutputTokens": 2048},
+                        }
+                        _resp = requests.post(
+                            _url, headers={"Content-Type": "application/json"},
+                            json=_payload, timeout=90,
+                        )
+                        if _resp.status_code == 429:
+                            self._set_roadmap_key_status(cur_key, "exhausted", "429 step3")
+                            bad_keys.add(cur_key)
+                            time.sleep(10)
+                            continue
+                        _resp.raise_for_status()
+                        result = _resp.json()["candidates"][0]["content"]["parts"][0]["text"]
+                        break
+                    except Exception as _e:
+                        self.roadmap_gen_log(f"[Day {day_num} lần {_attempt+1}/3] {_e}")
+                        time.sleep(5 * (_attempt + 1))
 
-                md_text = final_md.replace("```markdown\n", "").replace("```markdown", "").replace("```", "")
+                if not result:
+                    result = (
+                        f"## Day {day_num}: {topic} ({phase_nm})\n\n"
+                        f"**Prompt:** (LLM không trả về — fallback template) "
+                        f"Đóng vai là {persona}. Dạy bài '{topic}'. {_details_str}\n\n"
+                        f"**Bài tập:** {concrete}\n\n"
+                        f"**Tags:** {_tags_str}\n"
+                    )
+                    self.roadmap_gen_log(f"[Day {day_num}] LLM fail — dùng fallback template.")
 
-                with open(out_file, 'a', encoding='utf-8') as f:
-                    f.write(md_text + "\n\n")
+                _part_path = os.path.join(chunks_dir, f"day_{day_num:04d}.md.part")
+                with open(_part_path, "w", encoding="utf-8") as _pf:
+                    _pf.write(result.strip() + "\n\n")
 
-                self.roadmap_gen_log(f"[OK] Đã ghi xong Batch Day {chunk[0].get('day')} -> {chunk[-1].get('day')}")
+                done_days.add(day_num)
+                self.roadmap_gen_log(
+                    f"[Day {day_num}/{total_days}] OK — chunk đã lưu ({len(result):,} chars)."
+                )
 
-                # Delay nhỏ giữa các batch
-                if i + batch_size < total_days:
-                    self.roadmap_gen_log("-> Sleep 4s để tránh rate limit...")
-                    time.sleep(4)
+            self.roadmap_gen_log(f"[MERGE] Ghép {len(done_days)} chunk → {out_file}...")
+            _part_files = sorted(
+                [f for f in os.listdir(chunks_dir) if f.endswith(".md.part")],
+                key=lambda x: int(x.replace("day_", "").replace(".md.part", "")),
+            )
+            with open(out_file, "w", encoding="utf-8") as _fout:
+                _fout.write(f"# Roadmap Chi Tiết: {domain}\n\n")
+                _fout.write(f"> Bối cảnh: {persona}\n> Nền tảng: {core_books}\n\n")
+                for _pname in _part_files:
+                    with open(os.path.join(chunks_dir, _pname), "r", encoding="utf-8") as _fin:
+                        _fout.write(_fin.read())
 
-            self.roadmap_gen_log(f"[HOÀN TẤT BATCHING] Đã lưu file: {out_file}")
+            shutil.rmtree(chunks_dir, ignore_errors=True)
+            self.roadmap_gen_log(f"[✅ HOÀN TẤT] Merge xong, xóa chunks. File: {out_file}")
             try:
                 os.startfile(out_file)
             except Exception:
                 pass
-
-                    
-            self.roadmap_gen_log(f"[HOÀN THÀNH] Toàn bộ Roadmap đã được lưu tại: {out_file}")
-            
     # Roadmap Generator V5 -------------------------------------------------
     # These methods deliberately override the older V3/V4 methods above.  The
     # old implementation mixed planning, review and file output in one file;
@@ -1085,14 +1092,14 @@ BẮT BUỘC tuân thủ chặt chẽ định dạng Markdown sau, KHÔNG bọc 
                     import fitz
                     document = fitz.open(path)
                     try:
-                        content = "\n".join(page.get_text() for page in document[:min(len(document), 20)])
+                        content = "\n".join(page.get_text() for page in document[:min(len(document), 5)])
                     finally:
                         document.close()
                 else:
                     with open(path, "r", encoding="utf-8") as handle:
                         content = handle.read()
-                # Keep a bounded but useful excerpt from both ends of a file.
-                excerpt = content if len(content) <= 12000 else content[:9000] + "\n...[đã rút gọn]...\n" + content[-3000:]
+                # Rút gọn tài liệu tối đa 2,000 ký tự (chuẩn an toàn Free Tier TPM)
+                excerpt = content if len(content) <= 2000 else content[:1500] + "\n...[đã rút gọn]...\n" + content[-500:]
                 blocks.append(f"--- Tài liệu: {os.path.basename(path)} ---\n{excerpt}")
             except (OSError, UnicodeError) as exc:
                 self.roadmap_gen_log(f"[CẢNH BÁO] Không đọc được tài liệu {os.path.basename(path)}: {exc}")
@@ -1104,7 +1111,7 @@ BẮT BUỘC tuân thủ chặt chẽ định dạng Markdown sau, KHÔNG bọc 
     def _registry_context(self):
         try:
             with open(self._registry_path(), "r", encoding="utf-8") as handle:
-                return handle.read()[-12000:]
+                return handle.read()[-1500:]
         except FileNotFoundError:
             return "(Chưa có topic nào được đăng ký.)"
 
@@ -1158,13 +1165,32 @@ BẮT BUỘC tuân thủ chặt chẽ định dạng Markdown sau, KHÔNG bọc 
             if json_mode:
                 config["responseMimeType"] = "application/json"
             try:
-                self.roadmap_gen_log(f"[{label}] Gửi yêu cầu Gemini (key #{len(excluded_keys)+1}, retry mạng {transient_attempt}/{retries})...")
+                # --- Rate limit: tối thiểu 3s giữa mọi call Gemini + jitter ---
+                import random as _random
+                _MIN_INTERVAL = 3.0
+                _elapsed = time.time() - getattr(self, '_last_roadmap_call_ts', 0)
+                if _elapsed < _MIN_INTERVAL:
+                    time.sleep(_MIN_INTERVAL - _elapsed + _random.uniform(0.3, 1.2))
+                self._last_roadmap_call_ts = time.time()
+                _prompt_chars = len(prompt)
+                self.roadmap_gen_log(f"[{label}] Gửi yêu cầu Gemini (key #{len(excluded_keys)+1}, retry mạng {transient_attempt}/{retries}, prompt={_prompt_chars:,} chars)...")
+                if _prompt_chars > 3500:
+                    self.roadmap_gen_log(f"[CẢNH BÁO FREE-TIER] Prompt ({_prompt_chars:,} chars > 3,500) — nguy cơ vượt quota TPM.")
                 response = requests.post(url, headers={"Content-Type": "application/json"},
-                    json={"contents": [{"parts": [{"text": prompt}]}], "generationConfig": config}, timeout=60)
+                    json={"contents": [{"parts": [{"text": prompt}]}], "generationConfig": config}, timeout=90)
                 if response.status_code == 429:
-                    self._set_roadmap_key_status(key, "exhausted", "HTTP 429 / quota exhausted during roadmap generation")
-                    self.roadmap_gen_log(f"[{label}] Key đã chuyển sang exhausted; tự động chuyển sang key active tiếp theo.")
+                    try:
+                        api_message = response.json().get("error", {}).get("message", "")
+                    except Exception:
+                        api_message = response.text[:160]
+                    # Phân biệt hết hạn ngày (Daily RPD) vs nghẽn tốc độ tạm thời (RPM/TPM)
+                    if "perday" in api_message.lower() or "daily" in api_message.lower():
+                        self._set_roadmap_key_status(key, "exhausted", f"HTTP 429 Daily: {api_message[:80]}")
+                        self.roadmap_gen_log(f"[{label}] Key hết hạn mức ngày (Daily Quota); chuyển sang key khác.")
+                    else:
+                        self.roadmap_gen_log(f"[{label}] Key đạt ngưỡng tốc độ tạm thời (RPM/TPM); xoay sang key active khác trong danh sách...")
                     excluded_keys.add(key)
+                    time.sleep(2)
                     continue
                 if response.status_code in (400, 401, 403):
                     try:
@@ -1363,10 +1389,9 @@ Mỗi phase 5-30 Day; tổng phase.days phải đúng total_days. Coverage phả
         phase_start = 1
         for index, phase in enumerate(phases, start=1):
             already_in_phase = max(0, min(len(all_days) - phase_start + 1, phase["days"]))
-            remaining, batch_number = phase["days"] - already_in_phase, already_in_phase // 5
-            # Five rich micro-days are substantially more reliable than ten
-            # when Gemini must return nested JSON lists.
-            batch_limit = 5
+            remaining, batch_number = phase["days"] - already_in_phase, already_in_phase // 2
+            # Batch nhỏ 2 Day/lần: phản hồi cực nhanh, JSON nhỏ gọn (~2,000 chars), không bị cắt token
+            batch_limit = 2
             while remaining:
                 batch_number += 1
                 count = min(batch_limit, remaining)
@@ -1377,15 +1402,14 @@ Mỗi phase 5-30 Day; tổng phase.days phải đúng total_days. Coverage phả
                 if snapshot.get("gen_mode") == "wiki":
                     phase_prompt = f"""Tạo CHÍNH XÁC {count} LÔ BÓC TÁCH (được gắn nhãn là 'day') cho Module '{phase.get('name')}' của kho dữ liệu '{snapshot['domain']}', từ lô số {start_day}..{end_day}. Mục tiêu: {phase.get('goal')}.
 Trả JSON MẢNG, mỗi object: {{"day":N,"topic_id":"snake_case_duy_nhat","topic":"Tiêu đề lô (ví dụ: Tướng Thục từ A-D) (tối đa 80 ký tự)","phase":"{phase.get('name')}","kind":"extraction","estimated_minutes":30,"concrete_project":"Trích xuất chi tiết các thực thể cụ thể (CẦN liệt kê đích danh 10-20 tên thực thể vào đây)","materials":[],"definition_of_done":["Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"],"details":["Trích xuất chỉ số Võ, Trí","Trích xuất năng lực ẩn"],"keywords":["tối đa 4 từ khóa"],"prerequisites":[]}}.
-ID đã tồn tại: {known_ids}. Mỗi lô (day) BẮT BUỘC phải liệt kê rõ 10-20 tên của các tướng/binh chủng/vũ khí sẽ trích xuất vào trường 'concrete_project'. KHÔNG để chung chung. LUÔN dùng tiếng Việt.
-CAM KẾT: trường 'topic' của MỖI lô mới PHẢI khác hoàn toàn với mọi tiêu đề sau đây (TUYỆT ĐỐI KHÔNG lặp lại): {known_titles[-80:] if len(known_titles) > 80 else known_titles}."""
+ID đã tồn tại: {known_ids[-30:] if len(known_ids) > 30 else known_ids}. Mỗi lô (day) BẮT BUỘC phải liệt kê rõ 10-20 tên của các tướng/binh chủng/vũ khí sẽ trích xuất vào trường 'concrete_project'. KHÔNG để chung chung. LUÔN dùng tiếng Việt.
+CAM KẾT: trường 'topic' của MỖI lô mới PHẢI khác hoàn toàn với mọi tiêu đề sau đây (TUYỆT ĐỐI KHÔNG lặp lại): {known_titles[-10:] if len(known_titles) > 10 else known_titles}."""
                 else:
                     phase_prompt = f"""Tạo CHÍNH XÁC {count} MICRO-DAY cho phase '{phase.get('name')}' của roadmap '{snapshot['domain']}', Day {start_day}..{end_day}. Mục tiêu: {phase.get('goal')}.
 Trả JSON MẢNG, mỗi object: {{"day":N,"topic_id":"snake_case_duy_nhat","topic":"tiêu đề micro-Day DUY NHẤT (tối đa 80 ký tự)","phase":"{phase.get('name')}","kind":"lesson|review|capstone","estimated_minutes":30,"concrete_project":"một món đồ/sản phẩm cụ thể","materials":["tối đa 3 vật liệu + số lượng/kích thước"],"definition_of_done":["tối đa 2 tiêu chí kiểm tra"],"details":["tối đa 3 việc nhỏ có thể làm trong 30 phút"],"keywords":["tối đa 4 từ khóa"],"prerequisites":["topic_id đã học trước đó"]}}.
-ID đã tồn tại từ phase trước: {known_ids}. prerequisites chỉ được dùng ID trong danh sách này hoặc Day đứng trước ngay trong response; nếu không chắc, dùng []. Không bọc markdown, không thiếu Day, không trùng Day, topic_id không trùng. {"Day cuối cùng của roadmap phải kind='capstone'." if index == len(phases) and remaining == count and len(phases) >= 2 else ""} LUÔN dùng tiếng Việt.
-CAM KẾT: trường 'topic' của MỖI Day mới PHẢI khác hoàn toàn với mọi tiêu đề sau đây (đây là danh sách tiêu đề đã tồn tại — TUYỆT ĐỐI KHÔNG được lặp lại hay diễn đạt lại bằng từ ngữ tương tự): {known_titles[-80:] if len(known_titles) > 80 else known_titles}."""
-                # json_attempt: đếm lỗi JSON format (không đếm lỗi tạm thời API)
-                # _transient_retries: đếm lỗi 503/timeout/rỗng để tránh vòng lặp vô hạn
+ID đã tồn tại từ phase trước: {known_ids[-30:] if len(known_ids) > 30 else known_ids}. prerequisites chỉ được dùng ID trong danh sách này hoặc Day đứng trước ngay trong response; nếu không chắc, dùng []. Không bọc markdown, không thiếu Day, không trùng Day, topic_id không trùng. {"Day cuối cùng của roadmap phải kind='capstone'." if index == len(phases) and remaining == count and len(phases) >= 2 else ""} LUÔN dùng tiếng Việt.
+CAM KẾT: trường 'topic' của MỖI Day mới PHẢI khác hoàn toàn với mọi tiêu đề sau đây (đây là danh sách tiêu đề đã tồn tại — TUYỆT ĐỐI KHÔNG được lặp lại hay diễn đạt lại bằng từ ngữ tương tự): {known_titles[-10:] if len(known_titles) > 10 else known_titles}."""
+                _base_phase_prompt = phase_prompt
                 json_attempt = 0
                 _transient_retries = 0
                 response_text = None
@@ -1445,16 +1469,17 @@ CAM KẾT: trường 'topic' của MỖI Day mới PHẢI khác hoàn toàn vớ
                         else:
                             json_attempt += 1
                             self.roadmap_gen_log(f"[PASS 1B • Macro {index} • batch {batch_number} • lần {json_attempt}/3] JSON lỗi: {exc}. Retry...")
+                            # Rebuild từ base prompt + 1 hint ngắn — không tích lũy vô hạn
+                            _hint = str(exc)[:200]
                             if "trùng nội dung" in err_str:
-                                # Gom tất cả tiêu đề hiện tại và ép AI đặt tên khác hẳn
-                                forbidden = [item["topic"] for item in all_days]
-                                phase_prompt += (
-                                    f"\nLỖI TRÙNG TIÊU ĐỀ: {exc}. "
-                                    f"TUYỆT ĐỐI KHÔNG được dùng hoặc paraphrase bất kỳ tiêu đề nào trong danh sách cấm này: {forbidden[-80:] if len(forbidden) > 80 else forbidden}. "
-                                    "Mỗi 'topic' phải khác biệt rõ ràng — đặt cụ thể theo nội dung hẹp của micro-Day đó, không dùng tên chung chung."
+                                forbidden = [item["topic"] for item in all_days[-20:]]
+                                phase_prompt = _base_phase_prompt + (
+                                    f"\nLỖI TRÙNG TIÊU ĐỀ: {_hint}. "
+                                    f"TUYỆT ĐỐI KHÔNG được dùng hoặc paraphrase tiêu đề: {forbidden}. "
+                                    "Mỗi 'topic' phải khác biệt rõ ràng."
                                 )
                             else:
-                                phase_prompt += f"\nLỗi trước: {exc}. Trả MẢNG JSON hoàn chỉnh, không cắt ngang."
+                                phase_prompt = _base_phase_prompt + f"\nLỗi lần trước: {_hint}. Trả MẢNG JSON hoàn chỉnh, không cắt ngang."
                 else:
                     # json_attempt == 3: toàn bộ retry JSON format đều thất bại
                     if count > 1:
@@ -1525,11 +1550,21 @@ CAM KẾT: trường 'topic' của MỖI Day mới PHẢI khác hoàn toàn vớ
         phase_groups = []
         for item in current["skeleton"]:
             if (not phase_groups or phase_groups[-1][0] != item.get("phase")
-                    or len(phase_groups[-1][1]) >= 5):
+                    or len(phase_groups[-1][1]) >= 2):
                 phase_groups.append((item.get("phase"), [item]))
             else:
                 phase_groups[-1][1].append(item)
-        reviews_json = json.dumps(reviews, ensure_ascii=False)
+        # Rút gọn phản biện: chỉ trích xuất gaps/suggestions trọng tâm (≤ 500 chars)
+        concise_reviews = []
+        for r in reviews:
+            if isinstance(r, dict):
+                gaps = r.get("gaps", [])
+                warns = r.get("warnings", [])
+                concise_reviews.append({
+                    "gaps": [{"id": g.get("id"), "suggestion": g.get("suggestion")[:100]} for g in gaps[:5] if isinstance(g, dict)],
+                    "warnings": [w[:100] for w in warns[:3]]
+                })
+        reviews_json = json.dumps(concise_reviews, ensure_ascii=False)
         artifacts = self._roadmap_artifacts(snapshot)
         progress_path = artifacts["reviewed"] + ".progress.json"
         import hashlib
@@ -1586,7 +1621,17 @@ CAM KẾT: trường 'topic' của MỖI Day mới PHẢI khác hoàn toàn vớ
                 reviews.append({"gaps": [], "warnings": [f"Pass {label} bị bỏ qua do lỗi MAX_TOKENS sau 3 lần retry."]})
                 progress["reviews"] = reviews
                 atomic_write(progress_path, json.dumps(progress, ensure_ascii=False, indent=2))
-        reviews_json = json.dumps(reviews, ensure_ascii=False)
+        # Cập nhật lại reviews_json rút gọn sau khi đã có đầy đủ reviews
+        concise_reviews = []
+        for r in reviews:
+            if isinstance(r, dict):
+                gaps = r.get("gaps", [])
+                warns = r.get("warnings", [])
+                concise_reviews.append({
+                    "gaps": [{"id": g.get("id"), "suggestion": g.get("suggestion")[:100]} for g in gaps[:5] if isinstance(g, dict)],
+                    "warnings": [w[:100] for w in warns[:3]]
+                })
+        reviews_json = json.dumps(concise_reviews, ensure_ascii=False)
         revised_days = progress.get("revised_days", [])
         expected_prefix = current["skeleton"][:len(revised_days)]
         if ([item.get("day") for item in revised_days if isinstance(item, dict)]
@@ -2068,15 +2113,18 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
         tree.pack(fill="both", expand=True, side="left")
         vsb.pack(fill="y", side="left")
 
+        # Map iid -> key dictionary reference để chống lệch index khi sắp xếp/lọc
+        _tree_key_map = {}
+
         def edit_key(event=None):
             selected = tree.selection()
             if not selected: return
-            idx = int(selected[0])
+            k_obj = _tree_key_map.get(selected[0])
+            if not k_obj: return
             gemini_settings = self.settings.get("gemini", {})
             keys = gemini_settings.get("api_keys", [])
-            if idx < 0 or idx >= len(keys): return
-
-            k_obj = keys[idx]
+            if k_obj not in keys: return
+            idx = keys.index(k_obj)
 
             edit_win = Toplevel(self.root)
             edit_win.title("Sửa API Key")
@@ -2261,6 +2309,7 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
         def refresh_list():
             for item in tree.get_children():
                 tree.delete(item)
+            _tree_key_map.clear()
             gemini_settings = self.settings.get("gemini", {})
             keys = gemini_settings.get("api_keys", [])
 
@@ -2294,7 +2343,10 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
                 email = k.get("email", "").strip().lower()
                 tag = ("dup_project",) if pid and email and (email, pid) in dup_projects else ()
 
-                tree.insert("", "end", iid=str(idx), values=(
+                iid = f"key_{idx}_{id(k)}"
+                _tree_key_map[iid] = k
+
+                tree.insert("", "end", iid=iid, values=(
                     k.get("email", ""),
                     masked_key,
                     pname if pname else "-",
@@ -2485,8 +2537,10 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
                 if "api_keys" not in gemini_settings:
                     gemini_settings["api_keys"] = []
 
+                k_val_dec = decode_key(k_val)
                 for k_obj in gemini_settings["api_keys"]:
-                    if k_obj.get("key") == k_val:
+                    existing_dec = decode_key(k_obj.get("key", ""))
+                    if existing_dec == k_val_dec or existing_dec == k_val_dec[::-1]:
                         messagebox.showerror("Lỗi", "API Key này đã tồn tại trong danh sách!", parent=add_win)
                         return
 
@@ -2522,18 +2576,31 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
             Button(f_btns, text="Hủy", command=add_win.destroy, bg="#e74c3c", fg="white", width=8).pack(side="right", padx=5)
             add_win.bind("<Return>", lambda e: do_save())
 
-        def del_key():
+        def del_key(event=None):
             selected = tree.selection()
-            if not selected: return
-            if not messagebox.askyesno("Xác nhận", "Xóa Key này?", parent=top): return
-            idx = int(selected[0])
+            if not selected:
+                messagebox.showwarning("Thông báo", "Vui lòng chọn ít nhất 1 Key để xóa!", parent=top)
+                return
+            count = len(selected)
+            msg = f"Bạn có chắc chắn muốn xóa {count} Key đã chọn?" if count > 1 else "Xác nhận xóa Key này?"
+            if not messagebox.askyesno("Xác nhận xóa", msg, parent=top):
+                return
             gemini_settings = self.settings.get("gemini", {})
             keys = gemini_settings.get("api_keys", [])
-            if 0 <= idx < len(keys):
-                keys.pop(idx)
+            to_remove = set()
+            for s in selected:
+                k_obj = _tree_key_map.get(s)
+                if k_obj:
+                    to_remove.add(id(k_obj))
+            if to_remove:
+                keys = [k for k in keys if id(k) not in to_remove]
+                from settings import update_gemini_settings
                 update_gemini_settings(api_keys=keys)
                 self.settings = load_settings()
                 refresh_list()
+                log_key(f"🗑️ Đã xóa thành công {count} API Key.")
+
+        tree.bind("<Delete>", del_key)
 
         def check_all_keys(only_errors=False):
             gemini_settings = self.settings.get("gemini", {})
@@ -2563,84 +2630,52 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
             log_key(f"🔄 Bắt đầu kiểm tra {len(keys_to_check)} API keys...")
 
             def run_checks():
-                for key_obj in keys_to_check:
+                for idx, key_obj in enumerate(keys_to_check):
                     if stop_flag[0]:
                         break
-                    raw_key = key_obj.get("key")
-                    if not raw_key: continue
-                    email = key_obj.get("email", "Không tên")
-                    log_key(f"──────────────────────────────")
-                    log_key(f"⏳ Kiểm tra: {email[:50]}")
-                    api_key = decode_key(raw_key)
+                    api_key_raw = key_obj.get("key", "")
+                    api_key = decode_key(api_key_raw)
+                    _kd = api_key[:8] + "***" + api_key[-4:] if len(api_key) > 12 else api_key[:4] + "***"
+                    log_key(f"[{idx+1}/{len(keys_to_check)}] Đang kiểm tra: {_kd}")
                     try:
                         url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
-                        log_key(f"   → Gọi API gemini-flash-latest...")
                         headers = {'Content-Type': 'application/json'}
                         payload = {"contents": [{"parts": [{"text": "Hi"}]}], "generationConfig": {"maxOutputTokens": 5}}
                         resp = requests.post(url, headers=headers, json=payload, timeout=15)
                         key_obj["last_check_time"] = int(time.time())
-                        log_key(f"   ← HTTP {resp.status_code}")
 
                         if resp.status_code == 200:
-                            now = int(time.time())
-                            old_status = key_obj.get("status")
-                            next_check = key_obj.get("next_check_time", 0)
-                            if old_status == "exhausted" and next_check > now:
-                                remain_min = (next_check - now) // 60
-                                log_key(f"   ⚠️ API OK nhưng giữ án Exhausted ({remain_min} phút còn lại).")
-                            else:
-                                key_obj["status"] = "active"
-                                key_obj["reset_time"] = 0
-                                key_obj["next_check_time"] = 0
-                                log_key(f"   ✅ Hoạt động tốt!")
+                            key_obj["status"] = "active"
+                            key_obj["reset_time"] = 0
+                            key_obj["next_check_time"] = 0
+                            key_obj["error_msg"] = ""
+                            log_key(f"   ✅ OK (Active)")
+                        elif resp.status_code == 503:
+                            log_key(f"   ⏸️ HTTP 503: Server tạm quá tải (Giữ trạng thái)")
+                        elif resp.status_code == 429:
+                            key_obj["status"] = "exhausted"
+                            key_obj["reset_time"] = int(time.time()) + 86400
+                            key_obj["next_check_time"] = int(time.time()) + 10800
+                            log_key(f"   ⚠️ Hết Quota (Exhausted)")
                         else:
                             try:
                                 rj = resp.json()
                             except Exception:
                                 rj = {}
                             msg = rj.get("error", {}).get("message", "")
-                            log_key(f"   Phản hồi API: {msg[:150]}")
                             proj = extract_project_id(rj)
                             if proj:
                                 key_obj["project_id"] = proj
-                                log_key(f"   ℹ️ Project ID: {proj}")
-                            # 503 hoặc model quá tải: KHÔNG đổi status key
-                            if resp.status_code == 503 or "currently experiencing" in msg.lower() or "overloaded" in msg.lower():
-                                log_key(f"   ⏸️ Model quá tải TẠM THỜI → Key vẫn hợp lệ! (Giữ nguyên status)")
-                            elif "Quota" in msg or "exhausted" in msg.lower() or resp.status_code == 429:
-                                key_obj["status"] = "exhausted"
-                                key_obj["reset_time"] = int(time.time()) + 86400
-                                key_obj["next_check_time"] = int(time.time()) + 10800
-                                key_obj["error_msg"] = ""
-                                log_key(f"   ⚠️ Hết Quota (Exhausted).")
-                            else:
-                                key_obj["status"] = "invalid"
-                                key_obj["error_msg"] = msg[:50]
-                                log_key(f"   ❌ Key không hợp lệ.")
-                    except requests.exceptions.ConnectionError as conn_err:
-                        # Lỗi mạng → KHÔNG đổi status
-                        log_key(f"   🌐 Lỗi kết nối mạng! (Key giữ nguyên status cũ)")
-                        log_key(f"      {str(conn_err)[:150]}")
-                        log_key(f"      → Key có thể vẫn hợp lệ. Kiểm tra internet.")
-                    except requests.exceptions.Timeout:
-                        log_key(f"   ⏱️ Timeout sau 15s (Key giữ nguyên status cũ)")
+                            key_obj["status"] = "invalid"
+                            key_obj["error_msg"] = msg[:35]
+                            log_key(f"   ❌ HTTP {resp.status_code}: {msg[:50]}")
                     except Exception as e:
-                        key_obj["status"] = "invalid"
-                        key_obj["error_msg"] = str(e)[:50]
-                        log_key(f"   ❌ Exception: {type(e).__name__}: {str(e)[:150]}")
+                        log_key(f"   ❌ Lỗi kết nối: {str(e)[:50]}")
 
-                    # Cập nhật giao diện và lưu ngay sau mỗi key
-                    def update_single():
-                        update_gemini_settings(api_keys=keys)
-                        self.settings = load_settings()
-                        refresh_list()
-                    top.after(0, update_single)
-
-                log_key(f"══════════════════════════════")
-                if stop_flag[0]:
-                    log_key(f"🛑 Đã dừng tiến trình kiểm tra!")
+                    top.after(0, refresh_list)
+                    time.sleep(0.3)
                 else:
-                    log_key(f"✅ Kiểm tra xong toàn bộ!")
+                    log_key("✅ Kiểm tra xong toàn bộ!")
                 top.after(0, lambda: update_ui_after_check(keys, stop_flag[0]))
 
             def update_ui_after_check(keys, stopped):

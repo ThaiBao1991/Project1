@@ -1,3 +1,54 @@
+## 2026-08-17 — Triển khai Kiến trúc Chunk-and-Merge & Global Rate Limiter chống khóa Account
+
+### Vấn đề gốc
+- Prompt quá lớn tích lũy vô hạn (lên tới 40,000+ chars) dẫn đến timeout/503 liên tục.
+- Quá trình gọi Gemini không có rate limit tối thiểu giữa các requests thành công và xoay key quá nhanh (1s) dẫn đến Google Cloud hiểu nhầm là hành vi chiếm dụng tài nguyên bất thường (suspension do abusive activity).
+- Sau Step 1, file markdown có thể phình to hàng chục nghìn dòng, nếu làm LLM Step 3 gom 10 Day/batch (3 pass liên tục) sẽ làm quá tải nghiêm trọng.
+
+### Thay đổi: `AskCpl.py`
+
+#### 1. Global Rate Limiter & Jitter (`_call_roadmap_llm`, `_roadmap_gen_step3_thread`)
+- Áp dụng `_MIN_INTERVAL = 3.0s` tối thiểu giữa mọi lượt gọi Gemini + jitter ngẫu nhiên `(0.3s - 1.2s)` nhằm xóa pattern bot tự động.
+- Giám sát độ dài prompt: log cảnh báo nếu `prompt > 3,500` ký tự (chuẩn an toàn Free Tier TPM).
+- Timeout nâng lên 90s cho các request an toàn.
+
+#### 2. Rút gọn Context chống Trùng lặp & Giới hạn Tham khảo (Pass 1A & 1B)
+- Rút gọn file PDF đọc vào tối đa 5 trang đầu và trích xuất tối đa **2,000 ký tự** thay vì 12,000 ký tự.
+- Rút gọn `_registry_context` xuống **1,500 ký tự** thay vì 12,000 ký tự.
+- Giảm batch size ở Pass 1B xuống **2 Day/lần** thay vì 5 Day/lần $\rightarrow$ output JSON chỉ ~2,000 ký tự, tốc độ siêu nhanh và không bao giờ bị cắt ngắn.
+- Cắt `known_titles[-80:]` (~6,400 chars) xuống `known_titles[-10:]` (~800 chars).
+- Cắt `known_ids` xuống 30 ID gần nhất.
+- Đặt `_base_phase_prompt`: khi retry JSON format lỗi, prompt được tạo mới từ base + 1 câu lỗi ngắn (<200 chars), ngăn chặn hoàn toàn việc prompt phình to theo cấp số cộng qua từng lần retry.
+
+#### 3. Chế độ Step 3 Chunk-and-Merge (1 Day / Call)
+- Thay thế hoàn toàn cơ chế batch 10 Day (3 pass liên tiếp) bằng cơ chế **1 Day per Call**:
+  - Mỗi Day gọi 1 prompt độc lập (≤ 1,000 chars), có rate-limit 3s + jitter.
+  - Mỗi Day sinh ra được lưu tức thì vào file chunk tạm: `{out_file}.chunks/day_{NNNN}.md.part`.
+  - Tự động phát hiện và Resume nếu có `.part` cũ từ lần chạy trước (không bị mất công).
+  - Sau khi toàn bộ các Day hoàn tất, tự động Merge toàn bộ `.part` files theo đúng thứ tự số thứ tự vào file `.md` chính thức.
+
+#### 4. Phân biệt HTTP 429 Quota mềm (RPM/TPM) vs Quota ngày (RPD)
+- Khi gặp 429: nếu thông báo API ghi rõ `PerDay/daily` mới đánh dấu `exhausted` 24h.
+- Nếu chỉ chạm trần tốc độ tức thời (RPM/TPM): chỉ xoay sang key khác trong danh sách (cooldown tạm thời), không vô hiệu hóa key trong `settings.json`.
+
+#### 5. Micro-slicing cho Bước 2 (Phản biện & Tích hợp Khung)
+- Chia nhóm tích hợp Pass 6 xuống **2 Day/nhóm** thay vì 5 Day/nhóm.
+- Rút gọn `reviews_json` trích xuất cô đọng mảng `gaps` và `warnings` (≤ 500 ký tự) thay vì gửi toàn bộ văn bản phản biện dài hàng nghìn ký tự.
+
+#### 6. Sửa Lỗi Lệch Chỉ Mục Treeview & Hỗ Trợ Xóa/Kích Hoạt Nhiều Key Cùng Lúc (Multi-Select)
+- Triển khai `_tree_key_map`: gắn liên kết trực tiếp giữa định danh dòng `iid` và object key thực tế trong bộ nhớ thay vì dựa vào số thứ tự dòng `int(selected[0])` $\rightarrow$ giải quyết triệt để lỗi xóa nhầm key khi bảng bị sắp xếp cột.
+- **Hỗ trợ chọn nhiều Key (Multi-Select)**: Cho phép dùng `Ctrl+Click` hoặc `Shift+Click` để chọn hàng loạt Key và bấm **"Xóa Key"** (hoặc nhấn phím `Delete`) / bấm **"Đặt Active"** để xử lý toàn bộ các key đã chọn trong 1 lần duy nhất.
+- Hộp thoại xác nhận hiển thị rõ số lượng: *"Bạn có chắc chắn muốn xóa N Key đã chọn?"*.
+- Sửa hàm kiểm tra trùng lặp trong `add_key`: luôn giải mã `decode_key()` (cả dạng thô, base64 `ENC:` và đảo chiều) trước khi so sánh.
+- Dọn dẹp key bị kẹt trong `settings.json`.
+  - Tự động xóa sạch thư mục tạm `.chunks/` sau khi merge thành công.
+
+### Kết quả Test & Xác minh
+- Toàn bộ cú pháp Python AST: `ALL SYNTAX PERFECT`.
+- `python -m unittest test_roadmap_pipeline.py`: **18/18 tests PASS 100%**.
+
+---
+
 ## 2026-08-17 — Nâng cấp Retry/Fallback cho PASS 1B
 
 ### Vấn đề gốc
