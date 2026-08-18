@@ -23,3 +23,5 @@ Addon (Extension Manifest V3) được thiết kế để tự động hóa quá
 - Yêu cầu tích hợp Follow-up Logic. Khởi tạo ProjectLog.md.
 - Đã triển khai xong tính năng Follow-up tự động với tham số tuỳ chỉnh `maxFollowUp` ở popup.
 - 2026-08-05: Thêm tab "Trích Xuất" vào popup — cho phép xuất trang đang hỏi thành file HTML. Các file sửa: `popup.html`, `popup.js`, `content_script.js`, `background.js`.
+- 2026-08-18: Tích hợp Direct Streaming về Local Server (Port 5678) và Smart Code Extractor — tự động đẩy nội dung từng Day về server lưu ổ cứng và bóc tách các file code độc lập (`content_script.js`, `exercise_server.py`).
+

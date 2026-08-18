@@ -1365,6 +1365,24 @@ async function processExtractedContent(promptLabel, responseHtml) {
     autoSave();
     safeSendMessage({ action: "day_saved", dayLabel: promptLabel, totalSaved: dayIndex.length });
 
+    // GĐ48: Stream bài học & tự động bóc tách file Code về Local Server (5678)
+    try {
+        fetch('http://127.0.0.1:5678/api/save_day_content', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                roadmap_name: folderName || 'default_roadmap',
+                day: promptLabel,
+                topic: promptLabel,
+                html: responseHtml
+            })
+        }).then(r => r.json()).then(data => {
+            if (data && data.status === 'success') {
+                appLog(`⚡ Đã stream trực tiếp ${promptLabel} về Local Server (${data.saved_files_count || 1} files)`);
+            }
+        }).catch(() => {});
+    } catch (e) {}
+
     if (dayIndex.length % SAVE_EVERY === 0) {
         updateIndex();
         saveSession();

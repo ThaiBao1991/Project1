@@ -385,37 +385,89 @@ class AskCplApp:
         return s
 
     def _read_ref_files(self, ref_files, log_func):
-        import os, requests
+        import os, re, requests
         try:
             from bs4 import BeautifulSoup
         except ImportError:
             BeautifulSoup = None
+
         ref_content_block = ""
+        max_chars_per_file = 3500  # Giới hạn an toàn chống quá tải TPM / tràn token
+
         for i, rf in enumerate(ref_files):
             if not rf:
                 continue
+            fname = os.path.basename(rf)
             if os.path.exists(rf):
-                try:
-                    with open(rf, 'r', encoding='utf-8') as f:
-                        rc = f.read()
-                    ref_content_block += f"\n--- File tham khảo {i+1}: {os.path.basename(rf)} ---\n{rc[:300000]}\n"
-                    log_func(f"[INFO] Đã nạp file tham khảo {i+1}: {os.path.basename(rf)}")
-                except Exception as e:
-                    log_func(f"[CẢNH BÁO] Lỗi đọc file {os.path.basename(rf)}: {e}")
+                ext = os.path.splitext(rf)[1].lower()
+                rc = ""
+                # 1. Xử lý chuyên sâu cho PDF (PyMuPDF / fitz)
+                if ext == ".pdf":
+                    try:
+                        import fitz  # PyMuPDF
+                        doc = fitz.open(rf)
+                        toc = doc.get_toc() # [[lvl, title, page], ...]
+                        toc_lines = []
+                        if toc:
+                            toc_lines.append("[Mục lục / Bookmarks từ PDF]:")
+                            for item in toc[:80]:
+                                lvl, title, page = item[0], item[1].strip(), item[2]
+                                indent = "  " * (lvl - 1)
+                                toc_lines.append(f"{indent}- {title} (Trang {page})")
+                        
+                        # Quét thêm các trang đầu tìm Mục lục hoặc trích xuất nội dung chương
+                        body_pages = []
+                        max_scan = min(len(doc), 20)
+                        for pno in range(max_scan):
+                            ptext = doc[pno].get_text("text").strip()
+                            if not ptext:
+                                continue
+                            # Nếu trang chứa từ khóa mục lục
+                            if re.search(r"(?i)(mục\s*lục|table\s+of\s+contents|contents|chương\s+\d+)", ptext):
+                                body_pages.append(f"[Trang {pno+1}]:\n{ptext}")
+                            elif pno < 5 and not toc:
+                                body_pages.append(f"[Trang {pno+1}]:\n{ptext}")
+
+                        doc.close()
+                        combined = "\n".join(toc_lines) + "\n\n" + "\n\n".join(body_pages)
+                        rc = combined.strip()[:max_chars_per_file]
+                        log_func(f"[INFO] Đã trích xuất thông minh PDF {i+1} ({'Có Bookmarks' if toc else 'Quét trang đầu'}): {fname}")
+                    except Exception as e:
+                        log_func(f"[CẢNH BÁO] Lỗi đọc PDF {fname}: {e}")
+                        rc = ""
+                
+                # 2. Xử lý các file văn bản (.md, .txt, .json, .py, v.v.)
+                if not rc and ext != ".pdf":
+                    try:
+                        with open(rf, 'r', encoding='utf-8', errors='replace') as f:
+                            raw = f.read()
+                        rc = raw[:max_chars_per_file]
+                        log_func(f"[INFO] Đã nạp file tham khảo {i+1}: {fname}")
+                    except Exception as e:
+                        log_func(f"[CẢNH BÁO] Lỗi đọc file {fname}: {e}")
+
+                if rc:
+                    ref_content_block += f"\n--- File tham khảo {i+1}: {fname} ---\n{rc}\n"
+
             elif rf.startswith("http://") or rf.startswith("https://"):
                 try:
                     resp = requests.get(rf, timeout=10)
                     resp.raise_for_status()
                     if BeautifulSoup:
                         soup = BeautifulSoup(resp.content, 'html.parser')
+                        for s in soup(["script", "style", "nav", "footer"]):
+                            s.decompose()
                         text = soup.get_text(separator=' ', strip=True)
                     else:
-                        text = resp.text
-                    ref_content_block += f"\n--- File tham khảo {i+1} (URL): {rf} ---\n{text[:300000]}\n"
+                        text = re.sub(r'<[^>]+>', ' ', resp.text)
+                    clean_text = re.sub(r'\s+', ' ', text).strip()[:max_chars_per_file]
+                    ref_content_block += f"\n--- File tham khảo {i+1} (URL): {rf} ---\n{clean_text}\n"
                     log_func(f"[INFO] Đã nạp dữ liệu từ URL {i+1}: {rf}")
                 except Exception as e:
                     log_func(f"[CẢNH BÁO] Lỗi tải URL {rf}: {e}")
+
         return ref_content_block
+
 
     def _roadmap_gen_step1_thread(self):
         import tkinter as tk

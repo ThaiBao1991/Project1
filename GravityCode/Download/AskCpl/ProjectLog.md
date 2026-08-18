@@ -1,3 +1,36 @@
+## 2026-08-18 — Chuẩn Hóa Kiến Trúc AI Workflow Toàn Diện & Xoay Vòng Cụm Tài Khoản (Anti-Ban 100%)
+
+### Mục tiêu & Bối cảnh
+- Tài khoản Google AI Studio bị khóa do các cơ chế gọi API thiếu kiểm soát (xoay key quá gắt trên cùng 1 account, không có độ trễ tự nhiên).
+- Xác lập chuẩn **AI Workflow Toàn Diện (End-to-End Safe Learning Workflow)**: Từ sinh Lộ trình (Roadmap) chuẩn mực đến tự động hóa tải toàn bộ nội dung/bài giảng quá trình học tập qua Copilot Addon và xuất tài liệu.
+
+### Quy chuẩn & Nâng cấp Hệ thống
+
+#### 1. Chiến lược Xoay vòng theo Cụm Tài khoản (Account-Cluster Rotation with 1h Cooldown)
+- **Quy tắc 1-2 Key / Tài khoản**: Tuyệt đối không tạo hàng loạt key trên 1 account.
+- **Xoay vòng theo Account**: Khi tài khoản A chạm 429 hoặc kết thúc 1 batch $\rightarrow$ Chuyển sang Tài khoản B $\rightarrow$ Khóa Cooldown Tài khoản A trong **60 phút (1 giờ)**.
+- **Nhịp thở tự nhiên (Human-like Pacing)**: Duy trì `delay = 3.5s - 5.0s` + `jitter 0.5s - 1.5s` ngẫu nhiên giữa mọi request.
+
+#### 2. Chuỗi Workflow Tự Động Hóa 3 Giai Đoạn
+- **Giai đoạn 1 (Roadmap Generation)**: Sinh khung sườn & nội dung chi tiết từng Day theo chuẩn Non-Interactive Markdown + Atomic Chunking `.chunks/day_N.md.part`.
+- **Giai đoạn 2 (Automation Interaction & Content Scraper)**: Tích hợp với Copilot Addon (Chrome/Edge Extension) để tự động gửi Prompt lên Web AI (Copilot/ChatGPT/Gemini) và trích xuất câu trả lời/bài giảng từng ngày.
+- **Giai đoạn 3 (Full Learning Export)**: Kết nối qua Local HTTP Server (`exercise_server.py` cổng 5678) xuất toàn bộ tài liệu thành Markdown, Word (.docx) và hệ thống Flashcard/Bài tập tương tác.
+
+#### 3. Nâng Cấp Khâu Tìm Hiểu & Trích Xuất File Tham Khảo (`AskCpl.py`)
+- **Smart PDF Bookmarks & TOC Extractor**: Sử dụng `fitz` (PyMuPDF) trích xuất trực tiếp cây thư mục Mục lục (Bookmarks/TOC) và quét trang nội dung đầu cuốn sách; giới hạn an toàn 3,500 ký tự chống quá tải token / TPM.
+- Hỗ trợ an toàn các định dạng `.pdf`, `.md`, `.txt`, `.json` và cào URL sạch.
+
+#### 4. Nâng Cấp Khâu Tải & Lưu Trữ Tức Thì (`exercise_server.py`, `CopilotWordExportAddon`)
+- **API Stream Trực Tiếp (`POST /api/save_day_content`)**: Addon tự động stream nội dung từng Day về server (cổng 5678) để lưu ngay vào ổ cứng (`downloaded_lessons/`).
+- **Smart Code Extractor**: Server tự động phân tách các khối Code Block (`python`, `javascript`, `cpp`, `html`...) thành các file mã nguồn độc lập (`code/day_XXX_snippet_Y.ext`) để người dùng chạy ngay.
+
+#### 5. Cập nhật Kỹ năng Hệ thống (Skills)
+- Cập nhật `.agents/skills/gemini_api_key_handling/SKILL.md`: Bổ sung Mục 6, 7, 8 về Account-Cluster Rotation, Cooldown 1h và Anti-ban Pacing.
+- Cập nhật `.agents/skills/generate_roadmap/SKILL.md`: Bổ sung Mục 11 về Quy trình End-to-End Tự động hóa Roadmap & Tải toàn bộ nội dung học tập.
+
+
+---
+
 ## 2026-08-17 — Triển khai Kiến trúc Chunk-and-Merge & Global Rate Limiter chống khóa Account
 
 ### Vấn đề gốc

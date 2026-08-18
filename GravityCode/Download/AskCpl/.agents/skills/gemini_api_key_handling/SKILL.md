@@ -50,3 +50,23 @@ def decode_key(raw_key):
             return raw_key
     return raw_key
 ```
+
+## 6. Chiến lược Xoay vòng theo Cụm Tài khoản (Account-Cluster Rotation) & Cooldown 1h
+Để **TUYỆT ĐỐI KHÔNG BỊ GOOGLE KHÓA TÀI KHOẢN** do nghi ngờ bot/abusive activity:
+
+- **Quy tắc 1-2 Key / Tài khoản**: Mỗi tài khoản Google chỉ tạo tối đa 1 - 2 API Keys. Tuyệt đối không tạo hàng loạt (10-20 keys) trên cùng 1 account.
+- **Xoay vòng theo Cụm (Account-Level Round Robin)**: 
+  - Hệ thống gom các Key theo `account_id` (hoặc nhóm tài khoản).
+  - Sử dụng Key thuộc **Tài khoản A** $\rightarrow$ Khi tài khoản A hoàn thành 1 batch hoặc chạm giới hạn 429 tạm thời $\rightarrow$ Chuyển sang **Tài khoản B**.
+  - **Khóa Cooldown 1 Giờ (60 phút)**: Tài khoản A sau khi dùng xong sẽ được đưa vào hàng đợi nghỉ ít nhất **60 phút** trước khi được phép gọi lại.
+  - Lợi ích: Mỗi tài khoản chỉ chịu tải nhẹ như người dùng thật, xóa sạch dấu vết bot lạm dụng quota, và hạn mức RPM/TPM của Google được phục hồi 100%.
+
+## 7. Quy chuẩn Nhịp thở Tự nhiên (Safe Human-like Pacing & Jitter)
+- **Khoảng nghỉ tối thiểu (Delay)**: Giữa mọi request thành công, bắt buộc phải có độ trễ `time.sleep(3.5s đến 5.0s)`.
+- **Độ trễ ngẫu nhiên (Random Jitter)**: Luôn cộng thêm `random.uniform(0.5, 1.5)` giây để phá vỡ tần số bot đều đặn.
+- **Giới hạn tốc độ an toàn (Safe Rate)**: Luôn duy trì dưới **10 Requests / Phút (RPM)** (thấp hơn ngưỡng trần 15 RPM của Google Free Tier).
+
+## 8. Giới hạn Payload & Checkpoint Tránh Gọi Trùng Lặp
+- **Payload ngắn gọn**: Mỗi request prompt chỉ gửi từ 1,000 đến tối đa 3,500 ký tự. Không gửi dồn toàn bộ tài liệu hay lịch sử dài chục nghìn ký tự.
+- **Lưu trạng thái tức thì (Atomic Chunk Checkpoint)**: Mọi nội dung sinh thành công (Day 1, Day 2...) phải được ghi ngay vào đĩa cứng (`.part` file). Khi chạy lại, tự động phát hiện và bỏ qua các Day đã hoàn thành để không gửi request trùng lặp lên Google.
+

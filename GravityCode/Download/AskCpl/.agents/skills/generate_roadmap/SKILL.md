@@ -287,3 +287,39 @@ Khi xử lý kết quả API, LUÔN phân loại riêng các loại lỗi:
 
 **KHÔNG bao giờ** bọc tất cả vào một `except Exception as e: status = "invalid"` chung — sẽ gây mark nhầm key hợp lệ thành invalid khi mạng xấu.
 
+---
+
+## 11. Chuẩn Quy Trình Tự Động Hóa Toàn Diện (End-to-End Safe Learning Workflow)
+
+Quy trình tự động hóa hoàn chỉnh để người dùng có thể tạo lộ trình và tải về trọn bộ toàn bộ nội dung học tập:
+
+```mermaid
+graph TD
+    A[1. Chủ đề / Yêu cầu Lộ trình] --> B[2. Sinh Skeleton & Roadmap Markdown]
+    B --> C[3. Kiểm duyệt: Deduplication & Format Parsing]
+    C --> D[4. Đẩy vào Copilot Addon / Chrome Extension]
+    D --> E[5. Tự động tương tác hỏi AI & Trích xuất câu trả lời từng Day]
+    E --> F[6. Xuất trọn bộ tài liệu: Markdown / Word / PDF / Audio]
+```
+
+### 11.1 Giai đoạn 1: Sinh Roadmap Chuẩn (Generator Pipeline)
+- Sử dụng mô hình **1 Day / Call** hoặc **Chunk-and-Merge** để đảm bảo từng ngày học đều sâu và hoàn chỉnh nhất.
+- Mỗi ngày học đều chứa đủ 3 khối: `**Prompt:**`, `**Bài tập:**`, `**Tags:**` và cấm tương tác (`Non-Interactive`).
+- Lưu từng phần vào `.chunks/day_N.md.part` trước khi gộp thành file `.md` chính.
+
+### 11.2 Giai đoạn 2: Tự Động Hóa Hỏi & Tải Nội Dung (Copilot Addon Automation)
+- File Markdown sinh ra được nạp vào Extension Chrome/Edge (Copilot Addon).
+- Extension tự động duyệt qua từng Day:
+  1. Trích xuất nội dung `**Prompt:**`.
+  2. Gửi tự động lên Web AI (Copilot, Gemini, ChatGPT).
+  3. Lắng nghe và trích xuất trọn bộ bài giảng / code / lời giải đáp của AI.
+  4. Lưu cache cục bộ bằng mã hóa Base64 2 chiều (`btoa(unescape(encodeURIComponent(...)))`).
+
+### 11.3 Giai đoạn 3: Xuất Trọn Bộ Tài Liệu Học Tập (Full Content Export)
+- Kết nối qua Local HTTP Server (`exercise_server.py` trên cổng 5678).
+- Tự động xuất toàn bộ nội dung học thành các định dạng:
+  - File Markdown chi tiết hoàn chỉnh.
+  - File Word (`.docx`) có mục lục và định dạng đẹp.
+  - Bộ bài tập thực hành & flashcard tương tác trên giao diện Tkinter/Web.
+
+

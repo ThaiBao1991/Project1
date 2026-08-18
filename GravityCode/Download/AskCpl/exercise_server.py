@@ -332,11 +332,94 @@ def save_content():
 
         logging.debug("Done save successfully")
         return jsonify({'status': 'success'})
-        
+
     except Exception as e:
         import traceback
         traceback.print_exc()
         return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/save_day_content', methods=['POST'])
+def save_day_content():
+    """Nhận nội dung trích xuất từng Day từ Chrome Addon và lưu trực tiếp vào đĩa."""
+    try:
+        data = request.get_json(force=True, silent=True)
+        if not data:
+            return jsonify({'error': 'Dữ liệu JSON rỗng'}), 400
+
+        roadmap_name = secure_filename(data.get('roadmap_name', 'default_roadmap')) or 'default_roadmap'
+        day_raw = data.get('day', 1)
+        try:
+            day_num = int(re.search(r'\d+', str(day_raw)).group()) if re.search(r'\d+', str(day_raw)) else 1
+        except Exception:
+            day_num = 1
+
+        topic = data.get('topic', f'Day {day_num}')
+        html_content = data.get('html', '')
+        md_content = data.get('markdown', '')
+
+        # Tạo thư mục lưu trữ bài học
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        lesson_dir = os.path.join(base_dir, 'downloaded_lessons', roadmap_name)
+        code_dir = os.path.join(lesson_dir, 'code')
+        os.makedirs(code_dir, exist_ok=True)
+
+        saved_files = []
+
+        # 1. Lưu file HTML bài học
+        if html_content:
+            html_file = os.path.join(lesson_dir, f"day_{day_num:03d}.html")
+            with open(html_file, 'w', encoding='utf-8') as f:
+                f.write(html_content)
+            saved_files.append(html_file)
+
+        # 2. Lưu file Markdown
+        if md_content:
+            md_file = os.path.join(lesson_dir, f"day_{day_num:03d}.md")
+            with open(md_file, 'w', encoding='utf-8') as f:
+                f.write(md_content)
+            saved_files.append(md_file)
+
+        # 3. Tự động bóc tách các khối Code Block (Smart Code Extractor)
+        code_blocks = data.get('code_blocks', [])
+        if not code_blocks and md_content:
+            # Tự quét các khối code markdown
+            found = re.findall(r'```([a-zA-Z0-9_-]*)\n(.*?)```', md_content, re.DOTALL)
+            for lang, code_str in found:
+                code_blocks.append({'lang': lang.strip().lower() or 'txt', 'code': code_str.strip()})
+
+        # Bảng ánh xạ extension ngôn ngữ
+        ext_map = {
+            'python': 'py', 'py': 'py', 'javascript': 'js', 'js': 'js',
+            'typescript': 'ts', 'ts': 'ts', 'html': 'html', 'css': 'css',
+            'cpp': 'cpp', 'c': 'c', 'csharp': 'cs', 'cs': 'cs',
+            'java': 'java', 'sql': 'sql', 'json': 'json', 'sh': 'sh',
+            'bash': 'sh', 'rust': 'rs', 'go': 'go'
+        }
+
+        for idx, cb in enumerate(code_blocks, start=1):
+            clang = cb.get('lang', 'txt').lower()
+            code_body = cb.get('code', '').strip()
+            if not code_body:
+                continue
+            ext = ext_map.get(clang, 'txt')
+            code_filename = f"day_{day_num:03d}_snippet_{idx}.{ext}"
+            code_filepath = os.path.join(code_dir, code_filename)
+            with open(code_filepath, 'w', encoding='utf-8') as cf:
+                cf.write(code_body)
+            saved_files.append(code_filepath)
+
+        return jsonify({
+            'status': 'success',
+            'roadmap': roadmap_name,
+            'day': day_num,
+            'saved_files_count': len(saved_files),
+            'files': [os.path.basename(p) for p in saved_files]
+        })
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 
 def run_server(port=None):
     # Disable werkzeug logging
