@@ -211,7 +211,15 @@ function saveData(data) {
     if (!dataFilePath) return;
     // Quy tắc VÀNG equivalent for Node.js
     const raw = Buffer.from(JSON.stringify(data), 'utf-8').toString('base64');
-    fs.writeFileSync(dataFilePath, raw, 'utf-8');
+    try {
+        if (fs.existsSync(dataFilePath)) {
+            const existing = fs.readFileSync(dataFilePath, 'utf-8').trim();
+            if (existing === raw) return; // Không đổi -> không ghi để tránh trigger Git modified
+        }
+        fs.writeFileSync(dataFilePath, raw, 'utf-8');
+    } catch (e) {
+        console.error('Error saving data:', e);
+    }
 }
 
 // --- Script path finder helper ---
@@ -297,7 +305,15 @@ async function updateActiveAccount() {
         currentEmail = session?.account?.label || "Unknown Account";
         if (dataFilePath) {
             const activeFile = path.join(path.dirname(dataFilePath), 'active_account.txt');
-            fs.writeFileSync(activeFile, currentEmail, 'utf-8');
+            try {
+                let existing = '';
+                if (fs.existsSync(activeFile)) {
+                    existing = fs.readFileSync(activeFile, 'utf-8').trim();
+                }
+                if (existing !== currentEmail) {
+                    fs.writeFileSync(activeFile, currentEmail, 'utf-8');
+                }
+            } catch (_) {}
         }
     } catch (_) {}
     updateStatusBar();
@@ -1303,22 +1319,12 @@ function activate(context) {
     // 4. vscode.lm watcher
     startLmWatcher(quotaProvider);
 
-    // 5. UI refresh every 60s
+    // 5. UI refresh every 60s (in-memory only, no disk write)
     setInterval(() => {
         quotaProvider.refresh();
         updateStatusBar();
         refreshPanel();
     }, 60000);
-
-    // 6. Background Auto-Sync từ DB mỗi 5 phút
-    setInterval(() => {
-        autoSyncFromDB(quotaProvider, (res) => {
-            if (res.status === 'ok') {
-                updateStatusBar();
-                refreshPanel();
-            }
-        });
-    }, 5 * 60 * 1000);
 }
 
 function deactivate() {

@@ -366,17 +366,25 @@ def sync_quota_data(quota_json_path, email_filter=None):
             'exhaustedGroups': result['exhaustedGroups'],
         })
 
-    # Ghi lại quota_data.dat (Base64)
+    # Ghi lại quota_data.dat (Base64) - có Dirty Check
+    is_dirty = True
     try:
         json_str = json.dumps(quota_data, ensure_ascii=False)
         encoded = base64.b64encode(json_str.encode('utf-8')).decode('ascii')
-        with open(quota_json_path, 'w', encoding='utf-8') as f:
-            f.write(encoded)
+        if os.path.exists(quota_json_path):
+            with open(quota_json_path, 'r', encoding='utf-8') as f:
+                current_on_disk = f.read().strip()
+            if current_on_disk == encoded:
+                is_dirty = False
+
+        if is_dirty:
+            with open(quota_json_path, 'w', encoding='utf-8') as f:
+                f.write(encoded)
     except Exception as e:
         return {'status': 'error', 'message': f'Loi ghi file Data: {e}', 'synced': synced_count, 'skipped': skipped_count, 'accounts': []}
 
-    # Đồng bộ vào SQLite DB (nếu quota_db đã cài)
-    if _HAS_QUOTA_DB:
+    # Đồng bộ vào SQLite DB (chỉ khi có thay đổi thực sự)
+    if _HAS_QUOTA_DB and is_dirty:
         try:
             db_path = _qdb.get_db_path(quota_json_path)
             _qdb.merge_and_sync(quota_data, db_path)

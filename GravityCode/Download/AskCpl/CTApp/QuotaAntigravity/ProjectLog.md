@@ -8,6 +8,16 @@ Dự án được xây dựng theo mô hình lai (Hybrid):
 
 ## Quá trình phát triển
 
+### Ngày 18/08/2026 — Chế độ Read-Only mặc định & Dirty Check chống xung đột Git
+- **Vấn đề:** Extension tự động chạy ngầm sync mỗi 5 phút và liên tục ghi đè file `quota_data.dat`, `quota_db.sqlite3`, `active_account.txt` làm Git/GitHub liên tục báo modified, gây khó khăn khi đồng bộ snapshot tài khoản giữa các máy tính (ví dụ: máy nhà 40 accounts, máy phụ 2 accounts).
+- **Giải pháp:**
+  1. **Tắt Auto-Sync ngầm 5 phút:** Quá trình Sync từ IDE chỉ chạy khi người dùng chủ động bấm nút "🔄 Sync từ IDE" / "Check All" hoặc chuyển tài khoản.
+  2. **Thêm Dirty Check cho toàn bộ thao tác ghi file:**
+     - `extension.js`: `saveData` và `updateActiveAccount` chỉ ghi file ra đĩa khi nội dung có thay đổi thực sự.
+     - `sync_antigravity.py`: Chỉ ghi đè `quota_data.dat` và `quota_db.sqlite3` khi dữ liệu tính toán quota có sự khác biệt so với file trên đĩa.
+     - `quota_db.py`: `merge_and_sync` và `_save_dat` bổ sung dirty check trước khi ghi SQLite/DAT.
+  3. **Smart Preserve Merge:** Khi bấm Sync ở máy phụ (ít account hơn), hệ thống chỉ cập nhật quota cho các account hiện diện trên máy đó và bảo toàn 100% dữ liệu của các account khác từ `quota_data.dat`. Người dùng có thể commit/pull file `.dat` qua lại giữa các máy bình thường.
+
 ### Ngày 29/07/2026 — Khởi tạo & Fix cài đặt
 - Khởi tạo cấu trúc dự án `QuotaExt` (Node.js/VSCode Extension) và `QuotaApp` (Python Tkinter).
 - Tách bạch file data dùng chung `quota_data.json`.

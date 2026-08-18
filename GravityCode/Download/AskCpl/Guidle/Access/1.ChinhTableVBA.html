@@ -1,0 +1,170 @@
+
+
+
+
+
+<!-- EXERCISE START -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+<div class="exercise-container" style="margin-top: 20px; padding: 20px; border-top: 2px dashed #0078d4; background-color: #f9f9f9; font-family: sans-serif; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-radius: 8px;">
+  <h2 style="color: #0078d4;">Bài Tập & Lời Giải</h2>
+  <div class="ql-editor"><h1>1. Chỉnh chế độ IME để access không tự động đổi font</h1><h3>Cách thực hiện lại để đảm bảo bạn làm đúng:</h3><ol><li>Nhấn <strong>Alt + F11</strong> để mở cửa sổ VBA.</li><li>Chọn menu <strong>Insert</strong> &gt; <strong>Module</strong>.</li><li>Dán đoạn mã này vào (đây là bản đã kiểm tra kỹ để chạy trên mọi bảng):</li></ol><pre class="ql-syntax" spellcheck="false">Sub FixAllTablesIMEMode()
+&nbsp; &nbsp; Dim db <span class="hljs-keyword">As</span> DAO.Database
+&nbsp; &nbsp; Dim tdf <span class="hljs-keyword">As</span> DAO.TableDef
+&nbsp; &nbsp; Dim fld <span class="hljs-keyword">As</span> DAO.Field
+&nbsp; &nbsp; Dim prp <span class="hljs-keyword">As</span> DAO.Property
+&nbsp; &nbsp; Dim count <span class="hljs-keyword">As</span> Long
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; <span class="hljs-keyword">Set</span> db <span class="hljs-operator">=</span> CurrentDb
+&nbsp; &nbsp; count <span class="hljs-operator">=</span> <span class="hljs-number">0</span>
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; <span class="hljs-string">' Quét qua tất cả các bảng trong database
+&nbsp; &nbsp; For Each tdf In db.TableDefs
+&nbsp; &nbsp; &nbsp; &nbsp; '</span> Bỏ qua các bảng hệ thống của Access (bắt đầu bằng MSys)
+&nbsp; &nbsp; &nbsp; &nbsp; If <span class="hljs-keyword">Left</span>(tdf.Name, <span class="hljs-number">4</span>) <span class="hljs-operator">&lt;&gt;</span> "MSys" <span class="hljs-keyword">Then</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="hljs-keyword">For</span> <span class="hljs-keyword">Each</span> fld <span class="hljs-keyword">In</span> tdf.Fields
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="hljs-keyword">On</span> Error Resume Next
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="hljs-string">' Kiểm tra xem trường có thuộc tính ImeMode không
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; '</span> Nếu có, gán giá trị <span class="hljs-number">0</span> (tương ứng với "No Control")
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fld.Properties("ImeMode") <span class="hljs-operator">=</span> <span class="hljs-number">0</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; If Err.Number <span class="hljs-operator">=</span> <span class="hljs-number">0</span> <span class="hljs-keyword">Then</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; count <span class="hljs-operator">=</span> count <span class="hljs-operator">+</span> <span class="hljs-number">1</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="hljs-keyword">End</span> If
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="hljs-keyword">On</span> Error GoTo <span class="hljs-number">0</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Next fld
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="hljs-keyword">End</span> If
+&nbsp; &nbsp; Next tdf
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; MsgBox "Hoàn tất! Đã cập nhật thuộc tính IME cho " <span class="hljs-operator">&amp;</span> count <span class="hljs-operator">&amp;</span> " trường trong tất cả các bảng.", vbInformation
+<span class="hljs-keyword">End</span> Sub
+</pre><h1>2. Tạo bảng và thêm dữ liệu vào bảng</h1><pre class="ql-syntax" spellcheck="false">Sub FixAllTablesIMEMode()
+&nbsp; &nbsp; Dim db <span class="hljs-keyword">As</span> DAO.Database
+&nbsp; &nbsp; Dim tdf <span class="hljs-keyword">As</span> DAO.TableDef
+&nbsp; &nbsp; Dim fld <span class="hljs-keyword">As</span> DAO.Field
+&nbsp; &nbsp; Dim prp <span class="hljs-keyword">As</span> DAO.Property
+&nbsp; &nbsp; Dim count <span class="hljs-keyword">As</span> Long
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; <span class="hljs-keyword">Set</span> db <span class="hljs-operator">=</span> CurrentDb
+&nbsp; &nbsp; count <span class="hljs-operator">=</span> <span class="hljs-number">0</span>
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; <span class="hljs-string">' Quét qua tất cả các bảng trong database
+&nbsp; &nbsp; For Each tdf In db.TableDefs
+&nbsp; &nbsp; &nbsp; &nbsp; '</span> Bỏ qua các bảng hệ thống của Access (bắt đầu bằng MSys)
+&nbsp; &nbsp; &nbsp; &nbsp; If <span class="hljs-keyword">Left</span>(tdf.Name, <span class="hljs-number">4</span>) <span class="hljs-operator">&lt;&gt;</span> "MSys" <span class="hljs-keyword">Then</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="hljs-keyword">For</span> <span class="hljs-keyword">Each</span> fld <span class="hljs-keyword">In</span> tdf.Fields
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="hljs-keyword">On</span> Error Resume Next
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="hljs-string">' Kiểm tra xem trường có thuộc tính ImeMode không
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; '</span> Nếu có, gán giá trị <span class="hljs-number">0</span> (tương ứng với "No Control")
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fld.Properties("ImeMode") <span class="hljs-operator">=</span> <span class="hljs-number">0</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; If Err.Number <span class="hljs-operator">=</span> <span class="hljs-number">0</span> <span class="hljs-keyword">Then</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; count <span class="hljs-operator">=</span> count <span class="hljs-operator">+</span> <span class="hljs-number">1</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="hljs-keyword">End</span> If
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="hljs-keyword">On</span> Error GoTo <span class="hljs-number">0</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Next fld
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="hljs-keyword">End</span> If
+&nbsp; &nbsp; Next tdf
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; MsgBox "Hoàn tất! Đã cập nhật thuộc tính IME cho " <span class="hljs-operator">&amp;</span> count <span class="hljs-operator">&amp;</span> " trường trong tất cả các bảng.", vbInformation
+<span class="hljs-keyword">End</span> Sub
+</pre><h1>3. Tạo dữ liệu bổ sung các ô cho bảng với điều kiện</h1><pre class="ql-syntax" spellcheck="false">Sub BoSungTruongChoBang()
+&nbsp; &nbsp; Dim db <span class="hljs-keyword">As</span> DAO.Database
+&nbsp; &nbsp; Dim tdf <span class="hljs-keyword">As</span> DAO.TableDef
+&nbsp; &nbsp; Dim fld <span class="hljs-keyword">As</span> DAO.Field
+&nbsp; &nbsp; Dim fldCheck <span class="hljs-keyword">As</span> DAO.Field
+&nbsp; &nbsp; Dim hasField <span class="hljs-keyword">As</span> <span class="hljs-type">Boolean</span>
+&nbsp; &nbsp; Dim countTable <span class="hljs-keyword">As</span> Long
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; <span class="hljs-keyword">Set</span> db <span class="hljs-operator">=</span> CurrentDb
+&nbsp; &nbsp; countTable <span class="hljs-operator">=</span> <span class="hljs-number">0</span>
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; <span class="hljs-string">' Duyet qua toan bo cac bang trong co so du lieu
+&nbsp; &nbsp; For Each tdf In db.TableDefs
+&nbsp; &nbsp; &nbsp; &nbsp; '</span> Bo qua cac bang he thong cua Access
+&nbsp; &nbsp; &nbsp; &nbsp; If <span class="hljs-keyword">Left</span>(tdf.Name, <span class="hljs-number">4</span>) <span class="hljs-operator">&lt;&gt;</span> "MSys" <span class="hljs-keyword">Then</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="hljs-string">' --- DIEU KIEN MOI: Ten bang phai chua chu "diem_kiem" (chi chap nhan chu thuong, co hoa la bo qua) ---
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; '</span> InStr(<span class="hljs-number">1</span>, tdf.Name, "diem_kiem", vbBinaryCompare) se tim kiem phan biet chu hoa<span class="hljs-operator">/</span>thuong chinh xac
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; If InStr(<span class="hljs-number">1</span>, tdf.Name, "diem_kiem", vbBinaryCompare) <span class="hljs-operator">&gt;</span> <span class="hljs-number">0</span> <span class="hljs-keyword">Then</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; hasField <span class="hljs-operator">=</span> <span class="hljs-literal">False</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="hljs-string">' Kiem tra xem bang co chua field "Hang muc yeu cau" hay khong
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; On Error Resume Next
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Set fldCheck = tdf.Fields("Hang muc yeu cau")
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; If Err.Number = 0 Then
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; hasField = True
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; End If
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Err.Clear
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; On Error GoTo 0
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; '</span> Neu co chua field "Hang muc yeu cau", tien hanh bo sung cac field phia sau
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; If hasField <span class="hljs-keyword">Then</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="hljs-string">' 1. "Tinh trang su dung"
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; If Not FieldExists(tdf, "Tinh trang su dung") Then
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Set fld = tdf.CreateField("Tinh trang su dung", dbText, 50)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tdf.Fields.Append fld
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; End If
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; '</span> <span class="hljs-number">2.</span> "Tinh trang chi tiet"
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; If <span class="hljs-keyword">Not</span> FieldExists(tdf, "Tinh trang chi tiet") <span class="hljs-keyword">Then</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="hljs-keyword">Set</span> fld <span class="hljs-operator">=</span> tdf.CreateField("Tinh trang chi tiet", dbText, <span class="hljs-number">100</span>)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tdf.Fields.Append fld
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="hljs-keyword">End</span> If
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="hljs-string">' 3. "Pham vi su dung"
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; If Not FieldExists(tdf, "Pham vi su dung") Then
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Set fld = tdf.CreateField("Pham vi su dung", dbText, 100)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tdf.Fields.Append fld
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; End If
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; '</span> <span class="hljs-number">4.</span> "Phi hieu chinh"
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; If <span class="hljs-keyword">Not</span> FieldExists(tdf, "Phi hieu chinh") <span class="hljs-keyword">Then</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="hljs-keyword">Set</span> fld <span class="hljs-operator">=</span> tdf.CreateField("Phi hieu chinh", dbCurrency)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tdf.Fields.Append fld
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="hljs-keyword">End</span> If
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="hljs-string">' 5. "Don vi tien"
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; If Not FieldExists(tdf, "Don vi tien") Then
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Set fld = tdf.CreateField("Don vi tien", dbText, 20)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tdf.Fields.Append fld
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; End If
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; '</span> <span class="hljs-number">6.</span> "SMI Phan Dinh"
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; If <span class="hljs-keyword">Not</span> FieldExists(tdf, "SMI Phan Dinh") <span class="hljs-keyword">Then</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="hljs-keyword">Set</span> fld <span class="hljs-operator">=</span> tdf.CreateField("SMI Phan Dinh", dbText, <span class="hljs-number">100</span>)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tdf.Fields.Append fld
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="hljs-keyword">End</span> If
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="hljs-string">' 7. "SMI Tinh Trang Chi Tiet"
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; If Not FieldExists(tdf, "SMI Tinh Trang Chi Tiet") Then
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Set fld = tdf.CreateField("SMI Tinh Trang Chi Tiet", dbText, 100)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tdf.Fields.Append fld
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; End If
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; countTable = countTable + 1
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; End If
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; End If '</span> Ket thuc dieu kien kiem tra ten bang chua "diem_kiem"
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="hljs-keyword">End</span> If
+&nbsp; &nbsp; Next tdf
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; MsgBox "Hoan tat! Da bo sung cac truong thanh cong cho " <span class="hljs-operator">&amp;</span> countTable <span class="hljs-operator">&amp;</span> " bang hop le.", vbInformation
+<span class="hljs-keyword">End</span> Sub
+
+
+<span class="hljs-string">' Ham phu tro kiem tra xem field da ton tai trong bang chua de tranh loi tao trung
+﻿Function FieldExists(tdf As DAO.TableDef, fldName As String) As Boolean
+&nbsp; &nbsp; Dim f As DAO.Field
+&nbsp; &nbsp; FieldExists = False
+&nbsp; &nbsp; For Each f In tdf.Fields
+&nbsp; &nbsp; &nbsp; &nbsp; If LCase(f.Name) = LCase(fldName) Then
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; FieldExists = True
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Exit Function
+&nbsp; &nbsp; &nbsp; &nbsp; End If
+&nbsp; &nbsp; Next f
+End Function
+</span></pre><p><br></p></div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<!-- EXERCISE END -->

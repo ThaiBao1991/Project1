@@ -197,9 +197,9 @@ def merge_and_sync(dat_data: dict, db_path: str) -> dict:
             dat_ts = int(info.get('lastUpdate') or 0)
             db_ts  = int(merged[email].get('lastUpdate') or 0)
             if dat_ts >= db_ts:
-                merged[email] = info  # dat m\u1edbi h\u01a1n, \u01b0u ti\u00ean dat
-
-    write_accounts(db_path, merged)
+                merged[email] = info
+    if merged != db_data or not os.path.exists(db_path):
+        write_accounts(db_path, merged)
     return merged
 
 
@@ -264,7 +264,16 @@ if __name__ == '__main__':
             return {}
 
     def _save_dat(dat_path, data):
+        if not dat_path:
+            return
         raw = base64.b64encode(json.dumps(data, ensure_ascii=False).encode('utf-8')).decode('ascii')
+        if os.path.exists(dat_path):
+            try:
+                current_raw = open(dat_path, 'r', encoding='utf-8').read().strip()
+                if current_raw == raw:
+                    return
+            except Exception:
+                pass
         open(dat_path, 'w', encoding='utf-8').write(raw)
 
     def _find_codex_dat(dat_path):
