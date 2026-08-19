@@ -51,7 +51,7 @@ function getDefaultConfig() {
     details: [],
     roadmapData: null,
     autoFollowUp: true,
-    maxFollowUp: 999
+    maxFollowUp: 3
   };
 }
 
@@ -82,7 +82,7 @@ function applyConfigToUI(config, profileKey) {
   }
   const numFollowUpMax = document.getElementById('numFollowUpMax');
   if (numFollowUpMax) {
-    numFollowUpMax.value = config.maxFollowUp || 999;
+    numFollowUpMax.value = config.maxFollowUp || 3;
   }
 
   // FIX GĐ 33: Load roadmap từ key riêng, không từ config (để tránh lưu dữ liệu khổng lồ trong addonConfigs)
@@ -118,9 +118,10 @@ function buildConfigFromUI() {
     topicPrompt: document.getElementById('topicPromptInput').value.trim(),
     targetCount: parseInt(document.getElementById('targetCountInput').value, 10) || 4,
     details: details,
-    roadmapData: currentRoadmapData,
+    // KHÔNG nhúng roadmapData vào config — roadmap lưu riêng ở key roadmap_{profile}
+    // để tránh phình addonConfigs vượt giới hạn 10MB của chrome.storage.local
     autoFollowUp: document.getElementById('chkFollowUp') ? document.getElementById('chkFollowUp').checked : true,
-    maxFollowUp: parseInt(document.getElementById('numFollowUpMax') ? document.getElementById('numFollowUpMax').value : "999", 10) || 999
+    maxFollowUp: parseInt(document.getElementById('numFollowUpMax') ? document.getElementById('numFollowUpMax').value : "3", 10) || 3
   };
 }
 
@@ -481,7 +482,9 @@ document.getElementById('startBtn').addEventListener('click', async () => {
     topicPrompt: config.topicPrompt,
     targetCount: config.targetCount,
     details: config.details,
-    roadmapData: currentRoadmapData,
+    // FIX: KHÔNG gửi roadmapData qua IPC — roadmap lớn (hàng nghìn bài) làm
+    // chrome.tabs.sendMessage drop im lặng → bấm Start không chạy.
+    // Content Script đọc từ key riêng 'roadmap_active' ở trên.
     autoFollowUp: config.autoFollowUp,
     maxFollowUp: config.maxFollowUp
   };
@@ -607,9 +610,17 @@ document.getElementById('sessionFileInput').addEventListener('change', (e) => {
           }
       }
 
-      // FIX GĐ 33: Roadmap từ session.json — chỉ dùng trong bộ nhớ, không dump vào HTML
+      // FIX GĐ 33: Roadmap từ session.json — chỉ dùng trong bộ nhớ, không dump vào HTML.
+      // Session.json mới KHÔNG còn nhúng roadmapData (tránh IPC drop) → fallback lấy từ storage.
       currentRoadmapData = session.roadmapData || null;
-      updateRoadmapPreview(currentRoadmapData); // An toàn: chỉ hiện summary
+      if (!currentRoadmapData) {
+        chrome.storage.local.get(['roadmap_active', `roadmap_${document.getElementById('profileSelect').value}`], (r) => {
+          currentRoadmapData = r.roadmap_active || r[`roadmap_${document.getElementById('profileSelect').value}`] || null;
+          updateRoadmapPreview(currentRoadmapData);
+        });
+      } else {
+        updateRoadmapPreview(currentRoadmapData); // An toàn: chỉ hiện summary
+      }
 
       const infoEl = document.getElementById('sessionInfo');
       infoEl.style.display = 'block';

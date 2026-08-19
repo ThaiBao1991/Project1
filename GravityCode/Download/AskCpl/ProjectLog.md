@@ -1,3 +1,46 @@
+## 2026-08-19 — Hoàn tất Roadmap Python 6410 ngày + Sửa lỗi gemini_safe + Cải tiến Roadmap Expander + Fix Addon dừng/đứng
+
+### Mục tiêu & Bối cảnh
+- Hoàn thiện chuỗi AI Workflow Toàn Diện: sinh Roadmap Python chi tiết (Giai đoạn 1), live-test pipeline thật, và cải tiến công cụ hỗ trợ (expander + Copilot Addon).
+
+### 1. Roadmap Python Toàn Diện (`PythonRoadMapFull.md`)
+- Sinh file **6410 Day** (203 topic, ~9.2MB), liên tục 1→6410, không trùng.
+- Cấu trúc: Prompt/Bài tập/Tags đủ 6410/6410/6410; **200 Review Day** (40 block × 5 ngày, sau mỗi 5 topic); **Capstone Day 6381–6410** (30 ngày); 6 topic 45 ngày (cpython_internals, asyncio_adv, drf, transformer, llm_finetuning, ai_agent), còn lại 30 ngày; 222 prereq, 0 vi phạm topological; không mojibake; 2708 Day non-interactive; VIETNAMESE_REQ trong 6410 Day.
+- Verify đầy đủ theo skill generate_roadmap: đếm Day liên tục/duy nhất, khớp regex parser app, không trùng title/prompt, focus duy nhất trong topic.
+- Cập nhật `topics_registry.md`: +203 topic Python.
+
+### 2. Sửa bug `generate_python_roadmap_v2.py`
+- **Tags list bug**: `**Tags:**` in list Python dạng `['#review','#ontap']` → join chuỗi + dedupe tag `#python` lặp.
+- **Report bug**: đếm Review/Capstone nhầm `r[0]` (số Day) thay vì `r[1]` (kind) → in đúng 200/30.
+
+### 3. Live-test pipeline thật (`run_auto_ai` + key thật)
+- Test 10 Day mẫu (Day 1–4, Review 151, 31–34, Review 306): tất cả `completed=True`, followup hoàn tất, nội dung tiếng Việt 4–15k chars, similarity giữa Day 5–16%, HTML render đúng (main-section + supplement-section), `session.json` đủ mục.
+- Phát hiện + sửa **3 bug thật trong `gemini_safe.py`**:
+  1. **Model fallback cũ đã chết (404)**: `MODEL_FALLBACKS` → `["gemini-flash-latest", "gemini-3-flash-preview", "gemini-3.1-flash-lite", "gemini-3.5-flash", "gemini-flash-lite-latest"]`; đồng bộ `_FALLBACK_MODELS` trong AskCpl.py:1189. Model còn hoạt động (đã verify): gemini-flash-latest, gemini-flash-lite-latest, gemini-3-flash-preview, gemini-3.1-flash-lite, gemini-3.5-flash. Đã chết: gemini-2.5-flash/2.5-flash-lite/2.5-pro (404), gemini-pro-latest (429).
+  2. **503 high-demand theo model (không theo key)**: `_try_models` thử model fallback trên cùng key trước khi xoay key; `max_transient` 3→6; retry cùng key backoff lũy tiến (2^n, cap 30s).
+  3. **403 "project denied access"**: thêm `is_model_restriction()` + nhánh REQUEST_BAD → xoay account/key thay vì abort.
+
+### 4. Cải tiến tính năng Mở Rộng Roadmap (`roadmap_expander.py`)
+- **Chế độ text-only mới** (`words_per_day=400`): Day không có PDF nhưng prompt > 400 từ → chia thành sub-Day `(Phần k/n)`, phần sau gắn prompt "TIẾP NỐI, không lặp lại". Roadmap Python (prompt 121–188 từ) → pass-through giữ nguyên byte-identical.
+- **PDF mode** cải tiến: hỗ trợ metadata `<!-- sources: ... -->` (ngoài URL), sub-title chuẩn `## Day N — ... (Phần k/n - Trang X-Y)` (bỏ giới hạn 25 phần kiểu `1b,1c`), prompt override "chỉ dùng trang X-Y / TIẾP NỐI không lặp lại".
+- **Sửa 2 bug**: (1) mất tiền tố `##` ở heading khi rebuild (parser app không nhận diện Day); (2) điều kiện chia PDF nhầm khi PDF không tìm thấy (total_pages=0).
+- Verify: text-mode 1→3 sub-Day, PDF 45 trang→5 sub-Day, full roadmap 6410 Day pass-through byte-identical, parser app đọc đủ.
+
+### 5. Fix Addon "hay dừng & đứng" (`CopilotWordExportAddon`)
+- **A. Follow-up giới hạn**: `maxFollowUp` mặc định 999→3 (3 chỗ) + cap dung lượng `fullDayHtml` ~3MB (`MAX_DAY_HTML`).
+- **B. Bỏ roadmapData khỏi IPC**: xóa khỏi payload Start (popup.js), `session.json`, `buildConfigFromUI` → roadmap lớn không còn làm `tabs.sendMessage` drop im lặng (bấm Start không chạy). Content Script đọc từ `roadmap_active`/`roadmap_{profile}`; load session fallback roadmap từ storage.
+- **C. Retry giới hạn**: thêm `MAX_RETRIES = 5` — thất bại 5 lần → bỏ qua ngày, lưu session, nhảy tiếp (hết retry vô hạn).
+- **D. Stall 60s→120s + ưu tiên `isAIGenerating()`**: chỉ coi kẹt khi không có dấu hiệu AI đang chạy suốt 120s (tránh false-positive khi Copilot chậm stream).
+- **E. clickNewChat kiểm tra kết quả**: fail → thử lần 2 sau 10s → vẫn fail thì dừng hẳn; `waitForNewChatReady` giới hạn 3 lần reload rồi dừng (hết vòng reload vô hạn); reset bộ đếm reload khi 1 ngày thành công.
+- **F. `MAX_TOTAL` 10 phút → 4 phút** — retry nhanh hơn.
+- **Log rõ ràng**: phân biệt "dừng do vượt dung lượng" vs "đạt giới hạn hỏi bồi tối đa".
+- Verify: `node --check` cả 3 file JS OK.
+
+### Trạng thái
+- ✅ DONE. Khuyến nghị: tải lại extension trong `chrome://extensions` để áp dụng fix addon.
+
+---
+
 ## 2026-08-18 — Chuẩn Hóa Kiến Trúc AI Workflow Toàn Diện & Xoay Vòng Cụm Tài Khoản (Anti-Ban 100%)
 
 ### Mục tiêu & Bối cảnh
@@ -2569,16 +2612,13 @@ efresh_list() ngay bên trong vòng lặp sau mỗi lần gọi API trả kết 
 - Cập nhật data_ChucQuan.md: Thay link Bilibili/Gamersky dummy bằng link thực (Ali213 14590, Gamer.com.tw, Gamersky 88934)
 - Cập nhật data_VuKhi_Do.md: Xóa 30 link fake, bổ sung bảng công thức rèn Thần Binh Vạn Chúng Quy Tâm, thay bằng 5 link sống
 - data_Event.md: Đã tạo mới và kiểm tra, 25 sự kiện đầy đủ sạch sẽ
-<<<<<<< HEAD
 
 ## [2026-08-07] Fix AskCpl CopilotWordExportAddon Follow-up Timeout
 - **Issue**: Addon bị treo (không tự retry/reload) khi hỏi bồi (autoFollowUp) mất quá nhiều thời gian hoặc AI không phản hồi kịp (chữ không thay đổi trong 60s). Logic waitForResponseComplete cũ bị lặp vô tận do hàm checkStable15s trả về false nhưng lại không được xử lý bẻ gãy vòng lặp while(true).
 - **Fix**: Sửa waitForResponseComplete trả về false khi hết thời gian chờ/kẹt mạng. Sửa hàm askSecondaryPrompt bắt kết quả false này và trả về __ASKCPL_TIMEOUT__. Tại _runNextDayAttempt, nếu hỏi bồi hoặc tóm tắt trả về __ASKCPL_TIMEOUT__ thì lập tức return 'retry' để hệ thống mở Chat mới và hỏi lại toàn bộ nội dung của Ngày hiện tại.
 - **Verify**: Code Javascript được cập nhật, cấu trúc while và logic retry đã có kết nối với nhau để chống kẹt vô hạn.
-=======
 
 ## 2026-08-07: TOI UU GIAO DIEN TAB TAO ROADMAP
 - Hoat dong: Chinh sua UI de phu hop voi moi kich thuoc man hinh.
 - Chi tiet: Gom cac Checkbox cau truc vao 1 hang ngang. Thu nho Dan y ky thuat con 50%. Gom cac nut chay Step 1, 2, 3 len tren cung 1 hang ngang (Region Actions) de luon co the bam duoc.
 - Trang thai: ✅ DONE
->>>>>>> 16045bf76e14c78ef6f587493db45b5ae6b334b6

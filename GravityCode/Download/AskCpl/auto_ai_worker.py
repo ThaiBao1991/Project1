@@ -20,6 +20,7 @@ from adaptive_learning import (
     validate_lesson,
 )
 from gemini_image_pipeline import generate_visual_assets
+from chunk_merge import split_text, dedup_merge, PartStore
 from verified_knowledge import (
     build_fact_context,
     evidence_for_claims,
@@ -120,124 +121,59 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
         update_key_on_disk(k)
 
     def call_gemini_api(prompt_text, log_prefix="", response_schema=None):
-        """Gọi Gemini REST API trực tiếp với cơ chế chọn key thông minh và tự động retry."""
-        max_retries = 3
-        while True:
-            current_key_obj = get_active_key()
-            if not current_key_obj:
-                log(f"{log_prefix}⚠ KHÔNG tìm thấy API Key nào khả dụng!")
-                return None, False, True  # daily_quota_hit = True
+        """Gọi Gemini REST API qua gemini_safe (pacing toàn cục, xoay key theo account, phân loại lỗi chuẩn)."""
+        from gemini_safe import GeminiCoordinator, ErrorKind
 
-            api_key = current_key_obj.get("key")
-            key_email = current_key_obj.get("email")
-            
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
-            headers = {'Content-Type': 'application/json'}
-            payload = {
-                "contents": [{"parts": [{"text": prompt_text}]}],
-                "generationConfig": {
-                    "maxOutputTokens": 8192,
-                    "temperature": 0.7
-                }
-            }
-            if response_schema:
-                # Gemini structured output: the app still validates semantic
-                # requirements after parsing; JSON syntax alone is not enough.
-                payload["generationConfig"].update({
-                    "responseMimeType": "application/json",
-                    "responseSchema": response_schema,
-                })
-            
-            key_failed = False
-            for attempt in range(max_retries):
-                try:
-                    start_time = time.time()
-                    with concurrent.futures.ThreadPoolExecutor() as executor:
-                        future = executor.submit(requests.post, url, headers=headers, json=payload, timeout=180)
-                        last_printed = 0
-                        while not future.done():
-                            if STOP_REQUESTED:
-                                log(f"{log_prefix}🛑 Nhận lệnh dừng khi đang chờ API...")
-                                return None, False, False
-                            elapsed = int(time.time() - start_time)
-                            if elapsed > 0 and elapsed % 10 == 0 and elapsed != last_printed:
-                                log(f"{log_prefix}   ... Đang chờ AI phản hồi ({elapsed}s) ...")
-                                last_printed = elapsed
-                            time.sleep(1)
-                            
-                    resp = future.result()
-                    elapsed_total = time.time() - start_time
-                    resp_json = resp.json()
-                    
-                    if resp.status_code != 200:
-                        error_msg = json.dumps(resp_json.get('error', {}), ensure_ascii=False)
-                        raise Exception(f"HTTP {resp.status_code} - {error_msg}")
-                        
-                    generated_text = resp_json['candidates'][0]['content']['parts'][0]['text']
-                    
-                    # Thành công -> cập nhật last_check_time
-                    current_key_obj["last_check_time"] = int(time.time())
-                    # Nếu đang ở trạng thái exhausted (sau 3 tiếng thử lại thành công) -> đưa về active
-                    if current_key_obj.get("status") == "exhausted":
-                        current_key_obj["status"] = "active"
-                        current_key_obj["reset_time"] = 0
-                        current_key_obj["next_check_time"] = 0
-                    
-                    update_key_on_disk(current_key_obj)
-                    return generated_text, True, False
-                    
-                except requests.exceptions.Timeout:
-                    log(f"{log_prefix}⚠ Timeout khi kết nối đến Gemini (Lần {attempt+1}/{max_retries}).")
-                    if attempt == max_retries - 1:
-                        # Thất bại do timeout nhiều lần, đổi sang key khác cho chắc
-                        key_failed = True
-                        break
-                except Exception as e:
-                    error_msg = str(e)
-                    # Quá hạn ngạch (429)
-                    if any(x in error_msg for x in ["429", "RESOURCE_EXHAUSTED", "503", "UNAVAILABLE"]):
-                        if "PerDay" in error_msg:
-                            log(f"{log_prefix}⚠ Key {key_email} (Project: {current_key_obj.get('project_id', 'N/A')}) Hết quota ngày. Chuyển key...")
-                            mark_key_exhausted(current_key_obj)
-                            key_failed = True
-                            break
-                        
-                        # Quá hạn ngạch theo phút (Per Minute) -> Đợi rồi thử lại
-                        import re as _re
-                        delay_match = _re.search(r'"retryDelay":\s*"(\d+)s"', error_msg)
-                        wait_sec = int(delay_match.group(1)) + 5 if delay_match else 65
-                        
-                        if attempt < max_retries - 1:
-                            log(f"{log_prefix}⏳ API quá tải (phút). Chờ {wait_sec}s rồi thử lại...")
-                            time.sleep(wait_sec)
-                        else:
-                            log(f"{log_prefix}⚠ Key {key_email} (Project: {current_key_obj.get('project_id', 'N/A')}) bị lỗi quá tải liên tục.")
-                            mark_key_exhausted(current_key_obj) # Đánh dấu tạm chờ
-                            key_failed = True
-                            break
-                    else:
-                        log(f"{log_prefix} Lỗi Gemini: {error_msg}")
-                        if response_schema and "400" in error_msg:
-                            # A model alias can change capabilities.  A schema
-                            # rejection is a request compatibility issue, not
-                            # proof that the user's API key is invalid.
-                            log(f"{log_prefix}⚠ Model không nhận structured output; chuyển sang render text tương thích, không vô hiệu hóa key.")
-                            return call_gemini_api(prompt_text, log_prefix=log_prefix, response_schema=None)
-                        # API key hỏng/sai/403
-                        if any(x in error_msg for x in ["API_KEY_INVALID", "400", "403", "PERMISSION_DENIED"]):
-                            log(f"{log_prefix}⚠ Key {key_email} (Project: {current_key_obj.get('project_id', 'N/A')}) bị từ chối truy cập (403/Invalid). Chuyển key...")
-                            mark_key_invalid(current_key_obj)
-                            key_failed = True
-                        else:
-                            # Các lỗi vặt khác thì tạm thời đổi key
-                            key_failed = True
-                        break
-            
-            if key_failed:
-                continue
-            break
+        def _status_cb(key_obj, status, error_msg):
+            try:
+                now = int(time.time())
+                key_obj["status"] = status
+                key_obj["error_msg"] = error_msg
+                key_obj["last_check_time"] = now
+                if status == "exhausted":
+                    key_obj["reset_time"] = now + 86400
+                    key_obj["next_check_time"] = now + 10800
+                elif status in ("active", "invalid"):
+                    key_obj["reset_time"] = 0
+                    key_obj["next_check_time"] = 0
+                update_key_on_disk(key_obj)
+            except Exception as e:
+                log(f"{log_prefix}⚠ Lỗi đồng bộ key: {e}")
+
+        def _loader():
+            try:
+                from settings import load_settings
+                return load_settings().get("gemini", {}).get("api_keys", [])
+            except Exception:
+                return api_keys_list
+
+        coord = GeminiCoordinator(
+            log_fn=lambda m: log(f"{log_prefix}{m}"),
+            on_key_status=_status_cb,
+            key_loader=_loader,
+            stop_check=lambda: STOP_REQUESTED,
+            temperature=0.7,
+            max_output_tokens=8192,
+            timeout=180,
+        )
+
+        result = coord.request(prompt_text, response_schema=response_schema)
+        if result.get("ok"):
+            return result["text"], True, False
+
+        error = result.get("error", {})
+        kind = error.get("kind")
+        if kind == ErrorKind.NO_KEY:
+            log(f"{log_prefix}⚠ KHÔNG tìm thấy API Key nào khả dụng!")
+            return None, False, True  # daily_quota_hit = True
+        if kind == ErrorKind.STOPPED:
+            log(f"{log_prefix}🛑 Nhận lệnh dừng khi đang chờ API...")
+            return None, False, False
+        if response_schema and kind == ErrorKind.REQUEST_BAD:
+            log(f"{log_prefix}⚠ Model không nhận structured output; chuyển sang render text tương thích, không vô hiệu hóa key.")
+            return call_gemini_api(prompt_text, log_prefix=log_prefix, response_schema=None)
+        log(f"{log_prefix}⚠ Lỗi Gemini ({kind}): {error.get('message', '')[:120]}")
         return None, False, False
-
     try:
         import fitz  # PyMuPDF
     except ImportError:
@@ -409,20 +345,30 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
             else:
                 log(f"⚠ KHÔNG tìm thấy file '{day['pdf']}' trong thư mục!")
         
-        # Gắn text vào prompt chính
+# Gắn text vào prompt chính
         day_clean_title = day['title'].replace("## ", "").strip()
         if adaptive_ready:
-            full_prompt = build_day_context(profile, learner_state, day_clean_title, prompt, [day['pdf']] if day['pdf'] else [])
+            base_prompt = build_day_context(profile, learner_state, day_clean_title, prompt, [day['pdf']] if day['pdf'] else [])
             if knowledge_pack.get("sources") and not knowledge_errors:
                 fact_context, coverage = build_fact_context(knowledge_pack, prompt)
-                full_prompt += "\n\n" + fact_context
+                base_prompt += "\n\n" + fact_context
             else:
                 coverage = None
         else:
-            full_prompt = f"LƯU Ý: Đây là nội dung cho '{day_clean_title}'.\n\n{prompt}"
+            base_prompt = f"LƯU Ý: Đây là nội dung cho '{day_clean_title}'.\n\n{prompt}"
+
+        # Chia nhỏ input lớn để tránh lỗi 503/UNAVAILABLE
+        MAX_INPUT = 30000
+        pdf_parts = []
         if pdf_text:
-            full_prompt = f"{full_prompt}\n\nNGUỒN CỤC BỘ ĐÃ TRÍCH XUẤT (chỉ dùng phần liên quan, không bịa trích dẫn):\n{pdf_text[:120000]}"
-            
+            if adaptive_ready:
+                pdf_text = pdf_text[:MAX_INPUT]
+                pdf_parts = [pdf_text]
+            elif len(pdf_text) > MAX_INPUT:
+                pdf_parts = split_text(pdf_text, max_chars=MAX_INPUT)
+            else:
+                pdf_parts = [pdf_text]
+
         # Lượt 1: Gửi câu hỏi chính
         daily_quota_hit = False
         day_success = False
@@ -434,7 +380,61 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
             session_item = incomplete_days_refs[day_clean_title]
             all_responses = list(session_item.get("raw_responses", []))
             log(f"↪ Tiếp tục hỏi bổ sung cho {day_clean_title} (từ lượt {len(all_responses) + 1})...")
+        elif len(pdf_parts) > 1:
+            # Chunk-and-merge: gọi từng phần nhỏ, checkpoint từng phần, nối lại sau cùng
+            store = PartStore(os.path.join(out_dir, "lesson_parts.json"))
+            part_texts = []
+            total_parts = len(pdf_parts)
+            for pi, part_txt in enumerate(pdf_parts):
+                if STOP_REQUESTED:
+                    log("🛑 Đã dừng tiến trình theo yêu cầu (Stop) khi đang gửi phần nội dung.")
+                    break
+                saved = store.get(day_clean_title, pi)
+                if saved:
+                    part_texts.append(saved)
+                    log(f"  [Lượt 1 • Phần {pi+1}/{total_parts}] Dùng checkpoint đã lưu ({len(saved)} ký tự).")
+                    continue
+                if pi == 0:
+                    part_prompt = (
+                        f"## {day_clean_title}\n\n{base_prompt}\n\n"
+                        f"NGUỒN CỤC BỘ ĐÃ TRÍCH XUẤT (phần 1/{total_parts}; chỉ dùng phần liên quan, không bịa trích dẫn):\n"
+                        f"{part_txt}"
+                    )
+                else:
+                    part_prompt = (
+                        f"Tiếp tục nội dung cho '{day_clean_title}' (phần {pi+1}/{total_parts}). "
+                        f"TUYỆT ĐỐI không viết lại heading '## ...', không lặp lại nội dung đã trả lời ở các phần trước, "
+                        f"chỉ tiếp tục bổ sung nội dung còn thiếu từ tài liệu sau:\n\n{part_txt}"
+                    )
+                log(f"💬 [Lượt 1 • Phần {pi+1}/{total_parts}] Gửi câu hỏi ({len(part_prompt)} ký tự)...")
+                text_p, ok_p, quota_hit_p = call_gemini_api(
+                    part_prompt, log_prefix=f"  [Lượt 1 • Phần {pi+1}/{total_parts}] "
+                )
+                if quota_hit_p:
+                    daily_quota_hit = True
+                    break
+                if not ok_p or not text_p:
+                    log(f"✗ Phần {pi+1}/{total_parts} thất bại. Các phần đã lưu sẽ resume ở lần chạy sau.")
+                    break
+                store.save_part(day_clean_title, pi, text_p)
+                part_texts.append(text_p)
+            if STOP_REQUESTED:
+                break
+            if daily_quota_hit:
+                break
+            if not part_texts:
+                log(f"✗ Lượt 1 thất bại cho {day_clean_title}. Dừng!")
+                break
+            text1 = dedup_merge(part_texts, heading_pattern=r"^##\s+Day\s+\d+")
+            ok1 = True
+            quota_hit = False
+            store.clear(day_clean_title)
+            all_responses = [text1]
+            log(f"🧩 Đã nối {len(part_texts)} phần thành bài học ({len(text1)} ký tự).")
         else:
+            full_prompt = base_prompt
+            if pdf_parts:
+                full_prompt = f"{full_prompt}\n\nNGUỒN CỤC BỘ ĐÃ TRÍCH XUẤT (chỉ dùng phần liên quan, không bịa trích dẫn):\n{pdf_parts[0]}"
             log(f"💬 [Lượt 1] Gửi câu hỏi chính ({len(full_prompt)} ký tự)...")
             text1, ok1, quota_hit = call_gemini_api(
                 full_prompt,

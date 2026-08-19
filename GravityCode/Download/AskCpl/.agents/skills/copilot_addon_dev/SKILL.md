@@ -335,3 +335,34 @@ if (window === window.top) {
     }, 1000);
 }
 ```
+---
+
+## 9. BÀI HỌC 2026-08-19 — Fix "Addon hay dừng & đứng" (CopilotWordExportAddon)
+
+Những nguyên nhân khiến addon vòng lặp tự động bị dừng/đứng lặng lẽ (không crash, không lỗi hiển thị):
+
+### P. maxFollowUp mặc định quá lớn → 1 ngày kẹt hàng giờ
+- **Nguyên nhân**: `maxFollowUp = 999` + vòng `while (!isCompleted && followUpCount < maxFollowUp)` — nếu AI cứ trả lời nội dung bổ sung mà không nói "Đã đầy đủ", addon hỏi bồi tới 999 lần, mỗi lần chờ tới 10 phút.
+- **Giải pháp**: mặc định 3 + **cap dung lượng tổng** `fullDayHtml` (~3MB) — `fullDayHtml` còn phình vô hạn gây treo tab & IPC drop khi gửi download. Log phân biệt rõ lý do dừng: "vượt dung lượng" vs "đạt giới hạn lần".
+
+### Q. Roadmap nhúng trong IPC payload → sendMessage drop im lặng
+- **Nguyên nhân**: Dù đã strip roadmapData khỏi session, vẫn còn sót trong: payload `start_loop` (popup.js), `buildConfigFromUI` (lưu vào addonConfigs >10MB/key), và `saveSession()` (session.json). Roadmap hàng nghìn bài (~MB) → `chrome.runtime.sendMessage`/`tabs.sendMessage` drop im lặng → **bấm Start không có gì xảy ra** / session.json không bao giờ tải được.
+- **Giải pháp**: roadmapData CHỈ nằm trong `chrome.storage.local` (`roadmap_active` / `roadmap_{profile}`). Content Script đọc từ storage, không nhận qua IPC. Khi load session file → fallback đọc roadmap từ storage.
+
+### R. Vòng retry vô hạn khi AI lỗi liên tục
+- **Nguyên nhân**: `while(isRunning){ retry++; ... }` không giới hạn — AI lỗi 503/rate-limit liên tục → retry vô hạn, mỗi lần chờ 10 phút → tưởng như "đứng" ở 1 ngày.
+- **Giải pháp**: `MAX_RETRIES = 5` → thất bại đủ 5 lần thì **bỏ qua ngày** (lưu session, nhảy ngày kế tiếp) kèm log rõ.
+
+### S. Ngưỡng stall quá nhạy → false-positive retry với AI chậm stream
+- **Nguyên nhân**: `checkStable15s` coi kẹt khi chữ không tăng trong 60s — nhưng Copilot có thể mất >60s trước khi stream token đầu (đang xếp hàng) → bị tưởng kẹt → retry lại từ đầu → ngày không bao giờ xong.
+- **Giải pháp**: 60s→**120s** + chỉ coi kẹt khi `!isAIGenerating()` (không có stop-generating button / loading indicator). Nếu UI còn báo generating → cho phép chờ tiếp.
+
+### T. Vòng reload vô hạn khi nút New Chat không tìm thấy
+- **Nguyên nhân**: `waitForNewChatReady` timeout 30s → `location.reload()` → resume → lại timeout → reload... vô hạn nếu nút New Chat không xuất hiện.
+- **Giải pháp**: (1) kiểm tra kết quả `clickNewChat()` — fail thì thử lần 2 sau 10s, vẫn fail thì **dừng hẳn** với log; (2) `waitForNewChatReady` giới hạn **3 lần reload** (biến đếm trong storage) rồi dừng; reset bộ đếm khi 1 ngày thành công.
+
+### U. MAX_TOTAL chờ phản hồi quá dài
+- **Nguyên nhân**: `MAX_TOTAL = 600000` (10 phút) — mỗi lần retry chết chậm.
+- **Giải pháp**: giảm xuống **240000** (4 phút) — retry nhanh, ít thời gian "đứng".
+
+**Kinh nghiệm chung**: Với loop dài hạn, mọi vòng lặp (follow-up, retry, reload, chờ phản hồi) đều phải có 2 lớp chặn: **giới hạn số lần** + **giới hạn thời gian/dung lượng**. Kiểm tra kết quả trả về của mọi thao tác DOM quan trọng (click, input) thay vì giả định thành công. Không bao giờ đưa dữ liệu lớn (~MB) qua IPC — chỉ qua chrome.storage.local.

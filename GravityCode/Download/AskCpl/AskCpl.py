@@ -73,6 +73,7 @@ from adaptive_learning import (default_profile, load_profile, profile_questions,
 from verified_knowledge import coverage_report, empty_pack, load_pack, validate_pack
 from knowledge_pack_importer import import_csv_folder
 from domain_profiles import instruction_for, is_tech_tree_domain
+from gemini_safe import pace
 import webbrowser
 try:
     from exercise_server import run_server
@@ -1183,130 +1184,37 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
             atomic_write(path, existing.rstrip() + "\n" + "\n".join(rows) + "\n")
 
     def _call_roadmap_llm(self, prompt, label, json_mode=True, retries=3):
-        import requests
-        _FALLBACK_MODELS = ["gemini-flash-latest", "gemini-2.0-flash", "gemini-1.5-flash"]
-        transient_attempt = 0
-        excluded_keys = set()
-        model_idx = 0
-        while True:
-            key = self._get_active_api_key(exclude_keys=excluded_keys)
-            if not key:
-                if excluded_keys:
-                    excluded_keys.clear()
-                    model_idx += 1
-                    if model_idx < len(_FALLBACK_MODELS):
-                        self.roadmap_gen_log(
-                            f"[{label}] Đã thử qua toàn bộ key active trên model "
-                            f"'{_FALLBACK_MODELS[model_idx - 1]}'; "
-                            f"chuyển sang '{_FALLBACK_MODELS[model_idx]}' "
-                            f"(fallback {model_idx}/{len(_FALLBACK_MODELS) - 1})."
-                        )
-                        transient_attempt = 0  # reset counter mỗi lần đổi model
-                        time.sleep(5)
-                    else:
-                        raise RoadmapValidationError(
-                            f"{label} gặp lỗi tạm thời trên toàn bộ {len(_FALLBACK_MODELS)} "
-                            "model và toàn bộ key; thử lại batch sau."
-                        )
-                    key = self._get_active_api_key()
-                if not key:
-                    raise RoadmapValidationError("Không còn API key trạng thái active; hãy kiểm tra Quản lý API Keys.")
-            current_model = _FALLBACK_MODELS[model_idx]
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/{current_model}:generateContent?key={key}"
-            config = {"temperature": 0.1, "maxOutputTokens": 8192}
-            if json_mode:
-                config["responseMimeType"] = "application/json"
-            try:
-                # --- Rate limit: tối thiểu 3s giữa mọi call Gemini + jitter ---
-                import random as _random
-                _MIN_INTERVAL = 3.0
-                _elapsed = time.time() - getattr(self, '_last_roadmap_call_ts', 0)
-                if _elapsed < _MIN_INTERVAL:
-                    time.sleep(_MIN_INTERVAL - _elapsed + _random.uniform(0.3, 1.2))
-                self._last_roadmap_call_ts = time.time()
-                _prompt_chars = len(prompt)
-                self.roadmap_gen_log(f"[{label}] Gửi yêu cầu Gemini (key #{len(excluded_keys)+1}, retry mạng {transient_attempt}/{retries}, prompt={_prompt_chars:,} chars)...")
-                if _prompt_chars > 3500:
-                    self.roadmap_gen_log(f"[CẢNH BÁO FREE-TIER] Prompt ({_prompt_chars:,} chars > 3,500) — nguy cơ vượt quota TPM.")
-                response = requests.post(url, headers={"Content-Type": "application/json"},
-                    json={"contents": [{"parts": [{"text": prompt}]}], "generationConfig": config}, timeout=90)
-                if response.status_code == 429:
-                    try:
-                        api_message = response.json().get("error", {}).get("message", "")
-                    except Exception:
-                        api_message = response.text[:160]
-                    # Phân biệt hết hạn ngày (Daily RPD) vs nghẽn tốc độ tạm thời (RPM/TPM)
-                    if "perday" in api_message.lower() or "daily" in api_message.lower():
-                        self._set_roadmap_key_status(key, "exhausted", f"HTTP 429 Daily: {api_message[:80]}")
-                        self.roadmap_gen_log(f"[{label}] Key hết hạn mức ngày (Daily Quota); chuyển sang key khác.")
-                    else:
-                        self.roadmap_gen_log(f"[{label}] Key đạt ngưỡng tốc độ tạm thời (RPM/TPM); xoay sang key active khác trong danh sách...")
-                    excluded_keys.add(key)
-                    time.sleep(2)
-                    continue
-                if response.status_code in (400, 401, 403):
-                    try:
-                        api_message = response.json().get("error", {}).get("message", "")
-                    except Exception:
-                        api_message = ""
-                    if response.status_code in (401, 403) or "API key not valid" in api_message:
-                        self._set_roadmap_key_status(key, "invalid", f"HTTP {response.status_code}: {api_message}")
-                        self.roadmap_gen_log(f"[{label}] Key bị từ chối và đã chuyển sang invalid; tự động chuyển sang key active tiếp theo.")
-                        excluded_keys.add(key)
-                        continue
-                    raise RoadmapValidationError(f"{label} bị HTTP {response.status_code} do request/schema, key vẫn active: {api_message[:160]}")
-                if response.status_code >= 500:
-                    transient_attempt += 1
-                    excluded_keys.add(key)
-                    _sleep = min(2 ** (transient_attempt // max(1, len(_FALLBACK_MODELS))), 30)
-                    self.roadmap_gen_log(
-                        f"[{label}] Gemini HTTP {response.status_code} tạm thời trên key hiện tại; "
-                        f"xoay sang key active khác trong danh sách (chờ {_sleep}s)..."
-                    )
-                    time.sleep(_sleep)
-                    continue
-                if response.status_code >= 400:
-                    try:
-                        api_message = response.json().get("error", {}).get("message", "")
-                    except Exception:
-                        api_message = response.text[:160]
-                    raise RoadmapValidationError(
-                        f"{label} bị HTTP {response.status_code}; không retry: {api_message[:160]}"
-                    )
-                response.raise_for_status()
-                payload = response.json()
-                candidates = payload.get("candidates", [])
-                candidate = candidates[0] if candidates else {}
-                parts = candidate.get("content", {}).get("parts", [])
-                text = parts[0].get("text", "") if parts else ""
-                if not text:
-                    # Phản hồi rỗng — xử lý như 503 tạm thời, xoay key thay vì raise ngay
-                    transient_attempt += 1
-                    excluded_keys.add(key)
-                    _sleep = min(2 ** (transient_attempt // max(1, len(_FALLBACK_MODELS))), 30)
-                    self.roadmap_gen_log(
-                        f"[{label}] Gemini trả về phản hồi rỗng (attempt {transient_attempt}); "
-                        f"xoay sang key active khác (chờ {_sleep}s)..."
-                    )
-                    time.sleep(_sleep)
-                    continue
-                finish_reason = candidate.get("finishReason", "UNKNOWN")
-                self.roadmap_gen_log(f"[{label}] Đã nhận {len(text):,} ký tự (finish={finish_reason}); đang kiểm tra định dạng.")
-                return text
-            except requests.exceptions.Timeout:
-                transient_attempt += 1
-                excluded_keys.add(key)
-                _sleep = min(2 ** (transient_attempt // max(1, len(_FALLBACK_MODELS))), 30)
-                self.roadmap_gen_log(f"[{label}] Timeout trên key hiện tại ({transient_attempt}); xoay sang key active khác (chờ {_sleep}s)...")
-                time.sleep(_sleep)
-            except requests.RequestException as exc:
-                transient_attempt += 1
-                excluded_keys.add(key)
-                http_status = getattr(getattr(exc, "response", None), "status_code", None)
-                status_note = f" HTTP {http_status}" if http_status else ""
-                _sleep = min(2 ** (transient_attempt // max(1, len(_FALLBACK_MODELS))), 30)
-                self.roadmap_gen_log(f"[{label}] Lỗi mạng/API: {type(exc).__name__}{status_note}; xoay sang key active khác (chờ {_sleep}s)...")
-                time.sleep(_sleep)
+        from gemini_safe import GeminiCoordinator, ErrorKind
+
+        _FALLBACK_MODELS = ["gemini-flash-latest", "gemini-3-flash-preview", "gemini-3.1-flash-lite", "gemini-3.5-flash", "gemini-flash-lite-latest"]
+        _prompt_chars = len(prompt)
+        self.roadmap_gen_log(f"[{label}] Gửi yêu cầu Gemini (prompt={_prompt_chars:,} chars)...")
+        if _prompt_chars > 3500:
+            self.roadmap_gen_log(f"[CẢNH BÁO FREE-TIER] Prompt ({_prompt_chars:,} chars > 3,500) — nguy cơ vượt quota TPM.")
+
+        _coord = GeminiCoordinator(
+            models=_FALLBACK_MODELS,
+            log_fn=lambda m: self.roadmap_gen_log(f"[{label}] {m}"),
+            on_key_status=lambda key_obj, status, err: self._set_roadmap_key_status(
+                key_obj.get("key", ""), status, err),
+            key_loader=lambda: load_settings().get("gemini", {}).get("api_keys", []),
+            stop_check=lambda: False,
+            temperature=0.1,
+            max_output_tokens=8192,
+            timeout=90,
+            max_transient=retries,
+        )
+        result = _coord.request(prompt, json_mode=json_mode)
+        if result.get("ok"):
+            return result["text"]
+        error = result.get("error", {})
+        kind = error.get("kind")
+        if kind == ErrorKind.NO_KEY:
+            raise RoadmapValidationError("Không còn API key trạng thái active; hãy kiểm tra Quản lý API Keys.")
+        status_note = f" HTTP {error.get('status_code')}" if error.get("status_code") else ""
+        raise RoadmapValidationError(
+            f"{label} gặp lỗi {kind}{status_note}: {error.get('message', '')[:160]}"
+        )
 
     def _show_skeleton(self, plan):
         formatted = json.dumps(plan, ensure_ascii=False, indent=2)
@@ -1830,8 +1738,10 @@ Trả JSON MẢNG đầy đủ với ĐÚNG các Day {expected_day_numbers} và 
             except FileNotFoundError:
                 pass
             start_at = len(lessons)
-            for start in range(start_at, len(plan["skeleton"]), 8):
-                chunk = plan["skeleton"][start:start + 8]
+            batch_size = 8
+            start = start_at
+            while start < len(plan["skeleton"]):
+                chunk = plan["skeleton"][start:start + batch_size]
                 self.roadmap_gen_log(f"[BƯỚC 3/3 • Sinh nội dung] Day {chunk[0]['day']}-{chunk[-1]['day']}...")
                 if snapshot.get("gen_mode") == "wiki":
                     prompt = f"""Tạo nội dung Bách khoa toàn thư bằng tiếng Việt cho JSON lô bóc tách sau: {json.dumps(chunk, ensure_ascii=False)}
@@ -1839,15 +1749,16 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
                 else:
                     prompt = f"""Tạo nội dung roadmap bằng tiếng Việt cho JSON micro-Day sau: {json.dumps(chunk, ensure_ascii=False)}
 Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"...","exercises":["..."],"tags":["#..."]}}. Trong prompt BẮT BUỘC nêu đúng {req_keys_str} của Day. Nếu module Tải Roadmap đính kèm văn bản PDF/tài liệu, prompt phải yêu cầu dùng đúng đoạn liên quan, không tóm tắt toàn bộ tài liệu. Ép AI trả lời tối đa 1.000 từ, chỉ một buổi 5-30 phút, theo cấu trúc: {struct_str}. Không được thay thế bằng lý thuyết tổng quát; không tạo quiz tương tác chờ trả lời; không viết dòng heading bắt đầu bằng '## Day'. Không đổi day."""
+                generated = None
                 for attempt in range(1, 4):
                     try:
                         generated = load_json_response(self._call_roadmap_llm(
-                            prompt, f"PASS 8 Day {chunk[0]['day']}-{chunk[-1]['day']} lần {attempt}"
+                            prompt, f"PASS {batch_size} Day {chunk[0]['day']}-{chunk[-1]['day']} lần {attempt}"
                         ))
                         if (not isinstance(generated, list)
                                 or {x.get("day") for x in generated if isinstance(x, dict)} != {x["day"] for x in chunk}):
                             raise RoadmapValidationError(
-                                f"PASS 8 trả về thiếu/trùng Day cho batch {chunk[0]['day']}-{chunk[-1]['day']}."
+                                f"PASS {batch_size} trả về thiếu/trùng Day cho batch {chunk[0]['day']}-{chunk[-1]['day']}."
                             )
                         break
                     except RoadmapValidationError as exc:
@@ -1856,16 +1767,29 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
                             f"chưa hoàn tất: {exc}. Checkpoint vẫn giữ nguyên."
                         )
                         if attempt == 3:
-                            raise RoadmapValidationError(
-                                f"Bước 3 dừng tại Day {chunk[0]['day']}-{chunk[-1]['day']}; "
-                                f"đã lưu {len(lessons)} Day, mở lại và bấm Bước 3 để tiếp tục."
-                            )
-                        time.sleep(min(2 ** attempt, 8))
+                            if batch_size > 1:
+                                new_size = max(1, batch_size // 2)
+                                self.roadmap_gen_log(
+                                    f"[BƯỚC 3/3] Batch {batch_size} Day thất bại 3 lần; "
+                                    f"giảm batch xuống {new_size} và thử lại từ Day {chunk[0]['day']}."
+                                )
+                                batch_size = new_size
+                                generated = None
+                            else:
+                                raise RoadmapValidationError(
+                                    f"Bước 3 dừng tại Day {chunk[0]['day']}-{chunk[-1]['day']}; "
+                                    f"đã lưu {len(lessons)} Day, mở lại và bấm Bước 3 để tiếp tục."
+                                )
+                        else:
+                            time.sleep(min(2 ** attempt, 8))
+                if generated is None:
+                    continue
                 lessons.extend(generated)
                 atomic_write(progress_path, json.dumps({
                     "domain": snapshot["domain"], "source_digest": source_digest,
                     "lessons": lessons,
                 }, ensure_ascii=False, indent=2))
+                start += batch_size
         markdown = render_markdown(plan, lessons)
         atomic_write(artifacts["final"], markdown)
         try:
@@ -2267,6 +2191,7 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
                         log_key(f"   → Gọi API gemini-flash-latest...")
                         headers = {'Content-Type': 'application/json'}
                         payload = {"contents": [{"parts": [{"text": "Hi"}]}], "generationConfig": {"maxOutputTokens": 5}}
+                        pace()
                         resp = requests.post(url, headers=headers, json=payload, timeout=15)
                         log_key(f"   ← HTTP {resp.status_code}")
                         if resp.status_code == 200:
@@ -2490,6 +2415,7 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
                     log_key(f"   → Gọi API gemini-flash-latest...")
                     headers = {'Content-Type': 'application/json'}
                     payload = {"contents": [{"parts": [{"text": "Hi"}]}], "generationConfig": {"maxOutputTokens": 5}}
+                    pace()
                     resp = requests.post(url, headers=headers, json=payload, timeout=15)
                     log_key(f"   ← HTTP {resp.status_code}")
                     if resp.status_code == 200:
@@ -2725,7 +2651,7 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
                         log_key(f"   ❌ Lỗi kết nối: {str(e)[:50]}")
 
                     top.after(0, refresh_list)
-                    time.sleep(0.3)
+                    pace()
                 else:
                     log_key("✅ Kiểm tra xong toàn bộ!")
                 top.after(0, lambda: update_ui_after_check(keys, stop_flag[0]))
@@ -2762,6 +2688,7 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
                         url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
                         headers = {'Content-Type': 'application/json'}
                         payload = {"contents": [{"parts": [{"text": "Hello. " * 10}]}], "generationConfig": {"maxOutputTokens": 1000}}
+                        pace()
                         resp = requests.post(url, headers=headers, json=payload, timeout=10)
                         key_obj["last_check_time"] = int(time.time())
 
@@ -4857,6 +4784,8 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
     def _run_wiki_build(self):
         import os, re, json, requests, time
         from bs4 import BeautifulSoup
+        from chunk_merge import split_text, dedup_merge
+        from gemini_safe import GeminiCoordinator
 
         BASE_DIR = os.path.dirname(os.path.abspath(__file__))
         topic    = self.wb_topic_var.get().strip()
@@ -4875,25 +4804,28 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
                 self._wb_log("[ERROR] Cần điền Google API Key và CX ID.", 'err')
                 return
 
-            api_key = self._get_active_api_key()
-            if not api_key:
-                self._wb_log("[ERROR] Không có Gemini API Key. Vào tab Quản lý API Keys.", 'err')
+            gemini_keys = load_settings().get("gemini", {}).get("api_keys", [])
+            if not any(k.get("status") == "active" for k in gemini_keys):
+                self._wb_log("[ERROR] Không có Gemini API Key active. Vào tab Quản lý API Keys.", 'err')
                 return
 
-            gemini_url = (
-                f"https://generativelanguage.googleapis.com/v1beta/"
-                f"models/gemini-flash-latest:generateContent?key={api_key}"
+            def _wiki_log(msg):
+                self._wb_log(f"  {msg}", 'err' if msg.startswith(("✗", "⚠")) else 'info')
+
+            _wb_coord = GeminiCoordinator(
+                log_fn=_wiki_log,
+                on_key_status=lambda key_obj, status, err: self._set_roadmap_key_status(
+                    key_obj.get("key", ""), status, err),
+                key_loader=lambda: load_settings().get("gemini", {}).get("api_keys", []),
+                stop_check=lambda: self._wb_stop_flag,
+                temperature=0.2,
+                max_output_tokens=8192,
+                timeout=60,
             )
 
             def call_gemini(prompt_text):
-                payload = {"contents": [{"parts": [{"text": prompt_text}]}]}
-                r = requests.post(gemini_url, json=payload,
-                                  headers={"Content-Type": "application/json"}, timeout=60)
-                if r.status_code == 200:
-                    return (r.json().get("candidates", [{}])[0]
-                            .get("content", {}).get("parts", [{}])[0]
-                            .get("text", "").strip())
-                return ""
+                res = _wb_coord.request(prompt_text)
+                return res.get("text", "") if res.get("ok") else ""
 
             os.makedirs(save_dir, exist_ok=True)
 
@@ -5000,16 +4932,23 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
                         self._wb_log("    → [SKIPPED] Từ khóa đã xuất hiện trong dữ liệu.", 'skip')
                         continue
 
-                    # Cross-check bằng AI (semantic)
-                    check_prompt = (
-                        f'Kho dữ liệu sau đây có phần nào giải thích chi tiết về chủ đề này chưa?\n'
-                        f'Chủ đề: "{q}"\n'
-                        f'Kho dữ liệu (trích):\n{global_corpus[:60000]}\n'
-                        f'Chỉ trả lời YES hoặc NO.'
-                    )
-                    ans = call_gemini(check_prompt).upper()
-                    if "YES" in ans:
-                        self._wb_log("    → [SKIPPED] AI xác nhận đã có trong dự án.", 'skip')
+                    # Cross-check bằng AI (semantic) — chia corpus thành phần nhỏ để tránh 503
+                    corpus_found = False
+                    for part_idx, corpus_part in enumerate(split_text(global_corpus, max_chars=12000)):
+                        if self._wb_stop_flag:
+                            break
+                        check_prompt = (
+                            f'Kho dữ liệu sau đây có phần nào giải thích chi tiết về chủ đề này chưa?\n'
+                            f'Chủ đề: "{q}"\n'
+                            f'Kho dữ liệu (trích phần {part_idx + 1}):\n{corpus_part}\n'
+                            f'Chỉ trả lời YES hoặc NO.'
+                        )
+                        ans = call_gemini(check_prompt).upper()
+                        if "YES" in ans:
+                            self._wb_log("    → [SKIPPED] AI xác nhận đã có trong dự án.", 'skip')
+                            corpus_found = True
+                            break
+                    if corpus_found:
                         time.sleep(0.5)
                         continue
 
@@ -5042,13 +4981,33 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
                         scraped_text = ""
 
                     # ── Phase 6: AI tóm tắt + Ghi vào file ──
-                    sum_prompt = (
+                    base_instruction = (
                         f'Hãy viết một đoạn wiki ngắn (3-6 dòng, định dạng Markdown) '
                         f'giải thích về chủ đề: "{q}" trong lĩnh vực {name} ({topic}).\n'
-                        + (f'Tham khảo nội dung sau:\n{scraped_text[:15000]}\n' if scraped_text else '')
                         + f'Yêu cầu: Tiếng Việt, súc tích, chính xác. Không bịa thông tin.'
                     )
-                    summary = call_gemini(sum_prompt)
+                    if len(scraped_text) > 8000:
+                        # Chia nhỏ tài liệu cào được để tránh 503, rồi nối lại
+                        part_out = []
+                        for part_idx, s_part in enumerate(split_text(scraped_text, max_chars=8000)):
+                            if self._wb_stop_flag:
+                                break
+                            part_prompt = (
+                                base_instruction
+                                + f'\nTham khảo nội dung sau (phần {part_idx + 1}):\n{s_part}\n'
+                                + f'KHÔNG viết heading nào (không dùng ký tự #), chỉ viết đoạn văn. '
+                                + f'Không lặp lại nội dung đã trả lời ở các phần trước.'
+                            )
+                            resp = call_gemini(part_prompt)
+                            if resp:
+                                part_out.append(resp)
+                        summary = dedup_merge(part_out) if part_out else ""
+                    else:
+                        sum_prompt = (
+                            base_instruction
+                            + (f'\nTham khảo nội dung sau:\n{scraped_text}\n' if scraped_text else '')
+                        )
+                        summary = call_gemini(sum_prompt)
                     if not summary:
                         self._wb_log("    → [ERROR] AI không trả về nội dung.", 'err')
                         continue

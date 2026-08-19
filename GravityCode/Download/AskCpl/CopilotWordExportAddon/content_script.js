@@ -39,7 +39,7 @@ let detailConfigs    = [];
 let topicMemory      = {};
 let currentTabId     = null;
 let autoFollowUp     = true;
-let maxFollowUp      = 999;
+let maxFollowUp      = 3;
 
 // ── Delay helper ──────────────────────────────────────────
 const delay = ms => new Promise(r => setTimeout(r, ms));
@@ -424,10 +424,25 @@ async function waitForNewChatReady() {
     // Fix 1: Lưu toàn bộ state TRƯỚC reload — kể cả khi chưa có Day nào hoàn thành
     await saveStateForReload();
     // Ghi flag và reload trong callback để đảm bảo storage đã ghi xong
+    // Giới hạn tối đa 3 lần reload — sau đó dừng hẳn để tránh vòng lặp reload vô hạn (dừng/đứng)
     await new Promise(resolve => {
-        chrome.storage.local.set({ askcpl_reload_flag: { active: true, ts: Date.now() } }, () => {
-            location.reload();
-            resolve();
+        chrome.storage.local.get(['askcpl_reload_count'], (res2) => {
+            const reloadCount = (res2.askcpl_reload_count || 0) + 1;
+            if (reloadCount > 3) {
+                appLog('❌ Đã reload quá 3 lần vẫn không có ô nhập. Dừng để kiểm tra.');
+                chrome.storage.local.remove(['askcpl_reload_count', 'askcpl_reload_flag']);
+                safeSendMessage({ action: "loop_finished", text: 'Dừng: không tìm thấy ô nhập chat sau nhiều lần reload.' });
+                isRunning = false;
+                teardownKeepAlive();
+                clearRunningState();
+                return resolve();
+            }
+            chrome.storage.local.set({ askcpl_reload_count: reloadCount }, () => {
+                chrome.storage.local.set({ askcpl_reload_flag: { active: true, ts: Date.now() } }, () => {
+                    location.reload();
+                    resolve();
+                });
+            });
         });
     });
     return false;
@@ -479,7 +494,9 @@ function saveSession() {
             savedAt: new Date().toISOString(), days: dayIndex,
             topicMemory: topicMemory,
             platform: currentPlatform,
-            roadmapData: roadmapData,
+            // KHÔNG nhúng roadmapData vào session.json — roadmap lớn (~MB)
+            // làm sendMessage drop im lặng → session.json không bao giờ tải được.
+            // Roadmap luôn nằm sẵn trong storage (roadmap_active / roadmap_{profile}).
             historySummaries: historySummaries,
             promptMode: promptMode,
             isAdvanced: isAdvanced,
@@ -523,7 +540,7 @@ function handleResumeSessionRequest(request) {
         targetCount    = request.targetCount || 4;
         detailConfigs  = request.details || [];
         autoFollowUp   = request.autoFollowUp !== undefined ? request.autoFollowUp : (s.autoFollowUp !== undefined ? s.autoFollowUp : true);
-        maxFollowUp    = request.maxFollowUp || s.maxFollowUp || 999;
+        maxFollowUp    = request.maxFollowUp || s.maxFollowUp || 3;
         topicMemory    = s.topicMemory || {};
         currentPlatform  = request.platform || s.platform || "copilot";
         historySummaries = (s.historySummaries || []).filter(h => parseInt(h.day, 10) < currentDay);
@@ -562,7 +579,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             targetCount    = request.targetCount || 4;
             detailConfigs  = request.details || [];
             autoFollowUp   = request.autoFollowUp !== undefined ? request.autoFollowUp : true;
-            maxFollowUp    = request.maxFollowUp || 999;
+            maxFollowUp    = request.maxFollowUp || 3;
             topicMemory    = {};
             dayIndex   = [];
             currentPlatform  = request.platform || "copilot";
@@ -1029,15 +1046,17 @@ async function checkStable15s() {
         const len = getNewTextLength();
         if (Math.abs(len - lastLen) <= 30) {
             // Chữ KHÔNG tăng thêm đáng kể
+            const stillGenerating = isAIGenerating();
             if (Date.now() - stableStart >= STABLE_MS) {
                 // Nếu không có dấu hiệu generating từ UI, thì coi là đã xong (stable = true)
-                if (!isAIGenerating()) return true;
+                if (!stillGenerating) return true;
             }
-            
-            // Fix kẹt vô tận: Nếu chữ KHÔNG tăng thêm tẹo nào trong 60s (dù UI có báo generating đi chăng nữa)
+
+            // Fix kẹt vô tận: Nếu chữ KHÔNG tăng thêm trong 120s VÀ KHÔNG có dấu hiệu AI đang chạy
             // -> Ép buộc trả về false (timeout/lỗi) để kích hoạt cơ chế Retry mở Chat Mới của hệ thống
-            if (Date.now() - textChangeStart >= 60000) {
-                appLog(`⚠️ Chữ không thay đổi trong 60s. Dấu hiệu kẹt mạng/lỗi AI. Hủy chờ.`);
+            // (Nếu AI vẫn đang generating thì cho phép chờ tiếp — tránh false-positive khi Copilot chậm)
+            if (!stillGenerating && Date.now() - textChangeStart >= 120000) {
+                appLog(`⚠️ Chữ không thay đổi trong 120s và không có dấu hiệu AI đang chạy. Hủy chờ.`);
                 return false; 
             }
         } else {
@@ -1051,7 +1070,7 @@ async function checkStable15s() {
 
 async function waitForResponseComplete(promptLabel) {
     const MIN_WAIT  = 15000;
-    const MAX_TOTAL = 600000;
+    const MAX_TOTAL = 240000; // Giảm từ 10 phút xuống 4 phút — retry nhanh hơn, tránh "đứng" lâu
     const POLL      = 10000;
 
     sendStatus(`"${promptLabel}" — Chờ AI phản hồi...`);
@@ -1187,13 +1206,26 @@ function buildPromptWithMemory(day) {
 }
 
 // ── Vòng lặp chính ───────────────────────────────────────────
+const MAX_RETRIES = 5; // Giới hạn số lần thử lại 1 ngày — tránh retry vô hạn (dừng/đứng)
 async function runNextDay(isAutoResumed = false) {
     let retry = 0;
     while (isRunning) {
         const result = await _runNextDayAttempt(retry, isAutoResumed);
         if (result === 'ok' || result === 'stop') return;
-        
+
         retry++;
+        if (retry >= MAX_RETRIES) {
+            appLog(`❌ Đã thử ${MAX_RETRIES} lần không thành công cho ${prefixStr}${currentDay}. Bỏ qua ngày này.`);
+            if (dayIndex.length > 0) { updateIndex(); saveSession(); }
+            currentDay++;
+            saveRunningState(currentDay);
+            sendStatus(`Bỏ qua ${prefixStr}${currentDay - 1} sau ${MAX_RETRIES} lần thất bại. Chuyển sang ${prefixStr}${currentDay}...`);
+            retry = 0;
+            isAutoResumed = false;
+            await delay(15000);
+            continue;
+        }
+
         sendStatus(`Lỗi tải. Thử lại ${prefixStr}${currentDay} trong Chat Mới sau 15s (lần ${retry + 1})...`);
         await delay(15000);
     }
@@ -1210,7 +1242,20 @@ async function _runNextDayAttempt(retryCount, isAutoResumed = false) {
     const needNewChat = (dayIndex.length > 0 || retryCount > 0) && !(isAutoResumed && retryCount === 0);
     if (needNewChat) {
         sendStatus(`Mở chat mới...`);
-        clickNewChat();
+        let okNewChat = clickNewChat();
+        if (!okNewChat) {
+            appLog('⚠️ Không tìm thấy nút New Chat. Thử lại sau 10s...');
+            await delay(10000);
+            okNewChat = clickNewChat();
+            if (!okNewChat) {
+                appLog('❌ Không tìm thấy nút New Chat sau 2 lần thử. Dừng để kiểm tra.');
+                safeSendMessage({ action: "loop_finished", text: `Dừng: không tìm thấy nút New Chat (${prefixStr}${currentDay}).` });
+                isRunning = false;
+                teardownKeepAlive();
+                clearRunningState();
+                return 'stop';
+            }
+        }
         await waitForNewChatReady();
     } else if (isAutoResumed) {
         // Sau reload/resume: trang đã mới, chỉ cần chờ input sẵn sàng
@@ -1262,6 +1307,7 @@ async function _runNextDayAttempt(retryCount, isAutoResumed = false) {
 
     // ── BƯỚC 1.5: AUTO FOLLOW-UP LOGIC ──
     let fullDayHtml = responseHtml;
+    const MAX_DAY_HTML = 3 * 1024 * 1024; // Giới hạn dung lượng 1 ngày (~3MB) để tránh IPC drop & treo tab
     if (autoFollowUp) {
         let followUpCount = 0;
         let isCompleted = /đã đầy đủ/i.test(fullDayHtml) || /hoàn tất ngày \d+/i.test(fullDayHtml) || /hoàn tất bài học/i.test(fullDayHtml);
@@ -1285,6 +1331,11 @@ async function _runNextDayAttempt(retryCount, isAutoResumed = false) {
             
             if (followUpHtml) {
                 fullDayHtml += "\\n<hr>\\n" + followUpHtml;
+                // Giới hạn dung lượng tổng — tránh chuỗi phình vô hạn gây treo tab / IPC drop
+                if (fullDayHtml.length > MAX_DAY_HTML) {
+                    appLog(`⚠️ Đã đạt giới hạn dung lượng ${Math.round(MAX_DAY_HTML / 1024 / 1024)}MB. Dừng hỏi bồi.`);
+                    break;
+                }
                 // Kiểm tra xem phản hồi có cụm từ "Đã đầy đủ" không
                 if (/đã đầy đủ/i.test(followUpHtml)) {
                     isCompleted = true;
@@ -1295,7 +1346,11 @@ async function _runNextDayAttempt(retryCount, isAutoResumed = false) {
             }
         }
         if (!isCompleted && isRunning) {
-            appLog(`⚠️ Đã đạt giới hạn hỏi bồi tối đa (${maxFollowUp} lần). Kết thúc Ngày ${currentDay}.`);
+            if (fullDayHtml.length > MAX_DAY_HTML) {
+                appLog(`⚠️ Dừng hỏi bồi do vượt dung lượng ${Math.round(MAX_DAY_HTML / 1024 / 1024)}MB. Kết thúc Ngày ${currentDay}.`);
+            } else {
+                appLog(`⚠️ Đã đạt giới hạn hỏi bồi tối đa (${maxFollowUp} lần). Kết thúc Ngày ${currentDay}.`);
+            }
         }
     } else {
         appLog(`ℹ️ Tính năng hỏi bồi (Auto Follow-up) đang bị tắt.`);
@@ -1355,6 +1410,8 @@ async function _runNextDayAttempt(retryCount, isAutoResumed = false) {
     }
 
     await processExtractedContent(`Day ${currentDay}`, fullDayHtml);
+    // Reset bộ đếm reload — 1 ngày đã thành công thì hết "quota" reload mới
+    chrome.storage.local.remove(['askcpl_reload_count']);
     return 'ok';
 }
 
