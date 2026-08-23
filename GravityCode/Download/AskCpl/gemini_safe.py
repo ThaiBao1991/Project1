@@ -195,9 +195,14 @@ class AccountPool:
     def lock_account(self, key_obj=None, account=None, duration=ACCOUNT_COOLDOWN):
         acct = account or (self.account_of(key_obj) if key_obj else None)
         if not acct:
-            return
+            return 0
+        until = int(time.time() + duration)
         with self._lock:
-            self._cooldown[acct] = time.time() + duration
+            self._cooldown[acct] = until
+            for k in self._keys:
+                if self.account_of(k) == acct:
+                    k["cooldown_until"] = until
+        return until
 
     def unlock_account(self, key_obj=None, account=None):
         acct = account or (self.account_of(key_obj) if key_obj else None)
@@ -205,11 +210,19 @@ class AccountPool:
             return
         with self._lock:
             self._cooldown.pop(acct, None)
+            for k in self._keys:
+                if self.account_of(k) == acct:
+                    k.pop("cooldown_until", None)
 
     def account_locked(self, account, now=None):
         now = now or time.time()
         with self._lock:
-            return self._cooldown.get(account, 0) > now
+            if self._cooldown.get(account, 0) > now:
+                return True
+            for k in self._keys:
+                if self.account_of(k) == account and k.get("cooldown_until", 0) > now:
+                    return True
+            return False
 
     def _usable_keys(self, exclude):
         now = time.time()
@@ -226,7 +239,8 @@ class AccountPool:
             if not raw or raw in exclude:
                 continue
             acct = self.account_of(k)
-            if self._cooldown.get(acct, 0) > now:
+            cd_until = max(self._cooldown.get(acct, 0), k.get("cooldown_until", 0))
+            if cd_until > now:
                 continue
             usable.append(k)
         return usable
@@ -307,6 +321,13 @@ class GeminiCoordinator:
             except Exception:
                 pass
 
+    def _lock_account(self, key_obj, duration=ACCOUNT_COOLDOWN, reason=""):
+        until = self._pool.lock_account(key_obj=key_obj, duration=duration)
+        if key_obj:
+            key_obj["cooldown_until"] = until
+            self._mark(key_obj, key_obj.get("status", "active"), reason or "Account cooldown")
+        return until
+
     def _maybe_lock_after_success(self, key_obj, keys):
         """Sau 1 batch thành công: khóa account 1h nếu có >=2 account và còn account khác mở."""
         pool = self._pool
@@ -320,7 +341,7 @@ class GeminiCoordinator:
         now = time.time()
         has_free = any(acct != used and not pool.account_locked(acct, now) for acct in accounts)
         if has_free:
-            pool.lock_account(key_obj)
+            self._lock_account(key_obj, reason="Batch rotation lock")
 
     def _try_models(self, prompt_text, api_key, json_mode, response_schema,
                     temperature, max_output_tokens, timeout):
@@ -425,20 +446,17 @@ class GeminiCoordinator:
 
             if kind == ErrorKind.QUOTA_DAILY:
                 self._log(f"⚠ Key {email} hết quota ngày (Daily). Khóa account 60 phút, chuyển key...")
-                pool.lock_account(key_obj)
+                self._lock_account(key_obj, reason=f"HTTP 429 Daily: {msg[:90]}")
                 self._mark(key_obj, "exhausted", f"HTTP 429 Daily: {msg[:90]}")
                 exclude.add(api_key)
                 continue
 
             if kind == ErrorKind.QUOTA_RATE:
-                if transient < self._max_transient:
-                    delay = retry_delay_from(res.get("raw_msg") or msg)
-                    self._log(f"⏳ Quá tải tốc độ (RPM/TPM): {msg[:60]}. Chờ {delay}s rồi thử lại...")
-                    time.sleep(delay)
-                    transient += 1
-                    continue
-                self._log(f"⚠ Key {email} quá tải liên tục. Khóa account 60 phút, chuyển key...")
-                pool.lock_account(key_obj)
+                # 429 RPM/TPM = vượt hạn mức tốc độ → khóa account ngay 60 phút + đánh dấu exhausted.
+                # Không retry: lặp lại trên cùng key chỉ lãng phí thời gian và tăng nguy cơ bị Google khóa.
+                self._log(f"⚠ Key {email} vượt quota tốc độ (RPM/TPM). Khóa account 60 phút, bỏ qua key này, chuyển key khác...")
+                self._lock_account(key_obj, reason=f"HTTP 429 RPM/TPM: {msg[:90]}")
+                self._mark(key_obj, "exhausted", f"HTTP 429 RPM/TPM: {msg[:90]}")
                 exclude.add(api_key)
                 continue
 
@@ -452,7 +470,7 @@ class GeminiCoordinator:
                 if is_model_restriction(msg):
                     # 403 denied access / model đã ngừng: lỗi theo account, xoay account.
                     self._log(f"⚠ Key {email} không được phép dùng model này ({msg[:80]}). Khóa account, xoay key...")
-                    pool.lock_account(key_obj)
+                    self._lock_account(key_obj, reason=f"Model restriction: {msg[:80]}")
                     exclude.add(api_key)
                     continue
                 return {"ok": False, "text": "",
@@ -467,7 +485,10 @@ class GeminiCoordinator:
                 # Lỗi 503 high-demand/NETWORK theo model/region, không theo key:
                 # retry lại CÙNG key với backoff lũy tiến thay vì xoay key rồi bỏ cuộc.
                 delay = min(2 ** transient, 30)
-                self._log(f"⚠ {kind} key {email}: {msg[:80]}. Chờ {delay}s rồi thử lại (lần {transient}/{self._max_transient})...")
+                if kind == ErrorKind.NETWORK:
+                    self._log(f"🌐 Lỗi kết nối mạng: {msg[:70]}. Chờ {delay}s để kết nối lại (lần {transient}/{self._max_transient})...")
+                else:
+                    self._log(f"⚠ Máy chủ bận/phản hồi rỗng: {msg[:70]}. Chờ {delay}s rồi thử lại (lần {transient}/{self._max_transient})...")
                 time.sleep(delay)
                 continue
 

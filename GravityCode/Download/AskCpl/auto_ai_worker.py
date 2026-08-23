@@ -53,13 +53,18 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
             from settings import load_settings, update_gemini_settings
             st = load_settings()
             disk_keys = st.get("gemini", {}).get("api_keys", [])
+            target_acct = (k_obj.get("email") or "").strip().lower()
+            cd_until = k_obj.get("cooldown_until", 0)
             for dk in disk_keys:
                 if dk.get("key") == k_obj.get("key"):
                     dk["status"] = k_obj.get("status", "active")
                     dk["reset_time"] = k_obj.get("reset_time", 0)
                     dk["next_check_time"] = k_obj.get("next_check_time", 0)
                     dk["last_check_time"] = k_obj.get("last_check_time", 0)
-                    break
+                    if "cooldown_until" in k_obj:
+                        dk["cooldown_until"] = k_obj["cooldown_until"]
+                elif target_acct and (dk.get("email") or "").strip().lower() == target_acct and cd_until > 0:
+                    dk["cooldown_until"] = cd_until
             update_gemini_settings(api_keys=disk_keys)
             if update_keys_cb:
                 update_keys_cb(disk_keys)
@@ -155,6 +160,7 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
             temperature=0.7,
             max_output_tokens=8192,
             timeout=180,
+            lock_after_success=False,
         )
 
         result = coord.request(prompt_text, response_schema=response_schema)
@@ -164,8 +170,8 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
         error = result.get("error", {})
         kind = error.get("kind")
         if kind == ErrorKind.NO_KEY:
-            log(f"{log_prefix}⚠ KHÔNG tìm thấy API Key nào khả dụng!")
-            return None, False, True  # daily_quota_hit = True
+            log(f"{log_prefix}⚠ KHÔNG tìm thấy API Key nào khả dụng! Tất cả account đang trong cooldown 60 phút.")
+            return None, False, True  # Dừng pipeline — không có key để xử lý tiếp
         if kind == ErrorKind.STOPPED:
             log(f"{log_prefix}🛑 Nhận lệnh dừng khi đang chờ API...")
             return None, False, False
@@ -423,8 +429,12 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
             if daily_quota_hit:
                 break
             if not part_texts:
-                log(f"✗ Lượt 1 thất bại cho {day_clean_title}. Dừng!")
-                break
+                if STOP_REQUESTED:
+                    break
+                if daily_quota_hit:
+                    break
+                log(f"⚠ Phần nội dung của {day_clean_title} chưa tải được. Bỏ qua Day này, tiếp tục Day sau...")
+                continue
             text1 = dedup_merge(part_texts, heading_pattern=r"^##\s+Day\s+\d+")
             ok1 = True
             quota_hit = False
@@ -435,19 +445,38 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
             full_prompt = base_prompt
             if pdf_parts:
                 full_prompt = f"{full_prompt}\n\nNGUỒN CỤC BỘ ĐÃ TRÍCH XUẤT (chỉ dùng phần liên quan, không bịa trích dẫn):\n{pdf_parts[0]}"
-            log(f"💬 [Lượt 1] Gửi câu hỏi chính ({len(full_prompt)} ký tự)...")
-            text1, ok1, quota_hit = call_gemini_api(
-                full_prompt,
-                log_prefix="  [Lượt 1] ",
-                response_schema=LESSON_RESPONSE_SCHEMA if adaptive_ready else None,
-            )
             
+            # Tự động thử lại tối đa 3 lần cho Day nếu gặp lỗi mạng tạm thời
+            MAX_DAY_ATTEMPTS = 3
+            text1, ok1, quota_hit = None, False, False
+            for day_attempt in range(1, MAX_DAY_ATTEMPTS + 1):
+                if STOP_REQUESTED:
+                    break
+                if day_attempt > 1:
+                    log(f"🔄 [Lượt 1] Thử lại {day_clean_title} (lần {day_attempt}/{MAX_DAY_ATTEMPTS})...")
+                else:
+                    log(f"💬 [Lượt 1] Gửi câu hỏi chính ({len(full_prompt)} ký tự)...")
+                
+                text1, ok1, quota_hit = call_gemini_api(
+                    full_prompt,
+                    log_prefix="  [Lượt 1] ",
+                    response_schema=LESSON_RESPONSE_SCHEMA if adaptive_ready else None,
+                )
+                if STOP_REQUESTED or quota_hit or ok1:
+                    break
+                # Nếu thất bại do mạng/transient: chờ 10s trước khi thử lại Day này
+                if day_attempt < MAX_DAY_ATTEMPTS:
+                    log(f"  ⏳ Chờ 10s để ổn định mạng rồi thử lại...")
+                    time.sleep(10)
+            
+            if STOP_REQUESTED:
+                break
             if quota_hit:
                 daily_quota_hit = True
                 break
             if not ok1 or not text1:
-                log(f"✗ Lượt 1 thất bại cho {day_clean_title}. Dừng!")
-                break
+                log(f"⚠ Tạm thời không thể tải {day_clean_title} sau {MAX_DAY_ATTEMPTS} lần thử. Bỏ qua Day này, tiếp tục Day sau...")
+                continue
                 
             if adaptive_ready:
                 lesson_result = parse_lesson_response(text1)

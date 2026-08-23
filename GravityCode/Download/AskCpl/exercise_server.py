@@ -433,7 +433,11 @@ def run_server(port=None):
         port = config.get("port", 5678)
     
     print(f"[*] Starting Exercise Server on http://{host}:{port}")
-    app.run(host=host, port=port, debug=False, use_reloader=False)
+    try:
+        app.run(host=host, port=port, debug=False, use_reloader=False)
+    except Exception as e:
+        print(f"[!] Cannot bind to {host}:{port} ({e}), falling back to 127.0.0.1:{port}")
+        app.run(host="127.0.0.1", port=port, debug=False, use_reloader=False)
 
 if __name__ == '__main__':
     run_server()

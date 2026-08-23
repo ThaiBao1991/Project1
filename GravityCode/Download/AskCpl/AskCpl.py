@@ -337,12 +337,14 @@ class AskCplApp:
                 return dec
         return None
 
-    def _set_roadmap_key_status(self, key_value, status, error_msg=""):
+    def _set_roadmap_key_status(self, key_value, status, error_msg="", cooldown_until=0, account=None):
         """Persist status in the same model used by the API-key manager."""
         now = int(time.time())
         state = load_settings()
         keys = state.get("gemini", {}).get("api_keys", [])
         changed = False
+        target_account = (account or "").strip().lower()
+
         for item in keys:
             raw = item.get("key", "")
             if raw.startswith("ENC:"):
@@ -351,19 +353,30 @@ class AskCplApp:
                     raw = base64.b64decode(raw[4:]).decode("utf-8")
                 except Exception:
                     pass
-            if raw != key_value:
-                continue
-            item["status"] = status
-            item["last_check_time"] = now
-            item["error_msg"] = error_msg[:120]
-            if status == "exhausted":
-                item["reset_time"] = now + 86400
-                item["next_check_time"] = now + 10800
-            elif status == "invalid":
-                item["reset_time"] = 0
-                item["next_check_time"] = 0
-            changed = True
-            break
+            if raw == key_value:
+                item["status"] = status
+                item["last_check_time"] = now
+                item["error_msg"] = error_msg[:120]
+                if status == "exhausted":
+                    item["reset_time"] = now + 86400
+                    item["next_check_time"] = now + 10800
+                elif status == "invalid":
+                    item["reset_time"] = 0
+                    item["next_check_time"] = 0
+                if cooldown_until > 0:
+                    item["cooldown_until"] = cooldown_until
+                if not target_account:
+                    target_account = item.get("email", "").strip().lower()
+                changed = True
+
+        # Nếu có target_account và cooldown_until, cập nhật cho toàn bộ key của cùng account
+        if target_account and cooldown_until > 0:
+            for item in keys:
+                acct = item.get("email", "").strip().lower()
+                if acct == target_account:
+                    item["cooldown_until"] = cooldown_until
+                    changed = True
+
         if changed:
             update_gemini_settings(api_keys=keys)
             self.settings = load_settings()
@@ -1196,7 +1209,9 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
             models=_FALLBACK_MODELS,
             log_fn=lambda m: self.roadmap_gen_log(f"[{label}] {m}"),
             on_key_status=lambda key_obj, status, err: self._set_roadmap_key_status(
-                key_obj.get("key", ""), status, err),
+                key_obj.get("key", ""), status, err,
+                cooldown_until=key_obj.get("cooldown_until", 0),
+                account=key_obj.get("email", "")),
             key_loader=lambda: load_settings().get("gemini", {}).get("api_keys", []),
             stop_check=lambda: False,
             temperature=0.1,
@@ -1994,9 +2009,22 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
     def update_keys_label(self):
         gemini_settings = self.settings.get("gemini", {})
         keys = gemini_settings.get("api_keys", [])
-        active = sum(1 for k in keys if k.get("status") == "active")
+        now = time.time()
+        active = sum(1 for k in keys if k.get("status") == "active" and k.get("cooldown_until", 0) <= now)
+        cooldown = sum(1 for k in keys if k.get("status") == "active" and k.get("cooldown_until", 0) > now)
+        exhausted = sum(1 for k in keys if k.get("status") == "exhausted")
         if hasattr(self, 'lbl_keys_status'):
-            self.lbl_keys_status.config(text=f"Đang có {len(keys)} Key (Hoạt động: {active})")
+            parts = [f"Sẵn sàng: {active}"]
+            if cooldown > 0:
+                parts.append(f"Cooldown: {cooldown}")
+            if exhausted > 0:
+                parts.append(f"Hết Quota: {exhausted}")
+            self.lbl_keys_status.config(text=f"Đang có {len(keys)} Key ({', '.join(parts)})")
+        if hasattr(self, 'refresh_api_keys_list'):
+            try:
+                self.refresh_api_keys_list()
+            except Exception:
+                pass
 
     def setup_api_keys_tab(self):
         top = self.sub_tab_keys
@@ -2081,8 +2109,11 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
         for col in columns:
             tree.heading(col, command=lambda c=col: tree_sort_column(c, False))
 
-        # Tag màu đỏ cho key trùng project
+        # Tag màu cho key
         tree.tag_configure("dup_project", background="#ffcccc", foreground="#c0392b")
+        tree.tag_configure("cooldown_key", foreground="#e67e22")
+        tree.tag_configure("exhausted_key", foreground="#d35400")
+        tree.tag_configure("invalid_key", foreground="#95a5a6")
 
         vsb = ttk.Scrollbar(frame_tree, orient="vertical", command=tree.yview)
         tree.configure(yscrollcommand=vsb.set)
@@ -2284,6 +2315,7 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
         tree.bind("<Double-1>", edit_key)
 
         def refresh_list():
+            self.settings = load_settings()
             for item in tree.get_children():
                 tree.delete(item)
             _tree_key_map.clear()
@@ -2300,25 +2332,41 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
                     project_counts[key_pair] = project_counts.get(key_pair, 0) + 1
             dup_projects = {pair for pair, cnt in project_counts.items() if cnt > 1}
 
+            now_ts = int(time.time())
             for idx, k in enumerate(keys):
                 masked_key = k.get("key", "")
                 if len(masked_key) > 10:
                     masked_key = masked_key[:4] + "*" * (len(masked_key)-8) + masked_key[-4:]
 
+                cd_until = k.get("cooldown_until", 0)
                 rt = k.get("reset_time", 0)
-                rt_str = datetime.datetime.fromtimestamp(rt).strftime('%Y-%m-%d %H:%M') if rt > 0 else "-"
+                if cd_until > now_ts and (rt <= 0 or cd_until < rt):
+                    rt_display = cd_until
+                else:
+                    rt_display = rt
+                rt_str = datetime.datetime.fromtimestamp(rt_display).strftime('%Y-%m-%d %H:%M') if rt_display > 0 else "-"
 
                 lc = k.get("last_check_time", 0)
                 lc_str = datetime.datetime.fromtimestamp(lc).strftime('%Y-%m-%d %H:%M') if lc > 0 else "-"
 
                 disp_status = k.get("status", "active")
-                if disp_status == "invalid" and k.get("error_msg"):
-                    disp_status = f"invalid: {k.get('error_msg')}"
-
+                tag_list = []
                 pid = k.get("project_id", "")
                 pname = k.get("project_name", "")
                 email = k.get("email", "").strip().lower()
-                tag = ("dup_project",) if pid and email and (email, pid) in dup_projects else ()
+                if pid and email and (email, pid) in dup_projects:
+                    tag_list.append("dup_project")
+
+                if disp_status == "active" and cd_until > now_ts:
+                    mins_left = max(1, int((cd_until - now_ts) / 60))
+                    disp_status = f"cooldown ({mins_left}m)"
+                    tag_list.append("cooldown_key")
+                elif disp_status == "exhausted":
+                    tag_list.append("exhausted_key")
+                elif disp_status == "invalid":
+                    if k.get("error_msg"):
+                        disp_status = f"invalid: {k.get('error_msg')}"
+                    tag_list.append("invalid_key")
 
                 iid = f"key_{idx}_{id(k)}"
                 _tree_key_map[iid] = k
@@ -2332,8 +2380,10 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
                     disp_status,
                     lc_str,
                     rt_str
-                ), tags=tag)
-            self.update_keys_label()
+                ), tags=tuple(tag_list))
+
+        self.refresh_api_keys_list = refresh_list
+        top.bind("<Visibility>", lambda e: refresh_list())
 
         def add_key():
             add_win = Toplevel(self.root)
@@ -2847,6 +2897,18 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
             else:
                 messagebox.showinfo("Thông báo", "Không có API Key nào mới được thêm (tất cả bị trùng hoặc lỗi).", parent=top)
 
+        def reset_all_cooldown():
+            gemini_settings = self.settings.get("gemini", {})
+            keys = gemini_settings.get("api_keys", [])
+            for k in keys:
+                k.pop("cooldown_until", None)
+            from settings import update_gemini_settings
+            update_gemini_settings(api_keys=keys)
+            self.settings = load_settings()
+            refresh_list()
+            self.update_keys_label()
+            messagebox.showinfo("Hoàn tất", "Đã xóa toàn bộ Cooldown! Các API Key đã sẵn sàng sử dụng lại ngay.", parent=top)
+
         btn_frame = Frame(top)
         btn_frame.pack(fill="x", padx=10, pady=10, side="bottom")
         Button(btn_frame, text="Nhập từ JSON", command=import_json_handler, bg="#34495e", fg="white").pack(side="left", padx=5)
@@ -2857,6 +2919,8 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
         btn_check_err.pack(side="left", padx=5)
         btn_auto = Button(btn_frame, text="🔄 Tự động điều chỉnh", command=auto_adjust, bg="#8e44ad", fg="white")
         btn_auto.pack(side="left", padx=5)
+        Button(btn_frame, text="🔄 Làm mới", command=refresh_list, bg="#16a085", fg="white").pack(side="left", padx=5)
+        Button(btn_frame, text="🔓 Xóa Cooldown", command=reset_all_cooldown, bg="#2980b9", fg="white").pack(side="left", padx=5)
         Button(btn_frame, text="Đặt Active", command=set_active, bg="#3498db", fg="white").pack(side="left", padx=5)
         Button(btn_frame, text="Lưu Thứ Tự", command=save_sort_order, bg="#16a085", fg="white").pack(side="left", padx=5)
         Button(btn_frame, text="Xóa Key", command=del_key, bg="#e74c3c", fg="white").pack(side="right", padx=5)
@@ -3186,9 +3250,15 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
                     adaptive_mode=bool(self.ai_adaptive_mode_var.get()),
                     generate_visuals=bool(self.ai_generate_visuals_var.get())
                 )
-                self.log_ai("🎉 Hoàn thành toàn bộ tiến trình!")
+                if not auto_ai_worker.STOP_REQUESTED:
+                    self.log_ai("🎉 Hoàn thành toàn bộ tiến trình!")
             except Exception as e:
-                self.log_ai(f"❌ LỖI NGHIÊM TRỌNG: {str(e)}")
+                import requests
+                err_str = str(e)
+                if isinstance(e, (requests.exceptions.ConnectionError, requests.exceptions.Timeout, requests.exceptions.RequestException, OSError)):
+                    self.log_ai(f"🌐 Tạm dừng do sự cố mạng: {err_str[:150]}. Bạn có thể bấm 'Bắt đầu' lại bất cứ lúc nào để tự động tiếp tục các bài còn lại.")
+                else:
+                    self.log_ai(f"ℹ️ Tiến trình kết thúc: {err_str[:150]}")
             finally:
                 def _enable():
                     self.btn_ai_start.config(state="normal", text="▶ Bắt đầu Sinh Tự Động")
