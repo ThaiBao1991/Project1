@@ -14,7 +14,13 @@ PACE_JITTER = (0.5, 1.5)          # jitter phá tần số bot
 ACCOUNT_COOLDOWN = 3600           # 60 phút nghỉ cho 1 account sau batch/429
 MAX_KEYS_PER_ACCOUNT = 2          # khuyến nghị 1-2 key/account
 DAILY_CALL_BUDGET = 3000          # ngân sách call/ngày, vượt thì cảnh báo
-MODEL_FALLBACKS = ["gemini-flash-latest", "gemini-3-flash-preview", "gemini-3.1-flash-lite", "gemini-3.5-flash", "gemini-flash-lite-latest"]
+MODEL_FALLBACKS = [
+    "gemini-3.5-flash",        # 🥇 Tốt nhất — thế hệ mới nhất
+    "gemini-3-flash-preview",  # 🥈 Rất tốt
+    "gemini-flash-latest",     # 🥉 Tốt, stable
+    "gemini-3.1-flash-lite",   # 🔵 Lite, dự phòng
+    "gemini-flash-lite-latest" # 🔵 Lite, dự phòng cuối
+]
 
 # ─────────────────────────────────────────────────────────────
 # Global Rate Limiter — mọi call Gemini đều đi qua pace()
@@ -366,8 +372,16 @@ class GeminiCoordinator:
                 body = resp.json() if "application/json" in ctype else {}
                 status_code = resp.status_code
             except requests.exceptions.Timeout:
+                if model is not self._models[-1]:
+                    self._log(f"⏱ Model '{model}' phản hồi quá lâu (Timeout > {timeout}s); chuyển sang model fallback...")
+                    last = {"kind": ErrorKind.NETWORK, "message": "timeout", "model": model}
+                    continue
                 return {"kind": ErrorKind.NETWORK, "message": "timeout", "model": model}
             except requests.exceptions.RequestException as exc:
+                if model is not self._models[-1]:
+                    self._log(f"🌐 Model '{model}' lỗi kết nối ({type(exc).__name__}); chuyển sang model fallback...")
+                    last = {"kind": ErrorKind.NETWORK, "message": f"{type(exc).__name__}: {exc}", "model": model}
+                    continue
                 return {"kind": ErrorKind.NETWORK,
                         "message": f"{type(exc).__name__}: {exc}", "model": model}
 

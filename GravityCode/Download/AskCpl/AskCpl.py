@@ -1206,7 +1206,7 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
     def _call_roadmap_llm(self, prompt, label, json_mode=True, retries=3):
         from gemini_safe import GeminiCoordinator, ErrorKind
 
-        _FALLBACK_MODELS = ["gemini-flash-latest", "gemini-3-flash-preview", "gemini-3.1-flash-lite", "gemini-3.5-flash", "gemini-flash-lite-latest"]
+        _FALLBACK_MODELS = ["gemini-3.5-flash", "gemini-3-flash-preview", "gemini-flash-latest", "gemini-3.1-flash-lite", "gemini-flash-lite-latest"]
         _prompt_chars = len(prompt)
         self.roadmap_gen_log(f"[{label}] Gửi yêu cầu Gemini (prompt={_prompt_chars:,} chars)...")
         if _prompt_chars > 3500:
@@ -1223,7 +1223,7 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
             stop_check=lambda: False,
             temperature=0.1,
             max_output_tokens=8192,
-            timeout=90,
+            timeout=60,
             max_transient=retries,
         )
         result = _coord.request(prompt, json_mode=json_mode)

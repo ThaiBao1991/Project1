@@ -159,7 +159,7 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
             stop_check=lambda: STOP_REQUESTED,
             temperature=0.7,
             max_output_tokens=8192,
-            timeout=180,
+            timeout=60,
             lock_after_success=False,
         )
 

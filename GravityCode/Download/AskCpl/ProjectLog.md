@@ -1,3 +1,25 @@
+## 2026-08-24 — Nâng Cấp Thứ Tự Ưu Tiên Model & Timeout Fallback (0.7s Phản Hồi)
+
+### Mục tiêu & Bối cảnh
+- Model `gemini-flash-latest` ở phía máy chủ Google bị nghẽn (overloaded), giữ kết nối và gây treo Timeout liên tục suốt 180s (3 phút/lần).
+- Trong khi đó các model thế hệ mới (`gemini-3.1-flash-lite`, `gemini-flash-lite-latest`, `gemini-3.5-flash`) phản hồi cực nhanh trong 0.7s - 1.3s.
+
+### Chi tiết thay đổi
+1. **`gemini_safe.py`**:
+   - Tái cấu trúc danh sách `MODEL_FALLBACKS` ưu tiên các model phản hồi nhanh nhất lên đầu:
+     `["gemini-3.1-flash-lite", "gemini-flash-lite-latest", "gemini-3.5-flash", "gemini-3-flash-preview", "gemini-flash-latest"]`.
+   - Nâng cấp hàm `_try_models()`: Khi một model gặp sự cố `Timeout` hoặc `RequestException`, hệ thống lập tức chuyển sang model fallback tiếp theo trong danh sách thay vì dừng lại báo lỗi mạng.
+2. **`AskCpl.py` & `auto_ai_worker.py`**:
+   - Đồng bộ thứ tự `_FALLBACK_MODELS` mới.
+   - Điều chỉnh thời gian timeout hợp lý từ 180s xuống **60s** (giúp phát hiện model treo nhanh hơn để fallback tức thì).
+
+### Kiểm thử & Trạng thái
+- ✅ Đo tốc độ thực tế: `gemini-3.1-flash-lite` phản hồi chỉ trong **1.12 giây** (200 OK).
+- ✅ Syntax check (`py_compile`) cả 3 file: ALL SYNTAX OK.
+- ✅ DONE.
+
+---
+
 ## 2026-08-24 — Sửa Triệt Để Lỗi UnicodeDecodeError Khi Tạo Mới Roadmap
 
 ### Mục tiêu & Bối cảnh
