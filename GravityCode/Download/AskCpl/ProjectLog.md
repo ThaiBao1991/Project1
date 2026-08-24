@@ -1,3 +1,26 @@
+## 2026-08-24 — Sửa Triệt Để Lỗi UnicodeDecodeError Khi Tạo Mới Roadmap
+
+### Mục tiêu & Bối cảnh
+- Khi tạo mới Roadmap (ví dụ: Lộ trình Access VBA), ứng dụng bị dừng ngay lập tức với thông báo: `[LỖI ROADMAP] UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe0 in position 128370: invalid continuation byte`.
+- Nguyên nhân: File `topics_registry.md` tại dòng 779 có chứa 203 topic Python cũ bị dính byte mã hóa lỗi CP1252 (`\xe0`), đồng thời các hàm đọc file trong `AskCpl.py` thiếu cơ chế phòng thủ `errors='replace'`.
+
+### Chi tiết thay đổi
+1. **`topics_registry.md`**:
+   - Dọn sạch 35 dòng lỗi mã hóa byte.
+   - Tái lập và đồng bộ 100% tiếng Việt chuẩn UTF-8 cho 203 topic Python từ `generate_python_roadmap_v2.py` (tổng 981 dòng hợp lệ).
+2. **`AskCpl.py`**:
+   - Thêm `encoding='utf-8', errors='replace'` và bắt ngoại lệ `UnicodeError` cho toàn bộ các hàm: `_registry_context()`, `_update_topic_registry()`, `_read_reference_text()`, `_load_saved_roadmap_plan()`, và các điểm nạp checkpoint/progress JSON ở Bước 1, Bước 2, Bước 3.
+   - Thêm `sys.stdout.reconfigure(encoding='utf-8', errors='replace')` và `sys.stderr.reconfigure` ở đầu file để bảo vệ console Windows khỏi lỗi `UnicodeEncodeError`.
+   - Loại bỏ package thừa `google-genai` trong `REQUIRED_PACKAGES` để tránh trigger pip cài đặt lại khi chạy (ứng dụng đã dùng REST API chuẩn qua `requests`).
+
+### Kiểm thử & Trạng thái
+- ✅ Đọc toàn vẹn UTF-8 100% trên `topics_registry.md` (133,519 ký tự, 981 dòng không lỗi).
+- ✅ Unit test pipeline: 23/23 tests PASS (`test_roadmap_pipeline.py`, `test_verified_knowledge.py`, `test_viewer_dashboard.py`).
+- ✅ `AskCplApp._registry_context()` và `_read_reference_text()` chạy mượt mà, trả về đúng dữ liệu.
+- ✅ DONE.
+
+---
+
 ## 2026-08-24 — Hoàn tất Cơ Chế Chống Rớt Mạng & Tự Động Thử Lại (Network Resilience & Auto-Retry)
 
 ### Mục tiêu & Bối cảnh

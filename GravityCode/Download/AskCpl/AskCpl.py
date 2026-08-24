@@ -4,6 +4,14 @@ import time
 import threading
 import sys
 import subprocess
+
+if hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+        sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
 import tkinter as tk
 from tkinter import Tk, filedialog, messagebox, Button, Label, Frame, StringVar, IntVar, Entry, Text, END, Listbox, Scrollbar, BooleanVar, Checkbutton, Radiobutton, simpledialog, Toplevel, Canvas
 from tkinter import ttk
@@ -17,7 +25,6 @@ REQUIRED_PACKAGES = {
     'markdown': 'markdown==3.10.2',
     'requests': 'requests==2.31.0',
     'flask_cors': 'Flask-Cors==6.0.5',
-    'google': 'google-genai',
     'fitz': 'PyMuPDF'
 }
 
@@ -1130,13 +1137,13 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
         for name in names:
             path = artifacts[name]
             try:
-                with open(path, "r", encoding="utf-8") as handle:
+                with open(path, "r", encoding="utf-8", errors="replace") as handle:
                     plan = json.load(handle)
                 validate_plan(plan, expected, require_micro=True)
                 return plan, path
             except FileNotFoundError:
                 continue
-            except (OSError, json.JSONDecodeError, RoadmapValidationError) as exc:
+            except (OSError, json.JSONDecodeError, RoadmapValidationError, UnicodeError) as exc:
                 errors.append(f"{path}: {exc}")
         detail = "; ".join(errors[:2]) or "không tìm thấy file skeleton/reviewed"
         raise RoadmapValidationError(f"Không nạp được roadmap đã lưu: {detail}")
@@ -1162,7 +1169,7 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
                     finally:
                         document.close()
                 else:
-                    with open(path, "r", encoding="utf-8") as handle:
+                    with open(path, "r", encoding="utf-8", errors="replace") as handle:
                         content = handle.read()
                 # Rút gọn tài liệu tối đa 2,000 ký tự (chuẩn an toàn Free Tier TPM)
                 excerpt = content if len(content) <= 2000 else content[:1500] + "\n...[đã rút gọn]...\n" + content[-500:]
@@ -1176,17 +1183,17 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
 
     def _registry_context(self):
         try:
-            with open(self._registry_path(), "r", encoding="utf-8") as handle:
+            with open(self._registry_path(), "r", encoding="utf-8", errors="replace") as handle:
                 return handle.read()[-1500:]
-        except FileNotFoundError:
+        except (FileNotFoundError, OSError, UnicodeError):
             return "(Chưa có topic nào được đăng ký.)"
 
     def _update_topic_registry(self, plan, roadmap_file):
         """Append only new topic ids after a reviewed plan has passed validation."""
         path = self._registry_path()
         try:
-            existing = open(path, "r", encoding="utf-8").read()
-        except FileNotFoundError:
+            existing = open(path, "r", encoding="utf-8", errors="replace").read()
+        except (FileNotFoundError, OSError, UnicodeError):
             existing = "# Topics registry (AskCpl)\n\n| ID | Topic | Roadmap |\n|---|---|---|\n"
         rows = []
         for item in plan["skeleton"]:
@@ -1296,7 +1303,7 @@ Mỗi phase 5-30 Day; tổng phase.days phải đúng total_days. Coverage phả
         previous_checkpoint_path = previous_artifacts["skeleton"] + ".progress.json"
         if expected is None:
             try:
-                previous_checkpoint = json.loads(open(previous_checkpoint_path, "r", encoding="utf-8").read())
+                previous_checkpoint = json.loads(open(previous_checkpoint_path, "r", encoding="utf-8", errors="replace").read())
                 if (previous_checkpoint.get("domain") == snapshot["domain"]
                         and isinstance(previous_checkpoint.get("phase_map"), dict)
                         and previous_checkpoint.get("skeleton")):
@@ -1305,7 +1312,7 @@ Mỗi phase 5-30 Day; tổng phase.days phải đúng total_days. Coverage phả
                         f"[RESUME] Dùng lại phase map {previous_checkpoint.get('target')} Day và checkpoint "
                         f"{len(previous_checkpoint['skeleton'])} Day; không tạo kế hoạch mới."
                     )
-            except (FileNotFoundError, json.JSONDecodeError, OSError):
+            except (FileNotFoundError, json.JSONDecodeError, OSError, UnicodeError):
                 pass
 
         phases = phase_map["phases"]
@@ -1314,11 +1321,11 @@ Mỗi phase 5-30 Day; tổng phase.days phải đúng total_days. Coverage phả
         checkpoint_path = artifacts["skeleton"] + ".progress.json"
         all_days = []
         try:
-            checkpoint = json.loads(open(checkpoint_path, "r", encoding="utf-8").read())
+            checkpoint = json.loads(open(checkpoint_path, "r", encoding="utf-8", errors="replace").read())
             if checkpoint.get("domain") == snapshot["domain"] and checkpoint.get("target") == target:
                 all_days = checkpoint.get("skeleton", [])
                 self.roadmap_gen_log(f"[RESUME] Đã khôi phục {len(all_days)}/{target} micro-Day từ checkpoint.")
-        except (FileNotFoundError, json.JSONDecodeError, OSError):
+        except (FileNotFoundError, json.JSONDecodeError, OSError, UnicodeError):
             pass
 
         # --- Quét checkpoint tìm tiêu đề trùng; cắt tại Day đó để sinh lại ---
@@ -1547,7 +1554,7 @@ CAM KẾT: trường 'topic' của MỖI Day mới PHẢI khác hoàn toàn vớ
         progress = {"domain": snapshot["domain"], "source_digest": source_digest,
                     "reviews": reviews, "revised_days": []}
         try:
-            with open(progress_path, "r", encoding="utf-8") as handle:
+            with open(progress_path, "r", encoding="utf-8", errors="replace") as handle:
                 saved_progress = json.load(handle)
             if (saved_progress.get("domain") == snapshot["domain"]
                     and saved_progress.get("source_digest") == source_digest):
@@ -1555,7 +1562,7 @@ CAM KẾT: trường 'topic' của MỖI Day mới PHẢI khác hoàn toàn vớ
                 reviews = progress.get("reviews", reviews)
                 reviews_json = json.dumps(reviews, ensure_ascii=False)
                 self.roadmap_gen_log(f"[RESUME BƯỚC 2] Đã nạp {len(progress.get('revised_days', []))} Day phản biện đã lưu.")
-        except (FileNotFoundError, OSError, json.JSONDecodeError):
+        except (FileNotFoundError, OSError, json.JSONDecodeError, UnicodeError):
             pass
 
         for job_index, (label, task) in enumerate(reviewer_jobs):
@@ -1740,7 +1747,7 @@ Trả JSON MẢNG đầy đủ với ĐÚNG các Day {expected_day_numbers} và 
                 json.dumps(plan, ensure_ascii=False, sort_keys=True).encode("utf-8")
             ).hexdigest()
             try:
-                with open(progress_path, "r", encoding="utf-8") as handle:
+                with open(progress_path, "r", encoding="utf-8", errors="replace") as handle:
                     progress = json.load(handle)
                 if progress.get("domain") == snapshot["domain"] and progress.get("source_digest") == source_digest:
                     lessons = progress.get("lessons", [])
@@ -1750,7 +1757,7 @@ Trả JSON MẢNG đầy đủ với ĐÚNG các Day {expected_day_numbers} và 
                     self.roadmap_gen_log(f"[RESUME BƯỚC 3] Đã nạp {len(lessons)}/{len(plan['skeleton'])} Day nội dung đã lưu.")
                 else:
                     lessons = []
-            except FileNotFoundError:
+            except (FileNotFoundError, OSError, UnicodeError):
                 pass
             start_at = len(lessons)
             batch_size = 8

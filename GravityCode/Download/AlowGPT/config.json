@@ -1,0 +1,22 @@
+{
+  "port": 7070,
+  "mode": "sni_fragment",
+  "cf_worker_url": "https://testconnectgpt.gamesvendn02.workers.dev",
+  "chunk_size": 40,
+  "delay_ms": 30,
+  "auto_system_proxy": true,
+  "bypass_domains": [
+    "chatgpt.com",
+    "oaistatic.com",
+    "oaiusercontent.com",
+    "openai.com",
+    "api.openai.com",
+    "claude.ai",
+    "anthropic.com",
+    "api.anthropic.com",
+    "deepseek.com",
+    "api.deepseek.com",
+    "groq.com",
+    "api.groq.com"
+  ]
+}

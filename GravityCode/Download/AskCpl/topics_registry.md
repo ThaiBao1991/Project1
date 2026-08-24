@@ -776,34 +776,34 @@
 | boc_tach_phuong_phap_cay_exp_don_doc_thien_dong | Xây Dựng Pipeline Trích Xuất & Kiểm Thử Dữ Liệu Ép Cấp, Cày EXP Tiên Động | roadmap_Sango_Heroes_7__TQQAT_7_.md |
 | boc_tach_bien_doi_thoi_tiet_dia_hinh_tuyet_mat | Lưu Trữ & Đánh Chỉ Mục (Indexing) Ma Trận Tương Tác Thời Tiết - Địa Hình | roadmap_Sango_Heroes_7__TQQAT_7_.md |
 | boc_tach_su_kien_lich_su_thien_tai_dinh_ky | Đóng Gói Knowledge Map & Xây Dựng RESTful API Truy Truy Vấn Sự Kiện Lịch Sử | roadmap_Sango_Heroes_7__TQQAT_7_.md |
-| setup_git | C�i d?t Python, VS Code, Git & Tu duy l?p tr�nh | PythonRoadMapFull.md |
+| setup_git | Cài đặt Python, VS Code, Git & Tư duy lập trình | PythonRoadMapFull.md |
 | interpreter_repl | Python Interpreter, REPL, Jupyter Notebook, IPython | PythonRoadMapFull.md |
-| variables_types | Bi?n & Ki?u d? li?u: int, float, str, bool, None | PythonRoadMapFull.md |
-| operators | Ph�p t�nh s? h?c, To�n t? so s�nh, To�n t? logic | PythonRoadMapFull.md |
+| variables_types | Biến & Kiểu dữ liệu: int, float, str, bool, None | PythonRoadMapFull.md |
+| operators | Phép tính số học, Toán tử so sánh, Toán tử logic | PythonRoadMapFull.md |
 | strings | String: Index, Slice, f-string, format, join, split, replace | PythonRoadMapFull.md |
 | io_print | Input/Output: print, input, sep/end, repr vs str | PythonRoadMapFull.md |
-| conditionals | C�u l?nh di?u ki?n: if, elif, else, Ternary Operator | PythonRoadMapFull.md |
-| loops | V�ng l?p for/while: range, enumerate, zip, break, continue, List Comprehension | PythonRoadMapFull.md |
-| functions | H�m: def, return, Default/Keyword/Positional args | PythonRoadMapFull.md |
-| functions_adv | H�m n�ng cao: *args, **kwargs, Lambda, map, filter, reduce | PythonRoadMapFull.md |
-| scope_legb | Ph?m vi bi?n: Local, Enclosing, Global, Built-in (LEGB rule), nonlocal | PythonRoadMapFull.md |
+| conditionals | Câu lệnh điều kiện: if, elif, else, Ternary Operator | PythonRoadMapFull.md |
+| loops | Vòng lặp for/while: range, enumerate, zip, break, continue, List Comprehension | PythonRoadMapFull.md |
+| functions | Hàm: def, return, Default/Keyword/Positional args | PythonRoadMapFull.md |
+| functions_adv | Hàm nâng cao: *args, **kwargs, Lambda, map, filter, reduce | PythonRoadMapFull.md |
+| scope_legb | Phạm vi biến: Local, Enclosing, Global, Built-in (LEGB rule), nonlocal | PythonRoadMapFull.md |
 | lists | List: Methods, Slicing, Nested List, Copy vs Reference | PythonRoadMapFull.md |
 | tuples | Tuple: Immutability, Packing/Unpacking, Named Tuple | PythonRoadMapFull.md |
 | dicts | Dictionary: CRUD, dict comprehension, defaultdict, Counter, OrderedDict | PythonRoadMapFull.md |
 | sets | Set: union, intersection, difference, frozenset | PythonRoadMapFull.md |
-| collections | C?u tr�c d? li?u n�ng cao: deque, heap, stack, queue (collections, heapq) | PythonRoadMapFull.md |
+| collections | Cấu trúc dữ liệu nâng cao: deque, heap, stack, queue (collections, heapq) | PythonRoadMapFull.md |
 | oop_basic | OOP: Class, Object, __init__, Attributes, Methods, self | PythonRoadMapFull.md |
-| oop_inheritance | OOP: K? th?a (Inheritance), super(), �a k? th?a (MRO) | PythonRoadMapFull.md |
+| oop_inheritance | OOP: Kế thừa (Inheritance), super(), Đa kế thừa (MRO) | PythonRoadMapFull.md |
 | oop_polymorphism | OOP: Encapsulation, Polymorphism, Duck Typing, Abstract | PythonRoadMapFull.md |
 | oop_dunder | OOP: Dunder methods __str__, __repr__, __len__, __eq__, __lt__... | PythonRoadMapFull.md |
 | oop_property | OOP: @property, @classmethod, @staticmethod, __slots__ | PythonRoadMapFull.md |
 | oop_abc_dataclass | ABC, Protocol (Structural Subtyping), Dataclass, field(), frozen, post_init | PythonRoadMapFull.md |
 | exceptions | Exception Handling: try, except, else, finally, raise, Custom Exception | PythonRoadMapFull.md |
 | file_io | File I/O: open, read, write, with, pathlib.Path | PythonRoadMapFull.md |
-| json_csv_yaml | JSON, CSV, YAML: d?c, ghi, parse v?i json, csv, pyyaml | PythonRoadMapFull.md |
+| json_csv_yaml | JSON, CSV, YAML: đọc, ghi, parse với json, csv, pyyaml | PythonRoadMapFull.md |
 | modules_packages | Module & Package: import, __name__, __all__, __init__.py, pip, venv, pyproject.toml | PythonRoadMapFull.md |
-| stdlib_core | Thu vi?n chu?n: os, sys, shutil, glob, re, datetime, math, random | PythonRoadMapFull.md |
-| stdlib_adv | Thu vi?n chu?n n�ng cao: itertools, functools, contextlib, abc | PythonRoadMapFull.md |
+| stdlib_core | Thư viện chuẩn: os, sys, shutil, glob, re, datetime, math, random | PythonRoadMapFull.md |
+| stdlib_adv | Thư viện chuẩn nâng cao: itertools, functools, contextlib, abc | PythonRoadMapFull.md |
 | type_hints | Type Hints & typing: Any, Union, Optional, TypeVar, Generic, Literal, TypedDict | PythonRoadMapFull.md |
 | mypy | Mypy: Static Type Checking, Strict mode, Type narrowing | PythonRoadMapFull.md |
 | decorators | Decorator: Function/Class Decorator, Stacking, wraps, functools | PythonRoadMapFull.md |
@@ -811,7 +811,7 @@
 | iterator_protocol | Iterator Protocol: __iter__, __next__, StopIteration | PythonRoadMapFull.md |
 | context_manager | Context Manager: with, __enter__, __exit__, contextmanager | PythonRoadMapFull.md |
 | metaclass | Metaclass: type, __new__, __init_subclass__, ABC internals | PythonRoadMapFull.md |
-| descriptor | Descriptor Protocol: __get__, __set__, __delete__ � c�ch @property ho?t d?ng | PythonRoadMapFull.md |
+| descriptor | Descriptor Protocol: __get__, __set__, __delete__ — cách @property hoạt động | PythonRoadMapFull.md |
 | functional | Functional Programming: Immutability, pure functions, partial, compose | PythonRoadMapFull.md |
 | memory_mgmt | Memory Management: Reference Counting, GC, weakref, sys.getsizeof, __slots__ | PythonRoadMapFull.md |
 | cpython_internals | CPython Internals: Bytecode, dis, PVM, GIL, code objects | PythonRoadMapFull.md |
@@ -820,9 +820,9 @@
 | multiprocessing | Multiprocessing: Process, Pool, Queue, Pipe, Manager, shared memory | PythonRoadMapFull.md |
 | concurrent_futures | concurrent.futures: ThreadPoolExecutor, ProcessPoolExecutor, as_completed | PythonRoadMapFull.md |
 | asyncio | AsyncIO: event loop, async/await, coroutine, Task, gather, asyncio.run | PythonRoadMapFull.md |
-| asyncio_adv | AsyncIO n�ng cao: Queue, Semaphore, timeout, shield, TaskGroup, cancellation | PythonRoadMapFull.md |
+| asyncio_adv | AsyncIO nâng cao: Queue, Semaphore, timeout, shield, TaskGroup, cancellation | PythonRoadMapFull.md |
 | aiohttp | aiohttp: Async HTTP client/server, Session, WebSocket async | PythonRoadMapFull.md |
-| solid | SOLID Principles trong Python � vi?t code s?ch, d? m? r?ng | PythonRoadMapFull.md |
+| solid | SOLID Principles trong Python — viết code sạch, dễ mở rộng | PythonRoadMapFull.md |
 | patterns_creational | Creational Patterns: Singleton, Factory, Abstract Factory, Builder, Prototype | PythonRoadMapFull.md |
 | patterns_structural | Structural Patterns: Adapter, Bridge, Composite, Decorator, Facade, Proxy | PythonRoadMapFull.md |
 | patterns_behavioral | Behavioral Patterns: Observer, Strategy, Command, Iterator, State, Template Method | PythonRoadMapFull.md |
@@ -830,15 +830,15 @@
 | unittest | Unit Testing: unittest, assertions, setUp/tearDown, TestCase | PythonRoadMapFull.md |
 | pytest | pytest: fixtures, conftest, parametrize, marks, plugins | PythonRoadMapFull.md |
 | mocking | Mocking: unittest.mock, MagicMock, patch, side_effect, Mock trong pytest | PythonRoadMapFull.md |
-| tdd | TDD: Test-Driven Development � Red, Green, Refactor workflow | PythonRoadMapFull.md |
+| tdd | TDD: Test-Driven Development — Red, Green, Refactor workflow | PythonRoadMapFull.md |
 | coverage | Coverage: coverage.py, pytest-cov, Branch coverage, CI integration | PythonRoadMapFull.md |
-| integration_e2e | Integration Testing, E2E Testing v?i pytest + Docker | PythonRoadMapFull.md |
+| integration_e2e | Integration Testing, E2E Testing với pytest + Docker | PythonRoadMapFull.md |
 | profiling | Profiling: cProfile, line_profiler, memory_profiler, Py-Spy | PythonRoadMapFull.md |
-| optimization | T?i uu Python: List vs Generator, local lookup, caching, micro-optim | PythonRoadMapFull.md |
-| cython | Cython: Bi�n d?ch Python sang C � t?c d? nhu C | PythonRoadMapFull.md |
+| optimization | Tối ưu Python: List vs Generator, local lookup, caching, micro-optim | PythonRoadMapFull.md |
+| cython | Cython: Biên dịch Python sang C — tốc độ như C | PythonRoadMapFull.md |
 | numba | Numba: JIT compilation, @jit, @njit, Parallel, GPU (CUDA) | PythonRoadMapFull.md |
-| ctypes_cffi | ctypes, cffi: G?i h�m C t? Python � T�ch h?p C extension | PythonRoadMapFull.md |
-| pypy | PyPy: Python nhanh hon v?i JIT � Khi n�o d�ng PyPy vs CPython | PythonRoadMapFull.md |
+| ctypes_cffi | ctypes, cffi: Gọi hàm C từ Python — Tích hợp C extension | PythonRoadMapFull.md |
+| pypy | PyPy: Python nhanh hơn với JIT — Khi nào dùng PyPy vs CPython | PythonRoadMapFull.md |
 | http | HTTP Protocol: Methods, Status codes, Headers, REST vs GraphQL vs gRPC | PythonRoadMapFull.md |
 | requests | requests: GET/POST/PUT/DELETE, Session, Auth, Retry, Timeout, SSL | PythonRoadMapFull.md |
 | httpx | httpx: Async HTTP client, HTTP/2, retry middleware | PythonRoadMapFull.md |
@@ -846,17 +846,17 @@
 | pydantic | Pydantic v2: BaseModel, Field, validators, model_validator, Serialize | PythonRoadMapFull.md |
 | fastapi_advanced | FastAPI: Dependency Injection, Security (OAuth2, JWT, API Key) | PythonRoadMapFull.md |
 | fastapi_middleware | FastAPI: BackgroundTask, Middleware, CORS, Static, Lifespan, WebSocket, SSE | PythonRoadMapFull.md |
-| fastapi_testing | FastAPI: Testing v?i TestClient, pytest, Mock dependencies | PythonRoadMapFull.md |
+| fastapi_testing | FastAPI: Testing với TestClient, pytest, Mock dependencies | PythonRoadMapFull.md |
 | fastapi_deploy | FastAPI: Deploy Uvicorn, Gunicorn, Docker, Nginx reverse proxy | PythonRoadMapFull.md |
 | django_basic | Django: MTV Architecture, settings, URL routing, Apps | PythonRoadMapFull.md |
 | django_orm | Django ORM: Models, Field types, Migrations, queryset, F/Q objects | PythonRoadMapFull.md |
-| django_orm_adv | Django ORM n�ng cao: select_related, prefetch_related, annotate, aggregate | PythonRoadMapFull.md |
+| django_orm_adv | Django ORM nâng cao: select_related, prefetch_related, annotate, aggregate | PythonRoadMapFull.md |
 | django_views | Django Views: FBV, CBV, Mixins, Generic Views | PythonRoadMapFull.md |
 | django_templates | Django Templates: Template language, Inheritance, Tags, Filters | PythonRoadMapFull.md |
 | django_forms | Django Forms: ModelForm, Validation, Widgets, Formsets, CSRF | PythonRoadMapFull.md |
 | django_auth | Django Auth: User model, Custom User, Permissions, Groups | PythonRoadMapFull.md |
 | drf | Django REST Framework (DRF): Serializers, ViewSets, Routers, Permissions | PythonRoadMapFull.md |
-| drf_adv | DRF n�ng cao: Throttling, Pagination, Filtering, JWT v?i Simple JWT | PythonRoadMapFull.md |
+| drf_adv | DRF nâng cao: Throttling, Pagination, Filtering, JWT với Simple JWT | PythonRoadMapFull.md |
 | django_channels | Django Channels: WebSocket, ASGI, Layer, Consumer, Groups | PythonRoadMapFull.md |
 | django_celery | Django Celery: Task queue, Beat scheduler, Redis broker, Flower | PythonRoadMapFull.md |
 | django_testing | Django Testing: TestCase, Client, Factory Boy, pytest-django | PythonRoadMapFull.md |
@@ -868,23 +868,23 @@
 | playwright | Playwright Python: Browser automation, Page, Locator, Screenshot, Network | PythonRoadMapFull.md |
 | selenium | Selenium: WebDriver, Waits, Actions, Headless, Grid, Anti-detection | PythonRoadMapFull.md |
 | antibot | Anti-bot: Proxy rotation, User-Agent, Captcha solving, Rate limiting | PythonRoadMapFull.md |
-| sql_adv | SQL n�ng cao: JOIN, Subquery, CTE, Window Functions, Index, Explain | PythonRoadMapFull.md |
+| sql_adv | SQL nâng cao: JOIN, Subquery, CTE, Window Functions, Index, Explain | PythonRoadMapFull.md |
 | sqlalchemy | SQLAlchemy Core + ORM: Engine, Session, Relationship, Lazy/Eager | PythonRoadMapFull.md |
 | alembic | Alembic: Database Migration, Auto-generate, Upgrade/Downgrade | PythonRoadMapFull.md |
 | sqlmodel | SQLModel: FastAPI + SQLAlchemy unified (Pydantic + ORM) | PythonRoadMapFull.md |
-| postgresql | PostgreSQL n�ng cao: JSONB, Full-text Search, pg_trgm, Partitioning | PythonRoadMapFull.md |
-| mongodb | MongoDB v?i PyMongo/Motor: CRUD, Aggregation pipeline, Index | PythonRoadMapFull.md |
-| redis | Redis v?i redis-py/aioredis: Cache, Pub/Sub, Stream, Sorted Set | PythonRoadMapFull.md |
-| elasticsearch | Elasticsearch v?i Python: Indexing, Query DSL, Aggregation, Vector Search | PythonRoadMapFull.md |
+| postgresql | PostgreSQL nâng cao: JSONB, Full-text Search, pg_trgm, Partitioning | PythonRoadMapFull.md |
+| mongodb | MongoDB với PyMongo/Motor: CRUD, Aggregation pipeline, Index | PythonRoadMapFull.md |
+| redis | Redis với redis-py/aioredis: Cache, Pub/Sub, Stream, Sorted Set | PythonRoadMapFull.md |
+| elasticsearch | Elasticsearch với Python: Indexing, Query DSL, Aggregation, Vector Search | PythonRoadMapFull.md |
 | numpy | NumPy: ndarray, Broadcasting, Vectorization, Advanced Indexing, Linear Algebra | PythonRoadMapFull.md |
 | pandas | Pandas: Series, DataFrame, IO (CSV/Excel/Parquet), Index, MultiIndex | PythonRoadMapFull.md |
-| pandas_adv | Pandas n�ng cao: groupby, merge/join, pivot_table, resample, apply, Styler | PythonRoadMapFull.md |
+| pandas_adv | Pandas nâng cao: groupby, merge/join, pivot_table, resample, apply, Styler | PythonRoadMapFull.md |
 | data_cleaning | Data Cleaning: Missing values, Outlier detection, Dtype optimization | PythonRoadMapFull.md |
 | eda | EDA: Descriptive stats, Correlation, Distribution, Insight storytelling | PythonRoadMapFull.md |
 | matplotlib | Matplotlib: Figure, Axes, subplots, line/bar/scatter/hist/pie | PythonRoadMapFull.md |
 | seaborn | Seaborn: Statistical plots, heatmap, pairplot, FacetGrid, Theme | PythonRoadMapFull.md |
 | plotly_dash | Plotly & Dash: Interactive charts, Choropleth, 3D, Dashboard | PythonRoadMapFull.md |
-| polars | Polars: DataFrame nhanh hon Pandas 10x � Lazy, Expressions, Streaming | PythonRoadMapFull.md |
+| polars | Polars: DataFrame nhanh hơn Pandas 10x — Lazy, Expressions, Streaming | PythonRoadMapFull.md |
 | ml_fundamentals | ML Fundamentals: Supervised/Unsupervised/RL, Bias-Variance, Overfitting | PythonRoadMapFull.md |
 | sklearn | Scikit-learn: API (fit/predict), Pipeline, ColumnTransformer, Cross-validation | PythonRoadMapFull.md |
 | classification | Classification: Logistic Regression, SVM, KNN, Decision Tree, Random Forest | PythonRoadMapFull.md |
@@ -901,19 +901,19 @@
 | tensorflow | TensorFlow 2 + Keras: Sequential, Functional API, Callbacks | PythonRoadMapFull.md |
 | pytorch | PyTorch: Tensor, Autograd, nn.Module, DataLoader, Training loop | PythonRoadMapFull.md |
 | pytorch_lightning | PyTorch Lightning & Fabric: Boilerplate-free training, TPU/GPU | PythonRoadMapFull.md |
-| cnn | CNN: Convolution, Pooling, ResNet, VGG, EfficientNet � Image classification | PythonRoadMapFull.md |
-| rnn_lstm | RNN, LSTM, GRU � Sequence modeling, NLP truy?n th?ng | PythonRoadMapFull.md |
+| cnn | CNN: Convolution, Pooling, ResNet, VGG, EfficientNet — Image classification | PythonRoadMapFull.md |
+| rnn_lstm | RNN, LSTM, GRU — Sequence modeling, NLP truyền thống | PythonRoadMapFull.md |
 | transformer | Transformer Architecture: Self-attention, Multi-head, Positional Encoding | PythonRoadMapFull.md |
 | transfer_learning | Transfer Learning: Fine-tuning pretrained, Feature extraction | PythonRoadMapFull.md |
 | onnx | ONNX: Export model, Runtime, Optimize cho production inference | PythonRoadMapFull.md |
-| nlp_basic | NLP co b?n: Tokenization, Stopwords, Lemmatization, TF-IDF, Word2Vec | PythonRoadMapFull.md |
+| nlp_basic | NLP cơ bản: Tokenization, Stopwords, Lemmatization, TF-IDF, Word2Vec | PythonRoadMapFull.md |
 | huggingface | HuggingFace: BERT, GPT, T5, pipeline(), Trainer, Dataset | PythonRoadMapFull.md |
 | llm_finetuning | LLM Fine-tuning: LoRA, QLoRA, PEFT, Instruction tuning, SFT | PythonRoadMapFull.md |
 | langchain | LangChain: Chain, Agent, Tool, Memory, RAG (Retrieval-Augmented Generation) | PythonRoadMapFull.md |
 | llamaindex | LlamaIndex: Index, Query Engine, Node Parser, Vector Store | PythonRoadMapFull.md |
 | openai_api | OpenAI/Claude/Gemini/Groq API: Chat, Embeddings, Function Calling, Vision | PythonRoadMapFull.md |
 | vector_db | Vector Database: Chroma, Pinecone, Weaviate, Qdrant, pgvector | PythonRoadMapFull.md |
-| local_llm | Ollama, LM Studio, vLLM: Ch?y LLM local (Llama3, Mistral, Phi) | PythonRoadMapFull.md |
+| local_llm | Ollama, LM Studio, vLLM: Chạy LLM local (Llama3, Mistral, Phi) | PythonRoadMapFull.md |
 | ai_agent | AI Agent: ReAct, Plan-and-Execute, Multi-agent (AutoGen, CrewAI, LangGraph) | PythonRoadMapFull.md |
 | opencv | OpenCV: Image processing, Filters, Morphology, Contours, Geometric transforms | PythonRoadMapFull.md |
 | object_detection | Object Detection: YOLO (v8/v11), Detectron2, DETR | PythonRoadMapFull.md |
@@ -924,21 +924,21 @@
 | dvc | DVC: Data Versioning, Pipeline, Remote storage, Experiment tracking | PythonRoadMapFull.md |
 | model_serving | Model Serving: FastAPI + model, TorchServe, BentoML, Ray Serve | PythonRoadMapFull.md |
 | ml_monitoring | Monitoring ML: Evidently, Grafana, Prometheus, Data/Concept drift | PythonRoadMapFull.md |
-| kubeflow | Kubeflow, Vertex AI Pipelines: ML workflow orchestration tr�n cloud | PythonRoadMapFull.md |
+| kubeflow | Kubeflow, Vertex AI Pipelines: ML workflow orchestration trên cloud | PythonRoadMapFull.md |
 | docker | Docker: Dockerfile, Image, Container, Volumes, Networks, Multi-stage build | PythonRoadMapFull.md |
 | docker_compose | Docker Compose: Services, Dependencies, Env, Healthcheck, Profiles | PythonRoadMapFull.md |
 | kubernetes | Kubernetes: Pod, Deployment, Service, Ingress, ConfigMap, Secret | PythonRoadMapFull.md |
-| k8s_adv | Kubernetes n�ng cao: HPA, StatefulSet, Helm, ArgoCD, Kustomize | PythonRoadMapFull.md |
-| cicd | CI/CD: GitHub Actions, GitLab CI, Jenkins � Build, Test, Deploy | PythonRoadMapFull.md |
-| terraform | Terraform: IaC � Provision AWS/GCP/Azure resources | PythonRoadMapFull.md |
-| ansible | Ansible: Playbook, Role, Inventory, Modules � Configuration management | PythonRoadMapFull.md |
+| k8s_adv | Kubernetes nâng cao: HPA, StatefulSet, Helm, ArgoCD, Kustomize | PythonRoadMapFull.md |
+| cicd | CI/CD: GitHub Actions, GitLab CI, Jenkins — Build, Test, Deploy | PythonRoadMapFull.md |
+| terraform | Terraform: IaC — Provision AWS/GCP/Azure resources | PythonRoadMapFull.md |
+| ansible | Ansible: Playbook, Role, Inventory, Modules — Configuration management | PythonRoadMapFull.md |
 | aws | AWS Core: EC2, S3, RDS, VPC, IAM, Lambda, API Gateway, SQS, SNS | PythonRoadMapFull.md |
-| boto3 | AWS SDK: boto3 � S3, DynamoDB, Lambda, SES, Rekognition, Textract | PythonRoadMapFull.md |
+| boto3 | AWS SDK: boto3 — S3, DynamoDB, Lambda, SES, Rekognition, Textract | PythonRoadMapFull.md |
 | gcp | GCP: Cloud Run, BigQuery, Vertex AI, Cloud Functions, Pub/Sub | PythonRoadMapFull.md |
 | azure | Azure: Azure Functions, AKS, Azure ML, Cosmos DB, Service Bus | PythonRoadMapFull.md |
 | serverless | Serverless: AWS Lambda + Python, Cold start, Layers, Mangum | PythonRoadMapFull.md |
-| kafka | Kafka v?i Python: Producer, Consumer, Avro, Schema Registry, Faust | PythonRoadMapFull.md |
-| rabbitmq | RabbitMQ v?i pika/aio-pika: Exchange, Queue, Routing key, Dead letter | PythonRoadMapFull.md |
+| kafka | Kafka với Python: Producer, Consumer, Avro, Schema Registry, Faust | PythonRoadMapFull.md |
+| rabbitmq | RabbitMQ với pika/aio-pika: Exchange, Queue, Routing key, Dead letter | PythonRoadMapFull.md |
 | event_driven | Event-driven Architecture: CQRS, Event Sourcing, Saga, Outbox | PythonRoadMapFull.md |
 | logging | Logging: logging module, structlog, JSON logging, ELK, Loki | PythonRoadMapFull.md |
 | tracing | Tracing: OpenTelemetry Python, Jaeger, Zipkin, Datadog, Sentry | PythonRoadMapFull.md |
@@ -946,36 +946,36 @@
 | security | Python Security: OWASP Top 10, SQL Injection, XSS, CSRF, SSRF | PythonRoadMapFull.md |
 | cryptography | Cryptography: hashlib, secrets, cryptography, JWT, OAuth2 | PythonRoadMapFull.md |
 | pentest | Penetration Testing: scapy, paramiko, ldap3, impacket | PythonRoadMapFull.md |
-| pyspark | Apache Spark v?i PySpark: RDD, DataFrame, SQL, MLlib, Streaming | PythonRoadMapFull.md |
+| pyspark | Apache Spark với PySpark: RDD, DataFrame, SQL, MLlib, Streaming | PythonRoadMapFull.md |
 | airflow | Apache Airflow: DAG, Operator, Sensor, XCom, Connections, Plugins | PythonRoadMapFull.md |
-| prefect_dagster | Prefect & Dagster: Modern data orchestration � Flow, Task, Asset | PythonRoadMapFull.md |
+| prefect_dagster | Prefect & Dagster: Modern data orchestration — Flow, Task, Asset | PythonRoadMapFull.md |
 | data_lake | Data Lake: Delta Lake, Apache Iceberg, Hudi, dbt | PythonRoadMapFull.md |
 | streaming | Streaming: Kafka Streams, Spark Structured Streaming, PyFlink | PythonRoadMapFull.md |
 | tkinter | Tkinter: Widget, Layout, Event handling, Custom widget, ttk | PythonRoadMapFull.md |
 | pyqt | PyQt6/PySide6: QWidget, Signal/Slot, Model/View, Thread worker, QML | PythonRoadMapFull.md |
 | kivy | Kivy: Cross-platform (Mobile + Desktop), KV Language, Gestures | PythonRoadMapFull.md |
-| packaging_exe | PyInstaller, cx_Freeze, Nuitka: ��ng g�i Python th�nh EXE/app | PythonRoadMapFull.md |
+| packaging_exe | PyInstaller, cx_Freeze, Nuitka: Đóng gói Python thành EXE/app | PythonRoadMapFull.md |
 | system_automation | System Automation: psutil, subprocess, watchdog, schedule, crontab | PythonRoadMapFull.md |
 | office_automation | Office Automation: openpyxl, xlrd, python-docx, pptx, PDF | PythonRoadMapFull.md |
 | email_notification | Email & Notification: smtplib, email, imaplib, slack_sdk, telegram | PythonRoadMapFull.md |
 | win32_automation | Win32 Automation: pywin32, pyautogui, keyboard, mouse | PythonRoadMapFull.md |
 | socket | Socket Programming: TCP/UDP Server/Client, Non-blocking, asyncio streams | PythonRoadMapFull.md |
 | network_tools | Network Tools: Scapy, python-nmap, netmiko (SSH) | PythonRoadMapFull.md |
-| faststream | FastStream: Kafka/RabbitMQ/SQS handler theo phong c�ch FastAPI | PythonRoadMapFull.md |
+| faststream | FastStream: Kafka/RabbitMQ/SQS handler theo phong cách FastAPI | PythonRoadMapFull.md |
 | pygame | Pygame: Surface, Sprite, Event, Collision, Sound, Game loop | PythonRoadMapFull.md |
 | arcade | Arcade: Modern game engine, Sprite, TileMap, Physics, Shader | PythonRoadMapFull.md |
 | godot_renpy | Python + Godot (GDScript fallback), Ren'Py (Visual Novel) | PythonRoadMapFull.md |
 | micropython | MicroPython: ESP32/ESP8266, GPIO, PWM, I2C, SPI, MQTT, BLE | PythonRoadMapFull.md |
 | circuitpython | CircuitPython: Adafruit boards, Sensors, NeoPixel, USB HID | PythonRoadMapFull.md |
-| raspberrypi | Raspberry Pi v?i Python: GPIO, Camera, UART � Home Automation | PythonRoadMapFull.md |
+| raspberrypi | Raspberry Pi với Python: GPIO, Camera, UART — Home Automation | PythonRoadMapFull.md |
 | web3 | Web3.py: Ethereum, Smart Contract interaction, ABI, Transaction signing | PythonRoadMapFull.md |
-| solana | Solana v?i Python: solders, solana-py, SPL Token, NFT minting | PythonRoadMapFull.md |
+| solana | Solana với Python: solders, solana-py, SPL Token, NFT minting | PythonRoadMapFull.md |
 | scipy | SciPy: Optimization, Integration, Signal processing, Linear algebra | PythonRoadMapFull.md |
 | sympy | SymPy: Symbolic math, Calculus, Equation solving, Code generation | PythonRoadMapFull.md |
-| quantum | Quantum Computing: Qiskit (IBM), PennyLane � Quantum circuits | PythonRoadMapFull.md |
+| quantum | Quantum Computing: Qiskit (IBM), PennyLane — Quantum circuits | PythonRoadMapFull.md |
 | clean_architecture | Clean Architecture: Domain, Application, Infrastructure layers | PythonRoadMapFull.md |
 | hexagonal | Hexagonal Architecture (Ports & Adapters) trong Python | PythonRoadMapFull.md |
-| microservices | Microservices v?i Python: Service mesh, API gateway, Discovery | PythonRoadMapFull.md |
+| microservices | Microservices với Python: Service mesh, API gateway, Discovery | PythonRoadMapFull.md |
 | ddd | Event Sourcing & DDD (Domain-Driven Design) trong Python | PythonRoadMapFull.md |
 | pypi_publish | Python Package Publishing: pyproject.toml, hatch, poetry, PyPI, versioning | PythonRoadMapFull.md |
 | opensource | Open Source Contribution: Git flow, PR etiquette, Code review | PythonRoadMapFull.md |

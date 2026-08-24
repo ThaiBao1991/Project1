@@ -24,12 +24,12 @@
         "email": "gamesvendn@gmail.com",
         "project_id": "1",
         "type": "GEMINI API",
-        "status": "active",
-        "reset_time": 0,
-        "last_check_time": 1787489448,
-        "next_check_time": 0,
-        "error_msg": "",
-        "cooldown_until": 1787469256
+        "status": "exhausted",
+        "reset_time": 1787639501,
+        "last_check_time": 1787553101,
+        "next_check_time": 1787563901,
+        "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
+        "cooldown_until": 1787565191
       },
       {
         "key": "ENC:dzdfSDlxOWVkWG9OcExUY1AzM2NyaXVJTmM0VGlPR2FXSXZZdmtXWWhHR0s2TlI4YkEuUUE=",
@@ -41,7 +41,7 @@
         "last_check_time": 1787489451,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787469256
+        "cooldown_until": 1787565191
       },
       {
         "key": "ENC:QTB6RmUwOFVxSzlyS2JPQnlnODhMLUdUUi0yNDI4b0ZfNkdhNFFvNjBnbkk2TlI4YkEuUUE=",
@@ -53,7 +53,7 @@
         "last_check_time": 1787489454,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787469256
+        "cooldown_until": 1787565191
       },
       {
         "key": "ENC:QUJKVWc1YklvaWNFRTZuWmswTlN0N2xvazc0RmkzNkcwOW5Vdk5DWjdxaUo2TlI4YkEuUUE=",
@@ -62,10 +62,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787489460,
+        "last_check_time": 1787561591,
         "next_check_time": 0,
-        "error_msg": "",
-        "cooldown_until": 1787469256
+        "error_msg": "Batch rotation lock",
+        "cooldown_until": 1787565191
       },
       {
         "key": "ENC:Z3BCOWJMamhZejZCczZSU203R1M3dXJaOVpKMDJuajhMbUVSSmotSlMxcEw2TlI4YkEuUUE=",
@@ -77,7 +77,7 @@
         "last_check_time": 1787489470,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787469256
+        "cooldown_until": 1787565191
       },
       {
         "key": "ENC:QWwwNTZnc0ppTTNnUkRsbEhNTUhBTlpPSklOWkh0S242V0lWOE84N1BJZEs2TlI4YkEuUUE=",
@@ -89,7 +89,7 @@
         "last_check_time": 1787489474,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787469256
+        "cooldown_until": 1787565191
       },
       {
         "key": "ENC:Z2NneEFueDBJemFmSkl3RFRzREFHQzBBN0JBWThjeG9WdUJhRXpQMzhLOUs2TlI4YkEuUUE=",
@@ -101,7 +101,7 @@
         "last_check_time": 1787489481,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787469256
+        "cooldown_until": 1787565191
       },
       {
         "key": "ENC:UWVCZkw3WU5TNHFBdV9vcXNkMGxIa0hiQmtnZGo5SklFTEhCcE11OExKQUw2TlI4YkEuUUE=",
@@ -113,7 +113,7 @@
         "last_check_time": 1787489486,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787469256
+        "cooldown_until": 1787565191
       },
       {
         "key": "ENC:QXlKd09pY0JDeEZ2OERVZlNIQmZfRnFCNlpIM1dqUzR0MnlZczBhQ3YwNUk2TlI4YkEuUUE=",
@@ -125,7 +125,7 @@
         "last_check_time": 1787489496,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787469256
+        "cooldown_until": 1787565191
       },
       {
         "key": "ENC:Z2otd0tLeXBYMFBqUFkwWXJJWndyX0NZd3JNbG84OEVQWE5WdGdnVk5HREk2TlI4YkEuUUE=",
@@ -137,7 +137,7 @@
         "last_check_time": 1787489499,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787469256
+        "cooldown_until": 1787565191
       },
       {
         "key": "ENC:UTdkWWh4ZTRhOGMyNm92bzRSSDNwRF9xeDVpcVVSdVdIdktCWjNRTkd6REk2TlI4YkEuUUE=",
@@ -146,10 +146,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787489504,
+        "last_check_time": 1787552840,
         "next_check_time": 0,
-        "error_msg": "",
-        "cooldown_until": 1787471313
+        "error_msg": "Batch rotation lock",
+        "cooldown_until": 1787565241
       },
       {
         "key": "ENC:Z2J1NEJtVTNoUWhhbjYzZkNVT2YtbnEyNnBwRWU5T0lRdmp3aEJmSVdGZEk2TlI4YkEuUUE=",
@@ -158,10 +158,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787489508,
+        "last_check_time": 1787557726,
         "next_check_time": 0,
-        "error_msg": "",
-        "cooldown_until": 1787471313
+        "error_msg": "Batch rotation lock",
+        "cooldown_until": 1787565241
       },
       {
         "key": "ENC:QU50UE03ZmhydGVRSnVtZERRbERWdDVKTEZ6dXdvUnozUVhJbVgyU2hWVkw2TlI4YkEuUUE=",
@@ -170,10 +170,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787489514,
+        "last_check_time": 1787561641,
         "next_check_time": 0,
-        "error_msg": "",
-        "cooldown_until": 1787471313
+        "error_msg": "Batch rotation lock",
+        "cooldown_until": 1787565241
       },
       {
         "key": "ENC:d0NXNGUwR0hoOV85SDE5cVgtOEdYay1nSlBLSlllanMyMW1icXRucHktYUo2TlI4YkEuUUE=",
@@ -185,7 +185,7 @@
         "last_check_time": 1787489526,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787471313
+        "cooldown_until": 1787565241
       },
       {
         "key": "ENC:QXBYRGtQSF90YVhxSWpqNlhhLXdJZENzOU54Zm1CZGxDb002U0VqQTJkako2TlI4YkEuUUE=",
@@ -197,7 +197,7 @@
         "last_check_time": 1787489530,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787471313
+        "cooldown_until": 1787565241
       },
       {
         "key": "ENC:UWR4TktkaXVvUTBOMnBDUFNJQzZYWEdqcGZVdTZ2cnRkOS03VHN6RjdNVUs2TlI4YkEuUUE=",
@@ -209,7 +209,7 @@
         "last_check_time": 1787489534,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787471313
+        "cooldown_until": 1787565241
       },
       {
         "key": "ENC:d2VHamVvTDU0S3VBemJRRS1MUHlUUlUxMEM2V05IeTk5U29xOFZuSFJTdEw2TlI4YkEuUUE=",
@@ -221,7 +221,7 @@
         "last_check_time": 1787489544,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787471313
+        "cooldown_until": 1787565241
       },
       {
         "key": "ENC:d1pia2UzOFpjaHpCdzBMa1h2V254a1JCRk9MZFFMeU5zLUNuOUtrTGZOSkk2TlI4YkEuUUE=",
@@ -233,7 +233,7 @@
         "last_check_time": 1787489548,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787471313
+        "cooldown_until": 1787565241
       },
       {
         "key": "ENC:Z0tnT1lKNVFQV3o0cGhSTEhfYk9tb1BxbzV6YWJndFBIcl8zUldJSVJQMEw2TlI4YkEuUUE=",
@@ -246,7 +246,7 @@
         "next_check_time": 0,
         "error_msg": "",
         "project_name": "",
-        "cooldown_until": 1787471313
+        "cooldown_until": 1787565241
       },
       {
         "error_msg": "",
@@ -259,7 +259,7 @@
         "reset_time": 0,
         "next_check_time": 0,
         "last_check_time": 1787489557,
-        "cooldown_until": 1787471313
+        "cooldown_until": 1787565241
       },
       {
         "key": "ENC:UUpmYTdzTXRSTFNzLVR4Y2ZIZ0tJeUpkVGRtXzVCeEJMbnlRdjdUVlRubEk2TlI4YkEuUUE=",
@@ -268,10 +268,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787489564,
+        "last_check_time": 1787552852,
         "next_check_time": 0,
-        "error_msg": "",
-        "cooldown_until": 1787465031
+        "error_msg": "Batch rotation lock",
+        "cooldown_until": 1787567288
       },
       {
         "key": "ENC:QUoyaVROUllVaHBaMFBTZ0NuYWotajJVakI1Z1ViOThQcjNraklSNHFkU0w2TlI4YkEuUUE=",
@@ -280,10 +280,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787489571,
+        "last_check_time": 1787557796,
         "next_check_time": 0,
-        "error_msg": "",
-        "cooldown_until": 1787465031
+        "error_msg": "Batch rotation lock",
+        "cooldown_until": 1787567288
       },
       {
         "key": "ENC:dzhsOU1ZS3dMUnMtMVB5YlFVRlBkX0xFeFNjcUs2Y0E4ZzlnQlRyWHFCVkk2TlI4YkEuUUE=",
@@ -295,7 +295,7 @@
         "last_check_time": 1787489580,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787465031
+        "cooldown_until": 1787567288
       },
       {
         "key": "ENC:QXU0NU12NUVEbnFHNlZXZzBEMTJZMFpwb3NOUS1tbFZJUXNGcTFKVWlQOUw2TlI4YkEuUUE=",
@@ -304,10 +304,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787489586,
+        "last_check_time": 1787563688,
         "next_check_time": 0,
-        "error_msg": "",
-        "cooldown_until": 1787465031
+        "error_msg": "Batch rotation lock",
+        "cooldown_until": 1787567288
       },
       {
         "key": "ENC:Z0ZDclRKMG1yc1lpcVFmRzhOekswRzRDOWdHUVRybVl0OVRPZGlNQ05MZUo2TlI4YkEuUUE=",
@@ -319,7 +319,7 @@
         "last_check_time": 1787489591,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787465031
+        "cooldown_until": 1787567288
       },
       {
         "key": "ENC:QU1sWXZaejFKTXA5b0hhWlEyQWF6SENuZ0NmdnpwZFlmUTYzWm4yZVVqN0w2TlI4YkEuUUE=",
@@ -331,7 +331,7 @@
         "last_check_time": 1787489598,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787465031
+        "cooldown_until": 1787567288
       },
       {
         "key": "ENC:QWtPS0F2WHVCUk5HVks1UzBteThlY1V3QWxGZWhvd2drQl8zeXpvQmJoOUw2TlI4YkEuUUE=",
@@ -343,7 +343,7 @@
         "last_check_time": 1787489607,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787465031
+        "cooldown_until": 1787567288
       },
       {
         "key": "ENC:d0g1bXVJUktTeDNlTEMzZWtPb3FkSTM3RVAyWHVTV2RpYUF6cy1RZXhfNkk2TlI4YkEuUUE=",
@@ -355,7 +355,7 @@
         "last_check_time": 1787489611,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787465031
+        "cooldown_until": 1787567288
       },
       {
         "key": "ENC:Z1lfcElEWllyV0ZGTHZESzRjb01TM3ZKRm5tYUd1UWE5eVRaTWJ2czlEakw2TlI4YkEuUUE=",
@@ -367,7 +367,7 @@
         "last_check_time": 1787489618,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787465031
+        "cooldown_until": 1787567288
       },
       {
         "key": "ENC:ZzVQd181OXVOdEc2SWltdFRWNnd3dlQ2WXF0eTFzblNfVXVqZ182UEdVa0s2TlI4YkEuUUE=",
@@ -376,9 +376,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787489627,
+        "last_check_time": 1787552866,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "Batch rotation lock",
+        "cooldown_until": 1787567335
       },
       {
         "key": "ENC:Z2M3LW40X2RoejB5VjFkR1ptWG1NUm5iYUtCNEp4dnZJbU5RRVBXWG1TMUs2TlI4YkEuUUE=",
@@ -389,7 +390,8 @@
         "reset_time": 0,
         "last_check_time": 1787489632,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787567335
       },
       {
         "key": "ENC:UTJ4UnQ1MlJNQmNqS1lVOXpuYU04aEtvUVk4cXFkVmdWNHh0N0xOeW02TEs2TlI4YkEuUUE=",
@@ -398,9 +400,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787489638,
+        "last_check_time": 1787557983,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "Batch rotation lock",
+        "cooldown_until": 1787567335
       },
       {
         "key": "ENC:UU1CRWMzWE9MRW92MERoa0Fwb0RkM21waDRtdzBQcVVyT1hqdGdINERPNEs2TlI4YkEuUUE=",
@@ -409,9 +412,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787489651,
+        "last_check_time": 1787563735,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "Batch rotation lock",
+        "cooldown_until": 1787567335
       },
       {
         "key": "ENC:UTZISXZIZExvdl8wSUxsQThUMzBxRHA5cF8xWUt5U1hXcXhZeU5zSG9ZN0k2TlI4YkEuUUE=",
@@ -422,7 +426,8 @@
         "reset_time": 0,
         "last_check_time": 1787489655,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787567335
       },
       {
         "key": "ENC:QTlmcGVYME5WQS1vY1RkbTFwYnRQTFptbU1TVGtZU01YdE42WnJ1WlNOWUw2TlI4YkEuUUE=",
@@ -433,7 +438,8 @@
         "reset_time": 0,
         "last_check_time": 1787489660,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787567335
       },
       {
         "key": "ENC:QVh5RlBwV2JxN21GTnRaOGJreGhQMzA1anJqeUZTSFZ1ZlZ0SFI5cUJQcUw2TlI4YkEuUUE=",
@@ -444,7 +450,8 @@
         "reset_time": 0,
         "last_check_time": 1787489666,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787567335
       },
       {
         "key": "ENC:Z1pncWZ3V2NEbUV4YXVZdlhlMGVyVllONjhZNE9KZmcwbUVWeTIwZVRaNEk2TlI4YkEuUUE=",
@@ -455,7 +462,8 @@
         "reset_time": 0,
         "last_check_time": 1787489677,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787567335
       },
       {
         "key": "ENC:QVZnUzgyZlF1SjV3dU5COVZIZXdDSlZiR0pUeXRJdEFmZkx0QzFSOHVSQ0s2TlI4YkEuUUE=",
@@ -466,7 +474,8 @@
         "reset_time": 0,
         "last_check_time": 1787489680,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787567335
       },
       {
         "key": "ENC:Z0lUTjdLVC1JMGlMSHAtZDNHRWJJSzd5WFV3cWFYejJ2WTBNazNrWDE2LUk2TlI4YkEuUUE=",
@@ -475,10 +484,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787489685,
+        "last_check_time": 1787552909,
         "next_check_time": 0,
-        "error_msg": "",
-        "cooldown_until": 1787467266
+        "error_msg": "Batch rotation lock",
+        "cooldown_until": 1787567176
       },
       {
         "key": "ENC:QUx0cWk4WWxEOWF2WXJHN1cxZnlNNjUtdEdIS240dUtLQVNRYjlTUVRGZks2TlI4YkEuUUE=",
@@ -487,10 +496,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787489691,
+        "last_check_time": 1787557911,
         "next_check_time": 0,
-        "error_msg": "",
-        "cooldown_until": 1787467266
+        "error_msg": "Batch rotation lock",
+        "cooldown_until": 1787567176
       },
       {
         "key": "ENC:UTB1OHBjZHpMUURKdUlfYzd1bjdnOThVVFZZZnlpa1RZc3NjWXJmSy1YY0k2TlI4YkEuUUE=",
@@ -499,10 +508,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787489697,
+        "last_check_time": 1787563576,
         "next_check_time": 0,
-        "error_msg": "",
-        "cooldown_until": 1787467266
+        "error_msg": "Batch rotation lock",
+        "cooldown_until": 1787567176
       },
       {
         "key": "ENC:Z01TX1lUdEVPbXZHOHVEd3NKaURWQkhOWDNQakF2Ykw1aV9IdnFmY0xTOUs2TlI4YkEuUUE=",
@@ -514,7 +523,7 @@
         "last_check_time": 1787489706,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787467266
+        "cooldown_until": 1787567176
       },
       {
         "key": "ENC:Z1dVaU1BZWNSM3JyZ2Y2NDVHOTR0UGhfWmVwMEgxRUdfR3gwMEdEa1BIMEo2TlI4YkEuUUE=",
@@ -526,7 +535,7 @@
         "last_check_time": 1787489724,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787467266
+        "cooldown_until": 1787567176
       },
       {
         "key": "ENC:UTBJaXZzRXQ0MHZGalY3QTUwdmtwM0Y3eXp6a3VoODExbmlaWkJnakd2ZUo2TlI4YkEuUUE=",
@@ -538,7 +547,7 @@
         "last_check_time": 1787489729,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787467266
+        "cooldown_until": 1787567176
       },
       {
         "key": "ENC:UVpWaENZYmJQRTFzX2dXSEFZRTZJQlRlQmExZ01Hd1JXNDBMel9Sb1BtR0o2TlI4YkEuUUE=",
@@ -550,7 +559,7 @@
         "last_check_time": 1787489736,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787467266
+        "cooldown_until": 1787567176
       },
       {
         "key": "ENC:QTU0MU82cjJ0dFFpb3dMb04yWTNJanZTa0VUYnY4RXQ5ZktJbWtuYmxZZUw2TlI4YkEuUUE=",
@@ -562,7 +571,7 @@
         "last_check_time": 1787489747,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787467266
+        "cooldown_until": 1787567176
       },
       {
         "key": "ENC:QVUzVXZzY2dSd3FmX09Ja3A3NldsN194b1E5WWtiNUUxUUZLSjFrUTI2REs2TlI4YkEuUUE=",
@@ -574,7 +583,7 @@
         "last_check_time": 1787489753,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787467266
+        "cooldown_until": 1787567176
       },
       {
         "key": "ENC:QUhwOVhmTEtOOHVtekoyLVRBaFgxQjhqZlZwNjcyNGZLVUZHdVZKdS03c0s2TlI4YkEuUUE=",
@@ -583,10 +592,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787489757,
+        "last_check_time": 1787552925,
         "next_check_time": 0,
-        "error_msg": "",
-        "cooldown_until": 1787468141
+        "error_msg": "Batch rotation lock",
+        "cooldown_until": 1787561621
       },
       {
         "key": "ENC:QWJHRjd0V241RTFFaGkzZVRWdkdYdi1MWXd4SHlsQWNQa0EteU9EaEVpSUk2TlI4YkEuUUE=",
@@ -595,10 +604,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787489767,
+        "last_check_time": 1787558021,
         "next_check_time": 0,
-        "error_msg": "",
-        "cooldown_until": 1787468141
+        "error_msg": "Batch rotation lock",
+        "cooldown_until": 1787561621
       },
       {
         "key": "ENC:UVlTZUxxVDE0WFJHUF9sbjhxRWlRWVpDZ3BTcm02bmlSb0xDVllRcFVKaUs2TlI4YkEuUUE=",
@@ -610,7 +619,7 @@
         "last_check_time": 1787489774,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787468141
+        "cooldown_until": 1787561621
       },
       {
         "key": "ENC:d01DT3FxR0J5bDd6bjZoUHA3VDV1c0tuUTFkM2lXeDNESHlCUFdDMEdzVko2TlI4YkEuUUE=",
@@ -622,7 +631,7 @@
         "last_check_time": 1787489778,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787468141
+        "cooldown_until": 1787561621
       },
       {
         "key": "ENC:UUlnRjZDeWdvNkZwY3lHZmJuT1A5cGdVNzNrTVhrWjBTUVVqcXN6ekhqWUw2TlI4YkEuUUE=",
@@ -634,7 +643,7 @@
         "last_check_time": 1787489789,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787468141
+        "cooldown_until": 1787561621
       },
       {
         "key": "ENC:d09xQ2VIeXBkRjNIQ1JENWhaY1M5ZVk0X0tqSUVwR3hpNGJ0WlhVVm55eEk2TlI4YkEuUUE=",
@@ -646,7 +655,7 @@
         "last_check_time": 1787489794,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787468141
+        "cooldown_until": 1787561621
       },
       {
         "key": "ENC:UV9oVXRuZHJWZllGYTRWOFYzTURON2FkX0ZHR3ZncHh5LXRiVHRocTNjTEo2TlI4YkEuUUE=",
@@ -658,7 +667,7 @@
         "last_check_time": 1787489799,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787468141
+        "cooldown_until": 1787561621
       },
       {
         "key": "ENC:Z010Rk91NkJfMk5VRklJbHFjbmlzQlhzRHFHX0xPQTVMcGU0ZnhBWUF2Tks2TlI4YkEuUUE=",
@@ -670,7 +679,7 @@
         "last_check_time": 1787489804,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787468141
+        "cooldown_until": 1787561621
       },
       {
         "key": "ENC:QS1GLXhVMVFQT0hncW9faWc2VjNuTE8ycFlpWVdmbHFpalI2eHVtR2VGTUw2TlI4YkEuUUE=",
@@ -682,7 +691,7 @@
         "last_check_time": 1787489809,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787468141
+        "cooldown_until": 1787561621
       },
       {
         "key": "ENC:d0ZUc3FmbWt4aFlQUURlaFlBd01sbzdWY0ZPZV9MVXRzYzRlT0tpUTNhWUo2TlI4YkEuUUE=",
@@ -691,10 +700,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787489814,
+        "last_check_time": 1787552945,
         "next_check_time": 0,
-        "error_msg": "",
-        "cooldown_until": 1787466868
+        "error_msg": "Batch rotation lock",
+        "cooldown_until": 1787561685
       },
       {
         "key": "ENC:Z0F1eHI2Mms4LWl6TnVwWThCV1VOOGxyZlBaYWZPdThHRW95OVlYLThhNUw2TlI4YkEuUUE=",
@@ -703,10 +712,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787489827,
+        "last_check_time": 1787558085,
         "next_check_time": 0,
-        "error_msg": "",
-        "cooldown_until": 1787466868
+        "error_msg": "Batch rotation lock",
+        "cooldown_until": 1787561685
       },
       {
         "key": "ENC:UUVPaDFiUXZGcW96T3J1TjhUcnRaWnMzM2FDVWpuSVNnRjFPMjJreVRRRUs2TlI4YkEuUUE=",
@@ -718,7 +727,7 @@
         "last_check_time": 1787489833,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787466868
+        "cooldown_until": 1787561685
       },
       {
         "key": "ENC:QWRlcDlhcjhVczhYX1hBNHA0TlpKNW5TNk5kR2RXQXNtMUNhSUdOdzRvRUo2TlI4YkEuUUE=",
@@ -731,7 +740,7 @@
         "next_check_time": 0,
         "error_msg": "",
         "project_name": "",
-        "cooldown_until": 1787466868
+        "cooldown_until": 1787561685
       },
       {
         "key": "ENC:QUFFdjg3T1UyVENMY3NjMjRrODAyaHZHSjkwX2plZnpTVVVvM1lvdktJZ0k2TlI4YkEuUUE=",
@@ -743,7 +752,7 @@
         "last_check_time": 1787489842,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787466868
+        "cooldown_until": 1787561685
       },
       {
         "key": "ENC:UXdaVjJma3VUUGpQQ1pXSEc5SFZ4YWRxRmVvQkY1WFRHYmJONWpUVDJRV0k2TlI4YkEuUUE=",
@@ -755,7 +764,7 @@
         "last_check_time": 1787489865,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787466868
+        "cooldown_until": 1787561685
       },
       {
         "key": "ENC:QXpKbDlTNDUzN3dvMXRYMkNiTkR5ZFpqb19meGVJY0k4Tnd0LVBFcU1MZUs2TlI4YkEuUUE=",
@@ -767,7 +776,7 @@
         "last_check_time": 1787489867,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787466868
+        "cooldown_until": 1787561685
       },
       {
         "key": "ENC:dzkyRlBkWUZ4NHRnVjB5MzFlWENuVE9VelIzQmFaZXl6SW9JWGNRWm15WUs2TlI4YkEuUUE=",
@@ -779,7 +788,7 @@
         "last_check_time": 1787489872,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787466868
+        "cooldown_until": 1787561685
       },
       {
         "key": "ENC:Z0FxMlF4TGRIMk5QenZHUC0wVklrX2tHVkgwT3JpUXJhcjF5TTRRbHA1Nkk2TlI4YkEuUUE=",
@@ -791,18 +800,19 @@
         "last_check_time": 1787489878,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787466868
+        "cooldown_until": 1787561685
       },
       {
         "key": "ENC:d05KcFFreGZDNkE4bzdFbm5hYl8wU1JkNXVVU0hGcTNmSEhOR1UzUTJDU0w2TlI4YkEuUUE=",
         "email": "gamesvendn27@gmail.com",
         "project_id": "1",
         "type": "GEMINI API",
-        "status": "active",
-        "reset_time": 0,
-        "last_check_time": 1787489883,
-        "next_check_time": 0,
-        "error_msg": ""
+        "status": "exhausted",
+        "reset_time": 1787639475,
+        "last_check_time": 1787553075,
+        "next_check_time": 1787563875,
+        "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
+        "cooldown_until": 1787556675
       },
       {
         "key": "ENC:d0g2Nmd6RGFBSUlkaWg1Y2MzZ2JJLVpMblZLNU9Ha2NBUzYzdjNhUURTWkk2TlI4YkEuUUE=",
@@ -813,7 +823,8 @@
         "reset_time": 0,
         "last_check_time": 1787489893,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787556675
       },
       {
         "key": "ENC:d1FXZGlFeDJsT1ZVal9DQ1ZYU1NpSHpUbEFYV0l2dVVRaUoxREQzWGdOVEo2TlI4YkEuUUE=",
@@ -824,7 +835,8 @@
         "reset_time": 0,
         "last_check_time": 1787489900,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787556675
       },
       {
         "key": "ENC:d1ZGcEZxMFVmdHJYM2VseWNkS3dmVDlObGJybl80Z1Z2UktBbjI5V1ZCWUo2TlI4YkEuUUE=",
@@ -835,7 +847,8 @@
         "reset_time": 0,
         "last_check_time": 1787489905,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787556675
       },
       {
         "key": "ENC:UVAyblREZ3ZIYmxRZ1dnaS1CZmo3UW5aSlh1NWlUelNQVV95LWNsSEJ2SUs2TlI4YkEuUUE=",
@@ -846,7 +859,8 @@
         "reset_time": 0,
         "last_check_time": 1787489910,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787556675
       },
       {
         "key": "ENC:dzdTYVNkMy1QLV9WREJaMHAtdExUa1hOdS1BY0NBeHhkekUwUjhGTlZfbko2TlI4YkEuUUE=",
@@ -857,7 +871,8 @@
         "reset_time": 0,
         "last_check_time": 1787489916,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787556675
       },
       {
         "key": "ENC:QWNqaUhUVExUMmZwaDR0UlV3UWZUNGtaUmoxOGg3WE9pT1BmRlBaSmZYYko2TlI4YkEuUUE=",
@@ -868,7 +883,8 @@
         "reset_time": 0,
         "last_check_time": 1787489923,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787556675
       },
       {
         "key": "ENC:Z2l1aW5TclUyVlNDX1Y1YzNnMlQ3anlsRTRsdHhJMTU5NDRhU1hCeE85M0k2TlI4YkEuUUE=",
@@ -879,7 +895,8 @@
         "reset_time": 0,
         "last_check_time": 1787489928,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787556675
       },
       {
         "key": "ENC:d1RIUFZQNXZRU0FoVnZ4dlRPZ19ubWdWd2h3N3lKLTdBS1RXMHEzYVpjTks2TlI4YkEuUUE=",
@@ -890,7 +907,8 @@
         "reset_time": 0,
         "last_check_time": 1787489939,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787556675
       },
       {
         "key": "ENC:QWsycWRPclVfYVNSam1RRnJJb09MdFBUaVlPZkd0U29hUnA1cHlweWd1eEo2TlI4YkEuUUE=",
@@ -899,9 +917,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787489946,
+        "last_check_time": 1787562608,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "Batch rotation lock",
+        "cooldown_until": 1787566208
       },
       {
         "key": "ENC:UUNOZHo1dGRkcFBwVEVLdGgzQ2hUSm5Ubnl5QjFUMVh1SVRRQkpmbnBQc0w2TlI4YkEuUUE=",
@@ -910,9 +929,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787489948,
+        "last_check_time": 1787558159,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "Batch rotation lock",
+        "cooldown_until": 1787566208
       },
       {
         "key": "ENC:QVlKcjJBRzFqRGN1N08zamItQ0JmMnd5MUkwZE9tZzhhRUN2Z2d6YXlZV0o2TlI4YkEuUUE=",
@@ -923,7 +943,8 @@
         "reset_time": 0,
         "last_check_time": 1787489953,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787566208
       },
       {
         "key": "ENC:dzF6OTUxeFY0Ykg1MlpZX2hNVW9OeEVDVExVcHR6X19YdlEtVE1vVzI0REk2TlI4YkEuUUE=",
@@ -934,7 +955,8 @@
         "reset_time": 0,
         "last_check_time": 1787489961,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787566208
       },
       {
         "key": "ENC:UTdvNTBZcUxlMFRjMkZwT0UxenZFTENFeDNPR2dNWVJkQ1RuS1RHVHNlT0k2TlI4YkEuUUE=",
@@ -945,7 +967,8 @@
         "reset_time": 0,
         "last_check_time": 1787489965,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787566208
       },
       {
         "key": "ENC:Z3VlWVVGMk5jOXd3ODdaV21sRWRpd0tmSlBLQm9Zc01xd2JvckVPVXVIeUk2TlI4YkEuUUE=",
@@ -956,7 +979,8 @@
         "reset_time": 0,
         "last_check_time": 1787489974,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787566208
       },
       {
         "key": "ENC:UUVzcDBiX0cxakoyNGFSMEVhaWtxLTFGTzA5UGgyVzdfRjZfdUszQnN6dUw2TlI4YkEuUUE=",
@@ -967,7 +991,8 @@
         "reset_time": 0,
         "last_check_time": 1787489976,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787566208
       },
       {
         "key": "ENC:d0MyeU5RZjkyOXZHdG5WZ29tSmdmQkpoblUzNmZoSG83MlM2ZDhlbmZNWUw2TlI4YkEuUUE=",
@@ -978,7 +1003,8 @@
         "reset_time": 0,
         "last_check_time": 1787489983,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787566208
       },
       {
         "key": "ENC:d2pJel9DWGJDMFdUOG15UUc3WHNqdVd4VldSeTUzUnc5SnRMLWtwNUhjeks2TlI4YkEuUUE=",
@@ -989,7 +1015,8 @@
         "reset_time": 0,
         "last_check_time": 1787489986,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787566208
       },
       {
         "key": "ENC:UTN4YXpUT3RqWTBVdzU4cS1uN2J1VVZGVklJNERXLTJHNDBoZm5hQU9McUs2TlI4YkEuUUE=",
@@ -998,9 +1025,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787489991,
+        "last_check_time": 1787552985,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "Batch rotation lock",
+        "cooldown_until": 1787561931
       },
       {
         "key": "ENC:d3QyZnNKOFhhOFI3bUtaYjJPb1hiUlBkbGdLc1ZSb2NGTk0yNmhzWmdHOUo2TlI4YkEuUUE=",
@@ -1011,7 +1039,8 @@
         "reset_time": 0,
         "last_check_time": 1787490003,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787561931
       },
       {
         "key": "ENC:QUdnejVYd2NVMW1ybzc0QVpDYlZHdHRLZzVVZGRwN3JlZGZIUjNBS2k4VUw2TlI4YkEuUUE=",
@@ -1020,9 +1049,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787490007,
+        "last_check_time": 1787558331,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "Batch rotation lock",
+        "cooldown_until": 1787561931
       },
       {
         "key": "ENC:QXdpTEFvX1RpdE50bVRtS3ZjWnYxNnFpQmp5bFRWb3pQRFRQRkJvNTRiRko2TlI4YkEuUUE=",
@@ -1033,7 +1063,8 @@
         "reset_time": 0,
         "last_check_time": 1787490012,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787561931
       },
       {
         "key": "ENC:d1dpYmtJQlF6SV9jR3J6MmVFS2dRYWF5SnBYenJUaE5xbGpzRFhaQ0V4UEs2TlI4YkEuUUE=",
@@ -1044,7 +1075,8 @@
         "reset_time": 0,
         "last_check_time": 1787490022,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787561931
       },
       {
         "key": "ENC:d25VbXpSRTFjcms3czNfU0RwQ3NRXzNWVzlnandjdE83dVpMaE52bHZYSUo2TlI4YkEuUUE=",
@@ -1055,7 +1087,8 @@
         "reset_time": 0,
         "last_check_time": 1787490031,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787561931
       },
       {
         "key": "ENC:Z196WUU5bW45dlUwd2JDTjBoRE51T25ZNjB3ak9GMlh0UndMY2lJTlpjRUo2TlI4YkEuUUE=",
@@ -1066,7 +1099,8 @@
         "reset_time": 0,
         "last_check_time": 1787490033,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787561931
       },
       {
         "key": "ENC:QWdZcmsydHg0SE9kZmNrX2hGX293VDhFMk9PQWRwVS04UGhQM3JWNnl5SUk2TlI4YkEuUUE=",
@@ -1077,7 +1111,8 @@
         "reset_time": 0,
         "last_check_time": 1787490038,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787561931
       },
       {
         "key": "ENC:d2xSRmllNUVZVTRCdGp5bnZVQzdIOERZaDI4aWxPUzVOd29Ec1ZRQWN4QUs2TlI4YkEuUUE=",
@@ -1088,7 +1123,8 @@
         "reset_time": 0,
         "last_check_time": 1787490049,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787561931
       },
       {
         "key": "ENC:d1k2Q21Qd2tYSGI2bG9DQ0w4UTNGRERsaURoV3hPYlFqejVkbUtFVkRlTkk2TlI4YkEuUUE=",
@@ -1097,9 +1133,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787490051,
+        "last_check_time": 1787553012,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "Batch rotation lock",
+        "cooldown_until": 1787561889
       },
       {
         "key": "ENC:QU9XLUMtcUxZV3plRG81QnF1VGNLZ3JrZU1PX0dwNmc1Ylo3dFFxMWlaOUs2TlI4YkEuUUE=",
@@ -1108,9 +1145,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787490058,
+        "last_check_time": 1787558289,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "Batch rotation lock",
+        "cooldown_until": 1787561889
       },
       {
         "key": "ENC:d2ZLcUR2a0lzM19BOWo1ZlFsRFU1c0VUc0gwMFZKbEh1UElkQlEwbWwza0o2TlI4YkEuUUE=",
@@ -1121,7 +1159,8 @@
         "reset_time": 0,
         "last_check_time": 1787490066,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787561889
       },
       {
         "key": "ENC:Z3l5YXVERGMxdUFPblU0djBnOHFCMVVnWU9LVS1nMzJmQndmeF80TU43VEs2TlI4YkEuUUE=",
@@ -1132,7 +1171,8 @@
         "reset_time": 0,
         "last_check_time": 1787490071,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787561889
       },
       {
         "key": "ENC:QTVBRTRQejhLWHFvdVoyTXg5aVdhODUwT1N1N0Mzd2VtOXVweG04TjZ3a0w2TlI4YkEuUUE=",
@@ -1143,7 +1183,8 @@
         "reset_time": 0,
         "last_check_time": 1787490077,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787561889
       },
       {
         "key": "ENC:Z0hubXlRdHNPVTA2R3ZCdmRLMEVYWkExaHRJYTMydkllSnhVWTctSkZac0o2TlI4YkEuUUE=",
@@ -1154,7 +1195,8 @@
         "reset_time": 0,
         "last_check_time": 1787490095,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787561889
       },
       {
         "key": "ENC:ZzE0RlY2MzdWbU5ZT25FWXpYaUVKaDMyWmlmdmVBc0tYMVl4TjJjRDVKaUw2TlI4YkEuUUE=",
@@ -1165,7 +1207,8 @@
         "reset_time": 0,
         "last_check_time": 1787490097,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787561889
       },
       {
         "key": "ENC:QXhjMnByLWJFR2Uwakd2a08wWGd3bHJqTFhnSDdDNW5VbDEwQ2FXVXlGd0o2TlI4YkEuUUE=",
@@ -1176,7 +1219,8 @@
         "reset_time": 0,
         "last_check_time": 1787490102,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787561889
       },
       {
         "key": "ENC:UUFvc0gwTklaWkJfNHl5a1BHR3ZRT1VMNXNKSlE1NWVCdjhCWEpFTmFtMUw2TlI4YkEuUUE=",
@@ -1187,7 +1231,8 @@
         "reset_time": 0,
         "last_check_time": 1787490112,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787561889
       },
       {
         "key": "ENC:ZzNBd3lVUXNQMVZpaU9xTlNXTVpUSkdYRWFJSHdpM0hMWDBBLUhManliZkk2TlI4YkEuUUE=",
@@ -1196,9 +1241,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787490114,
+        "last_check_time": 1787553029,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "Batch rotation lock",
+        "cooldown_until": 1787562001
       },
       {
         "key": "ENC:QTJfVkg1UnI1UGhfa1JWREdaUHVMRFA5OHpzVGRNS0xzT3JXVWJNOGxieEo2TlI4YkEuUUE=",
@@ -1207,9 +1253,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787490119,
+        "last_check_time": 1787558401,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "Batch rotation lock",
+        "cooldown_until": 1787562001
       },
       {
         "key": "ENC:d1huZ2tfMG14TkhfaXZUcHNXcUxSWUIyREd4VG1yRm9oaVRMUXF1SXJCNEs2TlI4YkEuUUE=",
@@ -1220,7 +1267,8 @@
         "reset_time": 0,
         "last_check_time": 1787490137,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787562001
       },
       {
         "key": "ENC:Z3B6QjVNaTA4YlpaZmhYU0JYM0NLc25nRnRDNHl6S2xGSXRqX0pVclNZeEs2TlI4YkEuUUE=",
@@ -1231,7 +1279,8 @@
         "reset_time": 0,
         "last_check_time": 1787490138,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787562001
       },
       {
         "key": "ENC:UWE1MmE0UDV6TzlERml3Rnp1aDVYMXdXbHlHMGk3YWVNcUU4N1d6NVhXREw2TlI4YkEuUUE=",
@@ -1242,7 +1291,8 @@
         "reset_time": 0,
         "last_check_time": 1787490143,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787562001
       },
       {
         "key": "ENC:Z2VSUThZVWxwRnpoWDdMamFIYkRQblRjMlVndE90UkxzQmIxYUN3YnJaMko2TlI4YkEuUUE=",
@@ -1253,7 +1303,8 @@
         "reset_time": 0,
         "last_check_time": 1787490148,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787562001
       },
       {
         "key": "ENC:d0R2VFl1cGdxdnlXcDVhaFBNRVNPdUpDUUJXYTNFXzg0bkxvc3FIRjFBMEo2TlI4YkEuUUE=",
@@ -1264,7 +1315,8 @@
         "reset_time": 0,
         "last_check_time": 1787490162,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787562001
       },
       {
         "key": "ENC:QWphOG5tbm5GamRHS24tY1VFdGp3REVmeTdsY0RLSkxBWGs1SUJQSkVzbko2TlI4YkEuUUE=",
@@ -1275,7 +1327,8 @@
         "reset_time": 0,
         "last_check_time": 1787490166,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787562001
       },
       {
         "key": "ENC:d2M4eVA4VHFLSXlSSHR5bHpxRWl5Vnk1ektIb0FnWUlfQ1N6dXp2OW1XaUw2TlI4YkEuUUE=",
@@ -1286,7 +1339,8 @@
         "reset_time": 0,
         "last_check_time": 1787490170,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787562001
       },
       {
         "key": "ENC:Z3g1eDlkSWFwcThBeF9FVjY2NUhQTXkzU0VPQzg2VlZQeG9EVV9JOFp1NUk2TlI4YkEuUUE=",
@@ -1295,9 +1349,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787490175,
+        "last_check_time": 1787553054,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "Batch rotation lock",
+        "cooldown_until": 1787564582
       },
       {
         "key": "ENC:UXBNRjhpTXZqT3VXS1M4Q2RDUWtxRHVkNHEyQnR4RXdxN0cyNVZOUF9heEo2TlI4YkEuUUE=",
@@ -1308,7 +1363,8 @@
         "reset_time": 0,
         "last_check_time": 1787490181,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787564582
       },
       {
         "key": "ENC:UThBdVpSOUV6MEctanQ4d1lkZUhwVUpJc00tYWVUZTdIWDdIX1FXcUw0bUk2TlI4YkEuUUE=",
@@ -1319,7 +1375,8 @@
         "reset_time": 0,
         "last_check_time": 1787490190,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787564582
       },
       {
         "key": "ENC:QXZ5bElSN0VXMEhFX3ItNDB3d1NBV3dWdWVrTlRBY1FvdHZXZWwtWG5HaEo2TlI4YkEuUUE=",
@@ -1328,9 +1385,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787490198,
+        "last_check_time": 1787560982,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "Batch rotation lock",
+        "cooldown_until": 1787564582
       },
       {
         "key": "ENC:Z2tNU1I2aGxMZ2I5NUx2Yk1Vc3BpT0xHU19jTHhZM3VvbjRsMlI1VE9pYUk2TlI4YkEuUUE=",
@@ -1341,7 +1399,8 @@
         "reset_time": 0,
         "last_check_time": 1787490202,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787564582
       },
       {
         "key": "ENC:QWdHVG52VFlGNnZjcTFIUHk2cktMaGtDakpqNlFmcEZfX09MZ1AwZ19GZ0s2TlI4YkEuUUE=",
@@ -1352,7 +1411,8 @@
         "reset_time": 0,
         "last_check_time": 1787490207,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787564582
       },
       {
         "key": "ENC:Z2pja1NScHZxTEJXZ0o4aHhrODNvVEYxVlA2MTZkNGZ4TEVKX01UbnZrd0k2TlI4YkEuUUE=",
@@ -1363,7 +1423,8 @@
         "reset_time": 0,
         "last_check_time": 1787490214,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787564582
       },
       {
         "key": "ENC:QTN3UVdwdDkzM01Wanhmb1hjWlJTb1RsRlh6VmhPdnNfV1N5UDNOVVdoWEs2TlI4YkEuUUE=",
@@ -1374,7 +1435,8 @@
         "reset_time": 0,
         "last_check_time": 1787490223,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787564582
       },
       {
         "key": "ENC:d24xMXpQNnVYSnVJUFdaUDJueVZnVG9RUFpWWDI1UHpiZlliVlpNNUxyZ0s2TlI4YkEuUUE=",
@@ -1385,18 +1447,20 @@
         "reset_time": 0,
         "last_check_time": 1787490229,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787564582
       },
       {
         "key": "ENC:d3FRaUZvcElBN0ZRSUVPd0NfclpDaVNUTDY3ZFF1NUt1bENqZEZ2c0hOaEo2TlI4YkEuUUE=",
         "email": "gamesvendn24@gmail.com",
         "project_id": "1",
         "type": "GEMINI API",
-        "status": "active",
-        "reset_time": 0,
-        "last_check_time": 1787490241,
-        "next_check_time": 0,
-        "error_msg": ""
+        "status": "exhausted",
+        "reset_time": 1787639463,
+        "last_check_time": 1787553063,
+        "next_check_time": 1787563863,
+        "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
+        "cooldown_until": 1787566954
       },
       {
         "key": "ENC:d0hxb1BxdXM0c0tIcmt0Uk5QblB4MUlTRkVEaDN0UnZocGluMGlVbkNUX0s2TlI4YkEuUUE=",
@@ -1405,9 +1469,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787490243,
+        "last_check_time": 1787563354,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "Batch rotation lock",
+        "cooldown_until": 1787566954
       },
       {
         "key": "ENC:Z0dxeVRjek03eDBwWVZSOElOYmhqQVJlcEk2dUR5cU1xWnVKckZpU0tnWUs2TlI4YkEuUUE=",
@@ -1418,7 +1483,8 @@
         "reset_time": 0,
         "last_check_time": 1787490249,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787566954
       },
       {
         "key": "ENC:d0hxcy1nRGlicmNkbmt4T1lCdXhwa2tjQ25nd1lwTnRBclc4Q2hQcGFPYUw2TlI4YkEuUUE=",
@@ -1429,7 +1495,8 @@
         "reset_time": 0,
         "last_check_time": 1787490254,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787566954
       },
       {
         "key": "ENC:QUMtS1gxTkNqcTRJVHlHSWdmUVEzcVNkZ2wxLW5ZN1hKQ1FWMU1TVUtfMEo2TlI4YkEuUUE=",
@@ -1440,7 +1507,8 @@
         "reset_time": 0,
         "last_check_time": 1787490263,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787566954
       },
       {
         "key": "ENC:QUo0T1FUSW85S3FRNzBOT3VoR2lkRXVRNjRpMDQ0RHYwVklVMXp4bUV0R0s2TlI4YkEuUUE=",
@@ -1451,7 +1519,8 @@
         "reset_time": 0,
         "last_check_time": 1787490268,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787566954
       },
       {
         "key": "ENC:ZzlWV0ZrMEpCSUxPTms2Ujk5TDR3bFFDLXQzdERpWEZORzNOTEw2MjVnOEw2TlI4YkEuUUE=",
@@ -1462,7 +1531,8 @@
         "reset_time": 0,
         "last_check_time": 1787490276,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787566954
       },
       {
         "key": "ENC:UXdMYlZDUFNweUhHRUtDQzVOTzR2MTVQeWd3MkpQMHRMX0JweFptQ09oYkk2TlI4YkEuUUE=",
@@ -1473,7 +1543,8 @@
         "reset_time": 0,
         "last_check_time": 1787490277,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787566954
       },
       {
         "key": "ENC:QWVLMkxVN216eGNmZFkwOXk4cHQ3Rnp3aHFYYmlWWmpMampoY1lYamk3eks2TlI4YkEuUUE=",
@@ -1484,18 +1555,20 @@
         "reset_time": 0,
         "last_check_time": 1787490289,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787566954
       },
       {
         "key": "ENC:d0xTazlDR2tXM190bllZOXRVVTZpM2pwZV9CR0VSeWhDX3dGdTJibXdYUEw2TlI4YkEuUUE=",
         "email": "gamesvendn25@gmail.com",
         "project_id": "1",
         "type": "GEMINI API",
-        "status": "active",
-        "reset_time": 0,
-        "last_check_time": 1787490296,
-        "next_check_time": 0,
-        "error_msg": ""
+        "status": "exhausted",
+        "reset_time": 1787639464,
+        "last_check_time": 1787553064,
+        "next_check_time": 1787563864,
+        "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
+        "cooldown_until": 1787564524
       },
       {
         "key": "ENC:UVAzQUtoZFo0cE5vNVBEREJpdTFKeFNXcXIxNGQ5TFJNNHhma1dQc1ZKcUw2TlI4YkEuUUE=",
@@ -1506,7 +1579,8 @@
         "reset_time": 0,
         "last_check_time": 1787490299,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787564524
       },
       {
         "key": "ENC:QTY2RUpfTmdNbmtqNG9yalJNTnFxOHVrVkxSRHZoeFdHNUt5VXNCcjJLZEs2TlI4YkEuUUE=",
@@ -1517,7 +1591,8 @@
         "reset_time": 0,
         "last_check_time": 1787490303,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787564524
       },
       {
         "key": "ENC:Z0FoVmFUd2F1a2EzeUV6YUM4WENqQXRPdklseWExZWRxc1BRUVlHUk4tbUs2TlI4YkEuUUE=",
@@ -1526,10 +1601,11 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787490315,
+        "last_check_time": 1787560924,
         "next_check_time": 0,
-        "error_msg": "",
-        "project_name": ""
+        "error_msg": "Batch rotation lock",
+        "project_name": "",
+        "cooldown_until": 1787564524
       },
       {
         "key": "ENC:dzc0TFA1eW8tbld4ZlVuM0pQdEZ5dlM5YXAxWWx3N05CWTRyZXdFWC1MUko2TlI4YkEuUUE=",
@@ -1540,7 +1616,8 @@
         "reset_time": 0,
         "last_check_time": 1787490320,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787564524
       },
       {
         "key": "ENC:Z0MtNVFDbEhzb2xBaVlGcmpsb3MxQmV4c05rTTF3ZmVRaGJfOFJrRjdyS0w2TlI4YkEuUUE=",
@@ -1551,7 +1628,8 @@
         "reset_time": 0,
         "last_check_time": 1787490326,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787564524
       },
       {
         "key": "ENC:dzg3dDZLWWVGRFNSTy1hNS0zSkx3TlVlVmNya2FHUWMyNVFqa2p1aTBzTEs2TlI4YkEuUUE=",
@@ -1562,7 +1640,8 @@
         "reset_time": 0,
         "last_check_time": 1787490335,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787564524
       },
       {
         "key": "ENC:d2lxVG52S01MRXlQN0JabzFPdXNyak9jOUtpc09sUHRvNmNnSk5RSm9jT0s2TlI4YkEuUUE=",
@@ -1573,7 +1652,8 @@
         "reset_time": 0,
         "last_check_time": 1787490342,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787564524
       },
       {
         "key": "ENC:Z3pkYVNCekxGNVUzVG9jNWJ3NXlGMUIwLTEzZzFHbnVWbDl1NjJkUnkzN0w2TlI4YkEuUUE=",
@@ -1584,18 +1664,20 @@
         "reset_time": 0,
         "last_check_time": 1787490347,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787564524
       },
       {
         "key": "ENC:UWZVNENYZjd4dmNVenlxTm0yS3NULWVKa0J2bWxPODlSNnE2WFNHYlNSVEk2TlI4YkEuUUE=",
         "email": "gamesvendn29@gmail.com",
         "project_id": "1",
         "type": "GEMINI API",
-        "status": "active",
-        "reset_time": 0,
-        "last_check_time": 1787490355,
-        "next_check_time": 0,
-        "error_msg": ""
+        "status": "exhausted",
+        "reset_time": 1787639479,
+        "last_check_time": 1787553079,
+        "next_check_time": 1787563879,
+        "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
+        "cooldown_until": 1787556679
       },
       {
         "key": "ENC:d1NLYkNnR241LTFDMS1ia1YxZ0ltX3lsS0tzSjFOMDlJSWoyUWhrQnJ1Wkw2TlI4YkEuUUE=",
@@ -1606,7 +1688,8 @@
         "reset_time": 0,
         "last_check_time": 1787490359,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787556679
       },
       {
         "key": "ENC:d3FKRllqaTZubUthN20tVFpKTUlVZC1CbGh2elF4Umlvakw2Y2gwUlFhbkw2TlI4YkEuUUE=",
@@ -1617,7 +1700,8 @@
         "reset_time": 0,
         "last_check_time": 1787490362,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787556679
       },
       {
         "key": "ENC:Z3lWcnFsUXM1M3pCOWQzemhuVkNINTVSSFJEYk1NOXJLdFdrYWo1YnFYdUk2TlI4YkEuUUE=",
@@ -1628,7 +1712,8 @@
         "reset_time": 0,
         "last_check_time": 1787490377,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787556679
       },
       {
         "key": "ENC:UWpqS1JtdzVUVUtVdEp4bWl5ZDNLS0VERU4tRVNJRkxoSmVyaEF4b3dDd0w2TlI4YkEuUUE=",
@@ -1639,7 +1724,8 @@
         "reset_time": 0,
         "last_check_time": 1787490383,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787556679
       },
       {
         "key": "ENC:QUswdnphNzFmZElKWWtUQzBTdlNNc3dHOXN4WFExejdyWFdqRlBFVHVaTUw2TlI4YkEuUUE=",
@@ -1650,7 +1736,8 @@
         "reset_time": 0,
         "last_check_time": 1787490385,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787556679
       },
       {
         "key": "ENC:Z3JIOTROZmVDa09IV01WUE9sVE1ZUkdqWWdiUFEwMEZvVGZQTVRHcTFOckw2TlI4YkEuUUE=",
@@ -1661,7 +1748,8 @@
         "reset_time": 0,
         "last_check_time": 1787490395,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787556679
       },
       {
         "key": "ENC:UXktUUFYUG94dW5fQ1dNRnBjY1NjeGNycVBxRW1OS253Vlg2b2dqLThiZ0o2TlI4YkEuUUE=",
@@ -1672,7 +1760,8 @@
         "reset_time": 0,
         "last_check_time": 1787490400,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787556679
       },
       {
         "key": "ENC:QTlKVUJjbnloaTFFeURXYnBDM0V5YjBhMUtEYjZQWjlvLWd2SU5SUkxKc0s2TlI4YkEuUUE=",
@@ -1683,18 +1772,20 @@
         "reset_time": 0,
         "last_check_time": 1787490404,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787556679
       },
       {
         "key": "ENC:Z0pRTV8tUVJQc2YzMERPYXhYNUNCdGhpT3BzcDVFcndNQlpZZ3FxWkRUd0o2TlI4YkEuUUE=",
         "email": "gamesvendn26@gmail.com",
         "project_id": "1",
         "type": "GEMINI API",
-        "status": "active",
-        "reset_time": 0,
-        "last_check_time": 1787490413,
-        "next_check_time": 0,
-        "error_msg": ""
+        "status": "exhausted",
+        "reset_time": 1787639469,
+        "last_check_time": 1787553069,
+        "next_check_time": 1787563869,
+        "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
+        "cooldown_until": 1787562382
       },
       {
         "key": "ENC:d01tWG1EVk5JUEVKTEhGbHJSa2kzSl95ZFdmQnBkampaa1JxVXZRWmF4UEs2TlI4YkEuUUE=",
@@ -1705,7 +1796,8 @@
         "reset_time": 0,
         "last_check_time": 1787490419,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787562382
       },
       {
         "key": "ENC:Z2ZtcUFZS3RfN0JnY2lrcTNIanltMjZtbExPZnBzYkNUbDJmb3V0MHFnRkw2TlI4YkEuUUE=",
@@ -1714,9 +1806,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787490424,
+        "last_check_time": 1787558782,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "Batch rotation lock",
+        "cooldown_until": 1787562382
       },
       {
         "key": "ENC:UVVhSWdJdHBaN1J1OWpBeDJMTjVnaXkxX2VKdDVvUnR2LXF6TWl3QTN3T0w2TlI4YkEuUUE=",
@@ -1727,7 +1820,8 @@
         "reset_time": 0,
         "last_check_time": 1787490430,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787562382
       },
       {
         "key": "ENC:d0h6SVNucVdwOTNTMTZVWHFzQVl6SlpzYUpZbEVpVm9iLVFWUXdFZnlBR0w2TlI4YkEuUUE=",
@@ -1738,7 +1832,8 @@
         "reset_time": 0,
         "last_check_time": 1787490439,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787562382
       },
       {
         "key": "ENC:QVRWYmhvSXN3NGxfYWpuMHNoM1ltdHh4b0g2VmUtS1MwLUhqRmZybGNVN0o2TlI4YkEuUUE=",
@@ -1749,7 +1844,8 @@
         "reset_time": 0,
         "last_check_time": 1787490449,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787562382
       },
       {
         "key": "ENC:UWNKM3l3VFRwTVBHdDhFS2E3UGxVMlRXUGVjV010MEVrR2tRNG1TTllaV0k2TlI4YkEuUUE=",
@@ -1760,7 +1856,8 @@
         "reset_time": 0,
         "last_check_time": 1787490452,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787562382
       },
       {
         "key": "ENC:QWwxSFg1UGV1TGlmeFk1bDlQUHdpR2dBbzRpelNxZkNyVFE2d2tJN2l2X0o2TlI4YkEuUUE=",
@@ -1771,7 +1868,8 @@
         "reset_time": 0,
         "last_check_time": 1787490457,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787562382
       },
       {
         "key": "ENC:d3M4QUt0RWg4bGdPMkwxTElzcTRFdlR0aGh5QjIwdndXbDFDelEyUjYzNEo2TlI4YkEuUUE=",
@@ -1782,15 +1880,16 @@
         "reset_time": 0,
         "last_check_time": 1787490466,
         "next_check_time": 0,
-        "error_msg": ""
+        "error_msg": "",
+        "cooldown_until": 1787562382
       }
     ],
     "last_roadmap": "C:/Users/games/Desktop/Project/Python/Python MyWork/Project1/GravityCode/Download/AskCpl/PythonRoadMapFull.md",
     "last_doc_dir": "C:/Users/games/Desktop/Project/Python/Python MyWork/Project1/GravityCode/Download/AskCpl",
     "last_out_dir": "D:/Roadmappython",
     "roadmap_generator": {
-      "gen_mode": "wiki",
-      "domain": "Thiên công khai vật sinh tồn sau tận thế khôi phục nền văn minh",
+      "gen_mode": "learning",
+      "domain": "Học toàn bộ về access đặc biệt là tính năng VBA, VBA đến nâng cao có thể làm hầu như mọi điều trên access như kết nối thiết bị qua các cổng com, API, APP quản lý.....",
       "time_per_day": "1 tiếng",
       "days": "Auto",
       "context": "",
@@ -1803,10 +1902,9 @@
       "req_sim_check": 0,
       "req_sim_ratio": "96",
       "reference_files": [
-        "C:/Users/games/Desktop/Project/Python/Python MyWork/Project1/GravityCode/Download/AskCpl/.agents/skills/generate_roadmap/SKILL.md",
-        "C:/Users/games/Desktop/Project/Python/Python MyWork/Project1/GravityCode/Download/AskCpl/roadmap_python_3000.md"
+        "C:/Users/12953 bao/Desktop/desktop/work/Project/Python/BasicLearnPython/W3schools/Python Tutorial/GravityCode/Download/AskCpl/.agents/skills/generate_roadmap/SKILL.md"
       ],
-      "save_dir": "",
+      "save_dir": "C:/Users/12953 bao/Desktop",
       "expand_mode": "llm"
     },
     "enable_followup": true,
