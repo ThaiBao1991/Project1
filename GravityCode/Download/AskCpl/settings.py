@@ -49,7 +49,14 @@ DEFAULT_SETTINGS = {
             "expand_mode": "llm"
         },
         "enable_followup": True,
-        "max_followup": 3
+        "max_followup": 3,
+        "model_priority": [
+            {"name": "gemini-3.5-flash",        "enabled": True,  "tier": "S", "note": "Mạnh nhất — Gemini 3.5",       "latency_ms": 0},
+            {"name": "gemini-3-flash-preview",  "enabled": True,  "tier": "A", "note": "Rất tốt — Gemini 3 Preview",   "latency_ms": 0},
+            {"name": "gemini-flash-latest",     "enabled": True,  "tier": "A", "note": "Ổn định — Flash Latest",       "latency_ms": 0},
+            {"name": "gemini-3.1-flash-lite",   "enabled": True,  "tier": "B", "note": "Nhẹ & Nhanh — Gemini 3.1 Lite","latency_ms": 0},
+            {"name": "gemini-flash-lite-latest","enabled": True,  "tier": "B", "note": "Dự phòng — Flash Lite Latest", "latency_ms": 0}
+        ]
     }
 }
 
@@ -166,3 +173,30 @@ def update_gemini_settings(**kwargs):
         s["gemini"] = dict(DEFAULT_SETTINGS["gemini"])
     s["gemini"].update(kwargs)
     save_settings(s)
+
+
+# ─────────────────────────────────────────────────────────────
+# Helper: lấy danh sách model đang enabled theo thứ tự ưu tiên
+# ─────────────────────────────────────────────────────────────
+_DEFAULT_MODEL_FALLBACKS = [
+    "gemini-3.5-flash",
+    "gemini-3-flash-preview",
+    "gemini-flash-latest",
+    "gemini-3.1-flash-lite",
+    "gemini-flash-lite-latest",
+]
+
+def get_active_model_list() -> list:
+    """Trả về list tên model đang enabled theo thứ tự ưu tiên từ settings.json.
+    
+    Backward-compatible: nếu settings chưa có 'model_priority', trả về list mặc định cứng.
+    """
+    try:
+        s = load_settings()
+        priority = s.get("gemini", {}).get("model_priority", [])
+        if not priority:
+            return list(_DEFAULT_MODEL_FALLBACKS)
+        enabled = [m["name"] for m in priority if m.get("enabled", True) and m.get("name")]
+        return enabled if enabled else list(_DEFAULT_MODEL_FALLBACKS)
+    except Exception:
+        return list(_DEFAULT_MODEL_FALLBACKS)

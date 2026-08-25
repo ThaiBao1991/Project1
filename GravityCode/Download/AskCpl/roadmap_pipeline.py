@@ -258,7 +258,7 @@ def verify_markdown(markdown: str, expected_days: int) -> None:
 def atomic_write(path: str | Path, content: str) -> None:
     target = Path(path)
     target.parent.mkdir(parents=True, exist_ok=True)
-    fd, temporary = tempfile.mkstemp(prefix=f".{target.name}.", suffix=".tmp", dir=target.parent, text=True)
+    fd, temporary = tempfile.mkstemp(prefix=".tmp_part_", suffix=".tmp", dir=target.parent, text=True)
     try:
         with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as handle:
             handle.write(content)

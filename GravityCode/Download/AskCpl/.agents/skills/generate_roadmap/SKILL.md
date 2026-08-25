@@ -323,3 +323,87 @@ graph TD
   - Bộ bài tập thực hành & flashcard tương tác trên giao diện Tkinter/Web.
 
 
+
+---
+
+## 12. Roadmap Generator V5 — Kiến thức Nâng cao Tích lũy (AskCpl.py Pipeline)
+
+### 12.1 Cấu trúc File Checkpoint — `.skeleton.json` vs `.progress.json`
+
+Hai kiểu file checkpoint có cấu trúc KHÁC NHAU hoàn toàn:
+
+| Trường | `.progress.json` (đang sinh dở) | `.skeleton.json` (hoàn tất Bước 1) |
+|---|---|---|
+| `domain` + `target` | ✅ Có | ❌ Không có |
+| `phase_map` | ✅ Có (đầy đủ `phases` array) | ❌ **Không có** |
+| `skeleton` | ✅ Có | ✅ Có (600 Day đầy đủ) |
+| `domain_profile` + `coverage` | ❌ | ✅ Có |
+
+**Hệ quả quan trọng:** Khi nạp `.skeleton.json`, phải tự tái tạo `phase_map` từ trường `phase` trong mỗi Day, nếu không `phase_map` sẽ là `{}` (falsy) → Step 1 bỏ qua checkpoint và chạy lại PASS 0 từ đầu — **mất toàn bộ 600 Day đã có!**
+
+```python
+phase_order, phase_counts = [], {}
+for d in skeleton:
+    p = d.get("phase", "Chung")
+    if p not in phase_counts:
+        phase_order.append(p); phase_counts[p] = 0
+    phase_counts[p] += 1
+phases = [{"id": f"phase_{i}", "name": p, "days": phase_counts[p], "goal": f"Làm chủ {p}"}
+          for i, p in enumerate(phase_order, 1)]
+phase_map = {"domain_profile": data.get("domain_profile", {}), "coverage": [...], "phases": phases}
+```
+
+---
+
+### 12.2 Luồng PASS 1C + 1D — Bảo trì Tự động Khi Chạy Lại Bước 1
+
+Khi Bước 1 phát hiện checkpoint đã đủ số Day (`len(all_days) >= target`), thay vì tái sinh, nó chạy 2 PASS bảo trì:
+
+**PASS 1C — Sửa Day Trùng Tại Chỗ:**
+- Quét tất cả cặp Day bằng `SequenceMatcher`, tìm similarity ≥ `sim_threshold` (mặc định 96%).
+- Gọi AI sinh topic mới hoàn toàn khác, thay thế ngay tại vị trí trong `all_days`.
+- Chạy tối đa 4 vòng lặp đến khi không còn Day trùng.
+
+**PASS 1D — Dọn Prerequisites Lỗi (sau PASS 1C):**
+- Sau khi PASS 1C thay topic mới, `topic_id` cũ biến mất → các Day khác có thể còn `prerequisites` trỏ đến `topic_id` cũ.
+- Xây tập hợp `valid_topic_ids` từ tất cả Day hiện tại, xóa bất kỳ prerequisite nào không thuộc tập này.
+- **Đây là bước bắt buộc** trước `validate_plan` — nếu thiếu sẽ gây lỗi "Day X tham chiếu prerequisite chưa tồn tại".
+
+---
+
+### 12.3 Phân Biệt Lỗi Rate Limit API (429 QUOTA_RATE vs QUOTA_DAILY)
+
+| Loại | Dấu hiệu | Ý nghĩa | Hành động đúng |
+|---|---|---|---|
+| `QUOTA_RATE` | 429 + "rate limit" / "RPM exceeded" | Quá RPM/TPM phút này — key vẫn còn quota ngày | Chờ 60s, **KHÔNG mark key exhausted** |
+| `QUOTA_DAILY` | 429 + "quota" / "1500 per day" | Hết quota ngày | Mark key `exhausted`, chuyển key khác |
+| 503 | "currently experiencing high demand" | Server quá tải tạm thời — key vẫn OK | Thử model fallback, KHÔNG đổi key status |
+
+**Chống cháy Key hàng loạt:** Nếu 3 account liên tiếp đều hit 429/503 → ngủ 15s cho Google giải tỏa traffic, không tiếp tục burn key vô ích (`MAX_ACCOUNT_ATTEMPTS = 3`).
+
+---
+
+### 12.4 PASS 0 — Ma Trận 4D Khám Phá Tri Thức Toàn Diện
+
+PASS 0 phải khám phá 4 chiều để không bỏ sót nội dung:
+
+1. **Nguyên lý Lõi** — Core principles, quy tắc nền tảng, lý thuyết căn bản
+2. **Danh mục Chi tiết / Sub-genre Catalogue** — Liệt kê đầy đủ tất cả thể loại con (Tiếng Nhật: 2,136 Kanji N1-N5, Keigo, Pitch Accent; Nấu ăn: pha lóc thịt, dao kéo, từng loại nguyên liệu)
+3. **Kho Tác phẩm Thực tế / Concrete Repertoire** — Món ăn thực tế, bài hát thực tế, project thực tế, bài toán thực từ nghề
+4. **Sắc thái Chuyên sâu & Mẹo Nghề** — Edge cases, master tricks, bẫy thường gặp của người chuyên nghiệp
+
+Nếu thiếu chiều 2 + 3, roadmap học lý thuyết mà không biết thực hành gì — tương đương học nấu ăn không biết nấu món nào.
+
+---
+
+### 12.5 Kiểm tra Trùng Lặp Realtime Trong PASS 1B
+
+Khi sinh batch Day, kiểm tra trùng ngay lập tức — không đợi validate sau:
+```python
+for new_item in batch_result:
+    t_new = new_item.get("topic", "").strip().lower()
+    for prev_day in all_days:
+        if SequenceMatcher(None, t_new, prev_day.get("topic","").strip().lower()).ratio() >= sim_threshold:
+            # Reject batch, retry với danh sách 40 tiêu đề cấm gần nhất trong prompt
+            break
+```

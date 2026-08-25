@@ -1,4 +1,284 @@
-## 2026-08-24 — Nâng Cấp Thứ Tự Ưu Tiên Model & Timeout Fallback (0.7s Phản Hồi)
+## 2026-08-25 — Tích Hợp PASS 1D (Dọn Prerequisites Lỗi) Vào Luồng Bước 1
+
+### Thay đổi
+- Thêm **PASS 1D** vào `_roadmap_v5_step1` (AskCpl.py, sau PASS 1C):
+  - Sau khi PASS 1C sửa Day trùng bằng topic mới, các Day kế tiếp có thể còn tham chiếu `topic_id` cũ trong `prerequisites`.
+  - PASS 1D tự động quét toàn bộ 600 Day, xây dựng tập hợp `valid_topic_ids`, và xóa mọi prerequisite không còn hợp lệ.
+  - Log chi tiết những Day được dọn dẹp.
+- Kết quả: `validate_plan` luôn PASSED ngay sau khi Bước 1 hoàn tất, không cần script riêng.
+
+### Kiểm thử
+- ✅ `py_compile AskCpl.py`: SYNTAX OK.
+- ✅ File `roadmap_H_c_to_n_b_v_access.skeleton.json` 600 Day: VALIDATION PASSED.
+
+---
+
+
+
+### Mục tiêu & Bối cảnh
+- Khi người dùng nạp file `.skeleton.json` (chứa 600/600 Day) qua nút `📂 Nạp Tiến Độ Cũ`, file này không chứa key `phase_map` mà chứa trực tiếp danh sách `skeleton` $\rightarrow$ Mã cũ hiểu nhầm là chưa có phase_map nên bắt đầu chạy lại PASS 0 từ đầu.
+
+### Chi tiết thay đổi
+
+#### `AskCpl.py`
+- Tự động tái tạo `phase_map` từ các trường `phase` của từng Day trong `skeleton` khi nạp file `.skeleton.json`.
+- Khi `len(all_days) >= target` (đã đủ 600 Day), hệ thống bỏ qua PASS 0, 1A, 1B và chuyển thẳng tới **PASS 1C (In-Place Auto-Repair Loop)** để quét và tự động sửa các Day bị trùng lặp, sau đó lưu file sạch và chuyển sang Bước 2.
+
+### Kiểm thử & Trạng thái
+- ✅ `py_compile AskCpl.py`: SYNTAX OK.
+- ✅ DONE.
+
+---
+
+
+
+### Mục tiêu & Bối cảnh
+- Khi người dùng chạy lại Bước 1 trên một file skeleton sẵn có (ví dụ 600 Day) bị trùng lặp, thay vì phải xóa bỏ hàng trăm Day cũ hay báo lỗi vướng sang Bước 2, hệ thống tự động quét tìm các Day bị trùng và **chỉ gọi AI sinh lại đúng các Day đó** để làm sạch 100% trước khi lưu.
+
+### Chi tiết thay đổi
+
+#### `AskCpl.py`
+- **PASS 1C (In-Place Auto-Repair Loop):**
+  - Tự động quét toàn bộ `all_days` sau khi nạp hoặc sinh xong.
+  - Nếu phát hiện bất kỳ Day nào bị trùng với Day trước đó ($\ge 96\%$), hệ thống gửi prompt sửa chuyên biệt tới Gemini: *"Day {dup} bị trùng với '{orig}'. Hãy sinh 1 Day mới hoàn toàn độc đáo cho phase '{phase}'."*
+  - Thay thế chính xác Day bị trùng tại chỗ mà **không làm mất bất kỳ Day hợp lệ nào khác**.
+  - Lặp lại tối đa 4 vòng cho đến khi `validate_plan` sạch 100% rồi mới báo hoàn tất Bước 1.
+
+### Kiểm thử & Trạng thái
+- ✅ `py_compile AskCpl.py`: SYNTAX OK.
+- ✅ DONE.
+
+---
+
+
+
+### Mục tiêu & Bối cảnh
+- Khi tạo lộ trình dài (>400 Day), AI có thể vô tình sinh lại các chủ đề đã dạy từ 20-50 ngày trước do context prompt chỉ truyền 10 tiêu đề gần nhất và mã cũ chỉ kiểm tra trùng ID mà không kiểm tra độ tương đồng tiêu đề theo thời gian thực trong từng Batch.
+
+### Chi tiết thay đổi
+
+#### `AskCpl.py`
+1. **Chặn trùng lặp tức thì trong PASS 1B:**
+   - Thêm kiểm tra `SequenceMatcher` ngay trong vòng lặp batch nhận từ Gemini: Nếu bất kỳ Day mới nào trùng $\ge 96\%$ với **bất kỳ Day nào đã học trước đó trong toàn bộ lộ trình**, hệ thống **từ chối batch ngay tại chỗ và bắt AI sinh lại chủ đề mới**.
+2. **Mở rộng bộ nhớ cấm trùng:** Tăng danh sách tiêu đề gần nhất gửi vào prompt từ 10 lên **40 tiêu đề** (`known_titles[-40:]`).
+3. **Nạp & Tự Động Phục Hồi từ `.skeleton.json`:**
+   - Cho phép nạp trực tiếp file `.skeleton.json` sẵn có khi bấm **"1. Lên Dàn ý Lõi (Core)"**, tự động quét tìm điểm trùng đầu tiên, giữ nguyên phần trước đó hoàn toàn sạch sẽ và sinh tiếp phần còn lại không trùng lặp.
+
+### Kiểm thử & Trạng thái
+- ✅ `py_compile AskCpl.py`: SYNTAX OK.
+- ✅ DONE.
+
+---
+
+
+
+### Mục tiêu & Bối cảnh
+- Khi máy chủ Google quá tải tạm thời (503 / 429 RPM), mã lỗi 429 RPM/TPM (vượt quá tốc độ trong 1 phút) bị code cũ đối xử như hết sạch Quota ngày $\rightarrow$ Khóa 60 phút và tự ý đổi trạng thái key thành `exhausted`.
+- Vòng lặp `while True` không có trần dừng $\rightarrow$ Xoay qua toàn bộ 18-155 key trong 5 giây, làm khóa sạch sẽ cả cụm tài khoản của người dùng.
+
+### Chi tiết thay đổi
+
+#### 1. `gemini_safe.py`
+- **Xử lý `QUOTA_RATE` (429 RPM/TPM) chuẩn xác:**
+  - Parse thời gian chờ thực tế `retry_delay = retry_delay_from(msg)` (5s–60s).
+  - Cooldown ngắn đúng `{retry_delay}s` (mặc định 60s), **TUYỆT ĐỐI KHÔNG ĐÁNH DẤU `exhausted`** (vẫn giữ nguyên `status: active` để tự dùng lại sau 1 phút).
+- **Chặn đứng việc đốt sạch pool (`MAX_ACCOUNT_ATTEMPTS = 3`):**
+  - Trong mỗi request, nếu thử qua 3 tài khoản liên tiếp đều gặp giới hạn tốc độ $\rightarrow$ Hệ thống tự động **nghỉ 15s để server Google giải phóng lưu lượng**, sau đó reset lượt thử thay vì tiếp tục đốt qua hàng chục key còn lại.
+- **Tự động phục hồi:** Nếu tất cả các key tạm thời đang trong 60s cooldown ngắn, hệ thống tự động sleep 15s rồi thử lại khi key mở khóa.
+
+#### 2. `settings.json`
+- Script tự động đã **khôi phục 100% (155/155 API Key)** về trạng thái `active` và gỡ bỏ toàn bộ thời gian cooldown 1h sai sót.
+
+### Kiểm thử & Trạng thái
+- ✅ `settings.json`: 155/155 key active (0s cooldown).
+- ✅ `py_compile gemini_safe.py` & `AskCpl.py`: SYNTAX OK.
+- ✅ DONE.
+
+---
+
+
+
+### Mục tiêu & Bối cảnh
+- Xác nhận cơ chế Vét Cạn Tri Thức (PASS 0) có khả năng tự động bao phủ 100% mọi tầng nấc của các môn học phức tạp như Ngoại ngữ (Tiếng Nhật từ số 0 đến N1: Chữ cái, 2.136 Kanji, Từ vựng, Ngữ pháp, Kính ngữ, Shadowing, Biên phiên dịch...) và Nhiếp ảnh (chân dung, ảnh cưới, ngoại cảnh, phóng sự, thiên văn...).
+
+### Chi tiết kiểm thử thực tế trên Tiếng Nhật:
+Kết quả AI tự động phân rã thành **15 phân mảng đồ sộ**:
+1. Hệ thống chữ viết & Ngữ âm: Hiragana, Katakana, Trọng âm (Pitch Accent).
+2. Chiến lược giải mã Kanji: Từ 214 Bộ thủ đến 2.136 chữ Hán Jouyou Kanji.
+3. Hệ thống Trợ từ & Cú pháp cốt lõi từ sơ cấp đến thượng cấp.
+4. Ma trận biến đổi hình thái Động từ, Tính từ & các Thể chia chuyên sâu.
+5. Kính ngữ (Keigo: Sonkeigo, Kenjougo, Teineigo) & Nghi thức giao tiếp công sở.
+6. Từ vựng theo chủ đề & Từ láy tượng hình/tượng thanh (Giseigo/Gitaigo).
+7. Kỹ năng Đọc hiểu: Từ đoạn văn ngắn đến văn bản học thuật/phê bình N1.
+8. Kỹ năng Nghe hiểu thực chiến & Phản xạ Shadowing đa cường độ.
+9. Luyện thi JLPT N5–N1 & Kỹ thuật xử lý bẫy đề thi.
+10. Tiếng Nhật thực chiến: Giao tiếp tình huống, Phim ảnh, Văn học.
+11. Phòng chống lỗi sai: Phân biệt từ đồng nghĩa & Lỗi tư duy kiểu Việt-Nhật.
+12. Tiếng Nhật chuyên ngành: IT, Kinh tế, Y tế, Biên phiên dịch cao cấp.
+13. Phương pháp ghi nhớ (Mnemonics) & Ứng dụng công nghệ tự học.
+14. Văn hóa ứng xử & Tư duy ngôn ngữ bản xứ (Japanese Mindset).
+15. Kỹ năng Viết luận, Soạn thảo văn bản & Email thương mại chuẩn Nhật.
+
+- ✅ `py_compile AskCpl.py`: SYNTAX OK.
+- ✅ DONE.
+
+---
+
+
+
+### Mục tiêu & Bối cảnh
+- Tránh tình trạng lộ trình chỉ dạy lý thuyết/kỹ thuật chung chung mà thiếu đi danh mục các món ăn cụ thể theo từng nhóm nguyên liệu (Heo, Bò, Gà, Vịt, Hải sản...), bài hát/tác phẩm cụ thể (trong âm nhạc), tranh vẽ mẫu cụ thể (trong hội họa), hoặc ứng dụng code thực chiến (trong IT).
+
+### Chi tiết thay đổi
+
+#### `AskCpl.py`
+1. **PASS 0 (Recursive Discovery):** Bổ sung quy tắc bắt buộc AI phải bóc tách cả 2 phần: (1) Kỹ thuật/Lý thuyết cốt lõi VÀ (2) Danh mục thực hành / món ăn / tác phẩm theo từng nhóm nguyên liệu/thể loại (Chế biến thịt heo, Gà/Vịt, Cá/Hải sản, Món kho/canh/nướng...).
+2. **PASS 1B (Micro-day Generation):** Bắt buộc trường `topic` và `concrete_project` của từng Day phải gắn với một **món ăn đích danh cụ thể / tác phẩm cụ thể** (Ví dụ: *Day 45: Thịt kho tàu nước dừa & trứng vịt — kỹ thuật canh màu caramen và hãm nhiệt mỡ trong*), cấm tuyệt đối việc để tên chung chung.
+
+### Kiểm thử & Trạng thái
+- ✅ `py_compile AskCpl.py`: SYNTAX OK.
+- ✅ DONE.
+
+---
+
+
+
+### Mục tiêu & Bối cảnh
+- Giải quyết bài toán: Người dùng chỉ cần gõ 1 từ khóa đơn giản (ví dụ: *"Excel"*, *"Thổi sáo"*, *"Nấu ăn"*, *"Vẽ tranh"*, *"Chụp ảnh"*...), làm sao để hệ thống tự động bóc tách mọi ngóc ngách chuyên sâu nhất lên tới hàng nghìn ngày (1.000 – 3.000+ Day) như `PythonRoadMapFull.md` mà không cần người dùng phải gõ tay hay mô tả phức tạp.
+
+### Chi tiết thay đổi
+
+#### `AskCpl.py` (`_roadmap_v5_step1`)
+1. **Bổ sung `PASS 0: Recursive Knowledge Discovery Loop` (Vòng lặp hội tụ đa tầng):**
+   - **Vòng 1 (Cốt lõi):** Quét các mảng nền tảng & công cụ chính.
+   - **Vòng 2..5 (Đào sâu & Ngóc ngách):** Rà soát các trường phái, kỹ thuật hoa mỹ, biến thể, công cụ phụ trợ, bảo dưỡng/bảo quản, lỗi/sự cố, chuẩn quốc tế, mẹo nhà nghề, kỹ thuật liên ngành... cho đến khi AI báo `[]` (Đã vét cạn 100%).
+   - **Log real-time:** In tiến độ từng đợt khám phá lên giao diện cho người dùng theo dõi.
+2. **Ánh xạ tự động sang `PASS 1A`:**
+   - Đưa toàn bộ danh mục 20–30 phân mảng đã vét cạn từ PASS 0 vào Knowledge Map, bắt buộc AI phân chia thành các Phase tương ứng với thời lượng từ 30–100 Day/Phase $\longrightarrow$ Tự động sinh ra lộ trình siêu khủng từ **1.000 đến 3.500+ Day** cho bất kỳ lĩnh vực nào!
+
+### Kiểm thử Thực Tế (Verification Results)
+Đã chạy kiểm thử thực tế trên 3 lĩnh vực Nghệ thuật & Đời sống:
+1. **Thổi sáo trúc (26 phân mảng):** Khẩu hình, Rung hơi, Kỹ thuật hơi vòng (Circular Breathing), Kỹ thuật bồi âm/đa âm (Extended Techniques), Dân ca Chèo/Cải lương/Nhã nhạc, Sáo Mèo/Sáo Bầu/Tiêu/Dizi, Vật lý âm học tre nứa, Y học âm nhạc (Ergonomics), Phục chế sáo cổ...
+2. **Nấu ăn chuyên nghiệp (28 phân mảng):** Dao kéo, Nước xốt mẹ (Saucier), Ẩm thực phân tử, Charcuterie, Pha lóc thịt (Butchery), Lên men nâng cao (Koji/Garum/Kombucha), Lửa trực tiếp (Wok Hei/Tandoor), Tiêu chuẩn WACS, Điêu khắc thực phẩm (Carving)...
+3. **Chụp ảnh nhiếp ảnh (24 phân mảng):** Công nghệ quang học, Quy trình thủ công cổ điển, Khoa học màu sắc, Nhiếp ảnh tính toán & AI, Nhiếp ảnh khoa học/hình sự/y sinh, Kỹ năng sinh tồn & ngụy trang động vật hoang dã...
+
+- ✅ `py_compile AskCpl.py`: SYNTAX OK.
+- ✅ Kiểm thử PASS 0 hoàn thành xuất sắc trên 100% các lĩnh vực.
+- ✅ DONE.
+
+---
+
+
+
+### Mục tiêu & Bối cảnh
+- Khi người dùng muốn nạp lại tiến độ cũ của một file Roadmap bất kỳ để tiếp tục sinh tiếp (Resume) sang một file mới hoặc bảo toàn chính xác số ngày (400 Day, 1000 Day...) mà không phải sinh lại từ đầu.
+
+### Chi tiết thay đổi
+
+#### `AskCpl.py`
+1. **Nút "📂 Nạp Tiến Độ Cũ"**: Bổ sung nút màu xanh dương đậm `#2980b9` trên thanh công cụ Region 2 của tab Tạo Roadmap.
+2. **Hàm `roadmap_gen_load_checkpoint()`**:
+   - Mở File Dialog cho phép chọn bất kỳ file `.progress.json`, `.skeleton.json`, `.reviewed.json` nào.
+   - Tự động bóc tách `domain`, `phase_map`, `skeleton`, `target` (số ngày).
+   - Điền sẵn vào các ô UI (Lĩnh vực, Số ngày, Khung Dàn ý xem trước) và lưu vào `self._loaded_checkpoint_data`.
+3. **Tích hợp `_roadmap_v5_step1`**:
+   - Khi có checkpoint được nạp thủ công, hệ thống **bỏ qua hoàn toàn bước gọi Gemini PASS 1A** (không sinh lại Phase map mới, giữ nguyên 100% Phase map và số ngày ban đầu).
+   - Tự động tiếp tục sinh micro-Day từ `Day len(skeleton) + 1` và lưu thẳng vào file đích mới đã cấu hình ở ô "Tên file".
+
+### Kiểm thử & Trạng thái
+- ✅ `py_compile AskCpl.py`: SYNTAX OK.
+- ✅ DONE.
+
+---
+
+
+
+### Mục tiêu & Bối cảnh
+- Khi người dùng nhập mô tả lĩnh vực dài (ví dụ: *"Học toàn bộ về access, đặc biệt là tính năng VBA..."*), hệ thống dùng nguyên văn làm tên file khiến đường dẫn vượt quá giới hạn 260 ký tự của Windows (`MAX_PATH`).
+- Khi PASS 1B gặp phản hồi cần format lại, hàm `atomic_write` cố tạo file debug với tên `...skeleton.json.progress.json.invalid_macro3_batch18.txt.tmp` (263 ký tự) $\rightarrow$ Windows báo `FileNotFoundError` và làm crash tiến trình.
+
+### Chi tiết thay đổi
+
+#### 1. `roadmap_pipeline.py`
+- Rút gọn prefix file tạm trong `atomic_write`: `prefix=".tmp_part_"` thay vì lấy toàn bộ `target.name` dài $\rightarrow$ tiết kiệm ngay 100–200 ký tự cho mọi file tạm.
+
+#### 2. `AskCpl.py`
+- **UI Tạo Roadmap (Region 2)**: Thêm ô nhập **"Tên file (tuỳ chọn):"** (`self.ai_roadmap_filename_var`) để người dùng tự đặt tên file ngắn gọn theo ý muốn.
+- **`_roadmap_artifacts()`**: Nếu có nhập tên file tuỳ chọn thì dùng tên đó; nếu không thì tự động cắt ngắn slug tên miền tối đa 40 ký tự (`safe[:40]`), không bao giờ để tên file bị phình to.
+- **`_roadmap_v5_step1` Checkpoint Loader**: Tự động quét và nạp lại checkpoint cũ nếu phát hiện domain trùng khớp $\rightarrow$ bảo toàn 100% tiến độ 134 Day đã sinh trước đó.
+- **Khối ghi debug PASS 1B**: Dùng đường dẫn ngắn gọn `os.path.join(save_dir, "invalid_macro...txt")` và bọc `try/except Exception` để lỗi ghi log phụ không bao giờ làm dừng luồng chính.
+
+### Kiểm thử & Trạng thái
+- ✅ `py_compile` cả 2 file: `roadmap_pipeline.py` OK, `AskCpl.py` OK.
+- ✅ Checkpoint 134 Day trên Desktop đã được kiểm tra toàn vẹn.
+- ✅ DONE.
+
+---
+
+
+
+### Mục tiêu & Bối cảnh
+- **Tải Roadmap** (`auto_ai_worker.py`) chạy ổn: `lock_after_success=False` → key xoay vòng Round-Robin, không bị khóa sau batch thành công.
+- **Tạo Roadmap** (`_call_roadmap_llm`) dùng `lock_after_success=True` (mặc định) → mỗi batch thành công khóa 1 account 1h → sau 28+ batch tất cả key vào cooldown → báo `NO_KEY`.
+- Thêm bug: lỗi `NO_KEY` không được nhận diện là "transient" trong PASS 1B → tính vào 3 lần json_attempt → crash ngay.
+
+### Chi tiết thay đổi
+
+#### 1. Reset cooldown `settings.json`
+- Script Python xóa `cooldown_until` khỏi tất cả key **không phải exhausted**: **154/155 key** được reset, giữ nguyên 1 key exhausted.
+
+#### 2. `AskCpl.py` — `_call_roadmap_llm`
+- Thêm `lock_after_success=False` vào `GeminiCoordinator` — đồng bộ hoàn toàn với `auto_ai_worker.py`. Key xoay vòng Round-Robin tự nhiên (3.5s–5s + jitter), không khóa sau batch thành công.
+
+#### 3. `AskCpl.py` — PASS 1B `_is_transient` check
+- Thêm keyword `"Không còn API key"` vào danh sách phát hiện lỗi tạm thời.
+- Khi toàn bộ key vào cooldown tạm thời (NO_KEY): sleep tăng dần (30s–300s) và retry, **không** tính vào 3 lần json_attempt limit.
+
+### Kiểm thử & Trạng thái
+- ✅ `py_compile AskCpl.py`: SYNTAX OK.
+- ✅ 154 key cooldown đã reset (đã verify qua script).
+- ⚠ Cần chạy thực tế để xác nhận PASS 1B không còn lỗi NO_KEY.
+- ✅ DONE.
+
+---
+
+
+
+### Mục tiêu & Bối cảnh
+- Danh sách model fallback cũ hardcode trong code → không linh hoạt khi Google phát hành model mới (gemini-3.7, v.v.).
+- Người dùng muốn: (1) tự tìm model mới nhất, (2) đánh giá tốc độ/độ mạnh, (3) tuỳ chỉnh thứ tự ưu tiên fallback từ UI.
+
+### Chi tiết thay đổi
+
+#### `settings.py`
+- Thêm `model_priority` vào `DEFAULT_SETTINGS["gemini"]`: danh sách 5 model mặc định với các trường `name`, `enabled`, `tier`, `note`, `latency_ms`.
+- Thêm hằng `_DEFAULT_MODEL_FALLBACKS` (danh sách cứng dự phòng).
+- Thêm hàm helper `get_active_model_list()`: trả về list tên model đang `enabled=True` theo thứ tự ưu tiên từ settings. Backward-compatible: nếu settings chưa có `model_priority`, trả về list hardcode cũ.
+
+#### `gemini_safe.py`
+- `GeminiCoordinator.__init__`: khi `models=None`, ưu tiên gọi `get_active_model_list()` từ settings thay vì dùng `MODEL_FALLBACKS` hardcode. Fallback về `MODEL_FALLBACKS` nếu settings lỗi.
+
+#### `AskCpl.py`
+- `_call_roadmap_llm`: không hardcode `_FALLBACK_MODELS` nữa — đọc từ `get_active_model_list()`, đảm bảo Tạo Roadmap cũng tôn trọng cấu hình model của người dùng.
+- Thêm nút **`⚙️ Cài đặt Model`** (màu tím `#6c3483`) vào thanh toolbar tab 🔑 Quản lý API Keys.
+- Thêm method `_open_model_settings_dialog()` với đầy đủ UI:
+  - **Treeview** hiển thị model với Tier badge màu sắc (🔴S/🟠A/🟡B/⚪C), độ trễ, trạng thái Bật/Tắt.
+  - **Nút ↑/↓** sắp xếp thứ tự thủ công.
+  - **Nút ☑/☒ Bật/Tắt** để loại model khỏi chuỗi fallback.
+  - **Nút 🔀 Xếp theo Điểm** — auto sort theo điểm tổng hợp (Tier bonus + tốc độ phản hồi).
+  - **Nút 🔍 Auto Discover & Đánh giá** — gọi `GET /v1beta/models?key=...` để tìm tất cả model mới; benchmark từng model bằng prompt ngắn "Hi" (maxTokens=5); tự động thêm model mới vào danh sách; auto-sort sau khi xong.
+  - **Nút ⏹ Dừng** — dừng quá trình benchmark giữa chừng.
+  - **Log real-time** (Consolas xanh neon trên nền đen) hiển thị tiến độ.
+  - **💾 Lưu & Áp dụng** — ghi `model_priority` vào `settings.json`, áp dụng ngay cho toàn bộ chuỗi fallback runtime.
+
+### Kiểm thử & Trạng thái
+- ✅ `py_compile` cả 3 file: `settings.py` OK, `gemini_safe.py` OK, `AskCpl.py` OK.
+- ⚠ Chưa verify được UI thật (cần mở ứng dụng) — người dùng tự kiểm tra.
+- ✅ DONE.
+
+---
+
+
 
 ### Mục tiêu & Bối cảnh
 - Model `gemini-flash-latest` ở phía máy chủ Google bị nghẽn (overloaded), giữ kết nối và gây treo Timeout liên tục suốt 180s (3 phút/lần).

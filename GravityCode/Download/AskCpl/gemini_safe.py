@@ -292,7 +292,16 @@ class GeminiCoordinator:
                  key_loader=None, stop_check=None, temperature=0.1,
                  max_output_tokens=8192, timeout=90, max_transient=6,
                  daily_budget=DAILY_CALL_BUDGET, lock_after_success=True):
-        self._models = models or list(MODEL_FALLBACKS)
+        if models:
+            self._models = list(models)
+        else:
+            # Ưu tiên đọc từ settings.json (người dùng có thể tuỳ chỉnh thứ tự/bật-tắt)
+            try:
+                from settings import get_active_model_list
+                _from_settings = get_active_model_list()
+                self._models = _from_settings if _from_settings else list(MODEL_FALLBACKS)
+            except Exception:
+                self._models = list(MODEL_FALLBACKS)
         self._log = log_fn or (lambda msg: None)
         self._on_key_status = on_key_status
         self._key_loader = key_loader or (lambda: [])
@@ -431,6 +440,8 @@ class GeminiCoordinator:
         temp = temperature if temperature is not None else self._temperature
         mout = max_output_tokens or self._max_output_tokens
         tout = timeout or self._timeout
+        account_attempts = 0
+        MAX_ACCOUNT_ATTEMPTS = 3  # Giới hạn thử tối đa 3 account khác nhau/lượt gọi để tránh đốt sạch pool
 
         while True:
             if self._stop_check():
@@ -438,6 +449,13 @@ class GeminiCoordinator:
             pool.sync(self._key_loader() or [])
             key_obj = pool.pick(exclude)
             if not key_obj:
+                # Nếu đã thử qua các account nhưng hết key tạm thời do cooldown ngắn
+                if account_attempts > 0:
+                    self._log("⏳ Tạm thời chưa có key sẵn sàng (đang nghỉ tốc độ). Chờ 15s để hồi phục...")
+                    time.sleep(15)
+                    exclude.clear()
+                    account_attempts = 0
+                    continue
                 return {"ok": False, "text": "", "error": {"kind": ErrorKind.NO_KEY}}
             api_key = key_obj.get("key") or ""
             email = key_obj.get("email") or "?"
@@ -460,18 +478,27 @@ class GeminiCoordinator:
 
             if kind == ErrorKind.QUOTA_DAILY:
                 self._log(f"⚠ Key {email} hết quota ngày (Daily). Khóa account 60 phút, chuyển key...")
-                self._lock_account(key_obj, reason=f"HTTP 429 Daily: {msg[:90]}")
+                self._lock_account(key_obj, duration=ACCOUNT_COOLDOWN, reason=f"HTTP 429 Daily: {msg[:90]}")
                 self._mark(key_obj, "exhausted", f"HTTP 429 Daily: {msg[:90]}")
                 exclude.add(api_key)
+                account_attempts += 1
+                if account_attempts >= MAX_ACCOUNT_ATTEMPTS:
+                    self._log(f"⚠ Đã thử {MAX_ACCOUNT_ATTEMPTS} account liên tiếp gặp giới hạn. Nghỉ 15s tránh đốt dồn dập...")
+                    time.sleep(15)
+                    account_attempts = 0
                 continue
 
             if kind == ErrorKind.QUOTA_RATE:
-                # 429 RPM/TPM = vượt hạn mức tốc độ → khóa account ngay 60 phút + đánh dấu exhausted.
-                # Không retry: lặp lại trên cùng key chỉ lãng phí thời gian và tăng nguy cơ bị Google khóa.
-                self._log(f"⚠ Key {email} vượt quota tốc độ (RPM/TPM). Khóa account 60 phút, bỏ qua key này, chuyển key khác...")
-                self._lock_account(key_obj, reason=f"HTTP 429 RPM/TPM: {msg[:90]}")
-                self._mark(key_obj, "exhausted", f"HTTP 429 RPM/TPM: {msg[:90]}")
+                # 429 RPM/TPM = giới hạn tốc độ 1 phút -> cooldown ngắn (60s), TUYỆT ĐỐI KHÔNG đánh dấu exhausted
+                retry_delay = retry_delay_from(msg)
+                self._log(f"⚠ Key {email} chạm giới hạn tốc độ RPM/TPM ({retry_delay}s). Cooldown {retry_delay}s (không khóa vĩnh viễn), đổi key...")
+                self._lock_account(key_obj, duration=retry_delay, reason=f"HTTP 429 RPM/TPM: {msg[:90]}")
                 exclude.add(api_key)
+                account_attempts += 1
+                if account_attempts >= MAX_ACCOUNT_ATTEMPTS:
+                    self._log(f"⚠ Đã thử {MAX_ACCOUNT_ATTEMPTS} account gặp giới hạn tốc độ. Tạm dừng 15s để server Google giải tỏa lưu lượng...")
+                    time.sleep(15)
+                    account_attempts = 0
                 continue
 
             if kind == ErrorKind.INVALID_KEY:
@@ -496,8 +523,6 @@ class GeminiCoordinator:
                 if transient >= self._max_transient:
                     return {"ok": False, "text": "",
                             "error": {"kind": kind, "message": msg[:200]}}
-                # Lỗi 503 high-demand/NETWORK theo model/region, không theo key:
-                # retry lại CÙNG key với backoff lũy tiến thay vì xoay key rồi bỏ cuộc.
                 delay = min(2 ** transient, 30)
                 if kind == ErrorKind.NETWORK:
                     self._log(f"🌐 Lỗi kết nối mạng: {msg[:70]}. Chờ {delay}s để kết nối lại (lần {transient}/{self._max_transient})...")

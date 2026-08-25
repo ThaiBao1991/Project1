@@ -258,14 +258,20 @@ class AskCplApp:
         if not self.ref_file_vars:
             add_ref_file()
 
-        # Region 2: Settings (Save As)
+        # Region 2: Settings (Save As & Filename & Load Old Checkpoint)
         f_opts = tk.Frame(self.sub_tab_roadmap_gen)
         f_opts.pack(fill='x', padx=10, pady=2)
         tk.Label(f_opts, text="Lưu file tại:").pack(side='left')
         self.ai_roadmap_save_var = tk.StringVar(value=saved_generator.get("save_dir", ""))
-        tk.Entry(f_opts, textvariable=self.ai_roadmap_save_var, state='readonly', width=50).pack(side='left', padx=10)
-        tk.Button(f_opts, text="Chọn Thư Mục...", command=self.roadmap_gen_select_dir).pack(side='left')
-        tk.Button(f_opts, text="Lưu cấu hình tạo roadmap", command=self.save_roadmap_generator_settings).pack(side='left', padx=8)
+        tk.Entry(f_opts, textvariable=self.ai_roadmap_save_var, state='readonly', width=32).pack(side='left', padx=(3, 3))
+        tk.Button(f_opts, text="Chọn Thư Mục...", command=self.roadmap_gen_select_dir).pack(side='left', padx=(0, 6))
+        
+        tk.Label(f_opts, text="Tên file:").pack(side='left')
+        self.ai_roadmap_filename_var = tk.StringVar(value=saved_generator.get("custom_filename", ""))
+        tk.Entry(f_opts, textvariable=self.ai_roadmap_filename_var, width=18).pack(side='left', padx=(3, 6))
+        
+        tk.Button(f_opts, text="📂 Nạp Tiến Độ Cũ", command=self.roadmap_gen_load_checkpoint, bg="#2980b9", fg="white", font=("Arial", 9, "bold")).pack(side='left', padx=3)
+        tk.Button(f_opts, text="💾 Lưu cấu hình", command=self.save_roadmap_generator_settings).pack(side='left', padx=3)
 
         # NEW Region: Actions (Step 1, 2, 3)
         f_actions = tk.Frame(self.sub_tab_roadmap_gen)
@@ -1044,6 +1050,94 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
     # These methods deliberately override the older V3/V4 methods above.  The
     # old implementation mixed planning, review and file output in one file;
     # V5 keeps JSON artifacts separate and validates every LLM boundary.
+    def roadmap_gen_load_checkpoint(self):
+        """Cho phép người dùng chọn 1 file Checkpoint / Skeleton (.json) bất kỳ để nạp lại tiến độ và chạy tiếp."""
+        from tkinter import filedialog, messagebox
+        filepath = filedialog.askopenfilename(
+            title="Chọn file Checkpoint / Skeleton / Progress (.json)",
+            filetypes=[("Roadmap Progress / Skeleton JSON", "*.json"), ("All Files", "*.*")]
+        )
+        if not filepath:
+            return
+        try:
+            with open(filepath, "r", encoding="utf-8", errors="replace") as f:
+                data = json.load(f)
+            
+            if not isinstance(data, dict):
+                messagebox.showerror("Lỗi", "File JSON không đúng cấu trúc (cần là Object JSON).", parent=self.root)
+                return
+            
+            domain = data.get("domain") or data.get("domain_profile", {}).get("title", "")
+            phase_map = data.get("phase_map", {})
+            skeleton = data.get("skeleton", [])
+            target = data.get("target") or (len(skeleton) if skeleton else 0)
+            
+            if not phase_map:
+                if "phases" in data:
+                    phase_map = {"phases": data["phases"], "domain_profile": data.get("domain_profile", {})}
+                elif skeleton:
+                    phase_order = []
+                    phase_counts = {}
+                    for d in skeleton:
+                        p_name = d.get("phase", "Chung")
+                        if p_name not in phase_counts:
+                            phase_order.append(p_name)
+                            phase_counts[p_name] = 0
+                        phase_counts[p_name] += 1
+                    phases = [{"id": f"phase_{i}", "name": p, "days": phase_counts[p], "goal": f"Làm chủ {p}"} for i, p in enumerate(phase_order, 1)]
+                    phase_map = {
+                        "domain_profile": data.get("domain_profile", {"title": domain, "total_days": len(skeleton), "persona": "Chuyên gia"}),
+                        "coverage": data.get("coverage", []),
+                        "phases": phases
+                    }
+            if not target and phase_map.get("phases"):
+                target = sum(p.get("days", 0) for p in phase_map.get("phases", []))
+
+            # Cập nhật UI
+            if domain:
+                self.ai_roadmap_domain_var.set(domain)
+            if target and target > 0:
+                self.ai_roadmap_days_var.set(str(target))
+            
+            # Cập nhật khung Dàn ý
+            plan_preview = {
+                "domain_profile": phase_map.get("domain_profile", {"title": domain, "total_days": target}),
+                "phases": phase_map.get("phases", []),
+                "skeleton": skeleton
+            }
+            self._show_skeleton(plan_preview)
+            
+            # Đặt tên file gợi ý từ file cũ (loại bỏ đuôi .skeleton.json.progress.json)
+            base_fname = os.path.basename(filepath)
+            clean_name = base_fname.replace(".progress.json", "").replace(".skeleton.json", "").replace(".reviewed.json", "").replace(".json", "")
+            if clean_name.startswith("roadmap_"):
+                clean_name = clean_name[8:]
+            self.ai_roadmap_filename_var.set(clean_name)
+            
+            # Lưu checkpoint vào bộ nhớ tạm của app
+            self._loaded_checkpoint_data = {
+                "domain": domain,
+                "target": target,
+                "phase_map": phase_map,
+                "skeleton": skeleton,
+                "source_path": filepath
+            }
+            
+            self.roadmap_gen_log(
+                f"[📂 ĐÃ NẠP CHECKPOINT] File: {os.path.basename(filepath)}\n"
+                f"   • Lĩnh vực: {domain}\n"
+                f"   • Tiến độ đã có: {len(skeleton)}/{target} Day.\n"
+                f"   💡 Bạn có thể sửa ô 'Tên file' theo ý muốn rồi bấm '1. Lên Dàn ý Lõi (Core)' để chạy tiếp tục từ Day {len(skeleton) + 1}!"
+            )
+            messagebox.showinfo(
+                "Nạp thành công",
+                f"Đã nạp thành công tiến độ: {len(skeleton)}/{target} Day!\n\n"
+                f"Bấm '1. Lên Dàn ý Lõi (Core)' để chạy tiếp từ Day {len(skeleton) + 1}.",
+                parent=self.root
+            )
+        except Exception as e:
+            messagebox.showerror("Lỗi đọc file", f"Không thể đọc file checkpoint:\n{e}", parent=self.root)
+
     def roadmap_gen_log(self, msg):
         def write_log():
             try:
@@ -1072,6 +1166,7 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
             "req_sim_check": self.ai_req_sim_check_var.get(),
             "req_sim_ratio": self.ai_req_sim_ratio_var.get().strip(),
             "refs": [item.get().strip() for item in self.ref_file_vars if item.get().strip()],
+            "custom_filename": getattr(self, 'ai_roadmap_filename_var', tk.StringVar()).get().strip(),
             "save_dir": self.ai_roadmap_save_var.get().strip() or os.path.dirname(os.path.abspath(__file__)),
             "skeleton": self.ai_roadmap_skeleton_text.get("1.0", tk.END).strip(),
             "mode": self.ai_roadmap_expand_mode.get(),
@@ -1094,6 +1189,7 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
             "req_sim_check": snapshot.get("req_sim_check", 1),
             "req_sim_ratio": snapshot.get("req_sim_ratio", "96"),
             "reference_files": snapshot["refs"],
+            "custom_filename": snapshot.get("custom_filename", ""),
             "save_dir": self.ai_roadmap_save_var.get().strip(),
             "expand_mode": snapshot["mode"],
         }
@@ -1119,7 +1215,13 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
 
     def _roadmap_artifacts(self, snapshot):
         import re
-        safe = re.sub(r'[^a-zA-Z0-9_-]', '_', snapshot["domain"] or "untitled")
+        custom_fn = (snapshot.get("custom_filename") or "").strip()
+        if custom_fn:
+            safe = re.sub(r'[^a-zA-Z0-9_-]', '_', custom_fn)
+            safe = re.sub(r'_+', '_', safe).strip('_')[:50] or "custom"
+        else:
+            safe = re.sub(r'[^a-zA-Z0-9_-]', '_', snapshot.get("domain", "") or "untitled")
+            safe = re.sub(r'_+', '_', safe).strip('_')[:40] or "untitled"
         root = os.path.join(snapshot["save_dir"], f"roadmap_{safe}")
         return {
             "skeleton": root + ".skeleton.json",
@@ -1206,7 +1308,11 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
     def _call_roadmap_llm(self, prompt, label, json_mode=True, retries=3):
         from gemini_safe import GeminiCoordinator, ErrorKind
 
-        _FALLBACK_MODELS = ["gemini-3.5-flash", "gemini-3-flash-preview", "gemini-flash-latest", "gemini-3.1-flash-lite", "gemini-flash-lite-latest"]
+        try:
+            from settings import get_active_model_list as _gaml
+            _FALLBACK_MODELS = _gaml()
+        except Exception:
+            _FALLBACK_MODELS = ["gemini-3.5-flash", "gemini-3-flash-preview", "gemini-flash-latest", "gemini-3.1-flash-lite", "gemini-flash-lite-latest"]
         _prompt_chars = len(prompt)
         self.roadmap_gen_log(f"[{label}] Gửi yêu cầu Gemini (prompt={_prompt_chars:,} chars)...")
         if _prompt_chars > 3500:
@@ -1225,6 +1331,7 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
             max_output_tokens=8192,
             timeout=60,
             max_transient=retries,
+            lock_after_success=False,  # Đồng bộ với auto_ai_worker: xoay vòng tự nhiên, không khóa sau batch thành công
         )
         result = _coord.request(prompt, json_mode=json_mode)
         if result.get("ok"):
@@ -1260,73 +1367,218 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
         registry = self._registry_context()
         day_rule = ("Tự chọn tổng 10-3000 Day phù hợp. KHÔNG tiết kiệm Day: mỗi Day chỉ là một buổi 30 phút và có thể cần hàng trăm Day cho một mảng lớn." if expected is None
                     else f"Phải có CHÍNH XÁC {expected} Day.")
-        self.roadmap_gen_log("[BƯỚC 1/3 • 1A] Đang lập knowledge map và chia phase (chưa sinh Day)...")
-        if snapshot.get("gen_mode") == "wiki":
-            map_prompt = f"""Bạn là chuyên gia phân tích dữ liệu Bách khoa toàn thư. Hãy khảo sát và lập danh mục cấu trúc (knowledge map) để trích xuất toàn bộ dữ liệu cho '{snapshot['domain']}'.
+        loaded = getattr(self, "_loaded_checkpoint_data", None)
+        phase_map = None
+        all_days = []
+
+        if loaded and loaded.get("skeleton"):
+            phase_map = loaded.get("phase_map")
+            if not phase_map:
+                phase_order = []
+                phase_counts = {}
+                for d in loaded["skeleton"]:
+                    p_name = d.get("phase", "Chung")
+                    if p_name not in phase_counts:
+                        phase_order.append(p_name)
+                        phase_counts[p_name] = 0
+                    phase_counts[p_name] += 1
+                phases = [{"id": f"phase_{i}", "name": p, "days": phase_counts[p], "goal": f"Làm chủ {p}"} for i, p in enumerate(phase_order, 1)]
+                phase_map = {
+                    "domain_profile": {"title": loaded.get("domain") or snapshot["domain"], "total_days": len(loaded["skeleton"]), "persona": "Chuyên gia"},
+                    "coverage": [],
+                    "phases": phases
+                }
+            target = loaded.get("target") or len(loaded["skeleton"])
+            all_days = list(loaded["skeleton"])
+            if len(all_days) >= target:
+                self.roadmap_gen_log(
+                    f"[📂 RESUME TỪ CHECKPOINT ĐÃ NẠP] Nạp trọn vẹn {len(all_days)}/{target} Day từ checkpoint cũ!\n"
+                    f"   • Đang chuyển sang PASS 1C để quét và tự động sửa các Day bị trùng lặp..."
+                )
+            else:
+                self.roadmap_gen_log(
+                    f"[📂 RESUME TỪ CHECKPOINT ĐÃ NẠP] Sử dụng Phase Map {target} Day và {len(all_days)} micro-Day từ checkpoint cũ!\n"
+                    f"   • Sẽ tiếp tục sinh từ Day {len(all_days) + 1} sang file đích mới."
+                )
+        else:
+            # Quét tìm checkpoint cũ trước khi gọi LLM PASS 1A
+            previous_artifacts = self._roadmap_artifacts(snapshot)
+            previous_checkpoint_path = previous_artifacts["skeleton"] + ".progress.json"
+            if expected is None:
+                try:
+                    if not os.path.exists(previous_checkpoint_path):
+                        import glob
+                        for cand in glob.glob(os.path.join(snapshot["save_dir"], "roadmap_*.skeleton.json.progress.json")):
+                            try:
+                                cand_data = json.loads(open(cand, "r", encoding="utf-8", errors="replace").read())
+                                if cand_data.get("domain") == snapshot["domain"] and cand_data.get("phase_map") and cand_data.get("skeleton"):
+                                    previous_checkpoint_path = cand
+                                    break
+                            except Exception:
+                                pass
+                    if not os.path.exists(previous_checkpoint_path) and os.path.exists(previous_artifacts["skeleton"]):
+                        try:
+                            skel_data = json.loads(open(previous_artifacts["skeleton"], "r", encoding="utf-8", errors="replace").read())
+                            if skel_data.get("skeleton") and isinstance(skel_data.get("skeleton"), list):
+                                skel_days = skel_data["skeleton"]
+                                phase_order = []
+                                phase_counts = {}
+                                for d in skel_days:
+                                    p_name = d.get("phase", "Chung")
+                                    if p_name not in phase_counts:
+                                        phase_order.append(p_name)
+                                        phase_counts[p_name] = 0
+                                    phase_counts[p_name] += 1
+                                phases = [{"id": f"phase_{i}", "name": p, "days": phase_counts[p], "goal": f"Làm chủ {p}"} for i, p in enumerate(phase_order, 1)]
+                                phase_map = {
+                                    "domain_profile": skel_data.get("domain_profile", {"title": snapshot["domain"], "total_days": len(skel_days), "persona": "Chuyên gia"}),
+                                    "coverage": skel_data.get("coverage", []),
+                                    "phases": phases
+                                }
+                                all_days = skel_days
+                                target = len(all_days)
+                                self.roadmap_gen_log(
+                                    f"[RESUME] Nạp từ file skeleton sẵn có {target} Day để quét kiểm tra và làm sạch..."
+                                )
+                        except Exception:
+                            pass
+                    if phase_map is None and os.path.exists(previous_checkpoint_path):
+                        previous_checkpoint = json.loads(open(previous_checkpoint_path, "r", encoding="utf-8", errors="replace").read())
+                        if (previous_checkpoint.get("domain") == snapshot["domain"]
+                                and isinstance(previous_checkpoint.get("phase_map"), dict)
+                                and previous_checkpoint.get("skeleton")):
+                            phase_map = previous_checkpoint["phase_map"]
+                            all_days = previous_checkpoint.get("skeleton", [])
+                            self.roadmap_gen_log(
+                                f"[RESUME] Dùng lại phase map {previous_checkpoint.get('target')} Day và checkpoint "
+                                f"{len(all_days)} Day; không tạo kế hoạch mới."
+                            )
+                except (FileNotFoundError, json.JSONDecodeError, OSError, UnicodeError):
+                    pass
+
+        if phase_map is None:
+            # ══════════════════════════════════════════════════════════
+            # PASS 0: RECURSIVE KNOWLEDGE DISCOVERY (VÉT CẠN TRI THỨC ĐA VÒNG)
+            # ══════════════════════════════════════════════════════════
+            discovered_areas = []
+            self.roadmap_gen_log(f"[BƯỚC 1/3 • PASS 0] Bắt đầu Vòng Lặp Vét Cạn Tri Thức cho '{snapshot['domain']}'...")
+            
+            # Vòng lặp hội tụ tối đa 5 đợt để quét sạch mọi ngóc ngách
+            for round_num in range(1, 6):
+                current_list_str = json.dumps(discovered_areas, ensure_ascii=False) if discovered_areas else "Chưa có"
+                
+                if round_num == 1:
+                    discover_prompt = f"""Bạn là Viện trưởng Viện Nghiên cứu & Chuyên gia Bách khoa Toàn thư đầu ngành thế giới về '{snapshot['domain']}'.
+Hãy phân tích và lập danh sách 10-18 phân mảng/chủ đề lớn nhất của lĩnh vực này theo MA TRẬN 4 CHIỀU TOÀN DIỆN:
+1. CHIỀU NỀN TẢNG & NGUYÊN LÝ: Bảng chữ cái/ký hiệu, công cụ, cấu trúc cơ bản, cơ chế vận hành gốc.
+2. CHIỀU PHÂN BẬC THEO CẤP ĐỘ / NHÓM CHI TIẾT:
+   - Nếu là Ngoại ngữ (Tiếng Nhật, Anh, Trung, Hàn...): Bảng chữ cái -> Hệ thống Từ vựng theo chủ đề -> Hệ thống Ngữ pháp từng cấp (N5->N1 hoặc A1->C2) -> Bộ chữ Hán/Kanji/Hán tự theo từng bộ thủ & nét -> Luyện phát âm & Ngữ điệu.
+   - Nếu là Nghệ thuật/Kỹ năng (Nhiếp ảnh, Vẽ, Sáo, Nấu ăn...): Từng thể loại chuyên biệt (VD Nhiếp ảnh: Ảnh chân dung, Ảnh cưới, Ảnh phóng sự, Ảnh phong cảnh, Ảnh sản phẩm thương mại, Thiên văn, Động vật, Macro...; VD Nấu ăn: Từng nhóm nguyên liệu & phương pháp).
+   - Nếu là Lập trình/Kỹ thuật (Python, Access, C++...): Cú pháp, Engine nội tại, Win32/Hệ thống, CSDL, Mạng/API, Blockchain, Bảo mật, AI, Phần cứng...
+3. CHIỀU KHO THỰC CHIẾN & TÌNH HUỐNG THỰC TẾ: Tác phẩm cụ thể, kịch bản giao tiếp thực tế, dự án phần mềm hoàn chỉnh, bộ ảnh thực tế.
+4. CHIỀU MẸO NHÀ NGHỀ, BẪY LỖI & SỰ CỐ: Phân biệt các điểm dễ nhầm lẫn, bẫy thi cử/chứng chỉ, xử lý sự cố thực tế.
+
+Trả về JSON MẢNG các chuỗi: ["Tên phân mảng 1", "Tên phân mảng 2", ...]. LUÔN dùng tiếng Việt."""
+                else:
+                    discover_prompt = f"""Bạn là Chuyên gia đầu ngành thế giới về '{snapshot['domain']}'.
+Hiện tại chúng ta ĐÃ CÓ các phân mảng sau:
+{current_list_str}
+
+Nhiệm vụ của bạn: Rà soát lại TOÀN DIỆN mọi ngóc ngách còn thiếu của '{snapshot['domain']}':
+- Kiểm tra theo 4 chiều: Còn thiếu cấp độ nào (VD: N5, N4, N3, N2, N1, Kanji, Kính ngữ...)? Còn thiếu thể loại chụp/vẽ/món ăn/công nghệ nào (VD: Ảnh cưới, Thiên văn, Macro...)?
+- Còn thiếu các chủ đề từ vựng, ngữ pháp, thuật toán, công cụ phụ trợ, tình huống thực chiến, bẫy lỗi hay mẹo nhà nghề nào CHƯA CÓ trong danh sách trên?
+- Nếu tìm thấy các mảng mới: Trả về JSON MẢNG các chuỗi tên phân mảng MỚI (tên rõ ràng, không lặp lại).
+- Nếu đã bao quát 100% không còn bất kỳ cấp độ hay nhánh chuyên sâu nào bị bỏ sót: Trả về JSON MẢNG RỖNG: [].
+LUÔN dùng tiếng Việt."""
+
+                try:
+                    res_json = load_json_response(self._call_roadmap_llm(discover_prompt, f"PASS 0 Vòng {round_num}", json_mode=True))
+                    if isinstance(res_json, list):
+                        new_items = [str(x).strip() for x in res_json if str(x).strip() and str(x).strip() not in discovered_areas]
+                        if not new_items:
+                            self.roadmap_gen_log(f"[PASS 0 • Vòng {round_num}] ✅ ĐÃ VÉT CẠN 100% TRI THỨC! Không còn ngóc ngách nào bị bỏ sót.")
+                            break
+                        discovered_areas.extend(new_items)
+                        self.roadmap_gen_log(f"[PASS 0 • Vòng {round_num}] 🔍 Khám phá thêm {len(new_items)} phân mảng mới. Tổng hiện tại: {len(discovered_areas)} mảng.")
+                    else:
+                        break
+                except Exception as ex:
+                    self.roadmap_gen_log(f"[PASS 0 • Vòng {round_num}] Kết thúc đợt quét: {ex}")
+                    break
+            
+            if discovered_areas:
+                self.roadmap_gen_log(
+                    f"[PASS 0 HOÀN TẤT] Tổng hợp {len(discovered_areas)} phân mảng toàn diện cho '{snapshot['domain']}':\n" + 
+                    "\n".join(f"   {i+1}. {a}" for i, a in enumerate(discovered_areas[:15])) + 
+                    (f"\n   ...và {len(discovered_areas)-15} mảng chuyên sâu khác." if len(discovered_areas) > 15 else "")
+                )
+
+            # ══════════════════════════════════════════════════════════
+            # PASS 1A: KNOWLEDGE MAP & PHASE STRUCTURE
+            # ══════════════════════════════════════════════════════════
+            coverage_guide = "\nDanh mục phân mảng đã vét cạn từ PASS 0 (BẮT BUỘC PHẢI BAO PHỦ TẤT CẢ):\n" + "\n".join(f"- {a}" for a in discovered_areas) if discovered_areas else ""
+            self.roadmap_gen_log("[BƯỚC 1/3 • 1A] Đang lập knowledge map và chia phase từ cây tri thức...")
+            if snapshot.get("gen_mode") == "wiki":
+                map_prompt = f"""Bạn là chuyên gia phân tích dữ liệu Bách khoa toàn thư. Hãy khảo sát và lập danh mục cấu trúc (knowledge map) để trích xuất toàn bộ dữ liệu cho '{snapshot['domain']}'.
 Mục tiêu: {day_rule.replace('Day', 'lô bóc tách (Batch)')} (Mỗi lô chứa tối đa 10-20 thực thể).
 Ngữ cảnh người dùng: {snapshot['context']}
 Tài liệu tham khảo:\n{references}
+{coverage_guide}
 
 Trả về JSON DUY NHẤT, NGẮN GỌN, KHÔNG tạo skeleton Day ở bước này: {{"domain_profile":{{"title":"...","total_days":N,"persona":"Chuyên gia phân tích data"}},"coverage":[{{"area":"...","required":true}}],"phases":[{{"id":"phase_id","name":"Tên Module (vd: Tướng Ngụy, Binh chủng, Vũ khí)","days":10,"goal":"Bóc tách toàn bộ thông số ẩn"}}]}}.
 Mỗi phase (Module) có từ 5-30 lô bóc tách (được đếm là days); tổng phase.days phải đúng total_days. Coverage phải bao gồm toàn bộ các mảng như: Nhân vật/Tướng, Binh chủng, Vũ khí/Trang bị, Cơ chế, Mẹo... Quy tắc bắt buộc: Mỗi lô bóc tách (day) chỉ xử lý một nhóm 10-20 thực thể cụ thể. LUÔN dùng tiếng Việt."""
-        else:
-            map_prompt = f"""Bạn là kiến trúc sư giáo trình. Hãy lập knowledge map cho '{snapshot['domain']}'.
+            else:
+                map_prompt = f"""Bạn là kiến trúc sư giáo trình đỉnh cao thế giới. Hãy lập knowledge map toàn diện cho '{snapshot['domain']}'.
 Thời lượng: {snapshot['time_per_day']}/ngày. {day_rule}
 Ngữ cảnh người dùng: {snapshot['context']}
 Tài liệu tham khảo:\n{references}
 Topic registry của các roadmap cũ (không lặp lại nếu đã có):\n{registry}
+{coverage_guide}
 
-Trả về JSON DUY NHẤT, NGẮN GỌN, KHÔNG tạo skeleton Day ở bước này: {{"domain_profile":{{"title":"...","total_days":N,"persona":"..."}},"coverage":[{{"area":"...","required":true}}],"phases":[{{"id":"phase_id","name":"...","days":10,"goal":"..."}}]}}.
-Mỗi phase 5-30 Day; tổng phase.days phải đúng total_days. Coverage phải bao gồm nền tảng, thực hành, lỗi/edge case, testing, hiệu năng/bảo mật nếu phù hợp, công cụ hiện đại, case study và dự án. Quy tắc bắt buộc: Day là MỘT buổi 30 phút, không được đặt một chủ đề/dự án lớn vào một Day; phải phân rã thành nhiều micro-Day. LUÔN dùng tiếng Việt."""
-        phase_map = None
-        for attempt in range(1, 4):
-            try:
-                phase_map = load_json_response(self._call_roadmap_llm(map_prompt, f"PASS 1A lần {attempt}"))
-                phases = phase_map.get("phases", []) if isinstance(phase_map, dict) else []
-                total = sum(item.get("days", 0) for item in phases if isinstance(item, dict))
-                target = expected if expected is not None else phase_map.get("domain_profile", {}).get("total_days")
-                auto_minimum = 365 if re.search(r'\b0\s*[-–]\s*\d+\s*(?:tuổi|tuoi)\b', snapshot["domain"], re.IGNORECASE) else 10
-                if not phases or not isinstance(target, int) or total != target or not auto_minimum <= target <= 3000:
-                    raise RoadmapValidationError(f"phase map phải đủ {auto_minimum}-3000 Day và tổng phase.days phải khớp.")
-                if any(not isinstance(item.get("days"), int) or not 5 <= item["days"] <= 500 for item in phases):
-                    raise RoadmapValidationError("mỗi macro phase phải có 5-500 micro-Day.")
-                break
-            except RoadmapValidationError as exc:
-                self.roadmap_gen_log(f"[PASS 1A • lần {attempt}/3] Chưa dùng được: {exc}. Đang retry...")
-                map_prompt += f"\nPhản hồi trước lỗi: {exc}. Trả lại JSON hoàn chỉnh, ngắn gọn."
-        else:
-            raise RoadmapValidationError("Không tạo được phase map hợp lệ sau 3 lần.")
-
-        # A long Auto roadmap must resume the exact approved phase map rather
-        # than asking Gemini for a new total (which could change 365 to 900).
-        previous_artifacts = self._roadmap_artifacts(snapshot)
-        previous_checkpoint_path = previous_artifacts["skeleton"] + ".progress.json"
-        if expected is None:
-            try:
-                previous_checkpoint = json.loads(open(previous_checkpoint_path, "r", encoding="utf-8", errors="replace").read())
-                if (previous_checkpoint.get("domain") == snapshot["domain"]
-                        and isinstance(previous_checkpoint.get("phase_map"), dict)
-                        and previous_checkpoint.get("skeleton")):
-                    phase_map = previous_checkpoint["phase_map"]
-                    self.roadmap_gen_log(
-                        f"[RESUME] Dùng lại phase map {previous_checkpoint.get('target')} Day và checkpoint "
-                        f"{len(previous_checkpoint['skeleton'])} Day; không tạo kế hoạch mới."
-                    )
-            except (FileNotFoundError, json.JSONDecodeError, OSError, UnicodeError):
-                pass
+Yêu cầu cấu trúc: Hãy ánh xạ các phân mảng trên thành các Phase học tập bài bản từ cơ bản đến master. Phân bổ từ 30-100 Day cho mỗi Phase lớn.
+Trả về JSON DUY NHẤT, NGẮN GỌN, KHÔNG tạo skeleton Day ở bước này: {{"domain_profile":{{"title":"...","total_days":N,"persona":"..."}},"coverage":[{{"area":"...","required":true}}],"phases":[{{"id":"phase_id","name":"...","days":30,"goal":"..."}}]}}.
+Tổng phase.days phải đúng total_days. Coverage phải bao gồm nền tảng, kỹ thuật, thực hành, lỗi/edge case, bảo trì/bảo quản, công cụ hiện đại, case study và dự án thực chiến. Quy tắc bắt buộc: Day là MỘT buổi 30 phút. LUÔN dùng tiếng Việt."""
+            for attempt in range(1, 4):
+                try:
+                    phase_map = load_json_response(self._call_roadmap_llm(map_prompt, f"PASS 1A lần {attempt}"))
+                    phases = phase_map.get("phases", []) if isinstance(phase_map, dict) else []
+                    total = sum(item.get("days", 0) for item in phases if isinstance(item, dict))
+                    target = expected if expected is not None else phase_map.get("domain_profile", {}).get("total_days")
+                    auto_minimum = 365 if re.search(r'\b0\s*[-–]\s*\d+\s*(?:tuổi|tuoi)\b', snapshot["domain"], re.IGNORECASE) else 10
+                    if not phases or not isinstance(target, int) or total != target or not auto_minimum <= target <= 3000:
+                        raise RoadmapValidationError(f"phase map phải đủ {auto_minimum}-3000 Day và tổng phase.days phải khớp.")
+                    if any(not isinstance(item.get("days"), int) or not 5 <= item["days"] <= 500 for item in phases):
+                        raise RoadmapValidationError("mỗi macro phase phải có 5-500 micro-Day.")
+                    break
+                except RoadmapValidationError as exc:
+                    self.roadmap_gen_log(f"[PASS 1A • lần {attempt}/3] Chưa dùng được: {exc}. Đang retry...")
+                    map_prompt += f"\nPhản hồi trước lỗi: {exc}. Trả lại JSON hoàn chỉnh, ngắn gọn."
+            else:
+                raise RoadmapValidationError("Không tạo được phase map hợp lệ sau 3 lần.")
 
         phases = phase_map["phases"]
         target = expected if expected is not None else phase_map["domain_profile"]["total_days"]
         artifacts = self._roadmap_artifacts(snapshot)
         checkpoint_path = artifacts["skeleton"] + ".progress.json"
-        all_days = []
-        try:
-            checkpoint = json.loads(open(checkpoint_path, "r", encoding="utf-8", errors="replace").read())
-            if checkpoint.get("domain") == snapshot["domain"] and checkpoint.get("target") == target:
-                all_days = checkpoint.get("skeleton", [])
-                self.roadmap_gen_log(f"[RESUME] Đã khôi phục {len(all_days)}/{target} micro-Day từ checkpoint.")
-        except (FileNotFoundError, json.JSONDecodeError, OSError, UnicodeError):
-            pass
+        if not all_days:
+            try:
+                if not os.path.exists(checkpoint_path):
+                    # Thử quét tìm checkpoint cũ trên thư mục lưu (phòng trường hợp tên file vừa được rút gọn)
+                    import glob
+                    for cand in glob.glob(os.path.join(snapshot["save_dir"], "roadmap_*.skeleton.json.progress.json")):
+                        try:
+                            cand_data = json.loads(open(cand, "r", encoding="utf-8", errors="replace").read())
+                            if cand_data.get("domain") == snapshot["domain"] and cand_data.get("target") == target:
+                                checkpoint_path = cand
+                                break
+                        except Exception:
+                            pass
+                checkpoint = json.loads(open(checkpoint_path, "r", encoding="utf-8", errors="replace").read())
+                if checkpoint.get("domain") == snapshot["domain"] and checkpoint.get("target") == target:
+                    all_days = checkpoint.get("skeleton", [])
+                    self.roadmap_gen_log(f"[RESUME] Đã khôi phục {len(all_days)}/{target} micro-Day từ checkpoint.")
+            except (FileNotFoundError, json.JSONDecodeError, OSError, UnicodeError):
+                pass
 
         # --- Quét checkpoint tìm tiêu đề trùng; cắt tại Day đó để sinh lại ---
         from difflib import SequenceMatcher as _SM
@@ -1351,7 +1603,7 @@ Mỗi phase 5-30 Day; tổng phase.days phải đúng total_days. Coverage phả
                 break
             _seen_titles.append(_title)
             _clean_days.append(_item)
-        if _dup_from is not None:
+        if _dup_from is not None and len(all_days) < target:
             self.roadmap_gen_log(
                 f"[RESUME-FIX] Checkpoint có tiêu đề trùng tại Day {_dup_from}; "
                 f"cắt về {len(_clean_days)} Day và sinh lại từ Day {_dup_from}."
@@ -1388,9 +1640,10 @@ ID đã tồn tại: {known_ids[-30:] if len(known_ids) > 30 else known_ids}. M�
 CAM KẾT: trường 'topic' của MỖI lô mới PHẢI khác hoàn toàn với mọi tiêu đề sau đây (TUYỆT ĐỐI KHÔNG lặp lại): {known_titles[-10:] if len(known_titles) > 10 else known_titles}."""
                 else:
                     phase_prompt = f"""Tạo CHÍNH XÁC {count} MICRO-DAY cho phase '{phase.get('name')}' của roadmap '{snapshot['domain']}', Day {start_day}..{end_day}. Mục tiêu: {phase.get('goal')}.
-Trả JSON MẢNG, mỗi object: {{"day":N,"topic_id":"snake_case_duy_nhat","topic":"tiêu đề micro-Day DUY NHẤT (tối đa 80 ký tự)","phase":"{phase.get('name')}","kind":"lesson|review|capstone","estimated_minutes":30,"concrete_project":"một món đồ/sản phẩm cụ thể","materials":["tối đa 3 vật liệu + số lượng/kích thước"],"definition_of_done":["tối đa 2 tiêu chí kiểm tra"],"details":["tối đa 3 việc nhỏ có thể làm trong 30 phút"],"keywords":["tối đa 4 từ khóa"],"prerequisites":["topic_id đã học trước đó"]}}.
+Trả JSON MẢNG, mỗi object: {{"day":N,"topic_id":"snake_case_duy_nhat","topic":"tiêu đề micro-Day DUY NHẤT kèm tên món/tác phẩm cụ thể (tối đa 80 ký tự)","phase":"{phase.get('name')}","kind":"lesson|review|capstone","estimated_minutes":30,"concrete_project":"Món ăn đích danh cụ thể / Tác phẩm âm nhạc cụ thể / Bức tranh cụ thể / Ứng dụng thực chiến (BẮT BUỘC ĐÍCH DANH, không nói chung chung)","materials":["tối đa 3 vật liệu/nguyên liệu + số lượng/kích thước"],"definition_of_done":["tối đa 2 tiêu chí kiểm tra"],"details":["tối đa 3 việc nhỏ có thể làm trong 30 phút"],"keywords":["tối đa 4 từ khóa"],"prerequisites":["topic_id đã học trước đó"]}}.
+QUY TẮC THỰC HÀNH: Mỗi Day phải gắn với MỘT MÓN ĂN ĐÍCH DANH / BÀI TẬP CỤ THỂ (ví dụ: 'Thịt kho tàu nước dừa', 'Heo quay giòn bì', 'Vịt om sấu', 'Bò sốt vang'... không để chung chung 'chế biến thịt').
 ID đã tồn tại từ phase trước: {known_ids[-30:] if len(known_ids) > 30 else known_ids}. prerequisites chỉ được dùng ID trong danh sách này hoặc Day đứng trước ngay trong response; nếu không chắc, dùng []. Không bọc markdown, không thiếu Day, không trùng Day, topic_id không trùng. {"Day cuối cùng của roadmap phải kind='capstone'." if index == len(phases) and remaining == count and len(phases) >= 2 else ""} LUÔN dùng tiếng Việt.
-CAM KẾT: trường 'topic' của MỖI Day mới PHẢI khác hoàn toàn với mọi tiêu đề sau đây (đây là danh sách tiêu đề đã tồn tại — TUYỆT ĐỐI KHÔNG được lặp lại hay diễn đạt lại bằng từ ngữ tương tự): {known_titles[-10:] if len(known_titles) > 10 else known_titles}."""
+CAM KẾT: trường 'topic' của MỖI Day mới PHẢI khác hoàn toàn với mọi tiêu đề sau đây (đây là danh sách tiêu đề đã tồn tại — TUYỆT ĐỐI KHÔNG được lặp lại hay diễn đạt lại bằng từ ngữ tương tự): {known_titles[-40:] if len(known_titles) > 40 else known_titles}."""
                 _base_phase_prompt = phase_prompt
                 json_attempt = 0
                 _transient_retries = 0
@@ -1401,6 +1654,17 @@ CAM KẾT: trường 'topic' của MỖI Day mới PHẢI khác hoàn toàn vớ
                         generated = load_json_response(response_text)
                         if not isinstance(generated, list) or [item.get("day") for item in generated if isinstance(item, dict)] != list(range(start_day, end_day + 1)):
                             raise RoadmapValidationError("batch trả về thiếu, trùng hoặc sai thứ tự Day.")
+                        if sim_check_enabled:
+                            from difflib import SequenceMatcher as _SM
+                            for item in generated:
+                                _new_t = (item.get("topic") or "").strip().lower()
+                                for _prev_item in all_days:
+                                    _prev_t = (_prev_item.get("topic") or "").strip().lower()
+                                    _ratio = _SM(None, _new_t, _prev_t).ratio()
+                                    if _ratio >= sim_threshold:
+                                        raise RoadmapValidationError(
+                                            f"Day {item.get('day')} trùng nội dung {_ratio:.0%} với Day {_prev_item.get('day')}: '{_prev_item.get('topic')}'"
+                                        )
                         known = set(known_ids)
                         for item in generated:
                             if not isinstance(item, dict) or not item.get("topic_id") or item["topic_id"] in known:
@@ -1425,14 +1689,18 @@ CAM KẾT: trường 'topic' của MỖI Day mới PHẢI khác hoàn toàn vớ
                         break
                     except RoadmapValidationError as exc:
                         err_str = str(exc)
-                        # Phân biệt lỗi tạm thời API (503/timeout/rỗng) vs lỗi JSON format
+                        # Phân biệt lỗi tạm thời API (503/timeout/rỗng/no_key) vs lỗi JSON format
                         _is_transient = any(kw in err_str for kw in (
                             "thử lại batch sau", "phản hồi rỗng", "mạng/timeout",
                             "tạm thời", "toàn bộ model",
+                            "Không còn API key",   # NO_KEY: tất cả key đang cooldown → sleep chờ, không tính vào json_attempt
                         ))
                         if response_text is not None and not _is_transient:
-                            debug_path = checkpoint_path + f".invalid_macro{index}_batch{batch_number}.txt"
-                            atomic_write(debug_path, response_text)
+                            try:
+                                debug_path = os.path.join(snapshot["save_dir"], f"invalid_macro{index}_batch{batch_number}.txt")
+                                atomic_write(debug_path, response_text)
+                            except Exception:
+                                pass
                         if _is_transient:
                             _transient_retries += 1
                             _tsleep = min(30 * _transient_retries, 300)  # tối đa 5 phút
@@ -1478,6 +1746,66 @@ CAM KẾT: trường 'topic' của MỖI Day mới PHẢI khác hoàn toàn vớ
                 start_day = end_day + 1
             phase_start += phase["days"]
 
+        # ══════════════════════════════════════════════════════════
+        # PASS 1C: TỰ ĐỘNG SỬA & THAY THẾ CÁC DAY TRÙNG LẶP (IN-PLACE REPAIR)
+        # ══════════════════════════════════════════════════════════
+        if sim_check_enabled and len(all_days) == target:
+            from difflib import SequenceMatcher as _SM
+            max_repair_rounds = 4
+            for r_round in range(1, max_repair_rounds + 1):
+                dup_entries = []
+                for i, d1 in enumerate(all_days):
+                    t1 = (d1.get("topic") or "").strip().lower()
+                    for j in range(i + 1, len(all_days)):
+                        d2 = all_days[j]
+                        t2 = (d2.get("topic") or "").strip().lower()
+                        ratio = _SM(None, t1, t2).ratio()
+                        if ratio >= sim_threshold:
+                            dup_entries.append((j, d2["day"], d1["day"], d2.get("topic"), d1.get("topic"), d2.get("phase", "")))
+                            break
+                if not dup_entries:
+                    break
+                self.roadmap_gen_log(
+                    f"[BƯỚC 1/3 • 1C] Phát hiện {len(dup_entries)} Day bị trùng nội dung (Vòng {r_round}/{max_repair_rounds}); đang tự động sinh chủ đề mới thay thế tại chỗ..."
+                )
+                for idx, dup_day_num, orig_day_num, dup_title, orig_title, p_name in dup_entries:
+                    repair_prompt = f"""Day {dup_day_num} của roadmap '{snapshot['domain']}' (Phase '{p_name}') bị trùng nội dung với Day {orig_day_num}: '{orig_title}'.
+Nhiệm vụ: Hãy tạo lại DUY NHẤT 1 MICRO-DAY MỚI cho Day {dup_day_num} với chủ đề HOÀN TOÀN KHÁC BIỆT, độc đáo, thuộc phase '{p_name}' mà CHƯA TỪNG DẠY.
+Trả JSON MẢNG đúng 1 phần tử: [{{"day":{dup_day_num},"topic_id":"snake_case_moi_{dup_day_num}","topic":"tiêu đề micro-Day MỚI KHÁC BIỆT (tối đa 80 ký tự)","phase":"{p_name}","kind":"lesson","estimated_minutes":30,"concrete_project":"món đồ/tác phẩm/ứng dụng thực chiến mới","materials":["3 nguyên liệu/công cụ"],"definition_of_done":["tiêu chí kiểm tra"],"details":["3 việc cụ thể"],"keywords":["từ khóa"],"prerequisites":[]}}].
+CẤM TUYỆT ĐỐI không dùng lại hoặc diễn đạt tương tự: '{orig_title}'. LUÔN dùng tiếng Việt."""
+                    try:
+                        rep_res = load_json_response(self._call_roadmap_llm(repair_prompt, f"REPAIR Day {dup_day_num}"))
+                        if isinstance(rep_res, list) and rep_res and isinstance(rep_res[0], dict):
+                            new_day_obj = rep_res[0]
+                            new_day_obj["day"] = dup_day_num
+                            new_day_obj["source_files"] = list(local_pdf_sources)
+                            all_days[idx] = new_day_obj
+                            self.roadmap_gen_log(f"  ✓ Đã sửa Day {dup_day_num}: '{new_day_obj.get('topic')}'")
+                    except Exception as rep_err:
+                        self.roadmap_gen_log(f"  ⚠ Lỗi sửa tự động Day {dup_day_num}: {rep_err}")
+
+        # ══════════════════════════════════════════════════════════
+        # PASS 1D: DỌN DẸP PREREQUISITES TRỎ SAI (SAU KHI PASS 1C SỬA TOPIC)
+        # ══════════════════════════════════════════════════════════
+        valid_topic_ids = set(d.get("topic_id", "") for d in all_days if d.get("topic_id"))
+        prereq_fixed_days = []
+        for d in all_days:
+            prereqs = d.get("prerequisites", [])
+            if not isinstance(prereqs, list):
+                continue
+            cleaned = [p for p in prereqs if p in valid_topic_ids]
+            if len(cleaned) != len(prereqs):
+                bad = [p for p in prereqs if p not in valid_topic_ids]
+                d["prerequisites"] = cleaned
+                prereq_fixed_days.append((d["day"], bad))
+        if prereq_fixed_days:
+            self.roadmap_gen_log(
+                f"[BƯỚC 1/3 • 1D] Dọn dẹp {len(prereq_fixed_days)} Day có prerequisite tham chiếu topic_id không còn tồn tại "
+                f"(do PASS 1C đã thay thế topic): " +
+                ", ".join(f"Day {day}" for day, _ in prereq_fixed_days[:10]) +
+                ("..." if len(prereq_fixed_days) > 10 else "") + " ✓"
+            )
+
         plan = {"domain_profile": phase_map["domain_profile"], "coverage": phase_map.get("coverage", []), "skeleton": all_days}
         from roadmap_pipeline import validate_plan
         validate_plan(plan, target, require_micro=True, sim_check_enabled=bool(snapshot.get("req_sim_check", 1)), sim_threshold=sim_threshold)
@@ -1487,7 +1815,7 @@ CAM KẾT: trường 'topic' của MỖI Day mới PHẢI khác hoàn toàn vớ
         except OSError:
             pass
         self._show_skeleton(plan)
-        self.roadmap_gen_log(f"[✅ BƯỚC 1/3 HOÀN TẤT] JSON skeleton {len(all_days)} Day đã kiểm định và lưu: {artifacts['skeleton']}")
+        self.roadmap_gen_log(f"[✅ BƯỚC 1/3 HOÀN TẤT] JSON skeleton {len(all_days)} Day đã kiểm định sạch sẽ và lưu: {artifacts['skeleton']}")
         self.roadmap_gen_log("[TIẾP THEO] JSON đã sẵn sàng. Bấm '2. Phản biện & Mở rộng Khung' để chạy các pass kiểm tra/bổ sung trước khi sinh roadmap cuối.")
 
     def roadmap_gen_step2(self):
@@ -2930,6 +3258,7 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
         Button(btn_frame, text="🔓 Xóa Cooldown", command=reset_all_cooldown, bg="#2980b9", fg="white").pack(side="left", padx=5)
         Button(btn_frame, text="Đặt Active", command=set_active, bg="#3498db", fg="white").pack(side="left", padx=5)
         Button(btn_frame, text="Lưu Thứ Tự", command=save_sort_order, bg="#16a085", fg="white").pack(side="left", padx=5)
+        Button(btn_frame, text="⚙️ Cài đặt Model", command=self._open_model_settings_dialog, bg="#6c3483", fg="white", font=("Arial", 9, "bold")).pack(side="left", padx=5)
         Button(btn_frame, text="Xóa Key", command=del_key, bg="#e74c3c", fg="white").pack(side="right", padx=5)
 
         # === LOG PANEL (packed side=bottom → xuất hiện TRÊN btn_frame) ===
@@ -2954,7 +3283,392 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
 
         refresh_list()
 
+    # ──────────────────────────────────────────────────────────
+    # ⚙️  Cài Đặt & Tự Khám Phá Model AI
+    # ──────────────────────────────────────────────────────────
+    def _open_model_settings_dialog(self):
+        """Mở dialog cấu hình thứ tự ưu tiên và khám phá model AI mới."""
+        import threading, time, requests
+        from tkinter import ttk, messagebox
+        from tkinter.scrolledtext import ScrolledText as _ST
+        from settings import (
+            load_settings, update_gemini_settings,
+            get_active_model_list, _DEFAULT_MODEL_FALLBACKS, decode_token
+        )
+
+        # ── Tier metadata ──────────────────────────────────────
+        TIER_META = {
+            "S": {"color": "#e74c3c", "badge": "🔴 S", "score_bonus": 500},
+            "A": {"color": "#e67e22", "badge": "🟠 A", "score_bonus": 300},
+            "B": {"color": "#f1c40f", "badge": "🟡 B", "score_bonus": 100},
+            "C": {"color": "#95a5a6", "badge": "⚪ C", "score_bonus":   0},
+        }
+
+        def _infer_tier(name):
+            n = name.lower()
+            if "3.5" in n or "3-ultra" in n:
+                return "S"
+            if "3-flash" in n or "3.0" in n or "flash-latest" in n:
+                return "A"
+            if "lite" in n or "3.1" in n:
+                return "B"
+            return "C"
+
+        # ── Tải model_priority hiện tại từ settings ────────────
+        _st = load_settings()
+        _saved = _st.get("gemini", {}).get("model_priority", [])
+        if not _saved:
+            _saved = [
+                {"name": m, "enabled": True, "tier": _infer_tier(m), "note": "", "latency_ms": 0}
+                for m in _DEFAULT_MODEL_FALLBACKS
+            ]
+
+        # Working copy — mutable list of dicts
+        _models = [dict(m) for m in _saved]
+
+        # ── Dialog root ────────────────────────────────────────
+        win = Toplevel(self.root)
+        win.title("⚙️  Cài Đặt Thứ Tự Ưu Tiên & Khám Phá Model AI")
+        win.geometry("760x580")
+        win.minsize(680, 520)
+        win.resizable(True, True)
+        win.transient(self.root)
+        win.grab_set()
+        win.configure(bg="#1a1a2e")
+        win.bind("<Escape>", lambda e: win.destroy())
+
+        # ── Header ─────────────────────────────────────────────
+        hdr = Frame(win, bg="#16213e", pady=8)
+        hdr.pack(fill="x")
+        Label(hdr, text="⚙️  Cài Đặt Model AI",
+              font=("Arial", 13, "bold"), fg="#e0e0ff", bg="#16213e").pack(side="left", padx=14)
+        Label(hdr, text="Sắp xếp thứ tự ưu tiên fallback — Model đứng đầu được thử trước",
+              font=("Arial", 9), fg="#8888aa", bg="#16213e").pack(side="left", padx=6)
+
+        # ── Listbox + Scrollbar ────────────────────────────────
+        lf = Frame(win, bg="#1a1a2e")
+        lf.pack(fill="both", expand=True, padx=12, pady=(10, 4))
+
+        cols = ("order", "tier", "name", "note", "latency", "enabled")
+        tree = ttk.Treeview(lf, columns=cols, show="headings", selectmode="browse", height=12)
+        tree.heading("order",   text="#")
+        tree.heading("tier",    text="Tier")
+        tree.heading("name",    text="Model Name")
+        tree.heading("note",    text="Ghi chú")
+        tree.heading("latency", text="Độ trễ")
+        tree.heading("enabled", text="Trạng thái")
+        tree.column("order",   width=36,  anchor="center", stretch=False)
+        tree.column("tier",    width=60,  anchor="center", stretch=False)
+        tree.column("name",    width=230, anchor="w")
+        tree.column("note",    width=195, anchor="w")
+        tree.column("latency", width=80,  anchor="center", stretch=False)
+        tree.column("enabled", width=90,  anchor="center", stretch=False)
+
+        # Tag màu tier
+        tree.tag_configure("tier_S", foreground="#e74c3c", font=("Consolas", 10, "bold"))
+        tree.tag_configure("tier_A", foreground="#e67e22", font=("Consolas", 10))
+        tree.tag_configure("tier_B", foreground="#f1c40f", font=("Consolas", 10))
+        tree.tag_configure("tier_C", foreground="#95a5a6", font=("Consolas", 10))
+        tree.tag_configure("disabled_row", foreground="#555577")
+
+        vsb = ttk.Scrollbar(lf, orient="vertical", command=tree.yview)
+        tree.configure(yscrollcommand=vsb.set)
+        tree.pack(fill="both", expand=True, side="left")
+        vsb.pack(fill="y", side="left")
+
+        def _latency_str(ms):
+            if ms <= 0:
+                return "—"
+            if ms < 1000:
+                return f"{ms}ms"
+            return f"{ms/1000:.1f}s"
+
+        def _refresh_tree():
+            tree.delete(*tree.get_children())
+            for i, m in enumerate(_models, 1):
+                tier  = m.get("tier", _infer_tier(m["name"]))
+                badge = TIER_META.get(tier, TIER_META["C"])["badge"]
+                lat   = _latency_str(m.get("latency_ms", 0))
+                en    = "✅ Bật" if m.get("enabled", True) else "☒ Tắt"
+                tag   = f"tier_{tier}" if m.get("enabled", True) else "disabled_row"
+                tree.insert("", "end", iid=str(i-1), values=(i, badge, m["name"], m.get("note",""), lat, en), tags=(tag,))
+
+        _refresh_tree()
+
+        def _sel_idx():
+            sel = tree.selection()
+            return int(sel[0]) if sel else None
+
+        # ── Toolbar nút điều khiển ─────────────────────────────
+        ctrl = Frame(win, bg="#1a1a2e")
+        ctrl.pack(fill="x", padx=12, pady=2)
+
+        def move_up():
+            idx = _sel_idx()
+            if idx is None or idx == 0: return
+            _models[idx-1], _models[idx] = _models[idx], _models[idx-1]
+            _refresh_tree()
+            tree.selection_set(str(idx-1))
+
+        def move_down():
+            idx = _sel_idx()
+            if idx is None or idx >= len(_models)-1: return
+            _models[idx], _models[idx+1] = _models[idx+1], _models[idx]
+            _refresh_tree()
+            tree.selection_set(str(idx+1))
+
+        def toggle_enabled():
+            idx = _sel_idx()
+            if idx is None: return
+            _models[idx]["enabled"] = not _models[idx].get("enabled", True)
+            _refresh_tree()
+            tree.selection_set(str(idx))
+
+        def auto_sort():
+            def _score(m):
+                ms = m.get("latency_ms", 0)
+                tier_bonus = TIER_META.get(m.get("tier", "C"), TIER_META["C"])["score_bonus"]
+                speed = (1000 / ms) if ms > 0 else 0
+                return tier_bonus + speed
+            _models.sort(key=_score, reverse=True)
+            _refresh_tree()
+            log_msg("🔀 Đã tự xếp theo điểm mạnh (Tier + Tốc độ).")
+
+        def reset_default():
+            if not messagebox.askyesno("Xác nhận", "Khôi phục danh sách model mặc định?", parent=win):
+                return
+            _models.clear()
+            for name in _DEFAULT_MODEL_FALLBACKS:
+                _models.append({"name": name, "enabled": True, "tier": _infer_tier(name), "note": "", "latency_ms": 0})
+            _refresh_tree()
+            log_msg("↩ Đã khôi phục danh sách model mặc định.")
+
+        btn_cfg = dict(bg="#2c3e50", fg="white", font=("Arial", 9), relief="flat", padx=8, pady=4, cursor="hand2")
+        Button(ctrl, text="↑ Lên",          command=move_up,       **btn_cfg).pack(side="left", padx=3)
+        Button(ctrl, text="↓ Xuống",        command=move_down,     **btn_cfg).pack(side="left", padx=3)
+        Button(ctrl, text="☑/☒ Bật/Tắt",   command=toggle_enabled,**btn_cfg).pack(side="left", padx=3)
+        Button(ctrl, text="🔀 Xếp theo Điểm", command=auto_sort,  **btn_cfg).pack(side="left", padx=3)
+        Button(ctrl, text="↩ Mặc định",    command=reset_default,  **btn_cfg).pack(side="left", padx=3)
+
+        # ── Nút Discover + Stop ────────────────────────────────
+        _stop_flag = [False]
+
+        def do_discover():
+            """Auto-discover models từ API + benchmark từng model."""
+            _stop_flag[0] = False
+            btn_discover.config(state="disabled", text="⏳ Đang quét...")
+            btn_stop.config(state="normal")
+
+            def run():
+                try:
+                    _do_discover_inner()
+                except Exception as ex:
+                    log_msg(f"❌ Lỗi discover: {ex}")
+                finally:
+                    win.after(0, lambda: btn_discover.config(state="normal", text="🔍 Auto Discover & Đánh giá"))
+                    win.after(0, lambda: btn_stop.config(state="disabled"))
+
+            threading.Thread(target=run, daemon=True).start()
+
+        def _do_discover_inner():
+            from settings import decode_token as _dt
+            import json as _json
+
+            # Lấy key active đầu tiên
+            _st2 = load_settings()
+            all_keys = _st2.get("gemini", {}).get("api_keys", [])
+            now = time.time()
+            active_key = None
+            for k in all_keys:
+                if k.get("status", "active") == "active" and k.get("cooldown_until", 0) <= now:
+                    raw = _dt(k.get("key", ""))
+                    if raw:
+                        active_key = raw
+                        break
+
+            if not active_key:
+                log_msg("❌ Không tìm thấy API key active để quét. Vui lòng kiểm tra tab Quản lý API Keys.")
+                return
+
+            # ── Bước 1: GET /v1beta/models ──────────────────────
+            log_msg("🌐 Bước 1: Gọi GET /v1beta/models để lấy danh sách model...")
+            try:
+                resp = requests.get(
+                    f"https://generativelanguage.googleapis.com/v1beta/models?key={active_key}&pageSize=100",
+                    timeout=20
+                )
+                if resp.status_code != 200:
+                    log_msg(f"⚠ API trả về HTTP {resp.status_code}: {resp.text[:120]}")
+                    return
+                raw_list = resp.json().get("models", [])
+            except Exception as e:
+                log_msg(f"❌ Không gọi được API: {e}")
+                return
+
+            # Lọc model text-generation (generateContent) có tên chứa "flash" hoặc gemini
+            discovered = []
+            for m in raw_list:
+                mname = m.get("name", "").replace("models/", "")
+                supported = m.get("supportedGenerationMethods", [])
+                if "generateContent" not in supported:
+                    continue
+                n = mname.lower()
+                if "flash" not in n and "gemini" not in n:
+                    continue
+                if any(x in n for x in ("embed", "vision", "imagen", "thinking", "image")):
+                    continue
+                discovered.append(mname)
+
+            log_msg(f"✅ Tìm thấy {len(discovered)} model khả dụng: {', '.join(discovered[:5])}{'...' if len(discovered)>5 else ''}")
+
+            if not discovered:
+                return
+
+            # ── Bước 2: Benchmark từng model ───────────────────
+            log_msg(f"⏱ Bước 2: Benchmark {len(discovered)} model (prompt ngắn 'Hi', maxTokens=5)...")
+            payload = {"contents": [{"parts": [{"text": "Hi"}]}], "generationConfig": {"maxOutputTokens": 5}}
+            results = {}  # name -> latency_ms hoặc -1 nếu lỗi
+
+            for mname in discovered:
+                if _stop_flag[0]:
+                    log_msg("🛑 Người dùng yêu cầu dừng.")
+                    break
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/{mname}:generateContent?key={active_key}"
+                try:
+                    t0 = time.time()
+                    r = requests.post(url, json=payload, headers={"Content-Type": "application/json"}, timeout=15)
+                    ms = int((time.time() - t0) * 1000)
+                    if r.status_code == 200:
+                        results[mname] = ms
+                        log_msg(f"  ✅ {mname}: {ms}ms (HTTP 200)")
+                    elif r.status_code == 429:
+                        results[mname] = -2  # rate limit — key OK nhưng quota tạm
+                        log_msg(f"  ⚠ {mname}: Rate limit (HTTP 429) — key OK, đánh dấu 'Hạn chế'")
+                    elif r.status_code in (404, 400):
+                        results[mname] = -3  # model not accessible
+                        log_msg(f"  ✗ {mname}: HTTP {r.status_code} — không accessible với key này")
+                    else:
+                        results[mname] = -1
+                        log_msg(f"  ✗ {mname}: HTTP {r.status_code}")
+                except requests.exceptions.Timeout:
+                    results[mname] = -4  # timeout
+                    log_msg(f"  ⏱ {mname}: Timeout >15s — model nghẽn tải")
+                except Exception as ex:
+                    results[mname] = -1
+                    log_msg(f"  ✗ {mname}: {ex}")
+                time.sleep(0.5)  # nghỉ nhẹ giữa các ping tránh spam
+
+            # ── Bước 3: Cập nhật _models trong UI ──────────────
+            log_msg("🔄 Bước 3: Cập nhật danh sách model trong UI...")
+            existing_names = {m["name"] for m in _models}
+            for mname, ms in results.items():
+                tier = _infer_tier(mname)
+                if ms > 0:
+                    note_suffix = f"({ms}ms)"
+                elif ms == -2:
+                    note_suffix = "(Rate limit)"
+                elif ms == -3:
+                    note_suffix = "(Không truy cập được)"
+                elif ms == -4:
+                    note_suffix = "(Timeout)"
+                else:
+                    note_suffix = "(Lỗi)"
+
+                if mname in existing_names:
+                    for m in _models:
+                        if m["name"] == mname:
+                            m["latency_ms"] = max(ms, 0)
+                            m["tier"] = tier
+                            m["note"] = f"Tier {tier} — {note_suffix}"
+                            break
+                else:
+                    # Model mới chưa có → thêm vào cuối, mặc định enabled nếu accessible
+                    _models.append({
+                        "name": mname,
+                        "enabled": ms > 0,
+                        "tier": tier,
+                        "note": f"[Mới tìm] Tier {tier} — {note_suffix}",
+                        "latency_ms": max(ms, 0)
+                    })
+
+            # Auto-sort sau khi discover
+            def _score(m):
+                ms2 = m.get("latency_ms", 0)
+                tier_bonus = TIER_META.get(m.get("tier","C"), TIER_META["C"])["score_bonus"]
+                speed = (1000 / ms2) if ms2 > 0 else 0
+                return tier_bonus + speed
+
+            _models.sort(key=_score, reverse=True)
+            win.after(0, _refresh_tree)
+            log_msg(f"✅ Hoàn tất! {len(results)} model đã được đánh giá và xếp hạng tự động.")
+
+        def stop_discover():
+            _stop_flag[0] = True
+            log_msg("🛑 Đang dừng quét...")
+
+        disc_frame = Frame(win, bg="#1a1a2e")
+        disc_frame.pack(fill="x", padx=12, pady=(0,4))
+        btn_discover = Button(disc_frame, text="🔍 Auto Discover & Đánh giá",
+                              command=do_discover,
+                              bg="#1abc9c", fg="white", font=("Arial", 10, "bold"),
+                              relief="flat", padx=10, pady=5, cursor="hand2")
+        btn_discover.pack(side="left", padx=3)
+        btn_stop = Button(disc_frame, text="⏹ Dừng", command=stop_discover,
+                          bg="#e74c3c", fg="white", font=("Arial", 9),
+                          relief="flat", padx=8, pady=5, cursor="hand2", state="disabled")
+        btn_stop.pack(side="left", padx=3)
+        Label(disc_frame, text="← Tự động tìm tất cả model mới nhất trên Google API rồi đo tốc độ & xếp hạng",
+              font=("Arial", 8), fg="#8888aa", bg="#1a1a2e").pack(side="left", padx=8)
+
+        # ── Log panel ──────────────────────────────────────────
+        log_frame = Frame(win, bg="#0d1117", bd=1, relief="sunken")
+        log_frame.pack(fill="x", padx=12, pady=(0,4))
+        log_hdr = Frame(log_frame, bg="#2c3e50")
+        log_hdr.pack(fill="x")
+        Label(log_hdr, text="📋 Log:", font=("Arial", 9, "bold"),
+              fg="#ecf0f1", bg="#2c3e50", anchor="w").pack(side="left", padx=6, pady=2)
+        _log_widget = _ST(log_frame, height=5, font=("Consolas", 9),
+                          bg="#0d1117", fg="#00e676", insertbackground="#00e676",
+                          state="disabled", wrap="word", relief="flat")
+        _log_widget.pack(fill="x")
+
+        def log_msg(msg):
+            def _do():
+                try:
+                    _log_widget.config(state="normal")
+                    _log_widget.insert("end", msg + "\n")
+                    _log_widget.see("end")
+                    _log_widget.config(state="disabled")
+                except Exception:
+                    pass
+            win.after(0, _do)
+
+        # ── Bottom buttons: Save & Close ───────────────────────
+        bot = Frame(win, bg="#16213e", pady=8)
+        bot.pack(fill="x", side="bottom")
+
+        def save_and_close():
+            # Ghi vào settings
+            update_gemini_settings(model_priority=[dict(m) for m in _models])
+            self.settings = load_settings()
+            log_msg("💾 Đã lưu cấu hình model!")
+            win.after(300, win.destroy)
+
+        Button(bot, text="💾 Lưu & Áp dụng", command=save_and_close,
+               bg="#27ae60", fg="white", font=("Arial", 10, "bold"),
+               relief="flat", padx=14, pady=6, cursor="hand2").pack(side="left", padx=12)
+        Button(bot, text="Đóng (không lưu)", command=win.destroy,
+               bg="#555", fg="white", font=("Arial", 9),
+               relief="flat", padx=10, pady=6, cursor="hand2").pack(side="left", padx=4)
+
+        Label(bot,
+              text="💡 Mẹo: Nhấn Auto Discover để tìm model mới → Xếp theo Điểm → Lưu & Áp dụng",
+              font=("Arial", 8), fg="#8888aa", bg="#16213e").pack(side="right", padx=12)
+
+        log_msg("📋 Dialog sẵn sàng. Nhấn '🔍 Auto Discover & Đánh giá' để quét model mới nhất.")
+
     def expand_roadmap_handler(self):
+
         roadmap_path = self.ai_roadmap_var.get()
         doc_dir = self.ai_doc_var.get()
         if not roadmap_path or not doc_dir:
