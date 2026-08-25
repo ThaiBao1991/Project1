@@ -5,6 +5,7 @@ Lưu vào settings.json (local, không commit lên GitHub)
 
 import json
 import os
+import copy
 import base64
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -24,6 +25,10 @@ DEFAULT_SETTINGS = {
         "folder_id_mp4": "",
         "root_folder_id": "",
         "root_folder_name": "VocabularyApp"
+    },
+    "ai": {
+        # Để trống = tự dò ../Download/AskCpl/settings.json (dùng chung kho API key)
+        "askcpl_settings_path": ""
     }
 }
 
@@ -47,15 +52,17 @@ def decode_token(encoded: str) -> str:
         return ""
 
 def load_settings() -> dict:
+    # deepcopy để không mutate DEFAULT_SETTINGS toàn cục khi merge
     if not os.path.exists(SETTINGS_PATH):
-        return dict(DEFAULT_SETTINGS)
+        return copy.deepcopy(DEFAULT_SETTINGS)
     try:
         with open(SETTINGS_PATH, "r", encoding="utf-8") as f:
             data = json.load(f)
         # Merge với default để không thiếu key mới
-        merged = dict(DEFAULT_SETTINGS)
+        merged = copy.deepcopy(DEFAULT_SETTINGS)
         merged["github"].update(data.get("github", {}))
         merged["gdrive"].update(data.get("gdrive", {}))
+        merged["ai"].update(data.get("ai", {}))
         
         # Giải mã token khi load lên app
         token = merged["github"].get("token")
@@ -64,7 +71,7 @@ def load_settings() -> dict:
             
         return merged
     except Exception:
-        return dict(DEFAULT_SETTINGS)
+        return copy.deepcopy(DEFAULT_SETTINGS)
 
 
 def save_settings(settings: dict):

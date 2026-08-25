@@ -51,10 +51,42 @@ Tạo một ứng dụng desktop quản lý từ vựng đa ngôn ngữ (Tiếng
 - [x] **Tối ưu Hiệu suất & UI/UX (Web):** Thêm Debounce (300ms) cho thanh tìm kiếm chống treo trình duyệt. Implement Lazy Loading (Infinite Scroll) bằng `IntersectionObserver` tối ưu render danh sách lớn. Thêm nút Xoá nhanh tìm kiếm (Clear button), Smooth Accordion cho ví dụ và Micro-animations (hover effects) cho các thẻ từ vựng (2026-08-12).
 - [x] **Hybrid TTS Fallback (Web):** Nút 🔊 Play trên Flashcard luôn hiện. Nếu từ có `mp3_gdrive_id` → phát MP3 Google Drive như cũ. Nếu không có → dùng `Web Speech API` (SpeechSynthesis) đọc TTS với locale tự động map theo ngôn ngữ (en-US / ja-JP / zh-CN...). Không cần backend, không cần API key (2026-08-13).
 - [x] **TTS Hybrid trên Desktop App:** Thêm hàm `speak_word()` dùng `gTTS + pygame` (có mạng, giọng Google) hoặc fallback `pyttsx3` (offline, Windows SAPI). Thêm nút 🔊 cạnh ô "Từ vựng" trong form Thêm/Sửa và nút **🔊 Đọc** trong action bar của List View. Thư viện tự cài qua `check_and_install_packages()` khi khởi động (2026-08-13).
+- [x] **Rà soát & vá lỗi toàn ứng dụng (Bug-fix sweep):** Fix shallow-copy mutate DEFAULT_SETTINGS trong `settings.py`; ghi JSON atomic (`os.replace`) chống hỏng dữ liệu; fix progress bar bị cập nhật từ background thread; fix chèn từ vào JS luyện viết bằng `json.dumps` (từ chứa `" \` `\` không còn vỡ) + tự dọn temp script; thêm lock chống race khi bấm 🔊 liên tục; thống nhất zh-CN; dedupe header bảng Preview; Web thêm DOMPurify sanitize, tìm kiếm khớp cả example/note, flashcard lặp vòng + phím tắt Space/←/→ (2026-08-25).
+- [x] **Fix auto-installer chết trên Python 3.14+:** Trước đây cài TẤT CẢ thư viện trong 1 lệnh pip → pygame (chưa có wheel cho 3.14, build lỗi do bỏ distutils) làm hỏng cả lệnh → app không thể khởi động. Tách `CRITICAL_PACKAGES` (customtkinter, requests — thiếu là thoát với cửa sổ lỗi) và `OPTIONAL_PACKAGES` (cài từng gói riêng, fail thì bỏ qua và app vẫn chạy). Thêm biến môi trường `VOCABAPP_SKIP_INSTALL=1` để dev/test khởi động nhanh. Dọn `requirements.txt`: bỏ Pillow & qrcode (không được dùng trong code) (2026-08-25).
+- [x] **Tab 🎓 Học Tập + Khóa học AI chuyên sâu theo ngày (kiểu AskCpl):** Ô lựa chọn nguồn học gồm **"📖 Từ vựng tự học"** (flashcard lật thẻ 60 từ hiện có: trộn thẻ, 🔊 đọc, phím ←/→/Space) và **"🤖 Khóa học AI chuyên sâu"** (AI chia toàn bộ từ vựng thành các ngày; mỗi ngày sinh bài học JSON gồm: từ vựng chuyên sâu + giải thích sắc thái + ví dụ song ngữ + điểm ngữ pháp + 6-10 câu trắc nghiệm tương tác có chấm điểm & lưu tiến độ). Dùng lại cơ chế `GeminiCoordinator` của AskCpl (`api/gemini_safe.py`): xoay vòng **155 API key ENC:** đọc trực tiếp từ `AskCpl/settings.json`, pace chống 429, model fallback. Database lưu kiểu AskCpl tại `data/ai_courses/<ngôn_ngữ>/course.json` + `progress.json` (atomic, resumable — dừng giữa chừng chạy lại là tiếp tục). Web thêm view "🎓 AI Course" để ôn trên điện thoại; GitHub sync upload cả thư mục ai_courses. Đã test THẬT với Gemini: sinh thành công Ngày 1/12 (model fallback gemini-3.5-flash → flash-latest → 3.1-flash-lite) (2026-08-26).
 
 ---
 
 ## Changelog
+
+### 2026-08-26 — Tab 🎓 Học Tập + Khóa học AI chuyên sâu theo ngày (tích hợp AskCpl)
+**Kiến trúc**: tái sử dụng `GeminiCoordinator` của AskCpl (copy về `api/gemini_safe.py`, bỏ phụ thuộc settings) — xoay vòng account/key, pace 3.5–5s + jitter, phân loại lỗi 429 daily/rate/invalid, model fallback. Key đọc (chỉ đọc, không ghi) từ `GravityCode/Download/AskCpl/settings.json`, giải mã ENC: cùng thuật toán.
+
+**Files mới/sửa**:
+| File | Nội dung |
+|------|----------|
+| `api/gemini_safe.py` (mới) | Bản copy chuẩn hóa của gemini_safe.py từ AskCpl |
+| `ai/course_db.py` (mới) | DB khóa học: `data/ai_courses/<slug>/course.json` + `progress.json`; atomic write; upsert_day resumable; mark_day_completed giữ điểm cao nhất |
+| `ai/course_generator.py` (mới) | responseSchema JSON cho Gemini (vocab/grammar/quiz), prompt gia sư tiếng Việt, parse chống lỗi (code fence, answer_index out-of-range), vòng lặp sinh từng ngày + lưu ngay, stop/resume |
+| `VocabApp.py` | Tab **🎓 Học Tập**: ô chọn nguồn (Tự học / Khóa AI), flashcard tự học (trộn/lật/đọc/phím tắt), trình xem bài theo ngày (textbox render + quiz radio tương tác chấm điểm lưu tiến độ), dialog sinh khóa học (chọn 3/5/7/10 từ ngày, progress bar, log, nút Dừng). Fix CTkRadioButton không nhận wraplength; bind phím qua winfo_toplevel vì CTk chặn bind_all |
+| `web/index.html` `script.js` `style.css` | View "🎓 AI Course": chọn ngày → bài học + trắc nghiệm interactive, tiến độ lưu localStorage, badge hoàn thành; switchView 3 chiều |
+| `api/github_sync.py` | Upload cả `data/ai_courses/**/*.json` lên GitHub Pages |
+| `settings.py` | Thêm mục `ai.askcpl_settings_path` (ghi đè đường dẫn key nếu cần) |
+
+**Kiểm chứng**: 26 unit test PASS (course_db, parser, resumable, stop); smoke test 2 bản Python PASS kể cả render quiz thật; gọi AI THẬT sinh Ngày 1/12 khóa tiếng Nhật thành công qua cơ chế fallback model.
+
+### 2026-08-25 — Rà soát & vá lỗi toàn ứng dụng (Bug-fix sweep)
+**Kết quả review**: 7 nhóm lỗi thật sự + 3 điểm tối ưu, đã vá hết. Kiểm tra bằng 31 unit test + compile check + smoke test khởi động app thật trên Python 3.14 & 3.11 (đều PASS, 60 từ load đúng).
+
+**Files đã sửa**:
+| File | Thay đổi |
+|------|----------|
+| `settings.py` | **Bug thật**: `dict(DEFAULT_SETTINGS)` là shallow-copy nên `merged["github"].update(...)` làm mutate dict mặc định toàn cục (giá trị cũ "nhớ" xuyên phiên, kể cả khi file hỏng). Chuyển sang `copy.deepcopy()`. |
+| `database/database.py` | `save_data()` ghi trực tiếp → crash giữa lúc ghi làm hỏng file JSON (mất dữ liệu). Đổi sang ghi file `.tmp` rồi `os.replace()` (atomic trên Windows). |
+| `VocabApp.py` | 1) **Nghiêm trọng**: auto-installer cài mọi thư viện trong 1 lệnh pip — pygame build lỗi trên Python 3.14 làm app không thể khởi động. Tách critical/optional + cài từng gói + thêm env `VOCABAPP_SKIP_INSTALL`. 2) Progress bar Drive bị gọi `.set()` từ worker thread — tkinter không thread-safe → route qua `self.after(0,...)`, chống chia 0. 3) Nút Upload Drive thêm cờ `_syncing` chống bấm đúp tạo 2 thread upload song song. 4) `run_webview_practice`: chèn từ thẳng vào chuỗi JS qua f-string vỡ khi từ chứa `" \` `\`; chuyển sang `json.dumps`, đồng thời temp script tự xóa sau khi chạy. 5) `speak_word`: thêm `_tts_lock` chống race pygame khi bấm 🔊 liên tục; check pygame trước khi generate gTTS; fix `v.languages[0].decode()` crash; map tiếng Trung `zh-TW` → `zh-CN` khớp Web. 6) `PreviewDialog`: dedupe header bảng (Treeview crash nếu 2 cột trùng tên). |
+| `requirements.txt` | Bỏ Pillow & qrcode (không được dùng trong code nào) → cài nhanh hơn. |
+| `web/index.html` | Thêm DOMPurify CDN (sanitize HTML do `marked.parse()` render từ dữ liệu người dùng — chống XSS). |
+| `web/script.js` | 1) `formatText()` sanitize qua DOMPurify. 2) Tìm kiếm web bổ sung `example`, `example_meaning`, `note` để khớp hành vi desktop. 3) Flashcard điều hướng lặp vòng (cuối→đầu). 4) Phím tắt: Space lật thẻ, ←/→ chuyển thẻ (tự bỏ qua khi đang gõ hoặc modal luyện viết mở). |
 
 ### 2026-06-26 — Khắc phục giật lag danh sách từ vựng bằng ttk.Treeview
 **Vấn đề**: Giao diện ứng dụng bị treo, lag nhẹ khi tải danh sách từ vựng do phải render quá nhiều `CTkFrame` và `CTkLabel` riêng lẻ. Người dùng có gợi ý dùng "lazy loading" như trên Web.

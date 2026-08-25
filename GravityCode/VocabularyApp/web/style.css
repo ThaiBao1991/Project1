@@ -638,3 +638,186 @@ tr:last-child td {
     text-align: center;
 }
 
+/* ═══════════════════════════════════════════
+   AI Course View
+═══════════════════════════════════════════ */
+.course-header {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+#course-day-select {
+    flex: 1;
+}
+
+#course-progress-badge {
+    color: var(--success);
+}
+
+.lesson-title {
+    color: var(--accent);
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.lesson-explanation {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 6px;
+    word-break: break-word;
+}
+
+.section-title {
+    color: var(--accent);
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 18px;
+    margin-bottom: 10px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+}
+
+.pattern-item {
+    background-color: var(--card-bg);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 10px;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    word-break: break-word;
+}
+
+.pattern-note {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-top: 4px;
+}
+
+.pattern-example {
+    margin-top: 6px;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 0.88rem;
+    color: var(--text-main);
+}
+
+.common-item {
+    background-color: var(--card-bg);
+    border-left: 3px solid var(--success);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 10px;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    word-break: break-word;
+}
+
+.common-situation {
+    color: var(--text-muted);
+    font-size: 0.83rem;
+    margin-top: 4px;
+}
+
+.quiz-cat-badge {
+    display: inline-block;
+    background-color: var(--accent);
+    color: #121212;
+    font-size: 0.72rem;
+    font-weight: bold;
+    padding: 1px 7px;
+    border-radius: 10px;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+.grammar-box {
+    background-color: var(--card-bg-alt);
+    border-left: 3px solid var(--success);
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin-top: 14px;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    word-break: break-word;
+}
+
+.grammar-box h4 {
+    color: var(--success);
+    margin-bottom: 8px;
+}
+
+.quiz-q {
+    background-color: var(--card-bg-alt);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-top: 10px;
+    font-size: 0.92rem;
+}
+
+.quiz-opt {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-top: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: 0.15s;
+}
+
+.quiz-opt.selected {
+    border-color: var(--accent);
+}
+
+.quiz-opt.correct {
+    border-color: var(--success);
+    color: var(--success);
+}
+
+.quiz-opt.wrong {
+    border-color: #cf6679;
+    color: #cf6679;
+}
+
+.quiz-opt:disabled {
+    opacity: 0.85;
+    cursor: default;
+}
+
+.quiz-exp {
+    margin-top: 8px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    display: none;
+}
+
+.submit-btn {
+    width: 100%;
+    margin-top: 14px;
+    padding: 13px;
+    background-color: var(--success);
+    color: #121212;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.quiz-score-banner {
+    margin-top: 14px;
+    padding: 13px;
+    border-radius: 8px;
+    background-color: var(--accent);
+    color: #121212;
+    font-weight: bold;
+    text-align: center;
+}
+

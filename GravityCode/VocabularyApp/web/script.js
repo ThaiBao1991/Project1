@@ -18,8 +18,25 @@ const loadMoreTrigger = document.getElementById("load-more-trigger");
 
 const btnList = document.getElementById("btn-list");
 const btnFlashcard = document.getElementById("btn-flashcard");
+const btnCourse = document.getElementById("btn-course");
 const viewList = document.getElementById("list-view");
 const viewFlashcard = document.getElementById("flashcard-view");
+const viewCourse = document.getElementById("course-view");
+
+// ─── Chuyển đổi view 3 chiều ──────────────────────────────────────────────────
+function switchView(name) {
+    const views = {
+        list:      [btnList, viewList],
+        flashcard: [btnFlashcard, viewFlashcard],
+        course:    [btnCourse, viewCourse],
+    };
+    Object.entries(views).forEach(([key, [b, v]]) => {
+        b.classList.toggle("active", key === name);
+        v.classList.toggle("active", key === name);
+    });
+    if (name === "flashcard") renderFlashcard();
+    if (name === "course") ensureCourseLoaded();
+}
 
 // ─── Helper: escape HTML để an toàn khi dùng innerHTML ───────────────────────
 function escapeHtml(str) {
@@ -37,10 +54,11 @@ marked.setOptions({
     gfm: true
 });
 
-// ─── Helper: parse Markdown thay vì chỉ replace \n ───────────────────────────
+// ─── Helper: parse Markdown (sanitize bằng DOMPurify nếu có) ──────────────────
 function formatText(str) {
     if (!str) return "";
-    return marked.parse(str);
+    const html = marked.parse(str);
+    return window.dompurify ? DOMPurify.sanitize(html) : html;
 }
 
 // Fetch languages list
@@ -74,6 +92,9 @@ async function init() {
 async function loadLanguage(lang) {
     currentLanguage = lang;
     const filename = lang.toLowerCase().replace(/ /g, "_") + ".json";
+    // Reset cache khóa học AI theo ngôn ngữ mới
+    courseData = null;
+    courseSlug = "";
     try {
         let res = await fetch(`data/${filename}`).catch(() => null);
         if (!res || !res.ok) {
@@ -121,7 +142,7 @@ function applyFilters() {
         if (tType && v.word_type !== tType) return false;
         if (tDate && v.date_tag !== tDate) return false;
         if (q) {
-            const haystack = `${v.word} ${v.meaning} ${v.pronunciation}`.toLowerCase();
+            const haystack = `${v.word} ${v.meaning} ${v.pronunciation} ${v.example} ${v.example_meaning} ${v.note}`.toLowerCase();
             if (!haystack.includes(q)) return false;
         }
         return true;
@@ -279,16 +300,32 @@ fcCard.addEventListener("click", () => {
 });
 
 document.getElementById("btn-prev").addEventListener("click", () => {
-    if (flashcardIndex > 0) {
-        flashcardIndex--;
-        renderFlashcard();
-    }
+    if (filteredVocabs.length === 0) return;
+    flashcardIndex = (flashcardIndex - 1 + filteredVocabs.length) % filteredVocabs.length;
+    renderFlashcard();
 });
 
 document.getElementById("btn-next").addEventListener("click", () => {
-    if (flashcardIndex < filteredVocabs.length - 1) {
-        flashcardIndex++;
-        renderFlashcard();
+    if (filteredVocabs.length === 0) return;
+    flashcardIndex = (flashcardIndex + 1) % filteredVocabs.length;
+    renderFlashcard();
+});
+
+// ─── Keyboard shortcuts cho Flashcard (Space = lật, ←/→ = chuyển thẻ) ────────
+document.addEventListener("keydown", (e) => {
+    // Bỏ qua nếu đang gõ trong input/select/textarea hoặc modal luyện viết mở
+    const tag = (document.activeElement && document.activeElement.tagName) || "";
+    if (/^(INPUT|SELECT|TEXTAREA)$/.test(tag)) return;
+    if (writingModal.style.display === "flex") return;
+    if (!viewFlashcard.classList.contains("active")) return;
+
+    if (e.code === "Space") {
+        e.preventDefault();
+        fcCard.classList.toggle("is-flipped");
+    } else if (e.key === "ArrowLeft") {
+        document.getElementById("btn-prev").click();
+    } else if (e.key === "ArrowRight") {
+        document.getElementById("btn-next").click();
     }
 });
 
@@ -360,20 +397,249 @@ filterTopic.addEventListener("change", applyFilters);
 filterType.addEventListener("change", applyFilters);
 filterDate.addEventListener("change", applyFilters);
 
-btnList.addEventListener("click", () => {
-    btnList.classList.add("active");
-    btnFlashcard.classList.remove("active");
-    viewList.classList.add("active");
-    viewFlashcard.classList.remove("active");
-});
+btnList.addEventListener("click", () => switchView("list"));
 
-btnFlashcard.addEventListener("click", () => {
-    btnFlashcard.classList.add("active");
-    btnList.classList.remove("active");
-    viewFlashcard.classList.add("active");
-    viewList.classList.remove("active");
-    renderFlashcard();
-});
+btnFlashcard.addEventListener("click", () => switchView("flashcard"));
+
+btnCourse.addEventListener("click", () => switchView("course"));
+
+// ─── Khóa học AI (lưu database kiểu AskCpl: data/ai_courses/<lang>/course.json) ─
+const daySelect = document.getElementById("course-day-select");
+const courseContent = document.getElementById("course-content");
+const progressBadge = document.getElementById("course-progress-badge");
+
+let courseData = null;
+let courseSlug = "";
+
+function courseProgressKey() {
+    return `vocabapp_ai_progress_${courseSlug}`;
+}
+
+function getCourseProgress() {
+    try {
+        return JSON.parse(localStorage.getItem(courseProgressKey()) || "{}");
+    } catch (e) { return {}; }
+}
+
+function saveCourseProgress(p) {
+    localStorage.setItem(courseProgressKey(), JSON.stringify(p));
+}
+
+async function ensureCourseLoaded() {
+    const slug = currentLanguage.toLowerCase().replace(/ /g, "_");
+    if (courseData && courseSlug === slug) { renderCourseShell(); return; }
+    courseSlug = slug;
+    courseData = null;
+    try {
+        let res = await fetch(`data/ai_courses/${slug}/course.json`).catch(() => null);
+        if (!res || !res.ok) res = await fetch(`../data/ai_courses/${slug}/course.json`).catch(() => null);
+        if (!res || !res.ok) throw new Error("no course");
+        courseData = await res.json();
+    } catch (e) {
+        daySelect.innerHTML = "<option value=''>—</option>";
+        progressBadge.textContent = "";
+        courseContent.innerHTML = `
+            <p style="color:var(--text-muted);padding:30px 10px;text-align:center;">
+                🤖 Chưa có khóa học AI cho <b>${escapeHtml(currentLanguage)}</b>.<br><br>
+                Mở app desktop → tab 🎓 Học Tập → bấm 🤖 Sinh khóa học AI,<br>
+                sau đó Đồng Bộ lên GitHub để học tại đây.
+            </p>`;
+        return;
+    }
+    renderCourseShell();
+}
+
+function renderCourseShell() {
+    const days = (courseData.days || []).slice().sort((a, b) => a.day - b.day);
+    const prog = getCourseProgress();
+    const completed = new Set(prog.completed_days || []);
+    progressBadge.textContent = `Hoàn thành ${completed.size}/${days.length} ngày`;
+
+    daySelect.innerHTML = days.map(d =>
+        `<option value="${d.day}">Ngày ${d.day}${completed.has(d.day) ? " ✅" : ""}</option>`
+    ).join("");
+    const firstPending = days.find(d => !completed.has(d.day));
+    const initialDay = (firstPending || days[0]).day;
+    daySelect.value = String(initialDay);
+    renderCourseDay(initialDay);
+}
+
+function flattenQuiz(quizData) {
+    if (Array.isArray(quizData)) return quizData;
+    if (!quizData || typeof quizData !== "object") return [];
+    const catNames = { vocab: "Từ vựng", pattern: "Cách dùng câu",
+                       common: "Câu thông dụng", grammar: "Ngữ pháp", mixed: "Tổng hợp" };
+    const out = [];
+    ["vocab", "pattern", "common", "grammar", "mixed"].forEach(cat => {
+        (quizData[cat] || []).forEach(q => {
+            if (q && q.question) {
+                out.push(Object.assign({}, q, { _category: catNames[cat] || cat }));
+            }
+        });
+    });
+    return out;
+}
+
+function renderCourseDay(dayNum) {
+    const lesson = (courseData.days || []).find(d => Number(d.day) === Number(dayNum));
+    if (!lesson) return;
+    const prog = getCourseProgress();
+    const alreadyDone = new Set(prog.completed_days || []).has(Number(dayNum));
+
+    let html = `<div class="lesson-title">📚 Ngày ${lesson.day} — ${escapeHtml(lesson.title || "")}</div>`;
+
+    // ── Từ vựng ──
+    (lesson.vocab || []).forEach((v, i) => {
+        html += `
+        <div class="vocab-item">
+            <div class="vocab-header">
+                <div>
+                    <div class="vocab-word">${i + 1}. ${escapeHtml(v.word)}</div>
+                    ${v.pronunciation ? `<div class="vocab-pronunciation">/${escapeHtml(v.pronunciation)}/</div>` : ""}
+                </div>
+                ${v.part_of_speech ? `<span class="badge">${escapeHtml(v.part_of_speech)}</span>` : ""}
+            </div>
+            <div class="vocab-meaning">${escapeHtml(v.meaning_vi || "")}</div>
+            ${v.explanation ? `<div class="lesson-explanation">💡 ${formatText(v.explanation)}</div>` : ""}
+            ${v.example_sentence ? `
+            <div class="vocab-example expanded">
+                <div class="vocab-example-content">
+                    ${formatText(v.example_sentence)}
+                    ${v.example_meaning_vi ? `<div class="vocab-example-meaning">${formatText(v.example_meaning_vi)}</div>` : ""}
+                </div>
+            </div>` : ""}
+        </div>`;
+    });
+
+    // ── Cách dùng câu ──
+    const patterns = lesson.sentence_patterns || [];
+    if (patterns.length) {
+        html += `<div class="section-title">📝 Cách dùng câu / Mẫu câu</div>`;
+        patterns.forEach((p, i) => {
+            html += `<div class="pattern-item">
+                <b>${i + 1}. ${escapeHtml(p.pattern || "")}</b> — ${escapeHtml(p.meaning_vi || "")}
+                ${p.structure_note ? `<div class="pattern-note">${escapeHtml(p.structure_note)}</div>` : ""}
+                ${p.example_sentence ? `<div class="pattern-example">💬 ${formatText(p.example_sentence)}${p.example_meaning_vi ? `<div class="vocab-example-meaning">${formatText(p.example_meaning_vi)}</div>` : ""}</div>` : ""}
+            </div>`;
+        });
+    }
+
+    // ── Câu thông dụng ──
+    const common = lesson.common_sentences || [];
+    if (common.length) {
+        html += `<div class="section-title">💬 Câu thông dụng giao tiếp</div>`;
+        common.forEach((s, i) => {
+            html += `<div class="common-item">
+                <b>${i + 1}.</b> ${escapeHtml(s.sentence || "")} — ${escapeHtml(s.meaning_vi || "")}
+                ${s.situation ? `<div class="common-situation">📌 ${escapeHtml(s.situation)}</div>` : ""}
+            </div>`;
+        });
+    }
+
+    // ── Ngữ pháp (list hoặc dict cũ) ──
+    let grammarItems = lesson.grammar || [];
+    if (!Array.isArray(grammarItems)) grammarItems = grammarItems.title ? [grammarItems] : [];
+    if (grammarItems.length) {
+        html += `<div class="section-title">📐 Ngữ pháp</div>`;
+        grammarItems.forEach((g, gi) => {
+            html += `<div class="grammar-box">
+                <h4>Bài ${gi + 1}: ${escapeHtml(g.title || "")}</h4>
+                <div>${formatText(g.explanation || "")}</div>
+                ${(g.examples || []).map(ex => `
+                    <div style="margin-top:8px;">💬 ${formatText(ex.sentence || "")}
+                        ${ex.meaning_vi ? `<div class="vocab-example-meaning">${formatText(ex.meaning_vi)}</div>` : ""}
+                    </div>`).join("")}
+            </div>`;
+        });
+    }
+
+    // ── Trắc nghiệm ──
+    const quiz = flattenQuiz(lesson.quiz);
+    if (quiz.length) {
+        const catCounts = {};
+        quiz.forEach(q => { const c = q._category || ""; catCounts[c] = (catCounts[c] || 0) + 1; });
+        const summary = Object.entries(catCounts).map(([c, n]) => `${c} (${n})`).join(" · ");
+        html += `<h3 style="margin-top:18px;">📝 Trắc nghiệm Ngày ${lesson.day} — ${summary}</h3>`;
+        quiz.forEach((q, qi) => {
+            const catBadge = q._category ? `<span class="quiz-cat-badge">${escapeHtml(q._category)}</span>` : "";
+            html += `<div class="quiz-q" data-qi="${qi}">
+                <b>${qi + 1}. ${catBadge} ${formatText(q.question)}</b>
+                ${q.options.map((opt, oi) =>
+                    `<button class="quiz-opt" data-oi="${oi}">${String.fromCharCode(65 + oi)}. ${escapeHtml(opt)}</button>`
+                ).join("")}
+                <div class="quiz-exp"></div>
+            </div>`;
+        });
+        html += `<button id="btn-submit-quiz" class="submit-btn">✅ Nộp bài</button>
+                 <div id="quiz-result"></div>`;
+        if (alreadyDone && prog.quiz_scores && prog.quiz_scores[String(dayNum)] != null) {
+            html += `<p style="text-align:center;color:var(--success);margin-top:8px;">
+                        ✅ Bạn đã hoàn thành ngày này — điểm cao nhất: ${prog.quiz_scores[String(dayNum)].score}% (có thể làm lại)
+                     </p>`;
+        }
+    }
+
+    courseContent.innerHTML = html;
+    window.scrollTo({ top: 0 });
+
+    if (quiz.length) bindQuiz(lesson, quiz);
+}
+
+function bindQuiz(lesson, quiz) {
+    const answers = {};
+    document.querySelectorAll(".quiz-q").forEach(qEl => {
+        qEl.querySelectorAll(".quiz-opt").forEach(btnEl => {
+            btnEl.addEventListener("click", () => {
+                qEl.querySelectorAll(".quiz-opt").forEach(b => b.classList.remove("selected"));
+                btnEl.classList.add("selected");
+                answers[qEl.dataset.qi] = parseInt(btnEl.dataset.oi, 10);
+            });
+        });
+    });
+
+    document.getElementById("btn-submit-quiz").addEventListener("click", () => {
+        let correct = 0;
+        quiz.forEach((q, qi) => {
+            const qEl = document.querySelector(`.quiz-q[data-qi="${qi}"]`);
+            const chosen = answers[qi];
+            qEl.querySelectorAll(".quiz-opt").forEach(b => {
+                b.disabled = true;
+                const oi = parseInt(b.dataset.oi, 10);
+                if (oi === q.answer_index) b.classList.add("correct");
+                else if (oi === chosen) b.classList.add("wrong");
+            });
+            const exp = qEl.querySelector(".quiz-exp");
+            exp.style.display = "block";
+            if (chosen === q.answer_index) correct++;
+            exp.textContent = (chosen === q.answer_index ? "✅ Đúng! " : "❌ Sai. ")
+                + "💡 " + (q.explanation || "");
+        });
+        const score = Math.round(correct / quiz.length * 100);
+        document.getElementById("quiz-result").innerHTML =
+            `<div class="quiz-score-banner">🏆 Kết quả: ${correct}/${quiz.length} đúng — ${score}%</div>`;
+
+        // Lưu tiến độ vào localStorage (database phía người dùng)
+        const prog = getCourseProgress();
+        prog.completed_days = prog.completed_days || [];
+        if (!prog.completed_days.includes(lesson.day)) prog.completed_days.push(lesson.day);
+        prog.quiz_scores = prog.quiz_scores || {};
+        const old = prog.quiz_scores[String(lesson.day)];
+        if (!old || score > old.score) {
+            prog.quiz_scores[String(lesson.day)] = { score: score, at: new Date().toISOString() };
+        }
+        saveCourseProgress(prog);
+
+        const badge = parseInt(progressBadge.textContent.replace(/\D/g, "").split(/\D+/)[1] || "0", 10);
+        const totalDays = (courseData.days || []).length;
+        progressBadge.textContent = `Hoàn thành ${prog.completed_days.length}/${totalDays} ngày`;
+        void badge;
+        daySelect.querySelectorAll("option").forEach(op => {
+            if (parseInt(op.value, 10) === lesson.day && !op.textContent.includes("✅")) {
+                op.textContent += " ✅";
+            }
+        });
+    });
+}
 
 // Init
 init();

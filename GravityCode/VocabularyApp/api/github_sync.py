@@ -161,6 +161,22 @@ class GitHubSync:
                 available_langs = [os.path.basename(p)[:-5] for p in json_files]
                 self.upload_content(json.dumps({"languages": available_langs}), "data/index.json", "update: lang list", log_fn)
 
+            # 2b. Upload khoa hoc AI (data/ai_courses/<ngon_ngu>/*.json)
+            courses_root = os.path.join(DATA_DIR, "ai_courses")
+            if os.path.isdir(courses_root):
+                uploaded = 0
+                for root, _dirs, files in os.walk(courses_root):
+                    rel_dir = os.path.relpath(root, DATA_DIR).replace(os.sep, "/")
+                    for fname in sorted(files):
+                        if not fname.endswith(".json"):
+                            continue
+                        local = os.path.join(root, fname)
+                        repo_path = f"data/{rel_dir}/{fname}"
+                        if self.upload_file(local, repo_path, f"update: {repo_path}", log_fn):
+                            uploaded += 1
+                if uploaded:
+                    log_fn(f"🎓 Đã upload {uploaded} file khóa học AI.")
+
         # 3. Upload cac file web len root
         for wfile in ["index.html", "style.css", "script.js"]:
             wpath = os.path.join(WEB_DIR, wfile)

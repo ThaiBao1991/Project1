@@ -30,61 +30,88 @@ def safe_print(msg: str):
         print(msg.encode("ascii", errors="replace").decode("ascii"))
 
 # --- Auto check & install packages (Giống AskCpl) ---
-REQUIRED_PACKAGES = {
+# Bắt buộc: thiếu là app không thể chạy
+CRITICAL_PACKAGES = {
     'customtkinter': 'customtkinter>=5.2.0',
-    'PIL': 'Pillow>=10.0.0',
     'requests': 'requests>=2.31.0',
+}
+# Mở rộng: thiếu chỉ làm mất tính năng tương ứng (TTS offline/online, Drive...),
+# app vẫn khởi động bình thường. Cài từng gói riêng để 1 gói build lỗi
+# (VD pygame trên Python 3.14 chưa có wheel) không chặn các gói còn lại.
+OPTIONAL_PACKAGES = {
     'google.auth': 'google-auth>=2.27.0',
     'google_auth_oauthlib': 'google-auth-oauthlib>=1.2.0',
     'googleapiclient': 'google-api-python-client>=2.118.0',
-    'qrcode': 'qrcode[pil]>=7.4.2',
     'webview': 'pywebview>=4.4.1',
     'pyttsx3': 'pyttsx3>=2.90',
     'gtts': 'gTTS>=2.3.2',
     'pygame': 'pygame>=2.5.0',
 }
 
+def _import_ok(module_name: str) -> bool:
+    try:
+        __import__(module_name)
+        return True
+    except ImportError:
+        return False
+
+def _show_install_error(missing):
+    """Hiện cửa sổ lỗi khi thiếu thư viện BẮT BUỘC và thoát."""
+    root = tk.Tk()
+    root.withdraw()
+    err_win = tk.Toplevel(root)
+    err_win.title("Lỗi Thiếu Thư Viện")
+    err_win.geometry("550x300")
+    tk.Label(err_win, text="Ứng dụng thiếu một số thư viện cần thiết và không thể cài đặt tự động.", fg="red", font=("Arial", 11, "bold")).pack(pady=10)
+    tk.Label(err_win, text="Vui lòng copy dòng lệnh dưới đây và dán vào Terminal/CMD để cài đặt:", font=("Arial", 10)).pack(pady=5)
+
+    txt = tk.Text(err_win, height=4, width=65, font=("Consolas", 11))
+    txt.pack(pady=10)
+    cmd = "python -m pip install --user " + " ".join(missing)
+    txt.insert(tk.END, cmd)
+    txt.config(state="disabled")
+
+    tk.Button(err_win, text="Thoát ứng dụng", command=root.destroy, width=15).pack(pady=15)
+    root.mainloop()
+    sys.exit(1)
+
 def check_and_install_packages():
-    missing = []
-    for module_name, pip_name in REQUIRED_PACKAGES.items():
-        try:
-            __import__(module_name)
-        except ImportError:
-            missing.append(pip_name)
-            
+    if os.environ.get("VOCABAPP_SKIP_INSTALL"):
+        return
+
+    # 1) Thư viện bắt buộc — cài từng cái, fail thì báo lỗi và thoát
+    missing = [pip_name for mod, pip_name in CRITICAL_PACKAGES.items() if not _import_ok(mod)]
     if missing:
-        safe_print(f"[*] Đang tự động cài đặt thư viện còn thiếu: {', '.join(missing)}")
-        try:
-            subprocess.check_call([sys.executable, "-m", "pip", "install", "--user", *missing])
-            safe_print("[*] Cài đặt thành công!")
-        except Exception as e:
-            root = tk.Tk()
-            root.withdraw()
-            err_win = tk.Toplevel(root)
-            err_win.title("Lỗi Thiếu Thư Viện")
-            err_win.geometry("550x300")
-            tk.Label(err_win, text="Ứng dụng thiếu một số thư viện cần thiết và không thể cài đặt tự động.", fg="red", font=("Arial", 11, "bold")).pack(pady=10)
-            tk.Label(err_win, text="Vui lòng copy dòng lệnh dưới đây và dán vào Terminal/CMD để cài đặt:", font=("Arial", 10)).pack(pady=5)
-            
-            txt = tk.Text(err_win, height=4, width=65, font=("Consolas", 11))
-            txt.pack(pady=10)
-            cmd = "python -m pip install --user " + " ".join(missing)
-            txt.insert(tk.END, cmd)
-            txt.config(state="disabled")
-            
-            tk.Button(err_win, text="Thoát ứng dụng", command=root.destroy, width=15).pack(pady=15)
-            root.mainloop()
-            sys.exit(1)
+        safe_print(f"[*] Đang cài thư viện bắt buộc: {', '.join(missing)}")
+        for pkg in missing:
+            try:
+                subprocess.check_call([sys.executable, "-m", "pip", "install", "--user", "--prefer-binary", pkg])
+            except Exception:
+                _show_install_error(missing)
+                return
+
+    # 2) Thư viện mở rộng — thử cài từng cái, fail thì bỏ qua (app vẫn chạy)
+    optional_missing = [pip_name for mod, pip_name in OPTIONAL_PACKAGES.items() if not _import_ok(mod)]
+    if optional_missing:
+        safe_print(f"[*] Đang cài thư viện mở rộng: {', '.join(optional_missing)}")
+        for pkg in optional_missing:
+            try:
+                subprocess.check_call([sys.executable, "-m", "pip", "install", "--user", "--prefer-binary", pkg])
+            except Exception:
+                safe_print(f"[!] Không cài được '{pkg}' — bỏ qua (tính năng liên quan sẽ bị tắt)")
+        safe_print("[*] Hoàn tất kiểm tra thư viện.")
 
 check_and_install_packages()
 
 # ─── TTS Hybrid: gTTS (online) → fallback pyttsx3 (offline) ──────────────────
+_tts_lock = threading.Lock()  # chặn 2 thread phát âm thanh cùng lúc
+
 def _get_tts_lang_code(lang_name: str) -> str:
     """Map tên ngôn ngữ trong app → mã ngôn ngữ TTS."""
     n = (lang_name or "").lower()
     if any(x in n for x in ["anh", "english"]):   return "en"
     if any(x in n for x in ["nhật", "japan"]):     return "ja"
-    if any(x in n for x in ["trung", "chin"]):     return "zh-TW"
+    if any(x in n for x in ["trung", "chin"]):     return "zh-CN"
     if any(x in n for x in ["việt", "viet"]):      return "vi"
     if any(x in n for x in ["hàn", "korea"]):      return "ko"
     if any(x in n for x in ["pháp", "french"]):    return "fr"
@@ -103,37 +130,41 @@ def speak_word(word: str, lang_name: str = ""):
     def _run():
         # --- Thử gTTS (online) ---
         try:
+            import pygame  # check sớm: nếu máy không có pygame thì đỡ tốn công generate
             import requests as _req
             _req.get("https://www.google.com", timeout=2)  # kiểm tra mạng nhanh
             from gtts import gTTS
-            import pygame, io as _io, tempfile, os as _os
+            import io as _io
             tts = gTTS(text=word.strip(), lang=lang_code, slow=False)
             buf = _io.BytesIO()
             tts.write_to_fp(buf)
             buf.seek(0)
-            pygame.mixer.init()
-            pygame.mixer.music.load(buf)
-            pygame.mixer.music.play()
+            with _tts_lock:  # pygame.mixer không dùng đồng thời được từ 2 thread
+                pygame.mixer.init()
+                pygame.mixer.music.load(buf)
+                pygame.mixer.music.play()
             return
         except Exception:
             pass  # fallback xuống pyttsx3
 
         # --- Fallback pyttsx3 (offline) ---
-        try:
-            import pyttsx3
-            engine = pyttsx3.init()
-            # Thử chọn giọng phù hợp
-            voices = engine.getProperty('voices')
-            for v in voices:
-                if lang_code in (v.languages[0].decode() if v.languages else ""):
-                    engine.setProperty('voice', v.id)
-                    break
-            engine.setProperty('rate', 150)
-            engine.say(word.strip())
-            engine.runAndWait()
-            engine.stop()
-        except Exception as ex:
-            safe_print(f"[TTS] Lỗi pyttsx3: {ex}")
+        with _tts_lock:
+            try:
+                import pyttsx3
+                engine = pyttsx3.init()
+                # Thử chọn giọng phù hợp
+                voices = engine.getProperty('voices')
+                for v in voices:
+                    langs = v.languages[0].decode() if (v.languages and isinstance(v.languages[0], bytes)) else ""
+                    if lang_code.split("-")[0] in langs:
+                        engine.setProperty('voice', v.id)
+                        break
+                engine.setProperty('rate', 150)
+                engine.say(word.strip())
+                engine.runAndWait()
+                engine.stop()
+            except Exception as ex:
+                safe_print(f"[TTS] Lỗi pyttsx3: {ex}")
 
     threading.Thread(target=_run, daemon=True).start()
 
@@ -150,6 +181,11 @@ from database.database import (
 from settings import load_settings, save_settings, update_github_settings, update_gdrive_settings
 from api.github_sync import GitHubSync
 from api.gdrive_sync import GDriveSync
+from ai import course_db
+from ai.course_generator import (
+    generate_course, GenerationStopped, count_available_keys,
+    DEFAULT_WORDS_PER_DAY,
+)
 
 # ─── Theme ────────────────────────────────────────────────────────────────────
 ctk.set_appearance_mode("dark")
@@ -295,7 +331,18 @@ class PreviewDialog(ctk.CTkToplevel):
     def flush_table(self, parent, table_lines):
         if len(table_lines) < 2:
             return
-        headers = [c.strip() for c in table_lines[0].split('|')[1:-1]]
+        raw_headers = [c.strip() for c in table_lines[0].split('|')[1:-1]]
+        # Dedupe header (Treeview crash nếu column id trùng nhau)
+        headers, seen = [], {}
+        for h in raw_headers:
+            if h in seen:
+                seen[h] += 1
+                headers.append(f"{h} ({seen[h] + 1})")
+            else:
+                seen[h] = 0
+                headers.append(h)
+        if not headers:
+            return
         
         style = ttk.Style()
         style.theme_use("default")
@@ -320,6 +367,9 @@ class PreviewDialog(ctk.CTkToplevel):
 # ══════════════════════════════════════════════════════════════════════════════
 def run_webview_practice(word):
     import tempfile
+    
+    # Tách ký tự an toàn bằng json.dumps (chống vỡ JS khi từ chứa " \ < >...)
+    chars_json = json.dumps([c for c in word if not c.isspace()])
     
     html = f"""<!DOCTYPE html>
 <html>
@@ -376,7 +426,7 @@ def run_webview_practice(word):
     </div>
     <p class="hint">Vẽ đè lên chữ mờ rồi nhấn ⭐ Chấm điểm</p>
     <script>
-    const chars = "{word}".replace(/\\s+/g,'').split('').filter(c=>c.trim()!=='');
+    const chars = {chars_json};
     let idx = 0;
     const W = 280, H = 280;
     const refC  = document.getElementById('ref-c');
@@ -470,10 +520,14 @@ def run_webview_practice(word):
     
     script_py = f"""
 import webview
-import sys
+import sys, os
 html_content = {repr(html)}
-webview.create_window("Luyện viết: {word}", html=html_content, width=400, height=550)
+webview.create_window("Luyện viết", html=html_content, width=400, height=550)
 webview.start()
+try:
+    os.remove(sys.argv[0])  # tự dọn temp script
+except OSError:
+    pass
 sys.exit(0)
 """
     with tempfile.NamedTemporaryFile('w', suffix='.py', delete=False, encoding='utf-8') as f:
@@ -1324,10 +1378,21 @@ class SettingsSyncTab(ctk.CTkFrame):
         threading.Thread(target=do_auth, daemon=True).start()
 
     def _sync_drive(self):
+        if self._syncing:
+            return
         if not self._gdrive.is_authenticated():
             messagebox.showwarning("Chưa kết nối", "Vui lòng kết nối Google Drive trước!", parent=self.app)
             return
-        threading.Thread(target=self._do_drive_sync, daemon=True).start()
+        self._syncing = True
+        threading.Thread(target=self._do_drive_sync_safe, daemon=True).start()
+
+    def _do_drive_sync_safe(self):
+        try:
+            self._do_drive_sync()
+        except Exception as e:
+            self._log(f"❌ Lỗi upload Drive: {e}")
+        finally:
+            self._syncing = False
 
     def _do_drive_sync(self):
         self._log("Bắt đầu upload Google Drive...")
@@ -1336,13 +1401,15 @@ class SettingsSyncTab(ctk.CTkFrame):
         # Duyệt qua các từ vựng của ngôn ngữ hiện tại
         vocabs = get_all_vocab(self.app.current_language)
         count = 0
+        total = max(len(vocabs), 1)  # tránh chia 0 nếu danh sách rỗng
         for i, v in enumerate(vocabs):
             if v.get("mp3_local_path") and not v.get("mp3_gdrive_id"):
                 updates = self._gdrive.sync_vocab_media(v, folders)
                 if updates:
                     update_vocab(self.app.current_language, v["id"], updates)
                     count += 1
-            self.progress.set((i+1)/len(vocabs))
+            # Cập nhật progress qua self.after (tkinter không thread-safe)
+            self.after(0, lambda p=(i+1)/total: self.progress.set(p))
         self._log(f"Hoàn tất upload Google Drive ({count} files)!")
 
     def _start_sync(self):
@@ -1375,6 +1442,623 @@ class SettingsSyncTab(ctk.CTkFrame):
             self.after(0, lambda: self.progress.set(1.0))
 
 # ══════════════════════════════════════════════════════════════════════════════
+# Tab: Hoc Tap (Tu hoc / Khoa hoc AI)
+# ══════════════════════════════════════════════════════════════════════════════
+SOURCE_SELF = "📖 Từ vựng tự học"
+SOURCE_AI = "🤖 Khóa học AI chuyên sâu"
+
+
+class CourseGenerationDialog(ctk.CTkToplevel):
+    """Dialog sinh khóa học AI: chọn số từ/ngày, chạy nền, log tiến độ."""
+
+    def __init__(self, parent, app, on_finished):
+        super().__init__(parent)
+        self.app = app
+        self.on_finished = on_finished
+        self._stop_event = threading.Event()
+        self._running = False
+
+        self.title("Sinh khóa học AI chuyên sâu")
+        self.geometry("640x520")
+        self.configure(fg_color=C["bg"])
+        self.grab_set(); self.lift(); self.focus_force()
+
+        lang = app.current_language
+        n_words = len(get_all_vocab(lang))
+        lbl(self, f"🤖 Sinh khóa học cho: {lang}", 16, "bold", C["accent"]).pack(pady=(15, 2))
+        lbl(self, f"Tổng số từ vựng hiện có: {n_words} từ", 12, color=C["muted"]).pack()
+
+        n_keys = count_available_keys()
+        key_color = C["success"] if n_keys else C["danger"]
+        lbl(self, f"🔑 Gemini API keys tìm thấy (AskCpl): {n_keys}", 12,
+            color=key_color).pack(pady=(4, 8))
+
+        opt_row = ctk.CTkFrame(self, fg_color="transparent")
+        opt_row.pack(fill="x", padx=20)
+        lbl(opt_row, "Số từ mỗi ngày:", 13).pack(side="left", padx=(0, 8))
+        # ⚠ CTkComboBox yêu cầu values là CHUỖI (int làm crash DropdownMenu .ljust)
+        self.cb_wpd = combo(opt_row, ["5", "10", "15", "20"], width=90)
+        self.cb_wpd.set("10")
+        self.cb_wpd.pack(side="left")
+        self.var_force = ctk.BooleanVar(value=False)
+        ctk.CTkCheckBox(opt_row, text="Làm lại từ đầu (xóa khóa cũ)",
+                        variable=self.var_force, fg_color=C["accent"]).pack(side="left", padx=20)
+
+        btn_row = ctk.CTkFrame(self, fg_color="transparent")
+        btn_row.pack(pady=10)
+        self.btn_start = btn(btn_row, "▶ Bắt đầu sinh", C["success"], "#018786",
+                             w=160, h=38, cmd=self._start)
+        self.btn_start.pack(side="left", padx=(0, 10))
+        self.btn_stop = btn(btn_row, "⏹ Dừng", C["card2"], C["danger"], w=100, h=38,
+                            cmd=lambda: self._stop_event.set())
+        self.btn_stop.pack(side="left")
+        self.btn_stop.configure(state="disabled")
+
+        self.progress = ctk.CTkProgressBar(self, progress_color=C["accent"], height=8)
+        self.progress.pack(fill="x", padx=20, pady=(0, 6))
+        self.progress.set(0)
+
+        self.log_box = ctk.CTkTextbox(self, height=240, fg_color=C["card"],
+                                      text_color=C["text"], font=("Consolas", 12))
+        self.log_box.pack(fill="both", expand=True, padx=20, pady=(0, 15))
+        self.log_box.configure(state="disabled")
+
+        est_days = max(1, -(-n_words // DEFAULT_WORDS_PER_DAY))
+        self._log(f"Ước tính: {est_days} ngày × ~30-60s/ngày (AI pace chống 429).")
+        if not n_keys:
+            self._log("⚠️ Chưa thấy API key! Kiểm tra file settings.json của AskCpl.")
+
+    def _log(self, msg):
+        def _append():
+            self.log_box.configure(state="normal")
+            self.log_box.insert("end", msg + "\n")
+            self.log_box.see("end")
+            self.log_box.configure(state="disabled")
+        self.after(0, _append)
+
+    def _start(self):
+        if self._running:
+            return
+        vocabs = get_all_vocab(self.app.current_language)
+        if not vocabs:
+            messagebox.showwarning("Chưa có từ vựng", "Hãy thêm từ vựng trước khi sinh khóa học!", parent=self)
+            return
+        try:
+            wpd = int(self.cb_wpd.get())
+        except ValueError:
+            wpd = DEFAULT_WORDS_PER_DAY
+
+        self._running = True
+        self._stop_event.clear()
+        self.btn_start.configure(state="disabled")
+        self.btn_stop.configure(state="normal")
+        self.progress.set(0)
+
+        def _on_day_done(day, total, lesson):
+            frac = day / max(total, 1)
+            self.after(0, lambda f=frac: self.progress.set(f))
+
+        def _worker():
+            try:
+                result = generate_course(
+                    self.app.current_language, vocabs, words_per_day=wpd,
+                    force_new=self.var_force.get(),
+                    log_fn=self._log,
+                    on_day_done=_on_day_done,
+                    stop_check=self._stop_event.is_set,
+                )
+                self._log(f"🏁 Hoàn tất: {result['generated']} ngày mới, "
+                          f"{result['skipped']} bỏ qua, {result['failed']} lỗi.")
+                self.after(0, lambda: self._done(success=result["generated"] > 0))
+            except GenerationStopped:
+                self._log("⏹ Đã dừng theo yêu cầu. Chạy lại sẽ tiếp tục từ chỗ đang dở.")
+                self.after(0, lambda: self._done(success=True))
+            except Exception as e:
+                self._log(f"❌ Lỗi không mong muốn: {e}")
+                self.after(0, lambda: self._done(success=False))
+
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def _done(self, success):
+        self._running = False
+        self.btn_start.configure(state="normal")
+        self.btn_stop.configure(state="disabled")
+        if success:
+            self.on_finished()
+
+
+class StudyTab(ctk.CTkFrame):
+    """Tab học tập: flashcard từ vựng tự học + khóa học AI theo ngày + trắc nghiệm."""
+
+    def __init__(self, parent, app):
+        super().__init__(parent, fg_color=C["bg"])
+        self.app = app
+        self._cards = []
+        self._card_idx = 0
+        self._flipped = False
+        self._course = None
+        self._quiz = None
+        self._building_quiz = False
+        self._build()
+        # CTk chặn bind_all → bind trên cửa sổ chính (vẫn nhận phím từ mọi widget con)
+        self.winfo_toplevel().bind("<KeyPress>", self._on_global_key, add="+")
+
+    # ── UI ────────────────────────────────────────────────────────────────────
+    def _build(self):
+        head = ctk.CTkFrame(self, fg_color=C["sidebar"], height=52, corner_radius=0)
+        head.pack(fill="x"); head.pack_propagate(False)
+
+        lbl(head, "Nguồn học:", 14, color=C["accent"]).pack(side="left", padx=(14, 6))
+        self.cb_source = combo(head, [SOURCE_SELF, SOURCE_AI], width=250)
+        self.cb_source.set(SOURCE_SELF)
+        self.cb_source.configure(command=lambda _c: self._on_source_change())
+        self.cb_source.pack(side="left", padx=(0, 14))
+
+        btn(head, "🔀 Trộn thẻ", C["card2"], C["accent"], w=100, h=32,
+            cmd=self._shuffle_cards).pack(side="left", padx=3)
+
+        btn(head, "🤖 Sinh khóa học AI", C["success"], "#018786", w=170, h=32,
+            cmd=self._open_generation).pack(side="right", padx=14)
+        btn(head, "🗑️ Xóa khóa & tiến độ", C["card2"], C["danger"], w=170, h=32,
+            cmd=self._delete_course).pack(side="right", padx=3)
+
+        # ── Khung Flashcard (Từ vựng tự học) ──
+        self.flash_frame = ctk.CTkFrame(self, fg_color="transparent")
+
+        self.card = ctk.CTkFrame(self.flash_frame, fg_color=C["card"],
+                                 corner_radius=16, border_width=1, border_color=C["accent"])
+        self.card.pack(fill="both", expand=True, padx=40, pady=(25, 10))
+
+        self.fc_counter = lbl(self.card, "0 / 0", 13, color=C["muted"])
+        self.fc_counter.pack(anchor="ne", padx=15, pady=(10, 0))
+        self.fc_word = lbl(self.card, "", 46, "bold", C["accent"])
+        self.fc_word.pack(pady=(35, 5))
+        self.fc_pron = lbl(self.card, "", 20, color=C["muted"])
+        self.fc_pron.pack(pady=(0, 10))
+        self.fc_back = ctk.CTkLabel(self.card, text="", justify="left", anchor="nw",
+                                    wraplength=760, font=("Consolas", 16),
+                                    text_color=C["text"])
+        self.fc_back.pack(fill="both", expand=True, padx=30, pady=(0, 20))
+
+        nav = ctk.CTkFrame(self.flash_frame, fg_color="transparent")
+        nav.pack(pady=(4, 18))
+        btn(nav, "⬅️ Trước", C["card2"], C["accent"], w=110, h=40, cmd=self._prev_card).pack(side="left", padx=5)
+        btn(nav, "🔊 Đọc", C["card2"], C["accent"], w=100, h=40, cmd=self._speak_current).pack(side="left", padx=5)
+        btn(nav, "🔄 Lật thẻ", C["accent"], C["accent2"], w=130, h=40, cmd=self._flip_card).pack(side="left", padx=5)
+        btn(nav, "Sau ➡️", C["card2"], C["accent"], w=110, h=40, cmd=self._next_card).pack(side="left", padx=5)
+        lbl(nav, "(← → lật trang · Space lật thẻ)", 11, color=C["muted"]).pack(side="left", padx=14)
+
+        # ── Khung Khóa học AI ──
+        self.course_frame = ctk.CTkFrame(self, fg_color="transparent")
+
+        ctop = ctk.CTkFrame(self.course_frame, fg_color="transparent", height=44)
+        ctop.pack(fill="x", padx=14, pady=(8, 0))
+        lbl(ctop, "Ngày:", 13, color=C["accent"]).pack(side="left", padx=(0, 6))
+        self.cb_day = combo(ctop, ["—"], width=340)
+        self.cb_day.configure(command=lambda _c: self._load_selected_day())
+        self.cb_day.pack(side="left")
+        self.lbl_day_status = lbl(ctop, "", 12, color=C["success"])
+        self.lbl_day_status.pack(side="left", padx=14)
+
+        cbody = ctk.CTkFrame(self.course_frame, fg_color="transparent")
+        cbody.pack(fill="both", expand=True, padx=14, pady=6)
+
+        scroll = ctk.CTkScrollableFrame(cbody, fg_color=C["card"], corner_radius=10)
+        scroll.pack(side="left", fill="both", expand=True, padx=(0, 8))
+        self.lesson_text = ctk.CTkTextbox(scroll, fg_color=C["card"], text_color=C["text"],
+                                          font=("Consolas", 14), wrap="word", height=500)
+        self.lesson_text.pack(fill="both", expand=True, padx=6, pady=6)
+        self.lesson_text.configure(state="disabled")
+
+        quiz_box = ctk.CTkFrame(cbody, fg_color=C["card"], corner_radius=10, width=360)
+        quiz_box.pack(side="right", fill="y", padx=(0, 0))
+        quiz_box.pack_propagate(False)
+        self.quiz_lbl_num = lbl(quiz_box, "Trắc nghiệm", 14, "bold", C["accent"])
+        self.quiz_lbl_num.pack(anchor="w", padx=14, pady=(12, 2))
+        self.quiz_question = ctk.CTkLabel(quiz_box, text="", justify="left", anchor="nw",
+                                          wraplength=330, font=("Consolas", 14),
+                                          text_color=C["text"])
+        self.quiz_question.pack(anchor="w", padx=14, pady=(0, 8))
+        self.quiz_var = tk.StringVar(value="")
+        self.quiz_radios = []
+        self.quiz_opts_frame = ctk.CTkFrame(quiz_box, fg_color="transparent")
+        self.quiz_opts_frame.pack(fill="x", padx=14)
+        self.quiz_feedback = ctk.CTkLabel(quiz_box, text="", justify="left", anchor="nw",
+                                          wraplength=330, font=("Consolas", 12),
+                                          text_color=C["muted"])
+        self.quiz_feedback.pack(anchor="w", padx=14, pady=(8, 4))
+        qbtn_row = ctk.CTkFrame(quiz_box, fg_color="transparent")
+        qbtn_row.pack(side="bottom", pady=12)
+        self.btn_confirm = btn(qbtn_row, "✅ Chốt đáp án", C["success"], "#018786",
+                               w=140, h=36, cmd=self._confirm_answer)
+        self.btn_confirm.pack(side="left", padx=4)
+        self.btn_next_q = btn(qbtn_row, "Câu tiếp ➡️", C["card2"], C["accent"],
+                              w=120, h=36, cmd=self._next_question)
+        self.btn_next_q.pack(side="left", padx=4)
+        self.btn_next_q.configure(state="disabled")
+
+        # ── Thanh trạng thái dưới cùng ──
+        bottom = ctk.CTkFrame(self, fg_color=C["sidebar"], height=34, corner_radius=0)
+        bottom.pack(fill="x"); bottom.pack_propagate(False)
+        self.lbl_bottom = lbl(bottom, "", 11, color=C["muted"])
+        self.lbl_bottom.pack(side="left", padx=14, pady=7)
+
+        self._on_source_change(initial=True)
+
+    # ── Điều hướng chung ─────────────────────────────────────────────────────
+    def refresh_language(self):
+        """Gọi khi đổi ngôn ngữ ở tab khác."""
+        self._cards = list(get_all_vocab(self.app.current_language))
+        self._card_idx = 0
+        self._flipped = False
+        self._render_card()
+        self._reload_course()
+
+    def _on_source_change(self, initial=False):
+        src = self.cb_source.get()
+        if not initial:
+            self._cards = list(get_all_vocab(self.app.current_language))
+            self._card_idx = 0
+            self._flipped = False
+        if src == SOURCE_AI:
+            self.flash_frame.pack_forget()
+            self.course_frame.pack(fill="both", expand=True)
+            self._reload_course()
+        else:
+            self.course_frame.pack_forget()
+            self.flash_frame.pack(fill="both", expand=True)
+            self._render_card()
+
+    # ── Flashcard: Từ vựng tự học ────────────────────────────────────────────
+    def _render_card(self):
+        if not self._cards:
+            self.fc_word.configure(text="Chưa có từ vựng")
+            self.fc_pron.configure(text="")
+            self.fc_back.configure(text="Hãy thêm từ vựng ở tab Danh Sách Từ Vựng.")
+            self.fc_counter.configure(text="0 / 0")
+            return
+        self._card_idx %= len(self._cards)
+        v = self._cards[self._card_idx]
+        if not self._flipped:
+            self.fc_word.configure(text=str(v.get("word") or ""))
+            self.fc_pron.configure(text=f"/{v.get('pronunciation')}/" if v.get("pronunciation") else "")
+            self.fc_back.configure(text="")
+        else:
+            parts = [f"📌 Nghĩa: {v.get('meaning') or '—'}"]
+            if v.get("word_type"):
+                parts.append(f"🏷️ Loại: {v['word_type']}")
+            if v.get("example"):
+                parts.append(f"\n💬 Ví dụ:\n{v['example']}")
+                if v.get("example_meaning"):
+                    parts.append(f"   → {v['example_meaning']}")
+            if v.get("note"):
+                parts.append(f"\n📝 Ghi chú: {v['note']}")
+            self.fc_back.configure(text="\n".join(parts))
+        self.fc_counter.configure(text=f"{self._card_idx + 1} / {len(self._cards)}")
+
+    def _flip_card(self):
+        self._flipped = not self._flipped
+        self._render_card()
+
+    def _prev_card(self):
+        if self._cards:
+            self._card_idx = (self._card_idx - 1) % len(self._cards)
+            self._flipped = False
+            self._render_card()
+
+    def _next_card(self):
+        if self._cards:
+            self._card_idx = (self._card_idx + 1) % len(self._cards)
+            self._flipped = False
+            self._render_card()
+
+    def _shuffle_cards(self):
+        import random
+        if self._cards:
+            random.shuffle(self._cards)
+            self._card_idx = 0
+            self._flipped = False
+            self._render_card()
+
+    def _speak_current(self):
+        if self._cards:
+            v = self._cards[self._card_idx % len(self._cards)]
+            speak_word(v.get("word", ""), self.app.current_language)
+
+    def _on_global_key(self, event):
+        # Phím tắt chỉ áp dụng khi tab này hiển thị và không đang gõ chữ
+        if not self.winfo_ismapped():
+            return
+        try:
+            if self.app.tabview.get() != "🎓 Học Tập":
+                return
+        except Exception:
+            return
+        w = self.focus_get()
+        if isinstance(w, (tk.Entry, tk.Text)) or (w is not None and hasattr(w, "_entry")):
+            return
+        if self.cb_source.get() != SOURCE_SELF:
+            return
+        if event.keysym == "Left":
+            self._prev_card()
+        elif event.keysym == "Right":
+            self._next_card()
+        elif event.keysym == "space":
+            self._flip_card()
+            return "break"
+
+    # ── Khóa học AI ──────────────────────────────────────────────────────────
+    def _reload_course(self):
+        lang = self.app.current_language
+        self._course = course_db.get_course(lang)
+        prog = course_db.get_progress(lang)
+        days = sorted(int(d.get("day", 0)) for d in (self._course or {}).get("days", []))
+        if not days:
+            self.cb_day.configure(values=["—"])
+            self.cb_day.set("—")
+            self.lbl_day_status.configure(text="")
+            self.lbl_bottom.configure(
+                text=f"Chưa có khóa học AI cho '{lang}'. Bấm 🤖 Sinh khóa học AI để tạo.")
+            self._set_lesson_text("Chưa có khóa học AI.\n\n"
+                                  "Bấm nút 🤖 Sinh khóa học AI ở góc trên phải để tạo "
+                                  "khóa học chuyên sâu theo ngày (từ vựng + ngữ pháp + trắc nghiệm).")
+            self._reset_quiz_widgets()
+            return
+        labels = [f"Ngày {d}" for d in days]
+        done = set(prog.get("completed_days", []))
+        labels = [lb + (" ✅" if d in done else "") for lb, d in zip(labels, days)]
+        self.cb_day.configure(values=labels)
+        last = prog.get("last_day") if prog.get("last_day") in days else days[0]
+        self.cb_day.set(f"Ngày {last}" + (" ✅" if last in done else ""))
+        total = len(days)
+        self.lbl_bottom.configure(
+            text=f"Khóa học AI '{lang}': {total} ngày · hoàn thành {len(done)}/{total}. "
+                 f"Dữ liệu lưu tại data/ai_courses/")
+        self._load_selected_day()
+
+    def _selected_day_num(self):
+        txt = self.cb_day.get().split(" ")[1] if self.cb_day.get().startswith("Ngày") else ""
+        try:
+            return int(txt)
+        except ValueError:
+            return None
+
+    def _get_day_lesson(self, day):
+        for d in (self._course or {}).get("days", []):
+            if int(d.get("day", -1)) == day:
+                return d
+        return None
+
+    def _load_selected_day(self):
+        day = self._selected_day_num()
+        lesson = self._get_day_lesson(day) if day else None
+        if not lesson:
+            self._set_lesson_text("Không có dữ liệu ngày này.")
+            self._reset_quiz_widgets()
+            return
+        self._render_lesson_text(lesson)
+        self._update_day_status(day)
+        self._start_quiz(day, lesson.get("quiz") or {})
+
+    def _update_day_status(self, day):
+        prog = course_db.get_progress(self.app.current_language)
+        if day in prog.get("completed_days", []):
+            s = prog.get("quiz_scores", {}).get(str(day), {}).get("score")
+            self.lbl_day_status.configure(
+                text=f"✅ Đã hoàn thành" + (f" — điểm cao nhất: {s}%" if s is not None else ""),
+                text_color=C["success"])
+        else:
+            self.lbl_day_status.configure(text="⏳ Chưa hoàn thành", text_color=C["warn"])
+
+    def _set_lesson_text(self, content):
+        self.lesson_text.configure(state="normal")
+        self.lesson_text.delete("1.0", "end")
+        self.lesson_text.insert("1.0", content)
+        self.lesson_text.configure(state="disabled")
+
+    def _render_lesson_text(self, lesson):
+        lines = [f"📚 NGÀY {lesson.get('day', '?')} — {(lesson.get('title') or '').upper()}",
+                 "=" * 60, ""]
+
+        lines.append("🔤 TỪ VỰNG CHUYÊN SÂU")
+        lines.append("-" * 60)
+        for i, v in enumerate(lesson.get("vocab", []), 1):
+            lines.append(f"{i}. {v.get('word', '')}"
+                         + (f"  [{v['pronunciation']}]" if v.get("pronunciation") else "")
+                         + (f" ({v['part_of_speech']})" if v.get("part_of_speech") else ""))
+            lines.append(f"   Nghĩa: {v.get('meaning_vi') or '—'}")
+            if v.get("explanation"):
+                lines.append(f"   Giải thích: {v['explanation']}")
+            if v.get("example_sentence"):
+                lines.append(f"   💬 {v['example_sentence']}")
+                if v.get("example_meaning_vi"):
+                    lines.append(f"      → {v['example_meaning_vi']}")
+            lines.append("")
+
+        patterns = lesson.get("sentence_patterns") or []
+        if patterns:
+            lines.append("📝 CÁCH DÙNG CÂU / MẪU CÂU")
+            lines.append("-" * 60)
+            for i, p in enumerate(patterns, 1):
+                lines.append(f"{i}. {p.get('pattern', '')} — {p.get('meaning_vi', '')}")
+                if p.get("structure_note"):
+                    lines.append(f"   {p['structure_note']}")
+                if p.get("example_sentence"):
+                    lines.append(f"   💬 {p['example_sentence']}")
+                    if p.get("example_meaning_vi"):
+                        lines.append(f"      → {p['example_meaning_vi']}")
+                lines.append("")
+
+        common = lesson.get("common_sentences") or []
+        if common:
+            lines.append("💬 CÂU THÔNG DỤNG GIAO TIẾP")
+            lines.append("-" * 60)
+            for i, s in enumerate(common, 1):
+                lines.append(f"{i}. {s.get('sentence', '')} — {s.get('meaning_vi', '')}")
+                if s.get("situation"):
+                    lines.append(f"   📌 Tình huống: {s['situation']}")
+            lines.append("")
+
+        grammar_items = lesson.get("grammar") or []
+        if isinstance(grammar_items, dict):
+            grammar_items = [grammar_items] if grammar_items.get("title") else []
+        if grammar_items:
+            lines.append("📐 NGỮ PHÁP")
+            lines.append("-" * 60)
+            for gi, g in enumerate(grammar_items, 1):
+                lines.append(f"  Bài {gi}: {g.get('title', '')}")
+                if g.get("explanation"):
+                    lines.append(f"  {g['explanation']}")
+                for ex in g.get("examples", []):
+                    lines.append(f"    💬 {ex.get('sentence', '')}")
+                    if ex.get("meaning_vi"):
+                        lines.append(f"       → {ex['meaning_vi']}")
+                lines.append("")
+
+        self._set_lesson_text("\n".join(lines))
+
+    # ── Trắc nghiệm ──────────────────────────────────────────────────────────
+    def _reset_quiz_widgets(self):
+        self._quiz = None
+        self.quiz_lbl_num.configure(text="Trắc nghiệm")
+        self.quiz_question.configure(text="Chưa có câu hỏi.")
+        self.quiz_feedback.configure(text="", text_color=C["muted"])
+        self._clear_quiz_options()
+        self.btn_confirm.configure(state="disabled")
+        self.btn_next_q.configure(state="disabled")
+
+    def _clear_quiz_options(self):
+        for r in self.quiz_radios:
+            r.destroy()
+        self.quiz_radios = []
+        self.quiz_var.set("")
+
+    def _start_quiz(self, day, quiz_data):
+        questions = self._flatten_quiz(quiz_data)
+        self._quiz = {"day": day, "questions": questions, "idx": 0,
+                      "correct": 0, "answered": False}
+        if not questions:
+            self._reset_quiz_widgets()
+            self.quiz_question.configure(text="Ngày này chưa có câu trắc nghiệm.")
+            return
+        self._render_question()
+
+    def _flatten_quiz(self, quiz_data):
+        """Chuyển quiz dict 4 loại (mới) hoặc list (cũ) thành danh sách phẳng."""
+        if isinstance(quiz_data, list):
+            return quiz_data
+        if not isinstance(quiz_data, dict):
+            return []
+        cat_names = {"vocab": "Từ vựng", "pattern": "Cách dùng câu",
+                     "common": "Câu thông dụng", "grammar": "Ngữ pháp",
+                     "mixed": "Tổng hợp"}
+        out = []
+        for cat_key in ("vocab", "pattern", "common", "grammar", "mixed"):
+            items = quiz_data.get(cat_key) or []
+            for q in items:
+                if isinstance(q, dict) and q.get("question"):
+                    q2 = dict(q)
+                    q2["_category"] = cat_names.get(cat_key, cat_key)
+                    out.append(q2)
+        return out
+
+    def _render_question(self):
+        qz = self._quiz
+        qs = qz["questions"]
+        q = qs[qz["idx"]]
+        cat = q.get("_category", "")
+        cat_label = f"  · {cat}" if cat else ""
+        self.quiz_lbl_num.configure(text=f"❓ Câu {qz['idx'] + 1}/{len(qs)}"
+                                         f"{cat_label}  (đúng: {qz['correct']})")
+        self.quiz_question.configure(text=q["question"])
+        self._clear_quiz_options()
+        self.quiz_feedback.configure(text="", text_color=C["muted"])
+        for i, opt in enumerate(q["options"]):
+            rb = ctk.CTkRadioButton(self.quiz_opts_frame, text=f"{chr(65 + i)}. {opt}",
+                                    variable=self.quiz_var, value=str(i),
+                                    fg_color=C["accent"], text_color=C["text"],
+                                    font=("Arial", 13))
+            rb.pack(anchor="w", pady=3)
+            self.quiz_radios.append(rb)
+        self.btn_confirm.configure(state="normal")
+        self.btn_next_q.configure(state="disabled")
+
+    def _confirm_answer(self):
+        qz = self._quiz
+        if not qz or qz["answered"]:
+            return
+        choice = self.quiz_var.get()
+        if choice == "":
+            self.quiz_feedback.configure(text="⚠️ Hãy chọn một đáp án!", text_color=C["warn"])
+            return
+        q = qz["questions"][qz["idx"]]
+        correct = int(choice) == int(q.get("answer_index", 0))
+        if correct:
+            qz["correct"] += 1
+            fb = f"✅ Chính xác!\n💡 {q.get('explanation', '')}"
+            self.quiz_feedback.configure(text=fb, text_color=C["success"])
+        else:
+            ans_letter = chr(65 + int(q.get("answer_index", 0)))
+            fb = (f"❌ Sai rồi! Đáp án đúng: {ans_letter}. {q['options'][int(q.get('answer_index', 0))]}\n"
+                  f"💡 {q.get('explanation', '')}")
+            self.quiz_feedback.configure(text=fb, text_color=C["danger"])
+        qz["answered"] = True
+        self.btn_confirm.configure(state="disabled")
+        self.btn_next_q.configure(state="normal")
+        self.quiz_lbl_num.configure(text=f"❓ Câu {qz['idx'] + 1}/{len(qz['questions'])}"
+                                         f"  (đúng: {qz['correct']})")
+
+    def _next_question(self):
+        qz = self._quiz
+        if not qz:
+            return
+        if not qz["answered"]:
+            return
+        qz["idx"] += 1
+        qz["answered"] = False
+        if qz["idx"] >= len(qz["questions"]):
+            self._finish_quiz()
+        else:
+            self._render_question()
+
+    def _finish_quiz(self):
+        qz = self._quiz
+        total = len(qz["questions"])
+        score = round(qz["correct"] / max(total, 1) * 100)
+        course_db.mark_day_completed(self.app.current_language, qz["day"], score)
+        msg = (f"🏆 HOÀN THÀNH NGÀY {qz['day']}!\n"
+               f"Kết quả: {qz['correct']}/{total} câu đúng — {score}%\n"
+               f"{'🌟 Xuất sắc!' if score >= 85 else '👍 Cố gắng thêm nhé!'}\n"
+               f"(Tiến độ đã được lưu)")
+        self.quiz_question.configure(text="🎉 Hoàn thành!")
+        self._clear_quiz_options()
+        self.quiz_feedback.configure(text=msg, text_color=C["accent"] if score >= 85 else C["warn"])
+        self.btn_confirm.configure(state="disabled")
+        self.btn_next_q.configure(state="disabled")
+        self.quiz_lbl_num.configure(text=f"✅ Ngày {qz['day']} — {score}%")
+        self._update_day_status(qz["day"])
+
+    # ── Sinh / xóa khóa học ──────────────────────────────────────────────────
+    def _open_generation(self):
+        if not get_all_vocab(self.app.current_language):
+            messagebox.showwarning("Chưa có từ vựng",
+                                   "Hãy thêm từ vựng trước khi sinh khóa học!", parent=self)
+            return
+        dlg = CourseGenerationDialog(self.app, self.app, on_finished=self.refresh_language)
+        self.app.wait_window(dlg)
+
+    def _delete_course(self):
+        lang = self.app.current_language
+        if not course_db.get_course(lang):
+            messagebox.showinfo("Chưa có gì để xóa", f"Ngôn ngữ '{lang}' chưa có khóa học AI.", parent=self)
+            return
+        if messagebox.askyesno("Xác nhận xóa",
+                               f"Xóa toàn bộ khóa học AI và tiến độ của '{lang}'?",
+                               parent=self.app):
+            course_db.delete_course(lang)
+            self._reload_course()
+
+# ══════════════════════════════════════════════════════════════════════════════
 # Main App
 # ══════════════════════════════════════════════════════════════════════════════
 class App(ctk.CTk):
@@ -1396,11 +2080,15 @@ class App(ctk.CTk):
         self.tabview.pack(fill="both", expand=True, padx=10, pady=10)
 
         self.tab_list = self.tabview.add("Danh Sách Từ Vựng")
+        self.tab_study = self.tabview.add("🎓 Học Tập")
         self.tab_sync = self.tabview.add("Đồng Bộ & Cài Đặt")
 
         # Init views
         self.view_list = VocabListTab(self.tab_list, self)
         self.view_list.pack(fill="both", expand=True)
+
+        self.view_study = StudyTab(self.tab_study, self)
+        self.view_study.pack(fill="both", expand=True)
 
         self.view_sync = SettingsSyncTab(self.tab_sync, self)
         self.view_sync.pack(fill="both", expand=True)
@@ -1415,6 +2103,10 @@ class App(ctk.CTk):
         self.view_list.cb_lang_main.set(lang)
         self.view_list.refresh_filters()
         self.view_list.refresh()
+        try:
+            self.view_study.refresh_language()
+        except Exception:
+            pass
 
     def update_stats(self):
         # Refresh UI nếu cần update text hiển thị theo count

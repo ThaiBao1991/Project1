@@ -38,11 +38,14 @@ def load_data(language: str) -> dict:
 
 
 def save_data(language: str, data: dict):
-    """Ghi toàn bộ data xuống file JSON."""
+    """Ghi toàn bộ data xuống file JSON (atomic: ghi file tạm rồi replace,
+    tránh hỏng file nếu app bị crash giữa lúc ghi)."""
     path = _get_json_path(language)
     data["last_updated"] = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
-    with open(path, "w", encoding="utf-8") as f:
+    tmp_path = path + ".tmp"
+    with open(tmp_path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
+    os.replace(tmp_path, path)
 
 
 # ─── CRUD ──────────────────────────────────────────────────────────────────────

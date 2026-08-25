@@ -1,0 +1,228 @@
+{
+  "language": "Nhật",
+  "created_at": "2026-08-26T00:20:30",
+  "words_per_day": 5,
+  "total_words": 60,
+  "total_days": 6,
+  "source_vocab_ids": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60
+  ],
+  "days": [
+    {
+      "title": "Bài 1: Những Bước Chân Đầu Tiên Vào Thế Giới Tiếng Nhật - Lời Chào Và Các Trợ Từ Cơ Bản",
+      "vocab": [
+        {
+          "word": "おはようございます",
+          "pronunciation": "Ohayou gozaimasu",
+          "part_of_speech": "Cụm từ / Lời chào",
+          "meaning_vi": "Chào buổi sáng (lịch sự)",
+          "explanation": "Đây là lời chào buổi sáng trang trọng và lịch sự nhất trong tiếng Nhật, thường dùng với cấp trên, thầy cô hoặc người mới gặp. Nếu chào hỏi bạn bè thân thiết hoặc người nhỏ tuổi hơn, bạn có thể rút gọn thành 'おはよう' (Ohayou). Thời gian thích hợp để dùng là từ sáng sớm cho đến khoảng 10-11 giờ trưa trước khi chuyển sang 'こんにちは'.",
+          "example_sentence": "先生、おはようございます。",
+          "example_meaning_vi": "Em chào thầy/cô buổi sáng ạ."
+        },
+        {
+          "word": "へ",
+          "pronunciation": "he (đọc là e khi làm trợ từ)",
+          "part_of_speech": "Trợ từ",
+          "meaning_vi": "Đến, hướng đến, về phía",
+          "explanation": "Trợ từ 'へ' được dùng sau danh từ chỉ nơi chốn để chỉ hướng di chuyển của hành động. Khác với 'に' nhấn mạnh vào đích đến chính xác, 'へ' nhấn mạnh vào phương hướng hoặc quá trình di chuyển hướng về phía đó. Lưu ý quan trọng là dù viết là 'へ' (he) nhưng khi làm trợ từ bắt buộc phải phát âm là 'え' (e).",
+          "example_sentence": "日本へ行きます。",
+          "example_meaning_vi": "Tôi đi đến Nhật Bản."
+        },
+        {
+          "word": "と",
+          "pronunciation": "to",
+          "part_of_speech": "Trợ từ",
+          "meaning_vi": "Và, với",
+          "explanation": "Trợ từ 'と' có hai cách dùng phổ biến nhất: nối hai danh từ với nghĩa là 'và' (liệt kê toàn bộ), hoặc đi sau một danh từ chỉ người/động vật với nghĩa là 'với' để chỉ đối tượng cùng thực hiện hành động. Khi dùng với nghĩa 'và', nó chỉ nối danh từ với danh từ, không dùng để nối hai câu hay hai động từ.",
+          "example_sentence": "友達と学校へ行きます。",
+          "example_meaning_vi": "Tôi đi đến trường cùng với bạn bè."
+        },
+        {
+          "word": "こ",
+          "pronunciation": "ko",
+          "part_of_speech": "Tiền tố chỉ định",
+          "meaning_vi": "Cái này, ở đây, phía này (chỉ vật/nơi gần người nói)",
+          "explanation": "Đây là tiền tố bắt đầu cho nhóm từ chỉ định 'Ko-So-A-Do' dùng để chỉ những sự vật, địa điểm hoặc phương hướng nằm gần với người nói nhất. Khi kết hợp với các đuôi khác nhau, ta có 'これ' (cái này), 'ここ' (ở đây), 'この' (này). Mẹo nhớ là nhóm 'Ko' luôn là những thứ nằm ngay trong tầm tay hoặc tầm mắt gần nhất của bạn.",
+          "example_sentence": "これは本です。",
+          "example_meaning_vi": "Cái này là cuốn sách."
+        },
+        {
+          "word": "す",
+          "pronunciation": "su",
+          "part_of_speech": "Âm tiết / Đuôi từ lịch sự",
+          "meaning_vi": "Âm 'su' / Đuôi câu lịch sự (trong desu, masu)",
+          "explanation": "Bên cạnh việc là một chữ cái trong bảng Hiragana, âm 'す' (su) xuất hiện cực kỳ phổ biến ở cuối câu tiếng Nhật lịch sự thông qua các đuôi 'です' (desu) hoặc 'ます' (masu). Trong giao tiếp thực tế, âm 'u' trong 'su' thường bị nuốt âm (phát âm nhẹ chỉ còn âm 's'), khiến 'desu' nghe như 'des' và 'masu' nghe như 'mas'.",
+          "example_sentence": "私は学生です。",
+          "example_meaning_vi": "Tôi là học sinh."
+        }
+      ],
+      "grammar": [
+        {
+          "title": "Cấu trúc chỉ hướng di chuyển với trợ từ へ (he/e)",
+          "explanation": "Cấu trúc cơ bản để diễn tả việc di chuyển đi đâu đó là: [Danh từ chỉ nơi chốn] + へ + [Động từ di chuyển (行きます/来ます/帰ります...)]. Trong cấu trúc này, trợ từ 'へ' đóng vai trò chỉ ra hướng đi của hành động. Mặc dù viết bằng chữ Hiragana 'へ' (he), nhưng khi đóng vai trò là trợ từ chỉ hướng, nó luôn được phát âm là 'e'. Điểm khác biệt nhỏ giữa 'へ' và 'に' là 'へ' tập trung vào hướng đi (hướng về phía...), trong khi 'に' tập trung vào đích đến cuối cùng của hành động.",
+          "examples": [
+            {
+              "sentence": "東京へ行きます。",
+              "meaning_vi": "Tôi đi đến Tokyo."
+            },
+            {
+              "sentence": "うちへ帰ります。",
+              "meaning_vi": "Tôi trở về nhà."
+            },
+            {
+              "sentence": "日本へ来ました。",
+              "meaning_vi": "Tôi đã đến Nhật Bản."
+            }
+          ]
+        }
+      ],
+      "quiz": {
+        "mixed": [
+          {
+            "question": "Từ \"おはようございます\" được dùng trong hoàn cảnh nào là phù hợp nhất?",
+            "options": [
+              "Chào bạn bè vào buổi tối",
+              "Chào thầy cô, cấp trên vào buổi sáng",
+              "Chào khách hàng vào buổi chiều",
+              "Tạm biệt đồng nghiệp khi ra về"
+            ],
+            "answer_index": 1,
+            "explanation": "\"おはようございます\" là lời chào buổi sáng lịch sự, trang trọng, thích hợp dùng cho thầy cô, cấp trên."
+          },
+          {
+            "question": "Trợ từ \"へ\" khi đóng vai trò chỉ hướng di chuyển trong câu được phát âm như thế nào?",
+            "options": [
+              "he",
+              "ha",
+              "e",
+              "i"
+            ],
+            "answer_index": 2,
+            "explanation": "Trợ từ \"へ\" viết là \"he\" nhưng luôn được phát âm là \"e\" khi làm trợ từ chỉ hướng."
+          },
+          {
+            "question": "Điền trợ từ thích hợp vào chỗ trống: \"友達___日本へ行きます。\" (Tôi đi Nhật Bản cùng với bạn bè.)",
+            "options": [
+              "を",
+              "と",
+              "へ",
+              "は"
+            ],
+            "answer_index": 1,
+            "explanation": "Trợ từ \"と\" đi sau danh từ chỉ người để biểu thị hành động cùng làm với ai đó (với...)."
+          },
+          {
+            "question": "Tiền tố \"こ\" (ko) trong hệ thống từ chỉ định dùng để chỉ những vật ở vị trí nào?",
+            "options": [
+              "Gần người nói",
+              "Gần người nghe",
+              "Xa cả hai người",
+              "Không xác định được"
+            ],
+            "answer_index": 0,
+            "explanation": "Nhóm \"Ko\" (こ) dùng để chỉ các vật, địa điểm ở gần người nói nhất."
+          },
+          {
+            "question": "Trong các câu lịch sự kết thúc bằng \"です\" (desu) hoặc \"ます\" (masu), âm \"す\" (su) thường được phát âm như thế nào trong giao tiếp thực tế?",
+            "options": [
+              "Phát âm rõ ràng là 'su'",
+              "Bị nuốt âm 'u', nghe gần như 's'",
+              "Phát âm thành 'tsu'",
+              "Không phát âm"
+            ],
+            "answer_index": 1,
+            "explanation": "Trong giao tiếp tự nhiên, âm 'u' trong 'su' ở cuối câu thường bị nuốt, nghe giống như 'des' hoặc 'mas'."
+          },
+          {
+            "question": "Dịch câu sau sang tiếng Nhật: \"Tôi đi đến trường.\" (Trường học: 学校 - gakkou, đi: 行きます - ikimasu)",
+            "options": [
+              "学校と行きます。",
+              "学校へ行きます。",
+              "学校これ行きます。",
+              "学校です行きます。"
+            ],
+            "answer_index": 1,
+            "explanation": "Cấu trúc đi đến đâu là [Nơi chốn] + へ + 行きます. Do đó \"学校へ行きます\" là đáp án đúng."
+          }
+        ],
+        "vocab": [],
+        "pattern": [],
+        "common": [],
+        "grammar": []
+      },
+      "day": 1,
+      "words": [
+        "おはようございます",
+        "へ",
+        "と",
+        "こ",
+        "す"
+      ],
+      "model": "gemini-3.5-flash",
+      "sentence_patterns": [],
+      "common_sentences": []
+    }
+  ],
+  "updated_at": "2026-08-26T06:52:00",
+  "format_version": 2
+}
