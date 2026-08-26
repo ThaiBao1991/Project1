@@ -1,3 +1,22 @@
+## 2026-08-26 — Tích Hợp PASS 6D: Tự Động Làm Sạch (Auto-Heal) Prerequisites Ảo Giác Sau Bước 2
+
+### Bối cảnh & Vấn đề
+- Ở Bước 2 (PASS 6/8), roadmap dài được chia thành nhiều Phase nhỏ (2 Day/phase). AI trong lúc tích hợp phản biện tự sinh thêm hoặc sửa `prerequisites` dẫn đến ảo giác (như `vba_windows_api_basics` ở Day 447) trỏ tới topic không tồn tại hoặc sai thứ tự ngày.
+- Khi toàn bộ 300 phase hoàn thành, `validate_revision` báo lỗi `RoadmapValidationError: Day X tham chiếu prerequisite chưa tồn tại`.
+
+### Thay đổi
+- **AskCpl.py (`_roadmap_v5_step2`)**:
+  - Thêm cơ chế **PASS 6D: Dọn Dẹp Prerequisites Ảo Giác / Trỏ Sai** ngay trước khi gọi `validate_revision()`.
+  - Quét toàn bộ `revised_days`, loại bỏ các prerequisite không nằm trong `valid_topic_ids`, loại bỏ tự tham chiếu và các prerequisite xuất hiện ở các Day sau.
+  - Tự động đồng bộ lại `progress["revised_days"]` và checkpoint file.
+  - Log chi tiết các Day và mã lỗi prerequisite đã được làm sạch.
+
+### Kiểm thử
+- ✅ `py_compile AskCpl.py roadmap_pipeline.py`: SYNTAX OK.
+- ✅ `python test_roadmap_pipeline.py`: 18/18 tests PASSED.
+
+---
+
 ## 2026-08-25 — Tích Hợp PASS 1D (Dọn Prerequisites Lỗi) Vào Luồng Bước 1
 
 ### Thay đổi

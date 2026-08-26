@@ -979,3 +979,603 @@
 | ddd | Event Sourcing & DDD (Domain-Driven Design) trong Python | PythonRoadMapFull.md |
 | pypi_publish | Python Package Publishing: pyproject.toml, hatch, poetry, PyPI, versioning | PythonRoadMapFull.md |
 | opensource | Open Source Contribution: Git flow, PR etiquette, Code review | PythonRoadMapFull.md |
+| chuan_hoa_pho_bo_nam_dinh | Chuẩn hóa 1NF-3NF, tạo Table và Cấu trúc lưu trữ cho Menu Phở Bò Nam Định | roadmap_AccessBasic.md |
+| quan_he_bun_cha_sinh_tu | Thiết lập Relationships, Constraints và Cơ chế Khóa cho Order Bún Chả Sinh Từ | roadmap_AccessBasic.md |
+| bcnf_com_tam_suon_bi_cha | Chuẩn hóa BCNF, Ràng buộc Validation và Compact & Repair cho Cơm Tấm Sườn Bì Chả | roadmap_AccessBasic.md |
+| quan_he_nhieu_nhieu_lau_thai | Thiết lập Quan hệ n-n, Referential Integrity và Quản lý Khóa .laccdb cho Lẩu Thái Hải Sản | roadmap_AccessBasic.md |
+| chuan_hoa_banh_mi_phuong | Phân tích BCNF, Cấu trúc Table và Tương thích SSMA cho Quản lý Bánh Mì Phượng Hội An | roadmap_AccessBasic.md |
+| quan_he_ga_nuong_com_lam | Ràng buộc Relationships, Integrity và Cơ chế Khóa .laccdb cho Set Gà Nướng Cơm Lam Tây Nguyên | roadmap_AccessBasic.md |
+| chuan_hoa_bun_dau_mam_tom | Chuẩn hóa 1NF-3NF và Thiết lập Table tương thích SSMA cho Bún Đậu Mắm Tôm Hàng Khay | roadmap_AccessBasic.md |
+| bcnf_quan_he_cha_ca_la_vong | Phân tích BCNF, Thiết lập Relationships và Tối ưu hóa Chỉ mục cho Chả Cá Lã Vọng Hà Nội | roadmap_AccessBasic.md |
+| validation_rule_banh_xeo_mien_tay | Cấu trúc Table, Validation Rule và Compact & Repair cho Bánh Xèo Miền Tây | roadmap_AccessBasic.md |
+| cascade_delete_bun_bo_hue | Liên kết Relationships, Cascade Delete và Cơ chế Khóa .laccdb cho Bún Bò Huế | roadmap_AccessBasic.md |
+| chuan_hoa_vit_om_sau | Thiết kế Table và Chuẩn hóa 1NF-3NF cho quy trình nấu Vịt Om Sấu | roadmap_AccessBasic.md |
+| bcnf_quan_he_bo_sot_vang | Xây dựng Relationships và BCNF cho hệ thống kho Bò Sốt Vang | roadmap_AccessBasic.md |
+| phan_ra_table_ca_kho_to | Kỹ thuật Phân rã Table, Áp dụng 1NF-3NF cho Cá Kho Tộ và Chuẩn bị Tương thích SSMA | roadmap_AccessBasic.md |
+| kiem_soat_bcnf_nem_cong | Kiểm soát Dư thừa BCNF, Ràng buộc Quan hệ Nem Công Chả Phượng và Quản lý Schema qua VCS | roadmap_AccessBasic.md |
+| chuan_hoa_pho_ga_la_chanh | Tối ưu hóa Cấu trúc Table và Chuẩn hóa 1NF-3NF cho Phở Gà Lá Chanh | roadmap_AccessBasic.md |
+| bcnf_mi_quang_tom_thit | Thiết lập BCNF và Liên kết Relationships cho Mì Quảng Tôm Thịt | roadmap_AccessBasic.md |
+| chuan_hoa_goi_cuon_tom_thit | Phân rã dữ liệu 1NF-3NF và Thiết kế Table chuẩn hóa cho Gỏi Cuốn Tôm Thịt | roadmap_AccessBasic.md |
+| bcnf_quan_he_lau_mam_can_tho | Thiết lập BCNF, Ràng buộc Toàn vẹn và Cấu hình Khóa cho Lẩu Mắm Cần Thơ | roadmap_AccessBasic.md |
+| chuan_hoa_1nf_3nf_banh_khot_vung_tau | Chuẩn hóa 1NF-3NF và áp dụng quy tắc đặt tên chuẩn hóa cho Bánh Khọt Vũng Tàu | roadmap_AccessBasic.md |
+| bcnf_quan_he_cha_gio_tom_cua | Thiết lập BCNF, ràng buộc khóa ngoại và tối ưu chỉ mục cho Chả Giò Tôm Cua | roadmap_AccessBasic.md |
+| chuan_hoa_hu_tieu_nam_vang | Chuẩn hóa 1NF-3NF và thiết kế hướng di trú SSMA cho Hủ Tiếu Nam Vang | roadmap_AccessBasic.md |
+| bcnf_banh_mi_chao | Áp dụng chuẩn BCNF, liên kết bảng và chuẩn bị tích hợp VCS cho Bánh Mì Chảo | roadmap_AccessBasic.md |
+| chuan_hoa_1nf_3nf_bun_rieu_cua | Chuẩn hóa 1NF-3NF và chuẩn bị di trú SSMA cho CSDL Bún Riêu Cua | roadmap_AccessBasic.md |
+| bcnf_quan_he_bun_cha_ha_noi | Thiết lập BCNF, ràng buộc toàn vẹn và cơ chế khóa .laccdb cho Bún Chả Hà Nội | roadmap_AccessBasic.md |
+| chuan_hoa_banh_canh_trang_bang | Phân rã cấu trúc 1NF-3NF và chuẩn bị tương thích SSMA cho Bánh Canh Trảng Bàng | roadmap_AccessBasic.md |
+| bcnf_quan_he_lau_ga_la_giang | Áp dụng BCNF, liên kết Relationships và chuẩn bị cấu trúc cho VCS Lẩu Gà Lá Giang | roadmap_AccessBasic.md |
+| chuan_hoa_com_hen_hue | Chuẩn hóa 1NF-3NF và thiết lập cấu trúc lưu trữ tối ưu cho Cơm Hến Huế | roadmap_AccessBasic.md |
+| bcnf_quan_he_cao_lau_hoi_an | Thiết lập BCNF, liên kết Relationships và cơ chế khóa dữ liệu cho Cao Lầu Hội An | roadmap_AccessBasic.md |
+| chuan_hoa_banh_cuon_thanh_tri | Chuẩn hóa 1NF-3NF và tối ưu kiểu dữ liệu hóa đơn Bánh Cuốn Thanh Trì | roadmap_AccessBasic.md |
+| bcnf_quan_he_nem_lui_hue | Thiết lập chuẩn BCNF và liên kết bảng Nem Lụi Huế tương thích SSMA | roadmap_AccessBasic.md |
+| chuan_hoa_1nf_3nf_bun_quay_phu_quoc | Chuẩn hóa 1NF-3NF và quản lý phiên bản schema cho dữ liệu hóa đơn Bún Quậy Phú Quốc | roadmap_AccessBasic.md |
+| bcnf_quan_he_lau_ca_keo | Thiết lập chuẩn BCNF, liên kết bảng Lẩu Cá Kèo và chuẩn bị di trú SSMA | roadmap_AccessBasic.md |
+| phan_ra_1nf_3nf_bun_mam_soc_trang | Phân rã 1NF-3NF bảng quản lý nguyên liệu Bún Mắm Sóc Trăng và chuẩn bị di trú SSMA | roadmap_AccessBasic.md |
+| bcnf_lien_ket_cha_muc_ha_long | Áp dụng chuẩn BCNF, liên kết bảng Chả Mực Hạ Long và tối ưu hóa chỉ mục | roadmap_AccessBasic.md |
+| chuan_hoa_1nf_3nf_banh_tom_ho_tay | Thiết kế cấu trúc 1NF-3NF quản lý nhà cung cấp Bánh Tôm Hồ Tây và chuẩn bị di chuyển SSMA | roadmap_AccessBasic.md |
+| bcnf_quan_he_oc_buou_nhoi_thit | Xây dựng quan hệ BCNF, ràng buộc Referential Integrity và tối ưu hóa chỉ mục cho Ốc Bươu Nhồi Thịt | roadmap_AccessBasic.md |
+| chuan_hoa_com_tam_suon_bi_cha | Chuẩn hóa dữ liệu 1NF-3NF và chuẩn bị cấu trúc di trú SSMA cho Cơm Tấm Sườn Bì Chả | roadmap_AccessBasic.md |
+| bcnf_quan_he_lau_duoi_bo | Thiết lập cấu trúc BCNF, ràng buộc quan hệ và tối ưu hóa JETSHOWPLAN cho Lẩu Đuôi Bò | roadmap_AccessBasic.md |
+| chuan_hoa_ga_nuong_dat_set | Chuẩn hóa 1NF-3NF cho dữ liệu đặt tiệc Gà Nướng Đất Sét | roadmap_AccessBasic.md |
+| bcnf_quan_he_com_lam_tay_bac | Thiết lập cấu trúc BCNF và liên kết bảng cho Cơm Lam Tây Bắc | roadmap_AccessBasic.md |
+| chuan_hoa_banh_xeo_mien_tay | Chuẩn hóa 1NF-3NF cho dữ liệu Bánh Xèo Miền Tây và chuẩn bị di trú SSMA | roadmap_AccessBasic.md |
+| bcnf_quan_he_goi_sua_quy_nhon | Thiết lập cấu trúc BCNF, liên kết bảng Gỏi Sứa Quy Nhơn và cấu hình JETSHOWPLAN | roadmap_AccessBasic.md |
+| chuan_hoa_bun_cha_ca_nha_trang | Chuẩn hóa 1NF-3NF và quản lý phiên bản schema cho dữ liệu Bún Chả Cá Nha Trang | roadmap_AccessBasic.md |
+| bcnf_quan_he_lau_tha_phan_thiet | Thiết lập quan hệ BCNF, tối ưu hóa JETSHOWPLAN cho Lẩu Thả Phan Thiết | roadmap_AccessBasic.md |
+| chuan_hoa_1nf_3nf_cha_ca_la_vong | Chuẩn hóa 1NF-3NF và thiết kế phân rã FE/BE cho bảng dữ liệu Chả Cá Lã Vọng | roadmap_AccessBasic.md |
+| bcnf_quan_he_bun_dau_mam_tom | Thiết lập quan hệ BCNF, ràng buộc toàn vẹn và cấu hình khóa .laccdb cho Bún Đậu Mắm Tôm | roadmap_AccessBasic.md |
+| chuan_hoa_1nf_3nf_mi_quang_ech_da_nang | Chuẩn hóa 1NF-3NF và chuẩn bị di chuyển SSMA cho dữ liệu Mì Quảng Ếch Đà Nẵng | roadmap_AccessBasic.md |
+| bcnf_quan_he_banh_trang_tron_tay_ninh | Thiết lập quan hệ BCNF và tích hợp VCS Git cho dữ liệu Bánh Tráng Trộn Tây Ninh | roadmap_AccessBasic.md |
+| chuan_hoa_1nf_3nf_banh_khot_vung_tau_new | Chuẩn hóa 1NF-3NF bảng dữ liệu nguyên liệu Bánh Khọt Vũng Tàu | roadmap_AccessBasic.md |
+| bcnf_quan_he_cha_gio_tom_cua_new | Thiết lập cấu trúc BCNF và liên kết bảng cho Chả Giò Tôm Cua | roadmap_AccessBasic.md |
+| chuan_hoa_1nf_3nf_lau_de_kho | Chuẩn hóa 1NF-3NF và tài liệu hóa schema cho đơn hàng Lẩu Dê Khô | roadmap_AccessBasic.md |
+| bcnf_quan_he_ga_bo_xoi | Thiết lập quan hệ BCNF và ràng buộc toàn vẹn dữ liệu Gà Bó Xôi | roadmap_AccessBasic.md |
+| chuan_hoa_1nf_3nf_bun_quay_phu_quoc_nang_cao | Chuẩn hóa dữ liệu 1NF-3NF và quản lý phiên bản schema cho hóa đơn Bún Quậy Phú Quốc | roadmap_AccessBasic.md |
+| bcnf_quan_he_lau_ca_keo_nang_cao | Chuẩn hóa BCNF, ràng buộc toàn vẹn và chuẩn bị di trú SSMA cho dữ liệu Lẩu Cá Kèo | roadmap_AccessBasic.md |
+| chuan_hoa_1nf_3nf_banh_mi_phuong | Chuẩn hóa 1NF-3NF cho bảng dữ liệu hóa đơn Bánh Mì Phượng Hội An | roadmap_AccessBasic.md |
+| bcnf_quan_he_com_nieu_sai_gon | Thiết lập quan hệ BCNF cho cơ sở dữ liệu đặt món Cơm Niêu Sài Gòn | roadmap_AccessBasic.md |
+| chuan_hoa_1nf_3nf_bun_cha_ha_noi | Chuẩn hóa 1NF-3NF cho dữ liệu nguyên liệu món Bún Chả Hà Nội và quản lý phiên bản schema | roadmap_AccessBasic.md |
+| bcnf_quan_he_pho_bo_nam_dinh | Thiết lập quan hệ BCNF cho CSDL đặt món Phở Bò Nam Định và tối ưu hóa khóa/chỉ mục | roadmap_AccessBasic.md |
+| chuan_hoa_1nf_3nf_hu_tieu_nam_vang | Chuẩn hóa 1NF-3NF cho dữ liệu hóa đơn Hủ Tiếu Nam Vang (Hướng tương thích SSMA) | roadmap_AccessBasic.md |
+| bcnf_quan_he_banh_da_cua_hai_phong | Thiết lập quan hệ BCNF và ràng buộc toàn vẹn cho CSDL Bánh Đa Cua Hải Phòng | roadmap_AccessBasic.md |
+| pass_through_query_bun_bo_hue_song_huong | Viết Pass-through Query truy vấn dữ liệu quán Bún Bò Huế Sông Hương | roadmap_AccessBasic.md |
+| toi_uu_truy_van_index_com_tam_ba_ghien | Tối ưu hóa hiệu suất truy vấn Index cho chuỗi Cơm Tấm Ba Ghiền | roadmap_AccessBasic.md |
+| pass_through_sql_server_banh_canh_trang_bang | Pass-through Query nâng cao với SQL Server và SQL Server Profiler cho Bánh Canh Trảng Bàng | roadmap_AccessBasic.md |
+| toi_uu_truy_van_long_cha_ruoi_tu_ky | Tối ưu hóa truy vấn lồng, phân trang và JETSHOWPLAN cho Chả Rươi Tứ Kỳ | roadmap_AccessBasic.md |
+| pass_through_bun_cha_ca_quy_nhon | Tạo Pass-through Query đồng bộ hóa đơn Bún Chả Cá Quy Nhơn & Giám sát bằng SQL Server Profiler | roadmap_AccessBasic.md |
+| toi_uu_truy_van_com_ga_hoi_an | Tối ưu hóa truy vấn gộp nhóm Cơm Gà Hội An bằng JETSHOWPLAN và Index | roadmap_AccessBasic.md |
+| pass_through_lau_ga_la_giang | Pass-through Query tối ưu hóa báo cáo Lẩu Gà Lá Giang & Profiling | roadmap_AccessBasic.md |
+| toi_uu_union_subquery_vit_om_sau | Tối ưu hóa truy vấn Union, Subquery chuỗi Vịt Om Sấu & JETSHOWPLAN | roadmap_AccessBasic.md |
+| pass_through_nem_chua_ran_ngo_tam_thuong | Pass-through Query đồng bộ kho Nem Chua Rán Ngõ Tạm Thương & Giám sát SQL Server Profiler | roadmap_AccessBasic.md |
+| toi_uu_join_bo_to_tay_ninh | Tối ưu hóa truy vấn JOIN phức tạp chuỗi Bò Tơ Tây Ninh bằng JETSHOWPLAN | roadmap_AccessBasic.md |
+| pass_through_bun_rieu_cua_dong | Pass-through Query đồng bộ đơn hàng Bún Riêu Cua Đồng | roadmap_AccessBasic.md |
+| toi_uu_index_subquery_heo_quay_gion_bi | Tối ưu hóa truy vấn Index, Subquery và JETSHOWPLAN cho chuỗi Heo Quay Giòn Bì | roadmap_AccessBasic.md |
+| pass_through_com_hen_vi_da | Pass-through Query truy xuất dữ liệu lớn cho chuỗi Cơm Hến Vĩ Dạ | roadmap_AccessBasic.md |
+| toi_uu_index_bun_cha_sinh_tu | Tối ưu hóa chỉ mục Index và JETSHOWPLAN cho hệ thống Bún Chả Sinh Từ | roadmap_AccessBasic.md |
+| pass_through_chao_long_cai_rang | Pass-through Query kết nối SQL Server & Giám sát bằng SQL Server Profiler cho chuỗi Cháo Lòng Cái Răng | roadmap_AccessBasic.md |
+| toi_uu_subquery_lau_mam_can_tho | Tối ưu hóa Subquery bằng JETSHOWPLAN cho chuỗi Lẩu Mắm Cần Thơ | roadmap_AccessBasic.md |
+| pass_through_goi_cuon_tom_thit | Pass-through Query đồng bộ doanh thu Gỏi Cuốn Tôm Thịt | roadmap_AccessBasic.md |
+| toi_uu_subquery_banh_khot_co_ba | Tối ưu hóa truy vấn lồng Subquery chuỗi Bánh Khọt Cô Ba Vũng Tàu bằng JETSHOWPLAN | roadmap_AccessBasic.md |
+| pass_through_banh_xeo_muoi_xiem | Pass-through Query đồng bộ hóa đơn Bánh xèo Mười Xiềm | roadmap_AccessBasic.md |
+| toi_uu_truy_van_cha_ca_la_vong | Tối ưu hóa truy vấn doanh thu chuỗi Chả cá Lã Vọng | roadmap_AccessBasic.md |
+| pass_through_mi_quang_ech | Pass-through Query kết nối SQL Server và Giám sát qua SQL Server Profiler cho chuỗi Mì Quảng Ếch | roadmap_AccessBasic.md |
+| toi_uu_index_join_bun_dau_mam_tom | Tối ưu hóa truy vấn Index, Join và Kích hoạt JETSHOWPLAN cho chuỗi Bún Đậu Mắm Tôm | roadmap_AccessBasic.md |
+| pass_through_lau_de_kho_dong_khoi | Pass-through Query nâng cao và giám sát bằng SQL Server Profiler cho chuỗi Lẩu Dê Khô Đồng Khởi | roadmap_AccessBasic.md |
+| toi_uu_index_group_by_banh_trang_tron_tay_ninh | Tối ưu hóa truy vấn Index, Group By và phân tích JETSHOWPLAN cho chuỗi Bánh Tráng Trộn Tây Ninh | roadmap_AccessBasic.md |
+| pass_through_com_chay_kho_quet_cho_lon | Pass-through Query đồng bộ kho nguyên liệu Cơm Cháy Kho Quẹt Chợ Lớn và SSMA | roadmap_AccessBasic.md |
+| toi_uu_truy_van_banh_mi_chao_cot_dien | Tối ưu hóa truy vấn doanh thu chuỗi Bánh Mì Chảo Cột Điện với JETSHOWPLAN | roadmap_AccessBasic.md |
+| pass_through_bun_bo_nam_bo | Pass-through Query đồng bộ đơn hàng Bún Bò Nam Bộ & Giới thiệu SSMA | roadmap_AccessBasic.md |
+| toi_uu_index_join_bun_moc_thanh_mai | Tối ưu hóa truy vấn Index, Join và Cấu hình JETSHOWPLAN cho chuỗi Bún Mọc Thanh Mai | roadmap_AccessBasic.md |
+| pass_through_banh_cuon_thanh_tri | Truy vấn Pass-through đồng bộ hóa đơn Bánh cuốn Thanh Trì & Giám sát SQL Profiler | roadmap_AccessBasic.md |
+| toi_uu_truy_van_bun_ca_cay_hai_phong | Tối ưu hóa hiệu suất truy vấn doanh thu Bún cá cay Hải Phòng bằng JETSHOWPLAN | roadmap_AccessBasic.md |
+| pass_through_banh_da_cua_hai_phong | Đồng bộ đơn hàng Bánh Đa Cua Hải Phòng bằng SSMA và Pass-through Query | roadmap_AccessBasic.md |
+| toi_uu_index_join_cha_ca_thac_lac_hau_giang | Tối ưu hóa truy vấn Index và Join bằng JETSHOWPLAN cho chuỗi Chả Cá Thác Lác Hậu Giang | roadmap_AccessBasic.md |
+| pass_through_banh_mi_phuong_hoi_an | Pass-through Query đồng bộ dữ liệu Bánh Mì Phượng Hội An | roadmap_AccessBasic.md |
+| toi_uu_index_join_bun_cha_huong_lien | Tối ưu hóa truy vấn Index, Join và Cấu hình JETSHOWPLAN cho chuỗi Bún Chả Hương Liên | roadmap_AccessBasic.md |
+| pass_through_lau_ca_duoi_vung_tau | Thiết lập Pass-through Query quản lý đơn hàng Lẩu Cá Đuối Vũng Tàu | roadmap_AccessBasic.md |
+| toi_uu_truy_van_goi_ca_mai_vung_tau | Tối ưu hiệu năng truy vấn doanh thu Gỏi Cá Mai Vũng Tàu bằng JETSHOWPLAN | roadmap_AccessBasic.md |
+| pass_through_hu_tieu_nam_vang_nhan_quan | Kết nối Pass-through SQL Server cho chuỗi Hủ Tiếu Nam Vang Nhân Quán | roadmap_AccessBasic.md |
+| toi_uu_truy_van_com_ga_ba_buoi_hoi_an | Tối ưu hiệu năng truy vấn đa bảng cho chuỗi Cơm Gà Bà Buội Hội An | roadmap_AccessBasic.md |
+| pass_through_pho_thin_bo_ho | Truy vấn trực tiếp SQL Server cho chuỗi Phở Thìn Bờ Hồ và Giám sát bằng SQL Server Profiler | roadmap_AccessBasic.md |
+| toi_uu_truy_van_com_tam_ba_ghien | Tối ưu tốc độ truy vấn doanh thu chuỗi Cơm tấm Ba Ghiền bằng JETSHOWPLAN | roadmap_AccessBasic.md |
+| pass_through_bun_bo_hue_song_huong | Pass-through Query đồng bộ kho nguyên liệu Bún Bò Huế Sông Hương & SSMA Migration | roadmap_AccessBasic.md |
+| toi_uu_truy_van_banh_xeo_muoi_xiem | Tối ưu hóa truy vấn Index, Subquery & JETSHOWPLAN cho chuỗi Bánh Xèo Mười Xiềm | roadmap_AccessBasic.md |
+| pass_through_bun_quay_phu_quoc | Pass-through Query đồng bộ đơn hàng Bún Quậy Phú Quốc | roadmap_AccessBasic.md |
+| toi_uu_index_join_banh_canh_trang_bang | Tối ưu hóa Index và Join cho chuỗi Bánh Canh Trảng Bàng | roadmap_AccessBasic.md |
+| pass_through_bun_rieu_cua_gia_lam | Pass-through Query kết nối SQL Server và tối ưu hóa WAN cho chuỗi Bún Riêu Cua Gia Lâm | roadmap_AccessBasic.md |
+| toi_uu_subquery_cha_ruoi_tu_ky | Tối ưu hóa Index, Subquery và kích hoạt JETSHOWPLAN cho chuỗi Chả Rươi Tứ Kỳ Hải Dương | roadmap_AccessBasic.md |
+| pass_through_banh_mi_huynh_hoa | Pass-through Query kết nối SQL Server cho chuỗi Bánh Mì Huỳnh Hoa | roadmap_AccessBasic.md |
+| toi_uu_index_join_nem_lui_ba_sau | Tối ưu hóa truy vấn Index và Join cho chuỗi Nem Lụi Bà Sáu | roadmap_AccessBasic.md |
+| pass_through_banh_mi_dan_to | Pass-through Query kết nối SQL Server cho chuỗi Bánh mì Dân Tổ | roadmap_AccessBasic.md |
+| toi_uu_index_join_bun_cha_sinh_tu | Tối ưu hóa Index và Join cho chuỗi Bún chả Sinh Từ | roadmap_AccessBasic.md |
+| pass_through_com_tam_cali | Pass-through Query kết nối SQL Server và Giám sát bằng SQL Server Profiler cho chuỗi Cơm tấm Cali | roadmap_AccessBasic.md |
+| toi_uu_index_join_lau_cua_dong_dat_mui | Tối ưu hóa Index, Join và Phân tích JETSHOWPLAN cho chuỗi Lẩu cua đồng đất mũi | roadmap_AccessBasic.md |
+| pass_through_com_nieu_sai_gon | Pass-through Query đồng bộ dữ liệu chuỗi Cơm Niêu Sài Gòn và Giám sát bằng SQL Server Profiler | roadmap_AccessBasic.md |
+| toi_uu_index_join_banh_khot_co_ba_vung_tau | Tối ưu hóa Index và Join sử dụng JETSHOWPLAN cho chuỗi Bánh Khọt Cô Ba Vũng Tàu | roadmap_AccessBasic.md |
+| pass_through_bun_dau_hang_khay | Pass-through Query kết nối SQL Server & Tối ưu WAN cho chuỗi Bún Đậu Mắm Tôm Hàng Khay | roadmap_AccessBasic.md |
+| toi_uu_index_join_pho_cuon_ngu_xa | Tối ưu hóa Index, Join & JETSHOWPLAN Profiling cho chuỗi Phở Cuốn Ngũ Xã | roadmap_AccessBasic.md |
+| pass_through_bun_cha_dac_kim | Pass-through Query kết nối SQL Server cho chuỗi Bún chả Đắc Kim | roadmap_AccessBasic.md |
+| toi_uu_index_join_banh_mi_pho_co | Tối ưu hóa Index và Join cho chuỗi Bánh mì Phố Cổ bằng JETSHOWPLAN | roadmap_AccessBasic.md |
+| pass_through_bun_cha_ca_nha_trang | Thiết lập Pass-through Query đồng bộ kho cho chuỗi Bún chả cá Nha Trang | roadmap_AccessBasic.md |
+| toi_uu_index_join_bun_bo_nam_bo | Tối ưu hóa Index và Join truy vấn doanh thu chuỗi Bún bò Nam Bộ | roadmap_AccessBasic.md |
+| ribbon_xml_banh_mi_phuong_hoi_an | Thiết kế Ribbon XML tùy chỉnh và tích hợp VCS cho Menu Bánh mì Phượng Hội An | roadmap_AccessBasic.md |
+| dashboard_tuong_tac_bun_cha_huong_lien | Xây dựng Dashboard tương tác tối ưu WAN và kiểm thử cho Bún chả Hương Liên | roadmap_AccessBasic.md |
+| form_hoa_don_lau_ca_duoi_vung_tau | Tạo Form hóa đơn động và Unit Test VBA cho chuỗi Lẩu cá đuối Vũng Tàu | roadmap_AccessBasic.md |
+| report_doanh_thu_bun_quay_phu_quoc | Thiết kế Report doanh thu động và Tích hợp Git VCS cho chuỗi Bún quậy Phú Quốc | roadmap_AccessBasic.md |
+| form_navigation_banh_da_cua_hai_phong | Thiết kế Form điều hướng Navigation và tối ưu hóa WAN cho chuỗi Bánh đa cua Hải Phòng | roadmap_AccessBasic.md |
+| ribbon_xml_nang_cao_bun_thang_ba_duc | Tạo Ribbon XML tùy chỉnh nâng cao và Unit Test cho chuỗi Bún thang Bà Đức | roadmap_AccessBasic.md |
+| form_main_sub_bun_dau_ngo_tram | Thiết kế Form Main-Sub đơn hàng Bún đậu Ngõ Trạm & Tích hợp MSAccess-VCS | roadmap_AccessBasic.md |
+| report_hoa_don_pho_thin_lo_duc | Tạo Report hóa đơn Phở Thìn Lò Đúc & Thiết lập Unit Test kiểm thử tính toán | roadmap_AccessBasic.md |
+| form_tim_kiem_banh_mi_huynh_hoa | Thiết kế Form tìm kiếm động cho chuỗi Bánh mì Huỳnh Hoa & Tích hợp Unit Test VBA | roadmap_AccessBasic.md |
+| report_bieu_do_com_tam_cali | Tạo Report biểu đồ doanh thu Cơm tấm Cali & Tối ưu hóa Query với JETSHOWPLAN | roadmap_AccessBasic.md |
+| form_popup_loc_cha_ca_la_vong | Thiết kế Form Popup bộ lọc báo cáo tối ưu WAN cho chuỗi Chả cá Lã Vọng | roadmap_AccessBasic.md |
+| ribbon_xml_kho_com_hen_vi_da | Tạo Ribbon XML tùy biến quản lý kho và Unit Testing Callback cho Cơm hến Vĩ Dạ | roadmap_AccessBasic.md |
+| dashboard_tuong_tac_banh_xeo_muoi_xiem | Thiết kế Dashboard tương tác hiện đại cho chuỗi Bánh xèo miền Tây Mười Xiềm | roadmap_AccessBasic.md |
+| ribbon_xml_dong_mi_quang_ech_bep_trang | Tùy biến Ribbon XML động cho chuỗi Mì Quảng ếch bếp Trang | roadmap_AccessBasic.md |
+| form_dashboard_com_ga_hoi_an | Thiết kế Form Dashboard quản lý doanh thu Cơm gà Hội An & Tích hợp VCS | roadmap_AccessBasic.md |
+| report_doanh_so_nem_chua_yen_mac | Tạo Report doanh số Nem chua Yên Mạc & Tối ưu hóa WAN | roadmap_AccessBasic.md |
+| form_navigation_bun_ca_cay_hai_phong | Tạo Form Navigation điều hướng cho chuỗi Bún cá cay Hải Phòng | roadmap_AccessBasic.md |
+| ribbon_xml_banh_khot_co_ba_vung_tau | Tạo Ribbon XML tùy biến thanh công cụ cho chuỗi Bánh khọt Cô Ba Vũng Tàu | roadmap_AccessBasic.md |
+| form_main_sub_lau_de_nhat_ly | Thiết kế Form Main-Sub hóa đơn cho chuỗi Lẩu dê Nhất Ly và tối ưu hóa khóa dữ liệu | roadmap_AccessBasic.md |
+| report_hoa_don_bun_bo_hue_o_xuan | Tạo Report hóa đơn thanh toán cho chuỗi Bún bò Huế O Xuân và tối ưu truy vấn | roadmap_AccessBasic.md |
+| form_tra_cuu_banh_mi_phuong_hoi_an | Thiết kế Form tra cứu động cho chuỗi Bánh mì Phượng Hội An | roadmap_AccessBasic.md |
+| dashboard_doanh_thu_bun_cha_huong_lien | Tạo Dashboard doanh thu trực quan cho chuỗi Bún chả Hương Liên | roadmap_AccessBasic.md |
+| form_popup_banh_cuon_thanh_tri | Thiết kế Form Popup lọc doanh thu và Unit Test VBA cho chuỗi Bánh cuốn Thanh Trì | roadmap_AccessBasic.md |
+| ribbon_xml_bun_cha_dac_kim | Tùy biến Ribbon XML và Quản lý mã nguồn bằng VCS cho chuỗi Bún chả Đắc Kim | roadmap_AccessBasic.md |
+| ribbon_xml_dong_banh_canh_trang_bang | Tạo Ribbon XML động ẩn hiện tab và quản lý mã nguồn bằng MSAccess-VCS cho chuỗi Bánh canh Trảng Bàng | roadmap_AccessBasic.md |
+| dashboard_tuong_tac_cha_ruoi_tu_ky | Thiết kế Dashboard tương tác tối ưu hóa WAN và bộ nhớ đệm cho chuỗi Chả rươi Tứ Kỳ | roadmap_AccessBasic.md |
+| ribbon_xml_phan_quyen_hu_tieu_nhan_quan | Tạo Ribbon XML phân quyền nhóm cho chuỗi Hủ tiếu Nam Vang Nhân Quán & Kiểm thử Unit Test | roadmap_AccessBasic.md |
+| dashboard_chi_phi_bun_dau_co_khan | Tạo Dashboard phân tích chi phí chuỗi Bún đậu Cô Khàn & Tối ưu hóa truy vấn với JETSHOWPLAN | roadmap_AccessBasic.md |
+| form_control_com_tam_ba_ghien | Thiết kế Form điều khiển trung tâm cho chuỗi Cơm tấm Ba Ghiền và tích hợp quản lý phiên bản | roadmap_AccessBasic.md |
+| report_chart_lau_nam_ashima | Tạo Report biểu đồ tròn phân tích doanh thu Lẩu nấm Ashima và tối ưu hóa hiệu năng truy vấn | roadmap_AccessBasic.md |
+| form_hoa_don_vit_om_sau_ha_noi | Thiết kế Form hóa đơn động và tối ưu hóa WAN cho chuỗi Vịt om sấu Hà Nội | roadmap_AccessBasic.md |
+| ribbon_xml_bun_quay_phu_quoc | Tạo Ribbon XML tùy biến và tích hợp VCS cho chuỗi Bún quậy Phú Quốc | roadmap_AccessBasic.md |
+| form_main_sub_com_nieu_sai_gon | Thiết kế Form Main-Sub hóa đơn Cơm niêu Sài Gòn & Tích hợp MSAccess-VCS quản lý mã nguồn | roadmap_AccessBasic.md |
+| dashboard_doanh_thu_banh_khot_co_ba | Tạo Dashboard doanh thu Bánh khọt Cô Ba & Thiết lập Unit Test VBA kiểm thử bộ lọc | roadmap_AccessBasic.md |
+| form_tra_cuu_pho_cuon_ngu_xa | Thiết kế Form tra cứu động và tích hợp kiểm soát phiên bản VCS cho chuỗi Phở cuốn Ngũ Xã | roadmap_AccessBasic.md |
+| ribbon_xml_bun_cha_sinh_tu | Tạo Ribbon XML tùy biến và viết Unit Test cho Callback VBA chuỗi Bún chả Sinh Từ | roadmap_AccessBasic.md |
+| form_popup_nem_lui_hue_ba_ngon | Thiết kế Form Popup lọc dữ liệu nâng cao cho Nem lụi Huế Bà Ngôn & Tích hợp VCS Git | roadmap_AccessBasic.md |
+| ribbon_xml_dong_banh_chung_tranh_khuc | Tạo Ribbon XML động cập nhật trạng thái cho Bánh chưng Tranh Khúc & Unit Test Callback | roadmap_AccessBasic.md |
+| form_tab_control_banh_da_cua_hai_phong | Thiết kế Form điều hướng Tab Control cho Bánh đa cua Hải Phòng và tích hợp Git VCS | roadmap_AccessBasic.md |
+| ribbon_xml_phan_quyen_bun_bo_nam_bo | Tạo Ribbon XML phân quyền cho Bún bò Nam Bộ và viết Unit Test VBA | roadmap_AccessBasic.md |
+| form_dashboard_cha_ca_la_vong | Thiết kế Form Dashboard tổng quan chuỗi Chả cá Lã Vọng & Tích hợp MSAccess-VCS quản lý mã nguồn | roadmap_AccessBasic.md |
+| ribbon_xml_dieu_huong_com_hen_vi_da | Thiết kế Ribbon XML điều hướng chuỗi Cơm hến Vĩ Dạ & Kiểm thử tự động Callback bằng Rubberduck VBA | roadmap_AccessBasic.md |
+| ribbon_xml_banh_mi_huynh_hoa | Tạo Ribbon XML tùy biến báo cáo và tích hợp quản lý mã nguồn cho chuỗi Bánh mì Huỳnh Hoa | roadmap_AccessBasic.md |
+| dashboard_chi_phi_lau_ga_la_e | Thiết kế Dashboard phân tích chi phí và viết Unit Test VBA cho Lẩu gà lá é Tao Ngộ | roadmap_AccessBasic.md |
+| ribbon_xml_banh_xeo_muoi_xiem | Tạo Ribbon XML quản lý bàn ăn cho chuỗi Bánh xèo Mười Xiềm và Quản lý phiên bản giao diện | roadmap_AccessBasic.md |
+| dashboard_doanh_thu_lau_rieu_cua | Thiết kế Dashboard doanh thu trực quan cho Lẩu riêu cua sườn sụn và Kiểm thử tự động bộ lọc | roadmap_AccessBasic.md |
+| form_tra_cuu_bun_cha_ca_nha_trang | Thiết kế Form tra cứu hóa đơn động cho Bún chả cá Nha Trang & Tích hợp Unit Test | roadmap_AccessBasic.md |
+| ribbon_xml_hu_tieu_nam_vang | Tạo Ribbon XML tùy biến cho Hủ tiếu Nam Vang & Quản lý mã nguồn bằng VCS | roadmap_AccessBasic.md |
+| form_hoa_don_com_tam_ba_ghien | Thiết kế Form hóa đơn động và tích hợp Unit Test cho Cơm tấm Ba Ghiền | roadmap_AccessBasic.md |
+| ribbon_xml_kho_vit_om_sau | Tạo Ribbon XML tối ưu hóa WAN quản lý kho cho Vịt om sấu Hà Nội | roadmap_AccessBasic.md |
+| form_tra_cuu_bun_cha_huong_lien | Thiết kế Form tra cứu doanh thu cho Bún chả Hương Liên | roadmap_AccessBasic.md |
+| ribbon_xml_xuat_hoa_don_banh_mi_phuong | Tạo Ribbon XML xuất dữ liệu hóa đơn Bánh mì Phượng Hội An | roadmap_AccessBasic.md |
+| form_popup_cha_muc_ha_long | Thiết kế Form Popup chi tiết món ăn cho Chả mực Hạ Long & Tích hợp xuất mã nguồn VCS | roadmap_AccessBasic.md |
+| ribbon_xml_phan_quyen_bun_dau | Tạo Ribbon XML phân quyền cho Bún đậu mắm tôm & Kiểm thử tự động Callback | roadmap_AccessBasic.md |
+| api_zalopay_qr_pho_bo_175 | Tích hợp Cổng ZaloPay QR Code thanh toán hóa đơn món Phở bò Nam Định | roadmap_AccessBasic.md |
+| dashboard_tuong_tac_chi_phi_cha_ruoi_tu_ky | Thiết kế Dashboard tương tác chi phí cho Chả rươi Tứ Kỳ | roadmap_AccessBasic.md |
+| form_main_sub_mi_quang_ech | Thiết kế Form Main-Sub quản lý đơn hàng Mì Quảng Ếch và Tích hợp VCS Git | roadmap_AccessBasic.md |
+| ribbon_xml_xuat_bao_cao_lau_tha | Tạo Ribbon XML tùy biến xuất báo cáo Lẩu thả Phan Thiết và Viết Unit Test VBA | roadmap_AccessBasic.md |
+| form_dashboard_banh_khot_co_ba_vung_tau | Thiết kế Form Dashboard doanh thu cho Bánh khọt Cô Ba Vũng Tàu (Tối ưu hóa truy vấn & Unit Test VBA) | roadmap_AccessBasic.md |
+| ribbon_xml_dieu_huong_lau_ga_la_e_tao_ngo | Tạo Ribbon XML điều hướng hệ thống cho Lẩu gà lá é Tao Ngộ Đà Lạt (Tích hợp MSAccess-VCS) | roadmap_AccessBasic.md |
+| form_dashboard_com_tam_suon_bi_cha | Thiết kế Dashboard doanh thu Cơm tấm Sườn Bì Chả Cali & Tối ưu hóa JETSHOWPLAN | roadmap_AccessBasic.md |
+| ribbon_xml_menu_nem_nuong_nha_trang | Tạo Ribbon XML tùy biến menu Nem nướng Nha Trang & Tích hợp MSAccess-VCS | roadmap_AccessBasic.md |
+| form_main_sub_com_ga_hoi_an | Thiết kế Form Main-Sub quản lý nguyên liệu Cơm gà Hội An và tích hợp MSAccess-VCS | roadmap_AccessBasic.md |
+| ribbon_xml_xuat_du_lieu_lau_ca_keo | Tạo Ribbon XML tùy biến xuất dữ liệu Lẩu cá kèo và viết Unit Test VBA | roadmap_AccessBasic.md |
+| form_tra_cuu_bun_ca_cay_hai_phong | Thiết kế Form Tra cứu Đa năng và Tối ưu hóa WAN cho Bún cá cay Hải Phòng Cậu Đoành | roadmap_AccessBasic.md |
+| ribbon_xml_phan_quyen_banh_mi_que | Tạo Ribbon XML phân quyền và Tích hợp VCS cho Bánh mì que Hải Phòng Bà Già | roadmap_AccessBasic.md |
+| form_popup_bun_cha_sinh_tu | Thiết kế Form Popup tùy biến và tích hợp VCS cho Bún chả Sinh Từ Hà Nội | roadmap_AccessBasic.md |
+| ribbon_xml_kho_pho_thin_lo_duc | Tạo Ribbon XML tùy biến quản lý kho và Unit Test cho Phở Thìn Lò Đúc | roadmap_AccessBasic.md |
+| form_tab_control_banh_mi_phuong | Thiết kế Form Tab Control quản lý đơn hàng Bánh mì Phượng Hội An tối ưu WAN | roadmap_AccessBasic.md |
+| ribbon_xml_bao_cao_bun_cha_huong_lien | Tạo Ribbon XML tùy biến xuất báo cáo Bún chả Hương Liên và tích hợp VCS Git | roadmap_AccessBasic.md |
+| ribbon_xml_dieu_huong_bun_bo_hue_dong_ba | Tạo Ribbon XML điều hướng nhanh và quản lý mã nguồn bằng VCS cho Bún bò Huế Đông Ba | roadmap_AccessBasic.md |
+| dashboard_doanh_thu_lau_de_kho_song_hy | Thiết kế Dashboard doanh thu Lẩu dê khô Song Hỷ tối ưu bằng JETSHOWPLAN | roadmap_AccessBasic.md |
+| dashboard_tuong_tac_banh_khot_co_ba | Tạo Dashboard tương tác chi phí nguyên liệu Bánh khọt Cô Ba Vũng Tàu và tối ưu hóa truy vấn | roadmap_AccessBasic.md |
+| ribbon_xml_menu_lau_ga_la_e | Tạo Ribbon XML tùy biến quản lý thực đơn Lẩu gà lá é Tao Ngộ và tích hợp VCS | roadmap_AccessBasic.md |
+| form_main_sub_banh_xeo_muoi_xiem | Thiết kế Form Main-Sub quản lý đơn hàng cho Bánh xèo Mười Xiềm tích hợp Unit Test & Khóa bản ghi | roadmap_AccessBasic.md |
+| dashboard_bieu_do_lau_rieu_cua | Tạo Dashboard biểu đồ doanh thu động cho Lẩu riêu cua sườn sụn tối ưu JETSHOWPLAN & Quản lý mã nguồn | roadmap_AccessBasic.md |
+| form_main_sub_com_hen_vi_da | Thiết kế Form Main-Sub quản lý đơn hàng Cơm hến Vĩ Dạ Huế và tối ưu hóa WAN | roadmap_AccessBasic.md |
+| ribbon_xml_xuat_hoa_don_bun_ca_cay | Tạo Ribbon XML tùy biến xuất hóa đơn Bún cá cay Hải Phòng và Unit Test Callback | roadmap_AccessBasic.md |
+| ribbon_xml_phan_quyen_banh_cuon_thanh_tri | Tạo Ribbon XML phân quyền người dùng cho quán Bánh cuốn Thanh Trì và Unit Test Callback | roadmap_AccessBasic.md |
+| dashboard_doanh_thu_cha_ca_la_vong | Thiết kế Dashboard tương tác doanh thu quán Chả cá Lã Vọng và tối ưu hóa truy vấn | roadmap_AccessBasic.md |
+| vba_bay_loi_bun_cha_huong_lien | Lập trình VBA xử lý sự kiện, bẫy lỗi và Unit Test cho Form Bún chả | roadmap_AccessBasic.md |
+| dao_recordset_banh_mi_phuong | Thao tác Recordset DAO và Quản lý Phiên bản mã nguồn Bánh mì Phượng | roadmap_AccessBasic.md |
+| ado_recordset_pho_cuon_ngu_xa | Lập trình ADO Recordset & Tối ưu hóa WAN cho Phở cuốn Ngũ Xã | roadmap_AccessBasic.md |
+| vba_transaction_bun_bo_nam_bo | Giao dịch Transaction & Unit Testing tại Bún bò Nam Bộ | roadmap_AccessBasic.md |
+| vba_bay_loi_banh_mi_huynh_hoa | Bẫy lỗi VBA, ghi log tự động và Unit Test cơ bản cho hóa đơn Bánh mì Huỳnh Hoa | roadmap_AccessBasic.md |
+| dao_recordset_lau_ga_la_e_phu_yen | Duyệt DAO Recordset, tối ưu JETSHOWPLAN và Unit Test tồn kho Lẩu gà lá é | roadmap_AccessBasic.md |
+| ado_sync_banh_xeo_mien_tay | Lập trình ADO Recordset đồng bộ hóa đơn Bánh xèo miền Tây & Tối ưu hóa WAN | roadmap_AccessBasic.md |
+| vba_rollback_lau_tha_phan_thiet | Bẫy lỗi VBA, Rollback giao dịch Lẩu thả Phan Thiết & Unit Testing | roadmap_AccessBasic.md |
+| dao_add_recordset_bun_rieu_cua_oc_thanh_hai | Thêm mới đơn hàng Bún riêu cua ốc Thanh Hải bằng DAO Recordset & Unit Test | roadmap_AccessBasic.md |
+| ado_query_hu_tieu_nam_vang_nhan_quan | Truy vấn doanh thu Hủ tiếu Nam Vang Nhân Quán bằng ADO Recordset & Tối ưu hóa | roadmap_AccessBasic.md |
+| dao_delete_bun_dau_hang_khay | Xóa bản ghi bằng DAO Recordset và viết Unit Test cho quán Bún đậu mắm tôm Hàng Khay | roadmap_AccessBasic.md |
+| ado_batch_update_banh_da_cua_hai_phong | Cập nhật hàng loạt bằng ADO Command và tối ưu hóa hiệu năng cho quán Bánh đa cua Hải Phòng | roadmap_AccessBasic.md |
+| dao_filter_com_tam_bai_rac | Lọc hóa đơn Cơm tấm bãi rác Quận 4 bằng DAO Recordset Filter và viết Unit Test kiểm thử | roadmap_AccessBasic.md |
+| vba_error_handling_bun_cha_sinh_tu | Bẫy lỗi VBA, ghi log hệ thống cho quán Bún chả Sinh Từ và Unit Test bẫy lỗi | roadmap_AccessBasic.md |
+| dao_find_lau_de_song_hy | Lập trình DAO Recordset tìm kiếm bàn trống cho Lẩu dê khô Song Hỷ & Viết Unit Test | roadmap_AccessBasic.md |
+| ado_export_banh_mi_que | Lập trình ADO Recordset xuất dữ liệu hóa đơn Bánh mì que Hải Phòng & Quản lý Lock/VCS | roadmap_AccessBasic.md |
+| dao_update_bun_cha_huong_lien | Sử dụng DAO Recordset cập nhật giá món ăn Bún chả Hương Liên và viết Unit Test kiểm thử | roadmap_AccessBasic.md |
+| vba_error_handling_banh_mi_huynh_hoa | Bẫy lỗi VBA On Error GoTo và thiết kế Custom Test Runner cho Bánh mì Huỳnh Hoa | roadmap_AccessBasic.md |
+| dao_logic_bun_mam_nem_da_nang | Xử lý logic tính tổng hóa đơn Bún mắm nêm Đà Nẵng bằng DAO & Unit Test | roadmap_AccessBasic.md |
+| ado_error_handling_com_ga_hoi_an | Bẫy lỗi ADO & Xử lý xung đột khóa (Locking) khi chuyển bàn Cơm gà Hội An | roadmap_AccessBasic.md |
+| dao_add_pho_thin_bo_ho | Thêm mới hóa đơn bằng DAO Recordset và Transaction cho quán Phở Thìn Bờ Hồ | roadmap_AccessBasic.md |
+| ado_sync_vit_om_sau_ha_noi | Đồng bộ hóa đơn bán hàng bằng ADO tối ưu hóa WAN cho quán Vịt om sấu Hà Nội | roadmap_AccessBasic.md |
+| dao_delete_hu_tieu_go_sai_gon | Xóa đơn hàng lỗi bằng DAO Recordset và viết Unit Test kiểm thử cho Hủ tiếu gõ Sài Gòn | roadmap_AccessBasic.md |
+| ado_batch_update_banh_khot_vung_tau | Cập nhật hàng loạt trạng thái bàn bằng ADO Batch Update và giải quyết xung đột khóa cho Bánh khọt Vũng Tàu | roadmap_AccessBasic.md |
+| dao_filter_bun_rieu_cua_oc_thanh_hai_v2 | Lọc đơn hàng Bún riêu cua ốc Thanh Hải bằng DAO Filter và kiểm thử Unit Test | roadmap_AccessBasic.md |
+| vba_transaction_lau_tha_phan_thiet_v2 | Quản lý giao dịch Rollback Lẩu thả Phan Thiết và kiểm soát xung đột khóa dữ liệu | roadmap_AccessBasic.md |
+| dao_find_first_lau_de_song_hy | Tìm kiếm bản ghi bằng DAO FindFirst và Unit Test cho Lẩu dê Song Hỷ | roadmap_AccessBasic.md |
+| ado_stream_export_banh_mi_que | Xuất hóa đơn bằng ADO Stream và quản lý mã nguồn cho Bánh mì que | roadmap_AccessBasic.md |
+| dao_edit_bun_bo_hue_song_huong | Cập nhật giá nguyên liệu Bún bò Huế Sông Hương bằng DAO Edit và viết Unit Test kiểm thử | roadmap_AccessBasic.md |
+| ado_error_handling_nem_lui_hue | Bẫy lỗi kết nối ADO và xử lý xung đột khóa dữ liệu khi đặt món Nem lụi Huế | roadmap_AccessBasic.md |
+| vba_error_handling_bun_cha_huong_lien_v2 | Xử lý lỗi chia cho 0 khi tính khuyến mãi Bún chả Hương Liên bằng VBA và viết Unit Test cơ bản | roadmap_AccessBasic.md |
+| dao_update_status_banh_mi_phuong | Duyệt, cập nhật trạng thái giao hàng Bánh mì Phượng bằng DAO Recordset kết hợp quản lý xung đột khóa (Locking) | roadmap_AccessBasic.md |
+| dao_add_new_com_tam_suon_bi_cha | Thêm mới Cơm tấm sườn bì chả bằng DAO Recordset & Unit Test cơ bản | roadmap_AccessBasic.md |
+| ado_parameter_query_vit_quay_lang_son | Truy vấn ADO Command cho Vịt quay Lạng Sơn & Tối ưu JETSHOWPLAN | roadmap_AccessBasic.md |
+| vba_logic_ga_nuong_lu_xoi_chay | Tính toán chi phí Gà nướng lu xôi cháy bằng VBA Business Logic & Unit Test cơ bản | roadmap_AccessBasic.md |
+| vba_event_error_cha_ca_la_vong | Bẫy lỗi xóa đơn hàng Chả cá Lã Vọng bằng VBA Event Handling & Ghi log lỗi | roadmap_AccessBasic.md |
+| dao_loop_sum_bun_quay_phu_quoc | Tính tổng doanh thu Bún Quậy Phú Quốc bằng vòng lặp DAO Recordset & Viết Unit Test kiểm thử | roadmap_AccessBasic.md |
+| ado_transaction_error_com_nieu_sai_gon | Bẫy lỗi Transaction ADO thanh toán Cơm Niêu Sài Gòn & Quản lý mã nguồn bằng VCS | roadmap_AccessBasic.md |
+| dao_logic_check_lau_mam_can_tho | Kiểm tra tồn kho nguyên liệu Lẩu mắm Cần Thơ bằng DAO Logic và Unit Test | roadmap_AccessBasic.md |
+| vba_event_error_banh_xeo_mien_tay | Bẫy lỗi nhập liệu đơn hàng Bánh xèo miền Tây qua BeforeUpdate và tích hợp Git VCS | roadmap_AccessBasic.md |
+| dao_logic_bun_oc_nguoi_tay_ho | Tính giá đơn hàng Bún ốc nguội Tây Hồ bằng DAO Recordset Logic và Unit Test | roadmap_AccessBasic.md |
+| ado_event_error_nem_ran_ha_noi | Bẫy lỗi kết nối, kiểm tra dữ liệu và quản lý Transaction Nem rán Hà Nội bằng ADO | roadmap_AccessBasic.md |
+| dao_logic_discount_bun_cha_ca_quy_nhon | Tính chiết khấu Bún chả cá Quy Nhơn bằng DAO Recordset và Unit Test VBA | roadmap_AccessBasic.md |
+| ado_event_error_mi_quang_ech | Bẫy lỗi cập nhật trạng thái Mì Quảng ếch bằng ADO, VBA Events và Xử lý Tranh chấp Khóa | roadmap_AccessBasic.md |
+| dao_logic_bun_dau_mam_tom | Tính định mức nguyên liệu Bún đậu mắm tôm bằng DAO Recordset & Unit Test | roadmap_AccessBasic.md |
+| vba_event_error_pho_cuon_ngu_xa | Bẫy lỗi nhập liệu đơn hàng Phở cuốn Ngũ Xã bằng VBA Events & Quản lý mã nguồn bằng VCS | roadmap_AccessBasic.md |
+| dao_logic_shipping_com_lam_tay_nguyen | Tính phí vận chuyển Cơm Lam Gà Nướng Tây Nguyên bằng DAO Logic và Unit Test | roadmap_AccessBasic.md |
+| ado_error_handling_banh_canh_nha_trang | Bẫy lỗi xung đột dữ liệu Bánh Canh Chả Cá Nha Trang bằng ADO & Quản lý Khóa | roadmap_AccessBasic.md |
+| dao_logic_ratio_bun_thang_ha_noi | Tính tỷ lệ nguyên liệu Bún thang Hà Nội bằng DAO Recordset | roadmap_AccessBasic.md |
+| ado_error_handling_cha_ruoi_tu_ky | Bẫy lỗi cập nhật giá thời vụ Chả rươi Tứ Kỳ bằng ADO | roadmap_AccessBasic.md |
+| dao_logic_cal_goi_cuon_tom_thit | Tính hàm lượng dinh dưỡng Gỏi cuốn tôm thịt bằng DAO Recordset & Kiểm thử Unit Test | roadmap_AccessBasic.md |
+| ado_error_handling_banh_khot_mien_tay | Bẫy lỗi giao dịch thanh toán Bánh khọt Miền Tây bằng ADO & Xử lý xung đột khóa | roadmap_AccessBasic.md |
+| dao_logic_cost_bun_mam_nem_da_nang | Tính giá vốn tô Bún mắm nêm Đà Nẵng bằng DAO Recordset và Unit Test với Rubberduck | roadmap_AccessBasic.md |
+| ado_event_error_banh_trang_cuon_thit_heo | Bẫy lỗi ADO Events và xử lý xung đột khóa record-level locking Bánh tráng cuốn thịt heo | roadmap_AccessBasic.md |
+| dao_logic_jellyfish_bun_sua_nha_trang | Tính định mức sứa tươi Bún sứa Nha Trang bằng DAO Recordset & Unit Test | roadmap_AccessBasic.md |
+| ado_error_handling_lau_ca_linh | Bẫy lỗi ADO Events & Xử lý xung đột khóa (Locking) Lẩu cá linh | roadmap_AccessBasic.md |
+| dao_logic_topping_bun_ca_cay_hai_phong | Tính tổng tiền topping Bún cá cay Hải Phòng bằng DAO Recordset & Viết Unit Test | roadmap_AccessBasic.md |
+| ado_error_inventory_cha_gio_re_tom_muc | Bẫy lỗi cập nhật kho Chả giò rế tôm mực bằng ADO Connection & Quản lý mã nguồn bằng VCS | roadmap_AccessBasic.md |
+| dao_logic_sauce_com_tam_long_xuyen | Tính tỷ lệ nước mắm kẹo Cơm tấm Long Xuyên bằng DAO Recordset & Kiểm thử Unit Test | roadmap_AccessBasic.md |
+| ado_error_cancel_banh_da_cua_hai_phong | Bẫy lỗi hủy đơn hàng Bánh đa cua Hải Phòng bằng ADO Transaction & Quản lý xung đột khóa | roadmap_AccessBasic.md |
+| dao_logic_ratio_bun_bo_hue | Tính định lượng bắp bò và sợi bún Bún bò Huế bằng DAO Recordset và Unit Test | roadmap_AccessBasic.md |
+| ado_error_handling_mi_xao_gion_hai_san | Bẫy lỗi thanh toán, trừ kho Mì xào giòn bằng ADO Transaction và Quản lý mã nguồn | roadmap_AccessBasic.md |
+| dao_logic_spice_goi_du_du_thai | Tính tỷ lệ gia vị Gỏi đu đủ Thái bằng DAO Recordset Logic và Unit Test | roadmap_AccessBasic.md |
+| ado_error_stock_lau_ga_la_e | Bẫy lỗi trừ kho Lẩu gà lá é bằng ADO Transaction và tối ưu hóa WAN | roadmap_AccessBasic.md |
+| dao_logic_ratio_bun_moc_thanh_mai | Tính tỷ lệ mọc và sườn Bún mọc Thanh Mai bằng DAO Recordset & Unit Test | roadmap_AccessBasic.md |
+| ado_error_rollback_banh_mi_chao_cot_dien | Bẫy lỗi hoàn kho Bánh mì chảo Cột Điện Quán bằng ADO Transaction & Xử lý xung đột khóa | roadmap_AccessBasic.md |
+| dao_logic_ratio_bun_rieu_cua_dong | Tính định lượng gạch cua bằng DAO Recordset & Viết Unit Test kiểm thử | roadmap_AccessBasic.md |
+| ado_error_rollback_banh_xeo_tom_nhay | Bẫy lỗi hủy đơn bằng ADO Transaction & Tối ưu hóa giải phóng bộ nhớ tránh phân mảnh | roadmap_AccessBasic.md |
+| dao_logic_sauce_bun_cha_ha_noi | Tính tỷ lệ pha nước chấm Bún chả Hà Nội bằng DAO Recordset & Unit Test | roadmap_AccessBasic.md |
+| ado_error_inventory_pho_thin_lo_duc | Bẫy lỗi giao dịch ADO trừ tồn kho Phở Thìn và ghi log lỗi hệ thống | roadmap_AccessBasic.md |
+| dao_logic_bun_ca_ngu_dai_lanh | Tính định lượng cá ngừ và kiểm thử đơn vị (Unit Testing) với Rubberduck | roadmap_AccessBasic.md |
+| ado_error_inventory_banh_canh_trang_bang | Bẫy lỗi ADO Transaction và quản lý mã nguồn với MSAccess-VCS | roadmap_AccessBasic.md |
+| dao_logic_topping_bun_sua_quy_nhon | Tính định lượng sứa và chả cá Bún sứa Quy Nhơn bằng DAO Recordset & Viết Unit Test | roadmap_AccessBasic.md |
+| ado_error_inventory_com_ga_hoi_an | Bẫy lỗi trừ kho gà xé Cơm gà Hội An bằng ADO Transaction & Xử lý tranh chấp khóa | roadmap_AccessBasic.md |
+| dao_logic_ratio_bun_quay_phu_quoc | Tính định lượng chả tôm và mực Bún quậy Phú Quốc bằng DAO và Unit Test | roadmap_AccessBasic.md |
+| ado_error_rollback_lau_mam_can_tho | Bẫy lỗi trừ kho Lẩu mắm Cần Thơ bằng ADO & Xử lý xung đột khóa | roadmap_AccessBasic.md |
+| dao_logic_ratio_bun_mam_soc_trang | Tính định lượng mắm và hải sản Bún mắm Sóc Trăng bằng DAO & Unit Test | roadmap_AccessBasic.md |
+| ado_error_inventory_banh_mi_phuong_hoi_an | Bẫy lỗi trừ kho Bánh mì Phượng bằng ADO Transaction & Xử lý xung đột khóa | roadmap_AccessBasic.md |
+| dao_logic_ratio_bun_dau_mam_tom_hang_khay | Tính tỷ lệ mắm tôm và topping Bún đậu mắm tôm Hàng Khay bằng DAO & Unit Test | roadmap_AccessBasic.md |
+| ado_error_rollback_lau_duoi_bo_thuoc_bac | Bẫy lỗi, Rollback giao dịch kho Lẩu đuôi bò bằng ADO & Quản lý xung đột khóa | roadmap_AccessBasic.md |
+| dao_logic_ratio_banh_canh_phan_thiet | Tính định lượng và Unit Test logic DAO Bánh canh chả cá Phan Thiết | roadmap_AccessBasic.md |
+| ado_error_rollback_lau_tha_phan_thiet | Bẫy lỗi, xử lý tranh chấp khóa và Rollback Lẩu thả Phan Thiết bằng ADO Transaction | roadmap_AccessBasic.md |
+| dao_logic_ratio_bun_cha_ca_nha_trang | Tính định lượng chả cá Nha Trang bằng DAO và viết Unit Test với Rubberduck | roadmap_AccessBasic.md |
+| ado_error_rollback_lau_cua_dong_bap_bo | Bẫy lỗi, Rollback kho Lẩu cua đồng bắp bò bằng ADO và xử lý xung đột khóa (.laccdb) | roadmap_AccessBasic.md |
+| dao_logic_ratio_bun_sua_ninh_hoa | Tính định lượng sứa và chả cá Bún sứa Ninh Hòa bằng DAO Recordset & Viết Unit Test | roadmap_AccessBasic.md |
+| ado_error_rollback_lau_ca_duoi_vung_tau | Bẫy lỗi, Rollback kho cá đuối Lẩu cá đuối Vũng Tàu bằng ADO & Xử lý tranh chấp khóa | roadmap_AccessBasic.md |
+| dao_logic_coconut_milk_bun_ken_phu_quoc | Lập trình logic định lượng nước cốt dừa Bún kèn Phú Quốc bằng DAO & Unit Test | roadmap_AccessBasic.md |
+| ado_error_rollback_lau_ca_linh_bong_dien_dien | Bẫy lỗi, Rollback kho cá linh Lẩu cá linh bằng ADO & Quản lý phiên bản VCS | roadmap_AccessBasic.md |
+| dao_logic_ratio_bun_mam_nem_da_nang | Tính tỷ lệ mắm nêm và thịt heo quay Bún mắm nêm Đà Nẵng bằng DAO & Unit Test | roadmap_AccessBasic.md |
+| ado_error_rollback_lau_ca_keo_la_giang | Bẫy lỗi, Rollback giao dịch và xử lý tranh chấp khóa kho Lẩu cá kèo bằng ADO | roadmap_AccessBasic.md |
+| dao_logic_ratio_bun_mam_mien_tay | Tính định lượng mắm và hải sản Bún mắm miền Tây bằng DAO Recordset & Unit Test | roadmap_AccessBasic.md |
+| ado_error_rollback_lau_ga_la_giang | Bẫy lỗi, Rollback kho Lẩu gà lá giang bằng ADO Transaction & Xử lý xung đột khóa | roadmap_AccessBasic.md |
+| dao_logic_ratio_bun_nuoc_leo_soc_trang | Tính định lượng cá lóc và ngải bún cho Bún nước lèo Sóc Trăng bằng DAO & Unit Test | roadmap_AccessBasic.md |
+| ado_error_rollback_lau_bo_nhung_giam | Bẫy lỗi, Rollback và Tối ưu khóa bảng Lẩu bò nhúng giấm bằng ADO Transaction | roadmap_AccessBasic.md |
+| dao_logic_ratio_bun_moc_doc_mung | Tính định lượng mọc và dọc mùng bằng DAO Recordset & Thiết lập Unit Test | roadmap_AccessBasic.md |
+| ado_error_rollback_lau_de_nhat_ly | Bẫy lỗi, Rollback kho bằng ADO Transaction & Xử lý xung đột khóa Multi-user | roadmap_AccessBasic.md |
+| dao_logic_ratio_bun_ca_chau_doc | Tối ưu DAO Recordset tính tỷ lệ nguyên liệu Bún cá Châu Đốc và Unit Test | roadmap_AccessBasic.md |
+| ado_error_rollback_lau_ca_duoi_la_giang | Bẫy lỗi, Rollback giao dịch ADO và Xử lý xung đột khóa Multi-user | roadmap_AccessBasic.md |
+| dao_logic_ratio_bun_rieu_cua_oc | Tính định lượng cua và ốc Bún riêu cua ốc bằng DAO Recordset & Unit Test | roadmap_AccessBasic.md |
+| ado_error_rollback_lau_nam_chim_cau | Bẫy lỗi, Rollback kho Lẩu nấm chim câu bằng ADO & Quản lý xung đột khóa | roadmap_AccessBasic.md |
+| class_module_pho_thin_lo_duc | Đóng gói đối tượng công thức Phở Thìn Lò Đúc và viết Unit Test cho Class Module | roadmap_AccessBasic.md |
+| winapi_ui_com_tam_bai_rac | Sử dụng Windows API tùy biến giao diện Cơm tấm và quản lý mã nguồn bằng VCS | roadmap_AccessBasic.md |
+| class_module_bun_cha_sinh_tu | Quản lý định lượng chuỗi cung ứng Bún chả Sinh Từ bằng Class Module & Unit Testing | roadmap_AccessBasic.md |
+| winapi_file_dialog_cha_ca_la_vong | Gọi Windows API chọn ảnh chứng từ Chả cá Lã Vọng & Quản lý mã nguồn bằng VCS | roadmap_AccessBasic.md |
+| class_event_banh_xeo_mien_tay | Quản lý sự kiện Class Events và viết Unit Test kiểm thử tự động cho Class clsBanhXeo | roadmap_AccessBasic.md |
+| winapi_timer_ga_nuong_ban_don | Sử dụng Windows API Timer an toàn và quản lý mã nguồn qua VCS (Git) | roadmap_AccessBasic.md |
+| class_collection_banh_khot_vung_tau | Quản lý danh sách khay Bánh khọt Vũng Tàu bằng Collection Class & Viết Unit Test | roadmap_AccessBasic.md |
+| winapi_sound_hu_tieu_nam_vang | Gọi Windows API PlaySound báo hiệu Hủ tiếu Nam Vang hoàn thành (Hỗ trợ 32/64-bit & Xử lý lỗi) | roadmap_AccessBasic.md |
+| class_property_bun_bo_hue_o_ninh | Đóng gói thuộc tính định lượng Bún bò Huế O Ninh bằng Class Property và kiểm thử tự động (Unit Testing) | roadmap_AccessBasic.md |
+| winapi_sysinfo_mi_quang_ech_trang | Truy xuất thông tin hệ thống bảo mật Mì Quảng Ếch Trang qua Windows API và quản lý bộ nhớ an toàn | roadmap_AccessBasic.md |
+| class_interface_banh_mi_phuong_hoi_an | Thiết kế Interface Class cho thực đơn Bánh mì Phượng Hội An & Unit Test đa hình | roadmap_AccessBasic.md |
+| winapi_memory_lau_mam_can_tho | Dùng Windows API CopyMemory quản lý kho Lẩu mắm Cần Thơ & Quản lý an toàn bộ nhớ | roadmap_AccessBasic.md |
+| class_factory_bun_dau_mam_tom_hang_khay | Khởi tạo đối tượng Bún đậu mắm tôm Hàng Khay bằng Factory Pattern và viết Unit Test | roadmap_AccessBasic.md |
+| winapi_transparency_com_ga_hoi_an_ba_buoi | Tạo hiệu ứng mờ ảo cho Form Cơm gà Hội An Bà Buội bằng Windows API an toàn | roadmap_AccessBasic.md |
+| class_state_bun_cha_ca_quy_nhon | Quản lý trạng thái nguyên liệu Bún chả cá Quy Nhơn bằng Class Module và viết Unit Test | roadmap_AccessBasic.md |
+| winapi_hook_cha_ruoi_tu_ky | Vô hiệu hóa nút đóng Form Chả rươi Tứ Kỳ bằng Windows API và quản lý mã nguồn bằng Git | roadmap_AccessBasic.md |
+| class_encapsulation_banh_canh_trang_bang | Đóng gói logic kiểm định Bánh canh Trảng Bàng bằng Class Module và Unit Testing | roadmap_AccessBasic.md |
+| winapi_window_mgmt_goi_cuon_tom_thit | Điều khiển tiêu đề cửa sổ Gỏi cuốn tôm thịt qua Windows API và quản lý mã nguồn VCS | roadmap_AccessBasic.md |
+| class_polymorphism_bun_thang_ha_noi | Triển khai tính đa hình (Polymorphism) bằng Class Interface kết hợp Unit Testing trong VBA | roadmap_AccessBasic.md |
+| winapi_mouse_control_com_nieu_singapore | Điều khiển con trỏ chuột qua Windows API an toàn và giải pháp thay thế trực tiếp | roadmap_AccessBasic.md |
+| class_custom_collection_bun_cha_ca_nha_trang | Quản lý danh sách đơn hàng chuỗi cung ứng bằng Custom Collection Class và Unit Testing | roadmap_AccessBasic.md |
+| winapi_registry_banh_xeo_tom_nhay_binh_dinh | Lưu cấu hình ERP và kích hoạt JETSHOWPLAN Registry qua Windows API | roadmap_AccessBasic.md |
+| class_composition_lau_tha_phan_thiet | Xây dựng cấu trúc phân tầng cho Lẩu thả Phan Thiết bằng Class Composition và Unit Test | roadmap_AccessBasic.md |
+| winapi_process_mem_banh_khot_co_ba_vung_tau | Theo dõi bộ nhớ xử lý Bánh khọt Cô Ba Vũng Tàu qua Windows API và tối ưu hóa tài nguyên | roadmap_AccessBasic.md |
+| class_event_bun_mam_nem_da_nang | Quản lý sự kiện nguyên liệu Bún mắm nêm Đà Nẵng bằng Class Module & Kiểm thử tự động Unit Test | roadmap_AccessBasic.md |
+| winapi_clipboard_com_tam_long_xuyen | Truy xuất Clipboard hệ thống qua Windows API & Quản lý mã nguồn bằng MSAccess-VCS | roadmap_AccessBasic.md |
+| class_builder_nem_nuong_ninh_hoa | Xây dựng Builder Pattern quản lý suất Nem nướng Ninh Hòa bằng VBA Class và viết Unit Test | roadmap_AccessBasic.md |
+| winapi_highres_timer_banh_hoi_chao_long | Đo hiệu năng nạp dữ liệu Bánh hỏi Quy Nhơn bằng QueryPerformanceCounter và kích hoạt JETSHOWPLAN | roadmap_AccessBasic.md |
+| class_decorator_bun_moc_thanh_mai | Thiết kế Decorator Pattern cho Bún mọc Thanh Mai và viết Unit Test kiểm thử | roadmap_AccessBasic.md |
+| winapi_subclassing_banh_da_cua_hai_phong | Can thiệp Window Procedure bằng API Subclassing an toàn chống crash | roadmap_AccessBasic.md |
+| class_strategy_bun_ca_cay_hai_phong | Áp dụng Strategy Pattern tính giá Bún cá cay Hải Phòng & Viết Unit Test | roadmap_AccessBasic.md |
+| winapi_shellexecute_cha_gio_re_tom_muc | Mở tài liệu Chả giò rế tôm mực qua ShellExecute API & Quản lý mã nguồn bằng VCS | roadmap_AccessBasic.md |
+| class_command_bun_rieu_cua_oc | Triển khai Command Pattern & Unit Test cho Hệ thống Order Bún riêu cua ốc bằng Class Module | roadmap_AccessBasic.md |
+| winapi_gdi_pho_cuon_ngu_xa | Vẽ giao diện Phở cuốn Ngũ Xã bằng Windows API GDI+ & Kỹ thuật Double Buffering chống giật | roadmap_AccessBasic.md |
+| class_observer_bun_ken_phu_quoc | Triển khai Observer Pattern cho Bún kèn Phú Quốc và Thiết lập Unit Test bằng Rubberduck | roadmap_AccessBasic.md |
+| winapi_systray_goi_ca_trich_phu_quoc | Đưa thông báo Gỏi cá trích Phú Quốc vào System Tray qua Windows API và Quản lý mã nguồn bằng Git | roadmap_AccessBasic.md |
+| class_memento_banh_xeo_mien_tay | Memento Pattern: Hoàn tác trạng thái đổ Bánh xèo miền Tây (Tích hợp Unit Test) | roadmap_AccessBasic.md |
+| winapi_fswatcher_lau_ca_linh | Windows API: Giám sát thư mục Lẩu cá linh bông điên điển (Tích hợp Quản lý mã nguồn VCS) | roadmap_AccessBasic.md |
+| class_flyweight_bun_cha_sinh_tu | Tối ưu bộ nhớ Bún chả Sinh Từ bằng Flyweight Pattern trong Class Module | roadmap_AccessBasic.md |
+| winapi_hotkey_com_tam_bai_rac | Đăng ký Global Hotkey cho Cơm tấm Bãi Rác bằng Windows API | roadmap_AccessBasic.md |
+| class_proxy_banh_mi_chao_cot_dien | Kiểm soát truy cập Bánh mì chảo Cột Điện Quán bằng Proxy Pattern & Unit Testing | roadmap_AccessBasic.md |
+| winapi_metrics_lau_ga_la_e_da_lat | Tự động căn chỉnh Lẩu gà lá é Đà Lạt theo độ phân giải màn hình API & Quản lý mã nguồn bằng VCS | roadmap_AccessBasic.md |
+| class_iterator_bun_bo_hue | Duyệt danh sách Bún bò Huế bằng Iterator Pattern trong Class Module | roadmap_AccessBasic.md |
+| winapi_animate_cha_ca_la_vong | Hiệu ứng chuyển cảnh Chả cá Lã Vọng bằng Windows API AnimateWindow | roadmap_AccessBasic.md |
+| class_adapter_bun_dau_mam_tom | Adapter Pattern: Chuẩn hóa giao diện thanh toán POS và Unit Testing bằng Rubberduck | roadmap_AccessBasic.md |
+| winapi_mem_monitor_cha_gio_tom_dat | Windows API: Giám sát tài nguyên RAM hệ thống POS và tự động hóa Compact & Repair | roadmap_AccessBasic.md |
+| class_state_bun_mam_soc_trang | State Pattern: Quản lý trạng thái đơn hàng Bún mắm Sóc Trăng bằng Class Module & Unit Testing | roadmap_AccessBasic.md |
+| winapi_audio_bun_quay_phu_quoc | Windows API: Điều khiển âm lượng hệ thống cảnh báo đơn hàng Bún quậy Phú Quốc | roadmap_AccessBasic.md |
+| class_bridge_banh_canh_trang_bang | Bridge Pattern & Unit Test: Tách biệt logic sợi và nước dùng Bánh canh Trảng Bàng | roadmap_AccessBasic.md |
+| winapi_copymemory_banh_xeo_cao_lanh | Windows API & Memory Safety: Truy xuất con trỏ bộ nhớ Bánh xèo Cao Lãnh qua RtlMoveMemory | roadmap_AccessBasic.md |
+| class_template_method_bun_cha_ha_noi | Template Method Pattern: Quy trình nướng Bún chả Hà Nội chuẩn vị & Unit Test với Rubberduck | roadmap_AccessBasic.md |
+| class_singleton_global_mem_banh_com | Singleton Pattern: Quản lý bộ nhớ đệm Bánh cốm Hàng Than bằng GlobalAlloc & Chống rò rỉ bộ nhớ | roadmap_AccessBasic.md |
+| class_composite_lau_mam_can_tho | Composite Pattern: Quản lý phân cấp Lẩu mắm Cần Thơ (Chuỗi cung ứng) và Unit Testing | roadmap_AccessBasic.md |
+| class_facade_com_tam_suon_bi_cha | Facade Pattern: Đơn giản hóa API hệ thống và Quản lý mã nguồn bằng VCS | roadmap_AccessBasic.md |
+| class_chain_bun_thang_hanoi | Chain of Responsibility: Phân luồng xử lý sự kiện UI (Bún Thang Order Pipeline) và Unit Test với Rubberduck VBA | roadmap_AccessBasic.md |
+| class_interpreter_pho_kho_gia_lai | Interpreter Pattern: Thông dịch lệnh điều khiển cửa sổ Access và tích hợp kiểm thử đơn vị | roadmap_AccessBasic.md |
+| class_mediator_banh_mi_phuong_hoi_an | Mediator Pattern: Điều phối Class Module Bánh mì Phượng Hội An qua Windows API & Unit Testing | roadmap_AccessBasic.md |
+| class_visitor_cao_lau_hoi_an | Visitor Pattern: Duyệt cấu trúc hệ thống Cao lầu Hội An qua Windows API & Kiểm thử tự động | roadmap_AccessBasic.md |
+| class_prototype_banh_khot_vung_tau | Prototype Pattern: Nhân bản đối tượng Cấu hình Chuỗi cung ứng qua RtlMoveMemory và Unit Test | roadmap_AccessBasic.md |
+| class_builder_lau_tha_phan_thiet | Builder Pattern: Thiết lập cấu hình Hệ thống Phân phối qua Windows Registry và Unit Test | roadmap_AccessBasic.md |
+| class_decorator_banh_trang_nuong_da_lat | Decorator Pattern: Thêm hiệu ứng trong suốt Bánh tráng nướng Đà Lạt qua API & Unit Test | roadmap_AccessBasic.md |
+| class_strategy_ga_nuong_com_lam | Strategy Pattern: Điều phối ưu tiên Gà nướng cơm lam qua Windows API & Quản lý lỗi | roadmap_AccessBasic.md |
+| winapi_pointer_bun_mam_nem_da_nang | Quản lý con trỏ bộ nhớ Bún mắm nêm Đà Nẵng qua VarPtr và ObjPtr | roadmap_AccessBasic.md |
+| winapi_subclass_cha_ram_tom_dat | Subclassing Form Chả ram tôm đất Bình Định bằng SetWindowLongPtr | roadmap_AccessBasic.md |
+| class_command_bun_ca_chau_doc | Command Pattern: Hoàn tác thao tác Bún cá Châu Đốc qua Windows API Hook & Unit Test | roadmap_AccessBasic.md |
+| class_flyweight_lau_ca_duoi_vung_tau | Flyweight Pattern: Tối ưu bộ nhớ Lẩu cá đuối Vũng Tàu bằng GDI Object & Kiểm soát rò rỉ | roadmap_AccessBasic.md |
+| class_observer_banh_xeo_quy_nhon | Observer Pattern: Theo dõi Clipboard Bánh xèo Quy Nhơn & Unit Test | roadmap_AccessBasic.md |
+| class_raii_cha_ca_thac_lac | RAII Pattern: Quản lý File Handle Chả cá Thác Lác & Giải phóng Bộ nhớ | roadmap_AccessBasic.md |
+| class_memento_banh_cuon_thanh_tri | Memento Pattern: Lưu trạng thái Đơn hàng Bánh cuốn Thanh Trì vào Global Memory & Unit Testing | roadmap_AccessBasic.md |
+| class_proxy_bun_cha_ca_nha_trang | Proxy Pattern: Kiểm soát truy cập POS Bún chả cá Nha Trang qua API Mouse Hook an toàn | roadmap_AccessBasic.md |
+| class_state_bun_sua_nha_trang_api | State Pattern & Unit Testing: Quản lý trạng thái Bún sứa Nha Trang qua ShowWindow API và Rubberduck Unit Test | roadmap_AccessBasic.md |
+| class_facade_nem_nuong_ninh_hoa_api | Facade Pattern & VCS: Đơn giản hóa SendMessage Nem nướng Ninh Hòa cho UI và tích hợp MSAccess-VCS | roadmap_AccessBasic.md |
+| winapi_transparency_banh_beo_hue | Điều khiển độ trong suốt Bánh bèo chén Huế bằng SetLayeredWindowAttributes và Unit Test giao diện | roadmap_AccessBasic.md |
+| winapi_audio_com_hen_vi_da | Phát âm thanh thông báo Cơm hến Vĩ Dạ qua PlaySound API và quản lý mã nguồn bằng VCS | roadmap_AccessBasic.md |
+| class_iterator_bun_bo_nam_bo_api | Iterator Pattern: Duyệt danh sách cửa sổ Bún bò Nam Bộ qua EnumWindows & Unit Test | roadmap_AccessBasic.md |
+| class_adapter_goi_cuon_tom_thit_api | Adapter Pattern: Chuẩn hóa độ phân giải Gỏi cuốn tôm thịt qua GetSystemMetrics & Unit Test | roadmap_AccessBasic.md |
+| winapi_systray_bun_ca_cay_hai_phong | Tạo System Tray Icon Bún cá cay Hải Phòng qua Shell_NotifyIcon API & Unit Test | roadmap_AccessBasic.md |
+| winapi_heap_lau_ga_la_e_phu_yen | Quản lý bộ nhớ Heap Lẩu gà lá é Phú Yên qua HeapAlloc API & Kiểm soát Memory Leak | roadmap_AccessBasic.md |
+| winapi_kbd_hook_bun_dau_mam_tom | Keyboard Hooking: Chặn phím tắt Bún đậu mắm tôm qua SetWindowsHookEx và giải pháp an toàn chống crash | roadmap_AccessBasic.md |
+| winapi_shared_mem_pho_cuon_ngu_xa | Shared Memory: Chia sẻ dữ liệu Phở cuốn Ngũ Xã qua CreateFileMapping và đồng bộ hóa Mutex | roadmap_AccessBasic.md |
+| winapi_registry_banh_mi_chao_cot_dien | Quản lý Registry Bánh mì chảo Cột Điện qua Class và Advapi32 API | roadmap_AccessBasic.md |
+| winapi_subclass_cha_ruoi_tu_ky | Subclassing Chả rươi Tứ Kỳ: Chặn sự kiện thay đổi kích thước Form an toàn | roadmap_AccessBasic.md |
+| winapi_disk_space_bun_quay_phu_quoc | Giám sát dung lượng ổ đĩa Bún quậy Phú Quốc qua GetDiskFreeSpaceEx API | roadmap_AccessBasic.md |
+| winapi_ontop_banh_canh_cha_ca_quy_nhon | Ghim cửa sổ Always on Top Bánh canh chả cá Quy Nhơn qua SetWindowPos API | roadmap_AccessBasic.md |
+| winapi_process_com_tam_suon_bi_cha | Quản lý tiến trình hệ thống qua EnumProcesses API và Thiết lập Unit Test cho Class Module | roadmap_AccessBasic.md |
+| class_clipboard_banh_xeo_mien_tay | Class Module điều khiển Clipboard qua User32 API và Tích hợp Kiểm thử Tự động | roadmap_AccessBasic.md |
+| winapi_gdi_banh_mi_que_hai_phong | Chụp ảnh màn hình Bánh mì que Hải Phòng qua GDI32 API và Unit Test giải phóng tài nguyên | roadmap_AccessBasic.md |
+| winapi_metrics_lau_mam_can_tho | Lấy thông số màn hình Lẩu mắm Cần Thơ qua GetSystemMetrics API và quản lý mã nguồn bằng VCS | roadmap_AccessBasic.md |
+| winapi_shell_bun_mam_soc_trang | Class ShellExecute: Mở tệp tin Bún mắm Sóc Trăng qua Shell32 API | roadmap_AccessBasic.md |
+| winapi_timer_lau_cua_dong_hai_phong | Class Timer: Đồng hồ đếm ngược Lẩu cua đồng Hải Phòng qua User32 API | roadmap_AccessBasic.md |
+| winapi_folder_picker_banh_khot_vung_tau | Chọn thư mục lưu trữ Bánh khọt Vũng Tàu qua SHBrowseForFolder API và Quản lý mã nguồn VCS | roadmap_AccessBasic.md |
+| winapi_sound_banh_trang_tron_tay_ninh | Phát cảnh báo âm thanh Bánh tráng trộn Tây Ninh qua MessageBeep API và Unit Testing | roadmap_AccessBasic.md |
+| winapi_opacity_bun_cha_ha_noi | Tạo hiệu ứng mờ ảo Bún chả Hà Nội & Unit Test Class với Rubberduck | roadmap_AccessBasic.md |
+| winapi_cursor_banh_mi_phuong | Điều khiển con trỏ chuột Bánh mì Phượng & Quản lý mã nguồn với MSAccess-VCS | roadmap_AccessBasic.md |
+| winapi_network_bun_rieu_cua_oc | Lấy địa chỉ MAC/IP cho hệ thống quản lý thiết bị chuỗi cung ứng qua Iphlpapi API | roadmap_AccessBasic.md |
+| winapi_mem_alloc_cha_gio_tom_cua | Quản lý bộ nhớ Heap cho bộ đệm dữ liệu hiệu năng cao qua GlobalAlloc API | roadmap_AccessBasic.md |
+| winapi_sysinfo_bun_ca_ngu_dai_lanh | Class SystemInfo: Lấy tên máy tính Bún cá ngừ Đại Lãnh qua Kernel32 API | roadmap_AccessBasic.md |
+| winapi_window_mgr_banh_trang_cuon_thit_heo | Class WindowManager: Đóng ứng dụng Bánh tráng cuốn thịt heo qua User32 API | roadmap_AccessBasic.md |
+| winapi_volume_info_bun_bo_hue | Class VolumeInfo: Kiểm tra Serial ổ đĩa bảo mật doanh nghiệp qua Kernel32 API và Unit Test | roadmap_AccessBasic.md |
+| winapi_power_status_pho_thin_lo_duc | Class PowerStatus: Theo dõi pin và nguồn điện trạm vận hành qua Kernel32 API | roadmap_AccessBasic.md |
+| winapi_file_watcher_banh_chung_ran | Class FileWatcher: Giám sát thư mục Bánh chưng rán qua ReadDirectoryChangesW và Unit Test | roadmap_AccessBasic.md |
+| winapi_mem_scan_bun_moc_hang_luoc | Class MemoryScanner: Đọc bộ nhớ RAM Bún mọc Hàng Lược qua ReadProcessMemory an toàn | roadmap_AccessBasic.md |
+| winapi_hotkey_lau_ca_keo_mien_tay | Đăng ký Hotkey Lẩu cá kèo miền Tây qua RegisterHotKey API và Unit Test an toàn | roadmap_AccessBasic.md |
+| winapi_ini_file_banh_mi_xiu_mai_da_lat | Đọc ghi file INI Bánh mì xíu mại Đà Lạt qua GetPrivateProfileString và Unit Test | roadmap_AccessBasic.md |
+| class_clipboard_nem_lui_hue_gdi | Class Clipboard: Sao chép ảnh chụp Form Hóa đơn vào Clipboard qua GDI+ API và Unit Test | roadmap_AccessBasic.md |
+| class_registry_banh_khot_vung_tau_api | Class Registry: Ghi nhớ vị trí Form Dashboard Giám sát qua Advapi32 API và Quản lý lỗi Registry | roadmap_AccessBasic.md |
+| winapi_mouse_hook_ga_nuong_ban_don | Class MouseHook: Vô hiệu hóa click chuột Gà nướng Bản Đôn qua SetWindowsHookEx | roadmap_AccessBasic.md |
+| winapi_screencap_cha_ca_la_vong | Class ScreenCapture: Chụp ảnh Form Access Chả cá Lã Vọng qua GDI32 API | roadmap_AccessBasic.md |
+| winapi_tray_icon_banh_da_cua_hp | Class TrayIcon: Tạo biểu tượng khay hệ thống Bánh đa cua Hải Phòng qua Shell32 | roadmap_AccessBasic.md |
+| winapi_mem_write_com_ga_hoi_an | Class MemWriter: Ghi đè giá trị biến bộ nhớ Cơm gà Hội An qua Kernel32 | roadmap_AccessBasic.md |
+| winapi_cpu_tracker_bun_dau_mam_tom | Class CPUTracker: Theo dõi hiệu năng Bún đậu mắm tôm qua GetSystemTimes | roadmap_AccessBasic.md |
+| winapi_window_fader_goi_cuon_tom_thit | Class WindowFader: Hiệu ứng mờ ảo Gỏi cuốn tôm thịt qua User32 API | roadmap_AccessBasic.md |
+| winapi_kbd_hook_bun_cha_ca_nha_trang | Class KeyboardHook: Chặn phím hệ thống bảo mật Kiosk qua User32 API | roadmap_AccessBasic.md |
+| winapi_mem_search_mi_quang_ech | Class MemSearch: Tìm chuỗi nhị phân RAM để tối ưu hóa bộ nhớ qua Kernel32 | roadmap_AccessBasic.md |
+| class_env_var_hu_tieu_nam_vang | Class EnvVar: Đọc ghi biến môi trường qua Kernel32 & Unit Test với Rubberduck | roadmap_AccessBasic.md |
+| class_flash_window_banh_mi_chao | Class FlashWindow: Nhấp nháy thanh tác vụ qua User32 & Quản lý mã nguồn bằng Git | roadmap_AccessBasic.md |
+| class_process_mgr_lau_ga_la_e | Class ProcessManager: Quản lý và giám sát tiến trình hệ thống qua Windows API Kernel32 | roadmap_AccessBasic.md |
+| class_power_ctrl_banh_xeo_mien_tay | Class PowerController: Điều khiển tắt máy và bảo mật hệ thống qua Advapi32 | roadmap_AccessBasic.md |
+| class_screen_metrics_bun_mam_nem | Class ScreenMetrics: Lấy kích thước màn hình Bún mắm nêm Đà Nẵng qua User32 | roadmap_AccessBasic.md |
+| class_color_theme_com_tam_suon_bi | Class ColorTheme: Tùy biến màu hệ thống Cơm tấm sườn bì chả qua User32 | roadmap_AccessBasic.md |
+| com_port_scale_bun_sua_nha_trang | Kết nối Cổng COM qua Windows API: Đọc dữ liệu Cân điện tử Bún sứa Nha Trang | roadmap_AccessBasic.md |
+| rest_api_json_cha_ruoi_tu_ky | Tích hợp REST API & Unit Test: Tra cứu giá nguyên liệu Chả rươi Tứ Kỳ | roadmap_AccessBasic.md |
+| web_scraping_goi_sua_do_hp | Web Scraping & API Gateway: Lấy giá hải sản Gỏi sứa đỏ Hải Phòng qua HTML Object và giải pháp chống gãy (Robust Scraping) | roadmap_AccessBasic.md |
+| ai_integration_nem_nam_giao_thuy | Tích hợp AI & Unit Testing: Phân loại nguyên liệu Nem nắm Giao Thủy qua OpenAI API và kiểm thử tự động với Rubberduck VBA | roadmap_AccessBasic.md |
+| com_port_scanner_bun_cha_sinh_tu | Kết nối Máy quét mã vạch Bún chả Sinh Từ qua Windows API | roadmap_AccessBasic.md |
+| ai_ocr_menu_pho_cuon_ngu_xa | Tích hợp AI OCR nhận diện thực đơn Phở cuốn Ngũ Xã | roadmap_AccessBasic.md |
+| api_sms_twilio_bun_ca_cay_hp | Tích hợp API SMS Twilio & Unit Test: Gửi tin nhắn đơn hàng Bún cá cay Hải Phòng | roadmap_AccessBasic.md |
+| web_scraping_winhttp_banh_mi_phuong | Web Scraping & Robust Parsing: Thu thập tỷ giá ngoại tệ Bánh mì Phượng Hội An qua WinHTTP | roadmap_AccessBasic.md |
+| api_google_maps_bun_bo_nam_bo | Tích hợp API Google Maps & Tối ưu WAN: Tính khoảng cách giao hàng Bún bò Nam Bộ | roadmap_AccessBasic.md |
+| ai_gemini_forecast_banh_khot_co_ba | Tích hợp AI & Bảo mật: Dự báo doanh thu Bánh khọt Cô Ba Vũng Tàu qua Gemini API | roadmap_AccessBasic.md |
+| com_port_printer_banh_canh_ca_loc | Điều khiển Máy in hóa đơn Bánh canh cá lóc qua Windows API | roadmap_AccessBasic.md |
+| api_telegram_bot_com_tam_long_xuyen | Tích hợp Telegram Bot API báo đơn Cơm tấm Long Xuyên | roadmap_AccessBasic.md |
+| com_port_scale_cha_ca_thac_lac | Kết nối Cân điện tử đọc trọng lượng Chả cá Thác Lác qua Windows API (thay thế MSComm32.ocx lỗi thời) | roadmap_AccessBasic.md |
+| rest_api_invoice_lau_mam_can_tho | Tích hợp REST API gửi hóa đơn điện tử chuỗi Lẩu mắm Cần Thơ qua JSON và Unit Test kiểm thử | roadmap_AccessBasic.md |
+| api_weather_lau_tha_phan_thiet | Tích hợp API thời tiết gợi ý món Lẩu thả Phan Thiết & Unit Test API Parser | roadmap_AccessBasic.md |
+| web_scraping_bun_rieu_cua_dong | Web Scraping nâng cao lấy giá nguyên liệu Bún riêu cua đồng & Xử lý lỗi Fragile Scraping | roadmap_AccessBasic.md |
+| com_port_scanner_nem_lui_hue | Kết nối máy quét mã vạch qua Windows API cổng COM quản lý nguyên liệu Nem lụi Huế | roadmap_AccessBasic.md |
+| ai_ocr_invoice_cao_lau_hoi_an | Tích hợp AI OCR nhận diện hóa đơn Cao lầu Hội An & Unit Test xử lý JSON | roadmap_AccessBasic.md |
+| api_sms_twilio_banh_mi_que_hp | Gửi tin nhắn SMS thông báo đơn hàng Bánh mì que Hải Phòng qua Twilio API và Kiểm thử Unit Test | roadmap_AccessBasic.md |
+| web_scraping_winhttp_banh_pia_st | Web Scraping tỷ giá nguyên liệu Bánh pía Sóc Trăng qua WinHTTP và Xử lý lỗi chống nghẽn | roadmap_AccessBasic.md |
+| com_port_scanner_bun_cha_ha_noi | Kết nối máy quét mã vạch qua Windows API quản lý kho Bún chả Hà Nội | roadmap_AccessBasic.md |
+| ai_gemini_feedback_pho_bo_nam_dinh | Tích hợp AI Gemini phân tích phản hồi khách hàng ăn Phở bò Nam Định và Unit Test | roadmap_AccessBasic.md |
+| com_port_printer_banh_khot_vung_tau | Kết nối máy in bill cổng COM qua Windows API in hóa đơn Bánh khọt Vũng Tàu | roadmap_AccessBasic.md |
+| api_zalopay_qr_banh_mi_chao_cot_dien | Tích hợp API Zalo Pay tạo mã QR thanh toán Bánh mì chảo Cột Điện | roadmap_AccessBasic.md |
+| com_port_scale_bun_ca_nha_trang | Kết nối cân điện tử RS232 qua Windows API định lượng chuỗi cung ứng Bún cá Nha Trang | roadmap_AccessBasic.md |
+| api_telegram_report_com_tam_lx | Tích hợp API Telegram gửi báo cáo doanh thu & Viết Unit Test kiểm thử | roadmap_AccessBasic.md |
+| hw_honeywell_2d_barcode_reader_447 | Kết nối Đầu đọc Mã vạch 2D QR Code Honeywell qua cổng COM ảo USB | roadmap_AccessBasic.md |
+| com_port_scale_thac_lac_v2 | Kết nối cân điện tử RS232 định lượng nguyên liệu Chả cá thác lác | roadmap_AccessBasic.md |
+| com_port_scanner_banh_xeo_mien_tay | Kết nối máy quét mã vạch RS232 qua Windows API kiểm kho Bánh xèo miền Tây | roadmap_AccessBasic.md |
+| api_weather_goi_cuon_sai_gon | Tích hợp REST API OpenWeather và xử lý lỗi kết nối bảo quản Gỏi cuốn Sài Gòn | roadmap_AccessBasic.md |
+| api_stripe_payment_lau_mam_can_tho | Tích hợp API Stripe thanh toán trực tuyến cho set Lẩu mắm Cần Thơ và Unit Test với Rubberduck | roadmap_AccessBasic.md |
+| ai_gemini_menu_recommend_cha_ruoi_tu_ky | Tích hợp AI Gemini gợi ý thực đơn kèm món Chả rươi Tứ Kỳ và quản lý mã nguồn bằng MSAccess-VCS | roadmap_AccessBasic.md |
+| api_sms_twilio_vit_om_sau | Tích hợp API Twilio gửi SMS xác nhận đơn hàng trong chuỗi cung ứng Vịt om sấu | roadmap_AccessBasic.md |
+| web_scraping_winhttp_bun_rieu_cua | Trích xuất giá nguyên liệu Bún riêu cua đồng bằng Web Scraping WinHTTP và xử lý lỗi ngoại lệ | roadmap_AccessBasic.md |
+| api_momo_qr_lau_ga_la_e | Tích hợp API MoMo QR thanh toán hóa đơn cho Chuỗi nhà hàng Lẩu gà lá é Phú Yên | roadmap_AccessBasic.md |
+| web_scraping_winhttp_lau_tha_phan_thiet | Trích xuất giá hải sản bằng Web Scraping WinHTTP & Selenium COM cho Chuỗi cung ứng Lẩu thả Phan Thiết | roadmap_AccessBasic.md |
+| com_port_printer_bun_cha_hn | Kết nối máy in hóa đơn K80 qua Windows API (thay thế MSComm) cho chuỗi Bún chả Hà Nội | roadmap_AccessBasic.md |
+| api_zalopay_qr_banh_mi_chao | Tích hợp API ZaloPay QR thanh toán hóa đơn cho chuỗi Bánh mì chảo Cột Điện | roadmap_AccessBasic.md |
+| com_port_scale_nem_nuong_nha_trang | Kết nối cân điện tử qua cổng COM bằng Windows API định lượng Nem nướng Nha Trang | roadmap_AccessBasic.md |
+| api_telegram_report_bun_bo_hue | Tích hợp API Telegram gửi báo cáo doanh thu quán Bún bò Huế | roadmap_AccessBasic.md |
+| com_port_scanner_banh_pia_soc_trang | Kết nối máy quét mã vạch qua Windows API cổng COM quản lý kho Bánh pía Sóc Trăng | roadmap_AccessBasic.md |
+| ai_ocr_receipt_cao_lau_hoi_an | Tích hợp AI OCR nhận diện hóa đơn mua thịt xá xíu Cao lầu Hội An và Unit Test | roadmap_AccessBasic.md |
+| com_port_scale_com_tam_long_xuyen | Kết nối cân điện tử qua Windows API cổng COM định lượng sườn bì Cơm tấm Long Xuyên | roadmap_AccessBasic.md |
+| api_weather_lau_rieu_cua_suon_sun | Tích hợp API OpenWeatherMap dự báo thời tiết ship Lẩu riêu cua sườn sụn | roadmap_AccessBasic.md |
+| api_sendgrid_invoice_vit_om_sau | Tích hợp API SendGrid gửi hóa đơn điện tử tự động cho Vịt om sấu | roadmap_AccessBasic.md |
+| com_port_printer_nem_lui_hue | Kết nối máy in nhiệt cổng COM tự động in phiếu order Nem lụi Huế | roadmap_AccessBasic.md |
+| ai_gemini_feedback_pho_bo_nam_dinh_v2 | Tích hợp AI Gemini phân tích cảm xúc phản hồi khách hàng chuỗi Phở Nam Định & Unit Test VBA | roadmap_AccessBasic.md |
+| web_scraping_winhttp_bun_rieu_cua_v2 | Cào dữ liệu giá nguyên liệu chuỗi cung ứng bằng WinHTTP & Xử lý lỗi chống đổ vỡ (Anti-fragile) | roadmap_AccessBasic.md |
+| api_momo_qr_dynamic_lau_ga_la_e | Tích hợp API MoMo tạo mã QR thanh toán động cho Lẩu gà lá é | roadmap_AccessBasic.md |
+| web_scraping_winhttp_lau_tha_phan_thiet_v2 | Cào dữ liệu giá hải sản bằng WinHTTP cho Lẩu thả Phan Thiết | roadmap_AccessBasic.md |
+| api_vnpay_qr_payment_lau_mam_can_tho | Tích hợp Cổng thanh toán VNPay QR Code cho đơn hàng Lẩu mắm Cần Thơ | roadmap_AccessBasic.md |
+| api_maps_distance_bun_bo_nam_bo_v2 | Tích hợp API Google Maps tính phí giao hàng Bún bò Nam Bộ | roadmap_AccessBasic.md |
+| com_port_scanner_inventory_banh_pia | Kết nối máy quét mã vạch cổng COM qua Windows API kiểm kho Bánh pía Sóc Trăng | roadmap_AccessBasic.md |
+| api_zalo_oa_revenue_report_bun_bo_hue | Tích hợp Bot Zalo Official Account gửi thông báo doanh thu quán Bún bò Huế | roadmap_AccessBasic.md |
+| com_port_scale_weight_bun_ca_nt | Kết nối cân điện tử qua Windows API định lượng Bún cá Nha Trang | roadmap_AccessBasic.md |
+| api_stringee_voice_otp_vit_om_sau | Tích hợp Tổng đài Voice OTP xác thực đơn hàng Vịt om sấu qua Stringee API | roadmap_AccessBasic.md |
+| ai_google_vision_ocr_handwriting_cao_lau | Tích hợp Google Vision AI nhận diện chữ viết tay phiếu order Cao lầu Hội An | roadmap_AccessBasic.md |
+| com_port_printer_nem_lui_hue_v2 | Kết nối máy in hóa đơn qua Windows API (thay thế MSComm) in phiếu order Nem lụi Huế | roadmap_AccessBasic.md |
+| api_zalopay_qr_banh_mi_chao_v2 | Tích hợp API ZaloPay tạo mã QR thanh toán nhanh cho Bánh mì chảo | roadmap_AccessBasic.md |
+| ai_whisper_voice_to_text_order_480 | Tích hợp API OpenAI Whisper chuyển giọng nói order món thành văn bản trong Form Access | roadmap_AccessBasic.md |
+| api_ghn_shipping_com_nieu_sg | Tích hợp API GHN tính phí giao hàng tự động cho Cơm niêu Sài Gòn & Unit Test kiểm thử API | roadmap_AccessBasic.md |
+| api_discord_webhook_banh_khot_vt | Tích hợp API Discord Webhook báo cáo đơn hàng Bánh khọt Vũng Tàu & Quản lý mã nguồn bằng VCS | roadmap_AccessBasic.md |
+| api_momo_qr_dynamic_lau_ga_la_e_v2 | Tích hợp API MoMo QR động thanh toán hóa đơn Lẩu gà lá é & Unit Test VBA | roadmap_AccessBasic.md |
+| web_scraping_winhttp_bun_rieu_cua_v3 | Cào dữ liệu giá nguyên liệu WinHTTP cho Bún riêu cua & Xử lý lỗi chống đổ vỡ (Fragile Scraping) | roadmap_AccessBasic.md |
+| api_sendgrid_report_lau_mam_can_tho | Tích hợp API SendGrid gửi báo cáo doanh thu Lẩu mắm Cần Thơ | roadmap_AccessBasic.md |
+| web_scraping_currency_lau_tha_phan_thiet | Cào tỷ giá ngoại tệ bằng WinHTTP cho hóa đơn Lẩu thả Phan Thiết | roadmap_AccessBasic.md |
+| hw_zebra_zpl_barcode_printer_nem_nuong | Kết nối Máy in mã vạch nhiệt Zebra qua ZPL và Windows API (thay thế MSComm) | roadmap_AccessBasic.md |
+| api_n8n_webhook_automation_bun_bo_hue | Tích hợp Webhook n8n / Make tự động hóa luồng đơn hàng chuỗi nhà hàng (Bún bò Huế) | roadmap_AccessBasic.md |
+| hw_rfid_uhf_reader_pallet_banh_pia | Kết nối Đầu đọc RFID UHF tầm xa qua Windows API và TCP Socket VBA | roadmap_AccessBasic.md |
+| ai_ocr_hoa_don_cao_lau_hoi_an | Tích hợp AI OCR đọc hóa đơn nguyên liệu Cao lầu Hội An và Kiểm thử Đơn vị | roadmap_AccessBasic.md |
+| com_port_printer_cha_ca_la_vong | In hóa đơn qua cổng COM bằng Windows API cho món Chả cá Lã Vọng | roadmap_AccessBasic.md |
+| api_twilio_sms_lau_rieu_cua | Tích hợp API Twilio gửi SMS đặt bàn Lẩu riêu cua | roadmap_AccessBasic.md |
+| api_ghn_shipping_com_nieu_sg_v2 | Tích hợp API GHN tính phí vận chuyển đơn hàng Cơm niêu Sài Gòn và tối ưu hóa WAN | roadmap_AccessBasic.md |
+| ai_gemini_feedback_pho_bo_nam_dinh_v4 | Tích hợp AI Gemini phân tích đánh giá của khách về Phở bò Nam Định và kiểm thử tự động | roadmap_AccessBasic.md |
+| api_momo_qr_dynamic_lau_ga_la_e_v3 | Tích hợp API MoMo tạo mã QR động thanh toán Lẩu gà lá é | roadmap_AccessBasic.md |
+| sec_usb_token_digital_signature_496 | Tích hợp Dịch vụ Ký số USB Token ký hóa đơn điện tử trực tiếp từ Access | roadmap_AccessBasic.md |
+| api_stripe_payment_lau_mam_can_tho_v3 | Tích hợp API Stripe thanh toán hóa đơn Lẩu mắm Cần Thơ | roadmap_AccessBasic.md |
+| hw_pos_bank_card_reader_ecr_498 | Kết nối Máy POS cà thẻ ngân hàng qua giao thức Pax / Verifone ECR API | roadmap_AccessBasic.md |
+| iot_mqtt_cold_storage_sensor_499 | Tích hợp giao thức MQTT kết nối cảm biến nhiệt độ kho lạnh vào Access qua Windows Sockets API | roadmap_AccessBasic.md |
+| com_port_scale_weight_bun_ca_nt_v2 | Kết nối cân điện tử cổng COM qua Windows API (CreateFile/ReadFile) định lượng hàng hóa | roadmap_AccessBasic.md |
+| api_telegram_report_com_tam_suon_bi_cha | Tích hợp API Telegram gửi báo cáo doanh thu Cơm tấm sườn bì chả | roadmap_AccessBasic.md |
+| com_port_scanner_banh_mi_phuong_hoi_an | Kết nối máy quét mã vạch qua Windows API (COM Port) bán hàng Bánh mì Phượng Hội An | roadmap_AccessBasic.md |
+| api_esms_brandname_vit_om_sau | Tích hợp Cổng SMS Brandname eSMS gửi tin nhắn chăm sóc khách hàng cho Chuỗi cung ứng Vịt om sấu | roadmap_AccessBasic.md |
+| ai_aws_textract_invoice_table_cao_lau | Tích hợp AWS Textract trích xuất dữ liệu bảng biểu từ hóa đơn VAT nguyên liệu Cao lầu | roadmap_AccessBasic.md |
+| com_port_printer_cha_ca_la_vong_v2 | Kết nối máy in hóa đơn nhiệt qua Windows API (thay thế MSCOMM32) cho Chả cá Lã Vọng | roadmap_AccessBasic.md |
+| api_zalopay_qr_banh_mi_chao_v3 | Tích hợp API ZaloPay tạo mã QR động thanh toán Bánh mì chảo và hiển thị an toàn | roadmap_AccessBasic.md |
+| api_viettelpost_shipping_com_nieu | Tích hợp API Viettel Post tạo vận đơn và in phiếu gửi Cơm niêu Sài Gòn | roadmap_AccessBasic.md |
+| web_scraping_winhttp_bun_rieu_cua_v5 | Cào dữ liệu giá nguyên liệu Bún riêu cua bằng WinHTTP | roadmap_AccessBasic.md |
+| api_paypal_rest_v2_lau_mam_can_tho | Tích hợp Cổng PayPal Smart Button & REST API v2 nhận tiền Lẩu mắm kiều bào | roadmap_AccessBasic.md |
+| web_scraping_currency_lau_tha_phan_thiet_v3 | Cào tỷ giá ngoại tệ bằng XMLHTTP cho Lẩu thả Phan Thiết | roadmap_AccessBasic.md |
+| com_port_scale_goi_cuon_tom_thit | Tích hợp Windows API điều khiển cổng COM kết nối cân điện tử nguyên liệu Gỏi cuốn tôm thịt | roadmap_AccessBasic.md |
+| ai_gemini_feedback_bun_cha_ha_noi | Tích hợp AI Gemini phân tích phản hồi khách hàng chuỗi nhà hàng Bún chả Hà Nội & Viết Unit Test | roadmap_AccessBasic.md |
+| com_port_scanner_banh_khot_vt_v3 | Kết nối máy quét mã vạch cổng COM qua Windows API quản lý đơn hàng Bánh khọt Vũng Tàu | roadmap_AccessBasic.md |
+| api_telegram_report_lau_ga_la_e_v4 | Tích hợp API Telegram báo cáo doanh thu Lẩu gà lá é và Unit Test kiểm thử | roadmap_AccessBasic.md |
+| api_twilio_sms_com_tam_suon_bi_cha | Tích hợp API Twilio gửi SMS xác nhận đơn hàng Cơm tấm sườn bì chả và viết Unit Test | roadmap_AccessBasic.md |
+| ai_ocr_hoa_don_cao_lau_hoi_an_v3 | Nhận dạng hóa đơn nguyên liệu Cao lầu Hội An bằng AI OCR qua API và tối ưu hóa lưu trữ | roadmap_AccessBasic.md |
+| com_port_printer_banh_xeo_mien_tay | Kết nối máy in hóa đơn cổng COM qua Windows API cho chuỗi Bánh xèo miền Tây | roadmap_AccessBasic.md |
+| api_momo_qr_nem_nuong_nha_trang | Tích hợp API MoMo tạo mã QR thanh toán động và Unit Test cho chuỗi Nem nướng Nha Trang | roadmap_AccessBasic.md |
+| hw_vfd_customer_display_rs232_519 | Kết nối Màn hình hiển thị giá phụ VFD Pole Display qua cổng Serial RS232 bằng Windows API | roadmap_AccessBasic.md |
+| api_google_sheets_sync_bun_rieu_cua | Tích hợp Google Sheets API đồng bộ báo cáo doanh thu chuỗi F&B theo thời gian thực | roadmap_AccessBasic.md |
+| split_fe_be_sql_server_bun_cha_ca_nt | Tách FE/BE, di chuyển dữ liệu bằng SSMA và tối ưu hóa kết nối SQL Server (Bún chả cá NT) | roadmap_AccessBasic.md |
+| secure_accde_runtime_banh_mi_xiu_mai_dl | Bảo mật ACCDE, chống dịch ngược, tích hợp VCS và đóng gói Runtime (Bánh mì xíu mại ĐL) | roadmap_AccessBasic.md |
+| sql_encrypt_auth_lau_cua_dong | Mã hóa chuỗi kết nối SQL Server, Obfuscation và Unit Test hệ thống Lẩu cua đồng Hải Phòng | roadmap_AccessBasic.md |
+| msi_packaging_runtime_bun_bo_hue | VCS Export, Decompile và Đóng gói bộ cài đặt MSI app Bún bò Huế | roadmap_AccessBasic.md |
+| split_fe_be_auth_banh_canh_trang_bang | Phân quyền, phân tách FE/BE và tối ưu hóa đa người dùng cho app Bánh canh Trảng Bàng | roadmap_AccessBasic.md |
+| secure_accde_installer_lau_duoi_bo | Đóng gói ACCDE, bảo mật mã nguồn và tạo bộ cài đặt cho app Lẩu đuôi bò thuốc bắc | roadmap_AccessBasic.md |
+| user_permission_encrypt_bun_dau_mam_tom | Phân quyền, mã hóa dữ liệu và bảo mật mã nguồn VBA cho app Bún đậu mắm tôm | roadmap_AccessBasic.md |
+| runtime_shortcut_cha_gio_tom_dat_bd | Đóng gói runtime, tối ưu hóa dung lượng và tạo shortcut cho app Chả giò tôm đất | roadmap_AccessBasic.md |
+| split_fe_be_sql_server_com_tam_suon_bi_cha | Di chuyển dữ liệu bằng SSMA, tối ưu hóa WAN và phân tách FE/BE app Cơm tấm sườn bì chả | roadmap_AccessBasic.md |
+| secure_accde_runtime_vit_om_sau | Đóng gói ACCDE, tối ưu hóa mã nguồn bằng Decompile và tích hợp VCS app Vịt om sấu | roadmap_AccessBasic.md |
+| split_fe_be_sql_server_ga_nuong_lu | Tách FE/BE, di chuyển dữ liệu bằng SSMA và liên kết SQL Server cho app Gà nướng lu đất sét | roadmap_AccessBasic.md |
+| secure_accde_runtime_cha_ca_la_vong | Đóng gói ACCDE, bảo mật mã nguồn và phân quyền Runtime cho app Chả cá Lã Vọng | roadmap_AccessBasic.md |
+| migration_sql_server_bun_cha_ca_nha_trang | Liên kết bảng Access FE với SQL Server BE và tối ưu hóa WAN cho app Bún chả cá Nha Trang | roadmap_AccessBasic.md |
+| compile_accde_banh_mi_xiu_mai_da_lat | Tối ưu hóa code, bảo mật obfuscation và biên dịch ACCDE cho app Bánh mì xíu mại Đà Lạt | roadmap_AccessBasic.md |
+| encrypt_odbc_connection_bun_bo_nam_bo | Mã hóa chuỗi kết nối ODBC SQL Server và bảo mật mã nguồn cho chuỗi cung ứng Bún bò Nam Bộ | roadmap_AccessBasic.md |
+| msi_installer_access_runtime_lau_mam_can_tho | Tối ưu hóa, sửa lỗi phân rã và đóng gói bộ cài đặt MSI kèm Access Runtime cho app Lẩu mắm Cần Thơ | roadmap_AccessBasic.md |
+| split_fe_be_sql_server_hu_tiu_nam_vang | Tách FE/BE, di chuyển bằng SSMA và tối ưu hóa kết nối SQL Server cho app Hủ tiếu Nam Vang | roadmap_AccessBasic.md |
+| msi_installer_accde_lau_de_ninh_binh | Bảo mật ACCDE, Obfuscation và đóng gói bộ cài đặt MSI cho app Lẩu dê Ninh Bình | roadmap_AccessBasic.md |
+| sql_migration_security_bun_dau_mam_tom | Chuyển đổi dữ liệu sang SQL Server, tối ưu hóa WAN và phân quyền app Bún đậu mắm tôm | roadmap_AccessBasic.md |
+| msi_installer_runtime_lau_duoi_bo | Tối ưu hóa mã nguồn, xuất VCS và đóng gói bộ cài đặt MSI app Lẩu đuôi bò | roadmap_AccessBasic.md |
+| split_fe_be_sql_encrypt_banh_khot_vt | Tách FE/BE, di chuyển SSMA và mã hóa liên kết SQL Server cho app Bánh khọt Vũng Tàu | roadmap_AccessBasic.md |
+| msi_installer_runtime_lau_ga_la_e | Tối ưu hóa, đóng gói bộ cài đặt MSI và phân quyền Runtime cho app Lẩu gà lá é | roadmap_AccessBasic.md |
+| secure_sql_connection_ga_nuong_lu | Di chuyển dữ liệu bằng SSMA, phân tách FE/BE và mã hóa chuỗi kết nối SQL Server cho app Gà nướng lu | roadmap_AccessBasic.md |
+| msi_installer_runtime_cha_ca_la_vong | Làm mờ mã nguồn, đóng gói cài đặt MSI và thiết lập Access Runtime cho app Chả cá Lã Vọng | roadmap_AccessBasic.md |
+| split_fe_be_sql_server_lau_cua_dong | Tách FE/BE, di chuyển SSMA và bảo mật kết nối SQL Server cho app Lẩu cua đồng | roadmap_AccessBasic.md |
+| msi_installer_runtime_banh_canh_trang_bang | Tối ưu hóa, đóng gói bộ cài đặt MSI và thiết lập Runtime cho app Bánh canh Trảng Bàng | roadmap_AccessBasic.md |
+| split_fe_be_sql_server_com_nieu_sg | Tách FE/BE, di chuyển SSMA và mã hóa liên kết SQL Server cho app Cơm niêu Sài Gòn | roadmap_AccessBasic.md |
+| msi_installer_runtime_banh_mi_xiu_mai_dl | Tối ưu hóa, bảo mật mã nguồn và đóng gói bộ cài đặt MSI cho app Bánh mì xíu mại Đà Lạt | roadmap_AccessBasic.md |
+| secure_odbc_link_com_tam_suon_bi_cha | Bảo mật liên kết SQL Server, di chuyển SSMA và tối ưu hóa WAN cho app Cơm tấm sườn bì chả | roadmap_AccessBasic.md |
+| msi_installer_runtime_bun_bo_hue_v2 | Tối ưu hóa chống phân rã, làm mờ VBA và đóng gói MSI kèm Access Runtime cho app Bún bò Huế | roadmap_AccessBasic.md |
+| split_fe_be_sql_secure_banh_xeo_mt | Liên kết SQL Server bảo mật, tối ưu WAN và phân tách FE/BE app Bánh xèo miền Tây | roadmap_AccessBasic.md |
+| msi_installer_runtime_cha_gio_tom_dat | Mã hóa VBA, cấu hình Registry và tạo bộ cài đặt MSI app Chả giò tôm đất | roadmap_AccessBasic.md |
+| split_fe_be_sql_encrypt_banh_khot_vt_day553 | Phân chia FE/BE, tối ưu WAN, di chuyển SSMA và bảo mật chuỗi kết nối SQL Server cho app Bánh khọt Vũng Tàu | roadmap_AccessBasic.md |
+| msi_installer_runtime_lau_ga_la_e_day554 | Tích hợp Git VCS, Unit Testing, tự động hóa Compact & Repair và đóng gói MSI cho app Lẩu gà lá é | roadmap_AccessBasic.md |
+| split_fe_be_sql_secure_bun_cha_ha_noi | Thiết lập kết nối SQL Server an toàn, tối ưu WAN và chia tách FE/BE app Bún chả Hà Nội | roadmap_AccessBasic.md |
+| msi_installer_runtime_bun_rieu_cua | Đóng gói file MSI, cấu hình Access Runtime và bảo mật mã nguồn app Bún riêu cua | roadmap_AccessBasic.md |
+| split_fe_be_sql_odbc_mi_quang_ech | Phân tách FE/BE, di chuyển bằng SSMA, mã hóa kết nối ODBC và tối ưu WAN app Mì Quảng ếch | roadmap_AccessBasic.md |
+| msi_installer_runtime_banh_canh_ca_loc | Tối ưu hóa mã nguồn, đóng gói MSI và thiết lập Access Runtime app Bánh canh cá lóc | roadmap_AccessBasic.md |
+| secure_dsn_less_link_hu_tiu_nam_vang | Bảo mật liên kết DSN-less SQL Server & Obfuscate mã nguồn VBA cho app Hủ tiếu Nam Vang | roadmap_AccessBasic.md |
+| msi_installer_runtime_lau_duoi_bo_day560 | Đóng gói bộ cài MSI tích hợp Access Runtime & Tự động hóa bảo trì cho app Lẩu đuôi bò | roadmap_AccessBasic.md |
+| split_fe_be_sql_com_tam_suon_bi_cha_day561 | Phân tách FE/BE, di chuyển bằng SSMA và bảo mật liên kết SQL Server app Cơm tấm sườn bì chả | roadmap_AccessBasic.md |
+| msi_installer_runtime_bun_bo_nam_bo_day562 | Đóng gói bộ cài MSI, bảo mật ACCDE và tối ưu hóa Access Runtime app Bún bò Nam Bộ | roadmap_AccessBasic.md |
+| split_fe_be_sql_bun_ca_cay_hp | Tách FE/BE, di chuyển dữ liệu bằng SSMA và tối ưu hóa kết nối WAN/DSN-less cho app Bún cá cay Hải Phòng | roadmap_AccessBasic.md |
+| msi_installer_runtime_ga_khong_loi_thoat | Tích hợp VCS, Unit Testing, đóng gói MSI và tối ưu hóa Runtime cho app Gà không lối thoát | roadmap_AccessBasic.md |
+| split_fe_be_sql_secure_vit_quay_lang_son | Bảo mật liên kết SQL Server, di chuyển bằng SSMA và tối ưu hóa WAN cho app Vịt quay Lạng Sơn | roadmap_AccessBasic.md |
+| msi_installer_runtime_nem_nuong_nha_trang | Đóng gói MSI, bảo mật mã nguồn VBA và tự động hóa bảo trì cho app Nem nướng Nha Trang | roadmap_AccessBasic.md |
+| split_fe_be_sql_secure_bun_cha_ca_nt | Phân tách FE/BE, chuyển đổi SSMA, tối ưu hóa WAN và bảo mật liên kết SQL Server cho app Bún chả cá Nha Trang | roadmap_AccessBasic.md |
+| msi_installer_runtime_banh_xeo_mt | Đóng gói bộ cài MSI, tích hợp VCS Git, tự động hóa Compact/Decompile cho app Bánh xèo miền Tây | roadmap_AccessBasic.md |
+| split_fe_be_sql_secure_com_hen_song_huong | Tách FE/BE, di chuyển SSMA và mã hóa liên kết SQL Server tối ưu WAN cho app Cơm hến Sông Hương | roadmap_AccessBasic.md |
+| msi_installer_runtime_lau_ca_keo_la_giang | Bảo mật VBA, đóng gói bộ cài MSI và cấu hình Access Runtime cho app Lẩu cá kèo lá giang | roadmap_AccessBasic.md |
+| split_fe_be_sql_encrypt_banh_khot_vt_day571 | Di chuyển dữ liệu bằng SSMA, tối ưu hóa WAN và liên kết SQL Server bảo mật cho app Bánh khọt Vũng Tàu | roadmap_AccessBasic.md |
+| msi_installer_runtime_lau_ga_la_e_day572 | Tối ưu hóa mã nguồn, đóng gói MSI và cấu hình Access Runtime cho app Lẩu gà lá é | roadmap_AccessBasic.md |
+| split_fe_be_sql_secure_bun_dau_mam_tom | Tách FE/BE bằng SSMA, tối ưu hóa WAN và bảo mật kết nối SQL Server cho app Bún đậu mắm tôm | roadmap_AccessBasic.md |
+| msi_installer_runtime_lau_rieu_cua_suon_sun | Tích hợp Git VCS, Unit Testing và đóng gói MSI kèm Access Runtime cho app Lẩu riêu cua | roadmap_AccessBasic.md |
+| split_fe_be_sql_goi_cuon_tom_thit | Tách FE/BE, tối ưu WAN và bảo mật kết nối SQL Server cho app Gỏi cuốn tôm thịt | roadmap_AccessBasic.md |
+| msi_installer_runtime_banh_mi_phuong_ha | Tích hợp VCS, tự động hóa khôi phục và đóng gói MSI cho app Bánh mì Phượng Hội An | roadmap_AccessBasic.md |
+| split_fe_be_sql_banh_canh_trang_bang | Tách FE/BE, di chuyển bằng SSMA và bảo mật kết nối SQL Server cho app Bánh canh Trảng Bàng | roadmap_AccessBasic.md |
+| msi_installer_runtime_com_tam_long_xuyen | Tối ưu decompile, đóng gói bộ cài MSI và cấu hình Access Runtime cho app Cơm tấm Long Xuyên | roadmap_AccessBasic.md |
+| split_fe_be_sql_secure_bun_cha_ca_qn_day579 | Tách FE/BE, di chuyển dữ liệu bằng SSMA và bảo mật kết nối SQL Server cho app Bún chả cá Quy Nhơn | roadmap_AccessBasic.md |
+| api_google_translate_menu_580 | Kiểm thử Rubberduck, tối ưu hóa biên dịch và đóng gói Runtime cho ứng dụng Menu đa ngôn ngữ | roadmap_AccessBasic.md |
+| split_fe_be_sql_secure_bun_bo_hue_song_huong_day581 | Tách FE/BE, di chuyển SSMA và tối ưu hóa kết nối SQL Server bảo mật cho app Bún bò Huế Sông Hương | roadmap_AccessBasic.md |
+| msi_installer_runtime_pho_thin_lo_duc_day582 | Tối ưu chống phân rã, bảo mật mã nguồn và đóng gói MSI cho app Phở Thìn Lò Đúc | roadmap_AccessBasic.md |
+| split_fe_be_sql_secure_com_ga_hoi_an_day583 | Phân tách FE/BE, di chuyển dữ liệu bằng SSMA, tối ưu hóa WAN và bảo mật kết nối SQL Server cho Cơm gà Hội An | roadmap_AccessBasic.md |
+| msi_installer_runtime_banh_mi_xiu_mai_day584 | Tích hợp Git (MSAccess-VCS), Unit Testing với Rubberduck và đóng gói MSI cho Bánh mì xíu mại | roadmap_AccessBasic.md |
+| split_fe_be_sql_secure_bun_mam_soc_trang_day585 | Tách FE/BE, di chuyển SSMA và bảo mật kết nối SQL Server cho app Bún mắm Sóc Trăng | roadmap_AccessBasic.md |
+| msi_installer_runtime_lau_mam_can_tho_day586 | Làm mờ mã nguồn, đóng gói bộ cài MSI và cấu hình Access Runtime cho app Lẩu mắm Cần Thơ | roadmap_AccessBasic.md |
+| split_fe_be_sql_secure_cha_ca_la_vong_day587 | Liên kết FE/BE bảo mật với SQL Server qua SSMA và tối ưu hóa WAN cho app Chả cá Lã Vọng | roadmap_AccessBasic.md |
+| msi_installer_runtime_bun_rieu_cua_bap_bo_day588 | Đóng gói MSI, tích hợp VCS, Unit Testing và tối ưu hóa Runtime cho app Bún riêu cua bắp bò | roadmap_AccessBasic.md |
+| split_fe_be_sql_secure_banh_canh_nam_pho_day589 | Bảo mật kết nối SQL Server, tối ưu WAN và chia tách FE/BE bằng SSMA cho app Bánh canh Nam Phổ | roadmap_AccessBasic.md |
+| msi_installer_runtime_com_lam_ga_nuong_day590 | Bảo mật mã nguồn, tạo file cài đặt MSI và thiết lập Runtime cho app Cơm lam gà nướng | roadmap_AccessBasic.md |
+| split_fe_be_sql_secure_bun_quay_phu_quoc_day591 | Bảo mật liên kết FE/BE với SQL Server và tối ưu hóa WAN cho app Bún quậy Phú Quốc | roadmap_AccessBasic.md |
+| msi_installer_runtime_com_chay_kho_quet_day592 | Tích hợp VCS, Unit Test và đóng gói MSI Access Runtime cho app Cơm cháy kho quẹt | roadmap_AccessBasic.md |
+| split_fe_be_sql_secure_bun_ca_sua_nt_day593 | Tách FE/BE, di chuyển SSMA và mã hóa kết nối SQL Server cho app Bún cá sứa Nha Trang | roadmap_AccessBasic.md |
+| msi_installer_runtime_banh_can_da_lat_day594 | Tích hợp VCS, kiểm thử tự động và đóng gói bộ cài MSI cho app Bánh căn Đà Lạt | roadmap_AccessBasic.md |
+| split_fe_be_sql_secure_mi_quang_ech_day595 | Cấu hình FE/BE, di chuyển bằng SSMA và bảo mật kết nối SQL Server cho app Mì Quảng ếch Đà Nẵng | roadmap_AccessBasic.md |
+| msi_installer_runtime_banh_trang_cuon_thit_heo_day596 | Tích hợp VCS, Unit Testing, bảo mật mã nguồn và đóng gói MSI cho app Bánh tráng cuốn thịt heo | roadmap_AccessBasic.md |
+| split_fe_be_sql_secure_bun_cha_hn_day597 | Di chuyển dữ liệu bằng SSMA, liên kết FE/BE mã hóa qua SQL Server cho app Bún chả Hà Nội | roadmap_AccessBasic.md |
+| msi_installer_runtime_banh_mi_chao_day598 | Kiểm thử Rubberduck, tối ưu hóa mã nguồn, đóng gói MSI và cấu hình Access Runtime cho app Bánh mì chảo | roadmap_AccessBasic.md |
+| split_fe_be_sql_secure_bun_moc_doc_mung_day599 | Tách FE/BE, di chuyển bằng SSMA, mã hóa kết nối SQL Server và tối ưu hóa WAN cho app Bún mọc dọc mùng | roadmap_AccessBasic.md |
+| msi_installer_runtime_lau_tha_phan_thiet_day600 | Đóng gói bộ cài MSI, cấu hình Access Runtime, tích hợp VCS và Unit Testing cho app Lẩu thả Phan Thiết | roadmap_AccessBasic.md |

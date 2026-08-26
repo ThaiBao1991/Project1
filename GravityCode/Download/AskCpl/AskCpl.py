@@ -2003,6 +2003,42 @@ Trả JSON MẢNG đầy đủ với ĐÚNG các Day {expected_day_numbers} và 
                     f"Không tích hợp được phase {phase_index} sau 3 lần. "
                     f"Checkpoint đã giữ Day 1-{len(revised_days)}; mở lại và bấm Bước 2 để tiếp tục."
                 )
+        # ══════════════════════════════════════════════════════════
+        # PASS 6D: DỌN DẸP PREREQUISITES ẢO GIÁC / TRỎ SAI SAU BƯỚC 2
+        # ══════════════════════════════════════════════════════════
+        valid_topic_ids = set(d.get("topic_id", "") for d in revised_days if d.get("topic_id"))
+        first_day_map = {}
+        for d in revised_days:
+            tid = d.get("topic_id")
+            if tid and tid not in first_day_map:
+                first_day_map[tid] = d.get("day", 0)
+
+        prereq_fixed_days = []
+        for d in revised_days:
+            curr_day = d.get("day", 0)
+            curr_id = d.get("topic_id", "")
+            prereqs = d.get("prerequisites", [])
+            if not isinstance(prereqs, list):
+                d["prerequisites"] = []
+                continue
+            cleaned = [
+                p for p in prereqs
+                if p in valid_topic_ids and p != curr_id and first_day_map.get(p, 0) < curr_day
+            ]
+            if len(cleaned) != len(prereqs):
+                removed = [p for p in prereqs if p not in cleaned]
+                d["prerequisites"] = cleaned
+                prereq_fixed_days.append((curr_day, removed))
+
+        if prereq_fixed_days:
+            self.roadmap_gen_log(
+                f"[BƯỚC 2/3 • Auto-Heal Prerequisite] Đã làm sạch {len(prereq_fixed_days)} Day có prerequisite ảo giác/sai thứ tự: " +
+                ", ".join(f"Day {day} ({', '.join(bads)})" for day, bads in prereq_fixed_days[:8]) +
+                ("..." if len(prereq_fixed_days) > 8 else "") + " ✓"
+            )
+            progress["revised_days"] = revised_days
+            atomic_write(progress_path, json.dumps(progress, ensure_ascii=False, indent=2))
+
         revised = dict(current)
         revised["skeleton"] = revised_days
         
