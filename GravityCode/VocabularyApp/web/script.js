@@ -453,11 +453,15 @@ function renderCourseShell() {
     const days = (courseData.days || []).slice().sort((a, b) => a.day - b.day);
     const prog = getCourseProgress();
     const completed = new Set(prog.completed_days || []);
-    progressBadge.textContent = `Hoàn thành ${completed.size}/${days.length} ngày`;
+    const level = (courseData.level || "").trim();
+    const levelTag = level ? ` · trình độ: ${escapeHtml(level)}` : "";
+    progressBadge.textContent = `Hoàn thành ${completed.size}/${days.length} ngày${levelTag}`;
 
-    daySelect.innerHTML = days.map(d =>
-        `<option value="${d.day}">Ngày ${d.day}${completed.has(d.day) ? " ✅" : ""}</option>`
-    ).join("");
+    daySelect.innerHTML = days.map(d => {
+        const topic = (d.topic || d.title || "").trim();
+        const short = topic.length > 24 ? topic.slice(0, 24) + "…" : topic;
+        return `<option value="${d.day}">Ngày ${d.day}${short ? " · " + escapeHtml(short) : ""}${completed.has(d.day) ? " ✅" : ""}</option>`;
+    }).join("");
     const firstPending = days.find(d => !completed.has(d.day));
     const initialDay = (firstPending || days[0]).day;
     daySelect.value = String(initialDay);
@@ -487,6 +491,10 @@ function renderCourseDay(dayNum) {
     const alreadyDone = new Set(prog.completed_days || []).has(Number(dayNum));
 
     let html = `<div class="lesson-title">📚 Ngày ${lesson.day} — ${escapeHtml(lesson.title || "")}</div>`;
+    const phase = (lesson.phase || "").trim();
+    if (phase) {
+        html += `<div style="margin:-4px 0 10px;"><span class="phase-badge">🏷️ ${escapeHtml(phase)}</span></div>`;
+    }
 
     // ── Từ vựng ──
     (lesson.vocab || []).forEach((v, i) => {

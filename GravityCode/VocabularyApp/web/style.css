@@ -733,6 +733,17 @@ tr:last-child td {
     vertical-align: middle;
 }
 
+.phase-badge {
+    display: inline-block;
+    background-color: var(--card-bg-alt);
+    border: 1px solid var(--success);
+    color: var(--success);
+    font-size: 0.8rem;
+    font-weight: bold;
+    padding: 2px 10px;
+    border-radius: 12px;
+}
+
 .grammar-box {
     background-color: var(--card-bg-alt);
     border-left: 3px solid var(--success);

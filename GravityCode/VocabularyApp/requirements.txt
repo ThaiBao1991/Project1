@@ -6,4 +6,4 @@ google-api-python-client>=2.118.0
 pywebview>=4.4.1
 pyttsx3>=2.90
 gTTS>=2.3.2
-pygame>=2.5.0
+pygame-ce>=2.5.0

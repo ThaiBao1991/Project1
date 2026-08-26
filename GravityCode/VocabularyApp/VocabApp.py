@@ -45,7 +45,7 @@ OPTIONAL_PACKAGES = {
     'webview': 'pywebview>=4.4.1',
     'pyttsx3': 'pyttsx3>=2.90',
     'gtts': 'gTTS>=2.3.2',
-    'pygame': 'pygame>=2.5.0',
+    'pygame': 'pygame-ce>=2.5.0',
 }
 
 def _import_ok(module_name: str) -> bool:
@@ -184,7 +184,8 @@ from api.gdrive_sync import GDriveSync
 from ai import course_db
 from ai.course_generator import (
     generate_course, GenerationStopped, count_available_keys,
-    DEFAULT_WORDS_PER_DAY,
+    DEFAULT_WORDS_PER_DAY, DEFAULT_LEVEL, LEVELS,
+    LEVEL_PHASES, LEVEL_MIN_DAYS, JOURNEY_PHASES,
 )
 
 # ─── Theme ────────────────────────────────────────────────────────────────────
@@ -1459,35 +1460,63 @@ class CourseGenerationDialog(ctk.CTkToplevel):
         self._running = False
 
         self.title("Sinh khóa học AI chuyên sâu")
-        self.geometry("640x520")
+        self.geometry("680x580")
         self.configure(fg_color=C["bg"])
         self.grab_set(); self.lift(); self.focus_force()
 
         lang = app.current_language
-        n_words = len(get_all_vocab(lang))
-        lbl(self, f"🤖 Sinh khóa học cho: {lang}", 16, "bold", C["accent"]).pack(pady=(15, 2))
-        lbl(self, f"Tổng số từ vựng hiện có: {n_words} từ", 12, color=C["muted"]).pack()
+        lbl(self, f"🤖 Khóa học AI riêng cho: {lang}", 16, "bold", C["accent"]).pack(pady=(15, 2))
+        lbl(self, "Hệ thống học ĐỘC LẬP hoàn toàn — không liên kết danh sách từ vựng chính",
+            11, color=C["muted"]).pack()
+        lbl(self, "AI toàn quyền thiết kế giáo trình: tự quyết số ngày + chủ đề + từ vựng, "
+                  "đi từ con số 0 đến gần người bản xứ", 12, color=C["success"]).pack(pady=(4, 8))
 
         n_keys = count_available_keys()
         key_color = C["success"] if n_keys else C["danger"]
         lbl(self, f"🔑 Gemini API keys tìm thấy (AskCpl): {n_keys}", 12,
             color=key_color).pack(pady=(4, 8))
 
-        opt_row = ctk.CTkFrame(self, fg_color="transparent")
-        opt_row.pack(fill="x", padx=20)
-        lbl(opt_row, "Số từ mỗi ngày:", 13).pack(side="left", padx=(0, 8))
+        opt1 = ctk.CTkFrame(self, fg_color="transparent")
+        opt1.pack(fill="x", padx=20)
+        lbl(opt1, "Số từ mỗi ngày:", 13).pack(side="left", padx=(0, 8))
         # ⚠ CTkComboBox yêu cầu values là CHUỖI (int làm crash DropdownMenu .ljust)
-        self.cb_wpd = combo(opt_row, ["5", "10", "15", "20"], width=90)
+        self.cb_wpd = combo(opt1, ["5", "10", "15", "20"], width=70)
         self.cb_wpd.set("10")
         self.cb_wpd.pack(side="left")
+
+        lbl(opt1, "   Trình độ mục tiêu:", 13).pack(side="left", padx=(14, 8))
+        self.cb_level = combo(opt1, LEVELS, width=250)
+        self.cb_level.set(DEFAULT_LEVEL)
+        self.cb_level.configure(command=lambda _c: self._update_level_info())
+        self.cb_level.pack(side="left")
+
+        self.lbl_level_info = lbl(opt1, "", 11, color=C["success"])
+        self.lbl_level_info.pack(side="left", padx=(10, 0))
+        self._update_level_info()
+
+        opt2 = ctk.CTkFrame(self, fg_color="transparent")
+        opt2.pack(fill="x", padx=20, pady=(8, 0))
+        lbl(opt2, "Thời lượng / Lộ trình:", 13).pack(side="left", padx=(0, 8))
+        self.DURATION_OPTIONS = [
+            "Tự động (AI tự phán định số ngày tối ưu)",
+            "15 ngày (Khóa Nhập môn & Sinh tồn)",
+            "30 ngày (Khóa Tiêu chuẩn - Giao tiếp cơ bản)",
+            "45 ngày (Khóa Mở rộng - Tự tin giao tiếp)",
+            "60 ngày (Khóa Chuyên sâu - Toàn diện)",
+            "90 ngày (Khóa Nâng cao - Thành thạo)",
+        ]
+        self.cb_duration = combo(opt2, self.DURATION_OPTIONS, width=285)
+        self.cb_duration.set(self.DURATION_OPTIONS[0])
+        self.cb_duration.pack(side="left")
+
         self.var_force = ctk.BooleanVar(value=False)
-        ctk.CTkCheckBox(opt_row, text="Làm lại từ đầu (xóa khóa cũ)",
-                        variable=self.var_force, fg_color=C["accent"]).pack(side="left", padx=20)
+        ctk.CTkCheckBox(opt2, text="Làm lại từ đầu (xóa khóa cũ)",
+                        variable=self.var_force, fg_color=C["accent"]).pack(side="right")
 
         btn_row = ctk.CTkFrame(self, fg_color="transparent")
         btn_row.pack(pady=10)
-        self.btn_start = btn(btn_row, "▶ Bắt đầu sinh", C["success"], "#018786",
-                             w=160, h=38, cmd=self._start)
+        self.btn_start = btn(btn_row, "▶ Tiếp tục / Bắt đầu sinh", C["success"], "#018786",
+                             w=200, h=38, cmd=self._start)
         self.btn_start.pack(side="left", padx=(0, 10))
         self.btn_stop = btn(btn_row, "⏹ Dừng", C["card2"], C["danger"], w=100, h=38,
                             cmd=lambda: self._stop_event.set())
@@ -1498,15 +1527,48 @@ class CourseGenerationDialog(ctk.CTkToplevel):
         self.progress.pack(fill="x", padx=20, pady=(0, 6))
         self.progress.set(0)
 
-        self.log_box = ctk.CTkTextbox(self, height=240, fg_color=C["card"],
+        self.log_box = ctk.CTkTextbox(self, height=260, fg_color=C["card"],
                                       text_color=C["text"], font=("Consolas", 12))
         self.log_box.pack(fill="both", expand=True, padx=20, pady=(0, 15))
         self.log_box.configure(state="disabled")
 
-        est_days = max(1, -(-n_words // DEFAULT_WORDS_PER_DAY))
-        self._log(f"Ước tính: {est_days} ngày × ~30-60s/ngày (AI pace chống 429).")
+        self._log("🧭 Hành trình 5 giai đoạn: Nền tảng → Giao tiếp cơ bản → "
+                  "Trung cấp → Cao cấp → Như bản xứ.")
+        # Hiển thị số ngày và tiến độ Backbone trong lộ trình tích lũy
+        try:
+            from ai import course_db as _cdb
+            _oc = _cdb.get_course(app.current_language)
+            if _oc and _oc.get("days"):
+                _nd = len(_oc["days"])
+                _lv = _oc.get("level", "")
+                _bb = _oc.get("backbone") or {}
+                _bb_items = _bb.get("items") or []
+                _bb_filled = len([it for it in _bb_items if it.get("filled_day") is not None])
+                self._log(f"📊 Lộ trình hiện có: {_nd} ngày đã sinh (cấp độ: {_lv}).")
+                if _bb_items:
+                    self._log(f"🦴 Khung giáo trình Backbone: {_bb_filled}/{len(_bb_items)} chủ đề hoàn thành ({'%.0f' % (100*_bb_filled/len(_bb_items))}%).")
+                self._log(f"   ✔️ Sinh tiếp sẽ bắt đầu từ Ngày {_nd + 1} — giữ nguyên toàn bộ lịch sử học.")
+                self._log("   🔁 Chỉ chọn 'Làm lại từ đầu' khi muốn XÓA HOÀN TOÀN và tạo mới.")
+            else:
+                self._log("   Khóa học thiết kế từ gốc: Ngày 1-3 tập trung bảng chữ cái, phát âm, "
+                          "sau đó nâng cao dần theo lộ trình.")
+        except Exception:
+            self._log("   Khóa học thiết kế từ gốc: Ngày 1-3 tập trung bảng chữ cái, phát âm, "
+                      "sau đó nâng cao dần theo lộ trình.")
+        self._log("   Mỗi ngày: ≥10 từ chuyên sâu · ≥10 mẫu câu · ≥10 câu thông dụng · "
+                  "2-3 bài ngữ pháp · trắc nghiệm 4 loại × ≥10 câu.")
+        self._log("⏱ Lưu ý: ~1-3 phút/ngày, khóa dài có thể mất nhiều phút — "
+                  "bấm Dừng bất kỳ lúc nào, chạy lại sẽ tiếp tục chỗ đang dở.")
         if not n_keys:
             self._log("⚠️ Chưa thấy API key! Kiểm tra file settings.json của AskCpl.")
+
+    def _update_level_info(self):
+        level = self.cb_level.get() or DEFAULT_LEVEL
+        phase_idx = LEVEL_PHASES.get(level, [])
+        min_d = LEVEL_MIN_DAYS.get(level, 15)
+        phase_names = [JOURNEY_PHASES[i][0] for i in phase_idx if i < len(JOURNEY_PHASES)]
+        text = f"→ {', '.join(phase_names)} · tối thiểu {min_d} ngày"
+        self.lbl_level_info.configure(text=text, text_color=C["success"])
 
     def _log(self, msg):
         def _append():
@@ -1516,17 +1578,25 @@ class CourseGenerationDialog(ctk.CTkToplevel):
             self.log_box.configure(state="disabled")
         self.after(0, _append)
 
+    def _parse_target_days(self) -> int | None:
+        val = self.cb_duration.get() or ""
+        import re
+        m = re.search(r"(\d+)\s*ngày", val)
+        if m:
+            return int(m.group(1))
+        return None
+
     def _start(self):
         if self._running:
             return
-        vocabs = get_all_vocab(self.app.current_language)
-        if not vocabs:
-            messagebox.showwarning("Chưa có từ vựng", "Hãy thêm từ vựng trước khi sinh khóa học!", parent=self)
-            return
+        # Khóa học AI là hệ thống học HOÀN TOÀN ĐỘC LẬP: không đọc DB từ vựng,
+        # AI tự quyết số ngày + giáo trình theo hành trình 5 giai đoạn.
         try:
             wpd = int(self.cb_wpd.get())
         except ValueError:
             wpd = DEFAULT_WORDS_PER_DAY
+        level = self.cb_level.get() or DEFAULT_LEVEL
+        target_days = self._parse_target_days()
 
         self._running = True
         self._stop_event.clear()
@@ -1541,11 +1611,13 @@ class CourseGenerationDialog(ctk.CTkToplevel):
         def _worker():
             try:
                 result = generate_course(
-                    self.app.current_language, vocabs, words_per_day=wpd,
+                    self.app.current_language, words_per_day=wpd,
                     force_new=self.var_force.get(),
                     log_fn=self._log,
                     on_day_done=_on_day_done,
                     stop_check=self._stop_event.is_set,
+                    level=level,
+                    target_days=target_days,
                 )
                 self._log(f"🏁 Hoàn tất: {result['generated']} ngày mới, "
                           f"{result['skipped']} bỏ qua, {result['failed']} lỗi.")
@@ -1804,15 +1876,30 @@ class StudyTab(ctk.CTkFrame):
                                   "khóa học chuyên sâu theo ngày (từ vựng + ngữ pháp + trắc nghiệm).")
             self._reset_quiz_widgets()
             return
-        labels = [f"Ngày {d}" for d in days]
+        labels = []
         done = set(prog.get("completed_days", []))
-        labels = [lb + (" ✅" if d in done else "") for lb, d in zip(labels, days)]
+        days_by_num = {int(d.get("day", 0)): d for d in (self._course or {}).get("days", [])}
+        for d in days:
+            lb = f"Ngày {d}"
+            lesson = days_by_num.get(d) or {}
+            topic = (lesson.get("topic") or lesson.get("title") or "").strip()
+            if topic:
+                lb += f" · {topic[:24]}"
+            if d in done:
+                lb += " ✅"
+            labels.append(lb)
         self.cb_day.configure(values=labels)
         last = prog.get("last_day") if prog.get("last_day") in days else days[0]
-        self.cb_day.set(f"Ngày {last}" + (" ✅" if last in done else ""))
+        llesson = days_by_num.get(last) or {}
+        ltopic = (llesson.get("topic") or llesson.get("title") or "").strip()
+        self.cb_day.set(f"Ngày {last}" + (f" · {ltopic[:24]}" if ltopic else "")
+                        + (" ✅" if last in done else ""))
         total = len(days)
+        level_str = (self._course or {}).get("level", "")
+        level_info = f" · trình độ: {level_str}" if level_str else ""
         self.lbl_bottom.configure(
-            text=f"Khóa học AI '{lang}': {total} ngày · hoàn thành {len(done)}/{total}. "
+            text=f"Khóa học AI '{lang}'{level_info}: {total} ngày · "
+                 f"hoàn thành {len(done)}/{total}. "
                  f"Dữ liệu lưu tại data/ai_courses/")
         self._load_selected_day()
 
@@ -1857,8 +1944,16 @@ class StudyTab(ctk.CTkFrame):
         self.lesson_text.configure(state="disabled")
 
     def _render_lesson_text(self, lesson):
-        lines = [f"📚 NGÀY {lesson.get('day', '?')} — {(lesson.get('title') or '').upper()}",
-                 "=" * 60, ""]
+        lines = [f"📚 NGÀY {lesson.get('day', '?')} — {(lesson.get('title') or '').upper()}"]
+        meta = []
+        if lesson.get("phase"):
+            meta.append(f"🏷️ Giai đoạn: {lesson['phase']}")
+        topic = (lesson.get("topic") or "").strip()
+        if topic and topic != (lesson.get("title") or "").strip():
+            meta.append(f"📌 Chủ đề: {topic}")
+        if meta:
+            lines += ["  |  ".join(meta), "-" * 60]
+        lines += ["=" * 60, ""]
 
         lines.append("🔤 TỪ VỰNG CHUYÊN SÂU")
         lines.append("-" * 60)
@@ -2040,10 +2135,7 @@ class StudyTab(ctk.CTkFrame):
 
     # ── Sinh / xóa khóa học ──────────────────────────────────────────────────
     def _open_generation(self):
-        if not get_all_vocab(self.app.current_language):
-            messagebox.showwarning("Chưa có từ vựng",
-                                   "Hãy thêm từ vựng trước khi sinh khóa học!", parent=self)
-            return
+        # KHÔNG chặn khi DB rỗng: AI tự lập toàn bộ giáo trình từ con số 0.
         dlg = CourseGenerationDialog(self.app, self.app, on_finished=self.refresh_language)
         self.app.wait_window(dlg)
 

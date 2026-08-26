@@ -6,6 +6,35 @@
 
 ---
 
+## 📋 Cập nhật mới nhất — 2026-08-27
+
+### 🦴 Khung Giáo Trình Bắt Buộc Toàn Diện (Master Curriculum Backbone) — HOÀN THÀNH ✅
+
+**Vấn đề đã giải quyết:**
+- ❌ Thiếu định hướng toàn diện: AI chỉ biết né tránh chủ đề cũ nhưng không biết cần đi đến đâu để đủ kiến thức cho một cấp độ (JLPT, HSK, CEFR).
+- ❌ Thiếu điểm kết thúc rõ ràng: Người học không biết bao nhiêu ngày là "đủ chuẩn" của cấp độ hiện tại.
+
+**Giải pháp triển khai:**
+
+| File | Thay đổi |
+|------|----------|
+| `ai/course_generator.py` | **Cốt lõi**: Thêm `BACKBONE_SCHEMA`, `build_backbone_prompt`, `parse_backbone_json`, `_backbone_phase`. Bước 0: AI lập toàn bộ khung kiến thức bắt buộc cho cấp độ (chữ viết, phát âm, ngữ pháp cốt lõi, từ vựng theo chủ đề, tình huống giao tiếp, văn hóa). Bước 1: Lấy batch các chủ đề chưa học (`filled_day is None`) làm kế hoạch sinh bài. Bước 2: Sinh bài học chi tiết + trắc nghiệm, đánh dấu `filled_day`. Khi hoàn thành 100% backbone -> báo hoàn thành cấp độ. |
+| `VocabApp.py` | Dialog init hiển thị chi tiết tiến độ Backbone: `_bb_filled / _bb_total` chủ đề (% hoàn thành). |
+| `test_ai_rich.py` | Thêm unit tests cho `BACKBONE_SCHEMA`, prompt & parser backbone, test dry-run batch 1 -> batch 2 -> full backbone -> level transition. |
+| `projectLog.md` | Cập nhật nhật ký. |
+
+**Test kết quả:** ✅ 32/32 test passed (Python 3.14)
+
+**Hành vi mới:**
+- Mỗi khi chọn một cấp độ mới, AI thiết kế ngay **toàn bộ khung giáo trình bắt buộc (Backbone)** chuẩn quốc tế.
+- Mỗi lần bấm **"▶ Tiếp tục / Bắt đầu sinh"**, hệ thống lấy một đợt các chủ đề tiếp theo trong Backbone để sinh nội dung chi tiết.
+- Đảm bảo **100% bao quát đầy đủ mọi điểm ngữ pháp, phát âm, từ vựng và tình huống giao tiếp thiết yếu**, không bỏ sót kiến thức nền tảng và không trùng lặp.
+- Người học biết rõ tiến độ (VD: `15/45 chủ đề đã hoàn thành (33%)`) cho đến khi hoàn thành trọn vẹn cấp độ.
+
+---
+
+
+
 ## Mục tiêu
 Tạo một ứng dụng desktop quản lý từ vựng đa ngôn ngữ (Tiếng Anh, Tiếng Nhật, Tiếng Trung...) kết hợp giao diện Web tĩnh trên GitHub Pages để có thể ôn tập từ vựng mọi lúc mọi nơi trên điện thoại.
 
@@ -54,10 +83,75 @@ Tạo một ứng dụng desktop quản lý từ vựng đa ngôn ngữ (Tiếng
 - [x] **Rà soát & vá lỗi toàn ứng dụng (Bug-fix sweep):** Fix shallow-copy mutate DEFAULT_SETTINGS trong `settings.py`; ghi JSON atomic (`os.replace`) chống hỏng dữ liệu; fix progress bar bị cập nhật từ background thread; fix chèn từ vào JS luyện viết bằng `json.dumps` (từ chứa `" \` `\` không còn vỡ) + tự dọn temp script; thêm lock chống race khi bấm 🔊 liên tục; thống nhất zh-CN; dedupe header bảng Preview; Web thêm DOMPurify sanitize, tìm kiếm khớp cả example/note, flashcard lặp vòng + phím tắt Space/←/→ (2026-08-25).
 - [x] **Fix auto-installer chết trên Python 3.14+:** Trước đây cài TẤT CẢ thư viện trong 1 lệnh pip → pygame (chưa có wheel cho 3.14, build lỗi do bỏ distutils) làm hỏng cả lệnh → app không thể khởi động. Tách `CRITICAL_PACKAGES` (customtkinter, requests — thiếu là thoát với cửa sổ lỗi) và `OPTIONAL_PACKAGES` (cài từng gói riêng, fail thì bỏ qua và app vẫn chạy). Thêm biến môi trường `VOCABAPP_SKIP_INSTALL=1` để dev/test khởi động nhanh. Dọn `requirements.txt`: bỏ Pillow & qrcode (không được dùng trong code) (2026-08-25).
 - [x] **Tab 🎓 Học Tập + Khóa học AI chuyên sâu theo ngày (kiểu AskCpl):** Ô lựa chọn nguồn học gồm **"📖 Từ vựng tự học"** (flashcard lật thẻ 60 từ hiện có: trộn thẻ, 🔊 đọc, phím ←/→/Space) và **"🤖 Khóa học AI chuyên sâu"** (AI chia toàn bộ từ vựng thành các ngày; mỗi ngày sinh bài học JSON gồm: từ vựng chuyên sâu + giải thích sắc thái + ví dụ song ngữ + điểm ngữ pháp + 6-10 câu trắc nghiệm tương tác có chấm điểm & lưu tiến độ). Dùng lại cơ chế `GeminiCoordinator` của AskCpl (`api/gemini_safe.py`): xoay vòng **155 API key ENC:** đọc trực tiếp từ `AskCpl/settings.json`, pace chống 429, model fallback. Database lưu kiểu AskCpl tại `data/ai_courses/<ngôn_ngữ>/course.json` + `progress.json` (atomic, resumable — dừng giữa chừng chạy lại là tiếp tục). Web thêm view "🎓 AI Course" để ôn trên điện thoại; GitHub sync upload cả thư mục ai_courses. Đã test THẬT với Gemini: sinh thành công Ngày 1/12 (model fallback gemini-3.5-flash → flash-latest → 3.1-flash-lite) (2026-08-26).
+- [x] **Khóa học AI v2 — Hệ thống học ĐỘC LẬP hoàn toàn, AI tự quyết giáo trình:** Tách khỏi danh sách từ vựng chính (không seed, không nhập ngược). AI toàn quyền thiết kế giáo trình theo **hành trình 5 giai đoạn** (Nền tảng → Giao tiếp cơ bản → Trung cấp → Cao cấp → Như bản xứ), **tự quyết số ngày** theo trình độ (tối thiểu 14), mọi ngôn ngữ (Nhật/Trung/Hàn/Anh...). Nội dung rich mỗi ngày: ≥10 từ chuyên sâu · ≥10 cách dùng câu · ≥10 câu thông dụng · 2-3 bài ngữ pháp · trắc nghiệm **4 loại × ≥10 câu** có badge phân loại. Fix crash dialog (combo int→str), fix parse schema mismatch, auto-migrate dữ liệu cũ. 20/20 unit test pass (2026-08-26).
+- [x] **Khóa học AI v2.1 — AI Roadmap cho Người Chưa Biết Gì & Lộ Trình Linh Hoạt (15-90 ngày theo chuẩn AskCpl):** Nâng cấp prompt AI tối ưu cho người mới tinh (Zero-Knowledge First: Ngày 1-3 bắt buộc dạy Bảng chữ cái, Bảng phiên âm, Quy tắc phát âm, Ghép vần, Thanh điệu); Thêm cơ chế chọn thời lượng linh hoạt (15/30/45/60/90 ngày hoặc AI tự phán định); Tích hợp JSON repair (tự sửa trailing comma theo chuẩn AskCpl); Fix lỗi UnicodeEncodeError trên Windows Terminal; 28/28 unit test PASS (2026-08-26).
+- [x] **Khắc phục lỗi cài đặt pygame trên Python 3.14+:** Thay thế `pygame` (bị lỗi build do PEP 632 loại bỏ `distutils`) bằng `pygame-ce>=2.5.0` (Community Edition có sẵn pre-built wheels cho Python 3.14, 100% tương thích API `import pygame` cho phát âm TTS) (2026-08-26).
 
 ---
 
 ## Changelog
+
+### 2026-08-26 (Update 3) — Chuyển sang pygame-ce: Tương thích hoàn hảo Python 3.14+
+**Vấn đề**: Khi khởi động ứng dụng trên môi trường Python 3.14, gói `pygame` truyền thống chưa có pre-built binary wheel, buộc pip phải build từ mã nguồn. Mã nguồn setup của `pygame` phụ thuộc vào `distutils.msvccompiler` (đã bị gỡ bỏ vĩnh viễn trên Python 3.14 theo PEP 632) dẫn đến crash `ModuleNotFoundError: No module named 'distutils.msvccompiler'`.
+
+**Giải pháp**:
+- Chuyển cấu hình thư viện sang `pygame-ce>=2.5.0` (Community Edition). Đây là bản fork chính thức và phát triển tích cực của Pygame, có sẵn pre-built binary wheel cho Python 3.10 đến Python 3.14 trên Windows x64.
+- `pygame-ce` xuất ra đúng module `import pygame`, tương thích hoàn toàn 100% với toàn bộ code âm thanh `pygame.mixer` trong `VocabApp.py`.
+
+**Files đã sửa**:
+| File | Thay đổi |
+|------|----------|
+| `VocabApp.py` | Cập nhật `OPTIONAL_PACKAGES` từ `pygame>=2.5.0` sang `pygame-ce>=2.5.0`. |
+| `requirements.txt` | Cập nhật `pygame-ce>=2.5.0`. |
+| `projectLog.md` | Ghi lại nhật ký khắc phục lỗi. |
+
+**Kết quả kiểm chứng**: `pygame-ce 2.5.8` cài đặt thành công ngay lập tức qua wheel · `import pygame; pygame.mixer.init()` chạy hoàn hảo trên Python 3.14.7.
+
+### 2026-08-26 (Update 2) — AI Roadmap cho Người Chưa Biết Gì (Zero-Knowledge First) & Lộ Trình Linh Hoạt 15-90 Ngày
+**Vấn đề**:
+1. Với người chưa biết gì về ngôn ngữ mới, khóa 15-30 ngày nếu không có chỉ dẫn chặt chẽ sẽ dễ bị nhảy cóc bỏ qua bảng chữ cái/ngữ âm cơ bản.
+2. Cần cung cấp các mốc thời lượng học phong phú hơn (15 ngày - Nhập môn, 30 ngày - Tiêu chuẩn, 45 ngày - Mở rộng, 60 ngày - Chuyên sâu, 90 ngày - Nâng cao) để người học chủ động chọn hoặc để AI tự ước lượng theo độ khó của từng ngôn ngữ.
+3. Test script `test_ai_rich.py` bị lỗi encoding UTF-8 trên Windows console (charmap cp1252 không in được ký tự `→`).
+
+**Giải pháp & Nâng cấp**:
+- **Prompt Zero-Knowledge First**: Ở Giai đoạn 1 (Nền tảng), AI bắt buộc dành những ngày đầu (Ngày 1 đến Ngày 3-5) để dạy kỹ **Hệ chữ viết, Bảng chữ cái, Bảng phiên âm (Romaji/Pinyin/Hangul/IPA) và Quy tắc phát âm/thanh điệu** trước khi dạy từ ghép/câu phức.
+- **Hỗ trợ lộ trình linh hoạt (15 – 90 ngày)**: Bổ sung dropdown trong `CourseGenerationDialog` cho phép người dùng chọn các mốc 15, 30, 45, 60, 90 ngày hoặc để AI tự phán định số ngày tối ưu.
+- **JSON Repair (AskCpl standard)**: Nâng cấp `_strip_json` tự động strip markdown fences và repair trailing commas trước `}` và `]` khi AI trả về.
+- **Fix UTF-8 Terminal & Mở rộng Test Suite**: Thêm `sys.stdout.reconfigure(encoding="utf-8")` và bổ sung các test cases cho zero-knowledge prompt, 60/90 days target, json repair (28/28 test PASS).
+
+**Files đã sửa**:
+| File | Thay đổi |
+|------|----------|
+| `ai/course_generator.py` | Prompt chỉ dẫn Zero-knowledge (bảng chữ cái/phát âm), `_strip_json` regex repair, hỗ trợ linh hoạt `target_days`. |
+| `VocabApp.py` | `CourseGenerationDialog`: Thêm bộ chọn thời lượng (`cb_duration`) 15/30/45/60/90 ngày và parse truyền vào `generate_course`. |
+| `test_ai_rich.py` | Fix UTF-8 stdout reconfigure, thêm 8 test cases mới (28/28 PASS). |
+| `projectLog.md` | Cập nhật nhật ký dự án. |
+
+**Kết quả kiểm chứng**: 28/28 unit test PASS · py_compile sạch tất cả file · node --check script.js sạch · Smoke test import VocabApp thành công.
+
+### 2026-08-26 — Khóa học AI v2: Hệ thống học ĐỘC LẬP, AI tự quyết toàn bộ giáo trình
+**Vấn đề**: (1) Dialog sinh khóa học crash ngay khi mở (`CTkComboBox` nhận values dạng int → `.ljust()` lỗi). (2) Bắt buộc DB phải có sẵn từ mới cho sinh khóa học. (3) Nội dung mỗi ngày quá mỏng, quiz chỉ 6 câu không phân loại. (4) Người dùng phải tự chọn số ngày. (5) Khóa học còn "dính" tới từ vựng gốc trong DB.
+
+**Nguyên tắc thiết kế mới — khóa học AI là HỆ THỐNG HỌC HOÀN TOÀN ĐỘC LẬP**:
+- **Không liên kết DB từ vựng**: không seed từ có sẵn, không nhập ngược từ AI vào danh sách chính — hai hệ thống tách biệt 100%.
+- **AI toàn quyền thiết kế**: hành trình 5 giai đoạn bắt buộc (Nền tảng → Giao tiếp cơ bản → Trung cấp → Cao cấp → Như bản xứ); **AI TỰ QUYẾT số ngày** theo trình độ (tối thiểu 14 ngày để đủ hành trình); chủ đề + từ vựng do AI chọn như người bản xứ dạy người mới.
+- **Mọi ngôn ngữ**: Nhật (romaji), Trung (pinyin), Hàn (romanization), Anh/Pháp (IPA)...
+- **Nội dung rich mỗi ngày**: ≥10 từ chuyên sâu · ≥10 cách dùng câu · ≥10 câu thông dụng (kèm tình huống) · 2-3 bài ngữ pháp chi tiết.
+- **Trắc nghiệm 4 loại × ≥10 câu** (từ vựng / mẫu câu / câu thông dụng / ngữ pháp), badge phân loại trên cả desktop lẫn web.
+- **3 loại lần gọi AI**: lập giáo trình → nội dung ngày → trắc nghiệm ngày (`max_output_tokens=16384`, retry JSON 2 lần) — tránh bị cắt response.
+- **Resumable**: plan + từng ngày lưu ngay; Dừng rồi chạy lại tiếp tục chỗ dở; `get_course()` tự migrate định dạng cũ (grammar dict→list, quiz list→dict).
+
+**Files đã sửa**:
+| File | Thay đổi |
+|------|----------|
+| `ai/course_generator.py` | `CURRICULUM_SCHEMA` + `JOURNEY_PHASES` + `build_curriculum_prompt()` (AI tự quyết số ngày, cấm dùng từ có sẵn) + `parse_curriculum_json()`. Prompt nội dung rich + auto-pick. Quiz 4 loại. `_ask()` tách kind (logic) khỏi label (log) — fix bug parse schema mismatch. `generate_course(language, words_per_day, level, ...)`: bỏ tham số `vocabs`, luôn do AI lập plan, `target_days` tùy chọn. |
+| `ai/course_db.py` | `get_course()` tự migrate định dạng cũ và save lại. |
+| `VocabApp.py` | Fix combo int→str (crash `.ljust`). Dialog mới: bỏ combo số ngày (AI tự quyết), chọn trình độ 5 mức, ghi rõ "HỆ THỐNG HỌC ĐỘC LẬP", không đọc DB từ vựng. `_render_lesson_text()` render 4 section + phase/topic. `_flatten_quiz()` xử lý quiz dict 4 loại/list cũ kèm category. Combo ngày hiển thị chủ đề. |
+| `web/script.js` | `flattenQuiz()`, render patterns/common/grammar-list, quiz category badges, topic trong select ngày, phase badge. |
+| `web/style.css` | Thêm `.section-title`, `.pattern-item`, `.common-item`, `.quiz-cat-badge`, `.phase-badge`. |
+| `test_ai_rich.py` | 20 test: schema, parse resilience, migration, flatten, prompts (explicit + AI-decided days), full dry-run flow với fake coordinator (giáo trình → 2 ngày rich → resume → stop). |
+
+**Kết quả kiểm chứng**: 20/20 test pass · py_compile sạch · node --check sạch.
 
 ### 2026-08-26 — Tab 🎓 Học Tập + Khóa học AI chuyên sâu theo ngày (tích hợp AskCpl)
 **Kiến trúc**: tái sử dụng `GeminiCoordinator` của AskCpl (copy về `api/gemini_safe.py`, bỏ phụ thuộc settings) — xoay vòng account/key, pace 3.5–5s + jitter, phân loại lỗi 429 daily/rate/invalid, model fallback. Key đọc (chỉ đọc, không ghi) từ `GravityCode/Download/AskCpl/settings.json`, giải mã ENC: cùng thuật toán.
