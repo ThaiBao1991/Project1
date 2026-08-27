@@ -6,32 +6,49 @@
 
 ---
 
-## 📋 Cập nhật mới nhất — 2026-08-27
+## 📋 Cập nhật mới nhất — 2026-08-27 (Update 3)
 
-### 🦴 Khung Giáo Trình Bắt Buộc Toàn Diện (Master Curriculum Backbone) — HOÀN THÀNH ✅
+### 🔑 Đồng Bộ 100% Cơ Chế Key Rotation Với AskCpl: Fix Lock After Success & Smart Cooldown Recovery — HOÀN THÀNH ✅
 
 **Vấn đề đã giải quyết:**
-- ❌ Thiếu định hướng toàn diện: AI chỉ biết né tránh chủ đề cũ nhưng không biết cần đi đến đâu để đủ kiến thức cho một cấp độ (JLPT, HSK, CEFR).
-- ❌ Thiếu điểm kết thúc rõ ràng: Người học không biết bao nhiêu ngày là "đủ chuẩn" của cấp độ hiện tại.
+- ❌ **Tự khóa 3600s sau mỗi lượt gọi thành công**: `lock_after_success=True` mặc định làm tất cả các account trong pool lần lượt bị khóa 1 giờ (3,600s) sau 20+ request thành công của Ngày 1-11, khiến Ngày 12 không còn account nào để xoay vòng khi gặp 429 RPM.
+- ❌ **Ngắt ngang khi toàn bộ key trong cooldown**: Vòng lặp `request()` ném ra `NO_KEY` ngay lập tức thay vì tự động chờ đếm ngược để tiếp tục.
 
 **Giải pháp triển khai:**
 
 | File | Thay đổi |
 |------|----------|
-| `ai/course_generator.py` | **Cốt lõi**: Thêm `BACKBONE_SCHEMA`, `build_backbone_prompt`, `parse_backbone_json`, `_backbone_phase`. Bước 0: AI lập toàn bộ khung kiến thức bắt buộc cho cấp độ (chữ viết, phát âm, ngữ pháp cốt lõi, từ vựng theo chủ đề, tình huống giao tiếp, văn hóa). Bước 1: Lấy batch các chủ đề chưa học (`filled_day is None`) làm kế hoạch sinh bài. Bước 2: Sinh bài học chi tiết + trắc nghiệm, đánh dấu `filled_day`. Khi hoàn thành 100% backbone -> báo hoàn thành cấp độ. |
-| `VocabApp.py` | Dialog init hiển thị chi tiết tiến độ Backbone: `_bb_filled / _bb_total` chủ đề (% hoàn thành). |
-| `test_ai_rich.py` | Thêm unit tests cho `BACKBONE_SCHEMA`, prompt & parser backbone, test dry-run batch 1 -> batch 2 -> full backbone -> level transition. |
-| `projectLog.md` | Cập nhật nhật ký. |
+| `api/gemini_safe.py` | • Đặt `lock_after_success=False` mặc định (đồng bộ 100% với `AskCpl.py` và `auto_ai_worker.py`), cho phép các key xoay vòng tự nhiên liên tục (Round-robin) không bị khóa 1 giờ.<br>• Thêm cơ chế **Smart Cooldown Wait**: Tự động tính thời gian cooldown còn lại ngắn nhất (15-30s), đếm ngược và tự động thử lại tối đa 12 vòng (có kiểm tra `stop_check` từng giây) thay vì báo `NO_KEY` ngắt ngang. |
+| `ai/course_generator.py` | Khởi tạo `GeminiCoordinator` với `lock_after_success=False` tường minh. |
+| `test_ai_rich.py` | Bổ sung test `[12] GeminiCoordinator lock_after_success & cooldown recovery`. |
+| `projectLog.md` | Cập nhật nhật ký dự án. |
 
-**Test kết quả:** ✅ 32/32 test passed (Python 3.14)
-
-**Hành vi mới:**
-- Mỗi khi chọn một cấp độ mới, AI thiết kế ngay **toàn bộ khung giáo trình bắt buộc (Backbone)** chuẩn quốc tế.
-- Mỗi lần bấm **"▶ Tiếp tục / Bắt đầu sinh"**, hệ thống lấy một đợt các chủ đề tiếp theo trong Backbone để sinh nội dung chi tiết.
-- Đảm bảo **100% bao quát đầy đủ mọi điểm ngữ pháp, phát âm, từ vựng và tình huống giao tiếp thiết yếu**, không bỏ sót kiến thức nền tảng và không trùng lặp.
-- Người học biết rõ tiến độ (VD: `15/45 chủ đề đã hoàn thành (33%)`) cho đến khi hoàn thành trọn vẹn cấp độ.
+**Test kết quả:** ✅ 34/34 test passed (Python 3.14)
 
 ---
+
+## 📋 Cập nhật trước đó — 2026-08-27 (Update 2)
+
+### 🚀 Khóa Học AI Chuẩn AskCpl: Multi-Pass Blueprint Engine, Zero-Duplicate Auto-Repair & Continuous 100% Generation — HOÀN THÀNH ✅
+
+**Vấn đề đã giải quyết:**
+- ❌ **Ngắt 15 ngày không cần thiết**: Hệ thống có sẵn 155+ API key xoay vòng tự động từ AskCpl nhưng trước đây bị giới hạn cứng `BACKBONE_BATCH_SIZE = 15`, buộc người dùng phải bấm lặp lại nhiều lần.
+- ❌ **Khung giáo trình Single-pass**: Thiếu các bước kiểm tra trùng lặp và phản biện lỗ hổng kiến thức, dẫn đến nguy cơ trùng lặp tiêu đề hoặc thiếu điểm ngữ pháp cốt lõi.
+
+**Giải pháp triển khai:**
+
+| File | Thay đổi |
+|------|----------|
+| `ai/course_generator.py` | • **Pass 1C**: Thêm `find_duplicate_topics` và `repair_duplicate_topics` sử dụng `difflib.SequenceMatcher` (ngưỡng tương đồng $\ge 85\%$) để phát hiện và tự động gọi AI sinh chủ đề thay thế tại chỗ.<br>• **Pass 2**: Thêm `review_and_fill_gaps` đóng vai trò Chuyên gia Sư phạm rà soát chuẩn quốc tế (JLPT/HSK/CEFR/TOPIK) và bổ sung các chủ đề trọng điểm còn thiếu.<br>• **Pass 3**: Thêm `normalize_backbone_sequence` sắp xếp thứ tự sư phạm logic (Chữ viết/Phát âm $\rightarrow$ Từ vựng $\rightarrow$ Ngữ pháp $\rightarrow$ Giao tiếp $\rightarrow$ Văn hóa/Slang).<br>• **Continuous Generation**: Đặt `BACKBONE_BATCH_SIZE = None`, hỗ trợ tham số `max_days_per_run` linh hoạt, chạy tự động 100% toàn bộ giáo trình liên tục không ngắt quãng, có sleep 0.3s nhịp nhàng chống nghẽn socket và lưu atomic từng ngày (resumable). |
+| `VocabApp.py` | Tiến độ và log hiển thị theo thời gian thực xuyên suốt toàn bộ lộ trình; tự động hoàn thành trọn vẹn cấp độ chỉ với 1 lần bấm; hỗ trợ dừng bất kỳ lúc nào và ghi nhớ chính xác trạng thái. |
+| `test_ai_rich.py` | Bổ sung unit tests cho Pass 1C (Deduplication Repair), Pass 2 (Gap Review), Pass 3 (Sequence Normalization) và Continuous Generation. |
+| `projectLog.md` | Cập nhật nhật ký dự án. |
+
+**Test kết quả:** ✅ 33/33 test passed (Python 3.14)
+
+---
+
+
 
 
 

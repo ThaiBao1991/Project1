@@ -17,6 +17,9 @@ course_generator.py — Sinh khóa học chuyên sâu theo ngày bằng Gemini A
 
 import json
 import os
+import re
+import time
+from difflib import SequenceMatcher
 
 from api.gemini_safe import GeminiCoordinator, ErrorKind
 
@@ -212,8 +215,8 @@ BACKBONE_SCHEMA = {
     "required": ["items"],
 }
 
-# Số item backbone lấy ra làm plan mỗi lần sinh (1 batch)
-BACKBONE_BATCH_SIZE = 15
+# Số item backbone lấy ra làm plan mỗi lần sinh (None = tự động sinh liên tục 100% không ngắt)
+BACKBONE_BATCH_SIZE = None
 
 
 
@@ -544,7 +547,7 @@ def parse_backbone_json(text: str) -> list:
 def _backbone_phase(category: str, phase_indices: list) -> str:
     """Ánh xạ category của backbone item sang phase tương ứng trong JOURNEY_PHASES."""
     cat = (category or "").upper()
-    if any(k in cat for k in ("PHÁT ÂM", "CHỮ VIẾT", "ALPHABET", "BẢNG CHỮ")):
+    if any(k in cat for k in ("PHÁT ÂM", "CHỮ VIẾT", "ALPHABET", "BẢNG CHỮ", "PHIÊN ÂM")):
         if phase_indices and 0 in phase_indices:
             return JOURNEY_PHASES[0][0]
     if any(k in cat for k in ("VĂN HOÁ", "SLANG", "THÀNH NGỮ", "BẢN XỨ")):
@@ -556,6 +559,169 @@ def _backbone_phase(category: str, phase_indices: list) -> str:
             return JOURNEY_PHASES[phase_indices[1]][0]
         return JOURNEY_PHASES[phase_indices[0]][0]
     return "Nền tảng"
+
+
+def _normalize_title(text: str) -> str:
+    """Chuẩn hóa tiêu đề để so khớp độ tương đồng."""
+    t = (text or "").lower()
+    t = re.sub(r"[^\w\s]", " ", t)
+    return re.sub(r"\s+", " ", t).strip()
+
+
+def find_duplicate_topics(items: list, sim_threshold: float = 0.85) -> list:
+    """Tìm các cặp topic có độ tương đồng >= sim_threshold bằng SequenceMatcher (kiểu AskCpl).
+    Trả về list tuple: (dup_index, dup_id, orig_id, dup_title, orig_title, category)"""
+    dups = []
+    seen = []
+    for i, it in enumerate(items):
+        t1 = _normalize_title(it.get("title", ""))
+        if not t1:
+            continue
+        is_dup = False
+        for orig_idx, orig_it in seen:
+            t2 = _normalize_title(orig_it.get("title", ""))
+            ratio = SequenceMatcher(None, t1, t2).ratio()
+            if ratio >= sim_threshold:
+                dups.append((i, it.get("id", i + 1), orig_it.get("id", orig_idx + 1),
+                             it.get("title", ""), orig_it.get("title", ""), it.get("category", "TỔNG HỢP")))
+                is_dup = True
+                break
+        if not is_dup:
+            seen.append((i, it))
+    return dups
+
+
+def repair_duplicate_topics(items: list, lang_name: str, level: str, coord,
+                            sim_threshold: float = 0.85, max_rounds: int = 3,
+                            log_fn=print, stop_check=None) -> list:
+    """[Pass 1C] Tự động phát hiện và gọi AI thay thế tại chỗ các chủ đề bị trùng lặp."""
+    for r in range(1, max_rounds + 1):
+        if stop_check and stop_check():
+            raise GenerationStopped()
+        dups = find_duplicate_topics(items, sim_threshold=sim_threshold)
+        if not dups:
+            break
+        log_fn(f"🔄 [Pass 1C • Vòng {r}/{max_rounds}] Phát hiện {len(dups)} chủ đề tương đồng >= {int(sim_threshold*100)}%; đang tự động sửa tại chỗ...")
+        for idx, dup_id, orig_id, dup_title, orig_title, cat in dups:
+            if stop_check and stop_check():
+                raise GenerationStopped()
+            prompt = (
+                f"Bạn là chuyên gia giáo trình {lang_name} cấp độ '{level}'.\n"
+                f"Chủ đề '{dup_title}' (Category '{cat}') bị trùng nội dung với chủ đề #{orig_id}: '{orig_title}'.\n\n"
+                f"NHIỆM VỤ: Hãy tạo DUY NHẤT 1 CHỦ ĐỀ MỚI HOÀN TOÀN KHÁC BIỆT cho cấp độ '{level}' thuộc category '{cat}' mà CHƯA TỪNG DẠY.\n"
+                f"CẤM TUYỆT ĐỐI không dùng lại hoặc diễn đạt tương tự: '{orig_title}'.\n"
+                f"Trả JSON duy nhất: {{\"title\": \"tên chủ đề mới khác biệt (tiếng Việt)\", \"category\": \"{cat}\", \"importance\": \"BẮT BUỘC\"}}"
+            )
+            repair_schema = {
+                "type": "OBJECT",
+                "properties": {
+                    "title": {"type": "STRING"},
+                    "category": {"type": "STRING"},
+                    "importance": {"type": "STRING"},
+                },
+                "required": ["title", "category", "importance"],
+            }
+            try:
+                res = coord.request(prompt, response_schema=repair_schema)
+                if res.get("ok"):
+                    data = json.loads(_strip_json(res.get("text", "")))
+                    new_title = str(data.get("title", "")).strip()
+                    if new_title and new_title.lower() != dup_title.lower():
+                        items[idx]["title"] = new_title
+                        if data.get("category"):
+                            items[idx]["category"] = str(data["category"]).strip()
+                        log_fn(f"  ✓ Đã sửa chủ đề #{dup_id}: '{dup_title}' → '{new_title}'")
+            except Exception as e:
+                log_fn(f"  ⚠ Lỗi sửa chủ đề #{dup_id}: {e}")
+    return items
+
+
+def review_and_fill_gaps(items: list, lang_name: str, level: str, coord,
+                         log_fn=print, stop_check=None) -> list:
+    """[Pass 2] Đóng vai trò Chuyên gia Sư phạm rà soát lỗ hổng kiến thức và bổ sung chủ đề thiếu."""
+    if stop_check and stop_check():
+        raise GenerationStopped()
+    log_fn("🔍 [Pass 2 • Gap Review] Đang rà soát đối chiếu toàn diện chuẩn kiến thức quốc tế...")
+    titles_summary = [{"id": it["id"], "category": it["category"], "title": it["title"]} for it in items]
+    prompt = (
+        f"Bạn là Chuyên gia Thẩm định Giáo trình {lang_name} theo chuẩn quốc tế (JLPT/HSK/CEFR/TOPIK).\n"
+        f"Cấp độ: {level}\n"
+        f"Danh sách {len(items)} chủ đề hiện có:\n{json.dumps(titles_summary, ensure_ascii=False)}\n\n"
+        f"NHIỆM VỤ: Hãy rà soát xem có mảng kiến thức, điểm ngữ pháp bắt buộc, kỹ năng phát âm, "
+        f"hay tình huống giao tiếp thiết yếu nào BỊ THIẾU để hoàn thành chuẩn cấp độ '{level}' không.\n"
+        f"Nếu có thiếu sót quan trọng, trả về tối đa 2-5 chủ đề BỔ SUNG để lấp đầy lỗ hổng.\n"
+        f"Nếu đã đầy đủ, trả về mảng gaps rỗng [].\n"
+        f"Trả JSON: {{\"gaps\": [{{\"category\": \"NGỮ PHÁP / GIAO TIẾP / PHÁT ÂM / TỪ VỰNG\", \"title\": \"tên chủ đề bổ sung\", \"importance\": \"BẮT BUỘC\"}}]}}"
+    )
+    gap_schema = {
+        "type": "OBJECT",
+        "properties": {
+            "gaps": {
+                "type": "ARRAY",
+                "items": {
+                    "type": "OBJECT",
+                    "properties": {
+                        "category": {"type": "STRING"},
+                        "title": {"type": "STRING"},
+                        "importance": {"type": "STRING"},
+                    },
+                    "required": ["category", "title", "importance"],
+                }
+            }
+        },
+        "required": ["gaps"],
+    }
+    try:
+        res = coord.request(prompt, response_schema=gap_schema)
+        if res.get("ok"):
+            data = json.loads(_strip_json(res.get("text", "")))
+            gaps = data.get("gaps") or []
+            added = 0
+            for g in gaps:
+                if not isinstance(g, dict):
+                    continue
+                t = str(g.get("title", "")).strip()
+                if not t:
+                    continue
+                if any(_normalize_title(it.get("title", "")) == _normalize_title(t) for it in items):
+                    continue
+                items.append({
+                    "id": len(items) + 1,
+                    "category": str(g.get("category", "NGỮ PHÁP")).strip(),
+                    "title": t,
+                    "importance": str(g.get("importance", "BẮT BUỘC")).strip(),
+                    "filled_day": None,
+                })
+                added += 1
+            if added > 0:
+                log_fn(f"  ✓ Đã bổ sung {added} chủ đề trọng điểm còn thiếu sau khi thẩm định.")
+            else:
+                log_fn("  ✓ Khung giáo trình đã đạt độ bao phủ chuẩn xác, không có lỗ hổng lớn.")
+    except Exception as e:
+        log_fn(f"  ⚠ Thẩm định gap bỏ qua do lỗi: {e}")
+    return items
+
+
+def normalize_backbone_sequence(items: list, phase_indices: list = None) -> list:
+    """[Pass 3] Sắp xếp các chủ đề theo thứ tự logic sư phạm: Nền tảng phát âm/chữ viết -> Từ vựng/Số đếm -> Ngữ pháp cốt lõi -> Giao tiếp -> Nâng cao/Văn hóa."""
+    def _cat_weight(cat: str) -> int:
+        c = (cat or "").upper()
+        if any(k in c for k in ("PHÁT ÂM", "CHỮ VIẾT", "ALPHABET", "BẢNG CHỮ", "PHIÊN ÂM")):
+            return 0
+        if any(k in c for k in ("TỪ VỰNG", "TỪ LOẠI", "SỐ ĐẾM", "ĐẠI TỪ")):
+            return 1
+        if any(k in c for k in ("NGỮ PHÁP", "CẤU TRÚC")):
+            return 2
+        if any(k in c for k in ("GIAO TIẾP", "HỘI THOẠI", "TÌNH HUỐNG", "MUA SẮM")):
+            return 3
+        if any(k in c for k in ("VĂN HOÁ", "SLANG", "THÀNH NGỮ", "BẢN XỨ", "MỞ RỘNG")):
+            return 4
+        return 2
+
+    sorted_items = sorted(items, key=lambda it: (_cat_weight(it.get("category", "")), it.get("id", 0)))
+    for i, it in enumerate(sorted_items, 1):
+        it["id"] = i
+    return sorted_items
 
 
 def _clean_quiz_list(items) -> list:
@@ -683,6 +849,7 @@ def generate_course(language: str,
                     force_new: bool = False, log_fn=print,
                     on_day_done=None, stop_check=None,
                     level: str = DEFAULT_LEVEL, target_days: int = None,
+                    max_days_per_run: int = None,
                     coordinator_cls=None) -> dict:
     """Sinh khóa học rich theo ngày. Mỗi ngày xong lưu ngay (resumable)."""
     from ai import course_db
@@ -717,7 +884,8 @@ def generate_course(language: str,
 
     coord_cls = coordinator_cls or GeminiCoordinator
     coord = coord_cls(key_loader=_load_gemini_keys, log_fn=log_fn,
-                      temperature=0.35, max_output_tokens=16384, timeout=180)
+                      temperature=0.35, max_output_tokens=16384, timeout=180,
+                      lock_after_success=False)
 
     def _ask(prompt, schema, kind):
         """Gọi AI, parse lỗi thì thử lại 1 lần."""
@@ -741,7 +909,7 @@ def generate_course(language: str,
                 continue
         return None, None
 
-    # ── Bước 0: ĐẢM BẢO BACKBONE (Khung giáo trình bắt buộc) ───────────────────
+    # ── Bước 0: ĐẢM BẢO BACKBONE (Khung giáo trình bắt buộc chuẩn Multi-Pass kiểu AskCpl) ───
     phase_indices = LEVEL_PHASES.get(level, list(range(len(JOURNEY_PHASES))))
     backbone = course.get("backbone")
     backbone_level = (backbone or {}).get("level", "")
@@ -751,7 +919,8 @@ def generate_course(language: str,
         or not backbone.get("items")
     )
     if need_backbone:
-        log_fn(f"🦴 Chưa có Backbone cho level '{level}' — AI đang lập khung giáo trình bắt buộc...")
+        log_fn(f"🦴 [Pass 1 • Khung Giáo Trình] AI đang thiết kế toàn bộ chủ đề cốt lõi cấp độ '{level}'...")
+        bb_items = None
         for attempt in (1, 2):
             if stop_check and stop_check():
                 raise GenerationStopped()
@@ -763,21 +932,32 @@ def generate_course(language: str,
                 continue
             try:
                 bb_items = parse_backbone_json(res_bb.get("text", ""))
-                backbone = {"level": level, "items": bb_items}
-                course["backbone"] = backbone
-                course_db.save_course(language, course)
-                cats = {}
-                for it in bb_items:
-                    cats[it["category"]] = cats.get(it["category"], 0) + 1
-                log_fn(f"✅ Backbone: {len(bb_items)} chủ đề bắt buộc — "
-                       + " | ".join(f"{c} ({n})" for c, n in cats.items()))
                 break
             except (ValueError, json.JSONDecodeError) as e:
                 log_fn(f"⚠ Backbone JSON hỏng ({e}), thử lại...")
                 continue
-        else:
+        if not bb_items:
             log_fn("❌ Không lập được backbone. Chạy lại để thử lại.")
             return {"generated": 0, "skipped": 0, "failed": 0, "total_days": 0}
+
+        # Pass 1C: SequenceMatcher Quét & Auto-Repair Trùng Lặp
+        bb_items = repair_duplicate_topics(bb_items, language, level, coord, log_fn=log_fn, stop_check=stop_check)
+
+        # Pass 2: Rà soát & Bổ sung Lỗ hổng Kiến thức (Gap Review)
+        bb_items = review_and_fill_gaps(bb_items, language, level, coord, log_fn=log_fn, stop_check=stop_check)
+
+        # Pass 3: Sắp xếp theo Chuỗi Tiền đề Sư phạm (Prerequisite Order)
+        bb_items = normalize_backbone_sequence(bb_items, phase_indices)
+
+        backbone = {"level": level, "items": bb_items}
+        course["backbone"] = backbone
+        course_db.save_course(language, course)
+
+        cats = {}
+        for it in bb_items:
+            cats[it["category"]] = cats.get(it["category"], 0) + 1
+        log_fn(f"✅ Khung giáo trình Backbone hoàn thiện: {len(bb_items)} chủ đề chuẩn mực — "
+               + " | ".join(f"{c} ({n})" for c, n in cats.items()))
 
     # Thống kê tiến độ backbone
     bb_items = backbone["items"]
@@ -791,9 +971,15 @@ def generate_course(language: str,
         return {"generated": 0, "skipped": 0, "failed": 0,
                 "total_days": len(bb_items), "backbone_filled": len(bb_items), "backbone_total": len(bb_items)}
 
-    # ── Bước 1: XÁC ĐỊNH PLAN từ Backbone ──────────────────────────────────────
-    batch = unfilled[:BACKBONE_BATCH_SIZE]
-    log_fn(f"📋 Batch này: {len(batch)} chủ đề (Ngày {start_day}..{start_day+len(batch)-1}): "
+    # ── Bước 1: XÁC ĐỊNH PLAN từ Backbone (Chạy tự động liên tục không ngắt 15 ngày) ───
+    if max_days_per_run is not None:
+        batch = unfilled[:max_days_per_run]
+    elif BACKBONE_BATCH_SIZE is not None:
+        batch = unfilled[:BACKBONE_BATCH_SIZE]
+    else:
+        batch = unfilled
+
+    log_fn(f"📋 Đợt sinh này: {len(batch)} chủ đề (Ngày {start_day}..{start_day+len(batch)-1}): "
            + " | ".join(it["title"] for it in batch[:4])
            + ("..." if len(batch) > 4 else ""))
 
@@ -899,12 +1085,16 @@ def generate_course(language: str,
             except Exception:
                 pass
 
+        time.sleep(0.3)
+
     total_bb = len((course.get("backbone") or {}).get("items") or [])
     filled_now = len([it for it in (course.get("backbone") or {}).get("items", [])
                       if it.get("filled_day") is not None])
     if total_bb:
-        log_fn(f"📊 Sau batch: {filled_now}/{total_bb} chủ đề hoàn thành "
+        log_fn(f"📊 Tổng kết: {filled_now}/{total_bb} chủ đề hoàn thành "
                f"({'%.0f' % (100*filled_now/total_bb)}%)")
+        if filled_now >= total_bb and total_bb > 0:
+            log_fn(f"🎉 Hoàn thành trọn vẹn 100% tất cả {total_bb} chủ đề của cấp độ '{level}'!")
     return {"generated": generated, "skipped": skipped, "failed": failed,
             "total_days": total_bb or len(plan),
             "backbone_filled": filled_now, "backbone_total": total_bb}

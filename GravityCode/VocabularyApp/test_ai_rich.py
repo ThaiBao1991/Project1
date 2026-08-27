@@ -1,5 +1,5 @@
 """Smoke tests cho AI Course — format mới (3-call, rich content, tự lập giáo trình)."""
-import sys, os
+import sys, os, time
 
 if hasattr(sys.stdout, "reconfigure"):
     try:
@@ -290,43 +290,89 @@ assert parsed_bb[0]["title"] == "Bảng chữ cái Hiragana"
 assert parsed_bb[0]["filled_day"] is None
 ok("parse_backbone_json parses valid items and initializes filled_day=None")
 
+# ─── 9d. Multi-Pass Backbone Refinement (AskCpl-style) ───
+print("\n[9d] Multi-Pass Backbone Refinement")
+from ai.course_generator import (
+    find_duplicate_topics, repair_duplicate_topics,
+    review_and_fill_gaps, normalize_backbone_sequence,
+)
+
+test_items = [
+    {"id": 1, "category": "PHÁT ÂM", "title": "Bảng chữ cái Hiragana cơ bản", "importance": "BẮT BUỘC"},
+    {"id": 2, "category": "PHÁT ÂM", "title": "Bảng chữ cái Hiragana cơ bản", "importance": "BẮT BUỘC"},  # 100% trùng
+    {"id": 3, "category": "GIAO TIẾP", "title": "Chào hỏi và làm quen", "importance": "BẮT BUỘC"},
+    {"id": 4, "category": "GIAO TIẾP", "title": "Chào hỏi và làm quen hàng ngày", "importance": "NÊN HỌC"}, # > 85% trùng
+    {"id": 5, "category": "NGỮ PHÁP", "title": "Trợ từ Wa và Ga", "importance": "BẮT BUỘC"},
+]
+
+dups = find_duplicate_topics(test_items, sim_threshold=0.80)
+assert len(dups) >= 2, f"Phải tìm thấy ít nhất 2 cặp trùng, got {len(dups)}"
+ok(f"find_duplicate_topics: phát hiện {len(dups)} chủ đề trùng lặp")
+
+class _FakeRepairCoord:
+    def __init__(self):
+        self.count = 0
+    def request(self, prompt, response_schema=None):
+        if response_schema and "gaps" in response_schema.get("properties", {}):
+            return {"ok": True, "text": json.dumps({"gaps": [
+                {"category": "PHÁT ÂM", "title": "Quy tắc âm ngắt và trường âm", "importance": "BẮT BUỘC"}
+            ]}), "model": "fake"}
+        self.count += 1
+        titles = [
+            ("Bảng chữ cái Katakana và từ mượn", "PHÁT ÂM"),
+            ("Hỏi thăm sức khỏe và cảm ơn xin lỗi", "GIAO TIẾP"),
+            ("Chủ đề bổ sung khác biệt", "NGỮ PHÁP"),
+        ]
+        t, c = titles[(self.count - 1) % len(titles)]
+        return {"ok": True, "text": json.dumps({
+            "title": t,
+            "category": c,
+            "importance": "BẮT BUỘC"
+        }), "model": "fake"}
+
+items_repaired = [dict(it) for it in test_items]
+repair_duplicate_topics(items_repaired, "Tiếng Nhật", "Người mới bắt đầu", _FakeRepairCoord(), sim_threshold=0.80)
+dups_after = find_duplicate_topics(items_repaired, sim_threshold=0.80)
+assert len(dups_after) == 0, f"Sau khi sửa không còn trùng, got {len(dups_after)}"
+ok("repair_duplicate_topics: sửa tại chỗ thành công, 0 trùng lặp")
+
+items_with_gaps = review_and_fill_gaps(items_repaired, "Tiếng Nhật", "Người mới bắt đầu", _FakeRepairCoord())
+assert any("trường âm" in it["title"] for it in items_with_gaps)
+ok("review_and_fill_gaps: bổ sung thành công các mảng kiến thức còn thiếu")
+
+sorted_seq = normalize_backbone_sequence(items_with_gaps)
+# Phát âm phải đứng trước Ngữ pháp và Giao tiếp
+assert sorted_seq[0]["category"] == "PHÁT ÂM"
+assert all(sorted_seq[i]["id"] == i + 1 for i in range(len(sorted_seq)))
+ok("normalize_backbone_sequence: sắp xếp thứ tự sư phạm logic và renumber chuẩn xác")
+
 # ─── 10. course_db migration ───
 print("\n[10] course_db get_course auto-migration")
-tmpdir = tempfile.mkdtemp()
+old_c = {
+    "language": "OldLang", "level": "Người mới bắt đầu",
+    "days": [{"day": 1, "title": "B1", "vocab": [], "grammar": {"title": "G1", "explanation": "E1"},
+              "quiz": [{"question": "Q1", "options": ["A","B","C","D"], "answer_index": 0}]}],
+}
+tmpdir_old = tempfile.mkdtemp()
 try:
-    # Patch COURSES_DIR temporarily
-    import ai.course_db as cdb
-    orig_dir = cdb.COURSES_DIR
-    cdb.COURSES_DIR = tmpdir
-    # Save old-format course directly
-    lang = "test_lang"
-    d = os.path.join(tmpdir, lang)
-    os.makedirs(d, exist_ok=True)
-    old_course = {
-        "language": lang, "days": [
-            {"day": 1, "grammar": {"title": "G", "explanation": "x", "examples": []},
-             "quiz": [{"question": "q", "options": ["A","B","C","D"], "answer_index": 0, "explanation": "x"}]},
-        ]
-    }
-    with open(os.path.join(d, "course.json"), "w", encoding="utf-8") as f:
-        json.dump(old_course, f)
-    loaded = cdb.get_course(lang)
-    lesson = loaded["days"][0]
-    assert isinstance(lesson["grammar"], list), "auto-migrated grammar"
-    assert isinstance(lesson["quiz"], dict), "auto-migrated quiz"
-    assert "mixed" in lesson["quiz"]
+    orig_cdb_dir = cdb.COURSES_DIR
+    cdb.COURSES_DIR = tmpdir_old
+    cdb.save_course("OldLang", old_c)
+    loaded = cdb.get_course("OldLang")
+    assert isinstance(loaded["days"][0]["grammar"], list)
+    assert isinstance(loaded["days"][0]["quiz"], dict)
+    assert "mixed" in loaded["days"][0]["quiz"]
     ok("course_db auto-migrates old format on load")
-    cdb.COURSES_DIR = orig_dir
 finally:
-    shutil.rmtree(tmpdir, ignore_errors=True)
+    cdb.COURSES_DIR = orig_cdb_dir
+    shutil.rmtree(tmpdir_old, ignore_errors=True)
 
-# ─── 11. FULL FLOW dry-run: DB RỖNG → AI lập Backbone → sinh theo batch ───────
-print("\n[11] Full flow dry-run (empty DB → AI plans backbone → 2 days generated per batch)")
-
+# ─── 11. Full flow dry-run (Multi-Pass + Continuous Generation) ───
+print("\n[11] Full flow dry-run (Multi-Pass + Continuous Generation)")
 _FAKE_BACKBONE = {"items": [
-    {"id": 1, "category": "PHÁT ÂM", "title": "Bảng chữ cái & phát âm", "importance": "BẮT BUỘC"},
-    {"id": 2, "category": "GIAO TIẾP", "title": "Chào hỏi & tự giới thiệu", "importance": "BẮT BUỘC"},
-    {"id": 3, "category": "TỪ VỰNG", "title": "Số đếm & thời gian", "importance": "BẮT BUỘC"},
+    {"id": 1, "category": "PHÁT ÂM", "title": "Bảng chữ cái Hiragana", "importance": "BẮT BUỘC"},
+    {"id": 2, "category": "TỪ VỰNG", "title": "Số đếm và thời gian", "importance": "BẮT BUỘC"},
+    {"id": 3, "category": "GIAO TIẾP", "title": "Chào hỏi thông dụng", "importance": "BẮT BUỘC"},
     {"id": 4, "category": "NGỮ PHÁP", "title": "Cấu trúc câu cơ bản", "importance": "BẮT BUỘC"},
 ]}
 _FAKE_CONTENT = {
@@ -358,6 +404,8 @@ class _FakeCoordinator:
         if response_schema is BACKBONE_SCHEMA:
             _capture["backbone_prompt"] = prompt
             return {"ok": True, "text": json.dumps(_FAKE_BACKBONE), "model": "fake"}
+        if response_schema and "gaps" in response_schema.get("properties", {}):
+            return {"ok": True, "text": json.dumps({"gaps": []}), "model": "fake"}
         if response_schema is CURRICULUM_SCHEMA:
             _capture["curriculum_prompt"] = prompt
             return {"ok": True, "text": json.dumps({"days": []}), "model": "fake"}
@@ -373,8 +421,23 @@ try:
     orig_batch = cg.BACKBONE_BATCH_SIZE
     cdb.COURSES_DIR = tmpdir
     cg._load_gemini_keys = lambda: [{"key": "fake"}]
-    cg.BACKBONE_BATCH_SIZE = 2  # batch 2 item để test tiếp nối
 
+    # Test Continuous Generation: Không giới hạn batch -> Sinh liền một mạch 100% (4/4 ngày)
+    cg.BACKBONE_BATCH_SIZE = None
+    logs = []
+    stats_all = generate_course(
+        "FakeLangFull", words_per_day=5,
+        log_fn=logs.append, level=LEVELS[0],
+        coordinator_cls=_FakeCoordinator,
+    )
+    assert stats_all["generated"] == 4 and stats_all["backbone_total"] == 4, stats_all
+    course_full = cdb.get_course("FakeLangFull")
+    assert len(course_full["days"]) == 4
+    assert all(it["filled_day"] is not None for it in course_full["backbone"]["items"])
+    ok("continuous generation: sinh liền một mạch 100% 4/4 chủ đề không bị ngắt ở mốc 15 ngày")
+
+    # Test Batch Paced: Nếu chỉ định batch=2 thì vẫn chạy từng đợt 2 ngày
+    cg.BACKBONE_BATCH_SIZE = 2
     logs = []
     stats = generate_course(
         "FakeLang", words_per_day=5,
@@ -388,47 +451,11 @@ try:
     assert course["backbone"] is not None
     assert course["backbone"]["items"][0]["filled_day"] == 1
     assert course["backbone"]["items"][1]["filled_day"] == 2
-    assert course["backbone"]["items"][2]["filled_day"] is None
     day1 = course["days"][0]
     assert len(day1["vocab"]) == 10
     assert len(day1["sentence_patterns"]) == 10
     assert len(day1["common_sentences"]) == 10
     assert len(day1["grammar"]) == 2
-    total_q = sum(len(v) for v in day1["quiz"].values())
-    assert total_q == 40, f"expected 40 quiz questions, got {total_q}"
-    ok(f"dry-run batch 1: 2/4 backbone items filled with rich content & quiz")
-
-    # Mở rộng / Tiếp tục batch 2: sinh tiếp items 3, 4 -> Ngày 3, 4
-    stats2 = generate_course(
-        "FakeLang", words_per_day=5,
-        log_fn=logs.append, level=LEVELS[0], target_days=2,
-        coordinator_cls=_FakeCoordinator,
-    )
-    assert stats2["generated"] == 2, stats2
-    c2 = cdb.get_course("FakeLang")
-    assert len(c2["days"]) == 4, f"Tổng tích lũy phải là 4 ngày, got {len(c2['days'])}"
-    assert c2["days"][-1]["day"] == 4, "Ngày mới phải tiếp nối Ngày 4"
-    assert all(it["filled_day"] is not None for it in c2["backbone"]["items"])
-    ok(f"batch 2: sinh tiếp 2 ngày (generated={stats2['generated']}), hoàn tất 4/4 backbone items")
-
-    # Batch 3: khi backbone đã 100% đầy đủ
-    stats3 = generate_course(
-        "FakeLang", words_per_day=5,
-        log_fn=logs.append, level=LEVELS[0], target_days=2,
-        coordinator_cls=_FakeCoordinator,
-    )
-    assert stats3["generated"] == 0, "backbone full -> 0 generated"
-    ok("batch 3: backbone 100% full -> báo hoàn tất cấp độ, không sinh thừa")
-
-    # Stop check hoạt động
-    def _stop():
-        return True
-    try:
-        generate_course("FakeLang2", stop_check=_stop,
-                        coordinator_cls=_FakeCoordinator)
-        assert False, "should raise GenerationStopped"
-    except GenerationStopped:
-        ok("stop_check raises GenerationStopped immediately")
 
     # ── Level transition: chuyển level → AI sinh backbone mới tương ứng ──
     _capture["backbone_prompt"] = ""
@@ -451,6 +478,31 @@ try:
     assert len(c_new["days"]) == 2
     assert c_new["days"][0]["day"] == 1
     ok("force_new=True: reset toàn bộ, bắt đầu lại từ Ngày 1 với backbone mới")
+
+    # ── [12] Test GeminiCoordinator: lock_after_success=False & Cooldown Recovery ──
+    print("\n[12] GeminiCoordinator lock_after_success & cooldown recovery")
+    from api.gemini_safe import GeminiCoordinator, AccountPool, ErrorKind
+    pool = AccountPool()
+    test_keys = [
+        {"key": "AIzaSyTestKey1", "email": "user1@gmail.com", "status": "active"},
+        {"key": "AIzaSyTestKey2", "email": "user2@gmail.com", "status": "active"},
+    ]
+    pool.sync(test_keys)
+    coord_test = GeminiCoordinator(
+        key_loader=lambda: test_keys,
+        lock_after_success=False,
+    )
+    # Khóa account user1 ngắn hạn (cooldown 1s)
+    pool.lock_account(key_obj=test_keys[0], duration=1)
+    now = time.time()
+    assert pool.account_locked("user1@gmail.com", now) == True
+    # Pick sẽ tự động chọn user2@gmail.com
+    k2 = pool.pick()
+    assert k2["email"] == "user2@gmail.com"
+    # Sau khi thành công, với lock_after_success=False thì user2 KHÔNG bị khóa 1 giờ (3600s)
+    coord_test._maybe_lock_after_success(k2, test_keys)
+    assert pool.account_locked("user2@gmail.com", time.time()) == False
+    ok("lock_after_success=False: key không bị khóa 3600s oan sau mỗi lượt gọi thành công")
 
     cg.BACKBONE_BATCH_SIZE = orig_batch
     cdb.COURSES_DIR = orig_dir

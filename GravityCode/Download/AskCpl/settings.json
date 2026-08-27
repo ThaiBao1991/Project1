@@ -26,7 +26,7 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787637929,
+        "last_check_time": 1787810581,
         "next_check_time": 0,
         "error_msg": "",
         "cooldown_until": 1787640208
@@ -38,7 +38,7 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787637931,
+        "last_check_time": 1787810596,
         "next_check_time": 0,
         "error_msg": "",
         "cooldown_until": 1787640208
@@ -50,7 +50,7 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787637937,
+        "last_check_time": 1787810604,
         "next_check_time": 0,
         "error_msg": "",
         "cooldown_until": 1787640208
@@ -62,7 +62,7 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787637945,
+        "last_check_time": 1787810616,
         "next_check_time": 0,
         "error_msg": "",
         "cooldown_until": 1787640208

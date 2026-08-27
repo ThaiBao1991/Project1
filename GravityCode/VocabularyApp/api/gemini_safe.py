@@ -291,8 +291,8 @@ class GeminiCoordinator:
     def __init__(self, models=None, log_fn=None, on_key_status=None,
                  key_loader=None, stop_check=None, temperature=0.1,
                  max_output_tokens=8192, timeout=90, max_transient=6,
-                 daily_budget=DAILY_CALL_BUDGET, lock_after_success=True):
-        # Danh sách model fallback (đồng bộ với AskCpl)
+                 daily_budget=DAILY_CALL_BUDGET, lock_after_success=False):
+        # Danh sách model fallback (đồng bộ 100% với AskCpl)
         self._models = list(models) if models else list(MODEL_FALLBACKS)
         self._log = log_fn or (lambda msg: None)
         self._on_key_status = on_key_status
@@ -336,7 +336,9 @@ class GeminiCoordinator:
         return until
 
     def _maybe_lock_after_success(self, key_obj, keys):
-        """Sau 1 batch thành công: khóa account 1h nếu có >=2 account và còn account khác mở."""
+        """Sau 1 batch thành công: chỉ khóa khi lock_after_success được bật chủ động."""
+        if not self._lock_after_success:
+            return
         pool = self._pool
         used = pool.account_of(key_obj)
         accounts = set()
@@ -433,6 +435,7 @@ class GeminiCoordinator:
         mout = max_output_tokens or self._max_output_tokens
         tout = timeout or self._timeout
         account_attempts = 0
+        retry_exhausted_rounds = 0
         MAX_ACCOUNT_ATTEMPTS = 3  # Giới hạn thử tối đa 3 account khác nhau/lượt gọi để tránh đốt sạch pool
 
         while True:
@@ -441,10 +444,26 @@ class GeminiCoordinator:
             pool.sync(self._key_loader() or [])
             key_obj = pool.pick(exclude)
             if not key_obj:
-                # Nếu đã thử qua các account nhưng hết key tạm thời do cooldown ngắn
-                if account_attempts > 0:
-                    self._log("⏳ Tạm thời chưa có key sẵn sàng (đang nghỉ tốc độ). Chờ 15s để hồi phục...")
-                    time.sleep(15)
+                now = time.time()
+                # Kiểm tra các key đang trong thời gian cooldown ngắn (do RPM/TPM)
+                future_cooldowns = []
+                for k in pool._keys:
+                    if k.get("status") in ("active", "exhausted"):
+                        acct = pool.account_of(k)
+                        cd = max(pool._cooldown.get(acct, 0), k.get("cooldown_until", 0))
+                        if cd > now:
+                            future_cooldowns.append(cd - now)
+
+                # Nếu có key đang cooldown hoặc đã thử qua các account trong exclude
+                if (account_attempts > 0 or future_cooldowns or exclude) and retry_exhausted_rounds < 12:
+                    retry_exhausted_rounds += 1
+                    wait_s = min(future_cooldowns) if future_cooldowns else 15
+                    wait_s = max(5, min(int(wait_s) + 1, 30))
+                    self._log(f"⏳ Tất cả key đang tạm nghỉ tốc độ (cooldown). Tự động chờ {wait_s}s để hồi phục (lần {retry_exhausted_rounds}/12)...")
+                    for _ in range(wait_s):
+                        if self._stop_check():
+                            return {"ok": False, "text": "", "error": {"kind": ErrorKind.STOPPED}}
+                        time.sleep(1)
                     exclude.clear()
                     account_attempts = 0
                     continue
