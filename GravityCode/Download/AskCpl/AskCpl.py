@@ -79,7 +79,7 @@ from adaptive_learning import (default_profile, load_profile, profile_questions,
                                record_learner_feedback, save_profile)
 from verified_knowledge import coverage_report, empty_pack, load_pack, validate_pack
 from knowledge_pack_importer import import_csv_folder
-from domain_profiles import instruction_for, is_tech_tree_domain
+from domain_profiles import instruction_for, is_tech_tree_domain, get_or_create_domain_profile
 from gemini_safe import pace
 import webbrowser
 try:
@@ -1363,6 +1363,17 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
     def _roadmap_v5_step1(self, snapshot):
         import re
         expected = None if snapshot["days"] == "Auto" else int(snapshot["days"])
+        domain_profile = get_or_create_domain_profile(
+            snapshot["domain"],
+            llm_callable=self._call_roadmap_llm,
+            log_fn=self.roadmap_gen_log
+        )
+        if expected is None:
+            rec_days = domain_profile.get("recommended_days")
+            if rec_days and isinstance(rec_days, int) and 10 <= rec_days <= 3000:
+                expected = rec_days
+                self.roadmap_gen_log(f"[🎯 ĐỊNH HƯỚNG TRI THỨC] Áp dụng chuẩn số ngày khuyến nghị từ Domain Profile: {expected} Day cho '{snapshot['domain']}'.")
+
         references = self._read_reference_text(snapshot["refs"])
         registry = self._registry_context()
         day_rule = ("Tự chọn tổng 10-3000 Day phù hợp. KHÔNG tiết kiệm Day: mỗi Day chỉ là một buổi 30 phút và có thể cần hàng trăm Day cho một mảng lớn." if expected is None
@@ -1467,20 +1478,24 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
             for round_num in range(1, 6):
                 current_list_str = json.dumps(discovered_areas, ensure_ascii=False) if discovered_areas else "Chưa có"
                 
+                profile_info = f"\nHỒ SƠ ĐỊNH DANH TRI THỨC (DOMAIN BLUEPRINT):\n- Chỉ dẫn: {domain_profile.get('instruction', '')}\n- Cột mốc bắt buộc: {', '.join(domain_profile.get('mandatory_milestones', []))}\n" if domain_profile.get('instruction') else ""
+                
                 if round_num == 1:
                     discover_prompt = f"""Bạn là Viện trưởng Viện Nghiên cứu & Chuyên gia Bách khoa Toàn thư đầu ngành thế giới về '{snapshot['domain']}'.
+{profile_info}
 Hãy phân tích và lập danh sách 10-18 phân mảng/chủ đề lớn nhất của lĩnh vực này theo MA TRẬN 4 CHIỀU TOÀN DIỆN:
 1. CHIỀU NỀN TẢNG & NGUYÊN LÝ: Bảng chữ cái/ký hiệu, công cụ, cấu trúc cơ bản, cơ chế vận hành gốc.
 2. CHIỀU PHÂN BẬC THEO CẤP ĐỘ / NHÓM CHI TIẾT:
    - Nếu là Ngoại ngữ (Tiếng Nhật, Anh, Trung, Hàn...): Bảng chữ cái -> Hệ thống Từ vựng theo chủ đề -> Hệ thống Ngữ pháp từng cấp (N5->N1 hoặc A1->C2) -> Bộ chữ Hán/Kanji/Hán tự theo từng bộ thủ & nét -> Luyện phát âm & Ngữ điệu.
    - Nếu là Nghệ thuật/Kỹ năng (Nhiếp ảnh, Vẽ, Sáo, Nấu ăn...): Từng thể loại chuyên biệt (VD Nhiếp ảnh: Ảnh chân dung, Ảnh cưới, Ảnh phóng sự, Ảnh phong cảnh, Ảnh sản phẩm thương mại, Thiên văn, Động vật, Macro...; VD Nấu ăn: Từng nhóm nguyên liệu & phương pháp).
-   - Nếu là Lập trình/Kỹ thuật (Python, Access, C++...): Cú pháp, Engine nội tại, Win32/Hệ thống, CSDL, Mạng/API, Blockchain, Bảo mật, AI, Phần cứng...
+   - Nếu là Lập trình/Kỹ thuật (Python, Access, Excel, C++...): Cú pháp, Engine nội tại, Win32/Hệ thống, CSDL, Mạng/API, Blockchain, Bảo mật, AI, Phần cứng...
 3. CHIỀU KHO THỰC CHIẾN & TÌNH HUỐNG THỰC TẾ: Tác phẩm cụ thể, kịch bản giao tiếp thực tế, dự án phần mềm hoàn chỉnh, bộ ảnh thực tế.
 4. CHIỀU MẸO NHÀ NGHỀ, BẪY LỖI & SỰ CỐ: Phân biệt các điểm dễ nhầm lẫn, bẫy thi cử/chứng chỉ, xử lý sự cố thực tế.
 
 Trả về JSON MẢNG các chuỗi: ["Tên phân mảng 1", "Tên phân mảng 2", ...]. LUÔN dùng tiếng Việt."""
                 else:
                     discover_prompt = f"""Bạn là Chuyên gia đầu ngành thế giới về '{snapshot['domain']}'.
+{profile_info}
 Hiện tại chúng ta ĐÃ CÓ các phân mảng sau:
 {current_list_str}
 
@@ -1517,12 +1532,14 @@ LUÔN dùng tiếng Việt."""
             # PASS 1A: KNOWLEDGE MAP & PHASE STRUCTURE
             # ══════════════════════════════════════════════════════════
             coverage_guide = "\nDanh mục phân mảng đã vét cạn từ PASS 0 (BẮT BUỘC PHẢI BAO PHỦ TẤT CẢ):\n" + "\n".join(f"- {a}" for a in discovered_areas) if discovered_areas else ""
+            profile_guide = f"\nCHỈ DẪN CHUYÊN MÔN & ĐỊNH HƯỚNG TỪ DOMAIN PROFILE:\n{domain_profile.get('instruction', '')}\nPersona: {domain_profile.get('persona', 'Chuyên gia')}\n" if domain_profile.get('instruction') else ""
             self.roadmap_gen_log("[BƯỚC 1/3 • 1A] Đang lập knowledge map và chia phase từ cây tri thức...")
             if snapshot.get("gen_mode") == "wiki":
                 map_prompt = f"""Bạn là chuyên gia phân tích dữ liệu Bách khoa toàn thư. Hãy khảo sát và lập danh mục cấu trúc (knowledge map) để trích xuất toàn bộ dữ liệu cho '{snapshot['domain']}'.
 Mục tiêu: {day_rule.replace('Day', 'lô bóc tách (Batch)')} (Mỗi lô chứa tối đa 10-20 thực thể).
 Ngữ cảnh người dùng: {snapshot['context']}
 Tài liệu tham khảo:\n{references}
+{profile_guide}
 {coverage_guide}
 
 Trả về JSON DUY NHẤT, NGẮN GỌN, KHÔNG tạo skeleton Day ở bước này: {{"domain_profile":{{"title":"...","total_days":N,"persona":"Chuyên gia phân tích data"}},"coverage":[{{"area":"...","required":true}}],"phases":[{{"id":"phase_id","name":"Tên Module (vd: Tướng Ngụy, Binh chủng, Vũ khí)","days":10,"goal":"Bóc tách toàn bộ thông số ẩn"}}]}}.
@@ -1533,6 +1550,7 @@ Thời lượng: {snapshot['time_per_day']}/ngày. {day_rule}
 Ngữ cảnh người dùng: {snapshot['context']}
 Tài liệu tham khảo:\n{references}
 Topic registry của các roadmap cũ (không lặp lại nếu đã có):\n{registry}
+{profile_guide}
 {coverage_guide}
 
 Yêu cầu cấu trúc: Hãy ánh xạ các phân mảng trên thành các Phase học tập bài bản từ cơ bản đến master. Phân bổ từ 30-100 Day cho mỗi Phase lớn.
@@ -2299,13 +2317,30 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
         Button(f_exp_out, text="Chọn", command=self.ai_select_expanded_out).pack(side='right', padx=5)
         Label(f_exp_out, text="(trống = cạnh file roadmap gốc)", fg="gray", font=("Arial", 8)).pack(side='right')
         
-        # Action buttons (Start / Stop)
+        # Action buttons (Start / Stop / Sweep Missing / Quick Launchers)
         f_actions = Frame(self.sub_tab_roadmap_run)
-        f_actions.pack(pady=10)
-        self.btn_ai_start = Button(f_actions, text="▶ Bắt đầu Sinh Tự Động", command=self.start_ai_worker, bg="#2ea043", fg="white", font=("Arial", 12, "bold"), padx=20)
-        self.btn_ai_start.pack(side="left", padx=10)
-        self.btn_ai_stop = Button(f_actions, text="🛑 Dừng lại", command=self.stop_ai_worker, bg="#e74c3c", fg="white", font=("Arial", 12, "bold"), padx=20, state="disabled")
-        self.btn_ai_stop.pack(side="left", padx=10)
+        f_actions.pack(pady=6)
+        self.btn_ai_start = Button(f_actions, text="▶ Bắt đầu Sinh Tự Động", command=self.start_ai_worker, bg="#2ea043", fg="white", font=("Arial", 11, "bold"), padx=12)
+        self.btn_ai_start.pack(side="left", padx=4)
+        self.btn_ai_sweep = Button(f_actions, text="🔍 Quét & Tải Bù Ngày Thiếu", command=self.sweep_missing_roadmap_handler, bg="#0288d1", fg="white", font=("Arial", 11, "bold"), padx=12)
+        self.btn_ai_sweep.pack(side="left", padx=4)
+        self.btn_ai_stop = Button(f_actions, text="🛑 Dừng lại", command=self.stop_ai_worker, bg="#e74c3c", fg="white", font=("Arial", 11, "bold"), padx=12, state="disabled")
+        self.btn_ai_stop.pack(side="left", padx=4)
+        self.btn_ai_stats = Button(f_actions, text="📊 Kiểm Tra Toàn Vẹn", command=self.health_check_roadmap_output, bg="#8e24aa", fg="white", font=("Arial", 10))
+        self.btn_ai_stats.pack(side="left", padx=4)
+        self.btn_ai_open_folder = Button(f_actions, text="📂 Mở Thư Mục", command=self.open_ai_output_folder, bg="#5c6bc0", fg="white", font=("Arial", 10))
+        self.btn_ai_open_folder.pack(side="left", padx=4)
+        self.btn_ai_open_index = Button(f_actions, text="🌐 Mở index.html", command=self.open_ai_index_html, bg="#00897b", fg="white", font=("Arial", 10))
+        self.btn_ai_open_index.pack(side="left", padx=4)
+
+        # Visual Progress Bar Frame
+        f_prog = Frame(self.sub_tab_roadmap_run)
+        f_prog.pack(fill='x', padx=20, pady=3)
+        from tkinter import ttk
+        self.ai_progress_bar = ttk.Progressbar(f_prog, orient="horizontal", mode="determinate")
+        self.ai_progress_bar.pack(side="left", fill='x', expand=True, padx=(0, 10))
+        self.lbl_ai_progress_text = Label(f_prog, text="Sẵn sàng", font=("Arial", 9), fg="#555", width=24, anchor='e')
+        self.lbl_ai_progress_text.pack(side="right")
         
         # Logs (with scrollbar)
         Label(self.sub_tab_roadmap_run, text="Tiến trình:", font=("Arial", 10, "bold"), anchor='w').pack(fill='x', padx=20)
@@ -3946,6 +3981,23 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
             self.ai_log.insert(END, msg + "\n")
             self.ai_log.see(END)
             self.ai_log.config(state='disabled')
+            
+            # Tự động cập nhật Progress Bar nếu gặp log dạng [idx/total]
+            import re
+            m = re.search(r'\[(\d+)/(\d+)\]', msg)
+            if m:
+                cur_i, total_i = int(m.group(1)), int(m.group(2))
+                if total_i > 0:
+                    pct = (cur_i / total_i) * 100
+                    if hasattr(self, 'ai_progress_bar'):
+                        self.ai_progress_bar['value'] = pct
+                    if hasattr(self, 'lbl_ai_progress_text'):
+                        self.lbl_ai_progress_text.config(text=f"Tiến độ: {cur_i}/{total_i} ({pct:.1f}%)")
+            elif "HOÀN TẤT 100%" in msg or "Hoàn thành toàn bộ" in msg:
+                if hasattr(self, 'ai_progress_bar'):
+                    self.ai_progress_bar['value'] = 100
+                if hasattr(self, 'lbl_ai_progress_text'):
+                    self.lbl_ai_progress_text.config(text="✓ Hoàn tất 100%")
         self.root.after(0, _log)
         
     def stop_ai_worker(self):
@@ -3973,6 +4025,8 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
         self.btn_ai_start.config(state="disabled", text="⏳ Đang xử lý...")
         if hasattr(self, 'btn_ai_stop'):
             self.btn_ai_stop.config(state="normal", text="🛑 Dừng lại")
+        if hasattr(self, 'btn_ai_sweep'):
+            self.btn_ai_sweep.config(state="disabled")
         force = bool(self.ai_force_restart_var.get())
         
         try:
@@ -4021,9 +4075,193 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
                     self.btn_ai_start.config(state="normal", text="▶ Bắt đầu Sinh Tự Động")
                     if hasattr(self, 'btn_ai_stop'):
                         self.btn_ai_stop.config(state="disabled", text="🛑 Dừng lại")
+                    if hasattr(self, 'btn_ai_sweep'):
+                        self.btn_ai_sweep.config(state="normal")
                 self.root.after(0, _enable)
                 
         threading.Thread(target=run, daemon=True).start()
+
+    def sweep_missing_roadmap_handler(self):
+        import re
+        roadmap_path = self.ai_roadmap_var.get().strip()
+        doc_dir = self.ai_doc_var.get().strip()
+        out_dir = self.ai_out_var.get().strip()
+        
+        if not roadmap_path or not os.path.isfile(roadmap_path):
+            messagebox.showerror("Lỗi", "Vui lòng chọn File Roadmap trước!", parent=self.root)
+            return
+        if not out_dir or not os.path.isdir(out_dir):
+            messagebox.showerror("Lỗi", "Vui lòng chọn Thư mục Xuất (chứa session.json & html)!", parent=self.root)
+            return
+            
+        try:
+            with open(roadmap_path, 'r', encoding='utf-8', errors='replace') as f:
+                content = f.read()
+            # Hỗ trợ cả dấu — (em-dash) và - (hyphen) làm separator trong title Day
+            days_blocks = re.findall(r'\n## (Day \d+[a-zA-Z]?\s*[—–-]\s*[^\n]+)\n', "\n" + content)
+            if not days_blocks:
+                messagebox.showwarning(
+                    "Không tìm thấy Day",
+                    "Không tìm thấy bất kỳ '## Day X — ...' nào trong file roadmap.\n\n"
+                    "Kiểm tra lại format: mỗi Day phải có dạng:\n## Day 1 — Tên chủ đề",
+                    parent=self.root
+                )
+                return
+        except Exception as e:
+            messagebox.showerror("Lỗi", f"Không thể đọc roadmap: {e}", parent=self.root)
+            return
+            
+        session_file = os.path.join(out_dir, "session.json")
+        existing_days = set()
+        if os.path.exists(session_file):
+            try:
+                import base64, urllib.parse
+                with open(session_file, 'r', encoding='utf-8', errors='replace') as f:
+                    raw = f.read().strip()
+                # Hỗ trợ cả session.json plain JSON và Base64-encoded (do extension tạo)
+                if raw.startswith('"') and raw.endswith('"'):
+                    b64_str = raw[1:-1]
+                    decoded = urllib.parse.unquote(base64.b64decode(b64_str).decode('latin-1'))
+                    s_data = json.loads(decoded)
+                else:
+                    s_data = json.loads(raw)
+                for it in s_data:
+                    if it.get("completed"):
+                        s_day = it.get("day", "").strip()
+                        existing_days.add(s_day)
+                        m_s = re.search(r'Day\s*(\d+[a-zA-Z]?)', s_day, re.IGNORECASE)
+                        if m_s:
+                            s_num = m_s.group(1).lower()
+                            for d_title in days_blocks:
+                                m_title = re.search(r'Day\s*(\d+[a-zA-Z]?)', d_title, re.IGNORECASE)
+                                if m_title and m_title.group(1).lower() == s_num:
+                                    existing_days.add(d_title.strip())
+            except Exception:
+                pass
+                
+        for f_name in os.listdir(out_dir):
+            if f_name.endswith('.html') and f_name != 'index.html':
+                m = re.search(r'Day\s*(\d+[a-zA-Z]?)', f_name, re.IGNORECASE)
+                if m:
+                    file_day_num = m.group(1).lower()
+                    for d_title in days_blocks:
+                        m_title = re.search(r'Day\s*(\d+[a-zA-Z]?)', d_title, re.IGNORECASE)
+                        if m_title and m_title.group(1).lower() == file_day_num:
+                            existing_days.add(d_title.strip())
+                            
+        missing = [d for d in days_blocks if d.strip() not in existing_days]
+        
+        if not missing:
+            messagebox.showinfo("Đầy đủ 100%", f"Chúc mừng! Toàn bộ {len(days_blocks)} Day trong roadmap đều đã có đầy đủ bài học tại thư mục xuất.", parent=self.root)
+            self.log_ai(f"✅ Kiểm tra: Toàn bộ {len(days_blocks)} Day đều đã đầy đủ trong thư mục xuất!")
+            return
+            
+        missing_preview = "\n".join([f"• {m}" for m in missing[:8]])
+        if len(missing) > 8:
+            missing_preview += f"\n... và {len(missing)-8} ngày khác"
+            
+        msg = f"Phát hiện còn thiếu {len(missing)} Day trong tổng số {len(days_blocks)} Day:\n\n{missing_preview}\n\nBạn có muốn khởi chạy Auto AI để tải bù riêng các ngày này ngay bây giờ không?"
+        
+        if messagebox.askyesno("Tải Bù Ngày Thiếu?", msg, parent=self.root):
+            self.log_ai(f"🔍 [QUÉT THIẾU] Bắt đầu tải bù {len(missing)} Day bị thiếu...")
+            self.start_ai_worker()
+
+    def open_ai_output_folder(self):
+        out_dir = self.ai_out_var.get().strip()
+        if not out_dir:
+            roadmap = self.ai_roadmap_var.get().strip()
+            if roadmap and os.path.isfile(roadmap):
+                out_dir = os.path.dirname(roadmap)
+        if out_dir and os.path.isdir(out_dir):
+            os.startfile(out_dir)
+        else:
+            messagebox.showwarning("Cảnh báo", "Thư mục xuất chưa tồn tại hoặc chưa được chọn!", parent=self.root)
+
+    def open_ai_index_html(self):
+        import webbrowser
+        out_dir = self.ai_out_var.get().strip()
+        if not out_dir:
+            roadmap = self.ai_roadmap_var.get().strip()
+            if roadmap and os.path.isfile(roadmap):
+                out_dir = os.path.dirname(roadmap)
+        idx_path = os.path.join(out_dir, "index.html") if out_dir else ""
+        if idx_path and os.path.isfile(idx_path):
+            webbrowser.open("file://" + os.path.abspath(idx_path))
+        else:
+            messagebox.showwarning("Chưa có index.html", "Chưa tìm thấy file index.html trong thư mục xuất!\nHãy chạy Auto AI trước.", parent=self.root)
+
+    def health_check_roadmap_output(self):
+        """Kiểm tra độ toàn vẹn, tính nhất quán và thống kê toàn bộ thư mục xuất."""
+        out_dir = self.ai_out_var.get().strip()
+        if not out_dir:
+            roadmap = self.ai_roadmap_var.get().strip()
+            if roadmap and os.path.isfile(roadmap):
+                out_dir = os.path.dirname(roadmap)
+        if not out_dir or not os.path.isdir(out_dir):
+            messagebox.showerror("Lỗi", "Vui lòng chọn Thư mục Xuất trước khi kiểm tra!", parent=self.root)
+            return
+
+        html_files = [f for f in os.listdir(out_dir) if f.endswith(".html") and f != "index.html"]
+        total_html = len(html_files)
+        total_size = sum(os.path.getsize(os.path.join(out_dir, f)) for f in os.listdir(out_dir) if os.path.isfile(os.path.join(out_dir, f)))
+        total_mb = total_size / (1024 * 1024)
+
+        # Kiểm tra file rỗng hoặc nghi vấn lỗi (< 200 bytes)
+        corrupted_files = []
+        with_exercises = 0
+        for f in html_files:
+            fp = os.path.join(out_dir, f)
+            sz = os.path.getsize(fp)
+            if sz < 200:
+                corrupted_files.append(f"{f} ({sz} bytes)")
+            try:
+                with open(fp, "r", encoding="utf-8", errors="ignore") as file_read:
+                    txt = file_read.read()
+                    if "exercise" in txt.lower() or "bài tập" in txt.lower():
+                        with_exercises += 1
+            except Exception:
+                pass
+
+        session_status = "Chưa có"
+        session_days = 0
+        session_file = os.path.join(out_dir, "session.json")
+        if os.path.exists(session_file):
+            try:
+                import base64, urllib.parse
+                with open(session_file, "r", encoding="utf-8", errors="replace") as sf:
+                    s_raw = sf.read().strip()
+                if s_raw.startswith('"') and s_raw.endswith('"'):
+                    s_decoded = urllib.parse.unquote(base64.b64decode(s_raw[1:-1]).decode("latin-1"))
+                    s_data = json.loads(s_decoded)
+                else:
+                    s_data = json.loads(s_raw)
+                session_days = len([it for it in s_data if it.get("completed")])
+                session_status = f"✅ Tốt ({session_days} Days hoàn thành)"
+            except Exception as e:
+                session_status = f"⚠ Lỗi đọc ({e})"
+
+        has_index = os.path.exists(os.path.join(out_dir, "index.html"))
+        has_bak = os.path.exists(os.path.join(out_dir, "session.bak.json"))
+
+        report = [
+            f"📁 Thư mục: {os.path.basename(os.path.abspath(out_dir))}",
+            f"📄 Tổng số file bài học (.html): {total_html} bài",
+            f"💾 Tổng dung lượng thư mục: {total_mb:.2f} MB",
+            f"📑 Trang mục lục tổng (index.html): {'✅ Đã tạo' if has_index else '❌ Chưa có'}",
+            f"🛡 Bản sao lưu dự phòng (session.bak.json): {'✅ Sẵn sàng' if has_bak else '⏳ Chưa tạo'}",
+            f"🗄️ Trạng thái session.json: {session_status}",
+            f"✍️ Số bài có nội dung bài tập / thực hành: {with_exercises}/{total_html} bài",
+        ]
+
+        if corrupted_files:
+            report.append(f"\n⚠ CẢNH BÁO: Phát hiện {len(corrupted_files)} file nghi vấn lỗi/rỗng:")
+            report.extend([f"  • {cf}" for cf in corrupted_files[:5]])
+        else:
+            report.append("\n🎉 ĐÁNH GIÁ: Toàn bộ các file bài học đều toàn vẹn, không có file nào bị rỗng!")
+
+        msg = "\n".join(report)
+        self.log_ai(f"\n📊 --- BÁO CÁO TOÀN VẸN THƯ MỤC XUẤT ---\n{msg}\n--------------------------------------")
+        messagebox.showinfo("Báo Cáo Sức Khỏe & Toàn Vẹn Khóa Học", msg, parent=self.root)
 
     # --- TAB 1: XUẤT WORD ---
     def setup_tab_word(self):

@@ -624,14 +624,40 @@ document.getElementById('sessionFileInput').addEventListener('change', (e) => {
 
       const infoEl = document.getElementById('sessionInfo');
       infoEl.style.display = 'block';
+
+      // Kiểm tra xem trong session có ngày nào bị thiếu không
+      const recordedSet = new Set();
+      (session.days || []).forEach(d => {
+        const m = String(d.day).match(/\d+/);
+        if (m) recordedSet.add(parseInt(m[0], 10));
+      });
+      const maxRecordedDay = session.lastDay || (recordedSet.size > 0 ? Array.from(recordedSet).reduce((a, b) => a > b ? a : b, 0) : 0);
+      const missingList = [];
+      for (let i = 1; i <= maxRecordedDay; i++) {
+        if (!recordedSet.has(i)) missingList.push(i);
+      }
+
+      let missingNote = '';
+      const sweepBtn = document.getElementById('sweepMissingBtn');
+      if (missingList.length > 0) {
+        missingNote = `<br><span style="color:#d13438; font-weight:bold;">⚠️ Phát hiện thiếu ${missingList.length} ngày: [${missingList.slice(0, 5).join(', ')}${missingList.length > 5 ? '...' : ''}]</span>`;
+        if (sweepBtn) {
+          sweepBtn.style.display = 'block';
+          sweepBtn.innerText = `🔍 Tải Bù ${missingList.length} Ngày Thiếu`;
+        }
+      } else {
+        if (sweepBtn) sweepBtn.style.display = 'none';
+      }
+
       infoEl.innerHTML = `
         <strong>📁 ${escapeHtml(session.agentName)}</strong><br>
         Đã lưu: <strong>${session.totalSaved || session.days?.length || 0} bài</strong>
         (đến ${session.prefix || 'Day '}${session.lastDay})<br>
         ▶ Sẽ tiếp tục từ: <strong>${session.prefix || 'Day '}${(session.lastDay || 0) + 1}</strong>
+        ${missingNote}
       `;
       document.getElementById('clearSessionBtn').style.display = 'block';
-      document.getElementById('status').innerText = `✅ Đã tải phiên: ${session.agentName}. Nhấn Start!`;
+      document.getElementById('status').innerText = `✅ Đã tải phiên: ${session.agentName}.${missingList.length > 0 ? ` Có ${missingList.length} ngày thiếu!` : ' Nhấn Start!'}`;
     } catch (err) {
       document.getElementById('status').innerText = '❌ Lỗi đọc file JSON: ' + err.message;
     }
@@ -649,8 +675,57 @@ document.getElementById('clearSessionBtn').addEventListener('click', () => {
   loadedSession = null;
   document.getElementById('sessionInfo').style.display    = 'none';
   document.getElementById('clearSessionBtn').style.display = 'none';
+  const sweepBtn = document.getElementById('sweepMissingBtn');
+  if (sweepBtn) sweepBtn.style.display = 'none';
   document.getElementById('agentInput').style.border      = '';
   document.getElementById('status').innerText = 'Đã bỏ chọn phiên. Sẵn sàng chạy mới.';
+});
+
+document.getElementById('sweepMissingBtn').addEventListener('click', async () => {
+  const config = getUIConfig();
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  if (!tab) return;
+
+  await new Promise(resolve => {
+    if (currentRoadmapData && currentRoadmapData.length > 0) {
+      chrome.storage.local.set({ roadmap_active: currentRoadmapData }, resolve);
+    } else {
+      chrome.storage.local.remove(['roadmap_active'], resolve);
+    }
+  });
+
+  let sessionMeta = null;
+  if (loadedSession) {
+    sessionMeta = Object.assign({}, loadedSession);
+    delete sessionMeta.roadmapData;
+  }
+
+  const payload = {
+    action: "sweep_missing_days",
+    tabId: tab.id,
+    session: sessionMeta,
+    platform: config.platform,
+    prefix: config.prefix,
+    startDay: 1,
+    endDay: config.endDay || (loadedSession ? loadedSession.lastDay : null),
+    agentName: config.agentName,
+    promptMode: config.promptMode,
+    isAdvanced: config.isAdvanced,
+    topicPrompt: config.topicPrompt,
+    targetCount: config.targetCount,
+    details: config.details,
+    autoFollowUp: config.autoFollowUp,
+    maxFollowUp: config.maxFollowUp
+  };
+
+  chrome.tabs.sendMessage(tab.id, payload).then(() => {
+    document.getElementById('startBtn').style.display = 'none';
+    document.getElementById('stopBtn').style.display  = 'block';
+    document.getElementById('status').innerText = '🚀 Đang quét và tải bù các ngày bị thiếu...';
+    showRunningBanner(config.agentName, 'Quét & Tải bù thiếu');
+  }).catch(() => {
+    showError('Không tìm thấy Addon trên trang này. Hãy F5 trang Copilot.');
+  });
 });
 
 // ── Helpers ───────────────────────────────────────────────────

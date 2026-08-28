@@ -1,4 +1,184 @@
-## 2026-08-26 — Tích Hợp PASS 6D: Tự Động Làm Sạch (Auto-Heal) Prerequisites Ảo Giác Sau Bước 2
+## 2026-08-28 — AI Dynamic Domain Profiler & Chuẩn Hóa Lộ Trình: Access (600 Ngày) & Excel (1.000 Ngày) — HOÀN THÀNH ✅
+
+### 1. Phân Tích & Giải Quyết Gốc Rễ Vấn Đề
+- **Nguyên nhân cũ**: `domain_profiles.py` thiếu profile chuyên biệt cho Access/Excel -> rơi vào `PROFILE CHUNG` -> AI trong PASS 1A tự chia đều ~600 ngày cho mọi môn.
+- **Giải pháp Kiến trúc Đột phá**: Xây dựng **AI-Powered Dynamic Domain Profiling Engine**:
+  - Tự động khảo sát độ sâu tri thức thực tế cho bất kỳ domain nào khi người dùng nhập vào.
+  - Phân định rõ ràng: **Access VBA (600 Ngày)** (RDBMS, SQL Jet/ACE, DAO/ADODB, Multi-user Concurrency, COM Port phần cứng, Desktop App) vs **Excel VBA (1.000 Ngày)** (Spreadsheet Matrix Engine, Mảng 2D tốc độ cao, Financial Modeling, Power Query M-code, Add-in Ribbon XML thương mại, Hardware & AI).
+  - Tự động lưu cache vĩnh viễn vào `domain_profiles_cache.json` để nạp tức thì trong các lần chạy sau mà không tốn thêm token API.
+
+### 2. Chi Tiết Nâng Cấp Hệ Thống
+- **`domain_profiles.py`**:
+  - Tích hợp `get_or_create_domain_profile()`, `load_cached_profiles()`, `save_cached_profiles()`.
+  - Định nghĩa chuẩn 2 bộ hồ sơ tri thức cốt lõi `PREDEFINED_PROFILES`: Access (600 Ngày, 20 Phase) & Excel (1.000 Ngày, 33 Phase).
+- **`AskCpl.py` (`_roadmap_v5_step1`)**:
+  - Nạp Dynamic Domain Profile trước PASS 0 & PASS 1A.
+  - Tự động gán số ngày khuyến nghị khi người dùng chọn "Auto", không còn bị cào bằng.
+  - Bổ sung `profile_info` và danh mục `mandatory_milestones` vào prompt PASS 0 & PASS 1A.
+- **`generate_access_vba_roadmap.py`**:
+  - Sinh hoàn chỉnh lộ trình **600 Ngày** (20 Phase chuẩn, 600/600 Day liên tục, không trùng lặp, thời lượng 45-120p, dự án 180p).
+  - Xuất ra `roadmap_access_vba.md` và `roadmap_access_vba_600.md`.
+- **`generate_excel_vba_roadmap.py`**:
+  - Sinh hoàn chỉnh lộ trình **1.000 Ngày** (33 Phase chuyên sâu, 1000/1000 Day liên tục, không trùng lặp, thời lượng 30-150p, dự án 210p).
+  - Xuất ra `roadmap_excel_vba_365.md` và `roadmap_excel_vba_1000.md`.
+- **`topics_registry.md`**: Cập nhật thêm 1.600 topic định danh duy nhất.
+
+### 3. Kiểm thử & Toàn Vẹn (Verification Results)
+- ✅ `python -m py_compile domain_profiles.py AskCpl.py generate_access_vba_roadmap.py generate_excel_vba_roadmap.py`: ALL SYNTAX OK.
+- ✅ `python -m unittest test_roadmap_pipeline.py test_adaptive_learning.py test_verified_knowledge.py test_viewer_dashboard.py test_roadmap_audit.py`: **29/29 tests PASSED (100%)**.
+- ✅ `test_roadmap_audit.py`:
+  - `roadmap_access_vba_600.md`: 600/600 Day liên tục, 600 Prompt / 600 Bài tập / 600 Tags, 600 Tiêu đề duy nhất 100%, 0 mojibake.
+  - `roadmap_excel_vba_1000.md`: 1000/1000 Day liên tục, 1000 Prompt / 1000 Bài tập / 1000 Tags, 1000 Tiêu đề duy nhất 100%, 0 mojibake.
+
+---
+
+## 2026-08-28 — Nâng Cấp Bộ 3 Tính Năng: Tiến Độ Đọc, In PDF & Báo Cáo Sức Khỏe — HOÀN THÀNH ✅
+
+### 1. Trình Theo Dõi Tiến Độ Học & In PDF (`auto_ai_worker.py` - `index.html`)
+- **☑ Đánh Dấu Tiến Độ Học Cá Nhân**:
+  - Tích hợp nút `☑ Đánh dấu đã học` / `✅ Đã học xong` ngay trên thanh công cụ mỗi bài học.
+  - Tự động lưu trạng thái vào `localStorage` theo từng khóa học.
+  - Đồng bộ icon `✅` bên cạnh từng bài ở Sidebar và cập nhật trực tiếp thanh phần trăm `Đã học: X/Total (Y%)` trên Header.
+- **🖨️ Nút In / Xuất PDF Đẹp Mắt**:
+  - Thêm nút `🖨️ In / PDF` kích hoạt `window.print()` với bộ CSS in ấn chuyên biệt (`@media print` tự động ẩn sidebar, thanh tìm kiếm, căn lề tràn viền chuẩn A4).
+
+### 2. Báo Cáo Sức Khỏe & Toàn Vẹn Khóa Học (`AskCpl.py`)
+- **📊 Nút `Kiểm Tra Toàn Vẹn` (`btn_ai_stats`)**:
+  - 1-Click phân tích toàn bộ thư mục xuất: Tổng số file, Dung lượng MB, Trạng thái `session.json`, `index.html`, `session.bak.json`.
+  - Quét phát hiện file rỗng/lỗi (< 200 bytes) và thống kê tỷ lệ bài có bài tập/thực hành.
+
+### Kiểm thử
+- ✅ `python -m py_compile AskCpl.py auto_ai_worker.py test_auto_ai.py test_e2e_askcpl.py`: SYNTAX OK.
+- ✅ `python -m unittest test_viewer_dashboard.py test_roadmap_pipeline.py test_adaptive_learning.py test_verified_knowledge.py`: 26/26 tests PASS 100%.
+- ✅ `node --check popup.js content_script.js background.js`: SYNTAX OK.
+
+---
+
+## 2026-08-28 — Full Audit Loop & Bug Fixes (Goal Check) — HOÀN THÀNH ✅
+
+### Bugs Phát Hiện & Đã Fix
+
+| # | File | Bug | Fix |
+|---|------|-----|-----|
+| 1 | `AskCpl.py` | `sweep_missing_roadmap_handler`: so sánh chuỗi con `if f"Day {m.group(1)}" in d_title` làm `Day 1` khớp nhầm `Day 10..19, 100`, dẫn đến bỏ sót ngày thiếu | Sửa thành đối chiếu chính xác số ngày bằng regex nguyên từ `r'Day\s*(\d+[a-zA-Z]?)'` |
+| 2 | `auto_ai_worker.py` | Regex `re.split` chỉ nhận dấu gạch dài em-dash `\s+—\s+`, bỏ sót các roadmap dùng gạch nối `-` hoặc en-dash `–` | Cập nhật regex linh hoạt `r'\n## (Day \d+[a-zA-Z]?\s*[—–-]\s*[^\n]+)\n'` |
+| 3 | `test_e2e_askcpl.py` | `from AskCpl import App` gây `ImportError` do class chính là `AskCplApp` | Sửa import thành `from AskCpl import AskCplApp` |
+| 4 | `test_auto_ai.py` & `auto_ai_worker.py` | Chạy trên Windows console non-UTF8 có thể crash `UnicodeEncodeError: 'cp932'` | Thêm `sys.stdout.reconfigure(encoding='utf-8')` |
+
+### Kiểm thử
+- ✅ `python -m py_compile AskCpl.py auto_ai_worker.py test_auto_ai.py test_e2e_askcpl.py`: SYNTAX OK.
+- ✅ `python -m unittest test_roadmap_pipeline.py test_adaptive_learning.py test_verified_knowledge.py`: 25/25 PASS 100%.
+- ✅ `python test_viewer_dashboard.py`: 1/1 PASS.
+- ✅ `node --check popup.js content_script.js background.js`: SYNTAX OK.
+
+---
+
+## 2026-08-28 — Nâng Cấp Toàn Diện Trải Nghiệm & Tính Năng (Feature & UX Upgrades)
+
+### 1. Nâng cấp Trình Đọc Bài Học & Mục Lục (`auto_ai_worker.py` & `background.js`)
+- **🌓 Chế độ Sáng / Tối (Dark Mode Toggle)**:
+  - Tích hợp nút chuyển `🌓 Theme` ngay trên thanh điều hướng `#askcpl-nav` và trang `index.html`.
+  - Tự động lưu cấu hình giao diện vào `localStorage.getItem('askcpl_theme')` để duy trì đồng bộ giữa các trang.
+- **📋 Tự động gắn nút Sao Chép Code (Copy Code Button)**:
+  - Toàn bộ khối lệnh `<pre><code>` trong file HTML đơn lẻ và `index.html` được tự động chèn nút `📋 Copy` ở góc phải.
+  - Hover chuột hiện nút, 1-click sao chép vào Clipboard và đổi trạng thái `✅ Đã chép` trong 2 giây.
+- **📊 Thanh Tiến Độ Hoàn Thành & Instant Search (`index.html`)**:
+  - Thêm thanh tiến độ trực quan trên Header của `index.html`.
+  - Hỗ trợ phím tắt ◀ / ▶ chuyển ngày nhanh và lọc từ khóa tức thì.
+- **🛡 Cơ Chế Tự Động Sao Lưu Dự Phòng (`session.bak.json`)**:
+  - `save_session()` trong `auto_ai_worker.py` chuyển sang ghi atomic (`.tmp` $\rightarrow$ rename) và duy trì file backup `session.bak.json` để chống 0-byte corruption khi tắt đột ngột.
+
+### 2. Nâng cấp Giao Diện Ứng Dụng Desktop (`AskCpl.py`)
+- **📊 Thanh Tiến Độ Động (Dynamic Progress Bar & ETA)**:
+  - Tích hợp `ttk.Progressbar` cùng nhãn phần trăm hoàn thành `lbl_ai_progress_text` tại tab *▶️ Tải Roadmap (Auto AI)*.
+  - Tự động bắt pattern `[idx/total]` từ luồng log AI để cập nhật thanh tiến độ theo thời gian thực.
+- **⚡ Phím Tắt Tiện Ích 1-Click**:
+  - Thêm nút **`📂 Mở Thư Mục`**: Mở trực tiếp thư mục xuất trong Windows Explorer.
+  - Thêm nút **`🌐 Mở index.html`**: Mở ngay trang mục lục tổng hợp trong trình duyệt web mặc định.
+
+### Kiểm thử
+- ✅ `python -m py_compile AskCpl.py auto_ai_worker.py`: SYNTAX OK.
+- ✅ `node --check popup.js content_script.js background.js`: SYNTAX OK.
+- ✅ Unit test sinh `index.html`, `session.bak.json`, `dark-mode` và `copy-code-btn` đạt 100% PASSED.
+
+---
+
+## 2026-08-28 — Full Audit Loop (4 Vòng) — AskCpl.py + Extension
+
+### Bugs Phát Hiện & Đã Fix
+
+| # | File | Bug | Fix |
+|---|------|-----|-----|
+| 1 | `AskCpl.py` | `btn_ai_sweep` không bị disable khi worker chạy → race condition | Thêm `btn_ai_sweep.config(state="disabled")` trong `start_ai_worker` và restore trong `_enable` |
+| 2 | `AskCpl.py` | `sweep_missing_roadmap_handler`: `json.load()` crash khi `session.json` là Base64-encoded (do extension tạo) | Thêm decode Base64 + `urllib.parse.unquote` + latin-1 |
+| 3 | `popup.js` | `Math.max(...Array.from(recordedSet), 0)` crash `RangeError` khi set lớn | Thay bằng `.reduce()` |
+| 4 | `auto_ai_worker.py` | Bare `except:` trong `markdown_to_html` che lỗi thật | Sửa thành `except ImportError + except Exception` |
+| 5 | `auto_ai_worker.py` | Base64 decode session.json dùng `.decode('utf-8')` trực tiếp → corrupt tiếng Việt | Sửa thành `latin-1 + urllib.parse.unquote` (đúng Quy Tắc Vàng) |
+| 6 | `AskCpl.py` | `days_blocks` có thể rỗng nếu roadmap format khác; regex thiếu hỗ trợ em-dash variants | Thêm guard cảnh báo + mở rộng regex hỗ trợ `—`, `–`, `-` |
+
+### Kiểm thử
+- ✅ `python -m py_compile AskCpl.py auto_ai_worker.py`: SYNTAX OK.
+- ✅ `node --check popup.js content_script.js background.js`: SYNTAX OK.
+- ✅ 4 vòng audit, không còn vấn đề nào phát hiện thêm.
+
+---
+
+## 2026-08-28 — Tích Hợp Missing Days Auto-Sweep vào AskCpl.py (Python Desktop App)
+
+### Bối cảnh & Vấn đề
+- User yêu cầu: tính năng "quét & tải bù ngày thiếu" không chỉ nằm ở Chrome Extension mà cần có cả trong Python desktop app `AskCpl.py` (tab "▶️ Tải Roadmap (Auto AI)").
+
+### Thay đổi
+
+**`auto_ai_worker.py`**:
+- Refactor toàn bộ vòng lặp xử lý Day thành hàm nội bộ `process_single_day(day, idx, total_count, is_sweep)` — dùng chung cho vòng chính và vòng sweep.
+- Thêm biến `daily_quota_hit = False` trước hàm helper để `nonlocal` hoạt động đúng.
+- Sau khi vòng chính kết thúc: tự động chạy **"Missing Days Auto-Sweep Pass"** tối đa 3 vòng:
+  - So sánh `days_parsed` vs `session_data[completed]` → phát hiện ngày thiếu.
+  - Tự động gọi `process_single_day` cho từng ngày bị thiếu.
+  - Hiển thị log `🔍 [QUÉT THIẾU VÒNG x/3]`.
+- Kết thúc: log `🎉 HOÀN TẤT 100%` nếu đủ, hoặc báo còn thiếu bao nhiêu Day nếu quota hết/bị dừng.
+- Sửa escape sequence `\d` → `\\d` trong JS f-string để loại bỏ `SyntaxWarning`.
+
+**`AskCpl.py`**:
+- Thêm nút **`🔍 Quét & Tải Bù Ngày Thiếu`** (`btn_ai_sweep`) vào `f_actions` cạnh nút Start & Stop.
+- Thêm method `sweep_missing_roadmap_handler()`:
+  - Đọc roadmap → lấy danh sách tất cả `## Day X ...`.
+  - Đọc `session.json` + liệt kê file `.html` trong thư mục xuất → xây dựng `existing_days`.
+  - So sánh → hiển thị dialog liệt kê ngày còn thiếu (tối đa 8 ngày preview).
+  - Nếu user chọn "Có" → gọi `start_ai_worker()` để tự động tải bù.
+  - Nếu đã đủ 100% → hiển thị thông báo chúc mừng.
+
+### Kiểm thử
+- ✅ `python -m py_compile AskCpl.py auto_ai_worker.py`: SYNTAX OK, exit code 0.
+- ✅ Không còn SyntaxWarning hay lỗi runtime.
+
+---
+
+## 2026-08-28 — Tích Hợp Tính Năng: Tự Động Quét & Tải Bù Ngày Thiếu (Missing Days Auto-Sweep Pass)
+
+### Bối cảnh & Vấn đề
+- Khi tải roadmap dài (vd: 600 ngày vào thư mục `AccessDocument`), trong quá trình tải nếu gặp lỗi mạng/AI timeout quá 5 lần (`MAX_RETRIES`), hệ thống tự động bỏ qua để tránh treo tab.
+- Tuy nhiên, khi vòng lặp chạy đến ngày kết thúc (`endDay`), hệ thống kết thúc ngay mà không kiểm tra đối chiếu lại các ngày đã bị bỏ qua, dẫn đến việc thiếu các ngày như Day 381, Day 406 mà người dùng không nhận ra.
+
+### Chi tiết giải pháp & Thay đổi
+1. **`CopilotWordExportAddon/content_script.js`**:
+   - Thêm hàm **`checkAndSweepMissingDays()`**: Khi vòng lặp đạt đến `endDay`, tự động quét đối chiếu toàn bộ dải `[startDay..endDay]` với `dayIndex`.
+   - Nếu phát hiện có ngày bị khuyết $\rightarrow$ Tự động chuyển sang chế độ **"Tải bù thiếu" (`runNextMissingDay`)** và lần lượt tải các ngày bị khuyết cho đến khi đạt đủ 100%.
+   - Thêm handler cho action `sweep_missing_days`.
+2. **`CopilotWordExportAddon/popup.html` & `popup.js`**:
+   - Thêm nút **`🔍 Quét & Tải Bù Ngày Thiếu`** (`#sweepMissingBtn`). Khi nạp file `session.json`, extension tự động phát hiện số ngày bị thiếu và hiển thị số lượng ngày cần tải bù trên nút bấm.
+3. **Thư mục `AccessDocument`**:
+   - Bổ sung hoàn chỉnh 2 file HTML bài học cho **Day 381** và **Day 406**.
+   - Thư mục hiện tại đã đạt **100% đầy đủ 600/600 Day**.
+
+### Kiểm thử
+- ✅ Kiểm tra thư mục `AccessDocument`: 600/600 Unique Days, Missing = 0.
+- ✅ JS Syntax & Event Handlers OK.
+
+---
+
+
 
 ### Bối cảnh & Vấn đề
 - Ở Bước 2 (PASS 6/8), roadmap dài được chia thành nhiều Phase nhỏ (2 Day/phase). AI trong lúc tích hợp phản biện tự sinh thêm hoặc sửa `prerequisites` dẫn đến ảo giác (như `vba_windows_api_basics` ở Day 447) trỏ tới topic không tồn tại hoặc sai thứ tự ngày.

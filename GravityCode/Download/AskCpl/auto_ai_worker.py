@@ -1,10 +1,19 @@
 import os
+import sys
 import json
 import re
 import time
 import base64
 import urllib.parse
 from datetime import datetime
+
+if hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+        sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
 import requests
 import concurrent.futures
 from adaptive_learning import (
@@ -218,7 +227,7 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
     # Only accept a real top-level roadmap heading.  Generated prompt content
     # may itself mention "## Day" as an example; treating that as a new lesson
     # created phantom days (45 real days were parsed as 55).
-    days_blocks = re.split(r'\n## (Day \d+[a-z]?\s+—\s+[^\n]+)\n', "\n" + content)
+    days_blocks = re.split(r'\n## (Day \d+[a-zA-Z]?\s*[—–-]\s*[^\n]+)\n', "\n" + content)
     days_parsed = []
     
     for i in range(1, len(days_blocks), 2):
@@ -283,8 +292,9 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
                 if content:
                     if content.startswith('"') and content.endswith('"'):
                         content = content[1:-1]
+                        import urllib.parse as _urlparse
                         decoded_bytes = base64.b64decode(content)
-                        json_str = decoded_bytes.decode('utf-8')
+                        json_str = _urlparse.unquote(decoded_bytes.decode('latin-1'))
                         session_data = json.loads(json_str)
                     else:
                         session_data = json.loads(content)
@@ -308,23 +318,15 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
             log(f"⚠ Không thể đọc session.json cũ, sẽ chạy lại từ đầu: {e}")
             session_data = []
     
-    for idx, day in enumerate(days_parsed):
-        if STOP_REQUESTED:
-            log("🛑 Đã dừng tiến trình theo yêu cầu (Stop).")
-            break
-            
+    daily_quota_hit = False
+
+    # Helper xử lý 1 Day đơn lẻ (dùng chung cho vòng chính và vòng tải bù)
+    def process_single_day(day, idx, total_count, is_sweep=False):
+        nonlocal daily_quota_hit
         day_clean_title = day['title'].replace("## ", "").strip()
-        
-        if start_day > 0 and get_day_num(day['title']) > 0 and get_day_num(day['title']) < start_day:
-            continue
-            
-        if day_clean_title in completed_days:
-            log(f"⏭ Bỏ qua [{idx+1}/{len(days_parsed)}]: {day_clean_title} (Đã hoàn thành)")
-            continue
-            
-        log(f"\n--- Đang xử lý [{idx+1}/{len(days_parsed)}]: {day['title']} ---")
+        prefix = f"🔍 [TẢI BÙ {idx+1}/{total_count}]" if is_sweep else f"[{idx+1}/{total_count}]"
+        log(f"\n--- Đang xử lý {prefix}: {day['title']} ---")
         prompt = day['prompt']
-        
         is_resume_followup = day_clean_title in incomplete_days_refs
         
         pdf_text = ""
@@ -351,8 +353,7 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
             else:
                 log(f"⚠ KHÔNG tìm thấy file '{day['pdf']}' trong thư mục!")
         
-# Gắn text vào prompt chính
-        day_clean_title = day['title'].replace("## ", "").strip()
+        # Gắn text vào prompt chính
         if adaptive_ready:
             base_prompt = build_day_context(profile, learner_state, day_clean_title, prompt, [day['pdf']] if day['pdf'] else [])
             if knowledge_pack.get("sources") and not knowledge_errors:
@@ -376,8 +377,6 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
                 pdf_parts = [pdf_text]
 
         # Lượt 1: Gửi câu hỏi chính
-        daily_quota_hit = False
-        day_success = False
         all_responses = []
         got_complete = False
         lesson_result = None
@@ -387,14 +386,13 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
             all_responses = list(session_item.get("raw_responses", []))
             log(f"↪ Tiếp tục hỏi bổ sung cho {day_clean_title} (từ lượt {len(all_responses) + 1})...")
         elif len(pdf_parts) > 1:
-            # Chunk-and-merge: gọi từng phần nhỏ, checkpoint từng phần, nối lại sau cùng
             store = PartStore(os.path.join(out_dir, "lesson_parts.json"))
             part_texts = []
             total_parts = len(pdf_parts)
             for pi, part_txt in enumerate(pdf_parts):
                 if STOP_REQUESTED:
                     log("🛑 Đã dừng tiến trình theo yêu cầu (Stop) khi đang gửi phần nội dung.")
-                    break
+                    return False
                 saved = store.get(day_clean_title, pi)
                 if saved:
                     part_texts.append(saved)
@@ -418,26 +416,15 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
                 )
                 if quota_hit_p:
                     daily_quota_hit = True
-                    break
+                    return False
                 if not ok_p or not text_p:
                     log(f"✗ Phần {pi+1}/{total_parts} thất bại. Các phần đã lưu sẽ resume ở lần chạy sau.")
-                    break
+                    return False
                 store.save_part(day_clean_title, pi, text_p)
                 part_texts.append(text_p)
-            if STOP_REQUESTED:
-                break
-            if daily_quota_hit:
-                break
-            if not part_texts:
-                if STOP_REQUESTED:
-                    break
-                if daily_quota_hit:
-                    break
-                log(f"⚠ Phần nội dung của {day_clean_title} chưa tải được. Bỏ qua Day này, tiếp tục Day sau...")
-                continue
+            if STOP_REQUESTED or daily_quota_hit or not part_texts:
+                return False
             text1 = dedup_merge(part_texts, heading_pattern=r"^##\s+Day\s+\d+")
-            ok1 = True
-            quota_hit = False
             store.clear(day_clean_title)
             all_responses = [text1]
             log(f"🧩 Đã nối {len(part_texts)} phần thành bài học ({len(text1)} ký tự).")
@@ -446,12 +433,11 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
             if pdf_parts:
                 full_prompt = f"{full_prompt}\n\nNGUỒN CỤC BỘ ĐÃ TRÍCH XUẤT (chỉ dùng phần liên quan, không bịa trích dẫn):\n{pdf_parts[0]}"
             
-            # Tự động thử lại tối đa 3 lần cho Day nếu gặp lỗi mạng tạm thời
             MAX_DAY_ATTEMPTS = 3
             text1, ok1, quota_hit = None, False, False
             for day_attempt in range(1, MAX_DAY_ATTEMPTS + 1):
                 if STOP_REQUESTED:
-                    break
+                    return False
                 if day_attempt > 1:
                     log(f"🔄 [Lượt 1] Thử lại {day_clean_title} (lần {day_attempt}/{MAX_DAY_ATTEMPTS})...")
                 else:
@@ -464,19 +450,18 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
                 )
                 if STOP_REQUESTED or quota_hit or ok1:
                     break
-                # Nếu thất bại do mạng/transient: chờ 10s trước khi thử lại Day này
                 if day_attempt < MAX_DAY_ATTEMPTS:
                     log(f"  ⏳ Chờ 10s để ổn định mạng rồi thử lại...")
                     time.sleep(10)
             
             if STOP_REQUESTED:
-                break
+                return False
             if quota_hit:
                 daily_quota_hit = True
-                break
+                return False
             if not ok1 or not text1:
                 log(f"⚠ Tạm thời không thể tải {day_clean_title} sau {MAX_DAY_ATTEMPTS} lần thử. Bỏ qua Day này, tiếp tục Day sau...")
-                continue
+                return False
                 
             if adaptive_ready:
                 lesson_result = parse_lesson_response(text1)
@@ -487,9 +472,6 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
                     else:
                         errors.extend(validate_fact_claims(lesson_result, knowledge_pack))
                 if errors:
-                    # Never discard a usable lesson because the provider/model
-                    # ignored a schema.  Preserve it, flag it, and keep legacy
-                    # rendering so a user can still read the result.
                     log("⚠ Gemini trả bài adaptive chưa đạt schema: " + ", ".join(errors) + ". Dùng nội dung thô và không cập nhật state.")
                     if knowledge_pack.get("sources") and not knowledge_errors:
                         all_responses = [
@@ -526,11 +508,7 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
                 all_responses = [text1]
             
         # YC5: Vòng lặp bổ sung (Multi-turn follow-up)
-        
         if adaptive_ready:
-            # The structured lesson already carries bounded questions for the
-            # learner. Generic self-follow-up produces repetition and cannot
-            # improve the saved learner state.
             got_complete = True
         elif enable_followup:
             FOLLOWUP_PROMPT = (
@@ -539,12 +517,10 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
                 "→ Nếu KHÔNG còn gì cần thêm: hãy chỉ trả lời đúng 1 dòng ở CUỐI phản hồi của bạn là:\n"
                 "Đã đầy đủ"
             )
-            
             for turn in range(max_followup):
                 if STOP_REQUESTED:
                     log("🛑 Đã dừng tiến trình theo yêu cầu (Stop) khi đang follow-up.")
                     break
-                    
                 log(f"💬 [Lượt {turn + 2}] Hỏi bổ sung ({turn + 1}/{max_followup})...")
                 context_prompt = ""
                 for idx_resp, resp_t in enumerate(all_responses):
@@ -552,7 +528,6 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
                 context_prompt += f"Dựa trên các nội dung bạn đã trả lời ở trên:\n{FOLLOWUP_PROMPT}"
                 
                 text_n, ok_n, quota_hit_n = call_gemini_api(context_prompt, log_prefix=f"  [Lượt {turn + 2}] ")
-                
                 if quota_hit_n:
                     log("⚠ Hết quota khi đang hỏi follow-up. Lưu nội dung hiện có.")
                     daily_quota_hit = True
@@ -560,10 +535,7 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
                 if not ok_n or not text_n:
                     log(f"⚠ Lượt {turn + 2} thất bại. Lưu nội dung hiện có.")
                     break
-                    
                 all_responses.append(text_n)
-                
-                # Kiểm tra xem dòng cuối cùng của phản hồi có chứa "Đã đầy đủ" không
                 last_line = text_n.strip().split("\n")[-1].strip()
                 if "Đã đầy đủ" in last_line or text_n.strip().endswith("Đã đầy đủ"):
                     log(f"  ✅ AI xác nhận đầy đủ ở lượt {turn + 2}. Dừng hỏi bổ sung.")
@@ -572,13 +544,12 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
                 else:
                     log("  ➕ AI vẫn bổ sung nội dung mới, hỏi tiếp ở lượt sau...")
                     time.sleep(2)
-            
             if not got_complete and not daily_quota_hit:
                 log(f"  ⚠ Đã hỏi tối đa {max_followup} lần mà AI chưa xác nhận 'Đã đầy đủ'. Vẫn lưu file.")
         else:
             got_complete = True
             
-        # Gộp tất cả phản hồi thành HTML đẹp mắt
+        # Gộp tất cả phản hồi thành HTML
         section_labels = ["📖 Nội dung chính"] + [f"➕ Bổ sung lần {i}" for i in range(1, len(all_responses))]
         combined_html_parts = []
         for i, (resp_text, label) in enumerate(zip(all_responses, section_labels)):
@@ -602,35 +573,79 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
             if adaptive_ready and lesson_result:
                 session_item["adaptive_lesson"] = lesson_result
         else:
-            session_data.append({
-                "day": day['title'].replace("## ", ""),
-                "html": html_res,
-                "timestamp": int(time.time() * 1000),
-                "completed": True,
-                "followup_turns": len(all_responses) - 1,
-                "followup_complete": got_complete,
-                "raw_responses": all_responses
-            })
-            if adaptive_ready and lesson_result:
-                session_data[-1]["adaptive_lesson"] = lesson_result
-        day_success = True
+            existing_entry = next((item for item in session_data if item.get("day", "").strip() == day_clean_title), None)
+            if existing_entry:
+                existing_entry["html"] = html_res
+                existing_entry["timestamp"] = int(time.time() * 1000)
+                existing_entry["completed"] = True
+                existing_entry["followup_turns"] = len(all_responses) - 1
+                existing_entry["followup_complete"] = got_complete
+                existing_entry["raw_responses"] = all_responses
+                if adaptive_ready and lesson_result:
+                    existing_entry["adaptive_lesson"] = lesson_result
+            else:
+                session_data.append({
+                    "day": day['title'].replace("## ", ""),
+                    "html": html_res,
+                    "timestamp": int(time.time() * 1000),
+                    "completed": True,
+                    "followup_turns": len(all_responses) - 1,
+                    "followup_complete": got_complete,
+                    "raw_responses": all_responses
+                })
+                if adaptive_ready and lesson_result:
+                    session_data[-1]["adaptive_lesson"] = lesson_result
         
-        if daily_quota_hit:
-            break
-            
         save_session(session_data, out_dir)
         create_viewer(out_dir, session_data)
-        
-        # Chờ 3s giữa các ngày học
         time.sleep(3)
-        if STOP_REQUESTED:
-            log("🛑 Đã dừng tiến trình theo yêu cầu (Stop) khi đang chờ giữa các ngày.")
+        return True
+
+    # ── VÒNG LẶP CHÍNH ──
+    for idx, day in enumerate(days_parsed):
+        if STOP_REQUESTED or daily_quota_hit:
+            if STOP_REQUESTED:
+                log("🛑 Đã dừng tiến trình theo yêu cầu (Stop).")
             break
+            
+        day_clean_title = day['title'].replace("## ", "").strip()
         
-    log(f"\n✓ Hoàn tất! Đã xử lý {len(session_data)} Days.")
+        if start_day > 0 and get_day_num(day['title']) > 0 and get_day_num(day['title']) < start_day:
+            continue
+            
+        if day_clean_title in completed_days and day_clean_title not in incomplete_days_refs:
+            log(f"⏭ Bỏ qua [{idx+1}/{len(days_parsed)}]: {day_clean_title} (Đã hoàn thành)")
+            continue
+            
+        process_single_day(day, idx, len(days_parsed), is_sweep=False)
+
+    # ── VÒNG QUÉT TẢI BÙ CÁC NGÀY BỊ THIẾU (MISSING DAYS AUTO-SWEEP PASS) ──
+    if not STOP_REQUESTED and not daily_quota_hit:
+        target_days = days_parsed if start_day <= 0 else [d for d in days_parsed if get_day_num(d['title']) >= start_day]
+        for sweep_round in range(1, 4):
+            existing_days_set = {item.get("day", "").strip() for item in session_data if item.get("completed")}
+            missing_days = [d for d in target_days if d['title'].replace("## ", "").strip() not in existing_days_set]
+            if not missing_days:
+                break
+            log(f"\n🔍 [QUÉT THIẾU VÒNG {sweep_round}/3] Phát hiện {len(missing_days)} Day bị thiếu/bỏ qua: {', '.join([d['title'].replace('## ', '').strip() for d in missing_days[:5]])}{'...' if len(missing_days) > 5 else ''}. Bắt đầu tự động tải bù (Sweep Pass)...")
+            for s_idx, s_day in enumerate(missing_days):
+                if STOP_REQUESTED or daily_quota_hit:
+                    break
+                process_single_day(s_day, s_idx, len(missing_days), is_sweep=True)
+
+    # Kiểm tra tổng kết cuối cùng
+    final_existing = {item.get("day", "").strip() for item in session_data if item.get("completed")}
+    target_days = days_parsed if start_day <= 0 else [d for d in days_parsed if get_day_num(d['title']) >= start_day]
+    final_missing = [d for d in target_days if d['title'].replace("## ", "").strip() not in final_existing]
+    
+    if not final_missing:
+        log(f"\n🎉 HOÀN TẤT 100%! Toàn bộ {len(target_days)}/{len(target_days)} Day đều đã có đầy đủ bài học HTML.")
+    else:
+        log(f"\n✓ Đã lưu tiến độ hiện có ({len(session_data)} Days). Còn thiếu {len(final_missing)} Day.")
+        
     save_session(session_data, out_dir)
     create_viewer(out_dir, session_data)
-    log(f"📁 index.html đã được tạo tại {out_dir}")
+    log(f"📁 index.html đã được cập nhật tại {out_dir}")
 
 def find_file(root_dir, filename):
     for dirpath, _, filenames in os.walk(root_dir):
@@ -643,61 +658,147 @@ def markdown_to_html(md_text):
     try:
         import markdown
         return markdown.markdown(md_text, extensions=['tables', 'fenced_code'])
-    except:
+    except ImportError:
+        return md_text
+    except Exception:
         return md_text
 
 def save_session(data_list, out_dir):
     json_str = json.dumps(data_list, ensure_ascii=False)
     out_file = os.path.join(out_dir, "session.json")
-    with open(out_file, 'w', encoding='utf-8') as f:
-        f.write(json_str)
+    bak_file = os.path.join(out_dir, "session.bak.json")
+    tmp_file = out_file + ".tmp"
+    try:
+        with open(tmp_file, 'w', encoding='utf-8') as f:
+            f.write(json_str)
+        if os.path.exists(out_file):
+            try:
+                import shutil
+                shutil.copyfile(out_file, bak_file)
+            except Exception:
+                pass
+            os.remove(out_file)
+        os.rename(tmp_file, out_file)
+    except Exception:
+        with open(out_file, 'w', encoding='utf-8') as f:
+            f.write(json_str)
 
 def create_viewer(out_dir, session_data=None):
     if session_data is None:
         return
         
     day_css = """
-    body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 860px; margin: 40px auto; padding: 0 20px; background: #f9f9f9; color: #1a1a1a; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 860px; margin: 40px auto; padding: 0 20px; background: #f9f9f9; color: #1a1a1a; transition: background 0.3s, color 0.3s; }
     header { background: #0078d4; color: #fff; padding: 16px 24px; border-radius: 8px; margin-bottom: 24px; }
     header h1 { margin: 0; font-size: 1.4em; }
     header p { margin: 4px 0 0; font-size: 0.85em; opacity: 0.85; }
-    .content { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 24px; line-height: 1.7; }
+    .content { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 24px; line-height: 1.7; transition: background 0.3s; }
     a.back { display: inline-block; margin-top: 20px; color: #0078d4; text-decoration: none; font-size: 0.9em; }
     a.back:hover { text-decoration: underline; }
     h2, h3 { color: #005a9e; margin-top: 1.5em; }
     code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-size: 0.9em; }
-    pre { background: #f0f0f0; padding: 12px; border-radius: 6px; overflow-x: auto; }
+    pre { background: #f0f0f0; padding: 12px; border-radius: 6px; overflow-x: auto; position: relative; }
     table { border-collapse: collapse; width: 100%; margin: 15px 0; }
     th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; }
     th { background: #0078d4; color: #fff; }
     tr:nth-child(even) { background: #f5f5f5; }
-    /* Loại bỏ CSS navbar cũ để thay bằng css của addon */
     body { padding-top: 52px !important; }
+
+    /* Copy code button */
+    .copy-code-btn {
+      position: absolute; top: 6px; right: 6px;
+      background: rgba(30, 41, 59, 0.85); color: #e2e8f0; border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 4px; padding: 3px 8px; font-size: 11px; cursor: pointer;
+      opacity: 0.7; transition: opacity 0.2s, background 0.2s; z-index: 10;
+      font-family: inherit;
+    }
+    pre:hover .copy-code-btn { opacity: 1; }
+    .copy-code-btn:hover { background: #2563eb; border-color: #3b82f6; color: #fff; }
+    .copy-code-btn.copied { background: #16a34a !important; border-color: #22c55e !important; color: #fff !important; opacity: 1; }
+
+    /* Dark mode support */
+    body.dark-mode { background: #121218 !important; color: #e2e8f0 !important; }
+    body.dark-mode header { background: linear-gradient(135deg, #1e3a8a, #3b82f6) !important; }
+    body.dark-mode .content { background: #1a1a24 !important; border-color: #2e2e3e !important; color: #e2e8f0 !important; }
+    body.dark-mode h2, body.dark-mode h3 { color: #60a5fa !important; }
+    body.dark-mode code { background: #252535 !important; color: #93c5fd !important; }
+    body.dark-mode pre { background: #252535 !important; color: #f8fafc !important; border: 1px solid #3b3b4f; }
+    body.dark-mode table th { background: #1e40af !important; border-color: #374151 !important; }
+    body.dark-mode table td { border-color: #374151 !important; color: #e2e8f0 !important; }
+    body.dark-mode table tr:nth-child(even) { background: #20202e !important; }
+    body.dark-mode .section-label { background: #1e293b !important; color: #60a5fa !important; border: 1px solid #334155; }
+    body.dark-mode .supplement-section { border-left-color: #8b5cf6 !important; }
+    body.dark-mode .verified-facts { background: #064e3b !important; border-left-color: #10b981 !important; color: #d1fae5 !important; }
+    body.dark-mode .coverage-warning { background: #451a03 !important; border-left-color: #f97316 !important; color: #ffedd5 !important; }
     """
     
     index_css = """
     * { box-sizing: border-box; }
-    body { margin:0; font-family:'Segoe UI',Arial,sans-serif; background:#f4f7fb; color:#162033; }
-    .header { background:linear-gradient(135deg,#14213d,#345995); color:#fff; padding:18px 24px; }
+    body { margin:0; font-family:'Segoe UI',Arial,sans-serif; background:#f4f7fb; color:#162033; transition: background 0.3s, color 0.3s; }
+    .header { background:linear-gradient(135deg,#14213d,#345995); color:#fff; padding:18px 24px; display:flex; justify-content:space-between; align-items:center; }
     .header h1 { margin:0 0 5px; font-size:1.35rem; } .header p { margin:0; color:#dbeafe; }
-    .dashboard { display:grid; grid-template-columns:minmax(270px,340px) minmax(0,1fr); min-height:calc(100vh - 85px); }
+    .header-right { display:flex; gap:12px; align-items:center; }
+    .theme-btn { background:rgba(255,255,255,0.2); border:1px solid rgba(255,255,255,0.4); color:#fff; padding:6px 12px; border-radius:6px; cursor:pointer; font-size:0.9rem; }
+    .theme-btn:hover { background:rgba(255,255,255,0.35); }
+    .progress-bar-container { background:rgba(0,0,0,0.2); border-radius:10px; height:8px; width:160px; overflow:hidden; margin-top:5px; }
+    .progress-bar-fill { background:#10b981; height:100%; border-radius:10px; transition:width 0.3s; }
+    .dashboard { display:grid; grid-template-columns:minmax(280px,350px) minmax(0,1fr); min-height:calc(100vh - 85px); }
     .sidebar { padding:16px; background:#101827; color:#e5e7eb; border-right:1px solid #263247; }
     .search-box { width:100%; padding:10px 12px; border:1px solid #46536b; border-radius:8px; background:#182235; color:#fff; margin:0 0 12px; }
     .course-note { color:#aab8d3; font-size:.82rem; margin:0 0 12px; line-height:1.45; }
     .day-list { display:flex; flex-direction:column; gap:6px; max-height:calc(100vh - 185px); overflow:auto; padding-right:3px; }
-    .day-item { width:100%; text-align:left; border:1px solid #263247; border-radius:8px; background:#182235; color:#e5e7eb; padding:10px; cursor:pointer; }
+    .day-item { width:100%; text-align:left; border:1px solid #263247; border-radius:8px; background:#182235; color:#e5e7eb; padding:10px; cursor:pointer; transition:background 0.15s, border-color 0.15s; position:relative; }
     .day-item:hover,.day-item.active { background:#263d69; border-color:#78a6ff; }
-    .day-num { display:block; color:#93c5fd; font-weight:700; font-size:.8rem; margin-bottom:3px; }
+    .day-num { display:inline-block; color:#93c5fd; font-weight:700; font-size:.8rem; margin-bottom:3px; }
+    .day-check-badge { float:right; color:#10b981; font-weight:bold; font-size:0.85rem; }
     .day-title { display:block; font-size:.88rem; line-height:1.3; }
     .main { padding:24px; max-width:1050px; width:100%; margin:0 auto; }
-    .lesson-card { background:#fff; border:1px solid #d9e1ee; border-radius:12px; padding:24px; box-shadow:0 3px 12px rgba(15,23,42,.06); line-height:1.7; }
-    .lesson-card h1,.lesson-card h2,.lesson-card h3 { color:#153e75; } .lesson-card pre { overflow:auto; background:#f1f5f9; padding:12px; border-radius:7px; }
+    .lesson-card { background:#fff; border:1px solid #d9e1ee; border-radius:12px; padding:24px; box-shadow:0 3px 12px rgba(15,23,42,.06); line-height:1.7; transition:background 0.3s; position:relative; }
+    .lesson-card h1,.lesson-card h2,.lesson-card h3 { color:#153e75; } .lesson-card pre { overflow:auto; background:#f1f5f9; padding:12px; border-radius:7px; position:relative; }
     .lesson-card table { border-collapse:collapse; width:100%; } .lesson-card th,.lesson-card td { border:1px solid #cbd5e1; padding:8px; text-align:left; }
     .lesson-card img { max-width:100%; border-radius:8px; border:1px solid #d9e1ee; }
     .lesson-meta { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0 18px; } .badge { padding:4px 9px; border-radius:999px; font-size:.8rem; }
     .badge.ok { background:#dcfce7; color:#166534; } .badge.warn { background:#fef3c7; color:#92400e; } .badge.info { background:#dbeafe; color:#1d4ed8; }
     .source-box,.question-box { border-left:4px solid #f59e0b; background:#fffbeb; padding:10px 14px; margin:16px 0; } .source-box ul,.question-box ul { margin:6px 0 0; padding-left:20px; }
-    .open-page { float:right; font-size:.86rem; color:#1d4ed8; text-decoration:none; } .empty { color:#64748b; text-align:center; padding:80px 20px; }
+    .top-actions { float:right; display:flex; gap:8px; align-items:center; }
+    .act-btn { padding:5px 11px; font-size:.84rem; border-radius:6px; text-decoration:none; cursor:pointer; border:1px solid transparent; transition:all .2s; }
+    .act-btn-read { background:#ecfdf5; color:#065f46; border-color:#a7f3d0; font-weight:600; }
+    .act-btn-read:hover { background:#d1fae5; }
+    .act-btn-read.done { background:#10b981; color:#fff; border-color:#059669; }
+    .act-btn-print { background:#f1f5f9; color:#334155; border-color:#cbd5e1; }
+    .act-btn-print:hover { background:#e2e8f0; }
+    .act-btn-open { background:#eff6ff; color:#1d4ed8; border-color:#bfdbfe; }
+    .act-btn-open:hover { background:#dbeafe; }
+    
+    /* Copy button in index.html */
+    .copy-code-btn {
+      position: absolute; top: 6px; right: 6px;
+      background: rgba(30, 41, 59, 0.85); color: #e2e8f0; border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 4px; padding: 3px 8px; font-size: 11px; cursor: pointer;
+      opacity: 0.7; transition: opacity 0.2s; z-index: 10;
+    }
+    pre:hover .copy-code-btn { opacity: 1; }
+    .copy-code-btn:hover { background: #2563eb; color: #fff; }
+    .copy-code-btn.copied { background: #16a34a !important; color: #fff !important; opacity: 1; }
+
+    /* Dark mode for dashboard */
+    body.dark-mode { background:#0f172a; color:#e2e8f0; }
+    body.dark-mode .lesson-card { background:#1e293b; border-color:#334155; color:#e2e8f0; box-shadow:0 3px 12px rgba(0,0,0,0.3); }
+    body.dark-mode .lesson-card h1, body.dark-mode .lesson-card h2, body.dark-mode .lesson-card h3 { color:#93c5fd; }
+    body.dark-mode .lesson-card pre { background:#0f172a; border:1px solid #334155; color:#f8fafc; }
+    body.dark-mode .lesson-card table th { background:#1e3a8a; border-color:#334155; }
+    body.dark-mode .lesson-card table td { border-color:#334155; color:#e2e8f0; }
+    body.dark-mode .source-box, body.dark-mode .question-box { background:#3b290c; border-left-color:#f59e0b; color:#fed7aa; }
+    body.dark-mode .act-btn-print { background:#334155; color:#f1f5f9; border-color:#475569; }
+    body.dark-mode .act-btn-open { background:#1e3a8a; color:#93c5fd; border-color:#2563eb; }
+
+    @media print {
+      .header, .sidebar, .top-actions, #searchInput, .course-note { display: none !important; }
+      .dashboard { display: block !important; }
+      .main { max-width: 100% !important; padding: 0 !important; }
+      .lesson-card { border: none !important; box-shadow: none !important; padding: 0 !important; }
+      body { background: #fff !important; color: #000 !important; }
+    }
     @media (max-width:800px) { .dashboard { grid-template-columns:1fr; } .sidebar { border-right:0; } .day-list { max-height:220px; } .main { padding:14px; } }
     """
     
@@ -723,12 +824,11 @@ def create_viewer(out_dir, session_data=None):
         day_num_match = re.search(r'Day\s*([\w]+)', day_title)
         day_num_str = day_num_match.group(1) if day_num_match else str(idx+1)
         
-        # NAV-BAR giống hệt Addon Word Export
         total_days_num = len(session_data)
         nav_bar = f"""<!-- NAV-BAR-V2 -->
 <style>
 #askcpl-nav{{position:fixed;top:0;left:0;right:0;z-index:9999;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);color:#fff;padding:8px 16px;box-shadow:0 2px 12px rgba(0,0,0,.5);font-family:'Segoe UI',Arial,sans-serif;font-size:14px;box-sizing:border-box;height:48px;}}
-#askcpl-nav button{{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:15px;transition:background .2s;flex-shrink:0;}}
+#askcpl-nav button{{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:14px;transition:background .2s;flex-shrink:0;}}
 #askcpl-nav button:hover:not([disabled]){{background:rgba(255,255,255,.3);}}
 #askcpl-nav button[disabled]{{opacity:.3;cursor:default;}}
 #askcpl-nav-title{{flex:1;text-align:center;cursor:pointer;padding:4px 12px;border-radius:6px;transition:background .2s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600;color:#e0d0ff;}}
@@ -739,19 +839,23 @@ def create_viewer(out_dir, session_data=None):
 #askcpl-toc a{{display:block;padding:7px 16px;color:#a0a0c0;text-decoration:none;border-radius:6px;margin:1px 4px;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}}
 #askcpl-toc a:hover{{background:rgba(167,139,250,.15);color:#e0d0ff;}}
 #askcpl-toc a.cur{{background:linear-gradient(90deg,#7c3aed,#4f46e5)!important;color:#fff!important;font-weight:bold;}}
+.nav-actions{{display:flex;gap:8px;align-items:center;}}
 </style>
 <div id="askcpl-nav">
   <button id="nav-prev" onclick="askcplNav(-1)">◀ Prev</button>
   <a id="askcpl-nav-home" href="index.html" title="Quay lại Menu Tổng">🏠 Menu</a>
   <span id="askcpl-nav-title" onclick="askcplToggleToc()" title="Click xem Mục Lục">Day ... ▼</span>
-  <button id="nav-next" onclick="askcplNav(1)">Next ▶</button>
+  <div class="nav-actions">
+    <button id="nav-dark-toggle" onclick="askcplToggleDark()" title="Đổi giao diện Tối/Sáng">🌓</button>
+    <button id="nav-next" onclick="askcplNav(1)">Next ▶</button>
+  </div>
 </div>
 <div id="askcpl-toc"></div>
 <script>
 (function(){{
   var MAX_DAYS = {total_days_num};
-  var m = window.location.pathname.match(/(\d+)_.*\.html/i) 
-       || window.location.href.match(/(\d+)_.*\.html/i);
+  var m = window.location.pathname.match(/(\\d+)_.*\\.html/i) 
+       || window.location.href.match(/(\\d+)_.*\\.html/i);
   var cur = m ? parseInt(m[1]) : {idx + 1};
   
   document.getElementById('askcpl-nav-title').textContent = 'Day ' + cur + ' ▼';
@@ -763,7 +867,6 @@ def create_viewer(out_dir, session_data=None):
   window.askcplNav = function(d){{
     var n = cur + d;
     if(n < 1 || n > MAX_DAYS) return;
-    // Tìm file tương ứng với số n
     var allFiles = {json.dumps([s["file_name"] for s in session_data])};
     if (n-1 >= 0 && n-1 < allFiles.length) {{
         window.location.href = allFiles[n-1];
@@ -789,6 +892,35 @@ def create_viewer(out_dir, session_data=None):
     var c = toc.querySelector('.cur');
     if(c) c.scrollIntoView({{block:'center'}});
   }};
+
+  window.askcplToggleDark = function(){{
+    document.body.classList.toggle('dark-mode');
+    var isDark = document.body.classList.contains('dark-mode');
+    localStorage.setItem('askcpl_theme', isDark ? 'dark' : 'light');
+  }};
+  if(localStorage.getItem('askcpl_theme') === 'dark'){{
+    document.body.classList.add('dark-mode');
+  }}
+
+  // Auto attach copy code buttons
+  document.querySelectorAll('pre').forEach(function(pre){{
+    if(pre.querySelector('.copy-code-btn')) return;
+    var btn = document.createElement('button');
+    btn.className = 'copy-code-btn';
+    btn.textContent = '📋 Copy';
+    btn.onclick = function(){{
+      var code = pre.querySelector('code') ? pre.querySelector('code').innerText : pre.innerText;
+      navigator.clipboard.writeText(code).then(function(){{
+        btn.textContent = '✅ Đã chép';
+        btn.classList.add('copied');
+        setTimeout(function(){{
+          btn.textContent = '📋 Copy';
+          btn.classList.remove('copied');
+        }}, 2000);
+      }});
+    }};
+    pre.appendChild(btn);
+  }});
 
   document.addEventListener('click', function(e){{
     var nav=document.getElementById('askcpl-nav');
@@ -873,8 +1005,6 @@ def create_viewer(out_dir, session_data=None):
             f'    </a>\n'
         )
         raw_html = content_html
-        # The dashboard is a local learner view.  Remove script tags from model
-        # output before embedding it in the index page.
         safe_lesson_html = re.sub(r"(?is)<script[^>]*>.*?</script>", "", raw_html)
         plain_summary = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", safe_lesson_html)).strip()
         dashboard_items.append({
@@ -903,13 +1033,22 @@ def create_viewer(out_dir, session_data=None):
 </head>
 <body>
   <div class="header">
-    <h1>📚 {folder_name}</h1>
-    <p>Tổng cộng {total_days} phần đã xử lý</p>
+    <div>
+      <h1>📚 {folder_name}</h1>
+      <p>Tổng cộng {total_days} ngày học đã được tạo</p>
+    </div>
+    <div class="header-right">
+      <div>
+        <div style="font-size:0.8rem; text-align:right; color:#dbeafe;" id="headerProgressText">Đã học: 0/{total_days} (0%)</div>
+        <div class="progress-bar-container"><div class="progress-bar-fill" id="headerProgressFill" style="width:0%;"></div></div>
+      </div>
+      <button class="theme-btn" onclick="toggleTheme()" title="Đổi giao diện Tối/Sáng">🌓 Theme</button>
+    </div>
   </div>
   <div class="dashboard">
     <aside class="sidebar">
-      <input class="search-box" type="text" id="searchInput" placeholder="Tìm Day hoặc chủ đề..." oninput="filterDays()">
-      <p class="course-note">Chọn một Day để đọc bài chi tiết ngay tại đây. Menu chỉ định hướng; nội dung thực hành nằm ở khung bên phải.</p>
+      <input class="search-box" type="text" id="searchInput" placeholder="🔍 Tìm Day hoặc từ khóa..." oninput="filterDays()">
+      <p class="course-note">Chọn Day bên dưới để đọc trực tiếp. Dùng phím ◀ / ▶ trên bàn phím để chuyển ngày nhanh.</p>
       <div class="day-list" id="dayList"></div>
     </aside>
     <main class="main"><div id="lesson" class="lesson-card"></div></main>
@@ -917,6 +1056,66 @@ def create_viewer(out_dir, session_data=None):
   <script>
     const lessons = {dashboard_json};
     const escapeHtml = (text) => String(text || '').replace(/[&<>"']/g, c => ({{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}}[c]));
+    
+    function getLearnedDays() {{
+      try {{
+        return new Set(JSON.parse(localStorage.getItem('askcpl_learned_' + encodeURIComponent(location.pathname)) || '[]'));
+      }} catch(e) {{
+        return new Set();
+      }}
+    }}
+    function saveLearnedDays(set) {{
+      try {{
+        localStorage.setItem('askcpl_learned_' + encodeURIComponent(location.pathname), JSON.stringify(Array.from(set)));
+      }} catch(e) {{}}
+    }}
+
+    function toggleTheme() {{
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('askcpl_theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+    }}
+    if (localStorage.getItem('askcpl_theme') === 'dark') {{
+      document.body.classList.add('dark-mode');
+    }}
+
+    function updateProgressUI() {{
+      const learned = getLearnedDays();
+      const total = lessons.length;
+      const count = learned.size;
+      const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+      
+      const txt = document.getElementById('headerProgressText');
+      if (txt) txt.textContent = 'Đã học: ' + count + '/' + total + ' (' + pct + '%)';
+      const fill = document.getElementById('headerProgressFill');
+      if (fill) fill.style.width = pct + '%';
+
+      lessons.forEach(item => {{
+        const b = document.getElementById('badge-day-' + item.day);
+        if (b) {{
+          b.textContent = learned.has(String(item.day)) ? '✅' : '';
+        }}
+      }});
+    }}
+
+    function toggleLearned(dayNum) {{
+      const learned = getLearnedDays();
+      const sNum = String(dayNum);
+      if (learned.has(sNum)) {{
+        learned.delete(sNum);
+      }} else {{
+        learned.add(sNum);
+      }}
+      saveLearnedDays(learned);
+      updateProgressUI();
+      
+      const btn = document.getElementById('btnLearned');
+      if (btn) {{
+        const isDone = learned.has(sNum);
+        btn.className = 'act-btn act-btn-read' + (isDone ? ' done' : '');
+        btn.textContent = isDone ? '✅ Đã học xong' : '☑ Đánh dấu đã học';
+      }}
+    }}
+
     function renderDay(index) {{
       const item = lessons[index]; if (!item) return;
       document.querySelectorAll('.day-item').forEach((node, i) => node.classList.toggle('active', i === index));
@@ -924,12 +1123,54 @@ def create_viewer(out_dir, session_data=None):
       const questions = item.questions.length ? '<div class="question-box"><b>Cần bạn xác nhận trước Day tiếp theo:</b><ul>' + item.questions.map(x => '<li>' + escapeHtml(x) + '</li>').join('') + '</ul></div>' : '';
       const evidence = item.sources.length ? '<span class="badge info">Có khai báo nguồn</span>' : '<span class="badge warn">Cần dữ liệu nguồn</span>';
       const visual = item.visual_assets.length ? '<span class="badge ok">' + item.visual_assets.length + ' ảnh đã lưu</span>' : '<span class="badge warn">Chưa có ảnh thật</span>';
-      document.getElementById('lesson').innerHTML = '<a class="open-page" href="' + encodeURI(item.file) + '">Mở trang riêng ↗</a><h1>Day ' + escapeHtml(item.day) + ' — ' + escapeHtml(item.title.replace(/^Day\\s+[^—]+—\\s*/, '')) + '</h1><div class="lesson-meta">' + evidence + visual + (item.structured ? '<span class="badge ok">Bài học có cấu trúc</span>' : '<span class="badge warn">Bản legacy</span>') + '</div>' + sources + questions + item.html;
+      
+      const learned = getLearnedDays();
+      const isDone = learned.has(String(item.day));
+      const readBtnClass = 'act-btn act-btn-read' + (isDone ? ' done' : '');
+      const readBtnText = isDone ? '✅ Đã học xong' : '☑ Đánh dấu đã học';
+
+      const topActions = '<div class="top-actions">' +
+        '<button class="' + readBtnClass + '" id="btnLearned" onclick="toggleLearned(\\'' + escapeHtml(item.day) + '\\')">' + readBtnText + '</button>' +
+        '<button class="act-btn act-btn-print" onclick="window.print()" title="In hoặc lưu dạng PDF">🖨️ In / PDF</button>' +
+        '<a class="act-btn act-btn-open" href="' + encodeURI(item.file) + '" title="Mở file HTML độc lập">Mở trang riêng ↗</a>' +
+      '</div>';
+
+      document.getElementById('lesson').innerHTML = topActions + '<h1>Day ' + escapeHtml(item.day) + ' — ' + escapeHtml(item.title.replace(/^Day\\s+[^—]+—\\s*/, '')) + '</h1><div class="lesson-meta">' + evidence + visual + (item.structured ? '<span class="badge ok">Bài học có cấu trúc</span>' : '<span class="badge warn">Bản legacy</span>') + '</div>' + sources + questions + item.html;
+      
+      // Auto attach copy code buttons to newly rendered lesson
+      document.querySelectorAll('#lesson pre').forEach(function(pre){{
+        if(pre.querySelector('.copy-code-btn')) return;
+        var btn = document.createElement('button');
+        btn.className = 'copy-code-btn';
+        btn.textContent = '📋 Copy';
+        btn.onclick = function(){{
+          var code = pre.querySelector('code') ? pre.querySelector('code').innerText : pre.innerText;
+          navigator.clipboard.writeText(code).then(function(){{
+            btn.textContent = '✅ Đã chép';
+            btn.classList.add('copied');
+            setTimeout(function(){{
+              btn.textContent = '📋 Copy';
+              btn.classList.remove('copied');
+            }}, 2000);
+          }});
+        }};
+        pre.appendChild(btn);
+      }});
+
       history.replaceState(null, '', '#day-' + item.day);
     }}
     function buildList() {{
       const list = document.getElementById('dayList');
-      list.innerHTML = lessons.map((item, i) => '<button class="day-item" onclick="renderDay(' + i + ')"><span class="day-num">Day ' + escapeHtml(item.day) + '</span><span class="day-title">' + escapeHtml(item.title.replace(/^Day\\s+[^—]+—\\s*/, '')) + '</span></button>').join('');
+      const learned = getLearnedDays();
+      list.innerHTML = lessons.map((item, i) => {{
+        const isDone = learned.has(String(item.day));
+        const checkIcon = isDone ? '✅' : '';
+        return '<button class="day-item" id="btn-day-' + item.day + '" onclick="renderDay(' + i + ')">' +
+          '<span class="day-num">Day ' + escapeHtml(item.day) + '</span>' +
+          '<span class="day-check-badge" id="badge-day-' + item.day + '">' + checkIcon + '</span>' +
+          '<span class="day-title">' + escapeHtml(item.title.replace(/^Day\\s+[^—]+—\\s*/, '')) + '</span>' +
+        '</button>';
+      }}).join('');
     }}
     function filterDays() {{
       var q = document.getElementById('searchInput').value.toLowerCase();
@@ -939,6 +1180,7 @@ def create_viewer(out_dir, session_data=None):
       }});
     }}
     buildList();
+    updateProgressUI();
     const requested = (location.hash.match(/#day-([^&]+)/) || [])[1];
     const initial = Math.max(0, lessons.findIndex(x => String(x.day) === String(requested)));
     if (lessons.length) renderDay(initial);

@@ -5,28 +5,49 @@
 //           → Người dùng thấy lỗi download ngay trong popup, không cần mở SW console
 //   [KEEP]  base64 data URI thay createObjectURL (không hoạt động trong SW MV3)
 //   [KEEP]  Stagger: index sau 2s, session sau 4s (tránh Download Manager ứ)
-// ============================================================
-
-// ── CSS dùng chung ────────────────────────────────────────────
+// =============================// ── CSS dùng chung ────────────────────────────────────────────
 const DAY_CSS = `
-body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 860px; margin: 40px auto; padding: 0 20px; background: #f9f9f9; color: #1a1a1a; }
+body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 860px; margin: 40px auto; padding: 0 20px; background: #f9f9f9; color: #1a1a1a; transition: background 0.3s, color 0.3s; }
 header { background: #0078d4; color: #fff; padding: 16px 24px; border-radius: 8px; margin-bottom: 24px; }
 header h1 { margin: 0; font-size: 1.4em; }
 header p { margin: 4px 0 0; font-size: 0.85em; opacity: 0.85; }
-.content { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 24px; line-height: 1.7; }
+.content { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 24px; line-height: 1.7; transition: background 0.3s; }
 a.back { display: inline-block; margin-top: 20px; color: #0078d4; text-decoration: none; font-size: 0.9em; }
 a.back:hover { text-decoration: underline; }
 h2, h3 { color: #005a9e; }
 code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-size: 0.9em; }
-pre { background: #f0f0f0; padding: 12px; border-radius: 6px; overflow-x: auto; }
+pre { background: #f0f0f0; padding: 12px; border-radius: 6px; overflow-x: auto; position: relative; }
 table { border-collapse: collapse; width: 100%; }
 th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; }
 th { background: #0078d4; color: #fff; }
 tr:nth-child(even) { background: #f5f5f5; }
+
+/* Copy code button */
+.copy-code-btn {
+  position: absolute; top: 6px; right: 6px;
+  background: rgba(30, 41, 59, 0.85); color: #e2e8f0; border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 4px; padding: 3px 8px; font-size: 11px; cursor: pointer;
+  opacity: 0.7; transition: opacity 0.2s, background 0.2s; z-index: 10;
+  font-family: inherit;
+}
+pre:hover .copy-code-btn { opacity: 1; }
+.copy-code-btn:hover { background: #2563eb; border-color: #3b82f6; color: #fff; }
+.copy-code-btn.copied { background: #16a34a !important; border-color: #22c55e !important; color: #fff !important; opacity: 1; }
+
+/* Dark mode support */
+body.dark-mode { background: #121218 !important; color: #e2e8f0 !important; }
+body.dark-mode header { background: linear-gradient(135deg, #1e3a8a, #3b82f6) !important; }
+body.dark-mode .content { background: #1a1a24 !important; border-color: #2e2e3e !important; color: #e2e8f0 !important; }
+body.dark-mode h2, body.dark-mode h3 { color: #60a5fa !important; }
+body.dark-mode code { background: #252535 !important; color: #93c5fd !important; }
+body.dark-mode pre { background: #252535 !important; color: #f8fafc !important; border: 1px solid #3b3b4f; }
+body.dark-mode table th { background: #1e40af !important; border-color: #374151 !important; }
+body.dark-mode table td { border-color: #374151 !important; color: #e2e8f0 !important; }
+body.dark-mode table tr:nth-child(even) { background: #20202e !important; }
 `.trim();
 
 const INDEX_CSS = `
-body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 700px; margin: 40px auto; padding: 0 20px; background: #f9f9f9; color: #1a1a1a; }
+body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 700px; margin: 40px auto; padding: 0 20px; background: #f9f9f9; color: #1a1a1a; transition: background 0.3s, color 0.3s; }
 header { background: #0078d4; color: #fff; padding: 20px 28px; border-radius: 10px; margin-bottom: 28px; }
 header h1 { margin: 0; font-size: 1.6em; }
 header p { margin: 6px 0 0; opacity: 0.88; font-size: 0.9em; }
@@ -52,7 +73,7 @@ function getNavBarScript(totalDays) {
     return `<!-- NAV-BAR-V2 -->
 <style>
 #askcpl-nav{position:fixed;top:0;left:0;right:0;z-index:9999;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);color:#fff;padding:8px 16px;box-shadow:0 2px 12px rgba(0,0,0,.5);font-family:'Segoe UI',Arial,sans-serif;font-size:14px;box-sizing:border-box;height:48px;}
-#askcpl-nav button{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:15px;transition:background .2s;flex-shrink:0;}
+#askcpl-nav button{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:14px;transition:background .2s;flex-shrink:0;}
 #askcpl-nav button:hover:not([disabled]){background:rgba(255,255,255,.3);}
 #askcpl-nav button[disabled]{opacity:.3;cursor:default;}
 #askcpl-nav-title{flex:1;text-align:center;cursor:pointer;padding:4px 12px;border-radius:6px;transition:background .2s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600;color:#e0d0ff;}
@@ -63,31 +84,30 @@ function getNavBarScript(totalDays) {
 #askcpl-toc a{display:block;padding:7px 16px;color:#a0a0c0;text-decoration:none;border-radius:6px;margin:1px 4px;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 #askcpl-toc a:hover{background:rgba(167,139,250,.15);color:#e0d0ff;}
 #askcpl-toc a.cur{background:linear-gradient(90deg,#7c3aed,#4f46e5)!important;color:#fff!important;font-weight:bold;}
+.nav-actions{display:flex;gap:8px;align-items:center;}
 body{padding-top:52px!important;}
 </style>
 <div id="askcpl-nav">
   <button id="nav-prev" onclick="askcplNav(-1)">&#9664; Prev</button>
   <a id="askcpl-nav-home" href="index.html" title="Quay lại Menu Tổng">🏠 Menu</a>
   <span id="askcpl-nav-title" onclick="askcplToggleToc()" title="Click xem Muc Luc">Day ... &#9660;</span>
-  <button id="nav-next" onclick="askcplNav(1)">Next &#9654;</button>
+  <div class="nav-actions">
+    <button id="nav-dark-toggle" onclick="askcplToggleDark()" title="Đổi giao diện Tối/Sáng">🌓</button>
+    <button id="nav-next" onclick="askcplNav(1)">Next &#9654;</button>
+  </div>
 </div>
 <div id="askcpl-toc"></div>
 <script>
 (function(){
   var MAX_DAYS = ${totalDays};
-  // Tu doc so Day tu URL hien tai
   var m = window.location.pathname.match(/day_(\\d+)\\.html/i)
        || window.location.href.match(/day_(\\d+)\\.html/i);
   var cur = m ? parseInt(m[1]) : 0;
   if(!cur) return;
 
-  // Cap nhat title
   document.getElementById('askcpl-nav-title').textContent = 'Day ' + cur + ' \u25bc';
-  
-  // Cap nhat link nut Home
   document.getElementById('askcpl-nav-home').href = 'index.html#day-' + cur;
 
-  // Prev/Next
   if(cur <= 1) document.getElementById('nav-prev').disabled = true;
   if(cur >= MAX_DAYS) document.getElementById('nav-next').disabled = true;
   
@@ -97,7 +117,6 @@ body{padding-top:52px!important;}
     window.location.href = 'day_' + n + '.html';
   };
 
-  // TOC: tu tao danh sach +-10 ngay (capped tai MAX_DAYS)
   var toc = document.getElementById('askcpl-toc');
   window.askcplToggleToc = function(){
     if(toc.style.display === 'block'){ toc.style.display='none'; return; }
@@ -115,6 +134,35 @@ body{padding-top:52px!important;}
     var c = toc.querySelector('.cur');
     if(c) c.scrollIntoView({block:'center'});
   };
+
+  window.askcplToggleDark = function(){
+    document.body.classList.toggle('dark-mode');
+    var isDark = document.body.classList.contains('dark-mode');
+    localStorage.setItem('askcpl_theme', isDark ? 'dark' : 'light');
+  };
+  if(localStorage.getItem('askcpl_theme') === 'dark'){
+    document.body.classList.add('dark-mode');
+  }
+
+  // Auto attach copy code buttons
+  document.querySelectorAll('pre').forEach(function(pre){
+    if(pre.querySelector('.copy-code-btn')) return;
+    var btn = document.createElement('button');
+    btn.className = 'copy-code-btn';
+    btn.textContent = '📋 Copy';
+    btn.onclick = function(){
+      var code = pre.querySelector('code') ? pre.querySelector('code').innerText : pre.innerText;
+      navigator.clipboard.writeText(code).then(function(){
+        btn.textContent = '✅ Đã chép';
+        btn.classList.add('copied');
+        setTimeout(function(){
+          btn.textContent = '📋 Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    };
+    pre.appendChild(btn);
+  });
 
   document.addEventListener('click', function(e){
     var nav=document.getElementById('askcpl-nav');

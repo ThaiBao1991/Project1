@@ -4,6 +4,8 @@
 
 let isRunning        = false;
 let currentDay       = 1;
+let startDayGlobal   = 1;
+let missingQueue     = [];
 let prefixStr        = "Day ";
 let currentAgentName = "";
 let folderName       = "";
@@ -614,6 +616,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         clearRunningState();
         sendStatus("Đã dừng.");
         sendResponse({ status: "stopped" });
+    }
+    else if (request.action === "sweep_missing_days") {
+        handleSweepMissingDaysRequest(request);
+        sendResponse({ status: "sweeping" });
     }
     else if (request.action === "extract_current_page") {
         const platform = request.platform || "copilot";
@@ -1445,8 +1451,17 @@ async function processExtractedContent(promptLabel, responseHtml) {
         saveSession();
     }
 
+    // ── NẾU ĐANG TRONG CHẾ ĐỘ TẢI BÙ THIẾU ──
+    if (missingQueue && missingQueue.length > 0) {
+        setTimeout(() => runNextMissingDay(), 0);
+        return;
+    }
+
+    // ── KHI ĐẠT NGÀY KẾT THÚC: QUÉT ĐỐI CHIẾU XEM CÓ NGÀY NÀO BỊ THIẾU KHÔNG ──
     if (endDay && currentDay >= endDay) {
-        finishLoop(`Hoàn tất: Đạt đến Ngày kết thúc (${endDay}).`);
+        const hasMissing = checkAndSweepMissingDays();
+        if (hasMissing) return;
+        finishLoop(`Hoàn tất 100%: Đã tải đầy đủ toàn bộ ${dayIndex.length}/${endDay} ngày, không thiếu ngày nào.`);
         return;
     }
 
@@ -1454,4 +1469,97 @@ async function processExtractedContent(promptLabel, responseHtml) {
     saveRunningState(currentDay, promptLabel);
     sendStatus(`Chuẩn bị hỏi Day ${currentDay}...`);
     setTimeout(() => runNextDay(), 0);
+}
+
+// ── CƠ CHẾ QUÉT & TẢI BÙ CÁC NGÀY BỊ THIẾU (MISSING DAYS AUTO-SWEEP) ──
+function checkAndSweepMissingDays() {
+    const recordedDays = new Set();
+    for (const d of dayIndex) {
+        const m = String(d.day).match(/\d+/);
+        if (m) recordedDays.add(parseInt(m[0], 10));
+    }
+    const minD = startDayGlobal || 1;
+    const maxD = endDay || currentDay;
+    const missing = [];
+    for (let d = minD; d <= maxD; d++) {
+        if (!recordedDays.has(d)) {
+            missing.push(d);
+        }
+    }
+    if (missing.length > 0) {
+        appLog(`🔍 [QUÉT THIẾU] Phát hiện ${missing.length} ngày bị thiếu trong dải Day ${minD}..${maxD}: [${missing.join(', ')}]. Bắt đầu tự động tải bù...`);
+        sendStatus(`Bắt đầu tải bù ${missing.length} ngày bị thiếu...`);
+        missingQueue = missing;
+        setTimeout(() => runNextMissingDay(), 1000);
+        return true;
+    }
+    return false;
+}
+
+async function runNextMissingDay() {
+    if (!isRunning) return;
+    if (!missingQueue || missingQueue.length === 0) {
+        finishLoop(`Hoàn tất 100%: Đã tải đầy đủ toàn bộ ${dayIndex.length} ngày trong dải (${startDayGlobal} - ${endDay}), không còn ngày nào bị thiếu!`);
+        return;
+    }
+    currentDay = missingQueue.shift();
+    appLog(`🚀 [TẢI BÙ] Đang tải bù Ngày ${currentDay} (còn ${missingQueue.length} ngày trong hàng đợi)...`);
+    sendStatus(`Tải bù Day ${currentDay}...`);
+    saveRunningState(currentDay, `Day ${currentDay} (Tải bù)`);
+    runNextDay();
+}
+
+function handleSweepMissingDaysRequest(request) {
+    if (request.tabId) currentTabId = request.tabId;
+    if (!isRunning) {
+        const s = request.session || {};
+        isRunning = true;
+        currentAgentName = s.agentName || request.agentName || "Copilot";
+        folderName  = s.folderName || makeFolderName(currentAgentName);
+        prefixStr   = s.prefix || request.prefix || "Day ";
+        startDayGlobal = request.startDay ? parseInt(request.startDay, 10) : 1;
+        endDay      = request.endDay ? parseInt(request.endDay, 10) : null;
+        promptMode  = request.promptMode || s.promptMode || 'basic';
+        isAdvanced  = request.isAdvanced || false;
+        topicPromptStr = request.topicPrompt || "";
+        targetCount    = request.targetCount || 4;
+        detailConfigs  = request.details || [];
+        autoFollowUp   = request.autoFollowUp !== undefined ? request.autoFollowUp : true;
+        maxFollowUp    = request.maxFollowUp || 3;
+        topicMemory    = s.topicMemory || {};
+        currentPlatform = request.platform || s.platform || "copilot";
+        historySummaries = s.historySummaries || [];
+        
+        let rawDays = s.days || dayIndex || [];
+        dayIndex = rawDays;
+        
+        chrome.storage.local.get(['roadmap_active'], (res) => {
+            roadmapData = res.roadmap_active || null;
+            if (!endDay && roadmapData) {
+                endDay = calcAutoEndDay(roadmapData, promptMode);
+            }
+            if (!endDay) endDay = 600;
+            
+            const recordedDays = new Set();
+            for (const d of dayIndex) {
+                const m = String(d.day).match(/\d+/);
+                if (m) recordedDays.add(parseInt(m[0], 10));
+            }
+            const missing = [];
+            for (let d = startDayGlobal; d <= endDay; d++) {
+                if (!recordedDays.has(d)) missing.push(d);
+            }
+            
+            if (missing.length === 0) {
+                appLog(`✅ [QUÉT THIẾU] Đã đủ toàn bộ ${endDay} ngày, không có ngày nào bị thiếu!`);
+                finishLoop(`Đã kiểm tra: Không có ngày nào bị thiếu trong dải (${startDayGlobal} - ${endDay}).`);
+                return;
+            }
+            
+            missingQueue = missing;
+            appLog(`🔍 [QUÉT THIẾU] Tìm thấy ${missing.length} ngày bị thiếu: [${missing.join(', ')}]. Bắt đầu tải bù...`);
+            setupKeepAlive();
+            runNextMissingDay();
+        });
+    }
 }

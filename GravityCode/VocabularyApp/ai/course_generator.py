@@ -1050,6 +1050,7 @@ def generate_course(language: str,
         lesson["day"] = idx
         lesson["topic"] = pday.get("title", "")
         lesson["phase"] = pday.get("phase", "")
+        lesson["level"] = level
         lesson["words"] = [w.get("word", "") for w in seed_words]
         lesson["model"] = (res or {}).get("model", "")
         lesson["quiz"] = quiz

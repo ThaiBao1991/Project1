@@ -1,0 +1,33 @@
+{
+  "rust_test_domain": {
+    "title": "Rust Master",
+    "recommended_days": 800,
+    "persona": "Rust Systems Architect",
+    "category": "Systems Programming",
+    "instruction": "PROFILE RUST: ...",
+    "mandatory_milestones": [
+      "ownership",
+      "borrowing"
+    ]
+  },
+  "word_ai_test": {
+    "title": "Microsoft Word VBA, OpenXML and Enterprise Document Automation",
+    "recommended_days": 450,
+    "persona": "Kiến trúc sư Tự động hóa Soạn thảo và Xuất bản Tài liệu Doanh nghiệp Word VBA / OpenXML",
+    "category": "Document Processing, Typography and Enterprise Publishing",
+    "instruction": "PROFILE WORD VBA (Khối lượng chuẩn 450 Ngày): Bắt buộc đạt cấp độ Master Document Architect: (1) Word DOM (Selection vs Range, StoryRanges, Sections, Headers/Footers) -> (2) Typography, Styles and Multi-level Numbering -> (3) Content Controls and Custom XML Parts Data Binding -> (4) Advanced Tables, Canvas and Shapes -> (5) Dynamic Fields and Mail Merge Engine đa nguồn -> (6) Long Document Publishing (TOC, Index, Footnotes, Track Changes and Compare) -> (7) Building Blocks, Quick Parts and Templates (.dotm/.dotx) -> (8) OpenXML SDK trực tiếp can thiệp XML .docx -> (9) Ribbon XML, Custom Task Pane and Commercial Add-in -> (10) AI Contract Redlining and Auto Document Assembly System.",
+    "mandatory_milestones": [
+      "word_dom_range_storyranges",
+      "typography_styles_numbering",
+      "content_controls_xml_parts",
+      "word_tables_canvas_shapes",
+      "dynamic_fields_mail_merge",
+      "long_document_publishing_track_changes",
+      "templates_building_blocks",
+      "openxml_sdk_docx_manipulation",
+      "ribbon_xml_vsto_addins",
+      "inter_app_pdf_digital_signature",
+      "ai_contract_redlining_capstone"
+    ]
+  }
+}

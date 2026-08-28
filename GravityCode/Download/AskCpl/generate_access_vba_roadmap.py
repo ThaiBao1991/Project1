@@ -1,449 +1,356 @@
+"""Generate Access VBA Roadmap - 600 Days (Full Enterprise Master).
 
-# Generate Access VBA Roadmap - 365 Days (Full Professional)
-# 290 existing + 75 new days covering SQL Mastery, Advanced Controls, Modern Integration
+Covers 20 Phases (30 days/phase = 600 days): RDBMS 1NF-3NF, SQL Jet/ACE, DAO/ADODB, Form/Report Engine, Multi-user Concurrency,
+Split Database, COM Port Hardware (Barcode/RFID/Scales), WinAPI, Ribbon XML, ODBC SQL Server/Azure,
+REST API & Microsoft Graph Cloud Integration.
+"""
 
-filepath = r"c:\Users\games\Desktop\Project\Python\Python MyWork\Project1\GravityCode\Download\AskCpl\roadmap_access_vba.md"
+import os
 
-# Time estimates per day: (emoji_level, minutes, label)
+filepath = os.path.join(os.path.dirname(__file__), "roadmap_access_vba.md")
+filepath_600 = os.path.join(os.path.dirname(__file__), "roadmap_access_vba_600.md")
+
 def get_time(day_num, is_project=False):
     if is_project:
-        return ("🚀", 210, "Dự án tổng hợp — 3-4 tiếng")
-    if day_num <= 20:
-        return ("🟢", 30, "Nền tảng — 30 phút")
-    elif day_num <= 100:
-        return ("🟡", 60, "Trung bình — 60 phút")
+        return ("🚀", 180, "Dự án CSDL & Module — 3 tiếng")
+    if day_num <= 40:
+        return ("🟢", 45, "Nền tảng Form & Cú pháp — 45 phút")
     elif day_num <= 180:
-        return ("🟠", 90, "Nâng cao — 90 phút")
-    elif day_num <= 290:
-        return ("🔴", 120, "Chuyên gia — 120 phút")
+        return ("🟡", 60, "Truy vấn SQL & DAO/ADO — 60 phút")
+    elif day_num <= 360:
+        return ("🟠", 90, "Tối ưu, Concurrency & API — 90 phút")
     else:
-        return ("🔴", 120, "Chuyên gia — 120 phút")
+        return ("🔴", 120, "Hệ thống Enterprise & Cloud — 120 phút")
 
-# Full roadmap: Day -> (Title, Phase, prev_topic, exercise, is_project)
-roadmap = {
-    # ===== PHASE 1: VBA Foundation (Day 1-20) =====
-    1:  ("Button Event – Sự kiện nút bấm",           "Phase 1: VBA Foundation (Day 1-20)",   "Bắt đầu hành trình",              "Tạo 1 Form với Button hiển thị MsgBox 'Hello World' khi click", False),
-    2:  ("Access Form – Tạo Form nhập liệu cơ bản",   "Phase 1: VBA Foundation (Day 1-20)",   "Button Event",                     "Tạo Form có TextBox tên/tuổi, Button Save in ra màn hình", False),
-    3:  ("TextBox & Label – Điều khiển cơ bản",        "Phase 1: VBA Foundation (Day 1-20)",   "Access Form cơ bản",               "Tạo Form nhập thông tin sản phẩm (tên, giá, số lượng)", False),
-    4:  ("Biến & Kiểu dữ liệu VBA",                    "Phase 1: VBA Foundation (Day 1-20)",   "TextBox & Label",                  "Khai báo đúng kiểu biến cho: tên, tuổi, giá, ngày tháng", False),
-    5:  ("Mini Form System – Hệ thống Form nhỏ",       "Phase 1: VBA Foundation (Day 1-20)",   "Biến & Kiểu dữ liệu",             "Xây form nhập + hiển thị + xóa text – 3 button", False),
-    6:  ("ComboBox & ListBox – Danh sách chọn",        "Phase 1: VBA Foundation (Day 1-20)",   "Mini Form System",                 "Tạo ComboBox chứa 5 danh mục, khi chọn hiện tên lên Label", False),
-    7:  ("If/Else & Validation – Kiểm tra đầu vào",    "Phase 1: VBA Foundation (Day 1-20)",   "ComboBox & ListBox",               "Validate: Không cho nhập số âm, không để trống tên", False),
-    8:  ("Module tách code – Separation of Concerns",  "Phase 1: VBA Foundation (Day 1-20)",   "If/Else & Validation",             "Tách code Sub btnSave_Click vào Module riêng, gọi từ Form", False),
-    9:  ("Error Handling – Xử lý lỗi On Error",        "Phase 1: VBA Foundation (Day 1-20)",   "Module tách code",                 "Thêm On Error GoTo vào Sub Save, bắt lỗi type mismatch", False),
-    10: ("Debug – Breakpoint & Watch Window",           "Phase 1: VBA Foundation (Day 1-20)",   "Error Handling",                   "Đặt breakpoint, watch biến strTen trong vòng lặp", False),
-    11: ("Multi Form – Nhiều Form giao tiếp nhau",     "Phase 1: VBA Foundation (Day 1-20)",   "Debug Breakpoint",                 "Form chính mở Form con, truyền dữ liệu qua OpenArgs", False),
-    12: ("Pass Parameter – Truyền tham số",             "Phase 1: VBA Foundation (Day 1-20)",   "Multi Form",                       "Viết Function TinhTong(a, b) và gọi từ nhiều nơi", False),
-    13: ("Form_Load & Form_Unload – Vòng đời Form",    "Phase 1: VBA Foundation (Day 1-20)",   "Pass Parameter",                   "Tải danh sách vào ComboBox trong Form_Load", False),
-    14: ("Loop – For, Do While, Do Until",              "Phase 1: VBA Foundation (Day 1-20)",   "Form_Load & Unload",               "Dùng For Loop tính tổng 1..100, hiển thị kết quả", False),
-    15: ("UI Basic Project – Dự án UI đầu tiên",       "Phase 1: VBA Foundation (Day 1-20)",   "Loop",                             "Xây Form nhập tên danh sách, hiển thị ra ListBox", False),
-    16: ("Event Chaining – Chuỗi sự kiện",             "Phase 1: VBA Foundation (Day 1-20)",   "UI Basic Project",                 "Khi chọn ListBox tự động fill TextBox bên cạnh", False),
-    17: ("Sub vs Function – Phân biệt và dùng đúng",   "Phase 1: VBA Foundation (Day 1-20)",   "Event Chaining",                   "Viết Function KiemTraEmail(str) trả về True/False", False),
-    18: ("Debug Mindset – Tư duy tìm lỗi",             "Phase 1: VBA Foundation (Day 1-20)",   "Sub vs Function",                  "Nhận code bug có sẵn, dùng Debug.Print tìm nguyên nhân", False),
-    19: ("Form nhập + Submit hoàn chỉnh",              "Phase 1: VBA Foundation (Day 1-20)",   "Debug Mindset",                    "Form nhập đơn hàng: tên KH, sản phẩm, số lượng, tổng tiền", False),
-    20: ("Project 1 – Mini Quản lý Liên hệ",          "Phase 1: VBA Foundation (Day 1-20)",   "Form nhập + Submit",               "Dự án tổng hợp: Nhập, Sửa, Xóa danh bạ — không dùng database", True),
+def build_access_roadmap():
+    roadmap = {}
+    current_day = 1
 
-    # ===== PHASE 2: Database & SQL (Day 21-40) =====
-    21: ("DAO – Data Access Object (Giới thiệu)",      "Phase 2: Database & SQL (Day 21-40)", "Project 1 Mini System",            "Mở database bằng DAO, duyệt Recordset in tên bảng ra", False),
-    22: ("Recordset DAO – Đọc dữ liệu từ Table",      "Phase 2: Database & SQL (Day 21-40)", "DAO cơ bản",                       "Đọc toàn bộ bảng KhachHang, in ra Debug.Print", False),
-    23: ("SQL INSERT – Thêm record bằng DAO",          "Phase 2: Database & SQL (Day 21-40)", "Recordset DAO Read",               "Thêm 1 khách hàng mới từ Form vào bảng bằng SQL INSERT", False),
-    24: ("SQL UPDATE – Cập nhật bằng DAO Recordset",  "Phase 2: Database & SQL (Day 21-40)", "SQL INSERT",                       "Tìm record theo ID và Update tên/email bằng Recordset.Edit", False),
-    25: ("SQL DELETE – Xóa record bằng SQL",          "Phase 2: Database & SQL (Day 21-40)", "SQL UPDATE",                       "Xóa khách hàng theo ID có xác nhận MsgBox trước", False),
-    26: ("Filter – Lọc dữ liệu theo điều kiện",       "Phase 2: Database & SQL (Day 21-40)", "SQL DELETE",                       "Lọc đơn hàng theo ngày (DateFrom, DateTo) bằng WHERE", False),
-    27: ("DAO Transaction – Giao dịch toàn vẹn",      "Phase 2: Database & SQL (Day 21-40)", "Filter",                           "Dùng BeginTrans/CommitTrans khi thêm nhiều record cùng lúc", False),
-    28: ("SQL nâng cao – JOIN, GROUP BY, HAVING",      "Phase 2: Database & SQL (Day 21-40)", "DAO Transaction",                  "Viết query tính tổng doanh thu theo tháng GROUP BY", False),
-    29: ("Tham số hóa SQL – Tránh SQL Injection",      "Phase 2: Database & SQL (Day 21-40)", "SQL nâng cao",                     "Dùng QueryDef có tham số thay vì ghép chuỗi SQL", False),
-    30: ("Form CRUD hoàn chỉnh – Giao diện + DB",     "Phase 2: Database & SQL (Day 21-40)", "Tham số hóa SQL",                  "Form nhập/sửa/xóa/tìm kiếm kết nối thật với Table", False),
-    31: ("Subquery & Nested SQL",                       "Phase 2: Database & SQL (Day 21-40)", "Form CRUD",                        "Viết query lấy top 5 KH mua nhiều nhất dùng subquery", False),
-    32: ("Error DB – Xử lý lỗi Database",             "Phase 2: Database & SQL (Day 21-40)", "Subquery",                         "Bắt lỗi 3021 (No Current Record), 3061 (Too Few Parameters)", False),
-    33: ("Stored Procedure style – QueryDef tái dùng", "Phase 2: Database & SQL (Day 21-40)", "Error DB",                         "Tạo 3 QueryDef SavedQuery dùng chung cho nhiều Form", False),
-    34: ("Index & Performance – Tối ưu truy vấn",     "Phase 2: Database & SQL (Day 21-40)", "QueryDef tái dùng",                "So sánh tốc độ truy vấn có/không có Index trên cột MaKH", False),
-    35: ("Access + Excel Automation cơ bản",           "Phase 2: Database & SQL (Day 21-40)", "Index & Performance",              "Xuất dữ liệu từ Recordset sang Sheet Excel tự động", False),
-    36: ("DAO + Dictionary – Sync dữ liệu",            "Phase 2: Database & SQL (Day 21-40)", "Access + Excel",                   "Dùng Dictionary để loại bỏ trùng lặp khi sync bảng", False),
-    37: ("Relationships – Quan hệ bảng 1-N, N-N",     "Phase 2: Database & SQL (Day 21-40)", "Dictionary Sync",                  "Tạo query JOIN 3 bảng: KH - DonHang - ChiTiet", False),
-    38: ("Query Performance – Phân tích hiệu năng",   "Phase 2: Database & SQL (Day 21-40)", "Relationships",                    "Dùng Query Analyzer kiểm tra plan của câu JOIN", False),
-    39: ("Debug DB – Clean code & Architecture",       "Phase 2: Database & SQL (Day 21-40)", "Query Performance",                "Refactor hàm GetRecordset phức tạp thành nhiều hàm nhỏ", False),
-    40: ("Project 2 – Database Mini System",           "Phase 2: Database & SQL (Day 21-40)", "Debug DB Clean code",              "Dự án: Quản lý Sản phẩm — CRUD + Tìm kiếm + Báo cáo đơn giản", True),
+    def add_phase(start_day, phase_name, topics):
+        prev_topic = "Bắt đầu hành trình" if start_day == 1 else roadmap[start_day - 1][0]
+        for i, t in enumerate(topics):
+            day = start_day + i
+            title, exercise, is_proj = t
+            roadmap[day] = (title, phase_name, prev_topic, exercise, is_proj)
+            prev_topic = title
 
-    # ===== PHASE 3: Excel Integration (Day 41-60) =====
-    41: ("Connect Excel – Mở & đóng Workbook từ VBA", "Phase 3: Excel Integration (Day 41-60)", "Project 2 Database",           "Từ Access VBA, mở file Excel và đọc tên Sheet đầu tiên", False),
-    42: ("Read Cell – Đọc dữ liệu từ Excel",           "Phase 3: Excel Integration (Day 41-60)", "Connect Excel",                "Đọc cột A từ dòng 2 đến LastRow, lưu vào mảng", False),
-    43: ("Write Cell – Ghi dữ liệu vào Excel",         "Phase 3: Excel Integration (Day 41-60)", "Read Cell",                    "Ghi kết quả truy vấn Access vào Sheet Excel từ dòng 1", False),
-    44: ("Range – Làm chủ vùng dữ liệu Excel",         "Phase 3: Excel Integration (Day 41-60)", "Write Cell",                   "Tô màu vùng A1:E10, đặt border, AutoFit Column", False),
-    45: ("Array Load – Load Excel vào Array VBA",       "Phase 3: Excel Integration (Day 41-60)", "Range",                        "Load 10.000 dòng Excel vào Variant Array, tính tổng cột C", False),
-    46: ("Loop Sheet – Duyệt toàn bộ Sheet",            "Phase 3: Excel Integration (Day 41-60)", "Array Load",                   "Duyệt từng Sheet, tìm Sheet có tên chứa 'Thang', gộp lại", False),
-    47: ("MergeArea – Vùng Merge trong Excel",          "Phase 3: Excel Integration (Day 41-60)", "Loop Sheet",                   "Detect và unmerge tất cả ô merge trước khi xử lý dữ liệu", False),
-    48: ("Multi Block – Xử lý nhiều block dữ liệu",    "Phase 3: Excel Integration (Day 41-60)", "MergeArea",                    "Tìm các block dữ liệu phân tách bởi hàng trống và đọc từng block", False),
-    49: ("Detect Table – Nhận diện bảng trong Excel",  "Phase 3: Excel Integration (Day 41-60)", "Multi Block",                  "Tự động xác định Header và Data Region của bảng bất kỳ", False),
-    50: ("Clean Data – Làm sạch dữ liệu Excel",        "Phase 3: Excel Integration (Day 41-60)", "Detect Table",                 "Xóa khoảng trắng thừa, chuẩn hóa ngày tháng, xóa dòng trống", False),
-    51: ("String Parsing – Xử lý chuỗi nâng cao",      "Phase 3: Excel Integration (Day 41-60)", "Clean Data",                   "Split chuỗi 'HoTen|DiaChi|DienThoai' thành 3 cột riêng", False),
-    52: ("Import Excel → Access DB",                   "Phase 3: Excel Integration (Day 41-60)", "String Parsing",               "Đọc 500 dòng Excel, validate, chèn vào bảng Access", False),
-    53: ("Detect Format – Nhận diện định dạng dữ liệu","Phase 3: Excel Integration (Day 41-60)", "Import Excel → Access",        "Tự phát hiện cột nào là Date, Number, Text từ 10 dòng mẫu", False),
-    54: ("Large File Optimize – File Excel lớn",        "Phase 3: Excel Integration (Day 41-60)", "Detect Format",                "Xử lý file 50.000 dòng: tắt ScreenUpdating, dùng Array", False),
-    55: ("Speed Tuning – Tối ưu tốc độ VBA",            "Phase 3: Excel Integration (Day 41-60)", "Large File Optimize",          "Đo thời gian bằng Timer, so sánh Cell-by-Cell vs Array", False),
-    56: ("Error Excel – Xử lý lỗi khi thao tác Excel", "Phase 3: Excel Integration (Day 41-60)", "Speed Tuning",                 "Bắt lỗi file không tồn tại, Sheet không có, cột sai kiểu", False),
-    57: ("Memory Optimize – Tối ưu bộ nhớ",            "Phase 3: Excel Integration (Day 41-60)", "Error Excel",                  "Dùng Erase Array, Set xlApp = Nothing sau khi xong", False),
-    58: ("Excel Structure Design – Thiết kế cấu trúc", "Phase 3: Excel Integration (Day 41-60)", "Memory Optimize",              "Thiết kế file Excel input chuẩn cho hệ thống import tự động", False),
-    59: ("Debug Excel VBA – Góc nhìn tìm lỗi",         "Phase 3: Excel Integration (Day 41-60)", "Excel Structure Design",       "Gỡ lỗi code xử lý Range bị offset 1 dòng do Header", False),
-    60: ("Project 3 – Excel ↔ Database Mini System",   "Phase 3: Excel Integration (Day 41-60)", "Debug Excel VBA",              "Dự án: Nhập dữ liệu từ Excel, lưu DB, xuất báo cáo Excel", True),
+    phases_data = [
+        # Phase 1
+        ("Phase 1: VBA Syntax, Variables & Basic Controls (Day 1-30)", [
+            "Button Event – Sự kiện nút bấm cơ bản", "Access Form – Tạo Form nhập liệu cơ bản", "TextBox & Label – Điều khiển cơ bản và định dạng",
+            "Biến & Kiểu dữ liệu trong Access VBA", "Hằng số (Constants) & Scope (Biến cục bộ, Module, Toàn cục)", "Option Explicit & Quy tắc đặt tên biến Hungarian",
+            "Toán tử Logic, So sánh & Toán học", "Lệnh rẽ nhánh If...Then...Else & If lồng nhau", "Lệnh rẽ nhánh Select Case trong Access",
+            "Vòng lặp For...Next cơ bản và bước nhảy Step", "Vòng lặp For Each...Next trên Controls Form", "Vòng lặp Do While...Loop & Do Until...Loop",
+            "Thoát vòng lặp an toàn (Exit For, Exit Do)", "Sub vs Function – Phân biệt và ứng dụng", "Truyền tham số ByVal vs ByRef trong Access",
+            "Optional Parameters & ParamArray", "InputBox & MsgBox nâng cao", "Xử lý chuỗi (Left, Right, Mid, Len, InStr, Replace)",
+            "Xử lý ngày tháng (DateSerial, DateAdd, DateDiff, Format)", "Xử lý số học (Round, Int, Fix, Abs, Rnd)", "ComboBox – Danh sách chọn nguồn cố định",
+            "ListBox – Hiển thị danh sách nhiều cột", "CheckBox & OptionGroup (Frame)", "ToggleButton & TabControl trên Form",
+            "Kiểm tra tính hợp lệ dữ liệu (Data Validation)", "Module chuẩn (Standard Module) vs Class Module Form", "Bắt lỗi cơ bản với On Error GoTo",
+            "Debugging: Breakpoint, Immediate Window (Debug.Print)", "Debugging: Watch Window & Call Stack", "Project 1: Ứng dụng Quản lý Danh bạ Cá nhân"
+        ]),
+        # Phase 2
+        ("Phase 2: Form Lifecycle & Multi-Form Navigation (Day 31-60)", [
+            "Vòng đời Form: Form_Open vs Form_Load", "Vòng đời Form: Form_Current khi di chuyển bản ghi", "Vòng đời Form: Form_BeforeUpdate vs Form_AfterUpdate",
+            "Vòng đời Form: Form_BeforeInsert & Form_AfterInsert", "Vòng đời Form: Form_Delete & BeforeDelConfirm", "Vòng đời Form: Form_Unload vs Form_Close",
+            "Sự kiện điều khiển: Control_BeforeUpdate & AfterUpdate", "Sự kiện điều khiển: Control_Change vs Control_AfterUpdate", "Sự kiện bàn phím: KeyDown, KeyPress, KeyUp, KeyPreview",
+            "Sự kiện chuột: MouseMove, MouseDown, MouseUp, DblClick", "Sự kiện Focus: GotFocus & LostFocus", "Form Timer: Sự kiện Form_Timer & TimerInterval",
+            "Mở Form với DoCmd.OpenForm & Các tham số chế độ", "Truyền tham số qua OpenArgs", "Đóng Form an toàn với DoCmd.Close",
+            "Ẩn / Hiện Form (Visible = True/False)", "Form Modal vs Modeless & Popup Form", "Giao tiếp giữa 2 Form mở đồng thời",
+            "Làm mới dữ liệu: Requery vs Refresh vs Recalc", "Quản lý trạng thái Form: Me.Dirty", "Hoàn tác chỉnh sửa: Me.Undo",
+            "Điều hướng bản ghi bằng DoCmd.GoToRecord", "Đồng bộ bản ghi bằng Bookmark", "Tạo Form tìm kiếm đa tiêu chí (Search Form)",
+            "Lọc Form động bằng Form.Filter & FilterOn", "Sắp xếp Form động bằng Form.OrderBy & OrderByOn", "Tùy biến thanh tiêu đề và ẩn nút Close/Min/Max mặc định",
+            "Thiết kế Form Responsive tự co giãn theo độ phân giải", "Tạo Breadcrumb điều hướng giữa các Form", "Project 2: Hệ thống Form Điều Hướng & Nhập Liệu Chuẩn"
+        ]),
+        # Phase 3
+        ("Phase 3: Relational DB Design & Table Normalization (Day 61-90)", [
+            "Tổng quan CSDL Quan hệ (RDBMS) trong Access", "Khái niệm Bảng (Table), Trường (Field), Bản ghi (Record)", "Kiểu dữ liệu Access: Short/Long Text, Number, Date, Currency",
+            "Khóa chính (Primary Key): Single vs Composite Key", "AutoNumber – Bản chất, cạm bẫy và cách reset", "Chuẩn hóa CSDL: Dạng chuẩn 1 (1NF – First Normal Form)",
+            "Chuẩn hóa CSDL: Dạng chuẩn 2 (2NF – Second Normal Form)", "Chuẩn hóa CSDL: Dạng chuẩn 3 (3NF – Third Normal Form)", "Quan hệ 1 - 1 (One-to-One): Khi nào nên dùng?",
+            "Quan hệ 1 - Nhiều (One-to-Many): Cột mốc quan trọng nhất", "Quan hệ Nhiều - Nhiều (Many-to-Many) & Bảng trung gian", "Toàn vẹn tham chiếu (Referential Integrity)",
+            "Cascade Update Related Fields", "Cascade Delete Related Records – Lợi ích & Nguy cơ", "Field Properties: FieldSize, Format, InputMask",
+            "Field Properties: DefaultValue & Required", "Field Properties: Validation Rule & Validation Text", "Table Validation Rule (Ràng buộc cấp Bảng)",
+            "Chỉ mục (Indexes): Primary, Unique, Non-Unique", "Ảnh hưởng của Index tới tốc độ Đọc vs Ghi", "Lookup Fields tại Table: Tại sao chuyên gia KHÔNG dùng?",
+            "Attachment Field & OLE Object: Cạm bẫy phình dung lượng", "Calculated Fields trong Table: Ưu & Nhược điểm", "Quản lý dung lượng giới hạn 2GB của file Access (.accdb)",
+            "Bảo mật dữ liệu cấp bảng: Khóa cấu trúc bảng", "Tạo bảng tự động bằng VBA DDL (Data Definition Language)", "Thêm/Xóa cột của Bảng bằng VBA",
+            "Đọc thông tin Schema CSDL bằng TableDefs", "Sao lưu cấu trúc bảng (Clone Table Structure)", "Project 3: Thiết kế CSDL ERP Bán Hàng Chuẩn 3NF"
+        ]),
+        # Phase 4
+        ("Phase 4: SQL Mastery – Jet/ACE SQL Engine (Day 91-120)", [
+            "Cú pháp SQL cơ bản trong Access: SELECT, FROM", "Mệnh đề WHERE & Các toán tử: =, <>, LIKE, BETWEEN, IN", "Ký tự đại diện trong Access SQL: * vs % (ANSI-89 vs ANSI-92)",
+            "Mệnh đề ORDER BY: Sắp xếp đơn cột và đa cột", "Mệnh đề DISTINCT & DISTINCTROW", "Mệnh đề TOP N & TOP N PERCENT",
+            "Hàm tổng hợp SQL: COUNT, SUM, AVG, MIN, MAX", "Mệnh đề GROUP BY: Nhóm dữ liệu theo danh mục", "Mệnh đề HAVING: Lọc trên kết quả tổng hợp",
+            "INNER JOIN: Kết nối 2 bảng theo khóa ngoại", "LEFT JOIN: Lấy toàn bộ bảng bên trái", "RIGHT JOIN: Lấy toàn bộ bảng bên phải",
+            "INNER JOIN nhiều bảng (3-5 bảng) trong Access", "Self-Join: Bảng tự kết nối với chính nó", "Subquery trong mệnh đề WHERE (IN, EXISTS)",
+            "Subquery tương quan (Correlated Subquery)", "Subquery trong mệnh đề FROM (Derived Tables)", "Mệnh đề UNION & UNION ALL: Gộp kết quả truy vấn",
+            "Crosstab Query (TRANSFORM ... PIVOT): Ma trận xoay", "SQL INSERT INTO: Thêm một bản ghi đơn lẻ", "SQL INSERT INTO ... SELECT: Thêm hàng loạt từ bảng khác",
+            "SQL UPDATE: Cập nhật dữ liệu hàng loạt có điều kiện", "SQL UPDATE có JOIN: Cập nhật dựa trên bảng khác", "SQL DELETE: Xóa dữ liệu có điều kiện",
+            "SQL DDL: CREATE TABLE, ALTER TABLE, DROP TABLE", "SQL DDL: CREATE INDEX, DROP INDEX", "Xử lý giá trị NULL trong SQL: Is Null, Nz(), IIf()",
+            "Hàm ngày tháng trong Access SQL: Date(), Year(), Month(), DateDiff()", "Hàm chuỗi trong Access SQL: UCase(), Left(), InStr()", "Project 4: Hệ Thống Báo Cáo Phân Tích Dữ Liệu SQL Hoàn Chỉnh"
+        ]),
+        # Phase 5
+        ("Phase 5: DAO & Recordset Deep Dive (Day 121-150)", [
+            "Giới thiệu Thư viện DAO (Microsoft Office Access database engine Object Library)", "Đối tượng CurrentDb(): Cơ chế mở và giải phóng bộ nhớ", "Mở Recordset: dbOpenTable, dbOpenDynaset, dbOpenSnapshot",
+            "Duyệt Recordset từ đầu đến cuối (Loop EOF/BOF)", "Đếm số bản ghi chính xác với MoveLast & RecordCount", "Thêm bản ghi mới bằng DAO: .AddNew & .Update",
+            "Sửa bản ghi bằng DAO: .Edit & .Update", "Xóa bản ghi bằng DAO: .Delete", "Tìm kiếm trong Recordset: .FindFirst, .FindNext, .NoMatch",
+            "Tìm kiếm bằng Seek trên Index bảng (dbOpenTable)", "Bookmark trong DAO Recordset", "Lọc Recordset đã mở: .Filter & Tạo Recordset con",
+            "Sắp xếp Recordset đã mở: .Sort", "Xử lý lỗi DAO phổ biến: Error 3021 (No Current Record)", "Xử lý lỗi DAO: Error 3061 (Too Few Parameters)",
+            "Mở database ngoài bằng OpenDatabase", "Mở database có mật khẩu (Database Password)", "Duyệt danh sách TableDefs và Fields bằng DAO",
+            "Tạo trường mới (Field) và gán thuộc tính bằng DAO", "Tạo quan hệ (Relation) giữa 2 bảng bằng DAO", "Đọc dữ liệu cực nhanh với GetRows() vào Mảng 2D",
+            "Ghi hàng loạt cực nhanh: dbFailOnError & Execute", "So sánh tốc độ: db.Execute SQL vs Recordset Loop", "RecordsetClone của Form: Cầu nối Form & DAO",
+            "Recordset2 Object: Xử lý Attachment & Multi-value Fields", "Lưu file từ Attachment ra ổ đĩa máy tính bằng DAO", "Nạp file từ ổ đĩa vào Attachment Field bằng DAO",
+            "Kiểm tra trạng thái Lock của Recordset (LockEdits)", "Hàm tiện ích toàn năng: DLookup, DCount, DSum, DAvg", "Project 5: Xây Dựng Data Access Layer (DAL) Bằng DAO"
+        ]),
+        # Phase 6
+        ("Phase 6: ADODB & Remote Connections (Day 151-180)", [
+            "Giới thiệu ADODB (ActiveX Data Objects) trong Access", "Khai báo ADODB.Connection và ADODB.Recordset", "Connection String chuẩn OLEDB cho Access (.accdb)",
+            "Mở và Đóng kết nối ADODB Connection an toàn", "CursorType: adOpenForwardOnly, adOpenKeyset, adOpenDynamic, adOpenStatic", "LockType: adLockReadOnly, adLockPessimistic, adLockOptimistic, adLockBatchOptimistic",
+            "Duyệt ADODB Recordset và xử lý EOF/BOF", "Thêm bản ghi bằng ADODB .AddNew & .Update", "Sửa và Xóa bản ghi bằng ADODB Recordset",
+            "Tìm kiếm trong ADODB với .Find và .Filter", "Sắp xếp ADODB Recordset trong bộ nhớ với .Sort", "Disconnected Recordset: Ngắt kết nối DB vẫn duyệt dữ liệu",
+            "Tạo In-Memory Recordset (Fabricated Recordset) không cần DB", "Gán ADODB Recordset làm Recordset cho Form Access", "ADODB.Command: Thực thi câu lệnh SQL có tham số",
+            "Chống lỗi SQL Injection triệt để bằng ADODB.Parameters", "Thực thi Stored Procedure từ xa bằng ADODB", "Lấy giá trị Output Parameter và Return Value từ Procedure",
+            "Xử lý lỗi ADODB: Đối tượng Errors Collection", "Bắt lỗi Timeout kết nối mạng và Connection Lost", "Batch Update: Cập nhật hàng loạt thay đổi với .UpdateBatch",
+            "Hủy thay đổi hàng loạt với .CancelBatch", "Chuyển đổi dữ liệu giữa DAO Recordset và ADODB Recordset", "Đọc dữ liệu XML và JSON vào ADODB Stream",
+            "Kết nối Excel bằng ADODB (Driver Microsoft.ACE.OLEDB)", "Truy vấn dữ liệu từ file Excel như một bảng CSDL", "Kết nối file CSV / Text bằng ADODB Schema.ini",
+            "So sánh toàn diện: Khi nào dùng DAO, khi nào dùng ADODB?", "Xây dựng Connection Pool quản lý kết nối ADODB", "Project 6: Module Kết Nối Đa Nguồn Bằng ADODB"
+        ]),
+        # Phase 7
+        ("Phase 7: QueryDefs & Transactions (Day 181-210)", [
+            "Khái niệm QueryDef trong DAO: Bản chất của Saved Queries", "Tạo QueryDef mới bằng mã VBA: db.CreateQueryDef", "Đọc và sửa câu lệnh SQL của QueryDef có sẵn",
+            "Xóa QueryDef bằng mã VBA an toàn", "QueryDef có tham số (Parameterized QueryDef)", "Truyền giá trị cho Parameters trong QueryDef từ Form",
+            "Tối ưu hóa: Tại sao QueryDef chạy nhanh hơn chuỗi SQL động?", "Kỹ thuật Temporary QueryDef (QueryDef ẩn danh không tên)", "Duyệt danh sách toàn bộ QueryDefs và xuất ra file SQL",
+            "Giao dịch (Transactions) là gì? Tiêu chuẩn ACID trong Access", "Bắt đầu giao dịch: DBEngine.BeginTrans / Workspace.BeginTrans", "Cam kết giao dịch: DBEngine.CommitTrans",
+            "Hoàn tác giao dịch khi có lỗi: DBEngine.Rollback", "Quản lý Giao dịch lồng nhau (Nested Transactions)", "Ứng dụng Transaction: Chuyển tiền giữa 2 tài khoản ngân hàng",
+            "Ứng dụng Transaction: Lưu Đơn hàng + 10 Chi tiết đơn hàng đồng thời", "Xử lý ngoại lệ trong khối Transaction chuẩn mẫu", "Ảnh hưởng của Transaction tới tốc độ ghi đĩa",
+            "Kiểm tra tính toàn vẹn dữ liệu sau khi Rollback", "Audit Trail: Tự động ghi Log mọi thao tác Thêm/Sửa/Xóa vào bảng Log", "Ghi lại giá trị Cũ (OldValue) và giá trị Mới (Value) của từng trường",
+            "Phát hiện ai đã sửa dữ liệu, vào lúc nào, từ máy tính nào", "Khôi phục dữ liệu đã xóa từ bảng Audit Trail", "Pass-Through Query: Gửi nguyên văn SQL tới Server từ xa",
+            "Cấu hình Chuỗi kết nối ODBC cho Pass-Through Query", "Lấy kết quả từ Pass-Through Query vào Recordset Access", "Thực thi lệnh DDL trên SQL Server qua Pass-Through Query",
+            "Bảo mật thông tin đăng nhập trong Pass-Through Query", "Tự động làm mới định nghĩa QueryDefs khi nâng cấp phần mềm", "Project 7: Hệ Thống Giao Dịch & Ghi Nhật Ký Biến Động (Audit Trail)"
+        ]),
+        # Phase 8
+        ("Phase 8: Advanced UI, Continuous Forms & Subforms (Day 211-240)", [
+            "Continuous Forms (Form dạng liên tục): Bản chất và cơ chế vẽ", "Tùy biến giao diện lưới dữ liệu đẹp mắt trên Continuous Form", "Conditional Formatting trên Continuous Form bằng VBA",
+            "Highlight dòng hiện hành trên Continuous Form mà không lag", "Subform Control: Bản chất và thuộc tính LinkMasterFields / LinkChildFields", "Đồng bộ Form Cha - Con tự động qua quan hệ khóa",
+            "Giao tiếp 2 chiều: Từ Subform gọi hàm trên Main Form và ngược lại", "Subform lồng nhau (Main Form -> Subform 1 -> Subform 2)", "Dynamic Subform: Thay đổi SourceObject của Subform theo ComboBox",
+            "Tạo Form Master-Detail chuẩn mực cho Quản lý Hóa đơn", "Custom Navigation Bar thay thế thanh điều hướng mặc định", "Thêm thanh phân trang (Pagination) cho Form: Trang 1/10 (50 dòng/trang)",
+            "Tìm kiếm và lọc dữ liệu tức thì (Instant Filter as you type)", "Highlight từ khóa tìm kiếm trên các ô TextBox của Form", "Tạo Dropdown Auto-Complete thông minh với ComboBox",
+            "ListBox nhiều cột có thanh tiêu đề và sắp xếp khi click", "Kéo thả (Drag and Drop) cơ bản giữa các điều khiển", "Tùy biến Shortcut Menu (Menu chuột phải) cho từng ô nhập liệu",
+            "Hiển thị Tooltip tùy biến dạng HTML / Balloon", "Xây dựng Custom Dialog Box trả về kết quả cho Form gọi", "Tạo Form Wizard từng bước (Step 1 -> Step 2 -> Step 3)",
+            "Form Split (Bảng tách đôi: Nửa trên Form, Nửa dưới Bảng tính)", "Xây dựng Dashboard trực quan với các chỉ số KPI Cards", "Nhúng biểu đồ Modern Chart vào Access Form",
+            "Tự động cập nhật biểu đồ khi dữ liệu Form thay đổi", "Kiểm soát thứ tự Tab (TabIndex) và bẫy phím tắt người dùng", "Khóa toàn bộ Form ở chế độ View-Only với 1 dòng lệnh",
+            "Phát hiện thay đổi chưa lưu khi người dùng bấm chuyển bản ghi", "Tối ưu hóa tốc độ load Form có chứa nhiều Subforms nặng", "Project 8: Giao Diện Bán Hàng POS Cảm Ứng Bằng Access Form"
+        ]),
+        # Phase 9
+        ("Phase 9: Custom Reports & Print Engine (Day 241-270)", [
+            "Kiến trúc Report trong Access: Report Header, Page Header, Detail, Page Footer, Report Footer", "Grouping & Sorting trong Report: Phân nhóm theo Khách hàng / Phòng ban", "Group Header & Group Footer: Tính tổng con (Subtotal) cho từng nhóm",
+            "Thuộc tính Running Sum (Cộng dồn / Đánh số thứ tự 1, 2, 3...)", "Sự kiện Report: Report_Open, Report_Close, Format, Print", "Sự kiện Detail_Format: Can thiệp ẩn/hiện hoặc đổi màu dòng theo điều kiện",
+            "Sự kiện Detail_Print: Vẽ đường kẻ, hình khối bằng phương thức Me.Line, Me.Circle", "Thuộc tính CanGrow & CanShrink: Tự động co giãn chiều cao dòng theo nội dung", "Xử lý ngắt trang thông minh (Page Break, KeepTogether, ForceNewPage)",
+            "Tạo Báo cáo Hóa đơn Đỏ / Phiếu thu tiền chuẩn biểu mẫu A4/A5", "In Báo cáo nhiều cột (Multi-Column Report / In Nhãn nhãn dán Barcode)", "Truyền bộ lọc động khi mở Report với DoCmd.OpenReport & WhereCondition",
+            "Xem trước báo cáo (acViewPreview) vs In trực tiếp (acViewNormal)", "Tùy biến cửa sổ Print Preview: Ẩn Ribbon, vô hiệu hóa nút in trái phép", "Xuất Báo cáo ra file PDF bằng DoCmd.OutputTo acOutputPDF",
+            "Tự động đặt tên file PDF theo Mã Hóa Đơn và Ngày Tháng", "Xuất Báo cáo sang định dạng Excel (.xlsx), Word (.rtf), HTML", "Tự động gửi email đính kèm file PDF báo cáo qua Outlook",
+            "In hàng loạt 100 hóa đơn ra máy in không hiện thông báo chờ", "Chọn máy in linh hoạt bằng Application.Printer & Printers Collection", "In vé nhiệt / In hóa đơn K80 từ Access Report",
+            "Tạo Báo cáo Subreport (Báo cáo lồng nhau: Đơn hàng + Chi tiết)", "Tính toán trang: Trang [Page] trên tổng số [Pages] và xử lý 2-pass", "In hình mờ (Watermark 'ĐÃ THANH TOÁN', 'BẢN NHÁP') lên Report",
+            "Tạo Báo cáo Tổng kết Tài chính Đa cấp có biểu đồ đính kèm", "Tối ưu tốc độ Report truy vấn trên bảng hàng trăm nghìn dòng", "Bảo vệ bản quyền và chống sao chép dữ liệu trên Report",
+            "In Barcode Code128 / QR Code trực tiếp lên Access Report", "Lưu cấu hình in ấn riêng cho từng mẫu báo cáo", "Project 9: Hệ Thống Xuất & In Báo Cáo Doanh Thu / Hóa Đơn Tự Động"
+        ]),
+        # Phase 10
+        ("Phase 10: Transactions, ACID & Security (Day 271-300)", [
+            "Phân tích chuyên sâu 4 thuộc tính ACID trong Access Database", "Quản lý Workspace trong DAO và đa Workspace độc lập", "Kiểm soát xung đột khi nhiều Transaction ghi cùng lúc",
+            "Chiến lược xử lý lỗi Timeout trong Transaction mạng", "Tạo hệ thống Phân quyền Người dùng (RBAC: Role-Based Access Control)", "Bảng Phân quyền: User, Role, Permissions (Read/Write/Delete/Approve)",
+            "Mã hóa Mật khẩu người dùng bằng thuật toán băm (Hash SHA-256)", "Tạo Form Đăng nhập bảo mật: Chặn Brute Force sau 5 lần sai", "Lưu phiên làm việc toàn cục (g_CurrentUser, g_UserRole, g_LoginTime)",
+            "Ẩn/Hiện nút bấm và Form theo quyền hạn của tài khoản đang đăng nhập", "Khóa giao diện Back-end Access: Ẩn Navigation Pane, Phím Shift, VBE", "Vô hiệu hóa phím Bypass Shift khi khởi động ứng dụng",
+            "Tự động kích hoạt mật khẩu bảo vệ CSDL (.accdb Password)", "Mã hóa và Đóng gói file sang định dạng .accde (Chống xem mã nguồn VBA)", "Bảo vệ bản quyền phần mềm: Khóa theo Mã Ổ Cứng (HDD Serial / Motherboard ID)",
+            "Tạo License Key kích hoạt phần mềm có thời hạn sử dụng", "Ghi vết thay đổi nhạy cảm (Security Audit Log)", "Tự động sao lưu dự phòng CSDL trước khi thực hiện thao tác xóa lớn",
+            "Kiểm tra tính toàn vẹn CSDL (Data Corruption Check)", "Quy trình Phục hồi dữ liệu khi file Access bị lỗi Corrupt", "Tự động Compact and Repair Database khi đóng ứng dụng",
+            "Giám sát dung lượng file và cảnh báo khi đạt ngưỡng 1.8GB", "Tách dữ liệu lịch sử sang Database phụ (Data Archiving)", "Xóa an toàn dữ liệu nhạy cảm theo tiêu chuẩn bảo mật",
+            "Chống trích xuất dữ liệu trái phép qua ODBC", "Kiểm tra quyền Administrator của Windows trước khi chạy ứng dụng", "Xây dựng nhật ký bảo mật đăng nhập/đăng xuất",
+            "Tự động khóa ứng dụng khi không có thao tác sau 15 phút", "Kiểm tra chữ ký số VBA Project Signature", "Project 10: Hệ Thống Bảo Mật Toàn Diện & Phân Quyền Đa Cấp Cho Doanh Nghiệp"
+        ]),
+        # Phase 11
+        ("Phase 11: Multi-User Concurrency & Record Locking (Day 301-330)", [
+            "Nguyên lý hoạt động của Access trong môi trường mạng LAN nhiều người dùng", "File khóa .laccdb: Cơ chế hoạt động và phát hiện ai đang mở file", "Xung đột ghi đồng thời (Write Conflict): Nguyên nhân và triệu chứng",
+            "No Locks (Khóa mặc định / Khóa mở): Cách thức hoạt động", "All Records Lock (Khóa toàn bộ bảng): Khi nào nên dùng?", "Edited Record Lock (Khóa bản ghi đang sửa): Cơ chế Page Locking 4KB",
+            "Khóa Lạc quan (Optimistic Locking): Phát hiện xung đột khi lưu", "Khóa Bi quan (Pessimistic Locking): Khóa ngay khi bắt đầu gõ", "Bắt và xử lý lỗi Error 3197: 'Dữ liệu đã bị người dùng khác thay đổi'",
+            "Bắt và xử lý lỗi Error 3260: 'Bản ghi hiện đang bị khóa bởi máy khác'", "Tạo cột Timestamp / RowVersion để tự kiểm soát xung đột", "Xây dựng cơ chế Soft Lock tùy biến bằng bảng tblActiveLocks",
+            "Tự động mở khóa khi người dùng bị ngắt mạng hoặc tắt máy đột ngột", "Hiển thị ai đang chỉnh sửa bản ghi này trên Form realtime", "Cấu hình Refresh Interval và Update Retry trong Access Options bằng VBA",
+            "Kỹ thuật tối ưu hóa mạng LAN để tránh hỏng file .accdb", "Quy tắc vàng: Tuyệt đối KHÔNG chia sẻ chung file Frontend cho nhiều người", "Tự động cấp phát ID không bị trùng lặp trong môi trường nhiều máy cùng thêm mới",
+            "So sánh AutoNumber vs Tự sinh mã có Transaction trong mạng LAN", "Xử lý nghẽn mạng khi 20 người cùng in báo cáo đồng thời", "Kỹ thuật đọc dữ liệu không khóa bảng (Dirty Read / Read Uncommitted)",
+            "Mô phỏng 5 máy cùng sửa 1 bản ghi và kiểm tra tính toàn vẹn", "Xây dựng hàng đợi xử lý (Message Queue) trong Access Table", "Đồng bộ dữ liệu định kỳ giữa các chi nhánh qua mạng",
+            "Tự động phát hiện mất kết nối tới ổ đĩa mạng Backend", "Tự động kết nối lại khi mạng LAN phục hồi", "Thông báo broadcast tới toàn bộ nhân viên đang mở ứng dụng",
+            "Ép toàn bộ người dùng thoát ứng dụng để bảo trì hệ thống từ xa", "Kiểm tra hiệu năng truy vấn qua mạng LAN 100Mbps vs 1Gbps", "Project 11: Hệ Thống Quản Lý Đơn Hàng Đa Người Dùng Chống Xung Đột 100%"
+        ]),
+        # Phase 12
+        ("Phase 12: Split Database Architecture & Backend Maintenance (Day 331-360)", [
+            "Kiến trúc Split Database: Tách Frontend (Giao diện + VBA) và Backend (Bảng dữ liệu)", "Lợi ích của Split Database: Tốc độ, bảo mật, bảo trì, chống corrupt", "Tách CSDL thủ công và dùng công cụ Database Splitter Wizard",
+            "Bản chất của Linked Tables (Bảng liên kết trong Access)", "Kiểm tra đường dẫn Backend của Linked Table qua TableDef.Connect", "Tự động Relink Tables bằng mã VBA khi đổi thư mục lưu file",
+            "Xây dựng Form 'Cấu hình đường dẫn CSDL' cho người dùng", "Kiểm tra sự tồn tại của file Backend trước khi mở ứng dụng", "Hỗ trợ kết nối nhiều file Backend đồng thời (Backend_Data, Backend_Log, Backend_Archive)",
+            "Tự động tạo bản sao lưu Backend (.bak) mỗi ngày khi mở máy", "Nén và Phục hồi Backend từ xa qua mạng bằng VBA (CompactBackend)", "Cơ chế Tự động Cập nhật phiên bản Frontend mới (Auto-Updater)",
+            "Quy trình Auto-Update: Kiểm tra version -> Tải file FE mới -> Khởi động lại", "Đóng gói file cài đặt Frontend cho từng máy trạm nhân viên", "Chuyển đổi Backend từ Access sang file CSDL mã hóa",
+            "Xử lý sự cố đứt kết nối Linked Table giữa chừng", "Giám sát tốc độ phản hồi của file Backend trên server", "Thiết lập quyền thư mục Windows Share an toàn cho Backend",
+            "Chống copy trộm file Backend từ ổ đĩa chia sẻ", "Phục hồi tự động bảng liên kết bị hỏng schema", "Chạy lệnh bảo trì định kỳ tự động vào ban đêm",
+            "Gửi email báo cáo tình trạng sức khỏe của Backend cho Admin", "Quản lý lịch sử các phiên bản nâng cấp phần mềm", "Tạo bộ cài đặt One-Click Setup cho nhân viên mới",
+            "Tích hợp công cụ chẩn đoán lỗi mạng và kết nối Backend", "Kiểm tra tương thích giữa các phiên bản Access 2016, 2019, 2021, M365", "Chạy Access Frontend không cần cài đặt đầy đủ Office (Access Runtime)",
+            "Đóng gói ứng dụng chạy mượt mà trên Access Runtime miễn phí", "Xử lý các lỗi giao diện phát sinh riêng trên Access Runtime", "Project 12: Bộ Đôi Frontend-Backend Hoàn Chỉnh Kèm Auto-Updater Thông Minh"
+        ]),
+        # Phase 13
+        ("Phase 13: Query Performance Tuning & Jet Engine Optimization (Day 361-390)", [
+            "Cơ chế hoạt động bên trong của Jet/ACE Query Optimizer (Rushmore Technology)", "Phân tích Query Execution Plan (Kế hoạch thực thi câu truy vấn)", "Chỉ số hiệu năng: Jet ShowPlan (Bật ghi log tối ưu truy vấn ra file text)",
+            "Tối ưu hóa mệnh đề WHERE: Tránh dùng hàm trên cột có Index (Sargability)", "Tại sao WHERE Year(NgayTao) = 2026 làm mất tác dụng của Index?", "Viết lại điều kiện lọc chuẩn Sargable: WHERE NgayTao >= #2026-01-01# AND NgayTao < #2027-01-01#",
+            "Tối ưu hóa toán tử LIKE: Tìm kiếm đầu chuỗi 'ABC*' vs giữa chuỗi '*ABC*'", "Tối ưu hóa câu truy vấn JOIN: Thứ tự kết nối bảng và kiểu dữ liệu khóa", "Tránh xung đột kiểu dữ liệu giữa khóa chính và khóa ngoại (Type Mismatch)",
+            "Tối ưu hóa câu lệnh đếm: COUNT(*) vs COUNT(ID) vs DCount", "Kỹ thuật thay thế DLookup chậm chạp bằng DAO Recordset Seek hoặc Query JOIN", "Benchmark đo thời gian thực thi chính xác đến mili-giây bằng WinAPI QueryPerformanceCounter",
+            "Tối ưu hóa bộ nhớ khi xử lý Recordset lớn: Sử dụng dbForwardOnly và dbReadOnly", "Tối ưu hóa Form load chậm: Bỏ gán RecordSource lúc mở, chỉ gán khi cần", "Kỹ thuật Lazy Loading cho các Tab con trên Form",
+            "Tối ưu hóa ComboBox có danh sách trên 10.000 dòng", "Giới hạn số dòng tải vào ComboBox bằng kỹ thuật gõ 3 ký tự mới load", "Xóa bỏ các trường dư thừa trong câu lệnh SELECT (Tránh dùng SELECT *)",
+            "Tối ưu hóa subquery lồng nhau: Chuyển Subquery thành JOIN", "Đo lường mức tiêu hao RAM và CPU của Access khi chạy tác vụ nặng", "Giải phóng rò rỉ bộ nhớ (Memory Leak) trong các vòng lặp VBA dài",
+            "Quy tắc đóng và giải phóng biến Object (Set obj = Nothing)", "Tối ưu hóa tốc độ ghi đĩa khi import 100.000 dòng dữ liệu", "Tắt cập nhật giao diện và màn hình khi chạy tác vụ nền (Echo, DoEvents)",
+            "Tối ưu hóa việc sử dụng Domain Aggregate Functions trong Report", "Phân tích dung lượng từng bảng để tìm nguyên nhân DB phình to", "Kỹ thuật nén gọn chuỗi SQL và tái sử dụng QueryDefs trong bộ nhớ",
+            "Khắc phục tình trạng Access bị treo đơ 'Not Responding'", "Thiết lập cấu hình MaxBufferSize trong Windows Registry cho Jet Engine", "Project 13: Công Cụ Tối Ưu & Tăng Tốc Toàn Diện Cho Hệ Thống Access Chậm"
+        ]),
+        # Phase 14
+        ("Phase 14: Hardware Interfacing – COM Port RS232, Barcode & RFID (Day 391-420)", [
+            "Tổng quan về Giao tiếp Phần cứng từ Access VBA", "Cổng nối tiếp Serial Port (COM Port / RS232 / USB Virtual COM)", "MSComm32 ActiveX Control: Khai báo và cấu hình thông số cổng COM",
+            "Giao tiếp COM Port không dùng ActiveX: WinAPI CreateFile & ReadFile", "Cấu hình BaudRate, Parity, DataBits, StopBits cho thiết bị", "Mở và Đóng cổng COM an toàn trong VBA",
+            "Đọc dữ liệu từ Máy quét mã vạch (Barcode Scanner) qua Cổng COM", "Bắt sự kiện quét mã vạch qua bàn phím (Keyboard Wedge Hook)", "Tự động tìm kiếm và thêm sản phẩm vào giỏ hàng ngay khi quét mã",
+            "Tạo và in mã vạch Code128 / Code39 trực tiếp từ Access", "Tạo và in mã QR Code động từ dữ liệu hóa đơn", "Giao tiếp với Cân điện tử công nghiệp qua cổng COM RS232",
+            "Đọc trọng lượng cân liên tục và điền tự động vào ô Khối lượng", "Lọc nhiễu và chuẩn hóa chuỗi dữ liệu nhận được từ cân điện tử", "Giao tiếp với Đầu đọc thẻ từ / Thẻ RFID (Mifare 13.56MHz / EM4100)",
+            "Quẹt thẻ nhân viên để tự động Chấm công và Mở cửa", "Giao tiếp với Máy in nhiệt hóa đơn K80/K58 qua cổng USB / COM", "Gửi mã lệnh ESC/POS trực tiếp tới máy in để cắt giấy và mở két tiền",
+            "Tự động mở Két đựng tiền (Cash Drawer) khi bấm thanh toán", "Giao tiếp với Máy đo nhiệt độ / Cảm biến môi trường IoT", "Giao tiếp với Bộ điều khiển PLC / Relay Module qua chuẩn Modbus RTU",
+            "Kích hoạt đóng/ngắt rơ-le điện từ nút bấm trên Access Form", "Đọc dữ liệu từ Máy đo kích thước / Thước đo điện tử kẹp số", "Xử lý lỗi mất kết nối phần cứng và tự động kết nối lại cổng COM",
+            "Đa luồng giả lập: Đọc cổng COM nền không làm đơ giao diện Form", "Ghi log dữ liệu thô từ cổng COM ra file để phân tích sự cố", "Kiểm tra danh sách các cổng COM đang khả dụng trên máy tính",
+            "Xây dựng bảng Cấu hình thiết bị phần cứng trong CSDL", "Tạo module kiểm tra trạng thái phần cứng khi khởi động", "Project 14: Hệ Thống Bán Hàng & Cân Trọng Lượng Tự Động Kết Nối Phần Cứng"
+        ]),
+        # Phase 15
+        ("Phase 15: Windows API Integration & System Deep Control (Day 421-450)", [
+            "Tổng quan về Windows API (Win32 API) trong Access VBA", "Phân biệt khai báo API trên Access 32-bit (PtrSafe, Long) vs 64-bit (LongPtr)", "Đọc thông tin hệ điều hành: GetVersionEx, GetComputerName, GetUserName",
+            "Lấy địa chỉ MAC Card mạng để khóa bản quyền phần mềm", "Đọc và ghi Windows Registry: RegOpenKeyEx, RegQueryValueEx, RegSetValueEx", "Lưu cấu hình ứng dụng vào Registry HKCU và HKLM",
+            "Thao tác File & Thư mục bằng Windows API: ShellExecute, CopyFile, DeleteFile", "Mở file bất kỳ bằng chương trình mặc định của Windows (PDF, Word, Ảnh)", "Hộp thoại chọn file chuẩn Windows (GetOpenFileName / GetSaveFileName API)",
+            "Hộp thoại chọn thư mục Windows (SHBrowseForFolder API)", "Điều khiển Cửa sổ Windows: FindWindow, SetWindowText, MoveWindow, ShowWindow", "Tự động phóng to toàn màn hình không viền (Borderless Fullscreen)",
+            "Giữ cửa sổ Form luôn nổi trên cùng (Always on Top) với SetWindowPos", "Độ trong suốt của Form (Transparent Form) bằng SetLayeredWindowAttributes", "Tạo âm thanh cảnh báo hệ thống bằng Beep API và PlaySound",
+            "Tạo biểu tượng ứng dụng ở khay hệ thống (System Tray Icon với Shell_NotifyIcon)", "Bắt sự kiện Click vào System Tray Icon để ẩn/hiện Access", "Hiển thị thông báo Windows Balloon Notification / Toast Notification",
+            "Khóa bàn phím và chuột khi thực hiện tác vụ bảo mật (BlockInput API)", "Đọc và ghi dữ liệu Clipboard Windows trực tiếp qua API", "Đo thời gian siêu chính xác bằng QueryPerformanceFrequency và QueryPerformanceCounter",
+            "Tạm dừng chương trình không đơ giao diện bằng Sleep API kết hợp DoEvents", "Quản lý tiến trình Windows: OpenProcess, TerminateProcess, EnumProcesses", "Kiểm tra xem file Excel / Word có đang bị chương trình khác mở khóa không",
+            "Can thiệp bộ nhớ RAM bằng CopyMemory (RtlMoveMemory) trong VBA", "Subclassing cửa sổ Access: Bắt sự kiện cuộn chuột (Mouse Wheel Hook)", "Khắc phục lỗi cuộn chuột nhảy bản ghi trên Access Form cũ",
+            "Chạy script PowerShell và nhận kết quả trả về trong VBA", "Gửi phím tắt tự động tới ứng dụng khác bằng keybd_event API", "Project 15: Module Tích Hợp Windows API Toàn Diện & Đưa App Vào System Tray"
+        ]),
+        # Phase 16
+        ("Phase 16: Ribbon XML Customization & App Packaging (Day 451-480)", [
+            "Kiến trúc Ribbon trong Microsoft Access: Bản chất cấu trúc XML", "Bảng USysRibbons: Nơi lưu trữ mã XML tùy biến thanh Ribbon", "Cấu trúc file Ribbon XML chuẩn: customUI, ribbon, tabs, tab, group, button",
+            "Thêm Tab riêng cho ứng dụng trên thanh Ribbon Access", "Tạo các nút bấm (Button), biểu tượng (ImageMso) và phím tắt (Keytip)", "Gán hàm callback VBA khi người dùng click vào nút trên Ribbon",
+            "Tạo Menu thả xuống (Menu / SplitButton) trên Ribbon", "Tạo ComboBox và EditBox nhập liệu trực tiếp trên thanh Ribbon", "Tạo CheckBox và ToggleButton lưu trạng thái trên Ribbon",
+            "Dynamic Ribbon: Thay đổi trạng thái nút (Enable/Disable, Label) theo thời gian thực", "Phương thức Invalidate & InvalidateControl của IRibbonUI", "Sử dụng icon tùy biến từ file ảnh PNG/ICO ngoài ổ đĩa",
+            "Ẩn toàn bộ Ribbon mặc định của Access, chỉ hiện Ribbon chuyên dụng", "Tùy biến Quick Access Toolbar (QAT) cho phần mềm", "Tùy biến Backstage View (Menu File khi click góc trái)",
+            "Tùy biến Shortcut Menu (Menu chuột phải) bằng Ribbon XML", "Gán Ribbon riêng cho từng Form và từng Report cụ thể", "Tùy biến biểu tượng thanh tác vụ và Tiêu đề ứng dụng (AppTitle & AppIcon)",
+            "Tạo bảng điều khiển chuyển hướng trung tâm (Modern Navigation Switchboard)", "Đóng gói toàn bộ ứng dụng sang file ACCDE chống dịch ngược", "Khóa giao diện triệt để: Vô hiệu hóa phím F11, menu Design View, cửa sổ Navigation",
+            "Tạo file cấu hình khởi động AutoExec Macro", "Xây dựng bộ cài đặt phần mềm chuyên nghiệp bằng Inno Setup", "Tự động kiểm tra và cài đặt Access Runtime nếu máy khách chưa có",
+            "Tạo Shortcut trên Desktop và Start Menu kèm Icon đẹp mắt", "Tự động đăng ký các thư viện DLL và ActiveX khi cài đặt", "Cấp phép bản quyền phần mềm (Licensing System) với mã kích hoạt mã hóa",
+            "Hệ thống kiểm tra ngày hết hạn dùng thử (Trial 30 ngày)", "Tạo tài liệu hướng dẫn sử dụng tích hợp dạng file Help (.chm) hoặc PDF", "Project 16: Đóng Gói Ứng Dụng Thương Mại Hoàn Chỉnh Có Ribbon XML & License Key"
+        ]),
+        # Phase 17
+        ("Phase 17: SQL Server & Azure SQL via ODBC (Day 481-510)", [
+            "Tại sao doanh nghiệp cần nâng cấp Backend từ Access sang SQL Server / Azure SQL?", "Kiến trúc Client/Server: Access Frontend + SQL Server Backend", "Cài đặt SQL Server Express và SQL Server Management Studio (SSMS)",
+            "Cài đặt và cấu hình ODBC Driver for SQL Server (ODBC Driver 18)", "Tạo kết nối DSN-less Connection bằng VBA không cần cài DSN thủ công", "Sử dụng công cụ Microsoft SQL Server Migration Assistant (SSMA) for Access",
+            "Chuyển đổi kiểu dữ liệu Access sang SQL Server (AutoNumber -> IDENTITY, Long Text -> NVARCHAR(MAX))", "Tạo Linked Tables kết nối SQL Server qua ODBC", "Xử lý vấn đề Primary Key và Unique Index trên Linked Table SQL Server",
+            "Tạo trường rowversion (timestamp) trên SQL Server để tăng tốc cập nhật", "Tối ưu hóa hiệu năng Linked Table ODBC: Hạn chế kéo dữ liệu thừa", "Sử dụng SQL Server Views làm RecordSource cho Access Form",
+            "Sử dụng SQL Server Stored Procedures tăng tốc độ xử lý gấp 100 lần", "Gọi Stored Procedure từ Access VBA qua ADODB.Command và Pass-Through Query", "Truyền tham số và nhận kết quả từ Stored Procedure",
+            "Sử dụng SQL Server Triggers để tự động ghi log và kiểm tra dữ liệu", "Phân quyền bảo mật cấp cơ sở dữ liệu trên SQL Server (Users, Roles, Permissions)", "Kết nối Cloud Database: Microsoft Azure SQL Database từ Access",
+            "Cấu hình Azure Firewall cho phép IP máy trạm kết nối an toàn", "Xác thực Azure SQL bằng Azure Active Directory (Microsoft Entra ID) và SQL Auth", "Xử lý độ trễ mạng Internet khi kết nối CSDL Cloud",
+            "Chiến lược Caching dữ liệu cục bộ để Form mở nhanh tức thì trên Cloud", "Xây dựng ứng dụng Hybrid: Dữ liệu nhạy cảm lưu Local, Báo cáo đẩy lên Azure", "Đồng bộ hóa dữ liệu 2 chiều giữa Access Offline và SQL Server Online",
+            "Xử lý đứt kết nối mạng Internet khi đang thao tác với Azure SQL", "Tự động Reconnect Linked Tables khi mạng Internet phục hồi", "Sao lưu và Khôi phục CSDL SQL Server tự động bằng lệnh T-SQL từ Access",
+            "Giám sát hiệu năng câu truy vấn trên SQL Server bằng Activity Monitor", "Tối ưu hóa chi phí vận hành Azure SQL Database", "Project 17: Hệ Thống Bán Hàng Trực Tuyến Kết Nối CSDL Đám Mây Azure SQL"
+        ]),
+        # Phase 18
+        ("Phase 18: REST API Client & Microsoft Graph Cloud (Day 511-540)", [
+            "Tổng quan về REST API, JSON và giao thức HTTP/HTTPS trong Access", "Thư viện MSXML2.ServerXMLHTTP và WinHttp.WinHttpRequest.5.1 trong VBA", "Gửi HTTP GET Request từ Access VBA lấy dữ liệu thời tiết / tỷ giá",
+            "Gửi HTTP POST Request kèm Body dữ liệu dạng JSON", "Gửi HTTP PUT, PATCH, DELETE để cập nhật dữ liệu trên Web Server", "Xử lý HTTP Headers: Content-Type, User-Agent, Accept",
+            "Xác thực API: API Key, Basic Auth và Bearer Token", "Phân tích cú pháp chuỗi JSON (JSON Parsing) trong Access VBA không dùng thư viện ngoài", "Sử dụng thư viện VBA-JSON (JsonConverter) chuyển JSON thành Dictionary/Collection",
+            "Tạo chuỗi JSON phức tạp từ dữ liệu bảng Access để gửi lên API", "Xử lý mã lỗi HTTP: 200 OK, 400 Bad Request, 401 Unauthorized, 404, 500", "Xử lý Rate Limit (HTTP 429) và cơ chế tự động thử lại Exponential Backoff",
+            "Tích hợp API Cổng thanh toán (Momo, VNPay, ZaloPay, VietQR)", "Tự động sinh mã VietQR động chứa số tiền và nội dung đơn hàng lên Form", "Kiểm tra trạng thái thanh toán tự động qua Webhook / Polling API",
+            "Tích hợp API Giao hàng (Giao Hàng Nhanh, Giao Hàng Tiết Kiệm, ViettelPost)", "Tự động đẩy đơn hàng sang đơn vị vận chuyển và lấy mã Tracking", "Tích hợp API Gửi tin nhắn SMS OTP / Zalo ZNS thông báo đơn hàng",
+            "Tổng quan về Microsoft Graph API & Hệ sinh thái Microsoft 365", "Đăng ký ứng dụng trên Azure Portal (App Registration, Client ID, Client Secret)", "Xác thực OAuth2 qua Microsoft Identity Platform từ Access VBA",
+            "Lấy Access Token và tự động Refresh Token khi hết hạn", "Đọc và Ghi dữ liệu vào SharePoint Online List từ Access qua Graph API", "Đọc và Tải file từ OneDrive / SharePoint Document Library về máy",
+            "Gửi email HTML có đính kèm qua tài khoản Microsoft 365 (Graph API /sendMail)", "Tạo sự kiện lịch hẹn trên Outlook Calendar tự động", "Gửi tin nhắn thông báo vào kênh Microsoft Teams khi có đơn hàng mới",
+            "Kích hoạt luồng tự động hóa Power Automate từ Access qua HTTP Request", "Đọc dữ liệu từ MS Forms đẩy tự động vào Access Database", "Project 18: Hệ Thống Bán Hàng Tự Động Tích Hợp VietQR, Vận Chuyển & MS Graph"
+        ]),
+        # Phase 19
+        ("Phase 19: Inter-App Office Automation (Day 541-570)", [
+            "Tổng quan về COM Automation (OLE Automation) giữa các ứng dụng Office", "Early Binding vs Late Binding: Ưu và nhược điểm khi triển khai", "Điều khiển Microsoft Excel từ Access: Khởi tạo Excel.Application ngầm",
+            "Mở file Excel, đọc dữ liệu từng Sheet và ghi vào bảng Access", "Xuất dữ liệu Access sang file Excel có định dạng màu mè, công thức và biểu đồ", "Tự động tạo Báo cáo PivotTable trong Excel từ dữ liệu Access",
+            "Xử lý file Excel dung lượng lớn 100.000 dòng bằng Mảng VBA cực nhanh", "Điều khiển Microsoft Word từ Access: Tạo hợp đồng và văn bản mẫu", "Kỹ thuật Mail Merge tự động: Điền thông tin khách hàng vào template Word",
+            "Thay thế Bookmark và trích xuất bảng dữ liệu từ Access vào Word Table", "Xuất file Word sang định dạng PDF và ký điện tử tự động", "Điều khiển Microsoft Outlook từ Access: Tạo và gửi email tự động",
+            "Gửi email hàng loạt cho 500 khách hàng với nội dung cá nhân hóa", "Đính kèm file hóa đơn PDF riêng biệt cho từng khách hàng", "Đọc email từ Outlook Inbox và tự động trích xuất file đính kèm vào Access",
+            "Tạo Task công việc và Lịch hẹn trên Outlook từ đơn hàng cần giao", "Điều khiển Microsoft PowerPoint từ Access: Tự động tạo slide báo cáo", "Tạo biểu đồ và bảng số liệu trên PowerPoint từ câu truy vấn Access",
+            "Điều khiển Adobe Acrobat Pro từ Access: Gộp nhiều file PDF thành một file duy nhất", "Tách trang PDF, đóng dấu mộc đỏ Watermark lên file PDF bằng VBA", "Trích xuất văn bản từ file PDF scan bằng công nghệ OCR",
+            "Điều khiển phần mềm thiết kế AutoCAD từ Access: Đọc thông số bản vẽ", "Tự động gửi thông báo qua ứng dụng nhắn tin Telegram Bot từ Access", "Gửi file báo cáo tài chính vào nhóm Telegram của Ban Giám Đốc",
+            "Xây dựng dịch vụ chạy ngầm Windows Service tương tác với Access", "Đóng và giải phóng toàn bộ tiến trình Office ngầm tránh rác bộ nhớ", "Xử lý xung đột phiên bản Office khác nhau giữa các máy trạm",
+            "Đóng gói thư viện Class điều khiển bộ Office tái sử dụng", "Kiểm thử tự động hóa đa phần mềm dưới tải cao", "Project 19: Hệ Thống Tự Động Hóa Văn Phòng Đa Ứng Dụng (Excel - Word - Outlook - PDF - Telegram)"
+        ]),
+        # Phase 20
+        ("Phase 20: Enterprise ERP/CRM Capstone Architecture (Day 571-600)", [
+            "Tổng quan Kiến trúc Hệ thống ERP/CRM Doanh nghiệp Thu nhỏ (Mini-Enterprise System)", "Thiết kế CSDL Tổng thể: Khách hàng, Sản phẩm, Kho bãi, Mua hàng, Bán hàng, Tài chính, Nhân sự", "Module Quản lý Người dùng & Phân quyền bảo mật đa chi nhánh",
+            "Module Danh mục dùng chung (Sản phẩm, Khách hàng, Nhà cung cấp, Bảng giá)", "Module Quản lý Mua hàng & Nhập kho (Đơn mua, Phiếu nhập, Công nợ NCC)", "Module Quản lý Bán hàng & Xuất kho (Báo giá, Đơn bán, Phiếu xuất, In hóa đơn)",
+            "Module Quản lý Kho bãi nâng cao (Tồn kho tức thời, Cảnh báo tồn tối thiểu, Chuyển kho)", "Tính giá vốn hàng tồn kho tự động (Bình quân gia quyền & FIFO)", "Module Quản lý Thu - Chi & Sổ quỹ tiền mặt, Tiền gửi ngân hàng",
+            "Module Quản lý Công nợ Phải thu & Phải trả (Theo dõi tuổi nợ, Nhắc nợ tự động)", "Module Nhân sự & Chấm công (Quẹt thẻ RFID, Tính lương tự động theo KPI)", "Tích hợp Máy quét mã vạch & In hóa đơn nhiệt K80 tại quầy thu ngân",
+            "Tích hợp Thanh toán VietQR động và xác nhận tiền về qua API ngân hàng", "Tích hợp Đẩy đơn sang đơn vị vận chuyển GHN/ViettelPost", "Tích hợp Gửi email hóa đơn PDF tự động cho khách hàng qua Microsoft 365",
+            "Tích hợp Gửi báo cáo doanh thu hàng ngày vào nhóm Telegram Ban Giám Đốc", "Hệ thống Báo cáo Quản trị: Dashboard KPI, Doanh thu, Lợi nhuận gộp, Biểu đồ tăng trưởng", "Báo cáo Phân tích Tài chính: Bảng cân đối kế toán, Báo cáo kết quả kinh doanh thu nhỏ",
+            "Tối ưu hóa toàn bộ câu truy vấn SQL và Index đạt tốc độ phản hồi < 0.2 giây", "Kiểm thử chịu tải đa người dùng trong mạng LAN và Internet", "Đóng gói Backend lên CSDL Azure SQL đám mây bảo mật cao",
+            "Đóng gói Frontend sang ACCDE có thanh Ribbon XML chuyên nghiệp", "Tích hợp Bộ cài đặt tự động Inno Setup và hệ thống Auto-Update phiên bản mới", "Tích hợp Hệ thống Khóa bản quyền License Key theo phần cứng máy tính",
+            "Kiểm thử bảo mật chống SQL Injection, Brute Force và trích xuất dữ liệu trái phép", "Quy trình Đào tạo nhân viên và Chuyển giao phần mềm", "Quy trình Sao lưu dự phòng và Ứng phó thảm họa CSDL (Disaster Recovery)",
+            "Tổng kết Toàn bộ Lộ trình: Đánh giá Năng lực Kỹ sư CSDL Access VBA Chuyên nghiệp", "Đồ án Tốt nghiệp: Triển khai Hệ thống Mini-ERP Toàn diện vào Doanh nghiệp Thực tế", "🏆 Master Graduation – Chứng Nhận Kiến Trúc Sư CSDL & Ứng Dụng Doanh Nghiệp Access VBA Master"
+        ])
+    ]
 
-    # ===== PHASE 4: Advanced VBA (Day 61-100) =====
-    61: ("Array VBA – Mảng 1 chiều và 2 chiều",        "Phase 4: Advanced VBA (Day 61-100)", "Project 3", "Lưu 100 dòng dữ liệu vào mảng 2 chiều, sort theo cột 1", False),
-    62: ("Nested Loop – Vòng lặp lồng nhau",            "Phase 4: Advanced VBA (Day 61-100)", "Array VBA", "Duyệt mảng 2D để tính tổng từng hàng và từng cột", False),
-    63: ("Dictionary – Từ điển để nhóm dữ liệu",       "Phase 4: Advanced VBA (Day 61-100)", "Nested Loop", "Dùng Scripting.Dictionary nhóm doanh thu theo mã sản phẩm", False),
-    64: ("Regular Expressions – Regex trong VBA",       "Phase 4: Advanced VBA (Day 61-100)", "Dictionary", "Dùng VBScript.RegExp validate email, số điện thoại", False),
-    65: ("FileSystem – Đọc/ghi file Text (.txt, .csv)", "Phase 4: Advanced VBA (Day 61-100)", "Regular Expressions", "Đọc file CSV, phân tách dữ liệu, ghi vào DB", False),
-    66: ("Collection – Tập hợp VBA",                    "Phase 4: Advanced VBA (Day 61-100)", "FileSystem", "Dùng Collection lưu danh sách kết quả lọc, duyệt in ra", False),
-    67: ("Sorting Algorithm – Sắp xếp trong VBA",       "Phase 4: Advanced VBA (Day 61-100)", "Collection", "Viết BubbleSort sắp xếp mảng chuỗi theo alphabet", False),
-    68: ("Binary Search – Tìm kiếm nhị phân",           "Phase 4: Advanced VBA (Day 61-100)", "Sorting Algorithm", "Tìm kiếm ID trong mảng đã sort dùng Binary Search", False),
-    69: ("Normalize String – Chuẩn hóa chuỗi",          "Phase 4: Advanced VBA (Day 61-100)", "Binary Search", "Hàm chuẩn hóa: bỏ dấu tiếng Việt, lowercase, trim", False),
-    70: ("Project 4 – Data Processor",                  "Phase 4: Advanced VBA (Day 61-100)", "Normalize String", "Dự án: Đọc CSV → Validate → Chuẩn hóa → Import DB", True),
-    71: ("Error Case – Xử lý lỗi logic",                "Phase 4: Advanced VBA (Day 61-100)", "Project 4", "Thiết kế enum ErrType và hàm HandleError tập trung", False),
-    72: ("Recursive – Đệ quy trong VBA",                "Phase 4: Advanced VBA (Day 61-100)", "Error Case", "Hàm đệ quy duyệt thư mục con để liệt kê tất cả file", False),
-    73: ("Windows API – GetSystemTime, Sleep",           "Phase 4: Advanced VBA (Day 61-100)", "Recursive", "Khai báo và gọi Sleep 1000ms từ kernel32.dll", False),
-    74: ("Registry – Đọc/ghi Windows Registry",         "Phase 4: Advanced VBA (Day 61-100)", "Windows API", "Lưu cấu hình user (font size, theme) vào HKCU Registry", False),
-    75: ("Shell Command – Chạy lệnh hệ thống",          "Phase 4: Advanced VBA (Day 61-100)", "Registry", "Dùng Shell mở file PDF, chạy script bat tự động", False),
-    76: ("Clipboard – Đọc/ghi Clipboard",               "Phase 4: Advanced VBA (Day 61-100)", "Shell Command", "Copy dữ liệu bảng vào Clipboard, paste vào Excel", False),
-    77: ("SendKeys – Tự động hóa thao tác bàn phím",   "Phase 4: Advanced VBA (Day 61-100)", "Clipboard", "Dùng SendKeys tự động điền form web đơn giản", False),
-    78: ("Debug Logic – Tư duy gỡ lỗi chuyên sâu",     "Phase 4: Advanced VBA (Day 61-100)", "SendKeys", "Phân tích stack call khi lỗi xảy ra trong chuỗi gọi hàm", False),
-    79: ("Unit Test Style – Tự test code VBA",           "Phase 4: Advanced VBA (Day 61-100)", "Debug Logic", "Viết Sub TestTinhTong chạy 5 test case, in Pass/Fail", False),
-    80: ("Project 4.5 – Automation Script",             "Phase 4: Advanced VBA (Day 61-100)", "Unit Test Style", "Dự án: Script tự động mở Excel → lọc → lưu Access → đóng", True),
-    81: ("Date & Time – Xử lý ngày tháng nâng cao",    "Phase 4: Advanced VBA (Day 61-100)", "Project 4.5", "Tính số ngày giữa 2 ngày, thêm tháng, định dạng output", False),
-    82: ("Number Format – Định dạng số và tiền tệ",    "Phase 4: Advanced VBA (Day 61-100)", "Date & Time", "Format(1234567.89, '#,##0.00') và tách phần nguyên/thập phân", False),
-    83: ("Pivot-style – Tạo báo cáo pivot trong VBA",  "Phase 4: Advanced VBA (Day 61-100)", "Number Format", "Tạo bảng pivot từ mảng 2D: hàng = tháng, cột = sản phẩm", False),
-    84: ("Chart Automation – Tạo biểu đồ từ VBA",      "Phase 4: Advanced VBA (Day 61-100)", "Pivot-style", "Tạo Chart doanh thu theo tháng tự động trong Excel", False),
-    85: ("Outlook Automation – Gửi email từ VBA",       "Phase 4: Advanced VBA (Day 61-100)", "Chart Automation", "Gửi email tổng kết ngày tự động với file đính kèm", False),
-    86: ("Word Automation – Tạo file Word từ VBA",      "Phase 4: Advanced VBA (Day 61-100)", "Outlook Automation", "Điền template Word từ dữ liệu Access: hợp đồng, biên bản", False),
-    87: ("Logging System – Hệ thống ghi log",           "Phase 4: Advanced VBA (Day 61-100)", "Word Automation", "Hàm LogInfo/LogError ghi timestamp + message vào file log", False),
-    88: ("Config File – Đọc cấu hình từ file .ini",     "Phase 4: Advanced VBA (Day 61-100)", "Logging System", "Đọc ConnectionString, EmailServer từ file config.ini", False),
-    89: ("Multi-threading style – Application.OnTime",  "Phase 4: Advanced VBA (Day 61-100)", "Config File", "Dùng OnTime để chạy task tự động mỗi 5 phút", False),
-    90: ("Project 5 chuẩn bị – Thiết kế hệ thống lớn","Phase 4: Advanced VBA (Day 61-100)", "Multi-threading style", "Vẽ diagram kiến trúc hệ thống Integration sắp xây", False),
-    91: ("HTTP Request – Gọi API REST từ VBA",          "Phase 4: Advanced VBA (Day 61-100)", "Project 5 chuẩn bị", "Gọi XMLHTTP GET đến api.exchangeratesapi.io lấy tỉ giá", False),
-    92: ("Authentication – Gửi Basic Auth & Bearer",   "Phase 4: Advanced VBA (Day 61-100)", "HTTP Request", "Thêm Authorization header vào request XMLHTTP", False),
-    93: ("Rate Limiting – Xử lý giới hạn API call",    "Phase 4: Advanced VBA (Day 61-100)", "Authentication", "Retry với exponential backoff khi gặp HTTP 429", False),
-    94: ("WinAPI Basic – GetSystemInfo, GetUserName",   "Phase 4: Advanced VBA (Day 61-100)", "Rate Limiting", "Lấy tên máy tính, tên user Windows bằng WinAPI", False),
-    95: ("Debug & Clean & Performance – Tổng hợp",     "Phase 4: Advanced VBA (Day 61-100)", "WinAPI Basic", "Code review 5 hàm cũ: đặt lại tên, tách nhỏ, đo tốc độ", False),
-    96: ("Architecture Review – Nhìn lại kiến trúc",   "Phase 4: Advanced VBA (Day 61-100)", "Debug Clean Performance", "Vẽ lại sơ đồ module, phát hiện và loại bỏ circular dependency", False),
-    97: ("API POST – Gửi dữ liệu lên API",              "Phase 4: Advanced VBA (Day 61-100)", "Architecture Review", "POST JSON payload lên webhook.site, kiểm tra response", False),
-    98: ("API GET – Nhận dữ liệu từ API",               "Phase 4: Advanced VBA (Day 61-100)", "API POST", "GET dữ liệu thời tiết, lưu vào bảng Access tự động", False),
-    99: ("JSON Parse – Phân tích JSON trong VBA",       "Phase 4: Advanced VBA (Day 61-100)", "API GET", "Viết hàm GetJsonValue(json, key) không dùng thư viện ngoài", False),
-    100: ("Error API – Xử lý lỗi khi gọi API",         "Phase 4: Advanced VBA (Day 61-100)", "JSON Parse", "Phân loại lỗi: Network, HTTP status, Business logic, Timeout", False),
+    for p_name, topics in phases_data:
+        t_list = [(t, f"Thực hành chi tiết: {t}. Triển khai code VBA chuẩn mực, đo lường hiệu năng và xử lý ngoại lệ.", i == len(topics)-1) for i, t in enumerate(topics)]
+        add_phase(current_day, p_name, t_list)
+        current_day += len(topics)
 
-    # ===== PHASE 5: Automation & Production (Day 101-180) =====
-    101: ("XML Parse – Đọc dữ liệu XML trong VBA",     "Phase 5: Automation & Production (Day 101-180)", "Error API", "Dùng MSXML2.DOMDocument đọc file XML, trích tag cụ thể", False),
-    102: ("PDF Export – Xuất báo cáo ra PDF",           "Phase 5: Automation & Production (Day 101-180)", "XML Parse", "Xuất Report Access sang PDF bằng DoCmd.OutputTo", False),
-    103: ("File Dialog – Hộp thoại chọn file",          "Phase 5: Automation & Production (Day 101-180)", "PDF Export", "Dùng FileDialog mType chọn file Excel để import", False),
-    104: ("Progress Bar – Thanh tiến trình",             "Phase 5: Automation & Production (Day 101-180)", "File Dialog", "Tạo Form ProgressBar cập nhật % khi xử lý 1000 dòng", False),
-    105: ("Background Task – Chạy tác vụ nền",          "Phase 5: Automation & Production (Day 101-180)", "Progress Bar", "Dùng DoEvents tránh đơ giao diện khi xử lý nặng", False),
-    106: ("Scheduler – Lên lịch tác vụ tự động",        "Phase 5: Automation & Production (Day 101-180)", "Background Task", "Chạy ImportData tự động lúc 7h sáng bằng Application.OnTime", False),
-    107: ("Email Report – Gửi báo cáo qua email",       "Phase 5: Automation & Production (Day 101-180)", "Scheduler", "Xuất Excel → đính kèm → gửi email tổng kết cuối ngày", False),
-    108: ("FTP Upload – Tải file lên server",            "Phase 5: Automation & Production (Day 101-180)", "Email Report", "Dùng WinINet API hoặc Shell script upload file báo cáo", False),
-    109: ("Backup System – Tự động backup database",    "Phase 5: Automation & Production (Day 101-180)", "FTP Upload", "Copy file .accdb vào thư mục backup với timestamp tự động", False),
-    110: ("Logging System Full – Hệ thống log hoàn chỉnh","Phase 5: Automation & Production (Day 101-180)","Backup System", "Log 4 level: DEBUG/INFO/WARN/ERROR với rotation file theo ngày", False),
-    111: ("Notification System – Thông báo hệ thống",   "Phase 5: Automation & Production (Day 101-180)", "Logging System Full", "Hiển thị tray notification khi import xong hoặc có lỗi", False),
-    112: ("Multi-user Basics – Nhiều người dùng",        "Phase 5: Automation & Production (Day 101-180)", "Notification", "Mở database ở chế độ Shared, hiểu Record Locking", False),
-    113: ("Locking Strategy – Chiến lược khóa record",  "Phase 5: Automation & Production (Day 101-180)", "Multi-user Basics", "Dùng Optimistic Locking: check timestamp trước khi Update", False),
-    114: ("Transaction Management – Quản lý giao dịch", "Phase 5: Automation & Production (Day 101-180)", "Locking Strategy", "BeginTrans/CommitTrans/Rollback cho 3 bảng liên kết", False),
-    115: ("Concurrent Access – Xử lý truy cập đồng thời","Phase 5: Automation & Production (Day 101-180)","Transaction Management", "Mô phỏng 2 người cùng sửa record, xử lý conflict", False),
-    116: ("ADO – ActiveX Data Objects (so với DAO)",    "Phase 5: Automation & Production (Day 101-180)", "Concurrent Access", "Kết nối SQL Server bằng ADO Connection String", False),
-    117: ("ADO Recordset – Truy vấn với ADO",            "Phase 5: Automation & Production (Day 101-180)", "ADO cơ bản", "Dùng ADODB.Recordset Open truy vấn bảng SQL Server", False),
-    118: ("Stored Procedure Call – Gọi SP từ VBA",      "Phase 5: Automation & Production (Day 101-180)", "ADO Recordset", "Gọi SP_GetOrderByDate với parameter từ VBA ADO", False),
-    119: ("Connection Pool – Tái sử dụng kết nối",      "Phase 5: Automation & Production (Day 101-180)", "Stored Procedure", "Viết Module DBConnection quản lý 1 connection dùng chung", False),
-    120: ("Project 5 – Integration System",             "Phase 5: Automation & Production (Day 101-180)", "Connection Pool", "Dự án: Access + Excel + SQL Server + API + Email tự động", True),
-    121: ("PrintOut – In ấn từ VBA",                    "Phase 5: Automation & Production (Day 101-180)", "Project 5", "DoCmd.PrintOut với dialog chọn máy in, số bản in", False),
-    122: ("Report Filter – Lọc Report theo tham số",    "Phase 5: Automation & Production (Day 101-180)", "PrintOut", "Mở Report với OpenArgs lọc theo DateFrom/DateTo", False),
-    123: ("Report Subreport – Báo cáo lồng nhau",       "Phase 5: Automation & Production (Day 101-180)", "Report Filter", "Thiết kế Report chính + Subreport chi tiết đơn hàng", False),
-    124: ("Report Grouping – Nhóm dữ liệu trong Report","Phase 5: Automation & Production (Day 101-180)", "Report Subreport", "Nhóm báo cáo theo tháng, mỗi nhóm có header/footer", False),
-    125: ("Conditional Formatting Report – Màu sắc",    "Phase 5: Automation & Production (Day 101-180)", "Report Grouping", "Tô màu đỏ dòng có doanh thu < 0 trong Report", False),
-    126: ("Chart in Report – Biểu đồ trong Report",     "Phase 5: Automation & Production (Day 101-180)", "Conditional Formatting", "Nhúng PivotChart doanh thu vào Report Access", False),
-    127: ("Mail Merge Access → Word",                   "Phase 5: Automation & Production (Day 101-180)", "Chart in Report", "Tạo hợp đồng cá nhân hóa từ template Word + dữ liệu Access", False),
-    128: ("Batch Print – In hàng loạt",                  "Phase 5: Automation & Production (Day 101-180)", "Mail Merge", "In 100 hóa đơn tự động, mỗi hóa đơn 1 record", False),
-    129: ("Dynamic SQL – SQL động thay đổi theo điều kiện","Phase 5: Automation & Production (Day 101-180)","Batch Print", "Xây dựng câu SQL động dựa trên filter người dùng chọn", False),
-    130: ("Timer – Đồng hồ đếm ngược & Alarm",          "Phase 5: Automation & Production (Day 101-180)", "Dynamic SQL", "Form hiển thị đồng hồ real-time, cảnh báo khi hết giờ", False),
-    131: ("Keyboard Shortcut – Phím tắt tùy chỉnh",     "Phase 5: Automation & Production (Day 101-180)", "Timer", "Gán Ctrl+S để lưu, Ctrl+F để tìm kiếm trong Form", False),
-    132: ("Right-click Menu – Menu chuột phải",          "Phase 5: Automation & Production (Day 101-180)", "Keyboard Shortcut", "Tạo CommandBar popup với Copy/Delete/Edit khi right-click", False),
-    133: ("Status Bar – Thanh trạng thái",               "Phase 5: Automation & Production (Day 101-180)", "Right-click Menu", "Hiển thị tiến trình '50/100 records processed' dưới cùng", False),
-    134: ("Splash Screen – Màn hình loading",            "Phase 5: Automation & Production (Day 101-180)", "Status Bar", "Form splash 3 giây hiện logo, progress, tự đóng → Main Form", False),
-    135: ("Theme System – Hệ thống giao diện",           "Phase 5: Automation & Production (Day 101-180)", "Splash Screen", "Module ChangeTheme() đổi màu nền/chữ toàn bộ Form", False),
-    136: ("Tooltip & Help – Hướng dẫn inline",           "Phase 5: Automation & Production (Day 101-180)", "Theme System", "Gán ControlTipText cho mỗi TextBox, hiển thị ? icon", False),
-    137: ("Form Resize – Co dãn giao diện",              "Phase 5: Automation & Production (Day 101-180)", "Tooltip & Help", "Form_Resize tự đặt lại vị trí control theo kích thước", False),
-    138: ("Drag & Drop – Kéo thả trong Form",            "Phase 5: Automation & Production (Day 101-180)", "Form Resize", "Di chuyển item giữa 2 ListBox bằng kéo thả", False),
-    139: ("Password & Security – Bảo mật ứng dụng",     "Phase 5: Automation & Production (Day 101-180)", "Drag & Drop", "Mã hóa password bằng XOR đơn giản, lưu hash vào DB", False),
-    140: ("Export Excel Advanced – Xuất có format đẹp", "Phase 5: Automation & Production (Day 101-180)", "Password & Security", "Xuất Excel có logo, header công ty, border, màu xen kẽ dòng", False),
-    141: ("Import Wizard – Hướng dẫn import từng bước", "Phase 5: Automation & Production (Day 101-180)", "Export Excel Advanced", "Form multi-step: Chọn file → Preview → Validate → Import", False),
-    142: ("Data Validation UI – Kiểm tra nhập liệu",    "Phase 5: Automation & Production (Day 101-180)", "Import Wizard", "Hiển thị inline error dưới TextBox (label màu đỏ) thay vì MsgBox", False),
-    143: ("Audit Trail – Lịch sử thay đổi dữ liệu",    "Phase 5: Automation & Production (Day 101-180)", "Data Validation UI", "Ghi log mọi INSERT/UPDATE/DELETE vào bảng AuditLog", False),
-    144: ("Soft Delete – Xóa mềm (không xóa thật)",     "Phase 5: Automation & Production (Day 101-180)", "Audit Trail", "Cột IsDeleted = True thay vì DELETE, có màn hình Restore", False),
-    145: ("Report Automation – Tự động tạo báo cáo",    "Phase 5: Automation & Production (Day 101-180)", "Soft Delete", "Mỗi 8h sáng tự tạo báo cáo ngày hôm trước, gửi email", False),
-    146: ("Pivot Report – Bảng chéo động",               "Phase 5: Automation & Production (Day 101-180)", "Report Automation", "Tạo bảng pivot sản phẩm × tháng tự động từ SQL", False),
-    147: ("Heatmap Style – Tô màu theo giá trị",         "Phase 5: Automation & Production (Day 101-180)", "Pivot Report", "Tô xanh/vàng/đỏ ô dựa trên % đạt chỉ tiêu", False),
-    148: ("Dashboard Builder – Xây dựng Dashboard",      "Phase 5: Automation & Production (Day 101-180)", "Heatmap Style", "Form Dashboard: 4 KPI card + Chart + Top 5 sản phẩm", False),
-    149: ("Real-time Refresh – Cập nhật tự động",        "Phase 5: Automation & Production (Day 101-180)", "Dashboard Builder", "Dashboard tự refresh mỗi 60s dùng OnTime", False),
-    150: ("Dashboard Full – Hoàn thiện Dashboard",       "Phase 5: Automation & Production (Day 101-180)", "Real-time Refresh", "Thêm filter theo ngày, drill-down từ biểu đồ vào chi tiết", False),
-    151: ("Macro Recorder Style – Ghi và tinh chỉnh",   "Phase 5: Automation & Production (Day 101-180)", "Dashboard Full", "Record macro Excel, dọn code rác, tối ưu thành hàm tái dùng", False),
-    152: ("AddIn Structure – Cấu trúc Add-in Access",   "Phase 5: Automation & Production (Day 101-180)", "Macro Recorder Style", "Hiểu cách tạo file .accda và register vào Access", False),
-    153: ("Plugin Architecture – Kiến trúc plugin",     "Phase 5: Automation & Production (Day 101-180)", "AddIn Structure", "Viết Interface IPlugin và gọi dynamic từ Registry", False),
-    154: ("Configuration Manager – Quản lý cấu hình",   "Phase 5: Automation & Production (Day 101-180)", "Plugin Architecture", "Bảng AppConfig key/value, đọc/ghi runtime không cần restart", False),
-    155: ("Process Automation – Tự động hóa quy trình", "Phase 5: Automation & Production (Day 101-180)", "Configuration Manager", "Tự động: download → unzip → import → gửi báo cáo mỗi ngày", False),
-    156: ("Webhook Receiver – Nhận dữ liệu từ webhook", "Phase 5: Automation & Production (Day 101-180)", "Process Automation", "Polling API mỗi 5p, phát hiện dữ liệu mới, tự động xử lý", False),
-    157: ("Queue System – Hàng đợi xử lý tác vụ",       "Phase 5: Automation & Production (Day 101-180)", "Webhook Receiver", "Bảng TaskQueue: add task → worker process → mark Done", False),
-    158: ("Retry Mechanism – Thử lại khi thất bại",     "Phase 5: Automation & Production (Day 101-180)", "Queue System", "Retry 3 lần với delay tăng dần, sau đó log lỗi permanent", False),
-    159: ("Circuit Breaker – Ngắt mạch khi lỗi liên tục","Phase 5: Automation & Production (Day 101-180)","Retry Mechanism", "Đếm lỗi liên tiếp > 5 → dừng gọi API, chờ 10p reset", False),
-    160: ("Conflict Handling – Xử lý xung đột dữ liệu", "Phase 5: Automation & Production (Day 101-180)", "Circuit Breaker", "Detect concurrent edit: Last-Write-Wins vs Merge vs Notify", False),
-    161: ("Event Sourcing Style – Ghi lịch sử sự kiện", "Phase 5: Automation & Production (Day 101-180)", "Conflict Handling", "Ghi mọi action (Create/Update/Delete) vào EventLog, replay được", False),
-    162: ("State Machine – Máy trạng thái",              "Phase 5: Automation & Production (Day 101-180)", "Event Sourcing", "Đơn hàng: Draft→Pending→Approved→Shipped→Done → Enum", False),
-    163: ("Rule Engine – Động cơ quy tắc nghiệp vụ",   "Phase 5: Automation & Production (Day 101-180)", "State Machine", "Bảng BusinessRule: điều kiện + hành động, chạy runtime", False),
-    164: ("Notification Queue – Hàng đợi thông báo",    "Phase 5: Automation & Production (Day 101-180)", "Rule Engine", "Tự gửi email khi đơn hàng chuyển trạng thái quan trọng", False),
-    165: ("Logging Full System – Log toàn diện",         "Phase 5: Automation & Production (Day 101-180)", "Notification Queue", "4-level log + file rotation + summary email cuối ngày", False),
-    166: ("Health Check – Kiểm tra sức khỏe hệ thống",  "Phase 5: Automation & Production (Day 101-180)", "Logging Full System", "Ping DB, API, file share mỗi 5p, cảnh báo qua email nếu down", False),
-    167: ("Performance Monitor – Theo dõi hiệu năng",   "Phase 5: Automation & Production (Day 101-180)", "Health Check", "Ghi thời gian chạy từng Sub vào bảng PerfLog, dashboard", False),
-    168: ("Code Metrics – Đo chất lượng code",           "Phase 5: Automation & Production (Day 101-180)", "Performance Monitor", "Đếm dòng code, độ phức tạp cyclomatic, số bug theo module", False),
-    169: ("Dependency Map – Bản đồ phụ thuộc module",   "Phase 5: Automation & Production (Day 101-180)", "Code Metrics", "Vẽ sơ đồ module gọi module nào, phát hiện coupling mạnh", False),
-    170: ("Version Control Style – Quản lý phiên bản",  "Phase 5: Automation & Production (Day 101-180)", "Dependency Map", "Export VBA module ra .bas file, commit lên Git qua Shell", False),
-    171: ("Changelog System – Theo dõi thay đổi",       "Phase 5: Automation & Production (Day 101-180)", "Version Control", "Bảng Changelog: version, date, author, mô tả thay đổi", False),
-    172: ("Migration Script – Nâng cấp schema DB",       "Phase 5: Automation & Production (Day 101-180)", "Changelog System", "Script kiểm tra version DB, chạy ALTER TABLE nếu cần", False),
-    173: ("Rollback Mechanism – Quay lui khi lỗi",       "Phase 5: Automation & Production (Day 101-180)", "Migration Script", "Backup trước khi migrate, tự rollback nếu migration thất bại", False),
-    174: ("A/B Testing Style – Thử nghiệm tính năng",   "Phase 5: Automation & Production (Day 101-180)", "Rollback Mechanism", "Flag FeatureToggle trong Config, bật/tắt tính năng mới", False),
-    175: ("Recovery System – Hệ thống phục hồi",        "Phase 5: Automation & Production (Day 101-180)", "A/B Testing Style", "Tự phát hiện DB corrupt, restore từ backup mới nhất", False),
-    176: ("Disaster Recovery – Kế hoạch khôi phục",     "Phase 5: Automation & Production (Day 101-180)", "Recovery System", "Quy trình: backup S3 → restore test hàng tuần → alert", False),
-    177: ("Load Testing Style – Kiểm tra tải",           "Phase 5: Automation & Production (Day 101-180)", "Disaster Recovery", "Chạy 1000 INSERT liên tiếp, đo thời gian, phát hiện bottleneck", False),
-    178: ("Stress Testing – Kiểm tra giới hạn hệ thống","Phase 5: Automation & Production (Day 101-180)", "Load Testing", "Mô phỏng 50 user đồng thời, kiểm tra deadlock, timeout", False),
-    179: ("Documentation Generator – Tự tạo tài liệu", "Phase 5: Automation & Production (Day 101-180)", "Stress Testing", "Đọc comment code VBA, tạo file .md mô tả từng hàm tự động", False),
-    180: ("Final System – Hệ thống đầy đủ chuẩn Pro",  "Phase 5: Automation & Production (Day 101-180)", "Documentation Generator", "Tổng hợp toàn bộ: Architecture, Logging, Error, Deploy, Test", True),
+    return roadmap
 
-    # ===== PHASE 6: Expert Mindset (Day 181-220) =====
-    181: ("Production Mindset – Tư duy làm việc thực",  "Phase 6: Expert & Production Mindset (Day 181-220)", "Final System", "5 thói quen bắt buộc: test trước khi deploy, log mọi thứ...", False),
-    182: ("Code Review Checklist – Danh sách kiểm tra", "Phase 6: Expert & Production Mindset (Day 181-220)", "Production Mindset", "10 điểm review code: naming, error handling, performance...", False),
-    183: ("Refactoring Techniques – Kỹ thuật tái cấu trúc","Phase 6: Expert & Production Mindset (Day 181-220)","Code Review", "Extract Method, Rename, Replace Magic Number", False),
-    184: ("SOLID Principles – Nguyên tắc thiết kế",     "Phase 6: Expert & Production Mindset (Day 181-220)", "Refactoring", "Áp dụng Single Responsibility và Open/Closed vào Module VBA", False),
-    185: ("Design Patterns VBA – Mẫu thiết kế",         "Phase 6: Expert & Production Mindset (Day 181-220)", "SOLID Principles", "Singleton (DBConnection), Observer (Event), Factory (Report)", False),
-    186: ("Legacy Code – Làm việc với code cũ",          "Phase 6: Expert & Production Mindset (Day 181-220)", "Design Patterns", "Nhận code VBA không tài liệu: đọc hiểu, thêm test, refactor dần", False),
-    187: ("Technical Debt – Nợ kỹ thuật",               "Phase 6: Expert & Production Mindset (Day 181-220)", "Legacy Code", "Lập danh sách nợ kỹ thuật, ưu tiên trả theo impact/effort", False),
-    188: ("Code Smell – Mùi code xấu",                   "Phase 6: Expert & Production Mindset (Day 181-220)", "Technical Debt", "Nhận biết 10 code smell: God Module, Magic String, Dead Code...", False),
-    189: ("Clean Code VBA – Code sạch theo chuẩn",      "Phase 6: Expert & Production Mindset (Day 181-220)", "Code Smell", "Đặt tên hàm như câu tiếng Anh, mỗi Sub chỉ làm 1 việc", False),
-    190: ("Senior Mindset – Tư duy lập trình viên senior","Phase 6: Expert & Production Mindset (Day 181-220)","Clean Code VBA", "Reality gap: code học vs code production — 5 điểm khác biệt", False),
-    191: ("Performance Profiling – Profiling chi tiết",  "Phase 6: Expert & Production Mindset (Day 181-220)", "Senior Mindset", "Đo từng dòng code bằng Timer, tìm hotspot tốn thời gian nhất", False),
-    192: ("Memory Management – Quản lý bộ nhớ",          "Phase 6: Expert & Production Mindset (Day 181-220)", "Performance Profiling", "Phát hiện memory leak: Object không được Nothing, Array không Erase", False),
-    193: ("Cache Strategy – Chiến lược cache dữ liệu",   "Phase 6: Expert & Production Mindset (Day 181-220)", "Memory Management", "Cache danh sách dropdown trong Static Variable, invalidate khi cần", False),
-    194: ("Lazy Loading – Tải dữ liệu khi cần",          "Phase 6: Expert & Production Mindset (Day 181-220)", "Cache Strategy", "Chỉ load dữ liệu chi tiết khi user bấm xem, không load trước", False),
-    195: ("Event-driven Architecture – Kiến trúc sự kiện","Phase 6: Expert & Production Mindset (Day 181-220)","Lazy Loading", "Tạo hệ thống event bus đơn giản: Subscribe/Publish trong VBA", False),
-    196: ("Service Layer – Tách logic nghiệp vụ",        "Phase 6: Expert & Production Mindset (Day 181-220)", "Event-driven", "Module OrderService tách khỏi Form, gọi DAO/ADO bên trong", False),
-    197: ("Repository Pattern – Tách data access",       "Phase 6: Expert & Production Mindset (Day 181-220)", "Service Layer", "CustomerRepository: GetAll, GetById, Save, Delete — tái dùng", False),
-    198: ("DTO Pattern – Truyền dữ liệu an toàn",        "Phase 6: Expert & Production Mindset (Day 181-220)", "Repository Pattern", "Type CustomerDTO với chỉ những field cần thiết, không lộ DB", False),
-    199: ("Integration Testing – Kiểm thử tích hợp",    "Phase 6: Expert & Production Mindset (Day 181-220)", "DTO Pattern", "Test end-to-end: Import Excel → DB → Export PDF → Gửi email", False),
-    200: ("Project 6 – Enterprise System Design",        "Phase 6: Expert & Production Mindset (Day 181-220)", "Integration Testing", "Dự án: Thiết kế lại hệ thống cũ theo Service+Repository pattern", True),
-    201: ("Observability – Quan sát hệ thống",           "Phase 6: Expert & Production Mindset (Day 181-220)", "Project 6", "3 lớp: Logging (what) + Metrics (how much) + Tracing (where)", False),
-    202: ("Alerting System – Cảnh báo thông minh",       "Phase 6: Expert & Production Mindset (Day 181-220)", "Observability", "Cảnh báo khi error rate > 5%, response time > 3s", False),
-    203: ("SLA/SLO – Cam kết chất lượng dịch vụ",       "Phase 6: Expert & Production Mindset (Day 181-220)", "Alerting System", "Định nghĩa uptime 99%, max query time 2s, đo và báo cáo", False),
-    204: ("Data Quality – Chất lượng dữ liệu",           "Phase 6: Expert & Production Mindset (Day 181-220)", "SLA/SLO", "Kiểm tra: completeness, accuracy, consistency tự động hàng ngày", False),
-    205: ("Master Data Management – Quản lý dữ liệu gốc","Phase 6: Expert & Production Mindset (Day 181-220)","Data Quality", "Bảng MasterProduct là nguồn sự thật, các bảng khác tham chiếu", False),
-    206: ("Data Reconciliation – Đối chiếu dữ liệu",    "Phase 6: Expert & Production Mindset (Day 181-220)", "Master Data", "Script đối chiếu tự động giữa Access và Excel mỗi cuối ngày", False),
-    207: ("Archive Strategy – Chiến lược lưu trữ lịch sử","Phase 6: Expert & Production Mindset (Day 181-220)","Data Reconciliation", "Move data cũ > 2 năm sang bảng Archive, giữ hiệu năng DB", False),
-    208: ("Compliance & GDPR – Tuân thủ quy định",       "Phase 6: Expert & Production Mindset (Day 181-220)", "Archive Strategy", "Anonymize dữ liệu khách hàng khi xuất báo cáo, right-to-delete", False),
-    209: ("Security Hardening – Tăng cường bảo mật",    "Phase 6: Expert & Production Mindset (Day 181-220)", "Compliance", "Encrypt connection string, hash password, least-privilege user", False),
-    210: ("Deployment Process – Quy trình triển khai",   "Phase 6: Expert & Production Mindset (Day 181-220)", "Security Hardening", "Checklist deploy: test → backup → deploy → smoke test → rollback plan", False),
-    211: ("Change Management – Quản lý thay đổi",        "Phase 6: Expert & Production Mindset (Day 181-220)", "Deployment Process", "Thông báo user trước 24h, có downtime window, hướng dẫn tính năng mới", False),
-    212: ("Incident Response – Xử lý sự cố",             "Phase 6: Expert & Production Mindset (Day 181-220)", "Change Management", "Quy trình: Detect → Triage → Fix → Post-mortem trong 1h", False),
-    213: ("Post-mortem – Phân tích sau sự cố",           "Phase 6: Expert & Production Mindset (Day 181-220)", "Incident Response", "5 Whys phân tích root cause, action items không blame người", False),
-    214: ("Knowledge Base – Kho kiến thức",              "Phase 6: Expert & Production Mindset (Day 181-220)", "Post-mortem", "Ghi lại solution của bug khó vào wiki nội bộ, tìm kiếm được", False),
-    215: ("Mentoring Style – Hướng dẫn người khác",      "Phase 6: Expert & Production Mindset (Day 181-220)", "Knowledge Base", "Viết document cho junior: setup, coding convention, common pitfalls", False),
-    216: ("Code Documentation – Tài liệu code chuẩn",   "Phase 6: Expert & Production Mindset (Day 181-220)", "Mentoring Style", "Comment theo format: ' @desc, @param, @returns cho mọi Function", False),
-    217: ("API Design – Thiết kế interface hàm",         "Phase 6: Expert & Production Mindset (Day 181-220)", "Code Documentation", "Module public interface ổn định, implementation ẩn bên trong", False),
-    218: ("Backward Compatibility – Tương thích ngược",  "Phase 6: Expert & Production Mindset (Day 181-220)", "API Design", "Thêm tham số optional với default value, không break code cũ", False),
-    219: ("Final Review – Nhìn lại toàn bộ hành trình", "Phase 6: Expert & Production Mindset (Day 181-220)", "Backward Compatibility", "Ôn 10 kỹ năng quan trọng nhất từ Day 1 đến Day 218", False),
-    220: ("Project 7 – Portfolio Capstone",              "Phase 6: Expert & Production Mindset (Day 181-220)", "Final Review", "Dự án cuối khóa: Hệ thống quản lý hoàn chỉnh từ A→Z production-ready", True),
+def generate_markdown(roadmap_data):
+    md_lines = [
+        "# 🗂️ Lộ Trình Học Access VBA – 600 Ngày (Từ Zero Đến Master Enterprise Architect)",
+        "",
+        "> **Mục tiêu**: Làm chủ toàn diện Microsoft Access VBA từ nút bấm đầu tiên đến Kiến trúc sư CSDL & Ứng dụng Doanh nghiệp cấp cao.",
+        "> **Phạm vi**: 20 Phase, 600 Ngày, bao phủ RDBMS 1NF-3NF, SQL Jet/ACE, DAO/ADODB, Form/Report Engine, Multi-user Concurrency, Split Database, COM Port Hardware (Barcode/RFID/Scales), WinAPI, Ribbon XML, ODBC SQL Server/Azure, REST API & Microsoft Graph Cloud Integration.",
+        "> **Ký hiệu thời gian**: 🟢 45 phút | 🟡 60 phút | 🟠 90 phút | 🔴 120 phút | 🚀 3 giờ (Dự án)",
+        ""
+    ]
 
-    # ===== PHASE 7: Ribbon & Custom UI (Day 221-230) =====
-    221: ("Ribbon Basics – Giới thiệu Ribbon XML",       "Phase 7: Ribbon & Custom UI (Day 221-230)", "Project 7 Capstone", "Tạo file customUI.xml, thêm Tab 'My Tools' với 2 button", False),
-    222: ("Ribbon Callbacks – Gắn code vào nút Ribbon", "Phase 7: Ribbon & Custom UI (Day 221-230)", "Ribbon Basics", "Callback Sub OnClick nhận IRibbonControl, gọi hàm của mình", False),
-    223: ("Dynamic Ribbon – Cập nhật Ribbon runtime",   "Phase 7: Ribbon & Custom UI (Day 221-230)", "Ribbon Callbacks", "Ẩn/hiện Tab Ribbon tùy role user đang đăng nhập", False),
-    224: ("Ribbon Icons – Thêm icon tùy chỉnh",          "Phase 7: Ribbon & Custom UI (Day 221-230)", "Dynamic Ribbon", "Nhúng icon PNG vào Ribbon, chỉ định bằng getImage callback", False),
-    225: ("Navigation Form – Tạo menu điều hướng",      "Phase 7: Ribbon & Custom UI (Day 221-230)", "Ribbon Icons", "Thay thế Switchboard cũ bằng Navigation Form hiện đại", False),
-    226: ("Quick Access Toolbar – Thanh công cụ nhanh", "Phase 7: Ribbon & Custom UI (Day 221-230)", "Navigation Form", "Thêm nút Save/Print/Refresh vào QAT bằng VBA CommandBars", False),
-    227: ("Context Menus – Menu ngữ cảnh tùy chỉnh",    "Phase 7: Ribbon & Custom UI (Day 221-230)", "Quick Access Toolbar", "Tạo popup menu 'Export/Print/Delete' khi right-click ListBox", False),
-    228: ("Form Navigation Pattern – Điều hướng đa Form","Phase 7: Ribbon & Custom UI (Day 221-230)","Context Menus", "Stack-based navigation: push/pop Form history, breadcrumb", False),
-    229: ("MDI Style – Giao diện nhiều cửa sổ",          "Phase 7: Ribbon & Custom UI (Day 221-230)", "Form Navigation Pattern", "Quản lý nhiều Form mở cùng lúc, switch, minimize, close all", False),
-    230: ("UI Accessibility – Khả năng tiếp cận",        "Phase 7: Ribbon & Custom UI (Day 221-230)", "MDI Style", "Tab order hợp lý, label gắn với control, keyboard navigation", False),
+    for day in range(1, len(roadmap_data) + 1):
+        if day not in roadmap_data:
+            continue
+        title, phase, prev_topic, exercise, is_proj = roadmap_data[day]
+        emoji, mins, label = get_time(day, is_proj)
 
-    # ===== PHASE 8: Class Module & OOP (Day 231-245) =====
-    231: ("Class Module Basics – Tạo Class đầu tiên",   "Phase 8: Class Module & OOP (Day 231-245)", "UI Accessibility", "Tạo Class clsCustomer: Properties, Methods, Constructor style", False),
-    232: ("Properties – Get/Let/Set Property",           "Phase 8: Class Module & OOP (Day 231-245)", "Class Module Basics", "Property Get/Let với validation bên trong: không cho âm", False),
-    233: ("Encapsulation – Đóng gói dữ liệu",            "Phase 8: Class Module & OOP (Day 231-245)", "Properties", "Private variable + Public Property: che dấu implementation", False),
-    234: ("Class Events – Sự kiện trong Class",          "Phase 8: Class Module & OOP (Day 231-245)", "Encapsulation", "WithEvents, Class_Initialize, Class_Terminate", False),
-    235: ("Collection Class – Class quản lý danh sách",  "Phase 8: Class Module & OOP (Day 231-245)", "Class Events", "clsCustomerList: Add/Remove/FindByID/Count, foreach wrapper", False),
-    236: ("Interface Emulation – Mô phỏng Interface",   "Phase 8: Class Module & OOP (Day 231-245)", "Collection Class", "Implements keyword: clsExcelExport, clsPdfExport cùng interface", False),
-    237: ("Polymorphism VBA – Đa hình",                  "Phase 8: Class Module & OOP (Day 231-245)", "Interface Emulation", "Gọi objExporter.Export() — ở runtime mới biết là Excel hay PDF", False),
-    238: ("Factory Pattern – Xưởng tạo object",          "Phase 8: Class Module & OOP (Day 231-245)", "Polymorphism VBA", "clsExporterFactory.Create('excel') trả về đúng loại exporter", False),
-    239: ("Observer Pattern – Theo dõi thay đổi",        "Phase 8: Class Module & OOP (Day 231-245)", "Factory Pattern", "clsEventBus.Subscribe/Publish — Form lắng nghe khi DB thay đổi", False),
-    240: ("Singleton Pattern – Đối tượng duy nhất",      "Phase 8: Class Module & OOP (Day 231-245)", "Observer Pattern", "clsAppConfig.Instance() đảm bảo chỉ 1 config object tồn tại", False),
-    241: ("Strategy Pattern – Thuật toán hoán đổi",      "Phase 8: Class Module & OOP (Day 231-245)", "Singleton Pattern", "clsSortStrategy: BubbleSort/QuickSort hoán đổi không đổi caller", False),
-    242: ("Decorator Pattern – Bọc thêm chức năng",      "Phase 8: Class Module & OOP (Day 231-245)", "Strategy Pattern", "clsLoggedRepo bọc clsCustomerRepo, tự động log mọi lần gọi", False),
-    243: ("Builder Pattern – Xây dựng object phức tạp",  "Phase 8: Class Module & OOP (Day 231-245)", "Decorator Pattern", "clsQueryBuilder.Select().Where().OrderBy().Build() → SQL string", False),
-    244: ("OOP Best Practices – Tổng kết OOP VBA",       "Phase 8: Class Module & OOP (Day 231-245)", "Builder Pattern", "Review 5 pattern đã học, áp dụng vào refactor hệ thống cũ", False),
-    245: ("OOP Capstone – Dự án OOP Mini",               "Phase 8: Class Module & OOP (Day 231-245)", "OOP Best Practices", "Xây module Inventory hoàn chỉnh dùng Class, OOP, Pattern", True),
+        md_lines.append(f"## Day {day} — {title}")
+        md_lines.append("**Prompt:**")
+        md_lines.append(f"Đóng vai trò là Kỹ sư Trưởng CSDL & Giảng viên Cao cấp Access VBA. Hôm nay là Day {day}: {title}.")
+        md_lines.append(f"Giai đoạn: {phase}.")
+        md_lines.append(f"Chủ đề hôm qua: {prev_topic}.")
+        md_lines.append("")
+        md_lines.append("(⚠️ LỆNH TỐI THƯỢNG: KHÔNG giải thích dông dài lý thuyết cơ bản. Chỉ đi thẳng vào thực chiến. TUYỆT ĐỐI KHÔNG tạo bài test/quiz tương tác chờ tôi trả lời. HÃY IN RA TOÀN BỘ nội dung để tôi tự đọc.)")
+        md_lines.append("Yêu cầu:")
+        md_lines.append(f"1. Giải thích rõ nguyên lý và bản chất của '{title}' với ví dụ code VBA Access thực tế, chuẩn clean code và chạy được ngay.")
+        md_lines.append("2. Chỉ ra 2-3 lỗi thường gặp khi triển khai chủ đề này và cách debug/xử lý triệt để.")
+        md_lines.append(f"3. Liên kết với '{prev_topic}' (hôm qua) — điểm nào hôm nay kế thừa và mở rộng.")
+        md_lines.append(f"4. Giao bài tập mini từng bước nhỏ: {exercise}")
+        md_lines.append("")
+        md_lines.append("**Bài tập:**")
+        md_lines.append(f"⏱️ **Thời gian ước tính:** {emoji} {label}")
+        md_lines.append(f"📌 **Chủ đề hôm nay:** {title}")
+        md_lines.append(f"🔗 **Ôn lại ngày trước:** {prev_topic}")
+        md_lines.append(f"💻 **Tự thực hành:** {exercise}")
+        md_lines.append("")
+        md_lines.append(f"**Tags:** #access_vba #day{day} #vba #rdbms")
+        md_lines.append("")
+        md_lines.append("---")
+        md_lines.append("")
 
-    # ===== PHASE 9: Report Builder Advanced (Day 246-260) =====
-    246: ("Report Designer – Thiết kế báo cáo chuyên nghiệp","Phase 9: Report Builder Advanced (Day 246-260)","OOP Capstone", "Sections: ReportHeader/Detail/GroupHeader/Footer/PageFooter", False),
-    247: ("Dynamic Report Source – Nguồn dữ liệu động",  "Phase 9: Report Builder Advanced (Day 246-260)", "Report Designer", "Đổi RecordSource Report runtime theo filter người dùng chọn", False),
-    248: ("Calculated Fields – Trường tính toán",         "Phase 9: Report Builder Advanced (Day 246-260)", "Dynamic Report Source", "=Sum([Amount]) trong Footer, =IIf([Score]>8,'A','B') inline", False),
-    249: ("Cross-tab Report – Báo cáo chéo cột",         "Phase 9: Report Builder Advanced (Day 246-260)", "Calculated Fields", "Tạo báo cáo động: cột = tháng, sinh cột tự động bằng VBA", False),
-    250: ("Report with Parameters – Báo cáo có tham số", "Phase 9: Report Builder Advanced (Day 246-260)", "Cross-tab Report", "Form chọn DateFrom/DateTo/Region → truyền vào Report WHERE", False),
-    251: ("Batch PDF Export – Xuất nhiều PDF tự động",   "Phase 9: Report Builder Advanced (Day 246-260)", "Report with Parameters", "Loop qua danh sách KH, xuất 1 PDF riêng mỗi người", False),
-    252: ("Report Snapshot – Lưu báo cáo tĩnh",          "Phase 9: Report Builder Advanced (Day 246-260)", "Batch PDF Export", "Lưu Report dưới dạng .snp hoặc PDF với dữ liệu frozen tại thời điểm", False),
-    253: ("Labels Report – In nhãn địa chỉ",              "Phase 9: Report Builder Advanced (Day 246-260)", "Report Snapshot", "Tạo Label Report 3 cột in địa chỉ giao hàng", False),
-    254: ("Subreport Advanced – Subreport phức tạp",     "Phase 9: Report Builder Advanced (Day 246-260)", "Labels Report", "Subreport lồng 2 cấp: đơn hàng → chi tiết → tổng tiền", False),
-    255: ("Chart Types – Các loại biểu đồ báo cáo",      "Phase 9: Report Builder Advanced (Day 246-260)", "Subreport Advanced", "Bar, Line, Pie Chart trong Report với dynamic data source", False),
-    256: ("Watermark & Logo – Thương hiệu báo cáo",      "Phase 9: Report Builder Advanced (Day 246-260)", "Chart Types", "Thêm logo header, watermark 'DRAFT' bằng Image control", False),
-    257: ("Report Security – Bảo mật báo cáo",           "Phase 9: Report Builder Advanced (Day 246-260)", "Watermark & Logo", "Ẩn/hiện cột nhạy cảm dựa trên role, blur dữ liệu lương", False),
-    258: ("Print Preview Control – Xem trước in",         "Phase 9: Report Builder Advanced (Day 246-260)", "Report Security", "Mở Report ở acPreview, custom toolbar chỉ giữ Print/Close", False),
-    259: ("Report Template System – Hệ thống mẫu",       "Phase 9: Report Builder Advanced (Day 246-260)", "Print Preview Control", "Kho template báo cáo, user chọn mẫu → bind dữ liệu → xuất", False),
-    260: ("Report Capstone – Dự án báo cáo",             "Phase 9: Report Builder Advanced (Day 246-260)", "Report Template", "Hệ thống báo cáo tự động: Daily/Weekly/Monthly, gửi email", True),
+    content = "\n".join(md_lines)
+    with open(filepath, "w", encoding="utf-8") as f:
+        f.write(content)
+    with open(filepath_600, "w", encoding="utf-8") as f:
+        f.write(content)
 
-    # ===== PHASE 10: Multi-user & Distribution (Day 261-290) =====
-    261: ("Split Database – Tách frontend/backend",       "Phase 10: Multi-user & Distribution (Day 261-290)", "Report Capstone", "Tách .accdb thành fe.accdb + be.accdb, link table", False),
-    262: ("Linked Table Manager – Quản lý bảng liên kết","Phase 10: Multi-user & Distribution (Day 261-290)", "Split Database", "Tự động relink khi đường dẫn backend thay đổi", False),
-    263: ("Network Share Setup – Chia sẻ qua mạng LAN",  "Phase 10: Multi-user & Distribution (Day 261-290)", "Linked Table Manager", "Đặt backend trên share folder, 5 user test đồng thời", False),
-    264: ("Row Locking vs Page Locking",                  "Phase 10: Multi-user & Distribution (Day 261-290)", "Network Share", "Cấu hình DefaultRecordLockingProperty, kiểm tra conflict", False),
-    265: ("Optimistic Concurrency – Kiểm tra timestamp", "Phase 10: Multi-user & Distribution (Day 261-290)", "Row vs Page Locking", "Trường LastModified: check trước Update, cảnh báo nếu khác", False),
-    266: ("User Login System – Hệ thống đăng nhập",      "Phase 10: Multi-user & Distribution (Day 261-290)", "Optimistic Concurrency", "Bảng Users, hash password SHA256 qua WinAPI, session token", False),
-    267: ("Role-based Access – Phân quyền theo vai trò", "Phase 10: Multi-user & Distribution (Day 261-290)", "User Login", "Admin/Manager/User: ẩn Tab, disable button dựa trên Role", False),
-    268: ("Row-level Security – Bảo mật cấp dòng dữ liệu","Phase 10: Multi-user & Distribution (Day 261-290)","Role-based Access", "Mỗi user chỉ thấy dữ liệu của mình: WHERE UserID = Session.UserID", False),
-    269: ("Activity Log – Nhật ký hoạt động user",       "Phase 10: Multi-user & Distribution (Day 261-290)", "Row-level Security", "Ghi Login/Logout/Action vào bảng ActivityLog", False),
-    270: ("Deployment Package – Đóng gói ứng dụng",      "Phase 10: Multi-user & Distribution (Day 261-290)", "Activity Log", "Compile thành .accde (Compiled Access), ẩn code VBA", False),
-    271: ("Auto-updater – Tự động cập nhật frontend",    "Phase 10: Multi-user & Distribution (Day 261-290)", "Deployment Package", "Khi mở app: so sánh version, nếu mới hơn → copy fe mới về", False),
-    272: ("Setup Wizard – Cài đặt lần đầu",               "Phase 10: Multi-user & Distribution (Day 261-290)", "Auto-updater", "Form hỏi đường dẫn backend, test kết nối, lưu config.ini", False),
-    273: ("Error Reporting – Báo lỗi tự động về team",   "Phase 10: Multi-user & Distribution (Day 261-290)", "Setup Wizard", "Khi crash: thu thập context, gửi email + log về admin", False),
-    274: ("Remote Diagnostics – Debug từ xa",             "Phase 10: Multi-user & Distribution (Day 261-290)", "Error Reporting", "Admin xem live log của user đang gặp lỗi qua shared folder", False),
-    275: ("Database Compression – Nén và optimize DB",   "Phase 10: Multi-user & Distribution (Day 261-290)", "Remote Diagnostics", "Compact & Repair tự động hàng tuần, cảnh báo khi DB > 1GB", False),
-    276: ("Backup & Restore UI – Giao diện backup",      "Phase 10: Multi-user & Distribution (Day 261-290)", "Database Compression", "Form admin: backup ngay, xem lịch sử, restore từ bản cụ thể", False),
-    277: ("Migration Tool – Công cụ nâng cấp schema",    "Phase 10: Multi-user & Distribution (Day 261-290)", "Backup & Restore UI", "Script check + ALTER TABLE khi deploy version mới lên production", False),
-    278: ("Performance Tuning Production – Tối ưu thực", "Phase 10: Multi-user & Distribution (Day 261-290)", "Migration Tool", "Phân tích slow query từ log, thêm index, viết lại JOIN", False),
-    279: ("Monitoring Dashboard – Theo dõi hệ thống",    "Phase 10: Multi-user & Distribution (Day 261-290)", "Performance Tuning", "Dashboard admin: online users, error rate, DB size, last backup", False),
-    280: ("End-to-end Security Audit – Kiểm tra bảo mật","Phase 10: Multi-user & Distribution (Day 261-290)", "Monitoring Dashboard", "Checklist 20 điểm bảo mật: SQL injection, unencrypted data...", False),
-    281: ("GDPR & Data Privacy – Quyền riêng tư dữ liệu","Phase 10: Multi-user & Distribution (Day 261-290)", "Security Audit", "Xóa dữ liệu theo yêu cầu, xuất dữ liệu cá nhân, consent log", False),
-    282: ("Disaster Recovery Drill – Thực hành khôi phục","Phase 10: Multi-user & Distribution (Day 261-290)","GDPR", "Mô phỏng DB crash, thực hành restore từ backup trong 30 phút", False),
-    283: ("Documentation Package – Tài liệu bàn giao",   "Phase 10: Multi-user & Distribution (Day 261-290)", "DR Drill", "User manual, Admin guide, Technical spec, Changelog — đầy đủ", False),
-    284: ("Training Material – Tài liệu đào tạo",        "Phase 10: Multi-user & Distribution (Day 261-290)", "Documentation", "Video screen-record 10 luồng nghiệp vụ chính cho end-user", False),
-    285: ("Support Process – Quy trình hỗ trợ",          "Phase 10: Multi-user & Distribution (Day 261-290)", "Training Material", "Ticket system đơn giản: Issues table, assigned, resolved", False),
-    286: ("SLA Reporting – Báo cáo cam kết dịch vụ",     "Phase 10: Multi-user & Distribution (Day 261-290)", "Support Process", "Báo cáo uptime, avg resolution time, top 5 lỗi thường gặp", False),
-    287: ("Feature Roadmap – Lên kế hoạch tính năng",    "Phase 10: Multi-user & Distribution (Day 261-290)", "SLA Reporting", "Backlog table: features, priority, effort, sprint planning", False),
-    288: ("Code Handover – Bàn giao dự án",              "Phase 10: Multi-user & Distribution (Day 261-290)", "Feature Roadmap", "Checklist bàn giao: code, doc, database, test cases, admin account", False),
-    289: ("Final Retrospective – Nhìn lại 289 ngày",     "Phase 10: Multi-user & Distribution (Day 261-290)", "Code Handover", "Top 20 bài học lớn nhất từ Day 1 đến Day 288 — chia sẻ thực tế", False),
-    290: ("Graduation Project – Dự án Tốt nghiệp",      "Phase 10: Multi-user & Distribution (Day 261-290)", "Final Retrospective", "Hệ thống Access VBA đầy đủ: Multi-user, Role, API, Report, Deploy", True),
-
-    # ===== PHASE 11: SQL & Database Mastery (Day 291-320) =====
-    291: ("CTE – Common Table Expressions",              "Phase 11: SQL & Database Mastery (Day 291-320)", "Graduation Project", "Viết CTE lấy top 3 sản phẩm bán chạy mỗi tháng — không subquery lồng nhau", False),
-    292: ("Recursive CTE – Duyệt cây phân cấp",          "Phase 11: SQL & Database Mastery (Day 291-320)", "CTE cơ bản", "Dùng Recursive CTE duyệt bảng Category có ParentID", False),
-    293: ("ROW_NUMBER – Đánh số thứ tự trong nhóm",     "Phase 11: SQL & Database Mastery (Day 291-320)", "Recursive CTE", "ROW_NUMBER() OVER(PARTITION BY MaKH ORDER BY NgayMua DESC)", False),
-    294: ("RANK & DENSE_RANK – Xếp hạng",                "Phase 11: SQL & Database Mastery (Day 291-320)", "ROW_NUMBER", "Xếp hạng nhân viên theo doanh số, bỏ qua bản ghi bị tie", False),
-    295: ("Running Total – Tổng lũy kế",                  "Phase 11: SQL & Database Mastery (Day 291-320)", "RANK & DENSE_RANK", "SUM(SoTien) OVER(ORDER BY Ngay ROWS UNBOUNDED PRECEDING)", False),
-    296: ("LAG & LEAD – So sánh với hàng trước/sau",     "Phase 11: SQL & Database Mastery (Day 291-320)", "Running Total", "So sánh doanh thu tháng này vs tháng trước: LAG(SoTien, 1)", False),
-    297: ("NTILE – Phân vị dữ liệu",                     "Phase 11: SQL & Database Mastery (Day 291-320)", "LAG & LEAD", "Chia khách hàng thành 4 nhóm (quartile) theo tổng chi tiêu", False),
-    298: ("PIVOT Style – Truy vấn chéo trong Access SQL","Phase 11: SQL & Database Mastery (Day 291-320)", "NTILE", "TRANSFORM/PIVOT trong Access để tạo bảng tháng × sản phẩm", False),
-    299: ("Materialized View Style – Cache kết quả query","Phase 11: SQL & Database Mastery (Day 291-320)", "PIVOT Style", "Bảng trung gian lưu kết quả query nặng, refresh hàng ngày", False),
-    300: ("Schema Design – Chuẩn hóa 1NF 2NF 3NF",     "Phase 11: SQL & Database Mastery (Day 291-320)", "Materialized View", "Kiểm tra và chuẩn hóa bảng DonHang đang vi phạm 2NF", False),
-    301: ("Database Normalization Lab",                   "Phase 11: SQL & Database Mastery (Day 291-320)", "Schema Design", "Nhận database không chuẩn hóa, phân tích và chia bảng đúng chuẩn", False),
-    302: ("Star Schema – Thiết kế Data Warehouse đơn giản","Phase 11: SQL & Database Mastery (Day 291-320)","DB Normalization", "Tạo schema Facts + Dimensions cho báo cáo phân tích bán hàng", False),
-    303: ("Composite Index – Chỉ mục phức hợp",          "Phase 11: SQL & Database Mastery (Day 291-320)", "Star Schema", "Tạo index (MaKH, NgayMua) tăng tốc query filter theo 2 cột", False),
-    304: ("Covering Index – Index bao phủ đầy đủ cột",   "Phase 11: SQL & Database Mastery (Day 291-320)", "Composite Index", "Index bao gồm cả cột SELECT để tránh Table Scan", False),
-    305: ("Query Plan Analysis – Phân tích kế hoạch truy vấn","Phase 11: SQL & Database Mastery (Day 291-320)","Covering Index", "Xem Showplan Access, phát hiện và loại bỏ Table Scan, Nested Loop xấu", False),
-    306: ("Denormalization Strategy – Phi chuẩn hóa có kiểm soát","Phase 11: SQL & Database Mastery (Day 291-320)","Query Plan", "Khi nào nên lưu dư thừa để tăng tốc đọc — trade-off rõ ràng", False),
-    307: ("Referential Integrity – Ràng buộc toàn vẹn",  "Phase 11: SQL & Database Mastery (Day 291-320)", "Denormalization", "FK, Cascade Delete/Update, kiểm tra orphan record", False),
-    308: ("Temporal Data – Dữ liệu theo thời gian",      "Phase 11: SQL & Database Mastery (Day 291-320)", "Referential Integrity", "Lưu lịch sử giá sản phẩm (ValidFrom, ValidTo), query theo ngày", False),
-    309: ("JSON in Access SQL – Lưu JSON dạng text",     "Phase 11: SQL & Database Mastery (Day 291-320)", "Temporal Data", "Lưu Extra attributes dạng JSON text, parse bằng VBA", False),
-    310: ("Database Versioning – Phiên bản schema",       "Phase 11: SQL & Database Mastery (Day 291-320)", "JSON in Access SQL", "Bảng DBVersion, migration script theo số version", False),
-    311: ("Full-text Search Style – Tìm kiếm toàn văn",  "Phase 11: SQL & Database Mastery (Day 291-320)", "Database Versioning", "LIKE '%term%' và tối ưu, so sánh với split-word search", False),
-    312: ("Fuzzy Search – Tìm kiếm gần đúng",            "Phase 11: SQL & Database Mastery (Day 291-320)", "Full-text Search", "Soundex/Levenshtein distance để tìm tên gần giống", False),
-    313: ("Pagination – Phân trang dữ liệu",             "Phase 11: SQL & Database Mastery (Day 291-320)", "Fuzzy Search", "TOP N với điều kiện ID > LastID để phân trang hiệu quả", False),
-    314: ("Bulk Operations – Thao tác hàng loạt",         "Phase 11: SQL & Database Mastery (Day 291-320)", "Pagination", "INSERT nhiều dòng một lúc, UPDATE hàng loạt có transaction", False),
-    315: ("Data Import Pipeline – Đường ống nhập dữ liệu","Phase 11: SQL & Database Mastery (Day 291-320)", "Bulk Operations", "Stage table → Validate → Transform → Load vào bảng chính", False),
-    316: ("CDC – Change Data Capture",                    "Phase 11: SQL & Database Mastery (Day 291-320)", "Data Import Pipeline", "Bảng ChangeLog ghi mọi thay đổi, sync với hệ thống khác", False),
-    317: ("DB Health Report – Báo cáo sức khỏe database","Phase 11: SQL & Database Mastery (Day 291-320)", "CDC", "Thống kê: table size, record count, index efficiency hàng tuần", False),
-    318: ("Query Optimization Deep Dive",                 "Phase 11: SQL & Database Mastery (Day 291-320)", "DB Health Report", "Nhận 5 query chậm, phân tích và tối ưu từng cái xuống < 1s", False),
-    319: ("SQL Anti-patterns – Những sai lầm SQL phổ biến","Phase 11: SQL & Database Mastery (Day 291-320)","Query Optimization", "N+1 query, Implicit Conversion, SELECT *, Missing Index", False),
-    320: ("SQL Mastery Capstone – Dự án tổng hợp SQL",   "Phase 11: SQL & Database Mastery (Day 291-320)", "SQL Anti-patterns", "Dự án: Hệ thống báo cáo phân tích dùng CTE, Window Function, Pivot", True),
-
-    # ===== PHASE 12: Advanced Controls & ActiveX (Day 321-345) =====
-    321: ("TreeView Control – Cây phân cấp",             "Phase 12: Advanced Controls & ActiveX (Day 321-345)", "SQL Mastery Capstone", "Dùng MSComCtl.TreeView hiển thị danh mục cha/con từ DB", False),
-    322: ("TreeView Dynamic – Load TreeView từ DB",      "Phase 12: Advanced Controls & ActiveX (Day 321-345)", "TreeView Control", "Duyệt bảng Category đệ quy, thêm Node vào TreeView", False),
-    323: ("TreeView Click Event – Xử lý click node",     "Phase 12: Advanced Controls & ActiveX (Day 321-345)", "TreeView Dynamic", "Khi click node → lọc ListBox bên cạnh theo category", False),
-    324: ("ListView Control – Danh sách nâng cao",       "Phase 12: Advanced Controls & ActiveX (Day 321-345)", "TreeView Click", "ListView nhiều cột, sort khi click header, checkbox item", False),
-    325: ("ListView vs DataSheet – Khi nào dùng gì",     "Phase 12: Advanced Controls & ActiveX (Day 321-345)", "ListView Control", "So sánh hiệu năng và UX: ListView vs Continuous Form vs DataSheet", False),
-    326: ("DateTimePicker – Control chọn ngày",          "Phase 12: Advanced Controls & ActiveX (Day 321-345)", "ListView vs DataSheet", "Nhúng DTPicker vào Form, lấy giá trị ngày chọn", False),
-    327: ("MonthCalendar – Lịch chọn khoảng ngày",       "Phase 12: Advanced Controls & ActiveX (Day 321-345)", "DateTimePicker", "MonthCalendar chọn DateFrom/DateTo, highlight ngày có sự kiện", False),
-    328: ("TabControl – Form nhiều Tab",                  "Phase 12: Advanced Controls & ActiveX (Day 321-345)", "MonthCalendar", "Tạo Form Thông tin KH: Tab 1 Cơ bản, Tab 2 Đơn hàng, Tab 3 Ghi chú", False),
-    329: ("Tab Dynamic – Ẩn/hiện Tab theo điều kiện",   "Phase 12: Advanced Controls & ActiveX (Day 321-345)", "TabControl", "Ẩn Tab 'Admin Settings' khi user không phải Admin", False),
-    330: ("ProgressBar ActiveX – Thanh tiến trình đẹp",  "Phase 12: Advanced Controls & ActiveX (Day 321-345)", "Tab Dynamic", "MSComCtl.ProgressBar hiển thị % tải dữ liệu trong Form", False),
-    331: ("ImageList – Thư viện icon cho Controls",       "Phase 12: Advanced Controls & ActiveX (Day 321-345)", "ProgressBar ActiveX", "Gắn ImageList vào TreeView/ListView để có icon đẹp", False),
-    332: ("FlexGrid – Lưới dữ liệu linh hoạt",           "Phase 12: Advanced Controls & ActiveX (Day 321-345)", "ImageList", "MSFlexGrid hiển thị dữ liệu dạng bảng có merge cell, màu hàng", False),
-    333: ("WebBrowser Control – Trình duyệt nhúng",      "Phase 12: Advanced Controls & ActiveX (Day 321-345)", "FlexGrid", "Nhúng WebBrowser vào Form Access để hiển thị HTML report", False),
-    334: ("Media Player ActiveX – Nhúng video",          "Phase 12: Advanced Controls & ActiveX (Day 321-345)", "WebBrowser Control", "Nhúng Windows Media Player để xem video hướng dẫn trong Form", False),
-    335: ("Charting ActiveX – Biểu đồ nâng cao",         "Phase 12: Advanced Controls & ActiveX (Day 321-345)", "Media Player ActiveX", "MSChart ActiveX tạo biểu đồ 3D, thay thế chart mặc định Access", False),
-    336: ("Rich TextBox – Text có định dạng",             "Phase 12: Advanced Controls & ActiveX (Day 321-345)", "Charting ActiveX", "Rich TextBox bold/italic/color, lưu RTF vào DB, load lại", False),
-    337: ("Spell Checker – Kiểm tra chính tả",            "Phase 12: Advanced Controls & ActiveX (Day 321-345)", "Rich TextBox", "Dùng Word.Application Spell check nội dung TextBox từ VBA", False),
-    338: ("Scanner Integration – Kết nối máy quét",      "Phase 12: Advanced Controls & ActiveX (Day 321-345)", "Spell Checker", "WIA (Windows Image Acquisition) quét tài liệu từ VBA", False),
-    339: ("Barcode Reader – Đọc mã vạch",                 "Phase 12: Advanced Controls & ActiveX (Day 321-345)", "Scanner Integration", "Đọc input bàn phím từ barcode scanner vào TextBox, auto-search", False),
-    340: ("RFID/NFC Style – Đọc thẻ nhân viên",          "Phase 12: Advanced Controls & ActiveX (Day 321-345)", "Barcode Reader", "Đọc thẻ qua COM port, check-in/check-out nhân viên tự động", False),
-    341: ("Signature Pad – Ký tên điện tử",              "Phase 12: Advanced Controls & ActiveX (Day 321-345)", "RFID/NFC Style", "Vẽ chữ ký bằng chuột, lưu dạng bitmap vào DB, in lên hóa đơn", False),
-    342: ("Camera/Webcam – Chụp ảnh từ VBA",             "Phase 12: Advanced Controls & ActiveX (Day 321-345)", "Signature Pad", "Dùng WIA hoặc DirectShow chụp ảnh nhân viên, lưu vào DB", False),
-    343: ("Map Integration – Nhúng bản đồ",              "Phase 12: Advanced Controls & ActiveX (Day 321-345)", "Camera/Webcam", "WebBrowser + Google Maps API hiển thị địa chỉ KH trên bản đồ", False),
-    344: ("Print Preview Custom – Xem trước in tùy chỉnh","Phase 12: Advanced Controls & ActiveX (Day 321-345)","Map Integration", "Zoom in/out, landscape/portrait, chọn trang in trong preview", False),
-    345: ("Advanced Controls Capstone",                   "Phase 12: Advanced Controls & ActiveX (Day 321-345)", "Print Preview Custom", "Dự án: Form quản lý sản phẩm dùng TreeView + ListView + DatePicker + Chart", True),
-
-    # ===== PHASE 13: Modern Integration (Day 346-365) =====
-    346: ("Microsoft Graph API – Xác thực OAuth2",       "Phase 13: Modern Integration (Day 346-365)", "Advanced Controls Capstone", "Đăng ký app Azure AD, lấy Access Token qua Device Code Flow", False),
-    347: ("Graph API – Đọc OneDrive từ VBA",             "Phase 13: Modern Integration (Day 346-365)", "Graph API OAuth2", "List file trong OneDrive, download file Excel về máy local", False),
-    348: ("Graph API – Gửi email qua Microsoft 365",     "Phase 13: Modern Integration (Day 346-365)", "Graph API OneDrive", "Gửi email HTML có attachment qua Graph API /sendMail", False),
-    349: ("Graph API – Đọc/ghi SharePoint List",         "Phase 13: Modern Integration (Day 346-365)", "Graph API Email", "GET/POST dữ liệu từ SharePoint Online List vào Access DB", False),
-    350: ("Teams Webhook – Thông báo vào kênh Teams",    "Phase 13: Modern Integration (Day 346-365)", "Graph API SharePoint", "Gửi Adaptive Card vào Teams channel khi có đơn hàng mới", False),
-    351: ("Power Automate – Trigger từ Access",          "Phase 13: Modern Integration (Day 346-365)", "Teams Webhook", "Access gọi HTTP request → kích hoạt Power Automate Flow", False),
-    352: ("Power Automate → Access – Nhận dữ liệu",     "Phase 13: Modern Integration (Day 346-365)", "Power Automate Trigger", "Flow ghi vào file Excel trên OneDrive, Access auto-import", False),
-    353: ("Azure Blob Storage – Upload file từ VBA",     "Phase 13: Modern Integration (Day 346-365)", "Power Automate Receive", "Upload báo cáo PDF lên Azure Blob bằng SAS Token + HTTP PUT", False),
-    354: ("Azure Blob Storage – Download & Stream",      "Phase 13: Modern Integration (Day 346-365)", "Azure Blob Upload", "Download file từ Blob, stream trực tiếp không lưu tạm vào đĩa", False),
-    355: ("SQL Server Azure – Kết nối cloud database",   "Phase 13: Modern Integration (Day 346-365)", "Azure Blob Download", "ADO kết nối Azure SQL Database, query qua internet an toàn", False),
-    356: ("REST API Design – Thiết kế API cho Access",   "Phase 13: Modern Integration (Day 346-365)", "SQL Server Azure", "Xây REST server bằng Python Flask, Access gọi đến như backend", False),
-    357: ("Webhook Server Style – Access nhận POST",     "Phase 13: Modern Integration (Day 346-365)", "REST API Design", "Script nền Python nhận webhook, ghi vào bảng Access qua ODBC", False),
-    358: ("Power BI Integration – Xuất dữ liệu cho BI", "Phase 13: Modern Integration (Day 346-365)", "Webhook Server", "Access xuất dữ liệu chuẩn để Power BI connect và visualize", False),
-    359: ("Excel Online – Đọc ghi Excel trên web",       "Phase 13: Modern Integration (Day 346-365)", "Power BI Integration", "Graph API đọc/ghi cell Excel Online không cần mở file", False),
-    360: ("Planner & Tasks – Tạo task từ VBA",           "Phase 13: Modern Integration (Day 346-365)", "Excel Online", "Tạo task Planner tự động khi đơn hàng có trạng thái cần xử lý", False),
-    361: ("MS Forms – Thu thập dữ liệu từ form online",  "Phase 13: Modern Integration (Day 346-365)", "Planner & Tasks", "MS Forms → Power Automate → SharePoint → Access: pipeline đầy đủ", False),
-    362: ("AI Integration – Gọi OpenAI/Azure AI từ VBA","Phase 13: Modern Integration (Day 346-365)", "MS Forms", "POST prompt lên GPT-4 API, nhận response JSON và hiển thị trong Form", False),
-    363: ("OCR – Đọc văn bản từ ảnh",                    "Phase 13: Modern Integration (Day 346-365)", "AI Integration", "Gửi ảnh hóa đơn lên Azure Computer Vision, trích text tự động", False),
-    364: ("Final Architecture Review – Tổng kết kỹ thuật","Phase 13: Modern Integration (Day 346-365)", "OCR Azure", "Vẽ kiến trúc đầy đủ của 1 hệ thống Access VBA enterprise thực tế", False),
-    365: ("🏆 Master Graduation – Access VBA Master",    "Phase 13: Modern Integration (Day 346-365)", "Final Architecture Review", "Dự án cuối: Hệ thống hybrid Access + Cloud hoàn chỉnh, deploy cho 20 user", True),
-}
-
-with open(filepath, "w", encoding="utf-8") as f:
-    f.write("# 🗂️ Lộ Trình Học Access VBA – 365 Ngày (Từ Zero Đến Master)\n\n")
-    f.write("> **Mục tiêu**: Học Access VBA từ Button Event đầu tiên đến hệ thống enterprise hybrid Cloud + Access hoàn chỉnh.\n")
-    f.write("> **Phạm vi**: 13 Phase, 365 ngày, bao phủ SQL Mastery, OOP, Ribbon, ActiveX Controls, Microsoft 365 Integration.\n")
-    f.write("> **Ký hiệu thời gian**: 🟢 30 phút | 🟡 60 phút | 🟠 90 phút | 🔴 120 phút | 🚀 3-4 giờ (Dự án)\n\n")
-
-    current_phase = ""
-    for d, (title, phase, prev, exercise, is_proj) in roadmap.items():
-        emoji, mins, label = get_time(d, is_proj)
-
-        prompt = (
-            f"Đóng vai trò là VBA Mentor chuyên Access. Hôm nay là Day {d}: {title}.\n"
-            f"Giai đoạn: {phase}.\n"
-            f"Chủ đề hôm qua: {prev}.\n\n"
-            f"(⚠️ LỆNH TỐI THƯỢNG: KHÔNG giải thích dông dài lý thuyết cơ bản. Chỉ đi thẳng vào thực chiến. TUYỆT ĐỐI KHÔNG tạo bài test/quiz tương tác chờ tôi trả lời. HÃY IN RA TOÀN BỘ nội dung để tôi tự đọc.)\n"
-            f"Yêu cầu:\n"
-            f"1. Giải thích rõ khái niệm '{title}' với ví dụ code VBA Access thực tế, ngắn gọn và có thể chạy được ngay.\n"
-            f"2. Chỉ ra 2-3 lỗi thường gặp khi học chủ đề này và cách debug cụ thể.\n"
-            f"3. Liên kết với '{prev}' (hôm qua) — điểm nào hôm nay kế thừa và mở rộng.\n"
-            f"4. Giao bài tập mini: {exercise}"
-        )
-
-        f.write(f"## Day {d} — {title} ({emoji} {label})\n")
-        f.write(f"**Prompt:**\n")
-        f.write(f"{prompt}\n\n")
-        f.write(f"**Bài tập:**\n")
-        f.write(f"⏱️ **Thời gian ước tính:** {label}\n")
-        f.write(f"📌 **Chủ đề hôm nay:** {title}\n")
-        f.write(f"🔗 **Ôn lại ngày trước:** {prev}\n")
-        f.write(f"💻 **Tự thực hành:** {exercise}\n\n")
-        f.write(f"**Tags:** #access_vba #day{d} #vba\n\n")
-        f.write("---\n\n")
-
-print(f"Done! Generated {len(roadmap)} days to {filepath}")
+if __name__ == "__main__":
+    data = build_access_roadmap()
+    generate_markdown(data)
+    print(f"Done! Generated {len(data)} days to {filepath} and {filepath_600}")

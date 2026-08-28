@@ -1579,3 +1579,1603 @@
 | msi_installer_runtime_banh_mi_chao_day598 | Kiểm thử Rubberduck, tối ưu hóa mã nguồn, đóng gói MSI và cấu hình Access Runtime cho app Bánh mì chảo | roadmap_AccessBasic.md |
 | split_fe_be_sql_secure_bun_moc_doc_mung_day599 | Tách FE/BE, di chuyển bằng SSMA, mã hóa kết nối SQL Server và tối ưu hóa WAN cho app Bún mọc dọc mùng | roadmap_AccessBasic.md |
 | msi_installer_runtime_lau_tha_phan_thiet_day600 | Đóng gói bộ cài MSI, cấu hình Access Runtime, tích hợp VCS và Unit Testing cho app Lẩu thả Phan Thiết | roadmap_AccessBasic.md |
+| access_vba_day_1 | Button Event – Sự kiện nút bấm cơ bản | roadmap_access_vba_600.md |
+| access_vba_day_2 | Access Form – Tạo Form nhập liệu cơ bản | roadmap_access_vba_600.md |
+| access_vba_day_3 | TextBox & Label – Điều khiển cơ bản và định dạng | roadmap_access_vba_600.md |
+| access_vba_day_4 | Biến & Kiểu dữ liệu trong Access VBA | roadmap_access_vba_600.md |
+| access_vba_day_5 | Hằng số (Constants) & Scope (Biến cục bộ, Module, Toàn cục) | roadmap_access_vba_600.md |
+| access_vba_day_6 | Option Explicit & Quy tắc đặt tên biến Hungarian | roadmap_access_vba_600.md |
+| access_vba_day_7 | Toán tử Logic, So sánh & Toán học | roadmap_access_vba_600.md |
+| access_vba_day_8 | Lệnh rẽ nhánh If...Then...Else & If lồng nhau | roadmap_access_vba_600.md |
+| access_vba_day_9 | Lệnh rẽ nhánh Select Case trong Access | roadmap_access_vba_600.md |
+| access_vba_day_10 | Vòng lặp For...Next cơ bản và bước nhảy Step | roadmap_access_vba_600.md |
+| access_vba_day_11 | Vòng lặp For Each...Next trên Controls Form | roadmap_access_vba_600.md |
+| access_vba_day_12 | Vòng lặp Do While...Loop & Do Until...Loop | roadmap_access_vba_600.md |
+| access_vba_day_13 | Thoát vòng lặp an toàn (Exit For, Exit Do) | roadmap_access_vba_600.md |
+| access_vba_day_14 | Sub vs Function – Phân biệt và ứng dụng | roadmap_access_vba_600.md |
+| access_vba_day_15 | Truyền tham số ByVal vs ByRef trong Access | roadmap_access_vba_600.md |
+| access_vba_day_16 | Optional Parameters & ParamArray | roadmap_access_vba_600.md |
+| access_vba_day_17 | InputBox & MsgBox nâng cao | roadmap_access_vba_600.md |
+| access_vba_day_18 | Xử lý chuỗi (Left, Right, Mid, Len, InStr, Replace) | roadmap_access_vba_600.md |
+| access_vba_day_19 | Xử lý ngày tháng (DateSerial, DateAdd, DateDiff, Format) | roadmap_access_vba_600.md |
+| access_vba_day_20 | Xử lý số học (Round, Int, Fix, Abs, Rnd) | roadmap_access_vba_600.md |
+| access_vba_day_21 | ComboBox – Danh sách chọn nguồn cố định | roadmap_access_vba_600.md |
+| access_vba_day_22 | ListBox – Hiển thị danh sách nhiều cột | roadmap_access_vba_600.md |
+| access_vba_day_23 | CheckBox & OptionGroup (Frame) | roadmap_access_vba_600.md |
+| access_vba_day_24 | ToggleButton & TabControl trên Form | roadmap_access_vba_600.md |
+| access_vba_day_25 | Kiểm tra tính hợp lệ dữ liệu (Data Validation) | roadmap_access_vba_600.md |
+| access_vba_day_26 | Module chuẩn (Standard Module) vs Class Module Form | roadmap_access_vba_600.md |
+| access_vba_day_27 | Bắt lỗi cơ bản với On Error GoTo | roadmap_access_vba_600.md |
+| access_vba_day_28 | Debugging: Breakpoint, Immediate Window (Debug.Print) | roadmap_access_vba_600.md |
+| access_vba_day_29 | Debugging: Watch Window & Call Stack | roadmap_access_vba_600.md |
+| access_vba_day_30 | Project 1: Ứng dụng Quản lý Danh bạ Cá nhân | roadmap_access_vba_600.md |
+| access_vba_day_31 | Vòng đời Form: Form_Open vs Form_Load | roadmap_access_vba_600.md |
+| access_vba_day_32 | Vòng đời Form: Form_Current khi di chuyển bản ghi | roadmap_access_vba_600.md |
+| access_vba_day_33 | Vòng đời Form: Form_BeforeUpdate vs Form_AfterUpdate | roadmap_access_vba_600.md |
+| access_vba_day_34 | Vòng đời Form: Form_BeforeInsert & Form_AfterInsert | roadmap_access_vba_600.md |
+| access_vba_day_35 | Vòng đời Form: Form_Delete & BeforeDelConfirm | roadmap_access_vba_600.md |
+| access_vba_day_36 | Vòng đời Form: Form_Unload vs Form_Close | roadmap_access_vba_600.md |
+| access_vba_day_37 | Sự kiện điều khiển: Control_BeforeUpdate & AfterUpdate | roadmap_access_vba_600.md |
+| access_vba_day_38 | Sự kiện điều khiển: Control_Change vs Control_AfterUpdate | roadmap_access_vba_600.md |
+| access_vba_day_39 | Sự kiện bàn phím: KeyDown, KeyPress, KeyUp, KeyPreview | roadmap_access_vba_600.md |
+| access_vba_day_40 | Sự kiện chuột: MouseMove, MouseDown, MouseUp, DblClick | roadmap_access_vba_600.md |
+| access_vba_day_41 | Sự kiện Focus: GotFocus & LostFocus | roadmap_access_vba_600.md |
+| access_vba_day_42 | Form Timer: Sự kiện Form_Timer & TimerInterval | roadmap_access_vba_600.md |
+| access_vba_day_43 | Mở Form với DoCmd.OpenForm & Các tham số chế độ | roadmap_access_vba_600.md |
+| access_vba_day_44 | Truyền tham số qua OpenArgs | roadmap_access_vba_600.md |
+| access_vba_day_45 | Đóng Form an toàn với DoCmd.Close | roadmap_access_vba_600.md |
+| access_vba_day_46 | Ẩn / Hiện Form (Visible = True/False) | roadmap_access_vba_600.md |
+| access_vba_day_47 | Form Modal vs Modeless & Popup Form | roadmap_access_vba_600.md |
+| access_vba_day_48 | Giao tiếp giữa 2 Form mở đồng thời | roadmap_access_vba_600.md |
+| access_vba_day_49 | Làm mới dữ liệu: Requery vs Refresh vs Recalc | roadmap_access_vba_600.md |
+| access_vba_day_50 | Quản lý trạng thái Form: Me.Dirty | roadmap_access_vba_600.md |
+| access_vba_day_51 | Hoàn tác chỉnh sửa: Me.Undo | roadmap_access_vba_600.md |
+| access_vba_day_52 | Điều hướng bản ghi bằng DoCmd.GoToRecord | roadmap_access_vba_600.md |
+| access_vba_day_53 | Đồng bộ bản ghi bằng Bookmark | roadmap_access_vba_600.md |
+| access_vba_day_54 | Tạo Form tìm kiếm đa tiêu chí (Search Form) | roadmap_access_vba_600.md |
+| access_vba_day_55 | Lọc Form động bằng Form.Filter & FilterOn | roadmap_access_vba_600.md |
+| access_vba_day_56 | Sắp xếp Form động bằng Form.OrderBy & OrderByOn | roadmap_access_vba_600.md |
+| access_vba_day_57 | Tùy biến thanh tiêu đề và ẩn nút Close/Min/Max mặc định | roadmap_access_vba_600.md |
+| access_vba_day_58 | Thiết kế Form Responsive tự co giãn theo độ phân giải | roadmap_access_vba_600.md |
+| access_vba_day_59 | Tạo Breadcrumb điều hướng giữa các Form | roadmap_access_vba_600.md |
+| access_vba_day_60 | Project 2: Hệ thống Form Điều Hướng & Nhập Liệu Chuẩn | roadmap_access_vba_600.md |
+| access_vba_day_61 | Tổng quan CSDL Quan hệ (RDBMS) trong Access | roadmap_access_vba_600.md |
+| access_vba_day_62 | Khái niệm Bảng (Table), Trường (Field), Bản ghi (Record) | roadmap_access_vba_600.md |
+| access_vba_day_63 | Kiểu dữ liệu Access: Short/Long Text, Number, Date, Currency | roadmap_access_vba_600.md |
+| access_vba_day_64 | Khóa chính (Primary Key): Single vs Composite Key | roadmap_access_vba_600.md |
+| access_vba_day_65 | AutoNumber – Bản chất, cạm bẫy và cách reset | roadmap_access_vba_600.md |
+| access_vba_day_66 | Chuẩn hóa CSDL: Dạng chuẩn 1 (1NF – First Normal Form) | roadmap_access_vba_600.md |
+| access_vba_day_67 | Chuẩn hóa CSDL: Dạng chuẩn 2 (2NF – Second Normal Form) | roadmap_access_vba_600.md |
+| access_vba_day_68 | Chuẩn hóa CSDL: Dạng chuẩn 3 (3NF – Third Normal Form) | roadmap_access_vba_600.md |
+| access_vba_day_69 | Quan hệ 1 - 1 (One-to-One): Khi nào nên dùng? | roadmap_access_vba_600.md |
+| access_vba_day_70 | Quan hệ 1 - Nhiều (One-to-Many): Cột mốc quan trọng nhất | roadmap_access_vba_600.md |
+| access_vba_day_71 | Quan hệ Nhiều - Nhiều (Many-to-Many) & Bảng trung gian | roadmap_access_vba_600.md |
+| access_vba_day_72 | Toàn vẹn tham chiếu (Referential Integrity) | roadmap_access_vba_600.md |
+| access_vba_day_73 | Cascade Update Related Fields | roadmap_access_vba_600.md |
+| access_vba_day_74 | Cascade Delete Related Records – Lợi ích & Nguy cơ | roadmap_access_vba_600.md |
+| access_vba_day_75 | Field Properties: FieldSize, Format, InputMask | roadmap_access_vba_600.md |
+| access_vba_day_76 | Field Properties: DefaultValue & Required | roadmap_access_vba_600.md |
+| access_vba_day_77 | Field Properties: Validation Rule & Validation Text | roadmap_access_vba_600.md |
+| access_vba_day_78 | Table Validation Rule (Ràng buộc cấp Bảng) | roadmap_access_vba_600.md |
+| access_vba_day_79 | Chỉ mục (Indexes): Primary, Unique, Non-Unique | roadmap_access_vba_600.md |
+| access_vba_day_80 | Ảnh hưởng của Index tới tốc độ Đọc vs Ghi | roadmap_access_vba_600.md |
+| access_vba_day_81 | Lookup Fields tại Table: Tại sao chuyên gia KHÔNG dùng? | roadmap_access_vba_600.md |
+| access_vba_day_82 | Attachment Field & OLE Object: Cạm bẫy phình dung lượng | roadmap_access_vba_600.md |
+| access_vba_day_83 | Calculated Fields trong Table: Ưu & Nhược điểm | roadmap_access_vba_600.md |
+| access_vba_day_84 | Quản lý dung lượng giới hạn 2GB của file Access (.accdb) | roadmap_access_vba_600.md |
+| access_vba_day_85 | Bảo mật dữ liệu cấp bảng: Khóa cấu trúc bảng | roadmap_access_vba_600.md |
+| access_vba_day_86 | Tạo bảng tự động bằng VBA DDL (Data Definition Language) | roadmap_access_vba_600.md |
+| access_vba_day_87 | Thêm/Xóa cột của Bảng bằng VBA | roadmap_access_vba_600.md |
+| access_vba_day_88 | Đọc thông tin Schema CSDL bằng TableDefs | roadmap_access_vba_600.md |
+| access_vba_day_89 | Sao lưu cấu trúc bảng (Clone Table Structure) | roadmap_access_vba_600.md |
+| access_vba_day_90 | Project 3: Thiết kế CSDL ERP Bán Hàng Chuẩn 3NF | roadmap_access_vba_600.md |
+| access_vba_day_91 | Cú pháp SQL cơ bản trong Access: SELECT, FROM | roadmap_access_vba_600.md |
+| access_vba_day_92 | Mệnh đề WHERE & Các toán tử: =, <>, LIKE, BETWEEN, IN | roadmap_access_vba_600.md |
+| access_vba_day_93 | Ký tự đại diện trong Access SQL: * vs % (ANSI-89 vs ANSI-92) | roadmap_access_vba_600.md |
+| access_vba_day_94 | Mệnh đề ORDER BY: Sắp xếp đơn cột và đa cột | roadmap_access_vba_600.md |
+| access_vba_day_95 | Mệnh đề DISTINCT & DISTINCTROW | roadmap_access_vba_600.md |
+| access_vba_day_96 | Mệnh đề TOP N & TOP N PERCENT | roadmap_access_vba_600.md |
+| access_vba_day_97 | Hàm tổng hợp SQL: COUNT, SUM, AVG, MIN, MAX | roadmap_access_vba_600.md |
+| access_vba_day_98 | Mệnh đề GROUP BY: Nhóm dữ liệu theo danh mục | roadmap_access_vba_600.md |
+| access_vba_day_99 | Mệnh đề HAVING: Lọc trên kết quả tổng hợp | roadmap_access_vba_600.md |
+| access_vba_day_100 | INNER JOIN: Kết nối 2 bảng theo khóa ngoại | roadmap_access_vba_600.md |
+| access_vba_day_101 | LEFT JOIN: Lấy toàn bộ bảng bên trái | roadmap_access_vba_600.md |
+| access_vba_day_102 | RIGHT JOIN: Lấy toàn bộ bảng bên phải | roadmap_access_vba_600.md |
+| access_vba_day_103 | INNER JOIN nhiều bảng (3-5 bảng) trong Access | roadmap_access_vba_600.md |
+| access_vba_day_104 | Self-Join: Bảng tự kết nối với chính nó | roadmap_access_vba_600.md |
+| access_vba_day_105 | Subquery trong mệnh đề WHERE (IN, EXISTS) | roadmap_access_vba_600.md |
+| access_vba_day_106 | Subquery tương quan (Correlated Subquery) | roadmap_access_vba_600.md |
+| access_vba_day_107 | Subquery trong mệnh đề FROM (Derived Tables) | roadmap_access_vba_600.md |
+| access_vba_day_108 | Mệnh đề UNION & UNION ALL: Gộp kết quả truy vấn | roadmap_access_vba_600.md |
+| access_vba_day_109 | Crosstab Query (TRANSFORM ... PIVOT): Ma trận xoay | roadmap_access_vba_600.md |
+| access_vba_day_110 | SQL INSERT INTO: Thêm một bản ghi đơn lẻ | roadmap_access_vba_600.md |
+| access_vba_day_111 | SQL INSERT INTO ... SELECT: Thêm hàng loạt từ bảng khác | roadmap_access_vba_600.md |
+| access_vba_day_112 | SQL UPDATE: Cập nhật dữ liệu hàng loạt có điều kiện | roadmap_access_vba_600.md |
+| access_vba_day_113 | SQL UPDATE có JOIN: Cập nhật dựa trên bảng khác | roadmap_access_vba_600.md |
+| access_vba_day_114 | SQL DELETE: Xóa dữ liệu có điều kiện | roadmap_access_vba_600.md |
+| access_vba_day_115 | SQL DDL: CREATE TABLE, ALTER TABLE, DROP TABLE | roadmap_access_vba_600.md |
+| access_vba_day_116 | SQL DDL: CREATE INDEX, DROP INDEX | roadmap_access_vba_600.md |
+| access_vba_day_117 | Xử lý giá trị NULL trong SQL: Is Null, Nz(), IIf() | roadmap_access_vba_600.md |
+| access_vba_day_118 | Hàm ngày tháng trong Access SQL: Date(), Year(), Month(), DateDiff() | roadmap_access_vba_600.md |
+| access_vba_day_119 | Hàm chuỗi trong Access SQL: UCase(), Left(), InStr() | roadmap_access_vba_600.md |
+| access_vba_day_120 | Project 4: Hệ Thống Báo Cáo Phân Tích Dữ Liệu SQL Hoàn Chỉnh | roadmap_access_vba_600.md |
+| access_vba_day_121 | Giới thiệu Thư viện DAO (Microsoft Office Access database engine Object Library) | roadmap_access_vba_600.md |
+| access_vba_day_122 | Đối tượng CurrentDb(): Cơ chế mở và giải phóng bộ nhớ | roadmap_access_vba_600.md |
+| access_vba_day_123 | Mở Recordset: dbOpenTable, dbOpenDynaset, dbOpenSnapshot | roadmap_access_vba_600.md |
+| access_vba_day_124 | Duyệt Recordset từ đầu đến cuối (Loop EOF/BOF) | roadmap_access_vba_600.md |
+| access_vba_day_125 | Đếm số bản ghi chính xác với MoveLast & RecordCount | roadmap_access_vba_600.md |
+| access_vba_day_126 | Thêm bản ghi mới bằng DAO: .AddNew & .Update | roadmap_access_vba_600.md |
+| access_vba_day_127 | Sửa bản ghi bằng DAO: .Edit & .Update | roadmap_access_vba_600.md |
+| access_vba_day_128 | Xóa bản ghi bằng DAO: .Delete | roadmap_access_vba_600.md |
+| access_vba_day_129 | Tìm kiếm trong Recordset: .FindFirst, .FindNext, .NoMatch | roadmap_access_vba_600.md |
+| access_vba_day_130 | Tìm kiếm bằng Seek trên Index bảng (dbOpenTable) | roadmap_access_vba_600.md |
+| access_vba_day_131 | Bookmark trong DAO Recordset | roadmap_access_vba_600.md |
+| access_vba_day_132 | Lọc Recordset đã mở: .Filter & Tạo Recordset con | roadmap_access_vba_600.md |
+| access_vba_day_133 | Sắp xếp Recordset đã mở: .Sort | roadmap_access_vba_600.md |
+| access_vba_day_134 | Xử lý lỗi DAO phổ biến: Error 3021 (No Current Record) | roadmap_access_vba_600.md |
+| access_vba_day_135 | Xử lý lỗi DAO: Error 3061 (Too Few Parameters) | roadmap_access_vba_600.md |
+| access_vba_day_136 | Mở database ngoài bằng OpenDatabase | roadmap_access_vba_600.md |
+| access_vba_day_137 | Mở database có mật khẩu (Database Password) | roadmap_access_vba_600.md |
+| access_vba_day_138 | Duyệt danh sách TableDefs và Fields bằng DAO | roadmap_access_vba_600.md |
+| access_vba_day_139 | Tạo trường mới (Field) và gán thuộc tính bằng DAO | roadmap_access_vba_600.md |
+| access_vba_day_140 | Tạo quan hệ (Relation) giữa 2 bảng bằng DAO | roadmap_access_vba_600.md |
+| access_vba_day_141 | Đọc dữ liệu cực nhanh với GetRows() vào Mảng 2D | roadmap_access_vba_600.md |
+| access_vba_day_142 | Ghi hàng loạt cực nhanh: dbFailOnError & Execute | roadmap_access_vba_600.md |
+| access_vba_day_143 | So sánh tốc độ: db.Execute SQL vs Recordset Loop | roadmap_access_vba_600.md |
+| access_vba_day_144 | RecordsetClone của Form: Cầu nối Form & DAO | roadmap_access_vba_600.md |
+| access_vba_day_145 | Recordset2 Object: Xử lý Attachment & Multi-value Fields | roadmap_access_vba_600.md |
+| access_vba_day_146 | Lưu file từ Attachment ra ổ đĩa máy tính bằng DAO | roadmap_access_vba_600.md |
+| access_vba_day_147 | Nạp file từ ổ đĩa vào Attachment Field bằng DAO | roadmap_access_vba_600.md |
+| access_vba_day_148 | Kiểm tra trạng thái Lock của Recordset (LockEdits) | roadmap_access_vba_600.md |
+| access_vba_day_149 | Hàm tiện ích toàn năng: DLookup, DCount, DSum, DAvg | roadmap_access_vba_600.md |
+| access_vba_day_150 | Project 5: Xây Dựng Data Access Layer (DAL) Bằng DAO | roadmap_access_vba_600.md |
+| access_vba_day_151 | Giới thiệu ADODB (ActiveX Data Objects) trong Access | roadmap_access_vba_600.md |
+| access_vba_day_152 | Khai báo ADODB.Connection và ADODB.Recordset | roadmap_access_vba_600.md |
+| access_vba_day_153 | Connection String chuẩn OLEDB cho Access (.accdb) | roadmap_access_vba_600.md |
+| access_vba_day_154 | Mở và Đóng kết nối ADODB Connection an toàn | roadmap_access_vba_600.md |
+| access_vba_day_155 | CursorType: adOpenForwardOnly, adOpenKeyset, adOpenDynamic, adOpenStatic | roadmap_access_vba_600.md |
+| access_vba_day_156 | LockType: adLockReadOnly, adLockPessimistic, adLockOptimistic, adLockBatchOptimistic | roadmap_access_vba_600.md |
+| access_vba_day_157 | Duyệt ADODB Recordset và xử lý EOF/BOF | roadmap_access_vba_600.md |
+| access_vba_day_158 | Thêm bản ghi bằng ADODB .AddNew & .Update | roadmap_access_vba_600.md |
+| access_vba_day_159 | Sửa và Xóa bản ghi bằng ADODB Recordset | roadmap_access_vba_600.md |
+| access_vba_day_160 | Tìm kiếm trong ADODB với .Find và .Filter | roadmap_access_vba_600.md |
+| access_vba_day_161 | Sắp xếp ADODB Recordset trong bộ nhớ với .Sort | roadmap_access_vba_600.md |
+| access_vba_day_162 | Disconnected Recordset: Ngắt kết nối DB vẫn duyệt dữ liệu | roadmap_access_vba_600.md |
+| access_vba_day_163 | Tạo In-Memory Recordset (Fabricated Recordset) không cần DB | roadmap_access_vba_600.md |
+| access_vba_day_164 | Gán ADODB Recordset làm Recordset cho Form Access | roadmap_access_vba_600.md |
+| access_vba_day_165 | ADODB.Command: Thực thi câu lệnh SQL có tham số | roadmap_access_vba_600.md |
+| access_vba_day_166 | Chống lỗi SQL Injection triệt để bằng ADODB.Parameters | roadmap_access_vba_600.md |
+| access_vba_day_167 | Thực thi Stored Procedure từ xa bằng ADODB | roadmap_access_vba_600.md |
+| access_vba_day_168 | Lấy giá trị Output Parameter và Return Value từ Procedure | roadmap_access_vba_600.md |
+| access_vba_day_169 | Xử lý lỗi ADODB: Đối tượng Errors Collection | roadmap_access_vba_600.md |
+| access_vba_day_170 | Bắt lỗi Timeout kết nối mạng và Connection Lost | roadmap_access_vba_600.md |
+| access_vba_day_171 | Batch Update: Cập nhật hàng loạt thay đổi với .UpdateBatch | roadmap_access_vba_600.md |
+| access_vba_day_172 | Hủy thay đổi hàng loạt với .CancelBatch | roadmap_access_vba_600.md |
+| access_vba_day_173 | Chuyển đổi dữ liệu giữa DAO Recordset và ADODB Recordset | roadmap_access_vba_600.md |
+| access_vba_day_174 | Đọc dữ liệu XML và JSON vào ADODB Stream | roadmap_access_vba_600.md |
+| access_vba_day_175 | Kết nối Excel bằng ADODB (Driver Microsoft.ACE.OLEDB) | roadmap_access_vba_600.md |
+| access_vba_day_176 | Truy vấn dữ liệu từ file Excel như một bảng CSDL | roadmap_access_vba_600.md |
+| access_vba_day_177 | Kết nối file CSV / Text bằng ADODB Schema.ini | roadmap_access_vba_600.md |
+| access_vba_day_178 | So sánh toàn diện: Khi nào dùng DAO, khi nào dùng ADODB? | roadmap_access_vba_600.md |
+| access_vba_day_179 | Xây dựng Connection Pool quản lý kết nối ADODB | roadmap_access_vba_600.md |
+| access_vba_day_180 | Project 6: Module Kết Nối Đa Nguồn Bằng ADODB | roadmap_access_vba_600.md |
+| access_vba_day_181 | Khái niệm QueryDef trong DAO: Bản chất của Saved Queries | roadmap_access_vba_600.md |
+| access_vba_day_182 | Tạo QueryDef mới bằng mã VBA: db.CreateQueryDef | roadmap_access_vba_600.md |
+| access_vba_day_183 | Đọc và sửa câu lệnh SQL của QueryDef có sẵn | roadmap_access_vba_600.md |
+| access_vba_day_184 | Xóa QueryDef bằng mã VBA an toàn | roadmap_access_vba_600.md |
+| access_vba_day_185 | QueryDef có tham số (Parameterized QueryDef) | roadmap_access_vba_600.md |
+| access_vba_day_186 | Truyền giá trị cho Parameters trong QueryDef từ Form | roadmap_access_vba_600.md |
+| access_vba_day_187 | Tối ưu hóa: Tại sao QueryDef chạy nhanh hơn chuỗi SQL động? | roadmap_access_vba_600.md |
+| access_vba_day_188 | Kỹ thuật Temporary QueryDef (QueryDef ẩn danh không tên) | roadmap_access_vba_600.md |
+| access_vba_day_189 | Duyệt danh sách toàn bộ QueryDefs và xuất ra file SQL | roadmap_access_vba_600.md |
+| access_vba_day_190 | Giao dịch (Transactions) là gì? Tiêu chuẩn ACID trong Access | roadmap_access_vba_600.md |
+| access_vba_day_191 | Bắt đầu giao dịch: DBEngine.BeginTrans / Workspace.BeginTrans | roadmap_access_vba_600.md |
+| access_vba_day_192 | Cam kết giao dịch: DBEngine.CommitTrans | roadmap_access_vba_600.md |
+| access_vba_day_193 | Hoàn tác giao dịch khi có lỗi: DBEngine.Rollback | roadmap_access_vba_600.md |
+| access_vba_day_194 | Quản lý Giao dịch lồng nhau (Nested Transactions) | roadmap_access_vba_600.md |
+| access_vba_day_195 | Ứng dụng Transaction: Chuyển tiền giữa 2 tài khoản ngân hàng | roadmap_access_vba_600.md |
+| access_vba_day_196 | Ứng dụng Transaction: Lưu Đơn hàng + 10 Chi tiết đơn hàng đồng thời | roadmap_access_vba_600.md |
+| access_vba_day_197 | Xử lý ngoại lệ trong khối Transaction chuẩn mẫu | roadmap_access_vba_600.md |
+| access_vba_day_198 | Ảnh hưởng của Transaction tới tốc độ ghi đĩa | roadmap_access_vba_600.md |
+| access_vba_day_199 | Kiểm tra tính toàn vẹn dữ liệu sau khi Rollback | roadmap_access_vba_600.md |
+| access_vba_day_200 | Audit Trail: Tự động ghi Log mọi thao tác Thêm/Sửa/Xóa vào bảng Log | roadmap_access_vba_600.md |
+| access_vba_day_201 | Ghi lại giá trị Cũ (OldValue) và giá trị Mới (Value) của từng trường | roadmap_access_vba_600.md |
+| access_vba_day_202 | Phát hiện ai đã sửa dữ liệu, vào lúc nào, từ máy tính nào | roadmap_access_vba_600.md |
+| access_vba_day_203 | Khôi phục dữ liệu đã xóa từ bảng Audit Trail | roadmap_access_vba_600.md |
+| access_vba_day_204 | Pass-Through Query: Gửi nguyên văn SQL tới Server từ xa | roadmap_access_vba_600.md |
+| access_vba_day_205 | Cấu hình Chuỗi kết nối ODBC cho Pass-Through Query | roadmap_access_vba_600.md |
+| access_vba_day_206 | Lấy kết quả từ Pass-Through Query vào Recordset Access | roadmap_access_vba_600.md |
+| access_vba_day_207 | Thực thi lệnh DDL trên SQL Server qua Pass-Through Query | roadmap_access_vba_600.md |
+| access_vba_day_208 | Bảo mật thông tin đăng nhập trong Pass-Through Query | roadmap_access_vba_600.md |
+| access_vba_day_209 | Tự động làm mới định nghĩa QueryDefs khi nâng cấp phần mềm | roadmap_access_vba_600.md |
+| access_vba_day_210 | Project 7: Hệ Thống Giao Dịch & Ghi Nhật Ký Biến Động (Audit Trail) | roadmap_access_vba_600.md |
+| access_vba_day_211 | Continuous Forms (Form dạng liên tục): Bản chất và cơ chế vẽ | roadmap_access_vba_600.md |
+| access_vba_day_212 | Tùy biến giao diện lưới dữ liệu đẹp mắt trên Continuous Form | roadmap_access_vba_600.md |
+| access_vba_day_213 | Conditional Formatting trên Continuous Form bằng VBA | roadmap_access_vba_600.md |
+| access_vba_day_214 | Highlight dòng hiện hành trên Continuous Form mà không lag | roadmap_access_vba_600.md |
+| access_vba_day_215 | Subform Control: Bản chất và thuộc tính LinkMasterFields / LinkChildFields | roadmap_access_vba_600.md |
+| access_vba_day_216 | Đồng bộ Form Cha - Con tự động qua quan hệ khóa | roadmap_access_vba_600.md |
+| access_vba_day_217 | Giao tiếp 2 chiều: Từ Subform gọi hàm trên Main Form và ngược lại | roadmap_access_vba_600.md |
+| access_vba_day_218 | Subform lồng nhau (Main Form -> Subform 1 -> Subform 2) | roadmap_access_vba_600.md |
+| access_vba_day_219 | Dynamic Subform: Thay đổi SourceObject của Subform theo ComboBox | roadmap_access_vba_600.md |
+| access_vba_day_220 | Tạo Form Master-Detail chuẩn mực cho Quản lý Hóa đơn | roadmap_access_vba_600.md |
+| access_vba_day_221 | Custom Navigation Bar thay thế thanh điều hướng mặc định | roadmap_access_vba_600.md |
+| access_vba_day_222 | Thêm thanh phân trang (Pagination) cho Form: Trang 1/10 (50 dòng/trang) | roadmap_access_vba_600.md |
+| access_vba_day_223 | Tìm kiếm và lọc dữ liệu tức thì (Instant Filter as you type) | roadmap_access_vba_600.md |
+| access_vba_day_224 | Highlight từ khóa tìm kiếm trên các ô TextBox của Form | roadmap_access_vba_600.md |
+| access_vba_day_225 | Tạo Dropdown Auto-Complete thông minh với ComboBox | roadmap_access_vba_600.md |
+| access_vba_day_226 | ListBox nhiều cột có thanh tiêu đề và sắp xếp khi click | roadmap_access_vba_600.md |
+| access_vba_day_227 | Kéo thả (Drag and Drop) cơ bản giữa các điều khiển | roadmap_access_vba_600.md |
+| access_vba_day_228 | Tùy biến Shortcut Menu (Menu chuột phải) cho từng ô nhập liệu | roadmap_access_vba_600.md |
+| access_vba_day_229 | Hiển thị Tooltip tùy biến dạng HTML / Balloon | roadmap_access_vba_600.md |
+| access_vba_day_230 | Xây dựng Custom Dialog Box trả về kết quả cho Form gọi | roadmap_access_vba_600.md |
+| access_vba_day_231 | Tạo Form Wizard từng bước (Step 1 -> Step 2 -> Step 3) | roadmap_access_vba_600.md |
+| access_vba_day_232 | Form Split (Bảng tách đôi: Nửa trên Form, Nửa dưới Bảng tính) | roadmap_access_vba_600.md |
+| access_vba_day_233 | Xây dựng Dashboard trực quan với các chỉ số KPI Cards | roadmap_access_vba_600.md |
+| access_vba_day_234 | Nhúng biểu đồ Modern Chart vào Access Form | roadmap_access_vba_600.md |
+| access_vba_day_235 | Tự động cập nhật biểu đồ khi dữ liệu Form thay đổi | roadmap_access_vba_600.md |
+| access_vba_day_236 | Kiểm soát thứ tự Tab (TabIndex) và bẫy phím tắt người dùng | roadmap_access_vba_600.md |
+| access_vba_day_237 | Khóa toàn bộ Form ở chế độ View-Only với 1 dòng lệnh | roadmap_access_vba_600.md |
+| access_vba_day_238 | Phát hiện thay đổi chưa lưu khi người dùng bấm chuyển bản ghi | roadmap_access_vba_600.md |
+| access_vba_day_239 | Tối ưu hóa tốc độ load Form có chứa nhiều Subforms nặng | roadmap_access_vba_600.md |
+| access_vba_day_240 | Project 8: Giao Diện Bán Hàng POS Cảm Ứng Bằng Access Form | roadmap_access_vba_600.md |
+| access_vba_day_241 | Kiến trúc Report trong Access: Report Header, Page Header, Detail, Page Footer, Report Footer | roadmap_access_vba_600.md |
+| access_vba_day_242 | Grouping & Sorting trong Report: Phân nhóm theo Khách hàng / Phòng ban | roadmap_access_vba_600.md |
+| access_vba_day_243 | Group Header & Group Footer: Tính tổng con (Subtotal) cho từng nhóm | roadmap_access_vba_600.md |
+| access_vba_day_244 | Thuộc tính Running Sum (Cộng dồn / Đánh số thứ tự 1, 2, 3...) | roadmap_access_vba_600.md |
+| access_vba_day_245 | Sự kiện Report: Report_Open, Report_Close, Format, Print | roadmap_access_vba_600.md |
+| access_vba_day_246 | Sự kiện Detail_Format: Can thiệp ẩn/hiện hoặc đổi màu dòng theo điều kiện | roadmap_access_vba_600.md |
+| access_vba_day_247 | Sự kiện Detail_Print: Vẽ đường kẻ, hình khối bằng phương thức Me.Line, Me.Circle | roadmap_access_vba_600.md |
+| access_vba_day_248 | Thuộc tính CanGrow & CanShrink: Tự động co giãn chiều cao dòng theo nội dung | roadmap_access_vba_600.md |
+| access_vba_day_249 | Xử lý ngắt trang thông minh (Page Break, KeepTogether, ForceNewPage) | roadmap_access_vba_600.md |
+| access_vba_day_250 | Tạo Báo cáo Hóa đơn Đỏ / Phiếu thu tiền chuẩn biểu mẫu A4/A5 | roadmap_access_vba_600.md |
+| access_vba_day_251 | In Báo cáo nhiều cột (Multi-Column Report / In Nhãn nhãn dán Barcode) | roadmap_access_vba_600.md |
+| access_vba_day_252 | Truyền bộ lọc động khi mở Report với DoCmd.OpenReport & WhereCondition | roadmap_access_vba_600.md |
+| access_vba_day_253 | Xem trước báo cáo (acViewPreview) vs In trực tiếp (acViewNormal) | roadmap_access_vba_600.md |
+| access_vba_day_254 | Tùy biến cửa sổ Print Preview: Ẩn Ribbon, vô hiệu hóa nút in trái phép | roadmap_access_vba_600.md |
+| access_vba_day_255 | Xuất Báo cáo ra file PDF bằng DoCmd.OutputTo acOutputPDF | roadmap_access_vba_600.md |
+| access_vba_day_256 | Tự động đặt tên file PDF theo Mã Hóa Đơn và Ngày Tháng | roadmap_access_vba_600.md |
+| access_vba_day_257 | Xuất Báo cáo sang định dạng Excel (.xlsx), Word (.rtf), HTML | roadmap_access_vba_600.md |
+| access_vba_day_258 | Tự động gửi email đính kèm file PDF báo cáo qua Outlook | roadmap_access_vba_600.md |
+| access_vba_day_259 | In hàng loạt 100 hóa đơn ra máy in không hiện thông báo chờ | roadmap_access_vba_600.md |
+| access_vba_day_260 | Chọn máy in linh hoạt bằng Application.Printer & Printers Collection | roadmap_access_vba_600.md |
+| access_vba_day_261 | In vé nhiệt / In hóa đơn K80 từ Access Report | roadmap_access_vba_600.md |
+| access_vba_day_262 | Tạo Báo cáo Subreport (Báo cáo lồng nhau: Đơn hàng + Chi tiết) | roadmap_access_vba_600.md |
+| access_vba_day_263 | Tính toán trang: Trang [Page] trên tổng số [Pages] và xử lý 2-pass | roadmap_access_vba_600.md |
+| access_vba_day_264 | In hình mờ (Watermark 'ĐÃ THANH TOÁN', 'BẢN NHÁP') lên Report | roadmap_access_vba_600.md |
+| access_vba_day_265 | Tạo Báo cáo Tổng kết Tài chính Đa cấp có biểu đồ đính kèm | roadmap_access_vba_600.md |
+| access_vba_day_266 | Tối ưu tốc độ Report truy vấn trên bảng hàng trăm nghìn dòng | roadmap_access_vba_600.md |
+| access_vba_day_267 | Bảo vệ bản quyền và chống sao chép dữ liệu trên Report | roadmap_access_vba_600.md |
+| access_vba_day_268 | In Barcode Code128 / QR Code trực tiếp lên Access Report | roadmap_access_vba_600.md |
+| access_vba_day_269 | Lưu cấu hình in ấn riêng cho từng mẫu báo cáo | roadmap_access_vba_600.md |
+| access_vba_day_270 | Project 9: Hệ Thống Xuất & In Báo Cáo Doanh Thu / Hóa Đơn Tự Động | roadmap_access_vba_600.md |
+| access_vba_day_271 | Phân tích chuyên sâu 4 thuộc tính ACID trong Access Database | roadmap_access_vba_600.md |
+| access_vba_day_272 | Quản lý Workspace trong DAO và đa Workspace độc lập | roadmap_access_vba_600.md |
+| access_vba_day_273 | Kiểm soát xung đột khi nhiều Transaction ghi cùng lúc | roadmap_access_vba_600.md |
+| access_vba_day_274 | Chiến lược xử lý lỗi Timeout trong Transaction mạng | roadmap_access_vba_600.md |
+| access_vba_day_275 | Tạo hệ thống Phân quyền Người dùng (RBAC: Role-Based Access Control) | roadmap_access_vba_600.md |
+| access_vba_day_276 | Bảng Phân quyền: User, Role, Permissions (Read/Write/Delete/Approve) | roadmap_access_vba_600.md |
+| access_vba_day_277 | Mã hóa Mật khẩu người dùng bằng thuật toán băm (Hash SHA-256) | roadmap_access_vba_600.md |
+| access_vba_day_278 | Tạo Form Đăng nhập bảo mật: Chặn Brute Force sau 5 lần sai | roadmap_access_vba_600.md |
+| access_vba_day_279 | Lưu phiên làm việc toàn cục (g_CurrentUser, g_UserRole, g_LoginTime) | roadmap_access_vba_600.md |
+| access_vba_day_280 | Ẩn/Hiện nút bấm và Form theo quyền hạn của tài khoản đang đăng nhập | roadmap_access_vba_600.md |
+| access_vba_day_281 | Khóa giao diện Back-end Access: Ẩn Navigation Pane, Phím Shift, VBE | roadmap_access_vba_600.md |
+| access_vba_day_282 | Vô hiệu hóa phím Bypass Shift khi khởi động ứng dụng | roadmap_access_vba_600.md |
+| access_vba_day_283 | Tự động kích hoạt mật khẩu bảo vệ CSDL (.accdb Password) | roadmap_access_vba_600.md |
+| access_vba_day_284 | Mã hóa và Đóng gói file sang định dạng .accde (Chống xem mã nguồn VBA) | roadmap_access_vba_600.md |
+| access_vba_day_285 | Bảo vệ bản quyền phần mềm: Khóa theo Mã Ổ Cứng (HDD Serial / Motherboard ID) | roadmap_access_vba_600.md |
+| access_vba_day_286 | Tạo License Key kích hoạt phần mềm có thời hạn sử dụng | roadmap_access_vba_600.md |
+| access_vba_day_287 | Ghi vết thay đổi nhạy cảm (Security Audit Log) | roadmap_access_vba_600.md |
+| access_vba_day_288 | Tự động sao lưu dự phòng CSDL trước khi thực hiện thao tác xóa lớn | roadmap_access_vba_600.md |
+| access_vba_day_289 | Kiểm tra tính toàn vẹn CSDL (Data Corruption Check) | roadmap_access_vba_600.md |
+| access_vba_day_290 | Quy trình Phục hồi dữ liệu khi file Access bị lỗi Corrupt | roadmap_access_vba_600.md |
+| access_vba_day_291 | Tự động Compact and Repair Database khi đóng ứng dụng | roadmap_access_vba_600.md |
+| access_vba_day_292 | Giám sát dung lượng file và cảnh báo khi đạt ngưỡng 1.8GB | roadmap_access_vba_600.md |
+| access_vba_day_293 | Tách dữ liệu lịch sử sang Database phụ (Data Archiving) | roadmap_access_vba_600.md |
+| access_vba_day_294 | Xóa an toàn dữ liệu nhạy cảm theo tiêu chuẩn bảo mật | roadmap_access_vba_600.md |
+| access_vba_day_295 | Chống trích xuất dữ liệu trái phép qua ODBC | roadmap_access_vba_600.md |
+| access_vba_day_296 | Kiểm tra quyền Administrator của Windows trước khi chạy ứng dụng | roadmap_access_vba_600.md |
+| access_vba_day_297 | Xây dựng nhật ký bảo mật đăng nhập/đăng xuất | roadmap_access_vba_600.md |
+| access_vba_day_298 | Tự động khóa ứng dụng khi không có thao tác sau 15 phút | roadmap_access_vba_600.md |
+| access_vba_day_299 | Kiểm tra chữ ký số VBA Project Signature | roadmap_access_vba_600.md |
+| access_vba_day_300 | Project 10: Hệ Thống Bảo Mật Toàn Diện & Phân Quyền Đa Cấp Cho Doanh Nghiệp | roadmap_access_vba_600.md |
+| access_vba_day_301 | Nguyên lý hoạt động của Access trong môi trường mạng LAN nhiều người dùng | roadmap_access_vba_600.md |
+| access_vba_day_302 | File khóa .laccdb: Cơ chế hoạt động và phát hiện ai đang mở file | roadmap_access_vba_600.md |
+| access_vba_day_303 | Xung đột ghi đồng thời (Write Conflict): Nguyên nhân và triệu chứng | roadmap_access_vba_600.md |
+| access_vba_day_304 | No Locks (Khóa mặc định / Khóa mở): Cách thức hoạt động | roadmap_access_vba_600.md |
+| access_vba_day_305 | All Records Lock (Khóa toàn bộ bảng): Khi nào nên dùng? | roadmap_access_vba_600.md |
+| access_vba_day_306 | Edited Record Lock (Khóa bản ghi đang sửa): Cơ chế Page Locking 4KB | roadmap_access_vba_600.md |
+| access_vba_day_307 | Khóa Lạc quan (Optimistic Locking): Phát hiện xung đột khi lưu | roadmap_access_vba_600.md |
+| access_vba_day_308 | Khóa Bi quan (Pessimistic Locking): Khóa ngay khi bắt đầu gõ | roadmap_access_vba_600.md |
+| access_vba_day_309 | Bắt và xử lý lỗi Error 3197: 'Dữ liệu đã bị người dùng khác thay đổi' | roadmap_access_vba_600.md |
+| access_vba_day_310 | Bắt và xử lý lỗi Error 3260: 'Bản ghi hiện đang bị khóa bởi máy khác' | roadmap_access_vba_600.md |
+| access_vba_day_311 | Tạo cột Timestamp / RowVersion để tự kiểm soát xung đột | roadmap_access_vba_600.md |
+| access_vba_day_312 | Xây dựng cơ chế Soft Lock tùy biến bằng bảng tblActiveLocks | roadmap_access_vba_600.md |
+| access_vba_day_313 | Tự động mở khóa khi người dùng bị ngắt mạng hoặc tắt máy đột ngột | roadmap_access_vba_600.md |
+| access_vba_day_314 | Hiển thị ai đang chỉnh sửa bản ghi này trên Form realtime | roadmap_access_vba_600.md |
+| access_vba_day_315 | Cấu hình Refresh Interval và Update Retry trong Access Options bằng VBA | roadmap_access_vba_600.md |
+| access_vba_day_316 | Kỹ thuật tối ưu hóa mạng LAN để tránh hỏng file .accdb | roadmap_access_vba_600.md |
+| access_vba_day_317 | Quy tắc vàng: Tuyệt đối KHÔNG chia sẻ chung file Frontend cho nhiều người | roadmap_access_vba_600.md |
+| access_vba_day_318 | Tự động cấp phát ID không bị trùng lặp trong môi trường nhiều máy cùng thêm mới | roadmap_access_vba_600.md |
+| access_vba_day_319 | So sánh AutoNumber vs Tự sinh mã có Transaction trong mạng LAN | roadmap_access_vba_600.md |
+| access_vba_day_320 | Xử lý nghẽn mạng khi 20 người cùng in báo cáo đồng thời | roadmap_access_vba_600.md |
+| access_vba_day_321 | Kỹ thuật đọc dữ liệu không khóa bảng (Dirty Read / Read Uncommitted) | roadmap_access_vba_600.md |
+| access_vba_day_322 | Mô phỏng 5 máy cùng sửa 1 bản ghi và kiểm tra tính toàn vẹn | roadmap_access_vba_600.md |
+| access_vba_day_323 | Xây dựng hàng đợi xử lý (Message Queue) trong Access Table | roadmap_access_vba_600.md |
+| access_vba_day_324 | Đồng bộ dữ liệu định kỳ giữa các chi nhánh qua mạng | roadmap_access_vba_600.md |
+| access_vba_day_325 | Tự động phát hiện mất kết nối tới ổ đĩa mạng Backend | roadmap_access_vba_600.md |
+| access_vba_day_326 | Tự động kết nối lại khi mạng LAN phục hồi | roadmap_access_vba_600.md |
+| access_vba_day_327 | Thông báo broadcast tới toàn bộ nhân viên đang mở ứng dụng | roadmap_access_vba_600.md |
+| access_vba_day_328 | Ép toàn bộ người dùng thoát ứng dụng để bảo trì hệ thống từ xa | roadmap_access_vba_600.md |
+| access_vba_day_329 | Kiểm tra hiệu năng truy vấn qua mạng LAN 100Mbps vs 1Gbps | roadmap_access_vba_600.md |
+| access_vba_day_330 | Project 11: Hệ Thống Quản Lý Đơn Hàng Đa Người Dùng Chống Xung Đột 100% | roadmap_access_vba_600.md |
+| access_vba_day_331 | Kiến trúc Split Database: Tách Frontend (Giao diện + VBA) và Backend (Bảng dữ liệu) | roadmap_access_vba_600.md |
+| access_vba_day_332 | Lợi ích của Split Database: Tốc độ, bảo mật, bảo trì, chống corrupt | roadmap_access_vba_600.md |
+| access_vba_day_333 | Tách CSDL thủ công và dùng công cụ Database Splitter Wizard | roadmap_access_vba_600.md |
+| access_vba_day_334 | Bản chất của Linked Tables (Bảng liên kết trong Access) | roadmap_access_vba_600.md |
+| access_vba_day_335 | Kiểm tra đường dẫn Backend của Linked Table qua TableDef.Connect | roadmap_access_vba_600.md |
+| access_vba_day_336 | Tự động Relink Tables bằng mã VBA khi đổi thư mục lưu file | roadmap_access_vba_600.md |
+| access_vba_day_337 | Xây dựng Form 'Cấu hình đường dẫn CSDL' cho người dùng | roadmap_access_vba_600.md |
+| access_vba_day_338 | Kiểm tra sự tồn tại của file Backend trước khi mở ứng dụng | roadmap_access_vba_600.md |
+| access_vba_day_339 | Hỗ trợ kết nối nhiều file Backend đồng thời (Backend_Data, Backend_Log, Backend_Archive) | roadmap_access_vba_600.md |
+| access_vba_day_340 | Tự động tạo bản sao lưu Backend (.bak) mỗi ngày khi mở máy | roadmap_access_vba_600.md |
+| access_vba_day_341 | Nén và Phục hồi Backend từ xa qua mạng bằng VBA (CompactBackend) | roadmap_access_vba_600.md |
+| access_vba_day_342 | Cơ chế Tự động Cập nhật phiên bản Frontend mới (Auto-Updater) | roadmap_access_vba_600.md |
+| access_vba_day_343 | Quy trình Auto-Update: Kiểm tra version -> Tải file FE mới -> Khởi động lại | roadmap_access_vba_600.md |
+| access_vba_day_344 | Đóng gói file cài đặt Frontend cho từng máy trạm nhân viên | roadmap_access_vba_600.md |
+| access_vba_day_345 | Chuyển đổi Backend từ Access sang file CSDL mã hóa | roadmap_access_vba_600.md |
+| access_vba_day_346 | Xử lý sự cố đứt kết nối Linked Table giữa chừng | roadmap_access_vba_600.md |
+| access_vba_day_347 | Giám sát tốc độ phản hồi của file Backend trên server | roadmap_access_vba_600.md |
+| access_vba_day_348 | Thiết lập quyền thư mục Windows Share an toàn cho Backend | roadmap_access_vba_600.md |
+| access_vba_day_349 | Chống copy trộm file Backend từ ổ đĩa chia sẻ | roadmap_access_vba_600.md |
+| access_vba_day_350 | Phục hồi tự động bảng liên kết bị hỏng schema | roadmap_access_vba_600.md |
+| access_vba_day_351 | Chạy lệnh bảo trì định kỳ tự động vào ban đêm | roadmap_access_vba_600.md |
+| access_vba_day_352 | Gửi email báo cáo tình trạng sức khỏe của Backend cho Admin | roadmap_access_vba_600.md |
+| access_vba_day_353 | Quản lý lịch sử các phiên bản nâng cấp phần mềm | roadmap_access_vba_600.md |
+| access_vba_day_354 | Tạo bộ cài đặt One-Click Setup cho nhân viên mới | roadmap_access_vba_600.md |
+| access_vba_day_355 | Tích hợp công cụ chẩn đoán lỗi mạng và kết nối Backend | roadmap_access_vba_600.md |
+| access_vba_day_356 | Kiểm tra tương thích giữa các phiên bản Access 2016, 2019, 2021, M365 | roadmap_access_vba_600.md |
+| access_vba_day_357 | Chạy Access Frontend không cần cài đặt đầy đủ Office (Access Runtime) | roadmap_access_vba_600.md |
+| access_vba_day_358 | Đóng gói ứng dụng chạy mượt mà trên Access Runtime miễn phí | roadmap_access_vba_600.md |
+| access_vba_day_359 | Xử lý các lỗi giao diện phát sinh riêng trên Access Runtime | roadmap_access_vba_600.md |
+| access_vba_day_360 | Project 12: Bộ Đôi Frontend-Backend Hoàn Chỉnh Kèm Auto-Updater Thông Minh | roadmap_access_vba_600.md |
+| access_vba_day_361 | Cơ chế hoạt động bên trong của Jet/ACE Query Optimizer (Rushmore Technology) | roadmap_access_vba_600.md |
+| access_vba_day_362 | Phân tích Query Execution Plan (Kế hoạch thực thi câu truy vấn) | roadmap_access_vba_600.md |
+| access_vba_day_363 | Chỉ số hiệu năng: Jet ShowPlan (Bật ghi log tối ưu truy vấn ra file text) | roadmap_access_vba_600.md |
+| access_vba_day_364 | Tối ưu hóa mệnh đề WHERE: Tránh dùng hàm trên cột có Index (Sargability) | roadmap_access_vba_600.md |
+| access_vba_day_365 | Tại sao WHERE Year(NgayTao) = 2026 làm mất tác dụng của Index? | roadmap_access_vba_600.md |
+| access_vba_day_366 | Viết lại điều kiện lọc chuẩn Sargable: WHERE NgayTao >= #2026-01-01# AND NgayTao < #2027-01-01# | roadmap_access_vba_600.md |
+| access_vba_day_367 | Tối ưu hóa toán tử LIKE: Tìm kiếm đầu chuỗi 'ABC*' vs giữa chuỗi '*ABC*' | roadmap_access_vba_600.md |
+| access_vba_day_368 | Tối ưu hóa câu truy vấn JOIN: Thứ tự kết nối bảng và kiểu dữ liệu khóa | roadmap_access_vba_600.md |
+| access_vba_day_369 | Tránh xung đột kiểu dữ liệu giữa khóa chính và khóa ngoại (Type Mismatch) | roadmap_access_vba_600.md |
+| access_vba_day_370 | Tối ưu hóa câu lệnh đếm: COUNT(*) vs COUNT(ID) vs DCount | roadmap_access_vba_600.md |
+| access_vba_day_371 | Kỹ thuật thay thế DLookup chậm chạp bằng DAO Recordset Seek hoặc Query JOIN | roadmap_access_vba_600.md |
+| access_vba_day_372 | Benchmark đo thời gian thực thi chính xác đến mili-giây bằng WinAPI QueryPerformanceCounter | roadmap_access_vba_600.md |
+| access_vba_day_373 | Tối ưu hóa bộ nhớ khi xử lý Recordset lớn: Sử dụng dbForwardOnly và dbReadOnly | roadmap_access_vba_600.md |
+| access_vba_day_374 | Tối ưu hóa Form load chậm: Bỏ gán RecordSource lúc mở, chỉ gán khi cần | roadmap_access_vba_600.md |
+| access_vba_day_375 | Kỹ thuật Lazy Loading cho các Tab con trên Form | roadmap_access_vba_600.md |
+| access_vba_day_376 | Tối ưu hóa ComboBox có danh sách trên 10.000 dòng | roadmap_access_vba_600.md |
+| access_vba_day_377 | Giới hạn số dòng tải vào ComboBox bằng kỹ thuật gõ 3 ký tự mới load | roadmap_access_vba_600.md |
+| access_vba_day_378 | Xóa bỏ các trường dư thừa trong câu lệnh SELECT (Tránh dùng SELECT *) | roadmap_access_vba_600.md |
+| access_vba_day_379 | Tối ưu hóa subquery lồng nhau: Chuyển Subquery thành JOIN | roadmap_access_vba_600.md |
+| access_vba_day_380 | Đo lường mức tiêu hao RAM và CPU của Access khi chạy tác vụ nặng | roadmap_access_vba_600.md |
+| access_vba_day_381 | Giải phóng rò rỉ bộ nhớ (Memory Leak) trong các vòng lặp VBA dài | roadmap_access_vba_600.md |
+| access_vba_day_382 | Quy tắc đóng và giải phóng biến Object (Set obj = Nothing) | roadmap_access_vba_600.md |
+| access_vba_day_383 | Tối ưu hóa tốc độ ghi đĩa khi import 100.000 dòng dữ liệu | roadmap_access_vba_600.md |
+| access_vba_day_384 | Tắt cập nhật giao diện và màn hình khi chạy tác vụ nền (Echo, DoEvents) | roadmap_access_vba_600.md |
+| access_vba_day_385 | Tối ưu hóa việc sử dụng Domain Aggregate Functions trong Report | roadmap_access_vba_600.md |
+| access_vba_day_386 | Phân tích dung lượng từng bảng để tìm nguyên nhân DB phình to | roadmap_access_vba_600.md |
+| access_vba_day_387 | Kỹ thuật nén gọn chuỗi SQL và tái sử dụng QueryDefs trong bộ nhớ | roadmap_access_vba_600.md |
+| access_vba_day_388 | Khắc phục tình trạng Access bị treo đơ 'Not Responding' | roadmap_access_vba_600.md |
+| access_vba_day_389 | Thiết lập cấu hình MaxBufferSize trong Windows Registry cho Jet Engine | roadmap_access_vba_600.md |
+| access_vba_day_390 | Project 13: Công Cụ Tối Ưu & Tăng Tốc Toàn Diện Cho Hệ Thống Access Chậm | roadmap_access_vba_600.md |
+| access_vba_day_391 | Tổng quan về Giao tiếp Phần cứng từ Access VBA | roadmap_access_vba_600.md |
+| access_vba_day_392 | Cổng nối tiếp Serial Port (COM Port / RS232 / USB Virtual COM) | roadmap_access_vba_600.md |
+| access_vba_day_393 | MSComm32 ActiveX Control: Khai báo và cấu hình thông số cổng COM | roadmap_access_vba_600.md |
+| access_vba_day_394 | Giao tiếp COM Port không dùng ActiveX: WinAPI CreateFile & ReadFile | roadmap_access_vba_600.md |
+| access_vba_day_395 | Cấu hình BaudRate, Parity, DataBits, StopBits cho thiết bị | roadmap_access_vba_600.md |
+| access_vba_day_396 | Mở và Đóng cổng COM an toàn trong VBA | roadmap_access_vba_600.md |
+| access_vba_day_397 | Đọc dữ liệu từ Máy quét mã vạch (Barcode Scanner) qua Cổng COM | roadmap_access_vba_600.md |
+| access_vba_day_398 | Bắt sự kiện quét mã vạch qua bàn phím (Keyboard Wedge Hook) | roadmap_access_vba_600.md |
+| access_vba_day_399 | Tự động tìm kiếm và thêm sản phẩm vào giỏ hàng ngay khi quét mã | roadmap_access_vba_600.md |
+| access_vba_day_400 | Tạo và in mã vạch Code128 / Code39 trực tiếp từ Access | roadmap_access_vba_600.md |
+| access_vba_day_401 | Tạo và in mã QR Code động từ dữ liệu hóa đơn | roadmap_access_vba_600.md |
+| access_vba_day_402 | Giao tiếp với Cân điện tử công nghiệp qua cổng COM RS232 | roadmap_access_vba_600.md |
+| access_vba_day_403 | Đọc trọng lượng cân liên tục và điền tự động vào ô Khối lượng | roadmap_access_vba_600.md |
+| access_vba_day_404 | Lọc nhiễu và chuẩn hóa chuỗi dữ liệu nhận được từ cân điện tử | roadmap_access_vba_600.md |
+| access_vba_day_405 | Giao tiếp với Đầu đọc thẻ từ / Thẻ RFID (Mifare 13.56MHz / EM4100) | roadmap_access_vba_600.md |
+| access_vba_day_406 | Quẹt thẻ nhân viên để tự động Chấm công và Mở cửa | roadmap_access_vba_600.md |
+| access_vba_day_407 | Giao tiếp với Máy in nhiệt hóa đơn K80/K58 qua cổng USB / COM | roadmap_access_vba_600.md |
+| access_vba_day_408 | Gửi mã lệnh ESC/POS trực tiếp tới máy in để cắt giấy và mở két tiền | roadmap_access_vba_600.md |
+| access_vba_day_409 | Tự động mở Két đựng tiền (Cash Drawer) khi bấm thanh toán | roadmap_access_vba_600.md |
+| access_vba_day_410 | Giao tiếp với Máy đo nhiệt độ / Cảm biến môi trường IoT | roadmap_access_vba_600.md |
+| access_vba_day_411 | Giao tiếp với Bộ điều khiển PLC / Relay Module qua chuẩn Modbus RTU | roadmap_access_vba_600.md |
+| access_vba_day_412 | Kích hoạt đóng/ngắt rơ-le điện từ nút bấm trên Access Form | roadmap_access_vba_600.md |
+| access_vba_day_413 | Đọc dữ liệu từ Máy đo kích thước / Thước đo điện tử kẹp số | roadmap_access_vba_600.md |
+| access_vba_day_414 | Xử lý lỗi mất kết nối phần cứng và tự động kết nối lại cổng COM | roadmap_access_vba_600.md |
+| access_vba_day_415 | Đa luồng giả lập: Đọc cổng COM nền không làm đơ giao diện Form | roadmap_access_vba_600.md |
+| access_vba_day_416 | Ghi log dữ liệu thô từ cổng COM ra file để phân tích sự cố | roadmap_access_vba_600.md |
+| access_vba_day_417 | Kiểm tra danh sách các cổng COM đang khả dụng trên máy tính | roadmap_access_vba_600.md |
+| access_vba_day_418 | Xây dựng bảng Cấu hình thiết bị phần cứng trong CSDL | roadmap_access_vba_600.md |
+| access_vba_day_419 | Tạo module kiểm tra trạng thái phần cứng khi khởi động | roadmap_access_vba_600.md |
+| access_vba_day_420 | Project 14: Hệ Thống Bán Hàng & Cân Trọng Lượng Tự Động Kết Nối Phần Cứng | roadmap_access_vba_600.md |
+| access_vba_day_421 | Tổng quan về Windows API (Win32 API) trong Access VBA | roadmap_access_vba_600.md |
+| access_vba_day_422 | Phân biệt khai báo API trên Access 32-bit (PtrSafe, Long) vs 64-bit (LongPtr) | roadmap_access_vba_600.md |
+| access_vba_day_423 | Đọc thông tin hệ điều hành: GetVersionEx, GetComputerName, GetUserName | roadmap_access_vba_600.md |
+| access_vba_day_424 | Lấy địa chỉ MAC Card mạng để khóa bản quyền phần mềm | roadmap_access_vba_600.md |
+| access_vba_day_425 | Đọc và ghi Windows Registry: RegOpenKeyEx, RegQueryValueEx, RegSetValueEx | roadmap_access_vba_600.md |
+| access_vba_day_426 | Lưu cấu hình ứng dụng vào Registry HKCU và HKLM | roadmap_access_vba_600.md |
+| access_vba_day_427 | Thao tác File & Thư mục bằng Windows API: ShellExecute, CopyFile, DeleteFile | roadmap_access_vba_600.md |
+| access_vba_day_428 | Mở file bất kỳ bằng chương trình mặc định của Windows (PDF, Word, Ảnh) | roadmap_access_vba_600.md |
+| access_vba_day_429 | Hộp thoại chọn file chuẩn Windows (GetOpenFileName / GetSaveFileName API) | roadmap_access_vba_600.md |
+| access_vba_day_430 | Hộp thoại chọn thư mục Windows (SHBrowseForFolder API) | roadmap_access_vba_600.md |
+| access_vba_day_431 | Điều khiển Cửa sổ Windows: FindWindow, SetWindowText, MoveWindow, ShowWindow | roadmap_access_vba_600.md |
+| access_vba_day_432 | Tự động phóng to toàn màn hình không viền (Borderless Fullscreen) | roadmap_access_vba_600.md |
+| access_vba_day_433 | Giữ cửa sổ Form luôn nổi trên cùng (Always on Top) với SetWindowPos | roadmap_access_vba_600.md |
+| access_vba_day_434 | Độ trong suốt của Form (Transparent Form) bằng SetLayeredWindowAttributes | roadmap_access_vba_600.md |
+| access_vba_day_435 | Tạo âm thanh cảnh báo hệ thống bằng Beep API và PlaySound | roadmap_access_vba_600.md |
+| access_vba_day_436 | Tạo biểu tượng ứng dụng ở khay hệ thống (System Tray Icon với Shell_NotifyIcon) | roadmap_access_vba_600.md |
+| access_vba_day_437 | Bắt sự kiện Click vào System Tray Icon để ẩn/hiện Access | roadmap_access_vba_600.md |
+| access_vba_day_438 | Hiển thị thông báo Windows Balloon Notification / Toast Notification | roadmap_access_vba_600.md |
+| access_vba_day_439 | Khóa bàn phím và chuột khi thực hiện tác vụ bảo mật (BlockInput API) | roadmap_access_vba_600.md |
+| access_vba_day_440 | Đọc và ghi dữ liệu Clipboard Windows trực tiếp qua API | roadmap_access_vba_600.md |
+| access_vba_day_441 | Đo thời gian siêu chính xác bằng QueryPerformanceFrequency và QueryPerformanceCounter | roadmap_access_vba_600.md |
+| access_vba_day_442 | Tạm dừng chương trình không đơ giao diện bằng Sleep API kết hợp DoEvents | roadmap_access_vba_600.md |
+| access_vba_day_443 | Quản lý tiến trình Windows: OpenProcess, TerminateProcess, EnumProcesses | roadmap_access_vba_600.md |
+| access_vba_day_444 | Kiểm tra xem file Excel / Word có đang bị chương trình khác mở khóa không | roadmap_access_vba_600.md |
+| access_vba_day_445 | Can thiệp bộ nhớ RAM bằng CopyMemory (RtlMoveMemory) trong VBA | roadmap_access_vba_600.md |
+| access_vba_day_446 | Subclassing cửa sổ Access: Bắt sự kiện cuộn chuột (Mouse Wheel Hook) | roadmap_access_vba_600.md |
+| access_vba_day_447 | Khắc phục lỗi cuộn chuột nhảy bản ghi trên Access Form cũ | roadmap_access_vba_600.md |
+| access_vba_day_448 | Chạy script PowerShell và nhận kết quả trả về trong VBA | roadmap_access_vba_600.md |
+| access_vba_day_449 | Gửi phím tắt tự động tới ứng dụng khác bằng keybd_event API | roadmap_access_vba_600.md |
+| access_vba_day_450 | Project 15: Module Tích Hợp Windows API Toàn Diện & Đưa App Vào System Tray | roadmap_access_vba_600.md |
+| access_vba_day_451 | Kiến trúc Ribbon trong Microsoft Access: Bản chất cấu trúc XML | roadmap_access_vba_600.md |
+| access_vba_day_452 | Bảng USysRibbons: Nơi lưu trữ mã XML tùy biến thanh Ribbon | roadmap_access_vba_600.md |
+| access_vba_day_453 | Cấu trúc file Ribbon XML chuẩn: customUI, ribbon, tabs, tab, group, button | roadmap_access_vba_600.md |
+| access_vba_day_454 | Thêm Tab riêng cho ứng dụng trên thanh Ribbon Access | roadmap_access_vba_600.md |
+| access_vba_day_455 | Tạo các nút bấm (Button), biểu tượng (ImageMso) và phím tắt (Keytip) | roadmap_access_vba_600.md |
+| access_vba_day_456 | Gán hàm callback VBA khi người dùng click vào nút trên Ribbon | roadmap_access_vba_600.md |
+| access_vba_day_457 | Tạo Menu thả xuống (Menu / SplitButton) trên Ribbon | roadmap_access_vba_600.md |
+| access_vba_day_458 | Tạo ComboBox và EditBox nhập liệu trực tiếp trên thanh Ribbon | roadmap_access_vba_600.md |
+| access_vba_day_459 | Tạo CheckBox và ToggleButton lưu trạng thái trên Ribbon | roadmap_access_vba_600.md |
+| access_vba_day_460 | Dynamic Ribbon: Thay đổi trạng thái nút (Enable/Disable, Label) theo thời gian thực | roadmap_access_vba_600.md |
+| access_vba_day_461 | Phương thức Invalidate & InvalidateControl của IRibbonUI | roadmap_access_vba_600.md |
+| access_vba_day_462 | Sử dụng icon tùy biến từ file ảnh PNG/ICO ngoài ổ đĩa | roadmap_access_vba_600.md |
+| access_vba_day_463 | Ẩn toàn bộ Ribbon mặc định của Access, chỉ hiện Ribbon chuyên dụng | roadmap_access_vba_600.md |
+| access_vba_day_464 | Tùy biến Quick Access Toolbar (QAT) cho phần mềm | roadmap_access_vba_600.md |
+| access_vba_day_465 | Tùy biến Backstage View (Menu File khi click góc trái) | roadmap_access_vba_600.md |
+| access_vba_day_466 | Tùy biến Shortcut Menu (Menu chuột phải) bằng Ribbon XML | roadmap_access_vba_600.md |
+| access_vba_day_467 | Gán Ribbon riêng cho từng Form và từng Report cụ thể | roadmap_access_vba_600.md |
+| access_vba_day_468 | Tùy biến biểu tượng thanh tác vụ và Tiêu đề ứng dụng (AppTitle & AppIcon) | roadmap_access_vba_600.md |
+| access_vba_day_469 | Tạo bảng điều khiển chuyển hướng trung tâm (Modern Navigation Switchboard) | roadmap_access_vba_600.md |
+| access_vba_day_470 | Đóng gói toàn bộ ứng dụng sang file ACCDE chống dịch ngược | roadmap_access_vba_600.md |
+| access_vba_day_471 | Khóa giao diện triệt để: Vô hiệu hóa phím F11, menu Design View, cửa sổ Navigation | roadmap_access_vba_600.md |
+| access_vba_day_472 | Tạo file cấu hình khởi động AutoExec Macro | roadmap_access_vba_600.md |
+| access_vba_day_473 | Xây dựng bộ cài đặt phần mềm chuyên nghiệp bằng Inno Setup | roadmap_access_vba_600.md |
+| access_vba_day_474 | Tự động kiểm tra và cài đặt Access Runtime nếu máy khách chưa có | roadmap_access_vba_600.md |
+| access_vba_day_475 | Tạo Shortcut trên Desktop và Start Menu kèm Icon đẹp mắt | roadmap_access_vba_600.md |
+| access_vba_day_476 | Tự động đăng ký các thư viện DLL và ActiveX khi cài đặt | roadmap_access_vba_600.md |
+| access_vba_day_477 | Cấp phép bản quyền phần mềm (Licensing System) với mã kích hoạt mã hóa | roadmap_access_vba_600.md |
+| access_vba_day_478 | Hệ thống kiểm tra ngày hết hạn dùng thử (Trial 30 ngày) | roadmap_access_vba_600.md |
+| access_vba_day_479 | Tạo tài liệu hướng dẫn sử dụng tích hợp dạng file Help (.chm) hoặc PDF | roadmap_access_vba_600.md |
+| access_vba_day_480 | Project 16: Đóng Gói Ứng Dụng Thương Mại Hoàn Chỉnh Có Ribbon XML & License Key | roadmap_access_vba_600.md |
+| access_vba_day_481 | Tại sao doanh nghiệp cần nâng cấp Backend từ Access sang SQL Server / Azure SQL? | roadmap_access_vba_600.md |
+| access_vba_day_482 | Kiến trúc Client/Server: Access Frontend + SQL Server Backend | roadmap_access_vba_600.md |
+| access_vba_day_483 | Cài đặt SQL Server Express và SQL Server Management Studio (SSMS) | roadmap_access_vba_600.md |
+| access_vba_day_484 | Cài đặt và cấu hình ODBC Driver for SQL Server (ODBC Driver 18) | roadmap_access_vba_600.md |
+| access_vba_day_485 | Tạo kết nối DSN-less Connection bằng VBA không cần cài DSN thủ công | roadmap_access_vba_600.md |
+| access_vba_day_486 | Sử dụng công cụ Microsoft SQL Server Migration Assistant (SSMA) for Access | roadmap_access_vba_600.md |
+| access_vba_day_487 | Chuyển đổi kiểu dữ liệu Access sang SQL Server (AutoNumber -> IDENTITY, Long Text -> NVARCHAR(MAX)) | roadmap_access_vba_600.md |
+| access_vba_day_488 | Tạo Linked Tables kết nối SQL Server qua ODBC | roadmap_access_vba_600.md |
+| access_vba_day_489 | Xử lý vấn đề Primary Key và Unique Index trên Linked Table SQL Server | roadmap_access_vba_600.md |
+| access_vba_day_490 | Tạo trường rowversion (timestamp) trên SQL Server để tăng tốc cập nhật | roadmap_access_vba_600.md |
+| access_vba_day_491 | Tối ưu hóa hiệu năng Linked Table ODBC: Hạn chế kéo dữ liệu thừa | roadmap_access_vba_600.md |
+| access_vba_day_492 | Sử dụng SQL Server Views làm RecordSource cho Access Form | roadmap_access_vba_600.md |
+| access_vba_day_493 | Sử dụng SQL Server Stored Procedures tăng tốc độ xử lý gấp 100 lần | roadmap_access_vba_600.md |
+| access_vba_day_494 | Gọi Stored Procedure từ Access VBA qua ADODB.Command và Pass-Through Query | roadmap_access_vba_600.md |
+| access_vba_day_495 | Truyền tham số và nhận kết quả từ Stored Procedure | roadmap_access_vba_600.md |
+| access_vba_day_496 | Sử dụng SQL Server Triggers để tự động ghi log và kiểm tra dữ liệu | roadmap_access_vba_600.md |
+| access_vba_day_497 | Phân quyền bảo mật cấp cơ sở dữ liệu trên SQL Server (Users, Roles, Permissions) | roadmap_access_vba_600.md |
+| access_vba_day_498 | Kết nối Cloud Database: Microsoft Azure SQL Database từ Access | roadmap_access_vba_600.md |
+| access_vba_day_499 | Cấu hình Azure Firewall cho phép IP máy trạm kết nối an toàn | roadmap_access_vba_600.md |
+| access_vba_day_500 | Xác thực Azure SQL bằng Azure Active Directory (Microsoft Entra ID) và SQL Auth | roadmap_access_vba_600.md |
+| access_vba_day_501 | Xử lý độ trễ mạng Internet khi kết nối CSDL Cloud | roadmap_access_vba_600.md |
+| access_vba_day_502 | Chiến lược Caching dữ liệu cục bộ để Form mở nhanh tức thì trên Cloud | roadmap_access_vba_600.md |
+| access_vba_day_503 | Xây dựng ứng dụng Hybrid: Dữ liệu nhạy cảm lưu Local, Báo cáo đẩy lên Azure | roadmap_access_vba_600.md |
+| access_vba_day_504 | Đồng bộ hóa dữ liệu 2 chiều giữa Access Offline và SQL Server Online | roadmap_access_vba_600.md |
+| access_vba_day_505 | Xử lý đứt kết nối mạng Internet khi đang thao tác với Azure SQL | roadmap_access_vba_600.md |
+| access_vba_day_506 | Tự động Reconnect Linked Tables khi mạng Internet phục hồi | roadmap_access_vba_600.md |
+| access_vba_day_507 | Sao lưu và Khôi phục CSDL SQL Server tự động bằng lệnh T-SQL từ Access | roadmap_access_vba_600.md |
+| access_vba_day_508 | Giám sát hiệu năng câu truy vấn trên SQL Server bằng Activity Monitor | roadmap_access_vba_600.md |
+| access_vba_day_509 | Tối ưu hóa chi phí vận hành Azure SQL Database | roadmap_access_vba_600.md |
+| access_vba_day_510 | Project 17: Hệ Thống Bán Hàng Trực Tuyến Kết Nối CSDL Đám Mây Azure SQL | roadmap_access_vba_600.md |
+| access_vba_day_511 | Tổng quan về REST API, JSON và giao thức HTTP/HTTPS trong Access | roadmap_access_vba_600.md |
+| access_vba_day_512 | Thư viện MSXML2.ServerXMLHTTP và WinHttp.WinHttpRequest.5.1 trong VBA | roadmap_access_vba_600.md |
+| access_vba_day_513 | Gửi HTTP GET Request từ Access VBA lấy dữ liệu thời tiết / tỷ giá | roadmap_access_vba_600.md |
+| access_vba_day_514 | Gửi HTTP POST Request kèm Body dữ liệu dạng JSON | roadmap_access_vba_600.md |
+| access_vba_day_515 | Gửi HTTP PUT, PATCH, DELETE để cập nhật dữ liệu trên Web Server | roadmap_access_vba_600.md |
+| access_vba_day_516 | Xử lý HTTP Headers: Content-Type, User-Agent, Accept | roadmap_access_vba_600.md |
+| access_vba_day_517 | Xác thực API: API Key, Basic Auth và Bearer Token | roadmap_access_vba_600.md |
+| access_vba_day_518 | Phân tích cú pháp chuỗi JSON (JSON Parsing) trong Access VBA không dùng thư viện ngoài | roadmap_access_vba_600.md |
+| access_vba_day_519 | Sử dụng thư viện VBA-JSON (JsonConverter) chuyển JSON thành Dictionary/Collection | roadmap_access_vba_600.md |
+| access_vba_day_520 | Tạo chuỗi JSON phức tạp từ dữ liệu bảng Access để gửi lên API | roadmap_access_vba_600.md |
+| access_vba_day_521 | Xử lý mã lỗi HTTP: 200 OK, 400 Bad Request, 401 Unauthorized, 404, 500 | roadmap_access_vba_600.md |
+| access_vba_day_522 | Xử lý Rate Limit (HTTP 429) và cơ chế tự động thử lại Exponential Backoff | roadmap_access_vba_600.md |
+| access_vba_day_523 | Tích hợp API Cổng thanh toán (Momo, VNPay, ZaloPay, VietQR) | roadmap_access_vba_600.md |
+| access_vba_day_524 | Tự động sinh mã VietQR động chứa số tiền và nội dung đơn hàng lên Form | roadmap_access_vba_600.md |
+| access_vba_day_525 | Kiểm tra trạng thái thanh toán tự động qua Webhook / Polling API | roadmap_access_vba_600.md |
+| access_vba_day_526 | Tích hợp API Giao hàng (Giao Hàng Nhanh, Giao Hàng Tiết Kiệm, ViettelPost) | roadmap_access_vba_600.md |
+| access_vba_day_527 | Tự động đẩy đơn hàng sang đơn vị vận chuyển và lấy mã Tracking | roadmap_access_vba_600.md |
+| access_vba_day_528 | Tích hợp API Gửi tin nhắn SMS OTP / Zalo ZNS thông báo đơn hàng | roadmap_access_vba_600.md |
+| access_vba_day_529 | Tổng quan về Microsoft Graph API & Hệ sinh thái Microsoft 365 | roadmap_access_vba_600.md |
+| access_vba_day_530 | Đăng ký ứng dụng trên Azure Portal (App Registration, Client ID, Client Secret) | roadmap_access_vba_600.md |
+| access_vba_day_531 | Xác thực OAuth2 qua Microsoft Identity Platform từ Access VBA | roadmap_access_vba_600.md |
+| access_vba_day_532 | Lấy Access Token và tự động Refresh Token khi hết hạn | roadmap_access_vba_600.md |
+| access_vba_day_533 | Đọc và Ghi dữ liệu vào SharePoint Online List từ Access qua Graph API | roadmap_access_vba_600.md |
+| access_vba_day_534 | Đọc và Tải file từ OneDrive / SharePoint Document Library về máy | roadmap_access_vba_600.md |
+| access_vba_day_535 | Gửi email HTML có đính kèm qua tài khoản Microsoft 365 (Graph API /sendMail) | roadmap_access_vba_600.md |
+| access_vba_day_536 | Tạo sự kiện lịch hẹn trên Outlook Calendar tự động | roadmap_access_vba_600.md |
+| access_vba_day_537 | Gửi tin nhắn thông báo vào kênh Microsoft Teams khi có đơn hàng mới | roadmap_access_vba_600.md |
+| access_vba_day_538 | Kích hoạt luồng tự động hóa Power Automate từ Access qua HTTP Request | roadmap_access_vba_600.md |
+| access_vba_day_539 | Đọc dữ liệu từ MS Forms đẩy tự động vào Access Database | roadmap_access_vba_600.md |
+| access_vba_day_540 | Project 18: Hệ Thống Bán Hàng Tự Động Tích Hợp VietQR, Vận Chuyển & MS Graph | roadmap_access_vba_600.md |
+| access_vba_day_541 | Tổng quan về COM Automation (OLE Automation) giữa các ứng dụng Office | roadmap_access_vba_600.md |
+| access_vba_day_542 | Early Binding vs Late Binding: Ưu và nhược điểm khi triển khai | roadmap_access_vba_600.md |
+| access_vba_day_543 | Điều khiển Microsoft Excel từ Access: Khởi tạo Excel.Application ngầm | roadmap_access_vba_600.md |
+| access_vba_day_544 | Mở file Excel, đọc dữ liệu từng Sheet và ghi vào bảng Access | roadmap_access_vba_600.md |
+| access_vba_day_545 | Xuất dữ liệu Access sang file Excel có định dạng màu mè, công thức và biểu đồ | roadmap_access_vba_600.md |
+| access_vba_day_546 | Tự động tạo Báo cáo PivotTable trong Excel từ dữ liệu Access | roadmap_access_vba_600.md |
+| access_vba_day_547 | Xử lý file Excel dung lượng lớn 100.000 dòng bằng Mảng VBA cực nhanh | roadmap_access_vba_600.md |
+| access_vba_day_548 | Điều khiển Microsoft Word từ Access: Tạo hợp đồng và văn bản mẫu | roadmap_access_vba_600.md |
+| access_vba_day_549 | Kỹ thuật Mail Merge tự động: Điền thông tin khách hàng vào template Word | roadmap_access_vba_600.md |
+| access_vba_day_550 | Thay thế Bookmark và trích xuất bảng dữ liệu từ Access vào Word Table | roadmap_access_vba_600.md |
+| access_vba_day_551 | Xuất file Word sang định dạng PDF và ký điện tử tự động | roadmap_access_vba_600.md |
+| access_vba_day_552 | Điều khiển Microsoft Outlook từ Access: Tạo và gửi email tự động | roadmap_access_vba_600.md |
+| access_vba_day_553 | Gửi email hàng loạt cho 500 khách hàng với nội dung cá nhân hóa | roadmap_access_vba_600.md |
+| access_vba_day_554 | Đính kèm file hóa đơn PDF riêng biệt cho từng khách hàng | roadmap_access_vba_600.md |
+| access_vba_day_555 | Đọc email từ Outlook Inbox và tự động trích xuất file đính kèm vào Access | roadmap_access_vba_600.md |
+| access_vba_day_556 | Tạo Task công việc và Lịch hẹn trên Outlook từ đơn hàng cần giao | roadmap_access_vba_600.md |
+| access_vba_day_557 | Điều khiển Microsoft PowerPoint từ Access: Tự động tạo slide báo cáo | roadmap_access_vba_600.md |
+| access_vba_day_558 | Tạo biểu đồ và bảng số liệu trên PowerPoint từ câu truy vấn Access | roadmap_access_vba_600.md |
+| access_vba_day_559 | Điều khiển Adobe Acrobat Pro từ Access: Gộp nhiều file PDF thành một file duy nhất | roadmap_access_vba_600.md |
+| access_vba_day_560 | Tách trang PDF, đóng dấu mộc đỏ Watermark lên file PDF bằng VBA | roadmap_access_vba_600.md |
+| access_vba_day_561 | Trích xuất văn bản từ file PDF scan bằng công nghệ OCR | roadmap_access_vba_600.md |
+| access_vba_day_562 | Điều khiển phần mềm thiết kế AutoCAD từ Access: Đọc thông số bản vẽ | roadmap_access_vba_600.md |
+| access_vba_day_563 | Tự động gửi thông báo qua ứng dụng nhắn tin Telegram Bot từ Access | roadmap_access_vba_600.md |
+| access_vba_day_564 | Gửi file báo cáo tài chính vào nhóm Telegram của Ban Giám Đốc | roadmap_access_vba_600.md |
+| access_vba_day_565 | Xây dựng dịch vụ chạy ngầm Windows Service tương tác với Access | roadmap_access_vba_600.md |
+| access_vba_day_566 | Đóng và giải phóng toàn bộ tiến trình Office ngầm tránh rác bộ nhớ | roadmap_access_vba_600.md |
+| access_vba_day_567 | Xử lý xung đột phiên bản Office khác nhau giữa các máy trạm | roadmap_access_vba_600.md |
+| access_vba_day_568 | Đóng gói thư viện Class điều khiển bộ Office tái sử dụng | roadmap_access_vba_600.md |
+| access_vba_day_569 | Kiểm thử tự động hóa đa phần mềm dưới tải cao | roadmap_access_vba_600.md |
+| access_vba_day_570 | Project 19: Hệ Thống Tự Động Hóa Văn Phòng Đa Ứng Dụng (Excel - Word - Outlook - PDF - Telegram) | roadmap_access_vba_600.md |
+| access_vba_day_571 | Tổng quan Kiến trúc Hệ thống ERP/CRM Doanh nghiệp Thu nhỏ (Mini-Enterprise System) | roadmap_access_vba_600.md |
+| access_vba_day_572 | Thiết kế CSDL Tổng thể: Khách hàng, Sản phẩm, Kho bãi, Mua hàng, Bán hàng, Tài chính, Nhân sự | roadmap_access_vba_600.md |
+| access_vba_day_573 | Module Quản lý Người dùng & Phân quyền bảo mật đa chi nhánh | roadmap_access_vba_600.md |
+| access_vba_day_574 | Module Danh mục dùng chung (Sản phẩm, Khách hàng, Nhà cung cấp, Bảng giá) | roadmap_access_vba_600.md |
+| access_vba_day_575 | Module Quản lý Mua hàng & Nhập kho (Đơn mua, Phiếu nhập, Công nợ NCC) | roadmap_access_vba_600.md |
+| access_vba_day_576 | Module Quản lý Bán hàng & Xuất kho (Báo giá, Đơn bán, Phiếu xuất, In hóa đơn) | roadmap_access_vba_600.md |
+| access_vba_day_577 | Module Quản lý Kho bãi nâng cao (Tồn kho tức thời, Cảnh báo tồn tối thiểu, Chuyển kho) | roadmap_access_vba_600.md |
+| access_vba_day_578 | Tính giá vốn hàng tồn kho tự động (Bình quân gia quyền & FIFO) | roadmap_access_vba_600.md |
+| access_vba_day_579 | Module Quản lý Thu - Chi & Sổ quỹ tiền mặt, Tiền gửi ngân hàng | roadmap_access_vba_600.md |
+| access_vba_day_580 | Module Quản lý Công nợ Phải thu & Phải trả (Theo dõi tuổi nợ, Nhắc nợ tự động) | roadmap_access_vba_600.md |
+| access_vba_day_581 | Module Nhân sự & Chấm công (Quẹt thẻ RFID, Tính lương tự động theo KPI) | roadmap_access_vba_600.md |
+| access_vba_day_582 | Tích hợp Máy quét mã vạch & In hóa đơn nhiệt K80 tại quầy thu ngân | roadmap_access_vba_600.md |
+| access_vba_day_583 | Tích hợp Thanh toán VietQR động và xác nhận tiền về qua API ngân hàng | roadmap_access_vba_600.md |
+| access_vba_day_584 | Tích hợp Đẩy đơn sang đơn vị vận chuyển GHN/ViettelPost | roadmap_access_vba_600.md |
+| access_vba_day_585 | Tích hợp Gửi email hóa đơn PDF tự động cho khách hàng qua Microsoft 365 | roadmap_access_vba_600.md |
+| access_vba_day_586 | Tích hợp Gửi báo cáo doanh thu hàng ngày vào nhóm Telegram Ban Giám Đốc | roadmap_access_vba_600.md |
+| access_vba_day_587 | Hệ thống Báo cáo Quản trị: Dashboard KPI, Doanh thu, Lợi nhuận gộp, Biểu đồ tăng trưởng | roadmap_access_vba_600.md |
+| access_vba_day_588 | Báo cáo Phân tích Tài chính: Bảng cân đối kế toán, Báo cáo kết quả kinh doanh thu nhỏ | roadmap_access_vba_600.md |
+| access_vba_day_589 | Tối ưu hóa toàn bộ câu truy vấn SQL và Index đạt tốc độ phản hồi < 0.2 giây | roadmap_access_vba_600.md |
+| access_vba_day_590 | Kiểm thử chịu tải đa người dùng trong mạng LAN và Internet | roadmap_access_vba_600.md |
+| access_vba_day_591 | Đóng gói Backend lên CSDL Azure SQL đám mây bảo mật cao | roadmap_access_vba_600.md |
+| access_vba_day_592 | Đóng gói Frontend sang ACCDE có thanh Ribbon XML chuyên nghiệp | roadmap_access_vba_600.md |
+| access_vba_day_593 | Tích hợp Bộ cài đặt tự động Inno Setup và hệ thống Auto-Update phiên bản mới | roadmap_access_vba_600.md |
+| access_vba_day_594 | Tích hợp Hệ thống Khóa bản quyền License Key theo phần cứng máy tính | roadmap_access_vba_600.md |
+| access_vba_day_595 | Kiểm thử bảo mật chống SQL Injection, Brute Force và trích xuất dữ liệu trái phép | roadmap_access_vba_600.md |
+| access_vba_day_596 | Quy trình Đào tạo nhân viên và Chuyển giao phần mềm | roadmap_access_vba_600.md |
+| access_vba_day_597 | Quy trình Sao lưu dự phòng và Ứng phó thảm họa CSDL (Disaster Recovery) | roadmap_access_vba_600.md |
+| access_vba_day_598 | Tổng kết Toàn bộ Lộ trình: Đánh giá Năng lực Kỹ sư CSDL Access VBA Chuyên nghiệp | roadmap_access_vba_600.md |
+| access_vba_day_599 | Đồ án Tốt nghiệp: Triển khai Hệ thống Mini-ERP Toàn diện vào Doanh nghiệp Thực tế | roadmap_access_vba_600.md |
+| access_vba_day_600 | 🏆 Master Graduation – Chứng Nhận Kiến Trúc Sư CSDL & Ứng Dụng Doanh Nghiệp Access VBA Master | roadmap_access_vba_600.md |
+| excel_vba_day_1 | Macro Recorder – Ghi macro tự động | roadmap_excel_vba_1000.md |
+| excel_vba_day_2 | Khám phá VBE (Visual Basic Editor) | roadmap_excel_vba_1000.md |
+| excel_vba_day_3 | Sub & Procedure – Khởi tạo thủ tục đầu tiên | roadmap_excel_vba_1000.md |
+| excel_vba_day_4 | Biến (Variables) & Data Types cơ bản | roadmap_excel_vba_1000.md |
+| excel_vba_day_5 | Hằng số (Constants) & Tầm vực biến (Scope) | roadmap_excel_vba_1000.md |
+| excel_vba_day_6 | Option Explicit – Bắt buộc khai báo biến | roadmap_excel_vba_1000.md |
+| excel_vba_day_7 | Toán tử toán học và logic trong VBA | roadmap_excel_vba_1000.md |
+| excel_vba_day_8 | Lệnh rẽ nhánh If...Then...Else cơ bản | roadmap_excel_vba_1000.md |
+| excel_vba_day_9 | Lệnh rẽ nhánh Select Case | roadmap_excel_vba_1000.md |
+| excel_vba_day_10 | Vòng lặp For...Next cơ bản | roadmap_excel_vba_1000.md |
+| excel_vba_day_11 | Vòng lặp For Each...Next trên Sheets | roadmap_excel_vba_1000.md |
+| excel_vba_day_12 | Vòng lặp Do While...Loop | roadmap_excel_vba_1000.md |
+| excel_vba_day_13 | Vòng lặp Do Until...Loop | roadmap_excel_vba_1000.md |
+| excel_vba_day_14 | Thoát vòng lặp an toàn (Exit For, Exit Do) | roadmap_excel_vba_1000.md |
+| excel_vba_day_15 | Function – Hàm tự tạo cơ bản | roadmap_excel_vba_1000.md |
+| excel_vba_day_16 | Truyền tham số ByVal vs ByRef | roadmap_excel_vba_1000.md |
+| excel_vba_day_17 | Tham số tùy chọn Optional Arguments | roadmap_excel_vba_1000.md |
+| excel_vba_day_18 | Tham số mảng động ParamArray | roadmap_excel_vba_1000.md |
+| excel_vba_day_19 | Hộp thoại InputBox nhập dữ liệu | roadmap_excel_vba_1000.md |
+| excel_vba_day_20 | Hộp thoại MsgBox bắt sự kiện nút bấm | roadmap_excel_vba_1000.md |
+| excel_vba_day_21 | Xử lý chuỗi: Left, Right, Mid, Len, InStr | roadmap_excel_vba_1000.md |
+| excel_vba_day_22 | Xử lý ngày tháng: Date, DateAdd, DateDiff, Format | roadmap_excel_vba_1000.md |
+| excel_vba_day_23 | Xử lý số học: Round, Int, Abs, Rnd | roadmap_excel_vba_1000.md |
+| excel_vba_day_24 | Kiểu dữ liệu Variant – Cạm bẫy & Ứng dụng | roadmap_excel_vba_1000.md |
+| excel_vba_day_25 | Ghi chú (Comments) & Chuẩn Clean Code | roadmap_excel_vba_1000.md |
+| excel_vba_day_26 | Gọi Sub từ Sub khác (Call Statement) | roadmap_excel_vba_1000.md |
+| excel_vba_day_27 | Gán Macro vào phím tắt và Quick Access Toolbar | roadmap_excel_vba_1000.md |
+| excel_vba_day_28 | Tạo nút bấm (Button/Shape) gán Macro trên Sheet | roadmap_excel_vba_1000.md |
+| excel_vba_day_29 | Bảo mật mã nguồn VBA (Password Protect) | roadmap_excel_vba_1000.md |
+| excel_vba_day_30 | Project 1: Ứng dụng Bảng tính Lương Cơ bản | roadmap_excel_vba_1000.md |
+| excel_vba_day_31 | Kiểu dữ liệu nguyên thủy: Byte, Integer, Long, LongLong | roadmap_excel_vba_1000.md |
+| excel_vba_day_32 | Kiểu dữ liệu số thực: Single, Double, Currency, Decimal | roadmap_excel_vba_1000.md |
+| excel_vba_day_33 | Kiểu dữ liệu chuỗi: String cố định vs String động | roadmap_excel_vba_1000.md |
+| excel_vba_day_34 | Kiểu dữ liệu Boolean và xử lý cờ hiệu (Flags) | roadmap_excel_vba_1000.md |
+| excel_vba_day_35 | Kiểu dữ liệu Date & Time – Bản chất số thực đằng sau | roadmap_excel_vba_1000.md |
+| excel_vba_day_36 | Kiểu dữ liệu Object và quy tắc Set = Nothing | roadmap_excel_vba_1000.md |
+| excel_vba_day_37 | Hàm kiểm tra kiểu: IsNumeric, IsDate, IsEmpty, IsNull | roadmap_excel_vba_1000.md |
+| excel_vba_day_38 | Ép kiểu dữ liệu: CInt, CLng, CDbl, CStr, CDate | roadmap_excel_vba_1000.md |
+| excel_vba_day_39 | Hằng số hệ thống và Enum tự định nghĩa | roadmap_excel_vba_1000.md |
+| excel_vba_day_40 | Biến tĩnh (Static Variables) trong thủ tục | roadmap_excel_vba_1000.md |
+| excel_vba_day_41 | Biến Private vs Public trong Module | roadmap_excel_vba_1000.md |
+| excel_vba_day_42 | Biến Global trong toàn bộ Workbook | roadmap_excel_vba_1000.md |
+| excel_vba_day_43 | Kiểu dữ liệu tự định nghĩa (User-Defined Types - Type...End Type) | roadmap_excel_vba_1000.md |
+| excel_vba_day_44 | Mảng lồng trong User-Defined Types | roadmap_excel_vba_1000.md |
+| excel_vba_day_45 | Quản lý bộ nhớ Stack vs Heap trong VBA | roadmap_excel_vba_1000.md |
+| excel_vba_day_46 | Cạm bẫy tràn số (Overflow Error 6) với Integer | roadmap_excel_vba_1000.md |
+| excel_vba_day_47 | Xử lý số tiền tệ siêu lớn bằng Currency và Decimal | roadmap_excel_vba_1000.md |
+| excel_vba_day_48 | Tối ưu hóa kiểu dữ liệu để tăng tốc độ tính toán | roadmap_excel_vba_1000.md |
+| excel_vba_day_49 | Làm việc với kiểu dữ liệu Null và chuỗi rỗng vbNullString | roadmap_excel_vba_1000.md |
+| excel_vba_day_50 | Khai báo nhiều biến trên một dòng và lỗi thường gặp | roadmap_excel_vba_1000.md |
+| excel_vba_day_51 | Bảo toàn giá trị biến giữa các lần chạy macro | roadmap_excel_vba_1000.md |
+| excel_vba_day_52 | Đo lường dung lượng RAM tiêu thụ của các kiểu biến | roadmap_excel_vba_1000.md |
+| excel_vba_day_53 | Khởi tạo giá trị mặc định cho biến và Struct | roadmap_excel_vba_1000.md |
+| excel_vba_day_54 | Kỹ thuật tái sử dụng biến để tiết kiệm tài nguyên | roadmap_excel_vba_1000.md |
+| excel_vba_day_55 | Debug giá trị biến trong Locals Window | roadmap_excel_vba_1000.md |
+| excel_vba_day_56 | Debug giá trị biến trong Watch Window | roadmap_excel_vba_1000.md |
+| excel_vba_day_57 | In giá trị biến trực tiếp ra Immediate Window (?var) | roadmap_excel_vba_1000.md |
+| excel_vba_day_58 | Tạo Module chứa toàn bộ hằng số và cấu hình chung | roadmap_excel_vba_1000.md |
+| excel_vba_day_59 | Xây dựng thư viện hàm chuyển đổi kiểu dữ liệu an toàn | roadmap_excel_vba_1000.md |
+| excel_vba_day_60 | Project 2: Module Quản Lý Cấu Hình & Biến Hệ Thống Toàn Diện | roadmap_excel_vba_1000.md |
+| excel_vba_day_61 | Lệnh If...ElseIf nhiều tầng và cách tối ưu thứ tự điều kiện | roadmap_excel_vba_1000.md |
+| excel_vba_day_62 | Toán tử logic lồng nhau: AND, OR, XOR, NOT, Eqv, Imp | roadmap_excel_vba_1000.md |
+| excel_vba_day_63 | Toán tử Like và so khớp mẫu ký tự đại diện (*, ?, #, [a-z]) | roadmap_excel_vba_1000.md |
+| excel_vba_day_64 | Select Case với dải giá trị (Case 1 To 10, Case Is > 50) | roadmap_excel_vba_1000.md |
+| excel_vba_day_65 | Select Case với chuỗi và danh sách phân cách bởi dấu phẩy | roadmap_excel_vba_1000.md |
+| excel_vba_day_66 | Lồng ghép Select Case trong vòng lặp For | roadmap_excel_vba_1000.md |
+| excel_vba_day_67 | Vòng lặp For lồng nhau (Nested For Loops) duyệt ma trận 2D | roadmap_excel_vba_1000.md |
+| excel_vba_day_68 | Tối ưu hóa bước nhảy Step trong vòng lặp For (Step 2, Step -1) | roadmap_excel_vba_1000.md |
+| excel_vba_day_69 | Duyệt ngược từ dưới lên trên (For i = LastRow To 1 Step -1) khi xóa dòng | roadmap_excel_vba_1000.md |
+| excel_vba_day_70 | Vòng lặp Do Loop với điều kiện đặt ở đầu vs ở cuối | roadmap_excel_vba_1000.md |
+| excel_vba_day_71 | Tránh bẫy vòng lặp vô tận (Infinite Loop) và nút dừng khẩn cấp Ctrl+Break | roadmap_excel_vba_1000.md |
+| excel_vba_day_72 | Vòng lặp For Each duyệt qua Range các ô được chọn | roadmap_excel_vba_1000.md |
+| excel_vba_day_73 | Vòng lặp For Each duyệt qua Shapes, Charts, Comments trên Sheet | roadmap_excel_vba_1000.md |
+| excel_vba_day_74 | So sánh hiệu năng: For i = 1 To N vs For Each | roadmap_excel_vba_1000.md |
+| excel_vba_day_75 | Lệnh GoTo – Khi nào nên dùng và tại sao nên tránh Spaghetti code | roadmap_excel_vba_1000.md |
+| excel_vba_day_76 | Lệnh On...GoTo và On...GoSub chuyển hướng theo chỉ số | roadmap_excel_vba_1000.md |
+| excel_vba_day_77 | Lệnh With...End With rút gọn truy cập Object và tăng tốc code | roadmap_excel_vba_1000.md |
+| excel_vba_day_78 | With lồng nhau (Nested With) và các quy tắc cần nhớ | roadmap_excel_vba_1000.md |
+| excel_vba_day_79 | Lệnh End, Stop và Exit Sub / Exit Function | roadmap_excel_vba_1000.md |
+| excel_vba_day_80 | Cơ chế đánh giá điều kiện ngắn (Short-Circuit Evaluation) giả lập trong VBA | roadmap_excel_vba_1000.md |
+| excel_vba_day_81 | Xây dựng máy trạng thái hữu hạn (State Machine) bằng Select Case | roadmap_excel_vba_1000.md |
+| excel_vba_day_82 | Xử lý các bài toán logic phức tạp: Kiểm tra năm nhuận, tính thứ trong tuần | roadmap_excel_vba_1000.md |
+| excel_vba_day_83 | Lọc dữ liệu đa điều kiện trong vòng lặp | roadmap_excel_vba_1000.md |
+| excel_vba_day_84 | Gộp nhóm và tính tổng con trong vòng lặp duyệt hàng | roadmap_excel_vba_1000.md |
+| excel_vba_day_85 | Phát hiện và đánh dấu các dòng trùng lặp bằng vòng lặp | roadmap_excel_vba_1000.md |
+| excel_vba_day_86 | Tách dữ liệu từ 1 bảng thành nhiều bảng con theo điều kiện | roadmap_excel_vba_1000.md |
+| excel_vba_day_87 | Duyệt qua danh sách file trong thư mục bằng vòng lặp Dir() | roadmap_excel_vba_1000.md |
+| excel_vba_day_88 | Duyệt cây thư mục đệ quy (Recursive Loop) | roadmap_excel_vba_1000.md |
+| excel_vba_day_89 | Tối ưu hóa vòng lặp lớn: Hạn chế tương tác trực tiếp với Cell | roadmap_excel_vba_1000.md |
+| excel_vba_day_90 | Project 3: Thuật Toán Phân Loại & Xử Lý Hồ Sơ Khách Hàng Tự Động | roadmap_excel_vba_1000.md |
+| excel_vba_day_91 | Kiến trúc hàm Sub và Function chuẩn mực | roadmap_excel_vba_1000.md |
+| excel_vba_day_92 | Quy tắc đặt tên hàm và tham số theo chuẩn công nghiệp | roadmap_excel_vba_1000.md |
+| excel_vba_day_93 | Hàm tự tạo (UDF – User Defined Function) dùng trong công thức Excel | roadmap_excel_vba_1000.md |
+| excel_vba_day_94 | Thuộc tính Application.Volatile – Khi nào nên bật? | roadmap_excel_vba_1000.md |
+| excel_vba_day_95 | Thêm mô tả và danh mục cho UDF trong bảng Insert Function | roadmap_excel_vba_1000.md |
+| excel_vba_day_96 | Hàm UDF trả về một mảng kết quả (Array Formula UDF) | roadmap_excel_vba_1000.md |
+| excel_vba_day_97 | Hàm UDF nhận tham số là Range nhiều ô | roadmap_excel_vba_1000.md |
+| excel_vba_day_98 | Xử lý tham số Range rỗng hoặc lỗi #VALUE! trong UDF | roadmap_excel_vba_1000.md |
+| excel_vba_day_99 | Debug hàm UDF khi được gọi từ công thức bảng tính | roadmap_excel_vba_1000.md |
+| excel_vba_day_100 | Đệ quy (Recursion) trong VBA: Tính giai thừa, dãy Fibonacci | roadmap_excel_vba_1000.md |
+| excel_vba_day_101 | Đệ quy duyệt cây tổ chức nhân sự (Org Chart) | roadmap_excel_vba_1000.md |
+| excel_vba_day_102 | Giới hạn độ sâu Stack đệ quy và bẫy tràn bộ nhớ Out of Stack Space | roadmap_excel_vba_1000.md |
+| excel_vba_day_103 | Bản chất của bẫy lỗi: Khối On Error GoTo [Label] | roadmap_excel_vba_1000.md |
+| excel_vba_day_104 | Lệnh On Error Resume Next – Lợi ích và hiểm họa khôn lường | roadmap_excel_vba_1000.md |
+| excel_vba_day_105 | Lệnh On Error GoTo 0 – Đặt lại bộ xử lý lỗi mặc định | roadmap_excel_vba_1000.md |
+| excel_vba_day_106 | Lệnh On Error GoTo -1 – Xóa trạng thái lỗi trong bộ nhớ | roadmap_excel_vba_1000.md |
+| excel_vba_day_107 | Đối tượng Err: Err.Number, Err.Description, Err.Source | roadmap_excel_vba_1000.md |
+| excel_vba_day_108 | Chủ động phát sinh lỗi bằng Err.Raise để kiểm tra | roadmap_excel_vba_1000.md |
+| excel_vba_day_109 | Tự định nghĩa mã lỗi nghiệp vụ riêng cho ứng dụng | roadmap_excel_vba_1000.md |
+| excel_vba_day_110 | Xây dựng hàm xử lý lỗi tập trung (Centralized Error Handler) | roadmap_excel_vba_1000.md |
+| excel_vba_day_111 | Ghi log lỗi ra file text bên ngoài kèm Timestamp và tên máy tính | roadmap_excel_vba_1000.md |
+| excel_vba_day_112 | Xử lý lỗi khi mở file không tồn tại hoặc bị khóa quyền | roadmap_excel_vba_1000.md |
+| excel_vba_day_113 | Xử lý lỗi chia cho 0 (#DIV/0!) và lỗi tràn bộ nhớ | roadmap_excel_vba_1000.md |
+| excel_vba_day_114 | Bảo vệ ứng dụng không bị Crash trước người dùng cuối | roadmap_excel_vba_1000.md |
+| excel_vba_day_115 | Khôi phục trạng thái hệ thống khi xảy ra lỗi (ScreenUpdating, Events, Calculation) | roadmap_excel_vba_1000.md |
+| excel_vba_day_116 | Cấu trúc Sub/Function mẫu chuẩn Enterprise (Production-Ready Template) | roadmap_excel_vba_1000.md |
+| excel_vba_day_117 | Kỹ thuật kiểm thử đơn vị (Unit Testing) cho các hàm VBA cốt lõi | roadmap_excel_vba_1000.md |
+| excel_vba_day_118 | Viết bộ Test Runner tự động kiểm tra 50 hàm tiện ích | roadmap_excel_vba_1000.md |
+| excel_vba_day_119 | Đo lường thời gian chạy từng thủ tục bằng Timer | roadmap_excel_vba_1000.md |
+| excel_vba_day_120 | Project 4: Thư Viện Tiện Ích Độc Lập Kèm Hệ Thống Bẫy Lỗi & Unit Test | roadmap_excel_vba_1000.md |
+| excel_vba_day_121 | Kiến trúc phân cấp đối tượng Excel: Application -> Workbooks -> Worksheets | roadmap_excel_vba_1000.md |
+| excel_vba_day_122 | Đối tượng ThisWorkbook vs ActiveWorkbook | roadmap_excel_vba_1000.md |
+| excel_vba_day_123 | Tạo mới Workbook: Workbooks.Add | roadmap_excel_vba_1000.md |
+| excel_vba_day_124 | Mở Workbook: Workbooks.Open với các tham số ReadOnly, Password | roadmap_excel_vba_1000.md |
+| excel_vba_day_125 | Lưu Workbook: Save, SaveAs, SaveCopyAs các định dạng .xlsx, .xlsm, .csv, .pdf | roadmap_excel_vba_1000.md |
+| excel_vba_day_126 | Đóng Workbook an toàn: Close SaveChanges:=True/False | roadmap_excel_vba_1000.md |
+| excel_vba_day_127 | Kiểm tra Workbook có đang mở hay không trước khi thao tác | roadmap_excel_vba_1000.md |
+| excel_vba_day_128 | Duyệt qua toàn bộ Workbooks đang mở trong ứng dụng | roadmap_excel_vba_1000.md |
+| excel_vba_day_129 | Đối tượng Sheets vs Worksheets (Phân biệt Worksheet và Chart Sheet) | roadmap_excel_vba_1000.md |
+| excel_vba_day_130 | Tham chiếu Sheet theo Tên, Chỉ số Index và CodeName (VBE Name) | roadmap_excel_vba_1000.md |
+| excel_vba_day_131 | Tại sao chuyên gia luôn dùng CodeName (Sheet1) thay vì Tên hiển thị? | roadmap_excel_vba_1000.md |
+| excel_vba_day_132 | Tạo mới Worksheet: Worksheets.Add Before/After | roadmap_excel_vba_1000.md |
+| excel_vba_day_133 | Đổi tên Worksheet an toàn (Bắt lỗi tên trùng, ký tự cấm: \, /, ?, *, [, ]) | roadmap_excel_vba_1000.md |
+| excel_vba_day_134 | Xóa Worksheet không hiện cảnh báo (DisplayAlerts = False) | roadmap_excel_vba_1000.md |
+| excel_vba_day_135 | Di chuyển và Sao chép Worksheet: Move, Copy sang Workbook khác | roadmap_excel_vba_1000.md |
+| excel_vba_day_136 | Ẩn Sheet (xlSheetHidden) vs Siêu Ẩn (xlSheetVeryHidden) | roadmap_excel_vba_1000.md |
+| excel_vba_day_137 | Bảo vệ Sheet bằng mật khẩu (Protect / Unprotect) | roadmap_excel_vba_1000.md |
+| excel_vba_day_138 | Cho phép chỉnh sửa một số vùng nhất định khi Sheet bị khóa | roadmap_excel_vba_1000.md |
+| excel_vba_day_139 | Bảo vệ cấu trúc Workbook (Protect Structure) | roadmap_excel_vba_1000.md |
+| excel_vba_day_140 | Duyệt qua toàn bộ Worksheets trong Workbook và tổng hợp dữ liệu | roadmap_excel_vba_1000.md |
+| excel_vba_day_141 | Gộp 20 Worksheets thành 1 bảng tổng hợp duy nhất | roadmap_excel_vba_1000.md |
+| excel_vba_day_142 | Tách 1 bảng tổng hợp thành 20 Worksheets theo phòng ban | roadmap_excel_vba_1000.md |
+| excel_vba_day_143 | Đọc và Ghi thuộc tính tài liệu (BuiltinDocumentProperties & CustomDocumentProperties) | roadmap_excel_vba_1000.md |
+| excel_vba_day_144 | Xóa toàn bộ siêu dữ liệu cá nhân (Personal Information) trước khi gửi file | roadmap_excel_vba_1000.md |
+| excel_vba_day_145 | Tùy biến chế độ xem: View, Zoom, FreezePanes (Cố định dòng/cột) | roadmap_excel_vba_1000.md |
+| excel_vba_day_146 | Tùy biến hiển thị: Gridlines, Headings, FormulaBar, ScrollBars | roadmap_excel_vba_1000.md |
+| excel_vba_day_147 | Xử lý in ấn trang tính: PageSetup, Orientation, PaperSize, PrintArea, FitToPages | roadmap_excel_vba_1000.md |
+| excel_vba_day_148 | Thiết lập Header & Footer động bằng mã VBA | roadmap_excel_vba_1000.md |
+| excel_vba_day_149 | Xuất Worksheet sang file PDF chất lượng cao | roadmap_excel_vba_1000.md |
+| excel_vba_day_150 | Project 5: Hệ Thống Tự Động Hóa Quản Lý & Phân Tách Báo Cáo Đa Sheet | roadmap_excel_vba_1000.md |
+| excel_vba_day_151 | Đối tượng Range: Các cách tham chiếu Range('A1'), Range('A1:C10'), Range('A:A') | roadmap_excel_vba_1000.md |
+| excel_vba_day_152 | Thuộc tính Cells(Row, Column) – Ưu thế vượt trội khi dùng trong vòng lặp | roadmap_excel_vba_1000.md |
+| excel_vba_day_153 | Kết hợp Range và Cells: Range(Cells(1, 1), Cells(10, 5)) | roadmap_excel_vba_1000.md |
+| excel_vba_day_154 | Thuộc tính Offset(RowOffset, ColumnOffset) – Di chuyển vùng chọn linh hoạt | roadmap_excel_vba_1000.md |
+| excel_vba_day_155 | Thuộc tính Resize(RowSize, ColumnSize) – Co giãn kích thước vùng chọn | roadmap_excel_vba_1000.md |
+| excel_vba_day_156 | Kết hợp Offset và Resize để bóc tách khối dữ liệu | roadmap_excel_vba_1000.md |
+| excel_vba_day_157 | Tìm dòng cuối cùng có dữ liệu: Cells(Rows.Count, 'A').End(xlUp).Row | roadmap_excel_vba_1000.md |
+| excel_vba_day_158 | Tìm cột cuối cùng có dữ liệu: Cells(1, Columns.Count).End(xlToLeft).Column | roadmap_excel_vba_1000.md |
+| excel_vba_day_159 | Tại sao End(xlUp) an toàn hơn UsedRange khi tìm dòng cuối? | roadmap_excel_vba_1000.md |
+| excel_vba_day_160 | Thuộc tính UsedRange: Bản chất, cạm bẫy ô rỗng có định dạng và cách reset | roadmap_excel_vba_1000.md |
+| excel_vba_day_161 | Thuộc tính CurrentRegion: Bắt trọn khối bảng dữ liệu bao quanh bởi dòng/cột trống | roadmap_excel_vba_1000.md |
+| excel_vba_day_162 | Tự động xác định Header và Data Region bằng CurrentRegion | roadmap_excel_vba_1000.md |
+| excel_vba_day_163 | Đọc và Ghi giá trị đơn lẻ: Range.Value vs Range.Value2 vs Range.Text | roadmap_excel_vba_1000.md |
+| excel_vba_day_164 | Tại sao Range.Value2 chạy nhanh hơn Range.Value khi xử lý Date/Currency? | roadmap_excel_vba_1000.md |
+| excel_vba_day_165 | Đọc và Ghi công thức: Range.Formula, Range.FormulaR1C1, Range.Formula2 (Dynamic Array) | roadmap_excel_vba_1000.md |
+| excel_vba_day_166 | Sao chép vùng dữ liệu: Range.Copy và PasteSpecial (Values, Formats, Transpose) | roadmap_excel_vba_1000.md |
+| excel_vba_day_167 | Gán giá trị trực tiếp không qua Clipboard: Range('B1:B100').Value = Range('A1:A100').Value | roadmap_excel_vba_1000.md |
+| excel_vba_day_168 | Xóa dữ liệu: Clear, ClearContents, ClearFormats, ClearComments | roadmap_excel_vba_1000.md |
+| excel_vba_day_169 | Chèn và Xóa dòng/cột: EntireRow.Insert, EntireColumn.Delete | roadmap_excel_vba_1000.md |
+| excel_vba_day_170 | Ẩn / Hiện dòng và cột: EntireRow.Hidden = True/False | roadmap_excel_vba_1000.md |
+| excel_vba_day_171 | Chỉnh độ rộng cột và chiều cao dòng: ColumnWidth, RowHeight, AutoFit | roadmap_excel_vba_1000.md |
+| excel_vba_day_172 | Làm việc với ô bị trộn (Merged Cells): MergeCells, Merge, UnMerge | roadmap_excel_vba_1000.md |
+| excel_vba_day_173 | Phát hiện ô Merge, bỏ Merge và tự động điền lại giá trị (Fill Blanks) | roadmap_excel_vba_1000.md |
+| excel_vba_day_174 | Duyệt qua từng ô trong Range lớn một cách tối ưu | roadmap_excel_vba_1000.md |
+| excel_vba_day_175 | Chuyển đổi địa chỉ Range: Address, Address(False, False) bỏ dấu $ | roadmap_excel_vba_1000.md |
+| excel_vba_day_176 | Lấy số dòng và số cột của một Range: Range.Rows.Count, Range.Columns.Count | roadmap_excel_vba_1000.md |
+| excel_vba_day_177 | Lấy danh sách các ô giao nhau: Application.Intersect | roadmap_excel_vba_1000.md |
+| excel_vba_day_178 | Lấy hợp của nhiều vùng dữ liệu: Application.Union | roadmap_excel_vba_1000.md |
+| excel_vba_day_179 | So sánh 2 Range và tìm ra các điểm khác biệt | roadmap_excel_vba_1000.md |
+| excel_vba_day_180 | Project 6: Bộ Công Cụ Thao Tác & Chuẩn Hóa Cấu Trúc Bảng Tính Tự Động | roadmap_excel_vba_1000.md |
+| excel_vba_day_181 | Thuộc tính SpecialCells: Sức mạnh tiềm ẩn xử lý bảng tính lớn | roadmap_excel_vba_1000.md |
+| excel_vba_day_182 | SpecialCells(xlCellTypeConstants): Chọn tất cả ô chứa giá trị cố định | roadmap_excel_vba_1000.md |
+| excel_vba_day_183 | SpecialCells(xlCellTypeFormulas): Chọn tất cả ô chứa công thức | roadmap_excel_vba_1000.md |
+| excel_vba_day_184 | SpecialCells(xlCellTypeBlanks): Chọn tất cả ô trống trong bảng | roadmap_excel_vba_1000.md |
+| excel_vba_day_185 | Điền giá trị từ ô phía trên vào các ô trống (Fill Blanks down) trong 1 dòng lệnh | roadmap_excel_vba_1000.md |
+| excel_vba_day_186 | SpecialCells(xlCellTypeVisible): Chỉ chọn các dòng đang hiển thị sau khi lọc | roadmap_excel_vba_1000.md |
+| excel_vba_day_187 | Copy chỉ các dòng hiển thị sau khi Filter sang Sheet mới | roadmap_excel_vba_1000.md |
+| excel_vba_day_188 | SpecialCells(xlCellTypeLastCell): Ô cuối cùng của trang tính | roadmap_excel_vba_1000.md |
+| excel_vba_day_189 | SpecialCells(xlCellTypeSameValidation): Tìm các ô có cùng quy tắc Data Validation | roadmap_excel_vba_1000.md |
+| excel_vba_day_190 | SpecialCells(xlCellTypeSameFormatConditions): Tìm các ô có cùng Conditional Formatting | roadmap_excel_vba_1000.md |
+| excel_vba_day_191 | SpecialCells(xlCellTypeComments): Chọn tất cả ô có chú thích | roadmap_excel_vba_1000.md |
+| excel_vba_day_192 | Xử lý lỗi Error 1004 khi SpecialCells không tìm thấy ô nào thỏa mãn | roadmap_excel_vba_1000.md |
+| excel_vba_day_193 | Thuộc tính Areas Collection: Khi Range bao gồm nhiều vùng không liền kề | roadmap_excel_vba_1000.md |
+| excel_vba_day_194 | Duyệt qua từng Area trong một Range ngắt quãng | roadmap_excel_vba_1000.md |
+| excel_vba_day_195 | Đếm số lượng Area và tổng số ô trong các Area | roadmap_excel_vba_1000.md |
+| excel_vba_day_196 | Chuyển đổi Range nhiều Area thành mảng 1 chiều liên tục | roadmap_excel_vba_1000.md |
+| excel_vba_day_197 | Tự động xóa tất cả các dòng bị ẩn trong bảng tính lớn | roadmap_excel_vba_1000.md |
+| excel_vba_day_198 | Tự động tô màu các ô chứa công thức bị lỗi (#N/A, #VALUE!, #REF!) | roadmap_excel_vba_1000.md |
+| excel_vba_day_199 | Tự động khóa (Locked = True) chỉ các ô chứa công thức | roadmap_excel_vba_1000.md |
+| excel_vba_day_200 | Phân tích cấu trúc bảng tính: Đếm tỷ lệ ô giá trị vs ô công thức | roadmap_excel_vba_1000.md |
+| excel_vba_day_201 | Tìm kiếm nâng cao bằng Range.Find: What, After, LookIn, LookAt, SearchOrder | roadmap_excel_vba_1000.md |
+| excel_vba_day_202 | Tham số LookIn: xlValues, xlFormulas, xlComments | roadmap_excel_vba_1000.md |
+| excel_vba_day_203 | Tham số LookAt: xlWhole (Toàn bộ ô) vs xlPart (Một phần ô) | roadmap_excel_vba_1000.md |
+| excel_vba_day_204 | Tìm kiếm liên tục bằng FindNext và FindPrevious trong vòng lặp | roadmap_excel_vba_1000.md |
+| excel_vba_day_205 | Bắt điểm dừng của vòng lặp FindNext bằng địa chỉ ô đầu tiên | roadmap_excel_vba_1000.md |
+| excel_vba_day_206 | Thay thế hàng loạt bằng Range.Replace: Tối ưu tốc độ gấp 100 lần vòng lặp | roadmap_excel_vba_1000.md |
+| excel_vba_day_207 | Sắp xếp dữ liệu bằng Range.Sort: Sắp xếp đa cột (Key1, Key2, Key3) | roadmap_excel_vba_1000.md |
+| excel_vba_day_208 | Sắp xếp theo thứ tự tùy biến (Custom List Sort: Thứ 2, Thứ 3...) | roadmap_excel_vba_1000.md |
+| excel_vba_day_209 | Lọc tự động bằng Range.AutoFilter: Lọc đơn cột, đa cột, lọc theo màu sắc | roadmap_excel_vba_1000.md |
+| excel_vba_day_210 | Project 7: Hệ Thống Dọn Dẹp, Làm Sạch & Sắp Xếp Dữ Liệu Bảng Tính Siêu Tốc | roadmap_excel_vba_1000.md |
+| excel_vba_day_211 | Định dạng Font chữ: Name, Size, Bold, Italic, Underline, Strikethrough | roadmap_excel_vba_1000.md |
+| excel_vba_day_212 | Định dạng Màu chữ và Màu nền: ColorIndex vs RGB(R, G, B) | roadmap_excel_vba_1000.md |
+| excel_vba_day_213 | Sử dụng bảng màu ThemeColors trong Microsoft Excel | roadmap_excel_vba_1000.md |
+| excel_vba_day_214 | Tạo hiệu ứng Gradient chuyển màu cho ô bảng tính | roadmap_excel_vba_1000.md |
+| excel_vba_day_215 | Định dạng Khung viền (Borders): BorderAround, Borders(xlEdgeBottom)... | roadmap_excel_vba_1000.md |
+| excel_vba_day_216 | Cấu hình LineStyle, Weight (xlThin, xlMedium, xlThick) và Color của Border | roadmap_excel_vba_1000.md |
+| excel_vba_day_217 | Định dạng Căn lề: HorizontalAlignment (Trái, Phải, Giữa), VerticalAlignment | roadmap_excel_vba_1000.md |
+| excel_vba_day_218 | Thuộc tính WrapText (Tự xuống dòng) và Orientation (Xoay chữ góc nghiêng) | roadmap_excel_vba_1000.md |
+| excel_vba_day_219 | Thuộc tính ShrinkToFit (Tự co chữ vừa ô) và IndentLevel (Thụt lề đầu dòng) | roadmap_excel_vba_1000.md |
+| excel_vba_day_220 | Định dạng Số (NumberFormat): Cú pháp chuẩn 4 phần (Dương; Âm; Không; Văn bản) | roadmap_excel_vba_1000.md |
+| excel_vba_day_221 | Định dạng Tiền tệ chuẩn Việt Nam Đồng: '#,##0 "₫"' và Đô la Mỹ: '$#,##0.00' | roadmap_excel_vba_1000.md |
+| excel_vba_day_222 | Định dạng Ngày tháng: 'dd/mm/yyyy hh:mm:ss' và định dạng Thứ trong tuần | roadmap_excel_vba_1000.md |
+| excel_vba_day_223 | Định dạng Tỷ lệ phần trăm: '0.00%' và định dạng Phân số | roadmap_excel_vba_1000.md |
+| excel_vba_day_224 | Định dạng Số điện thoại, CCCD và Mã số thuế có số 0 ở đầu | roadmap_excel_vba_1000.md |
+| excel_vba_day_225 | Định dạng Ẩn nội dung ô bằng cú pháp NumberFormat = ';;;' | roadmap_excel_vba_1000.md |
+| excel_vba_day_226 | Định dạng Số đổi màu tự động: '[Green]#,##0;[Red]-#,##0;"-"' | roadmap_excel_vba_1000.md |
+| excel_vba_day_227 | Conditional Formatting cơ bản: Thêm quy tắc tô màu ô lớn hơn/nhỏ hơn | roadmap_excel_vba_1000.md |
+| excel_vba_day_228 | Conditional Formatting nâng cao: Dùng công thức VBA (FormatConditions.Add) | roadmap_excel_vba_1000.md |
+| excel_vba_day_229 | Tô màu xen kẽ các dòng (Zebra Striping) bằng Conditional Formatting | roadmap_excel_vba_1000.md |
+| excel_vba_day_230 | Tạo thanh dữ liệu (Data Bars) và thang màu (Color Scales) bằng VBA | roadmap_excel_vba_1000.md |
+| excel_vba_day_231 | Tạo bộ biểu tượng (Icon Sets: Mũi tên, Đèn giao thông, Cờ) bằng VBA | roadmap_excel_vba_1000.md |
+| excel_vba_day_232 | Xóa và Quản lý tất cả quy tắc Conditional Formatting trên Sheet | roadmap_excel_vba_1000.md |
+| excel_vba_day_233 | Tạo Dropdown Danh sách (Data Validation List) bằng mã lệnh VBA | roadmap_excel_vba_1000.md |
+| excel_vba_day_234 | Xác thực số nguyên, số thực, ngày tháng bằng Data Validation | roadmap_excel_vba_1000.md |
+| excel_vba_day_235 | Tạo thông báo lỗi tùy biến khi người dùng nhập sai quy tắc Validation | roadmap_excel_vba_1000.md |
+| excel_vba_day_236 | Tự động kẻ bảng và format tiêu đề theo chuẩn thiết kế hiện đại | roadmap_excel_vba_1000.md |
+| excel_vba_day_237 | Tạo bảng mẫu (Template Theme) chuyển đổi qua lại giữa Dark Mode và Light Mode | roadmap_excel_vba_1000.md |
+| excel_vba_day_238 | Sao chép toàn bộ định dạng từ ô mẫu sang vùng dữ liệu (PasteSpecial xlPasteFormats) | roadmap_excel_vba_1000.md |
+| excel_vba_day_239 | Xóa sạch định dạng rác làm phình dung lượng file Excel | roadmap_excel_vba_1000.md |
+| excel_vba_day_240 | Project 8: Trình Tạo Báo Cáo Tài Chính Chuẩn Mực Có Format Chuyên Nghiệp | roadmap_excel_vba_1000.md |
+| excel_vba_day_241 | Gán công thức Excel từ VBA: Range.Formula vs Range.FormulaR1C1 | roadmap_excel_vba_1000.md |
+| excel_vba_day_242 | Cú pháp R1C1: Tham chiếu tuyệt đối R1C1 vs Tham chiếu tương đối R[-1]C[1] | roadmap_excel_vba_1000.md |
+| excel_vba_day_243 | Tại sao FormulaR1C1 cực kỳ mạnh mẽ khi gán công thức cho hàng nghìn dòng? | roadmap_excel_vba_1000.md |
+| excel_vba_day_244 | Gán công thức mảng động (Dynamic Array Formulas) với Range.Formula2 | roadmap_excel_vba_1000.md |
+| excel_vba_day_245 | Chuyển toàn bộ công thức thành giá trị cố định (Formula to Values) siêu tốc | roadmap_excel_vba_1000.md |
+| excel_vba_day_246 | Phương thức Application.Evaluate và ký hiệu tắt [A1:B10] | roadmap_excel_vba_1000.md |
+| excel_vba_day_247 | Sử dụng Evaluate để tính toán biểu thức toán học dạng chuỗi '15 * (20 + 4)' | roadmap_excel_vba_1000.md |
+| excel_vba_day_248 | Sử dụng Evaluate để lọc và biến đổi mảng không cần vòng lặp | roadmap_excel_vba_1000.md |
+| excel_vba_day_249 | Quản lý Tên vùng dữ liệu (Names / Defined Names) trong VBA | roadmap_excel_vba_1000.md |
+| excel_vba_day_250 | Tạo Named Range tĩnh: Names.Add Name:='BangGia', RefersTo:='=Sheet1!$A$1:$D$100' | roadmap_excel_vba_1000.md |
+| excel_vba_day_251 | Tạo Dynamic Named Range tự co giãn bằng hàm OFFSET và COUNTA | roadmap_excel_vba_1000.md |
+| excel_vba_day_252 | Tạo Dynamic Named Range bằng hàm INDEX | roadmap_excel_vba_1000.md |
+| excel_vba_day_253 | Tầm vực của Name: Scope cấp Workbook vs Scope cấp Worksheet | roadmap_excel_vba_1000.md |
+| excel_vba_day_254 | Duyệt danh sách toàn bộ Names trong Workbook và phát hiện Name bị lỗi (#REF!) | roadmap_excel_vba_1000.md |
+| excel_vba_day_255 | Xóa sạch các Name rác bị lỗi ẩn trong file Excel | roadmap_excel_vba_1000.md |
+| excel_vba_day_256 | Đọc giá trị từ Named Range trong mã VBA không cần biết địa chỉ ô | roadmap_excel_vba_1000.md |
+| excel_vba_day_257 | Sử dụng các hàm Excel Worksheet trong VBA: Application.WorksheetFunction | roadmap_excel_vba_1000.md |
+| excel_vba_day_258 | Phân biệt Application.VLookup vs Application.WorksheetFunction.VLookup khi có lỗi | roadmap_excel_vba_1000.md |
+| excel_vba_day_259 | Bắt lỗi không tìm thấy (#N/A) khi dùng hàm tra cứu qua IsError | roadmap_excel_vba_1000.md |
+| excel_vba_day_260 | Sử dụng XLOOKUP, XMATCH, FILTER, UNIQUE, SORT trong VBA (Excel 365) | roadmap_excel_vba_1000.md |
+| excel_vba_day_261 | Tạo hàm Lambda tùy biến và lưu vào Name Manager bằng VBA | roadmap_excel_vba_1000.md |
+| excel_vba_day_262 | Kiểm soát chế độ tính toán của Excel: Application.Calculation | roadmap_excel_vba_1000.md |
+| excel_vba_day_263 | Chuyển sang chế độ tính toán thủ công: xlCalculationManual khi chạy macro lớn | roadmap_excel_vba_1000.md |
+| excel_vba_day_264 | Kích hoạt tính toán lại: Calculate, Sheet.Calculate, Range.Calculate | roadmap_excel_vba_1000.md |
+| excel_vba_day_265 | Tính toán ma trận: MMULT, TRANSPOSE, MINVERSE qua Evaluate | roadmap_excel_vba_1000.md |
+| excel_vba_day_266 | Tự động phân tích và sửa lỗi phụ thuộc vòng tròn (Circular Reference) | roadmap_excel_vba_1000.md |
+| excel_vba_day_267 | Theo dõi dấu vết công thức: ShowPrecedents, ShowDependents, TracePrecedents | roadmap_excel_vba_1000.md |
+| excel_vba_day_268 | Xóa dấu vết mũi tên công thức: Sheet.ClearArrows | roadmap_excel_vba_1000.md |
+| excel_vba_day_269 | Tự động audit công thức tính toán và phát hiện ô sai quy luật | roadmap_excel_vba_1000.md |
+| excel_vba_day_270 | Project 9: Công Cụ Audit Công Thức & Quản Lý Dynamic Names Tự Động | roadmap_excel_vba_1000.md |
+| excel_vba_day_271 | Tại sao thao tác Cell-by-Cell làm đơ máy? Triết lý làm việc trong RAM | roadmap_excel_vba_1000.md |
+| excel_vba_day_272 | Nạp toàn bộ Range 100.000 dòng vào Mảng Variant: arr = Range('A1:Z100000').Value2 | roadmap_excel_vba_1000.md |
+| excel_vba_day_273 | Cấu trúc của Mảng 2 chiều sinh ra từ Range (Luôn bắt đầu từ Base 1: arr(1 To N, 1 To M)) | roadmap_excel_vba_1000.md |
+| excel_vba_day_274 | Khai báo Mảng tĩnh (Static Array) vs Mảng động (Dynamic Array) | roadmap_excel_vba_1000.md |
+| excel_vba_day_275 | Định cỡ lại mảng bằng lệnh ReDim | roadmap_excel_vba_1000.md |
+| excel_vba_day_276 | Bảo toàn dữ liệu cũ khi đổi kích thước: ReDim Preserve (Chỉ đổi được chiều cuối cùng) | roadmap_excel_vba_1000.md |
+| excel_vba_day_277 | Lấy giới hạn dưới và giới hạn trên của mảng: LBound(arr, dimension), UBound(arr, dimension) | roadmap_excel_vba_1000.md |
+| excel_vba_day_278 | Duyệt qua mảng 2 chiều bằng 2 vòng lặp For lồng nhau trong RAM | roadmap_excel_vba_1000.md |
+| excel_vba_day_279 | Tính toán, lọc và xử lý dữ liệu hoàn toàn trên mảng RAM | roadmap_excel_vba_1000.md |
+| excel_vba_day_280 | Ghi toàn bộ mảng kết quả ngược lại Range trong 0.05 giây: Range.Resize = arrResult | roadmap_excel_vba_1000.md |
+| excel_vba_day_281 | Kỹ thuật chuyển đổi Mảng 1 chiều thành Mảng 2 chiều và ngược lại | roadmap_excel_vba_1000.md |
+| excel_vba_day_282 | Hàm Application.Transpose: Lợi ích và giới hạn 65.536 dòng | roadmap_excel_vba_1000.md |
+| excel_vba_day_283 | Tự viết hàm Custom Transpose không bị giới hạn số dòng của Excel | roadmap_excel_vba_1000.md |
+| excel_vba_day_284 | Xóa mảng và giải phóng bộ nhớ RAM với lệnh Erase arr | roadmap_excel_vba_1000.md |
+| excel_vba_day_285 | Kiểm tra mảng đã được khởi tạo hay chưa (Safe Array Allocated Check) | roadmap_excel_vba_1000.md |
+| excel_vba_day_286 | Hàm Split: Tách chuỗi thành mảng 1 chiều (Base 0) | roadmap_excel_vba_1000.md |
+| excel_vba_day_287 | Hàm Join: Ghép mảng 1 chiều thành chuỗi phân cách bởi ký tự | roadmap_excel_vba_1000.md |
+| excel_vba_day_288 | Hàm Filter: Lọc nhanh các phần tử trong mảng chuỗi 1 chiều | roadmap_excel_vba_1000.md |
+| excel_vba_day_289 | Gộp 2 mảng thành 1 mảng lớn trong bộ nhớ | roadmap_excel_vba_1000.md |
+| excel_vba_day_290 | Trích xuất 1 cột bất kỳ từ mảng 2 chiều thành mảng 1 chiều | roadmap_excel_vba_1000.md |
+| excel_vba_day_291 | Trích xuất 1 hàng bất kỳ từ mảng 2 chiều | roadmap_excel_vba_1000.md |
+| excel_vba_day_292 | Thêm cột mới hoặc thêm dòng mới vào mảng 2 chiều | roadmap_excel_vba_1000.md |
+| excel_vba_day_293 | Xóa dòng hoặc xóa cột thỏa mãn điều kiện khỏi mảng | roadmap_excel_vba_1000.md |
+| excel_vba_day_294 | Xử lý dữ liệu đa kiểu (Text, Date, Number, Null) an toàn trong mảng Variant | roadmap_excel_vba_1000.md |
+| excel_vba_day_295 | Đo tốc độ thực thi: Xử lý 100.000 dòng bằng Mảng (0.2s) vs bằng Cell (45s) | roadmap_excel_vba_1000.md |
+| excel_vba_day_296 | Quy tắc vàng thiết kế code VBA tốc độ cao đạt chuẩn 60fps | roadmap_excel_vba_1000.md |
+| excel_vba_day_297 | Quản lý dung lượng bộ nhớ khi làm việc với mảng chứa hàng triệu phần tử | roadmap_excel_vba_1000.md |
+| excel_vba_day_298 | Xử lý bài toán gộp 50 file Excel vào 1 mảng duy nhất trước khi ghi ra sheet | roadmap_excel_vba_1000.md |
+| excel_vba_day_299 | Kỹ thuật phân trang dữ liệu (Paging) trên mảng RAM | roadmap_excel_vba_1000.md |
+| excel_vba_day_300 | Project 10: Động Cơ Xử Lý & Tổng Hợp 500.000 Dòng Dữ Liệu Trong 1 Giây | roadmap_excel_vba_1000.md |
+| excel_vba_day_301 | Memory Management, SafeArray & WinAPI Pointers – Phần 1/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_302 | Memory Management, SafeArray & WinAPI Pointers – Phần 2/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_303 | Memory Management, SafeArray & WinAPI Pointers – Phần 3/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_304 | Memory Management, SafeArray & WinAPI Pointers – Phần 4/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_305 | Memory Management, SafeArray & WinAPI Pointers – Phần 5/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_306 | Memory Management, SafeArray & WinAPI Pointers – Phần 6/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_307 | Memory Management, SafeArray & WinAPI Pointers – Phần 7/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_308 | Memory Management, SafeArray & WinAPI Pointers – Phần 8/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_309 | Memory Management, SafeArray & WinAPI Pointers – Phần 9/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_310 | Memory Management, SafeArray & WinAPI Pointers – Phần 10/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_311 | Memory Management, SafeArray & WinAPI Pointers – Phần 11/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_312 | Memory Management, SafeArray & WinAPI Pointers – Phần 12/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_313 | Memory Management, SafeArray & WinAPI Pointers – Phần 13/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_314 | Memory Management, SafeArray & WinAPI Pointers – Phần 14/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_315 | Memory Management, SafeArray & WinAPI Pointers – Phần 15/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_316 | Memory Management, SafeArray & WinAPI Pointers – Phần 16/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_317 | Memory Management, SafeArray & WinAPI Pointers – Phần 17/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_318 | Memory Management, SafeArray & WinAPI Pointers – Phần 18/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_319 | Memory Management, SafeArray & WinAPI Pointers – Phần 19/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_320 | Memory Management, SafeArray & WinAPI Pointers – Phần 20/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_321 | Memory Management, SafeArray & WinAPI Pointers – Phần 21/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_322 | Memory Management, SafeArray & WinAPI Pointers – Phần 22/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_323 | Memory Management, SafeArray & WinAPI Pointers – Phần 23/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_324 | Memory Management, SafeArray & WinAPI Pointers – Phần 24/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_325 | Memory Management, SafeArray & WinAPI Pointers – Phần 25/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_326 | Memory Management, SafeArray & WinAPI Pointers – Phần 26/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_327 | Memory Management, SafeArray & WinAPI Pointers – Phần 27/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_328 | Memory Management, SafeArray & WinAPI Pointers – Phần 28/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_329 | Memory Management, SafeArray & WinAPI Pointers – Phần 29/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_330 | Project 11: Capstone Memory Management, SafeArray & WinAPI Pointers | roadmap_excel_vba_1000.md |
+| excel_vba_day_331 | Data Structures – Dictionary, Collection & ArrayList – Phần 1/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_332 | Data Structures – Dictionary, Collection & ArrayList – Phần 2/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_333 | Data Structures – Dictionary, Collection & ArrayList – Phần 3/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_334 | Data Structures – Dictionary, Collection & ArrayList – Phần 4/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_335 | Data Structures – Dictionary, Collection & ArrayList – Phần 5/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_336 | Data Structures – Dictionary, Collection & ArrayList – Phần 6/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_337 | Data Structures – Dictionary, Collection & ArrayList – Phần 7/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_338 | Data Structures – Dictionary, Collection & ArrayList – Phần 8/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_339 | Data Structures – Dictionary, Collection & ArrayList – Phần 9/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_340 | Data Structures – Dictionary, Collection & ArrayList – Phần 10/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_341 | Data Structures – Dictionary, Collection & ArrayList – Phần 11/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_342 | Data Structures – Dictionary, Collection & ArrayList – Phần 12/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_343 | Data Structures – Dictionary, Collection & ArrayList – Phần 13/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_344 | Data Structures – Dictionary, Collection & ArrayList – Phần 14/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_345 | Data Structures – Dictionary, Collection & ArrayList – Phần 15/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_346 | Data Structures – Dictionary, Collection & ArrayList – Phần 16/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_347 | Data Structures – Dictionary, Collection & ArrayList – Phần 17/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_348 | Data Structures – Dictionary, Collection & ArrayList – Phần 18/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_349 | Data Structures – Dictionary, Collection & ArrayList – Phần 19/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_350 | Data Structures – Dictionary, Collection & ArrayList – Phần 20/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_351 | Data Structures – Dictionary, Collection & ArrayList – Phần 21/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_352 | Data Structures – Dictionary, Collection & ArrayList – Phần 22/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_353 | Data Structures – Dictionary, Collection & ArrayList – Phần 23/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_354 | Data Structures – Dictionary, Collection & ArrayList – Phần 24/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_355 | Data Structures – Dictionary, Collection & ArrayList – Phần 25/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_356 | Data Structures – Dictionary, Collection & ArrayList – Phần 26/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_357 | Data Structures – Dictionary, Collection & ArrayList – Phần 27/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_358 | Data Structures – Dictionary, Collection & ArrayList – Phần 28/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_359 | Data Structures – Dictionary, Collection & ArrayList – Phần 29/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_360 | Project 12: Capstone Data Structures – Dictionary, Collection & ArrayList | roadmap_excel_vba_1000.md |
+| excel_vba_day_361 | Sorting & Searching Algorithms in VBA – Phần 1/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_362 | Sorting & Searching Algorithms in VBA – Phần 2/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_363 | Sorting & Searching Algorithms in VBA – Phần 3/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_364 | Sorting & Searching Algorithms in VBA – Phần 4/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_365 | Sorting & Searching Algorithms in VBA – Phần 5/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_366 | Sorting & Searching Algorithms in VBA – Phần 6/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_367 | Sorting & Searching Algorithms in VBA – Phần 7/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_368 | Sorting & Searching Algorithms in VBA – Phần 8/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_369 | Sorting & Searching Algorithms in VBA – Phần 9/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_370 | Sorting & Searching Algorithms in VBA – Phần 10/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_371 | Sorting & Searching Algorithms in VBA – Phần 11/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_372 | Sorting & Searching Algorithms in VBA – Phần 12/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_373 | Sorting & Searching Algorithms in VBA – Phần 13/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_374 | Sorting & Searching Algorithms in VBA – Phần 14/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_375 | Sorting & Searching Algorithms in VBA – Phần 15/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_376 | Sorting & Searching Algorithms in VBA – Phần 16/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_377 | Sorting & Searching Algorithms in VBA – Phần 17/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_378 | Sorting & Searching Algorithms in VBA – Phần 18/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_379 | Sorting & Searching Algorithms in VBA – Phần 19/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_380 | Sorting & Searching Algorithms in VBA – Phần 20/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_381 | Sorting & Searching Algorithms in VBA – Phần 21/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_382 | Sorting & Searching Algorithms in VBA – Phần 22/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_383 | Sorting & Searching Algorithms in VBA – Phần 23/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_384 | Sorting & Searching Algorithms in VBA – Phần 24/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_385 | Sorting & Searching Algorithms in VBA – Phần 25/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_386 | Sorting & Searching Algorithms in VBA – Phần 26/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_387 | Sorting & Searching Algorithms in VBA – Phần 27/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_388 | Sorting & Searching Algorithms in VBA – Phần 28/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_389 | Sorting & Searching Algorithms in VBA – Phần 29/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_390 | Project 13: Capstone Sorting & Searching Algorithms in VBA | roadmap_excel_vba_1000.md |
+| excel_vba_day_391 | Regular Expressions & Text Mining – Phần 1/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_392 | Regular Expressions & Text Mining – Phần 2/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_393 | Regular Expressions & Text Mining – Phần 3/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_394 | Regular Expressions & Text Mining – Phần 4/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_395 | Regular Expressions & Text Mining – Phần 5/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_396 | Regular Expressions & Text Mining – Phần 6/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_397 | Regular Expressions & Text Mining – Phần 7/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_398 | Regular Expressions & Text Mining – Phần 8/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_399 | Regular Expressions & Text Mining – Phần 9/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_400 | Regular Expressions & Text Mining – Phần 10/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_401 | Regular Expressions & Text Mining – Phần 11/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_402 | Regular Expressions & Text Mining – Phần 12/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_403 | Regular Expressions & Text Mining – Phần 13/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_404 | Regular Expressions & Text Mining – Phần 14/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_405 | Regular Expressions & Text Mining – Phần 15/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_406 | Regular Expressions & Text Mining – Phần 16/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_407 | Regular Expressions & Text Mining – Phần 17/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_408 | Regular Expressions & Text Mining – Phần 18/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_409 | Regular Expressions & Text Mining – Phần 19/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_410 | Regular Expressions & Text Mining – Phần 20/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_411 | Regular Expressions & Text Mining – Phần 21/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_412 | Regular Expressions & Text Mining – Phần 22/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_413 | Regular Expressions & Text Mining – Phần 23/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_414 | Regular Expressions & Text Mining – Phần 24/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_415 | Regular Expressions & Text Mining – Phần 25/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_416 | Regular Expressions & Text Mining – Phần 26/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_417 | Regular Expressions & Text Mining – Phần 27/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_418 | Regular Expressions & Text Mining – Phần 28/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_419 | Regular Expressions & Text Mining – Phần 29/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_420 | Project 14: Capstone Regular Expressions & Text Mining | roadmap_excel_vba_1000.md |
+| excel_vba_day_421 | Event-Driven Programming – Sheet & Workbook Events – Phần 1/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_422 | Event-Driven Programming – Sheet & Workbook Events – Phần 2/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_423 | Event-Driven Programming – Sheet & Workbook Events – Phần 3/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_424 | Event-Driven Programming – Sheet & Workbook Events – Phần 4/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_425 | Event-Driven Programming – Sheet & Workbook Events – Phần 5/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_426 | Event-Driven Programming – Sheet & Workbook Events – Phần 6/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_427 | Event-Driven Programming – Sheet & Workbook Events – Phần 7/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_428 | Event-Driven Programming – Sheet & Workbook Events – Phần 8/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_429 | Event-Driven Programming – Sheet & Workbook Events – Phần 9/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_430 | Event-Driven Programming – Sheet & Workbook Events – Phần 10/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_431 | Event-Driven Programming – Sheet & Workbook Events – Phần 11/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_432 | Event-Driven Programming – Sheet & Workbook Events – Phần 12/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_433 | Event-Driven Programming – Sheet & Workbook Events – Phần 13/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_434 | Event-Driven Programming – Sheet & Workbook Events – Phần 14/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_435 | Event-Driven Programming – Sheet & Workbook Events – Phần 15/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_436 | Event-Driven Programming – Sheet & Workbook Events – Phần 16/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_437 | Event-Driven Programming – Sheet & Workbook Events – Phần 17/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_438 | Event-Driven Programming – Sheet & Workbook Events – Phần 18/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_439 | Event-Driven Programming – Sheet & Workbook Events – Phần 19/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_440 | Event-Driven Programming – Sheet & Workbook Events – Phần 20/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_441 | Event-Driven Programming – Sheet & Workbook Events – Phần 21/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_442 | Event-Driven Programming – Sheet & Workbook Events – Phần 22/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_443 | Event-Driven Programming – Sheet & Workbook Events – Phần 23/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_444 | Event-Driven Programming – Sheet & Workbook Events – Phần 24/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_445 | Event-Driven Programming – Sheet & Workbook Events – Phần 25/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_446 | Event-Driven Programming – Sheet & Workbook Events – Phần 26/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_447 | Event-Driven Programming – Sheet & Workbook Events – Phần 27/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_448 | Event-Driven Programming – Sheet & Workbook Events – Phần 28/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_449 | Event-Driven Programming – Sheet & Workbook Events – Phần 29/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_450 | Project 15: Capstone Event-Driven Programming – Sheet & Workbook Events | roadmap_excel_vba_1000.md |
+| excel_vba_day_451 | Application Events & Class Module Architecture – Phần 1/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_452 | Application Events & Class Module Architecture – Phần 2/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_453 | Application Events & Class Module Architecture – Phần 3/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_454 | Application Events & Class Module Architecture – Phần 4/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_455 | Application Events & Class Module Architecture – Phần 5/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_456 | Application Events & Class Module Architecture – Phần 6/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_457 | Application Events & Class Module Architecture – Phần 7/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_458 | Application Events & Class Module Architecture – Phần 8/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_459 | Application Events & Class Module Architecture – Phần 9/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_460 | Application Events & Class Module Architecture – Phần 10/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_461 | Application Events & Class Module Architecture – Phần 11/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_462 | Application Events & Class Module Architecture – Phần 12/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_463 | Application Events & Class Module Architecture – Phần 13/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_464 | Application Events & Class Module Architecture – Phần 14/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_465 | Application Events & Class Module Architecture – Phần 15/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_466 | Application Events & Class Module Architecture – Phần 16/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_467 | Application Events & Class Module Architecture – Phần 17/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_468 | Application Events & Class Module Architecture – Phần 18/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_469 | Application Events & Class Module Architecture – Phần 19/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_470 | Application Events & Class Module Architecture – Phần 20/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_471 | Application Events & Class Module Architecture – Phần 21/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_472 | Application Events & Class Module Architecture – Phần 22/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_473 | Application Events & Class Module Architecture – Phần 23/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_474 | Application Events & Class Module Architecture – Phần 24/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_475 | Application Events & Class Module Architecture – Phần 25/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_476 | Application Events & Class Module Architecture – Phần 26/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_477 | Application Events & Class Module Architecture – Phần 27/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_478 | Application Events & Class Module Architecture – Phần 28/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_479 | Application Events & Class Module Architecture – Phần 29/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_480 | Project 16: Capstone Application Events & Class Module Architecture | roadmap_excel_vba_1000.md |
+| excel_vba_day_481 | UserForm Foundation & Standard Controls – Phần 1/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_482 | UserForm Foundation & Standard Controls – Phần 2/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_483 | UserForm Foundation & Standard Controls – Phần 3/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_484 | UserForm Foundation & Standard Controls – Phần 4/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_485 | UserForm Foundation & Standard Controls – Phần 5/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_486 | UserForm Foundation & Standard Controls – Phần 6/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_487 | UserForm Foundation & Standard Controls – Phần 7/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_488 | UserForm Foundation & Standard Controls – Phần 8/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_489 | UserForm Foundation & Standard Controls – Phần 9/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_490 | UserForm Foundation & Standard Controls – Phần 10/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_491 | UserForm Foundation & Standard Controls – Phần 11/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_492 | UserForm Foundation & Standard Controls – Phần 12/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_493 | UserForm Foundation & Standard Controls – Phần 13/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_494 | UserForm Foundation & Standard Controls – Phần 14/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_495 | UserForm Foundation & Standard Controls – Phần 15/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_496 | UserForm Foundation & Standard Controls – Phần 16/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_497 | UserForm Foundation & Standard Controls – Phần 17/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_498 | UserForm Foundation & Standard Controls – Phần 18/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_499 | UserForm Foundation & Standard Controls – Phần 19/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_500 | UserForm Foundation & Standard Controls – Phần 20/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_501 | UserForm Foundation & Standard Controls – Phần 21/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_502 | UserForm Foundation & Standard Controls – Phần 22/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_503 | UserForm Foundation & Standard Controls – Phần 23/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_504 | UserForm Foundation & Standard Controls – Phần 24/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_505 | UserForm Foundation & Standard Controls – Phần 25/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_506 | UserForm Foundation & Standard Controls – Phần 26/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_507 | UserForm Foundation & Standard Controls – Phần 27/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_508 | UserForm Foundation & Standard Controls – Phần 28/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_509 | UserForm Foundation & Standard Controls – Phần 29/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_510 | Project 17: Capstone UserForm Foundation & Standard Controls | roadmap_excel_vba_1000.md |
+| excel_vba_day_511 | Advanced UserForms – Modern Flat Dark/Light UI – Phần 1/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_512 | Advanced UserForms – Modern Flat Dark/Light UI – Phần 2/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_513 | Advanced UserForms – Modern Flat Dark/Light UI – Phần 3/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_514 | Advanced UserForms – Modern Flat Dark/Light UI – Phần 4/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_515 | Advanced UserForms – Modern Flat Dark/Light UI – Phần 5/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_516 | Advanced UserForms – Modern Flat Dark/Light UI – Phần 6/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_517 | Advanced UserForms – Modern Flat Dark/Light UI – Phần 7/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_518 | Advanced UserForms – Modern Flat Dark/Light UI – Phần 8/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_519 | Advanced UserForms – Modern Flat Dark/Light UI – Phần 9/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_520 | Advanced UserForms – Modern Flat Dark/Light UI – Phần 10/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_521 | Advanced UserForms – Modern Flat Dark/Light UI – Phần 11/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_522 | Advanced UserForms – Modern Flat Dark/Light UI – Phần 12/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_523 | Advanced UserForms – Modern Flat Dark/Light UI – Phần 13/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_524 | Advanced UserForms – Modern Flat Dark/Light UI – Phần 14/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_525 | Advanced UserForms – Modern Flat Dark/Light UI – Phần 15/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_526 | Advanced UserForms – Modern Flat Dark/Light UI – Phần 16/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_527 | Advanced UserForms – Modern Flat Dark/Light UI – Phần 17/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_528 | Advanced UserForms – Modern Flat Dark/Light UI – Phần 18/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_529 | Advanced UserForms – Modern Flat Dark/Light UI – Phần 19/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_530 | Advanced UserForms – Modern Flat Dark/Light UI – Phần 20/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_531 | Advanced UserForms – Modern Flat Dark/Light UI – Phần 21/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_532 | Advanced UserForms – Modern Flat Dark/Light UI – Phần 22/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_533 | Advanced UserForms – Modern Flat Dark/Light UI – Phần 23/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_534 | Advanced UserForms – Modern Flat Dark/Light UI – Phần 24/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_535 | Advanced UserForms – Modern Flat Dark/Light UI – Phần 25/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_536 | Advanced UserForms – Modern Flat Dark/Light UI – Phần 26/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_537 | Advanced UserForms – Modern Flat Dark/Light UI – Phần 27/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_538 | Advanced UserForms – Modern Flat Dark/Light UI – Phần 28/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_539 | Advanced UserForms – Modern Flat Dark/Light UI – Phần 29/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_540 | Project 18: Capstone Advanced UserForms – Modern Flat Dark/Light UI | roadmap_excel_vba_1000.md |
+| excel_vba_day_541 | Dynamic Controls & WithEvents Control Collections – Phần 1/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_542 | Dynamic Controls & WithEvents Control Collections – Phần 2/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_543 | Dynamic Controls & WithEvents Control Collections – Phần 3/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_544 | Dynamic Controls & WithEvents Control Collections – Phần 4/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_545 | Dynamic Controls & WithEvents Control Collections – Phần 5/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_546 | Dynamic Controls & WithEvents Control Collections – Phần 6/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_547 | Dynamic Controls & WithEvents Control Collections – Phần 7/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_548 | Dynamic Controls & WithEvents Control Collections – Phần 8/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_549 | Dynamic Controls & WithEvents Control Collections – Phần 9/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_550 | Dynamic Controls & WithEvents Control Collections – Phần 10/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_551 | Dynamic Controls & WithEvents Control Collections – Phần 11/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_552 | Dynamic Controls & WithEvents Control Collections – Phần 12/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_553 | Dynamic Controls & WithEvents Control Collections – Phần 13/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_554 | Dynamic Controls & WithEvents Control Collections – Phần 14/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_555 | Dynamic Controls & WithEvents Control Collections – Phần 15/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_556 | Dynamic Controls & WithEvents Control Collections – Phần 16/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_557 | Dynamic Controls & WithEvents Control Collections – Phần 17/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_558 | Dynamic Controls & WithEvents Control Collections – Phần 18/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_559 | Dynamic Controls & WithEvents Control Collections – Phần 19/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_560 | Dynamic Controls & WithEvents Control Collections – Phần 20/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_561 | Dynamic Controls & WithEvents Control Collections – Phần 21/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_562 | Dynamic Controls & WithEvents Control Collections – Phần 22/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_563 | Dynamic Controls & WithEvents Control Collections – Phần 23/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_564 | Dynamic Controls & WithEvents Control Collections – Phần 24/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_565 | Dynamic Controls & WithEvents Control Collections – Phần 25/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_566 | Dynamic Controls & WithEvents Control Collections – Phần 26/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_567 | Dynamic Controls & WithEvents Control Collections – Phần 27/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_568 | Dynamic Controls & WithEvents Control Collections – Phần 28/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_569 | Dynamic Controls & WithEvents Control Collections – Phần 29/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_570 | Project 19: Capstone Dynamic Controls & WithEvents Control Collections | roadmap_excel_vba_1000.md |
+| excel_vba_day_571 | PivotTable & PivotChart Automation from VBA – Phần 1/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_572 | PivotTable & PivotChart Automation from VBA – Phần 2/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_573 | PivotTable & PivotChart Automation from VBA – Phần 3/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_574 | PivotTable & PivotChart Automation from VBA – Phần 4/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_575 | PivotTable & PivotChart Automation from VBA – Phần 5/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_576 | PivotTable & PivotChart Automation from VBA – Phần 6/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_577 | PivotTable & PivotChart Automation from VBA – Phần 7/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_578 | PivotTable & PivotChart Automation from VBA – Phần 8/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_579 | PivotTable & PivotChart Automation from VBA – Phần 9/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_580 | PivotTable & PivotChart Automation from VBA – Phần 10/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_581 | PivotTable & PivotChart Automation from VBA – Phần 11/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_582 | PivotTable & PivotChart Automation from VBA – Phần 12/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_583 | PivotTable & PivotChart Automation from VBA – Phần 13/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_584 | PivotTable & PivotChart Automation from VBA – Phần 14/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_585 | PivotTable & PivotChart Automation from VBA – Phần 15/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_586 | PivotTable & PivotChart Automation from VBA – Phần 16/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_587 | PivotTable & PivotChart Automation from VBA – Phần 17/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_588 | PivotTable & PivotChart Automation from VBA – Phần 18/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_589 | PivotTable & PivotChart Automation from VBA – Phần 19/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_590 | PivotTable & PivotChart Automation from VBA – Phần 20/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_591 | PivotTable & PivotChart Automation from VBA – Phần 21/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_592 | PivotTable & PivotChart Automation from VBA – Phần 22/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_593 | PivotTable & PivotChart Automation from VBA – Phần 23/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_594 | PivotTable & PivotChart Automation from VBA – Phần 24/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_595 | PivotTable & PivotChart Automation from VBA – Phần 25/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_596 | PivotTable & PivotChart Automation from VBA – Phần 26/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_597 | PivotTable & PivotChart Automation from VBA – Phần 27/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_598 | PivotTable & PivotChart Automation from VBA – Phần 28/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_599 | PivotTable & PivotChart Automation from VBA – Phần 29/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_600 | Project 20: Capstone PivotTable & PivotChart Automation from VBA | roadmap_excel_vba_1000.md |
+| excel_vba_day_601 | Data Model, Slicers & Power Pivot DAX – Phần 1/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_602 | Data Model, Slicers & Power Pivot DAX – Phần 2/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_603 | Data Model, Slicers & Power Pivot DAX – Phần 3/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_604 | Data Model, Slicers & Power Pivot DAX – Phần 4/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_605 | Data Model, Slicers & Power Pivot DAX – Phần 5/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_606 | Data Model, Slicers & Power Pivot DAX – Phần 6/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_607 | Data Model, Slicers & Power Pivot DAX – Phần 7/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_608 | Data Model, Slicers & Power Pivot DAX – Phần 8/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_609 | Data Model, Slicers & Power Pivot DAX – Phần 9/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_610 | Data Model, Slicers & Power Pivot DAX – Phần 10/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_611 | Data Model, Slicers & Power Pivot DAX – Phần 11/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_612 | Data Model, Slicers & Power Pivot DAX – Phần 12/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_613 | Data Model, Slicers & Power Pivot DAX – Phần 13/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_614 | Data Model, Slicers & Power Pivot DAX – Phần 14/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_615 | Data Model, Slicers & Power Pivot DAX – Phần 15/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_616 | Data Model, Slicers & Power Pivot DAX – Phần 16/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_617 | Data Model, Slicers & Power Pivot DAX – Phần 17/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_618 | Data Model, Slicers & Power Pivot DAX – Phần 18/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_619 | Data Model, Slicers & Power Pivot DAX – Phần 19/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_620 | Data Model, Slicers & Power Pivot DAX – Phần 20/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_621 | Data Model, Slicers & Power Pivot DAX – Phần 21/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_622 | Data Model, Slicers & Power Pivot DAX – Phần 22/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_623 | Data Model, Slicers & Power Pivot DAX – Phần 23/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_624 | Data Model, Slicers & Power Pivot DAX – Phần 24/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_625 | Data Model, Slicers & Power Pivot DAX – Phần 25/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_626 | Data Model, Slicers & Power Pivot DAX – Phần 26/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_627 | Data Model, Slicers & Power Pivot DAX – Phần 27/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_628 | Data Model, Slicers & Power Pivot DAX – Phần 28/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_629 | Data Model, Slicers & Power Pivot DAX – Phần 29/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_630 | Project 21: Capstone Data Model, Slicers & Power Pivot DAX | roadmap_excel_vba_1000.md |
+| excel_vba_day_631 | Power Query – Phần 1/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_632 | Power Query – Phần 2/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_633 | Power Query – Phần 3/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_634 | Power Query – Phần 4/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_635 | Power Query – Phần 5/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_636 | Power Query – Phần 6/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_637 | Power Query – Phần 7/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_638 | Power Query – Phần 8/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_639 | Power Query – Phần 9/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_640 | Power Query – Phần 10/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_641 | Power Query – Phần 11/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_642 | Power Query – Phần 12/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_643 | Power Query – Phần 13/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_644 | Power Query – Phần 14/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_645 | Power Query – Phần 15/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_646 | Power Query – Phần 16/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_647 | Power Query – Phần 17/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_648 | Power Query – Phần 18/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_649 | Power Query – Phần 19/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_650 | Power Query – Phần 20/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_651 | Power Query – Phần 21/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_652 | Power Query – Phần 22/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_653 | Power Query – Phần 23/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_654 | Power Query – Phần 24/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_655 | Power Query – Phần 25/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_656 | Power Query – Phần 26/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_657 | Power Query – Phần 27/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_658 | Power Query – Phần 28/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_659 | Power Query – Phần 29/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_660 | Project 22: Capstone Power Query | roadmap_excel_vba_1000.md |
+| excel_vba_day_661 | Advanced Charting Engine, Shapes & Canvas – Phần 1/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_662 | Advanced Charting Engine, Shapes & Canvas – Phần 2/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_663 | Advanced Charting Engine, Shapes & Canvas – Phần 3/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_664 | Advanced Charting Engine, Shapes & Canvas – Phần 4/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_665 | Advanced Charting Engine, Shapes & Canvas – Phần 5/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_666 | Advanced Charting Engine, Shapes & Canvas – Phần 6/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_667 | Advanced Charting Engine, Shapes & Canvas – Phần 7/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_668 | Advanced Charting Engine, Shapes & Canvas – Phần 8/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_669 | Advanced Charting Engine, Shapes & Canvas – Phần 9/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_670 | Advanced Charting Engine, Shapes & Canvas – Phần 10/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_671 | Advanced Charting Engine, Shapes & Canvas – Phần 11/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_672 | Advanced Charting Engine, Shapes & Canvas – Phần 12/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_673 | Advanced Charting Engine, Shapes & Canvas – Phần 13/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_674 | Advanced Charting Engine, Shapes & Canvas – Phần 14/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_675 | Advanced Charting Engine, Shapes & Canvas – Phần 15/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_676 | Advanced Charting Engine, Shapes & Canvas – Phần 16/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_677 | Advanced Charting Engine, Shapes & Canvas – Phần 17/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_678 | Advanced Charting Engine, Shapes & Canvas – Phần 18/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_679 | Advanced Charting Engine, Shapes & Canvas – Phần 19/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_680 | Advanced Charting Engine, Shapes & Canvas – Phần 20/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_681 | Advanced Charting Engine, Shapes & Canvas – Phần 21/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_682 | Advanced Charting Engine, Shapes & Canvas – Phần 22/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_683 | Advanced Charting Engine, Shapes & Canvas – Phần 23/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_684 | Advanced Charting Engine, Shapes & Canvas – Phần 24/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_685 | Advanced Charting Engine, Shapes & Canvas – Phần 25/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_686 | Advanced Charting Engine, Shapes & Canvas – Phần 26/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_687 | Advanced Charting Engine, Shapes & Canvas – Phần 27/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_688 | Advanced Charting Engine, Shapes & Canvas – Phần 28/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_689 | Advanced Charting Engine, Shapes & Canvas – Phần 29/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_690 | Project 23: Capstone Advanced Charting Engine, Shapes & Canvas | roadmap_excel_vba_1000.md |
+| excel_vba_day_691 | Interactive Real-Time Dashboards & Visualizations – Phần 1/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_692 | Interactive Real-Time Dashboards & Visualizations – Phần 2/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_693 | Interactive Real-Time Dashboards & Visualizations – Phần 3/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_694 | Interactive Real-Time Dashboards & Visualizations – Phần 4/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_695 | Interactive Real-Time Dashboards & Visualizations – Phần 5/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_696 | Interactive Real-Time Dashboards & Visualizations – Phần 6/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_697 | Interactive Real-Time Dashboards & Visualizations – Phần 7/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_698 | Interactive Real-Time Dashboards & Visualizations – Phần 8/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_699 | Interactive Real-Time Dashboards & Visualizations – Phần 9/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_700 | Interactive Real-Time Dashboards & Visualizations – Phần 10/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_701 | Interactive Real-Time Dashboards & Visualizations – Phần 11/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_702 | Interactive Real-Time Dashboards & Visualizations – Phần 12/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_703 | Interactive Real-Time Dashboards & Visualizations – Phần 13/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_704 | Interactive Real-Time Dashboards & Visualizations – Phần 14/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_705 | Interactive Real-Time Dashboards & Visualizations – Phần 15/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_706 | Interactive Real-Time Dashboards & Visualizations – Phần 16/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_707 | Interactive Real-Time Dashboards & Visualizations – Phần 17/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_708 | Interactive Real-Time Dashboards & Visualizations – Phần 18/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_709 | Interactive Real-Time Dashboards & Visualizations – Phần 19/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_710 | Interactive Real-Time Dashboards & Visualizations – Phần 20/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_711 | Interactive Real-Time Dashboards & Visualizations – Phần 21/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_712 | Interactive Real-Time Dashboards & Visualizations – Phần 22/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_713 | Interactive Real-Time Dashboards & Visualizations – Phần 23/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_714 | Interactive Real-Time Dashboards & Visualizations – Phần 24/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_715 | Interactive Real-Time Dashboards & Visualizations – Phần 25/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_716 | Interactive Real-Time Dashboards & Visualizations – Phần 26/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_717 | Interactive Real-Time Dashboards & Visualizations – Phần 27/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_718 | Interactive Real-Time Dashboards & Visualizations – Phần 28/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_719 | Interactive Real-Time Dashboards & Visualizations – Phần 29/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_720 | Project 24: Capstone Interactive Real-Time Dashboards & Visualizations | roadmap_excel_vba_1000.md |
+| excel_vba_day_721 | Financial Modeling – Cash Flow, DCF, NPV & IRR – Phần 1/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_722 | Financial Modeling – Cash Flow, DCF, NPV & IRR – Phần 2/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_723 | Financial Modeling – Cash Flow, DCF, NPV & IRR – Phần 3/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_724 | Financial Modeling – Cash Flow, DCF, NPV & IRR – Phần 4/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_725 | Financial Modeling – Cash Flow, DCF, NPV & IRR – Phần 5/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_726 | Financial Modeling – Cash Flow, DCF, NPV & IRR – Phần 6/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_727 | Financial Modeling – Cash Flow, DCF, NPV & IRR – Phần 7/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_728 | Financial Modeling – Cash Flow, DCF, NPV & IRR – Phần 8/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_729 | Financial Modeling – Cash Flow, DCF, NPV & IRR – Phần 9/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_730 | Financial Modeling – Cash Flow, DCF, NPV & IRR – Phần 10/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_731 | Financial Modeling – Cash Flow, DCF, NPV & IRR – Phần 11/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_732 | Financial Modeling – Cash Flow, DCF, NPV & IRR – Phần 12/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_733 | Financial Modeling – Cash Flow, DCF, NPV & IRR – Phần 13/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_734 | Financial Modeling – Cash Flow, DCF, NPV & IRR – Phần 14/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_735 | Financial Modeling – Cash Flow, DCF, NPV & IRR – Phần 15/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_736 | Financial Modeling – Cash Flow, DCF, NPV & IRR – Phần 16/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_737 | Financial Modeling – Cash Flow, DCF, NPV & IRR – Phần 17/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_738 | Financial Modeling – Cash Flow, DCF, NPV & IRR – Phần 18/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_739 | Financial Modeling – Cash Flow, DCF, NPV & IRR – Phần 19/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_740 | Financial Modeling – Cash Flow, DCF, NPV & IRR – Phần 20/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_741 | Financial Modeling – Cash Flow, DCF, NPV & IRR – Phần 21/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_742 | Financial Modeling – Cash Flow, DCF, NPV & IRR – Phần 22/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_743 | Financial Modeling – Cash Flow, DCF, NPV & IRR – Phần 23/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_744 | Financial Modeling – Cash Flow, DCF, NPV & IRR – Phần 24/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_745 | Financial Modeling – Cash Flow, DCF, NPV & IRR – Phần 25/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_746 | Financial Modeling – Cash Flow, DCF, NPV & IRR – Phần 26/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_747 | Financial Modeling – Cash Flow, DCF, NPV & IRR – Phần 27/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_748 | Financial Modeling – Cash Flow, DCF, NPV & IRR – Phần 28/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_749 | Financial Modeling – Cash Flow, DCF, NPV & IRR – Phần 29/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_750 | Project 25: Capstone Financial Modeling – Cash Flow, DCF, NPV & IRR | roadmap_excel_vba_1000.md |
+| excel_vba_day_751 | What-If Analysis, Data Tables, Goal Seek & Solver – Phần 1/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_752 | What-If Analysis, Data Tables, Goal Seek & Solver – Phần 2/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_753 | What-If Analysis, Data Tables, Goal Seek & Solver – Phần 3/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_754 | What-If Analysis, Data Tables, Goal Seek & Solver – Phần 4/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_755 | What-If Analysis, Data Tables, Goal Seek & Solver – Phần 5/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_756 | What-If Analysis, Data Tables, Goal Seek & Solver – Phần 6/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_757 | What-If Analysis, Data Tables, Goal Seek & Solver – Phần 7/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_758 | What-If Analysis, Data Tables, Goal Seek & Solver – Phần 8/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_759 | What-If Analysis, Data Tables, Goal Seek & Solver – Phần 9/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_760 | What-If Analysis, Data Tables, Goal Seek & Solver – Phần 10/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_761 | What-If Analysis, Data Tables, Goal Seek & Solver – Phần 11/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_762 | What-If Analysis, Data Tables, Goal Seek & Solver – Phần 12/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_763 | What-If Analysis, Data Tables, Goal Seek & Solver – Phần 13/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_764 | What-If Analysis, Data Tables, Goal Seek & Solver – Phần 14/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_765 | What-If Analysis, Data Tables, Goal Seek & Solver – Phần 15/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_766 | What-If Analysis, Data Tables, Goal Seek & Solver – Phần 16/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_767 | What-If Analysis, Data Tables, Goal Seek & Solver – Phần 17/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_768 | What-If Analysis, Data Tables, Goal Seek & Solver – Phần 18/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_769 | What-If Analysis, Data Tables, Goal Seek & Solver – Phần 19/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_770 | What-If Analysis, Data Tables, Goal Seek & Solver – Phần 20/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_771 | What-If Analysis, Data Tables, Goal Seek & Solver – Phần 21/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_772 | What-If Analysis, Data Tables, Goal Seek & Solver – Phần 22/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_773 | What-If Analysis, Data Tables, Goal Seek & Solver – Phần 23/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_774 | What-If Analysis, Data Tables, Goal Seek & Solver – Phần 24/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_775 | What-If Analysis, Data Tables, Goal Seek & Solver – Phần 25/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_776 | What-If Analysis, Data Tables, Goal Seek & Solver – Phần 26/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_777 | What-If Analysis, Data Tables, Goal Seek & Solver – Phần 27/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_778 | What-If Analysis, Data Tables, Goal Seek & Solver – Phần 28/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_779 | What-If Analysis, Data Tables, Goal Seek & Solver – Phần 29/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_780 | Project 26: Capstone What-If Analysis, Data Tables, Goal Seek & Solver | roadmap_excel_vba_1000.md |
+| excel_vba_day_781 | Monte Carlo Simulation & Risk Analysis – Phần 1/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_782 | Monte Carlo Simulation & Risk Analysis – Phần 2/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_783 | Monte Carlo Simulation & Risk Analysis – Phần 3/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_784 | Monte Carlo Simulation & Risk Analysis – Phần 4/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_785 | Monte Carlo Simulation & Risk Analysis – Phần 5/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_786 | Monte Carlo Simulation & Risk Analysis – Phần 6/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_787 | Monte Carlo Simulation & Risk Analysis – Phần 7/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_788 | Monte Carlo Simulation & Risk Analysis – Phần 8/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_789 | Monte Carlo Simulation & Risk Analysis – Phần 9/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_790 | Monte Carlo Simulation & Risk Analysis – Phần 10/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_791 | Monte Carlo Simulation & Risk Analysis – Phần 11/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_792 | Monte Carlo Simulation & Risk Analysis – Phần 12/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_793 | Monte Carlo Simulation & Risk Analysis – Phần 13/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_794 | Monte Carlo Simulation & Risk Analysis – Phần 14/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_795 | Monte Carlo Simulation & Risk Analysis – Phần 15/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_796 | Monte Carlo Simulation & Risk Analysis – Phần 16/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_797 | Monte Carlo Simulation & Risk Analysis – Phần 17/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_798 | Monte Carlo Simulation & Risk Analysis – Phần 18/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_799 | Monte Carlo Simulation & Risk Analysis – Phần 19/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_800 | Monte Carlo Simulation & Risk Analysis – Phần 20/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_801 | Monte Carlo Simulation & Risk Analysis – Phần 21/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_802 | Monte Carlo Simulation & Risk Analysis – Phần 22/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_803 | Monte Carlo Simulation & Risk Analysis – Phần 23/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_804 | Monte Carlo Simulation & Risk Analysis – Phần 24/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_805 | Monte Carlo Simulation & Risk Analysis – Phần 25/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_806 | Monte Carlo Simulation & Risk Analysis – Phần 26/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_807 | Monte Carlo Simulation & Risk Analysis – Phần 27/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_808 | Monte Carlo Simulation & Risk Analysis – Phần 28/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_809 | Monte Carlo Simulation & Risk Analysis – Phần 29/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_810 | Project 27: Capstone Monte Carlo Simulation & Risk Analysis | roadmap_excel_vba_1000.md |
+| excel_vba_day_811 | Hardware Interfacing – Serial COM Port RS232, PLC & Sensors – Phần 1/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_812 | Hardware Interfacing – Serial COM Port RS232, PLC & Sensors – Phần 2/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_813 | Hardware Interfacing – Serial COM Port RS232, PLC & Sensors – Phần 3/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_814 | Hardware Interfacing – Serial COM Port RS232, PLC & Sensors – Phần 4/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_815 | Hardware Interfacing – Serial COM Port RS232, PLC & Sensors – Phần 5/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_816 | Hardware Interfacing – Serial COM Port RS232, PLC & Sensors – Phần 6/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_817 | Hardware Interfacing – Serial COM Port RS232, PLC & Sensors – Phần 7/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_818 | Hardware Interfacing – Serial COM Port RS232, PLC & Sensors – Phần 8/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_819 | Hardware Interfacing – Serial COM Port RS232, PLC & Sensors – Phần 9/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_820 | Hardware Interfacing – Serial COM Port RS232, PLC & Sensors – Phần 10/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_821 | Hardware Interfacing – Serial COM Port RS232, PLC & Sensors – Phần 11/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_822 | Hardware Interfacing – Serial COM Port RS232, PLC & Sensors – Phần 12/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_823 | Hardware Interfacing – Serial COM Port RS232, PLC & Sensors – Phần 13/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_824 | Hardware Interfacing – Serial COM Port RS232, PLC & Sensors – Phần 14/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_825 | Hardware Interfacing – Serial COM Port RS232, PLC & Sensors – Phần 15/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_826 | Hardware Interfacing – Serial COM Port RS232, PLC & Sensors – Phần 16/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_827 | Hardware Interfacing – Serial COM Port RS232, PLC & Sensors – Phần 17/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_828 | Hardware Interfacing – Serial COM Port RS232, PLC & Sensors – Phần 18/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_829 | Hardware Interfacing – Serial COM Port RS232, PLC & Sensors – Phần 19/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_830 | Hardware Interfacing – Serial COM Port RS232, PLC & Sensors – Phần 20/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_831 | Hardware Interfacing – Serial COM Port RS232, PLC & Sensors – Phần 21/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_832 | Hardware Interfacing – Serial COM Port RS232, PLC & Sensors – Phần 22/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_833 | Hardware Interfacing – Serial COM Port RS232, PLC & Sensors – Phần 23/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_834 | Hardware Interfacing – Serial COM Port RS232, PLC & Sensors – Phần 24/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_835 | Hardware Interfacing – Serial COM Port RS232, PLC & Sensors – Phần 25/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_836 | Hardware Interfacing – Serial COM Port RS232, PLC & Sensors – Phần 26/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_837 | Hardware Interfacing – Serial COM Port RS232, PLC & Sensors – Phần 27/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_838 | Hardware Interfacing – Serial COM Port RS232, PLC & Sensors – Phần 28/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_839 | Hardware Interfacing – Serial COM Port RS232, PLC & Sensors – Phần 29/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_840 | Project 28: Capstone Hardware Interfacing – Serial COM Port RS232, PLC & Sensors | roadmap_excel_vba_1000.md |
+| excel_vba_day_841 | Windows API – GDI, Subclassing, Registry & Multi-threading – Phần 1/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_842 | Windows API – GDI, Subclassing, Registry & Multi-threading – Phần 2/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_843 | Windows API – GDI, Subclassing, Registry & Multi-threading – Phần 3/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_844 | Windows API – GDI, Subclassing, Registry & Multi-threading – Phần 4/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_845 | Windows API – GDI, Subclassing, Registry & Multi-threading – Phần 5/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_846 | Windows API – GDI, Subclassing, Registry & Multi-threading – Phần 6/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_847 | Windows API – GDI, Subclassing, Registry & Multi-threading – Phần 7/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_848 | Windows API – GDI, Subclassing, Registry & Multi-threading – Phần 8/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_849 | Windows API – GDI, Subclassing, Registry & Multi-threading – Phần 9/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_850 | Windows API – GDI, Subclassing, Registry & Multi-threading – Phần 10/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_851 | Windows API – GDI, Subclassing, Registry & Multi-threading – Phần 11/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_852 | Windows API – GDI, Subclassing, Registry & Multi-threading – Phần 12/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_853 | Windows API – GDI, Subclassing, Registry & Multi-threading – Phần 13/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_854 | Windows API – GDI, Subclassing, Registry & Multi-threading – Phần 14/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_855 | Windows API – GDI, Subclassing, Registry & Multi-threading – Phần 15/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_856 | Windows API – GDI, Subclassing, Registry & Multi-threading – Phần 16/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_857 | Windows API – GDI, Subclassing, Registry & Multi-threading – Phần 17/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_858 | Windows API – GDI, Subclassing, Registry & Multi-threading – Phần 18/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_859 | Windows API – GDI, Subclassing, Registry & Multi-threading – Phần 19/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_860 | Windows API – GDI, Subclassing, Registry & Multi-threading – Phần 20/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_861 | Windows API – GDI, Subclassing, Registry & Multi-threading – Phần 21/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_862 | Windows API – GDI, Subclassing, Registry & Multi-threading – Phần 22/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_863 | Windows API – GDI, Subclassing, Registry & Multi-threading – Phần 23/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_864 | Windows API – GDI, Subclassing, Registry & Multi-threading – Phần 24/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_865 | Windows API – GDI, Subclassing, Registry & Multi-threading – Phần 25/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_866 | Windows API – GDI, Subclassing, Registry & Multi-threading – Phần 26/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_867 | Windows API – GDI, Subclassing, Registry & Multi-threading – Phần 27/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_868 | Windows API – GDI, Subclassing, Registry & Multi-threading – Phần 28/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_869 | Windows API – GDI, Subclassing, Registry & Multi-threading – Phần 29/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_870 | Project 29: Capstone Windows API – GDI, Subclassing, Registry & Multi-threading | roadmap_excel_vba_1000.md |
+| excel_vba_day_871 | Web Scraping – Selenium & Chrome DevTools Protocol – Phần 1/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_872 | Web Scraping – Selenium & Chrome DevTools Protocol – Phần 2/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_873 | Web Scraping – Selenium & Chrome DevTools Protocol – Phần 3/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_874 | Web Scraping – Selenium & Chrome DevTools Protocol – Phần 4/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_875 | Web Scraping – Selenium & Chrome DevTools Protocol – Phần 5/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_876 | Web Scraping – Selenium & Chrome DevTools Protocol – Phần 6/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_877 | Web Scraping – Selenium & Chrome DevTools Protocol – Phần 7/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_878 | Web Scraping – Selenium & Chrome DevTools Protocol – Phần 8/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_879 | Web Scraping – Selenium & Chrome DevTools Protocol – Phần 9/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_880 | Web Scraping – Selenium & Chrome DevTools Protocol – Phần 10/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_881 | Web Scraping – Selenium & Chrome DevTools Protocol – Phần 11/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_882 | Web Scraping – Selenium & Chrome DevTools Protocol – Phần 12/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_883 | Web Scraping – Selenium & Chrome DevTools Protocol – Phần 13/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_884 | Web Scraping – Selenium & Chrome DevTools Protocol – Phần 14/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_885 | Web Scraping – Selenium & Chrome DevTools Protocol – Phần 15/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_886 | Web Scraping – Selenium & Chrome DevTools Protocol – Phần 16/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_887 | Web Scraping – Selenium & Chrome DevTools Protocol – Phần 17/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_888 | Web Scraping – Selenium & Chrome DevTools Protocol – Phần 18/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_889 | Web Scraping – Selenium & Chrome DevTools Protocol – Phần 19/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_890 | Web Scraping – Selenium & Chrome DevTools Protocol – Phần 20/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_891 | Web Scraping – Selenium & Chrome DevTools Protocol – Phần 21/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_892 | Web Scraping – Selenium & Chrome DevTools Protocol – Phần 22/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_893 | Web Scraping – Selenium & Chrome DevTools Protocol – Phần 23/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_894 | Web Scraping – Selenium & Chrome DevTools Protocol – Phần 24/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_895 | Web Scraping – Selenium & Chrome DevTools Protocol – Phần 25/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_896 | Web Scraping – Selenium & Chrome DevTools Protocol – Phần 26/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_897 | Web Scraping – Selenium & Chrome DevTools Protocol – Phần 27/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_898 | Web Scraping – Selenium & Chrome DevTools Protocol – Phần 28/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_899 | Web Scraping – Selenium & Chrome DevTools Protocol – Phần 29/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_900 | Project 30: Capstone Web Scraping – Selenium & Chrome DevTools Protocol | roadmap_excel_vba_1000.md |
+| excel_vba_day_901 | REST API, OAuth2, Webhooks & Office Interop – Phần 1/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_902 | REST API, OAuth2, Webhooks & Office Interop – Phần 2/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_903 | REST API, OAuth2, Webhooks & Office Interop – Phần 3/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_904 | REST API, OAuth2, Webhooks & Office Interop – Phần 4/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_905 | REST API, OAuth2, Webhooks & Office Interop – Phần 5/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_906 | REST API, OAuth2, Webhooks & Office Interop – Phần 6/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_907 | REST API, OAuth2, Webhooks & Office Interop – Phần 7/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_908 | REST API, OAuth2, Webhooks & Office Interop – Phần 8/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_909 | REST API, OAuth2, Webhooks & Office Interop – Phần 9/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_910 | REST API, OAuth2, Webhooks & Office Interop – Phần 10/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_911 | REST API, OAuth2, Webhooks & Office Interop – Phần 11/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_912 | REST API, OAuth2, Webhooks & Office Interop – Phần 12/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_913 | REST API, OAuth2, Webhooks & Office Interop – Phần 13/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_914 | REST API, OAuth2, Webhooks & Office Interop – Phần 14/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_915 | REST API, OAuth2, Webhooks & Office Interop – Phần 15/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_916 | REST API, OAuth2, Webhooks & Office Interop – Phần 16/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_917 | REST API, OAuth2, Webhooks & Office Interop – Phần 17/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_918 | REST API, OAuth2, Webhooks & Office Interop – Phần 18/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_919 | REST API, OAuth2, Webhooks & Office Interop – Phần 19/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_920 | REST API, OAuth2, Webhooks & Office Interop – Phần 20/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_921 | REST API, OAuth2, Webhooks & Office Interop – Phần 21/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_922 | REST API, OAuth2, Webhooks & Office Interop – Phần 22/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_923 | REST API, OAuth2, Webhooks & Office Interop – Phần 23/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_924 | REST API, OAuth2, Webhooks & Office Interop – Phần 24/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_925 | REST API, OAuth2, Webhooks & Office Interop – Phần 25/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_926 | REST API, OAuth2, Webhooks & Office Interop – Phần 26/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_927 | REST API, OAuth2, Webhooks & Office Interop – Phần 27/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_928 | REST API, OAuth2, Webhooks & Office Interop – Phần 28/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_929 | REST API, OAuth2, Webhooks & Office Interop – Phần 29/30 | roadmap_excel_vba_1000.md |
+| excel_vba_day_930 | Project 31: Capstone REST API, OAuth2, Webhooks & Office Interop | roadmap_excel_vba_1000.md |
+| excel_vba_day_931 | Commercial Add-in – Phần 1/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_932 | Commercial Add-in – Phần 2/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_933 | Commercial Add-in – Phần 3/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_934 | Commercial Add-in – Phần 4/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_935 | Commercial Add-in – Phần 5/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_936 | Commercial Add-in – Phần 6/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_937 | Commercial Add-in – Phần 7/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_938 | Commercial Add-in – Phần 8/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_939 | Commercial Add-in – Phần 9/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_940 | Commercial Add-in – Phần 10/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_941 | Commercial Add-in – Phần 11/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_942 | Commercial Add-in – Phần 12/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_943 | Commercial Add-in – Phần 13/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_944 | Commercial Add-in – Phần 14/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_945 | Commercial Add-in – Phần 15/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_946 | Commercial Add-in – Phần 16/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_947 | Commercial Add-in – Phần 17/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_948 | Commercial Add-in – Phần 18/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_949 | Commercial Add-in – Phần 19/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_950 | Commercial Add-in – Phần 20/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_951 | Commercial Add-in – Phần 21/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_952 | Commercial Add-in – Phần 22/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_953 | Commercial Add-in – Phần 23/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_954 | Commercial Add-in – Phần 24/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_955 | Commercial Add-in – Phần 25/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_956 | Commercial Add-in – Phần 26/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_957 | Commercial Add-in – Phần 27/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_958 | Commercial Add-in – Phần 28/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_959 | Commercial Add-in – Phần 29/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_960 | Commercial Add-in – Phần 30/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_961 | Commercial Add-in – Phần 31/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_962 | Commercial Add-in – Phần 32/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_963 | Commercial Add-in – Phần 33/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_964 | Commercial Add-in – Phần 34/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_965 | Project 32: Capstone Commercial Add-in | roadmap_excel_vba_1000.md |
+| excel_vba_day_966 | Generative AI Async UDFs & Master Capstone System – Phần 1/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_967 | Generative AI Async UDFs & Master Capstone System – Phần 2/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_968 | Generative AI Async UDFs & Master Capstone System – Phần 3/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_969 | Generative AI Async UDFs & Master Capstone System – Phần 4/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_970 | Generative AI Async UDFs & Master Capstone System – Phần 5/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_971 | Generative AI Async UDFs & Master Capstone System – Phần 6/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_972 | Generative AI Async UDFs & Master Capstone System – Phần 7/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_973 | Generative AI Async UDFs & Master Capstone System – Phần 8/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_974 | Generative AI Async UDFs & Master Capstone System – Phần 9/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_975 | Generative AI Async UDFs & Master Capstone System – Phần 10/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_976 | Generative AI Async UDFs & Master Capstone System – Phần 11/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_977 | Generative AI Async UDFs & Master Capstone System – Phần 12/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_978 | Generative AI Async UDFs & Master Capstone System – Phần 13/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_979 | Generative AI Async UDFs & Master Capstone System – Phần 14/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_980 | Generative AI Async UDFs & Master Capstone System – Phần 15/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_981 | Generative AI Async UDFs & Master Capstone System – Phần 16/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_982 | Generative AI Async UDFs & Master Capstone System – Phần 17/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_983 | Generative AI Async UDFs & Master Capstone System – Phần 18/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_984 | Generative AI Async UDFs & Master Capstone System – Phần 19/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_985 | Generative AI Async UDFs & Master Capstone System – Phần 20/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_986 | Generative AI Async UDFs & Master Capstone System – Phần 21/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_987 | Generative AI Async UDFs & Master Capstone System – Phần 22/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_988 | Generative AI Async UDFs & Master Capstone System – Phần 23/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_989 | Generative AI Async UDFs & Master Capstone System – Phần 24/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_990 | Generative AI Async UDFs & Master Capstone System – Phần 25/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_991 | Generative AI Async UDFs & Master Capstone System – Phần 26/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_992 | Generative AI Async UDFs & Master Capstone System – Phần 27/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_993 | Generative AI Async UDFs & Master Capstone System – Phần 28/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_994 | Generative AI Async UDFs & Master Capstone System – Phần 29/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_995 | Generative AI Async UDFs & Master Capstone System – Phần 30/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_996 | Generative AI Async UDFs & Master Capstone System – Phần 31/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_997 | Generative AI Async UDFs & Master Capstone System – Phần 32/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_998 | Generative AI Async UDFs & Master Capstone System – Phần 33/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_999 | Generative AI Async UDFs & Master Capstone System – Phần 34/35 | roadmap_excel_vba_1000.md |
+| excel_vba_day_1000 | Project 33: Capstone Generative AI Async UDFs & Master Capstone System | roadmap_excel_vba_1000.md |

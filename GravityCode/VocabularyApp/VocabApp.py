@@ -10,6 +10,7 @@ import os
 import json
 import csv
 import io
+import re
 import threading
 import webbrowser
 import tkinter as tk
@@ -1580,7 +1581,6 @@ class CourseGenerationDialog(ctk.CTkToplevel):
 
     def _parse_target_days(self) -> int | None:
         val = self.cb_duration.get() or ""
-        import re
         m = re.search(r"(\d+)\s*ngày", val)
         if m:
             return int(m.group(1))
@@ -1589,8 +1589,6 @@ class CourseGenerationDialog(ctk.CTkToplevel):
     def _start(self):
         if self._running:
             return
-        # Khóa học AI là hệ thống học HOÀN TOÀN ĐỘC LẬP: không đọc DB từ vựng,
-        # AI tự quyết số ngày + giáo trình theo hành trình 5 giai đoạn.
         try:
             wpd = int(self.cb_wpd.get())
         except ValueError:
@@ -1637,6 +1635,329 @@ class CourseGenerationDialog(ctk.CTkToplevel):
         self.btn_stop.configure(state="disabled")
         if success:
             self.on_finished()
+
+
+def _short_level_name(level_name: str, phase_name: str = "") -> str:
+    """Rút gọn tên cấp độ để hiển thị gọn gàng trên thẻ/nhãn."""
+    # Ưu tiên 1: Ánh xạ chuẩn theo Phase kiến thức thực tế của bài học
+    plow = (phase_name or "").lower()
+    if "nền tảng" in plow or "phát âm" in plow or "chữ cái" in plow:
+        return "Người mới"
+    if "giao tiếp cơ bản" in plow:
+        return "Sơ cấp"
+    if "trung cấp" in plow or "tự tin" in plow:
+        return "Trung cấp"
+    if "cao cấp" in plow or "học thuật" in plow:
+        return "Cao cấp"
+    if "bản xứ" in plow:
+        return "Bản xứ"
+
+    # Ưu tiên 2: Xét theo level_name
+    low = (level_name or "").lower()
+    if "người mới" in low or "bắt đầu" in low:
+        return "Người mới"
+    if "sơ cấp" in low:
+        return "Sơ cấp"
+    if "trung cấp" in low:
+        return "Trung cấp"
+    if "cao cấp" in low:
+        return "Cao cấp"
+    if "bản xứ" in low:
+        return "Bản xứ"
+    return level_name[:10] if level_name else ""
+
+
+class DaySelectorDialog(ctk.CTkToplevel):
+    """Cửa sổ chọn ngày siêu tốc (High-Performance Treeview), tìm kiếm tức thì và phân nhóm theo Cấp độ."""
+
+    def __init__(self, parent, course, progress, on_select_day):
+        super().__init__(parent)
+        self.course = course or {}
+        self.progress = progress or {}
+        self.on_select_day = on_select_day
+        self.title("📑 Toàn Bộ Lộ Trình Khóa Học AI")
+        self.geometry("820x620")
+        self.minsize(700, 480)
+        self.configure(fg_color=C["bg"])
+        self.transient(parent)
+        self.grab_set()
+
+        # Header tiêu đề & tổng quan
+        top = ctk.CTkFrame(self, fg_color=C["sidebar"], height=54, corner_radius=0)
+        top.pack(fill="x")
+        top.pack_propagate(False)
+        lbl(top, "📑 Toàn Bộ Lộ Trình Khóa Học AI", 16, "bold", C["accent"]).pack(side="left", padx=16)
+
+        days_all = self.course.get("days", [])
+        done_set = set(self.progress.get("completed_days", []))
+        self.lbl_stats = lbl(top, f"Tổng số: {len(days_all)} ngày · Đã hoàn thành {len(done_set)}/{len(days_all)}", 12, color=C["muted"])
+        self.lbl_stats.pack(side="right", padx=16)
+
+        # Ô Tìm kiếm nhanh
+        search_box = ctk.CTkFrame(self, fg_color="transparent", height=44)
+        search_box.pack(fill="x", padx=16, pady=(10, 6))
+        self.var_search = tk.StringVar(value="")
+        self.var_search.trace_add("write", lambda *_: self._filter_tree())
+        self.ent_search = ctk.CTkEntry(
+            search_box, textvariable=self.var_search,
+            placeholder_text="🔍 Tìm kiếm nhanh theo số ngày, chủ đề, trình độ, ngữ pháp...",
+            fg_color=C["card"], text_color=C["text"], font=("Segoe UI", 13), height=36
+        )
+        self.ent_search.pack(side="left", fill="x", expand=True, padx=(0, 8))
+        btn(search_box, "Xóa lọc", C["card2"], C["text"], w=80, h=36,
+            cmd=lambda: self.var_search.set("")).pack(side="right")
+
+        # Khung bảng Treeview siêu tốc
+        table_frame = ctk.CTkFrame(self, fg_color="transparent")
+        table_frame.pack(fill="both", expand=True, padx=16, pady=(0, 8))
+
+        style = ttk.Style()
+        style.theme_use("default")
+        style.configure("DayList.Treeview", background=C["card"], foreground=C["text"],
+                        fieldbackground=C["card"], rowheight=32, borderwidth=0, font=("Segoe UI", 11))
+        style.map('DayList.Treeview', background=[('selected', "#3700B3")], foreground=[('selected', '#FFFFFF')])
+        style.configure("DayList.Treeview.Heading", background=C["card2"], foreground=C["accent"],
+                        font=('Segoe UI', 11, 'bold'), borderwidth=0)
+
+        cols = [("day", "Ngày", 80), ("level", "Trình độ", 110), ("phase", "Giai đoạn", 130),
+                ("topic", "Chủ đề bài học", 350), ("status", "Trạng thái", 110)]
+
+        self.tree = ttk.Treeview(table_frame, style="DayList.Treeview", show='headings', columns=[c[0] for c in cols])
+        vsb = ttk.Scrollbar(table_frame, orient="vertical", command=self.tree.yview)
+        self.tree.configure(yscrollcommand=vsb.set)
+        vsb.pack(side="right", fill="y")
+        self.tree.pack(side="left", fill="both", expand=True)
+
+        for col_id, col_name, width in cols:
+            self.tree.heading(col_id, text=col_name, anchor="center" if col_id in ("day", "status") else "w")
+            self.tree.column(col_id, width=width, anchor="center" if col_id in ("day", "status") else "w")
+
+        self.tree.bind("<Double-1>", lambda _e: self._on_choose_selected())
+        self.tree.bind("<Return>", lambda _e: self._on_choose_selected())
+
+        # Action bar bottom
+        bottom_bar = ctk.CTkFrame(self, fg_color=C["sidebar"], height=50, corner_radius=0)
+        bottom_bar.pack(fill="x")
+        bottom_bar.pack_propagate(False)
+
+        lbl(bottom_bar, "💡 Mẹo: Nhấp đúp vào dòng để vào học ngay lập tức", 12, color=C["muted"]).pack(side="left", padx=16)
+        btn(bottom_bar, "Học ngày đã chọn ➔", C["success"], "#018786", w=170, h=34,
+            cmd=self._on_choose_selected).pack(side="right", padx=16, pady=8)
+
+        self._filter_tree()
+        self.ent_search.focus_set()
+
+    def _filter_tree(self):
+        self.tree.delete(*self.tree.get_children())
+        days = sorted(self.course.get("days", []), key=lambda d: int(d.get("day", 0)))
+        if not days:
+            return
+
+        query = self.var_search.get().strip().lower()
+        done_set = set(self.progress.get("completed_days", []))
+        scores = self.progress.get("quiz_scores", {})
+        default_lvl = self.course.get("level", "")
+
+        for d in days:
+            day_num = int(d.get("day", 0))
+            topic = (d.get("topic") or d.get("title") or "—").strip()
+            phase = (d.get("phase") or "").strip()
+            lvl = (d.get("level") or default_lvl or "").strip()
+            short_lvl = _short_level_name(lvl, phase)
+
+            if query:
+                search_text = f"ngày {day_num} {day_num} {topic} {phase} {lvl} {short_lvl}".lower()
+                if query not in search_text:
+                    continue
+
+            is_done = day_num in done_set
+            score = scores.get(str(day_num), {}).get("score")
+            st_text = f"✅ Xong ({score}%)" if (is_done and score is not None) else ("✅ Xong" if is_done else "⏳ Chưa")
+
+            self.tree.insert("", "end", iid=str(day_num), values=(
+                f"Ngày {day_num}",
+                f"[{short_lvl}]" if short_lvl else "—",
+                phase or "—",
+                topic,
+                st_text
+            ))
+
+    def _on_choose_selected(self):
+        sel = self.tree.selection()
+        if not sel:
+            return
+        try:
+            day_num = int(sel[0])
+            self.on_select_day(day_num)
+            self.destroy()
+        except ValueError:
+            pass
+
+
+class ScrollableDayDropdown(ctk.CTkFrame):
+    """Thanh chọn ngày tùy biến siêu tốc (Ultra-Fast C-Engine Listbox), kéo chuột mượt mà và tìm kiếm tức thì."""
+
+    def __init__(self, parent, on_select, width=320, height=34):
+        super().__init__(parent, fg_color=C["card"], border_color=C["accent"], border_width=1, corner_radius=8, width=width, height=height)
+        self.pack_propagate(False)
+        self.on_select = on_select
+        self._current_text = "—"
+        self._items = []  # list of tuples: (day_num, full_label, short_lvl, is_done)
+        self._filtered_items = []
+        self._popup = None
+
+        # Text label
+        self.lbl_text = ctk.CTkLabel(
+            self, text="—", font=("Segoe UI", 12),
+            text_color=C["text"], anchor="w", cursor="hand2"
+        )
+        self.lbl_text.pack(side="left", fill="both", expand=True, padx=(10, 2))
+
+        # Arrow indicator
+        self.lbl_arrow = ctk.CTkLabel(
+            self, text="▾", font=("Segoe UI", 14, "bold"),
+            text_color=C["accent"], width=24, cursor="hand2"
+        )
+        self.lbl_arrow.pack(side="right", padx=(0, 6))
+
+        # Click handlers
+        for w in (self, self.lbl_text, self.lbl_arrow):
+            w.bind("<Button-1>", lambda _e: self.toggle_dropdown())
+            w.bind("<Enter>", lambda _e: self.configure(border_color=C["accent2"]))
+            w.bind("<Leave>", lambda _e: self.configure(border_color=C["accent"]))
+
+    def set_items(self, items: list):
+        """items: list of (day_num, full_label, short_lvl, is_done)"""
+        self._items = items
+
+    def set(self, text: str):
+        self._current_text = text
+        disp = text if len(text) <= 38 else text[:35] + "..."
+        self.lbl_text.configure(text=disp)
+
+    def get(self) -> str:
+        return self._current_text
+
+    def toggle_dropdown(self):
+        if self._popup and self._popup.winfo_exists():
+            self._close_popup()
+            return
+        self.open_dropdown()
+
+    def open_dropdown(self):
+        if not self._items:
+            return
+        if self._popup and self._popup.winfo_exists():
+            self._close_popup()
+
+        self.update_idletasks()
+        rx = self.winfo_rootx()
+        ry = self.winfo_rooty() + self.winfo_height() + 2
+        w = max(self.winfo_width(), 420)
+        h = 320
+
+        top = self.winfo_toplevel()
+        self._popup = ctk.CTkToplevel(top)
+        self._popup.withdraw()
+        self._popup.overrideredirect(True)
+        self._popup.geometry(f"{w}x{h}+{rx}+{ry}")
+        self._popup.configure(fg_color=C["card2"])
+
+        container = ctk.CTkFrame(self._popup, fg_color=C["card"], border_color=C["accent"], border_width=1, corner_radius=8)
+        container.pack(fill="both", expand=True)
+
+        # Search bar
+        search_frame = ctk.CTkFrame(container, fg_color="transparent", height=38)
+        search_frame.pack(fill="x", padx=6, pady=(6, 4))
+        search_frame.pack_propagate(False)
+
+        var_filter = tk.StringVar(value="")
+        ent_filter = ctk.CTkEntry(
+            search_frame, textvariable=var_filter,
+            placeholder_text="🔍 Gõ số ngày hoặc tên chủ đề để lọc nhanh...",
+            fg_color=C["sidebar"], text_color=C["text"],
+            font=("Segoe UI", 12), height=30, corner_radius=6
+        )
+        ent_filter.pack(fill="both", expand=True)
+
+        # List frame with native Listbox + Scrollbar (0 lag, instant 60fps)
+        list_frame = ctk.CTkFrame(container, fg_color=C["sidebar"], corner_radius=6)
+        list_frame.pack(fill="both", expand=True, padx=6, pady=(0, 6))
+
+        sb = ttk.Scrollbar(list_frame, orient="vertical")
+        sb.pack(side="right", fill="y")
+
+        lb = tk.Listbox(
+            list_frame, bg=C["sidebar"], fg=C["text"],
+            selectbackground=C["accent"], selectforeground="#000000",
+            activestyle="none", font=("Segoe UI", 11),
+            highlightthickness=0, borderwidth=0,
+            yscrollcommand=sb.set, height=10
+        )
+        lb.pack(side="left", fill="both", expand=True, padx=(4, 0), pady=4)
+        sb.config(command=lb.yview)
+
+        def _update_listbox(*_):
+            lb.delete(0, "end")
+            q = var_filter.get().strip().lower()
+            self._filtered_items = []
+            selected_idx = 0
+
+            for item in self._items:
+                day_num, full_label, short_lvl, is_done = item
+                if q:
+                    st = f"ngày {day_num} {day_num} {full_label} {short_lvl}".lower()
+                    if q not in st:
+                        continue
+                self._filtered_items.append(item)
+                lb.insert("end", f"  {full_label}")
+                if f"Ngày {day_num}" in self._current_text and f"Ngày {day_num} " in self._current_text + " ":
+                    selected_idx = len(self._filtered_items) - 1
+
+            if self._filtered_items:
+                lb.selection_set(selected_idx)
+                lb.see(selected_idx)
+
+        var_filter.trace_add("write", _update_listbox)
+        _update_listbox()
+
+        def _on_select_item(event=None):
+            sel = lb.curselection()
+            if sel and sel[0] < len(self._filtered_items):
+                day_num, full_label, _short_lvl, _is_done = self._filtered_items[sel[0]]
+                self._choose(day_num, full_label)
+
+        lb.bind("<Double-Button-1>", _on_select_item)
+        lb.bind("<Return>", _on_select_item)
+        ent_filter.bind("<Return>", _on_select_item)
+        ent_filter.bind("<Down>", lambda _e: (lb.focus_set(), lb.selection_set(0) if not lb.curselection() else None))
+
+        def _on_focus_out(event=None):
+            if self._popup and self._popup.winfo_exists():
+                x, y = self._popup.winfo_pointerxy()
+                px = self._popup.winfo_rootx()
+                py = self._popup.winfo_rooty()
+                pw = self._popup.winfo_width()
+                ph = self._popup.winfo_height()
+                if not (px <= x <= px + pw and py <= y <= py + ph):
+                    self._close_popup()
+
+        self._popup.bind("<FocusOut>", _on_focus_out)
+        self._popup.bind("<Escape>", lambda _e: self._close_popup())
+        self._popup.deiconify()
+        self._popup.lift()
+        ent_filter.focus_set()
+
+    def _choose(self, day_num: int, label: str):
+        self.set(label)
+        self._close_popup()
+        if self.on_select:
+            self.on_select(day_num)
+
+    def _close_popup(self):
+        if self._popup and self._popup.winfo_exists():
+            self._popup.destroy()
+            self._popup = None
 
 
 class StudyTab(ctk.CTkFrame):
@@ -1705,24 +2026,33 @@ class StudyTab(ctk.CTkFrame):
 
         ctop = ctk.CTkFrame(self.course_frame, fg_color="transparent", height=44)
         ctop.pack(fill="x", padx=14, pady=(8, 0))
-        lbl(ctop, "Ngày:", 13, color=C["accent"]).pack(side="left", padx=(0, 6))
-        self.cb_day = combo(ctop, ["—"], width=340)
-        self.cb_day.configure(command=lambda _c: self._load_selected_day())
+        btn(ctop, "◀ Trước", C["card2"], C["accent"], w=68, h=32, cmd=self._prev_day).pack(side="left", padx=(0, 4))
+
+        lbl(ctop, "Ngày:", 13, color=C["accent"]).pack(side="left", padx=(2, 2))
+        self.ent_jump_day = ctk.CTkEntry(ctop, width=46, height=32, font=("Segoe UI", 12, "bold"), justify="center")
+        self.ent_jump_day.pack(side="left", padx=(2, 2))
+        self.ent_jump_day.bind("<Return>", lambda _e: self._on_jump_day())
+        self.lbl_total_days = lbl(ctop, "/ 0", 12, color=C["muted"])
+        self.lbl_total_days.pack(side="left", padx=(0, 4))
+        btn(ctop, "➔", C["card2"], C["accent"], w=36, h=32, cmd=self._on_jump_day).pack(side="left", padx=(0, 6))
+
+        self.cb_day = ScrollableDayDropdown(ctop, on_select=self._select_day_by_num, width=320, height=32)
         self.cb_day.pack(side="left")
+        btn(ctop, "Sau ▶", C["card2"], C["accent"], w=68, h=32, cmd=self._next_day).pack(side="left", padx=(4, 8))
+        btn(ctop, "📑 Danh sách kéo cuộn", C["card2"], C["accent"], w=160, h=32,
+            cmd=self._open_day_selector_dialog).pack(side="left", padx=(0, 8))
         self.lbl_day_status = lbl(ctop, "", 12, color=C["success"])
-        self.lbl_day_status.pack(side="left", padx=14)
+        self.lbl_day_status.pack(side="left", padx=4)
 
         cbody = ctk.CTkFrame(self.course_frame, fg_color="transparent")
         cbody.pack(fill="both", expand=True, padx=14, pady=6)
 
-        scroll = ctk.CTkScrollableFrame(cbody, fg_color=C["card"], corner_radius=10)
-        scroll.pack(side="left", fill="both", expand=True, padx=(0, 8))
-        self.lesson_text = ctk.CTkTextbox(scroll, fg_color=C["card"], text_color=C["text"],
-                                          font=("Consolas", 14), wrap="word", height=500)
-        self.lesson_text.pack(fill="both", expand=True, padx=6, pady=6)
+        self.lesson_text = ctk.CTkTextbox(cbody, fg_color=C["card"], text_color=C["text"],
+                                          font=("Consolas", 14), wrap="word", corner_radius=10)
+        self.lesson_text.pack(side="left", fill="both", expand=True, padx=(0, 8))
         self.lesson_text.configure(state="disabled")
 
-        quiz_box = ctk.CTkFrame(cbody, fg_color=C["card"], corner_radius=10, width=360)
+        quiz_box = ctk.CTkFrame(cbody, fg_color=C["card"], corner_radius=10, width=370)
         quiz_box.pack(side="right", fill="y", padx=(0, 0))
         quiz_box.pack_propagate(False)
         self.quiz_lbl_num = lbl(quiz_box, "Trắc nghiệm", 14, "bold", C["accent"])
@@ -1742,7 +2072,7 @@ class StudyTab(ctk.CTkFrame):
         qbtn_row = ctk.CTkFrame(quiz_box, fg_color="transparent")
         qbtn_row.pack(side="bottom", pady=12)
         self.btn_confirm = btn(qbtn_row, "✅ Chốt đáp án", C["success"], "#018786",
-                               w=140, h=36, cmd=self._confirm_answer)
+                                w=140, h=36, cmd=self._confirm_answer)
         self.btn_confirm.pack(side="left", padx=4)
         self.btn_next_q = btn(qbtn_row, "Câu tiếp ➡️", C["card2"], C["accent"],
                               w=120, h=36, cmd=self._next_question)
@@ -1866,8 +2196,10 @@ class StudyTab(ctk.CTkFrame):
         prog = course_db.get_progress(lang)
         days = sorted(int(d.get("day", 0)) for d in (self._course or {}).get("days", []))
         if not days:
-            self.cb_day.configure(values=["—"])
+            self.cb_day.set_items([])
             self.cb_day.set("—")
+            self.lbl_total_days.configure(text="/ 0")
+            self.ent_jump_day.delete(0, "end")
             self.lbl_day_status.configure(text="")
             self.lbl_bottom.configure(
                 text=f"Chưa có khóa học AI cho '{lang}'. Bấm 🤖 Sinh khóa học AI để tạo.")
@@ -1876,24 +2208,25 @@ class StudyTab(ctk.CTkFrame):
                                   "khóa học chuyên sâu theo ngày (từ vựng + ngữ pháp + trắc nghiệm).")
             self._reset_quiz_widgets()
             return
-        labels = []
+        items = []
         done = set(prog.get("completed_days", []))
         days_by_num = {int(d.get("day", 0)): d for d in (self._course or {}).get("days", [])}
+        default_lvl = (self._course or {}).get("level", "")
         for d in days:
-            lb = f"Ngày {d}"
             lesson = days_by_num.get(d) or {}
             topic = (lesson.get("topic") or lesson.get("title") or "").strip()
-            if topic:
-                lb += f" · {topic[:24]}"
+            lvl = lesson.get("level") or default_lvl or ""
+            phase = lesson.get("phase") or ""
+            short_lvl = _short_level_name(lvl, phase)
+            tag = f"[{short_lvl}] " if short_lvl else ""
+            lb = f"Ngày {d} {tag}· {topic[:28]}" if topic else f"Ngày {d} {tag}"
             if d in done:
                 lb += " ✅"
-            labels.append(lb)
-        self.cb_day.configure(values=labels)
+            items.append((d, lb, short_lvl, d in done))
+        self.cb_day.set_items(items)
+        self.lbl_total_days.configure(text=f"/ {len(days)}")
         last = prog.get("last_day") if prog.get("last_day") in days else days[0]
-        llesson = days_by_num.get(last) or {}
-        ltopic = (llesson.get("topic") or llesson.get("title") or "").strip()
-        self.cb_day.set(f"Ngày {last}" + (f" · {ltopic[:24]}" if ltopic else "")
-                        + (" ✅" if last in done else ""))
+        self._select_day_by_num(last)
         total = len(days)
         level_str = (self._course or {}).get("level", "")
         level_info = f" · trình độ: {level_str}" if level_str else ""
@@ -1901,14 +2234,66 @@ class StudyTab(ctk.CTkFrame):
             text=f"Khóa học AI '{lang}'{level_info}: {total} ngày · "
                  f"hoàn thành {len(done)}/{total}. "
                  f"Dữ liệu lưu tại data/ai_courses/")
+
+    def _select_day_by_num(self, day_num: int):
+        for item in self.cb_day._items:
+            if item[0] == day_num:
+                self.cb_day.set(item[1])
+                break
         self._load_selected_day()
 
-    def _selected_day_num(self):
-        txt = self.cb_day.get().split(" ")[1] if self.cb_day.get().startswith("Ngày") else ""
+    def _on_jump_day(self):
+        val = self.ent_jump_day.get().strip()
+        if not val:
+            return
         try:
-            return int(txt)
+            day_num = int(val)
+            days = sorted(int(d.get("day", 0)) for d in (self._course or {}).get("days", []))
+            if not days:
+                return
+            if day_num in days:
+                self._select_day_by_num(day_num)
+            else:
+                messagebox.showwarning("Thông báo", f"Không tìm thấy Ngày {day_num}.\nKhóa học hiện có các ngày: {days[0]} → {days[-1]}.")
         except ValueError:
-            return None
+            messagebox.showwarning("Thông báo", "Vui lòng nhập một số ngày hợp lệ (ví dụ: 48).")
+
+    def _prev_day(self):
+        days = sorted(int(d.get("day", 0)) for d in (self._course or {}).get("days", []))
+        if not days:
+            return
+        curr = self._selected_day_num() or days[0]
+        if curr in days:
+            idx = days.index(curr)
+            prev_day = days[(idx - 1) % len(days)]
+            self._select_day_by_num(prev_day)
+
+    def _next_day(self):
+        days = sorted(int(d.get("day", 0)) for d in (self._course or {}).get("days", []))
+        if not days:
+            return
+        curr = self._selected_day_num() or days[0]
+        if curr in days:
+            idx = days.index(curr)
+            next_day = days[(idx + 1) % len(days)]
+            self._select_day_by_num(next_day)
+
+    def _open_day_selector_dialog(self):
+        if not self._course or not self._course.get("days"):
+            messagebox.showinfo("Thông báo", "Chưa có ngày học nào trong khóa học AI.")
+            return
+        prog = course_db.get_progress(self.app.current_language)
+        DaySelectorDialog(self.winfo_toplevel(), self._course, prog, self._select_day_by_num)
+
+    def _selected_day_num(self):
+        txt = self.cb_day.get()
+        m = re.search(r"Ngày\s+(\d+)", txt)
+        if m:
+            try:
+                return int(m.group(1))
+            except ValueError:
+                pass
+        return None
 
     def _get_day_lesson(self, day):
         for d in (self._course or {}).get("days", []):
@@ -1918,6 +2303,11 @@ class StudyTab(ctk.CTkFrame):
 
     def _load_selected_day(self):
         day = self._selected_day_num()
+        days = sorted(int(d.get("day", 0)) for d in (self._course or {}).get("days", []))
+        self.lbl_total_days.configure(text=f"/ {len(days)}")
+        if day is not None:
+            self.ent_jump_day.delete(0, "end")
+            self.ent_jump_day.insert(0, str(day))
         lesson = self._get_day_lesson(day) if day else None
         if not lesson:
             self._set_lesson_text("Không có dữ liệu ngày này.")
@@ -1946,6 +2336,9 @@ class StudyTab(ctk.CTkFrame):
     def _render_lesson_text(self, lesson):
         lines = [f"📚 NGÀY {lesson.get('day', '?')} — {(lesson.get('title') or '').upper()}"]
         meta = []
+        lvl = lesson.get("level") or (self._course or {}).get("level") or ""
+        if lvl:
+            meta.append(f"🎯 Cấp độ: {lvl}")
         if lesson.get("phase"):
             meta.append(f"🏷️ Giai đoạn: {lesson['phase']}")
         topic = (lesson.get("topic") or "").strip()

@@ -69,6 +69,29 @@ def get_course(language: str):
             migrated = True
         for key in ("vocab", "pattern", "common", "grammar", "mixed"):
             lesson["quiz"].setdefault(key, [])
+        # Tự động chuẩn hóa level theo phase cho từng bài học nếu thiếu hoặc chưa đúng
+        phase = lesson.get("phase") or ""
+        plow = phase.lower()
+        curr_lvl = lesson.get("level") or ""
+        if not curr_lvl or ("nền tảng" in plow and "người mới" not in curr_lvl.lower()) or ("giao tiếp cơ bản" in plow and "sơ cấp" not in curr_lvl.lower()):
+            if "nền tảng" in plow or "phát âm" in plow or "chữ cái" in plow:
+                lesson["level"] = "Người mới bắt đầu (phát âm & chữ cái)"
+                migrated = True
+            elif "giao tiếp cơ bản" in plow:
+                lesson["level"] = "Sơ cấp (giao tiếp cơ bản)"
+                migrated = True
+            elif "trung cấp" in plow:
+                lesson["level"] = "Trung cấp (tự tin giao tiếp)"
+                migrated = True
+            elif "cao cấp" in plow:
+                lesson["level"] = "Cao cấp (chuyên sâu & học thuật)"
+                migrated = True
+            elif "bản xứ" in plow:
+                lesson["level"] = "Như bản xứ (thành thạo mọi ngữ cảnh)"
+                migrated = True
+            elif not curr_lvl and course.get("level"):
+                lesson["level"] = course["level"]
+                migrated = True
     if migrated:
         save_course(language, course)
     return course
