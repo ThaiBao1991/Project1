@@ -12,5 +12,8 @@
     "folder_id_mp4": "",
     "root_folder_id": "",
     "root_folder_name": "VocabularyApp"
+  },
+  "ai": {
+    "askcpl_settings_path": ""
   }
 }

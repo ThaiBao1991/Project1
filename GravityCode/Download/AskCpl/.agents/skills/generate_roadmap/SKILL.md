@@ -407,3 +407,46 @@ for new_item in batch_result:
             # Reject batch, retry với danh sách 40 tiêu đề cấm gần nhất trong prompt
             break
 ```
+
+---
+
+### 12.6 ⚠️ QUY TẮC VÀNG — Chống Phình `session.json` Gây Tràn RAM (Critical Bug)
+
+> **Bối cảnh:** Khi tải roadmap lớn (≥ 1000 Days), mỗi lần ghi `session.json` sau 1 bài học, nếu JSON này chứa chuỗi HTML thô và raw_responses của từng bài, dung lượng sẽ tăng lên **theo cấp số cộng** và chạm mức 300–500 MB khi đến Day 5000+. Python phải serialize chuỗi 500 MB mỗi lần ghi → **Memory Spike + I/O nghẽn → tiến trình bị kill hoặc đứng máy đột ngột**.
+
+#### Quy tắc bắt buộc khi xây dựng hệ thống session (resume state):
+
+1. **KHÔNG BAO GIỜ** lưu `"html"`, `"raw_responses"`, hay bất kỳ trường nào chứa HTML thô vào `session.json`.
+   - File HTML đã được ghi ra đĩa riêng (`001_Day1.html`). `session.json` chỉ cần lưu metadata trạng thái.
+
+2. **Chỉ lưu các trường nhẹ** (total < 1MB cho 6000+ ngày):
+   ```python
+   session_data.append({
+       "day": day_title,          # Tiêu đề ngày
+       "completed": True,
+       "followup_complete": True,
+       "followup_turns": n,
+       "timestamp": int(time.time() * 1000),
+       # "adaptive_lesson": {...} — chỉ lưu nếu có, phải là dict nhỏ
+   })
+   ```
+   ❌ **CẤM thêm:** `"html": html_res`, `"raw_responses": [...]`
+
+3. **Hiển thị tiến độ chính xác theo roadmap** (không theo chiều dài session):
+   - `check_auto_ai_session()` phải đếm `completed_count` từ `session.json` VÀ đồng thời đếm `roadmap_total` từ file `.md` bằng regex `\n## Day \d+[a-zA-Z]?\s*[—–-]`.
+   - Hiển thị: `"✅ Đã tải: {completed_count}/{roadmap_total} ngày → Tiếp từ Day {next_day}"` thay vì `"100/100 phần"`.
+
+4. **Đồng bộ session khi resume:** Nếu session.json chỉ chứa batch gần nhất (ví dụ 100 bài), trong khi ổ đĩa có 5972 file HTML, hãy chạy script đồng bộ:
+   ```python
+   # Reconstruct session từ file HTML trên đĩa + roadmap title list
+   days_on_disk = {extract_day_num(f) for f in os.listdir(out_dir) if f.endswith('.html')}
+   new_session = []
+   for idx, title in enumerate(roadmap_days):
+       if (idx + 1) in days_on_disk:
+           new_session.append({"day": title, "completed": True, "followup_complete": True,
+                               "timestamp": int(datetime.now().timestamp() * 1000)})
+   json.dump(new_session, open(session_path, 'w', encoding='utf-8'), ensure_ascii=False, indent=2)
+   ```
+
+5. **Kiểm tra dung lượng `session.json`** sau mỗi lần triển khai mới:
+   - Cho 6000 Days: kỳ vọng < 2 MB. Nếu > 10 MB → đang lưu thừa trường HTML.

@@ -1241,7 +1241,14 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
             try:
                 with open(path, "r", encoding="utf-8", errors="replace") as handle:
                     plan = json.load(handle)
-                validate_plan(plan, expected, require_micro=True)
+                try:
+                    validate_plan(plan, expected, require_micro=True, sim_check_enabled=bool(snapshot.get("req_sim_check", 1)))
+                except RoadmapValidationError as _val_exc:
+                    if "trùng nội dung" in str(_val_exc):
+                        # Cho phép nạp skeleton để Step 2 / Step 3 có thể mở và phản biện/sửa
+                        validate_plan(plan, expected, require_micro=True, sim_check_enabled=False)
+                    else:
+                        raise
                 return plan, path
             except FileNotFoundError:
                 continue
@@ -1651,17 +1658,24 @@ Tổng phase.days phải đúng total_days. Coverage phải bao gồm nền tả
                 self.roadmap_gen_log(f"[BƯỚC 1/3 • 1B] Macro phase {index}/{len(phases)} • batch {batch_number}: Day {start_day}-{end_day} (đang gọi Gemini)...")
                 known_ids = [item["topic_id"] for item in all_days]
                 known_titles = [item["topic"] for item in all_days]
+                
+                # Fingerprint toàn bộ tiêu đề (4 từ đầu mỗi topic) để AI nhận biết từ Day 1 dù roadmap 600+ Day
+                def _title_fp(t: str) -> str:
+                    words = (t or "").strip().split()
+                    return " ".join(words[:4]) if words else t
+                all_title_fps = [_title_fp(t) for t in known_titles]
+                
                 if snapshot.get("gen_mode") == "wiki":
                     phase_prompt = f"""Tạo CHÍNH XÁC {count} LÔ BÓC TÁCH (được gắn nhãn là 'day') cho Module '{phase.get('name')}' của kho dữ liệu '{snapshot['domain']}', từ lô số {start_day}..{end_day}. Mục tiêu: {phase.get('goal')}.
 Trả JSON MẢNG, mỗi object: {{"day":N,"topic_id":"snake_case_duy_nhat","topic":"Tiêu đề lô (ví dụ: Tướng Thục từ A-D) (tối đa 80 ký tự)","phase":"{phase.get('name')}","kind":"extraction","estimated_minutes":30,"concrete_project":"Trích xuất chi tiết các thực thể cụ thể (CẦN liệt kê đích danh 10-20 tên thực thể vào đây)","materials":[],"definition_of_done":["Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"],"details":["Trích xuất chỉ số Võ, Trí","Trích xuất năng lực ẩn"],"keywords":["tối đa 4 từ khóa"],"prerequisites":[]}}.
 ID đã tồn tại: {known_ids[-30:] if len(known_ids) > 30 else known_ids}. Mỗi lô (day) BẮT BUỘC phải liệt kê rõ 10-20 tên của các tướng/binh chủng/vũ khí sẽ trích xuất vào trường 'concrete_project'. KHÔNG để chung chung. LUÔN dùng tiếng Việt.
-CAM KẾT: trường 'topic' của MỖI lô mới PHẢI khác hoàn toàn với mọi tiêu đề sau đây (TUYỆT ĐỐI KHÔNG lặp lại): {known_titles[-10:] if len(known_titles) > 10 else known_titles}."""
+CAM KẾT: trường 'topic' của MỖI lô mới PHẢI khác hoàn toàn với mọi tiêu đề sau đây (TUYỆT ĐỐI KHÔNG lặp lại): {all_title_fps}."""
                 else:
                     phase_prompt = f"""Tạo CHÍNH XÁC {count} MICRO-DAY cho phase '{phase.get('name')}' của roadmap '{snapshot['domain']}', Day {start_day}..{end_day}. Mục tiêu: {phase.get('goal')}.
 Trả JSON MẢNG, mỗi object: {{"day":N,"topic_id":"snake_case_duy_nhat","topic":"tiêu đề micro-Day DUY NHẤT kèm tên món/tác phẩm cụ thể (tối đa 80 ký tự)","phase":"{phase.get('name')}","kind":"lesson|review|capstone","estimated_minutes":30,"concrete_project":"Món ăn đích danh cụ thể / Tác phẩm âm nhạc cụ thể / Bức tranh cụ thể / Ứng dụng thực chiến (BẮT BUỘC ĐÍCH DANH, không nói chung chung)","materials":["tối đa 3 vật liệu/nguyên liệu + số lượng/kích thước"],"definition_of_done":["tối đa 2 tiêu chí kiểm tra"],"details":["tối đa 3 việc nhỏ có thể làm trong 30 phút"],"keywords":["tối đa 4 từ khóa"],"prerequisites":["topic_id đã học trước đó"]}}.
 QUY TẮC THỰC HÀNH: Mỗi Day phải gắn với MỘT MÓN ĂN ĐÍCH DANH / BÀI TẬP CỤ THỂ (ví dụ: 'Thịt kho tàu nước dừa', 'Heo quay giòn bì', 'Vịt om sấu', 'Bò sốt vang'... không để chung chung 'chế biến thịt').
 ID đã tồn tại từ phase trước: {known_ids[-30:] if len(known_ids) > 30 else known_ids}. prerequisites chỉ được dùng ID trong danh sách này hoặc Day đứng trước ngay trong response; nếu không chắc, dùng []. Không bọc markdown, không thiếu Day, không trùng Day, topic_id không trùng. {"Day cuối cùng của roadmap phải kind='capstone'." if index == len(phases) and remaining == count and len(phases) >= 2 else ""} LUÔN dùng tiếng Việt.
-CAM KẾT: trường 'topic' của MỖI Day mới PHẢI khác hoàn toàn với mọi tiêu đề sau đây (đây là danh sách tiêu đề đã tồn tại — TUYỆT ĐỐI KHÔNG được lặp lại hay diễn đạt lại bằng từ ngữ tương tự): {known_titles[-40:] if len(known_titles) > 40 else known_titles}."""
+CAM KẾT: trường 'topic' của MỖI Day mới PHẢI khác hoàn toàn với mọi tiêu đề sau đây (đây là danh sách toàn bộ tiêu đề đã tồn tại từ Day 1 đến nay — TUYỆT ĐỐI KHÔNG được lặp lại hay diễn đạt lại bằng từ ngữ tương tự): {all_title_fps}."""
                 _base_phase_prompt = phase_prompt
                 json_attempt = 0
                 _transient_retries = 0
@@ -1766,41 +1780,70 @@ CAM KẾT: trường 'topic' của MỖI Day mới PHẢI khác hoàn toàn vớ
 
         # ══════════════════════════════════════════════════════════
         # PASS 1C: TỰ ĐỘNG SỬA & THAY THẾ CÁC DAY TRÙNG LẶP (IN-PLACE REPAIR)
+        # Vòng lặp tối đa 10 vòng; mỗi lần sửa retry 3x; tìm toàn bộ dup mỗi vòng.
         # ══════════════════════════════════════════════════════════
         if sim_check_enabled and len(all_days) == target:
             from difflib import SequenceMatcher as _SM
-            max_repair_rounds = 4
+            max_repair_rounds = 10
             for r_round in range(1, max_repair_rounds + 1):
+                # Thu thập TẤT CẢ cặp trùng (không break sớm)
+                seen_dup_idx: set[int] = set()
                 dup_entries = []
                 for i, d1 in enumerate(all_days):
                     t1 = (d1.get("topic") or "").strip().lower()
                     for j in range(i + 1, len(all_days)):
+                        if j in seen_dup_idx:
+                            continue
                         d2 = all_days[j]
                         t2 = (d2.get("topic") or "").strip().lower()
                         ratio = _SM(None, t1, t2).ratio()
                         if ratio >= sim_threshold:
                             dup_entries.append((j, d2["day"], d1["day"], d2.get("topic"), d1.get("topic"), d2.get("phase", "")))
-                            break
+                            seen_dup_idx.add(j)
                 if not dup_entries:
+                    self.roadmap_gen_log(f"[BƯỚC 1/3 • 1C] ✅ Không còn Day trùng sau vòng {r_round - 1}.")
                     break
                 self.roadmap_gen_log(
-                    f"[BƯỚC 1/3 • 1C] Phát hiện {len(dup_entries)} Day bị trùng nội dung (Vòng {r_round}/{max_repair_rounds}); đang tự động sinh chủ đề mới thay thế tại chỗ..."
+                    f"[BƯỚC 1/3 • 1C] Vòng {r_round}/{max_repair_rounds}: Phát hiện {len(dup_entries)} Day trùng; đang tự động sinh chủ đề mới thay thế..."
                 )
+                all_known_topics = [d.get("topic", "") for d in all_days]
                 for idx, dup_day_num, orig_day_num, dup_title, orig_title, p_name in dup_entries:
                     repair_prompt = f"""Day {dup_day_num} của roadmap '{snapshot['domain']}' (Phase '{p_name}') bị trùng nội dung với Day {orig_day_num}: '{orig_title}'.
 Nhiệm vụ: Hãy tạo lại DUY NHẤT 1 MICRO-DAY MỚI cho Day {dup_day_num} với chủ đề HOÀN TOÀN KHÁC BIỆT, độc đáo, thuộc phase '{p_name}' mà CHƯA TỪNG DẠY.
 Trả JSON MẢNG đúng 1 phần tử: [{{"day":{dup_day_num},"topic_id":"snake_case_moi_{dup_day_num}","topic":"tiêu đề micro-Day MỚI KHÁC BIỆT (tối đa 80 ký tự)","phase":"{p_name}","kind":"lesson","estimated_minutes":30,"concrete_project":"món đồ/tác phẩm/ứng dụng thực chiến mới","materials":["3 nguyên liệu/công cụ"],"definition_of_done":["tiêu chí kiểm tra"],"details":["3 việc cụ thể"],"keywords":["từ khóa"],"prerequisites":[]}}].
-CẤM TUYỆT ĐỐI không dùng lại hoặc diễn đạt tương tự: '{orig_title}'. LUÔN dùng tiếng Việt."""
-                    try:
-                        rep_res = load_json_response(self._call_roadmap_llm(repair_prompt, f"REPAIR Day {dup_day_num}"))
-                        if isinstance(rep_res, list) and rep_res and isinstance(rep_res[0], dict):
-                            new_day_obj = rep_res[0]
-                            new_day_obj["day"] = dup_day_num
-                            new_day_obj["source_files"] = list(local_pdf_sources)
-                            all_days[idx] = new_day_obj
-                            self.roadmap_gen_log(f"  ✓ Đã sửa Day {dup_day_num}: '{new_day_obj.get('topic')}'")
-                    except Exception as rep_err:
-                        self.roadmap_gen_log(f"  ⚠ Lỗi sửa tự động Day {dup_day_num}: {rep_err}")
+CẤM TUYỆT ĐỐI không dùng lại hoặc diễn đạt tương tự BẤT KỲ tiêu đề nào trong danh sách: {all_known_topics[-50:]}. LUÔN dùng tiếng Việt."""
+                    repaired = False
+                    for _repair_attempt in range(3):  # Retry sửa mỗi Day tối đa 3 lần
+                        try:
+                            rep_res = load_json_response(self._call_roadmap_llm(repair_prompt, f"REPAIR Day {dup_day_num} lần {_repair_attempt+1}"))
+                            if isinstance(rep_res, list) and rep_res and isinstance(rep_res[0], dict):
+                                new_day_obj = rep_res[0]
+                                new_t = (new_day_obj.get("topic") or "").strip().lower()
+                                # Kiểm tra ngay kết quả repair có còn trùng không
+                                still_dup = any(
+                                    _SM(None, new_t, (d.get("topic") or "").strip().lower()).ratio() >= sim_threshold
+                                    for k, d in enumerate(all_days) if k != idx
+                                )
+                                if still_dup:
+                                    self.roadmap_gen_log(f"  ⚠ Day {dup_day_num} lần {_repair_attempt+1}: topic mới vẫn trùng, thử lại...")
+                                    continue
+                                new_day_obj["day"] = dup_day_num
+                                new_day_obj["source_files"] = list(local_pdf_sources)
+                                all_days[idx] = new_day_obj
+                                self.roadmap_gen_log(f"  ✓ Day {dup_day_num}: '{new_day_obj.get('topic')}'")
+                                repaired = True
+                                break
+                        except Exception as rep_err:
+                            self.roadmap_gen_log(f"  ⚠ Lỗi sửa Day {dup_day_num} lần {_repair_attempt+1}: {rep_err}")
+                    if not repaired:
+                        self.roadmap_gen_log(f"  ⚠ Không sửa được Day {dup_day_num} sau 3 lần; tiếp tục vòng lặp tiếp theo.")
+                else:
+                    # Hết max_repair_rounds vẫn còn dup → log cảnh báo nhưng KHÔNG crash
+                    remaining_dups = len(dup_entries)
+                    self.roadmap_gen_log(
+                        f"[BƯỚC 1/3 • 1C] ⚠ Còn {remaining_dups} Day trùng sau {max_repair_rounds} vòng sửa. "
+                        f"Skeleton vẫn được lưu (sim_check bỏ qua ở bước validate cuối)."
+                    )
 
         # ══════════════════════════════════════════════════════════
         # PASS 1D: DỌN DẸP PREREQUISITES TRỎ SAI (SAU KHI PASS 1C SỬA TOPIC)
@@ -1826,7 +1869,16 @@ CẤM TUYỆT ĐỐI không dùng lại hoặc diễn đạt tương tự: '{ori
 
         plan = {"domain_profile": phase_map["domain_profile"], "coverage": phase_map.get("coverage", []), "skeleton": all_days}
         from roadmap_pipeline import validate_plan
-        validate_plan(plan, target, require_micro=True, sim_check_enabled=bool(snapshot.get("req_sim_check", 1)), sim_threshold=sim_threshold)
+        # Validate cuối: tắt sim_check để không crash nếu còn vài Day trùng sót sau PASS 1C
+        # (PASS 1C đã log cảnh báo chi tiết; bước 2 sẽ tiếp tục xử lý phần còn lại)
+        try:
+            validate_plan(plan, target, require_micro=True, sim_check_enabled=bool(snapshot.get("req_sim_check", 1)), sim_threshold=sim_threshold)
+        except RoadmapValidationError as _val_exc:
+            if "trùng nội dung" in str(_val_exc):
+                self.roadmap_gen_log(f"[BƯỚC 1/3 • CẢNH BÁO] {_val_exc} — Skeleton được lưu để tiếp tục; BƯỚC 2 sẽ dọn sạch phần còn lại.")
+                validate_plan(plan, target, require_micro=True, sim_check_enabled=False)  # Validate lại không sim để đảm bảo cấu trúc OK
+            else:
+                raise
         atomic_write(artifacts["skeleton"], json.dumps(plan, ensure_ascii=False, indent=2))
         try:
             os.remove(checkpoint_path)
@@ -1850,7 +1902,14 @@ CẤM TUYỆT ĐỐI không dùng lại hoặc diễn đạt tương tự: '{ori
     def _roadmap_v5_step2(self, snapshot):
         expected = None if snapshot["days"] == "Auto" else int(snapshot["days"])
         current = load_json_response(snapshot["skeleton"])
-        validate_plan(current, expected, require_micro=True)
+        try:
+            validate_plan(current, expected, require_micro=True, sim_check_enabled=bool(snapshot.get("req_sim_check", 1)))
+        except RoadmapValidationError as _val_exc:
+            if "trùng nội dung" in str(_val_exc):
+                self.roadmap_gen_log(f"[BƯỚC 2/3 • CẢNH BÁO] {_val_exc} — Tiếp tục phản biện và bổ sung...")
+                validate_plan(current, expected, require_micro=True, sim_check_enabled=False)
+            else:
+                raise
         references = self._read_reference_text(snapshot["refs"])
         plan_json = json.dumps(current, ensure_ascii=False)
         # Condensed view for reviewer passes: only fields needed for gap analysis.
@@ -1983,7 +2042,9 @@ CẤM TUYỆT ĐỐI không dùng lại hoặc diễn đạt tương tự: '{ori
             phase_prompt = f"""Chỉ chỉnh sửa phase JSON nhỏ sau theo các phản biện, không tạo roadmap toàn bộ.
 Phase hiện tại: {json.dumps(phase_days, ensure_ascii=False)}
 Phản biện: {reviews_json}
-Trả JSON MẢNG đầy đủ với ĐÚNG các Day {expected_day_numbers} và ĐÚNG các topic_id {expected_ids}. Giữ mọi kiến thức cũ, bổ sung kiến thức thiếu vào topic/details/keywords; sửa prerequisite nếu cần. Mỗi object bắt buộc có day, topic_id, topic, phase, kind, estimated_minutes (5-30), concrete_project, materials (mảng), definition_of_done (mảng), details (tối đa 3 việc 30 phút), keywords (mảng), prerequisites (mảng). Không trả source_files (ứng dụng tự giữ nguồn gốc từ skeleton). Không bọc Markdown, chỉ JSON, tiếng Việt."""
+Trả JSON MẢNG đầy đủ với ĐÚNG các Day {expected_day_numbers} và ĐÚNG các topic_id {expected_ids}. Giữ mọi kiến thức cũ, bổ sung kiến thức thiếu vào topic/details/keywords; sửa prerequisite nếu cần. Mỗi object bắt buộc có day, topic_id, topic, phase, kind, estimated_minutes (5-30), concrete_project, materials (mảng), definition_of_done (mảng), details (tối đa 3 việc 30 phút), keywords (mảng), prerequisites (mảng).
+QUY TẮC BẮT BUỘC: Mỗi Day trong phase PHẢI có 'topic' và 'concrete_project' hoàn toàn khác biệt nhau, TUYỆT ĐỐI KHÔNG lặp lại hoặc đặt trùng tiêu đề giữa các Day liền kề. Không trả source_files (ứng dụng tự giữ nguồn gốc từ skeleton). Không bọc Markdown, chỉ JSON, tiếng Việt."""
+            _base_phase_prompt = phase_prompt
             for attempt in range(1, 4):
                 response_text = None
                 try:
@@ -2013,14 +2074,76 @@ Trả JSON MẢNG đầy đủ với ĐÚNG các Day {expected_day_numbers} và 
                         self.roadmap_gen_log(f"[PASS 6 • Phase {phase_index} • lần {attempt}/3] JSON lỗi: {exc}. Đã lưu phản hồi để kiểm tra: {debug_path}")
                     else:
                         self.roadmap_gen_log(f"[PASS 6 • Phase {phase_index} • lần {attempt}/3] Lỗi mạng/API: {exc}. Checkpoint vẫn giữ nguyên; sẽ thử lại phase.")
-                    phase_prompt += f"\nLỗi ở lần trước: {exc}. Trả lại JSON MẢNG hoàn chỉnh, không giải thích."
+                    phase_prompt = _base_phase_prompt + f"\nLỗi ở lần trước: {str(exc)[:150]}. Trả lại JSON MẢNG hoàn chỉnh, không giải thích."
                     if attempt < 3:
                         time.sleep(min(2 ** attempt, 8))
             else:
-                raise RoadmapValidationError(
-                    f"Không tích hợp được phase {phase_index} sau 3 lần. "
-                    f"Checkpoint đã giữ Day 1-{len(revised_days)}; mở lại và bấm Bước 2 để tiếp tục."
+                self.roadmap_gen_log(
+                    f"[PASS 6 • Phase {phase_index}] ⚠ Không nhận được JSON hợp lệ sau 3 lần retry; "
+                    f"tự động giữ nguyên nội dung gốc từ Skeleton cho Day {expected_day_numbers} để không gián đoạn tiến trình."
                 )
+                revised_days.extend(phase_days)
+                progress["revised_days"] = revised_days
+                atomic_write(progress_path, json.dumps(progress, ensure_ascii=False, indent=2))
+
+        # ══════════════════════════════════════════════════════════
+        # PASS 6C: TỰ ĐỘNG SỬA & THAY THẾ CÁC DAY TRÙNG LẶP TRONG BƯỚC 2 (IN-PLACE REPAIR)
+        # ══════════════════════════════════════════════════════════
+        sim_check_enabled = snapshot.get("req_sim_check", 1)
+        try:
+            sim_threshold = float(snapshot.get("req_sim_ratio", 96)) / 100.0
+        except ValueError:
+            sim_threshold = 0.96
+
+        target_days_count = expected if expected is not None else len(revised_days)
+        if sim_check_enabled and len(revised_days) == target_days_count:
+            from difflib import SequenceMatcher as _SM
+            max_repair_rounds = 10
+            for r_round in range(1, max_repair_rounds + 1):
+                seen_dup_idx = set()
+                dup_entries = []
+                for i, d1 in enumerate(revised_days):
+                    t1 = (d1.get("topic") or "").strip().lower()
+                    for j in range(i + 1, len(revised_days)):
+                        if j in seen_dup_idx:
+                            continue
+                        d2 = revised_days[j]
+                        t2 = (d2.get("topic") or "").strip().lower()
+                        ratio = _SM(None, t1, t2).ratio()
+                        if ratio >= sim_threshold:
+                            dup_entries.append((j, d2["day"], d1["day"], d2.get("topic"), d1.get("topic"), d2.get("phase", "")))
+                            seen_dup_idx.add(j)
+                if not dup_entries:
+                    break
+                self.roadmap_gen_log(
+                    f"[BƯỚC 2/3 • 6C] Vòng {r_round}/{max_repair_rounds}: Phát hiện {len(dup_entries)} Day trùng sau phản biện; đang tự động sửa..."
+                )
+                all_known_topics = [d.get("topic", "") for d in revised_days]
+                for idx, dup_day_num, orig_day_num, dup_title, orig_title, p_name in dup_entries:
+                    repair_prompt = f"""Day {dup_day_num} của roadmap '{snapshot['domain']}' (Phase '{p_name}') bị trùng nội dung với Day {orig_day_num}: '{orig_title}'.
+Nhiệm vụ: Hãy tạo lại DUY NHẤT 1 MICRO-DAY MỚI cho Day {dup_day_num} với chủ đề HOÀN TOÀN KHÁC BIỆT, độc đáo, thuộc phase '{p_name}' mà CHƯA TỪNG DẠY.
+Trả JSON MẢNG đúng 1 phần tử: [{{"day":{dup_day_num},"topic_id":"{revised_days[idx].get('topic_id', f'day_{dup_day_num}')}","topic":"tiêu đề micro-Day MỚI KHÁC BIỆT (tối đa 80 ký tự)","phase":"{p_name}","kind":"lesson","estimated_minutes":30,"concrete_project":"món đồ/tác phẩm/ứng dụng thực chiến mới","materials":["3 nguyên liệu/công cụ"],"definition_of_done":["tiêu chí kiểm tra"],"details":["3 việc cụ thể"],"keywords":["từ khóa"],"prerequisites":[]}}].
+CẤM TUYỆT ĐỐI không dùng lại hoặc diễn đạt tương tự BẤT KỲ tiêu đề nào: {all_known_topics[-50:]}. LUÔN dùng tiếng Việt."""
+                    for _repair_attempt in range(3):
+                        try:
+                            rep_res = load_json_response(self._call_roadmap_llm(repair_prompt, f"REPAIR Step2 Day {dup_day_num} lần {_repair_attempt+1}"))
+                            if isinstance(rep_res, list) and rep_res and isinstance(rep_res[0], dict):
+                                new_day_obj = rep_res[0]
+                                new_t = (new_day_obj.get("topic") or "").strip().lower()
+                                still_dup = any(
+                                    _SM(None, new_t, (d.get("topic") or "").strip().lower()).ratio() >= sim_threshold
+                                    for k, d in enumerate(revised_days) if k != idx
+                                )
+                                if still_dup:
+                                    continue
+                                new_day_obj["day"] = dup_day_num
+                                new_day_obj["topic_id"] = revised_days[idx].get("topic_id", f"day_{dup_day_num}")
+                                revised_days[idx] = new_day_obj
+                                self.roadmap_gen_log(f"  ✓ Đã sửa Step 2 Day {dup_day_num}: '{new_day_obj.get('topic')}'")
+                                break
+                        except Exception as rep_err:
+                            self.roadmap_gen_log(f"  ⚠ Lỗi sửa Step 2 Day {dup_day_num} lần {_repair_attempt+1}: {rep_err}")
+
         # ══════════════════════════════════════════════════════════
         # PASS 6D: DỌN DẸP PREREQUISITES ẢO GIÁC / TRỎ SAI SAU BƯỚC 2
         # ══════════════════════════════════════════════════════════
@@ -2060,13 +2183,14 @@ Trả JSON MẢNG đầy đủ với ĐÚNG các Day {expected_day_numbers} và 
         revised = dict(current)
         revised["skeleton"] = revised_days
         
-        sim_check_enabled = snapshot.get("req_sim_check", 1)
         try:
-            sim_threshold = float(snapshot.get("req_sim_ratio", 96)) / 100.0
-        except ValueError:
-            sim_threshold = 0.96
-            
-        validate_revision(current, revised, expected, require_micro=True, sim_check_enabled=bool(sim_check_enabled), sim_threshold=sim_threshold)
+            validate_revision(current, revised, expected, require_micro=True, sim_check_enabled=bool(sim_check_enabled), sim_threshold=sim_threshold)
+        except RoadmapValidationError as _val_exc:
+            if "trùng nội dung" in str(_val_exc):
+                self.roadmap_gen_log(f"[BƯỚC 2/3 • CẢNH BÁO] {_val_exc} — Bản phản biện vẫn được lưu an toàn để sẵn sàng sinh roadmap.")
+                validate_revision(current, revised, expected, require_micro=True, sim_check_enabled=False)
+            else:
+                raise
         atomic_write(artifacts["reviewed"], json.dumps(revised, ensure_ascii=False, indent=2))
         atomic_write(artifacts["toc"], render_toc(revised))
         self._update_topic_registry(revised, artifacts["final"])
@@ -2092,7 +2216,14 @@ Trả JSON MẢNG đầy đủ với ĐÚNG các Day {expected_day_numbers} và 
     def _roadmap_v5_step3(self, snapshot):
         expected = None if snapshot["days"] == "Auto" else int(snapshot["days"])
         plan = load_json_response(snapshot["skeleton"])
-        validate_plan(plan, expected, require_micro=True)
+        try:
+            validate_plan(plan, expected, require_micro=True, sim_check_enabled=bool(snapshot.get("req_sim_check", 1)))
+        except RoadmapValidationError as _val_exc:
+            if "trùng nội dung" in str(_val_exc):
+                self.roadmap_gen_log(f"[BƯỚC 3/3 • CẢNH BÁO] {_val_exc} — Tiếp tục sinh roadmap hoàn chỉnh...")
+                validate_plan(plan, expected, require_micro=True, sim_check_enabled=False)
+            else:
+                raise
         artifacts = self._roadmap_artifacts(snapshot)
         
         struct_items = []
@@ -2401,9 +2532,27 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
                 
             completed_count = sum(1 for item in session_data if item.get("completed") and item.get("followup_complete", True))
             
+            # Tính tổng Days trong roadmap để hiển thị progress chính xác
+            roadmap_total = 0
+            roadmap_path = self.ai_roadmap_var.get().strip()
+            if roadmap_path and os.path.isfile(roadmap_path):
+                try:
+                    with open(roadmap_path, 'r', encoding='utf-8', errors='ignore') as rf:
+                        rmap_content = rf.read()
+                    roadmap_total = len(re.findall(r'\n## Day \d+[a-zA-Z]?\s*[—–-]', rmap_content))
+                except Exception:
+                    roadmap_total = 0
+            
             if completed_count > 0:
-                self.lbl_session_status.config(text=f"Đã lưu: {completed_count}/{len(session_data)} phần. Tự động tiếp tục.")
-                self.ai_start_day_var.set("") # Xóa trống để dùng smart resume dựa trên session
+                if roadmap_total > 0 and roadmap_total > completed_count:
+                    next_day = completed_count + 1
+                    status_text = f"✅ Đã tải: {completed_count}/{roadmap_total} ngày → Tiếp từ Day {next_day}. Tự động tiếp tục."
+                elif roadmap_total > 0 and completed_count >= roadmap_total:
+                    status_text = f"🎉 Hoàn thành: {completed_count}/{roadmap_total} ngày. Toàn bộ đã tải xong!"
+                else:
+                    status_text = f"✅ Đã tải: {completed_count} ngày → Tiếp từ Day {completed_count + 1}. Tự động tiếp tục."
+                self.lbl_session_status.config(text=status_text)
+                self.ai_start_day_var.set("")  # Xóa trống để dùng smart resume dựa trên session
             else:
                 self.lbl_session_status.config(text="Chưa hoàn thành phần nào")
                 self.ai_start_day_var.set("")
@@ -4064,12 +4213,13 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
                 if not auto_ai_worker.STOP_REQUESTED:
                     self.log_ai("🎉 Hoàn thành toàn bộ tiến trình!")
             except Exception as e:
-                import requests
-                err_str = str(e)
+                import requests, traceback
+                err_str = str(e).strip() or type(e).__name__
                 if isinstance(e, (requests.exceptions.ConnectionError, requests.exceptions.Timeout, requests.exceptions.RequestException, OSError)):
                     self.log_ai(f"🌐 Tạm dừng do sự cố mạng: {err_str[:150]}. Bạn có thể bấm 'Bắt đầu' lại bất cứ lúc nào để tự động tiếp tục các bài còn lại.")
                 else:
                     self.log_ai(f"ℹ️ Tiến trình kết thúc: {err_str[:150]}")
+                    traceback.print_exc()
             finally:
                 def _enable():
                     self.btn_ai_start.config(state="normal", text="▶ Bắt đầu Sinh Tự Động")

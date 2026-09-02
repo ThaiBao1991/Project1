@@ -1486,7 +1486,7 @@ class CourseGenerationDialog(ctk.CTkToplevel):
         self.cb_wpd.pack(side="left")
 
         lbl(opt1, "   Trình độ mục tiêu:", 13).pack(side="left", padx=(14, 8))
-        self.cb_level = combo(opt1, LEVELS, width=250)
+        self.cb_level = combo(opt1, LEVELS, width=330)
         self.cb_level.set(DEFAULT_LEVEL)
         self.cb_level.configure(command=lambda _c: self._update_level_info())
         self.cb_level.pack(side="left")
@@ -1517,9 +1517,14 @@ class CourseGenerationDialog(ctk.CTkToplevel):
         btn_row = ctk.CTkFrame(self, fg_color="transparent")
         btn_row.pack(pady=10)
         self.btn_start = btn(btn_row, "▶ Tiếp tục / Bắt đầu sinh", C["success"], "#018786",
-                             w=200, h=38, cmd=self._start)
+                             w=190, h=38, cmd=self._start)
         self.btn_start.pack(side="left", padx=(0, 10))
-        self.btn_stop = btn(btn_row, "⏹ Dừng", C["card2"], C["danger"], w=100, h=38,
+
+        self.btn_supplement = btn(btn_row, "🔍 Rà soát & Bổ sung", "#1e88e5", "#1565c0",
+                                  w=180, h=38, cmd=self._supplement)
+        self.btn_supplement.pack(side="left", padx=(0, 10))
+
+        self.btn_stop = btn(btn_row, "⏹ Dừng", C["card2"], C["danger"], w=90, h=38,
                             cmd=lambda: self._stop_event.set())
         self.btn_stop.pack(side="left")
         self.btn_stop.configure(state="disabled")
@@ -1533,8 +1538,8 @@ class CourseGenerationDialog(ctk.CTkToplevel):
         self.log_box.pack(fill="both", expand=True, padx=20, pady=(0, 15))
         self.log_box.configure(state="disabled")
 
-        self._log("🧭 Hành trình 5 giai đoạn: Nền tảng → Giao tiếp cơ bản → "
-                  "Trung cấp → Cao cấp → Như bản xứ.")
+        self._log("🧭 Hành trình 6 tầng bản xứ hóa: Vỡ lòng → Ghép âm → "
+                  "Sơ cấp → Trung cấp → Cao cấp → Như bản xứ.")
         # Hiển thị số ngày và tiến độ Backbone trong lộ trình tích lũy
         try:
             from ai import course_db as _cdb
@@ -1549,6 +1554,7 @@ class CourseGenerationDialog(ctk.CTkToplevel):
                 if _bb_items:
                     self._log(f"🦴 Khung giáo trình Backbone: {_bb_filled}/{len(_bb_items)} chủ đề hoàn thành ({'%.0f' % (100*_bb_filled/len(_bb_items))}%).")
                 self._log(f"   ✔️ Sinh tiếp sẽ bắt đầu từ Ngày {_nd + 1} — giữ nguyên toàn bộ lịch sử học.")
+                self._log("   🔍 Bấm 'Rà soát & Bổ sung' để tự động kiểm tra và thêm các chặng còn thiếu.")
                 self._log("   🔁 Chỉ chọn 'Làm lại từ đầu' khi muốn XÓA HOÀN TOÀN và tạo mới.")
             else:
                 self._log("   Khóa học thiết kế từ gốc: Ngày 1-3 tập trung bảng chữ cái, phát âm, "
@@ -1568,7 +1574,12 @@ class CourseGenerationDialog(ctk.CTkToplevel):
         phase_idx = LEVEL_PHASES.get(level, [])
         min_d = LEVEL_MIN_DAYS.get(level, 15)
         phase_names = [JOURNEY_PHASES[i][0] for i in phase_idx if i < len(JOURNEY_PHASES)]
-        text = f"→ {', '.join(phase_names)} · tối thiểu {min_d} ngày"
+        if "trọn gói" in level.lower():
+            from ai.course_generator import get_language_fsi_profile
+            fsi = get_language_fsi_profile(self.app.current_language)
+            text = f"→ {fsi['category_name']}: ~{fsi['total_days']} ngày chuẩn (6 chặng)"
+        else:
+            text = f"→ {', '.join(phase_names)} · tối thiểu {min_d} ngày"
         self.lbl_level_info.configure(text=text, text_color=C["success"])
 
     def _log(self, msg):
@@ -1586,6 +1597,37 @@ class CourseGenerationDialog(ctk.CTkToplevel):
             return int(m.group(1))
         return None
 
+    def _supplement(self):
+        """Rà soát và tự động bổ sung chặng/chủ đề thiếu cho khóa học hiện có."""
+        if self._running:
+            return
+        level = self.cb_level.get() or DEFAULT_LEVEL
+        self._running = True
+        self._stop_event.clear()
+        self.btn_start.configure(state="disabled")
+        self.btn_supplement.configure(state="disabled")
+        self.btn_stop.configure(state="normal")
+        self.progress.set(0)
+
+        def _worker():
+            try:
+                from ai.course_generator import audit_and_supplement_course
+                res = audit_and_supplement_course(
+                    self.app.current_language,
+                    level=level,
+                    log_fn=self._log,
+                    stop_check=self._stop_event.is_set,
+                )
+                self.after(0, lambda: self._done(success=res.get("ok", False)))
+            except GenerationStopped:
+                self._log("⏹ Đã dừng rà soát theo yêu cầu.")
+                self.after(0, lambda: self._done(success=False))
+            except Exception as e:
+                self._log(f"❌ Lỗi rà soát: {e}")
+                self.after(0, lambda: self._done(success=False))
+
+        threading.Thread(target=_worker, daemon=True).start()
+
     def _start(self):
         if self._running:
             return
@@ -1599,6 +1641,7 @@ class CourseGenerationDialog(ctk.CTkToplevel):
         self._running = True
         self._stop_event.clear()
         self.btn_start.configure(state="disabled")
+        self.btn_supplement.configure(state="disabled")
         self.btn_stop.configure(state="normal")
         self.progress.set(0)
 
@@ -1632,30 +1675,37 @@ class CourseGenerationDialog(ctk.CTkToplevel):
     def _done(self, success):
         self._running = False
         self.btn_start.configure(state="normal")
+        self.btn_supplement.configure(state="normal")
         self.btn_stop.configure(state="disabled")
         if success:
             self.on_finished()
 
 
 def _short_level_name(level_name: str, phase_name: str = "") -> str:
-    """Rút gọn tên cấp độ để hiển thị gọn gàng trên thẻ/nhãn."""
-    # Ưu tiên 1: Ánh xạ chuẩn theo Phase kiến thức thực tế của bài học
+    """Rút gọn tên cấp độ chuẩn xác theo 6 Tầng sư phạm:
+    [Vỡ lòng] -> [Ghép âm] -> [Sơ cấp] -> [Trung cấp] -> [Cao cấp] -> [Bản xứ]"""
     plow = (phase_name or "").lower()
-    if "nền tảng" in plow or "phát âm" in plow or "chữ cái" in plow:
-        return "Người mới"
-    if "giao tiếp cơ bản" in plow:
+
+    # 1. Ưu tiên xét theo Phase thực tế của bài học
+    if "vỡ lòng" in plow or "bảng chữ" in plow or "chữ cái" in plow or "khẩu hình" in plow or "nền tảng" in plow:
+        return "Vỡ lòng"
+    if "ghép âm" in plow or "từ đơn" in plow or "sinh tồn" in plow or "tập đọc" in plow:
+        return "Ghép âm"
+    if "sơ cấp" in plow or "giao tiếp cơ bản" in plow or "đời sống" in plow:
         return "Sơ cấp"
-    if "trung cấp" in plow or "tự tin" in plow:
+    if "trung cấp" in plow or "công việc" in plow or "công sở" in plow or "tự tin" in plow:
         return "Trung cấp"
-    if "cao cấp" in plow or "học thuật" in plow:
+    if "cao cấp" in plow or "học thuật" in plow or "báo chí" in plow:
         return "Cao cấp"
-    if "bản xứ" in plow:
+    if "bản xứ" in plow or "slang" in plow or "thành ngữ" in plow:
         return "Bản xứ"
 
-    # Ưu tiên 2: Xét theo level_name
+    # 2. Xét theo level_name nếu phase trống
     low = (level_name or "").lower()
-    if "người mới" in low or "bắt đầu" in low:
-        return "Người mới"
+    if "vỡ lòng" in low or "bảng chữ cái" in low or "người mới" in low or "bắt đầu" in low:
+        return "Vỡ lòng"
+    if "ghép âm" in low or "từ đơn" in low:
+        return "Ghép âm"
     if "sơ cấp" in low:
         return "Sơ cấp"
     if "trung cấp" in low:

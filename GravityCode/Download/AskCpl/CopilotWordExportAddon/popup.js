@@ -631,7 +631,8 @@ document.getElementById('sessionFileInput').addEventListener('change', (e) => {
         const m = String(d.day).match(/\d+/);
         if (m) recordedSet.add(parseInt(m[0], 10));
       });
-      const maxRecordedDay = session.lastDay || (recordedSet.size > 0 ? Array.from(recordedSet).reduce((a, b) => a > b ? a : b, 0) : 0);
+      const maxInSet = recordedSet.size > 0 ? Array.from(recordedSet).reduce((a, b) => a > b ? a : b, 0) : 0;
+      const maxRecordedDay = Math.max(session.lastDay || 0, maxInSet);
       const missingList = [];
       for (let i = 1; i <= maxRecordedDay; i++) {
         if (!recordedSet.has(i)) missingList.push(i);
@@ -652,8 +653,8 @@ document.getElementById('sessionFileInput').addEventListener('change', (e) => {
       infoEl.innerHTML = `
         <strong>📁 ${escapeHtml(session.agentName)}</strong><br>
         Đã lưu: <strong>${session.totalSaved || session.days?.length || 0} bài</strong>
-        (đến ${session.prefix || 'Day '}${session.lastDay})<br>
-        ▶ Sẽ tiếp tục từ: <strong>${session.prefix || 'Day '}${(session.lastDay || 0) + 1}</strong>
+        (đến ${session.prefix || 'Day '}${maxRecordedDay})<br>
+        ▶ Sẽ tiếp tục từ: <strong>${session.prefix || 'Day '}${maxRecordedDay + 1}</strong>
         ${missingNote}
       `;
       document.getElementById('clearSessionBtn').style.display = 'block';
@@ -682,50 +683,54 @@ document.getElementById('clearSessionBtn').addEventListener('click', () => {
 });
 
 document.getElementById('sweepMissingBtn').addEventListener('click', async () => {
-  const config = getUIConfig();
-  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  if (!tab) return;
+  try {
+    const config = buildConfigFromUI();
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    if (!tab) return;
 
-  await new Promise(resolve => {
-    if (currentRoadmapData && currentRoadmapData.length > 0) {
-      chrome.storage.local.set({ roadmap_active: currentRoadmapData }, resolve);
-    } else {
-      chrome.storage.local.remove(['roadmap_active'], resolve);
+    await new Promise(resolve => {
+      if (currentRoadmapData && currentRoadmapData.length > 0) {
+        chrome.storage.local.set({ roadmap_active: currentRoadmapData }, resolve);
+      } else {
+        chrome.storage.local.remove(['roadmap_active'], resolve);
+      }
+    });
+
+    let sessionMeta = null;
+    if (loadedSession) {
+      sessionMeta = Object.assign({}, loadedSession);
+      delete sessionMeta.roadmapData;
     }
-  });
 
-  let sessionMeta = null;
-  if (loadedSession) {
-    sessionMeta = Object.assign({}, loadedSession);
-    delete sessionMeta.roadmapData;
+    const payload = {
+      action: "sweep_missing_days",
+      tabId: tab.id,
+      session: sessionMeta,
+      platform: config.platform,
+      prefix: config.prefix,
+      startDay: 1,
+      endDay: config.endDay || (loadedSession ? loadedSession.lastDay : null),
+      agentName: config.agentName,
+      promptMode: config.promptMode,
+      isAdvanced: config.isAdvanced,
+      topicPrompt: config.topicPrompt,
+      targetCount: config.targetCount,
+      details: config.details,
+      autoFollowUp: config.autoFollowUp,
+      maxFollowUp: config.maxFollowUp
+    };
+
+    chrome.tabs.sendMessage(tab.id, payload).then(() => {
+      document.getElementById('startBtn').style.display = 'none';
+      document.getElementById('stopBtn').style.display  = 'block';
+      document.getElementById('status').innerText = '🚀 Đang quét và tải bù các ngày bị thiếu...';
+      showRunningBanner(config.agentName, 'Quét & Tải bù thiếu');
+    }).catch(() => {
+      showError('Không tìm thấy Addon trên trang này. Hãy F5 trang Copilot.');
+    });
+  } catch (err) {
+    showError('Lỗi khởi động quét thiếu: ' + err.message);
   }
-
-  const payload = {
-    action: "sweep_missing_days",
-    tabId: tab.id,
-    session: sessionMeta,
-    platform: config.platform,
-    prefix: config.prefix,
-    startDay: 1,
-    endDay: config.endDay || (loadedSession ? loadedSession.lastDay : null),
-    agentName: config.agentName,
-    promptMode: config.promptMode,
-    isAdvanced: config.isAdvanced,
-    topicPrompt: config.topicPrompt,
-    targetCount: config.targetCount,
-    details: config.details,
-    autoFollowUp: config.autoFollowUp,
-    maxFollowUp: config.maxFollowUp
-  };
-
-  chrome.tabs.sendMessage(tab.id, payload).then(() => {
-    document.getElementById('startBtn').style.display = 'none';
-    document.getElementById('stopBtn').style.display  = 'block';
-    document.getElementById('status').innerText = '🚀 Đang quét và tải bù các ngày bị thiếu...';
-    showRunningBanner(config.agentName, 'Quét & Tải bù thiếu');
-  }).catch(() => {
-    showError('Không tìm thấy Addon trên trang này. Hãy F5 trang Copilot.');
-  });
 });
 
 // ── Helpers ───────────────────────────────────────────────────

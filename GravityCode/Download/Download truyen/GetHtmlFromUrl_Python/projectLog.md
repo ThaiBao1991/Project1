@@ -116,7 +116,18 @@ GetHtmlFromUrl_Python/
 - [x] **Quản lý Process**: Đảm bảo `kindlegen.exe` sẽ bị `kill` ngay lập tức nếu người dùng đóng ứng dụng giữa chừng.
 - [x] **Bổ sung host metruyenhotvn.com**: Đã cập nhật rules JSON cho `metruyenhotvn.com` (và `metruyenhot.me`) với pagination `?page=` và CSS queries chuẩn xác.
 
+### ✅ Phase 9 — Auto-Install Dependencies — HOÀN THÀNH (2026-09-01)
+- [x] **Auto-Install Packages Pattern**: Tích hợp cơ chế kiểm tra và tự động cài đặt thư viện (`PyQt6`, `requests`, `beautifulsoup4`, `cloudscraper`, `lxml`) vào đầu file `main.py`.
+- [x] **Fallback UI Dialog**: Tự động hiển thị giao diện báo lỗi và cung cấp lệnh pip để copy nếu cài đặt ngầm thất bại.
+
+### ✅ Phase 10 — Smart PRC Gating & Accurate Error Reporting — HOÀN THÀNH (2026-09-01)
+- [x] **Boolean Success Flag**: Nâng cấp `finished_signal = pyqtSignal(bool, str)` trong `DownloadWorker` để phân định chính xác giữa tải thành công 100% và tải dở dang / lỗi.
+- [x] **Chặn tạo PRC khi thiếu chương**: `main_window.py` nay kiểm tra chặt chẽ `if success:` trước khi kích hoạt `PrcWorker`. Tuyệt đối không tự động tạo PRC nếu vẫn còn chương bị thiếu.
+- [x] **Cảnh báo thiếu chương tức thì (Warning Dialog)**: Khi phát hiện có chương lỗi/thiếu, ứng dụng lập tức hiện hộp thoại cảnh báo người dùng và hướng dẫn bấm "Tiếp Tục" (Resume) để tải bù đủ 100% trước khi tạo eBook.
+
 ## ⏭️ TODO tiếp theo
 - Login Browser nhúng (WebEngineView) thay thế cho chức năng Mở Trình Duyệt ngoài.
 - Auto-Update check (Check version trên Github releases).
 - CAPTCHA detection & xử lý (Hỗ trợ bypass cloudflare nâng cao).
+
+

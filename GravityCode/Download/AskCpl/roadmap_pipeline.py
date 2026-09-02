@@ -27,6 +27,15 @@ def restore_locked_day_identity(existing: list[dict[str, Any]], candidate: Any) 
     Models sometimes correct an opaque ID spelling, which must not invalidate a
     successful content review or silently break those links.
     """
+    if isinstance(candidate, dict):
+        for k in ("days", "skeleton", "items", "phases", "data", "result", "revised_days"):
+            if isinstance(candidate.get(k), list):
+                candidate = candidate[k]
+                break
+        else:
+            if all(isinstance(v, dict) for v in candidate.values()):
+                candidate = list(candidate.values())
+
     if not isinstance(candidate, list):
         raise RoadmapValidationError("phase tích hợp không trả về mảng JSON.")
     expected_days = [item.get("day") for item in existing]

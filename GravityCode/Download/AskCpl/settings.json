@@ -13,7 +13,7 @@
     "note_filter": "day,index"
   },
   "server": {
-    "host": "192.168.43.52",
+    "host": "192.168.10.14",
     "port": 5678
   },
   "gemini": {
@@ -146,10 +146,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787891828,
+        "last_check_time": 1788331444,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787891893
+        "cooldown_until": 1788336810
       },
       {
         "key": "ENC:Z2J1NEJtVTNoUWhhbjYzZkNVT2YtbnEyNnBwRWU5T0lRdmp3aEJmSVdGZEk2TlI4YkEuUUE=",
@@ -158,10 +158,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787645307,
+        "last_check_time": 1788336403,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787891893
+        "cooldown_until": 1788336810
       },
       {
         "key": "ENC:QU50UE03ZmhydGVRSnVtZERRbERWdDVKTEZ6dXdvUnozUVhJbVgyU2hWVkw2TlI4YkEuUUE=",
@@ -173,7 +173,7 @@
         "last_check_time": 1787647428,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787891893
+        "cooldown_until": 1788336810
       },
       {
         "key": "ENC:d0NXNGUwR0hoOV85SDE5cVgtOEdYay1nSlBLSlllanMyMW1icXRucHktYUo2TlI4YkEuUUE=",
@@ -182,10 +182,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787890171,
+        "last_check_time": 1788336745,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787891893
+        "cooldown_until": 1788336810
       },
       {
         "key": "ENC:QXBYRGtQSF90YVhxSWpqNlhhLXdJZENzOU54Zm1CZGxDb002U0VqQTJkako2TlI4YkEuUUE=",
@@ -194,10 +194,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787714352,
+        "last_check_time": 1788331955,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787891893
+        "cooldown_until": 1788336810
       },
       {
         "key": "ENC:UWR4TktkaXVvUTBOMnBDUFNJQzZYWEdqcGZVdTZ2cnRkOS03VHN6RjdNVUs2TlI4YkEuUUE=",
@@ -209,7 +209,7 @@
         "last_check_time": 1787639975,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787891893
+        "cooldown_until": 1788336810
       },
       {
         "key": "ENC:d2VHamVvTDU0S3VBemJRRS1MUHlUUlUxMEM2V05IeTk5U29xOFZuSFJTdEw2TlI4YkEuUUE=",
@@ -221,7 +221,7 @@
         "last_check_time": 1787648028,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787891893
+        "cooldown_until": 1788336810
       },
       {
         "key": "ENC:d1pia2UzOFpjaHpCdzBMa1h2V254a1JCRk9MZFFMeU5zLUNuOUtrTGZOSkk2TlI4YkEuUUE=",
@@ -230,10 +230,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787714659,
+        "last_check_time": 1788332280,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787891893
+        "cooldown_until": 1788336810
       },
       {
         "key": "ENC:Z0tnT1lKNVFQV3o0cGhSTEhfYk9tb1BxbzV6YWJndFBIcl8zUldJSVJQMEw2TlI4YkEuUUE=",
@@ -246,7 +246,7 @@
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
         "project_name": "",
-        "cooldown_until": 1787891893
+        "cooldown_until": 1788336810
       },
       {
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
@@ -259,7 +259,7 @@
         "reset_time": 0,
         "next_check_time": 0,
         "last_check_time": 1787714932,
-        "cooldown_until": 1787891893
+        "cooldown_until": 1788336810
       },
       {
         "key": "ENC:UUpmYTdzTXRSTFNzLVR4Y2ZIZ0tJeUpkVGRtXzVCeEJMbnlRdjdUVlRubEk2TlI4YkEuUUE=",
@@ -268,10 +268,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787714953,
+        "last_check_time": 1788336409,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787891899
+        "cooldown_until": 1788336815
       },
       {
         "key": "ENC:QUoyaVROUllVaHBaMFBTZ0NuYWotajJVakI1Z1ViOThQcjNraklSNHFkU0w2TlI4YkEuUUE=",
@@ -280,10 +280,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787891834,
+        "last_check_time": 1788333575,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787891899
+        "cooldown_until": 1788336815
       },
       {
         "key": "ENC:dzhsOU1ZS3dMUnMtMVB5YlFVRlBkX0xFeFNjcUs2Y0E4ZzlnQlRyWHFCVkk2TlI4YkEuUUE=",
@@ -292,10 +292,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787642154,
+        "last_check_time": 1788336750,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787891899
+        "cooldown_until": 1788336815
       },
       {
         "key": "ENC:QXU0NU12NUVEbnFHNlZXZzBEMTJZMFpwb3NOUS1tbFZJUXNGcTFKVWlQOUw2TlI4YkEuUUE=",
@@ -307,7 +307,7 @@
         "last_check_time": 1787890176,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787891899
+        "cooldown_until": 1788336815
       },
       {
         "key": "ENC:Z0ZDclRKMG1yc1lpcVFmRzhOekswRzRDOWdHUVRybVl0OVRPZGlNQ05MZUo2TlI4YkEuUUE=",
@@ -316,10 +316,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787714357,
+        "last_check_time": 1788332286,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787891899
+        "cooldown_until": 1788336815
       },
       {
         "key": "ENC:QU1sWXZaejFKTXA5b0hhWlEyQWF6SENuZ0NmdnpwZFlmUTYzWm4yZVVqN0w2TlI4YkEuUUE=",
@@ -331,7 +331,7 @@
         "last_check_time": 1787647745,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787891899
+        "cooldown_until": 1788336815
       },
       {
         "key": "ENC:QWtPS0F2WHVCUk5HVks1UzBteThlY1V3QWxGZWhvd2drQl8zeXpvQmJoOUw2TlI4YkEuUUE=",
@@ -340,10 +340,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787714655,
+        "last_check_time": 1788331448,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787891899
+        "cooldown_until": 1788336815
       },
       {
         "key": "ENC:d0g1bXVJUktTeDNlTEMzZWtPb3FkSTM3RVAyWHVTV2RpYUF6cy1RZXhfNkk2TlI4YkEuUUE=",
@@ -355,7 +355,7 @@
         "last_check_time": 1787650113,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787891899
+        "cooldown_until": 1788336815
       },
       {
         "key": "ENC:Z1lfcElEWllyV0ZGTHZESzRjb01TM3ZKRm5tYUd1UWE5eVRaTWJ2czlEakw2TlI4YkEuUUE=",
@@ -367,7 +367,7 @@
         "last_check_time": 1787641778,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787891899
+        "cooldown_until": 1788336815
       },
       {
         "key": "ENC:ZzVQd181OXVOdEc2SWltdFRWNnd3dlQ2WXF0eTFzblNfVXVqZ182UEdVa0s2TlI4YkEuUUE=",
@@ -376,10 +376,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787643830,
+        "last_check_time": 1788332149,
         "next_check_time": 0,
-        "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890257
+        "error_msg": "HTTP 429 RPM/TPM: You exceeded your current quota, please check your plan and billing details. For more info",
+        "cooldown_until": 1788336489
       },
       {
         "key": "ENC:Z2M3LW40X2RoejB5VjFkR1ptWG1NUm5iYUtCNEp4dnZJbU5RRVBXWG1TMUs2TlI4YkEuUUE=",
@@ -388,10 +388,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787642169,
+        "last_check_time": 1788332301,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890257
+        "cooldown_until": 1788336489
       },
       {
         "key": "ENC:UTJ4UnQ1MlJNQmNqS1lVOXpuYU04aEtvUVk4cXFkVmdWNHh0N0xOeW02TEs2TlI4YkEuUUE=",
@@ -403,7 +403,7 @@
         "last_check_time": 1787647449,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890257
+        "cooldown_until": 1788336489
       },
       {
         "key": "ENC:UU1CRWMzWE9MRW92MERoa0Fwb0RkM21waDRtdzBQcVVyT1hqdGdINERPNEs2TlI4YkEuUUE=",
@@ -412,10 +412,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787890192,
+        "last_check_time": 1788331351,
         "next_check_time": 0,
-        "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890257
+        "error_msg": "HTTP 429 RPM/TPM: You exceeded your current quota, please check your plan and billing details. For more info",
+        "cooldown_until": 1788336489
       },
       {
         "key": "ENC:UTZISXZIZExvdl8wSUxsQThUMzBxRHA5cF8xWUt5U1hXcXhZeU5zSG9ZN0k2TlI4YkEuUUE=",
@@ -424,10 +424,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787641226,
+        "last_check_time": 1788331438,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890257
+        "cooldown_until": 1788336489
       },
       {
         "key": "ENC:QTlmcGVYME5WQS1vY1RkbTFwYnRQTFptbU1TVGtZU01YdE42WnJ1WlNOWUw2TlI4YkEuUUE=",
@@ -436,10 +436,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787650108,
+        "last_check_time": 1788336424,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890257
+        "cooldown_until": 1788336489
       },
       {
         "key": "ENC:QVh5RlBwV2JxN21GTnRaOGJreGhQMzA1anJqeUZTSFZ1ZlZ0SFI5cUJQcUw2TlI4YkEuUUE=",
@@ -448,10 +448,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787641477,
+        "last_check_time": 1788333564,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890257
+        "cooldown_until": 1788336489
       },
       {
         "key": "ENC:Z1pncWZ3V2NEbUV4YXVZdlhlMGVyVllONjhZNE9KZmcwbUVWeTIwZVRaNEk2TlI4YkEuUUE=",
@@ -463,7 +463,7 @@
         "last_check_time": 1787643520,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890257
+        "cooldown_until": 1788336489
       },
       {
         "key": "ENC:QVZnUzgyZlF1SjV3dU5COVZIZXdDSlZiR0pUeXRJdEFmZkx0QzFSOHVSQ0s2TlI4YkEuUUE=",
@@ -472,10 +472,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787714947,
+        "last_check_time": 1788331975,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890257
+        "cooldown_until": 1788336489
       },
       {
         "key": "ENC:Z0lUTjdLVC1JMGlMSHAtZDNHRWJJSzd5WFV3cWFYejJ2WTBNazNrWDE2LUk2TlI4YkEuUUE=",
@@ -484,10 +484,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787645349,
+        "last_check_time": 1788332306,
         "next_check_time": 0,
-        "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890263
+        "error_msg": "HTTP 429 RPM/TPM: You exceeded your current quota, please check your plan and billing details. For more info",
+        "cooldown_until": 1788336494
       },
       {
         "key": "ENC:QUx0cWk4WWxEOWF2WXJHN1cxZnlNNjUtdEdIS240dUtLQVNRYjlTUVRGZks2TlI4YkEuUUE=",
@@ -499,7 +499,7 @@
         "last_check_time": 1787714055,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890263
+        "cooldown_until": 1788336494
       },
       {
         "key": "ENC:UTB1OHBjZHpMUURKdUlfYzd1bjdnOThVVFZZZnlpa1RZc3NjWXJmSy1YY0k2TlI4YkEuUUE=",
@@ -511,7 +511,7 @@
         "last_check_time": 1787640176,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890263
+        "cooldown_until": 1788336494
       },
       {
         "key": "ENC:Z01TX1lUdEVPbXZHOHVEd3NKaURWQkhOWDNQakF2Ykw1aV9IdnFmY0xTOUs2TlI4YkEuUUE=",
@@ -523,7 +523,7 @@
         "last_check_time": 1787890198,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890263
+        "cooldown_until": 1788336494
       },
       {
         "key": "ENC:Z1dVaU1BZWNSM3JyZ2Y2NDVHOTR0UGhfWmVwMEgxRUdfR3gwMEdEa1BIMEo2TlI4YkEuUUE=",
@@ -532,10 +532,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787643547,
+        "last_check_time": 1788336429,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890263
+        "cooldown_until": 1788336494
       },
       {
         "key": "ENC:UTBJaXZzRXQ0MHZGalY3QTUwdmtwM0Y3eXp6a3VoODExbmlaWkJnakd2ZUo2TlI4YkEuUUE=",
@@ -544,10 +544,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787650119,
+        "last_check_time": 1788333591,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890263
+        "cooldown_until": 1788336494
       },
       {
         "key": "ENC:UVpWaENZYmJQRTFzX2dXSEFZRTZJQlRlQmExZ01Hd1JXNDBMel9Sb1BtR0o2TlI4YkEuUUE=",
@@ -559,7 +559,7 @@
         "last_check_time": 1787643845,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890263
+        "cooldown_until": 1788336494
       },
       {
         "key": "ENC:QTU0MU82cjJ0dFFpb3dMb04yWTNJanZTa0VUYnY4RXQ5ZktJbWtuYmxZZUw2TlI4YkEuUUE=",
@@ -568,10 +568,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787714957,
+        "last_check_time": 1788331980,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890263
+        "cooldown_until": 1788336494
       },
       {
         "key": "ENC:QVUzVXZzY2dSd3FmX09Ja3A3NldsN194b1E5WWtiNUUxUUZLSjFrUTI2REs2TlI4YkEuUUE=",
@@ -583,7 +583,7 @@
         "last_check_time": 1787640899,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890263
+        "cooldown_until": 1788336494
       },
       {
         "key": "ENC:QUhwOVhmTEtOOHVtekoyLVRBaFgxQjhqZlZwNjcyNGZLVUZHdVZKdS03c0s2TlI4YkEuUUE=",
@@ -595,7 +595,7 @@
         "last_check_time": 1787639895,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890268
+        "cooldown_until": 1788336499
       },
       {
         "key": "ENC:QWJHRjd0V241RTFFaGkzZVRWdkdYdi1MWXd4SHlsQWNQa0EteU9EaEVpSUk2TlI4YkEuUUE=",
@@ -603,11 +603,11 @@
         "project_id": "2",
         "type": "GEMINI API",
         "status": "active",
-        "reset_time": 1787720851,
-        "last_check_time": 1787641236,
-        "next_check_time": 1787645251,
+        "reset_time": 0,
+        "last_check_time": 1788332329,
+        "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890268
+        "cooldown_until": 1788336499
       },
       {
         "key": "ENC:UVlTZUxxVDE0WFJHUF9sbjhxRWlRWVpDZ3BTcm02bmlSb0xDVllRcFVKaUs2TlI4YkEuUUE=",
@@ -619,7 +619,7 @@
         "last_check_time": 1787640180,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890268
+        "cooldown_until": 1788336499
       },
       {
         "key": "ENC:d01DT3FxR0J5bDd6bjZoUHA3VDV1c0tuUTFkM2lXeDNESHlCUFdDMEdzVko2TlI4YkEuUUE=",
@@ -628,10 +628,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787890203,
+        "last_check_time": 1788331397,
         "next_check_time": 0,
-        "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890268
+        "error_msg": "HTTP 429 RPM/TPM: You exceeded your current quota, please check your plan and billing details. For more info",
+        "cooldown_until": 1788336499
       },
       {
         "key": "ENC:UUlnRjZDeWdvNkZwY3lHZmJuT1A5cGdVNzNrTVhrWjBTUVVqcXN6ekhqWUw2TlI4YkEuUUE=",
@@ -640,10 +640,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787489789,
+        "last_check_time": 1788331469,
         "next_check_time": 0,
-        "error_msg": "",
-        "cooldown_until": 1787890268
+        "error_msg": "HTTP 429 RPM/TPM: You exceeded your current quota, please check your plan and billing details. For more info",
+        "cooldown_until": 1788336499
       },
       {
         "key": "ENC:d09xQ2VIeXBkRjNIQ1JENWhaY1M5ZVk0X0tqSUVwR3hpNGJ0WlhVVm55eEk2TlI4YkEuUUE=",
@@ -652,10 +652,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787650134,
+        "last_check_time": 1788336434,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890268
+        "cooldown_until": 1788336499
       },
       {
         "key": "ENC:UV9oVXRuZHJWZllGYTRWOFYzTURON2FkX0ZHR3ZncHh5LXRiVHRocTNjTEo2TlI4YkEuUUE=",
@@ -667,7 +667,7 @@
         "last_check_time": 1787643851,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890268
+        "cooldown_until": 1788336499
       },
       {
         "key": "ENC:Z010Rk91NkJfMk5VRklJbHFjbmlzQlhzRHFHX0xPQTVMcGU0ZnhBWUF2Tks2TlI4YkEuUUE=",
@@ -676,10 +676,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787641566,
+        "last_check_time": 1788331986,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890268
+        "cooldown_until": 1788336499
       },
       {
         "key": "ENC:QS1GLXhVMVFQT0hncW9faWc2VjNuTE8ycFlpWVdmbHFpalI2eHVtR2VGTUw2TlI4YkEuUUE=",
@@ -691,7 +691,7 @@
         "last_check_time": 1787645344,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890268
+        "cooldown_until": 1788336499
       },
       {
         "key": "ENC:d0ZUc3FmbWt4aFlQUURlaFlBd01sbzdWY0ZPZV9MVXRzYzRlT0tpUTNhWUo2TlI4YkEuUUE=",
@@ -700,10 +700,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787639901,
+        "last_check_time": 1788237678,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890284
+        "cooldown_until": 1788332389
       },
       {
         "key": "ENC:Z0F1eHI2Mms4LWl6TnVwWThCV1VOOGxyZlBaYWZPdThHRW95OVlYLThhNUw2TlI4YkEuUUE=",
@@ -715,7 +715,7 @@
         "last_check_time": 1787641251,
         "next_check_time": 1787645256,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890284
+        "cooldown_until": 1788332389
       },
       {
         "key": "ENC:UUVPaDFiUXZGcW96T3J1TjhUcnRaWnMzM2FDVWpuSVNnRjFPMjJreVRRRUs2TlI4YkEuUUE=",
@@ -724,10 +724,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787714346,
+        "last_check_time": 1788331320,
         "next_check_time": 0,
-        "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890284
+        "error_msg": "HTTP 429 RPM/TPM: You exceeded your current quota, please check your plan and billing details. For more info",
+        "cooldown_until": 1788332389
       },
       {
         "key": "ENC:QWRlcDlhcjhVczhYX1hBNHA0TlpKNW5TNk5kR2RXQXNtMUNhSUdOdzRvRUo2TlI4YkEuUUE=",
@@ -736,11 +736,11 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787890219,
+        "last_check_time": 1788331473,
         "next_check_time": 0,
-        "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
+        "error_msg": "HTTP 429 RPM/TPM: You exceeded your current quota, please check your plan and billing details. For more info",
         "project_name": "",
-        "cooldown_until": 1787890284
+        "cooldown_until": 1788332389
       },
       {
         "key": "ENC:QUFFdjg3T1UyVENMY3NjMjRrODAyaHZHSjkwX2plZnpTVVVvM1lvdktJZ0k2TlI4YkEuUUE=",
@@ -752,7 +752,7 @@
         "last_check_time": 1787714639,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890284
+        "cooldown_until": 1788332389
       },
       {
         "key": "ENC:UXdaVjJma3VUUGpQQ1pXSEc5SFZ4YWRxRmVvQkY1WFRHYmJONWpUVDJRV0k2TlI4YkEuUUE=",
@@ -764,7 +764,7 @@
         "last_check_time": 1787650140,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890284
+        "cooldown_until": 1788332389
       },
       {
         "key": "ENC:QXpKbDlTNDUzN3dvMXRYMkNiTkR5ZFpqb19meGVJY0k4Tnd0LVBFcU1MZUs2TlI4YkEuUUE=",
@@ -776,7 +776,7 @@
         "last_check_time": 1787642093,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890284
+        "cooldown_until": 1788332389
       },
       {
         "key": "ENC:dzkyRlBkWUZ4NHRnVjB5MzFlWENuVE9VelIzQmFaZXl6SW9JWGNRWm15WUs2TlI4YkEuUUE=",
@@ -788,7 +788,7 @@
         "last_check_time": 1787489872,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787890284
+        "cooldown_until": 1788332389
       },
       {
         "key": "ENC:Z0FxMlF4TGRIMk5QenZHUC0wVklrX2tHVkgwT3JpUXJhcjF5TTRRbHA1Nkk2TlI4YkEuUUE=",
@@ -797,10 +797,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787645353,
+        "last_check_time": 1788332324,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890284
+        "cooldown_until": 1788332389
       },
       {
         "key": "ENC:d05KcFFreGZDNkE4bzdFbm5hYl8wU1JkNXVVU0hGcTNmSEhOR1UzUTJDU0w2TlI4YkEuUUE=",
@@ -812,7 +812,7 @@
         "last_check_time": 1787627954,
         "next_check_time": 0,
         "error_msg": "Batch rotation lock",
-        "cooldown_until": 1787642817
+        "cooldown_until": 1788331650
       },
       {
         "key": "ENC:d0g2Nmd6RGFBSUlkaWg1Y2MzZ2JJLVpMblZLNU9Ha2NBUzYzdjNhUURTWkk2TlI4YkEuUUE=",
@@ -821,10 +821,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 1787720904,
-        "last_check_time": 1787642752,
+        "last_check_time": 1788331585,
         "next_check_time": 1787645304,
-        "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787642817
+        "error_msg": "HTTP 429 RPM/TPM: You exceeded your current quota, please check your plan and billing details. For more info",
+        "cooldown_until": 1788331650
       },
       {
         "key": "ENC:d1FXZGlFeDJsT1ZVal9DQ1ZYU1NpSHpUbEFYV0l2dVVRaUoxREQzWGdOVEo2TlI4YkEuUUE=",
@@ -836,7 +836,7 @@
         "last_check_time": 1787489900,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787642817
+        "cooldown_until": 1788331650
       },
       {
         "key": "ENC:d1ZGcEZxMFVmdHJYM2VseWNkS3dmVDlObGJybl80Z1Z2UktBbjI5V1ZCWUo2TlI4YkEuUUE=",
@@ -848,7 +848,7 @@
         "last_check_time": 1787489905,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787642817
+        "cooldown_until": 1788331650
       },
       {
         "key": "ENC:UVAyblREZ3ZIYmxRZ1dnaS1CZmo3UW5aSlh1NWlUelNQVV95LWNsSEJ2SUs2TlI4YkEuUUE=",
@@ -860,7 +860,7 @@
         "last_check_time": 1787489910,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787642817
+        "cooldown_until": 1788331650
       },
       {
         "key": "ENC:dzdTYVNkMy1QLV9WREJaMHAtdExUa1hOdS1BY0NBeHhkekUwUjhGTlZfbko2TlI4YkEuUUE=",
@@ -872,7 +872,7 @@
         "last_check_time": 1787489916,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787642817
+        "cooldown_until": 1788331650
       },
       {
         "key": "ENC:QWNqaUhUVExUMmZwaDR0UlV3UWZUNGtaUmoxOGg3WE9pT1BmRlBaSmZYYko2TlI4YkEuUUE=",
@@ -884,7 +884,7 @@
         "last_check_time": 1787489923,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787642817
+        "cooldown_until": 1788331650
       },
       {
         "key": "ENC:Z2l1aW5TclUyVlNDX1Y1YzNnMlQ3anlsRTRsdHhJMTU5NDRhU1hCeE85M0k2TlI4YkEuUUE=",
@@ -896,7 +896,7 @@
         "last_check_time": 1787489928,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787642817
+        "cooldown_until": 1788331650
       },
       {
         "key": "ENC:d1RIUFZQNXZRU0FoVnZ4dlRPZ19ubWdWd2h3N3lKLTdBS1RXMHEzYVpjTks2TlI4YkEuUUE=",
@@ -908,7 +908,7 @@
         "last_check_time": 1787489939,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787642817
+        "cooldown_until": 1788331650
       },
       {
         "key": "ENC:QWsycWRPclVfYVNSam1RRnJJb09MdFBUaVlPZkd0U29hUnA1cHlweWd1eEo2TlI4YkEuUUE=",
@@ -920,7 +920,7 @@
         "last_check_time": 1787639922,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890290
+        "cooldown_until": 1788332399
       },
       {
         "key": "ENC:UUNOZHo1dGRkcFBwVEVLdGgzQ2hUSm5Ubnl5QjFUMVh1SVRRQkpmbnBQc0w2TlI4YkEuUUE=",
@@ -932,7 +932,7 @@
         "last_check_time": 1787641256,
         "next_check_time": 1787645261,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890290
+        "cooldown_until": 1788332399
       },
       {
         "key": "ENC:QVlKcjJBRzFqRGN1N08zamItQ0JmMnd5MUkwZE9tZzhhRUN2Z2d6YXlZV0o2TlI4YkEuUUE=",
@@ -944,7 +944,7 @@
         "last_check_time": 1787640213,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890290
+        "cooldown_until": 1788332399
       },
       {
         "key": "ENC:dzF6OTUxeFY0Ykg1MlpZX2hNVW9OeEVDVExVcHR6X19YdlEtVE1vVzI0REk2TlI4YkEuUUE=",
@@ -956,7 +956,7 @@
         "last_check_time": 1787890225,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890290
+        "cooldown_until": 1788332399
       },
       {
         "key": "ENC:UTdvNTBZcUxlMFRjMkZwT0UxenZFTENFeDNPR2dNWVJkQ1RuS1RHVHNlT0k2TlI4YkEuUUE=",
@@ -968,7 +968,7 @@
         "last_check_time": 1787714927,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890290
+        "cooldown_until": 1788332399
       },
       {
         "key": "ENC:Z3VlWVVGMk5jOXd3ODdaV21sRWRpd0tmSlBLQm9Zc01xd2JvckVPVXVIeUk2TlI4YkEuUUE=",
@@ -980,7 +980,7 @@
         "last_check_time": 1787650145,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890290
+        "cooldown_until": 1788332399
       },
       {
         "key": "ENC:UUVzcDBiX0cxakoyNGFSMEVhaWtxLTFGTzA5UGgyVzdfRjZfdUszQnN6dUw2TlI4YkEuUUE=",
@@ -992,7 +992,7 @@
         "last_check_time": 1787489976,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787890290
+        "cooldown_until": 1788332399
       },
       {
         "key": "ENC:d0MyeU5RZjkyOXZHdG5WZ29tSmdmQkpoblUzNmZoSG83MlM2ZDhlbmZNWUw2TlI4YkEuUUE=",
@@ -1001,10 +1001,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787648346,
+        "last_check_time": 1788332334,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890290
+        "cooldown_until": 1788332399
       },
       {
         "key": "ENC:d2pJel9DWGJDMFdUOG15UUc3WHNqdVd4VldSeTUzUnc5SnRMLWtwNUhjeks2TlI4YkEuUUE=",
@@ -1016,7 +1016,7 @@
         "last_check_time": 1787645369,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787890290
+        "cooldown_until": 1788332399
       },
       {
         "key": "ENC:UTN4YXpUT3RqWTBVdzU4cS1uN2J1VVZGVklJNERXLTJHNDBoZm5hQU9McUs2TlI4YkEuUUE=",
@@ -1241,10 +1241,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787643073,
+        "last_check_time": 1788336398,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787650146
+        "cooldown_until": 1788336463
       },
       {
         "key": "ENC:QTJfVkg1UnI1UGhfa1JWREdaUHVMRFA5OHpzVGRNS0xzT3JXVWJNOGxieEo2TlI4YkEuUUE=",
@@ -1256,7 +1256,7 @@
         "last_check_time": 1787650082,
         "next_check_time": 1787645276,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787650146
+        "cooldown_until": 1788336463
       },
       {
         "key": "ENC:d1huZ2tfMG14TkhfaXZUcHNXcUxSWUIyREd4VG1yRm9oaVRMUXF1SXJCNEs2TlI4YkEuUUE=",
@@ -1268,7 +1268,7 @@
         "last_check_time": 1787490137,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787650146
+        "cooldown_until": 1788336463
       },
       {
         "key": "ENC:Z3B6QjVNaTA4YlpaZmhYU0JYM0NLc25nRnRDNHl6S2xGSXRqX0pVclNZeEs2TlI4YkEuUUE=",
@@ -1280,7 +1280,7 @@
         "last_check_time": 1787490138,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787650146
+        "cooldown_until": 1788336463
       },
       {
         "key": "ENC:UWE1MmE0UDV6TzlERml3Rnp1aDVYMXdXbHlHMGk3YWVNcUU4N1d6NVhXREw2TlI4YkEuUUE=",
@@ -1292,7 +1292,7 @@
         "last_check_time": 1787490143,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787650146
+        "cooldown_until": 1788336463
       },
       {
         "key": "ENC:Z2VSUThZVWxwRnpoWDdMamFIYkRQblRjMlVndE90UkxzQmIxYUN3YnJaMko2TlI4YkEuUUE=",
@@ -1304,7 +1304,7 @@
         "last_check_time": 1787490148,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787650146
+        "cooldown_until": 1788336463
       },
       {
         "key": "ENC:d0R2VFl1cGdxdnlXcDVhaFBNRVNPdUpDUUJXYTNFXzg0bkxvc3FIRjFBMEo2TlI4YkEuUUE=",
@@ -1316,7 +1316,7 @@
         "last_check_time": 1787490162,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787650146
+        "cooldown_until": 1788336463
       },
       {
         "key": "ENC:QWphOG5tbm5GamRHS24tY1VFdGp3REVmeTdsY0RLSkxBWGs1SUJQSkVzbko2TlI4YkEuUUE=",
@@ -1328,7 +1328,7 @@
         "last_check_time": 1787490166,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787650146
+        "cooldown_until": 1788336463
       },
       {
         "key": "ENC:d2M4eVA4VHFLSXlSSHR5bHpxRWl5Vnk1ektIb0FnWUlfQ1N6dXp2OW1XaUw2TlI4YkEuUUE=",
@@ -1340,7 +1340,7 @@
         "last_check_time": 1787490170,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787650146
+        "cooldown_until": 1788336463
       },
       {
         "key": "ENC:Z3g1eDlkSWFwcThBeF9FVjY2NUhQTXkzU0VPQzg2VlZQeG9EVV9JOFp1NUk2TlI4YkEuUUE=",
@@ -1460,7 +1460,7 @@
         "last_check_time": 1787627921,
         "next_check_time": 0,
         "error_msg": "Batch rotation lock",
-        "cooldown_until": 1787640516
+        "cooldown_until": 1788336805
       },
       {
         "key": "ENC:d0hxb1BxdXM0c0tIcmt0Uk5QblB4MUlTRkVEaDN0UnZocGluMGlVbkNUX0s2TlI4YkEuUUE=",
@@ -1469,10 +1469,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 1787720887,
-        "last_check_time": 1787634487,
+        "last_check_time": 1788336740,
         "next_check_time": 1787645287,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787640516
+        "cooldown_until": 1788336805
       },
       {
         "key": "ENC:Z0dxeVRjek03eDBwWVZSOElOYmhqQVJlcEk2dUR5cU1xWnVKckZpU0tnWUs2TlI4YkEuUUE=",
@@ -1484,7 +1484,7 @@
         "last_check_time": 1787490249,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787640516
+        "cooldown_until": 1788336805
       },
       {
         "key": "ENC:d0hxcy1nRGlicmNkbmt4T1lCdXhwa2tjQ25nd1lwTnRBclc4Q2hQcGFPYUw2TlI4YkEuUUE=",
@@ -1496,7 +1496,7 @@
         "last_check_time": 1787490254,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787640516
+        "cooldown_until": 1788336805
       },
       {
         "key": "ENC:QUMtS1gxTkNqcTRJVHlHSWdmUVEzcVNkZ2wxLW5ZN1hKQ1FWMU1TVUtfMEo2TlI4YkEuUUE=",
@@ -1508,7 +1508,7 @@
         "last_check_time": 1787490263,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787640516
+        "cooldown_until": 1788336805
       },
       {
         "key": "ENC:QUo0T1FUSW85S3FRNzBOT3VoR2lkRXVRNjRpMDQ0RHYwVklVMXp4bUV0R0s2TlI4YkEuUUE=",
@@ -1520,7 +1520,7 @@
         "last_check_time": 1787490268,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787640516
+        "cooldown_until": 1788336805
       },
       {
         "key": "ENC:ZzlWV0ZrMEpCSUxPTms2Ujk5TDR3bFFDLXQzdERpWEZORzNOTEw2MjVnOEw2TlI4YkEuUUE=",
@@ -1529,10 +1529,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787490276,
+        "last_check_time": 1788332275,
         "next_check_time": 0,
-        "error_msg": "",
-        "cooldown_until": 1787640516
+        "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
+        "cooldown_until": 1788336805
       },
       {
         "key": "ENC:UXdMYlZDUFNweUhHRUtDQzVOTzR2MTVQeWd3MkpQMHRMX0JweFptQ09oYkk2TlI4YkEuUUE=",
@@ -1544,7 +1544,7 @@
         "last_check_time": 1787490277,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787640516
+        "cooldown_until": 1788336805
       },
       {
         "key": "ENC:QWVLMkxVN216eGNmZFkwOXk4cHQ3Rnp3aHFYYmlWWmpMampoY1lYamk3eks2TlI4YkEuUUE=",
@@ -1556,7 +1556,7 @@
         "last_check_time": 1787640451,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787640516
+        "cooldown_until": 1788336805
       },
       {
         "key": "ENC:d0xTazlDR2tXM190bllZOXRVVTZpM2pwZV9CR0VSeWhDX3dGdTJibXdYUEw2TlI4YkEuUUE=",
@@ -1568,7 +1568,7 @@
         "last_check_time": 1787641205,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787641270
+        "cooldown_until": 1788332014
       },
       {
         "key": "ENC:UVAzQUtoZFo0cE5vNVBEREJpdTFKeFNXcXIxNGQ5TFJNNHhma1dQc1ZKcUw2TlI4YkEuUUE=",
@@ -1577,10 +1577,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 1787720893,
-        "last_check_time": 1787634493,
+        "last_check_time": 1788331253,
         "next_check_time": 1787645293,
-        "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787641270
+        "error_msg": "HTTP 429 RPM/TPM: You exceeded your current quota, please check your plan and billing details. For more info",
+        "cooldown_until": 1788332014
       },
       {
         "key": "ENC:QTY2RUpfTmdNbmtqNG9yalJNTnFxOHVrVkxSRHZoeFdHNUt5VXNCcjJLZEs2TlI4YkEuUUE=",
@@ -1592,7 +1592,7 @@
         "last_check_time": 1787490303,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787641270
+        "cooldown_until": 1788332014
       },
       {
         "key": "ENC:Z0FoVmFUd2F1a2EzeUV6YUM4WENqQXRPdklseWExZWRxc1BRUVlHUk4tbUs2TlI4YkEuUUE=",
@@ -1605,7 +1605,7 @@
         "next_check_time": 0,
         "error_msg": "Batch rotation lock",
         "project_name": "",
-        "cooldown_until": 1787641270
+        "cooldown_until": 1788332014
       },
       {
         "key": "ENC:dzc0TFA1eW8tbld4ZlVuM0pQdEZ5dlM5YXAxWWx3N05CWTRyZXdFWC1MUko2TlI4YkEuUUE=",
@@ -1614,10 +1614,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787490320,
+        "last_check_time": 1788331949,
         "next_check_time": 0,
-        "error_msg": "",
-        "cooldown_until": 1787641270
+        "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
+        "cooldown_until": 1788332014
       },
       {
         "key": "ENC:Z0MtNVFDbEhzb2xBaVlGcmpsb3MxQmV4c05rTTF3ZmVRaGJfOFJrRjdyS0w2TlI4YkEuUUE=",
@@ -1629,7 +1629,7 @@
         "last_check_time": 1787490326,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787641270
+        "cooldown_until": 1788332014
       },
       {
         "key": "ENC:dzg3dDZLWWVGRFNSTy1hNS0zSkx3TlVlVmNya2FHUWMyNVFqa2p1aTBzTEs2TlI4YkEuUUE=",
@@ -1641,7 +1641,7 @@
         "last_check_time": 1787490335,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787641270
+        "cooldown_until": 1788332014
       },
       {
         "key": "ENC:d2lxVG52S01MRXlQN0JabzFPdXNyak9jOUtpc09sUHRvNmNnSk5RSm9jT0s2TlI4YkEuUUE=",
@@ -1653,7 +1653,7 @@
         "last_check_time": 1787490342,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787641270
+        "cooldown_until": 1788332014
       },
       {
         "key": "ENC:Z3pkYVNCekxGNVUzVG9jNWJ3NXlGMUIwLTEzZzFHbnVWbDl1NjJkUnkzN0w2TlI4YkEuUUE=",
@@ -1665,7 +1665,7 @@
         "last_check_time": 1787490347,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787641270
+        "cooldown_until": 1788332014
       },
       {
         "key": "ENC:UWZVNENYZjd4dmNVenlxTm0yS3NULWVKa0J2bWxPODlSNnE2WFNHYlNSVEk2TlI4YkEuUUE=",
@@ -1677,7 +1677,7 @@
         "last_check_time": 1787634425,
         "next_check_time": 1787645225,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787641838
+        "cooldown_until": 1788333595
       },
       {
         "key": "ENC:d1NLYkNnR241LTFDMS1ia1YxZ0ltX3lsS0tzSjFOMDlJSWoyUWhrQnJ1Wkw2TlI4YkEuUUE=",
@@ -1689,7 +1689,7 @@
         "last_check_time": 1787490359,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787641838
+        "cooldown_until": 1788333595
       },
       {
         "key": "ENC:d3FKRllqaTZubUthN20tVFpKTUlVZC1CbGh2elF4Umlvakw2Y2gwUlFhbkw2TlI4YkEuUUE=",
@@ -1701,7 +1701,7 @@
         "last_check_time": 1787490362,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787641838
+        "cooldown_until": 1788333595
       },
       {
         "key": "ENC:Z3lWcnFsUXM1M3pCOWQzemhuVkNINTVSSFJEYk1NOXJLdFdrYWo1YnFYdUk2TlI4YkEuUUE=",
@@ -1713,7 +1713,7 @@
         "last_check_time": 1787490377,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787641838
+        "cooldown_until": 1788333595
       },
       {
         "key": "ENC:UWpqS1JtdzVUVUtVdEp4bWl5ZDNLS0VERU4tRVNJRkxoSmVyaEF4b3dDd0w2TlI4YkEuUUE=",
@@ -1725,7 +1725,7 @@
         "last_check_time": 1787490383,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787641838
+        "cooldown_until": 1788333595
       },
       {
         "key": "ENC:QUswdnphNzFmZElKWWtUQzBTdlNNc3dHOXN4WFExejdyWFdqRlBFVHVaTUw2TlI4YkEuUUE=",
@@ -1737,7 +1737,7 @@
         "last_check_time": 1787490385,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1787641838
+        "cooldown_until": 1788333595
       },
       {
         "key": "ENC:Z3JIOTROZmVDa09IV01WUE9sVE1ZUkdqWWdiUFEwMEZvVGZQTVRHcTFOckw2TlI4YkEuUUE=",
@@ -1746,10 +1746,10 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1787490395,
+        "last_check_time": 1788333530,
         "next_check_time": 0,
-        "error_msg": "",
-        "cooldown_until": 1787641838
+        "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
+        "cooldown_until": 1788333595
       },
       {
         "key": "ENC:UXktUUFYUG94dW5fQ1dNRnBjY1NjeGNycVBxRW1OS253Vlg2b2dqLThiZ0o2TlI4YkEuUUE=",
@@ -1761,7 +1761,7 @@
         "last_check_time": 1787640860,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787641838
+        "cooldown_until": 1788333595
       },
       {
         "key": "ENC:QTlKVUJjbnloaTFFeURXYnBDM0V5YjBhMUtEYjZQWjlvLWd2SU5SUkxKc0s2TlI4YkEuUUE=",
@@ -1773,7 +1773,7 @@
         "last_check_time": 1787641773,
         "next_check_time": 0,
         "error_msg": "HTTP 429 RPM/TPM: Resource has been exhausted (e.g. check quota).",
-        "cooldown_until": 1787641838
+        "cooldown_until": 1788333595
       },
       {
         "key": "ENC:Z0pRTV8tUVJQc2YzMERPYXhYNUNCdGhpT3BzcDVFcndNQlpZZ3FxWkRUd0o2TlI4YkEuUUE=",
@@ -1889,10 +1889,10 @@
     "last_out_dir": "D:/Roadmappython",
     "roadmap_generator": {
       "gen_mode": "learning",
-      "domain": "Kiến trúc sư Giải pháp Microsoft Excel Toàn năng",
+      "domain": "Tạo một hướng dấn sinh tồn trong thời chiến tranh tàn phá mọi thứ và xây dựng lại từ đầu, thì kinh doanh gì, tồn tại thế nào, chế tạo từ đồ đơn giản đến cpu, ram thế nào.",
       "time_per_day": "1 tiếng",
       "days": "600",
-      "context": "tính năng VBA, VBA đến nâng cao có thể làm hầu như mọi điều trên Excel  như kết nối thiết bị qua các cổng com, API, APP quản lý, website\nPhaỉ đầy đủ nội dung \nTrờ thành 1 chuyên gia đến mức cấp rất cao có thể làm dược mọi thứ mà excel có thể làm\nCó ví dụ bài tập cụ thể từng lĩnh vực bước nhỏ",
+      "context": "Giả tưởng và cách sinh tồn, từ kiếm tiền, vũ khí đến lúc khống chế và thành người đứng sau màn đièu hành tất cả\nCHế tạo mọi thứ\nlúc đầu trữ đồ kiểu gì để tồn tại, sau này tự bảo vệ như thế nào, làm sao kiếm tay chân, mua bán kiểu gì là lời, nuôi trồng , rồi đó phát triển đến mức hiện đại",
       "req_time": 0,
       "req_mat": 0,
       "req_step": 0,
@@ -1904,8 +1904,8 @@
       "reference_files": [
         "C:/Users/12953 bao/Desktop/desktop/work/Project/Python/BasicLearnPython/W3schools/Python Tutorial/GravityCode/Download/AskCpl/.agents/skills/generate_roadmap/SKILL.md"
       ],
-      "custom_filename": "AccessFull",
-      "save_dir": "C:/Users/12953 bao/Desktop/Roadmap",
+      "custom_filename": "DestroyRestoreLife",
+      "save_dir": "C:/Users/games/Desktop",
       "expand_mode": "llm"
     },
     "enable_followup": true,

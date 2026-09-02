@@ -186,9 +186,38 @@ def get_all_dates(language: str) -> list:
 
 def get_available_languages() -> list:
     langs = []
-    for f in os.listdir(DATA_DIR):
-        if f.endswith(".json"):
-            # Lấy tên file bỏ đuôi .json, viết hoa chữ cái đầu (VD: english.json -> English)
-            name = f[:-5].replace("_", " ").title()
-            langs.append(name)
+    seen = set()
+
+    # 1. File từ vựng nhập tay (data/*.json)
+    if os.path.exists(DATA_DIR):
+        for f in os.listdir(DATA_DIR):
+            if f.endswith(".json"):
+                name = f[:-5].replace("_", " ").title()
+                key = name.strip().lower()
+                if key and key not in seen:
+                    seen.add(key)
+                    langs.append(name)
+
+    # 2. Khóa học AI (data/ai_courses/*/course.json)
+    ai_courses_dir = os.path.join(DATA_DIR, "ai_courses")
+    if os.path.exists(ai_courses_dir):
+        for folder in sorted(os.listdir(ai_courses_dir)):
+            cpath = os.path.join(ai_courses_dir, folder, "course.json")
+            if os.path.isfile(cpath):
+                display_name = ""
+                try:
+                    with open(cpath, "r", encoding="utf-8") as fp:
+                        cdata = json.load(fp)
+                        display_name = (cdata.get("language") or "").strip()
+                except Exception:
+                    pass
+                if not display_name:
+                    display_name = folder.replace("_", " ").title()
+
+                key = display_name.strip().lower()
+                if key and key not in seen:
+                    seen.add(key)
+                    langs.append(display_name)
+
     return langs
+

@@ -480,7 +480,25 @@ function downloadDayHtml(dayLabel, rawHtmlContent) {
     });
     return filename;
 }
+function getMaxDayFromDayIndex(days) {
+    if (!days || days.length === 0) return 0;
+    let maxD = 0;
+    for (const d of days) {
+        const m = String(d.day).match(/\d+/);
+        if (m) {
+            const num = parseInt(m[0], 10);
+            if (num > maxD) maxD = num;
+        }
+    }
+    return maxD;
+}
+
 function updateIndex() {
+    dayIndex.sort((a, b) => {
+        const ma = parseInt((String(a.day).match(/\d+/) || [0])[0], 10);
+        const mb = parseInt((String(b.day).match(/\d+/) || [0])[0], 10);
+        return ma - mb;
+    });
     sendDownloadMessageWithRetry({
         action: "download_index", agentName: currentAgentName,
         folderName, days: dayIndex, filename: `${folderName}/index.html`,
@@ -488,11 +506,17 @@ function updateIndex() {
     });
 }
 function saveSession() {
+    const maxDay = getMaxDayFromDayIndex(dayIndex) || currentDay;
+    dayIndex.sort((a, b) => {
+        const ma = parseInt((String(a.day).match(/\d+/) || [0])[0], 10);
+        const mb = parseInt((String(b.day).match(/\d+/) || [0])[0], 10);
+        return ma - mb;
+    });
     sendDownloadMessageWithRetry({
         action: "download_session",
         data: JSON.stringify({
             agentName: currentAgentName, folderName, prefix: prefixStr,
-            lastDay: currentDay, totalSaved: dayIndex.length,
+            lastDay: maxDay, totalSaved: dayIndex.length,
             savedAt: new Date().toISOString(), days: dayIndex,
             topicMemory: topicMemory,
             platform: currentPlatform,
@@ -528,13 +552,26 @@ function handleResumeSessionRequest(request) {
         currentAgentName = s.agentName || "Copilot";
         folderName  = s.folderName || makeFolderName(currentAgentName);
         prefixStr   = s.prefix || "Day ";
-        currentDay  = request.currentDay ? parseInt(request.currentDay, 10) : (s.lastDay || 0) + 1;
         
         let rawDays = s.days || [];
-        dayIndex = rawDays.filter(d => {
-            const match = String(d.day).match(/\d+/);
-            return match ? parseInt(match[0], 10) < currentDay : true;
+        const seen = new Set();
+        dayIndex = [];
+        for (const d of rawDays) {
+            const m = String(d.day).match(/\d+/);
+            const key = m ? parseInt(m[0], 10) : d.day;
+            if (!seen.has(key)) {
+                seen.add(key);
+                dayIndex.push(d);
+            }
+        }
+        dayIndex.sort((a, b) => {
+            const ma = parseInt((String(a.day).match(/\d+/) || [0])[0], 10);
+            const mb = parseInt((String(b.day).match(/\d+/) || [0])[0], 10);
+            return ma - mb;
         });
+
+        const maxD = getMaxDayFromDayIndex(dayIndex);
+        currentDay = request.currentDay ? parseInt(request.currentDay, 10) : (maxD || s.lastDay || 0) + 1;
         endDay      = request.endDay || null;
         promptMode  = request.promptMode || s.promptMode || 'basic';
         isAdvanced  = request.isAdvanced || false;

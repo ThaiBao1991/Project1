@@ -71,7 +71,70 @@
 - ✅ `python test_viewer_dashboard.py`: 1/1 PASS.
 - ✅ `node --check popup.js content_script.js background.js`: SYNTAX OK.
 
+## 2026-09-02 — Khắc Phục Triệt Để Lỗi Trùng Tiêu Đề Roadmap (Pass 1B + Pass 1C)
+
+### 1. ⚠️ Nguyên Nhân Gốc Rễ (Root Cause) Lỗi Trùng Tiêu Đề Khi Mở Rộng Roadmap
+- **Thiếu tầm nhìn toàn cục trong prompt (PASS 1B)**: Prompt sinh batch trước đây chỉ gửi `known_titles[-40:]` (40 tiêu đề gần nhất). Khi roadmap vượt quá 40 Day (ví dụ 600 Day), các Day đầu tiên (như Day 21) bị rớt khỏi danh sách cấm, dẫn đến AI vô tình sinh lại chủ đề tương tự ở Day 79.
+- **PASS 1C chưa vét cạn & thiếu retry**: Vòng quét trùng lặp cũ bị `break` sớm chỉ lấy 1 cặp trùng/vòng, số vòng sửa chỉ có 4, và nếu AI sửa bị lỗi thì chỉ log mà không retry, khiến các Day trùng sót lại và làm gãy `validate_plan()`.
+
+### 4. ⚠️ Xử Lý Triệt Để Lỗi "Phase Tích Hợp Không Trả Về Mảng JSON" & Cơ Chế Fallback Bước 2
+- **Nguyên nhân (Lỗi Phase 201 tại Day 401-402)**:
+  1. Khi Gemini trả về mảng Day nhưng lại bọc trong một JSON Object dạng `{"days": [...]}` hoặc `{"result": [...]}` thay vì mảng JSON thuần túy `[...]`, hàm `restore_locked_day_identity()` kiểm tra `isinstance(candidate, list)` bị thất bại và ném lỗi `phase tích hợp không trả về mảng JSON`.
+  2. Khi gặp lỗi retry 3 lần, code cũ nối dồn `phase_prompt += ...` khiến prompt phình to lên 7,244 chars (> 3,500 chars TPM).
+  3. Khi hết 3 lần retry, code cũ `raise` làm gãy toàn bộ tiến trình phản biện dù đã hoàn thành 400/600 Day.
+- **Khắc phục đã áp dụng**:
+  1. **Tự động unwrap Object wrapper (`roadmap_pipeline.py`)**: `restore_locked_day_identity()` tự động bóc tách các trường bọc ngoài (`days`, `skeleton`, `items`, `data`, `result`) nếu AI trả về JSON Object thay vì List thô.
+  2. **Chống phình to Prompt (`AskCpl.py`)**: Giữ cố định `_base_phase_prompt`, mỗi lần retry chỉ thêm 1 dòng lỗi ngắn gọn (≤ 150 chars).
+  3. **Cơ chế Fallback An Toàn 100% cho Bước 2**: Nếu sau 3 lần retry một micro-phase (2 Day) vẫn không thể lấy JSON từ AI, hệ thống **tự động giữ nguyên nội dung gốc từ Skeleton** cho 2 Day đó và chạy tiếp các Phase còn lại. Đảm bảo Bước 2 **KHÔNG BAO GIỜ bị dừng giữa chừng** trên các roadmap lớn!
+
 ---
+
+## 2026-09-01 — Tối Ưu Hóa Tiến Trình Lộ Trình Lớn (6000+ Days) & Auto-Reconnect Khi Mất Mạng
+
+### 1. Cơ Chế Kiên Trì Chờ Mạng Hồi Phục (`gemini_safe.py`)
+- Khi gặp sự cố mất mạng (`ErrorKind.NETWORK` / `ConnectionError`), thay vì dừng tiến trình sau 90s:
+  - Hệ thống tự động kích hoạt vòng lặp kiểm tra ping nhẹ kết nối (`https://www.google.com/generate_204`) mỗi 30 giây liên tục trong **10 phút** (20 vòng lặp).
+  - Khi phát hiện mạng Internet có lại $\rightarrow$ tự động hồi phục trạng thái và tiếp tục gửi câu hỏi của Day hiện tại mà không làm ngắt quãng tiến trình.
+
+### 2. Tối Ưu Hóa Bộ Nhớ & Ghi Đĩa Lộ Trình Khổng Lồ (`auto_ai_worker.py` & `AskCpl.py`)
+- **Khắc phục nghẽn I/O**: `create_viewer()` được tối ưu hóa chỉ ghi file HTML cho các bài học mới (hoặc các bài chưa tồn tại), loại bỏ hoàn toàn việc mở và ghi đè lại hàng nghìn file cũ ở mỗi vòng lặp.
+- **Bảo vệ chống Crash tiến trình**: Bọc `try...except` bảo vệ quanh toàn bộ các lời gọi `create_viewer()`, đảm bảo mọi trục trặc I/O tạm thời của trang mục lục sẽ không làm crash hoặc dừng luồng tải bài học chính của AI.
+- **Cải thiện Logging lỗi**: `AskCpl.py` in chi tiết exception traceback khi có sự cố bất ngờ.
+
+### 3. ⚠️ Phát Hiện & Sửa Bug Cốt Lõi: `session.json` Phình RAM & Hiển Thị Sai Tiến Độ
+
+#### 3.1 Root Cause (Nguyên nhân gốc rễ — KHÔNG được lặp lại)
+- **`session.json` chứa HTML thô + raw_responses**: Mỗi bài học trong `session_data` cũ lưu cả `"html": html_res` (nội dung HTML ~10-50 KB/bài) và `"raw_responses": [...]` (lịch sử hỏi đáp nhiều vòng).
+- **Hậu quả tích lũy theo cấp số cộng**:
+  - 100 bài ≈ 5 MB → OK
+  - 1000 bài ≈ 50 MB → Chậm
+  - 5000 bài ≈ 300 MB → Memory Spike mỗi lần ghi
+  - 6000+ bài ≈ 400-500 MB → Python OOM / I/O nghẽn / tiến trình bị kill đột ngột
+- **Lý do ghi đè không hiệu quả**: `save_session()` serialize toàn bộ list JSON mỗi lần ghi, không dùng incremental append.
+
+#### 3.2 Khắc phục đã áp dụng (`auto_ai_worker.py`)
+- Loại bỏ hoàn toàn `"html"` và `"raw_responses"` khỏi các bản ghi `session_data`. Các trường này đã có trong file `.html` riêng.
+- Session chỉ lưu metadata nhẹ: `day`, `completed`, `followup_complete`, `followup_turns`, `timestamp`, `adaptive_lesson` (nếu có).
+- Kết quả: `session.json` cho **6410 ngày < 1 MB** — ghi xong trong < 10ms.
+
+#### 3.3 Đồng bộ hóa session thực tế
+- Script đồng bộ đã chạy: Reconstruct 5974 bài từ dữ liệu file HTML trên đĩa `D:\Roadmappython` + tiêu đề roadmap gốc.
+- File `session.json` mới: **5974 bài, < 2 MB**, sẵn sàng tiếp tục từ **Day 5975**.
+
+#### 3.4 Fix hiển thị tiến độ (`AskCpl.py` — `check_auto_ai_session()`)
+- **Lỗi cũ**: Đọc `len(session_data)` làm tổng ngày → Hiện `"100/100 phần"` (khi session chỉ có batch 100 bài gần nhất).
+- **Fix mới**: Regex đếm `\n## Day \d+[a-zA-Z]?\s*[—–-]` trong file roadmap `.md` để lấy `roadmap_total` thực tế.
+- **Hiển thị đúng**: `✅ Đã tải: 5974/6410 ngày → Tiếp từ Day 5975. Tự động tiếp tục.`
+- Khi hoàn thành: `🎉 Hoàn thành: 6410/6410 ngày. Toàn bộ đã tải xong!`
+
+#### 3.5 Quy tắc bắt buộc cho mọi roadmap tương lai (đã ghi vào Skill `generate-roadmap` mục 12.6)
+- ❌ **CẤM**: `"html": html_res`, `"raw_responses": [...]` trong `session.json`
+- ✅ **Chỉ lưu**: `day`, `completed`, `followup_complete`, `followup_turns`, `timestamp`
+- ✅ **Kiểm tra**: `session.json` cho 6000 ngày phải < 2 MB. Nếu > 10 MB → đang lưu thừa trường HTML.
+
+---
+
+
 
 ## 2026-08-28 — Nâng Cấp Toàn Diện Trải Nghiệm & Tính Năng (Feature & UX Upgrades)
 

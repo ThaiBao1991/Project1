@@ -145,8 +145,9 @@ class ManualGetUI(QDialog):
             self.txt_log.append("⏹️ Đang hủy...")
             self.btn_cancel.setEnabled(False)
             
-    def _on_finished(self, msg: str):
-        self.txt_log.append(f"\n🎉 HOÀN THÀNH: {msg}")
+    def _on_finished(self, success: bool, msg: str):
+        icon = "🎉" if success else "⚠️"
+        self.txt_log.append(f"\n{icon} {msg}")
         self.btn_download.setEnabled(True)
         self.btn_cancel.setEnabled(False)
         self.txt_urls.setEnabled(True)

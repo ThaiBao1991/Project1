@@ -565,7 +565,6 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
         
         if day_clean_title in incomplete_days_refs:
             session_item = incomplete_days_refs[day_clean_title]
-            session_item["html"] = html_res
             session_item["timestamp"] = int(time.time() * 1000)
             session_item["followup_turns"] = len(all_responses) - 1
             session_item["followup_complete"] = got_complete
@@ -575,29 +574,28 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
         else:
             existing_entry = next((item for item in session_data if item.get("day", "").strip() == day_clean_title), None)
             if existing_entry:
-                existing_entry["html"] = html_res
                 existing_entry["timestamp"] = int(time.time() * 1000)
                 existing_entry["completed"] = True
                 existing_entry["followup_turns"] = len(all_responses) - 1
                 existing_entry["followup_complete"] = got_complete
-                existing_entry["raw_responses"] = all_responses
                 if adaptive_ready and lesson_result:
                     existing_entry["adaptive_lesson"] = lesson_result
             else:
                 session_data.append({
                     "day": day['title'].replace("## ", ""),
-                    "html": html_res,
                     "timestamp": int(time.time() * 1000),
                     "completed": True,
                     "followup_turns": len(all_responses) - 1,
-                    "followup_complete": got_complete,
-                    "raw_responses": all_responses
+                    "followup_complete": got_complete
                 })
                 if adaptive_ready and lesson_result:
                     session_data[-1]["adaptive_lesson"] = lesson_result
         
         save_session(session_data, out_dir)
-        create_viewer(out_dir, session_data)
+        try:
+            create_viewer(out_dir, session_data)
+        except Exception as e:
+            log(f"⚠ Lỗi cập nhật index.html: {e}. Vẫn tiếp tục tải bài tiếp theo...")
         time.sleep(3)
         return True
 
@@ -994,8 +992,13 @@ def create_viewer(out_dir, session_data=None):
 </body>
 </html>"""
         
-        with open(os.path.join(out_dir, file_name), 'w', encoding='utf-8') as f:
-            f.write(day_html)
+        out_filepath = os.path.join(out_dir, file_name)
+        if not os.path.exists(out_filepath) or idx >= total_days_num - 3:
+            try:
+                with open(out_filepath, 'w', encoding='utf-8') as f:
+                    f.write(day_html)
+            except Exception:
+                pass
             
         safe_title = day_title.replace('<', '&lt;').replace('>', '&gt;')
         items_html += (

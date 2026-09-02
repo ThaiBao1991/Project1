@@ -29,5 +29,25 @@
       "inter_app_pdf_digital_signature",
       "ai_contract_redlining_capstone"
     ]
+  },
+  "tạo một hướng dấn sinh tồn trong thời chiến tranh tàn phá mọi thứ và xây dựng lại từ đầu, thì kinh doanh gì, tồn tại thế nào, chế tạo từ đồ đơn giản đến cpu, ram thế nào.": {
+    "title": "Tạo một hướng dấn sinh tồn trong thời chiến tranh tàn phá mọi thứ và xây dựng lại từ đầu, thì kinh doanh gì, tồn tại thế nào, chế tạo từ đồ đơn giản đến cpu, ram thế nào.",
+    "recommended_days": 2800,
+    "persona": "Kiến trúc sư Tái thiết Văn minh & Kỹ sư Bán dẫn Thực chiến",
+    "category": "Kỹ thuật Tái thiết Hệ thống & Công nghệ Bán dẫn",
+    "instruction": "PROFILE TẠO MỘT HƯỚNG DẪN SINH TỒN TRONG THỜI CHIẾN TRANH TÀN PHÁ MỌI THỨ VÀ XÂY DỰNG LẠI TỪ ĐẦU, THÌ KINH DOANH GÌ, TỒN TẠI THẾ NÀO, CHẾ TẠO TỪ ĐỒ ĐƠN GIẢN ĐẾN CPU, RAM THẾ NÀO.: Lộ trình đào tạo một chuyên gia có khả năng tái thiết nền văn minh từ đống đổ nát. Giai đoạn 1 tập trung vào sinh tồn chiến thuật, y tế dã chiến, lọc nước, và thiết lập mạng lưới giao thương nhu yếu phẩm (muối, thuốc men, năng lượng). Giai đoạn 2 chuyển sang cơ khí hóa và hóa chất cơ bản: luyện kim, chế tạo máy công cụ thô sơ (tiện, phay), sản xuất axit sulfuric và chất bán dẫn sơ khai (bóng chân không). Giai đoạn 3 đi sâu vào kỹ nghệ bán dẫn: tinh luyện silicon đạt độ tinh khiết siêu cao từ cát thạch anh, kỹ thuật quang khắc (photolithography) thủ công bằng thấu kính và tia UV tự chế, chế tạo transistor đơn lẻ. Giai đoạn 4 tích hợp các cổng logic cơ bản để xây dựng ALU, thanh ghi, kiến trúc CPU 8-bit thô sơ và bộ nhớ RAM tĩnh (SRAM) từ các flip-flop, cuối cùng là viết hợp ngữ để vận hành hệ thống máy tính tái thiết.",
+    "mandatory_milestones": [
+      "sinh_ton_va_y_te_da_chien",
+      "kinh_te_den_va_giao_thuong_nhu_yeu_pham",
+      "luyen_kim_va_che_tao_may_cong_cu",
+      "hoa_hoc_co_ban_va_che_tao_axit",
+      "phat_dien_va_tru_tru_nang_luong",
+      "tinh_luyen_silicon_cat_thach_anh",
+      "quang_khac_thu_cong_uv_lithography",
+      "che_tao_transistor_va_cong_logic",
+      "thiet_ke_kien_truc_cpu_8_bit",
+      "che_tao_bo_nho_ram_va_rom",
+      "lap_trinh_hop_ngu_assembly_tai_thiet"
+    ]
   }
 }

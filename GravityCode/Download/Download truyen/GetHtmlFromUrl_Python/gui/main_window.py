@@ -658,14 +658,14 @@ class MainWindow(QMainWindow):
                     self.worker.start_idx = dlg.start_index
                     self.worker.end_idx = dlg.end_index
 
-    @pyqtSlot(str)
-    def _on_finished(self, msg: str):
+    @pyqtSlot(bool, str)
+    def _on_finished(self, success: bool, msg: str):
         self._toggle_download_state(False)
         self.progress_bar.setValue(100)
         self.lbl_status.setText("Trạng Thái Không")
         self._save_settings()
         self.txt_log.append(f"\n🏁 {msg}")
-        if "Lỗi" not in msg:
+        if success:
             if self.chk_auto_prc.isChecked() and hasattr(self, 'worker') and self.worker and getattr(self.worker, 'file_format', 'html') == 'html':
                 final_path = self.txt_save_path.text().strip()
                 if final_path and os.path.exists(final_path):
@@ -675,6 +675,12 @@ class MainWindow(QMainWindow):
                     QMessageBox.information(self, "Hoàn tất", f"Đã tải xong!\n{msg}")
             else:
                 QMessageBox.information(self, "Hoàn tất", f"Đã tải xong!\n{msg}")
+        else:
+            QMessageBox.warning(
+                self, "Chưa hoàn tất",
+                f"⚠️ Quá trình tải chưa hoàn tất!\n\n{msg}\n\n"
+                f"👉 Hãy kiểm tra lại mạng hoặc bấm nút 'Tiếp Tục' (Resume) để tải bù các chương còn thiếu trước khi tạo PRC."
+            )
 
     @pyqtSlot(int)
     def _on_range_checked(self, state: int):

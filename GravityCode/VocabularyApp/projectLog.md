@@ -6,25 +6,158 @@
 
 ---
 
-## 📋 Cập nhật mới nhất — 2026-08-28 (Update 8)
+## 📋 Cập nhật mới nhất — 2026-09-02 (Update 13)
 
-### ⚡ Tối Ưu Tốc Độ Cực Hạn (Zero-Lag Engine) Cho Toàn Bộ Bảng Chọn Ngày & Danh Sách Lộ Trình — HOÀN THÀNH ✅
+### 🔍 Tính Năng "Rà Soát & Bổ Sung" (Audit & Auto-Supplement) Khóa Học Cũ — HOÀN THÀNH ✅
+
+**Mục tiêu đã giải quyết:**
+- 🛡️ Người dùng không cần phải bấm "Làm lại từ đầu" làm mất các ngày đã học.
+- 🎯 Tự động quét đối chiếu khóa học hiện có với Chuẩn FSI Quốc Tế (6 Chặng, đủ số ngày sàn).
+- 🧩 Tự động phát hiện các Chặng bị thiếu (như Chặng 5 Cao cấp bị 0 ngày) hoặc các chặng bị hụt ngày $\to$ tự động lấy các slot bài học từ Kho Template 3 Lớp bổ sung vào Master Backbone.
+- 💾 Giữ nguyên 100% dữ liệu và tiến độ các ngày đã sinh cũ.
+
+| File | Thay đổi |
+|------|----------|
+| `ai/course_generator.py` | • Xây dựng hàm `audit_and_supplement_course(language, level, coord, log_fn)` tự động quét 6 chặng và bổ sung đủ 100% sàn FSI.<br>• Tích hợp tự động rà soát vào `generate_course` khi chạy tiếp tục khóa học Trọn Gói. |
+| `VocabApp.py` | • Thêm nút bấm **`🔍 Rà soát & Bổ sung`** (màu xanh dương) trong hộp thoại `CourseGenerationDialog`.<br>• Cho phép người dùng bấm rà soát bất kỳ lúc nào với nhật ký log trực quan. |
+| `test_ai_rich.py` | • Thêm test section 21: Kiểm tra khóa học Tiếng Nhật 240 ngày cũ được tự động bổ sung +180 ngày (lên đủ 420 ngày chuẩn FSI) với 100% ngày cũ giữ nguyên `filled_day`.<br>• Toàn bộ **56/56 bài kiểm thử chạy thành công 100%**. |
+| `projectLog.md` | Ghi nhận nhật ký Update 13. |
+
+---
+
+## 📋 Cập nhật trước đó — 2026-09-02 (Update 12)
+
+### 📚 Mở Rộng Kho Chủ Đề (Topic Pool Expansion) & Triệt Tiêu Trùng Lặp 100% — HOÀN THÀNH ✅
 
 **Vấn đề đã giải quyết:**
-- ❌ **Tải lâu & Giật lag (Delay 1.5s - 3s)**: Khi mở bảng chọn ngày hoặc gõ tìm kiếm, hệ thống cũ phải khởi tạo và hủy hàng trăm widget Canvas nặng nề (`CTkFrame` + `CTkButton`) gây nghẽn UI Thread.
-- ❌ **Bảng danh sách toàn bộ lộ trình (`DaySelectorDialog`)**: Bị chậm khi render 107 ngày học.
+- ❌ **Trùng lặp chủ đề khi số ngày lớn**: Ở các chặng dài (Stage 3 cần 78 slot nội dung, Stage 4 cần 90 slot, Stage 5 cần 83 slot), kho chủ đề cũ chỉ có 12-24 bài dẫn đến việc xoay vòng (cycle) lặp lại 4-7 lần tên bài học.
+
+**Giải pháp triển khai:**
+- 🎯 **Mở rộng kho chủ đề phong phú theo chuẩn quốc tế**:
+  - **Stage 1 (Vỡ lòng)**: 25 slots nội dung độc nhất (100% không trùng).
+  - **Stage 2 (Ghép âm & Sinh tồn)**: 32 slots nội dung độc nhất (100% không trùng).
+  - **Stage 3 (Sơ cấp A1-A2)**: Mở rộng lên 78 slots nội dung độc nhất (Mua sắm, Ẩm thực, Thuê nhà, Khám bệnh, Du lịch biển/núi, Cắm trại, Cuộc sống số, Văn hóa cà phê...).
+  - **Stage 4 (Trung cấp B1-B2)**: Mở rộng lên 90 slots nội dung độc nhất (Phỏng vấn, Thuyết trình, Đàm phán, Quản lý dự án, Marketing, Tài chính P&L, Logistics, Hợp đồng, ISO, Phễu bán hàng, Kinh tế tuần hoàn...).
+  - **Stage 5 (Cao cấp C1)**: Mở rộng lên 83 slots nội dung độc nhất (Xã luận, Phân tích biểu đồ, Kinh tế vĩ mô, AI & Big Data, Biến đổi khí hậu, Đạo đức sinh học, Vật lý lượng tử, Triết học, Pháp luật quốc tế, Văn học hậu hiện đại...).
+  - **Stage 6 (Bản xứ C2)**: Mở rộng lên 49 slots nội dung độc nhất (Thành ngữ theo chủ đề, Slang Gen Z, High-context ngầm hiểu, Trào phúng, Chơi chữ, Phương ngữ, Trà đạo, Triết lý vô thường/khắc kỷ, Đồ án Capstone...).
+- 🛡️ **Hậu phương bảo vệ (Cycle Suffix Safeguard)**: Tự động đánh số `(Phần 2)`, `(Phần 3)` nếu có bất kỳ chu kỳ xoay vòng nào, bảo đảm 100% tên bài học luôn phân biệt rõ ràng.
+
+| File | Thay đổi |
+|------|----------|
+| `ai/course_generator.py` | • Bổ sung hơn 200+ chủ đề chuyên sâu vào STAGE_POOLS.<br>• Thêm cơ chế hậu phương `cycle_num > 0 -> (Phần N)` trong `build_stage_universal_template`. |
+| `test_ai_rich.py` | Toàn bộ 55/55 bài kiểm thử chạy thành công 100%. |
+| `projectLog.md` | Ghi nhận nhật ký Update 12. |
+
+**Test kết quả:** ✅ 55/55 test passed (Python 3.14) & Tỷ lệ trùng chủ đề: **0% (100% Unique)** trên toàn bộ 6 Chặng và tất cả các nhóm ngôn ngữ.
+
+---
+
+## 📋 Cập nhật trước đó — 2026-08-30 (Update 13)
+
+### 🌐 Tự Động Quét & Hiển Thị Ngôn Ngữ Khóa Học AI — HOÀN THÀNH ✅
+
+**Vấn đề đã giải quyết:**
+- ❌ **Khóa học AI bị ẩn khi mở lại ứng dụng**: Trước đây `get_available_languages()` chỉ quét các file `data/*.json` (danh sách từ vựng nhập tay). Khi người dùng tạo một khóa học AI mới hoàn toàn (như Tiếng Trung 442 ngày) mà chưa nhập từ vựng thủ công vào `data/`, ngôn ngữ này không xuất hiện trong dropdown Ngôn ngữ khi khởi động lại ứng dụng.
+
+**Giải pháp triển khai:**
+- 🔍 **Cập nhật `get_available_languages()` trong `database/database.py`**:
+  - Quét cả 2 nguồn: `data/*.json` (từ vựng thủ công) và `data/ai_courses/*/course.json` (khóa học AI).
+  - Đọc chính xác trường `"language"` được lưu trong `course.json` và loại trừ trùng lặp (case-insensitive).
+  - Bất kỳ ngôn ngữ nào đã sinh khóa học AI sẽ luôn tự động hiển thị trong dropdown chọn ngôn ngữ của toàn bộ ứng dụng.
+
+| File | Thay đổi |
+|------|----------|
+| `database/database.py` | Cập nhật `get_available_languages()` quét đa nguồn (`data/*.json` + `data/ai_courses/*/course.json`). |
+| `projectLog.md` | Ghi nhận Update 13. |
+
+**Test kết quả:** ✅ `['Nhật', 'Tiếng Trung']` nhận diện tức thì & Compile OK.
+
+---
+
+## 📋 Cập nhật trước đó — 2026-08-30 (Update 12)
+
+### 🛡️ Chống Lỗi JSON Bị Cắt: Split-Quiz A+C (Tách 2 Lần Gọi + Partial Save) — HOÀN THÀNH ✅
+
+**Vấn đề đã giải quyết:**
+- ❌ **JSON trắc nghiệm bị cắt giữa chừng**: Gemini cắt output khi phải sinh 40 câu (4 loại × 10) trong 1 lần (~12-16k tokens). Retry 2 lần đều thất bại → ngày đó bị bỏ qua.
+- ❌ **Mất content khi quiz fail**: Dù bài học đã sinh xong, nếu quiz fail thì không lưu gì cả — lần sau phải gọi lại cả content lẫn quiz.
+- ❌ **Resume bỏ qua ngày lỗi**: Khi nhấn "Sinh lại", ngày có quiz fail không được retry vì `done_days` không nhận ra nó.
+
+**Giải pháp triển khai — Hướng A + C kết hợp:**
+
+| File | Thay đổi |
+|------|----------|
+| `ai/course_generator.py` | **Hướng A — Tách quiz 2 lần gọi:**<br>• Thêm `QUIZ_SCHEMA_AB` (vocab+pattern) và `QUIZ_SCHEMA_CD` (common+grammar).<br>• Thêm `build_quiz_prompt_ab()` và `build_quiz_prompt_cd()` — mỗi prompt chỉ ~20 câu (~6-8k tokens), giảm 50% nguy cơ JSON bị cắt.<br>• Thêm `_quiz_trap_rules()` tách riêng để 2 prompt dùng chung.<br>• `build_quiz_prompt()` giữ nguyên signature (backward compat).<br>**Hướng C — Partial Save:**<br>• Sau lần gọi 1 (content thành công), lưu ngay vào DB với cờ `_content_only=True`.<br>• Phát hiện `content_saved_days` khi khởi động vòng lặp — nếu ngày có content partial → chỉ gọi lại quiz, không gọi lại content.<br>• Khi lesson hoàn chỉnh (quiz xong), xóa cờ `_content_only`.<br>**Sửa `parse_quiz_json`:**<br>• Thêm tham số `keys: tuple = None` — không truyền → parse đủ 4 loại (backward compat); truyền keys=(…) → chỉ parse subset đó.<br>**Sửa `_ask()`:**<br>• Thêm kind `"quiz_ab"` và `"quiz_cd"` với parser riêng. |
+| `test_ai_rich.py` | • Cập nhật import thêm `QUIZ_SCHEMA_AB`, `QUIZ_SCHEMA_CD`, `build_quiz_prompt_ab`, `build_quiz_prompt_cd`.<br>• Thêm **Test 20** (7 sub-test): parse_quiz_json với keys split, prompt_ab/cd isolation, trap rules, schema structure. |
+| `projectLog.md` | Ghi nhận Update 12. |
+
+**Luồng hoạt động mới (3 lần gọi AI/ngày thay vì 2):**
+```
+Lần 1: content  → lưu ngay (partial, _content_only=True)
+Lần 2a: quiz AB (vocab+pattern, ~20 câu) → merge
+Lần 2b: quiz CD (common+grammar, ~20 câu) → merge
+→ lưu lesson hoàn chỉnh, xóa cờ _content_only
+```
+**Khi fail:** Nếu quiz AB hoặc CD fail → ngày đó giữ partial trong DB → lần chạy lại chỉ cần gọi lại quiz, không mất content.
+
+**Test kết quả:** ✅ 55/55 test passed (Python 3.14) & Compile OK.
+
+---
+
+## 📋 Cập nhật trước đó — 2026-08-29 (Update 11)
+
+
+### 🏛️ Kiến Trúc Giáo Trình Phổ Quát 3 Lớp (3-Layer Universal Curriculum Architecture) — HOÀN THÀNH ✅
+
+**Vấn đề đã giải quyết:**
+- ❌ **AI tự quyết số ngày dẫn đến thiếu hụt (240/420 ngày)**: Prompt trước đây chỉ đưa ra con số gợi ý, AI tự sinh số lượng chủ đề tùy ý (Stage 1 ra 51 ngày thay vì 30 ngày, Stage 5 bị sót hoàn toàn).
+- ❌ **Nguy cơ thiếu ngày hoặc gián đoạn giữa các ngôn ngữ**: Mỗi ngôn ngữ cần một khung sàn tối thiểu chuẩn mực theo khung FSI quốc tế và không được phép thiếu ngày.
+
+**Giải pháp triển khai:**
+- 🧱 **Layer 1: Universal Template Slots (Sàn cứng không thể thiếu)**:
+  - Sinh đúng $N$ slot nền tảng cho từng chặng (FSI Cat IV/V: [30, 38, 92, 105, 97, 58] = 420 ngày; Cat I: 240 ngày; Cat II/III: 320 ngày; Cat III/IV: 360 ngày).
+  - Tự động tích hợp Ôn tập xoắn ốc (Spiral Review) vào ngày thứ 7, 14, 21, 28... và Tổng kết chặng ở ngày cuối cùng.
+- 🌐 **Layer 2: AI Adaptation (Chuyên sâu hóa theo ngôn ngữ đích)**:
+  - AI nhận danh sách slot phổ quát và chuyển ngữ chính xác sang tên chủ đề đặc thù của ngôn ngữ đó (Hiragana, Pinyin, IPA...).
+  - Tích hợp cơ chế **Retry 2 lần + Fallback an toàn**: Nếu API lỗi, hệ thống tự động giữ nguyên template gốc, gắn cờ `needs_retry: True` và ghi nhận `pending_retry_count` mà không bao giờ làm sập chương trình.
+- 🧩 **Layer 3: AI Gap Insertion (Chèn chủ đề đặc thù vào đúng vị trí sư phạm)**:
+  - AI rà soát lỗ hổng và đề xuất chèn thêm các chủ đề đặc thù quan trọng vào sau `after_slot_id` chỉ định.
+  - Tổng số ngày sau khi chèn sẽ luôn $\ge$ sàn tối thiểu (ví dụ Tiếng Nhật đạt 432-450+ ngày).
+- 🔄 **Sinh liên tục 100% không ngắt**: Toàn bộ master backbone được chuyển thành 1 batch duy nhất chạy từ Ngày 1 đến ngày cuối cùng.
+
+| File | Thay đổi |
+|------|----------|
+| `ai/course_generator.py` | • Thêm `build_stage_universal_template(stage_idx, target_days)` tạo generic slots.<br>• Thêm `build_stage_adapt_prompt` và `build_stage_gap_insert_prompt`.<br>• Thêm `build_master_backbone` tích hợp 3 lớp.<br>• Thêm `ADAPT_STAGE_SCHEMA` và `GAP_INSERT_SCHEMA`.<br>• Cập nhật `_get_item_phase` ưu tiên `stage_idx` để gắn tag chính xác 100%. |
+| `test_ai_rich.py` | • Cập nhật `_FakeCoordinator` xử lý `ADAPT_STAGE_SCHEMA` và `GAP_INSERT_SCHEMA`.<br>• Bổ sung Test 14 (Universal Template slots & Spiral Review), Test 18 (Master Backbone 3 lớp + Gap Insertion), Test 19 (Retry Fallback & Pending Retries).<br>• 48/48 test passed (100%). |
+| `projectLog.md` | Ghi nhận nhật ký Update 11. |
+
+**Test kết quả:** ✅ 48/48 test passed (Python 3.14) & Compile OK.
+
+---
+
+## 📋 Cập nhật trước đó — 2026-08-28 (Update 10)
+
+### 🌍 Hệ Thống Đào Tạo Đa Ngôn Ngữ Từ Con Số 0 Đến Như Người Bản Xứ (Universal Zero-to-Native AI Engine) — HOÀN THÀNH ✅
+
+**Vấn đề đã giải quyết:**
+- ❌ **Người mới 0 kiến thức bị ngợp**: Trước đây dù là Ngày 1 vẫn bị nhồi 10 mẫu câu phức tạp và 40 câu trắc nghiệm khó, khiến người chưa biết bảng chữ cái (Hiragana/Hangul/Pinyin/IPA) không thể hiểu được.
+- ❌ **Chưa hỗ trợ trọn gói từ 0 ➔ Bản xứ**: Người học phải tự đoán và chuyển cấp độ thủ công, thiếu một lộ trình thống nhất từ con số 0 đến C2/Native-like.
+- ❌ **Thiếu phân tích đặc tính ngôn ngữ (Typology)**: Dạy tiếng tượng hình giống tiếng chữ Latinh dẫn đến thiếu sót các giai đoạn nền tảng sống còn (quy tắc ghép vần, biến âm, thanh điệu).
 
 **Giải pháp triển khai:**
 
 | File | Thay đổi |
 |------|----------|
-| `VocabApp.py` | • **Nâng cấp `ScrollableDayDropdown`**: Sử dụng Listbox tối ưu C-Engine kết hợp `ttk.Scrollbar` và theme Dark Mode. Tốc độ nạp 107+ ngày giảm từ 2000ms xuống **dưới 2ms (nhanh gấp 1000 lần)**. Tìm kiếm lọc theo thời gian thực đạt 60fps mượt mà tuyệt đối, hỗ trợ đầy đủ phím `▲`, `▼`, `Enter`, `Double-Click` và tự động cuộn đến ngày hiện tại khi mở.<br>• **Nâng cấp `DaySelectorDialog`**: Chuyển toàn bộ danh sách sang bảng `DayList.Treeview` hiệu năng cao. Hiển thị bảng dạng cột chuyên nghiệp (Ngày, Trình độ, Giai đoạn, Chủ đề bài học, Trạng thái/Điểm số), tìm kiếm tức thì và nhấp đúp để vào học ngay. |
-| `.agents/skills/customtkinter_perf_ui/SKILL.md` | • **Đóng gói Knowledge Skill mới**: Chuẩn hóa toàn bộ bộ quy tắc tối ưu hiệu năng UI Python Desktop (Canvas Saturation Rule, Double-Scroll Glitch Prevention, Live-Filter 60fps, C-Engine Listbox/Treeview) để áp dụng vĩnh viễn cho toàn bộ các dự án Tkinter / CustomTkinter. |
+| `ai/course_generator.py` | • **Chuẩn hóa 6 Bậc Học Sư Phạm + 1 Chế độ Trọn Gói Tự Động**:<br>  1. `⭐ Trọn gói: Từ con số 0 đến Như người bản xứ` (Bao quát trọn vẹn 6 tầng, tự tính ngày theo ngôn ngữ).<br>  2. `1. Vỡ lòng (Bảng chữ cái & Khẩu hình phát âm)`<br>  3. `2. Ghép âm & Từ đơn sinh tồn (Tập đọc & Câu ngắn)`<br>  4. `3. Sơ cấp (Giao tiếp đời sống cơ bản - A1/A2)`<br>  5. `4. Trung cấp (Tự tin diễn đạt & Công sở - B1/B2)`<br>  6. `5. Cao cấp (Học thuật, Báo chí, Thuyết trình - C1)`<br>  7. `6. Như người bản xứ (Thành ngữ, Tiếng lóng, Văn hóa & Tư duy - C2)`<br>• **Sư phạm Thích Ứng (Stage-Adaptive Prompting)**: Ngày vỡ lòng chỉ tập trung 5-10 ký tự, khẩu hình môi/lưỡi, quy tắc ghép âm và từ siêu ngắn; ngày bản xứ hóa tập trung vào Idioms, Slang, Collocations, lối nói ẩn dụ và văn hóa bản địa.<br>• **Phân Tích Đặc Thù Ngôn Ngữ (Typology Guidance)**: Tự động phân loại ngôn ngữ đích (chữ tượng hình/âm tiết vs Latin vs thanh điệu) để quy hoạch giáo trình chính xác theo chuẩn quốc tế (CEFR / JLPT / HSK / TOPIK). |
+| `VocabApp.py` | Cập nhật `CourseGenerationDialog`: mở rộng combobox `cb_level` lên width=330, hiển thị đầy đủ tên 6 bậc + Trọn gói, cập nhật log hành trình và thông tin số ngày tối thiểu. |
+| `test_ai_rich.py` | Cập nhật toàn bộ bộ test cho 6 bậc học, test Adaptive Prompting (Vỡ lòng vs Bản xứ), Typology trong Backbone prompt. |
 | `projectLog.md` | Cập nhật nhật ký dự án. |
 
-**Test kết quả:** ✅ 34/34 test passed (Python 3.14) & Compile OK.
+**Test kết quả:** ✅ 35/35 test passed (Python 3.14) & Compile OK.
 
 ---
+
+## 📋 Cập nhật trước đó — 2026-08-28 (Update 8)
 
 ## 📋 Cập nhật trước đó — 2026-08-28 (Update 7)
 
@@ -203,10 +336,35 @@ Tạo một ứng dụng desktop quản lý từ vựng đa ngôn ngữ (Tiếng
 - [x] **Khóa học AI v2 — Hệ thống học ĐỘC LẬP hoàn toàn, AI tự quyết giáo trình:** Tách khỏi danh sách từ vựng chính (không seed, không nhập ngược). AI toàn quyền thiết kế giáo trình theo **hành trình 5 giai đoạn** (Nền tảng → Giao tiếp cơ bản → Trung cấp → Cao cấp → Như bản xứ), **tự quyết số ngày** theo trình độ (tối thiểu 14), mọi ngôn ngữ (Nhật/Trung/Hàn/Anh...). Nội dung rich mỗi ngày: ≥10 từ chuyên sâu · ≥10 cách dùng câu · ≥10 câu thông dụng · 2-3 bài ngữ pháp · trắc nghiệm **4 loại × ≥10 câu** có badge phân loại. Fix crash dialog (combo int→str), fix parse schema mismatch, auto-migrate dữ liệu cũ. 20/20 unit test pass (2026-08-26).
 - [x] **Khóa học AI v2.1 — AI Roadmap cho Người Chưa Biết Gì & Lộ Trình Linh Hoạt (15-90 ngày theo chuẩn AskCpl):** Nâng cấp prompt AI tối ưu cho người mới tinh (Zero-Knowledge First: Ngày 1-3 bắt buộc dạy Bảng chữ cái, Bảng phiên âm, Quy tắc phát âm, Ghép vần, Thanh điệu); Thêm cơ chế chọn thời lượng linh hoạt (15/30/45/60/90 ngày hoặc AI tự phán định); Tích hợp JSON repair (tự sửa trailing comma theo chuẩn AskCpl); Fix lỗi UnicodeEncodeError trên Windows Terminal; 28/28 unit test PASS (2026-08-26).
 - [x] **Khắc phục lỗi cài đặt pygame trên Python 3.14+:** Thay thế `pygame` (bị lỗi build do PEP 632 loại bỏ `distutils`) bằng `pygame-ce>=2.5.0` (Community Edition có sẵn pre-built wheels cho Python 3.14, 100% tương thích API `import pygame` cho phát âm TTS) (2026-08-26).
+- [x] **Universal Zero-to-Native AI Course Engine v3 (Staged Milestone Pipeline & FSI Matrix 240-450+ Ngày)**: Tự động đo độ khó ngôn ngữ theo chuẩn FSI (Tiếng Nhật/Trung/Hàn: ~420 ngày, Pháp/Đức: ~320 ngày, Anh: ~240 ngày); Xóa bỏ hoàn toàn lỗi 99 ngày bằng kiến trúc Chuyển Chặng Tự Động (Staged Pipeline); Tích hợp Ôn tập Xoắn Ốc "6 + 1" (Weekly Spiral Review) vào các ngày 7, 14, 21, 28...; Tích hợp Khẩu hình 3 lớp cho người mới 0 kiến thức và Khối sắc thái đối chiếu (Sách vở vs Thực tế ngoài đời) cho các chặng nâng cao; Bẫy trắc nghiệm thông minh chống thói quen dịch thô từ tiếng Việt; Giao diện phân màu 6 chặng chuẩn xác 100% `[Vỡ lòng]`, `[Ghép âm]`, `[Sơ cấp]`, `[Trung cấp]`, `[Cao cấp]`, `[Bản xứ]`. 45/45 test cases PASS (2026-08-29).
 
 ---
 
 ## Changelog
+
+### 2026-08-29 (Update 10) — Hệ Thống Giáo Trình 10 Vòng Tối Ưu: FSI Matrix, Staged Pipeline & Spiral Review 6+1
+**Vấn đề**:
+1. Khóa Trọn Gói khi sinh trước đây bị co ngắn lại còn 99 ngày do Gemini bị giới hạn token đầu ra khi cố gắng sinh cả 6 tầng trong một prompt duy nhất.
+2. Toàn bộ các ngày đều bị gắn nhãn chung chung `[Người mới]` thay vì gắn đúng cấp độ thực tế của từng ngày.
+3. Người học ngoại ngữ trong lộ trình dài hàng trăm ngày dễ bị quên từ vựng nếu không có chu kỳ ôn tập định kỳ.
+
+**Giải pháp & Nâng cấp**:
+- **Bộ Ma Trận Phân Bổ FSI (Universal FSI Matrix)**: Tự động phân loại mọi ngôn ngữ theo chuẩn FSI (Category I: Anh ~240 ngày; Category II/III: Pháp/Đức ~320 ngày; Category III/IV: Nga/Thái ~360 ngày; Category IV/V: Nhật/Trung/Hàn ~420 ngày) với tỷ trọng hình chóp chuẩn sư phạm.
+- **Kiến trúc Pipeline Đa Chặng Tự Động (Staged Milestone Pipeline)**: Sinh khung giáo trình theo từng Chặng (Chặng 1: ~30 ngày). Khi hoàn tất Chặng 1, hệ thống tự động mở rộng và sinh tiếp Chặng 2 (Ngày 31..68) $\rightarrow$ Chặng 3, 4, 5, 6 mà không cần người dùng can thiệp hay đổi dropdown.
+- **Ôn Tập Xoắn Ốc "6 + 1" (Weekly Spiral Review)**: Định kỳ cứ sau 6 bài học mới, ngày thứ 7 (7, 14, 21, 28...) là ngày ôn tập tình huống thực tế (Real-life Roleplay) nhúng toàn bộ từ vựng và ngữ pháp của cả tuần.
+- **Khẩu Hình 3 Lớp & Sắc Thái Đối Chiếu**: Cung cấp giải phẫu vị trí răng/lưỡi/môi cho người mới bắt đầu và góc nhìn đối chiếu "Sách vở vs Cách người bản xứ thực tế nói ngoài đời" cho chặng nâng cao.
+- **Bẫy Trắc Nghiệm Sư Phạm**: Thiết kế 4 phương án (1 Đúng, 1 Bẫy Dịch Thô Tiếng Việt, 1 Bẫy Từ Dễ Nhầm, 1 Bẫy Ngữ Pháp) rèn phản xạ tư duy sâu.
+- **Giao Diện Phân Màu 6 Chặng Chuẩn Xác**: Dropdown và Treeview hiển thị đúng huy hiệu từng chặng: `[Vỡ lòng]`, `[Ghép âm]`, `[Sơ cấp]`, `[Trung cấp]`, `[Cao cấp]`, `[Bản xứ]`.
+
+**Files đã sửa**:
+| File | Thay đổi |
+|------|----------|
+| `ai/course_generator.py` | `get_language_fsi_profile`, `build_stage_backbone_prompt`, Staged Milestone Pipeline trong `generate_course`, chu kỳ Ôn tập 6+1, Khẩu hình 3 lớp và Bẫy trắc nghiệm thông minh. |
+| `VocabApp.py` | `_short_level_name` chuẩn hóa 6 chặng, `_update_level_info` hiển thị thông tin lộ trình FSI tự động. |
+| `test_ai_rich.py` | Bổ sung unit tests cho FSI profiles, Stage prompts, Spiral Review, Native Nuance và Stage badges (45/45 PASS). |
+| `projectLog.md` | Ghi lại Update 10. |
+
+**Kết quả kiểm chứng**: 45/45 test cases PASSED (100%) trên Python 3.14.7.
 
 ### 2026-08-26 (Update 3) — Chuyển sang pygame-ce: Tương thích hoàn hảo Python 3.14+
 **Vấn đề**: Khi khởi động ứng dụng trên môi trường Python 3.14, gói `pygame` truyền thống chưa có pre-built binary wheel, buộc pip phải build từ mã nguồn. Mã nguồn setup của `pygame` phụ thuộc vào `distutils.msvccompiler` (đã bị gỡ bỏ vĩnh viễn trên Python 3.14 theo PEP 632) dẫn đến crash `ModuleNotFoundError: No module named 'distutils.msvccompiler'`.

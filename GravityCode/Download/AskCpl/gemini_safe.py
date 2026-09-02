@@ -518,16 +518,42 @@ class GeminiCoordinator:
                         "error": {"kind": kind, "message": msg[:200],
                                   "status_code": res.get("status_code")}}
 
-            if kind in (ErrorKind.SERVER, ErrorKind.NETWORK, ErrorKind.EMPTY):
+            if kind == ErrorKind.NETWORK:
+                transient += 1
+                if transient >= self._max_transient:
+                    # Chế độ kiên trì chờ mạng (Network Keep-Alive loop)
+                    self._log(f"🌐 Mất kết nối mạng ({msg[:60]}). Đang tự động vào chế độ chờ mạng hồi phục (kiểm tra mỗi 30s, tối đa 10 phút)...")
+                    network_recovered = False
+                    for wait_round in range(1, 21):  # 20 lần x 30s = 10 phút
+                        if self._stop_check():
+                            return {"ok": False, "text": "", "error": {"kind": ErrorKind.STOPPED}}
+                        time.sleep(30)
+                        try:
+                            # Kiểm tra kết nối nhẹ tới Google/Cloudflare
+                            chk = requests.get("https://www.google.com/generate_204", timeout=10)
+                            if chk.status_code in (200, 204):
+                                self._log(f"✅ Mạng Internet đã kết nối lại bình thường (sau {wait_round * 30}s). Tiếp tục gửi câu hỏi...")
+                                network_recovered = True
+                                transient = 0
+                                break
+                        except Exception:
+                            self._log(f"⏳ Vẫn đang chờ mạng có lại (đã chờ {wait_round * 30}s / 600s)...")
+                    if not network_recovered:
+                        return {"ok": False, "text": "", "error": {"kind": kind, "message": "Mất kết nối mạng quá 10 phút."}}
+                    continue
+
+                delay = min(2 ** transient, 30)
+                self._log(f"🌐 Lỗi kết nối mạng: {msg[:70]}. Chờ {delay}s để kết nối lại (lần {transient}/{self._max_transient})...")
+                time.sleep(delay)
+                continue
+
+            if kind in (ErrorKind.SERVER, ErrorKind.EMPTY):
                 transient += 1
                 if transient >= self._max_transient:
                     return {"ok": False, "text": "",
                             "error": {"kind": kind, "message": msg[:200]}}
                 delay = min(2 ** transient, 30)
-                if kind == ErrorKind.NETWORK:
-                    self._log(f"🌐 Lỗi kết nối mạng: {msg[:70]}. Chờ {delay}s để kết nối lại (lần {transient}/{self._max_transient})...")
-                else:
-                    self._log(f"⚠ Máy chủ bận/phản hồi rỗng: {msg[:70]}. Chờ {delay}s rồi thử lại (lần {transient}/{self._max_transient})...")
+                self._log(f"⚠ Máy chủ bận/phản hồi rỗng: {msg[:70]}. Chờ {delay}s rồi thử lại (lần {transient}/{self._max_transient})...")
                 time.sleep(delay)
                 continue
 

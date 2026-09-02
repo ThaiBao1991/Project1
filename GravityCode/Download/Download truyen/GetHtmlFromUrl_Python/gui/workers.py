@@ -41,7 +41,7 @@ class DownloadWorker(QThread):
     """
     progress_signal = pyqtSignal(int, str, str)   # (index, status, error_msg)
     log_signal = pyqtSignal(str)
-    finished_signal = pyqtSignal(str)
+    finished_signal = pyqtSignal(bool, str)       # (success: bool, message: str)
     chapter_list_ready = pyqtSignal(int)          # total_count
 
     def __init__(self, url: str, config_mgr: PageConfigManager, save_path: str,
@@ -182,7 +182,7 @@ class DownloadWorker(QThread):
                 page_config = self.forced_page_config or self.config_mgr.get_config_by_url(self.url)
                 if not page_config:
                     self.log_signal.emit(f"❌ Không tìm thấy cấu hình hỗ trợ cho URL: {self.url}")
-                    self.finished_signal.emit("Lỗi: Không hỗ trợ site này.")
+                    self.finished_signal.emit(False, "Lỗi: Không hỗ trợ site này.")
                     return
 
                 self.log_signal.emit(f"🔄 Sử dụng cấu hình host: {page_config.page_code}")
@@ -196,7 +196,7 @@ class DownloadWorker(QThread):
 
                 if not all_links:
                     self.log_signal.emit("❌ Không tìm thấy danh sách chương nào.")
-                    self.finished_signal.emit("Lỗi: Không tìm thấy link chương.")
+                    self.finished_signal.emit(False, "Lỗi: Không tìm thấy link chương.")
                     return
                 
                 total = len(all_links)
@@ -305,7 +305,7 @@ class DownloadWorker(QThread):
             import traceback
             err_msg = traceback.format_exc()
             logger.error(f"Error in run: {e}\n{err_msg}")
-            self.finished_signal.emit(f"Lỗi: {e}")
+            self.finished_signal.emit(False, f"Lỗi: {e}")
             self.log_signal.emit(f"❌ CHI TIẾT LỖI:\n{err_msg}")
             return
 
@@ -351,9 +351,9 @@ class DownloadWorker(QThread):
                     except Exception as e:
                         self.log_signal.emit(f"⚠️ Lỗi xóa thư mục tạm: {e}")
                         
-            self.finished_signal.emit("Hoàn tất và đã gộp file tự động!")
+            self.finished_signal.emit(True, "Hoàn tất và đã gộp file tự động!")
         else:
-            self.finished_signal.emit(f"Hoàn tất ({self.download_failed_count} chương thất bại). Xem ErrorLog để tải lại.")
+            self.finished_signal.emit(False, f"Chưa hoàn tất: còn {self.download_failed_count} chương tải thất bại. Vui lòng bấm 'Tiếp Tục' (Resume) để tải lại.")
 
     # ------------------------------------------------------------------
     # Private Helpers

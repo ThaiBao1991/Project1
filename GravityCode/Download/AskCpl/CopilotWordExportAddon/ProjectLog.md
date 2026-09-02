@@ -24,4 +24,6 @@ Addon (Extension Manifest V3) được thiết kế để tự động hóa quá
 - Đã triển khai xong tính năng Follow-up tự động với tham số tuỳ chỉnh `maxFollowUp` ở popup.
 - 2026-08-05: Thêm tab "Trích Xuất" vào popup — cho phép xuất trang đang hỏi thành file HTML. Các file sửa: `popup.html`, `popup.js`, `content_script.js`, `background.js`.
 - 2026-08-18: Tích hợp Direct Streaming về Local Server (Port 5678) và Smart Code Extractor — tự động đẩy nội dung từng Day về server lưu ổ cứng và bóc tách các file code độc lập (`content_script.js`, `exercise_server.py`).
+- 2026-08-30: Sửa lỗi nút "Quét & Tải Bù Ngày Thiếu" (`sweepMissingBtn`) trong `popup.js` không hoạt động do gọi nhầm hàm không tồn tại `getUIConfig()` thay vì `buildConfigFromUI()`. Đã bọc `try...catch` hiển thị lỗi an toàn.
+- 2026-08-30: Khắc phục lỗi reset lùi ngày khi tải bù: `content_script.js` và `popup.js` giờ đây luôn tính `lastDay` và `maxRecordedDay` dựa trên giá trị lớn nhất thực tế của toàn bộ danh sách `dayIndex` (thay vì gán theo `currentDay` tải bù). Bảo toàn toàn bộ các ngày lớn hơn khi Resume mà không bị xóa. Đã đồng bộ 2940 ngày cho bộ Gemini Javascript 7 Year.
 

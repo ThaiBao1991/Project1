@@ -13,12 +13,18 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from ai.course_generator import (
     parse_content_json, parse_quiz_json, parse_curriculum_json, parse_backbone_json,
     normalize_lesson, _strip_json,
-    CONTENT_SCHEMA, QUIZ_SCHEMA, CURRICULUM_SCHEMA, BACKBONE_SCHEMA,
-    build_content_prompt, build_quiz_prompt, build_curriculum_prompt, build_backbone_prompt,
+    CONTENT_SCHEMA, QUIZ_SCHEMA, QUIZ_SCHEMA_AB, QUIZ_SCHEMA_CD,
+    CURRICULUM_SCHEMA, BACKBONE_SCHEMA,
+    ADAPT_STAGE_SCHEMA, GAP_INSERT_SCHEMA,
+    build_content_prompt, build_quiz_prompt, build_quiz_prompt_ab, build_quiz_prompt_cd,
+    build_curriculum_prompt, build_backbone_prompt,
+    build_stage_backbone_prompt, build_stage_universal_template, build_master_backbone,
+    get_language_fsi_profile, audit_and_supplement_course,
     generate_course, GenerationStopped,
     MIN_VOCAB, MIN_PATTERNS, MIN_SENTENCES, MIN_GRAMMAR, MAX_GRAMMAR, QUIZ_PER_TYPE,
     JOURNEY_PHASES, LEVELS, LEVEL_PHASES, LEVEL_MIN_DAYS,
 )
+from VocabApp import _short_level_name
 from ai import course_db as cdb
 import json, tempfile, shutil
 
@@ -199,37 +205,40 @@ assert "vocab_quiz" in quiz_prompt or "TỪ VỰNG" in quiz_prompt
 assert "10" in quiz_prompt
 ok("quiz prompt references all 4 categories and QUIZ_PER_TYPE")
 
-cur_prompt = build_curriculum_prompt("Tiếng Nhật", LEVELS[0], 10, target_days=30)
+cur_prompt = build_curriculum_prompt("Tiếng Nhật", LEVELS[0], 10, target_days=100)
 for ph_name, _ in JOURNEY_PHASES:
     assert ph_name in cur_prompt, f"missing phase {ph_name}"
-assert "30 ngày" in cur_prompt and "10 từ vựng" in cur_prompt
-ok("curriculum prompt (explicit days) contains all 5 journey phases + counts")
+assert "100 ngày" in cur_prompt and "10 từ vựng" in cur_prompt
+ok("curriculum prompt (explicit days) contains all 6 journey phases + counts")
 
 auto_prompt = build_curriculum_prompt("Tiếng Nhật", LEVELS[0], 10)
 assert "TỰ QUYẾT" in auto_prompt and "TỐI THIỂU" in auto_prompt
 assert "KHÔNG dùng từ vựng có sẵn" in auto_prompt
 ok("curriculum prompt (no target_days) lets AI decide day count, no DB linking")
 
-so_cap_phases = LEVEL_PHASES["Sơ cấp (giao tiếp cơ bản)"]
-so_cap_prompt = build_curriculum_prompt("Tiếng Nhật", "Sơ cấp (giao tiếp cơ bản)", 10,
+so_cap_phases = LEVEL_PHASES["3. Sơ cấp (Giao tiếp đời sống cơ bản - A1/A2)"]
+so_cap_prompt = build_curriculum_prompt("Tiếng Nhật", "3. Sơ cấp (Giao tiếp đời sống cơ bản - A1/A2)", 10,
                                          phases=so_cap_phases)
-assert "Nền tảng" in so_cap_prompt and "Giao tiếp cơ bản" in so_cap_prompt
-assert "Trung cấp" not in so_cap_prompt.split("Giai đoạn học")[0]
+assert "Sơ cấp đời sống" in so_cap_prompt
 assert "KHÔNG được dạy vượt quá" in so_cap_prompt
-ok("Sơ cấp prompt only includes phases 1-2, explicitly forbids going beyond")
+ok("Sơ cấp prompt only includes phase 3, explicitly forbids going beyond")
 
 with_topics_prompt = build_curriculum_prompt(
-    "Tiếng Nhật", "Trung cấp (tự tin giao tiếp)", 10,
-    phases=LEVEL_PHASES["Trung cấp (tự tin giao tiếp)"],
+    "Tiếng Nhật", "4. Trung cấp (Tự tin diễn đạt & Công sở - B1/B2)", 10,
+    phases=LEVEL_PHASES["4. Trung cấp (Tự tin diễn đạt & Công sở - B1/B2)"],
     completed_topics=["Chào hỏi", "Số đếm", "Mua sắm", "Ăn uống"])
 assert "Chào hỏi" in with_topics_prompt and "TUYỆT ĐỐI KHÔNG dạy trùng lại" in with_topics_prompt
 ok("completed_topics injected into prompt — AI avoids repeating old content")
 
-empty_content_prompt = build_content_prompt("Tiếng Nhật", 1, 5, [], topic="Bảng chữ cái Hiragana", level=LEVELS[0])
+empty_content_prompt = build_content_prompt("Tiếng Nhật", 1, 5, [], topic="Bảng chữ cái Hiragana", level=LEVELS[1])
 assert "TỰ CHỌN" in empty_content_prompt and "(trống)" in empty_content_prompt
 assert "Bảng chữ cái Hiragana" in empty_content_prompt
-assert "BẢNG CHỮ CÁI" in empty_content_prompt, "beginner guide should trigger for alphabet topic"
+assert "VỠ LÒNG CHỮ CÁI" in empty_content_prompt, "beginner guide should trigger for alphabet topic"
 ok("content prompt handles EMPTY source words and injects beginner alphabet guide")
+
+native_content_prompt = build_content_prompt("Tiếng Anh", 50, 50, [], topic="Thành ngữ và tiếng lóng đường phố", level=LEVELS[6])
+assert "BẢN XỨ HÓA" in native_content_prompt
+ok("content prompt injects Native Proficiency guide for Level 6 topics")
 
 # ─── 9a. Zero-knowledge & Long Duration Prompt tests ───
 print("\n[9a] Zero-knowledge & Long duration curriculum")
@@ -246,7 +255,7 @@ long_cur_90 = build_curriculum_prompt("Tiếng Hàn", LEVELS[2], 10, target_days
 assert "ĐÚNG 90 ngày" in long_cur_90
 ok("curriculum prompt supports 90-day target")
 
-# ─── 9b. JSON repair test ───
+# ─── 9b. JSON strip and trailing comma repair ───
 print("\n[9b] JSON strip and trailing comma repair")
 json_with_trailing_comma = '```json\n{"days": [{"day": 1, "title": "Test", "phase": "A", "words": [],}],}\n```'
 repaired_json = _strip_json(json_with_trailing_comma)
@@ -256,17 +265,17 @@ ok("_strip_json successfully strips markdown fences and repairs trailing commas"
 # ─── 9b. parse_curriculum_json ───
 print("\n[9b] parse_curriculum_json")
 curr_json = json.dumps({"days": [
-    {"day": 2, "title": "Số đếm", "phase": "Nền tảng",
+    {"day": 2, "title": "Số đếm", "phase": "Vỡ lòng chữ cái & phát âm",
      "words": [{"word": "一", "pronunciation": "ichi", "meaning_vi": "một"},
                {"word": "", "pronunciation": "", "meaning_vi": ""}]},  # bad word filtered
-    {"day": 1, "title": "Chào hỏi", "phase": "Nền tảng",
+    {"day": 1, "title": "Chào hỏi", "phase": "Vỡ lòng chữ cái & phát âm",
      "words": [{"word": "こんにちは", "pronunciation": "konnichiwa", "meaning_vi": "xin chào"}]},
     {"bad": "data"},  # skipped
 ]})
 pc = parse_curriculum_json(curr_json)
 assert len(pc["days"]) == 2
 assert pc["days"][0]["day"] == 1, "days renumbered & sorted"
-assert pc["days"][0]["phase"] == "Nền tảng"
+assert pc["days"][0]["phase"] == "Vỡ lòng chữ cái & phát âm"
 assert len(pc["days"][0]["words"]) == 1
 ok(f"curriculum parsed: {len(pc['days'])} days, sorted+renumbered, phase kept, bad items filtered")
 
@@ -275,7 +284,8 @@ print("\n[9c] Backbone prompt & parse_backbone_json")
 bb_prompt = build_backbone_prompt("Tiếng Nhật", LEVELS[0], [0])
 assert "DANH SÁCH ĐẦY ĐỦ" in bb_prompt
 assert "PHÁT ÂM" in bb_prompt
-ok("build_backbone_prompt creates comprehensive backbone prompt")
+assert "ĐẶC THÙ NGÔN NGỮ" in bb_prompt
+ok("build_backbone_prompt creates comprehensive backbone prompt with typology guidance")
 
 fake_bb_raw = json.dumps({
     "items": [
@@ -369,12 +379,17 @@ finally:
 
 # ─── 11. Full flow dry-run (Multi-Pass + Continuous Generation) ───
 print("\n[11] Full flow dry-run (Multi-Pass + Continuous Generation)")
-_FAKE_BACKBONE = {"items": [
-    {"id": 1, "category": "PHÁT ÂM", "title": "Bảng chữ cái Hiragana", "importance": "BẮT BUỘC"},
-    {"id": 2, "category": "TỪ VỰNG", "title": "Số đếm và thời gian", "importance": "BẮT BUỘC"},
-    {"id": 3, "category": "GIAO TIẾP", "title": "Chào hỏi thông dụng", "importance": "BẮT BUỘC"},
-    {"id": 4, "category": "NGỮ PHÁP", "title": "Cấu trúc câu cơ bản", "importance": "BẮT BUỘC"},
-]}
+_STAGE_TOPICS = [
+    ("PHÁT ÂM",   ["Hiragana hàng A-K",       "Hiragana hàng S-N",       "Katakana hàng A-K",       "Thanh điệu & Pitch"]),
+    ("TỪ ĐƠN",    ["Số đếm 1-100",            "Đại từ nhân xưng",        "Chào hỏi sinh tồn",       "Thời gian & Ngày tháng"]),
+    ("SƠ CẤP",    ["Mua sắm & Giá cả",        "Ăn uống & Nhà hàng",      "Hỏi đường & Giao thông",  "Sức khỏe & Bệnh viện"]),
+    ("TRUNG CẤP", ["Công việc & Công sở",      "Câu phức & Liên từ",      "Kể chuyện & Tường thuật", "Thư tín chính thức"]),
+    ("CAO CẤP",   ["Báo chí & Thời sự",       "Học thuật & Nghiên cứu",  "Tranh biện & Lập luận",   "Văn phong trang trọng"]),
+    ("BẢN XỨ",   ["Thành ngữ & Tục ngữ",     "Tiếng lóng & Slang",      "Chơi chữ & Ẩn dụ",        "Capstone tổng hợp"]),
+]
+
+_stage_call_idx = [0]  # dùng list để có thể mutate từ closure
+
 _FAKE_CONTENT = {
     "title": "Bài học mẫu",
     "vocab": [{"word": f"w{j}", "pronunciation": "p", "part_of_speech": "n",
@@ -401,9 +416,23 @@ class _FakeCoordinator:
         self.calls = []
     def request(self, prompt, response_schema=None):
         self.calls.append(response_schema)
+        if response_schema is ADAPT_STAGE_SCHEMA:
+            _capture["backbone_prompt"] = prompt
+            stage_idx = min(_stage_call_idx[0], 5)
+            cat, titles = _STAGE_TOPICS[stage_idx]
+            _stage_call_idx[0] += 1
+            # Giả lập trả về đúng 4 items cho test
+            topics = [{"slot_id": i + 1, "category": cat, "title": f"{titles[i % len(titles)]} (Chuyên sâu)", "importance": "BẮT BUỘC"} for i in range(40)]
+            return {"ok": True, "text": json.dumps({"topics": topics}), "model": "fake"}
+        if response_schema is GAP_INSERT_SCHEMA:
+            return {"ok": True, "text": json.dumps({"insertions": []}), "model": "fake"}
         if response_schema is BACKBONE_SCHEMA:
             _capture["backbone_prompt"] = prompt
-            return {"ok": True, "text": json.dumps(_FAKE_BACKBONE), "model": "fake"}
+            stage_idx = min(_stage_call_idx[0], 5)
+            cat, titles = _STAGE_TOPICS[stage_idx]
+            _stage_call_idx[0] += 1
+            items = [{"id": i + 1, "category": cat, "title": titles[i % len(titles)], "importance": "BẮT BUỘC"} for i in range(4)]
+            return {"ok": True, "text": json.dumps({"items": items}), "model": "fake"}
         if response_schema and "gaps" in response_schema.get("properties", {}):
             return {"ok": True, "text": json.dumps({"gaps": []}), "model": "fake"}
         if response_schema is CURRICULUM_SCHEMA:
@@ -422,7 +451,8 @@ try:
     cdb.COURSES_DIR = tmpdir
     cg._load_gemini_keys = lambda: [{"key": "fake"}]
 
-    # Test Continuous Generation: Không giới hạn batch -> Sinh liền một mạch 100% (4/4 ngày)
+    # Test Continuous Generation: Không giới hạn batch -> Sinh liền một mạch 100% (240/240 ngày qua 6 chặng)
+    _stage_call_idx[0] = 0  # reset stage counter
     cg.BACKBONE_BATCH_SIZE = None
     logs = []
     stats_all = generate_course(
@@ -430,21 +460,22 @@ try:
         log_fn=logs.append, level=LEVELS[0],
         coordinator_cls=_FakeCoordinator,
     )
-    assert stats_all["generated"] == 4 and stats_all["backbone_total"] == 4, stats_all
+    assert stats_all["generated"] == 240 and stats_all["backbone_total"] == 240, stats_all
     course_full = cdb.get_course("FakeLangFull")
-    assert len(course_full["days"]) == 4
+    assert len(course_full["days"]) == 240
     assert all(it["filled_day"] is not None for it in course_full["backbone"]["items"])
-    ok("continuous generation: sinh liền một mạch 100% 4/4 chủ đề không bị ngắt ở mốc 15 ngày")
+    ok("continuous generation: sinh liền một mạch 100% 240/240 chủ đề qua cả 6 Chặng")
 
     # Test Batch Paced: Nếu chỉ định batch=2 thì vẫn chạy từng đợt 2 ngày
+    _stage_call_idx[0] = 0  # reset stage counter cho FakeLang mới
     cg.BACKBONE_BATCH_SIZE = 2
     logs = []
     stats = generate_course(
         "FakeLang", words_per_day=5,
-        log_fn=logs.append, level=LEVELS[0], target_days=2,
+        log_fn=logs.append, level=LEVELS[0], max_days_per_run=2,
         coordinator_cls=_FakeCoordinator,
     )
-    assert stats["generated"] == 2 and stats["backbone_total"] == 4, stats
+    assert stats["generated"] == 2 and stats["backbone_total"] == 240, stats
 
     course = cdb.get_course("FakeLang")
     assert len(course["days"]) == 2
@@ -458,6 +489,7 @@ try:
     assert len(day1["grammar"]) == 2
 
     # ── Level transition: chuyển level → AI sinh backbone mới tương ứng ──
+    _stage_call_idx[0] = 0
     _capture["backbone_prompt"] = ""
     stats_level = generate_course(
         "FakeLang", words_per_day=5,
@@ -470,6 +502,7 @@ try:
     ok("level transition: đổi sang Trung cấp -> AI sinh backbone mới cho Trung cấp")
 
     # ── force_new xóa sạch course + progress cũ ──
+    _stage_call_idx[0] = 0
     stats_force = generate_course("FakeLang", words_per_day=5, force_new=True,
                                   log_fn=logs.append, level="Người mới bắt đầu",
                                   coordinator_cls=_FakeCoordinator)
@@ -504,11 +537,256 @@ try:
     assert pool.account_locked("user2@gmail.com", time.time()) == False
     ok("lock_after_success=False: key không bị khóa 3600s oan sau mỗi lượt gọi thành công")
 
+    # ── [13] Test get_language_fsi_profile: Category & Duration Calculations ──
+    print("\n[13] get_language_fsi_profile: Category & Duration Calculations")
+    fsi_jp = get_language_fsi_profile("Tiếng Nhật")
+    assert fsi_jp["total_days"] == 420
+    assert len(fsi_jp["stages"]) == 6
+    assert fsi_jp["stages"][0]["target_days"] == 30
+    assert fsi_jp["stages"][5]["target_days"] == 58
+    ok("get_language_fsi_profile: Tiếng Nhật -> FSI Category IV/V với 420 ngày và 6 chặng chuẩn")
+
+    fsi_en = get_language_fsi_profile("Tiếng Anh")
+    assert fsi_en["total_days"] == 240
+    assert fsi_en["stages"][0]["target_days"] == 17
+    ok("get_language_fsi_profile: Tiếng Anh -> FSI Category I với 240 ngày")
+
+    fsi_fr = get_language_fsi_profile("Tiếng Pháp")
+    assert fsi_fr["total_days"] == 320
+    ok("get_language_fsi_profile: Tiếng Pháp -> FSI Category II/III với 320 ngày")
+
+    fsi_ru = get_language_fsi_profile("Tiếng Nga")
+    assert fsi_ru["total_days"] == 360
+    ok("get_language_fsi_profile: Tiếng Nga -> FSI Category III/IV với 360 ngày")
+
+    # ── [14] Test build_stage_universal_template: Layer 1 Hardcoded Slots & Spiral Review ──
+    print("\n[14] build_stage_universal_template: Layer 1 Base Slots & Spiral Review")
+    st0_slots = build_stage_universal_template(0, 30)
+    assert len(st0_slots) == 30
+    assert st0_slots[6]["is_review_day"] == True and "ÔN TẬP TUẦN 1" in st0_slots[6]["generic_name"]
+    assert st0_slots[13]["is_review_day"] == True and "ÔN TẬP TUẦN 2" in st0_slots[13]["generic_name"]
+    assert st0_slots[20]["is_review_day"] == True and "ÔN TẬP TUẦN 3" in st0_slots[20]["generic_name"]
+    assert st0_slots[27]["is_review_day"] == True and "ÔN TẬP TUẦN 4" in st0_slots[27]["generic_name"]
+    assert st0_slots[29]["is_review_day"] == True and "TỔNG KẾT CHẶNG 1" in st0_slots[29]["generic_name"]
+    ok("build_stage_universal_template: generates exactly 30 slots with spiral review on days 7, 14, 21, 28 & stage summary on day 30")
+
+    st1_slots = build_stage_universal_template(1, 38)
+    assert len(st1_slots) == 38
+    assert st1_slots[37]["is_review_day"] == True and "TỔNG KẾT CHẶNG 2" in st1_slots[37]["generic_name"]
+    ok("build_stage_universal_template: generates exactly 38 slots for stage 2")
+
+    # ── [15] Test Content Prompt: 3-Tier Phonetics, Spiral Review Day, Native Pragmatics ──
+    print("\n[15] Content Prompt: 3-Tier Phonetics, Spiral Review, Native Nuance")
+    p_st1 = build_content_prompt("Tiếng Nhật", 1, 420, [], topic="Bảng chữ cái Hiragana - Hàng A", level="⭐ Trọn gói")
+    assert "GIẢI PHẪU KHẨU HÌNH & PHÁT ÂM 3 LỚP" in p_st1
+    assert "vị trí răng, lưỡi" in p_st1
+    ok("build_content_prompt: Stage 1 injects 3-Tier Phonetic Articulatory anatomy")
+
+    p_review = build_content_prompt("Tiếng Nhật", 7, 420, [], topic="Ôn tập tuần 1 & Thực hành phản xạ", level="⭐ Trọn gói")
+    assert "NGÀY ÔN TẬP TUẦN & TỔNG HỢP THỰC HÀNH ('6 + 1')" in p_review
+    assert "HỘI THOẠI TÌNH HUỐNG THỰC TẾ" in p_review
+    ok("build_content_prompt: Day 7 injects Weekly Spiral Review guidance")
+
+    p_native = build_content_prompt("Tiếng Nhật", 380, 420, [], topic="Tiếng lóng giới trẻ và thành ngữ đời thực", level="⭐ Trọn gói")
+    assert "NATIVE PROFICIENCY & CULTURE NUANCE" in p_native
+    assert "High-context culture" in p_native
+    ok("build_content_prompt: Stage 6 injects Native Pragmatics & Cultural contrast")
+
+    # ── [16] Test Quiz Prompt: Pedagogical Distractors (Word-for-Word, Confusing Pair) ──
+    print("\n[16] Quiz Prompt: Pedagogical Distractors")
+    p_quiz = build_quiz_prompt("Tiếng Nhật", {"vocab": [{"word": "犬", "meaning_vi": "chó"}]})
+    assert "BẪY TRẮC NGHIỆM SƯ PHẠM" in p_quiz
+    assert "Word-for-Word Trap" in p_quiz
+    assert "Confusing Pair Trap" in p_quiz
+    ok("build_quiz_prompt: includes 4-option pedagogical distractor rules")
+
+    # ── [17] Test _short_level_name in VocabApp: Accurate Stage Badges ──
+    print("\n[17] _short_level_name: Stage-Badged Mapping")
+    assert _short_level_name("", "Vỡ lòng chữ cái & phát âm") == "Vỡ lòng"
+    assert _short_level_name("", "Ghép âm & Từ đơn sinh tồn") == "Ghép âm"
+    assert _short_level_name("", "Sơ cấp đời sống (A1-A2)") == "Sơ cấp"
+    assert _short_level_name("", "Trung cấp công sở (B1-B2)") == "Trung cấp"
+    assert _short_level_name("", "Cao cấp học thuật (C1)") == "Cao cấp"
+    assert _short_level_name("", "Bản xứ hóa (C2 & Slang)") == "Bản xứ"
+    assert _short_level_name("⭐ Trọn gói: Từ con số 0 đến Như người bản xứ", "Vỡ lòng chữ cái") == "Vỡ lòng"
+    ok("_short_level_name: accurately maps all 6 stages without generic fallback")
+
+    # ── [18] Test build_master_backbone: 3-Layer Master Architecture & Gap Insertion ──
+    print("\n[18] build_master_backbone: 3-Layer Architecture & Gap Insertion")
+    class _MasterFakeCoord:
+        def request(self, prompt, response_schema=None):
+            if response_schema is ADAPT_STAGE_SCHEMA:
+                # Giả lập adapt thành công
+                topics = [{"slot_id": i + 1, "title": f"Chủ đề adapt {i+1}", "category": "NGỮ PHÁP"} for i in range(150)]
+                return {"ok": True, "text": json.dumps({"topics": topics})}
+            if response_schema is GAP_INSERT_SCHEMA:
+                # Giả lập chèn 2 topics vào sau slot 5
+                insertions = [
+                    {"after_slot_id": 5, "title": "Chủ đề đặc thù chèn 1", "category": "CHỮ VIẾT", "importance": "BẮT BUỘC"},
+                    {"after_slot_id": 5, "title": "Chủ đề đặc thù chèn 2", "category": "PHÁT ÂM", "importance": "BẮT BUỘC"},
+                ]
+                return {"ok": True, "text": json.dumps({"insertions": insertions})}
+            return {"ok": True, "text": "{}"}
+
+    fsi_test_jp = get_language_fsi_profile("Tiếng Nhật")
+    mb = build_master_backbone("Tiếng Nhật", fsi_test_jp, _MasterFakeCoord())
+    assert mb["template_base_count"] == 420
+    assert mb["ai_inserted_count"] == 12  # 2 insertions x 6 stages = 12
+    assert len(mb["items"]) == 432  # 420 + 12 = 432 items tổng
+    assert mb["items"][0]["id"] == 1
+    assert mb["items"][-1]["id"] == 432
+    assert mb["items"][5]["is_ai_inserted"] == True  # item chèn sau slot 5
+    ok("build_master_backbone: 420 base + 12 gap insertions = 432 items liên tục")
+
+    # ── [19] Test build_master_backbone: Retry Fallback & Pending Retries Tracking ──
+    print("\n[19] build_master_backbone: Retry Fallback & Pending Retries")
+    class _FailingCoord:
+        def request(self, prompt, response_schema=None):
+            return {"ok": False, "error": {"kind": "OVERLOADED", "message": "503"}}
+
+    mb_fail = build_master_backbone("Tiếng Anh", get_language_fsi_profile("Tiếng Anh"), _FailingCoord())
+    assert mb_fail["template_base_count"] == 240
+    assert len(mb_fail["items"]) == 240  # Vẫn đủ 100% 240 items từ template cứng
+    assert mb_fail["pending_retry_count"] == 240  # Đánh dấu 240 items cần retry
+    assert mb_fail["items"][0]["needs_retry"] == True
+    assert mb_fail["items"][0]["title"] == "Tổng quan ngôn ngữ, nguồn gốc & hệ thống chữ viết"
+    ok("build_master_backbone fallback: bảo đảm 100% 240 slots cứng khi API lỗi và ghi nhận pending_retry_count")
+
     cg.BACKBONE_BATCH_SIZE = orig_batch
     cdb.COURSES_DIR = orig_dir
     cg._load_gemini_keys = orig_keys
 finally:
     shutil.rmtree(tmpdir, ignore_errors=True)
+
+# ─── 20. Split-Quiz A+C: parse_quiz_json(keys), build_quiz_prompt_ab/cd, schemas ───
+print("\n[20] Split-Quiz A+C: parse_quiz_json keys, prompt_ab/cd, schemas")
+import json as _json
+
+# 20a: parse_quiz_json với keys split AB
+ab_json = _json.dumps({
+    "vocab_quiz":   [{"question": f"V{i}", "options": ["A","B","C","D"], "answer_index": 0, "explanation": "ok"} for i in range(10)],
+    "pattern_quiz": [{"question": f"P{i}", "options": ["A","B","C","D"], "answer_index": 1, "explanation": "ok"} for i in range(10)],
+})
+parsed_ab = parse_quiz_json(ab_json, keys=("vocab_quiz", "pattern_quiz"))
+assert len(parsed_ab["vocab"]) == 10,   f"AB vocab: expected 10, got {len(parsed_ab['vocab'])}"
+assert len(parsed_ab["pattern"]) == 10, f"AB pattern: expected 10, got {len(parsed_ab['pattern'])}"
+assert "common" not in parsed_ab,  "AB không được có key 'common'"
+assert "grammar" not in parsed_ab, "AB không được có key 'grammar'"
+ok("parse_quiz_json(keys=AB): chỉ parse vocab + pattern, không lẫn common/grammar")
+
+# 20b: parse_quiz_json với keys split CD
+cd_json = _json.dumps({
+    "common_quiz":  [{"question": f"C{i}", "options": ["A","B","C","D"], "answer_index": 2, "explanation": "ok"} for i in range(10)],
+    "grammar_quiz": [{"question": f"G{i}", "options": ["A","B","C","D"], "answer_index": 3, "explanation": "ok"} for i in range(10)],
+})
+parsed_cd = parse_quiz_json(cd_json, keys=("common_quiz", "grammar_quiz"))
+assert len(parsed_cd["common"]) == 10,   f"CD common: expected 10, got {len(parsed_cd['common'])}"
+assert len(parsed_cd["grammar"]) == 10,  f"CD grammar: expected 10, got {len(parsed_cd['grammar'])}"
+assert "vocab" not in parsed_cd,   "CD không được có key 'vocab'"
+assert "pattern" not in parsed_cd, "CD không được có key 'pattern'"
+ok("parse_quiz_json(keys=CD): chỉ parse common + grammar, không lẫn vocab/pattern")
+
+# 20c: parse_quiz_json không truyền keys → backward compat đủ 4 loại
+full_json = _json.dumps({
+    "vocab_quiz":   [{"question":"V", "options":["A","B","C","D"], "answer_index":0, "explanation":"x"}],
+    "pattern_quiz": [{"question":"P", "options":["A","B","C","D"], "answer_index":0, "explanation":"x"}],
+    "common_quiz":  [{"question":"C", "options":["A","B","C","D"], "answer_index":0, "explanation":"x"}],
+    "grammar_quiz": [{"question":"G", "options":["A","B","C","D"], "answer_index":0, "explanation":"x"}],
+})
+parsed_full = parse_quiz_json(full_json)
+assert len(parsed_full) == 4, "Full parse phải có đúng 4 keys"
+ok("parse_quiz_json(no keys): backward compat, parse đủ 4 loại")
+
+# 20d: build_quiz_prompt_ab chỉ chứa vocab và pattern, không mention common/grammar quiz
+_sample_lesson = {
+    "vocab": [{"word": "犬", "pronunciation": "いぬ", "meaning_vi": "chó"}],
+    "sentence_patterns": [{"pattern": "〜は〜です", "meaning_vi": "〜là〜"}],
+    "common_sentences": [{"sentence": "こんにちは", "meaning_vi": "xin chào", "situation": "chào hỏi"}],
+    "grammar": [{"title": "は vs が", "explanation": "phân biệt trợ từ", "examples": []}],
+}
+pab = build_quiz_prompt_ab("Tiếng Nhật", _sample_lesson)
+assert "vocab_quiz" in pab,   "prompt_ab phải mention vocab_quiz"
+assert "pattern_quiz" in pab, "prompt_ab phải mention pattern_quiz"
+assert "common_quiz" not in pab,  "prompt_ab KHÔNG được mention common_quiz"
+assert "grammar_quiz" not in pab, "prompt_ab KHÔNG được mention grammar_quiz"
+assert "CHỈ 2 LOẠI" in pab,  "prompt_ab phải chứa 'CHỈ 2 LOẠI'"
+ok("build_quiz_prompt_ab: chỉ sinh vocab+pattern, không lẫn common/grammar")
+
+# 20e: build_quiz_prompt_cd chỉ chứa common và grammar, không mention vocab/pattern quiz
+pcd = build_quiz_prompt_cd("Tiếng Nhật", _sample_lesson)
+assert "common_quiz" in pcd,  "prompt_cd phải mention common_quiz"
+assert "grammar_quiz" in pcd, "prompt_cd phải mention grammar_quiz"
+assert "vocab_quiz" not in pcd,   "prompt_cd KHÔNG được mention vocab_quiz"
+assert "pattern_quiz" not in pcd, "prompt_cd KHÔNG được mention pattern_quiz"
+assert "CHỈ 2 LOẠI" in pcd,  "prompt_cd phải chứa 'CHỈ 2 LOẠI'"
+ok("build_quiz_prompt_cd: chỉ sinh common+grammar, không lẫn vocab/pattern")
+
+# 20f: Cả 2 prompts đều có trap rules sư phạm
+assert "Word-for-Word Trap" in pab, "prompt_ab phải có Word-for-Word Trap"
+assert "Word-for-Word Trap" in pcd, "prompt_cd phải có Word-for-Word Trap"
+ok("Cả 2 split-prompts đều có đủ 4 quy tắc bẫy sư phạm")
+
+# 20g: QUIZ_SCHEMA_AB và QUIZ_SCHEMA_CD đúng cấu trúc
+assert "vocab_quiz" in QUIZ_SCHEMA_AB["properties"],   "QUIZ_SCHEMA_AB phải có vocab_quiz"
+assert "pattern_quiz" in QUIZ_SCHEMA_AB["properties"],  "QUIZ_SCHEMA_AB phải có pattern_quiz"
+assert "common_quiz" not in QUIZ_SCHEMA_AB["properties"], "QUIZ_SCHEMA_AB không được có common_quiz"
+assert "common_quiz" in QUIZ_SCHEMA_CD["properties"],   "QUIZ_SCHEMA_CD phải có common_quiz"
+assert "grammar_quiz" in QUIZ_SCHEMA_CD["properties"],  "QUIZ_SCHEMA_CD phải có grammar_quiz"
+assert "vocab_quiz" not in QUIZ_SCHEMA_CD["properties"], "QUIZ_SCHEMA_CD không được có vocab_quiz"
+ok("QUIZ_SCHEMA_AB và QUIZ_SCHEMA_CD đúng cấu trúc, tách bạch không lẫn lộn")
+
+# ─── 21. audit_and_supplement_course: Rà soát & Bổ sung chặng thiếu ───
+print("\n[21] audit_and_supplement_course: Rà soát & Bổ sung chặng thiếu")
+
+# Tạo khóa học giả lập Tiếng Nhật cũ 240 ngày (thiếu Chặng 5 Cao cấp)
+_mock_old_course = cdb.new_course("Tiếng Nhật Test", [], 10)
+_mock_old_items = []
+for i in range(1, 241):
+    # Gán stage 0..3 (bỏ quên stage 4)
+    s_idx = 0 if i <= 30 else (1 if i <= 68 else (2 if i <= 160 else 3))
+    _mock_old_items.append({
+        "id": i,
+        "title": f"Chủ đề cũ #{i}",
+        "category": "GIAO TIẾP",
+        "stage_idx": s_idx,
+        "filled_day": i
+    })
+_mock_old_course["backbone"] = {"level": "Toàn bộ", "items": _mock_old_items}
+_mock_old_course["days"] = [{"day": i, "title": f"Chủ đề cũ #{i}"} for i in range(1, 241)]
+cdb.save_course("Tiếng Nhật Test", _mock_old_course)
+
+# Gọi audit_and_supplement_course với coordinator mock
+class _MockSupplementCoord:
+    def __init__(self, *args, **kwargs):
+        pass
+    def request(self, prompt, response_schema=None):
+        return {"ok": True, "text": json.dumps({"topics": []})}
+
+supp_res = audit_and_supplement_course("Tiếng Nhật Test", level="Toàn bộ", coordinator_cls=_MockSupplementCoord)
+assert supp_res["ok"] is True, "audit_and_supplement_course phải trả về ok=True"
+assert supp_res["old_total"] == 240, f"old_total phải là 240, thực tế {supp_res['old_total']}"
+assert supp_res["added_count"] > 0, f"added_count phải > 0, thực tế {supp_res['added_count']}"
+assert supp_res["new_total"] >= 420, f"new_total phải >= 420, thực tế {supp_res['new_total']}"
+
+# Kiểm tra DB sau khi bổ sung
+_updated_course = cdb.get_course("Tiếng Nhật Test")
+assert _updated_course.get("format_version") == 3, "format_version phải là 3"
+_up_items = _updated_course["backbone"]["items"]
+assert len(_up_items) == supp_res["new_total"], "Số items trong DB phải khớp new_total"
+
+# Kiểm tra 240 items cũ giữ nguyên filled_day
+for i in range(240):
+    assert _up_items[i]["filled_day"] == i + 1, f"Item {i+1} cũ phải giữ nguyên filled_day"
+# Kiểm tra các items mới bổ sung có filled_day = None
+for i in range(240, len(_up_items)):
+    assert _up_items[i]["filled_day"] is None, f"Item mới {i+1} phải có filled_day=None"
+
+# Kiểm tra ID tuần tự 1..N
+for i, it in enumerate(_up_items, 1):
+    assert it["id"] == i, f"Item id phải là {i}, thực tế {it['id']}"
+
+cdb.delete_course("Tiếng Nhật Test")
+ok("audit_and_supplement_course: tự động phát hiện chặng thiếu & bổ sung đủ sàn FSI mà không mất bài cũ")
 
 # ─── Summary ───
 print(f"\n{'='*50}")
