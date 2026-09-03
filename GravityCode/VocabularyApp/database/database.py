@@ -26,13 +26,22 @@ def _get_json_path(language: str) -> str:
 # ─── Load / Save ───────────────────────────────────────────────────────────────
 
 def load_data(language: str) -> dict:
-    """Đọc toàn bộ data từ file JSON của ngôn ngữ tương ứng."""
+    """Đọc toàn bộ data từ file JSON của ngôn ngữ tương ứng.
+    Đảm bảo luôn trả về dict có đủ key bắt buộc (vocabularies, last_updated)
+    dù file JSON thiếu trường hay bị hỏng cấu trúc.
+    """
     path = _get_json_path(language)
     if not os.path.exists(path):
         return {"vocabularies": [], "last_updated": ""}
     try:
         with open(path, "r", encoding="utf-8") as f:
-            return json.load(f)
+            data = json.load(f)
+        if not isinstance(data, dict):
+            return {"vocabularies": [], "last_updated": ""}
+        # Đảm bảo luôn có key bắt buộc, tránh KeyError ở caller
+        data.setdefault("vocabularies", [])
+        data.setdefault("last_updated", "")
+        return data
     except Exception:
         return {"vocabularies": [], "last_updated": ""}
 

@@ -19,10 +19,16 @@ from ai.course_generator import (
     build_content_prompt, build_quiz_prompt, build_quiz_prompt_ab, build_quiz_prompt_cd,
     build_curriculum_prompt, build_backbone_prompt,
     build_stage_backbone_prompt, build_stage_universal_template, build_master_backbone,
-    get_language_fsi_profile, audit_and_supplement_course,
+    get_language_fsi_profile, get_language_native_profile, audit_and_supplement_course,
     generate_course, GenerationStopped,
     MIN_VOCAB, MIN_PATTERNS, MIN_SENTENCES, MIN_GRAMMAR, MAX_GRAMMAR, QUIZ_PER_TYPE,
     JOURNEY_PHASES, LEVELS, LEVEL_PHASES, LEVEL_MIN_DAYS,
+)
+from ai.language_profiler import (
+    get_or_create_language_profile,
+    get_rule_based_fallback_profile,
+    load_cached_language_profiles,
+    save_cached_language_profiles,
 )
 from VocabApp import _short_level_name
 from ai import course_db as cdb
@@ -460,11 +466,11 @@ try:
         log_fn=logs.append, level=LEVELS[0],
         coordinator_cls=_FakeCoordinator,
     )
-    assert stats_all["generated"] == 240 and stats_all["backbone_total"] == 240, stats_all
+    assert stats_all["generated"] == 700 and stats_all["backbone_total"] == 700, stats_all
     course_full = cdb.get_course("FakeLangFull")
-    assert len(course_full["days"]) == 240
+    assert len(course_full["days"]) == 700
     assert all(it["filled_day"] is not None for it in course_full["backbone"]["items"])
-    ok("continuous generation: sinh liền một mạch 100% 240/240 chủ đề qua cả 6 Chặng")
+    ok("continuous generation: sinh liền một mạch 100% 700/700 chủ đề qua cả 6 Chặng")
 
     # Test Batch Paced: Nếu chỉ định batch=2 thì vẫn chạy từng đợt 2 ngày
     _stage_call_idx[0] = 0  # reset stage counter cho FakeLang mới
@@ -475,7 +481,7 @@ try:
         log_fn=logs.append, level=LEVELS[0], max_days_per_run=2,
         coordinator_cls=_FakeCoordinator,
     )
-    assert stats["generated"] == 2 and stats["backbone_total"] == 240, stats
+    assert stats["generated"] == 2 and stats["backbone_total"] == 700, stats
 
     course = cdb.get_course("FakeLang")
     assert len(course["days"]) == 2
@@ -787,6 +793,83 @@ for i, it in enumerate(_up_items, 1):
 
 cdb.delete_course("Tiếng Nhật Test")
 ok("audit_and_supplement_course: tự động phát hiện chặng thiếu & bổ sung đủ sàn FSI mà không mất bài cũ")
+
+# ─── 22. AI Dynamic Language Profiling & Native C2 Scale ───
+print("\n[22] AI Dynamic Language Profiling & Native C2 Scale")
+
+# 22.1: Rule-based fallback profile
+prof_en = get_rule_based_fallback_profile("Tiếng Anh")
+assert prof_en["total_days"] == 700, f"Tiếng Anh bản xứ fallback phải là 700 ngày, thực tế {prof_en['total_days']}"
+assert len(prof_en["stages"]) == 6, "Phải có đủ 6 chặng"
+assert prof_en["stages"][0]["target_days"] == 35
+assert prof_en["stages"][-1]["target_days"] == 100
+ok("language_profiler: fallback Tiếng Anh đúng 700 ngày qua 6 chặng")
+
+prof_jp = get_rule_based_fallback_profile("Tiếng Nhật")
+assert prof_jp["total_days"] == 1260, f"Tiếng Nhật bản xứ fallback phải là 1260 ngày, thực tế {prof_jp['total_days']}"
+assert "Tượng Hình" in prof_jp["category_name"]
+ok("language_profiler: fallback Tiếng Nhật đúng 1260 ngày cho nhóm tượng hình & kính ngữ")
+
+prof_de = get_rule_based_fallback_profile("Tiếng Đức")
+assert prof_de["total_days"] == 840, f"Tiếng Đức fallback phải là 840 ngày, thực tế {prof_de['total_days']}"
+ok("language_profiler: fallback Tiếng Đức đúng 840 ngày cho nhóm Latinh chia giống")
+
+prof_ru = get_rule_based_fallback_profile("Tiếng Nga")
+assert prof_ru["total_days"] == 980, f"Tiếng Nga fallback phải là 980 ngày, thực tế {prof_ru['total_days']}"
+ok("language_profiler: fallback Tiếng Nga đúng 980 ngày cho nhóm hệ chữ riêng & biến cách")
+
+# 22.2: Cache Persistence
+cache_data = load_cached_language_profiles()
+assert isinstance(cache_data, dict), "Cache phải là một dictionary"
+test_cache_entry = {
+    "title": "Hồ sơ Test",
+    "category_name": "Test Category",
+    "stage_days": [20, 30, 100, 150, 120, 80],
+    "persona": "Người Test",
+    "instruction": "Test instruction",
+    "mandatory_milestones": ["m1", "m2"]
+}
+save_cached_language_profiles({"__test_lang__": test_cache_entry})
+loaded_cache = load_cached_language_profiles()
+assert "__test_lang__" in loaded_cache, "Phải lưu và đọc lại được từ cache JSON"
+# Cleanup test key
+loaded_cache.pop("__test_lang__", None)
+save_cached_language_profiles(loaded_cache)
+ok("language_profiler: load/save cache JSON hoạt động chính xác")
+
+# 22.3: AI Dynamic Discovery via Mock Coordinator
+class _MockAIProfilerCoord:
+    def request(self, prompt, response_schema=None):
+        profile_json = {
+            "title": "Lộ trình Tiếng Trung Cận Bản Xứ Siêu Cấp",
+            "category_name": "Chuẩn Bản Xứ C2 • Tượng Hình Hanzi & Điển Cố Hán Học",
+            "recommended_days": 1500,
+            "stage_days": [80, 120, 350, 400, 350, 200],
+            "persona": "Học giả Hán học & Giao tiếp Bản ngữ C2",
+            "instruction": "Giáo trình nghiên cứu Hanzi từ giáp cốt văn đến thành ngữ hiện đại.",
+            "mandatory_milestones": ["hanzi_co_ban", "dien_co_tu_dai_danh_tac"]
+        }
+        return {"ok": True, "text": json.dumps(profile_json)}
+
+ai_prof = get_or_create_language_profile("Tiếng Trung Thượng Hải", coord=_MockAIProfilerCoord(), force_refresh=True)
+assert ai_prof["total_days"] == 1500, f"AI Profiler phải trả về 1500 ngày, thực tế {ai_prof['total_days']}"
+assert ai_prof["is_ai_reasoned"] is True, "Phải đánh dấu is_ai_reasoned=True"
+assert len(ai_prof["stages"]) == 6, "Phải sinh đủ 6 stages info"
+assert ai_prof["stages"][0]["target_days"] == 80
+assert ai_prof["stages"][-1]["target_days"] == 200
+ok("language_profiler: AI Dynamic Profiling khảo sát ngôn ngữ trả về 1500 ngày bản xứ C2 thành công")
+
+# 22.4: Master Backbone với Quy mô Ngày Bản Xứ
+class _MockNativeBackboneCoord:
+    def request(self, prompt, response_schema=None):
+        return {"ok": True, "text": json.dumps({"topics": [], "insertions": []})}
+
+mb_native = build_master_backbone("Tiếng Anh", prof_en, _MockNativeBackboneCoord())
+assert mb_native["template_base_count"] == 700, f"Base count phải là 700, thực tế {mb_native['template_base_count']}"
+assert len(mb_native["items"]) == 700, f"Tổng số items phải là 700, thực tế {len(mb_native['items'])}"
+assert mb_native["items"][6]["is_review_day"] is True and "ÔN TẬP TUẦN 1" in mb_native["items"][6]["generic_name"]
+assert mb_native["items"][-1]["is_review_day"] is True and "TỔNG KẾT CHẶNG 6" in mb_native["items"][-1]["generic_name"]
+ok("build_master_backbone: thiết kế trơn tru 700 ngày bản xứ qua 6 chặng với chu kỳ ôn tập xoắn ốc")
 
 # ─── Summary ───
 print(f"\n{'='*50}")

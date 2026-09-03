@@ -6,7 +6,44 @@
 
 ---
 
-## 📋 Cập nhật mới nhất — 2026-09-02 (Update 13)
+## 📋 Cập nhật mới nhất — 2026-09-03 (Update 14)
+
+### 🧠 AI Tự Động Suy Luận Định Danh Ngôn Ngữ & Quy Mô Số Ngày Chuẩn Bản Xứ C2 — HOÀN THÀNH ✅
+
+**Vấn đề đã giải quyết:**
+- ❌ **Cào bằng số ngày ~300 ngày**: Trước đây `get_language_fsi_profile` hardcoded số ngày theo FSI tối thiểu (240 - 420 ngày), khiến khóa học chỉ dừng ở mức B2, chưa phản ánh được độ sâu kiến thức thực tế để đạt tầm **Người bản xứ (Native/C2)**.
+- ❌ **Thiếu cơ chế suy luận động**: Không có cơ chế AI tự phân tích độ phức tạp của từng ngôn ngữ (hệ chữ, thanh điệu, ngữ pháp, khoảng cách với tiếng Việt, văn hóa ngầm, thành ngữ & tiếng lóng) như AskCpl.
+
+**Giải pháp triển khai:**
+- 🎯 **Module `ai/language_profiler.py` (AI Dynamic Language Profiler)**:
+  - Tự động dùng Gemini AI phân tích bản chất ngôn ngữ và suy luận số ngày thực tế cần thiết để đạt mức **Bản xứ (C2)**:
+    * Nhóm Latinh thông dụng (Tiếng Anh...): ~600 - 800 ngày (Fallback: 700 ngày).
+    * Nhóm Latinh chia giống & thì phức tạp (Đức, Pháp, TBN, Ý...): ~750 - 950 ngày (Fallback: 840 ngày).
+    * Nhóm Hệ chữ riêng & Biến cách nhiều (Nga, Thái, Hy Lạp, Ba Lan...): ~850 - 1150 ngày (Fallback: 980 ngày).
+    * Nhóm Khó nhất (Tượng hình, Kanji/Hanzi, SOV, Kính ngữ: Nhật, Trung, Hàn, Ả Rập...): ~1200 - 1600 ngày (Fallback: 1260 ngày).
+  - Tự động phân bổ số ngày chuẩn tỷ lệ cho 6 Chặng (Vỡ lòng $\to$ Ghép âm $\to$ Sơ cấp $\to$ Trung cấp $\to$ Cao cấp C1 $\to$ Bản xứ C2).
+  - Xác lập danh xưng (`persona`), lời khuyên sư phạm chiến lược (`instruction`), và các cột mốc tinh hoa bắt buộc (`mandatory_milestones`).
+- 💾 **Bộ nhớ đệm Cache (`data/language_profiles_cache.json`)**:
+  - Lưu lại kết quả phân tích của AI. Lần khởi động tiếp theo lấy ngay tức thì, không tốn quota API.
+- 🛡️ **Hậu phương an toàn (Rule-Based Fallback)**:
+  - Tự động tính toán quy mô ngày bản xứ chính xác ngay cả khi offline hoặc chưa nhập API key.
+- 🖥️ **Giao diện trực quan (`VocabApp.py`)**:
+  - Tùy chọn thời lượng chuyển thành: **`Tự động (AI suy luận số ngày chuẩn Bản xứ C2)`**.
+  - Hiển thị trực tiếp danh xưng, định danh và số ngày bản xứ C2 trong nhãn thông tin và hộp thoại log.
+- 🔄 **Nâng cấp khóa học cũ**:
+  - Nút `🔍 Rà soát & Bổ sung` tự động nối dài giáo trình cũ lên đủ quy mô ngày bản xứ (ví dụ: Tiếng Nhật 240 ngày $\to$ bổ sung thêm +1020 ngày lên đủ 1260 ngày) mà không làm mất bài cũ.
+
+| File | Thay đổi |
+|------|----------|
+| `ai/language_profiler.py` | • Module mới: Khảo sát định danh tri thức ngôn ngữ bằng AI, quản lý cache JSON, và thuật toán fallback chuẩn Bản xứ C2. |
+| `ai/course_generator.py` | • Thêm hàm `get_language_native_profile` kết nối AI Profiler.<br>• Tích hợp vào `generate_course` và `audit_and_supplement_course`. |
+| `VocabApp.py` | • Cập nhật `CourseGenerationDialog`: hiển thị kết quả phân tích của AI Profiler; cập nhật dropdown thời lượng sang chế độ Tự động chuẩn Bản xứ C2. |
+| `test_ai_rich.py` | • Thêm Test Section 22 kiểm thử toàn diện: Fallback profiles, Cache read/write, AI reasoning, và Backbone 700 ngày.<br>• Toàn bộ **63/63 bài kiểm thử chạy thành công 100%**. |
+| `projectLog.md` | Ghi nhận nhật ký Update 14. |
+
+---
+
+## 📋 Cập nhật trước đó — 2026-09-02 (Update 13)
 
 ### 🔍 Tính Năng "Rà Soát & Bổ Sung" (Audit & Auto-Supplement) Khóa Học Cũ — HOÀN THÀNH ✅
 

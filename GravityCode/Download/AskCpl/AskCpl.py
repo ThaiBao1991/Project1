@@ -529,7 +529,7 @@ class AskCplApp:
         # NHỊP 1: Sinh Mục lục Giai đoạn (Phase Milestones)
         # ===================================================
         days_instruction = (
-            f"Với thời lượng học {time_per_day} mỗi ngày, tự phán đoán số ngày cần thiết để nắm vững toàn bộ lĩnh vực (không giới hạn, tối đa 150 ngày)."
+            f"Với thời lượng học {time_per_day} mỗi ngày, tự phán đoán số ngày cần thiết để nắm vững toàn bộ lĩnh vực một cách thực chiến và chuyên sâu nhất (không giới hạn, từ 30 đến 3000 ngày tùy độ rộng của ngành)."
             if days_setting == "Auto"
             else f"Tổng cộng {days_setting} ngày."
         )
@@ -571,7 +571,7 @@ Yêu cầu trả về JSON theo định dạng sau (CHỈ JSON, không có văn 
     "persona": "Vai trò chuyên gia",
     "core_books": "Sách/tài liệu nền tảng bắt buộc",
     "supreme_commands": "3 nguyên tắc bất di bất dịch. Bắt buộc có lệnh: KHÔNG TƯƠNG TÁC.",
-    "total_days": 60
+    "total_days": 1000
   }},
   "phases": [
     {{"phase_id": 1, "phase_name": "Tên giai đoạn", "from_day": 1, "to_day": 15, "description": "Mục tiêu phase"}}
@@ -1482,14 +1482,13 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
             self.roadmap_gen_log(f"[BƯỚC 1/3 • PASS 0] Bắt đầu Vòng Lặp Vét Cạn Tri Thức cho '{snapshot['domain']}'...")
             
             # Vòng lặp hội tụ tối đa 5 đợt để quét sạch mọi ngóc ngách
+            # PASS 0 chạy HOÀN TOÀN TỰ DO — không nhúng profile để AI khám phá không bị neo.
+            # Profile sẽ được so sánh SAU KHI PASS 0 hội tụ (GAP CHECK bên dưới).
             for round_num in range(1, 6):
                 current_list_str = json.dumps(discovered_areas, ensure_ascii=False) if discovered_areas else "Chưa có"
                 
-                profile_info = f"\nHỒ SƠ ĐỊNH DANH TRI THỨC (DOMAIN BLUEPRINT):\n- Chỉ dẫn: {domain_profile.get('instruction', '')}\n- Cột mốc bắt buộc: {', '.join(domain_profile.get('mandatory_milestones', []))}\n" if domain_profile.get('instruction') else ""
-                
                 if round_num == 1:
                     discover_prompt = f"""Bạn là Viện trưởng Viện Nghiên cứu & Chuyên gia Bách khoa Toàn thư đầu ngành thế giới về '{snapshot['domain']}'.
-{profile_info}
 Hãy phân tích và lập danh sách 10-18 phân mảng/chủ đề lớn nhất của lĩnh vực này theo MA TRẬN 4 CHIỀU TOÀN DIỆN:
 1. CHIỀU NỀN TẢNG & NGUYÊN LÝ: Bảng chữ cái/ký hiệu, công cụ, cấu trúc cơ bản, cơ chế vận hành gốc.
 2. CHIỀU PHÂN BẬC THEO CẤP ĐỘ / NHÓM CHI TIẾT:
@@ -1502,7 +1501,6 @@ Hãy phân tích và lập danh sách 10-18 phân mảng/chủ đề lớn nhấ
 Trả về JSON MẢNG các chuỗi: ["Tên phân mảng 1", "Tên phân mảng 2", ...]. LUÔN dùng tiếng Việt."""
                 else:
                     discover_prompt = f"""Bạn là Chuyên gia đầu ngành thế giới về '{snapshot['domain']}'.
-{profile_info}
 Hiện tại chúng ta ĐÃ CÓ các phân mảng sau:
 {current_list_str}
 
@@ -1530,9 +1528,84 @@ LUÔN dùng tiếng Việt."""
             
             if discovered_areas:
                 self.roadmap_gen_log(
-                    f"[PASS 0 HOÀN TẤT] Tổng hợp {len(discovered_areas)} phân mảng toàn diện cho '{snapshot['domain']}':\n" + 
-                    "\n".join(f"   {i+1}. {a}" for i, a in enumerate(discovered_areas[:15])) + 
+                    f"[PASS 0 HOÀN TẤT] AI tự do khám phá được {len(discovered_areas)} phân mảng cho '{snapshot['domain']}':\n" +
+                    "\n".join(f"   {i+1}. {a}" for i, a in enumerate(discovered_areas[:15])) +
                     (f"\n   ...và {len(discovered_areas)-15} mảng chuyên sâu khác." if len(discovered_areas) > 15 else "")
+                )
+
+            # ══════════════════════════════════════════════════════════
+            # PASS 0 GAP CHECK: So sánh AI vs Domain Profile Milestones
+            # ══════════════════════════════════════════════════════════
+            profile_milestones = domain_profile.get("mandatory_milestones", [])
+            milestone_descs = domain_profile.get("milestone_descriptions", {})
+            if profile_milestones and discovered_areas:
+                discovered_lower = [a.lower().replace("_", " ") for a in discovered_areas]
+                # Toàn bộ văn bản gộp của các mảng AI tìm được để tìm từ khóa ngữ nghĩa
+                all_discovered_text = " ".join(discovered_lower)
+                
+                gap_areas = []
+                gap_descriptions = []
+                covered_milestones = []
+                
+                for milestone in profile_milestones:
+                    ms_norm = milestone.lower().replace("_", " ")
+                    ms_desc = milestone_descs.get(milestone, "")
+                    desc_lower = ms_desc.lower()
+                    
+                    # 1. So khớp trực tiếp theo ID/tên cột mốc
+                    is_covered = any(
+                        ms_norm in disc or disc in ms_norm or
+                        any(word in disc for word in ms_norm.split() if len(word) > 4)
+                        for disc in discovered_lower
+                    )
+                    
+                    # 2. So khớp sâu qua các từ khóa cốt lõi trong mô tả (Technical Keyword Matching)
+                    if not is_covered and desc_lower:
+                        # Tách các thuật ngữ công nghệ quan trọng (từ dài hoặc ký tự đặc biệt)
+                        import re as _re
+                        keywords = [w for w in _re.findall(r'[a-zA-Z0-9_\.]{3,}|[\w]{4,}', desc_lower)
+                                    if w not in ("phân", "môn", "tiếng", "việt", "kèm", "theo", "và", "các", "cho", "của", "được", "trong", "nghiệp", "vụ")]
+                        matched_kw_count = sum(1 for kw in keywords if kw in all_discovered_text)
+                        # Nếu AI đã nhắc tới >= 2 từ khóa kỹ thuật cốt lõi của milestone này -> Đã bao phủ
+                        if matched_kw_count >= 2:
+                            is_covered = True
+                    
+                    if is_covered:
+                        covered_milestones.append(milestone)
+                    else:
+                        gap_areas.append(milestone)
+                        # Ưu tiên lấy mô tả tiếng Việt chi tiết nếu có, ngược lại lấy tên readable
+                        display_text = ms_desc if ms_desc else milestone.replace("_", " ").title()
+                        gap_descriptions.append(display_text)
+
+                # Log kết quả so sánh
+                self.roadmap_gen_log(
+                    f"[PASS 0 • GAP CHECK] So sánh AI ({len(discovered_areas)} mảng) vs Hồ sơ Chuẩn ({len(profile_milestones)} milestone):\n"
+                    f"   ✅ AI đã tự bao phủ: {len(covered_milestones)}/{len(profile_milestones)} cột mốc kỹ thuật.\n"
+                    f"   🔴 Chưa đề cập hoặc thiếu sâu ({len(gap_areas)} gap): {', '.join(gap_areas[:6]) or 'Không có'}" +
+                    (f" ...+{len(gap_areas)-6} nữa" if len(gap_areas) > 6 else "")
+                )
+
+                if gap_descriptions:
+                    # Merge mảng gap chất lượng cao vào cây tri thức
+                    new_from_profile = [g for g in gap_descriptions if g not in discovered_areas]
+                    discovered_areas.extend(new_from_profile)
+                    self.roadmap_gen_log(
+                        f"[PASS 0 • GAP CHECK] ✅ Đã bổ sung {len(new_from_profile)} mảng chuyên sâu chuẩn từ Domain Profile vào lộ trình.\n"
+                        f"   Tổng tri thức sau hợp nhất: {len(discovered_areas)} mảng (Bảo đảm 100% không sót ngóc ngách nào)."
+                    )
+                else:
+                    self.roadmap_gen_log(
+                        f"[PASS 0 • GAP CHECK] 🏆 AI đã tự phát hiện ĐỦ toàn bộ {len(profile_milestones)} cột mốc của ngành — không cần bổ sung thêm!"
+                    )
+            elif profile_milestones and not discovered_areas:
+                # Fallback: PASS 0 không ra gì -> dùng toàn bộ mô tả chi tiết của profile
+                discovered_areas = [
+                    milestone_descs.get(m, m.replace("_", " ").title())
+                    for m in profile_milestones
+                ]
+                self.roadmap_gen_log(
+                    f"[PASS 0 • GAP CHECK] ⚠️ AI không khám phá được mảng nào; nạp trọn vẹn {len(discovered_areas)} cột mốc chuyên môn từ Domain Profile làm nền."
                 )
 
             # ══════════════════════════════════════════════════════════

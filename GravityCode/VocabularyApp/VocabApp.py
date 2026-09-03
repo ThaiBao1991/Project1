@@ -1499,7 +1499,7 @@ class CourseGenerationDialog(ctk.CTkToplevel):
         opt2.pack(fill="x", padx=20, pady=(8, 0))
         lbl(opt2, "Thời lượng / Lộ trình:", 13).pack(side="left", padx=(0, 8))
         self.DURATION_OPTIONS = [
-            "Tự động (AI tự phán định số ngày tối ưu)",
+            "Tự động (AI suy luận số ngày chuẩn Bản xứ C2)",
             "15 ngày (Khóa Nhập môn & Sinh tồn)",
             "30 ngày (Khóa Tiêu chuẩn - Giao tiếp cơ bản)",
             "45 ngày (Khóa Mở rộng - Tự tin giao tiếp)",
@@ -1540,6 +1540,15 @@ class CourseGenerationDialog(ctk.CTkToplevel):
 
         self._log("🧭 Hành trình 6 tầng bản xứ hóa: Vỡ lòng → Ghép âm → "
                   "Sơ cấp → Trung cấp → Cao cấp → Như bản xứ.")
+        try:
+            from ai.language_profiler import get_or_create_language_profile
+            prof = get_or_create_language_profile(lang)
+            self._log(f"🧠 Định danh AI: {prof.get('category_name', lang)}.")
+            self._log(f"🎯 Lộ trình Bản xứ C2 khuyến nghị: {prof.get('total_days', 700)} ngày (6 Chặng chuyên sâu).")
+            if prof.get("persona"):
+                self._log(f"👤 Mục tiêu: {prof['persona']}.")
+        except Exception:
+            pass
         # Hiển thị số ngày và tiến độ Backbone trong lộ trình tích lũy
         try:
             from ai import course_db as _cdb
@@ -1575,9 +1584,9 @@ class CourseGenerationDialog(ctk.CTkToplevel):
         min_d = LEVEL_MIN_DAYS.get(level, 15)
         phase_names = [JOURNEY_PHASES[i][0] for i in phase_idx if i < len(JOURNEY_PHASES)]
         if "trọn gói" in level.lower():
-            from ai.course_generator import get_language_fsi_profile
-            fsi = get_language_fsi_profile(self.app.current_language)
-            text = f"→ {fsi['category_name']}: ~{fsi['total_days']} ngày chuẩn (6 chặng)"
+            from ai.course_generator import get_language_native_profile
+            fsi = get_language_native_profile(self.app.current_language)
+            text = f"→ {fsi['category_name']}: ~{fsi['total_days']} ngày Bản xứ C2 (6 chặng)"
         else:
             text = f"→ {', '.join(phase_names)} · tối thiểu {min_d} ngày"
         self.lbl_level_info.configure(text=text, text_color=C["success"])

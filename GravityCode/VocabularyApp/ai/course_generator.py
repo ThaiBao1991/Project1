@@ -22,6 +22,10 @@ import time
 from difflib import SequenceMatcher
 
 from api.gemini_safe import GeminiCoordinator, ErrorKind
+from ai.language_profiler import (
+    get_or_create_language_profile,
+    get_rule_based_fallback_profile,
+)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -86,6 +90,11 @@ LEVEL_MIN_DAYS = {
     "Cao cấp (thành thạo học thuật/công việc)": 25,
     "Thành thạo như người bản xứ": 20,
 }
+
+
+def get_language_native_profile(language: str, coord=None, log_fn=None) -> dict:
+    """Xác định danh mục độ khó và số ngày chuẩn BẢN XỨ (C2) bằng AI Dynamic Profiling (kèm cache và fallback)."""
+    return get_or_create_language_profile(language, coord=coord, log_fn=log_fn)
 
 
 def get_language_fsi_profile(language: str) -> dict:
@@ -1885,7 +1894,19 @@ def audit_and_supplement_course(language: str, level: str = None, coord=None,
         log_fn(f"ℹ️ Chưa có khóa học '{language}' trong DB. Khởi tạo khóa học mới...")
         return {"ok": False, "reason": "not_found", "added_count": 0}
 
-    fsi = get_language_fsi_profile(language)
+    # Khởi tạo coordinator nếu cần
+    if coord is None:
+        keys = _load_gemini_keys()
+        if not keys:
+            log_fn("⚠️ Chưa thấy API key. Dùng chế độ Template chuẩn để bổ sung...")
+        cls = coordinator_cls or GeminiCoordinator
+        coord = cls(
+            key_loader=_load_gemini_keys, log_fn=log_fn,
+            temperature=0.35, max_output_tokens=16384, timeout=180,
+            lock_after_success=False
+        )
+
+    fsi = get_language_native_profile(language, coord=coord, log_fn=log_fn)
     backbone = course.get("backbone") or {}
     bb_items = backbone.get("items") or []
 
@@ -1906,19 +1927,7 @@ def audit_and_supplement_course(language: str, level: str = None, coord=None,
 
     old_total = len(bb_items)
     log_fn(f"🔍 [Audit & Bổ Sung] Bắt đầu rà soát khóa '{language}' ({old_total} chủ đề hiện có)...")
-    log_fn(f"   📋 Chuẩn FSI {fsi['category_name']}: Yêu cầu {fsi['total_days']} ngày qua 6 Chặng.")
-
-    # Khởi tạo coordinator nếu cần
-    if coord is None:
-        keys = _load_gemini_keys()
-        if not keys:
-            log_fn("⚠️ Chưa thấy API key. Dùng chế độ Template chuẩn để bổ sung...")
-        cls = coordinator_cls or GeminiCoordinator
-        coord = cls(
-            key_loader=_load_gemini_keys, log_fn=log_fn,
-            temperature=0.35, max_output_tokens=16384, timeout=180,
-            lock_after_success=False
-        )
+    log_fn(f"   📋 Chuẩn Bản Xứ C2 ({fsi['category_name']}): Yêu cầu {fsi['total_days']} ngày qua 6 Chặng.")
 
     stages_added = []
     added_total = 0
@@ -2126,7 +2135,7 @@ def generate_course(language: str,
         return None, None
 
     # ── Bước 0: ĐẢM BẢO BACKBONE (Khung giáo trình bắt buộc chuẩn Multi-Pass kiểu AskCpl) ───
-    fsi = get_language_fsi_profile(language)
+    fsi = get_language_native_profile(language, coord=coord, log_fn=log_fn)
     is_full_journey = ("trọn gói" in (level or "").lower()) or (level == LEVELS[0])
     phase_indices = LEVEL_PHASES.get(level, list(range(len(JOURNEY_PHASES))))
     backbone = course.get("backbone")

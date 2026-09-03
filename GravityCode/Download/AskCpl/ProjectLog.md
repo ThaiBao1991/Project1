@@ -1,3 +1,103 @@
+## 2026-09-03 — Nâng Cấp Kiến Trúc 2 Tầng: Dynamic Profiling Kèm Mô Tả Chuyên Sâu & Semantic GAP CHECK — HOÀN THÀNH ✅
+
+### 1. Vấn Đề Gốc Rễ Đã Giải Quyết
+- **Thắc mắc cốt lõi**:
+  - Tại sao AI ở PASS 0 thiếu các mảng sâu như `dictionary_sorting_algorithms`, `modern_userforms_withevents`, `com_port_hardware_interfacing`, `winapi_subclassing_multithreading`?
+  - Vì trước đây profile chỉ lưu mã `snake_case` tiếng Anh, trong khi AI PASS 0 trả về tiếng Việt tự nhiên nên thuật toán so khớp chuỗi thô (naive string matching) bị trượt (false negatives).
+  - Với các lĩnh vực mới (Kỹ sư điện, Kế toán, Cơ khí, Y khoa...): Làm sao đảm bảo không bị thiếu sót và luôn có thước đo chuẩn mực?
+- **Nguyên lý kiến trúc mới**:
+  1. **Tầng 1 (Cột mốc chuẩn)**: Bất kỳ ngành nào (dù quen hay lạ) luôn có một **Domain Blueprint** gồm 12-20 cột mốc bắt buộc kèm **diễn giải tiếng Việt chuyên sâu** (chứa công nghệ, tiêu chuẩn, nghiệp vụ thực chiến).
+  2. **Tầng 2 (Khám phá tự do)**: AI ở PASS 0 được thả lỏng hoàn toàn để quét 5 vòng đa chiều, tự do phát hiện những mảng mới mẻ ngoài sách vở.
+  3. **Tầng 3 (Semantic & Technical GAP CHECK)**: So sánh đối chiếu AI vs Blueprint chuẩn qua thuật ngữ công nghệ. Thiếu mảng nào thì lập tức bổ sung nguyên văn mô tả chuyên sâu vào lộ trình.
+
+### 2. Các Thay Đổi Cụ Thể
+- **`domain_profiles.py`**:
+  - Bổ sung `milestone_descriptions` cho toàn bộ 13 milestone của Excel VBA và 12 milestone của Access VBA (diễn giải tiếng Việt đầy đủ công nghệ: Scripting.Dictionary, QuickSort, Cổng COM RS232, Subclassing WinAPI, Add-in Ribbon XML, Async UDFs AI...).
+  - Nâng cấp `AI Domain Profiler`: Khi người dùng nhập bất kỳ ngành mới nào (Kỹ sư điện, Kế toán...), AI Profiler sẽ tự động tạo `milestone_descriptions` tiếng Việt chi tiết cho toàn bộ các trụ cột kỹ thuật của ngành đó và lưu vào cache vĩnh viễn.
+- **`AskCpl.py`**:
+  - Nâng cấp bộ so khớp trong `PASS 0 GAP CHECK`: Kết hợp so khớp ID và **Technical Keyword Matching** (quét thuật ngữ công nghệ cốt lõi trong mô tả).
+  - Khi có gap, bổ sung trực tiếp mô tả tiếng Việt chất lượng cao vào `discovered_areas` thay vì chuỗi snake_case viết hoa.
+
+### 3. Kiểm Thử & Xác Minh (Verification)
+- ✅ `python -m py_compile domain_profiles.py AskCpl.py`: ALL SYNTAX OK.
+- ✅ `python -m unittest test_roadmap_pipeline.py test_roadmap_audit.py`: 21/21 tests PASS 100%.
+- ✅ Kiểm thử nạp `milestone_descriptions`: 13/13 cột mốc Excel được diễn giải chuẩn xác, sẵn sàng cho GAP CHECK.
+
+---
+
+## 2026-09-03 — PASS 0 Tự Do + GAP CHECK: AI Khám Phá Trước, Profile Bổ Sung Sau — HOÀN THÀNH ✅
+
+### Thay Đổi
+- **`AskCpl.py`** (`_roadmap_v5_step1`, PASS 0 block):
+  - **Trước**: Round 1 & Round 2+ đều nhúng `profile_info` vào prompt → AI bị neo theo profile ngay từ đầu.
+  - **Sau**: Toàn bộ PASS 0 (Round 1-5) chạy **hoàn toàn tự do** — không có profile trong prompt.
+  - **Thêm mới — PASS 0 GAP CHECK** (chạy sau khi vòng hội tụ kết thúc):
+    1. So sánh `discovered_areas` (AI tự tìm) vs `mandatory_milestones` (Domain Profile).
+    2. Log rõ: bao nhiêu milestone AI đã tự cover, bao nhiêu gap còn thiếu.
+    3. Merge gap từ profile vào `discovered_areas` trước khi vào PASS 1A.
+    4. Fallback: nếu AI không khám phá được gì → dùng profile milestones làm seed.
+
+### Lợi Ích
+- AI có thể phát hiện các mảng mà profile tĩnh chưa có (VD: Power Automate, Excel Online API, Python-Excel interop...).
+- Profile đảm bảo không bỏ sót các milestone cốt lõi đã được định nghĩa.
+- Log minh bạch để người dùng thấy rõ AI tìm được gì, profile bổ sung gì.
+
+### Kiểm Thử
+- ✅ `python -m py_compile AskCpl.py` → SYNTAX OK.
+
+---
+
+## 2026-09-03 — Xóa Checkpoint Cũ ExeceFull 600 Ngày — HOÀN THÀNH ✅
+
+### Vấn Đề
+- Người dùng nhập domain "Hướng dẫn excell..." + tên file "ExceFull", chạy Bước 1 nhưng log vẫn hiện `tổng X/600` thay vì 1000.
+- **Nguyên nhân thực**: Thư mục `C:/Users/12953 bao/Desktop/Roadmap` còn 2 file checkpoint cũ từ lần chạy trước (khi days=600):
+  - `roadmap_ExeceFull.skeleton.json` (target: None, skeleton: 600 days — sai)
+  - `roadmap_ExeceFull.skeleton.json.progress.json` (target: 600 — sai)
+- Code resume tự động nạp checkpoint cũ này, ghi đè domain profile 1000 ngày.
+
+### Giải Pháp
+- Xóa 2 file checkpoint ExeceFull target=600 nói trên.
+- Giữ nguyên `roadmap_ExecelFull.skeleton.json.progress.json` (target=1000, đang đúng).
+- Không cần sửa code — logic đúng, chỉ là dữ liệu tồn đọng gây ra.
+
+### Hướng Dẫn Người Dùng
+- Mở lại AskCpl → Tab Tạo Roadmap.
+- Kiểm tra "Tổng số ngày" = **Auto**.
+- Bấm **Bước 1** để chạy lại từ đầu → sẽ nhận 1000 ngày từ Excel Domain Profile.
+
+---
+
+## 2026-09-03 — Nâng Cấp Smart Auto-Scale Cho AI Domain Profiler (Xóa Bỏ Neo 600 Ngày & Chặn Trần 150 Ngày) — HOÀN THÀNH ✅
+
+### 1. Vấn Đề Gốc Rễ Đã Giải Quyết
+- **Hiện tượng**: Khi người dùng tạo lộ trình (ví dụ: "Hướng dẫn excell đến mức trở thành chuyên gia", "học kỹ sư cơ khí"), lộ trình luôn bị ép cứng về 600 ngày hoặc 150 ngày.
+- **Nguyên nhân cốt lõi**:
+  1. `domain_profiles.py`: Prompt khảo sát động có số mẫu mồi `"recommended_days": 600`, khiến AI luôn bị neo (anchoring effect) sao chép con số 600 cho mọi domain mới.
+  2. `_match_static_profile`: Chỉ bắt chính xác `"excel"`, khi người dùng gõ sai chính tả (`"excell"`) thì không nhận diện được profile Excel 1.000 ngày.
+  3. `AskCpl.py` (`_roadmap_gen_step1_thread`): Ở chế độ "Auto" có chuỗi `"(không giới hạn, tối đa 150 ngày)"` và mẫu JSON `"total_days": 60` chặn đứng quy mô của các ngành lớn.
+
+### 2. Giải Pháp Đã Triển Khai
+- **`domain_profiles.py`**:
+  - Mở rộng từ khóa tĩnh hỗ trợ thêm: `"excell"`, `"ms excel"`, `"bảng tính"`.
+  - Nâng cấp triệt để Prompt AI Profiler:
+    + Xóa bỏ số mồi 600 ngày, thay bằng bảng quy chuẩn định lượng quy mô thực tế:
+      * **Ngành kỹ sư hoàn chỉnh (Cơ khí, Điện tử, Y khoa...)**: 1.500 – 2.500 ngày (tương đương 4-5 năm đại học).
+      * **Hệ sinh thái công nghệ / Ngôn ngữ lớn (Python AI, C++, Excel VBA Master)**: 800 – 1.200 ngày.
+      * **Công cụ / CSDL chuyên biệt (Access VBA, Docker)**: 300 – 600 ngày.
+      * **Kỹ năng hẹp**: 30 – 180 ngày.
+    + Yêu cầu AI tuyệt đối không cào bằng 365 hay 600 ngày.
+- **`AskCpl.py`**:
+  - Gỡ bỏ giới hạn trần 150 ngày, mở rộng lên dải 30 – 3000 ngày tùy độ rộng ngành.
+  - Sửa mẫu JSON prompt tránh neo vào 60 ngày.
+
+### 3. Kiểm Thử & Xác Minh (Verification)
+- ✅ `test_roadmap_audit.py`: Chạy qua toàn bộ 3 tests (Access 600 ngày, Excel 1000 ngày) - PASS 100%.
+- ✅ Test typo `"excell"`: Nhận diện chính xác 1.000 ngày từ Predefined Profile.
+- ✅ Test prompt kỹ sư cơ khí: AI nhận đúng bộ quy chuẩn định lượng 1.500 - 2.500 ngày.
+
+---
+
 ## 2026-08-28 — AI Dynamic Domain Profiler & Chuẩn Hóa Lộ Trình: Access (600 Ngày) & Excel (1.000 Ngày) — HOÀN THÀNH ✅
 
 ### 1. Phân Tích & Giải Quyết Gốc Rễ Vấn Đề
