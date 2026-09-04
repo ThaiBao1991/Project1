@@ -1,3 +1,30 @@
+## 2026-09-04 — Fix Lỗi Xuất File HTML Rỗng (Trắng Tinh) & Tối Ưu Hóa session.json Bộ Nhớ — HOÀN THÀNH ✅
+
+### 1. Vấn Đề Gốc Rễ Đã Giải Quyết
+- **Hiện tượng**: Khi chạy Auto AI (`auto_ai_worker.py`), AI hoàn tất câu trả lời ở các lượt hỏi, nhưng khi mở file HTML (ví dụ `001_Day 1...html`) hoặc click vào bài học trong `index.html`, nội dung trắng tinh (`<div class="content"></div>` hoàn toàn rỗng).
+- **Nguyên nhân gốc rễ**:
+  - Ở bản cập nhật trước đó, để ngăn `session.json` phình to hàng trăm MB theo Rule 3.5, trường `"html"` đã bị xóa khỏi `session_data`.
+  - Tuy nhiên, hàm tạo file HTML (`create_viewer`) vẫn dựa vào `item.get('html', '')` từ `session_data` để sinh nội dung cho thẻ `<div class="content">`.
+  - Vì không tìm thấy trường `html`, hàm này đã xuất ra thẻ `content` rỗng và ghi đè file HTML rỗng xuống đĩa.
+  - Ngoài ra, khi restart/resume, `create_viewer` không khôi phục nội dung từ các file HTML đã tồn tại trên đĩa.
+
+### 2. Các Thay Đổi Cụ Thể
+- **`auto_ai_worker.py`**:
+  - `process_single_day()`: Giữ `item["html"] = html_res` và `item["raw_responses"] = all_responses` trong bộ nhớ RAM trong suốt phiên chạy của worker để `create_viewer` luôn có đầy đủ nội dung khi xuất file.
+  - `save_session()`: Khi ghi ra đĩa `session.json`, tự động loại bỏ các trường nặng (`html` và `raw_responses` của bài đã hoàn thành) để file `session.json` luôn siêu nhẹ (< 2 MB cho 6.000 ngày, đúng chuẩn Rule 3.5 chống phình RAM).
+  - `create_viewer()`:
+    - Khi nạp bài học mà `item.get('html')` chưa có (ví dụ khi resume từ file `session.json` nhẹ), tự động trích xuất nội dung từ thẻ `<div class="content">` của file HTML đã lưu trên đĩa để nạp vào `index.html`.
+    - Bảo vệ chống ghi đè: Chỉ ghi file nếu file chưa tồn tại hoặc nội dung mới thực sự có dữ liệu (tránh ghi đè file có bài học bằng file rỗng).
+  - Dọn dẹp 160 file HTML rỗng cũ và backup `session.json` rỗng trong `ExcelDocument` để người dùng bắt đầu chạy lại từ Day 1 chuẩn xác.
+- **`test_html_content_integrity.py`**:
+  - Bổ sung 2 test tự động: kiểm tra `save_session` lọc sạch trường `html`/`raw_responses` và kiểm tra `create_viewer` xuất đủ nội dung bài học cũng như tự động phục hồi nội dung khi resume.
+
+### 3. Kiểm Thử & Xác Minh (Verification)
+- ✅ `python -m py_compile auto_ai_worker.py AskCpl.py`: SYNTAX OK.
+- ✅ `python -m unittest test_html_content_integrity.py test_viewer_dashboard.py test_roadmap_pipeline.py test_roadmap_audit.py`: 24/24 tests PASS 100%.
+
+---
+
 ## 2026-09-03 — Nâng Cấp Kiến Trúc 2 Tầng: Dynamic Profiling Kèm Mô Tả Chuyên Sâu & Semantic GAP CHECK — HOÀN THÀNH ✅
 
 ### 1. Vấn Đề Gốc Rễ Đã Giải Quyết

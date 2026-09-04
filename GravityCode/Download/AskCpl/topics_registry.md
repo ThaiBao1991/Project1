@@ -3179,3 +3179,1003 @@
 | excel_vba_day_998 | Generative AI Async UDFs & Master Capstone System – Phần 33/35 | roadmap_excel_vba_1000.md |
 | excel_vba_day_999 | Generative AI Async UDFs & Master Capstone System – Phần 34/35 | roadmap_excel_vba_1000.md |
 | excel_vba_day_1000 | Project 33: Capstone Generative AI Async UDFs & Master Capstone System | roadmap_excel_vba_1000.md |
+| lambda_de_quy_banh_mi_phuong | Ứng dụng Lambda đệ quy và Quản lý Phiên bản Git cho Định mức Bánh mì Phượng | roadmap_ExecelFull.md |
+| regex_object_model_pho_bo | Regex chuẩn hóa dữ liệu Phở bò Nam Định và Kết nối Cơ sở dữ liệu ADO SQL | roadmap_ExecelFull.md |
+| object_model_com_tam_sai_gon | Quản lý Object Model, Vùng động & Kiểm soát Phiên bản Git với Cơm tấm Sài Gòn | roadmap_ExecelFull.md |
+| lambda_regex_bun_cha_ha_noi | Lambda đệ quy, Regex & Kết nối ADO SQL tách chuỗi định lượng Bún chả Hà Nội | roadmap_ExecelFull.md |
+| object_model_banh_xeo_mien_tay | Duyệt cấu trúc Workbook qua sơ đồ Bánh xèo miền Tây và Quản lý mã nguồn với Git | roadmap_ExecelFull.md |
+| lambda_regex_bun_rieu_cua | Xử lý chuỗi Regex và Lambda đệ quy kết hợp Office JS Web Add-ins cho món Bún riêu | roadmap_ExecelFull.md |
+| lambda_de_quy_banh_mi_xiu_mai_da_lat | Phân tích cấu trúc dữ liệu Bánh mì xíu mại Đà Lạt bằng Lambda đệ quy và Thiết lập Bảo mật Macro | roadmap_ExecelFull.md |
+| regex_object_model_cha_ca_la_vong | Chuẩn hóa hóa đơn Chả cá Lã Vọng bằng Regex, Excel Object Model và Quản lý mã nguồn với Git | roadmap_ExecelFull.md |
+| lambda_de_quy_banh_khot_vung_tau | Đệ quy Lambda và Kiểm thử Đơn vị với Rubberduck cho BOM Bánh khọt Vũng Tàu | roadmap_ExecelFull.md |
+| regex_object_model_ga_nuong_dat_set | Regex, Object Model và Kết nối ADO SQL chuẩn hóa menu Gà nướng đất sét | roadmap_ExecelFull.md |
+| lambda_de_quy_bun_bo_hue | Lập trình Lambda đệ quy phân rã định lượng nguyên liệu Bún Bò Huế và quản lý phiên bản Git | roadmap_ExecelFull.md |
+| regex_object_model_lau_tha | Ứng dụng Regex, VBA ADO SQL và Object Model chuẩn hóa menu Lẩu Thả Phan Thiết | roadmap_ExecelFull.md |
+| lambda_de_quy_banh_canh_trang_bang | Tính giá vốn đa tầng Bánh canh Trảng Bàng bằng Lambda đệ quy (Chuẩn hóa BOM SAP) | roadmap_ExecelFull.md |
+| regex_object_model_goi_cuon_tom_thit | Trích xuất hóa đơn Gỏi cuốn tôm thịt bằng Regex, Object Model và Quản lý mã nguồn VBA với Git | roadmap_ExecelFull.md |
+| lambda_de_quy_com_ga_hoi_an | Đệ quy LAMBDA phân rã BOM chuỗi Cơm gà Hội An và quản lý phiên bản bằng Git/Rubberduck | roadmap_ExecelFull.md |
+| regex_object_model_banh_trang_tron | Chuẩn hóa đơn hàng Bánh tráng trộn bằng Regex và đồng bộ SQL Server qua ADO bảo mật | roadmap_ExecelFull.md |
+| lambda_de_quy_lau_ga_la_e | Đệ quy Lambda & Unit Test Rubberduck cho BOM Lẩu gà lá é | roadmap_ExecelFull.md |
+| regex_object_model_nem_lui_hue | Regex & SQL ADO kết nối Database hóa đơn Nem lụi Huế | roadmap_ExecelFull.md |
+| lambda_de_quy_lau_rieu_cua_bap_bo | Tính toán định mức nguyên liệu Lẩu riêu cua bắp bò bằng Lambda đệ quy từ dữ liệu ERP | roadmap_ExecelFull.md |
+| regex_object_model_banh_mi_chao_cot_dien | Trích xuất hóa đơn Bánh mì chảo bằng Regex Object & Quản lý mã nguồn với Git/Rubberduck | roadmap_ExecelFull.md |
+| lambda_de_quy_hu_tieu_nam_vang | Xây dựng cây định mức nguyên liệu (BOM) Hủ tiếu Nam Vang bằng Lambda đệ quy chuẩn ERP | roadmap_ExecelFull.md |
+| regex_object_model_lau_mam_u_minh | Dùng VBA Regex bóc tách dữ liệu POS Oracle Lẩu mắm U Minh và thiết lập Git Version Control | roadmap_ExecelFull.md |
+| lambda_de_quy_banh_canh_nam_pho | Phân rã định mức Bánh canh Nam Phổ (chuẩn ERP SAP) bằng LAMBDA đệ quy và Unit Test | roadmap_ExecelFull.md |
+| regex_object_model_bun_quay_phu_quoc | Tách lọc dữ liệu order Bún quậy Phú Quốc từ Oracle DB bằng VBA ADO, Regex và Git Control | roadmap_ExecelFull.md |
+| lambda_de_quy_lau_de_kho | Đệ quy Lambda tính toán chi phí Lẩu dê khô và chuẩn hóa cấu trúc dữ liệu SQL ADO | roadmap_ExecelFull.md |
+| regex_object_model_banh_khot_co_ba | Regex, VBA Object Model chuẩn hóa menu Bánh khọt Cô Ba và quản lý mã nguồn với Git | roadmap_ExecelFull.md |
+| lambda_de_quy_lau_ca_duoi_vung_tau | Đệ quy Lambda & VBA ADO kết nối SQL Server định lượng nguyên liệu Lẩu Cá Đuối | roadmap_ExecelFull.md |
+| regex_object_model_banh_trang_cuon_thit_heo | Regex VBA chuẩn hóa dữ liệu, bảo mật MOTW và tích hợp Git với Rubberduck | roadmap_ExecelFull.md |
+| lambda_de_quy_banh_canh_cua_cho_thiec | Đệ quy Lambda chuỗi cung ứng Bánh canh cua Chợ Thiếc và Quản lý phiên bản Git | roadmap_ExecelFull.md |
+| regex_object_model_lau_bo_nha_go_da_lat | Regex, Object Model và Kết nối ADO SQL chuẩn hóa hóa đơn Lẩu bò nhà gỗ Đà Lạt | roadmap_ExecelFull.md |
+| lambda_de_quy_banh_xeo_muoi_xiem | Lambda đệ quy tính giá thành Bánh xèo & Unit Test với Rubberduck | roadmap_ExecelFull.md |
+| regex_object_model_lau_cua_dong | Regex VBA xử lý đơn hàng Lẩu cua đồng & Tích hợp SQL ADO | roadmap_ExecelFull.md |
+| lambda_de_quy_lau_ga_ot_hiem | Tính hao hụt nguyên liệu Lẩu gà ớt hiểm bằng Lambda đệ quy và tối ưu hóa hiệu năng mảng động | roadmap_ExecelFull.md |
+| regex_object_model_lau_duoi_bo_thuoc_bac | Nhận diện mã đơn hàng Lẩu đuôi bò bằng Regex VBA, Unit Test với Rubberduck và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| lambda_de_quy_lau_ech_mang_cay | Tính toán định mức Lẩu ếch bằng Lambda đệ quy và Unit Test với Rubberduck | roadmap_ExecelFull.md |
+| regex_object_model_lau_ca_keo_la_giang | Chuẩn hóa mã đơn Lẩu cá kèo bằng Regex và kết nối SQL Server qua ADO | roadmap_ExecelFull.md |
+| lambda_de_quy_banh_xeo_mien_tay | Tối ưu Lambda đệ quy tính tỷ lệ nguyên liệu chuỗi sản xuất Bánh xèo miền Tây và quản lý phiên bản bằng Git | roadmap_ExecelFull.md |
+| regex_object_model_com_tam_suon_bi_cha | Bóc tách hóa đơn Cơm tấm bằng VBA Regex Object Model, tích hợp Unit Test Rubberduck và Git | roadmap_ExecelFull.md |
+| lambda_de_quy_bun_cha_ha_noi | Lambda đệ quy Bún chả Hà Nội và Quản lý mã nguồn với Rubberduck Git | roadmap_ExecelFull.md |
+| regex_object_model_bun_dau_mam_tom | Regex hóa đơn Bún đậu mắm tôm và Kết nối SQL ADO bảo mật | roadmap_ExecelFull.md |
+| lambda_de_quy_lau_tha_phan_thiet | Phân chia định lượng gia vị Lẩu Thả Phan Thiết bằng Lambda đệ quy và chuẩn hóa cấu trúc SQL | roadmap_ExecelFull.md |
+| regex_vba_goi_cuon_tom_thit | Tách chuỗi định lượng Gỏi Cuốn Tôm Thịt bằng Regex VBA và Quản lý mã nguồn với Git | roadmap_ExecelFull.md |
+| lambda_de_quy_cha_ca_la_vong | Tính toán phân bổ gia vị Chả cá Lã Vọng bằng Lambda đệ quy và tối ưu hóa hiệu năng | roadmap_ExecelFull.md |
+| regex_vba_cha_ca_la_vong | Lọc mã đơn hàng SAP bằng Regex VBA và Thiết lập Git kiểm soát phiên bản mã nguồn | roadmap_ExecelFull.md |
+| lambda_de_quy_bun_rieu_cua_oc | Xây dựng sơ đồ phân rã nguyên liệu Bún riêu cua ốc bằng Lambda đệ quy và tối ưu hóa hiệu năng ERP | roadmap_ExecelFull.md |
+| regex_vba_banh_mi_phuong_hoi_an | Tách thông tin hóa đơn Bánh mì Phượng Hội An bằng Regex VBA, quản lý mã nguồn qua Git và bảo mật Macro | roadmap_ExecelFull.md |
+| lambda_de_quy_tich_luy_lau_tha | Lambda đệ quy tính lũy kế & Unit Test logic với Rubberduck | roadmap_ExecelFull.md |
+| regex_vba_phan_loai_banh_mi_phuong | Regex VBA phân loại hóa đơn & Kết nối SQL ADO thực tế | roadmap_ExecelFull.md |
+| lambda_de_quy_calo_lau_ga_la_giang | Tối ưu Lambda đệ quy tính calo Lẩu gà lá giang và kết nối SQL ADO | roadmap_ExecelFull.md |
+| regex_vba_ma_nguyen_lieu_lau_ga_la_giang | Trích xuất mã nguyên liệu bằng Regex VBA và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| lambda_de_quy_mi_quang | Thiết lập công thức Lambda đệ quy tính định lượng sợi Mì Quảng và đồng bộ SQL Server qua ADO | roadmap_ExecelFull.md |
+| regex_vba_gia_vi_mi_quang | Chuẩn hóa danh mục gia vị Mì Quảng bằng Regex VBA và quản lý mã nguồn qua Git | roadmap_ExecelFull.md |
+| lambda_de_quy_nem_nuong_nha_trang | Hàm Lambda đệ quy phân bổ gia vị Nem Nướng Nha Trang và Quản lý phiên bản công thức | roadmap_ExecelFull.md |
+| regex_vba_lau_tha_phan_thiet | Regex VBA phân tích định lượng Lẩu Thả Phan Thiết và Kết nối ADO SQL Server | roadmap_ExecelFull.md |
+| lambda_de_quy_hao_hut_banh_khot | Lambda đệ quy tính hao hụt Bánh khọt & Quản lý mã nguồn với Rubberduck | roadmap_ExecelFull.md |
+| regex_vba_lay_ma_nguyen_lieu_banh_khot | Regex VBA lấy mã nguyên liệu & Đồng bộ dữ liệu SQL Server qua ADO | roadmap_ExecelFull.md |
+| lambda_de_quy_hao_hut_lau_de_kho | Tính toán hao hụt gia vị Lẩu dê khô bằng Lambda đệ quy và Quản lý phiên bản Git | roadmap_ExecelFull.md |
+| regex_vba_loc_ma_lau_de_kho | Regex VBA lọc mã nguyên liệu Lẩu dê khô và Kết nối ADO SQL | roadmap_ExecelFull.md |
+| lambda_de_quy_hao_hut_bun_bo_hue | Lambda đệ quy tính tỷ lệ hao hụt nguyên liệu Bún bò Huế Sông Hương từ ERP Oracle | roadmap_ExecelFull.md |
+| regex_vba_dinh_luong_bun_bo_hue | Regex VBA bóc tách định lượng gia vị Bún bò Huế Sông Hương và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| vba_array_2d_banh_khot_vung_tau | Tối ưu hóa mảng 2D Variant và Thiết lập Git Version Control cho VBA | roadmap_ExecelFull.md |
+| vba_winapi_copymemory_banh_xeo_mien_tay | Sử dụng WinAPI CopyMemory an toàn và Tích hợp Windows Credential Manager | roadmap_ExecelFull.md |
+| vba_mang_2d_sieu_toc_banh_khot | Kỹ thuật nạp mảng 2D Variant siêu tốc và thiết lập Git Version Control cho VBA | roadmap_ExecelFull.md |
+| vba_winapi_con_tro_bo_nho_banh_xeo | Truy xuất con trỏ bộ nhớ bằng WinAPI CopyMemory an toàn chống crash cho Bánh xèo | roadmap_ExecelFull.md |
+| vba_mang_2d_lau_de_kho | Tối ưu mảng 2D Variant kết hợp ADO SQL Server cho chuỗi nhà hàng Lẩu dê | roadmap_ExecelFull.md |
+| vba_winapi_copymemory_bun_bo_hue | Quản lý bộ nhớ an toàn với WinAPI CopyMemory và Unit Test Rubberduck cho dữ liệu Bún bò Huế | roadmap_ExecelFull.md |
+| vba_mang_2d_nem_lui_hue | Xử lý mảng 2D siêu tốc & Kết nối SQL ADO cho định mức Nem lụi Huế | roadmap_ExecelFull.md |
+| vba_winapi_copymemory_lau_rieu_cua | WinAPI CopyMemory nâng cao & Bảo mật Macro cho hệ thống Lẩu riêu cua | roadmap_ExecelFull.md |
+| vba_mang_2d_nem_nuong_nha_trang | Tối ưu hóa mảng tĩnh 2D Nem nướng Nha Trang và thiết lập Git Version Control cho VBA | roadmap_ExecelFull.md |
+| vba_winapi_copymemory_bun_cha_ca_da_nang | Sao chép bộ nhớ WinAPI CopyMemory an toàn cho dữ liệu Bún chả cá Đà Nẵng kết nối SQL Server ADO | roadmap_ExecelFull.md |
+| vba_mang_2d_bun_cha_ha_noi | Khai thác mảng 2D Variant tối ưu hóa dữ liệu Bún chả Hà Nội & Quản lý mã nguồn với Git | roadmap_ExecelFull.md |
+| vba_winapi_copymemory_com_tam_sai_gon | Ứng dụng WinAPI CopyMemory an toàn hoán vị bộ nhớ Cơm tấm Sài Gòn & Phòng ngừa Crash | roadmap_ExecelFull.md |
+| vba_mang_tinh_2d_lau_ga_la_giang | Tái cấu trúc mảng tĩnh 2D tối ưu hóa định mức Lẩu gà lá giang và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| vba_winapi_copymemory_bun_rieu_cua_oc | Thao tác con trỏ WinAPI CopyMemory hoán vị dữ liệu Bún riêu cua ốc an toàn chống crash | roadmap_ExecelFull.md |
+| vba_mang_tinh_2d_banh_khot_vung_tau | Nạp mảng tĩnh 2D tính toán định lượng Bánh khọt Vũng Tàu và thiết lập bảo mật MOTW | roadmap_ExecelFull.md |
+| vba_winapi_copymemory_banh_xeo_mien_tay_hoan_vi | Dùng WinAPI CopyMemory hoán vị cột dữ liệu Bánh xèo và kỹ thuật chống crash Excel | roadmap_ExecelFull.md |
+| vba_mang_dong_2d_banh_canh_trang_bang | Xử lý mảng động 2D tối ưu hóa định lượng Bánh canh Trảng Bàng và Tích hợp Git/Rubberduck | roadmap_ExecelFull.md |
+| vba_winapi_copymemory_bun_nuoc_leo_soc_trang | Giải pháp WinAPI CopyMemory an toàn và Tích hợp Windows Credential Manager | roadmap_ExecelFull.md |
+| vba_mang_variant_2d_banh_mi_phuong | Khai triển mảng Variant 2D siêu tốc và thiết lập Unit Test Rubberduck cho Bánh mì Phượng | roadmap_ExecelFull.md |
+| vba_winapi_varptr_cha_ca_la_vong | Truyền địa chỉ ô nhớ bằng VarPtr, CopyMemory an toàn và xử lý bảo mật MOTW cho Chả cá Lã Vọng | roadmap_ExecelFull.md |
+| vba_dinh_vi_vung_nho_banh_mi_phuong | Định vị vùng nhớ mảng Variant 2D và quản lý phiên bản Git cho Bánh mì Phượng | roadmap_ExecelFull.md |
+| vba_lien_ket_con_tro_cha_ca_la_vong | Liên kết con trỏ mảng WinAPI an toàn và tích hợp ADO SQL Server cho Chả cá Lã Vọng | roadmap_ExecelFull.md |
+| vba_copymemory_sub_array_goi_cuon | Trích xuất mảng con siêu tốc bằng CopyMemory an toàn và cấu hình bảo mật MOTW cho Gỏi cuốn | roadmap_ExecelFull.md |
+| vba_dao_nguoc_mang_2d_lau_mam | Đảo ngược mảng 2D bằng hoán vị con trỏ bộ nhớ, viết Unit Test và đồng bộ SQL Server cho Lẩu mắm | roadmap_ExecelFull.md |
+| vba_nhan_ban_mang_2d_lau_duoi_bo | Nhân bản mảng 2D bằng CopyMemory cho thực đơn Lẩu đuôi bò và kiểm soát an toàn bộ nhớ | roadmap_ExecelFull.md |
+| vba_dich_chuyen_safearray_bun_dau_mam_tom | Dịch chuyển con trỏ SafeArray lọc hóa đơn Bún đậu mắm tôm và kiểm thử bằng Rubberduck | roadmap_ExecelFull.md |
+| vba_safearray_override_bun_cha_ca_nha_trang | Ghi đè SafeArray bằng WinAPI cho dữ liệu SAP Bún chả cá Nha Trang và Quản lý rủi ro Crash | roadmap_ExecelFull.md |
+| vba_free_safearray_pointer_banh_trang_cuon_thit_heo | Giải phóng con trỏ SafeArray Bánh tráng cuốn thịt heo và Unit Test với Rubberduck | roadmap_ExecelFull.md |
+| vba_cat_lat_mang_2d_banh_cuon_thanh_tri | Cắt lát dữ liệu mảng 2D bằng CopyMemory cho Bánh cuốn Thanh Trì và Quản lý mã nguồn Git | roadmap_ExecelFull.md |
+| vba_ghep_mang_2d_lau_ca_linh_bong_dien_dien | Ghép nối hai mảng 2D song song qua WinAPI cho Lẩu cá linh bông điên điển và Unit Test Rubberduck | roadmap_ExecelFull.md |
+| vba_chuyen_vi_ma_tran_banh_can_phan_thiet | Chuyển vị ma trận 2D siêu tốc bằng WinAPI trong món Bánh căn Phan Thiết và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| vba_loc_trung_con_tro_lau_tha_phan_thiet | Lọc dữ liệu trùng lặp qua con trỏ bộ nhớ trong món Lẩu thả Phan Thiết và kiểm soát bảo mật MOTW | roadmap_ExecelFull.md |
+| vba_quicksort_winapi_bun_dau_mam_tom_met_tre | Sắp xếp mảng 2D siêu tốc với QuickSort, WinAPI CopyMemory an toàn và tích hợp Git/Rubberduck cho chuỗi Bún Đậu | roadmap_ExecelFull.md |
+| vba_binary_search_mang_2d_lau_ga_ot_hiem | Tìm kiếm nhị phân mảng 2D tối ưu bộ nhớ kết hợp kết nối ADO SQL Server và xử lý bảo mật MOTW | roadmap_ExecelFull.md |
+| vba_nen_mang_2d_com_hen_vi_da | Nén mảng 2D thưa bằng WinAPI CopyMemory và kiểm thử an toàn bộ nhớ trong món Cơm hến Vĩ Dạ | roadmap_ExecelFull.md |
+| vba_dong_bo_bo_nho_lau_ca_duoi_vung_tau | Đồng bộ hóa bộ nhớ đệm mảng 2D với WinAPI và quản lý mã nguồn bằng Git trong món Lẩu cá đuối Vũng Tàu | roadmap_ExecelFull.md |
+| vba_giai_ma_safearray_cha_gio_re | Giải mã cấu trúc SafeArray 2D bằng VarPtr và CopyMemory an toàn chống crash trong Chả giò rế | roadmap_ExecelFull.md |
+| vba_dinh_hinh_lai_mang_banh_khot | Tự do định hình lại kích thước mảng 2D và khôi phục bộ nhớ tránh rò rỉ với Bánh khọt | roadmap_ExecelFull.md |
+| vba_safearray_cache_banh_mi_xiu_mai | Tối ưu hóa bộ nhớ đệm SafeArray và kết nối ADO SQL Server cho chuỗi Bánh mì xíu mại | roadmap_ExecelFull.md |
+| vba_leak_test_winapi_bun_quay_phu_quoc | Kiểm thử rò rỉ bộ nhớ WinAPI và tích hợp Git/Rubberduck Unit Test cho hệ thống Bún quậy | roadmap_ExecelFull.md |
+| vba_tron_mang_xen_ke_goi_ga_mang_cut | Trộn hai mảng 2D xen kẽ bằng WinAPI CopyMemory và Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| vba_phan_ra_mang_2d_lau_cua_dong | Phân rã mảng 2D siêu tốc bằng RtlMoveMemory và Đồng bộ SQL Server qua ADO | roadmap_ExecelFull.md |
+| vba_xoay_vong_safearray_nem_nuong_nha_trang | Xoay vòng mảng 2D bằng SafeArrayDescriptor trong Nem nướng Nha Trang & Quản lý bộ nhớ an toàn chống crash | roadmap_ExecelFull.md |
+| vba_rtlcomparememory_banh_xeo_mien_trung | So sánh song song hai mảng 2D bằng RtlCompareMemory kết hợp đối chiếu dữ liệu ADO SQL Server | roadmap_ExecelFull.md |
+| vba_sap_xep_nhanh_safearray_com_tam_suon_bi_cha | Phân loại SafeArray đa chiều bằng Cơm tấm sườn bì chả | roadmap_ExecelFull.md |
+| vba_gop_khoi_bo_nho_bun_bo_hue_dac_biet | Hợp nhất khối bộ nhớ SafeArray với Bún bò Huế đặc biệt | roadmap_ExecelFull.md |
+| vba_truy_vet_o_nho_banh_canh_cua | Truy vết địa chỉ ô nhớ SafeArray và Thiết lập Git Control cho chuỗi Bánh canh cua | roadmap_ExecelFull.md |
+| vba_dao_vi_tri_cot_lau_ga_la_giang | Đảo vị trí cột dữ liệu siêu tốc với Lẩu gà lá giang kết nối SQL Server ADO | roadmap_ExecelFull.md |
+| vba_trich_xuat_duong_cheo_cha_ca_thac_lac | Trích xuất đường chéo ma trận SafeArray hiệu năng cao và xử lý bảo mật MOTW | roadmap_ExecelFull.md |
+| vba_xoa_dong_trong_con_tro_bun_nuoc_leo | Xóa hàng loạt dòng trống bằng hoán vị con trỏ SafeArray và kiểm thử với Rubberduck | roadmap_ExecelFull.md |
+| vba_running_total_safearray_com_chay_kho_quet | Tính tổng tích lũy bằng con trỏ SafeArray (Cơm cháy kho quẹt) và Quản lý mã nguồn an toàn với Git | roadmap_ExecelFull.md |
+| vba_tim_cuc_tri_con_tro_banh_mi_chao | Tìm cực trị mảng 2D qua con trỏ bộ nhớ (Bánh mì chảo) và Cơ chế chống crash WinAPI | roadmap_ExecelFull.md |
+| vba_phan_nhom_safearray_com_tam_long_xuyen | Phân nhóm SafeArray bằng WinAPI và Quản lý Mã nguồn bằng Git/Rubberduck | roadmap_ExecelFull.md |
+| vba_tinh_trung_binh_truot_safearray_hu_tiu_nam_vang | Tính trung bình trượt qua SafeArray và Tích hợp ADO SQL Server bảo mật | roadmap_ExecelFull.md |
+| vba_tich_vo_huong_safearray_lau_de_kho | Tính tích vô hướng SafeArray (Lẩu dê khô) & Quản lý mã nguồn Git | roadmap_ExecelFull.md |
+| vba_chuan_hoa_ma_tran_thua_banh_mi_bot_loc | Chuẩn hóa ma trận thưa SafeArray (Bánh mì bột lọc) kết nối SQL Server ADO | roadmap_ExecelFull.md |
+| vba_tich_cheo_safearray_bun_oc_ha_noi | Tính tích chéo ma trận SafeArray cho Bún ốc Hà Nội | roadmap_ExecelFull.md |
+| vba_loc_bien_safearray_cha_ca_la_vong | Lọc biên ma trận SafeArray cho Chả cá Lã Vọng | roadmap_ExecelFull.md |
+| vba_nhan_ban_vung_nho_banh_tet_tra_on | Nhân bản SafeArray an toàn với Bánh tét Trà Ôn và Quản lý mã nguồn Git | roadmap_ExecelFull.md |
+| vba_dich_chuyen_vung_nho_nem_chua_lai_vung | Dịch chuyển SafeArray từ SQL Server với Nem chua Lai Vung và Unit Test | roadmap_ExecelFull.md |
+| vba_khoi_phuc_safearray_bun_mam_soc_trang | Khôi phục cấu trúc SafeArray gốc trong món Bún mắm Sóc Trăng | roadmap_ExecelFull.md |
+| vba_kiem_tra_vung_nho_chong_lap_goi_cuon_tom_thit | Kiểm tra vùng nhớ chồng lấp bằng WinAPI trong Gỏi cuốn tôm thịt | roadmap_ExecelFull.md |
+| vba_trich_xuat_cot_com_ga_hoi_an | Trích xuất cột dữ liệu bằng VarPtr trong Cơm gà Hội An | roadmap_ExecelFull.md |
+| vba_doi_cho_hang_bun_cha_ca_nha_trang | Đổi chỗ hàng loạt dòng bằng SafeArray trong Bún chả cá Nha Trang | roadmap_ExecelFull.md |
+| vba_xoa_cot_safearray_bun_cha_ha_noi | Xóa cột mảng 2D bằng CopyMemory và kiểm thử Unit Test chống crash | roadmap_ExecelFull.md |
+| vba_chen_hang_safearray_lau_mam_can_tho | Chèn hàng vào mảng 2D bằng CopyMemory an toàn kết nối ADO SQL Server | roadmap_ExecelFull.md |
+| vba_chen_cot_safearray_banh_khot_vung_tau | Chèn cột SafeArray bằng CopyMemory và Quản lý mã nguồn với Git/Rubberduck | roadmap_ExecelFull.md |
+| vba_nhan_ma_tran_con_tro_banh_xeo_mien_tay | Nhân ma trận bằng con trỏ bộ nhớ và Lưu trữ kết quả vào SQL Server qua ADO | roadmap_ExecelFull.md |
+| vba_dinh_thuc_ma_tran_lau_duoi_bo | Tính định thức ma trận 2D bằng WinAPI an toàn và Unit Test Rubberduck cho Lẩu đuôi bò | roadmap_ExecelFull.md |
+| vba_ma_tran_ke_ga_nuong_lu | Chuẩn hóa ma trận kề bằng SafeArray kết hợp ADO SQL và Git cho Gà nướng lu đất sét | roadmap_ExecelFull.md |
+| vba_quicksort_dictionary_lau_tha_phan_thiet | Thuật toán QuickSort mảng Dictionary trong món Lẩu thả Phan Thiết và Quản lý mã nguồn với Git/Rubberduck | roadmap_ExecelFull.md |
+| vba_binarysearch_collection_goi_ca_mai_vung_tau | Tìm kiếm nhị phân BinarySearch trên Collection nạp từ SQL Server với món Gỏi cá mai Vũng Tàu | roadmap_ExecelFull.md |
+| vba_merge_sort_collection_com_nieu_sai_gon | Thuật toán MergeSort trên Collection với Cơm niêu Sài Gòn và Unit Test Rubberduck | roadmap_ExecelFull.md |
+| vba_binary_search_dictionary_pho_kho_gia_lai | Tìm kiếm nhị phân trên Dictionary với Phở khô Gia Lai và Kết nối ADO SQL | roadmap_ExecelFull.md |
+| vba_quicksort_obj_dict_lau_rieu_cua | Sắp xếp QuickSort trên Dictionary chứa Object hóa đơn Lẩu riêu cua bắp bò và Unit Test với Rubberduck | roadmap_ExecelFull.md |
+| vba_binarysearch_obj_coll_bun_dau_mam_tom | Tìm kiếm nhị phân BinarySearch trên Collection chứa Object thực đơn kết nối SQL Server qua ADO | roadmap_ExecelFull.md |
+| vba_quicksort_dictionary_banh_mi_phuong | Thuật toán QuickSort tối ưu hóa Dictionary Bánh mì Phượng & Quản lý mã nguồn bằng Git/Rubberduck | roadmap_ExecelFull.md |
+| vba_binarysearch_collection_com_tam_bui_saigon | Thuật toán BinarySearch trên Collection Cơm tấm bụi Sài Gòn tích hợp ADO SQL Server | roadmap_ExecelFull.md |
+| vba_quicksort_dict_lau_ca_duoi_vung_tau | Sắp xếp QuickSort trên Dictionary với Lẩu cá đuối Vũng Tàu và Unit Test Rubberduck | roadmap_ExecelFull.md |
+| vba_binarysearch_coll_banh_khot_co_ba | Tìm kiếm nhị phân trên Collection kết nối SQL ADO với Bánh khọt Cô Ba Vũng Tàu | roadmap_ExecelFull.md |
+| vba_quicksort_nested_dict_lau_ga_la_giang | Sắp xếp QuickSort trên Dictionary lồng nhau từ SQL Server và Unit Test với Rubberduck | roadmap_ExecelFull.md |
+| vba_binarysearch_multi_coll_banh_canh_trang_bang | Truy vết BinarySearch trên Collection đa tầng bảo mật bằng Windows Credential Manager | roadmap_ExecelFull.md |
+| vba_quicksort_nested_dict_lau_cua_dong_hai_phong | Phân rã, sắp xếp Nested Dictionary Lẩu cua đồng Hải Phòng bằng QuickSort & Quản lý mã nguồn với Git/Rubberduck | roadmap_ExecelFull.md |
+| vba_binarysearch_multi_coll_banh_mi_xiu_mai_da_lat | Truy vấn nhanh Multi-Collection Bánh mì xíu mại Đà Lạt bằng BinarySearch & Kết nối ADO SQL Server | roadmap_ExecelFull.md |
+| vba_quicksort_nested_dict_lau_de_kho_ninh_binh | Tối ưu hóa QuickSort cho Nested Dictionary & Quản lý mã nguồn bằng Git/Rubberduck (Lẩu dê khô Ninh Bình) | roadmap_ExecelFull.md |
+| vba_binarysearch_multi_coll_banh_mi_bot_loc_hue | Tra cứu BinarySearch trên Multi-Collection kết nối ADO SQL Server (Bánh mì bột lọc Huế) | roadmap_ExecelFull.md |
+| vba_quicksort_nested_dict_cha_ruoi_tu_ky | Sắp xếp nhanh QuickSort mảng lồng Dictionary và Quản lý mã nguồn bằng Git/Rubberduck | roadmap_ExecelFull.md |
+| vba_binarysearch_multi_coll_bun_ca_cay_hai_phong | Dò tìm nhị phân BinarySearch trên Multi-Collection kết nối SQL Server ADO | roadmap_ExecelFull.md |
+| vba_quicksort_struct_banh_mi_que_hai_phong | Phân loại QuickSort mảng cấu trúc Bánh mì que Hải Phòng & Tích hợp Git/Unit Test | roadmap_ExecelFull.md |
+| vba_binarysearch_struct_banh_da_cua_hai_phong | Dò tìm BinarySearch mảng cấu trúc Bánh đa cua Hải Phòng kết nối SQL ADO | roadmap_ExecelFull.md |
+| vba_mergesort_struct_banh_da_cua_hai_phong | Hợp nhất MergeSort mảng Struct cho Bánh đa cua Hải Phòng và Quản lý mã nguồn với Git | roadmap_ExecelFull.md |
+| vba_binarysearch_struct_banh_mi_que_hai_phong_dinh_vi | Định vị BinarySearch mảng Struct kết nối ADO SQL cho Bánh mì que Hải Phòng | roadmap_ExecelFull.md |
+| vba_mergesort_udt_nem_lui_hue | Sắp xếp MergeSort mảng UDT Nem lụi Huế và Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| vba_binarysearch_udt_nem_lui_hue | Truy tìm nhị phân BinarySearch mảng UDT Nem lụi Huế kết nối ADO SQL Server | roadmap_ExecelFull.md |
+| vba_mergesort_udt_com_hen_vi_da | Thuật toán MergeSort mảng UDT hóa đơn Cơm hến Vĩ Dạ tích hợp ADO SQL Server và Git | roadmap_ExecelFull.md |
+| vba_binarysearch_udt_bun_bo_hue | Truy vết nhị phân BinarySearch mảng UDT kho nguyên liệu Bún bò Huế đồng bộ Oracle DB | roadmap_ExecelFull.md |
+| vba_mergesort_udt_com_tam_suon_bi_cha | Phân rã MergeSort cấu trúc UDT Cơm tấm sườn bì chả & Quản lý mã nguồn với Git/Rubberduck | roadmap_ExecelFull.md |
+| vba_binarysearch_udt_com_tam_suon_bi_cha | Truy vấn BinarySearch cấu trúc UDT Cơm tấm sườn bì chả & Tích hợp ADO SQL Server | roadmap_ExecelFull.md |
+| vba_mergesort_udt_banh_xeo_mien_tay | Tối ưu hóa MergeSort mảng UDT Bánh xèo miền Tây & Quản lý mã nguồn Git | roadmap_ExecelFull.md |
+| vba_binarysearch_udt_banh_khot_vung_tau | Truy xuất BinarySearch mảng UDT Bánh khọt Vũng Tàu & Kết nối ADO SQL Server | roadmap_ExecelFull.md |
+| vba_mergesort_udt_goi_cuon_tom_thit | Sắp xếp đệ quy MergeSort UDT Gỏi cuốn tôm thịt & Tích hợp ADO SQL Server | roadmap_ExecelFull.md |
+| vba_binarysearch_udt_goi_cuon_tom_thit | Định vị nhị phân BinarySearch UDT Gỏi cuốn tôm thịt & Unit Test với Rubberduck | roadmap_ExecelFull.md |
+| vba_mergesort_udt_bun_cha_sinh_tu | Hợp nhất dữ liệu bằng MergeSort UDT Bún chả Sinh Từ và Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| vba_binarysearch_udt_bun_cha_sinh_tu | Truy vấn ADO SQL và Tra cứu nhị phân tốc độ cao trên UDT Bún chả Sinh Từ | roadmap_ExecelFull.md |
+| vba_quicksort_multikey_udt_banh_cuon_thanh_tri | Phân loại đa tầng bằng QuickSort UDT Bánh cuốn Thanh Trì và Quản lý mã nguồn Git | roadmap_ExecelFull.md |
+| vba_binarysearch_multikey_udt_cha_ca_la_vong | Truy vấn nhị phân đa khóa trên UDT Chả cá Lã Vọng và Kết nối ADO SQL Server | roadmap_ExecelFull.md |
+| vba_quicksort_multikey_udt_bun_cha_ca_nha_trang | Sắp xếp QuickSort đa khóa cấu trúc UDT Bún chả cá Nha Trang và Unit Test Rubberduck | roadmap_ExecelFull.md |
+| vba_binarysearch_multikey_udt_bun_cha_ca_nha_trang | Tìm kiếm BinarySearch đa khóa cấu trúc UDT Bún chả cá Nha Trang và phòng chống crash | roadmap_ExecelFull.md |
+| vba_quicksort_multikey_udt_banh_mi_phuong_hoi_an | Phân chia QuickSort đa khóa UDT Bánh mì Phượng Hội An và Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| vba_binarysearch_multikey_udt_bun_cha_ca_quy_nhon | Khớp dữ liệu BinarySearch UDT Bún chả cá Quy Nhơn và Tối ưu hóa bộ nhớ an toàn | roadmap_ExecelFull.md |
+| vba_quicksort_udt_banh_mi_thit_nguoi_sai_gon | Phân loại nhanh UDT Bánh mì thịt nguội Sài Gòn bằng QuickSort và Quản lý mã nguồn với Git | roadmap_ExecelFull.md |
+| vba_binarysearch_udt_banh_mi_thit_nguoi_sai_gon | Tìm nhanh nguyên liệu Bánh mì thịt nguội Sài Gòn bằng BinarySearch và Kết nối ADO SQL | roadmap_ExecelFull.md |
+| vba_quicksort_udt_bun_rieu_cua_oc_ho_tay | Sắp xếp QuickSort mảng UDT Bún riêu cua ốc Hồ Tây và Quản lý mã nguồn bằng Git/Rubberduck | roadmap_ExecelFull.md |
+| vba_binarysearch_udt_pho_cuon_ngu_xa | Tìm kiếm BinarySearch trên mảng UDT Phở cuốn Ngũ Xã nạp từ SQL Server qua ADO | roadmap_ExecelFull.md |
+| vba_quicksort_udt_lau_ga_la_giang | Sắp xếp QuickSort UDT dữ liệu Lẩu gà lá giang tích hợp ADO SQL Server và Git Control | roadmap_ExecelFull.md |
+| vba_binarysearch_udt_lau_ga_la_giang | Tìm kiếm BinarySearch UDT Lẩu gà lá giang tích hợp Windows Credential Manager | roadmap_ExecelFull.md |
+| vba_quicksort_udt_lau_rieu_cua_bap_bo | Thuật toán QuickSort UDT Lẩu riêu cua kết hợp ADO SQL và Quản lý mã nguồn Git | roadmap_ExecelFull.md |
+| vba_binarysearch_udt_cha_ca_thac_lac | Tìm kiếm BinarySearch UDT Chả cá Thác Lác, Bảo mật MOTW và An toàn Bộ nhớ WinAPI | roadmap_ExecelFull.md |
+| vba_quicksort_com_ga_hoi_an | Thuật toán QuickSort tối ưu hóa danh mục Cơm gà Hội An và Quản lý mã nguồn với Git | roadmap_ExecelFull.md |
+| vba_binarysearch_com_ga_hoi_an | Thuật toán BinarySearch định vị nhanh nguyên liệu Cơm gà Hội An và Cấu hình Bảo mật Macro | roadmap_ExecelFull.md |
+| vba_quicksort_udt_banh_mi_chao_cot_co | Tối ưu QuickSort UDT Bánh mì chảo Cột Cờ và Quản lý mã nguồn với Git | roadmap_ExecelFull.md |
+| vba_binarysearch_udt_banh_mi_chao_cot_co | Tra cứu BinarySearch UDT Bánh mì chảo Cột Cờ tích hợp ADO SQL Server | roadmap_ExecelFull.md |
+| vba_quicksort_udt_bun_dau_mam_tom | Sắp xếp QuickSort UDT chuỗi cung ứng Bún Đậu và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| vba_binarysearch_udt_com_chay_kho_quet | Tìm kiếm BinarySearch UDT dữ liệu Cơm Cháy đồng bộ SQL Server qua ADO | roadmap_ExecelFull.md |
+| vba_nested_collection_banh_canh_ruong | Cấu trúc Collection lồng nhau và tích hợp Git, Rubberduck Unit Test trong VBA | roadmap_ExecelFull.md |
+| vba_dict_quicksort_lau_tha_phan_thiet | Tối ưu hóa Dictionary kết hợp QuickSort và kết nối ADO SQL Server | roadmap_ExecelFull.md |
+| vba_dict_coll_hu_tieu_nam_vang | Phối hợp Dictionary và Collection phân nhóm nguyên liệu Hủ tiếu Nam Vang & Thiết lập Unit Test với Rubberduck | roadmap_ExecelFull.md |
+| vba_quicksort_dict_lau_ca_duoi | Sắp xếp khóa Dictionary bằng QuickSort tối ưu chi phí Lẩu cá đuối kết nối ADO SQL Server | roadmap_ExecelFull.md |
+| vba_custom_collection_lau_ga_la_e | Xây dựng Class CustomCollection quản lý Lẩu gà lá é Phú Yên tích hợp Git & Unit Test | roadmap_ExecelFull.md |
+| vba_quicksort_dict_banh_khot_co_ba | Sắp xếp QuickSort mảng Key-Value từ SQL Server cho doanh thu Bánh khọt Cô Ba Vũng Tàu | roadmap_ExecelFull.md |
+| vba_modern_ui_dark_mode_banh_mi_huynh_hoa | Thiết kế Giao diện Flat UI Dark Mode & Quản lý Source Code bằng Git cho App Bánh Mì Huỳnh Hoa | roadmap_ExecelFull.md |
+| vba_withevents_class_menu_lau_tha_phan_thiet | Kiến trúc Event Class Module WithEvents & Unit Test Rubberduck cho Menu Lẩu Thả Phan Thiết | roadmap_ExecelFull.md |
+| vba_modern_ui_webview2_com_tam_ba_ghi | Thiết kế Flat UI & Nhúng WebView2 cho Menu Cơm tấm Ba Ghi (Bảo mật MOTW & Git Control) | roadmap_ExecelFull.md |
+| vba_withevents_class_order_bun_cha_huong_lien | Kiến trúc Event Class Module quản lý Order Bún chả Hương Liên & Kết nối ADO SQL Server | roadmap_ExecelFull.md |
+| vba_modern_ui_dark_light_bun_bo_hue | Thiết kế Flat UI Dark/Light Mode cho Menu Bún Bò Huế Sông Hương & Quản lý Source Code bằng Git | roadmap_ExecelFull.md |
+| vba_webview2_map_com_nieu_sai_gon | Tích hợp WebView2 hiển thị bản đồ số Cơm Niêu Sài Gòn kết nối dữ liệu SQL Server ADO | roadmap_ExecelFull.md |
+| vba_modern_ui_dark_light_banh_xeo_mien_tay | Thiết kế Flat UI Dark/Light Mode & Quản lý Source Code bằng Git cho Menu Bánh Xèo Miền Tây | roadmap_ExecelFull.md |
+| vba_webview2_map_hu_tieu_my_tho | Tích hợp WebView2 Bản đồ & Bảo mật MOTW cho Chuỗi Hủ Tiếu Mỹ Tho | roadmap_ExecelFull.md |
+| vba_modern_ui_dark_light_com_hen_song_huong | Thiết kế Dark/Light Mode cho Form Order Cơm hến Sông Hương & Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| vba_webview2_map_bun_quay_kien_xay | Nhúng Bản đồ WebView2 định vị quán Bún quậy Kiến Xây & Bảo mật API Key bằng Windows Credential Manager | roadmap_ExecelFull.md |
+| vba_modern_ui_dark_mode_banh_canh_trang_bang | Thiết kế Flat UI & Dark Mode cho Menu Bánh canh Trảng Bàng kết nối SQL ADO | roadmap_ExecelFull.md |
+| vba_webview2_withevents_goi_cuon_tom_thit | Nhúng WebView2 & Event Class Module cho Order Gỏi cuốn tôm thịt tích hợp Git & Unit Test | roadmap_ExecelFull.md |
+| vba_modern_ui_flat_dark_light_banh_mi_phuong | Thiết kế Flat UI Dark Light Mode cho Menu Bánh mì Phượng và Đồng bộ SQL Server qua ADO | roadmap_ExecelFull.md |
+| vba_webview2_event_class_cha_ca_la_vong | Nhúng WebView2, Bảo mật Credential Manager và Bắt sự kiện Class Module cho Chả cá Lã Vọng | roadmap_ExecelFull.md |
+| vba_modern_ui_dark_light_lau_de_kho | Phối màu Flat UI Dark/Light Mode cho Menu Lẩu Dê Khô & Quản lý Source Code bằng Git | roadmap_ExecelFull.md |
+| vba_webview2_event_class_lau_bo_nha_go | Tích hợp WebView2, Event Class & Kết nối ADO SQL Server cho Menu Lẩu Bò Nhà Gỗ | roadmap_ExecelFull.md |
+| vba_modern_ui_dark_light_bun_moc_doc_mung | Thiết kế Flat UI Dark/Light Menu Bún Mọc và Quản lý Source Code bằng Git | roadmap_ExecelFull.md |
+| vba_webview2_event_class_bun_moc_doc_mung | Nhúng WebView2 Bản đồ Bún Mọc, kết nối SQL ADO lưu tọa độ và Unit Test | roadmap_ExecelFull.md |
+| vba_modern_ui_flat_dark_light_com_tam_suon_bi_cha | Thiết lập giao diện phẳng Dark/Light Mode cho Cơm tấm sườn bì chả và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| vba_webview2_event_class_lau_bo_nha_go_map | Kết nối WebView2 hiển thị sơ đồ bàn ăn Lẩu bò nhà gỗ và đồng bộ dữ liệu SQL Server qua ADO | roadmap_ExecelFull.md |
+| vba_modern_ui_flat_dark_light_banh_khot_co_ba | Thiết kế Flat UI Dark/Light cho menu Bánh khọt Cô Ba & Quản lý mã nguồn bằng Git/Rubberduck | roadmap_ExecelFull.md |
+| vba_webview2_map_lau_de_kho_song_hung | Tích hợp WebView2 bản đồ Lẩu dê khô Song Hùng kết nối SQL Server ADO & Bảo mật MOTW | roadmap_ExecelFull.md |
+| vba_flat_ui_dark_light_bun_cha_ca_nha_trang | Phát triển giao diện phẳng chuyển đổi màu sáng tối cho Menu Bún Chả Cá Nha Trang và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| vba_webview2_map_banh_canh_quy_nhon | Nhúng bản đồ LeafletJS qua WebView2 kết nối SQL Server cho quán Bánh Canh Chả Cá Quy Nhơn | roadmap_ExecelFull.md |
+| vba_flat_ui_dark_light_com_ga_hoi_an | Phối màu Flat UI Dark/Light cho menu Cơm gà Hội An & Quản lý Source Code bằng Git | roadmap_ExecelFull.md |
+| vba_webview2_map_com_ga_hoi_an | Nhúng bản đồ WebView2 định vị quán Cơm gà Hội An & Bảo mật Local HTML (MOTW) | roadmap_ExecelFull.md |
+| vba_flat_ui_dark_light_pho_thin_bo_ho | Phối màu Flat UI Dark/Light cho Menu Phở Thìn Bờ Hồ và Quản lý Mã nguồn bằng Git | roadmap_ExecelFull.md |
+| vba_webview2_map_pho_thin_bo_ho | Nhúng bản đồ WebView2 định vị quán Phở Thìn Bờ Hồ và Xử lý Bảo mật MOTW | roadmap_ExecelFull.md |
+| vba_flat_ui_dark_light_bun_rieu_cua_dong | Thiết kế Flat UI chuyển đổi Dark/Light Mode cho thực đơn Bún riêu và tích hợp Git/Rubberduck Unit Test | roadmap_ExecelFull.md |
+| vba_webview2_map_bun_rieu_cua_dong | Nhúng bản đồ WebView2 định vị quán Bún riêu kết nối SQL Server ADO bằng Event Class | roadmap_ExecelFull.md |
+| vba_modern_ui_flat_dark_light_bun_ca_cay_hai_phong | Thiết kế Flat UI sáng tối cho Menu Bún cá cay Hải Phòng & Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| vba_webview2_event_class_banh_da_cua_hai_phong | Nhúng bản đồ WebView2 định vị quán Bánh đa cua Hải Phòng & Unit Test Class Module | roadmap_ExecelFull.md |
+| vba_flat_ui_dark_light_nem_lui_hue | Giao diện Flat UI chuyển màu Dark/Light cho Menu Nem Lụi Huế & Quản lý Source Code bằng Git | roadmap_ExecelFull.md |
+| vba_webview2_map_nem_lui_hue | Tích hợp WebView2 định vị bản đồ số Nem Lụi Huế & Đồng bộ SQL Server qua ADO | roadmap_ExecelFull.md |
+| vba_flat_ui_dark_light_lau_tha_phan_thiet | Thiết kế Flat UI Dark/Light Mode & Kết nối ADO SQL Server cho Menu Lẩu Thả Phan Thiết | roadmap_ExecelFull.md |
+| vba_webview2_event_class_lau_tha_phan_thiet | Nhúng WebView2 Bản đồ Lẩu Thả Phan Thiết, Bảo mật Credential Manager & Unit Test Class Module | roadmap_ExecelFull.md |
+| vba_flat_ui_dark_light_lau_ca_duoi_vung_tau | Thiết kế Flat UI Dark-Light quản lý nguyên liệu Lẩu cá đuối Vũng Tàu kết nối SQL Server ADO | roadmap_ExecelFull.md |
+| vba_webview2_event_class_lau_ca_duoi_vung_tau | Tích hợp WebView2 định vị quán Lẩu cá đuối, quản lý mã nguồn bằng Git và Rubberduck Unit Test | roadmap_ExecelFull.md |
+| vba_flat_ui_dark_light_banh_mi_xiu_mai_da_lat | Tạo form Flat UI sáng tối Bánh mì xíu mại Đà Lạt & Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| vba_webview2_event_class_banh_mi_xiu_mai_da_lat | Định vị WebView2 qua Event Class & Kết nối SQL Server cho Bánh mì xíu mại Đà Lạt | roadmap_ExecelFull.md |
+| vba_flat_ui_multi_color_banh_xeo_mien_tay | Phát triển giao diện phẳng đa sắc Bánh xèo miền Tây & Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| vba_webview2_event_class_lau_mam_can_tho | Lập trình Class Module WebView2 Lẩu mắm Cần Thơ & Kết nối ADO SQL Server | roadmap_ExecelFull.md |
+| vba_flat_ui_dark_light_hu_tiu_nam_vang | Thiết kế Flat UI Dark/Light & Quản lý Mã nguồn bằng Git cho App Hủ tiếu Nam Vang | roadmap_ExecelFull.md |
+| vba_webview2_event_class_hu_tiu_nam_vang | Nhúng WebView2, Bắt Sự Kiện Class Module & Kết Nối SQL Server cho App Hủ tiếu Nam Vang | roadmap_ExecelFull.md |
+| vba_flat_ui_dark_light_lau_ga_la_e | Xây dựng giao diện phẳng Dark/Light và quản lý mã nguồn bằng Git cho Menu Lẩu Gà Lá É | roadmap_ExecelFull.md |
+| vba_webview2_event_class_lau_ga_la_e | Lập trình WebView2 bảo mật kết hợp Class Module và Unit Test cho Lẩu Gà Lá É | roadmap_ExecelFull.md |
+| vba_flat_ui_dark_light_bun_nuoc_leo_soc_trang | Phối màu Flat UI Dark-Light cho Form Bún nước lèo Sóc Trăng và Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| vba_webview2_event_class_banh_cong_soc_trang | Bắt sự kiện WebView2 qua Class Module và Lưu dữ liệu ADO SQL Server cho Form Bánh cống Sóc Trăng | roadmap_ExecelFull.md |
+| vba_flat_ui_dark_light_lau_mam_u_minh | Thiết kế Flat UI Dark/Light Mode Form Lẩu mắm U Minh & Quản lý Source Code bằng Git | roadmap_ExecelFull.md |
+| vba_webview2_event_class_lau_mam_u_minh | Nhúng WebView2, Bắt Sự Kiện Bản Đồ Lẩu mắm U Minh & Lưu Database SQL Server | roadmap_ExecelFull.md |
+| vba_flat_ui_dark_light_goi_ca_mai_nha_trang | Thiết kế Dark-Light UI cho Form Gỏi cá mai Nha Trang và Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| vba_webview2_event_class_goi_ca_mai_nha_trang | Liên kết Event Class WebView2 với Cơ sở dữ liệu SQL Server cho Gỏi cá mai Nha Trang | roadmap_ExecelFull.md |
+| vba_flat_ui_dark_light_banh_khot_vung_tau | Thiết kế Flat UI Dark/Light và tích hợp Git kiểm soát phiên bản cho Bánh khọt Vũng Tàu | roadmap_ExecelFull.md |
+| vba_webview2_event_class_banh_khot_vung_tau | Kết nối WebView2, Class Module và truy vấn SQL Server cho Bánh khọt Vũng Tàu | roadmap_ExecelFull.md |
+| vba_flat_ui_dark_light_banh_trang_tron_tay_ninh | Phối màu Flat UI Dark-Light cho Form Bánh tráng trộn Tây Ninh & Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| vba_webview2_event_class_banh_trang_nuong_da_lat | Nhúng WebView2 và Event Class cho Form Bánh tráng nướng Đà Lạt kết nối SQL Server ADO | roadmap_ExecelFull.md |
+| vba_flat_ui_dark_light_com_tam_suon_bi_cha | Thiết kế Giao diện Cơm Tấm Sườn Bì Chả Flat UI Dark Light & Quản lý Mã nguồn với Git/Rubberduck | roadmap_ExecelFull.md |
+| vba_webview2_event_class_com_tam_suon_bi_cha | Tích hợp WebView2, Event Class Module & Kết nối ADO SQL Server cho Menu Cơm Tấm | roadmap_ExecelFull.md |
+| vba_flat_ui_dark_light_banh_mi_chao_cot_dien | Thiết kế Giao diện Phẳng Đa sắc cho Form Bánh Mì Chảo & Quản lý Mã nguồn bằng Git | roadmap_ExecelFull.md |
+| vba_event_class_click_banh_mi_chao_cot_dien | Khởi tạo Class Module clsMenuButton & Viết Unit Test với Rubberduck cho Menu Bánh Mì Chảo | roadmap_ExecelFull.md |
+| vba_flat_ui_dark_light_bun_dau_mam_tom_hang_khay | Thiết kế Flat UI Dark/Light & Tích hợp SQL Server ADO lưu cấu hình Form Catering Hàng Khay | roadmap_ExecelFull.md |
+| vba_webview2_event_class_bun_dau_mam_tom_hang_khay | Nhúng WebView2 Bản đồ, Event Class Module & Quản lý Source Code bằng Git cho Form Catering | roadmap_ExecelFull.md |
+| vba_flat_ui_dark_light_bun_cha_sinh_tu | Xây dựng form phẳng Dark-Light Bún chả Sinh Từ, kết nối ADO SQL Server và Unit Test Rubberduck | roadmap_ExecelFull.md |
+| vba_webview2_event_class_bun_cha_sinh_tu | Nhúng Edge WebView2 hiển thị bản đồ Bún chả Sinh Từ, bảo mật MOTW và tích hợp Windows Credential Manager | roadmap_ExecelFull.md |
+| vba_flat_ui_dark_light_banh_mi_phuong_hoi_an | Kiến tạo giao diện phẳng Dark-Light cho Form Bánh mì Phượng Hội An và cấu hình bảo mật MOTW | roadmap_ExecelFull.md |
+| vba_event_class_click_cao_lau_hoi_an | Xây dựng Class Module bắt sự kiện click cho Form Cao lầu Hội An và viết Unit Test | roadmap_ExecelFull.md |
+| vba_flat_ui_layout_banh_canh_cha_ca_nha_trang | Thiết kế Flat UI hai tông màu và Cấu hình Git Version Control cho Form Bánh canh chả cá Nha Trang | roadmap_ExecelFull.md |
+| vba_event_class_click_banh_canh_cha_ca_nha_trang | Lập trình Event Class kết nối SQL ADO và Viết Unit Test cho nút bấm Bánh canh chả cá Nha Trang | roadmap_ExecelFull.md |
+| vba_flat_ui_bun_ca_cay_hai_phong | Thiết kế Form phẳng Bún cá cay Hải Phòng (Dark Mode) & Quản lý mã nguồn với Git | roadmap_ExecelFull.md |
+| vba_event_class_cha_ca_la_vong | Xây dựng Event Class Module cho menu Chả cá Lã Vọng & Viết Unit Test với Rubberduck | roadmap_ExecelFull.md |
+| power_pivot_star_schema_bun_bo_hue | Thiết kế Data Mart hình sao (Star Schema) và Kết nối ADO SQL cho Bún bò Huế Sông Hương | roadmap_ExecelFull.md |
+| dax_m_code_vba_lau_tha_phan_thiet | Viết DAX phức tạp, Bơm M Code động qua VBA & Quản lý mã nguồn bằng Git cho Lẩu thả Phan Thiết | roadmap_ExecelFull.md |
+| star_schema_dax_time_intelligence_com_hen_vi_da | Thiết lập Star Schema và DAX Time Intelligence cho Cơm hến Vĩ Dạ kết nối SQL Server | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_etl_mi_quang_ech_da_nang | Bơm động M Code qua VBA tự động hóa ETL và quản lý mã nguồn bằng Git cho Mì Quảng ếch Đà Nẵng | roadmap_ExecelFull.md |
+| data_mart_star_schema_lau_ca_duoi_vung_tau | Xây dựng Data Mart & Star Schema từ SQL Server cho Lẩu Cá Đuối Vũng Tàu | roadmap_ExecelFull.md |
+| dax_m_code_vba_banh_khot_co_ba_vung_tau | Viết DAX nâng cao, Bơm M Code qua VBA & Quản lý mã nguồn bằng Git cho Bánh Khọt Cô Ba Vũng Tàu | roadmap_ExecelFull.md |
+| star_schema_dax_ytd_lau_ca_duoi_vung_tau | Chuẩn hóa Star Schema & DAX YTD doanh thu Lẩu cá đuối Vũng Tàu từ SQL Server | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_etl_banh_khot_co_ba_vung_tau | Tự động hóa M Code bằng VBA tích hợp Git và Rubberduck Unit Test cho Bánh khọt Cô Ba Vũng Tàu | roadmap_ExecelFull.md |
+| data_mart_star_schema_com_tam_long_xuyen | Xây dựng mô hình Star Schema quản lý chuỗi Cơm tấm Long Xuyên từ SQL Server | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_etl_com_tam_long_xuyen | Lập trình VBA nạp động M Code tối ưu hóa ETL Cơm tấm Long Xuyên và tích hợp Git/Rubberduck | roadmap_ExecelFull.md |
+| data_mart_star_schema_bun_mam_soc_trang | Tích hợp SQL Server ADO và Thiết kế Star Schema quản lý chuỗi Bún mắm Sóc Trăng | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_etl_bun_mam_soc_trang | Truyền tham số M Code bằng VBA và Quản lý phiên bản mã nguồn bằng Git/Rubberduck | roadmap_ExecelFull.md |
+| data_mart_star_schema_hu_tiu_nam_vang | Thiết kế Data Mart Star Schema và Kết nối SQL Server ADO cho Hủ tiếu Nam Vang | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_etl_hu_tiu_nam_vang | Bơm động M Code qua VBA và Quản lý Phiên bản Git cho Hủ tiếu Nam Vang | roadmap_ExecelFull.md |
+| data_mart_dax_bun_ken_phu_quoc | Mô hình hóa Data Mart Bún kèn Phú Quốc từ SQL Server và DAX lũy kế | roadmap_ExecelFull.md |
+| vba_m_code_goi_ca_trich_phu_quoc | VBA điều khiển M Code động kết nối Oracle và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| star_schema_dax_banh_canh_trang_bang | Mô hình hóa Star Schema & DAX doanh thu lũy kế Bánh canh Trảng Bàng kết nối SQL Server ADO | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_banh_mi_huynh_hoa | Tự động hóa nạp M Code động bằng VBA cho Bánh mì Huỳnh Hoa tích hợp Git & Rubberduck | roadmap_ExecelFull.md |
+| star_schema_dax_banh_mi_huynh_hoa | Cấu trúc Star Schema, DAX Time Intelligence & Kết nối SQL Server ADO Bánh mì Huỳnh Hoa | roadmap_ExecelFull.md |
+| vba_m_code_dynamic_etl_huynh_hoa | VBA nạp động M Code, Bảo mật Macro & Quản lý phiên bản Git Bánh mì Huỳnh Hoa | roadmap_ExecelFull.md |
+| data_mart_dax_lau_de_kho_ninh_binh | Tổ chức Data Mart, DAX & Kết nối SQL Server ADO Lẩu dê khô Ninh Bình | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_goi_ca_nhech_kim_son | VBA nạp động M Code & Quản lý mã nguồn bằng Git cho Gỏi cá nhệch Kim Sơn | roadmap_ExecelFull.md |
+| data_mart_dax_nem_chua_yen_mac | Xây dựng Data Mart (SQL Server) và DAX Time Intelligence cho Nem chua Yên Mạc | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_com_chay_ninh_binh | Bơm động M Code qua VBA và Quản lý mã nguồn Git cho Cơm cháy Ninh Bình | roadmap_ExecelFull.md |
+| data_mart_dax_cha_ca_thac_lac_hau_giang | Thiết kế Data Mart & DAX kết nối SQL Server cho Chả cá Thác Lác Hậu Giang | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_cha_ca_thac_lac_hau_giang | VBA nạp động M Code ETL bảo mật và kiểm thử Unit Test với Rubberduck | roadmap_ExecelFull.md |
+| data_mart_dax_lau_mam_can_tho | Thiết lập Data Mart SQL Server & DAX Time Intelligence cho Lẩu mắm Cần Thơ | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_lau_mam_can_tho | VBA ADO & Dynamic M Code bảo mật cho Lẩu mắm Cần Thơ | roadmap_ExecelFull.md |
+| star_schema_dax_banh_tom_ho_tay | Phân tích Star Schema & DAX doanh thu Bánh tôm Hồ Tây từ SQL Server | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_bun_oc_nguoi_tay_ho | VBA ghi đè M Code động cập nhật Bún ốc nguội Tây Hồ & Quản lý mã nguồn với Git | roadmap_ExecelFull.md |
+| star_schema_dax_bun_cha_ha_noi | Kiến trúc Star Schema tối ưu kết nối SQL Server cho chuỗi Bún chả Hà Nội | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_pho_bo_nam_dinh | Tự động hóa Power Query bằng VBA động và quản lý mã nguồn bằng Git cho Phở bò Nam Định | roadmap_ExecelFull.md |
+| star_schema_dax_bun_cha_ca_quy_nhon | Thiết lập Star Schema, DAX doanh thu Bún chả cá Quy Nhơn & Kết nối SQL Server bảo mật | roadmap_ExecelFull.md |
+| vba_m_code_dynamic_banh_xeo_mien_tay | Cập nhật M Code động bằng VBA cho Bánh xèo miền Tây & Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| star_schema_dax_banh_xeo_mien_tay_pro | Thiết kế Star Schema trong Power Pivot kết nối SQL Server quản lý nguyên liệu Bánh xèo | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_bun_cha_ca_quy_nhon_pro | Bơm mã M Code động qua VBA cập nhật doanh thu Bún chả cá Quy Nhơn và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| star_schema_dax_lau_tha_phan_thiet | Thiết kế Star Schema & DAX lũy kế kết nối SQL Server cho Lẩu thả Phan Thiết | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_banh_canh_nha_trang | VBA ADO kết nối SQL Server và quản lý mã nguồn bằng Git cho Bánh canh Nha Trang | roadmap_ExecelFull.md |
+| star_schema_dax_banh_khot_vung_tau | Tích hợp Fact-Dimension từ SQL Server cho chuỗi Bánh khọt Vũng Tàu qua DAX | roadmap_ExecelFull.md |
+| vba_m_code_dynamic_lau_ca_duoi_vung_tau | VBA bảo mật chuỗi kết nối M Code qua Credential Manager và xuất code Git cho Lẩu cá đuối Vũng Tàu | roadmap_ExecelFull.md |
+| star_schema_dax_lau_ca_duoi_vung_tau | Mô hình hóa dữ liệu Lẩu cá đuối Vũng Tàu với Star Schema, DAX Time Intelligence và Kết nối SQL Server | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_lau_ca_duoi_vung_tau_pro | Lập trình VBA nạp tham số M Code động và Quản lý mã nguồn với Git/Rubberduck | roadmap_ExecelFull.md |
+| star_schema_dax_bun_bo_hue | Thiết lập quan hệ bảng & DAX tính toán Bún bò Huế | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_bun_bo_hue | VBA cập nhật chuỗi kết nối M Code & Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| star_schema_dax_banh_khot_co_ba | Thiết lập Star Schema & DAX kết nối SQL Server cho chuỗi Cô Ba Vũng Tàu | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_banh_khot_co_ba | VBA ADO kết nối SQL và quản lý mã nguồn bằng Git cho chuỗi Cô Ba Vũng Tàu | roadmap_ExecelFull.md |
+| star_schema_dax_com_tam_sai_gon | Thiết lập Star Schema & DAX kết nối SQL Server chuỗi Cơm tấm Sài Gòn | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_hu_tieu_nam_vang | VBA dynamic M Code nạp dữ liệu Hủ tiếu Nam Vang & Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| star_schema_dax_bun_rieu_cua_bap_bo | Chuẩn hóa Fact-Dim từ SQL Server & Quản lý mã nguồn bằng Git cho chuỗi Bún riêu | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_cha_ca_la_vong | VBA nạp tham số M Code bảo mật qua Windows Credential Manager cho chuỗi Chả cá Lã Vọng | roadmap_ExecelFull.md |
+| star_schema_dax_lau_cua_dong_hai_phong | Xây dựng Star Schema & DAX kết nối SQL Server chuỗi Lẩu cua đồng Hải Phòng | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_lau_cua_dong_hai_phong | VBA nạp động M Code & Tích hợp Git/Unit Test quản lý Lẩu cua đồng Hải Phòng | roadmap_ExecelFull.md |
+| star_schema_dax_lau_de_kho_bo_bo | Thiết lập Star Schema và Kết nối SQL Server cho chuỗi Lẩu Dê Khô Bo Bo | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_lau_de_kho_bo_bo | VBA nạp động M Code và Quản lý phiên bản Git cho Lẩu Dê Khô Bo Bo | roadmap_ExecelFull.md |
+| star_schema_dax_com_tam_suon_bi_cha_pro | Xây dựng mô hình dữ liệu đa chiều Star Schema từ SQL Server cho chuỗi Cơm tấm Sườn bì chả | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_com_tam_suon_bi_cha_pro | Lập trình VBA cập nhật M Code động và quản lý mã nguồn bằng Git cho chuỗi Cơm tấm | roadmap_ExecelFull.md |
+| star_schema_dax_banh_mi_phuong_hoi_an | Thiết lập Star Schema và DAX tích hợp dữ liệu ERP cho Bánh mì Phượng Hội An | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_mi_quang_ech_da_nang | VBA nạp động M Code và quản lý mã nguồn bằng Git cho Mì Quảng ếch Đà Nẵng | roadmap_ExecelFull.md |
+| star_schema_dax_com_hen_vi_da | Tổ chức Fact-Dim từ SQL Server cho Cơm hến Vĩ Dạ | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_che_cung_dinh_hue | Truyền M Code động bằng VBA và Quản lý mã nguồn với Git | roadmap_ExecelFull.md |
+| star_schema_dax_banh_bot_loc_hue | Thiết kế Star Schema và bảo mật kết nối SQL Server cho chuỗi Bánh bột lọc Huế | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_che_bot_loc_heo_quay | VBA ADO SQL CRUD, quản lý mã nguồn bằng Git và đẩy M Code động Chè bột lọc | roadmap_ExecelFull.md |
+| star_schema_dax_banh_bot_loc_hue_pro | Tối ưu hóa Star Schema & DAX tính hao hụt Bánh bột lọc Huế kết nối SQL Server | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_che_bot_loc_heo_quay_pro | VBA đẩy M Code động gộp dữ liệu Chè bột lọc heo quay & Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| star_schema_dax_goi_cuon_tom_thit_sai_gon | Thiết lập Fact-Dim, DAX lũy kế và kết nối SQL Server cho chuỗi Gỏi cuốn tôm thịt Sài Gòn | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_bun_nuoc_leo_soc_trang | Bơm mã M Code động bằng VBA và tích hợp Git Version Control cho dữ liệu Bún nước lèo Sóc Trăng | roadmap_ExecelFull.md |
+| star_schema_dax_banh_xeo_mien_tay | Chuẩn hóa sơ đồ hình sao Bánh xèo miền Tây từ SQL Server và tính DAX lũy kế | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_bun_cha_ha_noi | VBA viết đè M Code động cho Bún chả Hà Nội và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| star_schema_dax_nem_lui_hue | Mô hình hóa Star Schema & DAX cho Nem lụi Huế (Enterprise SQL Integration) | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_nem_lui_hue | VBA nạp động M Code Power Query & Unit Test cho Nem lụi Huế | roadmap_ExecelFull.md |
+| star_schema_dax_banh_canh_ca_loc_quang_tri | Mô hình hóa chuỗi cung ứng Bánh canh cá lóc Quảng Trị qua Power Pivot & Bảo mật Windows Credential Manager | roadmap_ExecelFull.md |
+| star_schema_dax_banh_canh_cha_ca_nha_trang | Phân tích doanh thu Bánh canh chả cá Nha Trang bằng DAX & Quản lý phiên bản VBA qua Git | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_banh_canh_cha_ca_nha_trang_pro | M Code động, Star Schema & Tích hợp SQL Server ADO cho Bánh canh chả cá Nha Trang | roadmap_ExecelFull.md |
+| star_schema_dax_lau_mam_can_tho | Báo cáo Lẩu mắm Cần Thơ bằng DAX, VBA ADO và Unit Test với Rubberduck | roadmap_ExecelFull.md |
+| star_schema_dax_lau_ca_linh_bong_dien_dien | Kiến tạo Star Schema Lẩu cá linh bông điên điển & Kết nối ADO SQL Server | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_lau_ga_la_giang_nam_bo | Tích hợp Data Mart, VBA M Code Lẩu gà lá giang & Quản lý mã nguồn với Git | roadmap_ExecelFull.md |
+| star_schema_dax_com_chay_kho_quet | Chuẩn hóa mô hình dữ liệu, DAX chi phí Cơm cháy kho quẹt & Kết nối SQL Server qua ADO | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_cha_gio_tom_dat_binh_dinh | Phân tích chuỗi cung ứng Chả giò tôm đất Bình Định qua DAX, M Code & Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| star_schema_dax_cha_gio_tom_dat_binh_dinh | Quản lý chuỗi cung ứng Chả giò tôm đất Bình Định qua Power Pivot, VBA ADO SQL & Git | roadmap_ExecelFull.md |
+| vba_dynamic_m_code_bun_ca_cay_hai_phong | Tích hợp Data Mart, M Code động & Bảo mật Credential cho chuỗi Bún cá cay Hải Phòng | roadmap_ExecelFull.md |
+| canvas_sankey_lau_ga_la_e_da_lat | Vẽ biểu đồ Sankey động bằng Shape Engine kết nối SQL ADO cho Lẩu gà lá é Đà Lạt | roadmap_ExecelFull.md |
+| canvas_gantt_nem_nuong_nha_trang | Lập trình Gantt Chart tương tác thời gian thực quản lý bằng Git cho Nem nướng Nha Trang | roadmap_ExecelFull.md |
+| canvas_waterfall_bun_cha_ca_quy_nhon | Vẽ biểu đồ Waterfall động cho món Bún chả cá Quy Nhơn và thiết lập Git kiểm soát mã nguồn | roadmap_ExecelFull.md |
+| canvas_engine_lau_rieu_cua_bap_bo | Lập trình Canvas Shape Engine vẽ sơ đồ luồng Lẩu riêu cua bắp bò kết nối ADO SQL | roadmap_ExecelFull.md |
+| canvas_sankey_lau_tha_phan_thiet | Thiết kế Sankey Flow động bằng Shape Engine kết nối SQL Server ADO cho Chuỗi cung ứng Lẩu thả Phan Thiết | roadmap_ExecelFull.md |
+| canvas_gantt_banh_chung_dat_to | Xây dựng Gantt Chart tiến độ đa tầng cho Dự án Sản xuất Bánh chưng đất Tổ tích hợp Rubberduck Unit Test | roadmap_ExecelFull.md |
+| canvas_sankey_bun_bo_hue_vi_da | Vẽ Sankey phân luồng nguyên liệu Bún bò Huế Vĩ Dạ từ dữ liệu ERP | roadmap_ExecelFull.md |
+| canvas_waterfall_com_tam_suon_bi_cha | Dựng Waterfall phân tích biến động giá thành Cơm tấm sườn bì chả tích hợp Unit Test | roadmap_ExecelFull.md |
+| canvas_sankey_phan_thiet_pro | Lập trình Canvas vẽ luồng nguyên liệu Lẩu thả Phan Thiết kết nối SQL ADO và Git Control | roadmap_ExecelFull.md |
+| canvas_waterfall_com_tam_suon_bi_cha_pro | Lập trình Canvas dựng Waterfall giá Cơm tấm sườn tích hợp Oracle ERP và Unit Test | roadmap_ExecelFull.md |
+| canvas_sankey_banh_canh_nha_trang_pro | Dựng Sankey động phân luồng nguyên liệu Bánh canh Nha Trang qua ADO SQL và Git | roadmap_ExecelFull.md |
+| canvas_waterfall_lau_mam_can_tho_pro | Thiết kế Waterfall phân tích giá thành Lẩu mắm Cần Thơ kết nối Oracle DB | roadmap_ExecelFull.md |
+| canvas_sankey_banh_khot_vung_tau | Thiết kế sơ đồ Sankey động cho chuỗi cung ứng Bánh khọt Vũng Tàu tích hợp SQL ADO và Git | roadmap_ExecelFull.md |
+| canvas_waterfall_banh_mi_phuong | Lập trình Canvas Engine dựng Waterfall biến động giá Bánh mì Phượng kết nối Oracle ERP | roadmap_ExecelFull.md |
+| canvas_gantt_com_lam_ga_nuong_tay_bac | Thiết kế Gantt Chart động cho tiệc Cơm lam Gà nướng Tây Bắc & Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| canvas_sankey_goi_ca_mai_nha_trang | Khởi tạo sơ đồ Sankey phân luồng nguyên liệu Gỏi cá mai Nha Trang kết nối SQL ADO | roadmap_ExecelFull.md |
+| canvas_gantt_banh_tet_tra_vinh | Vẽ Gantt Chart tiến độ gói Bánh tét Trà Vinh bằng Canvas kết nối SQL ADO | roadmap_ExecelFull.md |
+| canvas_waterfall_goi_cuon_tom_thit | Dựng Waterfall phân tích chi phí Gỏi cuốn tôm thịt bằng Canvas và Quản lý mã nguồn qua Git | roadmap_ExecelFull.md |
+| canvas_sankey_lau_duoi_bo_thuoc_bac | Vẽ Sankey đa nhánh phân bổ nguyên liệu Lẩu đuôi bò thuốc bắc bằng Canvas & Truy xuất dữ liệu ADO SQL | roadmap_ExecelFull.md |
+| canvas_gantt_bia_thu_cong_saigon | Dựng Gantt Chart tiến độ ủ bia thủ công bằng Canvas Shape Engine & Bảo mật thông tin xác thực WinAPI | roadmap_ExecelFull.md |
+| canvas_sankey_bun_cha_ha_noi | Lập trình Sankey Flow phân bổ chi phí chuỗi Bún chả Hà Nội kết nối SQL ADO | roadmap_ExecelFull.md |
+| canvas_waterfall_cha_ca_la_vong | Lập trình Waterfall Chart phân tích giá thành Chả cá Lã Vọng & Tích hợp Git/Rubberduck | roadmap_ExecelFull.md |
+| canvas_sankey_banh_xeo_mien_tay | Vẽ Sankey phân luồng chi phí Bánh xèo miền Tây kết nối ADO SQL & Git Control | roadmap_ExecelFull.md |
+| canvas_gantt_pho_bo_ha_noi | Lập trình Gantt Chart quy trình nấu Phở bò Hà Nội dùng WinAPI an toàn & Unit Test | roadmap_ExecelFull.md |
+| canvas_waterfall_bun_dau_mam_tom | Vẽ Waterfall chi phí Bún đậu mắm tôm kết nối SQL ADO và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| canvas_gantt_com_ga_hoi_an | Lập trình Gantt Chart Cơm gà Hội An tích hợp Unit Test Rubberduck và bảo mật WinAPI | roadmap_ExecelFull.md |
+| canvas_sankey_lau_nam_suon_sun | Kiến tạo Sankey phân bổ chi phí Lẩu nấm sườn sụn bằng Canvas kết nối SQL Server ADO và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| canvas_waterfall_bun_oc_nguoi_tay_ho | Phát triển Waterfall phân tích biến động giá Bún ốc nguội Tây Hồ tích hợp API ERP và xử lý bảo mật MOTW | roadmap_ExecelFull.md |
+| canvas_sankey_lau_de_kho_thuan_kieu | Vẽ sơ đồ Sankey dòng chảy chi phí nguyên liệu Lẩu dê khô Thuận Kiều kết nối SQL Server ADO và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| canvas_waterfall_vit_quay_bac_kinh | Dựng biểu đồ Waterfall hao hụt Vịt quay Bắc Kinh từ dữ liệu ERP PostgreSQL, xử lý bảo mật MOTW và Unit Test | roadmap_ExecelFull.md |
+| canvas_sankey_lau_de_kho_thuan_kieu_pro | Vẽ dòng chảy Sankey tối ưu hóa nguyên liệu Lẩu dê khô Thuận Kiều tích hợp ADO SQL & Git | roadmap_ExecelFull.md |
+| canvas_waterfall_vit_quay_bac_kinh_pro | Dựng đồ thị Waterfall phân rã giá thành Vịt quay Bắc Kinh từ ERP Oracle | roadmap_ExecelFull.md |
+| canvas_sankey_lau_ga_la_giang | Lập trình Sankey phân luồng nguyên liệu Lẩu gà lá giang kết nối SQL ADO & Quản lý mã nguồn Git | roadmap_ExecelFull.md |
+| canvas_waterfall_goi_ga_mang_cut | Lập trình Waterfall phân tích hao hụt Gỏi gà măng cụt tích hợp dữ liệu ERP & Unit Test Rubberduck | roadmap_ExecelFull.md |
+| canvas_sankey_lau_rieu_cua_suon_sun | Thiết kế dòng chảy Sankey chi phí Lẩu riêu cua sườn sụn tích hợp SQL ADO và Git | roadmap_ExecelFull.md |
+| canvas_waterfall_bun_cha_ca_nha_trang | Kiến tạo đồ thị Waterfall doanh thu Bún chả cá Nha Trang từ ERP và bảo mật Macro | roadmap_ExecelFull.md |
+| canvas_sankey_lau_rieu_cua_suon_sun_ultimate | Trực quan hóa luồng nguyên liệu Lẩu riêu cua sườn sụn bằng Sankey kết nối SQL Server và Git | roadmap_ExecelFull.md |
+| canvas_waterfall_bun_cha_ca_nha_trang_ultimate | Biểu diễn biến động giá vốn Bún chả cá Nha Trang qua Waterfall bảo mật Credential và MOTW | roadmap_ExecelFull.md |
+| canvas_gantt_nem_nuong_nha_trang_ultimate | Vẽ tiến độ Gantt Chart đa tầng Nem nướng Nha Trang từ SQL Server & Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| canvas_sankey_bun_bo_hue_ultimate | Thiết kế dòng chảy Sankey chi phí Bún bò Huế tích hợp dữ liệu SAP ERP & Bảo mật Macro | roadmap_ExecelFull.md |
+| canvas_sankey_banh_mi_phuong_pro | Mô phỏng Sankey đa cấp chuỗi cung ứng Bánh mì Phượng qua ADO SQL Server | roadmap_ExecelFull.md |
+| canvas_waterfall_lau_mam_can_tho_ultimate | Biểu đồ Waterfall đa tầng chi phí doanh nghiệp Lẩu mắm Cần Thơ tích hợp Git | roadmap_ExecelFull.md |
+| canvas_sankey_banh_khot_vung_tau_pro | Dựng luồng phân bổ chi phí Bánh khọt Vũng Tàu qua Canvas kết nối SQL Server ADO | roadmap_ExecelFull.md |
+| canvas_waterfall_banh_mi_phuong_pro_v2 | Lập trình biểu đồ thác nước doanh thu Bánh mì Phượng tích hợp Git & Rubberduck Unit Test | roadmap_ExecelFull.md |
+| canvas_gantt_banh_khot_vung_tau | Vẽ sơ đồ Gantt động từ SQL Server qua ADO cho quy trình Bánh khọt Vũng Tàu và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| canvas_waterfall_banh_mi_phuong_hoian | Vẽ biểu đồ Waterfall chi phí Bánh mì Phượng kết nối Oracle ERP và tối ưu bộ nhớ WinAPI | roadmap_ExecelFull.md |
+| canvas_gantt_banh_pia_soc_trang | Lập trình Canvas vẽ Gantt Chart tiến độ Bánh pía Sóc Trăng kết nối SQL ADO và Git | roadmap_ExecelFull.md |
+| canvas_sankey_lau_cua_dong_hai_phong | Thiết kế Sankey Flow phân bổ nguyên liệu Lẩu cua đồng Hải Phòng bằng Office.js React | roadmap_ExecelFull.md |
+| canvas_gantt_nuoc_mam_phu_quoc | Lập trình Canvas vẽ tiến độ ủ chượp Nước mắm Phú Quốc tích hợp SQL ADO và Git | roadmap_ExecelFull.md |
+| canvas_sankey_cha_ruoi_tu_ky | Lập trình Canvas vẽ dòng chảy Sankey Chả rươi Tứ Kỳ tích hợp dữ liệu SAP và WinAPI an toàn | roadmap_ExecelFull.md |
+| canvas_gantt_nuoc_mam_phu_quoc_v2 | Kiến tạo Gantt Chart tiến độ ủ Nước mắm Phú Quốc bằng Canvas kết nối SQL Server ADO | roadmap_ExecelFull.md |
+| canvas_sankey_cha_ruoi_tu_ky_v2 | Mô hình hóa Sankey phân bổ nguyên liệu Chả rươi Tứ Kỳ bằng Canvas và Git-tracked VBA | roadmap_ExecelFull.md |
+| canvas_gantt_com_tam_sai_gon_pro | Lập trình Gantt Chart động quản lý tiến độ Cơm tấm Sài Gòn tích hợp ADO SQL & Git Control | roadmap_ExecelFull.md |
+| canvas_waterfall_nem_ran_ha_noi_pro | Vẽ biểu đồ Waterfall phân tích chi phí Nem rán Hà Nội đồng bộ ERP và bảo mật Macro MOTW | roadmap_ExecelFull.md |
+| canvas_sankey_lau_ca_duoi_vung_tau | Lập trình Canvas vẽ Sankey đa luồng từ dữ liệu SQL Server ADO cho Lẩu cá đuối Vũng Tàu | roadmap_ExecelFull.md |
+| canvas_waterfall_bun_quay_phu_quoc | Dựng Waterfall phân tích giá vốn Bún quậy Phú Quốc bằng Canvas và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| canvas_sankey_lau_ga_den_ham_sam | Vẽ luồng Sankey chi phí Lẩu gà đen hầm sâm kết nối SQL Server qua ADO | roadmap_ExecelFull.md |
+| canvas_waterfall_bun_quay_phu_quoc_v2 | Vẽ đồ thị Waterfall doanh thu Bún quậy Phú Quốc và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| canvas_sankey_com_nieu_sai_gon | Vẽ sơ đồ Sankey phân rã chi phí Cơm niêu Sài Gòn bằng Canvas kết nối SQL Server ADO | roadmap_ExecelFull.md |
+| canvas_waterfall_goi_ca_trich_phu_quoc | Thiết kế đồ thị Waterfall động phân tích giá thành Gỏi cá trích Phú Quốc bảo mật MOTW | roadmap_ExecelFull.md |
+| fin_black_scholes_monte_carlo_lau_de_thuan_kieu | Mô phỏng Monte Carlo định giá Black-Scholes Lẩu dê khô Thuận Kiều & Bảo mật Windows Credential Manager | roadmap_ExecelFull.md |
+| fin_markowitz_solver_vit_quay_bac_kinh | Tối ưu Markowitz, Solver vận chuyển Vịt quay Bắc Kinh & Kết nối ADO SQL Server | roadmap_ExecelFull.md |
+| fin_black_scholes_monte_carlo_banh_xeo_mien_tay | Định giá Black-Scholes & Monte Carlo (Bánh xèo miền Tây) qua ADO SQL & Git Rubberduck | roadmap_ExecelFull.md |
+| fin_markowitz_solver_ga_nuong_dat_set | Tối ưu Markowitz & Solver (Gà nướng đất sét) dùng C++ DLL & Bảo mật Credential | roadmap_ExecelFull.md |
+| fin_black_scholes_monte_carlo_lau_ca_keo | Tính toán Black-Scholes & Mô phỏng Ngẫu nhiên Lẩu Cá Kèo Lá Giang (Tích hợp ADO SQL & Git Control) | roadmap_ExecelFull.md |
+| fin_markowitz_solver_com_ga_hoi_an | Phân bổ Danh mục Markowitz & Giải thuật Solver Cơm Gà Hội An (Tích hợp Unit Test & Bảo mật MOTW) | roadmap_ExecelFull.md |
+| fin_black_scholes_monte_carlo_lau_de_kho | Định giá Black-Scholes & Monte Carlo Lẩu dê khô với ADO SQL & Git Version Control | roadmap_ExecelFull.md |
+| fin_markowitz_solver_lau_bo_nhung_dam | Tối ưu hóa Markowitz Lẩu bò nhúng dấm bằng C++ DLL & Unit Test Rubberduck | roadmap_ExecelFull.md |
+| fin_black_scholes_monte_carlo_lau_de_an_do | Định lượng Black-Scholes & Monte Carlo C++ DLL cho Lẩu dê Ấn Độ | roadmap_ExecelFull.md |
+| fin_markowitz_solver_lau_bo_nhung_dam_hanoi | Hoạch định Markowitz & Solver kết nối SQL Server cho Lẩu bò nhúng dấm Hà Nội | roadmap_ExecelFull.md |
+| modern_userform_withevents_bun_cha_sinh_tu | Thiết kế UserForm Flat Dark/Light quản lý sự kiện Bún chả Sinh Từ & Cấu hình Git cho VBA | roadmap_ExecelFull.md |
+| custom_quicksort_dictionary_pho_cuon_ngu_xa | Tự viết QuickSort và Dictionary sắp xếp menu Phở cuốn Ngũ Xã từ SQL Server & Unit Test | roadmap_ExecelFull.md |
+| withevents_textbox_bun_cha_sinh_tu | Lập trình WithEvents điều khiển TextBox động cho Bún chả Sinh Từ & Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| mergesort_dictionary_pho_cuon_ngu_xa | Thuật toán MergeSort sắp xếp danh mục Phở cuốn Ngũ Xã kết nối SQL Server qua ADO | roadmap_ExecelFull.md |
+| withevents_textbox_bun_cha_sinh_tu_v2 | Bắt sự kiện TextBox động bằng WithEvents và Quản lý mã nguồn bằng Git cho Form Bún chả Sinh Từ | roadmap_ExecelFull.md |
+| mergesort_dictionary_pho_cuon_ngu_xa_v2 | Sắp xếp MergeSort trên Dictionary kết nối SQL Server ADO cho Phở cuốn Ngũ Xã | roadmap_ExecelFull.md |
+| modern_dark_userform_cha_ca_la_vong | Thiết kế UserForm Modern Dark UI quản lý đơn hàng Chả cá Lã Vọng và Quản lý mã nguồn với Git | roadmap_ExecelFull.md |
+| quicksort_dictionary_com_hen_song_huong | Thuật toán QuickSort, Dictionary lọc trùng Cơm hến Sông Hương và Unit Test với Rubberduck | roadmap_ExecelFull.md |
+| withevents_textbox_lau_rieu_cua_suon_sun | Quản lý WithEvents TextBox động trong Form Lẩu Riêu Cua và Kiểm thử Unit Test với Rubberduck | roadmap_ExecelFull.md |
+| quicksort_dictionary_banh_da_cua_hai_phong | Thuật toán QuickSort và Dictionary sắp xếp Menu Bánh Đa Cua kết nối SQL Server ADO | roadmap_ExecelFull.md |
+| withevents_combobox_lau_rieu_cua_suon_sun | Quản lý sự kiện ComboBox động qua Class Module và Quy trình xuất code Git cho UserForm | roadmap_ExecelFull.md |
+| mergesort_dictionary_banh_da_cua_hai_phong | Thuật toán MergeSort tối ưu Dictionary kết nối ADO SQL Server cho Bánh đa cua Hải Phòng | roadmap_ExecelFull.md |
+| withevents_combobox_bun_ca_cay_hai_phong | Lập trình WithEvents ComboBox đồng bộ dữ liệu Bún cá cay Hải Phòng từ SQL Server & Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| mergesort_dictionary_bun_dau_mam_tom_hang_khay | Thuật toán MergeSort sắp xếp Dictionary đơn hàng Bún đậu mắm tôm Hàng Khay & Viết Unit Test bằng Rubberduck | roadmap_ExecelFull.md |
+| withevents_combobox_cha_ruoi_tu_do | Bắt sự kiện ComboBox động và Quản lý Mã nguồn với Git cho Chả rươi Tự Do | roadmap_ExecelFull.md |
+| mergesort_dictionary_banh_tom_ho_tay | Sắp xếp MergeSort khóa Dictionary và Viết Unit Test cho Bánh tôm Hồ Tây | roadmap_ExecelFull.md |
+| withevents_optionbutton_lau_rieu_cua_bap_bo | Bắt sự kiện OptionButton bằng WithEvents và Quản lý Source Code bằng Git cho Lẩu riêu cua bắp bò | roadmap_ExecelFull.md |
+| quicksort_udt_lau_ga_den_ham_sam | Sắp xếp QuickSort mảng UDT dữ liệu Lẩu gà đen hầm sâm kết nối ADO SQL Server và Unit Test | roadmap_ExecelFull.md |
+| withevents_optionbutton_lau_ech_mang_cay | Lập trình WithEvents OptionButton cho Lẩu ếch măng cay | roadmap_ExecelFull.md |
+| quicksort_udt_lau_duoi_bo_thuoc_bac | Thuật toán QuickSort mảng UDT cho Lẩu đuôi bò thuốc bắc | roadmap_ExecelFull.md |
+| winapi_subclassing_gdi_banh_mi_phuong | Subclassing UserForm cuộn chuột, vẽ GDI+ Bánh mì Phượng và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| com_port_rs232_ca_phe_trung_giang | Giao tiếp cổng COM RS232 in tem nhãn Cà phê trứng Giảng và đồng bộ SQL Server ADO | roadmap_ExecelFull.md |
+| winapi_subclassing_gdi_bun_cha_huong_lien | Subclassing UserForm vẽ GDI+ Bún chả Hương Liên & Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| com_port_rs232_banh_pia_soc_trang | Giao tiếp cổng COM RS232 in tem Bánh pía kết hợp ADO SQL Server | roadmap_ExecelFull.md |
+| winapi_subclassing_gdi_nem_lui_hue | Can thiệp Windows API vẽ GDI+ bo góc UserForm Nem lụi Huế và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| com_port_rs232_com_tam_ba_ghien | Kết nối cổng COM RS232 đọc dữ liệu cân Cơm tấm Ba Ghiền và đồng bộ SQL Server qua ADO | roadmap_ExecelFull.md |
+| winapi_subclassing_gdi_bun_bo_nam_bo | Subclassing UserForm vẽ GDI+ bo góc nút bấm và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| com_port_rs232_hu_tieu_nam_vang | Giao tiếp cổng COM RS232 nhận dữ liệu cân và đồng bộ SQL Server qua ADO | roadmap_ExecelFull.md |
+| winapi_subclassing_gdi_banh_xeo_mien_tay | Subclassing UserForm vẽ đồ thị GDI+ động & Quản lý mã nguồn bằng Git (Bánh xèo miền Tây) | roadmap_ExecelFull.md |
+| com_port_rs232_lau_tha_phan_thiet | Giao tiếp cổng COM RS232 nhận dữ liệu cân và đồng bộ SQL Server qua ADO (Lẩu thả Phan Thiết) | roadmap_ExecelFull.md |
+| winapi_gdi_animation_banh_khot_vung_tau | Sử dụng Windows API vẽ hoạt ảnh GDI+ đĩa Bánh khọt Cô Ba Vũng Tàu & Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| com_port_rs232_lau_mam_can_tho | Truyền nhận dữ liệu cổng COM RS232 nồi Lẩu mắm Cần Thơ & Ghi dữ liệu thời gian thực vào SQL Server qua ADO | roadmap_ExecelFull.md |
+| winapi_gdi_3d_lau_ca_duoi_vung_tau | Vẽ đồ thị GDI+ động 3D Lẩu cá đuối Vũng Tàu và Quản lý mã nguồn bằng Git/Rubberduck | roadmap_ExecelFull.md |
+| com_port_rs232_lau_de_kho_song_hy | Kết nối cổng COM RS232 nhận dữ liệu cân điện tử và Đồng bộ SQL Server qua ADO | roadmap_ExecelFull.md |
+| winapi_gdi_nem_nuong_nha_trang | Lập trình GDI+ vẽ mô phỏng Nem nướng Nha Trang xoay 3D trên UserForm và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| com_port_rs232_lau_de_kho_song_hy_v2 | Đọc tín hiệu cổng COM RS232 từ cân điện tử Lẩu dê khô Song Hỷ và đồng bộ SQL Server qua ADO | roadmap_ExecelFull.md |
+| winapi_gdi_vong_tron_nhiet_bun_quay_phu_quoc | Vẽ vòng tròn nhiệt GDI+ động cho Bún quậy Phú Quốc & Đồng bộ SQL Server ADO | roadmap_ExecelFull.md |
+| com_port_rs232_cam_bien_goi_sua_nha_trang | Đọc cảm biến nhiệt độ RS232 cho Gỏi sứa Nha Trang & Ghi dữ liệu ADO SQL | roadmap_ExecelFull.md |
+| winapi_subclassing_gdi_cha_ca_la_vong | Windows API Subclassing & GDI+ vẽ sóng âm thanh Chả cá Lã Vọng (Tích hợp Git & Quản lý Bộ nhớ An toàn) | roadmap_ExecelFull.md |
+| com_port_rs232_banh_canh_trang_bang | Giao tiếp cổng COM RS232 nhận dữ liệu cân điện tử Bánh canh Trảng Bàng & Ghi DB SQL Server qua ADO | roadmap_ExecelFull.md |
+| winapi_subclassing_gdi_lau_cua_dong_hai_phong | Subclassing UserForm vẽ đồ thị GDI+ động cho Lẩu cua đồng Hải Phòng & Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| com_port_rs232_banh_khot_co_ba_vung_tau | Giao tiếp cổng COM RS232 đọc cân điện tử Bánh khọt Cô Ba Vũng Tàu & Lưu trữ SQL Server qua ADO | roadmap_ExecelFull.md |
+| winapi_gdi_subclassing_bun_ca_sua_nha_trang | Vẽ đồ thị GDI+ động món Bún cá sứa Nha Trang bằng Subclassing an toàn và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| com_port_rs232_may_in_tem_banh_pia_soc_trang | Giao tiếp cổng COM RS232 điều khiển máy in tem nhãn Bánh pía Sóc Trăng và đồng bộ SQL Server ADO | roadmap_ExecelFull.md |
+| winapi_gdi_lau_ga_la_e_phu_yen | Can thiệp Windows API vẽ biểu đồ GDI+ và quản lý bộ nhớ an toàn cho Lẩu gà lá é Phú Yên | roadmap_ExecelFull.md |
+| com_port_rs232_banh_xeo_tom_nhay_binh_dinh | Kết nối cổng COM nhận dữ liệu cân điện tử và đồng bộ SQL Server cho Bánh xèo tôm nhảy Bình Định | roadmap_ExecelFull.md |
+| winapi_gdi_radar_com_hen_vi_da | Subclassing GDI+ vẽ biểu đồ radar Cơm hến Vĩ Dạ và quản lý mã nguồn bằng Rubberduck Git | roadmap_ExecelFull.md |
+| com_port_rs232_can_dien_tu_cha_gio_re | Giao tiếp RS232 nhận dữ liệu cân Chả giò rế và đồng bộ SQL Server qua ADO | roadmap_ExecelFull.md |
+| winapi_gdi_subclassing_radar_com_hen_vi_da | Lập trình GDI+ vẽ biểu đồ radar hương vị Cơm hến Vĩ Dạ & Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| com_port_rs232_doc_can_cha_gio_re | Đọc dữ liệu cân điện tử Chả giò rế qua cổng COM RS232 & Kiểm thử đơn vị với Rubberduck | roadmap_ExecelFull.md |
+| winapi_gdi_subclassing_banh_cuon_thanh_tri | Subclassing GDI+ vẽ bánh cuốn Thanh Trì & Quản lý mã nguồn với Git/Rubberduck | roadmap_ExecelFull.md |
+| com_port_rs232_bun_dau_mam_tom | Kết nối RS232 đọc khối lượng mẹt Bún đậu & Đồng bộ SQL Server qua ADO | roadmap_ExecelFull.md |
+| winapi_gdi_subclassing_cha_ruoi_tu_ky | Subclassing GDI+ vẽ sóng âm thanh Chả rươi Tứ Kỳ và lưu trữ ADO SQL Server | roadmap_ExecelFull.md |
+| com_port_rs232_banh_mi_cay_hai_phong | Kết nối RS232 đọc nhiệt độ lò bánh mì cay Hải Phòng và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| winapi_gdi_3d_pie_cha_ca_thac_lac | Subclassing GDI+ vẽ biểu đồ tròn 3D Chả cá Thác Lác Hậu Giang | roadmap_ExecelFull.md |
+| com_port_rs232_bun_nuoc_leo_soc_trang | Kết nối RS232 đọc dữ liệu cân điện tử Bún nước lèo Sóc Trăng | roadmap_ExecelFull.md |
+| winapi_gdi_3d_bar_banh_mi_phuong_hoi_an | Subclassing GDI+ vẽ biểu đồ cột 3D Bánh mì Phượng và Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| com_port_rs232_can_banh_pia_soc_trang | Kết nối RS232 đọc cân điện tử Bánh pía Sóc Trăng và Lưu trữ SQL Server qua ADO | roadmap_ExecelFull.md |
+| winapi_gdi_spider_bun_cha_sinh_tu | Vẽ biểu đồ mạng nhện GDI+ bằng Subclassing an toàn và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| com_port_rs232_quet_nem_chua_yen_mac | Giao tiếp cổng COM nhận tín hiệu máy quét và lưu trữ SQL Server qua ADO | roadmap_ExecelFull.md |
+| winapi_gdi_subclassing_radar_3d_banh_xeo_mien_tay | Subclassing GDI+ vẽ biểu đồ radar 3D Bánh xèo miền Tây và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| com_port_rs232_quet_nem_chua_ran_ha_noi | Kết nối RS232 đọc dữ liệu máy quét Nem chua rán và lưu trữ bảo mật vào SQL Server | roadmap_ExecelFull.md |
+| winapi_gdi_subclassing_3d_doughnut_lau_bo_da_lat | Subclassing GDI+ vẽ biểu đồ 3D Doughnut Lẩu bò nhà gỗ Đà Lạt và quản lý bộ nhớ an toàn | roadmap_ExecelFull.md |
+| com_port_rs232_can_banh_mi_xiu_mai_da_lat | Kết nối RS232 nhận dữ liệu cân điện tử Bánh mì xíu mại Đà Lạt và đồng bộ SQL Server qua ADO | roadmap_ExecelFull.md |
+| winapi_gdi_subclassing_lau_ga_den_sapa | Subclassing GDI+ vẽ biểu đồ nến doanh thu Lẩu gà đen Sapa và quản lý crash bộ nhớ | roadmap_ExecelFull.md |
+| com_port_rs232_can_bun_bo_hue | Kết nối RS232 đọc dữ liệu cân Bún bò Huế và lưu SQL Server qua ADO bảo mật | roadmap_ExecelFull.md |
+| winapi_gdi_subclassing_ap_suat_bun_rieu_cua_bap_bo | Subclassing GDI+ vẽ đồng hồ đo áp suất và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| com_port_rs232_can_com_tam_suon_bi_cha | Kết nối RS232 nhận tín hiệu cân điện tử và đồng bộ SQL Server qua ADO | roadmap_ExecelFull.md |
+| winapi_gdi_subclassing_3d_stacked_bar_lau_de_kho_ninh_binh | Subclassing GDI+ vẽ biểu đồ cột 3D chồng Lẩu dê khô Ninh Bình và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| com_port_rs232_can_banh_mi_bot_loc_quang_binh | Kết nối RS232 nhận dữ liệu cân Bánh mì bột lọc Quảng Bình bảo mật qua Credential Manager | roadmap_ExecelFull.md |
+| winapi_gdi_3d_surface_lau_tha_phan_thiet | Vẽ biểu đồ GDI+ 3D Surface Lẩu thả Phan Thiết bằng Subclassing & Quản lý mã nguồn với Git | roadmap_ExecelFull.md |
+| com_port_rs232_can_banh_canh_cha_ca_quy_nhon | Đọc dữ liệu cân RS232 Bánh canh Quy Nhơn & Đồng bộ SQL Server qua ADO bảo mật | roadmap_ExecelFull.md |
+| winapi_gdi_3d_surface_mesh_lau_tha | Vẽ lưới bề mặt 3D GDI+ mô phỏng Lẩu thả Phan Thiết & Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| com_port_rs232_receive_weight_quy_nhon | Nhận dữ liệu cân RS232 đóng gói Bánh canh Quy Nhơn & Đồng bộ SQL Server qua ADO | roadmap_ExecelFull.md |
+| winapi_gdi_3d_contour_lau_ca_duoi_vung_tau | Vẽ bản đồ đồng mức GDI+ 3D Contour Map Lẩu cá đuối Vũng Tàu | roadmap_ExecelFull.md |
+| com_port_rs232_flow_sensor_lau_rieu_cua | Kết nối RS232 đọc cảm biến lưu lượng Lẩu riêu cua sườn sụn | roadmap_ExecelFull.md |
+| winapi_gdi_3d_bubble_lau_rieu_cua_bap_bo | Subclassing GDI+ vẽ biểu đồ bong bóng 3D Lẩu riêu cua & Quản lý mã nguồn bằng Git/Rubberduck | roadmap_ExecelFull.md |
+| com_port_rs232_pressure_sensor_lau_de_kho | Kết nối RS232 đọc cảm biến áp suất nồi Lẩu dê & Ghi dữ liệu thời gian thực vào SQL Server qua ADO | roadmap_ExecelFull.md |
+| winapi_gdi_3d_scatter_lau_nam_ashima | Subclassing GDI+ vẽ biểu đồ phân tán 3D Lẩu nấm Ashima & Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| com_port_rs232_tension_sensor_nem_nuong_nha_trang | Kết nối RS232 đọc cảm biến lực căng Nem nướng Nha Trang & Lưu trữ SQL Server ADO | roadmap_ExecelFull.md |
+| winapi_gdi_vector_lau_duoi_bo_thuoc_bac | Vẽ biểu đồ vector GDI+ Lẩu đuôi bò thuốc bắc & Quản lý bộ nhớ an toàn | roadmap_ExecelFull.md |
+| com_port_rs232_humidity_sensor_com_chay_kho_quet | Đọc cảm biến RS232 Cơm cháy kho quẹt & Lưu trữ SQL Server bảo mật | roadmap_ExecelFull.md |
+| winapi_gdi_3d_cylinder_lau_rieu_cua_suon_sun | Vẽ biểu đồ hình trụ 3D GDI+ Lẩu riêu cua sườn sụn và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| com_port_rs232_barcode_banh_mi_dan_to | Đọc dữ liệu máy quét mã vạch RS232 Bánh mì dân tổ và đồng bộ SQL Server ADO | roadmap_ExecelFull.md |
+| winapi_gdi_3d_cone_lau_cua_dong_hai_phong | Subclassing GDI+ vẽ biểu đồ 3D hình nón và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| com_port_rs232_proximity_sensor_banh_cuon_thanh_tri | Kết nối RS232 đọc cảm biến tiệm cận và đồng bộ SQL Server qua ADO | roadmap_ExecelFull.md |
+| winapi_gdi_3d_pyramid_cha_ca_la_vong | Subclassing GDI+ vẽ biểu đồ 3D Pyramid Chả cá Lã Vọng & Quản lý mã nguồn với Rubberduck Git | roadmap_ExecelFull.md |
+| com_port_rs232_flow_sensor_com_hen_vi_da | Kết nối RS232 đọc cảm biến lưu lượng Cơm hến Vĩ Dạ & Bảo mật thông tin đăng nhập ADO | roadmap_ExecelFull.md |
+| winapi_gdi_3d_torus_banh_khot_vung_tau | Dựng hình 3D Torus bằng GDI+ (Bánh Khọt Vũng Tàu) tối ưu hóa bằng C++ DLL và quản lý mã nguồn qua Git | roadmap_ExecelFull.md |
+| com_port_rs232_tension_sensor_nem_lui_hue | Thu nhận tín hiệu cảm biến lực căng RS232 (Nem Lụi) và đồng bộ SQL Server qua ADO bảo mật | roadmap_ExecelFull.md |
+| web_scraping_selenium_cdp_bun_cha_sinh_tu | Cào dữ liệu giá nguyên liệu Bún chả Sinh Từ bằng Selenium/CDP và Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| rest_api_oauth2_pho_bo_bat_dan | Gọi REST API OAuth2 cập nhật doanh thu Phở bò Bát Đàn và Đồng bộ SQL Server qua ADO | roadmap_ExecelFull.md |
+| web_scraping_selenium_cdp_banh_tom_ho_tay | Điều khiển Selenium CDP trích xuất dữ liệu Bánh tôm Hồ Tây và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| inter_app_excel_word_banh_mi_phuong_hoi_an | Tự động hóa Excel sang Word xuất hóa đơn Bánh mì Phượng Hội An tích hợp ADO SQL Server | roadmap_ExecelFull.md |
+| web_scraping_cdp_bun_dau_mam_tom | Thu thập dữ liệu Chrome DevTools Protocol và Quản lý mã nguồn Git cho chuỗi F&B Bún đậu mắm tôm | roadmap_ExecelFull.md |
+| inter_app_excel_ppt_banh_xeo_mien_tay | Tự động hóa báo cáo Excel-PowerPoint từ SQL Server ADO cho chuỗi Bánh xèo miền Tây | roadmap_ExecelFull.md |
+| web_scraping_selenium_cdp_bun_ca_cay_hai_phong | Cào dữ liệu giá bún cá cay Hải Phòng bằng Selenium CDP và lưu trữ SQL ADO | roadmap_ExecelFull.md |
+| rest_api_oauth2_com_tam_suon_bi_cha | Xác thực OAuth2 bảo mật qua Windows Credential Manager gọi REST API cơm tấm | roadmap_ExecelFull.md |
+| web_scraping_selenium_cdp_bun_bo_hue | Giám sát Selenium CDP và Lưu trữ SQL Server ADO cho giá Bún bò Huế | roadmap_ExecelFull.md |
+| inter_app_excel_outlook_lau_ga_la_giang | Gửi báo cáo Outlook tự động và Quản lý mã nguồn VBA bằng Git | roadmap_ExecelFull.md |
+| web_scraping_cdp_hu_tieu_nam_vang_nhan_quan | Khai thác Chrome DevTools Protocol (CDP) và Lưu trữ SQL Server ADO cho Chuỗi Hủ tiếu Nhân Quán | roadmap_ExecelFull.md |
+| inter_app_excel_cad_banh_canh_trang_bang_hoang_ty | Điều khiển AutoCAD từ Excel và Quản lý Mã nguồn bằng Git/Rubberduck cho Sơ đồ Bánh canh Hoàng Ty | roadmap_ExecelFull.md |
+| web_scraping_selenium_cdp_nem_ran_ha_noi | Bắt gói tin WebSocket bằng Selenium CDP, lưu SQL Server qua ADO và làm Nem rán Hà Nội | roadmap_ExecelFull.md |
+| rest_api_oauth2_bun_thang_ha_noi | Xác thực OAuth2, quản lý mã nguồn bằng Git/Rubberduck và nấu Bún thang Hà Nội | roadmap_ExecelFull.md |
+| web_scraping_selenium_cdp_cha_ca_thang_long | Cào dữ liệu giá cá lăng Chả cá Thăng Long bằng Selenium CDP và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| rest_api_oauth2_banh_da_cua_hai_phong | Gọi REST API OAuth2 lấy giá cua đồng Bánh đa cua Hải Phòng và lưu trữ vào SQL Server qua ADO | roadmap_ExecelFull.md |
+| web_scraping_cdp_shopee_banh_mi_sot_vang_dinh_ngang | Cào dữ liệu Shopee qua CDP và Quản lý mã nguồn VBA bằng Git cho Bánh mì sốt vang Đình Ngang | roadmap_ExecelFull.md |
+| rest_api_oauth2_gmail_lau_long_bo_lai_rai | Xác thực OAuth2 Gmail bảo mật qua Windows Credential Manager gửi báo cáo Lẩu lòng bò lai rai | roadmap_ExecelFull.md |
+| web_scraping_cdp_lau_tha_phan_thiet | Cào dữ liệu thời tiết qua CDP và Quản lý mã nguồn VBA với Git | roadmap_ExecelFull.md |
+| rest_api_oauth2_msgraph_bun_quay_phu_quoc | Xác thực OAuth2 Microsoft Graph API bảo mật bằng Windows Credential Manager | roadmap_ExecelFull.md |
+| winapi_userform_flat_ui_lau_duoi_bo_thuoc_bac | Thiết kế Flat UI WinAPI an toàn và cấu hình Git tracking cho Form Lẩu đuôi bò | roadmap_ExecelFull.md |
+| class_module_withevents_banh_mi_phuong_hoi_an | Bắt sự kiện TextBox hàng loạt và tích hợp Unit Test Rubberduck cho đơn hàng Bánh mì | roadmap_ExecelFull.md |
+| winapi_flat_ui_cha_ruoi_tu_ky | Xây dựng giao diện phẳng quản lý đơn hàng Chả rươi Tứ Kỳ & Tích hợp Git kiểm soát mã nguồn | roadmap_ExecelFull.md |
+| class_module_withevents_cha_ruoi_tu_ky | Lập trình Class Module WithEvents quản lý nút bấm Chả rươi Tứ Kỳ & Unit Test với Rubberduck | roadmap_ExecelFull.md |
+| winapi_flat_ui_bun_cha_huong_lien | Thiết kế Form Flat UI Quản lý Đơn hàng Bún chả Hương Liên & Bảo mật Windows Credential Manager | roadmap_ExecelFull.md |
+| class_module_withevents_bun_cha_huong_lien | Class Module WithEvents quản lý Menu Bún chả & Tích hợp Git/Rubberduck Unit Test | roadmap_ExecelFull.md |
+| winapi_round_rect_userform_nem_lui_hue | Bo góc UserForm bằng WinAPI CreateRoundRectRgn và xử lý bảo mật MOTW cho ERP Nem lụi Huế | roadmap_ExecelFull.md |
+| class_module_hover_effect_bun_bo_hue | Bắt sự kiện Hover Flat UI và tích hợp Git/Rubberduck Unit Test cho ERP Bún bò Huế | roadmap_ExecelFull.md |
+| winapi_shadow_userform_banh_khot_vung_tau | Lập trình WinAPI tạo bóng đổ mờ cho UserForm Bánh khọt Vũng Tàu và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| class_module_click_effect_banh_khot_vung_tau | Lập trình Class Module quản lý hiệu ứng Click động và ghi nhận lịch sử gọi món vào cơ sở dữ liệu | roadmap_ExecelFull.md |
+| inter_app_excel_access_bun_dau_ngo_tram | Liên kết Excel và SQL Server/Access quản lý chuỗi Bún đậu Ngõ Trạm & Bảo mật ADO | roadmap_ExecelFull.md |
+| web_scraping_cdp_weather_lau_de_nhat_ly | Cào dữ liệu thời tiết qua CDP tối ưu menu Lẩu dê Nhất Ly & Xử lý bảo mật MOTW | roadmap_ExecelFull.md |
+| inter_app_excel_word_bun_cha_ca_quy_nhon | Tự động hóa Excel sang Word tạo hợp đồng Bún Chả Cá Quy Nhơn và Quản lý mã nguồn với Git | roadmap_ExecelFull.md |
+| rest_api_json_lau_mam_can_tho | Gọi REST API lấy tỷ giá, bảo mật API Key và lưu trữ SQL Server cho món Lẩu Mắm Cần Thơ | roadmap_ExecelFull.md |
+| inter_app_excel_word_cha_ca_thac_lac | Điều khiển Word soạn hợp đồng Chả cá Thác Lác & Quản lý mã nguồn bằng Git/Rubberduck | roadmap_ExecelFull.md |
+| web_scraping_selenium_banh_canh_nam_pho | Dùng Selenium CDP lấy giá Bánh canh Nam Phổ & Lưu trữ vào SQL Server qua ADO | roadmap_ExecelFull.md |
+| automation_office_suite_thit_kho_tau | Tự động hóa Office Suite qua VBA ADO, bảo mật Credential Manager và quản lý mã nguồn Git | roadmap_ExecelFull.md |
+| web_scraping_rest_api_heo_quay_gion_bi | Web Scraping Selenium CDP, tích hợp Office JS Web Add-in và kết nối MQTT API | roadmap_ExecelFull.md |
+| inter_app_excel_ppt_bun_cha_ca_nha_trang | Tự động hóa Excel sang PowerPoint tạo slide Bún chả cá Nha Trang và quản lý mã nguồn với Git | roadmap_ExecelFull.md |
+| web_scraping_selenium_lau_ca_linh_bong_dien_dien | Web Scraping Selenium lấy giá Lẩu cá linh bông điên điển và lưu trữ SQL ADO | roadmap_ExecelFull.md |
+| automation_office_suite_pho_bo_nam_dinh | Tự động hóa liên ứng dụng Office Suite, xử lý bảo mật MOTW và quản lý mã nguồn VBA bằng Git | roadmap_ExecelFull.md |
+| rest_api_webhook_bun_bo_hue_ngu_yen | Tích hợp REST API OAuth2, cấu hình Webhooks và kết nối cơ sở dữ liệu SQL Server qua ADO | roadmap_ExecelFull.md |
+| selenium_cdp_word_bun_cha_ca_da_nang | Selenium CDP cào dữ liệu, Bảo mật MOTW và Quản lý mã nguồn VBA với Git | roadmap_ExecelFull.md |
+| rest_api_webhook_com_tam_sai_gon | REST API OAuth2 Webhook bảo mật với Credential Manager và Ghi log SQL Server ADO | roadmap_ExecelFull.md |
+| automation_excel_word_outlook_bun_ca_cay_hai_phong | Tự động hóa Word/Outlook bảo mật MOTW và quản lý Git với Bún cá cay Hải Phòng | roadmap_ExecelFull.md |
+| selenium_rest_api_json_lau_cua_dong_bap_bo | Selenium CDP, REST API JSON và kết nối SQL Server ADO với Lẩu cua đồng bắp bò | roadmap_ExecelFull.md |
+| inter_app_office_bun_oc_ha_noi | Tích hợp SQL Server ADO, Git Control và Bảo mật MOTW cho chuỗi Bún ốc Hà Nội | roadmap_ExecelFull.md |
+| selenium_cdp_webhook_cha_ca_la_vong | Xây dựng Office JS Add-in (React) và Webhook JSON cho chuỗi Chả cá Lã Vọng | roadmap_ExecelFull.md |
+| inter_app_office_full_bun_rieu_cua_bap_bo | Tự động hóa Excel-Word-PPT-Outlook-SQL Server & Quản lý mã nguồn Git với Bún riêu cua bắp bò | roadmap_ExecelFull.md |
+| selenium_cdp_api_webhook_ga_nuong_lu_xoi_chay | Selenium CDP, REST API OAuth2, Webhook và Office JS Add-in với Gà nướng lu xôi cháy | roadmap_ExecelFull.md |
+| inter_app_office_full_bun_ca_chau_doc | Hệ thống Office Automation liên thông SQL Server ADO, Git Control & Bảo mật MOTW cho Bún cá Châu Đốc | roadmap_ExecelFull.md |
+| selenium_cdp_api_oauth2_lau_ca_duoi_vung_tau | Tích hợp Selenium CDP, REST API OAuth2 và Office JS React Taskpane cho Lẩu cá đuối Vũng Tàu | roadmap_ExecelFull.md |
+| selenium_cdp_api_oauth2_banh_khot_co_ba_vung_tau | Xác thực OAuth2 bảo mật qua Credential Manager và cào dữ liệu API Bánh khọt Cô Ba Vũng Tàu | roadmap_ExecelFull.md |
+| inter_app_office_webhook_com_nieu_sai_gon | Tích hợp Webhook, lưu trữ SQL Server ADO và điều khiển liên ứng dụng Cơm niêu Sài Gòn | roadmap_ExecelFull.md |
+| inter_app_office_suite_bun_mam_nem_da_nang | Tự động hóa liên ứng dụng Excel-Word-PPT-Outlook-Access và Quản lý mã nguồn VBA với Git | roadmap_ExecelFull.md |
+| selenium_cdp_api_oauth2_webhook_lau_ca_keo_la_giang | Selenium CDP, REST API OAuth2, Webhook và Tích hợp Office JS Web Add-ins với React | roadmap_ExecelFull.md |
+| automation_office_suite_com_ga_hoi_an | Tự động hóa Excel-Word-Outlook-SQL Server và Quản lý mã nguồn VBA với Git/Rubberduck | roadmap_ExecelFull.md |
+| selenium_cdp_api_webhook_pho_thin_lo_duc | Selenium CDP, REST API OAuth2 bảo mật và Office JS Add-in với Yeoman/React | roadmap_ExecelFull.md |
+| inter_app_office_suite_full_bun_mam_soc_trang | Tự động hóa liên ứng dụng Office, kết nối SQL Server ADO và quản lý mã nguồn VBA bằng Git | roadmap_ExecelFull.md |
+| selenium_cdp_api_oauth2_webhook_lau_ga_la_e | Selenium CDP, REST API OAuth2 bảo mật qua Credential Manager và Webhook Lẩu gà lá é | roadmap_ExecelFull.md |
+| automation_office_suite_bun_mam_cua_gia_lai | Tự động hóa Excel-Word-Access-Outlook quản lý đơn hàng Bún mắm cua Gia Lai, tích hợp SQL Server ADO và Git Version Control | roadmap_ExecelFull.md |
+| selenium_cdp_api_oauth2_webhook_banh_canh_o_hue | Tích hợp Selenium CDP, REST API OAuth2 và Office JS Web Add-ins cho Bánh canh cá lóc O Huệ | roadmap_ExecelFull.md |
+| automation_office_suite_full_bun_hen_hue | Tự động hóa Excel-Word-PPT-SQL Server, quản lý mã nguồn bằng Git & Rubberduck cho Bún hến Huế | roadmap_ExecelFull.md |
+| selenium_cdp_api_oauth2_banh_trang_cuon_thit_heo | Selenium CDP, Office.js Web Add-in React và bảo mật OAuth2 với Windows Credential Manager | roadmap_ExecelFull.md |
+| automation_excel_word_access_bun_dau_mam_tom | Tự động hóa Excel-Word-SQL Server & Quản lý mã nguồn VBA với Git/Rubberduck | roadmap_ExecelFull.md |
+| selenium_cdp_rest_api_webhook_goi_cuon_tom_thit | Selenium CDP, REST API Webhook & Bảo mật Macro MOTW | roadmap_ExecelFull.md |
+| office_suite_automation_bun_mam_mien_tay | Điều khiển Excel-Word-PPT-Outlook-Access quản lý tiệm Bún mắm miền Tây và Tích hợp ADO SQL Server, Git, Rubberduck | roadmap_ExecelFull.md |
+| selenium_api_webhook_com_lam_ga_nuong | Selenium CDP, REST API OAuth2 bảo mật và Office JS Add-ins quản lý đơn Cơm lam gà nướng Tây Nguyên | roadmap_ExecelFull.md |
+| office_suite_automation_bun_mam_nem_thit_luoc | Tự động hóa Office Suite, kết nối SQL Server qua ADO và quản lý mã nguồn VBA bằng Git | roadmap_ExecelFull.md |
+| selenium_api_oauth2_webhook_lau_ga_la_giang | Xây dựng Office JS Web Add-in với React và tích hợp REST API OAuth2 quản lý Lẩu gà lá giang | roadmap_ExecelFull.md |
+| automation_office_suite_bun_mam_nem_thit_quay | Tự động hóa Excel-Word-PPT-Access và Quản lý mã nguồn VBA với Git | roadmap_ExecelFull.md |
+| selenium_cdp_api_webhook_lau_ca_linh | Tích hợp Selenium CDP, REST API Webhook và Bảo mật Credential Manager | roadmap_ExecelFull.md |
+| office_automation_full_bun_cha_ha_noi | Tự động hóa liên ứng dụng ADO SQL Server, bảo mật MOTW và quản lý mã nguồn VBA bằng Git/Rubberduck cho chuỗi Bún chả | roadmap_ExecelFull.md |
+| selenium_rest_api_webhook_pho_bo_nam_dinh | Xây dựng Office JS Web Add-in với React, Selenium CDP và tích hợp REST API/Webhook cho chuỗi Phở bò | roadmap_ExecelFull.md |
+| office_suite_automation_bun_cha_ca_quy_nhon | Tự động hóa Office liên ứng dụng, kết nối SQL Server ADO và quản lý mã nguồn VBA với Git/Rubberduck | roadmap_ExecelFull.md |
+| selenium_cdp_api_oauth2_webhook_banh_canh_trang_bang | Selenium CDP, REST API OAuth2 và phát triển Office JS Web Add-in với Yeoman/React | roadmap_ExecelFull.md |
+| office_automation_bun_cha_ca_nha_trang | Tự động hóa Excel-Word-Outlook-SQL Server bảo mật và quản lý mã nguồn Git cho Bún chả cá Nha Trang | roadmap_ExecelFull.md |
+| selenium_rest_api_lau_mam_can_tho | Selenium CDP, REST API và MQTT Client đồng bộ giá nguyên liệu Lẩu mắm Cần Thơ | roadmap_ExecelFull.md |
+| automation_office_suite_full_bun_cha_ca_da_nang | Điều khiển liên ứng dụng Office, Selenium CDP và Kết nối SQL Server ADO cho Bún chả cá Đà Nẵng | roadmap_ExecelFull.md |
+| rest_api_oauth2_webhook_lau_cua_dong_bap_bo | Xác thực OAuth2, Webhook REST API và Quản lý mã nguồn VBA bằng Git cho Lẩu cua đồng bắp bò | roadmap_ExecelFull.md |
+| automation_office_com_tam_suon_bi_cha | Điều khiển Excel-Word-Outlook xuất hóa đơn Cơm tấm sườn bì chả, bảo mật MOTW và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| selenium_rest_api_banh_xeo_mien_tay | Selenium CDP, REST API và kết nối ADO SQL Server tra cứu giá tôm làm Bánh xèo miền Tây | roadmap_ExecelFull.md |
+| automation_office_suite_bun_ca_chau_doc | Tự động hóa Excel-Word-PPT-Outlook-SQL Server và Quản lý mã nguồn VBA bằng Git | roadmap_ExecelFull.md |
+| selenium_api_oauth2_webhook_banh_canh_ca_loc | Selenium CDP, Bảo mật Windows Credential Manager và REST API OAuth2 Webhook | roadmap_ExecelFull.md |
+| automation_office_suite_bun_ca_ngu_dai_duong | Tự động hóa Office Suite, kết nối SQL Server ADO và quản lý mã nguồn VBA bằng Git/Rubberduck | roadmap_ExecelFull.md |
+| selenium_rest_api_oauth2_webhook_lau_ca_duoi | Selenium CDP, REST API OAuth2 và phát triển Office Add-in hiện đại với Yeoman/React | roadmap_ExecelFull.md |
+| automation_office_suite_bun_ca_sua_nha_trang | Tự động hóa Office Suite, kết nối SQL Server ADO và quản lý mã nguồn bằng Git/Rubberduck | roadmap_ExecelFull.md |
+| selenium_api_oauth2_webhook_goi_ca_trich_phu_quoc | Selenium CDP, REST API OAuth2 và phát triển Office.js Web Add-in bằng Yeoman/React | roadmap_ExecelFull.md |
+| automation_office_suite_full_bun_mam_nem_da_nang | Tự động hóa Office Suite, kết nối SQL Server ADO và quản lý mã nguồn Git cho Bún mắm nêm Đà Nẵng | roadmap_ExecelFull.md |
+| selenium_cdp_api_oauth2_webhook_lau_ca_duoi_vung_tau | Selenium CDP, REST API OAuth2 và phát triển Office JS Web Add-in quản lý Lẩu cá đuối Vũng Tàu | roadmap_ExecelFull.md |
+| office_automation_com_tam_long_xuyen | Tự động hóa liên ứng dụng Office và Quản lý mã nguồn VBA bằng Git cho Cơm tấm Long Xuyên | roadmap_ExecelFull.md |
+| selenium_api_webhook_banh_xeo_tom_nhay | Selenium CDP, REST API OAuth2 và Tích hợp Webhook bảo mật cho Bánh xèo tôm nhảy | roadmap_ExecelFull.md |
+| automation_office_suite_bun_rieu_cua_bap_bo | Tự động hóa Office liên ứng dụng, quản lý mã nguồn với Git/Rubberduck và kết nối SQL Server | roadmap_ExecelFull.md |
+| selenium_api_oauth2_webhook_lau_ca_keo_la_giang | Selenium CDP, REST API OAuth2 và Office JS Web Add-in (Yeoman/React) quản lý Lẩu cá kèo | roadmap_ExecelFull.md |
+| office_automation_bun_mam_nem_cha_ca | Tự động hóa Excel-Word-PPT-Outlook và kết nối SQL Server ADO quản lý Bún mắm nêm | roadmap_ExecelFull.md |
+| selenium_rest_api_webhook_lau_ca_linh_bong_sung | Selenium CDP, REST API OAuth2 và Office JS Add-in quản lý Lẩu cá linh bông súng | roadmap_ExecelFull.md |
+| office_automation_bun_mam_soc_trang | Tự động hóa liên ứng dụng VBA, ADO SQL Server và Quản lý mã nguồn với Git/Rubberduck | roadmap_ExecelFull.md |
+| selenium_api_webhook_lau_ca_linh_dien_dien | Selenium CDP, REST API OAuth2 và Office JS Web Add-ins với React | roadmap_ExecelFull.md |
+| office_automation_com_tam_suon_que | Tự động hóa liên ứng dụng Office, kết nối SQL Server ADO và quản lý mã nguồn VBA bằng Git | roadmap_ExecelFull.md |
+| selenium_api_oauth2_goi_cuon_tom_thit | Tích hợp Selenium CDP, REST API OAuth2 và phát triển Office JS Add-in cho Gỏi cuốn tôm thịt | roadmap_ExecelFull.md |
+| office_automation_bun_dau_mam_tom_thuy_khue | Tự động hóa Excel-Word-PPT-Outlook báo cáo Bún đậu mắm tôm Thụy Khuê, kết nối SQL ADO và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| selenium_rest_api_banh_mi_phuong_hoi_an | Kỹ thuật Selenium CDP, REST API OAuth2 và phát triển Office.js Web Add-in quản lý đơn Bánh mì Phượng Hội An | roadmap_ExecelFull.md |
+| office_automation_bun_mam_nem_thit_quay | Tự động hóa Office liên ứng dụng, kết nối SQL Server ADO và quản lý mã nguồn với Git | roadmap_ExecelFull.md |
+| selenium_api_rest_lau_ga_la_e_phu_yen | Tích hợp Selenium CDP, REST API và phát triển Office JS Web Add-in hiện đại | roadmap_ExecelFull.md |
+| automation_office_suite_bun_bo_hue | Tự động hóa Office Suite chuỗi Bún bò Huế, kết nối ADO SQL Server và quản lý mã nguồn bằng Git/Rubberduck | roadmap_ExecelFull.md |
+| selenium_api_oauth2_pho_bo_nam_dinh | Selenium CDP, REST API OAuth2 và Office JS Add-in (React) quản lý chuỗi Phở bò Nam Định | roadmap_ExecelFull.md |
+| office_suite_automation_bun_cha_ha_noi | Tự động hóa liên ứng dụng Office tích hợp SQL Server ADO và Git Version Control cho chuỗi Bún chả Hà Nội | roadmap_ExecelFull.md |
+| selenium_rest_api_pho_cuon_ngu_xa | Vận hành Selenium CDP, REST API OAuth2 và Office JS Web Add-in cho hệ thống Phở cuốn Ngũ Xã | roadmap_ExecelFull.md |
+| automation_office_suite_bun_mam_nem_tai_heo | Tự động hóa liên ứng dụng Office, kết nối SQL Server ADO và quản lý mã nguồn bằng Git/Rubberduck cho Bún mắm nêm tai heo | roadmap_ExecelFull.md |
+| selenium_rest_api_webhook_bun_mam_nem_cha_bo | Tích hợp Selenium CDP, REST API OAuth2 bảo mật qua Windows Credential Manager và Office JS Add-in cho Bún mắm nêm chả bò | roadmap_ExecelFull.md |
+| office_automation_bun_mam_nem_nem_lui | Tự động hóa liên ứng dụng Office, kết nối SQL Server ADO và quản lý mã nguồn VBA bằng Git | roadmap_ExecelFull.md |
+| selenium_api_oauth2_lau_ca_duoi_nau_me | Xây dựng Office JS Web Add-in với React và tích hợp REST API OAuth2 | roadmap_ExecelFull.md |
+| automation_office_suite_bun_cha_ca_quy_nhon | Tự động hóa Office Suite với ADO SQL Server, Git Tracking (Rubberduck) và Bảo mật MOTW | roadmap_ExecelFull.md |
+| selenium_api_oauth2_webhook_goi_sua_do_hai_phong | Selenium CDP, REST API OAuth2 với Windows Credential Manager và Webhook Gỏi sứa đỏ | roadmap_ExecelFull.md |
+| automation_office_lau_ga_la_giang | Tự động hóa liên ứng dụng Office, kết nối SQL Server ADO và quản lý mã nguồn bằng Git/Rubberduck | roadmap_ExecelFull.md |
+| selenium_api_webhook_banh_canh_trang_bang | Selenium CDP, REST API Webhook và bảo mật Windows Credential Manager | roadmap_ExecelFull.md |
+| office_autocad_automation_com_hen_hue | Tự động hóa AutoCAD - Office Suite qua ADO SQL Server và Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| selenium_cdp_webhook_banh_canh_ca_loc | Truy vấn Selenium CDP, bảo mật Credential Manager và Webhook đơn hàng Bánh canh | roadmap_ExecelFull.md |
+| office_automation_bun_mam_nem_thit_luoc | Tự động hóa liên ứng dụng Office, kết nối SQL Server ADO và quản lý mã nguồn bằng Git/Rubberduck | roadmap_ExecelFull.md |
+| selenium_api_webhook_lau_ca_duoi_mang_chua | Tích hợp Office JS Add-ins, Selenium CDP và bảo mật Credential Manager | roadmap_ExecelFull.md |
+| office_automation_bun_mam_nem_thit_nuong | Hệ thống Office Suite quản lý chuỗi cung ứng Bún mắm nêm thịt nướng tích hợp SQL Server ADO và Git Version Control | roadmap_ExecelFull.md |
+| selenium_api_oauth2_lau_ca_duoi_la_giang_v2 | Kỹ thuật Selenium CDP, REST API OAuth2 và Office JS Web Add-in xử lý đơn Lẩu cá đuối lá giang | roadmap_ExecelFull.md |
+| office_selenium_cdp_api_bun_mam_nem_long_lon | Tự động hóa Office, Selenium CDP và Quản lý Credential bảo mật cho Bún mắm nêm lòng lợn | roadmap_ExecelFull.md |
+| office_suite_selenium_cdp_bun_mam_nem_cha_ram | Kết nối Office Suite, Selenium CDP và Cơ sở dữ liệu Enterprise cho Bún mắm nêm chả ram | roadmap_ExecelFull.md |
+| office_selenium_api_webhook_bun_cha_ca_nha_trang | Tích hợp Selenium CDP, VBA ADO SQL Server và Git quản lý đơn hàng Bún chả cá Nha Trang | roadmap_ExecelFull.md |
+| office_suite_selenium_cdp_bun_ken_phu_quoc | Phát triển Office JS Web Add-in và tích hợp REST API quản lý chuỗi cung ứng Bún kèn Phú Quốc | roadmap_ExecelFull.md |
+| office_selenium_rest_api_bun_quay_phu_quoc | Hệ thống Office Suite & Selenium CDP quản lý Bún Quậy Phú Quốc tích hợp SQL Server ADO và Git | roadmap_ExecelFull.md |
+| office_selenium_cdp_bun_sua_nha_trang | Tích hợp Office JS React Add-in và Selenium CDP quản lý chuỗi Bún sứa Nha Trang | roadmap_ExecelFull.md |
+| office_selenium_cdp_lau_ca_linh_bong_dien_dien | Tự động hóa Office Suite, Selenium CDP & Quản lý mã nguồn VBA với Git/Rubberduck | roadmap_ExecelFull.md |
+| office_selenium_cdp_api_bun_mam_mien_tay | Hệ thống Capstone Office Suite & Selenium CDP tích hợp REST API OAuth2 bảo mật | roadmap_ExecelFull.md |
+| rs232_interrupt_ca_loc_nuong_trui | Xử lý ngắt RS232 nhận tín hiệu cân & Lưu trữ SQL Server ADO - Cá lóc nướng trui | roadmap_ExecelFull.md |
+| rtd_push_data_lau_mam_can_tho | Cấu hình RTD Server & Tích hợp MQTT Client đẩy dữ liệu thời gian thực - Lẩu mắm Cần Thơ | roadmap_ExecelFull.md |
+| rs232_weight_scale_bun_dau_mam_tom | Kết nối RS232 nhận dữ liệu cân điện tử & Lưu SQL Server - Bún đậu mắm tôm Enterprise | roadmap_ExecelFull.md |
+| rtd_gold_price_banh_xeo_mien_tay | Thiết lập RTD Server & MQTT Client nhận dữ liệu thời gian thực - Bánh xèo miền Tây Enterprise | roadmap_ExecelFull.md |
+| rs232_barcode_com_tam_sai_gon | Kết nối RS232 đọc mã vạch và Quản lý phiên bản Git cho Chuỗi Cơm tấm Sài Gòn | roadmap_ExecelFull.md |
+| rtd_server_price_pho_thin_lo_duc | Thiết lập RTD Server kết nối MQTT cập nhật giá Phở Thìn Lò Đúc | roadmap_ExecelFull.md |
+| rs232_electronic_scale_pho_bo_nam_dinh | Giao tiếp RS232 nhận dữ liệu cân điện tử và đồng bộ SQL Server qua ADO cho chuỗi Phở bò Nam Định | roadmap_ExecelFull.md |
+| rtd_server_ingredients_bun_cha_ca_da_nang | Thiết lập RTD Server kết nối MQTT Broker cập nhật giá nguyên liệu thời gian thực cho chuỗi Bún chả cá Đà Nẵng | roadmap_ExecelFull.md |
+| rs232_weight_bun_bo_hue | Lập trình RS232 thu thập trọng lượng thịt Bún bò Huế và tích hợp cơ sở dữ liệu SQL | roadmap_ExecelFull.md |
+| rtd_price_com_tam_suon_bi_cha | Triển khai RTD Server kết hợp MQTT Client cập nhật giá Cơm tấm sườn bì chả | roadmap_ExecelFull.md |
+| rs232_sensor_ga_nuong_dat_set | Lập trình RS232 đọc cảm biến nhiệt độ lò nướng công nghiệp & Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| rtd_price_lau_cua_dong_bap_bo | Triển khai RTD Server kết nối MQTT cập nhật giá nguyên liệu chuỗi nhà hàng | roadmap_ExecelFull.md |
+| rs232_sensor_ga_hap_la_chanh | Lập trình RS232 đọc cảm biến nhiệt độ lò hấp Gà hấp lá chanh và đồng bộ SQL Server qua ADO | roadmap_ExecelFull.md |
+| rtd_price_bun_rieu_cua_bap_bo | Triển khai RTD Server kết nối MQTT Client cập nhật giá nguyên liệu Bún riêu cua bắp bò | roadmap_ExecelFull.md |
+| rs232_pressure_sensor_lau_de_nhung_me | Lập trình RS232 nhận tín hiệu cảm biến áp suất, lưu SQL Server qua ADO & Quản lý mã nguồn bằng Git - Lẩu dê nhúng mẻ | roadmap_ExecelFull.md |
+| rtd_production_index_bun_mam_soc_trang | Triển khai RTD Server kết nối MQTT Client cập nhật chỉ số sản xuất & Xử lý bảo mật MOTW - Bún mắm Sóc Trăng | roadmap_ExecelFull.md |
+| rs232_flow_meter_lau_ca_keo_la_giang | Lập trình RS232 nhận dữ liệu lưu lượng nước & Quản lý mã nguồn bằng Git - Lẩu cá kèo lá giang | roadmap_ExecelFull.md |
+| rtd_machine_status_bun_nuoc_leo_soc_trang | Triển khai RTD Server giám sát hiệu suất máy & Tích hợp SQL Server ADO - Bún nước lèo Sóc Trăng | roadmap_ExecelFull.md |
+| rs232_pressure_sensor_lau_ca_duoi_vung_tau | Lập trình RS232 nhận tín hiệu cảm biến áp suất & Lưu SQL Server qua ADO - Lẩu cá đuối Vũng Tàu | roadmap_ExecelFull.md |
+| rtd_machine_performance_bun_mam_nem_da_nang | Triển khai RTD Server kết hợp MQTT Client giám sát hiệu suất máy - Bún mắm nêm Đà Nẵng | roadmap_ExecelFull.md |
+| rs232_soil_moisture_lau_mam_u_minh | Kết nối RS232 đọc cảm biến độ ẩm đất và lưu cơ sở dữ liệu SQL - Lẩu mắm U Minh | roadmap_ExecelFull.md |
+| rtd_oee_monitoring_bun_quay_kien_xay | Triển khai RTD Server kết hợp MQTT theo dõi hiệu suất máy - Bún quậy Kiến Xây | roadmap_ExecelFull.md |
+| rs232_ph_sensor_bun_mam_nem_thit_quay | Kết nối RS232 đọc cảm biến pH công nghiệp & Đồng bộ SQL Server qua ADO | roadmap_ExecelFull.md |
+| rtd_productivity_monitoring_bun_ca_chau_doc | Triển khai RTD Server kết hợp MQTT Client giám sát sản lượng nhà máy | roadmap_ExecelFull.md |
+| rs232_light_sensor_bun_ca_kien_giang | Lập trình RS232 nhận dữ liệu cảm biến ánh sáng & Ghi nhận SQL Server qua ADO - Bún cá Kiên Giang | roadmap_ExecelFull.md |
+| rtd_power_consumption_banh_canh_trang_bang | Triển khai RTD Server kết nối MQTT Broker cập nhật chỉ số tiêu thụ điện - Bánh canh Trảng Bàng | roadmap_ExecelFull.md |
+| rs232_co2_sensor_bun_cha_ha_noi | Lập trình RS232 đọc cảm biến CO2 và lưu SQL Server - Bún chả Hà Nội | roadmap_ExecelFull.md |
+| rtd_power_monitor_cha_ca_la_vong | Triển khai RTD Server giám sát điện năng và Unit Test - Chả cá Lã Vọng | roadmap_ExecelFull.md |
+| rs232_distance_sensor_bun_cha_ca_quy_nhon | Lập trình RS232 đọc cảm biến khoảng cách & Ghi dữ liệu SQL Server qua ADO - Giám sát dây chuyền Quy Nhơn | roadmap_ExecelFull.md |
+| rtd_temp_monitor_lau_ca_linh_dong_thap | Triển khai RTD Server kết hợp MQTT Client giám sát nhiệt độ thời gian thực - Nhà máy Đồng Tháp | roadmap_ExecelFull.md |
+| rs232_soil_moisture_lau_ga_la_e | Thu thập dữ liệu cảm biến độ ẩm đất qua RS232 và Quản lý mã nguồn VBA bằng Git cho Lẩu gà lá é Phú Yên | roadmap_ExecelFull.md |
+| rtd_temp_monitor_vit_quay_lang_son | Đồng bộ nhiệt độ lò nướng qua RTD Server và Tích hợp cơ sở dữ liệu SQL Server ADO cho Vịt quay Lạng Sơn | roadmap_ExecelFull.md |
+| rs232_flow_sensor_com_hen_hue | Đo lường lưu lượng nước tự động qua RS232 và đồng bộ SQL Server ADO cho Cơm hến Huế | roadmap_ExecelFull.md |
+| rtd_temp_monitor_vit_quay_bac_kinh | Khởi tạo RTD Server kết hợp MQTT Client giám sát nhiệt độ lò nướng Vịt quay Bắc Kinh và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| rs232_proximity_sensor_banh_xeo_mien_tay | Đọc cảm biến tiệm cận RS232 đếm bánh xèo và đồng bộ SQL Server qua ADO | roadmap_ExecelFull.md |
+| rtd_temp_monitor_banh_mi_sai_gon | Giám sát nhiệt độ lò nướng bánh mì Sài Gòn qua RTD Server kết nối MQTT | roadmap_ExecelFull.md |
+| rs232_proximity_sensor_banh_khot_vung_tau | Đọc xung cảm biến tiệm cận đếm đĩa Bánh khọt Vũng Tàu qua cổng COM và đồng bộ SQL Server qua ADO | roadmap_ExecelFull.md |
+| rtd_temp_monitor_banh_mi_heo_quay | Xây dựng RTD Server đồng bộ nhiệt độ lò nướng Bánh mì heo quay và tích hợp MQTT Client | roadmap_ExecelFull.md |
+| rs232_counter_banh_can_nha_trang | Thu nhận xung đếm từ cổng COM và đồng bộ SQL Server qua ADO cho dây chuyền Bánh căn Nha Trang | roadmap_ExecelFull.md |
+| rtd_temp_banh_mi_xiu_mai_da_lat | Thiết lập luồng RTD kết hợp MQTT Client cập nhật liên tục nhiệt độ lò Bánh mì xíu mại Đà Lạt | roadmap_ExecelFull.md |
+| rs232_weight_sensor_bun_bo_hue | Nhận tín hiệu cân định lượng RS232 cho tô Bún bò Huế và đồng bộ SQL Server qua ADO | roadmap_ExecelFull.md |
+| rtd_stock_monitor_hu_tieu_nam_vang | Cập nhật liên tục kho nguyên liệu Hủ tiếu Nam Vang bằng RTD và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| rs232_tension_sensor_nem_nuong_nha_trang | Đọc cảm biến lực căng Nem nướng Nha Trang qua RS232 và đồng bộ SQL Server | roadmap_ExecelFull.md |
+| rtd_stock_monitor_hu_tieu_my_tho | Giám sát tồn kho Hủ tiếu Mỹ Tho bằng RTD Server kết hợp MQTT và Oracle DB | roadmap_ExecelFull.md |
+| rs232_vibration_sensor_com_tam_suon_bi_cha | Thu nhận biên độ rung RS232 máy xay công nghiệp và Quản lý mã nguồn VBA bằng Git | roadmap_ExecelFull.md |
+| rtd_vibration_monitor_com_tam_suon_bi_cha | Đồng bộ dữ liệu rung thời gian thực qua MQTT Client và thiết kế Office JS Add-in | roadmap_ExecelFull.md |
+| rs232_tire_pressure_lau_de_kho_ninh_binh | Giao tiếp RS232 đọc cảm biến áp suất lốp xe, tích hợp SQL Server ADO và Lẩu dê khô Ninh Bình | roadmap_ExecelFull.md |
+| rtd_oven_temp_banh_mi_cay_hai_phong | Thiết lập RTD Server đồng bộ nhiệt độ lò nướng, tích hợp Git/Rubberduck và Bánh mì cay Hải Phòng | roadmap_ExecelFull.md |
+| rs232_barcode_scanner_bun_rieu_cua_bap_bo | Đọc dữ liệu máy quét RS232 và đồng bộ SQL Server cho chuỗi Bún riêu cua bắp bò | roadmap_ExecelFull.md |
+| rtd_stew_temp_lau_duoi_bo_thuoc_bac | Đồng bộ nhiệt độ nồi hầm Lẩu đuôi bò qua RTD Server kết hợp MQTT và Unit Test | roadmap_ExecelFull.md |
+| rs232_o2_sensor_lau_ca_duoi_vung_tau | Kết nối RS232 đọc cảm biến oxy và đồng bộ SQL Server trong chuỗi cung ứng thủy sản Vũng Tàu | roadmap_ExecelFull.md |
+| rtd_pressure_monitor_banh_canh_ca_loc_quang_tri | Triển khai RTD Server kết hợp MQTT giám sát áp suất lò hơi nhà máy Quảng Trị Agri-Food | roadmap_ExecelFull.md |
+| rs232_ph_sensor_bun_nuoc_leo_soc_trang | Kết nối RS232 đọc cảm biến pH và ghi dữ liệu thời gian thực vào SQL Server qua VBA ADO | roadmap_ExecelFull.md |
+| rtd_temp_monitor_banh_mi_hoa_cuc | Xây dựng Office JS Add-in kết nối MQTT Client cập nhật nhiệt độ lò nướng công nghiệp | roadmap_ExecelFull.md |
+| rs232_turbidity_sensor_lau_mam_can_tho | Thu nhận độ đục nước dùng Lẩu mắm Cần Thơ bằng RS232 và lưu trữ SQL Server | roadmap_ExecelFull.md |
+| rtd_humidity_monitor_banh_pia_soc_trang | Đồng bộ độ ẩm nhà kho qua RTD Server và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| rs232_light_sensor_banh_trang_phoi_suong | Đọc cảm biến ánh sáng RS232 cho Bánh tráng phơi sương Trảng Bàng & Quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| rtd_radiation_monitor_banh_phong_tom_sa_dec | Đồng bộ bức xạ mặt trời qua RTD và Lưu trữ SQL Server cho Bánh phồng tôm Sa Đéc | roadmap_ExecelFull.md |
+| rs232_barcode_scanner_bun_cha_ha_noi | Kết nối máy quét RS232 đọc đơn hàng Bún Chả và đồng bộ SQL Server qua ADO, quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| rtd_realtime_inventory_pho_bo_nam_dinh | Tích hợp MQTT Client trong VBA cập nhật tồn kho Phở Bò Nam Định thời gian thực qua RTD Server | roadmap_ExecelFull.md |
+| dcf_valuation_banh_mi_huynh_hoa | Mô hình DCF định giá chuỗi Bánh mì Huỳnh Hoa kết nối PostgreSQL qua VBA ADO | roadmap_ExecelFull.md |
+| solver_optimization_lau_ga_la_e | Tối ưu hóa chi phí vận chuyển Lẩu gà lá é bằng Solver kết nối Oracle ERP | roadmap_ExecelFull.md |
+| monte_carlo_lau_cua_dong | Dự báo doanh thu Lẩu cua đồng bằng Monte Carlo tích hợp SQL Server và Git | roadmap_ExecelFull.md |
+| regression_analysis_bun_cha_ca | Phân tích hồi quy tuyến tính lượng bán Bún chả cá bảo mật qua Credential Manager | roadmap_ExecelFull.md |
+| anova_analysis_banh_khot | Phân tích phương sai ANOVA một nhân tố cho Bánh khọt Vũng Tàu (Tích hợp SQL ADO & Rubberduck Unit Test) | roadmap_ExecelFull.md |
+| evm_project_management_banh_mi_huynh_hoa | Quản lý dự án bằng phương pháp EVM cho chuỗi Bánh mì Huỳnh Hoa (Bảo mật Credential Manager & Git) | roadmap_ExecelFull.md |
+| dcf_valuation_banh_mi_huynh_hoa_expert | Định giá DCF chuỗi Bánh mì Huỳnh Hoa kết nối SQL Server ADO | roadmap_ExecelFull.md |
+| solver_optimization_lau_ga_la_e_expert | Tối ưu hóa Solver Lẩu gà lá é & Kiểm thử Unit Test với Rubberduck | roadmap_ExecelFull.md |
+| monte_carlo_risk_banh_mi_huynh_hoa | Phân tích rủi ro Monte Carlo chuỗi Bánh mì Huỳnh Hoa kết hợp truy vấn ADO SQL | roadmap_ExecelFull.md |
+| regression_forecast_lau_ga_la_e | Dự báo doanh số Lẩu gà lá é bằng hồi quy đa biến và tối ưu hóa hiệu năng C++ DLL | roadmap_ExecelFull.md |
+| monte_carlo_simulation_pho_thin_bo_ho | Mô phỏng Monte Carlo doanh thu Phở Thìn Bờ Hồ kết nối SQL Server ADO | roadmap_ExecelFull.md |
+| anova_two_way_bun_bo_hue_dong_ba | Phân tích ANOVA hai nhân tố doanh thu Bún bò Huế Đông Ba từ Oracle ERP | roadmap_ExecelFull.md |
+| solver_optimization_bun_dau_mam_tom | Tối ưu hóa lợi nhuận Bún đậu mắm tôm bằng Solver kết hợp truy xuất dữ liệu SQL Server qua VBA ADO | roadmap_ExecelFull.md |
+| regression_analysis_com_ga_hoi_an | Phân tích hồi quy đa biến dự báo doanh số Cơm gà Hội An tích hợp Office JS Web Add-in và React | roadmap_ExecelFull.md |
+| anova_one_way_banh_xeo_mien_tay | Kiểm định ANOVA một chiều đánh giá chất lượng Bánh xèo miền Tây kết nối SQL Server qua ADO | roadmap_ExecelFull.md |
+| monte_carlo_forecast_lau_rieu_cua_bap_bo | Mô phỏng Monte Carlo dự báo giá Lẩu riêu cua bắp bò tối ưu hóa bằng C++ DLL và bảo mật MOTW | roadmap_ExecelFull.md |
+| evm_calculation_lau_de_kho_ninh_binh | Tính toán EVM dự án Lẩu dê Ninh Bình kết nối SQL Server ADO và xử lý bảo mật MOTW | roadmap_ExecelFull.md |
+| monte_carlo_cashflow_banh_mi_cay_hai_phong | Mô phỏng Monte Carlo dòng tiền Bánh mì cay Hải Phòng tích hợp Git và Rubberduck Unit Test | roadmap_ExecelFull.md |
+| monte_carlo_com_tam_suon_bi_cha | Dự báo Monte Carlo dòng tiền Cơm tấm sườn bì chả kết nối SQL Server ADO | roadmap_ExecelFull.md |
+| solver_transportation_lau_rieu_cua | Tối ưu hóa vận chuyển Lẩu riêu cua dùng Solver và C++ DLL Matrix | roadmap_ExecelFull.md |
+| solver_diet_problem_pho_ga_ha_noi | Tối ưu hóa dinh dưỡng Phở gà Hà Nội bằng Solver và VBA ADO SQL Server | roadmap_ExecelFull.md |
+| anova_two_way_bun_cha_ha_noi | Phân tích ANOVA 2 yếu tố doanh thu Bún chả và Quản lý mã nguồn VBA bằng Git | roadmap_ExecelFull.md |
+| solver_transportation_lau_mam_u_minh | Tối ưu hóa vận tải Lẩu mắm U Minh bằng Solver & Truy xuất dữ liệu ADO SQL | roadmap_ExecelFull.md |
+| anova_two_way_banh_xeo_quy_nhon | Phân tích ANOVA 2-way độ giòn Bánh xèo Quy Nhơn & Quản lý mã nguồn bằng Git/Rubberduck | roadmap_ExecelFull.md |
+| solver_assignment_bun_cha_ha_noi | Tối ưu phân bổ nhân sự Bún chả Hà Nội bằng Solver & Kết nối SQL ADO | roadmap_ExecelFull.md |
+| regression_multi_variable_pho_bo_ha_noi | Hồi quy đa biến dự báo doanh số Phở bò Hà Nội từ dữ liệu PostgreSQL | roadmap_ExecelFull.md |
+| dcf_valuation_banh_khot_co_ba | Lập bảng tính DCF chuỗi Bánh khọt Cô Ba Vũng Tàu kết hợp truy xuất SQL Server qua VBA ADO và kiểm thử Rubberduck | roadmap_ExecelFull.md |
+| solver_transportation_lau_ca_keo | Tối ưu hóa vận tải Lẩu cá kèo Bà Huyện bằng Solver tích hợp Office.js React Task Pane và dữ liệu Oracle ERP | roadmap_ExecelFull.md |
+| dcf_valuation_bun_ca_cay_hai_phong | Lập mô hình DCF định giá chuỗi Bún cá Cay Hải Phòng tích hợp dữ liệu SQL Server | roadmap_ExecelFull.md |
+| solver_optimization_cha_ca_la_vong | Tối ưu hóa cơ cấu thực đơn Chả cá Lã Vọng bằng Solver kết nối ERP và Unit Test | roadmap_ExecelFull.md |
+| dcf_valuation_bun_cha_ca_quy_nhon | Lập mô hình DCF định giá chuỗi Bún chả cá Quy Nhơn & Kết nối ADO SQL | roadmap_ExecelFull.md |
+| solver_transportation_lau_ca_linh | Tối ưu hóa vận chuyển Lẩu cá linh & Quản lý mã nguồn VBA với Git | roadmap_ExecelFull.md |
+| dcf_valuation_wacc_huynh_hoa | Định giá DCF chuỗi Bánh mì Huỳnh Hoa bằng WACC và kết nối SQL ADO | roadmap_ExecelFull.md |
+| solver_shipping_lau_ca_linh | Tối ưu hóa chi phí giao hàng Lẩu cá linh bằng Solver và quản lý cấu hình qua SQL | roadmap_ExecelFull.md |
+| dcf_expansion_bun_dau_hang_khay | Phân tích DCF mở rộng chi nhánh Bún đậu mắm tôm Hàng Khay tích hợp dữ liệu PostgreSQL qua ADO | roadmap_ExecelFull.md |
+| solver_logistics_com_tam_bai_rac | Tối ưu hóa logistics cung ứng Cơm tấm Bãi Rác qua Solver tích hợp Rubberduck Unit Test & Git | roadmap_ExecelFull.md |
+| monte_carlo_banh_mi_chao_cot_dien | Mô hình Monte Carlo dự báo doanh thu Bánh mì chảo Cột Điện tích hợp ADO SQL Server | roadmap_ExecelFull.md |
+| evm_analysis_lau_bo_nha_go | Phân tích EVM kiểm soát tiến độ dự án Lẩu bò nhà gỗ tích hợp Git & Rubberduck | roadmap_ExecelFull.md |
+| monte_carlo_pho_cuon_ngu_xa | Mô phỏng Monte Carlo dự báo lợi nhuận Phở cuốn Ngũ Xã kết nối SQL ADO & Git | roadmap_ExecelFull.md |
+| evm_banh_mi_phuong_hoi_an | Phân tích EVM kiểm soát tiến độ Bánh mì Phượng tích hợp Office JS Web Add-in & SQL Server | roadmap_ExecelFull.md |
+| monte_carlo_banh_trang_tron_tay_ninh | Dự báo doanh thu Bánh tráng trộn Tây Ninh bằng Monte Carlo & Kết nối SQL ADO | roadmap_ExecelFull.md |
+| evm_com_nieu_sai_gon | Đo lường hiệu quả dự án Cơm niêu Sài Gòn bằng EVM & Quản lý mã nguồn với Git/Rubberduck | roadmap_ExecelFull.md |
+| dcf_valuation_bun_bo_hue_song_huong | Phân tích DCF dòng tiền tự do kết hợp truy vấn SQL ADO cho chuỗi Bún bò Huế Sông Hương | roadmap_ExecelFull.md |
+| solver_scheduling_lau_nam_ashima | Tối ưu lịch ca làm việc bằng Solver và kiểm thử Unit Test với Rubberduck cho chuỗi Lẩu nấm Ashima | roadmap_ExecelFull.md |
+| regression_forecast_nem_nuong_nha_trang | Hồi quy đa biến dự báo doanh số Nem nướng Nha Trang từ dữ liệu SQL Server | roadmap_ExecelFull.md |
+| anova_one_way_banh_khot_vung_tau | Kiểm định ANOVA một chiều so sánh doanh thu Bánh khọt Vũng Tàu từ Oracle ERP | roadmap_ExecelFull.md |
+| solver_transport_lau_ga_la_e | Tối ưu hóa điều phối vận chuyển Lẩu gà lá é qua VBA ADO kết nối PostgreSQL | roadmap_ExecelFull.md |
+| evm_performance_bun_quay_phu_quoc | Kiểm soát hiệu suất EVM dự án Bún quậy Phú Quốc và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| dcf_valuation_bun_mam_nem_da_nang | Định giá DCF nhượng quyền Bún mắm nêm Đà Nẵng tích hợp dữ liệu SQL Server qua VBA ADO | roadmap_ExecelFull.md |
+| solver_supply_chain_com_ga_hoi_an | Tối ưu hóa chuỗi cung ứng Cơm gà Hội An bằng Solver và quản lý mã nguồn VBA với Git & Rubberduck | roadmap_ExecelFull.md |
+| monte_carlo_lau_de_kho_song_hung | Mô phỏng Monte Carlo doanh thu Lẩu dê Song Hùng kết nối SQL Server ADO và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| regression_forecast_hu_tieu_nam_vang | Hồi quy đa biến dự báo khách Hủ tiếu Nam Vang với dữ liệu PostgreSQL bảo mật qua Credential Manager | roadmap_ExecelFull.md |
+| npv_sensitivity_banh_mi_kebab | Phân tích độ nhạy NPV dự án Bánh mì Kebab tích hợp truy vấn dữ liệu SQL Server qua ADO | roadmap_ExecelFull.md |
+| solver_ingredients_lau_duoi_bo | Tối ưu hóa định lượng nguyên liệu Lẩu đuôi bò bằng Solver và quản lý mã nguồn VBA với Git/Rubberduck | roadmap_ExecelFull.md |
+| anova_two_way_banh_xeo_mien_tay | Đánh giá ANOVA hai nhân tố doanh thu Bánh xèo miền Tây (Tích hợp VBA ADO & Git) | roadmap_ExecelFull.md |
+| monte_carlo_che_troi_nuoc_ngu_sac | Mô phỏng Monte Carlo chi phí Chè trôi nước ngũ sắc (Tối ưu hóa bằng C++ DLL & Unit Test) | roadmap_ExecelFull.md |
+| evm_performance_banh_mi_phuong | Đánh giá hiệu quả dự án Bánh mì Phượng bằng EVM nâng cao kết nối SQL Server ADO | roadmap_ExecelFull.md |
+| monte_carlo_che_troi_nuoc_ngu_sac_simulation | Mô phỏng Monte Carlo chi phí Chè trôi nước ngũ sắc tối ưu hóa bằng C++ DLL | roadmap_ExecelFull.md |
+| npv_risk_margin_banh_trang_nuong_da_lat | Tính toán NPV biên độ rủi ro chuỗi Bánh tráng nướng Đà Lạt kết nối SQL ADO | roadmap_ExecelFull.md |
+| solver_allocation_lau_rieu_cua_bap_bo | Tối ưu hóa Solver lẩu riêu cua bắp bò bảo mật Credential & Git Control | roadmap_ExecelFull.md |
+| monte_carlo_risk_huynh_hoa | Định lượng rủi ro tài chính Bánh mì Huỳnh Hoa bằng Monte Carlo kết nối SQL Server ADO | roadmap_ExecelFull.md |
+| solver_routing_lau_ga_tao_ngo | Tối ưu hóa tuyến đường giao hàng Tao Ngộ bằng Solver và quản lý mã nguồn qua Git | roadmap_ExecelFull.md |
+| anova_one_way_banh_khot_coba | Phân tích ANOVA 1 chiều doanh thu chuỗi Bánh khọt Cô Ba kết nối SQL Server qua VBA ADO | roadmap_ExecelFull.md |
+| regression_forecast_hu_tieu_quynh | Dự báo lượng khách Hủ tiếu Quỳnh bằng hồi quy bội tích hợp C++ DLL và bảo mật Macro | roadmap_ExecelFull.md |
+| npv_scenarios_cha_ca_la_vong | Đánh giá NPV đa kịch bản Chả cá Lã Vọng kết nối SQL Server qua ADO | roadmap_ExecelFull.md |
+| goal_seek_breakeven_bun_cha_huong_lien | Tìm điểm hòa vốn Bún chả Hương Liên và quản lý mã nguồn bằng Git/Rubberduck | roadmap_ExecelFull.md |
+| npv_valuation_bun_cha_ca_quy_nhon | Thẩm định NPV dự án Bún chả cá Quy Nhơn & Kết nối dữ liệu SQL ADO | roadmap_ExecelFull.md |
+| solver_linear_programming_com_tam_bai_rac | Tối ưu hóa tuyến tính Solver cho Cơm tấm bãi rác & Kiểm thử Unit Test với Rubberduck | roadmap_ExecelFull.md |
+| dcf_wacc_pho_bo_nam_dinh | Định giá M&A chuỗi Phở bò Nam Định qua DCF/WACC kết nối dữ liệu PostgreSQL bằng VBA ADO | roadmap_ExecelFull.md |
+| solver_cost_optimization_bun_cha_sinh_tu | Tối ưu chi phí Bún chả Sinh Từ bằng Solver VBA, bảo mật Credential Manager và quản lý mã nguồn Git | roadmap_ExecelFull.md |
+| monte_carlo_probability_banh_mi_xiu_mai | Dự báo Monte Carlo doanh thu Bánh mì xíu mại Đà Lạt kết nối PostgreSQL qua ADO | roadmap_ExecelFull.md |
+| solver_distribution_lau_ca_duoi_vung_tau | Tối ưu hóa tuyến giao Lẩu cá đuối Vũng Tàu bằng Solver và kiểm thử Unit Test với Rubberduck | roadmap_ExecelFull.md |
+| anova_one_way_banh_khot_coba_evaluation | Đánh giá ANOVA một chiều chất lượng vỏ giòn Bánh khọt Cô Ba kết hợp truy vấn SQL ADO | roadmap_ExecelFull.md |
+| regression_forecast_nem_nuong_nha_trang_model | Mô hình hồi quy bội dự báo Nem nướng Nha Trang tích hợp Git & Rubberduck | roadmap_ExecelFull.md |
+| probability_distribution_bun_cha_ca_nha_trang | Ước lượng phân phối xác suất doanh thu Bún chả cá Nha Trang từ SQL Server qua ADO | roadmap_ExecelFull.md |
+| solver_min_cost_banh_xeo_binh_dinh | Tối ưu chi phí mua tôm Bánh xèo Bình Định bằng Solver và quản lý mã nguồn VBA qua Git | roadmap_ExecelFull.md |
+| anova_productivity_banh_khot_vung_tau | Phân tích ANOVA năng suất lò nướng Bánh khọt Vũng Tàu kết nối SQL Server ADO | roadmap_ExecelFull.md |
+| multiple_regression_banh_mi_huynh_hoa | Hồi quy bội doanh số Bánh mì Huỳnh Hoa và quản lý mã nguồn bằng Git | roadmap_ExecelFull.md |
+| anova_two_way_no_replication_banh_khot_coba | Kiểm định ANOVA Two-Way không lặp cho doanh số Bánh khọt Cô Ba kết nối SQL Server qua ADO | roadmap_ExecelFull.md |
+| monte_carlo_random_simulation_lau_de_song_hung | Mô phỏng Monte Carlo doanh thu Lẩu dê Song Hùng tích hợp Unit Test bằng Rubberduck | roadmap_ExecelFull.md |
+| python_pandas_bun_dau_hang_khay | Thiết lập Python trong Excel và Phân tích dữ liệu ERP Oracle chuỗi Bún đậu Hàng Khay bằng Pandas | roadmap_ExecelFull.md |
+| office_scripts_ai_com_tam_ba_ghien | Phát triển Office Add-in với Yeoman, React Taskpane và Tích hợp AI cho Cơm tấm Ba Ghiền | roadmap_ExecelFull.md |
+| python_pandas_pho_thin_lo_duc | Phân tích Pandas hồi quy doanh số chuỗi Phở Thìn Lò Đúc tích hợp dữ liệu ERP | roadmap_ExecelFull.md |
+| office_scripts_typescript_hu_tieu_thanh_xuan | Lập trình Office Scripts TypeScript tự động hóa hóa đơn chuỗi Hủ tiếu Thanh Xuân tích hợp REST API | roadmap_ExecelFull.md |
+| python_scikit_learn_pho_thin_lo_duc | Ứng dụng Scikit-learn dự báo lượng khách Phở Thìn Lò Đúc từ dữ liệu PostgreSQL | roadmap_ExecelFull.md |
+| office_scripts_deepseek_com_tam_ba_ghien | Tích hợp API DeepSeek bảo mật qua Azure Key Vault phân loại phản hồi Cơm tấm Ba Ghiền | roadmap_ExecelFull.md |
+| python_matplotlib_banh_mi_huynh_hoa | Trực quan hóa phân phối doanh thu Bánh mì Huỳnh Hoa (Dữ liệu SAP ERP) bằng Matplotlib trong Excel | roadmap_ExecelFull.md |
+| office_scripts_openai_com_tam_ba_ghien | Tích hợp OpenAI API và Office Scripts (TypeScript) phân tích feedback Cơm tấm Ba Ghiền từ Oracle CRM | roadmap_ExecelFull.md |
+| python_pandas_matplotlib_banh_mi_phuong | Phân tích Pandas và vẽ biểu đồ Matplotlib doanh thu Bánh mì Phượng Hội An tích hợp dữ liệu ERP | roadmap_ExecelFull.md |
+| office_scripts_gemini_com_ga_ba_buoi | Lập trình Office Scripts (TypeScript) kết nối API Gemini bảo mật phân tích đánh giá Cơm gà Bà Buội | roadmap_ExecelFull.md |
+| python_pandas_bun_cha_huong_lien | Khai phá dữ liệu bán hàng Bún chả Hương Liên bằng Python Pandas và kết nối cơ sở dữ liệu PostgreSQL | roadmap_ExecelFull.md |
+| office_scripts_typescript_com_tam_ba_ghien | Xây dựng Office Add-in với Yeoman Generator và TypeScript tối ưu hóa hóa đơn Cơm tấm Ba Ghiền | roadmap_ExecelFull.md |
+| python_pandas_banh_da_cua_hai_phong | Phân tích phân bố giá Bánh đa cua Hải Phòng bằng Python Pandas trong Excel và Thiết lập Môi trường Bảo mật | roadmap_ExecelFull.md |
+| office_scripts_ai_lau_ga_la_giang | Tự động hóa phân loại phản hồi Lẩu gà lá giang bằng Office Scripts, Office JS và Azure OpenAI | roadmap_ExecelFull.md |
+| python_pandas_scikit_bun_cha_huong_lien | Dự báo lượng thịt ba chỉ Bún chả Hương Liên bằng Scikit-learn Python trong Excel Secure Container | roadmap_ExecelFull.md |
+| office_scripts_gemini_com_tam_ba_ghien_automation | Tự động hóa phân tích phản hồi Cơm tấm Ba Ghiền qua Gemini API, Office Scripts và Quản lý mã nguồn Git | roadmap_ExecelFull.md |
+| python_scikit_learn_bun_cha_huong_lien | Dự báo lượng nguyên liệu tiêu thụ chuỗi Bún chả Hương Liên từ Oracle ERP bằng Python Scikit-learn trong Excel | roadmap_ExecelFull.md |
+| office_scripts_gemini_com_tam_ba_ghien_report | Tự động hóa báo cáo doanh thu chuỗi Cơm tấm Ba Ghiền tích hợp SAP API bằng Office Scripts và Gemini AI bảo mật | roadmap_ExecelFull.md |
+| python_scikit_learn_bun_ca_cay_hai_phong | Huấn luyện mô hình Scikit-learn dự báo đơn hàng Bún cá cay Hải Phòng tích hợp dữ liệu ERP Enterprise | roadmap_ExecelFull.md |
+| office_scripts_typescript_banh_khot_coba | Tự động hóa báo cáo doanh số Bánh khọt Cô Ba Vũng Tàu bằng Office Scripts và tích hợp Azure IoT Hub | roadmap_ExecelFull.md |
+| python_pandas_scikit_banh_mi_phuong | Dự báo lượng bơ và pate cho Bánh mì Phượng bằng Scikit-learn và Kết nối SQL | roadmap_ExecelFull.md |
+| office_scripts_openai_com_ga_ba_buoi_feedback | Xây dựng Office JS Add-in React phân loại đánh giá Cơm gà Bà Buội qua OpenAI | roadmap_ExecelFull.md |
+| python_pandas_matplotlib_banh_khot_vung_tau | Python Pandas, Matplotlib & Kết nối SQL Server phân tích doanh thu Bánh khọt Cô Ba Vũng Tàu | roadmap_ExecelFull.md |
+| office_scripts_typescript_banh_mi_huynh_hoa | Office Scripts TypeScript & Tích hợp Office JS Web Add-ins báo cáo Bánh mì Huỳnh Hoa | roadmap_ExecelFull.md |
+| python_scikit_learn_bun_cha_sinh_tu | Phân tích hồi quy dự báo doanh số Bún chả Sinh Từ bằng Python in Excel kết nối PostgreSQL | roadmap_ExecelFull.md |
+| office_scripts_typescript_bun_ca_cay_hai_phong | Lập trình Office Scripts kết nối REST API định dạng bảng doanh thu Bún cá cay Hải Phòng | roadmap_ExecelFull.md |
+| python_scikit_learn_banh_cuon_thanh_tri | Dự báo doanh số Bánh cuốn Thanh Trì bằng Scikit-learn trong Excel & Quản lý phiên bản Git | roadmap_ExecelFull.md |
+| office_scripts_openai_bun_bo_hue_dong_ba | Xây dựng Office JS Add-in với Yeoman và React phân tích phản hồi Bún bò Huế bằng OpenAI | roadmap_ExecelFull.md |
+| python_scikit_learn_bun_rieu_cua_gia_truyen | Dự báo doanh số chuỗi Bún riêu cua Gia Truyền bằng Scikit-learn và kết nối PostgreSQL trong Python Excel | roadmap_ExecelFull.md |
+| office_scripts_deepseek_bun_bo_hue_dong_ba | Tích hợp DeepSeek API và Office JS Add-ins (React) phân tích feedback chuỗi Bún bò Huế Đông Ba | roadmap_ExecelFull.md |
+| python_scikit_kmeans_bun_rieu_gia_truyen | Phân cụm K-Means phân loại thực khách Bún riêu cua Gia Truyền từ cơ sở dữ liệu PostgreSQL | roadmap_ExecelFull.md |
+| office_scripts_deepseek_sentiment_bun_bo_dong_ba | Gọi API DeepSeek phân loại đánh giá Bún bò Huế Đông Ba bằng TypeScript bảo mật và quản lý Git | roadmap_ExecelFull.md |
+| python_scikit_learn_banh_xeo_muoi_xeng | Dự báo chuỗi cung ứng bột bánh xèo Mười Xiềm bằng Scikit-learn và kết nối PostgreSQL | roadmap_ExecelFull.md |
+| office_scripts_openai_banh_xeo_muoi_xeng | Xây dựng Office Add-in (React/TypeScript) tích hợp OpenAI phân tích phản hồi khách hàng | roadmap_ExecelFull.md |
+| python_scikit_lau_cua_dong_hai_phong | Python Pandas & Scikit-learn dự báo doanh thu chuỗi Lẩu cua đồng Hải Phòng tích hợp SQL Server | roadmap_ExecelFull.md |
+| office_scripts_typescript_goi_cuon_tom_thit | Phát triển Office Add-in với TypeScript, Yeoman Generator và React cho chuỗi Gỏi cuốn tôm thịt | roadmap_ExecelFull.md |
+| python_scikit_learn_nem_ran_ha_noi | Dự báo doanh số nem rán Hà Nội từ SQL Server bằng Scikit-learn trong Excel | roadmap_ExecelFull.md |
+| office_scripts_deepseek_nem_ran_ha_noi | Tích hợp DeepSeek API bảo mật phân tích phản hồi khách hàng bằng Office Scripts | roadmap_ExecelFull.md |
+| python_scikit_chaca_lavong_prediction | Dự báo chuỗi cung ứng cá lăng Chả cá Lã Vọng bằng Python Scikit-learn tích hợp dữ liệu ERP Oracle | roadmap_ExecelFull.md |
+| office_scripts_openai_banhtom_hotay_feedback | Xây dựng Office Add-in (React/TypeScript) phân tích feedback Bánh tôm Hồ Tây bằng Yeoman Generator và OpenAI | roadmap_ExecelFull.md |
+| python_scikit_chaca_lavong_forecast | Dự báo lượng cá lăng Chả cá Lã Vọng bằng Python trong Excel kết hợp bảo mật Windows Credential | roadmap_ExecelFull.md |
+| office_scripts_openai_banhtom_hotay_sentiment | Office.js React Add-in và Office Scripts gọi OpenAI phân loại đánh giá Bánh tôm Hồ Tây | roadmap_ExecelFull.md |
+| python_pandas_scikit_lau_de_song_long | Python Pandas & Scikit-learn dự báo tiêu thụ Lẩu dê kết nối SQL Server | roadmap_ExecelFull.md |
+| office_scripts_typescript_lau_de_song_long | TypeScript Office Scripts & Office JS Add-ins bảo mật báo cáo Lẩu dê | roadmap_ExecelFull.md |
+| python_pandas_scikit_lau_de_kho_song_long | Python in Excel & Scikit-learn: Dự báo tiêu thụ Lẩu dê khô Song Long từ PostgreSQL | roadmap_ExecelFull.md |
+| office_scripts_typescript_lau_de_kho_song_long | Office Add-ins (React/TypeScript) & Office Scripts tự động hóa báo cáo Lẩu dê | roadmap_ExecelFull.md |
+| python_pandas_scikit_lau_duoi_bo_thu_hang | Dự báo nguyên liệu Lẩu đuôi bò Thu Hằng bằng Python Pandas & Kết nối PostgreSQL | roadmap_ExecelFull.md |
+| office_scripts_typescript_lau_duoi_bo_thu_hang | Tự động hóa báo cáo Lẩu đuôi bò Thu Hằng bằng Office Scripts & Office JS Add-ins | roadmap_ExecelFull.md |
+| python_pandas_scikit_lau_rieu_cua_suon_sun | Python Pandas dự báo nguyên liệu Lẩu riêu cua sườn sụn từ PostgreSQL | roadmap_ExecelFull.md |
+| office_scripts_typescript_lau_rieu_cua_suon_sun | Office JS & Office Scripts TypeScript báo cáo chuỗi Lẩu riêu cua | roadmap_ExecelFull.md |
+| python_pandas_scikit_lau_rieu_cua_suon_sun_forecast | Python Pandas & Scikit-learn dự báo lượng cua đồng và quản lý phiên bản mô hình | roadmap_ExecelFull.md |
+| office_scripts_typescript_lau_rieu_cua_suon_sun_report | TypeScript Office Scripts & Office JS Web Add-ins báo cáo chi phí Lẩu riêu | roadmap_ExecelFull.md |
+| python_pandas_scikit_lau_ga_la_giang | Python Pandas, Scikit-learn & Kết nối PostgreSQL dự báo tiêu thụ Lẩu gà lá giang ERP | roadmap_ExecelFull.md |
+| office_scripts_typescript_lau_ga_la_giang_report | Office Scripts TypeScript tích hợp REST API ERP tự động hóa báo cáo Lẩu gà lá giang | roadmap_ExecelFull.md |
+| python_pandas_scikit_lau_ga_ot_hiem | Python Pandas & Scikit-learn dự báo tiêu thụ Lẩu gà ớt hiểm (Tích hợp ERP Oracle) | roadmap_ExecelFull.md |
+| office_scripts_typescript_lau_ga_ot_hiem_report | Office JS Add-ins & TypeScript tự động hóa báo cáo Lẩu gà ớt hiểm | roadmap_ExecelFull.md |
+| python_pandas_scikit_lau_ga_la_e_tao_ngo | Python Pandas & Scikit-learn dự báo tiêu thụ Lẩu gà lá é Tao Ngộ từ PostgreSQL | roadmap_ExecelFull.md |
+| office_scripts_typescript_lau_ga_la_e_tao_ngo_report | Office JS Add-ins React & TypeScript tự động xuất báo cáo Lẩu gà lá é Tao Ngộ | roadmap_ExecelFull.md |
+| python_pandas_scikit_lau_ca_linh_forecast | Python Pandas & Scikit-learn dự báo mùa cá linh và quản lý mã nguồn Git | roadmap_ExecelFull.md |
+| office_scripts_gemini_lau_ca_linh_analysis | TypeScript Office Scripts gọi Gemini AI bảo mật và tích hợp Office Add-ins | roadmap_ExecelFull.md |
+| python_pandas_scikit_lau_ca_keo_la_giang | Python Pandas, Scikit-learn & Kết nối SQL Server dự báo nguyên liệu Lẩu cá kèo | roadmap_ExecelFull.md |
+| office_scripts_typescript_lau_ca_keo_la_giang_report | TypeScript Office Scripts & Office JS Web Add-ins tự động hóa báo cáo Lẩu cá kèo | roadmap_ExecelFull.md |
+| python_pandas_scikit_lau_ca_thac_lac | Ứng dụng Python Pandas & Git Version Control phân tích xu hướng tiêu thụ Lẩu cá thác lác | roadmap_ExecelFull.md |
+| office_scripts_typescript_lau_ca_thac_lac_report | Lập trình TypeScript & Office JS Add-ins định dạng bảng tính Lẩu cá thác lác tự động | roadmap_ExecelFull.md |
+| python_pandas_scikit_lau_tha_phan_thiet | Phân tích hồi quy tuyến tính lượng cá mai Lẩu thả Phan Thiết từ SQL Server | roadmap_ExecelFull.md |
+| office_scripts_typescript_lau_tha_phan_thiet_report | Lập trình Office Scripts (TypeScript) đồng bộ báo cáo Lẩu thả Phan Thiết qua REST API | roadmap_ExecelFull.md |
+| python_pandas_scikit_bun_bo_nam_bo | Python Pandas, Scikit-learn & Kết nối SQL dự báo nguyên liệu Bún bò Nam Bộ | roadmap_ExecelFull.md |
+| office_scripts_typescript_bun_bo_nam_bo_report | Office Scripts TypeScript & Office JS Web Add-ins báo cáo Bún bò Nam Bộ | roadmap_ExecelFull.md |
+| python_pandas_scikit_bun_cha_hanoi_forecast | Python in Excel & Pandas: Dự báo chuỗi cung ứng thực phẩm tích hợp dữ liệu ERP PostgreSQL | roadmap_ExecelFull.md |
+| office_scripts_typescript_bun_cha_hanoi_report | Office.js Web Add-ins & Office Scripts: Tự động hóa báo cáo chuỗi cung ứng tích hợp Gemini AI | roadmap_ExecelFull.md |
+| python_pandas_scikit_banh_mi_hoi_an_forecast | Dự báo doanh số chuỗi Bánh mì Hội An (tích hợp ERP Oracle) bằng Python Pandas và Scikit-learn | roadmap_ExecelFull.md |
+| office_scripts_typescript_banh_mi_hoi_an_report | Tự động hóa báo cáo Bánh mì Hội An bằng Office Scripts (TypeScript) và chuyển đổi sang Office JS Add-in | roadmap_ExecelFull.md |
+| python_pandas_scikit_com_tam_sai_gon_forecast | Python Pandas & Scikit-learn dự báo doanh thu Cơm tấm Sài Gòn kết nối SQL Server | roadmap_ExecelFull.md |
+| office_scripts_gemini_bun_rieu_cua_bap_bo_analysis | Office JS Add-ins React & Office Scripts gọi Gemini API phân tích doanh thu Bún riêu | roadmap_ExecelFull.md |
+| python_pandas_scikit_bun_rieu_cua_bap_bo_forecast | Dự báo lượng cua đồng cho Bún riêu cua bắp bò bằng Scikit-learn và kết nối SQL Server | roadmap_ExecelFull.md |
+| office_scripts_typescript_bun_rieu_cua_bap_bo_format | Dùng Office Scripts (TypeScript) và Office Add-ins định dạng bảng kê Bún riêu cua bắp bò | roadmap_ExecelFull.md |
+| python_pandas_scikit_cha_ca_la_vong_forecast | Dự báo nhu cầu chuỗi nhà hàng Chả cá Lã Vọng bằng Scikit-learn và Python in Excel | roadmap_ExecelFull.md |
+| office_scripts_typescript_cha_ca_la_vong_report | Tự động hóa báo cáo doanh thu Chả cá Lã Vọng bằng Office Scripts và Office JS Add-ins | roadmap_ExecelFull.md |
+| python_pandas_scikit_banh_khot_vung_tau_forecast | Python Pandas & Scikit-learn dự báo nguyên liệu Bánh khọt Vũng Tàu tích hợp Git kiểm soát phiên bản | roadmap_ExecelFull.md |
+| office_scripts_typescript_banh_khot_vung_tau_report | TypeScript Office Scripts tự động hóa báo cáo Bánh khọt Vũng Tàu và tích hợp Office JS Add-ins | roadmap_ExecelFull.md |
+| ribbon_xml_task_pane_banh_xeo_mien_tay | Tùy biến Ribbon XML, Custom Task Pane (VSTO) & Hướng chuyển đổi sang Office JS Web Add-in | roadmap_ExecelFull.md |
+| licensing_security_lau_mam_can_tho | Mã hóa, Cấp bản quyền Licensing & Bảo mật nâng cao chống dịch ngược cho Add-in | roadmap_ExecelFull.md |
+| vsto_csharp_addin_banh_khot_vung_tau | Xây dựng COM Add-in C# VSTO quản lý định lượng và kết nối SQL Server | roadmap_ExecelFull.md |
+| licensing_activation_lau_mam_can_tho | Thiết lập License Key bảo mật RSA và tích hợp Windows Credential Manager | roadmap_ExecelFull.md |
+| ribbon_xml_task_pane_lau_ca_duoi_vung_tau | Thiết kế Ribbon XML & Custom Task Pane Kết nối Cơ sở dữ liệu Doanh nghiệp cho Add-in Lẩu Cá Đuối | roadmap_ExecelFull.md |
+| licensing_activation_lau_ca_duoi_vung_tau | Bảo mật, Mã hóa AES & Tích hợp Windows Credential Manager cho Bản quyền Add-in Lẩu Cá Đuối | roadmap_ExecelFull.md |
+| ribbon_xml_task_pane_lau_de_kho_ninh_binh | Tùy biến Ribbon XML, Custom Task Pane & Tích hợp Git Kiểm soát Phiên bản cho Add-in Lẩu dê khô Ninh Bình | roadmap_ExecelFull.md |
+| licensing_activation_lau_de_kho_ninh_binh | Mã hóa AES-256, Windows Credential Manager & Ký số Add-in Lẩu dê khô Ninh Bình | roadmap_ExecelFull.md |
+| vsto_csharp_ribbon_lau_ga_la_e_phu_yen | Tạo VSTO C# Add-in, Ribbon XML & Kết nối SQL Server cho Lẩu gà lá é | roadmap_ExecelFull.md |
+| licensing_activation_lau_ga_la_e_phu_yen | Bảo mật, Kích hoạt Bản quyền & Ký số (Code Signing) Add-in Lẩu gà lá é | roadmap_ExecelFull.md |
+| vsto_csharp_ribbon_com_tam_suon_bi_cha | Tạo VSTO C# Ribbon XML và kết nối SQL Server cho Add-in Cơm tấm | roadmap_ExecelFull.md |
+| licensing_activation_com_tam_suon_bi_cha | Mã hóa RSA và bảo mật Windows Credential Manager cho Add-in Cơm tấm | roadmap_ExecelFull.md |
+| vsto_csharp_ribbon_bun_mam_soc_trang | Thiết kế VSTO C# Ribbon XML kết nối SQL Server cho chuỗi Bún mắm Sóc Trăng | roadmap_ExecelFull.md |
+| licensing_activation_bun_mam_soc_trang | Bảo mật, mã hóa RSA và tích hợp Windows Credential Manager cho Add-in Bún mắm Sóc Trăng | roadmap_ExecelFull.md |
+| vsto_csharp_ribbon_banh_canh_trang_bang | Phát triển Ribbon XML động và Quản lý mã nguồn VSTO với Git | roadmap_ExecelFull.md |
+| licensing_activation_lau_ca_keo_la_giang | Xác thực bản quyền Web API và Bảo mật thông tin qua Windows Credential Manager | roadmap_ExecelFull.md |
+| ribbon_xml_task_pane_banh_cong_soc_trang | Thiết kế Ribbon XML, Custom Task Pane và kết nối PostgreSQL/Oracle quản lý Bánh cống Sóc Trăng | roadmap_ExecelFull.md |
+| licensing_security_lau_tha_phan_thiet | Bảo mật Add-in, mã hóa AES và tích hợp Windows Credential Manager cho Lẩu thả Phan Thiết | roadmap_ExecelFull.md |
+| vsto_csharp_ribbon_xml_banh_khot_vung_tau | Xây dựng VSTO C# Ribbon XML tối ưu hóa Bánh khọt Vũng Tàu và Quản lý mã nguồn Git | roadmap_ExecelFull.md |
+| licensing_rsa_security_lau_mam_can_tho | Thiết lập cơ chế mã hóa RSA và chống dịch ngược Obfuscation bảo mật Add-in Lẩu mắm Cần Thơ | roadmap_ExecelFull.md |
+| vsto_csharp_ribbon_banh_xeo_mien_tay | Lập trình VSTO C# Ribbon XML quản lý chuỗi Bánh xèo miền Tây kết nối SQL Server | roadmap_ExecelFull.md |
+| licensing_rsa_security_lau_mam_can_tho_day872 | Bảo mật RSA, tích hợp Windows Credential Manager và Obfuscation cho Lẩu mắm Cần Thơ | roadmap_ExecelFull.md |
+| vsto_dynamic_ribbon_xml_banh_xeo_mien_tay | Lập trình Ribbon XML động kết nối SQL Server điều khiển menu Bánh xèo miền Tây | roadmap_ExecelFull.md |
+| licensing_rsa_signature_lau_mam_can_tho | Mã hóa RSA ký số, bảo mật Credential Manager và xác thực bản quyền Lẩu mắm Cần Thơ Add-in | roadmap_ExecelFull.md |
+| vsto_dynamic_ribbon_xml_banh_canh_trang_bang | Lập trình Ribbon XML động điều khiển trạng thái nút bấm Bánh canh Trảng Bàng | roadmap_ExecelFull.md |
+| licensing_rsa_signature_lau_ca_keo_la_giang | Ký số RSA bảo mật giấy phép kích hoạt Add-in Lẩu cá kèo lá giang | roadmap_ExecelFull.md |
+| vsto_dynamic_ribbon_xml_lau_tha_phan_thiet | Tùy biến Ribbon XML động và Quản lý mã nguồn VSTO với Git | roadmap_ExecelFull.md |
+| licensing_rsa_signature_lau_tha_phan_thiet | Ký số RSA bảo mật giấy phép và Chống dịch ngược Add-in | roadmap_ExecelFull.md |
+| vsto_csharp_ribbon_xml_banh_trang_nuong_dalat | Phát triển VSTO C# Add-in kết nối SQL Server và tùy biến Ribbon XML cho chuỗi Bánh tráng nướng Đà Lạt | roadmap_ExecelFull.md |
+| licensing_rsa_encryption_banh_trang_nuong_dalat | Bảo mật Add-in: Mã hóa RSA, chống dịch ngược Obfuscation và cấp bản quyền thương mại | roadmap_ExecelFull.md |
+| vsto_wpf_task_pane_banh_mi_xiu_mai_dalat | Tích hợp WPF Custom Task Pane kết nối SQL Server vào VSTO Add-in Bánh mì xíu mại Đà Lạt | roadmap_ExecelFull.md |
+| licensing_aes_encryption_banh_mi_xiu_mai_dalat | Mã hóa License Key bằng AES-256 và tích hợp Windows Credential Manager bảo mật Add-in | roadmap_ExecelFull.md |
+| vsto_wpf_task_pane_bun_cha_ha_noi | Tích hợp WPF Task Pane tương tác dữ liệu SQL Server cho Add-in Bún chả Hà Nội | roadmap_ExecelFull.md |
+| licensing_aes_hardware_nem_lui_hue | Mã hóa AES và bảo mật Windows Credential Manager cho Add-in Nem lụi Huế | roadmap_ExecelFull.md |
+| vsto_wpf_task_pane_cha_ca_la_vong | Thiết kế WPF Task Pane kết nối SQL Server và quản lý mã nguồn bằng Git cho Chả cá Lã Vọng | roadmap_ExecelFull.md |
+| licensing_rsa_hardware_cha_ca_la_vong | Xác thực bản quyền RSA kết hợp Hardware ID và bảo mật Credential Manager cho Chả cá Lã Vọng | roadmap_ExecelFull.md |
+| vsto_wpf_task_pane_bun_rieu_cua_oc | Lập trình WPF Custom Task Pane kết nối SQL Server và bảo mật Credential cho Bún riêu cua Ốc | roadmap_ExecelFull.md |
+| licensing_rsa_hardware_bun_rieu_cua_oc | Cơ chế khóa bản quyền RSA, Hardware ID và chống dịch ngược Obfuscation cho Bún riêu cua Ốc | roadmap_ExecelFull.md |
+| vsto_wpf_task_pane_bun_oc_nguoi_tay_ho | Xây dựng WPF Custom Task Pane kết nối SQL Server cho chuỗi Bún ốc nguội Tây Hồ | roadmap_ExecelFull.md |
+| licensing_rsa_hardware_bun_oc_nguoi_tay_ho | Bảo mật License RSA, Windows Credential Manager và phòng chống MOTW cho Add-in Tây Hồ | roadmap_ExecelFull.md |
+| vsto_wpf_task_pane_bun_thang_ha_noi | Tích hợp WPF Task Pane, Ribbon XML và Kết nối SQL Server cho Bún Thang Hà Nội | roadmap_ExecelFull.md |
+| licensing_rsa_hardware_bun_thang_ha_noi | Mã hóa RSA, Hardware ID và Bảo mật Windows Credential Manager cho Bún Thang Hà Nội | roadmap_ExecelFull.md |
+| vsto_wpf_task_pane_banh_tom_ho_tay | Tích hợp WPF Task Pane, Ribbon XML và kết nối SQL Server quản lý Bánh tôm Hồ Tây | roadmap_ExecelFull.md |
+| licensing_rsa_hardware_banh_tom_ho_tay | Mã hóa RSA, khóa phần cứng và bảo mật Credential cho bản quyền Bánh tôm Hồ Tây | roadmap_ExecelFull.md |
+| vsto_wpf_task_pane_banh_cuon_thanh_tri | Thiết kế WPF Task Pane tương tác Ribbon XML và tích hợp Git cho Bánh cuốn Thanh Trì | roadmap_ExecelFull.md |
+| licensing_rsa_hardware_banh_cuon_thanh_tri | Bảo mật License RSA kết hợp Hardware ID và Windows Credential Manager cho Bánh cuốn Thanh Trì | roadmap_ExecelFull.md |
+| vsto_wpf_task_pane_banh_da_cua_hai_phong | Xây dựng WPF Task Pane động kết nối SQL Server và bảo mật Credential Manager cho Bánh đa cua Hải Phòng | roadmap_ExecelFull.md |
+| licensing_rsa_hardware_lau_ca_duoi_vung_tau | Mã hóa RSA khóa phần cứng, chống dịch ngược và xử lý bảo mật MOTW cho Lẩu cá đuối Vũng Tàu | roadmap_ExecelFull.md |
+| vsto_wpf_ribbon_bun_mam_soc_trang | Phát triển VSTO C# Ribbon XML & WPF Task Pane tích hợp ERP Bún mắm Sóc Trăng | roadmap_ExecelFull.md |
+| licensing_rsa_hardware_lau_ga_la_e_dalat | Bảo mật Add-in bằng RSA, Hardware ID & Windows Credential Manager Lẩu gà lá é Đà Lạt | roadmap_ExecelFull.md |
+| vsto_wpf_task_pane_banh_khot_vung_tau | Tích hợp WPF Custom Task Pane WebView2 và Ribbon XML cho Chuỗi Bánh khọt Vũng Tàu Enterprise | roadmap_ExecelFull.md |
+| licensing_rsa_hardware_banh_khot_vung_tau | Bảo mật License Key RSA, Hardware ID và Windows Credential Manager cho Add-in Bánh khọt Vũng Tàu | roadmap_ExecelFull.md |
+| vsto_wpf_ribbon_com_tam_sai_gon | Tích hợp WPF Ribbon Control và kết nối dữ liệu SQL cho Add-in Cơm tấm Sài Gòn | roadmap_ExecelFull.md |
+| licensing_rsa_hardware_com_tam_sai_gon | Bảo mật Add-in Cơm tấm Sài Gòn bằng RSA, Credential Manager và Obfuscation | roadmap_ExecelFull.md |
+| vsto_wpf_ribbon_bun_bo_hue | Thiết kế WPF Ribbon tùy biến và Quản lý mã nguồn bằng Git cho Add-in Bún bò Huế | roadmap_ExecelFull.md |
+| licensing_rsa_hardware_bun_bo_hue | Bảo mật License RSA theo mã phần cứng và Chống dịch ngược Add-in Bún bò Huế | roadmap_ExecelFull.md |
+| vsto_wpf_ribbon_lau_de_kho_ninh_binh | Tích hợp WPF Ribbon và Kết nối SQL Server cho Lẩu dê khô Ninh Bình | roadmap_ExecelFull.md |
+| licensing_rsa_hardware_lau_de_kho_ninh_binh | Bảo mật RSA và Tích hợp Windows Credential Manager cho Lẩu dê khô Ninh Bình | roadmap_ExecelFull.md |
+| vsto_wpf_ribbon_com_ga_hoi_an | Tích hợp WPF Ribbon và Kết nối SQL Server quản lý đơn hàng Cơm gà Hội An | roadmap_ExecelFull.md |
+| licensing_rsa_hardware_com_ga_hoi_an | Mã hóa RSA và Tích hợp Windows Credential Manager bảo mật Add-in Cơm gà Hội An | roadmap_ExecelFull.md |
+| vsto_wpf_ribbon_lau_nam_chim_cau | Tích hợp WPF Ribbon và kết nối SQL Server Enterprise cho Lẩu nấm | roadmap_ExecelFull.md |
+| licensing_rsa_hardware_lau_nam_chim_cau | Bảo mật RSA khóa phần cứng và Windows Credential Manager cho Add-in | roadmap_ExecelFull.md |
+| vsto_wpf_ribbon_lau_cua_dong_hai_phong | Xây dựng Ribbon XML tương tác và tích hợp WebView2 cho Lẩu cua đồng Hải Phòng | roadmap_ExecelFull.md |
+| licensing_rsa_hardware_lau_cua_dong_hai_phong | Ký số bản quyền RSA, Bảo mật Credential và Obfuscation cho Add-in | roadmap_ExecelFull.md |
+| vsto_wpf_ribbon_com_hen_vi_da | Tạo Ribbon XML động kết nối SQL Server cho Add-in thực đơn Cơm hến Vĩ Dạ | roadmap_ExecelFull.md |
+| licensing_rsa_hardware_che_bot_loc_heo_quay | Khóa bản quyền RSA, Windows Credential Manager và xử lý MOTW cho Chè bột lọc bọc heo quay | roadmap_ExecelFull.md |
+| vsto_wpf_task_pane_bun_ca_cay_hai_phong | Nhúng WPF Task Pane quản lý định lượng Bún cá và bảo mật Credential Manager | roadmap_ExecelFull.md |
+| licensing_rsa_hardware_banh_mi_phuong_hoi_an | Mã hóa RSA khóa cứng và ký số Code Signing chống chặn Mark of the Web (MOTW) | roadmap_ExecelFull.md |
+| vsto_wpf_ribbon_task_pane_bun_cha_sinh_tu | Tích hợp WPF Task Pane, Ribbon XML và Quản lý Mã nguồn Git cho Add-in Bún Chả Sinh Từ | roadmap_ExecelFull.md |
+| licensing_rsa_hardware_bun_cha_sinh_tu | Mã hóa RSA, Khóa Phần Cứng và Bảo mật Credential Manager cho Add-in Bún Chả Sinh Từ | roadmap_ExecelFull.md |
+| vsto_wpf_ribbon_task_pane_banh_mi_xiu_mai_da_lat | Tích hợp WPF Ribbon & Task Pane cho Chuỗi Bánh Mì Xíu Mại Đà Lạt Enterprise | roadmap_ExecelFull.md |
+| licensing_rsa_hardware_banh_mi_xiu_mai_da_lat | Bảo mật RSA, Khóa phần cứng & Obfuscation cho Add-in Bánh Mì Xíu Mại Đà Lạt Enterprise | roadmap_ExecelFull.md |
+| vsto_wpf_ribbon_pho_cuon_ngu_xa | Tùy biến Ribbon XML động và tích hợp Git kiểm soát phiên bản Add-in Phở cuốn Ngũ Xã | roadmap_ExecelFull.md |
+| licensing_rsa_hardware_pho_cuon_ngu_xa | Bảo mật RSA và tích hợp Windows Credential Manager cho Add-in Phở cuốn Ngũ Xã | roadmap_ExecelFull.md |
+| vsto_dynamic_ribbon_com_chay_kho_quet | Lập trình Ribbon XML động kết nối SQL Server hiển thị thực đơn Cơm cháy kho quẹt doanh nghiệp | roadmap_ExecelFull.md |
+| licensing_rsa_signature_cha_ca_la_vong | Ký số RSA và tích hợp Windows Credential Manager bảo mật bản quyền Chả cá Lã Vọng | roadmap_ExecelFull.md |
+| vsto_dynamic_ribbon_bun_dau_mam_tom | Tùy biến Ribbon XML động cho Add-in quản lý chuỗi nhà hàng và phân quyền từ SQL Server | roadmap_ExecelFull.md |
+| licensing_rsa_hardware_bun_dau_mam_tom | Bảo mật Add-in thương mại bằng chữ ký số RSA, CPU ID và Windows Credential Manager | roadmap_ExecelFull.md |
+| vsto_dynamic_ribbon_nem_lui_hue | Tạo Ribbon XML động kết nối SQL Server cập nhật thực đơn Nem lụi Huế Enterprise | roadmap_ExecelFull.md |
+| licensing_rsa_hardware_nem_lui_hue | Mã hóa RSA khóa phần cứng và tích hợp Windows Credential Manager cho Add-in Nem lụi Huế | roadmap_ExecelFull.md |
+| kiem_toan_fast_sox_xlm_bun_quay_phu_quoc | Kiểm toán FAST/SOX, bảo mật MOTW, Git hóa mã nguồn và xử lý di sản XLM Bún quậy Phú Quốc | roadmap_ExecelFull.md |
+| toi_uu_grid_computing_capstone_lau_tha_phan_thiet | Tối ưu Grid Computing, C++ DLL, Office JS và siêu dự án Capstone Lẩu thả Phan Thiết | roadmap_ExecelFull.md |
+| kiem_toan_fast_sox_xlm_bun_cha_ca_nha_trang | Kiểm toán FAST/SOX, xử lý di sản XLM và tích hợp Git/Rubberduck cho Bún chả cá Nha Trang | roadmap_ExecelFull.md |
+| toi_uu_grid_computing_cpu_ram_lau_ga_la_e_phu_yen | Tối ưu Grid Computing, C++ DLL Injection và kết nối SQL/MQTT cho Lẩu gà lá é Phú Yên | roadmap_ExecelFull.md |
+| kiem_toan_fast_sox_xlm_1900_banh_khot_vung_tau | Kiểm toán FAST/SOX, gỡ lỗi di sản XLM, bảo mật MOTW và Git hóa VBA với Bánh khọt Vũng Tàu | roadmap_ExecelFull.md |
+| toi_uu_grid_computing_cpu_ram_gpu_lau_ca_duoi_vung_tau | Phân phối Grid Computing, nhúng C++ DLL, kết nối ADO SQL và Office Add-ins với Lẩu cá đuối Vũng Tàu | roadmap_ExecelFull.md |
+| kiem_toan_fast_sox_xlm_1900_banh_xeo_mien_tay | Kiểm toán FAST/SOX, gỡ lỗi di sản XLM 1900 và Quản lý phiên bản Git cho Bánh xèo miền Tây | roadmap_ExecelFull.md |
+| toi_uu_grid_computing_cpu_ram_gpu_lau_mam_can_tho | Tối ưu hóa Grid Computing, C++ DLL Injection và Office JS cho Lẩu mắm Cần Thơ | roadmap_ExecelFull.md |
+| kiem_toan_fast_sox_xlm_1900_hu_tiu_nam_vang | Kiểm soát tuân thủ FAST/SOX, bảo mật MOTW và quản lý phiên bản Git với Hủ tiếu Nam Vang | roadmap_ExecelFull.md |
+| toi_uu_grid_computing_cpu_ram_gpu_lau_de_ninh_binh | Phân phối tính toán Grid Computing đa luồng CPU/GPU và tích hợp C++ DLL/ADO SQL với Lẩu dê Ninh Bình | roadmap_ExecelFull.md |
+| kiem_toan_fast_sox_xlm_1900_bun_bo_nam_bo | Kiểm toán FAST/SOX, gỡ lỗi XLM, bảo mật MOTW & Git-control cho Bún bò Nam Bộ | roadmap_ExecelFull.md |
+| toi_uu_grid_computing_cpu_ram_gpu_lau_ca_linh | Tối ưu Grid Computing, C++ DLL Injection & Office JS Add-ins cho Lẩu cá linh | roadmap_ExecelFull.md |
+| kiem_toan_fast_sox_xlm_1900_bun_nuoc_leo_soc_trang | Kiểm toán FAST/SOX, gỡ lỗi XLM 1900 và Quản lý mã nguồn VBA qua Git cho Bún nước lèo Sóc Trăng | roadmap_ExecelFull.md |
+| toi_uu_grid_computing_cpu_ram_gpu_lau_ca_keo_rau_dang | Tối ưu Grid Computing, CPU/RAM/GPU và C++ DLL Injection cho Lẩu cá kèo rau đắng | roadmap_ExecelFull.md |
+| kiem_toan_fast_sox_xlm_1900_banh_trang_cuon_thit_heo | Kiểm toán FAST/SOX, gỡ lỗi XLM di sản, bảo mật Credential Manager & Bánh tráng cuốn thịt heo | roadmap_ExecelFull.md |
+| toi_uu_grid_computing_cpu_ram_gpu_lau_duoi_bo_thuoc_bac | Tối ưu Grid Computing, C++ DLL Injection, CPU/RAM/GPU & Lẩu đuôi bò thuốc bắc | roadmap_ExecelFull.md |
+| kiem_toan_fast_sox_xlm_1900_banh_canh_trang_bang | Kiểm toán FAST/SOX, bảo mật Macro MOTW và Unit Test Rubberduck cho Bánh canh Trảng Bàng | roadmap_ExecelFull.md |
+| toi_uu_grid_computing_cpu_ram_gpu_lau_cua_dong_hai_phong | Grid Computing kết hợp C++ DLL và kết nối SQL Server ADO cho Lẩu cua đồng Hải Phòng | roadmap_ExecelFull.md |
+| kiem_toan_fast_sox_xlm_1900_banh_mi_bot_loc | Kiểm toán FAST/SOX, bảo mật MOTW, gỡ lỗi XLM & kết nối SQL ADO với Bánh mì bột lọc | roadmap_ExecelFull.md |
+| toi_uu_grid_computing_cpu_ram_gpu_lau_ca_duoi_la_giang | Tối ưu Grid Computing, C++ DLL Injection & Office JS Taskpane với Lẩu cá đuối | roadmap_ExecelFull.md |
+| kiem_toan_fast_sox_xlm_1900_banh_mi_xiu_mai_trung_muoi | Kiểm toán FAST/SOX, gỡ lỗi di sản XLM 1900 và thiết lập Git/Rubberduck cho chuỗi Bánh mì xíu mại trứng muối | roadmap_ExecelFull.md |
+| toi_uu_grid_computing_cpu_ram_gpu_lau_ga_tre_ot_hiem | Tối ưu Grid Computing, C++ DLL Injection và React Office Add-in cho siêu dự án Lẩu gà tre ớt hiểm | roadmap_ExecelFull.md |
+| kiem_toan_fast_sox_xlm_1900_com_tam_suon_bi_cha | Kiểm toán FAST/SOX, gỡ lỗi XLM và 1900 cho Cơm tấm sườn bì chả | roadmap_ExecelFull.md |
+| toi_uu_grid_computing_cpu_ram_gpu_lau_tha_binh_thuan | Tối ưu Grid Computing, CPU/RAM/GPU cho Lẩu thả Bình Thuận | roadmap_ExecelFull.md |
+| kiem_toan_fast_sox_xlm_1900_bun_ca_cay_hai_phong | Kiểm toán tuân thủ FAST/SOX, xử lý lỗi XLM và tích hợp Git/Rubberduck cho Bún cá cay Hải Phòng | roadmap_ExecelFull.md |
+| toi_uu_grid_computing_capstone_lau_ca_duoi_mang_chua | Tối ưu Grid Computing, tích hợp Office JS và hoàn thành Capstone Lẩu cá đuối măng chua | roadmap_ExecelFull.md |
+| kiem_toan_fast_sox_xlm_1900_bun_moc_doc_mung | Kiểm toán FAST/SOX, gỡ lỗi XLM/1900, bảo mật MOTW và tích hợp Git/Rubberduck với Bún mọc dọc mùng | roadmap_ExecelFull.md |
+| toi_uu_grid_computing_capstone_lau_rieu_cua_bap_bo | Tối ưu Grid Computing, C++ DLL Injection, ADO SQL và Office JS Capstone Lẩu riêu cua bắp bò | roadmap_ExecelFull.md |
+| kiem_toan_fast_sox_xlm_1900_bun_oc_nguoi_tay_ho | Kiểm toán FAST/SOX, Bảo mật MOTW & Git-Rubberduck cho ERP Bún ốc nguội Tây Hồ | roadmap_ExecelFull.md |
+| toi_uu_grid_computing_cpu_ram_gpu_lau_chao_chim_bo_cau | Tối ưu Grid Computing, C++ DLL Injection & Office JS Add-ins cho Lẩu cháo chim bồ câu | roadmap_ExecelFull.md |
+| kiem_tra_sox_xlm_1900_bun_cha_ca_quy_nhon | Kiểm toán SOX, xử lý bảo mật MOTW & gỡ lỗi ngày 1900 cho Bún chả cá Quy Nhơn | roadmap_ExecelFull.md |
+| dieu_phoi_grid_computing_cpu_gpu_lau_ghe_phu_quoc | Siêu dự án Capstone: Điều phối Grid Computing CPU/GPU & Tích hợp C++ DLL, SQL ADO cho Lẩu ghẹ Phú Quốc | roadmap_ExecelFull.md |
+| kiem_toan_sox_xlm_1900_bun_sua_nha_trang | Kiểm toán SOX, bảo mật MOTW và quản lý phiên bản Git/Rubberduck cho file Bún sứa Nha Trang | roadmap_ExecelFull.md |
+| toi_uu_grid_computing_cpu_gpu_lau_ca_bop_phan_thiet | Tối ưu Grid Computing, tích hợp C++ DLL và kết nối SQL Server ADO cho Lẩu cá bớp Phan Thiết | roadmap_ExecelFull.md |
+| kiem_toan_sox_xlm_co_dien_banh_canh_nam_pho | Kiểm toán SOX, chuyển đổi mã XLM cổ điển và tích hợp Git kiểm soát phiên bản cho Bánh canh Nam Phổ | roadmap_ExecelFull.md |
+| capstone_grid_computing_com_tam_long_xuyen | Siêu dự án Capstone phân phối Grid Computing và tích hợp Office JS Web Add-ins cho Cơm tấm Long Xuyên | roadmap_ExecelFull.md |
+| kiem_toan_sox_xlm_1900_banh_khot_vung_tau | Kiểm toán SOX, gỡ lỗi XLM di sản và Tích hợp Git/Rubberduck cho Bánh khọt Vũng Tàu | roadmap_ExecelFull.md |
+| capstone_grid_computing_lau_ca_duoi_vung_tau | Siêu dự án Capstone Grid Computing, C++ DLL Injection và Office JS Add-in cho Lẩu cá đuối Vũng Tàu | roadmap_ExecelFull.md |
+| kiem_toan_sox_xlm_banh_xeo_mien_tay | Kiểm toán SOX, bảo mật MOTW & quản lý mã nguồn Git cho Bánh xèo miền Tây | roadmap_ExecelFull.md |
+| capstone_grid_computing_lau_ga_la_giang | Siêu dự án Capstone Grid Computing & Tích hợp C++ DLL cho Lẩu gà lá giang | roadmap_ExecelFull.md |
+| kiem_toan_sox_xlm_banh_xeo_tom_nhay_binh_dinh | Kiểm toán FAST/SOX, bảo mật MOTW và quản lý mã nguồn VBA với Bánh xèo tôm nhảy Bình Định | roadmap_ExecelFull.md |
+| toi_uu_grid_computing_cpu_ram_gpu_lau_ga_la_e_phu_yen | Tối ưu Grid Computing, tích hợp C++ DLL và MQTT với Lẩu gà lá é Phú Yên | roadmap_ExecelFull.md |
+| kiem_toan_sox_xlm_com_ga_hoi_an | Kiểm toán SOX, bảo mật mã hóa và quản lý phiên bản Git VBA với Cơm gà Hội An | roadmap_ExecelFull.md |
+| toi_uu_grid_computing_cpu_gpu_lau_duoi_bo_sa_ot | Tối ưu Grid Computing đa luồng và tích hợp C++ DLL với Lẩu đuôi bò sả ớt | roadmap_ExecelFull.md |
+| kiem_toan_sox_xlm_bun_rieu_cua_oc | Phân tích lỗi XLM, kiểm toán SOX và quản lý mã nguồn VBA với Bún riêu cua ốc | roadmap_ExecelFull.md |
+| toi_uu_grid_computing_lau_ca_linh_bong_dien_dien | Tăng tốc Grid Computing đa luồng qua C++ DLL với Lẩu cá linh bông điên điển | roadmap_ExecelFull.md |
+| kiem_toan_sox_xlm_bun_nuoc_leo_soc_trang | Kiểm toán SOX, bảo mật Credential Manager & Git hóa mã nguồn XLM di sản Bún nước lèo Sóc Trăng | roadmap_ExecelFull.md |
+| toi_uu_grid_computing_lau_ca_keo_la_giang | Tối ưu Grid Computing bằng WinAPI C++ DLL & MQTT cho chuỗi Lẩu cá kèo lá giang | roadmap_ExecelFull.md |
+| kiem_toan_sox_xlm_co_dien_com_hen_song_huong | Kiểm toán SOX, chuyển đổi macro XLM cổ điển, bảo mật MOTW và Git hóa VBA cùng Cơm hến Sông Hương | roadmap_ExecelFull.md |
+| phan_phoi_grid_computing_da_luong_lau_de_kho_ninh_binh | Phân phối tính toán Grid Computing đa luồng, tích hợp C++ DLL và kết nối SQL Server cùng Lẩu dê khô Ninh Bình | roadmap_ExecelFull.md |
+| kiem_toan_sox_xlm_bun_bo_hue | Kiểm toán SOX, Sửa lỗi XLM di sản & Bảo mật ADO SQL với Bún bò Huế | roadmap_ExecelFull.md |
+| toi_uu_grid_computing_lau_vit_nau_chao | Tối ưu Grid Computing đa luồng, WinAPI an toàn & MQTT Lẩu vịt nấu chao | roadmap_ExecelFull.md |
+| kiem_toan_sox_1900_bun_ca_ngu_dai_duong_phu_yen | Kiểm toán SOX, xử lý lỗi ngày 1900 và thiết lập Git tracking cho Bún cá ngừ đại dương Phú Yên | roadmap_ExecelFull.md |
+| toi_uu_grid_computing_cpu_gpu_lau_cua_dong_hai_phong | Phân phối Grid Computing tối ưu hóa CPU/GPU qua C++ DLL và MQTT cho Lẩu cua đồng Hải Phòng | roadmap_ExecelFull.md |
+| xu_ly_di_san_xlm_1900_sox_bun_mam_nem_da_nang | Xử lý di sản XLM, sửa lỗi 1900 chuẩn SOX và tích hợp Git/Rubberduck cùng Bún mắm nêm Đà Nẵng | roadmap_ExecelFull.md |
+| toi_uu_grid_computing_cpu_gpu_lau_duoi_bo_thuoc_bac | Tối ưu Grid Computing đa luồng CPU/GPU qua WinAPI C++ DLL và ADO SQL cùng Lẩu đuôi bò thuốc bắc | roadmap_ExecelFull.md |
+| kiem_toan_sox_xlm_banh_canh_cha_ca_nha_trang | Kiểm toán SOX, gỡ lỗi XLM di sản và tích hợp Git/Rubberduck cho Bánh canh chả cá Nha Trang | roadmap_ExecelFull.md |
+| phan_phoi_grid_computing_lau_ca_duoi_mang_chua_vung_tau | Phân phối Grid Computing đa luồng kết hợp C++ DLL và ADO SQL cho Lẩu cá đuối măng chua Vũng Tàu | roadmap_ExecelFull.md |
+| kiem_toan_sox_xlm_banh_mi_xiu_mai_da_lat | Kiểm toán SOX, gỡ lỗi XLM và di sản Bánh mì xíu mại Đà Lạt | roadmap_ExecelFull.md |
+| phan_phoi_grid_computing_lau_ga_ham_sa_mien_tay | Phân phối Grid Computing tối ưu Lẩu gà hầm sả miền Tây | roadmap_ExecelFull.md |
+| kiem_toan_sox_xlm_banh_mi_bot_loc_quang_binh | Kiểm toán SOX, gỡ lỗi XLM di sản & Bảo mật Macro MOTW với Bánh mì bột lọc Quảng Bình | roadmap_ExecelFull.md |
+| capstone_grid_computing_chao_long_cai_tac | Siêu dự án Capstone tích hợp Grid Computing & Kết nối ADO SQL với Cháo lòng Cái Tắc | roadmap_ExecelFull.md |
+| kiem_toan_sox_xlm_lau_mam_u_minh | Kiểm toán SOX, gỡ lỗi XLM di sản, bảo mật MOTW và quản lý mã nguồn Git với Lẩu mắm U Minh | roadmap_ExecelFull.md |
+| capstone_grid_computing_sox_bun_ca_chau_doc | Siêu dự án Capstone: Tích hợp Grid Computing, Office JS Web Add-ins và kết nối ADO SQL với Bún cá Châu Đốc | roadmap_ExecelFull.md |
+| kiem_toan_sox_xlm_di_san_vit_quay_lang_son | Kiểm toán SOX, chuyển đổi macro XLM di sản và thiết lập Git tracking cho chuỗi Vịt quay Lạng Sơn | roadmap_ExecelFull.md |
+| capstone_grid_computing_he_thong_com_lam_ga_nuong | Siêu dự án Capstone tối ưu Grid Computing và kết nối ADO PostgreSQL cho Cơm lam gà nướng Tây Nguyên | roadmap_ExecelFull.md |
+| kiem_toan_sox_xlm_grid_banh_trang_cuon_thit_heo | Kiểm toán SOX, gỡ lỗi XLM di sản, bảo mật MOTW và tối ưu hóa Grid Computing cho Bánh tráng cuốn | roadmap_ExecelFull.md |
+| capstone_tich_hop_toan_dien_banh_khot_co_ba | Siêu dự án Capstone: Tích hợp Office.js, Unit Test Rubberduck và C++ DLL cho Bánh khọt Cô Ba | roadmap_ExecelFull.md |
+| go_loi_xlm_sox_cha_ca_la_vong | Gỡ lỗi XLM di sản, kiểm toán SOX và tích hợp ADO SQL Server cho chuỗi Chả cá Lã Vọng | roadmap_ExecelFull.md |
+| capstone_tich_hop_grid_sox_banh_canh_trang_bang | Siêu dự án Capstone: Tích hợp Grid Computing, Office JS Web Add-ins và C++ DLL cho Bánh canh Trảng Bàng | roadmap_ExecelFull.md |

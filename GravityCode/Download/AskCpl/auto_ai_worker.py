@@ -565,6 +565,7 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
         
         if day_clean_title in incomplete_days_refs:
             session_item = incomplete_days_refs[day_clean_title]
+            session_item["html"] = html_res
             session_item["timestamp"] = int(time.time() * 1000)
             session_item["followup_turns"] = len(all_responses) - 1
             session_item["followup_complete"] = got_complete
@@ -574,22 +575,27 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
         else:
             existing_entry = next((item for item in session_data if item.get("day", "").strip() == day_clean_title), None)
             if existing_entry:
+                existing_entry["html"] = html_res
                 existing_entry["timestamp"] = int(time.time() * 1000)
                 existing_entry["completed"] = True
                 existing_entry["followup_turns"] = len(all_responses) - 1
                 existing_entry["followup_complete"] = got_complete
+                existing_entry["raw_responses"] = all_responses
                 if adaptive_ready and lesson_result:
                     existing_entry["adaptive_lesson"] = lesson_result
             else:
-                session_data.append({
+                new_entry = {
                     "day": day['title'].replace("## ", ""),
+                    "html": html_res,
                     "timestamp": int(time.time() * 1000),
                     "completed": True,
                     "followup_turns": len(all_responses) - 1,
-                    "followup_complete": got_complete
-                })
+                    "followup_complete": got_complete,
+                    "raw_responses": all_responses
+                }
                 if adaptive_ready and lesson_result:
-                    session_data[-1]["adaptive_lesson"] = lesson_result
+                    new_entry["adaptive_lesson"] = lesson_result
+                session_data.append(new_entry)
         
         save_session(session_data, out_dir)
         try:
@@ -662,7 +668,19 @@ def markdown_to_html(md_text):
         return md_text
 
 def save_session(data_list, out_dir):
-    json_str = json.dumps(data_list, ensure_ascii=False)
+    # Rule 3.5: Không lưu trường "html" hoặc "raw_responses" của các bài đã hoàn thành
+    # vào session.json để chống phình RAM/file phình hàng trăm MB khi lộ trình có hàng nghìn ngày.
+    clean_list = []
+    for item in data_list:
+        clean_item = {}
+        for k, v in item.items():
+            if k == "html":
+                continue
+            if k == "raw_responses" and item.get("followup_complete", True):
+                continue
+            clean_item[k] = v
+        clean_list.append(clean_item)
+    json_str = json.dumps(clean_list, ensure_ascii=False)
     out_file = os.path.join(out_dir, "session.json")
     bak_file = os.path.join(out_dir, "session.bak.json")
     tmp_file = out_file + ".tmp"
@@ -956,7 +974,20 @@ def create_viewer(out_dir, session_data=None):
         coverage = lesson.get("coverage_report", {}) if isinstance(lesson.get("coverage_report"), dict) else {}
         if coverage.get("requested_all") and not coverage.get("complete"):
             evidence_html = '<section class="coverage-warning"><b>Chưa đủ dữ liệu để khẳng định “toàn bộ”.</b> Bài này chỉ hiển thị quy trình và các dữ kiện đã có bằng chứng.</section>' + evidence_html
-        content_html = item.get('html', '') + evidence_html
+        out_filepath = os.path.join(out_dir, file_name)
+        content_html = item.get('html', '')
+        if not content_html and os.path.exists(out_filepath):
+            try:
+                with open(out_filepath, 'r', encoding='utf-8') as f_in:
+                    existing_c = f_in.read()
+                    m = re.search(r'<div class="content">(.*?)</div>\s*<!-- NAV-BAR', existing_c, re.DOTALL)
+                    if not m:
+                        m = re.search(r'<div class="content">(.*?)</div>', existing_c, re.DOTALL)
+                    if m and m.group(1).strip():
+                        content_html = m.group(1).strip()
+            except Exception:
+                pass
+        content_html = content_html + evidence_html
         followup_badge = (
             f'<span class="followup-badge">✓ Đã đầy đủ ({followup_turns} lượt bổ sung)</span>'
             if item.get('followup_complete') else
@@ -992,8 +1023,13 @@ def create_viewer(out_dir, session_data=None):
 </body>
 </html>"""
         
-        out_filepath = os.path.join(out_dir, file_name)
-        if not os.path.exists(out_filepath) or idx >= total_days_num - 3:
+        should_write = False
+        if not os.path.exists(out_filepath):
+            should_write = True
+        elif content_html.strip():
+            should_write = True
+            
+        if should_write:
             try:
                 with open(out_filepath, 'w', encoding='utf-8') as f:
                     f.write(day_html)
