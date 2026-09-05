@@ -871,8 +871,42 @@ assert mb_native["items"][6]["is_review_day"] is True and "ÔN TẬP TUẦN 1" i
 assert mb_native["items"][-1]["is_review_day"] is True and "TỔNG KẾT CHẶNG 6" in mb_native["items"][-1]["generic_name"]
 ok("build_master_backbone: thiết kế trơn tru 700 ngày bản xứ qua 6 chặng với chu kỳ ôn tập xoắn ốc")
 
+# ─── 23. Model Priority & Fallback Discovery (Đồng bộ AskCpl) ───
+print("\n[23] Model Priority & Fallback Discovery")
+from settings import get_active_model_list, update_ai_settings, _DEFAULT_MODEL_FALLBACKS, load_settings
+from api.gemini_safe import GeminiCoordinator
+
+# 23.1: get_active_model_list returns fallback models when no setting is saved
+models = get_active_model_list()
+assert isinstance(models, list), "get_active_model_list phải trả về list"
+assert len(models) > 0, "Danh sách model không được rỗng"
+assert all(isinstance(m, str) and m for m in models), "Các phần tử phải là string tên model hợp lệ"
+ok("get_active_model_list trả về danh sách model hợp lệ")
+
+# 23.2: GeminiCoordinator nạp get_active_model_list() mặc định khi models=None
+coord = GeminiCoordinator(models=None)
+assert coord.models == models, f"GeminiCoordinator phải dùng get_active_model_list(): {coord.models} != {models}"
+ok("GeminiCoordinator tự động nạp danh sách model từ settings/fallback")
+
+# 23.3: update_ai_settings cập nhật model_priority
+original_ai_settings = load_settings().get("ai", {})
+try:
+    test_priority = [
+        {"name": "test-gemini-custom", "enabled": True, "tier": "S", "latency_ms": 100},
+        {"name": "test-gemini-disabled", "enabled": False, "tier": "C", "latency_ms": 0}
+    ]
+    update_ai_settings(model_priority=test_priority)
+    active = get_active_model_list()
+    assert active == ["test-gemini-custom"], f"Chỉ model enabled mới được nạp, kết quả: {active}"
+    ok("update_ai_settings lưu và lọc model enabled chuẩn xác")
+finally:
+    # Khôi phục cài đặt ban đầu
+    update_ai_settings(**original_ai_settings)
+    ok("Khôi phục ai settings về trạng thái ban đầu")
+
 # ─── Summary ───
 print(f"\n{'='*50}")
 print(f"Results: {passed} passed, {failed} failed")
 if failed:
     sys.exit(1)
+

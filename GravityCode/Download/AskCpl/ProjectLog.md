@@ -1,3 +1,30 @@
+## 2026-09-05 — Fix Lỗi Kẹt Chờ Khi Phản Hồi Rỗng & Tự Động Fallback Model — HOÀN THÀNH ✅
+
+### 1. Vấn Đề Gốc Rễ Đã Giải Quyết
+- **Hiện tượng**: Khi chạy Auto AI, hệ thống gặp lỗi `⚠ Máy chủ bận/phản hồi rỗng: phản hồi rỗng. Chờ 2s... 4s... 8s... 16s` và bị kẹt liên tục ở duy nhất 1 model mà không chịu chuyển sang các model fallback khác dù đã cấu hình danh sách model ưu tiên trong bảng cài đặt.
+- **Nguyên nhân gốc rễ**:
+  1. **Lỗi logic ngắt sớm trong `gemini_safe.py`**: Khi model trả về mã 200 nhưng nội dung rỗng (`ErrorKind.EMPTY`), dòng 405 dùng lệnh `return` thoát ngay khỏi `_try_models()` thay vì gọi `continue` để thử model kế tiếp trong `self._models`. Hệ thống bên ngoài hiểu là lỗi tạm thời nên kích hoạt vòng lặp exponential backoff rồi gọi lại chính model bị rỗng đó.
+  2. **Model chuyên Audio/Transcription đứng đầu danh sách**: Model `gemini-3.5-transcribe` được bộ Auto-Discovery phát hiện độ trễ thấp (933ms) nên được xếp vị trí #1. Tuy nhiên, đây là model chuyên bóc băng âm thanh (Speech-to-Text), không hỗ trợ sinh văn bản / code nên khi nhận prompt chữ nó trả về rỗng.
+  3. **Hàm `extract_text` chỉ đọc `parts[0]`**: Khi Google trả về cấu trúc có khối `thought` hoặc chia thành nhiều part văn bản, `parts[0]` không có `text` khiến hàm nhận định nhầm là rỗng.
+
+### 2. Các Thay Đổi Cụ Thể
+- **`gemini_safe.py`**:
+  - `_try_models()`: Khi gặp `ErrorKind.EMPTY` (phản hồi rỗng), in log `⚠ Model '{model}' phản hồi rỗng; chuyển sang model fallback...` và lập tức nhảy sang model tiếp theo trong danh sách ưu tiên.
+  - `extract_text()`: Duyệt qua toàn bộ `candidates` và nối tất cả các chuỗi `text` từ mọi `part`, bỏ qua khối suy nghĩ (`thought`), chống nhận diện nhầm phản hồi rỗng.
+- **`AskCpl.py`**:
+  - `_do_discover_inner()`: Bổ sung các từ khóa `"transcribe"`, `"audio"`, `"tts"`, `"robotics"` vào bộ lọc loại trừ của tính năng Auto-Discover Model, ngăn chặn các model không sinh văn bản lọt vào danh sách.
+- **`settings.json`**:
+  - Vô hiệu hóa `gemini-3.5-transcribe` (`"enabled": false`) và ghi chú rõ mục đích Audio.
+  - Đưa các model văn bản chuẩn lên vị trí đầu: `gemini-3.5-flash-lite`, `gemini-3.5-flash`, `gemini-3-flash-preview`, `gemini-flash-latest`.
+- **`test_gemini_safe_fallback.py`**:
+  - Viết test tự động: kiểm tra `extract_text` ghép đúng các parts và xử lý khối thought; kiểm tra `_try_models` tự động chuyển sang model fallback khi model đầu tiên trả về rỗng.
+
+### 3. Kiểm Thử & Xác Minh (Verification)
+- ✅ `python -m py_compile gemini_safe.py AskCpl.py settings.py auto_ai_worker.py`: ALL SYNTAX OK.
+- ✅ `python -m unittest test_gemini_safe_fallback.py test_html_content_integrity.py test_viewer_dashboard.py test_roadmap_pipeline.py test_roadmap_audit.py`: 26/26 tests PASS 100%.
+
+---
+
 ## 2026-09-04 — Fix Lỗi Xuất File HTML Rỗng (Trắng Tinh) & Tối Ưu Hóa session.json Bộ Nhớ — HOÀN THÀNH ✅
 
 ### 1. Vấn Đề Gốc Rễ Đã Giải Quyết

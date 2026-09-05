@@ -179,7 +179,11 @@ from database.database import (
     delete_vocab, get_stats, get_all_topics, get_all_types, get_all_dates,
     get_available_languages, find_vocab_by_word
 )
-from settings import load_settings, save_settings, update_github_settings, update_gdrive_settings
+from settings import (
+    load_settings, save_settings,
+    update_github_settings, update_gdrive_settings, update_ai_settings,
+    get_active_model_list, _DEFAULT_MODEL_FALLBACKS,
+)
 from api.github_sync import GitHubSync
 from api.gdrive_sync import GDriveSync
 from ai import course_db
@@ -1361,6 +1365,14 @@ class SettingsSyncTab(ctk.CTkFrame):
         btn(btn_row_gd, "Kết Nối Drive", C["accent"], C["accent2"], w=150, h=34, cmd=self._connect_drive).pack(side="left", padx=(0,10))
         btn(btn_row_gd, "Upload MP3 Drive", C["warn"], "#d97706", w=150, h=34, cmd=self._sync_drive).pack(side="left")
 
+        sep(scroll)
+
+        # ── AI Model Settings ──
+        lbl(scroll, "Cài Đặt Model AI (Gemini)", 15, "bold", C["accent"]).pack(anchor="w", pady=(10,4))
+        lbl(scroll, "Quản lý danh sách model, benchmark tốc độ và tự động cập nhật khi Google đổi model", 12, color=C["muted"]).pack(anchor="w", pady=2)
+        btn(scroll, "⚙️ Cài Đặt & Khám Phá Model AI", C["accent"], C["accent2"], w=260, h=36,
+            cmd=lambda: ModelSettingsDialog(self.app)).pack(anchor="w", pady=8)
+
     def _log(self, msg: str):
         def _append():
             self.log_box.configure(state="normal")
@@ -1450,6 +1462,361 @@ SOURCE_SELF = "📖 Từ vựng tự học"
 SOURCE_AI = "🤖 Khóa học AI chuyên sâu"
 
 
+# ══════════════════════════════════════════════════════════════════════════════
+# Dialog: Cài Đặt & Tự Khám Phá Model AI
+# ══════════════════════════════════════════════════════════════════════════════
+class ModelSettingsDialog(ctk.CTkToplevel):
+    """Dialog cấu hình thứ tự ưu tiên model AI và tự động quét/benchmark model mới từ Google API."""
+
+    _TIER_META = {
+        "S": {"badge": "🔴 S", "color": "#e74c3c", "score_bonus": 500},
+        "A": {"badge": "🟠 A", "color": "#e67e22", "score_bonus": 300},
+        "B": {"badge": "🟡 B", "color": "#f1c40f", "score_bonus": 100},
+        "C": {"badge": "⚪ C", "color": "#95a5a6", "score_bonus":   0},
+    }
+
+    @staticmethod
+    def _infer_tier(name):
+        n = name.lower()
+        if "3.5" in n or "3-ultra" in n:
+            return "S"
+        if "3-flash" in n or "3.0" in n or "flash-latest" in n:
+            return "A"
+        if "lite" in n or "3.1" in n:
+            return "B"
+        return "C"
+
+    def __init__(self, parent):
+        super().__init__(parent)
+        import threading
+        from tkinter import ttk
+        self._thread = None
+        self._stop_flag = [False]
+
+        # Nạp cấu hình hiện tại
+        _st = load_settings()
+        _saved = _st.get("ai", {}).get("model_priority", [])
+        if not _saved:
+            _saved = [
+                {"name": m, "enabled": True, "tier": self._infer_tier(m), "note": "", "latency_ms": 0}
+                for m in _DEFAULT_MODEL_FALLBACKS
+            ]
+        self._models = [dict(m) for m in _saved]
+
+        # Window
+        self.title("⚙️  Cài Đặt & Tự Khám Phá Model AI — VocabularyApp")
+        self.geometry("780x600")
+        self.minsize(680, 520)
+        self.resizable(True, True)
+        self.transient(parent)
+        self.grab_set()
+        self.configure(fg_color=C["bg"])
+        self.bind("<Escape>", lambda e: self.destroy())
+
+        # Header
+        hdr = ctk.CTkFrame(self, fg_color=C["sidebar"], height=52, corner_radius=0)
+        hdr.pack(fill="x")
+        hdr.pack_propagate(False)
+        lbl(hdr, "⚙️  Cài Đặt Model AI", 14, "bold", C["accent"]).pack(side="left", padx=14, pady=8)
+        lbl(hdr, "Sắp xếp thứ tự ưu tiên fallback — Model đứng đầu được thử trước",
+            10, color=C["muted"]).pack(side="left", padx=4)
+
+        # Treeview
+        from tkinter import ttk as _ttk
+        tree_frame = ctk.CTkFrame(self, fg_color=C["card"], corner_radius=8)
+        tree_frame.pack(fill="both", expand=True, padx=14, pady=(10, 4))
+
+        cols = ("order", "tier", "name", "note", "latency", "enabled")
+        style = _ttk.Style()
+        style.theme_use("clam")
+        style.configure("ModelDark.Treeview",
+                        background="#1e1e1e", foreground="#ffffff",
+                        fieldbackground="#1e1e1e", rowheight=28,
+                        borderwidth=0, font=("Consolas", 10))
+        style.configure("ModelDark.Treeview.Heading",
+                        background="#2c2c2c", foreground="#bb86fc",
+                        font=("Arial", 10, "bold"), relief="flat")
+        style.map("ModelDark.Treeview", background=[("selected", "#3a3a5c")])
+
+        self._tree = _ttk.Treeview(tree_frame, columns=cols, show="headings",
+                                   selectmode="browse", height=12,
+                                   style="ModelDark.Treeview")
+        for col, txt, w in [("order", "#", 36), ("tier", "Tier", 62),
+                             ("name", "Tên Model", 235), ("note", "Ghi chú", 200),
+                             ("latency", "Độ trễ", 80), ("enabled", "Trạng thái", 90)]:
+            self._tree.heading(col, text=txt)
+            self._tree.column(col, width=w, anchor="center" if col in ("order","tier","latency","enabled") else "w",
+                              stretch=(col == "name"))
+
+        vsb = _ttk.Scrollbar(tree_frame, orient="vertical", command=self._tree.yview)
+        self._tree.configure(yscrollcommand=vsb.set)
+        self._tree.pack(fill="both", expand=True, side="left")
+        vsb.pack(fill="y", side="left")
+
+        self._refresh_tree()
+
+        # Control buttons
+        ctrl = ctk.CTkFrame(self, fg_color="transparent")
+        ctrl.pack(fill="x", padx=14, pady=2)
+        _bc = {"width": 88, "height": 30, "corner_radius": 6}
+        btn(ctrl, "↑ Lên",           C["card2"], C["accent"],  **_bc, cmd=self._move_up).pack(side="left", padx=2)
+        btn(ctrl, "↓ Xuống",         C["card2"], C["accent"],  **_bc, cmd=self._move_down).pack(side="left", padx=2)
+        btn(ctrl, "☑/☒ Bật/Tắt",    C["card2"], C["warn"],    **_bc, cmd=self._toggle_enabled).pack(side="left", padx=2)
+        btn(ctrl, "🔀 Xếp theo Điểm",C["card2"], C["success"], **_bc, cmd=self._auto_sort).pack(side="left", padx=2)
+        btn(ctrl, "↩ Mặc định",      C["card2"], C["muted"],   **_bc, cmd=self._reset_default).pack(side="left", padx=2)
+
+        # Discover row
+        disc = ctk.CTkFrame(self, fg_color="transparent")
+        disc.pack(fill="x", padx=14, pady=(2, 4))
+        self._btn_discover = btn(disc, "🔍 Auto Discover & Đánh giá",
+                                 C["success"], "#018786", width=210, height=34,
+                                 cmd=self._do_discover)
+        self._btn_discover.pack(side="left", padx=2)
+        self._btn_stop = btn(disc, "⏹ Dừng", C["card2"], C["danger"],
+                             width=80, height=34, cmd=lambda: self._stop_flag.__setitem__(0, True))
+        self._btn_stop.pack(side="left", padx=2)
+        self._btn_stop.configure(state="disabled")
+        lbl(disc, "← Tự quét model mới nhất từ Google API rồi đo tốc độ & xếp hạng",
+            9, color=C["muted"]).pack(side="left", padx=8)
+
+        # Log panel
+        log_frame = ctk.CTkFrame(self, fg_color=C["card"], corner_radius=6)
+        log_frame.pack(fill="x", padx=14, pady=(0, 4))
+        lbl(log_frame, "📋 Log:", 9, "bold", C["text"]).pack(anchor="w", padx=8, pady=(4, 0))
+        self._log_box = ctk.CTkTextbox(log_frame, height=90, fg_color="#0d1117",
+                                       text_color="#00e676", font=("Consolas", 9),
+                                       state="disabled")
+        self._log_box.pack(fill="x", padx=4, pady=(0, 4))
+
+        # Bottom buttons
+        bot = ctk.CTkFrame(self, fg_color=C["sidebar"], height=52, corner_radius=0)
+        bot.pack(fill="x", side="bottom")
+        bot.pack_propagate(False)
+        btn(bot, "💾 Lưu & Áp dụng", C["success"], "#018786",
+            width=160, height=36, cmd=self._save_and_close).pack(side="left", padx=12, pady=8)
+        btn(bot, "Đóng (không lưu)", C["card2"], C["muted"],
+            width=140, height=36, cmd=self.destroy).pack(side="left", padx=4)
+        lbl(bot, "💡 Mẹo: Auto Discover → Xếp theo Điểm → Lưu & Áp dụng",
+            9, color=C["muted"]).pack(side="right", padx=12)
+
+        self._log_msg("📋 Dialog sẵn sàng. Nhấn '🔍 Auto Discover & Đánh giá' để quét model mới nhất.")
+
+    # ── helpers ──
+
+    def _log_msg(self, msg):
+        def _do():
+            try:
+                self._log_box.configure(state="normal")
+                self._log_box.insert("end", msg + "\n")
+                self._log_box.see("end")
+                self._log_box.configure(state="disabled")
+            except Exception:
+                pass
+        self.after(0, _do)
+
+    def _latency_str(self, ms):
+        if ms <= 0: return "—"
+        return f"{ms}ms" if ms < 1000 else f"{ms/1000:.1f}s"
+
+    def _refresh_tree(self):
+        self._tree.delete(*self._tree.get_children())
+        for i, m in enumerate(self._models, 1):
+            tier  = m.get("tier", self._infer_tier(m["name"]))
+            badge = self._TIER_META.get(tier, self._TIER_META["C"])["badge"]
+            lat   = self._latency_str(m.get("latency_ms", 0))
+            en    = "✅ Bật" if m.get("enabled", True) else "☒ Tắt"
+            tag   = "en" if m.get("enabled", True) else "dis"
+            self._tree.insert("", "end", iid=str(i - 1),
+                              values=(i, badge, m["name"], m.get("note", ""), lat, en),
+                              tags=(tag,))
+        self._tree.tag_configure("en",  foreground="#e0e0ff")
+        self._tree.tag_configure("dis", foreground="#555577")
+
+    def _sel_idx(self):
+        sel = self._tree.selection()
+        return int(sel[0]) if sel else None
+
+    def _move_up(self):
+        idx = self._sel_idx()
+        if idx is None or idx == 0: return
+        self._models[idx - 1], self._models[idx] = self._models[idx], self._models[idx - 1]
+        self._refresh_tree()
+        self._tree.selection_set(str(idx - 1))
+
+    def _move_down(self):
+        idx = self._sel_idx()
+        if idx is None or idx >= len(self._models) - 1: return
+        self._models[idx], self._models[idx + 1] = self._models[idx + 1], self._models[idx]
+        self._refresh_tree()
+        self._tree.selection_set(str(idx + 1))
+
+    def _toggle_enabled(self):
+        idx = self._sel_idx()
+        if idx is None: return
+        self._models[idx]["enabled"] = not self._models[idx].get("enabled", True)
+        self._refresh_tree()
+        self._tree.selection_set(str(idx))
+
+    def _auto_sort(self):
+        def _score(m):
+            ms2 = m.get("latency_ms", 0)
+            tb  = self._TIER_META.get(m.get("tier", "C"), self._TIER_META["C"])["score_bonus"]
+            return tb + (1000 / ms2 if ms2 > 0 else 0)
+        self._models.sort(key=_score, reverse=True)
+        self._refresh_tree()
+        self._log_msg("🔀 Đã xếp theo điểm (Tier + Tốc độ).")
+
+    def _reset_default(self):
+        from tkinter import messagebox as _mb
+        if not _mb.askyesno("Xác nhận", "Khôi phục danh sách model mặc định?", parent=self):
+            return
+        self._models = [
+            {"name": n, "enabled": True, "tier": self._infer_tier(n), "note": "", "latency_ms": 0}
+            for n in _DEFAULT_MODEL_FALLBACKS
+        ]
+        self._refresh_tree()
+        self._log_msg("↩ Đã khôi phục danh sách model mặc định.")
+
+    def _save_and_close(self):
+        update_ai_settings(model_priority=[dict(m) for m in self._models])
+        self._log_msg("💾 Đã lưu cấu hình model!")
+        self.after(300, self.destroy)
+
+    # ── Auto Discover ──
+
+    def _do_discover(self):
+        import threading
+        self._stop_flag[0] = False
+        self._btn_discover.configure(state="disabled", text="⏳ Đang quét...")
+        self._btn_stop.configure(state="normal")
+
+        def _run():
+            try:
+                self._discover_inner()
+            except Exception as ex:
+                self._log_msg(f"❌ Lỗi discover: {ex}")
+            finally:
+                self.after(0, lambda: self._btn_discover.configure(state="normal", text="🔍 Auto Discover & Đánh giá"))
+                self.after(0, lambda: self._btn_stop.configure(state="disabled"))
+
+        threading.Thread(target=_run, daemon=True).start()
+
+    def _discover_inner(self):
+        import time, requests as _req, json as _json
+        from ai.course_generator import _load_gemini_keys
+
+        # Lấy API key đầu tiên đang active
+        all_keys = _load_gemini_keys()
+        now = time.time()
+        active_key = None
+        for k in all_keys:
+            if k.get("status", "active") == "active" and k.get("cooldown_until", 0) <= now:
+                raw = k.get("key", "")
+                if raw:
+                    active_key = raw
+                    break
+
+        if not active_key:
+            self._log_msg("❌ Không tìm thấy API key active. Kiểm tra settings AskCpl.")
+            return
+
+        # Bước 1: lấy danh sách model từ Google API
+        self._log_msg("🌐 Bước 1: Gọi GET /v1beta/models để lấy danh sách model...")
+        try:
+            resp = _req.get(
+                f"https://generativelanguage.googleapis.com/v1beta/models?key={active_key}&pageSize=100",
+                timeout=20)
+            if resp.status_code != 200:
+                self._log_msg(f"⚠ API trả về HTTP {resp.status_code}: {resp.text[:120]}")
+                return
+            raw_list = resp.json().get("models", [])
+        except Exception as e:
+            self._log_msg(f"❌ Không gọi được API: {e}")
+            return
+
+        discovered = []
+        for m in raw_list:
+            mname = m.get("name", "").replace("models/", "")
+            if "generateContent" not in m.get("supportedGenerationMethods", []):
+                continue
+            n = mname.lower()
+            if "flash" not in n and "gemini" not in n:
+                continue
+            if any(x in n for x in ("embed", "vision", "imagen", "thinking", "image",
+                                     "transcribe", "audio", "tts", "robotics")):
+                continue
+            discovered.append(mname)
+
+        self._log_msg(f"✅ Tìm thấy {len(discovered)} model khả dụng: "
+                      f"{', '.join(discovered[:5])}{'...' if len(discovered) > 5 else ''}")
+        if not discovered:
+            return
+
+        # Bước 2: Benchmark
+        self._log_msg(f"⏱ Bước 2: Benchmark {len(discovered)} model (prompt 'Hi', maxTokens=5)...")
+        payload = {"contents": [{"parts": [{"text": "Hi"}]}],
+                   "generationConfig": {"maxOutputTokens": 5}}
+        results = {}
+        for mname in discovered:
+            if self._stop_flag[0]:
+                self._log_msg("🛑 Người dùng yêu cầu dừng.")
+                break
+            url = (f"https://generativelanguage.googleapis.com/v1beta/models/"
+                   f"{mname}:generateContent?key={active_key}")
+            try:
+                t0 = time.time()
+                r = _req.post(url, json=payload,
+                              headers={"Content-Type": "application/json"}, timeout=15)
+                ms = int((time.time() - t0) * 1000)
+                if r.status_code == 200:
+                    results[mname] = ms
+                    self._log_msg(f"  ✅ {mname}: {ms}ms")
+                elif r.status_code == 429:
+                    results[mname] = -2
+                    self._log_msg(f"  ⚠ {mname}: Rate limit (429) — key OK")
+                elif r.status_code in (404, 400):
+                    results[mname] = -3
+                    self._log_msg(f"  ✗ {mname}: HTTP {r.status_code} — không truy cập được")
+                else:
+                    results[mname] = -1
+                    self._log_msg(f"  ✗ {mname}: HTTP {r.status_code}")
+            except Exception as ex:
+                results[mname] = -1
+                self._log_msg(f"  ✗ {mname}: {ex}")
+            time.sleep(0.5)
+
+        # Bước 3: Cập nhật danh sách
+        self._log_msg("🔄 Bước 3: Cập nhật danh sách model trong UI...")
+        existing = {m["name"] for m in self._models}
+        for mname, ms in results.items():
+            tier = self._infer_tier(mname)
+            note_suffix = (f"({ms}ms)" if ms > 0 else
+                           "(Rate limit)" if ms == -2 else
+                           "(Không truy cập)" if ms == -3 else "(Lỗi)")
+            if mname in existing:
+                for m in self._models:
+                    if m["name"] == mname:
+                        m["latency_ms"] = max(ms, 0)
+                        m["tier"] = tier
+                        m["note"] = f"Tier {tier} — {note_suffix}"
+                        break
+            else:
+                self._models.append({
+                    "name": mname, "enabled": ms > 0, "tier": tier,
+                    "note": f"[Mới] Tier {tier} — {note_suffix}",
+                    "latency_ms": max(ms, 0)
+                })
+
+        # Auto-sort sau discover
+        def _score(m):
+            ms2 = m.get("latency_ms", 0)
+            tb  = self._TIER_META.get(m.get("tier", "C"), self._TIER_META["C"])["score_bonus"]
+            return tb + (1000 / ms2 if ms2 > 0 else 0)
+        self._models.sort(key=_score, reverse=True)
+        self.after(0, self._refresh_tree)
+        self._log_msg(f"✅ Hoàn tất! {len(results)} model được đánh giá và xếp hạng tự động.")
+
+
 class CourseGenerationDialog(ctk.CTkToplevel):
     """Dialog sinh khóa học AI: chọn số từ/ngày, chạy nền, log tiến độ."""
 
@@ -1529,6 +1896,9 @@ class CourseGenerationDialog(ctk.CTkToplevel):
         self.btn_stop.pack(side="left")
         self.btn_stop.configure(state="disabled")
 
+        btn(btn_row, "⚙️ Cài đặt Model", C["card2"], C["accent"], w=145, h=38,
+            cmd=lambda: ModelSettingsDialog(self)).pack(side="left", padx=(10, 0))
+
         self.progress = ctk.CTkProgressBar(self, progress_color=C["accent"], height=8)
         self.progress.pack(fill="x", padx=20, pady=(0, 6))
         self.progress.set(0)
@@ -1577,6 +1947,14 @@ class CourseGenerationDialog(ctk.CTkToplevel):
                   "bấm Dừng bất kỳ lúc nào, chạy lại sẽ tiếp tục chỗ đang dở.")
         if not n_keys:
             self._log("⚠️ Chưa thấy API key! Kiểm tra file settings.json của AskCpl.")
+        # Hiển thị danh sách model đang ưu tiên
+        try:
+            active_models = get_active_model_list()
+            self._log(f"🤖 Model ưu tiên: {' → '.join(active_models[:3])}"
+                      f"{'...' if len(active_models) > 3 else ''}")
+            self._log("   (Nhấn ⚙️ Cài đặt Model để thêm/tắt/sắp xếp thứ tự model)")
+        except Exception:
+            pass
 
     def _update_level_info(self):
         level = self.cb_level.get() or DEFAULT_LEVEL

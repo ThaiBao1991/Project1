@@ -14,6 +14,43 @@
     "root_folder_name": "VocabularyApp"
   },
   "ai": {
-    "askcpl_settings_path": ""
+    "askcpl_settings_path": "",
+    "model_priority": [
+      {
+        "name": "gemini-3.5-flash",
+        "enabled": true,
+        "tier": "S",
+        "note": "Mạnh nhất — Gemini 3.5",
+        "latency_ms": 0
+      },
+      {
+        "name": "gemini-3-flash-preview",
+        "enabled": true,
+        "tier": "A",
+        "note": "Rất tốt — Gemini 3 Preview",
+        "latency_ms": 0
+      },
+      {
+        "name": "gemini-flash-latest",
+        "enabled": true,
+        "tier": "A",
+        "note": "Ổn định — Flash Latest",
+        "latency_ms": 0
+      },
+      {
+        "name": "gemini-3.1-flash-lite",
+        "enabled": true,
+        "tier": "B",
+        "note": "Nhẹ & Nhanh — Gemini 3.1 Lite",
+        "latency_ms": 0
+      },
+      {
+        "name": "gemini-flash-lite-latest",
+        "enabled": true,
+        "tier": "B",
+        "note": "Dự phòng — Flash Lite Latest",
+        "latency_ms": 0
+      }
+    ]
   }
 }

@@ -49,5 +49,40 @@
       "che_tao_bo_nho_ram_va_rom",
       "lap_trinh_hop_ngu_assembly_tai_thiet"
     ]
+  },
+  "hướng dẫn powerpoint đến mức trở thành chuyên gia , làm được mọi thứ có thể": {
+    "title": "Hướng dẫn powerpoint đến mức trở thành chuyên gia , làm được mọi thứ có thể",
+    "recommended_days": 1000,
+    "persona": "Chuyên gia Kiến trúc Giải pháp Trình bày & Đồ họa Tương tác Doanh nghiệp",
+    "category": "Hệ sinh thái Công nghệ Văn phòng & Đồ họa Chuyên sâu",
+    "instruction": "PROFILE HƯỚNG DẪN POWERPOINT ĐẾN MỨC TRỞ THÀNH CHUYÊN GIA , LÀM ĐƯỢC MỌI THỨ CÓ THỂ: Lộ trình đào tạo này cấu trúc toàn diện từ tư duy thị giác nền tảng, thiết kế UX/UI cho slide, hệ thống typography, color theory, cho đến kỹ thuật xử lý hình ảnh vector, hoạt họa (animation/transition) nâng cao, thiết lập master slide phức tạp, và tích hợp lập trình VBA/Office Scripts để tự động hóa hoàn toàn. Người học sẽ làm chủ tư duy kể chuyện chiến lược (data storytelling), xây dựng các bảng dashboard tương tác cao, thiết kế game, ứng dụng thực tế ảo/3D trong slide, và tối ưu hóa hiệu suất đa nền tảng, biến PowerPoint thành một cỗ máy đa năng phục vụ thuyết trình chiến lược cấp cao, truyền thông thương hiệu và tương tác đa phương tiện.",
+    "mandatory_milestones": [
+      "tu_duy_thi_giac_va_ux_ui",
+      "cau_truc_master_slide",
+      "ky_thuat_typography_color",
+      "xu_ly_vector_va_do_hoa",
+      "advanced_animation_morph",
+      "data_storytelling_dashboard",
+      "vba_macro_automation",
+      "office_scripts_add_ins",
+      "tich_hop_3d_va_multimedia",
+      "thiet_ke_tuong_tac_game",
+      "bao_mat_va_tuong_thich",
+      "chien_luoc_thuyet_trinh_dinh_cao"
+    ],
+    "milestone_descriptions": {
+      "tu_duy_thi_giac_va_ux_ui": "Nắm vững nguyên lý thị giác Gestalt, tư duy bố cục lưới (Grid System), phân cấp thông tin (Visual Hierarchy) và trải nghiệm người xem (Audience UX) trong việc thiết kế thông điệp.",
+      "cau_truc_master_slide": "Làm chủ cấu trúc Slide Master, Layout phân cấp, tùy biến Theme, giữ vững tính đồng bộ nhận diện thương hiệu (Brand Guidelines) cho toàn bộ tài liệu doanh nghiệp lớn.",
+      "ky_thuat_typography_color": "Sử dụng thành thạo nghệ thuật chữ (Typography) nâng cao, hệ thống màu sắc chuẩn kỹ thuật số (RGB/CMYK, Color Harmonies), áp dụng phối màu theo tâm lý học hành vi.",
+      "xu_ly_vector_va_do_hoa": "Kỹ thuật vẽ hình học phức tạp, thao tác Boolean (Union, Combine, Subtract, Intersect), xử lý ảnh bitmap, tách nền và tối ưu hóa dung lượng đồ họa đa tầng.",
+      "advanced_animation_morph": "Khai thác tối đa hiệu ứng chuyển động Morph, Motion Paths tùy chỉnh, quản lý Animation Pane phức tạp để tạo ra các hiệu ứng chuyển cảnh mượt mà như phim ảnh.",
+      "data_storytelling_dashboard": "Chuyển hóa dữ liệu thô thành biểu đồ trực quan, infographic động, thiết kế executive dashboard tương tác cao kết hợp liên kết dữ liệu thời gian thực từ Excel.",
+      "vba_macro_automation": "Lập trình VBA trong PowerPoint để tự động hóa tác vụ lặp đi lặp lại, tạo custom ribbon, xử lý sự kiện (Event Handlers) và thao tác với các shape/object bằng code.",
+      "office_scripts_add_ins": "Phát triển Office Add-ins sử dụng JavaScript/TypeScript, tương thích Web Office, mở rộng tính năng vượt ra ngoài giới hạn của PowerPoint thông thường.",
+      "tich_hop_3d_va_multimedia": "Nhúng và điều khiển mô hình 3D (glTF/GLB), xử lý video/audio đa định dạng, thiết lập khung hình tương tác không gian thực tế ảo trong slide.",
+      "thiet_ke_tuong_tac_game": "Ứng dụng Hyperlinks, Triggers và Action Buttons để thiết kế các câu đố tương tác, bài giảng e-learning, mini-game hoặc mô phỏng phần mềm trực tiếp trên slide.",
+      "bao_mat_va_tuong_thich": "Thực hiện mã hóa tài liệu, thiết lập chữ ký số, quản lý quyền RMS, và xử lý tương thích khi trình chiếu trên nhiều phiên bản phần cứng/phần mềm khác nhau.",
+      "chien_luoc_thuyet_trinh_dinh_cao": "Nghệ thuật trình bày trước đám đông, kỹ thuật sử dụng Presenter Coach, điều hướng slide linh hoạt bằng Custom Shows và tư duy điều phối nội dung chiến lược."
+    }
   }
 }

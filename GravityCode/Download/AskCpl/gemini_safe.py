@@ -171,9 +171,15 @@ def is_model_restriction(msg):
 def extract_text(body):
     try:
         candidates = body.get("candidates", []) if isinstance(body, dict) else []
-        candidate = candidates[0] if candidates else {}
+        if not candidates:
+            return ""
+        candidate = candidates[0] if isinstance(candidates[0], dict) else {}
         parts = candidate.get("content", {}).get("parts", []) if isinstance(candidate, dict) else []
-        return parts[0].get("text", "") if parts else ""
+        texts = []
+        for p in parts:
+            if isinstance(p, dict) and "text" in p and p["text"]:
+                texts.append(p["text"])
+        return "".join(texts).strip()
     except Exception:
         return ""
 
@@ -402,6 +408,10 @@ class GeminiCoordinator:
                             "model": model, "message": msg}
                 kind = ErrorKind.EMPTY
                 msg = "phản hồi rỗng"
+                if model is not self._models[-1]:
+                    self._log(f"⚠ Model '{model}' phản hồi rỗng; chuyển sang model fallback...")
+                    last = {"kind": kind, "message": msg, "status_code": status_code, "model": model}
+                    continue
                 return {"kind": kind, "message": msg, "status_code": status_code, "model": model}
             if kind == ErrorKind.REQUEST_BAD:
                 if model is not self._models[-1]:

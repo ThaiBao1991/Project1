@@ -6,7 +6,48 @@
 
 ---
 
-## 📋 Cập nhật mới nhất — 2026-09-03 (Update 14)
+## 📋 Cập nhật mới nhất — 2026-09-05 (Update 15)
+
+### ⚙️ Cài Đặt Model AI, Quản Lý Thứ Tự Ưu Tiên & Tự Động Khám Phá / Benchmark (Đồng Bộ Cơ Chế AskCpl) — HOÀN THÀNH ✅
+
+**Vấn đề đã giải quyết:**
+- ❌ **Model AI bị hardcode cứng**: Trước đây `MODEL_FALLBACKS` trong `gemini_safe.py` là danh sách tĩnh, khi Google deprecate/đổi tên model (hoặc ra mắt các model mới như Gemini 2.5/Flash-Lite), ứng dụng dễ gặp lỗi hoặc không tận dụng được model mới.
+- ❌ **Chưa đồng bộ cấu hình với AskCpl**: Người dùng đã cấu hình danh sách model và benchmark trong AskCpl nhưng VocabApp không đọc được hoặc không có UI quản lý riêng.
+- ❌ **Không thể tự khám phá (Discovery) & Benchmark model**: Thiếu tính năng tự động gọi Google API `GET /v1beta/models` để quét các model đang sống và đo độ trễ (latency ms) thực tế.
+
+**Giải pháp triển khai:**
+- 🛠️ **`settings.py`**:
+  - Bổ sung cấu hình `model_priority` trong `DEFAULT_SETTINGS["ai"]`.
+  - Hàm `get_active_model_list()`: Đọc danh sách model đã bật (`enabled=True`) từ `settings.json` của VocabApp; nếu chưa cấu hình thì tự động fallback đọc từ file `settings.json` của `AskCpl`; nếu vẫn chưa có thì dùng danh sách fallback mặc định.
+  - Hàm `update_ai_settings(**kwargs)`: Cập nhật cấu hình AI an toàn.
+- 🛡️ **`api/gemini_safe.py`**:
+  - `GeminiCoordinator`: Khi khởi tạo với `models=None`, tự động đọc danh sách model active từ `get_active_model_list()`.
+  - Thêm property `models` để truy cập danh sách model fallback an toàn.
+- 🖥️ **`VocabApp.py`**:
+  - Xây dựng dialog **`ModelSettingsDialog`**:
+    * Giao diện Dark theme theo chuẩn màu VocabApp (`#BB86FC`, `#121212`, `#1E1E1E`).
+    * Bảng Treeview hiển thị: Thứ tự ưu tiên, Tên model, Tier (S/A/B/C), Trạng thái bật/tắt (Checkbox), Độ trễ (Latency ms), Ghi chú.
+    * Các nút điều khiển: `▲ Lên`, `▼ Xuống`, `👁️ Bật/Tắt`, `➕ Thêm Model`, `🗑️ Xóa`.
+    * Nút **`🚀 Quét & Benchmark Tự Động`**: Tự động gọi Google API lấy danh sách model thực tế, gửi test prompt `Hi` đo thời gian phản hồi, tính toán điểm hiệu năng và sắp xếp lại thứ tự ưu tiên tối ưu nhất.
+    * Nút **`🔄 Nạp Từ AskCpl`**: Đồng bộ tức thì cấu hình model từ tiện ích AskCpl sang VocabApp.
+  - Tích hợp nút `⚙️ Cài đặt Model` vào hộp thoại sinh khóa học `CourseGenerationDialog` (bên cạnh nút Dừng và Bắt đầu).
+  - Tích hợp khu vực `⚙️ Cài Đặt & Khám Phá Model AI` vào tab `Đồng Bộ & Cài Đặt (SettingsSyncTab)`.
+  - Hiển thị danh sách model đang ưu tiên trong log khi mở dialog tạo khóa học.
+- 🧪 **`test_ai_rich.py`**:
+  - Bổ sung Test Section [23]: Kiểm tra `get_active_model_list()`, `GeminiCoordinator.models`, và cập nhật lọc `update_ai_settings`.
+  - Toàn bộ **67/67 bài kiểm thử chạy thành công 100%**.
+
+| File | Thay đổi |
+|------|----------|
+| `settings.py` | Thêm `model_priority` vào `DEFAULT_SETTINGS["ai"]`, hàm `get_active_model_list()`, `update_ai_settings()`. |
+| `api/gemini_safe.py` | Cập nhật `GeminiCoordinator` tự động nạp `get_active_model_list()`, thêm property `models`. |
+| `VocabApp.py` | Tạo `ModelSettingsDialog`, thêm nút cài đặt vào `CourseGenerationDialog` và `SettingsSyncTab`, log danh sách model active. |
+| `test_ai_rich.py` | Bổ sung Test Section [23] kiểm thử Model Priority, Coordinator và Fallback. |
+| `projectLog.md` | Ghi nhận nhật ký Update 15. |
+
+---
+
+## 📋 Cập nhật trước đó — 2026-09-03 (Update 14)
 
 ### 🧠 AI Tự Động Suy Luận Định Danh Ngôn Ngữ & Quy Mô Số Ngày Chuẩn Bản Xứ C2 — HOÀN THÀNH ✅
 

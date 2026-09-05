@@ -292,8 +292,16 @@ class GeminiCoordinator:
                  key_loader=None, stop_check=None, temperature=0.1,
                  max_output_tokens=8192, timeout=90, max_transient=6,
                  daily_budget=DAILY_CALL_BUDGET, lock_after_success=False):
-        # Danh sách model fallback (đồng bộ 100% với AskCpl)
-        self._models = list(models) if models else list(MODEL_FALLBACKS)
+        # Danh sách model fallback — ưu tiên đọc từ settings.json (người dùng tùy chỉnh)
+        if models:
+            self._models = list(models)
+        else:
+            try:
+                from settings import get_active_model_list
+                _from_settings = get_active_model_list()
+                self._models = _from_settings if _from_settings else list(MODEL_FALLBACKS)
+            except Exception:
+                self._models = list(MODEL_FALLBACKS)
         self._log = log_fn or (lambda msg: None)
         self._on_key_status = on_key_status
         self._key_loader = key_loader or (lambda: [])
@@ -309,6 +317,11 @@ class GeminiCoordinator:
             warn_account_health(self._key_loader(), self._log)
         except Exception:
             pass
+
+    @property
+    def models(self):
+        """Danh sách model fallback đang được điều phối."""
+        return list(self._models)
 
     # ── callback nội bộ ──
     def _mark(self, key_obj, status, error_msg):

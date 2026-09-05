@@ -3808,7 +3808,7 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
                 n = mname.lower()
                 if "flash" not in n and "gemini" not in n:
                     continue
-                if any(x in n for x in ("embed", "vision", "imagen", "thinking", "image")):
+                if any(x in n for x in ("embed", "vision", "imagen", "thinking", "image", "transcribe", "audio", "tts", "robotics")):
                     continue
                 discovered.append(mname)
 

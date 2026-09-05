@@ -1889,10 +1889,10 @@
     "last_out_dir": "C:/Users/12953 bao/Desktop/Roadmap/ExcelDocument",
     "roadmap_generator": {
       "gen_mode": "learning",
-      "domain": "Hướng dẫn excell đến mức trở thành chuyên gia , làm được mọi thứ có thể",
+      "domain": "Hướng dẫn powerpoint đến mức trở thành chuyên gia , làm được mọi thứ có thể",
       "time_per_day": "1 tiếng",
       "days": "Auto",
-      "context": "Có thể đến mức chuyên gia từ API, liên kết công com,\nTạo addin \nWeb\nỨng dụng\nBiểu đồ\n........\nNói chung là ví dụ toàn bộ khả năng và thành supper chuyên gia",
+      "context": "Tự động\nVBA....\nNói chung là ví dụ toàn bộ khả năng và thành supper chuyên gia",
       "req_time": 0,
       "req_mat": 0,
       "req_step": 0,
@@ -1904,7 +1904,7 @@
       "reference_files": [
         "C:/Users/12953 bao/Desktop/desktop/work/Project/Python/BasicLearnPython/W3schools/Python Tutorial/GravityCode/Download/AskCpl/.agents/skills/generate_roadmap/SKILL.md"
       ],
-      "custom_filename": "ExecelFull",
+      "custom_filename": "PowerpointFull",
       "save_dir": "C:/Users/12953 bao/Desktop/Roadmap",
       "expand_mode": "llm"
     },
@@ -1912,38 +1912,171 @@
     "max_followup": 3,
     "model_priority": [
       {
+        "name": "gemini-3.5-flash-lite",
+        "enabled": true,
+        "tier": "S",
+        "note": "[Mới tìm] Tier S — (1152ms)",
+        "latency_ms": 1152
+      },
+      {
         "name": "gemini-3.5-flash",
         "enabled": true,
         "tier": "S",
-        "note": "Mạnh nhất — Gemini 3.5",
-        "latency_ms": 0
+        "note": "Tier S — (11314ms)",
+        "latency_ms": 11314
       },
       {
         "name": "gemini-3-flash-preview",
         "enabled": true,
         "tier": "A",
-        "note": "Rất tốt — Gemini 3 Preview",
-        "latency_ms": 0
+        "note": "Tier A — (1529ms)",
+        "latency_ms": 1529
       },
       {
         "name": "gemini-flash-latest",
         "enabled": true,
         "tier": "A",
-        "note": "Ổn định — Flash Latest",
-        "latency_ms": 0
+        "note": "Tier A — (1598ms)",
+        "latency_ms": 1598
       },
       {
-        "name": "gemini-3.1-flash-lite",
-        "enabled": true,
-        "tier": "B",
-        "note": "Nhẹ & Nhanh — Gemini 3.1 Lite",
-        "latency_ms": 0
+        "name": "gemini-3.5-transcribe",
+        "enabled": false,
+        "tier": "S",
+        "note": "Chuyên Audio/Speech — Không dùng cho sinh văn bản",
+        "latency_ms": 933
       },
       {
         "name": "gemini-flash-lite-latest",
         "enabled": true,
         "tier": "B",
-        "note": "Dự phòng — Flash Lite Latest",
+        "note": "Tier B — (1337ms)",
+        "latency_ms": 1337
+      },
+      {
+        "name": "gemini-3.1-flash-lite",
+        "enabled": true,
+        "tier": "B",
+        "note": "Tier B — (2514ms)",
+        "latency_ms": 2514
+      },
+      {
+        "name": "gemini-3.1-flash-lite-preview",
+        "enabled": true,
+        "tier": "B",
+        "note": "[Mới tìm] Tier B — (2964ms)",
+        "latency_ms": 2964
+      },
+      {
+        "name": "gemini-2.5-flash-lite",
+        "enabled": false,
+        "tier": "B",
+        "note": "[Mới tìm] Tier B — (Không truy cập được)",
+        "latency_ms": 0
+      },
+      {
+        "name": "gemini-3.1-pro-preview",
+        "enabled": false,
+        "tier": "B",
+        "note": "[Mới tìm] Tier B — (Rate limit)",
+        "latency_ms": 0
+      },
+      {
+        "name": "gemini-3.1-pro-preview-customtools",
+        "enabled": false,
+        "tier": "B",
+        "note": "[Mới tìm] Tier B — (Rate limit)",
+        "latency_ms": 0
+      },
+      {
+        "name": "gemini-3.1-flash-tts-preview",
+        "enabled": false,
+        "tier": "B",
+        "note": "[Mới tìm] Tier B — (Không truy cập được)",
+        "latency_ms": 0
+      },
+      {
+        "name": "gemini-robotics-er-2-preview",
+        "enabled": true,
+        "tier": "C",
+        "note": "[Mới tìm] Tier C — (1498ms)",
+        "latency_ms": 1498
+      },
+      {
+        "name": "gemini-3.8-flash",
+        "enabled": true,
+        "tier": "C",
+        "note": "[Mới tìm] Tier C — (1601ms)",
+        "latency_ms": 1601
+      },
+      {
+        "name": "gemini-3.7-flash",
+        "enabled": true,
+        "tier": "C",
+        "note": "[Mới tìm] Tier C — (5792ms)",
+        "latency_ms": 5792
+      },
+      {
+        "name": "gemini-2.5-flash",
+        "enabled": false,
+        "tier": "C",
+        "note": "[Mới tìm] Tier C — (Không truy cập được)",
+        "latency_ms": 0
+      },
+      {
+        "name": "gemini-2.5-pro",
+        "enabled": false,
+        "tier": "C",
+        "note": "[Mới tìm] Tier C — (Không truy cập được)",
+        "latency_ms": 0
+      },
+      {
+        "name": "gemini-2.5-flash-preview-tts",
+        "enabled": false,
+        "tier": "C",
+        "note": "[Mới tìm] Tier C — (Không truy cập được)",
+        "latency_ms": 0
+      },
+      {
+        "name": "gemini-2.5-pro-preview-tts",
+        "enabled": false,
+        "tier": "C",
+        "note": "[Mới tìm] Tier C — (Rate limit)",
+        "latency_ms": 0
+      },
+      {
+        "name": "gemini-pro-latest",
+        "enabled": false,
+        "tier": "C",
+        "note": "[Mới tìm] Tier C — (Rate limit)",
+        "latency_ms": 0
+      },
+      {
+        "name": "gemini-omni-flash-preview",
+        "enabled": false,
+        "tier": "C",
+        "note": "[Mới tìm] Tier C — (Rate limit)",
+        "latency_ms": 0
+      },
+      {
+        "name": "gemini-omni-1.1-flash",
+        "enabled": false,
+        "tier": "C",
+        "note": "[Mới tìm] Tier C — (Rate limit)",
+        "latency_ms": 0
+      },
+      {
+        "name": "gemini-3.6-flash",
+        "enabled": false,
+        "tier": "C",
+        "note": "[Mới tìm] Tier C — (Timeout)",
+        "latency_ms": 0
+      },
+      {
+        "name": "gemini-2.5-computer-use-preview-10-2025",
+        "enabled": false,
+        "tier": "C",
+        "note": "[Mới tìm] Tier C — (Rate limit)",
         "latency_ms": 0
       }
     ],
