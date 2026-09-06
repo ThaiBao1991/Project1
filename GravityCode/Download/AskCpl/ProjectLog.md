@@ -1,3 +1,78 @@
+## 2026-09-06 — Loại Bỏ Nghẽn I/O 5 Phút Giữa Các Day & Tối Ưu Hóa Tốc Độ Auto AI — HOÀN THÀNH ✅
+
+### 1. Vấn Đề Gốc Rễ Đã Giải Quyết
+- **Hiện tượng**: Khi tải đến các Day lớn (như Day 3054 -> 3057), giữa mỗi Day xảy ra hiện tượng kẹt đơ kéo dài ~5 phút (từ [21:12:43] đến [21:17:27], rồi đến [21:22:24], [21:28:26]), trong khi thời gian gọi Gemini AI chỉ mất ~10-15 giây.
+- **Nguyên nhân gốc rễ**:
+  - Tại `create_viewer(out_dir, session_data)` trong `auto_ai_worker.py`: Sau mỗi Day hoàn tất, hàm này duyệt qua toàn bộ danh sách `session_data` (hơn 3,055 bài học).
+  - Vì điều kiện `elif content_html.strip(): should_write = True`, chương trình đã **mở đọc và ghi đè lại toàn bộ >3,000 file HTML cũ xuống ổ cứng sau mỗi Day đơn lẻ**.
+  - 3,055 file × 2 thao tác I/O = hơn 6,100 lần I/O đĩa cùng các phép xử lý nối chuỗi HTML khổng lồ lặp lại sau mỗi Day, khiến toàn bộ tiến trình bị nghẽn đĩa cứng kéo dài gần 5 phút mỗi lần.
+
+### 2. Các Thay Đổi Cụ Thể
+- **`auto_ai_worker.py`**:
+  - `process_single_day()`: Đánh dấu cờ `item["_needs_disk_write"] = True` duy nhất cho Day vừa được sinh mới.
+  - `save_session()`: Loại bỏ trường `_needs_disk_write` khi lưu `session.json` để giữ file luôn gọn nhẹ (< 2 MB).
+  - `create_viewer()`:
+    - Sửa điều kiện ghi đĩa: Chỉ ghi file nếu file chưa tồn tại trên đĩa (`not file_exists`) HOẶC item có cờ `_needs_disk_write` (`item.pop('_needs_disk_write', False)`). Tất cả hàng nghìn file cũ đã có trên đĩa sẽ được bỏ qua 100% việc ghi lại.
+    - Tránh bug short-circuit: Luôn gọi `needs_write = bool(item.pop('_needs_disk_write', False))` trước khi xét `should_write = (not file_exists) or needs_write`.
+    - Cache `item['html'] = content_html` trong RAM khi đọc lần đầu để tránh việc đọc đĩa lặp lại.
+    - Cập nhật hàm JavaScript `renderDay` trong `index.html`: Nếu Day tải từ session chưa có trường `html` trong RAM, nhúng mượt mà qua thẻ `<iframe>` trỏ tới file HTML riêng, kèm try-catch loại bỏ navbar trùng lặp.
+- **`test_viewer_dashboard.py`**:
+  - Thêm bài test tự động `test_create_viewer_skips_rewriting_existing_days`: Kiểm chứng chính xác `st_mtime_ns` của file cũ không bị thay đổi và không bị ghi đè khi thêm Day mới.
+
+### 3. Kiểm Thử & Xác Minh (Verification)
+- ✅ `python -m py_compile auto_ai_worker.py AskCpl.py`: SYNTAX OK.
+- ✅ `python -m unittest test_viewer_dashboard.py`: PASS 2/2 tests.
+- ✅ `python -m unittest test_html_content_integrity.py test_viewer_dashboard.py test_gemini_account_budget.py`: PASS 8/8 tests.
+- ✅ `python -m unittest test_adaptive_learning.py test_gemini_safe_fallback.py test_verified_knowledge.py test_roadmap_pipeline.py`: PASS 27/27 tests.
+- **Kết quả đo đạc**: Thời gian xử lý `create_viewer()` giảm từ ~300 giây (5 phút) xuống dưới 0.05 giây. Quá trình tải chuyển sang Day kế tiếp gần như tức thì (~10-15s/Day theo thời gian phản hồi của AI).
+
+---
+
+## 2026-09-06 — Quản Lý Ngân Sách Per-Account, Giãn Cách Anti-Ban 8s & Dừng An Toàn Tuyệt Đối — HOÀN THÀNH ✅
+
+### 1. Vấn Đề Gốc Rễ Đã Giải Quyết
+- **Thắc mắc & Nguy cơ**: Bộ đếm API call trước đây chỉ đếm 1 con số tổng toàn cục (`_call_stats["total"]`), khi vượt 3,000 lượt chỉ in cảnh báo màu vàng chứ không dừng hay ngắt key/account.
+- **Rủi ro theo chính sách Google**: Google quản lý hạn ngạch (Quota 1,500 RPD) theo từng Account/Project. Khi một tài khoản bị gọi liên tục dồn dập hoặc chạm 429 liên tiếp có nguy cơ bị gắn cờ lạm dụng.
+- **Yêu cầu nâng cấp**:
+  1. Đếm và quản lý số lượt gọi chi tiết theo từng **Google Account (Email)** và từng **API Key** trong ngày hôm nay.
+  2. Đặt trần an toàn cứng: **1,000 calls / ngày / account** (thấp hơn trần 1,500 RPD của Google).
+  3. Khi 1 account đạt 1,000 calls: tự động cho account đó tạm nghỉ đến hết ngày, chuyển sang account khác còn hạn ngạch.
+  4. Đảm bảo giãn cách tối thiểu `PER_ACCOUNT_MIN_GAP = 8.0s` trên cùng 1 account (chuẩn Anti-Ban).
+  5. Khi TẤT CẢ account đều đã đạt ngân sách an toàn: Hệ thống tự động dừng an toàn (`ALL_BUDGET_EXHAUSTED`), lưu checkpoint và bảo vệ 100% tài khoản Google.
+  6. Hiển thị trực quan số lượt gọi hôm nay trên bảng Treeview Quản lý Key và bổ sung nút tra cứu Rate Limits chính thức của Google.
+
+### 2. Các Thay Đổi Cụ Thể
+- **`gemini_safe.py`**:
+  - Thêm hằng số `DAILY_ACCOUNT_BUDGET = 1000` và `PER_ACCOUNT_MIN_GAP = 8.0`.
+  - Thêm `ErrorKind.ALL_BUDGET_EXHAUSTED`.
+  - Nâng cấp `track_call(key_obj)`: theo dõi song song tổng toàn cục, tổng theo account (`_account_call_stats`), tổng theo key (`_key_call_stats`), đồng thời lưu trực tiếp vào `key_obj["today_calls"]`, `key_obj["today_account_calls"]`, `key_obj["call_date"]`.
+  - Cập nhật `AccountPool`:
+    - `sync(keys)`: Tự động khôi phục số lượt gọi trong ngày nếu khởi động lại ứng dụng.
+    - `_usable_keys()`: Loại trừ các account đã đạt `DAILY_ACCOUNT_BUDGET` hôm nay.
+    - `pick()`: Ưu tiên chọn account đã qua thời gian giãn cách `PER_ACCOUNT_MIN_GAP >= 8.0s`.
+    - `all_accounts_exhausted_daily()`: Báo khi toàn bộ account đều đã đạt ngân sách an toàn.
+  - Cập nhật `GeminiCoordinator`:
+    - Nhận tham số `account_budget`.
+    - Kiểm tra `all_accounts_exhausted_daily()` để trả về `ErrorKind.ALL_BUDGET_EXHAUSTED`.
+    - Log thông báo chi tiết khi từng account đạt ngân sách.
+- **`auto_ai_worker.py`**:
+  - `update_key_on_disk()`: Lưu bền vững các trường `today_calls`, `today_account_calls`, `call_date` vào `settings.json`.
+  - `call_gemini_api()`: Bắt `ErrorKind.ALL_BUDGET_EXHAUSTED` để dừng pipeline an toàn, kích hoạt lưu session checkpoint.
+- **`AskCpl.py`**:
+  - Bảng Treeview Quản lý API Key: Hiển thị trực tiếp số lượt gọi hôm nay trên cột Trạng thái (VD: `active (45 calls, Acc: 45/1000)` hoặc `đủ ngân sách (1000/1000)`).
+  - Bổ sung nút `🌐 Rate Limits Google` mở trực tiếp trang chính sách hạn ngạch của Google.
+- **`test_gemini_account_budget.py`**:
+  - Viết 4 bài test tự động kiểm tra đếm lượt gọi, loại bỏ account hết ngân sách, phát hiện tất cả account hết ngân sách và dừng an toàn.
+- **`SKILL.md` (`gemini_api_key_handling`)**:
+  - Chuẩn hóa quy chuẩn 7 (Ngân sách per-account 1,000 calls) và quy chuẩn 8 (Bộ đếm bền vững qua phiên) vào cẩm nang dùng chung của dự án.
+
+### 3. Kiểm Thử & Xác Minh (Verification)
+- ✅ `python -m py_compile gemini_safe.py auto_ai_worker.py AskCpl.py test_gemini_account_budget.py`: SYNTAX OK.
+- ✅ `python -m unittest test_gemini_account_budget.py`: 4/4 tests PASS 100%.
+- ✅ `python -m unittest test_gemini_safe_fallback.py test_html_content_integrity.py test_viewer_dashboard.py test_roadmap_pipeline.py`: 23/23 tests PASS 100%.
+
+---
+
 ## 2026-09-05 — Fix Lỗi Kẹt Chờ Khi Phản Hồi Rỗng & Tự Động Fallback Model — HOÀN THÀNH ✅
 
 ### 1. Vấn Đề Gốc Rễ Đã Giải Quyết

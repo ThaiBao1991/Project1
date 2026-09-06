@@ -69,11 +69,21 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
                     dk["status"] = k_obj.get("status", "active")
                     dk["reset_time"] = k_obj.get("reset_time", 0)
                     dk["next_check_time"] = k_obj.get("next_check_time", 0)
-                    dk["last_check_time"] = k_obj.get("last_check_time", 0)
                     if "cooldown_until" in k_obj:
                         dk["cooldown_until"] = k_obj["cooldown_until"]
-                elif target_acct and (dk.get("email") or "").strip().lower() == target_acct and cd_until > 0:
-                    dk["cooldown_until"] = cd_until
+                    if "today_calls" in k_obj:
+                        dk["today_calls"] = k_obj["today_calls"]
+                    if "today_account_calls" in k_obj:
+                        dk["today_account_calls"] = k_obj["today_account_calls"]
+                    if "call_date" in k_obj:
+                        dk["call_date"] = k_obj["call_date"]
+                elif target_acct and (dk.get("email") or "").strip().lower() == target_acct:
+                    if cd_until > 0:
+                        dk["cooldown_until"] = cd_until
+                    if "today_account_calls" in k_obj:
+                        dk["today_account_calls"] = k_obj["today_account_calls"]
+                    if "call_date" in k_obj:
+                        dk["call_date"] = k_obj["call_date"]
             update_gemini_settings(api_keys=disk_keys)
             if update_keys_cb:
                 update_keys_cb(disk_keys)
@@ -178,6 +188,9 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
 
         error = result.get("error", {})
         kind = error.get("kind")
+        if kind == ErrorKind.ALL_BUDGET_EXHAUSTED:
+            log(f"{log_prefix}🛑 Tất cả các tài khoản Google đã đạt ngân sách an toàn hôm nay! Dừng tiến trình để bảo vệ 100% tài khoản.")
+            return None, False, True  # Dừng pipeline an toàn
         if kind == ErrorKind.NO_KEY:
             log(f"{log_prefix}⚠ KHÔNG tìm thấy API Key nào khả dụng! Tất cả account đang trong cooldown 60 phút.")
             return None, False, True  # Dừng pipeline — không có key để xử lý tiếp
@@ -570,6 +583,7 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
             session_item["followup_turns"] = len(all_responses) - 1
             session_item["followup_complete"] = got_complete
             session_item["raw_responses"] = all_responses
+            session_item["_needs_disk_write"] = True
             if adaptive_ready and lesson_result:
                 session_item["adaptive_lesson"] = lesson_result
         else:
@@ -581,6 +595,7 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
                 existing_entry["followup_turns"] = len(all_responses) - 1
                 existing_entry["followup_complete"] = got_complete
                 existing_entry["raw_responses"] = all_responses
+                existing_entry["_needs_disk_write"] = True
                 if adaptive_ready and lesson_result:
                     existing_entry["adaptive_lesson"] = lesson_result
             else:
@@ -591,7 +606,8 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
                     "completed": True,
                     "followup_turns": len(all_responses) - 1,
                     "followup_complete": got_complete,
-                    "raw_responses": all_responses
+                    "raw_responses": all_responses,
+                    "_needs_disk_write": True,
                 }
                 if adaptive_ready and lesson_result:
                     new_entry["adaptive_lesson"] = lesson_result
@@ -674,7 +690,7 @@ def save_session(data_list, out_dir):
     for item in data_list:
         clean_item = {}
         for k, v in item.items():
-            if k == "html":
+            if k in ("html", "_needs_disk_write"):
                 continue
             if k == "raw_responses" and item.get("followup_complete", True):
                 continue
@@ -976,7 +992,10 @@ def create_viewer(out_dir, session_data=None):
             evidence_html = '<section class="coverage-warning"><b>Chưa đủ dữ liệu để khẳng định “toàn bộ”.</b> Bài này chỉ hiển thị quy trình và các dữ kiện đã có bằng chứng.</section>' + evidence_html
         out_filepath = os.path.join(out_dir, file_name)
         content_html = item.get('html', '')
-        if not content_html and os.path.exists(out_filepath):
+        file_exists = os.path.exists(out_filepath)
+        
+        # Chỉ đọc từ đĩa nếu trong RAM chưa có VÀ file đã tồn tại trên đĩa (để phục hồi khi resume)
+        if not content_html and file_exists:
             try:
                 with open(out_filepath, 'r', encoding='utf-8') as f_in:
                     existing_c = f_in.read()
@@ -985,16 +1004,24 @@ def create_viewer(out_dir, session_data=None):
                         m = re.search(r'<div class="content">(.*?)</div>', existing_c, re.DOTALL)
                     if m and m.group(1).strip():
                         content_html = m.group(1).strip()
+                        item['html'] = content_html  # Cache vào RAM để không bao giờ phải đọc lại ở các Day sau
             except Exception:
                 pass
-        content_html = content_html + evidence_html
-        followup_badge = (
-            f'<span class="followup-badge">✓ Đã đầy đủ ({followup_turns} lượt bổ sung)</span>'
-            if item.get('followup_complete') else
-            (f'<span class="followup-badge incomplete">⚠ {followup_turns} lượt bổ sung (chưa xác nhận)</span>'
-             if followup_turns > 0 else '')
-        )
-        day_html = f"""<!DOCTYPE html>
+
+        # CHỈ GHI FILE KHI:
+        # 1. File chưa tồn tại trên đĩa (not file_exists)
+        # 2. HOẶC item này vừa được hoàn thành mới (_needs_disk_write)
+        needs_write = bool(item.pop('_needs_disk_write', False))
+        should_write = (not file_exists) or needs_write
+        if should_write and content_html.strip():
+            full_day_content = content_html + evidence_html
+            followup_badge = (
+                f'<span class="followup-badge">✓ Đã đầy đủ ({followup_turns} lượt bổ sung)</span>'
+                if item.get('followup_complete') else
+                (f'<span class="followup-badge incomplete">⚠ {followup_turns} lượt bổ sung (chưa xác nhận)</span>'
+                 if followup_turns > 0 else '')
+            )
+            day_html = f"""<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
@@ -1018,18 +1045,10 @@ def create_viewer(out_dir, session_data=None):
     <h1>{day_title}</h1>
     <p>Tóm tắt &amp; Dịch tự động bởi AI · {datetime.now().strftime('%d/%m/%Y %H:%M')} {followup_badge}</p>
   </header>
-  <div class="content">{content_html}</div>
+  <div class="content">{full_day_content}</div>
   {nav_bar}
 </body>
 </html>"""
-        
-        should_write = False
-        if not os.path.exists(out_filepath):
-            should_write = True
-        elif content_html.strip():
-            should_write = True
-            
-        if should_write:
             try:
                 with open(out_filepath, 'w', encoding='utf-8') as f:
                     f.write(day_html)
@@ -1174,7 +1193,8 @@ def create_viewer(out_dir, session_data=None):
         '<a class="act-btn act-btn-open" href="' + encodeURI(item.file) + '" title="Mở file HTML độc lập">Mở trang riêng ↗</a>' +
       '</div>';
 
-      document.getElementById('lesson').innerHTML = topActions + '<h1>Day ' + escapeHtml(item.day) + ' — ' + escapeHtml(item.title.replace(/^Day\\s+[^—]+—\\s*/, '')) + '</h1><div class="lesson-meta">' + evidence + visual + (item.structured ? '<span class="badge ok">Bài học có cấu trúc</span>' : '<span class="badge warn">Bản legacy</span>') + '</div>' + sources + questions + item.html;
+      var bodyHtml = item.html ? item.html : '<div style="margin-top:16px;"><iframe src="' + encodeURI(item.file) + '" style="width:100%;height:80vh;border:1px solid #cbd5e1;border-radius:8px;background:#fff;" onload="try{{var nav=this.contentDocument.getElementById(&quot;askcpl-nav&quot;);if(nav)nav.style.display=&quot;none&quot;;}}catch(e){{}}"></iframe></div>';
+      document.getElementById('lesson').innerHTML = topActions + '<h1>Day ' + escapeHtml(item.day) + ' — ' + escapeHtml(item.title.replace(/^Day\\s+[^—]+—\\s*/, '')) + '</h1><div class="lesson-meta">' + evidence + visual + (item.structured ? '<span class="badge ok">Bài học có cấu trúc</span>' : '<span class="badge warn">Bản legacy</span>') + '</div>' + sources + questions + bodyHtml;
       
       // Auto attach copy code buttons to newly rendered lesson
       document.querySelectorAll('#lesson pre').forEach(function(pre){{

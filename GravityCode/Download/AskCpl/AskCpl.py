@@ -2977,6 +2977,11 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
                 lc = k.get("last_check_time", 0)
                 lc_str = datetime.datetime.fromtimestamp(lc).strftime('%Y-%m-%d %H:%M') if lc > 0 else "-"
 
+                today_str = datetime.datetime.now().strftime('%Y-%m-%d')
+                call_date = k.get("call_date", "")
+                k_calls = k.get("today_calls", 0) if call_date == today_str else 0
+                acct_calls = k.get("today_account_calls", 0) if call_date == today_str else 0
+
                 disp_status = k.get("status", "active")
                 tag_list = []
                 pid = k.get("project_id", "")
@@ -2985,7 +2990,11 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
                 if pid and email and (email, pid) in dup_projects:
                     tag_list.append("dup_project")
 
-                if disp_status == "active" and cd_until > now_ts:
+                if acct_calls >= 1000:
+                    disp_status = f"đủ ngân sách ({acct_calls}/1000)"
+                    rt_str = "Hồi phục 0h mai"
+                    tag_list.append("exhausted_key")
+                elif disp_status == "active" and cd_until > now_ts:
                     mins_left = max(1, int((cd_until - now_ts) / 60))
                     disp_status = f"cooldown ({mins_left}m)"
                     tag_list.append("cooldown_key")
@@ -2995,6 +3004,8 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
                     if k.get("error_msg"):
                         disp_status = f"invalid: {k.get('error_msg')}"
                     tag_list.append("invalid_key")
+                elif disp_status == "active" and (k_calls > 0 or acct_calls > 0):
+                    disp_status = f"active ({k_calls} calls, Acc:{acct_calls}/1000)"
 
                 iid = f"key_{idx}_{id(k)}"
                 _tree_key_map[iid] = k
@@ -3551,6 +3562,8 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
         Button(btn_frame, text="🔓 Xóa Cooldown", command=reset_all_cooldown, bg="#2980b9", fg="white").pack(side="left", padx=5)
         Button(btn_frame, text="Đặt Active", command=set_active, bg="#3498db", fg="white").pack(side="left", padx=5)
         Button(btn_frame, text="Lưu Thứ Tự", command=save_sort_order, bg="#16a085", fg="white").pack(side="left", padx=5)
+        import webbrowser
+        Button(btn_frame, text="🌐 Rate Limits Google", command=lambda: webbrowser.open("https://ai.google.dev/gemini-api/docs/rate-limits"), bg="#2c3e50", fg="white").pack(side="left", padx=5)
         Button(btn_frame, text="⚙️ Cài đặt Model", command=self._open_model_settings_dialog, bg="#6c3483", fg="white", font=("Arial", 9, "bold")).pack(side="left", padx=5)
         Button(btn_frame, text="Xóa Key", command=del_key, bg="#e74c3c", fg="white").pack(side="right", padx=5)
 
