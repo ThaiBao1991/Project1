@@ -1,3 +1,64 @@
+## 2026-09-07 — Fix Lỗi PASS 1A Lệch Tổng Số Ngày Phase & Chống Phình Prompt Retry — HOÀN THÀNH ✅
+
+### 1. Vấn Đề Gốc Rễ Đã Giải Quyết
+- **Hiện tượng**: Khi tạo roadmap cho PowerPoint (`PowerpointFull`), PASS 1A liên tục báo lỗi:
+  `[PASS 1A • lần 2/3] Chưa dùng được: phase map phải đủ 10-3000 Day và tổng phase.days phải khớp.. Đang retry...`
+  Và sau 3 lần thử thì ném ngoại lệ `RoadmapValidationError: Không tạo được phase map hợp lệ sau 3 lần.`
+- **Nguyên nhân gốc rễ**:
+  1. **Khả năng tính toán số học của LLM**: Khi yêu cầu AI phân bổ 1000 Day (từ Domain Profile của PowerPoint) thành 10-15 Phase, AI gán số ngày cho từng Phase (ví dụ: 60, 80, 100, 70...) nhưng tổng các Phase cộng lại (`total`) hầu như không bao giờ khớp chính xác tuyệt đối 1000 mà thường ra 960, 1020, 1040...
+  2. **So sánh cứng nhắc (`total != target`)**: Code trước đây yêu cầu tổng số ngày các Phase phải bằng chính xác tuyệt đối `target`. Chỉ lệch 1 Day là báo lỗi và bắt AI sinh lại.
+  3. **Prompt lũy kế gây phình token & cảnh báo TPM**: Khi retry, code cộng dồn chuỗi `map_prompt += f"\nPhản hồi trước lỗi: {exc}..."` khiến prompt phình từ 6,937 lên 7,053 ký tự, kích hoạt cảnh báo vượt ngưỡng TPM Free-tier.
+
+### 2. Các Thay Đổi Cụ Thể
+- **`AskCpl.py`**:
+  - **Hàm `reconcile_phase_days(phases, target)`**:
+    - Chuẩn hóa toàn bộ phase: ép `days` sang int, kẹp ngưỡng `5 <= days <= 500`, bổ sung `id` và `name` nếu thiếu.
+    - Tự động co/dãn tỉ lệ số ngày các phase theo `target`.
+    - Bù trừ phần dư chẵn lẻ vào các phase một cách công bằng, đảm bảo `sum(phase.days) == target` chính xác tuyệt đối 100%.
+  - **Cơ chế PASS 1A Resilient**:
+    - Nhận danh sách `phases` từ AI, tự động gọi `reconcile_phase_days` cân chỉnh lại số ngày, ghi log `[PASS 1A • Auto-Reconcile]`.
+    - Vượt qua PASS 1A ngay từ lần thử đầu tiên (không còn phụ thuộc vào khả năng cộng nhẩm của AI).
+    - Chống phình prompt: Lưu `_base_map_prompt` gốc, khi retry chỉ ghép lỗi ngắn gọn (< 150 ký tự), không tích lũy chuỗi vô hạn.
+    - Tối ưu `coverage_guide`: Nối các mảng tri thức bằng chấm phẩy `; ` khi số lượng mảng > 20, giảm kích thước prompt ~300-500 ký tự.
+- **`test_roadmap_autofix.py`**:
+  - Bổ sung 3 unit tests:
+    - `test_reconcile_phase_days_scale_up_exact_match`: Scale từ 960 Day lên 1000 Day (kịch bản thực tế PowerPoint).
+    - `test_reconcile_phase_days_scale_down_exact_match`: Scale từ 1200 Day xuống 1000 Day.
+    - `test_reconcile_phase_days_cleans_strings_and_missing_keys`: Tự làm sạch chuỗi số, key rỗng và kẹp biên [5, 500].
+
+### 3. Kiểm Thử & Xác Minh (Verification)
+- ✅ `python -m py_compile AskCpl.py`: SYNTAX OK.
+- ✅ `python -m unittest test_roadmap_autofix.py`: 4/4 tests PASS (bao gồm 3 test mới cho `reconcile_phase_days`).
+- ✅ `python -m unittest test_roadmap_pipeline.py test_roadmap_audit.py test_gemini_safe_fallback.py test_html_content_integrity.py`: 25/25 tests PASS 100%.
+
+---
+
+## 2026-09-07 — Fix Lỗi Trùng topic_id Làm Dừng Tạo Roadmap & Tối Ưu Prompt Theo Lĩnh Vực — HOÀN THÀNH ✅
+
+### 1. Vấn Đề Gốc Rễ Đã Giải Quyết
+- **Hiện tượng**: Khi tạo roadmap cho PowerPoint (`PowerpointFull`), đến Day 195 (Macro phase 3, batch 57) hệ thống báo lỗi `[PASS 1B • Macro 3 • batch 57 • lần 3/3] JSON lỗi: batch có topic_id rỗng hoặc trùng.. Retry...` và dừng toàn bộ tiến trình sau 3 lần thử.
+- **Nguyên nhân gốc rễ**:
+  1. **Trùng slug ID**: Day 194 có `topic_id: "chuyen_gia_cau_truc_ban_com_tam_sai_gon"`. Ở Day 195, Gemini vô tình sinh lại đúng chuỗi `topic_id` đó.
+  2. **Retry không kèm thông tin lỗi**: Khi bắt lỗi `RoadmapValidationError`, code gọi lại Gemini nhưng dùng nguyên prompt cũ. Với temperature=0.1, Gemini trả về kết quả y hệt cả 3 lần khiến tiến trình bị dừng.
+  3. **Prompt bị ép ví dụ món ăn**: Prompt PASS 1B có dòng ví dụ cứng (`'Thịt kho tàu nước dừa', 'Heo quay giòn bì'`) áp dụng cho mọi lĩnh vực, khiến việc tạo lộ trình PowerPoint bị ép đặt tên theo món ăn Việt Nam dẫn đến cạn ý tưởng và lặp lại "Cơm tấm Sài Gòn".
+
+### 2. Các Thay Đổi Cụ Thể
+- **`AskCpl.py`** (hàm `_roadmap_v5_step1` - PASS 1B):
+  - **Cơ chế Tự Động Khử Trùng `topic_id` (Resilient ID Auto-Fix)**: Nếu `topic_id` bị trùng với các Day trước hoặc rỗng, hệ thống tự động gán hậu tố `_d{day}` (ví dụ: `chuyen_gia_cau_truc_ban_com_tam_sai_gon_d195`), log `[PASS 1B • Auto-Fix]` và tiếp tục, không làm gián đoạn tiến trình.
+  - **Tự làm sạch `prerequisites`**: Tự động lọc bỏ các prerequisite chưa tồn tại trong `known` hoặc tự tham chiếu chính nó, tránh lỗi tham chiếu ảo.
+  - **Ví dụ thực chiến thông minh theo Lĩnh Vực (Domain-Aware Hint)**:
+    - PowerPoint: gợi ý Pitch deck, Báo cáo tài chính Q4, Infographic chuỗi cung ứng, Morph animation...
+    - Excel / Lập trình: gợi ý Dashboard KPI, Bảng cân đối kế toán, WinAPI Base64...
+    - Chỉ gợi ý món ăn khi lĩnh vực thực sự là ẩm thực/nấu ăn.
+- **`test_roadmap_autofix.py`**:
+  - Bổ sung unit test kiểm chứng cơ chế tự động khử trùng `topic_id` và tự làm sạch `prerequisites`.
+
+### 3. Kiểm Thử & Xác Minh (Verification)
+- ✅ `python -m py_compile AskCpl.py`: SYNTAX OK.
+- ✅ `python -m unittest test_roadmap_autofix.py test_gemini_safe_fallback.py test_html_content_integrity.py test_viewer_dashboard.py test_roadmap_pipeline.py test_roadmap_audit.py`: 28/28 tests PASS 100%.
+
+---
+
 ## 2026-09-06 — Loại Bỏ Nghẽn I/O 5 Phút Giữa Các Day & Tối Ưu Hóa Tốc Độ Auto AI — HOÀN THÀNH ✅
 
 ### 1. Vấn Đề Gốc Rễ Đã Giải Quyết

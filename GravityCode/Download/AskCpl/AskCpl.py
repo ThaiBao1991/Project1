@@ -87,6 +87,72 @@ try:
 except ImportError:
     run_server = None
 
+
+def reconcile_phase_days(phases: list, target: int) -> bool:
+    """Tự động điều hòa và phân bổ số ngày cho các phase sao cho tổng bằng chính xác target.
+    Đảm bảo mỗi phase có từ 5 đến 500 ngày.
+    """
+    if not phases or not isinstance(target, int) or target < 10:
+        return False
+    # 1. Chuẩn hóa từng phần tử phase
+    for i, p in enumerate(phases):
+        if not isinstance(p, dict):
+            continue
+        try:
+            d = int(p.get("days", 30))
+        except (ValueError, TypeError):
+            d = 30
+        p["days"] = max(5, min(500, d))
+        if not p.get("id"):
+            p["id"] = f"phase_{i + 1}"
+        if not p.get("name"):
+            p["name"] = f"Giai đoạn {i + 1}"
+
+    valid_phases = [p for p in phases if isinstance(p, dict)]
+    if not valid_phases:
+        return False
+    phases[:] = valid_phases
+
+    # 2. Kiểm tra nếu target quá nhỏ so với số phase (mỗi phase tối thiểu 5 day)
+    min_needed = len(phases) * 5
+    if target < min_needed:
+        max_phases = max(1, target // 5)
+        phases[:] = phases[:max_phases]
+
+    total = sum(p["days"] for p in phases)
+    if total == target:
+        return True
+
+    if total <= 0:
+        total = len(phases) * 30
+        for p in phases:
+            p["days"] = 30
+
+    # 3. Co/dãn tỉ lệ số ngày theo target
+    scaled = [max(5, min(500, int(round(p["days"] * target / total)))) for p in phases]
+    diff = target - sum(scaled)
+
+    # 4. Bù trừ phần dư chẵn lẻ diff vào các phase
+    step = 1 if diff > 0 else -1
+    idx = 0
+    loop_count = 0
+    max_loops = abs(diff) * len(phases) + 200
+    while diff != 0 and loop_count < max_loops:
+        loop_count += 1
+        if step > 0 and scaled[idx] < 500:
+            scaled[idx] += 1
+            diff -= 1
+        elif step < 0 and scaled[idx] > 5:
+            scaled[idx] -= 1
+            diff += 1
+        idx = (idx + 1) % len(phases)
+
+    for i, p in enumerate(phases):
+        p["days"] = scaled[i]
+
+    return sum(p["days"] for p in phases) == target
+
+
 class AskCplApp:
     def __init__(self, root):
         if run_server:
@@ -1611,7 +1677,10 @@ LUÔN dùng tiếng Việt."""
             # ══════════════════════════════════════════════════════════
             # PASS 1A: KNOWLEDGE MAP & PHASE STRUCTURE
             # ══════════════════════════════════════════════════════════
-            coverage_guide = "\nDanh mục phân mảng đã vét cạn từ PASS 0 (BẮT BUỘC PHẢI BAO PHỦ TẤT CẢ):\n" + "\n".join(f"- {a}" for a in discovered_areas) if discovered_areas else ""
+            if len(discovered_areas) > 20:
+                coverage_guide = "\nDanh mục phân mảng đã vét cạn từ PASS 0 (BẮT BUỘC PHẢI BAO PHỦ TẤT CẢ):\n" + "; ".join(discovered_areas)
+            else:
+                coverage_guide = "\nDanh mục phân mảng đã vét cạn từ PASS 0 (BẮT BUỘC PHẢI BAO PHỦ TẤT CẢ):\n" + "\n".join(f"- {a}" for a in discovered_areas) if discovered_areas else ""
             profile_guide = f"\nCHỈ DẪN CHUYÊN MÔN & ĐỊNH HƯỚNG TỪ DOMAIN PROFILE:\n{domain_profile.get('instruction', '')}\nPersona: {domain_profile.get('persona', 'Chuyên gia')}\n" if domain_profile.get('instruction') else ""
             self.roadmap_gen_log("[BƯỚC 1/3 • 1A] Đang lập knowledge map và chia phase từ cây tri thức...")
             if snapshot.get("gen_mode") == "wiki":
@@ -1636,21 +1705,52 @@ Topic registry của các roadmap cũ (không lặp lại nếu đã có):\n{reg
 Yêu cầu cấu trúc: Hãy ánh xạ các phân mảng trên thành các Phase học tập bài bản từ cơ bản đến master. Phân bổ từ 30-100 Day cho mỗi Phase lớn.
 Trả về JSON DUY NHẤT, NGẮN GỌN, KHÔNG tạo skeleton Day ở bước này: {{"domain_profile":{{"title":"...","total_days":N,"persona":"..."}},"coverage":[{{"area":"...","required":true}}],"phases":[{{"id":"phase_id","name":"...","days":30,"goal":"..."}}]}}.
 Tổng phase.days phải đúng total_days. Coverage phải bao gồm nền tảng, kỹ thuật, thực hành, lỗi/edge case, bảo trì/bảo quản, công cụ hiện đại, case study và dự án thực chiến. Quy tắc bắt buộc: Day là MỘT buổi 30 phút. LUÔN dùng tiếng Việt."""
+            _base_map_prompt = map_prompt
             for attempt in range(1, 4):
                 try:
                     phase_map = load_json_response(self._call_roadmap_llm(map_prompt, f"PASS 1A lần {attempt}"))
+                    if isinstance(phase_map, list):
+                        phase_map = {"phases": phase_map}
                     phases = phase_map.get("phases", []) if isinstance(phase_map, dict) else []
-                    total = sum(item.get("days", 0) for item in phases if isinstance(item, dict))
-                    target = expected if expected is not None else phase_map.get("domain_profile", {}).get("total_days")
                     auto_minimum = 365 if re.search(r'\b0\s*[-–]\s*\d+\s*(?:tuổi|tuoi)\b', snapshot["domain"], re.IGNORECASE) else 10
-                    if not phases or not isinstance(target, int) or total != target or not auto_minimum <= target <= 3000:
-                        raise RoadmapValidationError(f"phase map phải đủ {auto_minimum}-3000 Day và tổng phase.days phải khớp.")
-                    if any(not isinstance(item.get("days"), int) or not 5 <= item["days"] <= 500 for item in phases):
-                        raise RoadmapValidationError("mỗi macro phase phải có 5-500 micro-Day.")
+                    
+                    target = expected
+                    if target is None:
+                        try:
+                            target = int(phase_map.get("domain_profile", {}).get("total_days"))
+                        except (TypeError, ValueError):
+                            target = None
+                    
+                    if not phases:
+                        raise RoadmapValidationError("AI không trả về danh sách phases.")
+                    
+                    raw_total = sum(int(p.get("days", 30)) for p in phases if isinstance(p, dict) and str(p.get("days", "")).strip().lstrip("-").isdigit())
+                    if target is None or not (auto_minimum <= target <= 3000):
+                        if auto_minimum <= raw_total <= 3000:
+                            target = raw_total
+                        else:
+                            target = max(auto_minimum, min(3000, raw_total if raw_total > 0 else 365))
+                    
+                    # Tự động cân chỉnh phase.days để tổng khớp 100% target
+                    orig_total = sum(int(p.get("days", 30)) for p in phases if isinstance(p, dict) and str(p.get("days", "")).strip().lstrip("-").isdigit())
+                    if not reconcile_phase_days(phases, target):
+                        raise RoadmapValidationError(f"Không thể phân bổ {target} Day cho {len(phases)} phases.")
+                    
+                    if orig_total != target:
+                        self.roadmap_gen_log(f"[PASS 1A • Auto-Reconcile] Tổng ngày AI sinh ({orig_total} Day) khác target ({target} Day) -> đã tự động cân chỉnh các phase khớp 100%.")
+                    
+                    # Cập nhật lại phase_map
+                    if "domain_profile" not in phase_map or not isinstance(phase_map["domain_profile"], dict):
+                        phase_map["domain_profile"] = {}
+                    phase_map["domain_profile"]["total_days"] = target
+                    phase_map["domain_profile"]["title"] = phase_map["domain_profile"].get("title") or snapshot["domain"]
+                    phase_map["phases"] = phases
+                    
                     break
                 except RoadmapValidationError as exc:
                     self.roadmap_gen_log(f"[PASS 1A • lần {attempt}/3] Chưa dùng được: {exc}. Đang retry...")
-                    map_prompt += f"\nPhản hồi trước lỗi: {exc}. Trả lại JSON hoàn chỉnh, ngắn gọn."
+                    # Không cộng dồn map_prompt để tránh phình tokens
+                    map_prompt = _base_map_prompt + f"\nPhản hồi trước lỗi: {str(exc)[:150]}. Trả lại JSON hoàn chỉnh có mảng 'phases'."
             else:
                 raise RoadmapValidationError("Không tạo được phase map hợp lệ sau 3 lần.")
 
@@ -1744,9 +1844,23 @@ Trả JSON MẢNG, mỗi object: {{"day":N,"topic_id":"snake_case_duy_nhat","top
 ID đã tồn tại: {known_ids[-30:] if len(known_ids) > 30 else known_ids}. Mỗi lô (day) BẮT BUỘC phải liệt kê rõ 10-20 tên của các tướng/binh chủng/vũ khí sẽ trích xuất vào trường 'concrete_project'. KHÔNG để chung chung. LUÔN dùng tiếng Việt.
 CAM KẾT: trường 'topic' của MỖI lô mới PHẢI khác hoàn toàn với mọi tiêu đề sau đây (TUYỆT ĐỐI KHÔNG lặp lại): {all_title_fps}."""
                 else:
+                    _dom_lower = (snapshot.get("domain") or "").lower()
+                    if any(w in _dom_lower for w in ("nấu ăn", "ẩm thực", "món ăn", "bếp", "culinary", "cooking")):
+                        _proj_hint = "Món ăn đích danh cụ thể (BẮT BUỘC ĐÍCH DANH, không nói chung chung)"
+                        _rule_hint = "QUY TẮC THỰC HÀNH: Mỗi Day phải gắn với MỘT MÓN ĂN ĐÍCH DANH (ví dụ: 'Thịt kho tàu nước dừa', 'Heo quay giòn bì', 'Phở bò Hà Nội', 'Bò sốt vang'... không để chung chung)."
+                    elif any(w in _dom_lower for w in ("powerpoint", "slide", "thuyết trình", "presentation")):
+                        _proj_hint = "Dự án Slide / Bài thuyết trình đích danh thực chiến (BẮT BUỘC ĐÍCH DANH, không nói chung chung)"
+                        _rule_hint = "QUY TẮC THỰC HÀNH: Mỗi Day phải gắn với MỘT DỰ ÁN SLIDE ĐÍCH DANH THỰC CHIẾN (ví dụ: 'Slide Pitch Deck gọi vốn vòng Seed', 'Slide báo cáo tài chính Q4', 'Infographic chuỗi cung ứng logistics', 'Slide timeline lịch sử doanh nghiệp', 'Animation Morph tương tác đa tầng'... không nói chung chung)."
+                    elif any(w in _dom_lower for w in ("excel", "access", "vba", "sql", "python", "lập trình", "code", "software")):
+                        _proj_hint = "Dự án / Tính năng / Module code đích danh thực chiến (BẮT BUỘC ĐÍCH DANH, không nói chung chung)"
+                        _rule_hint = "QUY TẮC THỰC HÀNH: Mỗi Day phải gắn với MỘT BÀI TOÁN / MODULE THỰC CHIẾN ĐÍCH DANH (ví dụ: 'Hệ thống tính thuế TNCN lũy tiến', 'Bảng cân đối kế toán tự động', 'Hàm giải mã Base64 đa luồng WinAPI', 'Dashboard KPI bán hàng'... không nói chung chung)."
+                    else:
+                        _proj_hint = "Dự án / Tác phẩm / Sản phẩm ứng dụng thực chiến đích danh (BẮT BUỘC ĐÍCH DANH, không nói chung chung)"
+                        _rule_hint = "QUY TẮC THỰC HÀNH: Mỗi Day phải gắn với MỘT SẢN PHẨM / BÀI TẬP THỰC CHIẾN ĐÍCH DANH cụ thể, không nói chung chung."
+
                     phase_prompt = f"""Tạo CHÍNH XÁC {count} MICRO-DAY cho phase '{phase.get('name')}' của roadmap '{snapshot['domain']}', Day {start_day}..{end_day}. Mục tiêu: {phase.get('goal')}.
-Trả JSON MẢNG, mỗi object: {{"day":N,"topic_id":"snake_case_duy_nhat","topic":"tiêu đề micro-Day DUY NHẤT kèm tên món/tác phẩm cụ thể (tối đa 80 ký tự)","phase":"{phase.get('name')}","kind":"lesson|review|capstone","estimated_minutes":30,"concrete_project":"Món ăn đích danh cụ thể / Tác phẩm âm nhạc cụ thể / Bức tranh cụ thể / Ứng dụng thực chiến (BẮT BUỘC ĐÍCH DANH, không nói chung chung)","materials":["tối đa 3 vật liệu/nguyên liệu + số lượng/kích thước"],"definition_of_done":["tối đa 2 tiêu chí kiểm tra"],"details":["tối đa 3 việc nhỏ có thể làm trong 30 phút"],"keywords":["tối đa 4 từ khóa"],"prerequisites":["topic_id đã học trước đó"]}}.
-QUY TẮC THỰC HÀNH: Mỗi Day phải gắn với MỘT MÓN ĂN ĐÍCH DANH / BÀI TẬP CỤ THỂ (ví dụ: 'Thịt kho tàu nước dừa', 'Heo quay giòn bì', 'Vịt om sấu', 'Bò sốt vang'... không để chung chung 'chế biến thịt').
+Trả JSON MẢNG, mỗi object: {{"day":N,"topic_id":"snake_case_duy_nhat","topic":"tiêu đề micro-Day DUY NHẤT kèm tên dự án/tác phẩm cụ thể (tối đa 80 ký tự)","phase":"{phase.get('name')}","kind":"lesson|review|capstone","estimated_minutes":30,"concrete_project":"{_proj_hint}","materials":["tối đa 3 vật liệu/công cụ + số lượng/kích thước"],"definition_of_done":["tối đa 2 tiêu chí kiểm tra"],"details":["tối đa 3 việc nhỏ có thể làm trong 30 phút"],"keywords":["tối đa 4 từ khóa"],"prerequisites":["topic_id đã học trước đó"]}}.
+{_rule_hint}
 ID đã tồn tại từ phase trước: {known_ids[-30:] if len(known_ids) > 30 else known_ids}. prerequisites chỉ được dùng ID trong danh sách này hoặc Day đứng trước ngay trong response; nếu không chắc, dùng []. Không bọc markdown, không thiếu Day, không trùng Day, topic_id không trùng. {"Day cuối cùng của roadmap phải kind='capstone'." if index == len(phases) and remaining == count and len(phases) >= 2 else ""} LUÔN dùng tiếng Việt.
 CAM KẾT: trường 'topic' của MỖI Day mới PHẢI khác hoàn toàn với mọi tiêu đề sau đây (đây là danh sách toàn bộ tiêu đề đã tồn tại từ Day 1 đến nay — TUYỆT ĐỐI KHÔNG được lặp lại hay diễn đạt lại bằng từ ngữ tương tự): {all_title_fps}."""
                 _base_phase_prompt = phase_prompt
@@ -1772,15 +1886,25 @@ CAM KẾT: trường 'topic' của MỖI Day mới PHẢI khác hoàn toàn vớ
                                         )
                         known = set(known_ids)
                         for item in generated:
-                            if not isinstance(item, dict) or not item.get("topic_id") or item["topic_id"] in known:
-                                raise RoadmapValidationError("batch có topic_id rỗng hoặc trùng.")
+                            if not isinstance(item, dict):
+                                raise RoadmapValidationError("batch chứa phần tử không phải dict.")
+                            _dnum = item.get("day", start_day)
+                            _raw_tid = (item.get("topic_id") or "").strip()
+                            if not _raw_tid:
+                                _raw_tid = f"topic_d{_dnum}"
+                            if _raw_tid in known:
+                                _new_tid = f"{_raw_tid}_d{_dnum}"
+                                self.roadmap_gen_log(f"[PASS 1B • Auto-Fix] Day {_dnum}: topic_id '{_raw_tid}' bị trùng -> tự động đổi thành '{_new_tid}'.")
+                                _raw_tid = _new_tid
+                            item["topic_id"] = _raw_tid
+
                             prerequisites = item.get("prerequisites", [])
-                            if not isinstance(prerequisites, list) or any(value not in known for value in prerequisites):
-                                raise RoadmapValidationError("batch tham chiếu prerequisite chưa học.")
+                            if isinstance(prerequisites, list):
+                                clean_prereqs = [p for p in prerequisites if p in known and p != _raw_tid]
+                                item["prerequisites"] = clean_prereqs
+                            else:
+                                item["prerequisites"] = []
                             known.add(item["topic_id"])
-                            # Reference metadata is deterministic local data,
-                            # not something the model needs to print in every
-                            # JSON object (which previously caused truncation).
                             item["source_files"] = list(local_pdf_sources)
                         all_days.extend(generated)
                         atomic_write(checkpoint_path, json.dumps({
