@@ -2043,25 +2043,53 @@ CẤM TUYỆT ĐỐI không dùng lại hoặc diễn đạt tương tự BẤT 
                     )
 
         # ══════════════════════════════════════════════════════════
-        # PASS 1D: DỌN DẸP PREREQUISITES TRỎ SAI (SAU KHI PASS 1C SỬA TOPIC)
+        # PASS 1D: DỌN DẸP & ÁNH XẠ PREREQUISITES (SAU KHI PASS 1C SỬA TOPIC)
         # ══════════════════════════════════════════════════════════
         valid_topic_ids = set(d.get("topic_id", "") for d in all_days if d.get("topic_id"))
+        first_day_map = {}
+        day_to_id_map = {}
+        for d in all_days:
+            tid = d.get("topic_id")
+            day_num = d.get("day", 0)
+            if tid and tid not in first_day_map:
+                first_day_map[tid] = day_num
+            if day_num and tid and day_num not in day_to_id_map:
+                day_to_id_map[day_num] = tid
+
         prereq_fixed_days = []
         for d in all_days:
+            curr_day = d.get("day", 0)
+            curr_id = d.get("topic_id", "")
             prereqs = d.get("prerequisites", [])
             if not isinstance(prereqs, list):
+                d["prerequisites"] = []
                 continue
-            cleaned = [p for p in prereqs if p in valid_topic_ids]
-            if len(cleaned) != len(prereqs):
-                bad = [p for p in prereqs if p not in valid_topic_ids]
+            cleaned = []
+            removed = []
+            for p in prereqs:
+                target_id = p
+                # Tầng 1: Auto-Heal nếu AI sinh số nguyên hoặc chuỗi số thay vì topic_id
+                if isinstance(p, int) or (isinstance(p, str) and p.strip().isdigit()):
+                    p_int = int(p)
+                    if p_int in day_to_id_map and p_int < curr_day:
+                        target_id = day_to_id_map[p_int]
+
+                if (isinstance(target_id, str) and target_id in valid_topic_ids 
+                        and target_id != curr_id and first_day_map.get(target_id, 0) < curr_day):
+                    if target_id not in cleaned:
+                        cleaned.append(target_id)
+                else:
+                    removed.append(p)
+
+            if cleaned != prereqs:
                 d["prerequisites"] = cleaned
-                prereq_fixed_days.append((d["day"], bad))
+                if removed:
+                    prereq_fixed_days.append((curr_day, removed))
         if prereq_fixed_days:
             self.roadmap_gen_log(
-                f"[BƯỚC 1/3 • 1D] Dọn dẹp {len(prereq_fixed_days)} Day có prerequisite tham chiếu topic_id không còn tồn tại "
-                f"(do PASS 1C đã thay thế topic): " +
-                ", ".join(f"Day {day}" for day, _ in prereq_fixed_days[:10]) +
-                ("..." if len(prereq_fixed_days) > 10 else "") + " ✓"
+                f"[BƯỚC 1/3 • 1D] Dọn dẹp {len(prereq_fixed_days)} Day có prerequisite ảo giác/sai thứ tự: " +
+                ", ".join(f"Day {day} ({', '.join(map(str, bads))})" for day, bads in prereq_fixed_days[:8]) +
+                ("..." if len(prereq_fixed_days) > 8 else "") + " ✓"
             )
 
         plan = {"domain_profile": phase_map["domain_profile"], "coverage": phase_map.get("coverage", []), "skeleton": all_days}
@@ -2342,14 +2370,19 @@ CẤM TUYỆT ĐỐI không dùng lại hoặc diễn đạt tương tự BẤT 
                             self.roadmap_gen_log(f"  ⚠ Lỗi sửa Step 2 Day {dup_day_num} lần {_repair_attempt+1}: {rep_err}")
 
         # ══════════════════════════════════════════════════════════
-        # PASS 6D: DỌN DẸP PREREQUISITES ẢO GIÁC / TRỎ SAI SAU BƯỚC 2
+        # ══════════════════════════════════════════════════════════
+        # PASS 6D: DỌN DẸP & ÁNH XẠ PREREQUISITES THÔNG MINH SAU BƯỚC 2
         # ══════════════════════════════════════════════════════════
         valid_topic_ids = set(d.get("topic_id", "") for d in revised_days if d.get("topic_id"))
         first_day_map = {}
+        day_to_id_map = {}
         for d in revised_days:
             tid = d.get("topic_id")
+            day_num = d.get("day", 0)
             if tid and tid not in first_day_map:
-                first_day_map[tid] = d.get("day", 0)
+                first_day_map[tid] = day_num
+            if day_num and tid and day_num not in day_to_id_map:
+                day_to_id_map[day_num] = tid
 
         prereq_fixed_days = []
         for d in revised_days:
@@ -2359,19 +2392,32 @@ CẤM TUYỆT ĐỐI không dùng lại hoặc diễn đạt tương tự BẤT 
             if not isinstance(prereqs, list):
                 d["prerequisites"] = []
                 continue
-            cleaned = [
-                p for p in prereqs
-                if p in valid_topic_ids and p != curr_id and first_day_map.get(p, 0) < curr_day
-            ]
-            if len(cleaned) != len(prereqs):
-                removed = [p for p in prereqs if p not in cleaned]
+            cleaned = []
+            removed = []
+            for p in prereqs:
+                target_id = p
+                # Tầng 1: Auto-Heal nếu AI sinh số nguyên hoặc chuỗi số thay vì topic_id (ví dụ [1, 2])
+                if isinstance(p, int) or (isinstance(p, str) and p.strip().isdigit()):
+                    p_int = int(p)
+                    if p_int in day_to_id_map and p_int < curr_day:
+                        target_id = day_to_id_map[p_int]
+
+                if (isinstance(target_id, str) and target_id in valid_topic_ids 
+                        and target_id != curr_id and first_day_map.get(target_id, 0) < curr_day):
+                    if target_id not in cleaned:
+                        cleaned.append(target_id)
+                else:
+                    removed.append(p)
+
+            if cleaned != prereqs:
                 d["prerequisites"] = cleaned
-                prereq_fixed_days.append((curr_day, removed))
+                if removed:
+                    prereq_fixed_days.append((curr_day, removed))
 
         if prereq_fixed_days:
             self.roadmap_gen_log(
                 f"[BƯỚC 2/3 • Auto-Heal Prerequisite] Đã làm sạch {len(prereq_fixed_days)} Day có prerequisite ảo giác/sai thứ tự: " +
-                ", ".join(f"Day {day} ({', '.join(bads)})" for day, bads in prereq_fixed_days[:8]) +
+                ", ".join(f"Day {day} ({', '.join(map(str, bads))})" for day, bads in prereq_fixed_days[:8]) +
                 ("..." if len(prereq_fixed_days) > 8 else "") + " ✓"
             )
             progress["revised_days"] = revised_days
@@ -2440,11 +2486,12 @@ CẤM TUYỆT ĐỐI không dùng lại hoặc diễn đạt tương tự BẤT 
         lessons = []
         if snapshot["mode"] == "template":
             for item in plan["skeleton"]:
-                focus = "; ".join(item["details"])
+                focus = "; ".join(str(d) for d in item.get("details", []))
+                done_str = "; ".join(str(d) for d in item.get("definition_of_done", []))
                 if snapshot.get("gen_mode") == "wiki":
-                    prompt_str = f"LUÔN TRẢ LỜI BẰNG TIẾNG VIỆT. Mục tiêu trích xuất: {item['concrete_project']}. Yêu cầu chi tiết: {focus}. Tiêu chuẩn: {'; '.join(item['definition_of_done'])}. TUYỆT ĐỐI KHÔNG dùng văn xuôi lan man, KHÔNG đóng vai giáo viên. BẮT BUỘC xuất toàn bộ dữ liệu dưới dạng BẢNG MARKDOWN nghiêm ngặt. Không được bỏ sót bất kỳ thực thể nào được liệt kê trong mục tiêu."
+                    prompt_str = f"LUÔN TRẢ LỜI BẰNG TIẾNG VIỆT. Mục tiêu trích xuất: {item['concrete_project']}. Yêu cầu chi tiết: {focus}. Tiêu chuẩn: {done_str}. TUYỆT ĐỐI KHÔNG dùng văn xuôi lan man, KHÔNG đóng vai giáo viên. BẮT BUỘC xuất toàn bộ dữ liệu dưới dạng BẢNG MARKDOWN nghiêm ngặt. Không được bỏ sót bất kỳ thực thể nào được liệt kê trong mục tiêu."
                 else:
-                    prompt_str = f"LUÔN TRẢ LỜI BẰNG TIẾNG VIỆT. Mục tiêu duy nhất: {item['concrete_project']}. Việc nhỏ: {focus}. Hoàn thành khi: {'; '.join(item['definition_of_done'])}. Nếu hệ thống đính kèm văn bản PDF/tài liệu, chỉ dùng phần liên quan làm bằng chứng/hướng dẫn, không tóm tắt toàn bộ tài liệu. Hãy trả lời tối đa 1.000 từ, theo cấu trúc: {struct_str}. Không giảng lý thuyết lan man và không tạo quiz tương tác; nếu có câu hỏi, in đáp án mẫu cùng lúc."
+                    prompt_str = f"LUÔN TRẢ LỜI BẰNG TIẾNG VIỆT. Mục tiêu duy nhất: {item['concrete_project']}. Việc nhỏ: {focus}. Hoàn thành khi: {done_str}. Nếu hệ thống đính kèm văn bản PDF/tài liệu, chỉ dùng phần liên quan làm bằng chứng/hướng dẫn, không tóm tắt toàn bộ tài liệu. Hãy trả lời tối đa 1.000 từ, theo cấu trúc: {struct_str}. Không giảng lý thuyết lan man và không tạo quiz tương tác; nếu có câu hỏi, in đáp án mẫu cùng lúc."
                 
                 lessons.append({"day": item["day"],
                     "prompt": prompt_str,

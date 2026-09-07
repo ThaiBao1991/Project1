@@ -4179,3 +4179,1803 @@
 | capstone_tich_hop_toan_dien_banh_khot_co_ba | Siêu dự án Capstone: Tích hợp Office.js, Unit Test Rubberduck và C++ DLL cho Bánh khọt Cô Ba | roadmap_ExecelFull.md |
 | go_loi_xlm_sox_cha_ca_la_vong | Gỡ lỗi XLM di sản, kiểm toán SOX và tích hợp ADO SQL Server cho chuỗi Chả cá Lã Vọng | roadmap_ExecelFull.md |
 | capstone_tich_hop_grid_sox_banh_canh_trang_bang | Siêu dự án Capstone: Tích hợp Grid Computing, Office JS Web Add-ins và C++ DLL cho Bánh canh Trảng Bàng | roadmap_ExecelFull.md |
+| co_che_lay_nhiem_va_sinh_ton_khong_vu_trang | Phân tích dịch tễ học lây truyền virus và kỹ thuật di chuyển ẩn mật trong đô thị | roadmap_SaveLife.md |
+| che_tao_vu_khi_can_chien_tho_so | Thiết kế và gia cố vũ khí cận chiến thô sơ từ gậy bóng chày kết hợp kiểm định chất lượng | roadmap_SaveLife.md |
+| giai_phau_virus_va_ky_thuat_ne_tranh_trong_Resident_Evil | Giải phẫu virus xác sống và kỹ thuật né tránh trong Resident Evil | roadmap_SaveLife.md |
+| che_tao_giao_go_chong_dot_nhap_trong_The_Walking_Dead | Chế tạo giáo gỗ chống đột nhập từ gậy lau nhà trong The Walking Dead | roadmap_SaveLife.md |
+| phan_tich_mau_mau_va_ne_tranh_trong_project_zomboid | Phân tích mẫu máu và né tránh tận thế trong Project Zomboid | roadmap_SaveLife.md |
+| gia cố_va_thu_nghiem_gay_gai_trong_day_z | Chế tạo bẫy thú rừng và kiểm nghiệm nước sinh hoạt trong DayZ | roadmap_SaveLife.md |
+| giai_ma_vet_can_va_sinh_ton_khong_vu_trang_trong_28_days_later | Giải mã vết cắn và sinh tồn không vũ trang trong 28 Days Later | roadmap_SaveLife.md |
+| che_tao_va_thu_nghiem_bu_nhin_gai_sinh_ton_trong_dying_light | Chế tạo và thử nghiệm búa nhím sinh tồn trong Dying Light | roadmap_SaveLife.md |
+| xu_ly_phoi_nhiem_va_vo_thuat_sinh_ton_trong_the_last_of_us | Xử lý phơi nhiễm và võ thuật sinh tồn tay không trong The Last of Us | roadmap_SaveLife.md |
+| che_tao_gay_bong_chay_dinh_gai_trong_man_hunt | Chế tạo vũ khí cận chiến bọc thép gai và kiểm định độ bền sát thương | roadmap_SaveLife.md |
+| giai_ma_co_che_lay_nhiem_va_ne_tranh_trong_world_war_z | Giải mã cơ chế lây nhiễm và né tránh trong World War Z | roadmap_SaveLife.md |
+| che_tao_riu_sat_tai_che_trong_state_of_decay | Chế tạo rìu sắt tái chế kết hợp tiêu chuẩn đánh giá định lượng trong State of Decay | roadmap_SaveLife.md |
+| mo_phong_lay_nhiem_va_ne_tranh_trong_left_4_dead | Mô phỏng lây nhiễm và né tránh cận chiến sinh tồn trong Left 4 Dead | roadmap_SaveLife.md |
+| che_tao_va_test_giao_ong_nuoc_trong_dead_rising | Chế tạo và kiểm tra độ bền giáo ống nước sắc nhọn trong Dead Rising | roadmap_SaveLife.md |
+| giai_ma_co_che_lay_nhiem_va_ne_tranh_trong_day_z | Giải mã huyết thanh lây nhiễm và kỹ năng thoát hiểm DayZ | roadmap_SaveLife.md |
+| che_tao_va_thu_nghiem_dao_xuong_ca_trong_project_zomboid | Chế tạo dao xương cá tự vệ cận chiến theo Project Zomboid | roadmap_SaveLife.md |
+| giai_ma_co_che_lay_nhiem_va_ne_tranh_trong_7_days_to_die | Nghiên cứu tốc độ biến đổi tế bào và kỹ năng né tránh trong 7 Days to Die | roadmap_SaveLife.md |
+| che_tao_va_test_bu_bua_sat_thuong_trong_dead_island | Chế tạo vật phẩm cận chiến bọc thép gai kết hợp trong Dead Island | roadmap_SaveLife.md |
+| phan_tich_co_che_lay_nhiem_va_ne_tranh_trong_state_of_decay | Phân tích cơ chế lây nhiễm và né tránh trong State of Decay | roadmap_SaveLife.md |
+| che_tao_va_test_ong_tuyp_sat_bọc_xích_trong_man_hunt | Chế tạo và test ống tuýp sắt bọc xích trong Manhunt | roadmap_SaveLife.md |
+| giai_ma_co_che_lay_nhiem_va_ne_tranh_trong_dying_light | Giải mã tốc độ lây nhiễm và né tránh bẫy dịch tễ ban đêm | roadmap_SaveLife.md |
+| che_tao_va_test_ong_tuyp_sat_boc_xich_trong_dying_light | Chế tạo ống tuýp bọc xích và xây dựng vệ sinh dã chiến | roadmap_SaveLife.md |
+| giai_ma_co_che_lay_nhiem_va_ne_tranh_trong_the_last_of_us | Giải mã lây nhiễm nấm Cordyceps và né tránh trong The Last of Us | roadmap_SaveLife.md |
+| che_tao_va_test_ong_sat_gan_dao_trong_dead_rising | Chế tạo và test ống sắt gắn dao cận chiến trong Dead Rising kèm kiểm định chất lượng nước thô sơ | roadmap_SaveLife.md |
+| giai_ma_co_che_lay_nhiem_va_ne_tranh_trong_resident_evil_zero | Giải mã virus và né tránh trong Resident Evil Zero | roadmap_SaveLife.md |
+| che_tao_va_thu_nghiem_giao_go_bọc_thep_trong_dead_rising_2 | Chế tạo giáo gỗ bọc thép trong Dead Rising 2 kết hợp bẫy thú rừng | roadmap_SaveLife.md |
+| mo_phong_khang_the_va_ky_nang_thoat_hiem_trong_state_of_decay_2 | Mô phỏng kháng thể và kỹ năng thoát hiểm trong State of Decay 2 | roadmap_SaveLife.md |
+| che_tao_va_thu_nghiem_bua_ta_da_trong_dead_rising_chop | Chế tạo và thử nghiệm búa tạ đá kết hợp bẫy thú rừng thô sơ | roadmap_SaveLife.md |
+| giai_ma_co_che_lay_nhiem_va_ne_tranh_trong_days_gone | Giải mã cơ chế lây nhiễm và né tránh xác sống trong Days Gone | roadmap_SaveLife.md |
+| che_tao_va_test_gay_go_quan_day_thep_trong_days_gone | Chế tạo và thử nghiệm gậy gỗ quấn dây thép gai sinh tồn | roadmap_SaveLife.md |
+| giai_ma_co_che_lay_nhiem_va_ne_tranh_trong_days_gone_phan_2 | Giải mã miễn dịch và kỹ thuật tàng hình cận chiến trong Days Gone | roadmap_SaveLife.md |
+| che_tao_va_test_gay_go_quan_day_thep_phan_2 | Chế tạo và kiểm tra độ bền gậy gỗ gia cố gai thép gai trong Days Gone | roadmap_SaveLife.md |
+| phan_tich_vector_lay_nhiem_va_ne_tranh_trong_days_gone_phan_3 | Phân tích vector lây nhiễm và né tránh trong Days Gone phần 3 | roadmap_SaveLife.md |
+| che_tao_va_test_gay_go_gia_co_da_trong_days_gone | Chế tạo vũ khí cận chiến và bẫy thú rừng dã chiến | roadmap_SaveLife.md |
+| giai_ma_co_che_lay_nhiem_va_ne_tranh_trong_days_gone_phan_4 | Giải mã tốc độ biến đổi tế bào và né tránh trong Days Gone | roadmap_SaveLife.md |
+| che_tao_va_test_gay_go_bọc_luoi_lam_trong_days_gone | Chế tạo vũ khí cận chiến gậy gỗ bọc lưỡi lam và kiểm tra độ bền | roadmap_SaveLife.md |
+| giai_ma_vector_va_ne_don_trong_days_gone_phan_5 | Giải mã vector lây nhiễm cấp tính và né đòn tay không trong Days Gone | roadmap_SaveLife.md |
+| che_tao_va_test_gay_go_gan_nhong_xe_trong_days_gone | Chế tạo và kiểm định gậy gỗ gắn nhông xe gai góc cùng hệ thống bẫy thú rừng | roadmap_SaveLife.md |
+| giai_ma_vector_truyen_benh_va_ne_don_trong_resident_evil_4 | Giải mã vector truyền bệnh và né đòn trong Resident Evil 4 | roadmap_SaveLife.md |
+| che_tao_va_thu_nghiem_gay_sat_thuong_tu_ong_sat_trong_resident_evil_4 | Chế tạo và thử nghiệm gậy sát thương từ ống sắt trong Resident Evil 4 | roadmap_SaveLife.md |
+| giai_ma_co_che_lay_nhiem_va_ne_tranh_trong_resident_evil_5 | Phân tích sinh học thời gian ủ bệnh Majini và kỹ thuật né đòn ôm trực diện | roadmap_SaveLife.md |
+| che_tao_va_thu_nghiem_gay_go_gan_luoi_dao_trong_resident_evil_5 | Chế tác và kiểm định gậy gỗ gắn lưỡi dao cạo trong bối cảnh sinh tồn | roadmap_SaveLife.md |
+| giai_ma_vector_va_ne_don_trong_resident_evil_6 | Giải mã vector lây truyền bệnh và né đòn trong Resident Evil 6 | roadmap_SaveLife.md |
+| che_tao_va_thu_nghiem_gay_go_quan_gai_thep_trong_resident_evil_6 | Thiết kế cơ cấu gậy gỗ đính gai kẽm gai cận chiến chống xác sống | roadmap_SaveLife.md |
+| giai_ma_co_che_lay_nhiem_va_ne_tranh_trong_resident_evil_7 | Giải mã virus và né đòn cự ly gần trong Resident Evil 7 | roadmap_SaveLife.md |
+| che_tao_va_thu_nghiem_riu_tu_che_trong_resident_evil_7 | Chế tạo và test rìu tự chế từ kìm cắt trong Resident Evil 7 | roadmap_SaveLife.md |
+| giai_ma_vector_va_ne_don_trong_resident_evil_8 | Giải mã vector lây nhiễm Village trong Resident Evil 8 | roadmap_SaveLife.md |
+| che_tao_va_thu_nghiem_gay_go_boc_thep_trong_resident_evil_8 | Chế tạo gậy gỗ bọc thép sinh tồn và thiết lập mật mã liên lạc vô tuyến sơ khai | roadmap_SaveLife.md |
+| giai_ma_vector_lay_nhiem_va_ne_don_trong_resident_evil_9 | Giải mã vector lây nhiễm và né đòn cự ly gần trong Resident Evil 9 | roadmap_SaveLife.md |
+| che_tao_va_test_gay_go_boc_gai_thep_trong_resident_evil_9 | Chế tạo và kiểm định độ bền gậy gỗ bọc gai thép chống zombie | roadmap_SaveLife.md |
+| giai_ma_co_che_lay_nhiem_va_ne_don_trong_state_of_decay | Giải mã cơ chế lây nhiễm và né đòn trong State of Decay | roadmap_SaveLife.md |
+| che_tao_va_test_gay_go_quan_xich_xe_trong_state_of_decay | Chế tạo và kiểm nghiệm gậy gỗ quấn xích xe thực chiến | roadmap_SaveLife.md |
+| nghien_cuu_duong_di_vector_va_ne_don_trong_state_of_decay_phan_2 | Nghiên cứu đường đi vector và né đòn trong State of Decay phần 2 | roadmap_SaveLife.md |
+| che_tao_va_test_gay_go_quan_day_cap_trong_state_of_decay_phan_2 | Chế tạo và kiểm định gậy gỗ quấn dây cáp thép cận chiến thực chiến | roadmap_SaveLife.md |
+| giai_ma_co_che_lay_nhiem_va_ne_tranh_trong_the_last_of_us_d55 | Giải mã cơ chế lây nhiễm nấm Cordyceps và chiến thuật ẩn nấp | roadmap_SaveLife.md |
+| che_tao_va_thu_nghiem ống_tiêm_giam_chan_trong_the_last_of_us | Chế tạo dụng cụ ám sát thô sơ và mô phỏng cận chiến | roadmap_SaveLife.md |
+| giai_ma_co_che_lay_nhiem_va_ne_tranh_trong_the_last_of_us_phan_2 | Giải mã miễn dịch và né tránh trong The Last of Us | roadmap_SaveLife.md |
+| che_tao_va_thu_nghiem_giao_go_nhon_trong_the_last_of_us | Chế tạo và thử nghiệm giáo gỗ nhọn trong The Last of Us kết hợp bẫy thú rừng | roadmap_SaveLife.md |
+| giai_ma_co_che_lay_nhiem_va_ne_don_trong_dying_light | Giải mã cơ chế lây nhiễm virus Harran và phương pháp né đòn cận chiến | roadmap_SaveLife.md |
+| che_tao_va_thu_nghiem_ong_tup_quan_luoi_lam_trong_dying_light | Chế tạo ống tuýp quấn lưỡi lam và kiểm định độ bền cơ học | roadmap_SaveLife.md |
+| giai_ma_co_che_lay_nhiem_va_ne_tranh_trong_days_gone_phan_6 | Giải mã cơ chế lây nhiễm và né tránh trong Days Gone phần 6 | roadmap_SaveLife.md |
+| che_tao_va_test_gay_go_quan_xich_xe_phần_2 | Chế tạo và kiểm định gậy gỗ quấn xích xe đạp dã chiến | roadmap_SaveLife.md |
+| giai_ma_co_che_lay_nhiem_va_ne_tranh_trong_days_gone_phan_7 | Giải mã nhiễm trùng và né đòn Days Gone phần 7 | roadmap_SaveLife.md |
+| che_tao_va_test_gay_go_quan_thep_trong_days_gone_phan_3 | Chế tạo gậy gỗ quấn thép Days Gone phần 3 | roadmap_SaveLife.md |
+| giai_ma_co_che_lay_nhiem_trong_world_war_z | Giải mã dịch tễ học và lập bản đồ chuỗi lây nhiễm đô thị theo World War Z | roadmap_SaveLife.md |
+| che_tao_va_thu_nghiem_giao_tre_nhon_trong_world_war_z | Thiết kế kỹ thuật giáo đâm xuyên thủng và xử lý nhiệt tăng cứng thớ gỗ | roadmap_SaveLife.md |
+| giai_ma_co_che_lay_nhiem_trong_dead_rising | Giải mã cơ chế lây nhiễm và né tránh trong Dead Rising | roadmap_SaveLife.md |
+| che_tao_va_thu_nghiem_gay_go_quan_bang_keo_trong_dead_rising | Chế tạo và thử nghiệm gậy gỗ quấn băng keo gia cố lực đập | roadmap_SaveLife.md |
+| sinh_ton_khong_vu_trang_trong_state_of_decay_2 | Huấn luyện kỹ năng sinh tồn đơn lẻ không vũ trang và đánh giá độc tính thực phẩm | roadmap_SaveLife.md |
+| che_tao_va_thu_nghiem_bua_ta_da_trong_dying_light | Chế tạo vũ khí búa tạ đá thô sơ kết hợp bẫy thú rừng dã chiến | roadmap_SaveLife.md |
+| sinh_ton_khong_vu_trang_trong_state_of_decay_3 | Sinh tồn không vũ trang trong State of Decay 3 | roadmap_SaveLife.md |
+| che_tao_va_thu_nghiem_bua_ta_da_trong_dying_light_2 | Chế tạo và thử nghiệm búa tạ đá trong Dying Light 2 | roadmap_SaveLife.md |
+| sinh_ton_don_le_khong_vu_trang_trong_days_gone | Sinh tồn đơn lẻ không vũ trang và né tránh cận chiến trong Days Gone | roadmap_SaveLife.md |
+| che_tao_va_thu_nghiem_giao_go_dau_nhon_trong_days_gone | Chế tạo và kiểm nghiệm chất lượng nước dã chiến cùng giáo gỗ sinh tồn | roadmap_SaveLife.md |
+| sinh_ton_doc_lap_trong_resident_evil_4 | Sinh tồn độc lập không vũ trang và đánh giá chất lượng nước dã chiến | roadmap_SaveLife.md |
+| che_tao_va_thu_nghiem_gay_go_boc_gai_thep_trong_resident_evil_4 | Chế tạo vũ khí cận chiến thô sơ và bẫy thú rừng sinh tồn | roadmap_SaveLife.md |
+| sinh_ton_khong_vu_trang_trong_left_4_dead | Né tránh đòn vồ cận chiến và phản xạ sinh tồn không vũ trang | roadmap_SaveLife.md |
+| che_tao_va_thu_nghiem_riu_da_thanh_trong_left_4_dead | Chế tác thủ công rìu đá thạnh và bẫy thú rừng dã chiến | roadmap_SaveLife.md |
+| sinh_ton_khong_vu_trang_trong_dying_light_the_following | Kỹ thuật né tránh và cận chiến tay không mô phỏng bối cảnh Dying Light | roadmap_SaveLife.md |
+| che_tao_va_thu_nghiem_chay_nhua_duong_trong_dying_light | Chế tạo vũ khí cận chiến thô sơ gia cố bằng nhựa đường | roadmap_SaveLife.md |
+| sinh_ton_don_le_khong_vu_trang_trong_state_of_decay_4 | Sinh tồn đơn lẻ không vũ trang và kỹ năng né tránh trong State of Decay | roadmap_SaveLife.md |
+| che_tao_va_thu_nghiem_gay_go_quan_day_thep_gai_trong_days_gone | Chế tạo vũ khí cận chiến thô sơ và gia cố gậy gai từ Days Gone | roadmap_SaveLife.md |
+| sinh_ton_don_le_khong_vu_trang_trong_dead_rising | Kỹ năng thoát hiểm không vũ trang trong không gian hẹp mô phỏng Dead Rising | roadmap_SaveLife.md |
+| che_tao_va_thu_nghiem_ong_nuoc_quan_gai_thep_dead_rising | Chế tạo và kiểm định độ bền thực chiến vũ khí ống nước gai thép | roadmap_SaveLife.md |
+| sinh_ton_doc_lap_trong_world_war_z | Huấn luyện kỹ năng sinh tồn cô lập không có sự hỗ trợ trong World War Z | roadmap_SaveLife.md |
+| che_tao_va_thu_nghiem_bua_go_dinh_sat_trong_world_war_z | Chế tạo và thử nghiệm búa gỗ đinh sắt cận chiến sinh tồn trong World War Z | roadmap_SaveLife.md |
+| ky_nang_thoat_hiem_khong_vu_trang_trong_project_zomboid | Huấn luyện kỹ năng thoát hiểm tay không và lách chướng ngại vật khẩn cấp | roadmap_SaveLife.md |
+| che_tao_va_test_bua_go_quan_day_dien_trong_project_zomboid | Chế tạo, kiểm định vũ khí thô sơ và kiểm nghiệm độc tính vật liệu tự chế | roadmap_SaveLife.md |
+| sinh_ton_don_le_khong_vu_trang_trong_dying_light_the_following | Sinh tồn khẩn cấp không có vũ khí trong Dying Light: The Following kết hợp nhận diện độc tố | roadmap_SaveLife.md |
+| che_tao_va_thu_nghiem_bua_ta_da_quancd_trong_dying_light_the_following | Chế tạo búa tạ gia cố dây cáp và kiểm nghiệm nước sinh hoạt bằng hóa chất tự chế | roadmap_SaveLife.md |
+| sinh_ton_don_le_khong_vu_trang_trong_days_gone_phan_8 | Sinh tồn đơn lẻ không vũ trang và kỹ thuật ẩn nấp trong Days Gone phần 8 | roadmap_SaveLife.md |
+| che_tao_va_thu_nghiem_gay_go_quan_day_dien_trong_days_gone_phan_2 | Chế tạo vũ khí cận chiến gậy quấn dây điện và xử lý vệ sinh dã chiến | roadmap_SaveLife.md |
+| thuc_chien_ne_tranh_khong_vu_trang_trong_state_of_decay_phan_5 | Thực chiến né tránh không vũ trang trong State of Decay phần 5 | roadmap_SaveLife.md |
+| che_tao_va_danh_gia_gay_go_quan_day_thung_trong_state_of_decay | Chế tạo và đánh giá gậy gỗ quấn dây thừng gia cố trong State of Decay | roadmap_SaveLife.md |
+| ky_thuat_tranh_ne_don_le_trong_the_last_of_us | Kỹ thuật tránh né đơn lẻ sinh tồn trong The Last of Us | roadmap_SaveLife.md |
+| che_tao_va_thu_nghiem_gay_go_quan_xich_sat_trong_the_last_of_us | Chế tạo và thử nghiệm gậy gỗ quấn xích sắt trong The Last of Us | roadmap_SaveLife.md |
+| ky_nang_song_sot_don_le_trong_the_last_of_us_phan_2 | Chiến thuật tẩu thoát không vũ trang và nhận diện điểm mù đô thị | roadmap_SaveLife.md |
+| che_tao_va_thu_nghiem_gay_go_quan_day_thung_the_last_of_us | Quy trình gia cố vũ khí thô sơ bằng dây thừng gai và keo tổng hợp | roadmap_SaveLife.md |
+| sinh_ton_doc_lap_trong_days_gone_phan_cuoi | Sinh tồn độc lập qua khu vực nguy hiểm trong Days Gone | roadmap_SaveLife.md |
+| che_tao_va_thu_nghiem_gay_go_quan_day_thung_the_last_of_us_phan_2 | Chế tạo gậy chiến đấu gia cố dây thừng nguyên mẫu | roadmap_SaveLife.md |
+| chien_thuat_giap_la_ca_trong_the_last_of_us | Chiến thuật giáp lá cà và né tránh trực diện trong The Last of Us | roadmap_SaveLife.md |
+| nguy_trang_va_di_chuyen_an_nham_trong_days_gone | Thiết kế hệ thống ngụy trang điểm mù và bảo mật thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| ky_thuat_giap_la_ca_trong_resident_evil_4 | Chiến đấu cận chiến và tận dụng điểm mù zombie trong Resident Evil 4 | roadmap_SaveLife.md |
+| nguy_trang_va_an_nap_trong_dying_light | Kỹ thuật ngụy trang cơ thể và di chuyển ẩn thân trong bóng tối | roadmap_SaveLife.md |
+| danh_gia_diem_mu_giac_quan_resident_evil_4 | Đánh giá điểm mù giác quan xác sống và kiểm nghiệm độc tính thực phẩm mô phỏng trong Resident Evil 4 | roadmap_SaveLife.md |
+| thu_nghiem_nguy_trang_sinh_hoc_dying_light | Thử nghiệm ngụy trang sinh học, ẩn nấp kết hợp mã hóa vô tuyến thủ công trong Dying Light | roadmap_SaveLife.md |
+| dot_pha_vong_vay_trong_left_4_dead | Đột phá vòng vây trực diện kết hợp bẫy thú rừng sinh tồn | roadmap_SaveLife.md |
+| nguy_trang_va_an_nap_trong_world_war_z | Ngụy trang ẩn nấp kết hợp xử lý vệ sinh môi trường vùng trú ẩn | roadmap_SaveLife.md |
+| chien_thuat_giap_la_ca_va_ne_tranh_resident_evil_4 | Chiến thuật giáp lá cà và né tránh zombie trong Resident Evil 4 | roadmap_SaveLife.md |
+| khai_thac_diem_mu_giac_quan_zombie_world_war_z | Khai thác điểm mù giác quan và ngụy trang ẩn thân trong World War Z | roadmap_SaveLife.md |
+| ky_thuat_giap_la_ca_va_di_chuyen_an_nham_resident_evil_4 | Kỹ thuật giáp lá cà và di chuyển ẩn nhầm Resident Evil 4 | roadmap_SaveLife.md |
+| phan_tich_diem_mu_va_nguy_trang_sinh_hoc_dying_light | Phân tích điểm mù và ngụy trang sinh học Dying Light | roadmap_SaveLife.md |
+| mo_phong_can_chien_va_nguy_trang_resident_evil_4 | Mô phỏng cận chiến và ngụy trang thực chiến dựa trên Resident Evil 4 | roadmap_SaveLife.md |
+| danh_gia_diem_mu_va_dot_pha_left_4_dead | Đánh giá điểm mù giác quan và đột phá vòng vây kiểu Left 4 Dead | roadmap_SaveLife.md |
+| mo_phong_can_chien_va_nguy_trang_resident_evil_4_d115 | Thực chiến giáp lá cà và né đòn cự ly gần trong Resident Evil 4 | roadmap_SaveLife.md |
+| danh_gia_diem_mu_va_dot_pha_left_4_dead_d116 | Khai thác điểm mù giác quan và đột phá vòng vây trong Left 4 Dead | roadmap_SaveLife.md |
+| chien_thuat_can_chien_va_ne_tranh_resident_evil_4 | Chiến thuật cận chiến và né tránh chớp nhoáng dựa trên mô phỏng Resident Evil 4 | roadmap_SaveLife.md |
+| khai_thac_diem_mu_va_dot_pha_left_4_dead | Khai thác điểm mù giác quan kết hợp mã hóa tín hiệu vô tuyến thủ công trong Left 4 Dead | roadmap_SaveLife.md |
+| chien_luoc_giap_la_ca_resident_evil_4 | Chiến lược giáp lá cà và né đòn cự ly gần trong Resident Evil 4 | roadmap_SaveLife.md |
+| nguy_trang_va_tan_cong_bat_ngo_world_war_z | Kỹ thuật ngụy trang ẩn mình và mã hóa liên lạc vô tuyến dã chiến | roadmap_SaveLife.md |
+| giao_thua_can_chien_resident_evil_4 | Giao thừa cận chiến và lẩn trốn trong Resident Evil 4 | roadmap_SaveLife.md |
+| phan_tich_tieng_dong_va_diem_mu_left_4_dead | Phân tích tiếng động và điểm mù giác quan trong Left 4 Dead | roadmap_SaveLife.md |
+| dot_nhap_vong_mu_resident_evil_4 | Đột nhập vòng mù trong môi trường giả lập Resident Evil 4 | roadmap_SaveLife.md |
+| giap_la_ca_chuyen_sau_the_last_of_us | Kỹ năng giáp lá cà chuyên sâu và bẫy sinh tồn The Last of Us | roadmap_SaveLife.md |
+| ky_thuat_ap_sat_va_can_chien_trong_days_gone | Kỹ thuật áp sát và cận chiến sinh tồn lấy cảm hứng từ Days Gone | roadmap_SaveLife.md |
+| khai_thac_diem_mu_thi_giac_trong_resident_evil_4 | Khai thác điểm mù thị giác và bảo mật vô tuyến trong Resident Evil 4 | roadmap_SaveLife.md |
+| ky_thuat_can_chien_va_nguy_trang_tlou_d127 | Đột kích tầm gần và bôi bùn ẩn thân theo kịch bản The Last of Us | roadmap_SaveLife.md |
+| danh_gia_diem_mu_va_dot_pha_days_gone_d128 | Giải mã sóng âm và lập sơ đồ xuyên phá vòng vây Days Gone | roadmap_SaveLife.md |
+| dot_kich_can_chien_resident_evil_4 | Đột kích cận chiến và né tránh trong Resident Evil 4 | roadmap_SaveLife.md |
+| an_nap_va_di_chuyen_days_gone | Ẩn nấp và di chuyển qua điểm mù trong Days Gone | roadmap_SaveLife.md |
+| can_chien_va_ne_tranh_trong_days_gone | Can thiệp cận chiến và né đòn trong Days Gone | roadmap_SaveLife.md |
+| tan_dung_diem_mu_va_nguy_trang_tlou | Tận dụng điểm mù và ngụy trang trong The Last of Us | roadmap_SaveLife.md |
+| ky_thuat_ap_sat_va_ne_tranh_tlou | Kỹ thuật áp sát và né tránh cận chiến trong The Last of Us | roadmap_SaveLife.md |
+| nguy_trang_va_khai_thac_diem_mu_days_gone | Ngụy trang sinh học và khai thác điểm mù thị giác trong Days Gone | roadmap_SaveLife.md |
+| can_chien_va_ne_tranh_resident_evil_4 | Cận chiến và né tránh thây ma nâng cao Resident Evil 4 | roadmap_SaveLife.md |
+| nguy_trang_va_goc_khuhat_the_last_of_us | Ngụy trang âm thanh và vô hiệu hóa điểm mù The Last of Us | roadmap_SaveLife.md |
+| giao_tranh_truc_dien_va_nguy_trang_resident_evil_4 | Giao tranh trực diện và ngụy trang thực chiến trong Resident Evil 4 | roadmap_SaveLife.md |
+| khai_thac_diem_mu_va_dot_pha_days_gone | Khai thác điểm mù giác quan và đột phá vòng vây trong Days Gone | roadmap_SaveLife.md |
+| dot_kich_can_chien_resident_evil_4_d139 | Đột kích cận chiến chuyên sâu Resident Evil 4 kết hợp xử lý chất thải sinh hoạt dã chiến | roadmap_SaveLife.md |
+| an_nap_va_di_chuyen_days_gone_d140 | Ẩn nấp và di chuyển ẩn danh Days Gone tích hợp kiểm nghiệm nước và bẫy thú rừng | roadmap_SaveLife.md |
+| chien_dau_truc_dien_va_di_chuyen_an_nham_resident_evil_4 | Huấn luyện chiến đấu cận chiến góc nhìn thứ ba và né tránh linh hoạt | roadmap_SaveLife.md |
+| khai_thac_goc_khuat_va_giap_la_ca_the_last_of_us | Kỹ thuật áp sát tĩnh lặng và nhận diện điểm mù giác quan sinh tồn | roadmap_SaveLife.md |
+| can_chien_va_nguy_trang_ngay_143 | Võ thuật đối kháng và ngụy trang thân nhiệt sinh tồn Resident Evil 4 | roadmap_SaveLife.md |
+| diem_mu_va_dot_pha_ngay_144 | Xuyên thủng vòng vây thông qua điểm mù thính giác The Last of Us | roadmap_SaveLife.md |
+| vo_thuat_can_chi_va_an_nap_resident_evil_4 | Võ thuật cận chiến và ẩn nấp cận biên trong Resident Evil 4 | roadmap_SaveLife.md |
+| khai_thac_diem_mu_giac_quan_the_last_of_us | Định vị thính giác và kỹ năng di chuyển tàng hình vô thanh The Last of Us | roadmap_SaveLife.md |
+| ky_thuat_ap_sat_va_giao_tranh_resident_evil_4 | Áp sát cận chiến và xử lý điểm mù sinh học trong Resident Evil 4 | roadmap_SaveLife.md |
+| dot_pha_vong_vay_va_nguy_trang_the_last_of_us | Kỹ thuật đột phá vòng vây bầy đàn và ngụy trang thân nhiệt sinh học | roadmap_SaveLife.md |
+| can_chien_va_ngu_trang_resident_evil_4_d149 | Đánh cận chiến bằng dao và né tránh đòn vung tay Leon trong Resident Evil 4 | roadmap_SaveLife.md |
+| diem_mu_va_ngu_trang_the_last_of_us_d150 | Ẩn nấp trong thảm thực vật và khai thác thính giác Clicker trong The Last of Us | roadmap_SaveLife.md |
+| chien_dau_truc_dien_va_nguy_trang_resident_evil_4 | Đột kích trực diện và ngụy trang phòng thủ trong Resident Evil 4 | roadmap_SaveLife.md |
+| diem_mu_va_giao_tranh_the_last_of_us | Khai thác điểm mù giác quan kết hợp bẫy thú rừng The Last of Us | roadmap_SaveLife.md |
+| chien_thuat_can_chien_va_nguy_trang_d153 | Huấn luyện chuyên sâu chiến thuật giáp lá cà và ngụy trang chống kẻ thù trong The Last of Us | roadmap_SaveLife.md |
+| khai_thac_diem_mu_va_ne_tranh_d154 | Nắm bắt điểm mù giác quan, kiểm nghiệm độc tính thực phẩm và kỹ thuật né tránh trong Resident Evil 4 | roadmap_SaveLife.md |
+| can_chien_va_ngu_trang_resident_evil_4_remake | Võ thuật đối kháng và ngụy trang ánh sáng trong Resident Evil 4 Remake | roadmap_SaveLife.md |
+| diem_mu_va_ngu_trang_the_last_of_us_part_i | Khai thác thính giác Clicker, ngụy trang bùn đất và bảo mật thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| can_chien_va_nguy_trang_ngay_157 | Kỹ thuật cận chiến và bôi bùn ngụy trang tránh Clicker trong The Last of Us Part I | roadmap_SaveLife.md |
+| ne_tranh_va_diem_mu_ngay_158 | Khai thác điểm mù giác quan và phản đòn dao găm trong Resident Evil 4 Remake | roadmap_SaveLife.md |
+| can_chien_va_nguy_trang_ngay_159 | Học kỹ năng cận chiến và ngụy trang chống kẻ địch trong Resident Evil 4 Remake | roadmap_SaveLife.md |
+| diem_mu_va_giao_tranh_ngay_160 | Khai thác điểm mù thị giác và xử lý chất thải hữu cơ dã chiến trong sinh tồn | roadmap_SaveLife.md |
+| can_chien_va_nguy_trang_ngay_161 | Đột kích trực diện và bôi bùn ngụy trang trong The Last of Us | roadmap_SaveLife.md |
+| diem_mu_va_ne_tranh_ngay_162 | Khai thác điểm mù thị giác và phản đòn trong Resident Evil 4 | roadmap_SaveLife.md |
+| can_chien_va_ngu_trang_ngay_163 | Kỹ thuật cận chiến sinh tồn và ngụy trang mùi tự nhiên | roadmap_SaveLife.md |
+| diem_mu_va_ne_tranh_ngay_164 | Đánh lừa thị giác và vô hiệu hóa tín hiệu vô tuyến trinh sát | roadmap_SaveLife.md |
+| can_chien_va_nguy_trang_resident_evil_4_d165 | Huấn luyện cận chiến và ngụy trang sinh học Resident Evil 4 | roadmap_SaveLife.md |
+| diem_mu_va_ne_tranh_the_last_of_us_d166 | Khai thác điểm mù giác quan và né tránh thính giác The Last of Us Part I | roadmap_SaveLife.md |
+| giao_tranh_truc_dien_resident_evil_4_d167 | Huấn luyện giao tranh trực diện và né đòn chuẩn xác trong Resident Evil 4 | roadmap_SaveLife.md |
+| an_nap_va_di_chuyen_the_last_of_us_d168 | Ứng dụng ngụy trang bóng râm và luồn lách qua tầm nhìn Clicker trong The Last of Us | roadmap_SaveLife.md |
+| can_chien_va_nguy_trang_ngay_169 | Huấn luyện cận chiến trực diện kết hợp ngụy trang thảm thực vật Resident Evil 4 | roadmap_SaveLife.md |
+| diem_mu_va_ne_tranh_ngay_170 | Khai thác điểm mù giác quan kết hợp xây dựng nhà vệ sinh dã chiến The Last of Us | roadmap_SaveLife.md |
+| ky_thuat_can_chien_va_nguy_trang_ngay_171 | Kỹ thuật cận chiến và ngụy trang sinh học Resident Evil 4 | roadmap_SaveLife.md |
+| khai_thac_diem_mu_va_ne_tranh_ngay_172 | Khai thác điểm mù thị giác và bẫy săn bắn The Last of Us | roadmap_SaveLife.md |
+| can_chien_va_nguy_trang_resident_evil_4_d173 | Học kỹ năng cận chiến và ngụy trang kết hợp xử lý chất thải dã chiến | roadmap_SaveLife.md |
+| diem_mu_va_ne_tranh_the_last_of_us_d174 | Khai thác điểm mù, né tránh thính giác và bẫy săn bắn hoang dã | roadmap_SaveLife.md |
+| can_chien_va_ngu_trang_resident_evil_4_d175 | Học kỹ thuật cận chiến, phản công dao găm và ngụy trang góc hẹp trong Resident Evil 4 | roadmap_SaveLife.md |
+| diem_mu_va_ne_tranh_the_last_of_us_d176 | Khám phá điểm mù, định vị âm thanh và né tránh kẻ địch trong The Last of Us Part I | roadmap_SaveLife.md |
+| ky_thuat_giao_tranh_resident_evil_4_d177 | Kỹ thuật giao tranh cận chiến và né tránh sinh tồn theo Resident Evil 4 | roadmap_SaveLife.md |
+| diem_mu_thinh_giac_the_last_of_us_d178 | Khai thác điểm mù thính giác và kiểm định độc tính nước sinh hoạt | roadmap_SaveLife.md |
+| ky_thuat_can_chien_resident_evil_4_d179 | Đòn thế cận chiến và xử lý đám đông trong Resident Evil 4 | roadmap_SaveLife.md |
+| nguy_trang_thinh_giac_the_last_of_us_d180 | Di chuyển không tiếng động và lợi dụng thính giác trong The Last of Us | roadmap_SaveLife.md |
+| don_the_can_chien_resident_evil_4_d181 | Đòn thế cận chiến cận kề phong cách Resident Evil 4 | roadmap_SaveLife.md |
+| di_chuyen_khong_tieng_dong_the_last_of_us_d182 | Di chuyển không tiếng động qua vùng kiểm soát The Last of Us | roadmap_SaveLife.md |
+| don_the_can_chien_resident_evil_4_d183 | Đòn thế cận chiến nâng cao Resident Evil 4 | roadmap_SaveLife.md |
+| di_chuyen_khong_tieng_dong_the_last_of_us_d184 | Kỹ thuật tàng hình âm thanh và bẫy thú rừng The Last of Us | roadmap_SaveLife.md |
+| don_the_can_chien_resident_evil_4_d185 | Đòn thế cận chiến kết hợp dao găm Resident Evil 4 Remake | roadmap_SaveLife.md |
+| di_chuyen_khong_tieng_dong_the_last_of_us_d186 | Kỹ thuật di chuyển ẩn mình qua thảm lá khô The Last of Us Part I | roadmap_SaveLife.md |
+| don_the_can_chien_resident_evil_4_d187 | Phá giải vòng vây cận chiến Resident Evil 4 | roadmap_SaveLife.md |
+| di_chuyen_khong_tieng_dong_the_last_of_us_d188 | Ẩn mình né thính giác Clicker The Last of Us | roadmap_SaveLife.md |
+| pha_giai_vong_vay_resident_evil_4_d189 | Phá giải vòng vây cận chiến trong Resident Evil 4 | roadmap_SaveLife.md |
+| an_minh_ne_thinh_the_last_of_us_d190 | Ẩn mình né thính giác Clicker trong The Last of Us | roadmap_SaveLife.md |
+| pha_giai_vong_vay_resident_evil_4_d191 | Phá giải vòng vây cận chiến và xử lý tình huống sinh tồn trong Resident Evil 4 | roadmap_SaveLife.md |
+| an_minh_ne_thinh_the_last_of_us_d192 | Ẩn mình định vị thính giác và kiểm tra chất lượng môi trường trong The Last of Us | roadmap_SaveLife.md |
+| giao_tranh_can_chien_resident_evil_4_d193 | Giao tranh cận chiến và xử lý phản đòn dao găm sinh tồn trong Resident Evil 4 | roadmap_SaveLife.md |
+| danh_lac_huong_thinh_giac_the_last_of_us_d194 | Đánh lạc hướng thính giác, tàng hình và kiểm tra chất lượng môi trường The Last of Us | roadmap_SaveLife.md |
+| phan_don_can_chien_resident_evil_4_d195 | Phản đòn cận chiến Leon qua kịch bản Resident Evil 4 kết hợp xử lý chất thải dã chiến | roadmap_SaveLife.md |
+| tieu_pha_giam_am_the_last_of_us_d196 | Tiêu diệt tĩnh lặng kết hợp kỹ thuật bẫy thú rừng và kiểm định độc tính thực phẩm | roadmap_SaveLife.md |
+| ket_lieu_can_chien_resident_evil_4_d197 | Kết liễu cận chiến Resident Evil 4 kết hợp đánh giá độc tính thực phẩm | roadmap_SaveLife.md |
+| nep_minh_ngoai_tam_nhin_the_last_of_us_d198 | Nép mình ngoài tầm nhìn The Last of Us tích hợp kỹ thuật bẫy thú rừng | roadmap_SaveLife.md |
+| quan_sat_giac_quan_resident_evil_4_d199 | Đánh giá giác quan và góc khuất tầm nhìn zombie Resident Evil 4 | roadmap_SaveLife.md |
+| thoat_khoang_khong_the_last_of_us_d200 | Kỹ thuật né tránh và kiểm định nguồn nước The Last of Us | roadmap_SaveLife.md |
+| gia_co_cua_so_project_zomboid_d201 | Gia cố cửa sổ và chướng ngại vật chống xác sống trong Project Zomboid | roadmap_SaveLife.md |
+| lap_dat_bay_bao_dong_7_days_to_die_d202 | Hệ thống bẫy báo động âm thanh và cọc chông sinh học tự chế từ 7 Days to Die | roadmap_SaveLife.md |
+| dung_chan_tuong_chong_tiep_can_state_of_decay_2_d203 | Dựng chân tường chống tiếp cận State of Decay 2 | roadmap_SaveLife.md |
+| thiet_lap_loi_thoat_hiem_mai_nha_dying_light_d204 | Thiết lập lối thoát hiểm mái nhà Dying Light | roadmap_SaveLife.md |
+| lap_dat_rao_chan_an_toan_days_gone_d205 | Lắp đặt rào chắn an toàn ngăn chặn zombie trong Days Gone | roadmap_SaveLife.md |
+| xay_dung_diem_quan_sát_cao_diying_light_d206 | Xây dựng điểm quan sát trên cao chống đột nhập trong Dying Light | roadmap_SaveLife.md |
+| cai_dat_cua_chan_khong_the_last_of_us_d207 | Thiết lập cửa chặn không tiếng động The Last of Us | roadmap_SaveLife.md |
+| thiet_ke_cau_thang_day_thung_dying_light_d208 | Thiết kế cầu thang dây thòng lọng Dying Light | roadmap_SaveLife.md |
+| lap_dat_cua_chan_khong_the_last_of_us_d209 | Thiết lập lớp cửa chặn kép sinh tồn đô thị theo The Last of Us | roadmap_SaveLife.md |
+| thiet_ke_cau_thang_day_thung_dying_light_d210 | Thiết kế thang dây thoát hiểm khẩn cấp ban công cao tầng Dying Light | roadmap_SaveLife.md |
+| cai_dat_he_thong_canh_bao_som_project_zomboid_d211 | Cài đặt hệ thống cảnh báo sớm tích hợp cơ chế âm thanh đô thị | roadmap_SaveLife.md |
+| chan_vach_ngan_phong_thu_state_of_decay_2_d212 | Gia cố vách ngăn nội bộ và chặn lối đi hiểm yếu | roadmap_SaveLife.md |
+| cai_dat_luoi_thep_chong_dot_nhap_7_days_to_die | Cài đặt lưới thép chống đột nhập 7 Days to Die kết hợp gia cố vật lý | roadmap_SaveLife.md |
+| lap_dat_rem_che_khu_tam_nhin_project_zomboid | Lắp đặt rèm che khu tầm nhìn Project Zomboid và ngụy trang ánh sáng | roadmap_SaveLife.md |
+| lap_dat_tam_chan_kim_loai_project_zomboid | Lắp đặt tấm chắn kim loại cửa ra vào trong Project Zomboid | roadmap_SaveLife.md |
+| xay_dung_hang_rao_gai_7_days_to_die | Thiết lập bẫy hàng rào gai kẽm ngoại vi trong 7 Days to Die | roadmap_SaveLife.md |
+| cai_dat_he_thong_den_bay_7_days_to_die | Cài đặt hệ thống đèn bẫy 7 Days to Die kết hợp kiểm tra độ an toàn năng lượng | roadmap_SaveLife.md |
+| gia_co_tran_nha_chong_dot_nhap_project_zomboid | Gia cố trần nhà chống đột nhập Project Zomboid kèm xử lý chất thải sinh hoạt | roadmap_SaveLife.md |
+| cai_dat_cua_so_sat_project_zomboid_d219 | Cài đặt hệ thống khung cửa sổ sắt kiên cố chống đột nhập đô thị | roadmap_SaveLife.md |
+| xay_dung_barie_chan_duong_7_days_to_die_d220 | Thiết lập tuyến barie bê tông và bẫy chông chiến lược góc phố | roadmap_SaveLife.md |
+| lap_dat_cot_tru_chuyen_huong_7_days_to_die | Lắp đặt cột trụ bê tông lệch tâm chuyển hướng lực tác động 7 Days to Die | roadmap_SaveLife.md |
+| cai_dat_van_san_chong_sập_project_zomboid | Gia cố cấu trúc ván sàn chịu lực chống sập tầng hầm Project Zomboid | roadmap_SaveLife.md |
+| lap_dat_cot_chan_tuong_7_days_to_die | Lắp đặt cột chống chân tường kiên cố phòng thủ Project Zomboid | roadmap_SaveLife.md |
+| xay_dung_mai_che_quan_sat_7_days_to_die | Xây dựng mái che quan sát tầm cao chống đột kích 7 Days to Die | roadmap_SaveLife.md |
+| cai_dat_he_thong_thoat_nuoc_mua_7_days_to_die | Cài đặt hệ thống thoát nước mưa 7 Days to Die phòng chống ẩm mốc đô thị | roadmap_SaveLife.md |
+| xay_dung_ham_ngam_tranh_nan_project_zomboid | Xây dựng hầm ngầm trú ẩn khẩn cấp Project Zomboid kết hợp nhà vệ sinh dã chiến | roadmap_SaveLife.md |
+| lap_dat_cua_luoi_thep_project_zomboid | Lắp đặt cửa lưới thép bảo vệ ban công Project Zomboid | roadmap_SaveLife.md |
+| xay_dung_tuong_chan_dat_7_days_to_die | Xây dựng hệ thống tường chắn đất và kiểm nghiệm nước sinh hoạt dã chiến | roadmap_SaveLife.md |
+| lap_dat_cua_khong_7_days_to_die_d229 | Lắp đặt cửa chống đột nhập 7 Days to Die | roadmap_SaveLife.md |
+| xay_dung_thap_canh_project_zomboid_d230 | Xây dựng tháp canh kiểm soát Project Zomboid kết hợp thông tin liên lạc | roadmap_SaveLife.md |
+| lap_dat_cua_chuyen_huong_project_zomboid_d231 | Lắp đặt cửa chuyển hướng zombie đánh lạc hướng trong Project Zomboid | roadmap_SaveLife.md |
+| xay_dung_ho_nuoc_phong_thu_7_days_to_die_d232 | Thiết lập bẫy hào nước kết hợp cọc nhọn phòng thủ trong 7 Days to Die | roadmap_SaveLife.md |
+| lap_dat_tam_chan_cua_so_7_days_to_die_d233 | Lắp đặt tấm chắn cửa sổ chống xâm nhập 7 Days to Die | roadmap_SaveLife.md |
+| xay_dung_vach_ngan_phan_phong_project_zomboid_d234 | Thiết kế vách ngăn phân phòng chiến thuật Project Zomboid | roadmap_SaveLife.md |
+| lap_dat_cua_chong_dot_nhap_7_days_to_die_d235 | Lắp đặt cửa chống đột nhập kiên cố và bố trí vệ sinh dã chiến | roadmap_SaveLife.md |
+| xay_dung_cau_thang_chong_tiep_can_project_zomboid_d236 | Xây dựng cầu thang chống tiếp cận và thiết lập thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| xay_dung_cau_vong_phong_thu_7_days_to_die_d237 | Xây dựng cầu vọng quan sát góc chết bằng gỗ cốt thép | roadmap_SaveLife.md |
+| lap_dat_luoi_gai_ngam_project_zomboid_d238 | Thiết lập bẫy lưới gai kẽm kết hợp men vi sinh xử lý rác | roadmap_SaveLife.md |
+| lap_dat_cua_so_chong_dot_nhap_7_days_to_die | Lắp đặt cửa sổ chống đột nhập trong 7 Days to Die | roadmap_SaveLife.md |
+| xay_dung_tuong_da_bao_ve_state_of_decay_2 | Xây dựng hàng rào tường đá bảo vệ ngoại ô trong State of Decay 2 | roadmap_SaveLife.md |
+| cai_dat_he_thong_den_chieu_sang_khan_cap_7_days_to_die | Thiết lập lưới điện chiếu sáng khẩn cấp dự phòng tự động | roadmap_SaveLife.md |
+| lap_dat_he_thong_canh_bao_chuyen_dong_project_zomboid | Xây dựng mạng lưới bẫy âm thanh cảnh báo xâm nhập sớm | roadmap_SaveLife.md |
+| lap_dat_hang_rao_gai_thep_state_of_decay_2 | Lắp đặt hàng rào gai thép trong State of Decay 2 bảo vệ ngoại vi | roadmap_SaveLife.md |
+| cai_dat_cua_chan_vung_dem_7_days_to_die | Cài đặt cửa chặn vùng đệm kiểm soát lối vào trong 7 Days to Die | roadmap_SaveLife.md |
+| lap_dat_tam_chan_bao_ve_7_days_to_die_d245 | Thiết lập tấm chắn bảo vệ cửa chính chống xác sống 7 Days to Die | roadmap_SaveLife.md |
+| xay_dung_vung_dem_sinh_ton_project_zomboid_d246 | Xây dựng hệ thống lọc nước và kiểm định an toàn sinh học Project Zomboid | roadmap_SaveLife.md |
+| lap_dat_cua_an_toan_chong_dot_nhap_state_of_decay_2 | Lắp đặt cửa an toàn chống đột nhập State of Decay 2 | roadmap_SaveLife.md |
+| xay_dung_ho_thot_hiem_do_thi_7_days_to_die | Xây dựng hố thoát hiểm đô thị 7 Days to Die | roadmap_SaveLife.md |
+| lap_dat_cua_bao_ve_vung_loi_state_of_decay_2 | Thiết lập lớp cửa bảo vệ vùng lõi State of Decay 2 | roadmap_SaveLife.md |
+| xay_dung_tuong_chan_vung_nguy_hiem_7_days_to_die | Xây dựng tuyến tường chắn bê tông phân vùng nguy hiểm | roadmap_SaveLife.md |
+| lap_dat_cot_tru_chuyen_huong_do_thi_7_days_to_die | Lắp đặt cột trụ chuyển hướng dòng di chuyển zombie đô thị trong 7 Days to Die | roadmap_SaveLife.md |
+| cai_dat_he_thong_canh_bao_som_project_zomboid | Triển khai hệ thống bẫy dây văng âm thanh cảnh báo đột nhập trong Project Zomboid | roadmap_SaveLife.md |
+| lap_dat_cot_chan_duong_pho_state_of_decay_2 | Lắp đặt cột chặn đường phố chống xe tông State of Decay 2 | roadmap_SaveLife.md |
+| xay_dung_barie_chan_duong_7_days_to_die | Xây dựng barie chắn đường phân luồng đám đông 7 Days to Die | roadmap_SaveLife.md |
+| lap_dat_thiet_bi_ngan_song_state_of_decay_2 | Lắp đặt thiết bị ngăn sóng State of Decay 2 | roadmap_SaveLife.md |
+| xay_dung_tram_giam_sat_7_days_to_die | Xây dựng trạm giám sát 7 Days to Die kết hợp mã hóa vô tuyến | roadmap_SaveLife.md |
+| lap_dat_thiet_bi_kiem_soat_khu_vuc_7_days_to_die | Lắp đặt thiết bị kiểm soát khu vực trong 7 Days to Die | roadmap_SaveLife.md |
+| xay_dung_cau_truc_phong_thu_da_tang_project_zomboid | Xây dựng bẫy thú rừng và gia cố vách ngăn Project Zomboid | roadmap_SaveLife.md |
+| lap_dat_thiet_bi_bao_ve_vung_loi_state_of_decay_2 | Thiết lập hệ thống thông tin liên lạc vô tuyến bảo mật State of Decay 2 | roadmap_SaveLife.md |
+| xay_dung_he_thong_khu_vuc_cach_ly_7_days_to_die | Xây dựng hệ thống trạm xử lý nước và kiểm nghiệm sinh học 7 Days to Die | roadmap_SaveLife.md |
+| lap_dat_thiet_bi_phong_thu_ngoai_vi_state_of_decay_2 | Thiết lập hệ thống phòng thủ ngoại vi và xử lý vệ sinh môi trường vùng trú ẩn | roadmap_SaveLife.md |
+| xay_dung_he_thong_kiem_soat_khu_vuc_7_days_to_die | Vận hành mạng lưới bẫy tự động và bảo mật thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| lap_dat_thiet_bi_phong_thu_do_thi_7_days_to_die | Lắp đặt thiết bị phòng thủ đô thị và bẫy điện trong 7 Days To Die | roadmap_SaveLife.md |
+| hoan_thien_khu_vuc_tru_an_project_zomboid | Gia cố cấu trúc và phân khu an toàn sinh tồn trong Project Zomboid | roadmap_SaveLife.md |
+| bo_tri_trung_tam_chi_huy_sinh_ton_metro_2033 | Bố trí trung tâm chỉ huy sinh tồn đô thị với cảm hứng Metro 2033 | roadmap_SaveLife.md |
+| cai_dat_mang_luoi_an_ninh_noi_bo_state_of_decay_2 | Xây dựng hệ thống cảnh báo sớm và kiểm nghiệm an toàn thực phẩm nước uống | roadmap_SaveLife.md |
+| lap_dat_thiet_bi_kiem_soat_khu_vuc_sinh_ton_project_zomboid | Lắp đặt thiết bị kiểm soát khu vực sinh tồn trong Project Zomboid | roadmap_SaveLife.md |
+| hoan_thien_he_thong_phong_thu_do_thi_metro_2033 | Hoàn thiện hệ thống phòng thủ đô thị nâng cao kết hợp mã hóa tín hiệu trong Metro 2033 | roadmap_SaveLife.md |
+| to_chuc_khu_vuc_sinh hoạt_an_toan_project_zomboid | Thiết lập phân khu an toàn và xử lý vệ sinh môi trường đô thị | roadmap_SaveLife.md |
+| quan_ly_nang_luong_va_tai_nguyen_metro_2033 | Vận hành hệ thống vi lưới điện và kiểm định chất lượng nước ngầm | roadmap_SaveLife.md |
+| trien_khai_mang_luoi_an_toan_metro_2033 | Xây dựng hàng rào thép gai và hệ thống bẫy gai đô thị | roadmap_SaveLife.md |
+| hoan_thien_giao_thuc_phong_thu_metro_2033 | Thiết lập trạm kiểm soát vô tuyến và mã hóa thông tin liên lạc | roadmap_SaveLife.md |
+| lap_dat_thiet_bi_phong_thu_khu_vuc_state_of_decay_2 | Lắp đặt thiết bị phòng thủ khu vực State of Decay 2 | roadmap_SaveLife.md |
+| xay_dung_giai_phap_sinh_ton_do_thi_metro_2033 | Vận hành hệ thống lọc nước và xử lý chất thải Metro 2033 | roadmap_SaveLife.md |
+| lap_dat_thiet_bi_phong_thu_metro_2033_d275 | Lắp đặt thiết bị phòng thủ Metro 2033: Cài đặt hệ thống bảo vệ đường hầm | roadmap_SaveLife.md |
+| xay_dung_ho_thot_hiem_metro_2033_d276 | Xây dựng hố thoát hiểm Metro 2033: Thiết kế lối thoát ngầm dự phòng | roadmap_SaveLife.md |
+| lap_dat_thiet_bi_phong_thu_do_thi_metro_2033_d277 | Lắp đặt rào chắn thép gai và kiểm tra an toàn cấu trúc phòng thủ | roadmap_SaveLife.md |
+| hoan_thien_cong_su_sinh_ton_metro_2033_d278 | Xây dựng tường chắn bao cát và nghiệm thu khu vực ẩn náu dã chiến | roadmap_SaveLife.md |
+| lap_dat_thiet_bi_phong_thu_metro_2033_d279 | Vận hành hệ thống phòng thủ đô thị Metro 2033 chống xác sống tấn công kết hợp xử lý chất thải sinh học | roadmap_SaveLife.md |
+| xay_dung_giai_phap_sinh_ton_metro_2033_d280 | Thiết lập trạm kiểm soát an ninh trung tâm Metro 2033 kết hợp mã hóa vô tuyến và kiểm nghiệm nước tự chế | roadmap_SaveLife.md |
+| lap_dat_thiet_bi_kiem_soat_metro_2033_d281 | Lắp đặt hệ thống kiểm soát cửa hầm ngầm Metro 2033 | roadmap_SaveLife.md |
+| van_hanh_mang_luoi_metro_2033_d282 | Kiểm định nguồn điện vi mô và mã hóa bộ đàm bảo mật | roadmap_SaveLife.md |
+| trien_khai_he_thong_canh_gioi_metro_2033_d283 | Thiết lập trạm cảnh giới báo động và hệ thống lọc sinh học khép kín | roadmap_SaveLife.md |
+| hoan_thien_vung_an_toan_do_thi_metro_2033_d284 | Hoàn thiện tuyến phòng thủ đô thị và mã hóa thông tin liên lạc sơ khai | roadmap_SaveLife.md |
+| lap_dat_thiet_bi_phong_thu_do_thi_metro_2033_d285 | Lắp đặt rào cản từ trường sinh tồn đô thị Metro 2033 | roadmap_SaveLife.md |
+| xay_dung_tram_kiem_soat_metro_2033_d286 | Thiết lập hệ thống vệ sinh dã chiến và xử lý chất thải sinh học | roadmap_SaveLife.md |
+| lap_dat_thiet_bi_phong_thu_metro_2033_d287 | Thiết lập hệ thống thông khí chống độc đô thị Metro 2033 | roadmap_SaveLife.md |
+| hoan_thien_mang_luoi_tru_an_metro_2033_d288 | Xây dựng nhà vệ sinh dã chiến và mã hóa thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| lap_dat_thiet_bi_phong_thu_metro_2033_d289 | Xây dựng chốt chặn và hệ thống bẫy gai phòng thủ đô thị Metro 2033 | roadmap_SaveLife.md |
+| hoan_thien_phong_thu_do_thi_metro_2033_d290 | Kiểm định an ninh mạng vô tuyến và bàn giao trạm gác trung tâm | roadmap_SaveLife.md |
+| lap_dat_thiet_bi_phong_thu_metro_2033_d291 | Lắp đặt hệ thống cảnh báo đột nhập tự chế theo Metro 2033 | roadmap_SaveLife.md |
+| hoan_thien_phong_thu_do_thi_metro_2033_d292 | Xây dựng chốt chặn kiểm soát toàn diện khu dân cư | roadmap_SaveLife.md |
+| lap_dat_thiet_bi_phong_thu_do_thi_metro_2033_d293 | Thiết lập hệ thống phòng thủ đô thị nâng cao trong Metro 2033 | roadmap_SaveLife.md |
+| hoan_thien_phong_thu_do_thi_metro_2033_d294 | Mã hóa tín hiệu và kiểm định mạng lưới vô tuyến sinh tồn | roadmap_SaveLife.md |
+| xay_dung_cau_truc_sinh_ton_metro_2033_d295 | Xây dựng khung công sự ngầm Metro 2033 | roadmap_SaveLife.md |
+| hoan_thien_kien_truc_sinh_ton_metro_2033_d296 | Tích hợp hệ thống vệ sinh và mã hóa liên lạc dã chiến | roadmap_SaveLife.md |
+| lap_dat_thiet_bi_phong_thu_metro_2033_d297 | Thiết lập hệ thống phòng thủ đô thị và bẫy thú rừng sinh tồn Metro 2033 Day 297 | roadmap_SaveLife.md |
+| hoan_thien_phong_thu_do_thi_metro_2033_d298 | Kiểm định nhà vệ sinh dã chiến và bảo mật thông tin liên lạc Metro 2033 Day 298 | roadmap_SaveLife.md |
+| toi_uu_khu_vuc_tru_an_metro_2033_d299 | Tối ưu hóa không gian ngầm và xử lý chất thải sinh hoạt dã chiến | roadmap_SaveLife.md |
+| tong_ket_he_thong_phong_thu_metro_2033_d300 | Tổng kết hệ thống bảo mật liên lạc và phòng thủ đô thị toàn diện | roadmap_SaveLife.md |
+| xu_ly_nguon_nuoc_va_bao_quan_thuc_pham_metro_2033 | Xử lý nguồn nước và bảo quản lương thực khẩn cấp trong Metro 2033 | roadmap_SaveLife.md |
+| so_cuu_vet_thuong_va_kiem_soat_dich_benh_metro_2033 | Xây dựng nhà vệ sinh dã chiến và xử lý phân hữu cơ bằng men vi sinh trong hầm trú | roadmap_SaveLife.md |
+| xu_ly_nguon_nuoc_khan_cap_state_of_decay_2 | Tinh lọc nguồn nước khẩn cấp và bảo quản thực phẩm dài hạn State of Decay 2 | roadmap_SaveLife.md |
+| so_cuu_vet_thuong_va_kiem_soat_dich_benh_the_walking_dead | Sơ cứu vết thương zombie và kiểm soát dịch bệnh dã chiến The Walking Dead | roadmap_SaveLife.md |
+| loc_nuoc_va_khu_trung_vet_thuong_metro_2033_d305 | Hệ thống lọc nước đa tầng và xử lý nguồn nước nhiễm bẩn ngầm | roadmap_SaveLife.md |
+| bao_quan_thuc_pham_va_dieu_tri_nhiem_trung_metro_2033_d306 | Kiểm soát dịch tễ học thực địa và phương pháp cách ly y tế cộng đồng | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_tieu_diet_vi_khuan_state_of_decay | Xử lý nước khẩn cấp và diệt khuẩn quy mô trạm dã chiến State of Decay | roadmap_SaveLife.md |
+| so_cuu_va_cach_ly_dich_benh_the_walking_dead | Quản lý vệ sinh môi trường trạm trú ẩn và cô lập dịch bệnh The Walking Dead | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_bao_quan_thuc_pham_project_zomboid_d309 | Xử lý nguồn nước khẩn cấp và bảo quản thực phẩm dài hạn Project Zomboid | roadmap_SaveLife.md |
+| so_cuu_vet_thuong_va_kiem_soat_dich_benh_resident_evil_d310 | Sơ cứu vết thương zombie và kiểm soát dịch bệnh dã chiến Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nguon_nuoc_khan_cap_project_zomboid_d311 | Thiết lập hệ thống lọc nước sinh tồn Project Zomboid | roadmap_SaveLife.md |
+| so_cuu_vet_thuong_va_kiem_soat_dich_benh_resident_evil_d312 | Sơ cứu vết thương dã chiến và quản lý khủng hoảng dịch tễ học | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_luong_thuc_khan_cap_day_313 | Tinh lọc nước và cất trữ lương thực dài hạn (Dự án Project Zomboid) | roadmap_SaveLife.md |
+| so_cuu_va_kiem_soat_dich_benh_day_314 | Sơ cứu vết thương chiến đấu và quản lý khủng hoảng dịch tễ (Dự án Resident Evil) | roadmap_SaveLife.md |
+| xu_ly_nguon_nuoc_va_luong_thuc_project_zomboid_d315 | Khử trùng nước bằng bộ lọc tự chế và muối chua thực phẩm sinh tồn Project Zomboid | roadmap_SaveLife.md |
+| dieu_tri_va_cach_ly_y_hoc_resident_evil_d316 | Xử lý băng bó vết thương và thiết lập trạm y tế dã chiến Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_thuc_pham_project_zomboid_d317 | Xử lý nước mưa và bảo quản lương thực khô Project Zomboid | roadmap_SaveLife.md |
+| so_cuu_va_cach_ly_y_hoc_resident_evil_d318 | Thiết lập trạm y tế dã chiến và xử lý chất thải sinh học Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_bao_quan_thuc_pham_project_zomboid_d319 | Xử lý nước và bảo quản thực phẩm Project Zomboid | roadmap_SaveLife.md |
+| so_cuu_vet_thuong_va_kiem_soat_dich_benh_resident_evil_d320 | Sơ cứu vết thương và quản lý khủng hoảng dịch tễ Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_khu_trung_project_zomboid_d321 | Xử lý nước khẩn cấp và lọc tạp chất Project Zomboid | roadmap_SaveLife.md |
+| so_cuu_va_dieu_tri_resident_evil_d322 | Sơ cứu vết thương sâu và khâu cầm máu Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_thuc_pham_project_zomboid_d323 | Khử độc nước và muối chua thực phẩm trong Project Zomboid | roadmap_SaveLife.md |
+| so_cuu_va_dieu_tri_resident_evil_d324 | Bó bột khẩn cấp và cách ly ca nhiễm mô phỏng dịch tễ học | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_bao_quan_project_zomboid_d325 | Xử lý nước nhiễm khuẩn và bảo quản thịt muối dự án Project Zomboid | roadmap_SaveLife.md |
+| so_cuu_va_kiem_soat_resident_evil_d326 | Xây dựng nhà vệ sinh dã chiến và kiểm soát dịch bệnh Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_luong_thuc_project_zomboid_d327 | Xử lý nước và lương thực khẩn cấp trong Project Zomboid | roadmap_SaveLife.md |
+| so_cuu_va_kiem_soat_resident_evil_d328 | Sơ cứu vết thương và quản lý khủng hoảng dịch tễ học trong Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_cuu_thuong_project_zomboid_d329 | Thanh lọc nước uống và sơ cứu vết thương cấp tốc theo Project Zomboid | roadmap_SaveLife.md |
+| bao_quan_luong_thuc_va_dich_benh_resident_evil_d330 | Xây dựng nhà vệ sinh dã chiến và xử lý phân hữu cơ bằng men vi sinh | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_bao_quan_project_zomboid_d331 | Xử lý nước ô nhiễm và bảo quản lương thực dài hạn Project Zomboid | roadmap_SaveLife.md |
+| so_cuu_va_dieu_tri_resident_evil_d332 | Xử lý chất thải sinh học và kiểm soát dịch bệnh dã chiến Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_luong_thuc_project_zomboid_d333 | Vận hành hệ thống chắt lọc nước ô nhiễm và phơi khô lương thực Project Zomboid | roadmap_SaveLife.md |
+| so_cuu_va_dieu_tri_resident_evil_d334 | Kỹ thuật băng bó vết thương sâu, xử lý chất thải sinh học và cách ly dịch bệnh | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_luong_thuc_project_zomboid_d335 | Vận hành hệ thống lọc nước tự động và muối chua rau củ chống hỏng | roadmap_SaveLife.md |
+| so_cuu_va_dieu_tri_resident_evil_d336 | Pha chế thuốc kháng độc thảo dược và xử lý vết thương lây nhiễm | roadmap_SaveLife.md |
+| loc_nuoc_va_bao_quan_thuc_pham_project_zomboid_d337 | Ứng dụng Project Zomboid lọc nước ngầm và muối chua thực phẩm | roadmap_SaveLife.md |
+| so_cuu_va_dieu_tri_resident_evil_d338 | Thực hành Resident Evil sơ cứu vết thương hở và khâu da dã chiến | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_thuc_pham_project_zomboid_d339 | Xử lý nguồn nước khẩn cấp và bảo quản thực phẩm dài hạn trong Project Zomboid | roadmap_SaveLife.md |
+| so_cuu_va_dieu_tri_resident_evil_d340 | Kiểm soát dịch tễ học đô thị và kháng độc tố sinh học trong Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nguon_nuoc_va_so_cuu_project_zomboid_d341 | Xử lý nước nhiễm bẩn và băng bó vết thương khẩn cấp qua Project Zomboid | roadmap_SaveLife.md |
+| dieu_tri_va_bao_quan_thuc_pham_resident_evil_d342 | Điều trị dịch bệnh và bảo quản thực phẩm lâu dài trong Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_cuu_thuong_project_zomboid_d343 | Thanh lọc nước và cứu thương khẩn cấp trong Project Zomboid | roadmap_SaveLife.md |
+| dieu_tri_va_bao_quan_thuc_pham_resident_evil_d344 | Bảo quản lương thực và điều trị dịch bệnh sinh học trong Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_cuu_thuong_project_zomboid_d345 | Xử lý nước sinh hoạt và sơ cứu ngoại khoa Project Zomboid | roadmap_SaveLife.md |
+| dieu_tri_va_bao_quan_thuc_pham_resident_evil_d346 | Kiểm soát dịch bệnh và bảo quản thực phẩm Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_so_cuu_project_zomboid_d347 | Xử lý nước khẩn cấp và sơ cứu vết thương tận thế trong Project Zomboid | roadmap_SaveLife.md |
+| bao_quan_thuc_pham_va_dich_benh_resident_evil_d348 | Bảo quản thực phẩm dài hạn và kiểm soát dịch bệnh trong Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_bao_quan_project_zomboid_d349 | Xử lý nước thô khẩn cấp và bảo quản thực phẩm chống ẩm trong Project Zomboid | roadmap_SaveLife.md |
+| so_cuu_va_kiem_soat_resident_evil_d350 | Điều chế huyết thanh giải độc và kiểm soát dịch bệnh trong Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_bao_quan_project_zomboid_d351 | Xử lý nguồn nước khẩn cấp và bảo quản thực phẩm Project Zomboid | roadmap_SaveLife.md |
+| so_cuu_va_kiem_soat_resident_evil_d352 | Sơ cứu vết thương zombie và kiểm soát dịch bệnh Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_so_cuu_project_zomboid_d353 | Xử lý nước khẩn cấp và sơ cứu vết thương do zombie trong Project Zomboid | roadmap_SaveLife.md |
+| bao_quan_luong_thuc_va_dich_benh_resident_evil_d354 | Chiến lược lưu trữ lương thực dài hạn và mô hình quản lý dịch tễ Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_khan_va_bao_quan_project_zomboid_d355 | Xử lý nước khẩn cấp và bảo quản thực phẩm Project Zomboid | roadmap_SaveLife.md |
+| so_cuu_vet_thuong_va_dich_benh_resident_evil_d356 | Sơ cứu vết thương chiến đấu và kiểm soát dịch bệnh sinh học | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_cuu_thuong_project_zomboid_d357 | Thanh lọc nước và sơ cứu dã chiến dựa trên tình huống Project Zomboid | roadmap_SaveLife.md |
+| bao_quan_luong_thuc_va_dich_benh_resident_evil_d358 | Quản lý kho lương thực dài hạn và kiểm soát dịch tễ thảm họa Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_cuu_thuong_project_zomboid_d359 | Xử lý nước thô và băng bó cứu thương khẩn cấp trong Project Zomboid | roadmap_SaveLife.md |
+| kiem_soat_dich_benh_va_bao_quan_resident_evil_d360 | Kiểm soát dịch tễ học và khử khuẩn kho lạnh trong Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_cuu_thuong_project_zomboid_d361 | Xử lý nước khẩn cấp và sơ cứu vết thương dã chiến trong Project Zomboid | roadmap_SaveLife.md |
+| dieu_tri_va_bao_quan_resident_evil_d362 | Bảo quản lương thực dài hạn và điều chế thảo dược kháng bệnh trong Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_cuu_thuong_project_zomboid_d363 | Xử lý nguồn nước khẩn cấp và sơ cứu chiến thương trong Project Zomboid | roadmap_SaveLife.md |
+| bao_quan_luong_thuc_va_dich_benh_resident_evil_d364 | Bảo quản lương thực dài hạn và kiểm soát dịch bệnh trong Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_cuu_thuong_project_zomboid_d365 | Xử lý nước thô và băng bó khẩn cấp trong Project Zomboid | roadmap_SaveLife.md |
+| dieu_tri_va_bao_quan_resident_evil_d366 | Kiểm soát dịch bệnh và quản lý chất thải sinh học trong Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_khan_cap_va_bao_quan_project_zomboid_d367 | Xử lý nước khẩn cấp và bảo quản thực phẩm Project Zomboid | roadmap_SaveLife.md |
+| so_cuu_va_kiem_soat_dich_benh_resident_evil_d368 | Sơ cứu vết thương và kiểm soát dịch bệnh Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_cuu_thuong_project_zomboid_d369 | Xử lý nước sinh hoạt và sơ cứu thực chiến trong Project Zomboid | roadmap_SaveLife.md |
+| bao_quan_thuc_pham_va_dich_benh_resident_evil_d370 | Thiết lập hệ thống vệ sinh dã chiến và cách ly dịch tễ trong Resident Evil | roadmap_SaveLife.md |
+| loc_nuoc_va_tieu_trung_project_zomboid_d371 | Hệ thống lọc nước đa tầng và kiểm định độc tính tự chế trong Project Zomboid | roadmap_SaveLife.md |
+| so_cuu_va_cach_ly_resident_evil_d372 | Xử lý dịch tễ học thực chiến và thiết lập khu cách ly y tế Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_cuu_thuong_project_zomboid_d373 | Xử lý nước bẩn khẩn cấp và sơ cứu vết thương do zombie trong Project Zomboid | roadmap_SaveLife.md |
+| bao_quan_luong_thuc_va_dich_benh_resident_evil_d374 | Bảo quản lương thực dài hạn, quản lý chất thải và kiểm soát dịch bệnh sinh học Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_cuu_thuong_project_zomboid_d375 | Xử lý nước bẩn sinh hoạt và sơ cứu vết thương hở trong Project Zomboid | roadmap_SaveLife.md |
+| bao_quan_luong_thuc_va_dich_benh_resident_evil_d376 | Bảo quản lương thực dài hạn và kiểm soát dịch bệnh trong Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_bao_quan_project_zomboid_d377 | Tinh lọc nước khẩn cấp và muối chua thực phẩm trong Project Zomboid | roadmap_SaveLife.md |
+| so_cuu_va_dieu_tri_resident_evil_d378 | Sơ cứu vết thương nhiễm độc và pha chế thuốc giải trong Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_cuu_thuong_project_zomboid_d379 | Xử lý nước bẩn sinh tồn và sơ cứu khẩn cấp trong Project Zomboid | roadmap_SaveLife.md |
+| bao_quan_luong_thuc_va_dich_benh_resident_evil_d380 | Thiết lập trạm vệ sinh dã chiến và kiểm soát dịch bệnh trong Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_bao_quan_project_zomboid_d381 | Xử lý nguồn nước khẩn cấp và bảo quản thực phẩm Project Zomboid d381 | roadmap_SaveLife.md |
+| so_cuu_va_kiem_soat_resident_evil_d382 | Sơ cứu vết thương và quản lý dịch tễ học thực tế Resident Evil d382 | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_bao_quan_project_zomboid_d383 | Xử lý nước khẩn cấp và bảo quản lương thực trong Project Zomboid | roadmap_SaveLife.md |
+| so_cuu_va_kiem_soat_resident_evil_d384 | Sơ cứu vết thương chiến đấu và kiểm soát dịch bệnh trong Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_bao_quan_project_zomboid_d385 | Xử lý nước khẩn cấp và bảo quản thực phẩm Project Zomboid | roadmap_SaveLife.md |
+| so_cuu_va_kiem_soat_resident_evil_d386 | Sơ cứu vết thương và kiểm soát dịch bệnh Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_cuu_thuong_project_zomboid_d387 | Xử lý nước và sơ cứu khẩn cấp trong Project Zomboid | roadmap_SaveLife.md |
+| bao_quan_va_dich_benh_resident_evil_d388 | Kiểm soát dịch bệnh sinh học và bảo quản lương thực lạnh | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_cuu_thuong_project_zomboid_d389 | Xử lý nước khẩn cấp và sơ cứu thực chiến trong Project Zomboid | roadmap_SaveLife.md |
+| bao_quan_thuc_pham_va_dich_benh_resident_evil_d390 | Bảo quản lương thực dài hạn và kiểm soát dịch bệnh trong Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_cap cứu_project_zomboid_d391 | Xử lý nước khẩn cấp và băng bó cứu thương trong Project Zomboid | roadmap_SaveLife.md |
+| bao_quan_thuc_pham_va_dich_benh_resident_evil_d392 | Kiểm định độc tính thực phẩm và bào chế thuốc giải độc Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_cuu_thuong_project_zomboid_d393 | Xử lý nước khẩn cấp và sơ cứu vết thương tận thế trong Project Zomboid | roadmap_SaveLife.md |
+| bao_quan_luong_thuc_va_dich_benh_resident_evil_d394 | Kỹ thuật ướp muối thịt săn và phòng dịch tễ học trong Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_cuu_thuong_project_zomboid_d395 | Xử lý nước và cấp cứu y tế trong Project Zomboid | roadmap_SaveLife.md |
+| bao_quan_thuc_pham_va_dich_benh_resident_evil_d396 | Thiết lập nhà vệ sinh dã chiến và xử lý chất thải sinh học trong khủng hoảng | roadmap_SaveLife.md |
+| xu_ly_nuoc_khan_cap_project_zomboid_d397 | Kiểm định và xử lý nước khẩn cấp bằng bộ lọc tự chế trong Project Zomboid | roadmap_SaveLife.md |
+| so_cuu_vet_thuong_resident_evil_d398 | Y học dã chiến và chiến lược kiểm soát dịch tễ thảm họa trong Resident Evil | roadmap_SaveLife.md |
+| xu_ly_nuoc_va_bao_quan_project_zomboid_d399 | Xử lý nước khẩn cấp và bảo quản thực phẩm Project Zomboid | roadmap_SaveLife.md |
+| so_cuu_va_kiem_soat_resident_evil_d400 | Sơ cứu vết thương chiến trường và mã hóa liên lạc Resident Evil | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d401 | Phân loại xác sống đột biến và xử lý chất thải vùng trú ẩn trong Project Zomboid | roadmap_SaveLife.md |
+| tranh_bay_tieng_dong_resident_evil_d402 | Kỹ thuật săn bắt hoang dã và kiểm định chất lượng nước trong Resident Evil | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d403 | Nhận diện biến thể zombie và kỹ thuật xử lý chất thải vệ sinh môi trường trú ẩn | roadmap_SaveLife.md |
+| tranh_bay_tieng_dong_resident_evil_d404 | Phòng tránh bẫy tiếng động, mã hóa thông tin vô tuyến và ẩn nấp trong Resident Evil | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d405 | Phân loại xác sống đột biến và thiết lập khu vực cách ly trong Project Zomboid | roadmap_SaveLife.md |
+| tranh_bay_tieng_dong_resident_evil_d406 | Kỹ thuật triệt tiêu tiếng động và bảo mật thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d407 | Phân loại biến thể zombie Project Zomboid | roadmap_SaveLife.md |
+| tranh_bay_tieng_dong_resident_evil_d408 | Vô hiệu hóa bẫy tiếng động Resident Evil và kiểm nghiệm nước dã chiến | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d409 | Phân tích và nhận diện các biến thể zombie đặc biệt trong Project Zomboid kết hợp xử lý chất thải sinh hoạt | roadmap_SaveLife.md |
+| tranh_bay_tieng_dong_resident_evil_d410 | Triển khai chiến thuật triệt tiêu tiếng động sinh tồn và bảo mật thông tin liên lạc vô tuyến trong Resident Evil | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d411 | Nhận diện biến thể zombie Project Zomboid | roadmap_SaveLife.md |
+| tranh_bay_tieng_dong_resident_evil_d412 | Triển khai xử lý chất thải sinh học và bẫy âm thanh | roadmap_SaveLife.md |
+| phan_biet_dot_bien_project_zomboid_d413 | Phân tích tần số âm thanh và định vị biến thể zombie qua tiếng gầm trong Project Zomboid | roadmap_SaveLife.md |
+| ne_tranh_lo_dien_resident_evil_d414 | Kỹ thuật di chuyển rón rén tối ưu và kiểm soát thính giác khi đối đầu Licker trong Resident Evil | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d415 | Nhận diện biến thể zombie và phân loại giác quan xác sống | roadmap_SaveLife.md |
+| tranh_bay_tieng_dong_resident_evil_d416 | Kỹ thuật ẩn nấp và kiểm tra mẫu nước sinh hoạt dã chiến | roadmap_SaveLife.md |
+| phan_biet_dot_bien_project_zomboid_d417 | Nhận biết zombie đột biến và xử lý chất thải vùng trú ẩn Project Zomboid | roadmap_SaveLife.md |
+| ne_tranh_lo_dien_resident_evil_d418 | Tuyệt kỹ không phát ra tiếng động và kỹ thuật bẫy thú rừng Resident Evil | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d419 | Nhận diện biến thể zombie đột biến nguy hiểm và phân tích bẫy lỗi sinh tồn trong Project Zomboid | roadmap_SaveLife.md |
+| tranh_bay_tieng_dong_resident_evil_d420 | Kỹ thuật vô hiệu hóa bẫy tiếng động và kiểm nghiệm độc tính môi trường trong Resident Evil | roadmap_SaveLife.md |
+| nhan_dien_bien_the_nguy_hiem_project_zomboid_d421 | Nhận diện biến thể nguy hiểm trong Project Zomboid | roadmap_SaveLife.md |
+| tranh_bay_tieng_dong_va_lo_dien_resident_evil_d422 | Tránh bẫy tiếng động và lộ diện trong Resident Evil | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d423 | Nhận diện biến thể zombie Project Zomboid | roadmap_SaveLife.md |
+| tranh_bay_tieng_dong_resident_evil_d424 | Tránh bẫy tiếng động Resident Evil và bảo mật vô tuyến | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d425 | Nhận diện biến thể zombie và phân loại giác quan trong Project Zomboid | roadmap_SaveLife.md |
+| tranh_bay_tieng_dong_resident_evil_d426 | Kỹ thuật di chuyển tĩnh lặng và né tránh bẫy báo động trong Resident Evil | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d427 | Nhận diện biến thể zombie đột biến nguy hiểm trong Project Zomboid | roadmap_SaveLife.md |
+| tranh_bay_tieng_dong_resident_evil_d428 | Vượt qua sai lầm chí mạng về tiếng động và lộ diện trong Resident Evil | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d429 | Nhận diện biến thể zombie Project Zomboid | roadmap_SaveLife.md |
+| tranh_bay_tieng_dong_resident_evil_d430 | Vượt qua bẫy tín hiệu vô tuyến Resident Evil | roadmap_SaveLife.md |
+| phan_biet_dot_bien_nguy_hiem_project_zomboid_d431 | Đánh giá hiệu năng vi mô và xử lý chất thải sinh tồn trong Project Zomboid | roadmap_SaveLife.md |
+| triệt_tiêu_sai_lam_tieng_dong_resident_evil_d432 | Xử lý chất thải, vệ sinh môi trường trú ẩn và triệt tiêu tiếng động | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d433 | Nhận diện biến thể zombie Project Zomboid | roadmap_SaveLife.md |
+| tranh_bay_tieng_dong_resident_evil_d434 | Tránh bẫy tiếng động Resident Evil và thiết lập nhà vệ sinh dã chiến | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d435 | Nhận diện biến thể zombie đột biến nguy hiểm và xử lý chất thải vệ sinh trú ẩn | roadmap_SaveLife.md |
+| tranh_bay_tieng_dong_resident_evil_d436 | Kỹ thuật di chuyển né tránh bẫy âm thanh và bảo mật thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d437 | Nhận diện biến thể zombie Project Zomboid | roadmap_SaveLife.md |
+| tranh_bay_tieng_dong_resident_evil_d438 | Chiến thuật né tránh bẫy âm thanh môi trường | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d439 | Nhận diện biến thể zombie đột biến nguy hiểm và phân loại tốc độ giác quan trong Project Zomboid | roadmap_SaveLife.md |
+| tranh_bay_tieng_dong_resident_evil_d440 | Kỹ thuật di chuyển thầm lặng tránh bẫy lỗi tiếng động và mã hóa tín hiệu bộ đàm trong Resident Evil | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d441 | Nhận diện biến thể zombie Project Zomboid | roadmap_SaveLife.md |
+| tranh_bay_tieng_dong_resident_evil_d442 | Kỹ thuật né tránh âm thanh và giải mã tín hiệu vô tuyến | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d443 | Nhận diện biến thể zombie và lập bản đồ tầm nhìn | roadmap_SaveLife.md |
+| tranh_bay_tieng_dong_resident_evil_d444 | Kỹ thuật di chuyển ẩn nấp và xử lý bẫy âm thanh | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d445 | Phân loại biến thể zombie đột biến và xử lý chất thải sinh hoạt khu trú ẩn | roadmap_SaveLife.md |
+| tranh_bay_tieng_dong_resident_evil_d446 | Kỹ thuật ẩn nấp không tiếng động và bảo mật thông tin vô tuyến tầm ngắn | roadmap_SaveLife.md |
+| phan_biet_bien_the_dot_bien_project_zomboid_d447 | Phân biệt biến thể đột biến và bẫy sinh tồn trong Project Zomboid | roadmap_SaveLife.md |
+| triệt_tiêu_sai_lam_tieng_dong_resident_evil_d448 | Kỹ thuật ẩn nấp và bẫy thú rừng trong Resident Evil | roadmap_SaveLife.md |
+| phan_biet_bien_the_nguy_hiem_project_zomboid_d449 | Phân biệt biến thể nguy hiểm Project Zomboid | roadmap_SaveLife.md |
+| triet_tieu_sai_lam_tieng_dong_resident_evil_d450 | Bảo mật thông tin vô tuyến và ẩn nấp trong Resident Evil | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d451 | Đánh giá độc tính thực phẩm hoang dã và nhận diện biến thể zombie đột biến trong Project Zomboid | roadmap_SaveLife.md |
+| tranh_bay_tieng_dong_resident_evil_d452 | Xử lý chất thải và tránh bẫy tiếng động sinh tồn trong Resident Evil | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d453 | Phân loại sinh vật đột biến và dấu hiệu dịch tễ học đô thị | roadmap_SaveLife.md |
+| tranh_bay_tieng_dong_resident_evil_d454 | Kiểm soát âm thanh môi trường và chiến thuật an ninh thông tin vô tuyến | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d455 | Nhận diện biến thể zombie và lập bản đồ nguy cơ trong Project Zomboid | roadmap_SaveLife.md |
+| tranh_bay_tieng_dong_resident_evil_d456 | Kỹ thuật né tránh bẫy âm thanh và bảo mật thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| phan_biet_bien_the_zombie_project_zomboid_d457 | Phân biệt biến thể zombie nguy hiểm trong Project Zomboid | roadmap_SaveLife.md |
+| triệt_tiêu_sai_lam_tieng_dong_resident_evil_d458 | Kỹ thuật di chuyển vô thanh né tránh Licker trong Resident Evil | roadmap_SaveLife.md |
+| phan_biet_bien_the_nguy_hiem_project_zomboid_d459 | Phân biệt biến thể nguy hiểm trong Project Zomboid | roadmap_SaveLife.md |
+| triet_tieu_sai_lam_tieng_dong_resident_evil_d460 | Triệt tiêu sai lầm tiếng động trong Resident Evil | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d461 | Sàng lọc chủng loại zombie cấp cao và xây dựng nhà vệ sinh dã chiến | roadmap_SaveLife.md |
+| tranh_bay_tieng_dong_resident_evil_d462 | Chiến lược né tránh bẫy âm thanh tử thần và kỹ thuật bẫy thú rừng | roadmap_SaveLife.md |
+| nhan_dien_bien_the_project_zomboid_d463 | Sàng lọc chủng loại zombie nguy hiểm và quản lý chất thải vùng trú ẩn | roadmap_SaveLife.md |
+| chien_luoc_ne_tranh_resident_evil_d464 | Chiến lược né tránh bẫy tiếng động và nhảy tần vô tuyến bảo mật | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d465 | Sàng lọc chủng loại zombie đột biến và xử lý chất thải sinh hoạt khu trú ẩn | roadmap_SaveLife.md |
+| chien_luoc_ne_tranh_resident_evil_d466 | Chiến lược né tránh bẫy tiếng động và kiểm định chất lượng nước ngầm | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d467 | Sàng lọc chủng loại zombie nguy hiểm trong Project Zomboid | roadmap_SaveLife.md |
+| chien_luoc_ne_tranh_resident_evil_d468 | Kỹ thuật ẩn nấp và bảo mật tín hiệu liên lạc vô tuyến | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d469 | Sàng lọc chủng loại xác sống đặc biệt và kỹ thuật xử lý chất thải sinh hoạt | roadmap_SaveLife.md |
+| chien_luoc_ne_tranh_resident_evil_d470 | Chiến lược né tránh bẫy âm thanh kết hợp kỹ thuật bẫy bắn hoang dã | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d471 | Sàng lọc chủng loại xác sống đặc biệt và xử lý chất thải vệ sinh trú ẩn trong Project Zomboid | roadmap_SaveLife.md |
+| chien_luoc_ne_tranh_resident_evil_d472 | Chiến lược né tránh bẫy âm thanh và bảo mật thông tin liên lạc vô tuyến trong Resident Evil | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d473 | Sàng lọc chủng loại xác sống dị biệt Project Zomboid | roadmap_SaveLife.md |
+| chien_luoc_ne_tranh_resident_evil_d474 | Nghệ thuật ẩn nấp và mã hóa tín hiệu vô tuyến Resident Evil | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d475 | Sàng lọc chủng loại xác sống đặc biệt và xử lý chất thải sinh hoạt | roadmap_SaveLife.md |
+| chien_luoc_ne_tranh_resident_evil_d476 | Chiến thuật né tránh bẫy lộ diện và bảo mật tín hiệu vô tuyến | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d477 | Đánh giá biến thể zombie và mô phỏng xử lý chất thải sinh tồn | roadmap_SaveLife.md |
+| chien_luoc_ne_tranh_resident_evil_d478 | Xử lý chất thải và bảo mật liên lạc tầm xa trong sinh tồn đô thị | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d479 | Nhận diện biến thể zombie đột biến Project Zomboid | roadmap_SaveLife.md |
+| tranh_bay_tieng_dong_resident_evil_d480 | Vô hiệu hóa bẫy tiếng động và kiểm tra độc tính thực phẩm | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d481 | Sàng lọc chủng loại xác sống thông qua Project Zomboid sandbox | roadmap_SaveLife.md |
+| chien_luoc_ne_tranh_resident_evil_d482 | Chiến lược né tránh bẫy tiếng động thực chiến trong Resident Evil 2 | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d483 | Sàng lọc chủng loại xác sống đặc biệt trong Project Zomboid | roadmap_SaveLife.md |
+| chien_luoc_ne_tranh_resident_evil_d484 | Chiến lược né tránh bẫy tiếng động cực hạn và bảo mật vô tuyến | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d485 | Sàng lọc chủng loại zombie đột biến trong Project Zomboid | roadmap_SaveLife.md |
+| chien_luoc_ne_tranh_resident_evil_d486 | Kỹ thuật vô hiệu hóa bẫy âm thanh và mã hóa tín hiệu vô tuyến | roadmap_SaveLife.md |
+| phan_biet_dot_bien_project_zomboid_d487 | Phân loại dị tật biến thể xác sống Project Zomboid | roadmap_SaveLife.md |
+| triệt_tiêu_sai_lam_resident_evil_d488 | Triệt tiêu tiếng động cơ sở ẩn nấp Resident Evil | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d489 | Sàng lọc chủng loại xác sống nguy hiểm Project Zomboid | roadmap_SaveLife.md |
+| chien_luoc_ne_tranh_resident_evil_d490 | Chiến lược né tránh bẫy tiếng động Resident Evil | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d491 | Sàng lọc chủng loại xác sống dị biệt Project Zomboid | roadmap_SaveLife.md |
+| chien_luoc_ne_tranh_resident_evil_d492 | Xây dựng hệ thống vệ sinh dã chiến và xử lý chất thải sinh học | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d493 | Sàng lọc chủng loại zombie độc hại và mô phỏng bẫy lỗi sinh tồn | roadmap_SaveLife.md |
+| chien_luoc_ne_tranh_resident_evil_d494 | Chiến lược né tránh bẫy tiếng động và mã hóa tín hiệu bộ đàm | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d495 | Sàng lọc chủng loại xác sống nguy hiểm trong tựa game Project Zomboid | roadmap_SaveLife.md |
+| chien_luoc_ne_tranh_resident_evil_d496 | Nghệ thuật ẩn mình và kỹ thuật vượt qua khu vực kiểm soát trong Resident Evil | roadmap_SaveLife.md |
+| nhan_dien_bien_the_zombie_project_zomboid_d497 | Sàng lọc chủng loại xác sống đặc biệt và quản lý vệ sinh môi trường | roadmap_SaveLife.md |
+| chien_luoc_ne_tranh_resident_evil_d498 | Chiến lược né tránh bẫy tiếng động và mã hóa tín hiệu vô tuyến | roadmap_SaveLife.md |
+| nhan_dien_bien_the_dot_bien_project_zomboid_d499 | Sàng lọc chủng loại xác sống độc hại Project Zomboid | roadmap_SaveLife.md |
+| chien_luoc_ne_tranh_tieng_dong_resident_evil_d500 | Kỹ thuật ẩn thân và quản lý tín hiệu âm thanh Resident Evil | roadmap_SaveLife.md |
+| so_tan_duong_thuy_project_zomboid_d501 | Sơ tán đường thủy qua sông lớn và xử lý chất thải dã chiến | roadmap_SaveLife.md |
+| sinh_ton_dao_hoang_resident_evil_d502 | Thiết lập bẫy sinh tồn hoang dã và an ninh đảo hoang Resident Evil | roadmap_SaveLife.md |
+| chong_lai_zombie_thuy_sinh_project_zomboid_d503 | Chống lại zombie thủy sinh trong Project Zomboid | roadmap_SaveLife.md |
+| hoan_thien_nghich_canh_bien_dao_resident_evil_d504 | Thiết lập trạm phát sóng tín hiệu và bẫy thú rừng sinh tồn trên đảo hoang | roadmap_SaveLife.md |
+| chuan_bi_so_tan_duong_thuy_project_zomboid_d505 | Chuẩn bị sơ tán đường thủy và hệ thống xử lý nước trong Project Zomboid | roadmap_SaveLife.md |
+| chien_thuat_thoat_hiem_bien_dao_resident_evil_d506 | Chiến thuật sinh tồn và bảo mật thông tin liên lạc vô tuyến đảo hoang | roadmap_SaveLife.md |
+| dieu_phoi_so_tan_duong_thuy_project_zomboid_d507 | Điều phối sơ tán đường thủy và bảo dưỡng phương tiện trong Project Zomboid | roadmap_SaveLife.md |
+| sinh_ton_cuc_dien_bien_dao_resident_evil_d508 | Thiết lập trạm liên lạc vô tuyến và xử lý nguồn nước trên đảo hoang Resident Evil | roadmap_SaveLife.md |
+| thuc_hanh_so_tan_bien_dao_project_zomboid_d509 | Vận hành điều hướng thuyền và trinh sát hàng hải Project Zomboid | roadmap_SaveLife.md |
+| chien_dich_sinh_ton_bien_dao_resident_evil_d510 | Xây dựng hệ thống lọc nước và bẫy sinh học phòng thủ đảo Resident Evil | roadmap_SaveLife.md |
+| dieu_huong_thuyen_thoat_hiem_project_zomboid_d511 | Điều hướng thuyền thoát hiểm và né tránh zombie thủy sinh trong Project Zomboid | roadmap_SaveLife.md |
+| thiet_lap_trai_sinh_ton_resident_evil_d512 | Xây dựng bốt canh phòng bờ biển và xử lý chất thải dã chiến trong Resident Evil | roadmap_SaveLife.md |
+| chuan_bi_duong_thuy_project_zomboid_d513 | Chuẩn bị phương án sơ tán đường thủy và kiểm tra động cơ trong Project Zomboid | roadmap_SaveLife.md |
+| hanh_trinh_bien_dao_resident_evil_d514 | Kỹ thuật câu cá, săn bắn và thiết lập trạm vô tuyến bảo mật trên đảo hoang trong Resident Evil | roadmap_SaveLife.md |
+| chuyen_doi_phuong_an_duong_thuy_project_zomboid_d515 | Định tuyến đường thủy sinh tồn Project Zomboid d515 | roadmap_SaveLife.md |
+| chien_luoc_neo_dau_hoang_dao_resident_evil_d516 | Thiết lập trạm cảnh giới và bảo mật vô tuyến đảo hoang d516 | roadmap_SaveLife.md |
+| ky_thuat_che_be_sinh_ton_project_zomboid_d517 | Kỹ thuật chế bè sinh tồn vượt biển Project Zomboid | roadmap_SaveLife.md |
+| phong_thu_dao_hoang_chong_zombie_thuy_sinh_resident_evil_d518 | Xây dựng hệ thống lọc nước tinh khiết và bẫy thú rừng hoang dã | roadmap_SaveLife.md |
+| quan_trac_thuy_trieu_project_zomboid_d519 | Quan trắc thủy triều và dòng chảy biển trong Project Zomboid | roadmap_SaveLife.md |
+| nhan_dien_moi_de_doa_thuy_sinh_resident_evil_d520 | Nhận diện sinh vật đột biến dưới nước và bảo mật thông tin vô tuyến trong Resident Evil | roadmap_SaveLife.md |
+| chinh_phuc_vung_bien_dong_project_zomboid_d521 | Chinh phục vùng biển động qua kỹ thuật chèo thuyền | roadmap_SaveLife.md |
+| sinh_ton_cuc_dien_bien_dao_resident_evil_d522 | Xây dựng nhà vệ sinh dã chiến và bẫy thú đảo hoang | roadmap_SaveLife.md |
+| to chuc so tan duong thuy project zomboid d523 | Tổ chức sơ tán đường thủy an toàn và xử lý vệ sinh môi trường dã chiến trong Project Zomboid | roadmap_SaveLife.md |
+| chien luoc sinh ton bien dao resident evil d524 | Chiến lược bẫy bắt hoang dã và bảo mật thông tin liên lạc vô tuyến tại đảo hoang Resident Evil | roadmap_SaveLife.md |
+| thoat_hiem_duong_thuy_project_zomboid_d525 | Hải trình trốn chạy sang đảo hoang qua mod thuyền Project Zomboid | roadmap_SaveLife.md |
+| doi_pho_zombie_thuy_sinh_resident_evil_d526 | Xây dựng hệ thống nhà vệ sinh dã chiến và bẫy gai Resident Evil | roadmap_SaveLife.md |
+| van_hanh_tuyen_duong_thoat_hiem_duong_thuy_project_zomboid | Vận hành tuyến đường thoát hiểm đường thủy Project Zomboid | roadmap_SaveLife.md |
+| chien_thuat_sinh_ton_va_pha_vay_dao_hoang_resident_evil | Chiến thuật sinh tồn và phá vây đảo hoang Resident Evil | roadmap_SaveLife.md |
+| thuc_thi_so_tan_duong_thuy_project_zomboid_d529 | Thực thi sơ tán đường thủy Project Zomboid kết hợp kiểm nghiệm nước uống tự chế | roadmap_SaveLife.md |
+| quản_ly_sinh_ton_dao_hoang_resident_evil_d530 | Xây dựng bẫy săn bắn và thiết lập trạm phát tín hiệu khẩn cấp Resident Evil | roadmap_SaveLife.md |
+| dieu_phoi_so_tan_duong_thuy_project_zomboid_d531 | Điều phối sơ tán đường thủy và mã hóa tín hiệu vô tuyến di động | roadmap_SaveLife.md |
+| quan_ly_sinh_ton_dao_hoang_resident_evil_d532 | Xây dựng hệ thống vệ sinh dã chiến và sinh tồn đảo hoang chống đột biến | roadmap_SaveLife.md |
+| chiến_lược_di_tản_đường_thủy_project_zomboid_d533 | Xây dựng chiến lược di tản đường thủy an toàn kết hợp kiểm tra độc tính thực phẩm | roadmap_SaveLife.md |
+| đánh_giá_khu_trú_đảo_hoang_resident_evil_d534 | Đánh giá khu trú ẩn đảo hoang kết hợp xử lý chất thải và vệ sinh dã chiến | roadmap_SaveLife.md |
+| van_hanh_ke_hoach_so_tan_duong_thuy_project_zomboid_d535 | Vận hành kế hoạch sơ tán đường thủy trong Project Zomboid | roadmap_SaveLife.md |
+| kiem_soat_vung_tru_an_dao_hoang_resident_evil_d536 | Bảo mật hệ thống thông tin và kiểm soát vùng trú ẩn đảo hoang trong Resident Evil | roadmap_SaveLife.md |
+| thuc_thi_ke_hoach_so_tan_duong_thuy_project_zomboid_d537 | Thực thi kế hoạch sơ tán đường thủy trong Project Zomboid | roadmap_SaveLife.md |
+| phan_ung_khang_cu_dao_hoang_resident_evil_d538 | Phản ứng kháng cự và sinh tồn đảo hoang trong Resident Evil | roadmap_SaveLife.md |
+| hoan_thien_so_tan_duong_thuy_project_zomboid_d539 | Hoàn thiện sơ tán đường thủy và mã hóa thông tin liên lạc Project Zomboid Day 539 | roadmap_SaveLife.md |
+| tong_ket_sinh_ton_dao_hoang_resident_evil_d540 | Xây dựng hệ thống xử lý chất thải và phòng thủ đảo hoang Resident Evil Day 540 | roadmap_SaveLife.md |
+| chiến_lược_di_tản_đường_thủy_project_zomboid_d541 | Điều phối di tản đường thủy và xử lý nước sinh hoạt dã chiến | roadmap_SaveLife.md |
+| đánh_giá_khu_trú_đảo_hoang_resident_evil_d542 | Thiết lập khu trú ẩn đảo hoang và quản lý chất thải hữu cơ | roadmap_SaveLife.md |
+| trien_khai_so_tan_duong_thuy_project_zomboid_d543 | Triển khai phương án di tản đường thủy khẩn cấp kết hợp xử lý chất thải sinh hoạt dã chiến | roadmap_SaveLife.md |
+| kiem_dinh_khu_tru_dao_hoang_resident_evil_d544 | Kiểm định khu trú ẩn đảo hoang kết hợp kỹ thuật bẫy săn bắn và kiểm nghiệm nguồn nước | roadmap_SaveLife.md |
+| tong_ket_so_tan_duong_thuy_project_zomboid_d545 | Đánh giá lộ trình di tản đường thủy kết hợp xử lý chất thải sinh học | roadmap_SaveLife.md |
+| tong_ket_sinh_ton_dao_hoang_resident_evil_d546 | Tổng kết chiến thuật sinh tồn đảo hoang và bảo mật liên lạc vô tuyến | roadmap_SaveLife.md |
+| toi_uu_hoa_so_tan_duong_thuy_project_zomboid_d547 | Tối ưu hóa sơ tán đường thủy Project Zomboid D547 | roadmap_SaveLife.md |
+| hoan_thien_phong_thu_dao_hoang_resident_evil_d548 | Thiết lập bẫy sinh học và kiểm định nước bãi biển Resident Evil D548 | roadmap_SaveLife.md |
+| thuc_thi_so_tan_bien_dao_project_zomboid_d549 | Thực thi sơ tán biển đảo và xử lý chất thải sinh hoạt dã chiến | roadmap_SaveLife.md |
+| danh_gia_phong_thu_dao_hoang_resident_evil_d550 | Kiểm định bẫy phòng thủ đảo hoang và bảo mật tín hiệu bộ đàm | roadmap_SaveLife.md |
+| toi_uu_hoa_so_tan_bien_dao_project_zomboid_d551 | Tối ưu hóa sơ tán biển đảo và xử lý chất thải trong Project Zomboid | roadmap_SaveLife.md |
+| hoan_thien_phong_thu_dao_hoang_resident_evil_d552 | Hoàn thiện hệ thống bẫy săn bắn và phòng thủ bờ biển trong Resident Evil | roadmap_SaveLife.md |
+| kiem_soat_bien_dao_project_zomboid_d553 | Kiểm soát dòng chảy sinh tồn biển đảo và hệ thống lọc nước Project Zomboid | roadmap_SaveLife.md |
+| xu_ly_tinh_huong_dao_hoang_resident_evil_d554 | Ứng phó khẩn cấp đảo hoang và bảo mật liên lạc vô tuyến Resident Evil | roadmap_SaveLife.md |
+| hoan_thien_so_tan_bien_dao_project_zomboid_d555 | Xây dựng hệ thống nhà vệ sinh dã chiến và xử lý phân hữu cơ bằng men vi sinh | roadmap_SaveLife.md |
+| tong_ket_phong_thu_dao_hoang_resident_evil_d556 | Kiểm định chất lượng nước uống tự chế và kỹ thuật bảo mật vô tuyến tầm ngắn | roadmap_SaveLife.md |
+| dot_pha_tuyen_duong_thuy_project_zomboid | Xử lý chất thải và thông tin liên lạc vô tuyến dã chiến Day 557 | roadmap_SaveLife.md |
+| phong_thu_cuc_dien_dao_hoang_resident_evil | Bẫy thú rừng và kiểm định độc tính nước sinh hoạt Day 558 | roadmap_SaveLife.md |
+| dot_pha_tuyen_duong_thuy_project_zomboid_d559 | Đột phá tuyến đường thủy Project Zomboid | roadmap_SaveLife.md |
+| phong_thu_cuc_dien_dao_hoang_resident_evil_d560 | Phòng thủ cực diện đảo hoang Resident Evil | roadmap_SaveLife.md |
+| dot_pha_tuyen_duong_thuy_project_zomboid_d561 | Đột phá tuyến đường thủy tại Project Zomboid kết hợp xử lý chất thải dã chiến | roadmap_SaveLife.md |
+| phong_thu_cuc_dien_dao_hoang_resident_evil_d562 | Phòng thủ cực diện đảo hoang và kỹ thuật săn bắt, bảo quản thực phẩm hoang dã | roadmap_SaveLife.md |
+| dot_pha_tuyen_duong_thuy_project_zomboid_d563 | Đột phá tuyến đường thủy chiến lược trong Project Zomboid kết hợp xử lý chất thải hữu cơ | roadmap_SaveLife.md |
+| phong_thu_cuc_dien_dao_hoang_resident_evil_d564 | Phòng thủ cực diện trên đảo hoang và bảo mật thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| dot_pha_tuyen_duong_thuy_project_zomboid_d565 | Chèo thuyền vượt sông chiến thuật Project Zomboid | roadmap_SaveLife.md |
+| phong_thu_cuc_dien_dao_hoang_resident_evil_d566 | Bảo mật tín hiệu và gia cố đảo hoang Resident Evil | roadmap_SaveLife.md |
+| dot_pha_tuyen_duong_thuy_project_zomboid_d567 | Đột phá tuyến đường thủy trong Project Zomboid | roadmap_SaveLife.md |
+| phong_thu_cuc_dien_dao_hoang_resident_evil_d568 | Phòng thủ bãi biển và bảo mật liên lạc bộ đàm trong Resident Evil | roadmap_SaveLife.md |
+| dot_pha_tuyen_duong_thuy_project_zomboid_d569 | Đột phá tuyến đường thủy trong Project Zomboid | roadmap_SaveLife.md |
+| phong_thu_cuc_dien_dao_hoang_resident_evil_d570 | Phòng thủ bãi biển và bảo mật vô tuyến đảo hoang | roadmap_SaveLife.md |
+| dot_pha_tuyen_duong_thuy_project_zomboid_d571 | Đột phá tuyến đường thủy chiến lược trong game Project Zomboid | roadmap_SaveLife.md |
+| phong_thu_cuc_dien_dao_hoang_resident_evil_d572 | Thiết lập lưới thông tin liên lạc và phòng thủ bờ biển trong Resident Evil | roadmap_SaveLife.md |
+| dot_pha_tuyen_duong_thuy_project_zomboid_d573 | Đột phá tuyến đường thủy sinh tồn trong Project Zomboid | roadmap_SaveLife.md |
+| phong_thu_cuc_dien_dao_hoang_resident_evil_d574 | Hệ thống bẫy thú và an ninh bờ biển tại đảo hoang | roadmap_SaveLife.md |
+| dot_pha_tuyen_duong_thuy_project_zomboid_d575 | Chèo thuyền vượt sông chiến thuật tránh thủy quái Project Zomboid | roadmap_SaveLife.md |
+| phong_thu_cuc_dien_dao_hoang_resident_evil_d576 | Thiết lập lưới bẫy và an ninh vô tuyến đảo hoang Resident Evil | roadmap_SaveLife.md |
+| dot_pha_tuyen_duong_thuy_project_zomboid_d577 | Điều hướng và chèo bè vượt sông lớn trong Project Zomboid | roadmap_SaveLife.md |
+| phong_thu_cuc_dien_dao_hoang_resident_evil_d578 | Thiết lập bẫy thông tin liên lạc và phòng thủ bờ biển Resident Evil | roadmap_SaveLife.md |
+| dieu_phoi_so_tan_bien_dao_project_zomboid_d579 | Điều phối sơ tán biển đảo trong Project Zomboid | roadmap_SaveLife.md |
+| danh_gia_sinh_ton_dao_hoang_resident_evil_d580 | Đánh giá sinh tồn đảo hoang và bảo mật liên lạc trong Resident Evil | roadmap_SaveLife.md |
+| chuyen_doi_chien_luoc_so_tan_bien_dao_project_zomboid_d581 | Chuyển đổi chiến lược sơ tán biến đảo và xử lý chất thải sinh học Project Zomboid D581 | roadmap_SaveLife.md |
+| kiem_dinh_phong_thu_sinh_ton_dao_hoang_resident_evil_d582 | Kiểm định bẫy săn bắn hoang dã và phòng thủ bờ biển Resident Evil D582 | roadmap_SaveLife.md |
+| quan_trac_thuy_trieu_project_zomboid_d583 | Quan trắc thủy triều và dòng chảy biển trong Project Zomboid | roadmap_SaveLife.md |
+| phong_thu_vung_bien_resident_evil_d584 | Thiết lập bẫy sinh học và xử lý chất thải khu vực ven biển Resident Evil | roadmap_SaveLife.md |
+| chinh_phuc_vung_bien_project_zomboid_d585 | Hải trình vượt biển và định vị hàng hải Project Zomboid | roadmap_SaveLife.md |
+| phong_thu_vung_bien_resident_evil_d586 | Thiết lập bẫy bờ biển và xử lý chất thải sinh hoạt dã chiến | roadmap_SaveLife.md |
+| dieu_phoi_tuyen_duong_thuy_project_zomboid_d587 | Điều phối tuyến đường thủy Project Zomboid: Sơ tán xuồng máy và xử lý nước ô nhiễm | roadmap_SaveLife.md |
+| an_ninh_vung_bien_resident_evil_d588 | An ninh vùng biển Resident Evil: Mã hóa tín hiệu và cố thủ trạm hải đăng | roadmap_SaveLife.md |
+| chong_lai_zombie_thuy_sinh_project_zomboid_d589 | Xử lý chất thải dã chiến và chiến đấu dưới nước trong Project Zomboid | roadmap_SaveLife.md |
+| hoan_thien_ky_nang_sinh_ton_resident_evil_d590 | Bẫy thú rừng và bảo mật thông tin liên lạc vô tuyến đảo hoang | roadmap_SaveLife.md |
+| quan_ly_hanh_trinh_duong_thuy_project_zomboid_d591 | Xây dựng hệ thống nhà vệ sinh dã chiến và lọc nước sinh hoạt đường thủy | roadmap_SaveLife.md |
+| xu_ly_tinh_the_nguy_cap_dao_hoang_resident_evil_d592 | Bẫy thú hoang dã, bẫy rập bờ biển và mã hóa thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| chuyen_giao_hanh_trinh_duong_thuy_project_zomboid_d593 | Chuyển giao hành trình đường thủy và kiểm nghiệm nước sinh tồn trong Project Zomboid | roadmap_SaveLife.md |
+| phuc_hoi_sinh_ton_dao_hoang_resident_evil_d594 | Xây dựng trạm vệ sinh dã chiến và bảo mật vô tuyến trên đảo hoang trong Resident Evil | roadmap_SaveLife.md |
+| dieu_phoi_cu_cuoi_duong_thuy_project_zomboid_d595 | Điều phối cứu hộ đường thủy khẩn cấp tích hợp xử lý chất thải sinh hoạt | roadmap_SaveLife.md |
+| tong_ket_sinh_ton_dao_hoang_resident_evil_d596 | Tổng kết chiến dịch sinh tồn đảo hoang và bảo mật thông tin liên lạc | roadmap_SaveLife.md |
+| hoan_thanh_so_tan_duong_thuy_project_zomboid_d597 | Hoàn thành sơ tán đường thủy và kỹ thuật câu cá sinh tồn Project Zomboid | roadmap_SaveLife.md |
+| tong_ket_chien_dich_sinh_ton_resident_evil_d598 | Xây dựng hầm trú ẩn sinh tồn và xử lý chất thải dã chiến Resident Evil | roadmap_SaveLife.md |
+| dieu_phoi_tong_the_so_tan_project_zomboid_d599 | Xây dựng hệ thống nhà vệ sinh dã chiến và xử lý chất thải sinh học tại vùng trú ẩn | roadmap_SaveLife.md |
+| tong_ket_cuoi_cung_sinh_ton_resident_evil_d600 | Đánh giá hiệu năng hệ thống Microgrid và kiểm định chất lượng nước sinh hoạt | roadmap_SaveLife.md |
+| van_hanh_cong_ngam_project_zomboid_d601 | Vận hành hệ thống cống ngầm và xử lý chất thải hữu cơ | roadmap_SaveLife.md |
+| chong_lai_marauders_resident_evil_d602 | Phòng thủ trước nhóm cướp vũ trang và bảo mật liên lạc vô tuyến | roadmap_SaveLife.md |
+| van_hanh_cong_ngam_project_zomboid_d603 | Vận hành hệ thống cống ngầm và xử lý chất thải hữu cơ trong Project Zomboid | roadmap_SaveLife.md |
+| chong_lai_marauders_resident_evil_d604 | Kỹ thuật bảo mật vô tuyến và chống cướp bóc trong Resident Evil | roadmap_SaveLife.md |
+| van_hanh_cong_ngam_project_zomboid_d605 | Vận hành hệ thống hầm ngầm Project Zomboid | roadmap_SaveLife.md |
+| chong_lai_marauders_resident_evil_d606 | Chiến thuật chống Marauders Resident Evil | roadmap_SaveLife.md |
+| van_hanh_cong_ngam_project_zomboid_d607 | Vận hành hệ thống cống ngầm và thông gió hầm trú ẩn trong Project Zomboid | roadmap_SaveLife.md |
+| chong_lai_marauders_resident_evil_d608 | Chiến thuật chống cướp có vũ trang Marauders kết hợp bảo mật vô tuyến thủ công | roadmap_SaveLife.md |
+| van_hanh_he_thong_cong_ngam_project_zomboid_d609 | Vận hành hệ thống cống ngầm và xử lý chất thải sinh học Project Zomboid D609 | roadmap_SaveLife.md |
+| chien_luoc_chong_marauders_resident_evil_d610 | Bảo mật thông tin liên lạc và chiến thuật chống Marauders Resident Evil D610 | roadmap_SaveLife.md |
+| van_hanh_he_thong_ngam_project_zomboid_d611 | Vận hành hệ thống hầm ngầm ẩn giấu và nhà vệ sinh dã chiến tại Project Zomboid | roadmap_SaveLife.md |
+| chien_thuat_phong_thu_marauders_resident_evil_d612 | Chiến thuật nhảy tần vô tuyến và phục kích Marauders tại Resident Evil | roadmap_SaveLife.md |
+| van_hanh_he_thong_cong_ngam_project_zomboid_d613 | Vận hành hệ thống cống ngầm và xử lý chất thải sinh học khép kín | roadmap_SaveLife.md |
+| chien_thuat_du kích_chong_marauders_resident_evil_d614 | Thông tin liên lạc bảo mật và chiến thuật du kích chống Marauders | roadmap_SaveLife.md |
+| van_hanh_ngam_project_zomboid_d615 | Vận hành hệ thống cống ngầm và hầm trú ẩn trong Project Zomboid | roadmap_SaveLife.md |
+| phuc_kich_marauders_resident_evil_d616 | Xử lý chất thải và mã hóa vô tuyến bảo mật căn cứ | roadmap_SaveLife.md |
+| van_hanh_mang_luoi_cong_ngam_project_zomboid_d617 | Vận hành hệ thống thông gió và xử lý chất thải cống ngầm trong Project Zomboid | roadmap_SaveLife.md |
+| chien_thuat_khang_cu_marauders_resident_evil_d618 | Chiến thuật kháng cự lực lượng Marauders và bảo mật thông tin vô tuyến tại Raccoon City | roadmap_SaveLife.md |
+| van_hanh_mang_luoi_ngam_project_zomboid_d619 | Vận hành hệ thống chiếu sáng và thông gió hầm ngầm sinh tồn | roadmap_SaveLife.md |
+| phuc_kich_va_vo_hieu_hoa_marauders_resident_evil_d620 | Thiết lập bẫy nổ tự chế và mã hóa thông tin liên lạc bộ đàm | roadmap_SaveLife.md |
+| van_hanh_mang_luoi_ngam_project_zomboid_d621 | Vận hành hệ thống thủy lực và xử lý chất thải hầm ngầm | roadmap_SaveLife.md |
+| phuc_kich_va_vo_hieu_hoa_marauders_resident_evil_d622 | Bảo mật thông tin liên lạc và phục kích chiến thuật vô tuyến | roadmap_SaveLife.md |
+| van_hanh_mang_luoi_ngam_project_zomboid_d623 | Vận hành mạng lưới ngầm và xử lý chất thải sinh học | roadmap_SaveLife.md |
+| phuc_kich_va_vo_hieu_hoa_marauders_resident_evil_d624 | Bẫy săn bắn hoang dã và mã hóa thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| van_hanh_mang_luoi_ngam_project_zomboid_d625 | Vận hành mạng lưới ngầm và xử lý chất thải trong Project Zomboid | roadmap_SaveLife.md |
+| phuc_kich_va_vo_hieu_hoa_marauders_resident_evil_d626 | Phục kích địch kết hợp mã hóa vô tuyến bảo mật trong Resident Evil | roadmap_SaveLife.md |
+| van_hanh_he_thong_ngam_project_zomboid_d627 | Vận hành hệ thống hầm ngầm cống thoát nước và kiểm định chất lượng nước sinh hoạt | roadmap_SaveLife.md |
+| phuc_kich_marauders_resident_evil_d628 | Ứng dụng mật mã hóa vô tuyến và kỹ thuật phục kích vô hiệu hóa cướp | roadmap_SaveLife.md |
+| van_hanh_mang_luoi_ngam_project_zomboid_d629 | Vận hành mạng lưới ngầm và xử lý chất thải trong Project Zomboid | roadmap_SaveLife.md |
+| phuc_kich_va_vo_hieu_hoa_marauders_resident_evil_d630 | Chiến thuật phục kích bẫy thú rừng và vô hiệu hóa Marauders trong Resident Evil | roadmap_SaveLife.md |
+| van_hanh_mang_luoi_ngam_project_zomboid_d631 | Vận hành hệ thống hầm ngầm Project Zomboid kết hợp xử lý chất thải hữu cơ | roadmap_SaveLife.md |
+| phuc_kich_va_vo_hieu_hoa_marauders_resident_evil_d632 | Đột kích mục tiêu và bảo mật thông tin liên lạc vô tuyến thời chiến | roadmap_SaveLife.md |
+| van_hanh_he_thong_cong_ngam_metro_last_light_d633 | Vận hành hệ thống cống ngầm thoát hiểm trong Metro Last Light | roadmap_SaveLife.md |
+| chien_thuat_ngan_chan_marauders_metro_last_light_d634 | Thiết lập hệ thống thông tin vô tuyến bảo mật và chống nghe trộm ngầm | roadmap_SaveLife.md |
+| van_hanh_he_thong_cong_ngam_metro_2033_d635 | Vận hành hệ thống cống ngầm và trạm lọc nước sinh học dưới lòng đất | roadmap_SaveLife.md |
+| chien_thuat_pha_kich_marauders_metro_2033_d636 | Chiến thuật phục kích bẫy thú và bảo mật thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| van_hanh_he_thong_cong_ngam_metro_last_light_d637 | Vận hành hệ thống cống ngầm chống cướp với Metro Last Light | roadmap_SaveLife.md |
+| chien_thuat_ngan_chan_marauders_metro_last_light_d638 | Thiết lập mật mã hóa liên lạc bộ đàm và kiểm tra an toàn sinh học ngầm | roadmap_SaveLife.md |
+| van_hanh_he_thong_cong_ngam_metro_last_light_d639 | Vận hành hệ thống cống ngầm chống cướp Metro Last Light | roadmap_SaveLife.md |
+| chien_thuat_ngan_chan_marauders_metro_last_light_d640 | Mô phỏng trận địa bẫy chông và phục kích nhóm cướp đột nhập | roadmap_SaveLife.md |
+| van_hanh_he_thong_cong_ngam_metro_exodus_d641 | Vận hành hệ thống cống ngầm và xử lý chất thải hữu cơ Metro Exodus Day 641 | roadmap_SaveLife.md |
+| chien_thuat_chong_marauders_metro_exodus_d642 | Bảo mật thông tin liên lạc và phòng thủ chống Marauders Metro Exodus Day 642 | roadmap_SaveLife.md |
+| van_hanh_he_thong_cong_ngam_metro_exodus_d643 | Vận hành hệ thống cống ngầm chống cướp Marauders trong tựa game Metro Exodus | roadmap_SaveLife.md |
+| chien_thuat_chong_marauders_metro_exodus_d644 | Xử lý chất thải sinh học và kiểm định nguồn nước ngầm sinh tồn | roadmap_SaveLife.md |
+| van_hanh_he_thong_metro_st_l_d645 | Vận hành hệ thống cống ngầm chống cướp Metro Last Light | roadmap_SaveLife.md |
+| chien_thuat_ngan_chan_metro_st_l_d646 | Bảo mật thông tin vô tuyến và mã hóa tín hiệu bộ đàm | roadmap_SaveLife.md |
+| van_hanh_he_thong_ngam_metro_st_l_d647 | Vận hành hệ thống hầm ngầm, xử lý chất thải và thông gió chống Marauders | roadmap_SaveLife.md |
+| chien_thuat_chan_danh_metro_st_l_d648 | Mật mã hóa thông tin liên lạc và chiến thuật tiêu diệt Marauders ngầm | roadmap_SaveLife.md |
+| van_hanh_kenh_ngam_half_life_d649 | Vận hành hệ thống thủy lực và van nước ngầm trạm xá C17 | roadmap_SaveLife.md |
+| chien_thuat_du_kich_kenh_ngam_half_life_d650 | Bẫy âm thanh và bảo mật thông tin vô tuyến cống ngầm | roadmap_SaveLife.md |
+| van_hanh_kenh_ngam_dying_light_d651 | Vận hành hệ thống cống ngầm, xử lý chất thải và thông gió trú ẩn | roadmap_SaveLife.md |
+| chien_thuat_chong_marauders_dying_light_d652 | Kỹ thuật nhảy tần vô tuyến và chiến thuật chống cướp bóc ngầm | roadmap_SaveLife.md |
+| van_hanh_kenh_ngam_dying_light_d653 | Vận hành hệ thống hầm ngầm sinh tồn chống cướp Dying Light | roadmap_SaveLife.md |
+| chien_thuat_chong_marauders_dying_light_d654 | Chiến thuật đánh chặn và phản công Marauders dưới cống Dying Light | roadmap_SaveLife.md |
+| van_hanh_kenh_ngam_metro_last_light_d655 | Vận hành hệ thống hầm ngầm Metro Last Light chống cướp có vũ trang | roadmap_SaveLife.md |
+| chien_thuat_danh_chan_marauders_metro_last_light_d656 | Chiến thuật đánh chặn và phản công nhóm Marauders trong Metro Last Light | roadmap_SaveLife.md |
+| van_hanh_kenh_ngam_metro_2033_d657 | Vận hành hệ thống hầm ngầm chống Marauders qua game Metro 2033 | roadmap_SaveLife.md |
+| chien_thuat_chan_danh_metro_2033_d658 | Chiến thuật chặn đánh Marauders và xử lý vệ sinh môi trường ngầm | roadmap_SaveLife.md |
+| van_hanh_kenh_ngam_metro_2033_d659 | Vận hành hệ thống hầm ngầm Metro 2033 chống cướp và xử lý chất thải | roadmap_SaveLife.md |
+| chien_thuat_chan_danh_metro_2033_d660 | Chiến thuật chặn đánh bẫy cướp và mã hóa liên lạc vô tuyến | roadmap_SaveLife.md |
+| van_hanh_kenh_ngam_metro_exodus_d661 | Vận hành hệ thống ống ngầm chống marauders trong Metro Exodus | roadmap_SaveLife.md |
+| chien_thuat_ngan_chan_marauders_metro_exodus_d662 | Thiết lập mật mã hóa liên lạc và bẫy ngăn chặn hầm trú ẩn | roadmap_SaveLife.md |
+| van_hanh_kenh_ngam_metro_2033_d663 | Vận hành hệ thống hầm ngầm Metro 2033 để ẩn náu và thiết lập liên lạc | roadmap_SaveLife.md |
+| chien_thuat_chong_marauders_metro_2033_d664 | Xây dựng hệ thống xử lý vệ sinh và bẫy phòng thủ chống cướp Marauders | roadmap_SaveLife.md |
+| van_hanh_kenh_ngam_metro_2033_d665 | Vận hành hệ thống cống ngầm metro 2033 chống cướp vũ trang | roadmap_SaveLife.md |
+| chien_thuat_chan_danh_metro_2033_d666 | Thiết lập mật mã hóa liên lạc và chặn đánh marauders trong hẹp | roadmap_SaveLife.md |
+| van_hanh_kenh_ngam_metro_last_light_d667 | Vận hành hệ thống cống ngầm Metro Last Light chống Marauders | roadmap_SaveLife.md |
+| chien_thuat_chong_marauders_metro_last_light_d668 | Thiết lập lưới bẫy âm thanh và mã hóa tín hiệu bộ đàm tầm ngắn | roadmap_SaveLife.md |
+| van_hanh_kenh_ngam_metro_last_light_d669 | Vận hành hệ thống cống ngầm Metro Last Light chống Marauders | roadmap_SaveLife.md |
+| chien_thuat_chan_danh_metro_last_light_d670 | Chiến thuật mã hóa thông tin liên lạc và chặn đánh hầm trú ẩn | roadmap_SaveLife.md |
+| van_hanh_kenh_ngam_metro_last_light_d671 | Vận hành hệ thống lọc khí và thông gió kênh ngầm Metro Last Light | roadmap_SaveLife.md |
+| chien_thuat_chan_danh_metro_last_light_d672 | Thiết lập bẫy cảnh báo và mã hóa vô tuyến sơ khai bảo vệ hầm ngầm | roadmap_SaveLife.md |
+| van_hanh_kenh_ngam_metro_last_light_d673 | Vận hành hệ thống cống ngầm chống cướp và xử lý chất thải sinh học | roadmap_SaveLife.md |
+| chien_thuat_chan_danh_metro_last_light_d674 | Chiến thuật chặn đánh và bảo mật thông tin liên lạc vô tuyến hầm ngầm | roadmap_SaveLife.md |
+| van_hanh_kenh_ngam_metro_last_light_d675 | Vận hành hệ thống thông gió cống ngầm và cảnh báo sớm chống Marauders | roadmap_SaveLife.md |
+| chien_thuat_chan_danh_metro_last_light_d676 | Phương án phục kích tầm gần và mã hóa thông tin liên lạc vô tuyến bộ đàm | roadmap_SaveLife.md |
+| van_hanh_kenh_ngam_metro_last_light_d677 | Vận hành hệ thống cống ngầm và cửa chắn tự động chống đột nhập lấy cảm hứng từ Metro Last Light | roadmap_SaveLife.md |
+| chien_thuat_chan_danh_metro_last_light_d678 | Thiết lập bẫy cảnh báo sớm và phương án vô hiệu hóa kẻ đột nhập trong hầm trú ẩn | roadmap_SaveLife.md |
+| van_hanh_kenh_ngam_metro_last_light_d679 | Vận hành hệ thống cống ngầm Metro Last Light chống cướp và xử lý chất thải | roadmap_SaveLife.md |
+| chien_thuat_chan_danh_metro_last_light_d680 | Chiến thuật chặn đánh Marauders và mã hóa tín hiệu bộ đàm khẩn cấp | roadmap_SaveLife.md |
+| van_hanh_kenh_ngam_metro_last_light_d681 | Vận hành hệ thống cống ngầm Metro Last Light chống Marauders | roadmap_SaveLife.md |
+| chien_thuat_chan_danh_metro_last_light_d682 | Xây dựng bẫy dây kéo và mật mã hóa liên lạc bộ đàm chống đột nhập | roadmap_SaveLife.md |
+| van_hanh_kenh_ngam_metro_last_light_d683 | Vận hành hệ thống cống ngầm và kiểm soát rò rỉ phòng thủ Metro | roadmap_SaveLife.md |
+| chien_thuat_chan_danh_metro_last_light_d684 | Bẫy thú rừng sinh tồn và chiến thuật chặn đánh Marauders trong hầm tối | roadmap_SaveLife.md |
+| van_hanh_kenh_ngam_metro_last_light_d685 | Vận hành hệ thống cống ngầm Metro Last Light chống Marauders | roadmap_SaveLife.md |
+| chien_thuat_chan_danh_metro_last_light_d686 | Bảo mật vô tuyến và chiến thuật phục kích Marauders hầm ngầm | roadmap_SaveLife.md |
+| van_hanh_kenh_ngam_metro_2033_d687 | Vận hành hệ thống cống ngầm và hầm trú ẩn chống cướp theo Metro 2033 | roadmap_SaveLife.md |
+| chien_thuat_chan_danh_metro_2033_d688 | Kỹ thuật mã hóa tín hiệu bộ đàm và bảo mật thông tin vô tuyến ngầm | roadmap_SaveLife.md |
+| van_hanh_kenh_ngam_metro_2033_d689 | Vận hành hệ thống cống ngầm metro 2033 chống cướp | roadmap_SaveLife.md |
+| chien_thuat_chan_danh_metro_2033_d690 | Thiết lập mật mã hóa liên lạc vô tuyến chống thâm nhập hầm tối | roadmap_SaveLife.md |
+| van_hanh_kenh_ngam_metro_2033_d691 | Vận hành hệ thống cống ngầm trong Metro 2033 kết hợp xử lý chất thải hữu cơ | roadmap_SaveLife.md |
+| chien_thuat_chan_danh_metro_2033_d692 | Mã hóa thông tin liên lạc và chiến thuật chặn đánh Marauders tại cống ngầm | roadmap_SaveLife.md |
+| van_hanh_kenh_ngam_metro_2033_d693 | Vận hành hệ thống cống ngầm và xử lý chất thải sinh học Metro 2033 | roadmap_SaveLife.md |
+| chien_thuat_chan_danh_metro_2033_d694 | Bảo mật thông tin vô tuyến và chiến thuật chặn đánh Marauders | roadmap_SaveLife.md |
+| van_hanh_kenh_ngam_metro_2033_d695 | Vận hành hệ thống cống ngầm chống cướp Metro 2033 Day 695 | roadmap_SaveLife.md |
+| chien_thuat_chong_marauders_metro_last_light_d696 | Hệ thống nhà vệ sinh dã chiến và xử lý phân hữu cơ bằng men vi sinh Day 696 | roadmap_SaveLife.md |
+| van_hanh_kenh_ngam_metro_2033_d697 | Vận hành hệ thống cống ngầm bảo vệ hầm trú Metro 2033 chống Marauders | roadmap_SaveLife.md |
+| chien_thuat_chan_danh_metro_2033_d698 | Thiết lập hệ thống mã hóa vô tuyến thủ công và nhảy tần chống nghe lén | roadmap_SaveLife.md |
+| van_hanh_kenh_ngam_metro_last_light_d699 | Vận hành hệ thống cống ngầm Metro Last Light Day 699 | roadmap_SaveLife.md |
+| chien_thuat_chan_danh_metro_last_light_d700 | Chiến thuật chặn đánh Marauders Metro Last Light Day 700 | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_va_no_d701 | Chế tạo dung dịch sát trùng y tế và thiết bị xử lý rác thải hữu cơ | roadmap_SaveLife.md |
+| che_tao_phat_dien_lien_lac_d702 | Chế tạo máy phát điện quay tay và bộ đàm xung lực bảo mật | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_va_no_d703 | Chế tạo dung dịch sát khuẩn y tế và thiết bị phóng nổ tự chế | roadmap_SaveLife.md |
+| che_tao_phat_dien_lien_lac_d704 | Thiết lập hệ thống thông tin liên lạc bảo mật và mã hóa tín hiệu vô tuyến | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_va_no_d705 | Chế tạo dung dịch sát trùng y tế và khối nổ gia dụng từ phế liệu hóa chất | roadmap_SaveLife.md |
+| che_tao_phat_dien_lien_lac_d706 | Thiết lập hệ thống máy phát điện quay tay và mã hóa thông tin liên lạc cự ly ngắn | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_va_no_d707 | Điều chế dung dịch kháng khuẩn y tế và xử lý hóa chất dã chiến từ phế liệu | roadmap_SaveLife.md |
+| che_tao_phat_dien_lien_lac_d708 | Chế tạo máy phát điện quay tay và thiết bị mã hóa thông tin liên lạc bảo mật | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_va_no_d709 | Pha chế cồn y tế và xử lý chất thải sinh học vùng trú ẩn | roadmap_SaveLife.md |
+| che_tao_phat_dien_lien_lac_d710 | Lắp ráp máy phát điện quay tay và mã hóa bộ đàm bảo mật | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_va_no_d711 | Pha chế dung dịch sát trùng y tế và bom khói ngụy trang | roadmap_SaveLife.md |
+| che_tao_phat_dien_lien_lac_d712 | Lắp ráp máy phát điện quay tay và mạch vô tuyến thô sơ | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_va_no_d713 | Tự điều chế chất sát trùng y tế và bom khói ngụy trang | roadmap_SaveLife.md |
+| che_tao_phat_dien_lien_lac_d714 | Lắp ráp máy phát điện quay tay và hệ thống vô tuyến bảo mật | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_va_no_d715 | Tự tổng hợp cồn y tế 90 độ và xử lý an toàn hóa chất phế liệu | roadmap_SaveLife.md |
+| che_tao_phat_dien_lien_lac_d716 | Lắp ráp máy phát điện quay tay và kiểm thử tín hiệu vô tuyến vi mô | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_va_no_d717 | Điều chế dung dịch sát khuẩn y tế và thiết bị đánh lửa điện tử từ linh kiện phế thải | roadmap_SaveLife.md |
+| che_tao_phat_dien_lien_lac_d718 | Lắp ráp máy phát điện quay tay và tối ưu hóa mạch thu sóng vô tuyến khẩn cấp | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_va_no_d719 | Chưng cất dung dịch sát trùng và thiết bị kích nổ từ vỏ lon nước ngọt | roadmap_SaveLife.md |
+| che_tao_phat_dien_lien_lac_d720 | Lắp ráp máy phát điện quay tay và thiết bị mã hóa thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_va_no_d721 | Chế tạo dung dịch sát trùng y tế từ cồn công nghiệp và hydrogen peroxide | roadmap_SaveLife.md |
+| che_tao_phat_dien_lien_lac_d722 | Lắp ráp hệ thống phát điện quay tay mini kết hợp mã hóa bộ đàm | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_va_no_d723 | Chưng cất cồn y tế 90 độ và xử lý vệ sinh môi trường trú ẩn | roadmap_SaveLife.md |
+| che_tao_phat_dien_lien_lac_d724 | Chế tạo máy phát điện quay tay và mã hóa thông tin vô tuyến | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_va_no_d725 | Chưng cất cồn sát trùng y tế 90 độ và xử lý chất thải hữu cơ bằng men vi sinh | roadmap_SaveLife.md |
+| che_tao_phat_dien_lien_lac_d726 | Chế tạo máy phát điện quay tay và kỹ thuật mã hóa vô tuyến bảo mật | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_va_no_d727 | Chế tạo dung dịch tẩy rửa và vật tư vô cơ cơ bản từ phân bón | roadmap_SaveLife.md |
+| che_tao_phat_dien_lien_lac_d728 | Lắp ráp hệ thống phát điện xoay chiều mini và mã hóa vô tuyến | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_va_no_d729 | Chưng cất dung dịch sát khuẩn y tế và thiết bị liên lạc ống lon | roadmap_SaveLife.md |
+| che_tao_phat_dien_lien_lac_d730 | Chế tạo máy phát điện quay tay tích hợp mạch mã hóa thông tin vô tuyến | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_va_no_d731 | Chưng cất dung dịch sát trùng và thiết bị phát điện mini (Dự án Tự túc năng suất) | roadmap_SaveLife.md |
+| che_tao_phat_dien_lien_lac_d732 | Mã hóa tín hiệu bộ đàm và lắp ráp nguồn điện hóa học tự chế | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_d733 | Điều chế cồn y tế 90 độ và dung dịch sát khuẩn từ đường rỉ mật qua tháp chưng cất tự chế | roadmap_SaveLife.md |
+| che_tao_phat_dien_d734 | Chế tạo máy phát điện quay tay công suất nhỏ từ động cơ quạt bàn và cơ cấu bánh răng phế liệu | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_va_no_d735 | Chưng cất dung dịch sát trùng y tế kết hợp xử lý chất thải sinh học vùng trú ẩn | roadmap_SaveLife.md |
+| che_tao_phat_dien_lien_lac_d736 | Mã hóa thông tin liên lạc khẩn cấp và lắp ráp thiết bị phát tín hiệu vô tuyến thủ công | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_d737 | Điều chế dung dịch sát khuẩn y tế và thiết lập hệ thống xử lý vệ sinh dã chiến | roadmap_SaveLife.md |
+| che_tao_phat_dien_d738 | Lắp ráp máy phát điện quay tay và mã hóa tín hiệu bộ đàm vô tuyến thủ công | roadmap_SaveLife.md |
+| che_tao_dung_dich_sat_trung_nguyen_chat_d739 | Chưng cất dung dịch sát trùng y tế tinh khiết từ phế liệu nhựa | roadmap_SaveLife.md |
+| lap_rap_thiet_bi_phat_dien_quay_tay_d740 | Thiết kế máy phát điện thủ công ứng dụng mô-tơ quạt hỏng | roadmap_SaveLife.md |
+| che_tao_chat_no_tu_phan_bon_d741 | Chế tạo vật liệu nổ từ phân bón và nhiên liệu qua dự án Bom khói hóa học | roadmap_SaveLife.md |
+| lap_rap_bo_dam_tho_so_d742 | Mã hóa tín hiệu và bảo mật thông tin liên lạc vô tuyến tầm ngắn | roadmap_SaveLife.md |
+| che_tao_chat_no_tu_pha_le_chi_u_d743 | Chế tạo chất nổ tự phát từ phân bón và dầu thải cho dự án Mìn Tự Chế Bẫy Xác Sống | roadmap_SaveLife.md |
+| lap_rap_may_phat_dien_quay_tay_tu_dong_co_d744 | Xây dựng hệ thống nhà vệ sinh dã chiến và lọc xử lý phân hữu cơ cho dự án Khu Trú Ẩn Sạch | roadmap_SaveLife.md |
+| che_tao_chat_no_huu_co_tu_nhien_d745 | Chế tạo chất nổ hữu cơ từ đường và nitrat kali cho Dự án Hỏa tiễn | roadmap_SaveLife.md |
+| lap_rap_mach_dieu_khien_tu_xa_d746 | Thiết lập mạch mã hóa vô tuyến và kích nổ từ xa bằng linh kiện tái chế | roadmap_SaveLife.md |
+| che_tao_chat_no_tu_nhua_phe_lieu_d747 | Nghiên cứu áp suất khí nén và chế tạo pháo khói tín hiệu khẩn cấp từ vật tư tái chế | roadmap_SaveLife.md |
+| lap_rap_thiet_bi_phat_dien_tu_dong_co_d748 | Tái chế động cơ điện thành máy phát điện xoay tay phục vụ chiếu sáng khẩn cấp | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_y_te_tu_phu_gia_d749 | Chế tạo dung dịch sát trùng y tế kết hợp kiểm định chất lượng nước sinh hoạt | roadmap_SaveLife.md |
+| lap_rap_thiet_bi_phat_dien_mini_tu_quat_hong_d750 | Lắp ráp hệ thống Microgrid mini và tối ưu hóa phụ tải năng lượng khẩn cấp | roadmap_SaveLife.md |
+| che_tao_chat_no_tu_phan_bon_hoa_hoc_d751 | Chế tạo khối nổ ANFO từ phân đạm và dầu thải kèm kiểm định độ ổn định vật lý | roadmap_SaveLife.md |
+| lap_rap_bo_dam_dai_tho_so_tu_linh_kien_cu_d752 | Thiết lập bảo mật tín hiệu và lắp ráp bộ đàm cự ly ngắn từ linh kiện phế liệu | roadmap_SaveLife.md |
+| che_tao_thuoc_no_tu_phan_bon_d753 | Chế tạo vật liệu nổ ANFO từ phân bón và dầu thải | roadmap_SaveLife.md |
+| lap_rap_thiet_bi_kich_no_tu_xa_d754 | Lắp ráp mạch điều khiển kích nổ không dây từ linh kiện cũ | roadmap_SaveLife.md |
+| che_tao_chat_no_tu_nong_nghiep_d755 | Tổng hợp hợp chất nổ ANFO và quy trình xử lý phế liệu an toàn | roadmap_SaveLife.md |
+| lap_rap_he_thong_canh_bao_som_d756 | Thiết lập mạng lưới cảnh báo vô tuyến và mã hóa tín hiệu từ xa | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_tu_phu_gia_thuc_pham_d757 | Pha chế dung dịch sát trùng y tế từ cồn và glycerin cho dự án Y Tế Gia Đình | roadmap_SaveLife.md |
+| lap_rap_thiet_bi_phat_dien_tu_motor_cd_d758 | Chế tạo máy phát điện quay tay tích hợp mạch ổn áp từ motor ổ đĩa quang hỏng | roadmap_SaveLife.md |
+| che_tao_chat_no_tu_phan_bon_va_duong_d759 | Tổng hợp hợp chất oxy hóa mạnh từ phân bón gốc nitrat | roadmap_SaveLife.md |
+| lap_rap_mach_kich_no_tu_xa_tu_linh_kien_dien_thoai_d760 | Thiết lập mạch kích hoạt tín hiệu tầm ngắn bằng linh kiện điện tử tái chế | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_tu_nhien_d761 | Chế tạo dung dịch sát trùng y tế từ cồn thực phẩm và hương liệu tràm | roadmap_SaveLife.md |
+| lap_rap_bo_dam_mini_tu_linh_kien_cu_d762 | Lắp ráp bộ đàm mini liên lạc thô sơ kèm mạch mã hóa tín hiệu bảo mật | roadmap_SaveLife.md |
+| che_tao_chat_no_tu_phan_bon_va_duong_cat_d763 | Tự điều chế chất nổ từ phân bón và đường cát làm mìn bẫy | roadmap_SaveLife.md |
+| lap_rap_mach_kich_no_tu_xa_tu_linh_kien_relay_d764 | Lắp ráp mạch kích nổ từ xa tích hợp mã hóa vô tuyến sơ khai | roadmap_SaveLife.md |
+| che_tao_chat_no_tu_bot_nhom_va_oxi_gia_d765 | Chế tạo vật liệu nổ áp lực cao từ bột nhôm và dung dịch oxy già qua dự án Bình nổ nhiệt nhôm mini | roadmap_SaveLife.md |
+| lap_rap_thiet_bi_phat_dien_tu_dong_co_buoc_d766 | Lắp ráp thiết bị phát điện khẩn cấp tích hợp ổn áp microgrid qua dự án Trạm phát điện quay tay mini | roadmap_SaveLife.md |
+| che_tao_chat_no_tu_phan_bon_va_duong_tinh_luyen | Tinh chế hợp chất oxy hóa từ phân bón nông nghiệp | roadmap_SaveLife.md |
+| lap_rap_mach_kich_no_tu_xa_tu_linh_kien_dieu_khien_tu_xa_cu | Tích hợp hệ thống kích hoạt tín hiệu vô tuyến tầm xa | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_tu_nhien_va_duong_d769 | Điều chế dung dịch sát trùng y tế từ cồn thực phẩm và chiết xuất thảo mộc | roadmap_SaveLife.md |
+| lap_rap_thiet_bi_phat_dien_tu_dong_co_quat_cu_d770 | Xây dựng hệ thống vi mô phát điện quay tay và tích hợp bộ ổn áp mini | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_tu_con_va_nha_dam_d771 | Chế tạo dung dịch sát khuẩn y tế từ cồn công nghiệp và gel lô hội tự chế | roadmap_SaveLife.md |
+| lap_rap_may_phat_dien_mini_tu_dong_co_buoc_cu_d772 | Lắp ráp thiết bị phát điện khẩn cấp từ động cơ bước máy in hỏng | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_tu_con_y_te_va_huong_thao_d773 | Điều chế dung dịch sát trùng y tế từ cồn 90 độ và chiết xuất hương thảo | roadmap_SaveLife.md |
+| lap_rap_thiet_bi_phat_dien_tu_dong_co_quat_tran_cu_d774 | Chế tạo máy phát điện quay tay cứu sinh tích hợp đèn LED từ linh kiện quạt | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_tu_con_va_vo_cay_d775 | Điều chế cồn sát trùng y tế bằng phương pháp chưng cất vỏ cây và cồn công nghiệp | roadmap_SaveLife.md |
+| lap_rap_may_phat_dien_tu_motor_quat_ban_cu_d776 | Chế tạo hệ thống microgrid năng lượng đạp chân và kiểm nghiệm an toàn điện áp vi mô | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_tu_con_va_bac_ha_d777 | Chế tạo dung dịch sát trùng y tế từ cồn và lá bạc hà qua dự án Vệ Sinh Sạch | roadmap_SaveLife.md |
+| lap_rap_may_phat_dien_tu_motor_quat_tran_d778 | Lắp ráp máy phát điện mini từ motor quạt trần cũ qua dự án Ánh Sáng Xanh | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_tu_con_va_xa_bong_d779 | Chế tạo dung dịch sát trùng y tế bằng cồn và xà phòng cho trạm y tế d779 | roadmap_SaveLife.md |
+| lap_rap_may_phat_dien_tu_motor_dau_dia_cu_d780 | Lắp ráp hệ thống Microgrid mini phát điện từ motor đầu đĩa CD/DVD cũ d780 | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_tu_con_va_vo_chanh_d781 | Chế tạo dung dịch sát trùng từ cồn và vỏ chanh (Dự án Tự chế cồn chanh y tế) | roadmap_SaveLife.md |
+| lap_rap_may_phat_dien_tu_motor_may_in_cu_d782 | Lắp ráp máy phát điện mini từ motor máy in cũ (Dự án Máy phát mini máy in) | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_tu_con_va_vo_cam_thao_d783 | Chế tạo dung dịch sát trùng y tế từ cồn và vỏ cam thảo | roadmap_SaveLife.md |
+| lap_rap_may_phat_dien_tu_motor_dau_cd_cu_d784 | Lắp ráp hệ thống phát điện vi mô từ motor đầu đọc CD | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_tu_con_va_vo_quyet_minh_d785 | Pha chế dung dịch sát khuẩn sinh học từ cồn và vỏ quyết minh | roadmap_SaveLife.md |
+| lap_rap_may_phat_dien_tu_motor_dau_vcr_cu_d786 | Chế tạo máy phát điện quay tay thủ công từ motor đầu đọc VCR | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_tu_con_va_vo_cay_thong_d787 | Chế tạo dung dịch sát khuẩn từ cồn 90 độ và vỏ cây thông nghiền nát | roadmap_SaveLife.md |
+| lap_rap_may_phat_dien_tu_motor_dau_xe_dap_cu_d788 | Lắp ráp máy phát điện mini thủ công từ motor dynamo đầu xe đạp cũ | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_tu_con_va_vo_bach_dan_d789 | Chế tạo dung dịch sát trùng từ cồn y tế và vỏ bạch đàn dự án Vỏ Bạch Đàn | roadmap_SaveLife.md |
+| lap_rap_may_phat_dien_tu_motor_dau_xe_may_cu_d790 | Lắp ráp máy phát điện mini từ motor đầu xe máy cũ dự án Củ Phát Động Cơ | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_tu_con_va_vo_dau_dua_d791 | Chế tạo dung dịch sát trùng từ cồn y tế và vỏ đậu đũa | roadmap_SaveLife.md |
+| lap_rap_may_phat_dien_tu_motor_dau_may_may_cu_d792 | Lắp ráp máy phát điện thủ công từ động cơ máy may | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_tu_con_va_vo_cay_que_d793 | Chế tạo dung dịch sát trùng từ cồn y tế và vỏ cây quế (Dự án Sát trùng Quế) | roadmap_SaveLife.md |
+| lap_rap_may_phat_dien_tu_motor_dau_xe_may_cu_d794 | Lắp ráp máy phát điện mini từ mô-tơ củ đề xe máy cũ (Dự án Máy phát Xe máy) | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_tu_con_va_vo_sam_dat_d795 | Pha chế chất sát trùng y tế từ cồn 90 độ và vỏ sâm đất | roadmap_SaveLife.md |
+| lap_rap_may_phat_dien_tu_motor_dau_xe_dap_dien_cu_d796 | Tích hợp hệ thống Microgrid mini và kiểm định tải tiêu thụ điện | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_tu_con_va_vo_sam_den | Chế tạo chất sát trùng từ cồn và vỏ sâm đen - Dự án Gel Sâm Đen | roadmap_SaveLife.md |
+| lap_rap_may_phat_dien_tu_motor_dau_xe_dap_dien_cu_2 | Lắp ráp trạm phát điện mini từ động cơ xe đạp điện và hệ thống vi mô | roadmap_SaveLife.md |
+| che_tao_chat_sat_trung_tu_con_va_vo_sam_den_d799 | Pha chế chất sát trùng y tế bằng cồn và vỏ sâm đen tự nhiên | roadmap_SaveLife.md |
+| lap_rap_may_phat_dien_tu_motor_dau_xe_dap_dien_cu_2_d800 | Tối ưu hóa và kiểm tra hiệu năng hệ thống máy phát điện mini thủ công | roadmap_SaveLife.md |
+| ky_thuat_giai_toa_ptsd_va_phan_cong_nhom_trong_sinh_ton_zombie | Trị liệu PTSD và kỹ thuật phân công nhiệm vụ nhóm sinh tồn zombie | roadmap_SaveLife.md |
+| giai_phap_khung_hoang_khi_noi_tru_an_that_thu_zombie | Phương án nhảy tần vô tuyến và ứng phó khi căn cứ bị xâm phạm | roadmap_SaveLife.md |
+| ky_thuat_giai_toa_ptsd_va_phan_cong_nhom_trong_sinh_ton_zombie_d803 | Trị liệu sang chấn tâm lý và thiết lập hệ thống vệ sinh dã chiến sinh tồn | roadmap_SaveLife.md |
+| giai_phap_khung_hoang_khi_noi_tru_an_that_thu_zombie_d804 | Kế hoạch sơ tán khẩn cấp, bẫy săn bắt hoang dã và bảo mật thông tin vô tuyến | roadmap_SaveLife.md |
+| ky_thuat_giai_toa_ptsd_va_phan_cong_nhom_trong_sinh_ton_zombie_d805 | Trị liệu sang chấn tâm lý và phân chia nhiệm vụ nhóm sinh tồn zombie | roadmap_SaveLife.md |
+| giai_phap_khung_hoang_khi_noi_tru_an_that_thu_zombie_d806 | Kịch bản sơ tán toàn diện và mã hóa thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| tri_lieu_ptsd_va_phan_cong_nhom_trong_sinh_ton_zombie | Trị liệu sang chấn tâm lý và phân bổ nhiệm vụ sinh tồn nhóm | roadmap_SaveLife.md |
+| xu_ly_khung_hoang_va_ke_hoach_rut_lui_noi_tru_an | Kế hoạch sơ tán khẩn cấp và bảo mật liên lạc bộ đàm tầm xa | roadmap_SaveLife.md |
+| ky_thuat_xu_ly_ptsd_va_dieu_phoi_nhom_trong_sinh_ton | Ứng phó sốc tâm lý chiến trường và phân bổ nhân sự sinh tồn | roadmap_SaveLife.md |
+| giai_phap_ung_pho_khi_noi_tru_an_bi_tan_cong_va_that_thu | Chiến lược sơ tán khẩn cấp và thiết lập điểm hẹn thứ cấp | roadmap_SaveLife.md |
+| ky_thuat_ho_phuc_ptsd_va_phan_vung_nhiem_vu_nhom | Kỹ thuật hồi phục PTSD và phân vùng nhiệm vụ nhóm trong The Walking Dead | roadmap_SaveLife.md |
+| chien_luoc_so_tan_khi_noi_tru_an_that_thu_va_on_dinh_nhom | Chiến lược sơ tán khi nơi trú ẩn thất thủ và ổn định nhóm trong Dawn of the Dead | roadmap_SaveLife.md |
+| giai_toa_ptsd_va_phan_vung_nhiem_vu_nhom_d813 | Giải tỏa PTSD và phân vùng nhiệm vụ nhóm trong sinh tồn tận thế zombie | roadmap_SaveLife.md |
+| ung_pho_khi_noi_tru_an_that_thu_va_on_dinh_nhom_d814 | Giao thức sơ tán khẩn cấp và bảo mật thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| ky_thuat_khac_phuc_ptsd_va_dieu_phoi_nhom_trong_sinh_ton_zombie_d815 | Kỹ thuật khắc phục PTSD và điều phối nhóm trong sinh tồn zombie - Sổ tay The Walking Dead | roadmap_SaveLife.md |
+| giai_phap_ung_pho_khi_noi_tru_an_that_thu_va_so_tan_khan_cap_d816 | Thiết lập mật mã hóa thông tin liên lạc vô tuyến và nhảy tần thủ công khi sơ tán - Dự án 28 Days Later | roadmap_SaveLife.md |
+| ky_thuat_xu_ly_ptsd_va_dieu_phoi_nhom_trong_sinh_ton_zombie_d817 | Vượt qua hội chứng tâm lý PTSD và phân công đội ngũ sinh tồn trong The Walking Dead | roadmap_SaveLife.md |
+| giai_phap_xu_ly_khung_hoang_khi_noi_tru_an_that_thu_zombie_d818 | Ứng phó khủng hoảng, sơ tán khẩn cấp và thiết lập hệ thống bảo mật tín hiệu vô tuyến | roadmap_SaveLife.md |
+| ky_thuat_vuot_qua_ptsd_va_phan_cong_nhom_trong_sinh_ton_zombie_d819 | Kỹ thuật vượt qua PTSD và phân công nhóm sinh tồn trong The Walking Dead | roadmap_SaveLife.md |
+| phuong_an_xu_ly_khung_hoang_khi_noi_tru_an_that_thu_zombie_d820 | Giao thức sơ tán khẩn cấp và mã hóa thông tin liên lạc vô tuyến khi căn cứ thất thủ | roadmap_SaveLife.md |
+| ky_thuat_dieu_hoa_tam_ly_va_phan_vung_nhiem_vu_nhom_d821 | Kỹ thuật điều hòa tâm lý và phân vùng nhiệm vụ nhóm | roadmap_SaveLife.md |
+| giai_phap_ung_pho_va_so_tan_khan_cap_khi_that_thu_tru_an_d822 | Xây dựng hệ thống nhà vệ sinh dã chiến và xử lý chất thải sinh học | roadmap_SaveLife.md |
+| ky_thuat_xu_ly_ptsd_va_phan_vung_nhiem_vu_nhom_d823 | Xử lý chấn thương tâm lý PTSD và phân vùng nhiệm vụ nhóm ứng phó thảm họa | roadmap_SaveLife.md |
+| giai_phap_ung_pho_khi_tru_an_that_thu_va_so_tan_d824 | Ứng phó khủng hoảng khi căn cứ thất thủ và kế hoạch sơ tán nhanh | roadmap_SaveLife.md |
+| giai_toa_ptsd_va_phan_cong_nhom_trong_sinh_ton_zombie_d825 | Xử lý PTSD và phân công nhóm trong sinh tồn zombie (Dự án: DayZ) | roadmap_SaveLife.md |
+| ung_pho_khung_hoang_khi_noi_tru_an_that_thu_zombie_d826 | Giao thức sơ tán khẩn cấp và bảo mật tín hiệu khi vỡ trận (Dự án: The Last of Us) | roadmap_SaveLife.md |
+| ky_thuat_giai_toa_ptsd_va_quan_ly_nhom_trong_sinh_ton_zombie | Kỹ thuật giải tỏa PTSD và phân công nhóm trong sinh tồn zombie Day 827 | roadmap_SaveLife.md |
+| giai_phap_xu_ly_khung_hoang_khi_noi_tru_an_that_thu_zombie | Lập kế hoạch di tản khẩn cấp và bảo mật tín hiệu liên lạc vô tuyến | roadmap_SaveLife.md |
+| ky_thuat_xu_ly_ptsd_va_quan_ly_nhom_trong_sinh_ton_zombie_d829 | Xử lý PTSD và điều phối nhóm qua bảng phân công sinh tồn trong Project Zomboid | roadmap_SaveLife.md |
+| giai_phap_ung_pho_khi_noi_tru_an_that_thu_va_so_tan_d830 | Xây dựng kịch bản rút lui khẩn cấp và thiết lập hệ thống vệ sinh dã chiến khi căn cứ thất thủ | roadmap_SaveLife.md |
+| phieu_lieu_giai_toa_ptsd_sinh_ton_zombie_d831 | Trị liệu tâm lý chuyên sâu và phân chia việc nhóm trong The Walking Dead | roadmap_SaveLife.md |
+| giai_phap_thoat_hiểm_khi_that_thu_tru_an_d832 | Thiết lập hệ thống vệ sinh dã chiến và xử lý chất thải sinh học khẩn cấp | roadmap_SaveLife.md |
+| ky_thuat_dieu_tri_ptsd_va_quan_ly_nhom_trong_sinh_ton_d833 | Kỹ thuật điều trị sang chấn tâm lý và phân công nhiệm vụ sinh tồn Day 833 | roadmap_SaveLife.md |
+| chien_luoc_xu_ly_khung_hoang_khi_that_thu_tru_an_d834 | Quy trình sơ tán khẩn cấp và bảo mật thông tin liên lạc vô tuyến Day 834 | roadmap_SaveLife.md |
+| ky_thuat_xu_ly_ptsd_va_quan_ly_nhom_d835 | Kỹ thuật chuyên sâu trị liệu sang chấn tâm lý và phân công đội hình | roadmap_SaveLife.md |
+| giai_phap_ung_pho_khi_that_thu_tru_an_d836 | Quy trình ứng phó và bảo mật liên lạc vô tuyến khẩn cấp | roadmap_SaveLife.md |
+| ky_thuat_dieu_tri_ptsd_va_quan_ly_nhom_trong_sinh_ton_zombie_d837 | Kỹ thuật điều trị PTSD và phân công nhiệm vụ nhóm sinh tồn zombie | roadmap_SaveLife.md |
+| giai_phap_xu_ly_khung_hoang_va_so_tan_khi_tru_an_that_thu_d838 | Quy trình sơ tán khẩn cấp và bảo mật tín hiệu liên lạc vô tuyến | roadmap_SaveLife.md |
+| ky_thuat_dieu_tri_ptsd_va_phan_cong_nhom_trong_sinh_ton_zombie | Kỹ thuật điều trị sang chấn tâm lý và phân công nhóm sinh tồn trong The Walking Dead | roadmap_SaveLife.md |
+| giai_phap_xu_ly_khung_hoang_va_so_tan_khi_tru_an_that_thu_trong_resident_evil | Quy trình ứng phó tình huống khẩn cấp và sơ tán khi trú ẩn thất thủ theo Resident Evil | roadmap_SaveLife.md |
+| ky_thuat_giai_toa_ptsd_va_phan_vung_nhiem_vu_nhom_d841 | Hồi phục tâm lý PTSD và phân vùng nhiệm vụ nhóm tại The Walking Dead | roadmap_SaveLife.md |
+| chien_luoc_ung_pho_khi_noi_tru_an_that_thu_d842 | Ứng phó khẩn cấp, bảo mật vô tuyến và sơ tán kiểu Resident Evil | roadmap_SaveLife.md |
+| giai_toa_ptsd_va_quan_ly_nhom_trong_sinh_ton_zombie_d843 | Xử lý ám ảnh PTSD và tối ưu phân công nhóm trong The Walking Dead | roadmap_SaveLife.md |
+| ung_pho_va_so_tan_khan_cap_khi_tru_an_that_thu_d844 | Sơ đồ luân chuyển và kịch bản rút lui khi trú ẩn thất thủ trong 28 Days Later | roadmap_SaveLife.md |
+| ky_thuat_dieu_tri_ptsd_va_quan_ly_nhom_trong_the_gioi_zombie_d845 | Kỹ thuật sơ cứu tâm lý chiến trường và phân bổ nhân sự sinh tồn (Day 845) | roadmap_SaveLife.md |
+| giai_phap_xu_ly_khung_hoang_va_so_tan_khi_that_thu_tru_an_d846 | Chiến thuật nhảy tần vô tuyến bảo mật và sơ tán hầm trú ẩn thất thủ (Day 846) | roadmap_SaveLife.md |
+| ky_thuat_dieu_tri_ptsd_va_quan_ly_nhom_trong_the_gioi_tan_the | Trị liệu PTSD chuyên sâu và kỹ thuật quản lý nhóm trong bối cảnh thảm họa | roadmap_SaveLife.md |
+| chien_luoc_xu_ly_khung_hoang_va_so_tan_khi_tru_an_that_thu_resident_evil | Xây dựng hệ thống sơ tán khẩn cấp và bảo mật liên lạc vô tuyến khi trú ẩn thất thủ | roadmap_SaveLife.md |
+| ky_thuat_dieu_tri_ptsd_va_quan_ly_nhom_trong_the_gioi_zombie | Kỹ thuật điều trị sang chấn PTSD và quản lý phân bổ nhân sự nhóm sinh tồn | roadmap_SaveLife.md |
+| giai_phap_xu_ly_khung_hoang_va_so_tan_khi_that_thu_tru_an_the_gioi_zombie | Xây dựng phương án rút lui và bảo mật thông tin liên lạc khi vỡ căn cứ trú ẩn | roadmap_SaveLife.md |
+| ky_thuat_dieu_tri_ptsd_va_quan_ly_nhom_trong_the_gioi_tan_the_zombie | Kỹ thuật điều trị sang chấn tâm lý PTSD và phân công nhóm sinh tồn trong The Walking Dead | roadmap_SaveLife.md |
+| chien_luoc_xu_ly_khung_hoang_va_so_tan_khi_tru_an_that_thu_trong_the_gioi_tan_the | Chiến lược sơ tán khẩn cấp, bảo mật vô tuyến và kiểm định nguồn nước khi trú ẩn thất thủ trong Dawn of the Dead | roadmap_SaveLife.md |
+| ky_thuat_dieu_tri_ptsd_va_quan_ly_nhom_trong_the_gioi_tan_the_d853 | Trị liệu tâm lý PTSD và phân công nhóm sinh tồn trong The Last of Us | roadmap_SaveLife.md |
+| chien_luoc_xu_ly_khung_hoang_va_so_tan_khi_tru_an_that_thu_d854 | Ứng phó thảm họa đô thị và sơ tán khẩn cấp dựa trên mô hình dịch tễ lịch sử | roadmap_SaveLife.md |
+| chua_lanh_ptsd_va_phan_cong_nhom_the_walking_dead | Chữa lành PTSD và phân công nhóm sinh tồn trong The Walking Dead | roadmap_SaveLife.md |
+| xu_ly_khung_hoang_khi_that_thu_tru_an_resident_evil | Xử lý khẩn cấp và vô hiệu hóa cứ điểm khi thất thủ trong Resident Evil | roadmap_SaveLife.md |
+| vuc_day_tinh_than_resident_evil | Vực dậy tinh thần và phân công nhóm chống xác sống Resident Evil | roadmap_SaveLife.md |
+| thoat_hiem_khi_tru_an_that_thu_twd | Lập mã hóa tín hiệu bộ đàm và sơ tán khẩn cấp The Walking Dead | roadmap_SaveLife.md |
+| chua_lanh_sang_chan_va_dieu_phoi_nhom_trong_the_gioi_zombie | Chữa lành sang chấn tâm lý và phân bổ nhân sự sinh tồn | roadmap_SaveLife.md |
+| xu_ly_khung_hoang_va_so_tan_khi_that_thu_tru_an_resident_evil | Giao thức sơ tán khẩn cấp và mã hóa liên lạc khi thất thủ trú ẩn | roadmap_SaveLife.md |
+| dieu_tri_ptsd_va_quan_ly_nhom_resident_evil | Điều trị sang chấn tâm lý chiến đấu và phân bổ đội hình Alpha S.T.A.R.S. | roadmap_SaveLife.md |
+| giai_phap_khi_tru_an_that_thu_twd | Sơ đồ rút lui chiến lược và bảo mật thông tin liên lạc khi Alexandria thất thủ | roadmap_SaveLife.md |
+| dieu_tri_ptsd_va_quan_ly_nhom_trong_the_gioi_zombie_d863 | Vượt qua PTSD và phân công nhóm sinh tồn trong The Walking Dead | roadmap_SaveLife.md |
+| xu_ly_khung_hoang_va_so_tan_khi_tru_an_that_thu_resident_evil_d864 | Ứng phó khủng hoảng và sơ tán khi trú ẩn thất thủ trong Resident Evil | roadmap_SaveLife.md |
+| chua_lanh_ptsd_va_quan_ly_nhom_trong_the_gioi_tan_the_d865 | Trị liệu PTSD chiến trường và phân bổ nhiệm vụ nhóm sinh tồn (The Walking Dead) | roadmap_SaveLife.md |
+| giai_phap_ung_pho_khi_tru_an_that_thu_va_so_tan_trong_resident_evil_d866 | Kịch bản rút lui cấp tốc và bảo mật thông tin liên lạc vô tuyến (Resident Evil) | roadmap_SaveLife.md |
+| dieu_tri_ptsd_va_quan_ly_nhom_trong_the_gioi_tan_the_d867 | Trị liệu tâm lý PTSD và phân công nhóm sinh tồn trong The Walking Dead | roadmap_SaveLife.md |
+| giai_phap_ung_pho_khi_tru_an_that_thu_va_so_tan_trong_resident_evil_d868 | Xây dựng hệ thống vệ sinh dã chiến và xử lý chất thải sinh học khẩn cấp | roadmap_SaveLife.md |
+| ky_thuat_dieu_tri_ptsd_va_quan_ly_nhom_trong_the_gioi_tan_the_d869 | Trị liệu sang chấn PTSD và phân công phân vai sinh tồn trong Resident Evil | roadmap_SaveLife.md |
+| giai_phap_xu_ly_khung_hoang_va_so_tan_khi_tru_an_that_thu_d870 | Kế hoạch di tản khẩn cấp và mã hóa thông tin vô tuyến khi trú ẩn thất thủ | roadmap_SaveLife.md |
+| vuc_day_tinh_than_resident_evil_d871 | Vực dậy tinh thần hậu thảm họa trong Resident Evil cho nhóm sinh tồn | roadmap_SaveLife.md |
+| thoat_hiem_khi_tru_an_that_thu_twd_d872 | Sơ tán khẩn cấp và thiết lập mật mã liên lạc vô tuyến khi trú ẩn thất thủ | roadmap_SaveLife.md |
+| thoat_khoi_am_anh_chien_tranh_trong_the_walking_dead_d873 | Thoát khỏi ám ảnh chiến tranh trong The Walking Dead | roadmap_SaveLife.md |
+| phan_chia_nhiem_vu_va_so_tan_khan_cap_resident_evil_d874 | Điều phối nhân sự và xử lý khủng hoảng sinh học Resident Evil | roadmap_SaveLife.md |
+| dieu_tri_ptsd_va_quan_ly_nhom_trong_the_gioi_tan_the_d875 | Trị liệu PTSD và quản lý nhóm nhóm sinh tồn The Walking Dead | roadmap_SaveLife.md |
+| giai_phap_xu_ly_khung_hoang_va_so_tan_khi_that_thu_tru_an_d876 | Xử lý chất thải sinh hoạt và bảo mật thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| chua_lanh_ptsd_va_quan_ly_nhom_trong_the_walking_dead_d877 | Chữa lành PTSD và phân công nhóm trong The Walking Dead | roadmap_SaveLife.md |
+| xu_ly_khung_hoang_khi_that_thu_tru_an_resident_evil_d878 | Xử lý khủng hoảng khi thất thủ trú ẩn Resident Evil | roadmap_SaveLife.md |
+| thoat_khoi_am_anh_chien_tranh_resident_evil | Vượt qua hội chứng PTSD và phân công nhóm trong Resident Evil | roadmap_SaveLife.md |
+| giai_phap_khi_tru_an_that_thu_resident_evil | Ứng phó khi nơi trú ẩn thất thủ và sơ tán trong Resident Evil | roadmap_SaveLife.md |
+| chua_lanh_ptsd_va_quan_ly_nhom_trong_the_walking_dead_d881 | Vượt qua PTSD và phân công nhóm sinh tồn trong The Walking Dead | roadmap_SaveLife.md |
+| xu_ly_khung_hoang_khi_that_thu_tru_an_resident_evil_d882 | Kế hoạch nhảy tần vô tuyến thủ công và mật mã hóa thông tin khi trú ẩn thất thủ | roadmap_SaveLife.md |
+| thoat_khoi_am_anh_chien_tranh_resident_evil_d883 | Trấn an tâm lý chiến đấu và xử lý PTSD hậu đại dịch Resident Evil | roadmap_SaveLife.md |
+| phan_chia_nhiem_vu_va_so_tan_khan_cap_twd_d884 | Sơ đồ phân công vai trò và lộ trình sơ tán khẩn cấp The Walking Dead | roadmap_SaveLife.md |
+| giai_toa_ptsd_va_quan_ly_nhom_trong_the_walking_dead_d885 | Giải tỏa PTSD và quản lý nhóm sinh tồn khẩn cấp | roadmap_SaveLife.md |
+| ung_pho_khi_tru_an_that_thu_resident_evil_d886 | Ứng phó khi trú ẩn thất thủ và bảo mật liên lạc vô tuyến | roadmap_SaveLife.md |
+| thoat_khoi_am_anh_chien_tranh_resident_evil_code_veronica | Vượt qua hội chứng PTSD trong Resident Evil Code Veronica | roadmap_SaveLife.md |
+| phan_chia_nhiem_vu_va_so_tan_khan_cap_twd_season_2 | Kế hoạch sơ tán khẩn cấp và bảo mật thông tin liên lạc The Walking Dead Season 2 | roadmap_SaveLife.md |
+| chua_lanh_ptsd_va_phan_cong_nhiem_vu_resident_evil | Trị liệu tâm lý khủng hoảng và phân bổ nhân sự sinh tồn | roadmap_SaveLife.md |
+| xu_ly_khi_tru_an_that_thu_va_quan_ly_khung_hoang_twd | Sơ tán khẩn cấp căn cứ trú ẩn và mã hóa thông tin liên lạc | roadmap_SaveLife.md |
+| giai_toa_ptsd_va_phan_cong_nhieu_vu_resident_evil_4 | Giải tỏa PTSD và phân công nhiệm vụ nhóm trong Resident Evil 4 | roadmap_SaveLife.md |
+| ung_pho_khi_tru_an_that_thu_va_so_tan_the_walking_dead_ss4 | Ứng phó khi trú ẩn thất thủ và sơ tán khẩn cấp The Walking Dead S4 | roadmap_SaveLife.md |
+| chua_lanh_ptsd_va_phan_cong_nhiem_vu_the_walking_dead_ss5 | Chữa lành PTSD và phân công nhiệm vụ nhóm sinh tồn The Walking Dead SS5 | roadmap_SaveLife.md |
+| xu_ly_khi_tru_an_that_thu_va_so_tan_resident_evil_outbreak | Ứng phó khẩn cấp khi trú ẩn thất thủ và quy trình sơ tán Resident Evil Outbreak | roadmap_SaveLife.md |
+| vuot_qua_ptsd_va_phan_cong_nhiem_vu_the_walking_dead | Vượt qua hội chứng PTSD và phân công nhiệm vụ nhóm trong The Walking Dead SS6 | roadmap_SaveLife.md |
+| xu_ly_khi_tru_an_that_thu_va_so_tan_resident_evil_re2 | Xử lý khi nơi trú ẩn thất thủ và sơ tán khẩn cấp trong Resident Evil RE2 | roadmap_SaveLife.md |
+| chua_lanh_ptsd_va_phan_cong_nhiem_vu_resident_evil_outbreak | Chữa lành sang chấn tâm lý và phân bổ vai trò sinh tồn trong Resident Evil Outbreak | roadmap_SaveLife.md |
+| vuot_qua_ptsd_va_xu_ly_khi_tru_an_that_thu_the_walking_dead_ss6 | Kế hoạch ứng phó bầy đàn đột phá và bảo mật vô tuyến thủ công tại Alexandria trong The Walking Dead | roadmap_SaveLife.md |
+| vuot_qua_hoi_chung_ptsd_va_quan_ly_nhom_the_last_of_us_d899 | Vượt qua hội chứng PTSD và quản lý nhóm trong The Last of Us Part II | roadmap_SaveLife.md |
+| xu_ly_khi_tru_an_that_thu_va_so_tan_resident_evil_3_d900 | Phương án sơ tán khẩn cấp và bảo mật vô tuyến khi trú ẩn thất thủ trong Resident Evil 3 | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_stardew_valley_d901 | Thiết lập hệ thống nông nghiệp sinh thái khép kín Stardew Valley | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_minecraft_farm_d902 | Xây dựng chuồng trại chăn nuôi gia cầm an toàn sinh học Minecraft | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_huu_co_the_walking_dead_d903 | Thiết lập nông nghiệp hữu cơ trong The Walking Dead d903 | roadmap_SaveLife.md |
+| thuan_hoa_va_quan_ly_trai_vat_nuoi_minecraft_d904 | Thuần hóa và quản lý trại vật nuôi Minecraft Farm d904 | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d905 | Thiết lập hệ thống nông nghiệp sinh thái khu cách ly trong Stardew Valley | roadmap_SaveLife.md |
+| thuan_hoa_va_quan_ly_vat_nuoi_khu_cach_ly_d906 | Xử lý chất thải sinh học và quản lý chuồng trại an toàn sinh học trong Minecraft | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d907 | Xây dựng dự án nông nghiệp sinh thái khép kín sinh tồn The Walking Dead | roadmap_SaveLife.md |
+| thuan_hoa_va_quan_ly_vat_nuoi_khu_cach_ly_d908 | Triển khai dự án bẫy thú rừng và chăn nuôi gia súc an toàn | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d909 | Xây dựng dự án nông nghiệp khép kín Stardew Valley kết hợp xử lý chất thải hữu cơ | roadmap_SaveLife.md |
+| thuan_hoa_va_quan_ly_vat_nuoi_khu_cach_ly_d910 | Triển khai hệ thống bẫy thú rừng và khu vực chăn nuôi gia cầm Minecraft Farm an toàn | roadmap_SaveLife.md |
+| thiet_lap_he_thong_nong_nghiep_sinh_thai_farm_d911 | Thiết lập hệ thống nông nghiệp sinh thái khép kín Stardew Valley mở rộng | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_gia_suc_minecraft_d912 | Xây dựng khu chăn nuôi gia súc an toàn và kiểm nghiệm nước sinh hoạt sinh học | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d913 | Thiết lập hệ thống nông nghiệp sinh thái khép kín trong khu cách ly | roadmap_SaveLife.md |
+| thuan_hoa_va_quan_ly_vat_nuoi_khu_cach_ly_d914 | Xây dựng hệ thống bẫy thú rừng và kiểm định an toàn thực phẩm hoang dã | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d915 | Thiết lập hệ thống nông nghiệp sinh thái khép kín trong khu vực cách ly dự án The Walking Dead | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_gia_suc_khu_cach_ly_d916 | Xây dựng bẫy săn bắn hoang dã và thuần hóa gia súc an toàn trong khu vực cách ly | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_farm_d917 | Vận hành hệ thống nông nghiệp sinh thái khép kín kết hợp xử lý chất thải trong Project Zomboid | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_gia_suc_minecraft_d918 | Kỹ thuật bẫy thú rừng hoang dã và xây dựng chuồng trại bảo vệ nguồn thịt trong Minecraft | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d919 | Thiết lập hệ thống nông nghiệp sinh thái an toàn khu cách ly Day 919 | roadmap_SaveLife.md |
+| thuan_hoa_va_quan_ly_vat_nuoi_khu_cach_ly_d920 | Kỹ thuật bẫy thú rừng và quản lý vật nuôi khu cách ly Day 920 | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d921 | Vận hành hệ thống nông nghiệp sinh thái an toàn trong Resident Evil | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_dong_vat_khu_cach_ly_d922 | Xây dựng chuồng trại thuần hóa gia súc kết hợp xử lý chất thải trong The Last of Us | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d923 | Thiết lập hệ thống nông nghiệp sinh thái khu cách ly Stardew Valley D923 | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_gia_suc_khu_cach_ly_d924 | Thuần hóa và chăn nuôi gia súc khu cách ly Minecraft Farm D924 | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d925 | Thiết lập hệ thống nông nghiệp sinh thái an toàn Stardew Valley Day 925 | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_dong_vat_khu_cach_ly_d926 | Xây dựng chuồng trại kiên cố và bẫy thú rừng sinh tồn Minecraft Farm Day 926 | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_farm_d927 | Thiết lập hệ thống nông nghiệp sinh thái khép kín kiểu Fallout Sanctuary | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_gia_suc_khu_cach_ly_d928 | Xử lý chất thải sinh học và chăn nuôi an toàn sinh học vùng trú ẩn | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_vung_cach_ly_d929 | Thiết lập hệ thống nông nghiệp sinh thái an toàn Stardew Valley | roadmap_SaveLife.md |
+| thuan_hoa_va_quan_ly_trai_vat_nuoi_minecraft_d930 | Thuần hóa và quản lý trại vật nuôi an toàn Minecraft Farm | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_farm_d931 | Thiết lập hệ thống nông nghiệp sinh thái tự cung trong Farming Simulator | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_gia_suc_ark_d932 | Thuần hóa và bẫy bắt động vật hoang dã sinh tồn trong ARK: Survival Evolved | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d933 | Thiết lập nông nghiệp sinh thái khu cách ly qua game Stardew Valley | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_gia_suc_khu_cach_ly_d934 | Xây dựng hệ thống chuồng trại khép kín và xử lý chất thải sinh học qua Farming Simulator | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d935 | Thiết lập hệ thống nông nghiệp sinh thái khép kín Stardew Valley cho Day 935 | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_gia_sucu_khu_cach_ly_d936 | Xây dựng bẫy săn bắt hoang dã và hệ thống bảo quản thịt Rust cho Day 936 | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d937 | Thiết lập hệ thống nông nghiệp sinh thái tự túc và xử lý phân hữu cơ bằng men vi sinh | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_gia_suc_khu_cach_ly_d938 | Xây dựng chuồng trại an toàn và kỹ thuật bảo quản thịt săn bắn hoang dã | roadmap_SaveLife.md |
+| thiet_lap_vuon_rau_thuy_can_khu_cach_ly_d939 | Thiết lập vườn rau thủy canh tại khu cách ly Fallout | roadmap_SaveLife.md |
+| mo_hinh_chuong_trai_an_toan_7_days_to_die_d940 | Mô hình chuồng trại an toàn và bẫy thú hoang dã trong 7 Days to Die | roadmap_SaveLife.md |
+| van_hanh_he_thong_nong_nghiep_sinh_thai_d941 | Vận hành hệ thống nông nghiệp sinh thái an toàn farm trong Project Zomboid | roadmap_SaveLife.md |
+| thuan_hoa_va_quan_ly_trai_vat_nuoi_ark_d942 | Kỹ thuật thuần hóa sinh vật hoang dã và quản lý chuồng trại ARK Survival Evolved | roadmap_SaveLife.md |
+| mo_hinh_nong_nghiep_sinh_thai_farm_d943 | Xây dựng mô hình nông nghiệp sinh thái khép kín kết hợp xử lý phân bón hữu cơ trong Farm Together | roadmap_SaveLife.md |
+| quan_ly_va_thuan_hoa_vat_nuoi_ark_d944 | Quản lý trại chăn nuôi và kỹ thuật bảo quản thịt săn bắn an toàn trong ARK Survival | roadmap_SaveLife.md |
+| mo_hinh_nong_nghiep_khap_kin_valheim_d945 | Thiết lập mô hình nông nghiệp khép kín sinh tồn Valheim | roadmap_SaveLife.md |
+| van_hanh_trai_chan_nuoi_khap_kin_stardew_d946 | Tự động hóa chuỗi cung ứng thức ăn chăn nuôi Stardew Valley | roadmap_SaveLife.md |
+| mo_hinh_nong_nghiep_sinh_thai_green_farm_d947 | Thiết lập hệ thống nông nghiệp khép kín tích hợp phân hữu cơ sinh học | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_dong_vat_rust_d948 | Kỹ thuật thuần hóa động vật hoang dã và xây dựng chuồng trại an toàn | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_khap_kin_the_long_dark_d949 | Thiết lập hệ thống nông nghiệp khép kín sinh thái theo The Long Dark kết hợp bẫy thú săn bắn | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_dong_vat_subnautica_d950 | Vận hành trại nuôi động vật thủy sinh Subnautica kèm kiểm nghiệm chất lượng nước | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d951 | Thiết lập mô hình trồng trọt vi sinh khép kín farmville | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_dong_vat_khu_cach_ly_d952 | Kỹ thuật bẫy thú rừng và vận hành chuồng trại fallout | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d953 | Thiết lập hệ thống nông nghiệp sinh thái khép kín sinh tồn zombie | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_dong_vat_khu_cach_ly_d954 | Vận hành chuồng trại an toàn dịch bệnh và xử lý phân hữu cơ bằng men vi sinh | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d955 | Thiết lập hệ thống nông nghiệp sinh thái khép kín Stardew Valley | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_dong_vat_khu_cach_ly_d956 | Thuần hóa động vật và kỹ năng bẫy thú hoang dã sinh tồn | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_farm_d957 | Thiết lập hệ thống nông nghiệp sinh thái Farm Day 957 | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_dong_vat_khu_cach_ly_d958 | Kỹ thuật bẫy thú rừng và an toàn sinh học khu cách ly Day 958 | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d959 | Thiết lập hệ thống nông nghiệp sinh thái khép kín kết hợp xử lý chất thải | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_dong_vat_khu_cach_ly_d960 | Kỹ thuật thuần hóa động vật hoang dã và bẫy săn an toàn | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_farm_d961 | Hệ thống nông nghiệp tuần hoàn kết hợp xử lý chất thải sinh học | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_dong_vat_ark_d962 | Kỹ thuật bẫy bắn hoang dã và thuần hóa thú rừng sinh tồn | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d963 | Thiết lập hệ thống nông nghiệp sinh thái Stardew Valley trong khu cách ly | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_dong_vat_khu_cach_ly_d964 | Xây dựng chuồng trại khép kín và kỹ thuật bẫy thú rừng sinh tồn | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d965 | Xây dựng hệ thống nông nghiệp sinh thái an toàn trong Resident Evil | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_dong_vat_khu_cach_ly_d966 | Kỹ thuật bẫy thú rừng và vận hành chuồng trại an toàn | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d967 | Thiết lập nông nghiệp sinh thái và hệ thống xử lý phân hữu cơ | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_dong_vat_khu_cach_ly_d968 | Kỹ thuật bẫy bắn hoang dã và an toàn chăn nuôi The Last Refuge | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d969 | Thiết lập hệ thống nông nghiệp sinh thái an toàn khu cách ly Farming Simulator | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_dong_vat_khu_cach_ly_d970 | Xây dựng hệ thống xử lý chất thải sinh học và kiểm định chất lượng nước Don't Starve | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d971 | Thiết lập hệ thống nông nghiệp sinh thái an toàn trong khu cách ly ứng dụng Fallout | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_dong_vat_khu_cach_ly_d972 | Kỹ thuật bẫy thú rừng sinh tồn và xử lý chất thải hữu cơ khu cách ly Minecraft | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_farm_d973 | Xây dựng hệ thống xử lý phân hữu cơ và vườn rau khép kín | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_dong_vat_ark_d974 | Kỹ thuật bẫy thú rừng và chăn nuôi an toàn trong ARK | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d975 | Xây dựng vườn sinh thái khép kín kết hợp lọc nước thải tái sử dụng | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_dong_vat_khu_cach_ly_d976 | Quản lý chuồng trại thông minh và xử lý chất thải hữu cơ bằng men vi sinh | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_stardew_valley_d977 | Thiết lập hệ thống nông nghiệp sinh thái khép kín Stardew Valley | roadmap_SaveLife.md |
+| thuan_hoa_va_quan_ly_vat_nuoi_minecraft_d978 | Thuần hóa vật nuôi hoang dã và kỹ thuật săn bắt sinh tồn kiểu Minecraft | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d979 | Thiết lập hệ thống nông nghiệp sinh thái khu cách ly Stardew Valley d979 | roadmap_SaveLife.md |
+| thuan_hoa_va_quan_ly_vat_nuoi_khu_cach_ly_d980 | Xây dựng bẫy săn bắt hoang dã và quản lý chuồng trại Minecraft d980 | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d981 | Xây dựng vườn rau hữu cơ khép kín kết hợp kiểm định độc tính Day 981 | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_dong_vat_khu_cach_ly_d982 | Thiết lập chuồng gia cầm đệm lót sinh học tích hợp xử lý chất thải Day 982 | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d983 | Thiết lập hệ thống nông nghiệp sinh thái an toàn tại khu cách ly Fallout | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_dong_vat_khu_cach_ly_d984 | Xây dựng bẫy thú rừng sinh tồn và quản lý động vật nhỏ tại trại tị nạn | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d985 | Thiết lập hệ thống nông nghiệp sinh thái an toàn trong Dự án Bio-Dome v1 | roadmap_SaveLife.md |
+| thuan_hoa_va_quan_ly_vat_nuoi_khu_cach_ly_d986 | Xây dựng hệ thống xử lý chất thải sinh học và chuồng trại Noah Ark | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d987 | Thiết lập hệ thống nông nghiệp sinh thái khép kín trong Dự án GreenWorld | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_dong_vat_khu_cach_ly_d988 | Xây dựng chuồng trại an toàn sinh học và kiểm định chất lượng thực phẩm hoang dã | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d989 | Thiết lập hệ thống thủy canh tự túc thực phẩm Day 989 | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_dong_vat_khu_cach_ly_d990 | Xây dựng chuồng trại sinh học và xử lý chất thải Day 990 | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_ecofarm_d991 | Thiết lập nông nghiệp sinh thái khép kín EcoFarm Day 991 | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_dong_vat_ark_d992 | Bẫy thú rừng và chăn nuôi an toàn tích hợp mã hóa vô tuyến Ark Day 992 | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d993 | Vận hành hệ thống nông nghiệp sinh thái tự túc trong Green Farm | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_dong_vat_khu_cach_ly_d994 | Xây dựng hệ thống xử lý chất thải sinh học và nhà vệ sinh dã chiến | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d995 | Thiết lập hệ thống nông nghiệp sinh thái khép kín cho Farmville | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_dong_vat_khu_cach_ly_d996 | Xây dựng hệ thống chuồng trại và xử lý chất thải sinh học chăn nuôi | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d997 | Thiết lập hệ thống nông nghiệp sinh thái khép kín trong khu cách ly Zomboid | roadmap_SaveLife.md |
+| thuan_hoa_va_chan_nuoi_dong_vat_khu_cach_ly_d998 | Bẫy thú rừng và kỹ thuật kiểm định độc tính thực phẩm sinh tồn | roadmap_SaveLife.md |
+| thiet_lap_nong_nghiep_sinh_thai_khu_cach_ly_d999 | Thiết lập hệ thống nông nghiệp sinh thái an toàn trong khu cách ly Day 999 | roadmap_SaveLife.md |
+| thuan_hoa_va_quan_ly_vat_nuoi_khu_cach_ly_d1000 | Xây dựng chuồng trại gia cầm khép kín và xử lý chất thải sinh học Day 1000 | roadmap_SaveLife.md |
+| thiet_lap_luat_phap_va_tu_phap_khu_cach_ly_d1001 | Thiết lập luật pháp và tư pháp hình sự khu cách ly trong The Walking Dead | roadmap_SaveLife.md |
+| ke_toan_tai_nguyen_va_tien_te_hang_doi_hang_d1002 | Kế toán tài nguyên và hệ thống tiền tệ hàng đổi hàng trong Fallout | roadmap_SaveLife.md |
+| tu_phap_hinh_su_va_dao_duc_cong_dong_d1003 | Xây dựng hệ thống tư pháp hình sự và đạo đức cộng đồng trong The Walking Dead | roadmap_SaveLife.md |
+| he_thong_tien_te_hang_doi_hang_d1004 | Phát triển hệ thống tiền tệ định danh và sổ cái tài nguyên cho Fallout kết hợp kiểm định nước | roadmap_SaveLife.md |
+| lap_phap_va_tu_phap_hinh_su_project_zomboid_d1005 | Thiết lập luật pháp và tư pháp hình sự Project Zomboid | roadmap_SaveLife.md |
+| kinh_te_tien_te_va_ke_toan_hang_doi_hang_fallout_d1006 | Kế toán tài nguyên và hệ thống sổ cái hàng đổi hàng Fallout | roadmap_SaveLife.md |
+| lap_phap_va_tu_phap_hinh_su_civilization | Thiết lập lập pháp và tư pháp hình sự cộng đồng Civilization | roadmap_SaveLife.md |
+| ke_toan_va_tien_te_hang_doi_hang_monopoly | Vận hành sổ cái tài nguyên và định giá hàng đổi hàng Monopoly | roadmap_SaveLife.md |
+| lap_phap_va_tu_phap_hinh_su_minecraft | Thiết lập luật pháp và tư pháp hình sự cộng đồng Minecraft | roadmap_SaveLife.md |
+| ke_toan_va_tien_te_hang_doi_hang_stardew | Xây dựng hệ thống kế toán tài nguyên và tiền tệ Stardew Valley | roadmap_SaveLife.md |
+| lap_phap_va_tu_phap_hinh_su_project_zomboid_d1011 | Thiết lập luật pháp và tòa án hình sự sinh tồn | roadmap_SaveLife.md |
+| kinh_te_tien_te_va_ke_toan_fallout_d1012 | Hệ thống tiền tệ nắp chai và kế toán hàng đổi hàng | roadmap_SaveLife.md |
+| lap_phap_va_tu_phap_hinh_su_project_zomboid_d1013 | Thiết lập luật pháp, đạo đức và tư pháp hình sự Project Zomboid | roadmap_SaveLife.md |
+| ke_toan_va_tien_te_hang_doi_hang_fallout_d1014 | Kế toán tài nguyên, hệ thống tiền tệ và kiểm định độc tính thực phẩm | roadmap_SaveLife.md |
+| lap_phap_va_tu_phap_hinh_su_project_zomboid_d1015 | Thiết lập luật pháp và tư pháp hình sự Project Zomboid (Day 1015) | roadmap_SaveLife.md |
+| kinh_te_tien_te_va_ke_toan_fallout_d1016 | Kế toán tài nguyên và tiền tệ hàng đổi hàng Fallout (Day 1016) | roadmap_SaveLife.md |
+| lap_phap_va_tu_phap_hinh_su_project_zomboid_d1017 | Thiết lập luật pháp và tư pháp hình sự cộng đồng sinh tồn Project Zomboid | roadmap_SaveLife.md |
+| kinh_te_tien_te_va_ke_toan_fallout_d1018 | Vận hành sổ cái kế toán tài nguyên và hệ thống phân phối nắp chai Fallout | roadmap_SaveLife.md |
+| lap_phap_va_tu_phap_hinh_su_project_zomboid_d1019 | Thiết lập luật pháp, đạo đức và tư pháp hình sự trong Project Zomboid | roadmap_SaveLife.md |
+| kinh_te_tien_te_va_ke_toan_fallout_d1020 | Thiết lập hệ thống hạch toán tài nguyên và định giá hàng đổi hàng Fallout | roadmap_SaveLife.md |
+| lap_phap_va_tu_phap_hinh_su_project_zomboid_d1021 | Thiết lập lập pháp và tư pháp hình sự dự án Project Zomboid | roadmap_SaveLife.md |
+| kinh_te_tien_te_va_ke_toan_fallout_d1022 | Xây dựng hệ thống tiền tệ và kế toán tài nguyên Fallout | roadmap_SaveLife.md |
+| lap_phap_tu_phap_va_dao_duc_project_zomboid | Thiết lập hệ thống pháp luật, tòa án và tư pháp hình sự trong Project Zomboid | roadmap_SaveLife.md |
+| ke_toan_tai_nguyen_va_kinh_te_tien_te_fallout | Xây dựng hệ thống kế toán tài nguyên và kinh tế tiền tệ hàng đổi hàng Fallout | roadmap_SaveLife.md |
+| lap_phap_tu_phap_va_dao_duc_project_zomboid_d1025 | Thiết lập luật pháp, tư pháp hình sự và đạo đức cộng đồng trong Project Zomboid | roadmap_SaveLife.md |
+| ke_toan_tai_nguyen_va_kinh_te_tien_te_fallout_d1026 | Xây dựng hệ thống kế toán tài nguyên và kiểm nghiệm nước sạch trong Fallout | roadmap_SaveLife.md |
+| lap_phap_va_tu_phap_hinh_su_project_zomboid_d1027 | Thiết lập luật pháp hình sự và tư pháp cộng đồng trong Project Zomboid | roadmap_SaveLife.md |
+| ke_toan_tai_nguyen_va_kinh_te_tien_te_fallout_d1028 | Xây dựng hệ thống kế toán tài nguyên và kiểm định chất lượng nước Fallout | roadmap_SaveLife.md |
+| lap_phap_tu_phap_va_kinh_te_hang_doi_hang_d1029 | Xây dựng tư pháp hình sự và kinh tế hàng đổi hàng trong Project Zomboid | roadmap_SaveLife.md |
+| ke_toan_tai_nguyen_va_tien_te_hang_doi_hang_d1030 | Vận hành hệ thống kế toán tài nguyên và tiền tệ hàng đổi hàng Fallout | roadmap_SaveLife.md |
+| lap_phap_tu_phap_va_kinh_te_project_zomboid_d1031 | Thiết lập luật pháp, tư pháp hình sự và tiền tệ hàng đổi hàng trong Project Zomboid | roadmap_SaveLife.md |
+| ke_toan_tai_nguyen_va_kinh_te_tien_te_fallout_d1032 | Mô phỏng phiên chợ trao đổi, kiểm toán kho bãi và xử lý vệ sinh môi trường | roadmap_SaveLife.md |
+| thiet_lap_tu_phap_hinh_su_va_dao_duc_project_zomboid_d1033 | Thiết lập hệ thống tư pháp hình sự và đạo đức cộng đồng trong Project Zomboid | roadmap_SaveLife.md |
+| van_hanh_kinh_te_tien_te_va_ke_toan_fallout_d1034 | Vận hành kinh tế tiền tệ định danh và kiểm định chất lượng nước sinh hoạt Fallout | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_project_zomboid_d1035 | Thiết lập luật hình sự và kế toán tài nguyên tận thế trong Project Zomboid | roadmap_SaveLife.md |
+| tu_phap_va_tien_te_hang_doi_hang_fallout_d1036 | Vận hành tư pháp hình sự và hệ thống trao đổi giá trị hậu tận thế Fallout | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_dao_duc_project_zomboid_d1037 | Xây dựng hệ thống luật hình sự và tòa án phân xử sinh tồn Project Zomboid | roadmap_SaveLife.md |
+| ke_toan_tai_nguyen_va_tien_te_hang_doi_hang_fallout_d1038 | Vận hành hệ thống kiểm toán tài nguyên và bảo mật thông tin liên lạc vô tuyến Fallout | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_tai_nguyen_d1039 | Thiết lập luật hình sự và hạch toán kho lương thực trú ẩn (Day 1039) | roadmap_SaveLife.md |
+| tu_phap_va_kinh_te_tien_te_hang_doi_hang_d1040 | Vận hành phiên tòa xét xử và mã hóa thông tin liên lạc vô tuyến (Day 1040) | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_fallout_d1041 | Xây dựng tư pháp hình sự và kế toán tài nguyên chuẩn Fallout | roadmap_SaveLife.md |
+| tien_te_hang_doi_hang_va_dao_duc_zomboid_d1042 | Vận hành kinh tế tiền tệ hàng đổi hàng và đạo đức Project Zomboid | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_tai_nguyen_zomboid_d1043 | Thiết lập luật hình sự và kế toán tài nguyên cộng đồng trong Project Zomboid | roadmap_SaveLife.md |
+| tu_phap_va_he_thong_tien_te_hang_doi_hang_fallout_d1044 | Vận hành tòa án xét xử sơ thẩm và hệ thống tiền tệ nắp chai Fallout | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_tai_nguyen_zomboid_d1045 | Thiết lập luật hình sự và kế toán tài nguyên trong Project Zomboid (Day 1045) | roadmap_SaveLife.md |
+| tu_phap_va_he_thong_tien_te_hang_doi_hang_fallout_d1046 | Vận hành tư pháp, bảo mật vô tuyến và tiền tệ hàng đổi hàng kiểu Fallout (Day 1046) | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_tai_nguyen_d1047 | Thiết lập luật hình sự và quản lý chất thải vệ sinh sinh tồn | roadmap_SaveLife.md |
+| tu_phap_va_he_thong_tien_te_hang_doi_hang_d1048 | Vận hành tư pháp và kỹ thuật bảo mật thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_tai_nguyen_project_zomboid_d1049 | Xây dựng luật hình sự và kế toán tài nguyên cộng đồng trong Project Zomboid | roadmap_SaveLife.md |
+| tu_phap_hinh_su_va_kinh_te_tien_te_hang_doi_hang_fallout_d1050 | Vận hành tư pháp hình sự và bảo mật thông tin liên lạc vô tuyến tại Fallout | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_tai_nguyen_project_zomboid_d1051 | Thiết lập luật hình sự và kế toán tài nguyên trong Project Zomboid D1051 | roadmap_SaveLife.md |
+| tu_phap_va_he_thong_tien_te_hang_doi_hang_fallout_d1052 | Vận hành tư pháp và hệ thống tiền tệ hàng đổi hàng Fallout D1052 | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_tai_nguyen_project_zomboid_d1053 | Thiết lập hình luật và sổ cái tài nguyên cộng đồng trong Project Zomboid | roadmap_SaveLife.md |
+| tu_phap_hinh_su_va_kinh_te_tien_te_fallout_d1054 | Vận hành tư pháp hình sự và hệ thống tiền tệ định danh trong Fallout | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_tai_nguyen_d1055 | Thiết lập luật hình sự và kế toán tài nguyên trong Fallout | roadmap_SaveLife.md |
+| tu_phap_va_he_thong_tien_te_hang_doi_hang_d1056 | Xử lý chất thải và hệ thống token vỏ đạn Project Zomboid | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_tai_nguyen_d1057 | Thiết lập luật hình sự và kế toán tài nguyên trong Project Zomboid | roadmap_SaveLife.md |
+| tu_phap_va_kinh_te_tien_te_fallout_d1058 | Vận hành hệ thống pháp lý và định giá nắp chai thương mại trong Fallout | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_tai_nguyen_d1059 | Thiết lập luật hình sự và kế toán tài nguyên trong Project Zomboid | roadmap_SaveLife.md |
+| tu_phap_va_he_thong_tien_te_hang_doi_hang_d1060 | Vận hành tư pháp và hệ thống tiền tệ định danh Fallout | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_tai_nguyen_project_zomboid_d1061 | Thiết lập luật hình sự và kế toán tài nguyên trong Project Zomboid D1061 | roadmap_SaveLife.md |
+| tu_phap_va_he_thong_tien_te_fallout_d1062 | Xây dựng tư pháp và hệ thống tiền tệ hàng đổi hàng trong Fallout D1062 | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_tai_nguyen_project_zomboid_d1063 | Thiết lập luật hình sự và quản lý tài nguyên hậu tận thế | roadmap_SaveLife.md |
+| tu_phap_hinh_su_va_kinh_te_tien_te_hang_doi_hang_fallout_d1064 | Vận hành phiên tòa giả định và thiết lập biểu giá vật phẩm | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_tai_nguyen_project_zomboid_d1065 | Xây dựng luật hình sự và kế toán tài nguyên trong Project Zomboid | roadmap_SaveLife.md |
+| tu_phap_va_he_thong_tien_te_hang_doi_hang_fallout_d1066 | Thiết lập tư pháp, tiền tệ hàng đổi hàng chuẩn Fallout và bảo mật vô tuyến | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_tai_nguyen_day_1067 | Thiết lập luật hình sự và kế toán tài nguyên trong Project Zomboid | roadmap_SaveLife.md |
+| tu_phap_hinh_su_va_kinh_te_tien_te_fallout_d1068 | Vận hành hệ thống vệ sinh dã chiến và mã hóa vô tuyến Fallout | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_tai_nguyen_day_1069 | Xây dựng luật hình sự và kế toán tài nguyên trong Project Zomboid (Day 1069) | roadmap_SaveLife.md |
+| tu_phap_va_he_thong_tien_te_hang_doi_hang_day_1070 | Mô phỏng tư pháp và phát hành token giao dịch Fallout (Day 1070) | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_fallout_d1071 | Xây dựng lập pháp hình sự và hệ thống kế toán tài nguyên Vault 88 | roadmap_SaveLife.md |
+| tu_phap_hinh_su_va_kinh_te_tien_te_fallout_d1072 | Vận hành tư pháp hình sự và mạng lưới liên lạc vô tuyến hoang mạc | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_tai_nguyen_day_1073 | Xây dựng luật hình sự và kế toán tài nguyên trong Project Zomboid | roadmap_SaveLife.md |
+| tu_phap_va_he_thong_tien_te_hang_doi_hang_day_1074 | Thiết lập hệ thống thông tin liên lạc bảo mật và kiểm định vệ sinh môi trường sinh tồn | roadmap_SaveLife.md |
+| thiet_lap_luat_hinh_su_va_ke_toan_tai_nguyen_zomboid_d1075 | Thiết lập luật hình sự và kế toán tài nguyên trong Project Zomboid d1075 | roadmap_SaveLife.md |
+| van_hang_tu_phap_va_kinh_te_tien_te_fallout_d1076 | Vận hành tư pháp và kinh tế tiền tệ hàng đổi hàng Fallout d1076 | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_tai_nguyen_project_zomboid_d1077 | Xây dựng luật hình sự và kế toán tài nguyên trong Project Zomboid | roadmap_SaveLife.md |
+| tu_phap_va_he_thong_tien_te_hang_doi_hang_fallout_d1078 | Vận hành tư pháp và định giá hàng đổi hàng mô phỏng theo Fallout | roadmap_SaveLife.md |
+| thiet_lap_tu_phap_hinh_su_project_zomboid_d1079 | Thiết lập hệ thống tư pháp hình sự và sổ cái kế toán tài nguyên trong Project Zomboid (Day 1079) | roadmap_SaveLife.md |
+| van_hanh_kinh_te_tien_te_hang_doi_hang_fallout_d1080 | Vận hành hệ thống kinh tế tiền tệ hàng đổi hàng và ngân khố cộng đồng trong Fallout 4 (Day 1080) | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_tai_nguyen_project_zomboid_d1081 | Xây dựng lập pháp hình sự và kế toán tài nguyên trong Project Zomboid | roadmap_SaveLife.md |
+| tu_phap_va_he_thong_tien_te_hang_doi_hang_fallout_d1082 | Vận hành tư pháp và hệ thống tiền tệ hàng đổi hàng kết hợp mã hóa tín hiệu bộ đàm trong Fallout | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_tai_nguyen_project_zomboid_d1083 | Xây dựng lập pháp hình sự và sổ cái tài nguyên sinh tồn kiểu Project Zomboid | roadmap_SaveLife.md |
+| tu_phap_va_he_thong_tien_te_hang_doi_hang_fallout_d1084 | Vận hành hệ thống tư pháp phân xử tranh chấp và định mức nắp chai Fallout | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_tai_nguyen_project_zomboid_d1085 | Xây dựng lập pháp hình sự và sổ cái kế toán tài nguyên sinh tồn | roadmap_SaveLife.md |
+| tu_phap_va_he_thong_tien_te_hang_doi_hang_fallout_d1086 | Vận hành hệ thống tòa án xét xử và kinh tế nắp chai mô phỏng | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_tai_nguyen_project_zomboid_d1087 | Xây dựng lập pháp hình sự và sổ cái quản lý tài nguyên sinh tồn (Day 1087) | roadmap_SaveLife.md |
+| tu_phap_va_he_thong_tien_te_hang_doi_hang_fallout_d1088 | Vận hành tư pháp và hệ thống tiền tệ hàng đổi hàng mô phỏng Fallout (Day 1088) | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_tai_nguyen_project_zomboid_d1089 | Thiết lập luật hình sự và quản lý xử lý chất thải sinh hoạt Project Zomboid | roadmap_SaveLife.md |
+| tu_phap_va_he_thong_tien_te_hang_doi_hang_fallout_d1090 | Vận hành tư pháp và bảo mật thông tin liên lạc vô tuyến Fallout | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_tai_nguyen_project_zomboid_d1091 | Lập pháp hình sự và quản lý kho lương thực theo cơ chế Project Zomboid (Day 1091) | roadmap_SaveLife.md |
+| tu_phap_va_he_thong_tien_te_hang_doi_hang_fallout_d1092 | Hội đồng xét xử và thiết lập tỷ giá hàng đổi hàng kiểu Fallout (Day 1092) | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_tai_nguyen_project_zomboid_d1093 | Hành lang pháp lý hình sự và sổ cái quản lý tài nguyên khẩn cấp | roadmap_SaveLife.md |
+| tu_phap_va_he_thong_tien_te_hang_doi_hang_fallout_d1094 | Tổ chức phiên tòa giả định và định giá tiền tệ nắp chai hoang mạc | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_tai_nguyen_project_zomboid_d1095 | Hệ thống luật hình sự sinh tồn và quản trị tài nguyên định mức | roadmap_SaveLife.md |
+| tu_phap_va_he_thong_tien_te_hang_doi_hang_fallout_d1096 | Tư pháp giả định, tiền tệ vỏ chai và kỹ thuật bẫy săn sinh tồn | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_tai_nguyen_day_1097 | Xây dựng lập pháp hình sự và kế toán tài nguyên trong Project Zomboid | roadmap_SaveLife.md |
+| tu_phap_va_he_thong_tien_te_hang_doi_hang_day_1098 | Vận hành tư pháp lưu động và thiết lập mật mã vô tuyến bảo mật | roadmap_SaveLife.md |
+| lap_phap_hinh_su_va_ke_toan_tai_nguyen_day_1099 | Xây dựng lập pháp hình sự và kế toán tài nguyên trong Project Zomboid | roadmap_SaveLife.md |
+| tu_phap_va_he_thong_tien_te_hang_doi_hang_day_1100 | Vận hành hệ thống tư pháp vô tuyến và mã hóa tín hiệu bảo mật trong Fallout | roadmap_SaveLife.md |
+| vat_ly_hoa_hoc_co_ban_luyen_kim_d1101 | Hồi phục định luật vật lý và hóa học luyện kim trong Lò nung dã chiến 1101 | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_xay_dung_dung_cu_d1102 | Tái tạo vật liệu xây dựng và rèn dụng cụ lao động tại Trạm cơ khí 1102 | roadmap_SaveLife.md |
+| nghien_cuu_vat_ly_hoa_hoc_co_ban_d1103 | Nghiên cứu nguyên lý vật lý và hóa học ứng dụng cơ bản trong Rust | roadmap_SaveLife.md |
+| tai_tao_kim_loai_va_dung_cu_lao_dong_d1104 | Kỹ thuật luyện kim thực chiến, bẫy sinh tồn và mã hóa vô tuyến thủ công | roadmap_SaveLife.md |
+| khoi_phuc_vat_ly_hoa_hoc_minecraft | Khôi phục vật lý hóa học cơ bản mô hình Minecraft sinh tồn | roadmap_SaveLife.md |
+| che_tao_dung_cu_lao_dong_rust | Chế tạo dụng cụ lao động kim loại phong cách Rust | roadmap_SaveLife.md |
+| khoi_phuc_nguyen_ly_nhiet_dong_hoc_minecraft_d1107 | Khôi phục nguyên lý nhiệt động lực học chế tạo công cụ Minecraft | roadmap_SaveLife.md |
+| phan_tich_phan_ung_hoa_hoc_luyen_kim_rust_d1108 | Phân tích phản ứng hóa học luyện kim chế tạo rìu thép Rust và mã hóa vô tuyến | roadmap_SaveLife.md |
+| khoi_phuc_nguyen_ly_co_hoc_vat_lieu_minecraft | Khôi phục nguyên lý cơ học vật liệu Minecraft và mô phỏng tải trọng | roadmap_SaveLife.md |
+| luyen_kim_nhiet_luyen_sat_rust | Nghiên cứu luyện kim nhiệt luyện sắt Rust và chế tạo búa rèn | roadmap_SaveLife.md |
+| khoi_phuc_vat_ly_hoa_hoc_co_ban_d1111 | Khôi phục vật lý hóa học cơ bản tái tạo vật liệu công nghiệp | roadmap_SaveLife.md |
+| tai_tao_kim_loai_va_dung_cu_lao_dong_d1112 | Chế tạo công cụ sinh tồn và kiểm định chất lượng nước dã chiến | roadmap_SaveLife.md |
+| khoi_phuc_nguyen_ly_nhiet_dong_hoc_minecraft_d1113 | Khôi phục nguyên lý nhiệt động lực học mô phỏng lò cao | roadmap_SaveLife.md |
+| phan_tich_phan_ung_hoa_hoc_luyen_kim_rust_d1114 | Phân tích phản ứng khử quặng sắt và xử lý xỉ lò | roadmap_SaveLife.md |
+| khoi_phuc_dinh_luat_bao_toan_minecraft_d1115 | Khôi phục định luật bảo toàn khối lượng nguyên tố trong Minecraft | roadmap_SaveLife.md |
+| nghien_cuu_cau_truc_tinh_the_rust_d1116 | Phân tích mạng tinh thể hợp kim và kiểm định chất lượng nước chuyên sâu trong Rust | roadmap_SaveLife.md |
+| khoi_phuc_vat_ly_hoa_hoc_co_ban_minecraft_d1117 | Khôi phục vật lý hóa học cơ bản Minecraft tái tạo gạch chịu lửa | roadmap_SaveLife.md |
+| che_tao_dung_cu_lao_dong_rust_d1118 | Chế tạo dụng cụ lao động Rust rèn búa tạ thủ công bằng sắt tái chế | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_hoc_minecraft_d1119 | Khôi phục định luật động lực học chất lưu trong Minecraft cho hệ thống ống nước | roadmap_SaveLife.md |
+| che_tao_hop_kim_dong_thau_rust_d1120 | Tinh luyện hợp kim đồng thau và thiết lập hệ thống bảo mật thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| khoi_phuc_nguyen_ly_nhiet_dong_hoc_minecraft_d1121 | Khôi phục nguyên lý nhiệt động học trong Minecraft để sản xuất phôi thép | roadmap_SaveLife.md |
+| phan_tich_phan_ung_hoa_hoc_luyen_kim_rust_d1122 | Phân tích phản ứng hóa học luyện kim trong Rust kết hợp bảo mật tín hiệu liên lạc | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_hoc_vat_lieu_minecraft_d1123 | Khôi phục động lực học và tính chất vật liệu cơ bản trong Minecraft | roadmap_SaveLife.md |
+| che_tao_hop_kim_dong_thau_va_gang_rust_d1124 | Vận hành hệ thống Microgrid và kiểm định chất lượng nước dã chiến | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_hoc_vat_lieu_minecraft_d1125 | Khôi phục động lực học vật liệu và ứng dụng trong Minecraft sinh tồn | roadmap_SaveLife.md |
+| luyen_kim_nhiet_luyen_sat_va_gang_rust_d1126 | Luyện kim nhiệt luyện sắt và gang ứng dụng trong Rust sinh tồn | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_hoc_vat_lieu_va_gang_rust_d1127 | Khôi phục động lực học vật liệu và gang thép trong Rust dự án lò cao d1127 | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_xay_dung_va_be_tong_minecraft_d1128 | Chế tạo hỗn hợp bê tông cốt thép và xử lý nước sinh hoạt chống chịu tận thế trong Minecraft d1128 | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_hoc_vat_lieu_va_gang_thep_rust | Khôi phục động lực học vật liệu và luyện gang thép dự án Rust | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_xay_dung_va_be_tong_cot_thep_minecraft | Xây dựng khối bê tông cốt thép gia cố chống zombie tải trọng cao | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_hoc_vat_lieu_va_gang_thep_rust_d1131 | Khôi phục động lực học vật liệu và gang thép trong Rust | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_xay_dung_va_be_tong_cot_thep_minecraft_d1132 | Tái tạo vật liệu xây dựng và xử lý môi trường trong Minecraft | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_hoc_vat_lieu_va_gang_thep_rust_d1133 | Khôi phục động lực học vật liệu và gang thép Rust d1133 | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_xay_dung_va_be_tong_cot_thep_minecraft_d1134 | Xây dựng hệ thống vi lưới điện và xử lý chất thải sinh học Minecraft d1134 | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_hoc_vat_lieu_va_gang_thep_rust_d1135 | Khôi phục động lực học vật liệu và gang thép Rust D1135 | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_xay_dung_va_be_tong_cot_thep_minecraft_d1136 | Thiết lập hệ thống kiểm nghiệm độc tính nước và sinh hoạt dã chiến D1136 | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_hoc_vat_lieu_va_gang_thep_rust_d1137 | Nghiên cứu động lực học vật liệu và gang thép Rust D1137 | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_xay_dung_va_be_tong_cot_thep_minecraft_d1138 | Thiết lập hệ thống vệ sinh dã chiến và cấu trúc phòng thủ Minecraft D1138 | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_hoc_vat_lieu_va_gang_thep_rust_d1139 | Nghiên cứu cơ học chất lưu và nhiệt luyện thép Cacbon cao trong Rust | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_xay_dung_va_be_tong_cot_thep_minecraft_d1140 | Xây dựng hệ thống xử lý nước thải và kiên cố hóa cấu trúc vi mô vô tuyến | roadmap_SaveLife.md |
+| nghien_cuu_co_hoc_va_vat_lieu_rust_d1141 | Nghiên cứu cơ học chất lưu và sức bền vật liệu số hóa | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_composite_minecraft_d1142 | Sản xuất vật liệu composite cốt sợi và bảo mật vô tuyến dã chiến | roadmap_SaveLife.md |
+| nghien_cuu_co_hoc_va_vat_lieu_rust_d1143 | Nghiên cứu cơ học và tái tạo vật liệu gang thép chịu lực cao qua Rust | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_composite_minecraft_d1144 | Tái tạo vật liệu composite cốt sợi thủy tinh và kiểm định độc tính sinh học qua Minecraft | roadmap_SaveLife.md |
+| nghien_cuu_co_hoc_va_vat_lieu_rust_d1145 | Nghiên cứu cơ học và vật liệu Rust: Chế tạo ống dẫn chịu áp suất cao kèm kiểm tra độ kín bằng bơm tay | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_composite_minecraft_d1146 | Sản xuất khối composite sợi thủy tinh gia cố chống nổ và mã hóa tín hiệu thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| nghien_cuu_co_hoc_va_vat_lieu_rust_d1147 | Nghiên cứu cơ học và vật liệu ứng dụng Rust (Dự án: Chế tạo búa tạ công nghiệp) | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_composite_minecraft_d1148 | Tái tạo vật liệu composite ứng dụng Minecraft (Dự án: Xây dựng hệ thống xử lý phân hữu cơ bằng men vi sinh) | roadmap_SaveLife.md |
+| khoi_phuc_dien_hoa_va_che_tao_pin_acid_chi | Phục hồi điện hóa: Tái tạo và chế tạo pin acid-chì thô từ phế liệu xe | roadmap_SaveLife.md |
+| chung_cat_va_tinh_che_dung_moi_huu_co | Tinh chế hóa chất chuyên sâu: Kiểm nghiệm độc tính thực phẩm và chưng cất dung môi | roadmap_SaveLife.md |
+| khoi_phuc_dien_phan_nhom_va_che_tao_hoa_chat_co_ban | Khôi phục điện phân nhôm và hóa chất cơ bản với dự án Minecraft Industrial | roadmap_SaveLife.md |
+| tong_hop_va_tinh_che_polyme_cong_nghiep | Tổng hợp polyme công nghiệp và kiểm định chất lượng nước chuyên sâu | roadmap_SaveLife.md |
+| khoi_phuc_nhiet_dong_hoc_va_luyen_kim_dong_d1153 | Khôi phục nhiệt động học và luyện kim đồng cho dự án lò nung công nghiệp d1153 | roadmap_SaveLife.md |
+| tai_tao_thuy_tinh_silicat_va_dung_cu_thuy_nghiem_d1154 | Tái tạo thủy tinh silicat và chế tạo dụng cụ thí nghiệm cho trạm sinh tồn d1154 | roadmap_SaveLife.md |
+| khoi_phuc_dien_hoa_nguyen_tu_va_che_tao_pin_ki_hieu_d1155 | Phục hồi điện hóa nguyên tử và chế tạo pin kiềm kẽm-mangan tái sinh | roadmap_SaveLife.md |
+| tong_hop_va_phan_tich_hop_chat_huu_co_bang_phuong_phap_nhiet_phan_d1156 | Tổng hợp hợp chất hữu cơ và sản xuất than hoạt tính bằng phương pháp nhiệt phân kín | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_hoc_va_luyen_kim_sat_d1157 | Khôi phục động lực học và luyện kim sắt thép ứng dụng | roadmap_SaveLife.md |
+| che_tao_dung_cu_cam_tay_tu_thep_d1158 | Chế tạo công cụ sinh tồn và kiểm định chất lượng nước dã chiến | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_va_luyen_kim_gang_thep | Khôi phục nhiệt luyện gang thép trong Lò cao Minecraft để sản xuất dụng cụ | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_xay_dung_chiu_luc_cao | Thiết lập hệ thống xử lý phân hữu cơ bằng men vi sinh và vệ sinh dã chiến | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_hoc_va_luyen_kim_gang_thep | Khôi phục động lực học và luyện kim gang thép trong Minecraft | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_xay_dung_chiu_luc_cao_d1162 | Tái tạo vật liệu xây dựng chịu lực cao bằng bê tông cốt thép | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_hoc_va_luyen_kim_gang_thep_d1163 | Khôi phục động lực học và luyện kim gang thép trong mô phỏng Kỹ thuật sinh tồn zombie | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_xay_dung_chiu_luc_cao_d1164 | Công nghệ bê tông cốt thép gia cố công sự sinh tồn | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_hoc_va_luyen_kim_gang_thep_d1165 | Khôi phục động lực học và luyện kim gang thép cho dự án Fallout | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_xay_dung_chiu_luc_cao_d1166 | Sản xuất vật liệu composite cốt sợi thủy tinh gia cường | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_hoc_va_luyen_kim_gang_thep_d1167 | Nghiên cứu động lực học dòng chảy khí lò cao sản xuất gang thép (Project Zomboid) | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_xay_dung_chiu_luc_cao_d1168 | Tái tạo bê tông cốt thép cường độ cao chống zombie kết hợp hệ thống vệ sinh dã chiến (Minecraft) | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_hoc_va_luyen_kim_gang_thep_d1169 | Khôi phục động lực học và luyện kim gang thép trong dự án Ironworks | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_xay_dung_chiu_luc_cao_d1170 | Sản xuất bê tông cốt thép siêu bền và kiểm định vật liệu xây dựng | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_hoc_va_luyen_kim_gang_thep_d1171 | Khôi phục luyện kim gang thép và chế tạo búa tạ dã chiến | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_xay_dung_chiu_luc_cao_d1172 | Sản xuất bê tông cốt thép đặc biệt và xây dựng hệ thống xử lý vệ sinh hầm trú ẩn | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_va_luyen_kim_gang_thep_d1173 | Khôi phục nhiệt luyện gang thép để đúc xẻng cứu sinh kết hợp xử lý chất thải sinh hoạt | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_xay_dung_chiu_luc_cao_d1174 | Tái tạo vật liệu composite cốt thép kết hợp kiểm nghiệm chất lượng nước ngầm hầm trú | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_va_luyen_kim_gang_thep_d1175 | Khôi phục nhiệt luyện gang thép và chế tạo bộ búa rìu thủ công trong Fallout | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_xay_dung_chiu_luc_cao_d1176 | Thiết lập hệ thống xử lý vệ sinh và xây dựng khoang trú ẩn cốt thép chống bom | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_hoc_va_luyen_kim_gang_thep_d1177 | Khôi phục luyện kim gang thép và xử lý môi trường lò luyện | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_xay_dung_chiu_luc_cao_d1178 | Sản xuất vật liệu xây dựng chịu lực cao và kiểm định kết cấu | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_hoc_va_luyen_kim_gang_thep_d1179 | Khôi phục động lực học và luyện kim gang thép: Dự án lò thổi Oxy | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_xay_dung_chiu_luc_cao_d1180 | Công nghệ đúc dầm cốt thép và kiểm định cấu kiện chịu lực hầm trú ẩn | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_hoc_vat_lieu_d1181 | Khôi phục động lực học vật liệu xây dựng và xử lý chất thải kiên cố | roadmap_SaveLife.md |
+| tai_tao_kim_loai_va_dung_cu_d1182 | Tái tạo kim loại, dụng cụ lao động và bảo mật thông tin liên lạc sơ khai | roadmap_SaveLife.md |
+| khoi_phuc_dien_tro_va_che_tao_tro_khang_d1183 | Phục hồi điện trở và chế tạo trở kháng cho mạch điện trong Dự án Thắp sáng Trại trú ẩn | roadmap_SaveLife.md |
+| tai_tao_chat_tay_rua_va_xa_phong_cong_nghiep_d1184 | Tinh chế dung dịch tẩy rửa sinh học kết hợp xử lý chất thải vệ sinh trại trú ẩn | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_va_luyen_kim_dong_d1185 | Khôi phục động lực học và luyện kim đồng cho dự án đúc cuộn dây máy phát | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_chiu_nhiet_va_gach_sa_mot_d1186 | Sản xuất gạch chịu lửa sa mốt và tối ưu hóa hệ thống lò luyện nhiệt độ cao | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_va_luyen_kim_nhom_d1187 | Khôi phục động lực học và luyện kim nhôm sản xuất vỏ thiết bị | roadmap_SaveLife.md |
+| che_tao_vat_lieu_composite_so_soi_d1188 | Sản xuất vật liệu composite sợi thủy tinh kết hợp kiểm nghiệm độc tính vật dụng | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_va_luyen_kim_titan | Khôi phục động lực học và luyện kim titan tái tạo dụng cụ sinh tồn | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_cach_nhiet_gom_ky_thuat | Nghiên cứu và chế tạo vật liệu cách nhiệt gốm kỹ thuật cao cấp | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_va_luyen_kim_sat_hop_kim | Khôi phục động lực và luyện kim sắt hợp kim | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_xay_dung_giao_thong | Tái tạo vật liệu hạ tầng và xử lý môi trường | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_va_luyen_kim_gang_duc | Khôi phục lò cao dã chiến và luyện gang đúc quy mô nhỏ | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_chiu_luc_hien_dai | Đổ tấm bê tông cốt thép gia cường và xử lý phân hữu cơ bằng men vi sinh | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_va_luyen_kim_gang_xem_d1195 | Khôi phục động lực học và luyện kim gang xám cho sản xuất dụng cụ lao động | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_chiu_luc_hien_dai_d1196 | Xây dựng hạ tầng xử lý nước thải và kiểm định độc tính sinh học dã chiến | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_va_luyen_kim_gang_xem_d1197 | Động lực học chất lưu và luyện kim gang xám cho lò cao mini | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_chiu_luc_hien_dai_d1198 | Xây dựng hệ thống xử lý nước và kiểm định độc tính cho boongke | roadmap_SaveLife.md |
+| khoi_phuc_dong_luc_va_luyen_kim_gang_xem_d1199 | Khôi phục động lực học chất lỏng và luyện kim gang xám ứng dụng trong lò cao mini | roadmap_SaveLife.md |
+| tai_tao_vat_lieu_chiu_luc_hien_dai_d1200 | Xây dựng hệ thống nhà vệ sinh dã chiến và xử lý chất thải hữu cơ bằng men vi sinh | roadmap_SaveLife.md |
+| che_tao_ban_dan_tho_so_va_ong_chan_khong_d1201 | Chế tạo bán dẫn thô sơ và ống chân không cho bộ đàm khẩn cấp | roadmap_SaveLife.md |
+| che_tao_day_dan_dien_va_thiet_bi_do_dac_d1202 | Lắp ráp đồng hồ đo điện vạn năng cơ học và hệ thống mã hóa tín hiệu vô tuyến | roadmap_SaveLife.md |
+| che_tao_ban_dan_nguyen_thuy_va_diot_di_cuc_d1203 | Chế tạo bán dẫn nguyên thủy và điốt cực tinh thể từ cát và chì Project Diode | roadmap_SaveLife.md |
+| che_tao_ong_chan_khong_ba_cuc_triode_d1204 | Lắp ráp ống chân không khuếch đại ba cực Triode thủ công | roadmap_SaveLife.md |
+| che_tao_ban_dan_silic_tho_so_d1205 | Tinh chế silic thô sơ và chế tạo diot bán dẫn nguyên thủy (Dự án Semicond) | roadmap_SaveLife.md |
+| che_tao_thiet_bi_do_dien_thuy_tinh_d1206 | Thiết lập ống đo điện áp phóng điện và kiểm nghiệm vạn năng kế cơ học | roadmap_SaveLife.md |
+| che_tao_mang_mach_in_va_linh_kien_thu_dong_d1207 | Chế tạo mạng mạch in thô sơ và linh kiện thụ động cho dự án Đài phát thanh v1.0 | roadmap_SaveLife.md |
+| lap_rap_va_hieu_chuan_thiet_bi_do_dien_tu_d1208 | Hiệu chuẩn và kiểm định thiết bị đo điện năng vi mô cho hệ thống Microgrid sinh tồn | roadmap_SaveLife.md |
+| che_tao_cam_bien_nhiet_dien_d1209 | Chế tạo cảm biến nhiệt điện và nhiệt kế cặp nhiệt điện cho trạm cảnh báo | roadmap_SaveLife.md |
+| che_tao_cam_bien_quang_dien_d1210 | Tái tạo cảm biến quang điện selenium và hệ thống kiểm định độc tính quang học | roadmap_SaveLife.md |
+| che_tao_cam_bien_do_am_dien_tro_d1211 | Chế tạo cảm biến độ ẩm điện trở thô từ than hoạt tính và sứ đất nung | roadmap_SaveLife.md |
+| che_tao_bo_chia_dien_ap_va_bien_tro_d1212 | Thiết kế bộ chia điện áp màng than và tích hợp mã hóa vô tuyến thủ công | roadmap_SaveLife.md |
+| che_tao_cam_bien_nhiet_do_nguyen_thuy_d1213 | Chế tạo cảm biến nhiệt độ nguyên thủy - Dự án Nhiệt điện trở tự chế | roadmap_SaveLife.md |
+| che_tao_mach_khuyech_dai_ong_chan_khong_d1214 | Lắp ráp mạch khuếch đại đèn điện tử - Dự án Thu phát tín hiệu âm thanh | roadmap_SaveLife.md |
+| che_tao_ban_dan_va_cam_bien_quang_dien | Chế tạo vật liệu bán dẫn thô và cảm biến quang điện quang trở sulfide cadmi | roadmap_SaveLife.md |
+| che_tao_thiet_bi_do_dien_va_dong_ho_van_nang | Thiết kế và lắp ráp thiết bị đo điện từ kiểu cuộn động cùng hệ thống mã hóa vô tuyến | roadmap_SaveLife.md |
+| che_tao_ban_dan_tho_so_va_ong_chan_khong_d1217 | Tái lập công nghệ chế tạo bán dẫn thô sơ và ống chân không (Dự án Edison) | roadmap_SaveLife.md |
+| che_tao_day_dan_va_thiet_bi_do_dac_d1218 | Xây dựng hệ thống đo đạc dòng điện vi mô và kiểm định hiệu năng Microgrid | roadmap_SaveLife.md |
+| tai_lap_cong_nghe_che_tao_ban_dan_tho_so_d1219 | Tái lập công nghệ chế tạo bán dẫn thô sơ và ống chân không cho thiết bị đo | roadmap_SaveLife.md |
+| che_tao_day_dan_dien_va_thiet_bi_do_dac_dien_tu_d1220 | Xây dựng hệ thống lưới điện vi mô và đồng hồ đo điện vạn năng | roadmap_SaveLife.md |
+| tai_lap_cong_nghe_che_tao_ban_dan_tho_so_d1221 | Tái lập công nghệ chế tạo bán dẫn thô sơ qua Tác phẩm Diode Tinh thể Xơ | roadmap_SaveLife.md |
+| che_tao_day_dan_dien_va_thiet_bi_do_dac_d1222 | Chế tạo dây dẫn điện và thiết bị đo đạc qua Tác phẩm Ampe kế Con lắc | roadmap_SaveLife.md |
+| tai_lap_ban_dan_tho_so_va_ong_chan_khong | Tái lập bán dẫn thô sơ và ống chân không cho bộ đàm cứu sinh | roadmap_SaveLife.md |
+| che_tao_thiet_bi_do_dien_va_mach_thu_dong | Chế tạo thiết bị đo điện và mạch lọc tần số chống nhiễu | roadmap_SaveLife.md |
+| che_tao_ban_dan_va_ong_chan_khong_tho_so_d1225 | Chế tạo ống chân không định hướng dòng điện với Máy hút chân không thủ công | roadmap_SaveLife.md |
+| che_tao_dong_ho_do_dien_tu_cam_tay_d1226 | Chế tạo đồng hồ đo điện vạn năng kim loại với Cuộn dây từ trường tự quấn | roadmap_SaveLife.md |
+| che_tao_ong_chan_khong_nhiet_dien_d1227 | Chế tạo ống chân không nhiệt điện thô sơ cho mạch radio sinh tồn | roadmap_SaveLife.md |
+| che_tao_thiet_bi_do_dien_tu_cam_tay_d1228 | Xây dựng hệ thống đo đạc dòng điện một chiều cứu sinh và kiểm định mã hóa tín hiệu | roadmap_SaveLife.md |
+| che_tao_ong_chan_khong_dien_tu_d1229 | Chế tạo ống chân không khuếch đại tín hiệu thô sơ cho radio sinh tồn | roadmap_SaveLife.md |
+| che_tao_thiet_bi_do_dien_tro_cam_tay_d1230 | Lắp ráp thiết bị đo điện trở vạn năng cơ học phục vụ kiểm định mạch | roadmap_SaveLife.md |
+| che_tao_ban_dan_va_thiet_bi_do_dac_d1231 | Tái lập công nghệ chế tạo bán dẫn thô sơ và thiết bị đo đạc dòng điện | roadmap_SaveLife.md |
+| che_tao_ong_chan_khong_va_day_dan_d1232 | Sản xuất ống chân không nhiệt điện điốt và kéo dây đồng chịu tải | roadmap_SaveLife.md |
+| che_tao_ban_dan_va_thiet_bi_do_dac_d1233 | Chế tạo linh kiện bán dẫn thô sơ và thiết bị đo điện áp vạn năng | roadmap_SaveLife.md |
+| che_tao_ong_chan_khong_va_cam_bien_nhiet_d1234 | Tái lập ống chân không khuếch đại và mã hóa tín hiệu vô tuyến sơ khai | roadmap_SaveLife.md |
+| che_tao_ong_chan_khong_va_thiet_bi_do_d1235 | Chế tạo ống chân không nhiệt điện cực và thiết bị đo áp suất thô | roadmap_SaveLife.md |
+| che_tao_day_dan_dien_tro_va_thiet_bi_do_d1236 | Kéo nguội dây dẫn đồng và xây dựng hệ thống vệ sinh dã chiến xử lý nước thải | roadmap_SaveLife.md |
+| che_tao_ban_dan_tho_va_ong_chan_khong_d1237 | Chế tạo bán dẫn thô và ống chân không cho Dự án Xưởng Điện Tử Tận Thế | roadmap_SaveLife.md |
+| che_tao_day_dan_va_thiet_bi_do_dac_d1238 | Sản xuất cáp truyền tín hiệu bảo mật và hệ thống Microgrid tự chủ | roadmap_SaveLife.md |
+| che_tao_ban_dan_va_ong_chan_khong_nguyen_thuy_d1239 | Chế tạo bán dẫn thô sơ và ống chân không cho bộ đàm khẩn cấp | roadmap_SaveLife.md |
+| che_tao_thiet_bi_do_dien_tu_va_mach_thu_dong_d1240 | Thiết kế hệ thống mã hóa vô tuyến thủ công và đo kiểm tín hiệu | roadmap_SaveLife.md |
+| che_tao_silic_don_tinh_tho_so_d1241 | Chế tạo silic đơn tinh thể thô sơ qua lò nung thủ công cho dự án vi mạch hậu tận thế | roadmap_SaveLife.md |
+| che_tao_thiet_bi_do_dan_dien_ke_d1242 | Lắp ráp thiết bị đo điện trở suất bề mặt vật liệu bán dẫn phòng thí nghiệm | roadmap_SaveLife.md |
+| che_tao_diode_diem_tiep_xuc_silic_d1243 | Chế tạo diode điểm tiếp xúc silic từ mẫu thô, Dự án Diode Chấm Cực | roadmap_SaveLife.md |
+| che_tao_mach_dao_dong_thach_anh_tho_d1244 | Chế tạo bộ cộng hưởng thạch anh dã chiến, Dự án Đồng Hồ Tần Số Chuẩn | roadmap_SaveLife.md |
+| che_tao_triode_ong_chan_khong_tho_d1245 | Chế tạo bóng đèn ba cực ống chân không thủ công - Dự án Đèn Khuếch Đại Tận Thế | roadmap_SaveLife.md |
+| che_tao_cam_bien_nhiệt_cap_nhieu_tho_d1246 | Lắp ráp hệ thống đo nhiệt độ cặp nhiệt điện - Dự án Nhiệt Kế Tận Thế | roadmap_SaveLife.md |
+| che_tao_cam_bien_do_phong_xa_tho_d1247 | Chế tạo cảm biến đo phóng xạ thô sơ với ống Geiger-Müller tự chế | roadmap_SaveLife.md |
+| lap_rap_he_thong_do_dac_dien_tu_d1248 | Lắp ráp hệ thống đo đạc điện tử cầm tay đa năng tích hợp màn hình thô | roadmap_SaveLife.md |
+| che_tao_triode_ban_dan_tho_d1249 | Chế tạo linh kiện triode bán dẫn thô sơ qua dự án trạm thu phát tín hiệu | roadmap_SaveLife.md |
+| che_tao_mach_khuech_dai_ong_chan_khong_d1250 | Thiết kế bộ khuếch đại tín hiệu âm thanh tần số thấp qua hệ thống phát thanh dã chiến | roadmap_SaveLife.md |
+| che_tao_ong_chan_khong_dien_tu_tho_d1251 | Chế tạo ống chân không điện tử thô cho đài thu thanh dự án Sống Sót 1251 | roadmap_SaveLife.md |
+| che_tao_thiet_bi_do_dien_tro_so_d1252 | Chế tạo thiết bị đo điện trở số cơ bản tích hợp mã hóa vô tuyến dự án Sống Sót 1252 | roadmap_SaveLife.md |
+| che_tao_diode_diem_tiep_xuc_duc_dong_d1253 | Chế tạo diode điểm tiếp xúc Đức đồng thủ công (Dự án: Crystal Diode) | roadmap_SaveLife.md |
+| che_tao_tro_than_chi_va_mach_thu_dong_d1254 | Chế tạo điện trở than chì và mạch lọc thụ động (Dự án: Carbon Resistor) | roadmap_SaveLife.md |
+| che_tao_triode_ban_dan_duc_dong_d1255 | Chế tạo linh kiện khuếch đại mầm đồng tận thế - Dự án Quantum-Z | roadmap_SaveLife.md |
+| che_tao_mach_thu_phat_thanh_tho_d1256 | Xây dựng máy thu phát thanh tầm xa kết hợp mã hóa - Dự án Radio-Z | roadmap_SaveLife.md |
+| che_tao_mach_khuech_dai_ban_dan_tho_d1257 | Chế tạo mạch khuếch đại bán dẫn thô sơ bằng transistor tự chế - Dự án Transistor Radio | roadmap_SaveLife.md |
+| che_tao_cam_bien_anh_sang_quang_tro_d1258 | Chế tạo cảm biến ánh sáng quang trở từ sunfua chì kèm kiểm định độ nhạy - Dự án Bẫy Đèn Quang Trở | roadmap_SaveLife.md |
+| che_tao_ban_dan_va_ong_chan_khong_nguyen_thuy_d1259 | Chế tạo vật liệu bán dẫn thô sơ và ống chân không thủy tinh nguyên thủy | roadmap_SaveLife.md |
+| che_tao_thiet_bi_do_dien_tu_va_mach_thu_dong_d1260 | Xây dựng đồng hồ vạn năng kim loại và hệ thống mã hóa thông tin liên lạc vô tuyến sơ khai | roadmap_SaveLife.md |
+| che_tao_ban_dan_va_ong_chan_khong_thu_cong_d1261 | Chế tạo ống chân không ba cực thủ công bằng thủy tinh tái chế (Dự án Lumen-X) | roadmap_SaveLife.md |
+| che_tao_cam_bien_do_dien_ap_co_hoc_d1262 | Xây dựng tĩnh điện kế lá nhôm kết hợp mô phỏng kiểm thử an ninh vô tuyến | roadmap_SaveLife.md |
+| che_tao_ban_dan_va_ong_chan_khong_nguyen_thuy_d1263 | Chế tạo bán dẫn thô sơ và ống chân không thủy tinh nguyên thủy | roadmap_SaveLife.md |
+| che_tao_thiet_bi_do_dien_tu_va_mach_thu_dong_d1264 | Lắp ráp ampe kế cơ học và hệ thống mạch lọc tín hiệu dã chiến | roadmap_SaveLife.md |
+| che_tao_ban_dan_tho_va_ong_chan_khong_nguyen_thuy_d1265 | Chế tạo vật liệu bán dẫn nguyên thủy và ống chân không thô sơ trong dự án Tái Lập Công Nghệ Điện Tử Điện Cực | roadmap_SaveLife.md |
+| che_tao_thiet_bi_do_dac_va_cam_bien_dien_tu_d1266 | Thiết kế cảm biến nhiệt độ lưỡng kim và hệ thống kiểm định thiết bị đo lường hậu tận thế | roadmap_SaveLife.md |
+| che_tao_ban_dan_va_ong_chan_khong_thu_cong_d1267 | Tái lập công nghệ chế tạo bán dẫn thô sơ và ống chân không cho Dự án Lazarus | roadmap_SaveLife.md |
+| che_tao_day_dan_va_thiet_bi_do_dac_dien_tu_d1268 | Sản xuất cáp truyền tải điện năng và kiểm định thông số hệ thống Microgrid | roadmap_SaveLife.md |
+| tai_lap_ban_dan_tho_so_va_ong_chan_khong_d1269 | Tái lập bán dẫn thô sơ và ống chân không cho bộ đàm khẩn cấp | roadmap_SaveLife.md |
+| che_tao_day_dan_dien_va_thiet_bi_do_dac_d1270 | Xây dựng hệ thống mã hóa tín hiệu vô tuyến và đo đạc dòng điện | roadmap_SaveLife.md |
+| che_tao_ban_dan_va_ong_chan_khong_nguyen_thuy_d1271 | Chế tạo vật liệu bán dẫn nguyên thủy cho hệ thống điều khiển tận thế | roadmap_SaveLife.md |
+| che_tao_thiet_bi_do_dien_tu_va_mach_thu_dong_d1272 | Xây dựng thiết bị đo dòng điện xoay chiều analog và kiểm định hiệu năng vi mạch | roadmap_SaveLife.md |
+| che_tao_silic_don_tinh_tho_d1273 | Luyện kim và kéo tinh thể silic đơn tinh thể nguyên thủy | roadmap_SaveLife.md |
+| che_tao_ong_chan_khong_ba_cuc_d1274 | Chế tạo đèn điện tử chân không ba cực triode từ bóng đèn tái chế | roadmap_SaveLife.md |
+| che_tao_ong_chan_khong_nam_cuc_d1275 | Chế tạo ống chân không năm cực (Pentode) thủ công kết hợp tối ưu hóa dòng điện | roadmap_SaveLife.md |
+| che_tao_thiet_bi_do_tan_so_so_d1276 | Thiết lập trạm đo tần số sóng vô tuyến kèm mã hóa tín hiệu chống phát hiện | roadmap_SaveLife.md |
+| che_tao_silic_don_tinh_phu_tho_d1277 | Chế tạo silic đơn tinh thể thủ công cho vi mạch tận thế | roadmap_SaveLife.md |
+| che_tao_dong_ho_do_dien_vạn_nang_tho_d1278 | Chế tạo đồng hồ đo điện vạn năng analog cơ học | roadmap_SaveLife.md |
+| che_tao_cam_bien_nhiet_do_nguyen_thuy_d1279 | Chế tạo cảm biến nhiệt độ nguyên thủy bằng cặp nhiệt điện kim loại thô | roadmap_SaveLife.md |
+| che_tao_thiet_bi_dieu_che_tin_hieu_tho_d1280 | Lắp ráp bộ điều chế biên độ sóng vô tuyến bảo mật chống nhiễu | roadmap_SaveLife.md |
+| che_tao_ban_dan_va_thiet_bi_do_d1281 | Chế tạo bán dẫn thô và thiết bị đo điện áp mẫu Omega | roadmap_SaveLife.md |
+| che_tao_ong_chan_khong_va_day_dan_d1282 | Lắp ráp đèn điện tử chân không và mạch mã hóa vô tuyến Alpha | roadmap_SaveLife.md |
+| che_tao_ban_dan_va_ong_chan_khong_tho_d1283 | Xây dựng lò luyện tinh thể silic thô và ống chân không thô sơ | roadmap_SaveLife.md |
+| che_tao_thiet_bi_do_dac_dien_tu_d1284 | Thiết kế hệ thống đo lường dòng điện và kiểm tra tín hiệu điện áp vi mạch | roadmap_SaveLife.md |
+| che_tao_ban_dan_tho_so_d1285 | Chế tạo bán dẫn germanium thô sơ và diode tiếp điểm kim loại | roadmap_SaveLife.md |
+| che_tao_ong_chan_khong_nhi_cuc_d1286 | Lắp ráp bóng đèn khuếch đại tín hiệu điện áp thấp bằng vỏ thuỷ tinh | roadmap_SaveLife.md |
+| che_tao_linh_kien_ban_dan_va_ong_chan_khong_d1287 | Chế tạo diode bán dẫn germanium và ống chân không thô sơ trong dự án Hồi sinh Điện tử Hậu tận thế | roadmap_SaveLife.md |
+| che_tao_thiet_bi_do_dien_va_cam_bien_d1288 | Chế tạo thiết bị đo điện áp thô sơ và cảm biến nhiệt độ dạng cặp nhiệt điện trong dự án Trạm Đo lường Sống sót | roadmap_SaveLife.md |
+| che_tao_diode_diem_tiep_xuc_germani_d1289 | Chế tạo diode điểm tiếp xúc Germani và bộ chỉnh lưu thô sơ cho dự án Radio Sống Sót | roadmap_SaveLife.md |
+| che_tao_dong_ho_do_dien_tu_tu_truong_d1290 | Thiết lập trạm quan trắc điện từ trường vạn năng tích hợp mã hóa vô tuyến thủ công | roadmap_SaveLife.md |
+| che_tao_triode_germani_nguyen_thuy_d1291 | Chế tạo linh kiện triode bán dẫn germani nguyên thủy | roadmap_SaveLife.md |
+| che_tao_thiet_bi_do_tro_khang_tho_d1292 | Thiết kế thiết bị đo điện trở và hiệu chuẩn mạch cầu | roadmap_SaveLife.md |
+| che_tao_ong_chan_khong_sieu_nho_d1293 | Chế tạo ống chân không siêu nhỏ công nghệ thô sơ - Dự án Lò hút chân không thủ công | roadmap_SaveLife.md |
+| che_tao_thiet_bi_do_dan_dien_tu_d1294 | Lắp ráp thiết bị đo điện từ trường và mã hóa tín hiệu bảo mật - Dự án Đồng hồ đo dòng điện đa năng | roadmap_SaveLife.md |
+| che_tao_diode_diem_tiep_xuc_silic_d1295 | Chế tạo diode điểm tiếp xúc silic thô cho Dự án Tái tạo Máy tính Thủy thủ | roadmap_SaveLife.md |
+| che_tao_ong_chan_khong_tetrode_d1296 | Lắp ráp và tinh chỉnh ống chân không bốn cực (tetrode) cho Trạm Phát thanh | roadmap_SaveLife.md |
+| tai_lap_ban_dan_tho_so_va_ong_chan_khong_nguyen_thuy_d1297 | Phục hồi bán dẫn và ống chân không thô sơ cho Trạm Cứu Sinh Z-1 | roadmap_SaveLife.md |
+| che_tao_day_dan_va_thiet_bi_do_dac_dien_tu_tho_d1298 | Tổ hợp mạch đo điện áp vi mô và cáp bọc cách điện sinh học | roadmap_SaveLife.md |
+| che_tao_ban_dan_va_thiet_bi_do_dac_dien_tu_d1299 | Chế tạo vật liệu bán dẫn và thiết bị đo đạc điện tử trong dự án Lazarus | roadmap_SaveLife.md |
+| che_tao_ong_chan_khong_va_mang_mach_d1300 | Phát triển ống chân không ba cực kết hợp mã hóa vô tuyến bảo mật | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_va_ngon_ngu_lap_trinh_d1301 | Xây dựng máy tính cơ khí và hệ thống mã hóa vô tuyến thủ công | roadmap_SaveLife.md |
+| che_tao_may_tinh_ong_chan_khong_va_trinh_bien_dich_d1302 | Lắp ráp mạch ống chân không kiểm nghiệm chất lượng nước và nguồn điện | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_va_ngon_ngu_lap_trinh_v2 | Xây dựng máy tính cơ khí Babbage mini và biên dịch mã nguồn Assembly thủ công | roadmap_SaveLife.md |
+| che_tao_may_tinh_ong_chan_khong_va_trinh_bien_dich_v2 | Triển khai mạng lưới liên lạc vô tuyến bảo mật và mã hóa tín hiệu bộ đàm | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_va_ngon_ngu_lap_trinh_v3 | Xây dựng máy tính cơ khí bánh răng tính toán cộng trừ và hệ thống mã máy tối giản | roadmap_SaveLife.md |
+| che_tao_may_tinh_ong_chan_khong_va_trinh_bien_dich_v3 | Lắp ráp mạch logic ống chân không điện áp thấp và xây dựng bộ biên dịch assembly thô | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_tinh_toan_d1307 | Xây dựng máy tính cơ khí tính toán và lập trình Assembly thô | roadmap_SaveLife.md |
+| che_tao_may_tinh_ong_chan_khong_d1308 | Thiết kế mạch logic ống chân không kết hợp mã hóa bảo mật vô tuyến | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_va_lap_trinh_assembly_tho_d1309 | Chế tạo máy tính cơ khí tính toán và lập trình Assembly thủ công | roadmap_SaveLife.md |
+| che_tao_may_tinh_ong_chan_khong_va_trinh_bien_dich_tho_d1310 | Hệ thống ống chân không kỹ thuật số và kiểm thử an ninh mạng vô tuyến | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_va_lap_trinh_thanh_ghi_d1311 | Thiết kế bộ cộng trừ cơ khí Babbage và lập trình thanh ghi thủ công | roadmap_SaveLife.md |
+| che_tao_may_tinh_ong_chan_khong_va_trinh_bien_dich_nhi_phan_d1312 | Xây dựng EDVAC thu nhỏ tích hợp mạch giải mã tín hiệu vô tuyến bảo mật | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_va_lap_trinh_thanh_ghi_d1313 | Chế tạo máy tính cơ khí tính toán và lập trình thanh ghi tối giản | roadmap_SaveLife.md |
+| che_tao_may_tinh_ong_chan_khong_va_trinh_bien_dich_nhi_phan_d1314 | Xây dựng hệ thống bảo mật thông tin liên lạc vô tuyến và máy tính ống chân không | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_va_lap_trinh_thanh_ghi_d1315 | Chế tạo máy tính cơ khí và lập trình thanh ghi cho cơ chế máy tính babbage đơn giản | roadmap_SaveLife.md |
+| che_tao_may_tinh_ong_chan_khong_va_lap_trinh_assembly_d1316 | Thiết lập module mã hóa vô tuyến ống chân không và kiểm định an ninh mạng | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_tinh_toan_chinh_xac_d1317 | Chế tạo máy tính cơ khí tính toán chính xác số liệu sinh tồn | roadmap_SaveLife.md |
+| lap_trinh_ngon_ngu_co_so_cho_may_tinh_ong_chan_khong_d1318 | Xây dựng mã hóa vô tuyến và lập trình nhúng trên ống chân không | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_tinh_toan_so_hoc_d1319 | Chế tạo máy tính cơ khí tính toán số học tự động với cơ chế Leibniz Wheel | roadmap_SaveLife.md |
+| che_tao_may_tinh_ong_chan_khong_xu_ly_logic_d1320 | Xây dựng hệ thống bảo mật thông tin liên lạc vô tuyến và mã hóa tín hiệu bộ đàm | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_tinh_toan_bo_nho_d1321 | Chế tạo máy tính cơ khí tính toán bộ nhớ Babbage Cơ bản cho ngày tận thế | roadmap_SaveLife.md |
+| che_tao_may_tinh_ong_chan_khong_xu_ly_logic_d1322 | Thiết lập hệ thống thông tin liên lạc bảo mật và mã hóa vô tuyến thủ công | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_tinh_toan_logic_d1323 | Xây dựng máy tính cơ khí tính toán logic và lập trình đục lỗ | roadmap_SaveLife.md |
+| che_tao_may_tinh_ong_chan_khong_xu_ly_tap lệnh_d1324 | Triển khai mạch khuếch đại vô tuyến và mã hóa tín hiệu bảo mật sơ khai | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_va_lap_trinh_assembly_v4 | Xây dựng máy tính cơ khí kết hợp mã hóa thông tin liên lạc bảo mật - Dự án Babbage-X | roadmap_SaveLife.md |
+| che_tao_may_tinh_ong_chan_khong_va_trinh_bien_dich_v4 | Thiết lập hệ thống máy tính ống chân không kiểm định chất lượng nước - Dự án ENIAC-Lite | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_tinh_toan_chinh_xac_d1327 | Chế tạo máy tính cơ khí tính toán chính xác và bánh răng số học | roadmap_SaveLife.md |
+| lap_trinh_ngon_ngu_co_so_cho_may_tinh_ong_chan_khong_d1328 | Lập trình tập lệnh mã nhị phân và kiểm thử bảo mật kết nối vô tuyến | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_va_ngon_ngu_lap_trinh_d1329 | Xây dựng máy tính cơ khí tính toán cộng trừ và thiết lập tập lệnh Pascal sơ khai | roadmap_SaveLife.md |
+| che_tao_may_tinh_ong_chan_khong_va_trinh_bien_dich_d1330 | Thiết lập hệ thống thông tin liên lạc vô tuyến bảo mật và mã hóa tín hiệu bộ đàm | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_va_ngon_ngu_lap_trinh_d1331 | Xây dựng máy tính cơ khí tính toán tích hợp ngôn ngữ lập trình thẻ đục lỗ | roadmap_SaveLife.md |
+| che_tao_may_tinh_ong_chan_khong_va_trinh_bien_dich_d1332 | Lập trình vi mạch ống chân không và tối ưu hóa hệ thống liên lạc vô tuyến | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_va_ngon_ngu_lap_trinh_d1333 | Chế tạo máy tính cơ khí phân tích và lập trình mã máy sơ cấp | roadmap_SaveLife.md |
+| che_tao_may_tinh_ong_chan_khong_va_trinh_bien_dich_d1334 | Xây dựng máy tính ống chân không số và viết trình dịch nhị phân bảo mật | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_va_ngon_ngu_lap_trinh_v5 | Xây dựng máy tính cơ khí phân tích vi sai và lập trình thẻ đục lỗ chống nhiễu | roadmap_SaveLife.md |
+| che_tao_may_tinh_ong_chan_khong_va_trinh_bien_dich_v5 | Chế tạo máy tính ống chân không logic tích hợp kiểm định chất lượng nước | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_tinh_toan_v6 | Chế tạo máy tính cơ khí tính toán toàn phần Pascaline Mini cho hậu tận thế | roadmap_SaveLife.md |
+| lap_trinh_ngon_ngu_assembly_co_so_v6 | Lập trình tập lệnh Assembly cơ sở trên bảng mạch ống chân không tự chế | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_va_ngon_ngu_lap_trinh_v6 | Xây dựng máy tính cơ khí đếm vòng quay kết hợp mã hóa lệnh đục lỗ | roadmap_SaveLife.md |
+| che_tao_may_tinh_ong_chan_khong_va_trinh_bien_dich_v6 | Lắp ráp mạch ống chân không số học và viết bảng tra cứu biên dịch mã nhị phân | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_va_ngon_ngu_lap_trinh_v7 | Chế tạo máy tính cơ khí kết hợp ngôn ngữ lập trình Babbage (Dự án: Mechanical Engine v7) | roadmap_SaveLife.md |
+| che_tao_may_tinh_ong_chan_khong_va_trinh_bien_dich_v7 | Xây dựng mạch điện tử ống chân không và mã hóa tín hiệu bảo mật (Dự án: Vacuum Crypt 7) | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_va_ngon_ngu_lap_trinh_v8 | Xây dựng máy tính cơ khí tính toán hàm lượng giác kết hợp ngôn ngữ lập trình mã gạt v8 | roadmap_SaveLife.md |
+| che_tao_may_tinh_ong_chan_khong_va_trinh_bien_dich_v8 | Hệ thống máy tính ống chân không xử lý đa luồng tích hợp bảo mật vô tuyến khẩn cấp v8 | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_va_ngon_ngu_lap_trinh_v9 | Chế tạo máy tính cơ khí tính toán tự động và cơ chế băng đục lỗ | roadmap_SaveLife.md |
+| che_tao_may_tinh_ong_chan_khong_va_trinh_bien_dich_v9 | Xây dựng hệ thống ống chân không 8-bit và biên dịch mã nguồn tối giản | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_tinh_toan_phép_nhân_v10 | Chế tạo máy tính cơ khí tính toán phép nhân tự động Leibniz | roadmap_SaveLife.md |
+| lap_trinh_may_tinh_ong_chan_khong_ngon_ngu_may_v10 | Xây dựng bảng mạch lập trình mã máy thủ công qua ống chân không | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_va_ngon_ngu_lap_trinh_v10 | Chế tạo máy tính cơ khí tính toán trọng lực và lập trình mã máy v10 | roadmap_SaveLife.md |
+| che_tao_may_tinh_ong_chan_khong_va_trinh_bien_dich_v10 | Xây dựng hệ thống bảo mật thông tin liên lạc vô tuyến sơ khai v10 | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_va_ngon_ngu_lap_trinh_v11 | Xây dựng máy tính cơ khí tính toán cộng trừ tự động và lập trình Assembly cơ bản | roadmap_SaveLife.md |
+| che_tao_may_tinh_ong_chan_khong_va_trinh_bien_dich_v11 | Nghiên cứu bộ đàm ống chân không tích hợp mã hóa tín hiệu và kiểm định độc tính nước sinh hoạt | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_va_ngon_ngu_lap_trinh_v12 | Xây dựng máy tính cơ khí tính toán tự động và ngôn ngữ lập trình thô v12 | roadmap_SaveLife.md |
+| che_tao_may_tinh_ong_chan_khong_va_trinh_bien_dich_v12 | Xây dựng hệ thống liên lạc vô tuyến bảo mật và giải mã tín hiệu số v12 | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_tinh_toan_d1355 | Xây dựng máy tính cơ khí cộng trừ số nguyên với mô hình bánh răng rãnh | roadmap_SaveLife.md |
+| lap_trinh_ngon_ngu_assembly_co_so_d1356 | Thiết kế bảng mã lệnh Assembly 8-bit và mô phỏng thực thi trên bìa đục lỗ | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_tinh_toan_phép_chia_d1357 | Chế tạo máy tính cơ khí tính toán phép chia và cơ cấu răng cưa | roadmap_SaveLife.md |
+| lap_trinh_ngon_ngu_assembly_nang_cao_d1358 | Tối ưu hóa mã nguồn Assembly và bảo mật thông tin liên lạc vô tuyến sơ khai | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_tinh_toan_phep_nhan_d1359 | Xây dựng máy tính cơ khí tính toán phép nhân bằng bánh răng vi sai | roadmap_SaveLife.md |
+| lap_trinh_ngon_ngu_assembly_nang_cao_d1360 | Mã hóa tín hiệu vô tuyến và bảo mật thông tin liên lạc sơ khai | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_va_ngon_ngu_lap_trinh_d1361 | Chế tạo máy tính cơ khí tích hợp hệ thống tính toán nhân chia tự động | roadmap_SaveLife.md |
+| lap_trinh_ngon_ngu_assembly_co_so_d1362 | Lập trình mã máy và mô phỏng bảo mật thông tin liên lạc vô tuyến sơ khai | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_va_ngon_ngu_lap_trinh_d1363 | Chế tạo máy tính cơ khí bánh răng thực hiện phép tính tự động | roadmap_SaveLife.md |
+| lap_trinh_ngon_ngu_assembly_co_so_d1364 | Hệ thống lập trình mã máy ống chân không và mã hóa vô tuyến bảo mật | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_va_ngon_ngu_lap_trinh_d1365 | Chế tạo máy tính cơ khí tính toán phép cộng babbage và lập trình máy | roadmap_SaveLife.md |
+| lap_trinh_ngon_ngu_assembly_co_so_d1366 | Lập trình ngôn ngữ assembly cơ sở và bảo mật mã hóa tín hiệu vô tuyến | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_tinh_toan_d1367 | Xây dựng máy tính cơ khí tính toán tích phân với Dự án Pascaline V2 | roadmap_SaveLife.md |
+| lap_trinh_ngon_ngu_assembly_nang_cao_d1368 | Lập trình mã nguồn hệ thống nhúng và bảo mật thông tin liên lạc với Dự án Trình biên dịch Mini ASM | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_tinh_toan_phep_nhan_d1369 | Chế tạo máy tính cơ khí tính toán phép nhân bằng bánh răng vi sai | roadmap_SaveLife.md |
+| lap_trinh_ngon_ngu_assembly_nang_cao_d1370 | Tối ưu hóa thuật toán vòng lặp Assembly và bảo mật thông tin liên lạc vô tuyến sơ khai | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_tinh_toan_phep_tru_d1371 | Chế tạo máy tính cơ khí tính toán phép trừ tự động qua hệ thống bánh răng Leibniz | roadmap_SaveLife.md |
+| lap_trinh_ngon_ngu_assembly_nang_cao_d1372 | Lập trình ngôn ngữ Assembly tối ưu hóa vòng lặp và bảo mật thông tin vô tuyến | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_va_ngon_ngu_lap_trinh_d1373 | Chế tạo máy tính cơ khí tính toán phép tính cộng trừ và lập trình Forth đơn giản | roadmap_SaveLife.md |
+| che_tao_may_tinh_ong_chan_khong_va_trinh_bien_dich_d1374 | Xây dựng hệ thống máy tính ống chân không số hóa tích hợp kiểm định chất lượng nước chuyên sâu | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_va_ngon_ngu_lap_trinh_d1375 | Xây dựng máy tính cơ khí tính toán phép cộng nâng cao với Dự án Leibniz Step Reckoner | roadmap_SaveLife.md |
+| lap_trinh_ngon_ngu_assembly_co_so_d1376 | Lập trình mã hóa vô tuyến và bảo mật thông tin liên lạc sơ khai | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_tinh_toan_phep_nhan_d1377 | Chế tạo máy tính cơ khí tính toán phép nhân bằng bánh răng vi sai | roadmap_SaveLife.md |
+| lap_trinh_ngon_ngu_assembly_toi_uu_d1378 | Lập trình ngôn ngữ Assembly tối ưu hóa bộ nhớ cho hệ thống cũ | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_va_ngon_ngu_lap_trinh_d1379 | Xây dựng máy tính cơ khí tính toán tích hợp ngôn ngữ lập trình bằng bánh răng | roadmap_SaveLife.md |
+| lap_trinh_ngon_ngu_assembly_toi_uu_d1380 | Mã hóa tín hiệu bộ đàm và thiết lập tập lệnh Assembly cho hệ thống liên lạc vô tuyến | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_tinh_toan_phep_cong_d1381 | Chế tạo máy tính cơ khí tính toán phép cộng với bánh răng gạt | roadmap_SaveLife.md |
+| lap_trinh_ngon_ngu_assembly_co_ban_d1382 | Lập trình mã máy thấp cấp và điều khiển vi mạch logic ống chân không | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_tinh_toan_phep_nhan_d1383 | Chế tạo máy tính cơ khí tính toán phép nhân bằng bánh răng vi sai | roadmap_SaveLife.md |
+| lap_trinh_ngon_ngu_assembly_nang_cao_d1384 | Bảo mật thông tin liên lạc vô tuyến và mã hóa tín hiệu bộ đàm dã chiến | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_tinh_toan_phep_chia_d1385 | Chế tạo máy tính cơ khí tính toán phép chia và cơ chế dịch chuyển bánh răng | roadmap_SaveLife.md |
+| lap_trinh_ngon_ngu_assembly_toi_uu_d1386 | Lập trình mã máy Assembly tối ưu hóa bộ nhớ ống chân không và bảo mật liên lạc vô tuyến sơ khai | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_tinh_toan_phep_nhan_1387 | Xây dựng máy tính cơ khí tính toán phép nhân toàn phần kết hợp cơ chế kiểm định chất lượng nước dã chiến | roadmap_SaveLife.md |
+| lap_trinh_ngon_ngu_assembly_toi_uu_1388 | Lập trình ngôn ngữ Assembly tối ưu hóa bộ nhớ kèm kỹ thuật mật mã hóa và bảo mật thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| che_tao_may_tinh_dien_tu_ong_chan_khong_1389 | Chế tạo máy tính điện tử ống chân không và compiler mini cho dự án Z-Comp | roadmap_SaveLife.md |
+| thiet_lap_ngon_ngu_lap_trinh_bac_cao_toi_gian_1390 | Thiết lập ngôn ngữ lập trình bậc cao tối giản Z-Basic kết hợp hệ thống kiểm nghiệm nước tự chế | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_tinh_toan_logarit_1391 | Chế tạo thước tính logarit gỗ cơ khí tích hợp hệ thống kiểm tra độc tính thực phẩm | roadmap_SaveLife.md |
+| lap_trinh_ngon_ngu_may_tinh_ong_chan_khong_1392 | Lập trình mã máy ống chân không kết hợp mã hóa bảo mật thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_tinh_toan_logarit_1393 | Xây dựng bàn tính cơ khí tính toán hàm logarit bằng bánh răng đồng | roadmap_SaveLife.md |
+| thiet_lap_ngon_ngu_lap_trinh_bac_cao_toi_gian_1394 | Lập trình thông dịch viên ngôn ngữ tối giản cho hệ thống ống chân không | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_va_lap_trinh_d1395 | Chế tạo máy tính cơ khí phân tích vi sai và lập trình bảng mã đục lỗ | roadmap_SaveLife.md |
+| che_tao_may_tinh_ong_chan_khong_va_lap_trinh_assembly_d1396 | Xây dựng hệ thống vi mô ống chân không và kiểm tra an toàn chất lượng nước dã chiến | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_tinh_toan_phep_nhan_1397 | Chế tạo máy tính cơ khí tính toán phép nhân bằng đĩa răng cưa | roadmap_SaveLife.md |
+| lap_trinh_ngon_ngu_assembly_co_so_1398 | Thiết lập mã hóa thông tin liên lạc và ngôn ngữ assembly tối giản | roadmap_SaveLife.md |
+| che_tao_may_tinh_co_khi_va_ngon_ngu_lap_trinh_d1399 | Chế tạo máy tính cơ khí Pascaline v2 và lập trình băng giấy mã máy | roadmap_SaveLife.md |
+| che_tao_may_tinh_ong_chan_khong_va_lap_trinh_assembly_d1400 | Lắp ráp mạch ENIAC-Mini tích hợp mã hóa thông tin vô tuyến chống nghe lén | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_pin_mat_troi_tu_che_d1401 | Chế tạo tuabin gió mini và pin mặt trời oxit đồng thấu kính thủy tinh | roadmap_SaveLife.md |
+| thiet_lap_he_thong_luoi_dien_vi_mo_microgrid_d1402 | Đánh giá hiệu năng và mô phỏng giả lập sự cố sập lưới điện vi mô Microgrid | roadmap_SaveLife.md |
+| che_tao_may_phat_thuy_dien_va_luoi_dien_d1403 | Chế tạo máy phát thủy điện dòng chảy nhỏ và biến áp tự quấn | roadmap_SaveLife.md |
+| van_hanh_va_dong_bo_microgrid_toan_dien_d1404 | Vận hành hệ thống lưới điện vi mô và giả lập sự cố sập tải | roadmap_SaveLife.md |
+| che_tao_pin_nang_luong_mat_troi_quand_dong_d1405 | Chế tạo pin năng lượng mặt trời tự chế trong dự án Quantum Sun | roadmap_SaveLife.md |
+| thiet_lap_bo_dieu_kien_sac_microgrid_d1406 | Thiết lập hệ thống Microgrid và đánh giá hiệu năng tải điện tiêu thụ | roadmap_SaveLife.md |
+| che_tao_may_phat_thuy_dien_microgrid_d1407 | Chế tạo máy phát thủy điện dòng chảy nhỏ cho Microgrid khu trú | roadmap_SaveLife.md |
+| van_hanh_luoi_dien_vi_mo_toan_dien_d1408 | Đánh giá hiệu năng và giả lập sự cố sập tải lưới điện vi mô | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_cong_suat_lon_d1409 | Chế tạo tuabin gió trục ngang công suất lớn với dự án Trạm Phong Điện Bão Táp | roadmap_SaveLife.md |
+| lap_dat_he_thong_luoi_dien_vi_mo_microgrid_d1410 | Thiết lập hệ thống lưới điện vi mô Microgrid và kiểm tra hiệu năng phụ tải | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_pin_mat_troi_lon_d1411 | Hệ thống phát điện hỗn hợp quang điện và gió quy mô trạm trú ẩn | roadmap_SaveLife.md |
+| thiet_lap_luoi_dien_vi_mo_microgrid_nang_cao_d1412 | Vận hành và đánh giá hiệu năng mạng lưới Microgrid tự động hóa | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_pin_mat_troi_sieu_toc_d1413 | Chế tạo tuabin gió và pin mặt trời siêu tốc (Dự án: Trạm Năng Lượng Độc Lập) | roadmap_SaveLife.md |
+| thiet_lap_he_thong_microgrid_thuc_chien_d1414 | Vận hành và kiểm tra hiệu năng lưới điện thông minh (Dự án: Trạm Sập Nguồn Ổn Định) | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_pin_mat_troi_sieu_toc_d1415 | Chế tạo tuabin gió và pin mặt trời siêu tốc (Dự án Solar-Wind Hybrid) | roadmap_SaveLife.md |
+| thiet_lap_he_thong_microgrid_thuc_chien_d1416 | Kiểm định hiệu năng và giả lập sự cố lưới điện vi mô (Dự án Microgrid Survival Hub) | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_pin_mat_troi_sieu_toc_d1417 | Chế tạo tuabin gió mini kết hợp tấm pin mặt trời tái chế | roadmap_SaveLife.md |
+| thiet_lap_he_thong_microgrid_thuc_chien_d1418 | Đánh giá hiệu năng và phân phối tải điện vi mô Microgrid | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_pin_mat_troi_dac_biet_1419 | Chế tạo tuabin gió mini kết hợp lắp ráp tấm quang điện phế liệu trong Dự án Hiosol | roadmap_SaveLife.md |
+| thiet_lap_luoi_dien_vi_mo_microgrid_toi_uu_1420 | Đánh giá hiệu năng và thiết lập trạm phân phối điện Microgrid thông minh qua Dự án VoltCore | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_pin_mat_troi_dac_biet_1421 | Chế tạo tổ hợp máy phát điện lai gió kết hợp quang điện mini | roadmap_SaveLife.md |
+| thiet_lap_luoi_dien_vi_mo_microgrid_dac_biet_1422 | Vận hành và mô phỏng đánh giá hiệu năng hệ thống Microgrid tự động | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_luoi_dien_dac_biet_1423 | Chế tạo tuabin gió và tích hợp Microgrid quy mô khu dân cư | roadmap_SaveLife.md |
+| thiet_lap_he_thong_microgrid_khu_vuc_1424 | Đánh giá hiệu năng và giả lập sự cố sập tải mạng lưới Microgrid | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_pin_mat_troi_lon_d1425 | Thiết kế và chế tạo tuabin gió kết hợp pin mặt trời tự chế cho hệ sinh tồn | roadmap_SaveLife.md |
+| lap_dat_va_van_hanh_luoi_dien_vi_mo_microgrid_d1426 | Đánh giá hiệu năng và giả lập sự cố quá tải trên mạng lưới Microgrid | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_luoi_dien_dac_biet_1427 | Chế tạo tuabin gió trục đứng công suất 500W và trạm Microgrid sống còn | roadmap_SaveLife.md |
+| thiet_lap_he_thong_microgrid_khu_vuc_1428 | Kiểm định hiệu năng hệ thống điện vi mô và giả lập mô phỏng sự cố sập lưới | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_luoi_dien_vi_mo_1429 | Chế tạo tuabin gió mini trục ngang tích hợp trong Dự án Cánh Quạt Tận Thế | roadmap_SaveLife.md |
+| thiet_lap_luoi_dien_vi_mo_microgrid_vung_sang_1430 | Đánh giá hiệu năng và giả lập sự cố quá tải hệ thống Microgrid vừng sáng | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_luoi_dien_vi_mo_1431 | Chế tạo tuabin gió trục đứng Savonius tích hợp cho lưới điện độc lập | roadmap_SaveLife.md |
+| thiet_lap_tram_phan_phoi_microgrid_1432 | Vận hành trạm phân phối điện vi mô và mã hóa an ninh thông tin liên lạc | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_luoi_dien_vung_bien_1433 | Thiết kế tuabin gió ven biển và trạm truyền tải thu nhỏ | roadmap_SaveLife.md |
+| thiet_lap_he_thong_microgrid_toan_dien_1434 | Kiểm định hiệu năng và đồng bộ hóa mạng lưới điện vi mô | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_luoi_dien_vung_sau_d1435 | Chế tạo tuabin gió trục đứng công suất 5kW kết hợp lưới điện vi mô vùng sâu | roadmap_SaveLife.md |
+| van_hanh_va_kiem_dinh_luoi_dien_vi_mo_d1436 | Kiểm định hiệu năng lưới điện độc lập và đánh giá tải tiêu thụ khẩn cấp | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_luoi_dien_vung_sau_d1437 | Chế tạo tuabin gió cánh vải bạt và lập trạm microgrid vùng sâu | roadmap_SaveLife.md |
+| van_hanh_va_kiem_dinh_luoi_dien_vi_mo_d1438 | Đánh giá hiệu năng mạng lưới microgrid hỗn hợp và mã hóa bộ đàm | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_luoi_dien_vung_sau_d1439 | Chế tạo tuabin gió trục đứng công suất 5kW và lắp đặt mạng lưới Microgrid | roadmap_SaveLife.md |
+| van_hanh_va_kiem_dinh_luoi_dien_vi_mo_toan_dien_d1440 | Giả lập sự cố sập lưới và kiểm định an toàn tủ điện phân phối thông minh | roadmap_SaveLife.md |
+| che_tao_may_phat_thuy_dien_mini_d1441 | Chế tạo máy phát thủy điện mini dòng chảy thấp | roadmap_SaveLife.md |
+| tich_hop_microgrid_thuy_dien_gio_mat_troi_d1442 | Đánh giá hiệu năng và giả lập sự cố sập tải hệ thống Microgrid đa nguồn | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_luoi_dien_vung_sau_d1443 | Chế tạo tuabin gió trục đứng công suất lớn cho khu vực hẻo lánh | roadmap_SaveLife.md |
+| van_hanh_va_kiem_dinh_luoi_dien_vi_mo_toan_dien_d1444 | Đánh giá hiệu năng và giả lập sự cố sập tải mạng lưới Microgrid | roadmap_SaveLife.md |
+| che_tao_may_phat_thuy_dien_va_microgrid_d1445 | Chế tạo máy phát thủy điện mini và tích hợp Microgrid dòng điện khu vực | roadmap_SaveLife.md |
+| van_hanh_va_kiem_dinh_microgrid_toan_dien_d1446 | Vận hành và kiểm định hệ thống Microgrid toàn diện cho trạm sinh tồn | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_luoi_dien_vung_sau_d1447 | Chế tạo tuabin gió trục đứng công suất lớn và lập trạm microgrid dự án StormGale | roadmap_SaveLife.md |
+| van_hanh_va_kiem_dinh_luoi_dien_vi_mo_toan_dien_d1448 | Vận hành hệ thống điện độc lập và bảo mật thông tin liên lạc vô tuyến NeoGrid-X | roadmap_SaveLife.md |
+| che_tao_may_phat_thuy_dien_va_microgrid_nang_cap_1449 | Chế tạo máy phát thủy điện mini và tích hợp microgrid hộ gia đình | roadmap_SaveLife.md |
+| van_hanh_va_kiem_dinh_microgrid_toan_dien_1450 | Vận hành và kiểm định hệ thống lưới điện độc lập toàn khu cư trú | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_luoi_dien_vung_sau_d1451 | Chế tạo tuabin gió trục đứng Savonius tích hợp tủ điều khiển vi lưới điện | roadmap_SaveLife.md |
+| van_hanh_va_kiem_dinh_microgrid_toan_dien_d1452 | Đánh giá hiệu năng hệ thống Microgrid, tính toán tải tiêu thụ và giả lập sự cố | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_quy_mo_lon_va_microgrid_d1453 | Chế tạo tuabin gió công suất lớn và tối ưu hóa Microgrid khu trú | roadmap_SaveLife.md |
+| van_hanh_va_kiem_dinh_luoi_dien_vi_mo_nang_cao_d1454 | Vận hành và kiểm định mạng lưới Microgrid phân tán quy mô lớn | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_luoi_dien_vung_sau_d1455 | Chế tạo tuabin gió và tích hợp hệ thống phát điện vi mô 500W | roadmap_SaveLife.md |
+| van_hanh_va_kiem_dinh_microgrid_nang_cao_d1456 | Vận hành hệ thống lưới điện độc lập và bảo mật thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_luoi_dien_vi_mo_1457 | Chế tạo tuabin gió trục đứng và thiết lập microgrid khu vực tận thế | roadmap_SaveLife.md |
+| lap_dat_pin_mat_troi_va_thuy_dien_mini_1458 | Tích hợp quang điện mặt trời và trạm thủy điện dòng chảy nhỏ | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_luoi_dien_vi_mo_1459 | Chế tạo tuabin gió công suất lớn và vận hành lưới điện vi mô cho khu trú ẩn | roadmap_SaveLife.md |
+| van_hanh_va_kiem_dinh_luoi_dien_vi_mo_toan_dien_1460 | Kiểm định an ninh mạng vô tuyến và quản lý năng lượng toàn diện cho căn cứ | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_pin_mat_troi_d1461 | Chế tạo tuabin gió kết hợp pin mặt trời tự chế cho Microgrid | roadmap_SaveLife.md |
+| van_hanh_va_kiem_dinh_luoi_dien_vi_mo_nang_cao_d1462 | Vận hành hệ thống lưới điện vi mô và giả lập sự cố sập tải | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_pin_mat_troi_tu_che_d1463 | Chế tạo tổ hợp thu năng lượng kép từ tuabin gió và pin mặt trời tái chế | roadmap_SaveLife.md |
+| thiet_lap_luoi_dien_vi_mo_va_kiem_dinh_d1464 | Thiết lập lưới điện vi mô Microgrid độc lập và kiểm định an toàn | roadmap_SaveLife.md |
+| che_tao_may_phat_thuy_dien_va_microgrid_1465 | Chế tạo máy phát thủy điện dòng chảy nhỏ và tích hợp Microgrid - Sóc Tông | roadmap_SaveLife.md |
+| van_hanh_va_kiem_dinh_microgrid_toan_dien_1466 | Kiểm định hiệu năng mạng lưới Microgrid và mã hóa vô tuyến an toàn - Xanh | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_pin_mat_troi_tu_che_d1467 | Chế tạo tuabin gió kết hợp pin mặt trời tự chế cho hệ thống Microgrid Day 1467 | roadmap_SaveLife.md |
+| thiet_lap_luoi_dien_vi_mo_va_kiem_dinh_d1468 | Thiết lập lưới điện vi mô và đánh giá hiệu năng tải tiêu thụ Day 1468 | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_pin_nang_luong_mat_troi | Chế tạo tuabin gió mini và pin mặt trời tự chế cho Microgrid hậu tận thế | roadmap_SaveLife.md |
+| van_hanh_va_dong_bo_luoi_dien_vi_mo_toan_dien | Vận hành hệ thống Microgrid và kiểm định an ninh thông tin liên lạc | roadmap_SaveLife.md |
+| che_tao_tuan_bin_gio_va_pin_mat_troi_doc_lap | Chế tạo tuabin gió và pin mặt trời độc lập cho dự án Năng lượng Apocalypse | roadmap_SaveLife.md |
+| thiet_lap_luoi_dien_vi_mo_microgrid_sinh_ton | Vận hành và đánh giá hiệu năng hệ thống Microgrid qua Trạm Điện Vùng Kín | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_pin_mat_troi_sieu_nho_d1473 | Chế tạo tuabin gió và pin mặt trời siêu nhỏ cho Trạm Hỏa Tiễn | roadmap_SaveLife.md |
+| thiet_lap_va_dong_bo_microgrid_toan_dien_d1474 | Triển khai quản lý lưới điện mini và mô phỏng chống quá tải | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_pin_nang_luong_mat_troi_d1475 | Chế tạo tuabin gió kết hợp pin năng lượng mặt trời công suất cao | roadmap_SaveLife.md |
+| thiet_lap_luoi_dien_vi_mo_microgrid_sinh_ton_d1476 | Đánh giá hiệu năng và giả lập sự cố sập lưới điện vi mô Microgrid | roadmap_SaveLife.md |
+| che_tao_tuabin_va_tam_pin_nang_luong | Chế tạo tuabin gió và tấm pin năng lượng mặt trời tự chế cho Microgrid | roadmap_SaveLife.md |
+| thiet_lap_luoi_dien_vi_mo_va_thuy_dien | Đánh giá hiệu năng, giả lập sự cố và đồng bộ máy phát thủy điện | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_luoi_dien_vi_mo_1479 | Chế tạo tuabin gió trục đứng công suất nhỏ kết hợp bộ chỉnh lưu điện áp | roadmap_SaveLife.md |
+| van_hanh_va_dong_bo_microgrid_toan_dien_1480 | Kiểm định hiệu năng hệ thống Microgrid và mô phỏng giả lập sự cố sập lưới | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_pin_mat_troi_tu_che_d1481 | Chế tạo hệ thống hybrid tuabin gió và quang điện dã chiến | roadmap_SaveLife.md |
+| thiet_lap_luoi_dien_vi_mo_va_thuy_dien_mini_d1482 | Vận hành lưới điện vi mô kết hợp máy phát thủy điện dòng chảy nhỏ | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_luoi_dien_vi_mo_1483 | Chế tạo tuabin gió trục đứng và trạm Microgrid dự án Gió Xanh | roadmap_SaveLife.md |
+| van_hanh_va_dong_bo_microgrid_toan_dien_1484 | Vận hành và kiểm thử bảo mật trạm lưới điện độc lập | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_pin_mat_troi_quy_mo_lon_d1485 | Chế tạo tuabin gió kết hợp pin mặt trời tự chế công suất lớn | roadmap_SaveLife.md |
+| thiet_lap_va_dong_bo_microgrid_toan_dien_d1486 | Thiết lập, đồng bộ hóa lưới điện vi mô và bảo mật thông tin liên lạc | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_pin_nang_luong_mat_troi_sieu_nho_1487 | Chế tạo tuabin gió trục đứng kết hợp pin mặt trời quy mô nhỏ | roadmap_SaveLife.md |
+| thiet_lap_va_dong_bo_luoi_dien_vi_mo_microgrid_1488 | Tối ưu hóa và kiểm tra hiệu năng hệ thống lưới điện vi mô độc lập | roadmap_SaveLife.md |
+| che_tao_tuabin_va_microgrid_sinh_ton_1489 | Chế tạo tuabin gió mini và tủ phân phối điện độc lập Day 1489 | roadmap_SaveLife.md |
+| van_hanh_va_kiem_dinh_microgrid_toan_dien_1490 | Đánh giá hiệu năng và giả lập sự cố sập tải hệ thống Microgrid Day 1490 | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_quy_mo_lon_va_microgrid_d1491 | Chế tạo cánh quạt tuabin gió và máy phát điện mini | roadmap_SaveLife.md |
+| thiet_lap_luoi_dien_vi_mo_nang_luong_tai_tao_d1492 | Thiết lập trạm phân phối Microgrid tích hợp nguồn điện lai | roadmap_SaveLife.md |
+| che_tao_may_phat_thuy_dien_mini_va_tich_hop_micro_d1493 | Chế tạo máy phát thủy điện dòng chảy nhỏ tích hợp bộ quản lý điện năng | roadmap_SaveLife.md |
+| kiem_dinh_va_van_hanh_mang_luoi_dien_vi_mo_sinh_ton_d1494 | Kiểm tra hiệu năng lưới điện vi mô và giả lập sự cố sập tải hệ thống | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_microgrid_quy_mo_lon_d1495 | Thiết kế tuabin gió trục ngang và hệ thống Microgrid quy mô lớn Day 1495 | roadmap_SaveLife.md |
+| van_hanh_va_kiem_dinh_microgrid_toan_dien_d1496 | Đánh giá hiệu năng và mô phỏng giả lập sự cố sập lưới điện vi mô Day 1496 | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_thiet_lap_microgrid_quy_mo_lon_d1497 | Chế tạo tuabin gió trục ngang 500W và tích hợp hệ thống điện vi mô | roadmap_SaveLife.md |
+| van_hanh_va_kiem_dinh_luoi_dien_vi_mo_toan_dien_d1498 | Vận hành lưới điện độc lập đa nguồn và bảo mật tín hiệu liên lạc vô tuyến | roadmap_SaveLife.md |
+| che_tao_tuabin_gio_va_pin_mat_troi_quy_mo_lon_1499 | Chế tạo tuabin gió và pin mặt trời quy mô lớn dự án Green Horizon | roadmap_SaveLife.md |
+| thiet_lap_va_dong_bo_microgrid_toan_dien_1500 | Đồng bộ hóa lưới điện vi mô và giả lập sự cố sập tải cho trạm trú ẩn | roadmap_SaveLife.md |
+| phuc_che_dong_co_dot_trong_va_xe_co_gioi | Phục chế động cơ đốt trong và xe cơ giới sinh tồn d1501 | roadmap_SaveLife.md |
+| che_tao_va_can_chinh_may_tien_may_phay | Chế tạo và căn chỉnh máy tiện máy phay cơ khí chính xác d1502 | roadmap_SaveLife.md |
+| phuc_che_dong_co_dot_trong_va_xe_co_gioi_1503 | Đại tu động cơ đốt trong và phục chế xe tải sinh tồn trong dự án Khôi phục giao thông | roadmap_SaveLife.md |
+| che_tao_va_can_chinh_may_tien_may_phay_1504 | Vận hành và hiệu chuẩn máy tiện vạn năng phục vụ gia công chi tiết cơ khí hạng nặng | roadmap_SaveLife.md |
+| phuc_che_dong_co_dot_trong_va_xe_tai_hang_nang_d1505 | Phục chế động cơ đốt trong xe tải hạng nặng trong Dự án Vận tải Sinh tồn | roadmap_SaveLife.md |
+| van_hanh_va_can_chinh_may_tien_co_khi_d1506 | Vận hành và hiệu chuẩn máy tiện cơ khí độ chính xác cao cho xưởng chế tạo | roadmap_SaveLife.md |
+| phuc_che_dong_co_dot_trong_va_xe_tai_hang_nang_d1507 | Phục chế động cơ đốt trong và xe tải hạng nặng V8 cho dự án vận tải sinh tồn | roadmap_SaveLife.md |
+| van_hanh_va_can_chinh_may_tien_co_khi_d1508 | Hiệu chuẩn và vận hành máy tiện CNC mini tích hợp kiểm tra dung sai cơ khí | roadmap_SaveLife.md |
+| phuc_che_dong_co_dot_trong_va_xe_tai_hang_nang_d1509 | Đại tu và phục chế động cơ đốt trong cho xe tải hạng nặng trong tác phẩm Sống Sót Giữa Đô Thị Xác Sống | roadmap_SaveLife.md |
+| van_hanh_va_can_chinh_may_tien_co_khi_d1510 | Vận hành và căn chỉnh độ chính xác máy tiện cơ khí cho dự án Chế Tạo Phụ Tùng Tận Thế | roadmap_SaveLife.md |
+| phuc_che_dong_co_dot_trong_va_xe_tai_hang_nang_d1511 | Đại tu và phục chế động cơ đốt trong cho xe tải hạng nặng trong dự án Apocalypse Truck | roadmap_SaveLife.md |
+| van_hanh_va_can_chinh_may_tien_co_khi_d1512 | Hiệu chuẩn máy tiện và gia công chi tiết cơ khí chính xác trong dự án Precision Lathe | roadmap_SaveLife.md |
+| phuc_che_dong_co_dot_trong_va_xe_tai_hang_nang_d1513 | Đại tu và phục chế động cơ xe tải hạng nặng V8 | roadmap_SaveLife.md |
+| van_hanh_va_can_chinh_may_tien_co_khi_d1514 | Vận hành và căn chỉnh độ chính xác máy tiện cơ khí khổ lớn | roadmap_SaveLife.md |
+| phuc_che_dong_co_dot_trong_va_xe_tai_hang_nang_d1515 | Đại tu và phục chế động cơ đốt trong cho xe tải hạng nặng V8-Diesel | roadmap_SaveLife.md |
+| van_hanh_va_can_chinh_may_tien_co_khi_d1516 | Vận hành và căn chỉnh độ chính xác máy tiện cơ khí cỡ lớn Lathe-X9 | roadmap_SaveLife.md |
+| phuc_che_toan_dien_dong_co_dot_trong_va_xe_tai_d1517 | Đại tu toàn diện khối động cơ diesel và hệ thống nhiên liệu xe tải nặng | roadmap_SaveLife.md |
+| van_hanh_va_can_chinh_may_tien_phay_co_khi_d1518 | Vận hành máy tiện vạn năng và gia công phay rãnh then trục truyền động | roadmap_SaveLife.md |
+| phuc_che_toan_dien_dong_co_dot_trong_va_xe_tai_d1519 | Đại tu toàn diện động cơ đốt trong và xe tải nặng trong dự án Apocalypse Transport | roadmap_SaveLife.md |
+| van_hanh_va_can_chinh_may_tien_phay_toan_dien_d1520 | Vận hành và căn chỉnh độ chính xác máy tiện phay trong xưởng cơ khí sinh tồn | roadmap_SaveLife.md |
+| phuc_che_toan_dien_dong_co_dot_trong_va_xe_tai_d1521 | Đại tu toàn diện động cơ đốt trong và xe tải hạng nặng D1521 | roadmap_SaveLife.md |
+| van_hanh_va_can_chinh_may_tien_phay_toan_dien_d1522 | Vận hành hệ thống vi cơ khí và kiểm định chất lượng nước chuyên sâu D1522 | roadmap_SaveLife.md |
+| phuc_che_dong_co_dot_trong_va_xe_tai_hang_nang_d1523 | Đại tu toàn diện động cơ diesel và hệ thống truyền lực xe tải nặng Zomboid | roadmap_SaveLife.md |
+| van_hanh_va_can_chinh_may_tien_phay_toan_dien_d1524 | Vận hành, căn chỉnh máy tiện vạn năng và bảo mật thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| phuc_che_dong_co_dot_trong_va_may_tien_d1525 | Đại tu và phục chế động cơ đốt trong kết hợp máy tiện tại xưởng cơ khí hậu tận thế | roadmap_SaveLife.md |
+| thiet_lap_giao_thong_an_toan_va_xe_co_gioi_d1526 | Thiết lập tuyến tuần tra giao thông cơ giới kết hợp mã hóa liên lạc bộ đàm dã chiến | roadmap_SaveLife.md |
+| phuc_che_dong_co_dot_trong_va_may_tien_d1527 | Đại tu toàn diện động cơ xe tải và gia công chi tiết máy tiện chính xác | roadmap_SaveLife.md |
+| thiet_lap_giao_thong_an_toan_va_may_phay_d1528 | Thiết lập hệ thống giao thông an toàn và phay mặt phẳng cơ khí kết hợp bảo mật vô tuyến | roadmap_SaveLife.md |
+| phuc_che_toan_dien_dong_co_va_may_phay_d1529 | Phục chế động cơ đốt trong V8 và cân chỉnh máy phay vạn năng d1529 | roadmap_SaveLife.md |
+| thiet_lap_mang_luoi_giao_thong_an_toan_va_may_tien_d1530 | Xây dựng trạm kiểm soát giao thông và mã hóa thông tin liên lạc d1530 | roadmap_SaveLife.md |
+| phuc_che_toan_dien_dong_co_va_thiet_lap_giao_thong_d1531 | Phục chế động cơ đốt trong đa xi-lanh và thiết lập luồng giao thông an toàn | roadmap_SaveLife.md |
+| van_hanh_may_tien_phay_va_dong_bo_giao_thong_d1532 | Vận hành máy tiện phay kết hợp kiểm định an toàn thực phẩm dã chiến | roadmap_SaveLife.md |
+| phuc_che_toan_dien_dong_co_va_thiet_lap_giao_thong_d1533 | Đại tu toàn diện động cơ V8 và thiết lập an toàn giao thông Day 1533 | roadmap_SaveLife.md |
+| van_hanh_may_tien_phay_va_dong_bo_giao_thong_d1534 | Gia công cơ khí chính xác và bảo mật thông tin liên lạc Day 1534 | roadmap_SaveLife.md |
+| phuc_che_dong_co_va_thiet_lap_giao_thong_d1535 | Đại tu động cơ đốt trong và thiết lập trạm giao thông an toàn dự án Apocalypse | roadmap_SaveLife.md |
+| van_hanh_may_tien_phay_va_dong_bo_giao_thong_d1536 | Vận hành máy tiện phay gia công phụ tùng xe và mã hóa tín hiệu liên lạc | roadmap_SaveLife.md |
+| phuc_che_dong_co_dot_trong_va_may_tien_d1537 | Đại tu bơm cao áp động cơ diezel và tiện trục khuỷu xe tải hạng nặng Project Zomboid | roadmap_SaveLife.md |
+| thiet_lap_giao_thong_an_toan_va_may_phay_d1538 | Lắp đặt rào chắn tự động hóa kết hợp mã hóa vô tuyến và phay mặt bích động cơ | roadmap_SaveLife.md |
+| phuc_che_dong_co_dot_trong_va_may_tien_phay_d1539 | Đại tu động cơ đốt trong và gia công chi tiết trên máy tiện phay | roadmap_SaveLife.md |
+| thiet_lap_mang_luoi_giao_thong_an_toan_va_xe_co_d1540 | Thiết lập lưới giao thông an toàn, mã hóa tín hiệu và kiểm định xe cơ giới | roadmap_SaveLife.md |
+| phuc_che_dong_co_va_thiet_lap_giao_thong_d1541 | Phục chế động cơ đốt trong KAMAZ và thiết lập hệ thống biển báo giao thông | roadmap_SaveLife.md |
+| van_hanh_may_tien_phay_va_dong_bo_giao_thong_d1542 | Vận hành máy tiện CNC mini, mã hóa vô tuyến và kiểm định chất lượng nước | roadmap_SaveLife.md |
+| phuc_che_dong_co_dot_trong_va_may_tien_phay_d1543 | Đại tu chế hòa khí động cơ và chế tạo bánh răng máy phay Day 1543 | roadmap_SaveLife.md |
+| thiet_lap_giao_thong_an_toan_va_may_moc_d1544 | Thiết lập rào chắn tự động và vận hành xưởng cơ khí Day 1544 | roadmap_SaveLife.md |
+| phuc_che_dong_co_dot_trong_va_may_tien_phay_d1545 | Đại tu động cơ đốt trong và tích hợp trục máy tiện máy phay tại xưởng cơ khí | roadmap_SaveLife.md |
+| thiet_lap_giao_thong_an_toan_va_san_xuat_d1546 | Thiết lập trạm kiểm soát giao thông an toàn và mã hóa tín hiệu liên lạc | roadmap_SaveLife.md |
+| phuc_che_dong_co_dot_trong_va_may_tien_phay_d1547 | Phục chế động cơ đốt trong và cân chỉnh bàn trượt máy tiện | roadmap_SaveLife.md |
+| thiet_lap_giao_thong_an_toan_va_xe_co_gioi_d1548 | Thiết lập hành lang vận tải cơ giới và mã hóa thông tin liên lạc | roadmap_SaveLife.md |
+| phuc_che_dong_co_dot_trong_va_may_tien_phay_d1549 | Phục chế động cơ đốt trong và máy tiện phay định hình | roadmap_SaveLife.md |
+| thiet_lap_giao_thong_an_toan_va_san_xuat_co_khi_d1550 | Thiết lập hành lang an ninh vô tuyến và mã hóa mạng lưới xưởng | roadmap_SaveLife.md |
+| phuc_che_dong_co_dot_trong_va_may_tien_phay_d1551 | Phục chế động cơ đốt trong kết hợp vận hành máy tiện phay tại xưởng | roadmap_SaveLife.md |
+| thiet_lap_giao_thong_an_toan_va_xe_co_gioi_d1552 | Thiết lập tuyến giao thông an toàn và mã hóa liên lạc vô tuyến bảo mật | roadmap_SaveLife.md |
+| phuc_che_dong_co_dot_trong_va_may_tien_d1553 | Đại tu cỗ máy V8 và gia công trục khuỷu cho xe tải địa hình | roadmap_SaveLife.md |
+| thiet_lap_giao_thong_an_toan_va_may_phay_d1554 | Xây dựng trạm gác kiểm soát xe cơ giới và phay bệ gá thép | roadmap_SaveLife.md |
+| phuc_che_dong_co_dot_trong_va_may_phay_d1555 | Đại tu block máy V8 và phay mặt bích động cơ trong Dự án Thiết giáp Hỏa Xa | roadmap_SaveLife.md |
+| thiet_lap_giao_thong_an_toan_va_san_xuat_d1556 | Thiết lập trạm kiểm soát giao thông cơ giới và mã hóa vô tuyến an toàn | roadmap_SaveLife.md |
+| phuc_che_dong_co_dot_trong_va_may_tien_d1557 | Đại tu block máy và vận hành máy tiện phục hồi trục khuỷu xe tải chiến đấu | roadmap_SaveLife.md |
+| thiet_lap_giao_thong_an_toan_va_may_phay_d1558 | Thiết lập trạm gác kiểm soát an ninh mạng và mã hóa tín hiệu bộ đàm | roadmap_SaveLife.md |
+| phuc_che_dong_co_va_thiet_lap_giao_thong_d1559 | Đại tu động cơ V8 và tích hợp hệ thống lọc nước sinh hoạt dã chiến | roadmap_SaveLife.md |
+| thiet_lap_giao_thong_an_toan_va_may_phay_d1560 | Xây dựng trạm gác kiểm soát, vận hành máy phay và bảo mật vô tuyến | roadmap_SaveLife.md |
+| phuc_che_block_may_va_thiet_lap_tram_gac_d1561 | Phục chế block máy và thiết lập trạm gác giao thông an toàn | roadmap_SaveLife.md |
+| van_hanh_may_tien_phay_va_tuyen_xe_co_gioi_d1562 | Vận hành máy tiện phay và quy hoạch hệ thống xử lý chất thải sinh học | roadmap_SaveLife.md |
+| phuc_che_dong_co_va_tram_gac_giao_thong_d1563 | Phục chế động cơ đốt trong và thiết lập trạm gác kiểm soát đường bộ | roadmap_SaveLife.md |
+| van_hanh_may_tien_phay_va_tuyen_xe_khu_dan_d1564 | Vận hành máy tiện phay và quy hoạch xử lý chất thải khu dân cư | roadmap_SaveLife.md |
+| phuc_che_dong_co_va_tram_gac_giao_thong_d1565 | Đại tu động cơ đốt trong và lập chốt gác giao thông an toàn (Dự án S-1565) | roadmap_SaveLife.md |
+| van_hanh_may_tien_phay_va_tuyen_xe_khu_dan_d1566 | Gia công cơ khí chính xác và kiểm định nguồn nước sinh hoạt nội đô (Dự án S-1566) | roadmap_SaveLife.md |
+| phuc_che_dong_co_va_tram_gac_giao_thong_d1567 | Đại tu động cơ đốt trong và thiết lập trạm gác giao thông Day 1567 | roadmap_SaveLife.md |
+| van_hanh_may_tien_phay_va_tuyen_xe_khu_dan_d1568 | Vận hành máy tiện phay và quy hoạch tuyến xe khu dân cư Day 1568 | roadmap_SaveLife.md |
+| phuc_che_dong_co_va_van_hanh_may_tien_phay_d1569 | Phục chế động cơ diesel và vận hành máy tiện phay cơ khí Day 1569 | roadmap_SaveLife.md |
+| thiet_lap_tuyen_xe_co_gioi_va_tram_gac_giao_thong_d1570 | Thiết lập tuyến xe cơ giới an toàn và trạm gác giao thông Day 1570 | roadmap_SaveLife.md |
+| phuc_che_dong_co_va_van_hanh_may_tien_d1571 | Đại tu block động cơ đốt trong kết hợp vận hành máy tiện chế tạo bạc lót | roadmap_SaveLife.md |
+| thiet_lap_tuyen_xe_co_gioi_va_tram_gac_d1572 | Thiết lập tuyến xe cơ giới quân sự và xây dựng trạm gác kiểm soát an ninh số hóa sơ khai | roadmap_SaveLife.md |
+| phuc_che_dong_co_dot_trong_va_may_tien_d1573 | Phục chế động cơ đốt trong và vận hành máy tiện CNC (Dự án Tái thiết xe tải) | roadmap_SaveLife.md |
+| thiet_lap_tuyen_xe_co_gioi_va_tram_gac_d1574 | Thiết lập tuyến xe cơ giới an toàn và hệ thống kiểm soát thông tin liên lạc | roadmap_SaveLife.md |
+| phuc_che_dong_co_va_van_hanh_may_tien_phay_d1575 | Đại tu tổng thể block động cơ đốt trong và vận hành máy tiện phay cơ khí | roadmap_SaveLife.md |
+| thiet_lap_tuyen_xe_co_gioi_va_tram_gac_d1576 | Xây dựng bốt gác cốt thép và kiểm định an toàn tuyến vận tải cơ giới | roadmap_SaveLife.md |
+| phuc_che_dong_co_va_van_hanh_may_tien_phay_d1577 | Đại tu và cân chỉnh hệ thống truyền động xe tải chiến đấu kết hợp kiểm định chất lượng vật liệu gia công | roadmap_SaveLife.md |
+| thiet_lap_tuyen_xe_co_gioi_va_tram_gac_d1578 | Thiết lập tuyến xe cơ giới an toàn qua khu vực độc hại và xây dựng trạm gác cốt thép kiên cố | roadmap_SaveLife.md |
+| phuc_che_dong_co_va_van_hanh_may_tien_phay_d1579 | Gia công bạc lót trục khuỷu và kiểm nghiệm chất lượng nước vi mô cho động cơ đốt trong | roadmap_SaveLife.md |
+| thiet_lap_tuyen_xe_co_gioi_va_tram_gac_d1580 | Hệ thống kiểm soát và cơ giới hóa trạm gác tuyến Mad Max | roadmap_SaveLife.md |
+| phuc_che_dong_co_va_van_hanh_may_phay_d1581 | Gia công cơ khí chính xác và bảo dưỡng động cơ V8 cho xe tải bọc thép | roadmap_SaveLife.md |
+| thiet_lap_tuyen_giao_thong_va_gia_cong_may_tien_d1582 | Thiết lập tuyến giao thông an toàn kết hợp gia công trục khuỷu trên máy tiện | roadmap_SaveLife.md |
+| phuc_che_dong_co_va_van_hanh_may_tien_phay_d1583 | Xử lý chất thải sinh hoạt dã chiến và đúc bạc lót động cơ đồng thau | roadmap_SaveLife.md |
+| thiet_lap_tuyen_giao_thong_va_tram_gac_an_toan_d1584 | Thiết lập tuyến giao thông và trạm gác an toàn dự án Vận tải Sinh tồn | roadmap_SaveLife.md |
+| phuc_che_dong_co_dot_trong_va_may_tien_d1585 | Đại tu xy-lanh xe tải và kiểm định độc tính nước sinh hoạt | roadmap_SaveLife.md |
+| thiet_lap_tuyen_giao_thong_va_tram_gac_d1586 | Thiết lập tuyến giao thông bọc thép và xây trạm gác an toàn dự án Transit-Z | roadmap_SaveLife.md |
+| phuc_che_dong_co_dot_trong_va_may_phay_d1587 | Phục chế động cơ đốt trong và gia công chi tiết trên máy phay công nghiệp | roadmap_SaveLife.md |
+| thiet_lap_tuyen_giao_thong_va_tram_gac_d1588 | Thiết lập tuyến giao thông an toàn cơ giới và xây dựng trạm gác kiểm soát | roadmap_SaveLife.md |
+| phuc_che_dong_co_dot_trong_va_may_tien_d1589 | Đại tu và tinh chỉnh hệ thống động cơ đốt trong phục vụ vận tải hạng nặng | roadmap_SaveLife.md |
+| thiet_lap_tuyen_giao_thong_va_may_phay_d1590 | Thiết lập tuyến giao thông an toàn và vận hành máy phay cho dự án hộp số | roadmap_SaveLife.md |
+| phuc_che_dong_co_dot_trong_va_may_tien_d1591 | Đại tu xy-lanh động cơ đốt trong kết hợp xử lý chất thải sinh học vùng trú ẩn | roadmap_SaveLife.md |
+| thiet_lap_tuyen_giao_thong_va_may_tien_d1592 | Thiết lập hành lang giao thông an toàn và gia công chi tiết máy tiện hạng nặng | roadmap_SaveLife.md |
+| phuc_che_dong_co_dot_trong_va_may_tien_d1593 | Đại tu xy-lanh động cơ đốt trong kết hợp mã hóa bảo mật thông tin vô tuyến | roadmap_SaveLife.md |
+| thiet_lap_tuyen_giao_thong_va_may_tien_d1594 | Thiết lập hành lang vận tải cơ giới và gia công bánh răng máy tiện | roadmap_SaveLife.md |
+| phuc_che_dong_co_va_may_phay_d1595 | Đại tu động cơ vi mô và kiểm định nguồn nước sinh tồn | roadmap_SaveLife.md |
+| thiet_lap_tuyen_giao_thong_va_may_tien_d1596 | Hành lang vận tải cơ giới và chế tạo trục truyền động máy tiện | roadmap_SaveLife.md |
+| phuc_che_dong_co_dot_trong_va_may_tien_d1597 | Đại tu xy-lanh động cơ đốt trong và gia công chi tiết trên máy tiện | roadmap_SaveLife.md |
+| thiet_lap_hanh_lang_giao_thong_va_may_phay_d1598 | Thiết lập hành lang vận tải an toàn và gia công rãnh trên máy phay | roadmap_SaveLife.md |
+| phuc_che_dong_co_va_may_tien_d1599 | Đại tu xy-lanh động cơ và vận hành máy tiện phục vụ dự án xe cơ giới tận thế | roadmap_SaveLife.md |
+| thiet_lap_hanh_lang_va_may_phay_d1600 | Thiết lập hành lang giao thông an toàn và vận hành máy phay chế tạo linh kiện | roadmap_SaveLife.md |
+| ngoai_giao_va_thiet_lap_lien_minh_khu_vuc_d1601 | Đàm phán ngoại giao và thiết lập liên minh sinh tồn khu vực - Dự án Hội nghị Thượng đỉnh Vùng | roadmap_SaveLife.md |
+| mo_rong_vung_kiem_soat_va_tuan_tra_lien_minh_d1602 | Hoạch định bản đồ kiểm soát chung và phân công tuần tra biên giới - Dự án Bản đồ Chiến lược Vùng | roadmap_SaveLife.md |
+| ky_ket_hiep_uong_ngoai_giao_khu_vuc_d1603 | Ký kết hiệp ước ngoại giao khu vực - Sách lược liên minh sinh tồn | roadmap_SaveLife.md |
+| thiet_lap_mang_luoi_tinh_bao_lien_minh_d1604 | Xây dựng trạm vô tuyến bảo mật - Kỹ thuật nhảy tần và mã hóa bộ đàm | roadmap_SaveLife.md |
+| thiet_lap_hanh_lang_ngoai_giao_d1605 | Thiết lập hành lang ngoại giao và mã hóa thông tin liên lạc vô tuyến vùng đệm | roadmap_SaveLife.md |
+| ky_ket_lien_minh_chien_luoc_d1606 | Ký kết hiệp ước liên minh và kiểm định chất lượng nước sinh hoạt dã chiến | roadmap_SaveLife.md |
+| hop_tac_quan_su_va_ngoai_giao_vung_d1607 | Thiết lập liên minh chiến lược vùng đất liền trong Kỹ năng sinh tồn khi tận thế zombie | roadmap_SaveLife.md |
+| tich_hop_mang_luoi_canh_bao_som_d1608 | Mã hóa và vận hành mạng lưới thông tin liên lạc vô tuyến bảo mật tầm xa | roadmap_SaveLife.md |
+| dam_phan_ngoai_giao_khu_vuc_d1609 | Đàm phán ngoại giao và thiết lập hiệp định khu vực - Kỹ năng sinh tồn khi tận thế zombie | roadmap_SaveLife.md |
+| phan_chia_vung_kiem_soat_d1610 | Phân chia vùng kiểm soát, tuần tra chung và xử lý chất thải dã chiến - Kỹ năng sinh tồn | roadmap_SaveLife.md |
+| dam_phan_lien_minh_khu_vuc_d1611 | Ngoại giao liên minh khu vực và thỏa thuận chia sẻ tài nguyên sinh tồn | roadmap_SaveLife.md |
+| thiet_lap_tuyen_tuan_tra_lien_minh_d1612 | Triển khai hệ thống trạm gác hỗn hợp và mã hóa tín hiệu bộ đàm | roadmap_SaveLife.md |
+| dam_phan_va_thiet_lap_doi_ngoai_vung_d1613 | Đàm phán ngoại giao và thiết lập hiệp ước hòa bình liên minh vùng | roadmap_SaveLife.md |
+| mo_rong_hanh_lang_thuong_mai_va_tuan_tra_d1614 | Xây dựng hành lang thương mại an toàn và kiểm định độc tính thực phẩm | roadmap_SaveLife.md |
+| dam_phan_va_ky_ket_hiep_uong_lien_minh_d1615 | Đàm phán và ký kết hiệp ước liên minh vùng trong tác phẩm Tận Thế Vùng Biên | roadmap_SaveLife.md |
+| thiet_lap_so_chi_huy_lien_minh_khu_vuc_d1616 | Xây dựng hệ thống an ninh và điều phối trạm chỉ huy trung tâm vùng biên | roadmap_SaveLife.md |
+| mo_rong_vung_kiem_soat_ngoai_giao_d1617 | Xây dựng trạm tiếp vận vô tuyến và nhảy tần bảo mật trong Kỹ năng sinh tồn khi tận thế zombie | roadmap_SaveLife.md |
+| hoan_thien_hiep_uong_ngoai_giao_d1618 | Ký kết văn kiện và thiết lập tiêu chí định lượng năng lực liên minh trong Kỹ năng sinh tồn | roadmap_SaveLife.md |
+| dam_phan_va_thiet_lap_doi_ngoai_vung_d1619 | Đàm phán ngoại giao và bảo mật thông tin liên lạc vô tuyến vùng | roadmap_SaveLife.md |
+| thiet_lap_tuyen_tuan_tra_va_bao_ve_d1620 | Kiểm định chất lượng nước và thiết lập tuyến tuần tra liên minh | roadmap_SaveLife.md |
+| dam_phan_ngoai_giao_va_thiet_lap_doi_ngoai_vung_d1621 | Đàm phán ngoại giao và bảo mật thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| hoan_thien_hiep_uong_lien_minh_va_mo_rong_vung_kiem_soat_d1622 | Kiểm định chất lượng nước và hoàn thiện hiệp ước liên minh | roadmap_SaveLife.md |
+| mo_rong_vung_kiem_soat_va_ngoai_giao_vung_d1623 | Hoạch định hành lang an toàn và chiến lược ngoại giao liên minh trong Kỹ năng sinh tồn khi tận thế zombie | roadmap_SaveLife.md |
+| thiet_lap_doi_ngoai_va_thong_tri_khu_vuc_d1624 | Vận hành Trạm Giao thương và kiểm định an toàn sinh học vùng đệm trong Kỹ năng sinh tồn khi tận thế zombie | roadmap_SaveLife.md |
+| dam_phan_va_thiet_lap_doi_ngoai_vung_d1625 | Đàm phán ngoại giao và bảo mật thông tin liên lạc vô tuyến vùng | roadmap_SaveLife.md |
+| thiet_lap_tuyen_tuan_tra_va_bao_ve_lien_minh_d1626 | Xây dựng hệ thống tuần tra liên minh và xử lý chất thải dã chiến | roadmap_SaveLife.md |
+| dam_phan_va_thiet_lap_doi_ngoai_vung_1627 | Đàm phán thiết lập Giao ước Liên Minh Vùng và xử lý vệ sinh môi trường dã chiến | roadmap_SaveLife.md |
+| hoan_thien_vung_kiem_soat_va_ngoai_giao_1628 | Hoàn thiện bản đồ Vùng Ảnh Hưởng và kiểm định an toàn nguồn nước | roadmap_SaveLife.md |
+| dam_phan_va_thiet_lap_doi_ngoai_vung_1629 | Đàm phán ngoại giao và bảo mật tần số liên lạc vùng biên | roadmap_SaveLife.md |
+| hoan_thien_vung_kiem_soat_va_ngoai_giao_1630 | Kiểm định vệ sinh môi trường và ký kết hiệp ước liên minh đa biên | roadmap_SaveLife.md |
+| dam_phan_va_thiet_lap_doi_ngoai_vung_1631 | Đàm phán và thiết lập đội ngoại giao khu vực (Dự án Tận Thế) | roadmap_SaveLife.md |
+| hoan_thien_vung_kiem_soat_va_ngoai_giao_1632 | Hoàn thiện vùng kiểm soát và mã hóa tín hiệu liên lạc | roadmap_SaveLife.md |
+| dam_phan_va_thiet_lap_doi_ngoai_vung_1633 | Đàm phán và thiết lập đội ngoại giao liên khu vực trong Dự án Sống Sót Z | roadmap_SaveLife.md |
+| hoan_thien_vung_kiem_soat_va_ngoai_giao_1634 | Hoàn thiện vùng kiểm soát và kiểm định an toàn sinh học liên minh | roadmap_SaveLife.md |
+| kien_tao_lien_minh_khu_vuc_d1635 | Thiết lập hiệp ước liên minh vùng và phân định biên giới sinh tồn | roadmap_SaveLife.md |
+| van_hanh_mang_luoi_ngoai_giao_d1636 | Vận hành trạm giao tế biên giới và bảo mật thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| thiet_lap_dai_su_quan_khu_vuc_d1637 | Thiết lập đại sứ quán ngoại giao liên nhóm sinh tồn | roadmap_SaveLife.md |
+| ky_ket_hiep_dinh_thong_tri_d1638 | Ký kết văn kiện phân định ranh giới và chiến lược kiểm soát lãnh thổ | roadmap_SaveLife.md |
+| mo_rong_vung_kiem_soat_khu_vuc_d1639 | Thiết lập hành lang ngoại giao và mã hóa thông tin liên lạc liên minh | roadmap_SaveLife.md |
+| củng_cố_lien_minh_va_thong_tri_d1640 | Vận hành hệ thống vệ sinh dã chiến và kiểm định an toàn nguồn nước | roadmap_SaveLife.md |
+| mo_rong_vung_kiem_soat_vung_ngoai_vi_d1641 | Thiết lập hệ thống vệ sinh dã chiến và xử lý chất thải vùng ngoại vi | roadmap_SaveLife.md |
+| thiet_lap_doi_ngoai_va_thong_tri_khu_vuc_sau_d1642 | Mã hóa thông tin vô tuyến và bảo mật liên lạc tầm xa | roadmap_SaveLife.md |
+| mo_rong_vung_kiem_soat_vung_ngoai_vi_d1643 | Mở rộng vùng kiểm soát và xây dựng hệ thống xử lý chất thải sinh học dã chiến | roadmap_SaveLife.md |
+| thiet_lap_lien_minh_chien_luoc_vung_d1644 | Thiết lập liên minh chiến lược khu vực và bảo mật thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| lap_dat_duong_day_nong_ngoai_giao_d1645 | Thiết lập kênh liên lạc vô tuyến bảo mật và mã hóa ngoại giao | roadmap_SaveLife.md |
+| to_chuc_hoi_nghi_thuong_dinh_lien_minh_d1646 | Đàm phán hiệp ước phân chia ranh giới và kiểm định an toàn thực phẩm liên minh | roadmap_SaveLife.md |
+| mo_rong_vung_kiem_soat_ngoai_giao_d1647 | Đàm phán mở rộng lãnh thổ và thiết lập vùng đệm ngoại giao khu vực miền Nam | roadmap_SaveLife.md |
+| ky_ket_hiep_dinh_thong_tri_vung_d1648 | Thiết lập hệ thống kiểm định an toàn nguồn nước và ký kết hiệp định liên minh | roadmap_SaveLife.md |
+| mo_rong_vung_kiem_soat_va_ngoai_giao_vung_1649 | Xây dựng hiệp ước hợp tác vùng và thiết lập vùng đệm kiểm soát an ninh | roadmap_SaveLife.md |
+| thiet_lap_doi_ngoai_va_thong_tri_khu_vuc_1650 | Thành lập ban ngoại giao liên minh kết hợp kiểm định chất lượng nước dã chiến | roadmap_SaveLife.md |
+| dam_phan_lien_minh_ngoai_giao_khu_vuc_d1651 | Đàm phán liên minh ngoại giao khu vực và mã hóa thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| thiet_lap_hanh_lang_giao_thuong_vung_d1652 | Thiết lập hành lang giao thương an toàn và kiểm định chất lượng nước dã chiến | roadmap_SaveLife.md |
+| dam_phan_ngoai_giao_nhom_song_sot_vung_ke_ben_d1653 | Đàm phán ngoại giao nhóm sống sót vùng kề bên trong Kỹ năng sinh tồn khi tận thế zombie | roadmap_SaveLife.md |
+| mo_rong_vung_kiem_soat_va_cung_co_lien_minh_khu_vuc_d1654 | Thiết lập mật mã hóa liên lạc và kiểm định an toàn thực phẩm vùng liên minh | roadmap_SaveLife.md |
+| mo_rong_vung_kiem_soat_va_ngoai_giao_vung_1655 | Xây dựng hiệp ước hợp tác liên vùng và mở rộng kiểm soát | roadmap_SaveLife.md |
+| thiet_lap_doi_ngoai_va_thong_tri_khu_vuc_1656 | Thiết lập hội đồng chỉ huy liên minh và quản lý lãnh thổ | roadmap_SaveLife.md |
+| dam_phan_ngoai_giao_lien_minh_vung_1657 | Đàm phán ngoại giao và phân định ranh giới vùng kiểm soát chung | roadmap_SaveLife.md |
+| ky_ket_va_van_hanh_hiep_dinh_vung_1658 | Triển khai hệ thống mã hóa thông tin liên lạc và tuần tra ngoại vi | roadmap_SaveLife.md |
+| dam_phan_thiet_lap_lien_minh_khu_vuc_d1659 | Đàm phán và thiết lập hiệp ước liên minh khu vực sinh tồn | roadmap_SaveLife.md |
+| mo_rong_vung_kiem_soat_va_ngoai_giao_d1660 | Hoạch định bản đồ chiến lược và kiểm định an toàn vệ sinh vùng mở rộng | roadmap_SaveLife.md |
+| mo_rong_vung_kiem_soat_va_ngoai_giao_d1661 | Thiết lập trạm gác ranh giới kết hợp hệ thống xử lý vệ sinh dã chiến | roadmap_SaveLife.md |
+| kien_tao_lien_minh_va_thong_tri_vung_d1662 | Ký kết hiệp ước khu vực và mã hóa thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| dam_phan_ngoai_giao_va_mo_rong_vung_anh_huong_d1663 | Đàm phán ngoại giao và phân định ranh giới lãnh thổ sinh tồn | roadmap_SaveLife.md |
+| ky_ket_nghi_dinh_thu_thong_tri_khu_vuc_d1664 | Ban hành Nghị định thư thống trị và kiểm định an toàn môi trường liên minh | roadmap_SaveLife.md |
+| dam_phan_va_hoan_thien_vung_kiem_soat_d1665 | Đàm phán ngoại giao và lập biên bản phân chia ranh giới sinh tồn | roadmap_SaveLife.md |
+| kien_tao_lien_minh_va_mo_rong_lanh_tho_d1666 | Thiết lập hiệp ước liên minh và mã hóa thông tin liên lạc bảo mật | roadmap_SaveLife.md |
+| dam_phan_va_thiet_lap_lien_minh_ngoai_giao_d1667 | Đàm phán liên minh chiến lược vùng và mã hóa thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| van_hanh_va_kiem_duyet_hiep_dinh_vung_d1668 | Vận hành chốt kiểm soát ngoại giao và kiểm định chất lượng nước uống dã chiến | roadmap_SaveLife.md |
+| dam_phan_va_thiet_lap_dai_su_quan_vung_d1669 | Đàm phán ngoại giao và bảo mật tần số liên lạc liên minh trong tận thế zombie | roadmap_SaveLife.md |
+| kien_tao_lien_minh_va_mo_rong_vung_kiem_soat_d1670 | Thiết lập hiệp ước phân định lãnh thổ và tiêu chuẩn kiểm định độc tính thực phẩm | roadmap_SaveLife.md |
+| dam_phan_va_thiet_lap_lien_minh_ngoai_giao_vung_1671 | Đàm phán ngoại giao và thiết lập liên minh vùng trong Project Zomboid | roadmap_SaveLife.md |
+| van_hanh_va_kiem_duyet_hiep_dinh_vung_1672 | Xây dựng hạ tầng xử lý chất thải và an ninh vô tuyến hậu tận thế | roadmap_SaveLife.md |
+| dam_phan_va_thiet_lap_lien_minh_khu_vuc_d1673 | Đàm phán liên minh vùng chiến lược và thiết lập hội đồng điều phối liên khu vực trong Kỹ năng sinh tồn khi tận thế zombie | roadmap_SaveLife.md |
+| mo_rong_vung_kiem_soat_va_thiet_lap_dai_su_quan_d1674 | Xây dựng trạm đại sứ quán tiền phương và mã hóa bảo mật thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| dam_phan_va_thiet_lap_doi_ngoai_khu_vuc_d1675 | Đàm phán và thiết lập đội ngoại giao khu vực (Dự án: Kỹ năng sinh tồn) | roadmap_SaveLife.md |
+| ky_ket_va_van_hanh_hiep_dinh_ngoai_giao_d1676 | Ký kết và vận hành hiệp định an ninh thông tin vô tuyến vùng | roadmap_SaveLife.md |
+| thiet_lap_ngoai_giao_vung_1677 | Thiết lập ngoại giao liên nhóm và bảo mật thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| thong_tri_va_mo_rong_vung_1678 | Kiểm nghiệm nước chuyên sâu và hoạch định bản đồ chiến lược vùng kiểm soát | roadmap_SaveLife.md |
+| dam_phan_va_thiet_lap_lien_minh_ngoai_giao_khu_vuc_d1679 | Đàm phán liên minh vùng chiến lược trong Kỹ năng sinh tồn khi tận thế zombie | roadmap_SaveLife.md |
+| van_hanh_va_kiem_duyet_hiep_dinh_ngoai_giao_vung_d1680 | Xây dựng hệ thống bảo mật tín hiệu và mã hóa bộ đàm liên minh | roadmap_SaveLife.md |
+| dam_phan_va_thiet_lap_doi_ngoai_vung_d1681 | Đàm phán và thiết lập đội ngoại giao vùng: Sổ tay hiệp ước liên minh khu vực | roadmap_SaveLife.md |
+| cung_co_lanh_tho_va_van_hanh_lien_minh_d1682 | Thiết lập trạm kiểm soát biên giới: Biển hiệu và kiểm định vệ sinh vùng | roadmap_SaveLife.md |
+| dam_phan_va_thiet_lap_doi_ngoai_khu_vuc_1683 | Đàm phán và thiết lập ngoại giao khu vực kết hợp bảo mật thông tin liên lạc vô tuyến | roadmap_SaveLife.md |
+| mo_rong_vung_kiem_soat_va_ngoai_giao_khu_vuc_1684 | Hoạch định bản đồ phân định ranh giới lãnh thổ và kiểm tra an toàn sinh học vùng tiếp quản | roadmap_SaveLife.md |
+| dam_phan_va_thiet_lap_doi_ngoai_khu_vuc_1685 | Đàm phán và thiết lập biên bản ghi nhớ ngoại giao khu vực | roadmap_SaveLife.md |
+| ky_ket_va_van_hanh_hiep_dinh_ngoai_giao_1686 | Mã hóa tần số vô tuyến và vận hành mạng lưới liên lạc liên minh | roadmap_SaveLife.md |
+| dam_phan_va_thiet_lap_lien_minh_ngoai_giao_khu_vuc_d1687 | Đàm phán ngoại giao và bảo mật thông tin liên lạc vô tuyến (Dự án Zomboid) | roadmap_SaveLife.md |
+| van_hanh_va_kiem_duyet_hiep_dinh_ngoai_giao_khu_vuc_d1688 | Kiểm định vệ sinh môi trường và vận hành trạm gác biên giới (Dự án Zomboid) | roadmap_SaveLife.md |
+| dam_phan_va_thiet_lap_lien_minh_ngoai_giao_khu_vuc_d1689 | Đàm phán thiết lập liên minh vùng và bảo mật tín hiệu vô tuyến | roadmap_SaveLife.md |
+| van_hanh_va_kiem_duyet_hiep_dinh_ngoai_giao_khu_vuc_d1690 | Quản trị kiểm định an ninh biên giới và xử lý chất thải sinh tồn | roadmap_SaveLife.md |
+| dam_phan_ngoai_giao_va_thiet_lap_lien_minh_khu_vuc_d1691 | Đàm phán ngoại giao và thiết lập liên minh khu vực trong tác phẩm Hồi Ký Vùng Đất Chết | roadmap_SaveLife.md |
+| mo_rong_vung_kiem_soat_va_cung_co_lien_minh_d1692 | Kiểm định chất lượng nước và vận hành hệ thống xử lý vệ sinh môi trường vùng mở rộng | roadmap_SaveLife.md |
+| dam_phan_ngoai_giao_va_thiet_lap_lien_minh_vung_1693 | Đàm phán ngoại giao và thiết lập liên minh vùng trong dự án Kỹ năng sinh tồn khi tận thế zombie | roadmap_SaveLife.md |
+| van_hanh_va_kiem_duyet_hiep_dinh_vung_1694 | Hệ thống mã hóa bộ đàm và bảo mật tín hiệu liên lạc vùng | roadmap_SaveLife.md |
+| dam_phan_va_thiet_lap_doi_ngoai_vung_1695 | Đàm phán ngoại giao và thiết lập liên minh khu vực mở rộng vùng kiểm soát | roadmap_SaveLife.md |
+| van_hanh_va_kiem_duyet_hiep_dinh_vung_1696 | Kiểm định chất lượng nước sinh hoạt và vận hành hiệp định liên minh | roadmap_SaveLife.md |
+| ngoai_giao_vung_bien_1697 | Đàm phán ngoại giao vùng biên và lập liên minh khu vực | roadmap_SaveLife.md |
+| van_hanh_hiep_dinh_vung_1698 | Mật mã hóa thông tin liên lạc và vận hành chốt kiểm soát | roadmap_SaveLife.md |
+| dam_phan_va_thiet_lap_doi_ngoai_khu_vuc_1699 | Đàm phán ngoại giao mở rộng lãnh thổ và thiết lập liên minh sinh tồn trong Project Zomboid | roadmap_SaveLife.md |
+| ky_ket_va_van_hanh_hiep_dinh_ngoai_giao_1700 | Vận hành trung tâm điều phối liên minh và kiểm định an toàn thực phẩm qua Resident Evil | roadmap_SaveLife.md |
+| hop_nhat_tri_thuc_va_cong_nghe_tai_thiet_du_an_genesis | Hợp nhất tri thức và công nghệ tái thiết - Dự án Genesis | roadmap_SaveLife.md |
+| hoan_tat_kien_truc_kinh_te_quan_su_du_an_nova_humanitas | Hoàn tất kiến trúc kinh tế quân sự - Dự án Nova Humanitas | roadmap_SaveLife.md |
+| tong_ket_va_van_hanh_he_thong_toan_cau_du_an_atlas | Vận hành hệ thống toàn cầu và kiểm soát năng lượng dự án Atlas | roadmap_SaveLife.md |
+| le_tot_nghiep_va_ban giao_di_san_nhan_loai_du_an_phoenix | Lễ tốt nghiệp, bảo mật vô tuyến và bàn giao hiến chương văn minh | roadmap_SaveLife.md |
+| hop_nhat_toan_dien_tri_thuc_va_cong_nghe_du_an_omega | Hợp nhất toàn bộ tri thức và công nghệ nhân loại - Dự án Omega | roadmap_SaveLife.md |
+| tai_thiet_toan_dien_kinh_te_va_quan_su_du_an_civilis | Tái thiết toàn diện kinh tế và quân sự hậu tận thế - Dự án Civilis | roadmap_SaveLife.md |
+| hop_nhat_toan_dien_tri_thuc_va_cong_nghe_du_an_omega_d1707 | Hợp nhất toàn bộ tri thức và công nghệ nhân loại toàn cầu - Dự án Omega | roadmap_SaveLife.md |
+| tai_thiet_toan_dien_kinh_te_va_quan_su_du_an_civilis_d1708 | Tái thiết toàn diện nền kinh tế và quân sự nhân loại - Dự án Civilis | roadmap_SaveLife.md |
+| hop_nhat_toan_dien_tri_thuc_va_cong_nghe_du_an_omega_d1709 | Hợp nhất tri thức khoa học và công nghệ lõi toàn cầu qua Dự án Omega | roadmap_SaveLife.md |
+| tai_thiet_toan_dien_kinh_te_va_quan_su_du_an_civilis_d1710 | Kiến thiết hệ thống phòng thủ mạng và kiểm định chất lượng nước sinh tồn | roadmap_SaveLife.md |
+| hop_nhat_toan_dien_tri_thuc_va_cong_nghe_du_an_omega_d1711 | Hợp nhất toàn bộ tri thức và công nghệ cốt lõi - Dự án Omega Màn 1711 | roadmap_SaveLife.md |
+| tai_thiet_toan_dien_kinh_te_va_quan_su_du_an_civilis_d1712 | Thiết lập trật tự an ninh mạng và điều phối kinh tế liên vùng - Dự án Civilis Màn 1712 | roadmap_SaveLife.md |
+| hop_nhat_toan_bo_tri_thuc_va_tai_thiet_toan_dien_du_an_nova_genesis | Hợp nhất toàn bộ tri thức và tái thiết toàn diện - Dự án Nova Genesis | roadmap_SaveLife.md |
+| le_tot_nghiep_va_ban_giao_di_san_nhan_loai_du_an_phoenix_final | Lễ tốt nghiệp và bàn giao di sản nhân loại - Dự án Phoenix Final | roadmap_SaveLife.md |
+| hop_nhat_toan_bo_tri_thuc_va_tai_thiet_toan_dien_du_an_nova_genesis_d1715 | Hợp nhất tri thức nhân loại và tái thiết hạ tầng - Dự án Nova Genesis | roadmap_SaveLife.md |
+| le_tot_nghiep_va_ban_giao_di_san_nhan_loai_du_an_phoenix_final_d1716 | Lễ tốt nghiệp và bàn giao di sản nhân loại - Dự án Phoenix Final | roadmap_SaveLife.md |
+| hop_nhat_tri_thuc_va_tai_thiet_toan_dien_d1717 | Hợp nhất tri thức và tái thiết toàn diện - Dự án Alpha Genesis | roadmap_SaveLife.md |
+| le_tot_nghiep_va_ban_giao_di_san_toan_cau_d1718 | Lễ tốt nghiệp và bàn giao di sản toàn cầu - Dự án Omega Legacy | roadmap_SaveLife.md |
+| hop_nhat_toan_dien_va_tai_thiet_toan_cau_d1719 | Hợp nhất toàn diện tri thức công nghệ kinh tế quân sự dự án Revival Alpha | roadmap_SaveLife.md |
+| le_tot_nghiep_nha_khoi_phuc_toan_cau_d1720 | Lễ tốt nghiệp Nhà khôi phục văn minh nhân loại toàn diện - Dự án Omega Final | roadmap_SaveLife.md |
+| hop_nhat_tri_thuc_va_tai_thiet_toan_dien_d1721 | Hợp nhất tri thức và tái thiết toàn diện qua Dự án Apex-Resilience | roadmap_SaveLife.md |
+| le_tot_nghiep_nha_khoi_phuc_toan_cau_d1722 | Lễ tốt nghiệp Nhà khôi phục toàn cầu và bàn giao di sản Dự án Genesis-Final | roadmap_SaveLife.md |
+| hop_nhat_tri_thuc_toan_cau_du_an_apex | Hợp nhất tri thức toàn cầu APEX: Tích hợp mạng lưới liên lạc vô tuyến và an ninh mạng sơ khai | roadmap_SaveLife.md |
+| le_tot_nghiep_nha_khoi_phuc_toi_cao_du_an_omega_prime | Lễ tốt nghiệp Nhà khôi phục tối cao OMEGA PRIME: Bàn giao di sản sinh thái và xử lý chất thải toàn cầu | roadmap_SaveLife.md |
+| hop_nhat_toan_dien_va_tai_thiet_toan_cau_du_an_atlas_prime | Hợp nhất tri thức khoa học và định chế kinh tế toàn cầu - Dự án Atlas Prime | roadmap_SaveLife.md |
+| le_tot_nghiep_va_ban_giao_di_san_nhan_loai_du_an_phoenix_prime | Lễ tốt nghiệp và chuyển giao ấn tín văn minh nhân loại - Dự án Phoenix Prime | roadmap_SaveLife.md |
+| hop_nhat_toan_dien_va_tai_thiet_toan_cau_du_an_atlas_prime_d1727 | Hợp nhất tri thức sinh thái và tái thiết toàn cầu Dự án Atlas Prime | roadmap_SaveLife.md |
+| le_tot_nghiep_va_ban_giao_di_san_nhan_loai_du_an_phoenix_prime_d1728 | Lễ tốt nghiệp và bàn giao mật mã vô tuyến bảo mật Dự án Phoenix Prime | roadmap_SaveLife.md |
+| hop_nhat_toan_dien_va_tai_thiet_toan_cau_du_an_atlas_prime_d1729 | Hợp nhất tri thức toàn cầu và lưu trữ năng lượng vi mô dự án Atlas Prime | roadmap_SaveLife.md |
+| le_tot_nghiep_va_ban_giao_di_san_nhan_loai_du_an_phoenix_prime_d1730 | Lễ tốt nghiệp, kiểm định an ninh vô tuyến và bàn giao di sản nhân loại | roadmap_SaveLife.md |
+| hop_nhat_toan_dien_va_tai_thiet_toan_cau_du_an_hominum | Hợp nhất toàn diện tri thức và tái thiết toàn cầu Dự án Hominum | roadmap_SaveLife.md |
+| le_tot_nghiep_nha_khoi_phuc_toi_cao_du_an_hominum_prime | Lễ tốt nghiệp Nhà khôi phục tối cao Dự án Hominum Prime | roadmap_SaveLife.md |
+| hop_nhat_tri_thuc_toan_cau_du_an_hominum_supreme | Hợp nhất tri thức toàn cầu dự án Hominum Supreme | roadmap_SaveLife.md |
+| le_tot_nghiep_nha_khoi_phuc_toi_cao_toan_cau_du_an_hominum_ultimate | Lễ tốt nghiệp Nhà khôi phục tối cao toàn cầu dự án Hominum Ultimate | roadmap_SaveLife.md |
+| hop_nhat_tri_thuc_va_tai_thiet_toan_dien_du_an_omega_prime | Hợp nhất tri thức và tái thiết toàn diện nhân loại dự án Omega Prime | roadmap_SaveLife.md |
+| le_tot_nghiep_va_ban_giao_di_san_nhan_loai_du_an_omega_prime | Lễ tốt nghiệp và bàn giao di sản nhân loại dự án Omega Prime | roadmap_SaveLife.md |
+| hop_nhat_tri_thuc_va_cong_nghe_toan_dien_du_an_genesis | Hợp nhất tri thức và công nghệ toàn diện dự án Genesis | roadmap_SaveLife.md |
+| le_tot_nghiep_va_ban_giao_di_san_nhan_loai_du_an_civilis_prime | Lễ tốt nghiệp và bàn giao di sản nhân loại dự án Civilis Prime | roadmap_SaveLife.md |
+| hop_nhat_tri_thuc_va_tai_thiet_toan_dien_du_an_alpha_prime | Hợp nhất tri thức và tái thiết toàn diện nhân loại - Dự án Alpha Prime | roadmap_SaveLife.md |
+| le_tot_nghiep_nha_khoi_phuc_toi_cao_du_an_omega_ultimate | Vinh danh và bàn giao di sản Nhà khôi phục tối cao - Dự án Omega Ultimate | roadmap_SaveLife.md |
+| hop_nhat_toan_dien_va_tai_thiet_toan_cau_du_an_chronos_d1741 | Hợp nhất tri thức toàn cầu và xây dựng hạ tầng lưu trữ quang học vĩnh cửu | roadmap_SaveLife.md |
+| le_tot_nghiep_nha_khoi_phuc_toi_cao_toan_cau_du_an_chronos_prime_d1742 | Đánh giá năng lực thực chiến, ký kết hiệp ước khôi phục và bàn giao di sản Chronos | roadmap_SaveLife.md |
+| hop_nhat_toan_dien_va_tai_thiet_toan_cau_du_an_hominum_supreme_d1743 | Hợp nhất tri thức và quy chuẩn an ninh mạng vô tuyến hậu tận thế | roadmap_SaveLife.md |
+| le_tot_nghiep_nha_khoi_phuc_toi_cao_toan_cau_du_an_hominum_supreme_d1744 | Đại hội tuyên ngôn và bàn giao di sản văn minh nhân loại toàn cầu | roadmap_SaveLife.md |
+| hop_nhat_tri_thuc_va_tai_thiet_toan_dien_du_an_hominum_prime_d1745 | Hợp nhất tri thức nhân loại và tái thiết toàn diện - Dự án Hominum Prime | roadmap_SaveLife.md |
+| le_tot_nghiep_nha_khoi_phuc_toi_cao_toan_cau_du_an_hominum_prime_d1746 | Lễ tốt nghiệp nhà khôi phục tối cao toàn cầu - Dự án Hominum Prime | roadmap_SaveLife.md |
+| hop_nhat_tri_thuc_va_tai_thiet_toan_dien_du_an_hominum_prime_d1747 | Đại hợp nhất di sản nhân loại và bảo mật thông tin liên lạc dự án Hominum Prime | roadmap_SaveLife.md |
+| le_tot_nghiep_nha_khoi_phuc_toi_cao_toan_cau_du_an_hominum_prime_d1748 | Lễ đăng quang và vận hành trung tâm kiểm định môi trường toàn cầu Hominum Prime | roadmap_SaveLife.md |
+| dai_hop_nhat_toan_cau_du_an_genesis_prime_d1749 | Đại hợp nhất toàn cầu và tái thiết văn minh nhân loại - Dự án Genesis Prime | roadmap_SaveLife.md |
+| le_dang_quang_va_ban_giao_di_san_nhan_loai_d1750 | Lễ đăng quang và chuyển giao quyền lực hội đồng nhân loại - Dự án Apex Final | roadmap_SaveLife.md |
+| hop_nhat_toan_dien_va_tai_thiet_toan_cau_du_an_civilis_omega | Hợp nhất toàn bộ di sản văn minh nhân loại - Dự án Civilis Omega | roadmap_SaveLife.md |
+| le_dang_quang_nha_khoi_phuc_toi_cao_toan_cau_du_an_civilis_omega | Lễ đăng quang Nhà khôi phục tối cao toàn cầu kết hợp ký kết Hiến chương Tái thiết - Civilis Omega | roadmap_SaveLife.md |
+| hop_nhat_toan_dien_va_tai_thiet_toan_cau_du_an_civilis_omega_d1753 | Hợp nhất tri thức và tái thiết toàn cầu Dự án Civilis Omega | roadmap_SaveLife.md |
+| le_dang_quang_nha_khoi_phuc_toi_cao_toan_cau_du_an_civilis_omega_d1754 | Lễ đăng quang nhà khôi phục tối cao toàn cầu Dự án Civilis Omega | roadmap_SaveLife.md |
+| hop_nhat_toan_dien_va_tai_thiet_toan_cau_du_an_civilis_omega_d1755 | Hợp nhất tri thức toàn cầu và tái thiết thế giới - Dự án Civilis Omega | roadmap_SaveLife.md |
+| le_dang_quang_nha_khoi_phuc_toi_cao_toan_cau_du_an_civilis_omega_d1756 | Lễ đăng quang nhà khôi phục toàn cầu và bàn giao di sản - Civilis Omega | roadmap_SaveLife.md |
+| hop_nhat_toan_dien_va_tai_thiet_toan_cau_du_an_civilis_omega_d1757 | Hợp nhất toàn bộ tri thức và công nghệ tái thiết đô thị - Dự án Civilis Omega D1757 | roadmap_SaveLife.md |
+| le_dang_quang_nha_khoi_phuc_toi_cao_toan_cau_du_an_civilis_omega_d1758 | Lễ đăng quang Nhà khôi phục tối cao toàn cầu và Ban hành Hiến chương - Dự án Civilis Omega D1758 | roadmap_SaveLife.md |
+| hop_nhat_toan_dien_va_tai_thiet_toan_cau_du_an_hominum_omega_d1759 | Hợp nhất tri thức toàn cầu và quy chuẩn hóa hạ tầng nhân loại dự án Hominum Omega | roadmap_SaveLife.md |
+| le_tot_nghiep_va_ban_giao_di_san_nhan_loai_du_an_hominum_omega_d1760 | Nghi thức tổng kết và chuyển giao di sản tri thức sinh tồn toàn cầu | roadmap_SaveLife.md |
+| hop_nhat_toan_dien_va_tai_thiet_toan_cau_du_an_civilis_omega_d1761 | Hợp nhất tri thức và tái thiết toàn cầu Dự án Civilis Omega (Day 1761) | roadmap_SaveLife.md |
+| le_dang_quang_nha_khoi_phuc_toi_cao_toan_cau_du_an_civilis_omega_d1762 | Lễ đăng quang Nhà khôi phục tối cao toàn cầu Dự án Civilis Omega (Day 1762) | roadmap_SaveLife.md |
+| hop_nhat_tri_thuc_va_tai_thiet_toan_dien_du_an_hominum_omega_d1763 | Hợp nhất tri thức và kiểm định an ninh mạng vô tuyến cho vùng trú ẩn | roadmap_SaveLife.md |
+| le_dang_quang_nha_khoi_phuc_toi_cao_toan_cau_du_an_hominum_omega_d1764 | Lễ đăng quang nhà khôi phục tối cao và bàn giao di sản nhân loại | roadmap_SaveLife.md |
+| hop_nhat_tri_thuc_va_tai_thiet_toan_dien_du_an_hominum_omega_d1765 | Hợp nhất tri thức và tái thiết toàn diện - Dự án Hominum Omega (Day 1765) | roadmap_SaveLife.md |
+| le_dang_quang_nha_khoi_phuc_toi_cao_toan_cau_du_an_hominum_omega_d1766 | Lễ đăng quang Nhà khôi phục tối cao toàn cầu - Dự án Hominum Omega (Day 1766) | roadmap_SaveLife.md |
+| hop_nhat_toan_dien_va_tai_thiet_toan_cau_du_an_civilis_omega_d1767 | Đại hợp nhất toàn cầu và tái thiết văn minh hành tinh - Dự án Civilis Omega | roadmap_SaveLife.md |
+| le_dang_quang_nha_khoi_phuc_toi_cao_toan_cau_du_an_civilis_omega_d1768 | Sự kiện nhậm chức và công bố chiến lược vận hành hành tinh mới | roadmap_SaveLife.md |
+| hop_nhat_tri_thuc_va_tai_thiet_toan_dien_du_an_civilis_prime_d1769 | Hợp nhất tri thức và quy hoạch vùng - Dự án Civilis Prime (Day 1769) | roadmap_SaveLife.md |
+| le_dang_quang_nha_khoi_phuc_toi_cao_toan_cau_du_an_civilis_prime_d1770 | Đăng quang Nhà khôi phục tối cao và Công bố Hiến chương - Dự án Civilis Prime (Day 1770) | roadmap_SaveLife.md |
+| hop_nhat_tri_thuc_va_tai_thiet_toan_dien_du_an_civilis_prime_d1771 | Hợp nhất tri thức và tái thiết toàn diện Dự án Civilis Prime (Day 1771) | roadmap_SaveLife.md |
+| le_dang_quang_nha_khoi_phuc_toi_cao_toan_cau_du_an_civilis_prime_d1772 | Lễ đăng quang Nhà Khôi phục Tối cao toàn cầu Dự án Civilis Prime (Day 1772) | roadmap_SaveLife.md |
+| hop_nhat_toan_dien_tai_thiet_civilis_nova_d1773 | Hợp nhất tri thức toàn cầu và tái thiết cấu trúc xã hội Dự án Civilis Nova | roadmap_SaveLife.md |
+| le_dang_quang_va_ban_giao_di_san_civilis_nova_d1774 | Nghi thức chuyển giao quyền lực và tôn vinh di sản nhân loại cuối cùng | roadmap_SaveLife.md |
+| hop_nhat_tri_thuc_va_quan_su_du_an_civilis_omega_d1775 | Hợp nhất tri thức và quân sự toàn cầu dự án Civilis Omega | roadmap_SaveLife.md |
+| le_dang_quang_nha_khoi_phuc_toi_cao_civilis_omega_d1776 | Lễ đăng quang nhà khôi phục tối cao toàn cầu dự án Civilis Omega | roadmap_SaveLife.md |
+| hop_nhat_tri_thuc_va_quan_su_du_an_civilis_prime_d1777 | Hợp nhất tri thức và quân sự toàn cầu dự án Civilis Prime | roadmap_SaveLife.md |
+| le_dang_quang_nha_khoi_phuc_toi_cao_civilis_prime_d1778 | Đại lễ vinh danh và Tuyên ngôn Phục hưng nền văn minh nhân loại | roadmap_SaveLife.md |
+| hop_nhat_tri_thuc_va_quan_su_du_an_civilis_prime_d1779 | Hợp nhất tri thức khoa học và chiến lược quân sự toàn cầu Civilis Prime | roadmap_SaveLife.md |
+| le_dang_quang_nha_khoi_phuc_toi_cao_civilis_prime_d1780 | Đại lễ đăng quang và Bàn giao Sắc lệnh Tái thiết Nhân loại văn minh mới | roadmap_SaveLife.md |
+| dai_hop_nhat_toan_dien_va_khoi_phuc_ha_tang_du_an_omni_civilis | Đại hợp nhất toàn diện và khôi phục hạ tầng cốt lõi - Dự án Omni-Civilis | roadmap_SaveLife.md |
+| le_dang_quang_nha_khoi_phuc_toi_cao_toan_cau_du_an_omni_civilis | Lễ đăng quang Nhà khôi phục tối cao toàn cầu và thiết lập an ninh thông tin - Dự án Omni-Civilis | roadmap_SaveLife.md |
+| dai_hop_nhat_khoi_phuc_ha_tang_du_an_apex_civilis | Hợp nhất toàn cầu hạ tầng thông minh và quản lý năng lượng vi mô Apex Civilis | roadmap_SaveLife.md |
+| le_dang_quang_nha_khoi_phuc_toi_cao_apex_civilis | Đăng quang và bàn giao di sản bảo mật truyền thông toàn cầu Apex Civilis | roadmap_SaveLife.md |
+| hop_nhat_dai_hoc_va_khoi_phuc_giao_duc_du_an_civilis_nova | Hợp nhất đại học và khôi phục giáo dục toàn cầu - Dự án Civilis Nova | roadmap_SaveLife.md |
+| le_vinh_danh_va_tuyen_ngon_khoi_phuc_du_an_civilis_nova | Lễ vinh danh và tuyên ngôn khôi phục nhân loại toàn cầu - Dự án Civilis Nova | roadmap_SaveLife.md |
+| hop_nhat_toan_dien_va_tai_thiet_toan_cau_du_an_genesis_omega_d1787 | Hợp nhất tri thức khoa học và kinh tế toàn cầu - Dự án Genesis Omega | roadmap_SaveLife.md |
+| le_dang_quang_nha_khoi_phuc_toi_cao_du_an_genesis_omega_d1788 | Lễ đăng quang Nhà khôi phục tối cao toàn cầu - Ấn định kỷ nguyên mới | roadmap_SaveLife.md |
+| hop_nhat_he_thong_toan_cau_du_an_omni_restoration_d1789 | Hợp nhất hệ thống toàn cầu dự án Omni Restoration D1789 | roadmap_SaveLife.md |
+| le_vinh_danh_nha_khoi_phuc_toi_cao_du_an_omni_restoration_d1790 | Lễ vinh danh nhà khôi phục tối cao dự án Omni Restoration D1790 | roadmap_SaveLife.md |
+| hop_nhat_toan_dien_va_tai_thiet_toan_cau_du_an_civilis_omega_d1791 | Hợp nhất tri thức và quy hoạch hạ tầng vi mô toàn cầu | roadmap_SaveLife.md |
+| le_dang_quang_nha_khoi_phuc_toi_cao_toan_cau_du_an_civilis_omega_d1792 | Sắc lệnh tối cao và thiết lập bảo mật thông tin liên lạc | roadmap_SaveLife.md |
+| hop_nhat_toan_dien_va_tai_thiet_toan_cau_du_an_civilis_omega_d1793 | Đại hợp nhất toàn cầu và tái thiết văn minh dự án Civilis Omega | roadmap_SaveLife.md |
+| le_dang_quang_nha_khoi_phuc_toi_cao_toan_cau_du_an_civilis_omega_d1794 | Nghi thức công bố và lập quy chế vận hành nhà nước hậu tận thế | roadmap_SaveLife.md |
+| hop_nhat_he_thong_toan_cau_du_an_aethelgard_d1795 | Hợp nhất hệ thống toàn cầu Dự án Aethelgard: Tái thiết hạ tầng tổng hợp | roadmap_SaveLife.md |
+| le_vinh_danh_nha_khoi_phuc_toi_cao_du_an_aethelgard_d1796 | Nghi thức công bố Tuyên ngôn và Bàn giao quyền lực Nhà khôi phục tối cao | roadmap_SaveLife.md |
+| hop_nhat_toan_dien_va_tai_thiet_toan_cau_du_an_civilis_omega_d1797 | Hợp nhất toàn cầu và tái thiết công nghiệp dự án Civilis Omega | roadmap_SaveLife.md |
+| le_dang_quang_nha_khoi_phuc_toi_cao_toan_cau_du_an_civilis_omega_d1798 | Lễ đăng quang Nhà khôi phục tối cao toàn cầu dự án Civilis Omega | roadmap_SaveLife.md |
+| hop_nhat_toan_dien_va_tai_thiet_toan_cau_du_an_civilis_omega_d1799 | Hợp nhất toàn cầu và tái thiết văn minh dự án Civilis Omega D1799 | roadmap_SaveLife.md |
+| le_dang_quang_nha_khoi_phuc_toi_cao_toan_cau_du_an_civilis_omega_d1800 | Lễ đăng quang Nhà khôi phục tối cao toàn cầu dự án Civilis Omega D1800 | roadmap_SaveLife.md |

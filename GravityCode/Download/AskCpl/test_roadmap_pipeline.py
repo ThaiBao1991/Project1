@@ -178,6 +178,48 @@ class RoadmapPipelineTests(unittest.TestCase):
         self.assertIn("Bán Dẫn", content)
         self.assertIn("Máy Tính", content)
 
+    def test_auto_heal_prerequisites_int_mapping_and_safe_join(self):
+        """Simulate PASS 6D prerequisite auto-heal when AI outputs integer Day numbers."""
+        revised_days = [
+            {"day": 1, "topic_id": "intro_python", "topic": "Nhập môn Python", "prerequisites": []},
+            {"day": 2, "topic_id": "vars_types", "topic": "Biến và kiểu dữ liệu", "prerequisites": [1]},
+            {"day": 3, "topic_id": "control_flow", "topic": "Cấu trúc rẽ nhánh", "prerequisites": ["2", 999, "invalid_id"]},
+        ]
+        valid_topic_ids = set(d.get("topic_id", "") for d in revised_days if d.get("topic_id"))
+        first_day_map = {d["topic_id"]: d["day"] for d in revised_days if d.get("topic_id")}
+        day_to_id_map = {d["day"]: d["topic_id"] for d in revised_days if d.get("day") and d.get("topic_id")}
+
+        prereq_fixed_days = []
+        for d in revised_days:
+            curr_day = d.get("day", 0)
+            curr_id = d.get("topic_id", "")
+            prereqs = d.get("prerequisites", [])
+            cleaned = []
+            removed = []
+            for p in prereqs:
+                target_id = p
+                if isinstance(p, int) or (isinstance(p, str) and p.strip().isdigit()):
+                    p_int = int(p)
+                    if p_int in day_to_id_map and p_int < curr_day:
+                        target_id = day_to_id_map[p_int]
+
+                if (isinstance(target_id, str) and target_id in valid_topic_ids 
+                        and target_id != curr_id and first_day_map.get(target_id, 0) < curr_day):
+                    if target_id not in cleaned:
+                        cleaned.append(target_id)
+                else:
+                    removed.append(p)
+
+            if cleaned != prereqs:
+                d["prerequisites"] = cleaned
+                if removed:
+                    prereq_fixed_days.append((curr_day, removed))
+
+        self.assertEqual(revised_days[1]["prerequisites"], ["intro_python"])
+        self.assertEqual(revised_days[2]["prerequisites"], ["vars_types"])
+        log_str = ", ".join(f"Day {day} ({', '.join(map(str, bads))})" for day, bads in prereq_fixed_days)
+        self.assertIn("Day 3 (999, invalid_id)", log_str)
+
 
 if __name__ == "__main__":
     unittest.main()

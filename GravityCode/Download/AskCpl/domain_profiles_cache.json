@@ -84,5 +84,46 @@
       "bao_mat_va_tuong_thich": "Thực hiện mã hóa tài liệu, thiết lập chữ ký số, quản lý quyền RMS, và xử lý tương thích khi trình chiếu trên nhiều phiên bản phần cứng/phần mềm khác nhau.",
       "chien_luoc_thuyet_trinh_dinh_cao": "Nghệ thuật trình bày trước đám đông, kỹ thuật sử dụng Presenter Coach, điều hướng slide linh hoạt bằng Custom Shows và tư duy điều phối nội dung chiến lược."
     }
+  },
+  "kỹ năng sinh tồn khi tận thế zombie": {
+    "title": "Kỹ năng sinh tồn khi tận thế zombie",
+    "recommended_days": 1800,
+    "persona": "Chuyên gia Tác chiến Sinh tồn & Kiến thiết Hệ thống Hậu tận thế Đa ngành",
+    "category": "Kỹ năng ứng phó khẩn cấp & Kỹ thuật hạ tầng tự trị",
+    "instruction": "PROFILE KỸ NĂNG SINH TỒN KHI TẬN THẾ ZOMBIE: Xây dựng lộ trình đào tạo toàn diện 1800 ngày từ nền tảng sinh học dịch bệnh, chiến thuật chiến đấu, y học chiến trường, kỹ thuật cơ khí tự chế, canh nông sinh thái khép kín cho đến quản trị cộng đồng và tái thiết hạ tầng công nghệ không phụ thuộc lưới điện. Học viên sẽ làm chủ các kỹ năng sinh tồn thực chiến, từ việc vô hiệu hóa mối đe dọa sinh học, chế tạo vật tư từ phế liệu, lọc nước công suất lớn, vận hành năng lượng tái tạo, đến thiết lập luật lệ xã hội thu nhỏ nhằm đảm bảo sự sinh tồn và phát triển giống nòi trong môi trường thù địch khắc nghiệt nhất.",
+    "mandatory_milestones": [
+      "sinh_hoc_benh_hoc",
+      "chien_thuat_can_chien",
+      "vu_khi_va_dan_duoc",
+      "y_hoc_chien_truong",
+      "an_uong_va_nuoc_sach",
+      "co_so_ha_tang_tru_an",
+      "nang_luong_tai_tao",
+      "co_khi_che_tao_phe_lieu",
+      "nong_nghiep_sinh_thai",
+      "giao_tiep_va_trinh_sat",
+      "tam_ly_hoc_sinh_ton",
+      "quan_tri_cong_dong",
+      "giao_duc_va_truyen_thong",
+      "phap_che_hau_tan_the",
+      "an_ninh_mang_va_so"
+    ],
+    "milestone_descriptions": {
+      "sinh_hoc_benh_hoc": "Nghiên cứu sâu về cơ chế lây nhiễm, biến đổi thần kinh, phương thức truyền bệnh qua dịch cơ thể và cách ly mầm bệnh theo tiêu chuẩn an toàn sinh học cấp độ cao nhất.",
+      "chien_thuat_can_chien": "Làm chủ các kỹ thuật cận chiến không tiếng ồn, sử dụng vũ khí lạnh (dao, rìu, giáo) để hạ gục mục tiêu nhanh chóng, tiết kiệm năng lượng và giảm thiểu nguy cơ phơi nhiễm.",
+      "vu_khi_va_dan_duoc": "Thành thạo việc sử dụng, bảo trì, sửa chữa các loại súng cầm tay, chế tạo đạn dược thủ công và tối ưu hóa tầm nhìn, độ chính xác trong điều kiện thiếu sáng.",
+      "y_hoc_chien_truong": "Áp dụng kỹ thuật sơ cứu chấn thương chiến đấu (TCCC), khâu vết thương ngoài da, xử lý phơi nhiễm, điều chế kháng sinh thảo dược và quản lý kho dược phẩm khan hiếm.",
+      "an_uong_va_nuoc_sach": "Thiết kế hệ thống lọc nước đa tầng tự chế bằng cát, sỏi, than hoạt tính, UV; kỹ thuật bảo quản lương thực dài hạn bằng phương pháp sấy khô, muối chua và lên men.",
+      "co_so_ha_tang_tru_an": "Gia cố kiến trúc phòng thủ bê tông cốt thép, xây dựng hệ thống bẫy cơ học, lối thoát hiểm ngầm và kiểm soát điểm yếu độc lập cho căn cứ trú ẩn.",
+      "nang_luong_tai_tao": "Lắp đặt và vận hành hệ thống năng lượng mặt trời, tua-bin gió mini, máy phát điện thủy lực xoay chiều và chế tạo pin lưu trữ từ vật liệu tái chế.",
+      "co_khi_che_tao_phe_lieu": "Ứng dụng kỹ thuật hàn điện, tiện cơ khí, rèn thủ công và tái chế sắt thép phế liệu từ ô tô, công trình bỏ hoang để chế tạo công cụ lao động và áo giáp bảo vệ.",
+      "nong_nghiep_sinh_thai": "Phát triển mô hình canh nông khép kín (Aquaponics, Permaculture), nuôi trồng vi tảo, quản lý hạt giống thuần chủng và kiểm soát dịch hại tự nhiên không cần hóa chất.",
+      "giao_tiep_va_trinh_sat": "Sử dụng radio tần số vô tuyến (VHF/UHF), mật mã quang học, kỹ năng ngụy trang địa hình và do thám vùng nguy hiểm để thu thập thông tin tình báo.",
+      "tam_ly_hoc_sinh_ton": "Duy trì sự minh mẫn, đối phó với hội chứng stress sau sang chấn (PTSD), quản lý trầm cảm tập thể và duy trì động lực sống cho các thành viên trong nhóm.",
+      "quan_tri_cong_dong": "Thiết lập cơ cấu tổ chức phân quyền, phân công lao động chuyên môn hóa, quản lý kho bãi phân phối tài nguyên và giải quyết tranh chấp nội bộ.",
+      "giao_duc_va_truyen_thong": "Xây dựng chương trình truyền tải tri thức khoa học, kỹ thuật và văn hóa cho thế hệ sinh ra sau tận thế nhằm ngăn chặn sự suy thoái văn minh.",
+      "phap_che_hau_tan_the": "Soạn thảo và thực thi bộ quy tắc ứng xử tối thiểu, hệ thống tòa án dã chiến và hình thức kỷ luật để duy trì trật tự xã hội thu nhỏ.",
+      "an_ninh_mang_va_so": "Khôi phục và duy trì các máy chủ cục bộ (Local Server) chứa tài liệu bách khoa toàn thư ngoại tuyến (Wikipedia offline) phục vụ nghiên cứu và giáo dục."
+    }
   }
 }

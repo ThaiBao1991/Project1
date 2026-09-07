@@ -1,3 +1,33 @@
+## 2026-09-08 — Auto-Heal Prerequisite (Map Số Day Sang topic_id) & Khắc Phục TypeError Bước 2 — HOÀN THÀNH ✅
+
+### 1. Vấn Đề Gốc Rễ Đã Giải Quyết
+- **Hiện tượng**: Khi chạy Bước 2 ("Phản Biện Độc Lập & Sửa Lộ Trình") cho lộ trình lớn (1.800 Day), hệ thống đã nạp xong 1.800 Day từ checkpoint nhưng đột ngột dừng với lỗi:
+  `[LỖI ROADMAP] TypeError: sequence item 0: expected str instance, int found`.
+- **Nguyên nhân gốc rễ**:
+  1. Trong quá trình sinh roadmap, AI đôi khi điền `prerequisites` bằng số thứ tự Day dạng số nguyên (ví dụ: `prerequisites: [1, 2]`) thay vì chuỗi `topic_id`.
+  2. Tại PASS 6D (Auto-Heal Prerequisite sau Bước 2), các giá trị số nguyên này không nằm trong tập hợp chuỗi `valid_topic_ids`, nên bị đưa vào danh sách `removed` (hay `bads`), với `bads[0] = 1` (`int`).
+  3. Khi log thông báo: `", ".join(f"Day {day} ({', '.join(bads)})" for day, bads in prereq_fixed_days[:8])`, hàm `', '.join(bads)` quăng `TypeError: sequence item 0: expected str instance, int found` vì phần tử không phải là `str`.
+
+### 2. Các Thay Đổi Cụ Thể
+- **`AskCpl.py`**:
+  - **Tầng 1 (Auto-Heal thông minh)**:
+    - Xây dựng từ điển `day_to_id_map` ánh xạ từ số Day sang `topic_id`.
+    - Khi duyệt `prerequisites`, nếu gặp số nguyên `int` hoặc chuỗi số (`"1"`), hệ thống tự động tra cứu `day_to_id_map` và đổi sang `topic_id` chuẩn của Day đó (với điều kiện Day đó diễn ra trước Day hiện tại).
+    - Giữ trọn vẹn đồ thị phụ thuộc kiến thức thay vì loại bỏ oan các liên kết học tập.
+  - **Tầng 2 (Phòng thủ ép kiểu an toàn)**:
+    - Tại PASS 6D và PASS 1D: thay `', '.join(bads)` bằng `', '.join(map(str, bads))` để không bao giờ quăng lỗi `TypeError` kể cả khi có giá trị lạ.
+    - Cập nhật điều kiện gán `if cleaned != prereqs:` để cập nhật chính xác khi các giá trị số nguyên được đổi thành chuỗi `topic_id`.
+    - Tại Bước 3: bọc `str(d)` cho các phép `join` trên `details` và `definition_of_done` để phòng ngừa lỗi tương tự khi sinh prompt hoàn chỉnh.
+- **`test_roadmap_pipeline.py`**:
+  - Bổ sung unit test `test_auto_heal_prerequisites_int_mapping_and_safe_join`: Kiểm tra chính xác việc ánh xạ `[1]` thành `["intro_python"]`, `"2"` thành `["vars_types"]`, loại bỏ ID ảo giác, và xác nhận `map(str, bads)` không quăng `TypeError`.
+
+### 3. Kiểm Thử & Xác Minh (Verification)
+- ✅ `python -m py_compile AskCpl.py test_roadmap_pipeline.py`: SYNTAX OK.
+- ✅ `python -m unittest test_roadmap_pipeline.py`: PASS 19/19 tests.
+- ✅ `python -m unittest test_roadmap_pipeline.py test_html_content_integrity.py test_viewer_dashboard.py test_gemini_account_budget.py test_adaptive_learning.py test_gemini_safe_fallback.py test_verified_knowledge.py`: PASS 36/36 tests.
+
+---
+
 ## 2026-09-07 — Fix Lỗi PASS 1A Lệch Tổng Số Ngày Phase & Chống Phình Prompt Retry — HOÀN THÀNH ✅
 
 ### 1. Vấn Đề Gốc Rễ Đã Giải Quyết
