@@ -2092,16 +2092,23 @@ CẤM TUYỆT ĐỐI không dùng lại hoặc diễn đạt tương tự BẤT 
                 ("..." if len(prereq_fixed_days) > 8 else "") + " ✓"
             )
 
+        # ══════════════════════════════════════════════════════════
+        # PASS 1E: AUTO-HEAL & CHUẨN HÓA CÁC TRƯỜNG MICRO-DAY
+        # ══════════════════════════════════════════════════════════
+        from roadmap_pipeline import normalize_micro_fields
+        for d in all_days:
+            normalize_micro_fields(d, d.get("day", 0))
+
         plan = {"domain_profile": phase_map["domain_profile"], "coverage": phase_map.get("coverage", []), "skeleton": all_days}
         from roadmap_pipeline import validate_plan
         # Validate cuối: tắt sim_check để không crash nếu còn vài Day trùng sót sau PASS 1C
         # (PASS 1C đã log cảnh báo chi tiết; bước 2 sẽ tiếp tục xử lý phần còn lại)
         try:
-            validate_plan(plan, target, require_micro=True, sim_check_enabled=bool(snapshot.get("req_sim_check", 1)), sim_threshold=sim_threshold)
+            validate_plan(plan, target, require_micro=True, sim_check_enabled=bool(snapshot.get("req_sim_check", 1)), sim_threshold=sim_threshold, auto_heal_micro=True)
         except RoadmapValidationError as _val_exc:
             if "trùng nội dung" in str(_val_exc):
                 self.roadmap_gen_log(f"[BƯỚC 1/3 • CẢNH BÁO] {_val_exc} — Skeleton được lưu để tiếp tục; BƯỚC 2 sẽ dọn sạch phần còn lại.")
-                validate_plan(plan, target, require_micro=True, sim_check_enabled=False)  # Validate lại không sim để đảm bảo cấu trúc OK
+                validate_plan(plan, target, require_micro=True, sim_check_enabled=False, auto_heal_micro=True)  # Validate lại không sim để đảm bảo cấu trúc OK
             else:
                 raise
         atomic_write(artifacts["skeleton"], json.dumps(plan, ensure_ascii=False, indent=2))
@@ -2423,15 +2430,34 @@ CẤM TUYỆT ĐỐI không dùng lại hoặc diễn đạt tương tự BẤT 
             progress["revised_days"] = revised_days
             atomic_write(progress_path, json.dumps(progress, ensure_ascii=False, indent=2))
 
+        # ══════════════════════════════════════════════════════════
+        # PASS 6E: AUTO-HEAL & CHUẨN HÓA CÁC TRƯỜNG MICRO-DAY
+        # ══════════════════════════════════════════════════════════
+        from roadmap_pipeline import normalize_micro_fields
+        micro_healed_days = []
+        for d in revised_days:
+            curr_day = d.get("day", 0)
+            d, fixes = normalize_micro_fields(d, curr_day)
+            if fixes:
+                micro_healed_days.append((curr_day, fixes))
+        if micro_healed_days:
+            self.roadmap_gen_log(
+                f"[BƯỚC 2/3 • Auto-Heal Micro Fields] Đã tự động chuẩn hóa {len(micro_healed_days)} Day có thuộc tính micro chưa chuẩn: " +
+                ", ".join(f"Day {day}" for day, _ in micro_healed_days[:8]) +
+                ("..." if len(micro_healed_days) > 8 else "") + " ✓"
+            )
+            progress["revised_days"] = revised_days
+            atomic_write(progress_path, json.dumps(progress, ensure_ascii=False, indent=2))
+
         revised = dict(current)
         revised["skeleton"] = revised_days
         
         try:
-            validate_revision(current, revised, expected, require_micro=True, sim_check_enabled=bool(sim_check_enabled), sim_threshold=sim_threshold)
+            validate_revision(current, revised, expected, require_micro=True, sim_check_enabled=bool(sim_check_enabled), sim_threshold=sim_threshold, auto_heal_micro=True)
         except RoadmapValidationError as _val_exc:
             if "trùng nội dung" in str(_val_exc):
                 self.roadmap_gen_log(f"[BƯỚC 2/3 • CẢNH BÁO] {_val_exc} — Bản phản biện vẫn được lưu an toàn để sẵn sàng sinh roadmap.")
-                validate_revision(current, revised, expected, require_micro=True, sim_check_enabled=False)
+                validate_revision(current, revised, expected, require_micro=True, sim_check_enabled=False, auto_heal_micro=True)
             else:
                 raise
         atomic_write(artifacts["reviewed"], json.dumps(revised, ensure_ascii=False, indent=2))
@@ -2459,12 +2485,16 @@ CẤM TUYỆT ĐỐI không dùng lại hoặc diễn đạt tương tự BẤT 
     def _roadmap_v5_step3(self, snapshot):
         expected = None if snapshot["days"] == "Auto" else int(snapshot["days"])
         plan = load_json_response(snapshot["skeleton"])
+        # Tự động chuẩn hóa các trường micro trước khi kiểm định
+        from roadmap_pipeline import normalize_micro_fields
+        for d in plan.get("skeleton", []):
+            normalize_micro_fields(d, d.get("day", 0))
         try:
-            validate_plan(plan, expected, require_micro=True, sim_check_enabled=bool(snapshot.get("req_sim_check", 1)))
+            validate_plan(plan, expected, require_micro=True, sim_check_enabled=bool(snapshot.get("req_sim_check", 1)), auto_heal_micro=True)
         except RoadmapValidationError as _val_exc:
             if "trùng nội dung" in str(_val_exc):
                 self.roadmap_gen_log(f"[BƯỚC 3/3 • CẢNH BÁO] {_val_exc} — Tiếp tục sinh roadmap hoàn chỉnh...")
-                validate_plan(plan, expected, require_micro=True, sim_check_enabled=False)
+                validate_plan(plan, expected, require_micro=True, sim_check_enabled=False, auto_heal_micro=True)
             else:
                 raise
         artifacts = self._roadmap_artifacts(snapshot)

@@ -220,6 +220,61 @@ class RoadmapPipelineTests(unittest.TestCase):
         log_str = ", ".join(f"Day {day} ({', '.join(map(str, bads))})" for day, bads in prereq_fixed_days)
         self.assertIn("Day 3 (999, invalid_id)", log_str)
 
+    def test_auto_heal_micro_fields(self):
+        """Verify normalize_micro_fields clamps minutes and fixes all defective micro fields."""
+        from roadmap_pipeline import normalize_micro_fields
+        defective_item = {
+            "day": 1,
+            "topic_id": "topic_1",
+            "topic": "Xử lý dữ liệu lớn",
+            "phase": "Core",
+            "kind": "lesson",
+            "details": [],
+            "keywords": [],
+            "prerequisites": [],
+            "estimated_minutes": 45,  # Out of bounds (>30)
+            "concrete_project": "tìm hiểu tổng quan về Pandas",  # Starts with vague word
+            "materials": [],  # Empty materials
+            "definition_of_done": None,  # None definition_of_done
+        }
+        healed, fixes = normalize_micro_fields(defective_item, 1)
+        # Check estimated_minutes clamped to 30
+        self.assertEqual(healed["estimated_minutes"], 30)
+        # Check vague prefix replaced with 'Thực hành'
+        self.assertTrue(healed["concrete_project"].startswith("Thực hành"))
+        # Check materials populated
+        self.assertTrue(len(healed["materials"]) > 0)
+        # Check definition_of_done populated
+        self.assertTrue(len(healed["definition_of_done"]) > 0)
+        # Check details populated
+        self.assertTrue(len(healed["details"]) > 0)
+
+        # Verify it now passes validate_plan with require_micro=True
+        test_plan = {
+            "domain_profile": {"title": "Test Domain"},
+            "skeleton": [healed],
+        }
+        validate_plan(test_plan, 1, require_micro=True)
+
+        # Verify validate_plan with auto_heal_micro=True heals in-place
+        raw_defective = {
+            "day": 1,
+            "topic_id": "topic_1",
+            "topic": "Xử lý dữ liệu lớn",
+            "phase": "Core",
+            "kind": "lesson",
+            "details": ["Chi tiết"],
+            "keywords": ["kw"],
+            "prerequisites": [],
+            "estimated_minutes": 60,
+            "concrete_project": "Một dự án hoàn chỉnh",
+            "materials": ["Sách"],
+            "definition_of_done": ["Xong"],
+        }
+        test_plan_2 = {"domain_profile": {"title": "Test"}, "skeleton": [raw_defective]}
+        validate_plan(test_plan_2, 1, require_micro=True, auto_heal_micro=True)
+        self.assertEqual(raw_defective["estimated_minutes"], 30)
+
 
 if __name__ == "__main__":
     unittest.main()

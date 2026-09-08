@@ -20,6 +20,83 @@ class RoadmapValidationError(ValueError):
     """Raised when an LLM response cannot be used as a roadmap."""
 
 
+def _text(value: Any) -> str:
+    return value.strip() if isinstance(value, str) else ""
+
+
+def normalize_micro_fields(item: dict[str, Any], day_number: int | None = None) -> tuple[dict[str, Any], list[str]]:
+    """Automatically heal and clamp micro-day fields so LLM edge cases never crash validation.
+
+    Returns (healed_item, list_of_fix_descriptions).
+    """
+    fixes = []
+    day = day_number if day_number is not None else item.get("day", 0)
+    topic = _text(item.get("topic")) or f"Day {day}"
+
+    # 1. estimated_minutes: strictly int, clamped to [5, 30]
+    minutes = item.get("estimated_minutes")
+    healed_min = 30
+    if isinstance(minutes, int):
+        healed_min = max(5, min(30, minutes))
+    elif isinstance(minutes, (float, str)):
+        digits = re.findall(r"\d+", str(minutes))
+        if digits:
+            try:
+                healed_min = max(5, min(30, int(digits[0])))
+            except ValueError:
+                healed_min = 30
+    if item.get("estimated_minutes") != healed_min:
+        fixes.append(f"estimated_minutes: {item.get('estimated_minutes')} -> {healed_min}")
+        item["estimated_minutes"] = healed_min
+
+    # 2. concrete_project: >= 4 chars, non-vague
+    concrete = _text(item.get("concrete_project"))
+    vague_words = ("tìm hiểu", "nghiên cứu", "tổng quan", "học về", "khái niệm", "lý thuyết về")
+    if len(concrete) < 4:
+        concrete = f"Thực hành ứng dụng và làm chủ {topic}"
+        fixes.append(f"concrete_project: bù nội dung cụ thể cho Day {day}")
+    elif concrete.casefold().startswith(vague_words):
+        cleaned = re.sub(r"^(?:tìm hiểu|nghiên cứu|tổng quan|học về|khái niệm|lý thuyết về)\s*", "", concrete, flags=re.IGNORECASE).strip()
+        concrete = f"Thực hành {cleaned}" if cleaned else f"Thực hành {topic}"
+        fixes.append(f"concrete_project: đổi văn phong hành động ('{concrete}')")
+    item["concrete_project"] = concrete
+
+    # 3. materials: non-empty list of non-empty strings
+    materials = item.get("materials")
+    if not isinstance(materials, list) or not any(_text(m) for m in materials):
+        item["materials"] = ["Tài liệu hướng dẫn bài học", "Công cụ thực hành"]
+        fixes.append(f"materials: bù danh sách tài liệu mặc định cho Day {day}")
+    else:
+        cleaned_mat = [_text(m) for m in materials if _text(m)]
+        item["materials"] = cleaned_mat if cleaned_mat else ["Tài liệu hướng dẫn bài học", "Công cụ thực hành"]
+
+    # 4. definition_of_done: non-empty list of non-empty strings
+    done = item.get("definition_of_done")
+    if not isinstance(done, list) or not any(_text(d) for d in done):
+        item["definition_of_done"] = [f"Hoàn thành toàn bộ bài tập và kiểm tra kết quả của Day {day}"]
+        fixes.append(f"definition_of_done: bù tiêu chí hoàn thành cho Day {day}")
+    else:
+        cleaned_done = [_text(d) for d in done if _text(d)]
+        item["definition_of_done"] = cleaned_done if cleaned_done else [f"Hoàn thành toàn bộ bài tập và kiểm tra kết quả của Day {day}"]
+
+    # 5. details: non-empty list of non-empty strings
+    details = item.get("details")
+    if not isinstance(details, list) or not any(_text(d) for d in details):
+        item["details"] = [f"Nội dung trọng tâm và bài tập của {topic}"]
+        fixes.append(f"details: bù nội dung chi tiết cho Day {day}")
+    else:
+        item["details"] = [str(d).strip() for d in details if str(d).strip()] or [f"Nội dung trọng tâm của {topic}"]
+
+    # 6. keywords: list of strings
+    keywords = item.get("keywords")
+    if not isinstance(keywords, list) or not keywords:
+        item["keywords"] = [topic.split()[0].lower() if topic.split() else "roadmap"]
+    else:
+        item["keywords"] = [str(k).strip() for k in keywords if str(k).strip()]
+
+    return item, fixes
+
+
 def restore_locked_day_identity(existing: list[dict[str, Any]], candidate: Any) -> tuple[list[dict[str, Any]], list[tuple[int, str, str]]]:
     """Keep stable Day IDs/source metadata while accepting content revisions.
 
@@ -53,6 +130,7 @@ def restore_locked_day_identity(existing: list[dict[str, Any]], candidate: Any) 
         item["topic_id"] = old_id
         # Source files are user-selected local provenance, not model content.
         item["source_files"] = list(original.get("source_files", []))
+        item, _ = normalize_micro_fields(item, original.get("day"))
         restored.append(item)
     return restored, changes
 
@@ -89,10 +167,6 @@ def load_json_response(text: str) -> Any:
     raise RoadmapValidationError(f"Phản hồi JSON không hợp lệ: {last_error.msg if last_error else 'rỗng'}") from last_error
 
 
-def _text(value: Any) -> str:
-    return value.strip() if isinstance(value, str) else ""
-
-
 def _similar(left: str, right: str) -> float:
     return SequenceMatcher(None, left.casefold(), right.casefold()).ratio()
 
@@ -115,7 +189,7 @@ def _cycles(edges: dict[str, list[str]]) -> bool:
     return any(visit(node) for node in edges)
 
 
-def validate_plan(plan: Any, expected_days: int | None = None, require_micro: bool = False, sim_check_enabled: bool = True, sim_threshold: float = 0.96) -> dict[str, Any]:
+def validate_plan(plan: Any, expected_days: int | None = None, require_micro: bool = False, sim_check_enabled: bool = True, sim_threshold: float = 0.96, auto_heal_micro: bool = False) -> dict[str, Any]:
     """Validate a reviewed skeleton and return it unchanged when it is safe."""
     if not isinstance(plan, dict):
         raise RoadmapValidationError("Roadmap phải là JSON object.")
@@ -148,6 +222,8 @@ def validate_plan(plan: Any, expected_days: int | None = None, require_micro: bo
         first_day[topic_id] = min(first_day.get(topic_id, day), day)
         titles.append((day, title))
         if require_micro:
+            if auto_heal_micro:
+                normalize_micro_fields(item, day)
             minutes = item.get("estimated_minutes")
             concrete = _text(item.get("concrete_project"))
             materials = item.get("materials")
@@ -201,16 +277,16 @@ def validate_plan(plan: Any, expected_days: int | None = None, require_micro: bo
     return plan
 
 
-def validate_revision(original_plan: dict, revised_plan: Any, expected_days: int | None = None, require_micro: bool = False, sim_check_enabled: bool = True, sim_threshold: float = 0.96) -> dict[str, Any]:
+def validate_revision(original_plan: dict, revised_plan: Any, expected_days: int | None = None, require_micro: bool = False, sim_check_enabled: bool = True, sim_threshold: float = 0.96, auto_heal_micro: bool = False) -> dict[str, Any]:
     """A critic may add material, but cannot silently delete existing topics."""
-    validate_plan(original_plan, expected_days, require_micro, sim_check_enabled=sim_check_enabled, sim_threshold=sim_threshold)
+    validate_plan(original_plan, expected_days, require_micro, sim_check_enabled=sim_check_enabled, sim_threshold=sim_threshold, auto_heal_micro=auto_heal_micro)
     old_ids = {item["topic_id"] for item in original_plan["skeleton"]}
     new_items = revised_plan.get("skeleton", []) if isinstance(revised_plan, dict) else []
     new_ids = {item.get("topic_id") for item in new_items if isinstance(item, dict)}
     removed = old_ids - new_ids
     if removed:
         raise RoadmapValidationError("Bản phản biện làm mất topic cũ: " + ", ".join(sorted(removed)[:8]))
-    validate_plan(revised_plan, expected_days=expected_days, require_micro=require_micro, sim_check_enabled=sim_check_enabled, sim_threshold=sim_threshold)
+    validate_plan(revised_plan, expected_days=expected_days, require_micro=require_micro, sim_check_enabled=sim_check_enabled, sim_threshold=sim_threshold, auto_heal_micro=auto_heal_micro)
     return revised_plan
 
 
