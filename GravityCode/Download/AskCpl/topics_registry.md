@@ -5979,3 +5979,1003 @@
 | le_dang_quang_nha_khoi_phuc_toi_cao_toan_cau_du_an_civilis_omega_d1798 | Lễ đăng quang Nhà khôi phục tối cao toàn cầu dự án Civilis Omega | roadmap_SaveLife.md |
 | hop_nhat_toan_dien_va_tai_thiet_toan_cau_du_an_civilis_omega_d1799 | Hợp nhất toàn cầu và tái thiết văn minh dự án Civilis Omega D1799 | roadmap_SaveLife.md |
 | le_dang_quang_nha_khoi_phuc_toi_cao_toan_cau_du_an_civilis_omega_d1800 | Lễ đăng quang Nhà khôi phục tối cao toàn cầu dự án Civilis Omega D1800 | roadmap_SaveLife.md |
+| tu_duy_luoi_va_bo_cuc_pho_mai_que | Làm chủ giao diện cốt lõi và dựng lưới cơ bản cho đĩa Phô mai que | roadmap_PowerpointFull.md |
+| nguyen_ly_thi_giac_ban_ngo_chien_bo | Ứng dụng nguyên lý thị giác phân cấp thông tin cho thực đơn Ngô chiên bơ | roadmap_PowerpointFull.md |
+| thiet_lap_luoi_chuan_pho_mai_que | Thiết lập lưới chuẩn cho món Phô mai que kéo sợi | roadmap_PowerpointFull.md |
+| khoang_trang_va_thi_giac_ngo_chien_bo | Sử dụng khoảng trắng tối ưu cho món Ngô chiên bơ | roadmap_PowerpointFull.md |
+| giao_dien_cot_loi_pho_bien_ban_banh_mi_kep | Khám phá giao diện cốt lõi qua cách lắp ráp Bánh mì kẹp thịt | roadmap_PowerpointFull.md |
+| nguyen_ly_thi_giac_co_ban_bat_mi_tron | Vận dụng nguyên lý thị giác cơ bản khi trộn Bát mì trộn tóp mỡ kết hợp AI | roadmap_PowerpointFull.md |
+| kien_truc_giao_dien_cot_loi_ban_pho_bo | Làm chủ thanh công cụ cốt lõi qua mô hình cấu trúc tô phở bò | roadmap_PowerpointFull.md |
+| nguyen_ly_thi_giac_goc_ban_bun_cha | Vận dụng quy luật tương phản thị giác qua nghệ thuật sắp đặt bún chả | roadmap_PowerpointFull.md |
+| kien_truc_giao_dien_cot_loi_ban_bun_bo_hue | Sắp đặt không gian làm việc tối ưu qua mô hình Bún bò Huế | roadmap_PowerpointFull.md |
+| nguyen_ly_thi_giac_goc_ban_banh_xeo | Thực hành cân bằng thị giác bất đối xứng qua món Bánh xèo miền Tây | roadmap_PowerpointFull.md |
+| giao_dien_cot_loi_ban_com_tam_sai_gon | Định vị vùng không gian cốt lõi qua cách bày biện đĩa Cơm tấm Sài Gòn | roadmap_PowerpointFull.md |
+| nguyen_ly_thi_giac_ban_hu_tieu_nam_vang | Điều phối trọng tâm thị giác bằng nguyên lý phân cấp như tô Hủ tiếu Nam Vang | roadmap_PowerpointFull.md |
+| giao_dien_cot_loi_ban_goi_cuon_tom_thit | Khám phá vùng làm việc trung tâm qua đĩa Gỏi cuốn tôm thịt | roadmap_PowerpointFull.md |
+| nguyen_ly_thi_giac_goc_ban_banh_mi_chao | Thiết lập phân cấp thông tin theo cấu trúc Bánh mì chảo | roadmap_PowerpointFull.md |
+| giao_dien_cot_loi_ban_ga_ran_sot_cay | Khám phá bảng điều khiển bố cục với món Gà rán sốt cay Hàn Quốc kết hợp công cụ Freeform vẽ vector | roadmap_PowerpointFull.md |
+| nguyen_ly_thi_giac_goc_ban_com_chien_duong_chau | Xây dựng trọng tâm thị giác gốc qua đĩa Cơm chiên Dương Châu kết hợp lồng tiếng AI | roadmap_PowerpointFull.md |
+| giao_dien_cot_loi_ban_bo_kho | Tinh chỉnh không gian làm việc tối ưu qua bản Bò kho bánh mì | roadmap_PowerpointFull.md |
+| nguyen_ly_thi_giac_goc_ban_bun_dau_mam_tom | Kiểm soát độ tương phản và nhịp điệu thị giác với mẹt Bún đậu mắm tôm | roadmap_PowerpointFull.md |
+| giao_dien_cot_loi_ban_thit_kho_tau | Khởi tạo không gian làm việc tối ưu với set thịt kho tàu nước dừa | roadmap_PowerpointFull.md |
+| nguyen_ly_thi_giac_goc_ban_heo_quay_gion_bi | Vận dụng quy luật tương phản thị giác qua món heo quay giòn bì kết hợp AI và vector | roadmap_PowerpointFull.md |
+| kien_truc_giao_dien_cot_loi_ban_vit_om_sau | Làm chủ giao diện lõi bản Vịt om sấu trong PowerPoint | roadmap_PowerpointFull.md |
+| nguyen_ly_thi_giac_goc_ban_bo_sot_vang | Ứng dụng nguyên lý thị giác gốc kết hợp công cụ Freeform vẽ vector bản Bò sốt vang | roadmap_PowerpointFull.md |
+| kien_truc_giao_dien_cot_loi_ban_bun_rieu_cua | Làm quen giao diện và thanh công cụ qua Bún riêu cua | roadmap_PowerpointFull.md |
+| nguyen_ly_thi_giac_goc_ban_banh_uot | Khám phá nguyên lý thị giác gốc qua Bánh ướt | roadmap_PowerpointFull.md |
+| kien_truc_giao_dien_cot_loi_ban_lau_thai | Cấu trúc toàn bộ bảng chọn lệnh phiên bản Lẩu Thái | roadmap_PowerpointFull.md |
+| nguyen_ly_thi_giac_goc_ban_cha_gio | Sắp xếp thứ tự nhìn và dẫn dắt mắt phiên bản Chả giò kết hợp AI và Freeform vector | roadmap_PowerpointFull.md |
+| kien_truc_giao_dien_cot_loi_ban_mi_quang | Sắp đặt thanh công cụ và vùng chiếu qua chế biến Mỳ Quảng gà | roadmap_PowerpointFull.md |
+| nguyen_ly_thi_giac_goc_ban_banh_trang_cuon_thit_heo | Điều phối dòng đọc thị giác qua bố cục Bánh tráng cuốn thịt heo | roadmap_PowerpointFull.md |
+| kien_truc_giao_dien_cot_loi_ban_goi_ga_xe_phay | Hệ thống hóa cấu trúc trình bày bản Gỏi gà xé phay trong PowerPoint | roadmap_PowerpointFull.md |
+| nguyen_ly_thi_giac_goc_ban_cha_ca_la_vong | Vận dụng nguyên lý thị giác gốc qua bản Chả cá Lã Vọng | roadmap_PowerpointFull.md |
+| tong_ket_kien_truc_va_thi_giac_ban_com_chay_cha_bong | Hệ thống hóa toàn diện kiến trúc nền tảng và nguyên lý thị giác bản Cơm cháy chà bông | roadmap_PowerpointFull.md |
+| tong_ket_kien_truc_ban_com_nieu_dat_viet | Tích hợp AI lồng tiếng và thiết kế vector thủ công bản Cơm niêu đất Việt | roadmap_PowerpointFull.md |
+| tong_ket_kien_truc_va_thi_giac_ban_pho_ga_ha_noi | Tổng kết kiến trúc và thị giác bản Phở gà Hà Nội | roadmap_PowerpointFull.md |
+| tong_ket_kien_truc_va_thi_giac_ban_banh_khot_vung_tau | Tối ưu hóa hình khối và xuất file đa nền tảng bài Bánh khọt Vũng Tàu | roadmap_PowerpointFull.md |
+| tong_ket_kien_truc_va_thi_giac_ban_banh_trang_nuong_da_lat | Tổng kết kiến trúc và thị giác bản Bánh tráng nướng Đà Lạt kết hợp AI | roadmap_PowerpointFull.md |
+| tong_ket_kien_truc_va_thi_giac_ban_bun_moc_doc_mung | Hệ thống hóa nguyên lý thị giác gốc qua slide thực đơn Bún mọc dọc mùng | roadmap_PowerpointFull.md |
+| kien_truc_va_thi_giac_ban_bun_sua_hai_phong | Hợp nhất kiến trúc và thị giác bản Bún sứa Hải Phòng | roadmap_PowerpointFull.md |
+| tong_ket_kien_truc_va_thi_giac_ban_pho_bo_nam_dinh | Hợp nhất kiến trúc và tư duy thị giác bản phở bò Nam Định | roadmap_PowerpointFull.md |
+| tong_ket_kien_truc_va_thi_giac_ban_che_ba_mau | Hợp nhất kiến trúc và thị giác bản Chè ba màu với công cụ Freeform vẽ vector | roadmap_PowerpointFull.md |
+| tong_ket_kien_truc_va_thi_giac_ban_bun_cha_ha_noi | Đột phá tư duy thiết kế đỉnh cao qua mô hình Bún chả Hà Nội tích hợp âm thanh AI | roadmap_PowerpointFull.md |
+| tong_ket_kien_truc_va_thi_giac_ban_banh_xeo_mien_trung | Hợp nhất tư duy thiết kế và thị giác qua món Bánh xèo miền Trung | roadmap_PowerpointFull.md |
+| tong_ket_kien_truc_va_thi_giac_ban_com_tam_sai_gon | Kiểm thử hệ thống Trigger đa tầng qua mô hình Cơm tấm Sài Gòn | roadmap_PowerpointFull.md |
+| kien_truc_va_thi_giac_ban_banh_can_da_lat | Tinh hoa kiến trúc nền tảng và bố cục trực quan bản Bánh căn Đà Lạt | roadmap_PowerpointFull.md |
+| tong_ket_kien_truc_va_thi_giac_ban_bun_bo_hue | Tích hợp công cụ vẽ vector thủ công và xử lý âm thanh AI bản Bún bò Huế | roadmap_PowerpointFull.md |
+| tong_ket_kien_truc_va_thi_giac_ban_lau_hai_san | Hợp nhất kiến trúc nền tảng và tư duy thị giác bản Lẩu hải sản kết hợp tích hợp AI và vector thủ công | roadmap_PowerpointFull.md |
+| tong_ket_kien_truc_va_thi_giac_ban_banh_mi_kep_thit_nguoi | Hoàn thiện tư duy nền tảng thương hiệu bánh mì kèm debug trigger và bảo mật VBA | roadmap_PowerpointFull.md |
+| tong_ket_kien_truc_va_thi_giac_ban_lau_bo_nhung_dam | Hệ thống hóa toàn diện kiến trúc thị giác bản Lẩu bò nhúng dấm kết hợp AI và Freeform vector | roadmap_PowerpointFull.md |
+| tong_ket_kien_truc_va_thi_giac_ban_ban_cuon_tay_son | Hợp nhất kiến trúc nền tảng qua thiết kế Bánh cuốn Tây Sơn và đóng gói đa nền tảng | roadmap_PowerpointFull.md |
+| tong_ket_kien_truc_va_thi_giac_ban_ban_trang_cuon | Tổng kết kiến trúc nền tảng và tích hợp công cụ AI tự động hóa | roadmap_PowerpointFull.md |
+| tong_ket_kien_truc_va_thi_giac_ban_ga_ta_luoc | Đỉnh cao thị giác và kỹ thuật xuất file đa nền tảng bản Gà ta luộc | roadmap_PowerpointFull.md |
+| chuyen_sau_kien_truc_va_thi_giac_ban_bun_dau_mam_tom | Chuyên sâu kiến trúc hệ thống và tư duy thị giác bản Bún đậu mắm tôm | roadmap_PowerpointFull.md |
+| chuyen_sau_kien_truc_va_thi_giac_ban_ban_cuon_thit_heo | Tinh hoa thiết kế vector thủ công và đồng bộ hóa đa phương tiện bánh cuốn thịt heo | roadmap_PowerpointFull.md |
+| chuyen_sau_kien_truc_va_thi_giac_ban_ga_hap_la_chanh | Đỉnh cao thiết kế slide bản Gà hấp lá chanh tích hợp AI tự động | roadmap_PowerpointFull.md |
+| chuyen_sau_kien_truc_va_thi_giac_ban_ca_kho_tộ | Tinh chỉnh không gian slide độc quyền với mô hình cá kho tộ và vector thủ công | roadmap_PowerpointFull.md |
+| chuyen_sau_kien_truc_va_thi_giac_ban_thit_kho_tau_nuoc_dua | Nền móng tư duy thiết kế và giao diện cốt lõi bản Thịt kho tàu nước dừa | roadmap_PowerpointFull.md |
+| tong_ket_kien_truc_va_thi_giac_ban_bo_kho_banh_mi | Tối ưu hóa không gian hiển thị và tương tác đa tầng qua món Bò kho bánh mì | roadmap_PowerpointFull.md |
+| chuyen_sau_kien_truc_va_thi_giac_ban_bun_rieu_cua | Tinh chỉnh nền móng giao diện căn bản bản bún riêu cua tích hợp AI | roadmap_PowerpointFull.md |
+| chuyen_sau_kien_truc_va_thi_giac_ban_chả_giò_rế | Đột phá kiến trúc và thị giác bản Chả giò rế kết hợp vector thủ công | roadmap_PowerpointFull.md |
+| chuyen_sau_kien_truc_va_thi_giac_ban_vit_om_sau | Đột phá kiến trúc nền tảng và thị giác qua món Vịt om sấu | roadmap_PowerpointFull.md |
+| tong_ket_kien_truc_va_thi_giac_ban_bo_bit_tet_khoai_tay | Đúc kết kiến trúc nền tảng và nguyên lý thị giác bản Bò bít tết khoai tây | roadmap_PowerpointFull.md |
+| he_thong_typography_ban_bun_cha_ha_noi | Nghệ thuật Typography và phân cấp thông tin qua slide Bún chả Hà Nội | roadmap_PowerpointFull.md |
+| phoi_mau_nhan_dien_ban_nem_cua_be | Phối màu chuẩn nhận diện doanh nghiệp qua slide Nem cua bể | roadmap_PowerpointFull.md |
+| nghe_thuat_sap_dat_chu_ban_pho_bo_nam_dinh | Sắp đặt chữ và phân cấp thông tin cho Slide Bát Phở Bò Nam Định | roadmap_PowerpointFull.md |
+| phoi_mau_nhan_dien_ban_bun_bo_hue | Phối màu nhận diện thương hiệu chuyên nghiệp với Slide Bún Bò Huế | roadmap_PowerpointFull.md |
+| nghe_thuat_sap_dat_chu_ban_pho_cuon_ngu_sac | Sắp đặt chữ và phân cấp thông tin chuyên gia bản Phở cuốn ngũ sắc | roadmap_PowerpointFull.md |
+| phoi_mau_thuong_hieu_ban_banh_trang_cuon_thit_heo | Phối màu chuẩn nhận diện doanh nghiệp bản Bánh tráng cuốn thịt heo | roadmap_PowerpointFull.md |
+| phan_cap_thong_tin_ban_bun_dau_mam_tom | Nghệ thuật phân cấp thông tin và định hướng dòng đọc bản Bún đậu mắm tôm | roadmap_PowerpointFull.md |
+| phối_màu_doanh_nghiệp_ban_cha_ca_la_vong | Ứng dụng hệ thống phối màu thương hiệu doanh nghiệp bản Chả cá Lã Vọng | roadmap_PowerpointFull.md |
+| phan_cap_chu_ban_com_tam_sai_gon | Thiết lập tầng bậc chữ slide chuyên gia với món Cơm tấm Sài Gòn và xử lý tương thích Office | roadmap_PowerpointFull.md |
+| phoi_mau_thuong_hieu_ban_banh_xeo_mien_trung | Phối màu thương hiệu doanh nghiệp chuyên nghiệp kết hợp AI với món Bánh xèo miền Trung | roadmap_PowerpointFull.md |
+| ky_thuat_doc_chu_ban_goi_cuon_tom_thit | Kỹ thuật co giãn khoảng cách dòng và ký tự bản Gỏi cuốn tôm thịt kết hợp AI | roadmap_PowerpointFull.md |
+| phoi_mau_60_30_10_ban_bun_thit_nuong | Ứng dụng tỷ lệ phối màu 60-30-10 và xử lý âm thanh AI bản Bún thịt nướng | roadmap_PowerpointFull.md |
+| ky_thuat_can_chinh_chu_ban_pho_ga_ha_noi | Kỹ thuật canh chỉnh chữ bản Phở gà Hà Nội kết hợp AI tạo sinh | roadmap_PowerpointFull.md |
+| tong_ket_he_thong_mau_ban_nem_ran_ha_noi | Tổng hợp hệ thống màu và xuất bản đa nền tảng bản Nem rán Hà Nội | roadmap_PowerpointFull.md |
+| nghe_thuat_sap_dat_kieu_chu_ban_bo_kho_sate | Nghệ thuật sắp đặt kiểu chữ tiêu đề cho slide Bò kho sa tế | roadmap_PowerpointFull.md |
+| phoi_mau_nhan_dien_thuong_hieu_ban_lau_ga_la_giang | Phối màu nhận diện thương hiệu chuyên nghiệp cho slide Lẩu gà lá giang | roadmap_PowerpointFull.md |
+| ky_thuat_xu_ly_font_chu_ban_com_nieu_singapore | Kỹ thuật xử lý font chữ và hệ thống phân cấp độc đáo bản Cơm niêu Singapore | roadmap_PowerpointFull.md |
+| chuyen_sau_phoi_mau_thuong_hieu_ban_lau_thai_tom_yum | Chuyên sâu phối màu thương hiệu chuyên nghiệp bản Lẩu Thái Tom Yum | roadmap_PowerpointFull.md |
+| chuyen_gia_typography_va_mau_sac_ban_cha_ca_la_vong | Nghệ thuật đồng bộ Typography và màu sắc thương hiệu bản Chả cá Lã Vọng | roadmap_PowerpointFull.md |
+| tong_ket_typography_va_mau_sac_ban_bun_ca_ha_noi | Đỉnh cao kết hợp chữ và màu sắc chuyên gia bản Bún cá Hà Nội | roadmap_PowerpointFull.md |
+| chuyen_gia_sap_dat_chu_ban_pho_cuon_ngu_sac_81 | Chuyên gia sắp đặt chữ và phân cấp thông tin bản Phở cuốn ngũ sắc | roadmap_PowerpointFull.md |
+| chuyen_gia_phoi_mau_thuong_hieu_ban_banh_trang_cuon_thit_heo_82 | Đỉnh cao phối màu doanh nghiệp bản Bánh tráng cuốn thịt heo | roadmap_PowerpointFull.md |
+| bac_thay_typography_va_mau_sac_ban_bun_moc_doc_mieu | Bậc thầy typography và màu sắc bản Bún mọc dọc mùng | roadmap_PowerpointFull.md |
+| tong_ket_chuyen_sau_typography_mau_sac_ban_banh_uot_ban_me | Đóng gói toàn diện và tích hợp AI cho Bánh ướt Buôn Ma Thuột | roadmap_PowerpointFull.md |
+| chuyen_gia_he_thong_chu_va_mau_ban_com_chien_duong_chau | Hệ thống chữ và màu sắc doanh nghiệp bản Cơm chiên Dương Châu | roadmap_PowerpointFull.md |
+| tong_ket_toan_dien_typography_va_mau_sac_ban_lau_thai | Tổng kết toàn diện typography và màu sắc bản Lẩu Thái | roadmap_PowerpointFull.md |
+| chuyen_gia_sap_dat_chu_ban_pho_bo_nam_dinh_87 | Hệ thống hóa nghệ thuật sắp đặt chữ slide thuyết trình món Phở Bò Nam Định | roadmap_PowerpointFull.md |
+| bac_thay_phoi_mau_nhan_dien_ban_bun_bo_hue_88 | Đỉnh cao phối màu nhận diện thương hiệu doanh nghiệp món Bún Bò Huế | roadmap_PowerpointFull.md |
+| chuyen_gia_sap_dat_chu_va_mau_ban_goi_cuon_tom_thit | Chuyên gia sắp đặt chữ và màu slide thuyết trình bản Gỏi cuốn tôm thịt | roadmap_PowerpointFull.md |
+| bac_thay_typography_va_mau_sac_ban_bun_cha_ha_noi_90 | Nghệ thuật đồng bộ hóa không gian đa nền tảng và xuất bản bản Bún chả Hà Nội | roadmap_PowerpointFull.md |
+| chuyen_gia_he_thong_chu_va_mau_ban_banh_mi_kep_thit | Hệ thống chữ và màu sắc chuyên gia bản Bánh mì kẹp thịt kết hợp AI tự động | roadmap_PowerpointFull.md |
+| tong_ket_chuyen_sau_typography_va_mau_sac_ban_pho_dac_biet | Kỹ thuật xuất file, đóng gói và tổng kết chuyên sâu bản Phở đặc biệt | roadmap_PowerpointFull.md |
+| nghe_thuat_sap_dat_chu_ban_thit_kho_tau_nuoc_dua | Sắp đặt kiểu chữ và phân tầng thông tin cho slide Thịt kho tàu nước dừa kết hợp tích hợp AI tự động | roadmap_PowerpointFull.md |
+| phoi_mau_nhan_dien_ban_heo_quay_gion_bi | Phối màu nhận diện doanh nghiệp chuyên sâu qua slide Heo quay giòn bì kèm xuất file đa nền tảng | roadmap_PowerpointFull.md |
+| chuyen_gia_sap_dat_chu_ban_vit_om_sau | Đỉnh cao dàn trang chữ bản Vịt om sấu | roadmap_PowerpointFull.md |
+| bac_thay_phoi_mau_ban_bo_sot_vang | Kiểm soát sắc thái màu bản Bò sốt vang | roadmap_PowerpointFull.md |
+| chuyen_gia_sap_dat_chu_ban_muc_chien_xu | Tinh chỉnh luồng đọc và bố cục văn bản cho Mực chiên xù kết hợp AI tự động | roadmap_PowerpointFull.md |
+| bac_thay_phoi_mau_ban_com_lam_ga_nuong | Ứng dụng phối màu doanh nghiệp nâng cao kết hợp export đa nền tảng cho Cơm lam gà nướng | roadmap_PowerpointFull.md |
+| chuyen_gia_sap_dat_chu_ban_com_tam_sai_gon | Chuyên gia sắp đặt chữ bản Cơm tấm Sài Gòn | roadmap_PowerpointFull.md |
+| bac_thay_phoi_mau_ban_banh_xeo_mien_trung | Bậc thầy phối màu bản Bánh xèo miền Trung tích hợp AI | roadmap_PowerpointFull.md |
+| chuyen_gia_he_thong_chu_va_mau_ban_bun_cha_ha_noi_101 | Hệ thống chữ và màu slide thương hiệu cho Bún chả Hà Nội | roadmap_PowerpointFull.md |
+| tong_ket_chuyen_sau_typography_va_mau_sac_ban_pho_bo_102 | Tổng kết và kiểm thử tương thích đa phiên bản Office cho Phở bò | roadmap_PowerpointFull.md |
+| chuyen_gia_he_thong_chu_va_mau_ban_cha_tom_ho_tay_103 | Hệ thống chữ và màu bàn Chả tôm Hồ Tây | roadmap_PowerpointFull.md |
+| bac_thay_typography_va_mau_sac_ban_bun_dau_mắm_tom_104 | Xây dựng vector thủ công và phối màu nâng cao bản Bún đậu mắm tôm | roadmap_PowerpointFull.md |
+| chuyen_gia_he_thong_chu_va_mau_ban_nem_chua_ran | Chuyên gia hệ thống chữ và màu bản Nem chua rán tích hợp AI color palette | roadmap_PowerpointFull.md |
+| chuyen_gia_he_thong_chu_va_mau_ban_com_chay_chieu_phu | Hệ thống typography đa tầng và xử lý tương thích đa phiên bản Office bàn Cơm cháy chèo bẻo | roadmap_PowerpointFull.md |
+| chuyen_gia_he_thong_chu_va_mau_ban_bun_dau_long | Hệ thống chữ và màu ban bún đậu lòng | roadmap_PowerpointFull.md |
+| chuyen_gia_he_thong_chu_va_mau_ban_banh_trang_nuong | Thiết kế vector thủ công và phối màu nâng cao | roadmap_PowerpointFull.md |
+| chuyen_gia_he_thong_chu_va_mau_ban_banh_uot_long_he | Hệ thống chữ và màu banh uột lòng heo: Sắp đặt font và bảng màu doanh nghiệp | roadmap_PowerpointFull.md |
+| chuyen_gia_he_thong_chu_va_mau_ban_banh_trang_cuon_thit_heo_110 | Đỉnh cao phân cấp typography, màu sắc doanh nghiệp và tối ưu tương thích phiên bản Office | roadmap_PowerpointFull.md |
+| chuyen_gia_he_thong_chu_va_mau_ban_com_rang_duong_chau | Hệ thống typography nâng cao và phối màu thương hiệu Cơm rang Dương Châu | roadmap_PowerpointFull.md |
+| dinh_cao_phan_cap_chu_ban_pho_cuon_sa_gon | Đỉnh cao phân cấp chữ và tối ưu tương thích đa phiên bản bản Phở cuốn Sài Gòn | roadmap_PowerpointFull.md |
+| chuyen_gia_he_thong_chu_va_mau_ban_cha_ca_la_vong | Hệ thống typography và bảng màu độc quyền cho Chả cá Lã Vọng | roadmap_PowerpointFull.md |
+| chuyen_gia_he_thong_chu_va_mau_ban_bun_moc_thanh_tri | Tinh chỉnh font chữ nghệ thuật và phối màu hoài niệm Bún mọc Thanh Trì | roadmap_PowerpointFull.md |
+| chuyen_gia_he_thong_chu_va_mau_ban_com_nieu_sai_gon | Hệ thống typography và phối màu thương hiệu Cơm niêu Sài Gòn | roadmap_PowerpointFull.md |
+| chuyen_gia_he_thong_chu_va_mau_ban_bun_rieu_cua | Tích hợp AI và vector thủ công cho bộ nhận diện Bún riêu cua thượng hạng | roadmap_PowerpointFull.md |
+| chuyen_gia_he_thong_chu_va_mau_ban_banh_xeo | Hệ thống chữ và màu ban bánh xèo miền Tây kết hợp SVG vector | roadmap_PowerpointFull.md |
+| chuyen_gia_he_thong_chu_va_mau_ban_nem_nuong_nha_trang | Hệ thống phân cấp và màu nhận diện qua món Nem nướng Nha Trang tích hợp AI | roadmap_PowerpointFull.md |
+| chuyen_gia_he_thong_chu_va_mau_ban_com_hen_hue | Hệ thống typography và phối màu thương hiệu bản Cơm hến Huế | roadmap_PowerpointFull.md |
+| chuyen_gia_he_thong_chu_va_mau_ban_com_tam_sai_gon_120 | Tối ưu hóa bố cục và tích hợp hiệu ứng tương thích đa nền tảng bản Cơm tấm Sài Gòn | roadmap_PowerpointFull.md |
+| cau_truc_thong_tin_ban_bun_bo_hue | Cấu trúc thông tin chiến lược và tích hợp AI cho slide bún bò huế | roadmap_PowerpointFull.md |
+| kich_ban_storytelling_ban_banh_cuon_thanh_tri | Kịch bản storytelling dẫn dắt cảm xúc kết hợp export đa nền tảng bàn bánh cuốn thanh trì | roadmap_PowerpointFull.md |
+| chuyen_gia_cau_truc_ban_mi_quang | Chuyên gia cấu trúc thông tin định hướng chiến lược bản Mì Quảng | roadmap_PowerpointFull.md |
+| nghe_thuat_storytelling_ban_goi_cuon_tom_thit | Nghệ thuật dẫn dắt cảm xúc người xem qua kịch bản Gỏi cuốn tôm thịt | roadmap_PowerpointFull.md |
+| chien_luoc_cau_truc_ban_thit_kho_tau | Chiến lược phân tầng nội dung slide qua mô hình cấu trúc bàn thịt kho tàu | roadmap_PowerpointFull.md |
+| nghe_thuat_dan_dat_ban_bo_sot_vang | Nghệ thuật dẫn dắt cảm xúc người xem qua kịch bản storytelling bàn bò sốt vang | roadmap_PowerpointFull.md |
+| kien_tao_cau_truc_ban_vit_om_sau | Kiến tạo cấu trúc thông tin định hướng chiến lược kết hợp AI cho món Vịt om sấu | roadmap_PowerpointFull.md |
+| kich_ban_cam_xuc_ban_bo_kho | Xây dựng kịch bản cảm xúc và kỹ thuật export đa nền tảng với món Bò kho | roadmap_PowerpointFull.md |
+| chuyen_gia_cau_truc_ban_ga_ta_luoc | Chuyên gia cấu trúc thông tin bản Gà ta luộc | roadmap_PowerpointFull.md |
+| nghe_thuat_storytelling_ban_cha_gio_hai_nam | Nghệ thuật storytelling bản Chả giò Hải Nam kết hợp AI TTS | roadmap_PowerpointFull.md |
+| chien_luoc_phan_bo_ban_canh_ga_chien_nuoc_mắm | Chiến lược phân bổ mạch lạc cho bản Cánh gà chiên nước mắm | roadmap_PowerpointFull.md |
+| thiet_ke_cam_xuc_ban_muc_chien_giam_toi | Thiết kế dòng chảy cảm xúc tích hợp AI và Freeform vector cho bản Mực chiên giòn tỏi | roadmap_PowerpointFull.md |
+| chien_luoc_dieu_phoi_ban_suon_xao_chua_ngot | Chiến lược điều phối nội dung bản sườn xào chua ngọt | roadmap_PowerpointFull.md |
+| nghe_thuat_dieu_huong_ban_canh_cua_rau_day | Nghệ thuật điều hướng cảm xúc bản canh cua rau đay | roadmap_PowerpointFull.md |
+| chuyen_gia_cau_truc_ban_ca_kho_tộ | Chuyên gia cấu trúc thông tin và chiến lược dẫn dắt tích hợp AI cho bản Cá kho tộ | roadmap_PowerpointFull.md |
+| nghe_thuat_storytelling_ban_go_om_mang | Nghệ thuật storytelling đa nền tảng và tối ưu hóa định dạng cho bản Gò ôm măng | roadmap_PowerpointFull.md |
+| chuyen_gia_cau_truc_ban_ga_hap_la_chanh | Chuyên gia cấu trúc thông tin đỉnh cao qua món Gà hấp lá chanh sắc sảo | roadmap_PowerpointFull.md |
+| nghe_thuat_dieu_huong_ban_cha_muc_ha_long | Nghệ thuật điều hướng cảm xúc người xem qua món Chả mực Hạ Long giòn dai | roadmap_PowerpointFull.md |
+| chuyen_gia_cau_truc_ban_thit_kho_tau_nuoc_dua | Chuyên gia cấu trúc thông tin cho slide chiến lược sản phẩm qua món Thịt kho tàu nước dừa | roadmap_PowerpointFull.md |
+| nghe_thuat_storytelling_ban_heo_quay_gion_bi | Nghệ thuật storytelling và dẫn dắt cảm xúc người xem qua món Heo quay giòn bì | roadmap_PowerpointFull.md |
+| chuyen_gia_cau_truc_ban_bun_cha_ha_noi | Chuyên gia cấu trúc thông tin cho món Bún chả Hà Nội kết hợp AI layout | roadmap_PowerpointFull.md |
+| nghe_thuat_storytelling_ban_pho_bo_ha_noi | Nghệ thuật storytelling đỉnh cao qua món Phở bò Hà Nội và vector thủ công | roadmap_PowerpointFull.md |
+| chuyen_gia_cau_truc_ban_nem_cua_be_pho | Chuyên gia cấu trúc thông tin bản Nem cua bể phố cổ kết hợp công cụ vẽ vector Freeform | roadmap_PowerpointFull.md |
+| nghe_thuat_storytelling_ban_bun_dau_mam_tom | Nghệ thuật storytelling dẫn dắt cảm xúc bản Bún đậu mắm tôm tích hợp AI lồng tiếng | roadmap_PowerpointFull.md |
+| chuyen_gia_cau_truc_ban_mi_xao_gion | Chuyên gia cấu trúc thông tin và chiến lược phân bổ slide món Mì xào giòn | roadmap_PowerpointFull.md |
+| nghe_thuat_storytelling_ban_lau_thai | Nghệ thuật storytelling và kỹ thuật dẫn dắt cảm xúc người xem qua Lẩu Thái | roadmap_PowerpointFull.md |
+| chuyen_gia_cau_truc_ban_pho_xao_giòn | Sắp xếp logic tầng lớp dữ liệu phức tạp dựa trên quy trình xào bánh phở kết hợp công cụ Freeform vẽ vector thủ công | roadmap_PowerpointFull.md |
+| nghe_thuat_storytelling_ban_go_chi_chien_giam_toi | Dẫn dắt cảm xúc người xem qua nhịp điệu nhanh chậm tích hợp âm thanh lồng tiếng AI đồng bộ khẩu hình | roadmap_PowerpointFull.md |
+| chuyen_gia_cau_truc_ban_pho_cuon_ngu_sac | Chuyên gia cấu trúc thông tin bản Phở cuốn ngũ sắc chiến lược | roadmap_PowerpointFull.md |
+| nghe_thuat_storytelling_ban_go_kho_to | Nghệ thuật storytelling dẫn dắt cảm xúc bản Gà kho tộ đậm đà | roadmap_PowerpointFull.md |
+| chuyen_gia_cau_truc_ban_banh_xeo_mien_tay | Tổ chức khung thông tin tầng sâu qua món Bánh xèo miền Tây giòn rụm | roadmap_PowerpointFull.md |
+| nghe_thuat_storytelling_ban_go_cuon_tom_nhay | Kịch bản dẫn dắt cảm xúc người xem qua món Gỏi cuốn tôm nhảy kết hợp tích hợp AI và export đa nền tảng | roadmap_PowerpointFull.md |
+| chuyen_gia_cau_truc_ban_bun_bo_hue | Tổ chức khung thông tin chiến lược qua món Bún bò Huế | roadmap_PowerpointFull.md |
+| nghe_thuat_storytelling_ban_banh_cuon_thit_nuong | Kịch bản dẫn dắt cảm xúc người xem qua món Bánh cuốn thịt nướng | roadmap_PowerpointFull.md |
+| chuyen_gia_cau_truc_ban_ga_nuong_lu | Chuyên gia cấu trúc bản Gà nướng lu thông minh | roadmap_PowerpointFull.md |
+| nghe_thuat_storytelling_ban_vit_quay_mac_mat | Nghệ thuật storytelling và AI voiceover bản Vịt quay mắc mật | roadmap_PowerpointFull.md |
+| chuyen_gia_cau_truc_ban_bo_bit_tet_khoai_tay | Hoạch định khung thông tin chiến lược và tích hợp AI cho bản bò bít tết khoai tây | roadmap_PowerpointFull.md |
+| nghe_thuat_storytelling_ban_ca_hoi_ap_chao | Sáng tác kịch bản dẫn dắt cảm xúc và export đa nền tảng qua món cá hồi áp chảo | roadmap_PowerpointFull.md |
+| chien_luoc_dieu_phoi_ban_bo_kho_dua | Chiến lược điều phối khung thông tin bản bò kho dưa | roadmap_PowerpointFull.md |
+| kien_tao_kịch_bản_ban_lau_thai_chua_cay | Kiến tạo kịch bản thuyết trình chiến lược qua món lẩu thái chua cay | roadmap_PowerpointFull.md |
+| hoach_dinh_kien_truc_ban_bun_rieu_cua | Hoạch định kiến trúc dữ liệu và mạch cảm xúc cho slide bún riêu cua tích hợp AI | roadmap_PowerpointFull.md |
+| chuyen_gia_cau_truc_ban_thit_kho_hot_vit | Định hình giải pháp toàn diện bản thịt kho hột vịt chiến lược và xuất file đa nền tảng | roadmap_PowerpointFull.md |
+| kien_tao_mach_cam_xuc_ban_chao_long | Kiến tạo mạch cảm xúc thuyết trình qua món Cháo lòng | roadmap_PowerpointFull.md |
+| kien_tao_mach_cam_xuc_ban_lau_thai_chua_cay | Đạo diễn kịch bản đồ họa bùng nổ vị giác với lẩu Thái | roadmap_PowerpointFull.md |
+| kien_tao_mach_cam_xuc_ban_com_tam_sai_gon | Kiến tạo mạch cảm xúc kịch bản slide với món cơm tấm sài gòn | roadmap_PowerpointFull.md |
+| kien_tao_mach_cam_xuc_ban_bo_kho_dua | Thiết kế hệ thống tương thích và xử lý hiển thị đa phiên bản cho slide bò kho dừa | roadmap_PowerpointFull.md |
+| hoach_dinh_mach_cam_xuc_ban_lau_ga_la_e | Hoạch định mạch cảm xúc chiến lược cho kịch bản lẩu gà lá é kết hợp AI TTS | roadmap_PowerpointFull.md |
+| hoach_dinh_mach_cam_xuc_ban_bun_cha_ha_noi | Tối ưu hóa đa nền tảng và kiểm thử mạch cảm xúc món bún chả Hà Nội | roadmap_PowerpointFull.md |
+| kien_tao_mach_cam_xuc_ban_bun_cha_ha_noi | Kiến tạo mạch cảm xúc bản bún chả Hà Nội kết hợp vẽ vector nhân vật Freeform thủ công | roadmap_PowerpointFull.md |
+| kien_tao_mach_cam_xuc_ban_bo_bit_tet_khoai_tay | Kiến tạo mạch cảm xúc đỉnh cao cho kịch bản bò bít tết khoai tây kèm Debug Trigger đa tầng | roadmap_PowerpointFull.md |
+| hoach_dinh_mach_cam_xuc_ban_nem_nuong_nha_trang | Hoạch định mạch cảm xúc chiến lược cho món Nem nướng Nha Trang | roadmap_PowerpointFull.md |
+| hoach_dinh_mach_cam_xuc_ban_bo_bit_tet_khoai_tay | Nghệ thuật phân bổ cao trào và đồng bộ hóa nhịp độ qua món Bò bít tết khoai tây | roadmap_PowerpointFull.md |
+| chien_luoc_dieu_phoi_ban_thit_kho_tau_nuoc_dua | Chiến lược điều phối dòng thông tin và tích hợp AI trong thiết kế slide thịt kho tàu | roadmap_PowerpointFull.md |
+| kien_tao_mach_cam_xuc_ban_thit_kho_tau_nuoc_dua | Kiến tạo mạch cảm xúc đỉnh cao và kỹ thuật export đa nền tảng với Thịt kho tàu | roadmap_PowerpointFull.md |
+| hoach_dinh_mach_cam_xuc_ban_bo_kho_dua | Hoạch định mạch cảm xúc thuyết trình qua hình tượng Bò kho dứa đậm đà | roadmap_PowerpointFull.md |
+| chuyen_gia_cau_truc_ban_go_kho_to_dac_biet | Chuyên gia cấu trúc thông tin kịch bản món Gà kho gừng nghệ | roadmap_PowerpointFull.md |
+| hoach_dinh_mach_cam_xuc_ban_banh_xeo_mien_tay | Hoạch định mạch cảm xúc thuyết trình qua kịch bản bản Bánh xèo miền Tây tích hợp AI | roadmap_PowerpointFull.md |
+| chien_luoc_dieu_phoi_ban_bun_cha_ha_noi | Chiến lược điều phối và xuất bản đa nền tảng bản bún chả Hà Nội | roadmap_PowerpointFull.md |
+| chien_luoc_dieu_phoi_ban_bun_dau_mam_tom | Chiến lược điều phối slide thông qua cấu trúc món bún đậu mắm tôm | roadmap_PowerpointFull.md |
+| chuyen_gia_cau_truc_ban_pho_bo_tai_lan | Chuyên gia cấu trúc và tích hợp AI lồng tiếng cho bản phở bò tái lăn | roadmap_PowerpointFull.md |
+| chuyen_gia_cau_truc_ban_banh_trang_nuong_da_lat | Sắp đặt thông tin chiến lược qua món Bánh tráng nướng Đà Lạt | roadmap_PowerpointFull.md |
+| chien_luoc_dieu_phoi_ban_bun_oc_ha_noi | Chiến lược điều phối bản bún ốc Hà Nội và tương thích Office | roadmap_PowerpointFull.md |
+| chuyen_gia_cau_truc_ban_bun_thit_nuong | Thiết lập khung thông tin chiến lược cho slide bún thịt nướng kết hợp công cụ AI tự động | roadmap_PowerpointFull.md |
+| chuyen_gia_cau_truc_ban_banh_trang_cuon_thit_heo | Đóng gói và xuất bản đa nền tảng bản bánh tráng cuốn thịt heo chuyên nghiệp | roadmap_PowerpointFull.md |
+| chien_luoc_dieu_phoi_ban_banh_trang_nuong_da_lat | Chiến lược điều phối kịch bản thông tin cho bàn bánh tráng nướng Đà Lạt | roadmap_PowerpointFull.md |
+| chien_luoc_dieu_phoi_ban_bun_rieu_cua | Tích hợp âm thanh AI và đồng bộ khẩu hình cho slide Bún riêu cua | roadmap_PowerpointFull.md |
+| chien_luoc_dieu_phoi_ban_go_kho_to_dac_biet | Chiến lược điều phối bản gỏi khô bò đặc biệt tích hợp công cụ Freeform vẽ vector nhân vật độc quyền | roadmap_PowerpointFull.md |
+| chuyen_gia_cau_truc_ban_pho_chien_gion | Tối ưu hóa mạch truyền thông điệp slide chiến lược món Phở chiên giòn kết hợp AI TTS | roadmap_PowerpointFull.md |
+| chuyen_gia_cau_truc_ban_go_sen_tom_thit | Hoạch định cấu trúc slide chiến lược cho món Gỏi sen tôm thịt sắc nét | roadmap_PowerpointFull.md |
+| kien_tao_mach_cam_xuc_ban_nem_nuong_nha_trang | Tối ưu hóa hành trình trải nghiệm người xem qua món Nem nướng Nha Trang | roadmap_PowerpointFull.md |
+| chuyen_gia_cau_truc_ban_banh_uot_long_he | Chuyên gia cấu trúc bản Bánh ướt lòng heo | roadmap_PowerpointFull.md |
+| chuyen_gia_cau_truc_ban_com_nieu_dat_viet | Chuyên gia cấu trúc bản Cơm niêu đất Việt tích hợp AI | roadmap_PowerpointFull.md |
+| chuyen_gia_cau_truc_ban_lau_de_hai_san | Chuyên gia cấu trúc bản lẩu dê hải sản kết hợp tích hợp AI TTS lồng tiếng | roadmap_PowerpointFull.md |
+| chuyen_gia_cau_truc_ban_com_tam_sai_gon | Chuyên gia cấu trúc và storytelling vẽ vector Freeform chủ đề Cơm tấm Sài Gòn | roadmap_PowerpointFull.md |
+| ky_thuat_hop_nhat_vector_va_xu_ly_svg_cho_slide_kien_truc_do_thi | Hợp nhất hình học đa dạng và chuyển hóa SVG vector cho Slide Quy hoạch Đô thị | roadmap_PowerpointFull.md |
+| ky_thuat_cat_ghep_anh_chuyen_nghiep_va_xoa_nen_cho_slide_showroom_oto | Xóa nền hoàn hảo và ghép ảnh nghệ thuật cho Slide Trưng bày Ô tô Siêu sang | roadmap_PowerpointFull.md |
+| ky_thuat_hop_nhat_vector_va_xu_ly_svg_cho_slide_kien_truc_do_thi_d197 | Kỹ thuật hợp nhất Vector và xử lý SVG cho slide quy hoạch đô thị thông minh | roadmap_PowerpointFull.md |
+| ky_thuat_cat_ghep_anh_chuyen_nghiep_va_xoa_nen_cho_slide_showroom_oto_d198 | Kỹ thuật cắt ghép ảnh chuyên nghiệp và xóa nền cho slide showroom ô tô | roadmap_PowerpointFull.md |
+| ky_thuat_bien_tap_vector_va_xu_ly_svg_cho_slide_thiet_ke_noi_that_d199 | Kỹ thuật biến tập vector và xử lý SVG cho slide thiết kế nội thất | roadmap_PowerpointFull.md |
+| giai_phap_cat_ghep_hinh_anh_va_xoa_nen_cho_slide_chien_dich_thoi_trang_d200 | Giải pháp cắt ghép hình ảnh và xóa nền cho slide chiến dịch thời trang | roadmap_PowerpointFull.md |
+| chuyen_sau_shape_hop_nhat_svg_cho_slide_thiet_ke_can_ho_thong_minh | Chuyên sâu Shape hợp nhất SVG và ứng dụng công cụ Freeform vẽ vector cho slide kiến trúc | roadmap_PowerpointFull.md |
+| ky_thuat_cat_ghep_anh_va_xoa_nen_toi_uu_cho_slide_trien_lam_nghe_thuat | Kỹ thuật cắt ghép ảnh nâng cao kết hợp tích hợp âm thanh lồng tiếng AI cho slide nghệ thuật | roadmap_PowerpointFull.md |
+| thuat_toan_shape_hop_nhat_va_vector_cho_slide_khu_do_thi_thong_minh | Thuật toán Shape hợp nhất và vector cho slide khu đô thị thông minh | roadmap_PowerpointFull.md |
+| phuong_phap_cat_ghep_anh_va_xoa_nen_cho_slide_khu_nghi_duong_sinh_thai | Phương pháp cắt ghép ảnh và xóa nền cho slide khu nghỉ dưỡng sinh thái | roadmap_PowerpointFull.md |
+| chuyen_sau_shape_svg_cho_slide_trung_tam_du_lieu | Chuyên sâu Shape hợp nhất, Freeform vector thủ công và SVG cho slide Trung tâm dữ liệu | roadmap_PowerpointFull.md |
+| ky_thuat_xu_ly_anh_va_xoa_nen_cho_slide_thiet_bi_y_te | Kỹ thuật cắt ghép ảnh chuyên nghiệp, xóa nền và tích hợp AI âm thanh cho slide thiết bị y tế | roadmap_PowerpointFull.md |
+| toi_uu_shape_hop_nhat_va_svg_cho_slide_nha_may_thong_minh | Tối ưu Shape hợp nhất, xử lý SVG kết hợp vẽ vector thủ công Freeform | roadmap_PowerpointFull.md |
+| ky_thuat_cat_ghep_anh_chuyen_sau_cho_slide_robot_cong_nghiep | Kỹ thuật cắt ghép ảnh chuyên sâu, xóa nền và tích hợp lồng tiếng AI | roadmap_PowerpointFull.md |
+| ky_thuat_xu_ly_svg_cho_slide_trung_tam_logistics | Kỹ thuật xử lý SVG, Shape hợp nhất kết hợp vẽ Freeform vector nhân vật độc quyền | roadmap_PowerpointFull.md |
+| giai_phap_cat_ghep_anh_cho_slide_khong_gian_lam_viec | Giải pháp cắt ghép ảnh, xóa nền hoàn hảo và tích hợp âm thanh lồng tiếng AI | roadmap_PowerpointFull.md |
+| chuyen_sau_shape_hop_nhat_va_svg_cho_slide_thiet_bi_khong_gian | Chuyên sâu Shape hợp nhất và SVG cho slide thiết bị không gian | roadmap_PowerpointFull.md |
+| ky_thuat_cat_ghep_anh_va_xoa_nen_cho_slide_thiet_bi_khong_gian | Kỹ thuật cắt ghép ảnh và xóa nền tối ưu cho slide thiết bị không gian | roadmap_PowerpointFull.md |
+| chuyen_sau_vector_va_cat_ghep_cho_slide_khu_cong_nghiep_so | Đồ họa Vector nâng cao và xử lý ảnh cho Slide khu công nghiệp số | roadmap_PowerpointFull.md |
+| giai_phap_bien_tap_hinh_hoc_cho_slide_trung_tam_nghien_cuu | Giải pháp biên tập hình học kết hợp tương thích đa phiên bản Office | roadmap_PowerpointFull.md |
+| chuyen_sau_vector_va_xu_ly_svg_cho_slide_phong_thi_nghiem_so | Chuyên sâu vector, công cụ Freeform và xử lý SVG cho slide phòng thí nghiệm số | roadmap_PowerpointFull.md |
+| ky_thuat_cat_ghep_anh_va_xoa_nen_cho_slide_phong_thi_nghiem_so | Kỹ thuật cắt ghép ảnh, xóa nền nâng cao và xuất file đa nền tảng cho slide thí nghiệm | roadmap_PowerpointFull.md |
+| chuyen_sau_vector_va_xu_ly_svg_cho_slide_mang_luoi_dien_thong_minh | Xử lý vector và SVG nâng cao cho slide Mạng lưới điện thông minh Smart Grid | roadmap_PowerpointFull.md |
+| giai_phap_cat_ghep_va_xoa_nen_cho_slide_tram_sac_xe_dien | Giải pháp cắt ghép ảnh, xóa nền và tích hợp công cụ Freeform vẽ vector nhân vật | roadmap_PowerpointFull.md |
+| chuyen_sau_vector_va_xu_ly_svg_cho_slide_vach_ngan_thong_minh | Chuyên sâu vector và xử lý SVG với công cụ thủ công cho slide vách ngăn | roadmap_PowerpointFull.md |
+| ky_thuat_cat_ghep_anh_va_xoa_nen_cho_slide_vach_ngan_thong_minh | Kỹ thuật cắt ghép ảnh nâng cao và tối ưu hóa đa nền tảng cho thực tế ảo | roadmap_PowerpointFull.md |
+| chuyen_sau_vector_va_xu_ly_svg_cho_slide_nha_kinh_thong_minh | Chuyên sâu vector, vẽ thủ công Freeform và xử lý SVG cho slide nhà kính thông minh | roadmap_PowerpointFull.md |
+| giai_phap_cat_ghep_va_xoa_nen_cho_slide_nha_kinh_thong_minh | Giải pháp cắt ghép, xóa nền và tích hợp lồng tiếng AI cho slide nhà kính thông minh | roadmap_PowerpointFull.md |
+| chuyen_sau_vector_va_xu_ly_svg_cho_slide_thiet_bi_gia_dung_thong_minh | Chuyên sâu vector và xử lý SVG cho slide thiết bị gia dụng thông minh | roadmap_PowerpointFull.md |
+| giai_phap_cat_ghep_va_xoa_nen_cho_slide_thiet_bi_gia_dung_thong_minh | Giải pháp cắt ghép và xóa nền cho slide thiết bị gia dụng thông minh | roadmap_PowerpointFull.md |
+| chuyen_sau_vector_va_xu_ly_svg_cho_slide_robot_tu_dong | Chuyên sâu vector, công cụ Freeform và xử lý SVG cho slide Robot tự động | roadmap_PowerpointFull.md |
+| giai_phap_cat_ghep_va_xoa_nen_cho_slide_robot_tu_dong | Giải pháp cắt ghép nâng cao và tích hợp AI lồng tiếng cho slide Robot tự động | roadmap_PowerpointFull.md |
+| chuyen_sau_vector_va_xu_ly_svg_cho_slide_thiet_bi_bay_khong_nguoi_lai | Xử lý SVG và Shape hợp nhất cho slide thiết bị bay không người lái | roadmap_PowerpointFull.md |
+| giai_phap_cat_ghep_va_xoa_nen_cho_slide_thiet_bi_bay_khong_nguoi_lai | Cắt ghép ảnh chuyên nghiệp và xóa nền cho slide thiết bị bay không người lái | roadmap_PowerpointFull.md |
+| chuyen_sau_vector_va_xu_ly_svg_cho_slide_thiet_bi_ngoai_vi | Chuyên sâu vector và xử lý SVG cho slide thiết bị ngoại vi thông minh | roadmap_PowerpointFull.md |
+| giai_phap_cat_ghep_va_xoa_nen_cho_slide_thiet_bi_ngoai_vi | Giải pháp cắt ghép nâng cao và xóa nền ảnh sản phẩm phần cứng | roadmap_PowerpointFull.md |
+| xu_ly_vector_va_svg_cho_slide_thiet_bi_ngoai_vi_thong_minh | Xử lý vector và SVG cho slide thiết bị ngoại vi thông minh | roadmap_PowerpointFull.md |
+| giai_phap_cat_ghep_va_xoa_nen_cho_slide_thiet_bi_ngoai_vi_thong_minh | Giải pháp cắt ghép và xóa nền đa tầng bằng công cụ thông minh | roadmap_PowerpointFull.md |
+| tu duy xu ly vector va cat gheo anh cho slide thiet bi do luong thong minh | Tư duy xử lý vector thủ công với Freeform và cắt ghép ảnh chuyên sâu | roadmap_PowerpointFull.md |
+| chien luoc bien tap hinh hoc va xu ly anh cho slide he thong an ninh mang | Chiến lược biên tập hình học nâng cao và tích hợp lồng tiếng AI cho an ninh mạng | roadmap_PowerpointFull.md |
+| chuyen_sau_vector_va_xu_ly_svg_cho_slide_thiet_bi_tu_dong_hoa | Tinh chỉnh hình khối vector, SVG thủ công và tối ưu hóa biểu tượng độc quyền | roadmap_PowerpointFull.md |
+| giai_phap_cat_ghep_va_xoa_nen_cho_slide_thiet_bi_tu_dong_hoa | Xóa nền, cắt ghép ảnh nâng cao kết hợp đồng bộ hóa âm thanh AI cho thiết bị | roadmap_PowerpointFull.md |
+| chuyen_sau_vector_va_xu_ly_svg_cho_slide_thiet_bi_do_luong | Chuyên sâu vector và xử lý SVG kết hợp công cụ vẽ tay tự do cho thiết bị đo lường | roadmap_PowerpointFull.md |
+| giai_phap_cat_ghep_va_xoa_nen_cho_slide_thiet_bi_do_luong | Giải pháp cắt ghép, xóa nền ảnh phần cứng và tối ưu tương thích trình chiếu | roadmap_PowerpointFull.md |
+| chuyen_sau_vector_va_xu_ly_svg_cho_slide_thiet_bi_phat_thanh | Chuyên sâu vector và xử lý SVG kết hợp công cụ Freeform vẽ độc quyền cho slide thiết bị phát thanh | roadmap_PowerpointFull.md |
+| giai_phap_cat_ghep_va_xoa_nen_cho_slide_thiet_bi_phat_thanh | Giải pháp cắt ghép, xóa nền thông minh và tích hợp âm thanh lồng tiếng AI cho slide thiết bị phát thanh | roadmap_PowerpointFull.md |
+| chuyen_sau_vector_va_xu_ly_svg_cho_slide_thiet_bi_quang_hoc | Ứng dụng Shape hợp nhất và xử lý SVG cho Slide Thiết bị quang học | roadmap_PowerpointFull.md |
+| giai_phap_cat_ghep_va_xoa_nen_cho_slide_thiet_bi_quang_hoc | Kỹ thuật cắt ghép ảnh, xóa nền hoàn hảo và tích hợp âm thanh lồng tiếng AI | roadmap_PowerpointFull.md |
+| chuyen_sau_vector_va_xu_ly_svg_cho_slide_thiet_bi_dien_tu_dan_dung | Chuyên sâu vector và xử lý SVG cho slide thiết bị điện tử dân dụng | roadmap_PowerpointFull.md |
+| giai_phap_cat_ghep_va_xoa_nen_cho_slide_thiet_bi_dien_tu_dan_dung | Giải pháp cắt ghép và xóa nền nâng cao cho slide thiết bị điện tử dân dụng | roadmap_PowerpointFull.md |
+| chuyen_sau_vector_va_xu_ly_svg_cho_slide_thiet_bi_dien_tu | Chuyên sâu vector và xử lý SVG cho slide thiết bị điện tử gia dụng | roadmap_PowerpointFull.md |
+| giai_phap_cat_ghep_va_xoa_nen_cho_slide_thiet_bi_dien_tu | Giải pháp cắt ghép, xóa nền ảnh và tích hợp công cụ AI tự động hóa | roadmap_PowerpointFull.md |
+| thuat_toan_shape_hop_nhat_cho_slide_thiet_bi_y_te_thong_minh | Thuật toán Shape hợp nhất và xử lý SVG cho slide thiết bị y tế thông minh | roadmap_PowerpointFull.md |
+| giai_phap_cat_ghep_va_xoa_nen_cho_slide_thiet_bi_y_te_thong_minh | Giải pháp cắt ghép ảnh và xóa nền hoàn hảo cho slide thiết bị y tế thông minh | roadmap_PowerpointFull.md |
+| chuyen_sau_vector_va_xu_ly_svg_cho_slide_thiet_bi_tu_dong_hoa_cong_nghiep | Chuyên sâu vector, xử lý SVG và vẽ thủ công Freeform cho slide tự động hóa | roadmap_PowerpointFull.md |
+| thiet_ke_bo_cuc_can_doi_cho_slide_pitch_deck_goi_von_vong_seed | Thiết kế bố cục cân đối cho Slide Pitch Deck gọi vốn vòng Seed | roadmap_PowerpointFull.md |
+| chuan_hoa_khong_gian_va_luoi_thi_giac_cho_slide_bao_cao_tai_chinh_q4 | Chuẩn hóa không gian và lưới thị giác cho Slide báo cáo tài chính Q4 | roadmap_PowerpointFull.md |
+| bo_tri_luoi_thi_giac_cho_slide_infographic_chuoi_cung_ung_logistics | Bố trí lưới thị giác cho slide infographic chuỗi cung ứng logistics | roadmap_PowerpointFull.md |
+| ung_dung_ty_le_vang_cho_slide_timeline_lich_su_doanh_nghiep | Ứng dụng tỷ lệ vàng cho slide timeline lịch sử doanh nghiệp | roadmap_PowerpointFull.md |
+| bo_cuc_doi_xung_cho_slide_animation_morph_tuong_tac_da_tang | Sắp đặt bố cục đối xứng qua tâm cho slide Animation Morph tương tác đa tầng | roadmap_PowerpointFull.md |
+| khoang_cach_chuan_cho_slide_dashboard_quan_tri_thong_minh | Thiết lập khoảng trắng và tỉ lệ phân vùng cho slide Dashboard quản trị thông minh | roadmap_PowerpointFull.md |
+| kien_tao_bo_cuc_cho_slide_ho_so_nang_luc_cong_ty_tap_doan | Kiến tạo bố cục cho Slide Hồ sơ năng lực công ty tập đoàn | roadmap_PowerpointFull.md |
+| toi_uu_khong_gian_cho_slide_chien_luoc_marketing_tong_the | Tối ưu không gian cho Slide Chiến lược Marketing tổng thể kết hợp AI tự động | roadmap_PowerpointFull.md |
+| bo_cuc_luoi_cho_slide_kien_truc_do_thi | Xây dựng bố cục lưới đa cột cho slide đồ án quy hoạch kiến trúc đô thị thông minh | roadmap_PowerpointFull.md |
+| ty_le_vang_cho_slide_trung_bay_nghe_thuat | Ứng dụng tỷ lệ vàng Fibonacci và công cụ Freeform vào slide triển lãm nghệ thuật đương đại | roadmap_PowerpointFull.md |
+| lap_dat_luoi_cho_slide_giai_phap_cong_nghe_ai | Lập đặt lưới 12 cột cho slide giải pháp công nghệ AI tích hợp AI layout | roadmap_PowerpointFull.md |
+| van_dung_ty_le_vang_cho_slide_gioi_thieu_san_pham_saas | Vận dụng tỷ lệ vàng và export đa nền tảng cho slide SaaS | roadmap_PowerpointFull.md |
+| thiet_ke_bo_cuc_cho_slide_ho_so_nang_luc_doanh_nghiệp | Thiết kế bố cục chuẩn hóa cho Slide Hồ sơ năng lực doanh nghiệp | roadmap_PowerpointFull.md |
+| chuan_hoa_khong_gian_cho_slide_bao_cao_quan_ly_du_an | Ứng dụng lưới 12 cột và tối ưu khoảng trắng cho Slide Báo cáo quản lý dự án | roadmap_PowerpointFull.md |
+| bo_tri_khong_gian_cho_slide_giai_phap_thanh_toan_so | Bố trí không gian cho slide giải pháp thanh toán số tích hợp AI | roadmap_PowerpointFull.md |
+| khai_thac_ty_le_vang_cho_slide_he_thong_nha_thong_minh | Khai thác tỷ lệ vàng và export đa nền tảng cho slide hệ thống nhà thông minh | roadmap_PowerpointFull.md |
+| bo_cuc_doi_xung_cho_slide_giai_phap_logistics_thong_minh | Thiết lập bố cục đối xứng hoàn hảo cho slide giải pháp logistics thông minh | roadmap_PowerpointFull.md |
+| chuan_hoa_luoi_thi_giac_cho_slide_nen_tảng_thuong_mai_dien_tu | Chuẩn hóa lưới thị giác đa tầng cho slide nền tảng thương mại điện tử | roadmap_PowerpointFull.md |
+| bo_cuc_luoi_cho_slide_nen_tang_giao_duc_truc_tuyen | Sắp xếp bố cục đa cột cho Slide nền tảng giáo dục trực tuyến E-Learning tích hợp AI | roadmap_PowerpointFull.md |
+| ty_le_vang_cho_slide_trung_tam_du_lieu_cloud | Vận dụng tỷ lệ vàng Fibonacci và export đa nền tảng cho Slide trung tâm dữ liệu Cloud Computing | roadmap_PowerpointFull.md |
+| bo_cuc_doi_xung_cho_slide_nen_tang_giao_duc_truc_tuyen_270 | Thiết kế bố cục đối xứng và tích hợp AI cho slide nền tảng giáo dục trực tuyến | roadmap_PowerpointFull.md |
+| chuan_hoa_luoi_cho_slide_trung_tam_du_lieu_cloud_271 | Chuẩn hóa lưới và kiểm tra tính tương thích phiên bản cho slide trung tâm dữ liệu cloud | roadmap_PowerpointFull.md |
+| bo_tri_luoi_cho_slide_nen_tang_giao_duc_truc_tuyen_272 | Bố trí lưới cho slide nền tảng giáo dục trực tuyến | roadmap_PowerpointFull.md |
+| ap_dung_ty_le_vang_cho_slide_trung_tam_du_lieu_cloud_273 | Áp dụng tỷ lệ vàng cho slide trung tâm dữ liệu cloud | roadmap_PowerpointFull.md |
+| bo_tri_luoi_thi_giac_cho_slide_nen_tảng_giao_duc_truc_tuyen | Bố trí lưới thị giác chuẩn xác kết hợp tích hợp AI cho slide nền tảng giáo dục trực tuyến | roadmap_PowerpointFull.md |
+| khai_thac_ty_le_vang_cho_slide_nen_tảng_giao_duc_truc_tuyen | Khai thác tỷ lệ vàng cân bằng kết hợp xử lý đa định dạng cho slide nền tảng giáo dục trực tuyến | roadmap_PowerpointFull.md |
+| bo_tri_luoi_thi_giac_cho_slide_nen_tang_giao_duc_truc_tuyen_276 | Bố trí lưới thị giác cho Slide nền tảng giáo dục trực tuyến | roadmap_PowerpointFull.md |
+| khai_thac_ty_le_vang_cho_slide_nen_tang_giao_duc_truc_tuyen_277 | Ứng dụng tỷ lệ vàng và tích hợp AI vào bố cục slide giáo dục | roadmap_PowerpointFull.md |
+| bo_tri_luoi_thi_giac_cho_slide_nen_tang_giao_duc_truc_tuyen_278 | Bố trí lưới thị giác cho slide nền tảng giáo dục trực tuyến 278 | roadmap_PowerpointFull.md |
+| khai_thac_ty_le_vang_cho_slide_nen_tang_giao_duc_truc_tuyen_279 | Khai thác tỷ lệ vàng và tích hợp công cụ AI tự động hóa bố cục 279 | roadmap_PowerpointFull.md |
+| bo_tri_luoi_thi_giac_cho_slide_nen_tang_giao_duc_truc_tuyen_280 | Xây dựng hệ thống lưới linh hoạt cho slide nền tảng giáo dục trực tuyến | roadmap_PowerpointFull.md |
+| khai_thac_ty_le_vang_cho_slide_nen_tang_giao_duc_truc_tuyen_281 | Ứng dụng điểm vàng và tỷ lệ vàng Fibonacci cho bố cục học tập thông minh | roadmap_PowerpointFull.md |
+| xay_dung_he_thong_luoi_cho_slide_giai_phap_logistics_xuyen_quoc_gia | Xây dựng hệ thống lưới cho slide giải pháp logistics xuyên quốc gia | roadmap_PowerpointFull.md |
+| ung_dung_diem_vang_cho_slide_trung_tam_du_lieu_quoc_gia | Ứng dụng điểm vàng và kỹ thuật xuất bản đa nền tảng cho slide hạ tầng | roadmap_PowerpointFull.md |
+| lap_dat_he_thong_luoi_cho_slide_thuong_hieu_thoi_trang_cao_cap | Lắp đặt hệ thống lưới định hình slide thương hiệu thời trang cao cấp | roadmap_PowerpointFull.md |
+| chinh_phuc_ty_le_vang_cho_slide_khong_gian_kien_truc_noi_that | Chinh phục tỷ lệ vàng và cấu trúc tự do cho slide kiến trúc nội thất | roadmap_PowerpointFull.md |
+| kien_tao_he_thong_luoi_cho_slide_du_an_thanh_pho_thong_minh | Kiến tạo hệ thống lưới cho slide Dự án Thành phố thông minh (Smart City) | roadmap_PowerpointFull.md |
+| van_dung_ty_le_vang_cho_slide_bao_cao_dau_tu_bat_dong_san | Vận dụng tỷ lệ vàng cho slide Báo cáo đầu tư bất động sản cao cấp | roadmap_PowerpointFull.md |
+| hoan_thien_luoi_cho_slide_khong_gian_van_phong_thong_minh | Hoàn thiện hệ thống lưới cho Slide không gian văn phòng thông minh | roadmap_PowerpointFull.md |
+| khai_pha_ty_le_vang_cho_slide_chuoi_cung_ung_logistics | Khai phá tỷ lệ vàng cho Slide chuỗi cung ứng logistics | roadmap_PowerpointFull.md |
+| hoach_dinh_luoi_cho_slide_nha_may_thong_minh_iot | Hoạch định hệ thống lưới cột cho slide nhà máy thông minh IoT | roadmap_PowerpointFull.md |
+| ung_dung_ty_le_vang_cho_slide_xe_dien_thong_minh | Ứng dụng tỷ lệ vàng Fibonacci cho slide hệ thống xe điện thông minh | roadmap_PowerpointFull.md |
+| lap_dat_khung_luoi_cho_slide_robot_giao_hang_tu_dong | Lắp đặt khung lưới cho slide robot giao hàng tự động | roadmap_PowerpointFull.md |
+| chinh_phuc_ty_le_vang_cho_slide_khong_gian_lam_viec_ao | Chinh phục tỷ lệ vàng cho slide không gian làm việc ảo | roadmap_PowerpointFull.md |
+| lap_dat_khung_luoi_cho_slide_thiet_bi_nha_thong_minh | Lắp đặt khung lưới đa tầng và căn chỉnh vector Freeform cho slide nhà thông minh | roadmap_PowerpointFull.md |
+| chinh_phuc_ty_le_vang_cho_slide_he_thong_nang_luong_mat_troi | Ứng dụng tỷ lệ vàng Fibonacci và đồng bộ hóa âm thanh AI cho năng lượng mặt trời | roadmap_PowerpointFull.md |
+| hoach_dinh_khung_luoi_cho_slide_thiet_bi_y_te_thong_minh | Hoạch định khung lưới 12 cột cho slide thiết bị y tế thông minh | roadmap_PowerpointFull.md |
+| khai_thac_ty_le_vang_cho_slide_thiet_bi_y_te_thong_minh | Ứng dụng tỷ lệ vàng 1.618 và export đa nền tảng cho thiết bị y tế | roadmap_PowerpointFull.md |
+| hoach_dinh_khung_luoi_cho_slide_thiet_bi_y_te_thong_minh_298 | Hoạch định khung lưới chuẩn xác và tích hợp AI cho slide thiết bị y tế thông minh | roadmap_PowerpointFull.md |
+| chinh_phuc_ty_le_vang_cho_slide_thiet_bi_y_te_thong_minh_299 | Tối ưu tỷ lệ vàng và xuất file đa nền tảng cho slide thiết bị y tế thông minh | roadmap_PowerpointFull.md |
+| hoach_dinh_khung_luoi_cho_slide_thiet_bi_y_te_thong_minh_300 | Thiết lập lưới căn chỉnh cho slide thiết bị y tế thông minh | roadmap_PowerpointFull.md |
+| chinh_phuc_ty_le_vang_cho_slide_thiet_bi_y_te_thong_minh_301 | Ứng dụng tỷ lệ vàng và tích hợp AI tự động hóa bố cục y tế | roadmap_PowerpointFull.md |
+| thiet_lap_luoi_can_chinh_cho_slide_thiet_bi_y_te_thong_minh | Thiết lập lưới căn chỉnh và tích hợp AI tự động hóa bố cục | roadmap_PowerpointFull.md |
+| ung_dung_ty_le_vang_cho_slide_thiet_bi_y_te_thong_minh_nang_cao | Tối ưu hóa tỷ lệ vàng nâng cao và đóng gói đa nền tảng | roadmap_PowerpointFull.md |
+| thiet_lap_luoi_can_chinh_cho_slide_thiet_bi_y_te_thong_minh_304 | Thiết lập lưới căn chỉnh thông minh cho Slide Thiết bị Y tế Thông minh | roadmap_PowerpointFull.md |
+| ung_dung_ty_le_vang_cho_slide_thiet_bi_y_te_thong_minh_nang_cao_305 | Ứng dụng tỷ lệ vàng và tích hợp AI tự động hóa bố cục | roadmap_PowerpointFull.md |
+| trien_khai_luoi_chuyen_sau_cho_slide_thiet_bi_y_te_thong_minh_306 | Thiết lập hệ thống lưới cột và căn chỉnh thông số kỹ thuật y tế | roadmap_PowerpointFull.md |
+| hoan_thien_ty_le_vang_cho_slide_thiet_bi_y_te_thong_minh_307 | Tối ưu hóa tỷ lệ vàng và điểm nhấn thị giác thị trường y tế | roadmap_PowerpointFull.md |
+| chuyen_doi_bang_so_lieu_thanh_bieu_do_cho_slide_tai_chinh_doanh_nghiep | Chuyển đổi bảng số liệu thô thành biểu đồ cột tối giản cho slide tài chính doanh nghiệp | roadmap_PowerpointFull.md |
+| thiet_ke_infographic_phan_tich_cho_slide_chuoi_cung_ung_logistics | Thiết kế infographic chuỗi cung ứng logistics tích hợp AI và số liệu vận hành thô | roadmap_PowerpointFull.md |
+| kien_tao_bieu_do_cot_cho_slide_chi_so_thuong mại | Kiến tạo biểu đồ cột cho Slide chỉ số thương mại điện tử kết hợp AI gợi ý trực quan | roadmap_PowerpointFull.md |
+| thiet_ke_bieu_do_duong_cho_slide_tang_truong_startup | Thiết kế biểu đồ đường cho Slide tăng trưởng startup đa nền tảng và xuất file tối ưu | roadmap_PowerpointFull.md |
+| bien_doi_du_lieu_tho_thanh_bieu_do_cho_slide_nghien_cuu_thi_truong | Biến đổi số liệu thô thành biểu đồ cột cho slide nghiên cứu thị trường | roadmap_PowerpointFull.md |
+| thiet_ke_infographic_sinh_dong_cho_slide_bao_cao_tac_dong_moi_truong | Thiết kế infographic sinh động tích hợp biểu tượng độc quyền cho slide ESG | roadmap_PowerpointFull.md |
+| kien_tao_bieu_do_ket_hop_cho_slide_chien_luoc_kinh_doanh | Kiến tạo biểu đồ kết hợp cột và đường cho slide chiến lược kinh doanh đa quốc gia tích hợp AI | roadmap_PowerpointFull.md |
+| thiet_ke_infographic_phan_tich_kenh_cho_slide_marketing_tong_the | Thiết kế infographic phân tích kênh đa dạng kết hợp kỹ thuật export đa nền tảng cho slide marketing | roadmap_PowerpointFull.md |
+| kien_tao_bieu_do_tron_cho_slide_co_cau_thi_truong | Kiến tạo biểu đồ tròn tách lớp kết hợp AI cho slide cơ cấu thị trường | roadmap_PowerpointFull.md |
+| thiet_ke_infographic_tien_trinh_cho_slide_du_an_san_pham | Thiết kế infographic tiến trình dạng cột mốc kèm export đa nền tảng | roadmap_PowerpointFull.md |
+| chuyen_doi_du_lieu_bang_thanh_bieu_do_cho_slide_chi_so_kinh_doanh | Chuyển đổi dữ liệu bảng thành biểu đồ cho slide chỉ số kinh doanh | roadmap_PowerpointFull.md |
+| thiet_ke_infographic_du_lieu_cho_slide_phat_trien_ben_vung | Thiết kế infographic dữ liệu cho slide phát triển bền vững | roadmap_PowerpointFull.md |
+| kien_tao_bieu_do_mang_luoi_cho_slide_logistics_toan_cau | Kiến tạo biểu đồ mạng lưới cho slide logistics toàn cầu | roadmap_PowerpointFull.md |
+| thiet_ke_infographic_dong_thoi_gian_cho_slide_chuyen_doi_so | Thiết kế infographic dòng thời gian cho slide chuyển đổi số | roadmap_PowerpointFull.md |
+| chuyen_doi_du_lieu_bang_thanh_bieu_do_cot_cho_slide_tai_chinh | Chuyển đổi dữ liệu bảng thành biểu đồ cột cho Slide tài chính quý | roadmap_PowerpointFull.md |
+| thiet_ke_infographic_so_sanh_cho_slide_chien_luoc_san_pham | Thiết kế infographic so sánh song song tích hợp icon vector cho sản phẩm mới | roadmap_PowerpointFull.md |
+| chuyen_doi_du_lieu_bang_thanh_bieu_do_cot_cho_slide_tai_chinh_324 | Chuyển đổi dữ liệu bảng thành biểu đồ cột cho slide báo cáo tài chính doanh nghiệp | roadmap_PowerpointFull.md |
+| thiet_ke_infographic_so_sanh_cho_slide_chien_luoc_san_pham_325 | Thiết kế infographic so sánh tích hợp AI và kiểm thử tương thích đa nền tảng cho sản phẩm chủ lực | roadmap_PowerpointFull.md |
+| bien_doi_so_lieu_thanh_bieu_do_cho_slide_tai_chinh_quy | Biến đổi số liệu thô thành biểu đồ cột nhóm cho Slide tài chính quý | roadmap_PowerpointFull.md |
+| thiet_ke_infographic_phan_tich_cho_slide_quan_tri_rui_ro | Xây dựng infographic dạng khối phân tích dữ liệu quản trị rủi ro chiến lược | roadmap_PowerpointFull.md |
+| chuyen_doi_du_lieu_bang_thanh_bieu_do_cho_slide_chi_so_san_xuat | Chuyển đổi dữ liệu bảng thành biểu đồ cột cho slide chỉ số sản xuất | roadmap_PowerpointFull.md |
+| thiet_ke_infographic_phan_tich_cho_slide_quan_tri_chuoi_cung_ung | Thiết kế infographic phân tích chuỗi cung ứng kết hợp công cụ vẽ vector Freeform | roadmap_PowerpointFull.md |
+| chuyen_doi_so_lieu_thanh_bieu_do_cho_slide_tai_chinh_doanh_nghiep_330 | Số hóa bảng số liệu thành biểu đồ cột cho slide tài chính doanh nghiệp | roadmap_PowerpointFull.md |
+| thiet_ke_infographic_du_lieu_cho_slide_nghien_cuu_thi_truong_331 | Sáng tạo infographic sinh động cho slide nghiên cứu thị trường tiêu dùng | roadmap_PowerpointFull.md |
+| chuyen_doi_so_lieu_thanh_bieu_do_cho_slide_tai_chinh_doanh_nghiep_332 | Chuyển hóa dữ liệu bảng thành biểu đồ trực quan cho slide tài chính doanh nghiệp | roadmap_PowerpointFull.md |
+| kien_tao_infographic_du_lieu_cho_slide_nghien_cuu_thi_truong_333 | Kiến tạo infographic dữ liệu chuyên sâu kết hợp AI cho slide nghiên cứu thị trường | roadmap_PowerpointFull.md |
+| so_hoa_bang_so_lieu_cho_slide_chi_so_tai_chinh | Số hóa bảng số liệu thô thành biểu đồ cột kết hợp đường cho slide tài chính doanh nghiệp | roadmap_PowerpointFull.md |
+| kien_tao_infographic_phan_tich_cho_slide_dau_tu | Thiết kế chuỗi infographic phân tầng chiến lược đầu tư công nghệ bằng công cụ Shape Merge | roadmap_PowerpointFull.md |
+| chuyen_doi_so_lieu_thanh_bieu_do_cho_slide_tai_chinh_doanh_nghiep_336 | Chuyển đổi số liệu thành biểu đồ cho slide tài chính doanh nghiệp | roadmap_PowerpointFull.md |
+| thiet_ke_infographic_du_lieu_cho_slide_nghien_cuu_thi_truong_337 | Thiết kế infographic dữ liệu hành vi người dùng bằng vector thủ công | roadmap_PowerpointFull.md |
+| chuyen_hoa_du_lieu_thanh_bieu_do_cho_slide_tai_chinh | Chuyển hóa dữ liệu thô thành biểu đồ trực quan cho Slide tài chính | roadmap_PowerpointFull.md |
+| kien_tao_infographic_du_lieu_cho_slide_nghien_cuu | Kiến tạo infographic dữ liệu sinh động cho Slide nghiên cứu kết hợp AI và SVG | roadmap_PowerpointFull.md |
+| chuyen_doi_so_lieu_thanh_bieu_do_cho_slide_tai_chinh_doanh_nghiep | Chuyển hóa dữ liệu bảng thành biểu đồ trực quan cho slide tài chính doanh nghiệp | roadmap_PowerpointFull.md |
+| kien_tao_infographic_du_lieu_cho_slide_nghien_cuu_thi_truong_chi_tiet | Kiến tạo infographic dữ liệu sinh động cho slide nghiên cứu thị trường F&B kết hợp AI và SVG | roadmap_PowerpointFull.md |
+| chuyen_doi_so_lieu_thanh_bieu_do_cho_slide_tai_chinh_doanh_nghiep_342 | Chuyển hóa dữ liệu thô thành biểu đồ cột cho slide tài chính doanh nghiệp | roadmap_PowerpointFull.md |
+| kien_tao_infographic_du_lieu_cho_slide_nghien_cuu_thi_truong_343 | Xây dựng biểu đồ dạng phễu và xuất file tương thích đa nền tảng cho thị trường | roadmap_PowerpointFull.md |
+| chuyen_doi_so_lieu_thanh_bieu_do_cho_slide_chi_so_tang_truong | Chuyển đổi số liệu thành biểu đồ cho slide chỉ số tăng trưởng kinh doanh | roadmap_PowerpointFull.md |
+| kien_tao_infographic_du_lieu_cho_slide_phan_tich_thi_truong | Kiến tạo infographic dữ liệu cho slide phân tích thị trường mục tiêu | roadmap_PowerpointFull.md |
+| bien_doi_so_lieu_thanh_bieu_do_cho_slide_chi_so_hieu_suat | Biến đổi số liệu thô thành biểu đồ cột cho slide chỉ số hiệu suất vận hành | roadmap_PowerpointFull.md |
+| kien_tao_infographic_sinh_dong_cho_slide_phan_tich_thi_phan | Xây dựng infographic hình học và xử lý tương thích xuất file đa nền tảng | roadmap_PowerpointFull.md |
+| chuyen_doi_so_lieu_thanh_bieu_do_cho_slide_chi_so_tai_chinh_doanh_nghiep_348 | Chuyển đổi số liệu thành biểu đồ cho slide chỉ số tài chính doanh nghiệp | roadmap_PowerpointFull.md |
+| kien_tao_infographic_du_lieu_cho_slide_nghien_cuu_thi_truong_chi_tiet_349 | Kiến tạo infographic dữ liệu kết hợp công cụ Freeform vẽ vector cho thị trường | roadmap_PowerpointFull.md |
+| chuyen_doi_so_lieu_thanh_bieu_do_cho_slide_chi_so_kinh_doanh | Chuyển đổi số liệu thành biểu đồ cho slide chỉ số kinh doanh quý | roadmap_PowerpointFull.md |
+| kien_tao_infographic_du_lieu_cho_slide_chien_luoc_phat_trien | Tích hợp AI và SVG tự động hóa infographic chiến lược phát triển | roadmap_PowerpointFull.md |
+| chuyen_doi_so_lieu_thanh_bieu_do_cho_slide_chi_so_tang_truong_q4 | Chuyển hóa dữ liệu thô thành biểu đồ tăng trưởng tích hợp AI và export đa nền tảng | roadmap_PowerpointFull.md |
+| kien_tao_infographic_du_lieu_cho_slide_phan_tich_thi_truong_quoc_te | Kiến tạo infographic trực quan kết hợp vẽ vector thủ công freeform phân khúc quốc tế | roadmap_PowerpointFull.md |
+| chuyen_doi_so_lieu_thanh_bieu_do_cho_slide_chi_so_hoat_dong_354 | Chuyển đổi số liệu thành biểu đồ cho slide chỉ số hoạt động kinh doanh vận tải | roadmap_PowerpointFull.md |
+| kien_tao_infographic_du_lieu_cho_slide_phan_tich_thi_truong_toan_cau_355 | Xây dựng bản đồ phân bổ thị phần bằng vector độc quyền và xuất bản đa nền tảng | roadmap_PowerpointFull.md |
+| chuyen_doi_so_lieu_thanh_bieu_do_cho_slide_chi_so_san_xuat_356 | Chuyển đổi số liệu thành biểu đồ cho slide chỉ số sản xuất nhà máy | roadmap_PowerpointFull.md |
+| kien_tao_infographic_du_lieu_cho_slide_quan_tri_chuoi_cung_ung_357 | Kiến tạo infographic chuỗi cung ứng kết hợp công cụ vẽ vector thủ công | roadmap_PowerpointFull.md |
+| chuyen_doi_so_lieu_thanh_bieu_do_cho_slide_chi_so_logistics_358 | Chuyển đổi số liệu thành biểu đồ kết hợp cho slide chỉ số logistics thực chiến | roadmap_PowerpointFull.md |
+| kien_tao_infographic_du_lieu_cho_slide_phan_tich_thi_truong_ban_le_359 | Kiến tạo infographic phân đoạn và xử lý tương thích office cho slide bán lẻ | roadmap_PowerpointFull.md |
+| chuyen_doi_so_lieu_thanh_bieu_do_cho_slide_chi_so_san_xuat_360 | Chuyển đổi số liệu thành biểu đồ cho slide chỉ số sản xuất nhà máy thông minh | roadmap_PowerpointFull.md |
+| kien_tao_infographic_du_lieu_cho_slide_chi_so_nang_suat_361 | Kiến tạo infographic dữ liệu cho slide chỉ số năng suất lao động toàn cầu kết hợp vẽ vector thủ công | roadmap_PowerpointFull.md |
+| chuyen_doi_so_lieu_thanh_bieu_do_cho_slide_chi_so_san_xuat_362 | Chuyển đổi dữ liệu thô thành biểu đồ cột cho slide năng suất vận hành nhà máy | roadmap_PowerpointFull.md |
+| kien_tao_infographic_du_lieu_cho_slide_quan_tri_chuoi_cung_ung_363 | Kiến tạo infographic dòng chảy cho slide quản trị chuỗi cung ứng toàn cầu | roadmap_PowerpointFull.md |
+| chuyen_doi_so_lieu_thanh_bieu_do_cho_slide_chi_so_tang_truong_doanh_nghiep | Chuyển đổi số liệu thành biểu đồ cho slide chỉ số tăng trưởng doanh nghiệp | roadmap_PowerpointFull.md |
+| kien_tao_infographic_du_lieu_cho_slide_phan_tich_thi_truong_muc_tieu | Xây dựng infographic phân khúc thị trường mục tiêu tích hợp công nghệ AI tự động hóa | roadmap_PowerpointFull.md |
+| chuyen_doi_du_lieu_tho_cho_slide_chi_so_nang_suat | Chuyển đổi dữ liệu thô thành biểu đồ năng suất cho Slide hiệu suất vận hành | roadmap_PowerpointFull.md |
+| kien_tao_infographic_du_lieu_cho_slide_phan_tich_kenh_phan_phoi | Kiến tạo infographic dữ liệu độc quyền cho Slide phân tích kênh phân phối đa chiều | roadmap_PowerpointFull.md |
+| chuyen_doi_so_lieu_thanh_bieu_do_cho_slide_chi_so_van_hanh_368 | Chuyển đổi số liệu thành biểu đồ cho slide chỉ số vận hành | roadmap_PowerpointFull.md |
+| kien_tao_infographic_du_lieu_cho_slide_phan_tich_thi_truong_nganh_369 | Kiến tạo infographic dữ liệu cho slide phân tích thị trường ngành | roadmap_PowerpointFull.md |
+| chuyen_doi_so_lieu_thanh_bieu_do_cho_slide_chi_so_tai_chinh | Chuyển đổi số liệu thành biểu đồ cho slide chỉ số tài chính | roadmap_PowerpointFull.md |
+| kien_tao_infographic_du_lieu_cho_slide_chien_luoc_kinh_doanh | Kiến tạo infographic dữ liệu độc quyền với vector và AI | roadmap_PowerpointFull.md |
+| chuyen_doi_so_lieu_thanh_bieu_do_cho_slide_chi_so_quan_tri_372 | Chuyển đổi số liệu thành biểu đồ kết hợp cho slide chỉ số quản trị doanh nghiệp | roadmap_PowerpointFull.md |
+| kien_tao_infographic_du_lieu_cho_slide_he_thong_phan_bo_373 | Kiến tạo infographic phân cấp tỷ trọng tích hợp công cụ Freeform vẽ vector | roadmap_PowerpointFull.md |
+| chuyen_doi_so_lieu_thanh_bieu_do_cho_slide_chi_so_dieu_hinh | Chuyển đổi số liệu thành biểu đồ cho slide chỉ số điều hành chiến lược | roadmap_PowerpointFull.md |
+| kien_tao_infographic_du_lieu_cho_slide_he_thong_quan_ly_375 | Kiến tạo infographic dữ liệu phân bổ nguồn lực tích hợp vector thủ công | roadmap_PowerpointFull.md |
+| chuyen_doi_so_lieu_thanh_bieu_do_cho_slide_chi_so_nang_luong | Chuyển đổi số liệu thành biểu đồ cho slide chỉ số năng lượng - Dự án Slide Nhà máy Điện mặt trời | roadmap_PowerpointFull.md |
+| kien_tao_infographic_du_lieu_cho_slide_chuyen_doi_so | Kiến tạo infographic dữ liệu kết hợp âm thanh AI cho slide chiến lược Chuyển đổi số doanh nghiệp | roadmap_PowerpointFull.md |
+| chuyen_doi_so_lieu_thanh_bieu_do_cho_slide_chi_so_phat_thanh | Chuyển đổi số liệu thô thành biểu đồ cột cho Slide Chỉ số Phát hành Game | roadmap_PowerpointFull.md |
+| kien_tao_infographic_du_lieu_cho_slide_he_thong_thanh_toan | Kiến tạo infographic dữ liệu độc đáo tích hợp AI cho Slide Hệ thống Thanh toán | roadmap_PowerpointFull.md |
+| chuyen_doi_so_lieu_thanh_bieu_do_cho_slide_chi_so_truy_cam_380 | Chuyển đổi số liệu thành biểu đồ cho slide chỉ số truy cập | roadmap_PowerpointFull.md |
+| kien_tao_infographic_du_lieu_cho_slide_phan_tich_kenh_marketing_381 | Kiến tạo infographic dữ liệu kết hợp vector icon cho slide marketing | roadmap_PowerpointFull.md |
+| chuyen_doi_so_lieu_thanh_bieu_do_cho_slide_chi_so_dieu_phoi | Xử lý dữ liệu bảng biểu và tích hợp công cụ AI tự động hóa biểu đồ vận hành | roadmap_PowerpointFull.md |
+| kien_tao_infographic_du_lieu_cho_slide_phan_tich_hieu_suat | Thiết kế infographic phân tích hiệu suất kết hợp xuất file đa nền tảng tối ưu | roadmap_PowerpointFull.md |
+| bien_doi_so_lieu_thanh_bieu_do_cho_slide_chi_so_nang_suat_lao_dong | Tích hợp AI và biểu diễn dữ liệu nâng cao cho slide chỉ số năng suất lao động | roadmap_PowerpointFull.md |
+| lam_chu_hieu_ung_morph_cho_slide_san_pham_cong_nghe | Làm chủ hiệu ứng Morph kết hợp Freeform vector cho slide sản phẩm công nghệ | roadmap_PowerpointFull.md |
+| tinh_chinh_thoi_gian_animation_cho_slide_pitch_deck | Tinh chỉnh thời gian animation và đồng bộ âm thanh AI cho pitch deck | roadmap_PowerpointFull.md |
+| ky_thuat_morph_chuyen_sau_cho_slide_giao_dien_ung_dung | Kỹ thuật Morph chuyên sâu cho slide giao diện ứng dụng mobile | roadmap_PowerpointFull.md |
+| tinh_chinh_animation_master_timeline_cho_slide_trailer_phim | Tinh chỉnh Animation và Master Timeline cho slide trailer phim ngắn | roadmap_PowerpointFull.md |
+| chuyen_doi_hinh_khoi_morph_cho_slide_giao_dien_saas | Ứng dụng Morph biến đổi hình khối cho Slide giao diện SaaS | roadmap_PowerpointFull.md |
+| dong_bo_animation_timeline_cho_slide_trai_nghiem_nguoi_dung | Đồng bộ Animation Timeline kết hợp tích hợp âm thanh lồng tiếng AI | roadmap_PowerpointFull.md |
+| lam_chu_morph_chuyen_sau_cho_slide_landing_page | Làm chủ Morph chuyên sâu kết hợp vẽ vector Freeform độc quyền cho slide Landing Page | roadmap_PowerpointFull.md |
+| tinh_chinh_thoi_gian_master_timeline_cho_slide_keynote | Tinh chỉnh Master Timeline đồng bộ hóa giọng nói AI TTS cho slide Keynote sự kiện | roadmap_PowerpointFull.md |
+| lap_trinh_morph_chuyen_sau_cho_slide_giao_dien_metaverse | Lập trình Morph chuyên sâu cho slide giao diện Metaverse thực tế ảo | roadmap_PowerpointFull.md |
+| xu_ly_master_timeline_cho_slide_phim_hoat_hinh_ngan | Xử lý Master Timeline cho slide phim hoạt hình ngắn thương mại tích hợp AI TTS | roadmap_PowerpointFull.md |
+| kien_tao_hieu_ung_morph_cho_slide_trinh_dien_san_pham_vat_ly | Kiến tạo hiệu ứng Morph và tích hợp Freeform vector độc quyền cho slide sản phẩm | roadmap_PowerpointFull.md |
+| toi_uu_hoa_master_timeline_cho_slide_chien_luoc_kinh_doanh_da_quoc_gia | Tối ưu hóa Master Timeline kết hợp đồng bộ âm thanh AI TTS cho chiến lược đa quốc gia | roadmap_PowerpointFull.md |
+| kien_tao_hieu_ung_morph_cho_slide_trinh_dien_san_pham_vat_ly_397 | Kiến tạo hiệu ứng Morph kết hợp vẽ vector nhân vật độc quyền cho slide sản phẩm | roadmap_PowerpointFull.md |
+| toi_uu_hoa_master_timeline_cho_slide_chien_luoc_kinh_doanh_da_quoc_gia_398 | Tối ưu hóa Master Timeline và tích hợp lồng tiếng AI cho slide chiến lược | roadmap_PowerpointFull.md |
+| chinh_phuc_hieu_ung_morph_cho_slide_trinh_dien_kien_truc | Chinh phục hiệu ứng Morph kết hợp Freeform vẽ vector cho slide kiến trúc | roadmap_PowerpointFull.md |
+| hoan_thien_master_timeline_cho_slide_chien_dich_marketing | Đồng bộ hóa Master Timeline kết hợp tích hợp AI lồng tiếng cho chiến dịch toàn cầu | roadmap_PowerpointFull.md |
+| lam_chu_hieu_ung_morph_cho_slide_trinh_dien_san_pham_cong_nghe_401 | Làm chủ chuyển động Morph cho Slide trình diễn sản phẩm công nghệ | roadmap_PowerpointFull.md |
+| tinh_chinh_thoi_gian_animation_cho_slide_phim_hoat_hinh_ngan_402 | Đồng bộ hóa Animation và lồng tiếng AI tự động cho Slide hoạt hình ngắn | roadmap_PowerpointFull.md |
+| kien_tao_chuyen_dong_morph_cho_slide_giao_dien_thuc_te_ao | Kiến tạo chuyển động Morph cho Slide giao diện thực tế ảo VR | roadmap_PowerpointFull.md |
+| toi_uu_hoa_master_timeline_cho_slide_ra_mat_san_pham_oto | Tối ưu hóa Master Timeline cho Slide ra mắt sản phẩm ô tô kết hợp âm thanh AI | roadmap_PowerpointFull.md |
+| lap_trinh_morph_nang_cao_cho_slide_trinh_dien_thiet_ke_noi_that | Lập trình Morph nâng cao kết hợp Freeform vẽ vector cho thiết kế nội thất | roadmap_PowerpointFull.md |
+| hoan_thien_master_timeline_cho_slide_chien_dich_truyen_thong_da_kenh | Hoàn thiện Master Timeline và đồng bộ âm thanh AI TTS cho chiến dịch đa kênh | roadmap_PowerpointFull.md |
+| lap_trinh_morph_3d_cho_slide_trinh_dien_thiet_bi_y_te | Lập trình Morph 3D kết hợp AI TTS lồng tiếng tự động | roadmap_PowerpointFull.md |
+| dong_bo_master_timeline_cho_slide_su_kien_khai_trg | Đồng bộ Master Timeline và kiểm thử Trigger đa tầng sự kiện | roadmap_PowerpointFull.md |
+| chinh_phuc_morph_nang_cao_cho_slide_trinh_dien_thiet_ke_do_hoa | Chinh phục Morph nâng cao kết hợp vẽ vector Freeform độc quyền cho slide đồ họa | roadmap_PowerpointFull.md |
+| hoan_thien_master_timeline_cho_slide_he_thong_quan_ly_nhan_su | Hoàn thiện Master Timeline tích hợp đồng bộ âm thanh lồng tiếng AI cho slide HR | roadmap_PowerpointFull.md |
+| ky_thuat_morph_va_timing_cho_slide_trinh_dien_thiet_bi_gia_dung | Kỹ thuật Morph và timing Hollywood cho slide trình diễn thiết bị gia dụng | roadmap_PowerpointFull.md |
+| lam_chu_master_timeline_cho_slide_chien_dich_quang_cao_truc_tuyen | Làm chủ Master Timeline kết hợp tích hợp AI Voiceover cho chiến dịch quảng cáo | roadmap_PowerpointFull.md |
+| ky_thuat_morph_va_timing_cho_slide_trinh_dien_thiet_bi_gia_dung_413 | Nghệ thuật Morph và timing tối thượng cho Slide trình diễn thiết bị gia dụng | roadmap_PowerpointFull.md |
+| lam_chu_master_timeline_cho_slide_chien_dich_quang_cao_truc_tuyen_414 | Làm chủ Master Timeline hoàn chỉnh cho Slide chiến dịch quảng cáo trực tuyến | roadmap_PowerpointFull.md |
+| chuyen_sau_hieu_ung_morph_cho_slide_trinh_dien_thiet_bi_deo_thong_minh | Chuyên sâu hiệu ứng Morph và tích hợp icon vector độc quyền cho slide thiết bị đeo thông minh | roadmap_PowerpointFull.md |
+| toi_uu_hoa_master_timeline_cho_slide_su_kien_ra_mat_xe_dien | Tối ưu hóa Master Timeline kết hợp lồng tiếng tự động AI cho slide ra mắt xe điện | roadmap_PowerpointFull.md |
+| chuyen_sau_hieu_ung_morph_cho_slide_trinh_dien_thiet_bi_gia_dung_thong_minh | Chuyên sâu hiệu ứng Morph và xử lý tính tương thích phiên bản Office cho thiết bị gia dụng | roadmap_PowerpointFull.md |
+| hoan_thien_master_timeline_cho_slide_he_thong_nha_thong_minh | Hoàn thiện Master Timeline tích hợp debug Trigger và kiểm thử đa tầng hệ thống nhà thông minh | roadmap_PowerpointFull.md |
+| chuyen_sau_hieu_ung_morph_cho_slide_trinh_dien_thiet_bi_tu_lanh_thong_minh | Chuyên sâu hiệu ứng Morph và kỹ thuật Freeform vẽ vector cho thiết bị tủ lạnh thông minh | roadmap_PowerpointFull.md |
+| hoan_thien_master_timeline_cho_slide_he_thong_nha_thong_minh_toan_dien | Hoàn thiện Master Timeline tích hợp âm thanh AI TTS và bảo mật VBA cho hệ thống nhà thông minh | roadmap_PowerpointFull.md |
+| chuyen_sau_hieu_ung_morph_cho_slide_trinh_dien_thiet_bi_gia_dung_thong_minh_421 | Chuyên sâu Morph kết hợp vẽ vector thủ công Freeform cho thiết bị thông minh | roadmap_PowerpointFull.md |
+| hoan_thien_master_timeline_cho_slide_he_thong_nha_thong_minh_toan_dien_422 | Tích hợp âm thanh AI TTS và Hoàn thiện Master Timeline hệ thống nhà thông minh | roadmap_PowerpointFull.md |
+| chuyen_sau_hieu_ung_morph_cho_slide_trinh_dien_thiet_bi_lo_vi_song_thong_minh | Chuyên sâu hiệu ứng Morph chuyển đổi trạng thái thiết bị lò vi sóng thông minh IoT | roadmap_PowerpointFull.md |
+| hoan_thien_master_timeline_cho_slide_he_thong_bep_tu_thong_minh_toan_dien | Đồng bộ hóa Master Timeline và kiểm thử hệ thống Trigger đa tầng bếp từ thông minh | roadmap_PowerpointFull.md |
+| chuyen_sau_hieu_ung_morph_cho_slide_trinh_dien_thiet_bi_lo_vi_song_thong_minh_425 | Chuyên sâu hiệu ứng Morph và tích hợp vector Freeform cho slide lò vi sóng thông minh | roadmap_PowerpointFull.md |
+| hoan_thien_master_timeline_cho_slide_he_thong_bep_tu_thong_minh_toan_dien_426 | Hoàn thiện Master Timeline và Debug hệ thống Trigger cho slide bếp từ thông minh | roadmap_PowerpointFull.md |
+| chuyen_sau_hieu_ung_morph_cho_slide_trinh_dien_thiet_bi_noi_com_dien_thong_minh | Chuyên sâu hiệu ứng Morph và kỹ thuật đặt tên layer cho slide nồi cơm điện IoT | roadmap_PowerpointFull.md |
+| hoan_thien_master_timeline_cho_slide_he_thong_nha_bep_thong_minh_toan_dien | Đồng bộ hóa Animation Pane và tối ưu thời gian chạy tự động cho hệ thống bếp | roadmap_PowerpointFull.md |
+| chuyen_sau_hieu_ung_morph_cho_slide_trinh_dien_thiet_bi_noi_com_dien_thong_minh_429 | Chuyên sâu hiệu ứng Morph và kỹ thuật tích hợp âm thanh lồng tiếng AI cho slide thiết bị | roadmap_PowerpointFull.md |
+| hoan_thien_master_timeline_cho_slide_he_thong_nha_bep_thong_minh_toan_dien_430 | Hoàn thiện Master Timeline và xử lý tương thích phiên bản Office cho hệ thống nhà bếp | roadmap_PowerpointFull.md |
+| chuyen_sau_hieu_ung_morph_cho_slide_trinh_dien_thiet_bi_may_hut_bui_thong_minh_431 | Chuyên sâu hiệu ứng Morph và kỹ thuật đồng bộ hóa khớp khẩu âm thanh AI cho slide máy hút bụi | roadmap_PowerpointFull.md |
+| hoan_thien_master_timeline_cho_slide_he_thong_ve_sinh_thong_minh_toan_dien_432 | Hoàn thiện Master Timeline và Debug hệ thống Trigger đa tầng cho slide hệ sinh thái vệ sinh | roadmap_PowerpointFull.md |
+| chuyen_sau_hieu_ung_morph_cho_slide_trinh_dien_thiet_bi_may_say_toc_thong_minh | Chuyên sâu hiệu ứng Morph và kỹ thuật tích hợp AI tạo sinh nội dung slide | roadmap_PowerpointFull.md |
+| hoan_thien_master_timeline_cho_slide_he_thong_cham_soc_toc_thong_minh_toan_dien | Hoàn thiện Master Timeline kết hợp đồng bộ hóa âm thanh lồng tiếng tự động AI | roadmap_PowerpointFull.md |
+| lap_trinh_morph_nang_cao_cho_slide_trinh_dien_thiet_bi_may_hut_bui_khong_day | Lập trình Morph nâng cao và vẽ vector thủ công Freeform cho slide máy hút bụi | roadmap_PowerpointFull.md |
+| hoan_thien_master_timeline_cho_slide_he_thong_lam_sach_khong_khi_toan_dien | Đồng bộ Master Timeline và tích hợp lồng tiếng AI TTS cho hệ thống làm sạch không khí | roadmap_PowerpointFull.md |
+| chuyen_sau_hieu_ung_morph_cho_slide_trinh_dien_thiet_bi_may_loc_khong_khi_thong_minh | Chuyên sâu hiệu ứng Morph và kỹ thuật tích hợp AI tạo sinh hình ảnh vector cho thiết bị lọc khí | roadmap_PowerpointFull.md |
+| hoan_thien_master_timeline_cho_slide_he_thong_loc_khong_khi_toan_dien | Hoàn thiện Master Timeline và đồng bộ hóa âm thanh lồng tiếng tự động cho hệ sinh thái thông minh | roadmap_PowerpointFull.md |
+| chuyen_sau_hieu_ung_morph_cho_slide_trinh_dien_thiet_bi_may_hut_am_thong_minh | Chuyên sâu hiệu ứng Morph kết hợp vẽ vector Freeform cho slide máy hút ẩm thông minh | roadmap_PowerpointFull.md |
+| hoan_thien_master_timeline_cho_slide_he_thong_xu_ly_khong_khi_toan_dien | Hoàn thiện Master Timeline và tích hợp lồng tiếng AI TTS cho slide hệ thống xử lý không khí | roadmap_PowerpointFull.md |
+| chuyen_sau_hieu_ung_morph_cho_slide_trinh_dien_thiet_bi_quat_khong_canh_thong_minh | Chuyên sâu hiệu ứng Morph và kỹ thuật vẽ vector Freeform độc quyền cho quạt không cánh | roadmap_PowerpointFull.md |
+| hoan_thien_master_timeline_cho_slide_he_thong_lam_mat_khong_gian_toan_dien | Hoàn thiện Master Timeline tích hợp âm thanh AI cho hệ thống làm mát không gian | roadmap_PowerpointFull.md |
+| chuyen_sau_hieu_ung_morph_cho_slide_trinh_dien_thiet_bi_may_say_quan_ao_thong_minh | Chuyên sâu hiệu ứng Morph và kỹ thuật tích hợp AI tạo sinh slide máy sấy thông minh | roadmap_PowerpointFull.md |
+| hoan_thien_master_timeline_cho_slide_he_thong_say_quan_ao_thong_minh_toan_dien | Hoàn thiện Master Timeline và cấu hình bảo mật Macro VBA cho hệ thống sấy | roadmap_PowerpointFull.md |
+| chuyen_sau_hieu_ung_morph_cho_slide_trinh_dien_thiet_bi_may_say_quan_ao_thong_minh_445 | Chuyên sâu hiệu ứng Morph cho slide trình diễn thiết bị máy sấy quần áo thông minh | roadmap_PowerpointFull.md |
+| hoan_thien_master_timeline_cho_slide_he_thong_say_quan_ao_thong_minh_toan_dien_446 | Đồng bộ hóa Master Timeline và kiểm thử Trigger nâng cao cho hệ thống sấy | roadmap_PowerpointFull.md |
+| chuyen_sau_hieu_ung_morph_cho_slide_trinh_dien_thiet_bi_may_say_quan_ao_thong_minh_447 | Chuyên sâu hiệu ứng Morph kết hợp vẽ vector Freeform cho slide máy sấy | roadmap_PowerpointFull.md |
+| hoan_thien_master_timeline_cho_slide_he_thong_say_quan_ao_thong_minh_toan_dien_448 | Hoàn thiện Master Timeline kết hợp tích hợp AI lồng tiếng cho hệ thống sấy | roadmap_PowerpointFull.md |
+| chuyen_sau_hieu_ung_morph_cho_slide_trinh_dien_thiet_bi_may_say_quan_ao_thong_minh_449 | Chuyên sâu hiệu ứng Morph và kỹ thuật vẽ vector Freeform biểu tượng thiết bị | roadmap_PowerpointFull.md |
+| hoan_thien_master_timeline_cho_slide_he_thong_say_quan_ao_thong_minh_toan_dien_450 | Tích hợp AI lồng tiếng và Hoàn thiện Master Timeline cho toàn bộ hệ thống sấy | roadmap_PowerpointFull.md |
+| chuyen_sau_hieu_ung_morph_cho_slide_trinh_dien_thiet_bi_may_say_quan_ao_thong_minh_451 | Chuyên sâu hiệu ứng Morph và tích hợp âm thanh lồng tiếng AI cho máy sấy thông minh | roadmap_PowerpointFull.md |
+| hoan_thien_master_timeline_cho_slide_he_thong_say_quan_ao_thong_minh_toan_dien_452 | Kiểm thử trigger đa tầng và hoàn thiện Master Timeline hệ thống sấy quần áo | roadmap_PowerpointFull.md |
+| chuyen_sau_hieu_ung_morph_cho_slide_trinh_dien_thiet_bi_may_say_quan_ao_thong_minh_453 | Chuyên sâu hiệu ứng Morph và kỹ thuật vẽ vector Freeform biểu tượng thiết bị máy sấy | roadmap_PowerpointFull.md |
+| hoan_thien_master_timeline_cho_slide_he_thong_say_quan_ao_thong_minh_toan_dien_454 | Hoàn thiện Master Timeline và tích hợp âm thanh lồng tiếng AI cho hệ thống sấy | roadmap_PowerpointFull.md |
+| lap_trinh_morph_3d_cho_slide_trinh_dien_thiet_bi_tu_lanh_thong_minh | Lập trình Morph 3D kết hợp vẽ vector Freeform biểu tượng tủ lạnh | roadmap_PowerpointFull.md |
+| hoan_thien_master_timeline_cho_slide_he_thong_tu_lanh_thong_minh_toan_dien | Đồng bộ Master Timeline và tích hợp âm thanh AI cho slide tủ lạnh | roadmap_PowerpointFull.md |
+| chuyen_sau_hieu_ung_morph_cho_slide_trinh_dien_thiet_bi_lo_vi_song_thong_minh_d457 | Chuyên sâu hiệu ứng Morph và tích hợp AI Text-To-Speech cho slide lò vi sóng thông minh | roadmap_PowerpointFull.md |
+| hoan_thien_master_timeline_cho_slide_he_thong_lo_vi_song_thong_minh_toan_dien | Hoàn thiện Master Timeline và kiểm thử Trigger đa tầng hệ thống lò vi sóng | roadmap_PowerpointFull.md |
+| chuyen_sau_hieu_ung_morph_cho_slide_trinh_dien_thiet_bi_lo_nuong_thong_minh_d459 | Chuyên sâu hiệu ứng Morph và tích hợp Freeform vector cho slide lò nướng thông minh | roadmap_PowerpointFull.md |
+| hoan_thien_master_timeline_cho_slide_he_thong_lo_nuong_thong_minh_toan_dien | Đồng bộ Master Timeline và kiểm thử tương thích hiển thị cho hệ thống lò nướng | roadmap_PowerpointFull.md |
+| chuyen_sau_hieu_ung_morph_cho_slide_trinh_dien_thiet_bi_may_pha_ca_phe_thong_minh | Chuyên sâu hiệu ứng Morph kết hợp đồng bộ hóa âm thanh AI và debug trigger đa tầng cho slide máy pha cà phê | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_phuc_tap_cho_slide_game_trac_nghiem_doanh_nghiep | Lập trình Trigger phức tạp và kiểm thử logic cho Slide Game trắc nghiệm doanh nghiệp | roadmap_PowerpointFull.md |
+| xay_dung_he_thong_tro_choi_o_chu_tuong_tac_cho_slide_su_kien | Xây dựng hệ thống trò chơi ô chữ tương tác bảo mật cho Slide sự kiện doanh nghiệp | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_da_chieu_cho_slide_game_hoctap_tuong_tac | Lập trình Trigger đa chiều và Tích hợp âm thanh AI cho Slide Game Sinh học | roadmap_PowerpointFull.md |
+| xay_dung_ung_dung_doanh_nghiep_mo_phong_xu_ly_tinh_huong | Xây dựng ứng dụng doanh nghiệp mô phỏng xử lý tình huống kèm Debug Trigger | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_phan_hoi_cho_slide_game_ho_chi_minh | Lập trình Trigger phản hồi và tích hợp âm thanh AI cho slide Game lịch sử | roadmap_PowerpointFull.md |
+| xay_dung_he_thong_tinh_diem_tu_dong_cho_slide_quiz_doanh_nghiep | Xây dựng hệ thống tính điểm tự động và debug trigger đa tầng cho Quiz doanh nghiệp | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_tuong_tac_cho_slide_mo_phong_quy_trinh_san_xuat | Lập trình Trigger tương tác và kiểm thử hệ thống đa tầng cho slide mô phỏng | roadmap_PowerpointFull.md |
+| xay_dung_giao_dien_tro_choi_tu_hoc_cho_slide_dao_tao_nhan_su | Xây dựng giao diện trò chơi tự học tích hợp bảo mật Macro cho đào tạo nhân sự | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_phan_nhanh_cho_slide_game_giai_do_kinh_doanh | Lập trình Trigger phân nhánh cho slide Game giải đố kinh doanh | roadmap_PowerpointFull.md |
+| xay_dung_he_thong_tuong_tac_keo_tha_cho_slide_quiz_nhan_su | Xây dựng hệ thống tương tác kéo thả cho slide Quiz nhân sự | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_phan_nhom_cho_slide_game_ho_so_nhan_su | Lập trình Trigger phân nhóm và Debug hệ thống tương tác đa tầng cho Slide Game | roadmap_PowerpointFull.md |
+| xay_dung_he_thong_dashboard_tuong_tac_cho_slide_chien_luoc_kinh_doanh | Xây dựng Dashboard tương tác chiến lược và xử lý tương thích Office phiên bản mới | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_lien_hoan_cho_slide_mo_phong_nha_thong_minh | Lập trình Trigger liên hoàn và debug hệ thống đa tầng mô phỏng nhà thông minh IoT | roadmap_PowerpointFull.md |
+| xay_dung_giao_dien_tro_choi_tuong_tac_cao_cho_slide_giao_duc | Xây dựng giao diện trò chơi giáo dục STEM kết hợp export đa nền tảng và bảo mật Macro | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_dieu_huong_cho_slide_game_me_cung_doanh_nghiep | Lập trình Trigger điều hướng kết hợp debug tương tác đa tầng cho slide mê cung | roadmap_PowerpointFull.md |
+| xay_dung_giao_dien_tro_choi_lat_the_bai_cho_slide_dao_tao_sale | Xây dựng giao diện trò chơi lật thẻ bài tích hợp bảo mật Macro cho đào tạo sale | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_ket_hop_cho_slide_game_kho báu_doanh_nghiep | Lập trình Trigger kết hợp và debug hệ thống tương tác đa tầng cho slide game kho báu | roadmap_PowerpointFull.md |
+| xay_dung_giao_dien_tro_choi_vinh_danh_cho_slide_su_kien | Xây dựng giao diện trò chơi vinh danh tích hợp âm thanh AI cho slide sự kiện | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_tuong_tac_chuyen_sau_cho_slide_game_vuot_chu_nguoi | Lập trình Trigger tương tác chuyên sâu và kiểm thử hệ thống đa tầng cho slide game vượt chướng ngại vật doanh nghiệp | roadmap_PowerpointFull.md |
+| xay_dung_giao_dien_tro_choi_tu_duy_logic_cho_slide_dao_tao_lanh_dao | Xây dựng giao diện trò chơi tư duy logic kết hợp xử lý tương thích phiên bản Office cho slide đào tạo lãnh đạo | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_dieu_khien_cho_slide_game_vuot_chuong_ngai_vat | Lập trình Trigger điều khiển nhân vật và tích hợp âm thanh AI cho slide game vượt chướng ngại vật | roadmap_PowerpointFull.md |
+| xay_dung_giao_dien_tro_choi_giai_ma_me_cung_cho_slide_dao_tao | Debug hệ thống Trigger đa tầng và xây dựng giao diện mê cung cho slide đào tạo doanh nghiệp | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_chuyen_sau_cho_slide_game_giai_cau_do_doanh_nghiep | Lập trình Trigger nâng cao kết hợp debug lỗi tương tác đa tầng cho câu đố | roadmap_PowerpointFull.md |
+| xay_dung_giao_dien_tro_choi_mo_phong_dau_truong_cho_slide_su_kien | Xây dựng và tối ưu tương thích đa phiên bản Office cho giao diện đấu trường tri thức | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_dieu_khien_cho_slide_game_hoang_cung_doanh_nghiep | Lập trình Trigger điều khiển và Debug hệ thống đa tầng cho slide game Hoàng cung | roadmap_PowerpointFull.md |
+| xay_dung_giao_dien_tro_choi_giai_ma_an_pham_cho_slide_dao_tao_sale | Xây dựng giao diện trò chơi giải mã ấn phẩm và đóng gói file đa nền tảng | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_da_tang_cho_slide_game_khoa_hoc_tu_nhien | Lập trình Trigger đa tầng kết hợp Debug lỗi tương tác cho slide Game khoa học tự nhiên | roadmap_PowerpointFull.md |
+| xay_dung_giao_dien_tro_choi_tu_duy_khong_gian_cho_slide_dao_tao_ky_thuat | Xây dựng giao diện trò chơi tư duy không gian và xử lý tương thích Office cho slide đào tạo | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_khong_gian_cho_slide_game_khong_gian_mang | Lập trình Trigger không gian kết hợp đồng bộ hóa âm thanh AI cho Slide Game | roadmap_PowerpointFull.md |
+| xay_dung_giao_dien_tro_choi_tu_duy_chien_luoc_cho_slide_dao_tao_quan_tri | Xây dựng giao diện trò chơi tư duy chiến lược và kiểm thử hệ thống Trigger đa tầng | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_toa_do_cho_slide_game_ban_sung_doanh_nghiep | Lập trình Trigger tọa độ và Debug hệ thống đa tầng cho Slide Game bắn súng doanh nghiệp | roadmap_PowerpointFull.md |
+| xay_dung_giao_dien_tro_choi_mo_phong_dau_truong_ky_nang | Xây dựng giao diện trò chơi mô phỏng đấu trường kỹ năng tích hợp bảo mật Macro | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_sieu_phan_cap_cho_slide_game_chien_luoc_kinh_doanh | Lập trình Trigger siêu phân cấp và Debug hệ thống đa tầng cho Slide Game chiến lược | roadmap_PowerpointFull.md |
+| xay_dung_giao_dien_tro_choi_mo_phong_quan_tri_cho_slide_dao_tao | Xây dựng giao diện trò chơi mô phỏng quản trị và xử lý tương thích Office | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_da_chieu_cho_slide_game_giao_duc_khoa_hoc | Lập trình Trigger đa chiều và debug hệ thống tương tác slide game giáo dục | roadmap_PowerpointFull.md |
+| xay_dung_ung_dung_mo_phong_doanh_nghiep_cho_slide_chien_luoc | Xây dựng ứng dụng mô phỏng doanh nghiệp và cấu hình bảo mật Macro VBA | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_toan_dien_cho_slide_game_khoa_hoc_tu_duy | Lập trình Trigger toàn diện và debug hệ thống đa tầng cho slide game khoa học | roadmap_PowerpointFull.md |
+| xay_dung_ung_dung_mo_phong_thuc_te_cho_slide_chien_luoc | Xây dựng ứng dụng mô phỏng thực tế và kiểm thử tương thích phiên bản cho slide chiến lược | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_da_chieu_mo_rong_cho_slide_game_giao_duc | Lập trình Trigger đa chiều và Tích hợp âm thanh AI cho Slide Game giáo dục STEM v2 | roadmap_PowerpointFull.md |
+| xay_dung_ung_dung_mo_phong_doanh_nghiep_nang_cao_cho_slide_chien_luoc | Debug hệ thống Trigger đa tầng và Xây dựng mô phỏng doanh nghiệp cho Slide chiến lược | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_chuyen_sau_cho_slide_game_giai_o_chu | Lập trình Trigger chuyên sâu kết hợp Debug lỗi tương tác ô chữ doanh nghiệp | roadmap_PowerpointFull.md |
+| xay_dung_ung_dung_quiz_tuong_tac_cho_slide_dao_tao | Xây dựng ứng dụng Quiz tương tác đa chiều tích hợp bảo mật Macro cho Đào tạo | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_toan_dien_cho_slide_game_tu_duy_khong_gian | Lập trình Trigger toàn diện và Kiểm thử tương tác đa tầng cho slide game 3D | roadmap_PowerpointFull.md |
+| xay_dung_ung_dung_quiz_tuong_tac_nang_cao_cho_slide_dao_tao | Xây dựng ứng dụng Quiz tương tác nâng cao và ký số bảo mật macro cho đào tạo | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_dong_bo_cho_slide_game_tu_duy_chien_thuat | Lập trình trigger đồng bộ cho slide game tư duy chiến thuật | roadmap_PowerpointFull.md |
+| xay_dung_ung_dung_minh_hoa_quy_trinh_cho_slide_chien_luoc | Xây dựng ứng dụng minh họa quy trình kèm kiểm thử đa phiên bản | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_lien_hoan_cho_slide_game_hoang_cung_so | Lập trình Trigger liên hoàn kết hợp Debug và kiểm thử hệ thống đa tầng - Dự án Slide Hoàng Cung Số | roadmap_PowerpointFull.md |
+| xay_dung_ung_dung_minh_hoa_mo_phong_cho_slide_chien_luoc | Xây dựng ứng dụng mô phỏng tích hợp AI lồng tiếng và tương thích Office - Dự án Slide Chiến Lược | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_da_chieu_cho_slide_game_khoa_hoc_tu_nhien_moi | Lập trình Trigger đa chiều và Debug hệ thống tương tác khoa học | roadmap_PowerpointFull.md |
+| xay_dung_ung_dung_mo_phong_khoa_hoc_cho_slide_chien_luoc | Xây dựng ứng dụng mô phỏng chiến lược và tối ưu tương thích Office | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_da_chieu_nang_cao_cho_slide_game_giao_duc | Lập trình Trigger đa chiều và Debug hệ thống tương tác slide giáo dục | roadmap_PowerpointFull.md |
+| xay_dung_ung_dung_quiz_doanh_nghiep_cho_slide_chien_luoc | Xây dựng ứng dụng Quiz doanh nghiệp độc lập và bảo mật Macro cho Slide chiến lược | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_da_chieu_nang_cao_cho_slide_game_giao_duc_d514 | Lập trình Trigger đa chiều và Debug hệ thống tương tác tầng sâu cho Game 3D | roadmap_PowerpointFull.md |
+| xay_dung_ung_dung_quiz_doanh_nghiep_nang_cao_cho_slide_chien_luoc | Xây dựng ứng dụng Quiz Doanh nghiệp tích hợp bảo mật Macro và tương thích phiên bản | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_chuyen_sau_cho_slide_game_ho_so_nang_luc | Lập trình Trigger chuyên sâu kết hợp kiểm thử và xử lý tương thích Office cho slide Game Hồ sơ Năng lực | roadmap_PowerpointFull.md |
+| xay_dung_ung_dung_mo_phong_chien_dich_cho_slide_chien_luoc | Xây dựng ứng dụng mô phỏng chiến dịch kết hợp đóng gói và bảo mật Macro cho slide Chiến lược MKT | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_da_chieu_cho_slide_game_hoang_cung | Lập trình Trigger đa chiều và Debug hệ thống tương tác Hoàng cung số: Dự án Cung điện tri thức | roadmap_PowerpointFull.md |
+| xay_dung_ung_dung_mo_phong_hoang_cung_cho_slide_chien_luoc | Xây dựng ứng dụng mô phỏng chiến lược tích hợp bảo mật macro và đa nền tảng: Dự án Đế chế số | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_da_chieu_sieu_cap_cho_slide_game_hoang_cung | Lập trình Trigger đa tầng và kiểm thử sự kiện tương tác game cung đình | roadmap_PowerpointFull.md |
+| xay_dung_ung_dung_mo_phong_chien_luoc_kinh_doanh_hoang_gia | Đóng gói ứng dụng mô phỏng kinh doanh hoàng gia kèm bảo mật Macro | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_da_chieu_sieu_viet_cho_slide_game_tu_duy | Lập trình Trigger đa chiều và debug hệ thống tương tác PowerPoint | roadmap_PowerpointFull.md |
+| xay_dung_ung_dung_mo_phong_chien_luoc_kinh_doanh_da_tang | Xây dựng ứng dụng mô phỏng chiến lược kinh doanh đa tầng tích hợp âm thanh AI TTS | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_da_chieu_sieu_viet_cho_slide_game_kien_thuc | Lập trình Trigger đa chiều và debug hệ thống tương tác ô chữ | roadmap_PowerpointFull.md |
+| xay_dung_ung_dung_mo_phong_he_sinh_thai_cho_slide_chien_luoc | Xây dựng ứng dụng mô phỏng hệ sinh thái và bảo mật Macro nâng cao | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_da_chieu_sieu_cap_cho_slide_game_tu_duy_doi_khang | Lập trình Trigger đa chiều siêu cấp cho slide game tư duy đối kháng | roadmap_PowerpointFull.md |
+| xay_dung_ung_dung_mo_phong_dau_tu_tai_chinh_cho_slide_chien_luoc | Xây dựng ứng dụng mô phỏng đầu tư tài chính cho slide chiến lược | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_da_chieu_sieu_viet_cho_slide_game_kien_thuc_moi | Lập trình Trigger đa chiều kết hợp debug và kiểm thử hệ thống slide game | roadmap_PowerpointFull.md |
+| xay_dung_ung_dung_mo_phong_he_sinh_thai_kinh_doanh_moi | Xây dựng ứng dụng mô phỏng hệ sinh thái kinh doanh tích hợp bảo mật VBA | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_da_chieu_toi_tan_cho_slide_game_tu_duy | Lập trình Trigger đa chiều tối tân cho slide game tư duy giải đố logic | roadmap_PowerpointFull.md |
+| xay_dung_ung_dung_mo_phong_chuoi_cung_ung_toan_cau | Xây dựng ứng dụng mô phỏng chuỗi cung ứng toàn cầu kết hợp AI và đa nền tảng | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_da_chieu_toi_tan_cho_slide_game_tu_duy_doi_khang | Lập trình Trigger đa chiều tối tân cho Slide Game Tư duy Đối kháng 2 người | roadmap_PowerpointFull.md |
+| xay_dung_ung_dung_mo_phong_dau_tu_bat_dong_san_cho_slide_chien_luoc | Xây dựng ứng dụng mô phỏng đầu tư bất động sản tích hợp VBA bảo mật | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_da_chieu_sieu_cap_cho_slide_game_kien_thuc | Lập trình Trigger đa chiều và Kiểm thử hệ thống tương tác nhiều tầng trong PowerPoint | roadmap_PowerpointFull.md |
+| xay_dung_ung_dung_mo_phong_he_sinh_thai_kinh_doanh_phuc_tap | Xây dựng ứng dụng mô phỏng hệ sinh thái kinh doanh tích hợp bảo mật VBA | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_da_chieu_sieu_viet_cho_slide_game_ngoanh_hieu | Lập trình Trigger đa chiều và Debug hệ thống tương tác đa tầng cho slide game | roadmap_PowerpointFull.md |
+| xay_dung_ung_dung_mo_phong_he_thong_giao_duc_thong_minh | Xây dựng ứng dụng mô phỏng giáo dục thông minh tích hợp bảo mật Macro và đa phiên bản | roadmap_PowerpointFull.md |
+| lap_trinh_trigger_da_chieu_toi_tan_cho_slide_game_giao_duc | Lập trình Trigger đa chiều kết hợp debug và đồng bộ âm thanh AI TTS cho slide game giáo dục | roadmap_PowerpointFull.md |
+| toi_uu_ux_ui_slide_nhung_video_4k | Tối ưu hóa giao diện UX/UI và tích hợp video 4K kết hợp công cụ Freeform vẽ vector | roadmap_PowerpointFull.md |
+| tich_hop_am_thanh_va_luong_phat_truc_tuyen | Tích hợp âm thanh lồng tiếng AI TTS và luồng phát trực tiếp cho Hội Nghị Thượng Đỉnh | roadmap_PowerpointFull.md |
+| toi_uu_ux_ui_slide_nhung_video_4k_d541 | Nâng cấp trải nghiệm UX/UI slide thuyết trình sản phẩm công nghệ với video 4K và công cụ Freeform | roadmap_PowerpointFull.md |
+| tich_hop_am_thanh_va_luong_phat_truc_tuyen_d542 | Tích hợp âm thanh đa kênh AI Text-to-Speech và luồng phát trực tiếp cho slide hội thảo | roadmap_PowerpointFull.md |
+| toi_uu_ux_ui_slide_nhung_video_4k_d543 | Tối ưu hóa UX/UI nhúng video 4K sắc nét và tích hợp AI lồng tiếng cho Slide | roadmap_PowerpointFull.md |
+| tich_hop_am_thanh_va_luong_phat_truc_tuyen_d544 | Xử lý âm thanh đa kênh và kiểm thử luồng phát trực tiếp cho Slide Hội thảo Quốc tế | roadmap_PowerpointFull.md |
+| toi_uu_ux_ui_slide_nhung_video_4k_chuyen_sau | Tối ưu hóa UX/UI nhúng video 4K sắc nét kết hợp công cụ vẽ vector Freeform độc quyền | roadmap_PowerpointFull.md |
+| tich_hop_am_thanh_va_luong_phat_truc_tuyen_cao_cap | Tích hợp âm thanh vòm, lồng tiếng AI TTS và luồng phát trực tiếp 4K cho Slide Báo cáo | roadmap_PowerpointFull.md |
+| toi_uu_ux_ui_slide_nhung_video_4k_chuyen_sau_d547 | Tối ưu hóa UX/UI nhúng video 4K sắc nét và tích hợp công cụ Freeform vẽ vector nhân vật độc quyền | roadmap_PowerpointFull.md |
+| tich_hop_am_thanh_va_luong_phat_truc_tuyen_cao_cap_d548 | Tích hợp âm thanh vòm, lồng tiếng AI TTS tự động và luồng phát trực tiếp cho Slide báo cáo tài chính | roadmap_PowerpointFull.md |
+| toi_uu_ux_ui_slide_nhung_video_4k_chuyen_sau_d549 | Tối ưu hóa UX/UI, nhúng video 4K và tích hợp công nghệ AI tạo sinh vào Slide Pitch Deck | roadmap_PowerpointFull.md |
+| tich_hop_am_thanh_va_luong_phat_truc_tuyen_cao_cap_d550 | Tích hợp âm thanh AI lồng tiếng, đa chiều và luồng phát trực tiếp cho Slide Báo cáo tài chính | roadmap_PowerpointFull.md |
+| toi_uu_ux_ui_slide_nhung_video_4k_chi_tiet_d551 | Tối ưu hóa UX/UI cho slide thuyết trình sản phẩm công nghệ với video 4K kết hợp Freeform vector | roadmap_PowerpointFull.md |
+| tich_hop_am_thanh_va_luong_phat_truc_tuyen_chi_tiet_d552 | Tích hợp âm thanh đa kênh đồng bộ giọng nói AI và luồng phát trực tiếp cho hội thảo | roadmap_PowerpointFull.md |
+| toi_uu_ux_ui_slide_nhung_video_4k_chuyen_sau_553 | Tối ưu hóa UX/UI nhúng video 4K sắc nét và tích hợp âm thanh AI cho Slide Pitch Deck | roadmap_PowerpointFull.md |
+| tich_hop_am_thanh_va_luong_phat_truc_tuyen_chuyen_sau_554 | Thiết kế vector độc quyền bằng Freeform và phát trực tiếp cho Slide Hội thảo | roadmap_PowerpointFull.md |
+| toi_uu_ux_ui_slide_nhung_video_4k_chuyen_sau_555 | Tinh chỉnh UX/UI và nhúng video 4K kết hợp lồng tiếng AI cho Slide Pitch Deck gọi vốn vòng Seed | roadmap_PowerpointFull.md |
+| tich_hop_am_thanh_va_luong_phat_truc_tuyen_chuyen_sau_556 | Thiết kế vector nhân vật độc quyền bằng Freeform và tích hợp luồng phát trực tiếp cho Slide báo cáo tài chính Q4 | roadmap_PowerpointFull.md |
+| toi_uu_ux_ui_slide_nhung_video_4k_chuyen_sau_557 | Tinh chỉnh UX/UI, nhúng video 4K và tích hợp công cụ Freeform vẽ vector nhân vật độc quyền | roadmap_PowerpointFull.md |
+| tich_hop_am_thanh_va_luong_phat_truc_tuyen_chuyen_sau_558 | Tích hợp âm thanh vòm, lồng tiếng AI TTS và luồng phát trực tiếp cho Slide báo cáo | roadmap_PowerpointFull.md |
+| toi_uu_ux_ui_slide_nhung_video_4k_559 | Tối ưu hóa UX/UI cho slide nhúng video 4K kết hợp công nghệ AI TTS | roadmap_PowerpointFull.md |
+| tich_hop_am_thanh_va_luong_phat_truc_tuyen_560 | Tích hợp âm thanh vòm, Live Stream 4K và kiểm thử Trigger đa tầng | roadmap_PowerpointFull.md |
+| toi_uu_ux_ui_slide_nhung_video_4k_561 | Tối ưu hóa UX/UI hiển thị video 4K kết hợp vẽ vector nhân vật độc quyền bằng công nghệ Freeform | roadmap_PowerpointFull.md |
+| tich_hop_am_thanh_va_luong_phat_truc_tuyen_562 | Tích hợp âm thanh vòm, luồng phát trực tiếp 4K và lồng tiếng tự động bằng AI cho Slide tài chính | roadmap_PowerpointFull.md |
+| toi_uu_ux_ui_slide_nhung_video_4k_563 | Tối ưu hóa UX/UI nhúng video 4K kết hợp vẽ vector nhân vật bằng Freeform cho Slide Pitch Deck | roadmap_PowerpointFull.md |
+| tich_hop_am_thanh_va_luong_phat_truc_tuyen_564 | Tích hợp âm thanh đa kênh và lồng tiếng tự động AI cho Slide báo cáo tài chính Q4 | roadmap_PowerpointFull.md |
+| toi_uu_ux_ui_slide_nhung_video_4k_chi_tiet_565 | Tối ưu hóa UX/UI nhúng video 4K kết hợp công cụ vẽ vector Freeform độc quyền | roadmap_PowerpointFull.md |
+| tich_hop_am_thanh_va_luong_phat_truc_tuyen_chi_tiet_566 | Tích hợp âm thanh vòm, luồng phát trực tiếp và lồng tiếng tự động AI cho Slide Hội thảo | roadmap_PowerpointFull.md |
+| toi_uu_ux_ui_slide_nhung_video_4k_567 | Nâng cấp trải nghiệm UX/UI, nhúng video 4K và tích hợp công nghệ AI lồng tiếng tự động | roadmap_PowerpointFull.md |
+| tich_hop_am_thanh_va_luong_phat_truc_tuyen_568 | Xây dựng âm thanh đa kênh, stream trực tiếp và vẽ vector nhân vật độc quyền bằng Freeform | roadmap_PowerpointFull.md |
+| toi_uu_ux_ui_slide_nhung_video_4k_569 | Tối ưu hóa UX/UI nhúng video 4K kết hợp vẽ vector nhân vật độc quyền bằng Freeform | roadmap_PowerpointFull.md |
+| tich_hop_am_thanh_va_luong_phat_truc_tuyen_570 | Tích hợp âm thanh lồng tiếng AI đồng bộ khớp khẩu và luồng phát trực tiếp tài chính Q4 | roadmap_PowerpointFull.md |
+| toi_uu_ux_ui_slide_nhung_video_4k_571 | Thiết kế UX/UI slide nhúng video 4K cho Pitch Deck gọi vốn kết hợp Vector tự do | roadmap_PowerpointFull.md |
+| tich_hop_am_thanh_va_luong_phat_truc_tuyen_572 | Tích hợp âm thanh lồng tiếng AI đa kênh và stream trực tuyến cho Event | roadmap_PowerpointFull.md |
+| toi_uu_ux_ui_slide_nhung_video_4k_573 | Tối ưu hóa UX/UI slide và nhúng video 4K kết hợp công cụ nén đồ họa cho dự án Slide Pitch Deck gọi vốn vòng Seed | roadmap_PowerpointFull.md |
+| tich_hop_am_thanh_va_luong_phat_truc_tuyen_574 | Tích hợp âm thanh lồng tiếng AI TTS và luồng phát trực tiếp dữ liệu cho dự án Slide Báo cáo tài chính Q4 | roadmap_PowerpointFull.md |
+| toi_uu_ux_ui_slide_nhung_video_4k_575 | Tối ưu hóa UX/UI slide nhúng video 4K kết hợp vẽ vector nhân vật độc quyền bằng Freeform | roadmap_PowerpointFull.md |
+| tich_hop_am_thanh_va_luong_phat_truc_tuyen_576 | Tích hợp âm thanh vòm, lồng tiếng AI TTS và luồng phát trực tiếp 4K cho hội nghị | roadmap_PowerpointFull.md |
+| toi_uu_ux_ui_slide_nhung_video_4k_577 | Tinh chỉnh UX/UI slide trình chiếu video 4K kết hợp vẽ vector nhân vật thủ công cho Dự án Smart City Showcase | roadmap_PowerpointFull.md |
+| tich_hop_am_thanh_va_luong_phat_truc_tuyen_578 | Tích hợp âm thanh lồng tiếng AI Text-to-Speech và luồng phát trực tiếp cho Dự án Global Tech Summit | roadmap_PowerpointFull.md |
+| toi_uu_ux_ui_slide_nhung_video_4k_579 | Tối ưu hóa UX/UI slide và nhúng video 4K cho Slide Pitch Deck gọi vốn | roadmap_PowerpointFull.md |
+| tich_hop_am_thanh_va_luong_phat_truc_tuyen_580 | Tích hợp âm thanh lồng tiếng AI và luồng phát trực tiếp cho báo cáo tài chính Q4 | roadmap_PowerpointFull.md |
+| toi_uu_ux_ui_slide_nhung_video_4k_581 | Thiết kế UX/UI slide trải nghiệm 4K kết hợp vẽ vector nhân vật độc quyền bằng công cụ Freeform | roadmap_PowerpointFull.md |
+| tich_hop_am_thanh_va_luong_phat_truc_tuyen_582 | Tích hợp âm thanh vòm, luồng phát trực tiếp và lồng tiếng tự động AI cho Slide báo cáo tài chính Q4 | roadmap_PowerpointFull.md |
+| toi_uu_ux_ui_slide_nhung_video_4k_583 | Tinh chỉnh UX/UI slide, vẽ icon vector Freeform và nhúng video 4K cho báo cáo chiến lược | roadmap_PowerpointFull.md |
+| tich_hop_am_thanh_va_luong_phat_truc_tuyen_584 | Tích hợp âm thanh AI TTS, phát trực tiếp và kiểm thử tương thích cho slide hội thảo | roadmap_PowerpointFull.md |
+| toi_uu_ux_ui_slide_nhung_video_4k_585 | Nâng cấp trải nghiệm UX/UI nhúng video 4K kết hợp vẽ vector nhân vật thủ công | roadmap_PowerpointFull.md |
+| tich_hop_am_thanh_va_luong_phat_truc_tuyen_586 | Tích hợp âm thanh vòm, lồng tiếng AI Text-to-Speech và luồng phát trực tiếp | roadmap_PowerpointFull.md |
+| ux_ui_slide_nhung_video_4k_va_stream_truc_tuyen_587 | Tối ưu trải nghiệm slide nhúng video 4K và tích hợp AI Text-to-Speech đồng bộ | roadmap_PowerpointFull.md |
+| hoan_thien_ux_ui_va_tich_hop_da_phuong_tien_4k_588 | Debug Trigger đa tầng và xuất bản báo cáo tài chính Q4 tương thích đa nền tảng | roadmap_PowerpointFull.md |
+| toi_uu_ux_ui_slide_nhung_video_4k_589 | Tối ưu hóa UX/UI slide nhúng video 4K kết hợp vẽ vector nhân vật bằng Freeform | roadmap_PowerpointFull.md |
+| tich_hop_am_thanh_va_luong_phat_truc_tuyen_590 | Tích hợp giọng đọc AI Text-to-Speech và luồng phát trực tiếp cho Slide Hội thảo | roadmap_PowerpointFull.md |
+| toi_uu_ux_ui_slide_nhung_video_4k_591 | Tối ưu hóa UX/UI cho slide nhúng video 4K kết hợp vẽ vector nhân vật độc quyền bằng Freeform | roadmap_PowerpointFull.md |
+| tich_hop_am_thanh_va_luong_phat_truc_tuyen_592 | Tích hợp âm thanh lồng tiếng AI TTS và luồng phát trực tiếp cho Slide báo cáo tài chính Q4 | roadmap_PowerpointFull.md |
+| ux_ui_slide_nhung_video_4k_593 | Chuyên sâu UX/UI slide nhúng video 4K cho Pitch Deck gọi vốn kết hợp AI tự động hóa | roadmap_PowerpointFull.md |
+| tich_hop_am_thanh_va_luong_phat_truc_tuyen_594 | Tích hợp âm thanh đa kênh, lồng tiếng AI và stream trực tiếp cho Slide Hội thảo | roadmap_PowerpointFull.md |
+| ux_ui_slide_nhung_video_4k_va_stream_595 | Tối ưu UX/UI Slide nhúng video 4K kết hợp vẽ vector nhân vật độc quyền bằng Freeform | roadmap_PowerpointFull.md |
+| tich_hop_am_thanh_va_stream_4k_596 | Tích hợp âm thanh lồng tiếng AI TTS và luồng phát trực tiếp cho Slide báo cáo tài chính Q4 | roadmap_PowerpointFull.md |
+| kien_tao_slide_master_doanh_nghiep_597 | Kiến tạo Slide Master chuẩn mực tích hợp AI cho Slide Pitch Deck gọi vốn vòng Seed | roadmap_PowerpointFull.md |
+| tu_dong_hoa_layout_template_598 | Tự động hóa layout hàng loạt và export đa nền tảng cho Slide báo cáo tài chính Q4 | roadmap_PowerpointFull.md |
+| dong_bo_slide_master_doanh_nghiep_599 | Đồng bộ hóa Slide Master chuẩn tập đoàn cho Template Pitch Deck gọi vốn | roadmap_PowerpointFull.md |
+| tu_dong_hoa_layout_template_hang_loat_600 | Tự động hóa layout template hàng loạt tích hợp AI và kiểm thử Trigger | roadmap_PowerpointFull.md |
+| quan_tri_layout_template_doanh_nghiep_601 | Quản trị layout template doanh nghiệp cho slide báo cáo tài chính Q4 | roadmap_PowerpointFull.md |
+| kiem_thu_va_van_hanh_template_602 | Kiểm thử tương thích và vận hành template slide pitch deck gọi vốn | roadmap_PowerpointFull.md |
+| chuan_hoa_he_thong_slide_master | Xây dựng hệ thống Slide Master chuẩn hóa và khóa cứng định dạng thương hiệu tài chính | roadmap_PowerpointFull.md |
+| tu_dong_hoa_layout_hang_loat | Tự động hóa layout hàng loạt và đóng gói định dạng POTX cho bộ pitch deck gọi vốn | roadmap_PowerpointFull.md |
+| kien_tao_template_doanh_nghiep_doc_quyen_605 | Thiết kế Slide Pitch Deck gọi vốn vòng Seed chuẩn doanh nghiệp độc quyền kết hợp AI | roadmap_PowerpointFull.md |
+| tu_dong_hoa_layout_hang_loat_doanh_nghiep_606 | Tự động hóa layout hàng loạt và export đa nền tảng cho Slide báo cáo tài chính Q4 | roadmap_PowerpointFull.md |
+| kien_truc_template_doanh_nghiep_607 | Xây dựng Template Slide Pitch Deck gọi vốn vòng Seed chuẩn doanh nghiệp kết hợp AI | roadmap_PowerpointFull.md |
+| tu_dong_hoa_layout_hang_loat_doanh_nghiep_608 | Đóng gói đa nền tảng và kiểm tra tính tương thích file PowerPoint doanh nghiệp | roadmap_PowerpointFull.md |
+| hoan_thien_he_thong_template_doanh_nghiep_609 | Hoàn thiện hệ thống Template Doanh nghiệp Độc quyền kết hợp AI và Tích hợp Tương thích Đa phiên bản Office | roadmap_PowerpointFull.md |
+| van_hanh_va_tu_dong_hoa_layout_hang_loat_610 | Vận hành Tự động hóa Layout hàng loạt, Ký số Bảo mật Macro VBA và Đóng gói Đa nền tảng cho Slide Pitch Deck | roadmap_PowerpointFull.md |
+| chuyen_giao_slide_master_doanh_nghiep | Chuyển giao hệ thống Slide Master bảo mật và tích hợp AI cho Slide Báo cáo chiến lược tập đoàn 2025 | roadmap_PowerpointFull.md |
+| tu_dong_hoa_layout_hang_loat_portfolio | Debug hệ thống Trigger đa tầng và tự động hóa layout Company Profile | roadmap_PowerpointFull.md |
+| kien_tao_he_thong_slide_master_doanh_nghiep_613 | Thiết kế Slide Pitch Deck gọi vốn vòng Seed cho Start-up Công nghệ | roadmap_PowerpointFull.md |
+| tu_dong_hoa_layout_hang_loat_doanh_nghiep_614 | Tự động hóa Slide báo cáo tài chính Q4 và Debug Trigger đa tầng | roadmap_PowerpointFull.md |
+| kien_tao_slide_master_doanh_nghiep_chuyen_sau_615 | Kiến tạo Slide Master Doanh nghiệp chuẩn mực cho Slide Pitch Deck gọi vốn vòng Seed kết hợp AI | roadmap_PowerpointFull.md |
+| tu_dong_hoa_layout_hang_loat_cho_slide_bao_cao_tai_chinh_616 | Tự động hóa layout hàng loạt cho Slide báo cáo tài chính Q4 tích hợp bảo mật Macro và kiểm thử tương thích | roadmap_PowerpointFull.md |
+| kien_tao_slide_master_bao_cao_chien_luoc_617 | Kiến tạo Slide Master báo cáo chiến lược kinh doanh 5 năm cho Vinamilk tích hợp AI | roadmap_PowerpointFull.md |
+| tu_dong_hoa_layout_template_ho_so_nang_luc_618 | Tự động hóa layout template hồ sơ năng lực tập đoàn FPT kèm ký số bảo mật VBA | roadmap_PowerpointFull.md |
+| kien_tao_he_thong_slide_master_bao_cao_tai_chinh | Kiến tạo hệ thống Slide Master cho báo cáo tài chính kiểm toán quý | roadmap_PowerpointFull.md |
+| tu_dong_hoa_layout_template_bao_cao_tai_chinh | Tự động hóa layout template hàng loạt tích hợp AI và kiểm thử tương thích | roadmap_PowerpointFull.md |
+| kien_tao_slide_master_bao_cao_kinh_doanh_doc_quyen | Kiến tạo Slide Master báo cáo kinh doanh độc quyền tích hợp AI và vector tuỳ chỉnh | roadmap_PowerpointFull.md |
+| tu_dong_hoa_layout_template_bao_cao_kinh_doanh | Tự động hóa layout template báo cáo kinh doanh hàng loạt với Placeholder thông minh và bảo mật VBA | roadmap_PowerpointFull.md |
+| kien_tao_slide_master_bao_cao_tai_chinh_doanh_nghiep | Kiến tạo Slide Master Báo cáo tài chính doanh nghiệp độc quyền cho Startup Tech | roadmap_PowerpointFull.md |
+| tu_dong_hoa_layout_template_bao_cao_tai_chinh_doanh_nghiep | Tự động hóa layout template Báo cáo tài chính doanh nghiệp quy mô lớn | roadmap_PowerpointFull.md |
+| kien_tao_slide_master_bao_cao_tai_chinh_nam_625 | Kiến tạo Slide Master cho dự án Báo cáo tài chính năm độc quyền | roadmap_PowerpointFull.md |
+| tu_dong_hoa_layout_template_bao_cao_tai_chinh_nam_626 | Tự động hóa layout hàng loạt và ký số bảo mật cho Slide Báo cáo tài chính | roadmap_PowerpointFull.md |
+| kien_tao_slide_master_bao_cao_quan_tri_nam_627 | Kiến tạo Slide Master cho báo cáo quản trị năm kết hợp bảo mật macro và tương thích đa phiên bản | roadmap_PowerpointFull.md |
+| tu_dong_hoa_layout_template_bao_cao_quan_tri_nam_628 | Tự động hóa layout template báo cáo quản trị tích hợp AI và export đa nền tảng | roadmap_PowerpointFull.md |
+| kien_tao_slide_master_bao_cao_quan_tri_nam_629 | Thiết kế Slide Master và Ký số bảo mật VBA cho Báo cáo Quản trị Doanh nghiệp | roadmap_PowerpointFull.md |
+| tu_dong_hoa_layout_template_bao_cao_quan_tri_nam_630 | Tự động hóa Layout hàng loạt và Kiểm tra tương thích đa phiên bản Office | roadmap_PowerpointFull.md |
+| kien_tao_slide_master_bao_cao_quan_tri_quy_631 | Thiết kế Slide Master cho Báo cáo quản trị Quý thực chiến | roadmap_PowerpointFull.md |
+| tu_dong_hoa_layout_template_bao_cao_quan_tri_quy_632 | Xử lý tương thích phiên bản và Tự động hóa layout hàng loạt | roadmap_PowerpointFull.md |
+| kien_tao_slide_master_bao_cao_quan_tri_nam_633 | Thiết kế Slide Master cho Slide Báo cáo Quản trị Năm trong Dự án Doanh nghiệp X | roadmap_PowerpointFull.md |
+| tu_dong_hoa_layout_template_bao_cao_quan_tri_nam_634 | Tự động hóa bố cục template và kiểm thử tương thích phiên bản Office cho báo cáo | roadmap_PowerpointFull.md |
+| kien_tao_slide_master_bao_cao_quan_tri_nam_635 | Thiết kế Slide Master hệ thống báo cáo quản trị năm cho tập đoàn đa quốc gia | roadmap_PowerpointFull.md |
+| tu_dong_hoa_layout_bao_cao_quan_tri_nam_636 | Tích hợp AI và tự động hóa layout chiến lược kinh doanh toàn cầu | roadmap_PowerpointFull.md |
+| thiet_ke_slide_master_bao_cao_quan_tri_nam_637 | Thiết kế Slide Master và Tích hợp Vector Độc quyền cho Báo cáo Dự án Alpha | roadmap_PowerpointFull.md |
+| tu_dong_hoa_layout_bao_cao_quan_tri_nam_638 | Tự động hóa Layout Hàng loạt và Đóng gói Export Đa nền tảng Dự án Beta | roadmap_PowerpointFull.md |
+| thiet_ke_slide_master_bao_cao_quan_tri_nam_639 | Thiết kế Slide Master và Tích hợp AI tạo mẫu tự động cho Báo cáo | roadmap_PowerpointFull.md |
+| tu_dong_hoa_layout_bao_cao_quan_tri_nam_640 | Batch Processing và Debug Tương thích Office cho Báo cáo Quản trị | roadmap_PowerpointFull.md |
+| thiet_ke_slide_master_bao_cao_quan_tri_nam_641 | Thiết kế Slide Master hệ thống báo cáo quản trị năm cho tập đoàn Vingroup kèm bảo mật VBA nâng cao | roadmap_PowerpointFull.md |
+| tu_dong_hoa_layout_bao_cao_quan_tri_nam_642 | Tự động hóa layout hàng loạt tích hợp AI và kiểm thử tương thích phiên bản Office cho FPT | roadmap_PowerpointFull.md |
+| thiet_ke_slide_master_bao_cao_quan_tri_nam_643 | Thiết kế Slide Master hệ sinh thái báo cáo quản trị năm cho tập đoàn Vingroup kết hợp AI | roadmap_PowerpointFull.md |
+| tu_dong_hoa_layout_bao_cao_quan_tri_nam_644 | Tự động hóa layout hàng loạt và ký số bảo mật cho template báo cáo Viettel | roadmap_PowerpointFull.md |
+| thiet_ke_slide_master_bao_cao_quan_tri_nam_645 | Thiết kế Slide Master hệ thống báo cáo quản trị năm cho tập đoàn Vingroup | roadmap_PowerpointFull.md |
+| tu_dong_hoa_layout_bao_cao_quan_tri_nam_646 | Đóng gói đa nền tảng và kiểm thử tương thích template báo cáo Techcombank | roadmap_PowerpointFull.md |
+| kien_tao_slide_master_bao_cao_chien_luoc_kinh_doanh | Kiến tạo Slide Master báo cáo chiến lược kinh doanh cho chuỗi bán lẻ | roadmap_PowerpointFull.md |
+| tu_dong_hoa_layout_template_bao_cao_chien_luoc_kinh_doanh | Tự động hóa layout template báo cáo chiến lược kinh doanh toàn cầu tích hợp AI | roadmap_PowerpointFull.md |
+| kien_tao_slide_master_bao_cao_chien_luoc_phat_trien | Kiến tạo Slide Master và tích hợp AI tự động hóa bố cục chiến lược phát triển thị trường | roadmap_PowerpointFull.md |
+| tu_dong_hoa_layout_template_bao_cao_chien_luoc_phat_trien | Đóng gói POTX và kiểm thử tương thích đa nền tảng cho báo cáo chiến lược | roadmap_PowerpointFull.md |
+| kien_tao_slide_master_bao_cao_giai_ngan_von_dau_tu | Kiến tạo Slide Master cho báo cáo giải ngân vốn đầu tư công ty ABC kết hợp AI | roadmap_PowerpointFull.md |
+| tu_dong_hoa_layout_template_bao_cao_giai_ngan_von_dau_tu | Tự động hóa layout template báo cáo giải ngân vốn đầu tư và xuất bản đa nền tảng | roadmap_PowerpointFull.md |
+| kien_tao_slide_master_template_doc_quyen_653 | Kiến tạo Slide Master độc quyền và vẽ vector biểu tượng bằng công cụ Freeform | roadmap_PowerpointFull.md |
+| tu_dong_hoa_layout_template_doc_quyen_654 | Tự động hóa layout hàng loạt và tích hợp âm thanh lồng tiếng AI cho bộ nhận diện | roadmap_PowerpointFull.md |
+| lap_trinh_vba_co_ban_cho_slide_pitch_deck | Lập trình VBA cơ bản tự động hóa Slide Pitch Deck gọi vốn vòng Seed kết hợp ký số bảo mật | roadmap_PowerpointFull.md |
+| tu_dong_hoa_tac_vu_lap_lai_bao_cao_tai_chinh_vba | Tự động hóa tác vụ lặp lại slide báo cáo tài chính Q4 và kiểm thử tương thích đa phiên bản | roadmap_PowerpointFull.md |
+| lap_trinh_vba_nang_cao_cho_slide_pitch_deck | Lập trình VBA nâng cao và cấu hình bảo mật Macro cho Pitch Deck | roadmap_PowerpointFull.md |
+| tu_dong_hoa_hoan_thien_bao_cao_tai_chinh_vba | Tự động hóa báo cáo tài chính Q4 và kiểm tra tương thích Office | roadmap_PowerpointFull.md |
+| viet_code_vba_tu_dong_hoa_slide_pitch_deck | Viết code VBA tự động hóa slide pitch deck gọi vốn vòng Seed tích hợp AI | roadmap_PowerpointFull.md |
+| toi_uu_va_bao_mat_macro_vba_cho_bao_cao_tai_chinh | Tối ưu, ký số chữ ký điện tử và bảo mật macro VBA cho slide báo cáo tài chính Q4 | roadmap_PowerpointFull.md |
+| lap_trinh_vba_tu_dong_hoa_slide_bao_cao_nhan_su | Lập trình VBA tự động hóa toàn diện Slide báo cáo nhân sự Q4 kết hợp ký số bảo mật | roadmap_PowerpointFull.md |
+| office_scripts_tu_dong_hoa_slide_marketing_chien_luoc | Ứng dụng Office Scripts kết hợp AI và Export đa nền tảng cho Slide marketing chiến lược 2025 | roadmap_PowerpointFull.md |
+| lap_trinh_vba_tu_dong_hoa_toan_dien_slide_pitch_deck | Lập trình VBA tự động hóa toàn diện Slide Pitch Deck gọi vốn | roadmap_PowerpointFull.md |
+| office_scripts_va_vba_toi_uu_bao_cao_tai_chinh | Ứng dụng Office Scripts và VBA hoàn thiện báo cáo tài chính | roadmap_PowerpointFull.md |
+| lap_trinh_vba_va_office_scripts_chuyen_sau_bao_cao_kinh_doanh | Lập trình VBA và Office Scripts chuyên sâu tự động hóa Slide Báo cáo Kinh doanh Q4 | roadmap_PowerpointFull.md |
+| hoan_thien_he_thong_tu_dong_hoa_vba_office_scripts_pitch_deck | Đóng gói Add-in PowerPoint và Ký số Bảo mật Macro cho Pitch Deck gọi vốn | roadmap_PowerpointFull.md |
+| lap_trinh_vba_va_office_scripts_chuyen_sau_bao_cao_tai_chinh_667 | Lập trình VBA nâng cao, ký số chữ ký điện tử và bảo mật mã nguồn cho file báo cáo tài chính | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_668 | Capstone: Kiểm thử tương thích đa phiên bản và tự động hóa 100% Pitch Deck gọi vốn | roadmap_PowerpointFull.md |
+| lap_trinh_vba_va_office_scripts_chuyen_sau_bao_cao_nhan_su_669 | Tự động hóa sinh slide nhân sự bằng VBA và tích hợp ký số bảo mật macro | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_he_thong_670 | Capstone: Kiểm thử tương thích đa phiên bản và xuất file đa nền tảng hệ thống VBA | roadmap_PowerpointFull.md |
+| lap_trinh_vba_va_office_scripts_chuyen_sau_bao_cao_nhan_su_671 | Lập trình VBA và Office Scripts chuyên sâu slide báo cáo nhân sự | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_he_thong_672 | Capstone: Tích hợp AI và tương thích phiên bản Office hệ thống | roadmap_PowerpointFull.md |
+| lap_trinh_vba_va_office_scripts_chuyen_sau_bao_cao_kinh_doanh_673 | Lập trình VBA, Office Scripts kết hợp ký số và xử lý tương thích đa phiên bản PowerPoint | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_674 | Capstone: Đóng gói và xuất bản giải pháp tự động hóa slide báo cáo đa nền tảng | roadmap_PowerpointFull.md |
+| lap_trinh_vba_va_office_scripts_chuyen_sau_bao_cao_quan_tri_675 | Lập trình VBA và Office Scripts chuyên sâu slide báo cáo quản trị vận hành | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_van_hanh_676 | Capstone: Kiểm thử tương thích và tối ưu hóa hệ thống báo cáo tự động | roadmap_PowerpointFull.md |
+| lap_trinh_vba_va_office_scripts_chuyen_sau_bao_cao_quan_tri_677 | Lập trình VBA và Office Scripts chuyên sâu slide báo cáo quản trị vận hành | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_van_hanh_678 | Capstone: Đóng gói và xuất bản hệ thống tự động hóa VBA & Office Scripts | roadmap_PowerpointFull.md |
+| lap_trinh_vba_va_office_scripts_chuyen_sau_bao_cao_quan_tri_679 | Lập trình VBA và Office Scripts kết hợp bảo mật macro nâng cao cho báo cáo | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_van_hanh_680 | Capstone: Tự động hóa đa nền tảng và kiểm thử hệ thống trigger vận hành | roadmap_PowerpointFull.md |
+| lap_trinh_vba_va_office_scripts_chuyen_sau_bao_cao_quan_tri_681 | Lập trình VBA và Office Scripts kết hợp ký số bảo mật cho slide chuỗi cung ứng | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_van_hanh_682 | Capstone: Hoàn thiện quy trình tự động hóa và xuất bản đa nền tảng slide logistics | roadmap_PowerpointFull.md |
+| lap_trinh_vba_va_office_scripts_chuyen_sau_bao_cao_quan_tri_683 | Lập trình VBA và Office Scripts chuyên sâu báo cáo quản trị vận hành | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_van_hanh_684 | Capstone: Đóng gói hệ thống tự động hóa chiến lược vận hành đa nền tảng | roadmap_PowerpointFull.md |
+| lap_trinh_vba_va_office_scripts_chuyen_sau_bao_cao_quan_tri_685 | Xử lý tương thích và ký số chữ ký điện tử VBA cho Slide báo cáo quản trị 685 | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_van_hanh_686 | Capstone: Đóng gói và tối ưu hóa hệ thống tự động hóa Slide vận hành 686 | roadmap_PowerpointFull.md |
+| lap_trinh_vba_va_office_scripts_chuyen_sau_bao_cao_quan_tri_687 | Lập trình VBA và Office Scripts chuyên sâu báo cáo quản trị vận hành | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_van_hanh_688 | Capstone: Tự động hóa toàn diện VBA & Office Scripts vận hành chiến lược | roadmap_PowerpointFull.md |
+| lap_trinh_vba_va_office_scripts_chuyen_sau_bao_cao_quan_tri_689 | Xử lý bảo mật Macro và ký số chữ ký điện tử cho file PowerPoint VBA | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_van_hanh_690 | Capstone: Đóng gói và xuất bản giải pháp trình bày đa nền tảng tích hợp AI | roadmap_PowerpointFull.md |
+| vba_macro_tu_dong_hoa_slide_bao_cao_tai_chinh | Lập trình VBA tự động tạo Slide báo cáo tài chính quý và cấu hình bảo mật Macro | roadmap_PowerpointFull.md |
+| office_scripts_tu_dong_hoa_slide_pitch_deck_startup | Ứng dụng Office Scripts tự động hóa Slide Pitch Deck startup kết hợp AI thực chiến | roadmap_PowerpointFull.md |
+| vba_macro_nang_cao_tu_dong_hoa_slide_bao_cao_quan_tri | VBA Macro nâng cao tự động hóa Slide Báo cáo quản trị Q4 kết hợp ký số bảo mật | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_quan_tri | Capstone: Kiểm thử và xuất bản hệ thống Slide Báo cáo quản trị đa nền tảng | roadmap_PowerpointFull.md |
+| vba_macro_xu_ly_du_lieu_slide_bao_cao_kinh_doanh | VBA Macro xử lý tự động dữ liệu slide báo cáo kinh doanh quý | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_bao_cao | Capstone: Tự động hóa toàn diện báo cáo với VBA, Office Scripts và AI | roadmap_PowerpointFull.md |
+| lap_trinh_vba_va_office_scripts_chuyen_sau_bao_cao_tong_ket | Lập trình VBA và Office Scripts ký số bảo mật cho slide báo cáo tổng kết | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_tong_ket | Capstone: Tự động hóa đa nền tảng và kiểm thử tương thích slide tài chính | roadmap_PowerpointFull.md |
+| vba_macro_va_office_scripts_chuyen_sau_bao_cao_tong_ket_nam | VBA Macro xử lý tự động Slide báo cáo tổng kết năm kết hợp ký số bảo mật | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_tong_ket_nam | Capstone: Hệ thống Dashboard tự động hóa đa nền tảng tích hợp AI và export | roadmap_PowerpointFull.md |
+| lap_trinh_vba_macro_va_office_scripts_chuyen_sau_slide_ke_hoach_chien_luoc | Lập trình VBA Macro & Office Scripts tích hợp chữ ký số và bảo mật nâng cao | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_chien_luoc | Capstone: Kiểm thử tương thích và vận hành hệ thống tự động hóa chiến lược đa nền tảng | roadmap_PowerpointFull.md |
+| vba_macro_va_office_scripts_tu_dong_hoa_slide_bao_cao_quy | VBA Macro và Office Scripts tự động hóa Slide báo cáo quý doanh nghiệp | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_doanh_nghiep | Capstone: Kiểm thử tương thích và xuất bản hệ thống VBA doanh nghiệp | roadmap_PowerpointFull.md |
+| vba_macro_va_office_scripts_tu_dong_hoa_slide_bao_cao_nhan_su | VBA Macro và Office Scripts tự động hóa slide báo cáo nhân sự Q4 kết hợp AI và ký số | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_nhan_su | Capstone: Đóng gói hệ thống tự động hóa toàn diện slide nhân sự toàn cầu | roadmap_PowerpointFull.md |
+| vba_macro_va_office_scripts_tu_dong_hoa_slide_quan_tri_707 | VBA Macro và Office Scripts tự động hóa Slide quản trị chiến lược doanh nghiệp | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_chien_luoc_708 | Capstone: Kiểm thử tương thích và xuất bản hệ thống báo cáo chiến lược cấp cao | roadmap_PowerpointFull.md |
+| vba_macro_va_office_scripts_chuyen_sau_slide_tong_ket_du_an | VBA Macro và Office Scripts cấu hình bảo mật ký số cho Slide | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_tong_ket_du_an | Capstone: Kiểm tra tương thích và đóng gói tự động hóa Slide dự án | roadmap_PowerpointFull.md |
+| vba_macro_va_office_scripts_tu_dong_hoa_slide_bao_cao_tai_chinh_711 | VBA Macro và Office Scripts tự động hóa Slide báo cáo tài chính Q4 | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_tai_chinh_712 | Capstone: Ký số bảo mật và kiểm thử tương thích VBA Office Scripts | roadmap_PowerpointFull.md |
+| vba_macro_va_office_scripts_tu_dong_hoa_slide_bao_cao_du_an_713 | Cấu hình bảo mật Macro và ký số chữ ký điện tử cho PowerPoint VBA | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_du_an_714 | Capstone: Tích hợp AI và đóng gói hệ thống slide tự động hóa đa nền tảng | roadmap_PowerpointFull.md |
+| vba_macro_va_office_scripts_tu_dong_hoa_slide_bao_cao_nhan_su_715 | VBA Macro & Office Scripts tự động hóa slide báo cáo nhân sự toàn cầu kết hợp ký số bảo mật | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_nhan_su_716 | Capstone: Kiểm thử tương thích đa nền tảng hệ thống slide nhân sự VBA & Scripts | roadmap_PowerpointFull.md |
+| vba_macro_va_office_scripts_tu_dong_hoa_slide_bao_cao_kinh_doanh_717 | Cấu hình bảo mật Macro và ký số chữ ký điện tử cho file PowerPoint VBA | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_kinh_doanh_718 | Capstone: Kiểm thử tương thích đa phiên bản và tự động hóa slide kinh doanh | roadmap_PowerpointFull.md |
+| vba_macro_va_office_scripts_tu_dong_hoa_slide_bao_cao_chuyen_doi_so | VBA Macro & Office Scripts: Tự động hóa Slide Báo cáo Chuyển đổi Số | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_chuyen_doi_so | Capstone: Đóng gói và Ký số Add-in VBA Chuyển đổi Số | roadmap_PowerpointFull.md |
+| vba_macro_va_office_scripts_tu_dong_hoa_slide_bao_cao_kinh_doanh_chi_tiet | VBA Macro & Office Scripts tự động hóa Slide báo cáo kinh doanh chi tiết | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_kinh_doanh_chi_tiet | Capstone: Đóng gói và bảo mật add-in tự động hóa báo cáo doanh nghiệp | roadmap_PowerpointFull.md |
+| vba_macro_va_office_scripts_chuyen_sau_723 | VBA Macro & Office Scripts chuyên sâu tự động hóa slide chiến lược doanh nghiệp | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_724 | Capstone: Tự động hóa hệ thống báo cáo tổng kết tích hợp AI và kiểm thử Trigger | roadmap_PowerpointFull.md |
+| vba_macro_va_office_scripts_tu_dong_hoa_slide_bao_cao_tong_ket_725 | Xây dựng hàm VBA trích xuất số liệu Excel và cấu hình bảo mật Macro nâng cao | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_tong_ket_726 | Capstone: Đóng gói Add-in PowerPoint tích hợp AI và xuất bản đa nền tảng | roadmap_PowerpointFull.md |
+| vba_macro_va_office_scripts_tu_dong_hoa_slide_bao_cao_quan_tri_727 | Xây dựng macro tự động trích xuất dữ liệu cho slide báo cáo quản trị vận hành | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_quan_tri_728 | Capstone: Kiểm thử, xử lý ngoại lệ và đóng gói hệ thống tự động hóa slide báo cáo | roadmap_PowerpointFull.md |
+| vba_macro_va_office_scripts_tu_dong_hoa_slide_bao_cao_tong_ket_cuoi_nam | Xây dựng mã nguồn VBA kết nối dữ liệu tài chính Excel vào PowerPoint | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_tong_ket_cuoi_nam | Đóng gói Add-in và kiểm thử toàn diện quy trình tự động hóa báo cáo | roadmap_PowerpointFull.md |
+| vba_macro_va_office_scripts_tu_dong_hoa_slide_bao_cao_tong_ket_731 | Xây dựng macro VBA kết hợp Office Scripts và cấu hình bảo mật ký số chữ ký điện tử | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_tong_ket_732 | Capstone: Tích hợp AI và xuất bản giải pháp tự động hóa slide chiến lược doanh nghiệp | roadmap_PowerpointFull.md |
+| vba_macro_va_office_scripts_tu_dong_hoa_slide_bao_cao_chi_tiet_733 | Xây dựng macro tự động hóa Slide báo cáo hoạt động kinh doanh chi tiết kết hợp AI | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_kinh_doanh_chi_tiet_734 | Capstone: Đóng gói, ký số bảo mật và xuất bản toàn bộ quy trình VBA Macro báo cáo | roadmap_PowerpointFull.md |
+| vba_macro_va_office_scripts_tu_dong_hoa_slide_bao_cao_tong_ket_735 | Xây dựng macro tự động hóa Slide báo cáo tổng kết kinh doanh năm qua VBA | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_bao_cao_tong_ket_736 | Capstone: Hoàn thiện quy trình tự động hóa và tích hợp AI cho slide báo cáo tổng kết kinh doanh | roadmap_PowerpointFull.md |
+| vba_macro_va_office_scripts_tu_dong_hoa_slide_bao_cao_quy_737 | VBA Macro tự động hóa slide báo cáo quỹ đầu tư dự án X | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_quy_dau_tu_738 | Capstone: Hoàn thiện quy trình tự động hóa slide báo cáo quỹ đầu tư với chữ ký số | roadmap_PowerpointFull.md |
+| vba_macro_office_scripts_tu_dong_hoa_slide_bao_cao_quan_tri_739 | Xây dựng macro VBA kết nối dữ liệu tự động xuất báo cáo quản trị vận hành | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_quan_tri_van_hanh_740 | Capstone: Kiểm thử, tối ưu hóa và bàn giao hệ thống dashboard tự động 100% | roadmap_PowerpointFull.md |
+| vba_macro_va_office_scripts_tu_dong_hoa_slide_bao_cao_chuyen_sau_741 | VBA Macro & Office Scripts tự động hóa Slide báo cáo chiến lược kinh doanh | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_chien_luoc_742 | Capstone: Kiểm thử tương thích đa phiên bản và đóng gói Add-in báo cáo chiến lược | roadmap_PowerpointFull.md |
+| vba_macro_office_scripts_tu_dong_hoa_slide_bao_cao_tai_chinh_743 | VBA Macro & Office Scripts: Tự động hóa slide báo cáo tài chính Q4 | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_tai_chinh_744 | Capstone: Bảo mật Macro và kiểm thử đa phiên bản Office | roadmap_PowerpointFull.md |
+| vba_macro_va_office_scripts_tu_dong_hoa_slide_bao_cao_chuyen_doi_so_doanh_nghiep | Xây dựng VBA Macro kết hợp Office Scripts và ký số bảo mật cho slide báo cáo | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_chuyen_doi_so_doanh_nghiep | Capstone: Kiểm thử hệ thống Trigger đa tầng và hoàn thiện bộ công cụ tự động hóa | roadmap_PowerpointFull.md |
+| vba_macro_va_office_scripts_tu_dong_hoa_slide_bao_cao_quan_tri_747 | Xây dựng VBA Macro tự động hóa xuất báo cáo vận hành và cấu hình ký số bảo mật | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_quan_tri_van_hanh_748 | Capstone: Tích hợp AI kiểm thử tương thích đa phiên bản Office hệ thống slide quản trị | roadmap_PowerpointFull.md |
+| vba_macro_office_scripts_tu_dong_hoa_slide_bao_cao_tong_ket_749 | Xây dựng VBA Macro tự động tạo Slide báo cáo tổng kết kinh doanh năm | roadmap_PowerpointFull.md |
+| capstone_tu_dong_hoa_toan_dien_vba_office_scripts_750 | Capstone: Đóng gói và bảo mật hệ thống macro tự động hóa báo cáo | roadmap_PowerpointFull.md |
+| thuc_chien_thiet_ke_slide_pitch_deck_vong_seed_cho_startup_fintech | Thực chiến thiết kế slide pitch deck vòng seed cho startup Fintech tích hợp AI tự động | roadmap_PowerpointFull.md |
+| thuc_chien_hoan_thien_bo_ho_so_goi_von_series_a_cho_startup_saas | Thực chiến hoàn thiện bộ hồ sơ gọi vốn Series A cho startup SaaS và bảo mật Macro nâng cao | roadmap_PowerpointFull.md |
+| thuc_chien_thiet_ke_slide_pitch_deck_vong_seed_cho_startup_fintech_d753 | Thực chiến thiết kế Slide Pitch Deck gọi vốn vòng Seed cho Startup Fintech | roadmap_PowerpointFull.md |
+| thuc_chien_hoan_thien_bo_ho_so_goi_von_series_a_cho_startup_saas_d754 | Thực chiến hoàn thiện bộ hồ sơ gọi vốn Series A cho Startup SaaS B2B | roadmap_PowerpointFull.md |
+| thuc_chien_slide_goi_von_startup_ai_logistics_d755 | Thực chiến thiết kế Slide gọi vốn Startup AI Logistics tích hợp AI tự động hóa và tối ưu dữ liệu tăng trưởng | roadmap_PowerpointFull.md |
+| thuc_chien_capstone_pitch_deck_trieu_do_startup_cleantech_d756 | Capstone: Hoàn thiện và xuất bản bộ hồ sơ gọi vốn triệu đô đa nền tảng cho Startup CleanTech toàn cầu | roadmap_PowerpointFull.md |
+| thuc_chien_slide_goi_von_startup_edtech_quoc_te_757 | Xây dựng slide gọi vốn startup EdTech toàn cầu cho vòng Series B tích hợp AI export | roadmap_PowerpointFull.md |
+| thuc_chien_capstone_pitch_deck_trieu_do_startup_proptech_758 | Capstone: Hoàn thiện hồ sơ gọi vốn triệu đô chuẩn VC cho startup PropTech | roadmap_PowerpointFull.md |
+| thuc_chien_slide_goi_von_startup_biotech_759 | Xây dựng slide gọi vốn startup biotech quốc tế cho vòng Series B tích hợp công cụ AI tự động hóa | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ho_so_goi_von_biotech_760 | Capstone: Hoàn thiện hồ sơ gọi vốn triệu đô startup biotech và kỹ thuật xuất bản đa nền tảng | roadmap_PowerpointFull.md |
+| thuc_chien_slide_goi_von_startup_blockchain_web3 | Xây dựng slide gọi vốn startup Blockchain & Web3 tích hợp AI và xuất file đa nền tảng | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ho_so_goi_von_blockchain_web3 | Capstone: Bảo mật nâng cao, ký số Macro VBA và hoàn thiện hồ sơ Web3 triệu đô | roadmap_PowerpointFull.md |
+| thuc_chien_slide_goi_von_startup_deeptech_763 | Thiết kế bộ hồ sơ gọi vốn Startup DeepTech tích hợp AI tự động và SVG vector tùy chỉnh | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ho_so_goi_von_deeptech_764 | Capstone: Hoàn thiện hồ sơ gọi vốn triệu đô QuantumAI với cơ chế bảo mật VBA và Trigger đa tầng | roadmap_PowerpointFull.md |
+| thuc_chien_thiet_ke_slide_pitch_deck_startup_space_tech | Thiết kế bộ hồ sơ gọi vốn Startup Space Tech tích hợp AI và biểu tượng vector độc quyền | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ho_so_goi_von_space_tech | Capstone: Kiểm thử và hoàn thiện hồ sơ gọi vốn triệu đô đa nền tảng cho Space Tech | roadmap_PowerpointFull.md |
+| thuc_chien_slide_goi_von_startup_agritech_767 | Thực chiến thiết kế slide gọi vốn startup Agritech thông minh tích hợp AI | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ho_so_goi_von_agritech_768 | Capstone: Đóng gói và xuất bản hồ sơ gọi vốn triệu đô startup Agritech | roadmap_PowerpointFull.md |
+| thuc_chien_slide_goi_von_startup_quantum_computing_769 | Thực chiến thiết kế slide gọi vốn startup Quantum Computing | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ho_so_goi_von_quantum_computing_770 | Capstone: Hoàn thiện hồ sơ gọi vốn Quantum Computing triệu đô | roadmap_PowerpointFull.md |
+| thuc_chien_slide_goi_von_startup_metaverse_771 | Thực chiến thiết kế slide gọi vốn startup Metaverse AR/VR vòng Series B tích hợp AI và vector độc quyền | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ho_so_goi_von_metaverse_772 | Capstone: Hoàn thiện hồ sơ gọi vốn triệu đô startup Metaverse AR/VR với bảo mật VBA và đồng bộ âm thanh AI | roadmap_PowerpointFull.md |
+| thuc_chien_thiet_ke_slide_pitch_deck_startup_genai_773 | Thiết kế slide Pitch Deck triệu đô cho startup Generative AI tích hợp AI tự động | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_bo_ho_so_goi_von_genai_774 | Capstone: Hoàn thiện và đóng gói bộ hồ sơ gọi vốn GenAI triệu đô | roadmap_PowerpointFull.md |
+| thuc_chien_slide_goi_von_startup_cybersecurity_775 | Thực chiến thiết kế slide pitch deck gọi vốn startup cybersecurity tích hợp AI | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_bo_ho_so_goi_von_cybersecurity_776 | Capstone: Hoàn thiện và đóng gói đa nền tảng hồ sơ gọi vốn cybersecurity triệu đô | roadmap_PowerpointFull.md |
+| thuc_chien_slide_goi_von_startup_quantum_computing_777 | Thực chiến thiết kế slide gọi vốn startup Quantum Computing | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ho_so_goi_von_quantum_computing_778 | Capstone: Hoàn thiện hồ sơ gọi vốn Quantum Computing triệu đô | roadmap_PowerpointFull.md |
+| thuc_chien_slide_goi_von_startup_biotech_pharma_779 | Thực chiến thiết kế slide gọi vốn startup biotech pharma tích hợp AI cho dự án genomed | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ho_so_goi_von_biotech_pharma_780 | Capstone: Đóng gói hồ sơ gọi vốn biotech pharma và kỹ thuật export đa nền tảng | roadmap_PowerpointFull.md |
+| thuc_chien_slide_goi_von_startup_greentech_781 | Thực chiến thiết kế slide gọi vốn EcoEnergy Vietnam tích hợp AI và công cụ đồ họa độc quyền | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ho_so_goi_von_greentech_782 | Capstone: Đóng gói và xuất bản hồ sơ gọi vốn đa nền tảng cho dự án EcoEnergy Vietnam | roadmap_PowerpointFull.md |
+| thuc_chien_slide_goi_von_startup_foodtech_d783 | Thực chiến thiết kế slide gọi vốn startup FoodTech - Dự án FreshBox tích hợp AI layout | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ho_so_goi_von_foodtech_d784 | Capstone: Đóng gói và xuất bản hồ sơ gọi vốn FoodTech triệu đô đa nền tảng | roadmap_PowerpointFull.md |
+| thuc_chien_slide_goi_von_startup_logistics_thong_minh_785 | Thực chiến thiết kế slide gọi vốn logistics thông minh tích hợp AI | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ho_so_goi_von_logistics_thong_minh_786 | Capstone: Hoàn thiện và đóng gói bảo mật hồ sơ gọi vốn logistics | roadmap_PowerpointFull.md |
+| thuc_chien_slide_goi_von_startup_martech_global_787 | Thực chiến thiết kế slide gọi vốn MarTech Global AI kết hợp AI tự động hóa và định dạng đa nền tảng | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ho_so_goi_von_martech_global_788 | Capstone: Hoàn thiện hồ sơ gọi vốn MarTech Global AI triệu đô kèm case study tích hợp AI nâng cao | roadmap_PowerpointFull.md |
+| thuc_chien_slide_goi_von_startup_edtech_global_789 | Thực chiến slide gọi vốn startup EdTech Global gọi vòng Series A kết hợp AI | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ho_so_goi_von_edtech_global_790 | Capstone: Đóng gói và xuất bản hồ sơ thuyết trình đa nền tảng EdTech triệu đô | roadmap_PowerpointFull.md |
+| thuc_chien_slide_goi_von_startup_cleantech_791 | Thực chiến thiết kế slide gọi vốn Cleantech xanh tích hợp AI và vector độc quyền | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ho_so_goi_von_cleantech_792 | Capstone: Đóng gói và kiểm thử đa nền tảng hồ sơ gọi vốn Cleantech quốc tế | roadmap_PowerpointFull.md |
+| thuc_chien_slide_goi_von_startup_fintech_global_793 | Thực chiến slide gọi vốn startup Fintech Global tích hợp AI và vector độc quyền | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ho_so_goi_von_fintech_global_794 | Capstone: Đóng gói và kiểm thử đa nền tảng hồ sơ gọi vốn Fintech Global | roadmap_PowerpointFull.md |
+| thuc_chien_slide_goi_von_deeptech_ai_795 | Thực chiến thiết kế slide gọi vốn startup DeepTech AI quốc tế tích hợp AI | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_bo_ho_so_goi_von_deeptech_ai_796 | Capstone: Đóng gói và xuất bản hồ sơ gọi vốn DeepTech AI triệu đô đa nền tảng | roadmap_PowerpointFull.md |
+| thuc_chien_slide_goi_von_startup_space_tech_797 | Tích hợp AI và thiết kế slide tự động gọi vốn SpaceTech | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ho_so_goi_von_space_tech_798 | Capstone: Đóng gói và kiểm thử đa nền tảng hồ sơ SpaceTech | roadmap_PowerpointFull.md |
+| thuc_chien_slide_goi_von_startup_quantum_computing_ii_799 | Thực chiến slide gọi vốn startup Quantum Computing tích hợp AI và export đa nền tảng | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ho_so_goi_von_quantum_computing_ii_800 | Capstone: Đóng gói và kiểm thử tương thích hồ sơ gọi vốn Quantum Computing đẳng cấp VC | roadmap_PowerpointFull.md |
+| thuc_chien_slide_goi_von_startup_blockchain_layer2_801 | Thực chiến thiết kế Slide Pitch Deck Series A kèm công cụ AI và vector tự do | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ho_so_goi_von_blockchain_layer2_802 | Capstone: Đóng gói và xuất bản hồ sơ gọi vốn Web3 đa nền tảng bảo mật | roadmap_PowerpointFull.md |
+| thuc_chien_slide_goi_von_startup_agritech_803 | Thực chiến thiết kế slide gọi vốn startup Agritech với AI tự động | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ho_so_goi_von_agritech_804 | Capstone: Đóng gói và xuất bản hồ sơ gọi vốn Agritech đa nền tảng | roadmap_PowerpointFull.md |
+| thuc_chien_slide_goi_von_startup_biotech_genomics | Thực chiến thiết kế slide gọi vốn startup biotech genomics tích hợp AI | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ho_so_goi_von_biotech_genomics | Capstone: Đóng gói và xuất bản hồ sơ gọi vốn biotech genomics đa nền tảng | roadmap_PowerpointFull.md |
+| thuc_chien_slide_goi_von_startup_biotech_genomics_d807 | Thực chiến thiết kế slide gọi vốn dự án Biotech Genomics gọi vòng Series A | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ho_so_goi_von_biotech_genomics_d808 | Capstone: Kiểm thử tương thích và xuất bản hồ sơ gọi vốn Biotech Genomics đa nền tảng | roadmap_PowerpointFull.md |
+| thuc_chien_dashboard_tai_chinh_doanh_nghiep_809 | Thực chiến dashboard tài chính doanh nghiệp: Thiết kế bảng điều khiển QĐ | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_dashboard_dieu_hanh_tai_chinh_810 | Capstone: Kiểm tra tương thích Office và bảo mật Macro cho dashboard tài chính | roadmap_PowerpointFull.md |
+| thuc_chien_dashboard_quan_tri_kinh_doanh_811 | Tích hợp AI và thiết kế giao diện dashboard quản trị kinh doanh tự động trong Slide Q4 | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_dashboard_dieu_hanh_kinh_doanh_812 | Capstone: Kiểm thử tương tác, bảo mật Macro và đóng gói dashboard điều hành | roadmap_PowerpointFull.md |
+| thuc_chien_dashboard_chi_so_kpi_doanh_nghiep_d813 | Thực chiến dashboard chỉ số KPI doanh nghiệp trong Slide báo cáo vận hành | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_dashboard_chi_so_kpi_doanh_nghiep_d814 | Capstone: Tự động hóa cập nhật và kiểm thử tương thích đa nền tảng dashboard KPI | roadmap_PowerpointFull.md |
+| thuc_chien_dashboard_chi_so_tai_chinh_doanh_nghiep_815 | Xây dựng dashboard tài chính tích hợp dữ liệu tự động và kiểm thử tương thích phiên bản | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_dashboard_chi_so_tai_chinh_doanh_nghiep_816 | Capstone: Hoàn thiện hệ thống bảo mật VBA và dashboard tài chính cho hội đồng quản trị | roadmap_PowerpointFull.md |
+| thuc_chien_dashboard_quan_tri_tai_chinh_doanh_nghiep | Thực chiến dashboard quản trị tài chính doanh nghiệp tích hợp AI và dữ liệu tự động | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_dashboard_quan_tri_tai_chinh | Capstone: Kiểm thử tương thích và hoàn thiện dashboard điều hành tài chính | roadmap_PowerpointFull.md |
+| thuc_chien_dashboard_quan_tri_tai_chinh_doanh_nghiep_819 | Xây dựng dashboard quản trị tài chính doanh nghiệp kết hợp AI và dữ liệu tự động | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_dashboard_quan_tri_tai_chinh_doanh_nghiep_820 | Capstone: Kiểm thử tương thích, bảo mật macro VBA và xuất bản dashboard động | roadmap_PowerpointFull.md |
+| thuc_chien_dashboard_quan_tri_kinh_doanh_tu_dong_821 | Tích hợp AI và tự động hóa dữ liệu dashboard kinh doanh | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_dashboard_quan_tri_kinh_doanh_822 | Kiểm thử tương thích và xuất bản dashboard đa nền tảng | roadmap_PowerpointFull.md |
+| thuc_chien_dashboard_quan_tri_kinh_doanh_tu_dong_hoa_823 | Tích hợp AI và tự động hóa dữ liệu dashboard kinh doanh Q4 | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_dashboard_quan_tri_kinh_doanh_tu_dong_824 | Capstone: Đóng gói và xuất bản bảng điều khiển điều hành đa nền tảng | roadmap_PowerpointFull.md |
+| thuc_chien_dashboard_quan_tri_kinh_doanh_truc_quan_825 | Thực chiến dashboard quản trị kinh doanh trực quan cho hệ thống bán lẻ đa kênh | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_dashboard_quan_tri_kinh_doanh_truc_quan_826 | Capstone: Hoàn thiện bảng điều khiển quản trị kinh doanh cập nhật dữ liệu tự động | roadmap_PowerpointFull.md |
+| thuc_chien_dashboard_quan_tri_kinh_doanh_truc_quan_hoa_827 | Thực chiến dashboard quản trị kinh doanh trực quan hóa số liệu real-time kết hợp AI | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_dashboard_quan_tri_kinh_doanh_truc_quan_828 | Capstone: Hoàn thiện và đóng gói dashboard điều hành đa nền tảng cho ban giám đốc | roadmap_PowerpointFull.md |
+| thuc_chien_dashboard_quan_tri_kinh_doanh_truc_quan_hoa_so_829 | Xây dựng dashboard quản trị kinh doanh trực quan hóa tự động Q829 tích hợp AI | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_dashboard_quan_tri_kinh_doanh_truc_quan_hoa_so_830 | Capstone: Đóng gói và xuất bản bảng điều khiển điều hành đa nền tảng | roadmap_PowerpointFull.md |
+| thuc_chien_dashboard_quan_tri_kinh_doanh_truc_quan_hoa_so_1 | Thực chiến dashboard quản trị kinh doanh trực quan hóa số 1 cho chuỗi bán lẻ | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_dashboard_quan_tri_kinh_doanh_truc_quan_hoa_so_1 | Capstone: Kiểm thử và đóng gói báo cáo điều hành tự động hóa cao cấp | roadmap_PowerpointFull.md |
+| thuc_chien_dashboard_quan_tri_kinh_doanh_tu_dong_cap_nhat_833 | Xây dựng dashboard quản trị kinh doanh cập nhật tự động cho dự án Bán lẻ F&B | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_dashboard_quan_tri_kinh_doanh_cap_nhat_834 | Capstone: Tích hợp AI và kiểm thử tương thích đa phiên bản cho báo cáo F&B | roadmap_PowerpointFull.md |
+| thuc_chien_dashboard_quan_tri_kinh_doanh_ket_noi_du_lieu_835 | Thực chiến dashboard quản trị kinh doanh kết nối dữ liệu tự động tích hợp AI và export đa nền tảng cho EcoMart | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_dashboard_quan_tri_kinh_doanh_ket_noi_836 | Capstone: Hoàn thiện và kiểm thử tương thích bảng điều khiển quản trị kinh doanh EcoMart trên mọi phiên bản Office | roadmap_PowerpointFull.md |
+| thuc_chien_dashboard_quan_tri_kinh_doanh_tu_dong_hoa_837 | Thực chiến dashboard quản trị kinh doanh tự động hóa Q4 cho chuỗi bán lẻ | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_dashboard_quan_tri_kinh_doanh_tu_dong_hoa_838 | Capstone: Kiểm thử, ký số bảo mật và xuất bản hệ thống dashboard tập đoàn | roadmap_PowerpointFull.md |
+| thuc_chien_dashboard_quan_tri_kinh_doanh_cap_nhat_tu_dong | Xây dựng dashboard quản trị kinh doanh chuỗi bán lẻ tích hợp dữ liệu tự động | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_dashboard_quan_tri_kinh_doanh_cap_nhat_tu_dong | Capstone: Kiểm thử bảo mật VBA và xuất bản dashboard đa nền tảng | roadmap_PowerpointFull.md |
+| thuc_chien_dashboard_quan_tri_kinh_doanh_truc_quan_841 | Thực chiến dashboard quản trị kinh doanh trực quan kết hợp AI và slide động | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_dashboard_quan_tri_kinh_doanh_truc_quan_842 | Capstone: Hoàn thiện, ký số bảo mật và đóng gói bảng điều khiển kinh doanh | roadmap_PowerpointFull.md |
+| thuc_chien_dashboard_quan_tri_kinh_doanh_truc_quan_hoa_so_2 | Xây dựng dashboard tài chính tích hợp tự động hóa và xử lý tương thích Office | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_dashboard_quan_tri_kinh_doanh_truc_quan_hoa_so_2 | Hoàn thiện và bảo mật nâng cao cho hệ thống dashboard điều hành đa kênh | roadmap_PowerpointFull.md |
+| thuc_chien_dashboard_quan_tri_kinh_doanh_tu_dong_cap_nhat_845 | Thực chiến dashboard quản trị kinh doanh tích hợp AI và tự động hóa dữ liệu Q4 | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_dashboard_quan_tri_kinh_doanh_tu_dong_846 | Capstone: Đóng gói và xuất bản đa nền tảng bảng điều khiển quản trị kinh doanh | roadmap_PowerpointFull.md |
+| thuc_chien_dashboard_quan_tri_tai_chinh_thong_minh_847 | Xây dựng hệ thống Linked Data và thiết kế trực quan hóa tài chính Q4 | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_dashboard_quan_tri_tai_chinh_thong_minh_848 | Kiểm thử tương thích Trigger đa tầng và đóng gói Capstone Dashboard Q4 | roadmap_PowerpointFull.md |
+| thuc_chien_dashboard_quan_tri_kinh_doanh_tu_dong_hoa_849 | Xây dựng dashboard quản trị kinh doanh trực quan với slide báo cáo doanh thu tự động | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_dashboard_quan_tri_kinh_doanh_tu_dong_hoa_850 | Capstone: Kiểm thử tương thích và xuất bản gói dashboard điều hành đa nền tảng | roadmap_PowerpointFull.md |
+| thuc_chien_dashboard_quan_tri_kinh_doanh_tu_dong_hoa_so_3 | Tích hợp biểu đồ động Excel và kiểm thử tương thích phiên bản Office trên Slide | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_dashboard_quan_tri_kinh_doanh_tu_dong_hoa_so_3 | Capstone: Đóng gói bảng điều khiển điều hành và bảo mật mã nguồn VBA nâng cao | roadmap_PowerpointFull.md |
+| thuc_chien_dashboard_quan_tri_kinh_doanh_tu_dong_hoa_so_4 | Tích hợp AI và đồng bộ hóa âm thanh lồng tiếng tự động vào báo cáo vận hành | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_dashboard_quan_tri_kinh_doanh_tu_dong_hoa_so_4 | Capstone: Kiểm thử, ký số bảo mật VBA và xuất bản dashboard đa nền tảng | roadmap_PowerpointFull.md |
+| thuc_chien_dashboard_quan_tri_kinh_doanh_truc_quan_so_5 | Thực chiến dashboard quản trị kinh doanh trực quan với slide báo cáo doanh thu tự động | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_dashboard_quan_tri_kinh_doanh_truc_quan_so_5 | Capstone: Kiểm thử tương thích đa phiên bản và đóng gói dashboard điều hành | roadmap_PowerpointFull.md |
+| thuc_chien_dashboard_quan_tri_tai_chinh_alpha | Thực chiến dashboard tài chính doanh nghiệp tích hợp dữ liệu tự động và xử lý tương thích Office | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_dashboard_quan_tri_tai_chinh_alpha | Capstone: Đóng gói, bảo mật macro VBA và xuất bản dashboard quản trị tài chính đa nền tảng | roadmap_PowerpointFull.md |
+| thuc_chien_dashboard_quan_tri_tai_chinh_beta | Thực chiến dashboard quản trị tài chính tích hợp AI và tự động hóa | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_dashboard_quan_tri_tai_chinh_beta | Capstone: Nghiệm thu và xuất bản giải pháp dashboard tài chính đa nền tảng | roadmap_PowerpointFull.md |
+| thuc_chien_dashboard_quan_tri_kinh_doanh_gamma | Xây dựng biểu đồ live update và tích hợp AI tự động hóa dashboard Gamma | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_dashboard_quan_tri_kinh_doanh_gamma | Capstone: Debug, ký số bảo mật và đóng gói dashboard Gamma đa nền tảng | roadmap_PowerpointFull.md |
+| thuc_chien_dashboard_dieu_hanh_omega | Tích hợp AI và thiết kế giao diện dashboard tự động hóa doanh nghiệp Omega | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_dashboard_dieu_hanh_omega | Capstone: Kiểm thử nâng cao và đóng gói dashboard điều hành doanh nghiệp Omega | roadmap_PowerpointFull.md |
+| thuc_chien_dashboard_dieu_hanh_sigma | Tích hợp AI và trực quan hóa dữ liệu tự động với dashboard Sigma | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_dashboard_dieu_hanh_sigma | Capstone: Bảo mật VBA nâng cao và xuất bản đa nền tảng cho dashboard Sigma | roadmap_PowerpointFull.md |
+| thuc_chien_slide_bao_cao_khoa_hoc_867 | Thiết kế slide báo cáo khoa học tích hợp AI và vẽ vector thủ công Project Alpha | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_slide_bao_cao_khoa_hoc_868 | Capstone: Đóng gói bài giảng e-learning tương tác đa nền tảng e-Course Beta | roadmap_PowerpointFull.md |
+| thuc_chien_slide_bao_cao_khoa_hoc_va_hoi_thao_chuyen_de | Thực chiến thiết kế slide báo cáo khoa học tích hợp AI và biểu đồ SVG | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_bai_giang_elearning_tuong_tac_cao | Capstone: Hoàn thiện bài giảng e-learning tương tác đa tầng và lồng tiếng AI | roadmap_PowerpointFull.md |
+| thuc_chien_thiet_ke_slide_bao_cao_khoa_hoc_871 | Thiết kế slide báo cáo khoa học tích hợp AI và xuất bản đa nền tảng cho Hội thảo Quốc tế | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_bai_giang_elearning_tuong_tac_cao_872 | Capstone: Hoàn thiện bài giảng e-learning tương tác cao môn Vật lý Đại cương với Trigger đa tầng | roadmap_PowerpointFull.md |
+| thuc_chien_thiet_ke_slide_nghien_cuu_dinh_luong | Thực chiến thiết kế slide báo cáo nghiên cứu định lượng hội thảo quốc tế Alpha | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_bai_giang_elearning_sinh_hoc_mo_phong | Capstone: Tích hợp âm thanh AI TTS và bảo mật VBA cho bài giảng sinh học Omega | roadmap_PowerpointFull.md |
+| thuc_chien_thiet_ke_slide_bao_cao_khoa_hoc_chuyen_sau | Thực chiến thiết kế slide báo cáo khoa học tích hợp AI và biểu đồ vector độc quyền cho Hội thảo Nano Tech | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_bai_giang_elearning_tuong_tac_cao_v2 | Capstone: Hoàn thiện bài giảng e-learning tương tác cao môn Vật lý đại cương tích hợp AI TTS và kiểm thử Trigger | roadmap_PowerpointFull.md |
+| thuc_chien_thiet_ke_slide_nghien_cuu_khoa_hoc_v3 | Thực chiến thiết kế slide báo cáo nghiên cứu khoa học chuyên đề vật lý lượng tử tích hợp AI | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_bai_giang_elearning_sinh_hoc_phan_tu | Capstone: Kiểm thử và xuất bản bài giảng e-learning tương tác đa tầng môn sinh học phân tử | roadmap_PowerpointFull.md |
+| thuc_chien_slide_bao_cao_khoa_hoc_chuyen_de_y_sinh_879 | Thực chiến slide báo cáo khoa học kết hợp AI tự động hóa và công cụ vector độc quyền | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_bai_giang_elearning_vat_ly_880 | Capstone: Hoàn thiện bài giảng e-learning tương tác cao môn Vật lý hạt nhân có bảo mật VBA | roadmap_PowerpointFull.md |
+| thuc_chien_slide_bao_cao_khoa_hoc_va_elearning_v4 | Thực chiến báo cáo khoa học, vẽ vector thủ công Freeform và tích hợp âm thanh AI | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_bao_cao_khoa_hoc_va_elearning_v4 | Capstone: Debug hệ thống Trigger đa tầng, ký số VBA và đóng gói đa nền tảng | roadmap_PowerpointFull.md |
+| thuc_chien_slide_bao_cao_khoa_hoc_va_elearning_v5 | Xây dựng slide báo cáo khoa học và tích hợp AI lồng tiếng e-learning | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_bao_cao_khoa_hoc_va_elearning_v5 | Capstone: Kiểm thử trigger đa tầng và xuất bản gói e-learning đa nền tảng | roadmap_PowerpointFull.md |
+| thuc_chien_slide_bao_cao_khoa_hoc_va_elearning_v6 | Xây dựng slide báo cáo khoa học và tích hợp AI lồng tiếng tự động cho bài giảng e-learning | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_bao_cao_khoa_hoc_va_elearning_v6 | Capstone: Debug kiểm thử trigger đa tầng và ký số bảo mật file e-learning y sinh | roadmap_PowerpointFull.md |
+| thuc_chien_thiet_ke_slide_bao_cao_khoa_hoc_alpha | Tích hợp AI và thiết kế slide tự động chuẩn IEEE cho hội thảo khoa học | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_bai_giang_elearning_tuong_tac_cao_alpha | Capstone: Kiểm thử trigger và đóng gói SCORM bài giảng e-learning tương tác cao | roadmap_PowerpointFull.md |
+| thuc_chien_thiet_ke_slide_nghien_cuu_y_khoa_delta | Thực chiến thiết kế slide nghiên cứu y khoa delta tích hợp AI tự động hóa cho hội thảo quốc tế | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_elearning_tuong_tac_cao_beta | Capstone: Hoàn thiện bài giảng e-learning tương tác cao beta kiểm thử đa nền tảng | roadmap_PowerpointFull.md |
+| thuc_chien_giang_day_hoc_thuat_891 | Thực chiến giảng dạy học thuật: Tích hợp AI tạo sinh vào slide báo cáo v7 | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_elearning_tuong_tac_cao_v7 | Capstone: Kiểm thử trigger và đóng gói e-learning đa nền tảng v7 | roadmap_PowerpointFull.md |
+| thuc_chien_giang_day_hoc_thuat_893 | Thực chiến thiết kế slide báo cáo khoa học kết hợp bài giảng e-learning tương tác đa tầng và AI | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_elearning_tuong_tac_cao_894 | Capstone: Đóng gói và kiểm thử hệ thống e-learning tương tác cao phục vụ hội thảo quốc tế | roadmap_PowerpointFull.md |
+| thuc_chien_giang_day_hoc_thuat_895 | Thực chiến thiết kế slide báo cáo khoa học định lượng năng lượng mặt trời tích hợp AI và biểu đồ SVG | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_bai_giang_elearning_hoc_thuat_896 | Capstone: Hoàn thiện bài giảng e-learning tương tác cao môn Vật lý ứng dụng dòng điện xoay chiều có lồng tiếng AI | roadmap_PowerpointFull.md |
+| thuc_chien_giang_day_hoc_thuat_897 | Xây dựng slide báo cáo nghiên cứu và bài giảng hội thảo quốc tế Alpha | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_elearning_hoc_thuat_898 | Capstone: Hoàn thiện hệ thống e-learning tương tác đa tầng và ký số bảo mật | roadmap_PowerpointFull.md |
+| thuc_chien_slide_bao_cao_khoa_hoc_hoi_thao_quoc_te_899 | Thiết kế slide báo cáo khoa học kết hợp công cụ AI sinh ảnh và xuất bản đa nền tảng cho hội thảo quốc tế | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_elearning_tuong_tac_cao_900 | Capstone: Kiểm thử và hoàn thiện bài giảng e-learning tương tác cao tích hợp âm thanh AI cho môn hóa hữu cơ | roadmap_PowerpointFull.md |
+| thuc_chien_thiet_ke_slide_bao_cao_khoa_hoc_alpha_901 | Thực chiến thiết kế slide báo cáo khoa học ứng dụng AI và tích hợp TTS | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_bai_giang_elearning_hoc_thuat_902 | Capstone: Kiểm thử trigger và bảo mật bài giảng e-learning học thuật | roadmap_PowerpointFull.md |
+| thuc_chien_giang_day_hoc_thuat_903 | Thực chiến thiết kế slide khoa học và tích hợp AI tự động hóa bố cục | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_elearning_hoc_thuat_904 | Capstone: Đóng gói e-learning y sinh học phân tử với âm thanh AI và kiểm thử Trigger | roadmap_PowerpointFull.md |
+| thuc_chien_thuyet_trinh_presenter_view_va_thiet_bi_ngoai_vi_905 | Thực chiến điều khiển Presenter View và remote cho Slide Pitch Deck gọi vốn | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ky_nang_trinh_bay_va_dieu_khien_tu_xa_906 | Capstone: Tích hợp xuất file đa nền tảng và bảo mật VBA cho Pitch Deck | roadmap_PowerpointFull.md |
+| thuc_chien_dieu_khien_thuyet_trinh_907 | Thực chiến điều khiển thuyết trình với Presenter View, Remote và tích hợp AI nhắc thoại | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ky_nang_thuyet_trinh_va_ngoai_vi_908 | Capstone: Đóng gói đa nền tảng và bảo mật VBA đỉnh cao cho bài thuyết trình | roadmap_PowerpointFull.md |
+| thuc_chien_thuyet_trinh_presenter_view_va_thiet_bi_ngoai_vi_chuyen_sau | Thực chiến thuyết trình qua Presenter View và thiết bị ngoại vi kết hợp export đa nền tảng | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ky_nang_trinh_bay_va_dieu_khien_tu_xa_chuyen_nghiep | Capstone: Hoàn thiện kỹ năng trình bày đỉnh cao ứng dụng AI hỗ trợ tự động hóa và điều khiển từ xa | roadmap_PowerpointFull.md |
+| thuc_chien_thuyet_trinh_presenter_view_va_thiet_bi_ngoai_vi_v911 | Thực chiến thuyết trình Presenter View và tích hợp công cụ AI tự động hóa slide chiến lược | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ky_nang_trinh_bay_va_dieu_khien_tu_xa_v912 | Capstone: Đóng gói đa nền tảng và bảo mật nâng cao cho bài thuyết trình kinh doanh đỉnh cao | roadmap_PowerpointFull.md |
+| thuc_chien_trinh_bay_presenter_view_va_remote_913 | Thực chiến thuyết trình Presenter View và tích hợp xuất file đa nền tảng | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ky_nang_trinh_bay_va_dieu_khien_914 | Capstone: Tích hợp AI hỗ trợ và hoàn thiện kỹ năng thuyết trình đỉnh cao | roadmap_PowerpointFull.md |
+| thuc_chien_thuyet_trinh_va_dieu_khien_tu_xa_915 | Thực chiến thuyết trình và điều khiển từ xa với Slide Hội nghị Thượng đỉnh Toàn cầu | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ky_nang_thuyet_trinh_va_ngoai_vi_916 | Capstone: Đóng gói đa nền tảng và kiểm tra tương thích ngoại vi cho Hội nghị | roadmap_PowerpointFull.md |
+| thuc_chien_thuyet_trinh_va_dieu_khien_tu_xa_alpha | Thực chiến thuyết trình và điều khiển từ xa cho slide Pitch Deck gọi vốn | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ky_nang_thuyet_trinh_va_ngoai_vi_alpha | Capstone: Kiểm thử tương thích và xuất bản đa nền tảng báo cáo chiến lược | roadmap_PowerpointFull.md |
+| thuc_chien_thuyet_trinh_va_dieu_khien_tu_xa_delta | Thực chiến điều khiển từ xa slide chiến lược kinh hợp xuất file đa nền tảng | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ky_nang_thuyet_trinh_va_ngoai_vi_delta | Capstone: Tích hợp AI và hoàn thiện bài pitch deck gọi vốn vòng Seed | roadmap_PowerpointFull.md |
+| thuc_chien_thuyet_trinh_va_dieu_khien_tu_xa_omega | Thực chiến thuyết trình với Presenter View và thiết bị ngoại vi cho Slide Pitch Deck gọi vốn vòng Seed | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ky_nang_trinh_bay_va_dieu_khien_tu_xa_omega | Capstone: Đóng gói đa nền tảng, kiểm tra tương thích Office và bảo mật VBA cho Pitch Deck | roadmap_PowerpointFull.md |
+| thuc_chien_thuyet_trinh_presenter_view_va_thiet_bi_ngoai_vi_v923 | Thực chiến thuyết trình Slide Pitch Deck dự án khởi nghiệp với Presenter View và tích hợp AI xuất file đa nền tảng | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ky_nang_trinh_bay_va_dieu_khien_tu_xa_v924 | Capstone: Hoàn thiện kỹ năng thuyết trình công chúng kết hợp Case Study AI tự động hóa và điều khiển ngoại vi | roadmap_PowerpointFull.md |
+| thuc_chien_thuyet_trinh_presenter_view_va_thiet_bi_ngoai_vi_z925 | Thực chiến thuyết trình với Presenter View, tích hợp âm thanh AI TTS và thiết bị ngoại vi | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ky_nang_trinh_bay_va_dieu_khien_tu_xa_z926 | Capstone: Bảo mật Macro VBA nâng cao, kiểm thử Trigger đa tầng và báo cáo tài chính Q4 | roadmap_PowerpointFull.md |
+| thuc_chien_thuyet_trinh_presenter_view_va_thiet_bi_ngoai_vi_z927 | Thực chiến thuyết trình Presenter View và tích hợp xuất file đa nền tảng | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ky_nang_trinh_bay_va_dieu_khien_tu_xa_z928 | Capstone: Tích hợp AI và hoàn thiện kiểm thử tương thích phiên bản Office | roadmap_PowerpointFull.md |
+| thuc_chien_thuyet_trinh_va_dieu_khien_tu_xa_delta_929 | Thực chiến điều khiển thuyết trình hội thảo quốc tế với Presenter View và Remote | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ky_nang_thuyet_trinh_va_ngoai_vi_delta_930 | Capstone: Tích hợp AI và hoàn thiện kiểm thử điều khiển từ xa chuyên sâu | roadmap_PowerpointFull.md |
+| thuc_chien_public_speaking_va_presenter_view_ky_nguyen_so | Thực chiến Public Speaking và Presenter View cho Slide Pitch Deck gọi vốn vòng Seed tích hợp AI | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_nghe_thuat_trinh_bay_va_thiet_bi_ngoai_vi | Capstone: Hoàn thiện nghệ thuật trình bày và điều khiển từ xa với Slide báo cáo chiến lược kinh doanh toàn cầu | roadmap_PowerpointFull.md |
+| thuc_chien_public_speaking_va_presenter_view_tinh_hoa | Thực chiến Public Speaking và Presenter View tinh hoa cho Slide Pitch Deck gọi vốn | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ky_nang_public_speaking_va_ngoai_vi_tinh_hoa | Capstone: Tích hợp âm thanh AI TTS và Export đa nền tảng cho Pitch Deck | roadmap_PowerpointFull.md |
+| thuc_chien_public_speaking_va_presenter_view_tinh_hoa_935 | Thực chiến Public Speaking và Presenter View tinh hoa cho slide pitch deck | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ky_nang_public_speaking_va_ngoai_vi_tinh_hoa_936 | Capstone: Tích hợp AI voiceover và xuất bản đa nền tảng cho báo cáo Q4 | roadmap_PowerpointFull.md |
+| thuc_chien_public_speaking_va_presenter_view_tinh_hoa_937 | Thực chiến Public Speaking và Presenter View tinh hoa cho slide Pitch Deck gọi vốn vòng Seed | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ky_nang_public_speaking_va_ngoai_vi_tinh_hoa_938 | Capstone: Hoàn thiện kỹ năng Public Speaking và ngoại vi cho slide báo cáo tài chính Q4 | roadmap_PowerpointFull.md |
+| thuc_chien_public_speaking_va_presenter_view_tinh_hoa_939 | Thực chiến Public Speaking và Presenter View tinh hoa cho Slide Pitch Deck gọi vốn | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_nghe_thuat_trinh_bay_va_dieu_khien_tu_xa_940 | Capstone: Hoàn thiện nghệ thuật trình bày và điều khiển từ xa kết hợp export đa nền tảng | roadmap_PowerpointFull.md |
+| thuc_chien_thuyet_trinh_va_dieu_khien_tu_xa_apex_941 | Thực chiến điều khiển slide thuyết trình sản phẩm bằng thiết bị ngoại vi Bluetooth | roadmap_PowerpointFull.md |
+| capstone_hoan_thien_ky_nang_thuyet_trinh_va_ngoai_vi_apex_942 | Capstone: Tích hợp AI và làm chủ Presenter View chiến lược kinh doanh toàn diện | roadmap_PowerpointFull.md |
+| xu_ly_khung_hoang_loi_font_va_giam_dung_luong_slide_pitch_deck | Khắc phục triệt để lỗi font chữ, nén dung lượng file và kiểm tra tương thích Office đa phiên bản | roadmap_PowerpointFull.md |
+| cuu_ho_du_lieu_va_bao_mat_ban_quyen_bao_cao_tai_chinh_q4 | Cứu hộ file hỏng, thiết lập bảo mật mã hóa nâng cao và ký số VBA cho báo cáo tài chính Q4 | roadmap_PowerpointFull.md |
+| xu_ly_loi_font_va_nen_dung_luong_slide_pitch_deck | Xử lý lỗi font, nén dung lượng và xuất đa nền tảng cho slide gọi vốn | roadmap_PowerpointFull.md |
+| khoi_phuc_du_lieu_hong_va_bao_mat_slide_tai_chinh | Khôi phục dữ liệu hỏng, bảo mật VBA nâng cao và kiểm thử tương thích phiên bản | roadmap_PowerpointFull.md |
+| xu_ly_loi_font_va_giam_dung_luong_slide_pitch_deck | Xử lý triệt để lỗi font chữ và giảm dung lượng slide pitch deck dự án | roadmap_PowerpointFull.md |
+| cuu_ho_du_lieu_va_bao_mat_ban_quyen_bao_cao_tai_chinh_q4_d948 | Cứu hộ file PowerPoint hỏng và thiết lập bảo mật bản quyền báo cáo tài chính Q4 | roadmap_PowerpointFull.md |
+| xu_ly_loi_font_va_giam_dung_luong_slide_pitch_deck_tech | Khắc phục font chữ và nén dung lượng file Slide Pitch Deck Tech | roadmap_PowerpointFull.md |
+| cuu_ho_du_lieu_va_bao_mat_ban_quyen_bao_cao_tai_chinh_q4_v950 | Bảo mật nâng cao và ký số VBA cho Slide Báo cáo tài chính Q4 | roadmap_PowerpointFull.md |
+| xu_ly_loi_font_va_giam_dung_luong_slide_pitch_deck_951 | Xử lý triệt để lỗi font, nén dung lượng và tích hợp AI tự động hóa slide Pitch Deck | roadmap_PowerpointFull.md |
+| cuu_ho_du_lieu_va_bao_mat_ban_quyen_bao_cao_tai_chinh_q4_952 | Khôi phục cấu trúc file hỏng, bảo mật bản quyền VBA nâng cao và kiểm thử tương thích phiên bản | roadmap_PowerpointFull.md |
+| xu_ly_loi_font_va_nen_dung_luong_slide_pitch_deck_953 | Khắc phục triệt để lỗi font, nén dung lượng và kiểm tra tính tương thích phiên bản Office | roadmap_PowerpointFull.md |
+| cuu_ho_du_lieu_va_bao_mat_ban_quyen_bao_cao_tai_chinh_q4_954 | Cứu hộ file PowerPoint hỏng, bảo mật VBA nâng cao và đóng gói đa nền tảng | roadmap_PowerpointFull.md |
+| xu_ly_triet_de_loi_font_va_giam_dung_luong_slide_pitch_deck_z955 | Khắc phục font chữ, nén dung lượng và tích hợp âm thanh AI lồng tiếng cho pitch deck | roadmap_PowerpointFull.md |
+| cuu_ho_file_powerpoint_va_bao_mat_ban_quyen_bao_cao_tai_chinh_q4_z956 | Cứu hộ file PowerPoint hỏng, bảo mật VBA nâng cao và kiểm thử tương thích Office | roadmap_PowerpointFull.md |
+| xu_ly_triet_de_loi_font_va_nen_dung_luong_slide_pitch_deck_z957 | Xử lý triệt để lỗi font, nén dung lượng và tích hợp công cụ AI tự động hóa định dạng slide Pitch Deck | roadmap_PowerpointFull.md |
+| cuu_ho_du_lieu_va_bao_mat_ban_quyen_bao_cao_tai_chinh_q4_z958 | Cứu hộ dữ liệu hỏng, kiểm thử tương thích và thiết lập mã hóa bản quyền Slide Báo cáo tài chính Q4 | roadmap_PowerpointFull.md |
+| xu_ly_triet_de_loi_font_va_giam_dung_luong_slide_pitch_deck_delta | Xử lý triệt để lỗi font, nén dung lượng và tích hợp export đa nền tảng cho Slide Pitch Deck | roadmap_PowerpointFull.md |
+| cuu_ho_file_powerpoint_va_bao_mat_ban_quyen_bao_cao_tai_chinh_q4_delta | Cứu hộ file PowerPoint hỏng, ký số VBA nâng cao và bảo mật bản quyền Báo cáo tài chính Q4 | roadmap_PowerpointFull.md |
+| khac_phuc_triet_de_loi_font_va_dung_luong_file_slide_pitch_deck_startup | Khắc phục triệt để lỗi font và tối ưu dung lượng file slide Pitch Deck | roadmap_PowerpointFull.md |
+| cuu_ho_du_lieu_va_bao_mat_ban_quyen_slide_bao_cao_tai_chinh_q4 | Cứu hộ dữ liệu khẩn cấp và bảo mật bản quyền số Báo cáo tài chính | roadmap_PowerpointFull.md |
+| xu_ly_triet_de_loi_font_va_giam_dung_luong_slide_pitch_deck_alpha | Xử lý triệt để lỗi font và giảm dung lượng Slide Pitch Deck Alpha | roadmap_PowerpointFull.md |
+| cuu_ho_file_powerpoint_va_bao_mat_ban_quyen_bao_cao_tai_chinh_beta | Cứu hộ file PowerPoint và bảo mật bản quyền Báo cáo tài chính Beta | roadmap_PowerpointFull.md |
+| khac_phuc_triet_de_loi_font_va_giam_dung_luong_file_slide_thuc_chien_965 | Khắc phục triệt để lỗi font, tối ưu dung lượng và xuất file đa nền tảng | roadmap_PowerpointFull.md |
+| cuu_ho_du_lieu_va_bao_mat_ban_quyen_slide_thuc_chien_966 | Cứu hộ dữ liệu khẩn cấp, ký số bảo mật và tích hợp AI tự động hóa slide | roadmap_PowerpointFull.md |
+| xu_ly_triet_de_loi_font_va_giam_dung_luong_slide_pitch_deck_epsilon | Xử lý triệt để lỗi font, tối ưu hình ảnh và tích hợp AI tự động hóa slide gọi vốn | roadmap_PowerpointFull.md |
+| cuu_ho_file_powerpoint_va_bao_mat_ban_quyen_bao_cao_tai_chinh_epsilon | Khôi phục cấu trúc XML hỏng, ký số VBA và xuất file đa nền tảng cho báo cáo tài chính | roadmap_PowerpointFull.md |
+| khac_phuc_triet_de_loi_font_va_dung_luong_slide_pitch_deck_omega | Khắc phục triệt để lỗi font và tối ưu dung lượng file gọi vốn bằng AI | roadmap_PowerpointFull.md |
+| cuu_ho_du_lieu_va_bao_mat_ban_quyen_slide_bao_cao_tai_chinh_omega | Cứu hộ dữ liệu XML và xuất bản đa nền tảng cho báo cáo tài chính | roadmap_PowerpointFull.md |
+| xu_ly_triet_de_loi_font_va_dung_luong_file_pitch_deck_startup | Xử lý triệt để lỗi font, tối ưu dung lượng Slide Pitch Deck và tích hợp AI xuất khẩu đa nền tảng | roadmap_PowerpointFull.md |
+| cuu_ho_du_lieu_va_bao_mat_ban_quyen_bao_cao_tai_chinh_quy_iv | Cứu hộ file PowerPoint hỏng, bảo mật VBA nâng cao và kiểm thử tương thích phiên bản Office | roadmap_PowerpointFull.md |
+| xu_ly_triet_de_loi_font_va_dung_luong_file_pitch_deck_q973 | Sửa lỗi font chữ và tối ưu hóa dung lượng file Pitch Deck Startup | roadmap_PowerpointFull.md |
+| cuu_ho_du_lieu_va_bao_mat_ban_quyen_slide_tai_chinh_q974 | Khôi phục dữ liệu hỏng cấu trúc và kiểm thử tương thích Office trên Slide Tài chính | roadmap_PowerpointFull.md |
+| xu_ly_triet_de_loi_font_va_dung_luong_slide_pitch_deck_975 | Xử lý triệt để lỗi font, tối ưu dung lượng và tích hợp công cụ AI tự động hóa thiết kế slide | roadmap_PowerpointFull.md |
+| cuu_ho_file_powerpoint_va_bao_mat_ban_quyen_bao_cao_tai_chinh_976 | Cứu hộ file hỏng, khóa bản quyền và xuất bản đa nền tảng cho báo cáo tài chính quý IV | roadmap_PowerpointFull.md |
+| xu_ly_triet_de_loi_font_va_dung_luong_slide_pitch_deck_x977 | Xử lý triệt để lỗi font, nén dung lượng và xuất bản đa nền tảng cho Slide Pitch Deck Startup x977 | roadmap_PowerpointFull.md |
+| cuu_ho_file_powerpoint_va_bao_mat_ban_quyen_bao_cao_tai_chinh_x978 | Cứu hộ file PowerPoint, bảo mật Macro nâng cao và Kiểm thử tương thích phiên bản Office cho Báo cáo tài chính Q4 x978 | roadmap_PowerpointFull.md |
+| xu_ly_triet_de_loi_font_va_giam_dung_luong_slide_pitch_deck_v979 | Sửa lỗi font, nén dung lượng và tích hợp AI tự động hóa slide Pitch Deck (Day 979) | roadmap_PowerpointFull.md |
+| cuu_ho_file_powerpoint_va_bao_mat_ban_quyen_bao_cao_tai_chinh_v980 | Cứu hộ file hỏng, bảo mật VBA nâng cao và kiểm thử tương thích báo cáo tài chính (Day 980) | roadmap_PowerpointFull.md |
+| xu_ly_triet_de_loi_font_va_dung_luong_slide_pitch_deck_z981 | Xử lý font, nén dung lượng và tích hợp AI tự động hóa thiết kế Slide Pitch Deck | roadmap_PowerpointFull.md |
+| cuu_ho_file_powerpoint_va_bao_mat_ban_quyen_bao_cao_tai_chinh_q4_z982 | Khôi phục tệp hỏng, cấu hình bảo mật VBA nâng cao và export đa nền tảng Báo cáo tài chính | roadmap_PowerpointFull.md |
+| xu_ly_triet_de_loi_font_va_dung_luong_slide_pitch_deck_983 | Xử lý font và nén dung lượng Slide Pitch Deck gọi vốn vòng Seed tích hợp AI | roadmap_PowerpointFull.md |
+| cuu_ho_file_powerpoint_va_bao_mat_ban_quyen_bao_cao_tai_chinh_q4_984 | Cứu hộ file PowerPoint và ký số bảo mật bản quyền Slide Báo cáo tài chính Q4 | roadmap_PowerpointFull.md |
+| xu_ly_triet_de_loi_font_va_giam_dung_luong_slide_pitch_deck_alpha_985 | Xử lý triệt để lỗi font, tích hợp AI tự động và giảm dung lượng slide Pitch Deck Alpha | roadmap_PowerpointFull.md |
+| cuu_ho_du_lieu_va_bao_mat_ban_quyen_bao_cao_tai_chinh_omega_986 | Cứu hộ dữ liệu, cấu hình bảo mật VBA nâng cao và đóng gói đa nền tảng báo cáo tài chính Omega | roadmap_PowerpointFull.md |
+| xu_ly_triet_de_loi_font_va_giam_dung_luong_slide_pitch_deck_phien_ban_moi | Xử lý lỗi font, tích hợp AI lồng tiếng và giảm dung lượng Slide Pitch Deck | roadmap_PowerpointFull.md |
+| cuu_ho_file_powerpoint_va_bao_mat_ban_quyen_bao_cao_tai_chinh_quy_iv_moi | Cứu hộ file PowerPoint lỗi, kiểm thử Trigger đa tầng và bảo mật VBA nâng cao | roadmap_PowerpointFull.md |
+| xu_ly_triet_de_loi_font_va_giam_dung_luong_slide_pitch_deck_989 | Xử lý lỗi font và nén dung lượng slide Pitch Deck AI Startup nặng 500MB | roadmap_PowerpointFull.md |
+| cuu_ho_du_lieu_va_bao_mat_ban_quyen_slide_bao_cao_tai_chinh_990 | Cứu hộ file PowerPoint hỏng và khóa bảo mật bản quyền slide Báo cáo tài chính | roadmap_PowerpointFull.md |
+| xu_ly_font_va_giam_dung_luong_slide_pitch_deck_991 | Xử lý font chữ nặng và giảm dung lượng slide Pitch Deck công nghệ kết hợp AI | roadmap_PowerpointFull.md |
+| cuu_ho_file_powerpoint_va_bao_mat_bao_cao_tai_chinh_992 | Cứu hộ file PowerPoint hỏng, bảo mật bản quyền và xuất bản đa nền tảng | roadmap_PowerpointFull.md |
+| xu_ly_font_va_dung_luong_file_thuc_chien_993 | Xử lý triệt để lỗi font chữ, nén dung lượng và đóng gói file trình bày đa nền tảng cho Pitch Deck | roadmap_PowerpointFull.md |
+| cuu_ho_du_lieu_va_bao_mat_ban_quyen_bao_cao_994 | Khôi phục XML nâng cao, cấu hình bảo mật Macro và tương thích phiên bản Office cho báo cáo tài chính | roadmap_PowerpointFull.md |
+| khac_phuc_loi_font_va_giam_dung_luong_slide_startup_995 | Xử lý font và giảm dung lượng slide startup kèm xuất bản đa nền tảng | roadmap_PowerpointFull.md |
+| cuu_ho_file_powerpoint_va_bao_mat_ban_quyen_996 | Khôi phục tệp hỏng, ký số và kiểm tra tương thích Office | roadmap_PowerpointFull.md |
+| xu_ly_font_va_dung_luong_tap_tin_997 | Xử lý triệt để lỗi font, tối ưu dung lượng và tích hợp AI tự động hóa pitch deck | roadmap_PowerpointFull.md |
+| cuu_ho_va_bao_mat_tai_chinh_998 | Cứu hộ file hỏng, bảo mật bản quyền và kiểm thử tương thích đa phiên bản Office | roadmap_PowerpointFull.md |
+| xu_ly_font_va_giam_dung_luong_tap_tin_chuyen_gia_999 | Xử lý triệt để lỗi font và nén dung lượng tập tin Slide Pitch Deck Blockchain | roadmap_PowerpointFull.md |
+| cuu_ho_va_bao_mat_ban_quyen_tap_tin_nguon_1000 | Cứu hộ file PowerPoint hỏng và bảo mật mã nguồn VBA Slide Báo cáo Kiểm toán | roadmap_PowerpointFull.md |
