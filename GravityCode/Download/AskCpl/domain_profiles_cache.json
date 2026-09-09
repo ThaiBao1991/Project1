@@ -125,5 +125,44 @@
       "phap_che_hau_tan_the": "Soạn thảo và thực thi bộ quy tắc ứng xử tối thiểu, hệ thống tòa án dã chiến và hình thức kỷ luật để duy trì trật tự xã hội thu nhỏ.",
       "an_ninh_mang_va_so": "Khôi phục và duy trì các máy chủ cục bộ (Local Server) chứa tài liệu bách khoa toàn thư ngoại tuyến (Wikipedia offline) phục vụ nghiên cứu và giáo dục."
     }
+  },
+  "chế tạo vũ khí súng ống cơ bản, bẫy rập": {
+    "title": "Chế tạo vũ khí súng ống cơ bản, bẫy rập",
+    "recommended_days": 1800,
+    "persona": "Chuyên gia Kỹ thuật Chế tạo Vũ khí Cơ khí & Hệ thống Phòng thủ Thực địa Bậc cao",
+    "category": "Kỹ thuật cơ khí quân sự & Công nghệ vật liệu ứng dụng",
+    "instruction": "PROFILE CHẾ TẠO VŨ KHÍ SÚNG ỐNG CƠ BẢN, BẪY RẬP: Chương trình đào tạo chuyên sâu từ nền tảng luyện kim, gia công cơ khí chính xác, nhiệt luyện đến thiết kế hệ thống động học súng cầm tay (ổ khóa nòng, buồng đạn, cơ chế cò) và tính toán áp suất khí nổ nội tại. Học viên sẽ làm chủ công nghệ sản xuất đạn dược cơ bản, kiểm định vật liệu chịu lực cao, cùng kỹ thuật thiết kế và ngụy trang hệ thống bẫy rập cơ học, thủy lực, điện tử phục vụ nghiên cứu sinh tồn, an ninh thực địa và kỹ thuật quân sự chuyên biệt, đảm bảo tuân thủ các tiêu chuẩn an toàn kỹ thuật nghiêm ngặt.",
+    "mandatory_milestones": [
+      "luyen_kim_va_vat_lieu",
+      "gia_cong_co_khi_chinh_xac",
+      "nhiet_luyen_va_xu_ly_be_mat",
+      "co_hoc_chat_luu_va_noi_dan_hoc",
+      "thiet_ke_co_cau_khoa_nong",
+      "co_che_co_va_phat_hoa",
+      "vat_lieu_no_va_dan_duoc",
+      "thiet_ke_bay_co_hoc",
+      "thiet_ke_bay_thuy_luc_va_khi_nen",
+      "he_thong_nguy_trang_va_ngụy_tao",
+      "kiem_dinh_ap_suat_va_do_ben",
+      "bao_duong_va_xu_ly_su_co",
+      "an_toan_phong_chay_va_no",
+      "che_tao_nguyen_mau_rapid_prototyping"
+    ],
+    "milestone_descriptions": {
+      "luyen_kim_va_vat_lieu": "Nghiên cứu sâu về thành phần hợp kim thép các-bon cao, thép lò xo, nhôm hàng không và vật liệu composite chuyên dụng chịu được ứng suất kéo và nén cực lớn trong chế tạo khung súng.",
+      "gia_cong_co_khi_chinh_xac": "Làm chủ kỹ thuật tiện CNC, phay rãnh xoắn nòng súng (rifling), khoan lỗ sâu và cắt dây EDM đạt dung sai micromet cho các bộ phận khít kín của buồng đạn.",
+      "nhiet_luyen_va_xu_ly_be_mat": "Thực hiện quy trình tôi, ram, thấm carbon và mạ crom cứng tăng độ bền mỏi, chống ăn mòn và chịu nhiệt độ cao cho nòng súng và các chi tiết chịu lực.",
+      "co_hoc_chat_luu_va_noi_dan_hoc": "Mô hình hóa động lực học chất khí, sự giãn nở của khí thuốc phóng bên trong nòng và tính toán gia tốc đầu nòng của đầu đạn.",
+      "thiet_ke_co_cau_khoa_nong": "Thiết kế và chế tạo các hệ thống khóa nòng cứng, khóa nòng trượt, lùi ngắn/dài (recoil operation) và trích khí (gas operation) đảm bảo sự an toàn và đồng bộ.",
+      "co_che_co_va_phat_hoa": "Nghiên cứu nguyên lý hoạt động của kim hỏa, búa đập, lẫy gài, và cơ chế an toàn chống cướp cò (drop safety) cho các dòng súng cơ bản.",
+      "vat_lieu_no_va_dan_duoc": "Nắm vững đặc tính cháy của thuốc súng không khói, tỷ lệ pha trộn hạt nổ, hình học vỏ đạn và kỹ thuật ép đầu đạn đạt tiêu chuẩn sơ tốc đồng nhất.",
+      "thiet_ke_bay_co_hoc": "Ứng dụng các nguyên lý đòn bẩy, lò xo căng, ròng rọc và năng lượng thế năng để chế tạo các loại bẫy cơ học tác động nhanh và có độ sát thương định hướng.",
+      "thiet_ke_bay_thuy_luc_va_khi_nen": "Tích hợp các cơ cấu truyền lực thủy lực, van áp suất và hệ thống xilanh khí nén vào các bẫy rập phức tạp đòi hỏi thời gian kích hoạt bằng không.",
+      "he_thong_nguy_trang_va_ngụy_tao": "Nghiên cứu vật liệu hấp thụ sóng radar, sơn ngụy trang quang học, kỹ thuật bố trí bẫy ẩn giấu dưới địa hình tự nhiên mà không để lại dấu vết.",
+      "kiem_dinh_ap_suat_va_do_ben": "Sử dụng thiết bị đo áp điện (piezoelectric pressure sensor) và camera tốc độ cao để kiểm tra độ an toàn của súng trước khi đưa vào vận hành thực tế.",
+      "bao_duong_va_xu_ly_su_co": "Thành thạo quy trình tháo lắp nhanh, vệ sinh cặn carbon, khắc phục hiện tượng kẹt đạn, nứt nòng và thay thế linh kiện mài mòn trong điều kiện dã chiến.",
+      "an_toan_phong_chay_va_no": "Tuân thủ tuyệt đối các quy chuẩn quốc tế về lưu trữ vật liệu nổ, phòng chống tĩnh điện, thiết kế phòng thử nghiệm chống đạn và kiểm soát rủi ro cháy nổ.",
+      "che_tao_nguyen_mau_rapid_prototyping": "Ứng dụng mô hình hóa CAD 3D (SolidWorks, AutoCAD), in 3D nhựa/kim loại SLS để chế tạo mẫu thử nghiệm hình học trước khi gia công vật liệu thật."
+    }
   }
 }
