@@ -612,10 +612,13 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
                 if adaptive_ready and lesson_result:
                     new_entry["adaptive_lesson"] = lesson_result
                 session_data.append(new_entry)
+                # Tự động đánh dấu Day liền kề trước đó (N-1) cần cập nhật thanh điều hướng
+                if len(session_data) >= 2:
+                    session_data[-2]["_needs_disk_write"] = True
         
         save_session(session_data, out_dir)
         try:
-            create_viewer(out_dir, session_data)
+            create_viewer(out_dir, session_data, total_expected_days=total_count)
         except Exception as e:
             log(f"⚠ Lỗi cập nhật index.html: {e}. Vẫn tiếp tục tải bài tiếp theo...")
         time.sleep(3)
@@ -664,7 +667,7 @@ def run_auto_ai(api_keys_list, roadmap_path, doc_dir, out_dir, log_callback,
         log(f"\n✓ Đã lưu tiến độ hiện có ({len(session_data)} Days). Còn thiếu {len(final_missing)} Day.")
         
     save_session(session_data, out_dir)
-    create_viewer(out_dir, session_data)
+    create_viewer(out_dir, session_data, total_expected_days=len(target_days))
     log(f"📁 index.html đã được cập nhật tại {out_dir}")
 
 def find_file(root_dir, filename):
@@ -715,7 +718,7 @@ def save_session(data_list, out_dir):
         with open(out_file, 'w', encoding='utf-8') as f:
             f.write(json_str)
 
-def create_viewer(out_dir, session_data=None):
+def create_viewer(out_dir, session_data=None, total_expected_days=None):
     if session_data is None:
         return
         
@@ -856,7 +859,7 @@ def create_viewer(out_dir, session_data=None):
         day_num_match = re.search(r'Day\s*([\w]+)', day_title)
         day_num_str = day_num_match.group(1) if day_num_match else str(idx+1)
         
-        total_days_num = len(session_data)
+        total_days_num = max(len(session_data), total_expected_days or len(session_data))
         nav_bar = f"""<!-- NAV-BAR-V2 -->
 <style>
 #askcpl-nav{{position:fixed;top:0;left:0;right:0;z-index:9999;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);color:#fff;padding:8px 16px;box-shadow:0 2px 12px rgba(0,0,0,.5);font-family:'Segoe UI',Arial,sans-serif;font-size:14px;box-sizing:border-box;height:48px;}}
@@ -886,22 +889,52 @@ def create_viewer(out_dir, session_data=None):
 <script>
 (function(){{
   var MAX_DAYS = {total_days_num};
-  var m = window.location.pathname.match(/(\\d+)_.*\\.html/i) 
-       || window.location.href.match(/(\\d+)_.*\\.html/i);
+  var m = window.location.pathname.match(/(\d+)_.*\.html/i)
+       || window.location.pathname.match(/[\/\\]day_(\d+)[a-z]?\.html/i)
+       || window.location.href.match(/(\d+)_.*\.html/i)
+       || window.location.href.match(/[\/\\]day_(\d+)[a-z]?\.html/i);
   var cur = m ? parseInt(m[1]) : {idx + 1};
   
   document.getElementById('askcpl-nav-title').textContent = 'Day ' + cur + ' ▼';
   document.getElementById('askcpl-nav-home').href = 'index.html#day-' + cur;
 
   if(cur <= 1) document.getElementById('nav-prev').disabled = true;
-  if(cur >= MAX_DAYS) document.getElementById('nav-next').disabled = true;
-  
+  if(MAX_DAYS && MAX_DAYS < 9000 && cur >= MAX_DAYS) document.getElementById('nav-next').disabled = true;
+
+  function showToast(msg) {{
+    var t = document.getElementById('askcpl-toast');
+    if (!t) {{
+      t = document.createElement('div');
+      t.id = 'askcpl-toast';
+      t.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#1e1b4b,#312e81);color:#e0e7ff;padding:12px 24px;border-radius:8px;border:1px solid #6366f1;box-shadow:0 10px 25px rgba(0,0,0,0.6);font-size:14px;font-family:sans-serif;z-index:999999;transition:opacity 0.3s;text-align:center;';
+      document.body.appendChild(t);
+    }}
+    t.innerHTML = msg;
+    t.style.opacity = '1';
+    clearTimeout(t._timer);
+    t._timer = setTimeout(function(){{ t.style.opacity = '0'; }}, 3500);
+  }}
+
+  var _lastNextAttempt = 0;
   window.askcplNav = function(d){{
     var n = cur + d;
-    if(n < 1 || n > MAX_DAYS) return;
+    if(n < 1) return;
+    if(MAX_DAYS && MAX_DAYS < 9000 && n > MAX_DAYS) {{
+      showToast('Bạn đã ở chương cuối cùng (Day ' + cur + ')');
+      return;
+    }}
     var allFiles = {json.dumps([s["file_name"] for s in session_data])};
     if (n-1 >= 0 && n-1 < allFiles.length) {{
         window.location.href = allFiles[n-1];
+    }} else {{
+        var now = Date.now();
+        var cand = ('000' + n).slice(-3) + '_Day ' + n + '.html';
+        if (now - _lastNextAttempt < 4000) {{
+          window.location.href = cand;
+        }} else {{
+          _lastNextAttempt = now;
+          showToast('⏳ Day ' + n + ' đang được AI xử lý tải về. Nếu đã tải xong, nhấp Next lần nữa để mở hoặc F5 tải lại trang!');
+        }}
     }}
   }};
 

@@ -32,7 +32,7 @@ def build_nav_html(current_day: int, day_map: dict, total_days: int, file_map: d
         toc_items_html += f'<a class="{css_class}" href="{filename}">Day {d} \u2014 {safe_title}{marker}</a>\n'
 
     prev_disabled = 'disabled' if current_day <= 1 else ''
-    next_disabled = 'disabled' if current_day >= total_days else ''
+    next_disabled = ''
 
     nav_html = f"""
 {NAV_MARKER}
@@ -167,13 +167,35 @@ body {{ padding-top: 52px !important; }}
   var FILE_MAP = {json.dumps(file_map) if file_map else "{}"};
   var tocOpen = false;
 
+  function showToast(msg) {{
+    var t = document.getElementById('askcpl-toast');
+    if (!t) {{
+      t = document.createElement('div');
+      t.id = 'askcpl-toast';
+      t.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#1e1b4b,#312e81);color:#e0e7ff;padding:12px 24px;border-radius:8px;border:1px solid #6366f1;box-shadow:0 10px 25px rgba(0,0,0,0.6);font-size:14px;font-family:sans-serif;z-index:999999;transition:opacity 0.3s;text-align:center;';
+      document.body.appendChild(t);
+    }}
+    t.innerHTML = msg;
+    t.style.opacity = '1';
+    clearTimeout(t._timer);
+    t._timer = setTimeout(function(){{ t.style.opacity = '0'; }}, 3500);
+  }}
+
+  var _lastNextAttempt = 0;
   window.askcplNav = function(delta) {{
     var next = CURRENT_DAY + delta;
-    if (next < 1 || next > TOTAL_DAYS) return;
+    if (next < 1) return;
     if (FILE_MAP[next]) {{
         window.location.href = FILE_MAP[next];
-    }} else {{
-        window.location.href = 'day_' + next + '.html';
+    }} else if (delta > 0) {{
+        var now = Date.now();
+        var candidate = 'day_' + next + '.html';
+        if (now - _lastNextAttempt < 4000) {{
+          window.location.href = candidate;
+        }} else {{
+          _lastNextAttempt = now;
+          showToast('⏳ Day ' + next + ' chưa có trong mục lục. Bấm Next lần nữa để thử mở trực tiếp ' + candidate);
+        }}
     }}
   }};
 
@@ -435,3 +457,119 @@ def rebuild_index(folder: str, log_callback=None) -> bool:
     except Exception as e:
         log(f"[X] Loi tao index.html: {e}")
         return False
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# INTEGRITY CHECK
+# ─────────────────────────────────────────────────────────────────────────────
+MIN_FILE_BYTES = 500   # File nhỏ hơn mức này bị coi là rỗng/lỗi
+# Regex nhận cả hai định dạng tên file
+_FILENAME_REGEX = re.compile(
+    r'(?:^|[/\\])(\d+)_.*\.html$|[/\\]day_(\d+)[a-z]?\.html$',
+    re.IGNORECASE
+)
+
+
+def check_integrity(folder: str, log_callback=None) -> dict:
+    """
+    Kiểm tra toàn vẹn thư mục roadmap HTML.
+
+    Trả về dict:
+    {
+        "total_files": int,
+        "missing_days": [int, ...],
+        "no_nav": [(day_num, fname), ...],    # chưa có nav bar
+        "bad_regex": [(day_num, fname), ...], # nav đã inject nhưng regex cũ sẽ sai
+        "tiny_files": [(day_num, fname), ...],# file < MIN_FILE_BYTES bytes
+        "index_ok": bool,
+        "score": int,   # 0-100
+        "items": [      # chi tiết từng file để hiển thị trong listbox
+            {"day": int, "fname": str, "status": "ok"|"no_nav"|"bad_regex"|"tiny", "size": int}
+        ]
+    }
+    """
+    def log(msg):
+        if log_callback:
+            log_callback(msg)
+
+    log("[Integrity] Bắt đầu kiểm tra...")
+    day_files = get_day_files(folder)
+    if not day_files:
+        log("[Integrity] Không tìm thấy file nào!")
+        return {
+            "total_files": 0, "missing_days": [], "no_nav": [],
+            "bad_regex": [], "tiny_files": [], "index_ok": False,
+            "score": 0, "items": []
+        }
+
+    total = day_files[-1][0]
+    found_days = {d for d, _ in day_files}
+    missing_days = [d for d in range(1, total + 1) if d not in found_days]
+
+    no_nav = []
+    bad_regex = []
+    tiny_files = []
+    items = []
+
+    for day_num, fname in day_files:
+        fpath = os.path.join(folder, fname)
+        size = 0
+        has_nav = False
+        regex_ok = False
+        try:
+            size = os.path.getsize(fpath)
+            if size < MIN_FILE_BYTES:
+                tiny_files.append((day_num, fname))
+                status = "tiny"
+            else:
+                with open(fpath, 'r', encoding='utf-8', errors='ignore') as f:
+                    snippet = f.read(4096)
+                has_nav = NAV_MARKER in snippet
+
+                if not has_nav:
+                    no_nav.append((day_num, fname))
+                    status = "no_nav"
+                else:
+                    # Kiểm tra regex có match tên file không
+                    # Bỏ qua đường dẫn thư mục, chỉ dùng tên file
+                    test_path = "/" + fname
+                    regex_ok = bool(_FILENAME_REGEX.search(test_path))
+                    if not regex_ok:
+                        bad_regex.append((day_num, fname))
+                        status = "bad_regex"
+                    else:
+                        status = "ok"
+        except Exception as ex:
+            log(f"[Integrity] Lỗi đọc {fname}: {ex}")
+            status = "tiny"
+            tiny_files.append((day_num, fname))
+
+        items.append({"day": day_num, "fname": fname, "status": status, "size": size})
+
+    # Kiểm tra index.html
+    index_path = os.path.join(folder, 'index.html')
+    index_ok = os.path.exists(index_path) and os.path.getsize(index_path) > 200
+
+    # Tính điểm toàn vẹn (0-100)
+    total_files = len(day_files)
+    problem_count = len(no_nav) + len(bad_regex) + len(tiny_files) + len(missing_days)
+    denominator = total_files + len(missing_days)
+    score = max(0, round(100 * (1 - problem_count / max(denominator, 1))))
+    if not index_ok:
+        score = max(0, score - 5)
+
+    log(f"[Integrity] Tổng: {total_files} file | Thiếu: {len(missing_days)} | "
+        f"Chưa nav: {len(no_nav)} | Nav lỗi regex: {len(bad_regex)} | "
+        f"File rỗng: {len(tiny_files)} | Điểm: {score}/100")
+
+    return {
+        "total_files": total_files,
+        "missing_days": missing_days,
+        "no_nav": no_nav,
+        "bad_regex": bad_regex,
+        "tiny_files": tiny_files,
+        "index_ok": index_ok,
+        "score": score,
+        "items": items,
+    }
+
