@@ -164,5 +164,46 @@
       "an_toan_phong_chay_va_no": "Tuân thủ tuyệt đối các quy chuẩn quốc tế về lưu trữ vật liệu nổ, phòng chống tĩnh điện, thiết kế phòng thử nghiệm chống đạn và kiểm soát rủi ro cháy nổ.",
       "che_tao_nguyen_mau_rapid_prototyping": "Ứng dụng mô hình hóa CAD 3D (SolidWorks, AutoCAD), in 3D nhựa/kim loại SLS để chế tạo mẫu thử nghiệm hình học trước khi gia công vật liệu thật."
     }
+  },
+  "word đến chuyên gia": {
+    "title": "Word đến chuyên gia",
+    "recommended_days": 1800,
+    "persona": "Kiến trúc sư Trình bày Văn bản Doanh nghiệp, Chuyên gia Soạn thảo Pháp chế & Văn hóa Tài liệu Cấp cao",
+    "category": "Ứng dụng Văn phòng & Kỹ thuật Soạn thảo Chuyên sâu",
+    "instruction": "PROFILE WORD ĐẾN CHUYÊN GIA: Lộ trình định hình chuyên gia toàn diện về Microsoft Word và hệ sinh thái soạn thảo tài liệu doanh nghiệp từ con số 0 đến bậc thầy cao cấp. Học viên sẽ đi qua 15 trụ cột cốt lõi từ cấu trúc văn bản hành chính - pháp lý chuẩn mực, kỹ thuật định dạng chuyên sâu (Styles, Multilevel Lists), quản lý hệ thống tài liệu lớn (Master Documents, Citations & Bibliography), tự động hóa nâng cao với VBA & Macros, đến tích hợp Mail Merge đa nguồn dữ liệu (Excel, SQL, Outlook), thiết kế template chuẩn thương hiệu (Corporate Identity), và bảo mật tài liệu doanh nghiệp theo tiêu chuẩn quốc tế ISO/IEC 27001.",
+    "mandatory_milestones": [
+      "co_so_dinh_dang_va_giao_dien",
+      "cau_truc_styles_chuyen_nghiep",
+      "danh_sach_da_cap_multilevel_list",
+      "nghe_thuat_trinh_bay_bang_bieu",
+      "doi_tuong_do_hoa_va_so_do",
+      "quan_ly_tai_lieu_lon_master_doc",
+      "trich_dan_va_thu_muc_tai_lieu_tham_khao",
+      "truong_du_lieu_va_ma_truong_fields",
+      "mail_merge_va_tu_dong_hoa_tron_thu",
+      "bieu_mau_bieu_do_interactive_forms",
+      "lap_trinh_vba_va_macro_nang_cao",
+      "hop_tac_nhom_va_kiem_soat_thay_doi",
+      "bao_mat_phan_quyen_va_chu_ky_so",
+      "chuyen_doi_dinh_dang_va_xuat_ban_pdf",
+      "kien_truc_template_chuyen_nghiep_brand"
+    ],
+    "milestone_descriptions": {
+      "co_so_dinh_dang_va_giao_dien": "Nắm vững giao diện Ribbon, Quick Access Toolbar, quản lý phông chữ, khoảng cách đoạn văn (Paragraph Spacing), thiết lập Page Setup theo tiêu chuẩn hành chính nhà nước và quốc tế.",
+      "cau_truc_styles_chuyen_nghiep": "Làm chủ hệ thống Styles (Paragraph, Character, Linked), tùy chỉnh Quick Styles Set, áp dụng nguyên tắc thiết kế phân cấp thông tin thống nhất cho toàn bộ tài liệu.",
+      "danh_sach_da_cap_multilevel_list": "Thiết lập danh sách đa cấp (Multilevel List) gắn kết chặt chẽ với Heading Styles để tự động hóa đánh số chương, điều, khoản, mục một cách chính xác tuyệt đối không bị lỗi nhảy số.",
+      "nghe_thuat_trinh_bay_bang_bieu": "Thành thạo kỹ thuật thiết kế bảng biểu (Tables) phức tạp, căn chỉnh cell padding, repeat header rows, lặp lại tiêu đề, xử lý dữ liệu bảng và tính toán cơ bản trong Word.",
+      "doi_tuong_do_hoa_va_so_do": "Khai thác hiệu quả SmartArt, Shapes, Chart, Text Box, kỹ thuật định vị (Positioning) và gói văn bản (Text Wrapping) để minh họa dữ liệu trực quan, chuyên nghiệp.",
+      "quan_ly_tai_lieu_lon_master_doc": "Ứng dụng Master Document và Subdocuments để quản lý các báo cáo, luận văn, sách quy mô hàng ngàn trang mà không làm giảm hiệu suất xử lý của phần mềm.",
+      "trich_dan_va_thu_muc_tai_lieu_tham_khao": "Sử dụng thành thạo Citation & Bibliography theo các chuẩn quốc tế (APA, MLA, IEEE, Harvard), quản lý nguồn tài liệu và tự động tạo mục lục tài liệu tham khảo.",
+      "truong_du_lieu_va_ma_truong_fields": "Khai thác hệ thống Field Codes (STYLEREF, PAGE, NUMPAGES, TOC, XE) để tạo các dynamic elements tự động cập nhật thông tin linh hoạt trong văn bản.",
+      "mail_merge_va_tron_thu": "Thực hiện Mail Merge nâng cao kết nối với nguồn dữ liệu Excel, Access, Outlook; sử dụng quy tắc điều kiện (If...Then...Else) để tự động hóa hàng loạt hợp đồng, chứng thư.",
+      "bieu_mau_bieu_do_interactive_forms": "Thiết kế các biểu mẫu tương tác (Interactive Forms) sử dụng Content Controls (Plain Text, Rich Text, Drop-Down, Date Picker) kết hợp khóa form bảo vệ dữ liệu.",
+      "lap_trinh_vba_va_macro_nang_cao": "Lập trình Visual Basic for Applications (VBA) và viết Macro để tự động hóa các tác vụ lặp đi lặp lại, xây dựng UserForm tùy chỉnh và xử lý văn bản hàng loạt.",
+      "hop_tac_nhom_va_kiem_soat_thay_doi": "Quản lý quy trình làm việc nhóm qua tính năng Track Changes, Comments, Compare Documents, và phân quyền chỉnh sửa từng phần của tài liệu (Restrict Editing).",
+      "bao_mat_phan_quyen_va_chu_ky_so": "Áp dụng mật khẩu mã hóa tài liệu (Encrypt with Password), chữ ký số (Digital Signature), hạn chế quyền truy cập và kiểm tra thông tin ẩn (Inspect Document) trước khi phát hành.",
+      "chuyen_doi_dinh_dang_va_xuat_ban_pdf": "Xuất bản tài liệu chuẩn định dạng PDF/A, tối ưu hóa kích thước file, nhúng font chữ đầy đủ, thiết lập bookmark và accessibility tags cho người khuyết tật.",
+      "kien_truc_template_chuyen_nghiep_brand": "Xây dựng hệ thống Template gốc (.dotx) chuẩn nhận diện thương hiệu (Corporate Identity) cho toàn doanh nghiệp, đảm bảo tính nhất quán trên mọi ấn phẩm văn bản."
+    }
   }
 }
