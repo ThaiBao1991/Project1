@@ -104461,3 +104461,573 @@ PermissionError: [WinError 32] The process cannot access the file because it is 
 [2026-09-11 08:32:40] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\602-03-0069.pdf
 [2026-09-11 08:32:40] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
 [2026-09-11 08:32:40] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:32:41] [INFO] ============================================================
+[2026-09-11 08:32:41] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:32:41] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\509-01-0001.pdf
+[2026-09-11 08:32:41] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:32:41] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:32:41] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:32:41] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:32:41] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:32:41] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:32:41] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:32:41] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:32:41] [INFO] Template match: True
+[2026-09-11 08:32:41] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:32:41] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:32:41] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:32:41] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(482.6739501953125, 174.36680603027344, 510.6739501953125, 195.36680603027344)
+[2026-09-11 08:32:41] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\509-01-0001.pdf
+[2026-09-11 08:32:41] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:32:41] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:32:44] [INFO] ============================================================
+[2026-09-11 08:32:44] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:32:44] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\537-04-0001.pdf
+[2026-09-11 08:32:44] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:32:44] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:32:44] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:32:44] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:32:44] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:32:44] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:32:44] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:32:44] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:32:44] [INFO] Template match: True
+[2026-09-11 08:32:44] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:32:44] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:32:44] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:32:45] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(486.75390625, 176.6467742919922, 514.75390625, 197.6467742919922)
+[2026-09-11 08:32:45] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\537-04-0001.pdf
+[2026-09-11 08:32:45] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:32:45] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:32:45] [INFO] ============================================================
+[2026-09-11 08:32:46] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:32:46] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\576-02-0001.pdf
+[2026-09-11 08:32:46] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:32:46] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:32:46] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:32:46] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:32:46] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:32:46] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:32:46] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:32:46] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:32:46] [INFO] Template match: True
+[2026-09-11 08:32:46] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:32:46] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:32:46] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:32:46] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(483.72235107421875, 180.39199829101562, 511.72235107421875, 201.39199829101562)
+[2026-09-11 08:32:46] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\576-02-0001.pdf
+[2026-09-11 08:32:46] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:32:46] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:32:47] [INFO] ============================================================
+[2026-09-11 08:32:47] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:32:47] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\626-01-0002.pdf
+[2026-09-11 08:32:47] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:32:47] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:32:47] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:32:47] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:32:47] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:32:47] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:32:47] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:32:47] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:32:47] [INFO] Template match: True
+[2026-09-11 08:32:47] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:32:47] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:32:47] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:32:48] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(487.20233154296875, 178.95199584960938, 515.2023315429688, 199.95199584960938)
+[2026-09-11 08:32:48] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\626-01-0002.pdf
+[2026-09-11 08:32:48] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:32:48] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:32:49] [INFO] ============================================================
+[2026-09-11 08:32:49] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:32:49] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\626-01-0004.pdf
+[2026-09-11 08:32:49] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:32:49] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:32:49] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:32:49] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:32:49] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:32:49] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:32:49] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:32:49] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:32:49] [INFO] Template match: True
+[2026-09-11 08:32:49] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:32:49] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:32:49] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:32:50] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(487.20233154296875, 178.95199584960938, 515.2023315429688, 199.95199584960938)
+[2026-09-11 08:32:50] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\626-01-0004.pdf
+[2026-09-11 08:32:50] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:32:50] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:32:53] [INFO] ============================================================
+[2026-09-11 08:32:53] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:32:53] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\516-01-0387.pdf
+[2026-09-11 08:32:53] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:32:53] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:32:53] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:32:53] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:32:53] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:32:53] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:32:53] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:32:53] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:32:53] [INFO] Template match: True
+[2026-09-11 08:32:53] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:32:53] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:32:53] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:32:53] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(485.5206298828125, 190.87640380859375, 513.5206298828125, 211.87640380859375)
+[2026-09-11 08:32:53] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\516-01-0387.pdf
+[2026-09-11 08:32:53] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:32:53] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:32:54] [INFO] ============================================================
+[2026-09-11 08:32:55] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:32:55] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\516-01-0487.pdf
+[2026-09-11 08:32:55] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:32:55] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:32:55] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:32:55] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:32:55] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:32:55] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:32:55] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:32:55] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:32:55] [INFO] Template match: True
+[2026-09-11 08:32:55] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:32:55] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:32:55] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:32:56] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(476.9139404296875, 179.5267791748047, 504.9139404296875, 200.5267791748047)
+[2026-09-11 08:32:56] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\516-01-0487.pdf
+[2026-09-11 08:32:56] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:32:56] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:33:00] [INFO] ============================================================
+[2026-09-11 08:33:00] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:33:01] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\536-02-0066.pdf
+[2026-09-11 08:33:01] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:33:01] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:33:01] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:33:01] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:33:01] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:33:01] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:33:01] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:33:01] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:33:01] [INFO] Template match: True
+[2026-09-11 08:33:01] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:33:01] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:33:01] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:33:01] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(470.4339294433594, 209.0467987060547, 498.4339294433594, 230.0467987060547)
+[2026-09-11 08:33:01] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\536-02-0066.pdf
+[2026-09-11 08:33:01] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:33:01] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:33:01] [INFO] ============================================================
+[2026-09-11 08:33:01] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:33:01] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\536-02-0012.pdf
+[2026-09-11 08:33:01] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:33:01] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:33:01] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:33:01] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:33:01] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:33:01] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:33:01] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:33:01] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:33:01] [INFO] Template match: True
+[2026-09-11 08:33:01] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:33:01] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:33:01] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:33:02] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(470.4339294433594, 209.0467987060547, 498.4339294433594, 230.0467987060547)
+[2026-09-11 08:33:02] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\536-02-0012.pdf
+[2026-09-11 08:33:02] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:33:02] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:33:02] [INFO] ============================================================
+[2026-09-11 08:33:02] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:33:02] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\536-02-0042.pdf
+[2026-09-11 08:33:02] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:33:02] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:33:02] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:33:02] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:33:02] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:33:02] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:33:02] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:33:02] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:33:02] [INFO] Template match: True
+[2026-09-11 08:33:02] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:33:02] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:33:02] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:33:02] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(470.4339294433594, 209.0467987060547, 498.4339294433594, 230.0467987060547)
+[2026-09-11 08:33:02] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\536-02-0042.pdf
+[2026-09-11 08:33:02] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:33:02] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:33:03] [INFO] ============================================================
+[2026-09-11 08:33:03] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:33:03] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\536-02-0029.pdf
+[2026-09-11 08:33:03] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:33:03] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:33:03] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:33:03] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:33:03] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:33:03] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:33:03] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:33:03] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:33:03] [INFO] Template match: True
+[2026-09-11 08:33:03] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:33:03] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:33:03] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:33:03] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(470.4339294433594, 209.0467987060547, 498.4339294433594, 230.0467987060547)
+[2026-09-11 08:33:03] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\536-02-0029.pdf
+[2026-09-11 08:33:03] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:33:03] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:33:03] [INFO] ============================================================
+[2026-09-11 08:33:03] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:33:03] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\536-02-0081.pdf
+[2026-09-11 08:33:03] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:33:03] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:33:03] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:33:03] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:33:03] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:33:03] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:33:03] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:33:03] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:33:03] [INFO] Template match: True
+[2026-09-11 08:33:03] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:33:03] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:33:03] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:33:04] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(470.4339294433594, 209.0467987060547, 498.4339294433594, 230.0467987060547)
+[2026-09-11 08:33:04] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\536-02-0081.pdf
+[2026-09-11 08:33:04] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:33:04] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:33:04] [INFO] ============================================================
+[2026-09-11 08:33:04] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:33:04] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\536-02-0072.pdf
+[2026-09-11 08:33:04] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:33:04] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:33:04] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:33:04] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:33:04] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:33:04] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:33:04] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:33:04] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:33:04] [INFO] Template match: True
+[2026-09-11 08:33:04] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:33:04] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:33:04] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:33:04] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(470.4339294433594, 209.0467987060547, 498.4339294433594, 230.0467987060547)
+[2026-09-11 08:33:04] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\536-02-0072.pdf
+[2026-09-11 08:33:04] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:33:04] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:33:06] [INFO] ============================================================
+[2026-09-11 08:33:06] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:33:06] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\536-02-0030.pdf
+[2026-09-11 08:33:06] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:33:06] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:33:06] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:33:06] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:33:06] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:33:06] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:33:06] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:33:06] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:33:06] [INFO] Template match: True
+[2026-09-11 08:33:06] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:33:06] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:33:06] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:33:06] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(470.4339294433594, 209.0467987060547, 498.4339294433594, 230.0467987060547)
+[2026-09-11 08:33:06] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\536-02-0030.pdf
+[2026-09-11 08:33:06] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:33:06] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:33:06] [INFO] ============================================================
+[2026-09-11 08:33:06] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:33:06] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\536-02-0069.pdf
+[2026-09-11 08:33:06] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:33:06] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:33:06] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:33:06] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:33:06] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:33:06] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:33:06] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:33:06] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:33:06] [INFO] Template match: True
+[2026-09-11 08:33:06] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:33:06] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:33:06] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:33:07] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(470.4339294433594, 209.0467987060547, 498.4339294433594, 230.0467987060547)
+[2026-09-11 08:33:07] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\536-02-0069.pdf
+[2026-09-11 08:33:07] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:33:07] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:33:07] [INFO] ============================================================
+[2026-09-11 08:33:07] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:33:07] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\516-01-0385.pdf
+[2026-09-11 08:33:07] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:33:07] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:33:07] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:33:07] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:33:07] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:33:07] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:33:07] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:33:07] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:33:07] [INFO] Template match: True
+[2026-09-11 08:33:07] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:33:07] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:33:07] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:33:07] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(485.5206298828125, 190.87640380859375, 513.5206298828125, 211.87640380859375)
+[2026-09-11 08:33:07] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\516-01-0385.pdf
+[2026-09-11 08:33:07] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:33:07] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:33:08] [INFO] ============================================================
+[2026-09-11 08:33:08] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:33:08] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\516-01-0325.pdf
+[2026-09-11 08:33:08] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:33:08] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:33:08] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:33:08] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:33:08] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:33:08] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:33:08] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:33:08] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:33:08] [INFO] Template match: True
+[2026-09-11 08:33:08] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:33:08] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:33:08] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:33:08] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(485.5206298828125, 190.87640380859375, 513.5206298828125, 211.87640380859375)
+[2026-09-11 08:33:08] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\516-01-0325.pdf
+[2026-09-11 08:33:08] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:33:08] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:33:08] [INFO] ============================================================
+[2026-09-11 08:33:08] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:33:08] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\516-01-0107.pdf
+[2026-09-11 08:33:08] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:33:08] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:33:08] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:33:08] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:33:08] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:33:08] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:33:08] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:33:08] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:33:08] [INFO] Template match: True
+[2026-09-11 08:33:08] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:33:08] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:33:08] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:33:08] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(485.5206298828125, 190.87640380859375, 513.5206298828125, 211.87640380859375)
+[2026-09-11 08:33:09] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\516-01-0107.pdf
+[2026-09-11 08:33:09] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:33:09] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:33:09] [INFO] ============================================================
+[2026-09-11 08:33:09] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:33:09] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\516-01-0384.pdf
+[2026-09-11 08:33:09] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:33:09] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:33:09] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:33:09] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:33:09] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:33:09] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:33:09] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:33:09] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:33:09] [INFO] Template match: True
+[2026-09-11 08:33:09] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:33:09] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:33:09] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:33:09] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(485.5206298828125, 190.87640380859375, 513.5206298828125, 211.87640380859375)
+[2026-09-11 08:33:09] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\516-01-0384.pdf
+[2026-09-11 08:33:09] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:33:09] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:33:10] [INFO] ============================================================
+[2026-09-11 08:33:10] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:33:10] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\516-01-0188.pdf
+[2026-09-11 08:33:10] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:33:10] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:33:10] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:33:10] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:33:10] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:33:10] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:33:10] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:33:10] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:33:10] [INFO] Template match: True
+[2026-09-11 08:33:10] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:33:10] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:33:10] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:33:10] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(485.5206298828125, 190.87640380859375, 513.5206298828125, 211.87640380859375)
+[2026-09-11 08:33:10] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\516-01-0188.pdf
+[2026-09-11 08:33:10] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:33:10] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:33:11] [INFO] ============================================================
+[2026-09-11 08:33:11] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:33:11] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\536-02-0082.pdf
+[2026-09-11 08:33:11] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:33:11] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:33:11] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:33:11] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:33:12] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:33:12] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:33:12] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:33:12] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:33:12] [INFO] Template match: True
+[2026-09-11 08:33:12] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:33:12] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:33:12] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:33:12] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(470.4339294433594, 209.0467987060547, 498.4339294433594, 230.0467987060547)
+[2026-09-11 08:33:12] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\536-02-0082.pdf
+[2026-09-11 08:33:12] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:33:12] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:33:12] [INFO] ============================================================
+[2026-09-11 08:33:12] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:33:12] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\536-02-0001.pdf
+[2026-09-11 08:33:12] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:33:12] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:33:12] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:33:12] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:33:12] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:33:12] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:33:12] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:33:12] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:33:12] [INFO] Template match: True
+[2026-09-11 08:33:12] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:33:12] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:33:12] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:33:12] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(470.4339294433594, 209.0467987060547, 498.4339294433594, 230.0467987060547)
+[2026-09-11 08:33:12] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\536-02-0001.pdf
+[2026-09-11 08:33:12] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:33:12] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:33:13] [INFO] ============================================================
+[2026-09-11 08:33:13] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:33:13] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\536-02-0009.pdf
+[2026-09-11 08:33:13] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:33:13] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:33:13] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:33:13] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:33:13] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:33:13] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:33:13] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:33:13] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:33:13] [INFO] Template match: True
+[2026-09-11 08:33:13] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:33:13] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:33:13] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:33:13] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(470.4339294433594, 209.0467987060547, 498.4339294433594, 230.0467987060547)
+[2026-09-11 08:33:13] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\536-02-0009.pdf
+[2026-09-11 08:33:13] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:33:13] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:33:15] [INFO] ============================================================
+[2026-09-11 08:33:15] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:33:15] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\536-02-0013.pdf
+[2026-09-11 08:33:15] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:33:15] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:33:15] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:33:15] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:33:15] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:33:15] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:33:15] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:33:15] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:33:15] [INFO] Template match: True
+[2026-09-11 08:33:15] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:33:15] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:33:15] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:33:16] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(470.4339294433594, 209.0467987060547, 498.4339294433594, 230.0467987060547)
+[2026-09-11 08:33:16] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\536-02-0013.pdf
+[2026-09-11 08:33:16] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:33:16] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:33:16] [INFO] ============================================================
+[2026-09-11 08:33:16] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:33:16] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\536-02-0049.pdf
+[2026-09-11 08:33:16] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:33:16] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:33:16] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:33:16] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:33:16] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:33:16] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:33:16] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:33:16] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:33:16] [INFO] Template match: True
+[2026-09-11 08:33:16] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:33:16] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:33:16] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:33:16] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(470.4339294433594, 209.0467987060547, 498.4339294433594, 230.0467987060547)
+[2026-09-11 08:33:16] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\536-02-0049.pdf
+[2026-09-11 08:33:16] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:33:16] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:33:17] [INFO] ============================================================
+[2026-09-11 08:33:17] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:33:17] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\536-02-0043.pdf
+[2026-09-11 08:33:17] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:33:17] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:33:17] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:33:17] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:33:17] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:33:17] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:33:17] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:33:17] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:33:17] [INFO] Template match: True
+[2026-09-11 08:33:17] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:33:17] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:33:17] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:33:17] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(470.4339294433594, 209.0467987060547, 498.4339294433594, 230.0467987060547)
+[2026-09-11 08:33:17] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\536-02-0043.pdf
+[2026-09-11 08:33:17] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:33:17] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:33:18] [INFO] ============================================================
+[2026-09-11 08:33:18] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:33:18] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\605-01-0001.pdf
+[2026-09-11 08:33:18] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:33:18] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:33:18] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:33:18] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:33:18] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:33:18] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:33:18] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:33:18] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:33:18] [INFO] Template match: True
+[2026-09-11 08:33:18] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:33:18] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:33:18] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:33:18] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(480.87396240234375, 195.24681091308594, 508.87396240234375, 216.24681091308594)
+[2026-09-11 08:33:18] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\605-01-0001.pdf
+[2026-09-11 08:33:18] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:33:18] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:33:18] [INFO] ============================================================
+[2026-09-11 08:33:18] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:33:18] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\516-01-0232.pdf
+[2026-09-11 08:33:18] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:33:18] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:33:18] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:33:18] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:33:18] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:33:18] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:33:18] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:33:18] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:33:18] [INFO] Template match: True
+[2026-09-11 08:33:18] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:33:18] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:33:18] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:33:18] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(485.5206298828125, 190.87640380859375, 513.5206298828125, 211.87640380859375)
+[2026-09-11 08:33:18] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\516-01-0232.pdf
+[2026-09-11 08:33:18] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:33:18] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:33:19] [INFO] ============================================================
+[2026-09-11 08:33:19] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:33:19] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\580-07-0002.pdf
+[2026-09-11 08:33:19] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:33:19] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:33:19] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:33:19] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:33:19] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:33:19] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:33:19] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:33:19] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:33:19] [INFO] Template match: True
+[2026-09-11 08:33:19] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:33:19] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:33:19] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:33:19] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(481.59393310546875, 189.60679626464844, 509.59393310546875, 210.60679626464844)
+[2026-09-11 08:33:19] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\580-07-0002.pdf
+[2026-09-11 08:33:19] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:33:19] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-09-11 08:33:21] [INFO] ============================================================
+[2026-09-11 08:33:21] [INFO] === BAT DAU: StampByAntigravity ===
+[2026-09-11 08:33:21] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\517-02-0398.pdf
+[2026-09-11 08:33:21] [INFO] Config    : HieuChinh_(xacnhan)
+[2026-09-11 08:33:21] [INFO] cv2/numpy : CÓ SẴN
+[2026-09-11 08:33:21] [OK] ✓ File PDF tồn tại.
+[2026-09-11 08:33:21] [INFO] Tim thay file config .py: C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\HieuChinh_(xacnhan).py
+[2026-09-11 08:33:21] [OK] ✓ Ảnh con dấu embed: 190x146 px (base64)
+[2026-09-11 08:33:21] [OK] ✓ Đã tải cấu hình: HieuChinh_(xacnhan)
+[2026-09-11 08:33:21] [INFO] Ảnh dấu      : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
+[2026-09-11 08:33:21] [INFO] Tỉ lệ        : 15.0%
+[2026-09-11 08:33:21] [INFO] Template match: True
+[2026-09-11 08:33:21] [INFO] Ngưỡng       : 80.0%
+[2026-09-11 08:33:21] [INFO] Vị trí cố định: [460.02, 110.66580811332904]
+[2026-09-11 08:33:21] [INFO] === CHẾ ĐỘ: ĐÓNG DẤU ===
+[2026-09-11 08:33:21] [OK] ✓   Trang 1: Đã chèn dấu tại RectRect(477.6339416503906, 209.0467987060547, 505.6339416503906, 230.0467987060547)
+[2026-09-11 08:33:21] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\517-02-0398.pdf
+[2026-09-11 08:33:21] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
+[2026-09-11 08:33:21] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.

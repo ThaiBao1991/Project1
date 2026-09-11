@@ -1,4 +1,63 @@
+## 2026-09-10 — Fix Nút Next Khi Tải Tăng Dần (Incremental / Live Download) & Smart Toast — HOÀN THÀNH ✅
+
+### 1. Vấn Đề Gốc Rễ Đã Giải Quyết
+- **Nút Next bị tê liệt trên Day mới nhất đang tải (vd: Day 831/1800)**:
+  - Khi tải đến Day 831, file 832 chưa có trên đĩa.
+  - Cả `nav_injector.py`, `auto_ai_worker.py` và Addon đều đặt `MAX_DAYS = 831` (theo số file tạm thời có trên đĩa), khiến điều kiện `cur >= MAX_DAYS` khóa cứng thuộc tính `disabled` lên nút `Next ▶`.
+  - Trong `auto_ai_worker.py`: mảng `allFiles` nhúng tĩnh chỉ có độ dài 831, khi Day 832 được ghi tiếp thì Day 831 không bao giờ được ghi lại $\rightarrow$ Day 831 vĩnh viễn không thể next sang 832 dù về sau 832 đã tải xong.
+  - Người dùng bấm Next lúc 832 chưa có thì trình duyệt văng lỗi màn hình trắng `ERR_FILE_NOT_FOUND`.
+
+### 2. Các Thay Đổi Cụ Thể
+- **`auto_ai_worker.py`**:
+  - Bổ sung tham số `total_expected_days` cho hàm `create_viewer(out_dir, session_data, total_expected_days)`.
+  - `total_days_num` lấy theo mục tiêu tổng của lộ trình (`max(len(session_data), total_expected_days)` ví dụ 1800), không bị co cụm về số file tạm thời.
+  - Nút Next không bị khóa cứng `disabled` khi `cur < MAX_DAYS`.
+  - Tự động đánh dấu `_needs_disk_write = True` cho Day liền kề trước đó ($N-1$) khi Day $N$ tải xong để tự re-link cập nhật `allFiles` cho Day cũ.
+  - Thêm Toast thông báo thông minh `showToast`: Nếu Day kế tiếp đang được AI xử lý tải về, báo Toast nhẹ nhàng thay vì im lặng hoặc văng lỗi, đồng thời cho phép nhấp Next lần 2 để thử mở trực tiếp.
+- **`nav_injector.py`**:
+  - Bỏ thuộc tính HTML `disabled` cứng nhắc trên nút `nav-next` (`next_disabled = ''`).
+  - Tích hợp Toast thông báo nhẹ nhàng và cơ chế Smart Next 2 lần nhấp: nếu file kế tiếp chưa có trong `FILE_MAP` (vừa tải thêm sau khi inject), nhấp lần 1 báo Toast, nhấp lần 2 mở trực tiếp `day_{next}.html`.
+- **`CopilotWordExportAddon/background.js`**:
+  - Mở rộng regex nhận diện tên file trên thanh điều hướng hỗ trợ đa định dạng (`001_Day 1.html`, `day_1.html`, v.v.).
+  - Bổ sung hàm `showToast` và hỗ trợ chuyển trang tới file đệm số 0 (`day_002.html`) nếu file hiện tại dùng định dạng 3 số.
+
+---
+
+## 2026-09-10 — Fix Next Button + Tính Năng Kiểm Tra Toàn Vẹn (Integrity Check) — HOÀN THÀNH ✅
+
+### 1. Vấn Đề Đã Giải Quyết
+- **Nút Next bị lỗi**: Khi mở roadmap dạng `day_256.html`, regex `(\d+)_.*\.html` không match → `cur` sai → Next nhảy về Day 1.
+- **Thiếu công cụ kiểm tra**: Không biết file nào thiếu nav, nav bị hỏng, hoặc file rỗng.
+
+### 2. Các Thay Đổi Cụ Thể
+- **`auto_ai_worker.py`**:
+  - Mở rộng regex từ chỉ nhận `(\d+)_.*\.html` (định dạng Addon mới) sang nhận thêm `[/\]day_(\d+)[a-z]?\.html` (định dạng cũ).
+  - Prev lẫn Next đều hoạt động chính xác cho cả 2 định dạng.
+- **`nav_injector.py`**:
+  - Thêm hàm `check_integrity(folder, log_callback)` trả về báo cáo chi tiết:
+    - `missing_days`: Day bị thiếu trong dãy 1→N
+    - `no_nav`: File chưa có nav bar
+    - `bad_regex`: File có nav nhưng regex sẽ không match (định dạng tên file lạ)
+    - `tiny_files`: File < 500 bytes (nghi rỗng/lỗi)
+    - `index_ok`: index.html có tồn tại không
+    - `score`: Điểm toàn vẹn 0–100
+- **`AskCpl.py`**:
+  - Nâng cấp `setup_tab_config_index`:
+    - Thêm panel điểm toàn vẹn (Label score góc phải, xanh/vàng/đỏ)
+    - Listbox có màu theo trạng thái (🟢 OK, 🟡 Chưa nav, 🔴 Nav regex lỗi, ⚪ File rỗng)
+    - Hiển thị kích thước KB từng file
+  - Thêm nút **🔍 Kiểm Tra Toàn Vẹn** → gọi `ci_check_integrity()`
+  - Thêm nút **🛠️ Tự Động Sửa Lỗi** → gọi `ci_auto_fix()` (chỉ enable sau khi kiểm tra và có lỗi fixable)
+  - Import `check_integrity` từ `nav_injector`
+
+### 3. Kiểm Thử & Xác Minh
+- ✅ `python -m py_compile auto_ai_worker.py nav_injector.py AskCpl.py`: SYNTAX OK.
+- ⚠️ Chưa verify UI thật (cần user mở AskCpl → tab Config Index → thử luồng).
+
+---
+
 ## 2026-09-08 — Auto-Heal Prerequisite (Map Số Day Sang topic_id) & Khắc Phục TypeError Bước 2 — HOÀN THÀNH ✅
+
 
 ### 1. Vấn Đề Gốc Rễ Đã Giải Quyết
 - **Hiện tượng**: Khi chạy Bước 2 ("Phản Biện Độc Lập & Sửa Lộ Trình") cho lộ trình lớn (1.800 Day), hệ thống đã nạp xong 1.800 Day từ checkpoint nhưng đột ngột dừng với lỗi:

@@ -100,8 +100,10 @@ body{padding-top:52px!important;}
 <script>
 (function(){
   var MAX_DAYS = ${totalDays};
-  var m = window.location.pathname.match(/day_(\\d+)\\.html/i)
-       || window.location.href.match(/day_(\\d+)\\.html/i);
+  var m = window.location.pathname.match(/(\d+)_.*\.html/i)
+       || window.location.pathname.match(/day_(\d+)[a-z]?\.html/i)
+       || window.location.href.match(/(\d+)_.*\.html/i)
+       || window.location.href.match(/day_(\d+)[a-z]?\.html/i);
   var cur = m ? parseInt(m[1]) : 0;
   if(!cur) return;
 
@@ -109,12 +111,34 @@ body{padding-top:52px!important;}
   document.getElementById('askcpl-nav-home').href = 'index.html#day-' + cur;
 
   if(cur <= 1) document.getElementById('nav-prev').disabled = true;
-  if(cur >= MAX_DAYS) document.getElementById('nav-next').disabled = true;
-  
+  if(MAX_DAYS && MAX_DAYS < 9000 && cur >= MAX_DAYS) document.getElementById('nav-next').disabled = true;
+
+  function showToast(msg) {
+    var t = document.getElementById('askcpl-toast');
+    if(!t){
+      t = document.createElement('div');
+      t.id = 'askcpl-toast';
+      t.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#1e1b4b,#312e81);color:#e0e7ff;padding:12px 24px;border-radius:8px;border:1px solid #6366f1;box-shadow:0 10px 25px rgba(0,0,0,0.6);font-size:14px;font-family:sans-serif;z-index:999999;transition:opacity .3s;text-align:center;';
+      document.body.appendChild(t);
+    }
+    t.innerHTML = msg;
+    t.style.opacity = '1';
+    clearTimeout(t._timer);
+    t._timer = setTimeout(function(){ t.style.opacity = '0'; }, 3500);
+  }
+
   window.askcplNav = function(d){
     var n = cur + d;
-    if(n < 1 || n > MAX_DAYS) return;
-    window.location.href = 'day_' + n + '.html';
+    if(n < 1) return;
+    if(MAX_DAYS && MAX_DAYS < 9000 && n > MAX_DAYS) {
+      showToast('Bạn đã ở chương cuối cùng (Day ' + cur + ')');
+      return;
+    }
+    var filename = 'day_' + n + '.html';
+    if(window.location.pathname.match(/day_\d{3}\.html/i)) {
+      filename = 'day_' + String(n).padStart(3, '0') + '.html';
+    }
+    window.location.href = filename;
   };
 
   var toc = document.getElementById('askcpl-toc');

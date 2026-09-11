@@ -71,7 +71,7 @@ except ImportError:
 from settings import load_settings, update_github_settings, update_editor_settings, update_gemini_settings
 from github_api import GitHubSync
 from exercise_builder import save_exercise_to_html, remove_exercise_from_html
-from nav_injector import inject_all, rebuild_index, get_day_files
+from nav_injector import inject_all, rebuild_index, get_day_files, check_integrity
 from roadmap_pipeline import (RoadmapValidationError, atomic_write, load_json_response,
                               render_markdown, render_toc, restore_locked_day_identity,
                               validate_plan, validate_revision)
@@ -5860,65 +5860,86 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
         self.ci_current_dir = ""
         self.ci_watching = False
         self.ci_known_files = set()
+        self.ci_last_integrity = None   # Lưu kết quả kiểm tra gần nhất
 
         # Header
         Label(self.tab_config_index, text="⚙️ Config Index — Tái tạo Điều Hướng HTML",
-              font=("Arial", 14, "bold")).pack(pady=(15, 5))
+              font=("Arial", 14, "bold")).pack(pady=(12, 3))
         Label(self.tab_config_index,
               text="Chọn thư mục chứa các file day_X.html để inject thanh điều hướng (← →) vào từng trang.",
-              fg="gray", wraplength=600).pack(pady=(0, 10))
+              fg="gray", wraplength=650).pack(pady=(0, 8))
 
-        # Chọn thư mục
+        # ─── Chọn thư mục ───
         f1 = Frame(self.tab_config_index)
-        f1.pack(fill='x', padx=20, pady=5)
+        f1.pack(fill='x', padx=20, pady=4)
         self.ci_dir_var = StringVar()
         Entry(f1, textvariable=self.ci_dir_var, state='readonly', width=60).pack(side='left', fill='x', expand=True)
-        Button(f1, text="Chọn Thư Mục", command=self.ci_select_dir, bg="#0078d4", fg="white").pack(side='right', padx=5)
+        Button(f1, text="📂 Chọn Thư Mục", command=self.ci_select_dir,
+               bg="#0078d4", fg="white", font=("Arial", 10, "bold")).pack(side='right', padx=5)
 
-        # Thống kê
-        self.ci_lbl_stats = Label(self.tab_config_index, text="", fg="#0078d4", font=("Arial", 10))
-        self.ci_lbl_stats.pack(pady=3)
+        # ─── Thanh điểm toàn vẹn ───
+        score_frame = Frame(self.tab_config_index, relief='groove', bd=1)
+        score_frame.pack(fill='x', padx=20, pady=4)
+        self.ci_lbl_stats = Label(score_frame, text="📁  Chưa chọn thư mục",
+                                  fg="#555", font=("Arial", 10), anchor='w')
+        self.ci_lbl_stats.pack(side='left', padx=10, pady=4)
+        self.ci_lbl_score = Label(score_frame, text="", font=("Arial", 14, "bold"), width=10)
+        self.ci_lbl_score.pack(side='right', padx=10)
 
-        # Listbox danh sách file
-        lf = ttk.LabelFrame(self.tab_config_index, text="Danh sách file phát hiện")
-        lf.pack(fill='both', expand=True, padx=20, pady=5)
-
+        # ─── Listbox danh sách file (có màu theo trạng thái) ───
+        lf = ttk.LabelFrame(self.tab_config_index,
+                            text="Danh sách file  ·  🟢 OK  🟡 Chưa nav  🔴 Nav lỗi regex  ⚪ File rỗng")
+        lf.pack(fill='both', expand=True, padx=20, pady=4)
         scroll_ci = Scrollbar(lf)
         scroll_ci.pack(side='right', fill='y')
-        self.ci_listbox = Listbox(lf, yscrollcommand=scroll_ci.set, font=("Consolas", 9))
+        self.ci_listbox = Listbox(
+            lf, yscrollcommand=scroll_ci.set,
+            font=("Consolas", 9), selectmode='extended',
+            bg="#fafafa", activestyle='dotbox'
+        )
         self.ci_listbox.pack(side='left', fill='both', expand=True)
         scroll_ci.config(command=self.ci_listbox.yview)
 
-        # Nút hành động
+        # ─── Hàng nút chính ───
         btn_frame = Frame(self.tab_config_index)
-        btn_frame.pack(fill='x', padx=20, pady=8)
+        btn_frame.pack(fill='x', padx=20, pady=6)
+
+        Button(btn_frame, text="🔍 Kiểm Tra Toàn Vẹn",
+               command=self.ci_check_integrity, bg="#0078d4", fg="white",
+               font=("Arial", 10, "bold"), padx=10).pack(side='left', padx=3)
+
+        self.ci_btn_autofix = Button(btn_frame, text="🛠️ Tự Động Sửa Lỗi",
+               command=self.ci_auto_fix, bg="#c4a000", fg="white",
+               font=("Arial", 10, "bold"), padx=10, state='disabled')
+        self.ci_btn_autofix.pack(side='left', padx=3)
+
         Button(btn_frame, text="🔄 Tái tạo index.html",
                command=self.ci_rebuild_index, bg="#5c2d91", fg="white",
-               font=("Arial", 10, "bold"), padx=10).pack(side='left', padx=5)
-        Button(btn_frame, text="🔗 Inject Navigation vào tất cả Day files",
+               font=("Arial", 10, "bold"), padx=10).pack(side='left', padx=3)
+        Button(btn_frame, text="🔗 Inject Nav (tất cả)",
                command=self.ci_inject_nav, bg="#2ea043", fg="white",
-               font=("Arial", 10, "bold"), padx=10).pack(side='left', padx=5)
+               font=("Arial", 10, "bold"), padx=10).pack(side='left', padx=3)
         Button(btn_frame, text="🚀 Tất Cả (Index + Nav)",
-               command=self.ci_do_all, bg="#c4a000", fg="white",
-               font=("Arial", 10, "bold"), padx=10).pack(side='left', padx=5)
+               command=self.ci_do_all, bg="#d45000", fg="white",
+               font=("Arial", 10, "bold"), padx=10).pack(side='left', padx=3)
 
-        # Auto-Watch
+        # ─── Auto-Watch ───
         watch_frame = Frame(self.tab_config_index)
-        watch_frame.pack(fill='x', padx=20, pady=(0, 5))
+        watch_frame.pack(fill='x', padx=20, pady=(0, 4))
         self.ci_watch_btn = Button(
             watch_frame,
             text="👁️ Bật Auto-Watch (Tự động inject khi có file mới)",
             command=self.ci_toggle_watch,
             bg="#555", fg="white", font=("Arial", 10, "bold"), padx=10
         )
-        self.ci_watch_btn.pack(side='left', padx=5)
+        self.ci_watch_btn.pack(side='left', padx=3)
         self.ci_watch_lbl = Label(watch_frame, text="● Đang tắt", fg="#999", font=("Arial", 10))
         self.ci_watch_lbl.pack(side='left', padx=8)
 
-        # Log
+        # ─── Log ───
         log_lf = ttk.LabelFrame(self.tab_config_index, text="Log")
-        log_lf.pack(fill='x', padx=20, pady=(0, 10))
-        self.ci_log = Text(log_lf, height=8, state='disabled', bg="#1e1e2e", fg="#a0f0a0",
+        log_lf.pack(fill='x', padx=20, pady=(0, 8))
+        self.ci_log = Text(log_lf, height=7, state='disabled', bg="#1e1e2e", fg="#a0f0a0",
                            font=("Consolas", 9))
         self.ci_log.pack(fill='both', expand=True, padx=5, pady=5)
 
@@ -5931,6 +5952,7 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
         self.ci_refresh_list()
 
     def ci_refresh_list(self):
+        """Hiển thị danh sách file (nhanh, không kiểm tra nội dung)."""
         self.ci_listbox.delete(0, END)
         folder = self.ci_current_dir
         if not folder:
@@ -5938,6 +5960,7 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
         day_files = get_day_files(folder)
         if not day_files:
             self.ci_lbl_stats.config(text="❌ Không tìm thấy file day_X.html nào!", fg="red")
+            self.ci_lbl_score.config(text="")
             return
 
         total = day_files[-1][0]
@@ -5945,9 +5968,10 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
         missing = [d for d in range(1, total + 1) if d not in found_days]
 
         self.ci_lbl_stats.config(
-            text=f"✅ {len(day_files)} file tìm thấy | Day 1 → Day {total} | Thiếu: {len(missing)} file",
-            fg="#2ea043" if not missing else "#c4a000"
+            text=f"📄 {len(day_files)} file | Day 1 → Day {total} | Thiếu: {len(missing)} | Bấm 🔍 để kiểm tra",
+            fg="#0078d4"
         )
+        self.ci_lbl_score.config(text="")
 
         for day_num, fname in day_files:
             self.ci_listbox.insert(END, f"  Day {day_num:>4}  →  {fname}")
@@ -5955,6 +5979,125 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
         if missing:
             self.ci_listbox.insert(END, "")
             self.ci_listbox.insert(END, f"  ⚠️  File bị thiếu: Day {', '.join(map(str, missing[:15]))}{'...' if len(missing) > 15 else ''}")
+
+    def ci_update_listbox_colors(self, items: list):
+        """Tô màu listbox theo kết quả integrity check."""
+        # Màu theo trạng thái
+        STATUS_COLOR = {
+            "ok":        {"bg": "#e6ffe6", "fg": "#1a6e1a"},  # Xanh lá
+            "no_nav":    {"bg": "#fff8e0", "fg": "#7a5c00"},  # Vàng
+            "bad_regex": {"bg": "#ffe6e6", "fg": "#8b0000"},  # Đỏ
+            "tiny":      {"bg": "#f0f0f0", "fg": "#888888"},  # Xám
+        }
+        self.ci_listbox.delete(0, END)
+        for item in items:
+            day_num = item["day"]
+            fname = item["fname"]
+            status = item["status"]
+            size_kb = item["size"] / 1024
+            icon = {"ok": "🟢", "no_nav": "🟡", "bad_regex": "🔴", "tiny": "⚪"}.get(status, "❓")
+            label = {"ok": "OK", "no_nav": "Chưa nav", "bad_regex": "Nav regex lỗi", "tiny": "File rỗng"}.get(status, status)
+            line = f"  {icon} Day {day_num:>4}  {label:<16}  {size_kb:>6.1f} KB  →  {fname}"
+            self.ci_listbox.insert(END, line)
+            colors = STATUS_COLOR.get(status, {})
+            if colors:
+                idx = self.ci_listbox.size() - 1
+                self.ci_listbox.itemconfig(idx, bg=colors["bg"], fg=colors["fg"])
+
+    def ci_check_integrity(self):
+        """Chạy kiểm tra toàn vẹn trong background thread."""
+        if not self.ci_current_dir:
+            messagebox.showwarning("Chưa chọn thư mục", "Vui lòng chọn thư mục trước!")
+            return
+        self.ci_log_msg("=" * 50)
+        self.ci_log_msg("🔍 Bắt đầu Kiểm Tra Toàn Vẹn...")
+        self.ci_lbl_stats.config(text="⏳ Đang kiểm tra...", fg="#555")
+        self.ci_lbl_score.config(text="⏳", fg="#555")
+
+        def run():
+            result = check_integrity(self.ci_current_dir, self.ci_log_msg)
+            self.ci_last_integrity = result
+
+            score = result["score"]
+            score_color = (
+                "#1a6e1a" if score >= 90 else
+                "#c4a000" if score >= 70 else
+                "#c4322a"
+            )
+            score_text = f"{score}/100"
+
+            missing_cnt = len(result["missing_days"])
+            no_nav_cnt  = len(result["no_nav"])
+            bad_rx_cnt  = len(result["bad_regex"])
+            tiny_cnt    = len(result["tiny_files"])
+            total       = result["total_files"]
+            index_ok    = result["index_ok"]
+
+            parts = [f"📄 {total} file"]
+            if missing_cnt:
+                parts.append(f"🚫 Thiếu {missing_cnt}")
+            if no_nav_cnt:
+                parts.append(f"🟡 Chưa nav: {no_nav_cnt}")
+            if bad_rx_cnt:
+                parts.append(f"🔴 Nav lỗi: {bad_rx_cnt}")
+            if tiny_cnt:
+                parts.append(f"⚪ Rỗng: {tiny_cnt}")
+            parts.append(f"📑 index.html: {'✅' if index_ok else '❌'}")
+            summary = "  |  ".join(parts)
+
+            has_fixable = no_nav_cnt > 0 or bad_rx_cnt > 0
+
+            def update_ui():
+                self.ci_lbl_stats.config(text=summary, fg="#333")
+                self.ci_lbl_score.config(text=score_text, fg=score_color)
+                self.ci_update_listbox_colors(result["items"])
+                if missing_cnt:
+                    self.ci_listbox.insert(END, "")
+                    preview = ', '.join(map(str, result["missing_days"][:15]))
+                    if len(result["missing_days"]) > 15:
+                        preview += f" ... (+{len(result['missing_days'])-15})"
+                    self.ci_listbox.insert(END, f"  🚫  File bị thiếu: Day {preview}")
+                    self.ci_listbox.itemconfig(self.ci_listbox.size()-1, bg="#ffe6e6", fg="#8b0000")
+                btn_state = 'normal' if has_fixable else 'disabled'
+                self.ci_btn_autofix.config(state=btn_state)
+                self.ci_log_msg(f"✅ Xong. Điểm toàn vẹn: {score_text}")
+                if has_fixable:
+                    self.ci_log_msg("💡 Có thể bấm 🛠️ Tự Động Sửa Lỗi để fix nhanh.")
+
+            self.root.after(0, update_ui)
+
+        threading.Thread(target=run, daemon=True).start()
+
+    def ci_auto_fix(self):
+        """Tự động sửa lỗi dựa trên kết quả kiểm tra gần nhất."""
+        if not self.ci_current_dir:
+            messagebox.showwarning("Chưa chọn thư mục", "Vui lòng chọn thư mục trước!")
+            return
+        if not self.ci_last_integrity:
+            messagebox.showinfo("Chưa kiểm tra", "Vui lòng bấm 🔍 Kiểm Tra Toàn Vẹn trước!")
+            return
+
+        no_nav_cnt  = len(self.ci_last_integrity["no_nav"])
+        bad_rx_cnt  = len(self.ci_last_integrity["bad_regex"])
+        index_ok    = self.ci_last_integrity["index_ok"]
+
+        def run():
+            self.ci_log_msg("=" * 50)
+            self.ci_log_msg("🛠️ Bắt đầu Tự Động Sửa...")
+            # Inject nav vào tất cả (bao gồm bad_regex và no_nav)
+            if no_nav_cnt > 0 or bad_rx_cnt > 0:
+                self.ci_log_msg(f"→ Re-inject nav cho {no_nav_cnt + bad_rx_cnt} file có vấn đề...")
+                result = inject_all(self.ci_current_dir, self.ci_log_msg)
+                self.ci_log_msg(f"→ Inject: {result['success']} thành công / {result['failed']} thất bại")
+            # Tái tạo index nếu thiếu
+            if not index_ok:
+                self.ci_log_msg("→ Tái tạo index.html...")
+                rebuild_index(self.ci_current_dir, self.ci_log_msg)
+            # Chạy lại kiểm tra sau khi sửa
+            self.ci_log_msg("→ Chạy lại kiểm tra toàn vẹn...")
+            self.root.after(500, self.ci_check_integrity)
+
+        threading.Thread(target=run, daemon=True).start()
 
     def ci_log_msg(self, msg):
         self.ci_log.config(state='normal')
