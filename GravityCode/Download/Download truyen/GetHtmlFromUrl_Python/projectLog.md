@@ -125,9 +125,32 @@ GetHtmlFromUrl_Python/
 - [x] **Chặn tạo PRC khi thiếu chương**: `main_window.py` nay kiểm tra chặt chẽ `if success:` trước khi kích hoạt `PrcWorker`. Tuyệt đối không tự động tạo PRC nếu vẫn còn chương bị thiếu.
 - [x] **Cảnh báo thiếu chương tức thì (Warning Dialog)**: Khi phát hiện có chương lỗi/thiếu, ứng dụng lập tức hiện hộp thoại cảnh báo người dùng và hướng dẫn bấm "Tiếp Tục" (Resume) để tải bù đủ 100% trước khi tạo eBook.
 
+### ✅ Phase 11 — Tích hợp host xtruyen.vn (Cơ chế mã hóa đặc biệt) — HOÀN THÀNH (2026-09-14)
+- [x] **Phân tích cơ chế xtruyen.vn**: Nội dung chương được mã hóa bằng custom base64 + zlib inflate nhúng trực tiếp trong `<script>` của HTML tĩnh (biến `data_x`). Không cần browser hay login.
+- [x] **`models/page_config.py`**: Thêm field `content_mode: str = ""` — cho phép mỗi host đăng ký phương thức tải nội dung riêng.
+- [x] **`core/engine.py`** — 3 thay đổi lớn:
+  1. **Dispatch mode**: `get_chapter_title_and_content()` kiểm tra `content_mode` và gọi đúng method phù hợp.
+  2. **`_get_chapter_xtruyen()`**: Method mới — parse `data_x`, dịch bảng chữ cái custom→standard base64, decode + zlib inflate, extract title từ JSON-LD schema.
+  3. **`<option>` selector**: `_get_links_static()` giờ xử lý được `<select option>` selector (xtruyen.vn dùng `<select>` làm bảng mục lục), build URL dạng `/truyen/{slug}/chuong-{N}/`.
+- [x] **`core/page_config_mgr.py`**: Fix bug mapping `byPassCloudFlare` → `by_pass_cloud_flare` (sai) thành `by_pass_cloudflare` (đúng) qua bảng `_CAMEL_OVERRIDE`. Bug này ảnh hưởng **tất cả** host dùng CloudFlare bypass.
+- [x] **`config/ghfuConfig.json`**: Thêm entry `xtruyen.vn` với `contentMode: "xtruyen_decrypt"`.
+- [x] **Kết quả test**: 1273 chương được detect; 5/5 chương tải OK qua engine với title đúng, content đầy đủ.
+
+### ✅ Phase 12 — Chống Ban IP & Kiểm Soát Tốc Độ Tải (Anti-Spam & Rate Limiting) — HOÀN THÀNH (2026-09-14)
+- [x] **Cơ chế Per-Host Rate Limiting**:
+  - `models/page_config.py` thêm `delay_ms` và `max_connection` hỗ trợ cấu hình tốc độ và số luồng riêng cho từng host.
+  - `config/ghfuConfig.json`: Cấu hình cho `xtruyen.vn` thêm `"delayMs": 2500` và `"maxConnection": 1` (bắt buộc đơn luồng an toàn).
+- [x] **Chống Spam & Random Jitter trong `gui/workers.py`**:
+  - Chuyển khoảng nghỉ giữa các request vào đúng chu kỳ thực thi kèm `random.uniform(0.3, 1.0)` jitter ngẫu nhiên để xóa dấu vết hành vi bot tuần hoàn.
+  - `_get_max_workers()` và `_get_delay_ms()` tự động ưu tiên cấu hình riêng của host trước khi dùng cài đặt chung của app.
+- [x] **Phát hiện Khóa IP & Circuit Breaker (Hạ nhiệt thông minh)**:
+  - `core/engine.py`: Bổ sung headers trình duyệt hiện đại (Referer, Accept-Language, Sec-Fetch-*), tự động phát hiện các chữ ký khóa IP/chặn spam của server (`"Truy cập bị từ chối"`, `"tạm khóa IP"`, HTTP 429/403) và bật cờ `chapter.is_ip_banned`.
+  - `gui/workers.py`: Khi phát hiện tín hiệu bị khóa IP, lập tức ngừng gửi request (không retry mù quáng), kích hoạt hạ nhiệt 45s, probe thử 1 request. Nếu vẫn bị chặn thì dừng an toàn và bảo toàn file `_Resume.json` cho user.
+
 ## ⏭️ TODO tiếp theo
 - Login Browser nhúng (WebEngineView) thay thế cho chức năng Mở Trình Duyệt ngoài.
 - Auto-Update check (Check version trên Github releases).
 - CAPTCHA detection & xử lý (Hỗ trợ bypass cloudflare nâng cao).
+- Tích hợp OpenClaw (Chrome được mở bình thường) cho các site chặn headless/automation hoàn toàn.
 
 

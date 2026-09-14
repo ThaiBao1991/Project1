@@ -205,5 +205,81 @@
       "chuyen_doi_dinh_dang_va_xuat_ban_pdf": "Xuất bản tài liệu chuẩn định dạng PDF/A, tối ưu hóa kích thước file, nhúng font chữ đầy đủ, thiết lập bookmark và accessibility tags cho người khuyết tật.",
       "kien_truc_template_chuyen_nghiep_brand": "Xây dựng hệ thống Template gốc (.dotx) chuẩn nhận diện thương hiệu (Corporate Identity) cho toàn doanh nghiệp, đảm bảo tính nhất quán trên mọi ấn phẩm văn bản."
     }
+  },
+  "cách để nói chuyện hấp dẫn cực hay về mọi chủ đề": {
+    "title": "Cách để nói chuyện hấp dẫn cực hay về mọi chủ đề",
+    "recommended_days": 180,
+    "persona": "Chuyên gia Truyền thông Đa chiều & Diễn giả Thuyết phục Đỉnh cao",
+    "category": "Kỹ năng Giao tiếp & Nghệ thuật Hùng biện",
+    "instruction": "PROFILE CÁCH ĐỂ NÓI CHUYỆN HẤP DẪN CỰC HAY VỀ MỌI CHỦ ĐỀ: Chương trình đào tạo toàn diện biến học viên từ người ngại giao tiếp thành bậc thầy kể chuyện và dẫn dắt đám đông. Giáo trình đi từ tâm lý học giao tiếp, kỹ thuật cấu trúc nội dung, nghệ thuật sử dụng ngôn từ phi ngôn ngữ, phương pháp thu thập và tổng hợp kiến thức liên ngành nhanh chóng, cho đến kỹ năng xử lý khủng hoảng truyền thông, đối thoại phản biện và làm chủ sân khấu lớn. Học viên sẽ được rèn luyện thực chiến qua các mô hình tâm lý học hành vi, kỹ thuật neo cảm xúc, phương pháp 'Hook - Story - Offer' và tư duy ứng biến linh hoạt trong mọi tình huống xã hội.",
+    "mandatory_milestones": [
+      "tam_ly_hoc_giao_tiep",
+      "cau_truc_noi_dung",
+      "nghe_thuat_ke_chuyen",
+      "ngon_tu_phi_ngon_ngu",
+      "tu_duy_lien_nganh",
+      "ky_thuat_dat_cau_hoi",
+      "xu_ly_tinh_huong_kho",
+      "nghe_thich_ung_dam_dong",
+      "phuong_phap_ung_bien",
+      "ky_nang_thuyet_phuc",
+      "xay_dung_thuong_hieu_ca_nhan",
+      "thuc_chien_su_kien"
+    ],
+    "milestone_descriptions": {
+      "tam_ly_hoc_giao_tiep": "Nghiên cứu sâu về thấu cảm hành vi, nắm bắt tâm lý người nghe, thấu hiểu các rào cản tâm lý trong giao tiếp và cách phá băng nhanh chóng.",
+      "cau_truc_noi_dung": "Làm chủ các khung cấu trúc bài nói kinh điển như STAR, PREP, và Hook-Story-Offer giúp thông tin logic, dễ hiểu và đọng lại ấn tượng mạnh.",
+      "nghe_thuat_ke_chuyen": "Áp dụng cấu trúc Hero's Journey, kỹ thuật tạo xung đột và cao trào cảm xúc vào câu chuyện đời thường để biến mọi chủ đề khô khan thành hấp dẫn.",
+      "ngon_tu_phi_ngon_ngu": "Kiểm soát biểu cảm gương mặt, ánh mắt, ngôn ngữ cơ thể (body language), nhịp điệu giọng nói và âm lượng để tăng độ uy tín và cuốn hút.",
+      "tu_duy_lien_nganh": "Phát triển khả năng kết nối tri thức đa lĩnh vực từ kinh tế, khoa học đến nghệ thuật để luôn có góc nhìn sâu sắc về bất kỳ chủ đề nào.",
+      "ky_thuat_dat_cau_hoi": "Sử dụng câu hỏi mở, câu hỏi gợi mở tư duy (Socratic questioning) để định hướng mạch trò chuyện và duy trì sự hào hứng của đối phương.",
+      "xu_ly_tinh_huong_kho": "Trang bị kỹ năng đối phó với câu hỏi hóc búa, tình huống bị bắt bẻ, hoặc khi đám đông tỏ thái độ hoài nghi bằng sự bình tĩnh và khéo léo.",
+      "nghe_thich_ung_dam_dong": "Phát triển khả năng đọc vị không gian (room reading), điều chỉnh phong cách nói chuyện phù hợp với từng đối tượng từ 1-1 đến hàng ngàn người.",
+      "phuong_phap_ung_bien": "Rèn luyện tư duy phản xạ nhanh qua các bài tập đóng vai, kỹ thuật 'Yes, and...' trong ứng biến để không bao giờ bị rơi vào thế bí.",
+      "ky_nang_thuyet_phuc": "Vận dụng các nguyên tắc gây ảnh hưởng của Robert Cialdini (khan hiếm, bằng chứng xã hội, thiện cảm...) để thay đổi góc nhìn người nghe.",
+      "xay_dung_thuong_hieu_ca_nhan": "Định hình phong cách diễn đạt đặc trưng, xây dựng uy tín qua giọng nói, từ vựng và tư duy cốt lõi mang dấu ấn cá nhân.",
+      "thuc_chien_su_kien": "Tham gia các buổi tranh luận, thuyết trình trước đám đông và mô phỏngtalk show để kiểm tra khả năng giữ lửa và kiểm soát sân khấu."
+    }
+  },
+  "ngành điện điện tử đến chuyên gia làm được mọi thứ": {
+    "title": "Ngành ĐIện điện tử đến chuyên gia làm được mọi thứ",
+    "recommended_days": 1825,
+    "persona": "Chuyên gia Cấp cao Hệ thống Điện - Điện tử & Tự động hóa Toàn diện (Principal E&E & Automation Systems Expert)",
+    "category": "Kỹ thuật Công nghệ Đa ngành",
+    "instruction": "PROFILE NGÀNH ĐIỆN ĐIỆN TỬ ĐẾN CHUYÊN GIA LÀM ĐƯỢC MỌI THỨ: Xây dựng lộ trình từ nền tảng toán học, vật lý bán dẫn, mạch điện tương tự và số đến các hệ thống vi điều khiển, nhúng nâng cao (ARM, FPGA, RTOS). Mở rộng sang truyền thông công nghiệp (Modbus, Profibus, CAN), thiết kế PCB cao tần, lập trình PLC/SCADA/DCS cho nhà máy thông minh, công nghệ năng lượng tái tạo (Solar, Wind, Smart Grid), IoT công nghiệp, Robotics, và tích hợp AI vào biên (Edge AI). Đảm bảo học viên làm chủ toàn diện từ phần cứng, firmware, phần mềm điều khiển đến tiêu chuẩn an toàn điện quốc tế (IEC, IEEE, NEC), đủ năng lực giải quyết mọi bài toán kỹ thuật phức tạp từ quy mô vi mạch đến hệ thống siêu công nghiệp.",
+    "mandatory_milestones": [
+      "toan_ly_nen_tang",
+      "mach_dien_tu_tuong_tu",
+      "mach_so_va_logic",
+      "vi_dieu_khien_va_firmware",
+      "thiet_ke_pcb_chuyen_sau",
+      "he_thong_nhung_va_rtos",
+      "lap_trinh_fpga_vhdl",
+      "dien_cong_nghiep_va_may_dien",
+      "tu_dong_hoa_plc_scada",
+      "truyen_thong_cong_nghiep",
+      "nang_luong_tai_tao_smart_grid",
+      "robotics_va_kinematics",
+      "iot_va_edge_ai",
+      "do_luong_cam_bien_nang_cao",
+      "an_toan_dien_va_tieu_chuan"
+    ],
+    "milestone_descriptions": {
+      "toan_ly_nen_tang": "Nắm vững toán giải tích, đại số tuyến tính, phương trình vi phân, trường điện từ Maxwell và cơ học lượng tử ứng dụng trong vật liệu bán dẫn.",
+      "mach_dien_tu_tuong_tu": "Thiết kế và phân tích các mạch khuyếch đại thuật toán (Op-Amp), bộ nguồn tuyến tính/switching, mạch lọc tích cực và mạch RF cơ bản.",
+      "mach_so_va_logic": "Làm chủ thiết kế mạch logic tổ hợp và tuần tự, máy trạng thái hữu hạn (FSM), ngôn ngữ mô tả phần cứng Verilog/VHDL cơ bản.",
+      "vi_dieu_khien_va_firmware": "Lập trình vi điều khiển ARM Cortex-M, AVR, ESP32 ở mức thanh ghi và HAL, tối ưu hóa ngắt, DMA và các ngoại vi UART, SPI, I2C.",
+      "thiet_ke_pcb_chuyen_sau": "Sử dụng Altium Designer hoặc Cadence Allegro để thiết kế bo mạch đa lớp (Multi-layer PCB), tối ưu tính toàn vẹn tín hiệu (SI/PI) và EMC/EMI.",
+      "he_thong_nhung_va_rtos": "Phát triển hệ điều hành thời gian thực (FreeRTOS, Zephyr), quản lý tiến trình, semaphore, mutex, và porting Linux nhúng lên vi xử lý ARM.",
+      "lap_trinh_fpga_vhdl": "Triển khai thuật toán xử lý tín hiệu số (DSP) và điều khiển tốc độ cao trên chip FPGA của Xilinx/AMD hoặc Intel Altera.",
+      "dien_cong_nghiep_va_may_dien": "Thiết kế hệ thống điện hạ thế/trung thế, tủ điện công nghiệp, máy biến áp, động cơ không đồng bộ ba pha và biến tần công suất lớn.",
+      "tu_dong_hoa_plc_scada": "Lập trình PLC (Siemens S7-1200/1500, Rockwell), thiết kế giao diện HMI và hệ thống SCADA/DCS giám sát quá trình sản xuất công nghiệp.",
+      "truyen_thong_cong_nghiep": "Hiểu sâu và triển khai các giao thức Modbus, Profibus, Profinet, CANopen, EtherCAT, IEC 61850 trong tự động hóa và trạm biến áp.",
+      "nang_luong_tai_tao_smart_grid": "Thiết kế hệ thống điện mặt trời, điện gió, bộ nghịch lưu (Inverters), hệ thống lưu trữ năng lượng (BESS) và lưới điện thông minh.",
+      "robotics_va_kinematics": "Giải quyết bài toán động học thuận/nghịch cho cánh tay robot, thiết kế thuật toán điều khiển PID, điều khiển động lực học và lập trình ROS/ROS2.",
+      "iot_va_edge_ai": "Xây dựng hệ thống IoT công nghiệp (IIoT), MQTT, tích hợp mô hình Machine Learning nhúng (TensorFlow Lite for Microcontrollers) lên vi điều khiển.",
+      "do_luong_cam_bien_nang_cao": "Hiểu nguyên lý hoạt động, xử lý tín hiệu đo lường từ cảm biến công nghiệp (áp suất, lưu lượng, nhiệt độ, IMU) và mạch conditioned signal.",
+      "an_toan_dien_va_tieu_chuan": "Tuân thủ tuyệt đối các tiêu chuẩn kỹ thuật quốc tế IEC, IEEE, NEC, ISO về an toàn điện, chống cháy nổ và độ tin cậy hệ thống."
+    }
   }
 }

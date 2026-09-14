@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>FB Liked Media Downloader (Anti-Ban)</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo-group">
+        <img src="icons/icon48.png" class="logo-img" alt="FB Downloader" width="34" height="34">
+        <div>
+          <h1 class="title">FB Liked Media</h1>
+          <p class="subtitle">Tải Media & Unlike (Anti-Ban Safe)</p>
+        </div>
+      </div>
+      <div id="statusBadge" class="status-badge status-idle">Sẵn sàng</div>
+    </header>
+
+    <!-- Cooldown Warning Banner -->
+    <div id="cooldownBanner" class="cooldown-banner" style="display: none;">
+      <span class="cooldown-icon">☕</span>
+      <div class="cooldown-info">
+        <strong>Đang nghỉ giải lao chống Ban</strong>
+        <p id="cooldownTimerText">Đang đếm ngược để mô phỏng người dùng thật...</p>
+      </div>
+    </div>
+
+    <!-- Quick Navigation & Test -->
+    <div class="quick-nav">
+      <button id="openActivityLogBtn" class="btn btn-outline" title="Mở trang nhật ký bài viết đã thích">
+        🔗 Mở Activity Log
+      </button>
+      <button id="testScanBtn" class="btn btn-outline" title="Thử kiểm tra xem trang có bao nhiêu bài viết">
+        🔍 Thử Quét Dòng
+      </button>
+      <button id="debugDomBtn" class="btn btn-outline" title="Debug: Dump thông tin DOM thực tế ra log để chẩn đoán" style="background: rgba(255,180,0,0.15); border-color: #f5a623;">
+        🔬 Debug DOM
+      </button>
+      <button id="quickResetCacheBtn" class="btn btn-outline" title="Xóa toàn bộ lịch sử đã nhớ để quét và tải lại từ đầu" style="background: rgba(239,68,68,0.15); border-color: #ef4444; color: #fca5a5;">
+        🧹 Reset Cache
+      </button>
+    </div>
+
+
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-value" id="statProcessed">0</span>
+        <span class="stat-label">Đã duyệt</span>
+      </div>
+      <div class="stat-card stat-highlight">
+        <span class="stat-value" id="statDownloaded">0</span>
+        <span class="stat-label">Media tải</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value" id="statSkipped">0</span>
+        <span class="stat-label">Để nguyên (>500k)</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value" id="statUnliked">0</span>
+        <span class="stat-label">Đã Unlike</span>
+      </div>
+    </div>
+
+    <!-- Main Action Controls -->
+    <div class="control-actions">
+      <button id="startBtn" class="btn btn-primary">
+        ▶ Bắt Đầu Quét An Toàn
+      </button>
+      <div class="action-row" id="runningActionRow" style="display: none;">
+        <button id="pauseBtn" class="btn btn-warning">⏸ Tạm Dừng</button>
+        <button id="stopBtn" class="btn btn-danger">⏹ Dừng Hẳn</button>
+      </div>
+    </div>
+
+    <!-- Settings Accordion -->
+    <div class="settings-section">
+      <div class="settings-header" id="toggleSettings">
+        <span>⚙️ Cấu hình An toàn Anti-Ban & Thư mục</span>
+        <span id="settingsArrow">▼</span>
+      </div>
+      <div class="settings-content" id="settingsContent">
+        <!-- Rule info -->
+        <div class="info-box">
+          📂 <b>Thư mục:</b> Ảnh vào <code>image/</code>, Video vào <code>video/</code><br>
+          📏 <b>Quy tắc:</b> Bài &le; 500 ký tự &rarr; tải & unlike. Bài &gt; 500 ký tự &rarr; <b>ĐỂ NGUYÊN</b>.
+        </div>
+
+        <div class="setting-item">
+          <label for="charThreshold">Giới hạn ký tự bài viết:</label>
+          <div class="input-with-hint">
+            <input type="number" id="charThreshold" value="300" min="50" max="5000">
+            <span class="hint">Bài &gt; <span id="hintThreshold">300</span> ký tự sẽ <b>ĐỂ NGUYÊN</b> (Không tải & Không Unlike)</span>
+          </div>
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-item half">
+            <label for="maxPerSession">Giới hạn bài/phiên:</label>
+            <input type="number" id="maxPerSession" value="30" min="5" max="200" title="Dừng an toàn sau khi duyệt xong số bài này">
+          </div>
+          <div class="setting-item half">
+            <label for="cooldownEvery">Nghỉ sau mỗi (bài):</label>
+            <input type="number" id="cooldownEvery" value="5" min="2" max="20" title="Cứ sau N bài unlike thì tạm dừng nghỉ giải lao">
+          </div>
+        </div>
+
+        <div class="checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="autoUnlike" checked>
+            <span>Tự động Hủy Thích (Unlike) cho bài &le; 500 ký tự</span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="downloadImages" checked>
+            <span>Tải hình ảnh vào thư mục <code>image/</code></span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="downloadVideos" checked>
+            <span>Tải video vào thư mục <code>video/</code></span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="savePostInfo" checked>
+            <span>Lưu file tóm tắt bài viết <code>post_info.txt</code></span>
+          </label>
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-item half">
+            <label for="minDelay">Delay tối thiểu (s):</label>
+            <input type="number" id="minDelay" value="4.5" step="0.5" min="2">
+          </div>
+          <div class="setting-item half">
+            <label for="maxDelay">Delay tối đa (s):</label>
+            <input type="number" id="maxDelay" value="8.5" step="0.5" min="4">
+          </div>
+        </div>
+
+        <button id="clearCacheBtn" class="btn btn-sm btn-ghost" title="Xóa lịch sử bài đã quét để quét lại từ đầu">
+          🧹 Xóa bộ nhớ đệm đã quét
+        </button>
+      </div>
+    </div>
+
+    <!-- Debug: Ảnh mẫu lỗi -->
+    <div class="settings-section" style="border-color: #f59e0b22; margin-top: 6px;">
+      <div class="settings-header" id="toggleDebug" style="color: #f59e0b;">
+        <span>🔍 Debug: Phát hiện ảnh tải nhầm</span>
+        <span id="debugArrow">▼</span>
+      </div>
+      <div class="settings-content" id="debugContent" style="display:none;">
+        <div class="info-box" style="border-color: #f59e0b44; background: rgba(245,158,11,0.08); font-size: 11px;">
+          Upload ảnh bị tải nhầm → Extension sẽ so sánh nội dung mỗi ảnh tải về với ảnh mẫu.<br>
+          Nếu độ giống ≥ ngưỡng → <b>DỪNG</b> và báo cáo tại sao ảnh đó lọt qua bộ lọc.
+        </div>
+        <div class="setting-item" style="margin-top:8px;">
+          <label>Ảnh mẫu lỗi:</label>
+          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+            <input type="file" id="sampleImageInput" accept="image/*" style="font-size:11px; color:#ccc; max-width:180px;">
+            <span id="sampleImageStatus" style="font-size:11px; color:#6b7280;">Chưa chọn</span>
+          </div>
+          <div id="sampleImagePreview" style="display:none; margin-top:6px;">
+            <img id="sampleImgThumb" style="width:60px;height:60px;object-fit:cover;border-radius:4px;border:1px solid #374151;" alt="Mẫu">
+          </div>
+        </div>
+        <div class="setting-row" style="margin-top:6px;">
+          <div class="setting-item half">
+            <label for="similarityThreshold">Ngưỡng giống (%):</label>
+            <input type="number" id="similarityThreshold" value="85" min="50" max="99">
+          </div>
+          <div class="setting-item half" style="align-items:flex-end;">
+            <button id="clearSampleBtn" class="btn btn-sm btn-ghost" style="margin-top:16px;">🗑️ Xóa mẫu</button>
+          </div>
+        </div>
+        <div id="debugModeIndicator" style="display:none; margin-top:6px; padding:4px 8px; background:rgba(245,158,11,0.15); border-radius:4px; font-size:11px; color:#f59e0b; text-align:center;">
+          🔍 Debug Mode: Đang theo dõi ảnh nhầm...
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Phát hiện ảnh nhầm -->
+    <div id="suspiciousImgModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:9999; overflow-y:auto;">
+      <div style="background:#1f2937; border:2px solid #f59e0b; border-radius:10px; margin:20px 12px; padding:14px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+          <span style="color:#f59e0b; font-weight:bold; font-size:13px;">🚨 Đã bắt được ảnh tải nhầm!</span>
+          <span id="closeModalBtn" style="cursor:pointer; color:#9ca3af; font-size:16px;">✕</span>
+        </div>
+        <div id="modalContent" style="font-size:11px; color:#d1d5db; line-height:1.6;"></div>
+        <div style="display:flex; gap:8px; margin-top:12px; flex-wrap:wrap;">
+          <button id="modalContinueBtn" class="btn btn-sm btn-outline" style="flex:1; font-size:11px;">▶ Bỏ qua ảnh này &amp; Tiếp tục</button>
+          <button id="modalStopBtn" class="btn btn-sm btn-danger" style="flex:1; font-size:11px;">⏹ Dừng hẳn</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Real-time Console Log -->
+
+    <div class="console-section">
+      <div class="console-header">
+        <span>📋 Nhật ký hoạt động thời gian thực</span>
+        <div style="display: flex; gap: 8px;">
+          <button id="copyLogBtn" class="btn-text" title="Sao chép toàn bộ nội dung log vào clipboard" style="color: #60a5fa; cursor: pointer;">📋 Copy Log</button>
+          <button id="clearLogBtn" class="btn-text">Xóa log</button>
+        </div>
+      </div>
+      <div id="logConsole" class="log-console">
+
+        <div class="log-entry log-info">[Hệ thống] Tiện ích sẵn sàng ở Chế độ An Toàn Anti-Ban. Nhấn Bắt Đầu để chạy.</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

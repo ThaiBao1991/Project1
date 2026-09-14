@@ -13,7 +13,14 @@ class PageConfigManager:
         self.page_configs: List[PageConfig] = []
         self.load_config()
 
+    # Mapping thủ công cho các key camelCase bị convert sai do regex
+    _CAMEL_OVERRIDE = {
+        'byPassCloudFlare': 'by_pass_cloudflare',
+    }
+
     def _camel_to_snake(self, name: str) -> str:
+        if name in self._CAMEL_OVERRIDE:
+            return self._CAMEL_OVERRIDE[name]
         import re
         s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
         return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()

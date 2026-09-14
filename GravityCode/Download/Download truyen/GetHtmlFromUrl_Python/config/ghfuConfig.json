@@ -10776,5 +10776,32 @@
     "useBruteForceMethod": false,
     "ajaxListChapUrl": "/get/listchap/{id}?page={page}",
     "ajaxListChapId": ""
+  },
+  {
+    "pageCode": "xtruyen.vn",
+    "pagingPattern": "",
+    "cssQueryGetListChapter": "select#select-chapter-audio option",
+    "cssQueryGetChapterTitle": "span.tts-chapter-title",
+    "cssQueryGetChapterContent": "#chapter-reading-content",
+    "urlPageTest": "https://www.xtruyen.vn/truyen/cau-tai-so-thanh-ma-mon-lam-nhan-tai/",
+    "textGuide": "Hỗ trợ tải truyện trên xtruyen.vn\n---------------------------\nCơ chế tải đặc biệt: nội dung chương được mã hóa bằng custom base64 + zlib inflate trong HTML tĩnh.\nKhông cần login. Không cần browser. Tải bằng cloudscraper.\n---------------------------\n1. Truy cập xtruyen.vn\n2. Chọn truyện\n3. Copy URL trang chủ truyện (dạng /truyen/ten-truyen/) dán vào app\n4. Nhấn Lấy Danh Sách Chương",
+    "cssFilter": "",
+    "isManualGet": false,
+    "isChapterLinkAbsolute": false,
+    "isEnableChapterSign": false,
+    "isRevertChapterList": false,
+    "isForumType": false,
+    "isUseJsoupGet": true,
+    "isVietnameseHost": true,
+    "byPassCloudFlare": true,
+    "useBruteForceMethod": false,
+    "overMaxSizePageCountState": "EMPTY_PAGE",
+    "scriptJs": "",
+    "mainHost": "",
+    "ajaxListChapUrl": "",
+    "ajaxListChapId": "",
+    "contentMode": "xtruyen_decrypt",
+    "delayMs": 2500,
+    "maxConnection": 1
   }
 ]

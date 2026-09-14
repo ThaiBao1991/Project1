@@ -33,6 +33,11 @@ DEFAULT_SETTINGS = {
         "host": get_local_ip(),
         "port": 5678
     },
+    "background_runner": {
+        "enabled_at_logon": False,
+        "chrome_user_data_dir": "",
+        "chrome_profile_dir": "Default"
+    },
     "gemini": {
         "api_key": "",
         "api_keys": [],
@@ -97,6 +102,9 @@ def load_settings() -> dict:
             # Tự động ghi đè IP nếu đang là 127.0.0.1 để tránh bị chặn
             if merged["server"].get("host") == "127.0.0.1":
                 merged["server"]["host"] = get_local_ip()
+
+        if "background_runner" in data:
+            merged["background_runner"].update(data["background_runner"])
                 
         if "gemini" in data:
             merged["gemini"].update(data["gemini"])

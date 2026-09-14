@@ -1060,6 +1060,9 @@ def create_viewer(out_dir, session_data=None, total_expected_days=None):
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{day_title}</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
   <style>
   {day_css}
   .main-section {{ margin-bottom: 24px; }}
@@ -1080,6 +1083,19 @@ def create_viewer(out_dir, session_data=None, total_expected_days=None):
   </header>
   <div class="content">{full_day_content}</div>
   {nav_bar}
+<script>
+document.addEventListener("DOMContentLoaded", function() {{
+  if (typeof renderMathInElement === "function") {{
+    renderMathInElement(document.body, {{
+      delimiters: [
+        {{left: '$$', right: '$$', display: true}},
+        {{left: '$',  right: '$',  display: false}}
+      ],
+      throwOnError: false
+    }});
+  }}
+}});
+</script>
 </body>
 </html>"""
             try:

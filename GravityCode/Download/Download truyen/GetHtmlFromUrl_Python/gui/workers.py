@@ -7,6 +7,7 @@ Tương đương TAuto.java của phiên bản Java gốc.
 import os
 import re
 import time
+import random
 import json
 import logging
 import concurrent.futures
@@ -75,11 +76,17 @@ class DownloadWorker(QThread):
     def stop(self):
         self.is_running = False
 
-    def _get_max_workers(self):
+    def _get_max_workers(self, page_config=None):
+        if page_config and getattr(page_config, 'max_connection', 0) > 0:
+            return page_config.max_connection
+        if page_config and getattr(page_config, 'content_mode', '') == 'xtruyen_decrypt':
+            return 1  # xtruyen.vn bắt buộc chạy 1 luồng để tránh bị khóa IP
         settings = QSettings("Mkbyme", "GetHtmlFromUrl")
         return settings.value("download/max_connection", 1, type=int)
 
-    def _get_delay_ms(self):
+    def _get_delay_ms(self, page_config=None):
+        if page_config and getattr(page_config, 'delay_ms', 0) > 0:
+            return page_config.delay_ms
         settings = QSettings("Mkbyme", "GetHtmlFromUrl")
         return settings.value("download/delay_ms", 300, type=int)
 
@@ -214,12 +221,15 @@ class DownloadWorker(QThread):
                 self.chapters = [None] * len(selected_links)
                 chapters_status = [{"status": "pending", "title": ""} for _ in selected_links]
 
-            self.log_signal.emit(f"📥 Bắt đầu tải với {self._get_max_workers()} luồng...")
-            delay_ms = self._get_delay_ms() / 1000.0
+            max_workers = self._get_max_workers(page_config)
+            base_delay_sec = self._get_delay_ms(page_config) / 1000.0
+            self.log_signal.emit(f"📥 Bắt đầu tải với {max_workers} luồng (Khoảng nghỉ cơ bản: {base_delay_sec:.1f}s)...")
+
+            self.is_ip_banned_encountered = False
 
             # 3. HÀM WORKER CHO TỪNG CHƯƠNG (CHẠY TRONG THREADPOOL)
             def download_single(local_idx: int, link: str):
-                if not self.is_running:
+                if not self.is_running or self.is_ip_banned_encountered:
                     return
                     
                 # Bỏ qua nếu đã tải xong trong quá trình resume
@@ -231,22 +241,33 @@ class DownloadWorker(QThread):
                 
                 full_link = link if link.startswith("http") else f"https://{page_config.page_code}{link}"
                 
-                max_retries = 5
+                max_retries = 3
                 chapter = None
                 for attempt in range(max_retries):
-                    if not self.is_running:
+                    if not self.is_running or self.is_ip_banned_encountered:
                         return
                     chapter = self.engine.get_chapter_title_and_content(full_link, page_config)
                     chapter.url = full_link
                     
+                    # Nếu bị chặn IP hoặc cảnh báo spam -> kích hoạt ngắt mạch, không retry mù quáng
+                    if getattr(chapter, 'is_ip_banned', False):
+                        self.is_ip_banned_encountered = True
+                        break
+
                     if not chapter.is_get_failed:
                         break  # Thành công thì thoát vòng lặp retry
                         
                     if attempt < max_retries - 1:
                         self.log_signal.emit(f"  ⚠️ Lỗi chương {global_idx + 1}, thử lại lần {attempt + 2}/{max_retries}...")
-                        time.sleep(1)  # Nghỉ 1 giây trước khi thử lại
+                        time.sleep(1.5 + attempt)  # Nghỉ tăng dần trước khi thử lại
 
-                if chapter.is_get_failed:
+                if getattr(chapter, 'is_ip_banned', False):
+                    self.download_failed_count += 1
+                    self.failed_links.append(full_link)
+                    chapters_status[local_idx] = {"status": "error", "title": "Bị khóa IP do spam"}
+                    self.progress_signal.emit(global_idx, "⛔ Khóa IP", "Máy chủ chặn spam")
+                    self.log_signal.emit(f"  ⛔ Máy chủ tạm khóa IP khi tải: {full_link}")
+                elif chapter.is_get_failed:
                     self.download_failed_count += 1
                     self.failed_links.append(full_link)
                     chapters_status[local_idx] = {"status": "error", "title": chapter.title}
@@ -269,18 +290,21 @@ class DownloadWorker(QThread):
                 if not self.is_running:
                     break
                     
-                max_workers = self._get_max_workers()
+                self.is_ip_banned_encountered = False
+                max_workers = self._get_max_workers(page_config)
                 with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
                     futures = []
                     for idx, link in enumerate(selected_links):
-                        if not self.is_running:
+                        if not self.is_running or self.is_ip_banned_encountered:
                             break
                         # Bỏ qua nếu đã tải xong (từ lần trước hoặc lần thử nghiệm trong cùng session)
                         if chapters_status[idx].get("status") == "done":
                             continue
                             
                         futures.append(executor.submit(download_single, idx, link))
-                        time.sleep(delay_ms) # Khoảng nghỉ tránh spam request quá nhanh
+                        # Khoảng nghỉ + Jitter ngẫu nhiên giữa các lần gửi request
+                        jitter = random.uniform(0.3, 1.0) if base_delay_sec > 0.5 else 0
+                        time.sleep(base_delay_sec + jitter)
                     
                     # Chờ tất cả xong
                     for future in concurrent.futures.as_completed(futures):
@@ -288,6 +312,31 @@ class DownloadWorker(QThread):
 
                 if not self.is_running:
                     break
+
+                # Xử lý Circuit Breaker nếu phát hiện bị khóa IP
+                if self.is_ip_banned_encountered:
+                    self.log_signal.emit("⚠️ Máy chủ phát hiện tần suất cao và tạm khóa IP!")
+                    self.log_signal.emit("⏳ Đang tạm dừng 45 giây để máy chủ hạ nhiệt và mở lại IP...")
+                    for _ in range(45):
+                        if not self.is_running:
+                            break
+                        time.sleep(1)
+
+                    if not self.is_running:
+                        break
+
+                    # Thử kiểm tra nhẹ nhàng 1 request xem IP đã thông chưa
+                    self.log_signal.emit("🔄 Đang kiểm tra lại trạng thái IP...")
+                    probe_link = selected_links[0] if selected_links[0].startswith("http") else f"https://{page_config.page_code}{selected_links[0]}"
+                    test_ch = self.engine.get_chapter_title_and_content(probe_link, page_config)
+                    if getattr(test_ch, 'is_ip_banned', False):
+                        self.log_signal.emit("❌ IP vẫn đang bị tạm khóa. Dừng tải để bảo vệ an toàn cho IP của bạn!")
+                        self.log_signal.emit("💡 Mẹo: Toàn bộ tiến trình đã được lưu an toàn vào file Resume.")
+                        self.log_signal.emit("👉 Bạn có thể đổi mạng (phát 4G/bật VPN) hoặc chờ 5-10 phút rồi bấm 'Tải Tiếp'.")
+                        self.finished_signal.emit(False, "Tạm dừng do IP bị giới hạn spam. Tiến trình đã được lưu an toàn.")
+                        return
+                    else:
+                        self.log_signal.emit("✅ Máy chủ đã mở lại IP! Tiếp tục tiến trình tải...")
 
                 # Kiểm tra xem đã hoàn thành 100% chưa
                 if all(ch is not None for ch in self.chapters):
@@ -297,7 +346,7 @@ class DownloadWorker(QThread):
                 failed_count = sum(1 for ch in self.chapters if ch is None)
                 if auto_resume_attempt < 4:
                     self.log_signal.emit(f"🔄 Auto-resume lần {auto_resume_attempt + 1}/5: còn {failed_count} chương lỗi. Đang thử lại...")
-                    time.sleep(2)
+                    time.sleep(3)
                 else:
                     self.log_signal.emit(f"❌ Đã thử tải tự động 5 lần nhưng vẫn còn {failed_count} chương lỗi.")
 

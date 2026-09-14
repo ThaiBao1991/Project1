@@ -1201,7 +1201,21 @@ function buildPromptWithMemory(day) {
     if (promptMode === 'file_md' && roadmapData) {
         const found = roadmapData.find(d => d.day === day);
         if (found && found.prompt) {
-            return found.prompt;
+            let p = found.prompt;
+            // Tự động bổ sung yêu cầu công thức LaTeX và trắc nghiệm nếu prompt chưa có
+            const hasFormula = /công thức|latex|\$\$|\$|toán|kỹ thuật/i.test(p);
+            const hasQuiz = /trắc nghiệm|câu hỏi tự kiểm tra|quiz/i.test(p);
+            let extra = [];
+            if (!hasFormula) {
+                extra.push("- Bắt buộc trình bày đầy đủ các công thức toán học/kỹ thuật/vật lý liên quan chuẩn LaTeX ($$...$$ hoặc $...$), giải thích rõ các đại lượng và đơn vị đo (ví dụ: Ohm Ω, V, A, W, F...).");
+            }
+            if (!hasQuiz) {
+                extra.push("- Cuối bài giảng BẮT BUỘC có mục '### Câu hỏi trắc nghiệm & Tình huống thực tế' gồm 3-5 câu trắc nghiệm tự kiểm tra kèm đáp án chi tiết và giải thích.");
+            }
+            if (extra.length > 0) {
+                p += "\n\n[YÊU CẦU ĐỊNH DẠNG & NỘI DUNG BỔ SUNG]\n" + extra.join("\n");
+            }
+            return p;
         }
         return `${prefixStr}${day}`; // Fallback
     }
@@ -1240,6 +1254,8 @@ function buildPromptWithMemory(day) {
 
         prompt += `[BÀI HỌC HÔM NAY]\nHôm nay là Ngày ${day}: ${dayData.title}\n`;
         prompt += `Yêu cầu chi tiết: ${dayData.detail}\n`;
+        prompt += `- Bắt buộc trình bày đầy đủ các công thức toán học/kỹ thuật/vật lý liên quan chuẩn LaTeX ($$...$$ hoặc $...$), giải thích rõ các đại lượng và đơn vị đo (ví dụ: Ohm Ω, V, A, W, F...).\n`;
+        prompt += `- Cuối bài giảng BẮT BUỘC có mục '### Câu hỏi trắc nghiệm & Tình huống thực tế' gồm 3-5 câu trắc nghiệm tự kiểm tra kèm đáp án chi tiết và giải thích.\n`;
         prompt += buildMemoryPrompt();
         
         return prompt;

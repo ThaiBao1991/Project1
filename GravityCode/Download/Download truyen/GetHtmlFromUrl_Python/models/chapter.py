@@ -6,4 +6,5 @@ class Chapter:
     content: str = ""
     url: str = ""
     is_has_capcha_block: bool = False
+    is_ip_banned: bool = False
     is_get_failed: bool = False

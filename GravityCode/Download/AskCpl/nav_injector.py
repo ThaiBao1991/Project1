@@ -301,8 +301,32 @@ def inject_nav_into_file(filepath: str, current_day: int, day_map: dict, total_d
             content = f.read()
         content = remove_old_nav(content)
         nav_html = build_nav_html(current_day, day_map, total_days, file_map)
+        if '</head>' in content.lower() and 'katex.min.js' not in content:
+            katex_tags = (
+                '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">\n'
+                '<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>\n'
+                '<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>\n'
+            )
+            head_pos = content.lower().rfind('</head>')
+            content = content[:head_pos] + katex_tags + content[head_pos:]
+        # Inject KaTeX render call before </body> if not already present
+        katex_render_script = (
+            '\n<script>\n'
+            'document.addEventListener("DOMContentLoaded", function() {\n'
+            '  if (typeof renderMathInElement === "function") {\n'
+            '    renderMathInElement(document.body, {\n'
+            "      delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],\n"
+            '      throwOnError: false\n'
+            '    });\n'
+            '  }\n'
+            '});\n'
+            '</script>\n'
+        )
         if '</body>' in content.lower():
             insert_pos = content.lower().rfind('</body>')
+            # Only inject if renderMathInElement call not already in file
+            if 'renderMathInElement' not in content:
+                content = content[:insert_pos] + katex_render_script + content[insert_pos:]
             content = content[:insert_pos] + nav_html + '\n' + content[insert_pos:]
         else:
             content += nav_html

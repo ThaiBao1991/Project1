@@ -68,7 +68,8 @@ except ImportError:
     win32com = None
 
 # Import các module mới
-from settings import load_settings, update_github_settings, update_editor_settings, update_gemini_settings
+from settings import load_settings, save_settings, update_github_settings, update_editor_settings, update_gemini_settings
+from fb_background_runner import default_config as fb_runner_defaults, load_config as fb_runner_load_config, save_config as fb_runner_save_config, start as fb_runner_start, stop as fb_runner_stop, status as fb_runner_status, set_logon_task as fb_runner_set_logon_task, task_exists as fb_runner_task_exists
 from github_api import GitHubSync
 from exercise_builder import save_exercise_to_html, remove_exercise_from_html
 from nav_injector import inject_all, rebuild_index, get_day_files, check_integrity
@@ -175,6 +176,7 @@ class AskCplApp:
         self.tab_config_index = ttk.Frame(self.notebook)
         self.tab_note = ttk.Frame(self.notebook)
         self.tab_auto_ai = ttk.Frame(self.notebook)
+        self.tab_fb_runner = ttk.Frame(self.notebook)
         
         self.notebook.add(self.tab_auto_ai, text="🤖 Auto AI")
         self.notebook.add(self.tab_word, text="Xuất Word")
@@ -183,13 +185,72 @@ class AskCplApp:
         self.notebook.add(self.tab_note, text="📝 Trình Tạo Note")
         self.notebook.add(self.tab_config_index, text="⚙️ Config Index")
         
+        self.notebook.add(self.tab_fb_runner, text="Facebook Background")
         self.setup_tab_auto_ai()
+        self.setup_tab_fb_runner()
         self.setup_tab_word()
         self.setup_tab_github()
         self.setup_tab_exercise()
         self.setup_tab_note()
         self.setup_tab_config_index()
         
+    def setup_tab_fb_runner(self):
+        defaults = fb_runner_defaults()
+        saved = fb_runner_load_config()
+        self.fb_runner_profile_var = StringVar(value=saved.get("chrome_user_data_dir") or defaults["chrome_user_data_dir"])
+        self.fb_runner_profile_name_var = StringVar(value=saved.get("chrome_profile_dir") or defaults["chrome_profile_dir"])
+        self.fb_runner_logon_var = IntVar(value=1 if saved.get("enabled_at_logon", False) else 0)
+        Label(self.tab_fb_runner, text="Facebook Background Runner", font=("Arial", 15, "bold")).pack(anchor="w", padx=20, pady=(18, 4))
+        Label(self.tab_fb_runner, text="Chrome remains open in a minimized window so Facebook login and the extension keep working. It never uses headless mode.", fg="#555").pack(anchor="w", padx=20)
+        form = Frame(self.tab_fb_runner)
+        form.pack(fill="x", padx=20, pady=14)
+        Label(form, text="Chrome user-data folder:", width=25, anchor="w").grid(row=0, column=0, sticky="w", pady=5)
+        Entry(form, textvariable=self.fb_runner_profile_var, width=78).grid(row=0, column=1, sticky="ew", pady=5)
+        Label(form, text="Chrome profile folder:", width=25, anchor="w").grid(row=1, column=0, sticky="w", pady=5)
+        Entry(form, textvariable=self.fb_runner_profile_name_var, width=28).grid(row=1, column=1, sticky="w", pady=5)
+        Checkbutton(form, text="Start automatically after Windows sign-in", variable=self.fb_runner_logon_var).grid(row=2, column=1, sticky="w", pady=8)
+        form.grid_columnconfigure(1, weight=1)
+        actions = Frame(self.tab_fb_runner)
+        actions.pack(fill="x", padx=20, pady=4)
+        Button(actions, text="Save and check", command=self.fb_runner_save_and_status, bg="#1565c0", fg="white").pack(side="left", padx=(0, 6))
+        Button(actions, text="Start background", command=self.fb_runner_start_ui, bg="#2e7d32", fg="white").pack(side="left", padx=6)
+        Button(actions, text="Stop runner processes", command=self.fb_runner_stop_ui, bg="#b71c1c", fg="white").pack(side="left", padx=6)
+        self.fb_runner_status_var = StringVar(value="Not checked")
+        Label(self.tab_fb_runner, textvariable=self.fb_runner_status_var, font=("Consolas", 10), justify="left", anchor="w").pack(fill="x", padx=20, pady=12)
+        Label(self.tab_fb_runner, text="First run: start the runner once, sign into Facebook, and load the unpacked extension in this dedicated profile. Later Chrome will open minimized.", fg="#8a4b00", wraplength=800, justify="left").pack(anchor="w", padx=20, pady=4)
+        self.fb_runner_refresh_status()
+
+    def fb_runner_config(self):
+        return {"chrome_user_data_dir": self.fb_runner_profile_var.get().strip(), "chrome_profile_dir": self.fb_runner_profile_name_var.get().strip() or "Default", "enabled_at_logon": bool(self.fb_runner_logon_var.get())}
+
+    def fb_runner_save_and_status(self):
+        config = self.fb_runner_config()
+        self.settings["background_runner"] = config
+        save_settings(self.settings)
+        fb_runner_save_config(config)
+        try:
+            fb_runner_set_logon_task(config["enabled_at_logon"])
+            self.fb_runner_refresh_status("Configuration saved. ")
+        except Exception as error:
+            self.fb_runner_status_var.set(f"Cannot update Scheduled Task: {error}")
+
+    def fb_runner_refresh_status(self, prefix=""):
+        info = fb_runner_status()
+        task = "enabled" if fb_runner_task_exists() else "disabled"
+        self.fb_runner_status_var.set(f"{prefix}Helper: {'running' if info['helper_running'] else 'stopped'} | Windows logon task: {task}\nChrome PID: {info.get('chrome_pid') or '-'} | Helper PID: {info.get('helper_pid') or '-'}")
+
+    def fb_runner_start_ui(self):
+        self.fb_runner_save_and_status()
+        try:
+            info = fb_runner_start(self.fb_runner_config())
+            self.fb_runner_status_var.set(f"Chrome started minimized. Chrome PID: {info.get('chrome_pid')} | Helper: {'running' if info['helper_running'] else 'error'}")
+        except Exception as error:
+            self.fb_runner_status_var.set(f"Start failed: {error}")
+
+    def fb_runner_stop_ui(self):
+        fb_runner_stop()
+        self.fb_runner_refresh_status("Stopped only processes started by this runner. ")
+
     # --- TAB 0: AUTO AI ---
     def setup_tab_auto_ai(self):
         from tkinter import ttk
@@ -343,6 +404,9 @@ class AskCplApp:
         f_actions = tk.Frame(self.sub_tab_roadmap_gen)
         f_actions.pack(side='top', fill='x', padx=10, pady=5)
         
+        tk.Button(f_actions, text="🪄 Trắc Nghiệm Định Hình", bg="#16a085", fg="white", font=("Arial", 10, "bold"),
+                  command=self.open_scoping_wizard).pack(side='left', padx=2)
+                  
         tk.Button(f_actions, text="1. Lên Dàn ý Lõi (Core)", bg="#8e44ad", fg="white", font=("Arial", 10, "bold"),
                   command=lambda: self.roadmap_gen_step1()).pack(side='left', padx=2)
                   
@@ -370,6 +434,241 @@ class AskCplApp:
         
         self.ai_roadmap_skeleton_text = scrolledtext.ScrolledText(f_preview, height=4, bg="#fffde7", font=("Consolas", 10))
         self.ai_roadmap_skeleton_text.pack(fill='both', expand=True, pady=2)
+
+    def open_scoping_wizard(self):
+        import tkinter as tk
+        from tkinter import ttk
+        
+        wizard = tk.Toplevel(self.root)
+        wizard.title("🪄 Trắc Nghiệm Định Hình Lộ Trình (Scoping Wizard)")
+        wizard.geometry("700x640")
+        wizard.minsize(620, 540)
+        wizard.transient(self.root)
+        
+        # Header
+        f_head = tk.Frame(wizard, bg="#2c3e50", padx=15, pady=10)
+        f_head.pack(fill='x')
+        tk.Label(f_head, text="🪄 TRẮC NGHIỆM ĐỊNH HÌNH LỘ TRÌNH CHUẨN XÁC", font=("Arial", 12, "bold"), fg="#ecf0f1", bg="#2c3e50").pack(anchor='w')
+        tk.Label(f_head, text="Chọn các phương án bên dưới để AI tự động bổ sung chỉ thị công thức LaTeX, trắc nghiệm và tiêu chuẩn thực chiến.", font=("Arial", 9), fg="#bdc3c7", bg="#2c3e50").pack(anchor='w')
+        
+        # Action Buttons (pack bottom first to ensure visibility)
+        f_btns = tk.Frame(wizard, bg="#ecf0f1", padx=15, pady=10)
+        f_btns.pack(side='bottom', fill='x')
+
+        # Scrollable container for questions
+        canvas = tk.Canvas(wizard, borderwidth=0, highlightthickness=0)
+        scrollbar = ttk.Scrollbar(wizard, orient="vertical", command=canvas.yview)
+        f_scroll = tk.Frame(canvas, padx=15, pady=10)
+        
+        f_scroll.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
+        canvas_win = canvas.create_window((0, 0), window=f_scroll, anchor="nw")
+        
+        def _on_canvas_configure(event):
+            canvas.itemconfig(canvas_win, width=event.width)
+        canvas.bind("<Configure>", _on_canvas_configure)
+        canvas.configure(yscrollcommand=scrollbar.set)
+        
+        canvas.pack(side="left", fill="both", expand=True)
+        scrollbar.pack(side="right", fill="y")
+        
+        # Question 1: Mục tiêu & Phong cách học
+        q1_group = tk.LabelFrame(f_scroll, text=" 1. Mục Tiêu & Phong Cách Lộ Trình ", font=("Arial", 10, "bold"), padx=10, pady=8)
+        q1_group.pack(fill='x', pady=6)
+        
+        q1_var = tk.StringVar(value="practical")
+        tk.Radiobutton(q1_group, text="🎯 Thực chiến Đo đạc & Sửa chữa / Troubleshooting (Tập trung pan bệnh, linh kiện thật, đo áp/sóng)", 
+                       variable=q1_var, value="practical", font=("Arial", 9)).pack(anchor='w', pady=2)
+        tk.Radiobutton(q1_group, text="🔬 R&D, Thiết kế phần cứng & Phân tích chuyên sâu (Tính toán thông số, thiết kế schematic, PCB)", 
+                       variable=q1_var, value="rnd", font=("Arial", 9)).pack(anchor='w', pady=2)
+        tk.Radiobutton(q1_group, text="📚 Toàn diện từ Zero đến Master (Cân bằng vững chắc: Nền tảng lý thuyết ➔ Đo đạc thực tế ➔ Sửa lỗi nâng cao)", 
+                       variable=q1_var, value="full", font=("Arial", 9)).pack(anchor='w', pady=2)
+
+        # Question 2: Công thức Toán & Kỹ thuật
+        q2_group = tk.LabelFrame(f_scroll, text=" 2. Yêu Cầu Về Công Thức Kỹ Thuật (LaTeX) ", font=("Arial", 10, "bold"), padx=10, pady=8)
+        q2_group.pack(fill='x', pady=6)
+        
+        q2_var = tk.StringVar(value="latex_full")
+        tk.Radiobutton(q2_group, text="📐 Bắt buộc đầy đủ công thức chuẩn LaTeX ($$...$$ hoặc $...$), giải thích rõ đại lượng và đơn vị đo (Ohm Ω, V, A, W, F...)", 
+                       variable=q2_var, value="latex_full", font=("Arial", 9)).pack(anchor='w', pady=2)
+        tk.Radiobutton(q2_group, text="💡 Tối giản công thức hàn lâm, chỉ giữ lại công thức tính nhanh thực dụng trong tác vụ sửa chữa", 
+                       variable=q2_var, value="latex_minimal", font=("Arial", 9)).pack(anchor='w', pady=2)
+
+        # Question 3: Trắc nghiệm & Đánh giá kiến thức
+        q3_group = tk.LabelFrame(f_scroll, text=" 3. Đánh Giá & Kiểm Tra Kiến Thức Cuối Bài ", font=("Arial", 10, "bold"), padx=10, pady=8)
+        q3_group.pack(fill='x', pady=6)
+        
+        q3_quiz_var = tk.BooleanVar(value=True)
+        q3_dod_var = tk.BooleanVar(value=True)
+        tk.Checkbutton(q3_group, text="❓ Cuối mỗi bài BẮT BUỘC có 3-5 câu hỏi trắc nghiệm & tình huống thực tế kèm đáp án chi tiết và giải thích", 
+                       variable=q3_quiz_var, font=("Arial", 9)).pack(anchor='w', pady=2)
+        tk.Checkbutton(q3_group, text="📋 Kèm Checklist nghiệm thu hoàn thành (Definition of Done) rõ ràng cho từng Day", 
+                       variable=q3_dod_var, font=("Arial", 9)).pack(anchor='w', pady=2)
+
+        # Question 4: Thiết bị & Dụng cụ thực hành
+        q4_group = tk.LabelFrame(f_scroll, text=" 4. Trang Thiết Bị & Dụng Cụ Thực Hành ", font=("Arial", 10, "bold"), padx=10, pady=8)
+        q4_group.pack(fill='x', pady=6)
+        
+        q4_basic_var = tk.BooleanVar(value=True)
+        q4_adv_var = tk.BooleanVar(value=True)
+        q4_sim_var = tk.BooleanVar(value=True)
+        tk.Checkbutton(q4_group, text="🛠️ Dụng cụ cơ bản: Đồng hồ vạn năng VOM/Multimeter, Mỏ hàn, Test board, Nguồn DC", 
+                       variable=q4_basic_var, font=("Arial", 9)).pack(anchor='w', pady=2)
+        tk.Checkbutton(q4_group, text="⚡ Dụng cụ đo chuyên dụng: Máy hiện sóng (Oscilloscope), Nguồn lập trình, Máy khò nhiệt, Máy phân tích logic", 
+                       variable=q4_adv_var, font=("Arial", 9)).pack(anchor='w', pady=2)
+        tk.Checkbutton(q4_group, text="💻 Mô phỏng phần mềm: Hướng dẫn cả trên phần mềm mô phỏng mạch (Proteus, Multisim, LTspice)", 
+                       variable=q4_sim_var, font=("Arial", 9)).pack(anchor='w', pady=2)
+        
+        # Ghi chú thêm
+        f_custom = tk.Frame(f_scroll)
+        f_custom.pack(fill='x', pady=6)
+        tk.Label(f_custom, text="Yêu cầu riêng khác (tùy chọn):", font=("Arial", 9, "bold")).pack(anchor='w')
+        custom_entry = tk.Entry(f_custom, font=("Arial", 9))
+        custom_entry.pack(fill='x', pady=2)
+
+        def apply_wizard():
+            lines = ["[ĐỊNH HÌNH LỘ TRÌNH]"]
+            if q1_var.get() == "practical":
+                lines.append("- Phong cách: Thực chiến đo đạc & Sửa chữa / Troubleshooting thực tế, khoanh vùng lỗi trên linh kiện thật.")
+            elif q1_var.get() == "rnd":
+                lines.append("- Phong cách: R&D, Thiết kế phần cứng & Phân tích chuyên sâu (tính toán thông số, thiết kế schematic, PCB).")
+            else:
+                lines.append("- Phong cách: Toàn diện từ Zero đến Master (Cân bằng lý thuyết nền tảng -> Đo đạc thực tế -> Sửa pan bệnh).")
+                
+            if q2_var.get() == "latex_full":
+                lines.append("- Công thức: Bắt buộc trình bày đầy đủ công thức kỹ thuật/toán học chuẩn LaTeX ($$...$$ hoặc $...$), giải thích rõ đại lượng và đơn vị đo (Ohm Ω, V, A, W, F...).")
+            else:
+                lines.append("- Công thức: Tối giản công thức hàn lâm, chỉ đưa công thức thực dụng rút gọn để tính nhanh khi thao tác sửa chữa.")
+                
+            checks = []
+            if q3_quiz_var.get():
+                checks.append("3-5 câu hỏi trắc nghiệm & tình huống thực tế kèm đáp án chi tiết và giải thích ở cuối bài")
+            if q3_dod_var.get():
+                checks.append("Checklist nghiệm thu hoàn thành (Definition of Done)")
+            if checks:
+                lines.append("- Đánh giá: Cuối mỗi bài bắt buộc có " + " và ".join(checks) + ".")
+                
+            tools = []
+            if q4_basic_var.get(): tools.append("Đồng hồ VOM/Multimeter, Mỏ hàn, Test board, Nguồn DC")
+            if q4_adv_var.get(): tools.append("Máy hiện sóng Oscilloscope, Nguồn lập trình, Máy khò, Logic analyzer")
+            if q4_sim_var.get(): tools.append("Mô phỏng Proteus / Multisim / LTspice")
+            if tools:
+                lines.append("- Dụng cụ & Môi trường: " + "; ".join(tools) + ".")
+                
+            custom_val = custom_entry.get().strip()
+            if custom_val:
+                lines.append(f"- Yêu cầu riêng: {custom_val}")
+                
+            result_text = "\n".join(lines)
+            
+            # Ghi vào ô context_text của AskCpl
+            existing = self.ai_roadmap_context_text.get("1.0", tk.END).strip()
+            if existing and "[ĐỊNH HÌNH LỘ TRÌNH]" not in existing:
+                self.ai_roadmap_context_text.delete("1.0", tk.END)
+                self.ai_roadmap_context_text.insert(tk.END, existing + "\n\n" + result_text)
+            else:
+                self.ai_roadmap_context_text.delete("1.0", tk.END)
+                self.ai_roadmap_context_text.insert(tk.END, result_text)
+                
+            self.roadmap_gen_log("[WIZARD] Đã áp dụng các tiêu chuẩn định hình vào ô Yêu cầu bổ sung thành công!")
+            wizard.destroy()
+            
+        tk.Button(f_btns, text="✅ Áp Dụng Vào Yêu Cầu Bổ Sung", bg="#27ae60", fg="white", font=("Arial", 10, "bold"),
+                  padx=15, pady=5, command=apply_wizard).pack(side='right', padx=5)
+        tk.Button(f_btns, text="Đóng", font=("Arial", 10), padx=10, pady=5, command=wizard.destroy).pack(side='right')
+
+    def _ask_interactive_branching_quiz(self, questions, event, result_holder):
+        import tkinter as tk
+        from tkinter import ttk
+        
+        dialog = tk.Toplevel(self.root)
+        dialog.title("🎯 AI Hỏi Định Hướng Chuyên Sâu (Interactive Branching)")
+        dialog.geometry("700x560")
+        dialog.minsize(600, 450)
+        dialog.transient(self.root)
+        
+        is_done = [False]
+        def on_finish(selected_list):
+            if not is_done[0]:
+                is_done[0] = True
+                result_holder["selected"] = selected_list
+                event.set()
+                try:
+                    dialog.destroy()
+                except Exception:
+                    pass
+                    
+        dialog.protocol("WM_DELETE_WINDOW", lambda: on_finish([]))
+        
+        # Header
+        f_head = tk.Frame(dialog, bg="#1b4f72", padx=15, pady=10)
+        f_head.pack(fill='x')
+        tk.Label(f_head, text="🎯 XÁC ĐỊNH ĐỊNH HƯỚNG TRỌNG TÂM CHO LỘ TRÌNH", font=("Arial", 12, "bold"), fg="#ffffff", bg="#1b4f72").pack(anchor='w')
+        tk.Label(f_head, text="AI vừa phân tích cây tri thức và nhận thấy một số ngã rẽ quan trọng. Hãy chọn định hướng bạn muốn tập trung:", font=("Arial", 9), fg="#d4e6f1", bg="#1b4f72").pack(anchor='w')
+        
+        # Bottom Buttons
+        f_btns = tk.Frame(dialog, bg="#eaeded", padx=15, pady=10)
+        f_btns.pack(side='bottom', fill='x')
+        
+        # Scrollable area
+        canvas = tk.Canvas(dialog, borderwidth=0, highlightthickness=0)
+        scrollbar = ttk.Scrollbar(dialog, orient="vertical", command=canvas.yview)
+        f_content = tk.Frame(canvas, padx=15, pady=10)
+        
+        f_content.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
+        canvas_win = canvas.create_window((0, 0), window=f_content, anchor="nw")
+        
+        def _on_canvas_configure(event_cfg):
+            canvas.itemconfig(canvas_win, width=event_cfg.width)
+        canvas.bind("<Configure>", _on_canvas_configure)
+        canvas.configure(yscrollcommand=scrollbar.set)
+        
+        canvas.pack(side="left", fill="both", expand=True)
+        scrollbar.pack(side="right", fill="y")
+        
+        # Tạo widgets câu hỏi
+        question_states = []
+        for i_q, q_data in enumerate(questions, 1):
+            q_text = q_data.get("question", f"Câu hỏi {i_q}")
+            is_multi = q_data.get("multi_select", True)
+            options = q_data.get("options", [])
+            
+            q_box = tk.LabelFrame(f_content, text=f" Câu {i_q}: {q_text} ", font=("Arial", 10, "bold"), padx=10, pady=8)
+            q_box.pack(fill='x', pady=6)
+            
+            if is_multi:
+                opt_vars = []
+                for opt in options:
+                    var = tk.BooleanVar(value=True)  # Mặc định chọn để bao quát
+                    cb = tk.Checkbutton(q_box, text=opt, variable=var, font=("Arial", 9), wraplength=580, justify='left')
+                    cb.pack(anchor='w', pady=2)
+                    opt_vars.append((opt, var))
+                question_states.append(("multi", q_text, opt_vars))
+            else:
+                var = tk.StringVar(value=options[0] if options else "")
+                for opt in options:
+                    rb = tk.Radiobutton(q_box, text=opt, variable=var, value=opt, font=("Arial", 9), wraplength=580, justify='left')
+                    rb.pack(anchor='w', pady=2)
+                question_states.append(("single", q_text, var))
+                
+        def do_submit():
+            chosen = []
+            for item in question_states:
+                q_type = item[0]
+                q_title = item[1]
+                if q_type == "multi":
+                    opt_vars = item[2]
+                    selected_opts = [opt for opt, v in opt_vars if v.get()]
+                    if selected_opts:
+                        chosen.append(f"{q_title} -> " + "; ".join(selected_opts))
+                else:
+                    val = item[2].get().strip()
+                    if val:
+                        chosen.append(f"{q_title} -> {val}")
+            on_finish(chosen)
+            
+        tk.Button(f_btns, text="✅ Xác Nhận & Tiếp Tục Tạo Lộ Trình", bg="#27ae60", fg="white", font=("Arial", 10, "bold"),
+                  padx=15, pady=6, command=do_submit).pack(side='right', padx=5)
+        tk.Button(f_btns, text="⏭️ Bỏ Qua (Để AI Tự Chọn)", font=("Arial", 9), padx=10, pady=6, command=lambda: on_finish([])).pack(side='right')
 
     def roadmap_gen_select_dir(self):
         from tkinter import filedialog
@@ -699,10 +998,12 @@ Yêu cầu trả về JSON MẢNG theo định dạng (CHỈ JSON, không văn b
 ]
 Bắt buộc có đủ từ Day {from_day} đến Day {to_day}."""
             else:
+                ctx_block = f"\n⚠️ Yêu cầu bổ sung của người học:\n{context_text}\n" if context_text else ""
                 prompt_days = f"""Bạn là {persona}. Lĩnh vực: {domain}.
 Giai đoạn: {ph_name} (Mục tiêu: {ph_desc}).
 Sách nền tảng: {core_books}.
 Quy tắc chuyên ngành: {domain_rule}
+{ctx_block}
 (⚠️ LỆNH TỐI THƯỢNG: {supreme_commands} | KHÔNG TƯƠNG TÁC)
 
 Nhiệm vụ: Sinh danh sách các bài học cốt lõi từ Ngày {from_day} đến Ngày {to_day} cho Giai đoạn này. Tuân thủ tính tuần tự, không nhảy cóc.
@@ -808,7 +1109,8 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
         if mode == "wiki":
             p1_prompt = f"Đây là JSON Dàn ý Lõi bóc tách dữ liệu hiện tại:\n```json\n{skeleton_text}\n```\nQuy tắc chuyên ngành:\n{domain_rule}\nYêu cầu: Hãy phân tích xem có nhóm dữ liệu nào quá lớn cần chẻ nhỏ ra không? Có thực thể nào đang thiếu không? Hãy chèn thêm để vét sạch mọi ngóc ngách của dữ liệu. TRẢ VỀ JSON DUY NHẤT (giữ nguyên cấu trúc domain_profile và skeleton, chỉ mở rộng mảng skeleton). TUYỆT ĐỐI KHÔNG TẠO BÀI TẬP. (KHÔNG GIẢI THÍCH)"
         else:
-            p1_prompt = f"Đây là JSON Dàn ý Lõi hiện tại:\n```json\n{skeleton_text}\n```\nQuy tắc chuyên ngành bắt buộc:\n{domain_rule}\nYêu cầu: Hãy đóng vai trò chuyên gia, rà soát từng giai đoạn:\n1. Có chủ đề nào bị nhảy cóc (thiếu mắt xích tiền đề/vật liệu/công cụ đo lường) không? Nếu thiếu, hãy chèn thêm các Day bổ trợ.\n2. Có chủ đề nào quá lớn cần chẻ nhỏ ra nhiều ngày không?\n3. Đảm bảo toàn bộ chuỗi tiến hóa logic từ đầu đến cuối không bị đứt đoạn.\nTRẢ VỀ JSON DUY NHẤT (giữ nguyên cấu trúc domain_profile và skeleton, chỉ mở rộng/tinh chỉnh mảng skeleton). (KHÔNG GIẢI THÍCH)"
+            ctx_block = f"\n⚠️ Yêu cầu đặc biệt của người học:\n{context_text}\n" if context_text else ""
+            p1_prompt = f"Đây là JSON Dàn ý Lõi hiện tại:\n```json\n{skeleton_text}\n```\nQuy tắc chuyên ngành bắt buộc:\n{domain_rule}{ctx_block}\nYêu cầu: Hãy đóng vai trò chuyên gia, rà soát từng giai đoạn:\n1. Có chủ đề nào bị nhảy cóc (thiếu mắt xích tiền đề/vật liệu/công cụ đo lường) không? Nếu thiếu, hãy chèn thêm các Day bổ trợ.\n2. Có chủ đề nào quá lớn cần chẻ nhỏ ra nhiều ngày không?\n3. Đảm bảo toàn bộ chuỗi tiến hóa logic từ đầu đến cuối không bị đứt đoạn.\nTRẢ VỀ JSON DUY NHẤT (giữ nguyên cấu trúc domain_profile và skeleton, chỉ mở rộng/tinh chỉnh mảng skeleton). (KHÔNG GIẢI THÍCH)"
             
         out_p1 = call_llm(p1_prompt, "Pass 1")
         if not out_p1: return
@@ -1024,6 +1326,8 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
                         f"**Tags:** {_tags_str}"
                     )
                 else:
+                    ctx_text_val = self.ai_roadmap_context_text.get(1.0, tk.END).strip()
+                    ctx_block = f"\nLưu ý yêu cầu người học: {ctx_text_val}\n" if ctx_text_val else ""
                     _day_prompt = (
                         f"Viết section Markdown cho Day {day_num} trong roadmap '{domain}'.\n"
                         f"Day {day_num}: \"{topic}\" | Phase: {phase_nm} | Kind: {kind}\n"
@@ -1031,10 +1335,12 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
                         f"Details:\n{_details_str}\n"
                         f"Vật liệu: {_mat_str}\n"
                         f"Persona: {persona}\n"
-                        f"{commands_block}\n\n"
+                        f"{commands_block}\n"
+                        f"{ctx_block}\n"
+                        f"BẮT BUỘC: Prompt phải yêu cầu AI trình bày đầy đủ công thức chuẩn LaTeX ($$...$$), giải thích đại lượng và đơn vị đo; cuối bài bắt buộc có 3-5 câu trắc nghiệm tự kiểm tra kèm đáp án.\n\n"
                         f"BẮT BUỘC trả về đúng định dạng sau (KHÔNG ```markdown, KHÔNG giải thích thêm):\n"
                         f"## Day {day_num}: {topic} ({phase_nm})\n\n"
-                        f"**Prompt:** [câu hỏi đầy đủ cho {persona}, 3-5 câu, tiếng Việt]\n\n"
+                        f"**Prompt:** [câu hỏi đầy đủ cho {persona}, 3-5 câu, tiếng Việt kèm yêu cầu công thức LaTeX và trắc nghiệm]\n\n"
                         f"**Bài tập:** [mô tả bài thực hành cụ thể dựa trên deliverable: {concrete}, 2-3 câu]\n\n"
                         f"**Tags:** {_tags_str}"
                     )
@@ -1675,6 +1981,63 @@ LUÔN dùng tiếng Việt."""
                 )
 
             # ══════════════════════════════════════════════════════════
+            # PASS 0.5: INTERACTIVE BRANCHING & SPECIALIZATION ANALYSIS
+            # ══════════════════════════════════════════════════════════
+            self.roadmap_gen_log(f"[BƯỚC 1/3 • PASS 0.5] AI đang phân tích các ngã rẽ chuyên sâu của '{snapshot['domain']}'...")
+            branching_prompt = f"""Bạn là Viện trưởng Viện Nghiên cứu & Chuyên gia Bách khoa Toàn thư đầu ngành về '{snapshot['domain']}'.
+Chúng ta đã khám phá các mảng kiến thức lớn gồm: {', '.join(discovered_areas[:15])}.
+Nhiệm vụ của bạn: Phân tích xem lĩnh vực này có những hướng đi chuyên sâu, ngã rẽ mục tiêu hoặc trường phái công nghệ nào cần người học lựa chọn định hướng trọng tâm không?
+- Nếu lĩnh vực này rộng và có nhiều hướng rẽ khác biệt (ví dụ: Điện dân dụng vs Điện công nghiệp vs Sửa bo mạch Inverter; Thiết kế phần cứng vs Lập trình Firmware; Lập trình App vs AI vs DevOps; v.v.): Hãy tạo 1-3 câu hỏi trắc nghiệm ngắn gọn giúp người học quyết định mục tiêu trọng tâm.
+- Nếu lĩnh vực đã quá cụ thể, rõ ràng hoặc đơn nhất (không có nhiều hướng rẽ): Trả về mảng rỗng [].
+
+Định dạng JSON MẢNG DUY NHẤT (CHỈ JSON, không giải thích):
+[
+  {{
+    "question": "Câu hỏi định hướng cụ thể?",
+    "multi_select": true,
+    "options": [
+      "Phương án 1 (mô tả ngắn)",
+      "Phương án 2 (mô tả ngắn)",
+      "Phương án 3 (mô tả ngắn)"
+    ]
+  }}
+]"""
+            try:
+                raw_branch = self._call_roadmap_llm(branching_prompt, "PASS 0.5 Branching Analysis", json_mode=True)
+                branch_questions = load_json_response(raw_branch)
+                if isinstance(branch_questions, list) and branch_questions:
+                    valid_questions = []
+                    for q in branch_questions:
+                        if isinstance(q, dict) and q.get("question") and isinstance(q.get("options"), list) and len(q.get("options")) >= 2:
+                            valid_questions.append(q)
+                            
+                    if valid_questions:
+                        import threading
+                        branch_event = threading.Event()
+                        result_holder = {"selected": []}
+                        self.root.after(0, lambda: self._ask_interactive_branching_quiz(valid_questions, branch_event, result_holder))
+                        self.roadmap_gen_log(f"[BƯỚC 1/3 • PASS 0.5] ⏸️ Tạm dừng: Vui lòng chọn định hướng trên cửa sổ trắc nghiệm vừa hiện...")
+                        branch_event.wait(timeout=600)
+                        
+                        if result_holder["selected"]:
+                            extra_branch_context = "\n[ĐỊNH HƯỚNG CHUYÊN SÂU ĐÃ CHỌN]:\n" + "\n".join(f"- {s}" for s in result_holder["selected"])
+                            snapshot["context"] = (snapshot.get("context", "") + "\n" + extra_branch_context).strip()
+                            def _update_ui_ctx():
+                                cur = self.ai_roadmap_context_text.get("1.0", tk.END).strip()
+                                self.ai_roadmap_context_text.delete("1.0", tk.END)
+                                self.ai_roadmap_context_text.insert(tk.END, (cur + "\n" + extra_branch_context).strip())
+                            self.root.after(0, _update_ui_ctx)
+                            self.roadmap_gen_log(f"[PASS 0.5 OK] ✅ Đã tiếp nhận định hướng từ bạn! Tiếp tục tạo lộ trình...")
+                        else:
+                            self.roadmap_gen_log(f"[PASS 0.5] Tiếp tục với các cấu hình tự động...")
+                    else:
+                        self.roadmap_gen_log(f"[PASS 0.5] Lĩnh vực đã rõ ràng mục tiêu, tự động tiếp tục...")
+                else:
+                    self.roadmap_gen_log(f"[PASS 0.5] Lĩnh vực đã rõ ràng mục tiêu, tự động tiếp tục...")
+            except Exception as _b_exc:
+                self.roadmap_gen_log(f"[PASS 0.5 • Bỏ qua] {_b_exc}. Tự động tiếp tục...")
+
+            # ══════════════════════════════════════════════════════════
             # PASS 1A: KNOWLEDGE MAP & PHASE STRUCTURE
             # ══════════════════════════════════════════════════════════
             if len(discovered_areas) > 20:
@@ -1858,7 +2221,9 @@ CAM KẾT: trường 'topic' của MỖI lô mới PHẢI khác hoàn toàn vớ
                         _proj_hint = "Dự án / Tác phẩm / Sản phẩm ứng dụng thực chiến đích danh (BẮT BUỘC ĐÍCH DANH, không nói chung chung)"
                         _rule_hint = "QUY TẮC THỰC HÀNH: Mỗi Day phải gắn với MỘT SẢN PHẨM / BÀI TẬP THỰC CHIẾN ĐÍCH DANH cụ thể, không nói chung chung."
 
+                    ctx_hint = f"\n⚠️ YÊU CẦU BỔ SUNG CỦA NGƯỜI HỌC (BẮT BUỘC TUÂN THỦ TRONG MỌI DAY):\n{snapshot['context']}\n" if snapshot.get('context') else ""
                     phase_prompt = f"""Tạo CHÍNH XÁC {count} MICRO-DAY cho phase '{phase.get('name')}' của roadmap '{snapshot['domain']}', Day {start_day}..{end_day}. Mục tiêu: {phase.get('goal')}.
+{ctx_hint}
 Trả JSON MẢNG, mỗi object: {{"day":N,"topic_id":"snake_case_duy_nhat","topic":"tiêu đề micro-Day DUY NHẤT kèm tên dự án/tác phẩm cụ thể (tối đa 80 ký tự)","phase":"{phase.get('name')}","kind":"lesson|review|capstone","estimated_minutes":30,"concrete_project":"{_proj_hint}","materials":["tối đa 3 vật liệu/công cụ + số lượng/kích thước"],"definition_of_done":["tối đa 2 tiêu chí kiểm tra"],"details":["tối đa 3 việc nhỏ có thể làm trong 30 phút"],"keywords":["tối đa 4 từ khóa"],"prerequisites":["topic_id đã học trước đó"]}}.
 {_rule_hint}
 ID đã tồn tại từ phase trước: {known_ids[-30:] if len(known_ids) > 30 else known_ids}. prerequisites chỉ được dùng ID trong danh sách này hoặc Day đứng trước ngay trong response; nếu không chắc, dùng []. Không bọc markdown, không thiếu Day, không trùng Day, topic_id không trùng. {"Day cuối cùng của roadmap phải kind='capstone'." if index == len(phases) and remaining == count and len(phases) >= 2 else ""} LUÔN dùng tiếng Việt.
@@ -2212,8 +2577,9 @@ CẤM TUYỆT ĐỐI không dùng lại hoặc diễn đạt tương tự BẤT 
             reviewer_ok = False
             for rev_attempt in range(1, 4):
                 try:
+                    ctx_block = f"\nYêu cầu đặc biệt từ người học:\n{snapshot.get('context', '')}\n" if snapshot.get('context') else ""
                     raw = self._call_roadmap_llm(
-                        f"Roadmap JSON (tóm tắt):\n{review_plan}\nTài liệu:\n{references}\n{task}\n"
+                        f"Roadmap JSON (tóm tắt):\n{review_plan}\nTài liệu:\n{references}{ctx_block}\n{task}\n"
                         "Chỉ trả JSON {\"gaps\":[{\"id\":\"snake_case\",\"reason\":\"...\",\"suggestion\":\"...\"}],\"warnings\":[\"...\"]}. Không viết lại roadmap.",
                         f"{label} lần {rev_attempt}"
                     )
@@ -2271,9 +2637,11 @@ CẤM TUYỆT ĐỐI không dùng lại hoặc diễn đạt tương tự BẤT 
             expected_day_numbers = [item["day"] for item in phase_days]
             expected_ids = [item["topic_id"] for item in phase_days]
             self.roadmap_gen_log(f"[PASS 6/8 • Phase {phase_index}/{len(phase_groups)}] Tích hợp Day {expected_day_numbers[0]}-{expected_day_numbers[-1]}...")
-            phase_prompt = f"""Chỉ chỉnh sửa phase JSON nhỏ sau theo các phản biện, không tạo roadmap toàn bộ.
+            ctx_block = f"\nYêu cầu đặc biệt từ người học:\n{snapshot.get('context', '')}\n" if snapshot.get('context') else ""
+            phase_prompt = f"""Chỉ chỉnh sửa phase JSON nhỏ sau theo các phản biện và yêu cầu của người học, không tạo roadmap toàn bộ.
 Phase hiện tại: {json.dumps(phase_days, ensure_ascii=False)}
 Phản biện: {reviews_json}
+{ctx_block}
 Trả JSON MẢNG đầy đủ với ĐÚNG các Day {expected_day_numbers} và ĐÚNG các topic_id {expected_ids}. Giữ mọi kiến thức cũ, bổ sung kiến thức thiếu vào topic/details/keywords; sửa prerequisite nếu cần. Mỗi object bắt buộc có day, topic_id, topic, phase, kind, estimated_minutes (5-30), concrete_project, materials (mảng), definition_of_done (mảng), details (tối đa 3 việc 30 phút), keywords (mảng), prerequisites (mảng).
 QUY TẮC BẮT BUỘC: Mỗi Day trong phase PHẢI có 'topic' và 'concrete_project' hoàn toàn khác biệt nhau, TUYỆT ĐỐI KHÔNG lặp lại hoặc đặt trùng tiêu đề giữa các Day liền kề. Không trả source_files (ứng dụng tự giữ nguồn gốc từ skeleton). Không bọc Markdown, chỉ JSON, tiếng Việt."""
             _base_phase_prompt = phase_prompt
@@ -2521,7 +2889,17 @@ CẤM TUYỆT ĐỐI không dùng lại hoặc diễn đạt tương tự BẤT 
                 if snapshot.get("gen_mode") == "wiki":
                     prompt_str = f"LUÔN TRẢ LỜI BẰNG TIẾNG VIỆT. Mục tiêu trích xuất: {item['concrete_project']}. Yêu cầu chi tiết: {focus}. Tiêu chuẩn: {done_str}. TUYỆT ĐỐI KHÔNG dùng văn xuôi lan man, KHÔNG đóng vai giáo viên. BẮT BUỘC xuất toàn bộ dữ liệu dưới dạng BẢNG MARKDOWN nghiêm ngặt. Không được bỏ sót bất kỳ thực thể nào được liệt kê trong mục tiêu."
                 else:
-                    prompt_str = f"LUÔN TRẢ LỜI BẰNG TIẾNG VIỆT. Mục tiêu duy nhất: {item['concrete_project']}. Việc nhỏ: {focus}. Hoàn thành khi: {done_str}. Nếu hệ thống đính kèm văn bản PDF/tài liệu, chỉ dùng phần liên quan làm bằng chứng/hướng dẫn, không tóm tắt toàn bộ tài liệu. Hãy trả lời tối đa 1.000 từ, theo cấu trúc: {struct_str}. Không giảng lý thuyết lan man và không tạo quiz tương tác; nếu có câu hỏi, in đáp án mẫu cùng lúc."
+                    ctx_note = f" Yêu cầu bổ sung của người học: {snapshot['context']}." if snapshot.get("context") else ""
+                    prompt_str = (
+                        f"LUÔN TRẢ LỜI BẰNG TIẾNG VIỆT. Mục tiêu duy nhất: {item['concrete_project']}. Việc nhỏ: {focus}. Hoàn thành khi: {done_str}. "
+                        f"BẮT BUỘC trình bày đầy đủ các công thức toán học/kỹ thuật/vật lý liên quan chuẩn LaTeX ($$...$$ hoặc $...$), "
+                        f"giải thích rõ các đại lượng và đơn vị đo (ví dụ: Ohm Ω, V, A, W, F...). "
+                        f"Cuối bài giảng BẮT BUỘC có mục '### Câu hỏi trắc nghiệm & Tình huống thực tế' gồm 3-5 câu trắc nghiệm tự kiểm tra kèm đáp án chi tiết và giải thích. "
+                        f"{ctx_note} "
+                        f"Nếu hệ thống đính kèm văn bản PDF/tài liệu, chỉ dùng phần liên quan làm bằng chứng/hướng dẫn, không tóm tắt toàn bộ tài liệu. "
+                        f"Hãy trả lời tối đa 1.000 từ, theo cấu trúc: {struct_str}. "
+                        f"Không giảng lý thuyết lan man và không tạo quiz tương tác chờ người đọc trả lời (in câu hỏi kèm đáp án giải thích cùng lúc)."
+                    )
                 
                 lessons.append({"day": item["day"],
                     "prompt": prompt_str,
@@ -2556,8 +2934,18 @@ CẤM TUYỆT ĐỐI không dùng lại hoặc diễn đạt tương tự BẤT 
                     prompt = f"""Tạo nội dung Bách khoa toàn thư bằng tiếng Việt cho JSON lô bóc tách sau: {json.dumps(chunk, ensure_ascii=False)}
 Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"...","exercises":["..."],"tags":["#..."]}}. Trong prompt BẮT BUỘC liệt kê đích danh các thực thể từ {req_keys_str} của Day. Ép AI trả lời bằng BẢNG MARKDOWN nghiêm ngặt, TUYỆT ĐỐI KHÔNG dùng văn xuôi hay văn phong giáo viên. Không được thay thế bằng lý thuyết tổng quát. Không viết dòng heading bắt đầu bằng '## Day'. Không đổi day."""
                 else:
-                    prompt = f"""Tạo nội dung roadmap bằng tiếng Việt cho JSON micro-Day sau: {json.dumps(chunk, ensure_ascii=False)}
-Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"...","exercises":["..."],"tags":["#..."]}}. Trong prompt BẮT BUỘC nêu đúng {req_keys_str} của Day. Nếu module Tải Roadmap đính kèm văn bản PDF/tài liệu, prompt phải yêu cầu dùng đúng đoạn liên quan, không tóm tắt toàn bộ tài liệu. Ép AI trả lời tối đa 1.000 từ, chỉ một buổi 5-30 phút, theo cấu trúc: {struct_str}. Không được thay thế bằng lý thuyết tổng quát; không tạo quiz tương tác chờ trả lời; không viết dòng heading bắt đầu bằng '## Day'. Không đổi day."""
+                    ctx_note = f" Yêu cầu bổ sung của người học: {snapshot['context']}." if snapshot.get("context") else ""
+                    prompt = (
+                        f"""Tạo nội dung roadmap bằng tiếng Việt cho JSON micro-Day sau: {json.dumps(chunk, ensure_ascii=False)}\n"""
+                        f"""Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"...","exercises":["..."],"tags":["#..."]}}. """
+                        f"""Trong prompt BẮT BUỘC nêu đúng {req_keys_str} của Day. """
+                        f"""BẮT BUỘC yêu cầu trong prompt: Trình bày công thức chuẩn LaTeX ($$...$$ và $...$), giải thích rõ đại lượng và đơn vị đo (Ohm Ω, V, A, W, F...); """
+                        f"""và cuối bài bắt buộc có 3-5 câu hỏi trắc nghiệm tự kiểm tra kèm đáp án chi tiết và giải thích. """
+                        f"""{ctx_note} """
+                        f"""Nếu module Tải Roadmap đính kèm văn bản PDF/tài liệu, prompt phải yêu cầu dùng đúng đoạn liên quan, không tóm tắt toàn bộ tài liệu. """
+                        f"""Ép AI trả lời tối đa 1.000 từ, chỉ một buổi 5-30 phút, theo cấu trúc: {struct_str}. """
+                        f"""Không được thay thế bằng lý thuyết tổng quát; không tạo quiz tương tác chờ trả lời (in câu hỏi kèm đáp án cùng lúc); không viết dòng heading bắt đầu bằng '## Day'. Không đổi day."""
+                    )
                 generated = None
                 for attempt in range(1, 4):
                     try:

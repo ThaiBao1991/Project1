@@ -8779,3 +8779,2008 @@
 | tich_hop_api_ai_soan_thao_du_an_ai_scribe_prime_1798 | Tích hợp API AI và Kiểm thử tương thích đa nền tảng cho AI Scribe Prime | roadmap_WordRoadmap.md |
 | lap_trinh_addin_react_ts_du_an_ai_scribe_apex_1799 | Khởi tạo Add-in React TypeScript và Tối ưu Khả năng Tiếp cận (Accessibility) | roadmap_WordRoadmap.md |
 | tich_hop_api_ai_soan_thao_du_an_ai_scribe_apex_1800 | Tích hợp API AI Soạn thảo Thông minh và Kiểm thử Đa nền tảng | roadmap_WordRoadmap.md |
+| sinh_hoc_su_chu_y_dau_nao | Giải phẫu sự chú ý qua TED Talk 'The Brain in Love' của Helen Fisher | roadmap_TalkSkill.md |
+| nguyen_ly_neo_tam_ly_giao_tiep | Ứng dụng hiệu ứng neo tâm lý kết hợp khung phản hồi FEEL-FELT-FOUND | roadmap_TalkSkill.md |
+| co_che_dopamine_va_nhịp_dieu_hoi_thoai | Kích hoạt Dopamine não bộ qua cấu trúc câu bất định trong TED Talk | roadmap_TalkSkill.md |
+| he_thong_not_ron_phan_guong_va_su_dong_cam | Ứng dụng Nơ-ron phản chiếu và Kỹ thuật thao túng thiện cảm tức thì | roadmap_TalkSkill.md |
+| mach_thuong_phat_va_kich_thich_nao_bo | Giải mã mạch thưởng não bộ trong phim The Social Network | roadmap_TalkSkill.md |
+| giai_ma_vung_broca_va_suc_hut_tu_ngo_nguc | Kích hoạt vùng Broca qua kịch bản TED Talk của Steve Jobs | roadmap_TalkSkill.md |
+| sinh_hoc_su_chu_y_va_mach_tai_nguyen_nao | Đột phá sự chú ý bằng mô hình lọc sinh học trong Sách 'Thinking, Fast and Slow' | roadmap_TalkSkill.md |
+| lam_chu_nguyen_ly_neo_tam_ly_trong_hoi_thoai | Vận dụng nguyên lý mỏ neo cảm xúc và khung phản hồi tình huống bất ngờ | roadmap_TalkSkill.md |
+| sinh_hoc_su_chu_y_va_mach_tai_nguyen_nao_9 | Khám phá sinh học sự chú ý qua TED Talk The Power of Vulnerability | roadmap_TalkSkill.md |
+| lam_chu_nguyen_ly_neo_tam_ly_trong_hoi_thoai_10 | Ứng dụng nguyên lý mỏ neo và cấu trúc Hero's Journey vào giao tiếp | roadmap_TalkSkill.md |
+| mach_dien_nao_bo_va_phuong_phap_neo_neo_neo_v3 | Xây dựng bản đồ dòng chảy thần kinh và kỹ thuật neo tâm lý trong Pitch Deck 5 phút | roadmap_TalkSkill.md |
+| giai_phau_nhiep_dieu_hoi_thoai_va_dopamine_v3 | Tối ưu hóa vòng lặp phần thưởng dopamine qua kịch bản podcast độc thoại | roadmap_TalkSkill.md |
+| sinh_hoc_su_chu_y_va_mach_tai_nguyen_nao_d13 | Hệ thống thần kinh và năng lượng chú ý trong TED Talk | roadmap_TalkSkill.md |
+| lam_chu_nguyen_ly_neo_tam_ly_trong_hoi_thoai_d14 | Ứng dụng mỏ neo cảm xúc và công cụ AI đánh giá giọng nói | roadmap_TalkSkill.md |
+| co_che_sinh_hoc_su_chu_y_trong_giao_tiep | Giải mã cơ chế sinh học sự chú ý qua dự án Podcast 5 phút khoa học não bộ | roadmap_TalkSkill.md |
+| ung_dung_neo_tam_ly_vao_bai_thuyet_trinh | Thực hành nguyên lý neo tâm lý qua dự án Slide Pitching gọi vốn 1 phút | roadmap_TalkSkill.md |
+| mach_dien_nao_bo_va_su_tap trung_trong_hoi_thoai | Định vị mạng lưới thần kinh tập trung thông qua cấu trúc Hero's Journey | roadmap_TalkSkill.md |
+| ung_dung_tam_ly_hoc_hanh_vi_vao_podcast_ted | Giải mã cấu trúc Sparkline và tâm lý học hành vi trong bài TED Talk | roadmap_TalkSkill.md |
+| kich_hoat_mach_tai_nguyen_nao_trong_hoi_thoai_podcast_ted | Tối ưu hóa mạch tài nguyên não bộ trong Podcast TED Talk qua công cụ AI | roadmap_TalkSkill.md |
+| lam_chu_hieu_ung_neo_tam_ly_trong_buoi_thuyet_trinh_sales | Vận dụng hiệu ứng neo tâm lý kết hợp framework phản biện trong Sales Pitch | roadmap_TalkSkill.md |
+| kich_hoat_mach_tai_nguyen_nao_trong_hoi_thoai_podcast_ted_v21 | Phân bổ tài nguyên não bộ và kích hoạt tập trung sâu trong Podcast TED Talk | roadmap_TalkSkill.md |
+| lam_chu_hieu_ung_neo_tam_ly_trong_buoi_thuyet_trinh_sales_v22 | Sử dụng hiệu ứng mỏ neo thần kinh kết hợp khung phản hồi để chi phối quyết định | roadmap_TalkSkill.md |
+| khach_hoa_vung_ne_nao_trong_hoi_thoai_d23 | Kích hoạt thùy trán qua kịch bản gọi vốn Shark Tank kết hợp công cụ AI phân tích giọng nói | roadmap_TalkSkill.md |
+| dieu_phoi_nhip_sinh_hoc_giao_tiep_d24 | Ứng dụng Hero's Journey và điều phối sóng não qua video thuyết trình TEDx | roadmap_TalkSkill.md |
+| dieu_tiet_nang_luong_nhan_thuc_podcast_ted | Điều tiết năng lượng nhận thức não bộ trong kịch bản Podcast TED | roadmap_TalkSkill.md |
+| giai_ma_nhịp_sinh_hoc_giao_tiep_sales | Giải mã nhịp sinh học giao tiếp đỉnh cao kết hợp khung phản hồi FEEL-FELT-FOUND | roadmap_TalkSkill.md |
+| giai_ma_vung_bien_va_cam_xuc_podcast_ted | Giải mã hệ viền não bộ để tạo cảm xúc sâu sắc trong podcast TED | roadmap_TalkSkill.md |
+| toi_uu_thuy_tran_va_su_tap_trung_sales | Tối ưu hóa thùy trán và duy trì sự chú ý trong buổi sales pitching căng thẳng | roadmap_TalkSkill.md |
+| dieu_hoa_vung_nhan_tam_trong_podcast_ted | Ứng dụng Hero's Journey và công cụ AI phân tích giọng nói trong Podcast TED | roadmap_TalkSkill.md |
+| kich_thich_vo_nao_truoc_trong_thuyet_trinh_sales | Xử lý phản biện khách hàng bằng khung FEEL-FELT-FOUND trong Sales Pitch | roadmap_TalkSkill.md |
+| tinh_chinh_am_luong_nhip_dieu_podcast_ted | Tinh chỉnh âm lượng nhịp điệu giọng nói trong kịch bản Podcast TED | roadmap_TalkSkill.md |
+| ket_hop_bo_nhan_dien_phi_ngon_ngu_sales | Ứng dụng khung phi ngôn ngữ nâng cao trong thuyết phục khách hàng | roadmap_TalkSkill.md |
+| huan_luyen_am_luong_nhip_dieu_podcast_ted | Huấn luyện âm lượng và nhịp độ cho Podcast TED | roadmap_TalkSkill.md |
+| dong_bo_phi_ngon_ngu_va_ngu_dieu_sales | Biểu đạt phi ngôn ngữ và ngữ điệu trong chốt Sales | roadmap_TalkSkill.md |
+| ky_thuat_ngat_nhip_va_bieu_dat_giong_noi_podcast_ted | Kỹ thuật ngắt nhịp và biểu đạt giọng nói trong bản ghi âm Podcast TED | roadmap_TalkSkill.md |
+| ngon_ngu_co_the_mo_va_giao_tiep_sales | Ngôn ngữ cơ thể mở và ánh mắt thuyết phục trong video pitch sales | roadmap_TalkSkill.md |
+| ky_thuat_giam_toc_va_neo_cam_xuc_podcast_ted | Kỹ thuật giảm tốc và neo cảm xúc giọng nói Podcast TED | roadmap_TalkSkill.md |
+| nghe_thuat_su_dung_khoang_lang_va_tu_the_sales | Nghệ thuật sử dụng khoảng lặng và tư thế Thuyết trình Sales | roadmap_TalkSkill.md |
+| huan_luyen_am_luong_va_tu_the_mo_dau_ted | Huấn luyện âm lượng và tư thế mở đầu cho sự kiện TEDxTalk | roadmap_TalkSkill.md |
+| chien_luoc_ngat_nhip_va_bieu_dat_sales | Chiến lược ngắt nhịp và biểu đạt cơ thể cho chốt sale đỉnh cao | roadmap_TalkSkill.md |
+| huan_luyen_am_luong_va_bieu_cam_giong_noi_ted_v41 | Kỹ thuật biến hóa âm lượng và biểu cảm giọng nói mở đầu TED Talk | roadmap_TalkSkill.md |
+| dong_bo_phi_ngon_ngu_va_ngu_dieu_sales_v42 | Đồng bộ phi ngôn ngữ và ngữ điệu trong thuyết trình sales sản phẩm | roadmap_TalkSkill.md |
+| huan_luyen_am_luong_va_tu_the_chuan_hoa_ted_d43 | Huấn luyện âm lượng và tư thế chuẩn hóa mở đầu Podcast TED Talk | roadmap_TalkSkill.md |
+| chien_luoc_ngat_nhip_va_giao_tiep_hinh_the_sales_d44 | Ứng dụng khoảng lặng chiến lược và ngôn ngữ cơ thể trong chốt đơn B2B | roadmap_TalkSkill.md |
+| huan_luyen_am_luong_va_tu_the_chuan_hoa_ted_d45 | Huấn luyện âm lượng cấu trúc và tư thế chuẩn hóa mở đầu Ted Talk | roadmap_TalkSkill.md |
+| chien_luoc_ngat_nhip_va_giao_tiep_hinh_the_sales_d46 | Chiến lược ngắt nhịp định hướng và giao tiếp hình thể trong chốt Sales | roadmap_TalkSkill.md |
+| luyen_giong_noi_va_dang_dung_mo_dau_ted | Luyện giọng nói và dáng đứng mở đầu TED Talk ấn tượng | roadmap_TalkSkill.md |
+| hoan_thien_ngu_dieu_va_cu_chi_chot_sales | Hoàn thiện ngữ điệu và cử chỉ chốt deal sales đỉnh cao | roadmap_TalkSkill.md |
+| luyen_am_thanh_va_dang_dung_gay_an_tuong_ted | Luyện âm thanh và dáng đứng gây ấn tượng cho mở đầu TED Talk | roadmap_TalkSkill.md |
+| hoan_thien_nhịp_dieu_va_tu_the_chot_sales | Hoàn thiện nhịp điệu và tối ưu hóa biểu đồ nhịp độ giao tiếp khi chốt sale | roadmap_TalkSkill.md |
+| tinh_chinh_giong_noi_va_dang_dung_mo_dau_podcast | Tinh chỉnh giọng nói và dáng đứng mở đầu Podcast 30 giây | roadmap_TalkSkill.md |
+| hoan_thien_ngu_dieu_va_bo_nhan_dien_hinh_the_sales | Kỹ thuật ngữ điệu nâng cao và bộ nhận diện hình thể Sales ấn tượng | roadmap_TalkSkill.md |
+| huan_luyen_am_thanh_va_dang_dung_mo_dau_podcast_d53 | Huấn luyện âm thanh và dáng đứng mở đầu trong Podcast TED Talk | roadmap_TalkSkill.md |
+| hoan_thien_ngu_dieu_va_bo_nhan_dien_chot_sales_d54 | Tối ưu hóa ngữ điệu trầm ấm và cử chỉ tay thuyết phục trong pitch sản phẩm | roadmap_TalkSkill.md |
+| luyen_am_thanh_va_dang_dung_gay_an_tuong_podcast_d55 | Luyện âm thanh và dáng đứng gây ấn tượng cho Podcast TED | roadmap_TalkSkill.md |
+| hoan_thien_ngu_dieu_va_bo_nhan_dien_chot_sales_d56 | Tinh chỉnh ngữ điệu nâng cao và chiến lược phi ngôn ngữ chốt sales | roadmap_TalkSkill.md |
+| luyen_am_thanh_va_dang_dung_gay_an_tuong_podcast_d57 | Kỹ thuật luyện âm thanh chuyên sâu và dáng đứng mở trong Podcast | roadmap_TalkSkill.md |
+| hoan_thien_ngu_dieu_va_bo_nhan_dien_chot_sales_d58 | Hoàn thiện ngữ điệu thuyết phục và ngôn ngữ cơ thể khi chốt sales phần mềm | roadmap_TalkSkill.md |
+| toi_uu_am_thanh_va_dang_dung_mo_dau_podcast_d59 | Tối ưu âm thanh và dáng đứng mở đầu Podcast TED Talk ấn tượng mạnh | roadmap_TalkSkill.md |
+| tong_ket_ngu_dieu_va_bo_nhan_dien_chot_sales_d60 | Tổng kết ngữ điệu và bộ nhận diện chốt sales đỉnh cao ngay giây đầu | roadmap_TalkSkill.md |
+| cau_truc_hook_story_offer_trong_chu_de_kho_khan | Ứng dụng cấu trúc H-S-O cho chủ đề tài chính vĩ mô qua kịch bản podcast VTV | roadmap_TalkSkill.md |
+| ky_thuat_dieu_huong_ngu_canh_giao_tiep_linh_hoat | Thực chiến bẻ lái chủ đề nhàm chán sang câu chuyện khởi nghiệp tại hội thảo Tech | roadmap_TalkSkill.md |
+| thiet_ke_hook_story_offer_cho_du_an_tai_chinh | Thiết kế Hook-Story-Offer kết hợp Hero's Journey cho Tài chính Cá nhân | roadmap_TalkSkill.md |
+| dieu_huong_ngu_canh_tu_ky_thuat_sang_kinh_doanh | Điều hướng ngữ cảnh và Xử lý phản biện trong Pitching Công nghệ | roadmap_TalkSkill.md |
+| bien_doi_du_lieu_thue_kho_thanh_kich_ban_hook_story_offer | Biến đổi dữ liệu thuế khô thành kịch bản Hook-Story-Offer tại Podcast Tài chính số | roadmap_TalkSkill.md |
+| chuyen_doi_chu_de_ky_thuat_sang_kinh_doanh_tai_ban_hang | Chuyển đổi chủ đề kỹ thuật sang kinh doanh tại Bàn tròn Sales B2B | roadmap_TalkSkill.md |
+| ap_dung_hook_story_offer_cho_san_pham_cong_nghe | Ứng dụng mô hình Hook-Story-Offer vào kịch bản thuyết trình công nghệ AI | roadmap_TalkSkill.md |
+| ky_thuat_chuyen_doi_ngu_canh_giao_tiep_da_chieu | Kỹ thuật điều hướng ngữ cảnh giao tiếp đỉnh cao ứng dụng khung phản hồi tình huống | roadmap_TalkSkill.md |
+| kien_tao_kich_ban_ke_chuyen_dinh_cao_cho_chu_de_vat_ly_luong_tu | Ứng dụng cấu trúc Hero's Journey và Sparkline vào kể chuyện khoa học lượng tử | roadmap_TalkSkill.md |
+| thuc_chien_dieu_huong_ngu_canh_tu_hop_ky_thuat_sang_dam_phan_dau_tu | Xử lý câu hỏi hóc búa và bẻ lái ngữ cảnh từ kỹ thuật sang đàm phán đầu tư triệu đô | roadmap_TalkSkill.md |
+| master_hook_story_offer_blockchain | Sáng tạo kịch bản Hook-Story-Offer cho dự án Blockchain | roadmap_TalkSkill.md |
+| dieu_huong_ngu_canh_tieng_anh_sang_tai_chinh | Bẻ lái ngữ cảnh giao tiếp từ giảng dạy tiếng Anh sang đầu tư tài chính | roadmap_TalkSkill.md |
+| kien_tao_kich_ban_ke_chuyen_sinh_hoc_phan_tu_cho_du_an_y_te | Kiến tạo kịch bản kể chuyện sinh học phân tử cho dự án y tế trong Viện Pasteur | roadmap_TalkSkill.md |
+| thuc_chien_dieu_huong_ngu_canh_tu_y_khoa_sang_thuong mại | Thực chiến điều hướng ngữ cảnh từ hội thảo y khoa sang bàn đàm phán thương mại | roadmap_TalkSkill.md |
+| kien_tao_kich_ban_ke_chuyen_tri_tue_nhan_tao_cho_du_an_giao_duc | Ứng dụng cấu trúc Hero's Journey và Sparkline vào kịch bản EdTech AI | roadmap_TalkSkill.md |
+| thuc_chien_dieu_huong_ngu_canh_tu_giao_duc_sang_dau_tu_thien_tai | Thực chiến bẻ lái ngữ cảnh từ giáo dục sang sinh lời vốn đầu tư mạo hiểm | roadmap_TalkSkill.md |
+| kien_tao_kich_ban_ke_chuyen_tam_ly_hoc_hanh_vi_cho_du_an_startup | Kiến tạo kịch bản kể chuyện tâm lý học hành vi tích hợp cấu trúc Hero's Journey | roadmap_TalkSkill.md |
+| thuc_chien_dieu_huong_ngu_canh_tu_tam_ly_hoc_sang_goi_von_thuc_te | Thực chiến điều hướng ngữ cảnh và xử lý câu hỏi phản biện trước nhà đầu tư | roadmap_TalkSkill.md |
+| master_hook_story_offer_cho_du_an_nang_luong_mat_troi | Xây dựng kịch bản Hook-Story-Offer cho dự án năng lượng mặt trời | roadmap_TalkSkill.md |
+| dieu_huong_ngu_canh_tu_nang_luong_sang_bat_dong_san | Bẻ lái ngữ cảnh thông minh sang lĩnh vực đầu tư bất động sản xanh | roadmap_TalkSkill.md |
+| kien_tao_kich_ban_ke_chuyen_nghe_thuat_cho_du_an_kien_truc | Ứng dụng cấu trúc Hero's Journey và Sparkline vào diễn thuyết kiến trúc | roadmap_TalkSkill.md |
+| thuc_chien_dieu_huong_ngu_canh_tu_kien_truc_sang_dau_tu_ben_vung | Thực chiến bẻ lái giao tiếp và xử lý phản biện nhà đầu tư ESG | roadmap_TalkSkill.md |
+| kien_tao_kich_ban_ke_chuyen_sinh_thai_cho_du_an_nong_nghiep_sach | Ứng dụng Cấu trúc Hero's Journey và Sparkline trong Kể chuyện Sinh thái | roadmap_TalkSkill.md |
+| thuc_chien_dieu_huong_ngu_canh_tu_nong_nghiep_sang_quy_dau_tu | Framework Phản biện Tình huống và Điều hướng Ngữ cảnh Tài chính VC | roadmap_TalkSkill.md |
+| kien_tao_kich_ban_ke_chuyen_triet_hoc_cho_du_an_giao_duc_truc_tuyen | Kiến tạo kịch bản kể chuyện triết học cho dự án giáo dục trực tuyến EdTech X | roadmap_TalkSkill.md |
+| thuc_chien_dieu_huong_ngu_canh_tu_triet_hoc_sang_thuong mại_dien_tu | Thực chiến ứng dụng AI và chuyển dịch ngữ cảnh thương mại điện tử ShopZ | roadmap_TalkSkill.md |
+| kien_tao_kich_ban_ke_chuyen_dia_chat_cho_du_an_khai_khoang | Kiến tạo kịch bản kể chuyện địa chất ứng dụng cấu trúc Hero's Journey | roadmap_TalkSkill.md |
+| thuc_chien_dieu_huong_ngu_canh_tu_dia_chat_sang_tai_chinh_xanh | Thực chiến điều hướng ngữ cảnh và xử lý phản biện với AI voice analytics | roadmap_TalkSkill.md |
+| tong_ket_hook_story_offer_toan_dien | Hệ thống hóa cấu trúc Hook-Story-Offer kết hợp khung Hero's Journey và công cụ AI luyện nói | roadmap_TalkSkill.md |
+| dieu_huong_dinh_cao_moi_chu_de_thuc_chien | Kỹ thuật phản biện FEEL-FELT-FOUND và điều hướng ngữ cảnh phức tạp vào đàm phán thương mại | roadmap_TalkSkill.md |
+| master_dinh_cao_hook_story_offer_cho_du_an_khong_gian | Ứng dụng cấu trúc Hero's Journey và công cụ AI vào kịch bản HSO không gian | roadmap_TalkSkill.md |
+| chuyen_doi_ngu_canh_tu_khong_gian_sang_giao_duc_truc_tuyen | Mô phỏng phòng họp căng thẳng và bẻ lái ngữ cảnh edtech thực chiến | roadmap_TalkSkill.md |
+| hoan_thien_hook_story_offer_cho_du_an_robotics | Hoàn thiện Hook Story Offer cho dự án Robotics Y tế thông minh | roadmap_TalkSkill.md |
+| dieu_huong_ngu_canh_tu_robotics_sang_giao_duc_stem | Điều hướng ngữ cảnh từ Robotics y tế sang giáo dục STEM toàn cầu | roadmap_TalkSkill.md |
+| master_hook_story_offer_du_an_thuc_te_95 | Ứng dụng Hook-Story-Offer đỉnh cao kết hợp công cụ AI phân tích giọng nói GenTech | roadmap_TalkSkill.md |
+| dieu_huong_ngu_canh_sinh_hoc_sang_dau_tu_96 | Điều hướng ngữ cảnh khoa học sang phòng họp đầu tư mạo hiểm Alpha | roadmap_TalkSkill.md |
+| master_hook_story_offer_cho_du_an_thanh_pho_thong_minh | Nghệ thuật Hero's Journey và Sparkline trong gọi vốn Đô thị thông minh | roadmap_TalkSkill.md |
+| dieu_huong_ngu_canh_tu_thanh_pho_thong_minh_sang_giao_duc_so | Ứng dụng AI phân tích giọng nói và kỹ thuật bẻ lái sang Giáo dục số | roadmap_TalkSkill.md |
+| master_hook_story_offer_cho_du_an_thuc_te_99 | Ứng dụng cấu trúc Hero's Journey trong gọi vốn vật liệu xanh | roadmap_TalkSkill.md |
+| dieu_huong_ngu_canh_kinh_te_tuan_hoan_sang_tai_chinh_xanh_100 | Thực chiến phòng thủ phản biện và thuyết trình quỹ tài chính xanh | roadmap_TalkSkill.md |
+| cau_hoi_sac_sao_va_tam_ly_dam_dong_cho_du_an_ai | Đột phá câu hỏi sắc sảo thao túng tâm lý đám đông cho dự án Trí tuệ Nhân tạo | roadmap_TalkSkill.md |
+| lang_nghe_thau_cam_va_dan_dat_hanh_vi_du_an_y_te | Nghệ thuật lắng nghe thấu cảm và dẫn dắt hành vi đám đông dự án Y tế Số | roadmap_TalkSkill.md |
+| thao_tung_nhan_thuc_tich_cuc_du_an_tai_chinh | Xây dựng khung chiến lược định hình nhận thức tích cực và dẫn dắt nhà đầu tư tài chính xanh | roadmap_TalkSkill.md |
+| dan_dat_tam_ly_ca_nhan_du_an_cong_nghe | Kỹ thuật phỏng vấn sâu và thao túng hành vi người dùng nền tảng EdTech ứng dụng Hero's Journey | roadmap_TalkSkill.md |
+| van_dung_cau_hoi_va_tam_ly_dam_dong_du_an_logistics | Vận dụng câu hỏi sắc sảo và tâm lý đám đông cho dự án logistics xanh | roadmap_TalkSkill.md |
+| lang_nghe_thau_cam_va_thao_tung_nhan_thuc_du_an_du_lich | Kể chuyện Hero's Journey và thấu cảm nhận thức khu nghỉ dưỡng bền vững | roadmap_TalkSkill.md |
+| chien_luoc_cau_hoi_dinh_cao_du_an_nang_luong | Ứng dụng AI phân tích giọng nói và chiến lược câu hỏi sắc sảo cho dự án năng lượng | roadmap_TalkSkill.md |
+| thuc_chien_dan_dat_tam_ly_du_an_giao_duc | Mô phỏng phòng họp căng thẳng và kỹ năng lắng nghe thấu cảm dự án giáo dục | roadmap_TalkSkill.md |
+| chinh_phuc_dam_dong_du_an_thuc_pham_sach | Chinh phục nhận thức đám đông cho dự án thực phẩm sạch hữu cơ | roadmap_TalkSkill.md |
+| dinh_cao_thao_tung_tam_ly_du_an_bat_dong_san_nghi_duong | Nghệ thuật xử lý phản biện và thấu cảm đỉnh cao trong dự án bất động sản | roadmap_TalkSkill.md |
+| chuyen_gia_cau_hoi_du_an_thoi_trang_xanh | Sử dụng bộ câu hỏi bước ngoặt định hình tâm lý đám đông cho dự án thời trang xanh | roadmap_TalkSkill.md |
+| master_thao_tung_nhan_thuc_du_an_xe_dien | Ứng dụng AI phân tích và dẫn dắt hành vi tiêu dùng xe điện thông minh | roadmap_TalkSkill.md |
+| kich_ban_hoi_dap_thuc_chien_du_an_nong_nghiep | Xây dựng kịch bản hỏi đáp thấu cảm và ứng dụng cấu trúc Hero's Journey dự án nông nghiệp sạch | roadmap_TalkSkill.md |
+| chien_luoc_thau_cam_va_dan_dat_du_an_cong_nghe | Nghệ thuật xử lý phản biện trực tiếp và mô phỏng phòng họp căng thẳng dự án công nghệ AI | roadmap_TalkSkill.md |
+| chuyen_gia_cau_hoi_du_an_an_ninh_mang | Nghệ thuật chất vấn nhận thức và định hướng tâm lý đám đông trong an ninh mạng | roadmap_TalkSkill.md |
+| master_thao_tung_nhan_thuc_du_an_nang_luong_mat_troi | Ứng dụng hiệu ứng bầy đàn và cấu trúc Hero's Journey kêu gọi đầu tư năng lượng sạch | roadmap_TalkSkill.md |
+| ky_thuat_chat_van_va_dieu_huong_du_an_y_sinh | Kỹ thuật chất vấn đỉnh cao và định hướng tâm lý đám đông trong y sinh | roadmap_TalkSkill.md |
+| thuc_chien_thao_tung_nhan_thuc_du_an_giao_duc_thong_minh | Ứng dụng khung Hero's Journey và Sparkline vào giáo dục thông minh | roadmap_TalkSkill.md |
+| toi_uu_cau_hoi_va_tam_ly_du_an_khong_gian_mang | Xây dựng bảng hỏi sắc sảo và phân tích điểm mù tâm lý đám đông mạng | roadmap_TalkSkill.md |
+| tong_ket_ky_thuat_thuyet_phuc_va_tam_ly_dam_dong | Video pitch định hướng nhận thức đỉnh cao và kiểm thử tương tác thực chiến | roadmap_TalkSkill.md |
+| kich_ban_cau_hoi_dinh_cao_du_an_thanh_pho_thong_minh | Xây dựng kịch bản câu hỏi đỉnh cao cho dự án thành phố thông minh | roadmap_TalkSkill.md |
+| chien_luoc_thau_cam_va_dan_dat_du_an_kinh_te_chia_se | Ứng dụng khung FEEL-FELT-FOUND trong thấu cảm và định hướng nền tảng kinh tế chia sẻ | roadmap_TalkSkill.md |
+| chinh_phuc_niem_tin_du_an_thuc_pham_huu_co | Chinh phục niềm tin khách hàng khó tính bằng cấu trúc Hero's Journey và công nghệ AI | roadmap_TalkSkill.md |
+| dinh_cao_dan_dat_dam_dong_du_an_thoi_trang_tai_sinh | Đỉnh cao dẫn dắt đám đông và xử lý khủng hoảng phản biện trực tiếp cho thời trang sinh thái | roadmap_TalkSkill.md |
+| ky_thuat_dat_cau_hoi_du_an_robot_giao_duc | Nghệ thuật đặt câu hỏi mở khóa tư duy phản biện cho dự án Robot Giáo Dục thông minh | roadmap_TalkSkill.md |
+| tam_ly_dam_dong_du_an_thuc_pham_huu_co_cao_cap | Bẫy nhận thức và chiến lược thao túng đám đông cho dự án Thực phẩm Hữu cơ Cao cấp | roadmap_TalkSkill.md |
+| toi_thuong_cau_hoi_va_tam_ly_dam_dong_du_an_khong_gian_mang | Ứng dụng khung FEEL-FELT-FOUND xử lý khủng hoảng truyền thông mạng | roadmap_TalkSkill.md |
+| dinh_cao_thuc_thi_thuyet_phuc_va_dan_dat_du_an_thanh_pho_thong_minh | Đỉnh cao thực thi thuyết phục và bảo mật dữ liệu cá nhân hội đồng | roadmap_TalkSkill.md |
+| toi_thuong_cau_hoi_va_tam_ly_du_an_thanh_pho_thong_minh | Nghệ thuật xử lý phản biện sắc sảo và ứng dụng khung FEEL-FELT-FOUND | roadmap_TalkSkill.md |
+| hoan_thien_ky_thuat_thuyet_phuc_dam_dong_du_an_so | Hành trình người hùng và cấu trúc Sparkline trong thuyết trình chiến lược | roadmap_TalkSkill.md |
+| chinh_phuc_niem_tin_du_an_khong_gian_mang | Nghệ thuật xử lý phản biện và thấu cảm trực tuyến | roadmap_TalkSkill.md |
+| dinh_cao_dan_dat_du_an_khong_gian_mang | Kiểm thử tương tác và dẫn dắt phòng họp căng thẳng | roadmap_TalkSkill.md |
+| thuc_thi_cau_hoi_va_tam_ly_du_an_thanh_pho_thong_minh | Xây dựng hệ thống câu hỏi sắc sảo và điều hướng tâm lý cộng đồng | roadmap_TalkSkill.md |
+| hoan_thien_ky_thuat_thuyet_phuc_dam_dong_du_an_so_d134 | Ứng dụng AI và kịch bản phản biện trực tiếp trong hệ sinh thái số | roadmap_TalkSkill.md |
+| dot_pha_cau_hoi_va_tam_ly_du_an_ai_y_te | Đột phá câu hỏi sắc sảo và tâm lý đám đông dự án AI Y tế | roadmap_TalkSkill.md |
+| hoan_my_thuyet_phuc_va_dieu_huong_du_an_logistics_xanh | Hoàn mỹ thuyết phục và điều hướng tâm lý dự án logistics xanh | roadmap_TalkSkill.md |
+| cuc_pham_cau_hoi_va_tam_ly_du_an_thuc_pham_organic | Nghệ thuật đặt câu hỏi sâu và thấu cảm tâm lý khách hàng thực phẩm sạch | roadmap_TalkSkill.md |
+| dinh_cao_thuyet_phuc_va_dieu_huong_du_an_nang_luong_xanh | Chiến lược điều hướng nhận thức cộng đồng cho các giải pháp năng lượng tái tạo | roadmap_TalkSkill.md |
+| chuyen_gia_thuyet_phuc_du_an_thuc_pham_sach | Nghệ thuật kể chuyện Hero's Journey và xử lý phản biện bằng khung FEEL-FELT-FOUND | roadmap_TalkSkill.md |
+| tong_ket_thuyet_phuc_va_tam_ly_du_an_cong_nghe | Báo cáo chiến lược điều hướng tâm lý đám đông và mô phỏng phòng họp Q&A căng thẳng | roadmap_TalkSkill.md |
+| xu_ly_khung_hoang_du_an_an_ninh_mang_141 | Vượt bẫy khủng hoảng truyền thông mạng xã hội và AI | roadmap_TalkSkill.md |
+| hoan_thien_thuong_hieu_ca_nhan_du_an_ai_142 | Hoàn thiện định vị chuyên gia và dấu chân kỹ thuật số | roadmap_TalkSkill.md |
+| ung_pho_ke_pha_dam_du_an_thuc_te_ao | Ứng phó kẻ phá đám và chiến lược câu hỏi hiểm nghèo thực tế ảo | roadmap_TalkSkill.md |
+| hoan_thien_thuong_hieu_da_kenh_du_an_blockchain | Xây dựng thương hiệu cá nhân đa kênh và bảo mật số blockchain | roadmap_TalkSkill.md |
+| vuot_qua_bay_tam_ly_du_an_khong_gian_mang | Vượt bẫy tâm lý và ứng dụng AI phân tích cảm xúc đám đông trong khủng hoảng mạng | roadmap_TalkSkill.md |
+| cau_hoi_hiem_ngheo_du_an_ai_tao_sinh | Chiến thuật hóa giải câu hỏi hiểm nghèo và framework phản biện trực tiếp dự án AI | roadmap_TalkSkill.md |
+| dinh_cao_quan_tri_khung_hoang_truyen_thong_du_an_xe_dien | Đỉnh cao quản trị khủng hoảng truyền thông dự án xe điện thông minh | roadmap_TalkSkill.md |
+| hoan_thien_ky_nang_thuc_chien_dam_dong_du_an_khong_gian_mang | Hoàn thiện kỹ năng thực chiến đối phó đám đông trên không gian mạng | roadmap_TalkSkill.md |
+| chien_luoc_phat_ngon_du_an_thanh_pho_thong_minh_149 | Ứng dụng AI và khung FEEL-FELT-FOUND trong xử lý khủng hoảng truyền thông xuyên biên giới | roadmap_TalkSkill.md |
+| tong_ket_thuc_chien_dam_dong_du_an_vu trụ_ao_150 | Bảo vệ đồ án và kiểm thử tương tác trực tiếp phòng họp căng thẳng thực chiến | roadmap_TalkSkill.md |
+| giai_ma_bay_tam_ly_du_an_thanh_pho_thong_minh | Ứng phó bẫy tâm lý đám đông và bảo mật dấu chân số | roadmap_TalkSkill.md |
+| dinh_cao_thuong_hieu_du_an_ai_kien_tao | Nghệ thuật hùng biện đỉnh cao và ứng dụng AI luyện nói | roadmap_TalkSkill.md |
+| xu_ly_tinh_huong_hiem_ngheo_du_an_thanh_pho_thong_minh | Xử lý khủng hoảng truyền thông xuyên biên giới và phản biện AI | roadmap_TalkSkill.md |
+| dinh_cao_thuc_chien_du_an_thanh_pho_thong_minh | Bảo vệ đề án đỉnh cao và đánh giá năng lực thực chiến quốc tế | roadmap_TalkSkill.md |
+| lam_chu_thoi_dai_so_du_an_thanh_pho_thong_minh | Xử lý khủng hoảng truyền thông số và kiểm soát khủng hoảng mạng xã hội | roadmap_TalkSkill.md |
+| hoan_thien_thuong_hieu_ca_nhan_dinh_cao_du_an_ai | Định vị thương hiệu chuyên gia công nghệ và chiến lược kể chuyện Hero's Journey | roadmap_TalkSkill.md |
+| chien_luoc_doi_pho_nghich_canh_du_an_thanh_pho_thong_minh | Ứng phó khủng hoảng truyền thông AI và sự cố đô thị | roadmap_TalkSkill.md |
+| hoan_thien_ky_nang_thuc_chien_du_an_thanh_pho_thong_minh | Bảo vệ dự án đỉnh cao và định lượng năng lực chuyên gia | roadmap_TalkSkill.md |
+| quan_tri_khung_hoang_du_an_thanh_pho_thong_minh | Ứng phó khủng hoảng dữ liệu giao thông IoT và kiểm soát tin giả xuyên biên giới | roadmap_TalkSkill.md |
+| tong_ket_thuc_chien_du_an_thanh_pho_thong_minh | Bảo vệ luận án thực chiến và đánh giá năng lực lãnh đạo đô thị thông minh | roadmap_TalkSkill.md |
+| chinh_phuc_nghich_canh_du_an_thanh_pho_thong_minh | Xử lý khủng hoảng truyền thông xuyên biên giới và phản biện hội đồng | roadmap_TalkSkill.md |
+| thuc_chien_dinh_cao_du_an_thanh_pho_thong_minh | Bảo vệ đồ án chuyên gia công nghệ và đo lường hiệu suất diễn thuyết | roadmap_TalkSkill.md |
+| dot_pha_tam_ly_du_an_thanh_pho_thong_minh_163 | Vượt bẫy nhận thức đám đông và ứng dụng AI trong quản trị khủng hoảng | roadmap_TalkSkill.md |
+| hoan_thien_ky_nang_dam_dong_du_an_thanh_pho_thong_minh_164 | Kỹ năng đối thoại căng thẳng và bảo vệ đề án trước hội đồng phản biện | roadmap_TalkSkill.md |
+| chinh_phuc_bay_tam_ly_du_an_thanh_pho_thong_minh | Hóa giải bẫy tâm lý đám đông và khung phản hồi khủng hoảng AI | roadmap_TalkSkill.md |
+| hoan_thien_thuong_hieu_ca_nhan_du_an_thanh_pho_thong_minh | Định vị thương hiệu chuyên gia và bảo mật dấu chân số toàn diện | roadmap_TalkSkill.md |
+| dot_pha_nghich_canh_du_an_thanh_pho_thong_minh_167 | Ứng phó khủng hoảng truyền thông xuyên biên giới và xử lý câu hỏi khó | roadmap_TalkSkill.md |
+| tong_ket_an_tuong_du_an_thanh_pho_thong_minh_168 | Đánh giá năng lực tổng hợp và bảo vệ thương hiệu cá nhân đỉnh cao | roadmap_TalkSkill.md |
+| giai_phap_khung_hoang_du_an_thanh_pho_thong_minh | Giải pháp toàn diện vượt bẫy thời đại số cho dự án thành phố thông minh | roadmap_TalkSkill.md |
+| thuc_thi_thuong_hieu_du_an_thanh_pho_thong_minh | Định vị đỉnh cao và bảo chứng uy tín chuyên gia kỷ nguyên số | roadmap_TalkSkill.md |
+| chien_luoc_vuot_bay_tam_ly_du_an_thanh_pho_thong_minh | Ứng phó khủng hoảng đám đông và mô phỏng phản hồi AI | roadmap_TalkSkill.md |
+| hoan_thien_thuong_hieu_ca_nhan_du_an_thanh_pho_thong_minh_172 | Xây dựng định vị chuyên gia và video tổng kết sự nghiệp | roadmap_TalkSkill.md |
+| chuyen_gia_ung_bien_du_an_thanh_pho_thong_minh_173 | Nghệ thuật xử lý câu hỏi khó và phản biện khủng hoảng truyền thông | roadmap_TalkSkill.md |
+| thuc_chien_dinh_cao_thuong_hieu_du_an_thanh_pho_thong_minh_174 | Pitching đỉnh cao bảo vệ thương hiệu cá nhân dưới áp lực AI | roadmap_TalkSkill.md |
+| ky_thuat_ung_pho_pha_dam_du_an_thanh_pho_thong_minh | Xử lý tình huống khó và phản biện trực tiếp với khung FEEL-FELT-FOUND | roadmap_TalkSkill.md |
+| capstone_hoan_thien_thuong_hieu_du_an_thanh_pho_thong_minh | Capstone định vị thương hiệu cá nhân và tối ưu hóa hiệu suất diễn thuyết | roadmap_TalkSkill.md |
+| mo_phong_xu_ly_khung_hoang_du_an_thanh_pho_thong_minh | Ứng phó khủng hoảng truyền thông mạng và rò rỉ dữ liệu cảm biến | roadmap_TalkSkill.md |
+| bao_ve_thuong_hieu_ca_nhan_du_an_thanh_pho_thong_minh | Định vị lại uy tín chuyên gia trước bão thông tin và công nghệ AI | roadmap_TalkSkill.md |
+| quan_tri_rui_ro_du_an_thanh_pho_thong_minh_179 | Ứng phó khủng hoảng dữ liệu IoT và mô phỏng phòng họp căng thẳng | roadmap_TalkSkill.md |
+| capstone_tong_ket_thuong_hieu_du_an_thanh_pho_thong_minh_180 | Capstone: Đánh giá tổng lực năng lực diễn thuyết và bảo vệ định lượng | roadmap_TalkSkill.md |
+| toan_ly_kirchhoff_dc | Định luật Kirchhoff và phân tích mạch DC qua dự án mạch chia áp thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| so_phuc_ac_dao_dong_ky | Số phức trong mạch AC và đo lường tín hiệu với dự án quan sát dạng sóng RC | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_mach_dc_thuc_te | Đo đạc và xác thực Định luật Kirchhoff trên mạch LED phân áp thực tế | roadmap_ElectricEnginneerGuiidle.md |
+| do_dac_tin_hieu_ac_dao_dong_ky | Khảo sát dạng sóng điện áp AC bằng dao động ký số và phân tích trở kháng số phức | roadmap_ElectricEnginneerGuiidle.md |
+| mo_phong_mach_rc_thuc_te | Khảo sát thời gian nạp xả tụ điện mạch RC thực tế trên breadboard | roadmap_ElectricEnginneerGuiidle.md |
+| do_pha_tin_hieu_ac_lissajous | Phân tích độ lệch pha tín hiệu xoay chiều bằng phương pháp hình Lissajous | roadmap_ElectricEnginneerGuiidle.md |
+| ung_dung_kirchhoff_do_luong | Đo dòng điện và điện áp mạch cầu Wheatstone tự chế | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_ac_so_phuc_thuc_te | Khảo sát tổng trở phức mạch RLC nối tiếp qua dao động ký | roadmap_ElectricEnginneerGuiidle.md |
+| tu_duy_toan_ly_va_kirchhoff | Giải mã bài toán KCL/KVL bằng Multisim và phân tích tín hiệu cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| so_phuc_va_dao_dong_ky | Ứng dụng số phức tính tổng trở AC và khảo sát đáp ứng tần số | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_mach_chia_ap_led | Tính toán và đo đạc mạch phân áp nguồn DC cho LED 5V kết hợp phân tích toàn vẹn nguồn PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| do_dac_bien_do_tan_so_ac | Khảo sát biên độ, tần số tín hiệu sin AC và phân tích ảnh hưởng nhiễu tín hiệu SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| tinh_toan_va_thuc_thi_mach_cau_dien_tro | Tính toán và thực thi mạch cầu điện trở với định luật Kirchhoff ứng dụng | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_do_dac_mach_rlc_noi_tiep | Phân tích số phức và đo đạc mạch RLC nối tiếp bằng dao động ký | roadmap_ElectricEnginneerGuiidle.md |
+| khao_sat_mach_loc_rc_thuc_te | Xây dựng mạch lọc thông thấp RC và đo tần số cắt qua oscilloscope | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_tra_va_hieu_chuan_thiet_bi_do | Hiệu chuẩn và kiểm tra sai số đồng hồ vạn năng bằng nguồn chuẩn | roadmap_ElectricEnginneerGuiidle.md |
+| chinh_phuc_mach_dien_dc_voi_kipling | Ứng dụng Kirchhoff thiết kế mạch phân áp LED với Đồ án Module ổn áp mini | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_tin_hieu_ac_bang_so_phuc_va_scope | Vận dụng số phức và dao động ký phân tích tín hiệu AC trong Mạch lọc RC kết hợp kiểm thử SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| khao_sat_cong_suat_mach_dien | Khảo sát công suất mạch AC và DC tích hợp phân tích tổn hao nguồn | roadmap_ElectricEnginneerGuiidle.md |
+| tong_ket_do_luong_va_mach_dien | Kiểm định an toàn và gỡ lỗi trạm kiểm tra nguồn điện thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| giai_ma_mach_dien_thuc_chien_voi_kirchhoff | Giải mã mạch điện thực chiến bằng định luật Kirchhoff, vạn năng kế và cơ sở tính toán trở kháng | roadmap_ElectricEnginneerGuiidle.md |
+| xu_ly_tin_hieu_ac_bang_so_phuc_va_scope | Phân tích toàn vẹn tín hiệu AC, toán học số phức và kiểm định độ lệch pha qua dao động ký số | roadmap_ElectricEnginneerGuiidle.md |
+| ung_dung_ky_thuat_so_phuc_va_scope | Phân tích và đo đạc góc lệch pha tín hiệu AC bằng hình Lissajous trên dao động ký số | roadmap_ElectricEnginneerGuiidle.md |
+| tong_ket_ky_thuat_do_luong_dien_tu | Kiểm định định luật Kirchhoff và toàn vẹn tín hiệu cơ bản trên mạch RLC thực tế | roadmap_ElectricEnginneerGuiidle.md |
+| giai_ma_mang_dien_thuc_te_bang_kirchhoff | Giải mã mạng điện thực tế bằng Kirchhoff và VOM cho mạch đèn LED đa nhánh | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_vector_ac_voi_dao_dong_ky | Phân tích vector AC với số phức và dao động ký cho mạch dịch pha RC bậc nhất | roadmap_ElectricEnginneerGuiidle.md |
+| ap_dung_kirchhoff_va_so_phuc_thuc_te | Ứng dụng KCL/KVL và toán tử phức chế tạo mạch phân áp LED với module nguồn DC | roadmap_ElectricEnginneerGuiidle.md |
+| thuc_hanh_do_dac_dao_dong_ky_chuyen_sâu | Thực chiến quan sát dạng sóng hình sin và kiểm tra toàn vẹn tín hiệu trên dao động ký | roadmap_ElectricEnginneerGuiidle.md |
+| chinh_phuc_mach_ac_bang_so_phuc | Ứng dụng số phức tính toán tổng trở mạch RLC và đo đạc thực tế trên bo mạch | roadmap_ElectricEnginneerGuiidle.md |
+| tong_ket_ky_thuat_mach_va_do_luong | Hệ thống hóa phân tích toàn vẹn tín hiệu SI cơ bản và kỹ thuật đo lường chuyên sâu qua mô hình RLC | roadmap_ElectricEnginneerGuiidle.md |
+| khai_thac_kirchhoff_va_so_phuc_mach_ac | Phân tích mạng điện xoay chiều phức tạp và ứng dụng số phức trong bộ lọc RLC | roadmap_ElectricEnginneerGuiidle.md |
+| truy_vet_tin_hieu_ac_scope_nang_cao | Khảo sát toàn vẹn tín hiệu analog tốc độ cao bằng kỹ thuật trigger nâng cao trên Oscilloscope | roadmap_ElectricEnginneerGuiidle.md |
+| giai_phap_kirchhoff_va_so_phuc_mach_ac_chuyen_sau | Giải pháp Kirchhoff và số phức mạch AC chuyên sâu với mạch RLC mắc hỗn hợp | roadmap_ElectricEnginneerGuiidle.md |
+| Khai_thac_dao_dong_ky_va_toan_hoc_mach_dien | Phân tích đặc tính dạng sóng và miền thời gian bằng dao động ký kỹ thuật số | roadmap_ElectricEnginneerGuiidle.md |
+| chinh_phuc_mach_ac_chuyen_sau_voi_so_phuc | Giải bài toán mạch RLC nối tiếp bằng số phức và đo bằng dao động ký | roadmap_ElectricEnginneerGuiidle.md |
+| xu_ly_su_co_mach_dien_voi_dong_ho_van_nang | Truy vết và chẩn đoán lỗi phần cứng mạch điện tử nguồn DC | roadmap_ElectricEnginneerGuiidle.md |
+| ung_dung_ky_thuat_kirchhoff_va_do_luong_day_37 | Xác thực mạng điện phức tạp bằng KCL/KVL kết hợp vạn năng kế số để đo dòng áp | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_tin_hieu_ac_bang_so_phuc_va_scope_day_38 | Khảo sát đáp ứng tần số phức hợp và đo đạc góc lệch pha mạch RLC bậc hai bằng dao động ký | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_mạch_phuc_hop_kirchhoff_scope | Phân tích mạch hỗn hợp bằng Kirchhoff và Scope cho bộ lọc nguồn DC | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_do_luong_ac_dc | Đánh giá toàn diện thông số mạch RLC và kiểm tra an toàn tín hiệu | roadmap_ElectricEnginneerGuiidle.md |
+| tu_duy_toan_ly_va_kirchhoff_mach_phuc | Xây dựng tư duy toán học và Kirchhoff cho mạch phức hợp với đồng hồ vạn năng | roadmap_ElectricEnginneerGuiidle.md |
+| so_phuc_va_dao_dong_ky_mach_ac_nang_cao | Phân tích mạch lọc RC bậc cao và đáp ứng tần số qua dao động ký kỹ thuật số | roadmap_ElectricEnginneerGuiidle.md |
+| mo_phong_va_do_dac_mach_ac_phan_tich_so_phuc | Mô phỏng và đo đạc mạch AC với phân tích số phức trên bo mạch thử nghiệm | roadmap_ElectricEnginneerGuiidle.md |
+| chuan_doan_va_xu_ly_loi_mach_dien_thuc_chien | Xử lý sự cố phần cứng cơ bản và kiểm tra toàn vẹn tín hiệu ban đầu | roadmap_ElectricEnginneerGuiidle.md |
+| giai_ma_mang_dien_ac_dc_voi_toan_ly | Giải mã mạng điện AC-DC bằng toán lý và đồng hồ vạn năng cho dự án đèn LED | roadmap_ElectricEnginneerGuiidle.md |
+| khao_sat_pha_tin_hieu_voi_dao_dong_ky | Khảo sát độ lệch pha tín hiệu và phân tích toàn vẹn tín hiệu SI cơ bản trên mạch RC | roadmap_ElectricEnginneerGuiidle.md |
+| giai_ma_luoi_dien_hon_hop_kirchhoff_scope | Giải mã lưới điện hỗn hợp Kirchhoff Scope và phân tích mô phỏng toàn vẹn tín hiệu SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_ky_thuat_do_luong_ac_dc_chuyen_sau | Hoàn thiện kỹ thuật kiểm định AC DC chuyên sâu kết hợp kịch bản tự động hóa HWI | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_mach_dien_thuc_te_voi_kirchhoff | Kiểm định mạng lưới điện phức hợp và phân tích suy hao trở kháng cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| xu_ly_tin_hieu_thuc_te_bang_scope | Đánh giá chất lượng sóng sin, nhiễu xuyên âm và đo độ suy hao tín hiệu băng thông | roadmap_ElectricEnginneerGuiidle.md |
+| chinh_phuc_mach_nguon_dc_ac_voi_kirchhoff | Giải mã và kiểm định mạch nguồn DC/AC thực chiến với định luật Kirchhoff | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_vector_tong_tro_voi_scope | Khảo sát vector tổng trở và góc lệch pha mạch RLC bằng dao động ký | roadmap_ElectricEnginneerGuiidle.md |
+| giai_ma_thong_so_mach_dien_thuc_te | Giải mã thông số mạch điện thực tế qua mô hình toán học và đồng hồ vạn năng - Kèm báo cáo đo điện áp | roadmap_ElectricEnginneerGuiidle.md |
+| khao_sat_dang_song_ac_chuyen_sau | Khảo sát dạng sóng AC chuyên sâu kết hợp tính toán số phức và phân tích toàn vẹn tín hiệu SI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| xay_dung_mo_hinh_mach_cau_whetstone_thuc_te | Xây dựng mô hình mạch cầu Whetstone thực tế và đo lường linh kiện | roadmap_ElectricEnginneerGuiidle.md |
+| khao_sat_cong_huong_mach_rlc_series_scope | Khảo sát cộng hưởng mạch RLC nối tiếp qua dao động ký hiện sóng | roadmap_ElectricEnginneerGuiidle.md |
+| ung_dung_ky_thuat_kirchhoff_cho_mach_cuc_tieu | Xây dựng hệ thống giải phương trình Kirchhoff ứng dụng mạch cầu RLC thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_vector_dong_dien_ac_bang_scope | Khảo sát và ghi hình góc lệch pha xoay chiều qua dao động ký lưu trữ kỹ thuật số | roadmap_ElectricEnginneerGuiidle.md |
+| giai_ma_he_thong_dien_xoay_chieu_30s | Giải mã hệ thống điện xoay chiều 30s với máy hiện sóng và số phức | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_ky_thuat_do_luong_mach_tong_hop_60s | Phân tích toàn vẹn tín hiệu SI cơ bản trên mạng điện trở cầu qua vạn năng kế | roadmap_ElectricEnginneerGuiidle.md |
+| ung_dung_dinh_luat_kirchhoff_va_so_phuc_mach_rlc_thuc_chien | Thiết kế mạch RLC nối tiếp và tính toán bằng số phức qua dự án Bộ lọc âm thanh Mini | roadmap_ElectricEnginneerGuiidle.md |
+| truy_vet_tin_hieu_ac_va_do_pha_voi_dao_dong_ky_thuc_te | Phân tích và đo đạc góc lệch pha tín hiệu xoay chiều AC bằng dao động ký kỹ thuật số | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_bien_do_va_pha_mach_rlc_voi_scope | Đo đạc biên độ và góc lệch pha mạch RLC qua scope kết hợp tính toán impedance matching cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| tong_hop_kiem_tra_thuc_chien_mach_dien_ac_dc | Kiểm định toàn diện mạch hỗn hợp AC-DC thực chiến kèm kỹ thuật tách nhiễu tín hiệu Signal Integrity | roadmap_ElectricEnginneerGuiidle.md |
+| tinh_toan_va_thuc_thi_mach_loc_thap_thuc_chien | Tính toán mạch lọc bậc một và đo lường trên breadboard | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_va_toi_uu_mach_cau_phan_ap_ac_dc | Đánh giá toàn vẹn nguồn và kiểm định mạng cầu phân áp hỗn hợp | roadmap_ElectricEnginneerGuiidle.md |
+| ung_dung_ky_thuat_toan_ly_va_kirchhoff_day_67 | Ứng dụng KCL/KVL giải mã mạch cầu điện trở với đồng hồ vạn năng | roadmap_ElectricEnginneerGuiidle.md |
+| khao_sat_tin_hieu_ac_bang_so_phuc_scope_day_68 | Khảo sát mạch cộng hưởng RLC nối tiếp và góc lệch pha AC | roadmap_ElectricEnginneerGuiidle.md |
+| giai_ma_luoi_dien_phuc_hop_voi_kirchhoff | Giải mã lưới điện phức hợp với Kirchhoff và số phức - Mạch cầu AC | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_ky_thuat_trac_dac_scope_day_70 | Đo lường biên độ và phân tích hình học Lissajous - Hệ thống tín hiệu xoay chiều | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_va_do_luong_mach_thuan_tro_71 | Thiết lập và phân tích điện áp mạch cầu điện trở thực chiến với VOM | roadmap_ElectricEnginneerGuiidle.md |
+| khao_sat_tan_so_mach_rc_72 | Khảo sát đáp ứng tần số mạch lọc thông thấp RC kết hợp dao động ký | roadmap_ElectricEnginneerGuiidle.md |
+| nghien_cuu_dap_ung_qua_doi_mach_rc_scope | Nghiên cứu đáp ứng quá độ mạch RC với máy hiện sóng và hàm toán học | roadmap_ElectricEnginneerGuiidle.md |
+| chuan_hoa_he_thong_mach_dien_ac_dc_chuyen_sau | Phân tích toàn vẹn tín hiệu Signal Integrity (SI) kết hợp chuẩn hóa đo lường AC/DC | roadmap_ElectricEnginneerGuiidle.md |
+| chinh_phuc_mach_cau_khu_khang_75 | Chinh phục mạch cầu khử kháng với máy phát hàm và dao động ký | roadmap_ElectricEnginneerGuiidle.md |
+| toi_uu_mach_cong_huong_song_sin_76 | Tối ưu hóa mạch lọc dải thông và đánh giá toàn vẹn tín hiệu cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_bien_do_pha_mach_cuc_bo_77 | Đo đạc biên độ và góc lệch pha mạch cầu RLC thực chiến tích hợp kiểm soát Signal Integrity cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| tong_ket_ky_thuat_do_mach_dien_ac_dc_78 | Kiểm định mạng điện hỗn hợp AC/DC toàn diện áp dụng tiêu chuẩn đo lường điện tử công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| khao_sat_bien_dang_tin_hieu_ac_bang_scope | Khảo sát biến dạng tín hiệu AC bằng scope cho mạch RC thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_ky_nang_do_luong_mach_ac_dc_chuyen_sau | Hoàn thiện kỹ năng kiểm định chất lượng tín hiệu và đo lường điện tử hỗn hợp | roadmap_ElectricEnginneerGuiidle.md |
+| giai_ma_tin_hieu_ac_chuyen_sau_voi_scope_va_vif | Giải mã tín hiệu AC chuyên sâu với Scope và VIF qua mạch lọc thông dải LC thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| tong_ket_va_ung_dung_so_phuc_cho_mach_ac_tong_hop | Phân tích mạch xoay chiều RLC bằng số phức kết hợp kiểm định đặc tính tần số | roadmap_ElectricEnginneerGuiidle.md |
+| tu_duy_toan_ly_va_kirchhoff_mach_dien | Ứng dụng KCL/KVL và số phức giải quyết bài toán mạch AC với mô hình đèn LED xoay chiều | roadmap_ElectricEnginneerGuiidle.md |
+| ky_thuat_do_luong_dao_dong_ky_chuyen_sau | Khai thác dao động ký số đo biên độ và tần số tín hiệu với bộ tạo sóng hàm thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| tu_duy_toan_ly_va_kirchhoff_mach_phuc_hop_85 | Giải mã mạng lưới điện phức hợp bằng định luật Kirchhoff và đại số số phức - Mô hình cầu RLC bất đối xứng | roadmap_ElectricEnginneerGuiidle.md |
+| ky_thuat_do_luong_dao_dong_ky_chuyen_sau_86 | Phân tích toàn vẹn tín hiệu và khảo sát góc lệch pha AC đa tần số trên trạm kiểm định dao động ký | roadmap_ElectricEnginneerGuiidle.md |
+| mo_phong_va_chi_so_mach_dien_87 | Chế tạo bảng phân tích điện áp đa kênh với mạch phân áp điện trở | roadmap_ElectricEnginneerGuiidle.md |
+| truy_vet_va_do_pha_tin_hieu_ac_88 | Đánh giá góc lệch pha RC bằng màn hình dao động ký số và phân tích SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| mo_hinh_hoa_toan_hoc_mach_dien | Mô hình hóa toán học mạch điện với dự án bảng tính thông số Kirchhoff | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_gia_do_luong_dien_tu | Thiết kế cẩm nang đo lường điện tử thực chiến và tích hợp tiêu chuẩn an toàn phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| giai_phap_kirchhoff_cho_mach_phan_nhanh_nghien_cuu | Giải pháp Kirchhoff cho mạch phân nhánh nghiên cứu bộ lọc RC | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_vector_ac_bang_scope_va_so_phuc_chuyen_sau | Phân tích vector AC bằng scope và số phức cho mạch dao động | roadmap_ElectricEnginneerGuiidle.md |
+| lap_rap_va_do_mach_phan_ap_thuc_te_93 | Lắp ráp và đo mạch phân áp thực tế với module đo điện áp đa năng | roadmap_ElectricEnginneerGuiidle.md |
+| giam_sat_tin_hieu_sin_bang_thiet_bi_do_94 | Giám sát tín hiệu xoay chiều và phân tích thông số sóng sin chuyên sâu | roadmap_ElectricEnginneerGuiidle.md |
+| giai_phap_toan_ly_va_do_luong_mach_nghien_cuu_95 | Giải pháp toán lý và đo lường mạch AC với bảng mạch thử nghiệm số 95 | roadmap_ElectricEnginneerGuiidle.md |
+| tong_ket_va_kiem_dinh_mach_dien_tu_chuyen_sau_96 | Phân tích toàn vẹn tín hiệu và kiểm định bộ lọc RC bậc một | roadmap_ElectricEnginneerGuiidle.md |
+| chinh_phuc_mach_ac_bang_so_phuc_va_scope | Tính toán trở kháng phức mạch AC và kiểm định toàn vẹn tín hiệu cơ bản trên dao động ký | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_kirchhoff_va_thiet_bi_do_nang_cao | Kiểm định định luật Kirchhoff trên mạng điện phức hợp tích hợp phần cứng an toàn | roadmap_ElectricEnginneerGuiidle.md |
+| giai_phap_toan_hoc_va_do_luong_mach_ac_chuyen_sau | Giải pháp toán học và đo lường mạch AC chuyên sâu qua phân tích biên độ pha trên mạch RLC nối tiếp | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_ky_thuat_do_ngo_va_giai_phap_kirchhoff | Hoàn thiện kỹ thuật đo sóng và kiểm chứng định luật Kirchhoff trên mạch cầu AC phức tạp | roadmap_ElectricEnginneerGuiidle.md |
+| ung_dung_dai_so_va_vif_cho_mach_cuc_bo_101 | Ứng dụng đại số phức và VIF kiểm chứng mạch cầu chia áp chuyên sâu | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_dinh_luat_kirchhoff_bang_thiet_bi_do_102 | Kiểm định định luật Kirchhoff trên mạch phức hợp đa nhánh AC | roadmap_ElectricEnginneerGuiidle.md |
+| ung_dung_dai_so_va_vif_cho_mach_cuc_bo_103 | Xây dựng mô hình toán học và kiểm tra vạn năng kế cho mạch chia dòng | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_dinh_luat_kirchhoff_bang_thiet_bi_do_104 | Khảo sát nút mạng điện phức hợp và quan sát tín hiệu bằng oscilloscope tích hợp kiểm tra toàn vẹn tín hiệu SI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| mo_hinh_so_phuc_va_vif_cho_mach_ac_105 | Mô hình hóa số phức và đo V-I-F mạch AC với mạch cầu RC | roadmap_ElectricEnginneerGuiidle.md |
+| chuan_hoa_he_thong_kirchhoff_va_do_luong_106 | Kiểm định tín hiệu toàn vẹn nguồn và dòng điện xoay chiều đa nhánh | roadmap_ElectricEnginneerGuiidle.md |
+| mo_phong_va_do_luong_mach_ac_chuyen_sau_107 | Phân tích mạch AC bằng số phức kết hợp mô phỏng trở kháng và đo đạc thực tế trên breadboard | roadmap_ElectricEnginneerGuiidle.md |
+| giai_phap_kirchhoff_va_scope_cho_mach_phuc_tap_108 | Ứng dụng phương pháp Kirchhoff kết hợp dao động ký phân tích mạch cầu AC và triệt tiêu biên độ | roadmap_ElectricEnginneerGuiidle.md |
+| chuan_hoa_mo_hinh_ac_dc_va_thiet_bi_do | Chuẩn hóa mô hình AC-DC thực tế với dự án trạm đo điện áp đa năng | roadmap_ElectricEnginneerGuiidle.md |
+| tong_ket_va_van_dung_toan_ly_mach_dien | Phân tích và kiểm định thông số RLC với bảng phân tích pha nâng cao | roadmap_ElectricEnginneerGuiidle.md |
+| khao_sat_mach_cau_whetstone_thuc_te | Khảo sát mạch cầu Whetstone qua mô hình đo điện trở precision 1% kết hợp phân tích sai số SI | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_dap_ung_qua_do_mach_rc_thuc_chien | Phân tích đáp ứng quá độ mạch RC bậc nhất tích hợp kiểm tra toàn vẹn nguồn PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| khao_sat_mach_cong_huong_noi_tiep_113 | Khảo sát mạch cộng hưởng nối tiếp LCR bằng máy hiện sóng và số phức | roadmap_ElectricEnginneerGuiidle.md |
+| chuan_hoa_do_luong_mach_dien_114 | Chuẩn hóa quy trình đo lường SI/PI và định luật Kirchhoff cho mạch lọc nguồn | roadmap_ElectricEnginneerGuiidle.md |
+| khao_sat_thanh_phan_song_hai_115 | Khảo sát thành phần sóng hài FFT trên Rigol DS1054Z cho inverter mini | roadmap_ElectricEnginneerGuiidle.md |
+| giai_phap_do_luong_dien_ap_tieu_chuan_116 | Giải pháp đo lường điện áp chuẩn xác True RMS bằng đồng hồ Fluke 87V | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_bien_do_va_pha_mach_ac_117 | Phân tích biên độ và pha mạch AC bằng đồng hồ vạn năng và dao động ký thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| giai_phap_ky_thuat_mach_dien_hon_hop_118 | Giải pháp kỹ thuật mạch điện hỗn hợp RLC và kiểm định thông số toán học | roadmap_ElectricEnginneerGuiidle.md |
+| ung_dung_toan_hoc_va_scope_cho_mach_ac_119 | Nghiên cứu quan hệ pha AC bằng máy hiện sóng trong mạch chỉnh lưu cầu 4 diode kết hợp kiểm soát toàn vẹn tín hiệu SI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| chuan_hoa_ky_thuat_do_luong_va_kirchhoff_120 | Xác thực định luật Kirchhoff dòng điện bằng đồng hồ vạn năng số trên mạch cầu RLC tích hợp kiểm định tiêu chuẩn an toàn phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| khao_sat_thong_so_mach_phuc_tap_121 | Phân tích toàn vẹn tín hiệu Signal Integrity cơ bản và mô phỏng đồ thị phasor mạch RLC | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nang_luc_do_luong_va_toan_ly_122 | Kiểm định phân tích toàn vẹn nguồn Power Integrity và cân bằng điện thế nút mạch AC | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_chinh_luu_diode_va_bjt_123 | Chế tạo mạch nguồn tuyến tính 5V dùng Diode cầu và Transistor BJT | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_mach_khuech_dai_mosfet_va_op_amp_124 | Phân tích toàn vẹn tín hiệu và xây dựng mạch khuếch đại âm thanh MOSFET | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_mach_loc_tich_cuc_va_nguon_tuyen_tinh_125 | Thiết kế mạch lọc tích cực và nguồn tuyến tính với dự án Bộ nguồn ổn áp 5V | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_xu_ly_tin_hieu_analog_va_op_amp_126 | Chế tạo mạch xử lý tín hiệu analog và op-amp với dự án Mạch tiền khuếch đại âm thanh | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_dieu_khien_dong_luc_mosfet | Thiết kế mạch điều khiển động lực MOSFET công suất lớn chạy băm xung | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_khuech_dai_thuc_te | Tích hợp hệ thống tiền khuếch đại âm thanh và bộ lọc thông dải băng thông rộng | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_thu_thap_tin_hieu_cam_bien_nhiet_do_lm35_kem_mach_khuech_dai_thuat_toan | Chế tạo mạch tiền khuếch đại tín hiệu nhiệt độ LM35 sử dụng Op-Amp LM358 | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_va_hoan_thien_he_thong_nguon_tuyen_tinh_kem_mach_loc_tich_cuc | Kiểm định toàn vẹn nguồn và hoàn thiện bộ ổn áp tuyến tính 5V/12V | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_do_luong_cam_bien_quang_tro_va_transistor | Chế tạo mạch đo lường ánh sáng cảm biến quang trở kết hợp transistor BJT | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_mach_so_sanh_tin_hieu_dung_op_amp | Thiết kế mạch so sánh tín hiệu điện áp chính xác tích hợp kiểm thử mô phỏng SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_khuech_dai_thuat_toan_da_tang_133 | Chế tạo mạch khuếch đại thuật toán đa tầng với Op-Amp LM358 ứng dụng đo lường | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_nguon_va_khuech_dai_analog_134 | Tối ưu hóa nguồn tuyến tính tích hợp đệm BJT và kiểm thử độ ổn định nhiệt | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_dieu_khien_role_va_transistor_cong_suat | Chế tạo mạch điều khiển role và transistor công suất thực chiến qua bảng mạch | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_do_luong_mach_nguon_doi_xung_op_amp | Thiết kế và đo lường mạch nguồn đối xứng phục vụ Op-Amp đa tầng | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_chuyen_doi_tin_hieu_analog_vvoi_op_amp_va_mosfet | Chế tạo mạch chuyển đổi tín hiệu analog với Op-Amp và MOSFET | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_va_toi_uu_mach_loc_tich_cuc_da_tang | Kiểm định và tối ưu mạch lọc tích cực đa tầng tích hợp phân tích tín hiệu | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_do_luong_cam_bien_piezo_va_bjt_don | Thiết kế mạch phát hiện rung động chuyên sâu bằng cảm biến áp điện Piezo và tầng đệm BJT | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_mach_do_luong_cam_bien_va_khuech_dai | Tích hợp và kiểm định hệ thống đo lường cảm biến đa tầng toàn diện chống nhiễu tín hiệu SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_dieu_chinh_bien_do_tin_hieu_analog_141 | Chế tạo mạch điều chỉnh biên độ tín hiệu analog dùng BJT và Op-Amp kết hợp tính toán SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_do_luong_mach_nguon_on_ap_chuyen_doi_142 | Thiết kế và đo lường mạch nguồn ổn áp tích hợp bảo vệ dòng qua MOSFET kèm tiêu chuẩn an toàn phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_phat_ham_tin_hieu_analog_143 | Thiết kế mạch phát hàm tín hiệu đa dạng tần số bằng mạng điện trở và Op-Amp | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_mach_xu_ly_va_dieu_chinh_analog_144 | Kiểm định và tối ưu toàn vẹn tín hiệu analog tích hợp nguồn đôi chuyên sâu | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_do_luong_nhiet_do_pt100_kem_op_amp_145 | Chế tạo mạch đo lường nhiệt độ PT100 kèm Op-Amp chuẩn hóa tín hiệu | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_va_hoan_thien_he_thong_mach_do_luong_analog_146 | Phân tích toàn vẹn nguồn và tín hiệu SI/PI cơ bản trên mạch đo lường | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_dieu_khien_tai_cong_suat_mosfet_va_op_amp | Chế tạo mạch điều khiển tải công suất MOSFET kết hợp Op-Amp so sánh tích hợp tính toán phân tích toàn vẹn tín hiệu (SI/PI) | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_mach_nguon_tuyen_tinh_va_loc_tich_cuc | Hoàn thiện hệ thống mạch nguồn tuyến tính ổn áp tích hợp mạch lọc tích cực đa tầng áp dụng tiêu chuẩn an toàn phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_dieu_khien_dong_luc_thong_minh_149 | Chế tạo mạch điều khiển động lực thông minh tích hợp MOSFET và Op-Amp | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_dien_tu_tuong_duy_chuyen_sau_150 | Tích hợp phân tích toàn vẹn tín hiệu SI/PI và kiểm định hệ thống analog | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_kiem_soat_dong_dien_chuyen_sau_151 | Chế tạo mạch kiểm soát dòng điện chuyên sâu với BJT, MOSFET tải công suất và kiểm tra tính toàn vẹn nguồn SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_he_thong_analog_da_tang_152 | Tích hợp hệ thống analog đa tầng gồm nguồn ổn áp, lọc tích cực Butterworth và kiểm thử tự động phần cứng HWI | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_dieu_chinh_cong_suat_thong_minh_153 | Chế tạo mạch điều khiển công suất PWM dùng MOSFET tích hợp Op-Amp | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_mach_dieu_chinh_cong_suat_thong_minh_154 | Kiểm định toàn vẹn tín hiệu và bảo vệ quá dòng cho bo mạch tương tự | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_phan_tich_tin_hieu_da_nang_155 | Chế tạo mạch phân tích tín hiệu đa năng tích hợp MOSFET và Op-Amp | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_phan_tich_tin_hieu_analog_156 | Kiểm định toàn vẹn tín hiệu và hoàn thiện hệ thống đo lường chuyên sâu | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_do_luong_chuyen_sau_linh_kien_roi_rac_157 | Chế tạo mạch đo lường chuyên sâu linh kiện rời rác kèm Op-Amp | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_do_luong_ban_dan_va_op_amp_158 | Hoàn thiện hệ thống đo lường bán dẫn và Op-Amp tích hợp nguồn kép | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_danh_gia_thong_so_ban_dan_va_op_amp_chuyen_sau | Thiết kế trạm đo tự động đặc tuyến bán dẫn rời rác và mô phỏng tín hiệu tương tự | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_dien_tu_tuong_tu_chuyen_gia_toan_dien | Tích hợp toàn vẹn tín hiệu SI/PI và phân tích nhiệt trên Altium cho bo mạch hệ thống nguồn | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_phoi_hop_linh_kien_ban_dan_va_op_amp | Chế tạo mạch phối hợp linh kiện bán dẫn rời rác và Op-Amp tích hợp kiểm soát toàn vẹn tín hiệu SI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_module_xu_ly_tin_hieu_analog_chuyen_sau | Hoàn thiện module xử lý tín hiệu analog chuyên sâu tích hợp lọc tích cực, nguồn chuẩn và mô phỏng nhiệt vi mạch | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_tich_hop_ban_dan_va_op_amp | Chế tạo mạch tích hợp bán dẫn và Op-Amp với tải giả lập | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_dien_tu_tuong_duy_chuyen_sau_nang_cao | Đánh giá toàn vẹn tín hiệu và nguồn (SI/PI) cho hệ thống điện tử tương tự | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_dieu_khien_ban_dan_va_op_amp_chuyen_sau | Chế tạo mạch điều khiển bán dẫn rời rác kết hợp Op-Amp cấu trúc kép qua dự án trạm phát xung lực thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_ban_dan_va_op_amp_toan_dien | Xây dựng bộ điều áp tuyến tính tải nặng có hồi tiếp vi sai và cơ chế bảo vệ quá dòng tích hợp | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_phan_tich_linh_kien_ban_dan_va_op_amp | Chế tạo mạch phân tích đặc tuyến linh kiện bán dẫn và Op-Amp với tải giả lập | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_phan_tich_linh_kien_ban_dan_chuyen_sau | Thiết kế mạch kiểm định bán dẫn công suất tích hợp phân tích Signal Integrity | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_phan_tich_linh_kien_ban_dan_va_op_amp_chuyen_sau | Đo đạc đặc tuyến V-I linh kiện bán dẫn rời rác và mô phỏng tín hiệu analog chuyên sâu | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_dien_tu_tuong_duy_chuyen_gia_toi_uu | Thiết kế nguồn tuyến tính độ gợn thấp tích hợp lọc tích cực bậc hai và kiểm định phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_khuech_dai_thuat_toan_va_nguon_tuyen_tinh | Thiết kế mạch nguồn tuyến tính và khuếch đại tín hiệu analog | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_module_loc_va_xu_ly_tin_hieu_analog | Xây dựng mạch lọc Sallen-Key và tầng chuyển mạch công suất MOSFET | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_kiem_tra_ban_dan_va_op_amp | Thiết kế mạch đo kiểm linh kiện bán dẫn rời rác và nguồn đôi | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_ban_dan_va_op_amp_chuyen_sau | Tối ưu hóa và kiểm thử tự động hệ thống xử lý tín hiệu analog | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_kiem_tra_ban_dan_va_op_amp_d175 | Đo đạc đặc tuyến V-I bán dẫn và tính toán Impedance Matching đường truyền RF | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_ban_dan_va_op_amp_toi_uu | Tối ưu hóa toàn vẹn tín hiệu SI/PI và kiểm thử tự động HWI mạch analog đa tầng | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_thu_thap_tin_hieu_ban_dan_va_opamp | Chế tạo mạch thu thập tín hiệu bán dẫn và Op-Amp với linh kiện rời rác | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_thu_thap_analog_chuyen_sau | Phân tích toàn vẹn tín hiệu và nguồn SI/PI tích hợp MOSFET và nguồn ổn áp | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_chuyen_doi_va_khuech_dai_tin_hieu_analog | Chế tạo mạch chuyển đổi và khuếch đại tín hiệu analog dùng Op-Amp và BJT | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_dien_tu_tuong_tu_chuyen_gia_buoc_cuoi | Ứng dụng bộ lọc tích cực Sallen-Key và mạch nguồn tuyến tính tiêu chuẩn công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_dieu_khien_ban_dan_cong_suat_181 | Thiết kế mạch điều khiển tốc độ động cơ DC tích hợp tầng đệm BJT và MOSFET | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_mach_nguon_va_loc_tich_hop_182 | Xây dựng module nguồn ổn áp tuyến tính kèm bộ lọc tích cực Op-Amp đa tầng | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_khuech_dai_thuat_toan_va_nguon_tuyen_tinh_183 | Thiết kế mạch nguồn tuyến tính và tầng đệm Op-Amp tích hợp | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_module_loc_va_xu_ly_tin_hieu_analog_184 | Xây dựng mạch lọc thông thấp tích hợp phân tích toàn vẹn tín hiệu SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_giao_tiep_cam_bien_va_op_amp | Thiết kế mạch giao tiếp cảm biến và tích hợp kiểm soát toàn vẹn tín hiệu SI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_module_giao_tiep_cam_bien_va_op_amp | Hoàn thiện và kiểm định phần cứng tự động module đo lường analog ứng dụng tiêu chuẩn công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_dieu_khien_mosfet_va_op_amp_thuc_chien | Chế tạo mạch điều khiển tải công suất bằng MOSFET và Op-Amp ứng dụng thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_dieu_khien_cong_suat_analog | Xây dựng hệ thống bảo vệ quá dòng tự động tích hợp mạch ngắt tải thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_phan_tich_ban_dan_chuyen_sau_189 | Chế tạo mạch phân tích bán dẫn chuyên sâu và Op-Amp tích hợp | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_tuong_tu_190 | Thiết kế và mô phỏng toàn vẹn tín hiệu SI/PI cho nguồn tuyến tính | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_phan_tich_ban_dan_va_op_amp_chuyen_sau_191 | Chế tạo mạch khuếch đại tín hiệu sinh học với Op-Amp và MOSFET qua dự án ECG Frontend | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_ban_dan_va_op_amp_chuyen_sau_192 | Hoàn thiện và kiểm định hệ thống đo lường analog đa kênh qua dự án Bio-Signal Hub | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_phan_tich_linh_kien_roi_rac_193 | Chế tạo mạch phân tích linh kiện rời rạc tích hợp Op-Amp kiểm tra BJT MOSFET với kiểm soát toàn vẹn tín hiệu SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_xu_ly_tin_hieu_analog_194 | Hoàn thiện hệ thống xử lý tín hiệu analog toàn diện với mạch lọc tích cực ứng dụng tiêu chuẩn an toàn phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_kiem_soat_ban_dan_va_opamp_195 | Chế tạo mạch kiểm soát bán dẫn và opamp tích hợp bảo vệ quá dòng | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_ban_dan_196 | Đánh giá toàn vẹn tín hiệu và kiểm định mạch bán dẫn công suất cao | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_do_dac_linh_kien_ban_dan_thuc_chien | Chế tạo mạch đo đạc linh kiện bán dẫn thực chiến với LCD và vi điều khiển | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_dong_goi_thiet_bi_ban_dan_198 | Hoàn thiện và tích hợp hộp nguồn pin sạc cho trạm kiểm tra bán dẫn | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_phan_tich_linh_kien_ban_dan_chuyen_sau_199 | Thiết kế mạch phân tích đặc tuyến linh kiện bán dẫn và tối ưu hóa toàn vẹn tín hiệu SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_thiet_bi_ban_dan_chuyen_sau_200 | Kiểm định tự động phần cứng thiết bị bán dẫn và tích hợp bảo mật firmware an toàn | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_phan_tich_linh_kien_ban_dan_chuyen_sau_201 | Thiết kế mạch phân tích đặc tuyến bán dẫn rời rác tích hợp phân tích tín hiệu nhỏ | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_ban_dan_chuyen_sau_202 | Kiểm định nguồn ổn áp tuyến tính MOSFET kết hợp phân tích toàn vẹn nguồn PI | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_phan_tich_linh_kien_ban_dan_nang_cao_203 | Chế tạo mạch quét đặc tuyến V-I bán dẫn tích hợp phân tích Signal Integrity cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_thiet_bi_ban_dan_nang_cao_204 | Đóng gói thiết bị đo lường bán dẫn di động tuân thủ tiêu chuẩn an toàn công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_do_luong_ban_dan_chuyen_sau_205 | Thiết kế mạch đo lường bán dẫn chuyên sâu và tích hợp phân tích toàn vẹn tín hiệu SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_tram_test_ban_dan_206 | Hoàn thiện và kiểm định tự động hóa phần cứng HWI trạm test bán dẫn rời rác | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_phan_tich_ban_dan_va_op_amp_chuyen_sau_207 | Thiết kế trạm phân tích linh kiện bán dẫn rời rác tích hợp mô phỏng toàn vẹn tín hiệu SI | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_tram_phan_tich_ban_dan_208 | Kiểm định toàn diện trạm đo bán dẫn ứng dụng tiêu chuẩn an toàn phần cứng công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_dieu_khien_ban_dan_va_khuech_dai_209 | Chế tạo mạch điều khiển bán dẫn và khuếch đại đa tầng với MOSFET và Op-Amp thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_ban_dan_cong_suat_210 | Hoàn thiện và kiểm định hệ thống nguồn tuyến tính cao cấp tích hợp kiểm thử tự động HWI | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_thu_thap_tin_hieu_ban_dan_211 | Thiết kế mạch tiền khuếch đại tín hiệu cảm biến quang và xử lý nhiễu tương tự | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_thu_thap_tin_hieu_212 | Xây dựng hệ thống bảo vệ quá dòng chuyên sâu tích hợp phân tích toàn vẹn tín hiệu SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_phan_tich_linh_kien_ban_dan_chuyen_sau_213 | Thiết kế mạch phân tích đặc tuyến bán dẫn rời rác tích hợp tính toán kiểm soát trở kháng đường truyền | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_thiet_bi_phan_tich_ban_dan_214 | Kiểm định trạm đo thông số phần cứng tự động theo chuẩn công nghiệp IEC và an toàn chức năng | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_dieu_chinh_nguon_va_khuech_dai_tin_hieu | Thiết kế mạch điều chỉnh nguồn tuyến tính và khuếch đại tín hiệu analog kết hợp kiểm soát toàn vẹn nguồn PI | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_nguon_va_xu_ly_tin_hieu | Kiểm định nâng cao và tối ưu hóa hệ thống lọc tích cực đáp ứng tiêu chuẩn công nghiệp IEC | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_phan_tich_ban_dan_va_opamp_chuyen_sau_217 | Chế tạo mạch phân tích bán dẫn tích hợp bộ lọc Sallen-Key và tối ưu toàn vẹn tín hiệu SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_ban_dan_va_opamp_218 | Xây dựng trạm kiểm thử tự động hóa HWI cho hệ thống nguồn tuyến tính và linh kiện bán dẫn | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_dieu_chinh_dien_ap_va_khuech_dai_thuc_chien | Chế tạo mạch ổn áp tuyến tính và phân tích toàn vẹn nguồn PI | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_nguon_va_khuech_dai | Kiểm định tự động phần cứng HWI và tối ưu hóa hệ thống analog | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_kiem_tra_mosfet_va_opamp | Chế tạo mạch kiểm tra MOSFET và Op-Amp chuyên dụng với nguồn đôi | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_test_ban_dan | Hoàn thiện và kiểm định mạch test bán dẫn kết hợp lọc tín hiệu RC | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_phan_tich_diode_va_bjt_thuc_chien | Chế tạo mạch phân tích đặc tuyến Volt-Ampere cho linh kiện bán dẫn rời rác | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_phan_tich_diode_bjt | Kiểm định nâng cao và tối ưu hóa bo mạch phân tích bán dẫn tích hợp đèn báo LED thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_chuyen_doi_va_loc_tin_hieu_analog | Chế tạo mạch lọc tích cực Sallen-Key tích hợp mô phỏng toàn vẹn tín hiệu SI | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_nguon_tuyen_tinh_chuyen_sau | Kiểm định nguồn tuyến tính dòng cao và ứng dụng kịch bản tự động hóa HWI | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_dieu_khien_mosfet_va_opamp | Chế tạo mạch điều khiển MOSFET công suất và khuếch đại tín hiệu cảm biến | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_dieu_khien_mosfet_opamp | Kiểm định toàn vẹn tín hiệu và phân tích nhiệt cho bo mạch tương tự | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_giao_tiep_cam_bien_va_khuech_dai | Chế tạo mạch giao tiếp cảm biến và khuếch đại analog qua mô đun AD620 | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_module_cam_bien_analog | Kiểm định và triển khai hệ thống thu thập dữ liệu cảm biến thời gian thực tích hợp bảo mật phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_phan_tich_linh_kien_va_khuech_dai_analog | Chế tạo mạch phân tích đặc tuyến linh kiện bán dẫn và khuếch đại tín hiệu analog | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_phan_tich_ban_dan_analog | Kiểm định nâng cao và tối ưu hóa hệ thống bán dẫn rời rác theo chuẩn công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_thu_thap_va_xu_ly_tin_hieu_cam_bien_233 | Chế tạo mạch thu thập và xử lý tín hiệu cảm biến với Op-Amp LM358 | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_xu_ly_tin_hieu_cam_bien_234 | Tự động hóa kiểm thử phần cứng và đánh giá độ tin cậy trạm đo lường thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_dieu_khien_tai_va_giam_sat_tin_hieu_235 | Chế tạo mạch điều khiển tải công suất và giám sát tín hiệu tương tự | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_dieu_khien_tai_236 | Kiểm định nâng cao và mô phỏng nhiệt hệ thống điện tử công suất | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_dieu_khien_va_loc_tin_hieu_237 | Thiết kế mạch lọc tích cực Sallen-Key và tích hợp mô phỏng toàn vẹn tín hiệu SI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_dieu_khien_loc_238 | Kiểm định toàn diện mạch lọc tương tự và đánh giá ứng dụng chuẩn an toàn phần cứng ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_phan_tich_transistor_va_opamp | Thiết kế mạch phân tích transistor và Op-Amp tích hợp phân tích toàn vẹn tín hiệu SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_tram_do_tin_hieu | Kiểm định tự động phần cứng trạm đo bán dẫn rời rác qua kịch bản Python | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_dieu_chinh_tin_hieu_analog_241 | Chế tạo mạch điều chỉnh tín hiệu analog tích hợp phân tích toàn vẹn tín hiệu SI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_analog_chuyen_sau_242 | Kiểm định nâng cao và tối ưu hóa nhiệt độ mạch nguồn tuyến tính kết hợp khuếch đại | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_phan_tich_ban_dan_va_khuech_dai_243 | Chế tạo mạch phân tích bán dẫn và khuếch đại dòng rò tích hợp bộ nguồn | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_ban_dan_va_khuech_dai_244 | Kiểm định nâng cao và mô phỏng toàn vẹn tín hiệu trạm bán dẫn rời rác | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_dieu_khien_va_loc_tin_hieu_chuyen_sau_245 | Thiết kế bộ lọc tích cực Sallen-Key và tích hợp tầng đệm công suất MOSFET | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_dieu_khien_va_loc_246 | Kiểm định toàn vẹn tín hiệu và ổn định nguồn tuyến tính cho bo mạch tương tự | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_phan_tich_linh_kien_ban_dan_va_op_amp_d247 | Chế tạo mạch phân tích linh kiện bán dẫn và Op-Amp thực chiến qua mô hình test | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_ban_dan_va_op_amp_nang_cao | Tối ưu hóa nguồn tuyến tính và kiểm định mô phỏng nhiễu chéo Crosstalk mạch tương tự | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_do_luong_ban_dan_va_op_amp | Chế tạo mạch đo lường linh kiện bán dẫn và kiểm tra toàn vẹn tín hiệu analog cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_giao_tiep_ngoai_vi_vi_dieu_khien | Lập trình vi điều khiển ARM Cortex-M cấu hình ngoại vi GPIO kết hợp UART và áp dụng cơ chế bảo mật Secure Boot cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| giao_tiep_spi_i2c_va_logic_so_fpga | Xây dựng hệ thống giao tiếp SPI và I2C đọc cảm biến kết hợp mô phỏng toàn vẹn tín hiệu Signal Integrity trên bo mạch | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_thiet_ke_logic_so_fpga_dem_xung | Thiết kế khối logic số trên FPGA mô tả mạch đếm xung hiển thị LED 7 đoạn kèm kiểm tra toàn vẹn tín hiệu SI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_c_c++_nhung_arm_cortex_m_uart_spi | Lập trình nhúng C/C++ trên ARM Cortex-M giao tiếp cảm biến qua chuẩn UART SPI tích hợp cơ chế an toàn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_ngoai_vi_avr_pic_voi_cam_bien_i2c | Lập trình vi điều khiển AVR/PIC đọc cảm biến I2C hiển thị LCD OLED với Kit PIC16F | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_mach_logic_fpga_giao_tiep_uart | Thiết kế mạch logic số trên FPGA giao tiếp UART truyền dữ liệu LED ma trận | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_thuc_thi_giao_tiep_ngoai_vi_cortex_m | Lập trình giao tiếp ngoại vi ADC và PWM cho ARM Cortex-M kết hợp cơ chế phát hiện lỗi phần mềm theo tiêu chuẩn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| thuc_thi_giao_tiep_i2c_eeprom_voi_pic | Lập trình vi điều khiển PIC giao tiếp EEPROM ngoài qua I2C với kịch bản kiểm thử tự động phần cứng HWI | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_giao_tiep_ngoai_vi_cortex_m_va_cam_bien_i2c | Lập trình ngoại vi ARM Cortex-M đọc cảm biến I2C kết hợp tối ưu toàn vẹn tín hiệu SI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_mach_logic_so_fpga_dem_su_kien_toc_do_cao | Thiết kế khối logic số trên FPGA đếm sự kiện tốc độ cao tích hợp kịch bản kiểm thử tự động HWI | roadmap_ElectricEnginneerGuiidle.md |
+| che_tao_mach_giao_tiep_ngoai_vi_va_logic_so_260 | Chế tạo mạch giao tiếp ngoại vi vi điều khiển và logic số FPGA với trạm đo thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_ngoai_vi_va_logic_so_261 | Phân tích toàn vẹn tín hiệu Signal Integrity và kiểm thử an toàn phần mềm theo chuẩn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_giao_tiep_ngoai_vi_cortex_m_spi_i2c | Lập trình ngoại vi ARM Cortex-M giao tiếp SPI và I2C đọc cảm biến | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_giai_ma_logic_so_fpga_uart | Thiết kế mạch logic số FPGA giải mã và truyền thông dữ liệu UART | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_nhung_arm_cortex_m_giao_tiep_spi_cam_bien | Lập trình nhúng ARM Cortex-M đọc cảm biến qua giao tiếp SPI hiển thị OLED kết quả | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_mo_phong_mach_logic_so_fpga_dem_chuoi_bit | Thiết kế mạch logic số trên FPGA thực hiện bộ đếm chuỗi bit tốc độ cao tích hợp mã hóa AES | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_giao_tiep_ngoai_vi_va_logic_so_nang_cao_266 | Hiện thực hóa giao thức truyền thông SPI tốc độ cao với ARM Cortex-M và FPGA kèm phân tích SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_he_thong_nhung_so_267 | Kiểm định an toàn toàn diện hệ thống nhúng I2C với AVR, cảm biến RTC và tiêu chuẩn firmware ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_giao_tiep_ngoai_vi_va_logic_so_nang_cao_268 | Thiết kế mạch RF cơ bản, tính toán đường truyền Impedance Matching và tích hợp SPI trên STM32F4 | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_he_thong_nhung_so_nang_cao_269 | Kiểm định toàn diện hệ thống nhúng giao tiếp UART, I2C và ứng dụng tiêu chuẩn an toàn phần mềm ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_he_thong_nhung_giao_tiep_cam_bien_i2c_va_spi | Triển khai hệ thống nhúng giao tiếp cảm biến I2C và SPI bằng vi điều khiển | roadmap_ElectricEnginneerGuiidle.md |
+| toi_uu_va_xac_thuc_giao_thuc_truyen_thong_ngoai_vi_nhung | Xác thực bảo mật Secure Boot và phân tích toàn vẹn tín hiệu ngoại vi | roadmap_ElectricEnginneerGuiidle.md |
+| thuc_thi_he_thong_nhung_giao_tiep_da_ngoai_vi_d272 | Thực thi hệ thống nhúng giao tiếp đa ngoại vi với STM32 và cảm biến I2C | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_va_hoan_thien_mach_nhung_so_va_giao_tiep_d273 | Kiểm định toàn vẹn tín hiệu SPI Flash trên phần cứng AVR và phân tích SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_mach_logic_so_va_ngoai_vi_cortex_m | Triển khai mạch logic số FPGA kết hợp vi điều khiển ARM Cortex-M đọc cảm biến qua I2C | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_he_thong_lai_fpga_arm | Kiểm định toàn diện và tối ưu hệ thống nhúng lai FPGA cùng ARM Cortex-M giao tiếp SPI | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_dieu_khien_ngoai_vi_va_logic_so_d276 | Xây dựng hệ thống nhúng giao tiếp UART kết hợp FPGA nhận dữ liệu cảm biến | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_xac_thuc_he_thong_nhung_so_d277 | Áp dụng tiêu chuẩn an toàn ASIL và cơ chế phát hiện lỗi phần mềm thực tế | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_va_giao_tiep_ngoai_vi_dieu_khien_d278 | Xây dựng hệ thống nhúng giao tiếp cảm biến và hiển thị LCD với vi điều khiển AVR | roadmap_ElectricEnginneerGuiidle.md |
+| phat_trien_giao_thuc_va_logic_so_d279 | Thiết kế mạch đo lường xung tốc độ cao tích hợp phân tích toàn vẹn tín hiệu trên FPGA | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_ngoai_vi_va_logic_so_nguyen_thuc_280 | Xây dựng trạm đo nhiệt độ đa năng dùng AVR và CPLD hiển thị LED 7 đoạn | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_va_hoan_thien_he_thong_nhung_so_281 | Thiết kế firmware an toàn và kiểm định hệ thống ARM Cortex-M kết hợp FPGA | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_nhung_arm_cortex_m_va_cam_bien_i2c | Xây dựng trạm đo nhiệt độ môi trường dùng ARM Cortex-M kết hợp cảm biến I2C | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_tram_do_nhiet_do_arm | Kiểm định nâng cao và tối ưu hóa toàn vẹn tín hiệu trạm đo ARM | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_va_giao_tiep_ngoai_vi_nang_cao_d284 | Xây dựng trạm điều khiển đa ngoại vi ARM Cortex-M giao tiếp SPI kết hợp phân tích toàn vẹn tín hiệu SI | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_tram_dieu_khien_d285 | Kiểm định tự động HWI và tối ưu hóa bảo mật Secure Boot trạm nhúng SPI | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_giao_tiep_ngoai_vi_va_logic_so_pro_286 | Xây dựng trạm thu thập dữ liệu đa cảm biến kết hợp FPGA và ARM Cortex-M | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_xac_thuc_he_thong_nhung_so_pro_287 | Kiểm định tín hiệu SI/PI và áp dụng chuẩn an toàn ASIL cho firmware nhúng | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_va_giao_tiep_ngoai_vi_avr_pic_c_288 | Lập trình ngoại vi GPIO và UART vi điều khiển AVR/PIC qua bảng mạch LED ma trận thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_logic_so_va_giao_tiep_spi_fpga_289 | Thiết kế mạch logic số trên FPGA kết hợp giao tiếp SPI đọc cảm biến gia tốc và kiểm thử tự động HWI | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_ngoai_vi_va_logic_so_micro_290 | Xây dựng hệ thống nhúng giao tiếp ngoại vi và logic số FPGA tích hợp cơ chế an toàn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_ngoai_vi_so_291 | Kiểm định toàn diện trạm hiển thị thời gian thực tích hợp mô phỏng SI/PI và tính toán impedance matching | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_nhung_avr_pic_giao_tiep_ngoai_vi_uart | Lập trình vi điều khiển AVR/PIC giao tiếp UART điều khiển LED qua mạch | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_logic_so_fpga_giao_tiep_ngoai_vi | Thiết kế mạch logic số trên FPGA giao tiếp hiển thị LCD kết hợp mô phỏng SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_avr_pic_giao_tiep_spi | Lập trình vi điều khiển AVR/PIC giao tiếp SPI điều khiển màn hình OLED | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_mach_logic_so_fpga_i2c_cam_bien | Thiết kế mạch logic số FPGA giao tiếp cảm biến I2C đọc nhiệt độ và kiểm thử SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_va_thiet_ke_logic_so_296 | Lập trình vi điều khiển AVR giao tiếp UART và kiểm soát nhiễu tín hiệu phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_he_thong_so_297 | Kiểm định an toàn chức năng và giao tiếp SPI bảo mật trên hệ thống nhúng CPLD | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_avr_va_giao_tiep_i2c | Lập trình vdk AVR và giao tiếp I2C đọc cảm biến nhiệt độ với dự án trạm đo mini | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_logic_so_fpga_va_giao_tiep_uart | Thiết kế mạch logic số FPGA và tích hợp giao thức truyền thông tốc độ cao UART | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_avr_pic_giao_tiep_i2c_thuc_chien | Lập trình vi điều khiển AVR/PIC giao tiếp I2C đọc cảm biến qua trạm đo môi trường tích hợp kiểm thử tín hiệu | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_mach_logic_so_fpga_giao_tiep_spi_thuc_te | Thiết kế mạch logic số trên FPGA giao tiếp SPI qua dự án điều khiển LED ma trận quét thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_va_thiet_ke_logic_so_nang_cao | Lập trình VDK AVR kết hợp thiết kế logic số và phân tích toàn vẹn tín hiệu SI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_dem_san_pham | Kiểm định an toàn chức năng hệ thống nhúng dây chuyền theo chuẩn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_va_thiet_ke_logic_so_pro | Thiết kế mạch RF và tính toán đường truyền impedance matching kết hợp lập trình SPI | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_bo_dem_xung_so | Kiểm định toàn vẹn tín hiệu SI/PI và đo lường hệ thống đếm xung thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_va_thiet_ke_logic_so_chuyen_sau | Lập trình VDK AVR/PIC và thiết kế logic số với mạch đếm xung thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_dem_thoi_gian_thuc | Kiểm định nâng cao và tích hợp tính năng an toàn phần mềm theo chuẩn công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_va_thiet_ke_logic_so_chuyen_sau_d308 | Xây dựng mạch điều khiển đa nhiệm AVR kết hợp FPGA qua giao thức SPI tích hợp phân tích tín hiệu SI | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_giao_tiep_da_nang_d309 | Kiểm định hệ thống nhúng an toàn chức năng với cảm biến I2C và UART theo chuẩn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_va_thiet_ke_logic_so_expert | Hiện thực hóa mạch điều khiển ngoại vi tốc độ cao với dự án Máy đo vòng quay động cơ Encoder tích hợp FPGA | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_may_do_vong_quay | Kiểm định tín hiệu nâng cao và mô phỏng toàn vẹn tín hiệu SI/PI cho bo mạch đo tốc độ | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_va_thiet_ke_logic_so_master | Lập trình VDK và thiết kế logic số Master qua Dự án Đồng hồ vạn năng số | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_dong_ho_van_nang_so | Kiểm định toàn vẹn tín hiệu SI/PI và tiêu chuẩn an toàn IEC trên thiết bị đo | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_va_thiet_ke_logic_so_ultimate | Lập trình VDK AVR kết hợp FPGA tích hợp phân tích toàn vẹn tín hiệu SI và chống nhiễu | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_he_thong_dem_xung_toc_do_cao | Kiểm thử tự động HWI và kiểm định hệ thống đo tần số cao FPGA - AVR theo chuẩn công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_va_thiet_ke_logic_so_apex | Lập trình VDK AVR kết hợp thiết kế logic FPGA tạo bộ giải mã tín hiệu đa kênh | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_bo_giai_ma_da_kenh | Kiểm định toàn vẹn tín hiệu và an toàn phần cứng hệ thống giải mã đa kênh | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_va_thiet_ke_logic_so_zenith | Lập trình VDK AVR xử lý giao thức 1-wire đọc cảm biến DHT11 | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_doc_cam_bien_nhiet_do | Kiểm định tín hiệu SI/PI và đo đạc phần cứng mạch DHT11 bằng dao động ký | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_va_thiet_ke_logic_so_apex_pro | Lập trình Vಳು ARM Cortex-M kết hợp FPGA và tối ưu hóa toàn vẹn tín hiệu SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_giao_tiep_da_nang_pro | Kiểm thử tự động phần cứng HWI và xác thực tiêu chuẩn an toàn ASIL cho cảm biến I2C/SPI | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_avr_va_thiet_ke_logic_so_ultrasonic_d322 | Lập trình VDK AVR kết hợp thiết kế logic số đọc cảm biến siêu âm HC-SR04 | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_do_khoang_cach_sieu_am_d323 | Tích hợp còi cảnh báo và kiểm định tự động HWI mạch đo siêu âm | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_va_thiet_ke_logic_so_horizon | Lập trình VDK AVR kết hợp FPGA triển khai trạm quan trắc môi trường đa năng với màn hình LCD | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_tram_quan_trac_moi_truong | Kiểm định toàn diện phần cứng và mô phỏng tín hiệu trạm quan trắc môi trường | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_avr_va_thiet_ke_logic_so_zenith | Lập trình Vdk Avr Và Thiết Kế Logic Số Xây Dựng Mạch Đo Nhịp Tim Quang Học | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_do_nhip_tim | Kiểm Định Và Tích Hợp Cảnh Báo Ngưỡng Thời Gian Thực Cho Thiết Bị Nhịp Tim | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_avr_va_thiet_ke_logic_so_iot_gateway | Lập trình VDK AVR và thiết kế logic số tích hợp Impedance Matching cơ bản cho IoT Gateway | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_iot_gateway_mini | Kiểm định toàn diện và phân tích SI/PI nâng cao cho hệ thống IoT Gateway mini đa năng | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_va_thiet_ke_logic_so_apex_master | Lập trình vi điều khiển AVR kết hợp thiết kế khối logic số trên FPGA | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_dem_xung_da_nang | Kiểm định toàn diện phần cứng mạch đếm xung với phân tích SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_avr_va_thiet_ke_logic_so_can_bang_tai | Lập trình VDK AVR và thiết kế logic số cân bằng tải năng lượng thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_can_bang_tai_nang_luong | Kiểm định toàn vẹn tín hiệu và tích hợp giao tiếp UART hệ thống năng lượng | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_avr_va_thiet_ke_logic_so_nhung_thong_minh | Lập trình VDK AVR kết hợp logic số và tối ưu hóa toàn vẹn tín hiệu SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_tram_giam_sat_thong_minh | Kiểm định nâng cao và tích hợp giao tiếp UART an toàn theo tiêu chuẩn phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_avr_va_giao_tiep_ngoai_vi_spi | Lập trình Vi điều khiển AVR cấu hình chuẩn giao tiếp SPI đọc cảm biến | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_cam_bien_ap_suat_spi | Kiểm định toàn vẹn tín hiệu và hoàn thiện mạch cảnh báo áp suất thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_avr_va_giao_tiep_i2c_d338 | Lập trình VDK AVR giao tiếp ngoại vi I2C đọc cảm biến nhiệt độ gia nhiệt | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_dieu_khienn_i2c | Kiểm định nâng cao toàn vẹn tín hiệu và xử lý lỗi bus I2C chuyên dụng | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_avr_va_giao_tiep_can_d340 | Lập trình VDK AVR giao tiếp CAN bus thực chiến mạch điều khiển ô tô | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_can_bus_d341 | Hoàn thiện và kiểm định toàn vẹn tín hiệu mạch giao tiếp CAN bus | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_avr_va_giao_tiep_usb_hid_d342 | Lập trình VDK AVR giao tiếp USB HID với module ATmega32U4 | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_ban_phim_usb_hid | Kiểm định toàn vẹn tín hiệu và đo đạc phần cứng bàn phím USB | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_avr_va_giao_tiep_wireless_nrf24l01_d344 | Lập trình VDK AVR và giao tiếp wireless nRF24L01 với mạch truyền dữ liệu không dây | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_truyen_tin_hieu_khong_day | Kiểm định toàn vẹn tín hiệu và hoàn thiện hệ thống truyền thông không dây nRF24L01 | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_avr_va_giao_tiep_flash_spi_d346 | Lập trình VDK AVR và giao tiếp Flash SPI lưu trữ dữ liệu ngoại vi | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_ghi_du_lieu_flash | Xác thực độ bền phần cứng và phân tích tiêu thụ năng lượng mạch Flash SPI | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_avr_va_giao_tiep_cam_bien_i2c_rtc | Lập trình VDK AVR và giao tiếp cảm biến RTC qua I2C cho mạch đồng hồ thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_dong_ho_rtc | Tối ưu hóa nguồn và kiểm tra toàn vẹn tín hiệu I2C cho mạch đồng hồ vạn niên | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_avr_va_giao_tiep_cam_bien_gyroskop_d350 | Lập trình VDK AVR và giao tiếp cảm biến gia tốc Gyroscope MPU6050 | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_do_goc_nghieng | Kiểm định toàn vẹn tín hiệu và chống nhiễu phần cứng cho cảm biến quán tính | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_avr_va_thiet_ke_fpga_co_ban | Lập trình VDK AVR và thiết kế khối logic FPGA ứng dụng mạch đếm sự kiện | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_dem_su_kien_fpga | Tối ưu hóa và kiểm định phần cứng mạch đếm sự kiện tích hợp hiển thị LCD | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_va_thiet_ke_logic_so_uart_spi_d354 | Lập trình ngoại vi AVR giao tiếp UART và SPI kèm kiểm soát toàn vẹn tín hiệu SI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_giao_tiep_da_ngoai_vi_d355 | Kiểm thử tự động HWI phần cứng nhúng và đánh giá an toàn chức năng theo chuẩn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_avr_va_giao_tiep_ngoai_vi_can_vi_xu_ly | Lập trình VDK AVR và cấu hình ngoại vi đếm sự kiện thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_dem_su_kien_thoi_gian_thuc | Đánh giá toàn vẹn tín hiệu và kiểm định phần cứng mạch đếm thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_avr_va_giao_tiep_ngoai_vi_pwm_servo | Lập trình VDK AVR điều khiển động cơ servo đa kênh qua PWM phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_dieu_khien_servo_pwm | Kiểm định toàn diện mạch điều khiển servo đa kênh và tối ưu hóa code nhúng | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_avr_va_giao_tiep_ngoai_vi_adc_d360 | Lập trình VDK AVR giao tiếp ngoại vi ADC đo điện áp biến trở (Dự án: Máy đo nhiệt độ hiển thị LED 7 đoạn) | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_do_nhiet_do_adc_d361 | Hiệu chuẩn nâng cao và kiểm định phần cứng mạch đo nhiệt độ khép kín qua kịch bản Python | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_avr_va_giao_tiep_ngoai_vi_timer_capture | Lập trình VDK AVR giao tiếp ngoại vi Timer Capture đo tần số xung tín hiệu | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_do_tan_so_ngoai_vi | Hiệu chuẩn và kiểm định toàn vẹn tín hiệu mạch đo tần số ứng dụng thực tế | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_avr_va_giao_tiep_ngoai_vi_input_capture | Lập trình VDK AVR giao tiếp ngoại vi Input Capture đo xung PWM | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_do_xung_pwm_input_capture | Tích hợp màn hình OLED và kiểm định mạch đo tần số cao cấp | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_avr_va_giao_tiep_ngoai_vi_dma_co_ban | Lập trình VDK AVR và cấu hình DMA truyền dữ liệu tốc độ cao kèm phân tích SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_truyen_du_lieu_dma | Kiểm định băng thông hệ thống truyền dữ liệu tự động và tích hợp cơ chế an toàn firmware ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_avr_va_giao_tiep_ngoai_vi_spi_flash | Xây dựng hệ thống ghi nhật ký dữ liệu cảm biến dùng vi điều khiển AVR kết hợp ngoại vi SPI Flash | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_ghi_nhat_ky_spi | Kiểm định toàn diện bo mạch ghi nhật ký dữ liệu SPI Flash và tối ưu hóa tốc độ truyền | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_vdk_avr_va_giao_tiep_ngoai_vi_can_bang_tai | Lập trình VDK AVR và xử lý tín hiệu ADC đa kênh cân bằng tải | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_can_bang_tai_nguon | Kiểm định phần cứng và tích hợp cơ chế bảo vệ quá dòng thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_va_thiet_ke_pcb_da_lop | Lập trình đa tác vụ FreeRTOS và vẽ PCB 4 lớp cho mạch điều khiển công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_dieu_khien_rtos_emc | Kiểm định nhiễu nâng cao và phân tích toàn vẹn tín hiệu SI/PI phần cứng nhúng | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_va_thiet_ke_pcb_da_lop_d374 | Lập trình FreeRTOS đa nhiệm và thiết kế PCB 4 lớp tích hợp mô phỏng SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_mach_dieu_khien_rtos_emc_d375 | Kiểm định EMC/EMI thực tế và tích hợp cơ chế firmware an toàn theo tiêu chuẩn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_freertos_va_mach_in_da_lop | Triển khai đa nhiệm FreeRTOS kết hợp thiết kế mạch in đa lớp trên Altium cho Dự án Thiết bị IoT Công nghiệp Đa nhiệm | roadmap_ElectricEnginneerGuiidle.md |
+| toi_uu_nguon_smps_va_chong_nhieu_emc | Tối ưu hóa nguồn xung SMPS, mô phỏng PI và kỹ thuật chống nhiễu EMC/EMI cho Hệ thống Nhúng Năng lượng Cao | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_freertos_va_mach_in_da_lop_d378 | Triển khai đa nhiệm FreeRTOS, thiết kế impedance matching cho mạch RF và phân tích SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_he_thong_rtos_va_emc_chuyen_sieu | Kiểm thử tự động HWI phần cứng, ứng dụng Secure Boot và đánh giá độ an toàn ASIL theo tiêu chuẩn | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_tac_vu_freertos_va_ve_pcb_4_lop_d380 | Lập trình tác vụ đa nhiệm FreeRTOS và vẽ mạch điều khiển đa nhiệm 4 lớp | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_nguon_smps_va_chong_nhieu_emc_cho_pcb_d381 | Thiết kế phần cứng mạch RF, tối ưu trở kháng đường truyền và lọc nhiễu EMI | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_nang_cao_va_tach_lop_pcb_d382 | Lập trình FreeRTOS đa nhiệm và thiết kế phân lớp nguồn PCB 4 lớp | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_va_toi_uu_he_thong_rtos_emc_d383 | Kiểm định toàn vẹn tín hiệu RTOS và xử lý nhiễu EMC thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_va_ve_pcb_4_lop_d384 | Lập trình FreeRTOS đa nhiệm và thiết kế PCB 4 lớp tích hợp mô phỏng SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_va_toi_uu_he_thong_rtos_emc_d385 | Kiểm định an toàn hệ thống RTOS theo chuẩn ASIL và tối ưu chống nhiễu EMC công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_va_thiet_ke_pcb_4_lop_altium | Lập trình FreeRTOS đa nhiệm kết hợp thiết kế PCB 4 lớp Altium chuyên sâu SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_va_toi_uu_nguon_smps_emc_cho_pcb | Đánh giá hiệu năng nguồn xung SMPS, triệt tiêu nhiễu EMC và ứng dụng an toàn chức năng ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_freertos_va_mach_in_4_lop_altium | Triển khai FreeRTOS đa nhiệm và tính toán kiểm soát Impedance mạch 4 lớp | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_va_toi_uu_nguon_smps_va_emc_cho_pcb | Mô phỏng toàn vẹn tín hiệu SI/PI và tối ưu nguồn xung SMPS chống nhiễu EMC | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_va_thiet_ke_pcb_da_lop_altium_pro | Lập trình FreeRTOS đa nhiệm và thiết kế PCB đa lớp với Altium Designer cho dự án trạm đo lường công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_va_toi_uu_nguon_smps_emc_cho_pcb_pro | Phân tích toàn vẹn tín hiệu SI/PI, mô phỏng nhiệt và kiểm định chống nhiễu EMC/EMI bo mạch cao tầng | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_va_thiet_ke_pcb_da_lop_altium_pro_max | Lập trình FreeRTOS đa nhiệm kết hợp thiết kế PCB 4 lớp Altium cho dự án IoT công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_va_toi_uu_nguon_smps_emc_cho_pcb_pro_max | Kiểm định nguồn xung SMPS, mô phỏng Signal Integrity và tối ưu chống nhiễu EMC trên mạch in | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_va_thiet_ke_pcb_da_lop_altium_ultimate | Thiết kế bo mạch cao tần IoT Gateway, tính toán đường truyền Impedance Matching và lập trình FreeRTOS đa nhiệm | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_va_toi_uu_nguon_smps_emc_cho_pcb_ultimate | Kiểm định toàn vẹn tín hiệu SI/PI, chống nhiễu EMC nguồn SMPS và bảo mật phần cứng Secure Boot | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_va_thiet_ke_pcb_da_lop_altium_master | Lập trình FreeRTOS đa nhiệm kết hợp thiết kế PCB 4 lớp và tối ưu toàn vẹn tín hiệu SI/PI cho IoT Gateway | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_va_toi_uu_nguon_smps_emc_cho_pcb_master | Kiểm định nguồn SMPS, chống nhiễu EMC chuyên sâu và tự động hóa kiểm thử phần cứng HWI cho IoT Gateway | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_va_thiet_ke_pcb_da_lop_altium_pro_max_plus | Lập trình FreeRTOS đa nhiệm và thiết kế mạch RF impedance matching trên Altium | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_va_toi_uu_nguon_smps_emc_cho_pcb_pro_max_plus | Kiểm định toàn vẹn nguồn PI, phân tích nhiệt PCB và chống nhiễu EMC cho SMPS | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_va_thiet_ke_pcb_da_lop_altium_v1 | Lập trình FreeRTOS đa luồng và thiết kế mạch in 4 lớp Altium cho trạm IoT | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_va_toi_uu_nguon_smps_emc_cho_pcb_v1 | Kiểm định nguồn SMPS, toàn vẹn tín hiệu SI/PI và tối ưu chống nhiễu EMC/EMI | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_va_thiet_ke_pcb_da_lop_altium_v2 | Lập trình FreeRTOS đa nhiệm và thiết kế PCB 4 lớp tích hợp quản lý nguồn SMPS | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_va_toi_uu_nguon_smps_emc_cho_pcb_v2 | Kiểm định toàn vẹn tín hiệu SI/PI, chống nhiễu EMC và mô phỏng nhiệt trên PCB | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_va_thiet_ke_pcb_da_lop_altium_v3 | Lập trình FreeRTOS đa nhiệm và thiết kế PCB đa lớp Altium cho trạm IoT | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_va_toi_uu_nguon_smps_emc_cho_pcb_v3 | Đánh giá toàn vẹn nguồn điện PI và chống nhiễu EMC nâng cao cho bo mạch nhúng | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_va_thiet_ke_pcb_da_lop_altium_v4 | Lập trình FreeRTOS đa tác vụ và thiết kế PCB đa lớp Altium cho trạm IoT | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_va_toi_uu_nguon_smps_emc_cho_pcb_v4 | Kiểm định nguồn SMPS, chống nhiễu EMC và tích hợp Secure Boot phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_freertos_va_mach_in_4_lop_altium_pro_max | Thiết kế mạch in 4 lớp và tích hợp FreeRTOS nâng cao | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_va_toi_uu_nguon_smps_va_emc_cho_pcb_pro_max | Đo kiểm toàn vẹn nguồn SMPS và đánh giá tương thích điện từ EMC | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_va_thiet_ke_pcb_da_lop_altium_alpha | Lập trình FreeRTOS đa nhiệm và tối ưu hóa toàn vẹn tín hiệu SI/PI trên Altium Designer cho dự án Alpha | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_va_toi_uu_nguon_smps_emc_cho_pcb_alpha | Kiểm định nguồn SMPS, chống nhiễu EMC và tích hợp bảo mật phần cứng Secure Boot trên PCB Alpha | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_va_thiet_ke_pcb_da_lop_altium_zeta | Lập trình FreeRTOS và thiết kế PCB đa lớp với tính toán Impedance control Altium | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_va_toi_uu_nguon_smps_emc_cho_pcb_zeta | Kiểm định nguồn SMPS, tối ưu EMC và mô phỏng nhiệt phân tích SI/PI chuyên sâu | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_va_thiet_ke_pcb_da_lop_altium_omega | Lập trình FreeRTOS đa nhiệm kết hợp thiết kế PCB 4 lớp Altium - Dự án Omega | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_va_toi_uu_nguon_smps_emc_cho_pcb_omega | Phân tích toàn vẹn tín hiệu SI/PI và kiểm định EMC nguồn SMPS - Dự án Omega | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_va_thiet_ke_pcb_da_lop_altium_v5 | Lập trình FreeRTOS đa nhiệm và tính toán kiểm soát trở kháng đường truyền RF trên Altium | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_va_toi_uu_nguon_smps_emc_cho_pcb_v5 | Đo kiểm EMC/EMI nâng cao và phân tích toàn vẹn nguồn điện PI/SI cho bo mạch cao tầng | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_va_thiet_ke_pcb_da_lop_altium_nexus | Lập trình FreeRTOS đa nhiệm và thiết kế PCB đa lớp với Altium Nexus | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_va_toi_uu_nguon_smps_emc_cho_pcb_nexus | Đánh giá toàn vẹn tín hiệu SI/PI, chống nhiễu EMC và kiểm định nguồn SMPS | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_day_420 | Xây dựng hệ thống đa nhiệm FreeRTOS trên PCB 4 lớp tích hợp mô phỏng toàn vẹn tín hiệu SI/PI cho IoT gateway | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_day_421 | Kiểm định EMC/EMI chuyên sâu và cấu hình Secure Boot bảo mật phần cứng cho bo mạch RTOS công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_day_422 | Vận hành đa nhiệm FreeRTOS và layout PCB 4 lớp ứng dụng IoT | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_day_423 | Mô phỏng SI/PI và tối ưu nguồn SMPS chống nhiễu EMC/EMI | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_freertos_va_mach_in_4_lop_altium_alpha_x | Hiện thực đa nhiệm FreeRTOS, tính toán Impedance matching và thiết kế PCB 4 lớp | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_va_toi_uu_nguon_smps_emc_cho_pcb_alpha_x | Đo kiểm nguồn xung SMPS, mô phỏng PI và chống nhiễu EMC/EMI trên board mẫu | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_day_426 | Xây dựng đa nhiệm FreeRTOS và layout PCB 4 lớp phân tầng nguồn tín hiệu chuẩn EMC | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_day_427 | Kiểm định nguồn SMPS, chống nhiễu EMC và xác thực bảo mật phần cứng Secure Boot | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_day_428 | Hiện thực đa nhiệm FreeRTOS và layout PCB 4 lớp cho dự án trạm đo môi trường | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_day_429 | Đo kiểm nguồn xung SMPS, phân tích toàn vẹn tín hiệu SI/PI và kiểm định EMC | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_day_430 | Hiện thực hệ thống task FreeRTOS đa nhiệm kèm thiết kế bo mạch đa lớp sản phẩm Alpha | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_day_431 | Kiểm định an toàn phần cứng Secure Boot và đo kiểm EMC cho bo mạch nhúng sản phẩm Beta | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_va_thiet_ke_pcb_da_lop_altium_beta_x | Phát triển đa nhiệm FreeRTOS và bố trí mạch in đa lớp Altium cho trạm nhúng | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_va_toi_uu_nguon_smps_emc_cho_pcb_beta_x | Phân tích toàn vẹn nguồn PI, mô phỏng SI và xử lý chống nhiễu EMC chuyên sâu | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_va_thiet_ke_pcb_da_lop_gamma_x | Lập trình FreeRTOS đa nhiệm và thiết kế PCB 4 lớp tích hợp mô phỏng SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_va_toi_uu_nguon_smps_emc_cho_pcb_gamma_x | Kiểm định nguồn SMPS, chống nhiễu EMC và kịch bản kiểm thử tự động HWI | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_da_nhiem_va_pcb_4_lop_altium_day_436 | Lập trình FreeRTOS đa nhiệm kết hợp thiết kế PCB 4 lớp chuẩn công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_va_emc_cho_pcb_day_437 | Kiểm định nguồn SMPS, chống nhiễu EMC và mô phỏng SI/PI trên Altium | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_da_nhiem_va_pcb_4_lop_altium_day_438 | Xây dựng hệ thống FreeRTOS đa nhiệm và thiết kế mạch in Altium 4 lớp tích hợp mô phỏng SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_va_emc_cho_pcb_day_439 | Kiểm định nguồn SMPS, tối ưu hóa chống nhiễu EMC và phân tích nhiệt độ trên board mạch chuyên dụng | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_va_thiet_ke_pcb_altium_day_440 | Xây dựng luồng đa nhiệm FreeRTOS và mạch 4 lớp Altium tích hợp kiểm soát tín hiệu SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_va_emc_cho_pcb_day_441 | Đo kiểm nguồn SMPS, tối ưu hóa chống nhiễu EMC và ứng dụng an toàn phần cứng ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_va_thiet_ke_pcb_altium_zeta_x | Lập trình FreeRTOS đa nhiệm và thiết kế PCB Altium cho trạm y tế thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_va_emc_cho_pcb_zeta_x | Kiểm định nguồn SMPS, chống nhiễu EMC và mô phỏng nhiệt vi mạch y tế | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_day_444 | Triển khai FreeRTOS đa tác vụ và định tuyến PCB 4 lớp tích hợp tính toán kiểm soát trở kháng SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_day_445 | Đo kiểm nguồn SMPS bước nhảy dòng cao, mô phỏng nhiệt và triệt tiêu nhiễu EMI cho bo mạch nhúng | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_va_thiet_ke_pcb_omega_x | Lập trình FreeRTOS đa nhiệm và tối ưu hóa toàn vẹn tín hiệu PCB 4 lớp Omega-X | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_va_emc_omega_x | Kiểm định nguồn SMPS, chống nhiễu EMC và mô phỏng nhiệt vi mạch bo Omega-X | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_va_thiet_ke_pcb_omega_plus | Lập trình FreeRTOS đa nhiệm và tính toán kiểm soát trở kháng đường truyền RF trên Altium | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_va_emc_omega_plus | Kiểm định nguồn SMPS, mô phỏng toàn vẹn nguồn PI và chống nhiễu EMC cho PCB Omega Plus | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_va_thiet_ke_pcb_delta_x | Lập trình FreeRTOS đa nhiệm và thiết kế PCB Altium Delta-X tích hợp kiểm soát tín hiệu SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_va_emc_delta_x | Kiểm định nguồn SMPS, tuân thủ EMC và tự động hóa kiểm thử phần cứng HWI cho Delta-X | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_da_nhiem_va_pcb_4_lop_theta_x | Lập trình FreeRTOS đa nhiệm và thiết kế PCB 4 lớp board Theta-X tích hợp kiểm soát tín hiệu SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_va_emc_theta_x | Kiểm định nguồn SMPS, đánh giá nhiễu EMC và tích hợp bảo mật phần cứng Secure Boot | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_freertos_va_mach_in_4_lop_sigma_x | Triển khai hệ điều hành thời gian thực FreeRTOS và layout mạch in 4 lớp cho Sigma-X | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_va_emc_cho_pcb_sigma_x | Kiểm định nguồn xung SMPS, chống nhiễu EMC và ứng dụng Secure Boot phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_epsilon_x | Triển khai RTOS đa nhiệm và thiết kế PCB đa lớp chuyên sâu dự án Epsilon-X | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_emc_epsilon_x | Thẩm định nguồn SMPS, tương thích điện từ EMC và kiểm thử tự động HWI | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_freertos_va_mach_in_4_lop_kappa_x | Triển khai FreeRTOS và mạch in 4 lớp kappa x cho hệ thống điều khiển | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_emc_cho_pcb_kappa_x | Đánh giá toàn vẹn tín hiệu SI/PI và mô phỏng EMC nguồn xung SMPS | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_va_mach_in_4_lop_lambda_x | Thiết kế mạch in 4 lớp hệ thống Lambda-X và tính toán trở kháng đường truyền | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_emc_cho_pcb_lambda_x | Lập trình đa luồng FreeRTOS kết hợp cơ chế an toàn theo tiêu chuẩn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_alpha_x | Thiết kế PCB đa lớp kiểm soát trở kháng SI/PI và lập trình FreeRTOS đa nhiệm | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_emc_alpha_x | Kiểm định nguồn SMPS, chống nhiễu EMC và ứng dụng firmware an toàn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_psi_x | Lập trình FreeRTOS đa nhiệm và thiết kế mạch RF impedance matching trên PCB 4 lớp | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_emc_psi_x | Kiểm định nguồn SMPS, chống nhiễu EMC và lập trình firmware an toàn theo tiêu chuẩn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_omega_prime | Tích hợp FreeRTOS và mô phỏng SI/PI toàn vẹn tín hiệu trên mạch in Omega Prime | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_emc_omega_prime | Đo kiểm nguồn SMPS, chống nhiễu EMC và ứng dụng Secure Boot phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_va_pcb_da_lop_zeta_master | Lập trình FreeRTOS đa nhiệm và phân tích toàn vẹn tín hiệu SI/PI trên Altium | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_va_emc_zeta_master | Kiểm định nguồn SMPS, chống nhiễu EMC và ứng dụng an toàn phần mềm ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_va_pcb_da_lop_phi_x | Lập trình FreeRTOS đa nhiệm, mô phỏng SI/PI và thiết kế PCB 4 lớp cho bo mạch Phi X | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_emc_phi_x | Kiểm định nguồn SMPS, chống nhiễu EMC và ứng dụng cơ chế an toàn phần mềm ASIL cho bo mạch Phi X | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_upsilon_x | Hiện thực FreeRTOS đa nhiệm và thiết kế kiểm soát trở kháng PCB 4 lớp cho mạch IoT | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_emc_upsilon_x | Phân tích toàn vẹn nguồn PI, đo kiểm SMPS và đánh giá chống nhiễu EMC bo mạch | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_omega_beta | Lập trình FreeRTOS đa nhiệm kết hợp thiết kế PCB 4 lớp dự án Omega Beta | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_va_emc_omega_beta | Kiểm định nguồn SMPS, mô phỏng SI/PI và đánh giá chống nhiễu EMC | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_omega_gamma | Xây dựng đa nhiệm RTOS và tính toán đường truyền Impedance Matching cho Smart IoT Gateway | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_emc_omega_gamma | Kiểm định nguồn SMPS, lập trình Secure Boot và phân tích Signal Integrity cho Industrial Controller | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_omega_omega | Lập trình FreeRTOS đa nhiệm, mô phỏng SI/PI và thiết kế PCB đa lớp tích hợp mạch RF | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_emc_omega_omega | Kiểm định nguồn SMPS, chống nhiễu EMC và ứng dụng Secure Boot bảo mật phần cứng IoT | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_freertos_va_pcb_da_lop_omega_zeta | Lập trình FreeRTOS đa nhiệm cấu trúc hàng đợi kết hợp thiết kế PCB 4 lớp tích hợp mô phỏng SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_emc_omega_zeta | Kiểm định nguồn SMPS tích hợp bộ lọc EMI, chống nhiễu EMC và ứng dụng Secure Boot phần cứng IoT | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_omega_theta | Lập trình FreeRTOS đa nhiệm và phân tích toàn vẹn tín hiệu SI/PI cho PCB 4 lớp Omega Theta | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_emc_omega_theta | Đo kiểm nguồn SMPS, đánh giá EMC và cấu hình Secure Boot bảo mật phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_omega_mu | Lập trình FreeRTOS đa nhiệm kết hợp phân tích toàn vẹn tín hiệu SI/PI dự án Omega Mu | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_emc_omega_mu | Kiểm định nguồn SMPS, thử nghiệm an toàn ASIL và chống nhiễu EMC dự án Omega Mu | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_omega_xi | Lập trình FreeRTOS đa nhiệm và tính toán kiểm soát trở kháng đường truyền RF trên PCB | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_emc_omega_xi | Kiểm định nguồn SMPS, phân tích toàn vẹn nguồn PI và kịch bản kiểm thử tự động HWI | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_mach_in_da_lop_omega_psi | Lập trình FreeRTOS đa nhiệm và thiết kế kiểm soát toàn vẹn tín hiệu SI/PI PCB Omega Psi | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_emc_omega_psi | Đo đạc kiểm định nguồn SMPS, chống nhiễu EMC và kịch bản kiểm thử phần cứng tự động HWI | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_omega_tau | Tích hợp FreeRTOS đa nhiệm và thiết kế PCB đa lớp cho hệ thống IoT (Dự án SmartGateway Omega Tau) | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_emc_omega_tau | Đánh giá toàn vẹn nguồn PI, kiểm định SMPS và tối ưu chống nhiễu EMC/EMI (Dự án SmartGateway Omega Tau) | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_omega_nu | Lập trình FreeRTOS đa nhiệm và thiết kế PCB đa lớp tích hợp mô phỏng tín hiệu toàn vẹn SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_emc_omega_nu | Kiểm định nguồn SMPS, chống nhiễu EMC/EMI và áp dụng tiêu chuẩn an toàn chức năng | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_omega_chi | Lập trình FreeRTOS đa nhiệm và phân tích toàn vẹn tín hiệu SI/PI trên Altium | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_emc_omega_chi | Kiểm định nguồn SMPS, EMC nâng cao và cấu hình bảo mật Secure Boot phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_omega_lambda | Lập trình FreeRTOS đa nhiệm và phân tích toàn vẹn tín hiệu SI/PI trên PCB đa lớp | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_emc_omega_lambda | Kiểm định nguồn SMPS, chống nhiễu EMC và ứng dụng tiêu chuẩn an toàn ASIL cho Firmware | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_omega_omicron | Lập trình FreeRTOS đa nhiệm kết hợp phân tích Signal Integrity dự án Omega Omicron | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_emc_omega_omicron | Kiểm định nguồn SMPS tích hợp Secure Boot và chống nhiễu EMC hệ thống Omega Omicron | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_omega_phi | Hiện thực FreeRTOS đa luồng và thiết kế mạch in bốn lớp dự án trạm đo môi trường | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_emc_omega_phi | Đo kiểm nguồn SMPS xung cao, xử lý nhiễu EMC và tối ưu an toàn phần cứng ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| freertos_va_pcb_da_lop_upsilon_sigma | Lập trình FreeRTOS đa nhiệm và thiết kế PCB đa lớp tích hợp mô phỏng SI/PI cho Smart Gateway | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_nguon_smps_emc_upsilon_sigma | Kiểm định nguồn SMPS, tối ưu mạch lọc EMC/EMI và cấu hình bảo mật Secure Boot phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_mach_nghich_luu_bien_tan_omega_sigma | Phân tích và sửa chữa tầng IGBT mạch nghịch lưu biến tần công nghiệp theo chuẩn an toàn | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_dong_co_ac_va_servo_bien_tan_omega_sigma | Vận hành vòng kín động cơ AC và mô phỏng thuật toán tối ưu V/F tích hợp mạng thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| chan_doan_va_sua_chua_mach_nghich_luu_omega_sigma | Chẩn đoán lỗi chuyển mạch và phân tích toàn vẹn tín hiệu PWM trên tủ biến tần | roadmap_ElectricEnginneerGuiidle.md |
+| bao_duong_va_hieu_chinh_bien_tan_dong_co_omega_sigma | Hiệu chỉnh thông số vector vòng kín và kiểm định tiêu chuẩn an toàn IEC trên biến tần AC | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_chuyen_suy_nghich_luu_omega_zeta | Phân tích cấu trúc cầu H nghịch lưu và sửa bo mạch biến tần 3 pha 3kW | roadmap_ElectricEnginneerGuiidle.md |
+| giai_phap_dieu_khiendong_co_servo_omega_zeta | Tối ưu vòng kín điều khiển tốc độ động cơ servo AC qua biến tần công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_sua_chua_nghich_luu_bien_tan_omega_psi | Sửa chữa mạch nghịch lưu và biến tần qua mô hình kiểm thử cầu H ba pha thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_dong_co_ac_servo_bien_tan_omega_psi | Lập trình truyền thông an toàn và điều khiển động cơ AC servo theo tiêu chuẩn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_mach_nghich_luu_omega_theta | Sửa chữa tầng nghịch lưu 3 pha và đo sóng PWM thực chiến trên mô hình Inverter 2kW | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_dong_co_ac_va_servo_bien_tan_omega_theta | Tối ưu hóa vòng lặp PID tốc độ động cơ AC và tích hợp an toàn chức năng ASIL cho biến tần | roadmap_ElectricEnginneerGuiidle.md |
+| dinh_vi_va_sua_mach_nghich_luu_delta_x | Định vị linh kiện hỏng và sửa mạch nghịch lưu Sine Chuẩn 1kW Delta-X | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_lap_bien_tan_delta_vfd_m_ac | Cấu hình truyền thông và đa cấp tốc độ biến tần Delta VFD-M | roadmap_ElectricEnginneerGuiidle.md |
+| chan_doan_va_phuc_hoi_bien_tan_omega_omega | Chẩn đoán và phục hồi biến tần công nghiệp kết hợp mô phỏng kiểm tra toàn vẹn nguồn SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_dieu_khien_dong_co_servo_omega_omega | Lập trình điều khiển động cơ servo vị trí qua mô hình băng tải tích hợp tiêu chuẩn an toàn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_khac_phuc_loi_mach_nghich_luu_omega_sigma | Phân tích và khắc phục lỗi mạch nghịch lưu inverter công nghiệp omega_sigma | roadmap_ElectricEnginneerGuiidle.md |
+| cau_hinh_va_dieu_khien_dong_co_servo_bien_tan_omega_sigma | Cấu hình và vận hành truyền động servo AC vòng kín qua giao thức công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_mach_nghich_luu_omega_epsilon | Sửa chữa tầng nghịch lưu 3 pha và chỉnh lưu công nghiệp trong biến tần Omega-Epsilon | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_chan_doan_dong_co_servo_omega_epsilon | Vận hành và chẩn đoán lỗi truyền động động cơ Servo AC cùng biến tần Omega-Epsilon | roadmap_ElectricEnginneerGuiidle.md |
+| chan_doan_va_thay_the_igbt_bien_tan_omega_alpha | Chẩn đoán lỗi quá dòng và thay thế module IGBT biến tần 3kW Delta VFD | roadmap_ElectricEnginneerGuiidle.md |
+| cau_hinh_v_f_va_tuning_dong_co_ac_omega_alpha | Cấu hình thuật toán điều khiển V/F và tích hợp bảo mật phần cứng an toàn ASIL cho biến tần | roadmap_ElectricEnginneerGuiidle.md |
+| sua_chua_mach_nghich_luu_omega_tau | Sửa chữa mạch nghịch lưu ba pha lỗi quá dòng kết hợp phân tích toàn vẹn tín hiệu PWM | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_dong_co_servo_omega_tau | Tự động hóa kiểm thử phần cứng và tối ưu vòng kín điều khiển servo qua Modbus RTU | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_nghich_luu_omega_upsilon | Phân tích và sửa chữa module nghịch lưu 3 pha trên biến tần 3kW IGBT bằng mô hình mạch mô phỏng LTspice | roadmap_ElectricEnginneerGuiidle.md |
+| cau_hinh_va_tuning_dong_co_ac_omega_upsilon | Cấu hình vòng kín V/f tích hợp chuẩn an toàn chức năng ASIL và Auto-tuning động cơ AC 3 pha | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_nghich_luu_delta_z | Sửa chữa tầng nghịch lưu biến tần 3 pha Delta VFD-M tích hợp kiểm tra toàn vẹn nguồn PI | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_dong_co_servo_delta_z | Cài đặt tham số và tuning động cơ servo AC Delta ASDA-B2 qua tiêu chuẩn an toàn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| chan_doan_va_xu_ly_su_co_nghich_luu_delta_k | Chẩn đoán và xử lý sự cố nghịch lưu Delta K tích hợp phân tích nhiệt PCB | roadmap_ElectricEnginneerGuiidle.md |
+| van_hanh_va_toi_uu_bien_tan_delta_k | Vận hành hệ thống băng tải thông minh qua biến tần tích hợp chuẩn công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_mach_nghich_luu_inverter_alpha | Phân tích và sửa chữa mạch nghịch lưu Inverter 3 pha thực tế với trạm hàn | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_dong_co_servo_omega_beta | Tối ưu hóa vòng kín và kiểm thử HWI động cơ Servo qua phần mềm hãng | roadmap_ElectricEnginneerGuiidle.md |
+| chan_doan_va_phuc_hoi_mach_nghich_luu_omega_zeta | Chẩn đoán và phục hồi mạch nghịch lưu inverter công suất lớn omega zeta kết hợp phân tích toàn vẹn nguồn SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| toi_uu_va_dieu_khien_dong_co_ac_omega_zeta | Tối ưu hóa và điều khiển động cơ AC 3 pha bằng biến tần tích hợp tiêu chuẩn an toàn IEC và kiểm thử HIL | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_khac_phuc_loi_inverter_alpha | Phân tích và khắc phục lỗi nghịch lưu công nghiệp dự án Inverter 3 Pha | roadmap_ElectricEnginneerGuiidle.md |
+| cai_dat_va_van_hanh_servo_omega_beta | Cài đặt và vận hành hệ thống servo AC dự án Máy cắt tự động | roadmap_ElectricEnginneerGuiidle.md |
+| chan_doan_va_xu_ly_su_co_inverter_alpha | Chẩn đoán và xử lý sự cố inverter Alpha qua dự án trạm kiểm tra công suất nghịch lưu | roadmap_ElectricEnginneerGuiidle.md |
+| van_hanh_va_toi_uu_bien_tan_alpha | Vận hành và tối ưu biến tần qua dự án hệ thống điều khiển băng tải đa cấp thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| chan_doan_va_phuc_hoi_nghich_luu_inverter_gamma | Chẩn đoán lỗi phần cứng mạch nghịch lưu ba pha Inverter Gamma với tiêu chuẩn an toàn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_dong_co_ac_servo_gamma | Tối ưu hóa vòng kín và phân tích toàn vẹn tín hiệu SI/PI cho AC Servo Gamma trên Altium | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_nghich_luu_omega_lambda | Sửa chữa tầng nghịch lưu Inverter 3 pha và thay IGBT cho trạm bơm Delta | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_dong_co_servo_omega_lambda | Tuning PID và điều khiển vị trí động cơ Servo AC cho băng tải tự động | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_nghich_luu_omega_mu | Chẩn đoán và khắc phục sự cố quá dòng tầng công suất biến tần công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_dong_co_ac_omega_mu | Tối ưu hóa vòng kín tốc độ động cơ không đồng bộ qua cấu hình biến tần ABB | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_nghich_luu_omega_xi | Chẩn đoán lỗi ngắn mạch mạch nghịch lưu và thay thế module IGBT biến tần Delta | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_dong_co_ac_omega_xi | Tối ưu hóa thông số PID dòng điện và vận hành vòng kín động cơ AC qua biến tần Schneider | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_nghich_luu_omega_omega | Phân tích và sửa chữa mạch nghịch lưu ba pha omega omega trong trạm bơm công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_dong_co_ac_omega_omega | Tối ưu hóa và kiểm định toàn vẹn tín hiệu SI/PI cho board điều khiển động cơ AC | roadmap_ElectricEnginneerGuiidle.md |
+| sua_loi_dc_bus_inverter_delta_vfd_m | Xử lý lỗi sụt áp DC Bus trên bộ nghịch lưu Delta VFD-M 1.5kW | roadmap_ElectricEnginneerGuiidle.md |
+| dong_bo_toc_do_ac_yaskawa_v1000_modbus | Truyền thông Modbus RTU điều khiển tốc độ biến tần Yaskawa V1000 | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_nghich_luu_omega_psi | Phân tích và sửa chữa mạch nghịch lưu ba pha ứng dụng trong sửa chữa inverter công nghiệp Omega-Psi | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_dong_co_ac_omega_psi | Tối ưu hóa thuật toán điều khiển vector và tuning động cơ AC ứng dụng giao thức thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_nghich_luu_omega_phi | Chẩn đoán và xử lý lỗi tầng công suất IGBT biến tần Omega Phi theo tiêu chuẩn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_dong_co_ac_omega_phi | Tối ưu hóa thông số PID vòng kín và cấu hình truyền thông thời gian thực EtherCAT cho động cơ AC | roadmap_ElectricEnginneerGuiidle.md |
+| chan_doan_va_xu_ly_su_co_nghich_luu_omega_chi | Chẩn đoán lỗi tầng nghịch lưu và phân tích toàn vẹn tín hiệu PWM biến tần công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| cai_dat_va_tuning_dong_co_servo_omega_chi | Tối ưu hóa vòng lặp vị trí servo và ứng dụng kiểm thử tự động HWI phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_nghich_luu_omega_upsilon_d558 | Phân tích và sửa chữa mạch nghịch lưu IGBT của biến tần Schneider Altivar | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_dong_co_ac_omega_upsilon | Tối ưu hóa và tự động nhận dạng thông số động cơ AC trên biến tần LS iV5 | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_nghich_luu_omega_tau | Phân tích và sửa chữa nghịch lưu Omega Tau qua dự án trạm kiểm tra inverter công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_dong_co_ac_omega_tau | Tối ưu hóa hệ thống truyền động động cơ AC Omega Tau tích hợp điều khiển mạng thời gian thực EtherCAT | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_nghich_luu_omega_kappa_d562 | Phân tích phần cứng và sửa chữa tầng công suất inverter ba pha công nghiệp Delta VFD-B | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_dong_co_ac_omega_kappa_d563 | Tối ưu hóa thuật toán điều khiển vector dòng điện động cơ không đồng bộ qua phân tích SI/PI và tuning PID vòng kín trên Siemens MM440 | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_nghich_luu_omega_epsilon_d564 | Phân tích và sửa chữa mạch nghịch lưu ba pha IGBT trong dự án Delta VFD | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_dong_co_ac_omega_epsilon_d565 | Tối ưu hóa và cấu hình truyền thông thời gian thực cho động cơ AC vector biến tần LS | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_nghich_luu_omega_zeta | Khắc phục lỗi tầng nghịch lưu Inverter Delta VFD-L qua trạm đo thực tế | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_dong_co_ac_omega_zeta | Tuning vòng kín vector động cơ AC 3 pha tích hợp kiểm định tiêu chuẩn an toàn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_nghich_luu_omega_theta | Chuyên đề phân tích và sửa chữa mạch nghịch lưu IGBT cho biến tần 3kW | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_dong_co_ac_omega_theta | Tuning vòng kín vector cho động cơ AC 3 pha công suất nhỏ qua phần mềm | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_nghich_luu_omega_lambda_prime | Xử lý tầng công suất inverter và sửa chữa mạch nghịch lưu Delta VFD-L tích hợp kiểm tra SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_dong_co_ac_omega_lambda_prime | Tuning tham số vector và điều khiển tốc độ động cơ AC Siemens 1PH8 theo chuẩn an toàn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_nghich_luu_omega_mu_mu | Sửa chữa tầng nghịch lưu biến tần Delta VFD-M 3kW bằng máy hiện sóng tích hợp phân tích nhiệt | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_dong_co_ac_omega_mu_mu | Tuning tham số vector không cảm biến tích hợp kiểm thử tự động HWI cho động cơ AC 3 pha 1.5kW | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_phan_cung_va_sua_chua_nghich_luu_omega_xi_xi | Phân tích phần cứng tầng công suất biến tần LS iG5A qua trạm chẩn đoán chuyên sâu | roadmap_ElectricEnginneerGuiidle.md |
+| tuning_vong_kin_vector_dong_co_ac_omega_xi_xi | Tuning vòng kín vector động cơ AC 3 pha tích hợp kiểm thử an toàn phần mềm ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_de_phan_tich_va_sua_chua_nghich_luu_omega_psi_psi | Chuyên đề phân tích phần cứng và sửa chữa nghịch lưu Omega Psi Psi với mô hình trực quan IGBT | roadmap_ElectricEnginneerGuiidle.md |
+| tuning_vong_kin_vector_dong_co_ac_omega_psi_psi | Tuning vòng kín vector động cơ AC Omega Psi Psi qua giao diện phần mềm công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| xu_ly_tang_cong_suat_va_tuning_dong_co_omega_omega_d578 | Xử lý tầng công suất inverter SEW Eurodrive và tuning vector vòng kín | roadmap_ElectricEnginneerGuiidle.md |
+| tuning_tham_so_vector_va_sua_chua_danfoss_d579 | Phục hồi module nghịch lưu Danfoss VLT và tối ưu hóa điều khiển truyền động thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_de_xu_ly_su_co_va_tuning_schneider_d580 | Xử lý sự cố tầng nghịch lưu và tuning Schneider ATV320 theo IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| xu_ly_loi_phan_cung_va_dieu_khien_fuji_d581 | Khắc phục lỗi phần cứng vòng kín và kiểm thử tự động HWI trên Fuji Frenic | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_de_xu_ly_su_co_va_tuning_hitachi_d582 | Xử lý sự cố biến tần Hitachi và tích hợp tiêu chuẩn an toàn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_de_xu_ly_su_co_va_tuning_delta_d583 | Chẩn đoán bo mạch Delta VFD và tối ưu hóa toàn vẹn tín hiệu SI/PI truyền thông công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_de_xu_ly_su_co_va_tuning_ls_d584 | Chuyên đề xử lý sự cố phần cứng và tuning biến tần LS cho trạm bơm công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_de_xu_ly_su_co_va_tuning_siemens_d585 | Chuyên đề khắc phục lỗi DC-bus và tuning PID biến tần Siemens cho băng tải | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_de_xu_ly_su_co_va_tuning_allen_bradley_d586 | Chuyên đề xử lý sự cố tầng nghịch lưu và tuning biến tần Allen-Bradley | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_de_xu_ly_su_co_va_tuning_schneider_altivar_d587 | Chuyên đề chẩn đoán phần cứng nâng cao và tối ưu hóa vector biến tần Schneider Altivar | roadmap_ElectricEnginneerGuiidle.md |
+| chan_doan_va_sua_chua_bien_tan_omega_omega | Chẩn đoán và phục hồi module công suất IGBT cho biến tần Omega Omega | roadmap_ElectricEnginneerGuiidle.md |
+| tuning_va_dieu_khien_dong_co_servo_omega_omega | Tối ưu hóa hệ thống truyền động vị trí vòng kín với AC Servo Omega Omega | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_de_xu_ly_su_co_va_tuning_danfoss_d590 | Xử lý phần cứng tầng nghịch lưu và tuning vòng kín PID cho biến tần Danfoss VLT | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_de_xu_ly_su_co_va_tuning_abb_d591 | Chẩn đoán lỗi tầng nguồn và tối ưu hóa điều khiển vector cho hệ thống băng tải ABB ACS | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_de_xu_ly_su_co_va_tuning_yaskawa_d592 | Chuyên đề xử lý sự cố phần cứng và tuning Yaskawa A1000 | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_de_xu_ly_su_co_va_tuning_mitsubishi_d593 | Khắc phục lỗi quá áp và tối ưu V/F trên Mitsubishi FR-D700 | roadmap_ElectricEnginneerGuiidle.md |
+| chan_doan_va_xu_ly_su_co_tong_hop_bien_tan_d594 | Chẩn đoán lỗi biến tần và phân tích toàn vẹn tín hiệu xung kích IGBT | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_toi_uu_he_thong_truyen_dong_dien_d595 | Tối ưu hóa vòng kín truyền động điện và tích hợp chuẩn an toàn chức năng | roadmap_ElectricEnginneerGuiidle.md |
+| chan_doan_va_xu_ly_su_co_bien_tan_omega_epsilon | Phân tích và khắc phục lỗi tầng công suất biến tần công nghiệp qua mô phỏng tín hiệu | roadmap_ElectricEnginneerGuiidle.md |
+| toi_uu_va_dieu_khien_dong_co_servo_omega_epsilon | Tối ưu hóa vòng kín và kiểm thử tự động HWI cho hệ thống truyền động servo | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_nghich_luu_omega_zeta_d598 | Chẩn đoán phần cứng và sửa chữa mạch nghịch lưu biến tần 3 pha Omega Zeta | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_dong_co_servo_omega_zeta | Tối ưu hóa vòng kín và hiệu chuẩn thời gian thực động cơ Servo AC Omega Zeta | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_nghich_luu_omega_theta_d600 | Phân tích và sửa chữa nghịch lưu Omega Theta thực chiến trên board Inverter 3kW tích hợp kiểm định tiêu chuẩn IEC | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_dong_co_servo_omega_theta | Tối ưu hóa và tuning động cơ servo Omega Theta ứng dụng trong hệ thống cắt bay tích hợp mạng EtherCAT | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_nghich_luu_omega_lambda_d602 | Phân tích phần cứng và sửa chữa mạch nghịch lưu tích hợp kiểm tra toàn vẹn nguồn điện PI | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_dong_co_ac_omega_lambda | Tuning vòng kín động cơ AC xoay chiều ứng dụng tiêu chuẩn an toàn functional safety | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_nghich_luu_omega_xi_d604 | Phân tích phần cứng và sửa chữa nghịch lưu Omega Xi với mô hình IGBT Tester | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_dong_co_ac_omega_xi_d605 | Tối ưu hóa và kiểm định thời gian thực động cơ AC Omega Xi theo chuẩn IEC | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_nghich_luu_omega_omicron | Chuyên đề phân tích và sửa chữa nghịch lưu Omega Omicron cho hệ truyền động | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_dong_co_ac_omega_omicron | Tối ưu hóa vòng kín và cấu hình phần cứng an toàn cho động cơ AC | roadmap_ElectricEnginneerGuiidle.md |
+| chan_doan_va_phuc_hoi_bien_tan_omega_pi | Chẩn đoán phần cứng và phục hồi biến tần Omega Pi với mô hình tải AC | roadmap_ElectricEnginneerGuiidle.md |
+| toi_uu_va_dieu_khien_dong_co_servo_omega_pi | Tinh chỉnh vòng kín và truyền thông thời gian thực cho động cơ servo Omega Pi | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_nghich_luu_omega_sigma | Phân tích phần cứng và sửa chữa mạch nghịch lưu biến tần Delta VFD-M | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_dong_co_ac_omega_sigma | Tối ưu hóa vòng kín và cấu hình thuật toán an toàn ASIL cho biến tần | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_nghich_luu_omega_phi_d612 | Phân tích và sửa chữa tầng nghịch lưu PWM 3 pha IGBT biến tần Delta VFD-M | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_dong_co_ac_omega_phi_d613 | Tự động hóa tuning vòng kín vector động cơ AC và tích hợp an toàn chức năng ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_nghich_luu_omega_psi_d614 | Sửa tầng nghịch lưu PWM 3 pha IGBT cho biến tần 5kW tải bơm nước | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_dong_co_ac_omega_psi_d615 | Tuning vòng kín vector động cơ AC 3kW băng tải tự động tích hợp an toàn functional safety | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_phan_cung_va_sua_chua_nghich_luu_omega_omega_d616 | Phân tích phần cứng và sửa chữa nghịch lưu Omega-Omega (Dự án Sửa Inverter 3kW) | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_vong_kin_omega_omega_d617 | Tối ưu hóa vòng kín Vector và Kiểm định tiêu chuẩn an toàn IEC cho truyền động | roadmap_ElectricEnginneerGuiidle.md |
+| chan_doan_phan_cung_va_sua_chua_nghich_luu_omega_upsilon | Chẩn đoán phần cứng và sửa chữa nghịch lưu Omega Upsilon tích hợp tiêu chuẩn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_vong_kin_omega_upsilon | Điều khiển vector và tuning vòng kín động cơ AC Omega Upsilon qua mạng EtherCAT | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_de_phan_tich_va_sua_chua_nghich_luu_omega_tau | Chuyên đề phân tích phần cứng và sửa chữa nghịch lưu inverter 3 pha Delta | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_vong_kin_omega_tau | Tối ưu hóa toàn vẹn tín hiệu SI/PI và tuning vòng kín vector cho AC servo Panasonic | roadmap_ElectricEnginneerGuiidle.md |
+| chan_doan_phan_cung_va_sua_chua_nghich_luu_omega_mu | Chẩn đoán phần cứng tầng nghịch lưu Delta VFD-E kèm dự án sửa module IGBT | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_vong_kin_omega_mu | Tối ưu hóa thông số PID vector động cơ AC 3 pha và tích hợp chuẩn an toàn IEC | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_de_xu_ly_su_co_va_tuning_omega_chi | Chuyên đề phân tích toàn vẹn nguồn PI, xử lý sự cố biến tần và tuning động cơ AC Omega Chi | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_toi_uu_he_thong_nghich_luu_omega_chi | Nghiệm thu tiêu chuẩn an toàn IEC và tối ưu hóa hệ thống truyền động băng tải vòng kín | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_de_xu_ly_su_co_va_tuning_omega_phi | Chuyên đề xử lý sự cố mạch nghịch lưu và tuning vòng kín vector cho biến tần | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_toi_uu_he_thong_nghich_luu_omega_phi | Tích hợp hệ thống truyền động công nghiệp thông minh thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_nghich_luu_omega_zeta_d628 | Sửa tầng nghịch lưu inverter công nghiệp trên trạm Delta VFD-B | roadmap_ElectricEnginneerGuiidle.md |
+| dieu_khien_va_tuning_dong_co_ac_omega_zeta_d629 | Tuning vòng kín vector động cơ AC trên bệ thử nghiệm Siemens MM440 | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_thiet_ke_hmi_d630 | Lập trình PLC Siemens S7-1200 và giao diện HMI trạm bơm thông minh theo tiêu chuẩn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_va_truyen_thong_modbus_d631 | Tích hợp hệ thống SCADA WinCC và mạng thời gian thực EtherCAT cho dây chuyền đóng gói | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_rockwell_va_giao_tiep_modbus_d632 | Lập trình PLC Rockwell và tích hợp giao tiếp Modbus RTU cho trạm bơm nước | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_scada_va_mang_profibus_nha_may_d633 | Thiết kế hệ thống SCADA WinCC kết hợp mạng thời gian thực EtherCAT giám sát dây chuyền | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_mitsubishi_va_mang_canopen_d634 | Lập trình PLC Mitsubishi và tích hợp mạng CANopen cho dây chuyền đóng gói | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_tu_dong_hoa_nha_may_d635 | Kiểm định tiêu chuẩn an toàn IEC 61508 và hoàn thiện hệ thống tự động hóa nhà máy đa nền tảng | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_mitsubishi_va_mang_canopen_d636 | Lập trình PLC Mitsubishi FX5U tích hợp mạng CANopen và chuẩn an toàn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_tu_dong_hoa_nha_may_d637 | Hoàn thiện hệ thống SCADA nhà máy thông minh với đa mạng công nghiệp thời gian thực EtherCAT | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_scada_nha_may_d638 | Lập trình PLC Siemens S7-1200 và thiết kế SCADA trạm bơm nước nhà máy | roadmap_ElectricEnginneerGuiidle.md |
+| giao_tiep_mang_cong_nghiep_va_scada_tong_d639 | Tích hợp mạng thời gian thực Profinet và điều khiển truyền động biến tần | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_scada_nha_may_d640 | Lập trình PLC Siemens và SCADA nhà máy băng tải sản xuất | roadmap_ElectricEnginneerGuiidle.md |
+| giao_tiep_mang_cong_nghiep_va_scada_tong_d641 | Truyền thông thời gian thực EtherCAT và SCADA tổng thể nhà máy | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_rockwell_devicenet_alphax_d642 | Lập trình Rockwell và mạng DeviceNet cho hệ phân loại Alpha-X | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_factorytalk_alphax_d643 | Tích hợp SCADA FactoryTalk View giám sát hệ phân loại Alpha-X | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_hmi_profinet_d644 | Lập trình PLC Siemens S7-1200 và tích hợp tiêu chuẩn an toàn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_modbus_tcp_d645 | Giám sát thời gian thực trạm bơm qua SCADA zenon kết hợp mạng thời gian thực TSN | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_hmi_profinet_alphax | Lập trình PLC Siemens và giao tiếp HMI qua Profinet tích hợp chuẩn an toàn IEC 61508 cho trạm AlphaX | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_modbus_tcp_alphax | Tích hợp SCADA Zenon và giao tiếp Modbus TCP kết hợp phân tích toàn vẹn dữ liệu cho hệ thống lò nhiệt AlphaX | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_hmi_zenon_d648 | Lập trình PLC Siemens S7-1200 và giao diện HMI Zenon cho dây chuyền đóng gói | roadmap_ElectricEnginneerGuiidle.md |
+| giao_tiep_modbus_tcp_va_scada_tong_d649 | Tích hợp mạng Modbus TCP thời gian thực và chẩn đoán lỗi tiêu chuẩn IEC 61508 cho SCADA | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_scada_zenon_omega | Lập trình PLC Siemens và tích hợp SCADA Zenon dự án Omega | roadmap_ElectricEnginneerGuiidle.md |
+| giao_tiep_modbus_tcp_va_scada_tong_omega | Truyền thông mạng thời gian thực EtherCAT và SCADA tổng dự án Omega | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_mitsubishi_va_mang_canopen_omega | Lập trình PLC Mitsubishi tích hợp chuẩn an toàn IEC 61508 và mạng CANopen | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_tu_dong_hoa_omega | Kiểm định toàn diện và tối ưu hóa hệ thống tự động hóa nhà máy với Siemens và SCADA | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_scada_zenon_omega_pro | Lập trình PLC Siemens S7-1500 và SCADA Zenon trạm pha chế hóa chất Omega | roadmap_ElectricEnginneerGuiidle.md |
+| giao_tiep_modbus_tcp_va_scada_tong_omega_pro | Tích hợp truyền thông Modbus TCP và tổng hợp hệ thống SCADA nhà máy Omega | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_scada_zenon_omega_pro_max | Lập trình PLC Siemens S7-1500 và SCADA Zenon giám sát dây chuyền nước ngọt | roadmap_ElectricEnginneerGuiidle.md |
+| giao_tiep_modbus_tcp_va_scada_tong_omega_pro_max | Tích hợp Modbus TCP và chuẩn an toàn IEC 61508 cho hệ thống SCADA nhà máy | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_hmi_profinet_omega_max | Lập trình PLC Siemens S7-1200 và giao tiếp HMI qua Profinet tích hợp chẩn đoán lỗi tiêu chuẩn IEC | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_modbus_tcp_omega_max | Tích hợp SCADA Zenon và cấu hình mạng Modbus TCP giám sát năng lượng nhà máy theo chuẩn thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_scada_zenon_pro_max_v2 | Lập trình PLC Siemens S7-1200 và SCADA Zenon điều khiển dây chuyền đóng gói theo chuẩn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| giao_tiep_modbus_tcp_va_scada_tong_pro_max_v2 | Tích hợp giao thức thời gian thực EtherCAT và Modbus TCP kết nối đa thiết bị vào SCADA tổng | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_hmi_profinet_v3 | Lập trình PLC Siemens S7-1200 và cấu hình HMI qua Profinet cho trạm đóng gói sản phẩm | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_modbus_tcp_v3 | Tích hợp hệ thống SCADA Zenon truyền thông Modbus TCP kiểm định an toàn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_hmi_profinet_v4 | Lập trình PLC Siemens S7-1200 và giao tiếp HMI qua mạng Profinet công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_modbus_tcp_v4 | Giám sát thời gian thực nhiệt độ lò nung bằng phần mềm SCADA Zenon và giao thức Modbus TCP | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_hmi_profinet_v5 | Lập trình PLC Siemens S7-1200 và HMI qua Profinet tiêu chuẩn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_modbus_tcp_v5 | Tích hợp SCADA Zenon và giao tiếp Modbus TCP trạm điện mặt trời thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_hmi_profinet_v6 | Lập trình PLC Siemens S7-1200 và HMI KTP700 qua Profinet cho trạm chiết rót tích hợp an toàn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_modbus_tcp_v6 | Tích hợp SCADA zenon với mạng thời gian thực EtherCAT và Modbus TCP giám sát năng lượng nhà máy | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_omron_va_hmi_fins_d670 | Lập trình PLC Omron và thiết kế giao diện HMI với giao thức FINS mạng Ethernet | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_canopen_d671 | Tích hợp SCADA Zenon và mạng truyền thông CANopen quản lý trạm biến tần tiêu chuẩn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_hmi_profinet_v7 | Lập trình PLC Siemens S7-1200 và HMI WinCC qua mạng Profinet cho dây chuyền đóng gói băng tải | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_modbus_tcp_v7 | Tích hợp SCADA zenon và PLC Mitsubishi qua giao thức Modbus TCP kết hợp tiêu chuẩn an toàn IEC 61508 cho trạm bơm nước | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_hmi_profinet_v8 | Lập trình PLC Siemens S7-1200 và HMI WinCC qua Profinet cho hệ thống phân loại sản phẩm tự động | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_modbus_tcp_v8 | Tích hợp SCADA Zenon và giao tiếp Modbus TCP với PLC điều khiển trạm bơm cấp nước | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_hmi_profinet_v9 | Lập trình PLC Siemens S7-1200 và HMI qua Profinet dự án trạm xử lý nước | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_modbus_tcp_v9 | Tích hợp SCADA zenon và Modbus TCP giám sát dây chuyền đóng gói công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_hmi_profinet_v10 | Lập trình PLC Siemens S7-1200 và HMI WinCC qua Profinet cho dây chuyền đóng gói | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_modbus_tcp_v10 | Tích hợp SCADA zenon và Modbus TCP giám sát trạm bơm nước công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_hmi_profinet_v11 | Lập trình PLC Siemens và HMI Profinet qua hệ thống phân loại sản phẩm tự động | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_modbus_tcp_v11 | Tích hợp SCADA zenon và Modbus TCP giám sát trạm bơm nước tự động theo tiêu chuẩn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_hmi_profinet_v12 | Lập trình PLC Siemens S7-1200 và giao diện HMI KTP700 qua Profinet | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_modbus_tcp_v12 | Tích hợp hệ thống SCADA Zenon và giao tiếp mạng thời gian thực EtherCAT | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_hmi_profinet_v13 | Lập trình PLC Siemens S7-1200 và HMI thiết kế dây chuyền tự động hóa Profinet tuân thủ IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_modbus_tcp_v13 | Tích hợp hệ thống SCADA zenon với Modbus TCP và giao thức thời gian thực EtherCAT | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_scada_zenon_pro_max_v12 | Lập trình PLC Siemens S7-1500 và tích hợp SCADA zenon Dự án Line Đóng Gói Tự Động | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_modbus_tcp_pro_max_v12 | Xây dựng hệ thống giám sát thời gian thực với Modbus TCP và Tiêu chuẩn an toàn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_hmi_profinet_v14 | Lập trình PLC Siemens S7-1200 và HMI qua Profinet tích hợp tiêu chuẩn an toàn IEC 61508 cho hệ thống lò nhiệt Alpha | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_modbus_tcp_v14 | Tích hợp SCADA zenon và Modbus TCP giám sát trạm bơm Delta Max kết hợp Edge AI TensorRT quantization | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_scada_zenon_pro_max_v13 | Lập trình PLC Siemens S7-1200 kết nối SCADA zenon trạm bơm nước | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_modbus_tcp_pro_max_v13 | Giám sát điện năng nhà máy qua Modbus TCP và EtherCAT thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_hmi_zenon_pro_max_v14 | Lập trình PLC Siemens S7-1200 và giao diện HMI Zenon phân loại sản phẩm tự động | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_modbus_tcp_pro_max_v14 | Tích hợp hệ thống SCADA Zenon qua giao thức Modbus TCP giám sát trạm bơm | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_scada_zenon_pro_max_v15 | Lập trình PLC Siemens và SCADA Zenon tích hợp trạm trộn bê tông | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_modbus_tcp_pro_max_v15 | Triển khai mạng Modbus TCP và giám sát phân loại sản phẩm băng tải | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_scada_zenon_pro_max_v16 | Xây dựng hệ thống tự động hóa nhà máy bốc xếp với Siemens S7-1200 và SCADA Zenon v16 | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_modbus_tcp_pro_max_v16 | Triển khai mạng Modbus TCP tích hợp giao thức thời gian thực EtherCAT giám sát năng lượng trạm bơm | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_scada_zenon_pro_max_v17 | Lập trình PLC Siemens S7-1200 và giao diện giám sát zenon SCADA tốc độ cao | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_modbus_tcp_pro_max_v17 | Tích hợp hệ thống lò nhiệt đa vùng qua mạng Modbus TCP | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_hmi_profinet_d700 | Lập trình PLC Siemens và HMI qua Profinet tích hợp tiêu chuẩn an toàn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_modbus_tcp_d701 | Tích hợp Zenon SCADA, Modbus TCP và mạng thời gian thực TSN giám sát năng lượng | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_scada_zenon_pro_max_v18 | Lập trình PLC Siemens S7-1500 và SCADA Zenon điều khiển dây chuyền đóng chai | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_modbus_tcp_pro_max_v18 | Tích hợp SCADA Zenon và Modbus TCP giám sát trạm bơm nước nhà máy | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_scada_zenon_pro_max_v19 | Lập trình PLC Siemens S7-1500 và tích hợp SCADA zenon: Dự án trạm trộn bê tông | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_modbus_tcp_pro_max_v19 | Ứng dụng SCADA zenon và chuẩn Modbus TCP: Hệ thống giám sát năng lượng nhà máy | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_omron_va_scada_zenon_pro_max_d706 | Lập trình PLC Omron và tích hợp SCADA Zenon trạm nước thải tự động chuẩn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_modbus_tcp_pro_max_d707 | Tích hợp SCADA Zenon và Modbus TCP dây chuyền đóng gói với EtherCAT thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_schneider_va_scada_vijeo_d708 | Lập trình PLC Schneider và SCADA Vijeo Citect cho trạm xử lý nước thải | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_mang_canopen_va_bien_tan_d709 | Tích hợp mạng CANopen kết nối biến tần Altivar qua PLC Schneider | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_hmi_profinet_d710 | Lập trình PLC Siemens S7-1200 và thiết kế HMI qua mạng Profinet - Dự án Băng tải phân loại sản phẩm | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_modbus_tcp_d711 | Tích hợp SCADA zenon và truyền thông Modbus TCP - Dự án Trạm giám sát năng lượng nhà máy | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_scada_zenon_pro_max_d712 | Lập trình PLC Siemens S7-1500 và SCADA zenon giám sát hệ thống năng lượng mặt trời | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_modbus_tcp_pro_max_d713 | Kiểm định tiêu chuẩn IEC 61508 và phân tích toàn vẹn tín hiệu trên mạng công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_scada_zenon_pro_max_d714 | Lập trình PLC Siemens S7-1500 và tích hợp SCADA zenon giám sát hệ thống năng lượng mặt trời | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_modbus_tcp_pro_max_d715 | Ứng dụng chuẩn an toàn IEC 61508 và tích hợp đồng hồ Modbus TCP đa điểm trên zenon | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_mitsubishi_va_scada_zenon_d716 | Lập trình PLC Mitsubishi FX5U và tích hợp SCADA zenon trạm bơm nước | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_rockwell_va_scada_zenon_d717 | Điều khiển thời gian thực và an toàn chức năng ASIL trên Rockwell CompactLogix | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_mitsubishi_va_scada_zenon_d718 | Lập trình PLC Mitsubishi FX5U và thiết kế giao diện SCADA Zenon trạm nước tích hợp tiêu chuẩn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_rockwell_va_scada_zenon_d719 | Lập trình PLC Rockwell CompactLogix và tích hợp SCADA Zenon dây chuyền ứng dụng EtherCAT thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_mitsubishi_va_scada_zenon_d720 | Lập trình PLC Mitsubishi FX5U và tích hợp giao thức mạng thời gian thực EtherCAT với Zenon SCADA | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_rockwell_va_scada_zenon_d721 | Lập trình PLC Rockwell và ứng dụng AI Edge Acceleration cho hệ thống lò nhiệt thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_mitsubishi_va_rockwell_d722 | Lập trình PLC Mitsubishi và Rockwell dự án phân loại sản phẩm tự động | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_truyen_thong_cong_nghiep_d723 | Tích hợp SCADA Zenon và truyền thông công nghiệp dây chuyền đóng gói | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_mitsubishi_va_rockwell_nang_cao_d724 | Lập trình điều khiển phân loại sản phẩm nâng cao với PLC Mitsubishi và Rockwell qua Modbus TCP | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_multi_plc_d725 | Triển khai SCADA zenon giám sát toàn diện hệ thống Multi-PLC kết hợp phân tích dữ liệu biên | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_mitsubishi_va_rockwell_nang_cao_d726 | Lập trình PLC Mitsubishi FX5U và Rockwell Micro850 dây chuyền đóng gói | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_multi_plc_d727 | Tích hợp SCADA Zenon giám sát hệ thống multi-PLC kết hợp mạng thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_mitsubishi_va_rockwell_nang_cao_d728 | Lập trình PLC Mitsubishi FX5U và Rockwell Micro850 dây chuyền đóng gói d728 | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_multi_plc_d729 | Tích hợp nền tảng SCADA Zenon giám sát hệ thống mạng Multi-PLC thời gian thực d729 | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_mitsubishi_va_rockwell_nang_cao_d730 | Lập trình PLC Mitsubishi và Rockwell nâng cao tích hợp kiểm định an toàn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_multi_plc_d731 | Ứng dụng SCADA Zenon kết nối Multi-PLC với mạng thời gian thực chuẩn EtherCAT | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_mitsubishi_va_rockwell_nang_cao_d732 | Lập trình nâng cao PLC Mitsubishi và Rockwell cho hệ thống đóng gói tự động | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_multi_plc_d733 | Giám sát và điều khiển dây chuyền qua SCADA zenon kết hợp thời gian thực EtherCAT | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_plc_mitsubishi_va_rockwell_d734 | Chuyên sâu PLC Mitsubishi và Rockwell với chuẩn an toàn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| giao_thuc_va_scada_multi_vendor_d735 | Tích hợp SCADA Zenon qua mạng thời gian thực EtherCAT và Modbus TCP | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_mitsubishi_va_rockwell_nang_cao_d736 | Lập trình nâng cao PLC Mitsubishi và Rockwell cho băng tải phân loại sản phẩm | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_scada_zenon_va_multi_plc_d737 | Tích hợp nền tảng SCADA zenon với Multi-PLC quản lý dây chuyền đóng gói công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_mitsubishi_va_rockwell_pro_max_d738 | Chuyên sâu PLC Mitsubishi và Rockwell tối ưu hóa dây chuyền sản xuất tự động | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_toi_uu_he_thong_scada_multi_plc_d739 | Xây dựng và vận hành hệ thống SCADA Multi-PLC tích hợp Edge AI giám sát nhà máy thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_plc_mitsubishi_va_rockwell_pro_max_d740 | Chuyên sâu PLC Mitsubishi và Rockwell tối ưu hóa tự động hóa nhà máy | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_giam_sat_scada_multi_plc_d741 | Triển khai giao thức EtherCAT và giám sát SCADA đa PLC thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_plc_mitsubishi_va_rockwell_pro_max_d742 | Đồng bộ truyền thông Ethernet/IP và xử lý tín hiệu tốc độ cao giữa FX5U và CompactLogix | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_giam_sat_scada_multi_plc_d743 | Giám sát thời gian thực và cấu hình bảo mật SCADA zenon đa nền tảng PLC | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_plc_mitsubishi_va_rockwell_pro_max_d744 | Tích hợp giao thức IEC 61508 và truyền thông thời gian thực EtherCAT cho hệ thống đa PLC | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_giam_sat_scada_multi_plc_d745 | Xây dựng giao diện điều khiển trung tâm và phân tích dữ liệu thời gian thực trên SCADA Zenon | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_plc_mitsubishi_va_giam_sat_zenon_d746 | Chuyên sâu PLC Mitsubishi và giám sát zenon cho băng tải phân loại | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_giam_sat_he_thong_multi_plc_zenon_d747 | Tích hợp Multi-PLC Siemens S7-1200 và zenon SCADA quản lý dây chuyền | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_plc_mitsubishi_va_giam_sat_zenon_d748 | Chuyên sâu PLC Mitsubishi và giám sát Zenon áp dụng tiêu chuẩn an toàn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_giam_sat_day_chuyen_tu_dong_d749 | Tích hợp mạng thời gian thực EtherCAT và giám sát dây chuyền đa hãng với Zenon SCADA | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_mitsubishi_va_giam_sat_zenon_d750 | Lập trình PLC Mitsubishi nâng cao và tích hợp tiêu chuẩn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_giam_sat_day_chuyen_phan_loai_d751 | Hoàn thiện dây chuyền với mạng thời gian thực EtherCAT và SCADA zenon | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_mitsubishi_va_giam_sat_zenon_d752 | Lập trình nâng cao PLC Mitsubishi và giám sát năng lượng với SCADA Zenon | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_giam_sat_tram_bien_ap_zenon_d753 | Kiểm thử tự động HWI và vận hành trạm biến áp thông minh IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_mitsubishi_va_giam_sat_zenon_d754 | Lập trình PLC Mitsubishi FX5U và giám sát hệ thống phân loại sản phẩm Zenon | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_giam_sat_day_chuyen_tu_dong_d755 | Kiểm định mạng thời gian thực EtherCAT và hoàn thiện dây chuyền tự động hóa Zenon | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_mitsubishi_va_giam_sat_zenon_d756 | Lập trình PLC Mitsubishi FX5U và tích hợp mạng thời gian thực EtherCAT | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_giam_sat_nha_may_rac_zenon_d757 | Kiểm định an toàn và giám sát nâng cao dây chuyền nhà máy rác với Zenon | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_mitsubishi_va_giam_sat_zenon_d758 | Lập trình PLC Mitsubishi và giám sát hệ thống năng lượng mặt trời Zenon | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_giam_sat_tram_nang_luong_zenon_d759 | Kiểm định an toàn và tự động hóa toàn diện trạm điện mặt trời thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_plc_siemens_va_giam_sat_zenon_d760 | Tích hợp tiêu chuẩn an toàn IEC 61508 và Profinet cho trạm đóng gói Siemens S7-1500 | roadmap_ElectricEnginneerGuiidle.md |
+| chan_doan_va_sua_chua_bo_nguon_tu_lanh_inverter_d761 | Chẩn đoán và xử lý lỗi mạch nguồn xung SMPS tủ lạnh Inverter | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_khac_phuc_loi_mach_dieu_hoa_inverter_d762 | Phân tích và khắc phục lỗi giao tiếp truyền thông board dàn lạnh điều hòa | roadmap_ElectricEnginneerGuiidle.md |
+| sua_chua_mach_dieu_khien_may_giat_va_lo_vi_song | Đảo ngược và sửa chữa bo mạch máy giặt inverter cùng lò vi sóng điện tử | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_mach_nghich_luu_thiet_bi_dan_dung | Phục hồi tầng công suất nghịch lưu và kiểm thử tự động HWI thiết bị dân dụng | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_sua_chua_tu_lanh_inverter | Đảo ngược và sửa chữa bo mạch tủ lạnh inverter Panasonic NR-BX461 | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_lo_vi_song_dien_tu | Phân tích và sửa chữa mạch vi sóng điện tử Toshiba ER-RD7000 kết hợp kiểm thử an toàn | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_sua_chua_tu_lanh_inverter_d767 | Đảo ngược sơ đồ mạch và sửa chữa bo điều khiển tủ lạnh inverter | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_sua_chua_lo_vi_song_dien_tu_d768 | Phân tích kỹ thuật đảo ngược và phục hồi mạch vi sóng điện tử | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_sua_chua_dieu_hoa_inverter_d769 | Đảo ngược và sửa chữa bo mạch điều hòa inverter Panasonic tích hợp SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| phuc_hoi_va_chuan_hoa_mach_may_giat_d770 | Phục hồi và chuẩn hóa bo mạch máy giặt LG tích hợp kiểm thử tự động HWI | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_sua_chua_mach_dieu_hoa_inverter_d771 | Đảo ngược mạch điều hòa inverter và phân tích toàn vẹn nguồn cấp trước | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_sua_chua_tu_lanh_va_may_giat_d772 | Chuyên sâu xử lý lỗi công suất bo mạch tủ lạnh Samsung và máy giặt Electrolux | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_sua_chua_lo_vi_song_va_bep_tu | Đảo ngược mạch điều khiển lò vi sóng và bếp từ đôi | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_sua_chua_thiet_bi_dan_dung | Kiểm định tiêu chuẩn an toàn IEC và phân tích nhiệt PCB thiết bị dân dụng | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_sua_chua_tu_lanh_va_dieu_hoa_inverter_d775 | Thiết kế ngược và khắc phục lỗi tầng công suất biến tần điều hòa | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_phuc_hoi_thiet_bi_gia_dung_d776 | Ứng dụng quét lỗi thông minh và phục hồi board mạch máy giặt điện tử | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_sua_chua_dien_tu_cong_nghiep_d777 | Đảo ngược và sửa chữa bo mạch thiết bị công nghiệp công suất lớn | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_phuc_hoi_thiet_bi_cong_nghiep_d778 | Kiểm định an toàn và lập trình kịch bản tự động hóa công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_sua_chua_thiet_bi_gia_dung_da_nang | Đảo ngược mạch và sửa chữa tổng hợp thiết bị gia dụng đa năng | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sua_va_toi_uu_he_thong_lanh_cong_nghiep | Chuyên sâu chẩn đoán và tối ưu hóa hệ thống lạnh công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_dao_nguoc_mach_dieu_hoa_inverter_d781 | Phân tích và đảo ngược mạch điều hòa Inverter qua dự án sửa board dàn lạnh | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_suy_va_phuc_hoi_mach_may_giat_inverter_d782 | Chuyên sâu chẩn đoán và khắc phục mạch động cơ máy giặt Inverter đa năng | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_sua_chua_thiet_bi_gia_dung_da_nang_d783 | Đảo ngược và sửa chữa thiết bị gia dụng đa năng qua mạch inverter tổng hợp | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_phuc_hoi_thiet_bi_dan_dung_d784 | Phân tích tín hiệu và toàn vẹn nguồn SI/PI chuyên sâu trên bo mạch vi sóng inverter | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_sua_chua_tu_lanh_inverter_d785 | Đảo ngược mạch điều khiển tủ lạnh Inverter tích hợp phân tích nguồn xung | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_sua_chua_dieu_hoa_va_may_giat_d786 | Phục hồi module nghịch lưu và kiểm thử tự động HWI bo điều hòa Daikin | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_sua_chua_toan_dien_thiet_bi_inverter_d787 | Đảo ngược và sửa chữa toàn diện bo mạch tủ lạnh inverter cho module quạt | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_phuc_hoi_thiet_bi_gia_dung_d788 | Chuyên sâu chẩn đoán và phục hồi mạch điều hòa không khí inverter multi tích hợp chuẩn an toàn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_sua_chua_bo_mach_inverter_da_nang_d789 | Đảo ngược và sửa chữa bo mạch inverter đa năng tủ lạnh và điều hòa | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_phuc_hoi_toan_dien_thiet_bi_d790 | Kiểm định tiêu chuẩn công nghiệp và bảo mật phần cứng thiết bị điện tử gia dụng cao cấp | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_sua_chua_tu_lanh_va_dieu_hoa_inverter_d791 | Kỹ thuật đảo ngược mạch nguồn và phân tích toàn vẹn tín hiệu IPM tủ lạnh inverter | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_sua_chua_thiet_bi_gia_dung_d792 | Chẩn đoán nâng cao bo mạch máy giặt và tích hợp bảo mật phần cứng vi điều khiển | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chuan_doan_va_sua_chua_tu_lanh_va_dieu_hoa_d793 | Chuyên sâu chẩn đoán và sửa chữa toàn diện tủ lạnh và điều hòa inverter tích hợp phân tích tín hiệu phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_phuc_hoi_toan_dien_thiet_bi_dan_dung_d794 | Đảo ngược phần cứng và phục hồi mạch điều khiển máy giặt tích hợp cơ chế bảo mật Secure Boot | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_sua_chua_thiet_bi_gia_dung_d795 | Kỹ thuật đảo ngược mạch nguồn xung tủ lạnh inverter và tối ưu toàn vẹn nguồn PI | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_sua_chua_thiet_bi_d796 | Chẩn đoán chuyên sâu và kiểm thử tự động HWI bo mạch điều hòa Daikin | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_sua_chua_tu_lanh_va_dieu_hoa_inverter_d797 | Chuyên sâu chẩn đoán tầng công suất IPM và tích hợp tiêu chuẩn an toàn IEC | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_mach_va_phuc_hoi_thiet_bi_dan_dung_d798 | Thiết kế ngược sơ đồ nguyên lý và ứng dụng mô phỏng toàn vẹn tín hiệu SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_sua_chua_tu_lanh_d799 | Đảo ngược mạch nguồn tủ lạnh Inverter và tích hợp kiểm tra toàn vẹn nguồn SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_phuc_hoi_thiet_bi_d800 | Tự động hóa kiểm thử phần cứng HWI và phục hồi toàn diện thiết bị gia dụng đa năng | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_sua_chua_toan_dien_thiet_bi_inverter_chuyen_sau | Đảo ngược mạch và phục hồi toàn diện thiết bị Inverter dân dụng - Dự án Trạm test đa năng | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_phuc_hoi_toan_dien_thiet_bi_cong_nghiep | Chẩn đoán chuyên sâu và phục hồi hệ thống công nghiệp - Dự án Bảng kiểm thử tự động HWI | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_sua_chua_tu_lanh_va_dieu_hoa_inverter_803 | Chuyên sâu sửa chữa tủ lạnh và điều hòa inverter kèm trạm thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_toi_uu_thiet_bi_gia_dung_cong_nghiep_804 | Ứng dụng tiêu chuẩn an toàn IEC và kiểm định tải công suất lớn | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_sua_chua_lo_vi_song_va_thiet_bi_dan_dung_d805 | Đảo ngược và sửa chữa mạch lò vi sóng inverter với trạm kiểm tra công suất | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_phuc_hoi_toan_dien_thiet_bi_gia_dung_d806 | Ứng dụng mô phỏng toàn vẹn tín hiệu SI/PI và tiêu chuẩn an toàn IEC vào phục hồi thiết bị | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_sua_chua_tu_lanh_va_dieu_hoa_inverter_chuyen_sau | Đảo ngược mạch nguồn SMPS kép và tối ưu toàn vẹn nguồn PI trên bo mạch điện lạnh | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_phuc_hoi_thiet_bi_gia_dung_cong_nghiep_d808 | Chẩn đoán toàn diện thiết bị công nghiệp theo chuẩn an toàn IEC 61508 và kiểm định phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_sua_chua_tu_lanh_va_dieu_hoa_inverter_d809 | Đảo ngược và sửa chữa bo mạch tủ lạnh và điều hòa inverter | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_thiet_bi_gia_dung_inverter_d810 | Hoàn thiện và kiểm định toàn diện thiết bị gia dụng inverter theo chuẩn an toàn | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_sua_chua_lo_vi_song_va_thiet_bi_inverter_d811 | Đảo ngược mạch và sửa chữa lò vi sóng điện tử kết hợp tủ lạnh inverter thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_phuc_hoi_toan_dien_thiet_bi_d812 | Chuyên sâu chẩn đoán và phục hồi toàn diện thiết bị gia dụng công suất lớn theo tiêu chuẩn an toàn IEC | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_sua_chua_he_thong_lanh_inverter_d813 | Đảo ngược mạch nguồn tủ lạnh Inverter và tích hợp kiểm tra toàn vẹn tín hiệu SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_phuc_hoi_thiet_bi_dan_dung_d814 | Kiểm thử tự động HWI phần cứng và bảo mật Firmware Secure Boot cho thiết bị gia dụng | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_sua_chua_toan_dien_thiet_bi_inverter_d815 | Đảo ngược mạch và sửa chữa toàn diện tủ lạnh điều hòa inverter với trạm hàn | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_phuc_hoi_thiet_bi_dan_dung_d816 | Tối ưu hóa độ tin cậy và chẩn đoán lỗi logic bo mạch máy giặt thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_sua_chua_mach_inverter_dan_dung_d817 | Đảo ngược mạch Inverter tủ lạnh tích hợp kiểm tra toàn vẹn nguồn PI | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_phuc_hoi_thiet_bi_cong_nghiep_d818 | Tái tạo điều khiển động cơ công nghiệp tuân thủ chuẩn an toàn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_mach_dieu_khien_tu_lanh_inverter_d819 | Đảo ngược mạch điều khiển tủ lạnh inverter tích hợp phân tích Signal Integrity | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_sua_chua_dieu_hoa_inverter_d820 | Chuyên sâu sửa chữa bo mạch điều hòa inverter ứng dụng tiêu chuẩn an toàn IEC | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_mach_va_xu_ly_loi_tu_lanh_inverter | Đảo ngược mạch nguồn xung và xử lý lỗi phần cứng tủ lạnh Inverter Samsung | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_phuc_hoi_dieu_hoa_inverter | Chẩn đoán chuyên sâu toàn vẹn tín hiệu và phục hồi mạch công suất điều hòa Inverter | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_mach_va_xu_ly_loi_tu_lanh_inverter_chuyen_sau | Đảo ngược mạch nguồn xung tủ lạnh Inverter và phân tích toàn vẹn nguồn PI | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_phuc_hoi_dieu_hoa_inverter_da_nang | Chẩn đoán lỗi giao tiếp và kiểm thử tự động HWI bo mạch điều hòa Inverter | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_mach_va_xu_ly_loi_tu_lanh_inverter_nang_cao | Đảo ngược mạch nguồn tủ lạnh Inverter và phân tích toàn vẹn nguồn PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_phuc_hoi_dieu_hoa_inverter_da_nang_pro | Chẩn đoán lỗi nghịch lưu điều hòa Daikin và ứng dụng tiêu chuẩn an toàn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_sua_chua_tu_lanh_inverter_chuyen_sau_pro | Phân tích và đảo ngược sơ đồ nguyên lý bo mạch nguồn tủ lạnh Inverter | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_phuc_hoi_dieu_hoa_inverter_pro | Phục hồi module IPM và xử lý lỗi giao tiếp quang điều hòa Inverter | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_mach_va_xu_ly_loi_tu_lanh_inverter_pro_max | Phân tích phần cứng mã hóa và xử lý lỗi truyền thông giao tiếp tủ lạnh Toshiba Inverter | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_phuc_hoi_dieu_hoa_inverter_ultimate | Kiểm định tiêu chuẩn công nghiệp và phục hồi mạch điều hòa Daikin Inverter qua kịch bản HWI | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_va_dao_nguoc_mach_nghich_luu_inverter | Phân tích và đảo ngược mạch nghịch lưu Inverter trong tủ lạnh - Dự án Sửa bo điều khiển máy nén | roadmap_ElectricEnginneerGuiidle.md |
+| chan_doan_va_phuc_hoi_toan_dien_dieu_hoa_inverter | Chẩn đoán và phục hồi toàn diện bo dàn lạnh điều hòa Inverter - Dự án Khắc phục mã lỗi mất kết nối | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_mach_va_xu_ly_loi_tu_lanh_inverter_833 | Đảo ngược mạch nguồn xung tủ lạnh và mô phỏng toàn vẹn nguồn PI | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_sua_chua_dieu_hoa_inverter_834 | Kiểm định tầng công suất máy nén điều hòa và lập trình kiểm thử HWI tự động | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_sua_chua_mach_nghich_luu_may_giat_inverter | Đảo ngược và sửa chữa mạch nghịch lưu máy giặt inverter - Dự án LG Inverter | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_phuc_hoi_lo_vi_song_inverter | Chuyên sâu chẩn đoán và phục hồi lò vi sóng inverter - Dự án Panasonic Inverter | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_sua_chua_lo_vi_song_va_thiet_bi_dan_dung_837 | Đảo ngược và sửa chữa lò vi sóng và thiết bị dân dụng nâng cao | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_phuc_hoi_thiet_bi_dan_dung_cong_nghiep_838 | Tích hợp tiêu chuẩn an toàn IEC 61508 và chẩn đoán hệ thống công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_thiet_ke_va_sua_chua_mach_inverter_d839 | Thiết kế và khắc phục tầng công suất tủ lạnh Inverter Side-by-Side | roadmap_ElectricEnginneerGuiidle.md |
+| tong_ket_dao_nguoc_va_sua_chua_thiet_bi_cong_nghiep_d840 | Kiểm định và phân tích toàn vẹn tín hiệu hệ thống điện tử công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_sua_chua_va_dao_nguoc_mach_dien_tu_dan_dung_d841 | Chuyên sâu sửa chữa và đảo ngược mạch điện tử dân dụng đa năng | roadmap_ElectricEnginneerGuiidle.md |
+| tong_ket_va_nang_cao_ky_thuat_sua_chua_thiet_bi_cong_nghiep_d842 | Nghiên cứu tiêu chuẩn an toàn IEC và tối ưu hóa hệ thống công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_sua_chua_he_thong_da_nang_d843 | Đảo ngược và phục hồi mạch đa năng tủ lạnh và máy giặt inverter d843 | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_phuc_hoi_toan_dien_d844 | Phân tích nâng cao và kiểm thử tự động phần cứng thiết bị gia dụng d844 | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_sua_chua_toan_dien_thiet_bi_dan_dung_va_cong_nghiep | Đảo ngược và sửa chữa toàn diện thiết bị gia dụng và công nghiệp với trạm đo giả lập | roadmap_ElectricEnginneerGuiidle.md |
+| tong_ket_va_nang_cao_ky_thuat_sua_chua_thiet_bi_chuyen_gia | Phát triển tủ test tự động thông minh áp dụng tiêu chuẩn an toàn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_sua_chua_toan_dien_thiet_bi_gia_dung_va_cong_nghiep_847 | Đảo ngược mạch điều khiển inverter công nghiệp tích hợp tiêu chuẩn an toàn IEC | roadmap_ElectricEnginneerGuiidle.md |
+| tong_ket_va_nang_cao_ky_thuat_sua_chua_thiet_bi_chuyen_gia_848 | Xây dựng hệ thống HWI tự động hóa kiểm thử bo mạch thiết bị gia dụng | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_sua_chua_tu_lanh_va_dieu_hoa_849 | Chẩn đoán và phân tích toàn vẹn nguồn công suất tủ lạnh điều hòa inverter đa dòng | roadmap_ElectricEnginneerGuiidle.md |
+| tong_ket_va_danh_gia_thiet_bi_gia_dung_850 | Kiểm định tự động hóa và tối ưu hệ thống thiết bị gia dụng công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_sua_chua_tu_lanh_va_dieu_hoa_inv_851 | Chuyên sâu chẩn đoán lỗi bo mạch inverter tủ lạnh và điều hòa dân dụng kết hợp tiêu chuẩn an toàn IEC | roadmap_ElectricEnginneerGuiidle.md |
+| tong_ket_va_nang_cao_thiet_bi_gia_dung_852 | Đảo ngược phần cứng và kiểm thử tự động HWI trạm sửa chữa thiết bị thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_mach_va_xu_ly_loi_tu_lanh_va_dieu_hoa_inv_853 | Đảo ngược mạch nguồn xung và phân tích toàn vẹn tín hiệu điều khiển biến tần | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_sua_chua_va_phuc_hoi_thiet_bi_dan_dung_854 | Chẩn đoán an toàn chức năng và phục hồi module công suất máy giặt cao cấp | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_phuc_hoi_thiet_bi_gia_dung_inv_855 | Chuyên sâu chẩn đoán và phục hồi tủ lạnh inverter tích hợp IoT áp dụng tiêu chuẩn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_sua_chua_he_thong_dieu_hoa_trung_tam_mini_856 | Đảo ngược và tích hợp bảo mật Secure Boot cho bo mạch điều hòa trung tâm | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_mach_va_phuc_hoi_toan_dien_tu_lanh_inverter_d857 | Phân tích toàn vẹn nguồn PI và thiết kế mạch nghịch lưu tủ lạnh Inverter | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_xu_ly_loi_dieu_hoa_inverter_d858 | Kiểm thử tự động HWI và chẩn đoán bo mạch điều hòa Daikin Inverter | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_mach_va_phuc_hoi_lo_vi_song_inv_pro | Đảo ngược mạch và phục hồi lò vi sóng inverter với phân tích tín hiệu cao tần | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sua_chua_thiet_bi_gia_dung_da_nang_ultimate | Chẩn đoán và tự động hóa kiểm thử bo mạch thiết bị gia dụng với HWI script | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_mach_va_phuc_hoi_tu_lanh_dieu_hoa_inv_861 | Đảo ngược mạch và phục hồi toàn diện tủ lạnh, điều hòa Inverter thế hệ mới | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_sua_chua_thiet_bi_dan_dung_cong_nghiep_862 | Phân tích toàn vẹn tín hiệu và kiểm định phần cứng tự động thiết bị công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_mach_va_sua_chua_tu_lanh_va_dieu_hoa_inv_863 | Đảo ngược mạch và phân tích toàn vẹn tín hiệu, nguồn (SI/PI) bo mạch inverter tủ lạnh | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_phuc_hoi_thiet_bi_dan_dung_864 | Chuyên sâu chẩn đoán, phục hồi máy giặt và triển khai bảo mật phần cứng Secure Boot | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_mach_va_xu_ly_loi_tu_lanh_dieu_hoa_inv_865 | Đảo ngược mạch và xử lý lỗi tủ lạnh điều hòa Inv 865 với trạm hàn khí | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_sua_chua_va_phuc_hoi_thiet_bi_dan_dung_866 | Chuyên sâu chẩn đoán lỗi phần cứng và kiểm thử tự động HWI board máy giặt | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_mach_va_xu_ly_loi_tu_lanh_dieu_hoa_inv_867 | Đảo ngược mạch và xử lý lỗi tủ lạnh điều hòa inverter với trạm kiểm tra công suất | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_phuc_hoi_thiet_bi_dan_dung_868 | Chẩn đoán và giả lập tải toàn diện cho thiết bị giặt sấy thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_sua_chua_tu_lanh_dieu_hoa_inv_869 | Chuyên sâu chẩn đoán lỗi tủ lạnh và điều hòa inverter qua trạm kiểm thử tải giả | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_va_phuc_hoi_toan_dien_thiet_bi_dan_dung_870 | Đảo ngược mạch và phục hồi toàn diện thiết bị dân dụng qua module điều khiển thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_mach_va_xu_ly_loi_tu_lanh_d871 | Đảo ngược mạch và phục hồi toàn diện tủ lạnh inverter - Dự án mạch điều khiển quạt & block | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_dieu_hoa_d872 | Chuyên sâu phân tích lỗi và kiểm định mạch công suất IPM điều hòa tiêu chuẩn IEC | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_mach_va_xu_ly_loi_tu_lanh_inv_873 | Đảo ngược mạch và xử lý lỗi tủ lạnh inverter với dự án trạm test board | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_phuc_hoi_thiet_bi_dan_dung_874 | Chuyên sâu chẩn đoán và phục hồi thiết bị dân dụng với bàn giả lập tải an toàn chuẩn IEC | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_mach_va_phuc_hoi_thiet_bi_dan_dung_pro | Đảo ngược mạch và mô phỏng toàn vẹn nguồn điện tử dân dụng | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_va_sua_chua_thiet_bi_dan_dung_pro | Tự động hóa kiểm thử và phục hồi hệ thống công suất cao | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_mach_va_phuc_hoi_thiet_bi_dan_dung_ultimate | Đảo ngược mạch và phục hồi toàn diện thiết bị dân dụng Ultimate Pro | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sua_chua_toan_dien_thiet_bi_cong_nghiep_va_dan_dung | Ứng dụng phân tích Signal/Power Integrity và chuẩn an toàn IEC trong sửa chữa hệ thống lạnh | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_mach_va_xu_ly_loi_tu_lanh_d879 | Đảo ngược mạch và xử lý lỗi tủ lạnh Inverter với board mạch LG GR-B247 tích hợp phân tích Signal Integrity | roadmap_ElectricEnginneerGuiidle.md |
+| chuyen_sau_chan_doan_dieu_hoa_d880 | Chuyên sâu chẩn đoán điều hòa không khí Inverter và kiểm thử tự động HWI cho board Daikin FTC | roadmap_ElectricEnginneerGuiidle.md |
+| dao_nguoc_mach_va_sua_chua_thiet_bi_gia_dung_ultimate_881 | Đảo ngược mạch, mô phỏng SI/PI và sửa chữa tổng hợp hệ thống gia dụng inverter thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_he_thong_solar_pv_inverter | Thiết kế hệ thống Solar PV kết hợp phân tích toàn vẹn nguồn điện DC/AC (PI) | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_giam_sat_smart_grid | Tích hợp BESS an toàn chuẩn ASIL và giám sát lưới điện thông minh IoT | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_he_thong_solar_pv_inverter_d884 | Thiết kế và vận hành hệ thống Solar PV, Inverter hòa lưới với Dự án điện mặt trời áp mái 5kWp | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_giam_sat_smart_grid_d885 | Tích hợp BESS và giám sát Smart Grid với Trạm lưu trữ năng lượng hộ gia đình 10kWh | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_inverter_hoa_luoi_d886 | Thiết kế hệ thống Solar PV 5kW kết hợp Inverter hòa lưới mô phỏng thực tế | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_giam_sat_smart_grid_d887 | Tích hợp hệ thống lưu trữ BESS và giám sát Smart Grid qua IoT bảo mật | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_inverter_hoa_luoi_pro | Thiết kế hệ thống Solar PV 5kW kết hợp Inverter hòa lưới Growatt ứng dụng dân dụng | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_giam_sat_smart_grid_pro | Tích hợp hệ thống lưu trữ BESS 48V và giám sát Smart Grid qua Modbus RTU | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_hybrid | Thiết kế hệ thống điện mặt trời hybrid tích hợp tiêu chuẩn IEC 61508 cho trạm viễn thông | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_giam_sat_smart_grid_iot | Tích hợp BESS và giám sát Smart Grid IoT bảo mật cao cho khu dân cư dự án SmartHome-Grid | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_inverter_hoa_luoi_chuyen_sau | Thiết kế hệ thống điện mặt trời hòa lưới và cấu hình Inverter 3 pha | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_giam_sat_smart_grid_chuyen_sau | Tích hợp hệ thống lưu trữ BESS và giám sát Smart Grid thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_hybrid_chuyen_sau | Thiết kế hệ thống Solar PV Hybrid và chống sét lan truyền chuyên sâu | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_giam_sat_smart_grid_iot_thuc_chien | Tích hợp BESS và giám sát Smart Grid IoT qua Modbus TCP và Home Assistant | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_inverter_hoa_luoi_toi_uu | Thiết kế và vận hành Solar PV Inverter hòa lưới với tủ điện kết hợp giám sát SCADA năng lượng | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_giam_sat_smart_grid_nang_cao | Tích hợp BESS và giám sát Smart Grid với thuật toán quản lý năng lượng tự động Peak Shaving | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_hybrid_chuyen_sau_d898 | Thiết kế và vận hành Solar PV Hybrid chuyên sâu với Inverter SMA Sunny Boy | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_giam_sat_smart_grid_ultimate | Tích hợp BESS và giám sát Smart Grid toàn diện với hệ thống SCADA Solar | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_hybrid_chuyen_sau_d900 | Thiết kế và vận hành hệ thống Solar PV Hybrid chuyên sâu với Inverter SMA Sunny Boy | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_giam_sat_smart_grid_ultimate_d901 | Tích hợp BESS và giám sát Smart Grid toàn diện với tủ điện lưu trữ Pylontech | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_hybrid_chuyen_sau_d902 | Thiết kế và vận hành hệ thống Solar PV Hybrid kèm tủ gom DC/AC | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_giam_sat_smart_grid_ultimate_d903 | Tích hợp BESS lưu trữ và giám sát Smart Grid qua Modbus RTU | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_hybrid_chuyen_sau_d904 | Thiết kế và vận hành Solar PV hybrid chuyên sâu với trạm điện mặt trời 10kW | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_giam_sat_smart_grid_ultimate_d905 | Tích hợp BESS lưu trữ điện năng và giám sát Smart Grid với nền tảng IoT công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_va_inverter_hoa_luoi_chuyen_sau | Thiết kế phần cứng và cấu hình MPPT inverter hòa lưới dự án GreenPower | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_giam_sat_smart_grid_nang_cao_pro | Thuật toán điều phối lưu trữ BESS và giám sát IoT cho Smart Grid | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_va_luoi_dien_thong_minh_d908 | Thiết kế và vận hành Solar PV hòa lưới tích hợp trạm giám sát Smart Grid | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_giam_sat_smart_grid_nang_cao_d909 | Tích hợp BESS dung lượng cao và tối ưu thuật toán điều phối Smart Grid | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_va_luoi_dien_thong_minh_ultimate_d910 | Thiết kế kỹ thuật hệ thống Solar PV hòa lưới và kiểm định chất lượng điện năng | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_giam_sat_smart_grid_ultimate_d911 | Vận hành hệ thống lưu trữ BESS và tích hợp giao diện SCADA giám sát thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_va_luoi_dien_thong_minh_capstone_1 | Thiết kế hệ thống Solar PV 500kW tích hợp kiểm soát toàn vẹn tín hiệu giám sát trung thế | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_giam_sat_smart_grid_capstone_2 | Tích hợp BESS dung lượng cao và an ninh mạng IEC 61850 cho lưới điện thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_hybrid_nang_cao_d914 | Thiết kế và vận hành Solar PV hybrid tối ưu với Dự án điện mặt trời áp mái 50kWp | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_giam_sat_smart_grid_nang_cao_d915 | Tích hợp BESS và giám sát Smart Grid với Trạm lưu trữ năng lượng 100kWh | roadmap_ElectricEnginneerGuiidle.md |
+| mo_phong_va_van_hanh_luoi_dien_thong_minh_solar_pv_d916 | Mô phỏng hiệu năng PVsyst tích hợp phân tích dòng công suất OpenDSS cho lưới điện thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_he_thong_quan_ly_nang_luong_ems_bess_d917 | Lập trình hệ thống quản lý năng lượng EMS kết hợp chuẩn IEC 61850 cho trạm BESS | roadmap_ElectricEnginneerGuiidle.md |
+| toi_uu_hoa_hieu_suat_solar_pv_va_luoi_dien_thong_minh_d918 | Tối ưu hóa hiệu suất Solar PV và phân tích toàn vẹn nguồn điện thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| van_hanh_va_danh_gia_he_thong_bess_smart_grid_d919 | Vận hành hệ thống lưu trữ BESS ứng dụng tiêu chuẩn an toàn ASIL và bảo mật firmware | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_he_thong_solar_pv_va_luoi_dien_thong_minh_ultimate_d920 | Thiết kế thuật toán EMS quản lý phụ tải thông minh tích hợp trạm Solar PV 100kWp | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_giam_sat_smart_grid_ultimate_d921 | Kiểm định an toàn chức năng và tích hợp hệ thống BESS 50kWh qua giao thức IEC 61850 | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_va_luoi_dien_thong_minh_ultimate_d922 | Thiết kế và vận hành hệ thống Solar PV kết hợp microgrid qua dự án trạm phát điện thông minh biệt lập | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_giam_sat_smart_grid_ultimate_d923 | Tích hợp BESS và quản lý năng lượng phân tán thông qua hệ thống nhà máy điện ảo VPP thu nhỏ | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_hybrid_nang_cao_d924 | Thiết kế và vận hành hệ thống Solar PV Hybrid tối ưu hóa công suất thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_giam_sat_smart_grid_nang_cao_d925 | Tích hợp hệ thống lưu trữ BESS và ứng dụng giám sát Smart Grid toàn diện | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_hybrid_nang_cao_d926 | Thiết kế và vận hành Solar PV Hybrid tối ưu qua dự án Microgrid Trạm sạc EV | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_giam_sat_smart_grid_nang_cao_d927 | Tích hợp BESS và giám sát Smart Grid qua dự án Trạm biến ảo VPP | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_hybrid_nang_cao_d928 | Thiết kế và vận hành Solar PV hybrid chuyên sâu qua Trạm biến áp ảo 50kWp | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_giam_sat_smart_grid_nang_cao_d929 | Tích hợp hệ thống lưu trữ điện năng BESS và phân tích toàn vẹn năng lượng IEC | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_va_bess_nang_cao_d930 | Thiết kế và tối ưu hóa hệ thống Solar PV kết hợp BESS nâng cao qua PVSyst | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_giam_sat_smart_grid_nang_cao_d931 | Lập trình SCADA giám sát Smart Grid tích hợp giao thức IEC 61850 và bảo mật phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_va_bess_nang_cao_d932 | Thiết kế trạm Solar PV kết hợp BESS dung lượng lớn cho khu công nghiệp xanh qua mô phỏng PVSyst | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_giam_sat_smart_grid_nang_cao_d933 | Thuật toán EMS điều phối đỉnh phụ tải và tiêu chuẩn IEC 61508 cho hệ thống Microgrid | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_hybrid_nang_cao_d934 | Thiết kế và vận hành Solar PV Hybrid kết hợp phân tích toàn vẹn nguồn điện PI | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_giam_sat_smart_grid_nang_cao_d935 | Ứng dụng kiểm thử tự động HWI và bảo mật phần cứng cho hệ thống BESS Smart Grid | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_va_bess_nang_cao_d936 | Thiết kế hệ thống Solar PV công suất lớn tích hợp BESS và phân tích toàn vẹn nguồn điện SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_giam_sat_smart_grid_nang_cao_d937 | Giám sát Smart Grid thời gian thực qua chuẩn IEC 61850 và tự động hóa kiểm thử phần cứng HWI | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_va_bess_nang_cao_d938 | Xây dựng trạm Solar PV kết hợp BESS dung lượng lớn với dự án Smart Microgrid Lab | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_giam_sat_smart_grid_nang_cao_d939 | Vận hành và tối ưu hóa hệ thống EMS cho trạm Smart Microgrid Lab | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_inverter_hoa_luoi_d940 | Thiết kế và mô phỏng hệ thống điện mặt trời hòa lưới kèm tính toán toàn vẹn nguồn PI trên Altium | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_smart_grid_cho_he_thong_dien_mat_troi_d941 | Tích hợp BESS và tiêu chuẩn an toàn IEC 61508 cho lưới điện thông minh trên MATLAB | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_va_bess_chuyen_sau_d942 | Thiết kế hệ thống Solar PV và BESS dung lượng lớn cho trạm phát điện độc lập | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_smart_grid_va_giam_sat_ems_d943 | Tích hợp hệ thống Smart Grid và giao thức giám sát EMS cho nhà máy điện mặt trời | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_va_bess_expert_d944 | Thiết kế và vận hành chuyên sâu Solar PV kèm Inverter hòa lưới 50kW | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_smart_grid_nang_cao_d945 | Tích hợp BESS và Smart Grid cho hệ thống điện mặt trời quy mô lớn | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_va_bess_ultimate_d946 | Thiết kế và vận hành hệ thống Solar PV kết hợp BESS ultimate | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_smart_grid_va_giam_sat_ems_ultimate_d947 | Tích hợp Smart Grid và giám sát EMS cho trạm điện năng lượng cao cấp | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_va_smart_grid_chuyen_sau_d948 | Thiết kế và vận hành Solar PV và Smart Grid chuyên sâu với mô hình PVsyst | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_van_hanh_luoi_dien_thong_minh_d949 | Tích hợp BESS và vận hành lưới điện thông minh với thuật toán EMS thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_va_bess_expert_d950 | Thiết kế và vận hành Solar PV và BESS đỉnh cao với dự án Microgrid nhà máy | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_smart_grid_va_giam_sat_ems_ultimate_d951 | Tích hợp Smart Grid và giám sát thời gian thực qua chuẩn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_va_bess_expert_d952 | Xây dựng trạm Solar PV kết hợp BESS quy mô lớn qua trạm mô phỏng PVsyst | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_smart_grid_va_van_hanh_luoi_dien_thong_minh_d953 | Vận hành hệ thống Smart Grid và giao thức IEC 61850 qua phần mềm DigSILENT | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_va_bess_expert_d954 | Thiết kế Solar PV và BESS đỉnh cao với dự án Trạm điện mặt trời 2MW | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_smart_grid_va_giam_sat_ems_ultimate_d955 | Tích hợp Smart Grid và giám sát EMS cho dự án Trạm Microgrid 5MW | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_va_smart_grid_ultimate_d956 | Thiết kế hệ thống Solar PV hòa lưới tích hợp giám sát năng lượng thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_van_hanh_luoi_dien_thong_minh_ultimate_d957 | Ứng dụng chiến lược Peak Shaving kết hợp lưu trữ năng lượng BESS cho lưới thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_solar_pv_va_smart_grid_d958 | Thiết kế hệ thống Solar PV và Inverter hòa lưới với tủ phân phối thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_smart_grid_d959 | Tích hợp BESS và hệ thống Smart Grid quản lý đỉnh tải trạm điện mặt trời | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_solar_pv_va_luoi_dien_thong_minh_d960 | Thiết kế Solar PV và lưới điện thông minh với mô phỏng PVSyst và OpenDSS | roadmap_ElectricEnginneerGuiidle.md |
+| van_hanh_bess_va_giam_sat_smart_grid_d961 | Vận hành BESS và giám sát Smart Grid với thuật toán EMS thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_solar_pv_va_luoi_thong_minh_nang_cao_d962 | Thiết kế mạch lực Solar PV và phân tích toàn vẹn tín hiệu SI/PI trong Smart Grid | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_van_hanh_luoi_thong_minh_d963 | Tích hợp BESS và triển khai firmware an toàn theo chuẩn ISO 26262 cho Trạm năng lượng ảo | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_solar_pv_va_luoi_dien_thong_minh_nang_cao_d964 | Thiết kế Solar PV và lưới điện thông minh nâng cao qua trạm PV-Grid 500kW | roadmap_ElectricEnginneerGuiidle.md |
+| van_hanh_bess_va_giam_sat_smart_grid_nang_cao_d965 | Vận hành BESS và giám sát Smart Grid nâng cao qua trạm Microgrid 200kWh | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_solar_pv_va_luoi_thong_minh_expert_d966 | Thiết kế Solar PV và lưới thông minh với dự án Farm điện mặt trời 2MW | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_van_hanh_luoi_thong_minh_expert_d967 | Vận hành hệ thống Microgrid tự trị tích hợp lưu trữ năng lượng BESS nâng cao | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_solar_pv_va_luoi_dien_thong_minh_expert_d968 | Thiết kế Solar PV kết hợp Lưới điện thông minh ứng dụng trạm biến áp ảo | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_van_hanh_luoi_thong_minh_expert_d969 | Tích hợp BESS và vận hành hệ thống lưu trữ năng lượng gió quy mô lớn | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_solar_pv_va_luoi_dien_thong_minh_ultimate | Thiết kế trạm Solar PV và tối ưu hóa toàn vẹn nguồn điện thông minh SmartMicrogrid-X1 | roadmap_ElectricEnginneerGuiidle.md |
+| van_hanh_bess_va_giam_sat_smart_grid_ultimate | Vận hành BESS tuân thủ an toàn chức năng ISO 26262 và giám sát SCADA EcoStorage-X2 | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_solar_pv_va_luoi_dien_thong_minh_expert_d972 | Thiết kế hệ thống Solar PV kết hợp phân tích toàn vẹn nguồn và tín hiệu công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| van_hanh_bess_va_giam_sat_smart_grid_expert_d973 | Vận hành BESS dung lượng lớn áp dụng tiêu chuẩn an toàn IEC và bảo mật phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_va_bess_ultimate_d974 | Thiết kế trạm Solar PV công suất lớn tích hợp BESS dự án EcoPower Grid | roadmap_ElectricEnginneerGuiidle.md |
+| van_hanh_bess_va_giam_sat_smart_grid_ultimate_d975 | Giám sát thông minh hệ thống vi lưới tích hợp IEC 61508 và EtherCAT | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_va_bess_ultimate_d976 | Thiết kế trạm Solar PV kết hợp BESS hòa lưới điện thông minh với mô hình PVsyst | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_van_hanh_luoi_thong_minh_ultimate_d977 | Vận hành hệ thống EMS nâng cao và tích hợp bảo mật phần cứng cho trạm năng lượng | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_va_bess_expert_d978 | Thiết kế hệ thống Solar PV kết hợp lưu trữ BESS tích hợp mô phỏng năng suất IEC và tiêu chuẩn an toàn | roadmap_ElectricEnginneerGuiidle.md |
+| van_hanh_bess_va_giam_sat_smart_grid_expert_d979 | Vận hành hệ thống lưu trữ năng lượng và giám sát lưới điện thông minh thời gian thực qua Modbus TCP | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_va_bess_expert_d980 | Thiết kế thuật toán điều phối BESS tối ưu trong trạm Solar PV công suất lớn | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_smart_grid_va_giam_sat_ems_ultimate_d981 | Ứng dụng tiêu chuẩn an toàn IEC 61508 và giao thức mạng thời gian thực EtherCAT vào trạm năng lượng | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_va_bess_expert_d982 | Thiết kế và vận hành trạm Solar PV kết hợp BESS hòa lưới điện thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| van_hanh_bess_va_giam_sat_smart_grid_expert_d983 | Giám sát Smart Grid thời gian thực tích hợp giao thức IEC 61850 và chuẩn an toàn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_va_bess_ultimate_d984 | Thiết kế trạm Solar PV và vận hành BESS Ultimate với dự án Microgrid Hòn Mô | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_van_hanh_luoi_dien_thong_minh_ultimate_d985 | Tích hợp BESS và vận hành lưới điện thông minh Ultimate tại Khu đô thị Xanh | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_va_bess_ultimate_d986 | Thiết kế trạm Solar PV kết hợp BESS hòa lưới điện thông minh chuẩn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| van_hanh_bess_va_giam_sat_smart_grid_ultimate_d987 | Vận hành hệ thống BESS thời gian thực và tự động hóa kiểm thử phần cứng HWI | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_solar_pv_va_bess_expert_d988 | Thiết kế hệ thống Solar PV và BESS tối ưu kèm kiểm định tín hiệu công suất | roadmap_ElectricEnginneerGuiidle.md |
+| van_hanh_smart_grid_va_ems_ultimate_d989 | Vận hành hệ thống Smart Grid và EMS toàn diện tích hợp tiêu chuẩn an toàn IEC | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_va_bess_ultimate_d990 | Thiết kế trạm Solar PV công nghiệp và vận hành BESS thông minh với phần mềm PVsyst | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_bess_va_van_hanh_luoi_dien_thong_minh_ultimate_d991 | Tích hợp BESS và vận hành hệ thống lưới điện thông minh Smart Grid qua giao thức IEC 61850 | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_va_bess_ultimate_d992 | Thiết kế trạm Solar PV và Tích hợp BESS dự án vi mô áp dụng tiêu chuẩn IEC | roadmap_ElectricEnginneerGuiidle.md |
+| van_hanh_bess_va_giam_sat_smart_grid_ultimate_d993 | Vận hành hệ thống BESS và Giám sát Smart Grid thời gian thực qua EtherCAT | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_va_bess_phien_ban_994 | Thiết kế trạm Solar PV và vận hành BESS lưu trữ quy mô lớn | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_smart_grid_va_giam_sat_ems_phien_ban_995 | Tích hợp Smart Grid và giám sát EMS trạm năng lượng tái tạo tiêu chuẩn IEC 61850 | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_day_996 | Thiết kế Solar PV công nghiệp và mô phỏng hệ thống inverter hòa lưới PV-996 | roadmap_ElectricEnginneerGuiidle.md |
+| van_hanh_bess_va_smart_grid_day_997 | Điều phối BESS và thuật toán EMS tối ưu hóa công suất phụ tải Smart Grid SG-997 | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_van_hanh_solar_pv_day_998 | Thiết kế trạm Solar PV và Inverter hòa lưới kết hợp BESS dự án Alpha | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_smart_grid_va_giam_sat_ems_day_999 | Tích hợp Smart Grid và giám sát EMS cho trạm điện mặt trời dự án Beta | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_solar_pv_va_smart_grid_day_1000 | Thiết kế trạm Solar PV công suất lớn tích hợp Smart Grid cho nhà máy điện mặt trời Sao Mai qua dự án PV_SaoMai_Grid | roadmap_ElectricEnginneerGuiidle.md |
+| van_hanh_bess_va_giam_sat_ems_day_1001 | Vận hành hệ thống lưu trữ năng lượng BESS kết hợp giám sát EMS thời gian thực qua dự án BESS_EMS_PhuQuoc | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_solar_pv_va_smart_grid_day_1002 | Tích hợp thuật toán điều khiển thông minh và phân tích công suất lưới điện Smart Grid | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_mang_wifi_ble_zigbee_lorawan_mqtt_cloud_iot_d1003 | Triển khai mạng Wi-Fi, BLE, Zigbee, LoRaWAN, MQTT, cloud IoT thực chiến với ESP32 | roadmap_ElectricEnginneerGuiidle.md |
+| giao_tiep_du_lieu_m2m_va_iiot_gateway_nang_cao_d1004 | Tích hợp Secure Boot và mã hóa AES phần cứng trên mạng M2M công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_mang_cam_bien_khong_day_zigbee_lorawan_d1005 | Lắp đặt mạng cảm biến không dây Zigbee và LoRaWAN cho trạm quan trắc năng lượng | roadmap_ElectricEnginneerGuiidle.md |
+| xay_dung_nen_tang_cloud_iot_va_dashboard_m2m_d1006 | Xây dựng nền tảng Cloud IoT và Dashboard giám sát M2M thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_va_cau_hinh_mang_khong_day_da_giao_thuc_d1007 | Thiết lập mạng Wi-Fi BLE Zigbee LoRaWAN và MQTT Broker thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_cloud_iot_va_giao_thiep_du_lieu_m2m_d1008 | Phát triển nền tảng Cloud IoT tích hợp bảo mật phần cứng và tự động hóa M2M | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_va_van_hanh_mang_iiot_da_giao_thuc_d1009 | Lắp đặt và vận hành mạng IIoT đa giao thức qua ESP32 Gateway | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_he_thong_iiot_m2m_d1010 | Kiểm thử tự động và xác thực an toàn hệ thống giám sát M2M | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_mang_wifi_ble_zigbee_lorawan_d1011 | Thiết kế mạch RF và triển khai mạng hỗn hợp Wi-Fi BLE Zigbee LoRaWAN ESP32 | roadmap_ElectricEnginneerGuiidle.md |
+| giao_tiep_du_lieu_m2m_va_cloud_iot_d1012 | Xây dựng hệ thống giao tiếp M2M thời gian thực và bảo mật Cloud IoT với Node-RED | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_va_van_hanh_mang_iiot_da_giao_thuc_nang_cao_d1013 | Lắp đặt và vận hành mạng IIoT đa giao thức tích hợp Secure Boot | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_kiem_dinh_he_thong_iiot_m2m_nang_cao_d1014 | Kiểm định tự động HWI và tối ưu hóa hệ thống M2M qua Node-RED | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_va_cau_hinh_mang_khong_day_da_giao_thuc_d1015 | Cấu hình mạng không dây đa giao thức và mã hóa Secure Boot trên ESP32 | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_cloud_iot_va_giao_thiep_du_lieu_m2m_d1016 | Giám sát thời gian thực hệ thống M2M qua Node-RED Dashboard và kiểm thử tự động HWI | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_va_van_hanh_mang_khong_day_da_giao_thuc | Xây dựng hệ thống IIoT đa giao thức Wi-Fi và BLE tích hợp bảo mật phần cứng Secure Boot | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_danh_gia_he_thong_iiot_da_giao_thuc | Kiểm định toàn vẹn tín hiệu RF và đánh giá hiệu năng mạng IIoT thời gian thực LoRaWAN | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_va_van_hanh_mang_khong_day_da_giao_thuc_day_1019 | Lắp đặt và cấu hình mạng không dây đa giao thức cho trạm IIoT d1019 | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_danh_gia_he_thong_iiot_da_giao_thuc_day_1020 | Kiểm thử tự động HWI và phân tích toàn vẹn tín hiệu hệ thống M2M d1020 | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_mang_khong_day_da_giao_thuc_iiot_d1021 | Triển khai mạng Wi-Fi và tối ưu hóa phần cứng RF cho trạm IIoT NodeMCU ESP32 | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_lorawan_va_cloud_iot_dashboard_d1022 | Tích hợp LoRaWAN và kiểm thử tự động HWI hệ thống giám sát M2M | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_mang_wifi_ble_zigbee_lorawan_d1023 | Triển khai đa giao thức không dây và tính toán thông số RF cho trạm năng lượng | roadmap_ElectricEnginneerGuiidle.md |
+| giao_tiep_du_lieu_m2m_va_cloud_iot_d1024 | Xây dựng hệ thống giao tiếp M2M thời gian thực và bảo mật firmware IoT | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_mang_wi_fi_ble_zigbee_lorawan_mqtt_d1025 | Thiết kế phần cứng RF và Triển khai mạng Wi-Fi, BLE, Zigbee, LoRaWAN | roadmap_ElectricEnginneerGuiidle.md |
+| giao_tiep_du_lieu_m2m_va_iiot_gateway_thuc_chien_d1026 | Xây dựng IIoT Gateway và Kiểm thử tự động HWI phần cứng Node-RED | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_mang_khong_day_va_mqtt_iiot_d1027 | Triển khai mạng kết nối đa giao thức Wi-Fi, BLE, Zigbee và MQTT IIoT thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_lorawan_va_cloud_iot_dashboard_d1028 | Tích hợp mạng LoRaWAN và tự động hóa kiểm thử phần cứng HWI với ThingsBoard | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_mang_wi_fi_ble_zigbee_lorawan_mqtt_cloud_iot_day_1029 | Thiết kế phần cứng RF và phân tích toàn vẹn tín hiệu SI/PI cho mô-đun ESP32 IoT đa giao thức | roadmap_ElectricEnginneerGuiidle.md |
+| giao_tiep_du_lieu_m2m_va_cloud_iot_day_1030 | Cấu hình bảo mật phần cứng Secure Boot và mã hóa AES cho hệ thống M2M trạm bơm nước | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_mang_wi_fi_ble_zigbee_lorawan_mqtt_cloud_day_1031 | Triển khai Wi-Fi BLE Zigbee LoRaWAN MQTT Cloud IoT: Trạm quan trắc năng lượng mặt trời công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| giao_tiep_du_lieu_m2m_va_cloud_iot_day_1032 | Giao tiếp dữ liệu M2M và Cloud IoT: Hệ thống tự động hóa công nghiệp thời gian thực qua Node-RED và EtherCAT | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_mang_wi_fi_ble_zigbee_lorawan_mqtt_cloud_iot_d1033 | Triển khai mạng Wi-Fi, BLE, Zigbee, LoRaWAN, MQTT, cloud IoT và giao tiếp dữ liệu M2M với Dashboard Node-RED thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| giao_tiep_du_lieu_m2m_va_iiot_gateway_hoan_thien_d1034 | Xây dựng IIoT Gateway tích hợp mạng không dây đa chuẩn, kiểm thử tự động HWI và giao tiếp M2M nâng cao | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_mang_khong_day_da_giao_thuc_iiot_d1035 | Thiết lập trạm IoT đa giao thức Wi-Fi BLE Zigbee dự án Smart Factory | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_cloud_iot_va_giao_thiep_m2m_d1036 | Xây dựng hệ thống cloud IoT và giao tiếp M2M dự án trạm quan trắc | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_mang_khong_day_da_giao_thuc_iiot_d1037 | Xây dựng nút mạng cảm biến kết hợp Wi-Fi và BLE thu thập dữ liệu công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_cloud_iot_va_giao_thiep_m2m_d1038 | Triển khai hệ thống giám sát M2M tích hợp Cloud MQTT và Dashboard thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_mang_khong_day_da_giao_thuc_iiot_d1039 | Lắp đặt mạng đa giao thức Wi-Fi và BLE cho IIoT với sản phẩm bảng giám sát môi trường xưởng | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_cloud_iot_va_giao_thiep_m2m_d1040 | Xây dựng trạm thu phát Node-RED và cổng bảo mật Secure Boot cho hệ thống IIoT nâng cao | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_va_van_hanh_mang_khong_day_da_giao_thuc_day_1041 | Thiết kế mạch RF và tích hợp mạng không dây đa giao thức MQTT | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_danh_gia_he_thong_iiot_da_giao_thuc_day_1042 | Đóng gói tủ trạm IIoT Gateway và kiểm định an toàn chức năng ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_mang_khong_day_da_giao_thuc_iiot_d1043 | Thiết kế mạch RF đa giao thức và tính toán phối hợp trở kháng anten Zigbee | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_cloud_iot_va_giao_thiep_m2m_d1044 | Bảo mật phần cứng M2M với Secure Boot và mô phỏng toàn vẹn tín hiệu SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_mang_wi_fi_ble_zigbee_lorawan_mqtt_cloud_iot_d1045 | Triển khai mạng Wi-Fi, BLE, Zigbee, LoRaWAN, MQTT, cloud IoT thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| giao_tiep_du_lieu_may_voi_may_m2m_va_iiot_gateway_d1046 | Thiết lập hệ thống giao tiếp máy-với-máy M2M và IIoT Gateway tích hợp Secure Boot | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_va_van_hanh_mang_khong_day_da_giao_thuc_day_1047 | Lắp đặt phần cứng mạng đa giao thức kết hợp Wi-Fi và BLE cho trạm thu thập | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_danh_gia_he_thong_iiot_da_giao_thuc_day_1048 | Kiểm thử tự động và trực quan hóa hệ thống IIoT Zigbee với Node-RED Dashboard | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_va_van_hanh_mang_iiot_da_giao_thuc_day_1049 | Tích hợp giao thức MQTT và cấu hình bảo mật phần cứng Secure Boot trên ESP32 | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_danh_gia_he_thong_iiot_da_giao_thuc_day_1050 | Xây dựng Cloud Dashboard trực quan hóa dữ liệu và kiểm thử tự động HWI | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_va_van_hanh_mang_iiot_da_giao_thuc_day_1051 | Xây dựng trạm IIoT đa giao thức tích hợp bảo mật phần cứng và kiểm thử tự động | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_danh_gia_he_thong_iiot_da_giao_thuc_day_1052 | Đánh giá toàn vẹn tín hiệu và vận hành Dashboard công nghiệp thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_va_van_hanh_mang_iiot_da_giao_thuc_day_1053 | Tích hợp Secure Boot và mã hóa AES phần cứng trên ESP32 cho trạm cảm biến IIoT | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_danh_gia_he_thong_iiot_da_giao_thuc_day_1054 | Kiểm thử tự động HWI và đánh giá toàn vẹn tín hiệu mạng M2M Gateway | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_va_van_hanh_mang_iiot_day_1055 | Thiết lập và vận hành trạm IIoT đa giao thức với cảm biến công nghiệp MQTT tích hợp mã hóa AES | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_danh_gia_he_thong_iiot_day_1056 | Kiểm định toàn diện trạm cảm biến M2M không dây tích hợp tiêu chuẩn an toàn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_va_van_hanh_mang_iiot_alpha_d1057 | Thiết kế phần cứng RF và lắp đặt mạng IIoT đa giao thức | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_danh_gia_he_thong_iiot_beta_d1058 | Kiểm thử tự động HWI và đánh giá bảo mật phần cứng hệ thống IIoT | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_mang_wi_fi_ble_zigbee_lorawan_mqtt_cloud_iot_d1059 | Triển khai mạng Wi-Fi, BLE, Zigbee và MQTT Cloud IoT với Dự án Cảm biến Kho lạnh thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| giao_tiep_du_lieu_may_voi_may_m2m_va_iiot_gateway_d1060 | Giao tiếp dữ liệu máy-với-máy M2M và IIoT Gateway với Dự án Trạm quan trắc năng lượng mặt trời | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_va_van_hanh_mang_iiot_omega_d1061 | Lắp đặt và vận hành mạng IIoT Omega với MQTT, LoRaWAN và Secure Boot | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_danh_gia_he_thong_iiot_omega_d1062 | Kiểm thử tự động HWI và nghiệm thu mạng IIoT đa giao thức | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_mang_wi_fi_ble_zigbee_lorawan_mqtt_cloud_iot_d1063 | Triển khai mạng Wi-Fi và MQTT node cảm biến công nghiệp tích hợp bảo mật | roadmap_ElectricEnginneerGuiidle.md |
+| giao_tiep_du_lieu_may_voi_may_m2m_va_iiot_gateway_d1064 | Xây dựng hệ thống M2M giao tiếp Zigbee Mesh kết hợp phân tích thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_mang_wi_fi_ble_zigbee_lorawan_mqtt_cloud_iot_d1065 | Thiết kế mạch RF và tích hợp mạng không dây đa giao thức IoT - Dự án Smart Factory Hub Alpha | roadmap_ElectricEnginneerGuiidle.md |
+| giao_tiep_du_lieu_may_voi_may_m2m_va_iiot_gateway_d1066 | Xây dựng IIoT Gateway tích hợp kiểm thử tự động phần cứng HWI - Dự án IIoT Gateway Beta | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_va_van_hanh_mang_iiot_sigma_d1067 | Thiết kế phần cứng RF chuyên sâu và lắp đặt mạng IIoT đa giao thức | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_danh_gia_he_thong_iiot_sigma_d1068 | Đánh giá toàn vẹn tín hiệu SI/PI và kiểm thử tự động HWI mạng LoRaWAN | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_va_van_hanh_mang_iiot_delta_d1069 | Thiết lập truyền thông MQTT và bảo mật mã hóa AES phần cứng trên ESP32 | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_danh_gia_he_thong_iiot_delta_d1070 | Tích hợp Dashboard Node-RED và đánh giá độ tin cậy thời gian thực IIoT | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_va_van_hanh_mang_iiot_omega_plus_d1071 | Thiết lập phần cứng RF và mạng Wi-Fi/BLE thu thập dữ liệu cảm biến công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_danh_gia_he_thong_iiot_omega_plus_d1072 | Kiểm thử tự động HWI và đánh giá hệ thống trạm đo từ xa chuẩn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_mang_wi_fi_ble_zigbee_lorawan_mqtt_cloud_iot_d1073 | Xây dựng hạ tầng IIoT đa giao thức tích hợp bảo mật phần cứng và phân tích tín hiệu thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| giao_tiep_du_lieu_may_voi_may_m2m_va_iiot_gateway_d1074 | Tích hợp cổng Gateway M2M và kiểm thử tự động HWI cho Xưởng Sản Xuất Thông Minh | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_mang_wi_fi_ble_zigbee_lorawan_mqtt_cloud_iot_d1075 | Thiết lập mạng Wi-Fi và BLE với Dự án Cảm biến môi trường ESP32 | roadmap_ElectricEnginneerGuiidle.md |
+| giao_tiep_du_lieu_may_voi_may_m2m_va_iiot_gateway_d1076 | Xây dựng Gateway M2M MQTT với Dự án Giám sát công nghiệp Node-RED | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_va_van_hanh_mang_iiot_epsilon_d1077 | Thiết lập mạng IIoT đa giao thức tích hợp tính năng bảo mật phần cứng Secure Boot | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_danh_gia_he_thong_iiot_epsilon_d1078 | Kiểm thử tự động HWI và đánh giá hiệu năng mạng IIoT thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_va_van_hanh_mang_iiot_omega_zeta_d1079 | Lắp đặt mạng IIoT đa tầng kết hợp Wi-Fi và LoRaWAN cho trạm bơm nước thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_danh_gia_he_thong_iiot_omega_zeta_d1080 | Đánh giá hiệu năng an toàn và tối ưu hóa hệ thống M2M Cloud IoT cho kho lạnh | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_va_van_hanh_mang_iiot_alpha_plus_d1081 | Thiết kế mạch RF cho mạng IIoT tích hợp phân tích toàn vẹn tín hiệu SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_danh_gia_he_thong_iiot_alpha_plus_d1082 | Đánh giá hiệu năng mạng IIoT thời gian thực tích hợp Zigbee và LoRaWAN theo chuẩn an toàn | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_mang_iiot_alpha_omega_d1083 | Lắp đặt mạng IIoT đa giao thức tích hợp bảo mật Secure Boot phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| danh_gia_va_hoan_thien_iiot_alpha_omega_d1084 | Kiểm thử tự động HWI và phân tích toàn vẹn tín hiệu trạm IoT công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_mang_iiot_alpha_omega_plus_d1085 | Tích hợp đa giao thức không dây Zigbee LoRaWAN và MQTT cho nhà máy thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| danh_gia_va_hoan_thien_iiot_alpha_omega_plus_d1086 | Xác thực bảo mật phần cứng và kiểm thử tự động HWI mạng cảm biến M2M | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_mang_iiot_alpha_omega_zeta_d1087 | Lắp đặt mạng IIoT cảm biến không dây đa giao thức với ESP32 và Node-RED | roadmap_ElectricEnginneerGuiidle.md |
+| danh_gia_va_hoan_thien_iiot_alpha_omega_zeta_d1088 | Kiểm thử tự động HWI và bảo mật Secure Boot cho mạng IIoT thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_mang_iiot_alpha_omega_beta_d1089 | Lắp đặt mạng IIoT đa giao thức Alpha-Beta với Zigbee và MQTT | roadmap_ElectricEnginneerGuiidle.md |
+| danh_gia_va_hoan_thien_iiot_alpha_omega_beta_d1090 | Kiểm thử tự động và xác thực hiệu năng mạng IIoT thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_mang_iiot_alpha_omega_gamma_d1091 | Lắp đặt mạng IIoT đa giao thức tích hợp MQTT và Cloud IoT thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| danh_gia_va_hoan_thien_iiot_alpha_omega_gamma_d1092 | Đánh giá hiệu năng thời gian thực và kiểm tra tự động mạng M2M công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_mang_iiot_alpha_omega_delta_d1093 | Lắp đặt mạng IIoT cấu trúc Hybrid với trạm ESP32 LoRaWAN ứng dụng giám sát kho lạnh nông sản | roadmap_ElectricEnginneerGuiidle.md |
+| danh_gia_va_hoan_thien_iiot_alpha_omega_delta_d1094 | Đánh giá, kiểm thử tự động HWI và hoàn thiện trạm IIoT Hybrid với MQTT Broker lưu trữ cloud bảo mật | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_mang_iiot_alpha_omega_theta_d1095 | Thiết kế mạch RF và lắp đặt mạng IIoT Theta với Wi-Fi và LoRaWAN | roadmap_ElectricEnginneerGuiidle.md |
+| danh_gia_va_hoan_thien_iiot_alpha_omega_theta_d1096 | Kiểm thử tự động HWI và hoàn thiện hệ thống IIoT Theta thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_va_van_hanh_mang_iiot_kappa_d1097 | Thiết lập mạng IIoT thu thập dữ liệu công nghiệp qua Wi-Fi và MQTT | roadmap_ElectricEnginneerGuiidle.md |
+| danh_gia_va_hoan_thien_iiot_kappa_d1098 | Kiểm thử tự động và đánh giá hiệu năng mạng hỗn hợp BLE-LoRa | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_va_van_hanh_mang_iiot_kappa_plus_d1099 | Triển khai Mạng IIoT Thời Gian Thực với Giao Thức MQTT và ESP32 | roadmap_ElectricEnginneerGuiidle.md |
+| danh_gia_va_hoan_thien_iiot_kappa_plus_d1100 | Kiểm Định An Ninh Phần Cứng và Đánh Giá Toàn Vẹn Hệ Thống M2M | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_va_van_hanh_mang_iiot_kappa_zeta_d1101 | Lắp đặt và cấu hình mạng IIoT thời gian thực với Wi-Fi, MQTT và phân tích tín hiệu RF | roadmap_ElectricEnginneerGuiidle.md |
+| danh_gia_va_hoan_thien_iiot_kappa_zeta_d1102 | Kiểm định chất lượng truyền thông LoRaWAN, đánh giá tỷ lệ mất gói và an toàn phần cứng tiêu chuẩn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_va_van_hanh_mang_iiot_kappa_beta_d1103 | Lắp đặt và tối ưu hóa đường truyền RF đa giao thức IIoT: Thiết kế mạch phối hợp trở kháng và kiểm định tín hiệu vô tuyến | roadmap_ElectricEnginneerGuiidle.md |
+| danh_gia_va_hoan_thien_iiot_kappa_beta_d1104 | Kiểm định an toàn và đánh giá toàn diện hệ thống M2M công nghiệp: Tích hợp Secure Boot và giám sát Cloud IoT chuẩn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_va_van_hanh_mang_iiot_kappa_gamma_d1105 | Lắp đặt và vận hành mạng IIoT Kappa Gamma với MQTT và Cloud | roadmap_ElectricEnginneerGuiidle.md |
+| danh_gia_va_hoan_thien_iiot_kappa_gamma_d1106 | Kiểm định tín hiệu và tối ưu hóa băng thông mạng M2M công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_va_van_hanh_mang_iiot_lambda_d1107 | Thiết lập truyền thông IIoT bảo mật phần cứng với Secure Boot và mã hóa AES trên ESP32 | roadmap_ElectricEnginneerGuiidle.md |
+| danh_gia_va_hoan_thien_iiot_lambda_d1108 | Kiểm thử tự động phần cứng HWI và đánh giá toàn vẹn tín hiệu mạng M2M công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_mang_wi_fi_ble_zigbee_lorawan_mqtt_d1109 | Triển khai mạng Wi-Fi, BLE, Zigbee, LoRaWAN, MQTT và cloud IoT thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| giao_tiep_du_lieu_may_voi_may_m2m_cloud_iot_d1110 | Giao tiếp dữ liệu máy-với-máy M2M và hệ thống cloud IoT giám sát nhà máy | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_mang_khong_day_da_giao_thuc_cho_iiot_d1111 | Triển khai mạng không dây đa giao thức tích hợp bảo mật phần cứng Secure Boot | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_va_danh_gia_he_thong_iiot_da_giao_thuc_d1112 | Đánh giá toàn vẹn tín hiệu và hoàn thiện hệ thống IIoT tích hợp MQTT Cloud | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_va_van_hanh_mang_iiot_omega_d1113 | Thiết kế mạch RF và lắp đặt mạng IIoT đa giao thức Wi-Fi kết hợp Zigbee | roadmap_ElectricEnginneerGuiidle.md |
+| danh_gia_va_hoan_thien_iiot_omega_d1114 | Ứng dụng Secure Boot và kiểm định toàn vẹn tín hiệu trạm MQTT Cloud | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_mang_iiot_omega_plus_d1115 | Thiết kế mạch RF và tối ưu hóa trở kháng antenna cho hạ tầng Wi-Fi BLE | roadmap_ElectricEnginneerGuiidle.md |
+| danh_gia_va_hoan_thien_iiot_omega_plus_d1116 | Bảo mật phần cứng Secure Boot và kiểm định tiêu chuẩn M2M Cloud IoT | roadmap_ElectricEnginneerGuiidle.md |
+| lap_dat_mang_wi_fi_va_ble_industrial_d1117 | Thiết kế mạch RF, phối hợp trở kháng anten và lắp đặt mạng Wi-Fi/BLE công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_zigbee_lorawan_mqtt_cloud_d1118 | Tích hợp mạng Zigbee, LoRaWAN và bảo mật phần cứng MQTT Cloud cho IIoT | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_mach_cmos_so_verilog_d1119 | Thiết kế khối ALU CMOS số bằng Verilog và phân tích toàn vẹn tín hiệu SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_d1120 | Xác thực DRC/LVS GDSII và đóng gói vi mạch QFN áp dụng tiêu chuẩn an toàn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_mach_cmos_tuong_duy_bang_verilog | Thiết kế mạch CMOS tương tự với Op-Amp OTA bằng Verilog-A và dự án mô phỏng | roadmap_ElectricEnginneerGuiidle.md |
+| dong_goi_vi_mach_va_kiem_thu_tien_tien | Đóng gói vi mạch 3D Chip-let nâng cao và kiểm thử tự động HWI | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_mach_cmos_so_va_tuong_duy_verilog | Thiết kế mạch CMOS số và tương tự bằng Verilog dự án ALU và OpAmp | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_nang_cao | Quy trình Tape-out GDSII và kiểm định nhiệt vi mạch tiên tiến | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_mach_cmos_so_va_tuong_duy_verilog_d1125 | Thiết kế mạch CMOS số và tương tự Verilog cho chip ALU 8-bit dự án SoC Alpha | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_nang_cao_d1126 | Quy trình Tape-out GDSII tích hợp phân tích nhiệt 3D IC Chip-let nâng cao | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_mach_cmos_so_va_tuong_duy_verilog_d1127 | Thiết kế mạch CMOS số và tương tự Verilog cho mô hình ALU đơn giản | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_nang_cao_d1128 | Quy trình Tape-out GDSII và công nghệ đóng gói vi mạch 3D Chip-let nâng cao | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_mach_cmos_so_va_tuong_duy_verilog_d1129 | Thiết kế mạch CMOS số và tương tự Verilog cho chip ASIC xử lý tín hiệu âm thanh | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_nang_cao_d1130 | Kiểm tra toàn vẹn tín hiệu SI/PI và quy trình Tape-out GDSII cho SoC IoT | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_mach_cmos_so_tuong_duy_verilog_vhdl_d1131 | Thiết kế mạch CMOS số và tương tự bằng Verilog/VHDL tích hợp phân tích Signal Integrity | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_nang_cao_d1132 | Quy trình Tape-out, đóng gói 3D IC Chip-let và kiểm định tiêu chuẩn công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_duy_verilog_vhdl_d1133 | Thiết kế mạch CMOS số và tương tự Verilog VHDL - Dự án SoC Audio ADC 8-bit | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_nang_cao_d1134 | Quy trình Tape-out, đóng gói vi mạch nâng cao và mô phỏng nhiệt 3D IC Chip-let | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_mach_cmos_so_tuong_duy_verilog_vhdl_d1135 | Thiết kế mạch CMOS số và tương tự bằng Verilog/VHDL với dự án IP Bộ định thời Timer 32-bit | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_nang_cao_d1136 | Quy trình Tape-out và đóng gói vi mạch nâng cao với dự án GDSII Tape-out Chip Timer kết hợp mô phỏng nhiệt 3D IC | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_va_tuong_duy_verilog_vhdl_d1137 | Thiết kế mạch CMOS số và tương tự Verilog VHDL dự án Sigma-Delta ADC | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_nang_cao_d1138 | Quy trình Tape-out và đóng gói vi mạch nâng cao cho dự án Chip SoC | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_mach_cmos_so_tuong_duy_verilog_vhdl_d1139 | Thiết kế mạch CMOS số và tương tự bằng Verilog/VHDL tích hợp phân tích Signal Integrity | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_nang_cao_d1140 | Quy trình Tape-out GDSII tích hợp đóng gói vi mạch 3D IC Chip-let thực tế | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_mach_cmos_so_tuong_duy_verilog_vhdl_d1141 | Thiết kế mạch CMOS số và tương tự bằng Verilog/VHDL tích hợp kiểm thử tín hiệu SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_nang_cao_d1142 | Quy trình Tape-out GDSII và đóng gói 3D IC Chip-let tiên tiến cho chip SoC | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_mach_cmos_so_tuong_duy_verilog_vhdl_d1143 | Thiết kế mạch CMOS số và tương tự bằng Verilog/VHDL tích hợp phân tích Signal Integrity | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_nang_cao_d1144 | Quy trình Tape-out GDSII và đóng gói 3D IC Chip-let tiên tiến cho dự án SoC | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_duy_verilog_vhdl_d1145 | Thiết kế mạch CMOS số và tương tự kết hợp kiểm tra SI/PI nâng cao D1145 | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_nang_cao_d1146 | Quy trình Tape-out, đóng gói 3D IC Chip-let và kiểm định tiêu chuẩn công nghiệp D1146 | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_mach_cmos_so_tuong_duy_verilog_vhdl_d1147 | Thiết kế mạch CMOS số và tương tự bằng Verilog/VHDL cho mạch ALU 16-bit | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_nang_cao_d1148 | Quy trình Tape-out GDSII và đóng gói vi mạch 3D IC Chip-let tiên tiến | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_duy_verilog_vhdl_d1149 | Thiết kế vi mạch tích hợp CMOS số bằng Verilog kết hợp kiểm tra toàn vẹn tín hiệu SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_nang_cao_d1150 | Quy trình Tape-out GDSII tích hợp thiết kế 3D IC Chip-let và đóng gói BGA cho chip ASIC | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_mach_cmos_so_tuong_duy_verilog_d1151 | Thiết kế mạch CMOS số tích hợp khối ALU 32-bit bằng Verilog cho chip SoC | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_nang_cao_d1152 | Xác thực GDSII và tối ưu hóa đóng gói 3D IC Chip-let chuẩn FC-BGA | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_duy_verilog_d1153 | Thiết kế mạch CMOS số và mô phỏng Verilog kết hợp kiểm tra toàn vẹn tín hiệu Signal Integrity cho Encoder 8-3 | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_nang_cao_d1154 | Xác thực DRC/LVS, phân tích nhiệt vi mạch và quy trình Tape-out GDSII cho SoC tiên tiến | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_mach_cmos_so_tuong_duy_verilog_d1155 | Thiết kế mạch CMOS số với Verilog: Tạo khối ALU 16-bit thực chiến và phân tích SI/PI nâng cao | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_nang_cao_d1156 | Quy trình Tape-out GDSII và đóng gói vi mạch nâng cao tích hợp chuẩn an toàn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_duy_verilog_d1157 | Thiết kế mạch số CMOS bằng Verilog với mô hình bộ đếm tần số | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_d1158 | Kiểm tra DRC/LVS và phân tích toàn vẹn tín hiệu SI/PI cho vi mạch | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_mach_cmos_so_verilog_d1159 | Thiết kế mạch CMOS số với Verilog và mô phỏng bộ đếm thập phân 4-bit | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_d1160 | Xác thực DRC/LVS, phân tích nhiệt và chuẩn bị hồ sơ GDSII cho Tape-out vi mạch | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_duy_verilog_d1161 | Thiết kế mạch số CMOS bằng Verilog với Dự án Bộ nhân 8-bit pipeline tốc độ cao | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_d1162 | Kiểm định DRC/LVS và Quy trình Tape-out vi mạch 3D Chip-let nâng cao | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_duy_verilog_d1163 | Thiết kế mạch số CMOS tối ưu với Verilog cho dự án bộ đếm tần số cao | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_d1164 | Xác thực toàn vẹn tín hiệu SI/PI và quy trình Tape-out GDSII nâng cao | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_va_tuong_duy_verilog_d1165 | Thiết kế mạch CMOS số và tương tự Verilog thực chiến với mô hình ALU 16-bit | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_d1166 | Xác thực DRC/LVS và quy trình Tape-out GDSII tích hợp phân tích nhiệt vi mạch | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_duy_verilog_d1167 | Thiết kế mạch số CMOS tối ưu qua mã nguồn Verilog cho ALU 32-bit | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_d1168 | Xác thực DRC/LVS, phân tích nhiệt và chuẩn bị hồ sơ Tape-out vi mạch nâng cao | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_va_gdsii_d1169 | Thiết kế mạch số CMOS và xuất file GDSII cho chip ALU 8-bit chuẩn công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| tape_out_va_dong_goi_vi_mach_d1170 | Quy trình Tape-out và kiểm định tiêu chuẩn IEC 61508 cho hệ thống vi mạch an toàn | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_duy_verilog_v_d1171 | Thiết kế mạch CMOS số tốc độ cao bằng Verilog dự án Bộ cộng dồn pipeline 32-bit | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_nang_cao_d1172 | Quy trình Tape-out tiêu chuẩn công nghiệp và đóng gói 3D IC Chip-let | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_bo_cong_cla_8bit_verilog_d1173 | Thiết kế bộ cộng 8-bit CLA CMOS dùng Verilog và Synopsys Design Compiler | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_tra_drc_lvs_calibre_gdsii_d1174 | Xác minh DRC/LVS vật lý chip số và xuất bản đồ mặt nạ GDSII chuẩn công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_bo_nhan_8bit_verilog_d1175 | Thiết kế bộ nhân 8-bit pipeline Verilog với mô phỏng ModelSim | roadmap_ElectricEnginneerGuiidle.md |
+| xac_thuc_gdsii_va_tape_out_final_d1176 | Xác thực GDSII, kiểm tra DRC/LVS nâng cao và đóng gói Tape-out | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_bo_chia_8bit_verilog_d1177 | Thiết kế bộ chia 8-bit bằng Verilog kết hợp mô phỏng RTL trên ModelSim | roadmap_ElectricEnginneerGuiidle.md |
+| chuan_bi_gdsii_cho_tape_out_thuc_te_d1178 | Đóng gói file GDSII và hoàn thiện checklist bàn giao Tape-out cho Foundry | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_bo_mux_demux_verilog_d1179 | Thiết kế bộ MUX/DEMUX 8 kênh Verilog tích hợp phân tích toàn vẹn tín hiệu SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_advance_d1180 | Quy trình Tape-out và đóng gói vi mạch nâng cao tích hợp phân tích nhiệt 3D IC Chip-let | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_bo_dem_16bit_verilog_d1181 | Thiết kế bộ đếm 16-bit Verilog tích hợp cơ chế phát hiện lỗi an toàn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_tra_drc_lvs_gdsii_final_d1182 | Xác thực DRC/LVS GDSII và phân tích mô phỏng nhiệt vi mạch 3D Chip-let | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_bo_thanh_ghi_verilog_d1183 | Thiết kế bộ thanh ghi 32-bit Verilog dự án Register File | roadmap_ElectricEnginneerGuiidle.md |
+| chuan_bi_tape_out_va_signoff_d1184 | Quy trình Sign-off và kiểm tra toàn vẹn tín hiệu trước Tape-out GDSII | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_bo_thanh_ghi_dieu_khien_verilog_d1185 | Thiết kế bộ thanh ghi điều khiển Verilog tích hợp cơ chế ASIL an toàn phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| chuan_bi_tape_out_va_signoff_final_d1186 | Đánh giá toàn vẹn tín hiệu và chuẩn bị Tape-out cho SoC mini 32-bit | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_duy_verilog_vhd_d1187 | Thiết kế mạch CMOS số và tương tự bằng Verilog/VHDL tích hợp phân tích Signal Integrity (SI) | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_d1188 | Quy trình Tape-out và đóng gói vi mạch 3D IC Chip-let tiên tiến cho chip AI Edge | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_duy_verilog_vhd_d1189 | Thiết kế khối giao tiếp SPI IP Core Verilog và tích hợp cơ chế kiểm thử an toàn phần cứng ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_d1190 | Hoàn thiện gói dữ liệu GDSII, mô phỏng nhiệt và đóng gói vi mạch 3D IC nâng cao | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_duy_verilog_vhd_d1191 | Thiết kế mạch CMOS số và mô phỏng tín hiệu hỗn hợp tích hợp kiểm tra toàn vẹn tín hiệu SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_d1192 | Quy trình Tape-out tiêu chuẩn và phân tích nhiệt độ đóng gói vi mạch 3D Chip-let nâng cao | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_duy_verilog_vhd_d1193 | Thiết kế mạch CMOS số tối ưu hóa diện tích cho ALU 32-bit | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_d1194 | Hoàn thiện quy trình Tape-out và đóng gói QFN nâng cao cho chip bán dẫn | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_duy_verilog_d1195 | Hiện thực vi mạch logic số với Verilog HDL tích hợp mô phỏng tín hiệu hỗn hợp | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_d1196 | Hoàn thiện quy trình Tape-out 3D IC Chip-let và đóng gói vi mạch nâng cao | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_duy_verilog_vhd_d1197 | Hiện thực vi mạch số hỗn hợp bằng Verilog và kiểm chứng chức năng với SoC Mini | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_d1198 | Hoàn thiện quy trình Tape-out, phân tích nhiệt vi mạch và đóng gói chip QFN nâng cao | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_duy_verilog_vhd_d1199 | Thiết kế mạch CMOS số và tương tự với Verilog kết hợp mô phỏng SPICE | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_d1200 | Đóng gói 3D IC Chip-let nâng cao và tối ưu hóa phân tích nhiệt vi mạch | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_duy_verilog_vhd_d1201 | Thiết kế mạch CMOS số tự duy Verilog/VHDL tích hợp phân tích Signal Integrity và Power Integrity | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_d1202 | Quy trình Tape-out và đóng gói 3D IC Chip-let tiên tiến cho dự án Chip SoC IoT | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_mach_cmos_so_tuong_tu_verilog_d1203 | Thiết kế vi mạch tích hợp CMOS số và tương tự dự án mô phỏng mạch ADC Flash | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_nang_cao_d1204 | Quy trình Tape-out và đóng gói vi mạch nâng cao dự án kiểm tra GDSII | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_tu_verilog_vhdl_d1205 | Thiết kế mạch CMOS số và mô phỏng toàn vẹn tín hiệu SI/PI cho RISC-V SoC | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_tien_tien_d1206 | Quy trình Tape-out chuẩn GDSII kết hợp đóng gói 3D IC Chip-let nâng cao | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_mach_cmos_chuyen_sau_d1207 | Thiết kế mạch CMOS số tốc độ cao qua dự án ALU 32-bit Verilog | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_nang_cao_d1208 | Xác thực vật lý GDSII và kiểm định tiêu chuẩn công nghiệp cho SoC mini | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_mach_cmos_chuyen_sau_d1209 | Thiết kế mạch CMOS chuyên sâu với Verilog và mô phỏng dự án SoC | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_nang_cao_d1210 | Tối ưu hóa nhiệt vi mạch và quy trình Tape-out 3D IC Chip-let | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_duy_verilog_vhd_d1211 | Hiện thực hóa mạch CMOS số và tương tự Verilog cho dự án ADC Flash 4-bit kèm tối ưu hóa toàn vẹn tín hiệu SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_tien_tien_d1212 | Hoàn thiện quy trình Tape-out, phân tích nhiệt và đóng gói 3D IC Chip-let cho vi mạch | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_mach_cmos_so_tuong_tu_verilog_vhdl_d1213 | Thiết kế mạch CMOS số/tương tự bằng Verilog/VHDL với mô hình mạch dao động VCO | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_tien_tien_d1214 | Quy trình Tape-out, đóng gói vi mạch 3D IC Chip-let và phân tích nhiệt tiên tiến | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_tu_verilog_vhdl_d1215 | Thiết kế mạch CMOS số/tương tự bằng Verilog/VHDL cho dự án ADC 8-bit tích hợp phân tích Signal Integrity | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_tien_tien_d1216 | Quy trình Tape-out, đóng gói vi mạch tiên tiến 3D IC Chip-let và tiêu chuẩn an toàn IEC cho ADC 8-bit | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_tu_verilog_d1217 | Thiết kế mạch số CMOS bằng Verilog với Dự án Bộ xử lý RISC-V 8-bit tối giản | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_d1218 | Quy trình kiểm tra toàn vẹn SI/PI và Đóng gói Tape-out chuẩn Foundry | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_duy_verilog_d1219 | Thiết kế mạch số CMOS bằng Verilog với Dự án Bộ xử lý RISC-V 32-bit tối giản | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_d1220 | Đóng gói vi mạch tiên tiến 3D IC Chip-let và Tích hợp phân tích nhiệt chuyên sâu | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_tu_verilog_vhdl_d1221 | Thiết kế mạch CMOS số nâng cao và mô phỏng Verilog cho bộ lọc số FIR trên FPGA | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_tien_tien_d1222 | Quy trình Tape-out GDSII và kiểm định tiêu chuẩn an toàn IEC 61508 cho chip bán dẫn nâng cao | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_tu_verilog_vhd_d1223 | Thiết kế mạch CMOS số/tương tự dự án Op-Amp dùng Verilog/VHDL | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_tien_tien_d1224 | Xác thực toàn vẹn tín hiệu SI/PI nâng cao và Đóng gói Chip-let 3D | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_tu_verilog_d1225 | Thiết kế mạch số CMOS đơn vị ALU 8-bit trên Verilog tích hợp phân tích Signal Integrity cho dự án SmartSoc | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_d1226 | Xác thực GDSII, đóng gói vi mạch QFN48 và tích hợp phân tích nhiệt Chip-let nâng cao cho SmartSoc Tape-out | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_tu_verilog_d1227 | Thiết kế mạch số CMOS phức hợp bằng Verilog với Dự án Bộ xử lý RISC-V 32-bit | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_d1228 | Tối ưu hóa toàn vẹn tín hiệu, nguồn và quy trình Tape-out SoC 32-bit | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_tu_verilog_d1229 | Thiết kế mạch số CMOS chuyên sâu với Verilog: Tối ưu hóa phân tích tín hiệu toàn vẹn SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_d1230 | Quy trình Tape-out chuẩn công nghiệp và đóng gói vi mạch nâng cao 3D IC Chip-let BGA | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_duy_verilog_d1231 | Hiện thực vi mạch CMOS với Verilog và kiểm thử tín hiệu toàn vẹn SI/PI cho Smart SoC Controller | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_d1232 | Xác thực GDSII, phân tích nhiệt vi mạch 3D và hoàn tất Tape-out chuẩn an toàn ASIL cho Smart SoC | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_tu_verilog_d1233 | Thiết kế mạch số CMOS phức hợp với Verilog mô phỏng FSM điều khiển luồng | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_d1234 | Xác thực toàn vẹn tín hiệu SI/PI và hoàn thiện tập GDSII cho quy trình Tape-out vi mạch | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_tu_verilog_vhdl_d1235 | Hiện thực vi mạch tích hợp với dự án ALU 32-bit Verilog | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_tien_tien_d1236 | Xác thực GDSII, đóng gói vi mạch và tích hợp tiêu chuẩn an toàn IEC 61508 cho ALU 32-bit | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_tu_verilog_d1237 | Thiết kế CMOS số và tương tự Verilog kết hợp mô phỏng SI/PI cho bộ thu phát RF | roadmap_ElectricEnginneerGuiidle.md |
+| quy_trinh_tape_out_va_dong_goi_vi_mach_d1238 | Quy trình Tape-out và phân tích nhiệt vi mạch nâng cao cho chip SoC AI 28nm | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_cmos_so_tuong_tu_verilog_d1239 | Thiết kế mạch SoC tích hợp cảm biến và mô phỏng toàn vẹn tín hiệu SI/PI nâng cao | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_mach_ecg_eeg_chuan_iec_60601_d1240 | Thiết kế mạch ECG, EEG và tiêu chuẩn an toàn điện IEC 60601 | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_sieu_am_va_do_nhip_tim_d1241 | Tối ưu hóa mạch PPG và xử lý tín hiệu siêu âm Doppler mini | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_x_quang_va_sieu_am_chuan_iec_60601_d1242 | Thiết kế hệ thống X-quang và siêu âm tích hợp phân tích toàn vẹn tín hiệu SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_an_toan_thiet_ke_y_te_va_hoan_thien_he_thong_d1243 | Kiểm thử tự động HWI và xác thực bảo mật phần cứng trạm đo sinh hiệu | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_sieu_am_va_kiem_dinh_iec_60601_d1244 | Thiết kế hệ thống siêu âm y tế và kiểm định an toàn điện IEC 60601 | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_y_te_va_danh_gia_chuan_d1245 | Xây dựng trạm giám sát sinh hiệu thông minh và kiểm thử phần cứng tự động HWI | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_eeg_va_do_nhip_tim_chuan_iec_d1246 | Thiết kế mạch tiền khuếch đại EEG và đo nhịp tim quang học chuẩn IEC 60601 | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_he_thong_sieu_am_va_kiem_dinh_an_toan_d1247 | Phát triển mô hình máy siêu âm xung-dội và kiểm tra an toàn điện y tế tự động | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_chieu_va_kiem_dinh_iec_d1248 | Thiết kế phần cứng X-quang số và phân tích toàn vẹn tín hiệu SI/PI theo chuẩn IEC 60601 | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_phong_mach_y_te_d1249 | Hoàn thiện trạm y tế thông minh bảo mật cao và đánh giá an toàn điện IEC 60601 | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_sieu_am_di_dong_chuan_iec_d1250 | Thiết kế máy siêu âm cầm tay chuẩn IEC 60601 tích hợp phân tích toàn vẹn tín hiệu SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_dong_ro_va_an_toan_dien_y_te_d1251 | Đánh giá an toàn điện y tế IEC 60601 tích hợp kiểm thử tự động HWI phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_chieu_y_te_chuan_iec_d1252 | Thiết kế phần cứng chiếu xạ y tế tích hợp mô phỏng toàn vẹn tín hiệu SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_phong_mach_y_te_thuc_te_d1253 | Kiểm thử tự động HWI và bảo mật Secure Boot cho phòng khám thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_da_kenh_chuan_iec_d1254 | Thiết kế mạch đo điện tim đa kênh tích hợp lọc nhiễu và cách ly điện theo chuẩn IEC 60601 | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_an_toan_dien_thiet_bi_y_te_d1255 | Xây dựng hệ thống tự động kiểm định an toàn điện và dòng rò cho thiết bị y tế chuyên dụng | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_chieu_y_te_chuan_iec_d1256 | Thiết kế mạch điều khiển máy chiếu X-quang chuẩn IEC 60601 | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_phong_mach_y_te_thuc_te_d1257 | Tích hợp và kiểm thử toàn diện phòng khám thông minh tích hợp ECG | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_da_kenh_va_kiem_dinh_iec_60601_d1258 | Thiết kế máy ECG đa kênh và kiểm định IEC 60601 cho trạm đo tim mạch thực tế | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_he_thong_eeg_va_do_luong_sinh_hoc_d1259 | Xây dựng trạm thu thập tín hiệu não đồ EEG đa kênh kèm mô phỏng phân tích toàn vẹn tín hiệu | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_da_kenh_va_chuan_iec_60601 | Thiết kế máy ECG đa kênh và kiểm định chuẩn an toàn IEC 60601 | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_he_thong_do_nhip_tim_va_xray_safe | Phát triển hệ thống đo nhịp tim quang học và khóa liên động X-quang | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_da_kenh_chuan_iec_60601 | Thiết kế phần cứng ECG đa kênh tích hợp phân tích toàn vẹn tín hiệu SI/PI chuẩn IEC 60601 | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_he_thong_eeg_va_do_luong_sinh_hoc_chuan_iec | Phát triển hệ thống đo sóng não 8 kênh ứng dụng bảo mật phần cứng và kiểm thử tự động HWI | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_da_kenh_va_kiem_dinh_iec_60601_v2 | Thiết kế máy ECG đa kênh và kiểm định IEC 60601 cho trạm sinh hiệu | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_he_thong_do_nhip_tim_va_xray_safe_d1265 | Xây dựng thiết bị đo nhịp tim quang học và tủ điều khiển an toàn bức xạ X-ray | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_da_kenh_va_kiem_dinh_iec_60601_v3 | Thiết kế máy ECG 3 đạo trình chuẩn IEC 60601 với bộ lọc cách ly nguồn | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_he_thong_eeg_va_do_luong_sinh_hoc_chuan_iec_v2 | Thiết kế hệ thống đo sóng não EEG đơn kênh tích hợp phần mềm hiển thị | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_chuan_iec_60601_v4 | Thiết kế mạch tiền khuếch đại ECG 3 đạo trình tích hợp chống nhiễu chuẩn IEC 60601 | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_an_toan_dien_iec_60601_v4 | Quy trình kiểm định dòng rò và an toàn điện y tế theo chuẩn IEC 60601 cho thiết bị đo sinh học | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_da_kenh_va_kiem_dinh_iec_60601_v4 | Thiết kế phần cứng ECG đa kênh và mô phỏng toàn vẹn tín hiệu SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_he_thong_eeg_va_do_luong_sinh_hoc_chuan_iec_v3 | Phát triển trạm đo sóng não EEG độ nhạy cao và bảo mật phần cứng Secure Boot | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_chuan_iec_60601_v5 | Thiết kế mạch tiền khuếch đại ECG và bộ lọc nhiễu 50Hz chuẩn IEC 60601 | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_an_toan_dien_iec_60601_v5 | Hệ thống kiểm định an toàn điện và dòng rò thiết bị y tế chuyên sâu | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_chuan_iec_60601_v6 | Thiết kế mạch đo ECG 3 đạo trình chuẩn y tế IEC 60601 | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_an_toan_dien_iec_60601_v6 | Quy trình kiểm định an toàn điện và dòng rò thiết bị y tế | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_chuan_iec_60601_v7 | Thiết kế mạch đo điện tâm đồ 12 đạo trình đạt chuẩn an toàn IEC 60601 | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_an_toan_dien_iec_60601_v7 | Xây dựng trạm kiểm định dòng rò và độ bền điện môi y tế tự động | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_va_do_luong_sinh_hoc_chuan_iec_60601 | Thiết kế máy ECG 3 đạo trình chuẩn IEC 60601 kèm module đo nhịp tim quang học | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_he_thong_xray_va_sieu_am_an_toan_y_te | Hệ thống quản trị và kiểm thử phần cứng tự động cho thiết bị hình ảnh y tế di động | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_va_do_luong_sinh_hoc_chuan_iec_60601_v2 | Thiết kế mạch tiền khuếch đại ECG tích hợp lọc nhiễu chuẩn IEC 60601 | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_he_thong_xray_va_sieu_am_an_toan_y_te_v2 | Xây dựng thuật toán an toàn nguồn cao áp X-quang theo chuẩn IEC 60601-1 | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_chuan_iec_60601_v8 | Thiết kế máy ECG 12 đạo trình chuẩn IEC 60601-1 tích hợp mô phỏng Signal Integrity SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_an_toan_dien_iec_60601_v8 | Kiểm định an toàn điện nâng cao và kiểm thử phần cứng tự động HWI cho ProMed SafeTest-X | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_va_do_nhip_tim_chuan_iec_d1284 | Thiết kế mạch Front-end ECG 3 đạo trình chuẩn IEC 60601 tích hợp bộ lọc notch | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_he_thong_sieu_am_va_xray_safe_d1285 | Phát triển hệ thống điều khiển xung phát tia X an toàn với phần cứng cách ly | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_da_kenh_chuan_iec_d1286 | Thiết kế máy ECG 12 đạo trình đa kênh với mô hình lọc nhiễu số | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_an_toan_dien_iec_60601_d1287 | Trạm đo kiểm dòng rò thiết bị y tế và thử nghiệm độ bền cách ly quang | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_chuan_iec_60601_v9 | Thiết kế phần cứng máy ECG đa kênh tích hợp chống nhiễu và phân tích toàn vẹn tín hiệu SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_an_toan_dien_iec_60601_v9 | Xây dựng trạm kiểm định dòng rò tự động tích hợp kiểm thử phần cứng HWI qua Python | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_chuan_iec_60601_v10 | Thiết kế máy ECG 3 đạo trình chuẩn IEC 60601 cho dự án Viện Tim Mạch | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_he_thong_eeg_va_do_luong_sinh_hoc_v4 | Xây dựng mạch phân tích tín hiệu thần kinh điện não đồ EEG kèm mô phỏng SI/PI trên Altium | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_va_do_nhip_tim_chuan_iec_d1292 | Thiết kế mạch đo ECG 3 đạo trình tích hợp phần cứng chống nhiễu chuẩn IEC 60601 | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_an_toan_dien_thiet_bi_y_te_d1293 | Hệ thống kiểm định dòng rò và cách ly điện tự động cho thiết bị y tế cầm tay | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_va_do_nhip_tim_chuan_iec_d1294 | Thiết kế mạch đo ECG 3 đạo trình tích hợp mô phỏng SI/PI và phân tích nhiễu | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_he_thong_sieu_am_va_xray_safe_d1295 | Kiểm định an toàn bức xạ và tự động hóa phần cứng HWI cho thiết bị X-quang | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_da_kenh_chuan_iec_d1296 | Thiết kế phần cứng máy ECG 12 kênh tích hợp phân tích toàn vẹn tín hiệu SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_an_toan_dien_thiet_bi_y_te_d1297 | Kiểm định dòng rò điện cực và chứng nhận tiêu chuẩn cách ly IEC 60601-1 | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_da_kenh_va_chuan_iec_d1298 | Thiết kế phần cứng máy ECG đa kênh đạt chuẩn IEC 60601 tích hợp chống nhiễu | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_dong_ro_va_an_toan_dien_y_te_d1299 | Xây dựng trạm kiểm định dòng rò tự động và xử lý tín hiệu sinh học thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_da_kenh_va_do_nhip_tim_chuan_iec_d1300 | Thiết kế phần cứng ECG đa kênh và tối ưu hóa toàn vẹn tín hiệu SI/PI theo chuẩn IEC 60601 | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_an_toan_dien_va_dong_ro_thiet_bi_y_te_d1301 | Kiểm định an toàn điện y tế và triển khai script kiểm thử tự động HWI phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_da_kenh_chuan_iec_d1302 | Thiết kế phần cứng ECG đa kênh tích hợp phân tích toàn vẹn tín hiệu SI và khử nhiễu | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_dong_ro_va_an_toan_dien_y_te_d1303 | Kiểm định an toàn điện y tế và xác thực tiêu chuẩn IEC 60601 với phần cứng chuyên dụng | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_da_kenh_chuan_iec_d1304 | Thiết kế phần cứng ECG đa kênh và mô phỏng toàn vẹn tín hiệu SI/PI chuẩn IEC 60601 | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_dong_ro_va_an_toan_dien_y_te_d1305 | Kiểm định dòng rò tự động HWI và tích hợp firmware an toàn tiêu chuẩn ASIL/IEC | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_da_kenh_va_chuan_iec_d1306 | Thiết kế phần cứng máy ECG đa kênh và chuẩn IEC 60601-1 | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_an_toan_dien_va_dong_ro_y_te_d1307 | Kiểm định dòng rò và an toàn điện y tế IEC 60601-1 cho thiết bị | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_da_kenh_va_do_nhip_tim_chuan_iec_1308 | Thiết kế mạch tiền khuếch đại sinh học 12 đạo trình cho máy ECG cầm tay | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_an_toan_dien_va_dong_ro_thiet_bi_y_te_1309 | Kiểm định dòng rò và an toàn điện thiết bị y tế theo IEC 60601 | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_da_kenh_va_do_nhip_tim_chuan_iec_1310 | Thiết kế mạch đo ECG 3 đạo trình tích hợp lọc nhiễu số chuẩn IEC 60601 | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_an_toan_dien_va_dong_ro_thiet_bi_y_te_1311 | Quy trình kiểm định dòng rò và an toàn điện thiết bị y tế chuyên sâu | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_da_kenh_va_do_nhip_tim_chuan_iec_1312 | Thiết kế phần cứng mạch ECG đa kênh tích hợp lọc nhiễu Signal Integrity | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_dong_ro_va_an_toan_dien_thiet_bi_y_te_1313 | Hệ thống kiểm định tự động an toàn điện và script kiểm thử phần cứng HWI | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_da_kenh_va_do_nhip_tim_chuan_iec_1314 | Thiết kế mạch tiền khuếch đại điện tâm đồ (ECG) tích hợp bộ lọc chống nhiễu | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_an_toan_dien_va_dong_ro_thiet_bi_y_te_1315 | Kiểm định an toàn điện và cách ly dòng rò thiết bị y tế chuẩn IEC 60601 | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_da_kenh_va_do_nhip_tim_chuan_iec_1316 | Xây dựng mô hình máy ECG đa kênh và đo nhịp tim chuẩn IEC 60601 | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_dong_ro_va_an_toan_dien_y_te_1317 | Đánh giá dòng rò và tiêu chuẩn an toàn điện y tế IEC 60601 | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_da_kenh_va_do_nhip_tim_chuan_iec_1318 | Thiết kế phần cứng máy ECG đa kênh đạt chuẩn an toàn IEC 60601 | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_an_toan_dien_va_dong_ro_thiet_bi_y_te_1319 | Kiểm định dòng rò và an toàn điện thiết bị y tế theo IEC 60601-1 | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_va_do_nhip_tim_chuan_iec_d1320 | Thiết kế phần cứng máy đo điện tâm đồ chuẩn IEC 60601 | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_dong_ro_va_an_toan_dien_thiet_bi_y_te_d1321 | Xây dựng hộp kiểm chuẩn an toàn điện y tế theo IEC 60601-1 | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_kiem_dinh_may_ecg_da_kenh_d1322 | Thiết kế máy ECG đa kênh và kiểm định dòng rò y tế IEC 60601-1 | roadmap_ElectricEnginneerGuiidle.md |
+| xay_dung_va_chuan_hoa_he_thong_ecg_d1323 | Phát triển firmware an toàn và kiểm thử tự động HWI cho thiết bị ECG | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_va_do_nhip_tim_chuan_iec_d1324 | Thiết kế mạch Front-End y tế và lọc tín hiệu chuẩn IEC cho Holter Monitor | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_an_toan_dien_va_dong_ro_thiet_bi_y_te_d1325 | Kiểm định an toàn điện và kịch bản kiểm thử tự động HWI cho máy ECG cầm tay | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_kiem_dinh_may_x_quang_d1326 | Thiết kế phần cứng hệ thống X-quang tích hợp mô phỏng toàn vẹn tín hiệu SI/PI chuẩn IEC | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_va_kiem_dinh_may_sieu_am_d1327 | Phát triển thiết bị siêu âm Doppler cầm tay ứng dụng gia tốc phần cứng Edge AI | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_va_do_nhip_tim_chuan_iec_d1328 | Thiết kế mạch đo điện tâm đồ MedSafe ECG-Pro tích hợp bộ lọc notch và cách ly quang học | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_dong_ro_va_an_toan_dien_y_te_d1329 | Trạm kiểm định an toàn điện y tế và thử nghiệm tự động HWI cho SafeCare Patient Monitor | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_va_do_nhip_tim_chuan_iec_d1330 | Thiết kế phần cứng máy ECG cách ly quang học chuẩn an toàn IEC 60601 | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_an_toan_dien_va_dong_ro_thiet_bi_y_te_d1331 | Xây dựng thiết bị kiểm tra dòng rò tự động tuân thủ phụ lục IEC 60601 | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_da_kenh_chuan_iec_d1332 | Thiết kế phần cứng máy ECG chuẩn IEC 60601 tích hợp phân tích Signal Integrity | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_dong_ro_va_an_toan_dien_y_te_d1333 | Kiểm định dòng rò và an toàn điện y tế nâng cao theo chuẩn IEC 60601-1 | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_chuan_iec_d1334 | Thiết kế máy ECG 12 đạo trình tiêu chuẩn IEC 60601 với bộ lọc nhiễu số | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_dong_ro_y_te_d1335 | Kiểm định dòng rò và phân tích toàn vẹn nguồn an toàn điện y tế | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_va_kiem_dinh_iec_d1336 | Thiết kế máy đo điện tâm đồ ECG và kiểm định an toàn điện IEC 60601 | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_he_thong_eeg_va_do_nhip_tim_d1337 | Phát triển hệ thống ghi sóng não EEG và xử lý tín hiệu thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_va_do_nhip_tim_chuan_iec_d1338 | Thiết kế phần cứng máy ECG 3 kênh tích hợp mô phỏng SI/PI và cách ly y tế | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_dinh_dong_ro_va_an_toan_dien_y_te_d1339 | Trạm kiểm định an toàn điện y tế tự động hóa với kịch bản kiểm thử Python | roadmap_ElectricEnginneerGuiidle.md |
+| thiet_ke_may_ecg_chuan_iec_60601_d1340 | Thiết kế máy ECG chuẩn IEC 60601 với phân tích toàn vẹn tín hiệu SI/PI và cách ly y tế | roadmap_ElectricEnginneerGuiidle.md |
+| xay_dung_robot_tu_hanh_agv_amr_tich_hop_ros2_d1341 | Xây dựng robot tự hành AGV/AMR tích hợp ROS2 và xử lý ảnh OpenCV thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| nhung_mo_hinh_ai_edge_ai_tensorflow_lite_jetson_nano_d1342 | Tối ưu hóa và nhúng mô hình Edge AI TensorRT kết hợp Secure Boot cho AGV | roadmap_ElectricEnginneerGuiidle.md |
+| xu_ly_anh_opencv_edge_ai_jetson_nano_d1343 | Xử lý ảnh OpenCV nhận diện vật cản trên Jetson Nano tích hợp gia tốc phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_ros2_edge_ai_robot_tu_hanh_d1344 | Điều phối ROS2 cho xe tự hành AMR kết hợp TensorRT quantization tối ưu AI | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_dieu_knh_agv_amr_ros2_d1345 | Lập trình điều khiển AGV AMR với ROS2 và mô phỏng Gazebo | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_edge_ai_jetson_nano_d1346 | Triển khai Edge AI nhận diện vật thể thời gian thực tối ưu TensorRT trên Jetson Nano | roadmap_ElectricEnginneerGuiidle.md |
+| phat_trien_he_thong_amr_d1347 | Phát triển hệ thống AMR tích hợp ROS2 và tính toán toàn vẹn tín hiệu đường truyền motor | roadmap_ElectricEnginneerGuiidle.md |
+| nhung_ai_edge_camera_d1348 | Nhúng AI phát hiện vật cản bằng TensorRT quantization và tiêu chuẩn an toàn ASIL trên Jetson | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_dieu_khien_amr_ros2_ai_d1349 | Lập trình điều khiển AMR với ROS2 và mô hình phân loại rác AI trên Jetson Nano | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_robot_edge_ai_d1350 | Tích hợp TensorRT Quantization tối ưu hóa tốc độ xử lý thị giác máy tính cho AGV | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_dieu_khien_amr_ros2_ai_nang_cao_d1351 | Lập trình điều khiển AMR với ROS2 và AI nâng cao qua dự án xe tự hành nhận diện vật cản | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_ung_dung_robot_edge_ai_thuc_te_d1352 | Tích hợp TensorRT Quantization tối ưu hóa tốc độ xử lý thị giác cho hệ thống AGV thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_dieu_khien_amr_ros2_ai_nang_cao_d1353 | Lập trình điều khiển AMR ROS2 AI nâng cao qua dự án Robot định vị LiDAR | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_ung_dung_robot_edge_ai_thuc_te_d1354 | Tối ưu hóa và triển khai hệ thống Robot Edge AI với TensorRT | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_dieu_khien_amr_ros2_ai_sieu_viet_d1355 | Xây dựng trạm định vị AMR và cấu hình giao tiếp ROS2 | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_amr_edge_ai_thuc_chien_d1356 | Tích hợp TensorFlow Lite và kiểm định an toàn phần mềm ASIL cho AMR | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_dieu_khien_amr_ros2_ai_sieu_toc_d1357 | Lập trình điều khiển AMR ROS2 AI siêu tốc | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_ung_dung_robot_edge_ai_thuc_chien_d1358 | Kiểm định tiêu chuẩn an toàn IEC và tối ưu hóa TensorRT cho AMR | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_dieu_khien_amr_ros2_ai_sieu_nhanh_d1359 | Tối ưu hóa mô hình AI qua TensorRT quantization và tích hợp điều khiển AMR ROS2 trên Jetson Nano | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_robot_edge_ai_toi_uu_d1360 | Triển khai tiêu chuẩn an toàn IEC 61508 và hệ thống định vị SLAM Nav2 toàn diện | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_dieu_knh_amr_ros2_ai_sieu_toc_d1361 | Xây dựng hệ thống điều khiển AMR kết hợp ROS2 và Edge AI trên Jetson Nano | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_ung_dung_robot_edge_ai_thuc_chien_d1362 | Tối ưu hóa TensorRT quantization và triển khai thực chiến điều hướng tự động | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_dieu_khien_agv_amr_ros2_ai_pro_d1363 | Lập trình điều khiển AGV và xử lý ảnh Jetson Nano ROS2 | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_agv_amr_edge_ai_d1364 | Tích hợp hệ thống AMR phân loại sản phẩm thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_dieu_khien_agv_amr_ros2_ai_expert_d1365 | Xây dựng hệ thống AGV tự hành định vị SLAM kết hợp mô phỏng SI/PI và ROS2 | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_agv_amr_edge_ai_master_d1366 | Tích hợp TensorRT, OpenCV và kiểm thử tự động HWI phát hiện vật cản cho AMR | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_dieu_knh_agv_amr_ros2_ai_pro_plus_d1367 | Lập trình điều khiển AGV/AMR ROS2 tích hợp AI trên Jetson Nano với mô hình YOLOv8 | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_agv_amr_edge_ai_pro_d1368 | Tích hợp chuẩn an toàn chức năng ASIL và điều hướng tự động SLAM cho robot AMR | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_dieu_khien_agv_amr_ros2_ai_expert_pro | Xây dựng AGV định vị LiDAR tích hợp ROS2 và Edge AI trên Jetson Nano | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_ung_dung_agv_amr_edge_ai_master | Tối ưu hóa mô hình TensorRT và triển khai hệ thống an toàn đạt chuẩn IEC 61508 cho AGV | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_dieu_knh_agv_amr_ros2_ai_ultimate | Tích hợp ROS2 và DeepStream SDK cho AGV định vị vSLAM thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_agv_amr_edge_ai_ultimate | Kiểm định an toàn và tối ưu hóa hiệu năng AGV thông minh đạt chuẩn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| xay_dung_agv_amr_ros2_edge_ai_d1373 | Xây dựng AGV định vị LiDAR kết hợp ROS2 và tối ưu TensorRT trên Edge AI | roadmap_ElectricEnginneerGuiidle.md |
+| nhung_mo_hinh_ai_edge_ai_camera_d1374 | Kiểm định tiêu chuẩn IEC 61508 và phân loại sản phẩm băng chuyền với OpenCV/TFLite | roadmap_ElectricEnginneerGuiidle.md |
+| xay_dung_agv_nhung_ai_edge_ai_d1375 | Xây dựng AGV định vị LiDAR tích hợp Edge AI phát hiện vật cản (Dự án AutoNav) | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_amr_edge_ai_opencv_d1376 | Tích hợp giao thức mạng thời gian thực và an toàn chức năng ASIL cho AMR kho hàng | roadmap_ElectricEnginneerGuiidle.md |
+| xay_dung_agv_nhung_ai_edge_ai_d1377 | Xây dựng AGV nhúng AI Edge AI nhận diện vật cản với mô hình YOLOv8 trên Jetson Nano | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_amr_edge_ai_opencv_d1378 | Hoàn thiện AMR điều hướng tự động tích hợp ROS2 Navigation và kiểm định tiêu chuẩn công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_dieu_khien_amr_ros2_ai_pro_max_d1379 | Xây dựng AGV định vị LiDAR kết hợp Edge AI nhận diện vật cản với ROS2 | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_agv_amr_edge_ai_master_pro_d1380 | Tích hợp tiêu chuẩn an toàn IEC 61508 và tối ưu hóa TensorRT cho AMR | roadmap_ElectricEnginneerGuiidle.md |
+| xay_dung_agv_dinh_vi_slam_ros2_d1381 | Xây dựng AGV định vị SLAM ROS2 và xử lý ảnh OpenCV nhận diện vật cản | roadmap_ElectricEnginneerGuiidle.md |
+| nhung_mo_hinh_ai_tflite_edge_ai_d1382 | Tối ưu hóa mô hình AI qua TensorRT quantization và nhúng TFLite trên Jetson Nano | roadmap_ElectricEnginneerGuiidle.md |
+| xay_dung_agv_dinh_vi_slam_ros2_ai_d1383 | Xây dựng AGV định vị SLAM ROS2 tích hợp AI phân loại vật cản tự động theo chuẩn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_amr_edge_ai_opencv_chuyen_sau_d1384 | Hoàn thiện hệ thống AMR Edge AI và kiểm thử tự động HWI giao thức thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| xay_dung_agv_dinh_vi_slam_ros2_ai_pro_d1385 | Xây dựng AGV định vị SLAM ROS2 kết hợp nhận diện vật cản AI chuyên sâu | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_amr_edge_ai_opencv_chuyen_sau_pro_d1386 | Triển khai trạm băng tải phân loại sản phẩm tự động chuẩn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| xay_dung_agv_dinh_vi_slam_ros2_ai_expert_d1387 | Xây dựng AGV định vị SLAM ROS2 AI chuyên sâu với Jetson Nano | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_amr_edge_ai_opencv_chuyen_gia_d1388 | Tích hợp mô hình AI và OpenCV xử lý ảnh thời gian thực cho AMR | roadmap_ElectricEnginneerGuiidle.md |
+| xay_dung_agv_dinh_vi_slam_ros2_ai_expert_pro | Xây dựng AGV định vị SLAM ROS2 AI chuyên sâu Pro với mô hình YOLOv8 và tối ưu hóa TensorRT | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_amr_edge_ai_opencv_chuyen_gia_pro | Hoàn thiện AMR Edge AI OpenCV phân loại linh kiện tự động tích hợp an ninh mạng Secure Boot | roadmap_ElectricEnginneerGuiidle.md |
+| xay_dung_agv_dinh_vi_slam_ros2_expert | Xây dựng AGV định vị SLAM ROS2 kết hợp nhận diện vật cản bằng TensorRT | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_amr_edge_ai_opencv_ultimate | Hoàn thiện AMR Edge AI và xử lý ảnh OpenCV kiểm tra lỗi linh kiện tự động | roadmap_ElectricEnginneerGuiidle.md |
+| xay_dung_agv_dinh_vi_slam_ros2_ai_ultimate_pro | Xây dựng AGV định vị SLAM ROS2 và tích hợp Edge AI phát hiện vật cản thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_amr_edge_ai_opencv_ultimate_pro | Hoàn thiện hệ thống phân loại sản phẩm băng tải tự động với OpenCV và Kiểm thử HWI tự động | roadmap_ElectricEnginneerGuiidle.md |
+| xay_dung_agv_dinh_vi_slam_ros2_ai_expert_pro_v2 | Tối ưu hóa mô hình Edge AI và ánh xạ bản đồ SLAM thời gian thực trên AGV | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_amr_edge_ai_opencv_ultimate_pro_v2 | Triển khai AMR tự trị tích hợp cơ chế an toàn ASIL và phân loại hàng hóa thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| xay_dung_agv_dinh_vi_slam_ros2_ai_expert_pro_v3 | Xây dựng AGV định vị SLAM ROS2 tích hợp chuẩn an toàn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_amr_edge_ai_opencv_ultimate_pro_v3 | Trạm phân loại sản phẩm tự động thời gian thực sử dụng mạng thời gian thực EtherCAT | roadmap_ElectricEnginneerGuiidle.md |
+| xay_dung_agv_dinh_vi_slam_ros2_ai_expert_pro_v4 | Xây dựng AGV định vị SLAM ROS2 và tích hợp TensorRT Edge AI tối ưu hóa mô hình nhận diện | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_amr_edge_ai_opencv_ultimate_pro_v4 | Hoàn thiện AMR Edge AI và xử lý ảnh OpenCV tích hợp kiểm định thời gian thực EtherCAT | roadmap_ElectricEnginneerGuiidle.md |
+| xay_dung_agv_dinh_vi_slam_ros2_ai_expert_pro_v5 | Xây dựng AGV định vị SLAM ROS2 tích hợp AI Jetson Nano dự án 1401 | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_amr_edge_ai_opencv_ultimate_pro_v5 | Tối ưu hóa AMR Edge AI OpenCV nhận diện vật cản thời gian thực 1402 | roadmap_ElectricEnginneerGuiidle.md |
+| xay_dung_agv_slam_ros2_ai_expert_pro_v6 | Xây dựng AGV định vị SLAM ROS2 AI V6 với dự án Xe tự hành né vật cản YOLOv8 | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_amr_edge_ai_opencv_ultimate_pro_v6 | Tối ưu hóa hệ thống AMR thông minh tích hợp trạm sạc tự động và chuẩn an toàn ISO 26262 | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_dieu_khien_amr_ros2_ai_apex_d1405 | Lập trình điều khiển AMR ROS2 tích hợp Edge AI với Jetson Nano | roadmap_ElectricEnginneerGuiidle.md |
+| nhung_mo_hinh_ai_tflite_edge_ai_apex_d1406 | Triển khai mô hình TFLite nhận diện vật cản thời gian thực và tích hợp tiêu chuẩn an toàn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_dieu_khien_amr_ros2_ai_apex_v2_d1407 | Lập trình ROS2 điều khiển AMR né tránh vật cản kết hợp tối ưu hóa TensorRT và mô hình AI phân loại vạch kẻ đường | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_amr_edge_ai_opencv_apex_v2_d1408 | Kiểm thử tự động HWI và hoàn thiện AMR định vị trạm sạc với ArUco Marker áp dụng Secure Boot trên ESP32 | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_dieu_khien_amr_ros2_ai_apex_v3_d1409 | Lập trình ROS2 điều khiển AMR và nhúng AI tối ưu với mô hình TFLite trên Jetson Nano | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_amr_edge_ai_opencv_apex_v3_d1410 | Hoàn thiện AMR Edge AI và kiểm định tiêu chuẩn an toàn IEC 61508 cho hệ thống tự hành | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_ros2_dieu_khien_amr_apex_d1411 | Lập trình ROS2 điều khiển AMR và tích hợp cảm biến LiDAR thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| nhung_mo_hinh_tflite_edge_ai_apex_d1412 | Tối ưu hóa và nhúng mô hình TFLite Edge AI tăng tốc TensorRT trên Jetson | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_dieu_khien_amr_ros2_ai_apex_v4_d1413 | Lập trình ROS2 điều khiển AMR và tối ưu hóa suy luận mô hình TFLite | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_amr_edge_ai_opencv_apex_v4_d1414 | Triển khai dây chuyền băng tải thông minh tích hợp OpenCV và phân loại linh kiện | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_ros2_dieu_khien_amr_apex_v5_d1415 | Lập trình ROS2 điều khiển AGV và xử lý ảnh OpenCV với camera d435 | roadmap_ElectricEnginneerGuiidle.md |
+| nhung_mo_hinh_tflite_edge_ai_apex_v5_d1416 | Tối ưu hóa TensorRT và triển khai mô hình Edge AI nhận diện kho hàng | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_ros2_dieu_khien_amr_v6_d1417 | Tích hợp ROS2 điều khiển AMR và tối ưu hóa toàn vẹn tín hiệu cảm biến D1417 | roadmap_ElectricEnginneerGuiidle.md |
+| nhung_mo_hinh_tflite_edge_ai_v6_d1418 | Triển khai TFLite Edge AI an toàn đạt chuẩn ASIL cho phát hiện vật cản AMR D1418 | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_ros2_dieu_khien_amr_v7 | Lập trình ROS2 điều khiển AMR với mô hình không gian trạng thái | roadmap_ElectricEnginneerGuiidle.md |
+| nhung_mo_hinh_tflite_edge_ai_v7 | Nhúng mô hình TFLite nhận diện vật cản cho AMR tích hợp TensorRT | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_ros2_dieu_khien_amr_v8 | Lập trình ROS2 điều khiển AMR với dự án Robot Giao Hàng Tự Hành Trong Kho | roadmap_ElectricEnginneerGuiidle.md |
+| nhung_mo_hinh_tflite_edge_ai_v8 | Nhúng mô hình TFLite Edge AI kết hợp tối ưu TensorRT cho dự án Phân Loại Sản Phẩm Băng Tải | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_ros2_dieu_khien_amr_v9 | Lập trình ROS2 điều khiển AMR với mô phỏng xe tự hành v9 | roadmap_ElectricEnginneerGuiidle.md |
+| nhung_mo_hinh_tflite_edge_ai_v9 | Nhúng mô hình TFLite Edge AI phát hiện vật cản thực tế v9 | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_ros2_dieu_khien_amr_v10 | Tích hợp giao thức mạng thời gian thực EtherCAT và điều khiển truyền động AMR v10 | roadmap_ElectricEnginneerGuiidle.md |
+| nhung_mo_hinh_tflite_edge_ai_v10 | Tối ưu hóa mô hình AI biên bằng TensorRT quantization cho Robot kho hàng v10 | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_ros2_dieu_khien_amr_v11 | Lập trình ROS2 điều khiển AMR và thuật toán LiDAR v11 | roadmap_ElectricEnginneerGuiidle.md |
+| nhung_mo_hinh_tflite_edge_ai_v11 | Tối ưu hóa mô hình AI biên qua TensorRT quantization v11 | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_ros2_dieu_khien_amr_v12 | Lập trình ROS2 điều khiển AMR với hệ thống định vị LiDAR cho dự án AGV Alpha | roadmap_ElectricEnginneerGuiidle.md |
+| nhung_mo_hinh_tflite_edge_ai_v12 | Nhúng mô hình TFLite nhận diện phân loại linh kiện qua TensorRT trên Jetson Nano | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_ros2_dieu_khien_amr_v13 | Lập trình ROS2 điều khiển AMR với mô hình định vị LiDAR và OpenCV xử lý làn | roadmap_ElectricEnginneerGuiidle.md |
+| nhung_mo_hinh_tflite_edge_ai_v13 | Tối ưu hóa mô hình TFLite Edge AI qua TensorRT quantization cho robot AMR | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_ros2_dieu_khien_amr_v14 | Lập trình ROS2 điều khiển AMR với mô hình không gian trạng thái Day 1433 | roadmap_ElectricEnginneerGuiidle.md |
+| nhung_mo_hinh_tflite_edge_ai_v14 | Tích hợp TensorRT quantization và triển khai TFLite Edge AI Day 1434 | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_dieu_khien_amr_ros2_apex_d1435 | Lập trình điều khiển AMR di chuyển tự động với ROS2 Navigation2 | roadmap_ElectricEnginneerGuiidle.md |
+| nhung_mo_hinh_tflite_edge_ai_apex_d1436 | Tối ưu hóa mô hình AI biên bằng TensorRT và TFLite trên Jetson Nano | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_dieu_khien_amr_ros2_ai_apex_d1437 | Lập trình điều khiển ROS2 cho AMR tích hợp TensorRT và cơ chế an toàn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_amr_edge_ai_opencv_apex_d1438 | Kiểm thử tự động HWI và hoàn thiện hệ thống AMR Edge AI thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_ros2_dieu_khien_amr_v15 | Lập trình ROS2 điều khiển AMR với hệ thống định vị LiDAR cho dự án AGV Alpha v1 | roadmap_ElectricEnginneerGuiidle.md |
+| nhung_mo_hinh_tflite_edge_ai_v15 | Tối ưu hóa và nhúng mô hình TFLite nhận diện vật cản AI gia tốc phần cứng cho AGV | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_ros2_dieu_khien_amr_v16 | Lập trình ROS2 điều khiển AMR với OpenCV và TFLite Day 1441 | roadmap_ElectricEnginneerGuiidle.md |
+| nhung_mo_hinh_tflite_edge_ai_v16 | Tối ưu hóa và tăng tốc TensorRT cho mô hình Edge AI trên Jetson Nano Day 1442 | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_ros2_dieu_khien_amr_v17 | Lập trình ROS2 điều khiển AMR với mô hình vật lý và OpenCV thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| nhung_mo_hinh_tflite_edge_ai_v17 | Tối ưu hóa và triển khai mô hình TensorRT/TFLite Edge AI nhận diện vật cản an toàn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_ros2_dieu_khien_amr_v18 | Lập trình ROS2 điều khiển AMR với mô phỏng Nav2 và thuật toán SLAM thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| nhung_mo_hinh_tflite_edge_ai_v18 | Tối ưu hóa mô hình AI biên bằng TensorRT quantization và tích hợp vào hệ thống ROS2 | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_ros2_dieu_khien_amr_v19 | Lập trình ROS2 điều khiển AMR né tránh vật cản với module Lidar RPLIDAR A1 thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| nhung_mo_hinh_tflite_edge_ai_v19 | Tối ưu hóa mô hình TFLite nhận diện biển báo giao thông trên Jetson Nano tích hợp TensorRT | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_ros2_dieu_khien_amr_v20 | Xây dựng AGV định vị LiDAR và ROS2 Navigation cho robot tự hành kho hàng | roadmap_ElectricEnginneerGuiidle.md |
+| nhung_mo_hinh_tflite_edge_ai_v20 | Tối ưu hóa TensorRT và triển khai mô hình Edge AI nhận diện vật cản trên Jetson Nano | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_ros2_dieu_khien_amr_v21 | Lập trình ROS2 điều khiển AMR né tránh vật cản tự động với dự án AGV Nav2 | roadmap_ElectricEnginneerGuiidle.md |
+| nhung_mo_hinh_tflite_edge_ai_v21 | Tối ưu hóa và nhúng mô hình TFLite nhận diện sản phẩm lỗi qua TensorRT | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_ros2_dieu_khien_amr_v22 | Lập trình ROS2 điều khiển AMR né vật cản kết hợp LiDAR và camera theo chuẩn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| nhung_mo_hinh_tflite_edge_ai_v22 | Tối ưu hóa và triển khai mô hình TFLite nhận diện sản phẩm qua TensorRT trên Jetson Nano | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_ros2_dieu_khien_amr_v23 | Lập trình ROS2 điều khiển AMR né vật cản với Lidar và TensorRT quantization | roadmap_ElectricEnginneerGuiidle.md |
+| nhung_mo_hinh_tflite_edge_ai_v23 | Nhúng mô hình TFLite nhận diện biển báo kết hợp bảo mật Secure Boot phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| lap_trinh_ros2_dieu_khien_amr_v24 | Xây dựng nút ROS2 điều khiển động cơ AMR tránh vật cản thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| nhung_mo_hinh_tflite_edge_ai_v24 | Tối ưu hóa mô hình AI nhận diện biển báo qua TensorRT quantization trên Jetson | roadmap_ElectricEnginneerGuiidle.md |
+| xay_dung_agv_ros2_edge_ai_d1459 | Xây dựng AGV định vị ROS2 và nhúng mô hình TFLite trên Jetson Nano | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_amr_edge_ai_opencv_d1460 | Hoàn thiện AMR Edge AI định vị làn đường bằng OpenCV và ROS2 | roadmap_ElectricEnginneerGuiidle.md |
+| xay_dung_agv_edge_ai_opencv_apex_d1461 | Tích hợp an toàn chức năng ISO 26262 và kiểm định AGV ROS2 Edge AI thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v1 | An ninh mạng SCADA/ICS với chuẩn IEC 62443 và cơ chế kiểm định thời gian thực EtherCAT | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v1 | Lập trình Firmware an toàn và thiết kế phần cứng ISO 26262 ASIL cho inverter xe điện | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v2 | An ninh mạng SCADA/ICS theo IEC 62443 cho trạm điện thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v2 | Thiết kế firmware an toàn và kiểm tra lỗi phần mềm theo tiêu chuẩn ASIL D | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v3 | Triển khai phân vùng an ninh mạng OT (Zones & Conduits) và kiểm thử gói tin thời gian thực IEC 62443 | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v3 | Thiết kế firmware an toàn và kiểm chứng cơ chế phát hiện lỗi phần mềm theo tiêu chuẩn ASIL ISO 26262 | roadmap_ElectricEnginneerGuiidle.md |
+| an_ninh_mang_scada_ics_iec_62443_v4 | Xây dựng hệ thống phát hiện xâm nhập OT cho SCADA qua Snort và IEC 62443 | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v4 | Lập trình firmware an toàn và kiểm chứng cơ chế phát hiện lỗi theo tiêu chuẩn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v5 | Kiểm thử thâm nhập mạng SCADA và đánh giá lỗ hổng giao thức Modbus/TCP | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v5 | Lập trình firmware an toàn và tích hợp cơ chế phát hiện lỗi phần mềm theo tiêu chuẩn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v6 | Triển khai tường lửa miền mạng SCADA/ICS theo IEC 62443 với Dự án Nhà máy Điện thông minh v1 | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v6 | Lập trình firmware an toàn và kiểm tra lỗi phần mềm ASIL D với Dự án Xe điện Tự hành ASIL v1 | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v7 | Xây dựng hệ thống phát hiện xâm nhập OT cho SCADA tích hợp IEC 62443 (Dự án ICS-IDS Monitor) | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v7 | Thiết kế mạch điều khiển an toàn và lập trình firmware chuẩn ISO 26262 (Dự án ASIL-B ECU) | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v8 | Triển khai tường lửa ICS và đánh giá tiêu chuẩn IEC 62443 cho trạm SCADA thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v8 | Lập trình firmware an toàn và kiểm thử tự động phần cứng HWI đạt chuẩn ASIL B | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v9 | Kiểm thử bảo mật mạng SCADA và tích hợp giao thức thời gian thực IEC 62443 cho trạm biến áp | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v9 | Lập trình firmware an toàn và cơ chế phát triển phần mềm theo tiêu chuẩn ASIL cho hệ thống lái | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v10 | Kiểm thử bảo mật mạng ICS và đánh giá tuân thủ IEC 62443 cho dự án nhà máy thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v10 | Lập trình firmware an toàn và triển khai cơ chế phát hiện lỗi phần mềm theo tiêu chuẩn ASIL B | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v11 | Triển khai tường lửa ICS và xác thực IEC 62443 kết hợp bảo mật phần cứng Secure Boot cho trạm SCADA phân phối điện | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v11 | Thiết kế mạch điều khiển an toàn ASIL B tích hợp cơ chế phát hiện lỗi phần mềm theo tiêu chuẩn ISO 26262 cho xe điện | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v12 | Đánh giá an ninh mạng OT và phân đoạn mạng IEC 62443 cho trạm biến áp số | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v12 | Lập trình firmware an toàn và kiểm thử phần cứng theo chuẩn ISO 26262 ASIL D | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v13 | Triển khai firewall OT bảo vệ trạm SCADA với Dự án Industrial Firewall Snort | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v13 | Xây dựng lập trình firmware an toàn và cơ chế phát hiện lỗi theo tiêu chuẩn ASIL với Dự án Dual-MCU Safety Monitor | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_firewall_ot_va_mach_safety_d1488 | Triển khai firewall OT và mạch safety cho dự án Nhà máy thông minh an toàn | roadmap_ElectricEnginneerGuiidle.md |
+| danh_gia_bao_mat_scada_va_functional_safety_d1489 | Đánh giá bảo mật SCADA và kiểm định tiêu chuẩn EtherCAT cho trạm điện | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_thu_bao_mat_scada_va_functional_safety_d1490 | Kiểm thử bảo mật mạng SCADA và đánh giá an toàn chức năng IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| hoan_thien_he_thong_ot_va_functional_safety_d1491 | Nghiệm thu toàn diện tủ điện công nghiệp đạt chuẩn an ninh IEC 62443 | roadmap_ElectricEnginneerGuiidle.md |
+| trien_khai_firewall_ot_va_mach_safety_d1492 | Triển khai firewall OT và mạch safety chuyên sâu cho trạm năng lượng | roadmap_ElectricEnginneerGuiidle.md |
+| danh_gia_bao_mat_scada_va_functional_safety_d1493 | Kiểm định bảo mật SCADA và xác thực tiêu chuẩn an toàn IEC 61508 | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_va_functional_safety_chuyen_sau_d1494 | Bảo mật hệ thống SCADA nâng cao với mô hình IEC 62443 và cơ chế kiểm tra toàn vẹn tín hiệu SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_phan_tich_rui_ro_d1495 | Đánh giá an toàn chức năng ISO 26262 và lập trình firmware an toàn đạt chuẩn ASIL D | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v14 | Tích hợp tường lửa OT và tiêu chuẩn IEC 62443 cho trạm SCADA phân phối điện | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v14 | Lập trình firmware an toàn và kiểm thử cơ chế phát hiện lỗi theo chuẩn ASIL D | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v15 | Tích hợp tường lửa OT và thiết kế mạch an toàn đạt chuẩn IEC 62443 trong Smart Grid | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v15 | Đánh giá an toàn chức năng ISO 26262 và lập trình firmware ASIL D cho hệ thống SCADA | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_va_functional_safety_chuyen_sau_d1500 | Xây dựng hệ thống an ninh mạng OT và kiểm tra Functional Safety với Modbus TCP | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_va_functional_safety_chuyen_sau_d1501 | Đánh giá tuân thủ IEC 62443 và kiểm định phần cứng an toàn SIL 2 cho tủ điện | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_va_functional_safety_chuyen_sau_d1502 | Ứng dụng tiêu chuẩn IEC 62443 và ISO 26262 cho dự án Trạm điện thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_va_functional_safety_chuyen_sau_d1503 | Đánh giá tuân thủ an toàn thời gian thực và mô phỏng toàn vẹn tín hiệu trạm biến áp | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_va_functional_safety_chuyen_sau_d1504 | Đánh giá an ninh SCADA và thiết kế mạch an toàn đạt chuẩn IEC 62443 cho dự án Nhà máy nước thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_va_functional_safety_chuyen_sau_d1505 | Kiểm thử xâm nhập mạng OT nâng cao và xác thực SIL mạch an toàn cho dự án Trạm điện thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v16 | Chuyên đề bảo mật mạng lưới SCADA/ICS theo chuẩn IEC 62443 kết hợp phân tích toàn vẹn tín hiệu SI/PI cho trạm năng lượng | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v16 | Ứng dụng tiêu chuẩn ISO 26262 và lập trình firmware an toàn tích hợp mã hóa phần cứng cho hệ thống điện tử | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v17 | Ứng dụng IEC 62443 bảo vệ trạm SCADA năng lượng mặt trời thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v17 | Thiết kế kiến trúc phần cứng dự phòng kép SIL 2 tuân thủ tiêu chuẩn ô tô | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v18 | Ứng dụng IEC 62443 xây dựng tường lửa OT bảo vệ nhà máy điện | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v18 | Lập trình firmware an toàn và kiểm tra lỗi phần mềm theo chuẩn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| ung_dung_iec_62443_thiet_ke_mach_an_toan_d1512 | Ứng dụng tiêu chuẩn IEC 62443 trong thiết kế mạch an toàn qua dự án SafetyPLC | roadmap_ElectricEnginneerGuiidle.md |
+| tich_hop_iso_26262_phan_cung_safety_d1513 | Tích hợp tiêu chuẩn ISO 26262 và lập trình firmware an toàn qua dự án E-Stop ECU | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v19 | Tích hợp IEC 62443 và phân tích an ninh mạng cho trạm SCADA/ICS với Dự án OT-Shield | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v19 | Lập trình firmware an toàn và kiểm tra lỗi phần mềm theo tiêu chuẩn ASIL với Dự án Safe-Drive ECU | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v20 | Triển khai tiêu chuẩn an ninh mạng IEC 62443 cho hệ thống SCADA nhà máy nước | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v20 | Lập trình firmware an toàn và kiểm thử phần cứng ECU phanh ô tô theo ISO 26262 | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v21 | Triển khai an ninh mạng SCADA/ICS theo IEC 62443 cho trạm biến áp điện lực với dự án OT-Shield | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v21 | Lập trình firmware an toàn và cơ chế phát hiện lỗi phần mềm theo tiêu chuẩn ASIL với dự án ASIL-Guard | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v22 | Triển khai an ninh mạng SCADA theo IEC 62443 cho dự án Nhà máy nước thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v22 | Lập trình firmware an toàn và kiểm tra lỗi phần mềm theo tiêu chuẩn ISO 26262 ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v23 | Tích hợp IEC 62443 vào hệ thống SCADA năng lượng cho Trạm biến áp Smart Grid | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v23 | Lập trình Firmware an toàn và cơ chế phát hiện lỗi phần mềm theo tiêu chuẩn ASIL D | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v24 | Triển khai chính sách phân đoạn mạng OT và kiểm soát Zone/Conduit | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v24 | Thiết kế mạch phần cứng an toàn SIL 2 và lập trình firmware ASIL B | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v25 | Triển khai tường lửa OT bảo vệ trạm SCADA năng lượng mặt trời với IEC 62443 | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v25 | Xây dựng firmware an toàn SIL2 và kiểm định tiêu chuẩn IEC 61508 cho AGV | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v26 | Triển khai an ninh mạng SCADA/ICS theo IEC 62443 cho trạm năng lượng mặt trời ảo dự án SolarSec kết hợp phân đoạn mạng | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v26 | Lập trình firmware an toàn và cơ chế phát hiện lỗi phần mềm theo tiêu chuẩn ASIL cho hệ thống phanh xe điện SafeBrake | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v27 | Triển khai chính sách kiểm soát truy cập phân đoạn mạng OT cho dự án nhà máy nước sạch thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v27 | Lập trình firmware an toàn và cơ chế phát triển phần mềm đạt chuẩn ASIL D cho hệ thống điều khiển | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v28 | Kiểm thử xâm nhập mạng SCADA và đánh giá lỗ hổng Modbus TCP thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v28 | Lập trình firmware an toàn và triển khai cơ chế phát hiện lỗi phần mềm ASIL D | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v30 | Triển khai IEC 62443 kết hợp Secure Boot cho trạm SCADA năng lượng mặt trời thông qua dự án SolarSec | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v30 | Lập trình firmware an toàn và kiểm thử phần mềm đạt chuẩn ASIL D qua dự án SafeBrake ECU | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v31 | Triển khai tường lửa OT và đánh giá tiêu chuẩn an ninh IEC 62443 cho trạm biến áp số | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v31 | Lập trình firmware an toàn và kiểm thử mã nguồn theo tiêu chuẩn ASIL B cho hệ thống BMS | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v32 | Đánh giá bảo mật SCADA/ICS theo IEC 62443 kết hợp phân tích SI/PI mạng truyền thông | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v32 | Thiết kế phần cứng an toàn ISO 26262 tích hợp Secure Boot và kiểm thử tự động HWI | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v33 | Triển khai hệ thống phát hiện xâm nhập OT IDS cho trạm bơm nước SCADA | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v33 | Thiết kế firmware an toàn và cơ chế phát hiện lỗi phần mềm theo tiêu chuẩn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v34 | Triển khai an ninh mạng SCADA/ICS kết hợp kiểm định tường lửa IEC 61850 | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v34 | Thiết kế firmware an toàn và phân tích FMEDA phần cứng ISO 26262 cho hệ thống phanh | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v35 | Triển khai hệ thống phát hiện xâm nhập OT IDS dự án Giám sát mạng lưới trạm biến áp | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v35 | Đánh giá an toàn phần mềm và lập trình firmware theo tiêu chuẩn ASIL cho hệ thống phanh | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v36 | Triển khai tiêu chuẩn IEC 62443 cho trạm bơm nước qua dự án OT Security Lab | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v36 | Đánh giá an toàn chức năng và lập trình firmware chuẩn ASIL cho hệ thống e-Braking | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v37 | Triển khai hệ thống phát hiện xâm nhập OT cho trạm biến áp qua Snort | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v37 | Phân tích an toàn phần cứng ô tô tích hợp firmware ASIL D theo ISO 26262 | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v38 | Triển khai tiêu chuẩn IEC 62443 bảo vệ trạm biến áp qua mô hình thực chiến | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v38 | Lập trình firmware an toàn và kiểm tra lỗi phần mềm theo tiêu chuẩn ISO 26262 ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v39 | Triển khai hệ thống phát hiện xâm nhập OT IDS với Snort và phân tích toàn vẹn tín hiệu mạng trạm bơm | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v39 | Đánh giá an toàn phần cứng ô tô tích hợp lập trình firmware an toàn theo tiêu chuẩn ISO 26262 | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v40 | Xây dựng hệ thống phát hiện xâm nhập OT với Snort cho nhà máy nước sạch | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v40 | Lập trình firmware an toàn và kiểm định cơ chế phát hiện lỗi theo chuẩn ISO 26262 cho cụm phanh | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v41 | Triển khai an ninh mạng SCADA/ICS theo IEC 62443 kết hợp phân vùng mạng DMZ | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v41 | Lập trình firmware an toàn và kiểm tra cơ chế phát hiện lỗi phần mềm chuẩn ISO 26262 ASIL B | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v42 | Triển khai firewall OT bảo vệ SCADA dựa trên IEC 62443 với dự án Industrial Firewall Guard | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v42 | Xây dựng lập trình firmware an toàn và cơ chế phát hiện lỗi phần mềm theo tiêu chuẩn ASIL B | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v43 | Triển khai firewall OT bảo vệ SCADA dựa trên tiêu chuẩn IEC 62443 kết hợp giao thức thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v43 | Lập trình firmware an toàn và đánh giá functional safety theo ISO 26262 cho mạch điều khiển | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v44 | Triển khai firewall OT bảo vệ SCADA với dự án Industrial Security Guard | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v44 | Lập trình firmware an toàn và kiểm tra lỗi phần mềm theo tiêu chuẩn ASIL B | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v45 | Triển khai firewall OT và phân vùng mạng SCADA theo tiêu chuẩn IEC 62443 | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v45 | Lập trình firmware an toàn và cơ chế phát hiện lỗi theo tiêu chuẩn ISO 26262 ASIL D | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v46 | Triển khai firewall OT và tuân thủ IEC 62443 cho dự án nhà máy thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v46 | Đánh giá an toàn functional safety theo tiêu chuẩn ISO 26262 và lập trình firmware an toàn cho EV | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v47 | Ứng dụng IEC 62443 bảo vệ trạm biến áp số với dự án SCADA Cybersecurity Gateway | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v47 | Thiết kế firmware an toàn và kiểm tra lỗi phần mềm theo tiêu chuẩn ISO 26262 ASIL-B | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v48 | Triển khai firewall OT bảo vệ SCADA với dự án Industrial Firewall Gateway | roadmap_ElectricEnginneerGuiidle.md |
+| functional_safety_iso_26262_v48 | Lập trình firmware an toàn và kiểm định chuẩn mực IEC 61508 cho hệ thống nhúng | roadmap_ElectricEnginneerGuiidle.md |
+| bao_mat_scada_ics_iec_62443_v49 | Tích hợp Secure Boot và kiểm định IEC 62443 cho Industrial Firewall v15 | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_fmea_ate_v1 | Thiết kế cảm biến MEMS gia tốc, phân tích FMEA phần cứng và mô phỏng SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_ate_kiem_thu_v1 | Phát triển hệ thống kiểm thử tự động ATE phần cứng bằng Python và kịch bản HWI | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_fmea_ate_v2 | Phân tích nguyên lý cảm biến MEMS và kỹ thuật FMEA phần cứng với trạm ATE | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_ate_kiem_thu_v2 | Xây dựng giao diện đo lường biên và kịch bản kiểm thử tự động ATE nâng cao | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_fmea_ate_v3 | Khảo sát cảm biến MEMS quang học và tích hợp phân tích SI/PI phần cứng với ATE | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_ate_kiem_thu_v3 | Tối ưu hóa giao diện đo lường biên Edge GUI và tiêu chuẩn an toàn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_fmea_ate_v4 | Khảo sát cảm biến MEMS gia tốc, lập bảng FMEA và tích hợp tính toán toàn vẹn tín hiệu SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_ate_kiem_thu_v4 | Xây dựng hệ thống Edge Dashboard và kịch bản kiểm thử tự động phần cứng ATE qua Python | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_fmea_ate_v5 | Đánh giá tin cậy cảm biến MEMS và phân tích FMEA phần cứng đo lường gia tốc | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_ate_kiem_thu_v5 | Triển khai giao diện Edge UI PyQt và kịch bản ATE kiểm thử tự động phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_fmea_ate_v6 | Nguyên lý cảm biến MEMS quang học và kỹ thuật phân tích hỏng hóc FMEA phần cứng ATE | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_ate_kiem_thu_v6 | Xây dựng giao diện đo lường biên và kịch bản kiểm thử tự động Python cho ATE | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_fmea_ate_v7 | Đánh giá nguyên lý cảm biến MEMS quang học và tích hợp phân tích chế độ hỏng hóc FMEA phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_ate_kiem_thu_v7 | Thiết kế hệ thống đo lường biên và kiểm thử tự động ATE áp dụng tiêu chuẩn an toàn ASIL cho cảm biến từ tính | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_fmea_ate_v8 | Đánh giá cảm biến MEMS và FMEA với mạch đo kiểm tự động ATE | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_ate_kiem_thu_v8 | Xây dựng hệ thống giao diện Edge AI và tự động hóa kiểm thử phần cứng HWI | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_fmea_ate_v9 | Đánh giá nguyên lý MEMS quang từ, mô phỏng SI/PI và FMEA phần cứng cho Dự án Cảm biến 6 trục | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_ate_kiem_thu_v9 | Triển khai kịch bản Python kiểm thử tự động ATE và Secure Boot cho Trạm Cảm biến | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_cam_bien_mems_va_fmea | Phân tích nguyên lý cảm biến MEMS và FMEA phần cứng đo lường (Dự án: Đo áp suất) | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_kiem_thu_ate | Xây dựng hệ thống ATE quét lỗi phần cứng và kiểm thử tự động Python (Dự án: Trạm kiểm định) | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_va_fmea_v1 | Khảo sát cảm biến MEMS và phân tích hỏng hóc FMEA phần cứng y tế | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_v1 | Xây dựng giao diện đo lường biên và kịch bản kiểm thử tự động ATE | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_fmea_ate_v10 | Phân tích cảm biến MEMS quang từ, toàn vẹn tín hiệu SI/PI và FMEA phần cứng ATE | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_ate_kiem_thu_v10 | Xây dựng giao diện biên ATE kiểm thử tự động phần cứng tích hợp Secure Boot | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_va_fmea_v11 | Nghiên cứu nguyên lý cảm biến MEMS, phân tích SI/PI và thực thi FMEA phần cứng đo rung động | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_v11 | Phát triển giao diện biên ATE tích hợp Secure Boot và kiểm thử tự động phần cứng thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_fmea_ate_v12 | Phân tích nguyên lý cảm biến quang học, mô phỏng SI/PI và FMEA trên trạm đo quang phổ | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_v12 | Phát triển giao diện biên ATE và kịch bản kiểm thử tự động Python cho cảm biến từ tính | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_va_fmea_v13 | Phân tích nguyên lý cảm biến MEMS và đánh giá rủi ro FMEA phần cứng trong gia tốc kế | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_v13 | Lập trình kịch bản tự động hóa kiểm thử phần cứng ATE kết hợp giao diện LabVIEW | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_va_fmea_v14 | Khảo sát nguyên lý cảm biến MEMS và phân tích FMEA phần cứng module đo gia tốc | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_v14 | Phát triển giao diện biên tích hợp kiểm thử tự động ATE và mã hóa an toàn phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_va_fmea_thuc_chien_v1 | Phân tích nguyên lý cảm biến MEMS và đánh giá toàn vẹn tín hiệu SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_kiem_thu_v1 | Xây dựng giao diện đo lường biên và kịch bản kiểm thử tự động phần cứng HWI cho cảm biến quang | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_va_fmea_v15 | Phân tích nguyên lý cảm biến MEMS và FMEA phần cứng với dự án trạm đo gia tốc | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_v15 | Xây dựng hệ thống kiểm thử tự động ATE kết hợp quét ngưỡng tín hiệu cảm biến quang học | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_va_fmea_thuc_chien_v16 | Khảo sát cảm biến MEMS và FMEA phần cứng với trạm đo lường tự động | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_kiem_thu_v16 | Xây dựng giao diện đo lường biên và kiểm thử tự động ATE mạch cảm biến | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_fmea_ate_v17 | Đánh giá cảm biến MEMS bằng FMEA tích hợp máy đo ATE và phân tích toàn vẹn tín hiệu SI | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_ate_kiem_thu_v17 | Xây dựng giao diện đo lường biên ATE cho cảm biến quang học kết hợp chuẩn an toàn ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_va_fmea_thuc_chien_v18 | Khảo sát nguyên lý cảm biến MEMS quang từ với dự án Phân tích hỏng hóc FMEA mạch đo | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_ate_kiem_thu_v18 | Tự động hóa kiểm thử phần cứng ATE kết hợp phân tích toàn vẹn tín hiệu SI/PI trên biên | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_fmea_ate_v19 | Phân tích nguyên lý cảm biến MEMS và FMEA với trạm đo kiểm phần cứng ATE | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_ate_kiem_thu_v19 | Xây dựng giao diện đo lường biên ATE kiểm thử quang học kết hợp kịch bản tự động hóa HWI | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_fmea_ate_thuc_chien_v20 | Khảo sát nguyên lý cảm biến MEMS và phân tích FMEA phần cứng cho trạm đo | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_ate_kiem_thu_thuc_chien_v20 | Phát triển giao diện giám sát biên và kịch bản kiểm thử tự động HWI phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_va_fmea_thuc_chien_v21 | Phân tích chế độ hỏng hóc FMEA phần cứng và tính toán toàn vẹn tín hiệu SI/PI cho cảm biến MEMS quang học | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_ate_kiem_thu_v21 | Xây dựng hệ thống kiểm thử tự động ATE kết hợp kịch bản Python HWI cho cảm biến từ tính thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_va_fmea_chuyen_sau_v22 | Khảo sát nguyên lý cảm biến MEMS và phương pháp FMEA cho dự án máy đo gia tốc | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_kiem_thu_v22 | Phát triển giao diện đo lường biên và kịch bản kiểm thử tự động ATE phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_cam_bien_mems_fmea_v1 | Nghiên cứu nguyên lý cảm biến MEMS và phân tích FMEA phần cứng cho hệ thống đo lường | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_kiem_thu_v23 | Lập trình kịch bản kiểm thử tự động ATE và mô phỏng tín hiệu RF trên trạm test phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_fmea_ate_thuc_chien_v24 | Khảo sát nguyên lý MEMS và tích hợp tiêu chuẩn an toàn functional safety ASIL vào trạm đo ATE | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_ate_kiem_thu_v24 | Phát triển giao diện biên ATE tự động hóa kiểm thử phần cứng tích hợp kịch bản PyTest | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_va_fmea_v25 | Nghiên cứu nguyên lý cảm biến MEMS và phân tích FMEA phần cứng cho hệ thống đo lường | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_kiem_thu_v25 | Phát triển giao diện biên thông minh và kiểm thử tự động ATE tích hợp kịch bản PyTest | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_va_fmea_v26 | Phân tích nguyên lý MEMS và kỹ thuật FMEA trong dự án đo gia tốc | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_kiem_thu_v26 | Xây dựng giao diện đo lường biên và kiểm thử tự động ATE module cảm biến | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_va_fmea_v27 | Nguyên lý cảm biến MEMS và phân tích FMEA hệ thống trong Dự án Smart MEMS Hub | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_kiem_thu_v27 | Xây dựng giao diện đo lường biên và kịch bản ATE kiểm thử tự động phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_va_fmea_chuyen_sau_v28 | Khảo sát nguyên lý MEMS và FMEA hỏng hóc với dự án Phân tích rung động cơ khí | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_kiem_thu_v28 | Phát triển giao diện biên và kiểm thử tự động HWI/ATE cho hệ thống bo mạch | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_va_fmea_chuyen_sau_v29 | Nghiên cứu nguyên lý cảm biến MEMS quang học và phân tích FMEA phần cứng cho dự án Smart_Vibration_Monitor | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_kiem_thu_v29 | Phát triển giao diện đo lường biên Edge UI và tối ưu hóa kịch bản kiểm thử tự động ATE phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_cam_bien_mems_va_fmea_v30 | Khảo sát nguyên lý MEMS và FMEA phần cứng cho mạch đo quán tính mpu6050 | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_kiem_thu_v30 | Phát triển giao diện biên ATE kiểm thử tự động cho module cảm biến quang học | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_thong_minh_va_fmea_thuc_chien | Phân tích nguyên lý MEMS, kiểm soát SI/PI và FMEA phần cứng trạm SmartVib | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_kiem_thu_chuyen_sau | Phát triển giao diện biên Qt và kịch bản tự động hóa ATE phần cứng SmartVib | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_va_fmea_chuyen_sauf_v31 | Nghiên cứu nguyên lý cảm biến MEMS và tích hợp bảng FMEA phần cứng MPU6050 | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_kiem_thu_chuyen_sauf_v31 | Phát triển trạm kiểm thử tự động ATE và giao diện đồ họa Python giám sát biên | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_thong_minh_va_fmea_thuc_chien_v32 | Khảo sát nguyên lý cảm biến MEMS quang học và phân tích FMEA mô đun đo quán tính gia tốc kế | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_kiem_thu_chuyen_sau_v32 | Phát triển giao diện đo lường biên và kịch bản kiểm thử phần cứng ATE tự động tích hợp an ninh Secure Boot | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_va_ate_v33 | Khảo sát nguyên lý cảm biến MEMS và ATE kiểm thử tự động phần cứng v33 | roadmap_ElectricEnginneerGuiidle.md |
+| fmea_va_giao_dien_bien_v33 | Đánh giá rủi ro FMEA và tối ưu hóa toàn vẹn tín hiệu SI/PI v33 | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_va_fmea_chuyen_sau_v34 | Phân tích chế độ hỏng hóc FMEA và mô phỏng nhiệt vi cơ điện tử MEMS | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_kiem_thu_v34 | Thiết kế hệ thống ATE kiểm thử tự động phần cứng qua kịch bản Python | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_thong_minh_va_fmea_chuyen_sau_1649 | Thiết kế hệ thống cảm biến thông minh và phân tích lỗi FMEA phần cứng STM32 | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_kiem_thu_chuyen_sau_1650 | Xây dựng trạm kiểm thử tự động ATE và giao diện giám sát biên thời gian thực | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_thong_minh_va_fmea_chuyen_sau_1651 | Khảo sát nguyên lý cảm biến MEMS quang học và phân tích FMEA dự án máy đo độ rung laser v1 | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_kiem_thu_chuyen_sau_1652 | Lập trình kịch bản kiểm thử tự động ATE và phân tích toàn vẹn tín hiệu SI/PI trạm cảm biến từ tính | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_mems_va_fmea_thuc_chien_1653 | Phân tích nguyên lý cảm biến MEMS và đánh giá FMEA lỗi phần cứng gia tốc | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_kiem_thu_phan_cung_1654 | Thiết kế hệ thống kiểm thử tự động ATE kết hợp mã hóa Secure Boot cho module biên | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_va_fmea_chuyen_sau_1655 | Phân tích nguyên lý cảm biến MEMS và xây dựng bảng FMEA tối ưu | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_kiem_thu_1656 | Lập trình kịch bản kiểm thử tự động ATE và thiết kế giao diện PyQt | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_va_fmea_chuyen_sau_1657 | Khảo sát cảm biến MEMS quang học và phân tích FMEA dự án SmartGage | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_kiem_thu_1658 | Phát triển giao diện biên ATE kiểm thử tự động hệ thống cảm biến EdgeSense | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_va_fmea_chuyen_sau_1659 | Phân tích nguyên lý cảm biến MEMS và FMEA hệ thống đo lường trọng lực | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_kiem_thu_1660 | Xây dựng giao diện đo lường biên và kịch bản kiểm thử tự động ATE cho cảm biến quang | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_thong_minh_va_fmea_thuc_te_1661 | Đánh giá nguyên lý MEMS và phân tích FMEA hệ thống gia tốc kế v1661 | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_kiem_thu_1662 | Tích hợp kịch bản kiểm thử tự động ATE và phân tích toàn vẹn tín hiệu SI | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_va_fmea_chuyen_sau_1663 | Khảo sát nguyên lý cảm biến MEMS và FMEA dự án SmartVibe | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_kiem_thu_1664 | Phát triển giao diện biên và kiểm thử ATE tự động dự án SmartVibe | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_va_fmea_chuyen_sau_1665 | Khảo sát cảm biến MEMS quang học và phân tích FMEA hệ thống đo lường | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_kiem_thu_1666 | Triển khai kịch bản kiểm thử tự động ATE và phân tích toàn vẹn tín hiệu SI/PI biên | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_va_fmea_chuyen_sau_1667 | Phân tích mô phỏng toàn vẹn tín hiệu SI/PI và đánh giá FMEA cho cảm biến MEMS | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_kiem_thu_1668 | Lập trình kịch bản kiểm thử tự động ATE qua Python và bảo mật phần cứng biên | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_va_fmea_chuyen_sau_1669 | Nghiên cứu nguyên lý cảm biến MEMS và tích hợp tiêu chuẩn an toàn ASIL cho Dự án Smart Vibration Monitor | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_kiem_thu_1670 | Thiết kế hệ thống ATE tự động hóa kiểm thử phần cứng và mô phỏng SI/PI cho Dự án Edge ATE Station | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_va_fmea_1671 | Khảo sát cảm biến MEMS quang từ và tích hợp phân tích an toàn FMEA ASIL | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_kiem_thu_1672 | Phát triển giao diện Python Qt và tự động hóa kịch bản ATE kiểm thử phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_va_fmea_phan_tich_1673 | Phân tích nguyên lý cảm biến MEMS và FMEA hệ thống an toàn ASIL cho trạm đo gia tốc | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_kiem_thu_1674 | Xây dựng kịch bản kiểm thử tự động ATE kết hợp phân tích toàn vẹn tín hiệu SI/PI trên PyQt | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_va_fmea_phan_tich_1675 | Nghiên cứu nguyên lý cảm biến MEMS và phân tích FMEA hệ thống đo lường trọng lực | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_kiem_thu_1676 | Thiết kế hệ thống kiểm thử tự động ATE và tích hợp bảo mật Secure Boot cho thiết bị biên | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_cam_bien_mems_va_fmea_1677 | Phân tích cảm biến MEMS quang học và kỹ thuật FMEA thiết bị đo lường V35 | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_thu_ate_va_giao_dien_bien_1678 | Xây dựng trạm kiểm thử tự động ATE kết hợp toàn vẹn tín hiệu SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_va_fmea_chuyen_sau_1679 | Khảo sát cảm biến MEMS quang học và tích hợp phân tích hỏng hóc phần cứng FMEA | roadmap_ElectricEnginneerGuiidle.md |
+| giao_dien_bien_va_ate_kiem_thu_1680 | Lập trình kịch bản kiểm thử tự động ATE kết hợp phân tích toàn vẹn tín hiệu SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| phan_tich_mems_va_fmea_chuyen_sau_1681 | Phân tích nguyên lý cảm biến MEMS và FMEA hệ thống đo lường trọng lực | roadmap_ElectricEnginneerGuiidle.md |
+| kiem_thu_ate_va_giao_dien_bien_1682 | Kiểm thử phần cứng tự động ATE kết hợp phân tích toàn vẹn tín hiệu SI/PI cho cảm biến quang học | roadmap_ElectricEnginneerGuiidle.md |
+| cam_bien_mems_quang_tu_fmea_ate_1683 | Đánh giá toàn vẹn tín hiệu SI/PI và kiểm thử FMEA tự động hóa cho cảm biến MEMS | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_phan_cung_va_firmware_1684 | Tích hợp phần cứng RF, mô phỏng SI/PI và lập trình Firmware an toàn theo chuẩn | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_vo_may_va_thuong_mai_hoa_1685 | Chế tạo vỏ máy chống nhiễu EMC, kiểm thử tự động HWI và hoàn thiện thương mại | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_kiem_dinh_emc_va_thuong_mai_hoa_1686 | Capstone Tổng hợp: Đo kiểm phát xạ nhiễu EMC, tối ưu vỏ nhôm và đánh giá toàn vẹn tín hiệu SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_ban_giao_va_danh_gia_san_pham_1687 | Capstone Tổng hợp: Vận hành thực chiến phần cứng an toàn, kiểm thử tự động HWI và nghiệm thu hệ thống | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_mach_va_firmware_1688 | Capstone: Thiết kế PCB cao tần, tính toán SI/PI và Firmware bảo mật phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_vo_may_va_thuong_mai_1689 | Capstone: Chế tạo vỏ máy, kiểm thử tự động HWI và đóng gói thương mại IoT | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_mach_firmware_va_vo_may_1690 | Tích hợp phần cứng RF, tính toán Impedance Matching và Firmware bảo mật Secure Boot | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_phan_mem_emc_va_thuong_mai_1691 | Kiểm thử tự động HWI, phân tích toàn vẹn tín hiệu SI/PI và hồ sơ thương mại hóa | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_che_tao_va_thuong_mai_hoa_1692 | Capstone Tổng hợp: Hoàn thiện mạch phần cứng, mô phỏng SI/PI và đóng gói IoT | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_che_tao_va_thuong_mai_hoa_1693 | Capstone Tổng hợp: Kiểm định EMC, bảo mật Secure Boot và thương mại hóa sản phẩm | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_che_tao_va_thuong_mai_hoa_he_thong_iot_1694 | Capstone Tổng hợp: Thiết kế PCB đa lớp tích hợp RF, SI/PI và Firmware FreeRTOS | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_kiem_dinh_emc_va_dong_goi_thuong_mai_1695 | Capstone Tổng hợp: Kiểm định EMC, Tự động hóa Test HWI và Đóng gói Thương mại | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_thiet_ke_mach_va_firmware_1696 | Thiết kế mạch RF tần số vô tuyến và lập trình firmware an toàn theo tiêu chuẩn | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_phan_mem_dieu_khien_va_vo_may_1697 | Phát triển phần mềm giám sát tự động hóa bằng Python và chế tạo vỏ máy in 3D | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_mach_firmware_va_thuong_mai_1698 | Thiết kế Mạch RF, Phân tích SI/PI và Lập trình Firmware An toàn cho Trạm Đo Môi Trường | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_vo_may_phan_mem_va_thuong_mai_1699 | Chế tạo Vỏ máy In 3D, Kiểm thử Tự động HWI và Thương mại hóa Trạm Đo Môi Trường | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_san_xuat_va_lap_rap_he_thong_1700 | Capstone Tổng hợp: Sản xuất bo mạch, nạp firmware và lắp ráp hoàn chỉnh Hệ thống Cân Điện tử IoT Thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_emc_va_thuong_mai_hoa_san_pham_1701 | Capstone Tổng hợp: Kiểm định EMC, đóng gói thương mại và công bố hợp chuẩn Hệ thống Cân Điện tử IoT | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_mach_va_firmware_he_thong_1702 | Thiết kế Mạch RF, Phân tích SI/PI và Firmware Bảo mật ESP32 | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_vo_may_va_thuong_mai_hoa_1703 | Kiểm thử Tự động HWI, Phân tích Nhiệt và Đóng gói Sản phẩm Thương mại | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_hoan_thien_phan_cung_va_firmware_1704 | Hoàn thiện bo mạch chủ và firmware điều khiển thiết bị đo đa năng IoT | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_vo_may_va_thuong_mai_hoa_1705 | Chế tạo vỏ máy in 3D và đóng gói thương mại thiết bị đo đa năng IoT | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_thiet_ke_va_firmware_1706 | Thiết kế phần cứng RF, mô phỏng SI/PI và nạp Firmware bảo mật nâng cao trên ESP32 | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_vo_may_va_thuong_mai_1707 | Kiểm định tiêu chuẩn EMC, kịch bản HWI tự động và hoàn thiện vỏ máy thương mại | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_mach_va_firmware_1708 | Thiết kế mạch RF cao tần, tính toán Impedance Matching và Firmware bảo mật phần cứng ESP32 | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_vo_may_va_thuong_mai_1709 | Chế tạo vỏ máy CNC nhôm khối, kiểm thử tự động phần cứng HWI và chiến lược thương mại hóa | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_mach_va_vo_may_1710 | Capstone Tổng hợp: Thiết kế Altium nâng cao tích hợp kiểm soát SI/PI và mô hình cơ khí 3D SolidWorks | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_firmware_va_thuong_mai_1711 | Capstone Tổng hợp: Firmware an toàn tiêu chuẩn ASIL theo FreeRTOS và đóng gói thương mại thiết bị đo | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_mach_firmware_va_thuong_mai_1712 | Thiết kế mạch RF, toàn vẹn tín hiệu SI/PI và Firmware an toàn chuẩn IEC | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_vo_may_phan_mem_va_thuong_mai_1713 | Kiểm thử tự động HWI phần cứng, bảo mật IoT nâng cao và đóng gói sản phẩm | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_mach_firmware_va_phan_mem_1714 | Tích hợp Mạch RF, Firmware an toàn ASIL và Giao diện Qt Desktop cho Robot Trực quan | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_vo_may_emc_va_thuong_mai_1715 | Hoàn thiện Vỏ máy, Mô phỏng SI/PI, EMC và Đóng gói thương mại Robot Trực quan | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_mach_firmware_va_phan_mem_1716 | Tích hợp phần cứng IoT, Firmware MQTT và Python Dashboard kiểm thử HWI | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_vo_may_emc_va_thuong_mai_1717 | Thiết kế vỏ máy chống nhiễu EMC, mô phỏng nhiệt và đóng gói thương mại | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_mach_firmware_va_phan_mem_1718 | Tích hợp phần cứng RF, Firmware FreeRTOS an toàn và Giao diện PyQt | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_vo_may_emc_va_thuong_mai_1719 | Hoàn thiện Vỏ máy, Kiểm định EMC và Đóng gói Thương mại Sản phẩm IoT | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_che_tao_va_thuong_mai_1720 | Capstone Tổng hợp: Hoàn thiện bo mạch nguồn và mô phỏng SI/PI toàn vẹn tín hiệu | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_che_tao_va_thuong_mai_1721 | Capstone Tổng hợp: Kiểm định EMC, bảo mật phần cứng Secure Boot và đóng gói thương mại | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_che_tao_va_thuong_mai_hoa_1722 | Capstone Tổng hợp: Tích hợp Bo mạch Nguồn và Vỏ máy Trạm Y tế Di động | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_che_tao_va_thuong_mai_hoa_1723 | Capstone Tổng hợp: Kiểm định EMC Sơ bộ và Đóng gói Thương mại Thiết bị | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_mach_firmware_va_phan_mem_1724 | Thiết kế Mạch RF, Toàn vẹn Tín hiệu SI/PI và Firmware Đa nhiệm | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_vo_may_emc_va_thuong_mai_hoa_1725 | Đóng gói Vỏ máy CNC, Kiểm định EMC và Bảo mật Phần cứng IoT | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_mach_firmware_va_phan_mem_1726 | Capstone Mạch, Firmware An toàn và Phần mềm Trạm IoT X1 | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_vo_may_emc_va_thuong_mai_hoa_1727 | Capstone Đóng gói Vỏ máy, Đo kiểm EMC và Thương mại hóa X1 | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_mach_firmware_va_phan_mem_1728 | Capstone Tổng hợp: Mạch IoT, Firmware An toàn và Giao diện Giám sát | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_vo_may_emc_va_thuong_mai_1729 | Capstone Tổng hợp: Đóng gói Vỏ hộp Chuẩn EMC và Thương mại hóa Thiết bị | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_mach_firmware_va_phan_mem_1730 | Thiết kế mạch điều khiển IoT, tối ưu SI/PI và firmware WebSocket trên ESP32 | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_vo_may_emc_va_thuong_mai_hoa_1731 | Chế tạo vỏ máy 3D chống nhiễu EMC và kiểm thử tự động HWI cho sản phẩm IoT | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_che_tao_va_thuong_mai_1732 | Lắp ráp phần cứng hoàn chỉnh hệ thống thiết bị đo đa năng IoT tích hợp tản nhiệt | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_che_tao_va_thuong_mai_1733 | Nạp firmware bảo mật, kiểm định EMC và đóng gói thương mại sản phẩm IoT | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_lap_rap_va_test_1734 | Lắp ráp phần cứng và kiểm tra toàn vẹn tín hiệu SI/PI cho SmartSolar-Pro | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_firmware_va_thuong_mai_1735 | Nạp firmware an toàn chuẩn ASIL và bàn giao dự án SmartSolar-Pro | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_lap_rap_va_test_1736 | Capstone Tổng hợp: Lắp ráp cơ khí, kiểm tra toàn vẹn tín hiệu SI/PI và chạy thử phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_nap_va_ban_giao_1737 | Capstone Tổng hợp: Cấu hình Secure Boot, nạp firmware chuẩn hóa và kiểm thử tự động HWI | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_lap_rap_va_test_emc_1738 | Capstone Tổng hợp: Lắp ráp cơ điện tử và kiểm định tương thích điện từ EMC | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_thuong_mai_hoa_va_dong_goi_1739 | Capstone Tổng hợp: Hoàn thiện sản phẩm thương mại và triển khai Secure Boot | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_kiem_dinh_emc_va_hoan_thien_1740 | Capstone Tổng hợp: Kiểm định EMC, Mô phỏng SI/PI và Hoàn thiện Thiết bị IoT | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_thuong_mai_hoa_va_ban_giao_1741 | Capstone Tổng hợp: Tiêu chuẩn An toàn IEC 61508 và Bàn giao Dây chuyền Sản xuất | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_danh_gia_chuyen_doi_thuong_mai_1742 | Capstone Tổng hợp: Kiểm định tuân thủ tiêu chuẩn và tối ưu hóa BOM SolarGuard | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_ban_giao_du_an_thuong_mai_1743 | Capstone Tổng hợp: Đóng gói và Bàn giao thương mại SolarGuard Pro | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_kiem_thu_chuyen_sau_1744 | Capstone: Tối ưu hóa SI/PI và kiểm thử phần cứng IoT công nghiệp tự động | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_hoan_thien_ho_so_1745 | Capstone: Hoàn thiện hồ sơ tiêu chuẩn an toàn IEC và bàn giao sản xuất | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_kiem_thu_do_tin_cay_1746 | Capstone Tổng hợp: Kiểm thử độ tin cậy phần cứng IoT Gateway kết hợp mô phỏng nhiệt | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_chuan_bi_ho_so_iso_1747 | Capstone Tổng hợp: Hoàn thiện hồ sơ chuẩn hóa CE/FCC và tiêu chuẩn an toàn IEC | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_kiem_thu_do_tin_cay_1748 | Kiểm thử tự động HIL và mô phỏng stress test nhiệt độ cao cho thiết bị IoT | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_chuan_bi_ho_so_iso_1749 | Hoàn thiện hồ sơ tiêu chuẩn an toàn ISO và chứng nhận thương mại thiết bị IoT | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_kiem_tra_chuyen_sau_toan_dien | Capstone Tổng hợp: Đo lường SI/PI và Kiểm định Mạch RF cao tần | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_hoan_thien_ho_so_san_xuat_thuong_mai | Capstone Tổng hợp: Tự động hóa Kiểm thử HWI và Đóng gói Hồ sơ Sản xuất | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_kiem_tra_chuyen_sau_toan_dien_d1752 | Capstone Tổng hợp: Đo kiểm toàn vẹn tín hiệu SI/PI và phân tích nhiệt PCB SmartIoT-Box | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_hoan_thien_ho_so_san_xuat_thuong_mai_d1753 | Capstone Tổng hợp: Đóng gói hồ sơ sản xuất SMT và cấu hình bảo mật phần cứng Secure Boot | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1754 | Kiểm tra chuyên sâu toàn diện phần cứng thiết bị IoT y tế | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1755 | Hoàn thiện hồ sơ sản xuất thương mại và bàn giao sản phẩm | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_hoan_thien_ho_so_xuat_xuong_d1756 | Kiểm định tiêu chuẩn IEC 61508 và hoàn thiện hồ sơ xuất xưởng phần cứng IoT | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_ban_giao_thuong_mai_toan_dien_d1757 | Bàn giao thương mại toàn diện và tích hợp Edge AI phần cứng hệ thống EMS | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1758 | Kiểm định toàn vẹn tín hiệu SI/PI và cấu hình Secure Boot phần cứng IoT y tế | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1759 | Hoàn thiện hồ sơ kiểm định xuất xưởng theo tiêu chuẩn IEC và bàn giao thiết bị thương mại | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1760 | Capstone Tổng hợp: Kiểm định EMC, An toàn chức năng và Toàn vẹn tín hiệu SI/PI IoT công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1761 | Capstone Tổng hợp: Tích hợp Secure Boot, Kiểm thử HWI tự động và Bàn giao thương mại | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1762 | Kiểm định tương thích điện từ EMC và tối ưu hóa toàn vẹn tín hiệu SI/PI cho thiết bị IoT | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1763 | Tích hợp Secure Boot, cập nhật OTA và bàn giao thương mại hệ sinh thái đo lường thông minh | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1764 | Capstone Tổng hợp: Kiểm định EMC, Mô phỏng SI/PI và Kiểm thử HIL tự động | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1765 | Capstone Tổng hợp: Tích hợp Secure Boot, Tiêu chuẩn IEC 61508 và Đóng gói thương mại | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_thiet_ke_mach_va_firmware_d1766 | Thiết kế mạch in cao cấp, mô phỏng SI/PI và Firmware an toàn chuẩn hóa | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_che_tao_vo_va_thuong_mai_hoa_d1767 | Chế tạo vỏ cơ khí chính xác, kiểm thử tự động HWI và đóng gói sản phẩm IoT | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1768 | Capstone Tổng hợp: Đo kiểm EMC và Phân tích SI/PI nâng cao cho hệ thống IoT | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1769 | Capstone Tổng hợp: Hoàn thiện hồ sơ sản xuất, Secure Boot và Thương mại hóa | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_kiem_dinh_emc_thuc_te_d1770 | Đo đạc và Tối ưu hóa Tiêu chuẩn Nhiễu Điện từ EMC cho Mạch Điều khiển Đa năng | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_thuong_mai_hoa_san_pham_d1771 | Hoàn thiện Hồ sơ Kỹ thuật và Đóng gói Sản phẩm Thương mại Điện tử Công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1772 | Capstone Tổng hợp: Hoàn thiện dây chuyền sản xuất bo mạch hệ thống IoT đa năng | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1773 | Capstone Tổng hợp: Tích hợp bảo mật phần cứng và thương mại hóa SmartHome Hub X1 | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_kiem_dinh_emc_thuc_te_d1774 | Capstone Tổng hợp: Đo lường EMC và Tối ưu hóa Toàn vẹn Tín hiệu SI/PI cho Trạm IoT | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_thuong_mai_hoa_san_pham_d1775 | Capstone Tổng hợp: Bảo mật Phần cứng Nâng cao và Đóng gói Thương mại Trạm IoT | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_kiem_dinh_emc_thuc_te_d1776 | Capstone Tổng hợp: Đo lường EMC và Tối ưu hóa Toàn vẹn Tín hiệu SI/PI cho IoT Gateway | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_thuong_mai_hoa_san_pham_d1777 | Capstone Tổng hợp: Tích hợp Bảo mật Phần cứng và Hoàn thiện Hồ sơ Thương mại hóa IoT | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1778 | Sản xuất hàng loạt và kiểm định tự động phần cứng IoT năng lượng mặt trời | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1779 | Triển khai vận hành thực tế và bàn giao hệ thống SmartSolar Pro cho doanh nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1780 | Capstone Tích hợp phần cứng RF và Mô phỏng toàn vẹn tín hiệu SI/PI cho trạm IoT | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1781 | Capstone Kiểm thử tự động HWI và Đóng gói thương mại trạm IoT đạt chuẩn công nghiệp | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1782 | Capstone Tổng hợp: Đo kiểm độ bền phần cứng IoT và phân tích SI/PI nâng cao | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1783 | Capstone Tổng hợp: Đóng gói thương mại, bảo mật phần cứng và bàn giao thiết bị PV-Monitor | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_kiem_dinh_emc_va_hoan_thien_d1784 | Capstone Tổng hợp: Đo lường bức xạ và tối ưu hóa lọc EMC thiết bị y tế | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_thuong_mai_hoa_va_ban_giao_d1785 | Capstone Tổng hợp: Hoàn thiện hồ sơ pháp lý xuất xưởng và chuyển giao công nghệ | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1786 | Capstone Tổng hợp: Đo kiểm nhiễu EMC thiết bị IoT đa năng kết hợp phân tích SI/PI | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1787 | Capstone Tổng hợp: Tích hợp Secure Boot, kiểm thử tự động HWI và bàn giao thương mại | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1788 | Hoàn thiện phần cứng IoT năng lượng mặt trời tích hợp kiểm thử tự động HWI | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1789 | Đóng gói vỏ hộp sản phẩm công nghiệp và bàn giao thiết bị giám sát | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1790 | Capstone Tổng hợp: Đo kiểm độ bền nhiệt và Phân tích nhiệt vỏ thiết bị IoT y tế | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1791 | Capstone Tổng hợp: Đóng gói thương mại, Kiểm thử tự động HWI và Bàn giao sản phẩm | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1792 | Capstone Tổng hợp: Đo kiểm chuẩn xác EMC và mô phỏng SI/PI trên bo mạch X-100 | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1793 | Capstone Tổng hợp: Tích hợp Secure Boot, kiểm thử tự động HWI và bàn giao thiết bị X-100 | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1794 | Đóng gói thương mại sản phẩm IoT Smart Energy Gateway V1.0 | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1795 | Kiểm định tiêu chuẩn IEC và bàn giao lô hàng IoT Gateway | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1796 | Capstone Tổng hợp: Đo kiểm EMC và tối ưu toàn vẹn tín hiệu SI/PI trạm IoT | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1797 | Capstone Tổng hợp: Tích hợp bảo mật phần cứng Secure Boot và bàn giao thương mại | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1798 | Capstone Tổng hợp: Đo kiểm nhiễu EMC thiết bị IoT y tế | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1799 | Capstone Tổng hợp: Tích hợp bảo mật phần cứng Secure Boot và kiểm thử tự động HWI | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_do_kiem_emc_va_hoan_thien_san_pham_d1800 | Đo kiểm EMC bức xạ, tích hợp Secure Boot và đóng gói phiên bản thương mại | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_ban_giao_thuong_mai_va_ho_so_ky_thuat_d1801 | Nghiệm thu thương mại lô sản phẩm năng lượng và bàn giao hồ sơ SI/PI phần cứng | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_do_kiem_emc_va_hoan_thien_san_pham_d1802 | Đo kiểm EMC thiết bị IoT Gateway và phân tích toàn vẹn tín hiệu SI/PI cơ bản | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_ban_giao_thuong_mai_va_ho_so_ky_thuat_d1803 | Đóng gói mã hóa phần cứng Secure Boot và bàn giao lô hàng thương mại | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_do_kiem_emc_va_hoan_thien_d1804 | Kiểm định nhiễu điện từ EMC và tối ưu hóa toàn vẹn tín hiệu SI/PI cho Edge Gateway X | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_ban_giao_thuong_mai_va_ho_so_ky_thuat_d1805 | Tích hợp bảo mật Secure Boot phần cứng và hoàn thiện hồ sơ thương mại Edge Gateway X | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1806 | Đo kiểm EMC, mô phỏng SI/PI và tích hợp bảo mật phần cứng trạm sạc EV | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1807 | Kiểm thử tự động HWI, tiêu chuẩn an toàn IEC và bàn giao thương mại trạm sạc EV | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1808 | Đo kiểm EMC bức xạ giả lập và tối ưu hóa toàn vẹn tín hiệu SI/PI cho Trạm Khí tượng | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1809 | Cấu hình bảo mật phần cứng Secure Boot và bàn giao hợp đồng OEM sản phẩm IoT | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1810 | Đo kiểm EMC bức xạ và kiểm tra toàn vẹn tín hiệu SI/PI cho Gateway v1.0 | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1811 | Kiểm thử tự động HWI và bàn giao thương mại hồ sơ kỹ thuật Gateway v1.0 | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_do_kiem_emc_va_hoan_thien_san_pham_d1812 | Capstone Tổng hợp: Đo kiểm EMC, phân tích SI/PI và hoàn thiện thiết bị IoT | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_ban_giao_thuong_mai_va_ho_so_ky_thuat_d1813 | Capstone Tổng hợp: Lập hồ sơ kỹ thuật, kiểm thử tự động HWI và bàn giao thương mại | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_do_kiem_emc_va_hoan_thien_d1814 | Đo kiểm EMC bức xạ và tối ưu toàn vẹn tín hiệu SI/PI cho trạm IoT Edge AI | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_ban_giao_thuong_mai_va_ho_so_ky_thuat_d1815 | Bàn giao thương mại tích hợp bảo mật Secure Boot và lập hồ sơ kỹ thuật IoT | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1816 | Capstone Tổng hợp: Đo kiểm EMC bức xạ và phân tích Signal Integrity thiết bị IoT dòng d1816 | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1817 | Capstone Tổng hợp: Bàn giao thương mại sản phẩm IoT tích hợp Secure Boot và lập trình an toàn d1817 | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1818 | Capstone Tổng hợp: Đo kiểm EMC và tối ưu hóa toàn vẹn tín hiệu SI/PI thiết bị IoT | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1819 | Capstone Tổng hợp: Kiểm thử tự động phần cứng HWI và phát hành hồ sơ kỹ thuật IoT | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1820 | Capstone Tổng hợp: Đo kiểm chuẩn EMC và mô phỏng SI/PI nâng cao cho thiết bị IoT | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1821 | Capstone Tổng hợp: Tích hợp Secure Boot, kiểm thử tự động HWI và bàn giao dây chuyền | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1822 | Capstone Tổng hợp: Đo kiểm EMC bức xạ, miễn nhiễm và phân tích SI/PI nâng cao cho trạm IoT Edge | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1823 | Capstone Tổng hợp: Bàn giao thương mại, bảo mật phần cứng Secure Boot và phát hành hồ sơ kỹ thuật | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1824 | Đo kiểm EMC phát xạ cho hệ thống IoT công nghiệp toàn diện | roadmap_ElectricEnginneerGuiidle.md |
+| capstone_tong_hop_d1825 | Bàn giao thương mại và phát hành hồ sơ kỹ thuật sản phẩm | roadmap_ElectricEnginneerGuiidle.md |

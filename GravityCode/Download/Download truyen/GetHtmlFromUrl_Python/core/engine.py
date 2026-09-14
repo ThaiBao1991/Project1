@@ -1,4 +1,8 @@
 import logging
+import re
+import base64
+import zlib
+import html as html_module
 import requests
 import cloudscraper
 from bs4 import BeautifulSoup, Tag
@@ -80,32 +84,191 @@ class GetHtmlEngine:
             return None
 
     def get_chapter_title_and_content(self, url: str, page_config: PageConfig) -> Chapter:
-        """Lấy tiêu đề và nội dung của một chương truyện"""
+        """Lấy tiêu đề và nội dung của một chương truyện.
+        Dispatch tới một trong các mode:
+          - 'xtruyen_decrypt' : base64-custom + zlib inflate (xtruyen.vn)
+          - 'openclaw'        : dùng Chrome thật qua OpenClaw CLI (các site bị bảo vệ JS mạnh)
+          - ''               : standard CSS selector (mặc định)
+        """
+        mode = getattr(page_config, 'content_mode', '')
+        if mode == 'xtruyen_decrypt':
+            return self._get_chapter_xtruyen(url, page_config)
+        if mode == 'openclaw':
+            return self._get_chapter_openclaw(url, page_config)
+        # ── Standard mode ───────────────────────────────────────────────────
         chapter = Chapter()
-        
         soup = self.fetch_html(url, page_config)
         if not soup:
             chapter.is_get_failed = True
             return chapter
-            
-        # Lấy tiêu đề TRƯỚC KHI filter
+        # Lấy tiêu đề TRƯỜC KHI filter
         if page_config.css_query_get_chapter_title:
             title_els = soup.select(page_config.css_query_get_chapter_title)
             if title_els:
                 chapter.title = title_els[0].get_text(strip=True)
-                
         # Lấy nội dung
         if page_config.css_query_get_chapter_content:
             content_els = soup.select(page_config.css_query_get_chapter_content)
             if content_els:
                 html_parts = []
                 for el in content_els:
-                    # Chỉ áp dụng filter lên content block
                     filtered_el = self.filter_html(el, page_config.css_filter)
                     html_parts.append(str(filtered_el))
-                    
                 chapter.content = "<br/>".join(html_parts)
-                
+        return chapter
+
+    # ======================================================================
+    # MODE: xtruyen_decrypt  ─ Custom base64 + zlib inflate (xtruyen.vn)
+    # Cơ chế:
+    #   1. HTML trang chương chứa <script id="decompress-script"> với biến
+    #      const data_x = "..."; — chuỗi base64 dùng bảng chữ cái URL-safe riêng.
+    #   2. Dịch bảng chữ cái custom -> standard base64.
+    #   3. base64.b64decode() -> raw bytes -> zlib.decompress() -> HTML text chương.
+    #   4. Các bảng cử `s` và `c` được parse động từ script để tránh giả mã cứng.
+    # ======================================================================
+    def _get_chapter_xtruyen(self, url: str, page_config: PageConfig) -> Chapter:
+        """Giải mã nội dung chương từ xtruyen.vn (và các site cùng cơ chế)."""
+        chapter = Chapter()
+        try:
+            scraper = self._get_scraper(page_config)
+            headers = {
+                'Referer': f"https://{page_config.page_code}/",
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+                'Accept-Language': 'vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7',
+                'Sec-Ch-Ua': '"Not A(Brand";v="8", "Chromium";v="132", "Google Chrome";v="132"',
+                'Sec-Ch-Ua-Mobile': '?0',
+                'Sec-Ch-Ua-Platform': '"Windows"',
+                'Sec-Fetch-Dest': 'document',
+                'Sec-Fetch-Mode': 'navigate',
+                'Sec-Fetch-Site': 'same-origin',
+                'Sec-Fetch-User': '?1',
+                'Upgrade-Insecure-Requests': '1',
+            }
+            resp = scraper.get(url, headers=headers, timeout=25)
+            html_text = resp.text
+
+            # Kiểm tra xem có bị tạm khóa IP / spam dữ liệu không
+            spam_signatures = [
+                "Truy cập bị từ chối",
+                "tạm khóa IP",
+                "spam dữ liệu quá nhanh",
+                "hành vi spam",
+                "khóa IP của bạn"
+            ]
+            if any(sig in html_text for sig in spam_signatures) or resp.status_code in (429, 403):
+                logger.warning(f"⚠️ xtruyen: Hệ thống tạm khóa IP hoặc chặn spam tại {url}")
+                chapter.is_ip_banned = True
+                chapter.is_get_failed = True
+                return chapter
+
+            resp.raise_for_status()
+
+            # ── 1. Parse bảng chữ cái từ script (tránh hardcode) ──────────────
+            # Script chứa: const s = _0x2d6e55(0x122), c = _0x2d6e55(0x121);
+            # sau khi obfuscation rã ra thì s và c được define trong mảng _0x15f240
+            # có giá trị cố định nên có thể parse được bằng regex
+            S_FALLBACK = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+            C_FALLBACK = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_'
+
+            # Parse trực tiếp từ mảng constant trong JS
+            arr_match = re.search(
+                r"'(ABCDEFGHIJKLMNOPQRSTUVWXYZ[^']{44,70})'",
+                html_text
+            )
+            cust_match = re.search(
+                r"'(0123456789abcdefghijklmnopqrstuvwxyz[^']{25,40})'" ,
+                html_text
+            )
+            s_chars = arr_match.group(1) if arr_match else S_FALLBACK
+            c_chars = cust_match.group(1) if cust_match else C_FALLBACK
+
+            # ── 2. Tìm data_x ────────────────────────────────────────────────
+            data_match = re.search(r'const\s+data_x\s*=\s*"([^"]+)"', html_text)
+            if not data_match:
+                logger.error(f"xtruyen_decrypt: không tìm thấy data_x tại {url}")
+                chapter.is_get_failed = True
+                return chapter
+            data_x = data_match.group(1)
+
+            # ── 3. Dịch bảng chữ cái + b64decode + zlib inflate ──────────
+            trans_table = str.maketrans(c_chars, s_chars)
+            translated = data_x.translate(trans_table)
+            raw_bytes  = base64.b64decode(translated)
+            content_html = zlib.decompress(raw_bytes).decode('utf-8')
+
+            # ── 4. Lấy title từ JSON-LD schema trong HTML ──────────────────
+            soup = BeautifulSoup(html_text, 'html.parser')
+            chapter.title = ""
+
+            # Thử từ JSON-LD ("name": "Chương X - Tiêu đề")
+            for s_tag in soup.find_all('script', type='application/ld+json'):
+                name_m = re.search(r'"name"\s*:\s*"([^"]+)"', s_tag.get_text())
+                if name_m:
+                    chapter.title = html_module.unescape(name_m.group(1)).strip()
+                    break
+
+            # Fallback: tham số CSS cấu hình
+            if not chapter.title and page_config.css_query_get_chapter_title:
+                t_els = soup.select(page_config.css_query_get_chapter_title)
+                if t_els:
+                    chapter.title = t_els[0].get_text(strip=True)
+
+            # Fallback cuối: rút tiêu từ đầu nội dung (dòng đầu tiên thường là "Chương N: Tên")
+            if not chapter.title:
+                first_line = re.split(r'</?p>', content_html.strip())[0]
+                chapter.title = BeautifulSoup(first_line, 'html.parser').get_text(strip=True)
+
+            chapter.content = content_html
+            return chapter
+
+        except Exception as e:
+            logger.error(f"xtruyen_decrypt lỗi tại {url}: {e}")
+            chapter.is_get_failed = True
+            return chapter
+
+    # ======================================================================
+    # MODE: openclaw ─ Chrome thật qua OpenClaw CLI (các site chẹn bot mạnh)
+    # Cơ chế:
+    #   1. Python gọi `openclaw browser start` → bật Chrome thật (không có
+    #      --enable-automation, không có headless flag) → bypass DevTools detect.
+    #   2. `openclaw browser open <url>` → mở tab mới, chờ JS render.
+    #   3. `openclaw browser wait --selector <css>` → chờ đến khi content xuất hiện.
+    #   4. `openclaw browser evaluate --fn "return el.innerHTML;" --json` → lấy HTML.
+    #   5. Đóng tab sau khi lấy xong.
+    # Lưu ý: OpenClaw phải được cài và có trong PATH (npm install -g openclaw).
+    # ======================================================================
+    def _get_chapter_openclaw(self, url: str, page_config: PageConfig) -> Chapter:
+        """Dùng Chrome thật qua OpenClaw CLI để lấy nội dung chương."""
+        from core.openclaw_browser import OpenClawBrowser, OpenClawBrowserError
+
+        chapter = Chapter()
+        browser = OpenClawBrowser(timeout_ms=40000)
+
+        result = browser.fetch_chapter(
+            url=url,
+            content_selector=page_config.css_query_get_chapter_content or "body",
+            title_selector=page_config.css_query_get_chapter_title or None,
+            wait_selector=page_config.css_query_get_chapter_content or None,
+            wait_ms=8000,
+            wait_after_nav=3.0,
+        )
+
+        if not result.get("ok"):
+            logger.error(f"openclaw mode lỗi tại {url}: {result.get('error')}")
+            chapter.is_get_failed = True
+            return chapter
+
+        chapter.title   = result.get("title", "")
+        raw_html        = result.get("content", "")
+
+        # Apply css_filter nếu có
+        if page_config.css_filter and raw_html:
+            soup_content = BeautifulSoup(raw_html, "html.parser")
+            soup_content = self.filter_html(soup_content, page_config.css_filter)
+            chapter.content = str(soup_content)
+        else:
+            chapter.content = raw_html
+
         return chapter
 
     def get_list_chapter_links(self, url: str, page_config: PageConfig, log_fn=None) -> List[str]:
@@ -254,7 +417,26 @@ class GetHtmlEngine:
 
             page_links = []
             for el in soup.select(css_query):
-                if el.name == 'a' and el.has_attr('href'):
+                if el.name == 'option':
+                    # ── Xử lý <option> selector (VD: xtruyen.vn dùng select làm mục lục) ──
+                    # Option có data-redirect (URL đầy đủ) → dùng trực tiếp
+                    redirect = el.get('data-redirect', '')
+                    if redirect:
+                        href = redirect
+                    else:
+                        # Build URL từ text option: "Chương 42" → /truyen/{slug}/chuong-42/
+                        opt_text = el.get_text(strip=True)
+                        chap_m = re.search(r'\d+', opt_text)
+                        if chap_m:
+                            # Lấy slug từ URL trang truyện (phần path thứ 2)
+                            from urllib.parse import urlparse as _up
+                            parsed_base = _up(current_url)
+                            path_parts = [p for p in parsed_base.path.split('/') if p]
+                            slug = path_parts[1] if len(path_parts) > 1 else path_parts[0]
+                            href = f"{parsed_base.scheme}://{parsed_base.netloc}/truyen/{slug}/chuong-{chap_m.group()}/"
+                        else:
+                            continue
+                elif el.name == 'a' and el.has_attr('href'):
                     href = el['href']
                 else:
                     a = el.find('a', href=True)

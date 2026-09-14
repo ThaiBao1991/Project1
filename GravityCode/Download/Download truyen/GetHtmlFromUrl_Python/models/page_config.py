@@ -34,6 +34,11 @@ class PageConfig:
     # AJAX pagination fields (dùng khi danh sách chương load qua API JS, ví dụ truyennet.org)
     ajax_list_chap_url: str = ""   # URL mẫu API, ví dụ: "/get/listchap/{id}?page={page}"
     ajax_list_chap_id: str = ""    # Book ID cần truyền vào URL trên
+    # Content mode: rỗng = standard CSS, "xtruyen_decrypt" = giải mã base64+zlib inline
+    content_mode: str = ""
+    # Per-host rate limiting (0 = dùng cấu hình chung từ Settings)
+    delay_ms: int = 0
+    max_connection: int = 0
 
     def __eq__(self, other):
         if not isinstance(other, PageConfig):

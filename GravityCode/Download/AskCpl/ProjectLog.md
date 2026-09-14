@@ -1,3 +1,96 @@
+## 2026-09-13 — Fix Lỗi KaTeX Không Render Công Thức (defer+onload Bug) — HOÀN THÀNH ✅
+
+### 1. Nguyên Nhân Gốc Rễ
+Cách nhúng KaTeX `auto-render.min.js` dùng **`defer` + `onload` trên cùng một thẻ `<script>`** là một bug phổ biến:
+- `defer` làm script chạy sau khi DOM parse xong.
+- `onload` của `<script>` là sự kiện *tải file xong* (network load), **không phải** sự kiện *execute xong*.
+- Khi dùng đồng thời, `onload` không fire trên Chrome/Edge → `renderMathInElement` không bao giờ được gọi → công thức hiển thị thô (`$...$`).
+
+### 2. Files Đã Sửa
+- **`auto_ai_worker.py`** (line 1063–1087):
+  - Xóa `onload=...` khỏi thẻ `<script defer auto-render>`.
+  - Thêm `<script>document.addEventListener("DOMContentLoaded", ...)` vào cuối `<body>` của mỗi file HTML được sinh ra.
+- **`nav_injector.py`** (line 304–328):
+  - Cùng fix như trên.
+  - Bổ sung logic inject DOMContentLoaded render call trước `</body>` nếu file chưa có.
+
+### 3. Patch Các File HTML Đã Tạo
+- Script `patch_katex_html.py` (one-time, đã xóa sau khi chạy) đã patch **7/8 file HTML** trong `D:\Roadmap\DienDaNang`.
+- File thứ 8 (`index.html`) không có KaTeX → bình thường, bỏ qua đúng.
+
+### 4. Verification
+- ✅ `python -m py_compile auto_ai_worker.py nav_injector.py`: SYNTAX OK.
+- ✅ Kiểm tra file HTML sau patch: `Has OLD defer+onload bug: False`, `Has DOMContentLoaded render call: True`, `Has renderMathInElement call: True`.
+- ⚠️ **Cần user tự kiểm tra**: Mở file HTML trong trình duyệt và xác nhận công thức hiển thị đúng (VD: `$U = I \times R$` phải render thành chữ toán, không hiện ký tự `$`).
+
+---
+
+
+
+### 1. Vấn Đề Gốc Rễ Đã Giải Quyết
+- Khi tạo lộ trình cho các lĩnh vực rộng hoặc đa nghĩa (ví dụ: *Kỹ sư điện, Lập trình, Cơ khí...*), AI thường tự quyết định hướng đi chung chung hoặc không đúng nhánh mục tiêu chuyên sâu mà người dùng mong muốn.
+- Người dùng cần một cơ chế tương tác tự động: AI tự phát hiện ngã rẽ chuyên môn $\rightarrow$ tạm dừng tiến trình $\rightarrow$ hiển thị popup trắc nghiệm hỏi người dùng $\rightarrow$ chờ người dùng chọn xong mới tiếp tục tạo lộ trình.
+
+### 2. Các Thay Đổi Cụ Thể Trong `AskCpl.py`
+- **PASS 0.5 (Branching & Specialization Analysis)**:
+  - Ngay sau PASS 0 (Vét cạn tri thức) và Gap Check trong `_roadmap_v5_step1`, AI phân tích danh mục kiến thức đã quét và tạo 1–3 câu hỏi trắc nghiệm ngắn gọn về các hướng rẽ trọng tâm.
+  - Nếu chủ đề đã đơn nhất / rất cụ thể, AI trả về mảng rỗng `[]` và tiếp tục chạy tự động mà không làm phiền.
+- **Hộp thoại Tương tác `_ask_interactive_branching_quiz`**:
+  - Khi có câu hỏi rẽ nhánh: Kích hoạt modal popup `🎯 AI Hỏi Định Hướng Chuyên Sâu` trên UI thread.
+  - Luồng nền (`threading.Thread`) tạm dừng an toàn bằng `branch_event.wait(timeout=600)`.
+  - Hỗ trợ câu hỏi đơn (Radiobutton) lẫn câu hỏi đa phương án (Checkbutton).
+  - Có cơ chế chống deadlock: Dù người dùng xác nhận, chọn "Bỏ qua", hay bấm nút `[X]` đóng cửa sổ, `event.set()` luôn được gọi an toàn để pipeline không bao giờ bị treo.
+- **Tự động hợp nhất vào Context**:
+  - Các lựa chọn của người dùng được tự động format dạng `[ĐỊNH HƯỚNG CHUYÊN SÂU ĐÃ CHỌN]` và nối tiếp vào `snapshot['context']` đồng thời cập nhật ngay lên ô nhập liệu trên giao diện chính.
+  - Các PASS tiếp theo (PASS 1A, PASS 1B, PASS 2–6, Bước 3) kế thừa đầy đủ định hướng này để sinh các bài học đúng 100% mục tiêu.
+
+### 3. Kiểm Thử & Xác Minh (Verification)
+- ✅ `python -m py_compile AskCpl.py`: SYNTAX OK.
+- ✅ Unit test Event synchronization & context formatting: PASS.
+- ✅ `python -m unittest test_roadmap_pipeline.py`: PASS 20/20 tests.
+- ✅ Dọn dẹp sạch toàn bộ file scratch/test tạm thời.
+
+---
+
+## 2026-09-13 — Tích Hợp KaTeX, Trắc Nghiệm Định Hình (Scoping Wizard) & Fix AI Bỏ Quên Yêu Cầu Bổ Sung — HOÀN THÀNH ✅
+
+### 1. Vấn Đề Gốc Rễ Đã Giải Quyết
+1. **Lỗi công thức toán / kỹ thuật**: Trình duyệt không render được mã LaTeX thô ($...$, $$...$$), ký tự ôm bị lỗi hiển thị.
+2. **AI không đọc/bỏ quên ô "Yêu cầu bổ sung" (`context`)**:
+   - Biến `context` trước đây chỉ được đưa vào PASS 1A (chia phase).
+   - Khi chạy PASS 1B (sinh micro-days), PASS 2-5 (phản biện), PASS 6 (chỉnh sửa), và Bước 3 (viết prompt/nội dung), biến `context` bị bỏ sót hoàn toàn! Khiến AI sinh ra các bài học generic, mất đi định hướng thực tế của người dùng.
+3. **Thiếu công cụ tương tác định hình (Scoping Wizard)**: Người dùng phải tự gõ các yêu cầu phức tạp thay vì có bảng trắc nghiệm lựa chọn phong cách học, công thức, trắc nghiệm, thiết bị.
+4. **AI không chủ động sinh công thức LaTeX và câu hỏi trắc nghiệm**: Thiếu directive bắt buộc ở tầng prompt Bước 3 và tầng Addon Chrome.
+
+### 2. Các Thay Đổi Cụ Thể
+- **Tích hợp KaTeX Rendering vào tất cả HTML template**:
+  - `auto_ai_worker.py`: Nhúng KaTeX CSS + JS + Auto-render extension vào `<head>` của các file bài học và viewer.
+  - `CopilotWordExportAddon/background.js`: Nhúng KaTeX vào template HTML xuất ra từ Addon.
+  - `nav_injector.py`: Tự động nhúng KaTeX CDN vào `<head>` của các file HTML cũ khi chạy inject nav.
+- **Nâng cấp `AskCpl.py`**:
+  - **Giao diện & Scoping Wizard**:
+    - Thêm nút `🪄 Trắc Nghiệm Định Hình` vào thanh `f_actions` (màu `#16a085`).
+    - Viết method `open_scoping_wizard(self)`: Dialog popup trực quan với 4 câu hỏi trắc nghiệm (Mục tiêu thực chiến vs R&D bo mạch, Chuẩn công thức LaTeX, Đánh giá kiểm tra trắc nghiệm & DoD, Trang thiết bị dụng cụ). Khi bấm "Áp Dụng", tự format và ghi vào ô `ai_roadmap_context_text`.
+  - **Khắc phục triệt để lỗi bỏ quên Yêu cầu bổ sung (`context`)**:
+    - PASS 1B (`_roadmap_v5_step1`): Nhúng `snapshot['context']` vào prompt sinh từng Day.
+    - PASS 2-5 Reviewers (`_roadmap_v5_step2`): Bổ sung `context` vào prompt phản biện.
+    - PASS 6 (`_roadmap_v5_step2`): Bổ sung `context` vào prompt sửa lỗi phase.
+    - Bước 3 (`_roadmap_v5_step3`): Nhúng `snapshot['context']` vào cả chế độ `template` và `llm`.
+    - Đồng thời cập nhật đồng bộ các phương thức legacy: `_roadmap_gen_step1_thread`, `_roadmap_gen_step2_thread`, `_roadmap_gen_step3_thread`.
+  - **Ép chỉ thị công thức LaTeX & Câu hỏi trắc nghiệm có đáp án**:
+    - Bổ sung yêu cầu bắt buộc: Trình bày đầy đủ công thức toán/kỹ thuật LaTeX chuẩn ($$...$$ hoặc $...$), chú thích đại lượng và đơn vị đo (Ohm Ω, V, A, W, F...).
+    - Cuối bài giảng BẮT BUỘC có mục `### Câu hỏi trắc nghiệm & Tình huống thực tế` gồm 3-5 câu trắc nghiệm tự kiểm tra kèm đáp án chi tiết và giải thích.
+- **Nâng cấp `CopilotWordExportAddon/content_script.js`**:
+  - Tại hàm `buildPromptWithMemory`, tự động phát hiện và bổ sung yêu cầu công thức LaTeX và 3-5 câu trắc nghiệm có đáp án trước khi gửi sang giao diện AI web nếu prompt gốc chưa có.
+
+### 3. Kiểm Thử & Xác Minh (Verification)
+- ✅ `python -m py_compile AskCpl.py auto_ai_worker.py nav_injector.py`: SYNTAX OK.
+- ✅ `python -m unittest test_roadmap_pipeline.py`: PASS 20/20 tests.
+- ✅ Assertion script kiểm tra toàn bộ 10 điểm can thiệp code trong `AskCpl.py`, `content_script.js`, `background.js`, `auto_ai_worker.py`, `nav_injector.py`: PASS 100%.
+- ✅ Đã dọn dẹp sạch toàn bộ file tạm sau khi test.
+
+---
+
 ## 2026-09-10 — Fix Nút Next Khi Tải Tăng Dần (Incremental / Live Download) & Smart Toast — HOÀN THÀNH ✅
 
 ### 1. Vấn Đề Gốc Rễ Đã Giải Quyết
@@ -3138,3 +3231,82 @@ efresh_list() ngay bên trong vòng lặp sau mỗi lần gọi API trả kết 
 - Hoat dong: Chinh sua UI de phu hop voi moi kich thuoc man hinh.
 - Chi tiet: Gom cac Checkbox cau truc vao 1 hang ngang. Thu nho Dan y ky thuat con 50%. Gom cac nut chay Step 1, 2, 3 len tren cung 1 hang ngang (Region Actions) de luon co the bam duoc.
 - Trang thai: ✅ DONE
+## 2026-09-13: Facebook Reel media test — DASH fragments must not be saved as MP4
+
+- **Test URL**: `https://www.facebook.com/reel/1584103809781590`
+- **OpenClaw validation**: The paired Chrome tab was inspected read-only. Facebook exposed a `Video player`; the active Reel was `1080×1920`, duration about `19.77s`, with short caption text. It is a video-only post; no post image should be downloaded.
+- **Root cause of broken downloads**: Facebook supplied the Reel through Media Source/DASH. The `<video>` element had no direct `src`; CDN traffic contained init/index/media fragments (`ftyp ... dash/cmfc`, `moof`, `sidx`). Each fragment can be labelled `video/mp4` but is not a playable standalone MP4.
+- **Addon safeguard applied**:
+  - Do not use `webRequest` playback URLs as video download candidates.
+  - Reject manifest/fragment URLs and inspect the first bytes of every candidate before calling `chrome.downloads`.
+  - Only count a video when the background worker confirms a successful download.
+  - If a complete MP4 cannot be verified, skip it rather than writing a corrupted `.mp4` file.
+- **Current outcome**: This Reel is recognized as a video correctly. The safe direct-download flow must skip it because Facebook does not expose a complete progressive MP4 in the page. Downloading it correctly requires a separate manifest/segment download-and-mux pipeline (for example, a local FFmpeg helper); this has not been enabled yet.
+- **OpenClaw operating note**: Use a dedicated test tab, grant that tab in OpenClaw's *Selected tabs* access mode, then use `browser tabs`, `browser snapshot`, and read-only `browser evaluate`. Never navigate the Activity Log tab during a media test and never invoke the scan/unlike flow for diagnosis alone.
+- **Reusable guidance**: Added project skill `.agents/skills/openclaw-fb-addon-check/SKILL.md` for future OpenClaw checks of this addon.
+## 2026-09-13: Implemented local Reel DASH download + mux helper
+
+- **Scope**: Added a local-only helper for Facebook Reel URLs. The extension sends the permalink to `FacebookMediaHelper/server.js`; the helper invokes installed `yt-dlp` and FFmpeg to discover DASH audio/video tracks, download them, and mux one complete MP4.
+- **Safety behavior**:
+  - The helper listens only on `127.0.0.1:48765` and accepts only a Facebook `/reel/<id>` HTTPS URL from a Chrome extension origin with the expected request header.
+  - The extension never saves a network playback fragment. If the helper is unavailable or fails, the Reel is not downloaded and the Like is retained.
+  - Video-only Reel posts still queue no images. Captionless/unverified Reel posts still never authorize Unlike.
+- **Files changed**:
+  - `DownloadImgFacebook/FacebookLikedMediaAddon/manifest.json` — grants only the local helper URL.
+  - `DownloadImgFacebook/FacebookLikedMediaAddon/background.js` — sends `DOWNLOAD_REEL_WITH_HELPER` to the local helper.
+  - `DownloadImgFacebook/FacebookLikedMediaAddon/content_script.js` — routes Reel permalinks to the helper and prevents Unlike when helper download fails.
+  - `DownloadImgFacebook/FacebookMediaHelper/server.js` and `start_helper.cmd` — local yt-dlp/FFmpeg server and launcher.
+- **Live verification**:
+  - Input Reel: `https://www.facebook.com/reel/1584103809781590`
+  - Output: `C:\Users\games\Desktop\FB_Liked_Media\video\Reel_1584103809781590_mux_test.mp4`
+  - `ffprobe` verified a playable MP4 container (`3,282,498` bytes), AV1 video `1080×1920`, AAC audio, duration `19.767326s`.
+- **Operation**: Run `FacebookMediaHelper\start_helper.cmd`, then reload the unpacked extension once at `chrome://extensions`. Keep the helper window/process running while the addon downloads Reels.
+## 2026-09-13: Helper launcher handles already-running server
+
+- **Observed issue**: Starting `FacebookMediaHelper\start_helper.cmd` a second time raised Node `EADDRINUSE` for `127.0.0.1:48765`.
+- **Diagnosis**: The local helper launched during the Reel verification was healthy and already listening on that port; `GET /health` returned the configured video output directory.
+- **Fix**:
+  - `start_helper.cmd` now checks `/health` first and exits successfully with an `already running` message.
+  - `server.js` now handles `EADDRINUSE` explicitly, avoiding an unhandled Node error stack when it is invoked directly.
+- **Next diagnostic rule**: If a Reel does not download while `/health` succeeds, reload the extension so its new localhost permission and helper message handler are active, then use the addon log to confirm the `Reel DASH detected` message.
+## 2026-09-13: Fixed Reel helper dispatch dropped by content-script result mapping
+
+- **Observed addon log**: Reel `1584103809781590` opened in a background tab, then returned `0 images, 0 videos` and was skipped as unverified even while the local helper was healthy.
+- **Root cause**: `background.js` sent the Reel permalink as `sourceUrl`, but `openAndExtractMedia()` did not copy `tabResult.sourceUrl` into its returned media object. The Reel helper candidate test therefore always evaluated false.
+- **Fix**: Preserve `sourceUrl` in the background timeout result and through `content_script.js` from the permalink resolver to the helper-dispatch decision. A Reel with no direct MP4 can now correctly call the local yt-dlp/FFmpeg helper instead of being discarded.
+- **Required verification**: Reload the unpacked extension, reset only its processed cache if this Reel was already marked skipped, then scan the Reel again. Expected log: `Reel DASH detected. Sending permalink to local FFmpeg helper...`.
+## 2026-09-13: AskCpl Facebook Background Runner
+
+- **Goal**: Run the Facebook media workflow without keeping a normal Chrome window on screen while preserving a real authenticated browser context for the extension.
+- **Implementation**:
+  - Added `AskCpl/fb_background_runner.py`: launches the existing local Reel helper and a dedicated Chrome user-data directory using `--start-minimized`; it does not use headless Chrome.
+  - Added a `Facebook Background` tab to `AskCpl.py` with configuration, helper/runner status, Start, Stop, and an opt-in Windows sign-in task switch.
+  - Added `background_runner` settings in `settings.py`. The default profile path is `%LOCALAPPDATA%\\AskCpl\\FacebookChromeProfile` so normal user Chrome windows and the automation profile do not collide.
+  - Stop only terminates PIDs recorded by the runner, never all `chrome.exe` processes.
+- **First-use requirement**: Start the runner once, log in to Facebook in its dedicated Chrome profile, then load the unpacked `FacebookLikedMediaAddon` extension in that profile. Subsequent starts can remain minimized.
+- **Verification**: `py -3 -m py_compile settings.py fb_background_runner.py AskCpl.py` passed. The runner `--status` command confirmed the existing Reel helper health endpoint is reachable. A start/stop GUI-process test was intentionally left to the user-controlled Start button because it launches a new Chrome profile.
+- **Skill update**: `fb_media_downloader/SKILL.md` now records the runner constraints and safe PID/task behavior.
+## 2026-09-13: Corrected ownership — Background Runner is part of DownloadImgFacebook
+
+- **Architecture correction**: The user correctly identified that the Background Runner belongs to `DownloadImgFacebook`, not AskCpl. A Chrome extension cannot directly start Windows processes, so the native launcher is shipped next to the addon helper.
+- **Primary files**:
+  - `DownloadImgFacebook/FacebookMediaHelper/background_runner.py`
+  - `DownloadImgFacebook/FacebookMediaHelper/start_background.cmd`
+  - `DownloadImgFacebook/FacebookMediaHelper/stop_background.cmd`
+- **AskCpl role**: `AskCpl/fb_background_runner.py` is now a compatibility bridge only. Its optional UI controls call the addon-owned implementation and save the same configuration for it; no duplicate runner logic remains in AskCpl.
+- **Storage/task identity**: The dedicated Chrome profile, state, configuration and Windows task use the `FB_Liked_Media_Addon` identity under `%LOCALAPPDATA%`, independent of AskCpl.
+- **Verification**: Python compilation passed for addon runner, AskCpl bridge, settings and UI. Both direct addon invocation and AskCpl bridge returned the healthy local Reel helper status.
+
+## 2026-09-13: Unlike after a confirmed video download
+
+- **Behavior change**: A video-only post/Reel with no verified caption now proceeds to Unlike only after the downloader confirms at least one successful video file. This includes the local yt-dlp/FFmpeg helper after it has muxed a complete MP4.
+- **Failure safety**: If the direct downloader or helper fails, is unavailable, or returns no successful file, the Like remains unchanged.
+- **Existing safety preserved**: A post whose verified text exceeds the configured threshold (currently 300) still downloads nothing and is never unliked.
+- **Verification**: `node --check FacebookLikedMediaAddon/content_script.js` is required after this change; live verification should confirm the helper success log precedes the Unlike log.
+
+## 2026-09-13: Retry Unlike without downloading a video twice
+
+- **Root cause addressed**: A downloaded video was marked processed even when Facebook rejected the subsequent Unlike click. The previous cache then prevented any future Unlike attempt.
+- **Fix**: Added persistent `fb_pending_unlike_cache`. A confirmed video download whose Unlike action fails is queued; a later scan retries only the Activity Log Unlike action once per session, without reopening the post or downloading the video again.
+- **Completion rule**: The pending record is removed only after `executeUnlike()` succeeds. Failed retries remain queued for a later run.
+- **Verification**: `node --check FacebookLikedMediaAddon/content_script.js` passed. Required live log sequence: `Video downloaded but Unlike failed` followed on a later scan by `retrying Unlike only (no redownload)` and then a successful Unlike message.

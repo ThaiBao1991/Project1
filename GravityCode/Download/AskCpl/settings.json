@@ -16,6 +16,11 @@
     "host": "192.168.10.14",
     "port": 5678
   },
+  "background_runner": {
+    "enabled_at_logon": false,
+    "chrome_user_data_dir": "",
+    "chrome_profile_dir": "Default"
+  },
   "gemini": {
     "api_key": "ENC:QVJueGZ6dDBhSXAxR2FJdlNVX2hrRzlRdWQzOUxLY1ZfMkU1NTlmM1NWREo2TlI4YkEuUUE=",
     "api_keys": [
@@ -26,13 +31,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114905,
+        "last_check_time": 1789169363,
         "next_check_time": 0,
         "error_msg": "",
         "cooldown_until": 1788788880,
-        "today_calls": 9,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11"
+        "today_calls": 12,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15"
       },
       {
         "key": "ENC:dzdfSDlxOWVkWG9OcExUY1AzM2NyaXVJTmM0VGlPR2FXSXZZdmtXWWhHR0s2TlI4YkEuUUE=",
@@ -41,13 +46,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115022,
+        "last_check_time": 1789169468,
         "next_check_time": 0,
         "error_msg": "",
         "cooldown_until": 1788788880,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 12
       },
       {
         "key": "ENC:QTB6RmUwOFVxSzlyS2JPQnlnODhMLUdUUi0yNDI4b0ZfNkdhNFFvNjBnbkk2TlI4YkEuUUE=",
@@ -56,13 +61,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115137,
+        "last_check_time": 1789169587,
         "next_check_time": 0,
         "error_msg": "",
         "cooldown_until": 1788788880,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 12
       },
       {
         "key": "ENC:QUJKVWc1YklvaWNFRTZuWmswTlN0N2xvazc0RmkzNkcwOW5Vdk5DWjdxaUo2TlI4YkEuUUE=",
@@ -71,13 +76,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115262,
+        "last_check_time": 1789169714,
         "next_check_time": 0,
         "error_msg": "",
         "cooldown_until": 1788788880,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 12
       },
       {
         "key": "ENC:Z3BCOWJMamhZejZCczZSU203R1M3dXJaOVpKMDJuajhMbUVSSmotSlMxcEw2TlI4YkEuUUE=",
@@ -86,13 +91,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115374,
+        "last_check_time": 1789168726,
         "next_check_time": 0,
         "error_msg": "",
         "cooldown_until": 1788788880,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 12
       },
       {
         "key": "ENC:QWwwNTZnc0ppTTNnUkRsbEhNTUhBTlpPSklOWkh0S242V0lWOE84N1BJZEs2TlI4YkEuUUE=",
@@ -101,13 +106,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115503,
+        "last_check_time": 1789168830,
         "next_check_time": 0,
         "error_msg": "",
         "cooldown_until": 1788788880,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 12
       },
       {
         "key": "ENC:Z2NneEFueDBJemFmSkl3RFRzREFHQzBBN0JBWThjeG9WdUJhRXpQMzhLOUs2TlI4YkEuUUE=",
@@ -116,13 +121,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115625,
+        "last_check_time": 1789168940,
         "next_check_time": 0,
         "error_msg": "",
         "cooldown_until": 1788788880,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 8
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 12
       },
       {
         "key": "ENC:UWVCZkw3WU5TNHFBdV9vcXNkMGxIa0hiQmtnZGo5SklFTEhCcE11OExKQUw2TlI4YkEuUUE=",
@@ -131,13 +136,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115737,
+        "last_check_time": 1789169048,
         "next_check_time": 0,
         "error_msg": "",
         "cooldown_until": 1788788880,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 8
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 12
       },
       {
         "key": "ENC:QXlKd09pY0JDeEZ2OERVZlNIQmZfRnFCNlpIM1dqUzR0MnlZczBhQ3YwNUk2TlI4YkEuUUE=",
@@ -146,13 +151,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114671,
+        "last_check_time": 1789169148,
         "next_check_time": 0,
         "error_msg": "",
         "cooldown_until": 1788788880,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 8
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:Z2otd0tLeXBYMFBqUFkwWXJJWndyX0NZd3JNbG84OEVQWE5WdGdnVk5HREk2TlI4YkEuUUE=",
@@ -161,13 +166,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114790,
+        "last_check_time": 1789169253,
         "next_check_time": 0,
         "error_msg": "",
         "cooldown_until": 1788788880,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 12
       },
       {
         "key": "ENC:UTdkWWh4ZTRhOGMyNm92bzRSSDNwRF9xeDVpcVVSdVdIdktCWjNRTkd6REk2TlI4YkEuUUE=",
@@ -176,13 +181,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115144,
+        "last_check_time": 1789168837,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114070,
-        "today_calls": 9,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11"
+        "cooldown_until": 1789158895,
+        "today_calls": 12,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15"
       },
       {
         "key": "ENC:Z2J1NEJtVTNoUWhhbjYzZkNVT2YtbnEyNnBwRWU5T0lRdmp3aEJmSVdGZEk2TlI4YkEuUUE=",
@@ -191,13 +196,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115269,
+        "last_check_time": 1789168945,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114070,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "cooldown_until": 1789158895,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 12
       },
       {
         "key": "ENC:QU50UE03ZmhydGVRSnVtZERRbERWdDVKTEZ6dXdvUnozUVhJbVgyU2hWVkw2TlI4YkEuUUE=",
@@ -206,13 +211,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115381,
+        "last_check_time": 1789169055,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114070,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "cooldown_until": 1789158895,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 12
       },
       {
         "key": "ENC:d0NXNGUwR0hoOV85SDE5cVgtOEdYay1nSlBLSlllanMyMW1icXRucHktYUo2TlI4YkEuUUE=",
@@ -221,13 +226,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115511,
+        "last_check_time": 1789169155,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114070,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "cooldown_until": 1789158895,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 12
       },
       {
         "key": "ENC:QXBYRGtQSF90YVhxSWpqNlhhLXdJZENzOU54Zm1CZGxDb002U0VqQTJkako2TlI4YkEuUUE=",
@@ -236,13 +241,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115631,
+        "last_check_time": 1789169259,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114070,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "cooldown_until": 1789158895,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 12
       },
       {
         "key": "ENC:UWR4TktkaXVvUTBOMnBDUFNJQzZYWEdqcGZVdTZ2cnRkOS03VHN6RjdNVUs2TlI4YkEuUUE=",
@@ -251,13 +256,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115742,
+        "last_check_time": 1789169371,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114070,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "cooldown_until": 1789158895,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 11
       },
       {
         "key": "ENC:d2VHamVvTDU0S3VBemJRRS1MUHlUUlUxMEM2V05IeTk5U29xOFZuSFJTdEw2TlI4YkEuUUE=",
@@ -266,13 +271,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114678,
+        "last_check_time": 1789169474,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114070,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "cooldown_until": 1789158895,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 12
       },
       {
         "key": "ENC:d1pia2UzOFpjaHpCdzBMa1h2V254a1JCRk9MZFFMeU5zLUNuOUtrTGZOSkk2TlI4YkEuUUE=",
@@ -281,13 +286,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114798,
+        "last_check_time": 1789169593,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114070,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 8
+        "cooldown_until": 1789158895,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 12
       },
       {
         "key": "ENC:Z0tnT1lKNVFQV3o0cGhSTEhfYk9tb1BxbzV6YWJndFBIcl8zUldJSVJQMEw2TlI4YkEuUUE=",
@@ -296,14 +301,14 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114912,
+        "last_check_time": 1789169722,
         "next_check_time": 0,
         "error_msg": "",
         "project_name": "",
-        "cooldown_until": 1789114070,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 8
+        "cooldown_until": 1789158895,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 12
       },
       {
         "error_msg": "",
@@ -315,11 +320,11 @@
         "status": "active",
         "reset_time": 0,
         "next_check_time": 0,
-        "last_check_time": 1789115030,
-        "cooldown_until": 1789114070,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 8
+        "last_check_time": 1789168731,
+        "cooldown_until": 1789158895,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:UUpmYTdzTXRSTFNzLVR4Y2ZIZ0tJeUpkVGRtXzVCeEJMbnlRdjdUVlRubEk2TlI4YkEuUUE=",
@@ -328,13 +333,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115277,
+        "last_check_time": 1789168951,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114074,
-        "today_calls": 9,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11"
+        "cooldown_until": 1789158900,
+        "today_calls": 13,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15"
       },
       {
         "key": "ENC:QUoyaVROUllVaHBaMFBTZ0NuYWotajJVakI1Z1ViOThQcjNraklSNHFkU0w2TlI4YkEuUUE=",
@@ -343,13 +348,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115388,
+        "last_check_time": 1789169060,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114074,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "cooldown_until": 1789158900,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:dzhsOU1ZS3dMUnMtMVB5YlFVRlBkX0xFeFNjcUs2Y0E4ZzlnQlRyWHFCVkk2TlI4YkEuUUE=",
@@ -358,13 +363,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115521,
+        "last_check_time": 1789169161,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114074,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158900,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:QXU0NU12NUVEbnFHNlZXZzBEMTJZMFpwb3NOUS1tbFZJUXNGcTFKVWlQOUw2TlI4YkEuUUE=",
@@ -373,13 +378,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115637,
+        "last_check_time": 1789169266,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114074,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158900,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:Z0ZDclRKMG1yc1lpcVFmRzhOekswRzRDOWdHUVRybVl0OVRPZGlNQ05MZUo2TlI4YkEuUUE=",
@@ -388,13 +393,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115749,
+        "last_check_time": 1789169376,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114074,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158900,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:QU1sWXZaejFKTXA5b0hhWlEyQWF6SENuZ0NmdnpwZFlmUTYzWm4yZVVqN0w2TlI4YkEuUUE=",
@@ -403,13 +408,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114805,
+        "last_check_time": 1789169481,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114074,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158900,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:QWtPS0F2WHVCUk5HVks1UzBteThlY1V3QWxGZWhvd2drQl8zeXpvQmJoOUw2TlI4YkEuUUE=",
@@ -418,13 +423,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114918,
+        "last_check_time": 1789169600,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114074,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158900,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:d0g1bXVJUktTeDNlTEMzZWtPb3FkSTM3RVAyWHVTV2RpYUF6cy1RZXhfNkk2TlI4YkEuUUE=",
@@ -433,13 +438,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115036,
+        "last_check_time": 1789169728,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114074,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158900,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:Z1lfcElEWllyV0ZGTHZESzRjb01TM3ZKRm5tYUd1UWE5eVRaTWJ2czlEakw2TlI4YkEuUUE=",
@@ -448,13 +453,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115150,
+        "last_check_time": 1789168844,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114074,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "cooldown_until": 1789158900,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:ZzVQd181OXVOdEc2SWltdFRWNnd3dlQ2WXF0eTFzblNfVXVqZ182UEdVa0s2TlI4YkEuUUE=",
@@ -463,13 +468,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115395,
+        "last_check_time": 1789169066,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114000,
-        "today_calls": 9,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11"
+        "cooldown_until": 1789158842,
+        "today_calls": 13,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15"
       },
       {
         "key": "ENC:Z2M3LW40X2RoejB5VjFkR1ptWG1NUm5iYUtCNEp4dnZJbU5RRVBXWG1TMUs2TlI4YkEuUUE=",
@@ -478,13 +483,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115529,
+        "last_check_time": 1789169168,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114000,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "cooldown_until": 1789158842,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:UTJ4UnQ1MlJNQmNqS1lVOXpuYU04aEtvUVk4cXFkVmdWNHh0N0xOeW02TEs2TlI4YkEuUUE=",
@@ -493,13 +498,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115642,
+        "last_check_time": 1789169273,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114000,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158842,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:UU1CRWMzWE9MRW92MERoa0Fwb0RkM21waDRtdzBQcVVyT1hqdGdINERPNEs2TlI4YkEuUUE=",
@@ -508,13 +513,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115756,
+        "last_check_time": 1789169382,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114000,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158842,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:UTZISXZIZExvdl8wSUxsQThUMzBxRHA5cF8xWUt5U1hXcXhZeU5zSG9ZN0k2TlI4YkEuUUE=",
@@ -523,13 +528,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114812,
+        "last_check_time": 1789169487,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114000,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158842,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:QTlmcGVYME5WQS1vY1RkbTFwYnRQTFptbU1TVGtZU01YdE42WnJ1WlNOWUw2TlI4YkEuUUE=",
@@ -538,13 +543,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114927,
+        "last_check_time": 1789169607,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114000,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158842,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:QVh5RlBwV2JxN21GTnRaOGJreGhQMzA1anJqeUZTSFZ1ZlZ0SFI5cUJQcUw2TlI4YkEuUUE=",
@@ -553,13 +558,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115045,
+        "last_check_time": 1789169734,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114000,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158842,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:Z1pncWZ3V2NEbUV4YXVZdlhlMGVyVllONjhZNE9KZmcwbUVWeTIwZVRaNEk2TlI4YkEuUUE=",
@@ -568,13 +573,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115156,
+        "last_check_time": 1789168851,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114000,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158842,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:QVZnUzgyZlF1SjV3dU5COVZIZXdDSlZiR0pUeXRJdEFmZkx0QzFSOHVSQ0s2TlI4YkEuUUE=",
@@ -583,13 +588,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115282,
+        "last_check_time": 1789168958,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114000,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "cooldown_until": 1789158842,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:Z0lUTjdLVC1JMGlMSHAtZDNHRWJJSzd5WFV3cWFYejJ2WTBNazNrWDE2LUk2TlI4YkEuUUE=",
@@ -598,13 +603,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115051,
+        "last_check_time": 1789168965,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114016,
-        "today_calls": 9,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11"
+        "cooldown_until": 1789158847,
+        "today_calls": 13,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15"
       },
       {
         "key": "ENC:QUx0cWk4WWxEOWF2WXJHN1cxZnlNNjUtdEdIS240dUtLQVNRYjlTUVRGZks2TlI4YkEuUUE=",
@@ -613,13 +618,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115163,
+        "last_check_time": 1789169073,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114016,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "cooldown_until": 1789158847,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:UTB1OHBjZHpMUURKdUlfYzd1bjdnOThVVFZZZnlpa1RZc3NjWXJmSy1YY0k2TlI4YkEuUUE=",
@@ -628,13 +633,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115289,
+        "last_check_time": 1789169175,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114016,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158847,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:Z01TX1lUdEVPbXZHOHVEd3NKaURWQkhOWDNQakF2Ykw1aV9IdnFmY0xTOUs2TlI4YkEuUUE=",
@@ -643,13 +648,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115402,
+        "last_check_time": 1789169278,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114016,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158847,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:Z1dVaU1BZWNSM3JyZ2Y2NDVHOTR0UGhfWmVwMEgxRUdfR3gwMEdEa1BIMEo2TlI4YkEuUUE=",
@@ -658,13 +663,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115536,
+        "last_check_time": 1789169388,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114016,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158847,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:UTBJaXZzRXQ0MHZGalY3QTUwdmtwM0Y3eXp6a3VoODExbmlaWkJnakd2ZUo2TlI4YkEuUUE=",
@@ -673,13 +678,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115650,
+        "last_check_time": 1789169494,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114016,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158847,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:UVpWaENZYmJQRTFzX2dXSEFZRTZJQlRlQmExZ01Hd1JXNDBMel9Sb1BtR0o2TlI4YkEuUUE=",
@@ -688,13 +693,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115761,
+        "last_check_time": 1789169615,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114016,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158847,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:QTU0MU82cjJ0dFFpb3dMb04yWTNJanZTa0VUYnY4RXQ5ZktJbWtuYmxZZUw2TlI4YkEuUUE=",
@@ -703,13 +708,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114818,
+        "last_check_time": 1789169741,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114016,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158847,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:QVUzVXZzY2dSd3FmX09Ja3A3NldsN194b1E5WWtiNUUxUUZLSjFrUTI2REs2TlI4YkEuUUE=",
@@ -718,13 +723,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114935,
+        "last_check_time": 1789168857,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114016,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "cooldown_until": 1789158847,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:QUhwOVhmTEtOOHVtekoyLVRBaFgxQjhqZlZwNjcyNGZLVUZHdVZKdS03c0s2TlI4YkEuUUE=",
@@ -733,13 +738,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115767,
+        "last_check_time": 1789169077,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114021,
-        "today_calls": 9,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11"
+        "cooldown_until": 1789158853,
+        "today_calls": 13,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15"
       },
       {
         "key": "ENC:QWJHRjd0V241RTFFaGkzZVRWdkdYdi1MWXd4SHlsQWNQa0EteU9EaEVpSUk2TlI4YkEuUUE=",
@@ -748,13 +753,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114825,
+        "last_check_time": 1789169180,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114021,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "cooldown_until": 1789158853,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:UVlTZUxxVDE0WFJHUF9sbjhxRWlRWVpDZ3BTcm02bmlSb0xDVllRcFVKaUs2TlI4YkEuUUE=",
@@ -763,13 +768,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114942,
+        "last_check_time": 1789169285,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114021,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158853,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:d01DT3FxR0J5bDd6bjZoUHA3VDV1c0tuUTFkM2lXeDNESHlCUFdDMEdzVko2TlI4YkEuUUE=",
@@ -778,13 +783,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115057,
+        "last_check_time": 1789169395,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114021,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158853,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:UUlnRjZDeWdvNkZwY3lHZmJuT1A5cGdVNzNrTVhrWjBTUVVqcXN6ekhqWUw2TlI4YkEuUUE=",
@@ -793,13 +798,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115171,
+        "last_check_time": 1789169502,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114021,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158853,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:d09xQ2VIeXBkRjNIQ1JENWhaY1M5ZVk0X0tqSUVwR3hpNGJ0WlhVVm55eEk2TlI4YkEuUUE=",
@@ -808,13 +813,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115296,
+        "last_check_time": 1789169623,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114021,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158853,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:UV9oVXRuZHJWZllGYTRWOFYzTURON2FkX0ZHR3ZncHh5LXRiVHRocTNjTEo2TlI4YkEuUUE=",
@@ -823,13 +828,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115410,
+        "last_check_time": 1789169748,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114021,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158853,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:Z010Rk91NkJfMk5VRklJbHFjbmlzQlhzRHFHX0xPQTVMcGU0ZnhBWUF2Tks2TlI4YkEuUUE=",
@@ -838,13 +843,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115542,
+        "last_check_time": 1789168863,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114021,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158853,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:QS1GLXhVMVFQT0hncW9faWc2VjNuTE8ycFlpWVdmbHFpalI2eHVtR2VGTUw2TlI4YkEuUUE=",
@@ -853,13 +858,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115658,
+        "last_check_time": 1789168971,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114021,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "cooldown_until": 1789158853,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:d0ZUc3FmbWt4aFlQUURlaFlBd01sbzdWY0ZPZV9MVXRzYzRlT0tpUTNhWUo2TlI4YkEuUUE=",
@@ -868,13 +873,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114833,
+        "last_check_time": 1789169290,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114027,
-        "today_calls": 9,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11"
+        "cooldown_until": 1789158868,
+        "today_calls": 13,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15"
       },
       {
         "key": "ENC:Z0F1eHI2Mms4LWl6TnVwWThCV1VOOGxyZlBaYWZPdThHRW95OVlYLThhNUw2TlI4YkEuUUE=",
@@ -883,13 +888,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114948,
+        "last_check_time": 1789169401,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114027,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "cooldown_until": 1789158868,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:UUVPaDFiUXZGcW96T3J1TjhUcnRaWnMzM2FDVWpuSVNnRjFPMjJreVRRRUs2TlI4YkEuUUE=",
@@ -898,13 +903,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115063,
+        "last_check_time": 1789169509,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114027,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158868,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:QWRlcDlhcjhVczhYX1hBNHA0TlpKNW5TNk5kR2RXQXNtMUNhSUdOdzRvRUo2TlI4YkEuUUE=",
@@ -913,14 +918,14 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115179,
+        "last_check_time": 1789169628,
         "next_check_time": 0,
         "error_msg": "",
         "project_name": "",
-        "cooldown_until": 1789114027,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158868,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:QUFFdjg3T1UyVENMY3NjMjRrODAyaHZHSjkwX2plZnpTVVVvM1lvdktJZ0k2TlI4YkEuUUE=",
@@ -929,13 +934,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115302,
+        "last_check_time": 1789169757,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114027,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158868,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:UXdaVjJma3VUUGpQQ1pXSEc5SFZ4YWRxRmVvQkY1WFRHYmJONWpUVDJRV0k2TlI4YkEuUUE=",
@@ -944,13 +949,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115418,
+        "last_check_time": 1789168872,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114027,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158868,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:QXpKbDlTNDUzN3dvMXRYMkNiTkR5ZFpqb19meGVJY0k4Tnd0LVBFcU1MZUs2TlI4YkEuUUE=",
@@ -959,13 +964,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115549,
+        "last_check_time": 1789168976,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114027,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158868,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:dzkyRlBkWUZ4NHRnVjB5MzFlWENuVE9VelIzQmFaZXl6SW9JWGNRWm15WUs2TlI4YkEuUUE=",
@@ -974,13 +979,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115668,
+        "last_check_time": 1789169084,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114027,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158868,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:Z0FxMlF4TGRIMk5QenZHUC0wVklrX2tHVkgwT3JpUXJhcjF5TTRRbHA1Nkk2TlI4YkEuUUE=",
@@ -989,13 +994,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115772,
+        "last_check_time": 1789169186,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114027,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "cooldown_until": 1789158868,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:d05KcFFreGZDNkE4bzdFbm5hYl8wU1JkNXVVU0hGcTNmSEhOR1UzUTJDU0w2TlI4YkEuUUE=",
@@ -1004,13 +1009,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115830,
+        "last_check_time": 1789169241,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789025523,
-        "today_calls": 9,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11"
+        "cooldown_until": 1789156330,
+        "today_calls": 14,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15"
       },
       {
         "key": "ENC:d0g2Nmd6RGFBSUlkaWg1Y2MzZ2JJLVpMblZLNU9Ha2NBUzYzdjNhUURTWkk2TlI4YkEuUUE=",
@@ -1019,13 +1024,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114891,
+        "last_check_time": 1789169349,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789025523,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789156330,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:d1FXZGlFeDJsT1ZVal9DQ1ZYU1NpSHpUbEFYV0l2dVVRaUoxREQzWGdOVEo2TlI4YkEuUUE=",
@@ -1034,13 +1039,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115009,
+        "last_check_time": 1789169455,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789025523,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789156330,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:d1ZGcEZxMFVmdHJYM2VseWNkS3dmVDlObGJybl80Z1Z2UktBbjI5V1ZCWUo2TlI4YkEuUUE=",
@@ -1049,13 +1054,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115125,
+        "last_check_time": 1789169574,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789025523,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789156330,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:UVAyblREZ3ZIYmxRZ1dnaS1CZmo3UW5aSlh1NWlUelNQVV95LWNsSEJ2SUs2TlI4YkEuUUE=",
@@ -1064,13 +1069,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115244,
+        "last_check_time": 1789169699,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789025523,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789156330,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:dzdTYVNkMy1QLV9WREJaMHAtdExUa1hOdS1BY0NBeHhkekUwUjhGTlZfbko2TlI4YkEuUUE=",
@@ -1079,13 +1084,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115362,
+        "last_check_time": 1789168819,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789025523,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789156330,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:QWNqaUhUVExUMmZwaDR0UlV3UWZUNGtaUmoxOGg3WE9pT1BmRlBaSmZYYko2TlI4YkEuUUE=",
@@ -1094,13 +1099,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115490,
+        "last_check_time": 1789168927,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789025523,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789156330,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:Z2l1aW5TclUyVlNDX1Y1YzNnMlQ3anlsRTRsdHhJMTU5NDRhU1hCeE85M0k2TlI4YkEuUUE=",
@@ -1109,13 +1114,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115611,
+        "last_check_time": 1789169034,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789025523,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "cooldown_until": 1789156330,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:d1RIUFZQNXZRU0FoVnZ4dlRPZ19ubWdWd2h3N3lKLTdBS1RXMHEzYVpjTks2TlI4YkEuUUE=",
@@ -1124,13 +1129,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115723,
+        "last_check_time": 1789169136,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789025523,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "cooldown_until": 1789156330,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:QWsycWRPclVfYVNSam1RRnJJb09MdFBUaVlPZkd0U29hUnA1cHlweWd1eEo2TlI4YkEuUUE=",
@@ -1139,13 +1144,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115186,
+        "last_check_time": 1789169637,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114043,
-        "today_calls": 9,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11"
+        "cooldown_until": 1789158874,
+        "today_calls": 13,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15"
       },
       {
         "key": "ENC:UUNOZHo1dGRkcFBwVEVLdGgzQ2hUSm5Ubnl5QjFUMVh1SVRRQkpmbnBQc0w2TlI4YkEuUUE=",
@@ -1154,13 +1159,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115308,
+        "last_check_time": 1789169764,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114043,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158874,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:QVlKcjJBRzFqRGN1N08zamItQ0JmMnd5MUkwZE9tZzhhRUN2Z2d6YXlZV0o2TlI4YkEuUUE=",
@@ -1169,13 +1174,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115424,
+        "last_check_time": 1789168878,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114043,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158874,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:dzF6OTUxeFY0Ykg1MlpZX2hNVW9OeEVDVExVcHR6X19YdlEtVE1vVzI0REk2TlI4YkEuUUE=",
@@ -1184,13 +1189,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115555,
+        "last_check_time": 1789168982,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114043,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158874,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:UTdvNTBZcUxlMFRjMkZwT0UxenZFTENFeDNPR2dNWVJkQ1RuS1RHVHNlT0k2TlI4YkEuUUE=",
@@ -1199,13 +1204,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115674,
+        "last_check_time": 1789169091,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114043,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158874,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:Z3VlWVVGMk5jOXd3ODdaV21sRWRpd0tmSlBLQm9Zc01xd2JvckVPVXVIeUk2TlI4YkEuUUE=",
@@ -1214,13 +1219,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115778,
+        "last_check_time": 1789169194,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114043,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158874,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:UUVzcDBiX0cxakoyNGFSMEVhaWtxLTFGTzA5UGgyVzdfRjZfdUszQnN6dUw2TlI4YkEuUUE=",
@@ -1229,13 +1234,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114839,
+        "last_check_time": 1789169296,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114043,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158874,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:d0MyeU5RZjkyOXZHdG5WZ29tSmdmQkpoblUzNmZoSG83MlM2ZDhlbmZNWUw2TlI4YkEuUUE=",
@@ -1244,13 +1249,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114953,
+        "last_check_time": 1789169408,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114043,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158874,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:d2pJel9DWGJDMFdUOG15UUc3WHNqdVd4VldSeTUzUnc5SnRMLWtwNUhjeks2TlI4YkEuUUE=",
@@ -1259,13 +1264,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115070,
+        "last_check_time": 1789169515,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114043,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "cooldown_until": 1789158874,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:UTN4YXpUT3RqWTBVdzU4cS1uN2J1VVZGVklJNERXLTJHNDBoZm5hQU9McUs2TlI4YkEuUUE=",
@@ -1274,13 +1279,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114960,
+        "last_check_time": 1789169302,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114048,
-        "today_calls": 9,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11"
+        "cooldown_until": 1789158880,
+        "today_calls": 13,
+        "today_account_calls": 120,
+        "call_date": "2026-09-15"
       },
       {
         "key": "ENC:d3QyZnNKOFhhOFI3bUtaYjJPb1hiUlBkbGdLc1ZSb2NGTk0yNmhzWmdHOUo2TlI4YkEuUUE=",
@@ -1289,13 +1294,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115077,
+        "last_check_time": 1789169414,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114048,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158880,
+        "today_account_calls": 120,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:QUdnejVYd2NVMW1ybzc0QVpDYlZHdHRLZzVVZGRwN3JlZGZIUjNBS2k4VUw2TlI4YkEuUUE=",
@@ -1304,13 +1309,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115193,
+        "last_check_time": 1789169523,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114048,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158880,
+        "today_account_calls": 120,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:QXdpTEFvX1RpdE50bVRtS3ZjWnYxNnFpQmp5bFRWb3pQRFRQRkJvNTRiRko2TlI4YkEuUUE=",
@@ -1319,13 +1324,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115314,
+        "last_check_time": 1789169646,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114048,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158880,
+        "today_account_calls": 120,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:d1dpYmtJQlF6SV9jR3J6MmVFS2dRYWF5SnBYenJUaE5xbGpzRFhaQ0V4UEs2TlI4YkEuUUE=",
@@ -1334,13 +1339,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115430,
+        "last_check_time": 1789169772,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114048,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158880,
+        "today_account_calls": 120,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:d25VbXpSRTFjcms3czNfU0RwQ3NRXzNWVzlnandjdE83dVpMaE52bHZYSUo2TlI4YkEuUUE=",
@@ -1349,13 +1354,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115562,
+        "last_check_time": 1789168885,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114048,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158880,
+        "today_account_calls": 120,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:Z196WUU5bW45dlUwd2JDTjBoRE51T25ZNjB3ak9GMlh0UndMY2lJTlpjRUo2TlI4YkEuUUE=",
@@ -1364,13 +1369,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115681,
+        "last_check_time": 1789168990,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114048,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158880,
+        "today_account_calls": 120,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:QWdZcmsydHg0SE9kZmNrX2hGX293VDhFMk9PQWRwVS04UGhQM3JWNnl5SUk2TlI4YkEuUUE=",
@@ -1379,13 +1384,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115785,
+        "last_check_time": 1789169097,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114048,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158880,
+        "today_account_calls": 120,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:d2xSRmllNUVZVTRCdGp5bnZVQzdIOERZaDI4aWxPUzVOd29Ec1ZRQWN4QUs2TlI4YkEuUUE=",
@@ -1394,13 +1399,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114846,
+        "last_check_time": 1789169200,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114048,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "cooldown_until": 1789158880,
+        "today_account_calls": 120,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:d1k2Q21Qd2tYSGI2bG9DQ0w4UTNGRERsaURoV3hPYlFqejVkbUtFVkRlTkk2TlI4YkEuUUE=",
@@ -1409,13 +1414,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115569,
+        "last_check_time": 1789169205,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114054,
-        "today_calls": 9,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11"
+        "cooldown_until": 1789158906,
+        "today_calls": 13,
+        "today_account_calls": 120,
+        "call_date": "2026-09-15"
       },
       {
         "key": "ENC:QU9XLUMtcUxZV3plRG81QnF1VGNLZ3JrZU1PX0dwNmc1Ylo3dFFxMWlaOUs2TlI4YkEuUUE=",
@@ -1424,13 +1429,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115687,
+        "last_check_time": 1789169308,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114054,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158906,
+        "today_account_calls": 120,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:d2ZLcUR2a0lzM19BOWo1ZlFsRFU1c0VUc0gwMFZKbEh1UElkQlEwbWwza0o2TlI4YkEuUUE=",
@@ -1439,13 +1444,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115791,
+        "last_check_time": 1789169420,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114054,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158906,
+        "today_account_calls": 120,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:Z3l5YXVERGMxdUFPblU0djBnOHFCMVVnWU9LVS1nMzJmQndmeF80TU43VEs2TlI4YkEuUUE=",
@@ -1454,13 +1459,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114851,
+        "last_check_time": 1789169527,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114054,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158906,
+        "today_account_calls": 120,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:QTVBRTRQejhLWHFvdVoyTXg5aVdhODUwT1N1N0Mzd2VtOXVweG04TjZ3a0w2TlI4YkEuUUE=",
@@ -1469,13 +1474,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114967,
+        "last_check_time": 1789169651,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114054,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158906,
+        "today_account_calls": 120,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:Z0hubXlRdHNPVTA2R3ZCdmRLMEVYWkExaHRJYTMydkllSnhVWTctSkZac0o2TlI4YkEuUUE=",
@@ -1484,13 +1489,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115084,
+        "last_check_time": 1789169779,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114054,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158906,
+        "today_account_calls": 120,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:ZzE0RlY2MzdWbU5ZT25FWXpYaUVKaDMyWmlmdmVBc0tYMVl4TjJjRDVKaUw2TlI4YkEuUUE=",
@@ -1499,13 +1504,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115204,
+        "last_check_time": 1789168891,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114054,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158906,
+        "today_account_calls": 120,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:QXhjMnByLWJFR2Uwakd2a08wWGd3bHJqTFhnSDdDNW5VbDEwQ2FXVXlGd0o2TlI4YkEuUUE=",
@@ -1514,13 +1519,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115322,
+        "last_check_time": 1789168996,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114054,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158906,
+        "today_account_calls": 120,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:UUFvc0gwTklaWkJfNHl5a1BHR3ZRT1VMNXNKSlE1NWVCdjhCWEpFTmFtMUw2TlI4YkEuUUE=",
@@ -1529,13 +1534,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115448,
+        "last_check_time": 1789169102,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789114054,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "cooldown_until": 1789158906,
+        "today_account_calls": 120,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:ZzNBd3lVUXNQMVZpaU9xTlNXTVpUSkdYRWFJSHdpM0hMWDBBLUhManliZkk2TlI4YkEuUUE=",
@@ -1544,13 +1549,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114973,
+        "last_check_time": 1789169109,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789113378,
-        "today_calls": 9,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11"
+        "cooldown_until": 1789156025,
+        "today_calls": 13,
+        "today_account_calls": 120,
+        "call_date": "2026-09-15"
       },
       {
         "key": "ENC:QTJfVkg1UnI1UGhfa1JWREdaUHVMRFA5OHpzVGRNS0xzT3JXVWJNOGxieEo2TlI4YkEuUUE=",
@@ -1559,13 +1564,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115091,
+        "last_check_time": 1789169211,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789113378,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789156025,
+        "today_account_calls": 120,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:d1huZ2tfMG14TkhfaXZUcHNXcUxSWUIyREd4VG1yRm9oaVRMUXF1SXJCNEs2TlI4YkEuUUE=",
@@ -1574,13 +1579,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115210,
+        "last_check_time": 1789169315,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789113378,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789156025,
+        "today_account_calls": 120,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:Z3B6QjVNaTA4YlpaZmhYU0JYM0NLc25nRnRDNHl6S2xGSXRqX0pVclNZeEs2TlI4YkEuUUE=",
@@ -1589,13 +1594,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115328,
+        "last_check_time": 1789169427,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789113378,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789156025,
+        "today_account_calls": 120,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:UWE1MmE0UDV6TzlERml3Rnp1aDVYMXdXbHlHMGk3YWVNcUU4N1d6NVhXREw2TlI4YkEuUUE=",
@@ -1604,13 +1609,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115455,
+        "last_check_time": 1789169536,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789113378,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789156025,
+        "today_account_calls": 120,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:Z2VSUThZVWxwRnpoWDdMamFIYkRQblRjMlVndE90UkxzQmIxYUN3YnJaMko2TlI4YkEuUUE=",
@@ -1619,13 +1624,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115575,
+        "last_check_time": 1789169660,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789113378,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789156025,
+        "today_account_calls": 120,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:d0R2VFl1cGdxdnlXcDVhaFBNRVNPdUpDUUJXYTNFXzg0bkxvc3FIRjFBMEo2TlI4YkEuUUE=",
@@ -1634,13 +1639,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115693,
+        "last_check_time": 1789169786,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789113378,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789156025,
+        "today_account_calls": 120,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:QWphOG5tbm5GamRHS24tY1VFdGp3REVmeTdsY0RLSkxBWGs1SUJQSkVzbko2TlI4YkEuUUE=",
@@ -1649,13 +1654,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115799,
+        "last_check_time": 1789168896,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789113378,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789156025,
+        "today_account_calls": 120,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:d2M4eVA4VHFLSXlSSHR5bHpxRWl5Vnk1ektIb0FnWUlfQ1N6dXp2OW1XaUw2TlI4YkEuUUE=",
@@ -1664,13 +1669,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114858,
+        "last_check_time": 1789169001,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789113378,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "cooldown_until": 1789156025,
+        "today_account_calls": 120,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:Z3g1eDlkSWFwcThBeF9FVjY2NUhQTXkzU0VPQzg2VlZQeG9EVV9JOFp1NUk2TlI4YkEuUUE=",
@@ -1679,13 +1684,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115217,
+        "last_check_time": 1789169322,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789112998,
-        "today_calls": 9,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11"
+        "cooldown_until": 1789158129,
+        "today_calls": 14,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15"
       },
       {
         "key": "ENC:UXBNRjhpTXZqT3VXS1M4Q2RDUWtxRHVkNHEyQnR4RXdxN0cyNVZOUF9heEo2TlI4YkEuUUE=",
@@ -1694,13 +1699,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115335,
+        "last_check_time": 1789169431,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789112998,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158129,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:UThBdVpSOUV6MEctanQ4d1lkZUhwVUpJc00tYWVUZTdIWDdIX1FXcUw0bUk2TlI4YkEuUUE=",
@@ -1709,13 +1714,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115462,
+        "last_check_time": 1789169546,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789112998,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158129,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:QXZ5bElSN0VXMEhFX3ItNDB3d1NBV3dWdWVrTlRBY1FvdHZXZWwtWG5HaEo2TlI4YkEuUUE=",
@@ -1724,13 +1729,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115582,
+        "last_check_time": 1789169668,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789112998,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158129,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:Z2tNU1I2aGxMZ2I5NUx2Yk1Vc3BpT0xHU19jTHhZM3VvbjRsMlI1VE9pYUk2TlI4YkEuUUE=",
@@ -1739,13 +1744,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115699,
+        "last_check_time": 1789169791,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789112998,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158129,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:QWdHVG52VFlGNnZjcTFIUHk2cktMaGtDakpqNlFmcEZfX09MZ1AwZ19GZ0s2TlI4YkEuUUE=",
@@ -1754,13 +1759,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115806,
+        "last_check_time": 1789168901,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789112998,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158129,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:Z2pja1NScHZxTEJXZ0o4aHhrODNvVEYxVlA2MTZkNGZ4TEVKX01UbnZrd0k2TlI4YkEuUUE=",
@@ -1769,13 +1774,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114865,
+        "last_check_time": 1789169006,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789112998,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158129,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:QTN3UVdwdDkzM01Wanhmb1hjWlJTb1RsRlh6VmhPdnNfV1N5UDNOVVdoWEs2TlI4YkEuUUE=",
@@ -1784,13 +1789,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114980,
+        "last_check_time": 1789169114,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789112998,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158129,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:d24xMXpQNnVYSnVJUFdaUDJueVZnVG9RUFpWWDI1UHpiZlliVlpNNUxyZ0s2TlI4YkEuUUE=",
@@ -1799,13 +1804,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115098,
+        "last_check_time": 1789169217,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789112998,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "cooldown_until": 1789158129,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:d3FRaUZvcElBN0ZRSUVPd0NfclpDaVNUTDY3ZFF1NUt1bENqZEZ2c0hOaEo2TlI4YkEuUUE=",
@@ -1814,13 +1819,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115468,
+        "last_check_time": 1789169554,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789111492,
-        "today_calls": 9,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11"
+        "cooldown_until": 1789158737,
+        "today_calls": 14,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15"
       },
       {
         "key": "ENC:d0hxb1BxdXM0c0tIcmt0Uk5QblB4MUlTRkVEaDN0UnZocGluMGlVbkNUX0s2TlI4YkEuUUE=",
@@ -1829,13 +1834,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115588,
+        "last_check_time": 1789169677,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789111492,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158737,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:Z0dxeVRjek03eDBwWVZSOElOYmhqQVJlcEk2dUR5cU1xWnVKckZpU0tnWUs2TlI4YkEuUUE=",
@@ -1844,13 +1849,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115705,
+        "last_check_time": 1789169799,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789111492,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158737,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:d0hxcy1nRGlicmNkbmt4T1lCdXhwa2tjQ25nd1lwTnRBclc4Q2hQcGFPYUw2TlI4YkEuUUE=",
@@ -1859,13 +1864,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115813,
+        "last_check_time": 1789168908,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789111492,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158737,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:QUMtS1gxTkNqcTRJVHlHSWdmUVEzcVNkZ2wxLW5ZN1hKQ1FWMU1TVUtfMEo2TlI4YkEuUUE=",
@@ -1874,13 +1879,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114871,
+        "last_check_time": 1789169013,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789111492,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158737,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:QUo0T1FUSW85S3FRNzBOT3VoR2lkRXVRNjRpMDQ0RHYwVklVMXp4bUV0R0s2TlI4YkEuUUE=",
@@ -1889,13 +1894,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114988,
+        "last_check_time": 1789169119,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789111492,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158737,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:ZzlWV0ZrMEpCSUxPTms2Ujk5TDR3bFFDLXQzdERpWEZORzNOTEw2MjVnOEw2TlI4YkEuUUE=",
@@ -1904,13 +1909,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115105,
+        "last_check_time": 1789169224,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789111492,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158737,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:UXdMYlZDUFNweUhHRUtDQzVOTzR2MTVQeWd3MkpQMHRMX0JweFptQ09oYkk2TlI4YkEuUUE=",
@@ -1919,13 +1924,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115223,
+        "last_check_time": 1789169329,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789111492,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789158737,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:QWVLMkxVN216eGNmZFkwOXk4cHQ3Rnp3aHFYYmlWWmpMampoY1lYamk3eks2TlI4YkEuUUE=",
@@ -1934,13 +1939,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115342,
+        "last_check_time": 1789169437,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789111492,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "cooldown_until": 1789158737,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:d0xTazlDR2tXM190bllZOXRVVTZpM2pwZV9CR0VSeWhDX3dGdTJibXdYUEw2TlI4YkEuUUE=",
@@ -1949,13 +1954,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114877,
+        "last_check_time": 1789169442,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789104297,
-        "today_calls": 9,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11"
+        "cooldown_until": 1789153622,
+        "today_calls": 14,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15"
       },
       {
         "key": "ENC:UVAzQUtoZFo0cE5vNVBEREJpdTFKeFNXcXIxNGQ5TFJNNHhma1dQc1ZKcUw2TlI4YkEuUUE=",
@@ -1964,13 +1969,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114993,
+        "last_check_time": 1789169560,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789104297,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789153622,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:QTY2RUpfTmdNbmtqNG9yalJNTnFxOHVrVkxSRHZoeFdHNUt5VXNCcjJLZEs2TlI4YkEuUUE=",
@@ -1979,13 +1984,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115111,
+        "last_check_time": 1789169685,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789104297,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789153622,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:Z0FoVmFUd2F1a2EzeUV6YUM4WENqQXRPdklseWExZWRxc1BRUVlHUk4tbUs2TlI4YkEuUUE=",
@@ -1994,14 +1999,14 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115230,
+        "last_check_time": 1789169801,
         "next_check_time": 0,
         "error_msg": "",
         "project_name": "",
-        "cooldown_until": 1789104297,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789153622,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:dzc0TFA1eW8tbld4ZlVuM0pQdEZ5dlM5YXAxWWx3N05CWTRyZXdFWC1MUko2TlI4YkEuUUE=",
@@ -2010,13 +2015,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115349,
+        "last_check_time": 1789168914,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789104297,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789153622,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:Z0MtNVFDbEhzb2xBaVlGcmpsb3MxQmV4c05rTTF3ZmVRaGJfOFJrRjdyS0w2TlI4YkEuUUE=",
@@ -2025,13 +2030,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115475,
+        "last_check_time": 1789169021,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789104297,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789153622,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:dzg3dDZLWWVGRFNSTy1hNS0zSkx3TlVlVmNya2FHUWMyNVFqa2p1aTBzTEs2TlI4YkEuUUE=",
@@ -2040,13 +2045,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115596,
+        "last_check_time": 1789169124,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789104297,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789153622,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:d2lxVG52S01MRXlQN0JabzFPdXNyak9jOUtpc09sUHRvNmNnSk5RSm9jT0s2TlI4YkEuUUE=",
@@ -2055,13 +2060,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115711,
+        "last_check_time": 1789169231,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789104297,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789153622,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:Z3pkYVNCekxGNVUzVG9jNWJ3NXlGMUIwLTEzZzFHbnVWbDl1NjJkUnkzN0w2TlI4YkEuUUE=",
@@ -2070,13 +2075,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115818,
+        "last_check_time": 1789169334,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789104297,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "cooldown_until": 1789153622,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:UWZVNENYZjd4dmNVenlxTm0yS3NULWVKa0J2bWxPODlSNnE2WFNHYlNSVEk2TlI4YkEuUUE=",
@@ -2085,13 +2090,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114783,
+        "last_check_time": 1789169707,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789106095,
-        "today_calls": 9,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11"
+        "cooldown_until": 1789154227,
+        "today_calls": 14,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15"
       },
       {
         "key": "ENC:d1NLYkNnR241LTFDMS1ia1YxZ0ltX3lsS0tzSjFOMDlJSWoyUWhrQnJ1Wkw2TlI4YkEuUUE=",
@@ -2100,13 +2105,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114898,
+        "last_check_time": 1789168825,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789106095,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789154227,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:d3FKRllqaTZubUthN20tVFpKTUlVZC1CbGh2elF4Umlvakw2Y2gwUlFhbkw2TlI4YkEuUUE=",
@@ -2115,13 +2120,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115016,
+        "last_check_time": 1789168934,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789106095,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789154227,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:Z3lWcnFsUXM1M3pCOWQzemhuVkNINTVSSFJEYk1NOXJLdFdrYWo1YnFYdUk2TlI4YkEuUUE=",
@@ -2130,13 +2135,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115131,
+        "last_check_time": 1789169042,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789106095,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789154227,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:UWpqS1JtdzVUVUtVdEp4bWl5ZDNLS0VERU4tRVNJRkxoSmVyaEF4b3dDd0w2TlI4YkEuUUE=",
@@ -2145,13 +2150,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115253,
+        "last_check_time": 1789169142,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789106095,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789154227,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:QUswdnphNzFmZElKWWtUQzBTdlNNc3dHOXN4WFExejdyWFdqRlBFVHVaTUw2TlI4YkEuUUE=",
@@ -2160,13 +2165,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115368,
+        "last_check_time": 1789169248,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789106095,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789154227,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:Z3JIOTROZmVDa09IV01WUE9sVE1ZUkdqWWdiUFEwMEZvVGZQTVRHcTFOckw2TlI4YkEuUUE=",
@@ -2175,13 +2180,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115497,
+        "last_check_time": 1789169357,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789106095,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789154227,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:UXktUUFYUG94dW5fQ1dNRnBjY1NjeGNycVBxRW1OS253Vlg2b2dqLThiZ0o2TlI4YkEuUUE=",
@@ -2190,13 +2195,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115618,
+        "last_check_time": 1789169462,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789106095,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "cooldown_until": 1789154227,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:QTlKVUJjbnloaTFFeURXYnBDM0V5YjBhMUtEYjZQWjlvLWd2SU5SUkxKc0s2TlI4YkEuUUE=",
@@ -2205,13 +2210,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115730,
+        "last_check_time": 1789169580,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789106095,
-        "today_account_calls": 87,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "cooldown_until": 1789154227,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:Z0pRTV8tUVJQc2YzMERPYXhYNUNCdGhpT3BzcDVFcndNQlpZZ3FxWkRUd0o2TlI4YkEuUUE=",
@@ -2220,13 +2225,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115483,
+        "last_check_time": 1789169027,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789112701,
-        "today_calls": 9,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11"
+        "cooldown_until": 1789142143,
+        "today_calls": 14,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15"
       },
       {
         "key": "ENC:d01tWG1EVk5JUEVKTEhGbHJSa2kzSl95ZFdmQnBkampaa1JxVXZRWmF4UEs2TlI4YkEuUUE=",
@@ -2235,13 +2240,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115604,
+        "last_check_time": 1789169130,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789112701,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789142143,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:Z2ZtcUFZS3RfN0JnY2lrcTNIanltMjZtbExPZnBzYkNUbDJmb3V0MHFnRkw2TlI4YkEuUUE=",
@@ -2250,13 +2255,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115718,
+        "last_check_time": 1789169236,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789112701,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789142143,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:UVVhSWdJdHBaN1J1OWpBeDJMTjVnaXkxX2VKdDVvUnR2LXF6TWl3QTN3T0w2TlI4YkEuUUE=",
@@ -2265,13 +2270,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115824,
+        "last_check_time": 1789169342,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789112701,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789142143,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 14
       },
       {
         "key": "ENC:d0h6SVNucVdwOTNTMTZVWHFzQVl6SlpzYUpZbEVpVm9iLVFWUXdFZnlBR0w2TlI4YkEuUUE=",
@@ -2280,13 +2285,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789114884,
+        "last_check_time": 1789169450,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789112701,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789142143,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:QVRWYmhvSXN3NGxfYWpuMHNoM1ltdHh4b0g2VmUtS1MwLUhqRmZybGNVN0o2TlI4YkEuUUE=",
@@ -2295,13 +2300,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115002,
+        "last_check_time": 1789169568,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789112701,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789142143,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:UWNKM3l3VFRwTVBHdDhFS2E3UGxVMlRXUGVjV010MEVrR2tRNG1TTllaV0k2TlI4YkEuUUE=",
@@ -2310,13 +2315,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115118,
+        "last_check_time": 1789169692,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789112701,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789142143,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:QWwxSFg1UGV1TGlmeFk1bDlQUHdpR2dBbzRpelNxZkNyVFE2d2tJN2l2X0o2TlI4YkEuUUE=",
@@ -2325,13 +2330,13 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115237,
+        "last_check_time": 1789168813,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789112701,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 10
+        "cooldown_until": 1789142143,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       },
       {
         "key": "ENC:d3M4QUt0RWg4bGdPMkwxTElzcTRFdlR0aGh5QjIwdndXbDFDelEyUjYzNEo2TlI4YkEuUUE=",
@@ -2340,24 +2345,24 @@
         "type": "GEMINI API",
         "status": "active",
         "reset_time": 0,
-        "last_check_time": 1789115356,
+        "last_check_time": 1789168921,
         "next_check_time": 0,
         "error_msg": "",
-        "cooldown_until": 1789112701,
-        "today_account_calls": 88,
-        "call_date": "2026-09-11",
-        "today_calls": 9
+        "cooldown_until": 1789142143,
+        "today_account_calls": 121,
+        "call_date": "2026-09-15",
+        "today_calls": 13
       }
     ],
-    "last_roadmap": "D:/Roadmap/roadmap_SaveLife.md",
+    "last_roadmap": "D:/Roadmap/roadmap_ky_su_dien_da_nang.md",
     "last_doc_dir": "C:/Users/games/Desktop/Project/Python/Python MyWork/Project1/GravityCode/Download/AskCpl",
-    "last_out_dir": "D:/Roadmap/SaveLife",
+    "last_out_dir": "D:/Roadmap/DienDaNang",
     "roadmap_generator": {
       "gen_mode": "learning",
-      "domain": "Word đến chuyên gia",
+      "domain": "Ngành ĐIện điện tử đến chuyên gia làm được mọi thứ",
       "time_per_day": "1 tiếng",
       "days": "Auto",
-      "context": "Mọi thứ về word\nTự động\nLien ekeset\nPhối hợp các ứng dụng khác\nTạo addon...\nVBA\nWeb.....\n\nTất cả có tể",
+      "context": "Có thể hiểu toàn bộ thiết bị điện\nSửa chữa điện\nTự động\nChế tạo được toàn bộ\nHiểu nguyên lý tủ lạnh, điều hòa, máy giặt .....và cách sửa......",
       "req_time": 0,
       "req_mat": 0,
       "req_step": 0,
@@ -2369,8 +2374,8 @@
       "reference_files": [
         "C:/Users/12953 bao/Desktop/desktop/work/Project/Python/BasicLearnPython/W3schools/Python Tutorial/GravityCode/Download/AskCpl/.agents/skills/generate_roadmap/SKILL.md"
       ],
-      "custom_filename": "WordRoadmap",
-      "save_dir": "C:/Users/12953 bao/Desktop/Roadmap",
+      "custom_filename": "ElectricEnginneerGuiidle",
+      "save_dir": "D:/Roadmap",
       "expand_mode": "llm"
     },
     "enable_followup": true,
