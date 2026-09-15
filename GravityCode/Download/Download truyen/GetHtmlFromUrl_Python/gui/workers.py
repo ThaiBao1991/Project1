@@ -408,13 +408,15 @@ class DownloadWorker(QThread):
     # Private Helpers
     # ------------------------------------------------------------------
     def _extract_story_title(self) -> str:
-        """Lấy tên truyện từ URL (sử dụng đoạn path cuối)"""
+        """Lấy tên truyện từ save_path hoặc URL"""
+        if self.save_path:
+            return Path(self.save_path).stem
         path_part = self.url.rstrip("/").split("/")[-1]
         # Chuyển dấu gạch ngang thành khoảng trắng, viết hoa từng chữ
         return path_part.replace("-", " ").title()
 
     def _prepare_save_paths(self, story_title: str):
-        """Chuẩn bị đường dẫn lưu file. Dùng URL slug làm tên thư mục cố định."""
+        """Chuẩn bị đường dẫn lưu file. Dùng tên truyện/file làm tên thư mục lưu các chương lẻ."""
         if not self.save_path:
             return None, None
 
@@ -424,9 +426,17 @@ class DownloadWorker(QThread):
             base_name = base_name + ext
 
         parent_dir = str(Path(base_name).parent)
-        # Dùng URL slug làm tên thư mục cố định (không dùng timestamp nữa)
-        slug = self.url.rstrip("/").split("/")[-1] if self.url else story_title.replace(" ", "-").lower()
-        save_dir = os.path.join(parent_dir, slug)
+        stem = Path(base_name).stem
+        if stem.startswith("China-") or not self.url:
+            folder_name = stem
+        else:
+            folder_name = self.url.rstrip("/").split("/")[-1]
+            if folder_name.endswith(('.htm', '.html')):
+                folder_name = folder_name.rsplit('.', 1)[0]
+            if not folder_name or folder_name.isdigit():
+                folder_name = stem
+
+        save_dir = os.path.join(parent_dir, folder_name)
         os.makedirs(save_dir, exist_ok=True)
 
         return save_dir, base_name
@@ -438,13 +448,19 @@ class DownloadWorker(QThread):
             ext = f".{self.file_format}"
             file_path = os.path.join(save_dir, f"{idx + 1:04d}_{safe_title}{ext}")
 
-            with open(file_path, "w", encoding="utf-8") as f:
+            with open(file_path, "w", encoding="utf-8-sig") as f:
                 if self.file_format == "html":
                     content_str = chapter.content or ""
                     content_str = re.sub(r'(?<!>)\n(?!<)', '<br/>\n', content_str)
                     
+                    f.write("<!DOCTYPE html>\n<html lang='zh-CN'>\n<head>\n")
+                    f.write("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n")
+                    f.write(f"<title>{chapter.title}</title>\n")
+                    f.write("<style> body { font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; line-height: 1.8; padding: 20px; } .chapter-content { white-space: pre-wrap; font-size: 18px; } </style>\n")
+                    f.write("</head>\n<body>\n")
                     f.write(f"<h2>{chapter.title}</h2>\n")
                     f.write(f"<div class='chapter-content'>\n{content_str}\n</div>\n")
+                    f.write("</body>\n</html>\n")
                 else:
                     f.write(f"{chapter.title}\n\n")
                     f.write(html_to_text(chapter.content or ""))

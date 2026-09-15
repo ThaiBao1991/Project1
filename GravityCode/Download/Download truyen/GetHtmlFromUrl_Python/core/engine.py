@@ -13,18 +13,30 @@ from models.chapter import Chapter
 
 logger = logging.getLogger(__name__)
 
+try:
+    from curl_cffi import requests as curl_requests
+    HAS_CURL_CFFI = True
+except ImportError:
+    HAS_CURL_CFFI = False
+
 class GetHtmlEngine:
     def __init__(self):
         self.session = requests.Session()
         self.session.headers.update({
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
         })
-        # Lớp Cloudscraper dùng cho bypass Cloudflare
+        # Lớp Cloudscraper và curl_cffi dùng cho bypass Cloudflare
         self.cf_scraper = cloudscraper.create_scraper(browser={'browser': 'chrome', 'platform': 'windows', 'mobile': False})
+        self.curl_session = curl_requests.Session(impersonate='chrome120') if HAS_CURL_CFFI else None
 
     def _get_scraper(self, page_config):
-        """Trả về session hoặc cf_scraper kèm theo cookies nếu có."""
-        scraper = self.cf_scraper if getattr(page_config, 'by_pass_cloudflare', False) else self.session
+        """Trả về session, curl_session hoặc cf_scraper kèm theo cookies nếu có."""
+        if getattr(page_config, 'by_pass_cloudflare', False) and self.curl_session:
+            scraper = self.curl_session
+        elif getattr(page_config, 'by_pass_cloudflare', False):
+            scraper = self.cf_scraper
+        else:
+            scraper = self.session
         custom_cookies = getattr(page_config, '_custom_cookies', None)
         if custom_cookies:
             scraper.cookies.update(custom_cookies)
@@ -71,14 +83,43 @@ class GetHtmlEngine:
         return soup_or_tag
 
     def fetch_html(self, url: str, page_config: PageConfig) -> Optional[BeautifulSoup]:
-        """Tải HTML từ URL"""
+        """Tải HTML từ URL, tự động xử lý Cloudflare và charset tiếng Trung (GBK/GB18030/UTF-8)"""
         try:
+            # Chuẩn hóa URL cho 69shuba: nếu là link giới thiệu /book/XXX.htm thì chuyển sang /book/XXX/ để lấy mục lục
+            if '69shuba' in url and url.endswith('.htm') and '/book/' in url:
+                url = re.sub(r'\.htm$', '/', url)
+
             scraper = self._get_scraper(page_config)
-            resp = scraper.get(url, timeout=25)
+            headers = {}
+            if '69shuba' in url or not getattr(page_config, 'is_vietnamese_host', True):
+                if '/book/' in url:
+                    headers['Referer'] = f"{url.split('/book/')[0]}/"
+                elif '/txt/' in url:
+                    # Trang chương của 69shuba: Referer từ trang sách
+                    parts = url.split('/txt/')
+                    headers['Referer'] = f"{parts[0]}/book/{parts[1].split('/')[0]}/"
+                else:
+                    headers['Referer'] = url
+
+            resp = scraper.get(url, headers=headers, timeout=25)
             resp.raise_for_status()
+
             # Tự động detect encoding
-            resp.encoding = resp.apparent_encoding 
-            return BeautifulSoup(resp.text, 'html.parser')
+            content_bytes = resp.content
+            charset_m = re.search(rb'charset=["\']?([a-zA-Z0-9_-]+)', content_bytes[:1024])
+            if charset_m:
+                encoding = charset_m.group(1).decode('ascii', errors='ignore').lower()
+                if encoding in ('gbk', 'gb2312'):
+                    encoding = 'gb18030'
+            else:
+                encoding = getattr(resp, 'apparent_encoding', None) or 'utf-8'
+
+            try:
+                html_text = content_bytes.decode(encoding, errors='replace')
+            except Exception:
+                html_text = resp.text
+
+            return BeautifulSoup(html_text, 'html.parser')
         except Exception as e:
             logger.error(f"Lỗi tải {url}: {e}")
             return None
@@ -280,10 +321,17 @@ class GetHtmlEngine:
         """
         # ── Mode 1: AJAX Pagination ────────────────────────────────────
         if page_config.ajax_list_chap_url:
-            return self._get_links_ajax(url, page_config, log_fn=log_fn)
+            links = self._get_links_ajax(url, page_config, log_fn=log_fn)
+        else:
+            # ── Mode 2: Static HTML (có thể có nhiều trang) ──────────────────
+            links = self._get_links_static(url, page_config, log_fn=log_fn)
 
-        # ── Mode 2: Static HTML (có thể có nhiều trang) ──────────────────
-        return self._get_links_static(url, page_config, log_fn=log_fn)
+        if getattr(page_config, 'is_revert_chapter_list', False) and links:
+            if log_fn:
+                log_fn("🔄 Đảo ngược thứ tự danh sách chương (chương 1 ở đầu)...")
+            links.reverse()
+
+        return links
 
     # ------------------------------------------------------------------
     def _get_links_ajax(self, story_url: str, page_config: PageConfig, log_fn=None) -> List[str]:

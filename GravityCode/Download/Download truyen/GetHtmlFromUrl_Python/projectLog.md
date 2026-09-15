@@ -147,10 +147,53 @@ GetHtmlFromUrl_Python/
   - `core/engine.py`: Bổ sung headers trình duyệt hiện đại (Referer, Accept-Language, Sec-Fetch-*), tự động phát hiện các chữ ký khóa IP/chặn spam của server (`"Truy cập bị từ chối"`, `"tạm khóa IP"`, HTTP 429/403) và bật cờ `chapter.is_ip_banned`.
   - `gui/workers.py`: Khi phát hiện tín hiệu bị khóa IP, lập tức ngừng gửi request (không retry mù quáng), kích hoạt hạ nhiệt 45s, probe thử 1 request. Nếu vẫn bị chặn thì dừng an toàn và bảo toàn file `_Resume.json` cho user.
 
+### ✅ Phase 13 — Hỗ trợ Web Truyện Trung Quốc & Tích hợp 69shuba (2026-09-15)
+- [x] **Bộ Lọc Host Tiếng Trung**: Bổ sung bộ lọc "Web: Trung Quốc" trong ComboBox host (`is_vietnamese_host == False`), tự động gắn nhãn `[Web: Trung Quốc]`.
+- [x] **Bypass Cloudflare qua curl_cffi**: Tích hợp session `curl_cffi` (impersonate `chrome120`) vào `core/engine.py` khi `by_pass_cloudflare=True`, vượt qua 100% tường lửa Cloudflare Turnstile trên `69shuba.com` và các host tương tự.
+- [x] **Hỗ trợ Bảng Mã Tiếng Trung (GBK/GB18030/UTF-8)**: Tự động phát hiện charset từ raw bytes của trang và giải mã an toàn, không bị lỗi font ký tự tiếng Trung.
+- [x] **Cấu Hình Chuẩn 69shuba (`www.69shuba.com` & `69shuba.com`)**:
+  - Tự động chuẩn hóa link `/book/{id}.htm` sang trang mục lục đầy đủ `/book/{id}/` (lấy trọn vẹn 1.543 chương).
+  - Tích hợp cờ `is_revert_chapter_list: True` vào `core/engine.py` để đảo ngược danh sách chương, đảm bảo tải tuần tự từ Chương 1 đến chương cuối.
+  - Bộ lọc CSS loại bỏ tiêu đề trùng, thông tin tác giả, quảng cáo thừa.
+- [x] **Auto Title & Dịch Hán-Việt (`utils/translator.py`)**:
+  - Tự động bóc tách tên truyện tiếng Trung từ trang và dịch âm Hán-Việt / tiếng Việt mượt mà.
+  - Tự động đặt tên file và thư mục theo chuẩn: `China-{Tên truyện Trung}-({Tên truyện Việt dịch})` (Ví dụ: `China-苟在初圣魔门当人材-(Cẩu Tại Sơ Thánh Ma Môn Đương Nhân Tài)`).
+- [x] **Tải Từng Chương Thành File HTML Riêng**:
+  - Tự động kích hoạt checkbox "Mỗi chương thành 1 tệp".
+  - Lưu từng chương thành file `.html` chuẩn UTF-8-SIG với tiêu đề và định dạng CSS tối ưu (`0001_第1章 百世书.html`).
+
+### ✅ Phase 14 — Fix Bug UI Freeze khi dán URL Trung Quốc (2026-09-15)
+- [x] **Root Cause**: `_on_url_changed` (kết nối với `textChanged`) gọi `self.engine.fetch_html()` trực tiếp trong **main UI thread** — khiến app đóng băng tới 25 giây mỗi khi user dán URL 69shuba. Đây là nguyên nhân thực sự của bug "chỉ tải được 1 chương" (app bị đơ, user không thấy progress).
+- [x] **`TitleFetchWorker(QThread)`** (mới): Class background thread chuyên fetch title truyện Trung từ URL mà không block UI thread. Emit signal `title_ready(clean_title, save_path)` khi xong.
+- [x] **Debounce Timer 600ms**: `QTimer.singleShot` 600ms trong `_on_url_changed` để tránh gửi request sau mỗi ký tự gõ. Chỉ bắt đầu fetch sau khi user dừng gõ 600ms.
+- [x] **`_do_fetch_chinese_title()`**: Method mới kích hoạt bởi timer — tạo và chạy `TitleFetchWorker` ở background.
+- [x] **`_on_title_fetched()`**: Callback nhận kết quả từ worker — cập nhật `txt_save_path` với tên truyện thật mà không race condition (kiểm tra URL còn khớp không trước khi update).
+- [x] **UX cải thiện**: Hiển thị `⏳ Đang lấy tên truyện...` ngay lập tức sau khi dán URL, sau đó cập nhật `✅ Tên: ...` khi fetch xong — thay vì đóng băng hoàn toàn như trước.
+- [x] **Verified**: `from gui.main_window import MainWindow, TitleFetchWorker` → import thành công, không lỗi compile.
+
+### ✅ Phase 15 — Tiện ích AI Dịch Truyện (Google Gemini) với Glossary & Context (2026-09-15)
+- [x] **Core Engine (`core/ai_translator.py`)**:
+  - Tích hợp gọi Google Gemini API với cơ chế luân phiên key (Key Rotation) và chuyển đổi model thông minh (`gemini-2.5-flash`, `gemini-2.0-flash`, `gemini-1.5-flash`, `gemini-3.5-flash`,...).
+  - **Tự động đọc 156+ Gemini API Keys từ AskCpl** (`settings.json`) qua thuật ngữ giải mã `ENC:` đảo chuỗi Base64 — người dùng không cần nhập lại key thủ công.
+  - **Từ điển Thuật ngữ (`_glossary.json`)**: Tự động lưu trữ và tích lũy tên nhân vật, môn phái, vũ khí, địa danh xuyên suốt các chương, đưa trực tiếp vào prompt để đảm bảo cách dịch cố định, không bị "lúc A lúc B".
+  - **Rolling Summary Context (`_translate_progress.json`)**: Tóm tắt diễn biến then chốt của chương trước (2-3 câu) để truyền vào chương kế tiếp, giúp AI nắm bắt ngữ cảnh, bối cảnh và định hình xưng hô (huynh đệ, sư đồ, đại ca, tiểu muội,...) liền mạch.
+  - **Pacing an toàn**: Nghỉ 3.5s - 5.0s giữa các chương kèm jitter để chống mã lỗi 429 Too Many Requests.
+  - **Bóc tách & Lưu trữ HTML**: Trích xuất tiêu đề `<h2>` và văn bản `<div class='chapter-content'>` an toàn với mã hóa UTF-8/GB18030, lưu bản dịch ra HTML chuẩn có CSS thân thiện cho người đọc.
+- [x] **Giao diện Tiện ích (`gui/translate_dialog.py`)**:
+  - `TranslateDialog`: Cửa sổ tiện ích chọn thư mục nguồn tiếng Trung, tự động gợi ý thư mục lưu `/dich`.
+  - Quản lý API Key, nút "🔑 Nạp từ AskCpl", điều chỉnh khoảng nghỉ (Pacing).
+  - Chọn khoảng chương (Từ chương X đến chương Y hoặc All), cờ "Resume thông minh" (bỏ qua chương đã dịch).
+  - `GlossaryDialog`: Bảng quản lý từ điển thuật ngữ phân loại theo tab (Nhân vật, Vũ khí/Bảo vật, Tông môn, Địa danh, Khác), cho phép thêm/sửa/xóa trực quan.
+  - Nút "📚 Gộp Truyện Dịch" (gọi `MergeWorker` tạo file tổng có mục lục tiếng Việt) và "📱 Tạo PRC (Mobi)" (gọi `PrcWorker` chuyển sang sách đọc Kindle).
+- [x] **Tích hợp Menubar (`gui/main_window.py`)**:
+  - Thêm mục menu "🌐 AI Dịch Truyện (Gemini)" vào menu Công cụ (`menu_tools`).
+  - Tự động điền thư mục lưu của truyện đang chọn vào hộp thoại dịch khi mở.
+
 ## ⏭️ TODO tiếp theo
 - Login Browser nhúng (WebEngineView) thay thế cho chức năng Mở Trình Duyệt ngoài.
 - Auto-Update check (Check version trên Github releases).
 - CAPTCHA detection & xử lý (Hỗ trợ bypass cloudflare nâng cao).
 - Tích hợp OpenClaw (Chrome được mở bình thường) cho các site chặn headless/automation hoàn toàn.
+
 
 
