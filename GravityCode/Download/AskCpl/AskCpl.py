@@ -627,46 +627,103 @@ class AskCplApp:
         
         # Tạo widgets câu hỏi
         question_states = []
+        all_inclusive_text = "🌟 Toàn bộ các định hướng trên (Tích hợp đa năng: Làm chủ toàn diện tất cả các nhánh từ cơ bản đến Master)"
+        
         for i_q, q_data in enumerate(questions, 1):
             q_text = q_data.get("question", f"Câu hỏi {i_q}")
             is_multi = q_data.get("multi_select", True)
-            options = q_data.get("options", [])
+            raw_options = [str(o).strip() for o in q_data.get("options", []) if str(o).strip()]
+            
+            # Đảm bảo phương án "Toàn bộ" luôn xuất hiện ở cuối
+            options = [o for o in raw_options if not o.startswith("🌟 Toàn bộ")]
+            options.append(all_inclusive_text)
             
             q_box = tk.LabelFrame(f_content, text=f" Câu {i_q}: {q_text} ", font=("Arial", 10, "bold"), padx=10, pady=8)
             q_box.pack(fill='x', pady=6)
             
+            f_quick = tk.Frame(q_box)
+            f_quick.pack(fill='x', pady=(0, 4))
+            
             if is_multi:
                 opt_vars = []
                 for opt in options:
-                    var = tk.BooleanVar(value=True)  # Mặc định chọn để bao quát
-                    cb = tk.Checkbutton(q_box, text=opt, variable=var, font=("Arial", 9), wraplength=580, justify='left')
+                    is_all_opt = (opt == all_inclusive_text)
+                    # Mặc định chọn các nhánh cụ thể để bao quát kiến thức
+                    var = tk.BooleanVar(value=not is_all_opt)
+                    cb = tk.Checkbutton(q_box, text=opt, variable=var,
+                                        font=("Arial", 9, "bold" if is_all_opt else "normal"),
+                                        fg="#6c3483" if is_all_opt else "black",
+                                        wraplength=580, justify='left')
                     cb.pack(anchor='w', pady=2)
                     opt_vars.append((opt, var))
-                question_states.append(("multi", q_text, opt_vars))
+                
+                def _make_sel_all(v_list):
+                    return lambda: [v.set(True) if o != all_inclusive_text else v.set(False) for o, v in v_list]
+                def _make_desel_all(v_list):
+                    return lambda: [v.set(False) for _, v in v_list]
+                def _make_pick_all_opt(v_list):
+                    def _do():
+                        for o, v in v_list:
+                            v.set(o == all_inclusive_text)
+                    return _do
+
+                tk.Button(f_quick, text="☑️ Chọn tất cả nhánh", font=("Arial", 8), command=_make_sel_all(opt_vars), relief="groove", padx=4).pack(side='left', padx=2)
+                tk.Button(f_quick, text="☐ Bỏ chọn", font=("Arial", 8), command=_make_desel_all(opt_vars), relief="groove", padx=4).pack(side='left', padx=2)
+                tk.Button(f_quick, text="🌟 Chọn toàn diện (Tất cả)", font=("Arial", 8, "bold"), fg="#6c3483", command=_make_pick_all_opt(opt_vars), relief="groove", padx=4).pack(side='left', padx=2)
+                
+                question_states.append(("multi", q_text, opt_vars, raw_options))
             else:
-                var = tk.StringVar(value=options[0] if options else "")
+                var = tk.StringVar(value=all_inclusive_text if len(options) > 1 else (options[0] if options else ""))
                 for opt in options:
-                    rb = tk.Radiobutton(q_box, text=opt, variable=var, value=opt, font=("Arial", 9), wraplength=580, justify='left')
+                    is_all_opt = (opt == all_inclusive_text)
+                    rb = tk.Radiobutton(q_box, text=opt, variable=var, value=opt,
+                                        font=("Arial", 9, "bold" if is_all_opt else "normal"),
+                                        fg="#6c3483" if is_all_opt else "black",
+                                        wraplength=580, justify='left')
                     rb.pack(anchor='w', pady=2)
-                question_states.append(("single", q_text, var))
+                
+                def _make_set_radio(v, target_val):
+                    return lambda: v.set(target_val)
+                    
+                tk.Button(f_quick, text="🌟 Chọn toàn diện (Tất cả)", font=("Arial", 8, "bold"), fg="#6c3483",
+                          command=_make_set_radio(var, all_inclusive_text), relief="groove", padx=4).pack(side='left', padx=2)
+                          
+                question_states.append(("single", q_text, var, raw_options))
                 
         def do_submit():
             chosen = []
             for item in question_states:
                 q_type = item[0]
                 q_title = item[1]
+                orig_options = item[3]
+                clean_opts = [o for o in orig_options if o != all_inclusive_text]
                 if q_type == "multi":
                     opt_vars = item[2]
                     selected_opts = [opt for opt, v in opt_vars if v.get()]
-                    if selected_opts:
+                    if all_inclusive_text in selected_opts or len(selected_opts) == len(clean_opts):
+                        chosen.append(f"{q_title} -> Học toàn diện và làm chủ 100% tất cả các nhánh: " + "; ".join(clean_opts))
+                    elif selected_opts:
                         chosen.append(f"{q_title} -> " + "; ".join(selected_opts))
                 else:
                     val = item[2].get().strip()
-                    if val:
+                    if val == all_inclusive_text:
+                        chosen.append(f"{q_title} -> Học toàn diện và làm chủ 100% tất cả các nhánh: " + "; ".join(clean_opts))
+                    elif val:
                         chosen.append(f"{q_title} -> {val}")
             on_finish(chosen)
             
-        tk.Button(f_btns, text="✅ Xác Nhận & Tiếp Tục Tạo Lộ Trình", bg="#27ae60", fg="white", font=("Arial", 10, "bold"),
+        def choose_all_master():
+            chosen = []
+            for item in question_states:
+                q_title = item[1]
+                orig_options = item[3]
+                clean_opts = [o for o in orig_options if o != all_inclusive_text]
+                chosen.append(f"{q_title} -> Học toàn diện và làm chủ 100% tất cả các nhánh: " + "; ".join(clean_opts))
+            on_finish(chosen)
+            
+        tk.Button(f_btns, text="🌟 Học Toàn Diện Tất Cả (Master Mọi Thứ)", bg="#6c3483", fg="white", font=("Arial", 10, "bold"),
+                  padx=12, pady=6, command=choose_all_master).pack(side='left', padx=5)
+        tk.Button(f_btns, text="✅ Xác Nhận Lựa Chọn Trên", bg="#27ae60", fg="white", font=("Arial", 10, "bold"),
                   padx=15, pady=6, command=do_submit).pack(side='right', padx=5)
         tk.Button(f_btns, text="⏭️ Bỏ Qua (Để AI Tự Chọn)", font=("Arial", 9), padx=10, pady=6, command=lambda: on_finish([])).pack(side='right')
 
@@ -2009,6 +2066,8 @@ Nhiệm vụ của bạn: Phân tích xem lĩnh vực này có những hướng 
                     valid_questions = []
                     for q in branch_questions:
                         if isinstance(q, dict) and q.get("question") and isinstance(q.get("options"), list) and len(q.get("options")) >= 2:
+                            # Mặc định kích hoạt multi_select để người học có thể chọn nhiều nhánh hoặc học toàn diện
+                            q["multi_select"] = True
                             valid_questions.append(q)
                             
                     if valid_questions:

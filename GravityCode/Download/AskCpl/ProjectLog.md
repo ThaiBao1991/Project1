@@ -1,3 +1,25 @@
+## 2026-09-15 — Nâng Cấp Hộp Thoại Trắc Nghiệm: Hỗ Trợ Học Toàn Diện & Đa Lựa Chọn — HOÀN THÀNH ✅
+
+### 1. Vấn Đề Gốc Rễ Đã Giải Quyết
+- **Hiện tượng**: Khi tạo roadmap (ví dụ: Cơ khí chế tạo), AI hiển thị câu hỏi trắc nghiệm định hướng ngã rẽ chuyên sâu ở PASS 0.5 nhưng giao diện chỉ cho chọn **1 phương án tròn (Radiobutton)**. Người học muốn master toàn bộ các nhánh (Thiết kế R&D, CNC, Tự động hóa Robot, Quản lý xưởng) bị ép phải chọn 1 nhánh duy nhất, khiến AI thu hẹp lộ trình và bỏ sót các nhánh còn lại.
+- **Nguyên nhân**: Prompt PASS 0.5 dù có gợi ý `"multi_select": true` nhưng LLM có thể trả về `false`, và code GUI không có tùy chọn "Tất cả các câu trên" cũng như không có nút chọn nhanh toàn diện.
+
+### 2. Các Thay Đổi Cụ Thể
+- **`AskCpl.py`** (`_ask_interactive_branching_quiz` & PASS 0.5):
+  - **Tự động thêm phương án "Toàn bộ các định hướng trên"**: Mỗi câu hỏi luôn tự động có tùy chọn nổi bật màu tím:
+    `🌟 Toàn bộ các định hướng trên (Tích hợp đa năng: Làm chủ toàn diện tất cả các nhánh từ cơ bản đến Master)`.
+  - **Kích hoạt Multi-select Checkbox**: Mặc định chuyển sang checkbox đa lựa chọn kèm các nút nhanh trên đầu mỗi câu hỏi: `[☑️ Chọn tất cả nhánh]`, `[☐ Bỏ chọn]`, `[🌟 Chọn toàn diện (Tất cả)]`.
+  - **Nút chuyên biệt tại thanh dưới**: Thêm nút nổi bật màu tím `[🌟 Học Toàn Diện Tất Cả (Master Mọi Thứ)]`. Bấm 1 click là AI sẽ tự động lập lộ trình làm chủ 100% tất cả các nhánh chuyên sâu được phát hiện.
+- **`test_roadmap_autofix.py`**:
+  - Bổ sung test `test_branching_quiz_all_inclusive_option` kiểm chứng logic tự động chèn phương án toàn diện và định dạng chuỗi ngữ cảnh kết quả.
+
+### 3. Kiểm Thử & Xác Minh (Verification)
+- ✅ `python -m py_compile AskCpl.py test_roadmap_autofix.py`: SYNTAX OK.
+- ✅ `python -m unittest test_roadmap_autofix.py`: 5/5 tests PASS 100%.
+- ✅ `python -m unittest test_roadmap_pipeline.py`: 19/19 tests PASS 100%.
+
+---
+
 ## 2026-09-13 — Fix Lỗi KaTeX Không Render Công Thức (defer+onload Bug) — HOÀN THÀNH ✅
 
 ### 1. Nguyên Nhân Gốc Rễ

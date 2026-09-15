@@ -281,5 +281,50 @@
       "do_luong_cam_bien_nang_cao": "Hiểu nguyên lý hoạt động, xử lý tín hiệu đo lường từ cảm biến công nghiệp (áp suất, lưu lượng, nhiệt độ, IMU) và mạch conditioned signal.",
       "an_toan_dien_va_tieu_chuan": "Tuân thủ tuyệt đối các tiêu chuẩn kỹ thuật quốc tế IEC, IEEE, NEC, ISO về an toàn điện, chống cháy nổ và độ tin cậy hệ thống."
     }
+  },
+  "ngành cơ khí chế tạo từ 0 - chuyên gia làm được mọi thứ": {
+    "title": "Ngành cơ khí chế tạo từ 0 - chuyên gia làm được mọi thứ",
+    "recommended_days": 1800,
+    "persona": "Chuyên gia Cấp cao Kỹ thuật Cơ khí Chế tạo & Tự động hóa Toàn diện",
+    "category": "Kỹ thuật cơ khí",
+    "instruction": "PROFILE NGÀNH CƠ KHÍ CHẾ TẠO TỪ 0 - CHUYÊN GIA LÀM ĐƯỢC MỌI THỨ: Chương trình được thiết kế với khối lượng kiến thức chuẩn hóa 5 năm chuyên sâu, dẫn dắt học viên đi từ con số 0 đến đỉnh cao của ngành cơ khí. Lộ trình bắt đầu từ Toán cao cấp, Vật liệu học và Vẽ kỹ thuật CAD; tiến sâu vào Nguyên lý máy, Sức bền vật liệu, Nhiệt - Động lực học; làm chủ các công nghệ gia công truyền thống (Tiện, Phay, Bào, Hàn) và công nghệ hiện đại (CNC 3-5 trục, CAM, Laser cutting, EDM); nghiên cứu sâu về Thủy lực - Khí nén, Tự động hóa PLC, Robot công nghiệp; thành thạo thiết kế máy chuyên dụng, tối ưu hóa quy trình sản xuất (Lean Manufacturing, Six Sigma, TPM); đến quản lý chất lượng (ISO 9001, GD&T), quản lý dự án cơ khí và phát triển sản phẩm mới (R&D). Mục tiêu đào tạo ra một chuyên gia có tư duy hệ thống toàn diện, đủ năng lực thiết kế, chế tạo, vận hành và quản trị mọi hệ thống cơ khí phức tạp trong nhà máy thông minh (Smart Factory).",
+    "mandatory_milestones": [
+      "toan_ly_ky_thuat",
+      "vat_lieu_hoc_va_nhiet_luyen",
+      "ve_ky_thuat_va_cad",
+      "co_hoc_ly_thuyet_va_suc_ben",
+      "nguyen_ly_va_chi_tiet_may",
+      "gia_cong_truyen_thong",
+      "cong_nghe_cnc_va_cam",
+      "cong_nghe_han_va_che_tao_tam",
+      "thuy_luc_va_khi_nen",
+      "dien_va_tu_dong_hoa_plc",
+      "robot_va_he_thong_co_dien_tu",
+      "do_luong_va_gd_t",
+      "thiet_ke_may_chuyen_dung",
+      "cong_nghe_che_tao_may",
+      "bao_duong_va_tin_cay_thiet_bi",
+      "quan_ly_san_xuat_va_lean",
+      "nghien_cuu_va_phat_trien_san_pham"
+    ],
+    "milestone_descriptions": {
+      "toan_ly_ky_thuat": "Nắm vững toán cao cấp, đại số tuyến tính, phương trình vi phân và vật lý đại cương làm nền tảng mô hình hóa các hiện tượng vật lý trong cơ khí.",
+      "vat_lieu_hoc_va_nhiet_luyen": "Hiểu sâu vi cấu trúc kim loại, hợp kim, polyme, composite; các phương pháp nhiệt luyện (tôi, ram, ủ, thấm) để tối ưu cơ tính vật liệu chế tạo.",
+      "ve_ky_thuat_va_cad": "Thành thạo tiêu chuẩn bản vẽ kỹ thuật quốc tế (ISO, ASME, TCVN) và sử dụng thành thạo các phần mềm CAD 3D như SolidWorks, AutoCAD, CATIA.",
+      "co_hoc_ly_thuyet_va_suc_ben": "Phân tích lực, chuyển động của cơ cấu và tính toán ứng suất, biến dạng, mỏi của chi tiết máy dưới tác động của tải trọng tĩnh và động.",
+      "nguyen_ly_va_chi_tiet_may": "Nghiên cứu cấu trúc cơ cấu, động học, động lực học máy và thiết kế chuẩn các chi tiết máy tiêu chuẩn (ổ lăn, trục, bánh răng, đai, xích).",
+      "gia_cong_truyen_thong": "Làm chủ vận hành và công nghệ cắt gọt trên các máy vạn năng: tiện, phay, bào, xọc, doa, mài để chế tạo chi tiết đơn chiếc và hàng loạt.",
+      "cong_nghe_cnc_va_cam": "Lập trình G-code, lập trình gia công CAM trên Mastercam/NX cho trung tâm gia công CNC 3 trục đến 5 trục và máy tiện CNC phức hợp.",
+      "cong_nghe_han_va_che_tao_tam": "Thành thạo các công nghệ hàn (MIG, MAG, TIG, Laser), thiết kế và gia công kim loại tấm (cắt laser, chấn gấp CNC) trong kết cấu vỏ máy.",
+      "thuy_luc_va_khi_nen": "Thiết kế, đọc bản vẽ và lắp đặt các mạch thủy lực - khí nén công nghiệp điều khiển truyền động lực lớn cho máy móc tự động.",
+      "dien_va_tu_dong_hoa_plc": "Nắm vững kỹ thuật điện công nghiệp, biến tần, động cơ servo và lập trình PLC (Siemens, Mitsubishi) để điều khiển trình tự máy.",
+      "robot_va_he_thong_co_dien_tu": "Tích hợp cảm biến, vi điều khiển, cơ cấu chấp hành và lập trình robot công nghiệp (ABB, KUKA, Fanuc) trong dây chuyền lắp ráp.",
+      "do_luong_va_gd_t": "Sử dụng thành thạo dụng cụ đo lường chính xác (thước kẹp, panme, CMM) và áp dụng dung hình học và dung sai (GD&T) trong kiểm tra chất lượng.",
+      "thiet_ke_may_chuyen_dung": "Khả năng tư duy tổng hợp để thiết kế hoàn chỉnh một máy tự động hoặc dây chuyền chuyên dụng đáp ứng bài toán sản xuất thực tế.",
+      "cong_nghe_che_tao_may": "Thiết kế quy trình công nghệ chế tạo chi tiết (lập tiến trình công nghệ, thiết kế đồ gá - jig, tính toán chế độ cắt) tối ưu năng suất và chi phí.",
+      "bao_duong_va_tin_cay_thiet_bi": "Xây dựng chiến lược bảo trì dự phòng, bảo trì dự đoán (PdM), TPM và xử lý sự cố nhanh chóng nhằm đảm bảo OEE của nhà máy.",
+      "quan_ly_san_xuat_va_lean": "Áp dụng các triết lý quản xuất tinh gọn (Lean Manufacturing), Six Sigma, 5S, Kaizen để loại bỏ lãng phí và tối ưu hóa dòng chảy sản xuất.",
+      "nghien_cuu_va_phat_trien_san_pham": "Quy trình phát triển sản phẩm mới (NPD) từ ý tưởng, thiết kế ý niệm, phân tích phần tử hữu hạn (FEA/CAE), tạo mẫu nhanh đến thương mại hóa."
+    }
   }
 }

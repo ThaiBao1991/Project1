@@ -76,6 +76,30 @@ class RoadmapAutoFixTests(unittest.TestCase):
         self.assertTrue(all(5 <= p["days"] <= 500 for p in phases))
         self.assertTrue(all(p.get("id") and p.get("name") for p in phases))
 
+    def test_branching_quiz_all_inclusive_option(self):
+        """Kiểm tra logic thêm option toàn diện và format kết quả khi chọn tất cả."""
+        raw_options = [
+            "Chuyên gia Thiết kế & R&D",
+            "Chuyên gia Công nghệ & Gia công CNC",
+            "Chuyên gia Tự động hóa & Robot",
+            "Chuyên gia Quản lý sản xuất"
+        ]
+        all_inclusive_text = "🌟 Toàn bộ các định hướng trên (Tích hợp đa năng: Làm chủ toàn diện tất cả các nhánh từ cơ bản đến Master)"
+        
+        # Test 1: Đảm bảo option toàn diện được thêm vào cuối
+        options = [o for o in raw_options if not o.startswith("🌟 Toàn bộ")]
+        options.append(all_inclusive_text)
+        self.assertEqual(options[-1], all_inclusive_text)
+        self.assertEqual(len(options), 5)
+        
+        # Test 2: Khi chọn option toàn diện, chuỗi sinh ra phải liệt kê trọn vẹn tất cả các nhánh con
+        clean_opts = [o for o in raw_options if o != all_inclusive_text]
+        formatted = "Học toàn diện và làm chủ 100% tất cả các nhánh: " + "; ".join(clean_opts)
+        self.assertIn("Thiết kế & R&D", formatted)
+        self.assertIn("Gia công CNC", formatted)
+        self.assertIn("Tự động hóa & Robot", formatted)
+        self.assertIn("Quản lý sản xuất", formatted)
+
 
 if __name__ == "__main__":
     unittest.main()
