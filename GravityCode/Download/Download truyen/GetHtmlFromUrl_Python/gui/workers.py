@@ -383,24 +383,37 @@ class DownloadWorker(QThread):
                 except Exception:
                     pass
 
+        # Kiểm tra nếu là truyện Trung Quốc: không tự động nối/gộp và không xóa thư mục
+        is_chinese_story = False
+        if self.page_config and getattr(self.page_config, "is_vietnamese_host", True) is False:
+            is_chinese_story = True
+        elif story_title.startswith("China-") or (self.save_path and Path(self.save_path).stem.startswith("China-")):
+            is_chinese_story = True
+
         if all_done:
-            self.log_signal.emit(f"✅ Tải xong {len(self.chapters)} chương. Đang tự động gộp file...")
-            
-            # Tự động gộp
-            if final_path:
-                self._save_concatenate_file(story_title, final_path)
-                self.log_signal.emit(f"✅ Đã gộp thành công vào: {final_path}")
+            if is_chinese_story:
+                self.log_signal.emit(f"✅ Tải xong trọn vẹn {len(self.chapters)} chương truyện Trung Quốc.")
+                self.log_signal.emit(f"📂 BẢO LƯU NGUYÊN VẸN các file chương trong thư mục: {save_dir}")
+                self.log_signal.emit("💡 Đối với truyện Trung Quốc: Không tự động gộp và không xóa thư mục (giữ nguyên từng chương lẻ để đọc hoặc dịch AI).")
+                self.finished_signal.emit(True, f"Hoàn tất tải {len(self.chapters)} chương! Toàn bộ file chương lẻ được bảo lưu đầy đủ trong thư mục.")
+            else:
+                self.log_signal.emit(f"✅ Tải xong {len(self.chapters)} chương. Đang tự động gộp file...")
                 
-                # Tự động xóa thư mục nếu user đã check
-                if self.delete_folder and save_dir and os.path.exists(save_dir):
-                    import shutil
-                    try:
-                        shutil.rmtree(save_dir, ignore_errors=True)
-                        self.log_signal.emit(f"🧹 Đã xóa thư mục tạm: {save_dir}")
-                    except Exception as e:
-                        self.log_signal.emit(f"⚠️ Lỗi xóa thư mục tạm: {e}")
-                        
-            self.finished_signal.emit(True, "Hoàn tất và đã gộp file tự động!")
+                # Tự động gộp
+                if final_path:
+                    self._save_concatenate_file(story_title, final_path)
+                    self.log_signal.emit(f"✅ Đã gộp thành công vào: {final_path}")
+                    
+                    # Tự động xóa thư mục nếu user đã check
+                    if self.delete_folder and save_dir and os.path.exists(save_dir):
+                        import shutil
+                        try:
+                            shutil.rmtree(save_dir, ignore_errors=True)
+                            self.log_signal.emit(f"🧹 Đã xóa thư mục tạm: {save_dir}")
+                        except Exception as e:
+                            self.log_signal.emit(f"⚠️ Lỗi xóa thư mục tạm: {e}")
+                            
+                self.finished_signal.emit(True, "Hoàn tất và đã gộp file tự động!")
         else:
             self.finished_signal.emit(False, f"Chưa hoàn tất: còn {self.download_failed_count} chương tải thất bại. Vui lòng bấm 'Tiếp Tục' (Resume) để tải lại.")
 

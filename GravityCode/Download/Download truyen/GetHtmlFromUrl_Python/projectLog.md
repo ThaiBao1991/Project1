@@ -189,6 +189,33 @@ GetHtmlFromUrl_Python/
   - Thêm mục menu "🌐 AI Dịch Truyện (Gemini)" vào menu Công cụ (`menu_tools`).
   - Tự động điền thư mục lưu của truyện đang chọn vào hộp thoại dịch khi mở.
 
+### ✅ Phase 16 — Đồng bộ Model Gemini chuẩn AskCpl & Bảo lưu chương truyện Trung Quốc (2026-09-16)
+- [x] **Đồng bộ chuẩn 100% Model Fallbacks với AskCpl (`core/ai_translator.py`)**:
+  - Cập nhật `DEFAULT_MODELS`: `["gemini-3.5-flash", "gemini-3-flash-preview", "gemini-flash-latest", "gemini-3.1-flash-lite", "gemini-flash-lite-latest"]`.
+  - Loại bỏ hoàn toàn các model cũ/sai tên (`gemini-1.5-flash`, `gemini-2.0-flash`, `gemini-2.5-flash`) gây lỗi HTTP 404 `"models/... is not found for API version v1beta"`.
+  - **Xử lý thông minh lỗi 503 (Server Overload)**: Khi Google báo 503 ở model hiện tại (ví dụ `gemini-3.5-flash` đang quá tải), hệ thống lập tức ghi log và tự động chuyển sang model fallback tiếp theo (`gemini-3-flash-preview`, `gemini-flash-latest`,...).
+  - **Xử lý lỗi 404 & Model Restriction**: Tự động nhận diện chuỗi báo lỗi model restriction, loại bỏ model không khả dụng và tiếp tục thử model tiếp theo.
+  - **Tích hợp live logging**: Truyền callback hiển thị trực tiếp model đang gọi trên log console của `TranslateDialog`.
+- [x] **Bảo lưu chương truyện Trung Quốc (`gui/workers.py`)**:
+  - Nhận diện truyện từ nguồn Trung Quốc (`is_vietnamese_host == False` hoặc `story_title.startswith("China-")`).
+  - Khi tải xong, **KHÔNG tự động gộp file** và **KHÔNG xóa thư mục chương lẻ** (`save_dir`), bảo lưu 100% các file chương riêng lẻ trong thư mục để phục vụ dịch AI.
+
+### ✅ Phase 17 — Tiện ích Tách Truyện Gộp & Smart Chunking Dịch Chương Dài (2026-09-17)
+- [x] **Lõi Tách Truyện Gộp (`core/chapter_splitter.py`)**:
+  - Hỗ trợ quét và bóc tách file HTML / TXT gộp (ví dụ `Cau.html`) thành danh sách các file chương riêng lẻ (`0001_...html`, `0002_...html`,...).
+  - Tự động nhận diện ranh giới chương qua thẻ HTML (`<h2>`, `<h3>`, anchor `<a name='chap-...'>`) và Regex đa ngôn ngữ (Tiếng Trung: `第X章/回/节`, số đầu dòng; Tiếng Việt: `Chương X`, `Hồi X`, `Chapter X`).
+  - Định dạng chuẩn UTF-8-SIG với cấu trúc CSS sạch, sẵn sàng nạp thẳng vào bộ dịch AI.
+- [x] **Giao diện Tách Chương (`gui/chapter_splitter_dialog.py`)**:
+  - `ChapterSplitterDialog`: Cho phép chọn file gộp, tự động gợi ý thư mục xuất `<tên_file>_tach/`.
+  - Hỗ trợ nút "🔍 Quét Thử Danh Sách Chương" hiển thị bảng preview STT và tiêu đề trước khi tách.
+  - Thanh tiến trình tách thời gian thực và nút mở trực tiếp thư mục sau khi hoàn thành.
+  - Tích hợp nút bấm nhanh **"✂️ Tách File Gộp..."** ngay trên `TranslateDialog`, tự động gán thư mục vừa tách làm nguồn dịch.
+  - Tích hợp vào menu chính **Công cụ** -> **"✂️ Tách Truyện Gộp Thành Từng Chương"**.
+- [x] **Smart Chunking & Re-joining Dịch Chương Dài (`core/ai_translator.py`)**:
+  - `split_text_into_chunks()`: Tự động đo độ dài chương. Nếu chương dài (> 1.400 chữ Hán), tự động chia nhỏ theo ranh giới đoạn văn / câu (`\n\n`, `\n`, `。`).
+  - Dịch tuần tự từng phần với Glossary và Ngữ cảnh đầy đủ, sau đó tự động ghép nối (re-join) lại thành 1 file chương hoàn chỉnh.
+  - Giải quyết triệt để vấn đề chương quá dài bị AI cắt cụt hoặc chỉ dịch được một phần nhỏ.
+
 ## ⏭️ TODO tiếp theo
 - Login Browser nhúng (WebEngineView) thay thế cho chức năng Mở Trình Duyệt ngoài.
 - Auto-Update check (Check version trên Github releases).

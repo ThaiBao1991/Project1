@@ -91,7 +91,8 @@ class TranslateWorker(QThread):
             # 3. Khởi tạo Translator
             self.translator = GeminiTranslator(
                 api_keys=self.api_keys,
-                pace_seconds=self.pace_seconds
+                pace_seconds=self.pace_seconds,
+                log_callback=self.log_signal.emit
             )
 
             completed_count = 0
@@ -320,9 +321,13 @@ class TranslateDialog(QDialog):
         self.txt_source.textChanged.connect(self._on_source_changed)
         btn_browse_src = QPushButton("📁 Chọn Thư Mục...")
         btn_browse_src.clicked.connect(self._on_browse_source)
+        btn_split_src = QPushButton("✂️ Tách File Gộp...")
+        btn_split_src.setToolTip("Tách file HTML/TXT gộp lớn thành từng chương riêng lẻ trước khi dịch")
+        btn_split_src.clicked.connect(self._on_split_source_file)
         row_src.addWidget(lbl_src)
         row_src.addWidget(self.txt_source)
         row_src.addWidget(btn_browse_src)
+        row_src.addWidget(btn_split_src)
         f_layout.addLayout(row_src)
 
         # Hàng thư mục dịch
@@ -486,6 +491,15 @@ class TranslateDialog(QDialog):
         folder = QFileDialog.getExistingDirectory(self, "Chọn thư mục chứa các file chương tiếng Trung")
         if folder:
             self.txt_source.setText(folder)
+
+    def _on_split_source_file(self):
+        """Mở dialog tách file gộp và tự động điền thư mục xuất vào ô nguồn."""
+        from gui.chapter_splitter_dialog import ChapterSplitterDialog
+        dlg = ChapterSplitterDialog(parent=self)
+        if dlg.exec():
+            if dlg.result_output_dir and os.path.exists(dlg.result_output_dir):
+                self.txt_source.setText(dlg.result_output_dir)
+                self._log(f"✂️ Đã chọn thư mục vừa tách chương: {dlg.result_output_dir}")
 
     def _on_source_changed(self, text: str):
         src_path = text.strip()

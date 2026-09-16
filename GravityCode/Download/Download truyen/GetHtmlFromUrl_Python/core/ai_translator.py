@@ -12,13 +12,13 @@ import requests
 logger = logging.getLogger("ai_translator")
 
 # Default fallback models in priority order
+# Default fallback models in priority order (Khớp 100% với AskCpl gemini_safe.py)
 DEFAULT_MODELS = [
-    "gemini-2.5-flash",
-    "gemini-2.0-flash",
-    "gemini-1.5-flash",
-    "gemini-3.5-flash",
-    "gemini-3-flash-preview",
-    "gemini-flash-latest"
+    "gemini-3.5-flash",        # 🥇 Mới nhất — thế hệ 3.5
+    "gemini-3-flash-preview",  # 🥈 Rất tốt — preview
+    "gemini-flash-latest",     # 🥉 Ổn định — flash latest
+    "gemini-3.1-flash-lite",   # 🔵 Nhanh & nhẹ — 3.1 lite
+    "gemini-flash-lite-latest" # 🔵 Dự phòng cuối — flash lite
 ]
 
 # Path to AskCpl settings if present
@@ -184,16 +184,89 @@ class TranslateProgress:
         return filename in self.data["translated_files"]
 
 
+def is_model_restriction(msg: str) -> bool:
+    """Kiểm tra lỗi model không tồn tại hoặc bị giới hạn theo chuẩn AskCpl."""
+    low = (msg or "").lower()
+    markers = (
+        "denied access", "has been denied", "no longer available", "is not found",
+        "not found for api version", "not supported for generatecontent",
+        "does not have access", "access to the model", "permission denied",
+        "no longer available to new users",
+    )
+    return any(m in low for m in markers)
+
+
+def split_text_into_chunks(text: str, max_chars: int = 1500) -> List[str]:
+    """
+    Chia văn bản dài thành các khối nhỏ an toàn, bảo toàn ranh giới đoạn văn
+    để AI dịch trọn vẹn 100% không bao giờ bị cắt cụt hay vượt quá token output.
+    """
+    text = text.strip()
+    if len(text) <= max_chars:
+        return [text]
+
+    paragraphs = text.split("\n")
+    chunks = []
+    current_chunk = []
+    current_len = 0
+
+    for p in paragraphs:
+        p_str = p.strip()
+        if not p_str:
+            continue
+
+        # Nếu một đoạn đơn lẻ quá dài (> max_chars), chia theo dấu chấm câu
+        if len(p_str) > max_chars:
+            sentences = re.split(r'([。！？.!?]+)', p_str)
+            for i in range(0, len(sentences), 2):
+                sent = sentences[i]
+                punct = sentences[i + 1] if i + 1 < len(sentences) else ""
+                full_sent = sent + punct
+                if not full_sent.strip():
+                    continue
+                if current_len + len(full_sent) > max_chars and current_chunk:
+                    chunks.append("\n\n".join(current_chunk))
+                    current_chunk = [full_sent]
+                    current_len = len(full_sent)
+                else:
+                    current_chunk.append(full_sent)
+                    current_len += len(full_sent)
+            continue
+
+        if current_len + len(p_str) > max_chars and current_chunk:
+            chunks.append("\n\n".join(current_chunk))
+            current_chunk = [p_str]
+            current_len = len(p_str)
+        else:
+            current_chunk.append(p_str)
+            current_len += len(p_str) + 2
+
+    if current_chunk:
+        chunks.append("\n\n".join(current_chunk))
+
+    return chunks or [text]
+
+
 class GeminiTranslator:
     """Engine dịch thuật sử dụng Google Gemini API với key rotation, pacing an toàn, glossary & context."""
 
-    def __init__(self, api_keys: List[str], models: Optional[List[str]] = None, pace_seconds: float = 3.5):
+    def __init__(self, api_keys: List[str], models: Optional[List[str]] = None, 
+                 pace_seconds: float = 3.5, log_callback=None):
         self.api_keys = [k.strip() for k in api_keys if k and k.strip()]
-        self.models = models or list(DEFAULT_MODELS)
+        self.models = list(models or DEFAULT_MODELS)
         self.pace_seconds = max(2.0, pace_seconds)
+        self.log_callback = log_callback
         self._current_key_idx = 0
         self._last_call_time = 0.0
         self.is_stopped = False
+
+    def _log(self, msg: str):
+        logger.info(msg)
+        if self.log_callback:
+            try:
+                self.log_callback(msg)
+            except Exception:
+                pass
 
     def stop(self):
         self.is_stopped = True
@@ -213,22 +286,22 @@ class GeminiTranslator:
             time.sleep(wait)
         self._last_call_time = time.time()
 
-    def _call_api_with_retry(self, prompt: str, timeout: int = 45) -> Tuple[bool, str, str]:
+    def _call_api_with_retry(self, prompt: str, timeout: int = 50) -> Tuple[bool, str, str]:
         """
-        Gọi Gemini REST API với luân phiên model và API key.
+        Gọi Gemini REST API với luân phiên model và API key chuẩn AskCpl.
         Trả về (success, raw_text, error_message)
         """
         if not self.api_keys:
             return False, "", "Không có API Key nào được cấu hình."
 
         tried_keys = 0
-        max_key_tries = len(self.api_keys) * 2
+        max_key_tries = max(len(self.api_keys) * 2, 4)
 
         while tried_keys < max_key_tries and not self.is_stopped:
             api_key = self._get_next_key()
             tried_keys += 1
 
-            for model in self.models:
+            for model in list(self.models):
                 if self.is_stopped:
                     return False, "", "Đã dừng bởi người dùng."
 
@@ -248,6 +321,7 @@ class GeminiTranslator:
                 try:
                     resp = requests.post(url, headers=headers, json=body, timeout=timeout)
                     status = resp.status_code
+                    resp_text = resp.text
 
                     if status == 200:
                         data = resp.json()
@@ -256,32 +330,42 @@ class GeminiTranslator:
                             parts = candidates[0].get("content", {}).get("parts", [])
                             text = "".join(p.get("text", "") for p in parts)
                             if text.strip():
+                                self._log(f"  ✨ Model '{model}' phản hồi thành công!")
                                 return True, text, ""
-                        return False, "", "API trả về kết quả rỗng."
+                        return False, "", f"API trả về kết quả rỗng trên model {model}."
 
-                    elif status == 429:
-                        # Rate limit: thử key tiếp theo
-                        logger.warning(f"Key ...{api_key[-6:]} gặp 429 Rate Limit trên model {model}. Đổi key...")
-                        break # Break model loop to rotate key
+                    # Xử lý 503: Server Google quá tải trên model này -> Đổi model fallback ngay
+                    if status in (500, 503):
+                        self._log(f"  ⚠ Model '{model}' lỗi server {status} (quá tải). Tự động chuyển sang model fallback tiếp theo...")
+                        continue
 
-                    elif status in (400, 403, 401):
-                        err_msg = resp.text[:200]
-                        logger.warning(f"Lỗi {status} với key ...{api_key[-6:]}: {err_msg}")
-                        break # Key invalid or expired, try next key
+                    # Xử lý 404 hoặc model restriction: Model không tồn tại trên v1beta -> Bỏ qua model này
+                    if status == 404 or is_model_restriction(resp_text):
+                        self._log(f"  ⚠ Model '{model}' không hỗ trợ hoặc không tìm thấy (404/restriction). Bỏ qua model này...")
+                        if model in self.models and len(self.models) > 1:
+                            self.models.remove(model)
+                        continue
 
-                    elif status in (500, 503):
-                        logger.warning(f"Model {model} lỗi server {status}. Thử model fallback...")
-                        continue # Try next model
+                    # Xử lý 429: Rate Limit theo Key -> Đổi sang Key tiếp theo trong pool 156 keys
+                    if status == 429:
+                        self._log(f"  ⚡ Key ...{api_key[-6:]} gặp 429 Rate Limit. Đang xoay sang Key tiếp theo...")
+                        break # break model loop để đổi key
 
-                    else:
-                        logger.warning(f"Lỗi HTTP {status} từ Gemini API. {resp.text[:150]}")
+                    # Xử lý 401, 403: Key lỗi hoặc không hợp lệ -> Đổi key
+                    if status in (401, 403, 400):
+                        self._log(f"  ⚠️ Key ...{api_key[-6:]} lỗi {status}. Đang đổi Key...")
+                        break
+
+                    # Các lỗi HTTP khác
+                    self._log(f"  ⚠️ HTTP {status} từ {model}: {resp_text[:120]}. Thử model tiếp theo...")
+                    continue
 
                 except requests.exceptions.Timeout:
-                    logger.warning(f"Timeout khi gọi model {model}. Thử model tiếp theo...")
+                    self._log(f"  ⏱ Timeout khi gọi model '{model}' (> {timeout}s). Chuyển sang model fallback...")
                     continue
                 except requests.exceptions.RequestException as e:
-                    logger.warning(f"Lỗi mạng khi gọi Gemini API ({model}): {e}")
-                    time.sleep(1.0)
+                    self._log(f"  🌐 Lỗi kết nối mạng ({type(e).__name__}) trên model '{model}'. Thử lại...")
+                    time.sleep(1.5)
                     continue
 
         return False, "", "Tất cả API keys / models đều thất bại hoặc bị giới hạn lượt gọi."
@@ -291,6 +375,8 @@ class GeminiTranslator:
                           previous_summary: str = "") -> Dict[str, Any]:
         """
         Thực hiện dịch 1 chương truyện tiếng Trung sang tiếng Việt:
+        - Tự động chia đoạn thông minh nếu chương dài (> 1800 chữ Hán)
+        - Dịch trọn vẹn từng phần và tự động nối lại thành 1 file duy nhất
         - Sử dụng glossary hiện tại để nhất quán tên nhân vật, môn phái, vũ khí, địa danh
         - Dùng rolling summary để AI nắm bối cảnh, xưng hô phù hợp
         - Nhận về: title_vi, content_vi, new_terms, chapter_summary
@@ -298,6 +384,96 @@ class GeminiTranslator:
         glossary_text = glossary.format_for_prompt()
         prev_summary_text = previous_summary.strip() if previous_summary else "(Đây là chương bắt đầu hoặc chưa có tóm tắt chương trước)."
 
+        # Kiểm tra nếu chương dài -> Tách thành nhiều chunk nhỏ để dịch trọn vẹn
+        chunks = split_text_into_chunks(content_zh, max_chars=1400)
+
+        if len(chunks) <= 1:
+            return self._translate_single_chunk(title_zh, content_zh, glossary_text, prev_summary_text)
+
+        # Chương dài: Dịch tuần tự từng phần và ghép lại
+        self._log(f"  📑 Chương dài ({len(content_zh)} chữ Hán) → Tự động chia thành {len(chunks)} phần nhỏ để dịch trọn vẹn không bị cắt cụt...")
+        translated_parts = []
+        combined_terms: Dict[str, Dict[str, str]] = {}
+        chapter_title_vi = title_zh
+        final_summary = ""
+
+        for c_idx, chunk_text in enumerate(chunks):
+            if self.is_stopped:
+                break
+            part_num = c_idx + 1
+            self._log(f"    ⏳ Đang dịch phần {part_num}/{len(chunks)} ({len(chunk_text)} ký tự)...")
+
+            is_first = (c_idx == 0)
+            is_last = (c_idx == len(chunks) - 1)
+
+            prompt = f"""Bạn là dịch giả dịch tiểu thuyết tiếng Trung sang tiếng Việt chuyên nghiệp.
+Nhiệm vụ: Dịch phần {part_num}/{len(chunks)} của chương "{title_zh}" sang tiếng Việt với văn phong mượt mà, chuẩn phong cách tiên hiệp/đô thị.
+
+[QUY TẮC BẮT BUỘC]:
+1. TUÂN THỦ TỪ ĐIỂN THUẬT NGỮ CỐ ĐỊNH:
+{glossary_text}
+
+2. BỐI CẢNH CÁC CHƯƠNG TRƯỚC (Dùng để định hình đại từ xưng hô):
+{prev_summary_text}
+
+3. DỊCH ĐẦY ĐỦ VÀ CHÍNH XÁC: Dịch trọn vẹn từng câu từng đoạn của phần này, tuyệt đối không tóm tắt, không cắt bớt, ngắt đoạn rõ ràng.
+
+4. ĐỊNH DẠNG ĐẦU RA JSON:
+Trả về duy nhất JSON:
+```json
+{{
+  "title_vi": "Tiêu đề tiếng Việt của chương",
+  "content_vi": "Nội dung dịch tiếng Việt đầy đủ của phần này...",
+  "new_terms": {{
+    "characters": {{}},
+    "sects": {{}},
+    "weapons": {{}},
+    "locations": {{}},
+    "others": {{}}
+  }},
+  "summary": "Tóm tắt 1-2 câu diễn biến nếu đây là phần cuối của chương, nếu chưa hết để trống."
+}}
+```
+
+[NỘI DUNG TIẾNG TRUNG PHẦN {part_num}/{len(chunks)}]:
+{chunk_text}
+"""
+            success, raw_resp, err_msg = self._call_api_with_retry(prompt)
+            if not success:
+                raise RuntimeError(err_msg or f"Lỗi dịch phần {part_num}/{len(chunks)}.")
+
+            parsed = self._parse_translation_response(raw_resp, title_zh, chunk_text)
+
+            if is_first and parsed.get("title_vi"):
+                chapter_title_vi = parsed["title_vi"]
+
+            part_content = parsed.get("content_vi", "").strip()
+            if part_content:
+                translated_parts.append(part_content)
+
+            # Thu thập thuật ngữ mới
+            for cat, kvs in parsed.get("new_terms", {}).items():
+                if isinstance(kvs, dict):
+                    if cat not in combined_terms:
+                        combined_terms[cat] = {}
+                    combined_terms[cat].update(kvs)
+
+            if is_last or parsed.get("summary"):
+                final_summary = parsed.get("summary", final_summary)
+
+        full_content_vi = "\n\n".join(translated_parts)
+        self._log(f"  ✅ Đã dịch và ghép nối thành công trọn vẹn {len(chunks)} phần! (Tổng cộng {len(full_content_vi)} ký tự tiếng Việt)")
+
+        return {
+            "title_vi": chapter_title_vi,
+            "content_vi": full_content_vi,
+            "new_terms": combined_terms,
+            "summary": final_summary
+        }
+
+    def _translate_single_chunk(self, title_zh: str, content_zh: str,
+                                glossary_text: str, prev_summary_text: str) -> Dict[str, Any]:
+        """Dịch 1 chương có độ dài bình thường trong 1 lần gọi duy nhất."""
         prompt = f"""Bạn là dịch giả dịch tiểu thuyết tiếng Trung sang tiếng Việt chuyên nghiệp hàng đầu.
 Nhiệm vụ của bạn là dịch chương truyện sau đây sang tiếng Việt với văn phong mượt mà, thuần Việt, chuẩn phong cách tiên hiệp/kiếm hiệp/huyền huyễn/đô thị, giữ đúng cách xưng hô theo ngữ cảnh (huynh đệ, sư đồ, phụ tử, tiền bối, vãn bối, v.v.).
 
@@ -336,14 +512,11 @@ TIÊU ĐỀ: {title_zh}
 NỘI DUNG:
 {content_zh}
 """
-
         success, raw_resp, err_msg = self._call_api_with_retry(prompt)
         if not success:
             raise RuntimeError(err_msg or "Lỗi dịch chương với Gemini API.")
 
-        # Parse JSON output
-        parsed = self._parse_translation_response(raw_resp, title_zh, content_zh)
-        return parsed
+        return self._parse_translation_response(raw_resp, title_zh, content_zh)
 
     def _parse_translation_response(self, raw_resp: str, default_title_zh: str, default_content_zh: str) -> Dict[str, Any]:
         """Trích xuất và chuẩn hóa dữ liệu JSON trả về từ Gemini."""

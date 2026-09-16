@@ -227,6 +227,10 @@ class MainWindow(QMainWindow):
         act_merge.triggered.connect(self._on_merge_story)
         menu_tools.addAction(act_merge)
 
+        act_split = QAction("✂️ Tách Truyện Gộp Thành Từng Chương", self)
+        act_split.triggered.connect(self._on_split_chapters)
+        menu_tools.addAction(act_split)
+
         act_translate = QAction("🌐 AI Dịch Truyện (Gemini)", self)
         act_translate.triggered.connect(self._on_ai_translate)
         menu_tools.addAction(act_translate)
@@ -918,6 +922,15 @@ class MainWindow(QMainWindow):
             dlg.exec()
         except Exception as e:
             QMessageBox.critical(self, "Lỗi", f"Không thể mở Sửa HTML:\n{e}")
+
+    def _on_split_chapters(self):
+        try:
+            from gui.chapter_splitter_dialog import ChapterSplitterDialog
+            default_file = self.txt_save_path.text().strip()
+            dlg = ChapterSplitterDialog(default_file=default_file, parent=self)
+            dlg.exec()
+        except Exception as e:
+            QMessageBox.critical(self, "Lỗi", f"Không thể mở Tiện ích Tách Chương:\n{e}")
 
     def _on_ai_translate(self):
         try:
