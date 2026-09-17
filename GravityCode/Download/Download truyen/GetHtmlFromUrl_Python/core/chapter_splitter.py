@@ -78,23 +78,75 @@ class ChapterSplitter:
             return self._scan_plain_text(raw_text)
 
     def _scan_html(self, raw_html: str) -> List[Dict[str, Any]]:
-        """Tách chương từ HTML dựa theo cấu trúc thẻ h2, h3, anchor hoặc div chapter."""
+        """Tách chương từ HTML dựa theo cấu trúc thẻ anchor chap-N, h2, h3 hoặc div chapter."""
+        # 0. CHIẾN LƯỢC ƯU TIÊN 1: Quét theo thẻ anchor <a name="chap-N"></a> hoặc <a id="chap-N"></a>
+        # Đây là chuẩn định dạng đánh dấu chương của ứng dụng GetHtmlFromUrl khi gộp file.
+        anchors = list(re.finditer(r"<a\s+(?:name|id)=['\"]chap-(\d+)['\"]>\s*</a>", raw_html, re.IGNORECASE))
+        if len(anchors) >= 2:
+            # Lấy mục lục TOC nếu có để có tiêu đề chuẩn 100%
+            toc_map = {}
+            for m in re.finditer(r"<a\s+href=['\"]#chap-(\d+)['\"]>(.*?)</a>", raw_html, re.IGNORECASE):
+                t_clean = re.sub(r"<[^>]+>", "", m.group(2)).strip()
+                if t_clean:
+                    toc_map[int(m.group(1))] = t_clean
+
+            chapters = []
+            for i, a in enumerate(anchors):
+                idx = int(a.group(1))
+                title = toc_map.get(idx, "")
+                start_pos = a.end()
+                end_pos = anchors[i + 1].start() if i + 1 < len(anchors) else len(raw_html)
+                chunk = raw_html[start_pos:end_pos]
+
+                # Nếu chưa có tiêu đề từ TOC, tìm thẻ h2 đầu tiên trong chunk
+                if not title:
+                    h2_m = re.search(r"<h2[^>]*>(.*?)</h2>", chunk, re.IGNORECASE | re.DOTALL)
+                    if h2_m:
+                        title = re.sub(r"<[^>]+>", "", h2_m.group(1)).strip()
+                if not title:
+                    title = f"Chương {i + 1}"
+
+                # Bóc tách nội dung sạch
+                c_soup = BeautifulSoup(chunk, "html.parser")
+                # Bỏ các thẻ tiêu đề h1, h2 trùng lặp bên trong nội dung
+                for h in c_soup.find_all(["h2", "h1"]):
+                    h.decompose()
+
+                content_div = c_soup.find("div", class_=re.compile(r"chapter-content|content|read-content", re.I))
+                if content_div:
+                    for br in content_div.find_all(["br", "p"]):
+                        br.replace_with("\n" + br.text)
+                    text_content = content_div.get_text().strip()
+                else:
+                    for br in c_soup.find_all(["br", "p"]):
+                        br.replace_with("\n" + br.text)
+                    text_content = c_soup.get_text().strip()
+
+                chapters.append({
+                    "index": i + 1,
+                    "title": title,
+                    "content": text_content
+                })
+            return chapters
+
         soup = BeautifulSoup(raw_html, "html.parser")
         
         # Bỏ qua phần mục lục (toc) nếu có
         for toc in soup.find_all(id=re.compile(r"toc|menu-chap|list-chapter", re.I)):
             toc.decompose()
 
-        # 1. Tìm các thẻ tiêu đề h2, h3 hoặc h1
+        # 1. Tìm các thẻ tiêu đề h2, h3 hoặc h1 và KHỬ TRÙNG LẶP
         headings = soup.find_all(["h2", "h3", "h1"])
         
-        # Lọc ra các heading thực sự là tiêu đề chương
         valid_headings = []
         for h in headings:
             text = h.get_text().strip()
             if text and (COMPILED_TITLE_REGEX.search(text) or len(text) < 80):
                 # Bỏ qua các tiêu đề như "Mục lục", "TOC", "Giới thiệu"
                 if text.lower() not in ("mục lục", "toc", "table of contents", "thông tin ebook"):
+                    # Khử trùng lặp: nếu tiêu đề giống hệt tiêu đề vừa thêm -> bỏ qua (thẻ lồng nhau)
+                    if valid_headings and text == valid_headings[-1].get_text().strip():
+                        continue
                     valid_headings.append(h)
 
         if len(valid_headings) >= 2:
@@ -124,30 +176,41 @@ class ChapterSplitter:
                 })
             return chapters
 
-        # 2. Thử tách theo regex split các thẻ tiêu đề
-        # Tìm các vị trí xuất hiện của <h2[^>]*>(.*?)</h2>
+        # 2. Thử tách theo regex split các thẻ tiêu đề có khử trùng lặp
         h2_pattern = re.compile(r"<h2[^>]*>(.*?)</h2>", re.IGNORECASE | re.DOTALL)
         matches = list(h2_pattern.finditer(raw_html))
         if len(matches) >= 2:
-            chapters = []
-            for i, m in enumerate(matches):
+            unique_matches = []
+            for m in matches:
                 title = re.sub(r"<[^>]+>", "", m.group(1)).strip()
-                start_pos = m.end()
-                end_pos = matches[i + 1].start() if i + 1 < len(matches) else len(raw_html)
-                chunk_html = raw_html[start_pos:end_pos]
-                
-                # Trích xuất text sạch
-                c_soup = BeautifulSoup(chunk_html, "html.parser")
-                for br in c_soup.find_all(["br", "p"]):
-                    br.replace_with("\n" + br.text)
-                text = c_soup.get_text().strip()
+                if title.lower() in ("mục lục", "toc", "table of contents", "thông tin ebook"):
+                    continue
+                if unique_matches:
+                    prev_title = re.sub(r"<[^>]+>", "", unique_matches[-1].group(1)).strip()
+                    if title == prev_title:
+                        continue
+                unique_matches.append(m)
 
-                chapters.append({
-                    "index": i + 1,
-                    "title": title or f"Chương {i + 1}",
-                    "content": text
-                })
-            return chapters
+            if len(unique_matches) >= 2:
+                chapters = []
+                for i, m in enumerate(unique_matches):
+                    title = re.sub(r"<[^>]+>", "", m.group(1)).strip()
+                    start_pos = m.end()
+                    end_pos = unique_matches[i + 1].start() if i + 1 < len(unique_matches) else len(raw_html)
+                    chunk_html = raw_html[start_pos:end_pos]
+                    
+                    # Trích xuất text sạch
+                    c_soup = BeautifulSoup(chunk_html, "html.parser")
+                    for br in c_soup.find_all(["br", "p"]):
+                        br.replace_with("\n" + br.text)
+                    text = c_soup.get_text().strip()
+
+                    chapters.append({
+                        "index": i + 1,
+                        "title": title or f"Chương {i + 1}",
+                        "content": text
+                    })
+                return chapters
 
         return []
 

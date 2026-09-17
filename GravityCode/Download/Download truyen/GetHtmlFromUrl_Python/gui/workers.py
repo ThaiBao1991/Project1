@@ -46,7 +46,7 @@ class DownloadWorker(QThread):
     chapter_list_ready = pyqtSignal(int)          # total_count
 
     def __init__(self, url: str, config_mgr: PageConfigManager, save_path: str,
-                 is_divide_file: bool = False, ebook_info: str = "",
+                 is_divide_file: bool = False, is_merge_file: bool = True, ebook_info: str = "",
                  start_idx: int = 0, end_idx: int = -1, file_format: str = "html",
                  manual_links: list[str] = None, page_config=None, resume_data: dict = None,
                  delete_folder: bool = False):
@@ -55,6 +55,7 @@ class DownloadWorker(QThread):
         self.config_mgr = config_mgr
         self.save_path = save_path
         self.is_divide_file = is_divide_file
+        self.is_merge_file = is_merge_file
         self.ebook_info = ebook_info
         self.start_idx = start_idx
         self.end_idx = end_idx
@@ -383,19 +384,12 @@ class DownloadWorker(QThread):
                 except Exception:
                     pass
 
-        # Kiểm tra nếu là truyện Trung Quốc: không tự động nối/gộp và không xóa thư mục
-        is_chinese_story = False
-        if self.page_config and getattr(self.page_config, "is_vietnamese_host", True) is False:
-            is_chinese_story = True
-        elif story_title.startswith("China-") or (self.save_path and Path(self.save_path).stem.startswith("China-")):
-            is_chinese_story = True
-
         if all_done:
-            if is_chinese_story:
-                self.log_signal.emit(f"✅ Tải xong trọn vẹn {len(self.chapters)} chương truyện Trung Quốc.")
+            if not self.is_merge_file:
+                self.log_signal.emit(f"✅ Tải xong trọn vẹn {len(self.chapters)} chương.")
                 self.log_signal.emit(f"📂 BẢO LƯU NGUYÊN VẸN các file chương trong thư mục: {save_dir}")
-                self.log_signal.emit("💡 Đối với truyện Trung Quốc: Không tự động gộp và không xóa thư mục (giữ nguyên từng chương lẻ để đọc hoặc dịch AI).")
-                self.finished_signal.emit(True, f"Hoàn tất tải {len(self.chapters)} chương! Toàn bộ file chương lẻ được bảo lưu đầy đủ trong thư mục.")
+                self.log_signal.emit("💡 Tùy chọn 'Gộp các chương thành 1 tệp' đang TẮT: Giữ nguyên từng chương lẻ, không tạo file gộp.")
+                self.finished_signal.emit(True, f"Hoàn tất tải {len(self.chapters)} chương! File từng chương đã lưu trong thư mục.")
             else:
                 self.log_signal.emit(f"✅ Tải xong {len(self.chapters)} chương. Đang tự động gộp file...")
                 

@@ -535,9 +535,11 @@ NỘI DUNG:
         try:
             data = json.loads(text)
             if isinstance(data, dict):
+                content_str = str(data.get("content_vi", "")).strip()
+                content_str = content_str.replace('\\n', '\n').replace('\\"', '"')
                 return {
                     "title_vi": str(data.get("title_vi", "")).strip() or default_title_zh,
-                    "content_vi": str(data.get("content_vi", "")).strip(),
+                    "content_vi": content_str,
                     "new_terms": data.get("new_terms", {}),
                     "summary": str(data.get("summary", "")).strip()
                 }
@@ -555,14 +557,24 @@ NỘI DUNG:
         if m_sum:
             summary_vi = m_sum.group(1)
 
-        # Trích content_vi giữa "content_vi": "..." và ", "new_terms" hoặc "summary"
+        # Trích content_vi linh hoạt: giữa "content_vi": "..." và ", "new_terms" hoặc "summary" hoặc đóng ngoặc }
         content_vi = ""
-        m_content = re.search(r'"content_vi"\s*:\s*"(.*?)"\s*,\s*"(?:new_terms|summary)"', text, re.DOTALL)
+        m_content = re.search(r'"content_vi"\s*:\s*"(.*?)(?:"\s*,\s*"(?:new_terms|summary|title_vi)"|"\s*\}\s*$)', text, re.DOTALL)
         if m_content:
             content_vi = m_content.group(1).replace("\\n", "\n").replace('\\"', '"')
         else:
-            # Fallback: Lấy toàn bộ text làm nội dung
-            content_vi = raw_resp
+            m_simple = re.search(r'"content_vi"\s*:\s*"([\s\S]*?)(?:"\s*,\s*"|"\s*\}\s*$)', text)
+            if m_simple:
+                content_vi = m_simple.group(1).replace("\\n", "\n").replace('\\"', '"')
+            else:
+                # Fallback cuối: Lấy toàn bộ text nhưng làm sạch sạch sẽ mọi cấu trúc JSON/markdown
+                content_vi = raw_resp
+                content_vi = re.sub(r'```(?:json)?\s*', '', content_vi)
+                content_vi = re.sub(r'```', '', content_vi)
+                content_vi = re.sub(r'^\s*\{\s*"title_vi"[^}]*?"content_vi"\s*:\s*"', '', content_vi, flags=re.DOTALL)
+                content_vi = re.sub(r'"\s*,\s*"(?:new_terms|summary)"[\s\S]*$', '', content_vi)
+                content_vi = re.sub(r'"\s*\}\s*$', '', content_vi)
+                content_vi = content_vi.replace('\\n', '\n').replace('\\"', '"').strip()
 
         return {
             "title_vi": title_vi,
@@ -626,9 +638,15 @@ def extract_chapter_from_html(file_path: str) -> Tuple[str, str]:
 
 
 def save_translated_chapter(output_file: str, title_vi: str, content_vi: str):
-    """Lưu chương đã dịch ra file HTML chuẩn tiếng Việt."""
+    """
+    Lưu nội dung chương đã dịch ra file HTML với template chuẩn,
+    font Segoe UI thân thiện, hỗ trợ CSS hiển thị đẹp.
+    """
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     
+    # Giải mã triệt để ký tự \n và \" thô
+    content_vi = content_vi.replace('\\n', '\n').replace('\\"', '"')
+
     # Format paragraphs
     paragraphs = [p.strip() for p in content_vi.split("\n") if p.strip()]
     if paragraphs:

@@ -495,7 +495,9 @@ class TranslateDialog(QDialog):
     def _on_split_source_file(self):
         """Mở dialog tách file gộp và tự động điền thư mục xuất vào ô nguồn."""
         from gui.chapter_splitter_dialog import ChapterSplitterDialog
-        dlg = ChapterSplitterDialog(parent=self)
+        src_path = self.txt_source.text().strip()
+        default_file = src_path if (src_path and os.path.isfile(src_path)) else ""
+        dlg = ChapterSplitterDialog(default_file=default_file, parent=self)
         if dlg.exec():
             if dlg.result_output_dir and os.path.exists(dlg.result_output_dir):
                 self.txt_source.setText(dlg.result_output_dir)
@@ -505,8 +507,18 @@ class TranslateDialog(QDialog):
         src_path = text.strip()
         if not src_path or not os.path.exists(src_path):
             self.lbl_folder_stats.setText("Thư mục không tồn tại.")
+            self.lbl_folder_stats.setStyleSheet("color: #757575;")
             return
 
+        # Nếu người dùng chọn/dán file thay vì thư mục
+        if os.path.isfile(src_path):
+            self.lbl_folder_stats.setText(
+                "⚠️ ĐÂY LÀ FILE GỘP (chưa tách chương)! Hãy bấm nút '✂️ Tách File Gộp...' bên cạnh để chia nhỏ thành từng chương trước khi dịch."
+            )
+            self.lbl_folder_stats.setStyleSheet("color: #d32f2f; font-weight: bold;")
+            return
+
+        self.lbl_folder_stats.setStyleSheet("color: #1976d2; font-weight: 500;")
         # Auto set target to /dich
         target_path = os.path.join(src_path, "dich")
         self.txt_target.setText(target_path)
@@ -569,6 +581,18 @@ class TranslateDialog(QDialog):
 
         if not src_dir or not os.path.exists(src_dir):
             QMessageBox.warning(self, "Cảnh báo", "Vui lòng chọn thư mục chứa các file chương tiếng Trung hợp lệ.")
+            return
+
+        if os.path.isfile(src_dir):
+            reply = QMessageBox.question(
+                self, "File Gộp Chưa Tách Chương",
+                "Đường dẫn bạn chọn là một file truyện gộp (chưa được chia thành các chương nhỏ lẻ).\n\n"
+                "AI cần các file chương riêng lẻ để dịch tuần tự và áp dụng từ điển thuật ngữ.\n\n"
+                "Bạn có muốn mở ngay công cụ '✂️ Tách File Gộp' để chia nhỏ file này không?",
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+            )
+            if reply == QMessageBox.StandardButton.Yes:
+                self._on_split_source_file()
             return
 
         raw_keys = self.txt_api_keys.text().strip()
