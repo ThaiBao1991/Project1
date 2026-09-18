@@ -10784,3 +10784,1803 @@
 | capstone_tong_hop_d1823 | Capstone Tổng hợp: Bàn giao thương mại, bảo mật phần cứng Secure Boot và phát hành hồ sơ kỹ thuật | roadmap_ElectricEnginneerGuiidle.md |
 | capstone_tong_hop_d1824 | Đo kiểm EMC phát xạ cho hệ thống IoT công nghiệp toàn diện | roadmap_ElectricEnginneerGuiidle.md |
 | capstone_tong_hop_d1825 | Bàn giao thương mại và phát hành hồ sơ kỹ thuật sản phẩm | roadmap_ElectricEnginneerGuiidle.md |
+| toan_hoc_ky_thuat_va_cau_truc_vat_lieu_co_khi | Tính toán cơ học và cấu trúc tinh thể vật liệu làm máy dập | roadmap_MechanicalEnginner.md |
+| ve_ky_thuat_cad_va_tich_hop_plc_co_ban | Thiết kế 2D/3D chi tiết máy trục vít và tích hợp điều khiển PLC chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| dong_hoc_va_nhiet_luyen_co_khi | Động học cơ cấu máy dập và phân tích ứng suất nhiệt vật liệu C45 | roadmap_MechanicalEnginner.md |
+| thiet_ke_cad_va_tich_hop_dieu_khien_plc | Thiết kế CAD máy ép thủy lực tích hợp mạch an toàn phần cứng và giả lập PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| tinh_toan_ben_va_nhiet_luyen_vat_lieu_che_tao_may_dap | Tính toán độ bền vật liệu và nhiệt luyện thép làm khuôn cho máy dập thủy lực kết hợp phân tích CAE | roadmap_MechanicalEnginner.md |
+| mo_phong_cad_3d_va_tich_hop_he_thong_dieu_khien_plc_cho_may_truc_vit | Mô hình hóa 3D cụm trục vít cấp phôi tích hợp mạch an toàn phần cứng và lập trình PLC | roadmap_MechanicalEnginner.md |
+| tinh_toan_dong_hoc_va_nhiet_luyen_vat_lieu_may_dap | Tính toán động học cơ cấu tay quay thanh truyền và mô phỏng phân tích ứng suất nhiệt luyện thép SKD11 cho chày cối máy dập | roadmap_MechanicalEnginner.md |
+| thiet_ke_3d_va_tich_hop_giao_dien_plc_cho_may_truc_vit | Thiết kế CAD 3D cụm trục vít đùn nhựa, tích hợp mạch an toàn phần cứng ISO 13849 và lập trình PLC chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| tinh_toan_nguyen_ly_vat_lieu_va_nhiet_luyen_may_dap | Tính toán nguyên lý vật liệu và nhiệt luyện chế tạo khung máy dập thủy lực 10 tấn | roadmap_MechanicalEnginner.md |
+| thiet_ke_lap_rap_cad_va_mo_phong_mach_plc_cho_may_truc_vit | Thiết kế lắp ráp CAD 3D và mô phỏng lập trình mạch điều khiển PLC cho máy đùn trục vít | roadmap_MechanicalEnginner.md |
+| tinh_toan_ben_va_nhiet_luyen_vat_lieu_may_dap | Tính toán cơ cấu máy dập và nhiệt luyện thép SKD11 làm trục khuỷu | roadmap_MechanicalEnginner.md |
+| thiet_ke_lap_rap_cad_va_mo_phong_mach_plc_cho_may_truc_vit_d12 | Thiết kế CAD cụm trục vít máy đùn nhựa và lập trình PLC điều khiển | roadmap_MechanicalEnginner.md |
+| tinh_toan_khung_may_dap_va_nhiet_luyen_thep_skd11 | Tính toán chịu lực khung C-frame máy dập và xử lý nhiệt thép SKD11 | roadmap_MechanicalEnginner.md |
+| thiet_ket_truc_vit_may_ep_va_lap_trinh_giao_dien_plc | Thiết kế chi tiết trục vít máy ép nhựa và lập trình điều khiển PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| tinh_toan_dong_luc_va_xu_ly_nhiet_thep_che_tao_may_dap | Tính toán động lực học cơ cấu dập và quy trình nhiệt luyện thép SKD11 cho máy dập thủy lực 50T | roadmap_MechanicalEnginner.md |
+| thiet_ke_mo_phong_cad_va_lap_trinh_giao_dien_plc_cho_may_ep | Thiết kế mô hình 3D cụm trục vít máy ép nhựa kết hợp tích hợp mạch an toàn phần cứng và lập trình HMI-PLC | roadmap_MechanicalEnginner.md |
+| tinh_toan_dong_luc_va_nhiet_luyen_khung_may_dap_thuy_luc | Tính toán động lực cấu trúc khung máy dập thủy lực và mô phỏng ứng suất nhiệt luyện SKD11 | roadmap_MechanicalEnginner.md |
+| thiet_ke_cad_va_tich_hop_giao_dien_dieu_khien_plc_may_ep_truc_vit | Thiết kế CAD 3D cụm trục vít máy ép và lập trình mô phỏng PLC tích hợp chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| phan_tich_ung_suat_va_nhiet_luyen_thep_lam_khung_may_dap | Phân tích ứng suất Von Mises, mô phỏng nhiệt và quy trình nhiệt luyện thép làm khung máy dập C-frame | roadmap_MechanicalEnginner.md |
+| lap_trinh_giao_dien_plc_va_mo_phong_cad_cum_truc_vit_ep | Lập trình điều khiển PID, giao diện PLC/HMI và mô phỏng CAD 3D cụm trục vít ép nhựa tự động | roadmap_MechanicalEnginner.md |
+| tinh_toan_chi_phi_tai_trong_va_xu_ly_nhiet_thep_skd11 | Tính toán tải trọng cơ cấu dập và xử lý nhiệt thép SKD11 cho chày dập | roadmap_MechanicalEnginner.md |
+| thiet_ket_lap_rap_va_mo_phong_chuyen_dong_truc_vit_tren_cad | Thiết kế lắp ráp CAD 3D cụm trục vít máy ép và mô phỏng tích hợp PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| phan_tich_tinh_toan_ket_cau_va_nhiet_luyen_vat_lieu_che_tao_may_dap_thuy_luc | Phân tích kết cấu khung máy dập thủy lực 50T bằng phần tử hữu hạn và tiêu chuẩn an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| mo_phong_lap_rap_chi_tiet_va_lap_trinh_dieu_khien_giao_dien_plc_cho_may_ep_truc_vit | Thiết kế động lực học CAD 3D và lập trình giao diện điều khiển PID gia nhiệt máy ép trục vít | roadmap_MechanicalEnginner.md |
+| phan_tich_dong_hoc_va_xu_ly_nhiet_thep_skd11_cho_khung_may_dap | Phân tích động học cơ cấu tay quay thanh truyền và mô phỏng nhiệt luyện SKD11 | roadmap_MechanicalEnginner.md |
+| thiet_ke_chi_tiet_3d_va_tich_hop_logic_plc_cho_cum_truc_vit | Thiết kế CAD 3D cụm trục vít ép nhựa và lập trình điều khiển logic PLC chống nhiễu | roadmap_MechanicalEnginner.md |
+| phan_tich_bien_dang_va_nhiet_luyen_thep_lam_khung_may_dap_luc | Phân tích ứng suất nhiệt và mô phỏng phần tử hữu hạn khung máy dập lực | roadmap_MechanicalEnginner.md |
+| lap_trinh_dieu_khien_plc_va_mo_phong_chuyen_dong_cum_truc_vit | Lập trình PLC tích hợp mạch an toàn phần cứng và mô phỏng cơ cấu trục vít | roadmap_MechanicalEnginner.md |
+| phan_tich_chuyen_dong_va_nhiet_luyen_thep_skd11_cho_khung_may_dap_c29 | Phân tích chuyển động phi tuyến và nhiệt luyện thép SKD11 cho khung máy dập lực cơ khí | roadmap_MechanicalEnginner.md |
+| lap_trinh_logic_plc_va_lap_rap_chi_tiet_cum_truc_vit_ep_d30 | Lập trình logic an toàn Safety PLC và tích hợp mô phỏng 3D cụm trục vít ép công nghiệp | roadmap_MechanicalEnginner.md |
+| toi_uu_hoa_khung_may_dap_va_nhiet_luyen_c31 | Tối ưu hóa kết cấu khung máy dập thủy lực và mô phỏng phân tích ứng suất nhiệt ANSYS | roadmap_MechanicalEnginner.md |
+| lap_trinh_scada_va_mo_phong_lap_rap_may_ep_truc_vit_c32 | Lập trình SCADA tích hợp Safety PLC và mô phỏng 3D động lực học cụm trục vít ép | roadmap_MechanicalEnginner.md |
+| tinh_toan_chi_tiet_khung_may_va_nhiet_luyen_c33 | Tính toán chi tiết khung máy dập thủy lực, ứng suất nhiệt FEA và nhiệt luyện thép SKD11 | roadmap_MechanicalEnginner.md |
+| thiet_ke_cad_va_tich_hop_plc_may_dap_c34 | Thiết kế CAD 3D cụm truyền động máy dập, mạch an toàn Safety PLC và chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| phan_tich_ung_suat_khung_may_dap_va_nhiet_luyen | Phân tích ứng suất khung máy dập bằng phương pháp phần tử hữu hạn và kiểm định nhiệt luyện | roadmap_MechanicalEnginner.md |
+| lap_trinh_giao_dien_hmi_va_mo_phong_may_ep | Lập trình giao diện HMI tích hợp PLC điều khiển tự động máy ép trục vít và mạch an toàn Safety | roadmap_MechanicalEnginner.md |
+| phan_tich_ben_va_xu_ly_nhiet_thep_skd61_lam_khung_may_dap_thuy_luc | Phân tích bền phần tử hữu hạn FEM và quy trình nhiệt luyện thép SKD61 cho khung máy dập | roadmap_MechanicalEnginner.md |
+| lap_trinh_scada_va_mo_phong_3d_he_thong_dieu_khien_may_ep_truc_vit | Lập trình SCADA, giao thức mạng công nghiệp và mô phỏng 3D hệ thống điều khiển máy ép trục vít | roadmap_MechanicalEnginner.md |
+| phan_tich_ben_va_xu_ly_nhiet_thep_skd11_lam_khung_may_dap | Đánh giá kết cấu khung máy dập thép SKD11 tích hợp phân tích biến dạng nhiệt ứng suất CAE | roadmap_MechanicalEnginner.md |
+| lap_trinh_scada_va_mo_phong_3d_cum_truc_vit_ep | Thiết kế giao diện SCADA và lập trình PLC điều khiển an toàn cụm trục vít ép nhựa công nghiệp | roadmap_MechanicalEnginner.md |
+| mo_hinh_toan_hoc_va_nhiet_luyen_thep_skd11_may_dap | Xây dựng phương trình truyền nhiệt vật liệu và mô phỏng ứng suất nhiệt thép SKD11 cho máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| thiet_ke_cad_3d_va_lap_trinh_scada_may_ep_truc_vit | Thiết kế tham số 3D cụm trục vít ép nhựa và lập trình giao diện SCADA giám sát nhiệt độ tích hợp Safety PLC | roadmap_MechanicalEnginner.md |
+| tinh_toan_mat_xich_toan_hoc_va_cad_2d_khung_may_dap | Giải tích kết cấu khung máy dập & Vẽ CAD 2D chi tiết dung sai lắp ghép | roadmap_MechanicalEnginner.md |
+| cau_truc_tinh_the_va_mo_phong_3d_truc_vit_may_ep | Nghiên cứu cấu trúc tinh thể vật liệu SKD61 & Mô hình hóa 3D SolidWorks trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| xay_dung_phuong_trinh_truyen_dong_va_nhiet_luyen_thep_skd11 | Xây dựng phương trình truyền động và nhiệt luyện thép SKD11 cho khung máy dập | roadmap_MechanicalEnginner.md |
+| thiet_ke_tham_so_cad_va_tich_hop_logic_plc_may_ep_truc_vit | Thiết kế tham số CAD và tích hợp logic PLC điều khiển máy ép trục vít | roadmap_MechanicalEnginner.md |
+| giai_tich_toan_hoc_va_xu_ly_nhiet_thep_skd11 | Giải tích toán học kết cấu và nhiệt luyện thép SKD11 tích hợp phân tích ứng suất nhiệt ANSYS | roadmap_MechanicalEnginner.md |
+| thiet_ke_tham_so_va_lap_trinh_plc_truc_vit | Thiết kế tham số CAD 3D, lập trình PLC Siemens S7-1200 và an toàn mạch phần cứng trục vít ép | roadmap_MechanicalEnginner.md |
+| giai_tich_bien_dang_va_nhiet_luyen_thep_cho_khung_may_dap | Giải tích biến dạng vật liệu kết cấu và mô phỏng ứng suất nhiệt khung máy dập | roadmap_MechanicalEnginner.md |
+| thiet_ke_hinh_hoc_va_tich_hop_logic_plc_cho_truc_vit_ep | Thiết kế hình học tối ưu trục vít ép và lập trình mạch an toàn PLC tích hợp chống nhiễu | roadmap_MechanicalEnginner.md |
+| giai_tich_vector_va_cau_truc_mang_tinh_the_vat_lieu | Giải tích vector ứng dụng lực ép và mạng tinh thể nguyên tử vật liệu máy dập | roadmap_MechanicalEnginner.md |
+| phuong_trinh_vi_phan_va_thiet_ke_hinh_hoc_cad_truc_vit | Phương trình vi phân truyền động cơ học và thiết kế hình học CAD trục vít máy ép | roadmap_MechanicalEnginner.md |
+| giai_tich_bien_dang_dan_hoi_va_xu_ly_nhiet_luyen_thep_skd61_lam_khung_may_dap | Giải tích biến dạng đàn hồi khung máy dập 50 tấn và quy trình nhiệt luyện thép SKD61 | roadmap_MechanicalEnginner.md |
+| thiet_ke_tham_so_hinh_hoc_va_tich_hop_logic_dieu_khien_plc_cho_cum_truc_vit | Thiết kế tham số hình học 3D cụm trục vít máy ép nhựa và tích hợp logic điều khiển PLC | roadmap_MechanicalEnginner.md |
+| giai_tich_toan_hoc_va_nghien_cuu_cau_truc_tinh_the_vat_lieu_may_dap | Giải tích toán học và cấu trúc tinh thể vật liệu cho khung máy dập 50 tấn | roadmap_MechanicalEnginner.md |
+| phuong_trinh_dao_ham_va_thiet_ke_tham_so_cad_cum_truc_vit | Phương trình đạo hàm riêng và thiết kế tham số CAD cụm trục vít ép nhựa | roadmap_MechanicalEnginner.md |
+| giai_tich_vector_va_cau_truc_mang_tinh_the_vat_lieu_may_dap_57 | Giải tích vector ứng suất Mohr và cấu trúc tinh thể vật liệu khung máy dập 50T | roadmap_MechanicalEnginner.md |
+| phuong_trinh_vi_phan_va_thiet_ke_hinh_hoc_cad_truc_vit_58 | Phương trình vi phân chuyển động xoắn và thiết kế biên dạng CAD 3D trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| he_phuong_trinh_dai_so_va_cau_truc_mang_tinh_the_nguyen_tu_vat_lieu_59 | Hệ phương trình đại số tuyến tính và cấu trúc mạng tinh thể nguyên tử vật liệu cơ khí | roadmap_MechanicalEnginner.md |
+| tich_phan_duong_va_thiet_ke_bien_dang_hinh_hoc_truc_vit_60 | Tích phân đường và thiết kế biên dạng hình học chi tiết trục vít máy ép | roadmap_MechanicalEnginner.md |
+| bien_doi_fourier_va_nghien_cuu_mang_tinh_the_nguyen_tu | Biến đổi Fourier và nghiên cứu mạng tinh thể nguyên tử vật liệu cơ khí | roadmap_MechanicalEnginner.md |
+| phuong_trinh_dao_ham_rieng_va_mo_phong_khung_may_dap | Phương trình đạo hàm riêng và mô phỏng phân tích ứng suất nhiệt khung máy dập | roadmap_MechanicalEnginner.md |
+| bien_doi_lap_las_va_cau_truc_mang_tinh_the | Ứng dụng biến đổi Laplace trong kỹ thuật hệ thống truyền động và cấu trúc mạng tinh thể nguyên tử vật liệu cơ khí | roadmap_MechanicalEnginner.md |
+| phep_tinh_tensor_va_thiet_ke_cad_khung_may | Ứng dụng phép tính tensor ứng suất-biến dạng và thiết kế tham số CAD chi tiết khung máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| phep_tinh_vi_tich_va_mo_phong_vat_lieu_thep_skd61 | Phép tính vi tích phân và mô phỏng nhiệt phân bố thép SKD61 | roadmap_MechanicalEnginner.md |
+| giai_thich_ma trận_va_thiet_ke_khung_truc_vit_ep_nhua | Giải tích ma trận và thiết kế động học cụm trục vít ép nhựa | roadmap_MechanicalEnginner.md |
+| giai_thich_khong_gian_va_thiet_ke_cad_may_dap_67 | Không gian vector 3D và thiết kế CAD kết cấu khung chịu lực máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| nghien_cuu_mang_tinh_the_va_lap_trinh_plc_may_ep_68 | Mạng tinh thể nguyên tử thép và lập trình PLC điều khiển an toàn máy ép trục vít | roadmap_MechanicalEnginner.md |
+| khao_sat_truong_vector_va_thiet_ke_cad_khung_may_dap | Khảo sát trường véc-tơ và thiết kế CAD khung máy dập | roadmap_MechanicalEnginner.md |
+| giai_tich_ham_bien_phuc_va_mo_phong_truc_vit_ep_nhua | Giải tích hàm biến phức và mô phỏng trục vít ép nhựa | roadmap_MechanicalEnginner.md |
+| ly_thuyet_do_thi_va_mo_phong_vat_lieu_may_dap | Ứng dụng lý thuyết đồ thị mạng tinh thể và mô phỏng ứng suất nhiệt khung máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| hinh_hoc_vi_sai_va_lap_trinh_logic_truc_vit_ep | Ứng dụng hình học vi sai biên dạng xoắn và lập trình Safety PLC tích hợp chống nhiễu EMC trục vít ép | roadmap_MechanicalEnginner.md |
+| ly_thuyet_truong_va_mo_phong_khung_may_dap | Phân tích trường ứng suất nhiệt kết hợp mô phỏng FEA khung máy dập 50 tấn | roadmap_MechanicalEnginner.md |
+| giai_tich_so_va_lap_trinh_plc_truc_vit_ep_nhua | Giải tích số sai phân hữu hạn và lập trình điều khiển PID trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| mo_hinh_hoa_toan_hoc_va_xu_ly_nhiet_thep_skd11_may_dap | Mô hình hóa toán học và xử lý nhiệt thép SKD11 chế tạo chày máy dập | roadmap_MechanicalEnginner.md |
+| giai_tich_ung_suat_va_thiet_ke_tham_so_cad_truc_vit_ep | Giải tích ứng suất và thiết kế tham số CAD cụm trục vít ép nhựa | roadmap_MechanicalEnginner.md |
+| mo_phong_phan_tu_huu_han_va_xu_ly_nhiet_thep_skd11_day_77 | Phân tích ứng suất nhiệt FEM chày dập SKD11 và tối ưu hóa mác thép dụng cụ | roadmap_MechanicalEnginner.md |
+| thiet_ke_cad_3d_va_lap_trinh_plc_dieu_khien_truc_vit_ep_day_78 | Thiết kế CAD 3D cánh xoắn trục vít và lập trình PLC S7-1200 điều khiển PID nhiệt | roadmap_MechanicalEnginner.md |
+| toan_hoc_ung_dung_va_cau_truc_mang_tinh_the_thep_skd11 | Ứng dụng toán học nâng cao và phân tích mạng tinh thể thép SKD11 cho khung máy dập | roadmap_MechanicalEnginner.md |
+| phuong_trinh_vi_phan_va_thiet_ke_cad_cum_truc_vit_ep | Thiết lập phương trình vi phân truyền nhiệt và thiết kế CAD 3D cụm trục vít ép nhựa | roadmap_MechanicalEnginner.md |
+| tinh_toan_tensor_bien_dang_va_nhiet_luyen_thep_skd11 | Tính toán tensor biến dạng và phân tích nhiệt luyện thép SKD11 cho khung máy dập | roadmap_MechanicalEnginner.md |
+| lap_trinh_logic_plc_va_thiet_ke_cad_cum_truc_vit | Lập trình logic PLC Siemens S7-1200 và thiết kế CAD 3D cụm trục vít ép nhựa công nghiệp | roadmap_MechanicalEnginner.md |
+| nghien_cuu_mang_nguyen_tu_va_thiet_ke_cad_may_dap_83 | Nghiên cứu mạng nguyên tử thép SKD11, phân tích ứng suất nhiệt FEM và thiết kế CAD 3D máy dập | roadmap_MechanicalEnginner.md |
+| tich_hop_thuat_toan_dieu_khien_va_mo_phong_truc_vit_84 | Tích hợp thuật toán điều khiển PLC S7-1200, mạch an toàn Safety Relay và mô phỏng CAD trục vít ép nhựa | roadmap_MechanicalEnginner.md |
+| toan_hoc_noi_suy_va_thiet_ke_cad_khung_may_dap_85 | Ứng dụng nội suy hình học Lagrange và phân tích phần tử hữu hạn khung máy dập 50 tấn | roadmap_MechanicalEnginner.md |
+| giai_tich_bien_doi_va_mo_phong_nhiet_luyen_truc_vit_86 | Khảo sát phương trình truyền nhiệt vi phân và mô phỏng ứng suất nhiệt trục vít SKD11 | roadmap_MechanicalEnginner.md |
+| giai_tich_tich_phan_va_thiet_ke_cad_khung_may_dap_87 | Giải tích tích phân tích lực dập và thiết kế mô hình 3D khung máy dập thủy lực 50T | roadmap_MechanicalEnginner.md |
+| phuong_trinh_vi_phan_va_mo_phong_nhiet_truc_vit_ep_88 | Phương pháp vi phân truyền nhiệt và mô phỏng nhiệt luyện trục vít máy ép nhựa SKD61 | roadmap_MechanicalEnginner.md |
+| mo_hinh_so_va_thiet_ke_cad_may_dap_89 | Thiết kế CAD 3D kết cấu khung chữ C máy dập thủy lực 30T và phân tích ứng suất nhiệt | roadmap_MechanicalEnginner.md |
+| toi_uu_hoa_nhiet_luyen_va_dieu_khien_plc_90 | Lập trình PLC an toàn và tối ưu hóa quy trình nhiệt luyện thép SKD11 cho trục vít ép | roadmap_MechanicalEnginner.md |
+| xay_dung_he_thong_toan_hoc_ky_thuat_cho_may_dap_thuy_luc | Xây dựng hệ thống toán học kỹ thuật cho máy dập thủy lực và phân tích ứng suất nhiệt ANSYS | roadmap_MechanicalEnginner.md |
+| lap_trinh_dieu_khien_plc_cho_cum_truc_vit_ep_nhua | Lập trình điều khiển PLC, thiết kế mạch an toàn phần cứng và mô phỏng trục vít ép nhựa | roadmap_MechanicalEnginner.md |
+| mo_phong_khung_may_dap_va_nhiet_luyen_thep_skd11 | Mô phỏng phần tử hữu hạn khung máy dập chịu tải và nhiệt luyện thép SKD11 tiêu chuẩn | roadmap_MechanicalEnginner.md |
+| tich_hop_plc_va_thiet_ke_cad_truc_vit_ep_nhua | Lập trình PLC điều khiển hệ thống nhiệt độ trục vít ép nhựa và thiết kế bản vẽ lắp ráp 2D | roadmap_MechanicalEnginner.md |
+| giai_thich_dai_so_tuyen_tinh_va_thiet_ke_cad_may_dap | Đại số tuyến tính ứng dụng và thiết kế CAD 3D khung máy dập thủy lực 100T kèm phân tích ứng suất | roadmap_MechanicalEnginner.md |
+| ung_dung_giai_tich_ham_nhieu_bien_va_lap_trinh_plc_truc_vit | Giải tích hàm nhiều biến, thiết kế mạch an toàn phần cứng và lập trình PLC S7-1200 điều khiển trục vít ép nhựa | roadmap_MechanicalEnginner.md |
+| toan_hoc_vector_va_thiet_ke_cad_khung_may_dap | Ứng dụng giải tích véc-tơ và mô phỏng CAE phần tử hữu hạn khung máy dập 100 tấn | roadmap_MechanicalEnginner.md |
+| cau_truc_mang_nguyen_tu_va_lap_trinh_plc_truc_vit | Nghiên cứu mạng tinh thể thép SKD61, lập trình PLC chống nhiễu và thiết kế mạch an toàn trục vít | roadmap_MechanicalEnginner.md |
+| tong_hop_toan_hoc_vat_lieu_va_cad_may_dap_99 | Hệ thống hóa toán học kỹ thuật, nhiệt luyện SKD11 và thiết kế CAD trọn gói máy dập | roadmap_MechanicalEnginner.md |
+| capstone_vat_lieu_nhiet_luyen_va_cad_truc_vit_100 | Capstone cấu trúc vật liệu, mô phỏng CAE trục vít ép nhựa và tích hợp mạch an toàn phần cứng Safety PLC | roadmap_MechanicalEnginner.md |
+| tu_duy_toan_hoc_va_cau_truc_tinh_the_may_dap_101 | Xây dựng nền tảng toán học ứng dụng và phân tích mạng tinh thể thép cho máy dập thủy lực 100T kèm tiêu chuẩn an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| nhiet_luyen_vat_lieu_va_thiet_ke_cad_truc_vit_102 | Nghiên cứu biểu đồ pha Fe-C, quy trình nhiệt luyện trục vít ép nhựa và mô phỏng phân tích ứng suất nhiệt kết hợp CAD 3D SolidWorks | roadmap_MechanicalEnginner.md |
+| mo_hinh_khong_gian_vector_va_cad_may_dap_103 | Mô hình không gian vector và CAD 3D khung máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| vi_tich_phan_va_mo_phong_truc_vit_ep_104 | Vi tích phân nâng cao và mô phỏng dòng chảy trục vít ép nhựa | roadmap_MechanicalEnginner.md |
+| tu_duy_khong_gian_va_vat_lieu_may_dap_105 | Tư duy không gian 3 chiều và cấu trúc tinh thể vật liệu máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| nhiet_luyen_ung_dung_va_ban_ve_truc_vit_106 | Nhiệt luyện ứng dụng cấu trúc vật liệu và bản vẽ CAD trục vít ép nhựa | roadmap_MechanicalEnginner.md |
+| toan_hoc_ky_thuat_va_cau_truc_tinh_the_day_107 | Hệ thống toán học kỹ thuật tensor biến dạng và cấu trúc tinh thể mạng BCC/FCC máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| nhiet_luyen_va_thiet_ke_cad_may_dap_day_108 | Nhiệt luyện nâng cao biểu đồ truyền nhiệt và bản vẽ chế tạo trục khuỷu máy dập cơ khí | roadmap_MechanicalEnginner.md |
+| mo_hinh_toan_hoc_va_cad_co_so_109 | Xây dựng hệ phương trình động lực học và bản vẽ chế tạo máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| nghien_cuu_vat_lieu_va_mo_phong_plc_110 | Phân tích cấu trúc pha vi mô thép SKD11 và lập trình giao diện HMI trục vít ép nhựa | roadmap_MechanicalEnginner.md |
+| toan_hoc_ung_dung_va_ban_ve_may_ep_111 | Ứng dụng hình học không gian lập bản vẽ 2D máy ép thủy lực khổ lớn | roadmap_MechanicalEnginner.md |
+| cau_truc_mang_tinh_the_va_mo_phong_cad_112 | Khảo sát khuyết tật mạng tinh thể và mô hình 3D khung máy trục vít nhựa | roadmap_MechanicalEnginner.md |
+| tu_duy_khong_gian_va_vat_lieu_may_dap_113 | Xây dựng tư duy không gian và nhiệt luyện thép làm khuôn máy dập | roadmap_MechanicalEnginner.md |
+| lap_trinh_plc_va_mo_phong_truc_vit_114 | Tích hợp hệ thống PLC S7-1200 và chống nhiễu EMC cho trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| toan_hoc_vector_khung_may_dap_115 | Ứng dụng đại số tuyến tính tính toán lực khung máy dập thủy lực và vẽ CAD kết cấu chữ C | roadmap_MechanicalEnginner.md |
+| cau_truc_tinh_the_truc_vit_116 | Khảo sát cấu trúc tinh thể hợp kim làm trục vít ép nhựa và mô phỏng nhiệt luyện tự động hóa | roadmap_MechanicalEnginner.md |
+| toan_hoc_ung_dung_va_cau_truc_vat_lieu_may_dap_117 | Toán học ứng dụng, cấu trúc mạng tinh thể thép SKD11 và thiết kế CAD khung máy dập | roadmap_MechanicalEnginner.md |
+| nhiệt_luyện_va_lap_trinh_plc_truc_vit_ep_118 | Nhiệt luyện nâng cao đồ thị pha Fe-C và lập trình PID điều khiển trục vít ép nhựa | roadmap_MechanicalEnginner.md |
+| tu_duy_toan_hoc_va_cad_may_dap_119 | Tính toán ma trận truyền động phân bố lực và thiết kế CAD 3D kết cấu máy dập thủy lực 50T | roadmap_MechanicalEnginner.md |
+| cau_truc_vat_lieu_va_lap_trinh_truc_vit_120 | Khảo sát mạng tinh thể thép SKD11, nhiệt luyện nâng cao và lập trình PLC điều khiển trục vít ép nhựa | roadmap_MechanicalEnginner.md |
+| mo_phong_toan_hoc_va_cad_khung_may_dap_121 | Tính toán phần tử hữu hạn khung máy dập lực 50T và thiết kế CAD 3D kết hợp phân tích ứng suất nhiệt | roadmap_MechanicalEnginner.md |
+| nghien_cuu_mang_tinh_the_va_lap_trinh_plc_truc_vit_122 | Phân tích mạng tinh thể thép SCM440 và lập trình PLC chống nhiễu điều khiển trục vít ép nhựa | roadmap_MechanicalEnginner.md |
+| toan_hoc_ung_dung_va_nhiet_luyen_thep_skd11 | Ứng dụng phương trình vi truyền nhiệt 1D và lập trình PID điều khiển nhiệt luyện thép SKD11 cho trục vít ép | roadmap_MechanicalEnginner.md |
+| thiet_ke_cad_3d_va_mo_phong_khung_may_dap_thuy_luc | Thiết kế tham số 3D cụm khung máy dập thủy lực kết hợp phân tích ứng suất nhiệt và cơ cấu an toàn | roadmap_MechanicalEnginner.md |
+| lap_trinh_dieu_khien_tu_dong_may_dap_125 | Lập trình an toàn PLC Siemens S7-1200 tích hợp tiêu chuẩn ISO 13849 cho máy dập | roadmap_MechanicalEnginner.md |
+| giai_thich_cau_truc_va_mo_phong_truc_vit_126 | Phân tích ứng suất nhiệt và mô phỏng CAE động lực học trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| giai_tich_toan_hoc_va_cad_chuyen_sau_may_ep | Giải tích toán học dòng chảy thủy lực và thiết kế CAD 3D máy ép 50 tấn | roadmap_MechanicalEnginner.md |
+| khao_sat_mang_tinh_the_va_plc_may_dap_tam | Khảo sát mạng tinh thể kim loại và lập trình an toàn PLC cho máy dập tấm | roadmap_MechanicalEnginner.md |
+| ung_dung_giai_tich_va_cad_truc_vit_ep_nhua | Ứng dụng giải tích và thiết kế CAD trục vít ép nhựa công nghiệp | roadmap_MechanicalEnginner.md |
+| capstone_toan_vat_lieu_va_cad_may_dap_truc_vit | Capstone: Tích hợp toán vật liệu và CAD toàn diện hệ thống máy dập | roadmap_MechanicalEnginner.md |
+| nghien_cuu_toan_hoc_va_cau_truc_vat_lieu_may_dap_131 | Phân tích tensor ứng suất ma trận biến dạng và mạng tinh thể thép C45 khung máy dập | roadmap_MechanicalEnginner.md |
+| ung_dung_giai_tich_va_nhiệt_luyện_truc_vit_132 | Ứng dụng phương trình đạo hàm riêng và quy trình nhiệt luyện tối ưu trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| toan_hoc_ky_thuat_va_xu_ly_nhiet_luyen_may_dap_133 | Tính toán nhiệt luyện SKD11 và phân tích ứng suất nhiệt phần tử hữu hạn FEM | roadmap_MechanicalEnginner.md |
+| lap_trinh_plc_va_mo_phong_khung_may_dap_134 | Lập trình Safety PLC chống nhiễu EMC và mô phỏng mạch an toàn máy dập | roadmap_MechanicalEnginner.md |
+| tinh_toan_tensor_va_gia công_cad_may_dap_135 | Tính toán tensor ứng suất Cauchy và thiết kế mô hình 3D khung máy dập 50 tấn | roadmap_MechanicalEnginner.md |
+| vi_tich_phan_va_nhiet_luyen_truc_vit_136 | Ứng dụng phương trình vi tích phân và công nghệ nhiệt luyện tôi dung tích trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| toan_hoc_ky_thuat_va_cad_truc_vit_day_137 | Hệ phương trình vi phân biên dạng xoắn và thiết kế CAD 3D trục vít đùn nhựa | roadmap_MechanicalEnginner.md |
+| cau_truc_mang_tinh_the_va_plc_may_dap_day_138 | Luyện kim tinh thể thép SKD11 và lập trình an toàn PLC S7-1200 cho máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| toan_hoc_vector_va_nhiet_luyen_thep_skd11_day_139 | Tính toán vector lực không gian và phân tích ứng suất nhiệt luyện thép SKD11 chế tạo trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| lap_trinh_plc_va_thiet_ke_cad_may_dap_thuy_luc_day_140 | Thiết kế CAD 3D chống xung đột và lập trình Safety PLC tích hợp mạch an toàn cho cụm xy lanh thủy lực máy dập tự động | roadmap_MechanicalEnginner.md |
+| toan_hoc_tinh_dien_va_nhiet_luyen_cho_may_dap_141 | Tính toán điện thế và nhiệt luyện phôi thép SKD11 tích hợp phân tích ứng suất nhiệt ANSYS cho máy dập | roadmap_MechanicalEnginner.md |
+| mo_phong_cad_3d_va_dieu_khien_truc_vit_142 | Thiết kế 3D cụm trục vít máy ép nhựa, lập trình PLC giả lập và thiết kế mạch an toàn Safety Relay | roadmap_MechanicalEnginner.md |
+| toan_hoc_tinh_dien_va_nhiet_luyen_truc_vit_143 | Mô phỏng ứng suất nhiệt và phương pháp nhiệt luyện SKD61 cho trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| lap_trinh_plc_va_thiet_ke_cad_may_dap_144 | Lập trình PLC Siemens S7-1200 và thiết kế mạch an toàn phần cứng Safety Relay cho máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| giai_tich_vector_va_cad_2d_khung_may_dap_145 | Giải tích vector lực kết cấu và thiết kế CAD 2D dầm chịu lực máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| cau_truc_mang_nguyen_tu_va_plc_truc_vit_146 | Khảo sát mạng tinh thể kim loại và lập trình PLC S7-1200 điều khiển trục vít ép nhựa | roadmap_MechanicalEnginner.md |
+| giai_tich_ham_phuc_va_cad_3d_truc_vit_day_147 | Giải tích hàm phức và mô hình hóa 3D trục vít máy ép nhựa trên CAD | roadmap_MechanicalEnginner.md |
+| phuong_trinh_dao_ham_va_plc_may_dap_day_148 | Phương trình đạo hàm riêng và lập trình PLC an toàn điều khiển máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| bien_doi_laplace_va_nhiet_luyen_thep_skd11_day_149 | Ứng dụng biến đổi Laplace và quy trình nhiệt luyện thép SKD11 cho máy ép | roadmap_MechanicalEnginner.md |
+| ly_thuyet_dieu_khiển_va_lap_trinh_plc_may_dap_day_150 | Thiết kế hệ thống điều khiển tự động và an toàn PLC cho máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| co_hoc_ly_thuyet_va_tinh_toan_thanh_truc_may_dap_151 | Ứng dụng cơ học lý thuyết và sức bền thanh trục máy dập tự động kèm PLC | roadmap_MechanicalEnginner.md |
+| dong_hoc_co_cau_truc_vit_va_lap_trinh_scada_152 | Phân tích động học cơ cấu trục vít ép nhựa kết hợp mô phỏng CAE và SCADA | roadmap_MechanicalEnginner.md |
+| co_hoc_ly_thuyet_va_tinh_ben_thanh_truc_may_dap_153 | Tính toán cơ học kết cấu và phân tích ứng suất nhiệt phần tử hữu hạn FEA cho khung máy dập | roadmap_MechanicalEnginner.md |
+| dong_hoc_co_cau_va_lap_trinh_scada_may_ep_154 | Động lực học cơ cấu tay quay thanh truyền nâng cao và tích hợp mạng truyền thông công nghiệp SCADA | roadmap_MechanicalEnginner.md |
+| co_hoc_ly_thuyet_va_tinh_toan_chi_tiet_may_dap_155 | Khảo sát cơ học lý thuyết thanh chịu uốn xiên kết hợp phân tích ứng suất nhiệt cho khung máy dập | roadmap_MechanicalEnginner.md |
+| dong_hoc_co_cau_va_lap_trinh_plc_truc_vit_156 | Nghiên cứu động lực học cơ cấu cam trục vít kết hợp lập trình Safety PLC và chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| co_hoc_ly_thuyet_va_tinh_toan_dam_may_dap_157 | Tính toán dầm chịu uốn máy dập bằng phương pháp phần tử hữu hạn FEM và tích hợp Safety PLC | roadmap_MechanicalEnginner.md |
+| dong_hoc_co_cau_va_giao_dien_scada_truc_vit_158 | Khảo sát động lực học cơ cấu trục vít ép nhựa và thiết kế giao diện SCADA kết hợp Modbus TCP | roadmap_MechanicalEnginner.md |
+| co_hoc_ly_thuyet_va_tinh_ben_truc_may_dap_159 | Nghiên cứu cơ học lý thuyết, phân tích CAE ứng suất nhiệt và tính bền trục máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| dong_hoc_co_cau_va_lap_trinh_scada_may_ep_160 | Khảo sát động học cơ cấu tay quay thanh truyền kết hợp lập trình SCADA và mạch an toàn Safety PLC | roadmap_MechanicalEnginner.md |
+| co_hoc_va_ben_thanh_truc_may_dap_161 | Tính toán độ bền phần tử hữu hạn FEM và tích hợp mạch an toàn phần cứng ISO 13849 cho máy dập | roadmap_MechanicalEnginner.md |
+| dong_hoc_va_dieu_khien_plc_truc_vit_162 | Mô phỏng động lực học ADAMS cơ cấu trục vít và lập trình PLC xử lý nhiễu công nghiệp Modbus TCP | roadmap_MechanicalEnginner.md |
+| co_hoc_va_tinh_toan_chi_tiet_may_dap_163 | Nghiên cứu cơ học kết cấu thanh truyền máy dập và mô phỏng ứng suất nhiệt CAE | roadmap_MechanicalEnginner.md |
+| khao_sat_dong_hoc_va_lap_trinh_plc_truc_vit_164 | Khảo sát động học cơ cấu trục vít me bi và lập trình an toàn PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| co_hoc_va_ben_dam_may_dap_165 | Nghiên cứu ứng suất uốn dầm máy dập và lập trình an toàn PLC Safety | roadmap_MechanicalEnginner.md |
+| dong_hoc_va_dieu_khien_scada_truc_vit_166 | Động học nâng cao cơ cấu trục vít me và giám sát thời gian thực qua SCADA | roadmap_MechanicalEnginner.md |
+| co_hoc_ly_thuyet_va_tinh_ben_thanh_truc_may_dap_167 | Tính bền thanh trục máy dập và phân tích ứng suất nhiệt CAE | roadmap_MechanicalEnginner.md |
+| dong_hoc_co_cau_va_lap_trinh_plc_truc_vit_168 | Động học nâng cao cơ cấu trục vít me bi và lập trình Safety PLC | roadmap_MechanicalEnginner.md |
+| co_hoc_ly_thuyet_va_tinh_toan_dam_truc_may_dap_169 | Nghiên cứu cơ học lý thuyết, phân tích ứng suất nhiệt và lập trình an toàn PLC máy dập | roadmap_MechanicalEnginner.md |
+| khao_sat_dong_hoc_va_dieu_khien_scada_truc_vit_170 | Khảo sát động học nâng cao cơ cấu trục vít và giám sát thời gian thực qua giao diện SCADA | roadmap_MechanicalEnginner.md |
+| nguyen_ly_may_va_suc_ben_thanh_truc_may_dap_171 | Nghiên cứu nguyên lý máy và kiểm tra bền thanh trục máy dập thuỷ lực | roadmap_MechanicalEnginner.md |
+| dong_hoc_co_cau_va_lap_trinh_scada_may_ep_172 | Phân tích động học cơ cấu tay quay thanh truyền và SCADA máy ép nhựa | roadmap_MechanicalEnginner.md |
+| co_hoc_va_ben_dam_truc_may_dap_173 | Nghiên cứu độ bền dầm trục máy dập và lập trình PLC Safety | roadmap_MechanicalEnginner.md |
+| khao_sat_dong_hoc_va_dieu_khien_plc_truc_vit_174 | Khảo sát động học cơ cấu trục vít và truyền thông công nghiệp HMI | roadmap_MechanicalEnginner.md |
+| nguyen_ly_may_va_suc_ben_thanh_truc_may_dap_175 | Tính toán sức bền thanh trục máy dập và thiết kế mạch an toàn Safety PLC | roadmap_MechanicalEnginner.md |
+| dong_hoc_co_cau_va_dieu_khien_scada_truc_vit_176 | Khảo sát động học cơ cấu trục vít và giám sát SCADA thời gian thực | roadmap_MechanicalEnginner.md |
+| co_hoc_ly_thuyet_va_tinh_toan_chi_tiet_may_ep_day_177 | Nghiên cứu cơ học lý thuyết và tính bền kết cấu máy ép thủy lực bằng phương pháp phần tử hữu hạn FEA | roadmap_MechanicalEnginner.md |
+| khao_sat_dong_hoc_va_lap_trinh_plc_may_dap_day_178 | Khảo sát động học cơ cấu tay quay thanh truyền kết hợp lập trình Safety PLC cho máy dập tự động | roadmap_MechanicalEnginner.md |
+| co_hoc_va_ben_dam_may_ep_day_179 | Phân tích ứng suất nhiệt kết hợp phần tử hữu hạn dầm máy ép trên Ansys | roadmap_MechanicalEnginner.md |
+| khao_sat_dong_hoc_va_dieu_khien_scada_may_ep_day_180 | Thiết kế mạch an toàn phần cứng và lập trình SCADA giám sát máy ép tự động | roadmap_MechanicalEnginner.md |
+| tinh_toan_chi_tiet_may_ep_day_181 | Tính toán chi tiết máy ép thủy lực, phân tích ứng suất nhiệt ANSYS và lập trình Safety PLC | roadmap_MechanicalEnginner.md |
+| chuyen_gia_co_khi_tong_hop_may_dap_182 | Tích hợp cơ cấu máy dập liên hợp, truyền thông Modbus/Profinet và giám sát thời gian thực SCADA | roadmap_MechanicalEnginner.md |
+| nghien_cuu_co_hoc_va_ben_thanh_truc_may_dap_183 | Phân tích ứng suất nhiệt kết hợp phần tử hữu hạn thanh truyền máy dập trên ANSYS | roadmap_MechanicalEnginner.md |
+| khao_sat_dong_hoc_va_lap_trinh_plc_cho_may_ep_184 | Lập trình PLC Siemens S7-1200 tích hợp mạch an toàn phần cứng cho máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| phan_tich_luc_va_ben_truc_may_dap_185 | Phân tích lực, bền mỏi trục khuỷu máy dập và tích hợp Safety PLC | roadmap_MechanicalEnginner.md |
+| mo_phong_dong_hoc_va_scada_may_ep_186 | Mô phỏng động học nâng cao cơ cấu ép trục vít và giám sát SCADA | roadmap_MechanicalEnginner.md |
+| co_hoc_ly_thuyet_va_tinh_toan_chi_tiet_may_187 | Phân tích ứng suất nhiệt và tính toán bền cấu trúc cơ khí máy dập thủy lực theo tiêu chuẩn FEA | roadmap_MechanicalEnginner.md |
+| dong_hoc_va_dieu_khien_tu_dong_may_ep_188 | Thiết kế mạch an toàn phần cứng Safety PLC và khảo sát động học cơ cấu tay quay thanh truyền máy ép nhựa | roadmap_MechanicalEnginner.md |
+| tinh_toan_chi_tiet_may_189 | Nghiên cứu độ bền thanh truyền động máy ép thủy lực kèm phân tích nhiệt ứng suất | roadmap_MechanicalEnginner.md |
+| lap_trinh_plc_va_dong_hoc_190 | Khảo sát quỹ đạo chuyển động cơ cấu tay quay thanh truyền máy dập tự động tích hợp Safety PLC | roadmap_MechanicalEnginner.md |
+| nguyen_ly_may_va_suc_ben_thanh_truc_191 | Tính toán sức bền thanh trục kết hợp phân tích ứng suất nhiệt cho máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| dong_hoc_co_cau_va_dieu_khien_plc_192 | Phân tích động học cơ cấu tay quay thanh truyền tích hợp Safety PLC và chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| co_hoc_ly_thuyet_va_tinh_ben_thanh_truc_may_dap_193 | Nền tảng cơ học kết cấu và phân tích độ bền thanh trục máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| khao_sat_dong_hoc_va_dieu_khien_plc_may_ep_194 | Khảo sát động học cơ cấu tay quay thanh truyền và lập trình PLC máy ép nhựa | roadmap_MechanicalEnginner.md |
+| co_hoc_va_ben_dam_truc_may_dap_195 | Phân tích ứng suất nhiệt kết hợp tính bền uốn-xoắn trục máy dập qua phương pháp phần tử hữu hạn (FEA) | roadmap_MechanicalEnginner.md |
+| dong_hoc_va_dieu_khien_plc_truc_vit_196 | Thiết kế mạch an toàn phần cứng Safety PLC và lập trình điều khiển vị trí cơ cấu trục vít | roadmap_MechanicalEnginner.md |
+| co_hoc_ly_thuyet_va_tinh_ben_thanh_truc_may_dap_197 | Tính toán sức bền thanh trục máy dập tích hợp an toàn PLC Siemens S7-1200 | roadmap_MechanicalEnginner.md |
+| dong_hoc_va_dieu_khien_tu_dong_may_ep_198 | Động học cơ cấu tay quay thanh truyền máy ép thủy lực kết hợp HMI và mô phỏng CAE | roadmap_MechanicalEnginner.md |
+| tinh_toan_chi_tiet_truc_vit_va_dieu_khien_dong_co_buoc_day_199 | Tính toán chi tiết trục vít và tích hợp mạch an toàn phần cứng Safety PLC cho hệ thống máy trục vít | roadmap_MechanicalEnginner.md |
+| chuyen_gia_co_khi_tong_hop_may_ep_thuy_luc_day_200 | Capstone: Tích hợp cơ học máy ép thủy lực, phân tích ứng suất nhiệt FEA và tự động hóa toàn diện | roadmap_MechanicalEnginner.md |
+| tinh_toan_ben_truc_va_lap_trinh_plc_may_dap_201 | Tính bền trục chịu uốn xoắn kết hợp phân tích ứng suất nhiệt và lập trình Safety PLC máy dập | roadmap_MechanicalEnginner.md |
+| dong_hoc_co_cau_va_giao_dien_scada_may_ep_202 | Phân tích động học nâng cao cơ cấu tay quay thanh truyền qua ADAMS và thiết kế SCADA máy ép | roadmap_MechanicalEnginner.md |
+| tinh_toan_ben_va_lap_trinh_plc_may_dap_203 | Tính toán sức bền thanh chịu uốn, tích hợp Safety PLC và phần mềm giả lập cho máy dập | roadmap_MechanicalEnginner.md |
+| phan_tich_dong_hoc_va_giao_dien_scada_may_ep_204 | Phân tích động học cơ cấu tay quay thanh truyền, mô phỏng CAE và thiết kế SCADA máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| tinh_toan_ben_thanh_truc_may_dap_205 | Phân tích phần tử hữu hạn FEA ứng suất nhiệt và tính bền thanh trục máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| khao_sat_dong_hoc_va_dieu_khien_plc_truc_vit_206 | Khảo sát động học cơ cấu trục vít, lập trình PLC S7-1200 và thiết kế mạch an toàn phần cứng | roadmap_MechanicalEnginner.md |
+| co_hoc_va_tinh_toan_chi_tiet_may_dap_day_207 | Tính toán cơ học kết cấu dầm trục, ứng suất nhiệt FEA và thiết kế mạch an toàn phần cứng Safety PLC cho máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| dong_hoc_va_dieu_khien_scada_truc_vit_day_208 | Động học nâng cao cơ cấu trục vít - đai ốc, mô phỏng Adams và tích hợp giám sát SCADA thời gian thực hệ thống máy ép | roadmap_MechanicalEnginner.md |
+| co_hoc_va_ben_dam_truc_may_dap_day_209 | Tính toán ứng suất uốn và mô phỏng CAE phân tích độ bền dầm khung máy dập | roadmap_MechanicalEnginner.md |
+| dong_hoc_va_dieu_khien_plc_may_truc_vit_day_210 | Khảo sát động học cơ cấu trục vít và lập trình PLC S7-1200 tích hợp an toàn chống nhiễu | roadmap_MechanicalEnginner.md |
+| tinh_toan_ben_thanh_truc_va_lap_trinh_plc_cho_may_ep_thuy_luc | Tính bền thanh trục piston và lập trình an toàn PLC cho máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| phan_tich_dong_hoc_co_cau_va_scada_cho_may_dap_cong_nghiep | Phân tích động học cơ cấu tay quay thanh truyền và giám sát SCADA cho máy dập | roadmap_MechanicalEnginner.md |
+| tinh_toan_chi_tiet_truc_may_vat_lieu_day_213 | Tính toán chi tiết trục máy và lựa chọn vật liệu luyện kim cho máy ép thủy lực hành trình cao | roadmap_MechanicalEnginner.md |
+| phan_tich_dong_hoc_va_scada_may_dap_day_214 | Phân tích động học cơ cấu tay quay thanh truyền nâng cao và giao diện SCADA giám sát máy dập | roadmap_MechanicalEnginner.md |
+| tinh_toan_ben_va_lap_trinh_plc_may_truc_vit | Nghiên cứu độ bền thanh truyền, phân tích ứng suất nhiệt và lập trình Safety PLC điều khiển máy trục vít | roadmap_MechanicalEnginner.md |
+| chuyen_gia_co_khi_tong_hop_may_dap_va_truc_vit_capstone | Capstone: Tích hợp cơ học kết cấu nâng cao, tiêu chuẩn an toàn ISO 13849 và hệ thống tự động hóa toàn diện máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| co_hoc_ben_thanh_truc_may_dap_plc_217 | Tính toán độ bền thanh và trục máy dập tích hợp Safety PLC | roadmap_MechanicalEnginner.md |
+| dong_hoc_co_cau_truc_vit_scada_218 | Phân tích động học cơ cấu trục vít và giám sát SCADA hệ thống ép | roadmap_MechanicalEnginner.md |
+| co_hoc_ben_thanh_truc_may_dap_219 | Tính toán sức bền vật liệu, phân tích CAE ứng suất uốn - xoắn kết hợp và kiểm tra an toàn kết cấu thanh trục máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| dong_hoc_co_cau_truc_vit_scada_220 | Khảo sát động học cơ cấu trục vít me, truyền thông công nghiệp Modbus RTU và lập trình giao diện giám sát SCADA trên máy ép | roadmap_MechanicalEnginner.md |
+| tinh_toan_ben_va_plc_may_dap_221 | Phân tích ứng suất uốn khung máy dập kết hợp mạch an toàn phần cứng Safety PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| dong_hoc_co_cau_va_scada_truc_vit_222 | Khảo sát động học cơ cấu trục vít - thanh răng và thiết kế giao diện SCADA thời gian thực | roadmap_MechanicalEnginner.md |
+| co_hoc_ben_thanh_truc_may_dap_223 | Phân tích phần tử hữu hạn độ bền khung dầm máy dập thủy lực và ứng suất nhiệt | roadmap_MechanicalEnginner.md |
+| dong_hoc_co_cau_truc_vit_scada_224 | Khảo sát động học cơ cấu trục vít me bi và giám sát SCADA tích hợp mạch an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| tinh_toan_ben_va_plc_truc_vit_225 | Tính toán sức bền kết hợp phần tử hữu hạn và lập trình an toàn PLC S7-1200 cho máy trục vít | roadmap_MechanicalEnginner.md |
+| khao_sat_dong_hoc_va_scada_may_dap_226 | Động lực học cơ cấu tay quay thanh truyền và giám sát SCADA chống nhiễu công nghiệp máy dập | roadmap_MechanicalEnginner.md |
+| nguyen_ly_may_va_suc_ben_may_dap_227 | Phân tích ứng suất nhiệt kết cấu và kiểm định bền khung máy dập tải trọng cao | roadmap_MechanicalEnginner.md |
+| dong_hoc_va_dieu_khien_truc_vit_228 | Lập trình an toàn PLC và khảo sát động học cơ cấu trục vít me bi | roadmap_MechanicalEnginner.md |
+| tinh_toan_chi_tiet_thanh_truc_va_lap_trinh_plc_may_dap_229 | Hoạch định cấu trúc chi tiết máy dập thủy lực kết hợp PLC S7-1200 và An toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| khao_sat_dong_hoc_co_cau_truc_vit_va_giao_dien_scada_230 | Đánh giá quỹ đạo chuyển động cơ cấu trục vít me, mô phỏng ADAMS và thiết kế SCADA công nghiệp | roadmap_MechanicalEnginner.md |
+| nguyen_ly_may_va_suc_ben_vat_lieu_day_231 | Nghiên cứu ứng suất nhiệt và mô phỏng dầm máy dập tích hợp chuẩn an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| dong_hoc_co_cau_va_giao_dien_scada_day_232 | Khảo sát quỹ đạo động lực học cơ cấu trục vít nâng cao và giám sát SCADA chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| tinh_toan_ben_thanh_truc_va_lap_trinh_plc_cho_may_dap_thuy_luc_233 | Tính toán độ bền thanh trụ và lập trình an toàn PLC cho máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| phan_tich_dong_hoc_va_giao_dien_scada_cho_may_truc_vit_234 | Phân tích động lực học trục vít và thiết kế giao diện SCADA giám sát lỗi quá tải | roadmap_MechanicalEnginner.md |
+| chuyen_sau_co_hoc_va_ben_vat_lieu_may_dap_235 | Nghiên cứu ứng suất và biến dạng dầm chịu uốn phức tạp cho máy dập siêu trọng | roadmap_MechanicalEnginner.md |
+| khao_sat_dong_hoc_va_truyen_dong_co_cau_truc_vit_236 | Khảo sát động học và tỷ số truyền cơ cấu trục vít cho hệ thống cấp phôi tự động | roadmap_MechanicalEnginner.md |
+| nghien_cuu_ung_suat_thanh_truc_may_dap_237 | Tính toán ứng suất thanh truyền máy dập và lập trình an toàn PLC tích hợp chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| khao_sat_chuyen_dong_co_cau_truc_vit_scada_238 | Động lực học cơ cấu trục vít me, truyền thông công nghiệp Modbus TCP và giao diện SCADA | roadmap_MechanicalEnginner.md |
+| chuyen_sau_co_hoc_thiet_ke_may_dap_239 | Đánh giá chi tiết cơ học kết cấu và phân tích ứng suất nhiệt trên khung máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| phan_tich_dong_hoc_truyen_dong_truc_vit_240 | Khảo sát động học, mô phỏng ADAMS và tối ưu cơ cấu truyền động trục vít me bi | roadmap_MechanicalEnginner.md |
+| nghien_cuu_co_hoc_va_ben_vat_lieu_cho_may_dap_thuy_luc | Nghiên cứu cơ học kết cấu và phân tích ứng suất nhiệt kết hợp mạch an toàn phần cứng cho máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| khao_sat_dong_hoc_va_scada_cho_co_cau_truc_vit_chinh_xac | Khảo sát động học cơ cấu trục vít me bi chính xác và tích hợp mạng truyền thông công nghiệp Modbus RTU/TCP | roadmap_MechanicalEnginner.md |
+| tinh_toan_chi_tiet_thanh_truc_may_dap_plc_243 | Nghiên cứu ứng suất thanh trục máy dập tích hợp PLC Siemens S7-1200 và tiêu chuẩn an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| khao_sat_chuyen_dong_co_cau_truc_vit_scada_244 | Khảo sát động học cơ cấu bàn trượt trục vít me đai ốc bi kết hợp giao diện giám sát WinCC SCADA | roadmap_MechanicalEnginner.md |
+| danh_gia_chuyen_sau_co_hoc_thanh_truc_may_dap_plc_245 | Đánh giá chuyên sâu cơ học thanh trục máy dập tích hợp Safety PLC | roadmap_MechanicalEnginner.md |
+| giai_tich_dong_hoc_va_scada_co_cau_truc_vit_246 | Giải tích động học CAE và giám sát SCADA cơ cấu trục vít me bi | roadmap_MechanicalEnginner.md |
+| kiem_tra_ben_vat_lieu_va_lap_trinh_plc_may_dap_247 | Phân tích phần tử hữu hạn kết cấu máy dập và lập trình an toàn PLC Siemens S7-1200 | roadmap_MechanicalEnginner.md |
+| khao_sat_dong_hoc_va_giao_dien_scada_truc_vit_248 | Động lực học cơ cấu trục vít me bi và giám sát thời gian thực qua giao diện SCADA | roadmap_MechanicalEnginner.md |
+| tinh_toan_chi_tiet_thanh_truc_may_dap_plc_249 | Tính toán ứng suất uốn trục khuỷu máy dập 50 tấn kết hợp lập trình Safety PLC chống quá tải | roadmap_MechanicalEnginner.md |
+| khao_sat_dong_hoc_va_giao_dien_scada_truc_vit_250 | Khảo sát động học truyền động trục vít me bi và thiết kế giao diện SCADA thời gian thực | roadmap_MechanicalEnginner.md |
+| chuyen_gia_co_hoc_va_ben_vat_lieu_may_dap_plc_251 | Chuyên gia cơ học và bền vật liệu máy dập PLC | roadmap_MechanicalEnginner.md |
+| chuyen_gia_dong_hoc_va_scada_truc_vit_252 | Chuyên gia động học và SCADA trục vít | roadmap_MechanicalEnginner.md |
+| nguyen_ly_may_va_suc_ben_cho_may_dap_plc_253 | Đánh giá chi tiết cơ học kết cấu dầm máy dập và tích hợp mạch an toàn phần cứng Safety PLC | roadmap_MechanicalEnginner.md |
+| giai_tich_dong_hoc_va_scada_co_cau_truc_vit_254 | Phân tích động học cơ cấu trục vít me bi nâng cao kết hợp giám sát SCADA và chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| nghien_cuu_co_hoc_va_ben_vat_lieu_may_ep | Nghiên cứu cơ học, sức bền vật liệu kết cấu dầm chính và tích hợp mạch an toàn ISO 13849 cho máy ép thủy lực tự động | roadmap_MechanicalEnginner.md |
+| khao_sat_dong_hoc_va_scada_cho_may_dap_cnc | Khảo sát động học vị trí vận tốc, phân tích ứng suất nhiệt CAE và xây dựng SCADA giám sát hành trình máy dập CNC | roadmap_MechanicalEnginner.md |
+| nghien_cuu_co_hoc_va_ben_vat_lieu_cho_may_dap_thuy_luc_d257 | Nghiên cứu cơ học, phân tích nhiệt ứng suất CAE và mạch an toàn PLC cho máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| khao_sat_dong_hoc_va_scada_cho_co_cau_truc_vit_chinh_xac_d258 | Khảo sát động học nâng cao, mô phỏng Adams và giao diện SCADA cho cơ cấu trục vít me bi | roadmap_MechanicalEnginner.md |
+| thiet_ke_va_tinh_toan_co_khi_may_dap_thuy_luc | Thiết kế kết cấu khung máy dập thủy lực và tích hợp mạch an toàn PLC Safety | roadmap_MechanicalEnginner.md |
+| khao_sat_dong_hoc_va_giao_dien_scada_may_truc_vit | Phân tích động học cơ cấu trục vít me bi và giám sát vị trí qua giao diện SCADA | roadmap_MechanicalEnginner.md |
+| chuyen_sau_co_hoc_va_ben_vat_lieu_may_dap_thuy_luc_261 | Phân tích ứng suất kết hợp mô phỏng nhiệt và thiết kế mạch an toàn phần cứng ISO 13849 cho máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| khao_sat_dong_hoc_va_scada_cho_co_cau_truc_vit_chinh_xac_262 | Khảo sát động học truyền động trục vít me bi chính xác tích hợp giao diện SCADA và xử lý nhiễu công nghiệp | roadmap_MechanicalEnginner.md |
+| tinh_toan_chi_tiet_thanh_truc_may_dap_263 | Tính toán sức bền thanh trục chịu uốn xoắn kết hợp cho máy dập và lập trình PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| giai_tich_dong_hoc_va_scada_co_cau_truc_vit_264 | Khảo sát động học cơ cấu trục vít me và thiết kế giao diện giám sát SCADA WinCC | roadmap_MechanicalEnginner.md |
+| danh_gia_chuyen_sau_co_hoc_thanh_truc_may_dap_plc_265 | Đánh giá chuyên sâu cơ học thanh trục máy dập tích hợp PLC và phân tích nhiệt ứng suất | roadmap_MechanicalEnginner.md |
+| giai_tich_dong_hoc_va_giao_dien_scada_co_cau_truc_vit_266 | Giải tích động học, mô phỏng động lực học Adams và giao diện SCADA cơ cấu trục vít | roadmap_MechanicalEnginner.md |
+| chuyen_gia_co_hoc_va_ben_vat_lieu_may_dap_plc_267 | Phân tích phần tử hữu hạn kết cấu khung máy dập và tích hợp Safety PLC | roadmap_MechanicalEnginner.md |
+| chuyen_gia_dong_hoc_va_scada_truc_vit_268 | Động học truyền động trục vít me bi và giám sát SCADA công nghiệp | roadmap_MechanicalEnginner.md |
+| tinh_toan_ben_va_dieu_khiển_plc_may_dap_269 | Tính toán sức bền chi tiết và lập trình mạch an toàn Safety PLC điều khiển hành trình máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| giai_tich_dong_hoc_va_scada_truc_vit_270 | Giải tích động học, mô phỏng cơ cấu trục vít me bi và xây dựng giao diện giám sát SCADA thời gian thực | roadmap_MechanicalEnginner.md |
+| thiet_ke_va_giai_tich_co_cau_may_dap_thuy_luc_271 | Thiết kế cơ cấu máy dập thủy lực tích hợp mạch an toàn ISO 13849 và PLC Siemens S7-1200 | roadmap_MechanicalEnginner.md |
+| toi_uu_hoa_va_mo_phong_co_cau_truc_vit_chinh_xac_272 | Tối ưu hóa mô phỏng phân tích ứng suất nhiệt và động lực học trục vít me với SCADA WinCC | roadmap_MechanicalEnginner.md |
+| thiet_ke_va_lap_trinh_may_ep_thuy_luc_d273 | Thiết kế cơ cấu, tính toán lực ép thủy lực và lập trình an toàn PLC S7-1200 theo tiêu chuẩn ISO 13849 | roadmap_MechanicalEnginner.md |
+| chuyen_gia_co_khi_va_dieu_khiển_may_truc_vit_d274 | Hoàn thiện cơ cấu trục vít - đai ốc bi, truyền thông công nghiệp Modbus/Profinet và giám sát SCADA WinCC | roadmap_MechanicalEnginner.md |
+| chuyen_gia_co_hoc_va_ben_vat_lieu_cho_may_dap_thuy_luc_d275 | Chuyên gia cơ học vật liệu chế tạo máy dập thủy lực 100 tấn tích hợp mạch an toàn phần cứng Safety PLC | roadmap_MechanicalEnginner.md |
+| chuyen_gia_dong_hoc_va_scada_co_cau_truc_vit_d276 | Chuyên gia động học và SCADA cơ cấu trục vít me đai ốc chính xác kết hợp chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| chuyen_gia_co_hoc_va_ben_vat_lieu_cho_may_dap_thuy_luc_d277 | Đánh giá chi tiết cơ học kết cấu máy dập thủy lực kết hợp phân tích ứng suất nhiệt và an toàn PLC | roadmap_MechanicalEnginner.md |
+| chuyen_gia_dong_hoc_va_scada_co_cau_truc_vit_d278 | Khảo sát động lực học nâng cao cơ cấu trục vít me đai ốc bi và thiết kế giao diện SCADA giám sát thời gian thực | roadmap_MechanicalEnginner.md |
+| chuyen_gia_co_hoc_va_ben_vat_lieu_may_dap_thuy_luc_279 | Nghiên cứu ứng suất nhiệt, phân tích FEM kết hợp Safety PLC và mạch an toàn ISO 13849 cho máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| chuyen_gia_dong_hoc_va_scada_co_cau_truc_vit_280 | Khảo sát động lực học ADAMS, giao diện SCADA WinCC và truyền thông công nghiệp Modbus TCP cho trục vít me bi | roadmap_MechanicalEnginner.md |
+| hoc_thuyet_co_hoc_va_ben_vat_lieu_d281 | Học thuyết cơ học kết cấu và phân tích ứng suất nhiệt trên ANSYS cho máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| tong_hop_dong_hoc_va_dieu_khiển_co_cau_d282 | Tổng hợp động học nâng cao và mô phỏng động lực học Adams cho cơ cấu trục vít me bi | roadmap_MechanicalEnginner.md |
+| chuyen_gia_co_hoc_va_ben_vat_lieu_may_dap_283 | Đánh giá chi tiết cơ học kết cấu máy dập và sức bền thanh trục chịu lực phức hợp kết hợp phân tích ứng suất nhiệt | roadmap_MechanicalEnginner.md |
+| chuyen_gia_dong_hoc_va_scada_co_cau_truc_vit_284 | Khảo sát quỹ đạo chuyển động, thiết lập giao diện SCADA và cấu hình an toàn phần cứng Safety PLC cho cơ cấu trục vít me bi | roadmap_MechanicalEnginner.md |
+| chuyen_gia_co_hoc_va_ben_vat_lieu_d285 | Xác lập trạng thái ứng suất và kiểm tra bền cho máy dập thủy lực PLC tích hợp tiêu chuẩn an toàn | roadmap_MechanicalEnginner.md |
+| chuyen_gia_dong_hoc_va_scada_d286 | Phân tích vận tốc cơ cấu truyền động trục vít me và giao diện giám sát SCADA thời gian thực | roadmap_MechanicalEnginner.md |
+| xac_lap_trang_thai_va_tinh_ben_d287 | Xác lập trạng thái ứng suất và tính bền kết cấu khung máy ép thủy lực kèm phân tích nhiệt | roadmap_MechanicalEnginner.md |
+| phanh_tich_chuyen_dong_va_scada_d288 | Phân tích chuyển động cơ cấu trục vít me và lập trình giám sát SCADA tích hợp chống nhiễu | roadmap_MechanicalEnginner.md |
+| khao_sat_luc_va_ben_vat_lieu_may_dap_thuy_luc | Khảo sát lực, bền vật liệu và phân tích ứng suất nhiệt máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| dieu_khi_dong_hoc_va_scada_co_cau_truc_vit | Điều khiển động học, lập trình an toàn PLC và SCADA cơ cấu trục vít | roadmap_MechanicalEnginner.md |
+| chuyen_sau_suc_ben_thanh_truc_may_dap_thuy_luc | Chuyên sâu sức bền thanh trục máy dập thủy lực tích hợp an toàn PLC | roadmap_MechanicalEnginner.md |
+| phan_tich_dong_hoc_va_dieu_khien_co_cau_truc_vit | Phân tích động học nâng cao và điều khiển vị trí chính xác cơ cấu trục vít me đai ốc | roadmap_MechanicalEnginner.md |
+| chuyen_gia_co_hoc_va_ben_vat_lieu_thanh_truc_may_dap_293 | Tính toán ứng suất uốn xoắn kết hợp phần tử hữu hạn FEM và an toàn phần cứng máy dập | roadmap_MechanicalEnginner.md |
+| chuyen_gia_dong_hoc_va_scada_co_cau_truc_vit_294 | Động học nâng cao cơ cấu trục vít me bi và giám sát mạng truyền thông công nghiệp SCADA | roadmap_MechanicalEnginner.md |
+| khao_sat_co_hoc_va_ben_vat_lieu_may_dap_295 | Khảo sát ứng suất cơ học và phân tích phần tử hữu hạn FEM kết cấu máy dập 50 tấn | roadmap_MechanicalEnginner.md |
+| tong_hop_dong_hoc_va_scada_co_cau_truc_vit_296 | Tổng hợp động học cơ cấu trục vít me bi và thiết lập giao diện giám sát SCADA thời gian thực | roadmap_MechanicalEnginner.md |
+| khao_sat_co_hoc_va_ben_vat_lieu_may_dap_297 | Khảo sát ứng suất nhiệt và thiết kế mạch an toàn phần cứng Safety PLC cho máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| tong_hop_dong_hoc_va_scada_co_cau_truc_vit_298 | Mô phỏng động lực học ADAMS và tối ưu hóa truyền thông công nghiệp bàn trượt trục vít me bi | roadmap_MechanicalEnginner.md |
+| chuyen_gia_co_hoc_va_ben_vat_lieu_truc_vit_d299 | Đánh giá chuyên sâu cơ học và sức bền trục vít máy ép nhựa (Dự án: Máy ép nhựa mini) | roadmap_MechanicalEnginner.md |
+| chuyen_gia_dong_hoc_va_scada_may_dap_capstone_d300 | Capstone: Tích hợp động học cơ cấu, mạch an toàn phần cứng và SCADA máy dập | roadmap_MechanicalEnginner.md |
+| van_hanh_tien_phay_va_do_luong_chinh_xac_d301 | Vận hành máy Tiện-Phay và sử dụng dụng cụ đo lường chế tạo trục bậc | roadmap_MechanicalEnginner.md |
+| thuc_hanh_bao_khoan_va_dong_ho_so_d302 | Kỹ thuật vận hành máy Bào-Khoan và đo kiểm độ song song bằng đồng hồ so | roadmap_MechanicalEnginner.md |
+| van_hanh_tien_phay_bao_khoan_d303 | Vận hành máy Bào và Khoan vạn năng chế tạo đế gá động cơ tích hợp PLC | roadmap_MechanicalEnginner.md |
+| lam_chu_dung_cu_do_luong_chinh_xac_d304 | Làm chủ dụng cụ đo lường chính xác và kiểm định sai số chi tiết máy | roadmap_MechanicalEnginner.md |
+| van_hanh_tien_phay_bao_khoan_van_nang_d305 | Vận hành hệ thống máy Tiện, Phay, Bào, Khoan vạn năng gia công trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| do_luong_chinh_xac_va_lap_trinh_plc_d306 | Kiểm nghiệm đo lường Panme-đồng hồ so và lập trình PLC Siemens S7-1200 điều khiển máy dập tự động | roadmap_MechanicalEnginner.md |
+| van_hanh_chuyen_sau_may_cong_cu_truyen_thong_d307 | Vận hành chuyên sâu máy công cụ vạn năng gia công trục bậc chính xác kết hợp tính toán chế độ cắt | roadmap_MechanicalEnginner.md |
+| do_luong_va_kiem_tra_chat_luong_gia_cong_d308 | Kỹ thuật đo lường chính xác và kiểm tra sai số hình học chi tiết cơ khí bằng dụng cụ quang cơ | roadmap_MechanicalEnginner.md |
+| van_hanh_tien_phay_bao_khoan_ung_dung_d309 | Thực hành vận hành máy Tiện Phay Bào Khoan chế tạo trục bậc máy dập thủy lực mini | roadmap_MechanicalEnginner.md |
+| do_luong_chinh_xac_va_lap_trinh_plc_d310 | Đo lường dung sai chính xác và tích hợp tự động hóa PLC nâng cao cho máy dập | roadmap_MechanicalEnginner.md |
+| van_hanh_tien_phay_bao_khoan_thuc_chien_d311 | Vận hành phối hợp máy Tiện, Phay, Bào, Khoan chế tạo trục bậc bích | roadmap_MechanicalEnginner.md |
+| do_luong_chinh_xac_va_hieu_chinh_may_cong_cu_d312 | Đo lường kỹ thuật nâng cao và hiệu chỉnh độ chính xác máy công cụ | roadmap_MechanicalEnginner.md |
+| van_hanh_thuc_chien_may_tien_phay_bao_khoan | Vận hành thực chiến cụm máy vạn năng gia công chi tiết trục truyền động cơ khí chính xác | roadmap_MechanicalEnginner.md |
+| kiem_tra_chat_luong_va_do_luong_co_khi_chinh_xac | Kiểm tra chất lượng hình học và đo lường chính xác chi tiết trục truyền động bằng thiết bị chuyên dụng | roadmap_MechanicalEnginner.md |
+| van_hanh_va_do_luong_truyen_thong_d315 | Vận hành máy tiện vạn năng và đo lường dung sai trục gá máy dập thủy lực mini | roadmap_MechanicalEnginner.md |
+| phay_bao_va_dong_ho_so_d316 | Thực hành phay vạn năng rãnh trượt và kiểm tra đồng hồ so cơ cấu trục vít máy ép | roadmap_MechanicalEnginner.md |
+| van_hanh_tien_phay_bao_khoan_d317 | Thực chiến vận hành máy Tiện-Phay-Bào-Khoan chế tạo trục vít máy ép | roadmap_MechanicalEnginner.md |
+| lam_chu_panme_dong_ho_so_d318 | Kiểm định kích thước chính xác và hiệu chuẩn thân trượt máy dập | roadmap_MechanicalEnginner.md |
+| thuc_hanh_van_hanh_may_cong_cu_va_do_luong_chi_tiet_truc | Thực hành vận hành máy tiện vạn năng và đo lường chi tiết trục máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| van_hanh_may_phay_bao_va_kiem_tra_khoi_truot_may_dap | Vận hành máy phay ngang vạn năng và đo kiểm khối trượt cơ khí máy dập | roadmap_MechanicalEnginner.md |
+| thuc_hanh_van_hanh_may_tien_phay_bao_khoan_van_nang | Thực hành vận hành máy Tiện, Phay, Bào, Khoan vạn năng chế tạo trục bạc | roadmap_MechanicalEnginner.md |
+| lam_chu_dung_cu_do_luong_chinh_xac_panme_dong_ho_so | Làm chủ dụng cụ đo lường chính xác Panme và Đồng hồ so kiểm tra trục | roadmap_MechanicalEnginner.md |
+| thuc_hanh_van_hanh_tien_phay_bao_khoan_ket_hop | Vận hành phối hợp tổ hợp máy Tiện-Phay-Bào-Khoan gia công trục gá dao | roadmap_MechanicalEnginner.md |
+| lam_chu_panme_va_dong_ho_so_kiem_tra_chinh_xac | Kỹ thuật kiểm định siêu vi kích thước và sai số hình học bằng Panme kết hợp đồng hồ so | roadmap_MechanicalEnginner.md |
+| van_hanh_nhom_may_van_nang_va_do_so | Vận hành nhóm máy vạn năng và đo đồng hồ so chế tạo trục chính máy dập | roadmap_MechanicalEnginner.md |
+| gia_cong_chi_tiet_khuon_va_panme | Gia công mặt phẳng khuôn dập trên máy phay và đo kích thước bằng Panme | roadmap_MechanicalEnginner.md |
+| thuc_hanh_van_hanh_may_tien_phay_khoan_che_tao_truc | Thực hành gia công trục bậc chính xác trên máy tiện vạn năng tích hợp công thức cắt gọt | roadmap_MechanicalEnginner.md |
+| lam_chu_panme_dong_ho_so_kiem_tra_chat_luong_chi_tiet | Làm chủ Panme và đồng hồ so kiểm tra sai số hình học chi tiết cơ khí | roadmap_MechanicalEnginner.md |
+| van_hanh_toan_dien_may_cat_got_va_do_so | Vận hành toàn diện máy tiện phay bào kết hợp đồng hồ so kiểm tra độ đảo và phân tích ứng suất | roadmap_MechanicalEnginner.md |
+| chuyen_giao_quy_trinh_gia_cong_va_panme_chinh_xac | Làm chủ panme đo ngoài, lập trình PLC cơ bản và gia công phay rãnh then trên máy phay vạn năng | roadmap_MechanicalEnginner.md |
+| van_hanh_tien_phay_va_do_luong_chi_tiet_truc_d331 | Vận hành máy Tiện-Phay kết hợp chế tạo trục truyền động và đo lường panme | roadmap_MechanicalEnginner.md |
+| van_hanh_bao_khoan_va_do_so_chi_tiet_dap_d332 | Vận hành máy Bào-Khoan gia công đế trượt và đo kiểm bằng đồng hồ so | roadmap_MechanicalEnginner.md |
+| van_hanh_truc_vit_va_dong_ho_so_d333 | Vận hành hệ thống trục vít cơ khí và sử dụng đồng hồ so kiểm tra độ đảo hướng trục sản phẩm trục vít máy dập | roadmap_MechanicalEnginner.md |
+| lap_trinh_plc_dieu_kien_may_ep_d334 | Tích hợp lập trình PLC S7-1200 điều khiển tự động hành trình máy ép thủy lực kết hợp chống nhiễu EMC và đo lường panme điện tử | roadmap_MechanicalEnginner.md |
+| van_hanh_nhom_may_truc_vit_va_do_so_d335 | Vận hành và phân tích dung sai hình học cụm truyền động trục vít máy ép thủy lực mini | roadmap_MechanicalEnginner.md |
+| tu_dong_hoa_cum_gia_cong_va_panme_d336 | Tích hợp PLC Siemens S7-1200 điều khiển an toàn chu trình máy dập và đo panme điện tử | roadmap_MechanicalEnginner.md |
+| van_hanh_toan_dien_bon_may_truyen_thong_d337 | Vận hành toàn diện 4 máy vạn năng và đo lường kích thước trục bậc cho máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| kiem_tra_chat_luong_chi_tiet_gia_cong_d338 | Kiểm tra chất lượng chi tiết gia công máy dập bằng đồng hồ so và thước vạch | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_truyen_thong_va_do_so_d339 | Vận hành đồng bộ hệ 4 máy gia công truyền thống kết hợp đo lường chính xác bằng đồng hồ so | roadmap_MechanicalEnginner.md |
+| capstone_gia_cong_truc_vit_va_do_luong_chuyen_sau_d340 | Capstone Tích hợp quy trình chế tạo trục vít máy ép và nghiệm thu hình học không gian | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_truyen_thong_ket_hop_d341 | Vận hành hệ thống 4 máy truyền thống kết hợp gia công trục bánh răng máy dập | roadmap_MechanicalEnginner.md |
+| chuyen_giao_quy_trinh_gia_cong_va_do_so_d342 | Tối ưu hóa quy trình gia công khép kín và nghiệm thu chi tiết máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_v_va_do_so_d343 | Vận hành đồng bộ 4 máy vạn năng và đo đồng hồ so gá trục ép d343 | roadmap_MechanicalEnginner.md |
+| capstone_gia_cong_truc_ep_va_panme_d344 | Capstone: Hoàn thiện cụm trục máy ép và kiểm tra panme d344 | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_truyen_thong_chi_tiet_truc_d345 | Vận hành 4 máy truyền thống chế tạo trục máy ép thủy lực và kiểm soát dung sai hình học | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_cum_truc_may_dap_d346 | Capstone: Hoàn thiện tích hợp cụm trục khuỷu máy dập cơ khí và đo kiểm dung sai chuyên sâu | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_tien_phay_bao_khoan_d347 | Vận hành tổ hợp 4 máy vạn năng gia công thân gá máy dập | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_cum_may_dap_d348 | Capstone: Tích hợp công nghệ vạn năng và đo lường cụm máy dập | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_tien_phay_bao_khoan_d349 | Vận hành đồng bộ 4 máy truyền thống kết hợp mô phỏng CAD/CAM và kiểm định nhiệt luyện trục gá | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_cum_truc_may_dap_d350 | Capstone: Tích hợp cơ điện tử, lập trình Safety PLC và đo lường cụm trục khuỷu máy dập mini 5 tấn | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_v_va_do_so_d351 | Vận hành hệ thống 4 máy vạn năng và đo kiểm đồng hồ so mẫu trục C45 | roadmap_MechanicalEnginner.md |
+| capstone_gia_cong_chuyen_sau_truc_may_d352 | Capstone: Chế tạo hoàn chỉnh trục khuỷu máy dập bằng công nghệ vạn năng | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_v_va_do_so_d353 | Vận hành 4 máy vạn năng gia công bệ máy dập và đo kiểm đồng hồ so | roadmap_MechanicalEnginner.md |
+| capstone_gia_cong_chuyen_sau_truc_may_d354 | Capstone: Tối ưu hóa trục khuỷu máy ép thủy lực và đo lường panme nâng cao | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_tien_phay_bao_khoan_d355 | Vận hành bốn máy truyền thống gia công trục bậc máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_cum_truc_may_dap_d356 | Capstone tích hợp: Chế tạo cơ cấu trục khuỷu máy dập liên hợp và kiểm định CAE | roadmap_MechanicalEnginner.md |
+| thuc_hanh_van_hanh_bon_may_va_do_so_d357 | Vận hành hệ 4 máy vạn năng và phân tích sai số hình học trục máy dập bằng đồng hồ so | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_cum_chi_tiet_may_dap_d358 | Capstone: Nghiệm thu cụm truyền động máy dập tích hợp cảm biến an toàn phần cứng và PLC | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_v_va_do_so_chi_tiet_d359 | Vận hành hệ thống máy truyền thống và kiểm tra đồng hồ so trục máy dập | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_cum_truc_may_dap_chi_tiet_d360 | Capstone: Tích hợp thiết kế cơ khí R&D và lập trình tự động hóa cụm trục máy dập | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_v_va_panme_d361 | Vận hành thiết bị vạn năng và panme đo kiểm chi tiết trục máy ép | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_cum_truc_may_ep_d362 | Capstone: Tích hợp module PLC Siemens S7-1200 và cảm biến hành trình | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_va_plc_d363 | Tích hợp phần cứng PLC Siemens S7-1200 và vận hành liên hoàn cụm máy dập tự động | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_d364 | Capstone: Lắp ráp nguyên mẫu máy dập tự động và phân tích ứng suất nhiệt CAE | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_tien_phay_bao_khoan_ket_hop_plc_d365 | Vận hành hệ thống bốn máy truyền thống tích hợp an toàn PLC và chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_cum_may_ep_tu_dong_d366 | Capstone: Mô phỏng nhiệt ứng suất và lắp ráp hoàn chỉnh cụm máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_v_va_do_so_chi_tiet_phat_trien_d367 | Vận hành đồng bộ hệ thống gia công truyền thống và đo lường dung sai lắp ghép | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_cum_truc_may_dap_chi_tiet_phat_trien_d368 | Capstone: Chế tạo và nghiệm thu hoàn chỉnh cụm trục truyền động máy dập chính xác | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_v_va_panme_chuyen_sau_d369 | Vận hành hệ thống 4 máy truyền thống và kiểm tra Panme chi tiết tích hợp phân tích dung sai | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_cum_truc_may_ep_chuyen_sau_d370 | Capstone: Lắp ráp nghiệm thu cụm trục máy ép tự động kết hợp mạch an toàn Safety PLC và phần mềm mô phỏng | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_v_va_do_so_nang_cao_d371 | Vận hành hệ thống bốn máy vạn năng và đo lường đồng hồ so nâng cao chế tạo trục vít máy ép | roadmap_MechanicalEnginner.md |
+| capstone_che_tao_hoan_thien_truc_vit_may_ep_d372 | Capstone: Chế tạo hoàn thiện cụm trục vít máy ép nhựa vạn năng tích hợp kiểm tra dung sai | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_v_va_dong_ho_so_phat_trien | Vận hành hệ thống bốn máy vạn năng kết hợp đồng hồ so kiểm tra trục định hướng | roadmap_MechanicalEnginner.md |
+| capstone_che_tao_hoan_thien_truc_may_dap_phat_trien | Capstone tích hợp: Chế tạo hoàn thiện cụm trục truyền động máy dập qua hệ thống 4 máy | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_v_va_panme_chuyen_sau_phat_trien | Tích hợp Safety PLC và thiết kế mạch an toàn phần cứng cho cụm máy gia công trục vít | roadmap_MechanicalEnginner.md |
+| capstone_che_tao_hoan_thien_truc_vit_may_ep_phat_trien | Capstone: Hoàn thiện hệ thống tự động hóa và phân tích ứng suất nhiệt trục vít máy ép | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_v_va_dong_ho_so_nang_cao_phat_trien | Vận hành hệ thống bốn máy vạn năng kết hợp đồng hồ so đo sai lệch hình học cơ cấu máy dập | roadmap_MechanicalEnginner.md |
+| capstone_che_tao_hoan_thien_truc_may_dap_phat_trien_2 | Capstone: Chế tạo hoàn thiện trục máy dập tích hợp mạch PLC S7-1200 và đo lường panme chính xác | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_v_va_dong_ho_so_toi_uu | Tối ưu hóa độ đồng tâm và khử đảo trục chính máy CNC kết hợp PLC và cảm biến đo lường | roadmap_MechanicalEnginner.md |
+| capstone_che_tao_hoan_thien_truc_may_dap_toi_uu | Capstone: Chế tạo hoàn thiện trục khuỷu máy dập từ phôi thô qua chuỗi 4 máy vạn năng | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_v_va_panme_chuyen_sau_moi | Vận hành nhóm máy vạn năng và ứng dụng Panme đo chi tiết máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| capstone_che_tao_hoan_thien_truc_vit_may_ep_moi | Capstone: Tích hợp mạch an toàn phần cứng Safety PLC và Chế tạo hoàn thiện trục vít máy ép | roadmap_MechanicalEnginner.md |
+| thuc_hanh_van_hanh_bon_may_va_panme_chuyen_sau | Vận hành nhóm 4 máy vạn năng kết hợp đo lường panme chế tạo trục máy dập | roadmap_MechanicalEnginner.md |
+| capstone_che_tao_hoan_thien_truc_may_dap_nang_cao | Capstone R&D: Tích hợp hệ thống an toàn Safety PLC và cơ cấu truyền động cơ khí máy dập | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_truyen_thong_va_do_luong_panme_dong_ho_so_chi_tiet | Vận hành hệ thống bốn máy vạn năng và phân tích ứng suất nhiệt chi tiết máy dập | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_cum_truc_may_dap_bang_bon_may_van_nang_va_do_luong | Capstone R&D: Tích hợp cơ khí chính xác và lập trình an toàn PLC cho cụm trục máy dập | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_va_do_luong_panme_dong_ho_so_chi_tiet_phat_trien | Vận hành hệ thống máy truyền thống kết hợp đo lường học nâng cao và chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_cum_truc_may_dap_bang_bon_may_van_nang_va_do_luong_phat_trien | Capstone R&D: Tích hợp và nghiệm thu cơ học kết cấu cụm trục máy dập đa năng | roadmap_MechanicalEnginner.md |
+| thuc_hanh_tien_phay_bao_khoan_ket_hop_do_so | Vận hành phối hợp hệ thống 4 máy vạn năng và đồng hồ so chế tạo trục gá dao | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_truc_ga_dao_chinh_xac | Capstone R&D: Tối ưu hóa và nghiệm thu toàn diện cụm trục gá dao vạn năng | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_tien_phay_bao_khoan_ket_hop_do_so_dien_tu | Vận hành hệ thống 4 máy vạn năng tích hợp đồng hồ so điện tử chế tạo trục gá | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_truc_ga_dao_chinh_xac_cao | Capstone: Hoàn thiện chế tạo cụm trục gá dao chính xác cao bằng 4 máy vạn năng | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_tien_phay_bao_khoan_va_do_so_dien_tu | Vận hành 4 máy truyền thống kết hợp đồng hồ so điện tử kiểm tra độ đảo trục | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_cum_truc_ga_dao_chinh_xac_tuyet_doi | Capstone R&D: Tích hợp và kiểm định hoàn thiện cụm trục gá dao máy phay CNC đa trục | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_v_va_panme_dong_ho_so_nang_cao | Vận hành hệ thống 4 máy vạn năng kết hợp panme và đồng hồ so điện tử trong chế tạo máy dập | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_cum_truc_may_dap_va_do_luong_chuyen_sau | Capstone: Hoàn thiện cụm trục máy dập bằng 4 máy vạn năng và đo lường | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_tien_phay_bao_khoan_va_do_so_dien_tu_chi_tiet | Vận hành hệ thống máy vạn năng kết hợp đo số và mô phỏng nhiệt luyện trục gá dao | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_cum_truc_ga_dao_chinh_xac_tuyet_doi_moi | Capstone R&D: Tích hợp phần tử hữu hạn và Lắp ráp cụm trục gá dao chính xác | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_v_va_do_so_dien_tu_chuyen_sau | Chuyên sâu hệ thống 4 máy vạn năng và Đo lường điện tử chế tạo bệ máy dập | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_be_ga_may_dap_chinh_xac_tuyet_doi | Capstone: Hoàn thiện chế tạo bệ gá máy dập chính xác tuyệt đối tích hợp chuẩn an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| thuc_hanh_tien_phay_bao_khoan_ket_hop_do_so_dien_tu | Thực hành gia công gối đỡ trục máy dập trên cụm 4 máy vạn năng kết hợp phân tích mô phỏng nhiệt | roadmap_MechanicalEnginner.md |
+| capstone_che_tao_hoan_thien_goi_do_truc_may_dap | Capstone: Tích hợp cơ điện tử và hoàn thiện cụm gối đỡ trục máy dập cơ khí | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_v_va_dong_so_dien_tu_chuyen_sau | Vận hành hệ thống máy vạn năng kết hợp đo số điện tử gia công bệ máy dập | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_be_ga_may_dap_chinh_xac_tuyet_doi_d404 | Capstone R&D: Tích hợp chế tạo bệ gá máy dập và phân tích ứng suất nhiệt kết cấu khung | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_v_va_dong_so_dien_tu_chuyen_sau_d405 | Vận hành hệ thống máy Tiện Phay Bào Khoan và đo lường đồng hồ so điện tử chế tạo trục gá dao | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_be_ga_may_dap_chinh_xactuyet_doi_d406 | Capstone: Chế tạo hoàn thiện bệ gá máy dập kết hợp gia công phay bào khoan và đo lường tuyệt đối | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_v_va_dong_so_dien_tu_chuyen_sau_d407 | Vận hành hệ thống 4 máy vạn năng và đo số điện tử chuyên sâu - Dự án chế tạo trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_be_ga_may_dap_chinh_xactuyet_doi_d408 | Capstone: Chế tạo hoàn thiện bệ gá máy dập chính xác tuyệt đối kết hợp phân tích ứng suất nhiệt ANSYS | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_v_va_dong_so_dien_tu_chuyen_sau_d409 | Thực chiến vận hành bốn máy vạn năng và tích hợp mạch an toàn phần cứng Safety Relay cho trục vít máy ép | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_be_ga_may_dap_chinh_xactuyet_doi_d410 | Capstone: Hoàn thiện cụm bệ gá máy dập định hình bằng tổ hợp bốn máy vạn năng và đo lường siêu chính xác | roadmap_MechanicalEnginner.md |
+| thuc_hanh_bon_may_va_do_so_dien_tu_chi_tiet_moi | Thực hành vận hành bốn máy vạn năng và đo lường số điện tử chi tiết tích hợp tiêu chuẩn an toàn | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_be_ga_may_dap_chinh_xac_tuyet_doi_moi_d412 | Capstone R&D: Chế tạo và nghiệm thu tổng hợp bệ gá máy dập chính xác tuyệt đối | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_v_va_dong_so_dien_tu_chuyen_sau_d413 | Vận hành hệ thống 4 máy vạn năng và đo lường chuyên sâu độ đảo trục vít ép | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_be_ga_may_dap_chinh_xactuyet_doi_d414 | Capstone: Hoàn thiện bệ gá máy dập bằng 4 máy vạn năng và đo lường số | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_v_va_dong_so_dien_tu_chuyen_sau_d415 | Lập trình PLC mô phỏng điều khiển hệ thống cơ cấu trục vít và máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_be_ga_may_dap_chinh_xac_tuyet_doi_d416 | Capstone: Hoàn thiện chế tạo tuyệt đối bệ gá máy dập qua bốn máy truyền thống kết hợp tiêu chuẩn an toàn | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_v_va_dong_so_dien_tu_chuyen_sau_d417 | Vận hành 4 máy vạn năng kết hợp đo lường panme điện tử và mô phỏng ứng suất nhiệt | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_be_ga_may_dap_chinh_xac_tuyet_doi_d418 | Capstone: Hoàn thiện bệ gá định vị khuôn dập liên hoàn chịu lực cao d418 | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_v_va_dong_so_dien_tu_chuyen_sau_d419 | Vận hành hệ thống máy vạn năng và đo lường độ đảo trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_be_ga_may_dap_chinh_xac_tuyet_doi_d420 | Capstone R&D: Hoàn thiện cụm bệ gá máy dập chính xác và tích hợp cơ cấu an toàn phần cứng ISO 13849 | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_va_do_so_dien_tu_chuyen_sau_d421 | Vận hành hệ thống bốn máy cơ bản và đo số điện tử chuyên sâu chế tạo chày dập | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_be_ga_may_dap_chinh_xac_tuyet_doi_d422 | Capstone: Hoàn thiện bệ gá máy dập chính xác tuyệt đối qua tích hợp đo đạc và phân tích nhiệt | roadmap_MechanicalEnginner.md |
+| thuc_hanh_van_hanh_bon_may_va_do_luong_chinh_xac_d423 | Thực hành vận hành hệ thống máy vạn năng kết hợp kiểm soát an toàn điện và đo lường | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_truc_truyen_dong_va_kiem_tra_d424 | Capstone: Hoàn thiện cụm trục truyền động máy dập và nghiệm thu hình học toàn diện | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_va_do_so_dien_tu_chuyen_sau_d425 | Tối ưu hóa hệ truyền lực trục vít máy dập và kiểm định độ đảo bằng đồng hồ so điện tử | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_cum_truc_vit_may_dap_d426 | Capstone R&D: Tối ưu hóa mô phỏng CAE và nghiệm thu hình học cụm trục vít máy dập | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_va_do_so_dien_tu_d427 | Lập trình PLC an toàn và vận hành hệ thống 4 máy vạn năng chế tạo chốt trục d427 | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_be_ga_may_dap_d428 | Capstone: Hoàn thiện bệ gá máy dập tích hợp đo lường chính xác tuyệt đối d428 | roadmap_MechanicalEnginner.md |
+| thuc_hanh_van_hanh_bon_may_va_do_so_dien_tu_d429 | Vận hành máy vạn năng và lập trình tích hợp PLC điều khiển trục vít máy dập | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_cum_truc_vit_may_dap_d430 | Tích hợp cơ điện tử và tự động hóa PLC cho cụm trục vít máy dập | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_v_va_do_so_dien_tu_d431 | Vận hành hệ thống bốn máy vạn năng và đo lường điện tử bệ gá trục | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_be_ga_may_dap_d432 | Capstone: Chế tạo hoàn thiện bệ gá máy dập tích hợp đo lường chính xác cao | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_v_va_do_so_dien_tu_d433 | Vận hành hệ thống máy tiện phay vạn năng kết hợp kiểm tra đồng hồ so điện tử | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_be_ga_may_dap_d434 | Capstone: Hoàn thiện bệ gá máy dập tích hợp đo lường chính xác cao và an toàn phần cứng | roadmap_MechanicalEnginner.md |
+| thuc_hanh_tien_phay_bao_khoan_va_do_so_dien_tu_d435 | Thực hành chế tạo trục bậc máy tiện và phân tích mô phỏng ứng suất nhiệt kết cấu | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_truc_bac_va_bo_giao_duc_plc_d436 | Capstone: Tích hợp cơ khí trục bậc máy dập và lập trình an toàn phần cứng PLC Siemens S7-1200 | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_v_va_do_so_dien_tu_chuyen_sau_d437 | Vận hành đồng thời bốn máy vạn năng và đo kiểm ứng suất nhiệt nâng cao trên trục máy ép | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_be_ga_may_dap_d438 | Capstone: Tích hợp cơ cấu định vị và kiểm định kết cấu bệ gá máy dập cơ khí | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_cat_got_va_do_so_d439 | Vận hành hệ thống bốn máy vạn năng và phân tích sai số gia công trục bậc R&D | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_truc_bac_va_bo_giao_duc_plc_d440 | Capstone: Tích hợp phần cứng an toàn và PLC nâng cao cho hệ thống trục bậc tự động | roadmap_MechanicalEnginner.md |
+| thuc_hanh_van_hanh_bon_may_va_do_so_dien_tu_d441 | Vận hành hệ thống bốn máy công cụ và đo số điện tử cho trục truyền động chính xác | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_be_ga_may_dap_d442 | Capstone: Tích hợp hệ thống an toàn Safety PLC và cơ cấu cơ khí bệ gá máy dập | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_cat_got_va_do_so_dien_tu_d443 | Vận hành cụm 4 máy cắt gọt và tối ưu dung sai gia công bệ gá trục vít | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_be_ga_may_dap_chinh_xac_d444 | Capstone: Tích hợp mạch an toàn phần cứng Safety Relay và hoàn thiện bệ gá máy dập tự động | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_cat_got_truyen_thong_va_do_so_d445 | Vận hành máy cắt gọt truyền thống tích hợp phân tích dung sai và đo lường điện tử | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_cum_truc_truyen_dong_may_dap_d446 | Capstone: Tích hợp và kiểm định cơ điện tử toàn diện cụm trục truyền động máy dập vạn năng | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_cat_got_va_do_so_dien_tu_d447 | Chế tạo và đo lường điện tử trục vít máy ép thủy lực với hệ thống tự động hóa kiểm soát dung sai | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_truc_vit_may_dap_d448 | Capstone: Tối ưu hóa độ chính xác trục vít máy dập qua phân tích CAE và đo lường | roadmap_MechanicalEnginner.md |
+| van_hanh_bon_may_cat_got_truyen_thong_va_do_so_d449 | Lập trình PLC và tích hợp mạch an toàn phần cứng cho máy dập tự động | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_truc_truyen_dong_may_dap_d450 | Capstone: Hoàn thiện và kiểm định toàn diện trục truyền động máy dập mini Day 450 | roadmap_MechanicalEnginner.md |
+| lap_trinh_cnc_da_truc_va_cam_nang_cao | Lập trình G-code 5 trục đồng thời và tối ưu hóa đường chạy dao CAM cho biên dạng phức hợp | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_truc_vit_may_ep_da_truc | Capstone: Tích hợp gia công CNC đa trục và lập trình điều khiển tự động hóa PLC cho hệ thống máy ép | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_5_truc_va_xuat_g_code | Lập trình CAM 5 trục đồng thời và tối ưu hóa đường chạy dao TCPM cho bệ gá dập | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_be_ga_may_dap_5_truc | Capstone: Tích hợp cơ điện tử, mạch an toàn Safety PLC và đo kiểm QA/QC bệ gá dập đa trục | roadmap_MechanicalEnginner.md |
+| lap_trinh_va_van_hanh_cnc_4_5_truc | Lập trình G-code đồng bộ 5 trục và tối ưu hóa đường chạy dao vỏ trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_vo_truc_vit_may_ep | Capstone: Tích hợp mạch an toàn phần cứng Safety PLC và hoàn thiện cụm vỏ trục vít máy ép đa trục | roadmap_MechanicalEnginner.md |
+| lap_trinh_cnc_nhieu_truc_va_cam_nang_cao_d457 | Lập trình G-code nâng cao và mô phỏng CAM 4 trục cho vỏ hộp giảm tốc máy dập | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_vo_hop_giam_toc_may_dap_d458 | Capstone: Tích hợp mạch an toàn phần cứng Safety PLC và vận hành gia công vỏ hộp máy dập | roadmap_MechanicalEnginner.md |
+| lap_trinh_g_code_va_cam_5_truc_nang_cao | Lập trình G-code và CAM 5 trục nâng cao chế tạo trục vít máy ép | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_truc_vit_may_ep_nhua_5_truc | Capstone: Tích hợp cơ điện tử và kiểm định chất lượng trục vít 5 trục | roadmap_MechanicalEnginner.md |
+| lap_trinh_g_code_va_cam_3_4_5_truc | Lập trình G-code, mô phỏng CAM 5 trục và tính toán bù trừ dao gia công vỏ máy dập | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_vo_may_dap_da_truc | Capstone: Tích hợp hệ thống điều khiển tự động PLC nhúng và mạch an toàn phần cứng cho máy dập đa trục | roadmap_MechanicalEnginner.md |
+| toi_uu_hoa_duong_chay_dao_cnc_va_cam | Tối ưu hóa đường chạy dao CNC đa trục và CAM chuyên sâu cho trục vít máy dập | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_truc_vit_may_dap_cnc_4_truc | Capstone: Tích hợp cơ điện tử và tự động hóa hệ thống điều khiển PLC mini cho cụm trục vít máy dập | roadmap_MechanicalEnginner.md |
+| lap_trinh_cnc_5_truc_va_cam_nang_cao | Lập trình G-code 5 trục đồng thời và mô phỏng CAM tối ưu hóa đường chạy dao | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_than_may_dap_5_truc | Capstone: Gia công thực chiến thân máy dập 5 trục và tích hợp mạch điều khiển PLC tự động | roadmap_MechanicalEnginner.md |
+| lap_trinh_g_code_va_cam_chuyen_sau_3_4_5_truc_d467 | Lập trình CAM 5 trục nâng cao và tối ưu hóa đường chạy dao trục vít máy dập | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_truc_vit_may_dap_cnc_5_truc_d468 | Capstone: Tích hợp hệ thống tự động hóa PLC và kiểm định an toàn phần cứng cho trục vít | roadmap_MechanicalEnginner.md |
+| lap_trinh_g_code_va_cam_5_truc_dong_hoc_d469 | Lập trình G-code 5 trục động học kết hợp mô phỏng phân tích ứng suất nhiệt và bù sai số RTCP | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_truc_vit_may_ep_nhua_5_truc_d470 | Capstone: Vận hành, đo kiểm toàn diện và nghiệm thu cụm trục vít máy ép nhựa CNC 5 trục tự động hóa | roadmap_MechanicalEnginner.md |
+| lap_trinh_g_code_va_cam_ket hợp_plc_d471 | Lập trình G-code nâng cao tích hợp tín hiệu PLC và chống nhiễu EMC cho máy ép nhựa D471 | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_khuon_ep_nhua_da_truc_d472 | Capstone: Hoàn thiện cụm khuôn ép nhựa đa trục, tích hợp mạch an toàn Safety PLC và nghiệm thu D472 | roadmap_MechanicalEnginner.md |
+| lap_trinh_g_code_va_cam_tich_hop_plc_d473 | Lập trình G-code, CAM 5 trục và tích hợp M-code điều khiển PLC an toàn | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_may_dap_truc_vit_cnc_5_truc_d474 | Capstone: Hoàn thiện vận hành và kiểm định toàn diện máy dập trục vít CNC 5 trục tự động hóa | roadmap_MechanicalEnginner.md |
+| lap_trinh_g_code_va_cam_ket_hop_he_thong_tu_dong | Lập trình G-code 4 trục và tối ưu hóa đường chạy dao CAM gia công trục vít máy dập | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_cum_truc_vit_may_dap_tu_dong | Capstone: Lắp ráp, đo kiểm độ đảo và vận hành tích hợp cụm trục vít máy dập với hệ thống PLC | roadmap_MechanicalEnginner.md |
+| lap_trinh_cnc_5_truc_va_cam_nang_cao_d477 | Lập trình G-code 5 trục và CAM nâng cao chế tạo trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_cum_truc_vit_may_ep_nhua_5_truc_d478 | Capstone: Tích hợp hệ thống an toàn PLC Siemens và vận hành cụm trục vít 5 trục | roadmap_MechanicalEnginner.md |
+| lap_trinh_cnc_tich_hop_plc_va_cam_5_truc_d479 | Lập trình G-code nâng cao tích hợp Safety PLC và CAM 5 trục chế tạo cánh bơm | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_canh_bom_thuy_luc_5_truc_d480 | Capstone: Hoàn thiện cụm cánh bơm thủy lực CNC 5 trục kết hợp kiểm định dung sai và mô phỏng CAE | roadmap_MechanicalEnginner.md |
+| lap_trinh_cnc_tich_hop_plc_va_cam_5_truc_day_481 | Lập trình G-code 5 trục đồng thời tích hợp Safety PLC và mô phỏng động lực học cơ cấu dập | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_than_may_dap_cnc_5_truc_day_482 | Capstone: Nghiệm thu toàn diện cụm thân máy dập CNC 5 trục và đánh giá độ tin cậy cơ điện tử | roadmap_MechanicalEnginner.md |
+| lap_trinh_cnc_5_truc_va_cam_nang_cao_day_483 | Lập trình G-code, CAM 5 trục nâng cao và tích hợp an toàn PLC phần cứng | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_canh_bom_thuy_luc_5_truc_day_484 | Capstone: Hoàn thiện chế tạo và kiểm định chất lượng cánh bơm thủy lực 5 trục tự động hóa | roadmap_MechanicalEnginner.md |
+| lap_trinh_cnc_5_truc_va_cam_nang_cao_day_485 | Lập trình G-code 5 trục đồng bộ và mô phỏng CAM nâng cao cánh bơm | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_canh_bom_thuy_luc_5_truc_day_486 | Capstone: Vận hành thực tế máy CNC 5 trục và đo kiểm CMM cánh bơm | roadmap_MechanicalEnginner.md |
+| lap_trinh_cnc_5_truc_va_cam_nang_cao_day_487 | Lập trình CNC 5 trục đồng thời và mô phỏng CAE động lực học cơ cấu cánh bơm thủy lực | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_canh_bom_thuy_luc_5_truc_day_488 | Capstone: Tích hợp hệ thống an toàn phần cứng Safety PLC và gia công hoàn chỉnh cánh bơm thủy lực | roadmap_MechanicalEnginner.md |
+| lap_trinh_cnc_5_truc_va_cam_chuyen_sao_d489 | Lập trình CNC 5 trục và CAM chuyên sâu: chế tạo chân vịt tàu thủy 5 trục | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_chan_vit_tau_thuy_5_truc_d490 | Capstone: Hoàn thiện chế tạo chân vịt tàu thủy 5 trục và tích hợp PLC | roadmap_MechanicalEnginner.md |
+| lap_trinh_g_code_va_cam_da_truc_491 | Lập trình G-code và CAM nâng cao cho cụm trục vít máy dập 5 trục | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_cum_truc_vit_may_dap_492 | Capstone: Tích hợp tủ điện PLC Siemens S7-1200 và kiểm tra chất lượng trục vít | roadmap_MechanicalEnginner.md |
+| lap_trinh_cnc_5_truc_va_cam_chuyen_sau_d493 | Lập trình CAM 5 trục đồng thời và tối ưu hóa đường chạy dao trục vít máy dập | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_truc_vit_may_dap_5_truc_d494 | Capstone: Tích hợp mạch an toàn phần cứng Safety PLC và vận hành cụm trục vít tự động | roadmap_MechanicalEnginner.md |
+| lap_trinh_cnc_5_truc_va_cam_chuyen_sau_d495 | Lập trình G-code, mô phỏng CAE động lực học và CAM tối ưu máy 5 trục gia công cánh bơm thủy lực | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_canh_bom_thuy_luc_5_truc_d496 | Capstone: Tự động hóa cấp phôi PLC, đấu nối chống nhiễu EMC và nghiệm thu tổng thể cụm cánh bơm thủy lực 5 trục | roadmap_MechanicalEnginner.md |
+| lap_trinh_g_code_va_cam_5_truc_dong_hoc_d497 | Lập trình G-code và CAM 5 trục đồng thời cho bề mặt phức tạp | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_canh_tuabin_5_truc_d498 | Capstone: Tích hợp PLC giám sát và đo kiểm GD&T sản phẩm 5 trục | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_5_truc_va_dieu_khien_tu_dong_may_dap_499 | Lập trình CAM 5 trục kết hợp PLC tự động hóa máy dập khuôn chính xác | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_may_dap_truc_vit_tu_dong_5_truc_500 | Capstone: Hoàn thiện toàn diện hệ thống máy dập trục vít tự động 5 trục và SCADA | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_dieu_khien_tu_dong_may_dap_501 | Lập trình CAM 5 trục và tích hợp truyền thông PLC S7-1200 cho máy dập | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_may_dap_truc_vit_tu_dong_5_truc_502 | Capstone: Tích hợp cơ điện tử và kiểm định chất lượng máy dập trục vít tự động | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_dieu_khien_tu_dong_may_dap_503 | Tích hợp G-code nâng cao 5 trục với Safety PLC Siemens S7-1200 và mô phỏng chống nhiễu EMC Day 503 | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_may_dap_truc_vit_tu_dong_5_truc_504 | Capstone: Vận hành thực chiến máy dập trục vít tự động 5 trục tích hợp SCADA và kiểm định luyện kim học | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_dieu_khien_tu_dong_may_dap_truc_vit_505 | Lập trình CAM 4 trục & Tích hợp Safety PLC cho máy dập trục vít | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_may_dap_truc_vit_tu_dong_5_truc_506 | Capstone: Hoàn thiện & Kiểm định toàn diện máy dập trục vít tự động 5 trục | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_dieu_khien_tu_dong_may_dap_truc_vit_507 | Tối ưu hóa CAM 5 trục và cấu hình Safety PLC cho máy dập trục vít | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_may_dap_truc_vit_tu_dong_5_truc_508 | Capstone: Vận hành thực tế và nghiệm thu dây chuyền máy dập trục vít tự động 5 trục | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_dieu_khien_tu_dong_may_dap_truc_vit_509 | Lập trình CAM 5 trục và tích hợp Safety PLC cho máy dập trục vít | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_may_dap_truc_vit_tu_dong_5_truc_510 | Capstone: Nghiệm thu vận hành toàn diện dây chuyền máy dập trục vít tự động 5 trục | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_dieu_khien_tu_dong_may_dap_truc_vit_511 | Lập trình CAM 5 trục nâng cao và mô phỏng G-code máy dập trục vít Day 511 | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_may_dap_truc_vit_tu_dong_5_truc_512 | Capstone: Tích hợp hệ thống PLC, mạch an toàn phần cứng và vận hành máy dập tự động 5 trục Day 512 | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_dieu_khien_tu_dong_may_dap_truc_vit_513 | Lập trình CAM 4 trục nâng cao và tích hợp tín hiệu an toàn Safety PLC cho máy dập trục vít | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_may_dap_truc_vit_tu_dong_5_truc_514 | Capstone: Lắp ráp, đấu nối chống nhiễu EMC và vận hành toàn hệ thống máy dập trục vít tự động 5 trục | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_dieu_khien_tu_dong_may_dap_truc_vit_515 | Lập trình CAM 5 trục và tích hợp an toàn PLC cho máy dập trục vít | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_may_dap_truc_vit_tu_dong_5_trục_516 | Capstone: Tích hợp toàn diện cơ điện tử và vận hành máy dập trục vít tự động | roadmap_MechanicalEnginner.md |
+| lap_trinh_va_van_hanh_cnc_5_truc_may_dap | Lập trình CAM 5 trục nâng cao và tích hợp mạch an toàn phần cứng Safety PLC | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_bo_cum_may_dap_truc_vit_5_truc | Capstone: Hoàn thiện toàn diện hệ thống máy dập trục vít tự động 5 trục tích hợp SCADA | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_dieu_khien_tu_dong_may_dap_truc_vit_519 | Lập trình CAM 5 trục và tích hợp an toàn phần cứng Safety PLC cho máy dập tự động | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_may_dap_truc_vit_tu_dong_5_truc_520 | Capstone: Tối ưu hóa R&D và vận hành toàn diện cụm cơ cấu máy dập trục vít 5 trục | roadmap_MechanicalEnginner.md |
+| lap_trinh_g_code_va_cam_5_truc_may_dap_truc_vit | Lập trình G-code & CAM 5 trục chi tiết máy dập trục vít phức tạp | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_may_dap_truc_vit_tu_dong_5_truc_chuyen_sau | Capstone: Hoàn thiện chế tạo máy dập trục vít tự động 5 trục | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_dieu_khien_tu_dong_may_dap_523 | Lập trình CAM 5 trục nâng cao và tích hợp an toàn phần cứng Safety PLC cho máy dập | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_may_dap_truc_vit_tu_dong_5_truc_524 | Capstone: Vận hành nguyên mẫu máy dập trục vít 5 trục tự động tích hợp mô phỏng CAE và kiểm định chất lượng | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_dieu_khien_tu_dong_may_truc_vit_525 | Tối ưu hóa lập trình CAM 5 trục và tích hợp truyền thông Modbus RTU cho máy trục vít Day 525 | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_may_truc_vit_va_dap_tu_dong_526 | Capstone: Tích hợp cơ điện tử, phân tích CAE động lực học và nghiệm thu hệ thống sản xuất tự động Day 526 | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_dieu_khien_tu_dong_may_truc_vit_527 | Lập trình CAM 5 trục nâng cao và tích hợp điều khiển PLC tự động nạp phôi trục vít | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_may_truc_vit_va_dap_tu_dong_528 | Capstone: Nghiệm thu toàn diện cụm máy dập kết hợp trục vít tự động 5 trục tích hợp SCADA và Safety PLC | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_van_hanh_may_cnc_5_truc | Lập trình CAM 5 trục và tích hợp an toàn phần cứng theo ISO 13849 | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_cnc_va_tu_dong_hoa | Capstone: Tích hợp toàn diện dây chuyền tự động hóa CNC và máy ép trục vít | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_van_hanh_cnc_4_truc | Lập trình CAM 4 trục phay thân trục vít tự động kết hợp phân tích ứng suất nhiệt | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_cum_may_cnc_da_truc | Capstone: Hoàn thiện hệ thống CNC đa trục tích hợp mạch an toàn Safety PLC và tự động hóa | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_van_hanh_cnc_3_4_5_truc | Lập trình CAM 5 trục nâng cao và tối ưu đường chạy dao cho biên dạng phức tạp | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_gia_cong_cnc_chuyen_sau | Capstone Tích hợp: Vận hành hệ thống gia công CNC tự động hóa điều khiển qua PLC và giả lập công nghiệp | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_van_hanh_cnc_nhieu_truc_cho_khuon_mau_phuc_tap | Lập trình CAM 4 trục nâng cao và mô phỏng gia công lòng khuôn phức tạp | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_gia_cong_cnc_va_dieu_khien_tu_dong | Tích hợp toàn diện chuỗi số hóa CNC, băng tải PLC và mô phỏng cơ điện tử | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_van_hanh_may_cnc_5_truc_cho_khuon_phuc_tap_537 | Lập trình CAM và vận hành máy CNC 5 trục cho khuôn dập phức tạp | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_cum_may_ep_thuy_luc_va_cnc_5_truc_538 | Capstone: Tích hợp hệ thống an toàn Safety PLC và tự động hóa toàn diện cụm máy ép thủy lực - CNC 5 trục | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_van_hanh_cnc_nhieu_truc_cho_may_dap | Lập trình CAM 4 trục nâng cao và tối ưu hóa đường chạy dao CNC cho thân máy dập | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_cum_may_dap_truc_vit_va_cnc_chuyen_sau | Tích hợp cơ điện tử và vận hành thực chiến cụm máy dập trục vít tự động | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_van_hanh_cnc_3_4_5_truc_cho_khuon_nhua | Lập trình CAM và vận hành CNC 3-4-5 trục gia công khuôn nhựa tự động | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_gia_cong_cnc_va_dieu_khien_tu_dong_542 | Capstone: Hoàn thiện hệ thống gia công CNC và điều khiển tự động toàn diện | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_van_hanh_cnc_4_5_truc_cho_may_ep | Lập trình CAM 5 trục nâng cao và phân tích mô phỏng ứng suất nhiệt trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_cnc_va_dieu_khien_tu_dong_may_ep | Capstone: Tích hợp tủ điện PLC Siemens S7-1200 chống nhiễu EMC và vận hành hệ thống máy ép tự động | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_van_hanh_cnc_nhieu_truc_cho_may_dap_truc_vit | Lập trình CAM và vận hành CNC 3-5 trục cho cụm chi tiết máy dập trục vít | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_gia_cong_cnc_va_dieu_khien_tu_dong_546 | Capstone: Hoàn thiện hệ thống gia công CNC và điều khiển tự động máy dập trục vít | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_van_hanh_cnc_3_4_truc_cho_may_ep | Lập trình CAM và gia công phay 4 trục tối ưu hóa biên dạng khuôn ép nhựa | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_gia_cong_cnc_va_dieu_khien_tu_dong_may_ep | Capstone: Tích hợp hệ thống CNC đa trục và tủ điện tự động hóa an toàn cho máy ép | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_van_hanh_cnc_3_4_5_truc_cho_may_dap_truc_vit | Lập trình CAM nâng cao và mô phỏng 5 trục cho cơ cấu trục khuỷu máy dập | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_gia_cong_cnc_va_dieu_khien_tu_dong_may_dap_truc_vit | Capstone: Tích hợp tủ điện PLC Siemens, HMI và vận hành đồng bộ dây chuyền dập tự động | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_van_hanh_cnc_3_4_5_truc_cho_may_dap_truc_vit_d551 | Lập trình CAM 5 trục nâng cao và tích hợp mô phỏng PLC S7-1200 cho máy dập tự động | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_gia_cong_cnc_va_dieu_khien_tu_dong_552 | Capstone: Vận hành toàn diện cụm máy dập trục vít tự động kết hợp mạng công nghiệp và HMI | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_van_hanh_cnc_3_4_5_truc_cho_may_dap_truc_vit_d553 | Lập trình CAM và vận hành CNC 3-4-5 trục cho máy dập trục vít | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_gia_cong_cnc_va_dieu_khien_tu_dong_d554 | Capstone: Tích hợp hoàn chỉnh dây chuyền gia công CNC và hệ thống điều khiển tự động PLC | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_van_hanh_cnc_3_4_5_truc_cho_may_dap_truc_vit_d555 | Lập trình CAM 5 trục và tối ưu hóa đường chạy dao chi tiết cối đột | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_gia_cong_cnc_va_dieu_khien_tu_dong_d556 | Capstone: Tích hợp tủ điện PLC, truyền thông công nghiệp và vận hành toàn hệ thống | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_van_hanh_cnc_3_4_5_truc_cho_may_dap_truc_vit_d557 | Lập trình CAM nâng cao và gia công đồng thời 5 trục cho trục vít máy dập | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_gia_cong_cnc_va_dieu_khien_tu_dong_d558 | Capstone: Tích hợp cơ điện tử, lập trình PLC và nghiệm thu toàn diện hệ thống máy dập tự động | roadmap_MechanicalEnginner.md |
+| lap_trinh_g_code_va_cam_cho_may_dap_truc_vit_d559 | Lập trình G-code và CAM 4 trục cho biên dạng trục vít chịu lực | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_gia_cong_cnc_va_dieu_khien_tu_dong_d560 | Capstone: Tích hợp hệ thống gia công CNC và mạch an toàn PLC cho máy dập trục vít | roadmap_MechanicalEnginner.md |
+| lap_trinh_g_code_va_cam_cho_may_dap_truc_vit_d561 | Lập trình G-code & CAM 3 Trục Nâng cao Gia công Trục Vít Máy Ép Nhựa kèm Phân tích Ứng suất Nhiệt | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_gia_cong_cnc_va_dieu_khien_tu_dong_d562 | Capstone: Tích hợp Mạch An toàn ISO 13849 & Lập trình PLC S7-1200 Điều khiển Dây chuyền Máy Dập Tự động | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_van_hanh_cnc_3_4_5_truc_cho_may_dap_truc_vit_d563 | Lập trình CAM 5 trục đồng thời và mô phỏng gia công trục vít máy dập | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_gia_cong_cnc_va_dieu_khien_tu_dong_d564 | Capstone: Tích hợp hệ thống tự động hóa PLC S7-1200 và an toàn máy dập trục vít | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_van_hanh_cnc_3_4_5_truc_cho_may_dap_truc_vit_d565 | Lập trình CAM nâng cao và gia công 5 trục tối ưu hóa chi tiết máy dập trục vít | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_gia_cong_cnc_va_dieu_khien_tu_dong_d566 | Capstone: Tích hợp Safety PLC, mạch an toàn phần cứng và tự động hóa dây chuyền máy dập trục vít | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_van_hanh_cnc_3_4_5_truc_cho_may_dap_truc_vit_d567 | Lập trình CAM nâng cao và gia công chi tiết trục vít 5 trục trên máy CNC | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_gia_cong_cnc_va_dieu_khien_tu_dong_d568 | Capstone: Tích hợp Safety PLC, mạch an toàn phần cứng và tự động hóa hệ thống máy dập | roadmap_MechanicalEnginner.md |
+| lap_trinh_g_code_va_cam_cho_may_dap_truc_vit_d569 | Lập trình G-code Gia công Khuôn máy dập trục vít | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_gia_cong_cnc_va_dieu_khien_tu_dong_d570 | Capstone: Tích hợp hệ thống gia công CNC và điều khiển tự động PLC | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_van_hanh_cnc_4_5_truc_cho_may_ep_nhua_d571 | Lập trình CAM 5 trục và tích hợp tiêu chuẩn an toàn ISO 13849 cho khuôn máy ép nhựa | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_gia_cong_cnc_va_dieu_khien_tu_dong_d572 | Capstone: Hoàn thiện hệ thống tự động hóa trạm gia công CNC đa trục kết hợp PLC S7-1200 và SCADA | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_va_van_hanh_cnc_3_4_5_truc_cho_may_ep_nhua_d573 | Lập trình CAM 3-5 trục và tích hợp an toàn phần cứng ISO 13849 cho máy ép nhựa | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_gia_cong_cnc_va_dieu_khien_tu_dong_d574 | Capstone: Hoàn thiện dây chuyền gia công CNC đa trục kết hợp tự động hóa PLC và SCADA máy ép | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_3_5_truc_cho_may_dap_truc_vit_d575 | Lập trình CAM 3-5 trục đồng thời cho biên dạng phức tạp máy dập trục vít | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_gia_cong_cnc_d576 | Capstone: Hoàn thiện tích hợp hệ thống gia công và đo kiểm tự động máy dập trục vít | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_3_5_truc_cho_may_dap_truc_vit_d577 | Lập trình CAM 5 trục nâng cao và tích hợp tín hiệu điều khiển PLC Siemens S7-1200 | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_gia_cong_cnc_d578 | Capstone: Kiểm định dung sai, phân tích ứng suất nhiệt và vận hành tự động hệ thống CNC 5 trục | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_3_5_truc_cho_may_ep_nhua_d579 | Lập trình CAM 5 trục và tối ưu hóa đường chạy dao khuôn phức tạp | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_gia_cong_cnc_580 | Capstone: Tích hợp hệ thống tự động hóa PLC và cơ cấu máy dập trục vít | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_3_5_truc_cho_may_ep_nhua_d581 | Lập trình CAM 3-5 trục cho khuôn máy ép nhựa phức tạp | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_gia_cong_cnc_d582 | Capstone: Tích hợp hoàn chỉnh dây chuyền gia công CNC tự động hóa PLC | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_3_5_truc_cho_may_ep_nhua_d583 | Lập trình CAM 3-5 trục kết hợp mô phỏng nhiệt ứng suất khuôn | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_cnc_d584 | Capstone: Tích hợp hệ thống CNC với mạch an toàn phần cứng Safety PLC | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_3_5_truc_cho_may_ep_nhua_d585 | Lập trình CAM 3-5 trục cho khuôn máy ép nhựa phức tạp kết hợp phân tích CAE | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_cnc_586 | Capstone: Tích hợp hệ thống gia công CNC đa trục với tủ điện PLC và mạng công nghiệp | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_3_5_truc_cho_may_ep_nhua_d587 | Lập trình CAM 5 trục nâng cao và mô phỏng CAE biến dạng nhiệt khuôn ép nhựa | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_cnc_588 | Capstone: Tích hợp Safety PLC, mạng công nghiệp và hoàn thiện dây chuyền CNC tự động | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_3_5_truc_cho_may_ep_nhua_d589 | Lập trình CAM 3-5 trục kết hợp tối ưu đường chạy dao cho khuôn máy ép nhựa | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_cnc_590 | Capstone: Tích hợp hoàn chỉnh hệ thống CNC 3-5 trục với tủ điện PLC và nạp phôi tự động | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_3_5_truc_cho_may_dap_nhua_d591 | Lập trình CAM 5 trục nâng cao và tích hợp mạch an toàn Safety PLC cho máy dập nhựa | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_cnc_va_tu_dong_hoa_d592 | Capstone: Chế tạo hoàn chỉnh cụm máy dập - trục vít tự động hóa tích hợp SCADA và mạng công nghiệp | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_3_5_truc_cho_may_dap_nhua_d593 | Lập trình CAM 3-5 trục và tích hợp an toàn phần cứng Safety PLC cho máy ép nhựa | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_ep_nhua_va_cnc_d594 | Capstone: Vận hành toàn diện dây chuyền ép nhựa tự động hóa tích hợp CNC 5 trục và SCADA | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_3_5_truc_cho_may_dap_nhua_d595 | Lập trình CAM 3-5 trục tích hợp mô phỏng G-code và chống va chạm khuôn dập | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_ep_nhua_va_cnc_d596 | Capstone: Hoàn thiện hệ thống ép nhựa và CNC tích hợp tự động hóa tủ điện PLC | roadmap_MechanicalEnginner.md |
+| lap_trinh_cam_3_5_truc_cho_may_ep_nhua_d597 | Lập trình CAM 3-5 trục cho khuôn ép nhựa và tối ưu hóa G-code chạy máy CNC | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_cnc_va_ep_nhua_d598 | Capstone tích hợp hệ thống gia công CNC, điều khiển tự động PLC và truyền thông công nghiệp | roadmap_MechanicalEnginner.md |
+| lap_trinh_cnc_truc_nhieu_may_d599 | Vận hành G-code đa trục nâng cao và tích hợp mạch an toàn Safety PLC cho cụm trục vít | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_gia_cong_cnc_va_tu_dong_hoa_d600 | Capstone: Chế tạo nguyên mẫu và kiểm định toàn diện hệ thống máy dập kết hợp CNC 5 trục | roadmap_MechanicalEnginner.md |
+| gia_cong_edm_va_laser_cho_khuon_mau_chinh_xac_d601 | Gia công EDM và Laser sợi quang cho khuôn mẫu chính xác kết hợp điều khiển Safety PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| cong_nghe_duc_hien_dai_va_han_ket_cau_d602 | Công nghệ đúc áp lực cao HPDC và phân tích mô phỏng ứng suất nhiệt kết cấu khung máy tự động | roadmap_MechanicalEnginner.md |
+| cong_nghe_duc_hien_dai_va_han_ket_cau_d603 | Đúc mẫu chảy và hàn kết cấu chịu lực trên máy hàn TIG/MIG tích hợp phân tích CAE | roadmap_MechanicalEnginner.md |
+| dap_tao_hinh_va_tu_dong_hoa_plc_d604 | Công nghệ dập sâu tấm kim loại, lập trình PLC S7-1200 và tích hợp mạch an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| han_ket_cau_va_lap_trinh_plc_d605 | Hàn kết cấu khung máy phức tạp, chống nhiễu EMC và tích hợp Safety PLC | roadmap_MechanicalEnginner.md |
+| dap_tao_hinh_va_nhung_nhieu_may_d606 | Dập tạo hình biên dạng phức tạp, mô phỏng CAE động lực học và vận hành máy ép trục vít | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_plc_d607 | Tối ưu hóa xung điện EDM và Laser kết hợp lập trình PLC giả lập tích hợp an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| chuyen_gia_duc_han_dap_d608 | Tự động hóa dây chuyền đúc ly tâm, hàn robot kết cấu và phân tích ứng suất nhiệt máy dập trục vít | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_plc_nang_cao_d609 | Lập trình Safety PLC và tích hợp mạch an toàn phần cứng cho máy EDM - Laser | roadmap_MechanicalEnginner.md |
+| chuyen_gia_duc_han_dap_tu_dong_d610 | Tự động hóa dây chuyền đúc, hàn kết cấu và máy dập đồng bộ qua mạng công nghiệp | roadmap_MechanicalEnginner.md |
+| nghien_cuu_chuyen_sau_edm_laser_va_plc_d611 | Thiết kế mạch an toàn Safety PLC và lập trình hệ thống xung EDM tích hợp chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| nghien_cuu_duc_han_dap_va_lap_trinh_nhieu_co_cau_d612 | Phân tích phần tử hữu hạn (FEA) ứng suất nhiệt và mô phỏng động lực học hệ thống máy dập, máy trục vít | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_va_dap_plc_d613 | Nghiên cứu cấu trúc và điều khiển tự động máy EDM, Laser kết hợp máy dập thủy lực điều khiển bởi PLC cho khuôn dập tinh | roadmap_MechanicalEnginner.md |
+| chuyen_gia_duc_han_va_truc_vit_plc_d614 | Tối ưu hóa công nghệ đúc hiện đại và hàn kết cấu chịu lực kết hợp cơ cấu trục vít ép nhựa điều khiển tự động PID | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_va_dap_plc_d615 | Tích hợp Safety PLC và mô phỏng CAE dòng chảy năng lượng xung điện vi mô máy dập - Tác phẩm: Khuôn dập liên hoàn tích hợp Safety PLC | roadmap_MechanicalEnginner.md |
+| chuyen_gia_duc_han_va_truc_vit_plc_d616 | Cấu hình mạng Profinet và tối ưu hóa hệ thống thủy lực trục vít máy ép nhựa - Tác phẩm: Cụm ép phun nhựa tự động hóa mạng công nghiệp | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_d617 | Nghiên cứu chuyên sâu EDM Laser và PLC máy dập tích hợp Safety PLC | roadmap_MechanicalEnginner.md |
+| chuyen_gia_duc_han_va_truc_vit_plc_d618 | Tối ưu hóa công nghệ đúc hàn và cơ cấu trục vít điều khiển PID | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_va_truc_vit_plc_d619 | Chuyên sâu quy trình gia công EDM-Laser và điều khiển trục vít máy ép nhựa qua PLC | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_edm_laser_dap_plc_d620 | Capstone: Hoàn thiện hệ thống tự động hóa máy dập và gia công phi truyền thống tích hợp PLC | roadmap_MechanicalEnginner.md |
+| nghien_cuu_chuyen_sau_edm_laser_va_truc_vit_plc_d621 | Tích hợp gia công EDM-Laser nâng cao và lập trình Safety PLC cho trục vít máy ép | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_che_tao_va_tu_dong_hoa_d622 | Capstone: Vận hành toàn diện dây chuyền tự động hóa đúc, hàn, dập và ép trục vít tích hợp SCADA | roadmap_MechanicalEnginner.md |
+| nghien_cuu_chuyen_sau_edm_laser_va_truc_vit_plc_d623 | Chuyên sâu EDM, Laser, Cơ cấu trục vít và Tích hợp mạch an toàn Safety PLC | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_edm_laser_dap_plc_d624 | Capstone: Hoàn thiện dây chuyền gia công EDM-Laser và máy dập tự động thông minh | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_va_truc_vit_plc_d625 | Tích hợp Safety PLC, chống nhiễu EMC và điều khiển xung điện EDM - Trục vít | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_edm_laser_truc_vit_d626 | Capstone: Vận hành toàn diện tổ hợp máy EDM, Laser và máy ép trục vít tự động hóa | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_plc_d627 | Thiết kế mạch an toàn Safety PLC và tích hợp chống nhiễu EMC cho hệ thống gia công EDM, Laser và máy dập trục vít | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_edm_laser_dap_truc_vit_d628 | Capstone: Tích hợp hoàn chỉnh hệ thống cơ điện tử, phân tích ứng suất nhiệt và vận hành tự động dây chuyền sản xuất | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_plc_nang_cao_d629 | Lập trình PLC nâng cao tích hợp mạng công nghiệp và thiết kế mạch an toàn phần cứng cho máy gia công | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_edm_laser_dap_truc_vit_d630 | Capstone: Tích hợp toàn diện dây chuyền tự động hóa EDM, Laser, Đúc và Dập kết hợp SCADA | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_plc_toi_uu_d631 | Lập trình Safety PLC và tích hợp mạch an toàn phần cứng cho máy dập trục vít | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_edm_laser_dap_truc_vit_plc_d632 | Capstone: Nghiệm thu toàn diện hệ thống chế tạo vạn năng tích hợp Safety PLC và phân tích nhiệt | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_plc_chuyen_sau_d633 | Nghiên cứu gia công xung điện EDM, Laser và lập trình PLC điều khiển trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_edm_laser_truc_vit_plc_d634 | Capstone: Tích hợp toàn diện hệ thống EDM, máy dập và cơ cấu trục vít tự động hóa công nghiệp | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_nang_cao_d635 | Thiết kế mạch an toàn Safety PLC và Tối ưu hóa xung điện EDM-Laser | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_che_tao_nang_cao_d636 | Capstone: Tích hợp dây chuyền tự động hóa khép kín EDM-Laser-Đúc-Hàn | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_thuc_chien_d637 | Tích hợp mạch an toàn Safety PLC và chống nhiễu EMC cho hệ thống máy dập tự động kết hợp EDM/Laser | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_gia_cong_khong_truyen_thong_d638 | Capstone: Nghiệm thu toàn diện dây chuyền tự động hóa kết hợp phân tích ứng suất nhiệt và cơ khí | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_plc_chuyen_sau_d639 | Thiết kế mạch an toàn phần cứng Safety PLC và mô phỏng CAE cơ cấu trục vít | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_edm_laser_dap_truc_vit_plc_d640 | Capstone: Tích hợp dây chuyền tự động hóa toàn diện máy EDM, Laser, máy dập và trục vít điều khiển bằng PLC | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_nang_cao_d641 | Tích hợp Safety PLC, chống nhiễu EMC và điều khiển PID trục vít EDM nâng cao | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_edm_laser_dap_truc_vit_plc_d642 | Capstone: Vận hành nguyên mẫu tích hợp toàn diện máy EDM, máy dập và trục vít tự động | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_nang_cao_d643 | Tự động hóa toàn diện hệ thống EDM, Laser và mạch an toàn PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_gia_cong_d644 | Capstone: Tích hợp hoàn chỉnh dây chuyền mini thông minh tự động hóa đa công nghệ | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_d645 | Nghiên cứu cấu trúc máy EDM dây kết hợp PLC & Trực quan hóa PLC Simulator với tính toán khe hở phóng điện | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_edm_laser_plc_d646 | Capstone: Tích hợp trạm gia công Laser-EDM tự động hóa toàn diện qua mạng Profinet và HMI | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_d647 | Nghiên cứu chuyên sâu EDM, Laser, Đúc, Hàn, Dập và tích hợp Safety PLC theo chuẩn ISO 13849 | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_d648 | Capstone: Chế tạo và kiểm định toàn diện hệ thống máy dập, trục vít, máy ép tự động hóa công nghiệp | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_he_thong_d649 | Chuyên gia EDM, Laser, dập và PLC tự động hóa trạm dập vi mô tích hợp an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_d650 | Capstone: Hoàn thiện toàn diện hệ thống gia công EDM, Laser và dập tự động PLC với phân tích ứng suất nhiệt | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_nang_cao_d651 | Chuyên gia EDM, Laser, Đúc và Dập tích hợp PLC nâng cao | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_d652 | Capstone: Hoàn thiện toàn diện hệ thống EDM, Laser và Dập tích hợp | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_nang_cao_d653 | Tự động hóa thông số gia công EDM-Laser và dập thủy lực kết hợp Safety PLC | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_d654 | Capstone: Tích hợp HMI, SCADA và kiểm định nhiệt luyện trạm gia công tự động | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_thuc_chien_d655 | Chuyên gia tích hợp an toàn Safety PLC và tối ưu xung điện EDM khuôn dập | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_gia_cong_d656 | Capstone: Vận hành toàn diện dây chuyền tự động hóa máy dập, EDM và trục vít | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_he_thong_d657 | Chuyên gia EDM, Laser, dập, PLC hệ thống chế tạo phức tạp d657 | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_d658 | Capstone: Hoàn thiện toàn diện hệ thống gia công EDM, Laser và Dập | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_plc_d659 | Lập trình PLC tích hợp giả lập và hệ thống điều khiển xung điện EDM kết hợp trục vít | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_edm_laser_dap_plc_d660 | Capstone Nghiệm thu và vận hành cụm mô hình gia công không truyền thống tích hợp PLC | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_plc_d661 | Lập trình Safety PLC và cấu hình mạng Profinet/Modbus cho dây chuyền tự động máy ép trục vít | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_edm_laser_dap_truc_vit_plc_d662 | Capstone: Tích hợp toàn diện phần cứng, mô phỏng nhiệt ứng suất và nghiệm thu dây chuyền cơ điện tử | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_plc_chuyen_sau_d663 | Chuyên gia Thiết kế R&D Cơ cấu dập trục vít kết hợp Xung điện EDM và Lập trình PLC chuyên sâu | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_edm_laser_dap_truc_vit_plc_d664 | Capstone: Vận hành tích hợp toàn diện hệ thống gia công tự động EDM, Laser và dập trục vít | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_d665 | Thiết kế mạch an toàn phần cứng Safety PLC và lập trình logic chống nhiễu EMC cho hệ thống dập và Laser | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_edm_laser_dap_plc_d666 | Capstone: Tích hợp toàn diện dây chuyền tự động hóa EDM, Laser và máy dập với giao diện SCADA giám sát | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_he_thong_d667 | Thiết kế cơ cấu dập trục vít kết hợp an toàn PLC S7-1200 và chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_edm_laser_dap_plc_d668 | Capstone: Vận hành toàn diện hệ thống máy dập tự động tích hợp SCADA và tiêu chuẩn ISO | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_plc_chuyen_sau_nghien_cuu_d669 | Tích hợp R&D trạm vi mô EDM kết hợp dập trục vít tự động điều khiển PLC | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_edm_laser_dap_truc_vit_plc_d670 | Capstone tổng hợp: Vận hành dây chuyền tự động hóa EDM, Laser & máy dập | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_plc_nang_cao_d671 | Chuyên gia tích hợp Safety PLC, chống nhiễu EMC và điều khiển PID cho trục vít EDM | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_edm_laser_dap_truc_vit_plc_d672 | Capstone: Vận hành toàn diện dây chuyền EDM, Laser, máy dập trục vít tích hợp SCADA | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_plc_chuyen_sau_nghien_cuu_d673 | Tích hợp Safety PLC, chống nhiễu EMC và mô phỏng nhiệt cấu trúc máy dập trục vít | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_edm_laser_dap_truc_vit_plc_d674 | Capstone: Chế tạo nguyên mẫu và vận hành dây chuyền tự động hóa toàn diện | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_nghien_cuu_d675 | Nghiên cứu công nghệ EDM, Laser, Đúc & Dập PLC kết hợp phân tích CAE ứng suất nhiệt | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_edm_laser_dap_plc_d676 | Capstone: Hoàn thiện toàn diện trạm gia công EDM, Laser và Dập tự động tích hợp truyền thông công nghiệp | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_nghien_cuu_chuyen_sau_d677 | Nghiên cứu chuyên sâu tích hợp hệ thống an toàn ISO 13849 và lập trình PLC S7-1200 cho trạm EDM-Laser Day 677 | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_dap_plc_d678 | Capstone: Hoàn thiện dây chuyền tự động hóa toàn diện EDM, Laser, đúc, hàn và máy ép trục vít tích hợp SCADA Day 678 | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_nghien_cuu_chuyen_sau_d679 | Nghiên cứu chuyên sâu EDM-Laser, dập, tích hợp mạch an toàn ISO 13849 và lập trình PLC | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_dap_plc_d680 | Capstone: Hoàn thiện toàn diện dây chuyền khép kín EDM, Laser, đúc, hàn, dập tích hợp SCADA & Giả lập CAE | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_nghien_cuu_d681 | Nghiên cứu cấu trúc điều khiển PLC an toàn và chống nhiễu EMC cho hệ thống gia công EDM kết hợp máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_dap_plc_d682 | Capstone: Hoàn thiện toàn diện dây chuyền tự động hóa tích hợp EDM, Laser, máy đúc áp lực và máy dập với thuật toán PID và giám sát SCADA | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_plc_nghien_cuu_chuyen_sau_d683 | Nghiên cứu công nghệ nguồn phát xung EDM, cắt Laser và cơ cấu ép phun tích hợp Safety PLC | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_dap_truc_vit_plc_d684 | Capstone: Tích hợp hoàn chỉnh hệ thống cơ điện tử tự động hóa gồm máy dập, máy ép trục vít và cắt laser | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_nghien_cuu_chuyen_sau_moi_d685 | Tối ưu hóa vi cấu trúc vật liệu kết hợp mạch an toàn Safety PLC cho gia công EDM & Laser | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_dap_plc_d686 | Capstone: Hoàn thiện dây chuyền tích hợp máy dập, Laser, EDM điều khiển qua mạng Profinet | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_plc_chuyen_nghiep_d687 | Chuyên gia Tích hợp Hệ thống EDM, Laser, Trục vít và Safety PLC nâng cao | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_dap_plc_d688 | Capstone: Hoàn thiện và Nghiệm thu Hệ thống Chế tạo Thông minh Tích hợp Mô phỏng CAE | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_he_thong_nghien_cuu_d689 | Thiết kế mạch an toàn Safety PLC và tích hợp chuẩn truyền thông Profinet cho trạm EDM và máy dập | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_dap_plc_d690 | Capstone: Hoàn thiện dây chuyền thông minh tích hợp EDM, Laser, Đúc và Máy dập kiểm soát toàn diện bằng Safety PLC | roadmap_MechanicalEnginner.md |
+| nghien_cuu_chuyen_sau_edm_laser_dap_plc_d691 | Nghiên cứu chuyên sâu EDM, Laser và máy dập tự động điều khiển qua PLC | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_dap_d692 | Capstone: Tích hợp R&D toàn diện trạm cắt Laser, xung điện EDM và máy ép trục vít tự động | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_d693 | Lập trình xung điện EDM kết hợp an toàn Safety PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_edm_laser_d694 | Capstone: Tích hợp toàn diện dây chuyền EDM và máy dập tự động điều khiển tự động hóa nâng cao | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_nghien_cuu_d695 | Nghiên cứu gia công xung điện EDM và dập tấm tự động tích hợp mạch an toàn PLC | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_edm_laser_dap_plc_d696 | Capstone: Hoàn thiện dây chuyền khép kín cắt Laser, EDM và máy dập điều khiển qua mạng Profinet | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_nghien_cuu_chuyen_sau_moi_nhat_d697 | Tích hợp hệ thống an toàn Safety PLC và chống nhiễu EMC cho dây chuyền EDM-Laser-Dập tự động | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_dap_plc_d698 | Capstone: Vận hành đồng bộ toàn diện dây chuyền tự động hóa EDM, Laser, máy dập và trục vít tích hợp SCADA | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_plc_chuyen_sau_699 | Thiết kế mạch an toàn Safety PLC và tích hợp mô hình EDM kết hợp máy dập trục vít | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_edm_laser_dap_truc_vit_plc_700 | Capstone: Vận hành hệ thống toàn diện máy cắt Laser, máy đúc áp lực và máy dập trục vít tự động | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_plc_chuyen_nghiep_701 | Thiết kế mạch an toàn phần cứng Safety PLC và tối ưu hóa xung EDM - Laser | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_dap_truc_vit_plc_702 | Capstone: Tích hợp toàn diện dây chuyền tự động hóa máy dập trục vít với trạm EDM - Laser | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_703 | Chuyên gia EDM, Laser, dập, đúc, hàn tích hợp PLC và an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_edm_laser_dap_truc_vit_plc_704 | Capstone: Tối ưu hóa dây chuyền sản xuất tự động bằng phân tích phần tử hữu hạn FEA và SCADA | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_705 | Thiết kế mạch an toàn Safety PLC và tối ưu hóa điều khiển xung điện EDM | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_edm_laser_dap_truc_vit_706 | Capstone: Tích hợp hệ thống tự động hóa Laser-EDM và máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_707 | Tối ưu xung điện EDM và tích hợp mạch an toàn phần cứng Safety PLC | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_edm_laser_dap_plc_708 | Capstone: Vận hành dây chuyền tự động hóa khép kín cắt Laser-EDM kết hợp HMI | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_709 | Lập trình an toàn Safety PLC và tích hợp cảm biến cho máy dập thủy lực Day 709 | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_edm_laser_dap_plc_710 | Capstone: Vận hành dây chuyền tích hợp máy dập, trục vít và Scada Day 710 | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_nghien_cuu_chuyen_sau_711 | Nghiên cứu chuyên sâu EDM, Laser, dập PLC tích hợp Safety Relay & chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_edm_laser_dap_plc_712 | Capstone: Hoàn thiện hệ thống cơ điện tử tự động hóa đa năng gồm máy dập, cắt Laser và xung EDM | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_plc_day_713 | Thiết kế mạch an toàn Safety PLC, chống nhiễu EMC và lập trình điều khiển xung điện EDM | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_dap_truc_vit_plc_714 | Capstone: Tích hợp toàn diện hệ thống gia công EDM, Laser và máy dập tự động hóa công nghiệp | roadmap_MechanicalEnginner.md |
+| nghien_cuu_chuyen_sau_edm_laser_dap_truc_vit_plc_day_715 | Tích hợp mạch an toàn phần cứng Safety PLC và tính toán năng lượng gia công EDM | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_dap_truc_vit_plc_716 | Capstone: Vận hành dây chuyền tự động hóa khép kín tích hợp EDM, Laser, máy dập và SCADA | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_nghien_cuu_chuyen_sau_717 | Nghiên cứu tích hợp hệ thống điều khiển an toàn Safety PLC và chống nhiễu EMC cho máy EDM-Laser | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_plc_718 | Capstone: Chế tạo và vận hành đồng bộ dây chuyền tự động hóa kết hợp máy dập, máy trục vít và cụm EDM-Laser | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_plc_day_719 | Thiết kế mạch an toàn Safety PLC và điều khiển xung điện EDM tích hợp TIA Portal | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_truc_vit_plc_720 | Capstone: Tích hợp và vận hành dây chuyền tự động gia công vi mô EDM/Laser kết hợp máy ép trục vít | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_721 | Phân tích cấu trúc EDM, Laser, mạch an toàn Safety PLC và mô phỏng CAE cơ cấu máy dập | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_edm_laser_dap_truc_vit_722 | Capstone: Vận hành toàn diện, hiệu chuẩn tự động hóa và nghiệm thu kỹ thuật cụm EDM-Laser-Máy dập trục vít | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_plc_day_723 | Thiết kế trạm EDM, Laser, máy dập tích hợp Safety PLC và chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_truc_vit_plc_724 | Capstone: Vận hành dây chuyền tự động hóa toàn diện EDM, Laser, máy dập và trục vít | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_plc_day_725 | Thiết kế hệ thống an toàn Safety PLC và mạch chống nhiễu EMC cho tổ hợp máy dập và EDM | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_truc_vit_plc_726 | Capstone: Tích hợp mô phỏng CAE ứng suất nhiệt và vận hành dây chuyền tự động hóa gia công tiên tiến | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_plc_day_727 | Thiết kế trạm EDM, Laser, máy dập, trục vít điều khiển PLC tích hợp Safety Relay & EMC | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_truc_vit_plc_728 | Capstone: Vận hành toàn diện, kiểm định nhiệt luyện và tối ưu OEE dây chuyền gia công phức hợp | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_plc_day_729 | Thiết kế hệ thống an toàn phần cứng Safety PLC và gia công xung điện EDM | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_truc_vit_plc_730 | Capstone: Vận hành dây chuyền khép kín tự động hóa EDM-Laser-Dập kết hợp mô phỏng ANSYS | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_731 | Chuyên gia EDM, Laser, đập, trục vít và tích hợp PLC dòng 731 kết hợp an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_truc_vit_plc_732 | Capstone: Vận hành toàn diện dây chuyền tự động hóa gia công và cơ điện tử tiên tiến | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_nghien_cuu_chuyen_sau_733 | Nghiên cứu chuyên sâu tích hợp EDM, Laser, dập trục vít với Safety PLC và chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_truc_vit_plc_734 | Capstone: Tích hợp và nghiệm thu toàn diện hệ thống máy gia công EDM-Laser cùng dây chuyền trục vít tự động | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_day_735 | Thiết kế hệ thống an toàn phần cứng Safety PLC và chống nhiễu EMC cho máy EDM-Laser tích hợp trục vít | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_truc_vit_plc_day_736 | Capstone: Chế tạo và vận hành nguyên mẫu trạm gia công tích hợp tự động hóa toàn diện | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_nghien_cuu_chuyen_sau_day_737 | Tính toán thiết kế phần cứng an toàn ISO 13849 và lập trình PLC trạm gia công EDM-Laser | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_dap_truc_vit_plc_day_738 | Capstone: Tích hợp toàn diện dây chuyền EDM, Laser, máy dập, trục vít và kiểm định nhiệt luyện | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_plc_day_739 | Thiết kế hệ thống an toàn ISO 13849 và lập trình Safety PLC cho cụm máy dập trục vít | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_dap_truc_vit_plc_day_740 | Capstone: Vận hành dây chuyền tự động tích hợp chống nhiễu EMC và giám sát SCADA nhà máy | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_nghien_cuu_chuyen_sau_741 | Chuyên gia EDM, Laser, đúc, hàn và dập với PLC, Safety tích hợp | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_dap_truc_vit_plc_day_742 | Capstone: Vận hành toàn diện hệ thống cơ điện tử dập, trục vít và gia công phi truyền thống | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_plc_day_743 | Thiết kế mạch an toàn phần cứng Safety PLC và tối ưu thông số xung điện EDM | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_dap_truc_vit_plc_744 | Capstone: Tích hợp hệ thống tự động hóa khép kín máy EDM, Laser và máy dập trục vít | roadmap_MechanicalEnginner.md |
+| nghien_cuu_chuyen_sau_edm_laser_dap_truc_vit_plc_day_745 | Thiết kế mạch an toàn Safety PLC, chống nhiễu EMC và mô phỏng xung điện EDM trục vít | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_truc_vit_plc_746 | Capstone: Tích hợp toàn diện dây chuyền tự động hóa EDM, Laser, máy dập và ép trục vít thông minh | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_plc_nghien_cuu_chuyen_sau_747 | Chuyên gia EDM, Laser, đúc, hàn, dập tích hợp Safety PLC và chống nhiễu EMC day 747 | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_truc_vit_plc_748 | Capstone: Vận hành dây chuyền tự động hóa toàn diện hệ thống EDM, Laser và máy ép trục vít | roadmap_MechanicalEnginner.md |
+| chuyen_gia_edm_laser_dap_truc_vit_plc_day_749 | Thiết kế hệ thống an toàn Safety PLC và mạch xung EDM cho máy dập trục vít | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_toan_dien_he_thong_edm_laser_truc_vit_plc_750 | Capstone: Vận hành toàn diện, phân tích ứng suất nhiệt và tích hợp HMI hệ thống EDM-Laser-PLC | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_nhua_ep_va_lap_trinh_plc_751 | Thiết kế khuôn mẫu ép nhựa phức tạp và lập trình PLC điều khiển nhiệt độ khuôn ép | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_752 | Tính toán thiết kế bánh răng thân khai và chế tạo hộp giảm tốc công nghiệp tải nặng | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_nhua_ep_va_lap_trinh_plc_ep_phun | Thiết kế khuôn ép nhựa và lập trình PLC điều khiển máy ép phun tự động | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep | Chế tạo bánh răng ăn khớp và lắp ráp hộp giảm tốc công nghiệp tải trọng lớn | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_lap_trinh_plc_dap_755 | Thiết kế khuôn ép nhựa nhiều lòng khuôn kết hợp mạch an toàn phần cứng Safety PLC | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_756 | Chế tạo bánh răng côn xoắn, luyện kim ứng dụng và mô phỏng động lực học hộp giảm tốc hành tinh | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_lap_trinh_plc_ep_phun_day_757 | Thiết kế khuôn ép nhựa nhiều lòng khuôn và lập trình PLC điều khiển nhiệt độ barrel tích hợp an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_day_758 | Chế tạo bánh răng trụ răng nghiêng, tối ưu hóa mô phỏng động lực học Adams và kiểm định nhiệt luyện kim | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_lap_trinh_plc_ep_phun_day_759 | Thiết kế khuôn ép nhựa nhiều lòng khuôn kết hợp lập trình PLC Siemens S7-1200 tích hợp mạng Profinet và rơ-le an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_day_760 | Tính toán thiết kế chế tạo bánh răng nghiêng, kiểm định luyện kim học ứng dụng và phân tích mô phỏng ứng suất nhiệt hộp giảm tốc | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_lap_trinh_plc_ep_phun_day_761 | Thiết kế khuôn ép nhựa nhiều lòng khuôn và lập trình PLC điều khiển máy ép phun tích hợp mạch an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_day_762 | Thiết kế hộp giảm tốc bánh răng trụ răng nghiêng và tích hợp phân tích độ bền cấu trúc cơ khí | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_lap_trinh_plc_ep_phun_day_763 | Thiết kế khuôn ép nhựa, mô phỏng dòng chảy CAE và lập trình PLC điều khiển máy ép phun | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_day_764 | Chế tạo bánh răng, hộp giảm tốc công nghiệp và giám sát truyền thông Modbus RTU trên HMI | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_lap_trinh_plc_ep_phun_day_765 | Thiết kế khuôn ép nhựa nhiều lòng định hình lõi, mô phỏng CAE biến dạng nhiệt và lập trình Safety PLC | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_day_766 | Chế tạo hộp giảm tốc bánh răng hành tinh công nghiệp kết hợp luyện kim nâng cao và giám sát IoT | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_lap_trinh_plc_ep_phun_day_767 | Thiết kế khuôn ép nhựa 2 tấm, phân tích dòng chảy CAE và lập trình PLC điều khiển chu trình ép phun | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_day_768 | Chế tạo bánh răng trụ răng nghiêng, hộp giảm tốc công nghiệp và giám sát truyền thông Modbus/Profinet qua PLC | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_nhua_ep_va_lap_trinh_plc_ep_phun_day_769 | Thiết kế khuôn ép nhựa 2 tấm và lập trình PLC S7-1200 tích hợp mạch an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_day_770 | Chế tạo bánh răng, hộp giảm tốc công nghiệp và giám sát SCADA/HMI qua mạng Modbus TCP/Profinet | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_nhua_ep_phun_va_dieu_khiển_plc_771 | Thiết kế khuôn ép nhựa nhiều lòng khuôn, tích hợp mạch an toàn phần cứng Safety PLC và mô phỏng ứng suất nhiệt CAE | roadmap_MechanicalEnginner.md |
+| che_tao_hop_giam_toc_va_tich_hop_giam_sat_scada_772 | Tính toán thiết kế hộp giảm tốc bánh răng trụ 2 cấp, luyện kim vật liệu 20CrMnTi và tích hợp SCADA giám sát thời gian thực qua Modbus RTU/TCP | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_lap_trinh_plc_ep_phun_day_773 | Thiết kế khuôn ép nhựa 2 tấm, phân tích mô phỏng ANSYS và lập trình PLC S7-1200 an toàn | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_day_774 | Chế tạo bánh răng nghiêng chính xác, nhiệt luyện kim tương học và giám sát HMI/SCADA | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_lap_trinh_plc_ep_phun_day_775 | Thiết kế khuôn ép nhựa nhiều lòng định hình lõi phức tạp kèm PLC hệ phun nhựa và an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_day_776 | Tính toán thiết kế hộp giảm tốc bánh răng trụ răng nghiêng và tích hợp giám sát SCADA công nghiệp | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_dieu_khiển_plc_777 | Thiết kế khuôn ép nhựa phức tạp kết hợp lập trình PLC điều khiển máy ép phun | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_778 | Thiết kế chế tạo bánh răng ăn khớp và lắp ráp hộp giảm tốc công nghiệp | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_dieu_khiển_plc_779 | Thiết kế khuôn ép nhựa vỏ hộp điện tử và điều khiển nhiệt độ khuôn bằng PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_780 | Chế tạo bánh răng côn, xử lý nhiệt luyện và lắp ráp hộp giảm tốc tự động hóa | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_dieu_khiển_plc_781 | Thiết kế khuôn ép nhựa đa tầng tích hợp mạch an toàn phần cứng Safety PLC và hệ thống gia nhiệt PID | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_782 | Gia công CNC bánh răng thân khai hộp giảm tốc và cấu hình giao thức truyền thông Modbus RTU/Profinet | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_dieu_khiển_plc_783 | Thiết kế khuôn ép nhựa phức tạp kết hợp lập trình PLC điều khiển máy ép phun | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_784 | Thiết kế chế tạo bánh răng nghiêng và tính toán hộp giảm tốc công nghiệp | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_dieu_khiển_plc_785 | Thiết kế khuôn ép nhựa phức tạp kết hợp lập trình PLC điều khiển máy ép | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_786 | Chế tạo bánh răng hành tinh và tính toán thiết kế hộp giảm tốc công nghiệp | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_lap_trinh_plc_ep_phun_day_787 | Thiết kế khuôn ép nhựa nhiều lòng cặn, tích hợp mạch an toàn ISO 13849 và lập trình PLC điều khiển máy ép phun | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_day_788 | Thiết kế hệ thống bánh răng hành tinh, phân tích độ bền nhiệt CAE và chế tạo hộp giảm tốc công nghiệp đa cấp | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_dieu_khiển_plc_789 | Thiết kế khuôn ép phun nhựa đa khoang tự động kết hợp điều khiển nhiệt độ khuôn PID bằng PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_790 | Tính toán thiết kế chế tạo cụm hộp giảm tốc bánh răng trụ răng nghiêng truyền động máy ép phun kết hợp kiểm định nhiệt luyện | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_dieu_khiển_plc_791 | Thiết kế khuôn ép nhựa phức tạp kết hợp lập trình PLC S7-1200 và giao thức chống nhiễu EMC - Dự án Khuôn điều khiển từ xa | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_day_792 | Thiết kế, chế tạo hộp giảm tốc hành tinh và phương pháp kiểm định luyện kim - Dự án Tay máy công nghiệp | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_dieu_khiển_plc_793 | Thiết kế khuôn ép nhựa tích hợp mạch an toàn phần cứng và lập trình PLC Siemens S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_day_794 | Chế tạo bánh răng côn, tối ưu nhiệt luyện kim loại và kiểm tra hộp giảm tốc tải nặng | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_dieu_khiển_plc_795 | Thiết kế khuôn ép nhựa đa tầng tích hợp phân tích dòng chảy CAE và điều khiển PID nhiệt độ khuôn bằng PLC Siemens S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_796 | Chế tạo hộp giảm tốc bánh răng trụ răng nghiêng kết hợp kiểm định luyện kim và giám sát tải trọng SCADA | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_dieu_khien_plc_797 | Thiết kế khuôn ép nhựa nhiều lòng khuôn và lập trình PLC điều khiển chu trình ép | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_day_798 | Thiết kế hệ thống truyền động bánh răng trụ răng nghiêng và tính toán hộp giảm tốc | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_dieu_khiển_plc_799 | Thiết kế khuôn ép nhựa nhiều lòng khuôn, phân tích ứng suất nhiệt CAE và lập trình PLC điều khiển an toàn máy ép phun | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_day_800 | Thiết kế chế tạo hộp giảm tốc công nghiệp, tính toán dung sai lắp ghép và tích hợp hệ thống giám sát SCADA/Modbus TCP | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_dieu_khiển_plc_801 | Thiết kế khuôn ép nhựa nhiều tầng kết hợp lập trình PLC điều khiển lõi trượt an toàn | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_802 | Chế tạo hộp giảm tốc bánh răng trụ răng nghiêng kết hợp kiểm thử tải trọng và luyện kim học | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_dieu_khiển_plc_803 | Thiết kế khuôn ép nhựa 2 tấm và lập trình PLC S7-1200 điều khiển chu trình tự động | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_804 | Chế tạo bánh răng trụ răng nghiêng và hộp giảm tốc công nghiệp tích hợp cơ cấu trục vít | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_dieu_khiển_plc_805 | Thiết kế khuôn ép nhựa và lập trình tích hợp mạch an toàn PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_806 | Chế tạo bánh răng, phân tích CAE động lực học và hộp giảm tốc công nghiệp | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_dieu_khiển_plc_807 | Thiết kế khuôn ép nhựa định hình vỏ hộp giảm tốc kết hợp mạch an toàn Safety PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_808 | Gia công CAM 5 trục bánh răng côn xoắn và kiểm định cơ học hộp giảm tốc tải nặng | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_dieu_khiển_plc_809 | Thiết kế khuôn ép nhựa phức tạp kết hợp lập trình điều khiển PLC Siemens và an toàn phần cứng | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_810 | Công nghệ chế tạo bánh răng nghiêng chính xác và tối ưu hóa hệ thống truyền động hộp giảm tốc | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_dieu_khiển_plc_811 | Thiết kế khuôn ép nhựa nhiều lòng khắc phục dòng chảy và lập trình PLC điều khiển ép phun tự động | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_812 | Tính toán thiết kế và gia công hộp giảm tốc bánh răng trụ răng nghiêng kết hợp kiểm thử mô phỏng | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_dieu_khiển_plc_813 | Thiết kế khuôn ép nhựa nhiều lòng khuôn kết hợp lập trình PLC điều khiển máy ép phun tự động | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_814 | Thiết kế chế tạo hộp giảm tốc bánh răng trụ răng nghiêng kết hợp hệ thống giám sát tải trọng nhúng IoT | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_dieu_khiển_plc_815 | Thiết kế khuôn ép nhựa nhiều lòng chất lượng cao tích hợp mạch an toàn ISO 13849 và tủ điện PLC điều khiển tự động | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_day_816 | Chế tạo bánh răng trụ răng nghiêng, nhiệt luyện chuyên sâu và lắp ráp hộp giảm tốc tích hợp giám sát rung động IoT | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_dieu_khiển_plc_817 | Thiết kế khuôn ép nhựa nhiều lòng định hình vỏ máy dập tự động kèm lập trình PLC Siemens S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_818 | Chế tạo bánh răng trụ răng nghiêng và tính toán hộp giảm tốc trục vít cho cụm máy ép trục vít công nghiệp | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_phuc_tap_va_hop_giam_toc_nganh_nhua_day_819 | Thiết kế khuôn nhiều tầng và hộp giảm tốc trục vít tỷ số truyền lớn cho ngành nhựa | roadmap_MechanicalEnginner.md |
+| che_tao_va_lap_rap_he_thong_khuon_dap_hop_giam_toc_day_820 | Chế tạo khuôn dập liên hoàn và kiểm định nhiệt luyện hộp giảm tốc công nghiệp | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_nhua_nhieu_tang_va_lap_trinh_plc_day_821 | Thiết kế khuôn nhựa nhiều tầng kết hợp lập trình an toàn PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_va_lap_rap_hop_giam_toc_banh_rang_hanh_tinh_day_822 | Chế tạo, nhiệt luyện và kiểm định cơ học hộp giảm tốc bánh răng hành tinh | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_nhua_nhieu_tang_va_dieu_khiển_plc_823 | Thiết kế khuôn nhựa nhiều tầng kết hợp lập trình an toàn Safety PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_va_lap_rap_hop_giam_toc_hanh_tinh_ket_hop_dong_co_824 | Chế tạo và lắp ráp hộp giảm tốc bánh răng hành tinh kết hợp động cơ bước Nema 23 | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_nhieu_tang_va_lap_trinh_plc_mo_phong_825 | Thiết kế khuôn ép nhựa nhiều tầng kết hợp lập trình PLC mô phỏng máy ép | roadmap_MechanicalEnginner.md |
+| che_tao_va_lap_rap_hop_giam_toc_hanh_tinh_ket_hop_dong_co_buoc_826 | Chế tạo và lắp ráp hộp giảm tốc hành tinh kết hợp động cơ bước CNC | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_phuc_tap_va_lap_trinh_plc_day_827 | Thiết kế khuôn ép nhựa nhiều tầng, tích hợp mạch an toàn phần cứng ISO 13849 và PLC Siemens S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_va_lap_rap_hop_giam_toc_banh_rang_cong_nghiep_day_828 | Chế tạo, lắp ráp hộp giảm tốc bánh răng trụ 2 cấp tải nặng và tối ưu hóa hệ thống truyền động cơ khí | roadmap_MechanicalEnginner.md |
+| thiet_ke_chuyen_sau_khuon_mau_va_lap_trinh_plc_day_829 | Thiết kế chuyên sâu hệ thống an toàn khuôn phức tạp và lập trình PLC tích hợp Safety Relay | roadmap_MechanicalEnginner.md |
+| che_tao_va_tinh_toan_hop_giam_toc_cong_nghiep_day_830 | Tính toán thiết kế sức bền và mô phỏng động lực học hộp giảm tốc công nghiệp kết hợp luyện kim ứng dụng | roadmap_MechanicalEnginner.md |
+| thiet_ke_chuyen_sau_khuon_nhua_va_plc_831 | Thiết kế chuyên sâu khuôn mẫu ép nhựa và lập trình Safety PLC tích hợp chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| che_tao_va_tinh_toan_hop_giam_toc_832 | Chế tạo hộp giảm tốc công nghiệp kết hợp mô phỏng động lực học Adams và luyện kim học | roadmap_MechanicalEnginner.md |
+| thiet_ke_chuyen_sau_khuon_mau_ep_nhua_day_833 | Thiết kế khuôn ép nhựa đa lòng tích hợp mạch an toàn phần cứng Safety PLC Siemens | roadmap_MechanicalEnginner.md |
+| che_tao_va_tinh_toan_hop_giam_toc_banh_rang_tru_day_834 | Nghiên cứu luyện kim ứng dụng và thiết kế động lực học hộp giảm tốc bánh răng nghiêng | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_va_hop_giam_toc_day_835 | Thiết kế khuôn ép nhựa vỏ hộp giảm tốc kết hợp tích hợp mạch an toàn PLC Safety | roadmap_MechanicalEnginner.md |
+| che_tao_va_tinh_toan_hop_giam_toc_day_836 | Chế tạo thực tế và kiểm định cơ học hộp giảm tốc bánh răng trụ hai cấp | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_plc_day_837 | Thiết kế khuôn ép nhựa nhiều tầng kết hợp lập trình PLC điều khiển máy ép | roadmap_MechanicalEnginner.md |
+| che_tao_va_tinh_toan_hop_giam_toc_day_838 | Chế tạo và tính toán hộp giảm tốc bánh răng hành tinh công nghiệp | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_va_lap_trinh_plc_cho_may_ep_day_839 | Thiết kế khuôn ép nhựa nhiều lòng khuôn và lập trình PLC Siemens S7-1200 tích hợp an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| che_tao_va_tinh_toan_hop_giam_toc_banh_rang_hanh_tinh_day_840 | Chế tạo, tính toán sức bền hộp giảm tốc bánh răng hành tinh và tích hợp giám sát HMI/SCADA | roadmap_MechanicalEnginner.md |
+| thiet_ke_chuyen_sau_khuon_nhua_nhieu_tang_va_plc_841 | Thiết kế chuyên sâu khuôn nhựa nhiều tầng kết hợp lập trình PLC S7-1200 và an toàn phần cứng ISO 13849 | roadmap_MechanicalEnginner.md |
+| che_tao_va_tinh_toan_hop_giam_toc_banh_rang_con_842 | Tính toán thiết kế hộp giảm tốc bánh răng côn trụ kết hợp mô phỏng động lực học Adams và luyện kim học ứng dụng | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_nhua_va_dieu_khiển_plc_dong_co_buoc_843 | Thiết kế khuôn nhựa nhiều tầng và lập trình PLC điều khiển động cơ bước | roadmap_MechanicalEnginner.md |
+| che_tao_va_tinh_toan_hop_giam_toc_hanh_tinh_kep_plc_844 | Chế tạo và phân tích ứng suất nhiệt hộp giảm tốc hành tinh kép tích hợp HMI | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_nhua_nhieu_tang_va_lap_trinh_plc_cho_may_ep | Thiết kế khuôn nhựa nhiều tầng, tích hợp mạch an toàn ISO 13849 và lập trình PLC S7-1200 cho máy ép | roadmap_MechanicalEnginner.md |
+| che_tao_va_tinh_toan_hop_giam_toc_hanh_tinh_cong_nghiep_dac_biet | Chế tạo, tính toán độ bền hộp giảm tốc hành tinh công suất lớn và kiểm định luyện kim học ứng dụng | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_ep_nhua_nhieu_tang_va_plc_847 | Thiết kế khuôn ép nhựa nhiều tầng kết hợp lập trình PLC cho hệ thống đẩy tự động | roadmap_MechanicalEnginner.md |
+| che_tao_va_tinh_toan_hop_giam_toc_banh_rang_khong_gian_848 | Chế tạo và tính toán hộp giảm tốc bánh răng trụ răng nghiêng độ bền cao tích hợp mô phỏng động lực học | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_nhua_va_lap_trinh_plc_cho_may_ep_nhua_nhieu_tang_day_849 | Thiết kế khuôn nhựa nhiều tầng và lập trình PLC cho máy ép nhựa Day 849 với dự án Trạm ép tự động | roadmap_MechanicalEnginner.md |
+| che_tao_va_tinh_toan_hop_giam_toc_banh_rang_hanh_tinh_cong_nghiep_day_850 | Chế tạo và tính toán hộp giảm tốc bánh răng hành tinh công nghiệp Day 850 với dự án Trạm truyền động | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_nhua_va_lap_trinh_plc_may_ep_day_851 | Thiết kế khuôn ép nhựa 2 tầng kết hợp lập trình Safety PLC S7-1200 chống nhiễu EMC Day 851 | roadmap_MechanicalEnginner.md |
+| che_tao_va_tinh_toan_hop_giam_toc_banh_rang_khong_gian_day_852 | Chế tạo hộp giảm tốc trục vít - bánh vít và mô phỏng động lực học Adams Day 852 | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_nhua_va_lap_trinh_plc_cho_may_ep_nhua_853 | Thiết kế khuôn nhựa và lập trình PLC S7-1200 cho máy ép nhựa | roadmap_MechanicalEnginner.md |
+| che_tao_va_tinh_toan_hop_giam_toc_banh_rang_tru_cap_854 | Chế tạo và tính toán cơ học hộp giảm tốc bánh răng trụ 2 cấp | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_nhua_va_dieu_khiển_plc_dong_co_buoc_855 | Thiết kế khuôn nhựa phức tạp kết hợp điều khiển PLC động cơ bước máy ép | roadmap_MechanicalEnginner.md |
+| che_tao_va_tinh_toan_hop_giam_toc_hanh_tinh_kep_plc_856 | Chế tạo và tính toán hộp giảm tốc hành tinh kép điều khiển PLC tự động | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_dap_phuc_tap_va_lap_trinh_plc_cho_may_dap_tu_dong | Thiết kế khuôn dập liên hoàn và lập trình an toàn PLC tích hợp mạng công nghiệp - Dự án Máy dập tự động | roadmap_MechanicalEnginner.md |
+| che_tao_va_tinh_toan_hop_giam_toc_banh_rang_hanh_tinh_cong_suat_lon | Chế tạo, nhiệt luyện chính xác và phân tích động lực học hộp giảm tốc bánh răng hành tinh - Dự án Hộp giảm tốc 3 cấp | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_nhua_va_lap_trinh_plc_cho_may_ep_nhua_tu_dong_day_859 | Thiết kế khuôn ép nhựa nhiều tầng tích hợp mạch an toàn Safety PLC Siemens S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_va_tinh_toan_hop_giam_toc_banh_rang_hanh_tinh_cong_nghiep_day_860 | Mô phỏng động lực học nâng cao và tối ưu độ bền hộp giảm tốc bánh răng hành tinh | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_nhua_va_lap_trinh_plc_cho_may_ep_nhua_nhieu_tang | Thiết kế khuôn nhựa nhiều tầng kết hợp lập trình Safety PLC Siemens S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_va_tinh_toan_hop_giam_toc_banh_rang_hanh_tinh_cong_nghiep | Chế tạo hộp giảm tốc hành tinh công suất lớn và kiểm định nhiệt luyện luyện kim | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_nhua_va_lap_trinh_plc_cho_may_ep_nhua_nhieu_tang_d863 | Thiết kế khuôn nhiều tầng và tích hợp mạch an toàn Safety PLC cho máy ép nhựa | roadmap_MechanicalEnginner.md |
+| che_tao_va_tinh_toan_hop_giam_toc_banh_rang_hanh_tinh_cong_nghiep_dac_biet | Tính toán sức bền, mô phỏng nhiệt và chế tạo hộp giảm tốc bánh răng hành tinh tải nặng | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_nhua_va_lap_trinh_plc_cho_may_ep_nhua_nhieu_tang_chi_tiet | Thiết kế khuôn nhựa nhiều tầng và lập trình tích hợp mạch an toàn PLC Safety cho máy ép | roadmap_MechanicalEnginner.md |
+| che_tao_va_tinh_toan_hop_giam_toc_banh_rang_hanh_tinh_cong_nghiep_dac_biet_cap_cao | Chế tạo hộp giảm tốc bánh răng hành tinh công suất lớn và phân tích động lực học Adams | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_mau_phuc_tap_va_plc_day_867 | Thiết kế khuôn mẫu ép nhựa 3 tấm kết hợp lập trình PLC Siemens an toàn và mô phỏng CAE | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_day_868 | Thiết kế chế tạo bánh răng trụ răng nghiêng và hộp giảm tốc công nghiệp tải trọng lớn | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_phuc_tap_va_plc_cho_may_ep_nhua_day_869 | Thiết kế khuôn mẫu ép nhựa phức tạp và lập trình Safety PLC cho tủ điện máy ép nhựa | roadmap_MechanicalEnginner.md |
+| che_tao_va_tinh_toan_hop_giam_toc_banh_rang_tru_day_870 | Tính toán thiết kế và chế tạo hộp giảm tốc bánh răng trụ 2 cấp kết hợp phân tích động lực học Adams | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_nhua_nhieu_tang_va_lap_trinh_plc_cho_may_ep_nhua_d871 | Thiết kế khuôn nhựa nhiều tầng và lập trình tích hợp Safety PLC cho máy ép nhựa | roadmap_MechanicalEnginner.md |
+| che_tao_va_tinh_toan_hop_giam_toc_banh_rang_hanh_tinh_cong_nghiep_d872 | Gia công CNC nâng cao và phân tích động lực học hộp giảm tốc bánh răng hành tinh | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_mau_phuc_tap_va_plc_d873 | Thiết kế khuôn ép nhựa phức tạp tích hợp mạch an toàn Safety PLC và mô phỏng CAE dòng chảy d873 | roadmap_MechanicalEnginner.md |
+| che_tao_va_tinh_toan_hop_giam_toc_banh_rang_d874 | Tính toán thiết kế hộp giảm tốc bánh răng trụ 2 cấp và tích hợp hệ thống giám sát IoT công nghiệp d874 | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_nhua_nhieu_tang_va_plc_ep_nhua_d875 | Thiết kế khuôn nhựa nhiều tầng tích hợp mạch an toàn ISO 13849 và lập trình PLC Siemens S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_va_tinh_toan_hop_giam_toc_banh_rang_con_tru_d876 | Chế tạo, tính toán nhiệt luyện hộp giảm tốc bánh răng côn trụ và giám sát tải trọng qua Modbus RTU | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_nhua_va_plc_d877 | Thiết kế khuôn nhựa nhiều tầng tích hợp lập trình Safety PLC và phân tích ứng suất nhiệt CAE | roadmap_MechanicalEnginner.md |
+| che_tao_banh_rang_va_hop_giam_toc_d878 | Chế tạo bánh răng nghiêng, kiểm định nhiệt luyện kim tương học và tối ưu hộp giảm tốc công nghiệp | roadmap_MechanicalEnginner.md |
+| thiet_ke_chuyen_sau_khuon_nhua_nhieu_tang_va_plc_d879 | Thiết kế chuyên sâu khuôn nhựa nhiều tầng tích hợp mạch an toàn ISO 13849 và PLC Siemens S7-1200 | roadmap_MechanicalEnginner.md |
+| tinh_toan_che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_d880 | Phân tích ứng suất nhiệt ANSYS và chế tạo hộp giảm tốc bánh răng côn xoắn tải trọng nặng | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_nhua_va_lap_trinh_plc_ep_day_881 | Thiết kế khuôn ép nhựa đa khoang kết hợp lập trình PLC tích hợp Safety Relay và Modbus RTU | roadmap_MechanicalEnginner.md |
+| che_tao_va_tinh_toan_hop_giam_toc_banh_rang_tru_day_882 | Chế tạo hộp giảm tốc bánh răng trụ 2 cấp kết hợp vi điều khiển ESP32 giám sát tải thời gian thực | roadmap_MechanicalEnginner.md |
+| thiet_ke_chuyen_sau_khuon_nhua_va_plc_ep_nhua_d883 | Thiết kế chuyên sâu khuôn nhựa phức tạp và tích hợp Safety PLC cho máy ép nhựa | roadmap_MechanicalEnginner.md |
+| tinh_toan_che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_d884 | Tính toán thiết kế và chế tạo hộp giảm tốc bánh răng trụ kèm phân tích ứng suất nhiệt | roadmap_MechanicalEnginner.md |
+| thiet_ke_chuyen_sau_khuon_nhua_nhieu_tang_va_plc_d885 | Thiết kế chuyên sâu khuôn nhựa nhiều tầng, tích hợp Safety PLC S7-1200 và mạng Profinet | roadmap_MechanicalEnginner.md |
+| che_tao_va_tinh_toan_hop_giam_toc_banh_rang_hanh_tinh_d886 | Tính toán thiết kế hộp giảm tốc bánh răng hành tinh, nhiệt luyện kim loại học và giám sát IoT | roadmap_MechanicalEnginner.md |
+| thiet_ke_chuyen_sau_khuon_nhua_nhieu_tang_va_lap_trinh_plc_ep_nhua_d887 | Thiết kế chuyên sâu khuôn nhựa 3 tầng và lập trình PLC điều khiển máy ép nhựa tự động | roadmap_MechanicalEnginner.md |
+| che_tao_va_tinh_toan_hop_giam_toc_banh_rang_con_tru_cap_cao_d888 | Tính toán thiết kế chế tạo hộp giảm tốc bánh răng côn trụ kết hợp phân tích ứng suất nhiệt ANSYS | roadmap_MechanicalEnginner.md |
+| thiet_ke_chuyen_sau_khuon_nhua_va_plc_d889 | Thiết kế chuyên sâu khuôn nhựa và lập trình Safety PLC điều khiển máy ép | roadmap_MechanicalEnginner.md |
+| tinh_toan_che_tao_banh_rang_va_hop_giam_toc_d890 | Tính toán độ bền nâng cao và mô phỏng CAE động lực học hộp giảm tốc công nghiệp | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_nhua_nhieu_tang_va_plc_ep_nhua_d891 | Thiết kế khuôn nhựa nhiều tầng và lập trình PLC cho máy ép nhựa | roadmap_MechanicalEnginner.md |
+| che_tao_va_tinh_toan_hop_giam_toc_banh_rang_hanh_tinh_d892 | Chế tạo và tính toán hộp giảm tốc bánh răng hành tinh công nghiệp | roadmap_MechanicalEnginner.md |
+| thiet_ke_chuyen_sau_khuon_nhua_va_plc_ep_nhua_d893 | Thiết kế chuyên sâu khuôn nhựa đa tầng, mô phỏng ứng suất nhiệt CAE và tích hợp mạch an toàn Safety PLC | roadmap_MechanicalEnginner.md |
+| tinh_toan_che_tao_banh_rang_va_hop_giam_toc_cong_nghiep_d894 | Tính toán thiết kế hộp giảm tốc bánh răng trụ, phân tích phần tử hữu hạn FEM và giao thức mạng công nghiệp Modbus TCP | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_nhua_nhieu_tang_va_plc_d895 | Thiết kế hệ thống kênh dẫn nhựa tự động cho khuôn nhiều tầng với PLC tích hợp an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| tinh_toan_che_tao_hop_giam_toc_hanh_tinh_d896 | Tính toán thiết kế và gia công hộp giảm tốc hành tinh siêu gọn ứng dụng nhiệt luyện chuyên sâu | roadmap_MechanicalEnginner.md |
+| thiet_ke_khuon_nhua_nhieu_tang_va_lap_trinh_plc_cho_may_ep_nhua_day_897 | Thiết kế chuyên sâu khuôn nhựa nhiều tầng kết hợp lập trình mạch an toàn Safety PLC cho máy ép nhựa | roadmap_MechanicalEnginner.md |
+| che_tao_va_tinh_toan_hop_giam_toc_hanh_tinh_cong_nghiep_day_898 | Tính toán thiết kế chế tạo hộp giảm tốc hành tinh công suất lớn kèm hệ thống giám sát IoT nhúng và luyện kim | roadmap_MechanicalEnginner.md |
+| thiet_ke_chuyen_sau_khuon_va_hop_giam_toc_day_899 | Thiết kế chuyên sâu khuôn dập liên hoàn và hộp giảm tốc bánh răng trụ kết hợp tích hợp an toàn phần cứng Safety PLC | roadmap_MechanicalEnginner.md |
+| capstone_hoan_thien_he_thong_khuon_va_truyen_dong_day_900 | Capstone: Tích hợp toàn diện dây chuyền khuôn ép nhựa đa tầng, hộp giảm tốc hành tinh và mô phỏng nhiệt luyện ứng suất vật liệu | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_lap_trinh_plc_cho_may_dap_thuy_luc | Thiết kế mạch thủy lực tích hợp tiêu chuẩn an toàn ISO 13849 và lập trình Safety PLC cho máy dập | roadmap_MechanicalEnginner.md |
+| lap_trinh_hmi_va_tich_hop_he_thong_tu_dong_cho_may_ep_truc_vit | Lập trình HMI giao thức Modbus TCP và tối ưu vòng lặp PID nhiệt độ máy ép trục vít | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_lap_trinh_plc_cho_may_dap_thuy_luc_d903 | Thiết kế mạch thủy lực an toàn và lập trình PLC chống nhiễu cho máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| lap_trinh_hmi_va_tich_hop_he_thong_tu_dong_cho_may_ep_truc_vit_d904 | Lập trình HMI nâng cao, truyền thông Modbus TCP và giám sát biến tần máy ép trục vít | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_lap_trinh_plc_cho_may_dap_thuy_luc_d905 | Thiết kế mạch thủy lực tích hợp rơ-le an toàn ISO 13849 và lập trình PLC cho máy dập thủy lực nhiều cơ cấu | roadmap_MechanicalEnginner.md |
+| lap_trinh_hmi_va_tich_hop_he_thong_tu_dong_cho_may_ep_truc_vit_d906 | Lập trình HMI kết hợp truyền thông Modbus RTU/TCP và tối ưu biến tần cho máy ép trục vít công nghiệp | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_va_plc_cho_may_dap_thuy_luc_d907 | Thiết kế mạch thủy lực khí nén kết hợp Safety PLC và tiêu chuẩn an toàn ISO 13849 cho máy dập | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_va_mo_phong_he_thong_tu_dong_cho_may_ep_truc_vit_d908 | Tích hợp giao diện HMI nâng cao và truyền thông Modbus TCP/IP cho hệ thống máy ép trục vít nhựa | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_lap_trinh_plc_s7_1200_cho_may_dap_thuy_luc_cnc_d909 | Thiết kế mạch thủy lực an toàn ISO 13849 và lập trình PLC S7-1200 tích hợp Profinet cho máy dập CNC | roadmap_MechanicalEnginner.md |
+| lap_trinh_hmi_kinco_va_tich_hop_he_thong_dap_thuy_luc_tu_dong_d910 | Lập trình HMI Kinco, giao diện SCADA thời gian thực và phân tích ứng suất nhiệt FEA cho hệ thống dập | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_lap_trinh_plc_s7_1200_cho_may_dap_thuy_luc_tu_dong | Thiết kế mạch thủy lực an toàn theo ISO 13849 và lập trình PLC S7-1200 cho máy dập | roadmap_MechanicalEnginner.md |
+| lap_trinh_hmi_kinco_va_tich_hop_he_thong_dap_thuy_luc_truc_vit_hoan_chinh | Lập trình HMI Kinco giám sát và tích hợp toàn diện dây chuyền máy ép trục vít | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_va_lap_trinh_plc_cho_may_dap_thuy_luc_d913 | Thiết kế mạch thủy lực khí nén tích hợp Safety PLC và lập trình hệ thống máy dập tự động | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_va_giao_dien_giam_sat_cho_may_ep_truc_vit_d914 | Tích hợp HMI, giao diện SCADA và truyền thông Modbus RTU cho máy ép trục vít tự động | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_va_plc_mitsubishi_cho_may_dap_thuy_luc | Thiết kế mạch an toàn thủy lực-khí nén và lập trình Safety PLC cho máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_weintek_va_mo_phong_he_thong_tu_dong_cho_may_ep_truc_vit | Giám sát nhiệt độ trục vít và cấu hình mạng Modbus RTU giữa HMI Weintek với PLC | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_va_plc_mitsubishi_cho_may_dap_thuy_luc_917 | Thiết kế mạch thủy lực, khí nén, tích hợp tiêu chuẩn an toàn ISO 13849 và lập trình PLC Mitsubishi FX5U cho máy dập | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_weintek_va_mo_phong_he_thong_tu_dong_cho_may_ep_truc_vit_918 | Tích hợp HMI Weintek, giao thức Modbus TCP và mô phỏng phân tích ứng suất nhiệt cho máy ép trục vít đa trạm | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_va_plc_s7_1200_cho_may_dap_thuy_luc_919 | Thiết kế mạch thủy lực khí nén và PLC S7-1200 cho máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_kinco_va_mo_phong_he_thong_tu_dong_cho_may_ep_truc_vit_920 | Tích hợp HMI Kinco và mô phỏng hệ thống tự động cho máy ép trục vít | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_va_plc_s7_1200_cho_may_dap_thuy_luc_921 | Thiết kế mạch an toàn thủy lực khí nén và lập trình PLC S7-1200 chống nhiễu EMC cho máy dập | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_kinco_va_mo_phong_he_thong_tu_dong_cho_may_ep_truc_vit_922 | Tích hợp giao diện HMI Kinco và truyền thông Modbus RTU nâng cao cho máy ép trục vít tự động | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_va_plc_s7_1200_923 | Thiết kế mạch thủy lực khí nén và PLC S7-1200 tích hợp an toàn ISO 13849 cho máy dập CNC | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_kinco_va_mo_phong_he_thong_tu_dong_cho_may_ep_truc_vit_924 | Tích hợp HMI Kinco, truyền thông Modbus TCP/IP và mô phỏng nhiệt ứng suất máy ép trục vít | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_va_plc_s7_1200_925 | Thiết kế mạch an toàn tiêu chuẩn ISO 13849 và lập trình PLC S7-1200 cho máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_kinco_va_mo_phong_he_thong_tu_dong_cho_may_ep_truc_vit_926 | Tích hợp HMI Kinco, truyền thông Modbus RTU và mô phỏng ứng suất nhiệt cho máy ép trục vít | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_va_plc_s7_1200_927 | Thiết kế mạch thủy lực khí nén kết hợp Safety PLC S7-1200 và tiêu chuẩn ISO 13849 cho máy dập Day 927 | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_kinco_va_mo_phong_he_thong_tu_dong_cho_may_ep_truc_vit_928 | Tích hợp HMI Kinco, giao thức Modbus TCP và mô phỏng 3D Factory I/O cho máy ép trục vít Day 928 | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_va_plc_s7_1200_929 | Thiết kế mạch thủy lực khí nén và an toàn PLC S7-1200 cho máy ép trục vít tự động | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_kinco_va_mo_phong_he_thong_tu_dong_cho_may_ep_truc_vit_930 | Tích hợp HMI Kinco, truyền thông công nghiệp và mô phỏng SCADA cho máy ép trục vít | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_va_plc_s7_1200_931 | Thiết kế mạch thủy lực an toàn theo tiêu chuẩn ISO 13849 và lập trình PLC S7-1200 cho máy dập thủy lực Day 931 | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_kinco_va_mo_phong_he_thong_tu_dong_cho_may_ep_truc_vit_932 | Tích hợp HMI Kinco, truyền thông Modbus RTU và mô phỏng CAE động lực học máy ép trục vít Day 932 | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_va_plc_s7_1200_933 | Thiết kế mạch an toàn phần cứng Safety PLC và thủy lực dập 50kN | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_kinco_va_mo_phong_he_thong_tu_dong_cho_may_ep_truc_vit_934 | Tích hợp HMI Kinco và phân tích ứng suất nhiệt trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_va_plc_s7_1200_935 | Thiết kế mạch an toàn phần cứng ISO 13849 và lập trình PLC S7-1200 cho máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_kinco_va_mo_phong_he_thong_tu_dong_cho_may_ep_truc_vit_936 | Tích hợp HMI Kinco, truyền thông Modbus TCP và mô phỏng động lực học máy ép trục vít | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_va_plc_s7_1200_937 | Thiết kế mạch thủy lực an toàn theo tiêu chuẩn ISO 13849 tích hợp PLC S7-1200 cho máy dập | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_weintek_va_mo_phong_he_thong_tu_dong_cho_may_ep_truc_vit_938 | Tích hợp HMI Weintek và mô phỏng mạng truyền thông Modbus TCP cho máy ép trục vít | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_va_plc_s7_1200_939 | Thiết kế mạch thủy lực an toàn theo ISO 13849 và lập trình PLC S7-1200 cho máy dập tự động | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_weintek_va_mo_phong_he_thong_tu_dong_cho_may_ep_truc_vit_940 | Tích hợp HMI Weintek, truyền thông Modbus TCP/IP và mô phỏng số cho máy ép trục vít | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_va_plc_s7_1200_941 | Thiết kế mạch an toàn thủy lực - khí nén và lập trình PLC S7-1200 cho máy dập 10 tấn | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_weintek_va_mo_phong_he_thong_tu_dong_cho_may_ep_truc_vit_942 | Tích hợp HMI Weintek, truyền thông Modbus/Profinet và giám sát máy ép trục vít đa trục | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_va_plc_s7_1200_943 | Thiết kế mạch thủy lực khí nén an toàn và lập trình PLC S7-1200 chuẩn ISO 13849 cho máy ép cọc | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_weintek_va_mo_phong_he_thong_tu_dong_cho_may_ep_coc_944 | Tích hợp HMI Weintek, giao thức Modbus TCP và thuật toán giám sát nhiệt độ hệ thống ép cọc | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_va_plc_s7_1200_cho_may_dap_thuy_luc_945 | Thiết kế mạch thủy lực khí nén và PLC S7-1200 cho máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_weintek_va_mo_phong_he_thong_tu_dong_cho_may_ep_truc_vit_946 | Tích hợp HMI Weintek và mô phỏng hệ thống tự động cho máy ép trục vít | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_va_plc_s7_1200_cho_may_ep_coc_947 | Thiết kế mạch thủy lực khí nén và tích hợp rơ-le an toàn ISO 13849 cho máy ép cọc tự động | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_weintek_va_mo_phong_he_thong_tu_dong_cho_may_ep_coc_948 | Giám sát thời gian thực với HMI Weintek và chẩn đoán pan bệnh truyền thông Modbus TCP/IP | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_949 | Thiết kế mạch thủy lực khí nén an toàn ISO 13849 và PLC Siemens cho máy ép cọc tự động | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_va_mo_phong_he_thong_tu_dong_950 | Giám sát thời gian thực SCADA/HMI Weintek và tối ưu hóa điều khiển truyền động máy ép cọc | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_va_plc_s7_1200_cho_may_dap_thuy_luc_chuyen_sau_951 | Thiết kế mạch thủy lực khí nén và PLC S7-1200 tích hợp tiêu chuẩn an toàn cho máy dập | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_weintek_va_mo_phong_he_thong_tu_dong_cho_may_ep_truc_vit_952 | Tích hợp HMI Weintek và mô phỏng giao thức truyền thông công nghiệp cho máy ép trục vít nhựa | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_va_plc_cho_may_dap_thuy_luc_953 | Thiết kế mạch thủy lực khí nén và an toàn Safety PLC cho máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_weintek_va_mo_phong_he_thong_tu_dong_cho_may_ep_coc_954 | Tích hợp HMI Weintek, chống nhiễu EMC và mô phỏng hệ thống máy ép cọc bê tông | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_va_plc_cho_may_dap_thuy_luc_s955 | Thiết kế mạch thủy lực khí nén tích hợp tiêu chuẩn an toàn ISO 13849 và PLC S7-1200 cho máy dập | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_weintek_va_mo_phong_he_thong_tu_dong_cho_may_dap_thuy_luc_s956 | Tích hợp giao diện HMI Weintek giám sát biểu đồ áp suất thời gian thực và chẩn đoán lỗi máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_cho_may_dap_thuy_luc_957 | Thiết kế mạch thủy lực tích hợp van an toàn ISO 13849 cho máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| lap_trinh_plc_va_hmi_cho_may_dap_thuy_luc_958 | Lập trình Safety PLC và giao diện HMI giám sát trạng thái máy dập | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_cho_may_ep_truc_vit_959 | Thiết kế mạch thủy lực khí nén tích hợp an toàn phần cứng ISO 13849 cho máy ép trục vít | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_va_plc_cho_may_ep_truc_vit_tu_dong_960 | Tích hợp HMI và PLC Siemens S7-1200 qua giao thức Profinet chống nhiễu EMC cho máy ép trục vít | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_cho_may_ep_truc_vit_961 | Thiết kế mạch thủy lực khí nén tích hợp tiêu chuẩn an toàn ISO 13849 cho máy ép trục vít tự động | roadmap_MechanicalEnginner.md |
+| lap_trinh_plc_va_tich_hop_hmi_cho_may_ep_truc_vit_962 | Lập trình PLC Siemens S7-1200 và cấu hình mạng Profinet/Modbus TCP tích hợp chống nhiễu EMC cho máy ép trục vít | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_cho_may_dap_thuy_luc_963 | Thiết kế mạch thủy lực khí nén và an toàn phần cứng ISO 13849 cho máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| lap_trinh_plc_va_hmi_cho_may_dap_thuy_luc_964 | Lập trình PLC S7-1200, HMI và mô phỏng chu trình tự động hóa máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_cho_may_dap_thuy_luc_965 | Thiết kế mạch thủy lực tỷ lệ và mạch an toàn Safety PLC cho máy dập 50 tấn | roadmap_MechanicalEnginner.md |
+| lap_trinh_plc_mitsubishi_va_hmi_cho_may_dap_thuy_luc_966 | Lập trình PLC Mitsubishi cấu hình Modbus và tích hợp HMI giám sát máy dập tự động | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_cho_may_dap_thuy_luc_967 | Thiết kế mạch thủy lực khí nén tích hợp tiêu chuẩn an toàn ISO 13849 cho máy dập tải lớn | roadmap_MechanicalEnginner.md |
+| tich_hop_plc_mitsubishi_va_hmi_cho_may_dap_thuy_luc_968 | Lập trình mạng công nghiệp Modbus RTU kết nối PLC Mitsubishi và HMI Weintek cho chu trình ép tự động | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_cho_may_dap_thuy_luc_969 | Thiết kế mạch thủy lực và tích hợp mạch an toàn phần cứng ISO 13849 cho máy dập 50 tấn Day 969 | roadmap_MechanicalEnginner.md |
+| tich_hop_plc_mitsubishi_va_hmi_cho_may_dap_thuy_luc_970 | Lập trình PLC Mitsubishi FX5U và giao diện HMI Weintek giám sát thời gian thực máy dập Day 970 | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_cho_may_ep_coc_971 | Thiết kế mạch thủy lực khí nén an toàn theo ISO 13849 và tích hợp Safety Relay | roadmap_MechanicalEnginner.md |
+| lap_trinh_plc_mitsubishi_va_hmi_cho_may_ep_coc_972 | Lập trình PID áp suất trên PLC Mitsubishi và giám sát lỗi quá tải qua HMI Weintek | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_va_plc_cho_may_ep_truc_vit_973 | Thiết kế mạch thủy lực khí nén và an toàn phần cứng ISO 13849 cho máy ép trục vít | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_va_mo_phong_he_thong_tu_dong_cho_may_ep_truc_vit_974 | Tích hợp giao diện HMI Weintek và mô phỏng số hóa quy trình ép trục vít tự động | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_cho_may_ep_coc_975 | Thiết kế mạch thủy lực khí nén tích hợp Safety Relay chuẩn ISO 13849 cho máy ép cọc tự động | roadmap_MechanicalEnginner.md |
+| lap_trinh_plc_mitsubishi_va_hmi_cho_may_ep_coc_976 | Lập trình Safety PLC Mitsubishi FX3U và HMI Weintek giám sát lực ép cọc thời gian thực | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_va_plc_cho_may_dap_thuy_luc_977 | Thiết kế mạch thủy lực an toàn và lập trình PLC Mitsubishi cho máy dập thủy lực tự động | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_va_mo_phong_he_thong_tu_dong_cho_may_dap_thuy_luc_978 | Tích hợp giao diện HMI Weintek và giám sát Modbus RTU cho trạm máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_cho_day_chuyen_tu_dong_979 | Thiết kế mạch thủy lực khí nén tích hợp mạch an toàn ISO 13849 cho máy ép trục vít | roadmap_MechanicalEnginner.md |
+| lap_trinh_plc_mitsubishi_va_hmi_cho_day_chuyen_tu_dong_980 | Lập trình PLC Mitsubishi FX5U và giao diện HMI Weintek chống nhiễu công nghiệp EMC | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_lap_trinh_plc_cho_may_dap_thuy_luc_981 | Thiết kế mạch thủy lực tỷ lệ và lập trình an toàn Safety PLC cho máy dập 30 tấn | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_va_mo_phong_he_thong_tu_dong_cho_may_dap_thuy_luc_982 | Tích hợp SCADA/HMI giám sát thông số nhiệt và chẩn đoán lỗi thời gian thực cho máy dập | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_plc_cho_may_ep_coc_983 | Thiết kế mạch thủy lực an toàn và lập trình PLC cho máy ép cọc tự động | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_va_mo_phong_he_thong_cho_may_ep_coc_984 | Tích hợp HMI Weintek và mô phỏng số hệ thống ép cọc chuyên sâu | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_plc_cho_may_ep_coc_985 | Thiết kế mạch thủy lực an toàn theo ISO 13849 và lập trình PLC cho máy ép cọc tự động | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_va_mo_phong_he_thong_cho_may_ep_coc_986 | Tích hợp giao diện giám sát SCADA/HMI và nghiệm thu mô phỏng toàn diện hệ thống ép cọc | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_cho_may_dot_dap_cnc | Thiết kế mạch thủy lực định hình và khí nén an toàn ISO 13849 cho máy đột dập CNC | roadmap_MechanicalEnginner.md |
+| lap_trinh_plc_s7_1200_va_hmi_cho_may_dot_dap_cnc | Lập trình PLC Siemens S7-1200, xử lý nhiễu EMC và HMI giám sát áp suất máy đột dập CNC | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_cho_may_dot_dap_cnc_989 | Thiết kế mạch thủy lực khí nén nâng cao và tích hợp tiêu chuẩn an toàn ISO 13849 cho máy đột dập CNC | roadmap_MechanicalEnginner.md |
+| tich_hop_plc_va_hmi_cho_may_dot_dap_cnc_990 | Lập trình Safety PLC và giao tiếp Modbus RTU/Profinet điều khiển toàn diện trạm đột dập CNC | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_lap_trinh_plc_cho_may_dot_dap_toc_do_cao_991 | Thiết kế mạch thủy lực khí nén tích hợp Safety PLC và chống nhiễu EMC cho máy đột dập | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_va_van_hanh_he_thong_tu_dong_cho_may_dot_dap_toc_do_cao_992 | Tích hợp HMI, phân tích ứng suất nhiệt CAE và giám sát tự động toàn dây chuyền đột dập | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_cho_may_dot_dap_toc_do_cao_993 | Thiết kế mạch điều khiển khí nén an toàn và tính toán tổn thất lưu lượng máy đột dập | roadmap_MechanicalEnginner.md |
+| lap_trinh_plc_va_hmi_cho_may_dot_dap_toc_do_cao_994 | Lập trình hàm ngắt tốc độ cao PLC S7-1200 và giao diện giám sát HMI Weintek | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_plc_cho_day_chuyen_tu_dong_995 | Thiết kế mạch thủy lực tích hợp an toàn Safety PLC và phần mềm mô phỏng | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_va_mo_phong_he_thong_tu_dong_996 | Tích hợp HMI nâng cao và giám sát thời gian thực hệ thống tự động hóa công nghiệp | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_va_plc_cho_may_ep_phun_997 | Thiết kế mạch an toàn phần cứng Safety PLC và thủy lực máy ép phun | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_va_mo_phong_he_thong_tu_dong_cho_may_ep_phun_998 | Tích hợp HMI Weintek và mô phỏng ứng suất nhiệt CAE cho máy ép phun | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_plc_cho_may_ep_nhua_999 | Thiết kế mạch thủy lực tỷ lệ và lập trình Safety PLC cho máy ép nhựa chính xác | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_va_van_hanh_he_thong_ep_nhua_1000 | Tích hợp giao diện HMI Weintek và chẩn đoán lỗi thời gian thực dây chuyền ép nhựa | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_plc_s7_1200_cho_may_ep_phun_nhua | Thiết kế mạch thủy lực khí nén và lập trình an toàn Safety PLC S7-1200 cho máy ép phun nhựa | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_kinco_va_van_hanh_he_thong_ep_phun_nhua | Tích hợp HMI Kinco, giao thức Modbus TCP/RTU và vận hành toàn diện hệ thống ép nhựa tự động | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_va_plc_s7_1200_cho_may_dap_thuy_luc_1003 | Thiết kế mạch thủy lực khí nén và PLC S7-1200 cho máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_kinco_va_van_hanh_he_thong_dap_thuy_luc_1004 | Tích hợp HMI Kinco và giám sát truyền thông công nghiệp máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_plc_s7_1200_cho_may_ep_nhua_nhieu_tram | Thiết kế mạch thủy lực tích hợp Safety PLC S7-1200 cho máy ép nhựa đa trạm | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_kinco_va_van_hanh_he_thong_ep_nhua_nhieu_tram | Tích hợp HMI Kinco qua mạng Modbus TCP và vận hành tự động toàn hệ thống ép nhựa | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_plc_s7_1200_cho_may_dap_thuy_luc_cnc | Thiết kế mạch thủy lực và tích hợp tiêu chuẩn an toàn ISO 13849 cho PLC S7-1200 máy dập CNC | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_kinco_va_van_hanh_he_thong_dap_thuy_luc_cnc | Tích hợp HMI Kinco, tối ưu hóa giao diện SCADA và vận hành toàn diện hệ thống dập thủy lực CNC | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_plc_s7_1200_cho_may_ep_nhua_nhieu_tram_1009 | Thiết kế mạch thủy lực kết hợp an toàn ISO 13849 và lập trình S7-1200 cho máy ép nhựa | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_kinco_va_van_hanh_he_thong_ep_nhua_nhieu_tram_1010 | Tích hợp HMI Kinco, truyền thông Modbus RTU và vận hành hệ thống máy ép nhựa | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_plc_cho_may_ep_nhua_nhieu_tram_1011 | Thiết kế mạch thủy lực khí nén và an toàn phần cứng Safety PLC cho máy ép nhựa | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_va_mo_phong_he_thong_tu_dong_cho_may_ep_nhua_nhieu_tram | Giám sát HMI Kinco kết hợp mô phỏng số hóa nhà máy trên Factory I/O | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_plc_cho_may_ep_nhua_nhieu_tram_1013 | Thiết kế mạch thủy lực và PLC S7-1200 tích hợp an toàn cho máy ép nhựa nhiều trạm | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_kinco_va_van_hanh_he_thong_ep_nhua_nhieu_tram_1014 | Tích hợp HMI Kinco, truyền thông Modbus TCP và tối ưu PID hệ thống ép nhựa | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_plc_cho_may_ep_nhua_nhieu_tram_1015 | Thiết kế mạch thủy lực khí nén và an toàn phần cứng Safety PLC cho máy ép nhựa | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_kinco_va_van_hanh_he_thong_ep_nhua_nhieu_tram_1016 | Tích hợp HMI Kinco, truyền thông Modbus RTU và vận hành giám sát máy ép nhựa đa trạm | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_plc_s7_1200_cho_may_ep_nhua_nhieu_tram_1017 | Thiết kế mạch thủy lực khí nén và lập trình PLC S7-1200 cho máy ép nhựa nhiều trạm | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_kinco_va_van_hanh_he_thong_ep_nhua_nhieu_tram_1018 | Tích hợp HMI Kinco, đấu nối chống nhiễu EMC và vận hành hệ thống ép nhựa nhiều trạm | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_plc_s7_1200_cho_may_ep_nhua_nhieu_tram_1019 | Thiết kế mạch thủy lực và PLC S7-1200 cho máy ép nhựa nhiều trạm | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_kinco_va_van_hanh_he_thong_ep_nhua_nhieu_tram_1020 | Tích hợp HMI Kinco và giám sát an toàn tiêu chuẩn ISO 13849 cho máy ép nhựa | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_plc_s7_1200_cho_may_ep_nhua_nhieu_tram_1021 | Thiết kế mạch thủy lực tích hợp an toàn Safety PLC và TIA Portal cho máy ép nhựa | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_kinco_va_van_hanh_he_thong_ep_nhua_nhieu_tram_1022 | Tích hợp HMI Kinco, truyền thông Modbus RTU và tối ưu hóa PID nhiệt độ khuôn ép | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_cho_may_truc_vit_tu_dong | Thiết kế mạch thủy-khí nén an toàn và tích hợp Safety PLC cho máy trục vít tự động | roadmap_MechanicalEnginner.md |
+| lap_trinh_plc_siemens_va_hmi_cho_may_truc_vit_tu_dong | Lập trình PLC Siemens S7-1200, truyền thông Profinet và giao diện HMI máy trục vít | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_plc_cho_may_dap_thuy_luc_da_tram | Thiết kế mạch thủy lực tích hợp tiêu chuẩn an toàn Safety PLC cho máy dập đa trạm | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_kinco_va_van_hanh_he_thong_dap_thuy_luc_da_tram | Tích hợp HMI Kinco, truyền thông Modbus/Profinet và vận hành giám sát máy dập đa trạm | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_cho_may_dap_tam_kim_loai | Thiết kế mạch thủy lực khí nén tích hợp tiêu chuẩn an toàn ISO 13849 cho máy dập tấm | roadmap_MechanicalEnginner.md |
+| lap_trinh_plc_siemens_va_mitsubishi_cho_may_dap_tam | Lập trình PLC Siemens S7-1200 và mô phỏng chu trình máy dập tự động trên PLCSIM | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_plc_s7_1200_cho_may_ep_thuy_luc_ban_tu_dong | Thiết kế mạch thủy lực khí nén và lập trình PLC S7-1200 tích hợp rơ-le an toàn ISO 13849 cho máy ép bán tự động | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_weintek_va_mo_phong_he_thong_ep_thuy_luc_ban_tu_dong | Tích hợp HMI Weintek giám sát thời gian thực, chẩn đoán lỗi qua Modbus TCP và mô phỏng hệ thống ép thủy lực | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_plc_cho_may_ep_nhua_nhieu_tram_1031 | Thiết kế mạch thủy lực khí nén kết hợp Safety PLC cho máy ép nhựa đa trạm | roadmap_MechanicalEnginner.md |
+| lap_trinh_plc_va_hmi_cho_may_ep_nhua_nhieu_tram_1032 | Lập trình chu trình tuần tự nâng cao và giám sát HMI hệ thống ép nhựa đa trạm | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_cho_may_ep_nhua_nhieu_tram_1033 | Thiết kế mạch thủy lực khí nén và an toàn phần cứng cho máy ép nhựa | roadmap_MechanicalEnginner.md |
+| lap_trinh_plc_siemens_va_mitsubishi_cho_may_ep_nhua_nhieu_tram | Lập trình PLC nâng cao và truyền thông công nghiệp cho máy ép nhựa đa trạm | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_cho_may_ep_nhua_nhieu_tram_1035 | Thiết kế mạch thủy lực, khí nén tích hợp tiêu chuẩn an toàn ISO 13849 cho máy ép nhựa | roadmap_MechanicalEnginner.md |
+| lap_trinh_plc_s7_1200_va_mitsubishi_cho_may_ep_nhua_nhieu_tram | Lập trình Safety PLC S7-1200 và Mitsubishi kết hợp mạng truyền thông công nghiệp cho máy ép nhựa | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_khi_nen_cho_may_ep_nhua_nhieu_tram_1037 | Thiết kế mạch thủy lực khí nén tích hợp tiêu chuẩn an toàn ISO 13849 cho máy ép nhựa | roadmap_MechanicalEnginner.md |
+| lap_trinh_plc_s7_1200_va_hmi_cho_may_ep_nhua_nhieu_tram_1038 | Lập trình PLC S7-1200, cấu hình mạng Profinet và HMI giám sát máy ép nhựa | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_plc_s7_1200_cho_may_ep_nhua_nhieu_tram_1039 | Thiết kế mạch thủy lực khí nén và lập trình PLC S7-1200 cho máy ép nhựa nhiều trạm | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_weintek_va_mo_phong_he_thong_ep_nhua_nhieu_tram_1040 | Tích hợp HMI Weintek và mô phỏng giám sát Scada toàn diện hệ thống ép nhựa | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_lap_trinh_plc_cho_may_ep_thuy_luc_nhieu_tram_1041 | Thiết kế mạch thủy lực an toàn ISO 13849 và lập trình PLC Siemens cho máy ép nhiều trạm | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_va_mo_phong_he_thong_tu_dong_cho_may_dap_thuy_luc_1042 | Tích hợp HMI Weintek và mô phỏng số hóa phân tích ứng suất nhiệt cho máy dập cao tốc | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_plc_s7_1200_cho_may_dap_thuy_luc_nhieu_tram | Thiết kế mạch thủy lực tích hợp Safety PLC và chống nhiễu EMC cho máy dập nhiều trạm | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_kinco_va_mo_phong_he_thong_dap_thuy_luc_nhieu_tram | Giám sát thời gian thực qua HMI Kinco và phân tích mô phỏng ứng suất nhiệt cho cụm dập | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_plc_s7_1200_cho_may_ep_nhua_nhieu_tram_1045 | Thiết kế mạch thủy lực và PLC S7-1200 cho máy ép nhựa nhiều trạm | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_weintek_va_mo_phong_he_thong_ep_nhua_nhieu_tram_1046 | Tích hợp HMI Weintek và mô phỏng số SCADA hệ thống ép nhựa đa trạm | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_plc_s7_1200_cho_may_ep_nhua_1047 | Thiết kế mạch thủy lực tỷ lệ, an toàn phần cứng ISO 13849 và lập trình PLC S7-1200 cho máy ép nhựa tự động | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_weintek_va_mo_phong_he_thong_ep_nhua_1048 | Tích hợp HMI Weintek, giao thức Modbus TCP/Profinet và mô phỏng phân tích ứng suất nhiệt cho máy ép chính xác | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_thuy_luc_va_plc_cho_may_dap_thuy_luc_1049 | Thiết kế mạch thủy lực tỷ lệ, mạch an toàn phần cứng ISO 13849 và PLC cho máy dập nhiều trạm | roadmap_MechanicalEnginner.md |
+| tich_hop_hmi_va_mo_phong_he_thong_dap_thuy_luc_1050 | Tích hợp giao diện HMI Weintek, giám sát thời gian thực và mô phỏng số chu trình máy dập tự động | roadmap_MechanicalEnginner.md |
+| lap_trinh_kinh_nghiem_lap_trinh_canh_tay_robot_6_bac | Lập trình quỹ đạo và điều khiển cánh tay robot 6 bậc tích hợp tiêu chuẩn an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_dieu_khien_nhung_arm_esp32_cho_robot | Thiết kế mạch điều khiển nhúng ARM/ESP32 chống nhiễu EMC tích hợp cảm biến lực cho robot | roadmap_MechanicalEnginner.md |
+| lap_trinh_quy_dao_va_kinematics_cho_canh_tay_robot_6_bac | Lập trình quỹ đạo và Kinematics cho cánh tay robot 6 bậc gắp phôi | roadmap_MechanicalEnginner.md |
+| tich_hop_cam_bien_va_dieu_khien_dong_luc_hoc_robot_industrial | Tích hợp cảm biến thị giác và động lực học cho robot công nghiệp | roadmap_MechanicalEnginner.md |
+| lap_trinh_dieu_khien_canh_tay_robot_6_bac_cho_day_chuyen_tu_dong | Lập trình điều khiển cánh tay robot 6 bậc cho dây chuyền tự động | roadmap_MechanicalEnginner.md |
+| tich_hop_esp32_va_cam_bien_iot_cho_giam_sat_robot_cong_nghiep | Tích hợp mạng truyền thông công nghiệp và IoT giám sát robot | roadmap_MechanicalEnginner.md |
+| lap_trinh_dieu_khien_canh_tay_robot_6_bac_cho_day_chuyen_tu_dong_1057 | Lập trình quỹ đạo động học nghịch đảo và tích hợp an toàn PLC cho robot 6 bậc | roadmap_MechanicalEnginner.md |
+| tich_hop_esp32_va_cam_bien_iot_cho_giam_sat_robot_cong_nghiep_1058 | Giám sát trạng thái trục vít máy ép nhựa và phân tích dòng điện bằng ESP32 MQTT IoT | roadmap_MechanicalEnginner.md |
+| lap_trinh_gcode_va_nhung_arm_cho_may_dap_thuy_luc | Lập trình G-code và nhúng ARM cho máy dập thủy lực tự động | roadmap_MechanicalEnginner.md |
+| lap_trinh_plc_va_nhung_esp32_cho_may_truc_vit_tu_dong | Lập trình PLC và nhúng ESP32 cho máy trục vít tự động | roadmap_MechanicalEnginner.md |
+| lap_trinh_dieu_khien_robot_cong_nghiep_va_esp32_cho_may_dap_1061 | Lập trình điều khiển robot công nghiệp và ESP32 tích hợp Safety PLC cho máy dập tự động | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_nhung_arm_va_tich_hop_cam_bien_cho_may_truc_vit_1062 | Thiết kế mạch nhúng ARM STM32F407, phân tích mô phỏng ANSYS và tích hợp cảm biến cho máy trục vít tự động | roadmap_MechanicalEnginner.md |
+| lap_trinh_dieu_khien_robot_va_esp32_cho_may_ep_1063 | Lập trình nhúng ESP32 và tích hợp tiêu chuẩn an toàn ISO 13849 cho máy ép nhựa | roadmap_MechanicalEnginner.md |
+| tich_hop_he_thong_nhung_arm_cho_may_dap_va_robot_1064 | Tích hợp hệ thống nhúng ARM Cortex-M, chống nhiễu EMC và điều khiển liên động máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| lap_trinh_nhung_esp32_va_arm_cho_may_ep | Lập trình nhúng ESP32 và ARM tích hợp mạch an toàn Safety PLC cho máy ép nhựa | roadmap_MechanicalEnginner.md |
+| tich_hop_plc_va_esp32_cho_may_truc_vit_va_robot | Tích hợp hệ thống mạng công nghiệp Modbus TCP và Web Server cho máy trục vít | roadmap_MechanicalEnginner.md |
+| lap_trinh_nhung_arm_va_esp32_cho_may_dap_thuy_luc | Lập trình vi điều khiển ARM STM32 kết hợp ESP32 tích hợp tiêu chuẩn an toàn Safety PLC và mạng công nghiệp | roadmap_MechanicalEnginner.md |
+| tich_hop_he_thong_nhung_va_robot_cho_day_chuyen_co_khi | Tích hợp toàn diện hệ thống nhúng, cánh tay robot công nghiệp và cơ cấu cơ điện tử dây chuyền sản xuất tự động | roadmap_MechanicalEnginner.md |
+| lap_trinh_robot_va_esp32_cho_day_chuyen_tu_dong | Lập trình truyền thông Modbus RTU và tích hợp Safety PLC cho dây chuyền tự động | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_dieu_khien_nhung_va_plc_cho_may_ep_nhua | Thiết kế mạch nhúng ARM kết hợp mô phỏng phân tích ứng suất nhiệt máy ép nhựa | roadmap_MechanicalEnginner.md |
+| lap_trinh_robot_cong_nghiep_va_arm_cho_may_dap_1071 | Lập trình robot công nghiệp kết hợp ARM cho hệ thống dập tự động đa cơ cấu | roadmap_MechanicalEnginner.md |
+| tich_hop_esp32_va_he_thong_nhung_cho_may_truc_vit_1072 | Tích hợp ESP32 và giao thức IoT công nghiệp cho máy trục vít tự động | roadmap_MechanicalEnginner.md |
+| lap_trinh_robot_cong_nghiep_va_arm_cho_may_dap_1073 | Lập trình robot công nghiệp và ARM cho máy dập thủy lực tự động nhiều trạm | roadmap_MechanicalEnginner.md |
+| tich_hop_esp32_va_he_thong_nhung_cho_may_truc_vit_1074 | Tích hợp ESP32 và hệ thống nhúng IoT giám sát thông số máy trục vít tự động | roadmap_MechanicalEnginner.md |
+| lap_trinh_robot_cong_nghiep_va_arm_cho_may_dap_1075 | Lập trình robot công nghiệp, ARM STM32 và tích hợp tiêu chuẩn an toàn PLC ISO 13849 cho máy dập | roadmap_MechanicalEnginner.md |
+| tich_hop_esp32_va_he_thong_nhung_cho_may_truc_vit_1076 | Tích hợp ESP32, Web Server IoT và mô phỏng phân tích ứng suất nhiệt ANSYS cho dây chuyền máy trục vít | roadmap_MechanicalEnginner.md |
+| lap_trinh_robot_cong_nghiep_va_arm_cho_may_dap_1077 | Lập trình quỹ đạo ARM phối hợp đồng bộ an toàn PLC và Safety Relay cho máy dập | roadmap_MechanicalEnginner.md |
+| tich_hop_esp32_va_he_thong_nhung_cho_may_truc_vit_1078 | Tích hợp hệ thống nhúng ESP32 IoT và phân tích ứng suất nhiệt cho máy trục vít đùn nhựa | roadmap_MechanicalEnginner.md |
+| lap_trinh_robot_cong_nghiep_va_arm_cho_may_dap_1079 | Lập trình điều khiển động lực học cánh tay robot và tích hợp mạch an toàn phần cứng Safety PLC cho máy dập | roadmap_MechanicalEnginner.md |
+| tich_hop_esp32_va_he_thong_nhung_cho_may_truc_vit_1080 | Tích hợp mạng công nghiệp Modbus TCP/RTU, ESP32 và giám sát thông số nhiệt độ dòng điện máy trục vít | roadmap_MechanicalEnginner.md |
+| lap_trinh_robot_cong_nghiep_va_arm_cho_may_dap_1081 | Lập trình robot công nghiệp, Safety PLC và tích hợp ARM cho máy dập tự động | roadmap_MechanicalEnginner.md |
+| tich_hop_esp32_va_he_thong_nhung_cho_may_truc_vit_1082 | Tích hợp ESP32, giả lập PLC WinProladder và phân tích ứng suất nhiệt máy trục vít | roadmap_MechanicalEnginner.md |
+| lap_trinh_dieu_khien_robot_va_arm_cho_may_dap_1083 | Lập trình điều khiển robot công nghiệp kết hợp ARM và mạch an toàn Safety PLC cho máy dập tự động | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_nhung_esp32_va_plc_cho_may_ep_1084 | Thiết kế mạch nhúng ESP32, truyền thông Modbus RTU và chống nhiễu EMC cho máy ép nhựa nhiệt dẻo | roadmap_MechanicalEnginner.md |
+| lap_trinh_robot_va_esp32_cho_day_chuyen_dap_1085 | Lập trình robot và ESP32 tích hợp Safety PLC cho dây chuyền dập tự động tốc độ cao | roadmap_MechanicalEnginner.md |
+| tich_hop_plc_va_arm_cho_may_truc_vit_va_robot_1086 | Tích hợp PLC Siemens và vi điều khiển ARM cho máy trục vít đùn nhựa kèm mô phỏng CAE | roadmap_MechanicalEnginner.md |
+| lap_trinh_robot_cong_nghiep_va_arm_cho_may_dap_1087 | Thiết kế mạch an toàn phần cứng Safety PLC và Lập trình ARM STM32 cho máy dập tốc độ cao | roadmap_MechanicalEnginner.md |
+| tich_hop_esp32_va_he_thong_nhung_cho_may_truc_vit_1088 | Tích hợp mô phỏng CAE ứng suất nhiệt và thu thập IoT ESP32 cho máy trục vít ép nhựa | roadmap_MechanicalEnginner.md |
+| lap_trinh_robot_cong_nghiep_va_arm_cho_may_dap_1089 | Lập trình động học nghịch cánh tay robot 6 DOF kết hợp chuẩn an toàn ISO 13849 cho máy dập | roadmap_MechanicalEnginner.md |
+| tich_hop_esp32_va_he_thong_nhung_cho_may_truc_vit_1090 | Tích hợp mô hình IoT ESP32 giám sát lực siết trục vít và giao thức Modbus TCP công nghiệp | roadmap_MechanicalEnginner.md |
+| lap_trinh_robot_va_esp32_cho_may_dap_1091 | Lập trình quỹ đạo cánh tay robot và giám sát lực dập ESP32 | roadmap_MechanicalEnginner.md |
+| tich_hop_plc_va_arm_cho_may_truc_vit_1092 | Tích hợp PLC Siemens và ARM Cortex-M điều khiển trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| lap_trinh_nhung_arm_va_esp32_cho_may_dap_1093 | Lập trình vi điều khiển ARM và ESP32 cho máy dập tự động hóa cao | roadmap_MechanicalEnginner.md |
+| tich_hop_he_thong_nhung_va_plc_cho_may_truc_vit_1094 | Tích hợp hệ thống nhúng và PLC điều khiển máy trục vít tự động | roadmap_MechanicalEnginner.md |
+| lap_trinh_nhung_arm_esp32_cho_may_ep_nhua_1095 | Lập trình nhúng ARM & ESP32 tích hợp PID gia nhiệt chính xác cho máy ép nhựa | roadmap_MechanicalEnginner.md |
+| tich_hop_robot_va_plc_cho_day_chuyen_dap_1096 | Tích hợp Safety PLC an toàn và Robot gắp phôi cho dây chuyền máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| lap_trinh_robot_cong_nghiep_va_arm_cho_may_dap_1097 | Lập trình quỹ đạo ARM 6 DOF và tích hợp an toàn phần cứng ISO 13849 cho máy dập | roadmap_MechanicalEnginner.md |
+| tich_hop_esp32_va_he_thong_nhung_cho_may_truc_vit_1098 | Giám sát thông minh IoT ESP32 kết hợp chống nhiễu EMC cho hệ thống máy trục vít | roadmap_MechanicalEnginner.md |
+| lap_trinh_robot_va_esp32_cho_may_dap_1099 | Lập trình robot và ESP32 tích hợp mạch an toàn Safety PLC cho máy dập tự động | roadmap_MechanicalEnginner.md |
+| tich_hop_plc_va_arm_cho_may_truc_vit_1100 | Tích hợp PLC Siemens S7-1200 và ARM Cortex-M4 cho hệ thống máy trục vít thông minh | roadmap_MechanicalEnginner.md |
+| lap_trinh_dieu_khien_canh_tay_robot_cho_may_dap_1101 | Lập trình quỹ đạo động học ngược và tích hợp Safety PLC cho cánh tay robot máy dập | roadmap_MechanicalEnginner.md |
+| thiet_ke_mach_nhung_esp32_cho_may_ep_nhua_1102 | Thiết kế mạch in chống nhiễu EMC và lập trình Web Server giám sát nhiệt độ máy ép nhựa | roadmap_MechanicalEnginner.md |
+| lap_trinh_dieu_khien_robot_va_esp32_cho_may_dap | Lập trình điều khiển robot kết hợp ESP32 giám sát lực máy dập tự động | roadmap_MechanicalEnginner.md |
+| tich_hop_plc_va_arm_cho_may_truc_vit_va_robot | Tích hợp PLC Siemens và vi điều khiển ARM cho dây chuyền máy trục vít tự động | roadmap_MechanicalEnginner.md |
+| lap_trinh_robot_va_esp32_cho_may_dap_1105 | Lập trình robot gắp phôi kết hợp ESP32 giám sát lực dập theo chuẩn an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| tich_hop_plc_va_arm_cho_may_truc_vit_1106 | Tích hợp PLC và vi điều khiển ARM quản lý nhiệt độ trục vít máy ép nhựa qua mạng Modbus RTU | roadmap_MechanicalEnginner.md |
+| lap_trinh_canh_tay_robot_cho_may_dap_1107 | Lập trình động học thuận ngược và quỹ đạo gắp phôi 6 DOF cho máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| tich_hop_plc_va_arm_cho_may_truc_vit_1108 | Truyền thông mạng công nghiệp và điều khiển PID vị trí cho dây chuyền máy trục vít tự động | roadmap_MechanicalEnginner.md |
+| lap_trinh_nhung_arm_esp32_cho_may_dap_1109 | Lập trình nhúng ARM & ESP32 cho máy dập tự động tốc độ cao | roadmap_MechanicalEnginner.md |
+| tich_hop_he_thong_nhung_va_plc_cho_may_truc_vit_1110 | Tích hợp hệ thống nhúng và Safety PLC cho máy trục vít chính xác | roadmap_MechanicalEnginner.md |
+| lap_trinh_nhung_arm_esp32_cho_may_dap_1111 | Thiết kế mạch an toàn Safety PLC và Lập trình nhúng ARM cho máy dập cơ khí | roadmap_MechanicalEnginner.md |
+| tich_hop_robot_va_esp32_cho_may_truc_vit_1112 | Mô phỏng động lực học Adams và Tích hợp Robot công nghiệp cho máy trục vít | roadmap_MechanicalEnginner.md |
+| lap_trinh_canh_tay_arm_cho_may_dap_1113 | Lập trình tay máy ARM và tích hợp cơ chế an toàn phần cứng ISO 13849 cho máy dập | roadmap_MechanicalEnginner.md |
+| tich_hop_plc_va_arm_cho_may_truc_vit_1114 | Truyền thông Modbus RTU chống nhiễu công nghiệp giữa PLC Siemens S7-1200 và ARM máy trục vít | roadmap_MechanicalEnginner.md |
+| lap_trinh_canh_tay_robot_cho_may_dap_1115 | Lập trình tay máy robot gắp phôi cho máy dập tự động dùng ARM STM32 và tích hợp tiêu chuẩn an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| tich_hop_esp32_va_plc_cho_may_truc_vit_1116 | Tích hợp IoT ESP32 và PLC Siemens S7-1200 giám sát nhiệt độ trục vít máy đùn qua Modbus TCP/RTU | roadmap_MechanicalEnginner.md |
+| lap_trinh_canh_tay_arm_cho_may_dap_1117 | Lập trình động học cánh tay máy ARM kết hợp ESP32 chống nhiễu EMC cho máy dập | roadmap_MechanicalEnginner.md |
+| tich_hop_plc_siemens_cho_may_truc_vit_1118 | Tích hợp PLC Siemens S7-1200 và thuật toán PID gia nhiệt cho máy trục vít | roadmap_MechanicalEnginner.md |
+| lap_trinh_canh_tay_robot_cho_may_dap_1119 | Lập trình quỹ đạo tay máy gắp phôi 3 bậc tự do cho máy dập tự động dùng ARM Cortex-M | roadmap_MechanicalEnginner.md |
+| tich_hop_esp32_cho_may_ep_nhua_1120 | Tích hợp ESP32, cảm biến lực và phân tích ứng suất nhiệt cho hệ thống nhúng máy ép nhựa | roadmap_MechanicalEnginner.md |
+| lap_trinh_canh_tay_robot_cho_may_dap_1121 | Lập trình cánh tay robot cấp phôi tự động và thiết kế mạch an toàn Safety PLC cho máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| tich_hop_esp32_va_plc_cho_may_truc_vit_1122 | Tích hợp module ESP32, PLC Mitsubishi FX3U và phân tích mô phỏng ứng suất nhiệt cho máy đùn trục vít | roadmap_MechanicalEnginner.md |
+| lap_trinh_canh_tay_robot_cho_may_dap_1123 | Lập trình quỹ đạo điểm-đến-điểm và động học Denavit-Hartenberg cho tay máy dập phôi | roadmap_MechanicalEnginner.md |
+| tich_hop_plc_va_arm_cho_may_truc_vit_1124 | Truyền thông Modbus RTU và tích hợp Safety PLC với vi điều khiển ARM cho máy trục vít | roadmap_MechanicalEnginner.md |
+| lap_trinh_quy_dao_canh_tay_cho_may_dap_1125 | Lập trình quỹ đạo tay máy nội suy vị trí cho máy dập tự động dùng ARM | roadmap_MechanicalEnginner.md |
+| tich_hop_cam_bien_esp32_cho_may_truc_vit_1126 | Tích hợp cảm biến lực ESP32 giám sát tải trọng máy trục vít ép nhựa | roadmap_MechanicalEnginner.md |
+| lap_trinh_quy_dao_canh_tay_cho_may_dap_1127 | Lập trình quỹ đạo tay máy gắp phôi và tích hợp mạch an toàn Safety PLC cho máy dập tự động | roadmap_MechanicalEnginner.md |
+| tich_hop_cam_bien_esp32_cho_may_truc_vit_1128 | Tích hợp IoT ESP32, giao thức Modbus RTU và thuật toán bù biến dạng nhiệt cho hệ thống máy trục vít | roadmap_MechanicalEnginner.md |
+| lap_trinh_gcode_va_esp32_cho_may_dap_1129 | Lập trình G-code & ESP32 điều khiển cơ cấu máy dập tự động kèm mạch an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| lap_trinh_plc_va_arm_cho_may_truc_vit_1130 | Tích hợp truyền thông mạng công nghiệp Modbus RTU giữa PLC Siemens và ARM STM32 cho máy trục vít | roadmap_MechanicalEnginner.md |
+| lap_trinh_canh_tay_robot_cho_may_dap_1131 | Lập trình tay máy 4 DOF gắp phôi cho máy dập tích hợp Safety PLC | roadmap_MechanicalEnginner.md |
+| tich_hop_plc_va_arm_cho_may_truc_vit_1132 | Giao tiếp Modbus RTU PLC Siemens S7-1200 và ARM STM32 cho máy trục vít | roadmap_MechanicalEnginner.md |
+| lap_trinh_canh_tay_robot_cho_may_dap_1133 | Lập trình quỹ đạo gắp phôi và mạch an toàn phần cứng cho máy dập với ESP32 | roadmap_MechanicalEnginner.md |
+| tich_hop_plc_va_arm_cho_may_truc_vit_1134 | Tích hợp truyền thông Modbus TCP/RTU giữa PLC S7-1200 và ARM cho hệ thống trục vít | roadmap_MechanicalEnginner.md |
+| lap_trinh_nhung_arm_cho_may_dap_1135 | Lập trình nhúng ARM cho máy dập thủy lực kết hợp tiêu chuẩn an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| tich_hop_esp32_cho_may_ep_nhua_1136 | Tích hợp ESP32 giám sát IoT máy ép nhựa và điều khiển nhiệt độ PID chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| lap_trinh_canh_tay_robot_cho_may_dap_1137 | Lập trình tay máy gắp phôi kết hợp thiết kế an toàn phần cứng Safety PLC cho máy dập | roadmap_MechanicalEnginner.md |
+| tich_hop_plc_va_esp32_cho_may_truc_vit_1138 | Tích hợp PLC Siemens và ESP32 giám sát nhiệt độ, chống nhiễu EMC cho máy đùn trục vít nhựa | roadmap_MechanicalEnginner.md |
+| lap_trinh_nhung_arm_cho_may_ep_1139 | Lập trình nhúng ARM Cortex-M cho chu trình gia nhiệt máy ép nhựa | roadmap_MechanicalEnginner.md |
+| tich_hop_esp32_cho_may_dap_1140 | Tích hợp vi điều khiển ESP32 giám sát lực dập thời gian thực cho máy dập cơ khí | roadmap_MechanicalEnginner.md |
+| lap_trinh_canh_tay_arm_cho_may_ep_nhua_1141 | Lập trình tay máy ARM cho máy ép nhựa và tích hợp an toàn phần cứng ISO 13849 | roadmap_MechanicalEnginner.md |
+| tich_hop_plc_va_esp32_cho_may_ep_nhua_1142 | Tích hợp PLC Siemens và ESP32 giám sát truyền thông Modbus RTU chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| lap_trinh_canh_tay_arm_cho_may_ep_nhua_1143 | Lập trình ARM Cortex-M cho cánh tay robot gắp sản phẩm máy ép nhựa | roadmap_MechanicalEnginner.md |
+| tich_hop_esp32_va_plc_cho_may_ep_nhua_1144 | Tích hợp Gateway ESP32 và PLC Siemens S7-1200 giám sát trạm ép | roadmap_MechanicalEnginner.md |
+| lap_trinh_arm_cho_may_dap_1145 | Lập trình nhúng ARM Cortex-M cho máy dập thủy lực kết hợp tiêu chuẩn an toàn ISO 13849 và cảm biến lực | roadmap_MechanicalEnginner.md |
+| tich_hop_esp32_plc_cho_may_truc_vit_1146 | Tích hợp mạng công nghiệp Modbus TCP/RTU giữa ESP32 và PLC Siemens S7-1200 cho trạm máy đùn trục vít IoT | roadmap_MechanicalEnginner.md |
+| lap_trinh_dieu_khien_canh_tay_cho_may_dap_1147 | Lập trình điều khiển cánh tay cho máy dập với ESP32 và tích hợp mạch an toàn phần cứng ISO 13849 | roadmap_MechanicalEnginner.md |
+| tich_hop_plc_siemens_cho_may_ep_1148 | Tích hợp PLC Siemens S7-1200 và ARM cho máy ép nhựa với giao thức Modbus RTU và phân tích ứng suất nhiệt | roadmap_MechanicalEnginner.md |
+| lap_trinh_arm_va_esp32_cho_may_dap_1149 | Lập trình ARM STM32 & ESP32 điều khiển thời gian thực máy dập tốc độ cao tích hợp chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| tich_hop_he_thong_nhung_cho_may_truc_vit_1150 | Tích hợp thuật toán PID nhiệt độ và mô phỏng CAE ứng suất nhiệt trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| lap_trinh_arm_va_esp32_cho_may_dap_1151 | Lập trình ARM và ESP32 cho máy dập với thuật toán PID vị trí chính xác kèm mạch an toàn Safety PLC | roadmap_MechanicalEnginner.md |
+| tich_hop_he_thong_nhung_cho_may_ep_nhua_1152 | Tích hợp hệ thống nhúng, giao thức Modbus TCP/RTU và PLC Siemens cho máy ép nhựa tự động | roadmap_MechanicalEnginner.md |
+| lap_trinh_arm_va_esp32_cho_may_dap_1153 | Lập trình ARM & ESP32 điều khiển cơ cấu máy dập tích hợp Safety PLC | roadmap_MechanicalEnginner.md |
+| tich_hop_he_thong_nhung_cho_may_ep_nhua_1154 | Tích hợp hệ thống nhúng MCU, Modbus TCP/RTU và PLC cho máy ép nhựa | roadmap_MechanicalEnginner.md |
+| lap_trinh_arm_va_esp32_cho_may_dap_1155 | Lập trình ARM Cortex-M & ESP32 đồng bộ hành trình máy dập tốc độ cao tích hợp chuẩn an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| tich_hop_he_thong_nhung_cho_may_truc_vit_1156 | Tích hợp IoT công nghiệp, Modbus RTU và bảo vệ quá dòng cho cơ cấu trục vít định lượng | roadmap_MechanicalEnginner.md |
+| lap_trinh_arm_va_esp32_cho_may_dap_1157 | Lập trình ARM STM32 và ESP32 tích hợp Safety PLC giám sát lực dập phôi tự động | roadmap_MechanicalEnginner.md |
+| tich_hop_he_thong_nhung_cho_may_ep_nhua_1158 | Tích hợp hệ thống nhúng PID và PLC Siemens S7-1200 điều khiển nhiệt độ máy ép nhựa | roadmap_MechanicalEnginner.md |
+| lap_trinh_arm_va_esp32_cho_may_ep_nhua_1159 | Lập trình ARM & ESP32 tích hợp truyền thông MQTT và xử lý tín hiệu PT100 cho máy ép nhựa | roadmap_MechanicalEnginner.md |
+| tich_hop_he_thong_nhung_cho_may_ep_nhua_1160 | Tích hợp hệ thống nhúng toàn diện, thiết kế mạch an toàn Safety Relay và HMI cho dây chuyền ép nhựa | roadmap_MechanicalEnginner.md |
+| lap_trinh_arm_va_esp32_cho_may_dap_1161 | Lập trình ARM STM32 và ESP32 tích hợp mạng Modbus TCP giám sát máy dập thông minh | roadmap_MechanicalEnginner.md |
+| tich_hop_he_thong_nhung_cho_may_ep_nhua_1162 | Thiết kế mạch an toàn Safety PLC và PID kiểm soát nhiệt độ áp suất máy ép nhựa | roadmap_MechanicalEnginner.md |
+| lap_trinh_arm_va_plc_cho_may_dap_1163 | Thiết kế mạch an toàn Safety PLC và tích hợp ARM STM32 cho chu trình máy dập | roadmap_MechanicalEnginner.md |
+| tich_hop_esp32_va_arm_cho_may_truc_vit_1164 | Tích hợp hệ thống nhúng kép ESP32-ARM và mô phỏng ứng suất nhiệt cho máy trục vít | roadmap_MechanicalEnginner.md |
+| lap_trinh_arm_va_plc_cho_may_dap_1165 | Lập trình ARM Cortex-M tích hợp Safety PLC và Modbus RTU cho máy dập cơ điện tử | roadmap_MechanicalEnginner.md |
+| tich_hop_esp32_va_plc_cho_may_ep_nhua_1166 | Tích hợp ESP32 IoT và PLC quản lý nhiệt độ nòng trục vít máy ép nhựa qua MQTT | roadmap_MechanicalEnginner.md |
+| lap_trinh_arm_va_esp32_cho_may_dap_1167 | Lập trình ARM STM32 & ESP32 tích hợp Safety Relay và giám sát lực dập thủy lực | roadmap_MechanicalEnginner.md |
+| tich_hop_he_thong_nhung_cho_may_ep_nhua_1168 | Tích hợp hệ thống nhúng, PLC Siemens S7-1200 và mô phỏng nhiệt động lực học máy ép nhựa | roadmap_MechanicalEnginner.md |
+| lap_trinh_arm_va_plc_cho_may_dap_1169 | Lập trình ARM và Safety PLC tích hợp mạng Modbus RTU cho máy dập tự động | roadmap_MechanicalEnginner.md |
+| tich_hop_esp32_va_arm_cho_may_truc_vit_1170 | Tích hợp ESP32, ARM và mô phỏng CAE động lực học cho hệ thống trục vít cấp liệu | roadmap_MechanicalEnginner.md |
+| lap_trinh_arm_va_esp32_cho_may_dap_1171 | Lập trình ARM STM32F4 và ESP32 tích hợp cơ chế an toàn phần cứng Safety Relay cho máy dập tự động tốc độ cao | roadmap_MechanicalEnginner.md |
+| tich_hop_he_thong_nhung_cho_may_truc_vit_1172 | Tích hợp hệ thống nhúng điều khiển nhiệt độ PID và tốc độ trục vít máy ép nhựa kết hợp phân tích ứng suất nhiệt | roadmap_MechanicalEnginner.md |
+| lap_trinh_arm_va_plc_cho_may_dap_thuy_luc_1173 | Lập trình ARM & Safety PLC chuẩn ISO 13849 cho máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| tich_hop_esp32_va_arm_cho_may_ep_nhua_1174 | Tích hợp ESP32 & ARM giám sát nhiệt luyện và phân tích ứng suất nhiệt máy ép nhựa | roadmap_MechanicalEnginner.md |
+| lap_trinh_canh_tay_robot_cho_may_dap_1175 | Lập trình tay máy gắp phôi tự động dùng STM32F4 và tích hợp mạch an toàn phần cứng Safety Relay | roadmap_MechanicalEnginner.md |
+| tich_hop_plc_va_arm_cho_may_truc_vit_1176 | Tích hợp PLC Siemens S7-1200 và vi điều khiển ARM qua mạng Modbus RTU chống nhiễu cho cơ cấu trục vít | roadmap_MechanicalEnginner.md |
+| lap_trinh_arm_va_esp32_cho_may_dap_1177 | Lập trình ARM STM32 & ESP32 kết hợp phần mềm giả lập PLC cho máy dập tự động thông minh | roadmap_MechanicalEnginner.md |
+| tich_hop_he_thong_nhung_cho_may_ep_nhua_1178 | Tích hợp hệ thống nhúng vi điều khiển và mô phỏng phân tích ứng suất nhiệt cho máy ép nhựa tự động | roadmap_MechanicalEnginner.md |
+| lap_trinh_arm_va_esp32_cho_may_dap_1179 | Lập trình ARM STM32 & ESP32 điều khiển cơ cấu máy dập tích hợp Safety PLC | roadmap_MechanicalEnginner.md |
+| tich_hop_he_thong_nhung_cho_may_truc_vit_1180 | Tích hợp hệ thống nhúng điều khiển tốc độ vòng kín máy trục vít tự động | roadmap_MechanicalEnginner.md |
+| lap_trinh_robot_cong_nghiep_cho_may_dap_1181 | Lập trình động học robot gắp phôi và tích hợp mạch an toàn Safety PLC cho máy dập 30 tấn | roadmap_MechanicalEnginner.md |
+| tich_hop_cam_bien_cho_may_ep_nhua_1182 | Tích hợp cảm biến lực, Encoder quang và cáp chống nhiễu bọc giáp cho máy ép nhựa tự động | roadmap_MechanicalEnginner.md |
+| lap_trinh_robot_cho_may_dap_1183 | Lập trình robot công nghiệp dập phôi tự động với PLC Siemens và ARM Cortex-M | roadmap_MechanicalEnginner.md |
+| tich_hop_esp32_cho_may_truc_vit_1184 | Tích hợp ESP32 giám sát IoT nâng cao cho hệ thống trục vít và phân tích ứng suất nhiệt | roadmap_MechanicalEnginner.md |
+| lap_trinh_robot_cho_day_chuyen_dap_1185 | Lập trình robot công nghiệp điều khiển băng tải tự động tích hợp an toàn ISO 13849 cho dây chuyền dập tấm | roadmap_MechanicalEnginner.md |
+| tich_hop_esp32_cho_may_truc_vit_1186 | Tích hợp module ESP32 giám sát nhiệt độ, dòng điện động cơ và chống nhiễu EMC cho hệ thống máy trục vít | roadmap_MechanicalEnginner.md |
+| lap_trinh_robot_cong_nghiep_cho_day_chuyen_1187 | Lập trình quỹ đạo robot 4 bậc tự do đồng bộ dây chuyền dập tấm tự động theo tiêu chuẩn an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| tich_hop_he_thong_nhung_cho_may_ep_1188 | Tích hợp hệ thống nhúng STM32 và ESP32 giám sát lực ép kết hợp phân tích ứng suất nhiệt ANSYS | roadmap_MechanicalEnginner.md |
+| lap_trinh_robot_cong_nghiep_cho_day_chuyen_ep_nhua_1189 | Lập trình robot 4 trục gắp sản phẩm máy ép nhựa tích hợp tiêu chuẩn an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| tich_hop_he_thong_nhung_cho_day_chuyen_may_dap_1190 | Tích hợp hệ thống nhúng ESP32, giả lập PLC và phân tích ứng suất nhiệt trên máy dập tự động | roadmap_MechanicalEnginner.md |
+| lap_trinh_robot_cong_nghiep_va_esp32_cho_day_chuyen_may_dap_1191 | Lập trình robot công nghiệp kết hợp ESP32 và tiêu chuẩn an toàn Safety PLC cho dây chuyền máy dập | roadmap_MechanicalEnginner.md |
+| tich_hop_arm_va_plc_cho_day_chuyen_may_ep_nhua_1192 | Tích hợp vi điều khiển ARM Cortex-M và PLC Siemens S7-1200 cho máy ép nhựa tự động hóa cao | roadmap_MechanicalEnginner.md |
+| lap_trinh_robot_cong_nghiep_va_esp32_cho_day_chuyen_may_dap_1193 | Lập trình robot công nghiệp 6 DOF gắp phôi tích hợp an toàn phần cứng Safety PLC | roadmap_MechanicalEnginner.md |
+| tich_hop_he_thong_nhung_cho_day_chuyen_may_truc_vit_1194 | Tích hợp hệ thống nhúng ARM Cortex-M và truyền thông Modbus RTU cho máy đùn trục vít | roadmap_MechanicalEnginner.md |
+| lap_trinh_robot_cong_nghiep_va_plc_cho_day_chuyen_may_dap_1195 | Tích hợp mạng PROFINET và lập trình Safety PLC cho robot cấp phôi máy dập | roadmap_MechanicalEnginner.md |
+| tich_hop_he_thong_nhung_va_esp32_cho_day_chuyen_may_truc_vit_1196 | Thiết kế mạch nhúng ESP32 điều khiển nhiệt độ PID trục vít máy đùn nhựa | roadmap_MechanicalEnginner.md |
+| lap_trinh_robot_cong_nghiep_va_arm_1197 | Lập trình robot công nghiệp và ARM cấu hình hệ thống máy dập tự động | roadmap_MechanicalEnginner.md |
+| tich_hop_esp32_va_plc_cho_day_chuyen_1198 | Tích hợp mạng truyền thông công nghiệp Modbus TCP và PLC cho máy ép nhựa | roadmap_MechanicalEnginner.md |
+| lap_trinh_robot_cong_nghiep_va_arm_1199 | Lập trình robot công nghiệp kết hợp ARM STM32 điều khiển máy dập tự động tích hợp mạch an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| tich_hop_he_thong_nhung_va_esp32_cho_may_truc_vit_1200 | Tích hợp hệ thống nhúng ESP32 và cảm biến dòng điện chống nhiễu EMC cho máy trục vít tự động | roadmap_MechanicalEnginner.md |
+| cong_nghe_phu_be_mat_va_in_3d_kim_loai_1201 | Làm chủ công nghệ phủ bề mặt chống mài mòn và in 3D FDM/SLM công nghiệp | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_xi_ma_1202 | Chế tạo vi cấu trúc MEMS và mạ điện hóa chính xác cho chi tiết máy thu nhỏ | roadmap_MechanicalEnginner.md |
+| nghien_cuu_cong_nghe_phu_be_mat_va_in_3d_1203 | Nghiên cứu công nghệ phủ bề mặt và in 3D kết hợp nhiệt luyện vật liệu (Dự án: Trục máy dập phủ hợp kim chống mài mòn) | roadmap_MechanicalEnginner.md |
+| chuyen_gia_cong_nghe_mems_va_tu_dong_hoa_1204 | Chuyên gia công nghệ MEMS, giao thức mạng công nghiệp và tự động hóa an toàn (Dự án: Cảm biến gia tốc MEMS cho máy trục vít) | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_in_3d_slm_1205 | Nghiên cứu phủ bề mặt chống mài mòn, mô phỏng nhiệt ứng suất CAE và in 3D SLM trục vít máy đùn | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_dieu_khien_plc_1206 | Chế tạo vi cấu trúc cảm biến MEMS áp suất tích hợp Safety PLC và mạch an toàn máy dập | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_in_3d_slm_day_1207 | Thiết kế tối ưu thông số in 3D SLM và tích hợp cơ cấu trục vít | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_dieu_khien_plc_day_1208 | Chế tạo vi cảm biến MEMS lực dập và lập trình PLC an toàn | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_in_3d_slm_1209 | Nghiên cứu phủ bề mặt chống mài mòn và in 3D SLM cho máy dập (Dự án 1209) | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_dieu_khien_plc_1210 | Tích hợp cảm biến MEMS áp điện và cấu hình truyền thông PLC cho máy trục vít | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_in_3d_slm_day_1211 | Phủ bề mặt hợp kim Stellite và in 3D SLM kết hợp phân tích CAE ứng suất nhiệt | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_dieu_khien_plc_day_1212 | Chế tạo vi cấu trúc MEMS Silicon và điều khiển PLC chống nhiễu EMC cho hệ thống dập | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_slm_1213 | Làm chủ phủ bề mặt chống mài mòn Stellite và in 3D SLM cho trục vít máy ép | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_plc_1214 | Chế tạo vi cấu trúc MEMS áp điện tích hợp mạch an toàn phần cứng và lập trình PLC | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_in_3d_slm_day_1215 | Phủ bề mặt chống mài mòn HVOF kết hợp in 3D SLM cấu trúc rỗng tối ưu cho trục vít máy đùn | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_dieu_khien_plc_day_1216 | Chế tạo cảm biến gia tốc MEMS trên đế Silicon tích hợp trạm khắc hóa học điều khiển an toàn qua PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_slm_1217 | Nghiên cứu phủ bề mặt chống mài mòn và in 3D SLM cho trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_plc_1218 | Lập trình an toàn Safety PLC và tích hợp mạng truyền thông công nghiệp cho trạm in 3D kim loại | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_slm_day_1219 | Phủ bề mặt laser cladding chống mài mòn Stellite 6 trên trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_plc_day_1220 | Tích hợp cảm biến áp suất MEMS và lập trình an toàn PLC Siemens cho máy dập | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_slm_day_1221 | Phủ bề mặt chống mài mòn PVD kết hợp in 3D SLM cho trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_plc_day_1222 | Hệ thống cảm biến áp điện MEMS tích hợp an toàn PLC S7-1200 cho máy dập | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_in_3d_slm_day_1223 | Phủ bề mặt chống mài mòn nhiệt luyện kết hợp in 3D SLM và mô phỏng ứng suất nhiệt ANSYS cho trục vít máy ép | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_dieu_khien_plc_day_1224 | Chế tạo vi cấu trúc MEMS gia tốc kế, lập trình PLC Siemens S7-1200 và giao thức truyền thông Modbus TCP công nghiệp | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_in_3d_slm_1225 | Phủ bề mặt chống mài mòn và in 3D SLM cho máy dập kết hợp mô phỏng ANSYS Thermal Stress | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_dieu_khien_plc_1226 | Chế tạo vi cấu trúc MEMS và điều khiển PLC mạng công nghiệp Profinet cho máy trục vít | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_in_3d_slm_day_1227 | Làm chủ công nghệ phủ bề mặt chống mài mòn và in 3D SLM tích hợp an toàn phần cứng | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_dieu_khien_plc_day_1228 | Thiết kế hệ thống ăn mòn vi cấu trúc MEMS và điều khiển tự động hóa bằng PLC Mitsubishi | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_in_3d_slm_day_1229 | Phủ bề mặt chống mài mòn và in 3D SLM qua mô phỏng PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_dieu_khien_plc_day_1230 | Tích hợp hệ thống tự động hóa chế tạo vi cấu trúc MEMS và giám sát SCADA | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_plc_day_1231 | Phủ bề mặt chống mài mòn kết hợp điều khiển nhiệt độ lò nung bằng PLC Siemens S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_nhung_esp32_day_1232 | Chế tạo vi cấu trúc MEMS gia tốc kế và tích hợp nhúng ESP32 giám sát rung động máy dập | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_plc_day_1233 | Phủ bề mặt chống mài mòn Stellite và điều khiển PLC S7-1200 máy trục vít tự động | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_esp32_day_1234 | Chế tạo màng cảm biến MEMS áp điện và nhúng ESP32 giám sát lực máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_plc_day_1235 | Phủ bề mặt chống mài mòn Plasma và tích hợp mạch an toàn phần cứng Safety PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_nhung_esp32_day_1236 | Chế tạo vi cấu trúc MEMS áp điện và giám sát IoT thời gian thực qua giao thức Modbus TCP | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_plc_s7_1200_day_1237 | Làm chủ phủ bề mặt chống mài mòn HVOF và điều khiển an toàn PLC S7-1200 cho máy dập tự động | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_nhung_esp32_day_1238 | Chế tạo cảm biến áp điện MEMS và tích hợp nhúng ESP32 truyền dữ liệu MQTT giám sát trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_plc_s7_1200_day_1239 | Phủ bề mặt chống mài mòn và lập trình PLC S7-1200 điều khiển trạm xi mạ tự động | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_nhung_esp32_day_1240 | Chế tạo vi cấu trúc MEMS và nhúng ESP32 giám sát lực vi cơ không dây | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_plc_s7_1200_day_1241 | Phủ bề mặt chống mài mòn và PLC S7-1200 Day 1241: Trạm phun phủ nhiệt | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_nhung_esp32_day_1242 | Chế tạo vi cấu trúc MEMS và nhúng ESP32 Day 1242: Cảm biến gia tốc | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_plc_s7_1200_day_1243 | Làm chủ phủ bề mặt chống mài mòn và lập trình PLC S7-1200 tích hợp an toàn cho máy dập tự động | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_nhung_esp32_day_1244 | Chế tạo vi cấu trúc MEMS kết hợp nhúng ESP32 giám sát nhiệt độ và ứng suất thời gian thực trục vít | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_plc_s7_1200_day_1245 | Làm chủ phủ bề mặt chống mài mòn Laser Cladding & An toàn PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_nhung_esp32_day_1246 | Chế tạo vi cấu trúc MEMS gia tốc kế & Phân tích ứng suất nhiệt ANSYS | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_plc_s7_1200_day_1247 | Phủ bề mặt chống mài mòn và PLC S7-1200 hệ thống máy dập | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_nhung_esp32_day_1248 | Chế tạo vi cấu trúc MEMS và nhúng ESP32 giám sát máy trục vít | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_plc_s7_1200_day_1249 | Làm chủ phủ bề mặt Laser Cladding và điều khiển PLC S7-1200 cho máy phun phủ trục vít | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_nhung_esp32_day_1250 | Chế tạo vi cấu trúc cảm biến MEMS áp suất và tích hợp nhúng ESP32 giám sát trạm dập công nghiệp | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_plc_s7_1200_day_1251 | Phủ bề mặt chống mài mòn Laser Cladding và quản lý PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_nhung_esp32_day_1252 | Chế tạo vi cấu trúc MEMS gia tốc kế và nhúng ESP32 giám sát IoT | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_plc_s7_1200_day_1253 | Làm chủ phủ màng cứng PVD và lập trình PLC S7-1200 điều khiển buồng chân không | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_nhung_esp32_day_1254 | Chế tạo vi cảm biến áp suất MEMS và lập trình nhúng ESP32 đọc dữ liệu thời gian thực | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_plc_s7_1200_day_1255 | Tối ưu hóa nhiệt luyện phủ bề mặt Stellite và điều khiển nhiệt độ PID bằng PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_nhung_esp32_day_1256 | Capstone: Tích hợp in 3D SLM kim loại và nhúng ESP32 giám sát áp suất MEMS qua MQTT | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_plc_s7_1200_day_1257 | Tối ưu hóa quy trình phủ PVD chống mài mòn trục vít máy ép nhựa S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_nhung_esp32_day_1258 | Chế tạo vi cảm biến áp suất MEMS tích hợp vi điều khiển ESP32 IoT và mô phỏng ứng suất nhiệt | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_plc_s7_1200_day_1259 | Phủ bề mặt chống mài mòn Stellite và điều khiển nhiệt độ gia nhiệt bằng PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_nhung_esp32_day_1260 | Chế tạo vi cấu trúc cảm biến áp suất MEMS kết hợp nhúng ESP32 truyền dữ liệu IoT MQTT | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_plc_s7_1200_day_1261 | Làm chủ phủ bề mặt chống mài mòn và lập trình PLC S7-1200 điều khiển hệ thống phun phủ nhiệt | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_nhung_esp32_day_1262 | Chế tạo vi cấu trúc MEMS và nhúng ESP32 giám sát áp suất buồng vi lỏng vi cơ điện tử | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_plc_s7_1200_day_1263 | Tối ưu hóa nhiệt độ phun phủ nhiệt chống mài mòn bằng PLC S7-1200 và cấu hình mạng Profinet công nghiệp | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_nhung_esp32_day_1264 | Capstone: Tích hợp in 3D công nghiệp SLA, phân tích ứng suất nhiệt và giám sát vi cấu trúc MEMS qua IoT | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_plc_s7_1200_day_1265 | Làm chủ phủ bề mặt chống mài mòn và lập trình PLC S7-1200 cho máy dập | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_nhung_esp32_day_1266 | Chế tạo vi cấu trúc MEMS và nhúng ESP32 cho trạm kiểm tra tự động | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_plc_s7_1200_day_1267 | Tối ưu hóa nhiệt luyện phủ bề mặt và điều khiển PLC S7-1200 tích hợp mạng Profinet | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_nhung_esp32_day_1268 | Capstone: Tích hợp in 3D công nghiệp, vi cấu trúc MEMS và Safety PLC giám sát IoT | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_plc_s7_1200_day_1269 | Phủ bề mặt chống mài mòn kết hợp PLC S7-1200 điều khiển hệ thống mạ tự động | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_nhung_esp32_day_1270 | Chế tạo vi cấu trúc MEMS áp điện và tích hợp nhúng ESP32 giám sát gia tốc | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_plc_s7_1200_day_1271 | Phủ bề mặt chống mài mòn trục vít máy ép nhựa và PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_nhung_esp32_day_1272 | Chế tạo vi cấu trúc MEMS áp điện và nhúng ESP32 giám sát lực máy dập | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_plc_s7_1200_day_1273 | Phủ bề mặt Plasma chống mài mòn trục vít máy ép nhựa kết hợp PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_nhung_esp32_day_1274 | Chế tạo vi cấu trúc MEMS gia tốc kế kết hợp vi điều khiển nhúng ESP32 | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_s7_1200_day_1275 | Làm chủ phủ PVD chống mài mòn kết hợp PLC S7-1200 tối ưu lò nhiệt ứng dụng tiêu chuẩn ISO | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_esp32_day_1276 | Chế tạo vi cấu trúc MEMS áp điện kết hợp phân tích mô phỏng ứng suất nhiệt và giám sát IoT qua ESP32 | roadmap_MechanicalEnginner.md |
+| phu_be_mat_plasma_va_s7_1200_day_1277 | Phủ bề mặt Plasma nâng cao và điều khiển trạm xi mạ tự động với PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_esp32_day_1278 | Chế tạo vi cấu trúc MEMS áp điện tích hợp giám sát thời gian thực bằng vi điều khiển ESP32 | roadmap_MechanicalEnginner.md |
+| phu_be_mat_pvd_va_s7_1200_day_1279 | Vận hành hệ thống phủ PVD nâng cao tích hợp PLC S7-1200 cho chày máy dập | roadmap_MechanicalEnginner.md |
+| che_tao_cam_bien_mems_va_esp32_day_1280 | Chế tạo vi cảm biến áp suất MEMS kết hợp nhúng ESP32 giám sát máy trục vít | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_s7_1200_day_1281 | Phủ bề mặt chống mài mòn và lập trình PLC S7-1200 điều khiển trạm xi mạ tự động | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_esp32_day_1282 | Chế tạo vi cấu trúc MEMS và tích hợp nhúng ESP32 giám sát rung động công nghiệp | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_s7_1200_day_1283 | Nghiên cứu phủ bề mặt chống mài mòn tích hợp PLC S7-1200 và chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_esp32_day_1284 | Chế tạo vi cấu trúc MEMS tích hợp vi điều khiển ESP32 và phân tích ứng suất nhiệt | roadmap_MechanicalEnginner.md |
+| phu_be_mat_va_s7_1200_day_1285 | Phủ bề mặt chống mài mòn trục vít và PLC S7-1200 cho trạm in 3D | roadmap_MechanicalEnginner.md |
+| che_tao_mems_va_esp32_day_1286 | Chế tạo vi cấu trúc MEMS gia tốc kế và nhúng ESP32 giám sát trạm in | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_s7_1200_day_1287 | Nghiên cứu phủ bề mặt chống mài mòn và tích hợp điều khiển PID với S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_esp32_day_1288 | Chế tạo vi cấu trúc MEMS và truyền dữ liệu không dây áp suất thời gian thực với ESP32 | roadmap_MechanicalEnginner.md |
+| phu_be_mat_va_in_3d_cong_nghiep_day_1289 | Làm chủ phủ bề mặt và In 3D công nghiệp với máy dập tự động tích hợp PLC | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_tu_dong_hoa_day_1290 | Chế tạo vi cấu trúc MEMS và tự động hóa dây chuyền máy ép trục vít áp suất cao | roadmap_MechanicalEnginner.md |
+| phu_be_mat_va_in_3d_ket_hop_s7_1200_day_1291 | Làm chủ in 3D công nghiệp kết hợp phủ bề mặt và PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_mems_va_nhung_esp32_day_1292 | Chế tạo vi cấu trúc MEMS tích hợp nhúng ESP32 và cảm biến gia tốc | roadmap_MechanicalEnginner.md |
+| phu_be_mat_va_in_3d_kim_loai_day_1293 | Tối ưu hóa phủ bề mặt kim loại kết hợp in 3D FDM cho thân máy ép nhựa | roadmap_MechanicalEnginner.md |
+| che_tao_cam_bien_mems_va_dieu_kien_plc_day_1294 | Chế tạo cảm biến MEMS áp suất tích hợp giám sát tự động cho máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| phu_be_mat_va_in_3d_ket_hop_s7_1200_day_1295 | Phủ bề mặt kết hợp In 3D quản lý tự động bằng S7-1200 và PLC Simulator | roadmap_MechanicalEnginner.md |
+| che_tao_cam_bien_mems_va_nhung_esp32_day_1296 | Chế tạo vi cấu trúc MEMS tích hợp vi điều khiển nhúng ESP32 | roadmap_MechanicalEnginner.md |
+| phu_be_mat_va_in_3d_kim_loai_s7_1200_day_1297 | Làm chủ phủ bề mặt và in 3D kim loại kết hợp PLC S7-1200 và an toàn máy công nghiệp | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_nhung_arm_day_1298 | Chế tạo vi cấu trúc MEMS, phân tích ứng suất nhiệt và nhúng ARM Cortex-M | roadmap_MechanicalEnginner.md |
+| phu_be_mat_va_in_3d_ket_hop_plc_s7_1200_day_1299 | Làm chủ phủ bề mặt và tích hợp hệ thống in 3D công nghiệp điều khiển bằng PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_cam_bien_mems_va_nhung_arm_day_1300 | Chế tạo cảm biến MEMS đo gia tốc tích hợp vi điều khiển nhúng ARM Cortex-M4 | roadmap_MechanicalEnginner.md |
+| phu_be_mat_va_in_3d_ket_hop_s7_1200_day_1301 | Làm chủ phủ màng mỏng và in 3D kết hợp PLC S7-1200 dự án trục vít máy đùn nhựa | roadmap_MechanicalEnginner.md |
+| che_tao_cam_bien_mems_va_nhung_arm_day_1302 | Chế tạo vi cấu trúc MEMS gia tốc kế và nhúng ARM Cortex-M dự án máy dập tự động | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_s7_1200_day_1303 | Làm chủ xi mạ lớp phủ chịu mài mòn tích hợp PLC S7-1200 và HMI | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_nhung_arm_day_1304 | Chế tạo vi cấu trúc MEMS áp điện kết hợp vi điều khiển ARM Cortex-M | roadmap_MechanicalEnginner.md |
+| phu_be_mat_va_in_3d_s7_1200_day_1305 | Tối ưu hóa phủ bề mặt kim loại và in 3D công nghiệp với S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_arm_day_1306 | Chế tạo vi cấu trúc MEMS áp điện và nhúng ARM Cortex-M thực chiến | roadmap_MechanicalEnginner.md |
+| phu_be_mat_va_in_3d_s7_1200_day_1307 | Làm chủ phủ bề mặt và in 3D kết hợp PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_arm_day_1308 | Chế tạo vi cấu trúc MEMS và nhúng ARM điều khiển máy chính xác | roadmap_MechanicalEnginner.md |
+| phu_be_mat_va_in_3d_s7_1200_day_1309 | Tối ưu hóa phủ bề mặt và in 3D kết hợp PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_arm_day_1310 | Chế tạo vi cấu trúc MEMS và điều khiển nhúng ARM Cortex-M | roadmap_MechanicalEnginner.md |
+| phu_be_mat_va_in_3d_s7_1311 | Tối ưu hóa phủ bề mặt mài mòn kết hợp in 3D công nghiệp với S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_arm_1312 | Chế tạo vi cấu trúc MEMS và lập trình nhúng ARM cho thiết bị đo áp điện | roadmap_MechanicalEnginner.md |
+| phu_be_mat_va_in_3d_s7_1313 | Tích hợp hệ thống phủ PVD tự động hóa bằng PLC S7-1200 và mô phỏng mạng Profinet | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_arm_1314 | Thiết kế và lập trình vi điều khiển ARM Cortex-M xử lý tín hiệu cảm biến vi cơ điện tử MEMS | roadmap_MechanicalEnginner.md |
+| phu_be_mat_va_in_3d_s7_1315 | Làm chủ phủ PVD, in 3D công nghiệp kết hợp PLC S7-1200 và an toàn điện | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_arm_1316 | Chế tạo vi cấu trúc MEMS, mô phỏng ứng suất nhiệt CAE và điều khiển tay máy ARM | roadmap_MechanicalEnginner.md |
+| phu_be_mat_va_in_3d_s7_1317 | Làm chủ phủ màng mỏng PVD và in 3D công nghiệp tích hợp S7-1200 | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_arm_1318 | Chế tạo vi cấu trúc MEMS áp điện và vi điều khiển ARM Cortex-M4 | roadmap_MechanicalEnginner.md |
+| phu_be_mat_va_in_3d_s1319 | Tích hợp phủ PVD tự động hóa PLC S7-1200 với in 3D SLA mô phỏng máy dập | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_arm_1320 | Chế tạo vi cấu trúc MEMS và nhúng ARM cho cơ cấu máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_plc_s7_1200_day_1321 | Làm chủ phủ bề mặt chống mài mòn kết hợp PLC S7-1200 và hệ thống in 3D công nghiệp | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_nhung_arm_day_1322 | Chế tạo vi cấu trúc MEMS và nhúng ARM Cortex-M điều khiển cơ cấu máy dập chính xác | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_plc_s7_1200_day_1323 | Tối ưu hóa phủ PVD chống mài mòn dao phay CNC với điều khiển PLC S7-1200 tích hợp mạng Profinet | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_nhung_arm_day_1324 | Chế tạo vi cấu trúc MEMS áp điện tích hợp nhúng ARM Cortex-M4 cho cảm biến rung động lò xo | roadmap_MechanicalEnginner.md |
+| phu_be_mat_pvd_va_plc_s7_1200_day_1325 | Làm chủ phủ PVD và PLC S7-1200 chế tạo trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_nhung_arm_day_1326 | Chế tạo vi cấu trúc MEMS gia tốc kế và nhúng STM32 ARM | roadmap_MechanicalEnginner.md |
+| phu_be_mat_pvd_va_s7_1200_day_1327 | Làm chủ phủ PVD nâng cao và kết hợp PLC S7-1200 điều khiển hệ thống mạ tích hợp chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cau_truc_mems_va_nhung_arm_day_1328 | Chế tạo vi cấu trúc MEMS áp điện, phân tích ứng suất nhiệt và tích hợp vi điều khiển ARM Cortex-M | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_ket_hop_plc_s7_1200_day_1329 | Hệ thống phủ bề mặt chống mài mòn tích hợp Safety PLC S7-1200 và cơ cấu phun tự động | roadmap_MechanicalEnginner.md |
+| che_tao_cam_bien_mems_va_nhung_arm_day_1330 | Thiết kế và mô phỏng ứng suất nhiệt vi cấu trúc MEMS tích hợp vi điều khiển ARM Cortex-M4 | roadmap_MechanicalEnginner.md |
+| phu_be_mat_pvd_s7_1200_day_1331 | Vận hành hệ thống phủ bề mặt PVD kết hợp PLC S7-1200 và mô phỏng SCADA | roadmap_MechanicalEnginner.md |
+| che_tao_cam_bien_mems_va_arm_day_1332 | Chế tạo vi cảm biến MEMS áp suất kết hợp nhúng ARM Cortex-M và mô phỏng Proteus | roadmap_MechanicalEnginner.md |
+| phu_be_mat_pvd_s7_1200_day_1333 | Làm chủ phủ PVD kết hợp PLC S7-1200 và an toàn phần cứng cho máy dập khuôn | roadmap_MechanicalEnginner.md |
+| che_tao_cam_bien_mems_va_nhung_arm_day_1334 | Chế tạo vi cảm biến áp suất MEMS, nhúng ARM Cortex-M4 và mô phỏng ứng suất nhiệt CAE | roadmap_MechanicalEnginner.md |
+| phu_be_mat_pvd_s7_1200_day_1335 | Vận hành hệ thống phủ PVD kết hợp PLC S7-1200 chế tạo trục vít máy ép | roadmap_MechanicalEnginner.md |
+| che_tao_cam_bien_mems_va_nhung_arm_day_1336 | Chế tạo vi cấu trúc MEMS gia tốc kế tích hợp nhúng ARM cho máy dập | roadmap_MechanicalEnginner.md |
+| phu_be_mat_pvd_s7_1200_day_1337 | Vận hành hệ thống phủ PVD và PLC S7-1200 tích hợp mạng Profinet cho máy dập khuôn | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cam_bien_mems_arm_day_1338 | Chế tạo vi cảm biến MEMS áp suất tích hợp vi điều khiển ARM và mô phỏng ANSYS ứng suất nhiệt | roadmap_MechanicalEnginner.md |
+| phu_be_mat_pvd_s7_1200_day_1339 | Vận hành hệ thống phủ PVD chân không tích hợp PLC S7-1200 và chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cam_bien_mems_arm_day_1340 | Thiết kế mạch an toàn phần cứng và chế tạo vi cảm biến MEMS áp suất ARM STM32 | roadmap_MechanicalEnginner.md |
+| phu_be_mat_chong_mai_mon_va_plc_s7_1200_day_1341 | Ứng dụng PLC S7-1200 tích hợp mạng Profinet điều khiển hệ thống phủ bề mặt tự động | roadmap_MechanicalEnginner.md |
+| che_tao_cam_bien_mems_va_arm_day_1342 | Tích hợp vi điều khiển ARM Cortex-M đọc và hiệu chuẩn vi cảm biến MEMS áp suất cao | roadmap_MechanicalEnginner.md |
+| phu_be_mat_pvd_s7_1200_day_1343 | Làm chủ phủ màng PVD và giám sát nhiệt độ bằng PLC S7-1200 kết hợp an toàn chống nhiễu | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cam_bien_mems_arm_day_1344 | Chế tạo và mô phỏng ứng suất nhiệt vi cảm biến MEMS áp suất tích hợp nhúng ARM Cortex-M | roadmap_MechanicalEnginner.md |
+| phu_be_mat_pvd_s7_1200_day_1345 | Tích hợp công nghệ màng phủ PVD và hệ thống điều khiển an toàn PLC S7-1200 cho máy dập tự động | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cam_bien_mems_arm_day_1346 | Chế tạo vi cảm biến MEMS piezoresistive và tích hợp nhúng ARM Cortex-M4 cho máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| phu_be_mat_pvd_s7_1200_day_1347 | Tích hợp công nghệ phủ PVD TiN và điều khiển PID nhiệt độ lò qua PLC S7-1200 cho trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cam_bien_mems_arm_day_1348 | Thiết kế trạm đo thông minh với vi cảm biến MEMS áp suất và giao tiếp ARM Cortex-M4 an toàn cao | roadmap_MechanicalEnginner.md |
+| phu_be_mat_pvd_s7_1200_day_1349 | Tối ưu hóa nhiệt độ lò phủ PVD trục vít máy đùn bằng PID S7-1200 và chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| che_tao_vi_cam_bien_mems_arm_day_1350 | Tích hợp hệ thống in 3D, phân tích ứng suất nhiệt ANSYS và mạng an toàn Safety PLC | roadmap_MechanicalEnginner.md |
+| gdt_iso_spc_duc_truc_vit_day_1351 | Ứng dụng GD&T, ISO 9001 và SPC kiểm soát chất lượng trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| iso_iatf_an_toan_may_dap_day_1352 | Quản lý chất lượng IATF 16949 và thiết kế mạch an toàn phần cứng Safety PLC cho máy dập | roadmap_MechanicalEnginner.md |
+| gdt_iso_spc_may_ep_thuy_luc_day_1353 | Ứng dụng GD&T, ISO 1101 và SPC nâng cao cho kết cấu khung máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| iso_iatf_an_toan_may_truc_vit_day_1354 | Thiết kế mạch an toàn phần cứng ISO 13849 và tích hợp IATF 16949 cho cơ cấu trục vít | roadmap_MechanicalEnginner.md |
+| iso_iatf_spc_may_dap_nghien_cuu_day_1355 | Áp dụng ISO/IATF và SPC cho máy dập tự động - Dự án QC line dập | roadmap_MechanicalEnginner.md |
+| gdt_iso_an_toan_may_truc_vit_day_1356 | Đo lường GD&T nâng cao và An toàn xưởng cơ khí - Dự án QC trục vít | roadmap_MechanicalEnginner.md |
+| gdt_iso_spc_may_dap_nghien_cuu_chi_tiet_day_1357 | Ứng dụng GD&T, ISO 9001 và SPC kiểm soát chất lượng máy dập tấm | roadmap_MechanicalEnginner.md |
+| iso_iatf_an_toan_may_ep_thuy_luc_day_1358 | Thiết kế mạch an toàn phần cứng Safety Relay, E-Stop và FMEA theo chuẩn IATF 16949 cho máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| gdt_iso_spc_may_dap_nang_cao_day_1359 | Ứng dụng GD&T, ISO và SPC tối ưu hóa dây chuyền máy dập tấm kim loại | roadmap_MechanicalEnginner.md |
+| iso_iatf_an_toan_may_truc_vit_day_1360 | Đánh giá IATF 16949 và thiết kế hệ thống an toàn phần cứng cho cụm trục vít đùn nhựa | roadmap_MechanicalEnginner.md |
+| gdt_iso_spc_may_dap_nang_cao_nghien_cuu_day_1361 | Ứng dụng GD&T, ISO và SPC nâng cao tích hợp Safety PLC cho máy dập | roadmap_MechanicalEnginner.md |
+| iso_iatf_an_toan_may_truc_vit_chuyen_sau_day_1362 | Đánh giá IATF 16949, FMEA và chống nhiễu EMC cho hệ thống điều khiển trục vít | roadmap_MechanicalEnginner.md |
+| gdt_iso_spc_may_dap_nghien_cuu_chuyen_sau_day_1363 | Tích hợp GD&T, ISO 14001, phần mềm giả lập PLC và mạch an toàn Safety Relay cho máy dập | roadmap_MechanicalEnginner.md |
+| iso_iatf_an_toan_may_truc_vit_chuyen_sau_capstone_day_1364 | Hoàn thiện hồ sơ PPAP, FMEA nâng cao và tối ưu hóa điều khiển tự động cho máy trục vít đùn nhựa | roadmap_MechanicalEnginner.md |
+| gdt_iso_spc_may_dap_nghien_cuu_chuyen_sau_nhat_day_1365 | Ứng dụng GD&T, ISO 9001 và SPC kết hợp phân tích ứng suất nhiệt ANSYS cho trạm máy dập | roadmap_MechanicalEnginner.md |
+| iso_iatf_an_toan_may_truc_vit_chuyen_sau_nhat_day_1366 | Hệ thống IATF 16949, FMEA nâng cao và tích hợp Safety PLC chống nhiễu EMC cho máy trục vít | roadmap_MechanicalEnginner.md |
+| gdt_iso_spc_may_dap_nghien_cuu_chuyen_sau_nhat_2_day_1367 | Đo lường GD&T nâng cao và phân tích năng lực quá trình SPC cho máy dập tự động | roadmap_MechanicalEnginner.md |
+| iso_iatf_an_toan_may_truc_vit_chuyen_sau_nhat_2_day_1368 | Thiết kế mạch an toàn phần cứng Safety PLC và tích hợp tiêu chuẩn ISO 13849 cho máy trục vít | roadmap_MechanicalEnginner.md |
+| gdt_iso_spc_may_dap_nghien_cuu_chuyen_sau_nhat_3_day_1369 | Tối ưu hóa năng lực quá trình dập và phân tích dung sai GD&T nâng cao | roadmap_MechanicalEnginner.md |
+| iso_iatf_an_toan_may_truc_vit_chuyen_sau_nhat_3_day_1370 | Thiết kế mạch an toàn phần cứng và quản lý rủi ro FMEA hệ thống trục vít đùn nhựa | roadmap_MechanicalEnginner.md |
+| gdt_iso_spc_may_dap_nghien_cuu_chuyen_sau_nhat_4_day_1371 | Đo lường GD&T và SPC cho chi tiết máy dập thủy lực chính xác cao | roadmap_MechanicalEnginner.md |
+| iso_iatf_an_toan_may_truc_vit_chuyen_sau_nhat_4_day_1372 | Hệ thống IATF 16949, tiêu chuẩn an toàn quốc tế ISO 13849 và Safety PLC cho xưởng trục vít | roadmap_MechanicalEnginner.md |
+| gdt_iso_spc_may_dap_nghien_cuu_chuyen_sau_nhat_5_day_1373 | Ứng dụng GD&T, ISO 9001 và SPC kiểm soát chất lượng máy dập tự động PLC | roadmap_MechanicalEnginner.md |
+| iso_iatf_an_toan_may_truc_vit_chuyen_sau_nhat_5_day_1374 | Đánh giá IATF 16949 và thiết kế mạch an toàn phần cứng cho cơ cấu trục vít máy ép | roadmap_MechanicalEnginner.md |
+| gdt_iso_spc_may_dap_nang_cao_nhat_6_day_1375 | Ứng dụng GD&T, SPC nâng cao trên máy dập thủy lực tự động Day 1375 | roadmap_MechanicalEnginner.md |
+| iso_iatf_an_toan_may_truc_vit_chuyen_cao_nhat_6_day_1376 | Đánh giá IATF 16949 và an toàn tuyệt đối cho hệ thống máy trục vít Day 1376 | roadmap_MechanicalEnginner.md |
+| gdt_iso_spc_may_dap_nang_cao_nhat_7_day_1377 | Áp dụng GD&T, SPC và tiêu chuẩn ISO trên máy dập tự động CNC tích hợp PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| iso_iatf_an_toan_may_truc_vit_chuyen_cao_nhat_7_day_1378 | Kiểm toán IATF 16949, thiết kế mạch an toàn phần cứng ISO 13849 cho xưởng máy trục vít CNC | roadmap_MechanicalEnginner.md |
+| gdt_iso_spc_may_dap_nghien_cuu_chuyen_sau_nhat_6_day_1379 | Đo lường GD&T nâng cao, phân tích năng lực quá trình SPC và mô phỏng ứng suất nhiệt cho cụm chi tiết máy dập | roadmap_MechanicalEnginner.md |
+| iso_iatf_an_toan_may_truc_vit_chuyen_cao_nhat_8_day_1380 | Thiết kế mạch an toàn Safety PLC chuẩn ISO 13849, chống nhiễu EMC và tích hợp hệ thống IATF 16949 cho máy trục vít tự động | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_truc_vit_day_1381 | Ứng dụng GD&T, SPC và ISO 13849 cho máy dập trục vít tự động | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_capstone_day_1382 | Đánh giá IATF 16949 và lập trình Safety PLC tích hợp mô phỏng FMEA | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_ep_thuy_luc_day_1383 | Đo lường hình học GD&T, phân tích năng lực quá trình SPC và tiêu chuẩn ISO 9001 cho máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_dap_day_1384 | Tích hợp tiêu chuẩn an toàn IATF 16949, phân tích FMEA và lập trình Safety PLC cho dây chuyền máy dập | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_ep_thuy_luc_day_1385 | Ứng dụng GD&T, SPC và tiêu chuẩn ISO 13849 cho an toàn máy ép thủy lực nâng cao | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_day_1386 | Quản lý chất lượng IATF 16949, FMEA hệ thống trục vít và lập trình mô phỏng PLC an toàn | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_ep_thuy_luc_day_1387 | Đo lường GD&T và SPC nâng cao cho trục piston máy ép thủy lực tích hợp PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_dap_day_1388 | Hệ thống IATF 16949 và Thiết kế mạch an toàn phần cứng ISO 13849 cho máy dập tự động | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_ep_thuy_luc_day_1389 | Ứng dụng GD&T, SPC và ISO trên máy ép thủy lực tự động kèm PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_day_1390 | Thiết kế mạch an toàn phần cứng ISO 13849 và đánh giá IATF 16949 máy trục vít | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ep_day_1391 | Tích hợp GD&T, SPC và ISO trên máy dập & máy ép thủy lực với PLC | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_capstone_day_1392 | Đánh giá an toàn phần cứng Safety PLC và chuẩn IATF 16949 cho dây chuyền máy trục vít | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_nghien_cuu_chuyen_sau_day_1393 | Ứng dụng GD&T, SPC và ISO trên máy dập tự động kèm lập trình PLC S7-1200 và chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_ep_thuy_luc_capstone_day_1394 | Kiểm toán IATF 16949, thiết kế mạch an toàn ISO 13849 và tích hợp ESP32 cho máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_ep_thuy_luc_day_1395 | Tích hợp GD&T, SPC nâng cao và mạch an toàn phần cứng Safety PLC cho máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_dap_capstone_day_1396 | Capstone: Quản lý chất lượng IATF 16949, FMEA hệ thống và tự động hóa an toàn máy dập ESP32 | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_capstone_day_1397 | Đo lường hình học GD&T nâng cao, kiểm soát năng lực quá trình SPC và phân tích ứng suất nhiệt trên máy dập | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_capstone_day_1398 | Đánh giá IATF 16949, thiết kế mạch an toàn phần cứng ISO 13849 và tích hợp Safety PLC cho cụm trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_nghien_cuu_chuyen_sau_ngay_1399 | Tích hợp GD&T, biểu đồ SPC và tiêu chuẩn ISO 13849 cho cơ cấu máy dập thủy lực chính xác | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_chuyen_sau_ngay_1400 | Kiểm định chất lượng IATF 16949 và phân tích ứng suất nhiệt ANSYS cho trục đùn vít | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_nghien_cuu_chuyen_sau_ngay_1401 | Đo lường hình học GD&T nâng cao, phân tích SPC và tích hợp mạch an toàn ISO cho máy dập | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_chuyen_sau_ngay_1402 | Quản trị chất lượng IATF 16949, phân tích FMEA và mô phỏng điện tử chống nhiễu cho hệ thống máy đùn trục vít | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1403 | Tối ưu hóa dung sai GD&T, kiểm soát SPC và thiết kế mạch an toàn phần cứng theo ISO 13849 cho máy dập | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_ngay_1404 | Capstone: Tích hợp tiêu chuẩn IATF 16949, phân tích ứng suất nhiệt ANSYS và hệ thống an toàn tự động máy trục vít | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1405 | Ứng dụng GD&T, SPC và mô phỏng CAE phân tích ứng suất nhiệt khung máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_ngay_1406 | Thiết kế mạch an toàn phần cứng theo ISO 13849 và tích hợp IATF 16949 cho cụm trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1407 | Áp dụng GD&T, SPC và ISO 13849/IATF trên máy dập tự động điều khiển bằng PLC | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_ngay_1408 | Hệ thống IATF 16949, FMEA và mô phỏng ứng suất nhiệt cho dây chuyền máy trục vít tự động | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1409 | Thiết kế mạch an toàn phần cứng ISO 13849 và SPC máy dập PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_ngay_1410 | Mô phỏng CAE ứng suất nhiệt và Capstone tích hợp hệ thống máy trục vít đùn nhựa | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_1411 | Ứng dụng GD&T, SPC và mô phỏng CAE phân tích ứng suất nhiệt máy dập | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_1412 | Thiết kế mạch an toàn phần cứng Safety PLC và đánh giá IATF 16949 dây chuyền trục vít | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_ep_thuy_luc_1413 | Ứng dụng GD&T, SPC và Tiêu chuẩn ISO/IATF 13849 cho Máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_dap_1414 | Kiểm toán IATF 16949, FMEA và Giải pháp chống nhiễu EMC cho Dây chuyền máy dập | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1415 | Ứng dụng GD&T, SPC và An toàn mạch phần cứng Safety PLC máy dập Day 1415 | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_ngay_1416 | Kiểm toán IATF, Phân tích FMEA và Mô phỏng động lực học Adams cho máy trục vít Day 1416 | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1417 | Thiết kế mạch an toàn phần cứng ISO 13849, GD&T và SPC máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_ngay_1418 | Capstone: Tích hợp IATF 16949, PLC S7-1200 và phân tích FMEA dây chuyền trục vít | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1419 | Ứng dụng GD&T, SPC kết hợp mạch an toàn phần cứng Safety PLC cho máy dập tự động | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_ep_thuy_luc_capstone_1420 | Capstone: Tích hợp IATF 16949, phân tích ứng suất nhiệt FEA và hệ thống ngắt an toàn thủy lực | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_1421 | Đo lường GD&T hình học chi tiết máy dập & Phân tích năng lực quy trình SPC | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_1422 | Đánh giá tuân thủ IATF 16949 & Thiết kế mạch an toàn phần cứng hệ thống máy trục vít | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_1423 | Thiết kế mạch an toàn phần cứng ISO 13849 và tích hợp Safety PLC cho máy dập tự động | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_capstone_1424 | Capstone: Tích hợp chuẩn IATF 16949, phân tích ứng suất nhiệt và an toàn xưởng máy trục vít | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_ep_thuy_luc_1425 | Ứng dụng tiêu chuẩn ISO 13849 và GD&T nâng cao trên máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_dap_capstone_1426 | Capstone: Tích hợp IATF 16949 và hệ thống PLC Safety chống nhiễu EMC trên máy dập tự động | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1427 | Ứng dụng GD&T, SPC kiểm soát biên dạng dập trên máy dập thủy lực theo chuẩn ISO | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_ngay_1428 | Đánh giá tuân thủ IATF 16949, FMEA và an toàn mạch phần cứng cho cụm trục vít máy đùn | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1429 | Ứng dụng GD&T và phân tích năng lực quá trình SPC cho khung máy dập thủy lực 15T | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_ngay_1430 | Capstone: Tích hợp hệ thống IATF 16949 và thiết kế mạch an toàn phần cứng Safety PLC cho dây chuyền máy trục vít | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1431 | Tối ưu hóa dung sai GD&T và biểu đồ SPC năng lực quá trình máy dập 50T | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_ngay_1432 | Kiểm toán IATF 16949, PFMEA rủi ro và thiết kế mạch an toàn Safety PLC cho cụm trục vít | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_1433 | Áp dụng GD&T, Tiêu chuẩn ISO 1101 và Biểu đồ kiểm soát SPC cho máy dập tự động | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_ep_thuy_luc_1434 | Thiết kế mạch an toàn phần cứng theo ISO 13849 và Kiểm toán IATF 16949 cho máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1435 | Kiểm soát dung sai GD&T và SPC cho máy dập tự động - Dự án trạm QC lực dập | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_ngay_1436 | Đánh giá IATF 16949, an toàn xưởng và cấu hình mạng công nghiệp cho cụm trục vít | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1437 | Ứng dụng GD&T, SPC và Mạch An toàn ISO 13849 cho Máy dập tự động PLC Siemens | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_ep_thuy_luc_capstone_1438 | Capstone: Tích hợp IATF 16949, Mô phỏng FEA Nhiệt - Ứng suất và Tự động hóa Máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1439 | Thiết kế mạch an toàn phần cứng ISO 13849 và kiểm soát SPC máy dập 50T | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_ngay_1440 | Mô phỏng ứng suất nhiệt ANSYS và đánh giá chất lượng IATF 16949 trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1441 | Ứng dụng GD&T, Kiểm soát quá trình SPC và An toàn cảm biến quang học máy dập | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_ngay_1442 | Kiểm toán IATF 16949, Phân tích FMEA và Đo độ đảo hướng kính trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_1443 | Ứng dụng GD&T, SPC và Phân tích ứng suất nhiệt ANSYS cho vỏ hộp máy dập | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_1444 | Kiểm toán IATF 16949, Mạch an toàn phần cứng Safety PLC và Chống nhiễu EMC máy trục vít | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1445 | Thiết kế mạch an toàn phần cứng Safety PLC & Đo lường GD&T máy dập | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_ngay_1446 | Capstone: Tích hợp IATF 16949 & Mô phỏng ứng suất nhiệt FMEA máy trục vít | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1447 | Đo lường GD&T nâng cao và phân tích SPC cho cụm chi tiết máy dập | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_ngay_1448 | Tích hợp tiêu chuẩn IATF 16949, FMEA và mạch an toàn Safety PLC cho máy trục vít | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1449 | Áp dụng GD&T, SPC và An toàn phần cứng ISO 13849 cho máy dập với PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_ep_thuy_luc_capstone_1450 | Capstone: Tích hợp IATF 16949, Phân tích FMEA và Đo lường GD&T máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1451 | Ứng dụng GD&T và SPC kiểm soát chất lượng máy dập tự động PLC Siemens | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_ngay_1452 | Capstone: Tích hợp IATF 16949, FMEA và an toàn xưởng cho máy đùn trục vít | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1453 | Đo lường hình học GD&T và phân tích năng lực SPC trên máy dập tự động | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_ep_thuy_luc_capstone_1454 | Tích hợp hệ thống quản lý chất lượng IATF và thiết kế mạch an toàn máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_ep_thuy_luc_1455 | Thiết kế mạch an toàn phần cứng và ứng dụng GD&T, SPC trên máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_dap_capstone_1456 | Capstone tích hợp IATF 16949, FMEA nâng cao và phân tích ứng suất nhiệt trạm máy dập | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1457 | Ứng dụng GD&T, SPC kết hợp thiết kế mạch an toàn phần cứng ISO 13849 cho máy dập tự động | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_ngay_1458 | Capstone: Tích hợp IATF 16949, FMEA nâng cao và mô phỏng ứng suất nhiệt cho cụm máy trục vít | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1459 | Ứng dụng GD&T và SPC kiểm soát chất lượng máy dập tự động PLC | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_ngay_1460 | Capstone: Tích hợp IATF 16949 và an toàn xưởng cho dây chuyền máy trục vít | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1461 | Ứng dụng GD&T, biểu đồ SPC và chuẩn hóa ISO cho máy dập tự động điều khiển PLC | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_ep_thuy_luc_capstone_1462 | Capstone: Tích hợp IATF 16949, phân tích FMEA và thiết kế mạch an toàn máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_1463 | Đo lường hình học GD&T nâng cao và phân tích năng lực quá trình SPC cho thân vỏ máy dập | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_ep_thuy_luc_capstone_1464 | Capstone: Tích hợp hệ thống quản lý chất lượng IATF 16949 và mạch an toàn phần cứng Safety PLC cho máy ép | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1465 | Tích hợp GD&T, Tiêu chuẩn an toàn ISO 13849 và Biểu đồ kiểm soát SPC cho máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_ngay_1466 | Capstone: Hoàn thiện FMEA, Phân tích mô phỏng nhiệt ứng suất và Đo lường GD&T máy trục vít | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1467 | Thiết kế mạch an toàn phần cứng ISO 13849 và tích hợp SPC cho máy dập tự động | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_capstone_1468 | Capstone: Tích hợp hệ thống IATF 16949, phân tích ứng suất nhiệt và đo lường GD&T cụm trục vít | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1469 | Ứng dụng GD&T, SPC và An toàn máy dập với PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_ep_thuy_luc_capstone_1470 | Capstone: Tích hợp hệ thống IATF 16949, FMEA và mô phỏng cơ điện tử máy ép trục vít | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1471 | Đo lường GD&T và SPC tích hợp Safety PLC cho máy dập chi tiết ô tô | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_ngay_1472 | Capstone: Tích hợp IATF 16949 và mô phỏng CAE ứng suất nhiệt máy trục vít | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1473 | Ứng dụng GD&T, Phân tích SPC và Tiêu chuẩn an toàn ISO 13849 cho máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_dap_capstone_1474 | Capstone: Tích hợp FMEA nâng cao, Kiểm toán IATF 16949 và Mô phỏng mạch an toàn Safety PLC | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1475 | Ứng dụng GD&T, SPC và ISO 13849 mạch an toàn máy dập tấm | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_ngay_1476 | Tích hợp IATF 16949, FMEA và mô phỏng CAE ứng suất nhiệt máy trục vít | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1477 | Ứng dụng GD&T, Tiêu chuẩn an toàn ISO 13849 và SPC cho máy dập tấm kim loại | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_ep_thuy_luc_capstone_1478 | Capstone: Tích hợp IATF 16949, Phân tích FMEA và Tự động hóa QC máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1479 | Ứng dụng GD&T nâng cao, phân tích SPC năng lực quy trình dập tấm và thiết kế phần cứng an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_dap_capstone_1480 | Capstone tích hợp toàn diện hệ thống IATF 16949, tự động hóa PLC và vận hành trạm máy dập thông minh | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1481 | Ứng dụng GD&T, SPC và Phân tích Mô phỏng CAE dòng chảy nhiệt luyện cho máy dập tấm kim loại lớn | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_ngay_1482 | Capstone: Tích hợp IATF 16949, Mạch an toàn ISO 13849 Safety PLC và FMEA toàn diện cho cụm trục vít | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1483 | Đo lường GD&T nâng cao và lập trình biểu đồ SPC tích hợp PLC cho máy dập tấm kim loại | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_ep_thuy_luc_capstone_1484 | Capstone: Tích hợp chuẩn IATF 16949, thiết kế mạch an toàn phần cứng ISO 13849 và FMEA xưởng máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1485 | Tích hợp GD&T hình học, biểu đồ SPC và tiêu chuẩn ISO trên máy dập tự động | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_capstone_1486 | Capstone: Thiết kế mạch an toàn phần cứng Safety PLC và đánh giá IATF 16949 máy đùn trục vít | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1487 | Ứng dụng GD&T, Safety PLC ISO 13849 và SPC thu thập lỗi máy dập | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_ngay_1488 | Capstone: Tích hợp IATF 16949, FMEA và mô phỏng CAE động lực học máy trục vít | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1489 | Kiểm soát dung sai GD&T và SPC cho chi tiết máy dập tự động | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_dap_capstone_1490 | Tích hợp hệ thống IATF 16949 và mạch ngắt an toàn chuẩn ISO 13849 cho máy dập | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1491 | Ứng dụng GD&T, SPC kết hợp thiết kế an toàn phần cứng ISO 13849 cho máy dập PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_capstone_1492 | Capstone: Tích hợp IATF 16949, FMEA, mô phỏng CAE và hệ thống an toàn máy trục vít đùn nhựa | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_1493 | Ứng dụng GD&T, Đo lường hình học và Kiểm soát chất lượng SPC thân máy dập | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_truc_vit_capstone_1494 | Capstone: Tích hợp tiêu chuẩn IATF 16949, FMEA và mạch an toàn Safety PLC cho cụm trục vít | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1495 | Ứng dụng GD&T, SPC và An toàn ISO 13849/IATF cho máy dập tự động PLC | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_ep_thuy_luc_capstone_1496 | Capstone: Tích hợp hệ thống IATF 16949, FMEA và mô phỏng ứng suất nhiệt máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1497 | Tích hợp GD&T, SPC và Mạch An toàn Phần cứng Safety PLC cho Máy dập | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_dap_capstone_1498 | Capstone: Đánh giá IATF 16949 và Kiểm định An toàn Hệ thống Nhúng Toàn diện cho Dây chuyền Máy dập | roadmap_MechanicalEnginner.md |
+| gdt_spc_iso_may_dap_ngay_1499 | Đo lường GD&T dung sai vị trí và Kiểm soát SPC tích hợp Safety PLC | roadmap_MechanicalEnginner.md |
+| iatf_safety_quality_may_dap_capstone_1500 | Capstone: Quản trị chất lượng tổng thể và Kiểm toán IATF 16949 dây chuyền dập tự động | roadmap_MechanicalEnginner.md |
+| pdm_rung_dong_may_dap_ngay_1501 | Phân tích rung động nâng cao và xây dựng chiến lược PdM theo tiêu chuẩn ISO | roadmap_MechanicalEnginner.md |
+| can_bang_dong_may_truc_vit_ngay_1502 | Cân bằng động vector trục vít và tối ưu hóa chỉ số OEE dây chuyền ép nhựa | roadmap_MechanicalEnginner.md |
+| pdm_chien_luoc_oee_may_dap_ngay_1503 | Xây dựng chiến lược bảo trì dự đoán và tối ưu hóa OEE máy dập tấm kim loại | roadmap_MechanicalEnginner.md |
+| xu_ly_pan_benh_may_ep_thuy_luc_ngay_1504 | Chẩn đoán và xử lý pan bệnh phức tạp hệ thống thủy lực máy ép nhựa và thủy lực | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_may_dap_ngay_1505 | Phân tích cân bằng động và triệt tiêu rung lắc trục khuỷu máy dập | roadmap_MechanicalEnginner.md |
+| pdm_xu_ly_pan_benh_oee_ngay_1506 | Xử lý pan bệnh cơ điện và tối ưu hóa OEE toàn diện dây chuyền dập trục vít | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_may_dap_1507 | Ứng dụng PdM, cân bằng động trục khuỷu và thiết kế mạch an toàn Safety PLC cho máy dập | roadmap_MechanicalEnginner.md |
+| tpm_xu_ly_su_co_may_ep_1508 | Tối ưu hóa OEE, mô phỏng ứng suất nhiệt và xử lý triệt để pan bệnh máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| pdm_chien_luoc_rung_dong_may_dap_1509 | Xây dựng chiến lược PdM và phân tích rung động máy dập qua PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| can_bang_dong_oee_may_truc_vit_1510 | Phân tích cân bằng động trục vít và tối ưu hóa OEE máy đùn qua mô phỏng | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_va_oee_may_dap_1511 | Chuyên sâu PdM, cân bằng động rotor và tối ưu hóa OEE máy dập CNC | roadmap_MechanicalEnginner.md |
+| tpm_xu_ly_pan_benh_va_pdm_may_ep_1512 | Chẩn đoán pan bệnh hệ thống thủy lực áp suất cao và tích hợp TPM máy ép | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_oee_may_dap_1513 | Tối ưu hóa chiến lược PdM, cân bằng động và OEE cho máy dập tự động kèm PLC | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_toan_dien_1514 | Capstone: Hoàn thiện hệ thống PdM, cân bằng động và tối ưu hóa OEE toàn diện nhà máy | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_oee_may_dap_1515 | Tích hợp hệ thống PdM, cảm biến an toàn ISO 13849 và tối ưu hóa OEE máy dập tấm lớn | roadmap_MechanicalEnginner.md |
+| tpm_xu_ly_pan_benh_va_pdm_may_truc_vit_1516 | Chẩn đoán pan bệnh, TPM, phân tích ứng suất nhiệt và cân bằng động trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_oee_may_dap_ngay_1517 | Xây dựng chiến lược PdM, cân bằng động cơ cấu trục khuỷu và tối ưu OEE máy dập tự động | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_may_dap_ngay_1518 | Capstone: Tích hợp mạch an toàn Safety PLC, cân bằng động trục khuỷu và giám sát thời gian thực dây chuyền máy dập | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_va_oee_may_dap_1519 | Xây dựng hệ thống PdM, cân bằng động trục khuỷu và tối ưu OEE máy dập | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_may_dap_1520 | Capstone: Tích hợp toàn diện PdM, cân bằng động và OEE cho hệ thống máy dập tự động | roadmap_MechanicalEnginner.md |
+| pdm_rung_dong_may_dap_ngay_1521 | Phân tích phổ rung động FFT và chuẩn hóa cách ly nhiễu EMC cho cảm biến gia tốc máy dập | roadmap_MechanicalEnginner.md |
+| can_bang_dong_oee_may_truc_vit_ngay_1522 | Cân bằng động trục vít chính xác cao và tối ưu hóa thời gian OEE máy đùn nhựa | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_oee_may_dap_ngay_1523 | Xây dựng hệ thống bảo trì dự đoán, cân bằng động trục và tối ưu hóa OEE máy dập tích hợp PLC Siemens | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_may_dap_ngay_1524 | Capstone: Tích hợp toàn diện bảo trì dự đoán PdM, cân bằng động và xử lý pan bệnh máy dập tự động | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_oee_may_dap_1525 | Chuyên sâu chiến lược PdM, cân bằng động và OEE máy dập tích hợp Safety PLC | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_may_dap_1526 | Capstone: Tích hợp toàn diện hệ thống PdM, cân bằng động, FEA nhiệt và SCADA dây chuyền cơ khí | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_oee_may_dap_ngay_1527 | Thu thập dữ liệu rung động, cân bằng động trục cơ máy dập và lập trình giám sát OEE trên PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_may_dap_ngay_1528 | Capstone: Tích hợp mạng truyền thông công nghiệp, mạch an toàn Safety PLC và tối ưu hóa OEE toàn diện dây chuyền dập | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_oee_may_dap_1529 | Ứng dụng PdM, cân bằng động & OEE máy dập thông minh | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_toan_dien_1530 | Capstone: Tích hợp toàn diện PdM, cân bằng động & OEE nhà máy | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_va_oee_may_dap_ngay_1531 | Xây dựng chiến lược PdM, cân bằng động trục máy dập và tối ưu OEE tích hợp PLC | roadmap_MechanicalEnginner.md |
+| can_bang_dong_oee_may_truc_vit_ngay_1532 | Phân tích cân bằng động trục vít máy ép nhựa, chống nhiễu EMC và xử lý pan bệnh cơ khí | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_va_oee_may_dap_ngay_1533 | Xây dựng chiến lược PdM và cân bằng động máy dập tối ưu hóa OEE | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_toan_dien_ngay_1534 | Capstone: Tích hợp toàn diện phần cứng an toàn PLC và mô phỏng động lực học hệ máy ép | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_va_oee_may_dap_ngay_1535 | Phân tích PdM, cân bằng động cơ cấu truyền động và OEE máy dập với PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_toan_dien_ngay_1536 | Capstone: Tích hợp hệ thống chẩn đoán pan bệnh, cân bằng động và tối ưu OEE máy trục vít | roadmap_MechanicalEnginner.md |
+| pdm_chien_luoc_rung_dong_may_dap_1537 | Thiết kế mạch an toàn phần cứng Safety Relay & Chẩn đoán rung động máy dập 100T tích hợp PLC | roadmap_MechanicalEnginner.md |
+| can_bang_dong_oee_may_truc_vit_1538 | Phân tích cân bằng động trục vít & Tối ưu hóa OEE toàn diện dây chuyền máy ép nhựa tự động | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_oee_may_dap_1539 | Xây dựng chiến lược PdM, phân tích rung động ISO 10816 và OEE máy dập | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_toan_dien_1540 | Capstone: Tích hợp hệ thống số hóa PdM, phân tích nhiệt ứng suất và tối ưu OEE toàn diện | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_va_oee_may_dap_1541 | Xây dựng chiến lược PdM, cân bằng động máy dập và tích hợp mạch an toàn ISO 13849 trên PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| tpm_xu_ly_pan_benh_va_oee_may_truc_vit_1542 | Xử lý pan kẹt trục, tối ưu OEE máy trục vít và lập trình giao diện HMI Weintek giám sát thời gian thực | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_va_oee_may_dap_1543 | Chuyên đề PdM, cân bằng động và OEE máy dập tích hợp Safety PLC & chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_toan_dien_1544 | Capstone: Tích hợp toàn diện PdM, cân bằng động, CAE ứng suất nhiệt và OEE máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_va_oee_may_dap_ngay_1545 | Xây dựng chiến lược PdM, cân bằng động và tối ưu OEE máy dập qua PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| tpm_xu_ly_pan_benh_va_oee_may_truc_vit_ngay_1546 | Xử lý pan bệnh, tối ưu OEE máy trục vít và lập trình giám sát qua HMI Weintek | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_va_oee_may_dap_1547 | PdM, cân bằng động và OEE máy dập qua PLC S7-1200 và tiêu chuẩn an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_toan_dien_1548 | Capstone: Tích hợp hệ thống PdM, cân bằng động trực tuyến và tối ưu OEE toàn diện cho dây chuyền cơ khí | roadmap_MechanicalEnginner.md |
+| pdm_chien_luoc_oee_may_dap_1549 | Xây dựng chiến lược PdM, phân tích rung động FFT chuẩn ISO 10816 & cân bằng động máy dập 100T tích hợp PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_may_truc_vit_1550 | Capstone: Tích hợp hệ thống PdM toàn diện, tiêu chuẩn an toàn ISO 13849-1, cân bằng động G2.5 và xử lý pan sự cố kẹt cơ khí máy đùn trục vít đôi | roadmap_MechanicalEnginner.md |
+| pdm_chien_luoc_oee_may_dap_1551 | Xây dựng chiến lược PdM, cân bằng động rotor và tối ưu OEE máy dập CNC tích hợp chuẩn an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_toan_dien_1552 | Capstone: Tích hợp toàn diện PdM, cân bằng động và OEE máy ép thủy lực trục vít nâng cao | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_va_oee_may_dap_ngay_1553 | Thiết kế mạch an toàn Safety PLC và tích hợp chuẩn ISO 13849 cho máy dập tự động | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_toan_dien_ngay_1554 | Capstone: Hoàn thiện toàn diện hệ thống bảo trì dự đoán PdM, chống nhiễu EMC và OEE máy dập | roadmap_MechanicalEnginner.md |
+| pdm_chien_luoc_rung_dong_may_dap_1555 | Chiến lược PdM, phân tích phổ FFT và điều khiển PLC chống nhiễu cho máy dập | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_toan_dien_1556 | Capstone: Tích hợp hệ thống cân bằng động thời gian thực và quản lý OEE máy trục vít | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_va_oee_may_dap_ngay_1557 | Xây dựng chiến lược PdM và tích hợp mạch an toàn phần cứng Safety PLC cho máy dập | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_toan_dien_ngay_1558 | Capstone: Hoàn thiện trạm IoT giám sát OEE toàn diện và phân tích ứng suất nhiệt máy dập | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_va_oee_may_dap_ngay_1559 | Xây dựng chiến lược PdM, cân bằng động trục cơ và tối ưu OEE máy dập CNC tích hợp Safety PLC | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_toan_dien_ngay_1560 | Capstone: Tích hợp toàn diện hệ thống PdM, phân tích ứng suất nhiệt ANSYS và OEE dây chuyền tự động | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_va_oee_may_dap_ngay_1561 | Xây dựng chiến lược PdM và cân bằng động trục máy dập CNC tích hợp Safety PLC | roadmap_MechanicalEnginner.md |
+| tpm_xu_ly_pan_benh_va_oee_may_truc_vit_ngay_1562 | Chẩn đoán kẹt trục vít, phân tích mô phỏng nhiệt và tối ưu OEE máy ép nhựa | roadmap_MechanicalEnginner.md |
+| pdm_chien_luoc_rung_dong_may_dap_ngay_1563 | Xây dựng chiến lược PdM & Phân tích rung động máy dập 50T tích hợp IoT | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_toan_dien_ngay_1564 | Capstone: Tối ưu hóa OEE máy trục vít & Mô phỏng ứng suất nhiệt kết cấu cơ khí | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_va_oee_may_dap_ngay_1565 | Tích hợp Safety PLC, mạch an toàn ISO 13849 và chiến lược PdM máy dập CNC | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_toan_dien_ngay_1566 | Capstone: Hệ thống giám sát toàn diện, mô phỏng nhiệt FEM và cân bằng động máy trục vít | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_oee_may_dap_1567 | Xây dựng chiến lược PdM, phân tích rung động và tối ưu OEE máy dập CNC | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_may_truc_vit_1568 | Capstone: Tích hợp IoT, cân bằng động cụm trục đùn và xử lý pan bệnh máy trục vít | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_va_oee_may_dap_ngay_1569 | Xây dựng chiến lược PdM, cân bằng động trục máy dập và tích hợp mạch an toàn ISO 13849 trên PLC Siemens S7-1200 | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_toan_dien_ngay_1570 | Capstone: Tích hợp toàn diện hệ thống PdM, phân tích ứng suất nhiệt và tối ưu hóa OEE máy trục vít tự động | roadmap_MechanicalEnginner.md |
+| pdm_chien_luoc_rung_dong_may_dap_ngay_1571 | Xây dựng chiến lược PdM & Phân tích rung động máy dập 50T tích hợp PLC S7-1200 và An toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_toan_dien_ngay_1572 | Capstone: Tích hợp toàn diện hệ thống giám sát OEE, cân bằng động trục vít và chẩn đoán nhiệt độ ứng suất | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_may_dap_ngay_1573 | Phân tích PdM, cân bằng động trục máy dập và tích hợp an toàn PLC theo ISO 13849 | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_toan_dien_ngay_1574 | Capstone: Tích hợp toàn diện PdM, cân bằng động, phân tích ứng suất nhiệt và OEE máy dập | roadmap_MechanicalEnginner.md |
+| pdm_chien_luoc_rung_dong_may_dap_1575 | Thiết kế chiến lược PdM, tích hợp mạch an toàn ISO 13849 và phân tích rung động máy dập 50T | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_toan_dien_1576 | Capstone: Tích hợp PdM, cân bằng động trục vít, phân tích nhiệt ứng suất CAE và tối ưu OEE toàn diện | roadmap_MechanicalEnginner.md |
+| pdm_chien_luoc_oee_may_dap_ngay_1577 | Xây dựng chiến lược PdM & tối ưu OEE máy dập tự động qua mô phỏng PLC | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_toan_dien_1578 | Capstone: Tích hợp toàn diện PdM, cân bằng động & OEE cho dây chuyền máy ép | roadmap_MechanicalEnginner.md |
+| pdm_chien_luoc_oee_may_dap_1579 | Xây dựng chiến lược PdM, phân tích rung động FFT và tối ưu OEE cho máy dập 500T | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_may_truc_vit_1580 | Capstone: Tích hợp PdM, cân bằng động laser và xử lý pan bệnh máy trục vít đôi | roadmap_MechanicalEnginner.md |
+| pdm_chien_luoc_oee_may_dap_ngay_1581 | Xây dựng chiến lược PdM, tích hợp mạng Profinet và tối ưu OEE máy dập tự động kèm PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_toan_dien_ngay_1582 | Capstone: Tích hợp toàn diện PdM, mô phỏng CAE động lực học và cân bằng động trục vít | roadmap_MechanicalEnginner.md |
+| pdm_va_can_bang_dong_truc_vit_ngay_1583 | Xây dựng chiến lược PdM & cân bằng động trục vít máy ép với PLC S7-1200 và chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| capstone_pdm_va_toi_uu_oee_may_dap_ngay_1584 | Capstone: Tích hợp PdM, phân tích FFT ổ bi và tối ưu hóa OEE máy dập tự động kèm mạch Safety PLC | roadmap_MechanicalEnginner.md |
+| pdm_va_can_bang_dong_truc_vit_day_1585 | Thiết kế mạch an toàn Safety PLC và cân bằng động trục vít máy ép nhựa theo ISO 13849 | roadmap_MechanicalEnginner.md |
+| capstone_pdm_va_can_bang_dong_truc_vit_ngay_1586 | Capstone: Tích hợp trạm PdM IoT Modbus RTU và tối ưu OEE toàn diện dây chuyền ép nhựa | roadmap_MechanicalEnginner.md |
+| pdm_va_can_bang_dong_may_dap_ngay_1587 | Xây dựng chiến lược PdM, cân bằng động trục khuỷu và tối ưu OEE máy dập | roadmap_MechanicalEnginner.md |
+| capstone_pdm_va_can_bang_dong_toan_dien_ngay_1588 | Capstone: Tích hợp hệ thống PdM, phân tích rung động và OEE máy trục vít | roadmap_MechanicalEnginner.md |
+| pdm_va_can_bang_dong_truc_vit_day_1589 | Xây dựng quy trình PdM, phân tích rung động và cân bằng động trục vít máy đùn nhựa | roadmap_MechanicalEnginner.md |
+| capstone_pdm_va_can_bang_dong_truc_vit_ngay_1590 | Capstone: Tích hợp Safety PLC, HMI, hệ thống PdM và tối ưu hóa OEE máy đùn nhựa | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_va_oee_truc_vit_ngay_1591 | Thu thập tín hiệu rung động và tính toán OEE thời gian thực qua PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_va_oee_toan_dien_ngay_1592 | Tích hợp SCADA, mạch an toàn Safety PLC và tối ưu hóa cân bằng động dây chuyền | roadmap_MechanicalEnginner.md |
+| pdm_va_can_bang_dong_truc_vit_ngay_1593 | Xây dựng chiến lược PdM, tích hợp mạch an toàn Safety PLC và xử lý nhiễu EMC trục vít | roadmap_MechanicalEnginner.md |
+| capstone_pdm_va_can_bang_dong_truc_vit_ngay_1594 | Capstone: Tích hợp hệ thống PdM toàn diện, phân tích ứng suất nhiệt và tối ưu hóa OEE máy đập trục vít | roadmap_MechanicalEnginner.md |
+| pdm_va_can_bang_dong_truc_vit_ngay_1595 | Triển khai chiến lược PdM, cân bằng động trục vít và tối ưu hóa OEE nhà máy | roadmap_MechanicalEnginner.md |
+| capstone_pdm_va_can_bang_dong_toan_dien_ngay_1596 | Capstone: Tích hợp trạm an toàn Safety PLC, xử lý pan bệnh trục vít và SCADA | roadmap_MechanicalEnginner.md |
+| pdm_va_can_bang_dong_truc_vit_ngay_1597 | Đo lường rung động và lập trình lọc tín hiệu gia tốc trục vít trên PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| capstone_pdm_va_can_bang_dong_truc_vit_ngay_1598 | Capstone: Tích hợp hệ thống an toàn Safety PLC và giám sát OEE máy ép trục vít | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_truc_vit_ngay_1599 | Ứng dụng PdM, cân bằng động trục vít và tối ưu hóa OEE máy ép nhựa | roadmap_MechanicalEnginner.md |
+| capstone_pdm_va_can_bang_dong_toan_dien_ngay_1600 | Capstone: Tích hợp hệ thống PdM, PLC S7-1200 và tối ưu hóa OEE toàn diện máy ép | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_va_oee_truc_vit_ngay_1601 | Xây dựng chiến lược PdM và cân bằng động trục vít máy đập | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_va_oee_toan_dien_ngay_1602 | Capstone: Tích hợp IoT, SCADA và tối ưu hóa OEE toàn diện dây chuyền | roadmap_MechanicalEnginner.md |
+| pdm_va_can_bang_dong_truc_vit_1603 | Xây dựng quy trình PdM và cân bằng động trục vít kết hợp PLC S7-1200 và chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| capstone_pdm_va_toi_uu_oee_truc_vit_1604 | Capstone: Tối ưu hóa OEE máy dập, phân tích ứng suất nhiệt ANSYS và xử lý pan bệnh toàn diện | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_truc_vit_day_1605 | Thuật toán FFT phát hiện lệch tâm trục vít và tiêu chuẩn an toàn ISO 13849 trên PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_toan_dien_ngay_1606 | Capstone: Tích hợp trạm quản lý OEE, SCADA và mô phỏng CAE động lực học cụm máy dập | roadmap_MechanicalEnginner.md |
+| pdm_va_can_bang_dong_truc_vit_ngay_1607 | Định hình chiến lược PdM máy trục vít và cân bằng động qua PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_truc_vit_ngay_1608 | Capstone: Tích hợp hoàn chỉnh hệ thống PdM, cân bằng động và OEE máy trục vít | roadmap_MechanicalEnginner.md |
+| pdm_va_can_bang_dong_truc_vit_ngay_1609 | Xây dựng chiến lược PdM, cân bằng động và OEE máy trục vít | roadmap_MechanicalEnginner.md |
+| capstone_pdm_va_toi_uu_oee_truc_vit_ngay_1610 | Capstone: Tích hợp toàn diện PdM và tối ưu hóa OEE máy trục vít | roadmap_MechanicalEnginner.md |
+| pdm_va_can_bang_dong_truc_vit_ngay_1611 | PdM và cân bằng động trục vít kết hợp tự động hóa PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_va_oee_toan_dien_ngay_1612 | Capstone: Tích hợp trạm giám sát tình trạng, mô phỏng nhiệt và tối ưu OEE dây chuyền | roadmap_MechanicalEnginner.md |
+| pdm_va_can_bang_dong_truc_vit_ngay_1613 | Triển khai chiến lược PdM và cân bằng động tích hợp Safety PLC cho trục vít | roadmap_MechanicalEnginner.md |
+| capstone_pdm_va_toi_uu_oee_truc_vit_ngay_1614 | Capstone: Tích hợp hệ thống PdM, cân bằng động và tối ưu hóa OEE máy ép | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_truc_vit_day_1615 | Thiết kế hệ thống an toàn ISO 13849 và cân bằng động trục vít | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_toan_dien_ngay_1616 | Capstone: Tích hợp mô phỏng FEA ứng suất nhiệt và tối ưu OEE máy dập | roadmap_MechanicalEnginner.md |
+| pdm_va_can_bang_dong_truc_vit_day_1617 | Xây dựng chiến lược PdM và cân bằng động trục vít máy ép nhựa trên PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| capstone_pdm_va_toi_uu_oee_truc_vit_ngay_1618 | Capstone: Tích hợp mạch an toàn Safety PLC và tối ưu hóa OEE máy ép nhựa tự động | roadmap_MechanicalEnginner.md |
+| pdm_va_can_bang_dong_truc_vit_ngay_1619 | Xây dựng chiến lược PdM và cân bằng động trục vít máy ép nhựa | roadmap_MechanicalEnginner.md |
+| capstone_pdm_va_toi_uu_oee_truc_vit_ngay_1620 | Capstone: Tối ưu hóa OEE và xử lý pan bệnh máy ép nhựa toàn diện | roadmap_MechanicalEnginner.md |
+| pdm_va_can_bang_dong_truc_vit_ngay_1621 | Triển khai PdM, cân bằng động trục vít và tối ưu hóa OEE trên nền tảng PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| capstone_pdm_va_toi_uu_oee_ngay_1622 | Capstone tổng thể: Tích hợp hệ thống bảo trì dự đoán, an toàn máy dập và tối ưu OEE | roadmap_MechanicalEnginner.md |
+| pdm_va_can_bang_dong_truc_vit_ngay_1623 | Xây dựng chiến lược PdM, cân bằng động trục vít & tiêu chuẩn an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| capstone_pdm_va_toi_uu_oee_truc_vit_ngay_1624 | Capstone: Tích hợp toàn diện chiến lược PdM, tối ưu OEE & mô phỏng ứng suất nhiệt máy ép trục vít | roadmap_MechanicalEnginner.md |
+| pdm_va_can_bang_dong_truc_vit_ngay_1625 | Xây dựng chiến lược PdM, cân bằng động trục vít máy đùn và tích hợp Safety PLC ISO 13849 | roadmap_MechanicalEnginner.md |
+| capstone_pdm_va_toi_uu_oee_ngay_1626 | Capstone: Tích hợp hệ thống PdM, phân tích ứng suất nhiệt ANSYS và tối ưu hóa OEE máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| pdm_va_can_bang_dong_truc_vit_day_1627 | Xây dựng chiến lược PdM & cân bằng động trục vít máy ép nhựa (Dự án số 1627) | roadmap_MechanicalEnginner.md |
+| capstone_pdm_va_toi_uu_oee_ngay_1628 | Capstone: Tích hợp hoàn chỉnh hệ thống PdM, cân bằng động và tối ưu OEE máy dập (Dự án số 1628) | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_va_oee_day_1629 | Xây dựng chiến lược PdM, cân bằng động trục vít và tối ưu hóa OEE máy dập tích hợp Safety PLC | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_day_1630 | Capstone: Tích hợp toàn diện chiến lược PdM, cân bằng động, phân tích nhiệt động lực học và tự động hóa dây chuyền máy ép | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_truc_vit_ngay_1631 | Thiết kế chiến lược PdM tích hợp cảm biến rung & an toàn phần cứng ISO 13849 cho trục vít | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_ngay_1632 | Capstone: Tối ưu OEE toàn diện máy dập thủy lực kết hợp chẩn đoán pan bệnh cơ điện nâng cao | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_va_oee_day_1633 | Thiết kế mạch an toàn Safety PLC, chống nhiễu EMC và tối ưu hóa OEE máy dập | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_day_1634 | Capstone: Tích hợp hệ thống tự động hóa an toàn, phân tích ứng suất nhiệt và cân bằng động dây chuyền máy dập | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_truc_vit_day_1635 | Xây dựng chiến lược PdM & Cân bằng động trục vít máy ép nhựa (Dự án 1635) | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_day_1636 | Capstone: Tối ưu hóa OEE & Xử lý pan bệnh máy dập tự động (Dự án 1636) | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_va_oee_day_1637 | Thiết kế mạch an toàn phần cứng Safety PLC và tối ưu hóa OEE máy dập tấm | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_day_1638 | Capstone: Tích hợp hệ thống cân bằng động trục vít đùn nhựa và giám sát IoT công nghiệp | roadmap_MechanicalEnginner.md |
+| pdm_va_can_bang_dong_truc_vit_ngay_1639 | Xây dựng chiến lược PdM & Cân bằng động trục vít máy ép nhựa (Dự án PD-1639) | roadmap_MechanicalEnginner.md |
+| capstone_pdm_va_toi_uu_oee_truc_vit_ngay_1640 | Capstone: Tích hợp PdM, cân bằng động & tối ưu OEE máy dập/trục vít (Dự án CS-1640) | roadmap_MechanicalEnginner.md |
+| pdm_va_can_bang_dong_truc_vit_1641 | Triển khai PdM, cân bằng động và tối ưu OEE máy trục vít kết hợp an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_1642 | Capstone: Tích hợp hệ thống PdM, cân bằng động, FEA nhiệt và tối ưu OEE toàn diện | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_va_oee_day_1643 | Xây dựng chiến lược PdM, cân bằng động trục ép thủy lực & tích hợp tiêu chuẩn an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_day_1644 | Capstone: Tự động hóa toàn diện dây chuyền máy dập với thuật toán bù nhiệt FEA và chẩn đoán thời gian thực | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_truc_vit_1645 | Xây dựng chiến lược PdM & cân bằng động trục vít máy dập | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_oee_1646 | Capstone: Tích hợp mạng công nghiệp Modbus & tối ưu hóa OEE máy ép trục vít | roadmap_MechanicalEnginner.md |
+| pdm_va_can_bang_dong_truc_vit_1647 | Xây dựng chiến lược bảo trì dự đoán, phân tích rung động và cân bằng động trục vít cơ khí | roadmap_MechanicalEnginner.md |
+| capstone_pdm_va_toi_uu_oee_1648 | Capstone: Tích hợp hệ thống giám sát PdM, mô phỏng nhiệt ứng suất CAE và tối ưu hóa OEE toàn diện | roadmap_MechanicalEnginner.md |
+| pdm_can_bang_dong_truc_vit_day_1649 | Thiết kế mạch an toàn Safety PLC, chống nhiễu EMC và tích hợp cảm biến đo rung FFT trục vít | roadmap_MechanicalEnginner.md |
+| capstone_pdm_can_bang_dong_truc_vit_day_1650 | Capstone: Hoàn thiện trạm bảo trì thông minh tích hợp cân bằng động, phân tích ứng suất nhiệt và OEE | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_xuong_lean_six_sigma_ngay_1651 | Tái cấu trúc xưởng theo chuẩn Lean/Six Sigma, tính toán giá thành máy dập và tích hợp an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| quet_mau_reverse_engineering_va_thiet_ke_day_chuyen_ngay_1652 | Quét mẫu Reverse Engineering chi tiết cơ khí, mô phỏng ứng suất nhiệt CAE và lập trình PLC dây chuyền tự động | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_xuong_lean_six_sigma_day_1653 | Tái cấu trúc xưởng Lean/Six Sigma, bóc tách giá thành và tích hợp mạch an toàn phần cứng ISO 13849 | roadmap_MechanicalEnginner.md |
+| quet_mau_reverse_engineering_va_thiet_ke_day_chuyen_ngay_1654 | Quét 3D Reverse Engineering, mô phỏng động lực học Adams và lập trình PLC dây chuyền tự động | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_xuong_va_du_toan_gia_thanh_day_1655 | Tái cấu trúc xưởng Lean/Six Sigma và định mức chi phí sản xuất máy dập 50T | roadmap_MechanicalEnginner.md |
+| quet_mau_3d_va_thiet_ke_day_chuyen_day_1656 | Số hóa Reverse Engineering thân máy và tích hợp Safety PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_xuong_lean_va_du_toan_gia_thanh_may_dap_1657 | Tái cấu trúc xưởng theo Lean, bóc tách BOM máy dập và tích hợp mạch an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| quet_mau_3d_reverse_engineering_va_thiet_ke_day_chuyen_ep_1658 | Quét mây điểm 3D, mô phỏng CAE ứng suất nhiệt và lập trình giả lập PLC cho máy ép tự động | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_xuong_va_du_toan_may_dap_truc_vit | Tái cấu trúc xưởng và tích hợp mạch an toàn phần cứng Safety PLC cho máy dập | roadmap_MechanicalEnginner.md |
+| quet_mau_3d_reverse_engineering_day_chuyen_ep | Quét 3D Reverse Engineering và mô phỏng ứng suất nhiệt CAE cho dây chuyền máy ép | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_xuong_va_gia_thanh_may_dap_ngay_1661 | Tái cấu trúc xưởng Lean, bóc tách giá thành và tích hợp mạch an toàn ISO 13849 cho máy dập | roadmap_MechanicalEnginner.md |
+| quet_3d_va_thiet_ke_day_chuyen_tu_dong_ngay_1662 | Quét 3D Reverse Engineering, mô phỏng CAE động lực học và lập trình PLC S7-1200 cho máy dập trục vít | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_xuong_va_gia_thanh_may_dap_ngay_1663 | Tái cấu trúc xưởng Lean cho dây chuyền máy dập và phân tích nhiệt luyện vật liệu | roadmap_MechanicalEnginner.md |
+| quet_3d_reverse_engineering_may_ep_ngay_1664 | Quét 3D Reverse Engineering và tích hợp Safety PLC, mạng công nghiệp cho máy ép | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_xuong_va_gia_thanh_may_dap_ngay_1665 | Tái cấu trúc xưởng Lean, phân tích dòng giá trị VSM và định mức chi phí chế tạo máy dập phức tạp | roadmap_MechanicalEnginner.md |
+| quet_3d_reverse_engineering_may_ep_ngay_1666 | Quét 3D Reverse Engineering, thiết kế mạch an toàn ISO 13849 và tích hợp dây chuyền máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_xuong_va_gia_thanh_may_dap_1667 | Tái cấu trúc xưởng Lean và định giá máy dập tự động kèm PLC Siemens S7-1200 | roadmap_MechanicalEnginner.md |
+| quet_3d_reverse_engineering_may_ep_1668 | Quét 3D Reverse Engineering và mô phỏng ứng suất nhiệt máy ép trục vít | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_xuong_va_gia_thanh_day_1669 | Tái cấu trúc xưởng Lean và tích hợp mạch an toàn phần cứng ISO 13849 cho máy trục vít | roadmap_MechanicalEnginner.md |
+| quet_3d_reverse_engineering_day_1670 | Quét 3D Reverse Engineering, mô phỏng nhiệt ứng suất và lập trình PLC máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_xuong_lean_six_sigma_day_1671 | Tái cấu trúc xưởng theo chuẩn Lean/Six Sigma kết hợp PLC S7-1200 và an toàn ISO 13849 cho máy dập | roadmap_MechanicalEnginner.md |
+| quet_mau_reverse_engineering_va_thiet_ke_day_chuyen_day_1672 | Quét 3D Reverse Engineering kết hợp phân tích ứng suất nhiệt ANSYS và thiết kế trọn gói dây chuyền ép phức tạp | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_xuong_lean_six_sigma_day_1673 | Tái cấu trúc xưởng Lean và định giá máy dập tự động Day 1673 | roadmap_MechanicalEnginner.md |
+| quet_3d_reverse_engineering_may_ep_day_1674 | Quét 3D Reverse Engineering và thiết kế trọn gói máy ép Day 1674 | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_xuong_va_gia_thanh_day_1675 | Tái cấu trúc xưởng Lean kết hợp bóc tách giá thành và định mức chi phí máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| quet_mau_va_thiet_ke_day_chuyen_day_1676 | Số hóa Reverse Engineering 3D và Thiết kế mạch an toàn Safety PLC cho dây chuyền máy dập tự động | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_xuong_lean_six_sigma_day_1677 | Tái cấu trúc xưởng theo chuẩn Lean Six Sigma cho dây chuyền máy dập và máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| quet_mau_reverse_engineering_thiet_ke_day_chuyen_day_1678 | Quét mẫu 3D Reverse Engineering và thiết kế trọn gói dây chuyền máy móc phức tạp tự động | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_xuong_lean_six_sigma_1679 | Tái cấu trúc xưởng Lean, tích hợp Safety PLC và chống nhiễu EMC cho dây chuyền dập | roadmap_MechanicalEnginner.md |
+| quet_mau_reverse_engineering_thiet_ke_1680 | Đảo ngược 3D, mô phỏng ứng suất nhiệt CAE và tích hợp HMI cho máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_xuong_lean_six_sigma_1681 | Tái cấu trúc xưởng theo chuẩn Lean/Six Sigma, bóc tách định mức chi phí cho dây chuyền máy dập | roadmap_MechanicalEnginner.md |
+| dao_nguoc_3d_va_thiet_ke_day_chuyen_1682 | Quét mẫu Reverse Engineering và thiết kế trọn gói dây chuyền máy móc phức tạp tích hợp PLC | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_xuong_lean_six_sigma_1683 | Tái cấu trúc xưởng theo chuẩn Lean/Six Sigma kết hợp lập trình PLC S7-1200 và an toàn ISO 13849 cho máy dập tự động | roadmap_MechanicalEnginner.md |
+| quet_mau_reverse_engineering_1684 | Số hóa ngược 3D kết hợp phân tích ứng suất nhiệt (Thermal Stress) và thiết kế hệ thống nhúng ESP32 giám sát lực ép trục vít | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_xuong_lean_six_sigma_1685 | Tái cấu trúc xưởng chuẩn Lean Six Sigma & Dự toán máy dập tích hợp Safety PLC | roadmap_MechanicalEnginner.md |
+| dao_nguoc_3d_va_thiet_ke_day_chuyen_1686 | Quét 3D Reverse Engineering và mô phỏng CAE động lực học máy ép trục vít | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_xuong_va_gia_thanh_may_dap_1687 | Tái cấu trúc xưởng Lean kết hợp phân tích cấu trúc kết cấu máy dập và tính giá thành BOM | roadmap_MechanicalEnginner.md |
+| quet_mau_3d_reverse_engineering_may_dap_1688 | Số hóa 3D thiết kế ngược khung máy dập và lập trình tích hợp mạch an toàn Safety PLC | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_xuong_lean_six_sigma_1689 | Tái cấu trúc xưởng Lean tích hợp tiêu chuẩn an toàn phần cứng ISO 13849 cho dây chuyền máy ép | roadmap_MechanicalEnginner.md |
+| dao_nguoc_3d_va_thiet_ke_day_chuyen_1690 | Đảo ngược 3D kết hợp mô phỏng CAE nâng cao và lập trình PLC S7-1200 cho dây chuyền dập tự động | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_xuong_chuan_lean_six_sigma_may_dap_1691 | Tái cấu trúc xưởng theo chuẩn Lean/Six Sigma cho máy dập và máy ép thủy lực kết hợp VSM | roadmap_MechanicalEnginner.md |
+| quet_3d_reverse_engineering_thiet_ke_day_chuyen_1692 | Quét 3D Reverse Engineering, phân tích an toàn ISO 13849 và lập trình mô phỏng PLC dây chuyền máy trục vít | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_xuong_lean_six_sigma_may_dap_1693 | Tái cấu trúc xưởng theo chuẩn Lean/Six Sigma tích hợp mạch an toàn phần cứng ISO 13849 cho dây chuyền máy dập | roadmap_MechanicalEnginner.md |
+| dao_nguoc_3d_va_thiet_ke_day_chuyen_truc_vit_1694 | Quét 3D đảo ngược, mô phỏng nhiệt ứng suất FEA và lập trình PLC S7-1200 dây chuyền máy đùn trục vít | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_va_gia_thanh_day_chuyen_may_dap_1695 | Tái cấu trúc xưởng Lean và bóc tách giá thành dây chuyền máy dập thủy lực an toàn | roadmap_MechanicalEnginner.md |
+| quet_3d_va_thiet_ke_day_chuyen_may_ep_truc_vit_1696 | Quét mẫu 3D Reverse Engineering và mô phỏng ứng suất nhiệt dây chuyền máy ép trục vít | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_gia_thanh_day_chuyen_may_dap_1697 | Tái cấu trúc xưởng Lean và bóc tách giá thành dây chuyền máy dập 1697 | roadmap_MechanicalEnginner.md |
+| quet_3d_va_thiet_ke_day_chuyen_may_truc_vit_1698 | Quét 3D đảo ngược và thiết kế trọn gói dây chuyền máy trục vít 1698 | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_gia_thanh_day_chuyen_may_truc_vit_1699 | Tái cấu trúc xưởng Lean, tính giá thành và thiết kế mạch an toàn Safety PLC cho máy trục vít | roadmap_MechanicalEnginner.md |
+| quet_3d_va_thiet_ke_day_chuyen_may_ep_truc_vit_hoan_thien_1700 | Quét 3D đảo ngược, mô phỏng CAE ứng suất nhiệt và hoàn thiện dây chuyền tự động hóa | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_gia_thanh_day_chuyen_may_dap_1701 | Tái cấu trúc Lean 5S, an toàn ISO 13849 và bóc tách giá thành máy dập | roadmap_MechanicalEnginner.md |
+| quet_3d_va_thiet_ke_day_chuyen_may_truc_vit_hoan_thien_1702 | Quét 3D đảo ngược, mô phỏng nhiệt FEM và thiết kế hoàn chỉnh dây chuyền máy trục vít | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_gia_thanh_day_chuyen_may_ep | Tái cấu trúc Lean xưởng máy ép và phân tích giá thành trọn gói tích hợp ISO 13849 | roadmap_MechanicalEnginner.md |
+| quet_3d_va_thiet_ke_day_chuyen_may_ep_truc_vit_dinh_cao | Quét 3D Reverse Engineering và mô phỏng ứng suất nhiệt dây chuyền máy ép trục vít | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_six_sigma_day_1705 | Tái cấu trúc xưởng Lean/Six Sigma kết hợp tiêu chuẩn an toàn quốc tế ISO 13849 và chống nhiễu EMC cho máy dập | roadmap_MechanicalEnginner.md |
+| dao_nguoc_3d_va_thiet_ke_day_chuyen_day_1706 | Quét 3D đảo ngược, mô phỏng động lực học Adams và thiết kế trọn gói dây chuyền máy ép trục vít tự động | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_six_sigma_may_dap_1707 | Tái cấu trúc Lean Six Sigma và lập trình Safety PLC ISO 13849 cho dây chuyền máy dập | roadmap_MechanicalEnginner.md |
+| quet_3d_va_thiet_ke_day_chuyen_may_ep_1708 | Quét 3D đảo ngược, phân tích ứng suất nhiệt CAE và thiết kế trọn gói dây chuyền máy ép phức tạp | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_six_sigma_day_1709 | Tích hợp tiêu chuẩn an toàn ISO 13849 và mạch Safety PLC cho dây chuyền máy ép thủy lực | roadmap_MechanicalEnginner.md |
+| dao_nguoc_3d_va_thiet_ke_chuyen_sau_day_1710 | Mô phỏng phần tử hữu hạn (FEA) ứng suất nhiệt và tối ưu hóa kết cấu máy dập 50 tấn | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_six_sigma_may_dap_1711 | Tái cấu trúc xưởng Lean và bóc tách dự toán giá thành máy dập tự động | roadmap_MechanicalEnginner.md |
+| quet_3d_dao_nguoc_thiet_ke_day_chuyen_1712 | Quét 3D đảo ngược cụm cơ cấu máy ép trục vít và tích hợp Safety PLC | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_six_sigma_dinh_cao_1713 | Tái cấu trúc xưởng chuẩn Lean/Six Sigma kết hợp PLC quản lý máy dập và an toàn tiêu chuẩn ISO 13849 | roadmap_MechanicalEnginner.md |
+| dao_nguoc_3d_va_thiet_ke_day_chuyen_truc_vit_1714 | Đảo ngược 3D, mô phỏng nhiệt ứng suất FEA và thiết kế trọn gói dây chuyền máy ép trục vít tự động | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_six_sigma_dinh_cao_1715 | Tái cấu trúc xưởng chuẩn Lean Six Sigma và lập trình Safety PLC chống nhiễu EMC | roadmap_MechanicalEnginner.md |
+| quet_3d_dao_nguoc_thiet_ke_toan_nang_1716 | Quét 3D đảo ngược cụm cơ cấu máy phức tạp kết hợp phân tích ứng suất nhiệt CAE và kinh tế kỹ thuật | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_six_sigma_day_1717 | Tái cấu trúc xưởng theo chuẩn Lean Six Sigma tích hợp Safety PLC và chống nhiễu EMC cho dây chuyền máy dập | roadmap_MechanicalEnginner.md |
+| dao_nguoc_3d_va_thiet_ke_day_chuyen_day_1718 | Đảo ngược 3D kết cấu cơ khí máy ép trục vít ứng dụng mô phỏng CAE động lực học và lập trình HMI Weintek | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_six_sigma_day_1719 | Tái cấu trúc xưởng Lean cho máy dập tích hợp Safety PLC và mạch an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| quet_3d_reverse_engineering_day_1720 | Quét 3D Reverse Engineering kết hợp phân tích ứng suất nhiệt ANSYS cho dây chuyền trục vít | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_six_sigma_may_dap_1721 | Tái cấu trúc Lean Six Sigma và tích hợp mạch an toàn phần cứng Safety PLC cho dây chuyền máy dập | roadmap_MechanicalEnginner.md |
+| quet_3d_reverse_engineering_may_truc_vit_1722 | Quét 3D Reverse Engineering và mô phỏng phân tích ứng suất nhiệt ANSYS cho hộp giảm tốc trục vít | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_six_sigma_day_1723 | Tái cấu trúc xưởng Lean kết hợp mạch an toàn ISO 13849 cho máy ép thủy lực tự động PLC | roadmap_MechanicalEnginner.md |
+| dao_nguoc_3d_va_thiet_ke_day_chuyen_day_1724 | Đảo ngược 3D cụm trục vít đôi, phân tích ứng suất nhiệt ANSYS và thiết kế trọn gói dây chuyền ép đùn | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_six_sigma_day_1725 | Tái cấu trúc xưởng theo chuẩn Lean kết hợp tích hợp an toàn Safety PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| quet_3d_reverse_engineering_day_1726 | Quét 3D ngược và mô phỏng ứng suất nhiệt kết hợp bóc tách giá thành máy ép | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_six_sigma_day_1727 | Tái cấu trúc xưởng theo Lean/Six Sigma tích hợp mạch an toàn phần cứng ISO 13849 cho dây chuyền máy dập | roadmap_MechanicalEnginner.md |
+| dao_nguoc_3d_va_thiet_ke_day_chuyen_day_1728 | Số hóa 3D phân tích phần tử hữu hạn FEA và thiết kế trọn gói dây chuyền máy trục vít đùn nhựa | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_six_sigma_day_1729 | Tái cấu trúc xưởng Lean và bóc tách dự toán dây chuyền máy dập đột tự động tích hợp an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| quet_3d_va_thiet_ke_toan_nang_day_1730 | Số hóa ngược 3D và phân tích mô phỏng ứng suất nhiệt (Thermal FEA) trên máy ép thủy lực tự động | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_six_sigma_day_1731 | Tái cấu trúc xưởng máy dập và tích hợp an toàn phần cứng Safety PLC theo ISO 13849 | roadmap_MechanicalEnginner.md |
+| dao_nguoc_3d_va_thiet_ke_day_chuyen_1732 | Đảo ngược 3D máy ép thủy lực và mô phỏng phân tích ứng suất nhiệt ANSYS CAE | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_six_sigma_day_1733 | Tái cấu trúc xưởng dập và tích hợp Safety PLC theo tiêu chuẩn ISO 13849 | roadmap_MechanicalEnginner.md |
+| quet_3d_reverse_engineering_day_1734 | Quét 3D ngược cụm trục vít đùn nhựa và mô phỏng phân tích ứng suất nhiệt ANSYS | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_xuong_lean_gia_thanh_1735 | Tái cấu trúc xưởng theo Lean, phân tích nhiệt luyện vật liệu và định mức giá thành | roadmap_MechanicalEnginner.md |
+| thiet_ke_day_chuyen_may_phuc_tap_1736 | Thiết kế trọn gói dây chuyền máy dập tự động, tích hợp mạng Profinet và mạch an toàn Safety PLC | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_six_sigma_may_1737 | Tái cấu trúc xưởng dập và trục vít tích hợp an toàn ISO 13849 và PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| dao_nguoc_3d_va_che_tao_toan_nang_1738 | Đảo ngược 3D cơ cấu máy phức tạp và tối ưu hóa dự toán chi phí toàn năng | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_six_sigma_day_1739 | Tái cấu trúc xưởng theo chuẩn Lean Six Sigma tích hợp Safety PLC cho máy dập và trục vít | roadmap_MechanicalEnginner.md |
+| quet_3d_reverse_engineering_day_1740 | Quét 3D Reverse Engineering kết hợp mô phỏng dòng chảy nhiệt và lập trình SCADA trọn gói dây chuyền | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_six_sigma_gia_thanh_1741 | Tái cấu trúc xưởng Lean, bóc tách định mức giá thành và thiết kế mạch an toàn Safety PLC | roadmap_MechanicalEnginner.md |
+| dao_nguoc_3d_va_thiet_ke_day_chuyen_plc_1742 | Đảo ngược 3D, mô phỏng ứng suất nhiệt CAE và lập trình dây chuyền máy dập tự động hóa PLC | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_six_sigma_xuong_lap_ghep_1743 | Tích hợp tiêu chuẩn an toàn ISO 13849 và tối ưu hóa OEE xưởng máy dập | roadmap_MechanicalEnginner.md |
+| thiet_ke_day_chuyen_may_truc_vit_va_gia_thanh_1744 | Phân tích phần tử hữu hạn ứng suất nhiệt và dự toán trọn gói máy ép trục vít đôi | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_thiet_ke_may_dap_1745 | Tái cấu trúc xưởng Lean kết hợp mạch an toàn ISO 13849 và PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| dao_nguoc_3d_va_che_tao_may_ep_truc_vit_1746 | Quét 3D ngược, mô phỏng phần tử hữu hạn ANSYS và chế tạo máy ép trục vít | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_du_toan_day_1747 | Tái cấu trúc xưởng chuẩn Lean kết hợp bóc tách dự toán máy dập tự động | roadmap_MechanicalEnginner.md |
+| quet_3d_va_thiet_ke_day_chuyen_day_1748 | Quét 3D ngược, phân tích ứng suất nhiệt kết hợp thiết kế dây chuyền máy ép tích hợp HMI | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_dao_nguoc_day_1749 | Tái cấu trúc xưởng Lean và quét 3D đảo ngược dây chuyền máy dập kèm phân tích CAE | roadmap_MechanicalEnginner.md |
+| chuyen_gia_che_tao_toan_nang_day_1750 | Capstone: Tích hợp Lean, mạng Profinet, an toàn Safety PLC và định giá trọn gói dây chuyền | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_tinh_toan_gia_thanh_1751 | Tái cấu trúc xưởng chuẩn Lean, tích hợp mạch an toàn ISO 13849 và bóc tách dự toán giá thành máy ép dập | roadmap_MechanicalEnginner.md |
+| dao_nguoc_3d_va_thiet_ke_day_chuyen_truc_vit_1752 | Capstone: Đảo ngược 3D máy ép trục vít, mô phỏng nhiệt ứng suất CAE và thiết kế trọn gói dây chuyền tự động | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_dao_nguoc_truc_vit_1753 | Tái cấu trúc xưởng Lean và quét 3D đảo ngược máy dập trục vít kết hợp an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| capstone_lean_six_sigma_va_thiet_ke_may_phuc_tap_1754 | Capstone: Tích hợp Lean Six Sigma, bóc tách giá thành và lập trình PLC-SCADA dây chuyền máy ép phức hợp | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_boc_tach_gia_thanh_1755 | Tái cấu trúc Lean xưởng dập và bóc tách dự toán giá thành máy dập thuỷ lực | roadmap_MechanicalEnginner.md |
+| dao_nguoc_3d_va_thiet_ke_day_chuyen_plc_1756 | Đảo ngược 3D mẫu máy phức tạp và lập trình PLC giả lập dây chuyền tự động | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_thiet_ke_day_chuyen_1757 | Tái cấu trúc xưởng theo chuẩn Lean/Six Sigma tích hợp mạch an toàn phần cứng Safety PLC S7-1200 | roadmap_MechanicalEnginner.md |
+| dao_nguoc_3d_va_thiet_ke_day_chuyen_plc_1758 | Đảo ngược 3D máy trục vít phức tạp, mô phỏng động lực học nâng cao và bóc tách dự toán giá thành | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_thiet_ke_may_dap_1759 | Tái cấu trúc xưởng Lean và thiết kế máy dập tích hợp mạch an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| capstone_lean_six_sigma_va_che_tao_may_1760 | Capstone: Tích hợp Lean Six Sigma, Luyện kim và Chế tạo dây chuyền trục vít | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_thiet_ke_may_dap_1761 | Tái cấu trúc xưởng Lean kết hợp tích hợp mạch an toàn phần cứng Safety PLC cho máy dập | roadmap_MechanicalEnginner.md |
+| dao_nguoc_3d_va_gia_thanh_may_truc_vit_1762 | Đảo ngược 3D kết hợp phân tích ứng suất nhiệt và bóc tách giá thành máy ép trục vít | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_thiet_ke_day_chuyen_1763 | Tái cấu trúc xưởng theo chuẩn Lean, tiêu chuẩn an toàn ISO 13849 và tích hợp Safety PLC | roadmap_MechanicalEnginner.md |
+| capstone_lean_six_sigma_va_che_tao_toan_nang_1764 | Capstone: Tích hợp Lean Six Sigma, phân tích ứng suất nhiệt và chế tạo trọn gói dây chuyền | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_thiet_ke_may_dap_1765 | Tái cấu trúc xưởng theo chuẩn Lean và thiết kế máy dập thủy lực tích hợp Safety PLC Day 1765 | roadmap_MechanicalEnginner.md |
+| dao_nguoc_3d_va_gia_thanh_may_ep_truc_vit_1766 | Đảo ngược 3D cụm máy ép trục vít kết hợp phân tích ứng suất nhiệt và bóc tách giá thành Day 1766 | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_gia_thanh_may_1767 | Tái cấu trúc xưởng Lean và bóc tách giá thành máy ép trục vít kèm phân tích nhiệt luyện vật liệu | roadmap_MechanicalEnginner.md |
+| dao_nguoc_3d_va_thiet_ke_day_chuyen_plc_1768 | Đảo ngược 3D, thiết kế mạch an toàn phần cứng và lập trình dây chuyền máy dập PLC Siemens | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_tinh_toan_gia_thanh_1769 | Tái cấu trúc xưởng chuẩn Lean/Six Sigma và bóc tách dự toán giá thành máy dập thuỷ lực | roadmap_MechanicalEnginner.md |
+| dao_nguoc_3d_va_thiet_ke_day_chuyen_plc_1770 | Đảo ngược 3D mẫu máy trục vít và thiết kế trọn gói dây chuyền tự động hóa PLC ứng dụng truyền thông công nghiệp | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_thiet_ke_day_chuyen_1771 | Tái cấu trúc xưởng theo chuẩn Lean và thiết kế tích hợp mạch an toàn phần cứng ISO 13849 cho máy ép thủy lực tự động | roadmap_MechanicalEnginner.md |
+| boc_tach_du_toan_va_che_tao_toan_nang_1772 | Bóc tách dự toán giá thành, phân tích ứng suất nhiệt FEA và chế tạo trọn gói dây chuyền cơ khí tích hợp robot gắp linh kiện | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_thiet_ke_day_chuyen_1773 | Tái cấu trúc xưởng Lean, tích hợp Safety PLC và thiết kế dây chuyền máy dập | roadmap_MechanicalEnginner.md |
+| dao_nguoc_3d_va_thiet_ke_day_chuyen_1774 | Quét mẫu 3D Reverse Engineering, phân tích ứng suất nhiệt và chế tạo tự động máy ép trục vít | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_thiet_ke_day_chuyen_phuc_tap_1775 | Tích hợp tiêu chuẩn an toàn ISO 13849 và tối ưu Lean dây chuyền máy dập - trục vít | roadmap_MechanicalEnginner.md |
+| dao_nguoc_3d_va_che_tao_toan_nang_day_chuyen_1776 | Capstone: Đảo ngược 3D, mô phỏng CAE nhiệt - ứng suất và chế tạo trọn gói dây chuyền cơ điện tử | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_boc_tach_du_toan_day_1777 | Tái cấu trúc xưởng Lean, an toàn Safety PLC và bóc tách dự toán máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| capstone_lean_six_sigma_va_che_tao_day_1778 | Capstone: Tối ưu Lean xưởng cơ khí, mô phỏng CAE động lực học và chế tạo trọn gói dây chuyền máy ép trục vít | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_thiet_ke_day_chuyen_1779 | Tái cấu trúc xưởng theo chuẩn Lean và thiết kế trọn gói dây chuyền máy dập tự động | roadmap_MechanicalEnginner.md |
+| capstone_lean_six_sigma_va_che_tao_toan_nang_1780 | Capstone: Tích hợp Lean, Đảo ngược 3D và chế tạo toàn năng dây chuyền máy ép trục vít phức tạp | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_thiet_ke_may_phuc_tap_1781 | Tái cấu trúc xưởng theo chuẩn Lean và tích hợp mạch an toàn ISO 13849 Day 1781 | roadmap_MechanicalEnginner.md |
+| dao_nguoc_3d_va_che_tao_may_phuc_tap_1782 | Đảo ngược 3D, phân tích ứng suất nhiệt ANSYS và chế tạo trục vít Day 1782 | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_tinh_toan_gia_thanh_1783 | Tái cấu trúc xưởng Lean và bóc tách dự toán giá thành máy ép trục vít tích hợp an toàn ISO 13849 | roadmap_MechanicalEnginner.md |
+| capstone_lean_six_sigma_va_che_tao_toan_nang_1784 | Capstone: Tích hợp Lean, Quét 3D, lập trình PLC Siemens an toàn và tối ưu hóa dây chuyền máy dập | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_thiet_ke_toan_nang_1785 | Tái cấu trúc xưởng theo Lean và thiết kế máy dập toàn năng tích hợp ISO 13849 (Day 1785) | roadmap_MechanicalEnginner.md |
+| dao_nguoc_3d_va_che_tao_day_chuyen_phuc_tap_1786 | Đảo ngược 3D mẫu máy trục vít kép, phân tích nhiệt ứng suất FEA và lập trình tự động hóa (Day 1786) | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_tinh_toan_gia_thanh_1787 | Tái cấu trúc xưởng theo Lean, tích hợp tiêu chuẩn an toàn ISO 13849 và bóc tách giá thành máy ép trục vít | roadmap_MechanicalEnginner.md |
+| capstone_lean_six_sigma_va_che_tao_toan_nang_1788 | Capstone: Tích hợp Lean, Quét 3D, Phân tích nhiệt kết cấu CAE và Lập trình PLC vận hành máy dập tự động | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_thiet_ke_may_dap_1789 | Tái cấu trúc xưởng Lean và tích hợp mạch an toàn phần cứng Safety PLC cho máy dập | roadmap_MechanicalEnginner.md |
+| dao_nguoc_3d_va_che_tao_day_chuyen_1790 | Đảo ngược 3D cụm trục vít cấp phôi, phân tích ứng suất nhiệt và hoàn thiện dây chuyền tự động | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_thiet_ke_day_chuyen_1791 | Tái cấu trúc xưởng theo chuẩn Lean chuẩn hóa dây chuyền máy móc phức tạp tích hợp Safety PLC | roadmap_MechanicalEnginner.md |
+| boc_tach_du_toan_va_thiet_ke_tron_goi_1792 | Bóc tách dự toán giá thành kết hợp mô phỏng phân tích ứng suất nhiệt ANSYS cho trọn gói dây chuyền | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_tinh_toan_gia_thanh_1793 | Tái cấu trúc xưởng Lean và bóc tách dự toán giá thành máy dập thuỷ lực | roadmap_MechanicalEnginner.md |
+| capstone_lean_six_sigma_va_che_tao_toan_nang_1794 | Capstone: Tích hợp Lean, Reverse Engineering và tự động hóa dây chuyền máy | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_thiet_ke_may_dap_1795 | Tái cấu trúc xưởng Lean kết hợp thiết kế phần cứng an toàn ISO 13849 cho máy dập thủy lực | roadmap_MechanicalEnginner.md |
+| dao_nguoc_3d_va_thiet_ke_may_ep_truc_vit_1796 | Đảo ngược 3D kết hợp mô phỏng phân tích ứng suất nhiệt và động lực học máy ép đùn nhựa | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_che_tao_toan_nang_1797 | Tái cấu trúc xưởng Lean, tích hợp Safety PLC và thiết kế mạch an toàn theo tiêu chuẩn ISO 13849 | roadmap_MechanicalEnginner.md |
+| boc_tach_du_toan_va_thiet_ke_day_chuyen_1798 | Phân tích ứng suất nhiệt ANSYS, chống nhiễu EMC và bóc tách dự toán toàn diện dây chuyền máy ép | roadmap_MechanicalEnginner.md |
+| tai_cau_truc_lean_va_thiet_ke_day_chuyen_phuc_tap_1799 | Tái cấu trúc xưởng Lean kết hợp Safety PLC và mô phỏng giao thức truyền thông Profinet Day 1799 | roadmap_MechanicalEnginner.md |
+| capstone_lean_six_sigma_va_che_tao_toan_nang_1800 | Capstone tổng hợp: Chế tạo trọn gói dây chuyền máy dập - trục vít tự động ứng dụng CAE và IATF 16949 Day 1800 | roadmap_MechanicalEnginner.md |

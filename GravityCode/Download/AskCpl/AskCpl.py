@@ -3003,6 +3003,7 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
                         f"""{ctx_note} """
                         f"""Nếu module Tải Roadmap đính kèm văn bản PDF/tài liệu, prompt phải yêu cầu dùng đúng đoạn liên quan, không tóm tắt toàn bộ tài liệu. """
                         f"""Ép AI trả lời tối đa 1.000 từ, chỉ một buổi 5-30 phút, theo cấu trúc: {struct_str}. """
+                        f"""QUY TẮC JSON: Mọi ký hiệu gạch chéo ngược LaTeX trong chuỗi JSON phải dùng 2 dấu gạch chéo (ví dụ \\\\frac, \\\\sigma, \\\\Delta, \\\\int). """
                         f"""Không được thay thế bằng lý thuyết tổng quát; không tạo quiz tương tác chờ trả lời (in câu hỏi kèm đáp án cùng lúc); không viết dòng heading bắt đầu bằng '## Day'. Không đổi day."""
                     )
                 generated = None
@@ -3046,6 +3047,17 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
                     "lessons": lessons,
                 }, ensure_ascii=False, indent=2))
                 start += batch_size
+        skeleton_by_day = {it["day"]: it for it in plan.get("skeleton", []) if isinstance(it, dict)}
+        for l in lessons:
+            if not isinstance(l, dict):
+                continue
+            d_num = l.get("day")
+            sk_it = skeleton_by_day.get(d_num, {})
+            if not isinstance(l.get("exercises"), list) or not [e for e in l["exercises"] if str(e).strip()]:
+                l["exercises"] = [f"Thực hành chi tiết: {sk_it.get('topic') or f'Day {d_num}'}", "Tự kiểm tra và hoàn thành checklist nghiệm thu"]
+            if not isinstance(l.get("tags"), list) or not [t for t in l["tags"] if str(t).strip()]:
+                kw = [f"#{str(k).strip().replace(' ', '_')}" for k in sk_it.get("keywords", []) if str(k).strip()]
+                l["tags"] = ["#roadmap", f"#day{d_num}", *kw]
         markdown = render_markdown(plan, lessons)
         atomic_write(artifacts["final"], markdown)
         try:

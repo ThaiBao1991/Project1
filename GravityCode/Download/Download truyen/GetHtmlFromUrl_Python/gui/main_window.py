@@ -4,6 +4,7 @@ Clone 1:1 giao diện UI.java từ bản Java gốc (GetTextFromHtml-V1.5.6 by M
 """
 
 import os
+from pathlib import Path
 import sys
 import time
 import webbrowser
@@ -79,6 +80,7 @@ class MainWindow(QMainWindow):
 
     APP_TITLE = "GetTextFromHtml - Python Edition by Mkbyme"
     SETTINGS_KEY_ONE_PER_FILE = "ui/one_per_file"
+    SETTINGS_KEY_MERGE_FILES = "ui/merge_files"
     SETTINGS_KEY_ADD_EBOOK_INFO = "ui/add_ebook_info"
     SETTINGS_KEY_USE_RANGE = "ui/use_range"
     SETTINGS_KEY_DELETE_FOLDER = "ui/delete_folder"
@@ -373,9 +375,12 @@ class MainWindow(QMainWindow):
 
         grp_save = QGroupBox("Tùy Chỉnh Lưu Tệp")
         vbox_sv = QVBoxLayout(grp_save)
+        self.chk_merge_files = QCheckBox("Gộp các chương thành 1 tệp")
+        self.chk_merge_files.toggled.connect(self._on_merge_files_toggled)
         self.chk_one_file_per = QCheckBox("Mỗi chương thành 1 tệp")
         self.chk_delete_folder = QCheckBox("Xóa thư mục tạm sau khi gộp")
         self.chk_auto_prc = QCheckBox("Tự động tạo PRC sau tải")
+        vbox_sv.addWidget(self.chk_merge_files)
         vbox_sv.addWidget(self.chk_one_file_per)
         vbox_sv.addWidget(self.chk_delete_folder)
         vbox_sv.addWidget(self.chk_auto_prc)
@@ -437,6 +442,9 @@ class MainWindow(QMainWindow):
 
     def _restore_settings(self):
         """Khôi phục trạng thái UX (checkbox) từ lần chạy trước"""
+        self.chk_merge_files.setChecked(
+            self.settings.value(self.SETTINGS_KEY_MERGE_FILES, True, type=bool)
+        )
         self.chk_one_file_per.setChecked(
             self.settings.value(self.SETTINGS_KEY_ONE_PER_FILE, False, type=bool)
         )
@@ -452,9 +460,12 @@ class MainWindow(QMainWindow):
         self.chk_auto_prc.setChecked(
             self.settings.value(self.SETTINGS_KEY_AUTO_PRC, False, type=bool)
         )
+        # Đồng bộ trạng thái enable của checkbox xóa thư mục
+        self.chk_delete_folder.setEnabled(self.chk_merge_files.isChecked())
 
     def _save_settings(self):
         """Lưu trạng thái UX"""
+        self.settings.setValue(self.SETTINGS_KEY_MERGE_FILES, self.chk_merge_files.isChecked())
         self.settings.setValue(self.SETTINGS_KEY_ONE_PER_FILE, self.chk_one_file_per.isChecked())
         self.settings.setValue(self.SETTINGS_KEY_ADD_EBOOK_INFO, self.chk_add_ebook_info.isChecked())
         self.settings.setValue(self.SETTINGS_KEY_USE_RANGE, self.chk_download_range.isChecked())
@@ -689,6 +700,7 @@ class MainWindow(QMainWindow):
             config_mgr=self.config_mgr,
             save_path=save_path,
             is_divide_file=self.chk_one_file_per.isChecked(),
+            is_merge_file=self.chk_merge_files.isChecked(),
             ebook_info=self._ebook_info_html,
             start_idx=start_idx,
             end_idx=end_idx,
@@ -747,11 +759,13 @@ class MainWindow(QMainWindow):
             config_mgr=self.config_mgr,
             save_path=save_path,
             is_divide_file=self.chk_one_file_per.isChecked(),
+            is_merge_file=self.chk_merge_files.isChecked(),
             ebook_info=self._ebook_info_html,
             start_idx=resume_data.get("start_idx", 0),
             end_idx=resume_data.get("end_idx", -1),
             file_format=file_format,
-            resume_data=resume_data
+            resume_data=resume_data,
+            delete_folder=self.chk_delete_folder.isChecked(),
         )
         self.worker.log_signal.connect(self.txt_log.append)
         self.worker.progress_signal.connect(self._on_progress)
@@ -829,6 +843,13 @@ class MainWindow(QMainWindow):
                 self._ebook_info_html = ""
         else:
             self._ebook_info_html = ""
+
+    @pyqtSlot(bool)
+    def _on_merge_files_toggled(self, checked: bool):
+        """Khi bật/tắt gộp file -> điều khiển checkbox xóa thư mục tạm"""
+        self.chk_delete_folder.setEnabled(checked)
+        if not checked:
+            self.chk_delete_folder.setChecked(False)
 
     def _filter_host_list(self):
         """Lọc danh sách host theo text search"""
@@ -942,8 +963,10 @@ class MainWindow(QMainWindow):
                 stem = Path(save_path).stem
                 parent_dir = str(Path(save_path).parent)
                 candidate_dir = os.path.join(parent_dir, stem)
-                if os.path.exists(candidate_dir):
+                if os.path.exists(candidate_dir) and os.path.isdir(candidate_dir):
                     dlg.txt_source.setText(candidate_dir)
+                elif os.path.exists(save_path) and os.path.isfile(save_path):
+                    dlg.txt_source.setText(save_path)
             dlg.exec()
         except Exception as e:
             QMessageBox.critical(self, "Lỗi", f"Không thể mở Tiện ích AI Dịch:\n{e}")

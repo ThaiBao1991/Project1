@@ -216,6 +216,32 @@ GetHtmlFromUrl_Python/
   - Dịch tuần tự từng phần với Glossary và Ngữ cảnh đầy đủ, sau đó tự động ghép nối (re-join) lại thành 1 file chương hoàn chỉnh.
   - Giải quyết triệt để vấn đề chương quá dài bị AI cắt cụt hoặc chỉ dịch được một phần nhỏ.
 
+### ✅ Phase 18 — Tùy chọn Gộp hoặc Không Gộp File HTML Theo Chương (2026-09-17)
+- [x] **Tùy Chọn Giao Diện (`gui/main_window.py`)**:
+  - Bổ sung checkbox `Gộp các chương thành 1 tệp` (`chk_merge_files`) vào nhóm "Tùy Chỉnh Lưu Tệp".
+  - **Mặc định luôn được kích hoạt (`Checked = True`)**; lưu và khôi phục trạng thái thông qua `QSettings` (`ui/merge_files`).
+  - Tự động ràng buộc UX an toàn (`_on_merge_files_toggled`): khi người dùng bỏ chọn gộp file -> tự động vô hiệu hóa (`setEnabled(False)`) và bỏ chọn checkbox "Xóa thư mục tạm sau khi gộp" (`chk_delete_folder`) để chống mất toàn bộ file chương lẻ.
+- [x] **Xử Lý Trong Lõi Tải (`gui/workers.py`)**:
+  - `DownloadWorker.__init__`: Bổ sung tham số `is_merge_file: bool = True`.
+  - Khi hoàn thành tải (`all_done`):
+    - Nếu `is_merge_file == True`: Tự động gộp toàn bộ các chương thành 1 file tổng (`final_path`), kèm tùy chọn xóa thư mục tạm nếu được check.
+    - Nếu `is_merge_file == False`: Bỏ qua bước gộp file, bảo lưu 100% các file chương riêng lẻ trong thư mục và ghi log thông báo chi tiết cho người dùng.
+
+- [x] **Sửa Lỗi Import Path & Nhận Diện File Gộp Khi Dịch AI (`gui/main_window.py`, `gui/translate_dialog.py`)**:
+  - Bổ sung `from pathlib import Path` trong `gui/main_window.py`, khắc phục hoàn toàn lỗi `NameError: Could not find name 'Path'` khi mở menu AI Dịch.
+  - Nâng cấp luồng phát hiện file gộp: Khi người dùng chọn hoặc dán đường dẫn một file gộp (`.html`/`.txt`) vào ô thư mục nguồn của `TranslateDialog`, giao diện sẽ tự động cảnh báo màu đỏ và gợi ý bấm nút **"✂️ Tách File Gộp..."** để chia nhỏ các chương trước khi dịch.
+  - Khi bấm "🚀 Bắt Đầu Dịch" trên một file gộp, hệ thống sẽ bật hộp thoại hỏi xác nhận và tự động mở công cụ tách file thay vì báo lỗi `NotADirectoryError`.
+
+### ✅ Phase 19 — Khắc phục Lỗi Tách Trùng Chương & Làm Sạch Ký Tự \n Khi Dịch AI (2026-09-17)
+- [x] **Khử Trùng Lặp & Khớp Chuẩn Anchor Khi Tách Chương (`core/chapter_splitter.py`)**:
+  - Ưu tiên bóc tách theo cấu trúc chuẩn `<a name="chap-N"></a>` và bản đồ mục lục TOC `<a href="#chap-N">` của các file gộp do ứng dụng tải về.
+  - Khắc phục triệt để lỗi thẻ `<h2>` lồng nhau (do file chương lẻ có sẵn `<h2>` và file gộp lại bọc thêm `<h2>`), loại bỏ hoàn toàn hiện tượng 1 chương bị nhân đôi thành 2 file (`0001` và `0002` cùng là Chương 1).
+  - Bổ sung khử trùng lặp tiêu đề cho cả trường hợp quét theo thẻ Heading và Regex. Quét chính xác 1.543 / 1.543 chương của truyện 69shuba mà không bị lệch vị trí hay sót chương.
+- [x] **Khử Lỗi Raw JSON & Ký Tự `\n` Thô Trong Bản Dịch (`core/ai_translator.py`)**:
+  - Nâng cấp `_parse_translation_response`: tự động bóc tách đa tầng `content_vi`, lọc sạch các thẻ code block ````json`, rác cú pháp JSON khi Gemini trả về kết quả lỗi escape.
+  - Tự động unescape chuỗi `\n` và `\"` thô thành ký tự xuống dòng và dấu ngoặc kép thực tế.
+  - Cập nhật `save_translated_chapter`: chuẩn hóa phân đoạn `<p>`, đảm bảo không bao giờ để sót ký tự `\n\n` dạng text trên trình duyệt.
+
 ## ⏭️ TODO tiếp theo
 - Login Browser nhúng (WebEngineView) thay thế cho chức năng Mở Trình Duyệt ngoài.
 - Auto-Update check (Check version trên Github releases).

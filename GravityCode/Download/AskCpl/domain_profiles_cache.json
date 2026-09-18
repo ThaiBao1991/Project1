@@ -326,5 +326,48 @@
       "quan_ly_san_xuat_va_lean": "Áp dụng các triết lý quản xuất tinh gọn (Lean Manufacturing), Six Sigma, 5S, Kaizen để loại bỏ lãng phí và tối ưu hóa dòng chảy sản xuất.",
       "nghien_cuu_va_phat_trien_san_pham": "Quy trình phát triển sản phẩm mới (NPD) từ ý tưởng, thiết kế ý niệm, phân tích phần tử hữu hạn (FEA/CAE), tạo mẫu nhanh đến thương mại hóa."
     }
+  },
+  "ngành cơ khí chế tạo từ 0 - chuyên gia làm được mọi thế": {
+    "title": "Ngành cơ khí chế tạo từ 0 - Chuyên gia làm được mọi thế",
+    "recommended_days": 1800,
+    "persona": "Chuyên gia Cấp cao Cơ khí Chế tạo & Tự động hóa Thông minh",
+    "category": "Kỹ thuật cơ khí",
+    "instruction": "PROFILE NGÀNH CƠ KHÍ CHẾ TẠO TỪ 0 - CHUYÊN GIA LÀM ĐƯỢC MỌI THẾ: Xây dựng lộ trình toàn diện từ nền tảng toán lý kỹ thuật, vật liệu học nâng cao, vẽ kỹ thuật và thiết kế ngược CAD/CAM/CAE (SolidWorks, CATIA, ANSYS), công nghệ chế tạo máy (tiện, phay, bào, khoan, gia công CNC 5 trục, EDM, cắt dây), công nghệ vật liệu & nhiệt trị liệu, dung sai và kỹ thuật đo lường chính xác, tự động hóa dây chuyền sản xuất & robot công nghiệp (PLC, SCADA, Pneumatics/Hydraulics), quản lý chất lượng (Six Sigma, Kaizen, ISO 9001/IATF 16949), bảo trì công nghiệp TPM, đến tư duy quản trị dự án R&D, thiết kế máy móc chuyên dụng và tối ưu hóa chi phí sản xuất công nghiệp thông minh thế hệ mới.",
+    "mandatory_milestones": [
+      "toan_ly_ky_thuat",
+      "ve_ky_thuat_va_cad",
+      "vat_lieu_hoc_va_nhiet_luyen",
+      "dung_sai_va_do_luong",
+      "nguyen_ly_chi_tiet_may",
+      "cong_nghe_che_tao_may",
+      "lap_trinh_va_van_hanh_cnc",
+      "cam_va_gia_thuat_mo_phong",
+      "cae_va_phan_tich_phan_tu_huu_han",
+      "thiet_ke_khuon_mau_chinh_xac",
+      "thuy_luc_khi_nen_va_dien",
+      "tu_dong_hoa_va_robot_cong_nghe",
+      "quan_tri_chat_luong_six_sigma",
+      "bao_tri_va_do_tin_cay_tpms",
+      "gia_cong_vi_mo_va_cong_nghe_moi",
+      "quan_ly_du_an_va_rd_co_khi"
+    ],
+    "milestone_descriptions": {
+      "to_ly_ky_thuat": "Nắm vững toán cao cấp, cơ học lý thuyết, sức bền vật liệu và động lực học chất lưu làm nền tảng tính toán kết cấu cơ khí.",
+      "ve_ky_thuat_va_cad": "Thành thạo bản vẽ kỹ thuật cơ khí, tiêu chuẩn ISO/ANSI/JIS và sử dụng thành thạo phần mềm CAD 3D như SolidWorks, CATIA, Creo.",
+      "vat_lieu_hoc_va_nhiet_luyen": "Hiểu sâu về cấu trúc vi mô kim loại, hợp kim thép, gang, vật liệu phi kim và các quy trình nhiệt luyện (tôi, ram, ủ, thấm carbon).",
+      "dung_sai_va_do_luong": "Làm chủ chuỗi kích thước, dung sai lắp ghép, hình học GD&T và sử dụng thành thạo các dụng cụ đo quang học, CMM, panme, thước kẹp.",
+      "nguyen_ly_chi_tiet_may": "Thiết kế và tính toán các chi tiết máy tiêu chuẩn: bánh răng, trục, ổ lăn, khớp nối, đai truyền và hộp giảm tốc.",
+      "cong_nghe_che_tao_may": "Nghiên cứu sâu các phương pháp gia công cắt gọt, thiết kế quy trình công nghệ gia công chi tiết dạng trục, càng, hộp và bệ máy.",
+      "lap_trinh_va_van_hanh_cnc": "Lập trình G-code, CAM nâng cao (Mastercam, NX) và vận hành máy phay/tiện CNC 3 đến 5 trục đạt độ chính xác cao.",
+      "cam_va_gia_thuat_mo_phong": "Tạo đường chạy dao tối ưu, mô phỏng quá trình gia công, chống va chạm và tối ưu hóa thời gian cắt gọt trên máy CNC.",
+      "cae_va_phan_tich_phan_tu_huu_han": "Sử dụng ANSYS, Abaqus để mô phỏng phân tích ứng suất tĩnh/động, truyền nhiệt, va chạm và tối ưu hóa topology kết cấu máy.",
+      "thiet_ke_khuon_mau_chinh_xac": "Thiết kế khuôn ép nhựa, khuôn dập vuốt, dập ngoại vi phức tạp cùng hệ thống kênh dẫn nhựa và cơ cấu rút lõi tự động.",
+      "thuy_luc_khi_nen_va_dien": "Thiết kế, đọc sơ đồ mạch và lắp ráp hệ thống truyền động thủy lực, khí nén và mạch điều khiển điện-khí nén công nghiệp.",
+      "tu_dong_hoa_va_robot_cong_nghe": "Lập trình PLC (Siemens, Mitsubishi), HMI, SCADA và tích hợp robot công nghiệp ABB/Fanuc vào dây chuyền sản xuất tự động.",
+      "quan_tri_chat_luong_six_sigma": "Ứng dụng các công cụ quản lý chất lượng Lean Manufacturing, Six Sigma, 5S, Kaizen và tiêu chuẩn IATF 16949 trong nhà máy.",
+      "bao_tri_va_do_tin_cay_tpms": "Triển khai hệ thống bảo trìăng phòng ngừa toàn diện TPM, phân tích nguyên nhân gốc rễ RCA và dự báo hỏng hóc bằng cảm biến IoT.",
+      "gia_cong_vi_mo_va_cong_nghe_moi": "Tiếp cận công nghệ gia công tia lửa điện EDM, cắt dây WEDM, gia công Laser, in 3D công nghiệp (Additive Manufacturing).",
+      "quan_ly_du_an_va_rd_co_khi": "Quản lý vòng đời sản phẩm PLM, thiết kế chế tạo máy chuyên dụng theo đơn đặt hàng, tối ưu hóa chi phí BOM và lập chiến lược R&D."
+    }
   }
 }

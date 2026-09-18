@@ -100,6 +100,71 @@ class RoadmapAutoFixTests(unittest.TestCase):
         self.assertIn("Tự động hóa & Robot", formatted)
         self.assertIn("Quản lý sản xuất", formatted)
 
+    def test_render_markdown_auto_heals_missing_exercises_and_tags(self):
+        """Kiểm tra render_markdown tự động bù đắp exercises hoặc tags bị rỗng/None mà không crash."""
+        from roadmap_pipeline import render_markdown
+        plan = {
+            "domain_profile": {"title": "Mechanical Engineering Mastery"},
+            "skeleton": [
+                {
+                    "day": 1,
+                    "topic": "Tổng quan Cơ khí và Tiêu chuẩn bản vẽ",
+                    "keywords": ["cơ_khí", "bản_vẽ", "tiêu_chuẩn"],
+                    "source_files": []
+                },
+                {
+                    "day": 2,
+                    "topic": "Vật liệu kim loại & Nhiệt luyện",
+                    "keywords": ["vật_liệu", "thép", "nhiệt_luyện"],
+                    "source_files": []
+                }
+            ]
+        }
+        # Day 1 thiếu exercises (None) và tags (empty list)
+        # Day 2 thiếu tags (None) và exercises rỗng
+        lessons = [
+            {
+                "day": 1,
+                "prompt": "Hướng dẫn chi tiết về đọc bản vẽ cơ khí và tiêu chuẩn ISO.",
+                "exercises": None,
+                "tags": []
+            },
+            {
+                "day": 2,
+                "prompt": "Hướng dẫn chi tiết về các mác thép và xử lý nhiệt luyện.",
+                "exercises": [],
+                "tags": None
+            }
+        ]
+        md = render_markdown(plan, lessons)
+        self.assertIn("## Day 1 — Tổng quan Cơ khí và Tiêu chuẩn bản vẽ", md)
+        self.assertIn("**Bài tập:**\n- Thực hành chi tiết: Tổng quan Cơ khí và Tiêu chuẩn bản vẽ", md)
+        self.assertIn("**Tags:**\n#roadmap #day1 #cơ_khí #bản_vẽ #tiêu_chuẩn", md)
+        self.assertIn("## Day 2 — Vật liệu kim loại & Nhiệt luyện", md)
+        self.assertIn("**Bài tập:**\n- Thực hành chi tiết: Vật liệu kim loại & Nhiệt luyện", md)
+        self.assertIn("**Tags:**\n#roadmap #day2 #vật_liệu #thép #nhiệt_luyện", md)
+
+    def test_load_json_response_auto_repairs_latex_invalid_escapes(self):
+        """Kiểm tra load_json_response tự động sửa các lỗi Invalid escape do công thức LaTeX."""
+        from roadmap_pipeline import load_json_response
+        raw_llm_output = r'''```json
+[
+  {
+    "day": 1196,
+    "prompt": "Tính thuật toán PID: $$u(t) = K_p e(t) + K_i \int e(t)dt + K_d \frac{de(t)}{dt}$$. Áp lực $\sigma = \frac{F}{A}$, độ biến dạng $\Delta L = \alpha L \Delta T$, nhiệt độ $100^\circ\text{C}$, đơn vị $\unit{mm}$ và $\times$ 10.",
+    "exercises": ["Thực hành lập trình ESP32 PID"],
+    "tags": ["#esp32", "#pid"]
+  }
+]
+```'''
+        parsed = load_json_response(raw_llm_output)
+        self.assertIsInstance(parsed, list)
+        self.assertEqual(len(parsed), 1)
+        self.assertEqual(parsed[0]["day"], 1196)
+        self.assertIn(r"\frac", parsed[0]["prompt"])
+        self.assertIn(r"\int", parsed[0]["prompt"])
+        self.assertIn(r"\sigma", parsed[0]["prompt"])
+
 
 if __name__ == "__main__":
     unittest.main()

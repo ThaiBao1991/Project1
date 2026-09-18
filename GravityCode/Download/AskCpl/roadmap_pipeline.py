@@ -135,6 +135,60 @@ def restore_locked_day_identity(existing: list[dict[str, Any]], candidate: Any) 
     return restored, changes
 
 
+def _repair_json_escapes(s: str) -> str:
+    """Tự động sửa các chuỗi escape không hợp lệ trong JSON (thường gặp khi LLM sinh công thức LaTeX)."""
+    result = []
+    in_string = False
+    i = 0
+    n = len(s)
+    while i < n:
+        c = s[i]
+        if c == '"':
+            backslashes = 0
+            j = i - 1
+            while j >= 0 and s[j] == '\\':
+                backslashes += 1
+                j -= 1
+            if backslashes % 2 == 0:
+                in_string = not in_string
+            result.append(c)
+            i += 1
+        elif in_string and c == '\\':
+            if i + 1 < n:
+                nxt = s[i + 1]
+                if nxt in ('"', '\\', '/'):
+                    result.append(c)
+                    result.append(nxt)
+                    i += 2
+                elif nxt == 'u':
+                    if i + 5 < n and all(ch in '0123456789abcdefABCDEF' for ch in s[i+2:i+6]):
+                        result.append(c)
+                        result.append(nxt)
+                        result.extend(s[i+2:i+6])
+                        i += 6
+                    else:
+                        result.append('\\\\')
+                        i += 1
+                elif nxt in ('n', 'r', 't', 'b', 'f'):
+                    if i + 2 < n and s[i + 2].isalpha():
+                        result.append('\\\\')
+                        i += 1
+                    else:
+                        result.append(c)
+                        result.append(nxt)
+                        i += 2
+                else:
+                    result.append('\\\\')
+                    i += 1
+            else:
+                result.append('\\\\')
+                i += 1
+        else:
+            result.append(c)
+            i += 1
+    return "".join(result)
+
+
 def load_json_response(text: str) -> Any:
     """Accept only JSON, optionally surrounded by a Markdown code fence."""
     value = (text or "").strip()
@@ -153,17 +207,48 @@ def load_json_response(text: str) -> Any:
     repaired = re.sub(r",\s*([}\]])", r"\1", candidates[-1]) if candidates else value
     repaired = re.sub(r"([,{]\s*)([A-Za-z_][A-Za-z0-9_-]*)(\s*:)", r'\1"\2"\3', repaired)
     candidates.append(repaired)
+
+    # Thêm candidate đã sửa escape LaTeX / backslash
+    candidates.append(_repair_json_escapes(repaired))
+
     last_error = None
     for candidate in candidates:
         try:
-            return json.loads(candidate)
+            return json.loads(candidate, strict=False)
         except json.JSONDecodeError as exc:
             last_error = exc
             try:
-                parsed, _end = json.JSONDecoder().raw_decode(candidate)
+                parsed, _end = json.JSONDecoder(strict=False).raw_decode(candidate)
                 return parsed
             except json.JSONDecodeError as raw_error:
                 last_error = raw_error
+
+    # Phục hồi từng bước nếu lỗi cụ thể là "Invalid \escape"
+    for candidate in candidates:
+        curr = candidate
+        fixed = False
+        for _ in range(100):
+            try:
+                return json.loads(curr, strict=False)
+            except json.JSONDecodeError as exc:
+                if "Invalid \\escape" in exc.msg and exc.pos > 0 and curr[exc.pos - 1] == "\\":
+                    curr = curr[:exc.pos - 1] + "\\\\" + curr[exc.pos:]
+                    fixed = True
+                else:
+                    if fixed:
+                        try:
+                            parsed, _end = json.JSONDecoder(strict=False).raw_decode(curr)
+                            return parsed
+                        except json.JSONDecodeError:
+                            pass
+                    last_error = exc
+                    break
+        if fixed:
+            try:
+                return json.loads(curr, strict=False)
+            except json.JSONDecodeError as exc:
+                last_error = exc
+
     raise RoadmapValidationError(f"Phản hồi JSON không hợp lệ: {last_error.msg if last_error else 'rỗng'}") from last_error
 
 
@@ -302,12 +387,27 @@ def render_markdown(plan: dict[str, Any], lessons: Iterable[dict[str, Any]]) -> 
     by_day = {item.get("day"): item for item in lessons if isinstance(item, dict)}
     lines = [f"# Roadmap: {_text(plan['domain_profile'].get('title')) or 'Untitled'}", ""]
     for item in plan["skeleton"]:
-        lesson = by_day.get(item["day"], {})
+        day_num = item["day"]
+        lesson = by_day.get(day_num, {})
         prompt = _text(lesson.get("prompt"))
         exercises = lesson.get("exercises")
         tags = lesson.get("tags")
-        if not prompt or not isinstance(exercises, list) or not exercises or not isinstance(tags, list) or not tags:
-            raise RoadmapValidationError(f"Nội dung Day {item['day']} thiếu prompt, exercises hoặc tags.")
+
+        # Tự động bù đắp exercises nếu thiếu hoặc rỗng để không làm hỏng tiến trình
+        clean_exercises = [str(ex).strip() for ex in exercises if isinstance(ex, str) and str(ex).strip()] if isinstance(exercises, list) else []
+        if not clean_exercises:
+            topic_name = item.get("topic") or f"Day {day_num}"
+            clean_exercises = [f"Thực hành chi tiết: {topic_name}", "Tự kiểm tra và hoàn thành checklist nghiệm thu"]
+
+        # Tự động bù đắp tags nếu thiếu hoặc rỗng
+        clean_tags = [str(tg).strip() for tg in tags if isinstance(tg, str) and str(tg).strip()] if isinstance(tags, list) else []
+        if not clean_tags:
+            kw_tags = [f"#{str(k).strip().replace(' ', '_')}" for k in item.get("keywords", []) if isinstance(k, str) and str(k).strip()]
+            clean_tags = ["#roadmap", f"#day{day_num}", *kw_tags]
+
+        if not prompt:
+            raise RoadmapValidationError(f"Nội dung Day {item['day']} thiếu prompt.")
+
         source_files = [str(source).strip() for source in item.get("source_files", []) if _text(source)]
         lines.extend([
             f"## Day {item['day']} — {item['topic']}",
@@ -316,10 +416,10 @@ def render_markdown(plan: dict[str, Any], lessons: Iterable[dict[str, Any]]) -> 
             prompt,
             "",
             "**Bài tập:**",
-            *[f"- {_text(exercise)}" for exercise in exercises if _text(exercise)],
+            *[f"- {exercise}" for exercise in clean_exercises],
             "",
             "**Tags:**",
-            " ".join(str(tag) for tag in tags if _text(tag)),
+            " ".join(clean_tags),
             "",
             "---",
             "",

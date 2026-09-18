@@ -1,3 +1,51 @@
+## 2026-09-17 — Sửa Lỗi "Invalid \escape" Do Công Thức LaTeX Trong Bước 3/3 — HOÀN THÀNH ✅
+
+### 1. Vấn Đề Gốc Rễ Đã Giải Quyết
+- **Hiện tượng**: Khi sinh roadmap tại Bước 3 (ví dụ Day 1196 - Thiết kế mạch ESP32 PID), Gemini sinh các công thức toán/vật lý LaTeX như `$$u(t) = K_p e(t) + K_i \int e(t)dt + K_d \frac{de(t)}{dt}$$`, `\sigma = \frac{F}{A}`, `\Delta T`, `\alpha`, `\circ`, `\text`...
+- **Nguyên nhân**: Trong JSON, ký tự `\` là escape char đặc biệt. Chuỗi `\sigma`, `\int`, `\Delta`... không phải escape hợp lệ của JSON chuẩn (`\"`, `\\`, `\/`, `\b`, `\f`, `\n`, `\r`, `\t`, `\uXXXX`). Python `json.loads` ném ngoại lệ `JSONDecodeError: Invalid \escape` làm dừng tiến trình sau 3 lần thử.
+
+### 2. Các Thay Đổi Cụ Thể
+- **`roadmap_pipeline.py`** (`load_json_response` & `_repair_json_escapes`):
+  - Thêm hàm `_repair_json_escapes`: Tự động quét chuỗi JSON và double backslash (`\\`) đối với mọi ký tự escape không hợp lệ (như `\s`, `\d`, `\a`, `\i`, `\c`, `\p`...) cũng như các lệnh LaTeX dễ bị nuốt thành ký tự điều khiển (`\frac`, `\text`, `\times`, `\rho`, `\beta`, `\nabla`...).
+  - Thêm vòng lặp phục hồi theo vị trí lỗi: nếu `json.loads` văng lỗi `Invalid \escape` tại `exc.pos`, tự động thay thế `\` thành `\\` tại đúng vị trí đó và thử lại.
+  - Sử dụng `strict=False` để chấp nhận ký tự điều khiển trong chuỗi văn bản nếu có.
+- **`AskCpl.py`** (`_roadmap_v5_step3`):
+  - Thêm quy tắc định dạng JSON vào prompt Bước 3: yêu cầu Gemini viết hai dấu gạch chéo `\\` cho các lệnh LaTeX.
+- **`test_roadmap_autofix.py`**:
+  - Thêm unit test `test_load_json_response_auto_repairs_latex_invalid_escapes` kiểm chứng parse JSON chứa công thức LaTeX phức tạp.
+
+### 3. Kiểm Thử & Xác Minh (Verification)
+- ✅ `python -m py_compile AskCpl.py roadmap_pipeline.py test_roadmap_autofix.py`: SYNTAX OK.
+- ✅ `python -m unittest test_roadmap_autofix.py test_roadmap_pipeline.py`: 27/27 tests PASS 100%.
+- ✅ `python -m unittest test_roadmap_audit.py`: PASS 100%.
+
+---
+
+## 2026-09-17 — Bước 3/3 Sinh Nội Dung: Cơ Chế Tự Phục Hồi (Auto-Heal) Exercises & Tags — HOÀN THÀNH ✅
+
+### 1. Vấn Đề Gốc Rễ Đã Giải Quyết
+- **Hiện tượng**: Khi sinh roadmap dài (ví dụ: Mechanical Engineering 1,800 Days), tiến trình chạy thành công 100% cả 1,800 ngày lưu trong `.progress.json`. Tuy nhiên ở khâu ghép Markdown cuối cùng, hàm `render_markdown` tung ngoại lệ `RoadmapValidationError: Nội dung Day 125 thiếu prompt, exercises hoặc tags.` khiến toàn bộ tiến trình báo lỗi, dù dữ liệu 1,800 bài học đã được sinh trọn vẹn.
+- **Nguyên nhân**: Trong 1,800 bài học, có 10 bài AI trả về `exercises` hoặc `tags` rỗng hoặc `None` (chỉ có prompt đầy đủ). Logic cũ kiểm tra quá ngặt nghèo (`if not prompt or not isinstance(exercises, list) or not exercises or not isinstance(tags, list) or not tags: raise RoadmapValidationError`), vô tình làm hỏng cả công sức sinh 1,800 ngày chỉ vì thiếu 1 tag hoặc 1 bài tập.
+
+### 2. Các Thay Đổi Cụ Thể
+- **`roadmap_pipeline.py`** (`render_markdown`):
+  - Bổ sung cơ chế auto-healing: Nếu `exercises` rỗng hoặc không phải list, tự động tạo bài tập thực hành chuẩn theo tên chủ đề (`item['topic']`).
+  - Nếu `tags` rỗng hoặc không phải list, tự động sinh tag theo format `["#roadmap", f"#day{day_num}", *keywords]`.
+  - Chỉ raise `RoadmapValidationError` khi `prompt` thực sự bị rỗng (mất nội dung học cốt lõi).
+- **`AskCpl.py`** (`_roadmap_v5_step3`):
+  - Bổ sung bước chuẩn hóa và tự phục hồi `lessons` trước khi gọi `render_markdown` và ghi file `.md` cuối cùng.
+- **Tự động xuất xưởng file Markdown**:
+  - Đã xuất thành công file `C:/Users/12953 bao/Desktop/Roadmap/roadmap_MechanicalEnginner.md` đầy đủ 1,800 ngày (5.48 triệu ký tự, ~6.87 MB).
+- **`test_roadmap_autofix.py`**:
+  - Thêm unit test `test_render_markdown_auto_heals_missing_exercises_and_tags` để kiểm chứng việc tự phục hồi exercises/tags mà không crash.
+
+### 3. Kiểm Thử & Xác Minh (Verification)
+- ✅ `python -m py_compile AskCpl.py roadmap_pipeline.py test_roadmap_autofix.py`: SYNTAX OK.
+- ✅ `python -m unittest test_roadmap_autofix.py test_roadmap_pipeline.py`: 26/26 tests PASS 100%.
+- ✅ Render trực tiếp `roadmap_MechanicalEnginner.md`: Đầy đủ 1,800 Days, `verify_markdown` kiểm định thành công không còn lỗi.
+
+---
+
 ## 2026-09-15 — Nâng Cấp Hộp Thoại Trắc Nghiệm: Hỗ Trợ Học Toàn Diện & Đa Lựa Chọn — HOÀN THÀNH ✅
 
 ### 1. Vấn Đề Gốc Rễ Đã Giải Quyết
