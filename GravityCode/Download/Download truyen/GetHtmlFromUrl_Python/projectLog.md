@@ -242,6 +242,18 @@ GetHtmlFromUrl_Python/
   - Tự động unescape chuỗi `\n` và `\"` thô thành ký tự xuống dòng và dấu ngoặc kép thực tế.
   - Cập nhật `save_translated_chapter`: chuẩn hóa phân đoạn `<p>`, đảm bảo không bao giờ để sót ký tự `\n\n` dạng text trên trình duyệt.
 
+### ✅ Phase 20 — Nâng Cấp Pool Key & Xoay Vòng Account Chuẩn Anti-Ban AskCpl (2026-09-18)
+- [x] **Khắc phục triệt để lỗi khóa key nhanh & dừng luồng dịch (`core/ai_translator.py`, `gui/translate_dialog.py`)**:
+  - **Bảo lưu siêu dữ liệu Account Google**: `load_askcpl_key_objects()` và `enrich_key_objects()` tải trọn vẹn thông tin `email`, `project_id`, `status` từ AskCpl thay vì chỉ lấy mảng chuỗi trần.
+  - **Account-Cluster Rotation**: Xây dựng class `AccountPool` luân chuyển theo tài khoản Google (`email`), tuyệt đối không gọi 2 lần liên tiếp vào các key thuộc cùng 1 tài khoản Google.
+  - **Giữ giãn cách an toàn Anti-ban**: Bắt buộc `PER_ACCOUNT_MIN_GAP >= 8.0s` giữa 2 request vào cùng 1 Google account, kết hợp `_wait_pacing()` với Jitter ngẫu nhiên (`3.5s - 5.0s` + `0.5s - 1.5s`) phá vỡ tần số bot detection.
+  - **Phân loại mã lỗi 429 & Hàng đợi Cooldown thông minh**:
+    - **429 RPM/TPM**: Tự động parse `retryDelay` (thường ~65s) để đưa account vào hàng đợi cooldown tạm thời, **tuyệt đối không xóa hay vô hiệu hóa key**. Tự động chuyển sang account khác đang sẵn sàng.
+    - **429 Daily Limit**: Khóa account 60 phút (`ACCOUNT_COOLDOWN = 3600s`).
+    - **Cơ chế chống đốt dồn dập**: Nếu thử 3 account liên tiếp gặp limit, hệ thống tự động tạm dừng 15s để server Google giải tỏa lưu lượng.
+  - **Đồng bộ tiến trình**: Sử dụng `get_shared_account_pool()` singleton dùng chung giữa các chương và các chunk trong suốt tiến trình dịch.
+  - **Cập nhật giao diện**: `TranslateDialog` hiển thị chi tiết số lượng key và số lượng Google Account thực tế nạp từ AskCpl (VD: 156 keys từ 18 Google accounts).
+
 ## ⏭️ TODO tiếp theo
 - Login Browser nhúng (WebEngineView) thay thế cho chức năng Mở Trình Duyệt ngoài.
 - Auto-Update check (Check version trên Github releases).
