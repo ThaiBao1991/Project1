@@ -14,7 +14,7 @@ from PyQt6.QtCore import Qt, QThread, pyqtSignal
 from core.ai_translator import (
     GeminiTranslator, GlossaryManager, TranslateProgress,
     extract_chapter_from_html, save_translated_chapter,
-    load_askcpl_keys, DEFAULT_MODELS
+    load_askcpl_keys, load_askcpl_key_objects, DEFAULT_MODELS
 )
 from gui.workers import MergeWorker, PrcWorker
 
@@ -471,19 +471,27 @@ class TranslateDialog(QDialog):
     # -------------------------------------------------------------------
     def _auto_load_keys(self):
         """Tự động nạp keys từ AskCpl settings khi mở dialog."""
-        keys = load_askcpl_keys()
-        if keys:
+        key_objs = load_askcpl_key_objects()
+        if key_objs:
+            keys = [k["key"] for k in key_objs if k.get("key")]
+            accounts = set(k.get("email") for k in key_objs if k.get("email"))
             self.txt_api_keys.setText(", ".join(keys))
-            self.lbl_key_status.setText(f"✅ Đã tự động nạp {len(keys)} Gemini API keys từ AskCpl.")
+            self.lbl_key_status.setText(f"✅ Đã tự động nạp {len(keys)} Gemini API keys từ {len(accounts)} Google accounts (AskCpl).")
         else:
             self.lbl_key_status.setText("Chưa tìm thấy keys từ AskCpl. Vui lòng dán key thủ công.")
 
     def _on_load_from_askcpl(self):
-        keys = load_askcpl_keys()
-        if keys:
+        key_objs = load_askcpl_key_objects()
+        if key_objs:
+            keys = [k["key"] for k in key_objs if k.get("key")]
+            accounts = set(k.get("email") for k in key_objs if k.get("email"))
             self.txt_api_keys.setText(", ".join(keys))
-            self.lbl_key_status.setText(f"✅ Đã nạp {len(keys)} Gemini API keys từ AskCpl.")
-            QMessageBox.information(self, "Thông báo", f"Đã nạp thành công {len(keys)} API Key từ AskCpl!")
+            self.lbl_key_status.setText(f"✅ Đã nạp {len(keys)} Gemini API keys từ {len(accounts)} Google accounts (AskCpl).")
+            QMessageBox.information(
+                self, "Thông báo",
+                f"Đã nạp thành công {len(keys)} Gemini API Key từ {len(accounts)} Google Accounts trong AskCpl!\n\n"
+                f"Hệ thống sẽ tự động luân phiên Account và duy trì giãn cách tối thiểu 8 giây để chống khóa key."
+            )
         else:
             QMessageBox.warning(self, "Không tìm thấy", "Không tìm thấy API Key nào trong AskCpl settings.json.")
 
