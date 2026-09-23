@@ -1,0 +1,50 @@
+{
+  "file_name": "588-6-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Nam châm chuẩn (dùng kiểm tra chất trợ hàn)",
+  "doc_code": "588-6",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi tiến hành đo lượng từ thông để thiết đặt giá trị hiệu chỉnh ban đầu hoặc hiệu chỉnh định kỳ, quy trình thực hiện phép đo số lần là bao nhiêu?",
+      "options": {
+        "A": "Thực hiện đo 1 lần",
+        "B": "Thực hiện đo 2 lần, lấy giá trị cao nhất",
+        "C": "Thực hiện đo 3 lần, lấy giá trị trung bình",
+        "D": "Thực hiện đo 5 lần, loại bỏ giá trị min và max"
+      },
+      "correct_answer": "C",
+      "reference_note": "I【Hiệu chỉnh】 - Lượng từ thông: Thực hiện đo 3 lần, lấy giá trị trung bình làm giá trị hiệu chỉnh ban đầu/chuẩn"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm đối với nam châm chuẩn (dùng kiểm tra chất trợ hàn) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và mỗi lần sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "3 tháng một lần và khi cần thiết",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "II【Điểm kiểm】 - Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình hiệu chỉnh định kỳ hoặc sử dụng, nếu phát hiện có những nghi ngại, phát sinh lỗi ảnh hưởng đến giá trị đo khi hiệu chỉnh chu kì và khi bổ chỉnh bằng nam châm chuẩn, hành động bắt buộc theo tiêu chuẩn là gì?",
+      "options": {
+        "A": "Tiếp tục sử dụng nhưng ghi chú lại trong sổ theo dõi",
+        "B": "Tự ý điều chỉnh lại thông số trên máy đo cho phù hợp",
+        "C": "Cấm sử dụng, gởi trả lại cho MMK",
+        "D": "Báo cáo quản đốc và tiến hành hiệu chỉnh nội bộ ngay tại cứ điểm"
+      },
+      "correct_answer": "C",
+      "reference_note": "I【Hiệu chỉnh】 - ※Trường hợp có những nghi ngại, phát sinh lỗi ảnh hưởng đến giá trị đo khi hiệu chỉnh chu kì và khi bổ chỉnh bằng nam châm chuẩn thì cấm sử dụng, gởi trả lại cho MMK."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

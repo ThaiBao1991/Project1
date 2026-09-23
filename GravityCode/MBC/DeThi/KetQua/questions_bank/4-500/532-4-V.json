@@ -1,0 +1,50 @@
+{
+  "file_name": "532-4-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM MÁY ĐO",
+  "doc_code": "532-4 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tần suất thực hiện điểm kiểm máy đo Gauss (Sản phẩm GM-5005/GM-5015) là bao lâu?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi 12 tháng",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Tần xuất điểm kiểm - Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi tiến hành kiểm tra đầu đo và kết nối với chấu điện PROBE, loại đầu đo nào sau đây KHÔNG được phép sử dụng để đo đạc theo tài liệu?",
+      "options": {
+        "A": "<General> (Đầu đo thông thường)",
+        "B": "<Special> (Đầu đo đặc thù)",
+        "C": "<HightMagnetic 10T> (Đầu đo 10T)",
+        "D": "<Unknown> (Đầu đo không dùng cho đối ứng)"
+      },
+      "correct_answer": "D",
+      "reference_note": "Trang 2: Mục 2. Kiểm tra đầu đo - ※ Không được phép đo bằng đầu đo Unknown."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo hướng dẫn bảo quản và ngoại quan đầu đo Gauss, đối với đầu đo ngoài những lúc đo đạc thực tế thì phải đảm bảo điều gì?",
+      "options": {
+        "A": "Phải được lau chùi bằng cồn chuyên dụng trước khi cất",
+        "B": "Phải đảm bảo được bảo vệ bằng nắp acrylic",
+        "C": "Phải tháo rời khỏi thân máy để bảo quản trong hộp chống ẩm",
+        "D": "Phải được quấn băng keo bảo vệ phần tử Hall"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Mục 1. Ngoại quan - Đối với đầu đo ngoài những lúc đo đạc thì phải đảm bảo được bảo vệ bằng nắp acrylic."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

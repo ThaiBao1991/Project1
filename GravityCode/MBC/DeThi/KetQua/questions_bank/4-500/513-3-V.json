@@ -1,0 +1,50 @@
+{
+  "file_name": "513-3-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bảng tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định",
+  "doc_code": "513 - 3 g",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục Chú ý về kết quả kiểm tra định kỳ, trong trường hợp kiểm tra không thấy bất thường thì xử lý như thế nào?",
+      "options": {
+        "A": "Không cần ghi chép gì vì không có bất thường.",
+        "B": "Chỉ ghi chép lại kết quả mỗi quý một lần.",
+        "C": "Không ghi kết quả cũng được, nhưng 1 tháng 1 lần dầu không có bất thường cũng ghi chép lại kết quả đã kiểm tra đó.",
+        "D": "Bắt buộc phải lập biên bản báo cáo ngay cho Trưởng phòng bảo hành chất lượng."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3, Mục Chú ý - Ý 2: Kết quả kiểm tra trường hợp không thấy bất thường, không ghi kết quả cũng được, nhưng 1 tháng 1 lần dẫu không có bất thường cũng ghi chép lại kết quả đã kiểm tra đó."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kỳ hiệu chỉnh định kỳ cho thước giới hạn kéo nén (AIKOH loại AE, AEF, NTTONIC loại MP-2) là bao lâu?",
+      "options": {
+        "A": "6 tháng hoặc khi xác nhận thấy cần thiết.",
+        "B": "12 tháng hoặc khi xác nhận thấy cần thiết.",
+        "C": "24 tháng hoặc định kỳ hàng năm.",
+        "D": "3 tháng hoặc sau mỗi lần sử dụng."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, I [Hiệu chỉnh] - Chu kỳ hiệu chỉnh: 12 tháng hoặc khi xác nhận thấy cần thiết."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi tiến hành kiểm tra độ ổn định của kim (Trường hợp 1: Nhấn công tác có tính năng dùng kim về OFF), kỹ thuật viên cần xác nhận điều gì?",
+      "options": {
+        "A": "Xác nhận độ dịch chuyển kim có nhẹ nhàng trơn tru hay không.",
+        "B": "Xác nhận kim có quay lại vị trí ban đầu không.",
+        "C": "Xác nhận lực kéo tăng dần theo đúng tiêu chuẩn.",
+        "D": "Xác nhận giá trị đọc hiển thị có sai số dưới 0.1% không."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 3, II.[Kiểm tra] Thước giới hạn kéo nén - Mục 2.Độ ổn định của kim: (1) Nhấn công tác có tính năng dùng kim về OFF, khi tăng tải trọng tùy ý cho kim thì xác nhận độ dịch chuyển kim có nhẹ nhàng trơn tru hay không."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

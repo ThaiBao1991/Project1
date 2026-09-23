@@ -1,0 +1,454 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Tài liệu tiêu chuẩn hiệu chỉnh - và kiểm tra dụng cụ trắc định
+Mã số/Mã máy đo: 029-1
+File gốc: 029-1-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/4
+Tài liệu tiêu chuẩn hiệu chỉnh
+và kiểm tra dụng cụ trắc định
+
+Thùng cố định nhiệt độ và độ ẩm
+(Bao gồm cả thùng chỉ cố định nhiệt độ)
+
+Mabuchi motor Co., Ltd
+Bộ phận bảo hành chất lượng
+
+Ngày ban hành 27.04.1984
+Ngày thay đổi  19.02.2021
+Bản tiêu chuẩn số  029-1 i
+Ⅰ【Hiệu chỉnh】
+Dụng cụ chuẩn
+Dụng cụ đo nhiệt độ bề mặt (S59-1) Đồng hồ đo nhiệt độ, độ ẩm
+(S65-1).
+Chu kỳ hiệu chỉnh
+12 tháng và khi cần thiết.
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp phán
+định
+
+( Những điều lưu ý
+trước khi hiệu
+chỉnh )
+
+1. Độ chính xác
+nhiệt độ của
+điều kiện đo (a),
+(b).
+
+※ Xác nhận độ
+chính xác dựa
+theo so sánh với
+máy chuẩn.
+
+1.
+Dưới đây là những điều kiện đo khi hiệu chỉnh.
+<Điều kiện khi đo>
+(a) Nhiệt độ cao nhất sử dụng ở các thùng.
+(b) Nhiệt độ thấp nhất sử dụng ở các thùng.
+(c) Độ ẩm nhiều nhất sử dụng ở các thùng.
+(điều kiện khi sử dụng thấp hơn điều kiện
+nhiệt độ cao nhất khi hiệu chỉnh)
+(d) Độ ẩm thấp nhất sử dụng ở các thùng.
+(điều kiện khi sử dụng thấp hơn điều kiện nhiệt
+độ cao nhất khi hiệu chỉnh)
+Tuy nhiên, những thùng có thể dùng đi ều kiện (a)/(b)
+để đo (c)/(d) thì không cần đo (a)/(b).
+Ngoài ra, những thùng chỉ sử dụng điều kiện nhất
+định nào đó thì có thể đo đạc chỉ điều kiện đó.
+Phải biểu thị phạm vi sử dụng lên các thùng nhiệt độ
+độ ẩm.
+Trường hợp điều kiện đo và phạm vi hiệu suất của
+buồng nhiệt độ và độ ẩm không đổi không khớp nhau
+thì phải ghi chép lại và [giới hạn sử dụng]
+<Ví dụ biểu thị nhiệt độ, độ ẩm>
+
+Số quản lý
+Kì hạn có hiệu lực
+029 – 1 -  □□□    Cuối tháng    năm
+Phạm vi sử dụng  giới hạn sử dụng
+Nhiệt độ      ～     ℃
+Độ ẩm        ～     ％ RH
+
+2. Giới hạn trên đo độ ẩm của đồng hồ đo nhiệt độ, độ
+ẩm thì về cơ bản là đến 90% RH.
+
+Cơ bản là đo đạc phần trung tâm của thùng bằng
+máy chuẩn.
+
+(Phán định) phán định theo sai số giữa trị số đo
+thực của máy chuẩn và đồng hồ điều tiết nhiệt độ
+(độ ẩm) của thùng đ ối với trị số thiết định.
+Dung sai cho phép : ±3℃
+
+Ghi bên trái.
+(ghi chú)
+
+--- HẾT TRANG ---
+
+No.2/4
+I. [Hiệu chỉnh]                                       Bản tiêu chuẩn số 029-1i
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp phán
+định
+
+2.
+Độ chính xác
+nhiệt độ, độ ẩm
+của điều kiện
+đo (c), (d).
+※Về (1) thì, xác
+nhận độ   chính
+xác theo so sánh
+với máy chuẩn.
+Về (2) thì, xác
+nhận theo việc so
+sánh đồng hồ điều
+tiết nhiệt độ độ ẩm
+của thùng với máy
+chuẩn, nếu không
+có vấn đề, xác
+nhận độ chính xác
+dựa trên so sánh
+giữa giá trị thiết
+định của đồng hồ
+điều tiết nhiệt độ
+độ ẩm đó với giá
+trị thực đo.
+
+Xét độ bền của máy chuẩn theo những điều kiện dưới
+đây.
+(1) Trường hợp điều kiện đo từ 40 ～ 70%RH.
+Cơ bản là đo phần trung tâm của thùng bằng máy
+chuẩn.
+(Phán định) theo sai số giữa trị số đo thực của
+máy chuẩn và đồng hồ điều tiết nhiệt độ, độ ẩm
+của thùng đ ối với trị số thiết định.
+Dung sai cho phép : ±3℃
+±5% RH
+(2) Ngoài trường hợp 1
+Đo bằng máy chuẩn ở 2 điểm tùy ý trong phạm vi từ 40
+～70% RH (cơ bản là đo ở trung tâm của thùng ).
+(Tham khảo) Thiết định 2 điểm tiêu chuẩn là 40℃
+40~50%RH và 50℃ 60~70%RH
+(Phán định) theo sai số giữa trị số đo thực của máy
+chuẩn với đồng hồ điều tiết nhiệt độ, độ ẩm của thùng
+đối với trị số thiết định
+Dung sai cho phép :±3℃
+±5% RH
+↓
+Nếu nằm trong dung sai cho phép thì lấy máy
+chuẩn từ trong thùng ra và thiết định theo điều
+kiện đo (c), (d).
+(phán định) theo sai số giữa trị số đo thực của
+máy chuẩn và đồng hồ điều tiết nhiệt độ, độ ẩm
+của thùng đ ối với trị số thiết định.
+Dung sai cho phép :±3℃
+±5% RH
+(Ghi chú)
+Trường hợp điều kiện đo (c), (d) đến mức (1), (2) ghi
+trên thì thực thi theo (2).
+Trong trường hợp máy chuẩn phát sinh lỗi khi đo tại
+(1) thì thực thi theo (2)
+
+Ghi bên trái.
+(ghi chú)
+
+Ghi bên trái.
+
+Chú ý: Trong trường
+hợp có nghi ngờ, đo
+phần gần của vị trí
+gắn
+sensor
+điều
+khiển rồi phán định.
+(Đặc biệt là nhiệt độ)
+
+-Trích dẫn-văn b ản liên quan-
+Phương pháp hiệu chỉnh : thiết định trong công ty
+Quy cách đo : thiết định trong công ty
+
+--- HẾT TRANG ---
+
+No.3/4
+Bản tiêu chuẩn số 029-1i
+
+Ⅱ 【Kiểm tra】           Thùng nhiệt độ, độ ẩm.
+(Bao gồm cả thùng nhiệt độ)
+
+Tiến độ điểm kiểm      1~6: mỗi tháng 1 lần, 7~10: khi thấy cần thiết
+
+Hạng mục
+điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1. Dị âm, dị mùi.
+
+2. Bộ phận kiểm
+xuất độ ẩm.
+
+3. Xác nhận hoạt
+động của cầu
+dao dò điện.
+
+4. Xác nhận hoạt
+động của máy
+chống quá nhiệt
+(hoặc cái tương
+đương)
+
+5. Xác nhận tác
+động máy ghi.
+
+6. Đồng hồ đo áp
+lực
+bộ
+phận
+đông lạnh.
+
+7. Vệ sinh bồn cấp
+nước.
+
+8. Vệ sinh máy
+tăng độ ẩm.
+
+9. Thay thế máy
+lọc.
+10. Điều khác.
+
+Xác nhận xem các ống có mùi lạ không, có tiếng lạ của
+vòng quay motor không.
+
+Kiểm tra xem gạc có dơ không (thay thế), kiểm tra tình
+trạng cấp nước.
+
+Nhấn vào nút Test rồi xác nhận tác động
+
+Thiết định thấp hơn nhiệt độ trong thùng rồi xác nhận
+tác động
+
+.
+
+Xác nhận trạng thái, động tác, vị trí chữ in khi ghi chép.
+
+Phải đang chỉ thị phạm vi áp lực chính xác.
+
+Mở van cấp thải nước rồi thay nước.
+
+Kiểm tra máy tăng độ ẩm, loại bỏ chất cặn lắng.
+(Riêng đối với các dòng máy của ESPEC) Khi phát
+hiện dừng một cách dị thường do bộ phận thổi gia
+nhiệt thì phải xác nhận sự bùng phát của vi khuẩn trên
+phao và đường ống silicon và tiến hành làm sạch)
+
+Thay thế khi cần thiết.
+Xác nhận xem có dị thường gì khác không.
+(Ghi chú)
+Hạng mục điểm kiểm 2, 9, trong trường hợp có kèm
+theo thì cần phải thực thi
+Hàng mục điểm kiểm 4, 6 nếu không mở bên trong ra
+thì không xác nhận được thì về cơ bản là không cần
+thiết.
+Chi tiết tham khảo Bản HDSD (điểm kiểm, bảo trì,…).
+
+Ghi chú
+1. Trường hợp kiểm tra thấy bất thường, ghi chép lại kết quả đã kiểm tra và xử lý theo chỉ
+thị của người có trách nhiệm quản lý.
+2. Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được,
+nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất
+thường xảy ra.
+3. Trường hợp nhận ra sự bất thường trong khi sử dụng, sẽ xử lý dựa vào chỉ thị của
+người có trách nhiệm quản lý.
+
+--- HẾT TRANG ---
+
+No.4/4
+Bản tiêu chuẩn số 029-1
+Tài liệu tiêu chuẩn hiệu chỉnh điểm kiểm
+Biểu lý lịch những ban hành, cải chính và hủy bỏ
+
+Ký
+hiệu
+Ngày tháng
+năăm
+Nội dung (bao gồm những nội dung sửa đổi)
+Soạn
+thảo
+Xác nhận
+Công
+Nhận
+
+27.04.1984
+Ban hành quy cách mới.
+
+a
+20.06.1994
+Hủy bỏ
+Nara
+Taka-
+shima
+Ino
+b
+28.03.1995
+“Loại bỏ” Cải chính toàn bộ
+Nara
+Taka-
+shima
+Saka-
+moto
+c
+07.07.1995
+Phương pháp phán định nhiệt độ
+“ 5%” → “  3ºC”.
+Nara
+Taka-
+shima
+Saka-
+moto
+d
+25.07.1996
+Thêm : chú ý khi sử dụng máy chuẩn là đồng
+hồ đo nhiệt độ, độ ẩm (HN-K, HN-L08)
+Nara
+Mihara
+Saka-
+moto
+e
+08.08.1996
+Sửa năm 1995 1996
+Nara
+Mihara
+Saka-
+moto
+f
+20.02.1998
+Sửa đổi toàn bộ
+Yama-
+ghishi
+Ma-buchi
+Saka-
+moto
+g
+07.10.1998
+Sửa đổi toàn bộ
+
+Yama-
+ghishi
+Tenya
+Saka-
+moto
+h
+
+10.06.1999
+Thay đổi một phần trong trường hợp ngoài
+mục (2), (1) của độ chính xác nhiệt độ, độ
+ẩm của điều kiện đo (c), (d) của điều kiện đo
+tại Hạng mục hiệu chỉnh 2
+Thiết định 2 điểm tiêu chuẩn là 40~50℃
+40~50% RH và 60~80℃ 60~70%RH
+Sửa lại thành
+(Tham khảo) Thiết định 2 điểm tiêu chuẩn là
+40℃40~50%RH và 50℃ 60~70%RH
+Bổ sung phần (Chú ý) tại phương pháp phán
+định
+Bổ sung câu sau tại phần ghi chú
+Trong trường hợp phát sinh lỗi khi đo tại (1)
+thì thực thi theo (2)
+
+i
+2021.02.19
+・Bổ sung chỉnh sửa chu kỳ hiệu chỉnh và
+biểu hạn định sử dụng ở hạng mục lưu ý
+trước hiệu chỉnh.
+・Bổ sung quy cách phán định và phương
+pháp hiệu chỉnh ở trích dẫn văn b
+ản liên
+quan.
+・Bổ sung vế sinh khi phát sinh dị thường gia
+ẩm của hàng Espec ở hạng mục điểm kiểm
+Koizumi
+Ishi Teruo
+Shimizu
+Fumiaki
+Itou
+MABUCHI MOTOR Co.,Ltd
+Bộ phận bảo hành chất lượng
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "029-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh - và kiểm tra dụng cụ trắc định",
+  "doc_code": "029-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

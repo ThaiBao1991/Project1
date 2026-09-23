@@ -1,0 +1,188 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Tài liệu tiêu chuẩn hiệu chỉnh - và kiểm tra dụng cụ trắc định
+Mã số/Mã máy đo: 014-4
+File gốc: 014-4-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/3
+Tài liệu tiêu chuẩn hiệu chỉnh
+và kiểm tra dụng cụ trắc định
+
+Đo tiếng ồn (B & K)
+(Kiểu 2235)
+
+Mabuchi motor Co., Ltd
+Bộ phận bảo hành phẩm chất
+
+Ngày ban hành 07.07.1995
+Ngày thay đổi  01.09.1995
+Dụng cụ trắc định 014-4
+
+Ⅰ【Hiệu chỉnh】
+Dụng cụ chuẩn
+Dụng cụ hiệu chỉnh mức độ (Level) (94 dB 1KHz)
+Chu kỳ hiệu chỉnh
+6 tháng, và khi cần thiết.
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp phán
+định
+
+Hiệu chỉnh micro
+phone
+
+1. Bật công tắc, tiến hành gia nhiệt khoảng 5 phút, quy
+định dựa theo dưới đây.
+
+PolVoltage ………….………….. 0V
+
+Sound Incidence …………………Frontal
+
+Frequency Weighing ……………..Fast
+
+Range ………………………….… 40110
+
+Ext Filter …………………………..Out
+
+Display ……………………………. MAX
+2. Gắn ADAPTER ½ inch vào dụng cụ hiệu chỉnh mức
+độ, đặt nhẹ nhàng microphone vào bên trong.
+3. Bật công tắc, dụng cụ hiệu chỉnh mức độ, đo mức
+độ ồn.
+4. Điều chỉnh đồng hồ đo lực căng bề mặt sao cho
+kim đồng hồ chỉ thị 94dB
+
+--- HẾT TRANG ---
+
+No.2/3
+Dụng cụ trắc định 014-4
+
+Ⅱ 【kiểm tra】
+
+Tiến độ kiểm tra    Mỗi lần sử dụng
+
+Hạng mục điểm
+kiểm
+Phương pháp điểm kiểm
+Phương pháp phán
+định
+
+Tiếp xúc
+microphone
+
+Không được lỏng hoặc tiếp xúc xấu.
+
+Ghi chú
+1. Trường hợp kiểm tra thấy bất thường, ghi chép lại kết quả đã kiểm tra và xử lý theo chỉ
+thị của người có trách nhiệm quản lý.
+2. Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được,
+nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường
+xảy ra.
+3. Trường hợp nhận ra sự bất thường trong khi sử dụng, sẽ xử lý dựa vào chỉ thị của người
+có trách nhiệm quản lý.
+
+--- HẾT TRANG ---
+
+No.3/3
+Dụng cụ trắc định 014-4
+Tài liệu tiêu chuẩn hiệu chỉnh điểm kiểm
+Biểu lý lịch những ban hành, cải chính và hủy bỏ
+Dấu
+hiệu
+Ngày tháng
+năm
+Nội dung (bao gồm những nội dung sửa
+đổi)
+Soạn
+thảo
+Xác nhận
+Công
+Nhận
+
+07.07.1995
+Quyết định quy cách mới.
+
+a
+01.09.1995
+Phương pháp hiệu chỉnh: sửa chữa toàn
+bộ.
+Thay đổi phương pháp giám định.
+
+Nơi phân phối…Công ty: Bộ phận bảo hành phẩm chất
+MABUCHI MOTOR
+Bộ phận bảo hành phẩm chất
+7.  Công ty quan hệ:HKM 1, TWM 1, TKM 1, DLM 1,
+
+MLM 1, JSM 1
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "014-4-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh - và kiểm tra dụng cụ trắc định",
+  "doc_code": "014-4",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

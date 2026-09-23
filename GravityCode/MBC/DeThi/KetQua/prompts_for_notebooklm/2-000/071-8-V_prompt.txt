@@ -1,0 +1,435 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Bản tiêu chuẩn hiệu chỉnh-điểm kiểm           Ban chính BHCL Công ty cổ phần Mabuchi Motor - Ι【Hiệu chỉnh】
+Mã số/Mã máy đo: 071-8 a
+File gốc: 071-8-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm           Ban chính BHCL Công ty cổ phần Mabuchi Motor
+Ban hành :  18/10/2013
+Ngày cải đính : 20.01.2025
+Bộ ghi dữ liệu                                                                                                                  Máy đo   071-8 a
+(HIOKI LR8400+LR8500/8430/8431)
+
+Ι【Hiệu chỉnh】
+
+Máy hiệu chỉnh Multi-Product [S01-3]，
+Máy tiêu chuẩn        Thiết bị hiệu chỉnh DC [S01-1],Máy Hiệu chỉnh [S01-2]
+
+Chu kỳ hiệu chỉnh      24 tháng và khi được cho là cần thiết
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp phán định
+
+1. Độ chính xác
+đo điện áp
+
+Sau khi bật nguồn, hãy để ít nhất 30 phút (làm nóng).
+Theo bảng 1, cấp điện áp quy chuẩn từ máy đo tiêu chuẩn
+đến 1CH của bộ đo điện áp/nhiệt độ, đọc sai số giữa giá trị
+hiển thị của đối tượng cần hiệu chỉnh và điện áp tiêu chuẩn.
+＜Trình tự thao tác＞
+(1) Nới lỏng vít trên bệ chấu điện của bộ đo điện áp/nhiệt độ,
+lắp đầu cáp như hình minh họa và siết chặt vít.
+Kết nối đầu cáp ở phía đối diện của bộ đo điện áp/nhiệt độ
+với máy đo tiêu chuẩn.
+Chỉ kết nối 1CH của bộ số 1 đo điện áp/nhiệt độ
+
+(2) Nhấn nút Cài đặt và chọn tab   Cài đặt đo.
+Đặt từng mục theo các điều kiện cài đặt bên dưới.
+
+[Điều kiện cài đặt]
+Tiêu đề nhận xét:Không cần nhập
+Khoảng thời gian nhập
+:1s
+Trục ngang
+:10s/1ô
+Lặp lại việc nhập  :OFF
+Nhập liên tiếp
+:ON
+Lọc
+
+:50Hz
+Tính toán trị số
+:OFF
+Tự động lưu
+:OFF
+Hẹn giờ
+:OFF
+(3) Nhấn nút Cài đặt và chọn tab Chuyển đổi/Tính toán
+Xác nhận rằng Phương pháp chuyển đổi “1-1” của
+“UNIT1” được đặt thành  OFF
+
+Máy
+tiêu
+chuẩn
+
+Theo Bảng 1
+
+--- HẾT TRANG ---
+
+Ι【Hiệu chỉnh】                                                                                                                                        Máy đo 071-8a
+Hạng mục Hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+(4) Nhấn nút cài đặt và chọn tab Cài đặt CH. Đặt từng mục theo các điều
+kiện cài đặt bên dưới.
+
+[Cài đặt điều kiện]
+
+Nhận xét                            :Không cần nhập
+
+Kênh
+
+:UNIT1 ■ (Màu của Hình sóng là tùy ý)
+1-1 ☑
+Nhập vào
+
+:Điện áp
+Phạm vi
+
+:10mV～100V,1-5V(tham khảo bảng 1)
+Màn hình hiển thị
+:Tất cả CH, tất cả các hình sóng
+Phạm vi hiển thị
+
+:Cài đặt vị trí
+Độ phóng đại  *1
+Vị trí 0 là 0%
+Các cài đặt kích hoạt khởi động, dừng kích hoạt và cảnh báo đều OFF
+hoặc không cần thiết.
+Bảng 1 Điện áp tiêu chuẩn và quy cách phán định
+Bộ đo điện áp/
+nhiệt độ
+Phạm vi
+đo
+Điện áp tiêu
+chuẩn
+(Điểm hiệu chỉnh)
+Quy cách
+phán định
+LR8500 8430/
+8431
+●
+
+10mV
+-10mV  10mV  ±0.01mV
+●
+
+20mV
+-20mV  20mV  ±0.02mV
+●
+●
+100mV -100mV 100mV
+±0.1mV
+●
+
+200mV -200mV 200mV
+±0.2mV
+●
+●
+1V
+-1V
+1V
+±0.001V
+●
+
+2V
+-2V
+2V
+±0.002V
+●
+●
+10V
+-10V
+10V
+±0.01V
+●
+●
+20V
+-20V   20V
+±0.02V
+●
+●
+100V
+-100V   100V
+±0.1V
+●
+●
+1-5V
+1V
+5V
+±0.01V
+(5) Cấp điện áp tiêu chuẩn từ thiết bị hiệu chỉnh DC theo Bảng 1. Đọc và
+phán định sai số giữa giá trị hiển thị và điện áp tiêu chuẩn.
+
+hập giá trịnày
+
+--- HẾT TRANG ---
+
+Ι【Hiệu chỉnh】                                                                                                                                   Máy đo 071-8a
+
+Hạng mục Hiệu chỉnh
+Phương pháp Hiệu chỉnh
+Phương pháp
+phán định
+
+2. Độ chính xác đo nhiệt
+độ
+
+Theo Bảng 2, cấp lực điện động nhiệt tiêu chuẩn từ máy tiêu
+chuẩn tại 1CH của bộ điện áp/nhiệt độ và đọc sai số giữa giá trị
+hiển thị (℃) của đối tượng cần hiệu chỉnh và nhiệt độ tiêu chuẩn.
+＜Trình tự thao tác＞
+Tiếp tục tiến hành hiệu chỉnh mục 1.(5).
+
+(6) Nhấn nút cài đặt và chọn tab Cài đặt CH . Đặt từng mục theo
+các điều kiện cài đặt bên dưới.
+
+[Điều kiện cài đặt]
+
+Nhận xét
+
+: Không cần nhập
+Kênh
+: UNIT1 ■ (Màu của hình sóng là tùy ý)
+
+1-1 ☑
+Nhập
+
+: Cặp nhiệt K
+Bù tiếp điểm
+: EXT
+Phạm vi
+: 100℃,500℃(tham khảo bảng 2)
+Màn hình hiển thị   : Tất cả CH, tất cả các hình sóng
+Phạm vi hiển thị
+
+: Cài đặt vị trí
+
+Độ phóng đại *1
+
+Vị trí 0 là 0％
+
+Các cài đặt kích hoạt khởi động, dừng kích hoạt và cảnh báo đều
+OFF hoặc không cần thiết .
+Bảng 2 Lực điện động nhiệt tiêu chuẩn
+Bộ đo Điện
+áp/Nhiệt độ
+Phạm vi
+đo
+Đo nhiệt độ
+(Điểm hiệu
+chỉnh)
+Lực điện
+động nhiệt
+tiêu chuẩn
+Quy cách
+phán định
+LR8500
+100℃
+100℃
+4.096 mV
+±0.6℃
+500℃
+500℃
+20.644 mV
+8430
+2000℃
+500℃
+20.644 mV  ±2.0℃
+8431
+2000℃
+500℃
+20.644 mV  ±1.0℃
+
+(7)Theo Bảng 2, cấp lực điện động nhiệt tiêu chuẩn tương ứng
+với nhiệt độ đo được từ thiết bị hiệu chỉnh DC.
+Đọc và phán định sai số giữa giá trị hiển thị (°C) và nhiệt độ đo
+được.
+
+Theo Bảng 2
+
+－Trích dẫn/văn bản liên quan－
+Trị phán định：Trích dẫn Quy cách nhà cung cấp (sách hướng dẫn)
+Lực điện động nhiệt quy chuẩn（Bảng 2）：JIS C1602-1995
+Hạng mục hiệu chỉnh 1 – Điểm hiệu chỉnh ：Không có sai số đo giữa các CH (dùng chung
+phần đo đạt ) nên các phép đo chỉ được  thựchiện bằng 1 CH.
+Hạng mục hiệu chỉnh 2 – Nhiệt độ đo ：Đo ở MAX 500℃ theo cách sử dụng nội bộ.
+
+--- HẾT TRANG ---
+
+No.4/5
+
+Ⅱ【Điểm kiểm】       Bộ ghi dữ liệu                                                                                             Máy đo 071-8 a
+(HIOKI LR8400+LR8500/8430/8431)
+
+Tiến độ Điểm kiểm: Mỗi tháng một lần và mỗi lần sử dụng
+Hạng mục Điểm kiểm
+Phương pháp Điểm kiểm
+Phương pháp
+phán định
+
+1.Ngoại quan
+
+2. Kiểm tra nguồn điện
+
+3. Xác nhận hoạt động
+của rơle
+
+4. Điều chỉnh về 0
+
+Xác nhận rằng không có khiếm khuyết có hại như hư hỏng
+hoặc bám dính dị vật.
+
+Kiểm tra xem nguồn đã được bật bình thường chưa.
+Nếu nguồn không bật, cầu chì bên trong có thể đã bị cháy.
+Trong trường hợp đó, hãy yêu cầu nhà cung cấp sửa chữa.
+
+Cấp điện áp vào toàn bộ CH và kiểm tra xem trị số có được
+hiển thị trên màn hình hiển thị hình sóng hay không.
+※Phạm vi và điện áp được sử dụng là tùy ý.
+
+Nếu số 0 khi đoản mạch bị lệch, hãy thực hiện điều chỉnh
+mức 0. Sau khi thực hiện điều chỉnh mức 0, hãy xác nhận
+rằng mức 0 tại thời điểm đoản mạch nằm trong quy cách.
+*Ghi lại giá trị phạm vi 20mV, chỉ ghi khi hiệu chỉnh.
+
+(1)
+Nhấn nút Hình sóng/Trị số               hoặc nút cài đặt                để
+hiển thị màn hình Hình sóng/ Trị số hoặc màn hình cài đặt CH
+
+(2)
+Nhấn đồng thời 2 nút lên xuống trong 1 giây
+
+(3)
+Chọn điều chỉnh mức 0 bằng nút trái phải
+
+(4)
+Xác nhận bằng nút giữa.
+Điều chỉnh mức 0 được thực hiện
+
+0,1% F.S cho phạm
+vi 20mV ～ 100V
+※Tên phạm vi
+đo = giá trị F.S
+
+Phạm vi 1-5V là
+± 0,01V
+
+Chú ý:
+1. Kết quả kiểm tra sẽ được ghi chép lại mỗi tháng một lần, bất kể có bất thường hay không.
+2. Nếu có bất thường khi kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả đó và xử lý theo
+chỉ thị của
+người chịu trách nhiệm của bộ phận sở quản.
+Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện
+hiệu chỉnh
+
+--- HẾT TRANG ---
+
+Bản tiêu chuẩn Hiệu chỉnh-Điểm kiểm  Biểu Lý lịch sửa đổi và bãi bỏ quy định         Máy đo 071-8   No.5/5
+Ký
+hiệu
+Ngày tháng năm
+Ghi chép（Nội dung chỉnh sửa）
+Soạn
+thảo
+Xác nhận
+Công
+nhận
+
+18/10/ 2013
+Ban hành mới
+
+村山
+
+伊藤
+
+岩田
+
+a
+2025.1.20
+・Ⅱ【Điểm kiểm】
+Tiến độ điểm kiểm thay đổi thành
+「Mỗi tháng 1 lần và mỗi lần sử dụng」
+3.Xác nhận hoạt động rơle thay đổi từ
+「CH được sử dụng」sang 「toàn bộ
+CH」
+Sửa đổi toàn bộ hạng mục chú ý
+
+Ban chính BHCL Công ty cổ phần Mabuchi Motor
+山
+元
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "071-8-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm           Ban chính BHCL Công ty cổ phần Mabuchi Motor - Ι【Hiệu chỉnh】",
+  "doc_code": "071-8 a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

@@ -1,0 +1,50 @@
+{
+  "file_name": "S14-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Đồng hồ lò xo đo độ cứng (Khuôn Shore-D, loại D)",
+  "doc_code": "S 14 -1 g",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nhiệt độ tiêu chuẩn quy định dùng để hiệu chỉnh dụng cụ đồng hồ lò xo đo độ cứng (Khuôn Shore-D, loại D) là bao nhiêu?",
+      "options": {
+        "A": "20 ± 2ºC",
+        "B": "23 ± 2ºC",
+        "C": "25 ± 2ºC",
+        "D": "25 ± 5ºC"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Nhiệt độ tiêu chuẩn 23 ± 2ºC"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo tiêu chuẩn quy cách phán định mới nhất (được cập nhật tại mục g ngày 24.12.2020), tiêu chuẩn kỹ thuật áp dụng cho HD-104N và HD-1120 là gì?",
+      "options": {
+        "A": "JIS K 7215",
+        "B": "JIS K 6253",
+        "C": "JIS Z 2246",
+        "D": "JIS K 6251"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: Chỉnh sửa tiêu chuẩn quy cách phán định của HD-104N và HD-1120: JIS K 7215 → JIS K 6253"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn hiệu chỉnh, chu kỳ hiệu chỉnh đối với đồng hồ lò xo đo độ cứng (Khuôn Shore-D, loại D) là bao lâu?",
+      "options": {
+        "A": "1 năm",
+        "B": "2 năm",
+        "C": "3 năm",
+        "D": "5 năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Chu kỳ hiệu chỉnh 3 năm"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

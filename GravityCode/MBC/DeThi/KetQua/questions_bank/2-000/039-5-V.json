@@ -1,0 +1,50 @@
+{
+  "file_name": "039-5-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Máy đo điện trở thấp TSURUGA 3565",
+  "doc_code": "039-5 e",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm đối với máy đo điện trở thấp TSURUGA 3565 được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "6 tháng 1 lần",
+        "D": "Chỉ kiểm tra trước khi hiệu chỉnh"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi chuẩn bị trước khi hiệu chỉnh đo điện trở, điều kiện môi trường về độ ẩm được quy định như thế nào?",
+      "options": {
+        "A": "Độ ẩm 50% trở xuống",
+        "B": "Độ ẩm 60% trở xuống",
+        "C": "Độ ẩm 80% trở xuống",
+        "D": "Độ ẩm từ 80% trở lên"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: 1.Đo điện trở (Điều kiện môi trường) Độ ẩm 80% trở xuống"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trường hợp nếu có bất thường trong quá trình kiểm tra hoặc khi sử dụng thiết bị đo, nhân viên thao tác cần xử lý như thế nào theo đúng quy định?",
+      "options": {
+        "A": "Tự ý tháo máy ra để sửa chữa bộ phận linh kiện bên trong",
+        "B": "Tiếp tục sử dụng nếu sai số nhỏ và ghi chú lại vào cuối tháng",
+        "C": "Ghi chép lại kết quả, xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu và làm đơn đề nghị hiệu chỉnh lại thiết bị đo nếu cần thiết",
+        "D": "Cất thiết bị vào tủ dụng cụ và không cần báo cáo lại"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3: Chú ý 2) Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện hiệu chỉnh"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

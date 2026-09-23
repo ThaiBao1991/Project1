@@ -1,0 +1,50 @@
+{
+  "file_name": "S03-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH DỤNG CỤ TIÊU CHUẨN - Dụng cụ hiệu chỉnh máy chấn động",
+  "doc_code": "S03-1 g",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh dụng cụ, chu kì hiệu chỉnh định kỳ đối với dụng cụ hiệu chỉnh máy chấn động (ví dụ B&K 4294) là bao nhiêu tháng?",
+      "options": {
+        "A": "6 tháng",
+        "B": "12 tháng",
+        "C": "24 tháng",
+        "D": "36 tháng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1 - 【Hiệu chỉnh】 Chu kì hiệu chỉnh 12 tháng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi tiến hành đo đạc hiệu chỉnh trong phòng thí nghiệm, điều kiện môi trường về nhiệt độ xung quanh và độ ẩm tương đối tiêu chuẩn được quy định là bao nhiêu?",
+      "options": {
+        "A": "Nhiệt độ 20±5℃, Độ ẩm tương đối 30～70%",
+        "B": "Nhiệt độ 25±2℃, Độ ẩm tương đối 50～90%",
+        "C": "Nhiệt độ 23±5℃, Độ ẩm tương đối 45～85%",
+        "D": "Nhiệt độ 20±2℃, Độ ẩm tương đối 50±10%"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1 - Nhiệt độ xung quanh 23±5℃ Độ ẩm tương đối 45～85％"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục Hiệu chỉnh của tiêu chuẩn, khi sử dụng các thiết bị B&K 4294 để hiệu chỉnh máy chấn động (025-XX, 902-1, 097-1 ...), việc quản lý các thiết bị này phải được tuân thủ như thế nào?",
+      "options": {
+        "A": "Quản lý như dụng cụ thông thường dùng trong xưởng sản xuất",
+        "B": "Quản lý như là dụng cụ tiêu chuẩn hiệu chỉnh ở bản tiêu chuẩn này do tỷ lệ biến động có sự thay đổi theo thời gian nên là hạng mục hiệu chỉnh bắt buộc",
+        "C": "Chỉ cần kiểm tra ngoại quan trước khi sử dụng mà không cần quản lý theo dụng cụ tiêu chuẩn",
+        "D": "Tự động gia hạn thời gian hiệu chỉnh nếu máy chạy ổn định"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1 - Trường hợp sử dụng các thiết bị của biểu bên dưới để hiệu chỉnh máy chấn động (025-XX, 902-1, 097-1 …), thì quản lý như là dụng cụ tiêu chuẩn hiệu chỉnh ở bản tiêu chuẩn này. Do tỷ lệ biến động có sự thay đổi theo thời gian, nên đây là hạng mục hiệu chỉnh bắt buộc."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

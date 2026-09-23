@@ -1,0 +1,59 @@
+{
+  "file_name": "A19-2-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN ĐIỂM KIỂM – HIỆU CHỈNH MÁY ĐO - Điều kiện đối với người giáo dục hiệu chỉnh dụng cụ đo",
+  "doc_code": "A19-2",
+  "target_audience": "Người giáo dục hiệu chỉnh dụng cụ đo tại các nhóm, đội",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Về nguyên tắc, điều kiện để trở thành người giáo dục hiệu chỉnh dụng cụ đo là phải nhận được chứng nhận tham gia khóa học bên ngoài liên quan đến tiêu chuẩn nào?",
+      "options": {
+        "A": "ISO 9001 về hệ thống quản lý chất lượng",
+        "B": "ISO 14001 về hệ thống quản lý môi trường",
+        "C": "ISO/IEC17025 (hạng mục yêu cầu cơ bản liên quan đến năng lực của cơ quan hiệu chỉnh và nơi thí nghiệm chất lượng nội bộ)",
+        "D": "ISO 45001 về hệ thống quản lý an toàn và sức khỏe nghề nghiệp"
+      },
+      "correct_answer": "C",
+      "reference_note": "Hạng mục 2. Điều kiện: Về nguyên tắc, điều kiện là phải nhận được chứng nhận tham gia khóa học bên ngoài liên quan đến “ISO/IEC17025, hạng mục yêu cầu cơ bản liên quan đến năng lực của cơ quan hiệu chỉnh và nơi thí nghiệm chất lượng nội bộ”"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo bản tiêu chuẩn, đối tượng áp dụng của quy định điều kiện đối với người giáo dục hiệu chỉnh dụng cụ đo là ai?",
+      "options": {
+        "A": "Tất cả công nhân sản xuất trực tiếp tại các dây chuyền",
+        "B": "Người giáo dục hiệu chỉnh dụng cụ đo tại các nhóm, đội,...",
+        "C": "Bộ phận thu mua và kiểm tra chất lượng nguyên vật liệu",
+        "D": "Nhân viên bảo trì thiết bị cơ khí toàn công ty"
+      },
+      "correct_answer": "B",
+      "reference_note": "Hạng mục 1. Đối tượng: Người giáo dục hiệu chỉnh dụng cụ đo tại các nhóm, đội,..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Trong trường hợp không thể nhận được khóa học bên ngoài do không có cơ quan đào tạo hoặc khoảng cách xa, ứng viên cần đạt điều kiện gì để thay thế?",
+      "options": {
+        "A": "Phải hợp cách (từ 70 điểm trở lên) kỳ thi do MMK soạn thảo về quy cách ISO/IEC17025 và kiến thức về sự không chính xác",
+        "B": "Phải tự học và có xác nhận của trưởng bộ phận sản xuất",
+        "C": "Chỉ cần hoàn thành bài kiểm tra nội bộ từ 50 điểm trở lên do nhóm trưởng đánh giá",
+        "D": "Được miễn phí tham gia kiểm tra nếu có thâm niên làm việc trên 3 năm"
+      },
+      "correct_answer": "A",
+      "reference_note": "Hạng mục 2. Điều kiện: Vì vậy, trường hợp không thể nhận được khóa học như bên trên (*1) thì phải hợp cách ( từ 70 điểm trở lên) kỳ thi do MMK soạn thảo (quy cách ISO/IEC17025, kiến thức về sự không chính xác)"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140696.4864073,
+  "generated_at_iso": "2026-09-23T12:18:16",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 214381,
+    "modified_time": 1547174889.2620375,
+    "modified_time_iso": "2019-01-11T09:48:09",
+    "file_hash_short": "cdf44522"
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "file_name": "A09-8-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM",
+  "doc_code": "A09-8a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình đăng ký kết quả hiệu chỉnh (Trang 3), điều quan trọng nào sau đây cần lưu ý khi nhấp vào nút xóa (⑮-2) để tránh mất dữ liệu quan trọng?",
+      "options": {
+        "A": "Sau khi xóa, tất cả dữ liệu hệ thống sẽ tự động sao lưu vào máy chủ cục bộ mà không cần nhập lại.",
+        "B": "Trường hợp dữ liệu trước khi xóa là dữ liệu được lưu cuối cùng, [Ngày hiệu chuẩn tiếp theo] và [Chi phí hiệu chuẩn] vẫn còn lưu lại, nên phải nhập lại dữ liệu mới nhất cho hai mục này.",
+        "C": "Nút xóa chỉ có tác dụng xóa file đính kèm, hoàn toàn không ảnh hưởng đến ngày hiệu chuẩn tiếp theo.",
+        "D": "Sau khi xóa, không thể thực hiện đăng ký mới lại từ đầu mà phải làm đơn xin cấp lại mã số từ đầu."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, Mục (15): 'Tuy nhiên, trường hợp dữ liệu trước khi xóa là dữ liệu được lưu cuối cùng, [Ngày hiệu chuẩn tiếp theo] [Chiphí hiệu chuẩn] thì vẫn còn lưu lại, nên hãy nhập lại dữ liệu mới nhất cho hai mục này.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo mục đăng ký dụng cụ đo đạc (Trang 1), khi lựa chọn khu hiệu chuẩn trên hệ thống ACM phiên bản SMI, đâu KHÔNG PHẢI là một lựa chọn hợp lệ?",
+      "options": {
+        "A": "Nội bộ",
+        "B": "Nhà sản xuất",
+        "C": "Khách hàng quốc tế",
+        "D": "Khác"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Mục (4) Lựa chọn khu hiệu chuẩn bao gồm: Nội bộ, Nhà sản xuất, Ủy thác, Nội bộ/Nhà sản xuất, Nội bộ/Ủy thác, Khác."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi nhập kết quả hiệu chỉnh và có phương án lựa chọn phán định, mã số \"2\" ứng với nội dung nào sau đây?",
+      "options": {
+        "A": "Đạt",
+        "B": "Quá tiêu chuẩn",
+        "C": "Hư hại",
+        "D": "Lỗi hoạt động"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Mục 2 (8) Phương án lựa chọn: 1-Đạt, 2-Quá tiêu chuẩn, 3-Hư hại, 4-Lỗi hoạt động, 5-Khác."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140410.1709938,
+  "generated_at_iso": "2026-09-23T12:13:30",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 347315,
+    "modified_time": 1636198539.0054939,
+    "modified_time_iso": "2021-11-06T18:35:39",
+    "file_hash_short": "94a4042a"
+  }
+}

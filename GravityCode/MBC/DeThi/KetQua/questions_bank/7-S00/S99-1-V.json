@@ -1,0 +1,50 @@
+{
+  "file_name": "S99-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "GEAR CHUẨN (dùng máy đo bánh răng) (Máy chính xác Osaka)",
+  "doc_code": "S99-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn hiệu chỉnh, chu kỳ hiệu chỉnh đối với dụng cụ chuẩn 'GEAR CHUẨN (dùng máy đo bánh răng)' là bao lâu?",
+      "options": {
+        "A": "6 tháng hoặc khi thấy cần thiết",
+        "B": "12 tháng hoặc khi thấy cần thiết",
+        "C": "24 tháng hoặc khi thấy cần thiết",
+        "D": "Theo dõi hàng tháng không cần hiệu chỉnh"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1 - [Hiệu chỉnh]: Chu kỳ hiệu chỉnh 12 tháng hoặc khi thấy cần thiết"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Dựa vào bảng danh mục cơ quan thực thi hiệu chỉnh tại trang 3, đối với cứ điểm 'Công ty kinh doanh', cơ quan thực thi được quy định như thế nào?",
+      "options": {
+        "A": "Nơi chế tạo hiệu chỉnh",
+        "B": "Phòng bảo hành chất lượng nội bộ",
+        "C": "Không tương thích",
+        "D": "Được phép tự hiệu chỉnh tại chỗ"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3 - Cứ điểm 'Công ty kinh doanh': Không tương thích"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo tài liệu kỹ thuật, điều kiện môi trường xung quanh (nhiệt độ và độ ẩm) được quy định như thế nào khi tiến hành hiệu chỉnh?",
+      "options": {
+        "A": "Nhiệt độ 25±2℃, độ ẩm tương đối: 80%max",
+        "B": "Nhiệt độ 20±1℃, độ ẩm tương đối: 70%max",
+        "C": "Nhiệt độ 23±2℃, độ ẩm tương đối: 60%max",
+        "D": "Nhiệt độ phòng thông thường không giới hạn độ ẩm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1 - [Hiệu chỉnh]: Nhiệt độ xung quanh 20±1℃ Độ ẩm tương đối: 70%max"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

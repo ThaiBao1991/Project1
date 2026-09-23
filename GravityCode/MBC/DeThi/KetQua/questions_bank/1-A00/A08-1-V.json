@@ -1,0 +1,59 @@
+{
+  "file_name": "A08-1-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "Phương pháp xử lý Motor đã đo (Linh kiện, thành phẩm) bằng dụng hiệu chỉnh không hợp cách",
+  "doc_code": "A08-1 e",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn A08-1, phiên bản hiện hành có mã cải đính mới nhất được ban hành vào ngày tháng năm nào?",
+      "options": {
+        "A": "10/08/1994",
+        "B": "05/07/2005",
+        "C": "16/07/2019",
+        "D": "19/04/2023"
+      },
+      "correct_answer": "D",
+      "reference_note": "Bản tiêu chuẩn hiệu chỉnh - kiểm điểm dụng cụ đo, Cải đính: 19/04/2023, Tiêu chuẩn A08-1 e"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục 3.2 của tiêu chuẩn, trường hợp nội dung không hợp cách có ảnh hưởng đến đặc tính của linh kiện thành phẩm cuối cùng và không thỏa mãn tiêu chuẩn phán định/trị qui cách đã thống nhất với khách hàng thì người chịu trách nhiệm bộ môn quản lý dụng cụ đo không hợp cách phải làm gì?",
+      "options": {
+        "A": "Tiến hành hủy toàn bộ số lượng motor đã sản xuất ngay lập tức mà không cần kiểm chứng.",
+        "B": "Kiểm chứng tổng hợp tình trạng không thỏa mãn các tiêu chuẩn phán định/trị quy cách đã thỏa thuận với khách hàng dựa vào dữ liệu trước sau (công đoạn trước, công đoạn sau).",
+        "C": "Chỉ cần báo cáo miệng cho trưởng bộ phận quản lí rồi tiếp tục xuất hàng bình thường.",
+        "D": "Tự ý quyết định thông báo trực tiếp cho khách hàng mà không cần tuân theo lưu đồ."
+      },
+      "correct_answer": "B",
+      "reference_note": "Mục 3. Tiêu chuẩn xử lý - (2) Trường hợp nội dung không hợp cách có ảnh hưởng đến đặc tính của linh kiện thành phẩm cuối cùng..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo lưu đồ khi thông báo đến khách hàng, sau khi bộ môn quản lí dụng cụ đo không hợp cách phán đoán thấy cần thiết thông báo đến khách hàng, bước tiếp theo ai sẽ là người báo cáo đến bộ môn kinh doanh?",
+      "options": {
+        "A": "Trưởng công trường trực tiếp báo cáo",
+        "B": "Người chịu trách nhiệm QLCL",
+        "C": "Nhân viên trực tiếp đo đạc",
+        "D": "Bộ phận bảo hành chất lượng trung ương"
+      },
+      "correct_answer": "B",
+      "reference_note": "Lưu đồ khi thông báo đến khách hàng: Người chị trách nhiệm QLCL sẽ báo cáo đến bộ môn kinh doanh."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140285.5719512,
+  "generated_at_iso": "2026-09-23T12:11:25",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 215944,
+    "modified_time": 1685525088.1214912,
+    "modified_time_iso": "2023-05-31T16:24:48",
+    "file_hash_short": "2e35d003"
+  }
+}

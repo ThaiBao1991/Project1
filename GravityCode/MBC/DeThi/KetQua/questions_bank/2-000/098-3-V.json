@@ -1,0 +1,50 @@
+{
+  "file_name": "098-3-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM Đồng hồ đo điện trở bề mặt (Máy đo tĩnh điện khí)",
+  "doc_code": "098-3",
+  "target_audience": "Nhân viên/Đội trưởng",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Tần suất điểm kiểm (kiểm tra trước khi sử dụng) đối với máy đo điện trở bề mặt được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần.",
+        "B": "Mỗi tháng một lần.",
+        "C": "Mỗi lần sử dụng.",
+        "D": "Đầu mỗi ca sản xuất."
+      },
+      "correct_answer": "C",
+      "reference_note": "II. Điểm kiểm - Tần xuất điểm kiểm: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý về điểm kiểm, trong trường hợp KHÔNG phát sinh bất thường thì việc ghi chép kết quả được quy định ra sao?",
+      "options": {
+        "A": "Phải ghi chép lại đầy đủ mỗi ngày vào biên bản.",
+        "B": "Không cần ghi chép lại, tuy nhiên dù cho không phát sinh trong vòng một tháng thì cũng cần phải ghi lại.",
+        "C": "Tuyệt đối không bao giờ được ghi chép lại.",
+        "D": "Chỉ cần ghi lại khi cấp trên yêu cầu kiểm tra đột xuất."
+      },
+      "correct_answer": "B",
+      "reference_note": "II. Điểm kiểm - Chú ý: 2. Trong trường hợp không có bất thường thì không cần ghi chép lại. Tuy nhiên, dù cho không phát sinh trong vòng một tháng thì cũng cần phải ghi lại."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kì hiệu chỉnh đối với máy đo điện trở bề mặt (Máy đo tĩnh điện khí) là bao lâu?",
+      "options": {
+        "A": "Mỗi 12 tháng và khi thay pin.",
+        "B": "Mỗi 24 tháng và khi nhận thấy cần thiết.",
+        "C": "Mỗi 6 tháng một lần định kỳ.",
+        "D": "Chỉ hiệu chỉnh một lần khi mua mới."
+      },
+      "correct_answer": "B",
+      "reference_note": "I. Hiệu chỉnh - Chu kì hiệu chỉnh: Mỗi 24 tháng và khi nhận thấy cần thiết"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

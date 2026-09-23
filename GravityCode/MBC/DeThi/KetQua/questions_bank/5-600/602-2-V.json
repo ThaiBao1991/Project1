@@ -1,0 +1,50 @@
+{
+  "file_name": "602-2-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH - ĐIỂM KIỂM DỤNG CỤ ĐO",
+  "doc_code": "602 - 2",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi tính sai số và tính lặp lại của biểu thị đối với đồng hồ quản lý tải, quy định số lần đo sau khi chỉnh về 0 (tham khảo ①) là bao nhiêu lần?",
+      "options": {
+        "A": "Lặp lại việc 2 lần",
+        "B": "Lặp lại việc 3 lần",
+        "C": "Lặp lại việc 4 lần",
+        "D": "Lặp lại việc 5 lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: 'Lặp lại việc 3 lần sau khi chỉnh về 0 (tham khảo ①).'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, khi chuẩn bị trước khi hiệu chỉnh đồng hồ quản lý tải (PS - 2A, 30, 30A), ta cần mở nút nguồn điện ở 'ON' rồi để từ bao lâu trở lên?",
+      "options": {
+        "A": "10 phút trở lên",
+        "B": "15 phút trở lên",
+        "C": "30 phút trở lên",
+        "D": "60 phút trở lên"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: 'Sau khi đã tham khảo ví dụ của hình trên để lắp đặt, mở nút nguồn điện của đồng hồ quản lý tải và dụng cụ hiệu chỉnh đồng hồ quản lý tải ở “ON” rồi để từ 30 phút trở lên.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục [ĐIỂM KIỂM] tại trang 4, khi tiến hành xác nhận điểm 0 trong mục kiểm tra định kỳ (ngoài trường hợp ghi chú), yêu cầu phương pháp phán định chuẩn xác là gì?",
+      "options": {
+        "A": "Phải ổn định ở 0 hoặc trong vòng 3 số",
+        "B": "Phải ổn định tuyệt đối chính xác số 0, không được lệch",
+        "C": "Phải ổn định ở 0 hoặc trong vòng 5 số",
+        "D": "Phải nằm trong dung sai sai số quy định của từng dải tải"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 4: 'Phương pháp phán định: Phải ổn định ở 0 hoặc trong vòng 3 số.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

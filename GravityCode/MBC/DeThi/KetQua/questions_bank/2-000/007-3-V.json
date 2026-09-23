@@ -1,0 +1,50 @@
+{
+  "file_name": "007-3-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định MÁY ĐO ĐIỆN TRỞ CÁCH ĐIỆN (TOS7200 hiệu KIKUSUI)",
+  "doc_code": "007-3 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, tiến độ điểm kiểm tra đối với 'MÁY ĐO ĐIỆN TRỞ CÁCH ĐIỆN (TOS7200 hiệu KIKUSUI)' được quy định thực hiện khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: 'Tiến độ điểm kiểm: Mỗi lần sử dụng'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi kiểm tra chức năng an toàn (mục 2.2), ở trạng thái LOWER ON làm đoản mạch các dây TEST, máy phải báo gì khi bắt đầu thí nghiệm?",
+      "options": {
+        "A": "Máy báo \"LOWER FAIL\"",
+        "B": "Máy báo \"FAIL\"",
+        "C": "Máy báo \"PASS\"",
+        "D": "Máy không báo gì cả"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2: '(2) Ở LOWER ON làm đoản mạch các dây TEST, máy báo \"LOWER FAIL\" khi bắt đầu thí nghiệm'"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục Ghi chú số 2 về việc ghi chép kết quả kiểm tra: Trường hợp kết quả kiểm tra không thấy bất thường thì xử lý việc ghi chép như thế nào?",
+      "options": {
+        "A": "Bắt buộc phải ghi chép lại đầy đủ mỗi ngày không được sót",
+        "B": "Không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra",
+        "C": "Chỉ cần ghi chép lại khi có người quản lý yêu cầu kiểm tra đột xuất",
+        "D": "Hoàn toàn không cần ghi chép lại trong mọi trường hợp"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: 'Ghi chú 2. Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

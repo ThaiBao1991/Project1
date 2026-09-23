@@ -1,0 +1,100 @@
+{
+  "total": 448,
+  "done": 448,
+  "missing": 0,
+  "percent": 100.0,
+  "merged_exam_exists": true,
+  "merged_ans_exists": true,
+  "folders": {
+    "1-A00 Ban V IT HOA": {
+      "folder_name": "1-A00 Ban V IT HOA",
+      "folder_slug": "1-A00",
+      "total": 39,
+      "done": 39,
+      "missing": 0,
+      "percent": 100.0,
+      "exam_docx": false,
+      "ans_docx": false
+    },
+    "2-000 Ban V IT HOA": {
+      "folder_name": "2-000 Ban V IT HOA",
+      "folder_slug": "2-000",
+      "total": 123,
+      "done": 123,
+      "missing": 0,
+      "percent": 100.0,
+      "exam_docx": true,
+      "ans_docx": true
+    },
+    "3-400 Ban V IT HOA": {
+      "folder_name": "3-400 Ban V IT HOA",
+      "folder_slug": "3-400",
+      "total": 1,
+      "done": 1,
+      "missing": 0,
+      "percent": 100.0,
+      "exam_docx": false,
+      "ans_docx": false
+    },
+    "4-500 Ban V IT HOA": {
+      "folder_name": "4-500 Ban V IT HOA",
+      "folder_slug": "4-500",
+      "total": 142,
+      "done": 142,
+      "missing": 0,
+      "percent": 100.0,
+      "exam_docx": false,
+      "ans_docx": false
+    },
+    "5-600 Ban V IT HOA": {
+      "folder_name": "5-600 Ban V IT HOA",
+      "folder_slug": "5-600",
+      "total": 44,
+      "done": 44,
+      "missing": 0,
+      "percent": 100.0,
+      "exam_docx": false,
+      "ans_docx": false
+    },
+    "6-900 Ban V IT HOA": {
+      "folder_name": "6-900 Ban V IT HOA",
+      "folder_slug": "6-900",
+      "total": 12,
+      "done": 12,
+      "missing": 0,
+      "percent": 100.0,
+      "exam_docx": false,
+      "ans_docx": false
+    },
+    "7-S00 Ban V IT HOA": {
+      "folder_name": "7-S00 Ban V IT HOA",
+      "folder_slug": "7-S00",
+      "total": 64,
+      "done": 64,
+      "missing": 0,
+      "percent": 100.0,
+      "exam_docx": false,
+      "ans_docx": false
+    },
+    "8-T00 Ban V IT HOA": {
+      "folder_name": "8-T00 Ban V IT HOA",
+      "folder_slug": "8-T00",
+      "total": 3,
+      "done": 3,
+      "missing": 0,
+      "percent": 100.0,
+      "exam_docx": false,
+      "ans_docx": false
+    },
+    "9-Z00 Ban V IT HOA": {
+      "folder_name": "9-Z00 Ban V IT HOA",
+      "folder_slug": "9-Z00",
+      "total": 20,
+      "done": 20,
+      "missing": 0,
+      "percent": 100.0,
+      "exam_docx": false,
+      "ans_docx": false
+    }
+  }
+}

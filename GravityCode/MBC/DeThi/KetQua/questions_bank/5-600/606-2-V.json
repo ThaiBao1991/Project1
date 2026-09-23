@@ -1,0 +1,50 @@
+{
+  "file_name": "606-2-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định MÁY ĐO ĐỘ TRÒN (RONDCOM 31C, 41C, 43C)",
+  "doc_code": "606-2",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi thực hiện hạng mục cấp dầu định kỳ (1 tháng 1 lần) cho máy đo độ tròn, loại dầu bôi trơn nào được đề nghị sử dụng?",
+      "options": {
+        "A": "Dầu thủy lực ISO VG 32",
+        "B": "Mobile Bakutora oil số 2",
+        "C": "Dầu máy khâu SP 10",
+        "D": "Dầu chống gỉ RUST-KEM"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, Mục II 【Điểm kiểm】 - 4. Cấp dầu: 1 tháng 1 lần châm dầu bôi trơn (loại dầu đề nghị: mobile Bakutora oil số 2)."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Chu kỳ hiệu chỉnh định kỳ đối với dụng cụ trắc định máy đo độ tròn theo quy định hiện hành là bao lâu?",
+      "options": {
+        "A": "1 tháng 1 lần",
+        "B": "3 tháng một lần",
+        "C": "6 tháng và khi xác nhận thấy cần thiết",
+        "D": "1 năm 1 lần"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Mục I【Hiệu chỉnh】: Chu kỳ hiệu chỉnh: 6 tháng và khi xác nhận thấy cần thiết."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo tài liệu tiêu chuẩn, quy định quan trọng nào dưới đây về [Điều khoản chú ý] khi tiến hành kiểm tra máy đo độ tròn tuyệt đối phải tuân thủ để tránh gây hư hỏng thiết bị?",
+      "options": {
+        "A": "Tuyệt đối không được quay bàn xoay không có không khí nén.",
+        "B": "Không được bật máy tính trước khi mở van hơi.",
+        "C": "Không được hiệu chỉnh phóng đại khi chưa tháo kim đo.",
+        "D": "Không được thay đổi bộ lọc (Filter) trong quá trình đo độ tròn."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 3, Mục II 【Điểm kiểm】 - [Điều khoản chú ý]: Tuyệt đối không được quay bàn xoay không có không khí nén."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

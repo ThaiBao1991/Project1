@@ -1,0 +1,50 @@
+{
+  "file_name": "S47-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "CHẤU KẸP",
+  "doc_code": "S47-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh dụng cụ CHẤU KẸP, chu kì hiệu chỉnh định kỳ được quy định là bao lâu?",
+      "options": {
+        "A": "01 năm",
+        "B": "02 năm",
+        "C": "03 năm",
+        "D": "06 tháng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1 - Mục 【Hiệu chỉnh】: Chu kì hiệu chỉnh: 02 năm"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo tài liệu kỹ thuật của dụng cụ CHẤU KẸP, yêu cầu quan trọng nào sau đây PHẢI được tuân thủ tuyệt đối khi tiến hành tái hiệu chỉnh dụng cụ?",
+      "options": {
+        "A": "Nhất định phải tiến hành theo kích thước",
+        "B": "Chỉ cần kiểm tra ngoại quan bằng mắt thường",
+        "C": "Có thể tự điều chỉnh kích thước theo yêu cầu sản xuất thực tế",
+        "D": "Không cần quan tâm đến nhiệt độ tiêu chuẩn khi hiệu chỉnh"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1 - Chú thích: ※Khi tái hiệu chỉnh nhất định phải tiến hành theo kích thước."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi tiến hành đo kiểm tra Thước đo cơ bản 35mm thuộc dụng cụ 516-602 (MITUTOYO), thông số độ song song yêu cầu là bao nhiêu?",
+      "options": {
+        "A": "±0.8",
+        "B": "Dưới 0.5",
+        "C": "Dưới 0.8",
+        "D": "±0.5"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1 - Bảng độ chính xác: Thước đo cơ bản 35mm có độ song song là 'Dưới 0.8'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "013-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định MÁY ĐO EC",
+  "doc_code": "013-1f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ thực hiện điểm kiểm (hạng mục kiểm tra) đối với MÁY ĐO EC là khi nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và khi có yêu cầu",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "Trước mỗi ca làm việc và sau khi sử dụng xong",
+        "D": "24 tháng một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "II 【Điểm kiểm】 MÁY ĐO EC - Tiến độ kiểm tra: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Khi phát hiện có bất thường trong quá trình kiểm tra hoặc sử dụng máy đo EC, nhân viên thực hiện cần phải làm gì theo đúng quy định?",
+      "options": {
+        "A": "Tự ý tháo máy ra sửa chữa ngay lập tức bằng tuốc nơ vít",
+        "B": "Ghi chép lại kết quả bất thường và xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu, trường hợp cần thiết làm đơn đề nghị hiệu chỉnh lại thiết bị",
+        "C": "Bỏ qua nếu lỗi nhỏ và tiếp tục sử dụng cho đến hết ca sản xuất",
+        "D": "Tự động đổi máy mới mà không cần ghi chép lại kết quả"
+      },
+      "correct_answer": "B",
+      "reference_note": "II 【Điểm kiểm】 Chú ý 2: Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện hiệu chỉnh"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Trong phần phương pháp điều chỉnh biểu thị điện áp, khi thực hiện điều chỉnh SPAN (GAIN) cho máy đo EC, điểm điều chỉnh nào được lấy làm chuẩn và thực hiện trong tình trạng gia tăng điện áp từ máy chuẩn?",
+      "options": {
+        "A": "3.0 V",
+        "B": "9.0 V",
+        "C": "15.0 V",
+        "D": "18.0 V"
+      },
+      "correct_answer": "D",
+      "reference_note": "I【Hiệu chỉnh】<phương pháp điều chỉnh>: Điểm điều chỉnh thì lấy 18.0V và thực hiện trong tình trạng gia tăng điện áp từ máy chuẩn là 18.0V."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

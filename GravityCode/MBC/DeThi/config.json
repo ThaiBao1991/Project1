@@ -1,0 +1,29 @@
+{
+  "source_dir": "C:/Users/12953 bao/Desktop/desktop/work/Project/Python/BasicLearnPython/W3schools/Python Tutorial/GravityCode/MBC/DeThi/Source",
+  "output_dir": "C:\\Users\\12953 bao\\Desktop\\desktop\\work\\Project\\Python\\BasicLearnPython\\W3schools\\Python Tutorial\\GravityCode\\MBC\\DeThi\\KetQua",
+  "prompts_dir": "KetQua/prompts_for_notebooklm",
+  "questions_bank_dir": "KetQua/questions_bank",
+  "folder_order": [
+    "1-A00 Ban V IT HOA",
+    "2-000 Ban V IT HOA",
+    "3-400 Ban V IT HOA",
+    "4-500 Ban V IT HOA",
+    "5-600 Ban V IT HOA",
+    "6-900 Ban V IT HOA",
+    "7-S00 Ban V IT HOA",
+    "8-T00 Ban V IT HOA",
+    "9-Z00 Ban V IT HOA"
+  ],
+  "min_questions_per_file": 3,
+  "key_questions_per_file": 1,
+  "exam_settings": {
+    "title": "BÀI TEST NHẬN ĐỊNH TƯ CÁCH NHÂN VIÊN VÀ ĐỘI TRƯỞNG PHÒNG KIỂM TRA",
+    "doc_code": "MSPH:VDMBH-GDNĐKT-007-BTNĐTC",
+    "revision": "REV 14 (2026)",
+    "default_target": "Đội trưởng và nhân viên LK, TP, HC, ĐGSP, GCCK",
+    "pass_score_staff": "Đạt: 80% trở lên và không bị sai ở câu hỏi quan trọng (có dấu ◎)",
+    "fail_score_staff": "Không đạt: dưới 80% hoặc trên 80% nhưng bị sai ở câu hỏi quan trọng (có dấu ◎)",
+    "pass_score_leader": "Đạt: 90% trở lên và không bị sai ở câu hỏi quan trọng (có dấu ◎)",
+    "fail_score_leader": "Không đạt: dưới 90% hoặc trên 90% nhưng bị sai ở câu hỏi quan trọng (có dấu ◎)"
+  }
+}

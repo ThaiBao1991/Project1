@@ -1,0 +1,50 @@
+{
+  "file_name": "020-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định MÁY THÍ NGHIỆM ĐIỆN ÁP CHỊU ĐỰNG",
+  "doc_code": "020-1i",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo phần ghi chú kiểm tra định kỳ, nếu kết quả kiểm tra không thấy bất thường thì tần suất tối thiểu phải ghi chép lại kết quả đã kiểm tra là bao lâu?",
+      "options": {
+        "A": "Không cần ghi chép lại dưới mọi hình thức",
+        "B": "Ghi chép lại mỗi tuần một lần",
+        "C": "Mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra",
+        "D": "Chỉ ghi chép lại khi có người quản lý yêu cầu trực tiếp"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: Ghi chú 2. Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, tiến độ kiểm tra cho mục '【Điểm kiểm】 MÁY THÍ NGHIỆM ĐIỆN ÁP CHỊU TẢI' được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Mỗi năm một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Tiến độ kiểm tra: mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình thực hiện hiệu chỉnh máy thí nghiệm điện áp chịu đựng, quy định quan trọng nào về an toàn và kỹ thuật bắt buộc phải tuân thủ khi đo điện áp đầu ra ở 5kV?",
+      "options": {
+        "A": "Phải sử dụng dây điện cao áp (TL04-TOS: điện tử KIKUSUI) và khi hiệu chỉnh phải sử dụng bao tay cách điện.",
+        "B": "Phải tắt nguồn hoàn toàn và chỉ sử dụng đồng hồ vạn năng thông thường không cần đầu dò.",
+        "C": "Chỉ cần mang bao tay thường và nâng dòng điện đột ngột lên mức tối đa để đo.",
+        "D": "Không cần thiết bị phụ tải UL mà đo trực tiếp bằng tay không qua thiết bị bảo hộ."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: <Chú ý> ① Khi đo điện áp đầu ra ở 5kV, phải sử dụng dây điện cao áp (TL04-TOS: điện tử KIKUSUI). ② Để tránh bị giật điện, khi hiệu chỉnh phải sử dụng bao tay cách điện."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

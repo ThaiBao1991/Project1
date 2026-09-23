@@ -1,0 +1,50 @@
+{
+  "file_name": "570-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Đồng hồ đo chất trợ hàn",
+  "doc_code": "570-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Quy cách phán định đối với thiết bị đo DFM-7WH (Phòng thí nghiệm nam châm) là bao nhiêu?",
+      "options": {
+        "A": "± 1.0% của toàn thang đo",
+        "B": "± 1.0% của toàn thang đo + 1digit",
+        "C": "± 0.4%",
+        "D": "± 0.5% của toàn thang đo"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Phòng thí nghiệm nam châm | DFM-7WH | ± 0.4％"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm (kiểm tra hằng ngày/hằng tháng) đối với Đồng hồ đo chất trợ hàn được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và trước khi sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "Mỗi ngày 1 lần trước khi vào ca sản xuất",
+        "D": "Chỉ kiểm tra khi thiết bị xảy ra hư hỏng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Tiến độ điểm kiểm - Mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trường hợp nếu phát hiện có bất thường trong quá trình kiểm tra hoặc khi sử dụng đồng hồ đo chất trợ hàn, nhân viên thao tác cần thực hiện các bước xử lý nào sau đây?",
+      "options": {
+        "A": "Tự ý tháo rời thiết bị để sửa chữa bộ phận hiển thị ngay lập tức",
+        "B": "Tiếp tục sử dụng bình thường nếu sai số không quá lớn",
+        "C": "Ghi chép lại kết quả, xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu và làm đơn đề nghị hiệu chỉnh lại nếu cần thiết",
+        "D": "Bỏ qua không cần báo cáo vì thiết bị có chu kỳ hiệu chỉnh 36 tháng"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: Chú ý 2) Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện hiệu chỉnh"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

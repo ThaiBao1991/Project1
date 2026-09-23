@@ -1,0 +1,50 @@
+{
+  "file_name": "012-3-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định Máy phân tích motor Phòng nghiên cứu Sugawara EMA-1, EMA-1S",
+  "doc_code": "012-3f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Phương pháp phán định đối với hạng mục hiệu chỉnh trị số ngẫu lực (hiệu chỉnh trước và sau điều chỉnh) là bao nhiêu?",
+      "options": {
+        "A": "± 0.1 % ngẫu lực quy định",
+        "B": "± 0.2 % ngẫu lực quy định",
+        "C": "± 0.5 % ngẫu lực quy định",
+        "D": "± 1.0 % ngẫu lực quy định"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Hạng mục 1. Hiệu chỉnh trị số ngẫu lực - Phương pháp phán định: ± 0.5 % ngẫu lực quy định"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục Ghi chú kiểm tra, trường hợp kết quả kiểm tra không thấy bất thường thì quy định ghi chép như thế nào là đúng chuẩn?",
+      "options": {
+        "A": "Không cần ghi chép bất kỳ tài liệu nào trong suốt quá trình sử dụng thiết bị.",
+        "B": "Phải ghi chép lại kết quả kiểm tra đầy đủ sau mỗi lần sử dụng dù không có bất thường.",
+        "C": "Không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.",
+        "D": "Chỉ ghi chép lại khi có sự cố phát sinh trong quá trình vận hành máy."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 6: Ghi chú 2: Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ kiểm tra đối với bộ phận đo ngẫu lực và bộ phận điều khiển được quy định ra sao?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước mỗi ca làm việc và cuối tuần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 6: Tiến độ kiểm tra - Mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

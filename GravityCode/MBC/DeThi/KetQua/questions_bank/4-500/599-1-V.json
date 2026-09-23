@@ -1,0 +1,50 @@
+{
+  "file_name": "599-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định Micrometer 2 mặt cầu MITUTOYO",
+  "doc_code": "599-1 c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra hàng ngày, nếu phát hiện sự bất thường xảy ra với dụng cụ trắc định, nhân viên cần phải xử lý theo cách nào dưới đây?",
+      "options": {
+        "A": "Tự ý tháo rời dụng cụ để sửa chữa và cân chỉnh lại",
+        "B": "Tiếp tục sử dụng nếu sai số nhỏ hơn giới hạn cho phép",
+        "C": "Xử lý theo chỉ thị của người quản lý có trách nhiệm và ghi chép lại kết quả",
+        "D": "Cất ngay vào tủ dụng cụ và không cần báo cáo cho ai"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3, Chú ý: 1. Trường hợp bất thường, kết quả kiểm tra, ghi chép kết quả kiểm tra, xử lý theo chỉ thị của người quản lý có trách nhiệm"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi tiến hành điểm kiểm hoặc hiệu chỉnh lực đo của Micrometer 2 mặt cầu, số lần xoay núm điều chỉnh có âm thanh tách tách tiêu chuẩn là mấy lần?",
+      "options": {
+        "A": "1 lần",
+        "B": "2 lần",
+        "C": "3 lần",
+        "D": "5 lần"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1 và 2, Hạng mục chú ý: Lực đo khi tiến hành điểm kiểm, hiệu chỉnh thì sẽ xoay núm điều chỉnh cho đến khi có âm thanh tách tách 3 lần"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ điểm kiểm (tần suất kiểm tra) đối với Micrometer 2 mặt cầu MITUTOYO là khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước khi giao ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, II. [Điểm kiểm] - Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

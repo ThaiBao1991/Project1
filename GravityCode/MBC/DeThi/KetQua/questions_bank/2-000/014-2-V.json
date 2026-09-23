@@ -1,0 +1,50 @@
+{
+  "file_name": "014-2-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm máy đo độ ồn",
+  "doc_code": "014-2 j",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm máy đo độ ồn được quy định thực hiện vào thời gian nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và trước khi sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "6 tháng một lần hoặc khi thấy cần thiết",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 4, Tiêu chuẩn Ⅱ【Điểm kiểm】, Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Quy trình thay thế phòng tránh hư hỏng microphone nào sau đây là đúng khi tắt nguồn và tháo thiết bị?",
+      "options": {
+        "A": "Rút đầu kết nối micro ra ngay lập tức sau khi tắt nguồn để tiết kiệm thời gian",
+        "B": "Để phòng tránh nguy hiểm, chờ khoảng 1 phút rồi rút đầu kết nối của Micro ra khỏi MIC INPUT của thân chính máy đo tạp âm",
+        "C": "Không cần tắt nguồn thân chính, chỉ cần cẩn thận tháo giắc cắm micro ra khỏi máy",
+        "D": "Chờ 5 phút sau khi tắt nguồn rồi tiến hành thay thế trực tiếp Pre-amp mà không cần rút cáp"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Phần I 【Hiệu chỉnh】, [Quy trình thay thế phòng tránh hư hỏng microphone]: (1) Tắt điện nguồn (2) Để phòng tránh nguy hiểm, chờ khoảng 1 phút rồi rút đầu kết nối của Micro ra khỏi MIC INPUT"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Trong phương pháp điểm kiểm, hạng mục 'Vị trí 0 của đồng hồ' yêu cầu thực hiện điều chỉnh như thế nào?",
+      "options": {
+        "A": "Điều chỉnh sao cho kim của đồng hồ đo chỉ về 0 khi ở trạng thái nguồn điện ON",
+        "B": "Điều chỉnh kim đồng hồ về mức 50mV khi bật nguồn",
+        "C": "Điều chỉnh sao cho kim của đồng hồ đo chỉ về 0 khi ở trạng thái nguồn điện OFF",
+        "D": "Kiểm tra độ nhạy của kim đồng hồ ở mức 94dB"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 4, Tiêu chuẩn Ⅱ【Điểm kiểm】, Hạng mục 2: Điều chỉnh sao cho kim của đồng hồ đo chỉ về 0 khi ở trạng thái nguồn điện OFF"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

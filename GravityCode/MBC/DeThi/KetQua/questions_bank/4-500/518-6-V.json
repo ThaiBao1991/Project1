@@ -1,0 +1,50 @@
+{
+  "file_name": "518-6-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và điểm kiểm dụng cụ đo đạc DỤNG CỤ ĐO MICROMETER BÊN NGOÀI (0.0001mm) Mitutoyo 293-100",
+  "doc_code": "518-6",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu kỹ thuật, tiến độ điểm kiểm (kiểm tra hàng ngày) đối với dụng cụ đo micrometer bên ngoài Mitutoyo 293-100 được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước mỗi ca làm việc"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo mục Chú ý về việc ghi chép kết quả kiểm tra, trường hợp kết quả kiểm tra không có gì bất thường thì quy định thực hiện như thế nào?",
+      "options": {
+        "A": "Phải ghi chép kết quả kiểm tra đầy đủ sau mỗi lần sử dụng",
+        "B": "Không ghi kết quả kiểm tra cũng được, nhưng dù không có gì bất thường phải ghi chép kết quả đó lại 1 tháng 1 lần",
+        "C": "Tuyệt đối không được ghi chép bất kỳ nội dung nào vào sổ quản lý",
+        "D": "Chỉ ghi chép khi cấp trên có yêu cầu kiểm tra đột xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: Chú ý 2: Trường hợp kết quả kiểm tra không có gì bất thường, không ghi kết quả kiểm tra cũng được. Nhưng dù không có gì bất thường phải ghi chép kết quả đó lại 1 tháng 1 lần."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Lực đo chuẩn khi thực hiện điểm kiểm hoặc hiệu chỉnh dụng cụ đo micrometer bên ngoài (0.0001mm) Mitutoyo 293-100 được quy định như thế nào là chính xác nhất?",
+      "options": {
+        "A": "Lực xoay của núm vặn cho đến khi nghe âm thanh cốc chặn kêu 1 lần",
+        "B": "Lực xoay của núm vặn cho đến khi nghe âm thanh cốc chặn kêu 2 lần",
+        "C": "Lực xoay của núm vặn cho đến khi nghe âm thanh cốc chặn kêu 3 lần",
+        "D": "Lực xoay của núm vặn chặt cố định tùy ý người đo"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1 & 2: <Hạng mục chú ý> Lực đo khi thực hiện điểm kiểm hiệu chỉnh là lực xoay của núm vặn cho đến âm thanh cốc chặn kêu 3 lần."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

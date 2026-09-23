@@ -1,0 +1,50 @@
+{
+  "file_name": "579-10-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Cân điện tử Series BL của Shimazu",
+  "doc_code": "579-10",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo quy định về điểm kiểm \"Độ bằng phẳng\", vị trí chuẩn của bọt khí trên thước đo độ nghiêng phải nằm ở đâu để đạt yêu cầu?",
+      "options": {
+        "A": "Lệch về bên trái của thước đo độ nghiêng",
+        "B": "Nằm ở trung tâm của thước đo độ nghiêng",
+        "C": "Lệch về phía trước của thước đo độ nghiêng",
+        "D": "Nằm sát mép bất kỳ của thước đo độ nghiêng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, Mục 2. Độ bằng phẳng: PP phán định 'Phải nằm ở trung tâm của thước đo độ nghiêng'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi không sử dụng cân điện tử trong thời gian bao lâu thì bắt buộc phải tháo Adapter AC ra?",
+      "options": {
+        "A": "Từ 1 ngày trở lên",
+        "B": "Từ 1 tuần trở lên",
+        "C": "Từ 1 tháng trở lên",
+        "D": "Từ 3 tháng trở lên"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3, Mục 1. Ngoại quan: 'Khi không sử dụng từ 1 tháng trở lên thì tháo Apdapter AC ra.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ điểm kiểm đối với cân điện tử Series BL của Shimazu được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi tháng một lần",
+        "C": "Mỗi lần sử dụng",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3, Mục Ⅱ【Điểm kiểm】: 'Tiến độ điểm kiểm: Mỗi lần sử dụng'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

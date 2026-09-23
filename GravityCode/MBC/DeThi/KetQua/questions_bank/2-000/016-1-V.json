@@ -1,0 +1,50 @@
+{
+  "file_name": "016-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định (Dụng cụ kiểm tra vòng quay theo thời gian của motor 5501~5503)",
+  "doc_code": "016-1 a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục kiểm tra tiến độ, khi thực hiện kiểm tra 'Điều chỉnh 0 đồng hồ đo', tiến độ kiểm tra và xác định được quy định vào thời điểm nào?",
+      "options": {
+        "A": "Chỉ kiểm tra định kỳ mỗi tháng một lần vào đầu ca làm việc.",
+        "B": "Trước và sau khi bật công tác, xác nhận kim chỉ 0 ở trạng thái không đưa dòng vào.",
+        "C": "Chỉ kiểm tra sau khi phát sinh sự cố lệch số đo trên đồng hồ.",
+        "D": "Kiểm tra ngẫu nhiên theo yêu cầu của cấp trên quản lý."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Mục II 【Kiểm tra】, Tiến độ kiểm tra: Mỗi lần sử dụng. Hạng mục: Trước và sau khi bật công tác, xác nhận kim chỉ 0 ở trạng thái không đưa dòng vào."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kỳ hiệu chỉnh đối với 'Dụng cụ tạo xung động, máy ghi' là bao lâu?",
+      "options": {
+        "A": "6 tháng",
+        "B": "12 tháng",
+        "C": "3 tháng",
+        "D": "24 tháng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Mục I 【Hiệu chỉnh】, Dụng cụ chuẩn Chu kỳ hiệu chỉnh: 12 tháng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo phần ghi chú xử lý bất thường (Mục Ghi chú - Trang 2), trong trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra vào thời điểm nào?",
+      "options": {
+        "A": "Phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.",
+        "B": "Chỉ khi nào có sự cố mới cần ghi chép lại toàn bộ báo cáo.",
+        "C": "Chỉ ghi chép khi người phụ trách quản lý yêu cầu trực tiếp.",
+        "D": "Không cần ghi chép lại nếu thiết bị vẫn hoạt động bình thường."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2, Mục Ghi chú, Khoản 2: Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

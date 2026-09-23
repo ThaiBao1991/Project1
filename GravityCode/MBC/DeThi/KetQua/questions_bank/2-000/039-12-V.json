@@ -1,0 +1,50 @@
+{
+  "file_name": "039-12-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn điểm kiểm và hiệu chỉnh dụng cụ đo Máy đo điện trở thấp HIOKI RM3544",
+  "doc_code": "039-12 a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, tiến độ kiểm tra đối với máy đo điện trở thấp HIOKI RM3544 là khi nào?",
+      "options": {
+        "A": "Mỗi tuần sử dụng một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước mỗi ca làm việc và sau khi bảo trì"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 4, Mục II [Điểm kiểm] - Tiến độ kiểm tra: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo phần ghi chú về việc ghi chép kết quả kiểm tra, trường hợp kiểm tra không thấy bất thường thì quy định ghi chép như thế nào?",
+      "options": {
+        "A": "Phải ghi chép lại kết quả chi tiết từng giờ làm việc",
+        "B": "Không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra",
+        "C": "Bắt buộc phải ghi chép báo cáo vào hệ thống hàng ngày",
+        "D": "Chỉ ghi chép khi có người có trách nhiệm quản lý yêu cầu trực tiếp"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5, Ghi chú mục 2: 'Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Khi thực hiện điều chỉnh 0 (Zero adjustment) cho máy đo điện trở thấp HIOKI RM3544, chú ý quan trọng nào về loại dây lead khi sử dụng máy của YOKOGAWA chế tạo số series 2792 để hiệu chỉnh?",
+      "options": {
+        "A": "Phải dùng dây lead dạng kẹp để tiếp xúc tốt hơn",
+        "B": "Có thể sử dụng linh hoạt cả dây lead 4 chấu và dây lead dạng kẹp",
+        "C": "Phải dùng dây lead 4 chấu và tiến hành hiệu chỉnh bằng phương pháp tiếp xúc, không thể sử dụng dây lead dạng kẹp",
+        "D": "Không bắt buộc loại dây lead miễn là đoản mạch được hai đầu"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Mục I 【Hiệu chỉnh】: 'Trường hợp dùng máy của YOKOGAWA chế tọa số series 2792 hiệu chỉnh thì phải dùng dây lead 4 chấu và tiến hành hiệu chỉnh bằng phương pháp tiếp xúc ghi dưới. Không thể sử dụng dây lead dạng kẹp'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

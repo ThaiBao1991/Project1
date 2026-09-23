@@ -1,0 +1,50 @@
+{
+  "file_name": "520-5-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Thước kẹp dùng để đo mặt trong (Mitutoyo)",
+  "doc_code": "520-5 a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo mục [KIỂM TRA] Tiến độ kiểm tra (Phần 1 - Ngoại quan), khi kiểm tra thước kẹp dùng để đo mặt trong Mitutoyo, chúng ta cần xác nhận những điều gì?",
+      "options": {
+        "A": "Xác nhận xem bộ phận đo đạc có bị những khiếm khuyết có hại chẳng hạn như bị dơ bẩn, rỉ sét, trầy, ba vớ, biến dạng, mài mòn...",
+        "B": "Chỉ kiểm tra độ trơn tru của thanh trượt, không cần quan tâm đến bề mặt đo.",
+        "C": "Chỉ kiểm tra vết bẩn bề mặt bằng mắt thường qua kính lúp 10x.",
+        "D": "Kiểm tra độ chính xác lặp đi lặp lại nhiều lần bằng block gê-ji."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2, phần II [KIỂM TRA], Tiến độ kiểm tra: 1. Ngoại quan"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Dựa vào bảng thông số kỹ thuật (trang 1 và trang 2), trị phán định (mm) đối với mã số (MS code) 573-642 (Kí hiệu NTD14-20PMX, phạm vi đo 10 ~ 200 mm) ở phần Kiểm tra là bao nhiêu?",
+      "options": {
+        "A": "± 0.05 mm",
+        "B": "± 0.10 mm",
+        "C": "± 0.01 mm",
+        "D": "± 0.20 mm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, bảng thông số mục II [KIỂM TRA], dòng số (1) MS code 573-642"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục [KIỂM TRA] Chú ý (trang 2), trong trường hợp có dị thường kết quả điểm kiểm thì phải xử lý thế nào?",
+      "options": {
+        "A": "Tự ý sửa chữa thước kẹp và tiếp tục sử dụng.",
+        "B": "Hãy kí lực kết quả điểm kiểm, xử lí theo chỉ thị của người có trách nhiệm quản lí (đã trách quản lí).",
+        "C": "Bỏ qua kết quả đó và đo lại lần thứ hai mà không cần báo cáo.",
+        "D": "Dừng sử dụng vĩnh viễn và đem hủy bỏ dụng cụ đo."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, phần II [KIỂM TRA], Chú ý mục 1"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "526-2-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm dụng cụ đo Geji giới hạn dạng ống tròn khoảng cách 0.5μm",
+  "doc_code": "526-2 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Trị phán định chuẩn cho kích thước đường kính ngoài của Geji giới hạn dạng ống tròn là bao nhiêu? Trong trường hợp nào có thể cho phép dung sai đến ±0.3μm?",
+      "options": {
+        "A": "Trị phán định ±0.1μm; cho phép dung sai đến ±0.2μm nếu kết quả đo không bị đảo ngược so với bước đo kế cận.",
+        "B": "Trị phán định ±0.2μm; cho phép dung sai đến ±0.3μm nếu so sánh với kết quả đo mới nhất của bước đo kế cận, kết quả không bị đảo ngược.",
+        "C": "Trị phán định ±0.3μm; cho phép dung sai đến ±0.5μm nếu có sự đồng ý của trưởng bộ phận BHCL.",
+        "D": "Trị phán định cố định ±0.5μm trong mọi trường hợp đo lường thực tế."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: '(Trị phán định ) ±0.2μm. Tuy nhiên, so sánh với kết quả đo mới nhất của bước đo kế nhau, nếu kết quả không bị đảo ngược thì có thể cho dung sai đến ±0.3μm'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ điểm kiểm ngoại quan đối với Geji giới hạn dạng ống tròn khoảng cách 0.5μm được quy định như thế nào?",
+      "options": {
+        "A": "1 tuần 1 lần và khi có yêu cầu từ bộ phận quản lý.",
+        "B": "1 tháng 1 lần và mỗi lần sử dụng.",
+        "C": "6 tháng 1 lần trước khi tiến hành hiệu chỉnh định kỳ.",
+        "D": "Chỉ kiểm tra ngoại quan khi dụng cụ bị rơi rớt hoặc hư hỏng."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: 'Tiến độ điểm kiểm: 1 tháng 1 lần và mỗi lần sử dụng'"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình hiệu chỉnh kích thước đường kính ngoài bằng bệ đo dùng cho máy quét tia laser, điều kiện kỹ thuật và quy định nào sau đây là BẮT BUỘC ĐÚNG để tránh sai hỏng hoặc mất an toàn?",
+      "options": {
+        "A": "Được phép sử dụng kim cần hiệu chỉnh có kích thước lớn hơn φ 3.5mm nếu điều chỉnh tiêu cự máy laser phù hợp.",
+        "B": "Tuyệt đối không nhìn trực tiếp vào tia laser, chỉ nhìn lướt qua xác nhận; không dùng kim có chiều dài mũi không ló ra hơn 2mm.",
+        "C": "Kẹp trực tiếp vào phần tay cầm của kim cần hiệu chỉnh để thao tác nhanh chóng và chính xác.",
+        "D": "Sau khi sử dụng xong, chỉ cần lau sạch bằng khăn mềm mà không cần dùng kính phóng đại kiểm tra trầy xước."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Mục <Hạng mục chú ý khi sử dụng bệ đo dùng cho máy quét tia laser>: (1) Không lớn hơn φ 3.5mm; (2) Không ló ra hơn 2mm, tuyệt đối không nhìn trực tiếp; (3) Tránh phần tay cầm, kẹp phần kim và dùng kính phóng đại trên 15 lần xác nhận trầy xước."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

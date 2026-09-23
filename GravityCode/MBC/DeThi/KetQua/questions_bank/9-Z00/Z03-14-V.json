@@ -1,0 +1,50 @@
+{
+  "file_name": "Z03-14-V.pdf",
+  "folder_name": "9-Z00 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH DỤNG CỤ TIÊU CHUẨN - Sỹ dạng máy kiểm tra trọng lượng (full scale 30kg trở xuống)",
+  "doc_code": "Z03-14 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Căn cứ vào biểu lịch sử phát hành - cải chính, kiểu mẫu JS-30D được bổ sung vào tài liệu vào ngày tháng năm nào theo yêu cầu của Phòng kiểm tra JS Itadaki Yuubyou?",
+      "options": {
+        "A": "2011.09.01",
+        "B": "2015.06.05",
+        "C": "2015.08.07",
+        "D": "2016.01.01"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: Biểu lịch sử phát hành - cải chính (2015.06.05 | Bổ sung kiểu mẫu: JS-30D)"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý của tiêu chuẩn, khi có việc bổ sung sỹ dạng do bổ sung kiểu mẫu, nhân viên phụ trách phải tuân thủ quy định nào sau đây?",
+      "options": {
+        "A": "Tự động cập nhật vào danh mục cá nhân mà không cần báo cáo.",
+        "B": "Phải yêu cầu Ban bảo hành chất lượng công ty chính ban hành mới, cải chính theo dụng cụ No.A18-1.",
+        "C": "Chỉ cần thông báo miệng cho trưởng phòng kiểm tra là được.",
+        "D": "Tự sửa đổi tài liệu cũ bằng bút đỏ và ký xác nhận."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: (Hạng mục chú ý) .Bổ sung sĩ dạng do bổ sung kiểu mẫu, phải yêu cầu Ban bảo hành chất lượng công ty chính ban hành mới, cải chính theo dụng cụ No.A18-1"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu kỹ thuật, đối với kiểu mẫu máy kiểm tra trọng lượng JS-15D, thông số trị đo lớn nhất và vạch chia (e) là bao nhiêu?",
+      "options": {
+        "A": "Trị đo lớn nhất 6Kg, Vạch chia 1g",
+        "B": "Trị đo lớn nhất 15Kg, Vạch chia 1g",
+        "C": "Trị đo lớn nhất 30Kg, Vạch chia 10g",
+        "D": "Trị đo lớn nhất 3Kg, Vạch chia 1g"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Biểu liệt kê sỹ dạng máy kiểm tra trọng lượng (JS-15D | 15Kg | 0.5g | 1g)"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

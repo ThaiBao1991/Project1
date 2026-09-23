@@ -1,0 +1,59 @@
+{
+  "file_name": "A10-1-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định",
+  "doc_code": "A10-1h",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Trong quy trình hiệu chuẩn nội bộ theo tiêu chuẩn A10-1h, kết quả hiệu chuẩn sau khi hoàn thành sẽ được xử lý như thế nào trước khi ghi chép và bảo quản?",
+      "options": {
+        "A": "Chỉ cần người thực hiện hiệu chuẩn đóng dấu mà không cần cấp trên xác nhận.",
+        "B": "Gửi trực tiếp cho nhà sản xuất để họ lưu kho dữ liệu.",
+        "C": "Trường hợp hiệu chuẩn nội bộ sẽ được xác nhận và đóng dấu bởi người thực hiện, sau đó cấp trên của nhân viên hiệu chuẩn hoặc người được cấp trên chỉ định sẽ xác nhận và đóng dấu trước khi ghi chép và bảo quản.",
+        "D": "Phải lập bản đề nghị tái hiệu chỉnh gửi lên ban giám đốc phê duyệt."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Mục 3. Chu kỳ hiệu chỉnh: 'Kết quả hiệu chuẩn, trong trường hợp hiệu chuẩn nội bộ, sẽ được xác nhận và đóng dấu bởi người thực hiện; ... Sau đó, cấp trên của nhân viên hiệu chuẩn hoặc người được cấp trên chỉ định sẽ xác nhận và đóng dấu trước khi ghi chép và bảo quản'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo quy định của tiêu chuẩn A10-1h, ai là người có thẩm quyền thực hiện việc hiệu chuẩn từ mục 1 đến mục 3?",
+      "options": {
+        "A": "Bất kỳ nhân viên nào trong bộ phận sản xuất được giao nhiệm vụ kiểm tra sơ bộ.",
+        "B": "Nhân viên hiệu chuẩn đã được cấp chứng chỉ theo quy định tại A19-1 hoặc cơ quan hiệu chuẩn bên ngoài được quy định tại A02-1.",
+        "C": "Chỉ có cơ quan nhà nước độc lập bên ngoài mới được phép thực hiện, nhân viên nội bộ không được làm.",
+        "D": "Đội ngũ bảo trì thiết bị chung của nhà máy không cần chứng chỉ."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Mục 3. Chu kỳ hiệu chỉnh: 'Các hiệu chuẩn từ mục 1 đến 3 sẽ được thực hiện bởi nhân viên hiệu chuẩn được chứng nhận theo quy định tại A19-1 hoặc cơ quan hiệu chuẩn bên ngoài được quy định tại A02-1.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn A10-1h, việc thực thi kiểm tra dụng cụ đo và ghi chép biểu điểm kiểm do ai đảm trách và ai xác nhận?",
+      "options": {
+        "A": "Do nhân viên kho ghi chép, bộ phận mua hàng xác nhận và đóng dấu.",
+        "B": "Do người đảm trách sử dụng dụng cụ của từng bộ phận ghi chép và đóng dấu, cấp trên của nhóm hoặc người được cấp trên chỉ định xác nhận và đóng dấu.",
+        "C": "Do nhân viên hiệu chuẩn trực tiếp ghi chép và Trưởng phòng BHCL xác nhận.",
+        "D": "Do nhà sản xuất dụng cụ đo ghi chép và bộ phận quản lý thiết bị xác nhận."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Mục 4. Kiểm tra dụng cụ đo: 'Ghi ghép điểm kiểm sẽ được người đảm trách sử dụng dụng cụ của từng bộ phận ghi chép và đóng dấu, và sẽ được cấp trên của nhóm hoặc người được cấp trên chỉ định xác nhận và đóng dấu'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140435.0902166,
+  "generated_at_iso": "2026-09-23T12:13:55",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 266795,
+    "modified_time": 1765874071.006355,
+    "modified_time_iso": "2025-12-16T15:34:31",
+    "file_hash_short": "b3da82b3"
+  }
+}

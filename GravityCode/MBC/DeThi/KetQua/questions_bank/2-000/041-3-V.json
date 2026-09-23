@@ -1,0 +1,50 @@
+{
+  "file_name": "041-3-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH ĐIỂM KIỂM Nguồn ổn định điện áp một chiều (Kèm màn hình đo)",
+  "doc_code": "Dụng cụ đo 041-3a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo Phụ lục 2 (Phần Chú ý kết nối sai), điều gì sẽ xảy ra nếu kết nối nhầm lẫn bằng cách cho dòng điện vào đầu vào điện áp của máy chuẩn?",
+      "options": {
+        "A": "Máy chuẩn sẽ tự động ngắt mạch bảo vệ và không bị ảnh hưởng",
+        "B": "Máy chuẩn sẽ làm hư máy chuẩn",
+        "C": "Chỉ làm sai lệch kết quả đo chứ thiết bị không bị hỏng",
+        "D": "Cầu chì bên trong máy được hiệu chỉnh sẽ bị đứt"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 4/11 - Phụ lục 2: '【Chú ý kết nối sai】 Nếu cho dòng điện vào đầu vào điện áp thì máy chuẩn sẽ làm hư máy chuẩn.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo Phụ lục 3 (mục 4), sau khi kết thúc quá trình điều chỉnh, nếu không thực hiện lưu dữ liệu vào bộ nhớ không hủy thì điều gì sẽ xảy ra?",
+      "options": {
+        "A": "Máy tự động lưu dữ liệu mặc định của nhà máy sau 5 phút",
+        "B": "Thiết bị sẽ báo lỗi hệ thống Error 01 khi khởi động lại",
+        "C": "Máy sẽ đặt thành giá trị đo, xuất trước khi điều chỉnh",
+        "D": "Không ảnh hưởng gì đến kết quả hiệu chỉnh hiện tại"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 9/11 - Phụ lục 3: 'Sau khi hiệu chỉnh, nếu không lưu dữ liệu thì sẽ đặt thành giá trị đo, xuất trước khi điều chỉnh.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tần suất thực hiện điểm kiểm (ngoại quan, xác nhận hoạt động) đối với nguồn ổn định điện áp một chiều (Dụng cụ đo 041-3) là khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi khi sử dụng",
+        "C": "24 tháng một lần",
+        "D": "Mỗi tháng một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 10/11 - II【Điểm kiểm】: Tần xuất điểm kiểm: Mỗi khi sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

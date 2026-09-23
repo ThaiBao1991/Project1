@@ -1,0 +1,50 @@
+{
+  "file_name": "025-5-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tiêu chuẩn hiệu chỉnh-điểm kiểm dụng cụ đo - Thiết bị đo độ chấn động (FFT＋Bộ cảm biến gia tốc + dây cáp)",
+  "doc_code": "025-5g",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trường hợp sau khi thực hiện kiểm tra kết nối, gắn chặt cảm biến và di chuyển đến nơi yên tĩnh mà giá trị FFT biểu thị vẫn thay đổi không bằng 0, nhân viên thao tác cần xử lý theo bước nào tiếp theo?",
+      "options": {
+        "A": "Tiếp tục sử dụng thiết bị bình thường mà không cần xử lý",
+        "B": "Tự ý tháo rời linh kiện bên trong máy FFT để sửa chữa",
+        "C": "Xem như dây cáp kết nối bị đứt hỏng, tiến hành thay dây cáp và hiệu chỉnh lại",
+        "D": "Giảm bớt tần suất đo đạc trên line sản xuất"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: ＜Xử lý trường hợp thay đổi giá trị biểu thị＞ (3) Trường hợp sau khi thực hiện (1),(2) trên, giá trị vẫn thay đổi thì dây cáp kết nối được xem là bị đứt hỏng. Thay dây cap và hiệu chỉnh lại."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi thiết lập điều kiện đo đạc trên máy FFT CF-5220, giá trị thiết lập cho 'FREQ RANGE' (Phạm vi tần số) là bao nhiêu?",
+      "options": {
+        "A": "100Hz",
+        "B": "200Hz",
+        "C": "400Hz",
+        "D": "1000Hz"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: (9) FREQ RANGE : 200Hz"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm đối với thiết bị đo độ chấn động được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "6 tháng 1 lần",
+        "D": "12 tháng 1 lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5: Ⅱ【Điểm kiểm】Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

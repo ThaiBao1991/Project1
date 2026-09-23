@@ -1,0 +1,50 @@
+{
+  "file_name": "S52-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Pin chuẩn Dụng cụ S52-1 j",
+  "doc_code": "S52-1 j",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Quy định nào sau đây là BẮT BUỘC nhằm bãi bỏ việc xác định giá trị đo nội bộ đối với pin chuẩn?",
+      "options": {
+        "A": "Ngừng sử dụng S52-2 Grand Master Pin và thực thi ở cơ quan hiệu chỉnh・phòng thử nghiệm nhận định Global Accreditation Cooperation Incorporated-MRA theo đối ứng ISO/IEC17025",
+        "B": "Tự thực hiện xác định giá trị đo nội bộ tại từng cứ điểm công ty",
+        "C": "Sử dụng bất kỳ phòng thí nghiệm nào không cần chứng nhận MRA",
+        "D": "Tiếp tục sử dụng S52-2 Grand Master Pin kết hợp đo nội bộ"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: ※Để bãi bỏ quy định xác định giá trị đo nội bộ đối với pin chuẩn thì sẽ ngừng sử dụng S52-2 Grand Master Pin. Vì là pin chuẩn nên để tránh sự sai lệch... nên thực thi ở cơ quan hiệu chỉnh・phòng thử nghiệm nhận định Global Accreditation Cooperation Incorporated-MRA theo đối ứng ISO/IEC17025."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Điểm đo đạc của Geji pin tiêu chuẩn được xác định như thế nào theo tài liệu?",
+      "options": {
+        "A": "Luôn luôn đo ở 4 hướng xung quanh trục",
+        "B": "Chỉ đo duy nhất ở đầu mút của pin chuẩn",
+        "C": "Là một hướng ở vị trí trung tâm hoặc 2 hướng XY",
+        "D": "Đo ngẫu nhiên theo chiều dài của pin"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Điểm đo đạc của Geji pin tiêu chuẩn được xác định là một hướng ở vị trí trung tâm hoặc 2 hướng XY."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn S52-1 j, chu kì hiệu chỉnh và nhiệt độ xung quanh quy định cho pin chuẩn là bao nhiêu?",
+      "options": {
+        "A": "Chu kì hiệu chỉnh 1 năm, Nhiệt độ xung quanh 20±2℃",
+        "B": "Chu kì hiệu chỉnh 2 năm, Nhiệt độ xung quanh 22±4℃",
+        "C": "Chu kì hiệu chỉnh 3 năm, Nhiệt độ xung quanh 25±5℃",
+        "D": "Chu kì hiệu chỉnh 6 tháng, Nhiệt độ xung quanh 20±1℃"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Chu kì hiệu chỉnh: 2 năm, Nhiệt độ xung quanh: 22±4℃"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

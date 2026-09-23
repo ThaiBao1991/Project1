@@ -1,0 +1,50 @@
+{
+  "file_name": "023-2-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - Máy ghi (Pen recorder)",
+  "doc_code": "023-2c",
+  "target_audience": "Nhân viên, Đội trưởng phòng BHCL",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi kết quả kiểm tra không thấy bất thường thì quy định ghi chép kết quả như thế nào?",
+      "options": {
+        "A": "Phải ghi chép lại chi tiết kết quả kiểm tra sau mỗi lần sử dụng",
+        "B": "Không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra",
+        "C": "Chỉ cần ghi chép khi có sự cố bất thường xảy ra trong ca làm việc",
+        "D": "Không bắt buộc phải ghi chép kết quả trong bất kỳ trường hợp nào"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Ghi chú số 2"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ kiểm tra ngoại quan, dây điện đầu vào, giấy ghi, mực in đối với máy ghi (Pen recorder) được quy định vào thời điểm nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "12 tháng một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, II 【Kiểm tra】 Tiến độ kiểm tra: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Phương pháp phán định đối với hạng mục 'Độ chính xác đo đạc' của máy ghi (Pen recorder) theo tài liệu chuẩn là gì?",
+      "options": {
+        "A": "± 0.5% của bề rộng ghi chép hữu hiệu",
+        "B": "± 1.0% của bề rộng ghi chép hữu hiệu",
+        "C": "± 0.25% của bề rộng ghi chép hữu hiệu",
+        "D": "± 2.0% của bề rộng ghi chép hữu hiệu"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, I 【Hiệu chỉnh】, Hạng mục hiệu chỉnh 1. Độ chính xác đo đạc"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "526-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và điểm kiểm máy đo Geji giới hạn hình trụ tròn",
+  "doc_code": "526-1 j",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ thực hiện điểm kiểm (ngoại quan) đối với geji giới hạn hình trụ tròn được quy định như thế nào?",
+      "options": {
+        "A": "Chỉ kiểm tra định kỳ mỗi năm 1 lần",
+        "B": "Mỗi lần sử dụng và mỗi tháng 1 lần",
+        "C": "Chỉ kiểm tra khi phát hiện sản phẩm lỗi",
+        "D": "Mỗi tuần 1 lần và trước khi bảo dưỡng lớn"
+      },
+      "correct_answer": "B",
+      "reference_note": "Tiến độ điểm kiểm: Mỗi lần sử dụng và mỗi tháng 1 lần"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Dụng cụ chuẩn yêu cầu dùng để hiệu chỉnh phương pháp đường kính ngoài trong tài liệu bao gồm những gì?",
+      "options": {
+        "A": "Thước kẹp điện tử và panme đo ngoài",
+        "B": "Đồng hồ so và bàn mát chuẩn",
+        "C": "Máy đo độ dài có khả năng đọc được 0.1μm, 0.5μm và gêji block (cấp 0) hoặc pin chuẩn",
+        "D": "Máy đo biên dạng quang học và thước vạch quang"
+      },
+      "correct_answer": "C",
+      "reference_note": "Dụng cụ chuẩn: Máy đo độ dài có khả năng đọc được 0.1μm., 0.5μm và gêji block (cấp 0) hoặc pin chuẩn"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Khi phát hiện có bất thường trong quá trình kiểm tra hoặc khi sử dụng thiết bị đo, nhân viên cần thực hiện thao tác xử lý nào sau đây?",
+      "options": {
+        "A": "Tự ý tháo dời thiết bị để sửa chữa nhanh tại chỗ",
+        "B": "Tiếp tục sử dụng nếu sai số nhỏ hơn giới hạn cho phép",
+        "C": "Ghi chép lại kết quả, xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu và làm đơn đề nghị hiệu chỉnh lại nếu cần thiết",
+        "D": "Bỏ qua không cần báo cáo nếu không ảnh hưởng trực tiếp đến lô hàng"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện hiệu chỉnh"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

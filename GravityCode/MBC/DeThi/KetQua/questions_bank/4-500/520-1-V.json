@@ -1,0 +1,50 @@
+{
+  "file_name": "520-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định Thước kẹp điện tử",
+  "doc_code": "520-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kỳ hiệu chỉnh đối với Thước kẹp điện tử là bao lâu?",
+      "options": {
+        "A": "6 tháng",
+        "B": "12 tháng và khi xác nhận thấy cần thiết",
+        "C": "24 tháng",
+        "D": "6 tháng và khi có yêu cầu từ bộ phận bảo hành chất lượng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1 - Mục I 【Hiệu chỉnh】 - Chu kỳ hiệu chỉnh: Cách 12 tháng và khi xác nhận thấy cần thiết"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục 'II 【Điểm kiểm】' phần 'Điều chỉnh điểm 0', trước khi thực hiện hiệu chỉnh điểm 0, nhân viên cần thực hiện thao tác nào với dụng cụ JAW và lặp lại bao nhiêu lần?",
+      "options": {
+        "A": "Vệ sinh dụng cụ Jaw, cho ván trượt di chuyển và áp hai mặt dụng cụ Jaw lại với nhau, xác nhận xem có về 0 không. Lặp đi lặp lại như trên 3 lần.",
+        "B": "Dùng dung dịch chuyên dụng lau sạch mặt đo, áp sát và kéo trượt 5 lần liên tục để làm sạch bụi.",
+        "C": "Hiệu chỉnh thước về 0, đo trực tiếp trên block gěj S07-1 lặp lại 2 lần.",
+        "D": "Không cần làm sạch, chỉ cần bật nguồn và kiểm tra hiển thị số 0 trên màn hình điện tử 3 lần."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2 - Mục II 【Điểm kiểm】 - Thước kẹp điện tử - Hạng mục điểm kiểm: 2. Điều chỉnh điểm 0"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo mục 'Chú ý' tại trang 2, khi trường hợp kết quả kiểm tra không thấy bất thường nhưng đã qua một tháng mà chưa ghi chép lại, nhân viên cần xử lý như thế nào?",
+      "options": {
+        "A": "Bỏ qua tháng đó và chỉ ghi chép vào tháng tiếp theo.",
+        "B": "Tiến hành hiệu chỉnh lại toàn bộ thước kẹp ngay lập tức.",
+        "C": "Mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.",
+        "D": "Báo cáo trưởng bộ phận để xin ý kiến xử lý đặc biệt."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2 - Phần Chú ý, ý số 2"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

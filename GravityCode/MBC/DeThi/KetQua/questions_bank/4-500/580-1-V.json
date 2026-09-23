@@ -1,0 +1,50 @@
+{
+  "file_name": "580-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bảng tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định CÂN ĐIỆN TỬ (AND FA/FB)(FX/FY)",
+  "doc_code": "580-1 f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, chu kì tiến hành điểm kiểm đối với cân điện tử (AND FA/FB)(FX/FY) là khi nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và khi cần thiết",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "3 tháng 1 lần",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, II. [Điểm kiểm] - Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi thực hiện kiểm tra ngoại quan cân điện tử, nội dung cần xác nhận là gì?",
+      "options": {
+        "A": "Xác nhận xem độ nhạy của nút bấm có bị kẹt không",
+        "B": "Xác nhận xem bảng biểu thị có bị hư, trầy, dơ làm trở ngại đến việc đo đạc",
+        "C": "Xác nhận mức điện áp của nguồn điện vào",
+        "D": "Xác nhận tem kiểm định định kỳ còn hiệu lực không"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, II. [Điểm kiểm] - Hạng mục điểm kiểm: 1. Ngoại quan - Phương pháp điểm kiểm: Xác nhận xem bảng biểu thị có bị hư, trầy, dơ làm trở ngại đến việc đo đạc."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trước khi tiến hành hiệu chỉnh cân điện tử bằng quả cân chuẩn, cần phải thực hiện điều kiện chuẩn bị nào sau đây để đảm bảo độ chính xác?",
+      "options": {
+        "A": "Làm nóng cân ít nhất 30 phút trước khi hiệu chỉnh và sử dụng kính chắn gió đi kèm nếu có",
+        "B": "Tắt nguồn cân trong 15 phút rồi mới cắm điện lại",
+        "C": "Hiệu chỉnh ngay lập tức khi vừa bật nguồn thiết bị",
+        "D": "Không cần làm nóng, chỉ cần đặt quả cân chuẩn lên đĩa cân ngay"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, I. [Hiệu chỉnh] - <hạng mục chú ý> (3) Trường hợp có kính chắn gió đi kèm, hãy nhớ sử dụng nó trong quá trình hiệu chỉnh. (4) Làm nóng ít nhất 30 phút trước khi hiệu chỉnh."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

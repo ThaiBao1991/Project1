@@ -1,0 +1,50 @@
+{
+  "file_name": "S06-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH MÁY CHUẨN",
+  "doc_code": "S06-1 g",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Điều kiện môi trường (Nhiệt độ xung quanh và Độ ẩm tương đối) quy định trong tiêu chuẩn hiệu chỉnh là gì?",
+      "options": {
+        "A": "Nhiệt độ 20±5°C, Độ ẩm 30~70%",
+        "B": "Nhiệt độ 25±5°C, Độ ẩm 40~80%",
+        "C": "Nhiệt độ 23±5°C, Độ ẩm 45~85%",
+        "D": "Nhiệt độ 25±3°C, Độ ẩm 50~90%"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Nhiệt độ xung quanh 23±5°C (tiến cử), Độ ẩm tương đối 45~85% (tiến cử)"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo bản lịch sử ban hành và cải chính (Trang 5), vào ngày 03/03/2009 (lần cải chính 'f'), thay đổi quan trọng nào đã được thực hiện đối với chu kỳ hiệu chỉnh của thiết bị?",
+      "options": {
+        "A": "Thay đổi từ 1 năm thành 2 năm",
+        "B": "Thay đổi từ 2 năm thành 1 năm",
+        "C": "Thay đổi từ 6 tháng thành 1 năm",
+        "D": "Giữ nguyên chu kỳ và chỉ bổ sung chi nhánh kinh doanh"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 5: Bảng lịch sử cải chính 'f' (2009.03.03): • Thay đổi chu kỳ hiệu chỉnh 1 năm → 2 năm"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, chu kỳ hiệu chỉnh đối với Scope calibrator là bao lâu?",
+      "options": {
+        "A": "1 năm",
+        "B": "2 năm",
+        "C": "6 tháng",
+        "D": "3 năm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: 【Hiệu chỉnh】 Chu kỳ hiệu chỉnh: 2 năm"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

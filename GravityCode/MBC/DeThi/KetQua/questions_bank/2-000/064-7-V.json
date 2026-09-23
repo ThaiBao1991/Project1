@@ -1,0 +1,50 @@
+{
+  "file_name": "064-7-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm dụng cụ đo Máy kiểm tra hình sóng MTR Tesmex DMT 5/6/7",
+  "doc_code": "064-7",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý về xử lý bất thường trong quá trình điểm kiểm hoặc sử dụng thiết bị đo, nhân viên cần thực hiện thao tác nào sau đây?",
+      "options": {
+        "A": "Tự ý tháo thiết bị ra để sửa chữa các bộ phận bên trong.",
+        "B": "Tiếp tục sử dụng nếu lỗi nhỏ và ghi báo cáo vào cuối tuần.",
+        "C": "Ghi chép lại kết quả, xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu, làm đơn đề nghị hiệu chỉnh lại nếu cần thiết.",
+        "D": "Bỏ qua không cần ghi chép nếu thiết bị vẫn còn tem hiệu chỉnh hợp lệ."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2 - Chú ý 2: 'Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện hiệu chỉnh'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Mức độ chính xác đối với hạng mục 'Số vòng quay (r/min)' khi hiệu chỉnh máy kiểm tra hình sóng MTR Tesmex DMT 5/6/7 là bao nhiêu?",
+      "options": {
+        "A": "±0.05%＋2digit",
+        "B": "±0.2%＋2digit",
+        "C": "±0.5%＋5digit",
+        "D": "±2%"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1 - Hạng mục hiệu chỉnh: 'Số vòng quay (r/min) | ±0.05%＋2digit'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ thực hiện điểm kiểm (ngoại quan) đối với máy kiểm tra hình sóng MTR Tesmex DMT 5/6/7 được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "6 tháng 1 lần",
+        "D": "Chỉ kiểm tra khi có yêu cầu từ bộ phận chất lượng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2 - Tiêu chuẩn điểm kiểm: 'Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

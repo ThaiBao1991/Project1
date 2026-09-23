@@ -1,0 +1,50 @@
+{
+  "file_name": "029-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - Thùng cố định nhiệt độ và độ ẩm",
+  "doc_code": "029-1 i",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kỳ hiệu chỉnh đối với thùng cố định nhiệt độ và độ ẩm là bao lâu?",
+      "options": {
+        "A": "6 tháng và khi cần thiết",
+        "B": "12 tháng và khi cần thiết",
+        "C": "24 tháng và khi cần thiết",
+        "D": "Chỉ khi phát sinh hỏng hóc"
+      },
+      "correct_answer": "B",
+      "reference_note": "Phần I【Hiệu chỉnh】: Chu kỳ hiệu chỉnh: 12 tháng và khi cần thiết."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục độ chính xác nhiệt độ và độ ẩm của điều kiện đo (a), (b), dung sai cho phép đối với nhiệt độ là bao nhiêu?",
+      "options": {
+        "A": "±1℃",
+        "B": "±2℃",
+        "C": "±3℃",
+        "D": "±5℃"
+      },
+      "correct_answer": "C",
+      "reference_note": "Phần I【Hiệu chỉnh】, mục 1: Dung sai cho phép : ±3℃"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Đối với các dòng máy của ESPEC, khi phát hiện dừng một cách dị thường do bộ phận thổi gia nhiệt thì phải tiến hành việc gì?",
+      "options": {
+        "A": "Thay thế ngay bộ phận điện trở nhiệt mới",
+        "B": "Xác nhận sự bùng phát của vi khuẩn trên phao và đường ống silicon và tiến hành làm sạch",
+        "C": "Tăng áp lực nước cấp và thay toàn bộ nước trong bồn",
+        "D": "Kiểm tra tình trạng cấp nước và thay thế gạc bẩn"
+      },
+      "correct_answer": "B",
+      "reference_note": "Phần II 【Kiểm tra】, Hạng mục điểm kiểm 8: (Riêng đối với các dòng máy của ESPEC) Khi phát hiện dừng một cách dị thường do bộ phận thổi gia nhiệt thì phải xác nhận sự bùng phát của vi khuẩn trên phao và đường ống silicon và tiến hành làm sạch."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

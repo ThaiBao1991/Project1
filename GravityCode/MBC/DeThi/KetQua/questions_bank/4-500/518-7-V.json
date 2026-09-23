@@ -1,0 +1,50 @@
+{
+  "file_name": "518-7-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN KIỂM TRA – HIỆU CHỈNH MÁY ĐO LƯỜNG Đầu thước Panme Mitutoyo MHN1-25MX",
+  "doc_code": "518-7",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình hiệu chỉnh hoặc điểm kiểm đầu thước Panme, thao tác chuẩn về lực đo khi tiến hành xoay núm vặn (Ratchet Knob) là gì?",
+      "options": {
+        "A": "Xoay đến khi núm vặn kêu lên khoảng 1 lần",
+        "B": "Xoay chặt tay hết mức có thể mà không cần chú ý tiếng kêu",
+        "C": "Xoay đến khi núm vặn kêu lên khoảng 3 lần",
+        "D": "Xoay đến khi núm vặn kêu lên khoảng 5 lần"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, 2, 3: 'Lực đo khi tiến hành hiệu chỉnh – điểm kiểm thì phải xoay núm vặn (Ratchet Knob) đến khi núm vặn kêu lên khoảng 3 lần.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo phần chú ý khi kết quả điểm kiểm không có dị thường nhưng để đảm bảo quản lý tốt, quy định về việc ký lục (ghi chép) được thực hiện như thế nào?",
+      "options": {
+        "A": "Không bao giờ cần ký lục nếu không có dị thường",
+        "B": "Phải ký lục lại mỗi ngày",
+        "C": "1 tháng/ 1 lần cho dù không có dị thường thì cũng hãy ký lục lại điều đó",
+        "D": "Chỉ ký lục khi có yêu cầu từ cấp trên"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3: 'Chú ý) 2. Trường hợp kết quả điểm kiểm không có dị thường thì không cần ký lục kết quả điểm kiểm cũng được. Tuy nhiên, 1 tháng/ 1 lần cho dù không có dị thường thì cũng hãy ký lục lại điều đó.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ điểm kiểm (tần suất kiểm tra) đối với đầu thước Panme Mitutoyo MHN1-25MX được thực hiện vào thời điểm nào?",
+      "options": {
+        "A": "Hàng ngày trước khi bắt đầu ca sản xuất",
+        "B": "Khi sử dụng",
+        "C": "Mỗi tuần một lần",
+        "D": "Mỗi tháng một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: 'Tiến độ điểm kiểm: Khi sử dụng'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

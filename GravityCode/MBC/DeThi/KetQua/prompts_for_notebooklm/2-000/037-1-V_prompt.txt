@@ -1,0 +1,504 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Duïng cuï chuaån     Thieát bò hieäu chænh DC (S01-1), máy hiệu chỉnh đa giao thức
+Mã số/Mã máy đo: 037-1
+File gốc: 037-1-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/10
+Taøi lieäu tieâu chuaån hieäu chænh
+vaø kieåm tra duïng cuï traéc ñònh
+
+MAÙY ÑO ÑA NAÊNG
+(Nhaø saûn xuaát CS Engineering)
+
+Mabuchi motor Co., Ltd
+Boä phaän baûo haønh phaåm chaát
+
+Ngaøy ban haønh 03.04.1990
+Ngaøy thay ñoåi  10.04.2013
+Duïng cuï traéc ñònh 037-1 e
+
+Ⅰ【Hieäu chænh】
+Duïng cuï chuaån     Thieát bò hieäu chænh DC (S01-1), máy hiệu chỉnh đa giao thức
+(S01-3), maùy ño quan traéc nhaáp nhaùy kó thuaät soá (S32-1), ñieän
+trôû coá ñònh (S45-1)hoaëc ñieän trôû thay ñoåi daïng 6 baûng soá
+(S68-1).
+Chu kyø hieäu chænh  Moãi 24 thaùng hoaëc xaùc nhaän khi thaáy caàn thieát
+
+Haïng muïc hieäu
+chænh
+Phöông phaùp hieäu chænh
+Phöông phaùp
+phaùn ñònh
+
+<Haïng muïc chuù
+yù>
+
+1. Ñoàng hoà ño
+ñieän aùp
+(1) Xaùc nhaän
+ñieåm 0.
+
+(2) Ñoä chính
+xaùc bieåu
+thò ôû ñoàng
+hoà ño ñieän
+aùp.
+
+2. Ñoä chính xaùc
+bieåu thò ôû
+ñoàng hoà ño
+soá voøng
+quay.
+Tham khaûo hình 3, 4 veà caùc vò trí töø (A) ～ (F)
+trong tieâu chuan lieân quan.
+Vì beân trong cuûa maùy ño coù boä phaän phaùt sinh
+ñieän aùp cao. Neân khi ñieàu chænh phaûi chuù yù
+khoâng ñöôïc ñeå tay tieáp xuùc vôùi baûn chuaån beân
+trong.
+
+Môû coâng taéc POWER sang ON, ñieàu chænh nuùm
+xoay CONTOROL VOLT ADJ veà 0, laøm ñoaûn
+maïch keïp duøng ño motor, xaùc nhaän bieåu thò ôû
+ñoàng hoà ño ñieän aùp (E).
+Cho tieáp xuùc thieát bò hieäu chænh DC vôùi chaáu
+VOLT METER INPUT ôû maët sau, ñoïc trò bieåu
+thò ôû ñoàng hoà ño ñieän aùp (E).
+Ñieåm ño (ñieän aùp thieát ñònh ôû thieát bò hieäu
+chænh DC) bao goàm 5 ñieåm : 1V, 5V, 12V, 24V,
+30V .
+Cho phaùt quang cuûa ñeøn nhaáp nhaùy vaøo boä
+phaän nhaän aùnh saùng cuûa sensor voøng quay
+(Fiber Unit), ñoïc laáy trò bieåu thò ôû ñoàng hoà ño
+soá voøng quay (D).
+Ñieåm ño bao goàm 5 ñieåm : 3000r/min,
+5000r/min, 10000r/min, 15000r/min, 20000r/min.
+Tröôøng hôïp söû duïng maùy ñeå kieåm tra treân
+20000r/min thì phaûi gia taêng ñieåm ño soá voøng
+quay leân giôùi haïn söû duïng cao nhaát.
+
+0.00V 0.02V.
+
+ 0.5%1 digit
+đối với điện áp
+nhập vào.
+
+ 10r/min đđối với
+số
+vòng
+quay
+nhập vào.
+
+Người dịch: Nhị vũ 20209
+
+--- HẾT TRANG ---
+
+No.2/10
+Duïng cuï traéc ñònh 037-1 e
+Ⅰ【Hieäu chænh】
+
+Thaùo naép phía treân cuûa maùy ño ra, khi nhìn töø treân xuoáng seõ thaáy vò trí VR4 ôû hình 1
+
+Người dịch: Nhị Vũ 20209
+(Phía baûn ño maët tröôùc)
+hình 1. Hình khaùi quaùt baûn chuaån beân trong
+(CS96-E1015-00 : CS Engineering)
+
+--- HẾT TRANG ---
+
+No.3/10
+Duïng cuï traéc ñònh 037-1e
+Ⅰ【Hieäu chænh】
+
+Haïng muïc hieäu
+chænh
+Phöông phaùp hieäu chænh
+Phöông phaùp
+phaùn ñònh
+
+3. Xaùc nhaän ñoä
+nhaïy caûm
+cuûa thieát bò
+kieåm tra roø
+ñieän.
+
+Cho tieáp xuùc duïng cuï ño ñieän trôû coá ñònh hoaëc
+ñieän trôû thay ñoåi daïng 6 baûng soá vôùi giöõa chaáu
+LEAK (B) vaø moät phía cuûa keïp duøng ño motor
+(phía + hoaëc phía – ñeàu ñöôïc).
+
+Tröôøng hôïp coù khaùc thöôøng, thaùo naép ñaäy phía
+treân ra, tieán haønh ñieàu chænh VR4 cuûa baûn
+chuaån beân trong.
+Vò trí VR4 maùy ñieän trôû khaû bieán phaûi tham
+khaûo hình1 vôùi hình 2.
+Sau khi ñieàu chænh phaûi ghi cheùp laïi keát quaû.
+
+ÔÛ giôùi haïn 1MΩ
+chuoâng coù keâu.
+ÔÛ giôùi haïn 1.5M
+Ω chuoâng khoâng
+keâu.
+
+- Trích dẫn / văn bản liên quan -
+Quy cách phán định: quy cách trong công ty
+
+Người dịch: Nhị Vũ 20209
+
+--- HẾT TRANG ---
+
+No.4/10
+Duïng cuï traéc ñònh 037-1 e
+Ⅰ【Hieäu chænh】
+
+Thaùo naép phía treân cuûa maùy ño ra, khi nhìn töø treân xuoáng seõ thaáy vò trí VR4 ôû hình 2
+
+Người dịch: Nhị Vũ 20209
+(Phía baûn ño maët tröôùc)
+hình 1. Hình khaùi quaùt baûn chuaån beân trong
+(CS98-E0219-00 : CS Engineering)
+
+--- HẾT TRANG ---
+
+No.5/10
+Duïng cuï traéc ñònh 037-1 e
+Ⅱ 【Ñieåm kieåm】        MAÙY ÑO ÑA NAÊNG
+(Nhaø saûn xuaát CS Engineering)
+
+Tieán ñoä ñieåm kieåm        Möùc ñoä söû duïng
+
+Haïng muïc ñieåm
+kieåm
+Phöông phaùp ñieåm kieåm
+Phöông phaùp
+phaùn ñònh
+
+1. Xaùc nhaän ñieåm
+0 ôû ñoàng hoà ño
+ñieän aùp
+
+2. Xaùc nhaän ñoàng
+hoà ño voøng
+quay
+
+3. Xaùc nhaän ñoäng
+taùc
+cuûa
+ngöôøi
+kieåm tra roø ñieän
+Tham khaûo hình 3 veà vò trí töø (A) ～ (E).
+
+Môû coâng taéc POWER sang ON, ñieàu chænh
+nuùm xoay CONTOROL VOLT ADJ veà 0, laøm
+ñoaûn maïch keïp duøng ño motor, xaùc nhaän bieåu
+thò ôû ñoàng hoà ño ñieän aùp (E).
+
+Xaùc nhaän theo beân döôùi.
+① Ñoàng hoà ño voøng quay (D) phaûi bieåu thò veà
+0 r/min.
+② Ñaàu sensor voøng quay (Fibel Unit) phaûi
+phaùt quang.
+③ Laøm cho sensor chaán ñoäng nheï 2, 3 laàn xaùc
+nhaän söï phaùt quang vaãn oån ñònh.
+Tröôøng hôïp bieåu thò voøng quay khoâng oån
+ñònh, thì ñieàu chænh cöï li kieåm xuaát.
+Thieát ñònh sensor voøng quay theo beân döôùi:
+Coâng taéc MODE : L
+Coâng taéc ALM : OUT
+Vöøa xaùc nhaän hoaït ñoäng ñeøn bieåu thò, vöøa ñieàu
+chænh ñoä nhaïy caûm cuûa sensor coù cöï li kieåm xuaát
+khoaûng 20mm. Phöông phaùp ñieàu chænh tham
+khaûo hình 5.
+Cho tieáp xuùc keïp duøng ño motor (1 höôùng
++ hay – ñeàu ñöôïc.) vôùi chaáu LEAK (B),
+xaùc nhaän chuoâng coù keâu.
+
+0.00V 0.02V
+
+Ghi chuù
+1. Tröôøng hôïp kieåm tra thaáy baát thöôøng, ghi cheùp laïi keát quaû ñaõ kieåm tra vaø xöû
+lyù theo chæ thò cuûa ngöôøi coù traùch nhieäm quaûn lyù.
+2. Tröôøng hôïp keát quaû kieåm tra khoâng thaáy baát thöôøng khoâng ghi cheùp keát quaû
+cuõng ñöôïc, nhöng moãi thaùng phaûi ghi cheùp laïi keát quaû ñaõ kieåm tra moät laàn
+duø khoâng coù gì baát thöôøng xaûy ra.
+3. Tröôøng hôïp nhaän ra söï baát thöôøng trong khi söû duïng, seõ xöû lyù döïa vaøo chæ thò
+cuûa ngöôøi coù traùch nhieäm quaûn lyù.
+
+Người dịch: Nhị Vũ 20209
+
+--- HẾT TRANG ---
+
+No.6/10
+Duïng cuï traéc ñònh 037-1 e
+Ⅱ 【Ñieåm kieåm】
+
+hình 3 Baûng ñieän maët tröôùc
+
+(A) Coâng taéc POWER
+(B) Chaáu LEAK
+(C) Nuùm vaën CONTOROL VOLT ADJ
+(D) Ñoàng hoà ño voøng quay
+(E) Ñoàng hoà ño ñieän aùp
+
+Người dịch: Nhị Vũ 20209
+
+--- HẾT TRANG ---
+
+No.7/10
+Duïng cuï traéc ñònh 037-1 e
+Ⅱ 【Ñieåm kieåm】
+
+Hình 4. Baûng ñieän maët sau
+
+(F) Chaáu INPUT ñoàng hoà ño ñieän aùp
+
+Người dịch: Nhị Vũ 20209
+
+--- HẾT TRANG ---
+
+No.8/10
+Duïng cuï traéc ñònh 037-1 e
+Ⅱ 【Ñieåm kieåm】
+
+<Phöông phaùp ñieàu chænh>
+Phöông phaùp ñieàu chænh theå phaûn xaï
+Tröôøng hôïp thieát ñònh coâng taéc thay ñoåi löïc xuaát L.ON (ON nhaän aùnh saùng)
+① Xoay nuùt vaën sang höôùng phaûi ôû traïng thaùi khoâng coù vaät kieåm xuaát, xaùc nhaän ñeøn
+bieåu thò hoaït ñoäng saùng ôû vò trí A.
+② Xoay nuùt vaën sang höôùng traùi ôû traïng thaùi coù vaät kieåm xuaát, xaùc nhaän ñeøn bieåu thò
+hoaït ñoäng ôû vò trí B phaûi taét.
+③ Thieát ñònh nuùt vaën ôû vò trí trung gian giöõa ñieåm A vaø B.
+
+Tröôøng hôïp thieát ñònh coâng taéc thay ñoåi löïc xuaát D.ON (ON caûn aùnh saùng)
+①’Xoay nuùt vaën sang höôùng phaûi ôû traïng thaùi khoâng coù vaät kieåm xuaát, xaùc nhaän ñeøn
+bieåu thò hoaït ñoäng taét ôû vò trí A’ .
+② Xoay nuùt vaën sang höôùng traùi ôû traïng thaùi coù vaät kieåm xuaát, xaùc nhaän ñeøn bieåu thò
+hoaït ñoäng ôû vò trí B phaûi saùng.
+③ Thieát ñònh nuùt vaën ôû vò trí trung gian giöõa ñieåm A’ vaø B’.
+
+Ñieàu chænh theo ñeøn baùo (chuoâng keâu).
+Nếu thiết ñònh coâng taéc thay ñoåi ALM ôû maët treân
+maùy ño sang vò trí OUT thì boä phaän chuoâng vaø
+ñeøn bieåu thò seõ cuøng hoaït ñoäng nên tröôøng hôïp
+thieát ñònh ở mức nhỏ thì vöøa nghe vöøa tieáng ON/
+OFF vöøa tieán haønh ñieàu chænh.
+Nếu thieát ñònh coâng taéc thay ñoåi ALM sang vò trí STB,
+thì coù theå xaùc nhaän giaûm nheï löôïng aùnh saùng baèng
+tieáng chuoâng do trục sáng bị leäch truïc
+và dính buïi, raùc . . . (tröôøng hôïp kiểu trong suốt).
+※ Tröôøng hôïp ngaét chuoâng (khi söû duïng
+thoâng thöôøng) thì thieát ñònh coâng taéc ALM
+sang vò trí OFF.
+
+Người dịch: Nhị Vũ 20209
+Ñeøn taét ôû vò trí B
+Ñeøn khoâng phaùt saùng ôû vò trí A
+Vò trí thích hôïp nhaát
+Hình 5
+Ñeøn saùng ôû vò trí B’
+Ñeøn taét ôû vò trí A’
+Vò trí thích hôïp nhaát
+
+--- HẾT TRANG ---
+
+No.9/10
+Duïng cuï traéc ñònh 037-1 e
+Ⅱ 【Ñieåm kieåm】
+
+<Haïng muïc chuù yù khi söû duïng sensor voøng quay (Fibel Unit) >
+ Khoâng aùp baát cöù vaät gì vaøo maët treân.
+ Vôùi dụng cụ  hình oác vít haõy sieát baèng löïc döôùi 8Kg-cm.
+ Khoâng ñöôïc cố ý gia taêng löïc quá mức ñeå keùo caêng Fibel unit ( döôùi 3kg/3sec)
+Kiểu chòu nhieät thì döôùi 2kg/3sec. FU63, 43, 65, 45, 75 thì döôùi 1kg/3sec.
+ Baùn kính uoán cong Fibel unit thì trong khả năng có thể haõy laáy loaïi lôùn (R 25mm trở
+lên)
+ Dụng cụ dạng ống thì haõy ấn ngoùn tay vaøo vaät coù khuoân hình troøn roài bẻ cong (R treân
+10mm, FU33, 34 thì R treân 25mm) .
+ Uoán cong laïi döôùi 3 laàn.
+ Boä phaän dạng ống cuûa Fibel chòu nhieät khoâng theå uoán gãy sau khi gia nhieät .
+ Free Cut Fibel thì caét chieàu daøi cho hôïp vôùi tình traïng söû duïng baèng dao phuï tùng roài
+môùi ñöôïc söû duïng.
+ Sau khi caét Free Cut Fibel,khi cắt đầu rìa haõy söû duïng máy cắt cuûa dao caét phuï tùng.
+( Chæ söû duïng FU4F, 43, 63, 66).
+ Neáu cắt tại vị trí ngoaøi tôø giaáy chuyeân duøng ra thì lôùp vỏ cuõng bò raùch.
+ Neáu söû duïng trong moâi tröôøng coù chaát höõu cô thì seõ laøm giảm tính naêng,nên hãy tránh.
+ Khi thieát laäp phaân bieät maøu saéc, cuïc gôø nhoû, haõy coá ñònh chaët ñöøng ñeå Fiber unit
+chuyeån dòch.
+
+Người dịch: Nhị vũ 20209
+No.10/10
+
+--- HẾT TRANG ---
+
+Duïng cuï traéc ñònh 037-1
+Taøi lieäu tieâu chuaån hieäu chænh ñieåm kieåm
+Bieåu lyù lòch nhöõng ban haønh, caûi chính vaø huûy boû
+
+Daáu
+hieäu
+Ngaøy thaùng
+naêm
+Noäi dung
+(bao goàm nhöõng noäi dung söûa ñoåi)
+Soaïn
+thaûo
+Xaùc
+nhaän
+Coâng
+nhaän
+
+03.04.1990
+Ban haønh quy caùch môùi
+Nara
+Taka
+shima
+ino
+△
+a
+
+17.06.1993
+Thay ñoåi maùy ño quan traéc (DS-48) 
+maùy ño quan traéc.
+Xoaù boû ñieän trôû coá ñònh (2M hoaëc 3M)
+Thay ñoåi 3M  1M
+Nara
+Taka
+shima
+Ino
+△
+b
+20.01.1995
+Xoaù boû chu kyø hieäu chænh ñoä khoù deå B,
+thôøi gian aán ñònh 30 phuùt.
+Thay ñoåi phöông phaùp phaùn ñònh, phöông
+phaùp hieäu chænh, haïng muïc hieäu chænh ôû
+haïng muïc 1. Bieåu thò ñieän aùp.
+
+△
+c
+25.02.1997
+Thay ñoåi phöông phaùp phaùn ñònh ôû haïng
+muïc hieäu chænh 1.  0.5%  
+0.5%1digit
+Nara
+Mihara
+Saka
+moto
+△
+d
+20.06.2002
+Boå sung maùy chuaån S68-1.
+Thay ñoåi hoaøn toaøn caùch trình baøy pp
+hieäu chænh vaø pp ñieåm kieåm.
+Fuji
+yama
+Nara
+Mabuchi
+Yama
+shita
+e
+Đã
+Xác
+Nhận
+Toàn
+Bộ
+Nội
+dung
+
+10.04.2013
+- Thay đổi kỳ hạn hiệu chỉnh (xác nhận
+khi cần thiết nhưng trong vòng 24
+tháng)
+- Di chuyển (phương pháp phán định )
+được ghi chép ở phần phương pháp
+hiệu chỉnh từ hạng mục 1~3 Ⅰ[hiệu
+chỉnh] qua phần phương pháp phán
+định.
+- Thay đổi từ ngữ của phương pháp
+phán định của hạng mục 1(2), 2.
+- Di chuyển hạng mục chú ý được ghi
+chép ở cuối hạng mục hiệu chỉnh lên
+trên hạng mục hiệu chỉnh.
+- Bổ sung văn bản liên quan, trích dẫn.
+- Di chuyển (phương pháp phán định)
+được ghi chép ở mục [phương pháp
+điểm kiểm ] hạng mục 1 [ⅠĐiểm kiểm]
+vào mục [phương pháp phán định]
+Isa
+
+Murayama
+Itou
+Itokawa
+Mabuchi motor Co.,Ltd
+Boä phaän baûo haønh phaåm chaát
+Người dịch: Nhị Vũ 20209
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "037-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Duïng cuï chuaån     Thieát bò hieäu chænh DC (S01-1), máy hiệu chỉnh đa giao thức",
+  "doc_code": "037-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

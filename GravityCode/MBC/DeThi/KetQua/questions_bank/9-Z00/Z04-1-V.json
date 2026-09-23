@@ -1,0 +1,50 @@
+{
+  "file_name": "Z04-1-V.pdf",
+  "folder_name": "9-Z00 Ban V IT HOA",
+  "doc_title": "Quy cách kiểm tra dụng cụ đo Mitutoyo (Quy cách sản phẩm mới)",
+  "doc_code": "Z04-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn Z04-1, bản tiêu chuẩn áp dụng quy cách sản phẩm mới (MSS-201) được áp dụng cho các Sheet No. nào dưới đây?",
+      "options": {
+        "A": "516-1, 516-4, 516-5, 518-1, 518-4, 518-6, 518-7, 536-1",
+        "B": "516-1, 517-2, 518-1, 519-3, 536-2",
+        "C": "515-1, 516-2, 518-3, 535-1",
+        "D": "516-1, 516-2, 516-3, 518-1, 518-2"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: 【Bản tiêu chuẩn áp dụng quy cách sản phẩm mới (MSS-201)】 Bản tiêu chuẩn áp dụng Sheet No. 516-1, 516-4, 516-5, 518-1, 518-4, 518-6, 518-7, 536-1"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Bản tiêu chuẩn mô tả 'Quy cách kiểm tra dụng cụ đo Mitutoyo (quy cách sản phẩm mới)' này được cập nhật thay đổi khi nào?",
+      "options": {
+        "A": "Mỗi khi có yêu cầu thay đổi mẫu thiết bị nội bộ công ty MAB",
+        "B": "Định kỳ 6 tháng một lần theo lịch đánh giá chất lượng",
+        "C": "Mỗi khi quy cách Mitutoyo được sửa đổi",
+        "D": "Khi có thông báo thay đổi từ bộ phận mua hàng"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Bản Tiêu chuẩn này sẽ được cập nhật thay đổi mới mỗi khi quy cách Mitutoyo được sửa đổi."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra và quản lý dụng cụ đo theo tiêu chuẩn MSS-201, nhiệt độ chuẩn được quy định ở mức nào để làm cơ sở cho các giá trị quy cách?",
+      "options": {
+        "A": "Nhiệt độ phòng 25°C",
+        "C": "Tiêu chuẩn nhiệt độ 20°C",
+        "B": "Nhiệt độ môi trường 18°C",
+        "D": "Nhiệt độ tiêu chuẩn 23°C"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3: 1、ＭＳＳ－２０１（ミツトヨ規格）について - 本書記載の規格値は標準温度（20℃）におけるものを基準としています。"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

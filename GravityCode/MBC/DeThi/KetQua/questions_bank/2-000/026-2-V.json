@@ -1,0 +1,50 @@
+{
+  "file_name": "026-2-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN ĐIỂM KIỂM HIỆU CHÍNH MÁY ĐO",
+  "doc_code": "0 2 6 - 2",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi phát hiện trường hợp bất thường trong khi sử dụng máy đo, quy định xử lý như thế nào?",
+      "options": {
+        "A": "Tự ý sửa chữa và tiếp tục sử dụng",
+        "B": "Bỏ qua kết quả kiểm tra và không cần ghi chép",
+        "C": "Sử dụng dựa vào chỉ thị của quản lý có trách nhiệm",
+        "D": "Ngừng sử dụng vĩnh viễn và thanh lý thiết bị"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3: '3. Trường hợp nhận ra sự bất thường trong khi sử dụng, sẽ xử lý dựa vào chỉ thị của quản lý có trách nhiệm.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Thiết định tần số (FREQ) đối với máy tần số phát định theo phần chuẩn bị hiệu chỉnh máy đo số vòng quay là bao nhiêu?",
+      "options": {
+        "A": "10 Hz",
+        "B": "50 Hz",
+        "C": "60 Hz",
+        "D": "100 Hz"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: 'Thiết định tần số(FREQ) : 50 Hz'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo mục II Điểm kiểm, tiến độ điểm kiểm được thực hiện theo tiêu chuẩn nào?",
+      "options": {
+        "A": "Theo tiến độ sản xuất hàng ngày",
+        "B": "Theo tiến độ sử dụng",
+        "C": "Theo tiến độ bảo trì định kỳ hàng tuần",
+        "D": "Theo yêu cầu của bộ phận sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: 'Tiến độ điểm kiểm : theo tiến độ sử dụng'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

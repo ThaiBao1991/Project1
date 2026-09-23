@@ -1,0 +1,50 @@
+{
+  "file_name": "588-5-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Nam châm chuẩn (Dùng nam châm sensor)",
+  "doc_code": "588-5 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Đối với thiết bị có mã số SE-01-C58XA-01 (RZ-55AWA X-284), giá trị phán định (mT) cho phép là bao nhiêu?",
+      "options": {
+        "A": "±1 mT",
+        "B": "±2 mT",
+        "C": "±3 mT",
+        "D": "±5 mT"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1 - 《Bảng》: Mã số thiết bị № SE-01-C58XA-01 (RZ-55AWA X-284) - Giá trị phán định (mT): ±2"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trường hợp có những nghi ngại, phát sinh lỗi ảnh hưởng đến giá trị đo khi hiệu chỉnh chu kì và khi bổ chỉnh bằng nam châm chuẩn, hành động bắt buộc theo quy định là gì?",
+      "options": {
+        "A": "Tự ý sửa chữa lại nam châm chuẩn cho khớp với giá trị.",
+        "B": "Tiếp tục sử dụng nhưng phải ghi chú lại vào báo cáo hằng ngày.",
+        "C": "Cấm sử dụng, gởi trả lại cho MMK.",
+        "D": "Báo cáo quản lý bộ phận và lưu kho chờ thanh lý tại chỗ."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1 - 《Bảng》: ※ Trường hợp có những nghi ngại, phát sinh lỗi ảnh hưởng đến giá trị đo khi hiệu chỉnh chu kì và khi bổ chỉnh bằng nam châm chuẩn thì cấm sử dụng, gởi trả lại cho MMK."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn kiểm tra, tần suất thực hiện điểm kiểm đối với nam châm chuẩn là khi nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và trước khi giao ca.",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng.",
+        "C": "3 tháng một lần và khi cần thiết.",
+        "D": "6 tháng một lần định kỳ."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2 - Ⅱ【Điểm kiểm】: Tần suất điểm kiểm - Mỗi tháng 1 lần và mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

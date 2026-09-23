@@ -1,0 +1,59 @@
+{
+  "file_name": "A16-2-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh. Điểm kiểm máy đo",
+  "doc_code": "A16-2 e",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo quy định sửa đổi mới nhất (bản cải đính 2022.03.10), đối với trường hợp hiệu chỉnh chứng nhận ISO/IEC17025, điều kiện nào bắt buộc phải có đối với cơ quan chứng nhận?",
+      "options": {
+        "A": "Phải có dấu chứng nhận giữa ilac-MRA quốc tế với chứng nhận của cơ quan công nhận quốc gia với nhau",
+        "B": "Chỉ cần có giấy chứng nhận nội bộ của nhà cung cấp dịch vụ",
+        "C": "Chỉ cần có sự phê duyệt của Trưởng ban BHCL công ty Mabuchi",
+        "D": "Không cần quan tâm đến dấu chứng nhận quốc tế nếu thiết bị đo có độ chính xác cao"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, Mục 2(2) và Trang 4 (Cải đính e 2022.03.10): 'Phải có dấu chứng nhận giữa ilac-MRA quốc tế với chứng nhận của cơ quan công nhận quốc gia với nhau.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi tổ chức hiệu chỉnh được lựa chọn theo điều kiện không thể chứng nhận ISO/IEC17025, các yêu cầu của IATF16949:2016 mục 7.1.5.3.1 phải được đáp ứng điều nào sau đây?",
+      "options": {
+        "A": "Chỉ cần quy định phương pháp thí nghiệm mà không cần quan tâm điều kiện môi trường",
+        "B": "Phải quy định rõ điều kiện môi trường của nơi thí nghiệm, phương pháp thí nghiệm và năng lực nhân viên thực hiện",
+        "C": "Nhân viên thực hiện kiểm tra không bắt buộc phải đáp ứng yêu cầu năng lực",
+        "D": "Chỉ áp dụng tiêu chuẩn nội bộ của công ty cung cấp dịch vụ, không cần theo chuẩn ASTM, EN hay JIS"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Mục 2(3): '・Phải quy định rõ điều kiện môi trường của nơi thí nghiệm. ・Phương pháp thí nghiệm(hiệu chỉnh )được xác định. ・Các năng lực thực hiện kiểm tra cần thiết...'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tần suất xem xét nội dung trả lời của bản yêu cầu đối với việc hiệu chỉnh chứng nhận ISO/IEC17025 hoặc tương ứng là bao lâu một lần?",
+      "options": {
+        "A": "1 năm / 1 lần",
+        "B": "2 năm / 1 lần",
+        "C": "3 năm / 1 lần",
+        "D": "5 năm / 1 lần"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Mục 2(3): 'Ngoài ra, 3 năm/ 1 lần phải xem xét nội dung trả lời của bản yêu cầu.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140560.3310006,
+  "generated_at_iso": "2026-09-23T12:16:00",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 235299,
+    "modified_time": 1648616455.3123193,
+    "modified_time_iso": "2022-03-30T12:00:55",
+    "file_hash_short": "123a6925"
+  }
+}

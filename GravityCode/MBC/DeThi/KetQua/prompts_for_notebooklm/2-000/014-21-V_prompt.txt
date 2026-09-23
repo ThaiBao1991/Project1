@@ -1,0 +1,266 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM MÁY ĐO    Công ty Mabuchi Motor Co., LTD – Bộ phận BHCL - Máy đo tiếng ổn                                    Máy đo  014－21
+Mã số/Mã máy đo: ti
+File gốc: 014-21-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/4
+
+BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM MÁY ĐO    Công ty Mabuchi Motor Co., LTD – Bộ phận BHCL
+Ban hành    25/3/2019
+Cải đính
+Máy đo tiếng ổn                                    Máy đo  014－21
+Onosokki LA-7200,7500
+
+Ι【Hiệu chỉnh】
+
+Thiết bị tiêu chuẩn   Máy Piston [S04-1:124dB 250Hz]，Máy hiệu chỉnh theo mức độ [S04-1:94dB 1kHz]
+
+Chu kì hiệu chỉnh    Mỗi 6 tháng và khi nhận thấy cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+＜Mục chú ý＞
+
+＜Thiết bị trước khi
+hiệu chỉnh＞
+
+<Hiệu
+chỉnh
+Microphone
+(1/2inch)
+＞
+※ Thực hiện theo
+trình tự (1)～(2)
+
+Nơi thực hiện hiệu chỉnh theo như bên dưới.
+・Nơi không có tiếng ồn và chấn động
+・Do phòng chống tạp âm từ gió nên thực hiện tại nơi không
+có luồng không khí mạnh do gió.
+Thiết bị này được trang bị microphone có độ nhạy cao nên
+có nguy cơ dẫn đến những hư hỏng do ảnh hưởng của áp lực
+sau khi gắn, tháo thiết bị tiêu chuẩn. Vì vậy, khi gắn, tháo hãy
+đảm bảo đã tắt nguồn điện tạm thời (bật chế độ OFF).
+
+<Màn hình đo>
+
+(1) Xác nhận bằng máy Microphone (được gắn khớp nối
+dùng cho micro 1/2inch)
+① Ở trạng thái OFF nguồn điện, ghép Microphone vào phần
+dưới cùng một cách nhẹ nhàng.
+② Bật ON nguồn điện để hiện thị màn hình đo.
+
+Thiết định điều kiện đo theo hình bên dưới.
+（Tiến hành thiết đặt bằng màn hình cảm ứng）
+・Chuyển sang mức 60-130dB bằng phím thay đổi mức độ
+phạm vi （▲or▼）.
+・Nhấn phím thiết đặt điều kiện đo chính （ LAF ）, sau đó
+bấm hạng mục đo → Lp ，đặc tính trọng số tần số → C ，đặc
+tính trọng số thời gian → F ➡ OK LCF .
+③ Cho dòng điện chay qua Microphone rồi đọc trị số.
+④ Tắt nguồn điện rồi lấy Microphone ra một cách nhẹ
+nhàng.
+
+124.0dB±1dB
+
+--- HẾT TRANG ---
+
+No.2/4
+
+Ⅰ【Hiệu chỉnh】     Máy đo độ ồn                             Máy đo 014－21
+Onosokki LA-7200,7500
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+＜Điều chỉnh＞
+
+(2) Xác nhận bằng máy hiệu chỉnh theo mức độ (được gắn
+khớp nối dùng cho micro 1/2inch)
+① Ở trạng thái OFF nguồn điện, ghép Microphone vào phần
+dưới cùng một cách nhẹ nhàng.
+② Bật ON nguồn điện để hiện thị màn hình đo.
+
+Thiết định điều kiện đo theo hình bên dưới.
+（Tiến hành thiết đặt bằng màn hình cảm ứng）
+・Bấm phím thay đổi mức độ phạm vi （▲or▼）để hiển thị
+40-110dB.
+・Nhấn phím thiết đặt điều kiện đo chính （ LAF ）, sau đó
+bấm hạng mục đo → Lp ，đặc tính trọng số tần số→ A ，đặc
+tính trọng số thời gian → F ➡ OK  LAF
+
+③ dòng điện chạy qua máy hiệu chỉnh theo mức độ rồi đọc
+trị số.
+④ Tắt nguồn điện rồi lấy máy hiệu chỉnh theo mức độ ra một
+cách nhẹ nhàng.
+
+Trường hợp cần điều chỉnh thì thực hiện từ nội dung mục ③
+bên dưới.
+
+① Nhấn vào phím CAL trên màn hình đo để đổi sang màn
+hành hiệu chỉnh.
+⇒ Trên màn hình hiệu chỉnh có hai loại CAL và REF nên
+hãy xác nhận hiển thị của chế độ CAL.
+② Nhấn vào phần thông tin hiển thị của máy hiệu chỉnh âm
+thanh đã đăng nhập, sau đó đổi sang màn hình Sound
+Calibrator⇒Chọn loại máy đã chuẩn bị, sau đó nhập
+Pressure Level ở mức 94.00dB rồi bấm OK⇒Trở về màn
+hình hiệu chỉnh.
+③ Chuyển sang mức 40-110dB bằng phím thay đổi mức độ
+phạm vi.
+。Cho dòng điện chay qua máy hiệu chỉnh theo mức độ,
+sau đó bấm phím [-] hoặc [+] trên Volume Adjustment điều
+chỉnh đạt mức 94.00dB rồi bấm phím OK để trở về màn
+hình đo.
+※ Sau khi điều chỉnh thì thực hiện lại một lần nữa bước (1)
+(2).
+
+94.0dB±1dB
+
+－Trích dẫn – Văn bản liên quan－
+Quy cách đo:Quy cách JIS/Quy cách của nhà chế tạo/Tham khảo 014-02
+
+Thông tin hiển thị của máy hiệu chỉnh
+âm thanh đã đăng nhập
+Mức 94.00dB
+
+--- HẾT TRANG ---
+
+No.3/4
+
+Ⅱ【Điểm kiểm】       Máy đo tiếng ồn                      Máy đo   014-21
+Onosokki LA-7200,7500
+
+Tần xuất điểm kiểm   Mỗi lần sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1．Ngoại quan
+
+2.
+Xác
+nhận
+dung
+lượng pin còn lại
+
+Xác nhận có vết bẩn trên Microphone và bộ phận hiển thị, có
+lỗi nguy hại nào có thể gây ra hư hỏng hay không.
+Xác nhận bộ phận kết nối của Microphone có bị lỏng hay
+không.
+
+Xác nhận dung lượng pin còn lại phía trên bên trái màn hình.
+Trường hợp hiển thị biểu tượng thay đổi pin hoặc đèn LED
+phía dưới bên phải máy chuyển sang trạng thái màu đỏ thì
+nhanh chóng thay đổi pin mới hoặc cung cấp nguồn điện từ
+bộ sạc AC.
+
+Chú  ý)
+1. Trong trường hợp phát sinh những bất thường hãy ghi chép lại trong kết quả kiểm tra rồi xử lí theo chỉ
+thị của quản lí.
+2. Trong trường hợp không có bất thường thì không cần ghi chép lại.
+Tuy nhiên, dù cho không phát sinh trong vòng một tháng thì cũng cần phải ghi lại.
+3. Trong trường hợp phát hiện thấy điểm bất thường trong quá trình sử dụng thì cần xử lí theo chỉ thị của
+quản lí.
+
+--- HẾT TRANG ---
+
+BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM
+BẢN LÍ LỊCH BAN HÀNH – CẢI ĐÍNH – HỦY BỎ      Máy đo 014-21 No.4/4
+Kí
+hiệu
+Ngày Tháng
+Năm
+Nội dung cải đính
+Soạn thảo
+Xác nhận
+Phê duyệt
+
+2019.03.25
+
+Quy định mới
+
+Koizumi
+
+Nara Usui
+
+Itou
+
+Công ty Mabuchi Motor Co., LTD – Bộ phận BHCL
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "014-21-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM MÁY ĐO    Công ty Mabuchi Motor Co., LTD – Bộ phận BHCL - Máy đo tiếng ổn                                    Máy đo  014－21",
+  "doc_code": "ti",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

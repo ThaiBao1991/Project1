@@ -1,0 +1,50 @@
+{
+  "file_name": "565-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định MICRO METER (Thước Panme) rãnh V",
+  "doc_code": "565-1 f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Khi thực hiện xác nhận độ chính xác của thanh chuẩn, chú ý quan trọng nào được ghi rõ trong tài liệu nếu giữ thanh chuẩn trong vòng 1 phút bằng 3 ngón tay?",
+      "options": {
+        "A": "Thanh chuẩn sẽ bị co lại khoảng 1μm do mồ hôi tay",
+        "B": "Thanh chuẩn sẽ không có sự thay đổi nào về kích thước",
+        "C": "Thanh chuẩn sẽ căng phồng khoảng 1μm, do đó khi hiệu chỉnh cần sử dụng bao tay vải và tiến hành trong khoảng thời gian ngắn",
+        "D": "Thanh chuẩn sẽ bị biến dạng vĩnh viễn và không thể sử dụng để hiệu chỉnh"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: ≪Hạng mục chú ý≫ Nếu giữ thanh chuẩn trong vòng 1 phút bằng 3 ngón tay thì sẽ căng phồng khoảng 1μm. Khi hiệu chỉnh cần sử dụng bao tay vải và tiến hành trong khoảng thời gian ngắn"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ điểm kiểm cho Thước Panme rãnh V được quy định thực hiện vào thời gian nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi khi sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Mỗi năm một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Tiến độ điểm kiểm - Mỗi khi sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo ghi chú về kết quả điểm kiểm, nếu kết quả điểm kiểm không có dị thường thì quy định ghi chép như thế nào?",
+      "options": {
+        "A": "Phải ghi chép lại mọi chi tiết vào biên bản mỗi ngày",
+        "B": "Không được ghi chép và không cần quan tâm đến kết quả",
+        "C": "Không ghi chép kết quả cũng được, tuy nhiên mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì dị thường xảy ra",
+        "D": "Chỉ ghi chép lại khi có sự chỉ đạo trực tiếp từ Trưởng bộ phận"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3: Ghi chú số 2 - Trường hợp kết quả điểm kiểm không có dị thường thì không ghi chép kết quả cũng được. Tuy nhiên, mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì dị thường xảy ra."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

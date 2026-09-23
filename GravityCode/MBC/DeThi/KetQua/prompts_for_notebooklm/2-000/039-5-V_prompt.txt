@@ -1,0 +1,392 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Bản tiêu chuẩn hiệu chỉnh-điểm kiểm    Ban chính BHCL công ty cổ phần MAB - Máy đo điện trở thấp                                    Dụng cụ đo   039-5 e
+Mã số/Mã máy đo: 039-5
+File gốc: 039-5-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/4
+
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm    Ban chính BHCL công ty cổ phần MAB
+
+Ban hành 5/2/2002
+Cải đính 29/10/2024
+Máy đo điện trở thấp                                    Dụng cụ đo   039-5 e
+TSURUGA  3565
+
+Ι【Hiệu chỉnh】
+
+Dụng cụ chuẩn        Máy đo điện trở chuẩn［S02-1］，đồng hồ đo nhiệt độ, độ ẩm
+［S65-1］
+
+Chu kỳ hiệu chỉnh          12 tháng và khi xác nhận là cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+＜Chuẩn bị trước khi
+hiệu chỉnh＞
+
+1.Đo điện trở
+(Điều kiện môi
+trường)
+Nhiệt độ
+23℃±5℃
+Độ ẩm 80％
+trở xuống
+
+Bật công tắc , làm nóng từ 30 phút trở lên
+
+(1)Tiến hành điều chỉnh về O
+①Nhấn nút  SHIFT→MAN’L／MEM ，xác nhận đèn
+MAN’L phải sáng
+②Nhấn công tắc OHM
+③Nhấn nút SHIFT , kế tiếp nhấn nút RATE ，chọn khoảng
+thời gian lấy mẫu thành “S(SLOW)”
+⑤Nhấn nút SHIFT→0ADJ (Đèn 0ADJ sáng) điều chỉnh về 0
+(2) Kết nối cáp đầu vào với điện trở tiêu chuẩn như hình bên
+dưới.
+
+<Trường hợp sử dụng kẹp Kelvin>
+
+<Trường hợp không sử dụng kẹp Kelvin>
+
+No.2/4
+Kẹp Kelvin →
+Điện trở tiêu
+chuẩn
+SOURCE へ
+SOURCE へ
+SENSE へ
+SENSE へ
+← Kẹp Kelvin
+
+--- HẾT TRANG ---
+
+Ι【Hiệu chỉnh】                         Dụng cụ đo 039-5 e
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+2.Xác nhận độ chính
+xác máy đo nhiệt độ
+
+3.Xác nhận chức năng
+điều chỉnh nhiệt độ
+(T.C)
+
+(3) Tắt công tắc T.C (chức năng hiệu chỉnh nhiệt độ) và tiến
+hành đo điện trở chuẩn
+(4) Đánh giá giá trị hiển thị của đồng hồ đo điện trở so với giá
+trị điện trở chuẩn của điện trở chuẩn dựa trên [Biểu 1]
+［Biểu 1］
+Phạm vi
+Điện trở
+tiêu chuẩn
+Phán định
+300mΩ
+100mΩ
+±(0.1% of rdg.＋8digit)
+3 Ω
+1 Ω
+±(0.08% of rdg.＋3digit)
+30 Ω
+10 Ω
+300 Ω
+100 Ω
+3kΩ
+1kΩ
+30kΩ
+10kΩ
+※300kΩ
+100kΩ
+±(0.1% of rdg.＋3digit)
+※Nếu không sử dụng thì không cần hiệu chỉnh trong phạm vi
+300kΩ
+
+(1) Sử dụng đồng hồ đo nhiệt độ và độ ẩm để đo nhiệt độ xung
+quanh của máy đo điện trở thấp (t)
+(2) Đảm bảo đầu dò nhiệt độ (Pt100Ω) được kết nối chính xác
+với giắc cắm ở mặt sau.
+(3)Tắt phím T.C
+(4) Xác nhận xem khoảng thời gian lấy mẫu có được chọn ở
+mức “S(SLOW)” hay không.
+(5) Nhấn phím TEMP, đọc giá trị đo được (nhiệt độ) từ cảm
+biến nhiệt độ và đưa ra phán định.
+
+Phán định：t±(0.2% of rdg.＋0.2℃)
+
+(1) Áp dụng giá trị điện trở đo được ở Mục 1 (3) vào công thức
+bên dưới để tính giá trị điện trở tính toán ở 20°C (R20).
+Trị điện trở khi T.C OFF
+1＋0.00393×(t－20)
+
+(2)Tính tỷ lệ sai số bằng cách áp dụng giá trị điện trở tính toán
+ở 20°C (R20) thu được ở (1) và giá trị điện trở ở T.CON vào
+công thức bên dưới.
+Các phép đo được thực hiện cho từng phạm vi
+
+(Trị điện trở khi T.C ON)－R20
+R20
+
+Theo biểu 1
+
+Theo bên trái
+
+Tỉ lệ sai số
+±0.3%
+
+－Trích dẫn・văn bản liên quan－
+Quy cách phán định：Trích dẫn quy cách nơi chế tạo
+Độ chính xác máy đo nhiệt độ khi điểm kiểm là thiết định trong công ty
+
+No.3/4
+R20＝
+Tỉ lệ sai số(%)＝
+×100
+
+--- HẾT TRANG ---
+
+Ⅱ【Điểm kiểm】      Máy đo điện trở thấp                     Dụng cụ đo 039-5 e
+TSURUGA  3565
+
+Tiến độ điểm kiểm         Mỗi tháng 1 lần và mỗi lần sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1.Ngoại quan
+
+2. Xác nhận dây cáp
+nối, đầu dò nhiệt độ
+
+3.Xác nhận biểu thị
+
+4.Độ chính xác đo
+nhiệt độ
+
+Bằng mắt thường xác nhận bảng biểu thị có những lỗi có thể
+ảnh hưởng đến đo đạc như vết bẩn, trầy, vỡ, mẻ hay không
+
+(1)Xác nhận xem thử dây cáp đã được nối đúng hay chưa
+(2)Có lỏng dây tại bộ phận nối và có đứt dây tại dây cáp nối
+hay không?
+(3)
+Đầu dò nhiệt độ được kết nối đúng cách vào cổng ở mặt sau
+của đồng hồ đo điện trở thấp
+
+※Thực hiện việc khởi động hơn 30 phút
+(1) Làm cho dây cáp bị đoản mạch như hình bên dưới, xác
+nhận nó biểu thị bằng O
+(2)Xác nhận rằng đèn biểu thị có chiếu sáng bình thường
+
+Hình ảnh
+
+(1)Đo nhiệt độ xung quanh của máy đo điện trở thấp
+(2)Nhấn nút TEMP xác nhận nhiệt độ bằng đầu dò nhiệt độ
+(3)So sánh (1) với (2), không được sai khác từ ±0.5℃ trở lên
+(thiết định trong công ty)
+※Tuy nhiên, chỉ tiến hành trong trường hợp đã được quản lý
+nhiệt độ
+
+Không có dị
+thường
+
+Trường hợp
+phán định NG,
+yêu cầu hiệu
+chỉnh, phán
+định chính thức
+
+Chú ý)
+1.Kết quả kiểm tra được ghi lại mỗi tháng một lần bất kể có bất thường hay không
+2.Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy
+ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu.
+Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện
+hiệu chỉnh
+
+--- HẾT TRANG ---
+
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm  Biểu lý lịch ban hành-cải đính -hủy bỏ
+Dụng cụ đo 039-5    No.4/4
+Ký
+hiệu
+Năm tháng
+ngày
+Ghi chép (Nội dung thay đổi)
+Soạn
+thảo
+Xác
+nhận
+Công
+nhận
+
+2002.02.05
+
+Ban hành mới
+
+藤山
+
+馬渕
+
+山下
+
+a
+
+2012.04.18
+
+（Người khởi xưởng cải đính：Matsumoto）
+Ⅰ【Hiệu chỉnh】
+・Hủy bỏ hạng mục hiệu chỉnh４ hiệu chỉnh phạm vi đo đạc
+・Bổ sung trích dẫn・văn bản liên quan
+Ⅱ【Điểm kiểm】
+・Bổ sung hạng mục ngoại quan（dưới đây, thay đổi số hạng
+mục tương ứng）
+
+益永
+
+奈良 埴生
+
+糸川
+
+b
+
+2016.04.01
+
+Dụng cụ chuẩn：Hủy bỏ (độ chính xác 0.01% trở lên)
+Ⅰ【Hiệu chỉnh】
+・Bổ sung＜Chuẩn bị trước giám tra＞
+・Hạng mục 1：Bổ sung phương pháp điều chỉnh zero
+・Trích dẫn văn bản liên quan：Bổ sung độ chính xác điểm
+kiểm (quy cách phán định)
+Ⅱ【Điểm kiểm】
+・Hạng mục 2：Thay đổi tên mục, nội dung và phương pháp
+đánh giá
+・Hạng mục 3：Do bị xóa, các mục sau sẽ được nâng lên số
+tiếp theo
+・Bổ sung hạng mục 4
+
+橋田
+
+村野 伊藤
+
+石野
+
+c
+
+2016.08.05
+
+Thay đổi chủng loại đối tượng (3565-A01→3565)
+Ⅱ【Điểm kiểm】
+・Hạng mục 4(2)：Thay đổi tên nét (Nơi yêu cầu:P.BHCL
+VDM Khanh)
+
+村野
+
+伊藤
+
+石野
+
+d
+
+2018.08.21
+
+(Nơi yêu cầu: Phòng BHCL VDM Tan)
+・Thay đổi chu kỳ hiệu chỉnh 6 tháng→ 12 tháng
+・Thay đổi mã số cải đính
+Ⅰ【Hiệu chỉnh】039-5c→039-5d ※Ⅱ【Điểm kiểm】039-5c
+（Không thay đổi）
+
+菊池
+
+奈良 伊藤
+
+岩田
+
+e
+
+2024.10.29
+
+・Bổ sung trường hợp không sử dụng kẹp Kelvin trong hình
+ảnh của mục kiểm tra 1. Đo điện trở (2)
+・Ⅱ【Điểm kiểm】
+Sửa đổi tiến độ điểm kiểm thành「Mỗi tháng 1 lần và mỗi
+lần sử dụng」
+Cải đính toàn bộ hạng mục chú ý
+
+Ban chính BHCL công ty cổ phần MAB
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "039-5-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm    Ban chính BHCL công ty cổ phần MAB - Máy đo điện trở thấp                                    Dụng cụ đo   039-5 e",
+  "doc_code": "039-5",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

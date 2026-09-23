@@ -1,0 +1,50 @@
+{
+  "file_name": "041-4-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "TIÊU CHỈNH HIỆU CHUẨN ĐIỂM KIỂM",
+  "doc_code": "041-4",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tần suất thực hiện điểm kiểm \"Xác nhận hoạt động\" và \"Ngoại quan\" đối với thiết bị là khi nào?",
+      "options": {
+        "A": "Hàng tuần",
+        "B": "Mỗi khi sử dụng",
+        "C": "Hàng tháng",
+        "D": "24 tháng một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 6, II【Điểm kiểm】 Tần suất điểm kiểm: Mỗi khi sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi tiến hành hiệu chỉnh nội bộ thiết bị, điều kiện về nhiệt độ và độ ẩm tương đối của môi trường xung quanh phải đáp ứng tiêu chuẩn nào dưới đây?",
+      "options": {
+        "A": "Nhiệt độ: 25℃±2℃, Độ ẩm tương đối ≤ 60%",
+        "B": "Nhiệt độ: 20℃±5℃, Độ ẩm tương đối < 80%",
+        "C": "Nhiệt độ: 23℃±5℃, Độ ẩm tương đối < 70%",
+        "D": "Nhiệt độ: 25℃±5℃, Độ ẩm tương đối ≤ 50%"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, I【Hiệu chỉnh】, Mục <Mục ghi chép đặc biệt>: Nhiệt độ: 23℃±5℃, Độ ẩm tương đối ≤ 70%"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý về điểm kiểm, trong trường hợp kết quả điểm kiểm không có bất thường thì cần xử lý ghi chép như thế nào?",
+      "options": {
+        "A": "Phải ghi chép lại chi tiết vào mọi lần kiểm tra bất kể có hay không.",
+        "B": "Không cần ghi lại. Tuy nhiên, nếu trong 1 tháng mà không có lần nào bất thường thì cần ghi chép lại.",
+        "C": "Tuyệt đối không được ghi chép bất kỳ nội dung nào vào sổ theo dõi.",
+        "D": "Chỉ ghi chép lại khi người quản lý yêu cầu xuất trình."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 6, Chú ý) Mục 2: Trường hợp kết quả điểm kiểm không có bất thường thì không cần ghi lại. Tuy nhiên, nếu trong 1 tháng mà không có lần nào bất thường thì cần ghi chép lại."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

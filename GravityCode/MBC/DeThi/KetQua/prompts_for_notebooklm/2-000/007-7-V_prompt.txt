@@ -1,0 +1,293 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Bản tiêu chuẩn hiệu chỉnh-điểm kiểm   Ban chính BHCL công ty cổ phần Mabuchi Motor - Đồng hồ đo điện trở cách điện                                     Dụng cụ đo   007-7 a
+Mã số/Mã máy đo: 007-7
+File gốc: 007-7-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/4
+
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm   Ban chính BHCL công ty cổ phần Mabuchi Motor
+
+Ban hành 26.11.2009
+Cải đính   10.03.2025
+Đồng hồ đo điện trở cách điện                                     Dụng cụ đo   007-7 a
+Dòng HIOKI 3451 / 3453
+
+Ι【Hiệu chỉnh】
+
+Dụng cụ tiêu chuẩn   Máy biến trở 6 núm vặn điều chỉnh [S58-1]，Đồng hồ đo điện áp cao [S56-1]
+
+Chu kỳ hiệu chỉnh          12 tháng hoặc khi được cho là cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+＜Hạng mục chú ý＞
+
+1．Độ chính xác đo giá
+trị điện trở
+
+Khi hiệu chuẩn, hãy sử dụng găng tay cao su cách điện để
+phòng tránh điện giật. Tiêu chuẩn này chỉ ghi rõ các phương
+pháp và quy trình hiệu chỉnh, còn các tên gọi và phương pháp
+sử dụng các bộ phận của đồng hồ đo điện trở cách điện hãy
+tham khảo bản hướng dẫn sử dụng
+
+① Kết nối đồng hồ đo điện trở cách điện với máy biến trở 6
+núm vặn điều chỉnh.
+（Tham khảo hình bên dưới）
+
+② Thiết định trị điện trở của máy biến trở 6 núm vặn điều
+chỉnh theo điểm hiệu chỉnh đo điện trở trong [biểu 1]
+③ Kéo cần gạt 'MEASURE' của đồng hồ đo điện trở cách
+điện, đọc giá trị hiển thị (3453 là giá trị hiển thị)
+
+Dòng 3451：
+Giá trị hiển thị
+vạch chia ±5%
+
+3453：
+±2％rdg±3dgt
+
+Đồng hồ đo điện trở
+cách điện
+Máy biến trở 6 núm vặn điều chỉnh
+
+MΩ
+○Ｈ □□.□□□□ＭΩ
+○Ｌ  ○○ ○○○○
+
+--- HẾT TRANG ---
+
+No.2/4
+
+Ι【Hiệu chỉnh】                         Dụng cụ đo  007-7 a
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+2． Độ chính xác điện
+áp đầu ra
+
+①  Kết nối đồng hồ đo điện trở cách điện, máy biến trở
+6 núm vặn điều chỉnh và đồng hồ đo điện áp cao
+（Tham khảo hình bên dưới）
+
+②Thiết định trị điện trở của máy biến trở 6 núm vặn điều
+chỉnh theo điểm hiệu chỉnh đo điện trở trong [biểu 1]
+③Kéo cần gạt 'MEASURE' của máy đo điện trở cách điện,
+sau đó xác nhận giá trị hiển thị trên đồng hồ đo điện áp cao,
+đảm bảo rằng nó đạt ít nhất 90% giá trị điện áp đo định mức
+theo［Biểu１］
+Thể thức
+Điểm hiệu chỉnh
+đo điện trở
+Điện áp đo định
+mức
+（DC）
+3451-11
+0.5MΩ
+125V
+3451-12
+1MΩ
+250V
+3451-13
+2MΩ
+500V
+3451-14
+20MΩ
+3451-15
+50MΩ
+1000V
+3453
+0.5MΩ
+125V
+20MΩ
+250V
+50MΩ
+500V
+100MΩ
+1000V
+
+Theo bên trái
+
+Đồng hồ đo điên áp cao
+Đồng hồ đo điện trở
+cách điện
+
+MΩ
+○Ｈ □□.□□□□ＭΩ
+○Ｌ  ○○ ○○○○
+
+GND
+○
+
+ＫＶ
+Máy biến trở 6 núm vặn
+điều chỉnh
+
+--- HẾT TRANG ---
+
+No.3/4
+
+Ⅱ【Điểm kiểm】Đồng hồ đo điện trở cách điện                Dụng cụ đo  007-7 a
+Dòng HIOKI 3451 / 3453
+
+Tiến độ điểm kiểm   Mỗi tháng 1 lần và mỗi lần sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1．Ngoại quan
+
+2 ．Điều chỉnh điểm
+không của kim chỉ (chỉ
+áp dụng cho dòng
+3451)
+
+3.Kiểm tra pin
+
+Không có vết nứt, vết rạn, rách hoặc hư hỏng nào trên lớp
+vỏ của dây đo
+
+Khi công tắc 'MEASURE' ở trạng thái OFF, sử dụng tua vít
+đầu phẳng để điều chỉnh bộ điều chỉnh điểm không (ADJUST)
+sao cho kim chỉ phù hợp với vạch chia
+
+Nếu thuộc dòng 3451 thì：
+Nhấn nút 'BATTERY CHECK', sau đó xác nhận xem kim chỉ
+có nằm trong phạm vi （      ）hiệu lực của pin trên mặt
+đồng hồ hay không. Nếu kim chỉ nằm ngoài phạm vi bên phải
+của dấu hiệu, hãy thay pin mới.
+Nếu thuộc 3453 thì：
+Kiểm tra xem đèn báo hết pin có sáng không.
+Nếu đèn báo hết pin sáng, hãy thay pin mới.
+
+Chú ý)1.Kết quả kiểm tra được ghi lại mỗi tháng một lần bất kể có bất thường hay không
+2.Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy
+ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu.
+Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện
+hiệu chỉnh
+
+--- HẾT TRANG ---
+
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm  Biểu lý lịch ban hành-cải đính-hủy bỏ        Dụng cụ đo  007-7
+No.4/4
+
+Ký
+hiệu
+Năm tháng
+ngày
+Ghi chép (Nội dung thay đổi)
+Soạn
+thảo
+Xác
+nhận
+Công
+nhận
+
+2009.11.26
+
+Ban hành mới
+
+益永
+
+奈良 埴生
+高橋
+
+糸川
+a
+2025.03.10
+・Bổ sung thể thức 3453 (DDM yêu cầu bổ sung thể
+thức)
+・Ⅰ【Hiệu chỉnh】
+1.Thay đổi điện trở máy đo tiêu chuẩn
+Ghi chép bổ sung phương pháp phán định của thể
+thức 3453
+Bổ sung điểm hiệu chỉnh của thể thức 2453 ở biểu 1
+Tiến độ điểm kiểm sửa đổi thành「Mỗi tháng 1 lần và
+mỗi lần sử dụng」
+Ghi chép bổ sung phương pháp điểm kiểm của thể
+thức 3453
+Sửa đổi toàn bộ hạng mục chú ý
+
+Ban chính BHCL công ty cổ phần Mabuchi Motor
+
+山
+元
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "007-7-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm   Ban chính BHCL công ty cổ phần Mabuchi Motor - Đồng hồ đo điện trở cách điện                                     Dụng cụ đo   007-7 a",
+  "doc_code": "007-7",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

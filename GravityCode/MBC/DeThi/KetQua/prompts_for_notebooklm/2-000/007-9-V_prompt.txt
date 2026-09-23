@@ -1,0 +1,466 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: BẢN TIÊU CHUẨN KIỂM TRA HIỆU CHỈNH MÁY ĐO      Tổng ban BHCL công ty cổ phần Mabuchi motor - Máy đo điện trở cách điện(Máy thí nghiệm điện trở cách điện)               Đo đạc    007-9
+Mã số/Mã máy đo: 007-9
+File gốc: 007-9-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/7
+
+BẢN TIÊU CHUẨN KIỂM TRA HIỆU CHỈNH MÁY ĐO      Tổng ban BHCL công ty cổ phần Mabuchi motor
+
+Ban hành   2018/11/7
+Cải chính Năm tháng ngày
+Máy đo điện trở cách điện(Máy thí nghiệm điện trở cách điện)               Đo đạc    007-9
+HIOKI ST5520/ST5520-01
+
+Ι【Hiệu chỉnh】
+
+Hiệu chỉnh trong công ty：Máy đo điện trở 6 số [S58-1]，máy đo điện áp cao[S56-1]
+Máy tiêu chuẩn         Hiệu chỉnh bên ngoài：Máy tiêu chuẩn chỉ định nhà cung cấp
+
+Chu kỳ hiệu chỉnh      Mỗi 12 tháng và khi cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+(Chuẩn bị trước khi
+hiệu chỉnh)
+
+1.Độ chính xác đo trị
+điện trở
+
+2.Độ chính xác điện áp
+xuất lực
+
+3.Độ chính xác hiển thị
+điện áp
+
+・Về mặt thông số kỹ thuật của máy đo điện trở 6 số thì độ
+chính xác đo điện trở chỉ có thể hiệu chỉnh đến 100MΩ.
+Trường hợp cần kiểm chứng 100MΩ trở lên thì phải nhờ cơ
+quan bên ngoài hiệu chỉnh.
+・Nhằm phòng chống điện giật khi hiệu chỉnh thì phải sử dụng
+bao tay cao su cách điện.
+・Trường hợp không thể thay đổi điều kiện thiết định từ trước
+đến giờ thì có khả năng chức năng INTERLOCK đang ON.
+Sau khi tham khảo phụ lục, thiết định INTERLOCK vềOFF rồi
+mới thao tác.
+
+Kết nối máy đo điện trở 6 số vào máy đo điện trở cách điện,
+xác nhận độ chính xác đo các điện trở tại các vùng điện áp đo
+quy định của máy đo điện trở cách điện.
+Điểm hiệu chỉnh tham khảo biểu 1.
+Điều kiện đo và trình tự thao tác tham khảo phụ lục.
+
+Kết nối đồng hồ đo điện áp cao vào máy đo điện trở cách điện,
+xác nhận độ chính xác điện áp xuất lực tại các vùng điện áp
+đo quy định của máy đo điện trở cách điện.
+Điểm hiệu chỉnh là 50,100,250,500,1000V.
+Điều kiện đo và trình tự thao tác tham khảo phụ lục.
+
+Kết nối đồng hồ đo điện áp cao vào máy đo điện trở cách điện,
+xác nhận độ chính xác hiển thị điện áp so với điện áp xuất lực
+tại các vùng điện áp đo quy định của máy đo điện trở cách
+điện.
+Điểm hiệu chỉnh là 50,100,250,500,1000V.
+Điều kiện đo và trình tự thao tác tham khảo phụ lục.
+
+Theo biểu 1
+
+1%setting±2V
+
+2%±1V của điện
+áp xuất lực
+
+--- HẾT TRANG ---
+
+No.2/7
+
+Ι【Hiệu chỉnh】                               Đo đạc 007-9
+
+Biểu 1 Quy cách phán định và điểm hiệu chỉnh của hạng mục hiệu chỉnh 1
+
+Thiết định
+điện áp
+xuất lực
+（điểm
+hiệu
+chỉnh）
+Thiết định vùng
+đo điện trở
+Phạm vi kiểm chứng độ
+chính xác đo
+（Bản sỹ dạng nơi chế
+tạo）
+Thiết định máy đo
+điện trở 6 số（điểm
+hiệu chỉnh）
+Quy cách phán định
+hạng mục hiệu chỉnh 1
+50V
+2MΩ
+0.000MΩ～2.000MΩ
+2MΩ
+±2% rdg.±5 dgt.
+20MΩ
+1.90MΩ～20.00MΩ
+20MΩ
+200MΩ
+19.0MΩ～2000.0MΩ
+100MΩ
+±5% rdg.
+100V
+2MΩ
+0.000MΩ～2.000MΩ
+2MΩ
+±2% rdg.±5 dgt.
+20MΩ
+1.90MΩ～20.00MΩ
+20MΩ
+200MΩ
+19.0MΩ～200.0MΩ
+100MΩ
+±5% rdg.
+2000MΩ
+190MΩ～2000.0MΩ
+Không được hiệu
+chỉnh trong công ty
+250V
+2MΩ
+0.000MΩ～2.000MΩ
+2MΩ
+±2% rdg.±5 dgt.
+20MΩ
+1.90MΩ～20.00MΩ
+20MΩ
+200MΩ
+19.0MΩ～200.0MΩ
+100MΩ
+±5% rdg.
+2000MΩ
+190MΩ～2000.0MΩ
+Không được hiệu
+chỉnh trong công ty
+500V
+2MΩ
+0.000MΩ～2.000MΩ
+2MΩ
+±2% rdg.±5 dgt.
+20MΩ
+1.90MΩ～20.00MΩ
+20MΩ
+200MΩ
+19.0MΩ～200.0MΩ
+100MΩ
+4000MΩ
+190MΩ～4000MΩ
+Không được hiệu
+chỉnh trong công ty
+±5% rdg.
+4010MΩ～9990MΩ
+Không được hiệu
+chỉnh trong công ty
+±25% rdg.
+Trường hợp hiệu chỉnh ủy thác cho nhà cung cấp, nếu có thể hiệu chỉnh 1 điểm tùy ý trong phạm vi kiểm
+chứng độ chính xác đo cũng được.
+－Trích dẫn・Văn bản liên quan－
+Quy cách phán định：Trích dẫn bản sỹ dạng nơi chế tạo
+Điều kiện thiết định：tiến hành đo và hiệu chỉnh thực tế, sau khi xác nhận thực lực thì thiết định
+
+--- HẾT TRANG ---
+
+No.3/7
+
+Phụ lục【Bản trình tự thao tác】                Đo đạc 007-9
+
+Trường hợp tiến hành thao tác thực tế thì có thể hiệu chỉnh đồng thời 3 hạng mục dưới đây.
+Tại bản trình tự thao tác này có ghi phương pháp thực thi hiệu chỉnh đồng thời 3 hạng mục.
+Hạng mục hiệu chỉnh 1. Độ chính xác đo trị điện trở
+Hạng mục hiệu chỉnh 2. Độ chính xác điện áp xuất lực
+Hạng mục hiệu chỉnh 3. Độ chính xác hiển thị điện áp
+
+① Kết nối máy đo điện trở cách điện và máy tiêu chuẩn(máy đo điện trở 6 số，máy đo điện áp cao) như
+hình bên dưới.
+Khi kết nối phải tiến hành ở trạng thái đã ngắt toàn bộ nguồn điện.
+
+Máy đo điện trở cách điện⇒
+
+Máy đo điện trở 6 số⇒
+
+Máy đo điện áp cao⇒
+
+② Thiết định điều kiện của
+máy đo điện trở cách điện theo trình tự bên dưới.
+(1) Sau khi đưa nguồn điện vào, nhấn phím MENU sẽ di
+chuyển đến màn hình thiết định.
+※Tham khảo hình bên phải
+
+(2) Thiết định hạng mục thiết định trong tab MEAS như
+bên dưới.
+Khi thiết định thì sử dụng phím chức năng ở phần dưới màn hình và phím con trỏ bên phải màn
+hình để thao tác. ※Tham khảo phần khung đỏ hình bên dưới
+
+【Liệt kê hạng mục thiết định】
+VOLTAGE：Điểm hiệu chỉnh(50,100,250,500,1000V)
+RANGE：HOLD Điểm hiệu chỉnh (2,20,200,2000,4000MΩ)
+※Nếu thiết định AUTO thì không thể cố định vào vùng tùy ý nên khi hiệu chỉnh phải thiết định ở
+HOLD
+SPEED：SLOW
+TIMER：OFF
+DELAY：AUTO
+COMP MODE：CONTINUE
+COMP BEEP：FAIL
+
+No.4/7
+
+GND
+○
+
+ＫＶ
+○Ｈ □□.□□□□ＭΩ
+○Ｌ  ○○ ○○○○
+
+--- HẾT TRANG ---
+
+Phụ lục
+【Bản trình tự thao tác】                     Đo đạc 007-9
+
+(3) Về tab ngoài tab MEAS thì do không có ảnh hưởng kết quả đo nên về nguyên tắc không thể thay
+đổi thiết định.
+Khi phát sinh bất hợp cách, sau khi truyền đạt điều này đến bộ môn sử dụng thì thay đổi sang trị
+thiết định đầu kỳ.
+Trị thiết định đầu kỳ dựa theo biểu dưới.
+Ngoài ra, trường hợp INTERLOCK đang ON thì không thể thay đổi điều kiện thiết định nên cần
+thay đổi sang thiết định OFF khi hiệu chỉnh.
+
+Tên tab（nội dung
+thiết định）
+Hạng mục thiết định
+Trị thiết định đầu kỳ
+MEAS(Thiết
+định
+đo)
+VOLTAGE
+25V
+RANGE
+AUTO
+DATA CLEAR(chức năng option)
+ON
+SPEED
+FAST
+TIMER
+OFF
+DELAY
+AUTO
+COMP MODE
+CONTINUE
+COMP BEEP
+FAIL
+SYS(thiết định hệ
+thống)
+CONTACT CHACK
+OFF
+SHORT CHECK
+OFF
+KEY CLICK
+ON
+DOUBLE ACTION
+OFF
+CONTRAST
+50
+BACKLIGHT
+2
+POWER FREQ
+AUTO
+RESET
+EXEC
+I/O(thiết
+định
+EXT.I/O)
+ANALOG OUT RANGE
+FULL
+EXT SWITCH MODE
+CONT
+EXT I/O TEST-PIN
+SLOW
+INTERLOCK
+OFF
+EXT I/O TEST
+EXEC
+INFO(thiết
+định
+giao diện  thông
+tin)
+RS-232C SPEED
+9600bps
+DATA OUT
+OFF
+CMD MONITOR
+OFF
+
+③ Đưa nguồn điện của máy đo điện áp cao(máy tiêu chuẩn) vào, thiết định máy đo điện trở 6 số(máy tiêu
+chuẩn) khớp với điểm hiệu chỉnh.
+
+④ Nhấn nút START ở phần thân máy đo điện trở cách điện, xuất điện áp ra. ※tham khảo hình bên dưới
+Chú ý：Khi xuất điện áp ra thì điện áp cao sẽ chạy nên sau khi đo và ký lục thì nhấn nút STOP ngay để
+dừng xuất ra.
+
+No.5/7
+
+--- HẾT TRANG ---
+
+Phụ lục
+【Bản trình tự thao tác】                    Đo đạc 007-9
+
+⑤ Sau khi START，do trị hiển thị đã ổn định nên sẽ phán định, ký lục trị đo của các hạng mục hiệu chỉnh.
+
+Hạng mục hiệu chỉnh 1. Độ chính xác đo trị điện trở → So sánh trị thiết định máy đo điện trở 6 số với trị
+điện trở được hiển thị ở màn hình máy đo điện trở cách điện, phán
+định và ghi chép. ※Tham khảo hình bên dưới
+Hạng mục hiệu chỉnh 2. Độ chính xác điện áp xuất lực  → So sánh điện áp thiết định của máy đo điện
+trở cách điện với trị chỉ thị của máy đo điện áp cao(máy tiêu chuẩn), phán định và ghi chép.
+Hạng mục hiệu chỉnh 3. Độ chính xác hiển thị điện áp → So sánh trị chỉ thị của máy đo điện áp cao(máy
+tiêu chuẩn) với trị điện áp được hiển thị ở màn hình máy đo điện trở cách điện, phán định và ghi chép. ※
+Tham khảo hình bên dưới
+
+Hạng mục hiệu chỉnh 1. Trị điện trở
+
+Hạng mục hiệu chỉnh 3. Trị điện áp
+
+※Trị đang được chỉ thị ở hình vẽ là trị tham khảo(Hình vẽ là hình ảnh tưởng tượng)
+
+⑥ Nhấn nút STOP của phần thân máy đo điện trở cách điện để dừng xuất lực điện áp.※ Tham khảo
+hình bên dưới
+
+⑦ Thực hiện thiết định và hiệu chỉnh ②～⑥ tại các điểm hiệu chỉnh, xác nhận tất cả điểm hiệu chỉnh
+nằm trong quy cách phán định.
+Ngoài ra, trường hợp đã đưa ra trị đo ngoài quy cách phán định thì phải tiến hành yêu cầu chỉnh sửa
+đến nơi chế tạo. (do thiết bị này không có chức năng điều chỉnh)
+
+-END-
+
+No.6/7
+
+--- HẾT TRANG ---
+
+Ⅱ【Điểm kiểm】
+Máy đo điện trở cách điện(máy thí nghiệm điện trở cách điện)                         Đo đạc 007-9
+HIOKI ST5520/ST5520-01
+
+Tiến độ điểm kiểm        Mỗi khi sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1.Ngoại quan
+
+Không được có vỡ, nứt, rách ở lớp che phủ của dây lead test.
+
+Chú thích)  1.Kết quả kiểm tra, trường hợp có dị thường thì ghi chép kết quả kiểm tra, xử lý theo chỉ thị
+của người chịu trách nhiệm quản lý.
+2.Kết quả kiểm tra, trường hợp không có dị thường thì không ghi chép kết quả kiểm tra cũng được.
+Tuy nhiên, ngay cả khi không có dị thường 1 tháng 1 lần, cũng phải ghi lại điều đó.
+3.Trường hợp nhận thấy dị thường trong khi sử dụng thì xử lý theo chỉ thị của người chịu trách
+nhiệm quản lý.
+
+--- HẾT TRANG ---
+
+Biểu lai lịch ban hành cải chính hủy bỏ bản tiêu
+chuẩn kiểm tra hiệu chỉnh                Đo đạc 007-9   No.7/7
+Ký
+hiệu
+Ngày
+tháng
+Nội dung ghi chép（nội dung cải chính）
+Soạn
+thảo
+Xác nhận
+Công
+nhận
+
+2018.11.7
+
+Ban hành mới
+
+Akaba
+ne
+
+Nara
+Ito
+Iwata
+
+Tổng ban BHCL công ty cổ phần Mabuchi motor
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "007-9-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN KIỂM TRA HIỆU CHỈNH MÁY ĐO      Tổng ban BHCL công ty cổ phần Mabuchi motor - Máy đo điện trở cách điện(Máy thí nghiệm điện trở cách điện)               Đo đạc    007-9",
+  "doc_code": "007-9",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

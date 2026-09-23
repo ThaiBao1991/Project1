@@ -1,0 +1,50 @@
+{
+  "file_name": "039-13-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Máy đo điện trở thấp TSURUGA 3585",
+  "doc_code": "039-13",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ thực hiện điểm kiểm (kiểm tra hằng ngày) đối với máy đo điện trở thấp TSURUGA 3585 được quy định khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần vào đầu tuần",
+        "B": "Mỗi khi sử dụng",
+        "C": "Một tháng một lần",
+        "D": "Trước mỗi ca làm việc 2 giờ"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, Mục II【Điểm kiểm】, Tiến độ điểm kiểm: Mỗi khi sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Khi thực hiện chuẩn bị trước khi hiệu chỉnh hoặc điểm kiểm máy đo điện trở thấp, thời gian làm nóng máy (warm-up) tối thiểu bắt buộc là bao nhiêu phút?",
+      "options": {
+        "A": "Ít nhất 10 phút",
+        "B": "Ít nhất 15 phút",
+        "C": "Ít nhất 30 phút",
+        "D": "Ít nhất 60 phút"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1 và 3, Mục I & II: 'Bật công tắc nguồn và tiến hành làm nóng máy ít nhất 30 phút.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo mục chú ý về kiểm tra, trường hợp kết quả kiểm tra không thấy bất thường thì quy định ghi chép kết quả ra sao?",
+      "options": {
+        "A": "Phải ghi chép lại đầy đủ mỗi ngày sử dụng",
+        "B": "Không cần ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra",
+        "C": "Chỉ cần ghi chép lại khi có sự cố phát sinh",
+        "D": "Tuyệt đối không được ghi chép vào sổ quản lý"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, Chú ý số 2: 'Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

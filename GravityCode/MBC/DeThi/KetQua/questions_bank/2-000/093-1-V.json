@@ -1,0 +1,50 @@
+{
+  "file_name": "093-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "THIẾT BỊ ĐO ĐIỆN ÁP CAO DÙNG ĐO ĐẠC",
+  "doc_code": "093-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình chuẩn bị trước khi hiệu chỉnh thiết bị đo điện áp cao, lưu ý quan trọng nào về an toàn bắt buộc phải tuân thủ để đề phòng bị giật điện?",
+      "options": {
+        "A": "Phải đeo bao tay cao su cách điện",
+        "B": "Phải ngắt toàn bộ nguồn điện tổng của phân xưởng",
+        "C": "Phải đứng trên thảm nhựa chống tĩnh điện",
+        "D": "Phải sử dụng bút thử điện kiểm tra trước khi thao tác"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1 - Mục «Hạng mục chú ý » (Chuẩn bị trước hiệu chỉnh): «Khi tiến hành hiệu chỉnh, phải đeo bao tay cao su cách điện để đề phòng bị giật điện.»"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo mục điểm kiểm (Ⅱ), tiến độ thực hiện điểm kiểm cho thiết bị đo điện áp cao dùng đo đạc được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi tháng một lần",
+        "C": "Mỗi lần sử dụng",
+        "D": "Mỗi 36 tháng"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2 - Tiêu chuẩn điểm kiểm: Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo mục Chú ý về kết quả kiểm tra, nếu kết quả kiểm tra không thấy bất thường thì quy định ghi chép như thế nào là đúng?",
+      "options": {
+        "A": "Bắt buộc phải ghi chép lại đầy đủ mỗi ngày trong ca làm việc",
+        "B": "Không ghi kết quả cũng được, nhưng một tháng phải ghi chép lại kết quả một lần dù không có gì bất thường",
+        "C": "Chỉ ghi chép lại khi cấp trên yêu cầu kiểm tra đột xuất",
+        "D": "Tuyệt đối không được ghi chép vào sổ quản lý"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2 - Chú ý mục 2: «Kết quả kiểm tra trường hợp không thấy bất thường, không ghi kết quả cũng được, nhưng một tháng phải ghi chép lại kết quả một lần dù không có gì bất thường.»"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

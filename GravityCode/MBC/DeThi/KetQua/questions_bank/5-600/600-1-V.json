@@ -1,0 +1,50 @@
+{
+  "file_name": "600-1-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Thiết bị gia áp dùng đo độ phẳng bản vỏ nhỏ",
+  "doc_code": "600-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) thiết bị, nhân viên phụ trách phải xử lý như thế nào?",
+      "options": {
+        "A": "Tự ý tháo rời sửa chữa bộ phận cơ khí bên trong thiết bị",
+        "B": "Tiếp tục sử dụng nếu sai số nhỏ và báo cáo vào cuối tháng",
+        "C": "Ghi chép lại kết quả, xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu, và làm đơn đề nghị hiệu chỉnh lại nếu cần thiết",
+        "D": "Bỏ qua không cần ghi chép nếu không ảnh hưởng trực tiếp đến sản lượng"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện hiệu chỉnh (Trang 2)"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi tiến hành điều chỉnh lực gia áp bằng đồng hồ đo lực nén ép tại vị trí thiết bị đo chỉ, giá trị tiêu chuẩn cần đạt là bao nhiêu?",
+      "options": {
+        "A": "1000 ~ 1500gf",
+        "B": "1500 ~ 2000gf",
+        "C": "2000 ~ 2500gf",
+        "D": "2500 ~ 3000gf"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trị số trên đồng hồ đo lực nén, ép khi thiết bị đo đã chỉ tại vị trí 2000gf, phương pháp phán định: 2000～2500gf (Trang 1)"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ điểm kiểm ngoại quan đối với thiết bị gia áp dùng đo độ phẳng bản vỏ nhỏ được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và trước khi sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "3 tháng 1 lần",
+        "D": "Chỉ kiểm tra khi có phát sinh lỗi"
+      },
+      "correct_answer": "B",
+      "reference_note": "Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng (Trang 2)"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

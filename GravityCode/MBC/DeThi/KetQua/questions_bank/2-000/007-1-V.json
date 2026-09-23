@@ -1,0 +1,50 @@
+{
+  "file_name": "007-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định MÁY ĐO ĐIỆN TRỞ CÁCH ĐIỆN (FAITH I-807CM; YOKOGAWA 3213 SERIES)",
+  "doc_code": "007-1 j",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Khi thực hiện hiệu chỉnh máy đo điện trở cách điện, nhân viên cần lưu ý điều gì quan trọng nhất để đảm bảo an toàn?",
+      "options": {
+        "A": "Phải mở công tắc POWER và để ổn định khoảng 5 phút trước khi đo",
+        "B": "Để phòng tránh việc rò điện nên phải sử dụng bao tay cách điện",
+        "C": "Chỉ cần đeo khẩu trang và mặc đồng phục gọn gàng",
+        "D": "Không cần thiết bị bảo hộ nếu ngắt nguồn điện chính"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Mục Ⅰ【Hiệu chỉnh】 - (Hạng mục chú ý): Khi hiệu chỉnh, để phòng tránh việc rò điện nên phải sử dụng bao tay cách điện."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, tiến độ điểm kiểm tra cho 'MÁY ĐO ĐIỆN TRỞ CÁCH ĐIỆN' được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, Mục II 【Điểm kiểm】 - Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Trong trường hợp kết quả kiểm tra không thấy bất thường, theo ghi chú mục Điểm kiểm, tần suất tối thiểu phải ghi chép lại kết quả đã kiểm tra là gì?",
+      "options": {
+        "A": "Không cần ghi chép bất kỳ trường hợp nào",
+        "B": "Phải ghi chép lại mỗi tuần một lần",
+        "C": "Mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra",
+        "D": "Chỉ ghi chép khi có yêu cầu từ cấp trên"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3, Mục II 【Điểm kiểm】 - Ghi chú số 2: Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

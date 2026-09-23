@@ -1,0 +1,50 @@
+{
+  "file_name": "S61-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH MÁY ĐO ĐẠC Ba kim dùng để đo ốc vít",
+  "doc_code": "S61-1 e",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nhiệt độ tiêu chuẩn được quy định dùng trong môi trường hiệu chỉnh máy đo này là bao nhiêu?",
+      "options": {
+        "A": "20±1°C",
+        "B": "23±2°C",
+        "C": "25±1°C",
+        "D": "18±2°C"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: Nhiệt độ tiêu chuẩn 20±1°C"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu S61-1 e, chu kỳ hiệu chỉnh định kỳ đối với 'Ba kim dùng để đo ốc vít' là bao lâu?",
+      "options": {
+        "A": "1 năm",
+        "B": "2 năm",
+        "C": "3 năm",
+        "D": "5 năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Chu kỳ hiệu chỉnh 3 năm"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Căn cứ theo tiêu chuẩn JIS-B-0271:2018 (ISO16239) Cấp 1, mức dung sai cho phép đối với 'Sự sai khác của đường kính kim biểu thị so với đường kính kim gọi' là bao nhiêu?",
+      "options": {
+        "A": "±0.0025mm",
+        "B": "±0.0005mm",
+        "C": "±0.001mm",
+        "D": "0.0005mm trở xuống"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Bảng quy chuẩn JIS-B-0271:2018 (ISO16239) - Hạng mục 'Sự sai khác của đường kính kim biểu thị so với đường kính kim gọi' dung sai cho phép Cấp 1 là ±0.0005mm"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

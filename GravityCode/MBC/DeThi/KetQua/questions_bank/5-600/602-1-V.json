@@ -1,0 +1,50 @@
+{
+  "file_name": "602-1-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH - KIỂM TRA DỤNG CỤ ĐO ĐỒNG HỒ QUẢN LÝ TẢI (PS-05, 05A)",
+  "doc_code": "602 – 1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trường hợp kết quả kiểm tra định kỳ không có bất thường, quy định về việc ghi lại kết quả như thế nào là đúng?",
+      "options": {
+        "A": "Không cần phải ghi lại kết quả kiểm tra trong bất kỳ trường hợp nào.",
+        "B": "Phải ghi lại kết quả kiểm tra vào tất cả các ngày trong tuần.",
+        "C": "Có thể không ghi lại kết quả kiểm tra, tuy nhiên 1 tháng 1 lần dù không có bất thường cũng phải ghi lại kết quả kiểm tra.",
+        "D": "Chỉ ghi lại kết quả khi có yêu cầu từ cấp trên."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: Chú ý 2: Trường hợp kết quả kiểm tra không có bất thường thì có thể không ghi lại kết quả kiểm tra. Tuy nhiên, 1 tháng 1 lần dù không có bất thường cũng ghi lại kết quả kiểm tra."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ kiểm tra đối với đồng hồ quản lý tải (PS-05, 05A) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Tiến độ kiểm tra: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Trong quá trình hiệu chỉnh đồng hồ quản lý tải, các điểm đo tiêu chuẩn được lấy là bao nhiêu?",
+      "options": {
+        "A": "10, 20, 30, 40 kgf",
+        "B": "12, 25, 37, 50 kgf",
+        "C": "15, 30, 45, 60 kgf",
+        "D": "20, 35, 45, 50 kgf"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: lấy điểm đo là 4 điểm 12, 25, 37, 50kgf."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

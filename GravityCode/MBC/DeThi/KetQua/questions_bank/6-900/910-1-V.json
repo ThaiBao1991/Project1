@@ -1,0 +1,50 @@
+{
+  "file_name": "910-1-V.pdf",
+  "folder_name": "6-900 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và điểm kiểm dụng cụ đo đạc DỤNG CỤ ĐO GIA ÁP HÀN ĐIỂM LẦN 2 (SPC-)",
+  "doc_code": "910-1 i",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo mục II 【Điểm kiểm】 của tài liệu, tiến độ thực hiện điểm kiểm cho dụng cụ đo gia áp hàn điểm loại SPC được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5/6, Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Chu kì hiệu chỉnh chuẩn đối với dụng cụ đo gia áp hàn điểm loại SPC là bao lâu?",
+      "options": {
+        "A": "Mỗi 1 tháng và khi đã xác nhận là cần thiết",
+        "B": "Mỗi 6 tháng và khi đã xác nhận là cần thiết",
+        "C": "Mỗi 3 tháng và khi đã xác nhận là cần thiết",
+        "D": "Mỗi 12 tháng và khi đã xác nhận là cần thiết"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1/6, Chu kì hiệu chỉnh: Mỗi 3 tháng và khi đã xác nhận là cần thiết"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo ghi chú điểm kiểm, trường hợp kết quả kiểm tra không thấy bất thường thì quy định ghi chép kết quả như thế nào?",
+      "options": {
+        "A": "Không cần ghi chép kết quả, nhưng mỗi tháng phải ghi chép lại kết quả kiểm tra một lần dù không có gì bất thường xảy ra.",
+        "B": "Phải ghi chép đầy đủ vào sổ nhật ký sau mỗi lần sử dụng dụng cụ đo.",
+        "C": "Tuyệt đối không được ghi chép bất kỳ nội dung nào vào biểu mẫu kiểm tra.",
+        "D": "Chỉ ghi chép khi có sự cố bất thường xảy ra trong quá trình đo đạc."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 5/6, Ghi chú điểm kiểm, mục 2"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

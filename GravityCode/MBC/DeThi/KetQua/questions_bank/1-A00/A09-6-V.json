@@ -1,0 +1,59 @@
+{
+  "file_name": "A09-6-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "TIÊU CHUẨN HIỆU CHỈNH ĐIỂM KIỂM - Chương trình quản lý độ chính xác dụng cụ đo lường ACM Phiên bản Smart Innovator (SMI)",
+  "doc_code": "A09-6",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong lưu trình vận dụng chương trình quản lý độ chính xác dụng cụ đo lường (ACM), khi kết quả thực hiện hiệu chỉnh là 'Không đạt', bước tiếp theo cần phải thực hiện là gì?",
+      "options": {
+        "A": "Tiến hành xuất sổ tay quản lý dụng cụ đo ngay lập tức",
+        "B": "Thay đổi người phụ trách quản lý dụng cụ đo theo Tiêu chuẩn A09-9",
+        "C": "Đăng kí kết quả hiệu chỉnh và báo cáo cho người phụ trách quản lý dụng cụ đo để trả lời xử lý (sửa chữa, hủy bỏ,...)",
+        "D": "Đưa dụng cụ đo trở lại sử dụng bình thường trong chuyền sản xuất"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3, Lưu trình vận dụng: Nhánh 'Không đạt' dẫn đến 'Đăng kí kết quả hiệu chỉnh ... (9)', sau đó chuyển đến 'Báo cáo cho người phụ trách quản lý dụng cụ đo' và 'Trả lời xử lý (Sửa chữa, hủy bỏ,...)'."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Sau khi khởi động QAS MASTER, những mục nào dưới đây được hiển thị để quản lý tổng thể data (chỉ MMK)?",
+      "options": {
+        "A": "Đăng ký dụng cụ đo, Kết quả HC-ĐK, Sổ tay quản lý",
+        "B": "ACM SHEET, CATEGORY, TREATMENT, RESULT, RESULT CATEGORY, REGIST, INSPECTION",
+        "C": "Quản lý data, Xuất data, Xử lý data",
+        "D": "Kế hoạch thực hiện hiệu chỉnh, Laboratory Scope, Danh sách thời hạn"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Mục 2. QAS MASTER: 'ACM SHEET, CATEGORY, TREATMENT, RESULT, RESULT CATEGORY, REGIST, INSPECTION'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chương trình quản lý độ chính xác dụng cụ đo lường (Accuracy Control of Measuring Instruments - ACM) đã được thay đổi từ phiên bản Access sang phiên bản nào vào năm 2020?",
+      "options": {
+        "A": "Phiên bản Smart Innovator (SMI)",
+        "B": "Phiên bản Advanced System (AS)",
+        "C": "Phiên bản Smart Management (SM)",
+        "D": "Phiên bản Access Professional 2020"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, Mục 1. Cấu hình phiên bản SMI của ACM: 'đã thay đổi từ phiên bản Access của ACM sang phiên bản Smart Innovator (dưới đây gọi là phiên bản SMI) của ACM vào năm 2020.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140383.438801,
+  "generated_at_iso": "2026-09-23T12:13:03",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 355470,
+    "modified_time": 1612596465.6100674,
+    "modified_time_iso": "2021-02-06T14:27:45",
+    "file_hash_short": "673916eb"
+  }
+}

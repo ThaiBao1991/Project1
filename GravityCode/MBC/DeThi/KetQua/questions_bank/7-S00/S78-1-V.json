@@ -1,0 +1,50 @@
+{
+  "file_name": "S78-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Máy đo kiểu ngang (Bệ ngang)",
+  "doc_code": "S78-1 f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo tiêu chuẩn hiệu chỉnh thiết bị MS (H-2B và MEI-1), trị quy cách đối với hạng mục 'Độ ổn định của chỉ thị' và 'Máng của trục chính' (H-2B) là bao nhiêu?",
+      "options": {
+        "A": "1.0μm trở xuống",
+        "B": "1.5μm trở xuống",
+        "C": "0.5μm trở xuống",
+        "D": "2.0μm trở xuống"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: H-2B: Độ ổn định của chỉ thị: 1.0μm trở xuống; Máng của trục chính: 1.0μm trở xuống"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi thực hiện hiệu chỉnh máy đo H-2B hoặc MEI-1 được chứng nhận bằng dụng cụ đo con trỏ nhỏ S48-1(4M-100P), hạng mục đo bổ sung nào cần phải sử dụng?",
+      "options": {
+        "A": "Chỉ sử dụng các hạng mục đo tiêu chuẩn ban đầu",
+        "B": "Hạng mục đo bên phải: Chênh lệch dụng cụ tại các vị trí đo (1.5μm trở xuống) và Độ chính xác tính lặp lại (0.5μm trở xuống)",
+        "C": "Chỉ kiểm tra lực đo ở trạng thái 60gf±10gf",
+        "D": "Chỉ kiểm tra lượng tác động trục chính 2mm trở xuống"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: ※Tuy nhiên, khi thực hiện hiệu chỉnh được chứng nhận bằng dụng cụ đo con trỏ S48-1(4M-100P) và set đó thì hãy sử dụng hạng mục đo bên phải (Chênh lệch dụng cụ tại các vị trí đo: 1.5μm trở xuống; Độ chính xác tính lặp lại: 0.5μm trở xuống)"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn S78-1 f, kỳ hạn hiệu chỉnh định kỳ đối với máy đo kiểu ngang (Bệ ngang) là bao lâu?",
+      "options": {
+        "A": "6 tháng",
+        "B": "1 năm",
+        "C": "2 năm",
+        "D": "3 năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: 【HIỆU CHỈNH】 Kỳ hạn hiệu chỉnh: 2 năm"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

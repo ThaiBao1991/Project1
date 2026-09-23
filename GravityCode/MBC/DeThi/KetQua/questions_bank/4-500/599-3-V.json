@@ -1,0 +1,50 @@
+{
+  "file_name": "599-3-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN ĐIỂM KIỂM・HIỆU CHỈNH MÁY ĐO - Micrometer dạng cầu phẳng",
+  "doc_code": "599-3",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ thực hiện điểm kiểm đối với Micrometer dạng cầu phẳng là khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần và trước khi sử dụng",
+        "B": "Mỗi 1 tháng và mỗi lần sử dụng",
+        "C": "Mỗi 6 tháng và khi phát hiện lỗi",
+        "D": "Mỗi 12 tháng định kỳ"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Tiến độ điểm kiểm - Mỗi 1 tháng và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Khi tiến hành điểm kiểm hoặc hiệu chỉnh thiết bị, quy định về thao tác lực đo nào sau đây là BẮT BUỘC ĐÚNG để đảm bảo chính xác?",
+      "options": {
+        "A": "Xoay núm điều chỉnh cho đến khi có âm thanh tách tách 3 lần",
+        "B": "Xoay núm điều chỉnh liên tục cho đến khi chặt cứng trục quay",
+        "C": "Không cần sử dụng núm bánh cóc, chỉ dùng tay vặn ống xoay",
+        "D": "Xoay núm điều chỉnh cho đến khi phát ra 1 tiếng tách duy nhất"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1 & 2: ＜Hạng mục chú ý＞ Lực đo khi tiến hành điểm kiểm, hiệu chỉnh thì sẽ xoay núm điều chỉnh cho đến khi có âm thanh tách tách 3 lần"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Sai số cho phép (µm) đối với Micrometer dạng cầu phẳng BMB dòng 118・189・395 trong phạm vi đo từ 0 đến 25mm là bao nhiêu?",
+      "options": {
+        "A": "±2 µm",
+        "B": "±3 µm",
+        "C": "±4 µm",
+        "D": "±5 µm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Bảng Micrometer dạng cầu phẳng BMB - Phạm vi đo 0～25mm, Sai số cho phép 4 µm"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

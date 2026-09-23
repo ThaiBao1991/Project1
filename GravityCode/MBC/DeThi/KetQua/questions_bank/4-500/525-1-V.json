@@ -1,0 +1,50 @@
+{
+  "file_name": "525-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định Thước đo độ dày có bảng số (PEACOCK, MITUTOYO)",
+  "doc_code": "525-1 h",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong trường hợp kết quả kiểm tra không thấy bất thường thì quy định ghi chép hồ sơ như thế nào là đúng?",
+      "options": {
+        "A": "Không cần ghi chép bất cứ lúc nào trong suốt quá trình sử dụng dụng cụ.",
+        "B": "Không ghi kết quả kiểm tra cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.",
+        "C": "Bắt buộc phải ghi chép chi tiết kết quả kiểm tra vào biên bản sau mỗi lần sử dụng hàng ngày.",
+        "D": "Chỉ ghi chép lại khi có sự thay đổi người quản lý dụng cụ trắc định."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Ghi chú số 2: Trường hợp kết quả kiểm tra không thấy bất thường không ghi kết quả kiểm tra cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn kiểm tra thước đo độ dày, tiến độ thực hiện kiểm tra ngoại quan, hoạt động của trục và độ ổn định kim chỉ được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi tháng một lần",
+        "C": "Mỗi lần sử dụng",
+        "D": "Trước mỗi ca làm việc"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, II 【Điểm kiểm】 Thước đo độ dày có bảng số (PEACOCK, MITUTOYO), Tiến độ kiểm tra: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi kiểm tra độ chính xác tổng hợp của thước đo độ dày MITUTOYO thể thức 7301, 7331, 7331S, 7321, 7316, 7313, 7315, độ chính xác tổng hợp (±μm) theo quy định là bao nhiêu?",
+      "options": {
+        "A": "5 μm",
+        "B": "20 μm",
+        "C": "22 μm",
+        "D": "32 μm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Bảng quy cách phân định: MITUTOYO các thể thức 7301, 7331, 7331S, 7321, 7316, 7313, 7315 có độ chính xác tổng hợp là 20 (±μm)"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

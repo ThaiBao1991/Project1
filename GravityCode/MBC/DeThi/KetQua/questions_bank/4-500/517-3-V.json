@@ -1,0 +1,50 @@
+{
+  "file_name": "517-3-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bảng Tiêu Chuẩn Kiểm Điểm – Hiệu Chỉnh Máy Đo Thước đo kỹ thuật số dạng đòn bẩy",
+  "doc_code": "517 - 3 c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) thước đo kỹ thuật số dạng đòn bẩy, nhân viên cần thực hiện bước xử lý nào sau đây?",
+      "options": {
+        "A": "Tự ý tháo rời thiết bị để sửa chữa lò xo bên trong",
+        "B": "Tiếp tục sử dụng cho hết ca sản xuất rồi mới báo cáo",
+        "C": "Ghi chép lại kết quả và xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu, làm đơn đề nghị hiệu chỉnh lại nếu cần",
+        "D": "Bỏ thiết bị vào thùng rác phế liệu ngay lập tức"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: Chú ý 2 - Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện hiệu chỉnh"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi kiểm tra độ chính xác ở phạm vi rộng đối với dòng thước TECLOCK (SSL-250 với chiều dài chấu đo 12.5mm), giá trị độ chính xác ở phạm vi rộng (μm) quy định là bao nhiêu?",
+      "options": {
+        "A": "2 μm",
+        "B": "4 μm",
+        "C": "10 μm",
+        "D": "3 μm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Bảng thông số TECLOCK - SSL-250(350), Độ chính xác ở phạm vi rộng là 4 μm"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm ngoại quan, dịch chuyển kim đo và độ ổn định biểu thị của thước đo kỹ thuật số dạng đòn bẩy được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và trước khi ca làm việc",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "6 tháng 1 lần hoặc khi có yêu cầu đặc biệt",
+        "D": "12 tháng 1 lần hoặc khi xác nhận là cần thiết"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: II. Điểm kiểm - Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

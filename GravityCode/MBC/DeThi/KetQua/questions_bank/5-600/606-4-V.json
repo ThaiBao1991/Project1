@@ -1,0 +1,50 @@
+{
+  "file_name": "606-4-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn điểm kiểm và hiệu chỉnh máy đo độ tròn",
+  "doc_code": "606-4 e",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn kiểm tra máy đo độ tròn, tiến độ thực hiện điểm kiểm (ngoại quan, cung cấp hơi, hoạt động bộ phận...) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần trước khi vận hành máy",
+        "B": "Mỗi lần sử dụng (Trường hợp có chỉ thị riêng về tiến độ, thì tuân theo chỉ thị đó)",
+        "C": "Định kỳ 6 tháng một lần theo chu kỳ hiệu chỉnh",
+        "D": "Trước mỗi ca sản xuất và sau khi kết thúc ca làm việc"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 6: 'Tiến độ điểm kiểm: Mỗi lần sử dụng (Trường hợp có chỉ thị riêng về tiến độ, thì tuân theo chỉ thị đó)'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình vận hành và kiểm tra máy đo độ tròn, điều khoản chú ý nào về an toàn và thiết bị được đặt lên hàng đầu?",
+      "options": {
+        "A": "Tuyệt đối không được quay bàn xoay ở tình trạng không có cung cấp khí nén.",
+        "B": "Có thể quay bàn xoay bằng tay khi áp suất khí nén dưới 0.1 MPa.",
+        "C": "Cho phép bộ dò va chạm nhẹ với phôi khi chưa bật nguồn tính toán.",
+        "D": "Không cần kiểm tra độ mài mòn của đầu đo bằng kính hiển vi công cụ."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 6: '[Điều khoản chú ý] Tuyệt đối không được quay bàn xoay ở tình trạng không có cung cấp khí nén.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo mục cấp dầu bảo trì máy đo độ tròn, công việc tra dầu bôi trơn được thực hiện với tần suất và loại dầu nào là phù hợp?",
+      "options": {
+        "A": "Mỗi tuần một lần, dùng dầu máy may thông thường",
+        "B": "Mỗi ngày một lần, dùng mỡ bò chịu nhiệt cao",
+        "C": "Mỗi tháng một lần, tra vài giọt dầu bôi trơn (khuyến nghị: Mobil Vactra Oil No. 2) lên bề mặt trượt trục R và cột (trục Z)",
+        "D": "6 tháng một lần, tra dầu vào toàn bộ hệ thống vòng bi bàn xoay"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 6: '4. Cấp dầu: Mỗi tháng một lần, tra vài giọt dầu bôi trơn (khuyến nghị: Mobil Vactra Oil No. 2) lên bề mặt trượt của trục R... và bề mặt trượt của cột (trục Z)...'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

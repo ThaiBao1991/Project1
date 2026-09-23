@@ -1,0 +1,50 @@
+{
+  "file_name": "T02-1-V.pdf",
+  "folder_name": "8-T00 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Dụng cụ hiệu chỉnh áp lực ATEQ CDP60",
+  "doc_code": "T02-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Khi thực hiện hiệu chỉnh hoặc sử dụng dụng cụ đo ATEQ CDP60, điều kiện về nhiệt độ và độ ẩm môi trường xung quanh phải tuân thủ nghiêm ngặt theo tiêu chuẩn nào sau đây?",
+      "options": {
+        "A": "Nhiệt độ 15 ~ 35℃, độ ẩm tương đối dưới 85%",
+        "B": "Nhiệt độ 0 ~ 50℃, độ ẩm tương đối dưới 95% (không ngưng tụ)",
+        "C": "Nhiệt độ 20 ± 5℃, độ ẩm tương đối từ 40% đến 60%",
+        "D": "Nhiệt độ 0 ~ 40℃, độ ẩm tương đối dưới 80%"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: 'Nhiệt độ xung quanh: 0 ～50℃ Độ ẩm tương đối: dưới 95%（không ngưng tụ）'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Cơ quan nào được phép thực hiện việc hiệu chỉnh đối với cứ điểm MMK theo bảng cơ quan thực thi hiệu chỉnh trong tài liệu?",
+      "options": {
+        "A": "Chỉ các nhà thầu địa phương không cần chứng nhận",
+        "B": "Nơi chế tạo (Hiệu chỉnh A2LA) ・ Hiệu chỉnh nhà cung cấp",
+        "C": "Phòng bảo trì nội bộ của công ty kinh doanh",
+        "D": "Đội kỹ thuật sản xuất của công trường nhóm HKM"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 4: Mục MMK - 'Nơi chế tạo (Hiệu chỉnh A2LA )・Hiệu chỉnh nhà cung cấp'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu kỹ thuật, chu kỳ hiệu chỉnh định kỳ đối với dụng cụ hiệu chỉnh áp lực ATEQ CDP60 (mã máy T02-1) là bao lâu?",
+      "options": {
+        "A": "6 tháng",
+        "B": "1 năm",
+        "C": "2 năm",
+        "D": "3 năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: 'Chu kỳ hiệu chỉnh: 2 năm'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

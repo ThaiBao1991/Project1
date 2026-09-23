@@ -1,0 +1,50 @@
+{
+  "file_name": "019-9-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Máy đo tốc độ kỹ thuật số Nidec DT-2100",
+  "doc_code": "019-9",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Quy cách phán định khi hiệu chỉnh điểm 10000 r/min đối với máy đo tốc độ kỹ thuật số Nidec DT-2100 là bao nhiêu?",
+      "options": {
+        "A": "±1r/min",
+        "B": "±2r/min",
+        "C": "±7r/min",
+        "D": "±10r/min"
+      },
+      "correct_answer": "B",
+      "reference_note": "I【Hiệu chỉnh】 Điểm hiệu chỉnh (r/min) 1 vị trí trong 10000±10% - Quy cách phán định: ±2r/min"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ điểm kiểm (kiểm tra hàng ngày/định kỳ) đối với máy đo tốc độ kỹ thuật số Nidec DT-2100 được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và mỗi lần sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "3 tháng 1 lần và trước khi sử dụng",
+        "D": "Chỉ kiểm tra khi máy xảy ra sự cố"
+      },
+      "correct_answer": "B",
+      "reference_note": "II【Điểm kiểm】 Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi tiến hành điểm kiểm ngoại quan, tiêu chí phán định nào sau đây là chính xác theo tiêu chuẩn?",
+      "options": {
+        "A": "Không có bất kỳ vết bẩn, vỡ, mẻ hoặc hư hỏng nào ảnh hưởng đến việc đo đạc ở các bộ phận như bộ đo, bộ phát hiện, bộ hiển thị, khung ngoài và các nút",
+        "B": "Cho phép trầy xước nhẹ ở khung ngoài miễn là màn hình hiển thị số rõ ràng",
+        "C": "Vết bẩn nhỏ không ảnh hưởng đến độ chính xác thì không cần làm sạch",
+        "D": "Chỉ cần kiểm tra bộ phận phát hiện quang học, khung ngoài không quan trọng"
+      },
+      "correct_answer": "A",
+      "reference_note": "II【Điểm kiểm】 Hạng mục điểm kiểm: 2. Ngoại quan - Không có bất kỳ vết bẩn, vỡ, mẻ hoặc hư hỏng nào ảnh hưởng đến việc đo đạc..."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

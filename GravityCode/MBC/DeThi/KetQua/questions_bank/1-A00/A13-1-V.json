@@ -1,0 +1,59 @@
+{
+  "file_name": "A13-1-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "PHƯƠNG PHÁP ĐÁNH SỐ CỦA TÀI LIỆU TIÊU CHUẨN HIỆU CHỈNH ĐIỂM KIỂM",
+  "doc_code": "A13 - 1 c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Cách đánh số tài liệu cho dụng cụ đo hoặc dụng cụ chuẩn cùng chủng loại nhưng có thể thức, model khác nhau được quy định như thế nào?",
+      "options": {
+        "A": "Dùng chữ La Tinh viết hoa viết thường xen kẽ",
+        "B": "Đánh số 1.2.3... .10.11.12… (chữ số)",
+        "C": "Chỉ dùng ký hiệu dùng chung",
+        "D": "Không cần đánh số phân biệt"
+      },
+      "correct_answer": "B",
+      "reference_note": "Với dụng cụ đo, hoặc dụng cụ chuẩn cùng chủng loại nhưng có thể thức, model khác nhau thì đánh số 1.2.3... .10.11.12…(chữ số)."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn A13-1, ngày ban hành đầu tiên của tài liệu tiêu chuẩn hiệu chỉnh điểm kiểm dụng cụ đo là khi nào?",
+      "options": {
+        "A": "09.12.1994",
+        "B": "17.07.2002",
+        "C": "26.06.2009",
+        "D": "10.06.2016"
+      },
+      "correct_answer": "A",
+      "reference_note": "Ngày ban hành 09.12.1994"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trong phương pháp đánh số tài liệu tiêu chuẩn hiệu chỉnh điểm kiểm, phần ký hiệu nào dùng để thể hiện mã cải chính?",
+      "options": {
+        "A": "Dùng chung cho tất cả các loại",
+        "B": "Chữ La Tinh a.b.c...z A.B.C…Z (chữ nhỏ, chữ to, chữ nhỏ,…)",
+        "C": "Chữ số từ 1.2.3... đến 10.11.12...",
+        "D": "Kết hợp chữ số với chữ la tinh"
+      },
+      "correct_answer": "B",
+      "reference_note": "Mã cải chính - Chữ La Tinh a.b.c...z A.B.C…Z (chữ nhỏ, chữ to, chữ nhỏ,…)"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140503.6225467,
+  "generated_at_iso": "2026-09-23T12:15:03",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 424704,
+    "modified_time": 1476092895.1586058,
+    "modified_time_iso": "2016-10-10T16:48:15",
+    "file_hash_short": "3530e95c"
+  }
+}

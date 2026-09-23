@@ -1,0 +1,50 @@
+{
+  "file_name": "531-12-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản Tiêu Chuẩn Điểm Kiểm - Hiệu Chỉnh Máy đo LCR kỹ thuật số (HIOKI IM3523, IM3533)",
+  "doc_code": "Đo đạc 531-12a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Khi kết quả điểm kiểm phát sinh dị thường hoặc trong 1 tháng kết quả điểm kiểm không có dị thường, nhân viên vận hành cần phải xử lý và ghi chép như thế nào theo đúng hướng dẫn?",
+      "options": {
+        "A": "Tự ý sửa chữa thiết bị và tiếp tục sử dụng bình thường",
+        "B": "Ghi lại kết quả dị thường và xử lý theo chỉ thị của người có trách nhiệm quản lý; đồng thời trong 1 tháng không có dị thường thì cũng phải ghi chép lại 1 lần",
+        "C": "Bỏ qua không cần ghi chép nếu thiết bị vẫn đo được",
+        "D": "Chỉ báo cáo quản lý khi thiết bị hỏng hoàn toàn"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2 - Chú ý: 1. Kết quả điểm kiểm phát sinh dị thường thì ghi lại kết quả đó và xử lý theo chỉ thị của người có trách nhiệm quản lý. 2. Trong 1 tháng kết quả điểm kiểm không có dị thường thì cũng phải ghi chép lại 1 lần kết quả đó."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Trước khi tiến hành đo và kiểm tra ngoại quan máy đo LCR kỹ thuật số, cần thực hiện thao tác khởi động nào?",
+      "options": {
+        "A": "Bật nguồn và làm nóng ít nhất trong 30 phút",
+        "B": "Bật nguồn và sử dụng ngay lập tức không cần chờ",
+        "C": "Hiệu chuẩn lại thiết bị trong 15 phút",
+        "D": "Kiểm tra điện áp nguồn liên tục trong 1 giờ"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2 - Phương pháp đo: Bật nguồn và làm nóng ít nhất trong 30 phút"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, chu kỳ hiệu chỉnh cho máy đo LCR kỹ thuật số (HIOKI IM3523, IM3533) là bao lâu?",
+      "options": {
+        "A": "Cứ sau 6 tháng hoặc khi cần thiết",
+        "B": "Cứ sau 12 tháng hoặc khi cần thiết",
+        "C": "Cứ sau 24 tháng hoặc khi cần thiết",
+        "D": "Cứ sau 36 tháng hoặc khi cần thiết"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1 - Chu kỳ hiệu chỉnh: Cứ sau 24 tháng hoặc khi cần thiết"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "588-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "ROTOR KIỂM TRA EC",
+  "doc_code": "Dụng cụ trắc định 588-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Tiến độ điểm kiểm tra đối với dụng cụ 'ROTOR KIỂM TRA EC' là khi nào?",
+      "options": {
+        "A": "Đầu ca sản xuất",
+        "B": "Mỗi lần sử dụng",
+        "C": "Cuối ca sản xuất",
+        "D": "Một tuần một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Tiến độ điểm kiểm - Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục ngoại quan, khi đã đưa rôtor vào vỏ lớn chuẩn kiểm tra EC thì quy định thao tác nào sau đây là ĐÚNG?",
+      "options": {
+        "A": "Được dùng tay nắm trục lôi ra",
+        "B": "Được treo ngược lên để kiểm tra độ đảo",
+        "C": "Không được dùng tay nắm trục lôi ra, không được treo ngược lên hoặc xoay rôtor một cách vô lí",
+        "D": "Có thể xoay rôtor tự do theo ý muốn để kiểm tra tiếng ồn"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: 2. Việc khác - 'Khi đã đưa rôtor vào vỏ lớn chuẩn kiểm tra EC thì không được dùng tay nắm trục lôi ra, không được treo ngược lên hoặc xoay rôtor một cách vô lí.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo mục ghi chú, trường hợp kết quả kiểm tra không thấy bất thường thì việc ghi chép kết quả được quy định như thế nào?",
+      "options": {
+        "A": "Phải ghi chép kết quả vào sổ tay mỗi ngày",
+        "B": "Không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra",
+        "C": "Tuyệt đối không cần ghi chép trong mọi trường hợp",
+        "D": "Chỉ ghi chép lại khi có yêu cầu từ cấp trên"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Ghi chú - 'Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

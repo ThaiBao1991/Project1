@@ -1,0 +1,50 @@
+{
+  "file_name": "567-2-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bảng tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - Thước đo chiều sâu Micro",
+  "doc_code": "567 - 2b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Trong trường hợp kết quả kiểm tra thước đo chiều sâu Micro không thấy bất thường, quy định về việc ghi chép kết quả như thế nào là đúng?",
+      "options": {
+        "A": "Bắt buộc phải ghi chép kết quả sau mỗi lần kiểm tra hàng ngày.",
+        "B": "Tuyệt đối không cần ghi chép nếu không phát hiện lỗi.",
+        "C": "Chỉ cần ghi chép khi có sự thay đổi người sử dụng dụng cụ.",
+        "D": "Không ghi kết quả cũng được, nhưng mỗi tháng một lần phải ghi lại kết quả đã kiểm tra dù không có gì bất thường."
+      },
+      "correct_answer": "D",
+      "reference_note": "Mục II [Điểm kiểm], Chú ý số 2: Kết quả kiểm tra trường hợp không thấy bất thường, không ghi kết quả cũng được, nhưng mỗi tháng một lần phải ghi lại kết quả đã kiểm tra dù không có gì bất thường xảy ra."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn 567-2b, tiến độ thực hiện các điểm kiểm tra (ngoại quan, xác nhận điểm 0, dịch chuyển trục chính) đối với thước đo chiều sâu Micro được quy định như thế nào?",
+      "options": {
+        "A": "Định kỳ 6 tháng một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Định kỳ hàng tuần",
+        "D": "Chỉ kiểm tra khi có nghi ngờ về độ chính xác"
+      },
+      "correct_answer": "B",
+      "reference_note": "Mục II [Điểm kiểm]: Tiến độ điểm kiểm: Mỗi lần sử dụng."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trong hạng mục hiệu chỉnh độ phẳng của mặt chuẩn (base) của thước đo chiều sâu Micro, giới hạn phương pháp giám định cho phép là bao nhiêu?",
+      "options": {
+        "A": "≤ 2 cột",
+        "B": "≤ 5 cột",
+        "C": "≤ 7 cột",
+        "D": "≤ 10 cột"
+      },
+      "correct_answer": "C",
+      "reference_note": "Mục I [Hiệu chỉnh], Hạng mục 2: Độ phẳng mặt chuẩn (base). Phương pháp giám định: ≤ 7 cột."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

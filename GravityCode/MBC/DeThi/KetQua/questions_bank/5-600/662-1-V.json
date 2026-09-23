@@ -1,0 +1,50 @@
+{
+  "file_name": "662-1-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh, điểm kiểm thiết bị đo đạc",
+  "doc_code": "662-1b / 662-1a",
+  "target_audience": "Nhân viên, Đội trưởng phòng BHCL",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn điểm kiểm thiết bị đo ứng lực nén tia X Pulstec μ-X360s, tần suất thực hiện điểm kiểm thiết bị là bao lâu?",
+      "options": {
+        "A": "Mỗi tuần một lần trước khi sản xuất.",
+        "B": "Mỗi lần sử dụng.",
+        "C": "Định kỳ mỗi tháng một lần.",
+        "D": "24 tháng một lần cùng với chu kỳ hiệu chỉnh."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trích trang 3: 'Tần xuất điểm kiểm: Mỗi lần sử dụng'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý về sử dụng chất nguy hại, trường hợp nếu lỡ chạm tay không vào beryllium kim loại ở đường ống tia X thì phải xử lý như thế nào?",
+      "options": {
+        "A": "Dùng cồn công nghiệp lau sạch ngay lập tức để khử trùng.",
+        "B": "Ngay lập tức rửa sạch bằng nước xà phòng.",
+        "C": "Dùng khăn giấy khô lau sạch và báo cáo người quản lý vào cuối ca.",
+        "D": "Không cần xử lý gì nếu không thấy có vết thương hở trên tay."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trích trang 1: 'Trường hợp nếu lỡ chạm vào bằng tay không, ngay lập tức hãy rửa sạch bằng nước xà phòng.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Để phòng chống phát sinh rỉ sét cho tấm tiêu chuẩn, phương pháp bảo quản và thao tác nào sau đây là ĐÚNG?",
+      "options": {
+        "A": "Có thể dùng tay trần để cầm trực tiếp tấm tiêu chuẩn và cất vào tủ dụng cụ thông thường.",
+        "B": "Phải mang bao tay trước khi chạm vào, bảo quản ở nơi có độ ẩm thấp như trong bình hút ẩm đã đóng bằng giấy chống rỉ sét.",
+        "C": "Thoa một lớp mỡ mỏng lên bề mặt tấm tiêu chuẩn rồi bọc kín bằng màng co nilon.",
+        "D": "Đặt tấm tiêu chuẩn trực tiếp trên bàn gá máy đo để tiện sử dụng cho lần sau."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trích trang 3: 'Phải mang bao tay trước khi đụng vào tấm tiêu chuẩn. Ngoài ra sẽ bảo quản ở nơi có độ ẩm thấp như trong bình hút ẩm đã đóng bằng giấy chống rỉ sét,.. để phòng chống phát sinh rỉ sét.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

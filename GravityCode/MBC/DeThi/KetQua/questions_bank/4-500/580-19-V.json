@@ -1,0 +1,50 @@
+{
+  "file_name": "580-19-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN KIỂM TRA VÀ HIỆU CHỈNH DỤNG CỤ ĐO - Cân phân tích bằng điện tử AND Dòng FZ-i, FX-i, FZ-iWP, FX-iWP",
+  "doc_code": "580-19a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi tiến hành hiệu chuẩn cân phân tích bằng quả cân chuẩn (mục 1. Hiệu chỉnh), lưu ý quan trọng nào đối với thời gian làm nóng máy (warm-up) trước khi hiệu chuẩn?",
+      "options": {
+        "A": "Không cần làm nóng máy, có thể tiến hành hiệu chuẩn ngay lập tức.",
+        "B": "Làm nóng ít nhất 10 phút trước khi hiệu chuẩn.",
+        "C": "Làm nóng ít nhất 30 phút trước khi hiệu chuẩn.",
+        "D": "Làm nóng ít nhất 60 phút trước khi hiệu chuẩn."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: '(4) Làm nóng ít nhất 30 phút trước khi hiệu chuẩn'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra định kỳ cân phân tích, nếu không phát hiện bất thường nào, nhân viên thực hiện thao tác ghi chép và xử lý tiếp theo như thế nào?",
+      "options": {
+        "A": "Tự ý điều chỉnh lại linh kiện bên trong cân mà không cần báo cáo.",
+        "B": "Ghi kết quả lại một tháng một lần, xử lý theo chỉ thị của người chịu trách nhiệm bộ phận chủ quản, nếu cần thiết thì xin phép hiệu chuẩn lại thiết bị đo cho bộ phận thực hiện hiệu chuẩn.",
+        "C": "Chỉ cần ghi nhớ bằng miệng và bỏ qua việc ghi chép sổ sách.",
+        "D": "Ngưng sử dụng thiết bị vĩnh viễn và gửi trả về nhà sản xuất."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: 'Chú ý) 1. Kết quả kiểm tra được ghi chép lại một tháng một lần bất kể có bất thường hay không. 2. Nếu không có bất thường trong quá trình kiểm tra... Xử lý theo chỉ thị của người chịu trách nhiệm bộ phận chủ quản. Nếu cần thiết thì xin phép hiệu chuẩn lại thiết bị đo cho bộ phận thực hiện hiệu chuẩn.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn kiểm tra cân phân tích điện tử, chu kỳ kiểm tra và phương pháp tiến hành đối với mục Ⅱ【Điểm kiểm】 được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và trước khi bắt đầu ca làm việc.",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng.",
+        "C": "6 tháng 1 lần hoặc khi có yêu cầu từ bộ phận chất lượng.",
+        "D": "Chỉ kiểm tra khi mua mới thiết bị."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: 'Chu kỳ kiểm tra: Mỗi tháng 1 lần và mỗi lần sử dụng'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

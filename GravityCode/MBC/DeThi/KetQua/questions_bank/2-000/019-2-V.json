@@ -1,0 +1,50 @@
+{
+  "file_name": "019-2-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - Đồng hồ đo số vòng quay dạng Digital 3403 / 3404 (HIOKI)",
+  "doc_code": "019-2d",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Trong phần tiến độ kiểm tra (II [Điểm kiểm]), thời gian quy định để thực hiện kiểm tra dụng cụ là khi nào?",
+      "options": {
+        "A": "Mỗi lần sử dụng",
+        "B": "Đầu ca làm việc mỗi ngày",
+        "C": "Cuối mỗi tuần làm việc",
+        "D": "Mỗi tháng một lần"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2 - Mục II [Điểm kiểm] - Tiến độ kiểm tra: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kỳ hiệu chỉnh đối với Stroboscope là gì?",
+      "options": {
+        "A": "Cố định định kỳ mỗi 3 tháng một lần",
+        "B": "Cố định định kỳ mỗi 6 tháng một lần",
+        "C": "Khi xác nhận thấy cần thiết (nhưng không vượt quá 12 tháng)",
+        "D": "Chỉ hiệu chỉnh khi có sự cố hư hỏng xảy ra"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1 - Mục I [Hiệu chỉnh] - Chu kỳ hiệu chỉnh: Khi xác nhận thấy cần thiết (nhưng không vượt quá 12 tháng)"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục Ghi chú của phần Điểm kiểm, trong trường hợp kiểm tra nhận thấy bất thường khi sử dụng, nhân viên phải xử lý thế nào?",
+      "options": {
+        "A": "Tự ý tháo dỡ thiết bị ra để sửa chữa ngay lập tức",
+        "B": "Xử lý dựa vào chỉ thị của người có trách nhiệm quản lý",
+        "C": "Tiếp tục sử dụng bình thường nếu sai số không quá lớn",
+        "D": "Tự động thay thế pin mới và tiếp tục đo lường"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2 - Ghi chú 3: Trường hợp nhận ra sự bất thường trong khi sử dụng, sẽ xử lý dựa vào chỉ thị của người có trách nhiệm quản lý."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

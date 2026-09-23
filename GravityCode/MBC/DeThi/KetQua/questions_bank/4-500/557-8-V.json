@@ -1,0 +1,50 @@
+{
+  "file_name": "557-8-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định ĐỒNG HỒ ĐO NHIỆT ĐỘ ĐẦU MŨI HÀN (kiểu kỹ thuật số) HAKKO FG-101/ FG101B",
+  "doc_code": "557-8",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ kiểm tra đối với 'Điểm kiểm' (Đồng hồ đo nhiệt độ đầu mũi hàn HAKKO FG-101/ FG101B) được quy định như thế nào?",
+      "options": {
+        "A": "Chỉ kiểm tra mỗi tháng 1 lần",
+        "B": "Chỉ kiểm tra khi phát sinh bất thường",
+        "C": "Mỗi lần sử dụng và mỗi tháng 1 lần",
+        "D": "Kiểm tra trước và sau mỗi ca làm việc"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3: II 【Điểm kiểm】, Tiến độ kiểm tra: Mỗi lần sử dụng và mỗi tháng 1 lần"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Khi thực hiện hiệu chỉnh độ chính xác chỉ thị của đồng hồ đo nhiệt độ đầu mũi hàn HAKKO FG-101, phương pháp phán định (sai số cho phép) đối với giá trị đo là bao nhiêu?",
+      "options": {
+        "A": "± 1℃",
+        "B": "± 2℃",
+        "C": "± 3℃",
+        "D": "± 5℃"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Phương pháp phán định cho mục 'Độ chính xác chỉ thị' là ± 3℃"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo mục chú ý trong phần kiểm tra sensor nhiệt độ, khi nào cần tiến hành thay thế sensor nhiệt độ loại thường (không phải sensor tuổi thọ cao AS5000)?",
+      "options": {
+        "A": "Cứ sau 50 lần sử dụng",
+        "C": "Cứ sau 500 lần sử dụng",
+        "B": "Cứ sau 1500 lần sử dụng",
+        "D": "Cứ sau 3000 lần sử dụng"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 3: 'Sensor nhiệt độ trở nên xấu đi thì hãy thay thế bằng sensor mới cứ sau 50 lần (sensor tuổi thọ cao (AS5000) và được sử dụng cứ sau 1500 lần)'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

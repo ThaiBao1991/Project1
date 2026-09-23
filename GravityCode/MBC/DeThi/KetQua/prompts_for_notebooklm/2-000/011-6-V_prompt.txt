@@ -1,0 +1,371 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Tài liệu tiêu chuẩn hiệu chỉnh - và kiểm tra dụng cụ đo
+Mã số/Mã máy đo: 011-6
+File gốc: 011-6-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/6
+Tài liệu tiêu chuẩn hiệu chỉnh
+và kiểm tra dụng cụ đo
+
+Máy thí nghiệm quấn dây xung lực
+(ECG-KOKUSAI DWX-05A)
+
+Ban chính BHCL công ty cổ phần MAB
+
+Ngày ban hành 17/08/2011
+Ngày thay đổi  25/11/2024
+Dụng cụ trắc định 011-6c
+
+Ι【Hiệu chỉnh】
+Dụng cụ chuẩn
+Osiloscope [S27-1], máy dò [S30-1] (Dụng cụ hỗ trợ : MTR dùng cho
+hiệu chỉnh)
+Chu kỳ hiệu chỉnh
+Mỗi 12 tháng hoặc khi thấy cần thiết
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+<Chuẩn bị trước khi
+hiệu chỉnh>
+
+1. Xác nhận xuất
+lực cao áp
+<Chú ý>
+Để đề phòng điện giật, khi hiệu chỉnh cần mang bao tay
+cách điện bằng cao su.
+(1)Chuẩn bị điện trở tương đương 1kΩ±2%(100W) hoặc
+MTR dùng cho hiệu chỉnh
+MTR dùng cho hiệu chỉnh phải sử dụng MTR có cuộn dây
+dày như RS-540SH
+(2) Kết nối đầu dò với (tỷ lệ suy giảm 100:1) vào đầu vào
+của máy hiện sóng (oscilloscope). Kết nối đầu vào của
+đầu dò song song với thiết bị thử cuộn dây xung và điện
+trở tương đương 1kΩ±2% (100W) hoặc MTR dùng cho
+hiệu chỉnh.
+
+Hình 1 Trường hợp sử dụng điện trở tương đương 1kΩ±
+2%(100W)
+
+Hình 2 Trường hợp sử dụng MTR dùng cho hiệu chỉnh
+※ Khuyến nghị loại Osiloscope kỹ thuật số
+(1) Ấn nút [F4], lựa chọn màn hình thí nghiệm MANUAL.
+(2) Nhấn nút [1] và thiết định điện áp áp dụng theo giá trị
+cài đặt dưới đây, sau đó nhấn phím [ENTER].
+Trị thiết định: 0.6kV, 1.2kV, 2.2kV, 4.0kV, 5.0kV
+(3) Thiết định [WIDTH-4] theo bàn xoay, đồng hồ hiện số.
+(4) Nhấn [F1], thiết định đầu kỳ Init.set
+*Chú ý để điện áp thí nghiệm được phát sinh
+
+Trị thiết định ±
+5%
+
+Máy hiện
+sóng(Osiloscope)
+Đầu dò
+Điện
+trở
+tương đương
+Máy thử
+nghiệm quấn
+dây xung lực
+Máy thử nghiệm quấn dây
+xung lực
+Máy hiện
+sóng(Osiloscope)
+
+--- HẾT TRANG ---
+
+(5) Nhấn công tắc START, điều chỉnh osiloscope làm sao
+để hiện ra hình sóng như bên dưới, đọc ra bề rộng
+của điện áp.
+
+Chú ý
+Trường hợp 1 phần của hình sóng giảm xuống thì sử
+dụng thước kim loại,…giống như hình vẽ giả định đường
+tưởng tượng (dây xích 1 điểm), đọc bề rộng cho đến điểm
+đổi của vị trí hình vẽ của lá tiếp theo
+
+No. 2/6
+
+--- HẾT TRANG ---
+
+No.3/6
+
+Ι【Hiệu chỉnh】                                                  Dụng cụ trắc định 011-6c
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp phán
+định
+
+2. Xác nhận offset
+Cách yêu cầu bề rộng đọc lúc giảm hình sóng
+
+(1) Ấn nút nút [F4], lựa chọn màn hình thí nghiệm
+MANUAL.
+(2) Ấn nút [1], thiết định điện áp đưa vào 1.2kV, nhấn
+[ENTER]
+(3) Thiết định [WIDTH:5] theo bàn xoay, đồng hồ hiện
+số.
+(4) Nhấn [2], sau khi thiết định số xung lực thí nghiệm
+thành 10, nhấn nút [ENTER]
+(5) Nhấn [F1], thiết định đầu kỳ Init.set
+*Chú ý để điện áp thí nghiệm được phát sinh
+(6) Đường sóng master sẽ hiện ra theo như hình vẽ
+bên dưới. Xác nhận xem đường hình sóng master và
+đường mức ngang trung tâm lưới toạ độ (đường điểm
+màu xanh lá cây: đường 0V) trên màn hình máy thí
+nghiệm có trùng nhau không.
+
+Phán định: phương pháp phán định trường hợp không
+chồng lên
+Có đường ngang trung tâm lưới toạ độ (đường 0V:
+đường điểm màu xanh lá cây) tại khu vực giữa của bề
+rộng gấp 5 lần bề dày đường thẳng biểu thị hình sóng
+master
+
+Dựa theo phương
+pháp phán định ghi
+bên trái
+
+Bề
+rộng
+đọc
+Bề
+rộng
+đọc
+Điểm đổi
+Dây tưởng tượng
+
+--- HẾT TRANG ---
+
+No.4/6
+Ι【Hiệu chỉnh】                                                 Dụng cụ trắc định 011-6 c
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp phán
+định
+
+3.Xác nhận thời
+gian rơi
+
+(1) Ấn nút nút [F4], lựa chọn màn hình thí nghiệm
+MANUAL.
+(2) Nhấn nút [1], sau khi thiết định điện áp cung cấp
+1.2kV, nhấn nút [ENTER].
+(3) Thiết định bàn xoay, đồng hồ hiện số theo
+[WIDTH-4].
+(4) Nhấn nút [F1], thiết định đầu kỳ Init.Set
+*Chú ý để điện áp thí nghiệm được phát sinh
+(5) Nhấn nút START, điều chỉnh osiloscope để hiện ra
+hình sóng như bên dưới.
+Xem thời gian từ điểm thấp nhất của hình sóng (A)
+đến điểm mà hình sóng đã tăng lên đến 50% làm
+thời gian rơi
+
+Trị tiêu chuẩn ±
+10%
+Về nguyên tắc, lấy
+trị đo đạc khi mua
+vào làm trị tiêu
+chuẩn
+
+Trích dẫn, tài liệu liên quan
+Quy cách phán định: Thiết định trong công ty
+Soạn thảo phương pháp hiệu chỉnh của nơi chế tạo làm tham khảo
+Thời gian rơi
+
+--- HẾT TRANG ---
+
+No.5/6
+Dụng cụ trắc định 011-6 c
+
+Ⅱ 【Điểm kiểm】           Máy thí nghiệm quấn dây xung lực
+(ECG-KOKUSAI DWX-05A)
+
+Tiến độ kiểm tra:       mỗi lần sử dụng
+
+Hạng mục điểm
+kiểm
+Phương pháp điểm kiểm
+Phương pháp phán
+định
+
+1. Hình sóng
+
+2. Kết nối dây cáp
+
+Biểu thị hình sóng có ổn định không.
+
+Dây cáp có bị lỏng, bị đứt không.
+
+Không có dị thường
+
+Ghi chú
+1.Kết quả kiểm tra được ghi lại mỗi tháng một lần bất kể có bất thường hay không
+2.Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy
+ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu.
+Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện
+hiệu chỉnh
+
+--- HẾT TRANG ---
+
+No.6/6
+Dụng cụ trắc định 011-6
+Tài liệu tiêu chuẩn hiệu chỉnh điểm kiểm
+Biểu lý lịch những ban hành, cải chính và hủy bỏ
+
+Ký
+hiệu
+Ngày tháng
+năm
+Nội dung
+(bao gồm những nội dung sửa đổi)
+Soạn
+thảo
+Xác nhận
+Công
+Nhận
+
+17/8/2011
+Ban hành quy cách mới
+益永
+奈良 埴生
+糸川
+a
+10/5/2012
+(Người khởi xướng cải đính : P. Kiểm tra
+DDM黄玩馨)
+-Thay đổi tại mục 2 (3)
+[WIDTH-5] → [WIDTH-5]
+-Mục 3 Bổ sung hạng mục/thay đổi mã số
+(3) Sau khi thiết định điện áp, nhấn [F1]
+(3) → (4)
+-Thay đổi mã số cải đính
+[Hiệu chỉnh] 011-6_→011-6a
+※[Điểm kiểm] 011-6 (không thay đổi)
+
+奈良
+
+埴生
+糸川
+
+b
+
+2016.03.10
+
+[ Hiệu chỉnh ] sử dụng máy thực tế để xác
+nhận và xem xét lại cách hiệu chỉnh của
+nơi chế tạo
+1. Đã tập hợp xuất lực cao áp 3. và điều
+chỉnh xuất lực cao áp  xem như là việc
+xác nhận xuất lực cao áp
+2. Thay đổi điều chỉnh offset thành xác
+nhận offset, điểu chỉnh để có thể hiểu được
+phương pháp phán định
+3. Điều chỉnh để có thể dễ dàng hiểu được
+định nghĩa về thời gian rơi (5)
+II. [ Điểm kiểm ] ghi thêm phần không có dị
+thường vào phán định
+
+村野
+伊藤
+石野
+
+c
+
+2024/11/25
+
+・Bổ sung (Dụng cụ hỗ trợ : MTR dùng cho
+hiệu chỉnh) vào dòng dụng cụ chuẩn
+・Ⅰ【Hiệu chỉnh】Bổ sung MTR dùng cho
+hiệu chỉnh, sơ đồ dây và tóm tắt MTR dùng
+cho hiệu chỉnh vào phần <chuẩn bị trước
+khi hiệu chỉnh>
+・Ⅱ【Điểm kiểm】
+Sửa đổi tiến độ điểm kiểm thành「Mỗi
+tháng 1 lần và mỗi lần sử dụng」
+Cải đính toàn bộ hạng mục chú ý
+
+Ban chính BHCL công ty cổ phần MAB
+
+山
+元
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "011-6-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh - và kiểm tra dụng cụ đo",
+  "doc_code": "011-6",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

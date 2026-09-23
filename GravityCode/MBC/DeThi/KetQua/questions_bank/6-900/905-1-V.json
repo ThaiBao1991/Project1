@@ -1,0 +1,50 @@
+{
+  "file_name": "905-1-V.pdf",
+  "folder_name": "6-900 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và điểm kiểm dụng cụ đo Máy đo gió kiểu Ben",
+  "doc_code": "905-1c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trường hợp nếu có dị thường khi điểm kiểm (hoặc khi sử dụng), hành động xử lý nào sau đây là đúng theo tiêu chuẩn?",
+      "options": {
+        "A": "Tự ý tháo ra sửa chữa rồi tiếp tục sử dụng bình thường",
+        "B": "Kí lục lại kết quả đó, và xử lí theo chỉ thị của người chịu trách nhiệm của phòng ban sở hữu",
+        "C": "Chỉ cần ghi chép lại vào sổ và bỏ qua không cần báo cáo nếu máy vẫn chạy",
+        "D": "Đợi đến chu kỳ 12 tháng sau đem đi hiệu chỉnh lại"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, phần Chú ý, mục 2: 'Trường hợp nếu có dị thường khi điểm kiểm (hoặc khi sử dụng), thì kí lục lại kết quả đó, và xử lí theo chỉ thị của người chịu trách nhiệm của phòng ban sở hữu.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm đối với máy đo gió kiểu Ben được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và trước khi sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "3 tháng một lần",
+        "D": "Chỉ kiểm tra khi có yêu cầu từ phòng BHCL"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, phần II [Điểm kiểm], Tiến độ điểm kiểm: 'Mỗi tháng 1 lần và mỗi lần sử dụng'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Phạm vi đo và độ chính xác của thể thức Kestrel 3000 bao gồm những thông số nào sau đây?",
+      "options": {
+        "A": "+0.6~+40m/s và độ chính xác ±(0.2m/s+1.5%rdg.+1digit)",
+        "B": "+0.3~+40m/s; -29℃ ~ +70℃ với độ chính xác giá trị đọc ±3% hoặc ±0.1 m/s và ±1℃",
+        "C": "1.5~35.00m/s với độ chính xác ±0.75% of reading + 0.5% FS",
+        "D": "0～30m/s và -10℃ ～ +45 ℃"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, phần I [Hiệu chỉnh], Bảng thông số: Kestrel 3000 (+0.3~+40m/s, Giá trị đọc±3% hoặc ±0.1 m/s; -29℃ ~ +70℃, ±1℃)"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

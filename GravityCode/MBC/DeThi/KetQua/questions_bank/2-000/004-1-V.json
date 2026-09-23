@@ -1,0 +1,50 @@
+{
+  "file_name": "004-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "THIẾT BỊ KIỂM TRA HÌNH SÓNG",
+  "doc_code": "004-1 s",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Trong quá trình thực hiện kiểm tra hoặc hiệu chỉnh, nếu phát hiện điểm kiểm có hiện tượng bất thường, nhân viên phụ trách phải xử lý như thế nào theo ghi chú trong tài liệu?",
+      "options": {
+        "A": "Tự ý tháo máy ra sửa chữa ngay lập tức",
+        "B": "Bỏ qua nếu không ảnh hưởng lớn đến đo lường",
+        "C": "Ghi chép lại kết quả bất thường đó và xử lý theo chỉ thị của người có trách nhiệm quản lý",
+        "D": "Chờ đến chu kỳ hiệu chỉnh 12 tháng sau mới báo cáo"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 5, Ghi chú mục 1: Trường hợp điểm kiểm thấy bất thường, ghi chép lại kết quả bất thường đó và xử lý theo chỉ thị của người có trách nhiệm quản lý."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo mục 【Điểm kiểm】 Thiết bị kiểm tra hình sóng, tiến độ kiểm tra đối với hạng mục 'Xác nhận VOLTS/DIV' (cho tiếp xúc chấu điện tín hiệu đưa ra CALIBRATION với INPUT) được thực hiện với tần suất như thế nào?",
+      "options": {
+        "A": "Mỗi ngày 1 lần trước khi sản xuất",
+        "B": "1 tháng / 1 lần",
+        "C": "6 tháng / 1 lần",
+        "D": "12 tháng hoặc khi cần thiết"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 4, Mục 【Điểm kiểm】, Tiến độ kiểm tra: Mỗi lần sử dụng / Hạng mục điểm kiểm 2. Xác nhận VOLTS/DIV (1 tháng/ 1 lần)"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Chu kỳ hiệu chỉnh chuẩn được quy định đối với thiết bị kiểm tra hình sóng là bao lâu?",
+      "options": {
+        "A": "6 tháng hoặc khi xác nhận thấy cần thiết",
+        "B": "12 tháng hoặc khi xác nhận thấy cần thiết",
+        "C": "24 tháng hoặc theo yêu cầu của khách hàng",
+        "D": "3 tháng một lần bắt buộc"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Mục 【Hiệu chỉnh】, Chu kỳ hiệu chỉnh: 12 tháng hoặc khi xác nhận thấy cần thiết"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

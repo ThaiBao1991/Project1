@@ -1,0 +1,50 @@
+{
+  "file_name": "038-4-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn điểm kiểm – hiệu chỉnh dụng cụ đo đạc - Máy thí nghiệm điện trở cách điện/điện áp chịu đựng (Series KIKUSUI TOS5300)",
+  "doc_code": "038-4c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo mục tiêu chuẩn điểm kiểm, tần suất tiến hành điểm kiểm đối với máy thí nghiệm điện trở cách điện là khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần và trước mỗi ca sản xuất",
+        "B": "Mỗi lần sử dụng, mỗi một tháng",
+        "C": "3 tháng một lần hoặc khi có yêu cầu đặc biệt",
+        "D": "12 tháng một lần định kỳ bắt buộc"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 9: 'Tiến độ điểm kiểm: mỗi lần sử dụng, mỗi một tháng'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục hạng mục chú ý khi hiệu chỉnh, quy định nào sau đây về thời gian bật/tắt công tắc POWER là BẮT BUỘC để tránh gây sự cố và mất khả năng bảo hộ?",
+      "options": {
+        "A": "Sau khi tắt công tắc POWER, phải bật lại công tắc POWER sau khoảng thời gian trên 10 phút.",
+        "B": "Có thể bật tắt liên tục ON/OFF ngay lập tức mà không cần chờ đợi.",
+        "C": "Sau khi tắt công tắc POWER, phải chờ ít nhất 30 giây mới được bật lại.",
+        "D": "Chỉ được bật công tắc POWER tối đa 1 lần trong suốt quá trình hiệu chỉnh."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: '<Hạng mục chú ý> ・ Sau khi tắt công tắc POWER ⑳ thì sẽ bật công tắc POWER ⑳ sau khoảng thời gian trên 10 phút. Nếu lặp lại ON/OFF thì sẽ là nguyên nhân gây sự cố và mất khả năng bảo hộ.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Trong quá trình hiệu chỉnh chức năng đồng hồ đo điện áp chịu đựng (phần 1. Điện áp xuất ra), đối với điện áp xuất lực 5.00kV của chế độ ACW, tỷ lệ biến động điện áp cho phép theo Biểu 2 là bao nhiêu?",
+      "options": {
+        "A": "±1%",
+        "B": "±3%",
+        "C": "±5%",
+        "D": "±10%"
+      },
+      "correct_answer": "D",
+      "reference_note": "Trang 2: Biểu 2 - ACW, Điện áp xuất lực 5.00kV, Tỷ lệ biến động điện áp: ±10%"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

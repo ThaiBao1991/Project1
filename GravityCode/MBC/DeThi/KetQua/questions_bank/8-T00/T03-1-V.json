@@ -1,0 +1,50 @@
+{
+  "file_name": "T03-1-V.pdf",
+  "folder_name": "8-T00 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh- điểm kiểm",
+  "doc_code": "T03-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, khi tiến hành đo để tạo ra trị tiêu chuẩn cho máy đo ứng lực tia X μ-360X, số lần đo liên tục cần thực hiện là bao nhiêu?",
+      "options": {
+        "A": "10 lần",
+        "B": "15 lần",
+        "C": "20 lần",
+        "D": "30 lần"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Tiến hành đo liên tục 20 lần, tính toán ra trị trung bình và 3σ từ 20 thông số."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Điều kiện môi trường xung quanh nào được quy định để bảo quản và duy trì giá trị tiêu chuẩn hiệu chỉnh?",
+      "options": {
+        "A": "Nhiệt độ 23℃±7℃, độ ẩm tương đối 15～85％",
+        "B": "Nhiệt độ 25℃±5℃, độ ẩm tương đối dưới 50％",
+        "C": "Nhiệt độ 20℃±2℃, độ ẩm tương đối 60±10％",
+        "D": "Nhiệt độ 30℃±5℃, độ ẩm tương đối 20～80％"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: Nhiệt độ môi trường xung quanh 23℃±7℃ Độ ẩm tương đối 15～85％"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý về bảo quản và thao tác với tấm tiêu chuẩn ứng lực, quy định nào sau đây là BẮT BUỘC phải tuân thủ để tránh phát sinh rỉ sét hoặc hỏng hóc?",
+      "options": {
+        "A": "Có thể dùng tay không sờ trực tiếp vào tấm tiêu chuẩn để thao tác nhanh.",
+        "B": "Bảo quản ở nơi ít không khí ẩm như trong bình hút ẩm đóng kín bằng giấy chống rỉ sét và khi sờ vào phải mang bao tay.",
+        "C": "Rửa sạch tấm tiêu chuẩn bằng nước ấm sau mỗi lần sử dụng.",
+        "D": "Đặt tấm tiêu chuẩn ở khu vực thoáng khí ngoài trời để nhiệt độ không bị quá cao."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Bảo quản ở nơi ít không khí ẩm như trong bình hút ẩm đóng kín bằng giấy chổng rỉ sét nhằm tránh phát sinh rỉ sét. Khi sờ vào tầm tiêu chuẩn thì phải mang bao tay."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

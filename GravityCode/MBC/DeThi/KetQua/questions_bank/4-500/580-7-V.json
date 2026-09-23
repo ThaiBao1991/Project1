@@ -1,0 +1,50 @@
+{
+  "file_name": "580-7-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định CÂN PHÂN TÍCH ĐIỆN TỬ (KHUÔN CÂN TRONG MÁY)",
+  "doc_code": "580-7e",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo mục I [Hiệu chỉnh], chu kì hiệu chỉnh định kỳ đối với cân phân tích điện tử được quy định ra sao?",
+      "options": {
+        "A": "Mỗi tháng 1 lần hoặc khi thấy cần thiết",
+        "B": "Mỗi 6 tháng hoặc khi thay đổi vị trí cân",
+        "C": "Mỗi 3 tháng hoặc khi thấy cần thiết",
+        "D": "Mỗi 1 năm một lần theo lịch thiết bị"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, I. [Hiệu chỉnh] - Chu kì hiệu chỉnh: Mỗi 3 tháng hoặc khi thấy cần thiết"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo mục II [Điểm kiểm], tiến độ điểm kiểm đối với cân phân tích điện tử (AND GR-120, GR-200, GR-202, GR-300) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần sử dụng một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 4, II. [Điểm kiểm] - Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục II [Điểm kiểm] và phần Chú ý, trong trường hợp kiểm tra không thấy bất thường thì thao tác ghi chép kết quả được quy định như thế nào là đúng?",
+      "options": {
+        "A": "Không cần ghi chép kết quả kiểm tra vào bất kỳ thời điểm nào trong suốt quá trình sử dụng.",
+        "B": "Không thấy bất thường thì không ghi kết quả cũng được, nhưng mỗi tháng một lần phải ghi lại kết quả đã điểm kiểm, dù không có gì bất thường xảy ra.",
+        "C": "Phải ghi chép kết quả đầy đủ 100% vào biên bản sau mỗi lần sử dụng bất kể có phát hiện bất thường hay không.",
+        "D": "Chỉ ghi chép kết quả khi có người quản lý trực tiếp đứng cạnh giám sát và ký xác nhận."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 4, II. [Điểm kiểm] - Chú ý 2: Kết quả kiểm tra trường hợp không thấy bất thường, không ghi kết quả cũng được, nhưng mỗi tháng một lần phải ghi lại kết quả đã điểm kiểm, dù không có gì bất thường xảy ra."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

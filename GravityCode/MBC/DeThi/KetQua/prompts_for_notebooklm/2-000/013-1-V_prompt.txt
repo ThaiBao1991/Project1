@@ -1,0 +1,317 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Tài liệu tiêu chuẩn hiệu chỉnh - và kiểm tra dụng cụ trắc định
+Mã số/Mã máy đo: EC
+File gốc: 013-1-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/3
+Tài liệu tiêu chuẩn hiệu chỉnh
+và kiểm tra dụng cụ trắc định
+
+MÁY ĐO EC
+
+Mabuchi motor Co., Ltd
+Ban chính bảo hành chất lượng
+
+Ngày ban hành 11.11.1983
+Ngày thay đổi  08.11.2022
+Dụng cụ trắc định 013-1f
+
+Ⅰ【Hiệu chỉnh】
+Dụng cụ chuẩn
+Thiết bị quan sát số vòng quay motor (Stroboscope) [S32-1], [005-2]
+Thiết bị hiệu chỉnh dòng điện DC[S01-□], máy hiệu chỉnh đa giao
+thức[S01-3]
+Chu kỳ hiệu chỉnh
+24 tháng và khi cần thiết
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp phán
+định
+
+1. Hiệu chỉnh số
+vòng quay.
+
+2. Biểu thị điện áp.
+(Áp dụng cho máy
+đo điện áp lắp sẵn
+bên trong )
+
+<phương pháp điều
+chỉnh>
+※Chỉ thực hiện điều
+chỉnh những máy có
+ốc điều chỉnh
+SPAN(GAIN)
+
+Dùng máy Stroboscope đã được hiệu chỉnh đo đạc sự
+biến động số vòng quay của trục quay máy đo EC.
+Hiệu chỉnh tại mức 3000 rpm và ở cả hai chiều quay
+CW (chiều kim đồng hồ) và CCW (chiều ngược kim
+đồng hồ) （Trường hợp thay đổi mã hàng thì hiệu chỉnh
+tất cả các phạm vi của số vòng quay）
+
+Bổ sung điện áp đến chấu điện nhập vào máy đo Ec từ
+máy hiệu chỉnh đa giao thức hoặc thiết bị hiệu chỉnh
+dòng điện 1 chiều, đọc sai số điện áp với trị biểu thị,
+
+Biểu 1
+Điểm hiệu chỉnh
+2 cực tính phía(-),phía(+)
+Phán định
+3.0 V
+±0.1%±1 digit
+6.0 V
+9.0 V
+12.0V
+15.0V
+18.0V
+
+Cho dù trị biểu thị của máy đo EC là hợp cách hay bất
+hợp cách nhưng trường hợp lệch so với điểm hiệu
+chỉnh hãy tiến hành chỉnh sửa như sau.
+Tháo nắp đậy bằng nhựa của bọ phận hiển thị điện áp
+của máy đo EC, xoay vít điều chỉnh SPAN một cách
+nhẹ nhàng sang trái, phải bằng tuộc nơ vít âm ở phía
+dưới bên trái bộ phận hiển thị, điều chỉnh sao cho càng
+gần điểm điều chỉnh càng tốt.
+Điểm điều chỉnh thì lấy 18.0V và thực hiện trong tình
+trạng gia tăng điện áp từ máy chuẩn là 18.0V. Sau khi
+điều chỉnh, xác nhận biểu thị điện áp của các điểm hiệu
+chỉnh lần nữa.
+
+±0.3%
+
+Thông qua biểu 1
+
+Bản trích dẫn liên quan
+Thiết định trong nội bộ công ty
+
+--- HẾT TRANG ---
+
+No.2/3
+Dụng cụ trắc định 013-1f
+
+Ⅱ 【Điểm kiểm】           MÁY ĐO EC
+
+Tiến độ kiểm tra    Mỗi tháng 1 lần và mỗi lần sử dụng
+
+Hạng mục điểm
+kiểm
+Phương pháp điểm kiểm
+Phương pháp phán
+định
+
+1.Ngoại quan
+
+2. Bộ phận nối với
+motor.
+
+3. Bộ phận đưa điện
+áp vào.
+(Áp dụng cho kiểu
+bên trong máy
+đo điện áp)
+Xác nhận rằng không có sai sót có hại như làm hư hại,
+dính dị vật.
+
+Xác nhận xem đầu nối có khớp với trục của Motor
+không.
+Trường hợp lo ngại lỗ của đầu nối bị mòn , nhẵn thì
+xác nhận sai lệch số vòng quay ở 3000 rmp theo
+phương pháp sau:
+(1) Đo số vòng quay của chấu nối
+
+đầu nối   thiết bị đo số
+vòng quay
+Máy đo EC
+
+(2) Đo số vòng quay của trục Motor
+
+Motor
+
+Xác nhận xem chấu điện có lỏng, dây lead có đ ứt hay
+không.
+
+Chú ý)1.Kết quả kiểm tra được ghi lại mỗi tháng một lần bất kể có bất thường hay không
+2.Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy
+ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu.
+Trường hợp cần thiết thì làm đơn đ ề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện
+hiệu chỉnh
+
+--- HẾT TRANG ---
+
+No.3/3
+Dụng cụ trắc định 013-1
+Tài liệu tiêu chuẩn hiệu chỉnh điểm kiểm
+Biểu lý lịch những ban hành, cải chính và hủy bỏ
+
+Dấu
+hiệu
+Ngày tháng
+năăm
+Nội dung (bao gồm những nội dung sửa
+đổi)
+Soạn
+thảo
+Xác nhận
+Công
+Nhận
+
+11.11.1983
+Ban hành quy cách mới.
+Shima
+mura
+Onishi
+Takada
+a
+11.10.1994
+Xóa bỏ dụng cụ tiêu chuẩn   (DS  48),
+(YEW 2550)
+Xoá bỏ mức độ khó dễ B, thời gian cấp
+thiết 30’
+Nara
+Taka
+shima
+Saka
+moto
+b
+22.02.1996
+Xóa bỏ 1500 ở phương pháp hiệu chỉnh số
+vòng quay.
+Thay đổi phương pháp phán định: Trong
+phạm vi thay đổi hoạt động của tần số
+sóng nguồn điện   0. 3 %.
+Nara
+Taka
+shima
+Saka
+moto
+c
+1996.08.21
+Hạng mục hiệu chỉnh biểu thị điện áp: thay
+đổi phương phán định.
+±0.1% → trị số đưa vào
+± 0.1%±1 digit
+Nara
+Mihara
+Saka
+moto
+
+d
+2003.03.31
+Chỉnh sửa toàn phần.
+
+Itou
+Ishino
+Yamashit
+a
+e
+
+26.07.2013
+Máy tiêu chuẩn: Bổ sung [S01-3] máy hiệu
+chỉnh đa giao thức
+I.[Hiệu chỉnh]: Bổ sung <phương pháp điều
+chỉnh>, bổ sung biểu 1, thay đổi cụm từ
+hạng mục 2
+Bổ sung văn bản trích dẫn liên quan.
+II [Điểm kiểm]
+Bổ sung ngoại quan hạng mục 1
+Bashida
+
+(Xác
+nhận dịch
+thuật:
+Quỳnh
+24250)
+Itou
+Iwata
+f
+2022.11.08
+・Hạng mục điều chỉnh 1: Bổ sung điểm
+hiệu chỉnh khi thay đổi mã hàng.
+・Hạng mục điều chỉnh 2: Bổ sung [thực
+hiện điều chỉnh chỉ những máy có ốc điều
+chỉnh SPAN <Phương pháp điều chỉnh>.
+・II【Điểm kiểm】
+Cải đính toàn phần hạng mục chú ý tiến
+độ điểm kiểm [mỗi tháng 1 lần và theo tần
+suất sử dụng]
+Koizumi
+Ishii
+Shimizujou
+Kumakura
+
+Ban chính BHCL công ty cổ phần MAB
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "013-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh - và kiểm tra dụng cụ trắc định",
+  "doc_code": "EC",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

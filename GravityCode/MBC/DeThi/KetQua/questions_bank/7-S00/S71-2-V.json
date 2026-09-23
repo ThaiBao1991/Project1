@@ -1,0 +1,50 @@
+{
+  "file_name": "S71-2-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Máy hiệu chỉnh máy kiểm tra tính năng MTR Tesmex TS006(Dùng cho DMT5/6/7)",
+  "doc_code": "S71-2",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi thực hiện hiệu chỉnh tần số ở số vòng quay 5000rpm cho máy Tesmex TS006, giá trị tần số thiết định cần so sánh là bao nhiêu?",
+      "options": {
+        "A": "100Hz",
+        "B": "250Hz",
+        "C": "500Hz",
+        "D": "1000Hz"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: (3) So sánh 250Hz(khi 5000rpm) đã thiết định..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo phần chú ý khi kiểm tra ngoại quan, trong trường hợp phát sinh những bất thường hoặc phát hiện điểm bất thường trong quá trình sử dụng, nhân viên cần phải xử lý như thế nào?",
+      "options": {
+        "A": "Tự ý tháo vỏ máy ra để sửa chữa các mối nối bên trong ngay lập tức.",
+        "B": "Ghi chép lại trong kết quả kiểm tra rồi xử lí theo chỉ thị của quản lí.",
+        "C": "Bỏ qua không cần ghi chép nếu thiết bị vẫn hoạt động bình thường ở chu kỳ tiếp theo.",
+        "D": "Chỉ cần báo cáo miệng cho đồng nghiệp cùng ca làm việc mà không cần ghi lại."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5: Chú ý: 1. Trong trường hợp phát sinh những bất thường hãy ghi chép lại trong kết quả kiểm tra rồi xử lí theo chỉ thị của quản lí."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn kiểm tra, tiến độ điểm kiểm đối với mục ngoại quan của máy hiệu chỉnh máy kiểm tra tính năng MTR Tesmex TS006 được thực hiện với tần suất như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Một tháng một lần",
+        "D": "Trước khi giao hàng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5: Tiến độ điểm kiểm - Mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

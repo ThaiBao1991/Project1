@@ -1,0 +1,50 @@
+{
+  "file_name": "537-5-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bảng Tiêu Chuẩn Điểm Kiểm - Hiệu Chỉnh Máy Đo",
+  "doc_code": "537-5b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Trong quá trình hiệu chỉnh chính xác theo bộ phận quả cầu chuẩn (Phần điều chỉnh chính xác sai bậc), khi nhập điều kiện đo trên thanh menu, thông số Chiều dài được cài đặt là bao nhiêu?",
+      "options": {
+        "A": "10.4 mm",
+        "B": "8 mm (cố định)",
+        "C": "10.0 mm",
+        "D": "20.0 mm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3 - Mục I. Hiệu chỉnh, phần (2): 'Chiều dài : 8 mm (cố định)'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo mục ngoại quan và trạng thái kim tiếp xúc, khi kiểm tra cần dùng công cụ nào để xác định kim tiếp xúc có bị gỉ sét, mẻ hay không?",
+      "options": {
+        "A": "Dùng kính lúp",
+        "B": "Dùng thước cặp",
+        "C": "Dùng đồng hồ so",
+        "D": "Dùng thước đo block"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 4 - Mục II. Điểm kiểm, phần 2. Trạng thái kim tiếp xúc: 'Dùng kính hiể[n] vi để xác nhận kim tiếp xúc có bị gỉ sét, mẻ.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo phần chú ý khi kết quả điểm kiểm phát sinh dị thường hoặc không phát sinh dị thường, phát biểu nào sau đây là ĐÚNG theo tài liệu quy định?",
+      "options": {
+        "A": "Trường hợp kết quả điểm kiểm có dị thường thì cứ tiếp tục sử dụng bình thường mà không cần báo cáo.",
+        "B": "Trường hợp kết quả điểm kiểm có dị thường thì ghi chép lại kết quả đó và xử lý theo chỉ thị của người có trách nhiệm quản lý.",
+        "C": "Trường hợp kết quả điểm kiểm không có dị thường trong vòng 3 tháng không phát sinh dị thường thì ghi lại kết quả đó 1 lần.",
+        "D": "Trường hợp khi sử dụng mà phát hiện dị thường thì tự ý tháo máy sửa chữa."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5 - Phần Chú ý: '1. Trường hợp kết quả điểm kiểm có dị thường thì ghi chép lại kết quả đó và xử lý theo chỉ thị của người có trách nhiệm quản lý.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

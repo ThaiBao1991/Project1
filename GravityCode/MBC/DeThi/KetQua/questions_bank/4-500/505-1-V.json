@@ -1,0 +1,50 @@
+{
+  "file_name": "505-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "MÁY PHÓNG ẢNH - Bản tiêu chuẩn hiệu chỉnh・điểm kiểm dụng cụ đo",
+  "doc_code": "505-1 h",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm (kiểm tra định kỳ) máy phóng ảnh được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần và mỗi 6 tháng",
+        "B": "Mỗi lần sử dụng, và mỗi tháng",
+        "C": "Chỉ khi phát hiện ra lỗi bất thường trong quá trình đo",
+        "D": "Mỗi năm một lần vào cuối kỳ"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3 - Mục Ⅱ【Điểm kiểm】: Tiến độ điểm kiểm: Mỗi lần sử dụng, và mỗi tháng, châm dầu theo biểu dưới"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý về điểm kiểm, trong trường hợp phát hiện có dị thường trong quá trình điểm kiểm hoặc sử dụng, nhân viên thực hiện phải xử lý như thế nào?",
+      "options": {
+        "A": "Tự ý tháo dỡ máy để sửa chữa nhanh chóng nhằm kịp tiến độ sản xuất",
+        "B": "Bỏ qua lỗi nếu thấy sai số nhỏ hơn giới hạn cho phép",
+        "C": "Ghi lại kết quả đó và thực hiện xử lý theo chỉ thị của người có trách nhiệm bộ môn quản lý",
+        "D": "Tiếp tục sử dụng máy bình thường và chỉ báo cáo vào cuối tháng"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3 - Mục Ⅱ【Điểm kiểm】 - Chú ý 2: Khi điểm kiểm (hoặc trong quá trình sử dụng), trường hợp có dị thường thì phải ghi lại kết quả đó và thực hiện xử lý theo chỉ thị của người có trách nhiệm bộ môn quản lý."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Phương pháp phán định đối với 'Độ chính xác chỉ thị của bàn di chuyển theo hai hướng trục X, Y' (với L là lượng di chuyển của bàn bằng mm) là gì?",
+      "options": {
+        "A": "Dưới (6+L/25) µm",
+        "B": "Dưới (8+L/20) µm",
+        "C": "Dưới 0.1%",
+        "D": "90°±5'"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1 - Mục I【Hiệu chỉnh】 - Hạng mục 2: Phương pháp phán định: Dưới (6+L/25)µm"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

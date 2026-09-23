@@ -1,0 +1,50 @@
+{
+  "file_name": "650-1-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "TIÊU CHUẨN HIỆU CHỈNH-ĐIỂM KIỂM MÁY ĐO ÁNH SÁNG KỸ THUẬT SỐ",
+  "doc_code": "650-1 f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình điểm kiểm hoặc sử dụng, nếu phát hiện máy đo ánh sáng có dị thường, nhân viên phụ trách phải xử lý theo quy định nào dưới đây?",
+      "options": {
+        "A": "Tự ý tháo máy ra để sửa chữa các linh kiện bên trong",
+        "B": "Tiếp tục sử dụng bình thường nếu sai số nhỏ",
+        "C": "Kí lục lại kết quả đó, và xử lí theo chỉ thị của người chịu trách nhiệm của phòng ban sở hữu",
+        "D": "Vứt bỏ thiết bị vào thùng rác linh kiện hỏng"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, phần Ⅱ【Điểm kiểm】, Chú ý mục số 2"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn điểm kiểm máy đo ánh sáng kỹ thuật số, tần suất tiến hành điểm kiểm được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần",
+        "B": "Mỗi tháng 1 lần, mỗi lần sử dụng",
+        "C": "3 tháng 1 lần",
+        "D": "Chỉ kiểm tra khi máy có hiện tượng hỏng hóc"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, phần Ⅱ【Điểm kiểm】, mục Tần suất điểm kiểm"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Đối với máy đo ánh sáng điện tử hatatucou model TES-1330A, điều kiện độ chính xác nào sau đây là chính xác theo bảng thông số?",
+      "options": {
+        "A": "±1%rdg ±1dgt",
+        "B": "±2%rdg ±1dgt (<20,000 Lux)",
+        "C": "±3%rdg ±0.5%f.s. (<10,000 Lux) và ±4%rdg ±10dgt (>10,000 Lux)",
+        "D": "±5%rdg ±4dgt"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, phần Ⅰ【Hiệu chỉnh】, bảng thông số Điện tử hatatucou TES-1330A"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

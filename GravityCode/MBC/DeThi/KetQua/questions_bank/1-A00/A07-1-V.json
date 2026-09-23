@@ -1,0 +1,59 @@
+{
+  "file_name": "A07-1-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "Xử lí dung cụ đo hiệu chỉnh không hợp cách",
+  "doc_code": "A07 - 1 a",
+  "target_audience": "Nhân viên, Đội trưởng",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo mục 4 của tiêu chuẩn A07-1 a, phương pháp xử lí đối với dụng cụ đo hiệu chỉnh không hợp cách yêu cầu như thế nào đối với việc ghi chép?",
+      "options": {
+        "A": "Chỉ cần ghi miệng báo cáo cho cấp trên",
+        "B": "Ghi chép tùy ý theo sổ tay cá nhân",
+        "C": "Phương pháp xử lí phải được ghi chép đầy đủ",
+        "D": "Không bắt buộc phải ghi chép lại"
+      },
+      "correct_answer": "C",
+      "reference_note": "Mục 4. Ghi chép - Tiêu chuẩn A07-1 a"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn A07-1 a, khi phát hiện dụng cụ đo có kết quả hiệu chỉnh không hợp cách, phương pháp biểu thị lên vật là gì?",
+      "options": {
+        "A": "Phải có biểu thị không hợp cách lên dụng cụ đo đã hiệu chỉnh không hợp cách, bằng cách dán giấy hay gắn bảng có ghi nội dung không hợp cách lên dụng cụ đó.",
+        "B": "Chỉ cần dán nhãn xanh thông đạt lên thiết bị.",
+        "C": "Cất ngay vào tủ dụng cụ để tránh người khác sử dụng.",
+        "D": "Không cần làm gì nếu thiết bị vẫn hoạt động bình thường."
+      },
+      "correct_answer": "A",
+      "reference_note": "Mục 1. Biểu thị lên hiện vật - Tiêu chuẩn A07-1 a"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục 3 của tiêu chuẩn A07-1 a, ai là người có trách nhiệm quản lí sau khi nhận thông báo về dụng cụ đo không hợp cách sẽ quyết định xử lí hủy bỏ, sửa chữa ở nhà sản xuất, hay các việc khác có ghi chép trên form thông báo?",
+      "options": {
+        "A": "Nhân viên sản xuất trực tiếp sử dụng thiết bị",
+        "B": "Người có trách nhiệm quản lí sau khi nhận thông báo",
+        "C": "Bộ phận bảo vệ nhà máy",
+        "D": "Nhân viên kho thiết bị đo lường"
+      },
+      "correct_answer": "B",
+      "reference_note": "Mục 3. Xử lí - Tiêu chuẩn A07-1 a"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140272.1343699,
+  "generated_at_iso": "2026-09-23T12:11:12",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 56704,
+    "modified_time": 1339644015.0769937,
+    "modified_time_iso": "2012-06-14T10:20:15",
+    "file_hash_short": "9aaf4096"
+  }
+}

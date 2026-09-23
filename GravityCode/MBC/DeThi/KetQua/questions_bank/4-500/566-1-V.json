@@ -1,0 +1,50 @@
+{
+  "file_name": "566-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Máy đo đường kính ngoài khía (Loại 0.01 mm gê-ji bề dày dial/ digital)",
+  "doc_code": "566-1 i",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo mục I (Hiệu chỉnh) - Hạng mục \"Hình dạng đầu đo\", phương pháp hiệu chỉnh yêu cầu xác định khoảng cách giữa 2 điểm hướng trục X của tọa độ tâm phía trục chính và cái đe với PP phán định là bao nhiêu?",
+      "options": {
+        "A": "0 ± 0.010 mm",
+        "B": "0 ± 0.015 mm",
+        "C": "0 ± 0.020 mm",
+        "D": "0 ± 0.030 mm"
+      },
+      "correct_answer": "D",
+      "reference_note": "Trang 1, Phần I, Hạng mục 1. Hình dạng đầu đo: PP phán định là 0 ± 0.030 mm"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo mục II (Điểm kiểm) của tiêu chuẩn, tiến độ điểm kiểm đối với máy đo đường kính ngoài khía là khi nào?",
+      "options": {
+        "A": "Mỗi ngày một lần",
+        "B": "Mỗi tuần một lần",
+        "C": "Mỗi lần sử dụng",
+        "D": "Mỗi tháng một lần"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3, Phần II (Điểm kiểm), Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục I (Hiệu chỉnh) của tiêu chuẩn, chu kì hiệu chỉnh cho máy đo đường kính ngoài khía là bao lâu?",
+      "options": {
+        "A": "3 tháng hoặc khi cần thiết",
+        "B": "6 tháng hoặc khi cần thiết",
+        "C": "1 năm hoặc khi cần thiết",
+        "D": "2 năm hoặc khi cần thiết"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Phần I (Hiệu chỉnh), Chu kì hiệu chỉnh: 6 tháng hoặc khi cần thiết"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

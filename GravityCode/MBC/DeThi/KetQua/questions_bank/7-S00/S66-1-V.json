@@ -1,0 +1,50 @@
+{
+  "file_name": "S66-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH DỤNG CỤ TIÊU CHUẨN Pin geji dùng hiệu chỉnh loại tiếp xúc",
+  "doc_code": "S66-1 f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo tiêu chuẩn S66-1 f, phương pháp phán định đường kính ngoài (ở nhiệt độ tiêu chuẩn 23±5℃) đối với Pin geji là bao nhiêu?",
+      "options": {
+        "A": "±0.1μm của kích thước danh nghĩa",
+        "B": "±0.5μm của kích thước danh nghĩa",
+        "C": "±1μm của kích thước danh nghĩa",
+        "D": "±2μm của kích thước danh nghĩa"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: 'Phương pháp phán định: ±1μm của kích thước danh nghĩa'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Trong trường hợp thực hiện hiệu chỉnh trong công ty đối với Pin geji không có tay cầm, vị trí đo đạc A, B tiêu chuẩn là gì?",
+      "options": {
+        "A": "Chỉ đo ở 1 vị trí trung tâm duy nhất cho mọi trường hợp",
+        "B": "2 vị trí A, B ở 2 hướng X, Y (tuy nhiên hiệu chỉnh lần đầu có thể đo ở 1 vị trí trung tâm của pin)",
+        "C": "3 vị trí đo dọc theo chiều dài trục pin",
+        "D": "Chỉ đo tại 1 đầu mút của pin geji"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: '② Không có tay cầm - 2 vị trí A,B ở 2 hướng X, Y. Tuy nhiên, trường hợp hiệu chỉnh lần đầu, có thể đo đạc ở 1 vị trí trung tâm của pin'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu S66-1 f, chu kì hiệu chỉnh đối với 'Pin geji dùng hiệu chỉnh loại tiếp xúc' là bao lâu?",
+      "options": {
+        "A": "1 năm",
+        "B": "2 năm",
+        "C": "3 năm",
+        "D": "5 năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: 'Chu kì hiệu chỉnh: 3 năm'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

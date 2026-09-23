@@ -1,0 +1,50 @@
+{
+  "file_name": "545-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "VÍT NGẪU LỰC (Loại vạch đọc)",
+  "doc_code": "545-1 g",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo phần Ghi chú của mục Điểm kiểm, trong trường hợp kết quả kiểm tra không thấy bất thường thì tần suất ghi chép kết quả tối thiểu là gì?",
+      "options": {
+        "A": "Không cần ghi chép bất kỳ trường hợp nào",
+        "B": "Phải ghi chép lại kết quả đã kiểm tra mỗi tuần một lần",
+        "C": "Mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra",
+        "D": "Chỉ ghi chép khi có yêu cầu từ cấp trên"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 6: Ghi chú 2: Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục I 【Hiệu chỉnh】, quy cách phán định dung sai cho phép của trị biểu thị ngẫu lực đối với vít ngẫu lực (loại vạch đọc) là bao nhiêu?",
+      "options": {
+        "A": "±1%",
+        "B": "±3%",
+        "C": "±5%",
+        "D": "±10%"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1 & Trang 4: Quy cách phán định: ±5%"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo mục II 【Điểm kiểm】 của tài liệu, tiến độ thực hiện điểm kiểm đối với vít ngẫu lực (loại vạch đọc) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 6: II 【Điểm kiểm】 - Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

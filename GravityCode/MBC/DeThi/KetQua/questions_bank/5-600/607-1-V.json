@@ -1,0 +1,50 @@
+{
+  "file_name": "607-1-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm - Master chiều cao Mitutoyo No. 515-322,354,356,358,374",
+  "doc_code": "607-1 e",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo bảng tiêu chuẩn hiệu chỉnh, sai số cho phép khi đi của cột block (mục 1) đối với model Master chiều cao Mitutoyo No. 515-322 là bao nhiêu?",
+      "options": {
+        "A": "±3.0 µm",
+        "B": "±2.0 µm",
+        "C": "±1.5 µm",
+        "D": "±3.5 µm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Căn cứ trang 1/6, bảng Biểu đơn vị: µm, dòng số 1 'Sai số khi đi của cột block' đối với cột model '515-322' quy định giá trị là '±1.5'."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi phát hiện bất thường trong quá trình kiểm tra hoặc sử dụng Master chiều cao, nhân viên cần xử lý như thế nào theo đúng quy trình?",
+      "options": {
+        "A": "Tự ý tháo rời thiết bị để kiểm tra và sửa chữa các bộ phận bên trong.",
+        "B": "Tiếp tục sử dụng bình thường và đợi đến kỳ hiệu chỉnh tiếp theo (36 tháng) mới báo cáo.",
+        "C": "Ghi chép lại kết quả, xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu, và làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện hiệu chỉnh nếu cần thiết.",
+        "D": "Chuyển thiết bị sang dây chuyền khác sử dụng để tránh làm gián đoạn sản xuất của bộ phận mình."
+      },
+      "correct_answer": "C",
+      "reference_note": "Căn cứ trang 5/6, mục Chú ý 2: 'Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện hiệu chỉnh'."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm ngoại quan của Master chiều cao được thực hiện với tần suất như thế nào và kết quả được ghi chép ra sao?",
+      "options": {
+        "A": "Mỗi tuần 1 lần; chỉ ghi chép khi phát hiện bất thường.",
+        "B": "Mỗi lần sử dụng và mỗi tháng 1 lần; kết quả kiểm tra được ghi lại mỗi tháng một lần bất kể có bất thường hay không.",
+        "C": "6 tháng một lần; ghi chép kết quả vào sổ nhật ký thiết bị.",
+        "D": "Chỉ kiểm tra khi có nghi ngờ về độ chính xác; không cần ghi chép nếu thiết bị hoạt động bình thường."
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ trang 5/6, mục II Điểm kiểm: Tiến độ điểm kiểm là 'Mỗi lần sử dụng và mỗi tháng 1 lần' và Chú ý 1: 'Kết quả kiểm tra được ghi lại mỗi tháng một lần bất kể có bất thường hay không'."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

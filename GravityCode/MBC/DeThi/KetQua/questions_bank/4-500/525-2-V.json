@@ -1,0 +1,50 @@
+{
+  "file_name": "525-2-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định Thước đo độ dày Digital",
+  "doc_code": "525-2e",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo mục I 【Hiệu chỉnh】, đối với mã số 401 (vạch chia nhỏ nhất 0.001 mm, phạm vi đo 0-12 mm), phạm vi cho phép của độ chính xác tổng hợp là bao nhiêu?",
+      "options": {
+        "A": "0.01 mm",
+        "B": "0.02 mm",
+        "C": "0.003 mm",
+        "D": "0.005 mm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Bảng thông số - Mã số 401, Vạch chia 0.001, Phạm vi đo 0-12, Độ chính xác tổng hợp cho phép: 0.003"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo mục II 【Điểm kiểm】, tiến độ kiểm tra đối với Thước đo độ dày Digital được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần trước khi sử dụng.",
+        "B": "Mỗi lần sử dụng.",
+        "C": "Mỗi tháng một lần.",
+        "D": "Trước mỗi ca sản xuất."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: II 【Điểm kiểm】 - Tiến độ kiểm tra: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục Ghi chú phần II 【Điểm kiểm】, nếu kết quả kiểm tra hàng ngày không thấy bất thường thì việc ghi chép kết quả được thực hiện ra sao?",
+      "options": {
+        "A": "Không cần ghi chép bất kỳ trường hợp nào trong suốt cả năm.",
+        "B": "Phải ghi chép lại toàn bộ kết quả kiểm tra vào mỗi cuối ca làm việc.",
+        "C": "Không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.",
+        "D": "Chỉ ghi chép lại khi cấp trên trực tiếp yêu cầu kiểm tra đột xuất."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: Ghi chú mục 2 - Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

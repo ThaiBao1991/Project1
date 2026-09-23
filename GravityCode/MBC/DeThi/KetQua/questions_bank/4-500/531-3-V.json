@@ -1,0 +1,50 @@
+{
+  "file_name": "531-3-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - ĐỒNG HỒ ĐO LCR Digital (Agilent (HP) 4263A, 4263B)",
+  "doc_code": "531-3b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ kiểm tra (mục Kiểm tra) đối với Đồng hồ đo LCR Digital được quy định thực hiện vào thời gian nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước khi bắt đầu ca làm việc mỗi ngày"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, 4: 'Tiến độ kiểm tra: Mỗi lần sử dụng'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi thực hiện test hoạt động mở (Open) cho đồng hồ Agilent (HP) 4263A/4263B sau khi đặt test fixture ở trạng thái mở và nhấn nút số 4 <Open>, thao tác tiếp theo trên màn hình để xác nhận là gì?",
+      "options": {
+        "A": "Xác nhận biểu thị R=±1.00mΩ, X=±1.00mΩ",
+        "B": "Chọn Open Meas bằng nút hướng và nhấn Enter, xác nhận hiển thị R=…..Ω, X=….Ω",
+        "C": "Nhấn nút <Config> để kết thúc",
+        "D": "Làm đoản mạch test fixture và nhấn 5 <Short>"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 4: 'Cho test fixture ở trạng thái mở... Sau khi chọn “Open Meas” bằng nút ←↓ hoặc là ↑→, nhấn nút < Enter> Xác nhận biểu thị phải là R=…..Ω, X=….Ω.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo quy định ghi chú về kết quả kiểm tra thiết bị, trường hợp kết quả kiểm tra không thấy bất thường thì cần thực hiện việc ghi chép như thế nào?",
+      "options": {
+        "A": "Phải ghi chép lại kết quả chi tiết cho tất cả các lần đo trong ngày",
+        "B": "Không cần ghi chép kết quả mỗi lần đo, nhưng cho dù trong tháng không có bất thường cũng phải ghi chú rõ ràng lại tháng đó không có gì bất thường xảy ra",
+        "C": "Chỉ cần ghi chép lại khi có sự thay đổi ca sản xuất",
+        "D": "Không cần ghi chép hoặc lưu trữ bất kỳ thông tin nào nếu thiết bị vẫn đang hoạt động bình thường"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, 4: 'Ghi chú: 2. Trường hợp kết quả kiểm tra không thấy bất thường không cần ghi chép kết quả mỗi lần đo, nhưng cho dù trong tháng không có bất thường cũng phải ghi chú rõ ràng lại tháng đó không có gì bất thường xảy ra.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

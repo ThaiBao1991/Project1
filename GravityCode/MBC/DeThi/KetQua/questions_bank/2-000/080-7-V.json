@@ -1,0 +1,50 @@
+{
+  "file_name": "080-7-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Pick up gia tốc độ dùng để đo DYTRAN",
+  "doc_code": "080-7 c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm (kiểm tra hàng ngày/định kỳ) đối với pick up gia tốc độ dùng để đo DYTRAN được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và trước khi sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "36 tháng một lần hoặc khi được cho là cần thiết",
+        "D": "Chỉ kiểm tra khi có phát sinh bất thường"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, II 【Điểm kiểm】 - Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Khi thực hiện điểm kiểm hiển thị giá trị độ nhạy, giá trị nào phải được hiển thị trên thiết bị theo đúng tiêu chuẩn?",
+      "options": {
+        "A": "Giá trị độ nhạy mới nhất (giá trị hiệu chuẩn lần trước)",
+        "B": "Giá trị độ nhạy mặc định ban đầu từ nhà sản xuất lúc xuất xưởng",
+        "C": "Giá trị trung bình của 3 lần đo gần nhất",
+        "D": "Giá trị tiêu chuẩn cố định 1.02 mV/(m/s²)"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2, II 【Điểm kiểm】 - Hạng mục điểm kiểm 3: Giá trị độ nhạy mới nhất (giá trị hiệu chuẩn lần trước) phải được hiển thị trên thiết bị."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Trong quá trình điểm kiểm ngoại quan và trạng thái kết nối, yêu cầu kỹ thuật nào sau đây là chính xác?",
+      "options": {
+        "A": "Cáp được phép xoắn nhẹ nhưng không được đứt gãy",
+        "B": "Phần vít nối giữa cảm biến và cáp có thể lỏng lẻo miễn là tín hiệu vẫn truyền được",
+        "C": "Không được có hiện tượng gãy hoặc xoắn ở cáp, không được có sự lỏng lẻo ở phần vít nối giữa cảm biến và cáp",
+        "D": "Cáp phải được bọc cách nhiệt hoàn toàn và cố định cứng bằng băng keo"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, II 【Điểm kiểm】 - Hạng mục điểm kiểm 1 & 2: Không được có hiện tượng gãy hoặc xoắn ở cáp. Ngoài ra, không được có sự lỏng lẻo ở phần vít nối giữa cảm biến và cáp"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

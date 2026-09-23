@@ -1,0 +1,50 @@
+{
+  "file_name": "075-4-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM MÁY ĐO - Máy kiểm tra dây đeo cổ tay SIMCO M-3, M-4",
+  "doc_code": "075-4 a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi kiểm tra xác nhận lượng tồn pin của máy đo, trạng thái đèn nào trên máy yêu cầu phải tiến hành thay thế pin ngay?",
+      "options": {
+        "A": "Đèn báo trạng thái pin sáng xanh",
+        "B": "Đèn báo trạng thái pin nhấp nháy liên tục",
+        "C": "Đèn sáng đỏ",
+        "D": "Không sáng đèn nhưng máy vẫn kêu"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, 2. Xác nhận lượng tồn pin: Đèn báo trạng thái pin phải sáng xanh. Trong trường hợp đèn sáng đỏ thì phải tiến hành thay thế pin."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo quy định về xử lý bất thường khi điểm kiểm, trong trường hợp không phát sinh bất thường thì việc ghi chép lại kết quả được thực hiện ra sao?",
+      "options": {
+        "A": "Không cần ghi chép lại, tuy nhiên dù cho không phát sinh trong vòng một tháng thì cũng cần phải ghi lại.",
+        "B": "Phải ghi chép lại chi tiết vào mỗi đầu ca sản xuất không ngoại lệ.",
+        "C": "Tuyệt đối không được ghi chép vào sổ sách để tiết kiệm giấy.",
+        "D": "Chỉ ghi lại khi quản lý trực tiếp yêu cầu bằng miệng."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2, Chú ý: 2. Trong trường hợp không có bất thường thì không cần ghi chép lại. Tuy nhiên, dù cho không phát sinh trong vòng một tháng thì cũng cần phải ghi lại."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm (tần suất kiểm tra) đối với máy kiểm tra dây đeo cổ tay SIMCO M-3, M-4 được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Mỗi năm một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

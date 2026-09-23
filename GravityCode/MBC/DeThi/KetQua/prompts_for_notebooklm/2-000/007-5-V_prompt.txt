@@ -1,0 +1,440 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Tài liệu tiêu chuẩn hiệu chỉnh - và kiểm tra dụng cụ trắc định
+Mã số/Mã máy đo: 007-5
+File gốc: 007-5-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+Người dịch: Nhị Vũ 20209
+
+No.1/6
+Tài liệu tiêu chuẩn hiệu chỉnh
+và kiểm tra dụng cụ trắc định
+
+MÁY ĐO ĐIỆN TRỞ CÁCH ĐIỆN (MΩ)KỸ THUẬT SỐ
+(TSURUGA 3567-A08)
+Cty TNHH Mabuchi Motor
+Ban BHCL
+
+Ngày ban hành  20.04.2005
+Ngày thay đổi   5.11.2013
+Dụng cụ trắc định 007-5c
+
+Ⅰ【Hiệu chỉnh】
+Dụng cụ chuẩn
+Dụng cụ đo biến trở 6 dial [S58-1], đồng hồ đo điện áp cao [S56-1],v..v..
+Chu kỳ hiệu chỉnh
+24 tháng hoặc khi xác nhận thấy cần thiết
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+(Điều khoản chú ý)
+
+(Chuẩn bị trước
+hiệu chỉnh)
+
+1. Độ chính xác
+đo đạc của giá
+trị điện trở
+
+(Hạng mục chú ý)
+-Khi hiệu chỉnh, để phòng tránh việc giật điện, cần phải sử
+dụng bao tay cách điện.
+-Trong tài liệu tiêu chuẩn này chỉ ghi thứ tự phương pháp
+hiệu chỉnh, tên các bộ phận của máy đo và phương pháp
+sử dụng hãy tham khảo ở sách thuyết minh.
+-Bật ON nguồn điện, làm nóng máy 30 phút trở lên.
+
+Hạng mục điểm kiểm   1. Tiến hành xác nhận điểm O
+ở toàn bộ phạm vi
+
+Tiếp xúc máy đo điện trở khả biến 6 số với chấu Earth và
+chấu LINE theo như bản vẽ 1, đọc lấy trị biểu thị ở từng
+mức điện áp thí nghiệm.
+Ngoài ra, việc hiệu chỉnh sẽ tiến hành theo điểm hiệu
+chỉnh ở biểu 1 hợp với máy điện trở khả biến số 6 ở
+mỗi điện áp thí nghiệm.
+
+Biểu 1
+
+Trị
+±3digit
+thì
+không cần ký lục
+
+Theo biểu 1
+
+Điện áp thí
+nghiệm
+Phạm vi điện
+trở
+Phạm vi đo đạc
+Điểm hiệu
+chỉnh
+Phán định
+DC    25V
+DC    50V
+DC   100V
+DC   250V
+0.000～
+999.0MΩ
+2 MΩ
+5 MΩ
+100 MΩ
+DC   500V
+DC  1000V
+AUTO
+0.00～9990MΩ
+50 MΩ
+100 MΩ
+±(2%rdg.+3di
+git)
+
+--- HẾT TRANG ---
+
+Người dịch: Nhị Vũ 20209
+No. 2/6
+Ⅰ【Hiệu chỉnh】                                         Dụng cụ đo 007-5c
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+Tiếp xúc với máy đo điện áp cao vào chấu GUARD và chấu
+EARTH như hình 2, đọc lấy trị biểu thị của từng điện áp thí nghiệm
+
+Biểu 2
+
+Điện áp thí nghiệm
+Phán định
+
+DC   25V
+
+DC   50V
+
+DC   100V
+
+DC   250V
+
+DC   500V
+
+DC   1000V
+
++30%
+－0%
+của điện áp thí nghiệm
+
+(1) Tiếp xúc dụng cụ đo biến trở 6 dial vào chấu LINE và chấu
+EARTH như hình 3.
+Kế tiếp tiếp xúc với máy đo điện áp cao vào chấu GUARD và
+chấu EARTH
+(2) Dựa vào biểu 3, thiết định dụng cu đo biến trở 6 dial ở trị điện
+trở tiếp xúc theo từng điện áp thí nghiệm.
+(3) Đọc lấy trị biểu thị của từng điện áp thí nghiệm ở máy đo điện
+áp cao.
+
+Biểu 3
+
+Điện áp thí
+nghiệm
+Trị điện
+trở tiếp
+xúc
+Dòng điện đo
+quy cách
+Phán định
+DC   25V
+25kΩ
+DC   50V
+50kΩ
+DC   100V
+100kΩ
+DC   250V
+250kΩ
+DC   500V
+500kΩ
+DC   1000V
+1MΩ
+1mA
++20%
+－0%
+của điện áp
+thí nghiệm
+
+2. Điện áp
+không tải
+
+3. Điện áp đo
+quy cách
+
+Theo biểu 2
+
+Theo biểu 3
+
+--- HẾT TRANG ---
+
+Người dịch: Nhị Vũ 20209
+
+No. 3/6
+Ⅰ【Hiệu chỉnh】                                          Dụng cụ đo 007-5c
+
+Hình 1
+
+Hình 2
+
+H
+L
+MΩ
+GUARD   EARTH
+LINE
+Máy đo điện trở cách điện
+Dụng cụ đo biến trở
+6 dial
+GUARD   EARTH
+LINE
+Máy đo điện trở cách điện
+GND
+ĐỒNG HỒ ĐO ĐIỆN ÁP CAO
+
+--- HẾT TRANG ---
+
+Người dịch: Nhị Vũ 20209
+
+No. 4/6
+Ⅰ【Hiệu chỉnh】                                          Dụng cụ đo 007-5c
+
+Hình 3
+
+-Trích dẫn, tài liệu liên quan-
+Quy cách phán định: quy cách nơi chế tạo
+Về việc chuẩn bị trước hiệu chỉnh: Vì đang tiến hành xác nhận bằng việc điểm kiểm mỗi lần sử dụng,
+nên không tiến hành ghi chép trị số
+H
+L
+MΩ
+GUARD   EARTH
+LINE
+Máy đo điện trở cách điện
+Dụng cụ đo biến trở
+6 dial
+GND
+ĐỒNG HỒ ĐO ĐIỆN ÁP CAO
+
+KV
+
+--- HẾT TRANG ---
+
+Người dịch: Nhị Vũ 20209
+
+No. 5/6
+Dụng cụ đo 007-5c
+
+Ⅱ 【Điểm kiểm】    MÁY ĐO ĐIỆN TRỞ CÁCH ĐIỆN ( MΩ) KỸ THUẬT SỐ
+
+(TSURUGA 3567-A08)
+
+Tiến độ điểm kiểm        Mỗi lần sử dụng
+
+Hạng mục
+điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp phán
+định
+
+(Điều khoản chú
+ý)
+
+1. Xác nhận
+điểm 0
+
+2.  Xác nhận
+chuông
+báo(thiết bị
+báo động)
+
+Bật ON nguồn điện, làm nóng máy 30 phút trở lên.
+
+Làm đoản mạch que đo(chấu EARTH và chấu LINE của
+mặt trước máy đo), xác nhận điểm 0 ở bộ phận biểu thị có
+đang biểu thị
+
+Làm đoản mạch que đo xác nhận chuông báo NG có báo
+hay không.
+Tuy nhiên, trường hợp khi kiểm tra không sử dụng chuông
+báo, hạng mục này không thực thi cũng được.
+Phương pháp thiết định chuông báo(thiết bị báo động) xin
+tham khảo sách hướng dẩn sử dụng
+
+(Ghi chú)
+Tên các bộ phận của máy đo điện trở cách điện kỹ thuật
+số và phương pháp sử dụng xin tham khảo sách hướng
+dẩn sử dụng.
+
+Trị ±3digit thì không
+cần ký lục
+
+Ghi chú
+1. Trường hợp kiểm tra thấy bất thường, ghi chép lại kết quả đã kiểm tra và xử lý theo chỉ
+thị của người có trách nhiệm quản lý.
+2. Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được,
+nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường
+xảy ra.
+3. Trường hợp nhận ra sự bất thường trong khi sử dụng, sẽ xử lý dựa vào chỉ thị của người
+có trách nhiệm quản lý.
+
+--- HẾT TRANG ---
+
+Người dịch: Nhị Vũ 20209
+No. 6/6
+Dụng cụ trắc định 007-5
+Tài liệu tiêu chuẩn hiệu chỉnh điểm kiểm
+Biểu lý lịch ban hành, cải chính và hủy bỏ
+Dấu
+hiệu
+Ngày tháng
+năm
+Nội dung
+(bao gồm những nội dung sửa đổi)
+Soạn thảo
+Xác nhận
+Công
+nhận
+
+20.04.2005
+Ban hành bản mới
+Horii
+Nara
+Itokawa
+a
+30.05.2006
+Thay đổi biểu 1 hạng mục hiệu chỉnh 1
+Người
+dịch: VNM
+
+b
+
+20.8.2012
+(Dựa theo bản chỉ thị ngoại lệ
+QB1-12-07-001)
+-Thay đổi chu kỳ hiệu chỉnh 12 tháng → 24
+tháng
+-Bổ sung mã số của máy chuẩn
+-[Hiệu chỉnh] Bổ sung (Điều khoản chú ý) vào
+hạng mục hiệu chỉnh
+Bật ON nguồn điện~….
+-[Hiệu chỉnh] Mục 1 Phương pháp phán định,
+bỏ phần (1)
+Các mục phía sau giảm đi 1 bậc
+-Bổ sung trích dẫn, tài liệu liên quan
+-[Điểm kiểm] Bổ sung (Điều khoản chú ý) vào
+hạng mục điểm kiểm
+Người
+dịch: Trân
+36638
+
+c
+
+Đã
+xác
+nhận
+toàn
+bộ
+nội
+dung
+05.11.2013
+
+(Nơi yêu cầu: Omune ở phòng kiểm tra của
+JSM)
+・【hiệu chỉnh】Bổ sung hạng mục của (chuẩn bị
+trước hiệu chỉnh)
+・1.Độ chính xác đo đạc trị điện trở  Bỏ 1 câu từ
+(1) Bề mặt trước máy đo～･･･
+・Văn bản liên quan・trích dẫn     Bổ sung: Về
+chuẩn bị trước hiệu chỉnh
+・【Điểm kiểm】Bổ sung phương pháp phán định
+việc xác nhận điểm 0 của hạng mục điểm
+kiểm 1
+
+Isa
+
+Murayama
+Ito
+Iwata
+
+Công ty Mabuchi Motor
+Bộ Bảo Hành Chất Lượng
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "007-5-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh - và kiểm tra dụng cụ trắc định",
+  "doc_code": "007-5",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

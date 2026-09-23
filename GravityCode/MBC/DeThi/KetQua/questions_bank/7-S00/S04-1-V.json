@@ -1,0 +1,50 @@
+{
+  "file_name": "S04-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Ban chính BHCL công ty cổ phần MAB",
+  "doc_code": "S04-1 p",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Dụng cụ hiệu chỉnh máy đo độ ồn thuộc loại LS có đặc điểm sử dụng nào sau đây mà nhân viên kiểm định cần lưu ý tuyệt đối tuân thủ?",
+      "options": {
+        "A": "Chỉ hoạt động trong môi trường hạn chế (phòng thí nghiệm), nên không phù hợp để hiệu chỉnh chung cho các máy đo độ ồn thông thường",
+        "B": "Được phép sử dụng rộng rãi ngoài hiện trường sản xuất và khu vực kho bãi",
+        "C": "Có thể dùng thay thế hoàn toàn cho các dụng cụ loại 1 trong mọi điều kiện đo lường",
+        "D": "Không cần quan tâm đến điều kiện môi trường khi tiến hành hiệu chỉnh"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: '※Dụng cụ hiệu chỉnh máy đo độ ồn thuộc loại LS chỉ hoạt động trong môi trường hạn chế (phòng thí nghiệm), nên không phù hợp để hiệu chỉnh chung cho các máy đo độ ồn thông thường'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh máy đo độ ồn S04-1 p, chu kỳ hiệu chỉnh định kỳ đối với dụng cụ hiệu chỉnh được quy định là bao lâu?",
+      "options": {
+        "A": "6 tháng",
+        "B": "1 năm",
+        "C": "2 năm",
+        "D": "3 năm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: 'Chu kỳ hiệu chỉnh 1 năm'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi tiến hành hiệu chỉnh máy đo độ ồn, điều kiện về nhiệt độ xung quanh và độ ẩm tương đối được quy định như thế nào?",
+      "options": {
+        "A": "Nhiệt độ 20±5℃, Độ ẩm tương đối 30～70%",
+        "B": "Nhiệt độ 25±5℃, Độ ẩm tương đối 40～90%",
+        "C": "Nhiệt độ 23±5℃, Độ ẩm tương đối 30～85%",
+        "D": "Nhiệt độ 23±2℃, Độ ẩm tương đối 50～60%"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: 'Nhiệt độ xung quanh 23±5℃ Độ ẩm tương đối 30～85%'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

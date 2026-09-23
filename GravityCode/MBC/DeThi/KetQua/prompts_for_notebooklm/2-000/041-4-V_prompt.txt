@@ -1,0 +1,423 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Nguồn ổn định điện áp dòng điện một chiều (kèm màn hình đo)               Dụng cụ đo   041-4 - Ι【Hiệu chỉnh】
+Mã số/Mã máy đo: 041-4
+File gốc: 041-4-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/7
+
+TIÊU CHỈNH HIỆU CHUẨN ĐIỂM KIỂM                         Ban chính BHCL công ty Mabuchi Motor
+
+Ban hành  2020.6.9
+Cải đổi  Năm  tháng  ngày
+Nguồn ổn định điện áp dòng điện một chiều (kèm màn hình đo)               Dụng cụ đo   041-4
+6241A ADCMT
+
+Ι【Hiệu chỉnh】
+
+Máy chuẩn Thiết bị đo điện đa năng dạng kĩ thuật số (Thiết bị có thể hiện thị 6 ký tự ½ trở lên)[S13-1]
+
+Chu kì hiệu chỉnh     24 tháng và khi cần thiết
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+＜Mục ghi chép
+đặc biệt＞
+
+1.Xác nhận độ
+chính xác xuất,
+đo đạc điện áp
+
+Trường hợp hiệu chỉnh bên ngoài  Ủy thác việc hiệu chỉnh cho nơi
+sản xuất hoặc cơ sở hiệu chỉnh NCC
+Trường hợp tự hiệu chỉnh nội bộ ※Sử dụng máy chuẩn như bên trên
+・Hiệu chỉnh phải được tiến hành ở nơi không có bụi, không rung động,
+không phát sin ồn và theo điều kiện bên dưới.
+⇒Nhiệt độ:  23℃±5℃, Độ ẩm tương đối < 70％
+・Vì máy được hiệu chỉnh được trang bị cả 2 chức năng xuất và đo nên
+sẽ xác nhận đồng thời độ chính xác xuất và đo điện áp.
+・Chỉ sử dụng máy chuẩn đồng hồ đo đa năng dạng kĩ thuật số có qui
+cách hiển thị là 6 ký tự ½ trở lên
+・Phải thực hiện làm nóng máy được hiệu chỉnh trong 1 tiếng trở lên,
+làm nóng máy chuẩn trong 30 phút trở lên.
+・Máy có khả năng xuất và đo điện áp, dòng điện (-) nhưng không sử
+dụng đến chức năng này nên không cần hiệu chỉnh.
+
+Kết nối với thiết bị đo điện đa năng dạng kỹ thuật số, xuất giá trị cài đặt
+trong bản (điểm hiệu chỉnh) tại mỗi Range, xác nhận độ chính xác xuất
+ra, độ chính xác đo đạc rồi phán định.
+Phương pháp xác nhận tham khảo phụ lục 1
+
+Điểm hiệu chỉnh chọn ZERO và Full Scale ở mỗi Range (FS) ( tiến cử
+NCC, tham khảo bảng bên dưới. Có thể cài đặt tùy theo tình huống sử
+dụng).
+Điểm hiệu chỉnh
+Range
+ZERO
+FS
+300mV
+0V
+300mV
+3V
+3V
+30V
+30V
+①  Xuất điện áp《Độ chính xác tổng hợp》
+Range
+±（％of setting＋V）
+300mV
+0.02＋150μV
+3V
+0.02＋350μV
+30V
+0.02＋3mV
+②  Đo điện áp 《Độ chính xác tổng hợp》
+Range
+±（％of reading＋V）
+300mV
+0.02＋75μV
+3V
+0.02＋120μV
+30V
+0.02＋1.2mV
+
+Dựa theo
+bảng ① ②
+bên trái
+
+--- HẾT TRANG ---
+
+No.2/7
+
+Ι【Hiệu chỉnh】                                  Dụng cụ đo  041-4
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+2. Xác nhận độ chính
+xác xuất, đo đạc dòng
+điện
+
+3.Điều chỉnh độ chính
+xác xuất, đo
+
+Kết nối với thiết bị đo điện đa năng dạng kỹ thuật số, xuất giá
+trị cài đặt trong bản (điểm hiệu chỉnh) tại mỗi Range, xác nhận
+độ chính xác xuất ra, độ chính xác đo đạc rồi phán định.
+Điểm hiệu chỉnh chọn ZERO và Full Scale ở mỗi Range (FS)
+( tiến cử NCC, tham khảo bảng bên dưới. Có thể cài đặt tùy
+theo tình huống sử dụng).
+Điểm hiệu chỉnh
+Range
+ZERO
+FS
+30μA
+0A
+30μA
+300μA
+300μA
+3mA
+3mA
+30mA
+30mA
+300mA
+300mA
+500mA
+1A
+③ Xuất dòng điện《Độ chính xác tổng hợp》
+Range
+±（％of setting＋A＋A
+30μA
+0.03＋10nA＋300ｐA
+300μA
+0.03＋80nA＋3nA
+3mA
+0.03＋800nA＋30nA
+30mA
+0.03＋8μA＋300nA
+300mA
+0.045＋80μA＋3μA
+500mA
+0.05＋160μA＋6μA
+④ Đo dòng điện《Độ chính xác tổng hợp》
+Range
+±（％of reading＋A＋A
+30μA
+0.03＋8nA＋300pA
+300μA
+0.03＋70nA＋3nA
+3mA
+0.03＋700nA＋30nA
+30mA
+0.03＋7μA＋300nA
+300mA
+0.045＋70μA＋3μA
+500mA
+0.05＋120μA＋6μA
+
+Chỉ trường hợp hạng mục hiệu chỉnh 1,2 không đạt thì thực
+hiện hạng mục này.
+Chỉ thực hiện tái hiệu chỉnh ở tất cả các Range của các hạng
+mục hiệu chỉnh không đạt đã tiến hành điều chỉnh, kiểm tra
+xem liệu  có hiệu chỉnh được trong qui cách hay không.
+Phương pháp hiệu chỉnh tham khảo phụ lục 2.
+
+Dựa theo
+bảng ③ ④
+bên trái
+
+－Trích dẫn・Văn b ản liên quan－
+Qui cách phán định：Trích dẫn bảng qui cách nơi sản xuất (Độ chính xác dòng điện thuộc qui cách nội bộ)
+Độ chính xác dòng điện nơi sản xuất：（%of setting+A+AVo/V），（%of reading +A+AVo/V）
+Độ chính xác dòng điện bản tiêu chuẩn：（%of setting+A+A），（%of reading+A+A）
+Lý do: Thao tác hiệu chỉnh sẽ trở nên phức tạp, mức độ ảnh hưởng nhỏ nên đã lược bỏ Vo/V
+trong hiệu chỉnh nội bộ.
+※Vo= Điện áp theo dõi (điện áp giữa các chấu điện)
+Phương pháp hiệu chỉnh：Tham khảo sách hướng dẫn sử dụng nơi sản xuất
+
+--- HẾT TRANG ---
+
+No.3/7
+
+Phụ lục 1                                                            Dụng cụ đo 041-4
+
+＜Phương pháp xác nhận độ chính điện áp xuất, điện áp đo＞
+Ghi chép chi tiết về phương pháp xác nhận hạng mục hiệu chỉnh 1.
+
+(1) Nối máy chuẩn với được hiệu chỉnh như sơ đồ bên dưới.
+
+(2) Cài đặt DCV, autorange, thời gian tích điện 10PCL cho máy chuẩn.
+(3) Cài đặt mode xuất DC, free range, thời gian tích điện 200ms cho máy được hiệu chỉnh.
+(4) Nhấn nút OPERATE, ghi lại độ chênh lệch giữa giá trị điện áp xuất, điện áp đo với giá trị hiển thị trên máy
+chuẩn rồi phán định.
+1. Sai số giữa giá trị hiển thị điện áp xuất ra với giá trị hiển thị trên máy chuẩn ⇒Độ chính xác điện áp xuất ra.
+2. Sai số giữa giá trị hiển thị điện áp đo với giá trị hiển thị trên máy chuẩn ⇒Độ chính xác điện áp đo.
+
+＜Phương pháp xác nhận độ chính dòng điện xuất, dòng điện đo＞
+Ghi chép chi tiết về phương pháp xác nhận hạng mục hiệu chỉnh 2.
+
+(1) Nối máy chuẩn với được hiệu chỉnh như sơ đồ bên dưới.
+
+(2) Cài đặt DCI, autorange, thời gian tích điện 10PCL cho máy chuẩn.
+(3) Cài đặt mode xuất DC, free range, thời gian tích điện 200ms cho máy được hiệu chỉnh.
+(4) Nhấn nút OPERATE, ghi lại độ chênh lệch giữa giá trị dòng điện xuất, dòng điện đo với giá trị hiển thị trên
+máy chuẩn rồi phán định.
+1. Sai số giữa giá trị hiển thị dòng điện xuất ra với giá trị hiển thị trên máy chuẩn ⇒Độ chính xác dòng điện
+xuất ra.
+2. Sai số giữa giá trị hiển thị dòng điện đo với giá trị hiển thị trên máy chuẩn ⇒Độ chính xác dòng điện đo.
+
+Máy chuẩn (S13-1)
+Máy được hiệu chỉnh
+
+--- HẾT TRANG ---
+
+No.4/7
+
+Phụ lục 2                                                      Dụng cụ đo 041-4
+
+＜Phương pháp điều chỉnh độ chính xác xuất, đo＞
+Ghi chép chi tiết về phương pháp điều chỉnh hạng mục 3.
+
+Hiệu chỉnh giới hạn điện áp/xuất điện áp
+
+1.Chọn mode hiệu chỉnh điện áp
+Xuất điện áp :XVS
+Giới hạn điện áp HI  :XVLH
+Giới hạn điện áp LO : XVLL
+2.Chọn Range
+Range 300mV  :XR3
+Range 3V :XR4
+Range 6V :XR5
+3. Chọn mode nhập dữ liệu tại XDAT
+4. Thiết đặt giá trị đọc DMM bằng XD data.
+5. Chuyển đổi sang mode hiệu chỉnh Full scale bằng XNXT.
+6. Thiết đặt giá trị đọc DMM bằng XD data.
+7. Kết thúc mode nhập dữ liệu DMM bằng XNXT
+8. Chuyển sang mode điều chỉnh nhỏ dữ liệu hiệu chỉnh Zero bằng XADJ.
+9. Xác nhận giá trị hiệu chỉnh Zero
+Có khả năng điều chỉnh nhỏ hệ số hiệu chỉnh bằng XUP và XDN
+10. Chuyển sang mode hiệu chỉnh nhỏ dữ liệu hiệu chỉnh FS ( Full scale) bằng XNXT.
+11. Xác nhận giá trị hiệu chỉnh FS.
+Có khả năng điều chỉnh nhỏ hệ số hiệu chỉnh bằng XUP và XDN
+12. Tiến hành bước tiếp theo.
+Trường hợp thay đổi mode hiệu chỉnh điện áp :XNXT
+Trường hợp chuyển sang hiệu chỉnh đo điện áp :XVM
+
+Hiệu chỉnh đo điện áp
+
+1. Chuyển sang mode hiệu chỉnh đo điện áp bằng XVM.
+2.Chọn Range.
+Range 300mV :XR3
+Range 3V  :XR4
+Rang 6V  :XR5
+3. Chọn mode nhập data DMM bằng XDAT.
+4. Thiết đặt giá trị đọc DMM bằng XD data.
+5. Đọc xuất dữ liệu đo, xác nhận.
+6. Chuyển sang mode hiệu chỉnh FS bằng XNXT.
+7. Thiết đặt giá trị đọc DMM bằng XD data.
+8. Đọc xuất dữ liệu đo, xác nhận.
+9. Tiến hành bước tiếp theo.
+Trường hợp thay đổi Range điện áp :XNXT
+Trường hợp chyuển sang hiệu chỉnh giới hạn điện áp/điện áp xuất :XIS, XVLH, XVLL
+
+--- HẾT TRANG ---
+
+No.5/7
+
+Phụ lục3                                                      Dụng cụ đo 041-4
+
+Tiếp tục phần ＜Phương pháp điều chỉnh độ chính xác xuất, đo＞
+
+Hiệu chỉnh giới hạn dòng điện/ dòng điện xuất  (30μA ∼ 300mA)
+
+1.Chọn mode hiệu chỉnh dòng điện.
+Xuất dòng điện :XIS
+Giới hạn dòng điện HI : Dòng điện XILH
+Giới hạn dòng điện LO : XILL
+2.Chọn Range
+Range 30μA :
+XR-1
+Range 300μA :XR0
+Range 3mA :XR1
+Range 30mA :XR2
+Range 300mA :XR3
+3.Trình tự tiếp theo thò thực hiện giống như「Hiệu chỉnh giới hạn điện áp/xuất điện áp」
+4.Tiến hành bước tiếp theo.
+Trường hợp thay đổi mode hiệu chỉnh dòng điện: XNXT
+Trường hợp chuyển sang hiệu chỉnh đo điện áp : XIM
+
+Hiệu chỉnh đo dòng điện (30μA ∼ 300mA)
+
+1. Chuyển sang hiệu chỉnh đo dòng điện bằng XIM.
+2. Chọn Range.
+Range 30μA :XR-1
+Rane 300μA :XR0
+Range 3mA :XR1
+Range 30mA :XR2
+Range 300mA :XR3
+3. Trình tự tiếp theo thò thực hiện giống như「Hiệu chỉnh đo điện áp」
+
+--- HẾT TRANG ---
+
+No.6/7
+
+Ⅱ【Điểm kiểm】   Nguồn ổn định điện áp dòng điện một chiều (kèm màn hình đo)     Dụng cụ đo 41-4
+6241A ADCMT
+
+Tần suất điểm kiểm      Mỗi khi sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phướng pháp
+phán định
+
+1.Xác nhận hoạt động
+
+2. Ngoại quan
+
+Thiết bị hoạt động bình thường
+
+Màn hình hiển thị, các nút công tắt không bị hư hỏng, dính
+bẩn.
+
+Chú ý)
+1.Trường hợp kết quả điểm kiểm có bất thường thì ghi ghi chép lại và xử lý theo chỉ thị của người phụ trách
+quản lý.
+2. Trường hợp kết quả điểm kiểm không có bất thường thì không cần ghi lại. Tuy nhiên, Tuy nhiên, nếu
+trong 1 tháng mà kkhông có lần nào bất thường thì cần ghi chép lại.
+3. Nếu khi sử dụng thấy có bất thường thì xử lý theo chỉ thị của người chịu trách nhiệm quản lý.
+
+--- HẾT TRANG ---
+
+Tiêu chuẩn hiệu chỉnh-điểm kiểm         BẢN LAI LỊCH CẢI ĐÔI               Dụng cụ đo  041-4  No.7/7
+Ký
+hiệu
+Ngày
+Ký sự（nội dung cải đổi,…）
+Soạn
+thảo
+Xác nhận
+Công
+nhận
+
+2020.06.09
+
+Ban hành mới（Nơi yêu cầu：VDM）
+
+Ban chính BHCL công ty Mabuchi Motor
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "041-4-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Nguồn ổn định điện áp dòng điện một chiều (kèm màn hình đo)               Dụng cụ đo   041-4 - Ι【Hiệu chỉnh】",
+  "doc_code": "041-4",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

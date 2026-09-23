@@ -1,0 +1,50 @@
+{
+  "file_name": "529-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định Geji giới hạn bề rộng khe hở",
+  "doc_code": "529-1h",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Dụng cụ chuẩn được sử dụng để hiệu chỉnh độ dày (chiều rộng lớn hơn 5mm) của Geji giới hạn bề rộng khe hở là gì?",
+      "options": {
+        "A": "Thước cuộn thép thông thường",
+        "B": "Dụng cụ đo chiều dài có thể đọc 0.1μm, 0.5μm (nếu dung sai chế tạo vượt 5μm: 1μm), thước rập block cấp 0 và kim chuẩn",
+        "C": "Thước kẹp cơ khí 150mm",
+        "D": "Geji dạng trụ chuẩn đường kính cố định"
+      },
+      "correct_answer": "B",
+      "reference_note": "Phần Ⅰ【Hiệu chỉnh】 - Dụng cụ chuẩn: Dụng cụ đo chiều dài có thể đọc 0.1μm, 0.5μm, (nếu dung sai chế tạo vượt 5μm: 1μm), thước rập block cấp 0 và kim chuẩn"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, tiến độ điểm kiểm (kiểm tra ngoại quan) đối với Geji giới hạn bề rộng khe hở được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và trước khi sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "Chỉ kiểm tra khi có phát sinh lỗi sản phẩm",
+        "D": "Mỗi ca làm việc 1 lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Phần II 【Điểm kiểm】 - Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý về xử lý bất thường, khi phát hiện có bất thường trong quá trình kiểm tra hoặc sử dụng Geji giới hạn bề rộng khe hở, nhân viên phải thực hiện hành động nào sau đây?",
+      "options": {
+        "A": "Tự ý dùng dũa mài lại phần mòn rồi tiếp tục sử dụng",
+        "B": "Ghi chép lại kết quả, xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu và làm đơn đề nghị hiệu chỉnh lại nếu cần thiết",
+        "C": "Vứt bỏ dụng cụ vào thùng rác phế liệu ngay lập tức",
+        "D": "Tiếp tục sử dụng cho đến hết ca làm việc rồi mới báo cáo"
+      },
+      "correct_answer": "B",
+      "reference_note": "Phần II 【Điểm kiểm】 - Chú ý 2: Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện hiệu chỉnh"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

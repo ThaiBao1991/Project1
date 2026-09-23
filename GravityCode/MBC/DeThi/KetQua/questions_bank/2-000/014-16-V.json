@@ -1,0 +1,50 @@
+{
+  "file_name": "014-16-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM MÁY ĐO Máy đo tiếng ồn",
+  "doc_code": "014-16 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tần suất thực hiện điểm kiểm (kiểm tra hàng ngày/định kỳ) đối với máy đo tiếng ồn được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và trước khi sử dụng.",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng.",
+        "C": "Chỉ thực hiện mỗi năm 1 lần.",
+        "D": "Chỉ thực hiện khi phát hiện âm thanh bất thường."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, Mục Ⅱ【Điểm kiểm】, Tần xuất điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi tiến hành mục 3 (Xác nhận bằng máy phát rung bộ phận bên trong) với phạm vi đo 40-100dB, áp suất âm thanh chuẩn và phương pháp phán định (giá trị cho phép) là bao nhiêu?",
+      "options": {
+        "A": "94.0dB ± 0.5dB",
+        "B": "94.0dB ± 1dB",
+        "C": "114.0dB ± 1dB",
+        "D": "124.0dB ± 1dB"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, Mục 3. Xác nhận bằng máy phát rung bộ phận bên trong, Phương pháp phán định: 94.0±1dB"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý tại phần điểm kiểm, trường hợp phát hiện có dị thường khi điểm kiểm (hoặc khi sử dụng), nhân viên cần phải thực hiện hành động nào sau đây?",
+      "options": {
+        "A": "Tự ý tháo máy ra sửa chữa linh kiện bên trong.",
+        "B": "Tiếp tục sử dụng nếu sai số nhỏ hơn 5dB.",
+        "C": "Kí lục lại kết quả đó, và xử lí theo chỉ thị của người chịu trách nhiệm của phòng ban sở hữu.",
+        "D": "Bỏ qua không cần ghi chép nếu không ảnh hưởng đến sản lượng."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3, Phần Chú ý, Mục 2"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

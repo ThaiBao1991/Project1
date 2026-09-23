@@ -1,0 +1,50 @@
+{
+  "file_name": "611-1-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "Bảng tiêu chuẩn hiệu chỉnh và điểm kiểm máy đo",
+  "doc_code": "611 – 1 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, chu kỳ hiệu chỉnh đối với máy đo 3 chiều (Mitutoyo, Carl Zeiss...) là bao lâu?",
+      "options": {
+        "A": "6 tháng hoặc khi được cho là cần thiết",
+        "B": "12 tháng hoặc khi định kỳ hàng năm",
+        "C": "24 tháng hoặc khi được cho là cần thiết",
+        "D": "36 tháng hoặc theo yêu cầu sản xuất"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Chu kỳ hiệu chỉnh: 24 tháng hoặc khi được cho là cần thiết"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi kiểm tra ngoại quan bề mặt bàn của máy đo 3 chiều, tiêu chuẩn phán định nào là chính xác?",
+      "options": {
+        "A": "Cho phép có vết xước nhỏ nếu không ảnh hưởng lớn",
+        "B": "Không có gì bất thường (không có khuyết tật gây hại như bụi bẩn, vết xước)",
+        "C": "Bề mặt bàn có thể dính dầu mỡ nhẹ",
+        "D": "Không cần kiểm tra ngoại quan nếu máy vẫn khởi động bình thường"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Kiểm tra bề mặt bàn xem có khuyết tật gây hại như bụi bẩn, vết xước hay không... Phương pháp phán định: Không có gì bất thường"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý tại phần điểm kiểm máy đo 3 chiều, khi phát hiện có dị thường trong quá trình điểm kiểm (hoặc khi sử dụng), nhân viên phải làm gì?",
+      "options": {
+        "A": "Tự ý tháo máy ra kiểm tra và sửa chữa",
+        "B": "Tiếp tục sử dụng máy cho đến hết ca làm việc",
+        "C": "Kí lục lại kết quả đó, và xử lí theo chỉ thị của người chịu trách nhiệm của phòng ban sở hữu",
+        "D": "Báo cáo trực tiếp lên giám đốc nhà máy mà không cần ghi chép"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: Trường hợp nếu có dị thường khi điểm kiểm (hoặc khi sử dụng), thì kí lục lại kết quả đó, và xử lí theo chỉ thị của người chịu trách nhiệm của phòng ban sở hữu."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

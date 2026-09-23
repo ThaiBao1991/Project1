@@ -1,0 +1,59 @@
+{
+  "file_name": "A09-2-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM DỤNG CỤ ĐO",
+  "doc_code": "A09-2",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi thực hiện chức năng Backup trong chương trình ACM, chu kỳ thực hiện được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi ngày một lần",
+        "B": "Mỗi một tuần",
+        "C": "Mỗi tháng một lần",
+        "D": "Mỗi năm một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 4 - Mục 3: Backup (Chu kỳ thực hiện là mỗi một tuần)"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Khi thực hiện mục \"6. Hủy DATA hiệu chỉnh điểm kiểm\", điều quan trọng cần lưu ý về dữ liệu đã bị xóa là gì?",
+      "options": {
+        "A": "Dữ liệu có thể được khôi phục tự động thông qua tính năng Restore trong vòng 24 giờ",
+        "B": "Dữ liệu đã bị xóa rồi thì không thể phục hồi lại được, vì vậy khi thao tác phải vô cùng cẩn thận",
+        "C": "Dữ liệu chỉ bị ẩn đi và có thể phục hồi bằng cách liên hệ bộ phận IT",
+        "D": "Dữ liệu đã xóa có thể được khôi phục nếu chưa tắt nguồn máy tính"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 6 - Mục 6: Hủy DATA hiệu chỉnh điểm kiểm (Điều khoản chú ý)"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, trong trường hợp đưa vào hoặc di chuyển cài đặt của ACM, bước nào sau đây KHÔNG nằm trong trình tự thiết lập môi trường?",
+      "options": {
+        "A": "Lựa chọn cứ điểm tương ứng",
+        "B": "Lựa chọn ngôn ngữ (Tiếng Nhật, Tiếng Trung, Tiếng Anh...)",
+        "C": "Click vào Lưu lựa chọn (レコードの保存)",
+        "D": "Click vào Download drive để bắt đầu backup dữ liệu"
+      },
+      "correct_answer": "D",
+      "reference_note": "Trang 1 - Mục 1: Thiết định môi trường"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140330.1708045,
+  "generated_at_iso": "2026-09-23T12:12:10",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 451901,
+    "modified_time": 1338275458.0549605,
+    "modified_time_iso": "2012-05-29T14:10:58",
+    "file_hash_short": "e65f50cb"
+  }
+}

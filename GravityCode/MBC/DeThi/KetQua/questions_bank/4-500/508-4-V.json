@@ -1,0 +1,50 @@
+{
+  "file_name": "508-4-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH ĐIỂM KIỂM DỤNG CỤ ĐO",
+  "doc_code": "508-4f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Tiến độ điểm kiểm cho các hạng mục thông thường trên máy thí nghiệm vạn năng được thực hiện khi nào?",
+      "options": {
+        "A": "Mỗi năm 1 lần",
+        "B": "Mỗi tuần 1 lần",
+        "C": "Mỗi lần sử dụng (Riêng hạng mục 4 bôi dầu mỡ là mỗi tháng 1 lần)",
+        "D": "Trước mỗi ca làm việc"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 7: Tiến độ điểm kiểm - Mỗi lần sử dụng (Chỉ có hạng mục điểm kiểm 4. là mỗi tháng 1 lần)"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kỳ hiệu chỉnh của máy thí nghiệm vạn năng (Shimazu Refresh) được quy định như thế nào?",
+      "options": {
+        "A": "6 tháng một lần",
+        "B": "12 tháng hoặc khi thấy cần thiết",
+        "C": "24 tháng một lần",
+        "D": "Mỗi lần sử dụng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Chu kỳ hiệu chỉnh: 12 tháng hoặc khi thấy cần thiết"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý về điểm kiểm, trường hợp kết quả điểm kiểm có dị thường thì nhân viên phải xử lý thế nào?",
+      "options": {
+        "A": "Tự ý tháo máy ra sửa chữa ngay lập tức",
+        "B": "Tiếp tục sử dụng máy bình thường và ghi vào sổ tay cá nhân",
+        "C": "Phải ghi chép lại kết quả điểm kiểm, xử lý theo chỉ thị của người có trách nhiệm quản lý",
+        "D": "Bỏ qua không cần báo cáo nếu máy vẫn chạy được"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 7: Trường hợp kết quả điểm kiểm có dị thường thì phải ghi chép lại kết quả điểm kiểm, xử lý theo chỉ thị của người có trách nhiệm quản lý."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

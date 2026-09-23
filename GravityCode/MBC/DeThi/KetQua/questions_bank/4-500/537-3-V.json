@@ -1,0 +1,50 @@
+{
+  "file_name": "537-3-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH - ĐIỂM KIỂM DỤNG CỤ ĐO",
+  "doc_code": "537-3 e",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, chu kỳ hiệu chỉnh đối với máy đo hình dạng độ nhám bề mặt (TOKYO SEIMITSU SURFCOM 130A/480A/480B) là bao lâu và khi nào được nhận định là cần thiết?",
+      "options": {
+        "A": "Mỗi 1 tháng và khi được nhận định là cần thiết",
+        "B": "Mỗi 3 tháng và khi được nhận định là cần thiết",
+        "C": "Mỗi 6 tháng và khi được nhận định là cần thiết",
+        "D": "Mỗi 12 tháng và khi được nhận định là cần thiết"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: 'Chu kỳ hiệu chỉnh: Mỗi 3 tháng và khi được nhận định là cần thiết'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra ngoại quan dụng cụ kiểm xuất (Mục 1 - Phần II Điểm kiểm), các biểu hiện bất thường nào của dụng cụ kiểm xuất, đế điều chỉnh nghiêng, trụ, bàn phẳng của bệ đo, bộ phận truyền động, bộ chỉ thị độ khuếch đại... cần phải phát hiện?",
+      "options": {
+        "A": "Có khiếm khuyết, hư hại như bần, trầy, gỉ sét...",
+        "B": "Sơn bị phai màu nhẹ nhưng không ảnh hưởng đến độ bóng bề mặt",
+        "C": "Bụi bẩn bám trên bề mặt có thể tự lau sạch bằng tay trong quá trình đo",
+        "D": "Tên thiết bị và nhãn mác bị mờ một phần nhỏ"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 4: 'Xác nhận có khiếm khuyết, hư hại như bần, trầy, gỉ sét... ở dụng cụ kiểm xuất, đế điều chỉnh nghiêng, trụ, bàn phẳng của bệ đo, bộ phận truyền động, bộ chỉ thị độ khuếch đại...'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi kiểm tra tình trạng bôi trơn khuân di động dụng cụ kiểm xuất (Mục 5 - Phần II Điểm kiểm), công việc tra dầu mỡ định kỳ cho bộ phận đỡ trục được quy định thực hiện với tần suất như thế nào?",
+      "options": {
+        "A": "Châm dầu bôi trơn mỗi tuần 1 lần",
+        "B": "Châm dầu bôi trơn mỗi tháng 1 lần",
+        "C": "Châm dầu bôi trơn bộ phận đỡ trục 1 năm 1 lần",
+        "D": "Châm dầu bôi trơn chỉ khi phát hiện tiếng ồn lạ"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 4: '(2) Tháo nắp trên của trụ ra, chỉ châm dầu vào bộ phận đỡ trục 1 năm 1 lần.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

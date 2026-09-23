@@ -1,0 +1,50 @@
+{
+  "file_name": "S09-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ tiêu chuẩn QUẢ CÂN TIÊU CHUẨN CẤP 1",
+  "doc_code": "S09 - 1 f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi tiến hành đánh giá và phán định quả cân tiêu chuẩn cấp 1, tiêu chí nào được phép sử dụng trong phán định?",
+      "options": {
+        "A": "Chỉ sử dụng dung sai, độ không chính xác nới rộng không được sử dụng trong phán định",
+        "B": "Chỉ sử dụng độ không chính xác nới rộng",
+        "C": "Sử dụng đồng thời cả dung sai và độ không chính xác nới rộng",
+        "D": "Sử dụng tiêu chuẩn JIS-B-7609 thay cho dung sai"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: Phán định quả cân chỉ sử dụng dung sai, độ không chính xác nới rộng không được sử dụng trong phán định"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo quy định về độ chính xác của quả cân tiêu chuẩn cấp 1, mức dung sai (Dung sai) đối với lượng biểu thị 10kg là bao nhiêu?",
+      "options": {
+        "A": "±300mg",
+        "B": "±150mg",
+        "C": "±75mg",
+        "D": "±30mg"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Bảng độ chính xác - Lượng biểu thị 10kg có Dung sai là ±150mg"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu kỹ thuật S09 - 1 f, chu kỳ hiệu chỉnh đối với quả cân tiêu chuẩn cấp 1 là bao lâu?",
+      "options": {
+        "A": "1 năm",
+        "B": "2 năm",
+        "C": "3 năm",
+        "D": "5 năm"
+      },
+      "correct_answer": "D",
+      "reference_note": "Trang 1: 【Hiệu chỉnh】 Chu kỳ hiệu chỉnh 5 năm"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

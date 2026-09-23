@@ -1,0 +1,50 @@
+{
+  "file_name": "003-3-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-kiểm tra dụng cụ đo - Đồng hồ đo có gắn bảng điều khiển điện tử",
+  "doc_code": "003-3c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kỳ hiệu chỉnh đối với đồng hồ đo có gắn bảng điều khiển điện tử là bao lâu?",
+      "options": {
+        "A": "6 tháng/lần",
+        "B": "1 lần/12 tháng và khi được công nhận là cần thiết",
+        "C": "2 năm/lần",
+        "D": "3 tháng/lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Phần I [Hiệu chỉnh], mục Chu kỳ hiệu chỉnh: '1lần/12 tháng và khi được công nhận là cần thiết'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trong trường hợp kết quả kiểm tra có kết quả dị thường, hoặc không có kết quả kiểm tra dị thường nhưng bắt buộc phải xử lý như thế nào?",
+      "options": {
+        "A": "Tiếp tục sử dụng bình thường và báo cáo vào cuối tuần",
+        "B": "Tự ý sửa chữa lại đồng hồ đo ngay tại chỗ",
+        "C": "Xử lý theo chỉ thị của người chịu trách nhiệm quản lý, và mỗi tháng một lần phải ký lại điều đó dù không có dị thường",
+        "D": "Lập tức vứt bỏ dụng cụ đo và mua mới"
+      },
+      "correct_answer": "C",
+      "reference_note": "Phần II [Kiểm tra], Chú ý mục 1 và 2: 'Trường hợp có kết quả kiểm tra, dị thường, kỷ lục kết quả kiểm tra, xử lý theo chỉ thị của người chịu trách nhiệm quản lý. Trường hợp không có kết quả kiểm tra, dị thường không cần ký lục kết quả kiểm tra cũng được. Tuy nhiên, mỗi tháng một lần phải ký lại điều đó dù không có dị thường.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi tiến hành hiệu chỉnh biểu thị điện áp/dòng điện đối với FullScale (Toàn thang đo), tiến hành ở mấy điểm gần?",
+      "options": {
+        "A": "2 điểm",
+        "B": "3 điểm",
+        "C": "4 điểm",
+        "D": "5 điểm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Phần I [Hiệu chỉnh], Hạng mục biểu thị điện áp/dòng điện: 'Đối với FullScale (Toàn thang đo), tiến hành ở 4 điểm gần'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

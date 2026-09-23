@@ -1,0 +1,50 @@
+{
+  "file_name": "S64-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Bảng tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - Ampe kế kiểu chỉ thị dòng điện một chiều",
+  "doc_code": "S64 - 1 c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Điều kiện môi trường về nhiệt độ xung quanh khi tiến hành hiệu chỉnh và kiểm tra ampe kế này được quy định như thế nào?",
+      "options": {
+        "A": "20 ± 5 °C",
+        "B": "23 ± 5 °C",
+        "C": "25 ± 2 °C",
+        "D": "25 ± 5 °C"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, mục [Hiệu chỉnh]: Nhiệt độ xung quanh 23 ± 5 °C"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn của dụng cụ trắc định Ampe kế kiểu chỉ thị dòng điện một chiều (S64 - 1 c), chu kỳ hiệu chỉnh được quy định là bao nhiêu?",
+      "options": {
+        "A": "6 tháng",
+        "B": "1 năm",
+        "C": "2 năm",
+        "D": "3 năm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, mục [Hiệu chỉnh]: Chu kỳ hiệu chỉnh: 1 năm"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Đối với khuôn 2011 (YOKOGAWA), độ chính xác yêu cầu của dụng cụ trắc định này theo bảng tiêu chuẩn là bao nhiêu?",
+      "options": {
+        "A": "Cấp 0.1 (± 0.1% Toàn bộ thước)",
+        "B": "Cấp 0.2 (± 0.2% Toàn bộ thước)",
+        "C": "Cấp 0.5 (± 0.5% Toàn bộ thước)",
+        "D": "Cấp 1.0 (± 1.0% Toàn bộ thước)"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Bảng số khuôn / Độ chính xác: Khuôn 2011 (YOKOGAWA) - Cấp 0.5 (± 0.5% Toàn bộ thước)"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

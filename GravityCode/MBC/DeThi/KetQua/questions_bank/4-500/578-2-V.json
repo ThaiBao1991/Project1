@@ -1,0 +1,50 @@
+{
+  "file_name": "578-2-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định CÂN ĐIỆN TỬ (SINKODENSI Model CG series)",
+  "doc_code": "578-2b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm tra đối với cân điện tử SINKODENSI Model CG series được thực hiện khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Mỗi 3 tháng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: II. [Điểm kiểm] - Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo quy định về chú ý đối với kết quả kiểm tra và xử lý bất thường, tần suất bắt buộc phải ghi lại kết quả đã điểm kiểm (dù không có gì bất thường xảy ra) là gì?",
+      "options": {
+        "A": "Mỗi ngày một lần",
+        "B": "Mỗi tuần một lần",
+        "C": "Mỗi tháng một lần",
+        "D": "Mỗi 3 tháng một lần"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3: Chú ý mục 2: Kết quả kiểm tra trường hợp không thấy bất thường... nhưng mỗi tháng một lần phải ghi lại kết quả đã điểm kiểm, dù không có gì bất thường xảy ra."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi mở nguồn điện cân điện tử để tiến hành kiểm tra hoặc hiệu chỉnh, cần phải làm nóng máy trong thời gian bao lâu?",
+      "options": {
+        "A": "Từ 10 phút trở lên",
+        "B": "Từ 15 phút trở lên",
+        "C": "Từ 30 phút trở lên",
+        "D": "Từ 60 phút trở lên"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1 và 3: <Tiêu chuẩn trước hiệu chỉnh> / [Điểm kiểm]: Mở nguồn điện, làm nóng từ 30 phút trở lên."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,361 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Bản tiêu chuẩn điểm kiểm và hiệu chỉnh dụng cụ đo          Ban BHCL Mabuchi Motor (Cty CP) - Máy đo điện trở thấp                                 Đo đạc    039-12 a
+Mã số/Mã máy đo: 039-12
+File gốc: 039-12-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/6
+
+Bản tiêu chuẩn điểm kiểm và hiệu chỉnh dụng cụ đo          Ban BHCL Mabuchi Motor (Cty CP)
+
+Ban hành    04/03/2016
+Sửa đổi      14/12/2021
+Máy đo điện trở thấp                                 Đo đạc    039-12 a
+HIOKI RM3544
+
+Ι【Hiệu chỉnh】
+
+Dụng cụ chuẩn       Máy chuẩn chỉ định của nơi chế tạo hoặc doanh nghiệp hiệu chỉnh
+Máy đo điện trở chuẩn [S02-1], máy đo nhiệt độ độ ẩm [S65-1]
+Chu kỳ hiệu chỉnh      12 tháng và khi cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+1. Đo điện trở
+(điều kiện môi
+trường)
+Nhiệt
+độ
+23℃±5℃
+Độ ẩm
+Dưới 80%
+
+Ủy thác việc hiệu chỉnh cho nơi chế tạo hoặc cơ quan hiệu
+chỉnh.
+Điểm hiệu chỉnh, trị đo đạc thì tuân theo biểu thực tích hiệu
+chỉnh nơi chế tạo của tài liệu tham khảo
+
+Tuy nhiên, trường hợp hạn định phạn vi đo đạc, sử dụng
+bằng hiệu chỉnh trong công ty thì làm theo phương pháp bên
+dưới
+≪Chi tiết về phương pháp đo đạc … thì tham khảo bản thuyết
+minh sử dụng≫
+
+* 1. Tiến hành thiết định chức năng bổ sung nhiệt độ  (1)
+Đưa nguồn điện vào, để ổn định máy khoảng 60 phút trở lên.
+(2)
+Tiến hành điều chỉnh điểm 0.
+Ở phạm vi thông thường, thiết định ở phạm vi hiệu chỉnh
+rồi thực hiện điều chỉnh về 0. (ghi chú)
+Việc điều chỉnh về không chỉ hiệu quả đối với phạm vi đã điều
+chỉnh
+(3)
+OFF chức năng hiệu chỉnh nhiệt độ (TC)
+Điều kiện lấy mẫu thì thiết định ở SLOW
+(4)
+Đối với trị điện trở tiêu chuẩn của máy điện trở
+chuẩn, sẽ phán định trị biểu thị của máy đo điện trở thấps
+dựa theo biểu 1
+Chú ý) Trường hợp dùng máy của YOKOGAWA chế tọa số
+series 2792 hiệu chỉnh thì phải dùng dây lead 4 chấu và tiến
+hành hiệu chỉnh bằng phương pháp tiếp xúc ghi dưới. Không
+thể
+sử
+dụng
+dây
+lead
+dạng
+kẹp
+
+Theo nội dung
+ghi chép bên
+trái
+
+Đúng
+Sai
+Dây lead 4 chấu
+
+Dây lead dạng kẹp
+
+--- HẾT TRANG ---
+
+No.2/6
+
+Ι. Hiệu chỉnh]                              Dụng cụ đo đạc 039-12
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp phán
+định
+
+2. Thiết định nhiệt độ
+(1) Ở môi trường nhiệt độ độ ẩm thông thường, đặt sensor nhiệt độ của
+máy điện trở thấp và sensor nhiệt độ của máy nhiệt độ độ ẩm ở cùng
+điều kiện môi trường như nhau rồi đo nhiệt độ xung quanh.
+(2) Tìm sự sai khác nhiệt độ đo đạc rồi xác nhận trong phạm vi quy cách
+phán định.
+
+Biểu 1 (điều kiện lấy mẫu là SLOW)
+
+±1.0℃
+Phạm vi đo đạc
+Trị điện trở tiêu
+chuẩn
+Phán đ ±(%rdg.+%F.S.)
+30.000mΩ
+10mΩ
+±(0.030＋0.070)
+300.00mΩ
+100mΩ
+±(0.025＋0.014)
+3.0000Ω
+1Ω
+±(0.025＋0.014)
+30.000Ω
+10Ω
+±(0.020＋0.007)
+300.00Ω
+100Ω
+±(0.020＋0.007)
+3.000kΩ
+1kΩ
+±(0.020＋0.007)
+30.000kΩ
+10kΩ
+±(0.020＋0.007)
+
+- Trích dẫn / văn bản liên quan -
+Quy cách phán định:
+Trích dẫn bản thuyết minh sử dụng của nhà chế tạo
+Biểu thực tích hiệu chỉnh đính kèm dùng để tham khảo
+Quy cách nhiệt độ thì thiết định trong công ty xem như là trị lớn nhất của những cái cộng kết hợp động
+chính xác của máy đo và máy nhiệt độ độ ẩm
+
+--- HẾT TRANG ---
+
+No.3/6
+
+【Tham khảo】                              Đo đạc:  039-12 a
+
+--- HẾT TRANG ---
+
+No.4/6
+
+Đo đạc: 039-12a
+II [Điểm kiểm]
+MÁY ĐO ĐIỆN TRỞ THẤP HIOKI RM3544
+Tiến độ kiểm tra              Mỗi lần sử dụng
+
+Hạng mục kiểm tra
+Phương pháp kiểm tra
+Phương pháp phán
+định
+
+1. Xác nhận biểu
+thị
+
+2. Điều chỉnh Zero
+
+Cắm nguồn điện vào, xác nhận việc thực hiện tự kiểm tra
+(self test)
+
+(1) Phải để cho máy ấm lên trong 60 phút
+(2) Tiến hành điều chỉnh điểm 0 ở các phạm vi đo.
+① Làm đoản mạch dây lead đo đạc giống như hình 1
+[Hình 1] Phương pháp làm đoản mạch dây lead đo đạc。
+
+②Xác nhận màn hình và phán định đúng sai của kết nối.
+Trường hợp không biểu thị trị đo thì kết nối lại cho đúng.
+
+(Đúng)
+
+(Sai)
+
+※ Do sẽ phát sinh cảnh báo trong trường hợp trị đo vượt
+quá ±3% của Bluescale, nên phải xác nhận kết dây
+không bị sai.
+
+Phải không có
+dị thường
+
+Phải không có
+dị thường
+
+Đỏ
+Đen
+SENSE
+SENSE
+SOURCE
+SOURCE
+Phù hợp với đánh dấu chữ
+V của kẹp
+Đỏ
+Đen
+SENSE
+SENSE
+SOURCE
+SOURCE
+SENSE A
+SENSE B
+SOURCE A SOURCE B
+Đúng
+Sai
+Kết nối
+Kết nối
+
+--- HẾT TRANG ---
+
+No.5/6
+
+Đo đạc: 039-12
+II [Điểm kiểm]
+MÁY ĐO ĐIỆN TRỞ THẤP HIOKI RM3544
+Tiến độ kiểm tra              Mỗi lần sử dụng
+
+Hạng mục kiểm tra
+Phương pháp kiểm tra
+Phương pháp phán
+định
+
+3.Xác nhận dây cáp
+đầu vào
+
+③ Thực hiện điều chỉnh về 0.
+Ấn nút MENU, đổi menu chức năng sang P2.2
+Ấn nút F1, bắt đầu điều chỉnh về 0
+
+④Màn hình xác nhận được biểu thị cho nên ấn nút F2 và hoàn
+thành điều chỉnh về 0.
+
+Xác nhận việc dây cáp đầu vào có đang được cắm vào chấu
+điện đo đạc điện trở thấp một cách chính xác, không vấn đề
+hay không.
+Thêm vào đó, xác nhận việc không bị đứt dây hay lỏng dây
+cáp đầu vào
+
+Phải không có
+dị thường
+
+Phải không có
+dị thường
+Ghi chú
+1. Trường hợp kiểm tra thấy bất thường, ghi chép lại kết quả đã kiểm tra và xử lý theo chỉ thị
+của người có trách nhiệm quản lý.
+2. Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được,
+nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy
+ra.
+3. Trường hợp nhận ra sự bất thường trong khi sử dụng, sẽ xử lý dựa vào chỉ thị của người có
+trách nhiệm quản lý.
+
+--- HẾT TRANG ---
+
+Bản tiêu chuẩn kiểm tra -hiệu chỉnh   Biểu lai lịch ban hành- sử đổi -hủy bỏ          Đo đạc:  039-12
+
+Ban chính BHCL công ty cổ phần Mabuchi Motor
+Kí
+hiệu
+Ngày
+tháng năm
+Nội dung (bao gồm những nội dung sửa đổi)
+Soạn
+thảo
+Xác
+nhận
+Công
+nhận
+
+2016.03.04
+
+Ban hành mới
+
+村野
+
+伊藤
+
+石野
+
+a
+
+2021.12.14
+
+1.Bổ sung đoạn mô tả về đo đạc điện trở thấp [ OFF chức
+năng hiệu chỉnh nhiệt độ (TC)
+Bổ sung dấu thập phân ở trị số phán định biểu 1 và bổ sung
+phạm vi 30kΩ, điểm hiệu chỉnh.
+Ⅰ【Hiệu chỉnh】039-12→039-12a ※Ⅱ【Điểm kiểm】039-
+12(Không thay đổi)
+
+Trang 6/6
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "039-12-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn điểm kiểm và hiệu chỉnh dụng cụ đo          Ban BHCL Mabuchi Motor (Cty CP) - Máy đo điện trở thấp                                 Đo đạc    039-12 a",
+  "doc_code": "039-12",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

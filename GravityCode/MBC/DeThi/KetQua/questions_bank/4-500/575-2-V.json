@@ -1,0 +1,50 @@
+{
+  "file_name": "575-2-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH - KIỂM TRA DỤNG CỤ ĐO QUẢ CÂN",
+  "doc_code": "575 – 2 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục điểm kiểm ngoại quan của quả cân, khi phát hiện có nghi ngờ về việc trầy xước, vát, mòn hoặc dính dị vật, nhân viên phải thực hiện thao tác xử lý nào tiếp theo?",
+      "options": {
+        "A": "Tiếp tục sử dụng nếu sai số vẫn nằm trong giới hạn cho phép",
+        "B": "Trường hợp có nghi ngờ, sau khi loại bỏ dị vật thì tiến hành tái hiệu chỉnh",
+        "C": "Báo cáo cấp trên và lập tức mang đi tiêu hủy quả cân ngay lập tức",
+        "D": "Tự ý mài nhẵn lại quả cân bằng giấy nhám mịn"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3/4: II [Điểm kiểm] - Ngoại quan: '1. Trường hợp có nghi ngờ ở (1) ~ (4) ghi dưới, sau khi loại bỏ dị vật thì tiến hành tái hiệu chỉnh'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ kiểm tra định kỳ đối với quả cân dùng kiểm tra tính năng motor và dùng thử nghiệm tuổi thọ được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi tháng một lần",
+        "C": "Mỗi lần sử dụng",
+        "D": "Trước mỗi ca làm việc"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3/4: II [Điểm kiểm] - Tiến độ kiểm tra: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Trị số cho phép đối với quả cân cấp 3 có trọng lượng từ 10mg và 20mg là bao nhiêu?",
+      "options": {
+        "A": "± 1mg",
+        "B": "± 3mg",
+        "C": "± 10mg",
+        "D": "± 100mg"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2/4: Biểu phán định khi hiệu chỉnh quả cân - 3. Quả cân cấp 3 (10, 20mg): ± 1mg"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

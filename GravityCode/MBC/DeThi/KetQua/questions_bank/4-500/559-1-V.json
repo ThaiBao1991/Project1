@@ -1,0 +1,50 @@
+{
+  "file_name": "559-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH, ĐIỂM KIỂM DỤNG CỤ ĐO",
+  "doc_code": "Dụng cụ đo 559 - 1d",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong trường hợp hiệu chỉnh trong công ty, các điểm hiệu chuẩn nhiệt độ biểu thị được quy định như thế nào để đảm bảo chính xác?",
+      "options": {
+        "A": "Chỉ cần hiệu chuẩn tại 1 điểm duy nhất ở giữa khoảng nhiệt độ sử dụng.",
+        "B": "Hiệu chuẩn tại 2 điểm gồm giới hạn trên và giới hạn dưới.",
+        "C": "Điểm hiệu chuẩn phải là 3 điểm gần giới hạn trên, giới hạn dưới và điểm giữa bao gồm cả phạm vi sử dụng.",
+        "D": "Tùy thuộc vào người vận hành tự quyết định số điểm hiệu chuẩn phù hợp với thiết bị."
+      },
+      "correct_answer": "C",
+      "reference_note": "I [Hiệu chỉnh] - Điểm hiệu chuẩn phải là 3 điểm gần giới hạn trên, giới hạn dưới và điểm giữa bao gồm cả phạm vi sử dụng."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ kiểm tra dụng cụ đo nhiệt độ bề mặt được quy định khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước khi giao ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "II [Kiểm tra] - Tiến độ kiểm tra: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi tiến hành kiểm tra dụng cụ đo, nếu phát hiện thấy biểu thị chữ số, pin nguồn hoặc sensor có bất thường, phương pháp phán định và xử lý là gì?",
+      "options": {
+        "A": "Tiếp tục sử dụng cho hết ca rồi báo cáo vào cuối tuần.",
+        "B": "Tự ý tháo dỡ thiết bị ra để sửa chữa.",
+        "C": "Bỏ qua nếu sai số nhỏ hơn giới hạn cho phép.",
+        "D": "Nếu phát hiện ra lập tức xử lý (hoặc báo cáo theo chỉ thị của người chịu trách nhiệm quản lý)."
+      },
+      "correct_answer": "D",
+      "reference_note": "II [Kiểm tra] - Phương pháp phán định: Nếu phát hiện ra lập tức xử lý"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "011-2-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh Kiểm tra dụng cụ trắc định Dụng Cụ Kiểm Tra Cuộn Dây Xung Lực DW-8501/8505",
+  "doc_code": "011-2 d",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Trong phần chú ý khi hiệu chỉnh Điện áp xung lực, khi hiệu chỉnh phải mang loại đồ bảo hộ nào và sử dụng điện trở tương đương bao nhiêu?",
+      "options": {
+        "A": "Đeo găng tay cách điện và sử dụng điện trở tương đương 1kΩ ± 2% (100W)",
+        "B": "Đeo găng tay chống tĩnh điện và sử dụng điện trở tương đương 100Ω ± 2%",
+        "C": "Đeo găng tay cách điện và sử dụng điện trở tương đương 2kΩ ± 5% (100W)",
+        "D": "Không cần đeo găng tay, sử dụng điện trở 1kΩ ± 1%"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, Mục I 【Hiệu Chỉnh】, Chú ý: (1) Sử dụng điện trở tương đương 1kΩ ± 2% (100W), khi hiệu chỉnh phải đeo bao tay cách điện."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo phần hướng dẫn hiệu chỉnh Điện áp xung lực, giá trị trị cho phép của hình sóng số 2 (màn hình 2) là bao nhiêu?",
+      "options": {
+        "A": "1.2kV ± 1%",
+        "B": "1.2kV ± 2%",
+        "C": "1.2kV ± 3%",
+        "D": "1.2kV ± 5%"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Màn hình 2: Trị cho phép 1.2kV±3%"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiến độ kiểm tra (Phần II - Điểm kiểm tra), tần suất kiểm tra \"Hình sóng\" (Biểu thị hình sóng có ổn định không) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi ngày một lần vào đầu ca",
+        "B": "Mỗi tuần một lần",
+        "C": "Mỗi lần sử dụng",
+        "D": "Mỗi tháng một lần"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 4, II【Kiểm tra】, Tiến độ kiểm tra: Mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

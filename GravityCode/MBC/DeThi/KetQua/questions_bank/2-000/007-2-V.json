@@ -1,0 +1,50 @@
+{
+  "file_name": "007-2-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định Đồng hồ đo kỹ thuật số MΩ ( TSURUGA 3571A-02-A01 )",
+  "doc_code": "Dụng cụ trắc định 007-2",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ kiểm tra đối với Đồng hồ đo kỹ thuật số MΩ (TSURUGA 3571A-02-A01) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi khi sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Mỗi năm một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, Mục II. [Kiểm tra], Tiến độ kiểm tra: Mỗi khi sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi tiến hành đo đạc độ chính xác trị điện trở cho phạm vi 'DC 500V/2000MΩ', trị điện trở trung tâm và độ chính xác quy định là gì?",
+      "options": {
+        "A": "Trị điện trở trung tâm 5MΩ, độ chính xác ±(2%rdg.+3digit)",
+        "B": "Trị điện trở trung tâm 5MΩ, độ chính xác ±(1%rdg.+1digit)",
+        "C": "Trị điện trở trung tâm 50MΩ, độ chính xác ±(2%rdg.+3digit)",
+        "D": "Trị điện trở trung tâm 50MΩ, độ chính xác ±(5%rdg.+5digit)"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Biểu thông số: DC 500V/2000MΩ | 50MΩ | ±(2%rdg.+3digit)"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý tại phần Hiệu chỉnh, khi thao tác hiệu chỉnh đồng hồ đo MΩ, nhân viên bắt buộc phải thực hiện biện pháp an toàn nào để chống điện giật?",
+      "options": {
+        "A": "Mang găng tay cách điện",
+        "B": "Đeo kính bảo hộ chống hồ quang",
+        "C": "Mang giày chống tĩnh điện ESD",
+        "D": "Đeo thảm cao su cách điện toàn thân"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, ( Hạng mục chú ý ): +Để chống điện giật, mang găng tay cách điện để hiệu chỉnh."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

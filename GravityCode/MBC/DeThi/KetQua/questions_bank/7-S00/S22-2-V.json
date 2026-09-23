@@ -1,0 +1,50 @@
+{
+  "file_name": "S22-2-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định Lực kết dạng lò xo hình cầu",
+  "doc_code": "S22-2a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Trong các cơ quan thực thi hiệu chỉnh được liệt kê trong tài liệu, cứ điểm VDM (cơ quan thực thi ②) thực hiện theo hình thức nào?",
+      "options": {
+        "A": "Hiệu chỉnh nhà sản xuất",
+        "B": "Hiệu chỉnh nhà cung cấp",
+        "C": "Không tương thích",
+        "D": "Cả nhà sản xuất và nhà cung cấp"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: VDM - ② Hiệu chỉnh nhà cung cấp"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh dụng cụ trắc định S22-2a, chu kỳ hiệu chỉnh của lực kế dạng lò xo hình cầu (Cơ sở chế tạo máy thí nghiệm Sengawa) là bao lâu?",
+      "options": {
+        "A": "1 năm",
+        "B": "2 năm",
+        "C": "3 năm",
+        "D": "5 năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Ⅰ【Hiệu chỉnh】 Chu kỳ hiệu chỉnh: 3 năm"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục lưu ý khi tiến hành hiệu chỉnh dụng cụ trắc định, trường hợp sử dụng bảng thành tích được ghi chép tại đơn vị N bằng đơn vị kgf thì phải tính toán theo công thức quy đổi nào?",
+      "options": {
+        "A": "1kgf = 9.81N",
+        "B": "1kgf = 9.80665N",
+        "C": "1kgf = 9.8N",
+        "D": "1kgf = 10N"
+      },
+      "correct_answer": "B",
+      "reference_note": "Hạng mục lưu ý (6): Trường hợp sử dụng bảng thành tích được ghi chép tại đơn vị N bằng đơn vị kgf thì phải tính toán 1kgf=9.80665N"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

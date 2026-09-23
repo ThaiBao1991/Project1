@@ -1,0 +1,50 @@
+{
+  "file_name": "607-4-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Dụng cụ trắc định (Sukoya Masta) Mitutoyo No.311-225",
+  "doc_code": "607-4 a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra (hoặc khi sử dụng), nếu phát hiện có bất thường thì cần thực hiện thao tác xử lý nào sau đây là đúng theo quy định?",
+      "options": {
+        "A": "Tự ý tháo ra sửa chữa rồi tiếp tục sử dụng",
+        "B": "Ghi chép lại kết quả và xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu, trường hợp cần thiết làm đơn đề nghị hiệu chỉnh lại",
+        "C": "Bỏ qua lỗi nhỏ nếu dụng cụ vẫn đo được",
+        "D": "Chỉ báo cáo miệng cho đồng nghiệp cùng ca làm việc"
+      },
+      "correct_answer": "B",
+      "reference_note": "II【Điểm kiểm】 - Chú ý 2: Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm (kiểm tra hằng ngày) đối với dụng cụ trắc định này được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "Chỉ kiểm tra trước khi sử dụng",
+        "D": "Mỗi quý 1 lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "II【Điểm kiểm】 - Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo bảng trị quy cách phán định khi hiệu chỉnh cho kiểu mẫu SL-250 với hành trình từ 250mm trở lên, giá trị quy cách của Độ vuông góc là bao nhiêu?",
+      "options": {
+        "A": "2.5μm",
+        "B": "3.0μm",
+        "C": "5.0μm",
+        "D": "6μm"
+      },
+      "correct_answer": "D",
+      "reference_note": "I【Hiệu chỉnh】 - ※Trị quy cách phán định: Kiểu mẫu SL-250, Hành trình 250mm trở lên, Hạng mục Độ vuông góc: 6μm"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

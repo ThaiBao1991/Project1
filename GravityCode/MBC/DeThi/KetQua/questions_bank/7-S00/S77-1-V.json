@@ -1,0 +1,50 @@
+{
+  "file_name": "S77-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh dụng cụ tiêu chuẩn - Máy hiệu chỉnh đồng hồ quản lý tải trọng PS-2TA/30TA",
+  "doc_code": "S77-1 d",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Độ chính xác yêu cầu đối với các thiết bị PS-2TA (CL06-001M-AA 200kg) và PS-30TA (CL06-002M-AA 3000kg) là bao nhiêu?",
+      "options": {
+        "A": "±0.1%F.S",
+        "B": "±0.2%F.S",
+        "C": "±1.0%F.S",
+        "D": "±0.5%F.S (Đo cả vùng lân cận tải trọng dung sai lớn nhất)"
+      },
+      "correct_answer": "D",
+      "reference_note": "Ⅰ[Hiệu chỉnh] - Thể thức / Độ chính xác: ±0.5%F.S (Đo cả vùng lân cận tải trọng dung sai lớn nhất)"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn hiệu chỉnh S77-1 d, chu kỳ hiệu chỉnh đối với máy hiệu chỉnh đồng hồ quản lý tải trọng PS-2TA/30TA là bao lâu?",
+      "options": {
+        "A": "1 năm",
+        "B": "2 năm",
+        "C": "3 năm",
+        "D": "6 tháng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Ⅰ[Hiệu chỉnh] - Chu kỳ hiệu chỉnh: 2 năm"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Điều kiện nhiệt độ xung quanh tiêu chuẩn được quy định trong mục hiệu chỉnh máy PS-2TA/30TA là gì?",
+      "options": {
+        "A": "20 ± 5 °C",
+        "B": "25 ± 2 °C",
+        "C": "23 ± 7 °C",
+        "D": "20 ± 2 °C"
+      },
+      "correct_answer": "C",
+      "reference_note": "Ⅰ[Hiệu chỉnh] - Nhiệt độ xung quanh: 23 ± 7°C"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

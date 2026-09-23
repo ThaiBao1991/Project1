@@ -1,0 +1,50 @@
+{
+  "file_name": "913-1-V.pdf",
+  "folder_name": "6-900 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM MÁY ĐO",
+  "doc_code": "913-1 a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra ngoại quan hàng ngày, nếu phát hiện thấy điểm bất thường (ví dụ hư hỏng, dính dị vật có hại), nhân viên thao tác cần phải xử lý như thế nào theo đúng hướng dẫn?",
+      "options": {
+        "A": "Tự ý tháo máy ra sửa chữa bằng các dụng cụ cơ khí sẵn có tại chuyền",
+        "B": "Tiếp tục sử dụng nếu lỗi nhỏ và ghi chép lại vào cuối tháng",
+        "C": "Ghi chép lại trong kết quả kiểm tra rồi xử lí theo chỉ thị của quản lí",
+        "D": "Bỏ qua không cần ghi chép nếu trong vòng một tháng không phát sinh thêm lỗi nào khác"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 5, Phần II【Điểm kiểm】, Chú ý mục 1 & 3"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Trong quá trình thực hiện hiệu chỉnh dòng điện đầu vào (bước 2), khi mở kappa máy kiểm tra dòng điện hình sóng ra, cần xoay biến trở nào để điều chỉnh màn hình về 「0.000A」?",
+      "options": {
+        "A": "VR1",
+        "B": "VR2",
+        "C": "VR3",
+        "D": "Nút xoay AMPTD"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, Phần I【Hiệu chỉnh】, Hiệu chỉnh dòng điện đầu vào, bước (2)"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo mục II 【Điểm kiểm】, tần suất thực hiện điểm kiểm đối với hạng mục ngoại quan (xác nhận có sai sót có hại nào như dính dị vật hay hư hỏng không) là khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước khi bắt đầu sản xuất hàng loạt"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5, Phần II【Điểm kiểm】, Tần xuất điểm kiểm: Mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "527-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định Geji đo đường kính giới hạn dạng tròn (Bao gồm thước đo đường kính ngoài gia công khía)",
+  "doc_code": "527-1i",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm (ngoại quan) đối với geji đo đường kính giới hạn dạng tròn được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và trước khi sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "6 tháng 1 lần theo định kỳ hiệu chỉnh",
+        "D": "Chỉ kiểm tra khi phát hiện sản phẩm lỗi"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3/4 - Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi phát hiện có bất thường trong quá trình kiểm tra (hoặc khi sử dụng), người vận hành cần thực hiện bước xử lý nào sau đây?",
+      "options": {
+        "A": "Tự ý dùng dũa mài lại bề mặt đo cho vừa vặn",
+        "B": "Tiếp tục sử dụng nếu sản phẩm đo vẫn đạt kích thước",
+        "C": "Ghi chép lại kết quả, xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu và làm đơn đề nghị hiệu chỉnh nếu cần thiết",
+        "D": "Bỏ ngay vào thùng rác phế liệu mà không cần báo cáo"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3/4 - Chú ý mục 2: Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu..."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Dụng cụ chuẩn và chu kỳ hiệu chỉnh chính xác được quy định cho geji đo đường kính giới hạn dạng tròn (mã 527-1i) là gì?",
+      "options": {
+        "A": "Kim hình côn 0.01mm - Chu kỳ 12 tháng",
+        "B": "Kim hình côn 0.05mm - Chu kỳ 12 tháng",
+        "C": "Kim hình côn 0.03mm - Chu kỳ 24 tháng và khi thấy cần thiết",
+        "D": "Thước đo kim loại dạng C JIS cấp 2 - Chu kỳ 36 tháng"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1/4 - Dụng cụ chuẩn: Kim hình côn 0.03mm; Chu kỳ hiệu chỉnh: 24 tháng và khi thấy cần thiết"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

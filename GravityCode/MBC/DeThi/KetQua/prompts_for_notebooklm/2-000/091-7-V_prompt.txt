@@ -1,0 +1,416 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Bản tiêu chuẩn hiệu chỉnh, kiểm tra máy đo            Ban chính BHCL Mabuchi Motor., LTD - Máy kiểm tra xung                                          Đo    091-7 a
+Mã số/Mã máy đo: 091-7
+File gốc: 091-7-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/7
+
+Bản tiêu chuẩn hiệu chỉnh, kiểm tra máy đo            Ban chính BHCL Mabuchi Motor., LTD
+
+Ban hành   30/03/2018
+Cải chính    31/3/2021
+Máy kiểm tra xung                                          Đo    091-7 a
+CR25-018M/020M/A01M-AA
+
+Ι【Hiệu chỉnh】
+
+Đồng hồ vạn năng kỹ thuật số [S13-1]，Máy hiện sóng[S27-1]
+Máy tiêu chuẩn         Máy phát sóng[S31-1]
+
+Chu kỳ hiệu chỉnh      Cứ mỗi 12 tháng và lúc cần
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+1.Điện áp xuất
+
+<Chuẩn bị trước hiệu chỉnh >
+・Phải khởi động cho chạy ổn định trong vòng 30 phút trước
+khi hiệu chỉnh.
+・Kiểm tra phiên bản của chương trình, thiết định phương pháp
+bắt đầu đo(tay/tự động), và có/không có đo điện áp .
+(1) Bật nguồn điện máy kiểm tra xung.
+(2) Ấn nút [VER INFO] trên màn hình hiển thị MENU của
+máy kiểm tra xung, kiểm tra phiên bản chương trình
+đang cài đặt.
+(3) Ấn nút [OPTION] trên màn hình hiển thị MENU của máy
+kiểm tra máy xung, nếu các nút hàng ngang MANUAL
+START và VOLTAGE MEAS OFF thì ấn vào, để ON.
+(4) Ấn [MENU], trở về màn hình hiển thị MENU.
+
+Dùng đồng hồ vạn năng kỹ thuật số đo điện áp đầu ra của
+chấu BNC đầu ra Vcc, chấu BNC đầu ra Vth, rồi phán định.
+Nếu điện áp đầu ra nằm ngoài quy cách thực hiện điều chỉnh
+điện áp đầu ra sau khi đã báo cáo với bộ môn sử dụng.
+
+(1) Thao tác theo trình tự nút [SETTING] ⇒ nút [NEXT] trên
+màn hình biểu thị MENU của máy kiểm tra xung, cho hiển
+thị màn hình thiết định Vcc, Vth. Nếu không hiển thị thì ấn
+nút [NEXT] đến khi hiển thị.
+
+(2) Ấn vào trị số biểu thị trên Vcc, Vth, rồi dùng bàn phím
+được biểu thị thiết định từng 16.0V (Thiết định trị số
+bằng    ).
+Ký lục lại trị thiết định để có thể trả về nguyên dạng sau
+khi thay đổi.
+(3) Ấn [NEXT] hoặc[BACK] (Áp dụng điện áp đã thiết định lúc
+chuyển đổi màn hình).
+
+--- HẾT TRANG ---
+
+No.2/7
+
+Ι【Hiệu chỉnh】                              Đo 091-7 a
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+(4) Nối đồng hồ vạn năng kỹ thuật số vào chấu đầu ra Vcc và
+chấu đầu ra Vth của máy kiểm tra xung. Sử dụng loại dây
+cáp Banana-BNC hoặc connector chuyển đổi.
+Nối giữa máy kiểm tra xung và connector BNC sau cùng
+để tránh hư hỏng do đoản mạch.
+
+(5) Xác nhận trị đầu ra (trị biểu thị đồng hồ vạn năng kỹ thuật
+số) nằm trong quy cách, rồi ký lục.
+(6) Ấn nhiều lần nút [BACK] hoặc [NEXT], sau khi biểu thị
+[MENU], thì ấn vào rồi trở về màn hình biểu thị MENU.
+<Trình tự thao tác điều chỉnh >
+※Hạng mục chú ý
+・Việc điều chỉnh này chỉ tiến hành chỉ trong trường
+hợp có sai lệch 50% trở lên so với quy cách phán định.
+・Phải báo cáo kết quả hiệu chỉnh cho bộ môn sử dụng
+trước khi điều chỉnh.
+・Phải ký lục cả 2 「trị trước điều chỉnh」，「trị sau điều
+chỉnh」vào biểu ký lục
+
+(1) Tháo kaba của phần thân máy kiểm tra xung. (8 vị trí
+được cố định bằng ốc)
+(2) Nối đồng hồ vạn năng kỹ thuật số vào chấu đầu ra Vcc và
+chấu đầu ra Vth.
+(3) Điều chỉnh bằng volume điều chỉnh như hình dưới đây,
+sao cho trị đầu ra (trị biểu thị đồng hồ vạn năng kỹ thuật
+số) đến gần 16.0V hết mức có thể.
+
+(4) Sau khi điều chỉnh thì đóng kaba của phần thân máy
+kiểm tra xung.
+
+16.0±0.1V
+
+Mặt sau
+Mặt trước
+Volume
+điều chỉnh
+Vth
+Volume
+điều chỉnh
+Vcc
+
+Connector chuyển đổi Banana-BNC
+Vcc
+Vth
+
+--- HẾT TRANG ---
+
+No.3/7
+
+Ι【Hiệu chỉnh】                              Đo 091-7 a
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+2.Điện áp đầu vào
+
+Phán định chênh lệch giữa trị lý thuyết điện áp đầu vào máy
+kiểm tra xung và trị biểu thị trên máy hiện sóng.
+Điện áp đầu vào máy kiểm tra xung được tính theo tỷ lệ trở
+kháng giữa máy phát sóng và máy kiểm tra xung.
+
+<Trình tự thao tác hiệu chỉnh> Tiến hành tiếp tục hạng mục
+hiệu chỉnh 1
+※Hạng mục chú ý
+・Trong lúc đang nối máy phát sóng tuyệt đối không
+được ngắt nguồn điện của máy kiểm tra xung vì có khả
+năng sẽ làm hư hỏng máy kiểm tra xung.
+・Không nối máy kiểm tra xung PLS2，OUT2，MON2 vì
+không sử dụng.
+
+(1) Xác nhận rằng nguồn điện của máy kiểm tra xung có bật
+và nguồn điện của máy phát sóng và máy hiện sóng
+không bật, rồi bắt đầu nối.
+(2) Nối chấu BNC đầu ra 1ch của máy phát sóng với chấu
+BNC đầu vào PLS1 của máy kiểm tra xung.
+Nối chấu BNC đầu vào 1ch của máy hiện sóng với chấu
+BNC đầu ra OUT1 của máy kiểm tra xung.
+Sử dụng dây cáp loại BNC-BNC.
+
+(3) Bật nguồn điện theo trình tự máy hiện sóng, máy phát
+sóng sau khi xác nhận nguồn điện của máy kiểm tra xung
+đã bật.
+(4) Thực hiện thao tác theo trình tự nút [SETTING]⇒nút
+[NEXT] trên màn hình MENU của máy kiểm tra xung, rồi
+thay đổi trị thiết định Vcc, Vth về 8V.
+(5) Quay về màn hình MENU.
+(6) Xuất sóng vuông 8.00±2.00V, chiều dài sóng 1ms,  50%
+so với DUTY bằng máy phát sóng.
+Ảnh Tham khảo:Màn hình thiết định WF1974
+
+No.4/7
+
+BNC-BNC
+
+--- HẾT TRANG ---
+
+Ι【Hiệu chỉnh】                           Đo  091-7 a
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+3.Trục điện áp
+
+4.Trục thời gian
+
+(7) Tìm trị lý thuyết điện áp đầu vào được tính theo tỷ lệ trở
+kháng giữa máy phát sóng và máy kiểm tra xung, đọc trị
+biểu thị trên máy hiện sóng rồi so sánh.
+Trị lý thuyết có thể tính như sau.
+𝑉𝑡= V ± 𝑣∗𝑅𝑝
+𝑅+ 𝑅𝑝
+
+Trong đó,
+Vt: Trị lý thuyết điện áp đầu vào máy kiểm tra xung
+V : Trị OFFSET điện áp đầu ra của máy phát sóng
+v : Biên độ điện áp đầu ra của máy phát sóng
+Rp: Trở kháng đầu vào của máy kiểm tra xung
+R : Trở kháng đầu ra của máy phát sóng (Thường là
+50Ω)
+
+Trường hợp CR25-018M-AA，CR25-A01M-AA thì trở
+kháng đầu vào là 182Ω, nên trị lý thuyết điện áp đầu vào
+Vt có thể tính theo công thức
+𝑉𝑡= 8 ± 2 ∗182
+50 + 182  [𝑉]
+Trường hợp CR25-020M-AA thì trở kháng đầu vào là
+100Ω, nên trị lý thuyết điện áp đầu vào Vt có thể tính theo
+công thức
+𝑉𝑡= 8 ± 2 ∗100
+50 + 100  [𝑉]
+
+(1) Ấn nút [TEST] trên màn hình biểu thị MENU của máy kiểm
+tra xung.
+(2) Xuất sóng vuông 8.00±2.00V, chiều dài sóng 1ms, 50% so
+với DUTY bằng máy phát sóng.
+(3) Sau khi có biểu thị WAITING FOR TEST START... thì ấn
+vào nút [START].
+
+(4) Khi xuất hiện NG so với trị phán định đã thiết định trên
+máy kiểm tra xung thì sẽ phát còi cảnh báo, tuy nhiên để
+không ảnh hưởng đến hiệu chỉnh thì ấn nút [RESET] di
+chuyển sang màn hình xác nhận trị đo.
+
+(5) Ấn nút dưới VOLTAGE, đọc trị biểu thị trên UH, UL và trị
+biểu thị trên máy hiện sóng rồi so sánh.
+
+Tiếp tục tiến hành hạng mục hiệu chỉnh 3.(4).
+Ấn nút dưới H/L TIME, rồi đọc trị biểu thị trên T1, T2
+
+Trị lý thuyết của
+điện áp đầu vào
+±0.1  V
+
+Trị
+máy
+tiêu
+chuẩn ±0.1V
+
+0.5±0.1ms
+
+--- HẾT TRANG ---
+
+No.5/7
+
+Ι【Hiệu chỉnh】                           Đo 091-7 a
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+5.So với DUTY
+
+Ấn nút dưới DUTY rồi đọc trị biểu thị trên D1，D2
+
+<Điểm lưu ý lúc ngắt nguồn điện>
+Có nguy cơ nhập vào tín hiệu điện của máy phát sóng trong
+trạng thái nguồn điện của máy kiểm tra xung đã ngắt thì sẽ
+phát sinh hư hỏng.
+Phải ngắt nguồn điện của máy kiểm tra xung sau khi đã ngắt
+nguồn các thiết bị đang nối và tháo các loại dây cáp nối.
+
+50±0.1%
+
+－Trích dẫn・Văn b ản liên quan－
+Phương pháp hiệu chỉnh: Tham khảo sách thuyết minh hướng dẫn CR25-018M/020M/A01M-AA
+Hạng mục hiệu chỉnh 2, 3: Vì điện áp đầu ra của máy tiêu chuẩn sẽ bị ảnh hưởng bởi trở kháng đầu vào
+của máy kiểm tra xung, nên sẽ đo so sánh trị thực đo vs trị điện áp đầu vào máy kiểm
+tra xung đo được bằng máy hiện sóng.
+Hạng mục hiệu chỉnh 2，3：Tốt nhất là hiệu chỉnh Vcc,Vth theo trị được thiết định thông thường. Tuy
+nhiên, sẽ hiệu chỉnh bằng sóng vuông 8.00±2.00V dựa theo giới hạn điện áp đầu ra của
+máy tiêu chuẩn.
+Phương pháp phán định: Nội bộ công ty thiết định
+
+--- HẾT TRANG ---
+
+No.6/7
+
+Ⅱ【Điểm kiểm】          Máy kiểm tra xung                        Đo  091-7 a
+CR25-018M/020M/A01M-AA
+
+Tiến độ điểm kiểm       Mỗi lần sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1.Ngoại quan
+
+2.Trạng thái biểu thị
+
+(1) Sau khi đo, kiểm tra bằng mắt rằng không có vết bẩn gây
+hư hại hay trầy, hư hỏng
+
+(2) Xác nhận nối đúng dây lead, không bị lỏng dây.
+
+Sau khi bật nguồn, xác nhận rằng không có thiếu, mất biểu thị
+kỹ thuật số.
+
+※Phải yêu cầu hiệu chỉnh nếu thay đổi chương trình.
+
+Không được có
+dị thường
+
+Không được có
+dị thường
+
+Chú ý)  1.Nếu kết quả kiểm tra có dị thường thì ký lục kết quả kiểm tra, rồi xử lý theo chỉ thị của người
+chịu trách nhiệm quản lý.
+2.Nếu kết quả kiểm tra không có dị thường thì không cần ký lục kết qủa kiểm tra.
+Tuy nhiên, dù không có dị thường thì 1 tháng ký lục nội dung 1 lần.
+3.Nếu phát hiện ra dị thường lúc đang sử dụng thì xử lý theo chỉ thị của người chịu trách nhiệm
+quản lý.
+
+--- HẾT TRANG ---
+
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm  Biểu lý lịch ban hành-cải đính-hủy bỏ
+Đo  091-7    No.7/7
+Ký
+hiệu
+Năm.th áng
+.ngày
+Ghi chép (Nội dung cải đính)
+Soạn
+thảo
+Xác
+nhận
+Công
+nhận
+
+2018.03.30
+
+Ban hành mới
+
+菊池
+
+伊藤
+
+岩田
+
+a
+
+2021.03.31
+
+Bổ sung mã số thiết bị (CR25-020M-AA).
+Thay đổi ghi chép trị lý thuyết Vt trong hạng mục hiệu chỉnh
+2.(7)
+
+Ban chính BHCL Mabuchi Motor., LTD
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "091-7-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh, kiểm tra máy đo            Ban chính BHCL Mabuchi Motor., LTD - Máy kiểm tra xung                                          Đo    091-7 a",
+  "doc_code": "091-7",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

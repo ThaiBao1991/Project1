@@ -1,0 +1,50 @@
+{
+  "file_name": "633-5-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "TIÊU CHUẨN HIỆU CHỈNH ĐIỂM KIỂM Cân phân tích điện tử Dòng OHAUS PJX",
+  "doc_code": "633-5",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Chu kì hiệu chỉnh tiêu chuẩn đối với cân phân tích điện tử dòng OHAUS PJX được quy định như thế nào?",
+      "options": {
+        "A": "1 tháng một lần",
+        "B": "6 tháng và khi cần thiết",
+        "C": "1 năm một lần",
+        "D": "Chỉ khi thay đổi vị trí lắp đặt"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1/5 - [Hiệu chỉnh] - 'Chu kì hiệu chỉnh: 6 tháng và khi cần thiết'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục Lưu ý về kết quả kiểm tra định kỳ, nếu không có bất thường thì tần suất ghi nhận kết quả kiểm tra được quy định như thế nào?",
+      "options": {
+        "A": "Không cần ghi nhận bất kỳ kết quả nào trong suốt quá trình sử dụng",
+        "B": "Chỉ cần ghi nhận lại kết quả khi có yêu cầu từ cấp trên",
+        "C": "Có thể không ghi nhận kết quả kiểm tra, tuy nhiên ngay cả khi không có bất thường thì mỗi tháng một lần vẫn phải được ghi lại",
+        "D": "Phải ghi nhận chi tiết vào biên bản sau mỗi lần bật nguồn"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 4/5 - Lưu ý) Mục 2: 'Nếu kết quả kiểm tra không có bất thường, có thể không ghi nhận kết quả kiểm tra. Tuy nhiên, ngay cả khi không có bất thường mỗi tháng một lần, nó được ghi lại cho hiệu ứng đó.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu kiểm tra ngoại hình và trình độ của cân điện tử OHAUS PJX, vị trí chuẩn xác của bong bóng khí cân bằng nằm ở đâu?",
+      "options": {
+        "A": "Ở góc phải phía trên của đĩa cân",
+        "B": "Ở góc trái phía dưới của màn hình hiển thị",
+        "C": "Ở trung tâm của cấp độ rằng có bong bóng khí",
+        "D": "Bên cạnh nút nguồn điện"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 4/5 - II.【Điểm kiểm】 - Mục 2. Trình độ: 'Ở trung tâm của cấp độ rằng có bong bóng khí'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

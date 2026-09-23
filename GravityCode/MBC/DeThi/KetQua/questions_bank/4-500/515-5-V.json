@@ -1,0 +1,50 @@
+{
+  "file_name": "515-5-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh - điểm kiểm dụng cụ đo đạc ĐỒNG HỒ KỸ THUẬT SỐ",
+  "doc_code": "515-5 q",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi kết quả kiểm tra định kỳ phát hiện có điểm bất thường hoặc hư hỏng, nhân viên phụ trách cần phải thực hiện hành động gì tiếp theo?",
+      "options": {
+        "A": "Tự ý tháo rời đồng hồ để sửa chữa các linh kiện bên trong.",
+        "B": "Vẫn tiếp tục sử dụng bình thường nếu sai số nhỏ hơn 0.5mm.",
+        "C": "Ghi chép lại kết quả bất thường, xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở quản và làm đơn đề nghị hiệu chỉnh lại thiết bị nếu cần thiết.",
+        "D": "Vứt bỏ dụng cụ đo vào thùng rác phế liệu ngay lập tức."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 6, Mục 'Chú ý:' trong phần Ⅱ【Điểm kiểm】"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Khi thực hiện hiệu chỉnh độ chính xác lặp đi lặp lại hoặc kiểm tra độ ổn định chỉ thị bằng block gauge, thao tác đúng với trục chính và đầu kim đo là gì?",
+      "options": {
+        "A": "Ép mạnh trục chính xuống block gauge để kiểm tra độ cứng của đầu kim.",
+        "B": "Đặt đầu kim lên trên mặt bệ đo hoặc block gêji, vận hành trục chính nhanh hoặc chậm 5 lần tại điểm trung gian hoặc điểm thường sử dụng (hoặc di chuyển block gêji qua lại, sang trái và phải) để tìm sai số lớn nhất.",
+        "C": "Chỉ cần đo một lần duy nhất tại điểm 100% giới hạn đo.",
+        "D": "Không cần chạm vào bệ đo, chỉ cần đo lơ lửng trên không trung."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1 và Trang 6, Phần Phương pháp hiệu chỉnh / điểm kiểm độ chính xác lặp đi lặp lại và độ ổn định chỉ thị"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm (kiểm tra hàng ngày/định kỳ) đối với đồng hồ kỹ thuật số được quy định như thế nào?",
+      "options": {
+        "A": "Chỉ kiểm tra 1 lần mỗi năm.",
+        "B": "Mỗi lần sử dụng và mỗi tháng 1 lần.",
+        "C": "Chỉ kiểm tra khi phát hiện dụng cụ đo bị rơi rớt.",
+        "D": "Mỗi tuần 1 lần và trước khi giao ca."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 6, Mục 'Ⅱ【Điểm kiểm】', Tiến độ kiểm tra: 'Mỗi lần sử dụng và mỗi tháng 1 lần'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "071-10-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Bộ ghi dữ liệu HIOKI LR8450+U8550",
+  "doc_code": "071-10 a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Khi thực hiện hiệu chỉnh độ chính xác đo điện áp, sau khi bật nguồn, yêu cầu thời gian làm nóng tối thiểu là bao nhiêu và cần kết nối như thế nào đối với U8550?",
+      "options": {
+        "A": "Làm nóng ít nhất 10 phút, kết nối toàn bộ các kênh (CH) của bộ đo.",
+        "B": "Không cần làm nóng, chỉ kết nối 1CH của bộ số 1 đo điện áp/nhiệt độ.",
+        "C": "Làm nóng ít nhất 30 phút, chỉ kết nối 1CH của bộ số 1 đo điện áp/nhiệt độ.",
+        "D": "Làm nóng ít nhất 60 phút, kết nối đồng thời qua đồng hồ vạn năng kỹ thuật số cho mọi kênh."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, I【Hiệu chỉnh】 Hạng mục 1: Sau khi bật nguồn, hãy để ít nhất 30 phút làm nóng. Chỉ kết nối 1CH của bộ số 1 đo điện áp/nhiệt độ."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo phần chú ý của mục điểm kiểm, nếu phát hiện bất thường khi kiểm tra (hoặc khi sử dụng), nhân viên cần xử lý như thế nào?",
+      "options": {
+        "A": "Tự ý tháo dời thiết bị để sửa chữa mạch bên trong.",
+        "B": "Tiếp tục sử dụng nếu sai số không đáng kể.",
+        "C": "Ghi chép lại kết quả bất thường và xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở quản.",
+        "D": "Bỏ qua không cần báo cáo nếu thiết bị vẫn lên nguồn."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 4, Chú ý mục 2: Nếu có bất thường khi kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả đó và xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở quản."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ điểm kiểm đối với bộ ghi dữ liệu HIOKI LR8450+U8550 được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và mỗi lần sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "3 tháng một lần",
+        "D": "Chỉ thực hiện khi có yêu cầu từ bộ phận khác"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 4, II【Điểm kiểm】 Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

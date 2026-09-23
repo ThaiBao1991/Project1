@@ -1,0 +1,50 @@
+{
+  "file_name": "612-1-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "HỆ THỐNG ĐO HÌNH ẢNH CNC (NIKON VM-150N, VN-250, VMA-2520)",
+  "doc_code": "612-1 c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo quy định về hiệu chỉnh, khi tiến hành đo hiệu chỉnh tỷ lệ phóng đại (bản dùng điều chỉnh tỷ lệ phóng đại đặt trên bàn kính), thao tác quan trọng nào sau đây TUYỆT ĐỐI PHẢI TUÂN THỦ để đảm bảo tính chính xác?",
+      "options": {
+        "A": "Được phép di chuyển bản dùng điều chỉnh bất cứ lúc nào trong quá trình đo.",
+        "B": "Không được di chuyển bản này cho đến khi hoàn tất toàn bộ các bước đo hiệu chỉnh.",
+        "C": "Có thể thay đổi vị trí bản đo sau khi hoàn thành 2 lần đo đầu tiên.",
+        "D": "Chỉ cần cố định bản đo ở bước cuối cùng của quá trình hiệu chỉnh camera."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: Đặt bản dùng điều chỉnh tỷ lệ phóng đại lên bàn kính. (Không được di chuyển bản này cho đến khi hoàn tất toàn bộ các bước đo hiệu chỉnh)"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ điểm kiểm (kiểm tra hàng ngày) đối với hệ thống đo hình ảnh CNC được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước khi giao ca"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Tiến độ điểm kiểm - Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo mục Chú ý trong điểm kiểm, trường hợp kết quả kiểm tra không có gì bất thường nhưng theo quy định vẫn phải ghi chép kết quả đó lại với tần suất tối thiểu là bao lâu?",
+      "options": {
+        "A": "1 tuần 1 lần",
+        "B": "2 tuần 1 lần",
+        "C": "1 tháng 1 lần",
+        "D": "3 tháng 1 lần"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: Chú ý 2) Trường hợp kết quả kiểm tra không có gì bất thường... phải ghi chép kết quả đó lại 1 tháng 1 lần."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

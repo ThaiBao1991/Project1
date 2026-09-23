@@ -1,0 +1,50 @@
+{
+  "file_name": "Z02-10-V.pdf",
+  "folder_name": "9-Z00 Ban V IT HOA",
+  "doc_title": "Quy cách phán định máy đo hình sóng (GW INSTEK)",
+  "doc_code": "Z02-10 d",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Dựa vào Biểu 1 về trị phán định, nếu trị phán định nằm trong khoảng từ '±5%~9%', thì trị phán định cho phép tương ứng là bao nhiêu?",
+      "options": {
+        "A": "±1%",
+        "B": "±5%",
+        "C": "±10%",
+        "D": "Dựa trên trị phán định"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Biểu 1: Hàng '±5%~9%' tương ứng với '±10%' ở cột 'Trị phán định cho phép'."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo quy cách phán định, đối với máy GOS-620, thông số kỹ thuật phán định cho phần V/div là bao nhiêu?",
+      "options": {
+        "A": "±2%",
+        "B": "±3%",
+        "C": "±5%",
+        "D": "±1%"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Bảng thông số kỹ thuật mục V/div của GOS-620."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo phần Nội dung kiểm tra của quy cách, khi máy phán định hình sóng không yêu cầu thực thuộc đo (điện áp, tần số,...) thì việc vận dụng trị phán định được quy định như thế nào?",
+      "options": {
+        "A": "Cho phép dùng theo giá trị tuyệt đối không cần quy đổi.",
+        "B": "Cho phép dùng cho biểu 1 đối với trị phán định.",
+        "C": "Phải dừng máy và lập biên bản bảo dưỡng ngay lập tức.",
+        "D": "Chỉ áp dụng khi có sự phê duyệt trực tiếp của trưởng phòng BHCL."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Nội dung (3): 'Trường hợp máy phán định hình sóng dạng Analog không yêu cầu thực thuộc đo ( điện áp, tần số,...) thì vận dụng trị phán định cho phép của biểu 1 đối với trị phán định'."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

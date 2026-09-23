@@ -1,0 +1,50 @@
+{
+  "file_name": "012-14-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH - KIỂM ĐIỂM DỤNG CỤ ĐO Đồng hồ đo ngẫu lực（Bộ điều khiển：DM5001）",
+  "doc_code": "012-14",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, tiến độ điểm kiểm đối với Đồng hồ đo ngẫu lực (Bộ điều khiển: DM5001) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và mỗi lần sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "3 tháng một lần",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 7: Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Trong phương pháp hiệu chỉnh trị ngẫu lực, sau khi hoàn tất hiệu chỉnh và trước khi lấy thanh hiệu chỉnh ra khỏi trục, thao tác nào giúp khử từ còn sót lại?",
+      "options": {
+        "A": "Click Brake OFF, vừa cho thanh hiệu chỉnh di chuyển lên xuống bằng tay vừa khử từ còn xót lại",
+        "B": "Nhấn nút T-Zero để reset zero trị T",
+        "C": "Tắt nguồn điện chính của bộ điều khiển DM5001",
+        "D": "Click Supply OFF trên màn hình TORQuick MANU MODE"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2: (16) Click Brake OFF, vừa cho thanh hiệu chỉnh di chuyển lên xuống bằng tay vừa khử từ còn xót lại."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý về điểm kiểm, nếu phát hiện có dị thường trong quá trình điểm kiểm, nhân viên thực hiện phải làm gì?",
+      "options": {
+        "A": "Tự ý tháo dỡ thiết bị để sửa chữa ngay lập tức",
+        "B": "Bỏ qua nếu lỗi nhỏ và tiếp tục sử dụng thiết bị",
+        "C": "Kí lục kết quả có dị thường và xử lý theo chỉ thị của người chịu trách nhiệm bộ môn sở hữu",
+        "D": "Chờ đến lịch hiệu chỉnh định kỳ 3 tháng sau mới báo cáo"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 7: 2. Khi điểm kiểm, nếu có dị thường phải kí lục kết quả đó và xử lý theo chỉ thị của người chị trách nhiệm bộ môn sở hữu."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

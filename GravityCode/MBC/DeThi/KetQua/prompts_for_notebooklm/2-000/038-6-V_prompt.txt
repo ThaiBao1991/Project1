@@ -1,0 +1,370 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Hạng mục hiệu chỉnh - Phương pháp hiệu chỉnh
+Mã số/Mã máy đo: 038-6
+File gốc: 038-6-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+ｋV
+
+No.1/6
+Bảntiêuchuẩnkiểmtra, hiệuchỉnhmáyđoPhòngbảohànhchấtlượngcôngty
+Mabuchi
+
+Quyđịnh   2016/ 12/ 6
+CảichínhNgàythángnăm
+Máythínghiệmđiệnápchịuđựng      計測    038-6
+KIKUSUI TOS5200
+
+Ι【Hiệuchỉnh】
+
+Máytiêuchuẩn[S16-1]Điệntrởphụtảidùng UL1270，đồnghồđiệnápcao[S56-1]，máyhiệuchỉnhdòngđiện[S57-1]
+
+Chu kìhiệuchỉnh12thángvàlúcđượccôngnhậnlàcầnthiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+<Hạng mục chú ý>
+
+1.Điện áp đầu ra
+
+・Để ngăn ngừa bị điện giật, khi hiệu chỉnh phải mang bao tay
+cao su dùng để cách điện
+・ Phối dây nối là phải sử dụng dây lead test điện áp cao của
+hàng đi kèm。
+(TL31-TOS：Điện tử KIKUSUI)
+・Trước khi kết nối dây lead test điện áp cao với máy, cần phải
+xác nhận trước đó đã chắc chắn OFF công tắc POWER19 ,
+đèn nguy hiểm số 1 tắt, test biểu thị trạng thái số 2 trong trạng
+thái tắt đèn.
+・Sau khi OFF nút POWER số 19, thì đợi khoảng trên 10 giây
+rồi mới làm cho công tắc POWER số 19 ON.
+
+Nếu lặp đi lặp lại ON/OFF thì tính năng bảo hộ sẽ trở nên
+không còn, và trở thành nguyên nhân hư hại
+・Trước khi sử dụng, phải làm máy ấm khoảng 30 phút。
+・Liên quan đến những hướng dẫn bên ngoài thì tham khảo
+sách thyết minh hướng dẫn sử dụng
+
+(1) Phải xác nhận việc đèn DANGER của máy thí nghiệm điện
+áp chịu đựng(Dưới đây là tên thu gọn máy thí nghiệm) trong
+trạng thái tắt, máy hiển thị số 3 hiển thị READY。
+(2) Kết nối đồng hồ điện áp cao với chấu điện máy thí nghiệm。
+(Hình1)
+(3)  Nhấn phím SET số 12，tai nút Volum ROTARY số 10 của
+máy thí nghiệm, thiết định điện áp đầu ra ở 2 điểm gần 50%
+của 5.00kV và 100% của 5.00kV
+(4)Nhấn nút START số 5。
+(5)Đối với trị thiết định của máy thí nghiệm được phấn định có
+sự chênh lệch với trị chỉ thị của đồng hồ điện áp cao
+(6) Nếu nhấn nút STOPsố 6 thì đầu ra điện áp bị ngắt
+
+Tỷ lệ biến động
+điện áp
+±10%
+
+Hình 1
+Đồng hồ điện áp cao
+Máy thí nghiệm điện áp chịu đựng
+
+HIGH
+
+LOW            GND
+
+--- HẾT TRANG ---
+
+No.2/6
+
+Ι【Hiệuchỉnh】Đolường  038-6
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+2. Bị ngắt điện do máy
+hiệu chỉnh dòng điện
+
+(1) Xác nhận việc đèn báo DANGER số 1 của máy thí nghiệm
+ở trong trạng thái tắt đèn và máy hiển thị số 3 cũng hiển thị
+READY。
+(2) Kết nối máy hiệu chỉnh dòng điện với chấu điện máy thí
+nghiệm. ( Hình 2)
+(3)  Nhấn nút UPR/LWR số 3，sau khi thiết định giới hạn trên
+trị dòng điện của máy thí nghiệm thiết định tại nút Volum
+ROTARY của máy thí nghiệm số 10, thì nhấn đồng thời
+phím LOCAL số 17 và phím UPR/LWR số 13, làm giới
+hạn dưới trị dòng điện OFF。
+Trị hiệu chỉnh ngắt dòng điện lấy ở 4 điểm
+0.5mA,1mA,2mA,5mA.
+(4) Điều chỉnh trị chỉ thị số(Dial) ngắt dòng điện của máy hiệu
+chỉnh dòng điện với trị hiệu chỉnh số 3。
+(5)  Nhấn phím SET số 12 rồi thiết định điện áp xuất ra ở 1kV
+tại  Volum ROTARY của máy thí nghiệm。
+(6)  Nhấn nút START số 5
+(7) Xác nhận điện áp hiển thị trên máy thí nghiệm ở
+1kV±10Vhay không，trường hợp ngoài phạm vi thì điều chỉnh
+sao cho ở trong phạm vi.
+
+(8)Tìm độ chênh lệch (%) với các trị hiệu chỉnh đã thiết định tại
+số 3 của đồng hồ chỉ thị của máy hiệu chỉnh dòng điện。
+(9) Nhấn nút STOPsố 6 để ngắt Output điện áp。
+
+Biểu 1
+Trị hiệu chỉnh
+Độ chính xác phán định
+1.00mA trở lên
+±(1.5%× Trị hiệu chỉnh)
+1.00mA trở xuống
+±(1.5%×Trị hiệu chỉnh+0.03mA)
+
+Dựa vào độ
+chính xác phán
+định của biểu 1
+
+Hình 2
+
+Máy hiệu chỉnh dòng điện
+Máy thí nghiệm điện áp chịu đựng
+
+HIGH
+
+LOW
+
+--- HẾT TRANG ---
+
+ｋV
+
+No.3/6
+
+Ι【Hiệuchỉnh】Đolường  038-6
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+3.Thí nghiệm ngắt điện
+do điện trở có phụ tải
+dùng UL1270
+
+(1) Xác nhận việc đèn DANGER số 1 của máy thí nghiệm
+trong trạng thái tắt，máy hiển thị số 3 hiển thị READY.
+(2) Kết nối điện trở có phụ tải dùng UL1270 với chấu điện của
+máy thí nghiệm(Trị lớn nhất：2148kΩ).(Hình 3)
+(3) Kết nối đồng hồ đo điện áp cao với chấu điện điện trở có
+phụ tải dùng UL1270.(Hình 3)
+(4)  Nhấn phím UPR/LWRsố 1, sau khi thiết định giới hạn trên
+trị dòng điện của máy thí nghiệm thiết định tại VolumROTARY
+của máy thí nghiệm、thì vừa nhấn nút LOCALsố 17 vừa nhấn
+nút UPR/LWR số 13để OFF giới hạn dưới trị dòng điện.
+Trị
+hiệu
+chỉnh
+ngắt
+dòng
+điệnlấy
+ở
+3
+điểm
+0.5mA,1mA,2mA.
+(5) Nhấn nút SETsố 12 rồi thiết định điện áp đầu ra ở 600V
+bằng Volum ROTARY số 10 của máy thí nghiệm.
+
+(6)  Nhấn nút START số 5.
+(7) Xác nhận máy thí nghiệm và dòng điện sẽ bị ngắt khi thết
+định điện trở có phụ tải dùng UL1270 như biểu 2 (Còi sẽ kêu)
+(8) Nhấn nút STOP số 6 thì sẽ ngắt đầu ra điện áp .
+
+Biểu 2
+Điệnápđầura
+Dòng điện ngắt
+0.5mA
+1mA
+2mA
+600V
+±10%
+1137kΩ
+489kΩ
+279kΩ
+
+Tiếng còi kêu
+lên
+
+Hình 3
+Đồng hồ đo điện áp cao
+Máy kiểm tra điên áp chịu đựng
+
+LOW
+
+GND
+
+HIGH
+
+Điện trở có phụ tải dùng UL1270
+－Trích dẫn – Văn thư liên quan－
+Quy cách phán định：Trích dẫn bản thuyết minh hướng dẫn sử dụng
+
+--- HẾT TRANG ---
+
+No.4/6
+
+Ι【Hiệuchỉnh】                         Đolường 038-6
+
+［Ngoạiquanvàtêngọicácphần］
+
+＜Panel mànhìnhchính＞
+
+Điềukiệnđo
+Phầnthaotác
+
+①ĐènDANGER
+②Biểuthịtrạngthái
+③ DISPLAY
+④Phím MEMORY
+⑤NútSTART
+⑥NútSTOP
+⑦ChấuđiệnHIGH VOLTAGE
+⑧ChấuđiệnLOW VOLTAGE
+⑨PhímFUNCTION/CONFIG
+⑩ ROTARY
+⑪Lỗốcvít
+⑫PhímSET
+⑬PhímUPR/LWR
+⑭ConecctorREMOTE
+⑮PhímTEST/RISE
+⑯ConecctorUSB
+⑰PhímLOCAL
+⑱PhímMORE
+⑲NútPOWER
+⑳Kabadùngbảohộ
+
+--- HẾT TRANG ---
+
+No.5/6
+
+Ⅱ【Kiểmtra】  Máythínghiệmđiệnápchịuđựng      Đolường 038-6
+KIKUSUI TOS5200
+
+TiếnđộkiểmtraNhiềulầnsửdụng
+Hạng mục kiểm tra
+Phương pháp kiểm tra
+Phương pháp
+phán định
+
+1.Ngoại quan
+
+2. Phán định NG
+
+Không được có tình trạng xấu do vết bẩn, trầy, hư hại trên
+Panel hiển thị , dây lead điện áp cao, bao tay cao su cách điện
+ảnh hưởng đến đo đạc。
+
+Gây đoản mạch giữa chấu điện đầu ra, tiến hành thao tác
+trên thiết bị phán định( Chuông báo) và bản mạch ngắt điện.
+
+Chú ý ) 1.Trường hợp kết quả kiểm tra có bất thường thì hãy kí lục kết quả kiểm tra lại rồi xử lí theo chỉ thị
+của người chịu trách nhiệm quản lí.
+2. Trường hợp kết quả kiểm tra có điều bất thường thì không cần kí lục lại kết quả kiểm tra cũng
+được. Tuy nhiên, trong một tháng không có bất thường nào thì kí lục lại thông tin đó.
+3.  Trường hợp có bất thường khi đang sử dụng thì hãy xử lí theo như chỉ thị của người chịu trách
+nhiệm quản lí.
+
+--- HẾT TRANG ---
+
+Bảntiêuchuẩnhiệuchỉnh, kiểmtraBiểulailịch ban hành -cải
+chính - hủybỏ
+Đolường 038-6 No.6/6
+Rev.
+Ngàytháng
+Nội dung（Nội dung cảichính）
+Soạnt
+hảo
+Xácnhận
+Công
+nhận
+
+2016.12.06
+
+Quyđịnhmới(Dựán：PhòngbảohànhchấtlượngTWM
+Ông LI WEI XONG)
+
+村野
+
+伊藤
+
+石野
+
+Ban bảohànhchấtlượngcôngty Mabuchi Motor
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "038-6-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Hạng mục hiệu chỉnh - Phương pháp hiệu chỉnh",
+  "doc_code": "038-6",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

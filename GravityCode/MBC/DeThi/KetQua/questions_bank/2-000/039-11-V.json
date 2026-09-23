@@ -1,0 +1,50 @@
+{
+  "file_name": "039-11-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM ĐIỆN TRỞ CÁCH ĐIỆN HIOKI RM3545-01, RM3545-02",
+  "doc_code": "039-11 c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Trong quá trình hiệu chỉnh đo điện trở, điều kiện khởi động và thời gian chạy nóng máy (warm-up) trước khi điều chỉnh về 0 (0ADJ) là bao nhiêu phút?",
+      "options": {
+        "A": "Chạy nóng máy trên 30 phút",
+        "B": "Chạy nóng máy trên 45 phút",
+        "C": "Chạy nóng máy trên 60 phút",
+        "D": "Không cần chạy nóng máy, bật nguồn dùng ngay"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: '(1) Bật nguồn điện sau đó thực hiện chạy nóng máy trên 60 phút.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo quy định về xử lý bất thường trong quá trình điểm kiểm, khi phát hiện thấy điểm bất thường (hoặc phát sinh bất thường), nhân viên cần phải thực hiện hành động nào sau đây?",
+      "options": {
+        "A": "Tự ý tháo dỡ thiết bị để sửa chữa linh kiện bên trong",
+        "B": "Tiếp tục sử dụng nếu sai số nhỏ và ghi chú lại vào cuối tuần",
+        "C": "Ghi chép lại trong kết quả kiểm tra rồi xử lí theo chỉ thị của quản lí",
+        "D": "Bỏ qua không cần ghi chép nếu thiết bị vẫn lên nguồn bình thường"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 8: 'Chú ý) 1. Trong trường hợp phát sinh những bất thường hãy ghi chép lại trong kết quả kiểm tra rồi xử lí theo chỉ thị của quản lí.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ thực hiện điểm kiểm tra (đo độ điện trở thấp) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi 12 tháng một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tuần một lần",
+        "D": "Trước mỗi ca làm việc và khi nhận thấy cần thiết"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 7: 'Tiến độ điểm kiểm: Mỗi lần sử dụng'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

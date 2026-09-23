@@ -1,0 +1,50 @@
+{
+  "file_name": "S19-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Thước đo ngẫu lực",
+  "doc_code": "S19-1 d",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Điều kiện nhiệt độ xung quanh quy định khi tiến hành hiệu chỉnh thước đo ngẫu lực là bao nhiêu?",
+      "options": {
+        "A": "15 ± 5 °C",
+        "B": "20 ± 15 °C",
+        "C": "25 ± 10 °C",
+        "D": "23 ± 2 °C"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Nhiệt độ xung quanh 20 ± 15 °C"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, chu kỳ hiệu chỉnh đối với 'Thước đo ngẫu lực' là bao lâu?",
+      "options": {
+        "A": "6 tháng",
+        "B": "1 năm",
+        "C": "2 năm",
+        "D": "3 năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: [Hiệu chỉnh] Chu kỳ hiệu chỉnh: 2 năm"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trị số kiểm tra độ chính xác quy định đối với các loại Số khuôn (từ 45 ATG đến 15 BTG) và loại 2.2 - OT (Số chế tạo Tohnnichi) là bao nhiêu?",
+      "options": {
+        "A": "± 1 %",
+        "B": "± 2 %",
+        "C": "± 3 %",
+        "D": "± 5 %"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Đội chính xác / Trị số kiểm tra ± 3 %"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,240 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Bản tiêu chuẩn hiệu chỉnh - điểm kiểm máy đo
+Mã số/Mã máy đo: t
+File gốc: 098-2-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+Trang 1/4
+
+Bản tiêu chuẩn hiệu chỉnh
+
+Mabuchi motor Co., Ltd
+
+điểm kiểm máy đo
+
+Ban chính Bảo hành chất lượng
+Ban hành    08/2/2017
+Máy đo tĩnh điện                                 Máy đo   098-2
+SURPA 6505
+
+Ι【Hiệu chỉnh】
+Máy tiêu chuẩn         Máy biến đổi điện trở 6 số [S58-1]
+Chu kì hiệu chỉnh      Mỗi 24 tháng và những trường hợp cần thiết hoặc được yêu cầu
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+1. Hiệu chỉnh trị số
+điện trở (Phần cổ
+tay)
+
+2．Hiệu chỉnh trị số điện
+trở (Giày cách điện)
+
+(1) Điều chỉnh bảng điều khiển về [WRIST STRAP &
+FOOTWEAR]
+(2) Kết nối cực âm và cực dương với máy biến đổi điện trở 6
+số
+(3)  Kết nối cực dương máy biến đổi điện trở 6 số với đầu
+cắm máy đo tĩnh điện.
+
+(3) Sau khi điều chỉnh máy biến đổi điện trở 6 số theo từng trị
+số điện trở ở biểu 1 và cho tiếp xúc cực âm với [PRESS
+TO TEST], thì xác nhận nội dung phán định theo như biểu
+1.
+Biểu 1
+Trị số điện
+trở
+Nội dung
+phán định
+700KΩ
+Điểm sáng
+LOW
+800KΩ
+Điểm sáng
+PASS
+9.5MΩ
+Điểm sáng
+PASS
+11.0MΩ
+Điểm sáng
+HIGH
+
+(1) Điều chỉnh bảng điều khiển về [FOOTWEAR].
+(2) Tiếp xúc hai cực âm, dương với máy biến đổi điện trở 6
+số.
+(3) Tiếp xúc cực âm máy biến đổi điện trở 6 số với [PRESS
+TO TEST] của máy đo tĩnh điện.
+Sau khi điều chỉnh máy biến đổi điện trở 6 số theo từng trị
+số điện trở tại biểu 2 và tiếp xúc cực âm với hai bên đệm
+trái phải, thì xác nhận nội dung phán định theo như biểu 2.
+Biểu 2
+Đệm (trái phải)
+Trị số điện trở
+Nội dung
+phán định
+700KΩ
+Điểm sáng
+LOW
+800KΩ
+Điểm sáng
+PASS
+95MΩ
+Điểm sáng
+PASS
+105MΩ
+Điểm sáng
+HIGH
+
+dương
+
+--- HẾT TRANG ---
+
+Trang 2/4
+
+【Phụ lục】
+
+Máy đo  098-2
+
+<Tên các bộ phận>
+
+①Bàn phím thao tác
+②PRESS TO TEST
+③Cực dương máy biến đổi điện trở
+④Máy biến đổi điện trở (Máy tiêu chuẩn)
+⑤Đệm trái
+⑥Đệm phải
+
+1
+2
+3
+4
+5
+6
+
+--- HẾT TRANG ---
+
+Trang 3/4
+
+Ⅱ【Điểm kiểm】   Máy đo tĩnh điện khí                         Máy đo  098-2
+SURPA 6505
+
+Tần suất điểm kiểm  Mỗi lần sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1．Kiểm tra dây cap
+
+2．Ngoại quan
+
+Kiểm tra trên dây cáp có bị đứt hay không.
+
+Kiểm tra trêm lót đệm có bị dơ hoặc hư hỏng hay không.
+
+(Chú ý)  1. Trong trường hợp phát sinh những bất thường hãy ghi chép lại trong kết quả kiểm tra rồi xử lí
+theo chỉ thị của quản lí.
+2. Trong trường hợp không có bất thường thì không cần ghi chép lại.
+Tuy nhiên, dù cho không phát sinh trong vòng một tháng thì cũng cần phải ghi lại.
+3. Trong trường hợp phát hiện thấy điểm bất thường trong quá trình sử dụng thì cần xử lí theo chỉ thị
+của quản lí.
+
+--- HẾT TRANG ---
+
+LÍ LỊCH SỬA ĐỔI BẢN TIÊU CHUẨN HIỆU CHỈNH, ĐIỂM KIỂM                  Máy đo 098-2
+Trang 4/4
+Kí
+hiệu
+Thời gian
+Kí sự (Nội dung thay đổi)
+Soạn
+thảo
+Xác nhận
+Phê
+duyệt
+
+08/2/2017
+
+Ban hành mới
+
+菊池
+
+村野 伊藤
+
+石野
+
+Ban chính BHCL Công ty Mabuchi Motor Co., Ltd.
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "098-2-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh - điểm kiểm máy đo",
+  "doc_code": "t",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

@@ -1,0 +1,50 @@
+{
+  "file_name": "651-1-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Máy đo bề dày lớp màng",
+  "doc_code": "651-1 e",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi thực hiện hiệu chỉnh hoặc thao tác đo, kỹ thuật viên cần lưu ý điều gì đối với đầu dò V1FGA1HR34 để tránh dao động lớn về trị đo?",
+      "options": {
+        "A": "Ấn thật mạnh đầu dò vuông góc xuống bề mặt kiểm tra để tăng độ bám",
+        "B": "Nghiêng đầu dò một góc 45 độ so với mặt kiểm tra",
+        "C": "Cho đầu dò chạm vuông góc nhẹ nhàng, đặt song song với mặt kiểm tra và không được ấn quá mạnh",
+        "D": "Chỉ cần đo nhanh trong thời gian dưới 0.5s"
+      },
+      "correct_answer": "C",
+      "reference_note": "Phụ lục 2: Cho đầu dò chạm vuông góc lên phần kiểm tra nhẹ nhàng, không được ấn mạnh lên bề mặt; cần phải đặt song song với mặt kiểm tra rồi đo."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý về ngoại quan khi kiểm tra, thao tác nào sau đây là BẮT BUỘC để phòng ngừa hư hỏng do tĩnh điện đối với thân chính và linh kiện phụ?",
+      "options": {
+        "A": "Nối đầu dò khi nguồn điện thân chính đang ở trạng thái ON",
+        "B": "Xác nhận trạng thái nguồn điện thân chính OFF, sau đó phải nối đầu dò ở trạng thái phóng điện thích hợp",
+        "C": "Thường xuyên tháo rời đầu dò và thân chính sau mỗi lần đo để cất vào hộp",
+        "D": "Chạm tay trực tiếp vào phần trong đường tròn của bản bề dày để xả tĩnh điện trước khi đo"
+      },
+      "correct_answer": "B",
+      "reference_note": "Phụ lục II【Điểm kiểm】Hạng mục chú ý: (1) Xác nhận trạng thái nguồn điện thân chính OFF, sau đó phải nối đầu dò. (2) Phải tiến hành ở trạng thái phóng điện thích hợp do nguy cơ hư hỏng tĩnh điện."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kỳ tiến hành điểm kiểm cho máy đo bề dày lớp màng được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và mỗi lần sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "3 tháng 1 lần và khi cần thiết",
+        "D": "6 tháng 1 lần và khi xác nhận là cần thiết"
+      },
+      "correct_answer": "B",
+      "reference_note": "Phụ lục II 【Điểm kiểm】 Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

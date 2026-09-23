@@ -1,0 +1,50 @@
+{
+  "file_name": "S02-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "ĐIỆN TRỞ TIÊU CHUẨN",
+  "doc_code": "S02-1 f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Điều kiện môi trường về nhiệt độ và độ ẩm tiêu chuẩn khi tiến hành hiệu chỉnh dụng cụ Điện trở tiêu chuẩn là gì?",
+      "options": {
+        "A": "Nhiệt độ 20±3℃, Độ ẩm tương đối 30～60%",
+        "B": "Nhiệt độ 23±3℃, Độ ẩm tương đối dưới 40～75%",
+        "C": "Nhiệt độ 25±2℃, Độ ẩm tương đối dưới 50～80%",
+        "D": "Nhiệt độ 23±5℃, Độ ẩm tương đối dưới 50～70%"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Nhiệt độ tiêu chuẩn 23±3℃ Độ ẩm tương đối dưới 40～75%"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Đối với thiết bị Điện trở tiêu chuẩn 2792A (YOKOGAWA), mức độ chính xác ứng với dải đo từ 1Ω～10kΩ là bao nhiêu?",
+      "options": {
+        "A": "±0.005%",
+        "B": "±0.01%",
+        "C": "±0.0005%",
+        "D": "±0.003%"
+      },
+      "correct_answer": "D",
+      "reference_note": "Trang 1: Bảng 1. 2792/2792A - 2792A: 1Ω～10kΩ có Độ chính xác là ±0.003%"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu kỹ thuật của dụng cụ Điện trở tiêu chuẩn (S02-1 f), chu kì hiệu chỉnh được quy định là bao lâu?",
+      "options": {
+        "A": "01 năm",
+        "B": "03 năm",
+        "C": "05 năm",
+        "D": "02 năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: 【Hiệu chỉnh】 Chu kì hiệu chỉnh 05 năm"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

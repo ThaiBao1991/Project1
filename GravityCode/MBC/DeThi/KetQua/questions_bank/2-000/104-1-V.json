@@ -1,0 +1,50 @@
+{
+  "file_name": "104-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM MÁY ĐO",
+  "doc_code": "104-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Trong quá trình kiểm tra, nếu không phát sinh những điểm bất thường thì thao tác ghi chép kết quả kiểm tra được quy định như thế nào?",
+      "options": {
+        "A": "Phải ghi chép lại đầy đủ từng giờ trong ngày",
+        "B": "Không cần ghi chép lại, nhưng dù không phát sinh trong vòng một tháng thì cũng cần phải ghi lại",
+        "C": "Chỉ cần ghi chép lại khi quản lý yêu cầu trực tiếp",
+        "D": "Tuyệt đối không bao giờ được ghi chép lại nếu máy chạy bình thường"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 4: Chú ý 2. Trong trường hợp không có bất thường thì không cần ghi chép lại. Tuy nhiên, dù cho không phát sinh trong vòng một tháng thì cũng cần phải ghi lại."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý về an toàn khi hiệu chỉnh Máy đo độ dịch chuyển laser, điều nào sau đây là BẮT BUỘC KHÔNG ĐƯỢC LÀM?",
+      "options": {
+        "A": "Nhìn vào chùm tia laser hoặc cửa sổ của bộ phận phát sáng",
+        "B": "Sử dụng Master Block A để đo chiều dài",
+        "C": "Đo 2 loại geji chủ có chiều dài khác nhau",
+        "D": "Bấm phím [Press DOWN][Work ON]"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: (1) Tuyệt đối không được nhìn vào chùm tia laser. (Ngay cả trong trường hợp không có ánh sáng cũng không được nhìn vào cửa sổ của bộ phận phát sáng)"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tần suất thực hiện điểm kiểm cho hạng mục ngoại quan của máy kiểm tra tự động là bao nhiêu?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước khi kết thúc ca làm việc"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 4: Tần xuất điểm kiểm: Mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

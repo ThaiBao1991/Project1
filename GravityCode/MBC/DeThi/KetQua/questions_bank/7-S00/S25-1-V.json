@@ -1,0 +1,50 @@
+{
+  "file_name": "S25-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "DỤNG CỤ HIỆU CHỈNH KHUẾCH ĐẠI",
+  "doc_code": "S25-1 e",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh dụng cụ đo đạc S25-1 e, chu kỳ hiệu chỉnh của dụng cụ hiệu chỉnh khuếch đại là bao lâu?",
+      "options": {
+        "A": "01 năm",
+        "B": "02 năm",
+        "C": "03 năm",
+        "D": "05 năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: [ Hiệu chỉnh] Chu kỳ hiệu chỉnh 03 năm"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nhiệt độ tiêu chuẩn quy định để tiến hành hiệu chỉnh dụng cụ đo đạc này là bao nhiêu?",
+      "options": {
+        "A": "15 ± 1ºC",
+        "B": "20 ± 1ºC",
+        "C": "23 ± 2ºC",
+        "D": "25 ± 1ºC"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: [ Hiệu chỉnh] Nhiệt độ tiêu chuẩn 20 ± 1ºC"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Trong các hạng mục kiểm tra độ chính xác của dụng cụ hiệu chỉnh khuếch đại, qui cách đối với 'Độ phẳng bề mặt' là bao nhiêu?",
+      "options": {
+        "A": "Trong phạm vi 1.5 µm",
+        "B": "Trong phạm vi 3.0 µm",
+        "C": "± 0.1 µm",
+        "D": "± 1.0 µm"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: Bảng thông số, No. 1 Hạng mục: Độ phẳng bề mặt - Qui cách: Trong phạm vi 1.5 µm"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

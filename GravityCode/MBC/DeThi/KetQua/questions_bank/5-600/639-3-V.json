@@ -1,0 +1,50 @@
+{
+  "file_name": "639-3-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM MÁY ĐO - Máy đo khúc xạ cầm tay Dòng LQ tốc độ của Đài Loan",
+  "doc_code": "639-3",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Tần suất thực hiện điểm kiểm ngoại quan đối với máy đo khúc xạ cầm tay là khi nào?",
+      "options": {
+        "A": "Mỗi ngày một lần vào đầu ca",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tuần một lần",
+        "D": "Mỗi 12 tháng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: Tần xuất điểm kiểm - Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Trong trường hợp không phát sinh bất thường trong quá trình điểm kiểm, việc ghi chép kết quả được quy định như thế nào?",
+      "options": {
+        "A": "Bắt buộc phải ghi chép lại mỗi ngày",
+        "B": "Không cần ghi chép lại, tuy nhiên dù cho không phát sinh trong vòng một tháng thì cũng cần phải ghi lại",
+        "C": "Chỉ ghi lại khi có yêu cầu của cấp trên trực tiếp",
+        "D": "Phải ghi chép lại toàn bộ thông số đo đạc chi tiết vào sổ theo dõi"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: Chú ý: 2. Trong trường hợp không có bất thường thì không cần ghi chép lại. Tuy nhiên, dù cho không phát sinh trong vòng một tháng thì cũng cần phải ghi lại."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Phương pháp phán định đối với hạng mục thang đo hiệu chỉnh khi dùng nước cất là bao nhiêu?",
+      "options": {
+        "A": "0 ± 0.1%",
+        "B": "0 ± 0.5%",
+        "C": "0 ± 0.2%",
+        "D": "0 ± 1.0%"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: Phương pháp phán định: Phán định 0±0.2%"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

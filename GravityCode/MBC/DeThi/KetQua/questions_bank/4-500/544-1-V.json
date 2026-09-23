@@ -1,0 +1,50 @@
+{
+  "file_name": "544-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm",
+  "doc_code": "544-1 i",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trường hợp phát hiện có bất thường trong quá trình kiểm tra hoặc sử dụng cờ lê ngẫu lực, nhân viên phụ trách phải xử lý như thế nào theo đúng quy định?",
+      "options": {
+        "A": "Tự ý tháo rời cờ lê ngẫu lực để tự sửa chữa cơ khí bên trong",
+        "B": "Tiếp tục sử dụng bình thường nếu sai số không quá lớn",
+        "C": "Chỉ cần cất vào tủ dụng cụ và báo cáo miệng cho đồng nghiệp ca sau",
+        "D": "Ghi chép lại kết quả bất thường, xử lý theo chỉ thị người chịu trách nhiệm và làm đơn đề nghị hiệu chỉnh lại nếu cần thiết"
+      },
+      "correct_answer": "D",
+      "reference_note": "Trang 11, Chú ý 2: 'Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện hiệu chỉnh'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi tiến hành hiệu chỉnh hoặc kiểm tra độ chính xác chỉ thị của cờ lê ngẫu lực, các điểm đo được lấy bao nhiêu điểm và ở những mức tải nào?",
+      "options": {
+        "A": "Lấy 3 điểm: 30%, 60%, 100% tải trọng",
+        "B": "Lấy 5 điểm: 20%, 40%, 60%, 80%, 100% tải trọng",
+        "C": "Lấy 4 điểm bao gồm tải lớn nhất (lân cận 25%, 50%, 75%, 100%)",
+        "D": "Lấy 2 điểm: 50% và 100% tải trọng lớn nhất"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Phương pháp hiệu chỉnh: 'Ngoài ra, lấy 4 điểm đo bao gồm cả tải trọng lớn nhất (Lấy 4 điểm lân cận 25%,50%,75%,100% làm điểm đo)'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn kiểm tra cờ lê ngẫu lực, tiến độ điểm kiểm (kiểm tra định kỳ) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và trước khi sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "3 tháng 1 lần và khi đổi ca làm việc",
+        "D": "6 tháng 1 lần và khi phát hiện hỏng hóc"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 11, Tiến độ điểm kiểm: 'Mỗi tháng 1 lần và mỗi lần sử dụng'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

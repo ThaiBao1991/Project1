@@ -1,0 +1,325 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM MÁY ĐO    Ban chính BHCL công ty cổ phần Mabuchi Motor - Máy đo tiếng ồn                                           Máy đo    014－16 b
+Mã số/Mã máy đo: ti
+File gốc: 014-16-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/4
+
+BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM MÁY ĐO    Ban chính BHCL công ty cổ phần Mabuchi Motor
+
+Ban hành    26/4/2010
+Cải đính    04/09/2025
+Máy đo tiếng ồn                                           Máy đo    014－16 b
+（ONO SOKKI LA-1440／1441 (Class 2)、LA-4440/4441(Class 1)）
+
+Ι【Hiệu chỉnh】
+
+Máy tiêu chuẩn   Dụng cụ hiệu chỉnh dùng cho máy đo độ ồn (dụng cụ hiệu chuẩn âm thanh) có mức
+độ giống hoặc cao hơn so với dụng cụ cần hiệu chỉnh [S04-1]
+
+Chu kì hiệu chỉnh   Mỗi 6 tháng và hiệu chỉnh nhà cung cấp, mỗi 36 tháng (khuyến nghị) cũng như
+khi nhận thấy là cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+＜Hạng mục chú ý＞
+
+1.Hiệu chỉnh
+Microphone
+
+Trường hợp quản lý bởi hiệu chỉnh nội bộ trong công ty,
+khuyến nghị thực hiện hiệu chỉnh bởi nhà sản xuất hoặc đơn
+vị hiệu chỉnh mỗi 36 tháng 1 lần.
+[Trường hợp hiệu chỉnh nội bộ trong công ty]
+(1) Sử dụng bộ dụng cụ hiệu chỉnh âm thanh của hai
+loại mức áp suất âm thanh khác
+(2) Nơi thực hiện hiệu chỉnh theo như bên dưới.
+・Nơi không có tiếng ồn và chấn động
+・Do phòng chống tạp âm từ gió nên thực hiện tại nơi không
+có luồng không khí mạnh do gió.
+(3) Bật công tắc ON nguồn điện máy đo tiếng ồn và để
+nguyên trong vòng 10 phút.
+Tiến hành hiệu chỉnh bộ dụng cụ hiệu chỉnh âm thanh của hai
+loại mức áp suất âm thanh khác nhau.
+(1) Đặt microphone của máy đo âm thanh vào dụng cụ
+hiệu chỉnh âm thanh
+(2) Bật nguồn của máy đo độ ồn
+(3) Nhấn phím MENU để chuyển sang màn hình menu
+Nhấn phím [△/▽] để di chuyển con trỏ, đối với
+LA-1440/4440 thì lần lượt chọn [CONDITION] ⇒
+[CAL-ADJ]
+⇒
+[EXTERNAL],
+còn
+đối
+với
+LA-1441/4441 thì lần lượt chọn [CAL/REF] ⇒
+[CAL-ADJ], sau đó hiển thị màn hình CALIBRATION
+và nhấn phím [ENTER]
+(4) Đối với LA-1440/4440, nhấn phím [A/C/Z] để chuyển
+sang đặc tính Z
+※ Đối với LA-1441/4441, chế độ đặc tính Z sẽ được
+thiết lập tự động
+(5) Đối với LA-1440/1441, sử dụng phím [FAST/SLOW];
+đối với LA-4440/4441, sử dụng phím [F/S/I] để
+chuyển sang chế độ FAST
+(6) Thiết lập phạm vi mức độ bằng cách sử dụng phím
+LEVEL [△UP] và [▽DOWN]
+Áp suất âm thanh tiêu chuẩn của dụng cụ hiệu chỉnh
+âm thanh là
+Thiết lập nếu 124dB｢70～130dB｣
+Nếu 114dB｢60～120dB｣
+Nếu 94dB｢40～100dB｣
+(7) Bật nguồn của bộ dụng cụ hiệu chỉnh âm thanh và đọc
+giá trị hiển thị
+(8) Tắt nguồn của máy đo độ ồn và bộ dụng cụ hiệu chỉnh âm
+thanh, sau đó tháo microphone ra một cách nhẹ nhàng.
+
+124.0dB±1dB
+114.0dB±1dB
+94.0dB±1dB
+
+--- HẾT TRANG ---
+
+No.2/4
+Ⅰ【Hiệu chỉnh】                                               Máy đo 014－16 b
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+2. Điều chỉnh theo bộ
+dụng cụ hiệu chỉnh âm
+thanh
+
+<Màn hình hiển thị>
+
+(1) Thực hiện điều chỉnh khi cần thiết
+Ngoài ra, khi thực hiện điều chỉnh, chỉ sử dụng một trong
+hai loại dụng cụ hiệu chỉnh âm thanh
+
+(2) Thực hiện bước (7) trong mục hiệu chỉnh 1: Điều chỉnh
+bằng phím CURSOR [△][▽] sao cho giá trị hiển thị trên
+máy đo độ ồn khớp với mức áp suất âm chuẩn của bộ
+dụng cụ hiệu chuẩn âm thanh
+Khi mức hiển thị đã khớp với giá trị chuẩn, nhấn phím
+[ENTER] để xác nhận giá trị điều chỉnh
+Ghi lại kết quả điều chỉnh và thực hiện lại mục hiệu chỉnh
+1
+<Màn hình hiển thị>
+
+94.0dB±1dB
+
+－Trích dẫn – Văn bản liên quan－
+Quy cách phán định: Theo bản hướng dẫn sử dụng nơi chế tạo
+Quy cách phán định : Quy cách JIS/ quy cách nơi chế tạo/ thiết định nội bộ trong công ty tham khảo
+014-02
+
+--- HẾT TRANG ---
+
+No.3/4
+
+Ⅱ【Điểm kiểm】         Máy đo tiếng ồn                          Máy đo 014-16 b
+（ONO SOKKI LA-1440／1441 (Class 2, LA-4440/4441 (Class 1)）
+
+Tần xuất điểm kiểm   Mỗi tháng 1 lần và mỗi lần sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1．Ngoại quan
+
+2.
+Xác
+nhận
+dung
+lượng pin còn lại
+
+3．Xác nhận bằng máy
+phát rung bộ phận bên
+trong
+Xác nhận có vết bẩn trên Microphone và bộ phận hiển thị, có
+lỗi nguy hại nào có thể gây ra hư hỏng hay không.
+Xác nhận bộ phận kết nối của Microphone có bị lỏng hay
+không.
+
+Xác nhận dung lượng pin còn lại phía trên bên trái màn hình.
+Trường hợp kí hiệu thay đổi (  ) hiển thị thì tiến hành thay
+đổi pin mới hoặc cung cấp nguồn điện từ bộ sạc AC.
+
+① Bật công tắc ON nguồn điện máy đo tiếng ồn.
+② Thiết đặt theo nội dung bên dưới.
+
+③ Tại màn hình tiêu chuẩn bấm ［CAL］đối với
+LA-1440,4440, bấm [REF OUT] đối với LA-1441,4441,
+sau đó phát tín hiệu hiệu chỉnh rồi xác nhận trị số có
+trong quy cách hay không.
+
+④ Sau khi xác nhận, bấm［CAL］đối với LA-1440,4440, và
+[REF OUT] đối với LA-1441,4441 một lần nữa ròi bấm
+OFF tín hiệu hiệu chỉnh.
+
+94.0±1dB
+Chú ý)
+1. Kết quả điểm kiểm không liên quan đến việc có dị thường hay không, kí lục lại 1 tháng 1 lần.
+2. Trường hợp nếu có dị thường khi điểm kiểm (hoặc khi sử dụng), thì kí lục lại kết quả đó, và xử lí theo
+chỉ thị của người chịu trách nhiệm của phòng ban sở hữu.
+Thực hiện yêu cầu tái hiệu chỉnh của máy đo đạc đối với phòng ban thực hiện hiệu chỉnh nếu cần thiết.
+
+Thiết định
+Bàn phím thao tác
+LA-1440
+LA-1441
+LA-4440
+LA-4441
+Đặc tính chỉnh
+sửa tần số
+Đặc tính A
+［A/C/Z］
+Đặc tính động
+FAST
+［FAST/SLOW］
+［F/S/I］
+Phạm vi đo
+40－100
+LEVEL［△UP］［▽DOWN］
+LA-1440,4440
+LA-1441,4441
+Tín hiệu hiệu
+chỉnh ON
+
+--- HẾT TRANG ---
+
+BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM
+BẢN LÍ LỊCH BAN HÀNH – CẢI ĐÍNH – HỦY BỎ     Máy đo 014-16 No.4/4
+
+Kí
+hiệu
+Ngày
+Tháng
+Năm
+Nội dung cải đính
+Soạn thảo
+Xác nhận
+Phê duyệt
+
+2010.04.26
+Quy định mới
+
+Masunaga
+
+Nara
+Hanyu
+
+Itokawa
+
+a
+
+2018.08.28
+
+・Bổ sung mẫu：LA-1441,LA-4441
+・Hạng mục hiệu chỉnh 1.(2)  Thay đổi đặc tính
+chỉnh sửa tần số C→Z tại mục ①
+Bổ sung nội dung về hiển thị thao tác tại mục
+1.(3)①
+・Thay đổi hình ảnh（Mục 1/4,2/4,3/4）
+・Bổ sung phím thao tác tại hạng mục điểm kiểm
+mục 3.
+・Bổ sung trích dẫn – Văn bản liên quan
+・Thay đổi mã số cải đính
+Ⅰ【Hiệu chỉnh】014-16→014-16a
+※Ⅱ【Điểm kiểm】014-16→014-16a
+
+Koizumi
+
+b
+
+2025.09.04
+
+・Cải đính toàn bộ hạng mục liên quan theo chỉnh
+sửa dụng cụ tiêu chuẩn sử dụng
+・Bổ sung (khuyến nghị) hiệu chỉnh nhà cung cấp
+mỗi 36 tháng
+・Ⅱ【Điểm kiểm】
+Tiến độ điểm kiểm sửa đổi thành「Mỗi tháng 1 lần
+và mỗi lần sử dụng
+Cải đính toàn bộ hạng mục chú ý
+
+Ban chính BHCL công ty cổ phần Mabuchi Motor
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "014-16-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM MÁY ĐO    Ban chính BHCL công ty cổ phần Mabuchi Motor - Máy đo tiếng ồn                                           Máy đo    014－16 b",
+  "doc_code": "ti",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

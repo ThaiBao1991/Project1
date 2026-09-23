@@ -1,0 +1,50 @@
+{
+  "file_name": "531-8-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Máy đo LCR kỹ thuật số GW INSTEC Dòng LCR-800",
+  "doc_code": "531-8 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu kỹ thuật, chu kỳ hiệu chỉnh định kỳ đối với máy đo LCR kỹ thuật số dòng LCR-800 được quy định là bao lâu?",
+      "options": {
+        "A": "12 tháng hoặc khi được cho là cần thiết",
+        "B": "6 tháng hoặc khi được cho là cần thiết",
+        "C": "24 tháng hoặc khi được cho là cần thiết",
+        "D": "36 tháng hoặc khi được cho là cần thiết"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Chu kỳ hiệu chỉnh: 24 tháng hoặc khi được cho là cần thiết"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra cài đặt trước khi đo (OPEN TEST / SHORT TEST), nếu trên màn hình LCD hiển thị kết quả là \"FAIL\", nhân viên thao tác cần phải xử lý như thế nào theo đúng quy định?",
+      "options": {
+        "A": "Tiếp tục sử dụng máy vì lỗi hiển thị không ảnh hưởng đến đo lường",
+        "B": "Tự ý tháo máy ra để kiểm tra mạch bên trong",
+        "C": "Bắt đầu lại thao tác cài đặt test tương ứng",
+        "D": "Ghi nhận vào sổ và bỏ qua bước test đó"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, Mục 3. Cài đặt trước khi đo: Nếu hiển thị \"FAIL\" thì hãy bắt đầu lại."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ thực hiện điểm kiểm (kiểm tra trước khi sử dụng và định kỳ) đối với máy đo LCR dòng LCR-800 là khi nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và khi có yêu cầu",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "Chỉ kiểm tra trước khi sử dụng máy",
+        "D": "Mỗi quý 1 lần và mỗi lần sử dụng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "626-1-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH ĐIỂM KIỂM DỤNG CỤ ĐO - ĐỒNG HỒ ĐO ÁP LỰC CHỔI ĐIỆN (BPM – 1A)",
+  "doc_code": "626 – 1 c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi kết quả kiểm tra ngoại quan hoặc định kỳ phát hiện có bất thường (ví dụ: dụng cụ bị dơ hoặc hư hao) trong lúc đang sử dụng, nhân viên cần xử lý theo cách nào?",
+      "options": {
+        "A": "Tự ý tháo ra sửa chữa rồi tiếp tục sử dụng",
+        "B": "Ghi lại kết quả và tiếp tục dùng đến hết ca",
+        "C": "Xử lý theo chỉ thị của người chịu trách nhiệm quản lý",
+        "D": "Bỏ qua nếu sai số nhỏ hơn 1%"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3/4 - Phần II [Điểm kiểm] Chú ý 3: Trường hợp thấy bất thường khi đang sử dụng thì xử lý theo chỉ thị của người chịu trách nhiệm quản lý."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ kiểm tra ngoại quan đối với đồng hồ đo áp lực chổi điện (BPM – 1A) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Một tháng một lần",
+        "D": "Trước khi bắt đầu ca làm việc và giữa ca"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3/4 - Phần II [Điểm kiểm]: Tiến độ kiểm tra: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Quy định nào sau đây là BẮT BUỘC khi tiến hành hiệu chỉnh độ chính xác của thiết bị cảm ứng bằng quả cân chuẩn?",
+      "options": {
+        "A": "Tiến hành ngay sau khi bật nguồn điện mà không cần chờ đợi",
+        "B": "Phải đưa nguồn điện vào thiết bị cảm ứng và để từ 30 phút trở lên để ổn định nhiệt trước khi tiến hành hiệu chỉnh",
+        "C": "Chỉ cần để ổn định nhiệt trong vòng 5 phút là có thể đo",
+        "D": "Không cần quan tâm đến thời gian ổn định nhiệt, miễn là cân đúng trọng lượng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1/4 - Phần I [Hiệu chỉnh]: Tiến hành hiệu chỉnh tại mỗi thiết bị cảm ứng và phải tiến hành sau khi đưa nguồn điện vào các thiết bị cảm ứng và để từ 30 phút trở lên. (Làm cho các thiết bị cảm ứng ổn định nhiệt.)"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

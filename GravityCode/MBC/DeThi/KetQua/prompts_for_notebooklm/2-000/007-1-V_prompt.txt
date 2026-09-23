@@ -1,0 +1,371 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Tài liệu tiêu chuẩn hiệu chỉnh - và kiểm tra dụng cụ trắc định
+Mã số/Mã máy đo: 007-1
+File gốc: 007-1-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/4
+Tài liệu tiêu chuẩn hiệu chỉnh
+và kiểm tra dụng cụ trắc định
+
+MÁY ĐO ĐIỆN TRỞ CÁCH ĐIỆN
+(FAITH  I-807CM;YOKOGAWA 3213 SERIES)
+
+Mabuchi Motor Co., Ltd
+Ban BHCL
+
+Ngày ban hành  11.11.1983
+Ngày thay đổi   17.12.2019
+Dụng cụ trắc định 007-1 j
+
+Ⅰ【Hiệu chỉnh】
+Dụng cụ chuẩn
+Biến trở 6 núm vặn điều chỉnh, Máy đo điện áp cao
+Chu kỳ hiệu chỉnh
+Khi xác nhận thấy cần thiết (nhưng không vượt quá 24 tháng)
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp phán
+định
+
+1. Độ chính xác
+khi đo trị điện
+trở
+
+2. Độ chính xác
+điện áp đầu ra
+
+(Hạng mục chú yù)
+Khi hiệu chỉnh, để phòng tránh việc rò điện nên phải sử
+dụng bao tay cách điện.
+Trong tài liệu tiêu chuẩn này chỉ ghi thứ tự phương
+pháp hiệu chỉnh, tên các bộ phận của máy đo và
+phương pháp sử dụng hãy tham khảo ở sách thuyết
+minh.
+(Chuẩn bị trước khi hiệu chỉnh)
+Mở công tắc POWER sang ON, để ổn định máy đo
+khoảng 30 phút.
+
+① Cho tiếp xúc máy đo điện trở 6 núm vặn điều chỉnh
+với chấu điện RX.
+② Thiết định trị điện trở ở máy đo điện trở 6 núm vặn
+điều chỉnh ở vạch trung tâm của máy đo điện trở  cách
+điện.
+③ Đọc lấy trị số chỉ thị ở máy đo điện trở  cách điện.
+(Phán định trước khi điều chỉnh)
+ 8% trị điện trở ở máy đo điện trở 6 núm vặn điều chỉnh
+(trị tiêu chuẩn).
+Khi xác nhận độ chính xác trước khi điều chỉnh thì phải tiến
+hành ở từ ng giới hạn điện áp sử dụng để kiểm tra của công
+tắc V/RANGE.
+(Phán định sau khi điều chỉnh)
+Trường hợp kim chỉ lệch so với vạch trung tâm thì phải tiến
+hành điều chỉnh cho kim chỉ ngay vạch trung tâm bằng
+Volume CENTER ADJ ở mặt sau của máy đo điện trở  cách
+điện.
+Chỉ tiến hành điều chỉnh ở giới hạn điện áp thường sử dụng
+để kiểm tra.
+Ở những giới hạn điện áp sử dụng để kiểm tra khác thì
+sau khi điều chỉnh phải tiến hành tái xác nhận độ chính
+xác. Phải ghi chép trị chỉ thị sau khi điều chỉnh.
+
+① Cho tiếp xúc máy đo điện trở 6 núm vặn điều chỉnh
+với chấu điện RX, tiếp theo cho tiếp xúc đồng hồ
+đo điện áp cao với máy đo điện trở 6 núm vặn điều
+chỉnh theo hình bên dưới.
+② Điều chỉnh máy đo điện trở 6 núm vặn điều chỉnh
+để kim chỉ của má y đo điện trở  cá ch điện về vạch
+trung tâm.
+③ Đọc trị biểu thị ở đồng hồ đo điện áp cao.
+(Phương pháp phán định)
+Trên 90% điện áp quy định (điện áp đã thiết định bằng
+công tắc V/RANGE) tại vạch trung tâm.
+Khi hiệu chỉnh thì phải tiến hành ở mỗi giới hạn điện áp sử
+dụng để kiểm tra của công tắc V/RANGE.
+
+Theo bên trái
+
+Theo bên trái
+
+--- HẾT TRANG ---
+
+No.2/4
+
+Dụng cụ trắc định 007-1 j
+Ⅰ【Hiệu chỉnh】
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+
+Phương pháp phán
+định
+
+Hình hạng mục hiệu chỉnh 2.
+Trạng thái phối dây để hiệu chỉnh
+
+Máy đo điện trở cách điện
+Máy đo điện trở 6 núm vặn điều chỉnh
+Đồng hồ đo điện áp cao
+Trích dẫn-văn bản liên quan
+Quy cách phán định: Quy cách nơi chế tạo
+
+--- HẾT TRANG ---
+
+No. 3/4
+Dụng cụ trắc định 007-1   j
+
+Ⅱ 【Điểm kiểm】            MÁY ĐO ĐIỆN TRỞ CÁCH ĐIỆN
+(FAITH  I-807CM; YOKOGAWA 3213 SERIES)
+
+Tiến độ điểm kiểm        Mỗi lần sử dụng
+
+Hạng mục điểm
+kiểm
+Phương pháp điểm kiểm
+Phương pháp phán
+định
+
+1. Xác nhận đồng
+hồ chỉ thị
+
+2. Xác nhận thiết bị
+cảnh báo
+
+① Ở trạng thái công tắc POWER OFF, trường hợp
+kim máy đo điện trở cách điện không chỉ ở vạch vô
+hạn thì tiến hành điều chỉnh bằng vít dẹp điều
+chỉnh kim.
+② Mở công tắc POWER sang ON, để ổn định máy đo
+khoảng 30 phút.
+③ Làm đoản mạch que đo đang được tiếp xúc với
+chấu RX, trường hợp kim chỉ không về 0 thì điều
+chỉnh bằng Volume ZERO ADJ ở mặt trước máy
+đo điện trở  cá ch điện.
+
+Cho đoản mạch que đo, xác nhận chuông NG có báo
+và đèn NG sáng lên.
+Trường hợp không sử dụng chuông NG thì không cần
+xác nhận.
+
+(Ghi chú)
+Tên các bộ phận của máy đo và phương pháp sử dụng
+hãy tham khảo ở sách thuyết minh.
+
+Ghi chú
+1. Trường hợp kiểm tra thấy bất thường, ghi chép lại kết quả đã kiểm tra và xử lý theo chỉ
+thị của người có trách nhiệm quản lý.
+2. Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được,
+nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường
+xảy ra.
+3. Trường hợp nhận ra sự bất thường trong khi sử dụng, sẽ xử lý dựa vào chỉ thị của người
+có trách nhiệm quản lý.
+
+--- HẾT TRANG ---
+
+No. 4/4
+
+Dụng cụ trắc định 007-1
+Tài liệu tiêu chuẩn hiệu chỉnh điểm kiểm
+Biểu lý lịch ban hành, cải chính và hủy bỏ
+
+Dấu
+hiệu
+Ngày tháng
+năm
+Nội dung
+(bao gồm những nội dung sửa đổi)
+Soạn
+thảo
+Xác nhận
+Công
+nhận
+
+1983.11.11
+
+Ban hành quy cách mới
+Shima
+mura
+Taka
+shima
+Inou
+a
+1991.07.11
+Thay đổi
+Shima
+mura
+Taka
+shima
+Inou
+b
+1994.08.05
+Xoá bỏ máy chuẩn (S05), (S13)
+Xóa bỏ [hạng mục chú ý]
+Nara
+Taka
+shima
+Saka
+moto
+c
+1995.11.01
+Bổ sung máy chuẩn : hoặc đồng hồ đo điện cao
+áp
+Nara
+Taka
+shima
+Saka
+moto
+d
+1995.12.15
+Thay đổi pp phán định ở hạng mục hiệu chỉnh 1.
+ 5%   8%
+Mura
+yama
+Nara
+Mabuchi
+Miura
+e
+1996.12.25
+Bổ sung hạng mục <chú ý> vào pp hiệu chỉnh.
+Nara
+Mihara
+Saka
+moto
+f
+14.04.1999
+Thay đổi biểu hiện chu kì hiệu chỉnh.
+Thay đổi pp hiệu chỉnh của hạng mục 3.
+Bổ sung pp phán định.
+[Điểm kiểm] bổ sung tiêu đề Xoá bỏ cột máy
+chuẩn
+Yama
+ghishi
+Tenya
+Tenya
+g
+10.06.2002
+Thay đổi toàn bộ pp hiệu chỉnh và pp điểm kiểm.
+Xoá bỏ hạng mục hiệu chỉnh 3.
+Fuji
+yama
+Nara
+Miura
+h
+11.06.2003
+
+Sửa đổi phương pháp điểm kiểm
+Itou
+
+Ishino
+
+Miura
+
+i
+Đã
+xác
+nhận
+toàn
+bộ
+
+07.01.2004
+
+Bổ sung thêm tiêu đề(Yokogawa 3213
+series)
+
+Itou
+
+Ishino
+
+Yamas
+hita
+
+j
+
+17.12.2019
+
+(Nơi yêu cầu :VDM)
+・Thay đổi chu kỳ hiệu chỉnh 12 tháng→24 tháng
+・Bổ sung trích dẫn-văn bản liên quan
+Ⅰ【Hiệu chỉnh】 007-1i→007-1j ※Ⅱ【Điểm
+kiểm】007-1i（không thay đổi）
+
+Koizumi
+
+Kikuchi
+Ishii
+Usui
+
+Itou
+Mabuchi Motor Co. Ban BHCL
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "007-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh - và kiểm tra dụng cụ trắc định",
+  "doc_code": "007-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

@@ -1,0 +1,50 @@
+{
+  "file_name": "Z01-23-V.pdf",
+  "folder_name": "9-Z00 Ban V IT HOA",
+  "doc_title": "Quy cách phán định đồng hồ vạn năng kỹ thuật số VICTOR",
+  "doc_code": "Z01-23 a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý trong tiêu chuẩn hiệu chỉnh, trường hợp nào sau đây thì không cần hiệu chỉnh?",
+      "options": {
+        "A": "Khi đồng hồ sử dụng quá 6 tháng",
+        "B": "Khi không thực sự sử dụng con dấu",
+        "C": "Khi thay đổi dải đo dòng điện AC",
+        "D": "Khi kết quả đo sai lệch nhỏ hơn 1%"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Nội dung (1) Trường hợp không thực sự sử dụng con dấu thì không cần hiệu chỉnh"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, danh sách các thể thức đồng hồ vạn năng kỹ thuật số VICTOR được áp dụng bao gồm những mã nào?",
+      "options": {
+        "A": "VC9801, VC890D, VC9806+",
+        "B": "VC9802A, VC890D, VC9806+",
+        "C": "VC9802A, VC890C, VC9805",
+        "D": "VC9802, VC890D, VC9807+"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Danh sách thể thức (VC9802A, VC890D, VC9806+)"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo bảng quy cách phán định kỹ thuật, thông số độ chính xác (±% of reading + digits) đối với dải đo Điện áp DC 200V của thể thức VC890D là bao nhiêu?",
+      "options": {
+        "A": "0.5% + 3",
+        "B": "0.8% + 10",
+        "C": "0.05% + 5",
+        "D": "1.0% + 5"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2: Bảng quy cách phán định, mục Điện áp DC, range 200V của VC890D là 0.5% +3"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

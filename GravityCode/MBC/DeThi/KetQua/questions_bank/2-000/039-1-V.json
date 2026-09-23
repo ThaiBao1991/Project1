@@ -1,0 +1,50 @@
+{
+  "file_name": "039-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định MÁY ĐO ĐIỆN TRỞ THẤP (AD-5812)",
+  "doc_code": "039 -1 g",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra định kỳ hoặc sử dụng máy đo điện trở thấp AD-5812, nếu phát hiện dây đầu vào bị lỏng hoặc đứt dây, thao tác xử lý bắt buộc theo phương pháp phân định là gì?",
+      "options": {
+        "A": "Tiếp tục sử dụng nếu điện trở đo được vẫn nằm trong dung sai cho phép",
+        "B": "Dùng băng keo điện quấn lại tạm thời và báo cáo vào cuối tuần",
+        "C": "Nếu phát hiện ra xử lí ngay",
+        "D": "Đánh dấu thiết bị lỗi và chuyển về kho dụng cụ sau khi hết ca làm việc"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 7: Phương pháp phân định: Nếu phát hiện ra xử lí ngay"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi tiến hành hiệu chỉnh mục 1 (Đưa nguồn điện vào), điều kiện môi trường phòng đo yêu cầu nhiệt độ và độ ẩm ở mức nào?",
+      "options": {
+        "A": "Nhiệt độ 25°C ± 2°C, độ ẩm dưới 80%",
+        "B": "Nhiệt độ 20°C ± 5°C, độ ẩm dưới 60%",
+        "C": "Nhiệt độ 23°C ± 5°C, độ ẩm dưới 70%",
+        "D": "Nhiệt độ 25°C ± 5°C, độ ẩm dưới 60%"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: (1) Điều kiện môi trường: Nhiệt độ 23°C ± 5°C, Độ ẩm dưới 70%"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiến độ kiểm tra mục II [Điểm kiểm] của Máy đo điện trở thấp (AD-5812), tần suất thực hiện kiểm tra tiếp xúc và đứt dây được quy định như thế nào?",
+      "options": {
+        "A": "Hàng tuần trước khi sử dụng máy",
+        "B": "Mỗi lần sử dụng",
+        "C": "Hàng tháng",
+        "D": "Trước mỗi ca làm việc"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 7: Tiến độ kiểm tra: Mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

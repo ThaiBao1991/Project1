@@ -1,0 +1,50 @@
+{
+  "file_name": "104-2-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM MÁY ĐO",
+  "doc_code": "104-2a",
+  "target_audience": "Nhân viên/Đội trưởng bộ phận BHCL - Mabuchi Motor Vietnam",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục đích và chú ý an toàn khi vận hành, quy định nào sau đây là TUYỆT ĐỐI KHÔNG ĐƯỢC PHÉP làm đối với bộ phận phát sáng laser?",
+      "options": {
+        "A": "Tuyệt đối không được nhìn vào chùm tia laser, ngay cả trong trường hợp không có ánh sáng cũng không được nhìn vào cửa sổ của bộ phận phát sáng.",
+        "B": "Được phép tháo nhãn dán biểu thị lớp ánh sáng laser nếu nhãn bị mờ hoặc rách.",
+        "C": "Có thể nhìn trực tiếp vào ánh sáng phản chiếu từ vật được đo có bề mặt phẳng như mặt kính.",
+        "D": "Được phép nhìn vào cửa sổ phát sáng laser khi thiết bị đang ở chế độ chờ (Standby)."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, Phần I 【Hiệu chỉnh】 - (Nội dung chú ý)"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Trong quá trình kiểm tra ngoại quan hàng ngày (mỗi lần sử dụng), nếu không phát sinh điểm bất thường nào thì người vận hành cần xử lý thế nào?",
+      "options": {
+        "A": "Bắt buộc phải ghi chép lại đầy đủ vào mọi ngày dù không có bất thường.",
+        "B": "Không cần ghi chép lại, tuy nhiên dù cho không phát sinh trong vòng một tháng thì cũng cần phải ghi lại.",
+        "C": "Phải báo cáo ngay cho Trưởng phòng để lập biên bản dừng máy.",
+        "D": "Tiến hành tháo máy kiểm tra toàn diện phần cơ khí."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 4, Phần II 【Điểm kiểm】 - Chú ý) mục 2"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh, chu kì hiệu chỉnh định kỳ đối với máy kiểm tra tự động tính năng bộ truyền động là bao lâu?",
+      "options": {
+        "A": "Mỗi 6 tháng và khi nhận thấy cần thiết.",
+        "B": "Mỗi 12 tháng và khi nhận thấy cần thiết.",
+        "C": "Mỗi 24 tháng và khi nhận thấy cần thiết.",
+        "D": "Mỗi 36 tháng và khi nhận thấy cần thiết."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Phần I 【Hiệu chỉnh】 - Chu kì hiệu chỉnh"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "651-2-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Máy đo bề dày lớp màng Digital Fischer DMP Series",
+  "doc_code": "651-2",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo mục 'Tiến độ điểm kiểm', thời gian thực hiện điểm kiểm ngoại quan và thiết bị là khi nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và khi đổi ca sản xuất.",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng.",
+        "C": "Chỉ thực hiện khi máy xảy ra sự cố kỹ thuật.",
+        "D": "Mỗi năm 1 lần theo kế hoạch bảo dưỡng định kỳ."
+      },
+      "correct_answer": "B",
+      "reference_note": "Phần II Điểm kiểm - Tiến độ điểm kiểm: 'Mỗi tháng 1 lần và mỗi lần sử dụng'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý ngoại quan và kiểm tra, thao tác nào sau đây bị nghiêm cấm khi thao tác với tấm tiêu chuẩn của nhà sản xuất?",
+      "options": {
+        "A": "Đeo găng tay sạch khi cầm nắm tấm chuẩn.",
+        "B": "Không chạm vào bên trong vòng tròn của tấm tiêu chuẩn của nhà sản xuất bằng tay trần.",
+        "C": "Sử dụng máy đo chiều dài kỹ thuật số để đo kiểm tra.",
+        "D": "Bảo quản thân chính và đầu dò trong tình trạng đã kết nối."
+      },
+      "correct_answer": "B",
+      "reference_note": "Phần II Điểm kiểm - Hạng mục chú ý (3): 'Không chạm vào bên trong vòng tròn của tấm tiêu chuẩn của nhà sản xuất bằng tay trần.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo phần 'Hạng mục ghi chú đặc biệt' khi sử dụng cảm biến V1FGA1HR34, thao tác đo đúng để tránh biến động giá trị đo là gì?",
+      "options": {
+        "A": "Ấn mạnh đầu dò vuông góc xuống bề mặt mẫu.",
+        "B": "Thực hiện các phép đo liên tiếp cách nhau tối thiểu 0,1 giây.",
+        "C": "Hạ thấp phía tay cầm và hạ đầu dò xuống sao cho mặt mẫu nằm ngang.",
+        "D": "Nghiêng đầu dò một góc 45 độ so với bề mặt mẫu."
+      },
+      "correct_answer": "C",
+      "reference_note": "Phụ lục 2 - Hạng mục ghi chú đặc biệt: 'cần thực hiện đo sao cho mặt mẫu nằm ngang... Hạ thấp phía tay cầm và hạ đầu dò xuống'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

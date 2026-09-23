@@ -1,0 +1,50 @@
+{
+  "file_name": "019-8-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh – điểm kiểm máy đo đạc Máy đo Ono HT-5500",
+  "doc_code": "019-8",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tần suất thực hiện điểm kiểm đối với máy đo vòng xoay kĩ thuật số HT-5500 là khi nào?",
+      "options": {
+        "A": "Chỉ khi phát hiện ra lỗi đo đạc",
+        "B": "Mỗi khi sử dụng và mỗi 1 tháng",
+        "C": "3 tháng một lần",
+        "D": "6 tháng một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 7: Tần suất kiểm tra: Mỗi khi sử dụng, và mỗi 1 tháng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi tiến hành điểm kiểm ngoại quan của máy đo HT-5500, hạng mục nào sau đây KHÔNG ĐƯỢC PHÉP xuất hiện trên phần đo, phần kiểm xuất, phần biểu thị, viền hoặc các loại nút?",
+      "options": {
+        "A": "Vết bẩn, vỡ, mẻ làm ảnh hưởng đến việc đo đạc",
+        "B": "Tem quản lý thiết bị mờ chữ số",
+        "C": "Bụi bám nhẹ bên ngoài có thể lau sạch ngay",
+        "D": "Vết xước sơn tĩnh điện bên ngoài không ảnh hưởng đến chức năng"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 7: Không được có vết bẩn, vỡ, mẻ làm ảnh hưởng đến việc đo đạc của phần đo, phần kiểm xuất, phần biểu thị, viền, các loại nút."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình điểm kiểm (hoặc khi sử dụng), nếu phát hiện máy đo có dị thường, nhân viên phụ trách cần thực hiện hành động nào theo đúng quy định?",
+      "options": {
+        "A": "Tự ý tháo máy ra để sửa chữa tạm thời rồi tiếp tục sử dụng",
+        "B": "Bỏ qua lỗi nếu thấy thiết bị vẫn lên nguồn bình thường",
+        "C": "Kí lục lại kết quả đó, và xử lí theo chỉ thị của người chịu trách nhiệm của phòng ban sở hữu",
+        "D": "Tiếp tục sử dụng đến hết ca làm việc rồi mới báo cáo"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 8: Trường hợp nếu có dị thường khi điểm kiểm (hoặc khi sử dụng), thì kí lục lại kết quả đó, và xử lí theo chỉ thị của người chịu trách nhiệm của phòng ban sở hữu."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

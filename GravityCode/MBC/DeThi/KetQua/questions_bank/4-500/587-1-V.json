@@ -1,0 +1,50 @@
+{
+  "file_name": "587-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bảng tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định Vỏ lớn dùng kiểm tra EC",
+  "doc_code": "587-1f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý tại phần 'Vỏ lớn dùng kiểm tra EC', điều quan trọng nào sau đây là TUYỆT ĐỐI không được phép làm?",
+      "options": {
+        "A": "Không được dùng tay nắm vào trục kiểm tra Ec để kéo",
+        "B": "Không được làm rớt; Với những vật đã có tính từ như là nam châm thì tuyệt đối không được tiếp xúc trực tiếp",
+        "C": "Không được để rotor dùng hiệu chỉnh tiếp xúc với ánh sáng mạnh",
+        "D": "Không được bật nguồn thiết bị đo điện đa năng trước khi lắp rotor"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5, Phần II [Điểm kiểm], Mục 'Hạng mục chú ý': • Không được làm rớt • Với những vật đã có tính từ như là nam châm thì tuyệt đối không được tiếp xúc trực tiếp."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi đo trị Ec, số vòng quay của máy đo Ec là bao nhiêu vòng/phút?",
+      "options": {
+        "A": "1500 r/min",
+        "B": "2000 r/min",
+        "C": "3000 r/min",
+        "D": "4500 r/min"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, <<Điều kiện đo trị Ec chuẩn>>: 'Số vòng quay của máy đo Ec là 3000r/min.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kì hiệu chỉnh đối với dụng cụ 'Vỏ lớn dùng kiểm tra EC' là bao lâu?",
+      "options": {
+        "A": "12 tháng và sau khi thấy cần thiết",
+        "B": "24 tháng và sau khi thấy cần thiết",
+        "C": "6 tháng và sau khi thấy cần thiết",
+        "D": "Theo yêu cầu của quản lý mà không cần định kì"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Phần [Hiệu chỉnh], mục 'Chu kì hiệu chỉnh: 24 tháng và sau khi thấy cần thiết'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

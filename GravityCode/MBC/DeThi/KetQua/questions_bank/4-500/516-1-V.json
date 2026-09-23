@@ -1,0 +1,50 @@
+{
+  "file_name": "516-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản Tiêu Chuẩn Điểm Kiểm – Hiệu Chỉnh Máy Đo Thước rập quay số có thang đo 0.01mm",
+  "doc_code": "516-1i",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo mục II 【Điểm kiểm】 (Trang 5), mục \"1. Quan sát bên ngoài\" yêu cầu kiểm tra những nội dung nào trên thiết bị?",
+      "options": {
+        "A": "Kiểm tra xem có khuyết, hư hại không như dơ, rỉ sét, biến dạng, trầy... ở mặt kính, kim đo và bản chia vạch số hay không; kiểm tra độ hao mòn dựa vào tình trạng bóng của đầu mũi kim đo.",
+        "B": "Chỉ cần kiểm tra xem mặt kính có bị vỡ hay không.",
+        "C": "Kiểm tra tốc độ di chuyển của trục chính có trơn tru không.",
+        "D": "Kiểm tra độ chính xác lặp đi lặp lại bằng 5 lần đo trên trục chính."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 5: 1. Quan sát bên ngoài - Kiểm tra xem có khuyết, hư hại không như dơ, rỉ sét, biến dạng, trầy... ở mặt kính, kim đo và bản chia vạch số hay không. Nếu dơ thì dùng vải lau sạch. 2. Kiểm tra độ hao mòn dựa vào tình trạng bóng của đầu mũi kim đo."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo mục I 【Hiệu chỉnh】 của tài liệu, chu kỳ hiệu chỉnh đối với thước rập quay số có thang đo 0.01mm là khi nào?",
+      "options": {
+        "A": "Mỗi 6 tháng và khi xác nhận cần thiết",
+        "B": "Mỗi 12 tháng và khi xác nhận cần thiết",
+        "C": "Chỉ khi phát hiện ra lỗi bất thường",
+        "D": "Mỗi 24 tháng và định kỳ hàng năm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Chu kỳ hiệu chỉnh: mỗi 12 tháng và khi xác nhận cần thiết"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục II 【Điểm kiểm】 (Trang 5), quy định về kết quả kiểm tra trong trường hợp phát hiện thấy khác thường được thực hiện như thế nào?",
+      "options": {
+        "A": "Không cần ghi chép gì nếu thiết bị vẫn hoạt động tạm thời",
+        "B": "Chỉ cần báo cáo miệng cho tổ trưởng vào cuối tuần",
+        "C": "Phải ghi chép kết quả kiểm tra và xử lý theo chỉ thị của người có trách nhiệm quản lý",
+        "D": "Tự ý tiến hành tháo dỡ thiết bị để sửa chữa ngay lập tức"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 5: Chú ý 3: Trong khi sử dụng trường hợp phát hiện thấy khác thường phải xử lý theo chỉ thị của người có trách nhiệm quản lý."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

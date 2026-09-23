@@ -1,0 +1,50 @@
+{
+  "file_name": "503-5-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN ĐIỂM KIỂM - HIỆU CHUẨN THIẾT BỊ ĐO - KÍNH HIỂN VI CÔNG CỤ",
+  "doc_code": "503-5 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo mục kiểm tra cấp dầu cho kính hiển vi công cụ, tiến độ cấp dầu định kỳ cho vị trí 'giá đỡ bản trượt của cột' sử dụng Dầu machine với lượng ít là bao lâu?",
+      "options": {
+        "A": "Mỗi tháng",
+        "B": "Mỗi 3 tháng",
+        "C": "Mỗi 6 tháng",
+        "D": "Mỗi khi sử dụng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 4/5 - Cấp dầu: (2) giá đỡ bản trượt của cột - Dầu machine - Lượng ít - mỗi 3 tháng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Chu kỳ hiệu chuẩn định kỳ đối với máy tiêu chuẩn Kính hiển vi công cụ Mitutoyo (MF-B3017C, MF-A2010D, MF-A2017D) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi 1 tháng hoặc khi cần thiết",
+        "B": "Mỗi 3 tháng hoặc khi cần thiết",
+        "C": "Mỗi 6 tháng hoặc khi cần thiết",
+        "D": "Mỗi 1 năm hoặc khi cần thiết"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1/5 - Chu kỳ hiệu chuẩn : Mỗi 6 tháng hoặc khi cần thiết"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý về kết quả điểm kiểm, nếu kết quả kiểm tra phát sinh dị thường hoặc khi kiểm tra mỗi tháng thì cần phải thực hiện hành động nào sau đây?",
+      "options": {
+        "A": "Không cần ghi chép lại kết quả kiểm tra nếu không ảnh hưởng lớn đến đo đạc",
+        "B": "Chỉ ghi chép lại kết quả kiểm tra khi có yêu cầu từ cấp trên trực tiếp",
+        "C": "Phải ghi chép lại kết quả kiểm tra và xử lý theo chỉ thị của người chịu trách nhiệm quản lý",
+        "D": "Tự ý điều chỉnh lại thiết bị đo và tiếp tục sử dụng mà không cần báo cáo"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 4/5 - Chú ý) 1.Nếu kết quả điểm kiểm có phát sinh dị thường thì ghi chép lại kết quả kiểm tra và xử lý theo chỉ thị của người chịu trách nhiệm quản lý. 2... Tuy nhiên khi kiểm tra mỗi tháng thì nếu không có dị thường cũng cần ghi chép lại."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

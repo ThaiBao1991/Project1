@@ -1,0 +1,50 @@
+{
+  "file_name": "508-2-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định",
+  "doc_code": "508-2c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong mục kiểm tra định kỳ (phần II), tiến độ kiểm tra đối với hạng mục 'Dạng điện chuẩn' (hạng mục điểm kiểm 4) được quy định tần suất thực hiện ra sao?",
+      "options": {
+        "A": "Mỗi lần sử dụng",
+        "B": "1 tháng/ 1 lần",
+        "C": "6 tháng/ 1 lần",
+        "D": "1 năm/ 1 lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 8: 'Tiến độ kiểm tra: Mỗi lần sử dụng (Riêng hạng mục điểm kiểm 4: 1 tháng/ 1 lần)'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định 508-2c cho Máy thí nghiệm đa năng (Auto Graph series AG-E), chu kỳ hiệu chỉnh được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần và khi có yêu cầu đặc biệt",
+        "B": "Mỗi 3 tháng và khi cần thiết",
+        "C": "Định kỳ 6 tháng một lần",
+        "D": "Chỉ thực hiện một lần khi đưa máy vào sử dụng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: 'Chu kỳ hiệu chỉnh: Mỗi 3 tháng và khi cần thiết'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, khi thực hiện việc bôi trơn và tra dầu mỡ cho các bộ phận hoạt động (hạng mục điểm kiểm 5), loại dầu mỡ nào được chỉ định dùng cho các ốc vít?",
+      "options": {
+        "A": "Dầu nhớt động cơ xe máy phổ thông",
+        "B": "Dầu vạn năng NLG No.2",
+        "C": "Dầu thủy lực chống mài mòn ISO VG 68",
+        "D": "Mỡ chịu nhiệt độ cao chuyên dụng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 8: 'Nếu cần thiết, phải bôi dầu mỡ vào các linh kiện đồng dạng hay dầu vạn năng NLG No.2 vào các ốc vít'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "053-3-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định Máy đo dung lượng RST ENGINEERING 6661",
+  "doc_code": "053 - 3",
+  "target_audience": "Nhân viên/Đội trưởng phòng BHCL",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Tiến độ kiểm tra hàng ngày (mục Điểm kiểm) đối với máy đo dung lượng RST ENGINEERING 6661 được quy định vào thời điểm nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi tháng một lần",
+        "C": "Mỗi lần sử dụng",
+        "D": "Trước khi giao ca"
+      },
+      "correct_answer": "C",
+      "reference_note": "II【Điểm kiểm】 - Tiến độ kiểm tra: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kỳ hiệu chỉnh đối với máy đo dung lượng RST ENGINEERING 6661 là bao lâu?",
+      "options": {
+        "A": "12 tháng hay khi xác nhận thấy cần thiết.",
+        "B": "24 tháng hay khi xác nhận thấy cần thiết.",
+        "C": "6 tháng hay khi xác nhận thấy cần thiết.",
+        "D": "36 tháng hay khi xác nhận thấy cần thiết."
+      },
+      "correct_answer": "B",
+      "reference_note": "I【Hiệu chỉnh】 - Chu kỳ hiệu chỉnh: 24 tháng hay khi xác nhận thấy cần thiết."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục Ghi chú về điểm kiểm, trong trường hợp kết quả kiểm tra không thấy bất thường thì quy định ghi chép kết quả như thế nào là đúng?",
+      "options": {
+        "A": "Không cần phải ghi chép lại kết quả dưới mọi hình thức.",
+        "B": "Chỉ cần ghi chép lại khi người quản lý yêu cầu trực tiếp.",
+        "C": "Trường hợp không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.",
+        "D": "Phải ghi chép đầy đủ chi tiết vào sổ tay cá nhân của mỗi nhân viên hàng ngày."
+      },
+      "correct_answer": "C",
+      "reference_note": "Ghi chú mục II - Ý 2: Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

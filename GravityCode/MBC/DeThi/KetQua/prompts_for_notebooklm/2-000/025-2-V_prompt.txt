@@ -1,0 +1,540 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Bản tiêu chuẩn hiệu chỉnh-điểm kiểm   Ban chính BHCL công ty cổ phần Mabuchi Motor - Máy đo chấn động（Nhà sản xuất SUGAWARA）                       Máy đo    025-2i
+Mã số/Mã máy đo: ch
+File gốc: 025-2-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.１/6
+
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm   Ban chính BHCL công ty cổ phần Mabuchi Motor
+
+Ban hành 31/08/1990
+Cải đính  28/08/2025
+Máy đo chấn động（Nhà sản xuất SUGAWARA）                       Máy đo    025-2i
+
+Ι【Hiệu chỉnh】
+
+Dụng cụ chuẩn      Dụng cụ hiệu chỉnh máy đo chấn động [S03-01], [S84-1]
+
+Chu kỳ hiệu chỉnh     6 tháng và khi xác nhận là cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+（Hạng mục chú ý）
+
+１．Xác nhận điểm 0
+
+２．Điều chỉnh Gain
+
+Các thiết bị đối tượng hiệu chỉnh của bản tiêu chuẩn này
+gồm dây cáp, đầu dò, VMA-3，VFA-3
+
+Ở trạng thái nguồn điện OFF nhìn thẳng vào mặt đồng hồ đo
+xác nhận xem kim có chỉ ngay điểm 0 không. Trường hợp kim
+chỉ lệch thì tiến hành điều chỉnh.
+
+・Mở nắp máy đo chấn động, kết nối với màng lọc（VFA-3）
+・Gắn đầu dò của máy đo chấn động hoặc dụng cụ hiệu
+chỉnh độ nhạy đơn giản (bỏ qua bên dưới) vào dụng cụ hiệu
+chỉnh, đặt đứng lên bệ chống chấn động.
+・Thiết định màng lọc và máy đo chấn động như dưới đây
+Mặt sau máy đo chấn động…… EXT.FIL.IN
+METER      …… RMS     H.P.F.        ……10Hz
+FUNCTION   …… BPF     L.P.F.        ……1000Hz
+MULTIMETER …… 1       EXPANDER×10 …… OFF
+・Bật công tắc dụng cụ hiệu chỉnh, chuyển đổi công tắc
+MODE ở bản thang đo０～１０（phía dưới）xác nhận xem
+trị số chỉ thị có theo biểu ② không.
+
+・Sau khi chuyển đổi công tắc MODE, điều chỉnh VR ở phía
+bên phải của máy đo chấn động sao cho giá trị chỉ thị trùng
+khớp như biểu ①
+（sau khi điều chỉnh phải nằm trong giá trị chỉ thị của biểu 2）
+
+・Tại mỗi lần sau khi điều chỉnh các công tắc MODE, xác
+nhận xem có chuyển đổi thiết định METER từ RMS sang +P
+và tại bảng thang đo từ 0~10 (phía dưới) của máy chấn động
+có trở thành trị chỉ thị của biểu ③ không.
+※Ngoài ra, về thiết định MULTIPLER / OUT PUT READING
+khi đó thì tham khảo biểu
+
+Tham khảo
+hình vẽ riêng
+
+Theo biểu
+
+Dùng để tham
+khảo
+
+--- HẾT TRANG ---
+
+No.2/6
+
+Ι【Hiệu chỉnh】                              Máy đo  025-2i
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+Biểu（Giá trị phán định）
+
+Chú ý 1)Trong biểu trên có các MODE có nền
+thì không tiến hành điều chỉnh, chỉ xác nhận (vị trí số chỉ thị
+nhỏ khó điều chỉnh chính xác）
+Chú ý 2)  ➂ không được điều chỉnh để đo tham khảo
+
+Công tắc
+MODE
+
+ＶＲ
+
+OUTPU
+T
+READI
+NG
+
+Trị chỉ thị
+RMS ở
+đồng hồ
+①
+Trị RMS trước
+sau khi điều
+chỉnh
+②
+Trị chấn
+động
+dùng hiệu
+chỉnh
+Khi thiết định +P
+Trị chỉ thị
++ P ở
+đồng hồ
+③
+MULTI
+PLIER
+OUTPUT
+READING
+100Hz～
+10μｍ
+Ｄ４
+×１
+100％
+thang đo
+ở phía
+dưới
+Giá trị
+biểu
+thị
+①±
+５
+％
+(toàn
+thang
+đo)
+10μm
+rms
+×３
+×1
+35～60％
+thang đo
+phía dưới
+30Hz～
+0.1mm
+Ｄ３
+×０.１
+100％
+thang đo
+ở phía
+dưới
+10μm
+rms
+×１
+×0.3
+35～60％
+thang đo
+phía dưới
+10Hz～
+1mm
+Ｄ２
+×０.１
+10％
+thang đo
+ở phía
+dưới
+10μm
+rms
+×１
+×0.1
+13～20％
+thang đo
+phía dưới
+3Hz～
+10mm
+Ｄ１
+×０.１
+1％
+thang đo
+ở phía
+dưới
+10μm
+rms
+×１
+×0.1
+1～7％
+thang đo
+phía dưới
+30Hz～
+10mm/s
+Ｖ２
+×１
+100％
+thang đo
+ở phía
+dưới
+10mm/s
+rms
+×３
+×1
+35～60％
+thang đo
+phía dưới
+3Hz～
+100mm/
+s
+Ｖ１
+×０.１
+100％
+thang đo
+ở phía
+dưới
+10mm/s
+rms
+×１
+×0.3
+35～60％
+thang đo
+phía dưới
+3Hz～
+1G
+Ａ
+×１
+100％
+thang đo
+ở phía
+dưới
+1G
+rms
+×３
+×1
+35～60％
+thang đo
+phía dưới
+
+--- HẾT TRANG ---
+
+No.3/6
+
+【Phụ lục】                                        Máy đo  025-2i
+
+Trạng thái dây cáp khi hiệu chỉnh
+
+Việc hiệu chỉnh được tiến hành ở trạng thái lực căng điều chỉnh của dây cáp càng thấp càng tốt.
+Khi thả dầu dò xuống,điều chỉnh vị trí dây cáp và trụ đỡ sao cho đầu dò thấp hơn1 ít so với bộ phận gắn vào
+máy hiệu chỉnh chấn động.
+Khi lắp vào, không kéo dây cáp quá mức tại sợi dây treo.
+
+OK                                         NG
+
+Trạng thái kết nối của máy hiệu chỉnh
+
+Gắn đầu dò và phần gá lắp của dụng cụ hiệu
+chấn động bằng ốc vặn M3, kết nối với dụng cụ
+hiệu chỉnh máy chấn động
+khi đó điều chỉnh sao cho đầu dò và phần gá
+lắp của dụng cụ hiệu chỉnh không được lỏng
+hoặc có khe hở
+
+Sau khi gắn đầu dò vào dụng cụ hiệu
+chỉnh, đặt đứng lên bệ chống chấn động.
+Ngoài ra, trước đó phải tiến hành xác
+nhận, điều chỉnh không khí của bệ chống
+
+chấn động
+
+Đầu dò
+Ốc văn M3
+Phần tiếp xúc
+Dụng cụ hiệu chỉnh
+chấn động
+Bệ chống chấn động
+Màng lọc
+Máy
+chấn
+động
+
+--- HẾT TRANG ---
+
+No.4/6
+【Phụ lục】                                    Máy đo   025-2 i
+
+Bên trong máy chấn động
+
+Phần trên                                               Mặt trái
+
+Xoay điều chỉnh điện trở bán cố định bên trong lỗ dài được ghi D4~A của mặt bên phải.
+Những điện trở bán cố định khác không được đụng vào
+
+--- HẾT TRANG ---
+
+No.5/6
+
+Ⅱ【Điểm kiểm】   Máy đo chấn động（sản xuất bởi SUGAWARA） Máy đo  025-2 h
+
+Tiến độ kiểm tra    Mỗi tháng 1 lần và mỗi lần sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+１．Xác nhận điểm 0
+
+２．Khác
+
+【Chú ý】
+
+Ở trạng thái nguồn điện OFF nhìn thẳng vào mặt đồng hồ
+xác nhận xem kim có chỉ về 0 không.
+Nếu lệch thì tiến hành điều chỉnh về 0
+
+Ở trạng thái nguồn điện ON dùng tay tác động nhẹ nhàng
+lên đầu dò, xác nhận xem kim có dao động đều đặn, trơn tru
+không.
+(Phải xác nhận kim chỉ không được dao động quá chiều dài
+thang đo)
+
+Xác nhận xem dây cáp gắn vào kẹp nối có đúng không.
+Có bị lỏng hay hoặc đứt dây chỗ nào không.
+
+Phải yêu cầu hiệu chỉnh nếu thay thế cáp, đầu dò.
+
+Không được
+lệch
+Lưu ý:
+1. Kết quả điểm kiểm không liên quan đến việc có dị thường hay không, kí lục lại 1 tháng 1 lần.
+2. Trường hợp nếu có dị thường khi điểm kiểm (hoặc khi sử dụng), thì kí lục lại kết quả đó, và xử lí theo
+chỉ thị của người chịu trách nhiệm của phòng ban sở hữu.
+Thực hiện yêu cầu tái hiệu chỉnh của máy đo đạc đối với phòng ban thực hiện hiệu chỉnh nếu cần thiết.
+
+--- HẾT TRANG ---
+
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm  Biểu lý lịch ban hành-cải đính-hủy bỏ
+Máy đo  025-2    No.6/6
+
+Ký
+hiệu
+Năm.tháng
+.ngày
+Ghi chép (Nội dung thay đổi)
+Soạn
+thảo
+Xác
+nhận
+Công
+nhận
+
+1990.08.31
+
+Ban hành mới
+
+奈良
+
+高嶋  影山
+
+井熊
+
+ａ
+
+1992.04.27
+
+Cải đính
+
+奈良
+
+高嶋  影山
+
+井熊
+
+ｂ
+
+1996.02.13
+
+Thay đổi số sheet của giấy đi kèm
+Máy đo ０５２－２ → Máy đo ０２５－２
+
+奈良
+
+高嶋
+
+坂本
+
+ｃ
+
+1997.09.18
+
+Thay đổi phương pháp phán định của hạng mục ２．
+±２.５％ → ±５％
+Ⅱ【Điểm kiểm】Bổ sung tiêu đề
+Xóa bỏ cột máy chuẩn
+
+奈良
+
+天谷  馬渕
+
+坂本
+
+ｄ
+
+1998.08.17
+
+Bổ sung, thay đổi từ ngữ ở phương pháp hiệu chỉnh 2．
+Thay đổi biểu
+
+山岸
+
+天谷
+
+坂本
+
+ｅ
+
+2000.10.02
+
+Bổ sung từ ngữ ở hạng mục điểm kiểm 1. (Ở trạng thái OFF)
+Thay đổi toàn bộ hạng mục điểm kiểm ２．
+
+山岸
+
+馬渕
+
+山下
+
+ｆ
+
+2006.11.06
+
+Bổ sung hạng mục chú ý ở hạng mục điểm kiểm
+
+奈良
+
+高橋
+
+糸川
+
+g
+
+2022.6.29
+
+・Bổ sung sheet phụ lục trạng thái dây cáp khi hiệu chỉnh.
+・Thay đổi mã số cải đính
+Ⅰ【Hiệu chỉnh】025-2f→025-2g ※Ⅱ【Điểm kiểm】025-2f
+(không thay đổi)
+
+h
+2023.1.25
+・Bổ sung dụng cụ hiệu chỉnh độ nhạy đơn giản [S84-1] vào
+dụng cụ tiêu chuẩn
+・Chỉnh sửa trị phán định②…「①」→「trị biểu thị ①」
+・Bổ sung ghi chú ngoài biểu giá trị phán định…※③là dùng
+để đo tham khảo và không được điều chỉnh.
+・Chỉnh sửa nội dung mô tả một phần của mục điều chỉnh
+Gain
+・Ⅱ【Điểm kiểm】
+Cải đính tiến độ điểm kiểm thành 「Mỗi tháng 1 lần và mỗi
+lần sử dụng」
+Cải đính toàn bộ hạng mục chú ý
+
+i
+
+2025.08.28
+
+・Sử dụng các dụng cụ tiêu chuẩn[S03-1][S84-1]
+・Thay đổi mã số cải đính
+Ⅰ【Hiệu chỉnh】025-2h→025-2i ※Ⅱ【Điểm kiểm】025-2h
+(Không thay đổi)
+
+Ban chính BHCL công ty cổ phần Mabuchi
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "025-2-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm   Ban chính BHCL công ty cổ phần Mabuchi Motor - Máy đo chấn động（Nhà sản xuất SUGAWARA）                       Máy đo    025-2i",
+  "doc_code": "ch",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

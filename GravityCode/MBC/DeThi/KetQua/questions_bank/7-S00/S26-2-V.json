@@ -1,0 +1,50 @@
+{
+  "file_name": "S26-2-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh dụng cụ tiêu chuẩn dụng cụ trắc định S26-2d",
+  "doc_code": "S26-2d",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo bản tiêu chuẩn hiệu chỉnh dụng cụ tiêu chuẩn, chu kỳ hiệu chỉnh đối với dụng cụ trắc định Masterball (như S26-2d) là bao lâu?",
+      "options": {
+        "A": "1 năm",
+        "B": "2 năm",
+        "C": "3 năm",
+        "D": "5 năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: [Hiệu chỉnh] - Chu kỳ hiệu chỉnh: 3 năm"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi tiến hành hiệu chỉnh dụng cụ trắc định Masterball, nhiệt độ tiêu chuẩn yêu cầu trong phòng kiểm tra là bao nhiêu?",
+      "options": {
+        "A": "20℃ ± 1℃",
+        "B": "23℃ ± 2℃",
+        "C": "25℃ ± 1℃",
+        "D": "20℃ ± 2℃"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: [Hiệu chỉnh] - Nhiệt độ tiêu chuẩn: 20℃± 1℃"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Đối với số khuôn E-MC-S34A (Seimitsu Tokyo), thông số kỹ thuật chính xác nào sau đây về độ tròn của cầu tròn là chính xác và đúng với tiêu chuẩn quy định?",
+      "options": {
+        "A": "Độ tròn từ 0.05μm trở xuống",
+        "B": "Độ tròn từ 0.1μm trở xuống",
+        "C": "Độ tròn từ 0.13μm trở xuống",
+        "D": "Độ tròn từ 0.5μm trở xuống"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: E-MC-S34A (Seimitsu Tokyo) - 2. Độ tròn từ 0.1μm trở xuống"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

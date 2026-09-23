@@ -1,0 +1,50 @@
+{
+  "file_name": "560-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "GEJI THỬ LỖ ỐC VÍT Ren vít – ren vít, ren vít – ống tròn",
+  "doc_code": "560-1 d",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi tiến hành đo đường kính hữu hiệu bằng phương pháp đo 3 kim, công thức tính đường kính hữu hiệu E nào sau đây là chính xác theo tài liệu?",
+      "options": {
+        "A": "E = M – 2dm + 0.866025P",
+        "B": "E = M – 3dm + 0.500000P",
+        "C": "E = M – 3dm + 0.866025P",
+        "D": "E = M – 2dm + 0.500000P"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: E = M – 3dm + 0.866025P"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trường hợp nếu có bất thường trong quá trình kiểm tra hoặc khi sử dụng dụng cụ đo, nhân viên cần thực hiện thao tác xử lý nào sau đây?",
+      "options": {
+        "A": "Tự ý dùng dũa hoặc giấy nhám để mài lại phần ren bị hỏng",
+        "B": "Tiếp tục sử dụng nếu sai số nhỏ hơn giới hạn cho phép",
+        "C": "Ghi chép lại kết quả, xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu và làm đơn đề nghị hiệu chỉnh lại thiết bị đo nếu cần thiết",
+        "D": "Vứt bỏ dụng cụ vào thùng rác phế liệu ngay lập tức mà không cần báo cáo"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3: Chú ý 2 - Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện hiệu chỉnh"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm (kiểm tra ngoại quan) đối với dụng cụ 'Geji thử lỗ ốc vít' được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và khi có yêu cầu đặc biệt từ cấp trên",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "Chỉ kiểm tra trước khi đưa vào sử dụng lần đầu",
+        "D": "Mỗi ca làm việc 2 lần vào đầu ca và cuối ca"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: Tiến độ điểm kiểm - Mỗi tháng 1 lần và mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

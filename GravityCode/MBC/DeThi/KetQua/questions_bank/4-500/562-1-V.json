@@ -1,0 +1,50 @@
+{
+  "file_name": "562-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định THIẾT BỊ ĐO MICROMET DẠNG ĐIỆN LOẠI NHỎ",
+  "doc_code": "562-1 d",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ điểm kiểm (kiểm tra định kỳ) đối với thiết bị đo Micromet dạng điện loại nhỏ (MINICOM Series E-M ** P / Series E-M ** R) được quy định vào thời điểm nào?",
+      "options": {
+        "A": "Mỗi tuần một lần trước khi sản xuất",
+        "B": "Mỗi khi sử dụng",
+        "C": "Mỗi tháng một lần định kỳ",
+        "D": "Trước khi giao ca và cuối ca làm việc"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3/4: Tiến độ điểm kiểm: Mỗi khi sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo quy định về xử lý bất thường trong quá trình kiểm tra thiết bị, trường hợp kết quả kiểm tra không thấy bất thường nhưng theo quy định thời gian thì việc ghi chép lại kết quả phải thực hiện như thế nào?",
+      "options": {
+        "A": "Không cần ghi chép bất kỳ kết quả nào trong suốt cả năm nếu không có sự cố.",
+        "B": "Mỗi tuần phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.",
+        "C": "Mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.",
+        "D": "Chỉ ghi chép lại khi có yêu cầu trực tiếp từ cấp trên hoặc auditor đánh giá."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3/4 (Ghi chú mục 2): Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi thực hiện hiệu chỉnh hạng mục 'Sai số giữa các giới hạn' đối với thiết bị đo, phương pháp phán định đạt yêu cầu là gì?",
+      "options": {
+        "A": "Trị chỉ thị lớn nhất ± 1 mực kế liền kề",
+        "B": "Trị chỉ thị lớn nhất ± 2 mực kế liền kề",
+        "C": "Trị chỉ thị lớn nhất ± 3 mực kế liền kề",
+        "D": "Trị chỉ thị lớn nhất ± 5 mực kế liền kề"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1/4: Phương pháp phán định (Mục 1. Sai số giữa các giới hạn): Trị chỉ thị lớn nhất ± 2 mực kế liền kề"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

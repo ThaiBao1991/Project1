@@ -1,0 +1,50 @@
+{
+  "file_name": "655-6-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN KIỂM TRA VÀ HIỆU CHỈNH DỤNG CỤ ĐO - Máy đo kích thước bằng hình ảnh Keyence Series LM-X / IM-X",
+  "doc_code": "655-6 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Trong trường hợp phát hiện dị thường khi điểm kiểm hoặc khi đang sử dụng máy đo, nhân viên cần xử lý như thế nào theo đúng quy định?",
+      "options": {
+        "A": "Tự ý điều chỉnh các thông số kỹ thuật bên trong phần mềm để máy hoạt động bình thường.",
+        "B": "Kí lục lại kết quả dị thường và xử lý theo chỉ thị của người chịu trách nhiệm của phòng ban sở hữu.",
+        "C": "Tiếp tục sử dụng nếu sai lệch không quá lớn so với mắt thường.",
+        "D": "Chuyển máy sang công đoạn khác không yêu cầu độ chính xác cao để tận dụng."
+      },
+      "correct_answer": "B",
+      "reference_note": "Mục Chú ý (Điểm kiểm): Trường hợp có dị thường khi điểm kiểm (hoặc khi sử dụng), thì kí lục lại kết quả đó, và xử lí theo chỉ thị của người chịu trách nhiệm của phòng ban sở hữu (Trang 5)."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ thực hiện điểm kiểm (inspection) cho máy đo Keyence Series LM-X / IM-X được quy định như thế nào?",
+      "options": {
+        "A": "Định kỳ 6 tháng một lần bởi nhà cung cấp.",
+        "B": "Mỗi tuần một lần vào ngày thứ Hai đầu tuần.",
+        "C": "Mỗi tháng 1 lần và mỗi lần sử dụng.",
+        "D": "Chỉ thực hiện khi máy có thông báo lỗi trên màn hình."
+      },
+      "correct_answer": "C",
+      "reference_note": "Mục II [Điểm kiểm]: Tiến độ điểm kiểm : Mỗi tháng 1 lần và mỗi lần sử dụng (Trang 5)."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trước khi tiến hành hiệu chỉnh máy đo, thao tác chuẩn bị nào sau đây là bắt buộc để đảm bảo độ chính xác của thiết bị?",
+      "options": {
+        "A": "Bật công tắc nguồn và tiến hành đo ngay lập tức để tránh máy quá nhiệt.",
+        "B": "Bật công tắc nguồn, chờ khoảng 30 phút cho máy nóng lên và loại bỏ tất cả ánh sáng bên ngoài khỏi tầm nhìn đo đạc.",
+        "C": "Chỉ cần lau sạch bàn kính bằng cồn và tiến hành hiệu chỉnh ngay.",
+        "D": "Tắt hết đèn trong phòng đo và chỉ sử dụng đèn pin cá nhân để soi vạch thước chuẩn."
+      },
+      "correct_answer": "B",
+      "reference_note": "Mục 1 [Chuẩn bị trước khi hiệu chỉnh]: Bật công tắc nguồn điện và chờ khoảng 30 phút cho máy nóng lên. Bởi vì chỉ có ánh sáng trong suốt được sử dụng trong khi hiệu chỉnh nên hãy loại bỏ tất cả các đơn vị ánh sáng bên ngoài ra khỏi tầm nhìn đo đạc (Trang 1)."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "650-2-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh - điểm kiểm dụng cụ đo Máy đo độ sáng kỹ thuật số",
+  "doc_code": "650-2",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm (kiểm tra hàng ngày/định kỳ) đối với máy đo độ sáng kỹ thuật số là khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước mỗi ca làm việc"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý điểm kiểm, trường hợp kết quả điểm kiểm không có bất thường thì xử lý ghi chép như thế nào?",
+      "options": {
+        "A": "Phải ghi chép lại kết quả điểm kiểm hàng ngày vào sổ theo dõi.",
+        "B": "Không cần ghi chép lại kết quả điểm kiểm, tuy nhiên nếu trong 1 tháng mà không có bất thường nào xảy ra thì cần phải ghi chép lại.",
+        "C": "Chỉ cần ghi chép lại khi có sự thay đổi ca trưởng hoặc quản lý.",
+        "D": "Bắt buộc phải lập báo cáo sự cố gửi về phòng BHCL hàng tuần."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Chú ý 2) Trường hợp kết quả điểm kiểm không có bất thường thì không cần ghi chép lại kết quả điểm kiểm. Tuy nhiên, nếu trong 1 tháng mà không có bất thường nào xảy ra thì cần phải ghi chép lại."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Quy cách phán định về độ chính xác của máy đo độ sáng kỹ thuật số HIOKI 3423 theo tài liệu là gì?",
+      "options": {
+        "A": "±2% rdg. ±1 dgt. - Tương đương với loại A",
+        "B": "±4% rdg. ±1 dgt. - Tương đương với loại AA",
+        "C": "±5% rdg. ±2 dgt. - Tương đương với loại B",
+        "D": "±1% rdg. ±1 dgt. - Tương đương với loại AA"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Quy cách phán định: ±4% rdg. ±1 dgt., Tương đương với loại AA"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

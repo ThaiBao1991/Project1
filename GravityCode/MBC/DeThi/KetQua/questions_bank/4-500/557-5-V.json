@@ -1,0 +1,50 @@
+{
+  "file_name": "557-5-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Đồng hồ đo nhiệt độ mũi hàn (loại kỹ thuật số) Bản tiêu chuẩn hiệu chỉnh-điểm kiểm",
+  "doc_code": "557-5 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tần suất kiểm tra điểm kiểm đối với đồng hồ đo nhiệt độ mũi hàn là khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi tháng một lần",
+        "C": "Mỗi khi sử dụng",
+        "D": "Mỗi ca làm việc"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2 - Tần suất kiểm tra: Mỗi khi sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Phương pháp phán định độ chính xác chỉ thị trong phần hiệu chỉnh đồng hồ đo nhiệt độ mũi hàn là bao nhiêu?",
+      "options": {
+        "A": "±1℃",
+        "B": "±2℃",
+        "C": "±3℃",
+        "D": "±5℃"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1 - Hạng mục phán định Độ chính xác chỉ thị: ±3℃"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục điểm kiểm ngoại quan và thay thế sensor nhiệt độ, khi nào thì phải thay thế sensor nhiệt độ thông thường bằng cái mới?",
+      "options": {
+        "A": "Cứ mỗi 10 lần sử dụng",
+        "B": "Cứ mỗi 50 lần sử dụng",
+        "C": "Cứ mỗi 500 lần sử dụng",
+        "D": "Cứ mỗi 1500 lần sử dụng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2 - 3.Thay thế sensor nhiệt độ: Vì sensor nhiệt độ sẽ bị kém đi nên cứ mỗi 50 lần sử dụng..."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

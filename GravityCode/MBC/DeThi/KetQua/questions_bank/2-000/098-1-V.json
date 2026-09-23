@@ -1,0 +1,50 @@
+{
+  "file_name": "098-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "ĐỒNG HỒ ĐO ĐIỆN TRỞ BỀ MẶT (MÁY ĐO KHÍ TĨNH ĐIỆN)",
+  "doc_code": "098-1 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn của Dụng cụ trắc định 098-1, tiến độ điểm kiểm (kiểm tra hàng ngày/định kỳ) đối với đồng hồ đo điện trở bề mặt được quy định khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước khi giao ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Mục II. [Điểm kiểm] - Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi kiểm tra ngoại quan dụng cụ trắc định, nội dung xác nhận nào sau đây là chính xác theo tài liệu?",
+      "options": {
+        "A": "Xác nhận không được dính vật, không có dị thường, khiếm khuyết có hại như là gây hư hỏng",
+        "B": "Xác nhận màu sắc vỏ máy có bị phai hay không",
+        "C": "Xác nhận tem hiệu chuẩn còn hạn hay đã hết hạn",
+        "D": "Xác nhận độ nhạy của màn hình hiển thị số"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2, Mục II. [Điểm kiểm] - Hạng mục 1. Ngoại quan: Xác nhận không được dính dính vật, không có dị thường, khiếm khuyết có hại như là gây hư hỏng"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục Chú ý về kết quả kiểm tra, trong trường hợp kết quả kiểm tra không thấy bất thường thì xử lý như thế nào là đúng quy định?",
+      "options": {
+        "A": "Phải ghi lại kết quả điểm kiểm tất cả các lần sử dụng trong ngày.",
+        "B": "Không ghi kết quả cũng được, nhưng mỗi tháng một lần phải ghi lại kết quả đã điểm kiểm, dù không có gì bất thường xảy ra.",
+        "C": "Bắt buộc phải ghi chép lại kết quả kiểm tra vào biên bản mỗi đầu ca làm việc.",
+        "D": "Chỉ cần báo cáo miệng cho người quản lý phụ trách khu vực."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Mục Chú ý, Điều 2: Trường hợp kết quả kiểm tra không thấy bất thường thì không ghi kết quả cũng được, nhưng mỗi tháng một lần phải ghi lại kết quả đã điểm kiểm, dù không có gì bất thường xảy ra."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

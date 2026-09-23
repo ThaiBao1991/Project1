@@ -1,0 +1,50 @@
+{
+  "file_name": "551-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chuẩn và điểm kiểm dụng cụ đo đạc - MÁY PHÂN TÍCH KHÁNG TRỞ LF (HP 4192A, 4294A, Agilent 4294A)",
+  "doc_code": "551-1 f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục Ghi chú về điểm kiểm, trường hợp kết quả kiểm tra không thấy bất thường thì quy định ghi chép kết quả như thế nào là đúng?",
+      "options": {
+        "A": "Phải ghi chép lại đầy đủ chi tiết vào mỗi ca làm việc dù không có gì bất thường xảy ra.",
+        "B": "Không cần ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.",
+        "C": "Tuyệt đối không được ghi chép bất kỳ thông tin gì vào sổ theo dõi.",
+        "D": "Chỉ ghi chép lại khi có sự cố phát sinh từ người quản lý."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 10: Ghi chú mục 2 - Trường hợp kết quả kiểm tra không thấy bất thường không cần ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Phương pháp điểm kiểm cho hạng mục SELF TEST trên máy phân tích kháng trở LF là gì?",
+      "options": {
+        "A": "Nhấn nút BLUE KEY và nhấn nút SELF TEST KEY",
+        "B": "Nhấn giữ nút ON/OFF trong 5 giây",
+        "C": "Nhấn nút RESET kết hợp phím ENTER",
+        "D": "Chỉ cần cắm nguồn và chờ máy tự khởi động"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 10: Hạng mục điểm kiểm SELF TEST - Ấn nút BLUE KEY và nhấn nút SELF TEST KEY"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu chuẩn, tiến độ điểm kiểm (Self Test) cho máy phân tích kháng trở LF được quy định thực hiện khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Mỗi năm hai lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 10: Tiến độ điểm kiểm - Mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

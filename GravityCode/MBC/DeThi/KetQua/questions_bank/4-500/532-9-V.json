@@ -1,0 +1,50 @@
+{
+  "file_name": "532-9-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Máy đo GAUSS từ trường thấp",
+  "doc_code": "532-9a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục kiểm tra kim đo, quy định nào sau đây là ĐÚNG về phạm vi sử dụng giới hạn của kim đo dùng cho từ trường thấp?",
+      "options": {
+        "A": "Không được sử dụng ở 200μT trở lên. Nếu từ trường vượt quá 250μT kim đo sẽ bị xấu đi, phát sinh sai lệch và cần nhanh chóng tránh xa từ trường nếu có chuông báo động ở phạm vi 400μ.",
+        "B": "Có thể sử dụng thoải mái trong mọi dải đo từ trường lên đến 1000μT mà không sợ ảnh hưởng đến độ chính xác.",
+        "C": "Chỉ được phép sử dụng ở mức dưới 50μT, tuyệt đối không được đưa vào vùng từ trường vượt quá 100μT trong mọi trường hợp.",
+        "D": "Không cần quan tâm đến giới hạn từ trường, miễn là đã thực hiện thao tác hiệu chỉnh ZERO BAL trước khi đo."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2: II【Điểm kiểm】 - Mục 2. Kiểm tra kim đo: ※Kim đo dùng cho từ trường thấp thì không được sử dụng ở 200μT trở lên. Từ trường vượt quá 250μT thì kim đo sẽ bị xấu đi..."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo quy định về ghi chép kết quả điểm kiểm, trong trường hợp kết quả kiểm tra không thấy bất thường thì phải xử lý ra sao?",
+      "options": {
+        "A": "Phải ghi chép lại đầy đủ kết quả vào mỗi ngày làm việc dù không có gì bất thường.",
+        "B": "Không được phép ghi chép mà phải báo cáo trực tiếp bằng miệng cho cấp trên.",
+        "C": "Không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.",
+        "D": "Chỉ ghi chép lại khi có sự cố hoặc kết quả đo vượt quá giới hạn cho phép."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: II【Điểm kiểm】 - Ghi chú mục 2: Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ điểm kiểm cho thiết bị Máy đo GAUSS từ trường thấp (GM-5122 / A-511) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: II【Điểm kiểm】 - Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

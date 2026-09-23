@@ -1,0 +1,59 @@
+{
+  "file_name": "A00-1-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN ĐIỂM KIỂM – HIỆU CHỈNH MÁY ĐO",
+  "doc_code": "A00-1 c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu A00-1 c, bản đo đạc mã số 'A00～' ứng với tên thường gọi nào?",
+      "options": {
+        "A": "Các loại máy tiêu chuẩn",
+        "B": "Trình tự nghiệp vụ quản lý chi tiết máy đo",
+        "C": "Tiêu chuẩn phán định hiệu chỉnh đặc định",
+        "D": "Các loại máy đo điện tử/điện khí"
+      },
+      "correct_answer": "B",
+      "reference_note": "Nội dung bảng: Ａ００～ | Trình tự nghiệp vụ quản lý chi tiết máy đo | Ａ－№"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo điều khoản đặc biệt của bản tiêu chuẩn (mã số 000-0), quy định về việc xác nhận máy đo gồm nội dung nào sau đây?",
+      "options": {
+        "A": "Quy định về việc mua sắm máy đo mới từ nhà cung cấp nước ngoài.",
+        "B": "Quy định về việc thanh lý các máy đo đã quá hạn sử dụng.",
+        "C": "Quy định về việc xác nhận máy đo được bảo trì và các tính năng có hoạt động bình thường hay không.",
+        "D": "Quy định về trình tự lập biên bản hiệu chuẩn máy đo hàng năm."
+      },
+      "correct_answer": "C",
+      "reference_note": "<Điều khoản đặc biệt> Bản tiêu chuẩn điểm kiểm thường nhật máy đo ( 000-0). Quy định về việc xác nhận máy đo được bảo trì và các tính năng có hoạt động bình thường hay không."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Trong lịch sử cải đính của tài liệu A00-1 c, nội dung thay đổi nào được thực hiện vào ngày 23.01.2020?",
+      "options": {
+        "A": "Ban hành mới",
+        "B": "Thêm vào điều khoản đặc biệt",
+        "C": "Bổ sung vào bản đo đạc mã số 100~",
+        "D": "Bổ sung vào bản đo đạc mã số T00 ~"
+      },
+      "correct_answer": "D",
+      "reference_note": "Lịch sử cải đính: c | 23.01.2020 | Bổ sung vào bản đo đạc mã số T00 ~"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140126.6646369,
+  "generated_at_iso": "2026-09-23T12:08:46",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 108993,
+    "modified_time": 1584758064.5709355,
+    "modified_time_iso": "2020-03-21T09:34:24",
+    "file_hash_short": "178bee99"
+  }
+}

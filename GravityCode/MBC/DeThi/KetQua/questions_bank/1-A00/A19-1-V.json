@@ -1,0 +1,59 @@
+{
+  "file_name": "A19-1-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "Tư cách nhân viên hiệu chỉnh và nội dung giáo dục, đánh giá",
+  "doc_code": "A19-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo quy định về phương pháp giáo dục và nhận định tư cách cho nhân viên hiệu chỉnh, đối với Mục 3 (Giáo dục nghiệp vụ hiệu chỉnh của từng máy đo lường), kỹ năng được tiếp thu bằng cách nào?",
+      "options": {
+        "A": "Chỉ học lý thuyết trực tuyến trước khi làm việc",
+        "B": "Mỗi khi cần thiết sẽ tiếp thu kỹ năng thông qua OJT (hướng dẫn thông qua công việc thực tế)",
+        "C": "Không cần học và không cần đánh giá",
+        "D": "Tự học qua tài liệu mà không cần hướng dẫn"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: '※Đối với mục 3, mỗi khi cần thiết sẽ tiếp thu kỹ năng thông qua OJT (hướng dẫn thông qua công việc thực tế)'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Đối với kết quả đánh giá định kỳ, trong trường hợp các hạng mục đào tạo được xác định là cần đào tạo huấn luyện lại, thời hạn bắt buộc phải thực hiện đào tạo huấn luyện lại là trong vòng bao lâu kể từ sau khi đánh giá?",
+      "options": {
+        "A": "Trong vòng 1 tháng",
+        "B": "Trong vòng 3 tháng",
+        "C": "Trong vòng 6 tháng",
+        "D": "Trong vòng 1 năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: 'Kết quả đánh giá định kỳ, đối với các hạng mục đào tạo được xác định là cần đào tạo huấn luyện lại, phải thực hiện đào tạo huấn luyện lại trong vòng 6 tháng kể từ sau khi đánh giá.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn A19-1, sau lần đánh giá đầu tiên bởi người đào tạo, tần suất định kỳ để trưởng bộ phận kiểm tra hoặc người được chỉ định tiến hành đánh giá lại hiệu quả của đào tạo, huấn luyện là bao lâu?",
+      "options": {
+        "A": "1 năm/ 1 lần",
+        "B": "2 năm/ 1 lần",
+        "C": "6 tháng/ 1 lần",
+        "D": "3 năm/ 1 lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: 'Sau đó, với tần suất 2 năm/ 1 lần, trưởng bộ phận kiểm tra hoặc người được Trưởng bộ phận kiểm tra chỉ định sẽ tiến hành đánh giá xem hiệu quả của đào tạo,huấn luyện có được duy trì hay không.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140683.0568385,
+  "generated_at_iso": "2026-09-23T12:18:03",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 301446,
+    "modified_time": 1781498825.2265267,
+    "modified_time_iso": "2026-06-15T11:47:05",
+    "file_hash_short": "9f1de40d"
+  }
+}

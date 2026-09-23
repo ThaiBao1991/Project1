@@ -1,0 +1,50 @@
+{
+  "file_name": "061-2-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh điểm kiểm dụng cụ đo - Máy đo cường độ tia cực tím Maakutekku",
+  "doc_code": "061-2c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra hoặc sử dụng máy đo cường độ tia cực tím, nếu phát hiện có bất thường thì nhân viên phụ trách phải xử lý theo quy định nào dưới đây?",
+      "options": {
+        "A": "Tự ý tháo máy ra để chỉnh lại kim về vạch 0 rồi tiếp tục sử dụng",
+        "B": "Bỏ qua nếu sai số nhỏ và tiếp tục ghi kết quả vào báo cáo tháng",
+        "C": "Ghi chép lại kết quả, xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu và làm đơn đề nghị hiệu chỉnh lại thiết bị đo nếu cần thiết",
+        "D": "Cất thiết bị vào tủ và chờ đến lịch hiệu chỉnh định kỳ 12 tháng sau"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, Chú ý mục 2: Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện hiệu chỉnh"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, tiến độ điểm kiểm định kỳ cho máy đo cường độ tia cực tím được quy định như thế nào?",
+      "options": {
+        "A": "Chỉ kiểm tra mỗi tháng 1 lần",
+        "B": "Mỗi lần sử dụng, Mỗi tháng 1 lần",
+        "C": "Chỉ kiểm tra trước khi sử dụng thiết bị",
+        "D": "6 tháng 1 lần hoặc khi xác định cần thiết"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Tiêu chuẩn điểm kiểm: Tiến độ điểm kiểm: Mỗi lần sử dụng, Mỗi tháng 1 lần"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Phạm vi đo và giá trị phán định của máy đo cường độ tia cực tím (số khuôn UV-2500Ⅱ) theo bảng tiêu chuẩn là gì?",
+      "options": {
+        "A": "0~2,500 và 0~10,000 µW/cm² với giá trị phán định Tỉ lệ full±2.5%",
+        "B": "0~15,000 µW/cm² với giá trị phán định ±（2.5%±30μW/cm²）",
+        "C": "0~5,000 µW/cm² với giá trị phán định ±1.0%",
+        "D": "0~20,000 µW/cm² với giá trị phán định ±5.0%"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, Biểu 1 Phạm vi đo: Số khuôn UV-2500 II, Phạm vi đo 0~2,500 và 0~10,000 (µW/cm²), Giá trị phán định Tỉ lệ full±2.5%"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

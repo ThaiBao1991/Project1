@@ -1,0 +1,50 @@
+{
+  "file_name": "538-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "ĐỒNG HỒ ĐO ĐỘ CỨNG KIỂU LÒ XO (KIỂU SHORE – D, LOẠI D)",
+  "doc_code": "538-1 i",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiến độ kiểm tra của đồng hồ đo độ cứng kiểu lò xo (Shore D), công đoạn kiểm tra ngoại quan và độ ổn định của kim, kim đặt được thực hiện khi nào?",
+      "options": {
+        "A": "Mỗi lần sử dụng",
+        "B": "Mỗi tuần một lần",
+        "C": "6 tháng một lần",
+        "D": "Trước khi giao hàng"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2/3 - Tiến độ kiểm tra: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Thông số kỹ thuật về độ chính xác khi chỉ thị khi kích thước lồi ra của kim đo là \"0\" đối với đồng hồ đo độ cứng kiểu Shore D là bao nhiêu?",
+      "options": {
+        "A": "Hsd ± 1",
+        "B": "2.50 ± 0.04",
+        "C": "Hsd 100 +0 - 2",
+        "D": "Hsd 100 - 1"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1/3 - Hạng mục hiệu chỉnh số 3: Độ chính xác chỉ thị khi kích thước lồi ra của kim đo là \"0\" - Phương pháp phán định: Hsd 100+0 - 2"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình sử dụng, nếu kết quả kiểm tra phát hiện có bất thường thì nhân viên phụ trách phải xử lý như thế nào?",
+      "options": {
+        "A": "Tự ý tháo dỡ đồng hồ để sửa chữa các bộ phận bên trong",
+        "B": "Tiếp tục sử dụng cho hết ca làm việc rồi mới báo cáo cấp trên",
+        "C": "Xử lý theo chỉ thị của người chịu trách nhiệm quản lý",
+        "D": "Ghi chép lại vào sổ theo dõi và bỏ qua nếu sai số nhỏ"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2/3 - Chú ý mục 3: Trường hợp thấy bất thường khi đang sử dụng thì xử lý theo chỉ thị của người chịu trách nhiệm quản lý."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

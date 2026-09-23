@@ -1,0 +1,50 @@
+{
+  "file_name": "512-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định DỤNG CỤ ĐO NGẪU LỰC TYPE : TG",
+  "doc_code": "512-1d",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo phần Ghi chú kiểm tra (trang 5), trường hợp kết quả kiểm tra không thấy bất thường thì tần suất ghi chép kết quả tối thiểu là gì?",
+      "options": {
+        "A": "Không cần ghi chép nếu không có bất thường",
+        "B": "Ghi chép lại mỗi tuần một lần",
+        "C": "Mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra",
+        "D": "Ghi chép lại vào cuối mỗi năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 5: '2. Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo mục II 【Điểm kiểm】, tiến độ kiểm tra đối với dụng cụ đo ngẫu lực (Type: TG) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi 12 tháng một lần",
+        "D": "Trước mỗi ca làm việc"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5: 'Tiến độ kiểm tra: Mỗi lần sử dụng'"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục I 【Hiệu chỉnh】, sai số cho phép đối với độ chính xác chỉ thị của dụng cụ đo ngẫu lực là bao nhiêu?",
+      "options": {
+        "A": "±1%",
+        "B": "±2%",
+        "C": "±3%",
+        "D": "±5%"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: 'Sai số cho phép ± 3%.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

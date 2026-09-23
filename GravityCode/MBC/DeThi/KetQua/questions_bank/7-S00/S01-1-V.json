@@ -1,0 +1,50 @@
+{
+  "file_name": "S01-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "THIẾT BỊ HIỆU CHỈNH DÒNG ĐIỆN MỘT CHIỀU",
+  "doc_code": "S01-1 g",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn S01-1 g, chu kỳ hiệu chỉnh và điều kiện môi trường tiêu chuẩn để vận hành thiết bị hiệu chỉnh dòng điện một chiều là gì?",
+      "options": {
+        "A": "Chu kỳ 6 tháng; Nhiệt độ 20±2°C; Độ ẩm 40~60%",
+        "B": "Chu kỳ 1 năm; Nhiệt độ 23±3°C; Độ ẩm 45~75%",
+        "C": "Chu kỳ 1 năm; Nhiệt độ 25±5°C; Độ ẩm 50~80%",
+        "D": "Chu kỳ 2 năm; Nhiệt độ 23±3°C; Độ ẩm 45~75%"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Chu kì hiệu chỉnh 1 năm; Nhiệt độ tiêu chuẩn 23±3°C; Độ ẩm tương đối 45～75%."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Đối với thiết bị YOKOGAWA 2550, tại hạng mục 'Điện áp xuất ra' với giới hạn 1000V, độ chính xác (trị số ở hướng lớn) được quy định như thế nào?",
+      "options": {
+        "A": "± (0.005% của trị thiết định) hoặc ±500μV",
+        "B": "± (0.01% của trị thiết định) hoặc ±5mV",
+        "C": "± (0.005% của trị thiết định) hoặc ±5mV",
+        "D": "± (0.05% của trị thiết định) hoặc ±10mV"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Bảng thông số cho model 2550, hạng mục Điện áp xuất ra, giới hạn 1000V có độ chính xác là ± (0.005% của trị thiết định) hoặc ±5mV."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo danh sách các cơ quan thực thi hiệu chỉnh, tại cứ điểm VNM (Việt Nam), những đơn vị nào được xác nhận có thể thực hiện hiệu chỉnh truy nguyên theo tiêu chuẩn quốc gia?",
+      "options": {
+        "A": "Viện nghiên cứu kỹ thuật công nghiệp và Công ty SGS",
+        "B": "Trung tâm đo đạc quốc gia Hoa Nam (SCM)",
+        "C": "Nhật Bản (nhà chế tạo hiệu chỉnh) và Nhà cung cấp hiệu chỉnh",
+        "D": "Công ty Yokogawa của Mỹ và Nhà cung cấp hiệu chỉnh"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 4: Bảng cơ quan thực thi hiệu chỉnh, dòng VNM liệt kê: ① Nhật Bản (nhà chế tạo hiệu chỉnh), ② Nhà cung cấp hiệu chỉnh."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

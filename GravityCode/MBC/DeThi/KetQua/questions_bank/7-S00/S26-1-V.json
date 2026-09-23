@@ -1,0 +1,50 @@
+{
+  "file_name": "S26-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "QUẢ CẦU CHUẨN (MASTER BALL)",
+  "doc_code": "S26-1 f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo tài liệu kỹ thuật, thông số độ chính xác về độ tròn của quả cầu chuẩn (Master Ball) được quy định như thế nào?",
+      "options": {
+        "A": "0.01 µm Max",
+        "B": "0.03 µm Max",
+        "C": "0.05 µm Max",
+        "D": "0.10 µm Max"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Độ tròn quả cầu 0.05 µm Max"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Nhiệt độ tiêu chuẩn được quy định dùng để hiệu chỉnh Quả cầu chuẩn là bao nhiêu?",
+      "options": {
+        "A": "18 ± 1°C",
+        "B": "20 ± 1°C",
+        "C": "23 ± 2°C",
+        "D": "25 ± 1°C"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Nhiệt độ tiêu chuẩn 20±1°C"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, chu kì hiệu chỉnh định kì đối với Quả cầu chuẩn (Master Ball) là bao nhiêu năm?",
+      "options": {
+        "A": "01 năm",
+        "B": "02 năm",
+        "C": "03 năm",
+        "D": "05 năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: 【Hiệu chỉnh】 Chu kì hiệu chỉnh 03 năm"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

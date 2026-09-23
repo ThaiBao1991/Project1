@@ -1,0 +1,50 @@
+{
+  "file_name": "584-5-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh – điểm kiểm thiết bị đo Cân phân tích điện tử",
+  "doc_code": "584-5",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Trong quá trình chuẩn bị trước hiệu chỉnh cân phân tích điện tử ME***E Series, cần nạp nguồn điện và làm nóng trong thời gian tối thiểu là bao nhiêu lâu?",
+      "options": {
+        "A": "Từ 30 phút trở lên",
+        "B": "Từ 60 phút trở lên",
+        "C": "Từ 90 phút trở lên",
+        "D": "Không cần làm nóng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Nạp nguồn điện và làm nóng từ 60 phút trở lên."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục điểm kiểm cân phân tích điện tử, tần suất tiến hành điểm kiểm là khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi tháng một lần",
+        "C": "Mỗi lần sử dụng",
+        "D": "Trước mỗi ca làm việc"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: Tần suất điểm kiểm - Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo chú thích về việc xử lý khi phát hiện dị thường ở kết quả kiểm tra, phát biểu nào sau đây là chính xác?",
+      "options": {
+        "A": "Tự ý sửa chữa cân rồi tiếp tục sử dụng mà không cần báo cáo.",
+        "B": "Bỏ qua nếu lỗi nhỏ và tiếp tục đo đạc bình thường.",
+        "C": "Kí lục kết quả kiểm tra và xử lý theo chỉ thị của người chịu trách nhiệm quản lý.",
+        "D": "Chỉ cần ghi chép lại vào cuối tháng mà không cần xử lý ngay."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: Chú thích 1 - Trường hợp có dị thường ở kết quả kiểm tra thì kí lục kết quả kiểm tra và xử lý theo chỉ thị của người chịu trách nhiệm quản lý."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

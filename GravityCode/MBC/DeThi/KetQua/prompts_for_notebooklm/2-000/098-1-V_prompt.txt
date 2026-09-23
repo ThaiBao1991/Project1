@@ -1,0 +1,271 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Bản tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - Dụng cụ trắc định: 098-1 b
+Mã số/Mã máy đo: 098-1
+File gốc: 098-1-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No. 1/3
+Bản tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định
+
+ĐỒNG HỒ ĐO ĐIỂN TRỞ BỀ MẶT
+(MÁY ĐO KHÍ TĨNH ĐIỆN)
+
+Công Ty MABUCHI MOTOR
+Bộ phận bảo hành chất lượng
+
+Ngàyban hành: 01-08-2016
+Ngày cải đính: 21-07-2021
+Dụng cụ trắc định: 098-1 b
+
+I. [Hiệu chỉnh]
+Dụng cụ tiêu chuẩn
+Dụng cụ tiêu chuẩn của nhà cung cấp hiệu chỉnh hoặc nơi chế tạo
+Chu kì hiệu chỉnh
+Mỗi 24 tháng hoặc khi thấy cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+Độ chính xác đo
+
+Ủy thác cho nhà cung cấp hiệu chỉnh hoặc nơi chế tạo
+Biểu
+
+Dựa theo biểu
+
+Nơi chế tạo
+Model
+Hạng mục hiệu
+chỉnh
+Điểm hiệu chỉnh(tham
+khảo)
+Phương pháp
+phán định
+DR.SCHNEIDERPC
+SL-030B
+Xác nhận điểm
+sáng[Ω]
+103,104,105,106,107,
+108,109,1010,1011
+Điểm sáng LED
+Xác nhận trị giới
+hạn trên[Ω]
+105,109
+10x～x+1Ω
+Xác nhận trị giới
+hạn dưới[Ω]
+105,109
+10 x-1～xΩ
+Walfgang Warmbler
+SRM110
+Xác nhận điểm
+sáng[Ω]
+≦105,
+106,107,108,109,1010
+,1011≦
+Điểm sáng LED
+QUICK
+499D
+Xác nhận điểm
+sáng [Ω]
+103,104,105
+≦±10%
+106,107, 108
+109,1010,1011
+SIMCO
+ST-4
+Xác nhận biểu
+thị[Ω]
+103,104,105,106,107,
+108,109,1010,1011,1012,1013
+±0.5(指数)
+Điện áp xuất
+lực[V]
+10V,100V
+±5%
+HOZAN
+F-109
+F-109-1
+Xác nhận biểu
+thị [Ω]
+103,104,105,106,107,
+108,109,1010,1011,1012
+±10%
+(Trên 1011Ω
+±20%)
+Áp dụng điện
+áp[V]
+10V,100V
+±5%
+
+-Văn b ản trích dẫn-liên quan-
+Phương pháp hiệu chỉnh : theo bản thuyết minh sử dụng và thành tích kiểm tra nhà cung cấp hiệu chỉnh/ nơi chế
+tạo
+Quy cách phán định ; quy cách nơi chế tạo và bản thuyết minh sử dụng
+
+--- HẾT TRANG ---
+
+No. 2/3
+
+Dụng cụ trắc định 098-1
+
+II. [Điểm kiểm]               ĐỒNG HỒ ĐO ĐIỂN TRỞ BỀ MẶT
+(MÁY ĐO KHÍ TĨNH ĐIỆN)
+
+Tiến độ điểm kiểm         Mỗi lần sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp kết
+luận
+
+1. Ngoại quan
+
+2. Nguồn điện
+
+3. Khác
+
+Xác nhận không được dính dính vật, không có dị
+thường, khiếm khuyết có hại như là gây hư hỏng
+
+Trường hợp đang sử dụng pin thì không được để
+hiển thị dị thường thường về pin
+
+Chi tiết của phương pháp điểm kiểm khác, tham
+khảo bản thuyết minh sử dụng
+
+Phải không có dị
+thường
+
+Phải không có dị
+thường
+
+Phải không có dị
+thường
+
+Chú ý :
+1.  Trường hợp kết quả kiểm tra bất thường thì ghi chép kết quả kiểm tra, xử lý theo chỉ thị của người
+quản lý có trách nhiệm
+2.  Trường hợp kết quả kiểm tra không thấy bất thường thì không ghi kết quả cũng được, nhưng mỗi
+tháng một lần phải ghi lại kết quả đã điểm kiểm, dù không có gì bất thường xảy ra.
+3.  Trường hợp nhận ra sự bất thường trong khi sử dụng, sẽ xử lý dựa vào chỉ thị của người quản lý có
+trách nhiệm.
+
+--- HẾT TRANG ---
+
+No. 3/3
+Dụng cụ trắc định 098-1
+Bản tiêu chuẩn hiệu chỉnh và kiểm tra
+Bản lý lịch những ban hành, cải chính và hủy bỏ
+Ký
+hiệu
+Ngày tháng
+năm
+Nội dung
+Soạn thảo
+Xác nhận
+Công
+Nhận
+
+01.08.2016
+Ban hành mới.
+Hủy bản 903-1và chuyển sang 098-1
+Hashida
+(Matsuyama)
+Hatta Ito
+Ishino
+a
+30.09.2019
+Bổ sung thể thức : HOZAN F-109,
+F-109-1 (Nơi yêu cầu : DLM)
+Thay đổi mã số cải đính
+Ⅰ【Hiệu chỉnh】098-1→098-1a ※Ⅱ
+【Điểm kiểm】098-1_（Không thay đổi）
+Koizumi
+Kikuchi
+Ishii
+Usui
+Ito
+b
+21.07.2021
+・Hạng mục hiệu chỉnh SL-030B,
+chỉnh sửa phương pháp đo
+（Nơi yêu cầu：JSM）
+・Thay đổi mã số cải đính
+Ⅰ【Hiệu chỉnh】098-1→098-1b ※
+Ⅱ【Điểm kiểm】098-1_（Không thay
+đổi）
+
+Ban chính BHCL công ty Mabuchi Motor., LTD
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "098-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - Dụng cụ trắc định: 098-1 b",
+  "doc_code": "098-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

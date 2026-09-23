@@ -1,0 +1,50 @@
+{
+  "file_name": "037-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - MÁY ĐO ĐA NĂNG",
+  "doc_code": "037-1 e",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi sử dụng sensor vòng quay (Fiber Unit), phương pháp uốn cong hoặc bán kính uốn cong nào được quy định để đảm bảo độ bền và tính năng?",
+      "options": {
+        "A": "Bán kính uốn cong càng nhỏ càng tốt, tối thiểu R 5mm",
+        "B": "Bán kính uốn cong hãy lấy loại lớn (R 25mm trở lên), dụng cụ dạng ống thì R trên 10mm (FU-33, 34 thì R trên 25mm)",
+        "C": "Không được phép uốn cong dưới mọi hình thức đối với tất cả các loại Fiber Unit",
+        "D": "Chỉ cần uốn cong bằng tay không quá 5 lần là đạt yêu cầu"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 9, Mục II【Điểm kiểm】<Hạng mục chú ý khi sử dụng sensor vòng quay (Fibel Unit)>: Bán kính uốn cong Fibel unit thì trong khả năng có thể hãy lấy loại lớn (R 25mm trở lên); Dụng cụ dạng ống thì hãy ấn ngón tay vào vật có khuôn hình tròn rồi bẻ cong (R trên 10mm, FU-33, 34 thì R trên 25mm)."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kỳ hiệu chỉnh đối với máy đo đa năng là bao lâu?",
+      "options": {
+        "A": "Mỗi 6 tháng hoặc xác nhận khi thấy cần thiết",
+        "B": "Mỗi 12 tháng hoặc xác nhận khi thấy cần thiết",
+        "C": "Mỗi 24 tháng hoặc xác nhận khi thấy cần thiết",
+        "D": "Mỗi 36 tháng hoặc xác nhận khi thấy cần thiết"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Mục I【Hiệu chỉnh】: Chu kỳ hiệu chỉnh: Mỗi 24 tháng hoặc xác nhận khi thấy cần thiết"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình hiệu chỉnh và thao tác với máy đo đa năng, nhân viên cần lưu ý điều quan trọng nào về an toàn điện do bên trong máy có bộ phận phát sinh điện áp cao?",
+      "options": {
+        "A": "Phải đeo găng tay cách điện chuyên dụng và tuyệt đối không để tay tiếp xúc với bản chuẩn bên trong",
+        "B": "Phải ngắt hoàn toàn nguồn điện lưới AC100V trước khi mở nắp thiết bị",
+        "C": "Phải xả điện tích của tụ điện trong vòng 3 phút trước khi tiến hành chỉnh VR4",
+        "D": "Chỉ cần tắt công tắc nguồn POWER sang OFF là có thể thao tác an toàn bên trong"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, Mục I【Hiệu chỉnh】<Hạng mục chú ý>: 'Vì bên trong của máy có bộ phận phát sinh điện áp cao. Nên khi điều chỉnh phải chú ý không được để tay tiếp xúc với bản chuẩn bên trong.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

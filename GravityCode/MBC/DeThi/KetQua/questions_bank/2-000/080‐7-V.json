@@ -1,0 +1,50 @@
+{
+  "file_name": "080‐7-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh - điểm kiểm dụng cụ PICK UP GIA TỐC ĐỘ DÙNG ĐỂ ĐO DYTRAN",
+  "doc_code": "080-7c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Trong quá trình kiểm tra ngoại quan và trạng thái kết nối của dụng cụ, yêu cầu kỹ thuật nào sau đây là chính xác?",
+      "options": {
+        "A": "Dây cáp có thể được gấp lại gọn gàng nhưng không được xoắn",
+        "B": "Được phép để lỏng ốc kết nối giữa dây cáp với sensor để dễ tháo lắp",
+        "C": "Dây cáp không được gấp lại, không được xoắn và không được để ốc kết nối giữa dây cáp với sensor bị lỏng",
+        "D": "Ốc kết nối giữa dây cáp với sensor siết chặt bằng tay, dây cáp có thể xoắn nhẹ"
+      },
+      "correct_answer": "C",
+      "reference_note": "Phần II【Điểm kiểm】, Hạng mục 1 & 2: Dây cáp không được gấp lại, không được xoắn; Không được để ốc kết nối giữa dây cáp với sensor bị lỏng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm đối với dụng cụ Pick up gia tốc độ dùng để đo Dytran được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và trước khi sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "3 tháng 1 lần vào đầu quý",
+        "D": "Chỉ kiểm tra khi phát hiện máy có hiện tượng bất thường"
+      },
+      "correct_answer": "B",
+      "reference_note": "Phần II【Điểm kiểm】Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Quy định nào sau đây là bắt buộc phải tuân thủ khi có bất thường trong quá trình điểm kiểm hoặc khi sử dụng dụng cụ?",
+      "options": {
+        "A": "Tự ý tháo ra sửa chữa nếu hỏng nhẹ, không cần báo cáo cấp trên",
+        "B": "Tiếp tục sử dụng hết ca sản xuất rồi mới ghi chép vào sổ theo dõi",
+        "C": "Phải ghi chép lại kết quả bất thường đó, xử lý theo chỉ thị của người chịu trách nhiệm bộ phận chủ quản và yêu cầu tái hiệu chỉnh nếu cần thiết",
+        "D": "Chỉ cần báo cáo miệng cho nhân viên bảo trì và không cần ghi chép lại"
+      },
+      "correct_answer": "C",
+      "reference_note": "Phần II【Điểm kiểm】Chú ý mục 2: Nếu có bất thường trong quá trình điểm kiểm (hoặc khi sử dụng) thì phải ghi chép lại kết quả đó, Và xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận chủ quản. Thực hiện yêu cầu tái hiệu chỉnh của máy đo đạc đối với phòng ban thực hiện hiệu chỉnh nếu cần thiết."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

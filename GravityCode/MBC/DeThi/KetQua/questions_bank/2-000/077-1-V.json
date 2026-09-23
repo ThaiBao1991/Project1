@@ -1,0 +1,50 @@
+{
+  "file_name": "077-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh điểm kiểm dụng cụ đo Thiết bị tạo nước cất",
+  "doc_code": "077-1 c",
+  "target_audience": "Nhân viên/đội trưởng phòng BHCL",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm cho thiết bị tạo nước cất được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và khi cần thiết",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "Trước mỗi ca làm việc",
+        "D": "Mỗi năm 1 lần định kỳ"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra, nếu giá trị điện dẫn đo được vượt quá giá trị phán định quy định (không đạt yêu cầu), hành động bắt buộc tiếp theo là gì?",
+      "options": {
+        "A": "Tiếp tục sử dụng và ghi chú lại vào báo cáo cuối tháng",
+        "B": "Tự ý điều chỉnh lại cảm biến đo độ dẫn điện trên thiết bị",
+        "C": "Tiêu thụ hết lượng nước hiện tại trong bình chứa rồi mới xử lý",
+        "D": "Yêu cầu nhà cung cấp thay thế bộ lọc cartridge và bộ lọc"
+      },
+      "correct_answer": "D",
+      "reference_note": "Trang 1 & 2: Mục điểm kiểm 1: Nếu giá trị điện dẫn không đạt yêu cầu, tiến hành thay thế cartridge và bộ lọc. Yêu cầu nhà cung cấp thay thế bộ lọc cartridge."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Đối với ứng dụng dùng trong thí nghiệm phun nước và thùng ẩm độ, trị phán định độ dẫn điện tối đa cho phép là bao nhiêu?",
+      "options": {
+        "A": "Dưới 1 μS/cm",
+        "B": "Dưới 3 μS/cm",
+        "C": "Dưới 5 μS/cm",
+        "D": "Dưới 10 μS/cm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: [Biểu trị phán định phân biệt cách ứng dụng, sử dụng] Thí nghiệm phun nước, thùng ẩm độ: Dưới 3μS/cm"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

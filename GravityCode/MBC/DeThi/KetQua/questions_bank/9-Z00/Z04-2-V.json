@@ -1,0 +1,50 @@
+{
+  "file_name": "Z04-2-V.pdf",
+  "folder_name": "9-Z00 Ban V IT HOA",
+  "doc_title": "Quy cách chỉnh sửa dụng cụ đo lường Mitutoyo",
+  "doc_code": "Z04-2",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Các giá trị quy chuẩn được ghi trong tiêu chuẩn (như trong MSS-202) được dựa trên mức nhiệt độ tiêu chuẩn nào?",
+      "options": {
+        "A": "15°C",
+        "B": "20°C",
+        "C": "25°C",
+        "D": "30°C"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: '本書記載の規格値は標準温度（２０℃）におけるものを基準としています。'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục 2 'この規格をご利用にあたって' của tiêu chuẩn MSS-202 (trang 3), khi sử dụng quy cách để quản lý đo lường đối với các thiết bị không có sẵn bảng quy cách kiểm tra và không có giá trị nới lỏng so với tiêu chuẩn sản phẩm, nhân viên cần thực hiện như thế nào?",
+      "options": {
+        "A": "Tự ý thay đổi dung sai theo kinh nghiệm cá nhân.",
+        "B": "Sử dụng quy cách này cho việc quản lý đo lường, và nếu cần thiết phải thực hiện việc hiệu chỉnh quy cách.",
+        "C": "Ngừng sử dụng thiết bị đo ngay lập tức.",
+        "D": "Chỉ sử dụng bảng quy cách của sản phẩm khác thay thế."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: '貴社において検査規格をお持ちでなく、製品規格に対して緩和された値で計測管理する場合は、この規格をご利用ください。なお、必要に応じて規格の修正を行って下さい。'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, các thiết bị đo trích dẫn quy cách chỉnh sửa dụng cụ đo lường Mitutoyo có cần phải yêu cầu thiết lập mới hoặc chỉnh sửa do bổ sung mẫu thiết bị hay không?",
+      "options": {
+        "A": "Có, bắt buộc phải thiết lập lại từ đầu cho mọi mẫu mới.",
+        "B": "Không cần phải yêu cầu thiết lập mới hoặc chỉnh sửa do bổ sung mẫu thiết bị.",
+        "C": "Chỉ cần chỉnh sửa khi có yêu cầu riêng từ khách hàng.",
+        "D": "Tùy thuộc vào quyết định của bộ phận bảo dưỡng."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: 'Các thiết bị đo trích dẫn quy cách này không cần phải yêu cầu thiết lập mới hoặc chỉnh sửa do bổ sung mẫu thiết bị.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "514-2-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH - ĐIỂM KIỂM ĐỒNG HỒ ĐO LỰC CĂNG DÂY QUẤN",
+  "doc_code": "514-2 a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh, tiến độ điểm kiểm định kỳ đối với đồng hồ đo lực căng dây quấn được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và trước khi ca làm việc",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "3 tháng 1 lần và khi chuyển đổi sản phẩm",
+        "D": "6 tháng 1 lần và định kỳ hàng năm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: 'Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo quy định về xử lý kết quả khi điểm kiểm, nếu phát hiện có dị thường hoặc vượt quá giới hạn cho phép, nhân viên phải thực hiện thao tác nào sau đây?",
+      "options": {
+        "A": "Tiếp tục sử dụng và ghi chú lại vào cuối tháng",
+        "B": "Tự ý tháo dỡ đồng hồ ra để tự sửa chữa bên trong",
+        "C": "Ghi chép lại kết quả trường hợp có dị thường khi điểm kiểm, xử lý theo chỉ thị của người chịu trách nhiệm bộ môn sở hữu và tái hiệu chỉnh dụng cụ đo nếu cần thiết",
+        "D": "Bỏ ngay thiết bị vào thùng rác phế liệu mà không cần báo cáo"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: 'Ghi chép lại kết quả trường hợp có dị thường khi điểm kiểm (khi sử dụng gần nhất), xử lý theo chỉ thị của người chịu trách nhiệm bộ môn sở hữu. Trường hợp cần thiết thì xin tái hiệu chỉnh dụng cụ đo ở bộ môn thực thi hiệu chỉnh.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi tiến hành xác nhận độ chính xác và điều chỉnh đồng hồ đo lực căng dây quấn, việc đo cần được thực hiện ở mấy điểm?",
+      "options": {
+        "A": "Đo ở 2 điểm: cực tiểu và cực đại",
+        "B": "Đo ở 4 điểm: cực tiểu, trung bình 1, trung bình 2, cực đại",
+        "C": "Đo ở 3 điểm: cực tiểu, cực đại, trung bình",
+        "D": "Chỉ đo tại 1 điểm giới hạn sử dụng"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: 'Tiến hành đo ở 3 điểm cực tiểu, cực đại, trung bình.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

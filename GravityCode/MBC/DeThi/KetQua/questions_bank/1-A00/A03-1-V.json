@@ -1,0 +1,59 @@
+{
+  "file_name": "A03-1-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "Biểu thị kì hạn có hiệu lực hiệu chỉnh và số quản lý dụng cụ đo đạc",
+  "doc_code": "A03-1 i",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu A03-1, khi chu kỳ hiệu chỉnh của thiết bị đo là 12 tháng (1 năm), màu nền tương ứng của nhãn số quản lý và nhãn chứng nhận hiệu chỉnh là màu gì?",
+      "options": {
+        "A": "Màu đỏ",
+        "B": "Màu hồng",
+        "C": "Màu vàng",
+        "D": "Màu xanh lá"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Mục 2-(2) (Tham khảo) Mã màu / 12tháng (1năm)：vàng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục 5-(1) của tiêu chuẩn, phần ghi thời hạn hiệu lực hiệu chỉnh trên nhãn chứng nhận đã hiệu chỉnh (trên nhãn được ghi là 'Exp date') phải được điền theo định dạng nào?",
+      "options": {
+        "A": "Năm/Tháng",
+        "B": "Năm/Tháng/Ngày",
+        "C": "Tháng/Ngày/Năm",
+        "D": "Ngày/Tháng/Năm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, Mục 5. Phương pháp ghi lên nhãn chứng nhận hiệu chỉnh - (1)"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Đối với nhãn dùng cho dụng cụ chuẩn, quy định về phân loại màu nền theo chu kỳ hiệu chỉnh như thế nào?",
+      "options": {
+        "A": "Phân loại màu theo chu kỳ hiệu chỉnh giống như thiết bị đo thông thường",
+        "B": "Bắt buộc sử dụng màu trắng hoặc màu trong suốt",
+        "C": "Không phân loại màu theo chu kỳ hiệu chỉnh, và màu nền của nhãn phải là màu vàng kim",
+        "D": "Tùy thuộc vào lựa chọn của từng cứ điểm sản xuất"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Mục 2-(3) & Trang 2, Mục 4-(3)"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140167.1362004,
+  "generated_at_iso": "2026-09-23T12:09:27",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 215761,
+    "modified_time": 1784541541.0811603,
+    "modified_time_iso": "2026-07-20T16:59:01",
+    "file_hash_short": "2924d536"
+  }
+}

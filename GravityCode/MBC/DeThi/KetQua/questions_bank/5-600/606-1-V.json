@@ -1,0 +1,50 @@
+{
+  "file_name": "606-1-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ đo MÁY ĐO ĐO TRÒN (RONDCOM 31A, 41ASeimitsuTokyo)",
+  "doc_code": "606-1 g",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Tiến độ điểm kiểm dụng cụ đo đo tròn (RONDCOM) được thực hiện khi nào?",
+      "options": {
+        "A": "Định kỳ 1 tuần/lần",
+        "B": "Định kỳ 1 tháng/lần",
+        "C": "Mỗi lần sử dụng",
+        "D": "6 tháng/lần"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3 - II [Điểm kiểm] - Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kỳ hiệu chỉnh đối với máy đo đo tròn (RONDCOM 31A, 41ASeimitsuTokyo) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tháng 1 lần",
+        "B": "6 tháng hoặc khi xác nhận thấy cần thiết",
+        "C": "1 năm 1 lần",
+        "D": "Trước mỗi lần sử dụng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1 - I [Hiệu chỉnh] - Chu kỳ hiệu chỉnh: 6 tháng hoặc khi xác nhận thấy cần thiết"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra ngoại quan dụng cụ kiểm xuất trước khi sử dụng, điều cấm kỵ tuyệt đối là gì?",
+      "options": {
+        "A": "Tuyệt đối không được quay bàn xoay không có không khí nén.",
+        "B": "Không được lau chùi đầu đo bằng cồn.",
+        "C": "Không được bật nguồn khi chưa lắp đầu đo.",
+        "D": "Không được di chuyển trục Z khi bàn máy đang chạy."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 3 - II [Điểm kiểm] - <Điều khoản chú ý>: Tuyệt đối không được quay bàn xoay không có không khí nén."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

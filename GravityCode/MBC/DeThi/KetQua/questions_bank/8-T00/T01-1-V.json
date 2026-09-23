@@ -1,0 +1,50 @@
+{
+  "file_name": "T01-1-V.pdf",
+  "folder_name": "8-T00 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH MÁY ĐO - Lò đen dùng hiệu chỉnh máy đo nhiệt độ bức xạ",
+  "doc_code": "T01-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, chu kì hiệu chỉnh đối với lò đen dùng hiệu chỉnh máy đo nhiệt độ bức xạ (T01-1) là bao lâu?",
+      "options": {
+        "A": "1 năm",
+        "B": "2 năm",
+        "C": "3 năm",
+        "D": "6 tháng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: [Hiệu chỉnh] - Chu kì hiệu chỉnh: 2 năm"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo bản tiêu chuẩn hiệu chỉnh, số khuôn/thiết bị OMEGA BB706 có phạm vi đo đạc và các điểm hiệu chỉnh chính thức (với độ chính xác ±1.4℃) bao gồm những thông số nào?",
+      "options": {
+        "A": "Phạm vi đo 10~400℃; Điểm hiệu chỉnh: 100℃, 200℃, 400℃",
+        "B": "Phạm vi đo 0~300℃; Điểm hiệu chỉnh: 50℃, 150℃, 300℃",
+        "C": "Phạm vi đo 10~400℃; Điểm hiệu chỉnh: 100°F, 400°F, 750°F",
+        "D": "Phạm vi đo 0~500℃; Điểm hiệu chỉnh: 200℃, 300℃, 500℃"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: Phạm vi đo đạc 10~400℃; Điểm hiệu chỉnh: 100℃, 200℃, 400℃ (Độ chính xác ±1.4℃)"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Điều kiện môi trường về nhiệt độ xung quanh và độ ẩm tương đối khi thực hiện hiệu chỉnh máy đo T01-1 là gì?",
+      "options": {
+        "A": "Nhiệt độ 15 ~ 35℃, độ ẩm dưới 80%",
+        "B": "Nhiệt độ 0 ~ 40℃, độ ẩm dưới 90% (không đọng nước)",
+        "C": "Nhiệt độ 20 ± 5℃, độ ẩm dưới 60%",
+        "D": "Nhiệt độ 0 ~ 50℃, độ ẩm dưới 95%"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Nhiệt độ xung quanh 0 ~ 40℃, Độ ẩm tương đối Dưới 90% (không đọng nước)"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

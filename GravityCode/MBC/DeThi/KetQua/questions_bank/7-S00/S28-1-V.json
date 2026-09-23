@@ -1,0 +1,50 @@
+{
+  "file_name": "S28-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "MIẾNG CHUẨN ĐỘ DÀY LỚP MẠ TIA X",
+  "doc_code": "S28-1 e",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu S28-1, phạm vi qui cách so sánh thành phần đối với Sn-Pb và Ni-P được quy định như thế nào?",
+      "options": {
+        "A": "Sn-Pb ±5Wt%, Ni-P ±1Wt%",
+        "B": "Sn-Pb ±10Wt%, Ni-P ±3Wt%",
+        "C": "Sn-Pb ±15Wt%, Ni-P ±5Wt%",
+        "D": "Sn-Pb ±20Wt%, Ni-P ±10Wt%"
+      },
+      "correct_answer": "B",
+      "reference_note": "Phạm vi qui cách so sánh thành phần: Sn－Pb±10Wt%, Ni－P±3Wt%."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu chuẩn S28-1, chu kì hiệu chỉnh đối với 'MIẾNG CHUẨN ĐỘ DÀY LỚP MẠ TIA X' là bao lâu?",
+      "options": {
+        "A": "1 năm",
+        "B": "2 năm",
+        "C": "3 năm",
+        "D": "5 năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Ⅰ【Hiệu chỉnh】 Chu kì hiệu chỉnh 3 năm"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo tiêu chuẩn kỹ thuật của dụng cụ chuẩn S28-1, phạm vi qui cách độ dày và độ chính xác nào sau đây là ĐÚNG cho trường hợp trên 1μm và dưới 5μm?",
+      "options": {
+        "A": "≦1μm ±30%",
+        "B": "trên 1μm, và dưới 5μm ±25%",
+        "C": "≧5μm ±20%",
+        "D": "Tất cả các mức trên đều sai"
+      },
+      "correct_answer": "B",
+      "reference_note": "Độ chính xác: Phạm vi qui cách độ dày : ≦1μm±30%, trên 1μm, và dưới 5μm±25%, ≧5μm±20%."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

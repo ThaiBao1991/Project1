@@ -1,0 +1,50 @@
+{
+  "file_name": "563-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "THIẾT BỊ μm ĐO BỀ DÀY BÁNH RĂNG",
+  "doc_code": "563-1 f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo phần Ghi chú điểm kiểm, trong trường hợp kết quả kiểm tra không thấy bất thường thì quy định ghi chép kết quả ra sao?",
+      "options": {
+        "A": "Không cần ghi chép lại kết quả dưới mọi hình thức trong suốt năm",
+        "B": "Phải ghi chép lại đầy đủ kết quả kiểm tra vào mỗi ngày làm việc",
+        "C": "Không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra",
+        "D": "Bắt buộc phải lập báo cáo sự cố gửi lên cấp trên ngay lập tức"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 4: Ghi chú điểm kiểm - 2. Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi tiến hành điểm kiểm hoặc hiệu chỉnh, lực đo được thực hiện bằng cách xoay núm điều chỉnh cho đến khi phát ra âm thanh tách tách mấy lần?",
+      "options": {
+        "A": "1 lần",
+        "B": "2 lần",
+        "C": "3 lần",
+        "D": "5 lần"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1 & 3: Hạng mục chú ý - Lực đo khi tiến hành điểm kiểm, hiệu chỉnh thì sẽ xoay núm điều chỉnh cho đến khi có âm thanh tách tách 3 lần"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ thực hiện điểm kiểm đối với thiết bị đo bề dày bánh răng được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi khi sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Khi xác nhận thấy cần thiết (không quá 12 tháng)"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: II [Điểm kiểm] - Tiến độ điểm kiểm: mỗi khi sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

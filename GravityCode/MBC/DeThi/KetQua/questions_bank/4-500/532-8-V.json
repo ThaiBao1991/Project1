@@ -1,0 +1,50 @@
+{
+  "file_name": "532-8-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "TIÊU CHUẨN HIỆU CHỈNH-ĐIỂM KIỂM Đồng hồ đo Gauss Lake Shock 425",
+  "doc_code": "532-8",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tần suất kiểm tra điểm kiểm (ngoại quan và điều chỉnh Zero) đối với đồng hồ đo Gauss và kim đo là khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần bạn sử dụng",
+        "C": "Một năm một lần",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: Tần suất kiểm tra Mỗi lần bạn sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục ngoại quan điểm kiểm, yêu cầu bắt buộc đối với đầu dò kim đo khi không tiến hành đo là gì để đảm bảo an toàn, tránh hư hỏng?",
+      "options": {
+        "A": "Phải được tháo rời cất vào hộp chuyên dụng",
+        "B": "Phải được lau sạch bằng cồn kỹ thuật",
+        "C": "Đầu dò phải được bảo hộ bằng nắp đậy acrylic ngoại trừ khi đo",
+        "D": "Phải được bọc một lớp màng chống tĩnh điện"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3: Đầu dò phải được bảo hộ bằng nắp đậy acrylic ngoại trừ khi đo."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi thực hiện quy trình chuẩn bị trước khi hiệu chỉnh mật độ từ thông, yêu cầu về thời gian làm nóng trước tại vị trí đo là bao lâu sau khi bật nguồn?",
+      "options": {
+        "A": "Từ 15 phút trở lên",
+        "B": "Từ 30 phút trở lên",
+        "C": "Đúng 60 phút",
+        "D": "Không cần làm nóng trước"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Làm nóng trước tại vị trí đo từ 30 phút trở lên sau khi bật nguồn."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

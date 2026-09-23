@@ -1,0 +1,50 @@
+{
+  "file_name": "583-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh - điểm kiểm Geji đo độ sâu (Hình Indicator)",
+  "doc_code": "583-1 f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi phát hiện có bất thường trong quá trình kiểm tra hoặc sử dụng geji đo độ sâu, nhân viên thao tác cần phải xử lý theo quy trình nào sau đây?",
+      "options": {
+        "A": "Tự ý tháo rời thiết bị để sửa chữa lại đầu đo.",
+        "B": "Tiếp tục sử dụng nếu sai số nằm trong giới hạn cho phép nhỏ hơn 0.5mm.",
+        "C": "Ghi chép lại kết quả, xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu và lập đơn đề nghị hiệu chỉnh nếu cần thiết.",
+        "D": "Bỏ qua không cần báo cáo nếu thiết bị vẫn hiển thị giá trị."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3, Chú ý 2: 'Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện hiệu chỉnh'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, tiến độ thực hiện điểm kiểm (ngoại quan) đối với geji đo độ sâu được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và khi có yêu cầu từ cấp trên.",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng.",
+        "C": "6 tháng một lần hoặc khi phát hiện sai số.",
+        "D": "Chỉ kiểm tra trước khi đưa vào sử dụng lần đầu."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, Mục Ⅱ【Điểm kiểm】: 'Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng'"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Chu kỳ hiệu chỉnh định kỳ tiêu chuẩn đối với geji đo độ sâu loại 583-1 được quy định là bao lâu theo tài liệu hiện hành?",
+      "options": {
+        "A": "6 tháng và khi được xác nhận là cần thiết.",
+        "B": "12 tháng hoặc khi thấy cần thiết.",
+        "C": "24 tháng và khi được xác nhận là cần thiết.",
+        "D": "Không cần định kỳ, chỉ hiệu chỉnh khi hỏng hóc."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Mục Ⅰ【Hiệu chỉnh】: 'Chu kỳ hiệu chỉnh: 24 tháng và khi được xác nhận là cần thiết'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "001-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bảng tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - Đồng hồ đo dòng DC (kiểu cuộn dây có thể di chuyển cấp 1.0 và 0.5)",
+  "doc_code": "001 - 1e",
+  "target_audience": "Nhân viên/Đội trưởng phòng BHCL - Mabuchi Motor Vietnam",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình hiệu chỉnh và kiểm tra đồng hồ đo dòng DC, điều quan trọng nào sau đây phải đặc biệt chú ý để tránh làm hỏng máy?",
+      "options": {
+        "A": "Không đưa vào nguồn điện vượt mức quy định của máy tiêu chuẩn",
+        "B": "Không để đồng hồ tiếp xúc trực tiếp với ánh nắng mặt trời",
+        "C": "Phải ngắt hoàn toàn nguồn điện lưới 380V trước khi thao tác",
+        "D": "Chỉ sử dụng tua nơ vít nhựa để vặn ốc điều chỉnh 0"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1 và Trang 2, <Hạng mục chú ý>: 'Chú ý không đưa vào nguồn điện vượt mức quy định của máy tiêu chuẩn để tránh làm hỏng máy'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiến độ kiểm tra quy định tại tiêu chuẩn, đồng hồ đo dòng DC cần được thực hiện kiểm tra với tần suất như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi tháng một lần",
+        "C": "Mỗi lần sử dụng",
+        "D": "Mỗi năm một lần"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, Tiến độ kiểm tra: mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi kết quả điểm kiểm tra phát hiện không thấy bất thường, quy định về ghi chép kết quả như thế nào là đúng?",
+      "options": {
+        "A": "Phải ghi chép lại đầy đủ tỷ mỉ vào biên bản sau mỗi lần đo trong ngày",
+        "B": "Không ghi kết quả cũng được, nhưng 1 tháng 1 lần phải ghi chép kết quả đã điểm kiểm đó dù không có gì bất thường",
+        "C": "Tuyệt đối không được ghi chép vào sổ quản lý để tránh nhầm lẫn",
+        "D": "Chỉ ghi lại khi có yêu cầu trực tiếp bằng văn bản từ cấp trên"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Chú ý mục 2: 'Kết quả điểm kiểm trường hợp không thấy bất thường, không ghi kết quả cũng được. Nhưng một tháng 1 lần, phải ghi chép kết quả đã điểm kiểm đó dù không có gì bất thường.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

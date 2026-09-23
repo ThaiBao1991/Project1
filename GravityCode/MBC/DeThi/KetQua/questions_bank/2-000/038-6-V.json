@@ -1,0 +1,50 @@
+{
+  "file_name": "038-6-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn kiểm tra, hiệu chỉnh máy đo Phòng bảo hành chất lượng công ty Mabuchi",
+  "doc_code": "038-6",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu hiệu chỉnh, chu kì hiệu chỉnh định kỳ đối với máy thí nghiệm điện áp chịu đựng là bao nhiêu lâu?",
+      "options": {
+        "A": "6 tháng",
+        "B": "12 tháng",
+        "C": "24 tháng",
+        "D": "36 tháng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Phần I【Hiệuchỉnh】, 'Chu kì hiệu chỉnh 12 tháng và lúc được công nhận là cần thiết'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo mục kiểm tra định kỳ (tiến độ kiểm tra nhiều lần sử dụng), khi kiểm tra ngoại quan, điều kiện nào sau đây là yêu cầu bắt buộc đối với Panel hiển thị, dây lead điện áp cao và bao tay cao su cách điện?",
+      "options": {
+        "A": "Phải có tem kiểm định hiệu chuẩn dán trên bề mặt",
+        "B": "Không được có tình trạng xấu do vết bẩn, trầy, hư hại ảnh hưởng đến đo đạc",
+        "C": "Phải được phủ lớp sơn chống tĩnh điện chuyên dụng",
+        "D": "Phải thay mới sau mỗi 3 tháng sử dụng liên tục"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5, Phần II【Kiểm tra】, Hạng mục kiểm tra 1. Ngoại quan"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trong phần Hạng mục chú ý khi hiệu chỉnh điện áp đầu ra của máy thí nghiệm điện áp chịu đựng KIKUSUI TOS5200, thao tác an toàn nào sau đây là BẮT BUỘC để ngăn ngừa bị điện giật?",
+      "options": {
+        "A": "Phải ngắt hoàn toàn nguồn điện lưới 3 pha trước khi mở nắp máy",
+        "B": "Phải mang bao tay cao su dùng để cách điện và sử dụng dây lead test điện áp cao của hãng đi kèm (TL31-TOS)",
+        "C": "Phải đứng trên thảm cách điện cao áp và có người giám sát bên cạnh",
+        "D": "Phải xả điện tích tụ bằng thanh nối đất thủ công trong 5 phút trước khi thao tác"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Phần I【Hiệuchỉnh】, <Hạng mục chú ý>"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

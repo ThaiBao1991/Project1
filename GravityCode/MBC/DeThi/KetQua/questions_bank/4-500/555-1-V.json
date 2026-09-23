@@ -1,0 +1,50 @@
+{
+  "file_name": "555-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - THƯỚC KẸP GẮN VẠCH ĐỌC SỐ & GẮN BẢNG CHIA VẠCH",
+  "doc_code": "555-1 h",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi kiểm tra ngoại quan (mục 1 - Phần II Điểm kiểm), nội dung nào sau đây KHÔNG phải là điểm cần xác nhận?",
+      "options": {
+        "A": "Kiểm tra xem có bị khiếm khuyết, hư hại như hao mòn",
+        "B": "Kiểm tra biến dạng, gỉ sét, trầy xước",
+        "C": "Kiểm tra độ dơ bẩn ở bộ phận đo (JAW)",
+        "D": "Kiểm tra độ dài vạch chia chính của thước chính"
+      },
+      "correct_answer": "D",
+      "reference_note": "Trang 2, Phần II [Điểm kiểm] - Mục 1. Ngoại quan: 'Xác nhận xem có bị khiếm khuyết, hư hại như hao mòn, biến dạng, gỉ sét, trầy xước, dơ bẩn ở bộ phận đo (JAW) không.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kỳ hiệu chỉnh của thước kẹp gắn vạch đọc số là bao lâu?",
+      "options": {
+        "A": "Sau mỗi 6 tháng",
+        "B": "Xác nhận thấy cần thiết và sau mỗi 12 tháng",
+        "C": "Sau mỗi 3 tháng",
+        "D": "Chỉ khi phát hiện sai số lớn"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Phần I [Hiệu chỉnh] - Chu kỳ hiệu chỉnh: 'Xác nhận thấy cần thiết và sau mỗi 12 tháng'"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục Ghi chú (trang 2), trong trường hợp kiểm tra thấy kết quả kiểm tra không thấy bất thường nhưng không ghi chép kết quả thì xử lý như thế nào là đúng quy định?",
+      "options": {
+        "A": "Tuyệt đối không được phép, bắt buộc phải ghi chép lại toàn bộ.",
+        "B": "Không ghi chép cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.",
+        "C": "Phải báo cáo ngay cho cấp quản lý trực tiếp.",
+        "D": "Được phép bỏ qua hoàn toàn việc ghi chép nếu dụng cụ vẫn hoạt động bình thường."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Ghi chú - Mục 2: 'Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

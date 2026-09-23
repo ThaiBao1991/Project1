@@ -1,0 +1,487 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Bản tiêu chuẩn hiệu chỉnh-điểm kiểm máy đo - Máy đo độ ồn                                       Máy đo   014-2 j
+Mã số/Mã máy đo: 014-2
+File gốc: 014-2-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/5
+
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm máy đo
+Ban chính BHCL công ty cổ phần MAB
+
+Ban hành 11.11.1983
+Cải đính 4.9.2025
+Máy đo độ ồn                                       Máy đo   014-2 j
+ACO 6030,6030A,6030A-M01(+CR09-007M-AA)
+
+Ι【Hiệu chỉnh】
+
+Máy tiêu chuẩn  Dụng cụ hiệu chỉnh (hiệu chỉnh âm thanh) dành cho máy đo độ ồn có cấp tương
+đương hoặc cao hơn so với thiết bị cần hiệu chỉnh [S04-1]
+
+Chu kỳ hiệu chỉnh    6 tháng hoặc khi thấy cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+(Máy đo đối tượng hiệu
+chỉnh)
+
+1.Hiệu chỉnh DIRECT
+Chỉ trường hợp sử
+dụng DIRECT INPUT
+mới cần hiệu chỉnh
+
+2.Hiệu chỉnh Micro
+phone
+
+Tiến hành hiệu chỉnh cùng lúc đối với bộ phận khuyếch đại
+Amply(dùng để đo), bộ phận tiền khuyếch đại Pre-amp (bộ phận
+micro) Microphone
+
+(1) Bật công tắc của máy đo độ ồn và tiến hành làm nóng
+trong 5 phút, sau đó thiết lập thiết bị đo theo hướng dẫn
+dưới đây.
+INPUT SELECT ･･･････････････････ DIRECT
+CAL 50mV RMS ･･･････････････････ CAL(1kHz)
+INPUT ATT ･･････････････････････(0.1V)90dB
+GAIN CONTROL ･･･････････････････ CAL(PL 点灯)
+FILTER SELECT ･･････････････････ LINEAR(CAL)
+METER FAST/SLOW  ･･･････････････ FAST
+CAL ON/OFF ･････････････････････ ON
+(Loại cũ)
+(2) Tiến hành điều chỉnh SENSI(DIRECT)hoặc SENSI CAL(DIRECT) sao
+cho kim đồng hồ chỉ 50mV
+
+[Quy trình thay thế phòng tránh hư hỏng microphone]
+Microphone rất dễ hư hỏng khi điện áp hoặc dòng điện thay đổi
+đột ngột, do đó khi thay thế microphone phải tuân thủ phương
+pháp dưới đây
+
+(1) Tắt điện nguồn của thân chính máy đo độ ồn
+(2) Để phòng tránh nguy hiểm, chờ khoảng 1 phút rồi rút đầu kết
+nối của Micro ra khỏi MiC INPUT cua thân chính máy đo tạp âm.
+(3) Thay thế Microphone và Pre-amp
+(4) Nối giắc cắm đã tháo ra ở bước 2 vào MIC INPUT của thân chính
+máy đo tạp âm.
+(5) Bật nguồn điện của thân chính máy đo độ ồn
+
+50mV±1%
+
+--- HẾT TRANG ---
+
+No.2/5
+
+Ι【Hiệu chỉnh】                           Máy đo  014-2 j
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+[Quy trình thao tác hiệu chỉnh]
+1Hiệu chỉnh dựa vào Microphone 1 inch Dựa vào [phương pháp
+thiết định]
+(Thông thường, được hiệu chỉnh bằng Microphone 1 inch)
+
+Trường hợp có Microphone 1/2 inch
+[Tiến hành thay sang Microphone ½ inch theo [Phương
+pháp thay thế phòng tránh tổn hại Microphone]
+
+Hiệu chỉnh dựa vào Microphone ½ inch Dựa vào [Phương
+pháp thiết định]
+Chú ý：Phạm vi điều chỉnh của hiệu chỉnh khác rất
+nhiều so với Microphone 1 inch
+Phán định Phải thỏa mãn tiêu chuẩn
+
+[Tiến hành thay sang Microphone 1 inch theo [Phương pháp
+thay thế phòng tránh tổn hại Microphone]
+
+Hiệu chỉnh dựa vào Microphone 1 inch Dựa vào [Phương
+pháp thiết định]
+
+Phán định Phải thỏa mãn tiêu chuẩn
+
+[Phương pháp thiết định]
+Sử dụng hai loại bộ dụng cụ hiệu chỉnh âm thanh có mức áp suất
+âm khác nhau
+(1) Kết nối bộ dụng cụ hiệu chỉnh âm thanh 94 dB với microphone
+và thiết lập thiết bị đo theo hướng dẫn dưới đây
+INPUT SELECT ･････････････････ MIC hoặc PREAM
+CAL 50mV RMS ･････････････････ MEAS
+INPUT ATT ････････････････････(0.1V) 90dB
+CAL ON/OFF ･･･････････････････ OFF
+(2) Bật công tắc của bộ hiệu chỉnh âm thanh, đặt FILTER
+SELECT ở vị trí A hoặc C (chú ý 1), rồi đọc giá trị hiển thị    Đặt
+FILTER SELECT ở vị trí C, sau đó xoay núm SENSI CAL (MIC) hoặc
+SENSI (PREAMP) để điều chỉnh sao cho kim chỉ thị hiển thị 94 dB
+Đặt FILTER SELECT ở vị trí EXT FIL
+(3) Kết nối bộ dụng cụ hiệu chỉnh âm thanh thứ hai (114 dB hoặc
+124 dB) với microphone và thay đổi phần thiết lập bên dưới.
+INPUT ATT ･･･････････････3V 110dB hoặc 120dB
+(4) Bật công tắc của bộ hiệu chỉnh âm thanh, đặt FILTER
+SELECT của máy đo độ ồn ở vị trí A hoặc C (chú ý 1), rồi
+đọc giá trị hiển thị
+
+94±0.5dB
+
+124(114)±1dB
+
+Phương
+pháp
+phán định MXM
+（Chú ý 2）
+122(112)
+±1.5dB
+
+--- HẾT TRANG ---
+
+No.3/5
+
+Ι【Hiệu chỉnh】                         Máy đo  014-2 j
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+3.Hiệu chỉnh máy đo
+(Khi kết nối với
+CR09-007M-AA)
+
+Tiến hành hiệu chỉnh ở trạng thái máy đo độ ồn đã kết nối với
+CR09-007M-AA
+(1) Kết nối bộ dụng cụ hiệu chỉnh âm thanh 94 dB với microphone
+của máy đo độ ồn và thiết lập máy đo theo hướng dẫn dưới đây
+INPUT SELECT ･････････････････ MIC hoặc PREAM
+CAL 50mV RMS ･････････････････ MEAS
+INPUT ATT ････････････････････ (0.1V) 90dB
+CAL ON/OFF ･･･････････････････ OFF
+(2) Bật công tắc của bộ dụng cụ hiệu chỉnh âm thanh, đặt FILTER
+SELECT của máy đo độ ồn ở vị trí A hoặc C (chú ý 1), rồi đọc giá trị
+hiển thị ở góc trên bên trái màn hình thiết bị kiểm tra
+(3) Kết nối bộ dụng cụ hiệu chỉnh âm thanh thứ hai (114 dB hoặc
+124 dB) với microphone của máy đo độ ồn và thay đổi phần thiết
+lập bên dưới
+INPUT ATT ･･････････････ 3V  110dB hoặc 120dB
+(4) Bật công tắc của bộ dụng cụ hiệu chỉnh âm thanh, đặt FILTER
+SELECT của máy đo độ ồn ở vị trí A hoặc C (chú ý 1), rồi đọc giá trị
+hiển thị ở góc trên bên trái màn hình thiết bị kiểm tra
+※Trường hợp phán định là không thích hợp thì phải tiến hành
+điều chỉnh, sữa chữa máy đo độ ồn
+(ACO TYPE6030A-M01) tại nơi chế tạo.
+
+94±1dB
+
+124(114)±1.5dB
+
+Phương pháp
+phán định MXM
+（Chú ý 2）
+122(112)
+±1.5dB
+－Trích dẫn・văn bản liên quan－
+Phương pháp phán định：Thiết định nội bộ công ty ※94 dB được thiết lập ở mức chia nhỏ nhất (0,5 dB).
+Đối với 124 dB, việc đọc kim chỉ thị với một vạch (0,5 dB) là quá nhỏ so với tiêu chuẩn, nên đã chuyển sang giá trị
+đọc tiếp theo là 1,0 dB. Trong trường hợp có CR09-007M-AA đi kèm, hãy cộng thêm sai số 0,5 dB của đầu ra phía
+sau máy đo độ ồn vào thiết lập
+Phương pháp phán định MXM：Do pistonphone bị thay đổi mức áp suất âm khi có biến động khí áp, nên chỉ với
+MXM – nơi có độ chênh lệch độ cao gây sai lệch khí áp lớn – mới áp dụng việc hiệu chỉnh giá trị phán định
+Phương pháp tính giá trị hiệu chỉnh áp suất âm：
+Trị bổ sung ổn áp=20×log10(khí áp ở nơi hiện tại/khí áp lúc điều chỉnh pistonphone)
+Khí áp ở nơi hiện tại：P=Khí áp mặt biển×(1-(0.0065×chiều cao trên mặt biển MXM/(nhiệt độ ở nơi
+hiện tại +0.0065×chiều cao trên mặt biển MXM+273.15)))5.257
+Thiết định khí áp lúc hiệu chỉnh pistonphone và khí áp mặt biển là 1013.25
+Thiết định chiều cao trên mặt biển MXM 1888m
+Thiết định nhiệt độ hiện tại là 15℃
+Trị bổ sung ổn áp của MXM dựa trên kết quả tính toán dưới đây
+-1.9dB≒20×log10((1013.25×(1-(0.0065×1888/(15-0.0065×1888+273.15)))5.257)/1013.25)
+Thêm ±0.5dB vào dung sai phán định như là sai số sau khi bổ sung
+
+Chú ý 1：Tùy theo tần số chuẩn của bộ dụng cụ hiệu chỉnh âm thanh được sử dụng , thiết
+lập đặc tính （FILTER）như sau
+・Khi 1kH(1000Hz) …chọn đặc tính A
+・Khi 250Hz…chọn đặc tính C
+Ngoài ra, việc điều chỉnh phải được thực hiện ở đặc tính C, bất kể tần số hay loại thiết bị
+Chú ý 2：Khi hiệu chuẩn bằng pistonphone, chỉ đối với MXM cần tính đến sự chênh lệch
+độ cao gây ảnh hưởng đến áp suất khí quyển và điều chỉnh lại mức áp suất âm của
+pistonphone. Do đó, MXM áp dụng các tiêu chuẩn sau
+・Phương pháp phán định MXM 122(112)±1.5dB
+
+--- HẾT TRANG ---
+
+No.4/5
+
+Ⅱ【Điểm kiểm】                   Máy đo độ ồn                 Máy đo  014-2 j
+ACO 6030,6030A,6030A-M01(+CR09-007M-AA)
+
+Tiến độ điểm kiểm         Mỗi tháng 1 lần và mỗi lần sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1.Phần
+kết
+nối
+với
+Microphone
+
+2.Vị trí 0 của đồng hồ
+
+Xác nhận Connector không bị lỏng, không bị tiếp xúc tốt, dây cáp
+không đứt
+
+Điều chỉnh sao cho kim của đồng hồ đo chỉ về 0 khi ở trạng thái
+nguồn điện OFF
+
+Chú ý)
+1. Kết quả điểm kiểm không liên quan đến việc có dị thường hay không, kí lục lại 1 tháng 1 lần.
+2. Trường hợp nếu có dị thường khi điểm kiểm (hoặc khi sử dụng), thì kí lục lại kết quả đó, và xử lí theo
+chỉ thị của người chịu trách nhiệm của phòng ban sở hữu.
+Thực hiện yêu cầu tái hiệu chỉnh của máy đo đạc đối với phòng ban thực hiện hiệu chỉnh nếu cần thiết.
+
+--- HẾT TRANG ---
+
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm  Biểu lý lịch ban hành-cải đính-hủy bỏ
+Máy đo  014-2    No.5/5
+Ký
+hiệu
+Năm tháng
+ngày
+Ghi chép (Nội dung thay đổi)
+Soạn
+thảo
+Xác
+nhận
+Công
+nhận
+
+1983.11.11
+
+Ban hành mới
+
+奈良
+
+高嶋  影山
+
+井熊
+
+ａ
+
+1992.04.21
+
+Cải đính
+
+奈良
+
+高嶋  影山
+
+井熊
+
+b
+
+1995.11.01
+
+Biểu thị tên máy (6030,6030A)
+INPUT ATT ----------------- 0.1V 90dB →(0.1V) 90dB
+INPUT SELECT -------------- MIC → MIC hoặc PREAM
+
+奈良
+
+高嶋
+
+坂本
+
+c
+
+1998.02.10
+
+Hạng mục hiệu chỉnh 1.Thay đổi câu từ ở hiệu chỉnh DI
+(loại cũ)
+Hoặc  SENSI(DIRECT)
+Hạng mục hiệu chỉnh 2.Bổ sung câu từ ở hiệu chỉnh Microphone
+hoặc SENSI(PREAMP)
+Ⅱ【Điểm kiểm】Bổ sung tiêu đề
+Hủy bỏ ô máy tiêu chuẩn
+
+奈良
+
+山岸  馬渕
+
+坂本
+
+d
+
+1998.03.30
+
+Hạng mục hiệu chỉnh 1.Bổ sung câu từ ở hiệu chỉnh Micro phone
+(chỉ trường hợp sử dụng DIRECT INPUT mới cần hiệu chỉnh)
+
+山岸
+
+天谷  馬渕
+
+坂本
+
+ｅ
+
+1999.10.22
+
+Hạng mục hiệu chỉnh 2.Thay đổi một phần phương pháp hiệu
+chỉnh của hiệu chỉnh Microphone
+
+藤山
+
+山岸 馬渕
+
+山下
+
+f
+
+2005.11.14
+
+Hạng mục hiệu chỉnh 2.Chỉnh sửa nội dung của hiệu chỉnh
+Microphone
+
+奈良
+
+高橋
+
+糸川
+
+g
+
+2006.09.25
+
+Hạng mục hiệu chỉnh 2.Thay đổi một phần (Giác cắm micro→Đầu
+kết nối Micro)
+
+堀井
+
+奈良 高橋
+
+糸川
+
+h
+
+2015.07.10
+
+・Bổ sung loại máy 6030A-M01(+CR09-007M-AA)
+(Nơi yêu cầu:Phòng kiểm tra JSM )
+・Bổ sung hạng mục hiệu chỉnh do bổ sung loại máy/ bổ sung
+trang
+・Bổ sung trích dẫn/ văn bản liên quan
+・Thay đổi phương pháp biểu thị của máy chuẩn
+
+村野
+
+伊藤
+
+石野
+
+i
+
+2016.03.02
+
+・Đưa việc hiệu chỉnh áp suất âm do chênh lệch độ cao của MXM
+vào các mục hiệu chỉnh 2.(4) và 3.(4), đồng thời bổ sung phương
+pháp tính giá trị hiệu chỉnh vào tài liệu trích dẫn và tài liệu liên
+quan
+・Thay đổi mã số cải đính
+Ⅰ【Hiệu chỉnh】014-2h→014-2i，Ⅱ【Điểm kiểm】014-2h(không
+thay đổi)
+
+村野
+
+伊藤
+
+石野
+
+j
+
+2025.09.04
+
+・Cải đính toàn bộ hạng mục liên quan theo chỉnh sửa máy chuẩn
+sử dụng
+・Ⅱ【Điểm kiểm】
+Tiến độ điểm kiểm sửa đổi thành「Mỗi tháng 1 lần và mỗi lần
+sử dụng」
+Cải đính toàn bộ hạng mục chú ý
+
+--- HẾT TRANG ---
+
+マブチモーター(株） 品質保証本部
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "014-2-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm máy đo - Máy đo độ ồn                                       Máy đo   014-2 j",
+  "doc_code": "014-2",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

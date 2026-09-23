@@ -1,0 +1,50 @@
+{
+  "file_name": "S10-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Bảng tiêu chuẩn hiệu chỉnh dụng cụ tiêu chuẩn - Nam châm tiêu chuẩn",
+  "doc_code": "S10 - 1f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Phạm vi nhiệt độ và độ ẩm tương đối được quy định trong điều kiện hiệu chỉnh nam châm tiêu chuẩn là gì?",
+      "options": {
+        "A": "Nhiệt độ 23 ± 7ºC, Độ ẩm tương đối ≤ 85%",
+        "B": "Nhiệt độ 25 ± 5ºC, Độ ẩm tương đối ≤ 60%",
+        "C": "Nhiệt độ 20 ± 2ºC, Độ ẩm tương đối ≤ 70%",
+        "D": "Nhiệt độ 23 ± 5ºC, Độ ẩm tương đối ≤ 90%"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: Phạm vi nhiệt độ 23 ± 7ºC Độ ẩm tương đối ≤ 85 %"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh của nam châm tiêu chuẩn, chu kỳ hiệu chỉnh được quy định là bao lâu?",
+      "options": {
+        "A": "1 năm",
+        "B": "3 năm",
+        "C": "5 năm",
+        "D": "6 tháng"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: [Hiệu chỉnh] Chu kỳ hiệu chỉnh 5 năm"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trường hợp trị số được biểu thị bằng [G] trên dụng cụ trắc định nam châm tiêu chuẩn, công thức quy đổi chính xác là gì?",
+      "options": {
+        "A": "[G] = 1.0 [mT]",
+        "B": "[G] = 0.01 [mT]",
+        "C": "[G] = 10 [mT]",
+        "D": "[G] = 0.1 [mT]"
+      },
+      "correct_answer": "D",
+      "reference_note": "Trang 1: ※Trường hợp được biểu thị bằng [G] thì đổi theo công thức [G] = 0.1[mT]."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

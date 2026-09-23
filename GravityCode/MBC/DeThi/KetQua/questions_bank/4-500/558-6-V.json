@@ -1,0 +1,50 @@
+{
+  "file_name": "558-6-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ đo - Geji hiệu chỉnh độ vuông góc",
+  "doc_code": "558-6",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Chu kỳ hiệu chỉnh định kỳ đối với Geji hiệu chỉnh độ vuông góc (mã thiết bị: GD07-001M-CA) là bao lâu?",
+      "options": {
+        "A": "Mỗi 6 tháng hoặc khi thấy cần thiết",
+        "B": "Mỗi 12 tháng hoặc khi thấy cần thiết",
+        "C": "Mỗi 18 tháng hoặc khi thấy cần thiết",
+        "D": "Mỗi 24 tháng hoặc khi thấy cần thiết"
+      },
+      "correct_answer": "D",
+      "reference_note": "【Hiệu chỉnh】 - Chu kỳ hiệu chỉnh: Mỗi 24 tháng hoặc khi thấy cần thiết"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra điểm kiểm, nếu phát hiện ra dị thường đối với Geji hiệu chỉnh độ vuông góc, nhân viên cần thực hiện thao tác xử lý nào bắt buộc theo quy định?",
+      "options": {
+        "A": "Tiếp tục sử dụng hết ca làm việc rồi mới báo cáo cấp trên",
+        "B": "Tự ý tháo rời geji để sửa chữa lại độ lệch",
+        "C": "Phải ngừng sử dụng geji và yêu cầu hiệu chỉnh",
+        "D": "Chỉ cần ghi chép vào sổ theo dõi mà không cần dừng sử dụng"
+      },
+      "correct_answer": "C",
+      "reference_note": "II. [Điểm kiểm] - (Xử lý): Nếu kiểm điểm phát hiện ra dị thường, phải ngừng sử dụng geji và yêu cầu hiệu chỉnh"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm hàng ngày đối với Geji hiệu chỉnh độ vuông góc được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Mỗi 24 tháng"
+      },
+      "correct_answer": "B",
+      "reference_note": "II. [Điểm kiểm]: Geji hiệu chỉnh độ vuông góc (mã thiết bị: GD07-001M-CA) - Tiến độ điểm kiểm: mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

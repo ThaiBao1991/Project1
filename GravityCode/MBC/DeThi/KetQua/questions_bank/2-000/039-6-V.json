@@ -1,0 +1,50 @@
+{
+  "file_name": "039-6-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định Máy đo điện trở thấp HIOKI 3541",
+  "doc_code": "039-6 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ kiểm tra cho Máy đo điện trở thấp HIOKI 3541 tại phần II [Điểm kiểm] được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần sử dụng 1 lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng 1 lần",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5: 'Tiến độ kiểm tra: Mỗi lần sử dụng'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi thực hiện hiệu chỉnh đo điện trở đối với phạm vi đo 20 mΩ, trị điện trở chuẩn và phán định cho phép là bao nhiêu?",
+      "options": {
+        "A": "Trị điện trở chuẩn 10 mΩ, phán định ±0.013 mΩ",
+        "B": "Trị điện trở chuẩn 100 mΩ, phán định ±0.112 mΩ",
+        "C": "Trị điện trở chuẩn 1 mΩ, phán định ±0.00022 Ω",
+        "D": "Trị điện trở chuẩn 10 Ω, phán định ±0.0018 Ω"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: Biểu 1 - Phạm vi đo 20m Ω, Trị điện trở chuẩn 10 mΩ, Phán định ±0.013 mΩ"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo quy định tại phần II [Điểm kiểm] mục 3 về độ chính xác đo nhiệt độ, khi so sánh nhiệt độ xung quanh máy đo với nhiệt độ xác nhận bằng đầu dò, mức chênh lệch tối đa cho phép là bao nhiêu?",
+      "options": {
+        "A": "Không được có chênh lệch từ ±0.5℃ trở lên",
+        "B": "Không được có chênh lệch từ ±1.0℃ trở lên (thiết định công ty)",
+        "C": "Không được có chênh lệch từ ±1.5℃ trở lên",
+        "D": "Không được có chênh lệch từ ±2.0℃ trở lên"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5: 'II [Điểm kiểm] Mục 3 (3) So sánh (1) với (2), không được có chênh lệch từ ±1.0℃ trở lên (thiết định công ty)'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

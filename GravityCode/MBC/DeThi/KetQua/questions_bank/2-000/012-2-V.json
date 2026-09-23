@@ -1,0 +1,50 @@
+{
+  "file_name": "012-2-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh Và điểm kiểm máy đo MÁY ĐO NGẪU LỰC",
+  "doc_code": "012-2e",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Đối với kiểu bạc đạn hơi ở bộ phận đo ngẫu lực, trị số chỉ thị của đồng hồ đo áp lực hơi phải đạt trong khoảng nào?",
+      "options": {
+        "A": "1,0 ~ 1,5 kg/cm2",
+        "B": "1,5 ~ 2,0 kg/cm2",
+        "C": "2,0 ~ 2,5 kg/cm2",
+        "D": "2,5 ~ 3,0 kg/cm2"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5, Mục Ⅱ 【Điểm Kiểm】: (Kiểu bạc đạn hơi) Trị số chỉ thị của đồng hồ đo áp lực hơi phải chỉ từ 1,5 ~ 2.0kg/cm2"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi phát hiện có bất thường trong quá trình kiểm tra hoặc sử dụng máy đo, nhân viên cần phải thực hiện hành động nào theo đúng quy định?",
+      "options": {
+        "A": "Tự ý tháo máy ra để sửa chữa ngay lập tức",
+        "B": "Tiếp tục sử dụng nếu lỗi nhỏ không ảnh hưởng lớn",
+        "C": "Ghi chép lại kết quả và xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu",
+        "D": "Bỏ qua không cần báo cáo nếu không có tai nạn xảy ra"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 5, Mục Ⅱ【Điểm Kiểm】 - Chú ý) 2: Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, chu kỳ hiệu chỉnh đối với máy đo ngẫu lực là bao lâu?",
+      "options": {
+        "A": "Mỗi tháng 1 lần",
+        "B": "Mỗi 3 tháng hoặc khi thấy cần thiết",
+        "C": "6 tháng một lần",
+        "D": "1 năm một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Mục Ⅰ【Hiệu Chỉnh】: Chu kỳ hiệu chỉnh: Mỗi 3 tháng hoặc khi thấy cần thiết"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

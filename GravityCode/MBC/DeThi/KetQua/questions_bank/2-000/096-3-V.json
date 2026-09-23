@@ -1,0 +1,50 @@
+{
+  "file_name": "096-3-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Máy đo điện thế bề mặt TREK",
+  "doc_code": "096-3",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra hoặc sử dụng máy đo điện thế bề mặt TREK, nếu phát hiện có bất thường (như hư hỏng, bẩn, trầy, vỡ nứt trên đầu dò hoặc bộ phận hiển thị), nhân viên phải thực hiện thao tác xử lý nào sau đây?",
+      "options": {
+        "A": "Tự ý tháo máy ra để sửa chữa các bộ phận bị nứt vỡ",
+        "B": "Tiếp tục sử dụng bình thường nếu máy vẫn lên nguồn",
+        "C": "Ghi nhận lại kết quả bất thường và xử lý theo chỉ định của sở hữu部門 (bộ phận sở hữu)責任者 (người phụ trách)",
+        "D": "Chờ đến kỳ hiệu chỉnh 24 tháng sau mới báo cáo"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2 - Phần II 【Điểm kiểm】 - Chú ý 2: Điểm kiểm khi (hoặc khi sử dụng) có bất thường thì ghi nhận kết quả, xử lý theo chỉ định của người phụ trách bộ phận sở hữu."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu kỹ thuật, tiến độ điểm kiểm (kiểm tra hàng ngày/định kỳ) đối với máy đo điện thế bề mặt TREK được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và trước khi sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "Chỉ kiểm tra khi phát hiện có sai số",
+        "D": "Mỗi ca làm việc kiểm tra 2 lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2 - Phần II【Điểm kiểm】: Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi thực hiện hiệu chỉnh đo điện áp cho máy đo điện thế bề mặt TREK (thể thức 884), phạm vi đo và độ chính xác quy định là gì?",
+      "options": {
+        "A": "Phạm vi 0～10 kV DC, độ chính xác ±2% of F.S.",
+        "B": "Phạm vi 0～20 kV DC, độ chính xác ±5% of F.S. (Trong phạm vi từ 30～60mm)",
+        "C": "Phạm vi 0～50 kV DC, độ chính xác ±1% of F.S.",
+        "D": "Phạm vi 0～20 kV DC, độ chính xác ±10% of F.S."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1 - Phần I【Hiệu chỉnh】: Thể thức 884, Phạm vi đo: 0～20 kV DC, Độ chính xác: ±5% of F.S. ※Trong phạm vi từ 30～60mm"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "531-4-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm máy đo Đồng hồ đo LCR Digital HIOKI- Máy 3511",
+  "doc_code": "531-4 e",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo quy định ghi chú về kết quả kiểm tra bất thường, trường hợp kết quả kiểm tra không thấy bất thường mà không ghi chép kết quả thì quy định tần suất bắt buộc phải ghi chép lại kết quả đã kiểm tra ít nhất là mấy lần?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi quý một lần",
+        "C": "Mỗi tháng một lần dù không có gì bất thường xảy ra",
+        "D": "Không bắt buộc phải ghi chép nếu không có bất thường"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 5, Mục Ghi chú, điều 2: 'Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi chuẩn bị trước khi hiệu chỉnh đồng hồ đo LCR 3511, tần số đo và mức tín hiệu đo được thiết định ở các thông số nào?",
+      "options": {
+        "A": "Tần số đo ở 1kHz, mức tín hiệu đo ở 1V",
+        "B": "Tần số đo ở 100Hz, mức tín hiệu đo ở 0.5V",
+        "C": "Tần số đo ở 1kHz, mức tín hiệu đo ở 5V",
+        "D": "Tần số đo ở 10kHz, mức tín hiệu đo ở 1V"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, Mục I 【Hiệu chỉnh】, <Chuẩn bị trước khi hiệu chỉnh>: (3) Nhấn nút FREQ, thiết định tần số đo ở 1kHz; (4) Nhấn nút LEVEL, thiết định mức tín hiệu đo ở 1V"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ thực hiện điểm kiểm (kiểm tra hàng ngày/định kỳ) đối với đồng hồ đo LCR Digital được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước khi giao ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 4, Mục II 【Điểm kiểm】, phần Tiến độ điểm kiểm: 'Mỗi lần sử dụng'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

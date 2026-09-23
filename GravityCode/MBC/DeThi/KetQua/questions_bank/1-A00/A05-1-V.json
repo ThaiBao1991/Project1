@@ -1,0 +1,59 @@
+{
+  "file_name": "A05-1-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "QUẢN LÝ SỬ DỤNG CÓ HẠN ĐỊNH MÁY ĐO",
+  "doc_code": "A05-1b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo mục chú ý của tiêu chuẩn, tại sao cần đặc biệt lưu ý khi một máy đo có độ chính xác không tốt ở một chức năng/phạm vi đo?",
+      "options": {
+        "A": "Vì nguyên nhân độ chính xác không tốt có thể ảnh hưởng tới toàn bộ các chức năng, phạm vi đo khác của máy đo.",
+        "B": "Vì máy đo sẽ tự động ngắt nguồn và không thể khởi động lại.",
+        "C": "Vì nó chỉ ảnh hưởng cục bộ đến chức năng đó, không liên quan đến các chức năng khác.",
+        "D": "Vì thiết bị sẽ bị loại bỏ ngay lập tức mà không được phép sửa chữa hay tận dụng."
+      },
+      "correct_answer": "A",
+      "reference_note": "Mục 5. Hạng mục chú ý: '(1) Nguyên nhân độ chính xác không tốt có thể ảnh hưởng tới toàn bộ các chức năng, phạm vi đo khác của máy đo.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Đối với thiết bị đo chỉ sử dụng một phần phạm vi đo đạc (Ví dụ: bồn nhiệt độ có quy cách -70°C ~ 300°C nhưng chỉ sử dụng từ -40°C ~ 120°C), việc hiệu chỉnh và kiểm tra được thực hiện như thế nào?",
+      "options": {
+        "A": "Vẫn phải tiến hành hiệu chỉnh toàn bộ phạm vi từ -70°C đến 300°C để đảm bảo tính đồng bộ.",
+        "B": "Chỉ tiến hành hiệu chỉnh và kiểm tra trong phạm vi sử dụng (-40°C ~ 120°C), và phải làm rõ việc không sử dụng ngoài phạm vi.",
+        "C": "Không cần hiệu chỉnh dải nhiệt độ sử dụng vì dải này đã nằm trong giới hạn thiết kế của bồn.",
+        "D": "Chỉ cần hiệu chỉnh tại điểm nhiệt độ phòng (25°C) và dán nhãn sử dụng hạn định."
+      },
+      "correct_answer": "B",
+      "reference_note": "Mục 1. Điều kiện sử dụng hạn định <Điều kiện 1>: 'Chỉ sử dụng trong 1 phần phạm vi giới hạn trong bản qui cách đầy đủ ở thiết bị đo, phải làm rõ việc không sử dụng ngoài phạm vi. Chỉ tiến hành hiệu chỉnh và kiểm tra trong phạm vi sử dụng.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, kí hiệu sử dụng hạn định phải được chỉ dẫn ở vị trí nào trên thiết bị đo?",
+      "options": {
+        "A": "Dán đè lên nhãn dán thời hạn hiệu chỉnh để tiết kiệm diện tích.",
+        "B": "Chỉ dẫn ở gần nhãn dán thời hạn hiệu chỉnh.",
+        "C": "Dán ở mặt sau hoặc dưới đáy của máy đo để tránh che khuất tầm nhìn.",
+        "D": "Không cần dán nhãn nếu đã ghi rõ trong sổ tay quản lý thiết bị."
+      },
+      "correct_answer": "B",
+      "reference_note": "Mục 4. Biểu thị sử dụng hạn định: 'Do đó, kí hiệu sử dụng hạn định thì phải chỉ dẫn ở gần nhãn dán thời hạn hiệu chỉnh.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140247.1031692,
+  "generated_at_iso": "2026-09-23T12:10:47",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 180388,
+    "modified_time": 1636199503.1683106,
+    "modified_time_iso": "2021-11-06T18:51:43",
+    "file_hash_short": "e3340b5b"
+  }
+}

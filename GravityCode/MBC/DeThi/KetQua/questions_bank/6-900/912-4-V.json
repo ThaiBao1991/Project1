@@ -1,0 +1,50 @@
+{
+  "file_name": "912-4-V.pdf",
+  "folder_name": "6-900 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Đồng hồ quản lý tải trọng dùng để điểm kiểm máy dập",
+  "doc_code": "912-4 a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm (kiểm tra định kỳ) đối với đồng hồ quản lý tải trọng dùng để điểm kiểm máy dập được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần, mỗi lần sử dụng",
+        "B": "Mỗi tháng 1 lần, mỗi lần sử dụng",
+        "C": "3 tháng 1 lần",
+        "D": "6 tháng 1 lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5 - Ⅱ【Điểm kiểm】Tiến độ điểm kiểm: Mỗi tháng 1 lần, mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình điểm kiểm hoặc sử dụng, nếu phát hiện có dị thường, nhân viên phụ trách cần thực hiện hành động nào sau đây là ĐÚNG theo quy định?",
+      "options": {
+        "A": "Tự ý tháo dời thiết bị để sửa chữa mạch điện bên trong",
+        "B": "Tiếp tục sử dụng nếu sai số nhỏ hơn 5%",
+        "C": "Ghi chép lại kết quả và xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu",
+        "D": "Vứt bỏ thiết bị và mua mới ngay lập tức"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 5 - Ⅱ【Điểm kiểm】Chú ý 2: Trường hợp có dị thường khi điểm kiểm (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi kiểm tra lượng pin khô còn lại trên bộ hiển thị (ngoại trừ khi sử dụng bộ đổi nguồn AC), yêu cầu mức pin còn lại phải đạt từ mức nào trở lên?",
+      "options": {
+        "A": "Mức 1 trở lên",
+        "B": "Mức 2 trở lên",
+        "C": "Mức 3 trở lên",
+        "D": "Mức 4 trở lên"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5 - Ⅱ【Điểm kiểm】Hạng mục 2. Lượng pin khô còn lại"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

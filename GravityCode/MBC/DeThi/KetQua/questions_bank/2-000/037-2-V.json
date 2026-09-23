@@ -1,0 +1,50 @@
+{
+  "file_name": "037-2-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢNG TIÊU CHUẨN HIỆU CHỈNH ĐIỂM KIỂM - Máy thử nghiệm đa năng",
+  "doc_code": "037-2",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Trong phương pháp hiệu chỉnh độ chính xác biểu thị đồng hồ đếm số vòng quay, các điểm đo (giá trị thiết đặt trên đèn chớp) chuẩn gồm mấy điểm?",
+      "options": {
+        "A": "3 điểm (1000, 10000, 20000r/min)",
+        "B": "4 điểm (1000, 5000, 10000, 20000r/min)",
+        "C": "5 điểm (1000, 5000, 10000, 15000, 20000r/min)",
+        "D": "6 điểm (1000, 3000, 5000, 10000, 15000, 20000r/min)"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: 'Điểm đo (Giá trị thiết đặt trên đèn chớp) thì lấy 5 điểm 1000r/min･5000r/min･10000r/min･15000r/min･20000r/min.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kì hiệu chỉnh cho 'Máy thử nghiệm đa năng' (KL-DC1A/VT3-Q5S/KL-N20V/KV-3000/LV-N11N/LV-NH32) là bao lâu?",
+      "options": {
+        "A": "6 tháng hoặc khi cần thiết",
+        "B": "12 tháng hoặc khi cần thiết",
+        "C": "24 tháng hoặc khi cần thiết",
+        "D": "36 tháng hoặc khi cần thiết"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: 'Chu kì hiệu chỉnh: 24 tháng hoặc khi cần thiết'"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục điểm kiểm (Trang 2), nếu kết quả điểm kiểm không có bất thường thì quy định ghi chép như thế nào?",
+      "options": {
+        "A": "Bắt buộc phải ghi chép lại vào sổ tay hàng ngày cho mọi lần kiểm tra.",
+        "B": "Không cần ghi lại. Tuy nhiên, nếu trong 1 tháng mà không có lần nào bất thường thì cần ghi chép lại.",
+        "C": "Chỉ ghi chép lại khi có yêu cầu của cấp trên hoặc khách hàng.",
+        "D": "Không cần ghi chép lại dưới mọi hình thức trong suốt quá trình sử dụng thiết bị."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Phần Chú ý: '2. Trường hợp kết quả điểm kiểm không có bất thường thì không cần ghi lại. Tuy nhiên, Tuy nhiên, nếu trong 1 tháng mà kkhông có lần nào bất thường thì cần ghi chép lại.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "510-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH ĐIỂM KIỂM MÁY ĐO ĐẠC",
+  "doc_code": "510-1 i",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý về kết quả kiểm định, trong trường hợp kết quả kiểm định có bất thường thì cần thực hiện thao tác nào?",
+      "options": {
+        "A": "Chỉ cần báo cáo miệng cho trưởng bộ phận vào cuối ca làm việc.",
+        "B": "Ghi lại kết quả kiểm định, xử lý theo chỉ thị của người chịu trách nhiệm quản lý. Nếu không bất thường thì không cần phải ghi lại kết quả kiểm định (tuy nhiên trong một tháng không xảy ra bất thường nào hết thì ghi lại thông báo đó).",
+        "C": "Tiếp tục sử dụng thiết bị bình thường và ghi chú vào sổ giao ca.",
+        "D": "Tự ý tháo máy để sửa chữa lại vị trí cơ khí bị lệch."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 8, phần Chú ý: '1. Kết quả kiểm định, trường hợp có bất thường thì ghi lại kết quả kiểm định, xử lý theo chỉ thị của người chịu trách nhiệm quản lý. 2. Kết quả kiểm định, trường hợp không có bất thường thì không cần phải ghi lại kết quả kiểm định. Tuy nhiên, trong một tháng không xảy ra bất thường nào hết thì ghi lại thông báo đó'."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kỳ hiệu chuẩn đối với máy thử nghiệm độ ăn khớp bánh răng cỡ nhỏ là bao lâu?",
+      "options": {
+        "A": "Mỗi 3 tháng",
+        "B": "Mỗi 6 tháng",
+        "C": "Mỗi 12 tháng và khi được xác nhận là cần thiết",
+        "D": "Mỗi 24 tháng"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, phần [Hiệu chỉnh], mục 'Chu kỳ hiệu chuẩn': 'Mỗi 12 tháng và khi được xác nhận là cần thiết'."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi kiểm tra ngoại quan máy thử nghiệm độ ăn khớp bánh răng cỡ nhỏ, nhân viên cần xác nhận những gì đối với vòng cao su bên ngoài puley dùng để chuyển động bánh răng?",
+      "options": {
+        "A": "Vòng cao su có bị bảo gọt (dính vụn), bẩn, vỡ, cứng lại hay không và xác nhận có chuyển động không.",
+        "B": "Vòng cao su có bị trầy xước bề mặt kim loại hoặc rỉ sét hay không.",
+        "C": "Vòng cao su có đạt độ đàn hồi tiêu chuẩn dưới tác dụng lực kéo 10N hay không.",
+        "D": "Vòng cao su có được tra dầu mỡ định kỳ mỗi tuần hay không."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 8, phần [Điểm kiểm], mục 3 'Tình trạng vòng cao su bên ngoài puley dùng để chuyển động bánh răng'."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "003-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bảng tiêu chuẩn hiệu chỉnh và kiểm tra máy trắc định ĐỒNG HỒ ĐO ĐIỆN ĐA NĂNG",
+  "doc_code": "003-1h",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ điểm kiểm (kiểm tra ngoại quan, trạng thái biểu thị, điểm 0, cầu chì) của đồng hồ đo điện vạn năng được quy định thực hiện khi nào?",
+      "options": {
+        "A": "Điểm kiểm mỗi khi sử dụng",
+        "B": "Định kỳ mỗi tuần 1 lần",
+        "C": "Định kỳ mỗi tháng 1 lần",
+        "D": "Trước khi giao ca sản xuất"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 5: 'Tiến độ điểm kiểm: Điểm kiểm mỗi khi sử dụng'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục 'Điểm chú ý khi đổi cầu chì' và phần hướng dẫn an toàn, trước khi mở nắp phần nạp điện hoặc vỏ để đổi cầu chì, thao tác bắt buộc phải tuân thủ là gì?",
+      "options": {
+        "A": "Chỉ cần tắt màn hình hiển thị của đồng hồ",
+        "B": "Mang găng tay cách điện và giữ nguyên nguồn điện để đo dòng",
+        "C": "Để tránh bị điện giật hoặc trầy xước trước khi mở nắp phần nạp điện hoặc vỏ thì hãy ngắt dòng điện và kéo dây đo ra ngoài",
+        "D": "Nhờ cấp quản lý trực tiếp đến thay thế giúp"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 5: 'Điểm chú ý khi đổi cầu chì: (1) Để tránh bị điện giật hoặc trầy xước trước khi mở nắp phần nạp điện hoặc vỏ thì hãy ngắt dòng điện và kéo dây đo ra ngoài.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Trong phần hiệu chỉnh Điện trở (Mục 4), mỗi phạm vi đo đạc có mấy điểm được ghi cụ thể như: 0.1Ω, 1Ω, 10Ω, 100Ω, 1kΩ, 10kΩ?",
+      "options": {
+        "A": "2 điểm (điểm lớn nhất và điểm giữa)",
+        "B": "1 điểm",
+        "C": "3 điểm (-100°C, 100°C, 300°C)",
+        "D": "Tùy thuộc vào người vận hành"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: 'Điểm hiệu chỉnh : Mỗi phạm vi đo đạc có 1 điểm được ghi bên dưới : 0.1Ω, 1Ω,10Ω,100Ω,1kΩ,10kΩ'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

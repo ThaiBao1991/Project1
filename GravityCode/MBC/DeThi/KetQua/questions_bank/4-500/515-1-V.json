@@ -1,0 +1,50 @@
+{
+  "file_name": "515-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH-ĐIỂM KIỂM DỤNG CỤ ĐO Máy đo kĩ thuật số 0.001mm",
+  "doc_code": "515-1 F",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi tiến hành hiệu chỉnh độ chính xác hiển thị của máy đo theo phương pháp hiệu chỉnh, cần tiến hành đo lường tại mấy điểm lân cận?",
+      "options": {
+        "A": "2 điểm (100%, 50%)",
+        "B": "3 điểm (100%, 50%, 25%)",
+        "C": "4 điểm lân cận 100%, 75%, 50%, 25%",
+        "D": "5 điểm rải đều trên toàn bộ phạm vi đo"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, mục <Hiệu chỉnh>: Tiến hành hiệu chỉnh bởi 4 điểm lân cận 100%, 75%, 50%, 25%."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục Chú ý của phần điểm kiểm, khi phát hiện có bất thường lúc điểm kiểm (hoặc khi sử dụng), nhân viên phụ trách cần thực hiện quy trình nào sau đây?",
+      "options": {
+        "A": "Tự ý tháo dỡ máy đo để sửa chữa ngay lập tức",
+        "B": "Tiếp tục sử dụng bình thường nếu sai số không quá lớn",
+        "C": "Ghi chép lại kết quả bất thường đó và xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở quản, làm đơn đề nghị hiệu chỉnh lại nếu cần thiết",
+        "D": "Cất thiết bị vào kho chờ đến kỳ kiểm tra định kỳ năm sau"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 5, Chú ý) 2: Nếu có bất thường khi điểm kiểm (hoặc khi sử dụng) hãy ghi chép lại kết quả đó và xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở quản. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo ở bộ phận thực thi hiệu chỉnh."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo mục II 【Điểm kiểm】 của tài liệu, tiến độ thực hiện điểm kiểm đối với máy đo kĩ thuật số 0.001mm được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và mỗi lần sử dụng",
+        "B": "Mỗi tháng 1 lần, mỗi lần sử dụng",
+        "C": "6 tháng 1 lần",
+        "D": "Chỉ khi phát hiện bất thường mới tiến hành điểm kiểm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5, mục II 【Điểm kiểm】, Tiến độ điểm kiểm: mỗi tháng 1 lần, mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

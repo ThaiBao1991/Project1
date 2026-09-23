@@ -1,0 +1,50 @@
+{
+  "file_name": "S31-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH-ĐIỂM KIỂM MÁY PHÁT TẦN SỐ",
+  "doc_code": "S31-1h",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Đối với máy phát tần số model 33522A (Agilent), phương pháp phán định độ chính xác tần số (INTERNAL TIMEBASE) với điều kiện thí nghiệm sóng hình sin 10MHz được quy định cụ thể là gì?",
+      "options": {
+        "A": "10.000MHz±10Hz",
+        "B": "10.000MHz±5Hz",
+        "C": "10.000MHz±100Hz",
+        "D": "10.000MHz±1Hz"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1/9: Mục 33522A (Agilent) - Độ chính xác tần số (INTERNAL TIMEBASE): [Điều kiện thí nghiệm] Sóng hìn sin 10MHz, [Phương pháp phán định] 10.000MHz±10Hz"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo bảng hướng dẫn về cơ quan thực thi hiệu chỉnh (Trang 8/9), đối với thiết bị đo tại cứ điểm TKM, việc thực hiện hiệu chỉnh được quy định như thế nào?",
+      "options": {
+        "A": "Nhà sản xuất hiệu chỉnh",
+        "B": "Nhà cung cấp hiệu chỉnh",
+        "C": "Không thích hợp",
+        "D": "Nhật Bản (Nhà chế tạo hiệu chỉnh)"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 8/9: Bảng cơ quan thực thi hiệu chỉnh, dòng cứ điểm 'TKM' có ví dụ máy đo thực tế là 'Không thích hợp'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh máy phát tần số (S31-1h), chu kỳ hiệu chỉnh và điều kiện môi trường tiêu chuẩn (nhiệt độ, độ ẩm tương đối) được quy định như thế nào?",
+      "options": {
+        "A": "Chu kỳ hiệu chỉnh 1 năm, Nhiệt độ 23±5℃, Độ ẩm tương đối 45～85%",
+        "B": "Chu kỳ hiệu chỉnh 2 năm, Nhiệt độ 23±5℃, Độ ẩm tương đối 20～85%",
+        "C": "Chu kỳ hiệu chỉnh 2 năm, Nhiệt độ 20±5℃, Độ ẩm tương đối 20～85%",
+        "D": "Chu kỳ hiệu chỉnh 1 năm, Nhiệt độ 25±3℃, Độ ẩm tương đối 30～70%"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1/9: Chu kỳ hiệu chỉnh: 2 năm; Phạm vi nhiệt độ: 23±5℃; Độ ẩm tương đối: 20～85%"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

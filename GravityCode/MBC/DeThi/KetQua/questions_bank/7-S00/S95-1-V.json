@@ -1,0 +1,50 @@
+{
+  "file_name": "S95-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN DÙNG ĐO ĐỘ DÀY KỸ THUẬT SỐ (Fischer)",
+  "doc_code": "S95-1a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo [Biểu 1] trong tiêu chuẩn, mức trị phán định đối với vật liệu Đồng beryllium có trị bản tiêu chuẩn là 9 µm là bao nhiêu?",
+      "options": {
+        "A": "±0.1 µm",
+        "B": "±0.5 µm",
+        "C": "±1.0 µm",
+        "D": "±1.5 µm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, [Biểu 1] Bản tiêu chuẩn: Đồng beryllium (Kiểu 601-474, Trị bản tiêu chuẩn 9 µm, Trị phán định ±0.5 µm)"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu hiệu chỉnh dụng cụ tiêu chuẩn, chu kỳ hiệu chỉnh đối với dụng cụ đo chiều dài kỹ thuật số [604-1] là bao lâu?",
+      "options": {
+        "A": "1 năm và khi thấy cần thiết",
+        "B": "2 năm và khi thấy cần thiết",
+        "C": "3 năm và khi thấy cần thiết",
+        "D": "6 tháng và khi thấy cần thiết"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Mục Ⅰ【Hiệu chỉnh】: Chu kỳ hiệu chỉnh: 3 năm và khi thấy cần thiết"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trong mục kiểm tra ngoại quan bản tiêu chuẩn, hành động hoặc hiện tượng nào sau đây được xem là khiếm khuyết có hại cần phải chú ý?",
+      "options": {
+        "A": "Bẩn, dính dị vật, vết xước trên bộ phận hình tròn tấm tiêu chuẩn",
+        "B": "Màu sắc nhãn mác bên ngoài bị phai mờ đôi chút",
+        "C": "Hộp đựng dụng cụ bị bám bụi nhẹ ở bên ngoài",
+        "D": "Tem quản lý thiết bị dán hơi lệch vị trí"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, Hạng mục hiệu chỉnh 1. Ngoại quan: Xác nhận xem thử có khiếm khuyết có hại như là bẩn, dính dị vật, vết xước trên bộ phận hình tròn tấm tiêu chuẩn không?"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

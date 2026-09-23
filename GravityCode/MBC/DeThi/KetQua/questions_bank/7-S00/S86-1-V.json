@@ -1,0 +1,50 @@
+{
+  "file_name": "S86-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn điểm kiểm – hiệu chỉnh dụng cụ đo đạc Trụ chuẩn Mcrometer (Dạng micrometer hình V)",
+  "doc_code": "S86-1a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh, chu kỳ hiệu chỉnh định kỳ đối với Trụ chuẩn Micrometer (Dạng micrometer hình V) là bao lâu?",
+      "options": {
+        "A": "1 năm",
+        "B": "2 năm",
+        "C": "3 năm",
+        "D": "5 năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Mục I. 【Hiệu chỉnh】: Chu kỳ hiệu chỉnh: 3 năm"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trị cho phép (sai số kích thước của kích thước trung ương) đối với phạm vi đo từ 25mm đến 85mm là bao nhiêu?",
+      "options": {
+        "A": "±1μm",
+        "B": "±2μm",
+        "C": "±3μm",
+        "D": "±5μm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Bảng trị cho phép: 25mm ~ 85mm ±3μm"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi thực hiện trường hợp hiệu chỉnh bên trong công ty đối với Trụ chuẩn Micrometer, phương pháp đo được mô tả như thế nào?",
+      "options": {
+        "A": "Gắn trị đo đạc so sánh với kim chuẩn hoặc đồng hồ đo (cấp 0) sử dụng máy đo…",
+        "B": "Sử dụng thước kẹp quang học để đo trực tiếp 3 điểm trên trục.",
+        "C": "Dùng dưỡng ren để kiểm tra độ sâu bước ren.",
+        "D": "Đo bằng mắt thường qua kính lúp phóng đại 10 lần."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, Mục Trường hợp hiệu chỉnh bên trong công ty: Gắn trị đo đạc so sánh với kim chuẩn hoặc đồng hồ đo (cấp 0) sử dụng máy đo…"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

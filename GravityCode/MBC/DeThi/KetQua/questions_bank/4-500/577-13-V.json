@@ -1,0 +1,50 @@
+{
+  "file_name": "577-13-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn kiểm tra hiệu chỉnh máy móc đo đạc - Cân phân tích điện tử Sartorius MSE225S/225P/125P",
+  "doc_code": "577-13 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn kiểm tra, tần suất thực hiện điểm kiểm đối với cân phân tích điện tử Sartorius MSE225S/225P/125P là khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Mục II【Kiểm tra】, phần 'Tần suất kiểm tra: Mỗi lần sử dụng'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo quy định về xử lý kết quả kiểm tra cân phân tích điện tử, trường hợp kết quả kiểm tra không thấy bất thường thì nhân viên cần thực hiện như thế nào?",
+      "options": {
+        "A": "Phải ghi chép lại kết quả kiểm tra vào mọi thời điểm sử dụng trong ngày.",
+        "B": "Không cần ghi kết quả cũng được, nhưng mỗi tháng một lần phải ghi lại kết quả đã điểm kiểm, dù không có gì bất thường xảy ra.",
+        "C": "Bắt buộc phải lập báo cáo sự cố gửi lên cấp trên ngay lập tức.",
+        "D": "Chỉ cần thông báo miệng cho quản lý trực tiếp vào cuối tuần."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Mục II【Kiểm tra】, phần 'Chú ý : 2. Trường hợp kết quả kiểm tra không thấy bất thường thì không ghi kết quả cũng được, nhưng mỗi tháng một lần phải ghi lại kết quả đã điểm kiểm, dù không có gì bất thường xảy ra.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi tiến hành hiệu chỉnh hoặc kiểm tra cân phân tích điện tử, yêu cầu về thời gian làm ấm (warm up) thiết bị trước khi thao tác là bao nhiêu?",
+      "options": {
+        "A": "10 phút trở lên",
+        "B": "15 phút trở lên",
+        "C": "30 phút trở lên",
+        "D": "60 phút trở lên"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1 và 2, mục <Hạng mục chú ý>: 'Khi hiệu chỉnh thì tiến hành làm ấm(warm up) 30 phút trở lên' / 'Khi sử dụng thì phải tiến hành làm ấm 30 phút trở lên (warm up).'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

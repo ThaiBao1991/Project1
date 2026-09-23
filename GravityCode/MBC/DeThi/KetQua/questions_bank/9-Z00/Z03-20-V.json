@@ -1,0 +1,50 @@
+{
+  "file_name": "Z03-20-V.pdf",
+  "folder_name": "9-Z00 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH - ĐIỂM KIỂM MÁY ĐO - Bảng sĩ dạng máy đo trọng lượng ( Full scale từ 30kg trở xuống ) Rokuwa (LUHO)",
+  "doc_code": "Z03-20",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Dựa vào bảng thông số kỹ thuật, trị đo lớn nhất và trị đọc nhỏ nhất (d) của kiểu khuôn NW-1.2 lần lượt là bao nhiêu?",
+      "options": {
+        "A": "Trị đo lớn nhất 1.2 kg, Trị đọc nhỏ nhất 0.1 g",
+        "B": "Trị đo lớn nhất 1.2 kg, Trị đọc nhỏ nhất 1 g",
+        "C": "Trị đo lớn nhất 30 kg, Trị đọc nhỏ nhất 0.1 g",
+        "D": "Trị đo lớn nhất 1.0 kg, Trị đọc nhỏ nhất 0.5 g"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2: Bảng thông số kỹ thuật kiểu khuôn NW-1.2 (Trị đo lớn nhất: 1.2 kg, Trị đọc nhỏ nhất (d): 0.1 g)"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, máy đo trọng lượng của hãng Rokuwa (LUHO) có mức Full scale thuộc khoảng nào?",
+      "options": {
+        "A": "Từ 10kg trở xuống",
+        "B": "Từ 20kg trở xuống",
+        "C": "Từ 30kg trở xuống",
+        "D": "Từ 50kg trở xuống"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: 'Bảng sĩ dạng máy đo trọng lượng ( Full scale từ 30kg trở xuống ) Rokuwa (LUHO)'"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý tại nội dung tiêu chuẩn, khi có việc bổ sung sĩ dạng do bổ sung kiểu khuôn thì phải yêu cầu bộ phận nào của công ty tiến hành ban hành mới - cải đính bảng tiêu chuẩn theo dụng cụ đo số mấy?",
+      "options": {
+        "A": "Ban Bảo Hành Chất Lượng theo dụng cụ đo No. A18-1",
+        "B": "Ban Sản Xuất theo dụng cụ đo No. Z03-20",
+        "C": "Phòng Kỹ Thuật theo dụng cụ đo No. B12-5",
+        "D": "Ban Quản Lý Chất Lượng theo dụng cụ đo No. C05-2"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: 'Việc bổ sung sĩ dạng do bổ sung kiểu khuôn thì phải yêu cầu Ban Bảo Hành Chất Lượng công ty chỉnh ban hành mới - cải đính bảng tiêu chuẩn theo dụng cụ đo No. A18-1'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

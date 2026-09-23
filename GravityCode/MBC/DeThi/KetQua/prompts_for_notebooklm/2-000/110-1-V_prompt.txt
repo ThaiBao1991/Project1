@@ -1,0 +1,365 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: BẢN TIÊU CHUẨN HIỆU CHỈNH/ĐIỂM KIỂM DỤNG CỤ ĐO ĐẠC    Ban BHCL Công ty CP Mabuchi Motor - Hiệu chỉnh
+Mã số/Mã máy đo: 110-1
+File gốc: 110-1-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/7
+
+BẢN TIÊU CHUẨN HIỆU CHỈNH/ĐIỂM KIỂM DỤNG CỤ ĐO ĐẠC    Ban BHCL Công ty CP Mabuchi Motor
+
+Soạn thảo  27/7/2022
+Hiệu chỉnh
+Băng  test tuổi thọ dùng cho TBOSL                           Đo đạc    110-1
+Mã số thiết bị：5150-001H-AA
+
+Ι【Hiệu chỉnh】
+
+Đồng hồ đa năng kỹ thuật số[S13-1]，Bộ tạo tần số [S31-1], Đầu micromet [518-7]
+Dụng cụ tiêu chuẩn  Dụng cụ hỗ trợ：Nguồn điện lưỡng cực（DB06-001M-A）, Dụng cụ giữ dùng để cố
+định, Điện trở 8.2Ω 25W, Motor TBOSL
+
+Chu kỳ hiệu chỉnh    12 tháng và khi được nhận thấy là cần thiết
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+1. Độ chính
+xác
+dòng
+điện
+
+(1) Kết nối đồng hồ đa năng kỹ thuật số và điện trở với băng test tuổi thọ
+như hình dưới.
+
+(2)Khởi động máy tinh, từ màn hình khởi động phần mềm SMPS, rồi nhấn nút
+setting.
+
+(3)Chọn ON Station_Setting và Filter，rồi thiết định STATION là 1.
+
+Băng test tuổi thọ
+Điện trở
+(8.2Ω 25W)
+Đồng hồ đa
+năng ký thuật
+số
+オス端子
+Current
+measuring
+board
+DA converter
+PC + Software
+Power Supply
+Chấu
+dương
+ON
+ON
+
+Chấu dương
+
+--- HẾT TRANG ---
+
+No.2/7
+
+Ⅰ【Hiệu chỉnh】                               Đo đạc  110-1
+
+Hạng mục
+hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương
+pháp phán
+định
+
+1.Độ
+chính
+xác
+dòng
+điện
+（tiếp tục）
+
+2.Độ
+chính
+xác tần số
+
+(4) Đặt công tắc MODE của dòng điện băng test tuổi thọ thành Normal MODE.
+
+(5) Thiết định điện áp ở dòng điện băng test tuổi thọ là 1V,2V,3V,4V, khi thiết
+định điện áp mỗi dòng điện phán định tùy theo chênh lệch giữa trị được hiển thị
+và trị thực đo của dụng cụ tiêu chuẩn.
+
+(6)Thay đổi chữ số STATION ở (3), về STATION 2~10 thì cũng thực hiện (5)
+tương tự.
+
+(1) Tháo bo mạch motor khỏi phích cắm, kết nối bộ tạo bước sóng và nguồn
+điện lưỡng cực, motor,và băng test tuổi thọ như hình dưới.
+
+Giá
+trị
+phán định：
+±10ｍA
+
+Xoay núm vặn
+điện áp, điều
+chỉnh điện áp
+Giá trị hiển thị
+trên màn hình
+161.8
+DA converter
+Dòng điện lưỡng
+cực (DB6-001M-
+TBOSL モータ
+PC + Software
+Bộ tạo tần số (S31)
+Acceleration sensor
+Laser
+Motor TBOSL
+Băng test tuổi thọ
+
+--- HẾT TRANG ---
+
+No.3/7
+
+Ⅰ【Hiệu chỉnh】                                  Đo đạc  110-
+
+Hạng mục
+hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương
+pháp phán
+định
+
+2.Độ chính
+xác tần số
+（Tiếp tục）
+
+(2) Từ màn hình khởi động phần mềm SMPS, nhấn nút Setting.
+
+(3) Chọn ON Station_Setting và Filter，thiết định STATION là 1.
+
+(4）Tại máy tạo tần số, thiết định tần số thành 135,140,145,150,155 Hz. Khi
+thiết định tần số cho mỗi giá trị thì phán định dựa trên chênh lệch giữa trị được
+hiển thị trên màn hình và trị thực đo của dụng cụ tiêu chuẩn.
+
+(5) Thay đổi chữ số STATION ở (3), đối với STATION 2~10 cũng thực hiện (4)
+tương tự.
+
+Giá
+trị
+phán
+định：
+±0.1Hz
+
+ON
+ON
+Thiết định cho bộ tạo
+tần số
+Trị hiển thị trên màn
+hình
+145.01
+
+--- HẾT TRANG ---
+
+No.4/7
+
+Ⅰ【Hiệu chỉnh】                                Đo đạc  110-1
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương
+pháp phán
+định
+
+3. Biên độ
+laser
+
+（1）Từ màn hình khởi động phần mềm SMPS, nhấn nút Setting.
+
+（2）Sau khi nhấn nút Drive thì sensor laser (station 10) di chuyển đến vị trí hiệu
+chỉnh.
+
+（3）Tháo Station 10, kết nối đầu micromet với laser của băng test tuổi thọ như
+hình dưới.
+
+DA converter
+Đầu micromet
+Laser
+Software
+Dụng cụ giữ dùng để
+cố định đầu micromet
+
+--- HẾT TRANG ---
+
+No.5/7
+
+Ⅰ【Hiệu chỉnh】                              Đo đạc  110-1
+
+Hạng mục
+hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương
+pháp phán
+định
+
+3. Biên độ
+laser（tiếp
+tục）
+
+（4）Kết nối bộ điều khiển sensor laser và cổng USB PC bằng dây cáp.
+
+(5) Khởi động LK-Navigator 2 từ màn hình máy tinh (phần mềm hiệu chỉnh biên
+độ laser)
+(6) Chọn Read Controller Setting (A), ấn nút OK, rồi chọn View Measurement
+Value.
+
+（7）Kí lục giá trị hiển thị ○A ở máy đo biến vị laser, rồi cài đặt đầu micromet về
+0.
+
+（8）Cho lượng biên vị 1mm ở micromet, ký lục giá trị hiển thị ○B trên đồng hồ
+đo biên vị laser lúc đó.
+
+（9）Tính toán chênh lệch giữa giá trị hiển thị ○B－○A của lượng biên vị, so sánh
+với lượng biên vị đã tạo (1mm) cho đầu micromet, rồi phán định.
+
+（10）Tiếp theo, tạo lượng biến vị 2mm ở đầu micromet và so sánh với lượng
+biến vị (2mm) đã tạo chênh lệch trị hiển thị C-A của đồng hồ biến vị laser cho đầu
+micromet khi đó rồi phán định.
+（11）3mm cũng phán định tương tự.
+
+Giá trị
+phán
+định：
+±0.005
+㎜
+－Trích dẫn・Văn bản liên quan－
+TIêu chuẩn phán định：SONOS Dựa theo tiêu chuẩn Motor Reliability Test Bench
+Bộ điều khiển sensor
+Dây cáp（USB-A/USB-B）
+View Measurement Value
+Giá trị hiển thị trên màn
+hình
+Read Controller Setting
+
+--- HẾT TRANG ---
+
+No.6/7
+
+Ⅱ【Điểm kiểm】      Băng test tuổi thọ dùng cho TBOSL        Đo đạc 110-1
+Mã số thiết bị：5150-001H-AA
+
+Tần suất điểm kiểm     Mỗi lần sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+Ngoại quan
+
+(1)Xác nhận không có bất hợp cách trên màn hình hiển thị
+gây trở ngại khi đo do bẩn, trầy, hư hỏng…vv
+
+(2)Xác nhận không có khiếm khuyết có hại nào như dính dị vật,
+hư hỏng…vv
+
+Chú ý)  1.Trường hợp kết quả điểm kiểm có khác thường thì ký lục kết quả điểm kiểm, xử lý theo chỉ thị
+của người chịu trách nhiệm quản lý.
+2. Trường hợp kết quả điểm kiểm không khác thường thì không ký lục kết quả điểm kiểm cũng
+được.
+Tuy nhiên, trong 1 tháng 1 lần dù không có khác thường thì vẫn ký lục nội dung đó.
+3. Trường hợp nhận thấy khác thường trong quá trình sử dụng thì xử lý theo chỉ thi của người chịu
+trách nhiệm quản lý.
+
+--- HẾT TRANG ---
+
+Biểu lai lịch ban hành-cải đính-hủy bỏ Bản tiêu chuẩn hiệu chỉnh-điểm kiểm
+Đo đạc  110-1    No.7/7
+Ký
+hiệu
+Ngày
+tháng năm
+Nội dung（Nội dung sửa đổi）
+Soạn
+thảo
+Xác nhận
+Công
+nhận
+
+2022.07.27 Ban hành mới（Dự thảo：VDM Mr. Dang Quoc Thinh）
+
+--- HẾT TRANG ---
+
+Ban BHCL Công ty CP Mabuchi Motor
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "110-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH/ĐIỂM KIỂM DỤNG CỤ ĐO ĐẠC    Ban BHCL Công ty CP Mabuchi Motor - Hiệu chỉnh",
+  "doc_code": "110-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

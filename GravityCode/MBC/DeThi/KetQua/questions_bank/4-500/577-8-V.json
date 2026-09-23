@@ -1,0 +1,50 @@
+{
+  "file_name": "577-8-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định CÂN PHÂN TÍCH DẠNG ĐIỆN TỬ",
+  "doc_code": "577-8 d",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Trước khi sử dụng cân phân tích dạng điện tử để đo, phương pháp kiểm tra tính ổn định khi biểu thị tốt nhất là gì?",
+      "options": {
+        "A": "Cắm điện và tiến hành đo ngay lập tức khi màn hình hiện 0.0000g",
+        "B": "Mở công thức hiệu chỉnh độ nhạy cảm trước khi đo",
+        "C": "Mở công thức nguồn điện và để ổn định cân khoảng 30 phút",
+        "D": "Nhấn nút TARE liên tục 3 lần để làm sạch bộ nhớ cân"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, Phần II, Mục 2: Trước khi sử dụng để đo, cũng như khi điểm kiểm phương pháp tốt nhất là mở công thức nguồn điện và để ổn định cân khoảng 30 phút."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, chu kỳ hiệu chỉnh của cân phân tích dạng điện tử là bao lâu?",
+      "options": {
+        "A": "1 tháng",
+        "B": "3 tháng",
+        "C": "6 tháng",
+        "D": "1 năm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Phần I, Mục Chu kỳ hiệu chỉnh: 3 tháng"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý trong tài liệu kiểm tra, trường hợp kết quả kiểm tra không thấy bất thường thì quy định ghi chép lại kết quả như thế nào là đúng?",
+      "options": {
+        "A": "Không cần ghi chép bất cứ kết quả nào trong suốt quá trình sử dụng",
+        "B": "Mỗi tuần phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra",
+        "C": "Mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra",
+        "D": "Chỉ khi nào cấp trên yêu cầu mới tiến hành ghi chép lại kết quả kiểm tra"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, Phần Ghi chú, Mục 2: Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

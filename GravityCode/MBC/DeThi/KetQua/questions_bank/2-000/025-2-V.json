@@ -1,0 +1,50 @@
+{
+  "file_name": "025-2-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Máy đo chấn động",
+  "doc_code": "025-2i",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo mục II 【Điểm kiểm】 của tiêu chuẩn, tiến độ thực hiện điểm kiểm máy đo chấn động được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và trước khi sản xuất",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "Chỉ thực hiện 6 tháng một lần theo chu kỳ hiệu chỉnh",
+        "D": "Chỉ thực hiện khi có yêu cầu từ phòng bảo dưỡng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5, mục II 【Điểm kiểm】: 'Tiến độ kiểm tra: Mỗi tháng 1 lần và mỗi lần sử dụng'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình hiệu chỉnh và điểm kiểm máy đo chấn động, khi nào bắt buộc phải yêu cầu thực hiện hiệu chỉnh lại?",
+      "options": {
+        "A": "Khi thay đổi vị trí đặt bệ chống chấn động trong phòng",
+        "B": "Khi vệ sinh bên ngoài máy đo định kỳ hằng tháng",
+        "C": "Khi thay thế cáp hoặc đầu dò",
+        "D": "Khi thay đổi nhân viên phụ trách đo lường"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 5, mục 【Chú ý】: 'Phải yêu cầu hiệu chỉnh nếu thay thế cáp, đầu dò.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi tiến hành hiệu chỉnh Gain cho Mode '100Hz～10μm' với VR là D4 và OUTPUT READING là ×1, trị chỉ thị RMS ở đồng hồ ① theo biểu là bao nhiêu?",
+      "options": {
+        "A": "10% thang đo ở phía dưới",
+        "B": "1% thang đo ở phía dưới",
+        "C": "100% thang đo ở phía dưới",
+        "D": "35～60% thang đo phía dưới"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, Biểu (Giá trị phán định), dòng 100Hz～10μm: Trị chỉ thị RMS ở đồng hồ ① là '100% thang đo ở phía dưới'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

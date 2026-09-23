@@ -1,0 +1,50 @@
+{
+  "file_name": "577-10-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN KIỂM TRA VÀ HIỆU CHỈNH DỤNG CỤ ĐO Cân phân tích bằng điện tử (Loại ME215P, ME235P của nhà cung cấp Sartorius)",
+  "doc_code": "577-10c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn kiểm tra và hiệu chỉnh cân phân tích điện tử ME215P và ME235P, chu kỳ kiểm tra định kỳ được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi tháng một lần",
+        "C": "Mỗi lần sử dụng",
+        "D": "6 tháng một lần"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3: Chu kỳ kiểm tra: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, khi điều chỉnh độ nhạy theo phân giải đồng bên trong (Điều chỉnh tải trọng), người vận hành cần bấm nút tính năng Cal ở phía đầu bên trái bao nhiêu lần?",
+      "options": {
+        "A": "Bấm 1 lần",
+        "B": "Bấm 2 lần",
+        "C": "Bấm 3 lần",
+        "D": "Bấm 4 lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: '(1) Điều chỉnh tải trọng - Bấm 2 lần nút tính năng Cal ở phía đầu bên trái. Phân đồng bên trong sẽ được hoạt động và được điều chỉnh'"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình thực hiện kiểm tra ngoại quan hoặc chuẩn bị hiệu chỉnh cân, nếu phát hiện cân có tổn hại ảnh hưởng đến đo đạc (trầy, hư hại) hoặc không đồng bộ, thao tác xử lý bắt buộc và chính xác theo tiêu chuẩn là gì?",
+      "options": {
+        "A": "Tiếp tục sử dụng nếu sai số nhỏ hơn mức cho phép và ghi chú lại vào báo cáo cuối tháng.",
+        "B": "Xác nhận phần thân máy tiêu chuẩn, nếu không đồng bộ thì quay vít điều chỉnh đồng bộ ở phần dưới của thân máy và điều chỉnh về đồng bộ; trường hợp bất thường phải xử lý theo chỉ thị của người quản lý có trách nhiệm.",
+        "C": "Tự ý tháo rời cân để sửa chữa bộ phận cơ khí bên trong và kiểm tra lại độ chính xác.",
+        "D": "Bỏ qua bước kiểm tra ngoại quan nếu cân vẫn bật được nguồn và hiển thị số 0.00000."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: '2. Xác nhận đồng bộ: Xác nhận phần thân máy tiêu chuẩn Nếu không đồng bộ thì quay vít điều chỉnh đồng bộ ở phần dưới của thân máy và điều chỉnh về đồng bộ' và Mục Chú ý: '1. Trường hợp bất thường, kết quả kiểm tra, ghi chép kết quả kiểm tra, xử lý theo chỉ thị của người quản lý có trách nhiệm.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "904-1-V.pdf",
+  "folder_name": "6-900 Ban V IT HOA",
+  "doc_title": "Bản hiệu chỉnh-điểm kiểm dụng cụ đo Bộ đếm Universal Dùng kiểm tra vòng quay line S-1",
+  "doc_code": "904-1 a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Khi tiến hành hiệu chỉnh máy phát chấn động tiêu chuẩn, dụng cụ tiêu chuẩn yêu cầu sử dụng là gì và thao tác nhập tần số chính xác là bao nhiêu?",
+      "options": {
+        "A": "Máy phát tần số [S31-1], nhập tần số 176.666667Hz",
+        "B": "Máy phát tần số [S31-1], nhập tần số 176.666667MHz",
+        "C": "Đồng hồ vạn năng [S31-1], nhập tần số 52.59Hz",
+        "D": "Máy đo vòng quay [S31-1], nhập tần số 10r/min"
+      },
+      "correct_answer": "A",
+      "reference_note": "Ι【Hiệu chỉnh】 Dụng cụ tiêu chuẩn: Máy phát tần số [S31-1], Phương pháp hiệu chỉnh: (2) Kết nối với máy phát tần số, nhập 176.666667Hz"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo mục chú ý trong điểm kiểm, nếu phát hiện có bất thường khi kiểm tra hoặc khi sử dụng, nhân viên cần phải thực hiện hành động nào sau đây?",
+      "options": {
+        "A": "Tự ý tháo thiết bị ra để sửa chữa ngay lập tức",
+        "B": "Tiếp tục sử dụng nếu sai số nhỏ và ghi chú lại vào cuối tháng",
+        "C": "Ghi chép lại kết quả bất thường đó và xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở quản",
+        "D": "Bỏ qua không cần ghi chép nếu không ảnh hưởng đến sản lượng"
+      },
+      "correct_answer": "C",
+      "reference_note": "II【Điểm kiểm】 Chú ý: 2. Nếu có bất thường khi kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả đó và xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở quản."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ thực hiện điểm kiểm (kiểm tra hàng ngày/định kỳ) đối với bộ đếm Universal dùng kiểm tra vòng quay line S-1 là khi nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "Chỉ khi phát hiện thiết bị có dấu hiệu bất thường",
+        "D": "Mỗi quý 1 lần và trước khi bảo dưỡng"
+      },
+      "correct_answer": "B",
+      "reference_note": "II【Điểm kiểm】 Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

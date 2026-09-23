@@ -1,0 +1,59 @@
+{
+  "file_name": "A18-5-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN KIỂM TRA VÀ HIỆU CHÍNH DỤNG CỤ ĐO",
+  "doc_code": "A18-5",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn kiểm tra và hiệu chính dụng cụ đo (A18-5), khi soạn thảo bản mới về trình tự thiết định tiêu đề và mã số sheet, việc phân loại dựa vào bản đo nào?",
+      "options": {
+        "A": "Bản đo số A01-1, giai đoạn 1, mục (1)",
+        "B": "Bản đo số A13-1, giai đoạn 2",
+        "C": "Bản đo số A18-4 (4), mục (1)",
+        "D": "Bản đo số A15-2, mục (2)"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: 'Phân loại dựa vào bản đo đạc số A01-1, giai đoạn 1, mục (1) <<Đánh số>>'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi thiết định mã số sheet số 1 đối với mã số phân biệt kiểu mẫu đo khác nhau của cùng chủng loại, tiêu đề thì ghi tên dụng cụ đo để phân loại áp dụng cho trường hợp nào?",
+      "options": {
+        "A": "Chủ yếu là khi nhà cung cấp, kiểu mẫu ít, hoặc là số máy đo có sẵn có số lượng ít",
+        "B": "Loại máy đo đồng nhất gọi là có cùng trình tự hiệu chỉnh và quy cách",
+        "C": "Dụng cụ đo có cùng trình tự hiệu chỉnh có nhà cung cấp, kiểu mẫu nhiều",
+        "D": "Dụng cụ đo bao gồm nhiều kiểu mẫu có từ đo khác nhau"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: Mục (1) Mã số sheet thi đánh số 1 đối với mã số phân biệt kiểu mẫu đo khác nhau của cùng chủng loại... Áp dụng cho: chủ yếu là khi nhà cung cấp, kiểu mẫu ít, hoặc là số máy đo có sẵn có số lượng ít"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trong trường hợp có sự thay đổi hoặc thêm vào nhà cung cấp, kiểu mẫu mới mà có cùng phương pháp hiệu chỉnh và phương pháp phân định, mã số sheet và tiêu đề cần thực hiện thay đổi tương ứng với số mẫu thiết định nào theo bảng hướng dẫn?",
+      "options": {
+        "A": "Trước thay đổi: số (1), Sau thay đổi: số (2)",
+        "B": "Trước thay đổi: số (1)(3), Sau thay đổi: số (2)",
+        "C": "Trước thay đổi: số (1)(2), Sau thay đổi: số (3)",
+        "D": "Trước thay đổi: số (1)(2)(3)(4), Sau thay đổi: số (5)"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Bảng Trường hợp có sự thay đổi mã số sheet và tiêu đề - mục 'Thêm vào nhà cung cấp, kiểu mẫu có cùng phương pháp hiệu chỉnh và phương pháp phân định' ứng với Trước thay đổi (1)(3) và Sau thay đổi (2)."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140639.3440475,
+  "generated_at_iso": "2026-09-23T12:17:19",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 120588,
+    "modified_time": 1338340682.23158,
+    "modified_time_iso": "2012-05-30T08:18:02",
+    "file_hash_short": "5a91e525"
+  }
+}

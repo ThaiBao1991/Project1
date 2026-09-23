@@ -1,0 +1,50 @@
+{
+  "file_name": "076-3-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Máy phát tần số WF series của tập đoàn NF",
+  "doc_code": "076-3c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo quy định về hiệu chỉnh, chu kỳ hiệu chỉnh bắt buộc đối với máy phát tần số WF series là bao lâu?",
+      "options": {
+        "A": "Mỗi 6 tháng và khi thấy cần thiết",
+        "B": "Mỗi 12 tháng định kỳ",
+        "C": "Mỗi 24 tháng và khi thấy cần thiết",
+        "D": "Không cần hiệu chỉnh định kỳ, chỉ hiệu chỉnh khi hỏng"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Chu kỳ hiệu chỉnh: Mỗi 24 tháng và khi thấy cần thiết"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi phát hiện bất thường trong quá trình điểm kiểm hoặc khi sử dụng thiết bị, nhân viên phụ trách cần thực hiện thao tác nào?",
+      "options": {
+        "A": "Tự ý tháo máy ra để sửa chữa linh kiện bên trong",
+        "B": "Tiếp tục sử dụng nếu lỗi nhỏ không ảnh hưởng nhiều",
+        "C": "Ghi chép lại kết quả bất thường và xử lý theo chỉ thị của người chịu trách nhiệm bộ phận chủ quản",
+        "D": "Cất ngay vào kho và không cần báo cáo cho ai"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, Ghi chú mục 2: Nếu có bất thường trong quá trình điểm kiểm (hoặc khi sử dụng) thì phải ghi chép lại kết quả đó, và xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận chủ quản"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh - điểm kiểm máy phát tần số WF series, tiến độ điểm kiểm hàng ngày và định kỳ được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và trước khi sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "6 tháng 1 lần và khi chuyển đổi sản phẩm",
+        "D": "Chỉ thực hiện khi máy phát sinh lỗi hư hỏng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

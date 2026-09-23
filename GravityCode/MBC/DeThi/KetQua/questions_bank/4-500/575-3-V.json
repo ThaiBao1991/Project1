@@ -1,0 +1,50 @@
+{
+  "file_name": "575-3-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Hiệu chỉnh máy đo lường - Bản tiêu chuẩn kiểm tra Quả cân hiệu chỉnh (Linh kiện đi kèm máy thí nghiệm vạn năng)",
+  "doc_code": "Đo lường 5 75 - 3",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn kiểm tra quả cân hiệu chỉnh, chu kỳ hiệu chỉnh được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi lần sử dụng",
+        "B": "Khi đã chấp nhận yêu cầu (Tuy nhiên không vượt quá 60 tháng)",
+        "C": "Định kỳ 12 tháng một lần",
+        "D": "6 tháng một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1 - Chu kỳ hiệu chỉnh: Khi đã chấp nhận yêu cầu (Tuy nhiên không vượt quá 60 tháng)"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Trong quá trình kiểm tra ngoại quan (mục II), nếu có nghi ngờ về các vấn đề như dị vật, chất ăn mòn, mài mòn, trầy xước, có vết gia công hay phát sinh rỉ sắt, nhân viên phải thực hiện thao tác gì?",
+      "options": {
+        "A": "Bỏ qua nếu không ảnh hưởng lớn",
+        "B": "Tiếp tục sử dụng và ghi chép lại",
+        "C": "Phải thực thi hiệu chỉnh",
+        "D": "Đem đi tiêu hủy ngay lập tức"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2 - II [Điểm kiểm] Quả cân hiệu chỉnh - Trường hợp có nghi ngờ ở (1)~(3) như trên và những cái khác thì phải thực thi hiệu chỉnh"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Phương pháp phán định và giá trị cho phép khi đo trọng lượng của quả cân hiệu chỉnh bằng cái cân là gì?",
+      "options": {
+        "A": "Chọn ±0.05% của trị biểu thị làm trị cho phép",
+        "B": "Chọn ±0.5% của trị biểu thị làm trị cho phép",
+        "C": "Chọn ±0.1% của trị biểu thị làm trị cho phép",
+        "D": "Chọn ±1.0% của trị biểu thị làm trị cho phép"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1 - Hạng mục hiệu chỉnh: Trọng lượng - Chọn ±0.1% của trị biểu thị làm trị cho phép"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "Z03-22_-V.pdf",
+  "folder_name": "9-Z00 Ban V IT HOA",
+  "doc_title": "Biểu liệt kê sỹ dạng máy kiểm tra trọng lượng (full scale 30kg trở xuống)",
+  "doc_code": "Z03-22",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo mục 'Hạng mục chú ý', khi bổ sung sỹ dạng do bổ sung mẫu, nhân viên phụ trách phải thực hiện thủ tục gì với phòng bảo hành chất lượng công ty chính?",
+      "options": {
+        "A": "Chỉ cần thông báo miệng cho quản lý trực tiếp",
+        "B": "Phải nộp đơn cải đính và ban hành mới bản tiêu chuẩn theo tiêu chuẩn đo lường số №A18-1",
+        "C": "Tự ý cập nhật danh sách mẫu mà không cần nộp đơn",
+        "D": "Chờ đến kỳ đánh giá hàng năm mới làm thủ tục"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: (Hạng mục chú ý) ・Phải nộp đơn cải đính ・ban hành mới bản tiêu chuẩn khi bổ sung sỹ dạng do bổ sung mẫu cho phòng bảo hành chất lượng công ty chính theo tiêu chuẩn đo lường số №A18-1."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Đối với kiểu mẫu máy đo trọng lượng ALC-30, giá trị chia nhỏ nhất (d) và vạch chia (e) được quy định là bao nhiêu?",
+      "options": {
+        "A": "d = 0.5g, e = 1g",
+        "B": "d = 1g, e = 10g",
+        "C": "d = 0.1g, e = 1g",
+        "D": "d = 1g, e = 1g"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Bảng thông số kỹ thuật - Kiểu mẫu ALC-30 có Trọng lượng lớn nhất 30kg, Giá trị chia nhỏ nhất (d) 1g, Vạch chia (e) 10g."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo tài liệu tiêu chuẩn kỹ thuật của máy đo Z03-22 (Điện tử Shinkou VIBRA), đối với kiểu mẫu ALC-1.5, trọng lượng lớn nhất và giá trị chia nhỏ nhất (d) là bao nhiêu?",
+      "options": {
+        "A": "Trọng lượng lớn nhất 1.5kg, giá trị chia nhỏ nhất (d) 0.05g",
+        "B": "Trọng lượng lớn nhất 3kg, giá trị chia nhỏ nhất (d) 0.1g",
+        "C": "Trọng lượng lớn nhất 1.5kg, giá trị chia nhỏ nhất (d) 0.1g",
+        "D": "Trọng lượng lớn nhất 6kg, giá trị chia nhỏ nhất (d) 0.2g"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2: Bảng thông số kỹ thuật - Kiểu mẫu ALC-1.5: Trọng lượng lớn nhất 1.5kg, Giá trị chia nhỏ nhất (d) 0.05g, Vạch chia (e) 0.1g."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

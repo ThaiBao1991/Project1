@@ -1,0 +1,50 @@
+{
+  "file_name": "043-4-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm",
+  "doc_code": "CR07-015M-BA",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình hiệu chỉnh điện áp dòng điện dùng cho máy phát sinh dao động hình sóng kiểm tra (Mục 1), quy cách phán định chính xác là bao nhiêu?",
+      "options": {
+        "A": "2.00 ± 0.01V",
+        "B": "6.30 ± 0.03V",
+        "C": "13.00 ± 0.05V",
+        "D": "0.00 ± 0.05V"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: 1. Điện áp dòng điện dùng cho máy phát sinh dao động hình sóng kiểm tra - Phương pháp phán định: 6.30±0.03V"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo mục kiểm tra ngoại quan (phần Ⅱ. Điểm kiểm), tần suất và tiến độ điểm kiểm tra đối với máy kiểm tra DV là gì?",
+      "options": {
+        "A": "Mỗi 12 tháng",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tuần một lần",
+        "D": "Mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 6: Ⅱ【Điểm kiểm】 Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo phần ghi chú điểm kiểm (Trang 6), nếu kết quả kiểm tra không thấy bất thường thì quy định ghi chép kết quả như thế nào?",
+      "options": {
+        "A": "Không cần ghi chép bất cứ lúc nào",
+        "B": "Phải ghi chép lại mọi kết quả sau mỗi giờ làm việc",
+        "C": "Không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra",
+        "D": "Chỉ ghi chép lại khi có sự cố phát sinh trong dây chuyền"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 6: Ghi chú (2) Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

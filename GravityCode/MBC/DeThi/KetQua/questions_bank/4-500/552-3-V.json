@@ -1,0 +1,50 @@
+{
+  "file_name": "552-3-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - Đồng hồ đo độ dày vỏ hình chùm nhọn (DeFelsko Posipen)",
+  "doc_code": "552-3b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm (ngoại quan bên ngoài) đối với đồng hồ đo độ dày vỏ hình chùm nhọn được thực hiện khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Trước khi giao ca sản xuất",
+        "D": "Mỗi tháng một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: II【Điểm kiểm】Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo chú ý về ghi chép kết quả điểm kiểm ngoại quan, trường hợp kết quả điểm kiểm không có dị thường nhưng quy định về ghi chép bắt buộc tối thiểu như thế nào?",
+      "options": {
+        "A": "Không cần ghi chép bất cứ lúc nào trong tháng",
+        "B": "Mỗi tuần phải ghi chép lại một lần",
+        "C": "Mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì dị thường xảy ra",
+        "D": "Phải ghi chép đầy đủ vào mỗi ca làm việc"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: Ghi chú 2 - Tuy nhiên, mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì dị thường xảy ra."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục hiệu chỉnh, khi tiến hành đo độ chính xác chỉ thị bằng bệ máy đẩy kéo (PUSH PULL) với tốc độ quy định là bao nhiêu và độ dung sai cho phép là bao nhiêu?",
+      "options": {
+        "A": "Tốc độ 30mm/min, độ dung sai cho phép ±10%",
+        "B": "Tốc độ 30mm/min, độ dung sai cho phép ±15%",
+        "C": "Tốc độ 50mm/min, độ dung sai cho phép ±15%",
+        "D": "Tốc độ 50mm/min, độ dung sai cho phép ±10%"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: (Tốc độ của bệ máy đẩy kéo Push pull là 50mm/min) và Độ dung sai cho phép ±15%"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

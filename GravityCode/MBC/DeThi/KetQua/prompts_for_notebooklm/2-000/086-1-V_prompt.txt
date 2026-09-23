@@ -1,0 +1,202 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: BẢN TIÊU CHUẨN ĐIỂM KIỂM HIỆU CHỈNH THIẾT BỊ   Ban chính BHCL Mabuchi Motor.co - Máy đo hiệu chuẩn độ nhạy đơn giản pickup độ gia tốc dùng đo đạc               Máy đo      086-1 a
+Mã số/Mã máy đo: hi
+File gốc: 086-1-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/3
+
+BẢN TIÊU CHUẨN ĐIỂM KIỂM HIỆU CHỈNH THIẾT BỊ   Ban chính BHCL Mabuchi Motor.co
+Ban hành    2011/3/7
+Cải đính    2019/8/ 27
+Máy đo hiệu chuẩn độ nhạy đơn giản pickup độ gia tốc dùng đo đạc               Máy đo      086-1 a
+Ono sokki
+
+Ι【Hiệu chỉnh】
+
+Máy chuẩn      Máy chuẩn chỉ định nhà chế tạo
+
+Chu kỳ hiệu chỉnh   36 tháng hoặc khi thấy cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+Độ chính xác
+
+Phải ủy thác ở cơ quan thao tác hiệu chỉnh hoặc nơi chế tạo
+
+Thể thức
+Hạng mục
+Trị phán định
+VX-1100
+VX-1100A
+Số tần số gia
+chấn
+159.2 Hz±1 %
+Độ gia tốc gia
+chấn
+10 m/ s2 (rms)±3 %
+Độ chính xác
+đo độ nhạy
+±3 % ±1 digit
+
+Theo biểu bên
+trái
+
+－Trích dẫn・Văn bản liên quan－
+Trị phán định：Trích dẫn Biểu thuyết minh hiệu chỉnh（Sĩ dạng nới chế tạo）
+No.2/3
+
+--- HẾT TRANG ---
+
+Ⅱ【Điểm kiểm】
+Máy đo hiệu chuẩn độ nhạy đơn giản pickup độ gia tốc dùng đo đạc                  Máy đo      086-1 a
+Ono sokki
+
+Tiến độ điểm kiểm    Mỗi khi sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1.Ngoại quan
+
+＜Hạng mục chú ý ＞
+
+2. Tình trạng của PIN
+
+Xác nhận rằng không có khuyết tật có hại như bụi bẩn, bám dính dị
+hoặc hư hỏng.
+
+Để có thể hiệu chỉnh và gia chấn một cách chính xác, không được ấn
+một lực vô lý lên bàn gắn và bàn gắn cũng không được bị trầy.
+
+Nếu đèn báo động Pin THẤP(LOW)  nhấp nháy, phải ngay lập tức
+Thay pin
+
+Chú  ý)
+
+1.
+Kế t quả  kiểm tra, trườ ng hợp bấ t thườ ng thì phả i ghi ché p kế t quả  kiểm tra, việc dựa và o chỉ thi ̣ củ a ngườ i
+chi ̣u trá ch nhiệm quả n lý.
+2. Kế t quả  kiểm tra, trườ ng hợp không có  gì bấ t thườ ng thì không ghi lại kế t quả  kiểm tra cũng được, tuy nhiên,
+một lầ n một thá ng cho dù  không có  gì khá c thườ ng thì cũng phả i ghi ché p lại những điề u đó .
+3. Trườ ng hợp nhận ra sự bấ t thườ ng trong khi sử  dụng, sẽ xử  lý dựa và o chỉ thi ̣ củ a ngườ i quả n lý có  trá ch
+nhiệm.
+
+--- HẾT TRANG ---
+
+Bản tiêu chuẩn kiểm tra, hiệu chỉnh Biểu lý li ̣ch ban hà nh, cả i đính, hủ y bỏ   Máy đo  086-1        No.3/3
+
+Số
+hiệu
+Ngà y
+thá ng năm
+Nội dung (nội dung sử a chữa)
+Soạn thảo
+Xá c nhận
+Công
+nhận
+
+2011.03.07
+
+Ban hành mới
+
+Masunaga
+
+Nara
+hanyu
+
+Itokawa
+
+a
+
+2019.08.27
+
+・Bổ sung thể thức VX-1100A(Nơi yêu cầu :VDM P.
+Kiểm Tra TAN)
+・Thay đổi mã số cải đính
+Ⅰ【Hiệu chỉnh】086-1_→086-1a ※Ⅱ【Điểm kiểm】
+086-1_（Không thay đổi）
+
+Koizumi
+Kikuchi
+Ishi
+Usui
+
+Itou
+
+マブチモーター(株） 品質保証本部
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "086-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN ĐIỂM KIỂM HIỆU CHỈNH THIẾT BỊ   Ban chính BHCL Mabuchi Motor.co - Máy đo hiệu chuẩn độ nhạy đơn giản pickup độ gia tốc dùng đo đạc               Máy đo      086-1 a",
+  "doc_code": "hi",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

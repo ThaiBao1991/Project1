@@ -1,0 +1,50 @@
+{
+  "file_name": "626-2-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "MÁY ĐO ÁP LỰC CHÒI",
+  "doc_code": "CE-01-003M-A",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình hiệu chỉnh kích thước đường kính ngoài sensor (Mục 1 - Hiệu chỉnh), kích thước chuẩn và dung sai cho phép là bao nhiêu?",
+      "options": {
+        "A": "Kích thước chuẩn +0.02, -0.05",
+        "B": "Kích thước chuẩn +0.05, -0.05",
+        "C": "Kích thước chuẩn +0.05, -0.02",
+        "D": "Kích thước chuẩn +0.02, -0.02"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1/4 - Mục 1: Kích thước đường kính ngoài sensor -> Kích thước chuẩn +0.05, -0.02"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiến độ kiểm tra quy định trong tài liệu, MÁY ĐO ÁP LỰC CHÒI (CE-01-003M-A) cần được tiến hành kiểm tra với tần suất nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Một tháng một lần",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3/4 - Phần II 【Điểm kiểm】: Tiến độ kiểm tra: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo phần Ghi chú về xử lý bất thường (Trang 3), trường hợp kết quả kiểm tra không thấy bất thường nhưng mỗi tháng phải thực hiện quy định gì?",
+      "options": {
+        "A": "Không cần ghi chép gì cả",
+        "B": "Ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra",
+        "C": "Báo cáo ngay cho Giám đốc bộ phận",
+        "D": "Tạm ngưng sử dụng thiết bị để bảo dưỡng định kỳ"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3/4 - Ghi chú, mục 2"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

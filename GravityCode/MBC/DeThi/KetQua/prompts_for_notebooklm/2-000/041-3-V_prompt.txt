@@ -1,0 +1,680 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: BẢN TIÊU CHUẨN HIỆU CHỈNH ĐIỂM KIỂM        マブチモーター（株）品質保証本部 - Nguồn ổn định điện áp một chiều (Kèm màn hình đo)                     Dụng cụ đo 041-3a
+Mã số/Mã máy đo: 041-3
+File gốc: 041-3-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/11
+
+BẢN TIÊU CHUẨN HIỆU CHỈNH ĐIỂM KIỂM        マブチモーター（株）品質保証本部
+
+Ban hành  2016.6.20
+Cải chỉnh 2020.6.2
+
+Nguồn ổn định điện áp một chiều (Kèm màn hình đo)                     Dụng cụ đo 041-3a
+(Dùng cho kiểm tra D/V, vòng biến trở)
+
+Ι【Hiệu chỉnh】
+
+Máy chuẩn Thiết bị đo điện đa năng dạng kỹ thuật số (Máy có thể hiện thị 6 ký tự ½ trở lên )[S13-1]
+
+Chu kì hiệu chỉnh      24 tháng và khi được qui định là cần thiết
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương
+pháp phán
+định
+
+＜Mục ghi chép
+đặc biệt＞
+
+1.Xác nhận độ
+chính xác xuất
+ra,
+độ chính xác
+đo đạc điện áp
+
+Trường hợp hiệu chỉnh ngoài Ủy thác việc hiệu chỉnh cho nơi sản xuất hoặc
+cơ sở hiệu chỉnh NCC.
+Trường hợp tự hiệu chỉnh nội bộ  ※Sử dụng máy chuẩn như trên tiêu đề
+・Hiệu chỉnh phải được tiến hành ở nơi không phát sinh bụi, rung động, tiếng
+ồn và theo điều kiện bên dưới.
+⇒Nhiệt độ 23℃±5℃, độ ẩm tương đối < 70％
+・Máy được hiểu chỉnh là thiết bị đã có cả chức năng xuất tải và chức năng
+đo nên sẽ xác nhận đồng thời độ chính xác xuất ra và độ chính xác đo đạc
+điện áp.
+・Thiết bị đo điện đa năng dạng kỹ thuật số chuẩn là máy có thể hiển thị 6 ký
+tự ½ trở lên.
+・Cần phải làm nóng máy được hiệu chỉnh và máy chuẩn. (warm app)
+・Máy có khả năng đo và xuất dòng điện, điện áp (-) nhưng không được dự
+định sử dụng nên không cần nguyên tắc hiệu chỉnh.
+
+Kết nối với thiết bị đo điện đa năng dạng kỹ thuật số, xuất giá trị cài đặt
+trong bản (điểm hiệu chỉnh) tại mỗi Range, xác nhận độ chính xác xuất ra,
+độ chính xác đo đạc rồi phán định.
+Phương pháp xác nhận tham khảo phụ lục 1
+Điểm hiệu chỉnh chọn ZERO và Full Scale (FS) ( tiến cử NCC, tham khảo
+bảng bên dưới. Có thể cài đặt tùy theo tình huống sử dụng.)
+Điểm hiệu chỉnh
+RANGE
+ZERO
+FS
+320mV
+0V
+300mV
+3.2V
+3V
+32V
+30V
+110V
+100V
+①  Xuất điện áp《Độ chính xác tổng》
+Range
+±（％of setting＋V）
+320mV
+0.03＋200μV
+3.2V
+0.03＋600μV
+32V
+0.03＋6mV
+110V
+0.03＋30mV
+②  Đo điện áp《Độ chính xác tổng》
+Range
+±（％of reading＋V）
+320mV
+0.03＋100μV
+3.2V
+0.03＋150μV
+32V
+0.03＋1mV
+110V
+0.03＋8mV
+
+Dựa
+theo bảng
+①② bên
+trái
+
+--- HẾT TRANG ---
+
+No.2/11
+
+Ι【Hiệu chỉnh】                          Dụng cụ đo  041-3a
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương
+pháp phán
+định
+
+2.Xác nhận độ
+chính xác xuất, độ
+chính xác đo đạc
+dòng điện.
+
+3. Điều chỉnh độ
+chính xác xuất ra,
+đo đạc
+
+Kết nối với thiết bị đo điện đa năng dạng kỹ thuật số, xuất giá trị cài
+đặt trong bản (điểm hiệu chỉnh) tại mỗi Range, xác nhận độ chính xác
+xuất ra, độ chính xác đo đạc rồi phán định.
+
+Phương pháp xác nhận tham khảo phụ lục 2
+Điểm hiệu chỉnh chọn ZERO và Full Scale (FS) ( tiến cử NCC, tham
+khảo bảng bên dưới. Có thể cài đặt tùy theo tình huống sử dụng.)
+Điểm hiệu chỉnh
+Range
+ZERO
+FS
+32μA
+0A
+30μA
+320μA
+300μA
+3.2mA
+3mA
+32mA
+30mA
+320mA
+300mA
+2A
+1A
+③ Xuất dòng điện《Độ chính xác tổng》
+Range
+±（％of setting＋A＋A
+32μA
+0.03＋10nA＋300ｐA
+320μA
+0.03＋100nA＋3nA
+3.2mA
+0.03＋1μA＋30nA
+32mA
+0.03＋10μA＋300nA
+320mA
+0.05＋100μA＋3μA
+2A
+0.06＋1ｍA＋30μA
+④ Đo dòng điện《Độ chính xác tổng》
+Range
+±（％of reading＋A＋A
+32μA
+0.03＋8nA＋300pA
+320μA
+0.03＋80nA＋3nA
+3.2mA
+0.03＋800nA＋30nA
+32mA
+0.03＋8μA＋300nA
+320mA
+0.05＋80μA＋3μA
+2A
+0.06＋800μA＋30μA
+
+Chỉ trường hợp hạng mục hiệu chỉnh 1,2 không đạt thì thực hiện hạng
+mục này. Chỉ thực hiện tái hiệu chỉnh ở tất cả các Range của các hạng
+mục hiệu chỉnh không đạt đã tiến hành điều chỉnh, kiểm tra xem liệu
+có hiệu chỉnh được trong qui cách hay không.
+Phương pháp hiệu chỉnh tham khảo phụ lục 3.
+
+Dựa theo
+bảng ③ ④
+bên trái
+
+－Trích dẫn・Văn b ản liên quan－
+Qui cách phán định：Trích dẫn bảng qui cách nơi sản xuất (Độ chính xác dòng điện thuộc qui cách nội bộ)
+Độ chính xác dòng điện nơi sản xuất：（%of setting+A+AVo/V），（%of reading +A+AVo/V）
+Độ chính xác dòng điện bản tiêu chuẩn：（%of setting+A+A），（%of reading+A+A）
+Lý do: Thao tác hiệu chỉnh sẽ trở nên phức tạp, mức độ ảnh hưởng nhỏ nên đã lược bỏ Vo/V
+trong hiệu chỉnh nội bộ.
+※Vo= Điện áp theo dõi (điện áp giữa các chấu điện)
+Phương pháp hiệu chỉnh：Tham khảo sách hướng dẫn sử dụng nơi sản xuất
+
+--- HẾT TRANG ---
+
+No.3/11
+
+Phụ lục 1 ＜Phương pháp hiệu chỉnh độ chính xác điện áp xuất ra, đo đạc＞   Dụng cụ đo  041-3a
+
+Trình bày chi tiết về phương pháp xác nhận hạng mục hiêu chỉnh 1.
+
+(1) Kết nối máy chuẩn với máy được hiệu chỉnh như hình bên dưới
+
+Máy chuẩn⇒
+
+Máy được
+hiệu chỉnh⇒
+
+(2) Tiến hành thiết đặt xuất điện áp của máy được hiệu chỉnh.
+
+1. Nhấn nút VM/IM, thiết đặt ”VM”.(Giá trị hiển thị bên phải VM là điện áp đo đạc)
+2. Nhấn nút VS/IS, thiết đặt ”VS”.( Giá trị hiển thị bên phải VS là điện áp đo đạc)
+3. Tại –RANGE- nhấn nút  ▽   △, lựa chọn range.
+Tại –POLARITY- nhấn nút  +   - , lựa chọn cực tính.
+Lựa chọn kí tự thay đổi bằng nút  ◁   ▷ , xoay núm vặn, thiết đặt điện áp xuất ra.
+Trong hình, thiết đặt xuất điện áp 320.00mV.
+4. Nhấn nút LIMIT, giống như trên bước 3, thiết đặt giới hạn dòng điện 500.0mA bằng núm vặn.  5.
+Nhấn nút  MODE, thiết đặt ”*DC”.
+* Dựa theo phạm vi thiết đặt giới hạn trong sách hướng dẫn sử dụng.
+(3) Nhấn nút OPERATE, ghi lại sai số giữa giá trị điện áp xuất ra, điện áp đo được với giá trị hiển thị trên máy
+chuẩn, rồi phán định.
+1. Sai số giữa giá trị hiển thị điện áp xuất ra với giá trị hiển thị trên máy chuẩn ⇒Độ chính xác xuất điện áp
+2. Sai số giữa giá trị hiển thị điện áp đo với giá trị hiển thị trên máy chuẩn⇒Độ chính xác đo đạc điện áp
+
+Chấu điện Input
+Chấu điện Output
+VM-000.009mV
+VS:+320.00mV    L:  0500.0mA    *DC
+AZERO
+1.
+Voltage
+measurement
+2.
+Voltage
+source
+4.
+Limit
+(current)
+5.
+Direct
+Current
+Mode
+3.
+Output
+Voltage
+Điệ
+á
+VM+320.003mV
+VS:+320.00mV    L:  0500.0mA    *DC
+AZERO
+1.
+Output
+voltage
+2.
+Measured value
+(Voltage)
+
+--- HẾT TRANG ---
+
+No.4/11
+
+Phụ lục 2 ＜Phương pháp hiệu chỉnh độ chính xác dòng điện xuất ra, đo đạc＞ Dụng cụ đo  041-3a
+
+Trình bày chi tiết về phương pháp xác nhận hạng mục hiêu chỉnh 2.
+
+(1) Kết nối máy chuẩn với máy được hiệu chỉnh như hình bên dưới。
+
+Máy chuẩn⇒
+
+Máy được
+hiệu chỉnh ⇒
+
+(2) Tiến hành thiết đặt xuất dòng của máy được hiệu chỉnh.
+
+1. Nhấn nút VM/IM, thiết đặt ”IM”. (Giá trị hiển thị bên phải IM là giá trị dòng điện đo)
+2. Nhấn nút VS/IS, thiết đặt ”IS”. (Giá trị hiển thị bên phải IS là giá trị dòng điện đo)
+3. Tại –RANGE- nhấn nút  ▽   △ , lựa chọn Range.
+Tại –POLARITY- nhấn nút  +   - , lựa chọn cực tính.
+Lựa chọn ký tự thay đổi bằng nút  ◁   ▷ , xoay nút vặn để thiết đặt dòng điện xuất ra.
+Trong hình, thiết định xuất dòng điện 500.0mA.
+4. Nhấn nút LIMIT, như trên mục 3, thiết đặt điện áp giới hạn 32V (*) bằng núm vặn.
+5. Nhấn nút MODE, thiết đặt ”*DC”.
+* Dựa theo phạm vi thiết đặt giới hạn trong sách hướng dẫn sử dụng.
+(3) Nhấn nút OPERATE, xuất dòng điện ra, ghi lại ai số so với giá trị hiển thị trên máy chuẩn rồi phán định.
+1. Sai số giữa giá trị hiển thị dòng điện xuất ra với giá trị hiển thị trong máy chuẩn⇒Độ chính xác xuất dòng
+2. Sai số giữa giá trị hiển thị dòng điện đo với giá trị hiển thị trong máy chuẩn⇒Độ chính xác đo dòng
+
+【Chú ý kết nối sai】
+Nếu cho dòng điện vào
+đầu vào điện áp thì máy
+chuẩn sẽ làm hư máy
+chuẩn.
+IM+0000.01mA
+IS:+0500.0mA    L:  320.00mV    *DC
+AZERO
+1.
+Current
+measurement
+2.
+Current
+source
+4.
+Limit
+(Voltage)
+5.
+Direct
+current
+Mode
+3.
+Output
+current
+IM+0499.99mA
+IS:+0500.0mA    L:  320.00mV    *DC
+AZERO
+1.
+Output
+current
+2.
+Measured value
+(Current)
+
+--- HẾT TRANG ---
+
+No.5/11
+
+Phụ lục 3 ＜Phương pháp hiệu chỉnh độ chính xác xuất ra, đo đạc (điều chỉnh)＞  Dụng cụ đo  041-3a
+
+Trình bày chi tiết về phương pháp xác nhận hạng mục hiêu chỉnh 3.
+※Nếu có những điểm không rõ ràng xin tham khảo phương pháp hiệu chỉnh trong sqách hướng dẫn sử dụng
+
+Sơ đồ lưu trình thiết đặt
+
+(1) Thiết đặt Cal Switch Set ở chế độ On.
+① Nhấn nút MENU, lựa chọn ▶SYSTEM bằng núm vặn.
+
+② Nhấn nút  ▽ , lựa chọn ▶Cal Switch Set：OFF bằng núm vặn.
+
+③ Nhấn nút  ▽ , lựa chọn ▶ON bằng núm vặn
+
+④ Nhấn nút  △ , quay về ◆ SYSTEM.
+
+▼ MENU SELECT
+▶ SYSTEM
+AZERO
+◆ SYSTEM
+▶ Cal Switch Set：OFF
+AZERO
+▲ Cal Switch Set
+▶ ON
+AZERO
+(2)
+MENU
+Line Frequency
+
+Cal Switch Set
+
+Calibration
+VS Calibration
+VM Calibration
+IS Calibration
+IM Calibration
+Save CAL-Data
+Init to Default
+ON
+▽
+▽
+▽
+△
+Range/±Set
+Zero CAL
+Full CAL
+▽
+SWEEP
+
+SYSTEM
+▽
+▽
+▽
+Save?
+(3)
+(1)
+(4)
+
+--- HẾT TRANG ---
+
+No.6/11
+
+Phụ lục 3 ＜Phương pháp hiệu chỉnh độ chính xác xuất ra, đo đạc (điều chỉnh)＞  Dụng cụ đo  041-3a
+(2) Điều chỉnh trong trường hợp độ chính xác xuất ra không đạt.
+
+Tiến hành điều chỉnh độ chính xác xuất điện áp tại VS Calibration. Thực hiện tiếp từ bước ④ ở (1).
+Hướng dẫn bên dưới là trình tự tiến hành ở VS Calibration (hiệu chỉnh xuất điện áp) nhưng có thể tiến hành
+ở IS Calibration(Hiệu chỉnh xuất dòng điện) với trình tự tương tự. Tuy nhiên, chú ý không kết nối sai với máy
+chuẩn.
+
+① Kết nối máy được hiệu chỉnh với máy chuẩn giống như ở phụ lục 1
+② Xoay núm vặn, chọn ▶ Calibration.
+
+③ Nhấn nút  ▽ , chọn ▶VS Calibration bằng núm vặn.
+
+④ Nhấn nút  ▽, màn hình thiết đặt Range/cực tính hiện ra.
+
+1. Tại –POLARITY- nhấn nút  +   - , chọn  +
+2. Tại –RANGE- nhấn nút  ▽   △ , Cọn Range thực hiện điều chỉnh.
+⑤ Nếu nhấn nút  ▽  thì sẽ hiện ra mode Zero CAL, trả về giá trị ZERO.
+Xoay núm vặn để điều chỉnh giá trị hiển thị trên máy chuẩn về gần ZERO hơn.
+
+⑥ Sau khi hoàn tất điều chỉnh ZERO, nếu nhấn nút  ▽  thì sẽ trở thành Full CAL, trả về giá trị F.S của
+Range đã thiết đặt.
+Xoay núm vặn để điều chỉnh giá trị hiển thị trên máy chuẩn về gần với giá trị xuất ra của máy được hiệu chỉnh.
+
+▼ MENU SELECT
+▶ Calibration
+AZERO
+◆ Calibration
+▶ VS Calibration
+AZERO
+◆ Range/±Set
+VS:+000.00mV  :54321
+AZERO
+1.+/－
+2. Output Voltage Range
+◆ Zero CAL
+VS:+000.00mV  :54321
+AZERO
+1 Tiến hành điều chỉnh ở trạng thái
+đang 1 nhấp nháy.
+◆ Full CAL
+VS:+300.00mV  :54321
+AZERO
+Output Voltage
+
+--- HẾT TRANG ---
+
+No.7/11
+
+Phụ lục 3 ＜Phương pháp hiệu chỉnh độ chính xác xuất ra, đo đạc (điều chỉnh)＞  Dụng cụ đo  041-3a
+
+⑦ Sau khi hoàn tất điều chỉnh, nếu nhấn nút  ▽ trở về màn hình thiết đặt Range/cực tính thì ĐC hoàn tất
+Trường hợp cần điều chỉnh ở nhiều Range thì thực hiện lặp lại các thao tác từ ④～⑦.
+Ngoài ra, chỉ tiến hành điều chỉnh các Range NG ở hạng mục hiệu chỉnh 1, 2.
+
+⑧ Tại màn hình Range/cực tính nhấn nút △ , quay về màn hình ◆Calibration.
+
+(3) Điều chỉnh trong trường hợp độ chính xác đo đạc không đạt.
+Tại VM Cailbration tiến hành diều chỉnh độ chính xác đo đạc không đạt, thực hiện tiếp từ (2)⑧
+Hướng dẫn bên dưới là trình tự tiến hành ở VM Calibration (hiệu chỉnh xuất điện áp) nhưng có thể tiến hành
+ở IM Calibration(Hiệu chỉnh xuất dòng điện) với trình tự tương tự. Tuy nhiên, chú ý không kết nối sai với máy
+chuẩn.
+
+① Xoay núm vặn, chọn ▶ VM Calibration.
+
+② Nhấn nút  ▽, màn hình thiết đặt Range xuất hiện.
+Tại –RANGE- nhấn nút  ▽   △ , chọn Range thực hiện điều chỉnh.
+
+③ Nêu nhấn nút  ▽  thì sẽ hiện ra mode Zero CAL, trả về giá trị ZERO
+Nhấn nút chữ số, đơn vị, nhập giá trị hiển thị trên máy chuẩn, nhấn  ENTER .
+
+◆ Range/±Set
+VS:+000.00mV  :54321
+AZERO
+◆ Calibration
+▶ VS Calibration
+AZERO
+◆ Calibration
+▶ VM Calibration
+AZERO
+◆ Range Set
+VM:            +000.000mV
+AZERO
+Voltage Range
+◆ Zero CAL
+VM:                       [+000.034mV]
+AZERO
+Measured value input
+(Voltage)
+
+--- HẾT TRANG ---
+
+No.8/11
+
+Phụ lục 3 ＜Phương pháp hiệu chỉnh độ chính xác xuất ra, đo đạc (điều chỉnh)＞  Dụng cụ đo  041-3a
+
+④ Nhấn nút  ▽  sẽ trở thành mode Full CAL, trả về giá trị F.S.
+Nhấn nút chữ số, đơn vị, nhập giá trị hiển thị trên máy chuẩn, nhấn  ENTER .
+
+⑤ Sau khi hoàn tất điều chỉnh, khi nhấn  ▽  quay về màn hình thiết đặt Range thì điều chỉnh hoàn tất.
+Trường hợp cần điều chỉnh ở nhiều Range thì thực hiện lặp lại các thao tác từ ②～⑤
+Ngoài ra, chỉ tiến hành điều chỉnh các Range NG ở hạng mục hiệu chỉnh 1, 2.
+
+⑥ Tại màn hình Range/cực tính nhấn nút  △, quay vef màn hình ◆Calibration.
+
+◆ Full CAL
+VM:                       [+299.980mV]
+AZERO
+Measured value input
+(Voltage)
+◆ Calibration
+▶ VM Calibration
+AZERO
+◆ Range Set
+VM:            +000.000mV
+AZERO
+
+--- HẾT TRANG ---
+
+No.9/11
+
+Phụ lục 3 ＜Phương pháp hiệu chỉnh độ chính xác xuất ra, đo đạc (điều chỉnh)＞  Dụng cụ đo  041-3a
+
+(4) Tiến hành lưu dữ liệu hiệu chỉnh. Thực hiên tiếp từ (2)⑧, (3)⑥.
+*Chú ý:  Sau khi kết thúc điều chỉnh phải nhất định lưu dữ liệu CALvào bộ nhớ không hủy.
+Sau khi hiệu chỉnh, nếu không lưu dữ liệu thì sẽ đặt thành giá trị đo, xuất trước khi điều chỉnh.
+
+① Xoay núm vặn, chọn ▶ Save CAL-Data.
+
+② Khi nhấn nút  ▽ rhid ↳Execute (Press DIRECT Key) sẽ hiển thị,
+nhấn  DIRECT  để thực hiẹn lưu dữ liệu hiệu chỉnh.
+
+③ Khi nhấn 2 lần nút  △ thì màn hình thiết đặt lưu sẽ được hiển thị, nhấn nút số 1.
+
+④ Thực hiện thao tác ở (1) quay về ▶ Cal Switch Set : OFF.
+
+⑤ Nhấn nút  EXIT, quay về màn hình đo.
+
+Save?
+Cancel : ‘0’           Save : ‘1’
+AZERO
+◆ SYSTEM
+▶ Cal Switch Set：OFF
+AZERO
+◆ Calibration
+▶ Save CAL-Data
+AZERO
+◆ Save CAL-Data
+↳  Execute (Press DIRECT Key)
+AZERO
+
+--- HẾT TRANG ---
+
+No.10/11
+
+Ⅱ【Điểm kiểm】   Nguồn ổn định điện áp một chiều (Kèm màn hình đo)         Dụng cụ đo  041-3
+(Dùng cho kiểm tra D/V, vòng biến trở)
+
+Tần xuất điểm kiểm        Mỗi khi sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1.Xác nhận hoạt động
+
+2.Ngoại quan
+
+Máy phải hoạt động bình thường
+
+Màn hình hiển thị, switch không hư hỏng, không bẩn.
+
+Chú ý) 1.Trường hợp kết quả điểm kiểm có bất thường thì ghi ghi chép lại và xử lý theo chỉ thị của người
+phụ trách quản lý.
+2. Trường hợp kết quả điểm kiểm không có bất thường thì không cần ghi lại. Tuy nhiên, Tuy
+nhiên, nếu trong 1 tháng mà kkhông có lần nào bất thường thì cần ghi chép lại.
+3. Nếu khi sử dụng thấy có bất thường thì xử lý theo chỉ thị của người chịu trách nhiệm quản lý.
+
+--- HẾT TRANG ---
+
+Tiêu chuẩn hiệu chỉnh-điểm kiểm         BẢN LAI LỊCH CẢI ĐÔI               Dụng cụ đo  041-3  No.11/11
+Ký
+hiệu
+Ngày
+Ký sự（Nội dung cải đổi,…）
+Soạn
+thảo
+Xác nhận
+Công
+nhận
+
+2016.06.20
+
+Ban hành mới
+
+Mura
+yama
+
+Hatta Itou
+
+Ishino
+a
+2020.06.02
+Hủy Dụng cụ đo 043-2 「Nguồn ổn định điện áp một
+chiều/màn hình」, gộp thống nhất thành bản tiêu chuẩn này
+Dụng cụ đo 041-3
+・Ở phần xác nhận độ chính xác dòng điện, điện áp tại mục
+hiệu chỉnh thêm điểm hiệu chỉnh
+・Thống nhất tiêu chuẩn qui cách phán định độ chính xác
+xuất, đo tại hạng mục hiệu chỉnh thành trích dẫn từ độ chính
+xác tổng nơi sản xuất.
+・Tại phần Trích dẫn・văn b ản liên quan：※Điều chỉnh nội
+dung thuyết minh của Vo
+・Tại Phụ lục: Phương pháp xác nhận, ghi thêm 1 phần vào
+phần「Thiết đặt giới hạn điện áp, dòng điện」
+Ⅰ【Hiệu chỉnh】041-3_→041-3a ※Ⅱ【Điểm kiểm】041-3_
+（Không đổi）
+
+Ban chính BHCL công ty Mabuchi Motor
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "041-3-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH ĐIỂM KIỂM        マブチモーター（株）品質保証本部 - Nguồn ổn định điện áp một chiều (Kèm màn hình đo)                     Dụng cụ đo 041-3a",
+  "doc_code": "041-3",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

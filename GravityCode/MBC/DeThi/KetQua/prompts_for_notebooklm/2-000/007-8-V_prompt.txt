@@ -1,0 +1,346 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: BẢN TIÊU CHUẨN HIỆU CHỈNH ĐIỂM KIỂM DỤNG CỤ ĐO - Dụng cụ đo    007-8 a
+Mã số/Mã máy đo: 007-8
+File gốc: 007-8-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/5
+
+BẢN TIÊU CHUẨN HIỆU CHỈNH ĐIỂM KIỂM DỤNG CỤ ĐO
+Ban BHCL công ty Mabuchi Motor
+
+Ban hành 8/3/2016
+Cải đính    9/4/2024
+Dụng cụ đo    007-8 a
+
+Đồng hồ đo điện trở cách điện
+HIOKI IR4051,4052,4053,4054,4055
+
+I[Hiệu chỉnh]
+Dụng cụ chuẩn: Dụng cụ điện trở 6 nấc điều chỉnh[S58-1],đồng hồ điện áp cao
+[S56-1],dụng cụ đo điện trở chuẩn [S02-1], dụng cụ hiệu chỉnh dòng điện 1 chiều
+[S01-1], máy hiệu chỉnh đa giao thức [S01-3],
+
+Chu kỳ hiệu chỉnh: 12 tháng và khi cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+1.Đo điện trở cách
+điện
+
+Nối dụng cụ điện trở 6 nấc điều chỉnh vào chấu điện EARTH
+và chấu điện LINE của đồng đo diện rở cách điện( tham khảo
+hình bên dưới), nhấn nút MEAS, đọc trị biểu thị.
+Về việc hiệu chỉnh thì làm cho trị đo của dụng cụ điện trở 6
+nấc hợp với điểm hiệu chỉnh ở mỗi phạm vi đo của biểu 1 rồi
+tiến hành.
+
+Đồng hồ đo điện
+trở cách điện
+
+Dụng cụ điện trở 6 nấc điều chỉnh
+
+Biểu 1
+Phạm vi đo
+Điểm hiệu chỉnh
+Độ
+chính
+xác
+50V
+2MΩ(Trị trung tâm)
+±4%
+125V
+5MΩ(Trị trung tâm)
+250V
+10MΩ(Trị trung tâm)
+500V
+50MΩ(Trị trung tâm)
+1000V
+100MΩ(Trị trung tâm)
+
+Theo biểu 1
+
+MΩ
+○Ｈ □□.□□□□ＭΩ
+○Ｌ  ○○ ○○○○
+
+--- HẾT TRANG ---
+
+No.2/5
+
+I[Hiệu chỉnh]                              Dụng cụ đo 007-8 a
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phươngpháp
+phán định
+
+2. Đo điện trở thấp
+(Chỉ dùng cho IR4051,
+IR4052,IR4054)
+
+3.Độ chính xác điện áp
+xuất lực
+(1) Đảm bảo thực hiện điều chỉnh mức 0 trước khi đo.
+①Đặt công tắc xoay về Ω.
+② Đoản mạch các đầu của dây đo.
+③Bật phím MEASURE.
+④Tắt phím MEASURE và giữ giá trị đo được.
+⑤ Nhấn phím      0ΩADJ.
+(2)Nối chấu điện EARTH và chấu điện LINE của động hồ đo
+điện trở cách điện vào dụng cụ điện trở tiêu chuẩn. Nhấn nút
+MEAS và đọc trị biểu thị.
+Biểu 2
+Điểm hiệu chỉnh
+Độ chính xác
+0.1Ω
+±3digits
+1Ω
+±3%rdg.±2digits
+10Ω
+±3%rdg.±2digits
+100Ω
+±3%rdg.±2digits
+(1) Nối đồng hồ điện áp cao vào chấu điện EARTH và
+chấu điện LINE của đồng hồ đo điện trở cách điện.
+(tham khảo hình bên dưới)
+(2) Đọc trị biểu thị của đồng hồ điện áp cao ở mỗi phạm
+vi đo
+
+Đồng hồ đo điện trở
+cách điện
+
+Đồng hồ điện áp cao
+
+Biểu 3
+Phạm vi đo
+Phán định (V)
+50V
+50.0～60.0
+125V
+125.0～150.0
+250V
+250～300
+500V
+500～600
+1000V
+1000～1200
+
+Theo biểu 2
+
+Theo biểu 3
+
+GND
+○
+
+KV
+
+MΩ
+
+--- HẾT TRANG ---
+
+No.3/5
+
+I[Hiệu chỉnh]                                 Dụng cụ đo 007-8 a
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+4.Đo điện áp
+(1) Nối thiết bị hiệu chỉnh dòng điện 1 chiều ( hoặc máy hiệu
+chỉnh đa giao thức) vào chấu điện EARTH và chấu điện LINE
+của đồng hồ đo điện trở cách điện ( tham khảo hình bên dưới)
+(2) Xuất lực điện áp từ dụng cụ hiệu chỉnh dòng điện 1 chiều
+( hoặc máy chỉnh đa giao thức), phán định sự sai khác giữa trị
+biểu thị của đồng hồ điện trở cách điện đối với trị đo của dụng
+cụ hiệu chỉnh dòng điện 1 chiều (hoặc máy điều chỉnh đa giao
+thức)
+
+Đồng hồ đo điện
+trở cách điện
+
+Dụng cụ hiệu chỉnh dòng điện 1 chiều hoặc máy hiệu chỉnh đa giao
+thức.
+Biểu 4
+Điểm hiệu chỉnh
+Độ chính xác
+AC
+32V/55Hz
+±2.3%rdg.±8digits
+200V/55Hz
+600V/55Hz
+DC
+0.01V
+±1.3%rdg.±4digits
+±4V
+±40V
+±600V
+
+Theo biểu 4
+
+Trích dẫn -  Văn bản liên quan
+Quy cách phán định: quy cách nơi chế tạo
+
+MΩ
+□□.□□□□
+○H
+○L  ○○○○○
+
+--- HẾT TRANG ---
+
+No.4/5
+
+II [ĐIỂM KIỂM]            Đồng hồ đo điện trở cách điện                       Dụng cụ đo 007-8 a
+HIOKI IR4051,4052,4053,4054,4055
+
+Tiến độ điểm kiểm: Mỗi lần sử dụng, mỗi tháng 1 lần
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1. Ngoại quan
+
+2.Xác nhận điện áp pin
+
+(1)Xác nhận bằng mắt để không có sự không thích hợp nào
+gây hại khi đo đạc như là hư hỏng, trầy xước, bẩn.
+(2)Xác nhận việc kết nối của dây lead,…được tiến hành đúng
+và không có trường hợp nào lỏng dây
+
+Xác nhận có hay không có giảm điểm của khung đánh dấu
+pin
+Trường hợp có giảm điểm thì phải đổi pin
+
+Chú ý)1.Kết quả kiểm tra được ghi lại mỗi tháng một lần bất kể có bất thường hay không
+2.Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy
+ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu.
+Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện
+hiệu chỉnh
+
+--- HẾT TRANG ---
+
+Bản tiêu chuẩn hiệu
+chỉnh điểm kiểm
+Biểu lai lịch ban hành
+cải đính- hủy bỏ
+
+Dụng cụ đo  007-8    No.5/5
+
+Kí
+hiệu
+Ngày.
+Tháng
+năm
+
+MỤC GHI CHÚ（nội dung sửa đổi）
+Soạn
+thảo
+Xác nhận
+Tham
+khảo
+
+2016.03.08
+
+Ban hành mới
+
+Mi
+Matsu
+moto
+
+Murano Ito
+
+Ishino
+a
+2024.04.09
+・Bổ sung thể thức IR4054,4055
+・Hạng mục hiệu chỉnh 2. Chỉnh sửa đo điện trở thành “đo
+điện trở thấp”
+・Hạng mục hiệu chỉnh 2. Bổ sung đo điện trở thấp chỉ dùng
+cho IR4051, IR4052 và IR4054.
+・Hạng mục hiệu chỉnh 2. Bổ sung quy trình điều chỉnh zero
+để đo điện trở thấp
+・Hạng mục hiệu chỉnh  Sửa lại lỗi cho chính xác trong mục
+4. Đo điện áp
+・Ⅱ [Điểm kiểm]
+Tiến độ kiểm tra được sửa đổi thành “mỗi lần sử dụng và
+mỗi tháng một lần”
+Cải đính toàn bộ hạng mục chú ý
+
+Ban BHCL công ty cổ phần Mabuchi Motor
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "007-8-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH ĐIỂM KIỂM DỤNG CỤ ĐO - Dụng cụ đo    007-8 a",
+  "doc_code": "007-8",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

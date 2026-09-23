@@ -1,0 +1,50 @@
+{
+  "file_name": "091-7-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh, kiểm tra máy đo",
+  "doc_code": "Đo 091-7 a",
+  "target_audience": "Nhân viên/Đội trưởng phòng BHCL",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi thực hiện hiệu chỉnh điện áp xuất (Mục 1) cho máy kiểm tra xung, chu kỳ hiệu chỉnh định kỳ tiêu chuẩn được quy định là bao lâu?",
+      "options": {
+        "A": "Cứ mỗi 6 tháng và lúc cần",
+        "B": "Cứ mỗi 3 tháng và lúc cần",
+        "C": "Cứ mỗi 12 tháng và lúc cần",
+        "D": "Chỉ hiệu chỉnh một lần khi mua máy mới"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Mục I【Hiệu chỉnh】, Chu kỳ hiệu chỉnh: Cứ mỗi 12 tháng và lúc cần"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo mục II【Điểm kiểm】, tiến độ điểm kiểm và quy định ký lục đối với máy kiểm tra xung (CR25-018M/020M/A01M-AA) khi không có dị thường được quy định như thế nào?",
+      "options": {
+        "A": "Kiểm tra mỗi tuần một lần và phải ký lục kết quả mỗi ngày.",
+        "B": "Kiểm tra mỗi lần sử dụng; nếu không có dị thường thì không cần ký lục kết quả ngay, tuy nhiên 1 tháng phải ký lục nội dung 1 lần.",
+        "C": "Kiểm tra mỗi tháng một lần và ký lục kết quả mỗi lần kiểm tra.",
+        "D": "Không cần kiểm tra hàng ngày, chỉ ký lục khi phát hiện dị thường."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 6, Mục II【Điểm kiểm】, Tiến độ điểm kiểm: Mỗi lần sử dụng, Chú ý số 2."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình hiệu chỉnh điện áp đầu vào (Mục 2), quy tắc an toàn và kết nối nào sau đây là BẮT BUỘC để tránh gây hư hỏng thiết bị?",
+      "options": {
+        "A": "Tuyệt đối không được ngắt nguồn điện của máy kiểm tra xung trong lúc đang nối máy phát sóng; và không nối máy kiểm tra xung PLS2, OUT2, MON2 vì không sử dụng.",
+        "B": "Phải ngắt nguồn máy kiểm tra xung trước tiên bất kể thiết bị khác đang hoạt động hay không.",
+        "C": "Có thể ngắt nguồn máy kiểm tra xung bất cứ lúc nào miễn là giữ nguyên kết nối cáp BNC.",
+        "D": "Được phép nối đồng thời các cổng PLS2, OUT2, MON2 để tăng độ chính xác khi đo."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 3, Mục 2. Điện áp đầu vào, Phần <Hạng mục chú ý>"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

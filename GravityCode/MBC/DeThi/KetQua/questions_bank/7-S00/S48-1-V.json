@@ -1,0 +1,50 @@
+{
+  "file_name": "S48-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH MÁY TIÊU CHUẨN - Dụng cụ đo dùng kim",
+  "doc_code": "S 48 -1g",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, chu kỳ hiệu chỉnh định kỳ hiện tại đối với dụng cụ đo dùng kim (S 48 -1g) là bao lâu?",
+      "options": {
+        "A": "6 tháng một lần",
+        "B": "12 tháng (1 năm)",
+        "C": "2 năm",
+        "D": "3 năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: [Hiệu chỉnh] Chu kỳ hiệu chỉnh 2 năm; Trang 3: Lần sửa đổi f (03.03.2009): Thay đổi chu kì hiệu chỉnh 12 tháng → 2 năm"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục kiểm tra kỹ thuật, trị số qui cách đối với 'Lỗi chỉ thị' và 'Lỗi trả lại' của máy đo tiêu chuẩn SICHIZUN là bao nhiêu?",
+      "options": {
+        "A": "Dưới 0.15 µm cho cả hai lỗi",
+        "B": "± 1.0 µm",
+        "C": "± 0.5 µm đối với Lỗi chỉ thị và 0.5 µm đối với Lỗi trả lại",
+        "D": "± 0.2 µm đối với Lỗi chỉ thị và 0.1 µm đối với Lỗi trả lại"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Hạng mục kiểm tra - Lỗi chỉ thị: ± 0.5 µm; Lỗi trả lại: 0.5 µm"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Phạm vi nhiệt độ môi trường được quy định trong tiêu chuẩn hiệu chỉnh máy đo tiêu chuẩn SICHIZUN là bao nhiêu?",
+      "options": {
+        "A": "20 ± 5ºC",
+        "B": "23 ± 5ºC",
+        "C": "25 ± 2ºC",
+        "D": "25 ± 5ºC"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Phạm vi nhiệt độ 23 ± 5ºC Độ ẩm tương đối 45 ~ 85 %"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

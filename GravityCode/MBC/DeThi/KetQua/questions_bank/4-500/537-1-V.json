@@ -1,0 +1,50 @@
+{
+  "file_name": "537-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN ĐIỀM KIỆM HIỆU CHÍNH DỤNG CỤ ĐO (Máy đo hình dáng độ nhám bề mặt Tokyo Seimitsu surfcom 554A, 475A, 574A, 200B)",
+  "doc_code": "537-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi thực hiện chấm dầu cho dụng cụ đo tại mục II (Điểm kiểm), tần suất tháo nắp trên của trụ ra và châm dầu vào bộ phận đỡ trục 1 được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần",
+        "B": "Mỗi tháng 1 lần",
+        "C": "6 tháng 1 lần",
+        "D": "1 năm 1 lần"
+      },
+      "correct_answer": "D",
+      "reference_note": "Trang 3: Điểm kiểm 5: Châm dầu - (2) Tháo nắp trên của trụ ra, chi châm dầu vào bộ phận đỡ trục 1 năm 1 lần."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo mục I (Hiệu chỉnh) của tiêu chuẩn, chu kỳ hiệu chỉnh đối với dụng cụ đo 537-1 g được quy định là bao lâu?",
+      "options": {
+        "A": "1 tháng và khi đã được xác định là cần thiết",
+        "B": "Mỗi 3 tháng và khi được xác định là cần thiết",
+        "C": "6 tháng 1 lần",
+        "D": "1 năm 1 lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Chú ký hiệu chỉnh: Mỗi 3 tháng và khi được xác định là cần thiết"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục II (Điểm kiểm), khi kiểm tra tình trạng của kim đo, ta cần xác định vấn đề quan trọng nào để đảm bảo độ chính xác?",
+      "options": {
+        "A": "Xác định xem thân kim đo có bị dính bụi bẩn hay dầu mỡ hay không",
+        "B": "Xác định đầu kim đo có bị mẻ hay không bằng máy phóng ảnh hoặc kính hiển vi",
+        "C": "Xác định xem kim đo có bị uốn cong quá 45 độ hay không",
+        "D": "Xác định độ dài tự do của kim đo có vượt quá 5mm hay không"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: Điểm kiểm 2: Tình trạng của kim đo - Xác định đầu kim đo có bị mẻ hay không bằng máy phóng ảnh hoặc kính hiển vi."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

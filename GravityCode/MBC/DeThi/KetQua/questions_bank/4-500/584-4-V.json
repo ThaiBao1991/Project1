@@ -1,0 +1,50 @@
+{
+  "file_name": "584-4-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Cân phân tích điện tử METTLER TOLEDO Series MS",
+  "doc_code": "584-4 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi thực hiện hạng mục 'Hiệu chỉnh độ nhạy theo quả cân chuẩn bên trong' tại mục điểm kiểm 5, thao tác nào là CHÍNH XÁC theo hướng dẫn?",
+      "options": {
+        "A": "Lựa chọn 'ADJ.INT' trong CAL ở Menu Advance, sau đó thực thi điều chỉnh cho đến khi màn hình hiện ra 'ADJ DONE' thì kết thúc",
+        "B": "Đặt quả cân chuẩn ngoài 1000g lên đĩa cân và nhấn phím O/T",
+        "C": "Hiệu chỉnh thủ công bằng vít điều chỉnh cơ học ở phía sau cân",
+        "D": "Tắt nguồn cân, khởi động lại và chọn chế độ tự động hoàn toàn"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2: '(1) Lựa chọn “ ADJ.INT” trong CAL ở Menu Advance (2) Ấn nút , thực thi điều chỉnh cho đến khi màn hình hiện ra “ADJ DONE” thì kết thúc'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, tiến độ điểm kiểm đối với cân phân tích điện tử METTLER TOLEDO Series MS được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: 'Tiến độ điểm kiểm: Mỗi lần sử dụng'"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trong trường hợp phát sinh những bất thường trong quá trình kiểm tra/sử dụng cân, nhân viên phải thực hiện thao tác nào sau đây?",
+      "options": {
+        "A": "Tự ý tháo cân ra kiểm tra mạch điện bên trong",
+        "B": "Tiếp tục sử dụng nếu sai số nhỏ hơn 0.05g",
+        "C": "Ghi chép lại trong kết quả kiểm tra rồi xử lý theo chỉ thị của quản lý",
+        "D": "Bỏ qua không cần ghi chép nếu trong vòng 1 tháng không xảy ra lỗi"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: 'Chú ý）1. Trong trường hợp phát sinh những bất thường hãy ghi chép lại trong kết quả kiểm tra rồi xử lý theo chỉ thị của quản lý.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

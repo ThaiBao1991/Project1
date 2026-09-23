@@ -1,0 +1,50 @@
+{
+  "file_name": "531-9-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản Tiêu Chuẩn Điểm Kiểm Hiệu Chỉnh Máy Đo (Capacitance Meter)",
+  "doc_code": "Đo đạc 531-9",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Tại điều kiện đo 1kHz (Sóng hình sin) và điện áp 1V, trị cho phép đối với phạm vi đo từ 2nF đến 20μF là bao nhiêu?",
+      "options": {
+        "A": "±(0.4% + 3digit)",
+        "B": "±(0.3% + 2digit)",
+        "C": "±(0.5% + 1digit)",
+        "D": "±(0.2% + 5digit)"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trích bảng thông số trang 1: Phạm vi đo 2nF, 20nF, 200nF, 2uF, 20uF có trị cho phép là ±(0.3% + 2digit)"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình điểm kiểm hoặc sử dụng, nếu phát hiện kết quả dị thường hoặc có sự cố phát sinh, nhân viên phải thực hiện hành động nào sau đây?",
+      "options": {
+        "A": "Tự ý tháo máy ra kiểm tra và sửa chữa để đảm bảo tiến độ.",
+        "B": "Tiếp tục sử dụng nếu thấy sai số không đáng kể.",
+        "C": "Ghi lại kết quả đó và xử lý theo chỉ thị của người có trách nhiệm quản lý.",
+        "D": "Chỉ cần báo cáo miệng cho đồng nghiệp ca sau biết."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trích mục Chú ý (trang 2): Kết quả điểm kiểm phát sinh dị thường thì ghi lại kết quả đó và xử lý theo chỉ thị của người có trách nhiệm quản lý."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, chu kỳ hiệu chỉnh đối với máy đo Capacitance Meter (RST Model 6661) được quy định như thế nào?",
+      "options": {
+        "A": "Định kỳ 6 tháng một lần.",
+        "B": "Khi cần thiết nhưng không được quá 12 tháng.",
+        "C": "Mỗi khi thay đổi ca làm việc.",
+        "D": "Chỉ hiệu chỉnh khi máy có dấu hiệu hư hỏng nặng."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trích mục I: Chu kỳ hiệu chỉnh - Khi cần thiết (không quá 12 tháng)"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

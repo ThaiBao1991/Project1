@@ -1,0 +1,50 @@
+{
+  "file_name": "515-4-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN KIỂM TRA VÀ HIỆU CHỈNH DỤNG CỤ ĐO (Thước DI / Đồng hồ kĩ thuật số)",
+  "doc_code": "515-4",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Khi thực hiện kiểm tra 'Độ ổn định chỉ thị của đồng hồ đọc số' (Mục II.3), sau khi chỉnh về 0, người kiểm tra phải cho trục chính lên xuống bao nhiêu lần để xác nhận xem toàn bộ các lần có về 0 hay không?",
+      "options": {
+        "A": "Lên xuống từ 2 ~ 3 lần.",
+        "B": "Lên xuống từ 4 ~ 5 lần.",
+        "C": "Lên xuống liên tục 10 lần.",
+        "D": "Chỉ cần kiểm tra 1 lần duy nhất, không cần cho lên xuống."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5, mục 3. Độ ổn định chỉ thị của đồng hồ đọc số, bước (2): 'Sau khi chỉnh xong cho trục chính lên xuống 4~5 lần ở trạng thái mục 1, đọc từng lần và xác nhận xem toàn bộ các lần có về 0 không.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo mục Chú ý của tiêu chuẩn kiểm tra đồng hồ kĩ thuật số, trường hợp kết quả kiểm tra bình thường (không có gì bất thường) thì việc ghi chép kết quả được quy định như thế nào?",
+      "options": {
+        "A": "Hoàn toàn không cần ghi chép lại trong mọi trường hợp.",
+        "B": "Phải ghi chép lại đầy đủ sau mỗi lần sử dụng.",
+        "C": "Không ghi lại kết quả kiểm tra cũng được, tuy nhiên, một lần một tháng cho dù không có gì khác thường thì cũng phải ghi chép lại những điều đó.",
+        "D": "Chỉ cần ghi chép báo cáo tổng hợp vào ngày cuối cùng của năm tài chính."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 5, mục Chú ý, khoản 2: 'Kết quả kiểm tra, trường hợp không có gì bất thường thì không ghi lại kết quả kiểm tra cũng được, tuy nhiên, một lần một tháng cho dù không có gì khác thường thì cũng phải ghi chép lại những điều đó.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn kiểm tra số 515-4 e, chu kỳ kiểm tra định kỳ đối với dụng cụ 'Đồng hồ kĩ thuật số' được quy định như thế nào?",
+      "options": {
+        "A": "Định kỳ 12 tháng một lần.",
+        "B": "Mỗi lần sử dụng.",
+        "C": "Định kỳ 6 tháng một lần.",
+        "D": "Chỉ kiểm tra khi phát hiện sản phẩm có lỗi kích thước."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5, mục II [Kiểm tra] - Chu kỳ kiểm tra: Mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "005-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định Dụng cụ đo số vòng quay",
+  "doc_code": "005-1c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu chuẩn, tiến độ kiểm tra cho mục 'Dấu hiệu bất thường khi phát quang và quá trình biểu thị của Digital' được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi ngày một lần trước khi bắt đầu sản xuất",
+        "B": "Mỗi lần sử dụng",
+        "C": "12 tháng một lần",
+        "D": "6 tháng một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "II 【Kiểm tra】 - Tiến độ kiểm tra: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Phương pháp phán định đối với dụng cụ đo số vòng quay khi đo ở mức chưa đến 10000 rpm là gì?",
+      "options": {
+        "A": "10000 rpm ± 10 rpm",
+        "B": "10000 rpm ± 5 rpm",
+        "C": "10000 rpm ± 1 rpm",
+        "D": "Không giới hạn sai số"
+      },
+      "correct_answer": "C",
+      "reference_note": "I 【Hiệu chỉnh】 - Phương pháp phán định: Chưa đến 10000 rpm ± 1 rpm"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý về ghi chép kết quả kiểm tra, trường hợp kết quả kiểm tra không thấy bất thường thì phải thực hiện việc ghi chép như thế nào?",
+      "options": {
+        "A": "Tuyệt đối không cần ghi chép bất cứ lúc nào",
+        "B": "Chỉ cần ghi chép lại mỗi năm một lần",
+        "C": "Không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra",
+        "D": "Phải ghi chép đầy đủ kết quả vào biên bản sau mỗi 2 giờ làm việc"
+      },
+      "correct_answer": "C",
+      "reference_note": "II 【Kiểm tra】 - Ghi chú: 2. Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

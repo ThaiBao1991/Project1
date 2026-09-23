@@ -1,0 +1,50 @@
+{
+  "file_name": "609-1-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "ĐỒNG HỒ ĐỌC SỐ DẠNG KẸP ĐO ĐƯỜNG KÍNH TRONG MITUTOYO",
+  "doc_code": "609-1 c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn kỹ thuật, chu kỳ hiệu chỉnh định kỳ đối với đồng hồ đọc số dạng kẹp đo đường kính trong Mitutoyo là bao lâu?",
+      "options": {
+        "A": "6 tháng và khi thấy cần thiết",
+        "B": "12 tháng và khi thấy cần thiết",
+        "C": "24 tháng và khi thấy cần thiết",
+        "D": "36 tháng và khi thấy cần thiết"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, phần I [Hiệu chỉnh], mục 'Chu kỳ hiệu chỉnh: 24 tháng và khi thấy cần thiết'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ kiểm tra (ngoại quan và hoạt động của kim) đối với đồng hồ đọc số dạng kẹp đo đường kính trong được thực hiện khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước khi hiệu chỉnh 24 tháng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, phần II [Điểm Kiểm], mục 'Tiến độ kiểm tra: Mỗi lần sử dụng'"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục Chú ý về điểm kiểm, trong trường hợp kết quả điểm kiểm không có bất thường, việc ghi chép sổ sách cần tuân thủ quy định nào sau đây?",
+      "options": {
+        "A": "Không cần ghi chép bất cứ điều gì dưới mọi hình thức",
+        "B": "Không ghi kết quả cũng được nhưng cho dù trong tháng đó không phát sinh bất thường cũng phải ghi chú không có bất thường gì xảy ra",
+        "C": "Phải lập báo cáo sự cố ngay lập tức gửi cho cấp trên",
+        "D": "Chỉ ghi chép lại khi có yêu cầu kiểm toán từ khách hàng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, phần II [Điểm Kiểm], mục 'Chú ý', điều 2"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

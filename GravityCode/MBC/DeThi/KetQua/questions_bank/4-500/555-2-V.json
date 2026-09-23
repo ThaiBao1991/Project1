@@ -1,0 +1,50 @@
+{
+  "file_name": "555-2-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN KIỂM TRA VÀ HIỆU CHỈNH DỤNG CỤ ĐO - Thước đo đường kính có gắn thang đo BA-NIYA",
+  "doc_code": "555-2f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi kiểm tra độ chính xác thao tác lặp lại tại điểm 0 của thước, sau khi làm sạch jaw và cho bộ phận trượt hoạt động để các jaw khớp với nhau, cần thực hiện thao tác xác nhận điểm 0 bao nhiêu lần?",
+      "options": {
+        "A": "1 lần",
+        "B": "2 lần",
+        "C": "3 lần",
+        "D": "5 lần"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, mục 2 (Độ chính xác thao tác lặp lại tại điểm 0): 'Tương tự, cho bộ phận trượt hoạt động thêm 3 lần, xác nhận độ chính xác.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ kiểm tra đối với thước đo đường kính có gắn thang đo BA-NIYA được quy định như thế nào?",
+      "options": {
+        "A": "Kiểm tra định kỳ 1 tháng một lần",
+        "B": "Tùy vào sử dụng",
+        "C": "Kiểm tra định kỳ 6 tháng một lần",
+        "D": "Kiểm tra định kỳ 12 tháng một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, phần II Kiểm tra: 'Tiến độ kiểm tra: Tùy vào sử dụng'"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Về kết quả kiểm tra, trong trường hợp không có dị thường nhưng dù không có dị thường thì thời hạn ghi chép lại điều đó là bao lâu?",
+      "options": {
+        "A": "Mỗi ca làm việc",
+        "B": "Một tuần một lần",
+        "C": "Một tháng một lần",
+        "D": "Một năm một lần"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, Chú ý mục 2: '...dù không có dị thường cũng phải ghi chép lại điều đó một tháng một lần'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

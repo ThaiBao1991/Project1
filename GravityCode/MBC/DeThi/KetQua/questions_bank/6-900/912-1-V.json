@@ -1,0 +1,50 @@
+{
+  "file_name": "912-1-V.pdf",
+  "folder_name": "6-900 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh và điểm kiểm dụng cụ đo Đồng hồ quản lý tải trọng thiết bị phụ trợ",
+  "doc_code": "CE03-031M-AA/ CL06-003M-AA/CL11-001H-AA",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn kiểm tra dụng cụ đo, tiến độ điểm kiểm (tần suất kiểm tra ngoại quan và lượng pin khô) đối với đồng hồ quản lý tải trọng thiết bị phụ trợ được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi khi sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Mỗi 24 tháng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 6: 'Tiến độ điểm kiểm: mỗi khi sử dụng'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Đối với mã số thiết bị CL11-001H-AA, hạng mục tính lặp lại (độ chính xác đối với dung lượng định mức) được quy định là bao nhiêu?",
+      "options": {
+        "A": "0.1%",
+        "B": "0.5%",
+        "C": "0.2%",
+        "D": "1.0%"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Bảng phương pháp phán định/hạng mục hiệu chỉnh cho CL11-001H-AA (Tính lặp lại: 0.2%)"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo phần ghi chú điểm kiểm dụng cụ đo (Trang 6), khi trường hợp kết quả kiểm tra không thấy bất thường nhưng quy định về việc ghi chép được thực hiện ra sao?",
+      "options": {
+        "A": "Tuyệt đối không được ghi chép lại trong mọi trường hợp nếu không có bất thường.",
+        "B": "Không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.",
+        "C": "Phải ghi chép lại chi tiết từng giờ làm việc trong ngày vào sổ quản lý.",
+        "D": "Chỉ cần báo cáo miệng cho người quản lý mà không cần ghi vào sổ."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 6: 'Ghi chú 2. Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

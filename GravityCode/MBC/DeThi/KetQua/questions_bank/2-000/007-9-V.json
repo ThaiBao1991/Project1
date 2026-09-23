@@ -1,0 +1,50 @@
+{
+  "file_name": "007-9-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN KIỂM TRA HIỆU CHỈNH MÁY ĐO - Máy đo điện trở cách điện HIOKI ST5520/ST5520-01",
+  "doc_code": "007-9",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, tiến độ kiểm tra mục 'Ngoại quan' (Không được có vỡ, nứt, rách ở lớp che phủ của dây lead test) đối với máy đo điện trở cách điện được quy định khi nào?",
+      "options": {
+        "A": "Mỗi 12 tháng",
+        "B": "Mỗi khi sử dụng",
+        "C": "Mỗi tuần một lần",
+        "D": "Trước khi giao ca"
+      },
+      "correct_answer": "B",
+      "reference_note": "II【Điểm kiểm】 - Tiến độ điểm kiểm: Mỗi khi sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nhằm phòng chống điện giật khi tiến hành hiệu chỉnh máy đo điện trở cách điện, nhân viên bắt buộc phải tuân thủ quy định an toàn nào sau đây?",
+      "options": {
+        "A": "Phải đeo găng tay cao su cách điện",
+        "B": "Phải ngắt toàn bộ hệ thống thông gió",
+        "C": "Phải đứng trên thảm chống tĩnh điện ESD",
+        "D": "Phải sử dụng bút thử điện kiểm tra điện áp trước khi đo"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, phần I【Hiệu chỉnh】: ・Nhằm phòng chống điện giật khi hiệu chỉnh thì phải sử dụng bao tay cao su cách điện."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Trong quá trình thực hiện hiệu chỉnh máy đo điện trở cách điện, nếu phát hiện trị đo nằm ngoài quy cách phán định thì phải xử lý như thế nào do thiết bị không có chức năng điều chỉnh?",
+      "options": {
+        "A": "Tự ý tháo máy ra để chỉnh biến trở bên trong",
+        "B": "Tiếp tục sử dụng và ghi chú vào báo cáo ca làm việc",
+        "C": "Tiến hành yêu cầu chỉnh sửa đến nơi chế tạo",
+        "D": "Hạ cấp thiết bị xuống dùng cho công đoạn phụ"
+      },
+      "correct_answer": "C",
+      "reference_note": "Phụ lục【Bản trình tự thao tác】mục ⑦: Ngoài ra, trường hợp đã đưa ra trị đo ngoài quy cách phán định thì phải tiến hành yêu cầu chỉnh sửa đến nơi chế tạo. (do thiết bị này không có chức năng điều chỉnh)"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

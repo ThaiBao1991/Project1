@@ -1,0 +1,357 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Bản tiêu chuẩn hiệu chỉnh-điểm kiểm    Ban chính BHCL công ty cổ phần Mabuchi Motor - Máy kiểm tra DV                                            Máy đo    043-4
+Mã số/Mã máy đo: 043-4
+File gốc: 043-4-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/7
+
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm    Ban chính BHCL công ty cổ phần Mabuchi Motor
+
+Ban hành  12.07.2021
+Cải đính    Năm th áng ngày
+Máy kiểm tra DV                                            Máy đo    043-4
+CR07-015M-BA
+
+Ι【Hiệu chỉnh】
+
+Dụng cụ tiêu chuẩn         Đồng hồ vạn năng kỹ thuật số[S13-1]
+
+Chu kỳ hiệu chỉnh     Mỗi 12 tháng và khi công nhận cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+<Chuẩn bị trước hiệu
+chỉnh>
+1. Điện áp dòng điện
+dùng cho máy phát
+sinh dao động hình
+sóng kiểm tra
+
+Mở thùng máy của máy kiểm tra DV, tiến hành làm ấm trong
+vòng 30 phút.
+(1) Kết nối chấu điện ＋ của đồng hồ vạn năng kỹ thuật số
+vào Pin TP9 kiểm tra trên bản mạch của phần bên trong
+máy kiểm tra biến trở DV, kết nối chấu điện －của đồng
+hồ vạn năng KTS vào một bên của điốt D12.
+
+(2) Xác nhận việc trị xuất lực (trị hiển thị ở đồng hồ vạn năng
+KTS) nằm trong quy cách.
+
+<Trình tự thao tác điều chỉnh>
+※Hạng mục chú ý
+・Điều chỉnh này thì chỉ tiến hành ở trường hợp có sai
+khác 50% trở lên đối với quy cách phán định của quy cách.
+・Trước khi điều chỉnh phải báo cáo kết quả hiệu chỉnh
+cho phòng ban sử dụng.
+・Ở biểu ký lục, phải ký lục cả 「trị trước điều chỉnh」，
+và「trị sau điều chỉnh」.
+
+Trị xuất lực (trị hiển thị đồng hồ vạn năng kỹ thuật số) thì
+không giới hạn ở 6.30V, mà tiến hành điều chỉnh bằng nút vặn
+điều chỉnh VR4 như hình dưới để điều chỉnh lại gần.
+
+6.30±0.03V
+
+--- HẾT TRANG ---
+
+No.2/7
+
+Ι【Hiệu chỉnh】                             Máy đo 043-4
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+2. Điện áp dòng điện
+tiêu chuẩn chuyển
+đổi A/D
+
+3. Span và Offset
+phần đầu vào
+chuyển đổi A/D
+
+(1) Kết nối chấu điện + của đồng hồ vạn năng KTS vào pin
+kiểm tra TP7 trên bản mạch bên trong máy kiểm tra DV,
+kết nối chấu điện – của đồng hồ vạn năng KTS vào pin
+kiểm tra TPG(A-GND).
+
+(2) Xác nhận việc trị xuất lực(trị hiển thị đồng hồ vạn năng
+KTS) nằm trong quy cách.
+
+<Trình tự thao tác điều chỉnh >
+※Hạng mục chú ý
+・Điều chỉnh này là chỉ tiến hành khi có trường hợp có
+sai lệch 50% trở lên đối với quy cách phán định.
+・Trước khi điều chỉnh phải báo cáo kết quả hiệu chỉnh
+cho phòng ban sử dụng.
+・Ở biểu ký lục, phải ký lục cả 「trị trước điều chỉnh」，
+và「trị sau điều chỉnh」.
+
+Trị xuất lực (trị hiển thị đồng hồ vạn năng kỹ thuật số) thì
+không giới hạn ở 2.00V, mà tiến hành điều chỉnh bằng nút vặn
+điều chỉnh VR1 như hình dưới để điều chỉnh lại gần.
+
+(1) Ở trạng thái bình thường, nhấn giữ nút SYSTEM CHECK
+trong vòng 1 giây trở lên.
+(2) Có âm thanh「BÍT」kêu lên, chuyển đổi sang chế độ check
+hệ thống (Step1：Đèn báo L1 sáng lên).
+(3) Đoản mạch chấu BNC(cổng vào) của mặt sau.
+
+2.00±0.01V
+
+Đoản mạch
+
+--- HẾT TRANG ---
+
+No.3/7
+
+Ι【Hiệu chỉnh】                            Máy đo 043-4
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+(4) Xác nhận trị số của phần biểu thị (toàn bộ) có trở thành
+「090」hay không.
+(5) Giải phóng chấu điện BNC(cổng vào) của mặt sau.
+
+(6) Xác nhận giá trị phần biểu thị (toàn bộ) có trở thành「254
+～255」không.
+<Trình tự thao tác điều chỉnh>
+※Hạng mục chú ý
+・Điều chỉnh này là chỉ tiến hành trường hợp phán định NG.
+・Phải báo cáo kết quả hiệu chỉnh với phòng ban sử dụng
+trước khi điều chỉnh.
+・Ở biểu ký lục phải ký lục cả「trị trước điều chỉnh」và「trị
+sau điều chỉnh」
+(1) Khi đoản mạch chấu điện BNC(cổng vào) của mặt sau, tiến
+hành điều chỉnh để giá trị phần biểu thì trở thành「090」bằng
+nút điều chỉnh VR2 như hình dưới.
+
+(2)Khi giải phóng chấu điện BNC(cổng vào) của mặt sau, tiến
+hành điều chỉnh để giá trị phần biểu thị trở thành「254～255」
+bằng nút điều chỉnh VR3 như hình dưới.
+
+(3) Nút điều chỉnh VR2 và VR3 thì vì có liên quan đến nhau
+nên phải lặp lại trình tự (1)～(2) ghi trên để điều chỉnh cho
+thích hợp.
+
+090±0
+
+254～255
+
+Giải phóng
+
+--- HẾT TRANG ---
+
+No.4/7
+
+Ι【Hiệu chỉnh】                            Máy đo 043-4
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+4. Điện áp xuất lực trị
+tuyệt đối
+
+(1) Tiếp tục hạng mục hiệu chỉnh 3, nhấn nút SYSTEM
+CHECK.
+(2) Có âm thanh「BÍT」kêu lên, chuyển sang chế độ kiểm tra
+hệ thống (Step 2：Đèn báo L2 sáng).
+(3) Kết nối đồng hồ vạn năng KTS vào chấu điện
+BNC(Monitor trị tuyệt đối) ở mặt sau.
+
+(4) Thiết đặt công tắc KTS ở mặt trước (trị tuyệt đối) ở
+「000」.
+(5) Xác nhận trị xuất lực (trị biểu thị đồng hồ vạn năng
+KTS )nằm trong quy cách.
+(6) Thiết đặt công tắc KTS của mặt trước (trị tuyệt đối) ở
+「130」.
+(7) Xác nhận trị xuất lực (trị biểu thị đồng hồ vạn năng KTS )
+nằm trong quy cách.
+
+<Trình tự thao tác điều chỉnh>
+※Hạng mục chú ý
+・Điều chỉnh này là chỉ tiến hành trường hợp phán định NG.
+・Phải báo cáo kết quả hiệu chỉnh với phòng ban sử dụng
+trước khi điều chỉnh.
+・Ở biểu ký lục phải ký lục cả「trị trước điều chỉnh」 và「trị
+sau điều chỉnh」.
+
+(1) Khi thiết đặt công tắc KTS của mặt trước (trị tuyệt đối) ở
+「000」, trị xuất lực (trị biểu thị đồng hồ vạn năng KTS ) thì
+không giới hạn ở 0.00V, tiến hành điều chỉnh bằng nút
+điều chỉnh VR6 như dưới đây để lại gần.
+
+0.00±0.05V
+
+13.00±0.05V
+
+Kết nối đồng hồ vạn năng KTS
+
+--- HẾT TRANG ---
+
+No.5/7
+
+Ι【Hiệu chỉnh】                            Máy đo 043-4
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+(2) Khi thiết đặt công tắc KTS (trị tuyệt đối) của mặt trước ở
+「130」, trị xuất lực(trị hiển thị đồng hồ vạn năng KTS) là
+không chỉ giới hạn ở 13.00V, tiến hành điều chỉnh bằng
+nút điều chỉnh VR5 dưới đây để điều chỉnh lại gần.
+
+※ Sau khi hoàn thành hạng mục hiệu chỉnh 4 thì phải
+tiến hành như dưới đây để trở về chế độ bình thường.
+① Nhấn nút SYSTEM CHECK →Phát ra âm thanh 「BÍT」, L3
+sáng.
+②Nhấn nút SYSTEM CHECK →Hoàn thành với âm thanh
+「BÍT BÍT」.
+
+－Trích dẫn・văn b ản liên quan－
+PP hiệu chỉnh：tham khảo bản HDSD CR07-015M-BA-TA
+Quy cách phán định：Thiết đặt nội bộ
+
+--- HẾT TRANG ---
+
+No.6/7
+
+Ⅱ【Điểm kiểm】  Máy kiểm tra DV                         Máy đo  043-4
+CR07-015M-BA
+
+Tiến độ điểm kiểm      Mỗi lần sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1.Ngoại quan
+
+2.Trạng thái hiển thị
+
+(1) Bằng mắt, xác nhận không có BHC gây cản trở đo đạc
+như dơ bẩn, trầy xước, hư hỏng.
+
+(2) Xác nhận dây Lead được kết nối đúng, không bị lỏng.
+
+(3) Xác nhận sau khi cắm nguồn điện, không có mất hay
+khuyết ở biểu thị kỹ thuật số.
+
+Không có dị
+thường
+
+Không có dị
+thường
+
+Ghi chú
+(1) Trường hợp kiểm tra thấy bất thường, ghi chép lại kết quả đã kiểm tra và xử lý theo chỉ thị của người
+có trách nhiệm quản lý.
+(2) Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi
+tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.
+Trường hợp nhận thấy sự bất thường trong khi sử dụng, sẽ xử lý theo chỉ thị của người có trách nhiệm
+quản lý.
+
+--- HẾT TRANG ---
+
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm  Biểu lý lịch ban hành-cải đính-hủy bỏ
+Máy đo  043-4    No.7/7
+Ký
+hiệu
+Năm.th áng
+.ngày
+Ghi chép (Nội dung cải đính)
+Soạn
+thảo
+Xác
+nhận
+Công
+nhận
+
+2021.07.12
+
+Ban hành mới
+
+マブチモーター(株） 品質保証本部
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "043-4-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm    Ban chính BHCL công ty cổ phần Mabuchi Motor - Máy kiểm tra DV                                            Máy đo    043-4",
+  "doc_code": "043-4",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

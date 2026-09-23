@@ -1,0 +1,50 @@
+{
+  "file_name": "557-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Dụng cụ đo nhiệt độ đầu mũi hàn (Dạng Analog) Series SLACAD 300 SANKODENKI",
+  "doc_code": "557-1 f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi kiểm tra xác định giá trị áp đưa vào ứng với nhiệt độ 400 °C theo tiêu chuẩn JIS C (1602) Chủng loại E, điện áp tương ứng là bao nhiêu?",
+      "options": {
+        "A": "21.036 mV",
+        "B": "45.093 mV",
+        "C": "28.946 mV",
+        "D": "37.005 mV"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, bảng JIS C (1602) Chủng loại E: 400 °C ứng với 28.946 mV"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục Ghi chú phần [II Điểm kiểm], trường hợp kết quả kiểm tra không thấy bất thường nhưng mỗi tháng phải làm gì đối với kết quả đã kiểm tra?",
+      "options": {
+        "A": "Không cần ghi chép gì thêm nếu không có sự cố",
+        "B": "Ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra",
+        "C": "Báo cáo trực tiếp cho Trưởng phòng Quản lý chất lượng",
+        "D": "Lập biên bản hủy bỏ thiết bị đo ngay lập tức"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Ghi chú ý 2: 'Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ kiểm tra cho mục [II Điểm kiểm] của dụng cụ đo nhiệt độ đầu mũi hàn được thực hiện vào thời gian nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Một tháng một lần",
+        "D": "Sáu tháng một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Tiến độ kiểm tra: 'Mỗi lần sử dụng'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

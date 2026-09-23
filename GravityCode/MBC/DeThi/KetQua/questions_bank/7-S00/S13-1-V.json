@@ -1,0 +1,50 @@
+{
+  "file_name": "S13-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Thiết bị đo đa năng kỹ thuật số",
+  "doc_code": "S13-1s",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Cơ quan thực thi hiệu chỉnh theo tiêu chuẩn phải tuân thủ theo quy định nào dưới đây?",
+      "options": {
+        "A": "Là cơ quan được xác lập theo tiêu chuẩn quốc gia và tuân thủ A16-1",
+        "B": "Bất kỳ phòng thí nghiệm nội bộ nào của công ty",
+        "C": "Cơ quan kiểm định tư nhân không cần chứng nhận quốc gia",
+        "D": "Do trưởng bộ phận BHCL tự chỉ định không cần theo tiêu chuẩn"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 10: Cơ quan thực thi hiệu chỉnh: là cơ quan được xác lập theo tiêu chuẩn quốc gia và tuân thủ A16-1"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Điều kiện môi trường xung quanh được quy định khi tiến hành hiệu chỉnh thiết bị là gì?",
+      "options": {
+        "A": "Nhiệt độ 20±5℃, Độ ẩm tương đối 30～70%",
+        "B": "Nhiệt độ 25±5℃, Độ ẩm tương đối 50～90%",
+        "C": "Nhiệt độ 23±5℃, Độ ẩm tương đối 45～85%",
+        "D": "Nhiệt độ phòng ổn định 25℃, Độ ẩm dưới 60%"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Nhiệt độ xung quanh 23±5℃ Độ ẩm tương đối 45～85%"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh thiết bị đo đa năng kỹ thuật số (S13-1s), chu kỳ hiệu chỉnh định kỳ cho thiết bị là bao nhiêu?",
+      "options": {
+        "A": "6 tháng",
+        "B": "1 năm",
+        "C": "2 năm",
+        "D": "3 năm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Chu kỳ hiệu chỉnh: 1 năm"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

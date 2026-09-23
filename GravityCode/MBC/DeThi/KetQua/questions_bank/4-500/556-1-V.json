@@ -1,0 +1,50 @@
+{
+  "file_name": "556-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - DỤNG CỤ MICROMETER ĐO PHÍA TRONG",
+  "doc_code": "556 - 1 g",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Phương pháp phán định độ chính xác tổng hợp của dụng cụ micrometer đo phía trong được tính theo công thức nào (với L là chiều dài đo lớn nhất tính bằng mm)?",
+      "options": {
+        "A": "±( 2 + L / 50 ) µm",
+        "B": "±( 10 + L / 10 ) µm",
+        "C": "±( 5 + L / 25 ) µm",
+        "D": "±( 1 + L / 100 ) µm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Hạng mục hiệu chỉnh 1. Độ chính xác tổng hợp - Phương pháp phán định ±( 5 + L / 25 ) µm"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi kết quả kiểm tra không thấy bất thường trong một tháng (không ghi kết quả mỗi lần), quy định ghi chép như thế nào?",
+      "options": {
+        "A": "Phải ghi lại kết quả đo chi tiết của tất cả các ngày trong tháng",
+        "B": "Không cần ghi chép bất cứ thứ gì trong cả năm",
+        "C": "Không ghi kết quả cũng được, nhưng cùng lúc là không có sự bất thường trong một tháng, sẽ ghi chép kết quả đó",
+        "D": "Làm báo cáo sự cố gửi lên cấp trên ngay lập tức"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3: Chú ý mục 2"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ kiểm tra đối với Dụng cụ micrometer đo phía trong được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Đầu mỗi ca làm việc",
+        "D": "Mỗi tháng một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Tiến độ kiểm tra - Mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

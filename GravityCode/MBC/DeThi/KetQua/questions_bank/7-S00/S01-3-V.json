@@ -1,0 +1,50 @@
+{
+  "file_name": "S01-3-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh dụng cụ, máy chuẩn (FLUKE 5080A)",
+  "doc_code": "S01-3a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Cơ quan thực thi hiệu chỉnh nào dưới đây được xác định là 'Công ty chuyên môn hiệu chỉnh trong nước (SQS:TQMC)' theo bảng phân định?",
+      "options": {
+        "A": "MMK",
+        "B": "TWM",
+        "C": "TKM",
+        "D": "VNM"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 6: Bảng cơ quan thực thi - TWM: Công ty chuyên môn hiệu chỉnh trong nước (SQS:TQMC)"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, chu kì hiệu chỉnh định kì đối với máy chuẩn 5080A là bao lâu?",
+      "options": {
+        "A": "6 tháng",
+        "B": "1 năm",
+        "C": "2 năm",
+        "D": "3 năm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: 【Hiệu chỉnh】 Chu kỉ hiệu chỉnh: 1 năm"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo điều kiện môi trường quy định khi thực hiện hiệu chỉnh máy 5080A, nhiệt độ xung quanh và độ ẩm tương đối phải tuân thủ giới hạn nào sau đây?",
+      "options": {
+        "A": "Nhiệt độ 15 ~ 35°C, Độ ẩm tương đối từ 70% trở xuống",
+        "B": "Nhiệt độ 20 ~ 30°C, Độ ẩm tương đối từ 80% trở xuống",
+        "C": "Nhiệt độ 15 ~ 35°C, Độ ẩm tương đối từ 85% trở xuống",
+        "D": "Nhiệt độ 25 ± 5°C, Độ ẩm tương đối từ 75% trở xuống"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: 【Hiệu chỉnh】 Nhiệt độ xung quanh 15 ~ 35°C, Độ ẩm tương đối từ 70% trở xuống"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

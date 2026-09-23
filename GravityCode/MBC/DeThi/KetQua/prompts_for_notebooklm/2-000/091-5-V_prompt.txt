@@ -1,0 +1,408 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Tài liệu tiêu chuẩn hiệu chuẩn - và điểm kiểm dụng cụ đo đạc
+Mã số/Mã máy đo: 091-5
+File gốc: 091-5-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/6
+Tài liệu tiêu chuẩn hiệu chuẩn
+và điểm kiểm dụng cụ đo đạc
+
+MÁY KIỂM TRA XUNG
+CR25-013M-AA
+Cty TNHH Mabuchi Motor
+Ban Bảo Hành Chất Lượng
+
+Ngày ban hành  20.07.1016
+Ngày sửa đổi : 28.07.2017
+Dụng cụ đo đạc  091-5a
+
+Ⅰ【Hiệu chuẩn】
+Dụng cụ chuẩn      Đồng hồ đo đa năng kỹ thuật số [S13-1]
+Chu kì hiệu chuẩn
+Mỗi 12 tháng và khi xác nhận thấy cần thiết
+
+Hạng mục
+hiệu chuẩn
+Phương pháp hiệu chuẩn
+Phương pháp
+phán định
+
+＜Dụng cụ hỗ
+trợ＞
+
+< Chuẩn bị
+trước hiệu
+chuẩn >
+
+1.< Độ chính
+xác điện áp ngõ
+ra Vcc >
+
++ Dây nối một đầu là dạng quả chuối, một đầu là dạng móc
+( tham khảo hình 1 )
++ dây nối một đầu BNC nối máy hình sóng, một đầu là dạng quả
+chuối (tham khảo hình 2 )
+Qui cách tương đương MISUMI: BNC50-1603-1
++ Dây nối ngắn mạch 2 đầu dạng móc (hình 3)
+Hình 1            hình 2           hình 3
+
+(1) Kết nối nguồn điện chính
+① Hãy chắc chắn rằng nguồn điện AC không được kết nối với máy
+kiểm tra xung. Mở nắp hộp điện ra
+② Chắc chắn công tắc nguồn hộp điện đã OFF. Kết nối dây nguồn
+hộp điện với nguồn chính
+③ Mở công tắc nguồn lên ON đèn led báo nguồn sẽ sang
+(2) Cài đặt điện áp ngõ ra Vcc/Vth
+① Nhấn Setting(設定) trên màn hình, nhấn Next(次へ) vài
+lần đến khi màn hình hiển thị điện áp Vcc và Vth.
+② Cài đặt Vcc/Vth là 5.0V
+③ Nhấn NEXT(次へ) vài lần để về màn hình chính
+Nếu màn hình không có hiển thị thì cài đặt chưa thành công
+
+(1) Cắm dây kết nối hình quả chuối như hình 1 vào đồng hồ đo đa
+năng kỹ thuật số( ở đây là đồng hồ chuẩn)cắm vào đồng hồ trước.
+※ Hãy chắc chắn kết nối đúng như bên trên vì nếu làm sai thì có thể
+sẽ làm cho máy kiểm tra xung bị hư nếu như tiếp xúc đầu quả chuối
+với đầu móc bên dưới(2)
+(các kết nối khác cũng sẽ thực hiện tượng tự như trên)
+
+Đầu móc
+Đầu quả chuối
+Đầu máy hình sòng
+Đầu quả chuối
+2 Đầu móc
+03.10.2019
+091-5b
+
+--- HẾT TRANG ---
+
+No. 2／6
+
+Ⅰ【Hiệu chuẩn】                                         Dụng cụ đo đạc  091-5a
+
+Hạng mục hiệu
+chuẩn
+Phương pháp hiệu chuẩn
+Phương pháp
+phán định
+
+2. < Độ chính
+xác điện áp ngõ
+ra Vth >
+
+3. < Độ chính
+xác điện áp ngõ
+ra OUT1 >
+
+(2) Kết nối đầu móc của dây kết nối hình 1 vào bản mạch máy kiểm
+tra xung đầu móc dương màu đỏ (+) vào pin CP1 đầu móc âm
+màu đen (-) vào CP4
+
+(3) Xác nhận điện áp Vcc xuất ra dụng cụ chuẩn và phán định
+Tháo dây kết nối ra khỏi bản mạch
+
+(1) Cắm dây kết nối hình quả chuối như hình 2 vào đồng hồ đo đa
+năng kỹ thuật số( ở đây là đồng hồ chuẩn)cắm vào đồng hồ
+trước. Kết nối đầu BNC vào chân Vth của máy kiểm tra xung
+
+(2) Xác nhận điện áp Vth xuất ra dụng cụ chuẩn và phán định
+Tháo dây kết nối ra khỏi bản mạch
+(1) Làm ngắn mạch CP2 và CP4 bằng dây nối như hình 3
+
+(2) Kết nối đầu BNC với ngõ ra OUT1 của hộp kiểm tra xung
+đầu quả chuối còn lại đấu vào máy chuẩn
+
+(3) Xác nhận điện áp OUT1 xuất ra dụng cụ chuẩn và phán
+định
+Tháo dây kết nối ra khỏi bản mạch
+
+5.0±0.05[V]
+
+5.0±0.05[V]
+
+0.0±0.05[V]
+
+Móc âm
+Móc dương
+091-5b
+
+--- HẾT TRANG ---
+
+No. 3／6
+
+Ⅰ【Hiệu chuẩn】                                         Dụng cụ đo đạc  091-5a
+
+Hạng mục hiệu
+chuẩn
+Phương pháp hiệu chuẩn
+Phương pháp
+phán định
+
+4. < Độ chính
+xác điện áp ngõ
+ra OUT2 >
+
+5. < Độ chính
+xác hiển thi
+điện áp ngõ ra
+phase A >
+
+6. < Độ chính
+xác hiển thi
+điện áp ngõ ra
+phase B >
+
+(1) Tháo dây đoản mạch CP2 và CP4 ra sau đó làm đoản mạch pin
+CP3 với CP4
+
+(2) Kết nối đầu BNC với ngõ ra OUT2 của hộp kiểm tra xung đầu
+quả chuối còn lại đấu vào máy chuẩn
+
+(3) Xác nhận điện áp OUT2 xuất ra dụng cụ chuẩn và phán định
+(4) Tháo dây BNC khỏi OUT2 và chuyển sang chân Vth
+(1) Tháo dây đoản mạch pin CP3 và CP4 ra
+(2) Chọn OPTION(オプション) trên màn hình Menu tới màn hình
+điện áp (phase A/ phase B)
+
+(3) Làm đoản mạch Pin CP1 và CP2 bằng dây nối hình 3
+
+(4) So sánh giá trị phase A trên hộp điện với giá trị đo trên máy
+chuẩn và phán định
+
+(1) Tháo dây đoản mạch chân pin CP1 và CP2 ra. Làm đoản mạch
+chân pin CP1 với CP3
+(2) So sánh giá trị phase B trên hộp điện với giá trị đo trên máy
+chuẩn và phán định
+
+0.0±0.05[V]
+
+Trị đo của máy
+chuẩn
+±0.05[V]
+
+Trị đo của máy
+chuẩn
+±0.05[V]
+
+(3) Xác nhận điện áp xuất ra từ chấu điện OUT2 và xác nhận.
+Tháo chấu điện BNC đã kết nối với chấu điện OUT2.
+091-5b
+(4) Đo điện áp suất lực từ chấu điện OUT1 bằng máy đo tiêu
+chuẩn.
+(2) Đo điện áp suất lực từ chấu điện OUT2 bằng máy đo tiêu
+chuẩn.
+
+--- HẾT TRANG ---
+
+No. 4／6
+
+Ⅰ【Hiệu chuẩn】                                         Dụng cụ đo đạc  091-5a
+
+Hạng mục hiệu
+chuẩn
+Phương pháp hiệu chuẩn
+Phương pháp
+phán định
+
+6. < Độ chính
+xác hiển thi
+điện áp ngõ ra
+phase B >
+(tiếp theo)
+(12) Tháo dây đoản mạch chân pin CP1 với CP3 ra.
+(13) Tắt nguồn hộp điện, rút dây điện khỏi nguồn
+(14) Hãy chắc chắn rằng đã rút hết nguồn điện kết nối với hộp điện
+kiểm tra xung, đóng nắp hộp điện lại.
+
+[ Hình ảnh bản mạch bên trong CR25-013MA ]
+
+Hình tổng thể bản mạch                         Hình Pin kiểm tra CP1 đến CP4
+
+Phía trước                                 Phía sau
+
+－Văn bản trích dẫn ．liên quan－
+Phương pháp hiệu chuẩn : Văn bản trình tự xác nhận CR25-013M-AA do nhóm khai phát thiết bị MMK cung
+cấp.
+Dung sai cho phép : Thiết định trong công ty từ trị thực lực.
+
+091-5b
+
+Xóa bỏ
+
+--- HẾT TRANG ---
+
+No. 5/6
+
+Ⅱ 【Điểm kiểm】                                       Dụng cụ đo đạc 091-5
+
+MÁY KIỂM TRA XUNG
+MÃ SỐ THIẾT BỊ : CR25-013M-AA
+
+Tiến độ kiểm tra                Mỗi lần sử dụng
+
+Hạng mục
+Điểm kiểm
+Phương pháp hiệu chuẩn
+Phương pháp
+phán định
+
+1.Ngoại quan
+
+2.Trạng thái biểu
+thị
+
+(1) Xác nhận bằng mắt không có không thích hợp như dơ,
+trầy, hư hại gây trở ngại khi đo.
+
+(2) Tiến hành tiếp xúc chính xác dây lead, xác nhận không bị
+lỏng
+
+Sau khi đưa nguồn điện vào, xác nhận biểu thị kĩ thuật số
+không bị khiếm khuyết, mất nét.v.v.
+
+Không có dị
+thường
+
+Không có dị
+thường
+
+Không có dị
+thường
+
+Ghi chuù
+1. Trường hợp kiểm tra thấy bất thường, ghi chép lại kết quả đã kiểm tra và xử lý theo chỉ thị của người có
+trách nhiệm quản lý.
+2. Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng
+phải ghi chép lại kết quả đã kiểm tra lại một lần dù không có gì bất thường xảy ra.
+3. Trường hợp nhận ra sự bất thường trong khi sử dụng, sẽ xử lý dựa vào chỉ thì của người có trách nhiệm
+quản lý.
+
+--- HẾT TRANG ---
+
+No. 6/6
+Duïng cuï ño ñaïc 091-5a
+Tài liệu tiêu chuẩn hiệu chuẩn điểm kiểm
+Biểu lý lịch ban hành, cải chính và hủy bỏ
+
+Dấu
+hiệu
+Ngày tháng
+năm
+Nội dung bao gồm những nội dung sửa đổi
+(bao gồm những nội dung sửa đổi)
+Soạn
+thảo
+
+Xác
+nhận
+
+Công
+Nhận
+
+20.07.2016
+Ban hành bản mới
+Kato
+(mastuyama)
+Hatta
+Ito
+
+Ishino
+
+a
+28.07.2017
+・Thay đổi Fig của hạng mục hiệu chuẩn 5.(2)
+・Thay đổi rev
+I【Hiệu chuẩn】 091-5 =>091-5a※Ⅱ【Điểm
+kiểm】 (không thay đổi)
+Kikuchi
+(KMT)
+Nara
+Ito
+Ishino
+
+Coâng ty Mabuchi Motor
+b
+091-5
+03.10.2019
+- Thay đổi hạng mục hiệu chỉnh 4.(3)
+- Bổ sung hạng mục hiệu chỉnh 5.(4). 6.(2)
+-  Xóa bỏ hạng mục hiệu chỉnh (tiếp tục hiệu
+chỉnh xuất lực 6.B)
+I [Hiệu chỉnh] 091-5a -> 091-5b * [Điểm kiểm]
+091-5 (không thay đổi)
+Tominaga
+Ishi
+Kikura
+Usui
+Itou
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "091-5-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chuẩn - và điểm kiểm dụng cụ đo đạc",
+  "doc_code": "091-5",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

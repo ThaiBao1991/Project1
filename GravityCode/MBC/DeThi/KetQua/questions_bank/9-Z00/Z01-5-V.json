@@ -1,0 +1,50 @@
+{
+  "file_name": "Z01-5-V.pdf",
+  "folder_name": "9-Z00 Ban V IT HOA",
+  "doc_title": "QUY CÁCH PHÁN ĐỊNH DIGITAL MULTIMETER HP,Agilent,Keysight",
+  "doc_code": "Z01-5d",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo quy định chung của tài liệu tiêu chuẩn hiệu chỉnh, khi có việc bổ sung quy cách phán định do bổ sung chủng loại thiết bị đo, nhân viên hoặc bộ phận liên quan phải thực hiện hành động bắt buộc nào?",
+      "options": {
+        "A": "Tự ý cập nhật danh mục vào máy đo mà không cần thông báo.",
+        "B": "Phải xin phép ban BHCL công ty chính ban hành mới-cải đính bản tiêu chuẩn dựa theo dụng cụ đo mã số A18-1.",
+        "C": "Chỉ cần báo cáo quản lý trực tiếp bằng miệng là đủ.",
+        "D": "Ngừng sử dụng tất cả các thiết bị đo hiện có."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Việc bổ sung quy cách phán định do bổ sung chủng loại, phải xin phép ban BHCL công ty chính ban hành mới-cải đính bản tiêu chuẩn dựa theo dụng cụ đo mã số A18-1."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Đối với kiểu máy 3458A trong mục Điện áp DC, quy định đặc biệt nào phải tuân thủ khi hiệu chỉnh?",
+      "options": {
+        "A": "Lấy dụng cụ đo S13-2 làm chuẩn, xem như là ngoại lệ.",
+        "B": "Hiệu chỉnh trực tiếp theo dải đo 1000V.",
+        "C": "Không cần hiệu chỉnh nếu không sử dụng.",
+        "D": "Phải xin phép ban BHCL công ty chính trước khi đo."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 3: Về “Hiệu chỉnh”phải lấy dụng cụ đo S13-2 làm chuẩn, xem như là ngoại lệ"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh Digital Multimeter, khi phát hiện trường hợp sử dụng chức năng ngoài phần ghi thì phải xử lý như thế nào?",
+      "options": {
+        "A": "Tự động hiệu chỉnh theo kinh nghiệm cá nhân.",
+        "B": "Bỏ qua chức năng đó và chỉ hiệu chỉnh các chức năng có sẵn.",
+        "C": "Phải yêu cầu nơi chế tạo hoặc là nhà cung cấp hiệu chỉnh.",
+        "D": "Lập biên bản hủy bỏ thiết bị đo."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Trường hợp sử dụng chức năng ngoài phần ghi thì phải yêu cầu nơi chế tạo hoặc là nhà cung cấp hiệu chỉnh"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

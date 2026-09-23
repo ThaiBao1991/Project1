@@ -1,0 +1,50 @@
+{
+  "file_name": "061-3-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Đồng hồ đo lượng quang tích bằng tia tử ngoại",
+  "doc_code": "061-3b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi kiểm tra độ nhạy đối với thân máy UIT-250 / UIT-250A kết hợp với máy cảm biến quang học tách rời UVD-S365, tiêu chuẩn phán định độ nhạy [μA/(W/cm2)] là bao nhiêu?",
+      "options": {
+        "A": "Từ 20 đến 100",
+        "B": "Từ 38 đến 150",
+        "C": "Từ 50 đến 200",
+        "D": "Từ 10 đến 80"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: UIT-250, UIT-250A với UVD-S365 có tiêu chuẩn phán định độ nhạy: 38≦ ≦150"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm (kiểm tra định kỳ và sử dụng) đối với đồng hồ đo lượng quang tích bằng tia tử ngoại được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần",
+        "B": "Mỗi tháng 1 lần & mỗi lần sử dụng",
+        "C": "Trước mỗi ca làm việc",
+        "D": "6 tháng 1 lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Tiến độ điểm kiểm: Mỗi tháng 1 lần & mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình xác nhận tác động ban đầu khi nhấn công tắc Power để hoàn tất bình thường, hạng mục chú ý nào sau đây là bắt buộc tuân thủ tuyệt đối để tránh sai số hoặc lỗi?",
+      "options": {
+        "A": "Phải bật nguồn đồng thời chiếu ánh sáng mạnh vào bề mặt thu nhận",
+        "B": "Không được chiếu ánh sáng lên bề mặt thu nhận ánh sáng trong thời gian này",
+        "C": "Phải kết nối cáp quang với máy tính trước khi bật nguồn",
+        "D": "Phải che kín hoàn toàn máy thu bằng băng dính đen chuyên dụng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Nhấn công tắc Power để hoàn tất bình thường (Hạng mục chú ý: Trong thời gian này, không được chiếu ánh sáng lên bề mặt thu nhận ánh sáng)"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

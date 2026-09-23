@@ -1,0 +1,50 @@
+{
+  "file_name": "532-6-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn điểm kiểm –Hiệu chỉnh máy đo",
+  "doc_code": "532-6 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Tần suất thực hiện điểm kiểm máy đo theo quy định trong tài liệu là khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần vào đầu tuần làm việc.",
+        "B": "Mỗi tháng một lần theo lịch cố định của phòng bảo hành.",
+        "C": "Mỗi khi sử dụng.",
+        "D": "Chỉ khi phát hiện máy đo có dấu hiệu bất thường."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3/4: 'Tần suất điểm kiểm: Mỗi khi sử dụng'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo tiêu chuẩn điểm kiểm, khi tiến hành kiểm tra ngoại quan thân và đầu dò Tesla, điều quan trọng bắt buộc nào phải được thực hiện ngoại trừ khi sử dụng đầu dò để đo?",
+      "options": {
+        "A": "Phải lau sạch đầu dò bằng cồn 90 độ trước mỗi lần đo.",
+        "B": "Phải chắc chắn đặt nắp acrylic trên đầu dò để bảo vệ nó.",
+        "C": "Phải tháo rời nắp acrylic và cất vào hộp đựng dụng cụ chuyên dụng.",
+        "D": "Phải bôi một lớp mỡ chuyên dụng để bảo vệ phần tử Hall khỏi ẩm."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3/4: 'Ngoại trừ khi sử dụng đầu dò để đo, hãy chắc chắn đặt nắp acrylic trên đầu dò để bảo vệ nó.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Trong quá trình chuẩn bị trước khi hiệu chỉnh mật độ từ thông bằng nam châm tiêu chuẩn, thao tác nào sau đây là đúng với quy trình?",
+      "options": {
+        "A": "Bật nguồn và tiến hành đo ngay lập tức không cần chờ đợi.",
+        "B": "Làm nóng trước ít nhất 10 phút sau khi bật nguồn.",
+        "C": "Giữ nguyên khóa PEAK bật trong suốt quá trình đo kiểm số 0.",
+        "D": "Chọn chế độ GAUSS bằng phím bấm trước khi nhấn ZERO."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1/4: 'Làm nóng trước ít nhất 10 phút sau khi bật nguồn'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

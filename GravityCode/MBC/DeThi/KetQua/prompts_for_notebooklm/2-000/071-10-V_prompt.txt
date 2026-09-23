@@ -1,0 +1,430 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Bản tiêu chuẩn hiệu chỉnh-điểm kiểm      Ban chính BHCL công ty cổ phần MAB - Bộ ghi dữ liệu                                   Máy đo   071-10 a
+Mã số/Mã máy đo: 071-10 a
+File gốc: 071-10-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/5
+
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm      Ban chính BHCL công ty cổ phần MAB
+
+Ban hành 10.09.2020
+Cải đính 20.02.2025
+Bộ ghi dữ liệu                                   Máy đo   071-10 a
+HIOKI LR8450+U8550
+
+Ι【Hiệu chỉnh】
+
+Máy hiệu chỉnh Multi-Product [S01-3]，Máy hiệu chỉnh cầm tay[S01-2]，
+Máy tiêu chuẩn  thiết bị hiệu chỉnh DC [S01-1] ,đồng hồ vạn năng kỹ thuật số [S13-1] ,
+nguồn điện ổn định DC (Ngoài đối tượng hiệu chỉnh)
+Chu kỳ hiệu chỉnh     24 tháng và khi được cho là cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+1.Độ chính xác đo điện
+áp
+
+Sau khi bật nguồn, hãy để ít nhất 30 phút làm nóng.
+
+Cấp điện áp quy chuẩn từ máy đo tiêu chuẩn đến 1CH của
+U8550 bộ đo điện áp/nhiệt độ, đọc sai số giữa giá trị hiển thị
+của thiết bị hiệu chỉnh và điện áp tiêu chuẩn
+＜Trình tự thao tác＞
+(1) Nới lỏng vít trên bệ chấu điện của bộ đo, lắp đầu cáp như
+hình minh họa và siết chặt vít.
+Kết nối máy đo tiêu chuẩn và bộ đo điện áp/ nhiệt độ
+Chỉ kết nối 1CH của bộ số 1 đo điện áp/nhiệt độ.
+
+(2) Nhấn nút set , thiết định các hạng mục tap chính và tap
+phụ.
+Đo đạc → Ghi chép
+Tiêu đề nhận xét   :Không cần nhập
+Khoảng thời gian ghi chép
+:10s
+Lặp lại việc ghi chép
+
+:OFF
+Thời gian ghi chép
+
+:Ghi chép liên tục
+Đo đạc → Lưu tự động
+Dữ liệu hình sóng    :OFF
+Đo đạc → Hiển thị
+Trục ngang
+
+:20s
+Tính toán → Tính toán trị số
+Tính toán trị số
+
+:OFF
+Các cài đặt kích hoạt, cảnh báo đều OFF hoặc không cần
+thiết
+
+Theo biểu 1
+
+Máy tiêu chuẩn
+
+--- HẾT TRANG ---
+
+No.2/5
+
+Ι【Hiệu chỉnh】                         Máy đo 071-10 a
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp phán
+định
+
+(3) Nhấn nút set chọn tap Kênh
+Dưới đây, thiết lập các hạng mục theo điều kiện thiết đặt.
+
+Kênh
+
+:Đo đạc UNIT1 U1-1 ☑
+Nhập
+
+:Điện áp
+Phạm vi
+
+:10mV～100V,1-5V
+(tham khảo biểu 1)
+Hiển thị
+
+:Vị trí
+
+Độ phóng đại *1
+
+Vị trí 0 là  0％
+Biểu 1 Điện áp tiêu chuẩn và quy cách phán định
+Phạm
+vi đo
+Điện áp tiêu
+chuẩn
+(Điểm hiệu
+chỉnh)
+Quy cách
+phán định
+10mV
+-10mV  10mV
+±0.01mV
+20mV
+-20mV  20mV
+±0.02mV
+100mV
+-
+100mV  100mV ±0.05mV
+200mV
+-
+200mV  200mV ±0.1mV
+1V
+-1V
+1V
+±0.0005V
+2V
+-2V
+2V
+±0.001V
+10V
+-10V
+10V
+±0.005V
+20V
+-20V
+20V
+±0.01V
+100V
+-100V
+100V
+±0.05V
+1-5V
+1V
+5V
+±0.005V
+
+(4) Chọn phạm vi đo theo biểu 1, cấp điện áp tiêu chuẩn
+từ dụng cụ tiêu chuẩn. Đọc và phán định sai số giữa
+giá trị hiển thị và điện áp tiêu chuẩn.
+
+Chọn phạm vi
+
+Ghi chép giá trị này
+※Chỉ trong phạm vi 100V, xuất điện áp 100V (ngoài đối
+tượng hiệu chỉnh) nguồn điện ổn định DC, kết nối song
+song với đồng hồ vạn năng kỹ thuật số[S13-1], phán định
+sự sai lệch từ giá trị hiển thị của đồng hồ vạn năng kỹ
+thuật số.
+
+Đồng hồ vạn
+năng kỹ thuật
+số
+Nguồn điện ổn
+định 1 chiều
+
+--- HẾT TRANG ---
+
+No.3/5
+
+Ι【Hiệu chỉnh】                        Máy đo 071-10 a
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+2.Độ chính xác đo nhiệt
+độ
+
+Cấp lực điện động nhiệt tiêu chuẩn từ máy tiêu chuẩn tại 1CH
+của U8550 bộ điện áp/nhiệt độ và đọc giá trị sai số giữa giá trị
+hiển thị (℃) của đối tượng cần hiệu chỉnh và nhiệt độ tiêu
+chuẩn.
+＜Trình tự thao tác＞
+Hạng mục hiệu chỉnh 1.Thực hiện tiếp tục từ (3)
+(5) Dưới đây, thiết lập các hạng mục theo điều kiện thiết đặt.
+
+Kênh
+
+: Đo đạc  UNIT1 U1-1 ☑
+Nhập
+
+:Cặp nhiệt K
+Phạm vi
+
+:100℃,500℃(tham khảo biểu 2)
+Kiểm xuất đoản mạch OFF
+Bù tiếp điểm EXT
+Hiển thị
+
+:Vị trí
+
+Độ phóng đại *1
+
+Vị trí 0 là 0％
+Biểu 2 Lực điện động nhiệt tiêu chuẩn
+Phạm
+vi đo
+Đo nhiệt
+độ
+(Điểm
+hiệu
+chỉnh)
+Lực điện
+động nhiệt
+tiêu chuẩn
+Quy
+cách
+phán
+định
+100℃
+100℃
+4.096 mV
+±0.5℃
+500℃
+500℃
+20.644
+mV
+
+(6)Chọn phạm vi đo theo biểu 2, cấp lực điện động nhiệt
+tiêu chuẩn tương ứng với nhiệt độ đo được từ dụng cụ tiêu
+chuẩn.
+Đọc và phán định sai số giữa giá trị hiển thị (°C) và nhiệt độ
+đo được.
+
+Theo biểu 2
+
+－Trích dẫn・văn bản liên quan－
+Trị phán định
+：Theo quy cách của nơi chế tạo
+Lực điện động nhiệt quy chuẩn（Biểu 2）：JIS C1602-2015
+Hạng mục hiệu chỉnh 1-Điểm hiệu chỉnh：Không có sai số đo giữa các CH (dùng chung phần đo đạt ) nên các
+phép đo chỉ được  thựchiện bằng 1 CH
+Hạng mục hiệu chỉnh 2 Nhiệt độ đo ：Thực hiện đo ở MAX500℃ theo cách sử dụng nội bộ
+
+--- HẾT TRANG ---
+
+No.4/5
+
+Ⅱ【Điểm kiểm】       Bộ ghi dữ liệu                 Dụng cụ đo 071-10 a
+HIOKI LR8450+U8550
+
+Tiến độ điểm kiểm   Mỗi tháng 1 lần và mỗi lần sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1.Ngoại quan
+
+2.Kiểm tra nguồn điện
+
+3.Xác nhận hoạt động
+của rơle
+
+4.Điều chỉnh về 0
+※Bật nguồn và khởi
+động ít nhất 30 phút
+trước khi thực hiện
+
+Xác nhận rằng không có khiếm khuyết có hại như hư hỏng
+hoặc bám dính dị vật.
+
+Kiểm tra xem nguồn đã được bật bình thường chưa.
+Nếu nguồn không bật, cầu chì bên trong có thể đã bị cháy.
+Trong trường hợp đó, hãy yêu cầu nhà cung cấp sửa chữa.
+
+Cấp điện áp vào toàn bộ CH và kiểm tra xem trị số có được
+hiển thị trên màn hình hiển thị hình sóng hay không.
+※Phạm vi và điện áp được sử dụng là tùy ý.
+
+Nếu số 0 khi đoản mạch nhập vào bị lệch, hãy thực hiện
+điều chỉnh mức 0. Sau khi thực hiện điều chỉnh mức , hãy xác
+nhận rằng mức 0 tại thời điểm đoản mạch nằm trong quy
+cách của biểu dưới đây
+※Chỉ ghi lại giá trị trong phạm vi 20mV khi hiệu chỉnh
+
+Nhấn nút set , chọn tap   Kênh
+Chọn  Unit 1
+Thực hiện  Điều chỉnh zero
+
+Phạm vi đo
+（f.s.）
+Quy cách phán
+định
+10mV
+±0.01mV
+20mV
+±0.02mV
+100mV
+±0.05mV
+200mV
+±0.1mV
+1V
+±0.0005V
+2V
+±0.001V
+10V
+±0.005V
+20V
+±0.01V
+100V
+±0.05V
+1-5V
+±0.005V
+
+Chú ý:
+1. Kết quả kiểm tra sẽ được ghi chép lại mỗi tháng một lần, bất kể có bất thường hay không.
+2. Nếu có bất thường khi kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả đó và xử lý theo chỉ thị của
+người chịu trách nhiệm của bộ phận sở quản.
+Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện hiệu chỉnh
+
+--- HẾT TRANG ---
+
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm  Biểu lý lịch ban hành cải đính hủy bỏ
+Máy đo 071-10   No.5/5
+Ký
+hiệu
+Năm tháng
+ngày
+Ghi chép (Nội dung thay đổi)
+Soạn
+thảo
+Xác
+nhận
+Công
+nhận
+
+2020.09.10 Ban hành mới
+小泉
+石井
+藤田
+伊藤
+
+a
+
+2025.1.20
+
+・Ⅱ【Điểm kiểm】
+Tiến độ điểm kiểm sửa đổi thành「Mỗi tháng 1 lần và mỗi
+lần sử dụng」
+3.Xác nhận hoạt động của rơle từ 「sử dụng CH」sang
+「toàn bộ CH」
+Sửa đổi toàn bộ hạng mục chú ý
+
+Ban chính BHCL công ty cổ phần Mabuchi Motor
+山
+元
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "071-10-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm      Ban chính BHCL công ty cổ phần MAB - Bộ ghi dữ liệu                                   Máy đo   071-10 a",
+  "doc_code": "071-10 a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

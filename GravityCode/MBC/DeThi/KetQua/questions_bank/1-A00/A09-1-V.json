@@ -1,0 +1,59 @@
+{
+  "file_name": "A09-1-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "CHƯƠNG TRÌNH QUẢN LÝ ĐỘ CHÍNH XÁC CỦA DỤNG CỤ ĐO [ACM]",
+  "doc_code": "A09-1 d",
+  "target_audience": "Phòng BHCL, Tổ hiệu chuẩn, Nhân viên quản lý thiết bị đo",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo tiêu chuẩn A09-1, trong trường hợp nhận được email bản nâng cấp chương trình ACM từ phòng BHCL công ty chính, người chịu trách nhiệm cần phải xử lý như thế nào để đảm bảo tính đồng bộ và chính xác của hệ thống quản lý?",
+      "options": {
+        "A": "Chờ đến kỳ đánh giá nội bộ tiếp theo mới tiến hành cập nhật để tránh gián đoạn sản xuất.",
+        "B": "Tự ý sửa đổi mã nguồn chương trình để phù hợp với tình hình thực tế tại nhà máy Việt Nam.",
+        "C": "Cần nhanh chóng thay bản mới đó và báo cáo lại kết quả.",
+        "D": "Chuyển tiếp email cho bộ phận IT và không cần báo cáo lại kết quả cho phòng BHCL công ty chính."
+      },
+      "correct_answer": "C",
+      "reference_note": "Mục 4 'Về việc nâng cấp chương trình' trang 2/4: 'Trong trường hợp nhận được email bản nâng cấp của phòng BHCL công ty chính, cần nhanh chóng thay bản mới đó và báo cáo lại kết quả.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo lưu đồ vận dụng chương trình ACM (trang 3/4), trong trường hợp thực thi hiệu chỉnh dụng cụ đo và cho kết quả 'Không hợp cách', bước tiếp theo cần thực hiện là gì?",
+      "options": {
+        "A": "Đăng ký ngay kết quả hiệu chỉnh hợp cách lên hệ thống để tiếp tục sử dụng tạm thời.",
+        "B": "Báo cáo với người chịu trách nhiệm quản lý và chờ trả lời cho việc xử lý (như sửa chữa, hủy,...).",
+        "C": "Tự ý mang dụng cụ đo đi thanh lý hoặc tiêu hủy mà không cần báo cáo hay ghi nhận trên hệ thống.",
+        "D": "Xuất ngay bản kỳ hạn hiệu chỉnh mới mà không cần đăng ký kết quả không hợp cách."
+      },
+      "correct_answer": "B",
+      "reference_note": "Lưu đồ vận dụng chương trình ACM trang 3/4, nhánh kết quả 'Không hợp cách' dẫn đến bước 'Báo cáo với người chịu trách nhiệm quản lý' và tiếp theo là 'Trả lời cho việc xử lý (như sửa chữa, hủy,...)'. "
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn A09-1, sau khi khởi động chương trình ACM, màn hình phân loại sẽ hiển thị theo những nhóm nào?",
+      "options": {
+        "A": "(1) Xử lý DATA, (2) Xử lý file chủ, (3) Quản lý DATA, (4) Xuất DATA",
+        "B": "(1) Đăng ký máy đo, (2) Hiệu chuẩn thiết bị, (3) Đánh giá nội bộ, (4) Thanh lý tài sản",
+        "C": "(1) Nhập dữ liệu, (2) Kiểm tra thiết bị, (3) Phê duyệt kết quả, (4) Lưu trữ hồ sơ",
+        "D": "(1) Thiết lập môi trường, (2) Backup dữ liệu, (3) Restore dữ liệu, (4) Hủy dữ liệu"
+      },
+      "correct_answer": "A",
+      "reference_note": "Mục 2 'Phân loại' trang 1/4: 'Sau khi khởi động ACM, sẽ hiện lên màn hình phân loại theo 4 nhóm như dưới đây: (1) Xử lý DATA, (2) Xử lý file chủ, (3) Quản lý DATA, (4) Xuất DATA'."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140317.604075,
+  "generated_at_iso": "2026-09-23T12:11:57",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 198849,
+    "modified_time": 1338272220.7731385,
+    "modified_time_iso": "2012-05-29T13:17:00",
+    "file_hash_short": "786dba71"
+  }
+}

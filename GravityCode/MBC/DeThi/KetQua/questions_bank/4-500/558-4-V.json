@@ -1,0 +1,50 @@
+{
+  "file_name": "558-4-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bảng Tiêu Chuẩn Điểm Kiểm - Hiệu Chỉnh Máy Đo",
+  "doc_code": "Dụng cụ đo 558 - 4 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, hạng mục kiểm tra ngoại quan đối với dụng cụ lựa chọn ống nối yêu cầu điểm nào sau đây?",
+      "options": {
+        "A": "Được phép có vết trầy xước nhẹ nếu không ảnh hưởng đến đo đạc.",
+        "B": "Không bị trầy, mài mòn, biến dạng; Không bị rỉ sét (dù rỉ sét rất nhỏ cũng sẽ hủy bỏ); Xác nhận có dị thường hay không.",
+        "C": "Cho phép rỉ sét diện tích nhỏ dưới 5% bề mặt dụng cụ.",
+        "D": "Chỉ cần kiểm tra ngoại quan mỗi tháng một lần khi bảo dưỡng định kỳ."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5/6, Phần II. Điểm kiểm, Hạng mục điểm kiểm: 1. Ngoại quan"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Trong phương pháp hiệu chỉnh độ chính xác của máy hiệu chỉnh (mục 1. Phân định độ chính xác của máy hiệu chỉnh), kích thước block geji được sử dụng là bao nhiêu?",
+      "options": {
+        "A": "1.00, 1.50, 2.00, 2.50 mm",
+        "B": "2.00, 2.20, 2.40, 2.60 mm",
+        "C": "2.50, 2.75, 3.00, 3.25 mm",
+        "D": "1.50, 2.00, 2.50, 3.00 mm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1/6, Phần I. Hiệu chỉnh, Hạng mục hiệu chỉnh: 1. Phân định độ chính xác của máy hiệu chỉnh"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý về kết quả điểm kiểm (Trang 5), trường hợp kết quả điểm kiểm có dị thường thì phải xử lý như thế nào?",
+      "options": {
+        "A": "Tự ý điều chỉnh lại dụng cụ và tiếp tục sử dụng bình thường.",
+        "B": "Ghi chép lại kết quả đó và xử lý theo chỉ thị của người có trách nhiệm quản lý.",
+        "C": "Bỏ qua nếu trong vòng 1 tháng không phát sinh thêm lỗi nào khác.",
+        "D": "Lập tức hủy bỏ dụng cụ mà không cần báo cáo cấp quản lý."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5/6, Phần II. Điểm kiểm, Mục Chú ý: 1. Trường hợp kết quả điểm kiểm có dị thường thì ghi chép lại kết quả đó và xử lý theo chỉ thị của người có trách nhiệm quản lý."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

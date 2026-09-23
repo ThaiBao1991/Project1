@@ -1,0 +1,59 @@
+{
+  "file_name": "A01-1-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "PHÂN BIỆT VÀ ĐẶC ĐỊNH PHƯƠNG PHÁP QUẢN LÝ MÁY ĐO",
+  "doc_code": "A01-1 e",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu A01-1 e, bộ môn thực thi hiệu chỉnh tiến hành xác nhận tình trạng yêu cầu (đặt định quy cách mới, hoặc thay đổi phân biệt) tại bộ môn liên quan với tiến độ là bao nhiêu lâu theo biểu quy định?",
+      "options": {
+        "A": "3 tháng 1 lần",
+        "B": "6 tháng 1 lần",
+        "C": "1 năm 1 lần",
+        "D": "Theo yêu cầu đột xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Mục 3. Xác nhận tình trạng yêu cầu máy đo: \"...với tiến độ 6 tháng 1 lần theo biểu quy định (tham khảo mục 3 tài liệu A11-1).\""
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu, đối với đối tượng ngoài hiệu chỉnh (mục đích sử dụng để tham khảo, không dùng cho việc phán định), phương pháp phân biệt được quy định như thế nào?",
+      "options": {
+        "A": "Dựa theo tài liệu A03-1.",
+        "B": "Dán nhãn \"ngoài đối tượng hiệu chỉnh\" theo chỉ định (Nhãn: Ngoại đối tượng hiệu chỉnh - Calibration Exempted).",
+        "C": "Sử dụng biểu quy định (tham khảo mục 3 tài liệu A11-1).",
+        "D": "Không cần dán nhãn phân biệt mà chỉ cần lưu kho."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Mục 2. Phương pháp phân biệt, (2) Ngoài đối tượng: Dán nhãn \"ngoài đối tượng hiệu chỉnh\" theo chỉ định."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục đích sử dụng máy đo (mục 1. Phương pháp đặc định máy đo ngoài đối tượng và thuộc đối tượng), máy đo nào sau đây thuộc \"Máy đo thuộc đối tượng hiệu chỉnh\" (dùng để kiểm tra, đo đạc, kiểm tra phản định đạt không đạt... đối với motor và linh kiện)?",
+      "options": {
+        "A": "Máy đo dùng với mục đích do tham khảo, không dùng cho việc phán định.",
+        "B": "Máy dùng để xác nhận điều kiện gia công thiết bị, công cụ.",
+        "C": "Máy đo 000 ~ (Loại máy đo điện/ điện tử).",
+        "D": "Tất cả các loại máy dùng để tham khảo kho hàng."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Mục 1, phần (1) Máy đo thuộc đối tượng hiệu chỉnh, bảng phân loại các sheet Máy đo 000 ~ (Loại máy đo điện/ điện tử)."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140141.2208133,
+  "generated_at_iso": "2026-09-23T12:09:01",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 121307,
+    "modified_time": 1757898339.0331821,
+    "modified_time_iso": "2025-09-15T08:05:39",
+    "file_hash_short": "92a57683"
+  }
+}

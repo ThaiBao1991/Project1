@@ -1,0 +1,50 @@
+{
+  "file_name": "530-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định Geji giới hạn 2 đầu dạng tròn đều",
+  "doc_code": "530-1f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ thực hiện điểm kiểm đối với Geji giới hạn 2 đầu dạng tròn đều được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và mỗi lần sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "3 tháng 1 lần và trước khi sử dụng",
+        "D": "6 tháng 1 lần hoặc khi có yêu cầu"
+      },
+      "correct_answer": "B",
+      "reference_note": "II【Điểm kiểm】Geji giới hạn 2 đầu dạng tròn đều - Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra (hoặc khi sử dụng) nếu phát hiện có bất thường đối với dụng cụ, thao tác xử lý nào sau đây là đúng theo quy định?",
+      "options": {
+        "A": "Tự ý mài giũa lại phần bị mòn để tiếp tục sử dụng trong chuyền",
+        "B": "Bỏ qua nếu sai số nhỏ hơn giới hạn cho phép của thợ đứng máy",
+        "C": "Ghi chép lại kết quả, xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu và làm đơn đề nghị hiệu chỉnh lại nếu cần thiết",
+        "D": "Lập tức vứt bỏ vào thùng rác phế liệu mà không cần báo cáo"
+      },
+      "correct_answer": "C",
+      "reference_note": "Chú ý 2, Phần II: Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi đo kích thước đường kính ngoài của phía thông và phía chặn trong quá trình hiệu chỉnh, phương pháp đo điểm được quy định ra sao?",
+      "options": {
+        "A": "Đo 4 điểm A, B theo 2 hướng 1 và 2",
+        "B": "Đo 1 điểm A và 1 điểm B theo hướng X",
+        "C": "Đo 2 điểm A, B theo 2 hướng Y",
+        "D": "Đo 3 điểm đều nhau xung quanh viền"
+      },
+      "correct_answer": "C",
+      "reference_note": "I【Hiệu chỉnh】 - Phương pháp hiệu chỉnh: Phía thông: đo 2 điểm A, B theo 2 hướng Y. Phía chận: đo 2 điểm A, B theo 2 hướng Y."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

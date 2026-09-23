@@ -1,0 +1,50 @@
+{
+  "file_name": "038-2-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM DỤNG CỤ ĐO ĐỒNG HỒ ĐO ĐIỆN TRỞ CÁCH ĐIỆN ĐIỆN ÁP CHỊU ĐỰNG (HIOKI 3153)",
+  "doc_code": "038-2",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Trong mục kiểm tra ngoại quan (Mục 3 - Phần II Điểm kiểm), yếu tố nào sau đây KHÔNG được yêu cầu theo tiêu chuẩn?",
+      "options": {
+        "A": "Trên bề mặt panel và trên hộp không được có vết trầy nứt, bẩn gây ảnh hưởng đo đạc.",
+        "B": "Vỏ bọc của dây lead để test phải không có vết nứt, trầy, hư hỏng.",
+        "C": "Không có vết nứt, hư hỏng... trên bao tay cao su cách điện.",
+        "D": "Dây nguồn điện chính phải được bọc cao su chống cháy đạt chuẩn UL."
+      },
+      "correct_answer": "D",
+      "reference_note": "Trang 6: '3. Ngoại quan: ・ Trên bề mặt panel... ・ Vỏ bọc của dây lead... ・ Không có vết nứt, hư hỏng... trên bao tay cao su cách điện'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục 'Chú ý' trong phần Điểm kiểm, trường hợp kết quả điểm kiểm không có bất thường thì quy định về việc ghi lại kết quả như thế nào?",
+      "options": {
+        "A": "Tuyệt đối không cần ghi lại kết quả điểm kiểm dưới mọi hình thức.",
+        "B": "Có thể không ghi lại kết quả điểm kiểm, tuy nhiên trong 1 tháng, dù không có gì bất thường cũng phải 1 lần ghi lại nội dung điểm kiểm.",
+        "C": "Phải ghi lại báo cáo chi tiết vào hệ thống mạng mỗi ngày hai lần.",
+        "D": "Chỉ cần ghi lại khi có yêu cầu từ cấp trên quản lý trực tiếp."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 6: 'Chú ý: 2. Trường hợp kết quả điểm kiểm không có bất thường thì có thể không ghi lại kết quả điểm kiểm. Tuy nhiên, trong 1 tháng, dù không có gì bất thường cũng phải 1 lần ghi lại nội dung điểm kiểm.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo mục 'Tiến độ điểm kiểm' trong tài liệu, tần suất tiến hành điểm kiểm đối với Đồng hồ đo điện trở cách điện điện áp chịu đựng (HIOKI 3153) là khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước khi giao hàng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 6: 'Tiến độ điểm kiểm: Mỗi lần sử dụng'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

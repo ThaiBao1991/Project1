@@ -1,0 +1,50 @@
+{
+  "file_name": "S22-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh điểm kiểm Cờ lê ngẫu lực",
+  "doc_code": "S22-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn kỹ thuật của cờ lê ngẫu lực, chu kỳ hiệu chỉnh được quy định là bao nhiêu năm?",
+      "options": {
+        "A": "1 năm",
+        "B": "2 năm",
+        "C": "3 năm",
+        "D": "5 năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Biểu lý lịch ban hành cải đính hủy bỏ: Thay đổi chu kỳ hiệu chỉnh 2 năm -> 3 năm (từ lần sửa đổi b năm 1999 và cập nhật)"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi sử dụng các giá trị được ghi trong bảng kết quả dưới đơn vị (N) nhưng cần đổi sang đơn vị (kgf), công thức quy đổi chính xác được quy định trong tài liệu là gì?",
+      "options": {
+        "A": "1 kgf = 9.80665 N",
+        "B": "1 kgf = 9.81 N",
+        "C": "1 kgf = 10 N",
+        "D": "1 kgf = 9.8 N"
+      },
+      "correct_answer": "A",
+      "reference_note": "Hạng mục chú ý (6): Khi sử dụng các giá trị được ghi trong bảng kết quả dưới đơn vị (N) theo đơn vị (kgf), phải quy đổi theo công thức: 1 kgf = 9.80665 N."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình sử dụng và hiệu chỉnh cờ lê ngẫu lực, khi xảy ra tình trạng quá tải vượt quá mức nào thì bắt buộc phải tiến hành hiệu chỉnh lại?",
+      "options": {
+        "A": "Quá tải vượt quá 10%",
+        "B": "Quá tải vượt quá 15%",
+        "C": "Quá tải vượt quá 20%",
+        "D": "Quá tải vượt quá 25%"
+      },
+      "correct_answer": "C",
+      "reference_note": "Hạng mục chú ý (3): Khi xảy ra quá tải vượt quá 20%, phải tiến hành hiệu chỉnh lại"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

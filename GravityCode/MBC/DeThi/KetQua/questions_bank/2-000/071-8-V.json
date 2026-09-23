@@ -1,0 +1,50 @@
+{
+  "file_name": "071-8-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Bộ ghi dữ liệu (HIOKI LR8400+LR8500/8430/8431)",
+  "doc_code": "Máy đo 071-8 a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi kiểm tra mục 'Xác nhận hoạt động của rơle' tại phần Điểm kiểm, yêu cầu thao tác và phạm vi áp dụng là gì?",
+      "options": {
+        "A": "Cấp điện áp vào CH được sử dụng bất kỳ.",
+        "B": "Cấp điện áp vào toàn bộ CH và kiểm tra xem trị số có được hiển thị trên màn hình hình sóng hay không.",
+        "C": "Chỉ cấp điện áp vào 1CH đầu tiên để tiết kiệm thời gian.",
+        "D": "Không cần cấp điện áp, chỉ cần kiểm tra trạng thái đèn báo nguồn."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 4: 3. Xác nhận hoạt động của rơle - Cấp điện áp vào toàn bộ CH và kiểm tra xem trị số có được hiển thị trên màn hình hiển thị hình sóng hay không."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, tiến độ điểm kiểm (kiểm tra định kỳ và sử dụng) đối với bộ ghi dữ liệu được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần và trước mỗi lần sử dụng.",
+        "B": "Mỗi tháng một lần và mỗi lần sử dụng.",
+        "C": "3 tháng một lần và khi có yêu cầu đặc biệt.",
+        "D": "Chỉ thực hiện một lần duy nhất trước khi đưa vào sử dụng."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 4: Tiến độ Điểm kiểm: Mỗi tháng một lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục Chú ý tại phần Điểm kiểm, khi phát hiện có bất thường lúc kiểm tra hoặc khi sử dụng thiết bị, nhân viên phải xử lý như thế nào?",
+      "options": {
+        "A": "Tự ý tháo thiết bị ra để kiểm tra và thay thế cầu chì bên trong.",
+        "B": "Tiếp tục sử dụng nếu lỗi nhỏ và ghi chú lại vào cuối tuần.",
+        "C": "Ghi chép lại kết quả bất thường đó và xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở quản.",
+        "D": "Bỏ qua không cần ghi chép nếu thiết bị vẫn lên nguồn bình thường."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 4: Chú ý 2. Nếu có bất thường khi kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả đó và xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở quản."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "014-3-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - Đo tiếng ồn (YOKOGAWA kiểu 3603)",
+  "doc_code": "014-3",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, tiến độ kiểm tra đối với hạng mục điểm kiểm bộ phận tiếp xúc microphone và nguồn điện được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần sử dụng một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "II 【Điểm kiểm】 - Tiến độ kiểm tra: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi thực hiện hiệu chỉnh dB cho dụng cụ đo tiếng ồn YOKOGAWA kiểu 3603, công thức phán định giá trị B được xác định như thế nào?",
+      "options": {
+        "A": "B = (120 + A) ± 2dB",
+        "B": "B = (123 + A) ± 1dB",
+        "C": "B = (123 + A) ± 2dB",
+        "D": "B = (125 + A) ± 2dB"
+      },
+      "correct_answer": "C",
+      "reference_note": "I 【Hiệu chỉnh】 - Phương pháp phán định: B=(123+A) ±2dB"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục ghi chú về điểm kiểm, trong trường hợp kết quả kiểm tra không thấy bất thường thì việc ghi chép kết quả được quy định ra sao?",
+      "options": {
+        "A": "Không cần ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.",
+        "B": "Bắt buộc phải ghi chép đầy đủ chi tiết vào biểu mẫu sau mỗi lần sử dụng.",
+        "C": "Chỉ cần ghi chép lại khi có yêu cầu đột xuất từ cấp trên.",
+        "D": "Hoàn toàn không phải ghi chép kết quả vào bất kỳ sổ sách nào nếu không có sự cố."
+      },
+      "correct_answer": "A",
+      "reference_note": "II 【Điểm kiểm】 - Ghi chú mục 2"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

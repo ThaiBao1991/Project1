@@ -1,0 +1,50 @@
+{
+  "file_name": "910-2-V.pdf",
+  "folder_name": "6-900 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và điểm kiêm dụng cụ đo đạc",
+  "doc_code": "910-2",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi tiến hành hiệu chỉnh荷重検査 (kiểm tra trọng tải) cho thiết bị, các điểm hiệu chỉnh được quy định tại những mức nào so với phạm vi đo?",
+      "options": {
+        "A": "20%, 40%, 60%, 80%, 100%",
+        "B": "10%, 30%, 50%, 70%, 90%",
+        "C": "25%, 50%, 75%, 100% của phạm vi đo",
+        "D": "50% và 100% phạm vi đo"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1 - Hiệu chỉnh (2): Điểm hiệu chỉnh là 4 điểm : 25%, 50%, 75%, 100% của phạm vi đo."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra hàng ngày, nếu kết quả kiểm tra không thấy bất thường thì quy định về việc ghi chép kết quả ra sao?",
+      "options": {
+        "A": "Phải ghi chép lại kết quả kiểm tra đầy đủ vào mỗi ngày làm việc.",
+        "B": "Tuyệt đối không được ghi chép bất kỳ nội dung gì vào sổ theo dõi.",
+        "C": "Không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi lại kết quả kiểm tra một lần dù không có gì bất thường xảy ra.",
+        "D": "Chỉ cần ghi chép lại khi có sự cố kỹ thuật xảy ra."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3 - Chú thích 2: Trường hợp kết quả kiểm tra không thấy bất thường, không ghi chép kết quả cũng được. Nhưng mỗi tháng phải ghi chép lại kết quả kiểm tra một lần dù không có gì bất thường xảy ra."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kì hiệu chỉnh đối với dụng cụ đo đạc gia áp (MM-601B+MA-522) được quy định như thế nào?",
+      "options": {
+        "A": "6 tháng một lần",
+        "B": "12 tháng và khi đã xác nhận là cần thiết",
+        "C": "24 tháng một lần",
+        "D": "Chỉ khi phát hiện hỏng hóc"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1 - Chu kì hiệu chỉnh: Mỗi 12 tháng và khi đã xác nhận là cần thiết"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

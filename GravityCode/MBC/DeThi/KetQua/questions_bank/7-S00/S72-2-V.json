@@ -1,0 +1,50 @@
+{
+  "file_name": "S72-2-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Đầu dò gia tăng tốc độ dùng cho thiết bị thí nghiệm chấn động (dụng cụ đo Ono)",
+  "doc_code": "S72-2c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nhiệt độ xung quanh quy định trong quá trình hiệu chỉnh thiết bị này là bao nhiêu?",
+      "options": {
+        "A": "20±5℃",
+        "B": "25±2℃",
+        "C": "23±5℃",
+        "D": "25±5℃"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: 【Hiệu chỉnh】 Nhiệt độ xung quanh: 23±5℃"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh dụng cụ tiêu chuẩn S72-2c, chu kỳ hiệu chỉnh đối với đầu dò gia tăng tốc độ dùng cho thiết bị thí nghiệm chấn động là bao lâu?",
+      "options": {
+        "A": "1 năm",
+        "B": "2 năm",
+        "C": "6 tháng",
+        "D": "3 năm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: 【Hiệu chỉnh】 Chu kỳ hiệu chỉnh: 2 năm"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Về quy định áp dụng độ nhạy khi sử dụng đầu dò gia tăng tốc độ đo chấn động, yêu cầu bắt buộc nào sau đây là chính xác?",
+      "options": {
+        "A": "Phải luôn áp dụng tại độ nhạy mới nhất",
+        "B": "Có thể sử dụng độ nhạy ban đầu khi mới mua để tính toán suốt vòng đời",
+        "C": "Được phép lấy giá trị trung bình giữa độ nhạy ban đầu và độ nhạy lần hiệu chỉnh gần nhất",
+        "D": "Tùy thuộc vào phán đoán của kỹ thuật viên hiện trường mà chọn độ nhạy bất kỳ"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: Thể thức Độ chính xác: Phải luôn áp dụng tại độ nhạy mới nhất"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

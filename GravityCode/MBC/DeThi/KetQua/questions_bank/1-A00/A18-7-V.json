@@ -1,0 +1,59 @@
+{
+  "file_name": "A18-7-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN KIỂM TRA VÀ HIỆU CHỈNH DỤNG CỤ ĐO",
+  "doc_code": "A18-7a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục tiêu chuẩn an toàn, khi phát hiện biểu thị nguy hiểm hoặc cảnh báo (như điện áp cao, tia laser, tia X) bị bẩn, bong tróc hoặc không thể đọc được, thao tác phán định đúng là gì?",
+      "options": {
+        "A": "Tiếp tục sử dụng thiết bị bình thường nếu máy vẫn chạy ổn định",
+        "B": "Dùng bút dạ viết đè lại cảnh báo rồi tiếp tục đo đạc",
+        "C": "Bắt buộc biểu thị nguy hiểm, cảnh báo không bị bẩn, bong tróc và phải có thể đọc được",
+        "D": "Chỉ cần báo cáo quản lý vào cuối tháng"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 4: 'Biểu thị nguy hiểm, cảnh báo không bị bẩn, bong tróc và có thể đọc được'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi kiểm tra trạng thái ngoại quan của dụng cụ đo và bộ phận đo đạc, trạng thái nào sau đây được xem là không đạt yêu cầu (có khiếm khuyết có hại)?",
+      "options": {
+        "A": "Bề mặt sạch sẽ, không có vết trầy xước",
+        "B": "Bẩn, hư hại, đứt dây, nứt, bể, mẻ, trầy, rỉ sét, biến màu",
+        "C": "Vạch chia trên thước có thể đọc được rõ ràng",
+        "D": "Nhãn giá trị biểu thị trên thiết bị gắn chắc chắn, dễ đọc"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 4: 'Đối với máy đo, phải không có những trạng thái sau: Bẩn, hư hại, đứt dây, nứt, bể, mẻ, trầy, rỉ sét, biến màu, dính dị vật, mài mòn...'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, ngoại trừ những trường hợp đặc biệt, tần suất điểm kiểm (kiểm tra) dụng cụ đo được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và mỗi lần sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "Chỉ kiểm tra khi phát sinh bất thường",
+        "D": "Mỗi năm 1 lần định kỳ"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: 'Ngoại trừ những trường hợp đặc biệt, quy định là ''mỗi tháng 1 lần và mỗi lần sử dụng'''"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140670.2808456,
+  "generated_at_iso": "2026-09-23T12:17:50",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 196189,
+    "modified_time": 1738814131.6071894,
+    "modified_time_iso": "2025-02-06T10:55:31",
+    "file_hash_short": "075bbc3a"
+  }
+}

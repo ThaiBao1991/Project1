@@ -1,0 +1,50 @@
+{
+  "file_name": "567-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bảng tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định Micrometer đo độ sâu",
+  "doc_code": "567-1c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý về kết quả điểm kiểm tra, trong trường hợp nhận ra sự bất thường trong khi sử dụng, ta phải xử lý như thế nào?",
+      "options": {
+        "A": "Tự ý tháo rời dụng cụ để sửa chữa ngay lập tức",
+        "B": "Tiếp tục sử dụng nhưng ghi chú lại vào sổ theo dõi",
+        "C": "Xử lý dựa vào chỉ thị của người quản lý có trách nhiệm",
+        "D": "Bỏ qua nếu không ảnh hưởng lớn đến kết quả đo sản phẩm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 5: 'Chú ý: 3. Trường hợp nhận ra sự bất thường trong khi sử dụng, sẽ xử lý dựa vào chỉ thị của người quản lý có trách nhiệm.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi kiểm tra mục ngoại quan của Micrometer đo độ sâu, ta cần quan sát và chú ý đặc biệt đến những yếu tố nào?",
+      "options": {
+        "A": "Màu sơn bên ngoài và logo hãng sản xuất",
+        "B": "Khí hậu phòng đo và nhiệt độ môi trường",
+        "C": "Xem có khiếm khuyết có hại không, như gỉ sét, dơ, xước... đặc biệt là chú ý mặt tiêu chuẩn và mặt đo",
+        "D": "Độ sắc bén của vạch chia độ trên ống lót"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 4: '1. Ngoại quan. Quan sát bằng mắt xác nhận xem có khiếm khuyết có hại không, như gỉ sét, dơ, xước... đặc biệt là chú ý mặt tiêu chuẩn và mặt đo.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kỳ hiệu chỉnh cho Micrometer đo độ sâu là bao nhiêu thời gian hoặc khi nào?",
+      "options": {
+        "A": "12 tháng hoặc khi thấy cần thiết",
+        "B": "24 tháng hoặc khi thấy cần thiết",
+        "C": "6 tháng hoặc khi thấy cần thiết",
+        "D": "36 tháng hoặc khi thấy cần thiết"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: 'Chu kỳ hiệu chỉnh: 24 tháng hoặc khi thấy cần thiết'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

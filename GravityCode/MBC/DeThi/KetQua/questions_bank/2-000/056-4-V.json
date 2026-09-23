@@ -1,0 +1,50 @@
+{
+  "file_name": "056-4-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và điểm kiểm dụng cụ đo đạc ĐỒNG HỒ ĐO TỈ LỆ DẪN ĐIỆN HORIBA (CEH-12)",
+  "doc_code": "056-4",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Dung dịch chuẩn (potassium chloride) dùng cho việc chuẩn bị trước khi hiệu chỉnh đồng hồ có tỉ lệ dẫn điện (ở 25°C) là bao nhiêu?",
+      "options": {
+        "A": "1.00 mS/cm",
+        "B": "1.41 mS/cm",
+        "C": "2.50 mS/cm",
+        "D": "14.13 mS/cm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1 - I【Hiệu chỉnh】: Dung dịch chuẩn : Potassium chloride (tỉ lệ dẫn điện 1.41 mS/cm)"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý khi sử dụng, thao tác nào sau đây là VI PHẠM quy định kỹ thuật đối với đồng hồ đo và điện cực?",
+      "options": {
+        "A": "Rửa điện cực bằng nước tinh khiết (nước ion) và lau khô bằng giấy Ro khi đo dung dịch loại khác",
+        "B": "Bảo quản điện cực bằng cách đậy nắp lại khi không sử dụng",
+        "C": "Ngâm trực tiếp đồng hồ đo vào nước",
+        "D": "Cho nước tinh khiết vào miếng bọt biển trong hộp bảo vệ để giữ ẩm cho điện cực"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 4 - II【Điểm kiểm】《Chú ý khi sử dụng》: 1. Không được ngâm đồng hồ đo vào nước."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ điểm kiểm ngoại quan cho đồng hồ đo tỉ lệ dẫn điện HORIBA (CEH-12) được quy định thực hiện khi nào?",
+      "options": {
+        "A": "Mỗi tuần sử dụng một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 4 - II【Điểm kiểm】: Tiến độ điểm kiểm - Mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

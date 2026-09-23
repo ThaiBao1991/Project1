@@ -1,0 +1,50 @@
+{
+  "file_name": "577-6-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - CÂN PHÂN TÍCH DẠNG ĐIỆN TỬ (Sartorius - series MC)",
+  "doc_code": "577-6 a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục ghi chú về xử lý bất thường khi kiểm tra cân phân tích điện tử, trường hợp kiểm tra thấy bất thường, thao tác nào dưới đây là đúng quy định?",
+      "options": {
+        "A": "Tự ý tháo dỡ cân để sửa chữa bộ phận cơ khí bên trong.",
+        "B": "Ghi chép lại kết quả đã kiểm tra và xử lý theo chỉ thị của người có trách nhiệm quản lý.",
+        "C": "Tiếp tục sử dụng bình thường nếu sai số không vượt quá 5mg.",
+        "D": "Không cần ghi chép và tự mua thiết bị thay thế."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Ghi chú mục 1: Trường hợp kiểm tra thấy bất thường, ghi chép lại kết quả đã kiểm tra và xử lý theo chỉ thị của người có trách nhiệm quản lý."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Sau khi đã cho cân tiếp xúc với nguồn điện tại bước kiểm tra độ ổn định biểu thị, cần phải để ổn định khoảng thời gian là bao lâu?",
+      "options": {
+        "A": "Khoảng 10 phút",
+        "B": "Khoảng 15 phút",
+        "C": "Khoảng 30 phút",
+        "D": "Khoảng 60 phút"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, II Điểm kiểm, mục 2: Sau khi đã cho cân tiếp xúc với nguồn điện phải để ổn định khoảng 30 phút."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, khi bật công tắc nguồn điện sang ON trên cân điện tử dạng phân tích (Sartorius series MC), biểu thị trên màn hình là gì để xác định cân đã ổn định?",
+      "options": {
+        "A": "Biểu thị \"0.00g\"",
+        "B": "Biểu thị \"0.00000g\"",
+        "C": "Biểu thị \"0.000g\"",
+        "D": "Biểu thị \"0.0g\""
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, II Điểm kiểm, mục 2. Độ ổn định biểu thị: Khi đã bật công tắc nguồn điện sang ON, sẽ có biểu thị \"0.00000g\", xác định cân đã ổn định."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

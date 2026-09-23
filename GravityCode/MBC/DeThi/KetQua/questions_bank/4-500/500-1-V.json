@@ -1,0 +1,50 @@
+{
+  "file_name": "500-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "QUY CÁCH PHÁN ĐỊNH THƯỚC THÔNG QUA ỐC VÍT/ THƯỚC RẬP VÒNG ỐC VÍT",
+  "doc_code": "500 – 1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn thước rập thông qua ốc vít (phương thức ISO: dùng kiểm tra ốc vít mét bình thường - Trang 3), kích thước chuẩn (mm) của ốc vít có biểu thị M2 với bước răng P = 0.4 mm là bao nhiêu?",
+      "options": {
+        "A": "1.740 mm",
+        "B": "1.838 mm",
+        "C": "1.567 mm",
+        "D": "2.040 mm"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 3, Dụng cụ đo 500 – 1, mục M2, bước răng P = 0.4, kích thước chuẩn (mm) là 1.740."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu 500 – 1, tiêu chuẩn phán định khi hiệu chỉnh thước thông qua ốc vít/thước rập vòng ốc vít áp dụng theo phương thức và các phụ biểu nào cho phần thước rập thông qua ốc vít truyền thống (dùng kiểm tra ốc vít mét bình thường)?",
+      "options": {
+        "A": "Theo JIS B 0251 - 1975 Phụ biểu 8, 10, 12",
+        "B": "Theo JIS B 0255 - 1998",
+        "C": "Theo JIS B 0251 - 1998 Phụ biểu 6, 7",
+        "D": "Theo JIS B 0252 - 1996 Phụ biểu 8, 10, 12"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2, Dụng cụ đo 500 – 1: 'Theo JIS B 0251 - 1975 Phụ biểu 8, 10, 12.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra và quản lý dụng cụ đo theo tiêu chuẩn 500 – 1, hành động ban hành sửa đổi toàn bộ nội dung tài liệu diễn ra vào ngày tháng năm nào?",
+      "options": {
+        "A": "25.02.2007",
+        "B": "25.02.2008",
+        "C": "01.04.2008",
+        "D": "15.02.2008"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1 & 13, Dụng cụ đo 500 – 1: 'Ban hành 25. 02. 2008' / Biểu lý lịch ban hành - sửa đổi - hủy bỏ ghi ngày 25.02.2008."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

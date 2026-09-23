@@ -1,0 +1,50 @@
+{
+  "file_name": "S93-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN ĐIỂM KIỂM DỤNG CỤ ĐO - Tụ điện chuẩn",
+  "doc_code": "S93-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn kỹ thuật, chu kỳ hiệu chỉnh định kỳ đối với thiết bị Tụ điện chuẩn (Máy đo S93-1) được quy định là bao lâu?",
+      "options": {
+        "A": "6 tháng",
+        "B": "1 năm",
+        "C": "2 năm",
+        "D": "3 năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1/3: Chu kỳ hiệu chỉnh 2 năm"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Đối với các kiểu mẫu tụ điện từ WCS100A (10 pF) đến WCS105A (1 µF), độ chính xác tại tần số 1kHz phải đạt mức nào sau đây?",
+      "options": {
+        "A": "± 2%",
+        "B": "± 1%",
+        "C": "± 0.5%",
+        "D": "± 0.1%"
+      },
+      "correct_answer": "D",
+      "reference_note": "Trang 1/3: Bảng thông số độ chính xác (1kHz) cho các dòng từ WCS100A đến WCS105A là ± 0.1%"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi thực hiện kiểm tra hoặc hiệu chỉnh tụ điện chuẩn, điều kiện môi trường về nhiệt độ và độ ẩm xung quanh cần đảm bảo duy trì ở mức nào?",
+      "options": {
+        "A": "Nhiệt độ 23 ± 3°C; Độ ẩm 40 ~ 75%",
+        "B": "Nhiệt độ 25 ± 2°C; Độ ẩm 30 ~ 60%",
+        "C": "Nhiệt độ 20 ± 5°C; Độ ẩm 45 ~ 80%",
+        "D": "Nhiệt độ 23 ± 3°C; Độ ẩm 50 ~ 70%"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1/3: Nhiệt độ xung quanh 23 ± 3°C, Độ ẩm tương đối 40 ~ 75%"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

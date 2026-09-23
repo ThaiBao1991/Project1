@@ -1,0 +1,50 @@
+{
+  "file_name": "503-3-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - KÍNH HIỂN VI CÔNG CU (NYKON kiểu 20, MM-11C, MM-22)",
+  "doc_code": "503-3",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kỳ hiệu chỉnh đối với Kính hiển vi công cụ (NYKON kiểu 20, MM-11C, MM-22) được quy định như thế nào?",
+      "options": {
+        "A": "3 tháng và khi cần thiết",
+        "B": "6 tháng và khi cần thiết",
+        "C": "1 năm và khi cần thiết",
+        "D": "Mỗi lần sử dụng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Phần I - [Hiệu chỉnh] - Chu kỳ hiệu chỉnh: '6 tháng và khi cần thiết'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục Ghi chú của tài liệu, khi kiểm tra phát hiện thấy bất thường, nhân viên phải thực hiện hành động nào?",
+      "options": {
+        "A": "Báo cáo miệng và tiếp tục sử dụng bình thường nếu không ảnh hưởng lớn",
+        "B": "Ghi chép lại kết quả đã kiểm tra và xử lý theo chỉ thị của người có trách nhiệm quản lý",
+        "C": "Tự ý tháo máy ra để sửa chữa và ghi chép lại",
+        "D": "Không cần ghi chép gì nếu tháng đó không xảy ra sự cố lớn"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Ghi chú - Mục 1: 'Trường hợp kiểm tra thấy bất thường, ghi chép lại kết quả đã kiểm tra và xử lý theo chỉ thị của người có trách nhiệm quản lý.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi kiểm tra độ chính xác thị của bàn vận chuyển, tiêu chuẩn sai khác cho phép đối với kích thước của thước đo chuẩn là bao nhiêu?",
+      "options": {
+        "A": "Dưới 2 µm",
+        "B": "Dưới 3 µm",
+        "C": "Dưới 5 µm",
+        "D": "Dưới 10 µm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Phần I - [Hiệu chỉnh] - Hạng mục hiệu chỉnh 2: 'Độ chính xác thị của bàn vận chuyển' -> Phương pháp phán định: 'Dưới 5 µm'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

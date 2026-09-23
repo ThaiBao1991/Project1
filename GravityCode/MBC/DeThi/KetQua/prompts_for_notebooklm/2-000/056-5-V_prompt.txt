@@ -1,0 +1,396 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: TIÊU CHUẢN HIỆU CHỈNH ĐIỂM KIỂM                  Ban BHCL Mabchi Motor Co., Ltd. - Đồng hồ đo độ dẫn điện (Dùng cho khay xốp đóng gói )              Dụng cụ đo 056-5
+Mã số/Mã máy đo: 056-5
+File gốc: 056-5-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+Trang 1/5
+
+TIÊU CHUẢN HIỆU CHỈNH ĐIỂM KIỂM                  Ban BHCL Mabchi Motor Co., Ltd.
+
+Ban hành:  27 tháng 7 năm 2020
+Sửa đổi: Ngày  tháng  năm
+Đồng hồ đo độ dẫn điện (Dùng cho khay xốp đóng gói )              Dụng cụ đo 056-5
+HORIBA (Máy : EC-210,220/D-210C,220C  Điện cực:9383)
+
+Ι [Hiệu chuẩn]
+
+Dung dịch chuẩn: Dung dịch kali clorua (độ dẫn điện 1,41mS/cm)
+
+Chu kỳ hiệu chuẩn: 12 tháng một lần và khi cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+Phán định
+
+《Chuẩn bị trước khi
+hiệu chuẩn》
+
+[ Dung dịch chuẩn
+được sử dụng ]
+※ Khay xốp mẫu
+cho NIST
+
+[Hệ thống đơn vị]
+
+[Hệ số nhiệt độ]
+
+「Thiết đặt hằng số
+CELL」
+
+[Chuẩn bị dung dịch
+chuẩn và nước tinh
+khiết (nước trao đổi
+ion)]
+
+※Chi tiết về quy trình cài đặt và đo lường, vui lòng tham khảo
+hướng dẫn sử dụng.
+
+《Bảng 1》Dung dịch chuẩn khuyến nghị (Dung dịch Kali Clorua)
+Số phần
+Độ dẫn điện (25
+độ C)
+Nhà sản xuất
+32887-08
+1,41mS/cm
+Công ty TNHH Hóa chất
+Kanto
+HI 7031
+1413 [mu] S/cm
+(1.413mS/cm)
+HANNA instruments
+※ Vì dung dịch đòi hỏi độ chính xác nghiêm ngặt nên chỉ sử
+dụng 1 lần, tuyệt đối không tái sử dụng. Ngoài ra, không lưu trữ
+trong một thời gian dài.
+《Bảng 2》: Bảng chuyển đổi một đơn vị được hiển thị bên dưới
+để tham khảo.
+
+Đơn vị cũ
+⇒
+Đơn vị SI
+Hằng số cell
+1cm-1
+⇒
+100m-1
+0,1cm-1
+⇒
+10m-1
+10cm-1
+⇒
+1000m-1
+Giá trị đo
+10 [mu] S/cm
+⇒
+1mS/m
+1mS/cm
+⇒
+100mS/m
+100mS/cm
+⇒
+10S/m
+
+T25℃ (±2%/℃)
+Trường hợp điện cực được kết nối với đồng hồ đo lần đầu tiên,
+hoặc tái sử dụng điện cực đã được lưu trữ trong một thời gian
+dài thì sẽ thiết đặt hằng số cell.
+(1) Phím     -> Màn hình COND P1 -> Phím ENT●
+-> Màn hình CELL P1.1-> Phím ENT●-> CELL mặcđịnh 1.000
+thiết định ban đầu sẽ hiển thị
+(2) Thiết đặt hằng số CELL được ghi trên nhãn điện cực bằng
+phím ▲▼
+(ví dụ: Khi trên nhãn ghi 1.013x100m-1 (1cm-1)  ) thì trị thiết đặt
+là 1.013.
+(3) Nhấn phím ENT● để hoàn tất thiết đặt.
+
+Dung dịch chuẩn nên được đặt ở nhiệt độ 25℃±0.5℃ trong
+buồng nhiệt độ không đổi.
+Chuẩn bị nước tinh khiết cho tẩy rửa, bảo hộ và bảo quản.
+
+--- HẾT TRANG ---
+
+Trang 2/5
+
+Ι [Hiệu chuẩn]                                                                        Dụng cụ 056-5
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+Phán định
+
+1. Xác định độ nhạy
+điện cực
+Và
+Hiệu chuẩn hằng số
+CELL
+
+2. Hiệu chuẩn hằng số
+CELL
+( chỉ khi có độ lệch trên
+±5% ở 1.)
+
+(1) Rửa các điện cực bằng nước tinh khiết (nước trao đổi ion)
+và lau sạch nước bằng khăn giấy
+(2) Bật nguồn máy đo, cắm điện cực và nhấn phím     để
+thay đổi sang chế độ COND.
+(3) Nhỏ một lượng thích hợp (khoảng 100mL) dung dịch
+chuẩn vào cốc.
+(4) Nhúng điện cực vào trong một dung dịch chuẩn sao cho lỗ
+ở trên cùng chìm hẳn.
+(6) Khi biểu tượng      chuyển từ trạng thái nhấp nháy sang
+bật sáng, đọc giá trị đo hiển thị ổn định trên màn hình.
+
+Nếu có độ lệch từ 5% trở lên, hãy tiếp tục thực hiện những
+điều sau đây.
+Theo đó hằng số CELL được cập nhật tương xứng với trạng
+thái điện cực hiện tại.
+(1) Đặt điện cực vào dung dịch tiêu chuẩn và nhấn phím    .
+(2) AUTO CAL xuất hiện,  chờ cho đến khi     sáng lên.
+(3) Nhấn phím ENT●để lưu dữ liệu hiệu chuẩn.
+(4) Khi DONE xuất hiện trên đồng hồ là đã hoàn tất.
+(5) Đo dung dịch chuẩn và xác nhận giá trị nằm trong phán
+định.
+
+※ Trường hợp không thể thiết đặt nhiệt độ dung dịch
+chuẩn ở 25℃±0.5℃
+Thực hiện hiệu chỉnh thủ công ở chế độ thao tác tay theo
+trình tự bên dưới.
+(1)Phím    -> Màn hình P1 COND -> Phím ENT● -> Màn
+hình CELL P1.1
+(2) Phím ▲ -> Màn hình P1.2 UNIT -> ▲-> màn hình P1.3
+A.CAL-> Thiết đặt OFF bằng phím ▲▼ ( Trở thành chế độ
+thao tác tay)
+
+Độ dẫn điện
+<±5%
+
+--- HẾT TRANG ---
+
+Ι [Hiệu chuẩn]                                                                           Trang 3/5
+Dụng cụ đo 056-5
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+(Hiệu chuẩn hằng số
+CELL)
+(tiếp theo)
+
+《 Xử lý sau hiệu
+chỉnh 》
+
+(3) Đặt điện cực vào dung dịch chuẩn và nhấn phím
+(4) Man CAL xuất hiện và chờ cho    sáng lên.
+(6) Nhập giá trị độ dẫn điện tương ứng với nhiệt độ dung dịch
+chuẩn bằng phím ▲▼ (tham khảo bảng 3)
+(6) Nhấn phím ENT● để xác nhận và lưu dữ liệu hiệu chuẩn.
+(7) Khi DONE xuất hiện trên đồng hồ là đã hoàn tất.
+(8) Đo dung dịch chuẩn và xác nhận giá trị nằm trong phán
+định.
+
+《Bảng 3》Độ dẫn điện chuẩn của dung dịch kali clorua (1413μS/cm)
+
+Bảo dưỡng-bảo quản điện cực
+(1) Rửa sạch điện cực bằng nước tinh khiết (nước trao đổi
+ion).
+(2) Lau sạch bên trong nắp bảo hộ bằng nước tinh khiết,
+châm thêm nước tinh khiết cho đến mức đỉnh điện cực được
+nhúng chìm, đậy nắm lại và đem cất bảo quản.
+
+-Trích dẫn・Văn bản liên quan -
+Phương pháp hiệu chuẩn: Dựa theo sách hướng dẫn sử dụng của nhà sản xuất
+Tiêu chuẩn phán định: Tự thiết đặt nội bộ (Tham khảo 「Hướng dẫn đo độ dẫn điện」・ hướng dẫn sử dụng)
+
+Nhiệt độ
+Độ dẫn điện
+Nhiệt độ
+Độ dẫn điện
+Nhiệt độ
+Độ dẫn điện
+Nhiệt độ
+Độ dẫn điện
+0
+776
+17
+1199
+22
+1332
+27
+1467
+5
+896
+18
+1225
+23
+1359
+28
+1494
+10
+1020
+19
+1251
+24
+1386
+29
+1521
+15
+1147
+20
+1278
+25
+1413
+30
+1548
+16
+1173
+21
+1305
+26
+1440
+31
+1575
+（Nhiệt độ：℃，Độ dẫn điện：μS/cm）
+
+--- HẾT TRANG ---
+
+Trang 4/5
+
+II. [Điểm kiểm]
+
+Đồng hồ đo độ dẫn điện (Dùng cho khay xốp đóng gói )                           Dụng cụ đo 056-5
+HORIBA (Máy : EC-210,220/D-210C,220C  Điện cực:9383)
+
+Tần suất điểm kiểm: Mỗi lần bạn sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp kiểm điểm kiểm
+Phương pháp
+phán định
+
+Ngoại quan
+
+Không có khiếm khuyết hư hại trên đồng hồ đo độ dẫn điện
+và điện cực.
+Đặc biệt, đối với các điện cực, kiểm tra xem có dính dị vật
+hay không.
+Điện cực phải được đậy nắp bảo hộ chỉ trừ khi đo.
+
+Chú ý khi sử dụng
+(1) Không gây sốc điện cực・đồng hồ đo.
+(2) Trường hợp đo các dung dịch các loại khác nhau, mỗi lần
+đo, rửa sạch điện cực bằng nước tinh khiết (nước trao đổi
+ion) và lau sạch nước bằng khăn giấy trước khi sử dụng.
+Chú ý cẩn thận không để trầy xước hoặc làm hỏng điện cực.
+(3) Ngoài ra, phải tuân theo các hạng mục chú ý trong sách
+hướng dẫn sử dụng.
+
+Bảo quản sau khi sử dụng
+(1) Bảo dưỡng・bảo quản điện cực
+Rửa sạch điện cực bằng nước tinh khiết (nước trao đổi ion).
+Lau sạch bên trong nắp bảo hộ bằng nước tinh khiết, châm
+thêm nước tinh khiết cho đến mức đỉnh điện cực được nhúng
+chìm, đậy nắm lại và đem cất bảo quản.
+(2) Bảo quản điện cực ở nơi có nhiệt độ 0～45℃ , không ẩm
+ướt có độ ẩm dưới 80%.
+(3) Ngoài ra, phải tuân theo các hạng mục chú ý trong sách
+hướng dẫn sử dụng.
+
+Lưu ý:
+1. Trường hợp kiểm tra thấy bất thường, ghi chép lại kết quả đã kiểm tra và xử lý theo chỉ thị
+của người có trách nhiệm quản lý.
+2. Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được,
+nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường
+xảy ra.
+3. Trường hợp nhận thấy sự bất thường trong khi sử dụng, sẽ xử lý theo chỉ thị của người có
+trách nhiệm quản lý.
+
+--- HẾT TRANG ---
+
+HIỆU CHUẨN-ĐIỂM KIỂM               BẢN LAI LỊCH BAN HÀNH, CẢI ĐỔI    Dụng cụ đo 56-5  Trang 5/5
+Ký
+hiệu
+Ngày
+Nội dung (sửa đổi, v.v.)
+Soạn
+thảo
+Xác nhận
+Công
+nhận
+
+2020.07.27
+
+Ban hành mới (Nơi yêu cầu:Ban BHCL MCH-D )
+
+Ban BHCL Mabuchi MotorCo., Ltd.
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "056-5-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "TIÊU CHUẢN HIỆU CHỈNH ĐIỂM KIỂM                  Ban BHCL Mabchi Motor Co., Ltd. - Đồng hồ đo độ dẫn điện (Dùng cho khay xốp đóng gói )              Dụng cụ đo 056-5",
+  "doc_code": "056-5",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

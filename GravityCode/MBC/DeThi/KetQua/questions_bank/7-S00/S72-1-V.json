@@ -1,0 +1,50 @@
+{
+  "file_name": "S72-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm ĐẦU DÒ GIA TĂNG TỐC ĐỘ DÙNG CHO THIẾT BỊ THÍ NGHIỆM CHẤN ĐỘNG",
+  "doc_code": "S72-1d",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo quy định về độ chính xác, sai lệch độ nhạy tải điện của biểu thành tích tại thời điểm hiệu chỉnh so với lần hiệu chỉnh trước đó phải đạt mức nào?",
+      "options": {
+        "A": "±1%",
+        "B": "±3%",
+        "C": "±5%",
+        "D": "±10%"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1/3: Độ nhạy tải điện của biểu thành tích tại thời điểm hiệu chỉnh lần trước {pC/(m/s2)} ±3%"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo nội dung cải đính ngày 01/08/2023, quy cách phán định độ nhạy được thiết lập dựa trên tham khảo từ đơn vị nào?",
+      "options": {
+        "A": "Dựa trên tiêu chuẩn nội bộ của công ty IMV",
+        "B": "Dựa trên tiêu chuẩn quốc gia Nhật Bản A16-1",
+        "C": "Dùng 3% bề rộng lệch độ nhạy từ quan điểm của nhóm quản lý chất lượng công ty Onosokki",
+        "D": "Dựa trên thông số nhiệt độ môi trường 23±5℃"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1/3 và 3/3: 2023.7 Từ quan điểm của nhóm quản lý chất lượng công ty Onosokki để tham khảo, dùng 3% bề rộng lệch độ nhạy"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn S72-1d, chu kỳ hiệu chỉnh định kỳ đối với Đầu dò gia tăng tốc độ dùng cho thiết bị thí nghiệm chấn động là bao lâu?",
+      "options": {
+        "A": "1 năm",
+        "B": "2 năm",
+        "C": "3 năm",
+        "D": "5 năm"
+      },
+      "correct_answer": "D",
+      "reference_note": "Trang 1/3: Chu kỳ hiệu chỉnh 5 năm"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

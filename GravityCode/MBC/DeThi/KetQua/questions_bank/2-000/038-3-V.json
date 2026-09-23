@@ -1,0 +1,50 @@
+{
+  "file_name": "038-3-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - Dụng cụ thí nghiệm điện trở cách điện/ điện áp chịu đựng (KIKUSUI TOS8870A)",
+  "doc_code": "038-3a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Để đảm bảo an toàn điện và độ chính xác khi thực hiện hiệu chỉnh thiết bị KIKUSUI TOS8870A, nhân viên phải tuân thủ thao tác nào sau đây?",
+      "options": {
+        "A": "Chỉ cần tắt nguồn thiết bị khi thao tác trực tiếp trên máy móc.",
+        "B": "Sử dụng bao tay cao su cách điện và xác nhận nút TEST VOLTAGE đã ở vị trí '0' trước khi tiến hành.",
+        "C": "Xoay nút TEST VOLTAGE lên mức tối đa ngay sau khi bật công tắc nguồn.",
+        "D": "Đeo bao tay vải thông thường để tránh trầy xước bề mặt thiết bị."
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ mục <Hạng mục chú ý> trang 1/5: Sử dụng bao tay cao su cách điện và xác nhận nút TEST VOLTAGE đã được xoay sang phía bên trái (vị trí '0')."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Trong trường hợp kết quả kiểm tra thiết bị không có gì bất thường, việc ghi chép kết quả được thực hiện như thế nào?",
+      "options": {
+        "A": "Không cần ghi chép bất cứ thông tin nào vào sổ theo dõi.",
+        "B": "Bắt buộc phải ghi chép đầy đủ sau mỗi lần sử dụng thiết bị.",
+        "C": "Chỉ ghi chép khi có sự thay đổi người vận hành máy.",
+        "D": "Có thể không ghi chép kết quả mỗi lần, nhưng mỗi tháng phải ghi chép lại kết quả kiểm tra một lần."
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ mục Ghi chú số 2 trang 4/5: Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả kiểm tra một lần."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ kiểm tra (điểm kiểm tra) đối với dụng cụ thí nghiệm điện trở cách điện KIKUSUI TOS8870A được quy định như thế nào?",
+      "options": {
+        "A": "Kiểm tra định kỳ mỗi tuần một lần.",
+        "B": "Kiểm tra định kỳ mỗi tháng một lần.",
+        "C": "Kiểm tra vào mỗi lần sử dụng.",
+        "D": "Chỉ kiểm tra khi thiết bị có dấu hiệu hư hỏng ngoại quan."
+      },
+      "correct_answer": "C",
+      "reference_note": "Căn cứ mục II [Điểm kiểm tra] trang 4/5: Tiến độ kiểm tra: Mỗi lần sử dụng."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

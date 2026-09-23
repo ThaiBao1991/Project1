@@ -1,0 +1,50 @@
+{
+  "file_name": "094-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – KIỂM TRA DỤNG CỤ ĐO",
+  "doc_code": "094-1d",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra định kỳ hoặc khi sử dụng, nếu phát hiện thiết bị đo có bất thường (ví dụ: pin yếu, màn hình hiển thị lỗi, hư hỏng), thao tác xử lý bắt buộc theo đúng quy định là gì?",
+      "options": {
+        "A": "Tự ý tháo thiết bị để kiểm tra và thay thế linh kiện bên trong",
+        "B": "Tiếp tục sử dụng cho đến hết ca làm việc rồi mới báo cáo cấp trên",
+        "C": "Ghi chép lại kết quả, xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu, làm đơn đề nghị hiệu chỉnh lại nếu cần thiết",
+        "D": "Cất thiết bị vào kho và không cần ghi chép lại"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: Chú ý 2) Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện hiệu chỉnh"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Đối với máy đo lực căng dây đai dạng sóng âm mã U-507 ở mức điều kiện đo LOW (với M=2.4g/m, W=10.0mm, S=200mm), trị quy cách tần số và trị quy cách cường lực tiêu chuẩn là bao nhiêu?",
+      "options": {
+        "A": "25 Hz ± 0.25 Hz và 2.35 ～ 2.45 N",
+        "B": "90 Hz ± 0.9 Hz và 30.5 ～ 31.8 N",
+        "C": "500 Hz ± 5 Hz và 942 ～ 980 N",
+        "D": "2000 Hz ± 30 Hz và 14900 ～ 15830 N"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: Bảng thông số U-507 LOW (M=2.4g/m, W=10.0mm, S=200mm) - Trị quy cách tần số: 25 Hz ± 0.25 Hz, Trị quy cách cường lực: 2.35 ～ 2.45 N"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn kiểm tra dụng cụ đo lực căng dây đai dạng sóng âm (U-507/507D/508/550), tiến độ thực hiện kiểm tra ngoại quan và lượng pin còn lại được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và trước mỗi ca sản xuất",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "3 tháng 1 lần hoặc khi có yêu cầu từ bộ phận chất lượng",
+        "D": "Trước và sau khi sử dụng thiết bị đo"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Tiến độ kiểm tra: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

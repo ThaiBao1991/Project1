@@ -1,0 +1,50 @@
+{
+  "file_name": "527-2-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - Geji vòng chuẩn (vòng thiết định) (Dùng điều chỉnh điểm 0 của Thước xilanh)",
+  "doc_code": "527-2c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra hoặc sử dụng Geji vòng chuẩn, nếu phát hiện có bất thường thì nhân viên thao tác cần phải làm gì?",
+      "options": {
+        "A": "Tự ý mài sửa lại kích thước để tiếp tục sử dụng",
+        "B": "Bỏ qua nếu sai số nhỏ hơn 1 μm",
+        "C": "Ghi chép lại kết quả, xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu, trường hợp cần thiết làm đơn đề nghị hiệu chỉnh lại thiết bị đo",
+        "D": "Đem cất vào tủ dụng cụ và không cần báo cáo"
+      },
+      "correct_answer": "C",
+      "reference_note": "Phần Ⅱ【Điểm kiểm】 - Chú ý mục 2: Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu..."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Tiến độ điểm kiểm (kiểm tra thường ngày) đối với Geji vòng chuẩn (vòng thiết định) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "6 tháng 1 lần",
+        "D": "Chỉ kiểm tra trước khi đưa vào kho"
+      },
+      "correct_answer": "B",
+      "reference_note": "Phần Ⅱ【Điểm kiểm】 - Tiến độ điểm kiểm: mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, chu kỳ hiệu chỉnh đối với Geji vòng chuẩn (vòng thiết định) dùng điều chỉnh điểm 0 của thước xilanh là bao lâu?",
+      "options": {
+        "A": "12 tháng và khi cần thiết",
+        "B": "24 tháng và khi cần thiết",
+        "C": "36 tháng và khi cần thiết",
+        "D": "60 tháng và khi cần thiết"
+      },
+      "correct_answer": "C",
+      "reference_note": "Phần I【Hiệu chỉnh】 - Chu kỳ hiệu chỉnh: 36 tháng và khi cần thiết"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

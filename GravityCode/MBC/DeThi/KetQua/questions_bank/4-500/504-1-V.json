@@ -1,0 +1,50 @@
+{
+  "file_name": "504-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định MÁY ĐO ĐỘ TRÒN (RONCOM 1D)",
+  "doc_code": "504-1g",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục [Chú ý] trong phần điểm kiểm tra máy đo độ tròn (Rondcom 1D), điều kiện bắt buộc nào về hệ thống khí nén phải tuân thủ tuyệt đối?",
+      "options": {
+        "A": "Phải xả toàn bộ khí nén trước khi tắt nguồn điện chính của máy.",
+        "B": "Khi bàn quay không đủ lượng hơi cần thiết, tuyệt đối không được xoay.",
+        "C": "Áp lực thiết định hơi phải luôn được duy trì chính xác ở mức 5kgf/cm2.",
+        "D": "Chỉ được mở van hơi sau khi đã đặt vật cần đo lên bàn quay."
+      },
+      "correct_answer": "B",
+      "reference_note": "II 【Điểm kiểm】 - [Chú ý]: Khi bàn quay không đủ lượng hơi cần thiết, tuyệt đối không được xoay."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh máy đo độ tròn (Roncom 1D), chu kỳ hiệu chỉnh định kỳ của thiết bị này là bao lâu?",
+      "options": {
+        "A": "1 tháng 1 lần hoặc khi thấy cần thiết",
+        "B": "3 tháng 1 lần hoặc khi thấy cần thiết",
+        "C": "6 tháng 1 lần hoặc khi thấy cần thiết",
+        "D": "1 năm 1 lần hoặc khi thấy cần thiết"
+      },
+      "correct_answer": "B",
+      "reference_note": "I【Hiệu chỉnh】 - Chu kỳ hiệu chỉnh: 3 tháng 1 lần hoặc khi thấy cần thiết"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo quy định về ghi chép kết quả kiểm tra bất thường, trong trường hợp kết quả kiểm tra không thấy bất thường, nhân viên phụ trách cần thực hiện như thế nào?",
+      "options": {
+        "A": "Không cần thực hiện bất kỳ thao tác ghi chép nào trong suốt quá trình làm việc.",
+        "B": "Phải ghi chép lại kết quả kiểm tra vào mỗi cuối ca làm việc hàng ngày.",
+        "C": "Không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.",
+        "D": "Phải báo cáo trực tiếp ngay cho bộ phận bảo hành phẩm chất vào cuối tuần."
+      },
+      "correct_answer": "C",
+      "reference_note": "II 【Điểm kiểm】 Ghi chú - Mục 2: Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

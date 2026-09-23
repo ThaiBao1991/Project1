@@ -1,0 +1,50 @@
+{
+  "file_name": "601-2-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiêm máy đo Geji đo độ cao",
+  "doc_code": "601-2a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra ngoại quan và hoạt động, nếu phát hiện kết quả kiểm tra có bất thường hoặc phát hiện bất thường trong lúc sử dụng, nhân viên phụ trách phải xử lý như thế nào?",
+      "options": {
+        "A": "Tiếp tục sử dụng hết ca làm việc rồi mới báo cáo quản lý.",
+        "B": "Tự ý tháo dỡ thiết bị để sửa chữa lỗi.",
+        "C": "Nhận ra thì xử lý ngay lập tức / Xử lý theo chỉ thị của người chịu trách nhiệm quản lý.",
+        "D": "Bỏ qua nếu sai số nhỏ hơn 0.05mm."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3: Điểm kiểm - Mục 4: 'Nhận ra thì xử lý ngay lập tức' và Chú ý 3: 'Trường hợp thấy bất thường khi đang sử dụng thì xử lý theo chỉ thị của người chịu trách nhiệm quản lý.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo bảng định mức độ chính xác phần 'Sai lệch máy đo' (器差), giá trị định chuẩn cho phép (đối với最小読取値 0.01mm) khi đo chiều dài lớn nhất từ 100 đến 200mm là bao nhiêu?",
+      "options": {
+        "A": "±0.01 mm",
+        "B": "±0.03 mm",
+        "C": "±0.07 mm",
+        "D": "±0.10 mm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Bảng Trị phân định(mm) - Cột 0.02 hoặc 0.01 ứng với khoảng 100 đến 200 là ±0.03"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tần suất thực hiện điểm kiểm (kiểm tra hàng ngày/sử dụng) đối với Geji đo độ cao (Height Gauge) là khi nào?",
+      "options": {
+        "A": "Mỗi lần sử dụng",
+        "B": "Mỗi tuần một lần",
+        "C": "Mỗi tháng một lần",
+        "D": "Mỗi năm một lần"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 3: Tiền độ điểm kiêm: Mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

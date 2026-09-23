@@ -1,0 +1,235 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM MÁY ĐO  Công ty Mabuchi Co., LTD – Bộ phận BHCL - Máy kiểm tra tự động tính năng bộ giảm chấn          Máy đo    105-1a
+Mã số/Mã máy đo: 105-1a
+File gốc: 105-1-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/4
+
+BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM MÁY ĐO  Công ty Mabuchi Co., LTD – Bộ phận BHCL
+
+Ban hành  24/10/2019
+Cải đính     09/03/2021
+Máy kiểm tra tự động tính năng bộ giảm chấn          Máy đo    105-1a
+MS thiết bị: TS01-012M-AA / TS01-015M-AA/ TS01-017M-AA
+
+Ι【Hiệu chỉnh】
+
+Máy đo tiêu chuẩn      Máy hiển vi công cụ [503-#], Dụng cụ hỗ trợ：Master Block (dụng
+cụ hỗ trợ cho máy kiểm tra tự động tính năng)
+
+Chu kì hiệu chỉnh          Mỗi 24 tháng và khi nhận thấy cần thiết
+
+Hạng mục
+hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+（Nội dung chú ý）
+
+（Thiết bị trước hiệu
+chỉnh）
+
+(1) Tuyệt đối không được nhìn vào chùm tia laser.
+（Ngay cả trong trường hợp không có ánh sáng cũng
+không được nhìn vào cửa sổ của bộ phận phát sáng.）
+
+(2) Đối với vật được đo có bề mặt phẳng như mặt kính thì không
+được nhìn vào ánh sáng phản chiếu từ mặt phẳng đó.
+
+(3) Không được tháo nhãn dán biểu thị lớp ánh sáng laser được
+dán trên bộ phận đo.
+
+Tên thiết bị: Master Block B
+(1) Chuẩn bị 2 sản phẩm có chiều dài khác nhau.
+
+(2) Đo và ghi sẵn lại chiều dài các điểm ①② bằng kính hiển vi
+công cụ.
+
+① Master Block（L=+0.5mm）
+
+② Master Block（L=-0.5mm）
+
+L=3.43
+L=4.43
+
+--- HẾT TRANG ---
+
+No.2/4
+
+Ⅰ【Hiệu chỉnh】                                    Máy đo  105-1a
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+1.Máy đo độ dịch
+chuyển laser
+
+Đo 2 loại geji chủ có chiều dài khác nhau bằng máy kiểm tra
+tính năng, sau đó đối chiếu với giá trị đo bằng kính hiển vi công
+cụ để phán định.
+
+(1) Chọn chế độ hiệu chỉnh từ menu chính của máy đo tính
+năng.
+
+(2) ) Đặt Master Block ① lên vĩ của máy kiểm tra tính năng.
+
+(3) Bấm phím [TRay ON] [Press DOWN][Work ON], sau đó
+bấm phím bắt đầu (sản phẩm đđược cố định).
+
+(4) Ghi lại giá trị hiển thị trên máy đo độ dịch chuyển laser.
+
+(5) Lấy Master Block ① ra, sau đó đặt Master Block ② lên vĩ
+rồi cố định sản phẩm.
+(6) Ghi lại giá trị biểu thị trên máy đo độ dịch chuyển laser.
+
+(7) Tính lượng dịch chuyển＝(4)－(6), sau đó so sánh sự
+chênh lệch giá trị được đo bằng kính hiển vi công cụ và
+đo bằng thiết bị trước khi hiệu chỉnh.
+
+±0.05mm
+
+－Trích dẫn・Văn bản liên quan－
+Hạng mục 1 Quy cách phán định: trách dẫn dữ liệu đã được kiểm duyệt lúc bắt đầu dản xuất hàng loạt
+
+Master Block ①
+Master Block ②
+Cách 25.5mm
+Cách 25.5mm
+Máy đo độ dịch chuyển laser
+Laser displacement sensor
+
+--- HẾT TRANG ---
+
+No.3/4
+
+Ⅱ【Điểm kiểm】   Máy kiểm tra tự động tính năng bộ giảm chấn      Máy đo 105-1a
+MS thiết bị: TS01-012M-AA / TS01-015M-AA/ TS01-017M-AA
+
+Tần xuất điểm kiểm   Mỗi lần sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+Ngoại quan
+
+(1) Xác nhận trên màn hình hiển thị có lỗi dính bẩn, trầy xước,
+hư hỏng gây cản trở việc đo đạc hay không.
+
+(2) Xác nhận có sai sót có hại nào như dính dị vật hay hư hỏng
+không.
+
+Chú ý)
+1. Trong trường hợp phát sinh những bất thường hãy ghi chép lại trong kết quả kiểm tra rồi xử lí theo chỉ
+thị của quản lí.
+2. Trong trường hợp không có bất thường thì không cần ghi chép lại.
+Tuy nhiên, dù cho không phát sinh trong vòng một tháng thì cũng cần phải ghi lại.
+3. Trong trường hợp phát hiện thấy điểm bất thường trong quá trình sử dụng thì cần xử lí theo chỉ thị của
+quản lí.
+
+--- HẾT TRANG ---
+
+BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM
+BẢN LÍ LỊCH BAN HÀNH – CẢI ĐÍNH – CHỈNH SỬA            Máy đo  105-1    No.4/4
+Kí
+hiệu
+Ngày
+Tháng
+Năm
+Nội dung cải đính
+Soạn
+thảo
+Xác nhận
+Phê
+duyệt
+
+2019.10.24
+
+Ban hành quy định mới （Dự thảo: Nhóm 1 BHCL
+Ootomoshi）
+
+Ishi
+
+Kikuchi Usui
+
+Itou
+
+a
+2021.03.09 Bổ sung mã số thiết bị：TS01-017M-AA
+
+Công ty Mabuchi Co., LTD – Bộ phận BHCL
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "105-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM MÁY ĐO  Công ty Mabuchi Co., LTD – Bộ phận BHCL - Máy kiểm tra tự động tính năng bộ giảm chấn          Máy đo    105-1a",
+  "doc_code": "105-1a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

@@ -1,0 +1,50 @@
+{
+  "file_name": "608-1-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "ĐỒNG HỒ ĐO VI LƯỢNG DẠNG CHỈ THỊ (Mitsutoyo)",
+  "doc_code": "608 – 1 d",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Phương pháp phán định đối với mục 'Kiểm tra trục chính và nút nhấn' (Mục 3 phần Kiểm tra) là gì?",
+      "options": {
+        "A": "Dưới 0.4μm",
+        "B": "Từ 2 vạch trở xuống",
+        "C": "Từ 5 vạch trở xuống",
+        "D": "± 3μm"
+      },
+      "correct_answer": "A",
+      "reference_note": "II [Kiểm tra] - Hạng mục 3. Kiểm tra trục chính và nút nhấn - Phương pháp phán định: Dưới 0.4μm"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý về xử lý kết quả kiểm tra, nếu kết quả kiểm tra KHÔNG có bất thường thì quy định ghi chép như thế nào?",
+      "options": {
+        "A": "Bắt buộc phải ghi lại kết quả kiểm tra vào biên bản sau mỗi lần sử dụng.",
+        "B": "Không cần ghi lại kết quả kiểm tra, và tuyệt đối không được ghi lại trong suốt quá trình sử dụng.",
+        "C": "Có thể không ghi lại kết quả kiểm tra. Tuy nhiên, 1 tháng 1 lần dù không có bất thường cũng ghi lại kết quả kiểm tra.",
+        "D": "Chỉ ghi lại kết quả khi có yêu cầu từ cấp trên hoặc khách hàng."
+      },
+      "correct_answer": "C",
+      "reference_note": "II [Kiểm tra] - Chú ý) 2. Trường hợp kết quả kiểm tra không có bất thường thì có thể không ghi lại kết quả kiểm tra. Tuy nhiên, 1 tháng 1 lần dù không có bất thường cũng ghi lại kết quả kiểm tra."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ kiểm tra (tần suất kiểm tra) đối với đồng hồ đo vi lượng dạng chỉ thị là bao lâu?",
+      "options": {
+        "A": "Mỗi ca sản xuất",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tuần một lần",
+        "D": "Mỗi tháng một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "II [Kiểm tra] - Tiến độ kiểm tra: Mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

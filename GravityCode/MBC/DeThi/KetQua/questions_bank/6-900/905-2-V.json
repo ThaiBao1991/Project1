@@ -1,0 +1,50 @@
+{
+  "file_name": "905-2-V.pdf",
+  "folder_name": "6-900 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm dụng cụ đo",
+  "doc_code": "905-2 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi kiểm tra ngoại quan thiết bị (mục 1. Ngoại quan), nếu phát hiện cảm biến và phần hiển thị bị bụi bẩn, người kiểm tra cần xử lý theo hướng dẫn nào?",
+      "options": {
+        "A": "Dùng khí nén áp lực cao để thổi sạch bụi trực tiếp vào đầu cảm biến.",
+        "B": "Tự ý tháo rời vỏ thiết bị để lau chùi bo mạch bên trong.",
+        "C": "Trường hợp mà có bụi bẩn thì hãy làm sạch theo bản hướng dẫn.",
+        "D": "Ngay lập tức gửi thiết bị về cơ sở chế tạo để vệ sinh."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2 - Phần Ⅱ【Điểm kiểm】, Phương pháp điểm kiểm: Trường hợp mà có bụi bẩn thì hãy làm sạch theo bản hướng dẫn"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo quy định tại mục 'Điểm kiểm', tiến độ thực hiện điểm kiểm đối với máy đo tốc độ gió cảm biến nhiệt được quy định như thế nào?",
+      "options": {
+        "A": "Chỉ thực hiện mỗi tuần 1 lần vào đầu tuần.",
+        "B": "Mỗi tháng 1 lần, và Mỗi lần sử dụng.",
+        "C": "Chỉ thực hiện trước khi tiến hành đo đạc sản phẩm.",
+        "D": "Mỗi quý 1 lần theo kế hoạch của bộ phận BHCL."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2 - Phần Ⅱ【Điểm kiểm】, Tiến độ điểm kiểm: Mỗi tháng 1 lần, và Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo bảng thông số kỹ thuật của thiết bị đo KANOMAX thể thức 6004, phạm vi đo và độ chính xác đo đạc đối với nhiệt độ gió là bao nhiêu?",
+      "options": {
+        "A": "Phạm vi đo: 0.1～20.0 m/s; Độ chính xác: ±(trị hiển thị 5 %+0.1 m/s)",
+        "B": "Phạm vi đo: 0～50.0 ℃ (32～122°F); Độ chính xác: ±1 ℃",
+        "C": "Phạm vi đo: 0.0～100.0 ℃; Độ chính xác: ±1.0 ℃",
+        "D": "Phạm vi đo: -20～70 ℃; Độ chính xác: ±0.5 ℃"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1 - Phần KANOMAX, Thể thức 6004: Nhiệt độ gió - Phạm vi đo: 0～50.0 ℃ (32～122°F), Độ chính xác: ±1 ℃"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

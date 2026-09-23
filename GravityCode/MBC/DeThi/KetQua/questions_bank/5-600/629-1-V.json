@@ -1,0 +1,50 @@
+{
+  "file_name": "629-1-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – KIỂM TRA DỤNG CỤ ĐO MÁY KIỂM TRA CÒN TỪ",
+  "doc_code": "629-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi tiến hành hiệu chỉnh độ chính xác tổng hợp của máy kiểm tra còn từ, hạng mục chú ý nào liên quan đến trị CAL của máy dò là chính xác?",
+      "options": {
+        "A": "Trị CAL của máy dò (trị hiệu chỉnh) phải được thiết định đúng ở thân máy.",
+        "B": "Có thể thay đổi trị CAL vượt quá ± 10 digit tùy ý.",
+        "C": "Không cần quan tâm đến trị CAL khi thân máy đã hiển thị số 0.",
+        "D": "Trị CAL chỉ được cài đặt bởi nhà sản xuất bên Nhật Bản."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, (Hạng mục chú ý): '・Trị CAL của máy dò (trị hiệu chỉnh) phải được thiết định đúng ở thân máy.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý khi kiểm tra dụng cụ, trường hợp kết quả kiểm tra không có bất thường thì tần suất tối thiểu phải ghi lại kết quả kiểm tra là bao lâu?",
+      "options": {
+        "A": "Không cần ghi lại dưới mọi hình thức nếu không có bất thường",
+        "B": "Ghi lại mỗi ca làm việc",
+        "C": "1 tháng 1 lần dù không có bất thường cũng ghi lại kết quả kiểm tra",
+        "D": "6 tháng 1 lần"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, Chú ý) 2: 'Trường hợp kết quả kiểm tra không có bất thường thì có thể không ghi lại kết quả kiểm tra. Tuy nhiên, 1 tháng 1 lần dù không có bất thường cũng ghi lại kết quả kiểm tra.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ thực hiện công việc kiểm tra (ngoại quan và điều chỉnh 0) cho máy kiểm tra còn từ được quy định khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần trước khi sản xuất",
+        "B": "Mỗi lần sử dụng",
+        "C": "Một tháng một lần",
+        "D": "Trước mỗi ca làm việc"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, II【Kiểm tra】: 'Tiến độ kiểm tra: Mỗi lần sử dụng'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

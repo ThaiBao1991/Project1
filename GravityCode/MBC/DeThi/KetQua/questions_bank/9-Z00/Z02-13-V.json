@@ -1,0 +1,50 @@
+{
+  "file_name": "Z02-13-V.pdf",
+  "folder_name": "9-Z00 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN ĐIỂM KIỂM HIỆU CHỈNH DỤNG CỤ ĐO",
+  "doc_code": "Z02-13",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Đối với kiểu khuôn thân chính AD-5131A, quy định về dung sai phán định đối với tín hiệu CAL (2Vp-p ± 2% 1kHz phương hình sóng) cho hạng mục TIME/DIV là bao nhiêu?",
+      "options": {
+        "A": "± 2%",
+        "B": "± 3%",
+        "C": "± 5%",
+        "D": "± 10%"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Bảng quy cách phán định máy đo hình sóng (AND) - Kiểu khuôn thân chính AD-5131A, hạng mục TIME/DIV (Tin hiệu CAL) có dung sai phán định là ± 3%."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Trường hợp máy đo hình sóng kiểu Analog không yêu cầu trị thực đo (điện áp, số sóng cao tầng...), thì sử dụng trị phán định dung sai nào của bảng đối với trị phán định?",
+      "options": {
+        "A": "Sử dụng trị phán định dung sai ± 1%",
+        "B": "Sử dụng trị phán định dung sai của bảng đối với trị phán định",
+        "C": "Sử dụng trị phán định dung sai ± 5%",
+        "D": "Sử dụng trị phán định dung sai ± 10%"
+      },
+      "correct_answer": "B",
+      "reference_note": "Nội dung (3): Trường hợp máy đo hình sóng kiểu Analog không yêu cầu trị thực đo (điện áp, số sóng cao tầng...) thì sử dụng trị phán định dung sai của bảng đối với trị phán định"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, việc bổ sung quy cách phán định do bổ sung chủng loại máy thì phải yêu cầu bộ phận nào công ty chính dựa trên dụng cụ đo No.A18-1 ban hành mới, sửa đổi bản tiêu chuẩn?",
+      "options": {
+        "A": "Ban Bảo Hành Chất Lượng",
+        "B": "Ban Sản Xuất",
+        "C": "Ban Kỹ Thuật",
+        "D": "Ban Quản Lý Sản Phẩm"
+      },
+      "correct_answer": "A",
+      "reference_note": "Nội dung (2): Việc bổ sung quy cách phán định do bổ sung chủng loại máy thì phải yêu cầu ban Bảo Hành Chất Lượng công ty chính dựa trên dụng cụ đo No.A18-1 ban hành mới, sửa đổi bản tiêu chuẩn."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

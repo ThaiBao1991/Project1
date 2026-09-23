@@ -1,0 +1,50 @@
+{
+  "file_name": "910-4-V.pdf",
+  "folder_name": "6-900 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Máy kiểm tra chì hàn AMADA MIYACHI MM-370B, MM-370C, MM-400B",
+  "doc_code": "910-4 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ thực hiện điểm kiểm (kiểm tra hàng ngày/định kỳ) đối với máy kiểm tra chì hàn được quy định như thế nào?",
+      "options": {
+        "A": "Chỉ kiểm tra 1 lần duy nhất trước khi đưa máy vào sử dụng lần đầu tiên.",
+        "B": "Kiểm tra mỗi tuần 1 lần vào đầu tuần làm việc.",
+        "C": "Mỗi tháng 1 lần và mỗi lần sử dụng.",
+        "D": "Chỉ kiểm tra khi thiết bị xảy ra sự cố hư hỏng."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3, Mục Ⅱ【Điểm kiểm】, Tiến độ điểm kiểm: 'Mỗi tháng 1 lần và mỗi lần sử dụng'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi phát hiện có bất thường trong quá trình kiểm tra hoặc sử dụng thiết bị đo, nhân viên phụ trách phải xử lý như thế nào theo đúng hướng dẫn?",
+      "options": {
+        "A": "Tự ý tháo máy ra sửa chữa linh kiện bên trong để kịp tiến độ sản xuất.",
+        "B": "Ghi chép lại kết quả bất thường và xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu, làm đơn đề nghị hiệu chỉnh nếu cần thiết.",
+        "C": "Bỏ qua lỗi nhỏ và tiếp tục sử dụng thiết bị cho đến hết ca làm việc.",
+        "D": "Tự đổi thiết bị đo của dây chuyền khác mà không cần báo cáo."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, Mục Ⅱ【Điểm kiểm】, Chú ý 2: 'Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu...'"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Về nguyên tắc, việc hiệu chỉnh các thiết bị đo (như máy kiểm tra chì hàn) phải được thực hiện bởi ai theo quy định tại bảng tiêu chuẩn?",
+      "options": {
+        "A": "Nhân viên trực tiếp đứng máy sản xuất tại dây chuyền.",
+        "B": "Nhóm trưởng hoặc kỹ thuật viên phụ trách bảo dưỡng của bộ phận sản xuất.",
+        "C": "Phải ủy thác việc hiệu chỉnh cho nhà cung cấp chế tạo hoặc đại lý (hoặc nhà cung cấp hiệu chỉnh ủy thác).",
+        "D": "Nhân viên quản lý chất lượng (QA) tự tiến hành hiệu chỉnh lại độ chính xác."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Mục I【Hiệu chỉnh】, Hạng mục 1.Giá trị hữu hiệu của dòng điện: 'Về nguyên tắc , phải ủy thác việc hiệu chỉnh cho nhà cung cấp chế tạo hoặc đại lý.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

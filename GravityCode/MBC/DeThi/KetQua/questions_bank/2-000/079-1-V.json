@@ -1,0 +1,50 @@
+{
+  "file_name": "079-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "MÁY ĐO TĨNH ĐIỆN (SIMCO FMX-003, FMX-004, HIỆU SHISHIDOU SEIDENKI STATIRON DZ4)",
+  "doc_code": "079-1 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Trong trường hợp kết quả kiểm tra (điểm kiểm) hàng ngày không thấy bất thường, việc ghi chép được quy định như thế nào?",
+      "options": {
+        "A": "Bắt buộc phải ghi chép đầy đủ vào sổ nhật ký sau mỗi lần sử dụng.",
+        "B": "Không ghi chép cũng được, nhưng mỗi tháng phải ghi chép lại kết quả kiểm tra một lần dù không có gì bất thường.",
+        "C": "Tuyệt đối không cần ghi chép nếu máy hoạt động bình thường để tiết kiệm thời gian.",
+        "D": "Chỉ cần người sử dụng xác nhận bằng miệng với đội trưởng."
+      },
+      "correct_answer": "B",
+      "reference_note": "Mục II, Ghi chú 2: Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả kiểm tra một lần dù không có gì bất thường xảy ra."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Khi thực hiện điều chỉnh điểm 0 cho trường hợp đo đơn vị nhiễm điện, thao tác nào sau đây là đúng kỹ thuật?",
+      "options": {
+        "A": "Hướng phần sensor vào vật đang nhiễm điện cao nhất và nhấn nút [ZERO].",
+        "B": "Kết nối phần điện cực của tấm dùng để đo cân bằng Ion rồi nhấn nút [ZERO].",
+        "C": "Hướng phần sensor ở nơi không có nhiễm điện, rồi nhấn nút [ZERO] để màn hình hiển thị là [0.00].",
+        "D": "Chỉ cần bật nguồn máy đo, máy sẽ tự động cân chỉnh về 0 mà không cần thao tác nút bấm."
+      },
+      "correct_answer": "C",
+      "reference_note": "Mục II.2: Trường hợp đo đơn vị nhiễm điện: Phải hướng phần sensor ở nơi không có nhiễm điện, rồi nhấn nút [ZERO] để màn hình hiển thị là [0.00]."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Chu kỳ hiệu chỉnh (Calibration) định kỳ cho các loại máy đo tĩnh điện (SIMCO, SHISHIDO) được quy định là bao lâu?",
+      "options": {
+        "A": "6 tháng 1 lần.",
+        "B": "Mỗi lần sử dụng máy.",
+        "C": "12 tháng 1 lần hoặc khi thấy cần thiết.",
+        "D": "24 tháng 1 lần theo quy định của nhà sản xuất."
+      },
+      "correct_answer": "B",
+      "reference_note": "Mục I: Chu kỳ hiệu chỉnh: 12 tháng 1 lần hoặc khi thấy cần thiết."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

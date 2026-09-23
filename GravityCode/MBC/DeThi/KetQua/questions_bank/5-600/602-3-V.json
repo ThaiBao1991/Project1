@@ -1,0 +1,50 @@
+{
+  "file_name": "602-3-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "Đồng hồ quản lý tải trọng",
+  "doc_code": "Đo đạc 602-3d",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo phần quy định về hiệu chỉnh, khi sử dụng máy thí nghiệm kéo nén để hiệu chỉnh, giá trị sai lệch tải trọng cho phép so với tiêu chuẩn là bao nhiêu?",
+      "options": {
+        "A": "±1%",
+        "B": "±3%",
+        "C": "±5%",
+        "D": "±10%"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, Mục I【Hiệu chỉnh】 - Bảng phương pháp phán định: 'Sai lệch tải trọng: ±5%'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo mục kiểm tra điểm kiểm, trước khi tiến hành kiểm tra ngoại quan hoặc xác nhận điểm 0 đối với đồng hồ quản lý tải trọng, chúng ta cần thực hiện thao tác chuẩn bị nào?",
+      "options": {
+        "A": "Bật On công tắc nguồn lên và để yên từ 30 phút trở lên.",
+        "B": "Hiệu chỉnh ngay về 25% giá trị FS của Loadcell.",
+        "C": "Tháo rời hoàn toàn các dây cáp nối để kiểm tra độ đứt ngầm.",
+        "D": "Đưa thiết bị vào phòng sạch và hiệu chuẩn lại khuôn 03."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 4, Mục Ⅱ【Điểm kiểm】: '(Ngoài trường hợp nêu trên) (Bật On công tắc nguồn lên và để yên 30 phút trở lên).'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo phần chú thích khi kiểm tra, trường hợp phát hiện có dị thường ở kết quả kiểm tra thì nhân viên phụ trách phải xử lý như thế nào?",
+      "options": {
+        "A": "Tự ý tháo dỡ thiết bị để sửa chữa bộ phận cơ khí bên trong.",
+        "B": "Ký lục kết quả kiểm tra và xử lý theo chỉ thị của người chịu trách nhiệm quản lý.",
+        "C": "Bỏ qua không cần ghi chép nếu trong tháng đó chưa xảy ra lần nào.",
+        "D": "Tiếp tục sử dụng thiết bị cho đến kỳ hiệu chỉnh định kỳ 12 tháng tiếp theo."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 4, Mục Ⅱ【Điểm kiểm】, Chú thích 1: 'Trường hợp có dị thường ở kết quả kiểm tra thì kí lục kết quả kiểm tra và xử lý theo chỉ thị của người chịu trách nhiệm quản lý.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

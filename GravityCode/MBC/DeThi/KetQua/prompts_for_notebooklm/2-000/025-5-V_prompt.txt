@@ -1,0 +1,483 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Tiêu chuẩn hiệu chỉnh-điểm kiểm dụng cụ đo              Ban chính BHCL công ty cổ phần Mabuchi Motor - Thiết bị đo độ chấn động (FFT＋Bộ cảm biến gia tốc + dây cáp)             Dụng cụ đo  025-5g
+Mã số/Mã máy đo: 025-5
+File gốc: 025-5-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/6
+Tiêu chuẩn hiệu chỉnh-điểm kiểm dụng cụ đo              Ban chính BHCL công ty cổ phần Mabuchi Motor
+
+Ban hành  05/04/2007
+Cải đính  28/08/2025
+Thiết bị đo độ chấn động (FFT＋Bộ cảm biến gia tốc + dây cáp)             Dụng cụ đo  025-5g
+ONO SOKKI CF-5220,CF-4500,CF-4700 hoặc tương đương
++NP-3418+NP-0151/NP-0152
+
+Ι【Hiệu chỉnh】
+
+Dụng cụ chuẩn  Bộ cảm biến gia tốc [S72-2：NP-3110A/NP-3418]
+Dụng cụ hiệu chỉnh máy chấn động [S03-1, S84-1]
+
+Chu kỳ hiệu chỉnh        12 tháng hoặc khi được cho là cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+1.Hiệu chỉnh cho giá trị
+FFT biểu thị theo
+tiêu chuẩn
+(NP-3110A
+/NP-3418)
+
+2.Hiệu chỉnh chấn
+động bằng bộ cảm biến
+gia tốc (NP-3418)
+
+(1) Kết nối NP-3110A hoặc NP-3418 với FFT.
+(2) Gắn NP-3110A hoặc NP-3418 vào dụng cụ hiệu chỉnh máy
+chấn động
+(3) Xác nhận xem giá trị FFT biểu thị có bằng 0 hay không
+rung lắc
+(4) Nhập giá trị đúng của NP-3110A hoặc NP-3418 được
+kết nối với FFT (Nhập phần giá trị bằng số của ## mV/(m/s2)
+trên biểu kết quả kiểm tra
+(5) Bật công tất dụng cụ hiệu chỉnh máy chấn động. Thiết định
+FFT vào phạm vi của tần suất đo đạc. Đọc giá trị biểu thị
+của FFT khi độ rung lắc ổn định.
+
+(1) Kết nối NP-3418 với FFT
+(2) Gắn dụng cụ hiệu chỉnh máy chấn động với NP-3418
+(3) Xác nhận xem giá trị FFT biểu thị có bằng 0 hay không khi
+không rung lắc.
+(4) Nhập giá trị đúng của NP-3418 được kết nối với FFT.
+(Nhập phần giá trị bằng số của ## trên biểu kết quả kiểm tra)
+(5) Bật công tất dụng cụ hiệu chỉnh máy chấn động. Thiết định
+FFT vào phạm vi của tần suất đo đạc. Đọc giá trị biểu thị
+của FFT khi độ rung lắc ổn định.
+＜Xử lý trường hợp thay đổi giá trị biểu thị＞
+(1) Do khả năng phát sinh các vấn đề kết nối, cần xác nhận và
+hiệu chỉnh để các bộ phận được chắc chắn và bộ cảm biến gia
+tốc được gắn chặt.
+(2) Di chuyển thiết bị đến một nơi yên tĩnh và hiệu chỉnh lại,
+bởi vì giá trị FFT biểu thị không thể bằng 0 tại nới có tần suất
+thấp trên line sản xuất…
+(3) Trường hợp sau khi thực hiện (1),(2) trên, giá trị vẫn thay
+đổi thì dây cáp kết nối được xem là bị đứt hỏng. Thay dây cap
+và hiệu chỉnh lại.
+(4) Trường hợp sau khi thực hiện(1),(2),(3) trên, giá trị vẫn
+thay đổi thì bộ cảm biến gia áp có khả năng sẽ bị hỏng. Tiến
+hành sửa chữa bộ cảm biến gia áp hoặc mua mới.
+
+Không được
+phép dao động
+
+±3% giá trị
+được hiệu chỉnh
+của dụng cụ
+hiệu chỉnh máy
+chấn động
+
+Không được
+phép dao động
+
+±3% giá trị
+được hiệu chỉnh
+của dụng cụ
+hiệu chỉnh máy
+chấn động
+
+--- HẾT TRANG ---
+
+No.2/6
+
+Ι【Hiệu chỉnh】                       Dụng cụ đo 025-5 g
+
+(Quy trình vận hành ) khi sử dụng FFT CF-5220
+
+(1)Kết nối bộ cảm biến gia áp với CH A on CF-5220
+(2)Gắn bộ cảm biến gia áp với dụng cụ hiệu chỉnh máy chấn động (gắn bằng ốc vít)
+(3)Đặt thiết bị hiệu chỉnh thước đo độ chấn động lên bệ chống rung chấn
+(4)Bật công tắc nguồn CF-5220 lên
+(5)Nhấn phím mềm dưới màn hình hiển thị《MAIN MENU》theo thứ tự sau :
+INPUT → ENG. UNIT → Y EU → V/EU
+(6)Sau khi màn hình CH A screen sáng, nhập giá tị hiệu chỉnh được miêu tả trong giấy chứng nhận hiệu
+ch chỉnh của bộ cảm biến gia tốc bằng bàn phím số (Phần nút hiển thị (DISPLAY) ở bên góc phải màn
+hình)
+(7)Nhấn phím mềm RETURN 3 lần và trở về màn hình 《MAIN MENU》
+(8)Nhấn phím mềm theo trình tự sau
+EZ Operation → VIBRAT ANALYSYS
+(9)Khi màn hình thiết định của điều kiện đo độ chấn động được hiển thị thì thực hiện theo quy trình nhập.
+FREQ RANGE ： 200Hz
+SAMPLE LENGTH： 4096
+CHANNEL ： CH A
+CH A EU NAME： m/S2
+FILTER： OFF
+Y LEVEL：RMS
+(10)Nhấn phím mềm theo trình tự sau và bắt đầu đo đạc
+COND.SET → NEXT → MEASURE START
+(11)Nhấn nút  SPECT của CH A
+(12)Nhấn nút  SENSERcủa CH A (ON: bật ánh sáng)
+(13)Nhấn nút YLOG/LIN(OFF :tắt ánh sáng)
+(14)Bật công tắc nguồn của thiết bị hiệu chỉnh thước đo độ
+Chấn động lên và đọc giá trị sau khi giá trị hiển thị đã
+ổn định (gia tốc/Y ở phía dưới)
+
+--- HẾT TRANG ---
+
+No.3/6
+
+Ι【Hiệu chỉnh】                         Dụng cụ đo 025-5 g
+
+《Quy trình vận hành》khi sử dụng FFT  CF-4500
+
+【Hạng mục chú ý 】
+Điều kiện đo của công đoạn sản xuất nên được lưu trong bộ nhớ của phần thân chính FFT. Sau khi hiệu
+chỉnh，nhập lệnh các điều kiện đo lường trước khi hiệu chỉnh và đặt lại cài đặt trước khi hiệu chỉnh.
+
+Ghi chú：
+Nếu các điều kiện được lưu trữ trong thân chính FFT, thì việc thiết định điều kiện hiệu chuẩn định kỳ sẽ dễ
+dàng hơn.
+
+■Phương pháp để nhập lệnh tra cứu các điều kiện đo đạc từ bộ nhớ của thân máy chính
+①Nhấn các phím theo trình tự sau MAIN → MEMORY → PANEL COND.  → LIST
+②Chạm vào số lưu trữ điều kiện đo đạc hoặc nhấn phím di chuyển([△][▽]) và di chuyển phím lựa
+chọn đến số tương ứng.
+③ Nhấn phím LOADđể hiển thị các điều kiện đo đạc và nhấn phím  YES để thiết định
+
+Lưu trình vận hành khi hiệu chỉnh
+(1)Kết nối bộ cảm biến gia áp với CF-4500
+(2)Gắn bộ cảm biến gia áp với dụng cụ hiệu chỉnh của máy chấn động (gắn bằng ốc vít)。
+(3)Đặt dụng cụ hiệu chỉnh của máy chấn động lên bệ chống rung chấn
+(4)Bật công tắc CF-4500
+(5)Nhập lệnh tra cứu điều kiện hiệu chỉnh theo phương pháp nêu trên để hiển thị điều kiện đo đạc.
+Trường hợp các điều kiện hiệu chỉnh không được lưu trữ, hãy soạn thảo điều kiện dựa theo phương
+pháp lưu trữ điều kiện hiệu chỉnh được miêu tả sau đây.
+(6)Bật công tắc nguồn của thiết bị hiệu chỉnh thước đo độ chấn động.
+(7)Nhấn START キở phái bên phải màn hình để bắt đầu đo đạc (bật đèn lên)
+(8)Đọc giá trị khi giá trị hiển thị (gia tốc／Y ở cuối màn hình) đã ổn định.
+
+Phương pháp lưu trữ điều kiện hiệu chỉnh
+(1)Bật công tắc nguồn của CF-4500
+(2)Nhấn vào các phím cảm ứng theo trình tự sau : MAIN → INPUT → EU  → V/EU  → ▽ . Sau đó,
+nhập vào một giá trị hiệu chỉnh được chỉ định trong giấy chứng nhận hiệu chỉnh của sensor gia tốc
+(Ví dụ : 1.05E-3)
+(3)MAIN  → INPUT → INPUT COND. → CCLD → ON(Ánh sáng)
+(4)MAIN  → INPUT → EU  → Y EU NAME → Lựa chọn m/ s2  từ danh sách kéo xuống
+(5)MAIN  → INPUT → EU  → Y EU → ON(Ánh sáng)
+(6)MAIN  → INPUT → SAMPLE → SAMPLE LENGTH  → Chọn 4096(giá trị lớn nhất)
+(7)MAIN  → DISPLAY → X.Y UNIT → YLOG → OFF(Đèn tắt)
+(8)MAIN  → DISPLAY → XY SCALE → Y-AXIS → AUTO
+(9)Nhấn  FREQUENCY キở phía bên phải màn hình và sau đó thay đổi trục thời gian về 200Hz
+
+■Phương pháp lưu trữ điều kiện đo đạc trong bộ nhớ thân máy chính
+①Nhấn phím cảm ứng thwo trình tự sau : MAIN → MEMORY → PANEL COND. → LIST
+②Chạm vào số mà các điều kiện đo đạc bỏ trống, nhấn vào phím di chuyển ([△][▽])và di chuyển
+phím lựa chọn đến số có điều kiện bỏ trống.
+③Nhấn SAVE chìa khóa bảo quản (tên nhãn, ngày tháng và thời gian)
+④Khi thấy cần thiết, Nhấn   ... để nhập tên nhãn với bàn phím được hiển thị trên màn hình
+⑤Nhấn phím  OK để đóng hiển thị bàn phím
+
+--- HẾT TRANG ---
+
+No.4/6
+
+Ι【Hiệu chỉnh】                         Dụng cụ đo 025-5 g
+
+《Quy trình vận hành》khi sử dụng FFT CF-4700
+
+【Hạng mục chú ý】
+Điều kiện đo của công đoạn sản xuất nên được lưu trong bộ nhớ của phần thân chính FFT. Sau khi
+hiệu chỉnh nhập lệnh các điều kiện đo lường trước khi hiệu chỉnh và đặt lại cài đặt trước khi hiệu chỉnh.
+
+Ghi chú：
+Nếu các điều kiện được lưu trữ trong thân chính FFT, thì việc thiết định điều kiện hiệu chỉnh định kỳ
+sẽ dễ dàng hơn.
+
+■Phương pháp để nhập lệnh tra cứu các điều kiện đo đạc từ bộ nhớ của thân máy chính
+①Nhấn các phím theo trình tự sau : HOME → MEMORY → CONDITION→ LIST
+②Chạm vào số lưu trữ điều kiện đo đạc hoặc nhấn vào phím di chuyển([△][▽]) và di chuyển phím
+lựa chọn đến số tương ứng.
+③Nhấn phím LOAD  để hiển thị các điều kiện đo đạc và nhấn phím  OK để thiết định
+
+Lưu trình vận hành khi hiệu chỉnh
+(1)Kết nối bộ cảm biến gia áp với CF-4700…
+(2)Gắn bộ cảm biến gia áp với thiết bị hiệu chỉnh thước đo độ chấn động (B&K 4294). (Gắn bằng ốc vít)
+(3)Đặt thiết bị hiệu chỉnh thước đo độ chấn động lên bệ chống rung chấn.
+(4)Bật công tắc nguồn CF-4700 lên.
+(5)Nhập lệnh tra cứu điều kiện hiệu chỉnh theo phương pháp nêu trên để hiển thị điều kiện đo đạc.
+Trường hợp các điều kiện hiệu chỉnh không được lưu trữ, hãy soạn thảo điều kiện dựa theo phương
+pháp lưu trữ điều kiện hiệu chỉnh được miêu tả sau đây.
+(6)Bật công tắc nguồn của thiết bị hiệu chỉnh thước đo độ chấn động.
+(7)Nhấn phím  START ở phía bên phải màn hình để bắt đầu đo đạc (bật đèn lên)
+(8)Đọc giá trị khi giá trị hiển thị (gia tốc／Y ở cuối màn hình) đã ổn định
+
+Phương pháp lưu trữ điều kiện hiệu chỉnh
+(1)Bật công tắc nguồn của CF-4700
+(2)Nhấn vào các phím cảm ứng theo trình tự sau HOME → INPUT → EU  → V/EU  → ▽
+Sau đó, nhập vào một giá trị hiệu chỉnh được chỉ định trong giấy chứng nhận hiệu chỉnh của sensor
+gia tốc  (Ví dụ 1.052E-9)
+(3)HOME → INPUT → INPUT COND. → CCLD → ON(Ánh sáng)
+(4)HOME → INPUT → EU  → UNIT NAME → Lựa chọn m/ S2 từ danh sách kéo xuống.
+(5)HOME → INPUT → EU  → Phần trên EU → ON(Ánh sáng)
+(6)HOME → INPUT → SAMPLE → SAMPLE LENGTH  → Lựa chọn 16384 (giá trị lớn nhất)
+(7)HOME → DISPLAY → Y SCALE →  Unit → Lin/ MagdB/ rms/ V/ Chọn OFF
+(8) HOME → DISPLAY →Y SCALE →SCALE → MODE → AUTO
+(9) Nhấn phím FREQ ở phía bên phải màn hình và sau đó thay đổi trục thời gian về 200 Hz.
+
+■ Phương pháp lưu trữ điều kiện đo đạc trong bộ nhớ thân máy chính.
+①Nhấn phím cảm ứng theo trình tự sau: HOME → MEMORY → CONDITION → LIST
+②Chạm vào số mà các điều kiện đo đạc bỏ trống, or Nhấn phím di chuyển (［𝗈］［▽］) và di
+chuyển phím lựa chọn đến số có điều kiện bỏ trống.
+③Nhấn phím SAVE để lưu trữ. (Tên nhãn, ngày tháng và thời gian.)
+④ Khi thấy cần thiết, nhấn phím LABEL để nhập tên nhãn với bàn phím được hiển thị trên màn
+hình..
+⑤ Nhấn phím OK để đóng hiện thị bàn phím.
+－Dẫn chiếu và các tài liệu có liên quan－
+Giá trị phán định: Thiết định tự chủ《phù hợp với giá trị được chấp nhận của thiết bị hiệu chỉnh thước độ độ
+chấn động S03-1）》.
+(Lưu ý bổ sung)
+Liên quan đến các tiêu chuẩn, NP-3110A có độ bền cao hơn (xét về gia tốc tối đa và điện trở tác động)
+so với NP-3418.
+
+--- HẾT TRANG ---
+
+No.5/6
+
+Ⅱ【Điểm kiểm】 Thiết bị đo độ chấn động (FFT+ Bộ cảm biến gia tốc + dây cáp) Dụng cụ đo 025-5 f
+ONO SOKKI CF-5220,CF-4500,CF-4700 hoặc tương đương
++NP-3418+NP-0151/NP-0152
+
+Tiến độ điểm kiểm   Mỗi tháng 1 lần và mỗi lần sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1.Ngoại quan
+
+2.Xác nhận điểm 0
+
+【Chú ý】
+
+Xác nhận xem dây cáp có bị cong hay không.
+
+Xác nhận xem FFT có biểu thị điểm bất thường không khi bộ cảm
+biến gia  tốc không rung lắc.
+
+※ Bộ cảm biến gia áp rất dễ hỏng. Cần chú ý không đè nén hay
+tác động mạnh tay.
+
+Yêu cầu hiệu chỉnh sau khi thay đổi bộ cảm biến gia tốc.
+(Cần phải thay đổi hệ số hiệu chỉnh)
+
+Lưu ý:
+1. Kết quả điểm kiểm không liên quan đến việc có dị thường hay không, kí lục lại 1 tháng 1 lần.
+2. Trường hợp nếu có dị thường khi điểm kiểm (hoặc khi sử dụng), thì kí lục lại kết quả đó, và xử lí theo
+chỉ thị của người chịu trách nhiệm của phòng ban sở hữu.
+Thực hiện yêu cầu tái hiệu chỉnh của máy đo đạc đối với phòng ban thực hiện hiệu chỉnh nếu cần thiết.
+
+--- HẾT TRANG ---
+
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm  Biểu lý lịch ban hành cải đính hủy bỏ      Dụng cụ đo  025-5
+No.6/6
+Ký
+hiệu
+Năm.tháng
+.ngày
+Ghi chép (Nội dung thay đổi)
+Soạn
+thảo
+Xác
+nhận
+Công
+nhận
+
+2007.04.05
+
+Ban hành mới (Ban hành lần đầu: MMK QA Murano)
+
+奈良
+
+高橋
+
+大西
+
+ａ
+
+2011.06.17
+
+Sửa đổi（Ban hành lần đầu：MMK  QA Nakamura）
+・Bổ sung model
+FFT：CF-4500
+Dây cáp：NP-0152
+・Thay đổi tần suất hiệu chỉnh: 3 tháng  →   12 tháng
+・Bổ sung trong tiêu chuẩn phán định: “so với giá trị hiệu chỉnh
+của  thiết bị hiệu chỉnh thước đo độ chấn động”
+・Bổ sung 《Quy trình vận hành》FFT CF-5220 và CF-4500。
+・Bổ sung phần “Dẫn chiếu và các tài liệu có liên quan”
+
+奈良
+
+埴生
+
+糸川
+
+ｂ
+
+2011.12.01
+・Bổ sung dụng cụ chuẩn NP-3418 (theo đề nghị của JSM
+phòng  Kiểm Tra 王棟)
+・Bổ sung điểm lưu ý trên phần Dẫn chiếu và các tài liệu có liên
+quan.
+・Số hiệu chỉnh
+Ⅰ【Hiệu chỉnh】No.1/5~3/5 025-5a→025-5b
+※Ⅱ【Điểm kiểm】No.4/5 025-5a (Không thay đổi)
+
+奈良
+
+埴生
+
+糸川
+
+c
+
+2014.08.01
+Sửa đổi theo yêu cầu của MMK ban BHCL.
+Hoshino . Chi tiết sửa đổi như sau:
+１． I [Hiệu chỉnh]: Revised the content of << Quy trình vận
+hành>> đối với model: CF-4500.
+２． Sửa đổi mã số sửa đổi như sau:
+I [Hiệu chỉnh]: 025-5b → 025-5c
+* II [Điểm kiểm]: 025-5a (Không thay đổi.)
+
+橋田
+
+村野 伊藤
+
+岩田
+
+d
+
+2018.12.21
+・Bổ sung thể thức CF-4700
+・Ⅰ【Hiệu chỉnh】thể thức：Bổ sung nội dung CF-4700≪Quy
+trình vận hành≫
+
+菊池
+
+奈良 伊藤
+
+岩田
+e
+2022.04.04
+・Chỉnh sửa (lưu trình vận dụng) trường hợp FFT
+CF-4500 (6)”SAMPLE LENGTH：4096”⇒“4096(Giá trị
+lớn nhất)”
+・Chỉnh sửa (lưu trình vận dụng)trường hợp FFT CF-4700
+(6)”SAMPLE LENGTH：4096”⇒“16384(Giá trị lớn nhất)”
+(7)”X.Y UNIT→…OFF(tắt)”⇒”Y SCALE→…OFF”
+・Thay đổi mã số cải đính
+Ⅰ【Hiệu chỉnh】025-5d→025-5e※Ⅱ
+【Điểm kiểm】025-5d (Không thay đổi)
+
+菊池
+石井
+清水
+熊倉
+f
+2023.1.25
+・Bổ sung vào dụng cụ tiêu chuẩn (dụng cụ hiệu chỉnh độ
+nhạy đơn giản [S84-1]
+・Ⅱ【Điểm kiểm】
+Sửa đổi tiến độ điểm kiểm thành「Mỗi tháng 1 lần và mỗi
+lần sử dụng」
+Cải đính toàn phần hạng mục chú ý
+小泉
+石井
+清水
+熊倉
+
+g
+
+2025.08.28
+
+・Thống nhất tên gọi dụng cụ chuẩn「Dụng cụ hiệu chỉnh của
+máy chấn động」
+・Thay đổi mã số cải đính
+Ⅰ【Hiệu chỉnh】025-5f→025-5g※Ⅱ【Điểm kiểm】025-5f
+(Không thay đổi)
+
+Ban chính BHCL công ty cổ phần Mabuchi Motor
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "025-5-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tiêu chuẩn hiệu chỉnh-điểm kiểm dụng cụ đo              Ban chính BHCL công ty cổ phần Mabuchi Motor - Thiết bị đo độ chấn động (FFT＋Bộ cảm biến gia tốc + dây cáp)             Dụng cụ đo  025-5g",
+  "doc_code": "025-5",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

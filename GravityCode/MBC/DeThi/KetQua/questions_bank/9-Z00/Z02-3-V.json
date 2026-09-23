@@ -1,0 +1,50 @@
+{
+  "file_name": "Z02-3-V.pdf",
+  "folder_name": "9-Z00 Ban V IT HOA",
+  "doc_title": "Quy cách phán định máy kiểm tra hình sóng Keysight, Agilent (YHP cũ)",
+  "doc_code": "Z02-3 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, việc phán định máy kiểm tra hình sóng được thực hiện bằng cách hiệu chỉnh các hạng mục nào?",
+      "options": {
+        "A": "VOLTS/DIV, TIME/DIV, tín hiệu xuất ra (tín hiệu CAL)",
+        "B": "VOLTS/DIV, FREQUENCY/DIV, điện áp đầu vào",
+        "C": "TIME/DIV, biên độ đỉnh, tần số nguồn cấp AC",
+        "D": "Tín hiệu CAL, dòng điện tiêu thụ, nhiệt độ môi trường"
+      },
+      "correct_answer": "A",
+      "reference_note": "Nội dung (1): Phán định máy kiểm tra hình sóng bằng việc hiệu chỉnh VOLTS/DIV, TIME/DIV, tín hiệu xuất ra (tín hiệu CAL)"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo bảng thông số kỹ thuật (No.2/3), đối với các khuôn mẫu DSO-X 2002A / 2012A, giá trị thông số VOLTS/DIV được quy định phán định như thế nào?",
+      "options": {
+        "A": "±1% toàn thang đo",
+        "B": "±2% toàn thang đo",
+        "C": "±3% F.S. (≧10mV/div) và ±4% F.S. (<10mV/div)",
+        "D": "±1.25% cho mọi dải đo"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2 (No.2/3): DSO-X 2002A / 2012A - VOLTS/DIV: ±3% F.S.(≧10mV/div), ±4% F.S.(<10mV/div)"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo Biểu 1 quy định hạng mục ghi chú đặc biệt, trong trường hợp máy xem hình sóng dạng analog không có trị thực đo (điện áp, tần số...), nếu trị phán định nằm trong khoảng từ ±1% đến 4%, thì trị phán định cho phép được áp dụng là bao nhiêu?",
+      "options": {
+        "A": "±1%",
+        "B": "±5%",
+        "C": "±10%",
+        "D": "Theo trị phán định"
+      },
+      "correct_answer": "B",
+      "reference_note": "Biểu 1: Trị phán định ±1%～4% -> Trị phán định cho phép ±5%"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

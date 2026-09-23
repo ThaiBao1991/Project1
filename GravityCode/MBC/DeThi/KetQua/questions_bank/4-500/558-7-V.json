@@ -1,0 +1,50 @@
+{
+  "file_name": "558-7-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Trục côn (Taper Pin) (1/2000)",
+  "doc_code": "558-7",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Sau khi sử dụng trục côn xong, công việc bảo quản chống gỉ cần thực hiện như thế nào?",
+      "options": {
+        "A": "Ngâm trực tiếp toàn bộ trục vào thùng chứa dầu chống gỉ chuyên dụng.",
+        "B": "Rửa sạch bằng nước và cất ngay vào tủ kín không cần thoa dầu.",
+        "C": "Loại bỏ dấu vân tay và vết bẩn, rồi thoa một lượng vừa đủ dầu chống gỉ.",
+        "D": "Thoa cồn y tế để làm bay hơi hết độ ẩm bám trên bề mặt kim loại."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3: Ⅱ【Điểm kiểm】2. Chống gỉ: Sau khi sử dụng, hãy loại bỏ dấu vân tay và vết bẩn, rồi thoa một lượng vừa đủ dầu chống gỉ."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu, quy cách phán định dung sai (±0.001) đối với kích thước vị trí số ① của trục côn (6373-001H-AA) là bao nhiêu?",
+      "options": {
+        "A": "φ3.178",
+        "B": "φ3.180",
+        "C": "φ3.176",
+        "D": "φ3.172"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: 【Quy cách phán định】±0.001 đối với từng kích thước dưới đây: ① φ3.180"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra ngoại quan trục côn, khi phát hiện kết quả kiểm tra có dị thường (vết trầy xước, mài mòn, gỉ sét hoặc biến dạng), người thao tác phải xử lý như thế nào?",
+      "options": {
+        "A": "Tiếp tục sử dụng bình thường nếu lỗi nhỏ, cuối tháng ghi chú lại.",
+        "B": "Tự ý mài nhẵn lại bề mặt trục côn rồi đo kiểm tra tiếp.",
+        "C": "Xử lý theo chỉ thị của người quản lý và ghi lục kết quả kiểm tra.",
+        "D": "Không cần báo cáo, chỉ cần thoa thêm dầu chống gỉ vào vị trí lỗi."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3: Chú ý 1) Trường hợp kết quả kiểm tra có dị thường thì ký lục kết quả kiểm tra rồi xử lý theo chỉ thị của người quản lý."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

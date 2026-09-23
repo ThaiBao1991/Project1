@@ -1,0 +1,286 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM MÁY ĐO   Công ty Mabuchi Co., LTD – Bộ phận BHCL - Máy kiểm tra tự động tính năng bộ truyền động            Máy đo    104-1
+Mã số/Mã máy đo: 104-1
+File gốc: 104-1-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/5
+
+BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM MÁY ĐO   Công ty Mabuchi Co., LTD – Bộ phận BHCL
+Ban hành  24/10/2019
+Cải đính
+Máy kiểm tra tự động tính năng bộ truyền động            Máy đo    104-1
+MS thiết bị：TS01-010M-AA
+
+Ι【Hiệu chỉnh】
+
+Kính hiển vi công cụ [503-#]，Đồng hồ vạn năng kĩ thuật số [S13-1]
+Máy đo tiêu chuẩn   Dụng cụ hỗ trợ：Master Block  (dụng cụ hỗ trợ cho máy kiểm tra tự động tính
+năng)
+
+Chu kì hiệu chỉnh         Mỗi 24 tháng và khi nhận thấy cần thiết
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+（Nội dung chú ý）
+
+（Thiết bị trước
+hiệu chỉnh）
+
+(1) Tuyệt đối không được nhìn vào chùm tia laser.
+（Ngay cả trong trường hợp không có ánh sáng cũng
+không được nhìn vào cửa sổ của bộ phận phát sáng）
+
+(2) Đối với vật được đo có bề mặt phẳng như mặt kính thì
+không được nhìn vào ánh sáng phản chiếu từ mặt phẳng đó.
+
+(3) Không được tháo nhãn dán biểu thị lớp ánh sáng laser
+được dán trên bộ phận đo.
+
+Tên thiết bị:  Master Block A
+(1) Chuẩn bị 2 sản phẩm có chiều dài khác nhau.
+
+(2) Đo và ghi sẵn lại chiều dài ①② bằng kính hiển vi công
+cụ.
+
+①Master Block（chiều dài tổng thể motor+0.5mm）
+
+②Master Block（chiều dài tổng thể motor -0.5mm）
+
+L=30.15
+L=29.15
+
+--- HẾT TRANG ---
+
+Ⅰ【Hiệu chỉnh】                                  Máy đo  104-1
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+1. Máy đo độ dịch
+chuyển laser
+
+Đo 2 loại geji chủ có chiều dài khác nhau bằng máy kiểm
+tra tính năng, sau đó đối chiếu với giá trị đo bằng kính hiển
+vi công cụ để phán định.
+
+(1) Chọn chế độ hiệu chỉnh từ menu chính của máy đo tính
+năng.
+
+(2) Đặt Master Block ① lên vĩ của máy kiểm tra tính năng.
+
+(3) Bấm phím [Press DOWN][Work ON], sau đó bấm phím
+bắt đầu (sản phẩm đã được cố định).
+
+(4) Ghi lại giá trị hiển thị trên máy đo độ dịch chuyển laser.
+
+(5) Lấy Master Block ① ra, sau đó đặt Master Block ② lên
+vĩ rồi cố định sản phẩm.
+(6) Ghi lại giá trị biểu thị trên máy đo độ dịch chuyển laser.
+(7) Tính lượng dịch chuyển＝(4)－(6), sau đó so sánh sự
+chênh lệch giá trị được đo bằng kính hiển vi công cụ
+và đo bằng thiết bị trước khi hiệu chỉnh.
+
+±0.05mm
+
+Master Block ①
+Master Block ②
+Cách 65.5mm
+Cách 64.5mm
+Máy đo độ dịch chuyển laser
+
+--- HẾT TRANG ---
+
+No.3/5
+
+Ⅰ【Hiệu chỉnh】                                   Máy đo  104-1
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+2.Lực điện động
+ngược
+
+Kết nối nguồn điện ổn định hóa một chiều và máy đo điện
+áp với thiết bị này, sau đó so sánh giá trị chỉ thị trên máy đo
+điện áp và giá trị hiển thị lực điện động ngược (Back-EMF)
+trên thiết bị này sau khi đưa nguồn điện vào.
+
+(1) Sử dụng +5V từ nguồn điện ổn định hóa vào chấu điện
+DC-IN ở mặt sau thiết bị này rồi kết nối máy đo điện áp với
+chấu điện Motor. Hình 1.
+
+(2) Làm đoản mạch phần màu đỏ và đen chấu điện motor,
+sau đó xác nhận giá trị hiển thị lực điện động ngược
+(Back-EMF) của thiết bị này.
+
+(3) Làm đoản mạch phần màu đỏ của chấu điện DC-IN và
+phần màu đỏ chấu điện motor, ngoài ra cũng làm đoản
+mạch phần màu đen của chấu điện DC-IN và phần
+màu đen của chấu điện motor. So sánh giá trị chỉ thị
+trên máy đo điện áp và giá trị hiển thị lực điện động
+ngược (Back-EMF) trên thiết bị này lúc đó. Hình 2.
+
+(4) Làm đoản mạch phần màu đỏ của chấu điện DC-IN và
+phần màu đen của chấu điện motor, ngoài ra cũng làm
+đoản mạch phần màu đen của chấu điện DC-IN và
+phần màu đỏ của chấu điện motor. Lúc đó, hãy so sánh
+giá trị chỉ thị trên máy đo điện áp và giá trị hiển thị lực
+điện động ngược (Back-EMF) trên thiết bị này. Hình 3.
+
+Trường hợp ngoài quy cách thì phán định NG và dựa vào
+bản hướng dẫn sử dụng để tiến hành điều chỉnh và yêu cầu
+hiệu chỉnh lại.
+
+0±0.2V
+
+±0.2V
+
+±0.2V
+
+－Trích dẫn・Văn bản liên quan－
+Hạng mục 1 Quy cách phán định: trách dẫn dữ liệu đã được kiểm duyệt lúc bắt đầu dản xuất
+hàng loạt
+Hạng mục 2 Tham khảo bản hướng dẫn sử dụng của nhà chế tạo (Công ty hỗ trợ hệ thống Nhật
+Bản)
+
+No.4/5
+Hình 1
+Hình 2
+Hình 3
+
+--- HẾT TRANG ---
+
+Ⅱ【Điểm kiểm】      Máy kiểm tra tự động tính năng bộ truyền động       Máy đo 104-1
+MS thiết bị: TS01-010M-AA
+
+Tần xuất điểm kiểm   Mỗi lần sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+Ngoại quan
+
+(1) Xác nhận trên màn hình hiển thị có lỗi dính bẩn, trầy
+xướt, hư hỏng gây cản trở việc đo đạc hay không.
+
+(2) Xác nhận có sai sót có hại nào như dính dị vật hay hư
+hỏng không.
+
+Chú ý)
+1. Trong trường hợp phát sinh những bất thường hãy ghi chép lại trong kết quả kiểm tra rồi xử lí
+theo chỉ thị của quản lí.
+2. Trong trường hợp không có bất thường thì không cần ghi chép lại.
+Tuy nhiên, dù cho không phát sinh trong vòng một tháng thì cũng cần phải ghi lại.
+3. Trong trường hợp phát hiện thấy điểm bất thường trong quá trình sử dụng thì cần xử lí theo chỉ thị
+của quản lí.
+
+--- HẾT TRANG ---
+
+BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM
+BẢN LÍ LỊCH BAN HÀNH – CẢI ĐÍNH – CHỈNH SỬA   Máy đo  104-1    No.5/5
+Kí
+hiệu
+Ngày
+Tháng
+Năm
+Nội dung cải đính
+Soạn
+thảo
+Xác nhận
+Phê
+duyệt
+
+2019.10.2
+4
+
+Ban hành quy định mới (Dự thảo ：Nhóm 1 BHCL
+Ootomoshi)
+
+Ishi
+
+Kikura Usui
+
+Itou
+
+Công ty Mabuchi Co., LTD - Bộ phận BHCL
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "104-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM MÁY ĐO   Công ty Mabuchi Co., LTD – Bộ phận BHCL - Máy kiểm tra tự động tính năng bộ truyền động            Máy đo    104-1",
+  "doc_code": "104-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

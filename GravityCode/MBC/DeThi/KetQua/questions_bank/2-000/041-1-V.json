@@ -1,0 +1,50 @@
+{
+  "file_name": "041-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "NGUỒN ỔN ĐỊNH DÒNG MỘT CHIỀU (Dùng kiểm tra đĩa biến trở, vòng điện trở . . .)",
+  "doc_code": "041-1 c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi tiến hành xác nhận điện áp xuất ra ở mục hiệu chỉnh, yêu cầu kỹ thuật và phương pháp chú ý nào sau đây là chính xác?",
+      "options": {
+        "A": "Phải kết nối phụ tải đầy đủ vào chấu điện đầu ra trước khi đo.",
+        "B": "Chỉ kết nối đồng hồ đo đa năng kỹ thuật số (digital multimeter), không kết nối phụ tải vào chấu điện đầu ra.",
+        "C": "Luôn luôn thiết lập dòng điện ở mức 0 [A] rồi mới tiến hành đo điện áp đầu ra.",
+        "D": "Không cần quan tâm đến mức thiết lập dòng điện ban đầu."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: <Hạng mục chú ý> - Không kết nối phụ tải vào chấu điện đầu ra, chỉ kết nối đồng hồ đo đa năng kỹ thuật số (digital multimeter)"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trường hợp nếu phát hiện có bất thường trong quá trình kiểm tra hoặc khi sử dụng thiết bị, nhân viên phụ trách phải xử lý theo quy trình nào sau đây?",
+      "options": {
+        "A": "Tự ý tháo dỡ thiết bị ra để sửa chữa ngay lập tức.",
+        "B": "Tiếp tục sử dụng thiết bị bình thường và ghi chú vào cuối tháng.",
+        "C": "Ghi chép lại kết quả, xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu, trường hợp cần thiết làm đơn đề nghị hiệu chỉnh lại thiết bị đo.",
+        "D": "Tự động vứt bỏ thiết bị và thay thế thiết bị mới mà không cần báo cáo."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: Chú ý 2 - Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện hiệu chỉnh."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm (kiểm tra hằng ngày/hằng tháng) đối với nguồn ổn định dòng một chiều được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và mỗi lần sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "3 tháng 1 lần",
+        "D": "Chỉ kiểm tra khi có phát sinh bất thường"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Tiến độ điểm kiểm - Mỗi tháng 1lần và mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "S11-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Bảng tiêu chuẩn hiệu chỉnh dụng cụ tiêu chuẩn - Dụng cụ đo độ ẩm –khô – thông thoáng",
+  "doc_code": "S11 – 1c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Cơ quan thực thi hiệu chỉnh đối với cứ điểm MMK theo tài liệu là gì?",
+      "options": {
+        "A": "Nhà sản xuất hiệu chỉnh",
+        "B": "Trung tâm đo lường quốc gia Hoa Nam (SCM)",
+        "C": "Không liên quan",
+        "D": "Cơ quan tiêu chuẩn đo lường quốc gia"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2: Cứ điểm MMK - Cơ quan thực thi: Nhà sản xuất hiệu chỉnh."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kỳ hiệu chỉnh đối với 'Dụng cụ đo độ ẩm – khô – thông thoáng' (Dụng cụ trắc định S11 – 1c) là bao lâu?",
+      "options": {
+        "A": "1 năm",
+        "B": "2 năm",
+        "C": "3 năm",
+        "D": "5 năm"
+      },
+      "correct_answer": "D",
+      "reference_note": "Trang 1: [ Hiệu chỉnh ] - Chu kỳ hiệu chỉnh: 5 năm"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo bảng tiêu chuẩn hiệu chỉnh (Trang 1), độ chính xác quy định đối với nhiệt độ của dụng cụ là bao nhiêu?",
+      "options": {
+        "A": "Nhiệt độ ± 0.1 °C",
+        "B": "Nhiệt độ ± 0.2 °C",
+        "C": "Nhiệt độ ± 0.5 °C",
+        "D": "Nhiệt độ ± 1.0 °C"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Bảng Số khuôn / Độ chính xác -> Nhiệt độ ± 0.2 °C (được cập nhật từ mức ± 0.5°C theo bản cải chính ngày 08.04.1996)"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

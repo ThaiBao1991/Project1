@@ -1,0 +1,50 @@
+{
+  "file_name": "500-0-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "QUY CÁCH PHÁN ĐỊNH THƯỚC RẬP GIỚI HẠN",
+  "doc_code": "500 – 0 k",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Khi phán định dựa theo 'Dung sai chế tạo thước rập giới hạn theo JIS', ta phải cân nhắc điều gì để cộng trị số cho phép của biểu vào trị số giới hạn trên và trị số giới hạn dưới của dung sai?",
+      "options": {
+        "A": "Cân nhắc đến sai số nhiệt độ phòng đo",
+        "B": "Cân nhắc đến sai số lực kẹp khi đo",
+        "C": "Cân nhắc đến sai số đo",
+        "D": "Cân nhắc đến cấp độ mài mòn của thước rập"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Khi phán định dựa theo [Dung sai chế tạo thước rập giới hạn theo JIS] thì cân nhắc đến sai số đo để cộng trị số cho phép của biểu dưới đây vào trị số giới hạn trên và trị số giới hạn dưới..."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo mục tiêu chuẩn phán định, khi dung sai chế tạo thước rập giới hạn từ 1.5 µm trở xuống, trị số cho phép cộng vào trị số giới hạn trên và dưới là bao nhiêu?",
+      "options": {
+        "A": "± 1 thang đo (± 0.5 µm)",
+        "B": "± 2 thang đo (± 1.0 µm)",
+        "C": "± 1.5 µm",
+        "D": "± 2.0 µm"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: [Trị số cho phép phán định] Dung sai chế tạo Từ 1.5 µm trở xuống | Trị số cho phép: ± 1 thang đo (± 0.5 µm)"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Đối với phương pháp phán định các bước đo 0.001 mm và 0.002 mm của thước rập thông qua giới hạn, trị số phán định (tất cả các kích thước biểu thị) là bao nhiêu?",
+      "options": {
+        "A": "± 1.0 µm",
+        "B": "± 0.5 µm",
+        "C": "± 1.5 µm",
+        "D": "± 2.0 µm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 6: Phương pháp phán định các bước đo 0.001 mm, 0.002 mm... | Bước đo: 0.001 mm, 0.002 mm | Kích thước biểu thị: Tất cả | Phán định: ± 0.5 µm"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

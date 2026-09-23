@@ -1,0 +1,50 @@
+{
+  "file_name": "S12-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH DỤNG CỤ ĐO - ĐỒNG HỒ ĐO DẠNG VẠCH TESTER",
+  "doc_code": "S12-1 i",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục [HIỆU CHỈNH] của tiêu chuẩn hiệu chỉnh S12-1 i, khi thực hiện đo kiểm tra hoặc hiệu chỉnh các thiết bị như Kiểu Micro meter head (UDT-2, UDT-280) hay Máy kiểm tra tự động đồng hồ đo (UDT-270), điều kiện bắt buộc về kỹ thuật hiệu chỉnh là gì?",
+      "options": {
+        "A": "Nhất thiết phải hiệu chỉnh hạng mục độ chính xác đưa ra và sai số quay lại khi quay lại.",
+        "B": "Chỉ cần kiểm tra bằng mắt thường mà không cần đo sai số quay lại.",
+        "C": "Có thể bỏ qua việc kiểm tra độ phẳng mặt đo nếu dụng cụ còn mới.",
+        "D": "Chỉ tiến hành hiệu chỉnh theo phương thức tự động hoàn toàn, cấm dùng sổ tay."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, phần chú thích (*): 'Nhất thiết phải hiệu chỉnh hạng mục độ chính xác đưa ra và sai số quay lại khi quay lại'."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo bảng tiêu chuẩn hiệu chỉnh dụng cụ S12-1 i, chu kỳ hiệu chỉnh đối với 'Đồng hồ đo dạng vạch Tester' (UDT-270-10) là bao lâu?",
+      "options": {
+        "A": "1 năm",
+        "B": "2 năm",
+        "C": "3 năm",
+        "D": "5 năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, mục [HIỆU CHỈNH]: Chu kỳ hiệu chỉnh: 3 năm"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Đối với Micro meter dạng điện (Sylvac 80) trong bảng tiêu chuẩn độ chính xác ở trang 1, phạm vi đo từ 10 - 25 mm có trị quy cách (µm) là bao nhiêu?",
+      "options": {
+        "A": "±1.2 µm",
+        "B": "±1.5 µm",
+        "C": "±3.0 µm",
+        "D": "0.3 µm trở xuống"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, mục 3. Micro meter dạng điện (Sylvac 80): Phạm vi đo 10 - 25 có Trị quy cách (µm): ±1.5"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

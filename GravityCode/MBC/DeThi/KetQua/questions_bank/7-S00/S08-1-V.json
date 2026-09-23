@@ -1,0 +1,50 @@
+{
+  "file_name": "S08-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Thước đo bằng thủy tinh (thước tiêu chuẩn)",
+  "doc_code": "S 08 -1h",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Đối với khuôn số 1. EDW 20400 (Nikon) dùng cho kính hiển vi công cụ đo đạc và máy phóng ảnh, độ chính xác của thước đo 300 mm là bao nhiêu?",
+      "options": {
+        "A": "± { 2 + (2 x L / 1000) } µm",
+        "B": "± { 3 + (7 x L / 1000) } µm",
+        "C": "± { 6 + (L / 50) } µm",
+        "D": "± { 15 + (15 x L / 1000) } µm"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1 - Bảng tiêu chuẩn: Số khuôn 1. EDW 20400 (Nikon), Thước đo 300 mm: ±{2 + (2 x L / 1000)} µm"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh, chu kỳ hiệu chỉnh đối với Thước đo bằng thủy tinh (thước tiêu chuẩn) là bao lâu?",
+      "options": {
+        "A": "1 Năm",
+        "B": "3 Năm",
+        "C": "5 Năm",
+        "D": "6 Tháng"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1 - Mục [Hiệu chỉnh]: Chu kỳ hiệu chỉnh 5 Năm"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Ngày ban hành đầu tiên của tài liệu tiêu chuẩn hiệu chỉnh Thước đo bằng thủy tinh (S 08 -1h) là khi nào?",
+      "options": {
+        "A": "25.03.1996",
+        "B": "30.03.1998",
+        "C": "07.09.1998",
+        "D": "14.06.2012"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1 - Ngày ban hành 25.03.1996"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

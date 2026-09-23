@@ -1,0 +1,50 @@
+{
+  "file_name": "S89-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH MÁY TIÊU CHUẨN - Máy đo tỷ suất dẫn điện (HORIBA)",
+  "doc_code": "S89-1 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh, chu kỳ hiệu chỉnh đối với máy đo tỷ suất dẫn điện (HORIBA) là bao lâu?",
+      "options": {
+        "A": "6 tháng",
+        "B": "1 năm",
+        "C": "2 năm",
+        "D": "3 tháng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, phần 【Hiệu chỉnh】, mục 'Chu kỳ hiệu chỉnh: 1 năm'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Sau khi sử dụng máy đo tỷ suất dẫn điện, việc bảo quản điện cực nào sau đây là ĐÚNG theo quy định?",
+      "options": {
+        "A": "Rửa sạch điện cực bằng nước tinh khiết và để khô hoàn toàn ở nhiệt độ phòng.",
+        "B": "Rửa sạch điện cực bằng nước tinh khiết, sau đó làm hết sạch nước còn lại bên trong nắp bảo hộ và bổ sung nước tinh khiết sao cho miếng xốp bên trong nắp bảo hộ được ướt rồi đậy lên điện cực.",
+        "C": "Ngâm trực tiếp toàn bộ điện cực vào dung dịch đậm đặc để bảo quản lâu dài.",
+        "D": "Chỉ cần lau khô bằng khăn sạch mà không cần rửa lại với nước tinh khiết."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, phần 'Bảo quản sau khi sử dụng': (1), (2), (3)"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Độ chính xác của tỷ suất dẫn điện đối với dòng máy đo HORIBA quy định trong bảng tiêu chuẩn là bao nhiêu?",
+      "options": {
+        "A": "±0.1%F. S. ±1digit",
+        "B": "±0.5%F. S. ±1digit",
+        "C": "±1.0%F. S. ±1digit",
+        "D": "±0.2%F. S. ±1digit"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Bảng độ chính xác: 'Tỷ suất dẫn điện: ±0.5%F. S. ±1digit'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

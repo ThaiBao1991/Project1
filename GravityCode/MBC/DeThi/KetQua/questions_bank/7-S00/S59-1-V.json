@@ -1,0 +1,50 @@
+{
+  "file_name": "S59-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH MÁY TIÊU CHUẨN Đồng hồ đo nhiệt độ bề mặt",
+  "doc_code": "S59-1 i",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục 【Chú ý khi sử dụng】 tại trang 2 của tài liệu, điều nào sau đây là KHÔNG ĐƯỢC PHÉP khi tiến hành hiệu chỉnh?",
+      "options": {
+        "A": "Sử dụng thiết bị trong điều kiện độ ẩm tương đối dưới 80%",
+        "B": "Sử dụng để hiệu chỉnh các dụng cụ đo có độ chính xác cao hơn so với dụng cụ tiêu chuẩn",
+        "C": "Thực hiện hiệu chỉnh ở nhiệt độ xung quanh 23 ±5℃",
+        "D": "Tuân theo độ chính xác do nhà chế tạo đã thiết định cho từng nhiệt độ và đường kính ngoài"
+      },
+      "correct_answer": "B",
+      "reference_note": "No.2/4 - 【Chú ý khi sử dụng】 ・Không sử dụng để hiệu chỉnh các dụng cụ đo có độ chính xác cao hơn so với dụng cụ tiêu chuẩn."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi sử dụng dụng cụ tiêu chuẩn để đo lường và hiệu chỉnh, nguyên tắc về độ phân giải của thiết bị chuẩn so với thiết bị được hiệu chỉnh phải như thế nào?",
+      "options": {
+        "A": "Thiết bị chuẩn phải có độ phân giải từ 1/10 trở lên so với thiết bị được hiệu chỉnh",
+        "B": "Thiết bị chuẩn phải có độ phân giải bằng với thiết bị được hiệu chỉnh",
+        "C": "Thiết bị chuẩn phải có độ phân giải thấp hơn 2 lần",
+        "D": "Không bắt buộc yêu cầu về độ phân giải giữa hai thiết bị"
+      },
+      "correct_answer": "A",
+      "reference_note": "No.3/4 - 4. Về nguyên tắc, thiết bị chuẩn là sỹ dạng cao cấp hơn thiết bị được hiệu chỉnh, có độ phân giải từ 1/10 trở lên."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh máy đo nhiệt độ bề mặt S59-1 i, chu kì hiệu chỉnh thiết bị được quy định là bao lâu?",
+      "options": {
+        "A": "6 tháng",
+        "B": "1 năm",
+        "C": "2 năm",
+        "D": "3 năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "【Hiệu chỉnh】 Chu kì hiệu chỉnh 2 năm"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

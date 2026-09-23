@@ -1,0 +1,50 @@
+{
+  "file_name": "655-1-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN KIỂM TRA VÀ HIỆU CHỈNH DỤNG CỤ ĐO - Máy đo kích thước bằng hình ảnh Keyence IM-6120, IM-6125, IM-6225, IM-7020, IM-8030T",
+  "doc_code": "655-1d",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm (ngoại quan) đối với máy đo kích thước bằng hình ảnh được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và trước khi bắt đầu ca làm việc",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "6 tháng 1 lần hoặc khi có yêu cầu từ bộ phận bảo hành chất lượng",
+        "D": "Chỉ kiểm tra định kỳ mỗi năm 1 lần vào dịp hiệu chuẩn"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 4 - II【Điểm kiểm】Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra ngoại quan, nếu phát hiện bề mặt kính bàn hoặc bảng hiển thị có vết bẩn khó nhìn thấy vật đo, thao tác xử lý chuẩn xác theo tài liệu là gì?",
+      "options": {
+        "A": "Dùng tay khô chà mạnh cho sạch vết bẩn rồi tiếp tục đo đạc",
+        "B": "Dùng giấy nhám mịn đánh bóng lại bề mặt kính bàn đo",
+        "C": "Thấm alcohol vào vải, sau đó lau sạch và loại bỏ vết bẩn trên bề mặt gương/kính",
+        "D": "Dùng khí nén xịt mạnh trực tiếp để thổi bay vết bẩn mà không cần dùng vải"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 4 - Phương pháp điểm kiểm (Ngoại quan): Trường hợp khó nhìn thấy vật đo do vết bẩn trên bề mặt của gương thì phải thấm alcohol vào vải,... sau đó lau sạch và loại bỏ vết bẩn"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi thiết lập thước tiêu chuẩn ở chế độ đo tầm nhìn rộng không liên kết (chưa có chương trình đo), khoảng cách di chuyển và số lượng chụp ảnh (hoặc vị trí) chuẩn xác theo tài liệu hướng dẫn là gì?",
+      "options": {
+        "A": "Chọn khoảng cách 20mm, chụp 6 tấm",
+        "B": "Chọn khoảng cách 10mm, chụp 3 tấm",
+        "C": "Chọn khoảng cách 25mm, chụp 5 tấm",
+        "D": "Chọn khoảng cách 30mm, chụp 4 tấm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2 - 1. Thiết định đo: Trường hợp chọn chế độ đo tầm nhìn rộng thì chọn khoảng cách 25mm, chụp 5 tấm"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

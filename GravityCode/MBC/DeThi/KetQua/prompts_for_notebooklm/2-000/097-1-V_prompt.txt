@@ -1,0 +1,308 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Bản tiêu chuẩn hiệu chỉnh-điểm kiểm dụng cụ đo - Máy đo chấn động laze doppler                    Máy đo  097-1c
+Mã số/Mã máy đo: ch
+File gốc: 097-1-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/4
+
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm dụng cụ đo
+Ban chính BHCL công ty cổ phần Mabuchi Motor
+
+Ban hành  15/07/2016
+Cải đính  28/08/2025
+Máy đo chấn động laze doppler                    Máy đo  097-1c
+Polytec
+
+Ι【Hiệu chỉnh】
+
+Dụng cụ chuẩn     Hiệu chỉnh bên ngoài: Máy chuẩn chỉ định bởi nhà cung cấp, hiệu chỉnh
+trong công ty : Dụng cụ hiệu chỉnh máy đo chấn động [S84-1]
+
+hoặc dụng cụ hiệu chỉnh máy đo chấn động [S03-1], đồng hồ vạn năng kỹ thuật số (S13-1)
+
+Chu kỳ hiệu chỉnh  Hiệu chỉnh bên ngoài：36 tháng 1 lần và khi phán định cần thiết
+
+Hiệu chỉnh nội bộ：Mỗi 12 tháng và khi công nhận cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+<Trường hợp hiệu
+chỉnh bên ngoài>
+
+Ủy thác hiệu chỉnh ở nhà chế tạo hoặc nhà hiệu chỉnh.
+Hạng mục hiệu chỉnh và phương pháp hiệu chỉnh theo biểu
+
+1.
+Electrical
+Calibration
+
+Theo biểu 1
+
+Biểu 1
+Range
+Amplitude @ Frequency
+Set Value
+Max.Tolernace±(Phán định)
+1000mm/s/V
+7m/s @ 1kHz
+4.9497Vrms
+1.00%
+100mm/s/V
+700mm/s @ 1kHz
+4.9497Vrms
+1.00%
+10mm/s/V
+70mm/s @ 1kHz
+4.9497Vrms
+1.00%
+
+2.
+Mechanical
+Calibration
+
+Theo biểu 2
+
+Biểu 2
+Range
+Amplitude @ Frequency
+Set Value
+Max.Tolernace±(Phán định)
+100mm/s/V
+10mm/s @ 159.2Hz
+100mVrms
+2.00%
+10mm/s/V
+10mm/s @ 159.2Hz
+1Vrms
+2.00%
+
+3.
+Output power of
+measurement beam
+
+Trị tham khảo
+1mW max
+
+--- HẾT TRANG ---
+
+No.2/4
+
+Ι【Hiệu chỉnh】                          Máy đo 097-1c
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+<Trường hợp hiệu
+chỉnh nội bộ>
+
+Điện áp xuất lực
+
+(1) Dùng băng keo chuyên dụng để đo chấn động chấu điện dán
+vào phần rung của dụng cụ hiệu chỉnh để đo chấn động.
+(2) Bật On Laser của đồng hồ đo chấn động laser doppler, chiếu
+laser vào mặt đã dán băng keo chuyên dụng để đo chấn động
+chấu điện của phần rung của dụng cụ hiệu chỉnh đo chấn động
+giống như hình dưới.
+
+(3) Bật ON dụng cụ hiệu chỉnh đo máy chấn động, điểu chỉnh độ cao
+và tiêu điểm của phần xuất lực laser để trạng thái kiểm xuất chấn
+động được tốt nhất.
+(4) Kết nối đồng hồ vạn năng kỹ thuật số vào chấu điện xuất lực
+điện áp của mặt trước đồng hồ chấn động laser doppler.
+(5) Ở dụng cụ hiệu chỉnh đo máy chấn động, làm phát sinh chấn
+động bằng trị hiệu quả tốc độ cao khoảng 10mm/s(RMS), đọc
+điện áp giao thoa theo đồng hồ vạn năng kỹ thuật số và so sánh
+điểm hiệu chỉnh điện áp xuất lực của biểu 3.
+Biểu 3
+Phạm vi
+[mm/s/V]
+Điểm hiệu chỉnh điện áp xuất
+lực[V(RMS)]
+100
+Trị hiệu quả tốc độ / trị lenz bên trái
+10
+Trị hiệu quả tốc độ / trị lenz bên trái
+※Tham khảo
+Nếu chấn động A[m]，tần số gócω[rad/s]，tần sốf[Hz] thì
+Trị tốc độ gia tốc lớn nhất = Aω2 [m/s2]
+Trị tốc độ lớn nhất = Aω = Aω2/ω = trị tốc độ gia tốc lớn
+nhất/ω[m/s]
+ở đây, vì ω = 2πf nên
+Trị tốc độ lớn nhất = trị tốc độ gia tốc lớn nhất /(2πf)[m/s]
+= Trị gia tốc lớn nhất×1000/(2πf)[mm/s]
+Hơn nữa, cả 2 vế đều chia √2
+Trị hiệu quả tốc độ = trị hiệu quả tốc độ gia
+tốc×1000/(2πf)[mm/s(RMS)]
+-------công thức①
+Trường hợp ở biểu thành tích dụng cụ hiệu chỉnh đo máy chấn
+động không thể cho ra trị hiệu quả tốc độ [mm/s(RMS)] thì
+phải thay thế trị hiểu quả gia tốc [m/s2(RMS)] của biểu thành
+tích và tần số [Hz] ở công thức ① rồi tìm trị hiệu quả tốc độ
+[mm/s(RMS)]
+
+Đối với điểm
+hiệu chỉnh điện
+áp xuất lực
+±2.00%
+
+－Trích dẫn－văn bản liên quan
+Phương pháp hiệu chỉnh：tham khảo bản báo cáo hiệu chỉnh của nơi chế tạo
+Quy cách phán định：Trích dẫn quy cách nơi chế tạo
+
+--- HẾT TRANG ---
+
+No.3/4
+
+Ⅱ【Điểm kiểm】     Tiến độ điểm kiểm lazer dopper                   Máy đo  097-1b
+Polytec
+
+Tiến độ điểm kiểm       Mỗi tháng 1 lần và mỗi lần sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+Ngoại quan
+
+Xác nhận bằng mắt không có sự không thích hợp nào gây ra
+các vấn đề cho việc đo như là hư hỏng, trầy xước trên dây cáp
+
+Xác nhận không có bị mẻ, bị mất trên display
+
+Chú ý:
+1. Kết quả điểm kiểm không liên quan đến việc có dị thường hay không, kí lục lại 1 tháng 1 lần.
+2. Trường hợp nếu có dị thường khi điểm kiểm (hoặc khi sử dụng), thì kí lục lại kết quả đó, và xử lí theo
+chỉ thị của người chịu trách nhiệm của phòng ban sở hữu.
+Thực hiện yêu cầu tái hiệu chỉnh của máy đo đạc đối với phòng ban thực hiện hiệu chỉnh nếu cần thiết.
+
+--- HẾT TRANG ---
+
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm  Biểu lý lịch ban hành-cải đính-hủy bỏ
+Máy đo 097-1     No.4/4
+Ký
+hiệu
+Năm.tháng
+.ngày
+Ghi chép（Nội dung thay đổi）
+Soạn
+thảo
+Xác
+nhận
+Công
+nhận
+
+2016.07.15
+
+Ban hành mới
+
+a
+
+2021.08.05
+
+・Sửa lỗi hạng mục hiệu chỉnh bên ngoài 1. Hiệu chỉnh kiểu
+chữ tiêu đề
+・Bổ sung các mục hiệu chỉnh nội bộ, chu kỳ hiệu chỉnh và
+dụng cụ tiêu chuẩn
+・Bổ sung phương pháp hiệu chỉnh ở trích dẫn-văn bản liên
+quan
+・Thay đổi mã số cải đính
+Ⅰ【Hiệu chỉnh】097-1_→097-1a ※Ⅱ【Điểm kiểm】097-1_
+（Không thay đổi）
+
+b
+2023.1.25
+・Bổ sung dụng cụ hiệu chỉnh máy đo chấn động( bruel 4294)
+[S03-01] vào dụng cụ chuẩn
+・Ⅱ【Điểm kiểm】
+Cải đính tiến độ điểm kiểm thành 「Mỗi tháng 1 lần và mỗi
+lần sử dụng」
+Cải đính toàn bộ hạng mục chú ý
+
+c
+
+2025.08.28
+
+・Thống nhất dụng cụ chuẩn sử dụng khi hiệu chỉnh trong
+công ty là dụng cụ hiệu chỉnh máy đo chấn động
+・Thay đổi mã số cải đính
+Ⅰ【Hiệu chỉnh 】097-1b→097-1c ※ Ⅱ【Điểm kiểm 】
+097-1b(Không thay đổi)
+
+Ban chính BHCL công ty cổ phần Mabuchi Motor
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "097-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm dụng cụ đo - Máy đo chấn động laze doppler                    Máy đo  097-1c",
+  "doc_code": "ch",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

@@ -1,0 +1,50 @@
+{
+  "file_name": "S71-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định THIẾT BỊ HIỆU CHỈNH DÙNG CHO MÁY THỬ NGHIỆM TÍNH NĂNG (MPT – ST1)",
+  "doc_code": "S71 – 1 f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình thực hiện hiệu chỉnh thiết bị đo dòng điện (Mục 3), chú ý nào sau đây là QUAN TRỌNG NHẤT do giới hạn điện năng hoạt động?",
+      "options": {
+        "A": "Do giới hạn điện năng hoạt động ở khoảng 50W, nên giới hạn ở mức 5A, 10V.",
+        "B": "Phải luôn kết nối với sensing của nguồn điện ổn định hóa một chiều để đảm bảo độ chính xác tuyệt đối.",
+        "C": "Phải vặn volume A-ADJ sang hướng CW trước khi bật nguồn điện ổn định.",
+        "D": "Chỉ được sử dụng duy nhất phương pháp lấy thiết bị đo đa năng làm thiết bị chuẩn, cấm dùng phương pháp khác."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 3, Phần I 【Hiệu chỉnh】, Hạng mục 3. Hiệu chỉnh thiết bị đo dòng điện (chú ý): Do giới hạn điện năng hoạt động ở khoảng 50W, nên giới hạn ở mức 5A, 10V."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn kiểm tra ngoại quan (Mục 5), các thiết bị biểu thị và công tắc trên thiết bị hiệu chỉnh cần đáp ứng yêu cầu nào sau đây?",
+      "options": {
+        "A": "Thiết bị biểu thị có thể trầy xước nhẹ nhưng đèn hiển thị phải sáng bình thường.",
+        "B": "Thiết bị biểu thị phải không trầy xước, đèn hiển thị sáng bình thường và các loại công tắc hoạt động bình thường.",
+        "C": "Công tắc hoạt động bình thường, chấp nhận một số đèn hiển thị không sáng nếu không ảnh hưởng đo đạc.",
+        "D": "Không cần kiểm tra ngoại quan nếu kết quả đo điện áp và dòng điện đạt yêu cầu."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5, Phần I 【Hiệu chỉnh】, 5. Ngoại quan, Nội dung khác: Thiết bị biểu thị phải không trầy xước. Đèn hiển thị phải sáng bình thường. Các loại công tắc hoạt động bình thường."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi tiến hành hiệu chỉnh thiết bị đo điện áp (Mục 2), điều kiện phán định cho trị hiển thị trên bộ phận biểu thị phải nằm trong phạm vi nào?",
+      "options": {
+        "A": "Trong phạm vi ±0.5% trị thiết định",
+        "B": "Trong phạm vi ±1.0% trị thiết định",
+        "C": "Trong phạm vi ±2.5% trị thiết định",
+        "D": "Trong phạm vi ±5.0% trị thiết định"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Biểu 1 / Hạng mục 2: Trị hiển thị trên bộ phận biểu thị phải trong phạm vi ±1.0%."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

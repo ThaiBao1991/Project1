@@ -1,0 +1,50 @@
+{
+  "file_name": "S23-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Dụng cụ song song quang học",
+  "doc_code": "S23 - 1 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Đối với khuôn OP - 25 (MITUYOYO) bao gồm các kích thước 12.00, 12.12, 12.25, 12.37, độ chính xác về độ song song và độ phẳng yêu cầu là bao nhiêu?",
+      "options": {
+        "A": "Độ song song 0.1 µm, Độ phẳng 0.2 µm",
+        "B": "Độ song song 0.2 µm, Độ phẳng 0.1 µm",
+        "C": "Độ song song 0.5 µm, Độ phẳng 0.2 µm",
+        "D": "Độ song song 0.1 µm, Độ phẳng 0.1 µm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Bảng số khuôn OP - 25: Độ song song 0.2 µm, Độ phẳng 0.1 µm"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, chu kỳ hiệu chỉnh của dụng cụ song song quang học là bao lâu?",
+      "options": {
+        "A": "1 năm",
+        "B": "2 năm",
+        "C": "3 năm",
+        "D": "5 năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, mục [Hiệu chỉnh]: Chu kỳ hiệu chỉnh: 3 năm"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nhiệt độ tiêu chuẩn quy định khi kiểm tra dụng cụ song song quang học là bao nhiêu?",
+      "options": {
+        "A": "25 ± 1°C",
+        "B": "20 ± 2°C",
+        "C": "20 ± 1°C",
+        "D": "23 ± 2°C"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, mục [Hiệu chỉnh]: Nhiệt độ tiêu chuẩn: 20 ± 1°C"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

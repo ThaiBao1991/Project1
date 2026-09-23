@@ -1,0 +1,59 @@
+{
+  "file_name": "A18-2-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh・điểm kiểm",
+  "doc_code": "A18-2 k",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo quy định quản lý tài liệu và tiêu chuẩn kỹ thuật trong hệ thống, hành động nào sau đây là KHÔNG ĐÚNG đối với các văn bản liên quan, quy cách tham khảo không có sẵn trong biểu liệt kê?",
+      "options": {
+        "A": "Tra cứu quy cách JIS trực tiếp tại địa chỉ http://www.jisc.go.jp/",
+        "B": "Sử dụng Bản thuyết minh hướng dẫn sử dụng các máy đo đạc, Bản sĩ dạng, các loại Catalog và tài liệu liên quan JCSS, JAB.",
+        "C": "Tự ý bỏ qua không cần quan tâm đến các văn bản hướng dẫn sử dụng máy đo đạc nếu thấy không cần thiết.",
+        "D": "Tiến hành xem xét, sửa đổi, bổ sung vào biểu liệt kê khi có thay đổi cần thiết."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Ngoài ra, những văn bản liên quan không có trong ghi chép của biểu liệt kê gồm có Bản thuyết minh hướng dẫn sử dụng các máy đo đạc・Bản sĩ dạng・Các loại Catalog và tài liệu liên quan JCSS・JAB."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Căn cứ vào bảng mã số văn bản liên quan cho 'Mã số máy: 000-0', tiêu chuẩn kỹ thuật nào được áp dụng cho 'Dầu chống sét'?",
+      "options": {
+        "A": "JIS K 2246 (2007), JIS K 2246 (2018), JIS K 2246 (2026)",
+        "B": "JIS B 7609 (2000), JIS B 7609 (2008)",
+        "C": "JIS C 1302 (2018), JIS C 1302 (2025)",
+        "D": "JIS Z 8703 (1983)"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 3: Mã số máy 000-0, Tên văn bản: Dầu chống sét, Mã số quy cách: JIS K 2246 (2007), JIS K 2246 (2018), JIS K 2246 (2026)"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, biểu liệt kê các loại văn bản liên quan và quy cách tham khảo (A18-2 k) sẽ được tiến hành xem xét, sửa đổi khi nào?",
+      "options": {
+        "A": "Chỉ khi có sự thay đổi lớn về nhân sự trong phòng BHCL.",
+        "B": "Định kỳ đúng 1 năm một lần vào tháng 6.",
+        "C": "Khi cần thiết (bổ sung, thay đổi, xóa bỏ).",
+        "D": "Khi cơ quan Tiêu chuẩn Công nghiệp Nhật Bản giải thể."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Hơn nữa, biểu liệt kê này sẽ được tiến hành xem xét, sửa đổi khi cần thiết (bổ sung, thay đổi, xóa bỏ)."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140600.635583,
+  "generated_at_iso": "2026-09-23T12:16:40",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 277604,
+    "modified_time": 1784541542.0841765,
+    "modified_time_iso": "2026-07-20T16:59:02",
+    "file_hash_short": "12a55f2c"
+  }
+}

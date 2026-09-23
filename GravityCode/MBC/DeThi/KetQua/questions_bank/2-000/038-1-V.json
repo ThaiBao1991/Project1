@@ -1,0 +1,50 @@
+{
+  "file_name": "038-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định Dụng cụ đo điện áp chịu đựng/điện trở cách điện",
+  "doc_code": "038-1d",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ thực hiện điểm kiểm (kiểm tra hàng ngày/định kỳ) đối với dụng cụ đo điện áp chịu đựng và điện trở cách điện được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và khi có yêu cầu từ cấp trên.",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng.",
+        "C": "Chỉ kiểm tra trước khi đưa vào sử dụng lần đầu.",
+        "D": "Mỗi quý 1 lần và sau khi bảo trì thiết bị."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, phần Ⅱ【Điểm kiểm】, mục 'Tiến độ điểm kiểm: Mối tháng 1 lần và mỗi lần sử dụng'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo quy định về xử lý kết quả và bất thường tại mục Chú ý của phần Điểm kiểm, khi phát hiện có bất thường trong quá trình kiểm tra hoặc sử dụng, nhân viên phụ trách phải xử lý như thế nào?",
+      "options": {
+        "A": "Tự ý tháo thiết bị ra để sửa chữa linh kiện bên trong.",
+        "B": "Tiếp tục sử dụng nếu lỗi nhỏ và ghi chú lại vào cuối tháng.",
+        "C": "Ghi chép lại kết quả bất thường và xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu, làm đơn đề nghị hiệu chỉnh lại nếu cần thiết.",
+        "D": "Bỏ qua thiết bị đó và lấy thiết bị ở chuyền khác dùng tạm mà không cần báo cáo."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, phần Chú ý 2: 'Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện hiệu chỉnh'"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý trong phần hiệu chỉnh điện áp chịu đựng, để đề phòng sự dẫn điện và đảm bảo an toàn tuyệt đối khi thực hiện hiệu chỉnh, nhân viên bắt buộc phải thực hiện thao tác nào sau đây?",
+      "options": {
+        "A": "Ngắt toàn bộ nguồn điện chính của nhà xưởng trước khi thao tác.",
+        "B": "Sử dụng dây dẫn cao áp chuyên dụng (TL04-TOS) và mang bao tay cách điện.",
+        "C": "Chỉ thao tác bằng một tay và đứng trên thảm cao su chống tĩnh điện.",
+        "D": "Luôn có sự giám sát trực tiếp của kỹ sư an toàn điện."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, phần Ⅰ【Hiệu chỉnh】, mục [Hạng mục chú ý]: '(1) Khi đo điện áp đầu ra 5kV thì hãy sử dụng dây dẫn cao áp (TL04-TOS). (2) Để đề phòng sự dẫn điện, khi hiệu chỉnh hãy sử dụng bao tay cách điện.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

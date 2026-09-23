@@ -1,0 +1,50 @@
+{
+  "file_name": "573-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "THƯỚC KIM LOẠI",
+  "doc_code": "573-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, đối tượng áp dụng của thước kim loại là gì?",
+      "options": {
+        "A": "Tất cả các loại dụng cụ đo trong nhà xưởng sản xuất motor.",
+        "B": "Những thước kim loại được sử dụng với mục đích kiểm tra hàng liên quan đến linh kiện, thành phẩm của motor.",
+        "C": "Chỉ dùng để kiểm tra các chi tiết cơ khí chính xác cao không liên quan đến motor.",
+        "D": "Dùng cho mọi công cụ đo kiểm ngoại hình tại bộ phận bảo hành phẩm chất."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Đối tượng là những thước kim loại được sử dụng với mục đích kiểm tra hàng liên quan đến linh kiện, thành phẩm của motor..."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi tiến hành kiểm tra ngoại quan đối với thước kim loại (trang 2), nội dung nào sau đây là yêu cầu đúng?",
+      "options": {
+        "A": "Kiểm tra xem thước đo có bị hao mòn, khiếm khuyết, biến hình (cong, méo, ba vớ) không và có thể đọc được các vạch đo hay không.",
+        "B": "Chỉ cần kiểm tra xem thước có bị bám bụi bẩn bề mặt hay không.",
+        "C": "Kiểm tra độ chính xác tuyệt đối bằng máy đo quang học chuyên dụng.",
+        "D": "Đo lại chiều dài tổng thể của thước so với bản vẽ gốc."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2: Ngoại quan - (1) Kiểm tra xem thước đo có bị hao mòn, khiếm khuyết, biến hình (cong, méo, ba vớ) không. (2) Có thể đọc được các vạch đo hay không."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo quy định về xử lý bất thường khi kiểm tra thước kim loại (Ghi chú 1 và 2), trường hợp kiểm tra không thấy bất thường thì cần thực hiện như thế nào?",
+      "options": {
+        "A": "Phải ghi chép lại kết quả kiểm tra đầy đủ vào mọi thời điểm.",
+        "B": "Không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.",
+        "C": "Tuyệt đối không được ghi chép bất kỳ kết quả nào vào sổ sách.",
+        "D": "Phải báo cáo ngay cho cấp trên bằng văn bản đặc biệt."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Ghi chú 2: Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

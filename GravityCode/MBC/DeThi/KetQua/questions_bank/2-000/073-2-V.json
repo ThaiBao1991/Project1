@@ -1,0 +1,50 @@
+{
+  "file_name": "073-2-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM MÁY ĐO - Đầu đo dòng điện HIOKI",
+  "doc_code": "073-2 g",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Chu kì hiệu chỉnh định kỳ đối với đầu đo dòng điện HIOKI theo bảng tiêu chuẩn hiện hành là bao lâu?",
+      "options": {
+        "A": "Mỗi 12 tháng và khi nhận thấy cần thiết",
+        "B": "Mỗi 24 tháng và khi nhận thấy cần thiết",
+        "C": "Mỗi 36 tháng và khi nhận thấy cần thiết",
+        "D": "Không cần hiệu chỉnh định kỳ, chỉ hiệu chỉnh khi hỏng"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Chu kì hiệu chỉnh - Mỗi 36 tháng và khi nhận thấy cần thiết"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo quy định, tần suất thực hiện điểm kiểm (kiểm tra ngoại quan, đứt dây, lỏng khớp nối) cho đầu đo dòng điện HIOKI được thực hiện khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi 36 tháng",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: II【Điểm kiểm】Tần xuất điểm kiểm - Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi phát hiện thấy điểm bất thường (vết bẩn, dính dị vật, đứt dây, lỏng khớp nối) trong quá trình sử dụng đầu đo dòng điện, nhân viên cần xử lý như thế nào?",
+      "options": {
+        "A": "Tự ý dùng băng dính cách điện quấn lại và tiếp tục sử dụng",
+        "B": "Ghi chép lại trong kết quả kiểm tra rồi xử lí theo chỉ thị của quản lí",
+        "C": "Bỏ qua nếu thiết bị vẫn đo được bình thường và không cần ghi chép",
+        "D": "Mang đi vứt vào thùng rác loại bỏ ngay lập tức"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Chú ý 1 & 3: Trong trường hợp phát sinh những bất thường hãy ghi chép lại trong kết quả kiểm tra rồi xử lí theo chỉ thị của quản lí."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

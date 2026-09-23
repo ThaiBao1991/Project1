@@ -1,0 +1,50 @@
+{
+  "file_name": "659-1-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHUẨN KIỂM ĐIỂM DỤNG THIẾT BỊ ĐO - Geji Almen Model TSP-3",
+  "doc_code": "659-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, tần suất điểm kiểm (kiểm tra trước khi sử dụng) đối với Geji Almen Model TSP-3 được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi tháng một lần",
+        "C": "Mỗi lần sử dụng",
+        "D": "Mỗi 12 tháng"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3: Tần suất điểm kiểm - Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý về điểm kiểm thiết bị, trường hợp kết quả điểm kiểm phát hiện có bất thường thì phải xử lý như thế nào?",
+      "options": {
+        "A": "Tự ý tháo ra sửa chữa rồi tiếp tục sử dụng",
+        "B": "Bỏ qua nếu không ảnh hưởng lớn đến đo lường",
+        "C": "Ghi lại kết quả điểm kiểm, xử lí dựa vào chỉ thị của người chịu trách nhiệm quản lí",
+        "D": "Chỉ cần ghi lại kết quả vào sổ mà không cần báo cáo"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3: Chú ý 1 - Trường hợp kết quả điểm kiểm có bất thường thì ghi lại kết quả điểm kiểm, xử lí dựa vào chỉ thị của người chịu trách nhiệm quản lí."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Chu kì hiệu chỉnh định kỳ đối với Geji Almen Model TSP-3 theo tiêu chuẩn là bao lâu?",
+      "options": {
+        "A": "Mỗi 6 tháng và khi cần thiết",
+        "B": "Mỗi 12 tháng và khi được nhận định là cần thiết",
+        "C": "Mỗi 24 tháng hoặc khi hỏng",
+        "D": "Không cần hiệu chỉnh định kỳ"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Chu kì hiệu chuẩn - Mỗi 12 tháng và khi được nhận định là cần thiết"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

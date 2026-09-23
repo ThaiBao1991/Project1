@@ -1,0 +1,50 @@
+{
+  "file_name": "619-1-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN KIỂM TRA VÀ HIỆU CHỈNH DỤNG CỤ ĐO MICROMETER ĐO ĐƯỜNG KÍNH TRONG DẠNG 2 • 3 ĐIỂM",
+  "doc_code": "619 -1j",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi tiến độ kiểm tra quy định đối với Micrometer đo đường kính trong là gì?",
+      "options": {
+        "A": "Chỉ kiểm tra trước khi đưa vào kho dụng cụ đo",
+        "B": "Mỗi một tháng và mỗi lần sử dụng",
+        "C": "Mỗi 6 tháng một lần",
+        "D": "Chỉ kiểm tra khi có yêu cầu của bộ phận quản lý chất lượng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: II [Điểm kiểm] - Tiến độ điểm kiểm: Mỗi một tháng , và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, chu kỳ hiệu chỉnh đối với Micrometer đo đường kính trong dạng 2 • 3 điểm là bao lâu?",
+      "options": {
+        "A": "Mỗi 6 tháng và khi được xác định là cần thiết",
+        "B": "Mỗi 12 tháng và khi được xác định là cần thiết",
+        "C": "Mỗi 24 tháng và khi được xác định là cần thiết",
+        "D": "Chỉ khi phát hiện có dị thường trong quá trình sử dụng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Mục I [HIỆU CHỈNH] - Chu kỳ hiệu chỉnh: Mỗi 12 tháng và khi được xác định là cần thiết"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục Chú ý, trong trường hợp kết quả điểm kiểm (hoặc khi sử dụng gần nhất) có dị thường thì nhân viên phải xử lý thế nào?",
+      "options": {
+        "A": "Tự ý tháo rời thiết bị để sửa chữa các bộ phận bên trong",
+        "B": "Tiếp tục sử dụng bình thường nếu sai số không đáng kể",
+        "C": "Phải ghi chép lại kết quả điểm kiểm, xử lý theo chỉ thị của người có trách nhiệm bộ môn quản lý, và gửi yêu cầu tái hiệu chuẩn nếu cần thiết",
+        "D": "Chỉ cần ghi vào sổ theo dõi hàng tháng mà không cần báo cáo"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3: Chú ý - Trường hợp kết quả điểm kiểm ( hoặc khi sử dụng gần nhất ) có dị thường thì phải ghi chép lại kết quả điểm kiểm , xử lý theo chỉ thị của người có trách nhiệm bộ môn quản lý. Khi cần thiết, tiến hành gửi yêu cầu tái hiệu chuẩn thiết bị đo tới bộ phận thực hiện hiệu chuẩn."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "S98-3-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - BÚT THỬ TRỤC VÍT NGẪU LỰC TDT60CN2/TDT600CN2",
+  "doc_code": "S98-3 a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Tần suất (tiến độ) thực hiện điểm kiểm đối với bút thử trục vít ngẫu lực TDT60CN2/TDT600CN2 là bao lâu và hạng mục điểm kiểm là gì?",
+      "options": {
+        "A": "Mỗi tuần một lần; kiểm tra độ chính xác của các điểm đo.",
+        "B": "Mỗi lần sử dụng; quan sát bên ngoài (công tắc, bộ phận biểu thị không dính dị vật, bẩn, hư hao).",
+        "C": "Định kỳ 6 tháng một lần; kiểm tra dây điện kiểm định.",
+        "D": "Chỉ kiểm tra khi có sự cố phát sinh trên chuyền sản xuất."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, mục II 【Điểm kiểm】: Tiến độ điểm kiểm là 'Mỗi lần sử dụng', Hạng mục điểm kiểm là 'Quan sát bên ngoài', Phương pháp điểm kiểm là 'Công tắc, bộ phận biểu thị không được dính dị vật, bẩn, hư hao.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Trước khi tiến hành hiệu chỉnh bút thử trục vít ngẫu lực (TDT), cần bật nguồn điện và đợi máy ấm lên trong khoảng thời gian bao lâu?",
+      "options": {
+        "A": "Khoảng 10 phút",
+        "B": "Khoảng 15 phút",
+        "C": "Khoảng 30 phút",
+        "D": "Khoảng 60 phút"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, mục <Chuẩn bị trước hiệu chỉnh>: 'Bật nguồn điện của máy bút thử trục vít ngẫu lực (dưới đây gọi là TDT), đợi máy ấm lên khoảng 30 phút.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo tài liệu tiêu chuẩn S98-3, khi tiến hành điểm kiểm và phát hiện kết quả bất thường, người thao tác phải xử lý như thế nào?",
+      "options": {
+        "A": "Tự ý sửa chữa thiết bị rồi tiếp tục sử dụng để kịp tiến độ sản xuất.",
+        "B": "Ghi chép lại kết quả đã kiểm tra và xử lý theo chỉ thị của người có trách nhiệm quản lý.",
+        "C": "Không cần ghi chép, chỉ cần báo miệng cho đồng nghiệp ca sau biết.",
+        "D": "Tiếp tục sử dụng bình thường và đợi đến đợt hiệu chỉnh định kỳ 24 tháng."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, mục Ghi chú (1): 'Trường hợp kiểm tra thấy bất thường, ghi chép lại kết quả đã kiểm tra và xử lý theo chỉ thị của người có trách nhiệm quản lý.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

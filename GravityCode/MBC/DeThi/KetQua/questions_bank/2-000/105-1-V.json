@@ -1,0 +1,50 @@
+{
+  "file_name": "105-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM MÁY ĐO",
+  "doc_code": "105-1a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục Nội dung chú ý khi thao tác với thiết bị đo, quy định nào sau đây là tuyệt đối bắt buộc để đảm bảo an toàn về tia laser?",
+      "options": {
+        "A": "Được phép tháo nhãn dán biểu thị lớp ánh sáng laser nếu bị mờ",
+        "B": "Có thể nhìn vào cửa sổ phát sáng khi phòng hoàn toàn tối",
+        "C": "Tuyệt đối không được nhìn vào chùm tia laser (Ngay cả trong trường hợp không có ánh sáng cũng không được nhìn vào cửa sổ của bộ phận phát sáng)",
+        "D": "Được nhìn trực tiếp vào ánh sáng phản chiếu từ bề mặt phẳng như mặt kính"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: (Nội dung chú ý) (1) Tuyệt đối không được nhìn vào chùm tia laser. (Ngay cả trong trường hợp không có ánh sáng cũng không được nhìn vào cửa sổ của bộ phận phát sáng.)"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kì hiệu chỉnh cho máy đo độ dịch chuyển laser (Máy kiểm tra tự động tính năng bộ giảm chấn) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi 6 tháng và khi nhận thấy cần thiết",
+        "B": "Mỗi 12 tháng và khi nhận thấy cần thiết",
+        "C": "Mỗi 24 tháng và khi nhận thấy cần thiết",
+        "D": "Mỗi 36 tháng và khi nhận thấy cần thiết"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Chu kì hiệu chỉnh - Mỗi 24 tháng và khi nhận thấy cần thiết"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Trong phần nội dung kiểm tra ngoại quan (Điểm kiểm hằng ngày), nếu trong vòng một tháng không phát sinh bất thường nào thì nhân viên cần lưu ý điều gì theo chú ý số 2?",
+      "options": {
+        "A": "Không cần ghi chép lại dưới mọi hình thức",
+        "B": "Tuy nhiên, dù cho không phát sinh trong vòng một tháng thì cũng cần phải ghi lại",
+        "C": "Phải báo cáo ngay cho trưởng phòng vào cuối tuần",
+        "D": "Phải tiến hành hiệu chỉnh lại máy ngay lập tức"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: Chú ý 2 - Tuy nhiên, dù cho không phát sinh trong vòng một tháng thì cũng cần phải ghi lại."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

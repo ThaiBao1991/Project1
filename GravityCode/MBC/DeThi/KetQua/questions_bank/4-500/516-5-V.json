@@ -1,0 +1,50 @@
+{
+  "file_name": "516-5-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và điểm kiểm dụng cụ đo đạc ĐỒNG HỒ ĐO QUAY SỐ VẠCH ĐỌC 0.002mm (Loại nhỏ)",
+  "doc_code": "516-5 h",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kì hiệu chỉnh định kỳ đối với đồng hồ đo quay số vạch đọc 0.002mm (loại nhỏ) là bao lâu?",
+      "options": {
+        "A": "6 tháng / lần",
+        "B": "12 tháng / lần và khi xác nhận thấy cần thiết",
+        "C": "24 tháng / lần",
+        "D": "3 tháng / lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Mục Ⅰ【 Hiệu chỉnh 】: Chu kì hiệu chỉnh: 12 tháng / lần và khi xác nhận thấy cần thiết"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi tiến hành điểm kiểm (ngoại quan và hoạt động), tiến độ điểm kiểm được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần sử dụng 1 lần",
+        "B": "Mỗi tháng sử dụng 1 lần",
+        "C": "Mỗi lần sử dụng",
+        "D": "Trước khi giao ca"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3, Mục Ⅱ【Điểm kiểm】: Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trường hợp kết quả điểm kiểm phát hiện thấy bất thường hoặc thiết bị có vấn đề trong khi sử dụng, nhân viên phụ trách phải xử lý như thế nào?",
+      "options": {
+        "A": "Tự ý tháo ra sửa chữa và tiếp tục sử dụng",
+        "B": "Bỏ qua nếu sai số nhỏ và ghi chép vào sổ tay cá nhân",
+        "C": "Xử lý theo chỉ thị của người có trách nhiệm quản lý và ghi chép lại kết quả kiểm tra",
+        "D": "Chỉ báo cáo quản lý khi hết giờ làm việc"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3, Mục Ghi chú: 1. Trường hợp kết quả điểm kiểm thấy bất thường, ghi chép lại kết quả đã kiểm tra và xử lý theo chỉ thị của người có trách nhiệm quản lý."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

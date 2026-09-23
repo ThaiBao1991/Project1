@@ -1,0 +1,354 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Tài liệu tiêu chuẩn hiệu chỉnh - và kiểm tra dụng cụ trắc định
+Mã số/Mã máy đo: 020-1
+File gốc: 020-1-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/3
+Tài liệu tiêu chuẩn hiệu chỉnh
+và kiểm tra dụng cụ trắc định
+
+MÁY THÍ NGHIỆM ĐIỆN ÁP CHỊU ĐỰNG
+Mabuchi motor Co., Ltd
+Bộ phận bảo hành phẩm chất
+
+Ngày ban hành 11.11.1983
+Ngày thay đổi  04.12.2019
+Dụng cụ trắc định 020-1i
+
+Ⅰ【Hiệu chỉnh】
+Dụng cụ chuẩn       Dụng cụ điện trở phụ tải dùng UL[S16-1], dụng cụ hiệu chỉnh dòng
+điện[S57-1], đồng hồ đo điện áp cao [S56-1] hay đồng hồ đa năng
+Digital [S13-1, S13-2]
+Chu kỳ hiệu chỉnh     24 tháng, và khi cần thiết
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp phán
+định
+
+1. Điện áp đầu ra
+
+2. Dòng điện bị
+ngắt
+
+3. Điện trở phụ tải
+dùng UL
+
+<Chú ý>
+①  Khi đo điện áp đầu ra ở 5kV, phải sử dụng dây
+điện cao áp (TL04-TOS: điện tử KIKUSUI).
+②  Để tránh bi ̣ giật điện, khi hiệu chỉnh phải sử
+dụng bao tay cách điện.
+
+Cho tiếp xúc với máy đo điện cao áp (hay đồng hồ đo
+đa năng DIGITAL)
+(Trường hợp tiếp xúc với đồng hồ đo điện năng thì
+phải sử dụng đầu dò 100:1.
+• Xoay núm vặn TEST VOLTEGE đọc sai số giữa trị chỉ
+thị của máy đo điện áp cao (hoặc đồng hồ đo điện
+năng) với trị chỉ thị của máy thí nghiệm điện á p chi ̣u
+đựng.
+Hơn nữa, phải xác nhận xem trị số ở đồng hồ chỉ thi ̣ có
+biến đổi đều đặn hay không
+Hiệu chỉnh thì đo ở 3 điểm 10%,50%, 100% của trị số
+lớn nhất ở các phạm vi điện á p thí nghiệm (100%)
+• Cho tiếp xúc với dụng cụ hiệu chỉnh dòng điện
+• Cho trị số dòng điện bị ngắt của dụng cụ hiệu chỉnh
+dòng điện và đồng hồ điện áp chi ̣u đựng bằng nhau.
+• Nâng dòng điện đưa ra ở máy đo điện á p chi ̣u đựng
+dần dần lên đến 1kV.
+• Đọc lấy trị số dòng điện bị ngắt ở dụng cụ hiệu chỉnh
+dòng điện.
+• Nối má y điện trở  phụ tải dùng UL vớ i đồng hồ điện á p
+chi ̣u đựng, nối đồng hồ đo điện áp cao (hay đồng hồ đo
+điện đa năng) vớ i má y điện trở  phụ tải dùng UL
+•Thiết lập trị số điện trở phụ tải lớn nhất.
+• Hạ điện trở  phụ tải xuống rồi xá c nhận theo biểu bên
+dướ i xem đồng hồ điện áp chi ̣u đựng có phá n đi ̣nh
+bấ t hợp cách không (chuông kêu) .
+• Bổ sung theo phạm vi trị số điện áp là -0,+20％ .
+Điện áp thí
+nghiệm
+Dòng điện bị ngắt
+0.5mA
+1mA
+2mA
+120V
+210kΩ
+120kΩ(1)
+_____
+240V
+369kΩ(2)
+210kΩ
+120kΩ(1)
+480V
+858kΩ
+369kΩ(2)
+210kΩ
+600V
+1137kΩ
+489kΩ
+279kΩ
+
+Tỷ lệ biến động điện
+áp
+AC dưới15％
+DC dưới 3％
+
+± 5％
+
+Chuông kêu
+
+Ghi chú:(1) là trị số
+tham khảo .
+Ghi chú (2):
+Mặc dù ở 489 kΩ
+chuông  kêu nhưng
+cần xác nhận thực tế
+ở 369 kΩ chuông
+cũng kêu.
+
+-Trích dẫn-văn bản liên quan
+-Quy cách thiết định : Tham khảo quy cách nơi chế tạo (KIKUSUI TOS5051)
+
+--- HẾT TRANG ---
+
+No.2/3
+Dụng cụ trắc định 020-1i
+
+Ⅱ 【Điểm kiểm】          MÁY THÍ NGHIỆM ĐIỆN ÁP CHỊU TẢI
+
+Tiến độ kiểm tra       mỗi lần sử dụng
+
+Hạng mục điểm
+kiểm
+Phương pháp điểm kiểm
+Phương pháp phán
+định
+
+1.  Điều chỉnh 0 ở
+đồng hồ đo
+
+2.  Phá n định NG
+
+Lúc tắt nguồn, điều chỉnh kim sao cho chỉ số 0.
+
+Gây đoản mạch dụng cụ đo, rồi xác nhận sự vận
+hành của mạch điện giới hạn và thiết bị phán định
+(máy kiểm tra có phát tiếng kêu hay không ).
+
+Ghi chú
+1. Trường hợp kiểm tra thấy bất thường, ghi chép lại kết quả đã kiểm tra và xử lý theo chỉ
+thị của người có trách nhiệm quản lý.
+2. Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được,
+nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường
+xảy ra.
+3. Trường hợp nhận ra sự bất thường trong khi sử dụng, sẽ xử lý dựa vào chỉ thị của người
+có trách nhiệm quản lý.
+
+--- HẾT TRANG ---
+
+No.3/3
+Dụng cụ trắc định 020-1
+Tài liệu tiêu chuẩn hiệu chỉnh điểm kiểm
+Biểu lý lịch những ban hành, cải chính và hủy bỏ
+
+Dấu
+hiệu
+Ngày tháng
+năăm
+Nội dung (bao gồm những nội dung sửa
+đổi)
+Soạn thảo
+Xác
+nhận
+Công
+Nhận
+
+11.11.1983
+Ban hành bản mới
+Shimamura
+Takashi
+ma
+Ino
+a
+11.07.1991
+Thay đổi
+Shimamura
+Takashi
+ma
+Ino
+b
+20.06.1994
+Xóa bỏ máy chuẩn (S16), (S13).
+Bổ sung vào máy chuẩn hoặc là máy đo
+điện cao áp
+Bổ sung vào phương pháp phán định “( )là
+trị tham khảo”.Xoá bỏ phần chú ý
+Nara
+Takashi
+ma
+Ino
+c
+07.06.1996
+Thay đổi toàn bộ
+Nara
+Mihana
+Sakamot
+o
+d
+25.12.1996
+Ghi thêm điều <chú ý> ở phương pháp hiệu
+chỉnh.
+Nara
+Mihana
+Sakamot
+o
+e
+12.03.1997
+Hạng mục hiệu chỉnh 1. Thay đổi phương
+pháp hiệu chỉnh “.....khi đã chọn đúng kích
+cỡ...vặn mặt số của đồng hồ,lấy từng giới
+hạn điện áp lớn nhất và 1/2 điện áp ...”
+Nara
+Mihana
+Sakamot
+o
+f
+07.11.1997
+
+Hạng mục hiệu chỉnh 1. Thay đổi từ giới
+hạn lớn nhất thiết đijnh.Bổ sung thêm:
+điện áp thiết định là gấp 2 lần điện áp sử
+dụng lớn nhất.
+Ⅱ[Điểm kiểm] ghi thêm tiêu đề .Xóa bỏ cột
+máy chuẩn.
+Nara
+Mabuchi
+Sakamot
+o
+g
+16.10.2000
+Thay đổi pp hiệu chỉnh mục 1.điện áp xuất
+ra
+FujiYama
+Yamaghi
+shi
+Mabuchi
+Miura
+H
+Đã
+xác
+nhận
+toàn
+bộ
+nội
+dung
+11.03.2003
+H Hmục hiệu chỉnh 3.bổ sung chú ý (2)ở
+369 kΩđiện trở phụ tải dùng UL
+
+Murayama
+
+(Xá c
+nhan
+dich
+thuat:
+Quynh
+24250)
+Mabuchi
+Miura
+i
+4.12.2019
+Nơi yêu cầu : VDM
+
+Thay đổi chu kỳ hiệu chỉnh : 12
+tháng->24 tháng
+
+Trích dẫn—bổ sung văn bản liên
+quan
+
+Thay đổi mã số cải đính
+[Hiệu chỉnh] 020-1h->020-1i ※ Ⅱ
+[điểm kiểm] 020-1h (không thay đổi)
+Koizumi
+Kikuchi
+Ishii
+Usui
+Itou
+MABUCHI MOTOR Co.,Ltd
+Bộ phận bảo hành chất lượng
+
+.
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "020-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh - và kiểm tra dụng cụ trắc định",
+  "doc_code": "020-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

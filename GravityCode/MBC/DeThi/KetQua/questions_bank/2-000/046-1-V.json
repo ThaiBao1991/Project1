@@ -1,0 +1,50 @@
+{
+  "file_name": "046-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định MÁY ĐO ĐIỆN ÁP KHỞI ĐỘNG STV-1 (KOWADENKI)",
+  "doc_code": "046-1 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Trong phương pháp hiệu chỉnh bộ biểu thị điện áp, trước khi đọc số liệu hoặc tiếp xúc với thiết bị hiệu chỉnh dòng DC, cần mở công suất nguồn điện POWER và để ổn định trong thời gian tối thiểu bao lâu?",
+      "options": {
+        "A": "5 phút",
+        "B": "10 phút",
+        "C": "15 phút",
+        "D": "30 phút"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Phần I, Mục 1, Bước 1: 'Mở công suất nguồn điện POWER sang ON và để ổn định trên 10 phút.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiến độ điểm kiểm (kiểm tra), tần suất sử dụng của 'Máy đo điện áp khởi động STV-1 (Kowadenki)' là gì?",
+      "options": {
+        "A": "Mỗi ngày 1 lần trước khi làm việc",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tuần 1 lần",
+        "D": "Mỗi tháng 1 lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Tiến độ điểm kiểm: 'Mỗi lần sử dụng'"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục ghi chú xử lý bất thường khi kiểm tra, trong trường hợp kiểm tra thấy bất thường, cần ghi chép lại kết quả đã kiểm tra và xử lý theo chỉ thị của ai?",
+      "options": {
+        "A": "Trưởng phòng sản xuất",
+        "B": "Nhân viên bảo trì thiết bị",
+        "C": "Người có trách nhiệm quản lý",
+        "D": "Chuyên gia chất lượng Q.A Section"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, Ghi chú mục 1: 'Trường hợp kiểm tra thấy bất thường, ghi chép lại kết quả đã kiểm tra và xử lý theo chỉ thị của người có trách nhiệm quản lý.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

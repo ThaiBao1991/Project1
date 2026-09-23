@@ -1,0 +1,50 @@
+{
+  "file_name": "902-1-V.pdf",
+  "folder_name": "6-900 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN ĐIỂM KIỂM HIỆU CHỈNH DỤNG CỤ",
+  "doc_code": "902-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Trong hạng mục điểm kiểm số 2 (Xác nhận điểm 0), phương pháp kiểm tra được quy định như thế nào?",
+      "options": {
+        "A": "Xác nhận không có gấp dây cáp",
+        "B": "Xác nhận không có biểu thị dị thường tại FFT ở tình trạng: không có chấn động tại Pickup gia tốc độ",
+        "C": "Kiểm tra điện áp nguồn cấp phải đạt đúng 1455 V",
+        "D": "Kiểm tra độ rung của motor ở tần số 156.25 Hz"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: 'Xác nhận không có biểu thị dị thường tại FFT ở tình trạng : không có chấn động tại Pickup gia tốc độ'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, chu kỳ hiệu chỉnh đối với thiết bị đo chấn động (FFT + Pickup gia tốc độ) là bao lâu?",
+      "options": {
+        "A": "6 tháng và khi được xác định là cần thiết",
+        "B": "12 tháng và khi được xác định là cần thiết",
+        "C": "24 tháng và khi được xác định là cần thiết",
+        "D": "Theo yêu cầu sản xuất hàng ngày"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: 'Chu kỳ hiệu chỉnh: 12 tháng và khi được xác định là cần thiết'"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình xử lý trường hợp khi biểu thị bị biến động, nếu phát hiện đứt dây phát sinh trong dây cáp kết nối của Pickup gia tốc độ hoặc dây cáp kết nối bị hỏng sau khi đã thực hiện các bước kiểm tra, giải pháp đúng là gì?",
+      "options": {
+        "A": "Tiếp tục sử dụng băng dính cách điện để quấn lại dây cáp và hiệu chỉnh tiếp",
+        "B": "Đổi vị trí đo sang line sản xuất khác ngay lập tức mà không cần sửa chữa",
+        "C": "Tiến hành thay dây cáp kết nối mới rồi mới tiến hành hiệu chỉnh lại 1 lần nữa",
+        "D": "Giảm điện áp kiểm soát xuống dưới 100V để tiếp tục đo"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: '< Xử lý trong trường hợp trị biểu thị biến động > (3) Bời vì việc đứt dây phát sinh trong dây cáp kết nối của Pickup gia tốc độ... nên đã được nghĩ đến nên hãy thay dây cáp kết nối mới rồi mới tiến hành hiệu chỉnh lại 1 lần nữa'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

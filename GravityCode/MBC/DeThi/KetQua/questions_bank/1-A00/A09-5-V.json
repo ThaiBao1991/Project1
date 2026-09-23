@@ -1,0 +1,59 @@
+{
+  "file_name": "A09-5-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM DỤNG CỤ DO",
+  "doc_code": "A09-5",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo mục 1 'Sổ cái quản lý dụng cụ đo', khi thực hiện xuất dữ liệu, các lựa chọn về kiểu xuất dữ liệu (Thông thường là [Chi tiết]) sẽ cung cấp nội dung gì?",
+      "options": {
+        "A": "Biểu thị mã máy đo, tên máy đo, chu kỳ hiệu chỉnh, tổng số máy đo.",
+        "B": "Chỉ hiển thị hình ảnh chi tiết của dụng cụ đo trên hệ thống.",
+        "C": "Chỉ hiển thị lịch sử sửa chữa và tên người quản lý.",
+        "D": "In ra toàn bộ biên bản kiểm định của thiết bị."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, Mục 1: Đơn giản: Chỉ biểu thị mã máy đo, tên máy đo, chu kỳ hiệu chỉnh, tổng số máy đo."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo mục 2 'Bảng kỳ hạn hiệu chỉnh', khi xuất bảng dụng cụ đo hết kỳ hạn hiệu chỉnh cho từng phòng ban và từng người đảm trách, thao tác nào được dùng trong trường hợp không cần phải lấy cả biệt thì?",
+      "options": {
+        "A": "Click vào biểu tượng hình máy in.",
+        "B": "Click vào nút ALL.",
+        "C": "Chọn loại thông theo [Theo từng sheet].",
+        "D": "Nhập mã quản lý thiết bị cụ thể."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Mục 2: Trong trường hợp không cần phải lấy cả biệt thì click ALL"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục 3 'Kết quả hiệu chỉnh điểm kiểm mới nhất', khi xuất kết quả hiệu chỉnh mới nhất của dụng cụ đo, nếu người thực hiện không chỉ định kỳ hạn thì thao tác tiếp theo là gì?",
+      "options": {
+        "A": "Click vào Start mà không cần chọn điều kiện gì thêm.",
+        "B": "Click vào 'Chỉ định không có ngày thực thi'.",
+        "C": "Nhập lại toàn bộ mã số máy đo từ đầu.",
+        "D": "Hủy bỏ thao tác và báo cáo cấp trên."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, Mục 3: Nếu không chỉ định kỳ hạn thì click vào Chỉ định không có ngày thực thi"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140370.5400782,
+  "generated_at_iso": "2026-09-23T12:12:50",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 547883,
+    "modified_time": 1338272463.6528018,
+    "modified_time_iso": "2012-05-29T13:21:03",
+    "file_hash_short": "8c0f89e9"
+  }
+}

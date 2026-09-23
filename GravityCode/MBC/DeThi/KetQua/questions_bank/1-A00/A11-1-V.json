@@ -1,0 +1,59 @@
+{
+  "file_name": "A11-1-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "VĂN THƯ LIÊN LẠC QUẢN LÍ ĐỘ CHÍNH XÁC CỦA DỤNG CỤ ĐO",
+  "doc_code": "A11 - 1 m",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn A11-1 m, \"GIẤY XÁC NHẬN VIỆC THIẾU SÓT YÊU CẦU XÁC NHẬN MÁY ĐO\" quy định tần suất thực hiện là bao lâu?",
+      "options": {
+        "A": "Thực thi 1 tháng / 1 lần",
+        "B": "Thực thi 3 tháng / 1 lần",
+        "C": "Thực thi 6 tháng / 1 lần",
+        "D": "Thực thi 1 năm / 1 lần"
+      },
+      "correct_answer": "C",
+      "reference_note": "Tiêu chuẩn A11-1 m, Trang 4, Tiêu đề: \"GIẤY XÁC NHẬN VIỆC THIẾU SÓT YÊU CẦU XÁC NHẬN MÁY ĐO (thực thi 6 tháng/1lần)\""
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Khi sử dụng biểu mẫu \"ĐƠN YÊU CẦU QUẢN LÍ ĐỘ CHÍNH XÁC CỦA DỤNG CỤ ĐO\", chú ý quan trọng nào sau đây là bắt buộc tuyệt đối phải thực hiện đối với dụng cụ?",
+      "options": {
+        "A": "Nhất thiết phải ghi dụng cụ có số quản lý vào",
+        "B": "Có thể bỏ trống số quản lý nếu là dụng cụ mới mua",
+        "C": "Chỉ cần ghi tên máy đo, không bắt buộc ghi số quản lý",
+        "D": "Chỉ ghi số quản lý khi dụng cụ đó bị hư hỏng nặng"
+      },
+      "correct_answer": "A",
+      "reference_note": "Tiêu chuẩn A11-1 m, Trang 2, Mục Chú ý, Điều 1: \"Nhất thiết phải ghi dụng cụ có số quản lý vào.\""
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Trong \"ĐƠN YÊU CẦU QUẢN LÍ ĐỘ CHÍNH XÁC CỦA DỤNG CỤ ĐO\", hạng mục nào dưới đây KHÔNG phải là một trong các nội dung thuộc phần Ghi số hạng mục yêu cầu (đề nghị)?",
+      "options": {
+        "A": "Đăng ký (hiệu chỉnh)",
+        "B": "Hiệu chỉnh / tái hiệu chỉnh",
+        "C": "Thanh lý tài sản cố định",
+        "D": "Hủy bỏ hoặc Máy nghĩ"
+      },
+      "correct_answer": "C",
+      "reference_note": "Tiêu chuẩn A11-1 m, Trang 2, Ghi số hạng mục yêu cầu (đề nghị) gồm các số từ 1 đến 6: ① Đăng ký, ② Hiệu chỉnh/tái hiệu chỉnh, ③ Hủy bỏ, ④ Ngoài đối tượng, ⑤ Máy nghĩ, ⑥ Di chuyển."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140448.8472216,
+  "generated_at_iso": "2026-09-23T12:14:08",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 233733,
+    "modified_time": 1338276001.1330159,
+    "modified_time_iso": "2012-05-29T14:20:01",
+    "file_hash_short": "2c516b5c"
+  }
+}

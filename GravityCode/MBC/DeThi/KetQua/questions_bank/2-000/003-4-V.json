@@ -1,0 +1,50 @@
+{
+  "file_name": "003-4-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định THIẾT BỊ ĐO ĐIỆN ĐA NĂNG KĨ THUẬT SỐ IWATSU VOAC7411",
+  "doc_code": "003-4",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình hiệu chỉnh, trường hợp kết quả hiệu chỉnh báo NG (không đạt) thì phải xử lý như thế nào theo đúng quy định của tài liệu?",
+      "options": {
+        "A": "Tiến hành hiệu chỉnh zero, sau đó phải tiến hành xác nhận lại độ chính xác bằng cách hiệu chỉnh toàn bộ các giới hạn đo.",
+        "B": "Báo cáo ngay cho cấp trên và dán tem NG, ngừng sử dụng vĩnh viễn thiết bị.",
+        "C": "Chỉ cần chỉnh lại đúng mức giá trị bị lệch ở dải đo đó mà không cần kiểm tra lại toàn bộ.",
+        "D": "Gửi trả nhà sản xuất tại Nhật Bản ngay lập tức để hiệu chỉnh lại từ đầu."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, 2, 3, 4, 5 - Phần chú thích: '※ Trường hợp hiệu chỉnh NG thì hiệu chỉnh zero, phải tiến hành xác nhận lại độ chính xác bằng cách hiệu chỉnh toàn bộ các giới hạn đo.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, chu kỳ hiệu chỉnh đối với Thiết bị đo điện đa năng kĩ thuật số IWATSU VOAC7411 là bao lâu?",
+      "options": {
+        "A": "Cố định 6 tháng một lần.",
+        "B": "Khi xác nhận thấy cần thiết (nhưng không vượt quá 12 tháng).",
+        "C": "Đúng 1 năm (12 tháng) bắt buộc kiểm tra một lần.",
+        "D": "Chỉ khi thiết bị hỏng mới cần hiệu chỉnh."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Mục I (Hiệu chỉnh) - Chu kỳ hiệu chỉnh: 'Khi xác nhận thấy cần thiết (nhưng không vượt quá 12 tháng)'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi kiểm tra hằng ngày (Điểm kiểm) đối với thiết bị đo điện đa năng, nếu kết quả kiểm tra không thấy bất thường thì quy định ghi chép kết quả như thế nào là đúng?",
+      "options": {
+        "A": "Bắt buộc phải ghi chép lại đầy đủ mỗi ngày làm việc.",
+        "B": "Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.",
+        "C": "Không cần phải ghi chép vào sổ quản lý dưới mọi hình thức.",
+        "D": "Chỉ ghi chép lại khi có sự cố bất thường xảy ra trong quá trình sử dụng."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 6, Ghi chú số 2: 'Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

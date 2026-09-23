@@ -1,0 +1,50 @@
+{
+  "file_name": "012-5-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH・ĐIỂM KIỂM Máy đo máy phát điện (MAGTROL DSP6001＋HD-515/715)",
+  "doc_code": "012-5 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý khi điểm kiểm, trong trường hợp phát hiện có dị thường, nhân viên thao tác cần thực hiện những bước xử lý nào sau đây?",
+      "options": {
+        "A": "Tự ý tháo gỡ thiết bị để sửa chữa mạch điện bên trong rồi tiếp tục sử dụng",
+        "B": "Bỏ qua nếu lỗi nhỏ không ảnh hưởng lớn đến kết quả đo đạc thực tế",
+        "C": "Kí lục kết quả đó và xử lý theo chỉ thị của người chịu trách nhiệm bộ môn sở hữu, đồng thời tiến hành đăng kí tái hiệu chỉnh nếu cần thiết",
+        "D": "Chỉ ghi chép vào sổ tay cá nhân và chờ đến lịch bảo dưỡng định kỳ 6 tháng sau"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3: Chú ý 2: Khi điểm kiểm, nếu có dị thường phải kí lục kết quả đó và xử lý theo chỉ thị của người chị trách nhiệm bộ môn sở hữu. Khi cần thiết, phải tiến hành đăng kí tái hiệu chỉnh dụng cụ đo cho bộ phận thực hiện hiệu chỉnh"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm ngoại quan đối với máy đo máy phát điện (MAGTROL DSP6001+HD-515/715) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và trước khi bắt đầu ca làm việc",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "3 tháng một lần và khi có yêu cầu đặc biệt",
+        "D": "6 tháng một lần định kỳ cùng với hiệu chỉnh ngẫu lực"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi thực hiện hiệu chỉnh giá trị ngẫu lực cho model HD-515-8N, quả cân sử dụng và điểm hiệu chỉnh tương ứng (theo biểu 1) là gì?",
+      "options": {
+        "A": "Quả cân 2.5kg, điểm hiệu chỉnh 6.227 Nm",
+        "B": "Quả cân 1.0kg, điểm hiệu chỉnh 1.700 Nm",
+        "C": "Quả cân 1.0kg, điểm hiệu chỉnh 6.227 Nm",
+        "D": "Quả cân 2.5kg, điểm hiệu chỉnh 1.700 Nm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: (Biểu 1) - Mẫu mã: HD-515-8N | Quả cân sử dụng: 1.0kg | Điểm hiệu chỉnh(Nm): 1.700※1"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

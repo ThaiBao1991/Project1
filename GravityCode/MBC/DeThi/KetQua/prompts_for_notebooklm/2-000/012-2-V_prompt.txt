@@ -1,0 +1,514 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Tài liệu tiêu chuẩn hiệu chỉnh - Và điểm kiểm máy đo
+Mã số/Mã máy đo: 012-2e
+File gốc: 012-2-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/6
+Tài liệu tiêu chuẩn hiệu chỉnh
+Và điểm kiểm máy đo
+
+MÁY ĐO NGẪU LỰC
+(Bộ chế ngự loại TM, loại TM-S,TM-2S, Bộ phận đo loại TA,
+loại TB)
+
+Ban chính BHCL công ty cổ phần MAB
+
+Ngày ban hành 15.12.1995
+Ngày thay đổi  22.11.2024
+Máy đo: 012-2e
+
+Ⅰ【Hiệu Chỉnh】
+Máy chuẩn:
+Digital Mutimeter [S13-#]
+Quả cân (cấp 3 trở lên) [S09-1, S79-1] (dụng cụ hỗ trợ: thanh treo dùng
+hiệu chỉnh)
+Chu kỳ hiệu chỉnh:
+Mỗi 3 tháng hoặc khi thấy cần thiết
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+<Chuẩn bị
+trước khi hiệu
+chỉnh>
+
+1. Trị số ngẫu
+lực
+
+(1) Cần tham khảo [hình 2 : ngoại quan và tên gọi của các bộ
+phận] của bảng điều khiển
+(2) Bật ON nguồn điện ①làm nóng 30 phút.
+<Hạng mục chú ý>
+1.Hiệu chỉnh giá trị ngẫu lực và 2. Hiệu chỉnh điện áp xuất lực
+analog được thực hiện trong trạng thái treo quả cân trong máy
+đo ngẫu lực ※Khi thực hiện điều chỉnh (cho mỗi chiều
+CW/CCW), nếu thực hiện điều chỉnh thì  cần phải thực hiện 1.
+Hiệu chỉnh giá trị ngẫu lực và 2. Hiệu chỉnh điện áp xuất lực
+analog  hiệu điện áp analog trước khi tiến hành
+Sau khi điều chỉnh, cả giá trị ngẫu lực và giá trị điện áp xuất lực
+analog đồng thời phải nằm trong giá trị quy cách (đối với mỗi
+(CW/CCW)
+＜Biểu １ Quy cách phán định giá trị ngẫu lực＞
+
+(1)
+Chỉnh công tắc thay đổi phương thức CONTROL ⑭sang
+BRAKE.
+(2)
+Chỉnh công tắc thay đổi CONTROL MODE ⑬thành
+MANU.
+(3)
+Chỉnh công tắc thay đổi DISPLAY MODE ⑰thành MEAS.
+(4)
+Xoay hết cở nút vặn điều khiển CONTROL theo chiều
+⑮CW, tạo ra từ hãm lớn nhất.
+(5)
+Gắn thanh ngang dùng hiệu chỉnh vào trục của bộ phận
+đo ngẫu lực.
+(6)
+Điều chỉnh công tắc chuyển đổi hướng quay ⑦sang
+“CCW”
+(7)
+Điều chỉnh bằng vít ZERO ADJ ㉑để bộ phận biểu thị
+ngẫu lực [19] về 0.
+(8)
+Treo quả cân vào rãnh bên phải của thanh hiệu chỉnh từ
+tâm trục hướng về đồng hồ ngẫu lực và điều chỉnh ở vị trí
+ngang (tham khảo hình 1)
+<Tính toán ngẫu lực >
+T (ngẫu lực) = F (trọng lượng) × L (khoảng cách từ tâm trục)
+(Ví dụ) Trường hợp ngẫu lực định mức là 200g.ｃｍ
+Khoảng cách từ rãnh đến trung tâm trục (10cm) x quả cân (20g)
+= 200g・cm
+(9) Đọc giá trị của máy biểu thị ngẫu lực ⑲※Ngay sau đó, thực
+hiện hiệu chỉnh hạng mục 2. Điện áp đầu ra analog (1)～(2).
+
+Theo biểu 1
+
+Kiểu TM
+Kiểu TM-S
+Kiểu TM-2S
+Trị định
+mức±1%
+Trị định
+mức±0.5%
+Trị định
+mức±0.5%
+
+--- HẾT TRANG ---
+
+Ⅰ【Hiệu Chỉnh】
+No.2/6
+
+1.Giá trị ngẫu
+lực
+Tiếp theo
+
+2. Điện áp xuất
+lực analog
+
+(10) Điều chỉnh công tắc chuyển đổi hướng quay ⑦ sang “CW”
+(11)Điều chỉnh về 0 trên màn hình ngẫu lực ⑲ bằng cách sử
+dụng núm điều chỉnh “ZERO ADJ”
+(12) Như với CCW treo quả cân vào rãnh bên phải của thanh
+hiệu chỉnh từ tâm trục hướng về đồng hồ ngẫu lực và điều
+chỉnh ở vị trí ngang
+(13) Đọc giá trị của máy biểu thị ngẫu lực ⑲.
+※Ngay sau đó, thực hiện 2. điện áp xuất lực analog (1)～(2)
+※Kiểm tra  lặp đi lặp lại giá trị  ngẫu lực theo chiều CW/CCW
+và đọc giá trị ổn định
+(14) Trường hợp cần thiết phải điều chỉnh thì điều chỉnh bằng
+volume hiệu chỉnh “CAL” của phần đo ngẫu lực để giá trị của
+máy biểu thị ngẫu lực là trị ngẫu lực định mức.
+[Hình 1］
+
+＜Hạng mục chú ý＞
+Hiệu chỉnh điện áp xuất lực analog được thực hiện bằng cách
+treo quả cân lên đồng hồ đo ngẫu lực. Điện áp xuất lực analog
+tương tự thay đổi tùy thuộc vào ngẫu lực đáp ứng yêu cầy cho
+đồng hồ đo ngẫu lực, vì vậy, căn cứ vào giá trị thực tế ngẫu lực
+đã được hiệu chuẩn bằng [1. Giá trị ngẫu lực], sẽ xác định điện
+áp chuẩn. Việc phán định được thực hiện trong điện áp chuẩn ±
+giá trị cho phép. Khi điều chỉnh bằng ［1. Giá trị ngẫu lực］hãy
+thực hiện hiệu chỉnh lại điện áp xuất lực analog và nếu cần thực
+hiện các điều chỉnh để tương ứng với giá trị ngẫu lực đã điều
+chỉnh
+(1) Kết nối xuất lực analog ngẫu lực ⑫ và đồng hồ vạn năng kỹ
+thuật số.
+
+(2) Chuyển công tắc chuyển đổi display mode ⑰ sang ‘’T-ANA”
+
+(3) Đồng thời với bước (9) và (13) của mục 1, đọc giá trị của
+digital multimeter và phán định
+(4) Trường hợp cần thiết phải điều chỉnh, tiến hành điều chỉnh
+bằng volume ⑪điều chỉnh xuất lực analog ngẫu lực của bản
+điều khiển mặt chính.
+(5) Tháo quả cân đồng, vừa vặn nút control theo hướng CCW
+⑮vừa quay thanh hiệu chỉnh (hoặc di chuyển qua về), và hạ
+từ hãm về mức 0.
+
+Theo biểu 1
+
+Do điện áp đầu
+ra tương tự thay
+đổi tùy thuộc vào
+mô-men xoắn
+cấp vào đồng hồ
+đo mô-men xoắn,
+hãy tìm điện áp
+tham chiếu dựa
+trên giá trị
+mô-men xoắn
+thực tế được
+hiệu chỉnh trong
+[1.
+
+(Hạng mục hiệu
+chỉnh 1. Ngẫu
+lực đo thực tế
+tại giá trị ngẫu
+lực (CW/CCW)
+／Ngẫu lực định
+mức của đồng
+hồ đo ngẫu
+lực)*1000mV±0.
+5%
+※1000mV：
+Điện áp xuất lực
+analog của ngẫu
+lực định mức
+
+Thanh hiệu chỉnh
+Quả cân
+Khoảng cách từ
+tâm trục đến rảnh
+Volume hiệu chỉnh
+phần đo ngẫu lực
+
+--- HẾT TRANG ---
+
+Ι【Hiệu chỉnh】                                 No. 3/6
+Dụng cụ đo 012-2 e
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+3. Điện áp xuất lực
+đồng hồ đo vòng
+quay
+
+(1) Nối chấu điện analog số vòng quay ④với digital
+multimeter.
+(2) Điều chỉnh công tắc chuyển đổi mode display ⑰sang
+‘’S-ANA”.
+(3) Lắp công tắc chuyển đổi phạm vi số vòng quay ②vào
+vùng hiệu chỉnh.
+(4) Điều chỉnh công tắc chuyển đổi tín hiệu③ CAL đồng hồ
+đo vòng quay
+(5) Đọc giá trị của máy biểu thị số vòng quay ㉓
+※phải biểu thị hết mức thước đo của vùng đã thiết định tại
+(3)
+
+(6) Đọc giá trị đầu ra của cực đầu ra analog tốc độ quay
+④ (khi mỗi tốc độ quay trong phạm vi được hiển thị
+ở thang đo đầy đủ/đầu ra 1000mV) bằng đồng hồ đo
+đa năng kỹ thuật số.
+(7) Lắp công tắc chuyển đổi phạm vi số vòng quay ②vào
+vùng hiệu chỉnh.
+(8) Điều chỉnh công tắc chuyển đổi tín hiệu CAL số vòng
+quay③ về “1/2CAL”.
+(9) Đọc giá trị tại máy biểu thị số vòng quay ㉓
+※Phải biểu thị 1/2 của thước trong mỗi vùng đo.
+(10) Đọc giá trị đầu ra của cực đầu ra analog tốc độ quay
+④ (khi tốc độ quay của mỗi phạm vi được hiển thị ở
+1/2 thang đo đầy đủ/đầu ra 500mV) bằng đồng hồ đo
+đa n năng kỹ thuật số
+(11) Nếu cần điều chỉnh ，đặt đồng hồ quay ở phạm vi tối
+đa , đặt đồng hồ quay ở phạm vi tối đa, chuyển công
+tắc tín hiệu CAL của đồng hồ quay③ sang 'CAL', và
+điều chỉnh bằng núm điều chỉnh xuất lực analog tốc
+độ quay⑤ trong khi kiểm tra giá trị trên đồng hồ vạn
+năng kỹ thuật số.
+
+Theo biểu 2
+
+1000mV±1%
+
+Theo biểu 2
+
+500mV±1%
+Nếu cần điều
+chỉnh, hãy đặt
+công tắc chọn
+tín hiệu CAL
+của máy đo tốc
+độ ③ thành
+“CAL”
+trong
+phạm vi tối đa
+của máy đo tốc
+độ
+và
+điều
+chỉnh
+âm
+lượng
+điều
+chỉnh đầu ra
+tương tự của
+máy đo tốc độ
+⑤ trong khi
+kiểm tra giá trị
+của đồng hồ
+vạn năng kỹ
+thuật số.
+-Trích dẫn, tài liệu liên quan-
+Phương pháp hiệu chỉnh/Quy cách phán định
+1.Giá trị ngẫu lực：Trích dẫn bản hướng dẫn sử dụng của các thể thức
+2.Điện áp xuất lực analog：Trích dẫn bản hướng dẫn kiểu TM
+3. Điện áp xuất lực đồng hồ đo vòng quay ：Trích dẫn bản hướng dẫn sử dụng kiểu TM
+
+＜Biểu 2 Quy cách phán định số vòng quay＞
+Kiểu TM
+Kiểu TM-S
+Kiểu TM-2S
+±(10^-4+1digit)
+±(10^-4+2digit)
+Phạm vi
+F.S.±0.1%
+
+--- HẾT TRANG ---
+
+No.4/6
+I.
+[Hiệu chỉnh]
+[Hình 2]:  Ngoại quan và tên gọi của các bộ phận                      Dụng cụ đo 012-2e
+<Bảng điều khoản mặt chính>
+
+1. Công tắc nguồn điện
+2. Công tắc chuyển đổi phạm vi số vòng quay
+3. Công tắc chuyển đổi tín hiệu CAL đồng hồ đo vòng quay
+4. Chấu điện xuất lực analog số vòng quay
+5. Volume điều chỉnh xuất lực analog số vòng quay
+6. Đèn biểu thị kiểu quay
+7. Công tắc chuyển đổi hướng quay
+8. Công tắc chuyển đổi sweep
+9. Nút vặn chỉnh sửa cực tính
+10. Công tắc chuyển đổi tốc độ sweep
+11. Volume điều chỉnh xuất lực analog ngẫu lực
+12. Chấu điện xuất lực analog ngẫu lực
+13. Công tắc chuyển đổi control mode
+14. Công tắc chuyển đổi phương thức control
+15. Nút vặn control
+16. Công tắc chuyển đổi tín hiệu CAL ngẫu lực
+17. Công tắc chuyển đổi display mode
+18. Đèn biểu thị cực tính
+19. Máy biểu thị ngẫu lực
+20. Đèn chỉ thị đơn vị
+21. Nút vặn điều chỉnh về 0
+22. Đèn chỉ thị điều khiển
+23. Máy biểu thị số vòng quay
+24. Đèn biểu thị cổng
+
+--- HẾT TRANG ---
+
+No.5/6
+Máy đo 012-2e
+
+Ⅱ 【Điểm Kiểm】               MÁY ĐO NGẪU LỰC
+(Sở nghiên cứu Sugawara Bộ chế ngự loại TM, loại TM-S,Bộ phận đo loại TA, loại TB)
+
+Tiến độ điểm kiểm        Mỗi tháng 1 lần và mỗi lần sử dụng
+
+Hạng mục điểm
+kiểm
+Phương pháp điểm kiểm
+Phương pháp phán
+định
+
+1. Ngoại quan
+
+2. Bộ phận đo ngẫu
+lực
+
+(Bộ phận chế ngự)
+Xác nhận bằng mắt xem trên bảng điều khiển mặt
+chính có những lỗi có thể gây nguy hại tới đo đạc như
+bẩn, trầy, hư hại hay không.
+(Bộ phận đo ngẫu lực)
+Connector phải không bị lỏng hay đứt dây.
+
+(Kiểu bạc đạn hơi)
+Dùng tay xoay trục ở trạng thái không tải, xác nhận
+xem trục quay có nhẹ hay không.
+Trị số chỉ thị của đồng hồ đo áp lực hơi phải chỉ từ 1,5
+~ 2.0kg/cm2 .
+
+(Kiểu bạc đạn tròn)
+Quạt kết nối với công tắc của bộ phận chế ngự phải
+quay.
+
+Chú ý)
+1.Kết quả kiểm tra được ghi lại mỗi tháng một lần bất kể có bất thường hay không
+2.Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy
+ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu.
+Trường hợp cần thiết thì làm đơn đ ề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện
+hiệu chỉnh
+
+--- HẾT TRANG ---
+
+Máy đo 012-2       No.6/6
+Tài liệu tiêu chuẩn hiệu chỉnh điểm kiểm
+Biểu lý lịch những ban hành, cải chính và hủy bỏ
+
+Dấu
+hiệu
+Ngày tháng
+năm
+Nội dung (bao gồm những nội dung sửa
+đổi)
+Soạn
+thảo
+Xác nhận
+Công
+nhận
+
+15.12.1995
+Ban hành quy cách mới
+Nara
+Takashima
+Saka
+moto
+a
+2002.01.11
+Thay đổi chu kì hiệu chỉnh: 1 tháng → khi
+xác nhận thấy cần thiết (nhưng không vượt
+quá 3 tháng).
+Fuji yama
+Mabuchi
+Yama
+shita
+b
+2002.10.15
+Bổ sung thêm thể thức TM-S
+Fuji yama
+Mabuchi
+山下
+c
+2003.05.20
+Thay đổi máy chuẩn
+Quả cân, Quả cân (cấp 3 trở lên)
+
+伊藤
+
+石野
+
+三浦
+d
+
+2012.08.31
+Cải đính toàn phần
+
+松本(未)
+
+奈良 埴生
+
+糸川
+
+e
+
+2024.11.22
+
+Sửa đổi xem xét lại toàn bộ
+・Bổ sung thể thức TM-2S
+・Thay đổi cách ghi mã số các bộ phận thân
+máy đo ngẫu lực
+・Mục 1, Mục 2 Bổ sung ＜Hạng mục ghi
+chú＞
+・Hạng mục hiệu chỉnh 2.Sửa đổi phương
+pháp hiệu chỉnh, Điện áp xuất lực analog,
+・Hạng mục hiệu chỉnh 3. Sửa đổi phương
+pháp hiệu chỉnh, Điện áp xuất lực đồng hồ
+đo vòng quay・Thay đổi trích dẫn・văn bản
+liên quan
+・Ⅱ【Điểm kiểm】
+Tiến độ điểm kiểm「Mỗi tháng 1 lần và
+mỗi lần sử dụng」
+Cải đính toàn bộ hạng mục chú ý
+
+Ban chính BHCLcông ty cổ phần MAB
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "012-2-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh - Và điểm kiểm máy đo",
+  "doc_code": "012-2e",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

@@ -1,0 +1,516 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Tài liệu tiêu chuẩn hiệu chỉnh - và kiểm tra dụng cụ trắc định
+Mã số/Mã máy đo: 039-4
+File gốc: 039-4-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No. 1/7
+Tài liệu tiêu chuẩn hiệu chỉnh
+và kiểm tra dụng cụ trắc định
+
+Máy đo điện trở thấp
+(TSURUGA 3563)
+Mabuchi motor Co., Ltd
+Ban BHCL
+
+Ngày ban hành 27.05.1998
+Ngày thay đổi  15.04.2016
+Dụng cụ trắc định 039-4 c
+
+Ⅰ[Hiệu chỉnh]
+Dụng cụ chuẩn
+Máy đo điện trở chuẩn[S02-1], đồng hồ đo nhiệt độ, độ
+ẩm[S65-1]
+Chu kỳ hiệu chỉnh
+6 tháng hoặc khi thấy cần thiết
+
+Hạng mục
+hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+<Chuẩn
+bị
+trước
+hiệu chỉnh>
+1. Đo điện trở
+(điều
+kiện
+môi
+trường)
+Nhiệt độ
+23℃±5℃
+Độ ẩm
+Từ 80% trở xuống
+
+Bật công tắc ON của nguồn điện, để ổn định khoảng 30
+phút.
+(1) Bật công tắc “OHM” sang ON.
+(2) Nhấn công tắc “RATE”, chọn chu kỳ sampling sang “S
+(SLOW)”.
+(3) Nối dây cáp với máy đo điện trở chuẩn như hình vẽ
+A.
+(4) Chuyển công tắc “T-C” sang OFF
+(5) Thiết định giá trị giới hạn trên dưới bằng công tắc
+hiển thị H và L. (Tham khảo sách hướng dẫn cách
+sử dụng)
+(6) Phán định giá trị hiển thị của máy đo điện trở so với
+giá trị điện trở chuẩn của máy đo điện trở chuẩn dựa
+vào biểu 1
+(Biểu 1)
+
+Giới
+hạn
+D.cụ  đo
+điện trở
+chuẩn
+Phán định
+200m
+100m
+±(0.1% of rdg. + 8 digit)
+2
+1
+±(0.08% of rdg. + 3digit)
+20
+10
+200
+100
+2k
+1k
+20k
+10k
+200k
+100k
+±(0.1% of rdg. + 3 digit)
+
+※ Trường hợp không sử dụng thì không cần hiệu
+chỉnh ở 200k.
+
+Quỳnh Hoa 46447
+
+--- HẾT TRANG ---
+
+No. 2/7
+Dụng cụ trắc định 039-4 c
+Ⅰ[Hiệu chỉnh]
+
+Hạng mục
+hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+2.  Đo nhiệt độ
+
+3. Xác nhận chức
+năng bổ sung
+nhiệt độ (Công tắc
+T-C)
+
+4. Hiệu chỉnh các
+phạm vi đo
+
+*Xác nhận sensor đo nhiệt độ (Pt100Ω) phải được kết
+nối với connector mặt sau
+(1) Đo nhiệt độ xung quanh (t) bằng đồng hồ đo nhiệt độ,
+độ ẩm.
+(2) Chuyển công tắc “T-C” sang OFF
+(3) Tần số lấy mẫu, chọn “S(SLOW)”
+(4) Thiết định giá trị giới hạn trên dưới bằng công tắc kỹ
+thuật số L và H. (Tham khảo sách hướng dẫn cách sử
+dụng)
+(5) Nhấn nút ‘’TEMP’’, đọc phán định trí đo (nhiệt độ)
+bằng sensor đo nhiệt độ
+
+Phán định: kết quả đo được ở (5) phải ở trong phạm
+vi t±(0.2% of rdg + 0.2℃).
+
+(1) Áp dụng trị điện trở đo ở 1 (6) vào công thức dưới
+đây để tính trị điện trở ở 20℃ (R20). (Trị lý thuyết)
+
+R20 =
+
+t: Nhiệt độ đo ở 2 (1)
+(2) Áp dụng trị điện trở đo ở 1 (8) và R20 tính được ở (1)
+vào công thức dưới đây để tính tỉ lệ sai biệt (%).
+
+Tỉ lệ sai biệt (%)=                               *100
+
+*Trường hợp hiệu chỉnh ở hạng mục 1 và hạng mục 3, tiến
+hành hiệu chỉnh theo như bên dưới:
+
+(1) Chuyển công tắc nguồn điện sang OFF, nhấn cùng lúc
+công tắc “TEMP” và công tắc “OHM”, chuyển công
+tắc nguồn điện sang ON.
+Đèn nhấp nháy biểu thị 1 trong các đơn vị (m,  ,
+k , ) là chuyển sang trạng thái có thể hiệu chỉnh.
+(2) Nhấn công tắc “RATE”, chọn chu kỳ mẫu sampling là
+“S (SLOW)”
+(3) Nhấn công tắc “OHM” đèn sẽ nhấp nháy đơn vị điện
+trở, sẽ chuyển sang trạng thái có thể hiệu chỉnh.
+(4) Nối dây điện vào máy đo điện trở chuẩn như hình B.
+(5) Nhấn công tắc hiệu chỉnh 0 ở mặt trước cho từng giới
+hạn. (Hiệu chỉnh 0)
+(6) Nối dây cáp vào máy đo điện trở chuẩn như hình C.
+Máy điện trở chuẩn nối điện trở ở mỗi giới hạn như
+biểu 1.
+(7) Nhấn công tắc “hiệu chỉnh MAX” ở mặt trước của mỗi
+giới hạn. (Hiệu chỉnh MAX)
+Nối máy đo điện trở chuẩn vào từng phạm vi theo
+biểu 2
+
+Tỉ lệ sai biệt
+±0.3%
+
+-Văn bản liên quan –
+Quy cách phán đinh: quy cách nơi chế tạo: trích dẫn
+Độ chính xác đo nhiệt độ lúc điểm kiểm do thiết định trong công ty
+
+Quỳnh Hoa 46447
+Trị điện trở khi tắt T-C
+1+0.00393*(t-20)
+Trị điện trở khi bậc T-C – R20
+R20
+
+--- HẾT TRANG ---
+
+No. 3/7
+Dụng cụ trắc định 039-4c
+Ⅰ[Hiệu chỉnh]
+
+Hạng mục
+hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+(Biểu 2)
+
+Phạm vi
+Trị điện trở chuẩn
+Trị biểu thị
+200m
+100m
+100.00m
+2
+1
+1.0000
+20
+10
+10.000
+200
+100
+100.00
+2k
+1k
+1.0000k
+20k
+10k
+10.000 k
+200k
+100k
+100.00 k
+
+※ Đến đây là kết thúc hiệu chỉnh giới hạn điện trở.
+Tắt nguồn điện OFF(xóa bỏ chức năng hiệu chỉnh tự
+động) rồi đưa nguồn điện vào lại.
+Sau khi đưa nguồn điện vào lại, tiến hành hiệu chỉnh
+hạng mục 1, phải ghi chép và xác nhận không có gì
+bất thường.
+
+※ Trường hợp hạng mục hiệu chỉnh 2 và 3 NG, và
+sensor đo nhiệt độ không có bất thường thì cần phải
+thực hiện hiệu chỉnh bước đo nhiệt độ. (Tham khảo
+sách hướng dẫn cách sử dụng)
+Để hiệu chỉnh cần phải có dụng cụ đo điện trở chuẩn
+100 và 172.16 (dụng cụ điện trở có thể thay đổi 6
+dial :100OC).
+
+Quỳnh Hoa 46447
+
+--- HẾT TRANG ---
+
+No. 4/7
+Dụng cụ trắc định 039-4 c
+Ⅰ[Hiệu chỉnh]
+
+Hình A
+
+!式の終わりが正しくありません。
+
+Duïng cuï ñieän trôû chuaån
+
+Maùy ño ñieän trôû chuaån
+
+Hình B
+Dụng cụ điện trở tiêu chuẩn
+
+Quỳnh Hoa 46447
+
+Dây cáp
+Hiệu chỉnh ZERO
+Đầu nối dòng điện
+Máy
+đo
+điện
+trở
+chuẩn
+Đầu nối điện áp
+Đầu nối dòng điện
+Đầu
+nối điện áp
+SOURCE Hi
+SENCE Hi
+SENCE Lo
+SOURCE Lo
+
+--- HẾT TRANG ---
+
+No. 5/7
+Dụng cụ trắc định 039-4 c
+Ⅰ[Hiệu chỉnh]
+
+Hình C
+Hiệu chỉnh MAX
+Đầu nối dòng điện
+
+Trường hợp hình B/C
+không được sử dụng cáp c_où keïp noái ñi keøm.
+
+Quỳnh Hoa 46447
+
+Máy đo
+điện
+trở
+chuẩn
+
+Đầu nối điện áp
+Đầu nối điện áp
+Đầu nối dòng điện
+SOURCE Hi
+SENCE Hi
+SOURCE Lo
+SENCE Lo
+
+--- HẾT TRANG ---
+
+No. 6/7
+
+Dụng cụ trắc định 039-4 c
+Ⅱ [Điểm kiểm]
+.    MÁY ĐO ĐIỆN TRỞ THẤP     .
+(TSURUGA 3563)
+
+Tiến độ kiểm tra           Mỗi lần sử dụng
+
+Hạng mục
+điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1. Ngoại quan
+
+2. Xác nhận dây cáp
+đưa vào, sensor đo
+nhiệt độ
+
+3. Xác nhận biểu thị
+
+3. Độ chính xác đo
+nhiệt độ
+Xác nhận bằng mắt về việc không có sự không thích hợp nào
+có thể gây hỏng trong lúc đo như là bẩn, trầy xước, hư hại bản
+biểu thị
+
+(1)Dây cáp đưa vào có được kết nối đúng hay không
+(2) Không có đứt dây phần dây cáp đưa vào và lỏng dây
+phần nối
+(3)Sen sor đo nhiệt độ phải được kết nối đúng vào jack
+của mặt sau đồng hồ đo điện trở thấp
+
+* Tiến hành làm nóng từ 30 phút trở lên
+(1) Xác nhận xem khi cho đoản mạch dây cáp như hình
+vẽ dưới thì có biểu thị về 0 không.
+(3) Xác nhận xem các loại đèn biểu thị có bình thường
+không.
+
+(1) Đo nhiệt độ xung quanh máy đo điện trở thấp
+(2) Nhấn công tắc TEMP, xác nhận nhiệt độ bằng sensor
+đo nhiệt độ
+(3) So sánh (1),(2), không được để cho độ chênh lệch từ
+±0.5oC trở lên (thiết định trong công ty)
+ Tuy nhiên, tiến hành chỉ trong trường hợp đã được quản
+lý nhiệt độ
+
+Không
+có
+dị
+thường
+
+Trường
+hợp
+phán định NG,
+yêu
+cầu
+hiệu
+chỉnh rồi phán
+định chính thức
+
+Ghi chú
+1. Trường hợp kiểm tra thấy bất thường, ghi chép lại kết quả đã kiểm tra và xử lý theo chỉ
+thị của người có trách nhiệm quản lý.
+2. Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng
+được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì
+bất thường xảy ra.
+3. Trường hợp nhận ra sự bất thường trong khi sử dụng, sẽ xử lý dựa vào chỉ thị của
+người có trách nhiệm quản lý.
+
+Quỳnh Hoa 46447
+
+--- HẾT TRANG ---
+
+Dụng cụ trắc định 039-4    No. 7/7
+Tài liệu tiêu chuẩn hiệu chỉnh điểm kiểm
+Biểu lý lịch ban hành, cải chính và hủy bỏ
+
+Ký
+hiệu
+Ngày tháng
+năm
+Nội dung (bao gồm nội dung sửa đổi)
+Soạn
+thảo
+Xác nhận
+Công
+nhận
+
+27.05.1998
+Ban hành quy cách mới
+Yama
+gishi
+Tenya
+Mabuchi
+Saka
+moto
+△a
+19.06.2003
+
+* Hạng mục 1: thay đổi mục (5) công tắc “T.C
+“ OFFON
+Xóa bỏ mục (8).
+* Hạng mục 3: Hủy bỏ chức năng bổ sung
+nhiệt độ
+* Chỉnh sửa khác
+Itou
+Mabuchi
+Miura
+b
+05.09.2003
+
+* Hạng mục hiệu chỉnh 1: thay đổi mục (5)
+công tắc “T.C “ ON OFF
+* Hạng mục hiệu chỉnh 1: Bổ sung phương
+pháp hiệu chỉnh (8)
+* Bổ sung Hạng mục hiệu chỉnh 3 xác nhận
+chức năng bổ sung nhiệt độ.
+* Điểm kiểm (trang 6/7) không thay đổi nên
+Rev. a
+Hiệu chỉnh: Rev. b, Điểm kiểm: Rev. a
+Itou
+Ishikawa
+Miura
+c
+15.04.2016
+Dụng cụ tiêu chuẩn: xoá bỏ ( vật có độ chính
+xác từ 0.01% trở lên), bổ sung No. quản lý
+I[Hiệu chỉnh]
+-
+Bổ sung<chuẩn bị trước hiệu chỉnh>
+-
+Hạng mục 2: thay đổi thứ tự mã số (1)~(7)
+Di chuyển Di chuyển hiệu chỉnh của mục(1)
+và mục(3) NG... sang mục(4)
+-
+Hạng mục 4: biểu 2(bổ sung đơn vị)* xem
+xét lại câu văn
+-
+Bổ sung văn bản liên quan, trích dẫn
+II. [Điểm kiểm] Xem xét lại toàn bộ nội dung
+
+橋田
+村野 伊藤
+石野
+Ban BHCL Cty TNHH Mabuchi Motor
+Quỳnh Hoa 46447
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "039-4-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh - và kiểm tra dụng cụ trắc định",
+  "doc_code": "039-4",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

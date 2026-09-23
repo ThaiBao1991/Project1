@@ -1,0 +1,50 @@
+{
+  "file_name": "097-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm dụng cụ đo Máy đo chấn động laze doppler Polytec",
+  "doc_code": "097-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kỳ hiệu chỉnh nội bộ đối với máy đo chấn động laze doppler Polytec được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi 6 tháng 1 lần và khi công nhận cần thiết",
+        "B": "Mỗi 12 tháng và khi công nhận cần thiết",
+        "C": "36 tháng 1 lần và khi phán định cần thiết",
+        "D": "Mỗi lần sử dụng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Chu kỳ hiệu chỉnh: Hiệu chỉnh nội bộ：Mỗi 12 tháng và khi công nhận cần thiết"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trường hợp phát hiện có dị thường khi điểm kiểm hoặc khi sử dụng thiết bị, quy trình xử lý chính xác theo chú ý trong tài liệu là gì?",
+      "options": {
+        "A": "Tự ý tháo máy ra sửa chữa ngay lập tức",
+        "B": "Tiếp tục sử dụng nếu lỗi nhỏ và ghi chép lại vào cuối tháng",
+        "C": "Kí lục lại kết quả đó, và xử lí theo chỉ thị của người chịu trách nhiệm của phòng ban sở hữu",
+        "D": "Bỏ qua không cần báo cáo vì kết quả điểm kiểm không liên quan đến dị thường"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trường hợp nếu có dị thường khi điểm kiểm (hoặc khi sử dụng), thì kí lục lại kết quả đó, và xử lí theo chỉ thị của người chịu trách nhiệm của phòng ban sở hữu."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Tiến độ điểm kiểm (Ⅱ【Điểm kiểm】) đối với máy đo chấn động laze doppler Polytec được quy định ra sao?",
+      "options": {
+        "A": "Mỗi tuần 1 lần",
+        "B": "Mỗi tháng 1 lần",
+        "C": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "D": "Chỉ khi phát sinh sự cố"
+      },
+      "correct_answer": "C",
+      "reference_note": "Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

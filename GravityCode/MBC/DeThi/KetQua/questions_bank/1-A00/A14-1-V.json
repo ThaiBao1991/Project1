@@ -1,0 +1,59 @@
+{
+  "file_name": "A14-1-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh dụng cụ tiêu chuẩn",
+  "doc_code": "A14-1b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi dụng cụ đo được phân loại bằng mã sheet và cấu thành bằng nhiều dụng cụ nổi thì sẽ ghi liên tục các chữ cái alphabet bắt đầu từ chữ gì vào dụng cụ nối chính để phân loại?",
+      "options": {
+        "A": "Bắt đầu từ chữ B",
+        "B": "Bắt đầu từ chữ A",
+        "C": "Bắt đầu từ chữ Z",
+        "D": "Bắt đầu từ chữ C"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, 'sẽ ghi liên tục các chữ cái alphabet bắt đầu từ chữ A vào dụng cụ nối chính để phân loại'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn A14-1b, ngày ban hành đầu tiên của tài liệu tiêu chuẩn hiệu chỉnh dụng cụ tiêu chuẩn là khi nào?",
+      "options": {
+        "A": "09.12.1994",
+        "B": "17.07.2002",
+        "C": "04.07.2016",
+        "D": "01.01.2000"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, Ngày ban hành 09.12.1994"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo ví dụ phân loại máy đo độ tròn trong tiêu chuẩn, mã số của 'đầu đo φ 1.0' được ký hiệu như thế nào?",
+      "options": {
+        "A": "606-1-0001A",
+        "B": "606-1-0001B",
+        "C": "606-1-0001C",
+        "D": "606-1-0001D"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, '606-1-0001C (đầu đo φ 1.0)'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140515.508096,
+  "generated_at_iso": "2026-09-23T12:15:15",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 30800,
+    "modified_time": 1481945900.6879456,
+    "modified_time_iso": "2016-12-17T10:38:20",
+    "file_hash_short": "83971c5e"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "521-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - THƯỚC PANME MŨI KIM Mitutoyo",
+  "doc_code": "521-1g",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Khi thực hiện hiệu chỉnh - điểm kiểm R đầu mũi kim đo hoặc ngoại quan Panme mũi kim, yêu cầu quan trọng nào sau đây TUYỆT ĐỐI PHẢI LƯU Ý để tránh làm hỏng dụng cụ?",
+      "options": {
+        "A": "Không được vặn quá chặt cớ lê khóa",
+        "B": "Không được làm dập R đầu mũi kim đo của thước Panme",
+        "C": "Không được để dầu mỡ bám vào bề mặt thước",
+        "D": "Không được dùng geji block có nhiệt độ cao hơn nhiệt độ phòng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1 (Mục I, Hạng mục 1) và Trang 2 (Mục II, Hạng mục 1): 'Khi xác nhận điểm gốc, phải chú ý R đầu mũi kim đo có bị đập hay không... Đặc biệt, cần xác nhận R đầu mũi kim đo có bị mài mòn không. Khi xác nhận điểm gốc phải chú ý không được làm dập R đầu mũi kim đo của thước Panme.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi xác nhận độ chính xác tổng hợp của thước Panme mũi kim, vạch chia nhỏ nhất và độ chính xác của vạch chia là bao nhiêu?",
+      "options": {
+        "A": "Vạch chia nhỏ nhất 0.001mm, độ chính xác ±0.004mm",
+        "B": "Vạch chia nhỏ nhất 0.01mm, độ chính xác ±0.01mm",
+        "C": "Vạch chia nhỏ nhất 0.001mm, độ chính xác ±0.002mm",
+        "D": "Vạch chia nhỏ nhất 0.02mm, độ chính xác ±0.025mm"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, Mục I [Hiệu chỉnh], Hạng mục 2. Độ chính xác tổng hợp"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ điểm kiểm (tần suất kiểm tra) đối với 'MICRO ĐO ĐƯỜNG KÍNH ĐIỀM' là khi nào?",
+      "options": {
+        "A": "Mỗi ngày một lần trước khi làm việc",
+        "B": "Mỗi tuần một lần",
+        "C": "Mỗi lần sử dụng",
+        "D": "Một tháng một lần"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, Mục II [Điểm kiể̉m], phần 'Tiến độ kiểm tra: Mỗi lần sử dụng'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "025-6-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM MÁY ĐO SO SÁNH CHẤN ĐỘNG ONOSOKKI VC-3100/VC-3200",
+  "doc_code": "025-6 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong hạng mục hiệu chỉnh 'Điện áp offset DC', tiêu chuẩn phán định đối với model VC-3100 tại thiết đặt EXT input RANGE 1.000 km/s² là bao nhiêu?",
+      "options": {
+        "A": "0.000 ±15.000 mV",
+        "B": "0.000 ±17.000 mV",
+        "C": "Dưới 10.000 mVrms",
+        "D": "Trên 81.5 dB"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, bảng mục 2. Điện áp offset DC: 'VC-3100 | Thiết đặt 1.000 km/s2 | Phán định 0.000 ±15.000 mV'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo hướng dẫn ở phần chú ý của mục điểm kiểm (trang 5), việc ghi chép kết quả kiểm tra khi KHÔNG phát sinh bất thường được quy định như thế nào?",
+      "options": {
+        "A": "Bắt buộc phải ghi chép đầy đủ kết quả kiểm tra hằng ngày vào biểu mẫu",
+        "B": "Không cần ghi chép lại hàng ngày, nhưng dù cho không phát sinh bất thường trong vòng một tháng thì cũng cần phải ghi lại",
+        "C": "Tuyệt đối không cần ghi chép lại để tiết kiệm giấy tờ và thời gian",
+        "D": "Chỉ cần báo cáo bằng miệng cho người quản lý trực tiếp mà không cần ghi chép"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5, mục Chú ý - Khoản 2: 'Trong trường hợp không có bất thường thì không cần ghi chép lại. Tuy nhiên, dù cho không phát sinh trong vòng một tháng thì cũng cần phải ghi lại.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, tiến độ điểm kiểm (tần suất kiểm tra) đối với máy đo so sánh chấn động ONOSOKKI VC-3100/VC-3200 được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần trước khi vào ca",
+        "B": "Mỗi lần sử dụng",
+        "C": "Định kỳ mỗi tháng một lần",
+        "D": "Mỗi khi có sự thay đổi người thao tác"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5, mục II 【Điểm kiểm】: 'Tiến độ điểm kiểm: Mỗi lần sử dụng'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

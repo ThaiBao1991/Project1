@@ -1,0 +1,50 @@
+{
+  "file_name": "S16-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Điện trở tải trọng dùng UL 1270",
+  "doc_code": "S16 - 1 f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo bản tiêu chuẩn hiệu chỉnh Điện trở tải trọng dùng UL 1270, điều kiện môi trường về nhiệt độ xung quanh và độ ẩm tương đối khi hiệu chỉnh là gì?",
+      "options": {
+        "A": "Nhiệt độ 20 ± 5ºC, độ ẩm tương đối 40 ~ 75%",
+        "B": "Nhiệt độ 23 ± 5ºC, độ ẩm tương đối 30 ~ 85%",
+        "C": "Nhiệt độ 25 ± 2ºC, độ ẩm tương đối 50 ~ 80%",
+        "D": "Nhiệt độ 23 ± 2ºC, độ ẩm tương đối 40 ~ 85%"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Nhiệt độ xung quanh 23 ± 5ºC, Độ ẩm tương đối 30~85%"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Căn cứ vào bảng thông số kỹ thuật, giá trị trị công bố (kΩ) nào sau đây đi kèm với sai số là +1%, -0%?",
+      "options": {
+        "A": "159 kΩ",
+        "B": "210 kΩ",
+        "C": "120 kΩ",
+        "D": "279 kΩ"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Trị công bố 120 (kΩ) có sai số +1%, -0% (các giá trị từ 159 trở xuống có sai số ±1%)"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh Điện trở tải trọng dùng UL 1270, chu kỳ hiệu chỉnh của dụng cụ này được quy định là bao nhiêu năm?",
+      "options": {
+        "A": "1 năm",
+        "B": "2 năm",
+        "C": "3 năm",
+        "D": "5 năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Chu kỳ hiệu chỉnh: 3 năm"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

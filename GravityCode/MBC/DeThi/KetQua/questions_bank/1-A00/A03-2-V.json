@@ -1,0 +1,59 @@
+{
+  "file_name": "A03-2-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "Bảng Tiêu Chuẩn Điểm Kiểm - Hiệu Chỉnh Máy Đo",
+  "doc_code": "A03 - 2 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Thiết kế cũ của nhãn chứng nhận hoàn tất hiệu chỉnh quản lí hằng tháng được quy định như thế nào khi muốn sử dụng cho hàng tồn kho?",
+      "options": {
+        "A": "Phải hủy bỏ toàn bộ và in lại nhãn mới hoàn toàn theo tiêu chuẩn tiếng Anh.",
+        "B": "Có thể sử dụng nhưng phải bổ sung ngày bằng nhãn riêng khác bên cạnh nhãn chứng nhận, hoặc ghi thêm E để biểu hiện cuối tháng tại ô ghi tháng.",
+        "C": "Chỉ cần dán đè nhãn mới lên mà không cần quan tâm đến định dạng cũ.",
+        "D": "Không được phép sử dụng cho hàng tồn kho trong mọi trường hợp."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Mục 3.(2) 'Thiết kế cũ của nhãn chứng nhận hoàn tất hiệu chỉnh quản lí hằng tháng chỉ có thể được sử dụng cho hàng tồn kho. Bổ sung ngày bằng nhãn riêng khác bên cạnh nhãn chứng nhận, hoặc ghi thêm E để biểu hiện cuối tháng tại ô ghi tháng của kì hạn hữu hiệu đối với hiệu chỉnh.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo quy định về phân loại nhãn chứng nhận hoàn tất hiệu chỉnh quản lí hằng tháng, tháng 4 sẽ tương ứng với phông màu nào?",
+      "options": {
+        "A": "Màu hồng",
+        "B": "Màu đỏ",
+        "C": "Màu da cam",
+        "D": "Màu vàng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: 'Tháng 4: màu đỏ'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Trên nhãn chứng nhận hoàn tất hiệu chỉnh quản lí hằng tháng theo tiêu chuẩn mới, cụm từ 'Calibration expiration date' được viết tắt là gì?",
+      "options": {
+        "A": "Exp date",
+        "B": "Cal date",
+        "C": "Due date",
+        "D": "Exp limit"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2: Mục 3.(1) '(Calibration expiration date: được ghi là Exp date trên nhãn)'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140179.0261734,
+  "generated_at_iso": "2026-09-23T12:09:39",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 248755,
+    "modified_time": 1579085106.7105863,
+    "modified_time_iso": "2020-01-15T17:45:06",
+    "file_hash_short": "426b85f2"
+  }
+}

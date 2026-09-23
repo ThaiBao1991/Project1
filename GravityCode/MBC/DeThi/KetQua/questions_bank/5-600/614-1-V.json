@@ -1,0 +1,50 @@
+{
+  "file_name": "614-1-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - KÍNH HIỂN VI ĐA NĂNG (NiKon MM-40/MM-400)",
+  "doc_code": "614 -1 e",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo mục II [Điểm kiểm], tiến độ kiểm tra kính hiển vi đa năng (Nikon MM-40/MM-400) được thực hiện với tần suất như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Tiến độ kiểm tra - Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo mục I [Hiệu chỉnh], dụng cụ chuẩn được sử dụng cho kính hiển vi đa năng là gì?",
+      "options": {
+        "A": "Thước cặp cơ khí tiêu chuẩn",
+        "B": "Block chuẩn (cấp 0) hoặc thước chuẩn (S08-1)",
+        "C": "Đồng hồ so chân gập",
+        "D": "Block chuẩn cấp 1 hoặc cữ so độ dày"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Dụng cụ chuẩn - Block chuẩn (cấp 0) hoặc thước chuẩn (S08-1)"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục Chú ý về kết quả kiểm tra (trang 2), trường hợp kết quả kiểm tra KHÔNG thấy bất thường, quy định ghi chép như thế nào là đúng?",
+      "options": {
+        "A": "Phải ghi chép lại kết quả kiểm tra chi tiết vào biểu mẫu ngay lập tức sau mỗi lần sử dụng.",
+        "B": "Không ghi kết quả cũng được, nhưng mỗi tháng phải ghi kết quả đã kiểm tra một lần.",
+        "C": "Không cần ghi chép bất kỳ tài liệu nào trong suốt quá trình sử dụng thiết bị.",
+        "D": "Chỉ cần ghi chép khi phát sinh sự cố bất thường liên quan đến trục Z."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Chú ý: Trường hợp kết quả kiểm tra không thấy bất thường không ghi kết quả cũng được. Nhưng mỗi tháng phải ghi kết quả đã kiểm tra một lần."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

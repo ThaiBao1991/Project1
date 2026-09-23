@@ -1,0 +1,50 @@
+{
+  "file_name": "576-2-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN KIỂM TRA VÀ HIỆU CHỈNH DỤNG CỤ ĐO - Thiết bị đo moment cong (TMM-khuôn 1A)",
+  "doc_code": "576-2b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, chu kỳ kiểm tra đối với thiết bị đo moment cong (TMM-khuôn 1A) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "3 tháng một lần",
+        "D": "6 tháng một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, Mục Ⅱ【Kiểm tra】, Chu kỳ kiểm tra: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình chuẩn bị set về 0 trước khi hiệu chỉnh, giá trị mục tiêu cần điều chỉnh tại ZERO VR ngang với sensor là bao nhiêu?",
+      "options": {
+        "A": "20.0gf",
+        "B": "25.0gf",
+        "C": "30.0gf",
+        "D": "50.0gf"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Mục Ⅰ【Hiệu chỉnh】, Chuẩn bị trước khi hiệu chỉnh, điểm (5): Điều chỉnh đạt mục tiêu ở mức 30.0gf."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo quy định về kết quả kiểm tra tại mục chú ý, trường hợp kiểm tra không có gì bất thường thì tần suất ghi chép lại kết quả tối thiểu là bao lâu?",
+      "options": {
+        "A": "Không cần ghi chép gì nếu không có bất thường",
+        "B": "Mỗi ngày một lần",
+        "C": "Một lần một tuần",
+        "D": "Một lần một tháng cho dù không có gì khác thường"
+      },
+      "correct_answer": "D",
+      "reference_note": "Trang 3, Chú ý) điểm 2: Kết quả kiểm tra, trường hợp không có gì bất thường thì không ghi lại kết quả kiểm tra cũng được, tuy nhiên, một lần một tháng cho dù không có gì khác thường thì cũng phải ghi chép lại những điều đó."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

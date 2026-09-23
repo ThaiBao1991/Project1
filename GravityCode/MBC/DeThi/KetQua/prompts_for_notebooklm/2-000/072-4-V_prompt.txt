@@ -1,0 +1,223 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: BẢNG TIÊU CHUẨN HIỆU CHỈNH ĐIỂM KIỂM DỤNG CỤ ĐO    Ban chính BHCL công ty Mabuchi - EDX                                      Dụng cụ đo   072-4
+Mã số/Mã máy đo: 072-4
+File gốc: 072-4-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/3
+
+BẢNG TIÊU CHUẨN HIỆU CHỈNH ĐIỂM KIỂM DỤNG CỤ ĐO    Ban chính BHCL công ty Mabuchi
+Motor
+
+Ban hành  2020.3.30
+Cải chính  Năm
+tháng ngày
+EDX                                      Dụng cụ đo   072-4
+Shimadzu EDX-8000
+
+Ι【Hiệu chỉnh】
+
+Máy chuẩn           Máy chuẩn NCC chỉ định
+
+Chu kì hiệu chỉnh   24 tháng và khi cần thiết (Tuy nhiên chứ điểm Việt Nam thì 12 tháng)
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+Hạng mục tiêu chuẩn
+phán định NCC
+
+【Mục chú ý trong thiết bị phát tia X】
+Vì thiết bị này là thiết bị phát tia X nên cần phải tiến hành báo
+cáo, sử dụng, xử lý chính xác trước theo luật cuat mỗi quốc
+gia và tiểu bang.
+
+Ủy thác việc hiệu chỉnh cho đại lý phân phối hoặc NCC.
+
+－Trích dẫn・Văn b ản liên quan－
+Dựa theo bảng điểm kiểm định kỳ Shimadzu Access Co., Ltd.
+
+--- HẾT TRANG ---
+
+No.2/3
+
+Ⅱ【ĐIỂM KIỂM】         EDX                                  Dụng cụ đo  072-4
+Shimadzu  EDX-8000
+
+Tần suất điểm kiểm        Mỗi khi sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1.Ngoại quan tổng thể
+
+2.Xác nhận tình trạng
+thiết bị và khởi động
+(Hình 1)
+
+3. Khởi động thiết bị
+
+3. Xác nhận năng lượng,
+cường độ
+(Hình 2)
+
+(1) Không đặt vật dụng
+khác lên thiết bị, hệ
+thống phối điện, dây ống các loại.
+(2) Hệ thống dây điện, dây ống các loại không có hư tổn,
+được nối chính xác.
+(3)Không đặt các vật nguy hiểm như khí gas có tính phát
+cháy, vật có tính sát thương ở gần thiết bị.
+(1) Kích vào メンテナンス
+(2) Kích vào 装置の初期化 xác nhận (①), tình trạng thiết bị
+chuyển thành 正常 (②),  trạng thái có khả năng phân
+tích.
+※Chuẩn bị: Vì phát ra tia X nên nhất định phải đậy nắm
+ngăn thí nghiệm lại.
+(1) Khởi động PCEDX Navi của màn hình PC.
+(2) Kích vào nút 装置初期化, kích vào X 線ON, chờ cho thiết
+bị ổn định. (khoảng 15 phút)
+※Nếu hơn 1 tháng không sử dụng thì màn hình xử lý lão
+hóa của ống tia X sẽ xuất hiện, nhấn nút START, việc xử lý
+bắt đầu. (Khoảng 90 phút)
+
+Đèn báo
+
+Nắp ngăn
+Thí nghiệm
+
+Sau khi đổi sang màn hình phân tích:
+(1) Nhấn nút [OPEN] trên bảng điều khiển tại thiết bị, mở
+ngăn mẫu thí nghiệm ra, set mẫu thí nghiệm hiệu chỉnh
+kèm theo (A750, hình 3), đậy nắp lại, kích vào Measure
+(2) Sau khi đo, xác nhận kết quả OK (③)
+(Hình 2)
+
+（図1）
+
+Bảng điều khiển
+thể hiện trạng
+thái thiết bị
+Nút đóng nắp
+
+Trường hợp kết
+quả NG thì thao
+khảo
+sách
+hướng dẫn sử
+dụng
+và
+tiến
+hành xử lý.
+(Hình 3: A750)
+Chú ý) 1.Trường hợp kết quả điểm kiểm có bất thường thì ghi ghi chép lại và xử lý theo chỉ thị của người
+phụ trách quản lý.
+2. Trường hợp kết quả điểm kiểm không có bất thường thì không cần ghi lại. Tuy nhiên, Tuy nhiên, nếu
+trong 1 tháng mà kkhông có lần nào bất thường thì cần ghi chép lại.
+3. Nếu khi sử dụng thấy có bất thường thì xử lý theo chỉ thị của người chịu trách nhiệm quản lý.
+
+②
+①
+③
+
+--- HẾT TRANG ---
+
+BẢN TIÊU CHUẨN HIỆU CHỈNH-ĐIỂM KIỂM       LAI LỊCH CẢI ĐỎI         Dụng cụ đo  072-4  No.3/3
+Ký
+hiệu
+Ngày
+Ký sự（nội dung cải đổi,…）
+Saonj
+thảo
+Xác nhận
+Công
+nhận
+
+2020.03.30
+
+Ban hành mới
+
+Koizu
+mi
+
+Kikuchi
+Ishii
+Fujita
+
+Itou
+
+マブチモーター(株） 品質保証本部
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "072-4-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢNG TIÊU CHUẨN HIỆU CHỈNH ĐIỂM KIỂM DỤNG CỤ ĐO    Ban chính BHCL công ty Mabuchi - EDX                                      Dụng cụ đo   072-4",
+  "doc_code": "072-4",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

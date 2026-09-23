@@ -1,0 +1,558 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: BẢN TIÊU CHUẨN HIỆU CHỈNH - KIỂM ĐIỂM DỤNG CỤ ĐO         Ban chính BHCL công ty cổ phần Mabuchi Motor - Đồng hồ đo ngẫu lực（Bộ điều khiển：DM5001）                        Máy đo    012-14 b
+Mã số/Mã máy đo: 012-14 b
+File gốc: 012-14-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/8
+
+BẢN TIÊU CHUẨN HIỆU CHỈNH - KIỂM ĐIỂM DỤNG CỤ ĐO         Ban chính BHCL công ty cổ phần Mabuchi Motor
+
+Ban hành    19/12/2023
+Cải đính 14/08/2026
+Đồng hồ đo ngẫu lực（Bộ điều khiển：DM5001）                        Máy đo    012-14 b
+Viện nghiên cứu Sugawara TORQuick
+
+Ι【Hiệu chỉnh】
+① Trọng lượng tiêu chuẩn cấp (3 trở lên) [S09-1, S09-2, S79-1] (Dụng cụ hỗ
+trợ: thanh hiệu chỉnh)
+② Thiết bị hiểu chỉnh một chiều [S01-1] hoặc máy hiệu chỉnh đa sản phẩm
+[S01-3]
+Máy tiêu chuẩn ③  Đèn chớp [S32-1]hoặc đồng hồ quay [019-02]
+
+Chu kỳ hiệu chỉnh    3 tháng và khi đã được xác nhận là cần thiết
+
+Hạng mục
+hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+1. Hiệu chỉnh trị
+ngẫu lực
+
+(1) Click icon khởi động. TORQuick (Khởi động phần mềm)
+⇒Màn hình chính TORQuick mở ra.
+(2) Click CAL trên màn hình chính TORQuick.
+⇒Màn hình CAL MODE mở ra.
+(3) Click tap Calibration trên màn hình CAL MODE.
+(4) Gắn thanh dùng hiệu chỉnh song song với trục đồng hồ ngẫu
+lực.
+(5) Click vào  Brake ON
+⇒Indicator màu đỏ của màn hình máy tính trở thành 100%.
+Đồng thời, pha trên màn hình sẽ chuyển từ 「Brake ON」sang
+「Get Torque Zero」.
+(6) Click T-Zero.
+⇒Reset zero trị T [mN・m]
+(7) Sau khi reset zero, nhấn NEXTđể chuyển pha màn hình từ「Get
+Torque Zero」sang「CW Calibration」.
+<Hiệu chỉnh phía CW>
+(8) Treo quả cân trọng lượng tiêu chuẩn tương đương với ngẫu
+lực quy định ở rãnh phía CW của thanh dùng cho hiệu chỉnh sao
+cho song song với thanh hiệu chỉnh (Hình 1)
+
+Ví dụ): Trường hợp ngẫu lực quy định 500mN‧m
+Cự ly từ trung tâm trục đến rãnh (10cm)×quả
+cân(5N)=500mN･m
+(9) Ghi trị T [mN・m] của màn hình máy tính.
+(10)Tìm chênh lệch trị T [mN・m] đối với trị ngẫu lực quy định, rồi
+phán định.
+
+(Hình 1)
+
+Thanh hiệu chỉnh
+
+Trường hợp cần điều chỉnh
+Khi nhấn CW CAL, tại trạng thái quả cân trọng lượng tiêu
+chuẩn tương đương với ngẫu lực quy định trên màn hình
+CW Calibration, xác nhận và điều chỉnh ngẫu lực đang áp
+dụng theo ngẫu lực quy định.
+Sau điều chỉnh, thực hiện (8)～(10).
+
+Giá trị ngẫu lực
+±0.5%
+
+Cự ly từ trung tâm
+trục đến rãnh
+Đồng hồ đo
+ngẫu lực
+
+--- HẾT TRANG ---
+
+№2/8
+
+Ι【Hiệu chỉnh】                                Máy đo  012-14b
+
+Hạng mục
+hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+1. Hiệu chỉnh trị
+ngẫu lực (tiếp
+theo)
+
+<Hiệu chỉnh phía CCW >
+(11) Sau khi hiệu chỉnh CW, nhấn  NEXT, pha màn hình
+chuyển từ「CW Calibration」sang「CCW Calibration」.
+(12) Treo quản cân trọng lượng tiêu chuẩn tương đương
+với ngẫu lực quy định ở rãnh phía CCW của thanh
+dùng cho hiệu chỉnh giống với hiệu chỉnh phía CW,
+sao cho song song với thanh hiệu chỉnh
+(13) Ghi trị T [mN・m] của màn hình máy tính.
+(14) Tìm chênh lệch trị T [mN・m] đối với trị ngẫu lực quy định,
+rồi phán định.
+
+(15) Sau khi hoàn tất hiệu chỉnh, click NEXT.
+(16) Click Brake OFF, vừa cho thanh hiệu chỉnh di chuyển
+lên xuống bằng tay vừa khử từ còn xót lại.
+⇒ Indicator màu đỏ của màn hình máy tính còn
+0%.
+(17) Lấy thanh hiệu chỉnh ra khỏi trục đồng hồ đo ngẫu
+lực.
+(18) Click Close.
+⇒ Màn hình Calibration đóng lại.
+
+Trường hợp cần điều chỉnh
+Khi nhấn CCW CAL, tại trạng thái quả cân trọng lượng tiêu
+chuẩn tương đương với ngẫu lực quy định trên màn hình
+CCW Calibration, xác nhận và điều chỉnh ngẫu lực đang áp
+dụng theo ngẫu lực quy định.
+Sau khi điều chỉnh, thực thi từ (11)～(14).
+
+Giá trị ngẫu lực
+±0.5%
+
+No.3/8
+
+--- HẾT TRANG ---
+
+Ι【Hiệu chỉnh】                        Dụng cụ đo  012-14b
+
+Hạng mục
+hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+2. Hiệu chỉnh trị
+điện áp
+
+Phạm vi
+điện áp (V)
+1.5V
+3V
+6V
+10V
+15V
+30V
+60V
+100V
+150V
+300V
+600V
+1000V
+
+(1) Trước khi hiệu chuẩn, hãy ngắt nguồn điện và hệ thống dây điện
+của máy đo công suất. (nếu có dây nối).
+(2) Click Range trên màn hình chính TORQuick chọn Power Meter
+Setting F5.
+(3) Nhấp vào phần tử đo (Sugawara:ELEMENT, Hioki:CH) được sử
+dụng trên màn hình Power Meter Setting để nó sáng màu cam, từ
+menu thả xuống E RANGE , chọn phạm vi điện áp (biểu 1※) để
+thực thi hiệu chỉnh và click OK.
+Ngoài ra, hiệu chuẩn phải được thực hiện từ phạm vi điện áp nhỏ
+nhất.
+※ Phạm vi điện áp có thể lựa chọn sẽ khác nhau tùy thuộc máy đo
+công suất được kết nối.
+(4) Click MANU trên màn hình chính TORQuick.
+⇒Màn hình MANU mở ra.
+(5) Trên tap của màn hình MANU, chọn các tab E, I và P.
+(6) Kết nối chấu điện điện áp của máy đo công suất với thiết bị hiệu
+chỉnh DC hoặc máy hiệu chỉnh đa chức năng (sau đây gọi là
+nguồn điện áp) bằng cách sử dụng các đầu nối điện áp ở mặt
+sau (Hình 2).
+(7) Chọn trị thiết định nguồn điện áp phù hợp với giá trị điện áp tối đa
+của phạm vi điện áp đã chọn trong bước (3) và xuất điện áp.
+(8) Ký lục trị E1[V] của màn hình máy tính.
+(9) Tắt xuất lực điện áp của nguồn điện áp.
+(10) Tìm chênh lệch trị E1 [V] (%) đối với trị thiết định của nguồn
+điện áp, rồi phán định..
+(11)Click Close.
+⇒Màn hình MANU đóng lại.
+(12) Lặp lại thao tác (2) ~ (11) hiệu chỉnh ở các mức độ.
+(13)Sau khi hiệu chỉnh tất cả các phạm vi điện áp (biểu 1), tắt nguồn
+điện của nguồn điện áp.
+(14) Tháo kết nối giữa chấu điện áp máy đo công suất và nguồn điện
+áp (Hình 2) ở (6).
+
+Quy cách
+phán định
+
+Dòng WT1800：
+±（0.05%
+of reading
+＋ 0.05%
+of range）
+
+Dòng WT300：
+±（0.1%
+of reading
+＋ 0.2%
+of range）
+
+Dòng PW của
+Hioki
+±（0.1%
+of reading
+＋ 0.1%
+Of full scale）
+
+No.4/8
+(Biểu 1)
+WT1801E
+(Hình 2)
+Thiết bị hiệu chỉnh DC hoặc thiết
+bị hiệu chỉnh đa chức năng
+(nguồn điện)
+Phần đo đạc điện áp, dòng điện
+Mặt sau
+
+--- HẾT TRANG ---
+
+Ι【Hiệu chỉnh】                                   Dụng cụ đo  012-14b
+
+Hahng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+3.Hiệu chỉnh trị
+dòng điện
+
+Phạm vi
+dòng điện
+(A)
+1mA
+2mA
+5mA
+10mA
+20mA
+50mA
+100mA
+200mA
+0.5A
+1A
+2A
+5A
+10A
+20A
+40A
+50A
+
+(1) Trước khi hiệu chỉnh, hãy tháo dây nối giữa nguồn điện và hệ
+thống dây điện của máy đo công suất. (nếu có dây nối).
+(2) Click Range trên màn hình chính TORQuick.
+Chọn Power Meter Setting F5.
+(3) Chọn phạm vi điện áp 150Vtừ menu thả xuống E RANGE của
+màn hình chính Power Meter Setting.
+(4) Chọn phạm vi dòng điện (Bảng 2※) cần thực hiện hiệu chỉnh từ
+menu thả xuống Direct trên màn hình Power Meter Setting và
+nhấp vào OK.
+Tuy nhiên, hiệu chuẩn phải được thực hiện từ phạm vi nhỏ nhất.
+※ Phạm vi điện áp có thể lựa chọn sẽ khác nhau tùy thuộc máy
+đo công suất được kết nối.
+(5) Click MANUtrên màn hình chính TORQuick.
+⇒Màn hình MANU đóng lại.
+(6) Trên tap của màn hình MANU, chọn các tab E, I và P.
+(7) Kết nối chấu điện dòng điện ở mặt sau của máy đo công suất
+với thiết bị hiệu chỉnh DC hoặc máy hiệu chỉnh đa chức năng
+(sau đây gọi là nguồn dòng điện) (Hình 3).
+(8) Chọn trị thiết định nguồn dòng điện phù hợp với giá trị dòng
+điện tối đa của phạm vi dòng điện đã chọn trong bước (4) và xuất
+dòng điện
+(9) Ký lục trị I1[A] của màn hình máy tính.
+(10) Tắt công xuất dòng điện của nguồn dòng điện.
+(11) Tìm chênh lệch trị I1 [A] (%) đối với trị thiết định của nguồn
+dòng điện, rồi phán định.
+(12)Click Close.
+⇒Màn hình MANU đóng lại.
+(13) Lặp lại các bước từ (2)～(12) để hiệu chỉnh tại mỗi mức độ.
+(14) Sau khi hiệu chỉnh tất cả các mức độ dòng điện, tắt nguồn
+điện của nguồn dòng điện.
+(15) Tháo kết nối giữa chấu điện dòng điện máy đo công suất và
+nguồn dòng điện (Hình 3) ở (7).
+
+Quy cách phán
+định
+
+Dòng WT1800：
+±（0.05%
+of reading
+＋ 0.05%
+of range）
+
+Dòng WT300：
+±（0.1%
+of reading
+＋ 0.2%
+of range）
+
+Dòng PW của
+Hioki
+±（0.1%
+of reading
+＋ 0.1%
+Of full scale）
+
+(Hình 3)
+WT1801E
+Thiết bị hiệu chỉnh DC hoặc thiết bị
+hiệu chỉnh đa chức năng
+(nguồn dòng điện)
+Phần đo dòng điện điện áp
+(Biểu2)
+Mặt sau
+
+--- HẾT TRANG ---
+
+№5/8
+
+Ι【Hiệu chỉnh】                                  Dụng cụ đo  012-14b
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+4. Hiệu chỉnh số vòng
+quay
+
+Chọn MTR tuỳ ý, tận dụng số vòng quay đó rồi hiệu chỉnh
+Ví dụ) FS–578VA-71680A
+＜Sĩ dạng＞
+Điện áp quy định          12.0V
+Tải quy định              294mN･m
+Số vòng quay không tải      5,650～7,550 r/min
+Dòng điện không tải         Max 1.15A
+Số vòng quay có tải quy định  4,350～5,950 r/min
+Dòng điện có tải quy định     Max 6.8 A
+Dòng điện dừng             Max 36A
+(1) Bật nguồn điện ON, xoay volum điện áp về 0.
+(2) Click Range của màn hình chính TORQuick, chọn
+Power Meter Setting F5.
+(3) Chọn phạm vi điện áp 60V từ menu thả xuống E RANGE
+trên màn hình Power Meter Setting.
+(4) Chọn mức độ dòng điện 50A  từ menu thả xuống Direct
+trên màn hình Power Meter Setting và nhấp vào OK.
+(5) Click MANU trên màn hình chính TORQuick.
+(6) Tạo tab có thể hiển thị S［r/min］ trên màn hình MANU.
+(7) Gắn MTR vào đồng hồ ngẫu lực, kết nối kẹp cá xấu (đỏ/
+đen) dùng kết nối MTR với chấu điện cấp vào MTR.
+(8) Bật nút OUTPUT của nguồn điện.
+Trường hợp đang sử dụng chức năng điều khiển nguồn,
+click vào Supply ON trên màn hình TORQuick MANU
+MODE.
+(9) Khi xoay núm điều chỉnh điện áp đến khi MTR bắt đầu
+quay, vừa nhìn giá trị S[r/min] trên màn hình TORQuick
+MANU, vừa điều chỉnh điện áp đến điểm hiệu chỉnh tùy
+chọn (số vòng quay).
+⇒ Điểm hiệu chỉnh phải bao gồm ít nhất 3 điểm, trong
+đó có điểm tối đa và điểm tối thiểu của phạm vi hiệu chỉnh.
+(10) Chiếu đèn chớp (stroboscope) hoặc đồng hồ quay kỹ
+thuật số vào trục xuất lực đồng hồ ngẫu lực, ghi lại số
+vòng quay trục xuất lực (Hình 4: trang sau)
+Đồng thời ký lục trị S[r/min] của màn hình TORQuick
+MANU.
+(11) Xoay volum điện áp về 0V và tắt nút OUTPUT của
+nguồn điện.
+Trường hợp đang sử dụng chức năng điều khiển nguồn, hãy
+xoay volum điện áp về 0V và click Supply OFF.
+(12) Tìm chênh lệch trị S [r/min] đối với trị đo đồng hồ số
+vòng quay hoặc stroboscope, rồi phán định.
+
+※ Tiếp theo đổi sang đồng hồ ngẫu lực khác lặp lại thao
+tác (5) ~ (12).
+Ngoài ra, để chuyển đổi đồng hồ ngẫu lực, click Option trên
+màn hình chính của TORQuick, chọn Option Set, chọn đồng
+hồ đo ngẫu lực bất kỳ từ tab Dynamometer và click OK để
+chuyển đổi.
+
+CW/CCW khi
+không tải
+±0.5%
+
+№6/8
+
+--- HẾT TRANG ---
+
+Ι【Hiệu chỉnh】                                  Dụng cụ đo  012-14b
+
+Hình 4
+Hạng mục hiệu chỉnh 4(10)
+Đọc số vòng quay của trục của đồng hồ đo ngẫu lực bằng stroboscope hoặc đồng hồ đo tốc độ quay.
+
+－Trích dẫn / Văn bản liên quan －
+Phương pháp hiệu chỉnh : (Tham khảo bản hướng dẫn sử dụng) thiết định trong công ty.
+Quy cách phán định    : Trị ngẫu lực (thiế định trong công ty), trị điện áp, trị dòng điện (bản hướng dẫn sử
+dụng) / số vòng quay (thiết định trong công ty, tham khảo 012-7)
+
+No.7/8
+stroboscope
+Đồng hồ ngẫu lực
+Trục đồng hồ đo ngẫu
+lực
+
+--- HẾT TRANG ---
+
+Ⅱ【Điểm kiểm】  Đồng hồ đo ngẫu lực（Bộ điều khiển：DM5001）     Dụng cụ đo 012-14b
+Viện nghiên cứu Sugawara TORQuick
+
+Tiến độ điểm kiểm    Mỗi tháng 1 lần và mỗi lần sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1. Bộ phận đo ngẫu lực
+
+2. Bộ phận điều khiển
+
+3. Phối dây
+
+(1) Xoay nhẹ trục xuất lực tại trạng thái không tải.
+(2) Quạt làm mát phải quay liên động. Hoặc khi nhấn công tắc
+FUN, quạt phải quay.
+(3) Conector không được lỏng lẻo, đứt dây…
+
+Thao tác máy tính, biểu thị không được có bất thường, các
+loại công tắt không được hư hỏng, rơi mất…
+
+(1) Kết nối phối dây không được lỏng lẻo.
+(2) Không được có những dị thường như đứt dây, bong tróc
+vỏ bọc…
+
+Chú ý :
+1.Phải ký lục kết quả điểm kiểm mỗi tháng 1 lần dù có/không có dị thường.
+2.Khi điểm kiểm, nếu có dị thường phải kí lục kết quả đó và xử lý theo chỉ thị của người chị trách nhiệm
+bộ môn sở hữu.
+Khi cần thiết, phải tiến hành đăng kí tái hiệu chỉnh dụng cụ đo cho bộ phận thực hiện hiệu chỉnh.
+
+--- HẾT TRANG ---
+
+BẢN TIÊU CHUẨN ĐIỂM KIỂM-HIỆU CHỈNH BIỂU LÍ LỊCH BAN HÀNH-CẢI ĐÍNH-HỦY BỎ
+Dụng cụ đo  012-14   No.8/8
+Ký
+hiệu
+Ngày
+tháng năm
+Ghi chép（Nội dung cải chính…）
+Soạn
+thảo
+Xác nhận
+Công
+nhận
+
+2023.12.19
+
+Ban hành mới
+
+a
+2026.01.20 ・Thay đổi tiêu đề từ YOKOGAWA WT1801E sang máy đo
+công suất do Yokogawa sản xuất
+Ⅰ【Hiệu chỉnh】
+・Xem xét quy cách phán định của hạng mục 1 hiệu chỉnh
+(Thống nhất theo 012-16 sử dụng cùng loại đồng hồ ngẫu
+lực)
+・Xem xét quy cách phán định và mức độ hiệu chỉnh theo bổ
+sung hình thức của máy đo công suất ở hạng mục hiệu
+chỉnh 2 & 3
+(Do có sự sai khác độ chính xác đo đạc theo hình thức
+của máy đo công suất)
+・Chỉnh sửa lỗi sai
+
+b
+2026.08.14
+・Xóa máy đo công suất của Yokogawa trong tiêu đề
+Ⅰ【Hiệu chỉnh】
+・Tại hạng mục hiệu chỉnh 2 và 3, bổ sung phạm vi đo và
+quy cách phán định do bổ sung thể thức Power Meter.
+
+Ban chính BHCL công ty cổ phần Mabuchi Motor
+山
+元
+山
+元
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "012-14-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH - KIỂM ĐIỂM DỤNG CỤ ĐO         Ban chính BHCL công ty cổ phần Mabuchi Motor - Đồng hồ đo ngẫu lực（Bộ điều khiển：DM5001）                        Máy đo    012-14 b",
+  "doc_code": "012-14 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

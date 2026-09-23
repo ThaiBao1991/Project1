@@ -1,0 +1,50 @@
+{
+  "file_name": "033-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và điểm kiểm dụng cụ đo - MÁY ĐO NGẪU LỰC KHỞI ĐỘNG",
+  "doc_code": "033-1g / 033-1f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Trong phần kiểm tra trạng thái ròng rọc (Mục II - Điểm kiểm), yêu cầu kỹ thuật nào sau đây là chính xác?",
+      "options": {
+        "A": "Kiểm tra các ròng rọc có song song với nhau hay chưa, Pully phía bên trái quay thì không được quay về phía CW",
+        "B": "Pully bên trái có thể quay tự do theo cả hai chiều CW và CCW",
+        "C": "Đảm bảo ròng rọc được bôi trơn dầu mỡ đầy đủ mỗi tuần một lần",
+        "D": "Góc nghiêng của ròng rọc phải đạt dung sai dưới 0.5 độ"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 3: Điểm kiểm 2. Trạng thái gắn ròng rọc: (1) Kiểm tra các ròng rọc song song với nhau hay chưa. (2) Khi Pully phía bên trái quay thì không được quay về phía CW."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo mục I (Hiệu chỉnh) của tài liệu, chu kỳ hiệu chỉnh định kỳ đối với máy đo ngẫu lực khởi động là bao lâu?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi tháng hoặc khi thấy cần thiết",
+        "C": "3 tháng hoặc khi thấy cần thiết",
+        "D": "6 tháng một lần"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Chu kỳ hiệu chỉnh: Mỗi 3 tháng hoặc khi thấy cần thiết"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục III của tài liệu (hoặc chú ý về bảo hộ tính năng điều chỉnh), sau khi điều chỉnh xong, người sử dụng phải tiến hành bảo hộ bằng hình thức nào sau đây để tránh bị thay đổi?",
+      "options": {
+        "A": "Dùng keo khóa ren sơn niêm phong vị trí các nút chỉnh",
+        "B": "Đính kèm tấm dán \"cấm điều chỉnh khi không có sự cho phép\" theo như bản vẽ bên dưới để không thể điều chỉnh",
+        "C": "Ghi lại biên bản bàn giao và niêm phong tủ đựng dụng cụ",
+        "D": "Ngắt nguồn điện của máy đo và khóa công tắc nguồn"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: <Bảo hộ tính năng điều chỉnh> Sau khi điều chỉnh,người sử dụng dùng nút điều chỉnh ADJ ở mặt sau phải tiến hành bảo hộ, đính kèm tấm dán ghi “cấm điều chỉnh khi không có sự cho phép” theo như bản vẽ bên dưới để không thể điều chỉnh."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "056-5-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "TIÊU CHUẨN HIỆU CHỈNH ĐIỂM KIỂM - Đồng hồ đo độ dẫn điện (Dùng cho khay xốp đóng gói)",
+  "doc_code": "056-5",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi thực hiện hiệu chuẩn độ dẫn điện, dung dịch chuẩn Kali Clorua (KCl) có độ dẫn điện chuẩn khuyến nghị theo tài liệu là bao nhiêu?",
+      "options": {
+        "A": "1,00 mS/cm",
+        "B": "1,41 mS/cm (hoặc 1413 μS/cm)",
+        "C": "2,50 mS/cm",
+        "D": "14,13 mS/cm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1/5 và 3/5 - Dung dịch chuẩn: Dung dịch kali clorua (độ dẫn điện 1,41mS/cm / 1413μS/cm)"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo quy định về xử lý kết quả điểm kiểm tra, trong trường hợp kết quả kiểm tra không thấy bất thường thì phải ghi chép như thế nào?",
+      "options": {
+        "A": "Phải ghi chép lại kết quả kiểm tra đầy đủ sau mỗi giờ làm việc.",
+        "B": "Không ghi chép kết quả cũng được, nhưng bắt buộc mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.",
+        "C": "Tuyệt đối không cần ghi chép bất kỳ sổ sách nào nếu thiết bị vẫn hoạt động bình thường.",
+        "D": "Chỉ ghi chép lại khi có yêu cầu từ cấp trên hoặc đánh giá nội bộ."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 4/5 - Lưu ý: 2. Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tần suất điểm kiểm tra ngoại quan đối với đồng hồ đo độ dẫn điện và điện cực là bao nhiêu?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi tháng một lần",
+        "C": "Mỗi lần bạn sử dụng",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 4/5 - Tần suất điểm kiểm: Mỗi lần bạn sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

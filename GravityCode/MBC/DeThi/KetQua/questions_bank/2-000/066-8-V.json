@@ -1,0 +1,50 @@
+{
+  "file_name": "066-8-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH-ĐIỂM KIỂM",
+  "doc_code": "066-8",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kỳ hiệu chỉnh đối với máy phân tích FFT (ONOSOKKI Loạt chuỗi DS-5000) được quy định như thế nào?",
+      "options": {
+        "A": "6 tháng hoặc khi cần thiết",
+        "B": "12 tháng hoặc khi cần thiết",
+        "C": "24 tháng hoặc khi cần thiết",
+        "D": "36 tháng hoặc khi cần thiết"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Chu kỳ hiệu chỉnh: 24 tháng hoặc khi cần thiết"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo mục II 【Điểm kiểm】, tiến độ điểm kiểm đối với ngoại quan của thiết bị được quy định thực hiện khi nào?",
+      "options": {
+        "A": "Mỗi lần sử dụng",
+        "B": "Mỗi tuần một lần",
+        "C": "Mỗi tháng một lần",
+        "D": "Mỗi năm một lần"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 9: Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo quy định về xử lý kết quả kiểm tra (Chú ý 2), nếu không có bất thường thì việc ghi chép kết quả kiểm tra được thực hiện như thế nào?",
+      "options": {
+        "A": "Tuyệt đối không được ghi chép bất kỳ tài liệu nào để tiết kiệm thời gian",
+        "B": "Không cần phải ghi kết quả kiểm tra, tuy nhiên ngay cả khi không có bất thường, mỗi tháng một lần nó được ghi lại để có hiệu lực đó",
+        "C": "Phải ghi chép chi tiết từng giờ trong ngày vào biểu mẫu kiểm tra",
+        "D": "Chỉ ghi chép lại khi người phụ trách quản lý yêu cầu trực tiếp bằng văn bản"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 9: Chú ý 2. Theo kết quả kiểm tra, nếu không có bất thường, không cần phải ghi kết quả kiểm tra. Tuy nhiên, ngay cả khi không có bất thường mỗi tháng một lần, nó được ghi lại để có hiệu lực đó."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

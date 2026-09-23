@@ -1,0 +1,50 @@
+{
+  "file_name": "585-9-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN KIỂM TRA VÀ HIỆU CHỈNH DỤNG CỤ ĐO - Máy kiểm tra trọng lượng",
+  "doc_code": "585-9 a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kỳ kiểm tra của máy kiểm tra trọng lượng được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "3 tháng 1 lần",
+        "D": "6 tháng 1 lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, Chu kỳ kiểm tra: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục Chú ý về kiểm tra, trường hợp kết quả kiểm tra không thấy bất thường, không ghi kết quả cứng được thì xử lý như thế nào?",
+      "options": {
+        "A": "Bỏ qua không cần ghi chép lại suốt quá trình sử dụng",
+        "B": "Dừng ngay việc sử dụng máy đo và báo cáo cấp trên",
+        "C": "Nhưng mỗi tháng một lần phải ghi lại kết quả đã kiểm tra đó",
+        "D": "Chỉ cần ghi chép lại khi có yêu cầu từ khách hàng"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3, Chú ý, Mục 2: Kết quả kiểm tra trường hợp không thấy bất thường, không ghi kết quả cứng được, nhưng mỗi tháng một lần phải ghi lại kết quả đã kiểm tra đó."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Trong mục kiểm tra tính ổn định biểu thị, sau khi bật công tác sang ON cần làm nóng khoảng bao nhiêu phút trước khi tiến hành reset về 0?",
+      "options": {
+        "A": "10 phút",
+        "B": "15 phút",
+        "C": "30 phút",
+        "D": "60 phút"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3, II 【Điểm kiểm】 Mục 3: Tính ổn định biểu thị: Bật công tác sang ON, sau khi làm nóng khoảng 30 phút, tiến hành reset về o..."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

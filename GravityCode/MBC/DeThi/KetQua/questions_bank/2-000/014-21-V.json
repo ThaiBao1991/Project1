@@ -1,0 +1,50 @@
+{
+  "file_name": "014-21-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM MÁY ĐO",
+  "doc_code": "014-21",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tần suất điểm kiểm (ngoại quan và dung lượng pin) đối với máy đo tiếng ồn Onosokki LA-7200,7500 được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi 6 tháng một lần",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Ⅱ【Điểm kiểm】 Tần suất điểm kiểm: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình gắn hoặc tháo thiết bị tiêu chuẩn/Microphone trên máy đo tiếng ồn, thao tác an toàn bắt buộc nào phải được thực hiện để tránh hư hỏng do áp lực?",
+      "options": {
+        "A": "Phải mang găng tay tĩnh điện chuyên dụng",
+        "B": "Phải hiệu chỉnh mức độ 94dB trước khi tháo",
+        "C": "Đảm bảo đã tắt nguồn điện tạm thời (bật chế độ OFF)",
+        "D": "Phải tháo pin nguồn AC trước khi thao tác"
+      },
+      "correct_answer": "C",
+      "reference_note": "Ι【Hiệu chỉnh】＜Mục chú ý＞: 'Vì vậy, khi gắn, tháo hãy đảm bảo đã tắt nguồn điện tạm thời (bật chế độ OFF).'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Phương pháp phán định giá trị chuẩn khi thực hiện hiệu chỉnh Microphone (1/2inch) của máy đo tiếng ồn là bao nhiêu?",
+      "options": {
+        "A": "124.0dB ± 1dB",
+        "B": "94.0dB ± 1dB",
+        "C": "114.0dB ± 0.5dB",
+        "D": "60.0dB - 130.0dB"
+      },
+      "correct_answer": "A",
+      "reference_note": "Ι【Hiệu chỉnh】<Hiệu chỉnh Microphone (1/2inch)> Phương pháp phán định: 124.0dB±1dB"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "403-1-V.pdf",
+  "folder_name": "3-400 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN - HIỆU CHÍNH MÁY ĐO LƯỜNG - Dụng cụ đo chân động châu điện",
+  "doc_code": "Đo lường 403-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tần suất và thời điểm tiến hành công việc kiểm tra (Ⅱ【Kiểm điểm】) đối với dụng cụ này là khi nào?",
+      "options": {
+        "A": "Kiểm tra 1 lần mỗi tuần",
+        "B": "Kiểm tra định kỳ 12 tháng một lần",
+        "C": "Bất kỳ lúc nào sử dụng (sử dụng của độ)",
+        "D": "Chỉ kiểm tra khi có yêu cầu từ khách hàng Asumo"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: Tần suất kiểm tra: Bất kỳ lúc nào sử dụng / Điểm kiểm tra: Sử dụng của độ"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Trong quá trình kiểm tra định kỳ (【校正】), tiêu chuẩn định giá (判定法) cho độ chính xác số vòng quay là bao nhiêu?",
+      "options": {
+        "A": "Cài đặt số vòng quay ±1r/min",
+        "B": "Cài đặt số vòng quay ±3r/min",
+        "C": "Cài đặt số vòng quay ±5r/min",
+        "D": "Cài đặt số vòng quay ±10r/min"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Phương pháp định: Số vòng quay thiết định ±3r/min"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý về kết quả kiểm tra (【点検】), trường hợp kiểm tra không phát hiện điểm bất thường thì nhân viên phải tuân thủ quy định nào sau đây?",
+      "options": {
+        "A": "Bắt buộc phải ghi chép lại kết quả kiểm tra vào mọi thời điểm sử dụng trong ngày.",
+        "B": "Không cần ghi chép lại kết quả kiểm tra cũng được, nhưng 1 tháng 1 lần dù không có dị thường cũng phải ghi chép lại.",
+        "C": "Phải báo cáo ngay cho cấp trên và dừng toàn bộ chuyền sản xuất.",
+        "D": "Chỉ cần ghi chép khi có sự cố phát sinh, tuyệt đối không cần lập báo cáo định kỳ tháng."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Chú ý 2: Về kết quả kiểm tra, trường hợp không có dị thường thì không ghi chép cũng được. Tuy nhiên, 1 tháng 1 lần dù không có dị thường cũng ghi chép lại"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

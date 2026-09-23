@@ -1,0 +1,50 @@
+{
+  "file_name": "043-5-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh. Điểm kiểm máy đo",
+  "doc_code": "CR07-001M-AA/BA/CA",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo phần chú ý khi kiểm tra, nếu kết quả điểm kiểm không có gì dị thường thì quy định xử lý như thế nào?",
+      "options": {
+        "A": "Bắt buộc phải ghi ký lục chi tiết vào mỗi lần kiểm tra hàng ngày.",
+        "B": "Phải báo cáo ngay cho cấp trên và dừng toàn bộ dây chuyền.",
+        "C": "Không cần ghi ký lục cũng được. Tuy nhiên, nếu 1 tháng không có gì dị thường thì ghi nội dung đó vào ký lục.",
+        "D": "Chỉ ghi ký lục khi có sự thay đổi về mã số thiết bị đo."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2 - Phần Chú ý: 2. Nếu kết quả điểm kiểm không có gì dị thường thì không cần ghi kí lục cũng được. Tuy nhiên, nếu 1 tháng không có gì dị thường thì ghi nội dung đó vào kí lục."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn kiểm tra máy kiểm tra biến trở (mã số CR07-001M-AA/BA/CA), tiến độ điểm kiểm (tần suất kiểm tra) được quy định là khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi khi sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2 - Phần Ⅱ【Điểm kiểm】: Tiến độ điểm kiểm: Mỗi khi sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi tiến hành kiểm tra tốc độ chuyển đổi của rơle (mục 2), thao tác điều chỉnh nào được thực hiện bằng núm vặn ở mặt sau của bộ kiểm tra?",
+      "options": {
+        "A": "Xoay VR1 (có núm vặn) ở mặt sau của bộ kiểm tra biến trở",
+        "B": "Xoay VR2 bằng tuốc nơ vít (-)",
+        "C": "Điều chỉnh công tắc giới hạn ở socket kiểm tra sang Off",
+        "D": "Điều chỉnh trực tiếp trên máy hiện sóng (oscilloscope)"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2 - Hạng mục 2, Điểm (2): Kiểm tra xem tốc độ chuyển đổi của rơle có thay đổi hay không bằng cách xoay VR1 (có núm vặn) ở mặt sau của bộ kiểm tra biến trở."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "S12-2-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Máy kiểm tra INDI CATOR",
+  "doc_code": "S12-2 e",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh Máy kiểm tra INDICATOR, chu kỳ hiệu chỉnh và điều kiện nhiệt độ xung quanh được quy định là bao nhiêu?",
+      "options": {
+        "A": "Chu kỳ 1 năm, nhiệt độ 25±1°C",
+        "B": "Chu kỳ 2 năm, nhiệt độ 20±0.5°C",
+        "C": "Chu kỳ 3 năm, nhiệt độ 20±1°C",
+        "D": "Chu kỳ 2 năm, nhiệt độ 25±0.5°C"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Chu kỳ hiệu chỉnh 2 năm, Nhiệt độ xung quanh 20±0.5℃"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình thao tác hiệu chỉnh đồng hồ đo KTS, nếu không có một lượng tải trọng nhất định khi đo thì giá trị đo sẽ bị chênh lệch nhiều. Thao tác thực tế nào sau đây là BẮT BUỘC ĐÚNG để khắc phục trước khi lấy điểm chuẩn là 0?",
+      "options": {
+        "A": "Xác nhận xem đầu đo có chạm vật do không rồi set về zero trực tiếp.",
+        "B": "Xoay vòng xoay ngoài hoặc bánh xe trong trên hộp điều khiển, nhấn đầu đo khoảng 0.2mm rồi set về zero một lần nữa rồi lấy điểm chuẩn là 0.",
+        "C": "Tháo rời đầu đo KTS và làm sạch đầu tiếp xúc trước khi đo.",
+        "D": "Không cần quan tâm đến tải trọng, chỉ cần nhấn nút [DATA] liên tục."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 8: 《Hạng mục chú ý liên quan đến đồng hồ hò indicator KTS》 1. Xác nhận xem đầu đo có chạm vật do không rồi set về zero. 2. Xoay vòng xoay ngoài hoặc bánh xe trong trên hộp điều khiển, nhấn đầu đo khoảng 0.2mm. 3. Set về zero một lần nữa rồi lấy điểm chuẩn là 0."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi thao tác chỉnh các vị trí đo trên hộp điều khiển, trường hợp thao tác xoay bánh xe trong làm vượt quá vị trí đo quy định, kỹ thuật viên cần xử lý như thế nào?",
+      "options": {
+        "A": "Nhấn nút [CANCEL]",
+        "B": "Nhấn nút [DATA] để lưu lại giá trị vượt quá",
+        "C": "Tắt nguồn máy tính và khởi động lại từ đầu",
+        "D": "Nhấn nút [RETRY] để đo lại điểm trước đó"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 9: ※ Trường hợp vượt quá vị trí đo ⇨ Nhấn [CANCEL]"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

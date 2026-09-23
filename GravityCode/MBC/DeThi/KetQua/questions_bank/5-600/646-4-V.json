@@ -1,0 +1,50 @@
+{
+  "file_name": "646-4-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Geji Block dùng để điều chỉnh điểm chuẩn của thước đo Micro",
+  "doc_code": "646-4",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Trong mục kiểm tra ngoại quan Block Geji, nếu phát hiện có vết trầy hoặc rỉ sét, nhân viên cần thực hiện điều gì?",
+      "options": {
+        "A": "Dùng giấy nhám chà mạnh cho sạch vết rỉ sét rồi tiếp tục sử dụng",
+        "B": "Loại bỏ trầy, rỉ sét nhưng phải lưu ý cẩn thận để không làm giảm độ chính xác rồi mới tiến hành",
+        "C": "Vứt bỏ ngay lập tức vào thùng rác phế liệu",
+        "D": "Tiếp tục sử dụng bình thường vì không ảnh hưởng đến đo lường"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: Trường hợp loại bỏ trầy, rỉ sét thì phải lưu ý cẩn thận để không làm giảm độ chính xác rồi mới tiến hành."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo quy định về xử lý kết quả kiểm tra bất thường, nhân viên phải thực hiện các bước nào?",
+      "options": {
+        "A": "Tự ý điều chỉnh lại kích thước Geji Block cho đúng rồi dùng tiếp",
+        "B": "Không cần ghi chép gì nếu không xảy ra sự cố lớn trong sản xuất",
+        "C": "Ghi chép lại kết quả kiểm tra bất thường và xử lý theo chỉ thị của người có trách nhiệm quản lý",
+        "D": "Chỉ báo cáo miệng cho đồng nghiệp cùng ca làm việc"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3: Chú ý 1) Trường hợp kết quả kiểm tra bất thường thì ghi chép lại kết quả kiểm tra, xử lý theo chỉ thị của người có trách nhiệm quản lý."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm đối với Block Geji dùng điều chỉnh điểm chuẩn thước đo Micro được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần sử dụng một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước mỗi ca làm việc"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: Tiến độ điểm kiểm - Mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "007-10-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM MÁY ĐO ĐIỆN TRỞ CÁCH ĐIỆN TSURUGA 3587",
+  "doc_code": "007-10",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trước khi tiến hành thực hiện hiệu chỉnh máy đo điện trở cách điện, nhân viên thao tác cần phải lưu ý điều quan trọng gì về an toàn?",
+      "options": {
+        "A": "Đeo găng tay chống tĩnh điện",
+        "B": "Để phòng tránh giật điện, hãy đeo bao cách điện rồi tiến hành hiệu chỉnh",
+        "C": "Ngắt toàn bộ nguồn điện tổng của khu vực",
+        "D": "Đeo kính bảo hộ và khẩu trang y tế"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Phần I【Hiệu chỉnh】, mục (Nội dung chú ý): '・Để phòng tránh giật điện, hãy đeo bao cách điện rồi tiến hành hiệu chỉnh.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kì hiệu chỉnh đối với máy đo điện trở cách điện TSURUGA 3587 là bao lâu?",
+      "options": {
+        "A": "Mỗi 6 tháng và khi cần thiết",
+        "B": "Mỗi 12 tháng và khi nhận thấy cần thiết",
+        "C": "Mỗi 24 tháng và khi nhận thấy cần thiết",
+        "D": "Mỗi 36 tháng và khi cần thiết"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Phần I【Hiệu chỉnh】, mục Chu kì hiệu chỉnh: 'Mỗi 24 tháng và khi nhận thấy cần thiết'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo quy định tại mục 'Ghi chú' của phần Điểm kiểm, trong trường hợp kết quả kiểm tra không thấy bất thường thì tần suất tối thiểu phải ghi chép lại kết quả đã kiểm tra là bao lâu?",
+      "options": {
+        "A": "Mỗi ngày một lần",
+        "B": "Mỗi tuần một lần",
+        "C": "Mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra",
+        "D": "Không cần ghi chép nếu không có bất thường"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 5, Phần II【Điểm kiểm】, mục Ghi chú, khoản 2: 'Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

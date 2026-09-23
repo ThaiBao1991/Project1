@@ -1,0 +1,260 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Bản tiêu chuẩn hiệu chỉnh-điểm kiểm        Ban chính BHCL công ty cổ phần MAB - Máy đo độ ồn                                 Máy đo 014－22a
+Mã số/Mã máy đo: 014-22
+File gốc: 014-22-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/4
+
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm        Ban chính BHCL công ty cổ phần MAB
+
+Ban hành    5/3/2020
+Cải đính  4/9/2025
+Máy đo độ ồn                                 Máy đo 014－22a
+CUSTOM SL-1320
+
+Ι【Hiệu chỉnh】
+
+Máy tiêu chuẩn     Dụng cụ hiệu chỉnh dùng cho máy đo độ ồn (dụng cụ hiệu chuẩn âm
+thanh) có mức độ giống hoặc cao hơn so với dụng cụ cần hiệu chỉnh [S04-1]
+
+Chu kỳ hiệu chỉnh   Mỗi 6 tháng và hiệu chỉnh nhà cung cấp, mỗi 36 tháng (khuyến nghị)
+cũng như khi nhận thấy là cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+＜Hạng mục chú ý＞
+
+1.Hiệu chỉnh Micro
+phone
+
+Trường hợp quản lý bởi hiệu chỉnh nội bộ trong công ty,
+khuyến nghị thực hiện hiệu chỉnh bởi nhà sản xuất hoặc đơn
+vị hiệu chỉnh mỗi 36 tháng 1 lần.
+[Trường hợp hiệu chỉnh nội bộ trong công ty]
+(1) Sử dụng bộ dụng cụ hiệu chỉnh âm thanh của hai loại mức
+áp suất âm thanh khác
+(2)Vị trí tiến hành hiệu chỉnh thì theo như dưới đây:
+・Vị trí không có tạp âm và chấn động
+・Tại nơi không có luồng không khí lớn đi qua như gió
+(để phòng chống tạp âm gió)
+(3)Bật ON công tắc nguồn của máy đo tạp âm rồi đặt
+khoảng 10 phút vào
+
+Vì có lo ngại gây ra hư hại do ảnh hưởng của áp lực khi tháo
+lắp máy tiêu chuẩn nên khi tháo lắp nhất định phải ngắt
+nguồn điện（Bật OFF）
+
+Tiến hành hiệu chỉnh bộ dụng cụ hiệu chỉnh âm thanh của hai
+loại mức áp suất âm thanh khác nhau.
+(1) Đặt microphone của máy đo âm thanh vào dụng cụ
+hiệu chỉnh âm thanh
+(2) Bật nguồn của máy đo độ ồn
+(3) Sử dụng nút A/C cho hiển thị C（đặc tính C）
+(4) Sử dụng nút F/S cho biểu thị FAST
+(5) Thiết đặt điều kiện đo theo như dưới đây
+Nhấn nút RNG để chọn chế độ phạm vi thủ công và
+thiết lập phạm vi
+Khi mức áp suất âm chuẩn của bộ hiệu chỉnh âm
+thanh là 124 dB, 114 dB thì thiết định [100~130dB]
+94dB thì thiết định [80~110dB]
+
+(6) Bật nguồn của bộ hiệu chỉnh âm thanh và đọc giá trị
+hiển thị
+(7) Tắt nguồn của máy đo độ ồn và bộ dụng cụ hiệu
+chỉnh âm thanh, sau đó tháo microphone ra một cách
+nhẹ nhàng
+
+124.0dB±2dB
+114.0dB±2dB
+94.0dB±2dB
+
+--- HẾT TRANG ---
+
+No.2/4
+
+Ⅰ【Hiệu chỉnh】       Máy đo độ ồn                          Máy đo  014－22a
+CUSTOM SL-1320
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+2. Điều chỉnh theo bộ
+dụng cụ hiệu chỉnh âm
+thanh
+
+(1) Thực hiện điều chỉnh khi cần thiết
+Ngoài ra, khi thực hiện điều chỉnh, chỉ sử dụng một trong
+hai loại dụng cụ hiệu chỉnh âm thanh
+(2) Thực hiện hạng mục hiệu chỉnh 1 của quy trình (6)
+Xoay và điều chỉnh VR dùng để hiệu chỉnh ở bên hông
+thiết bị bằng tua vít sao cho giá trị hiển thị trên máy đo độ
+ồn khớp với mức áp suất âm chuẩn của bộ dụng cụ hiệu
+chỉnh âm thanh.
+Ghi lại kết quả điều chỉnh và thực hiện lại hạng mục hiệu
+chỉnh 1
+
+① Nguồn điện
+② RNG
+③ A/C
+④ F/S
+⑤ REC
+⑥ MAX HOLD
+
+－Trích dẫn・tài liệu liên quan－
+Phương pháp hiệu chỉnh : Theo bản hướng dẫn sử dụng nơi chế tạo
+Quy cách phán định: Thiết định nội bộ trong công ty tham khảo quy cách JIS/ sỹ dạng nơi chế tạo/014-02
+Dùng hiệu chỉnh VR
+Máy hiệu chỉnh âm
+thanh
+Chấu xuất
+tín hiệu analog
+
+--- HẾT TRANG ---
+
+No.3/4
+
+Ⅱ【Điểm kiểm】       Máy đo độ ồn                  Máy đo  014-22a
+CUSTOM SL-1320
+
+Tiến độ điểm kiểm   Mỗi tháng 1 lần và mỗi lần sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1．Ngoại quan
+
+2．Xác nhận lượng Pin
+còn lại
+
+Xác nhận ở micro và phần hiển thị không có khuyết điểm có
+hại như dơ bẩn, hư hỏng
+Xác nhận phần kết nối của micro không bị lỏng
+
+Khi màn hình biểu thị ký hiệu       hoặc hiển thị màn hình
+nhạt đi thì nhanh chống thay pin mới
+
+Chú ý）
+1. Kết quả điểm kiểm không liên quan đến việc có dị thường hay không, kí lục lại 1 tháng 1 lần.
+2. Trường hợp nếu có dị thường khi điểm kiểm (hoặc khi sử dụng), thì kí lục lại kết quả đó, và xử lí theo
+chỉ thị của người chịu trách nhiệm của phòng ban sở hữu.
+Thực hiện yêu cầu tái hiệu chỉnh của máy đo đạc đối với phòng ban thực hiện hiệu chỉnh nếu cần thiết.
+
+--- HẾT TRANG ---
+
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm  Biểu lý lịch ban hành-cải đính-hủy bỏ    Máy đo  014-22  No.4/4
+Ký
+hiệu
+Năm.tháng.ng
+ày
+Ghi chép（Nội dung cải đính）
+Soạn
+thảo
+Xác
+nhận
+Công
+nhận
+
+2020.03.05
+
+Ban hành mới
+
+KOIZUMI
+
+KIKUCHI
+ISHII
+FUJITA
+
+ITOU
+
+a
+
+2025.09.04
+
+・Cải đính toàn bộ hạng mục liên quan đến chỉnh
+sửa dụng cụ chuẩn sử dụng
+・Bổ sung hiệu chỉnh nhà cung cấp (khuyến nghị)
+mỗi 36 tháng
+・Ⅱ【Điểm kiểm】
+Tiến độ điểm kiểm sửa đổi thành「Mỗi tháng 1
+lần và mỗi lần sử dụng」
+Cải đính toàn bộ hạng mục chú ý
+
+Ban chính BHCL công ty cổ phần MAB
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "014-22-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm        Ban chính BHCL công ty cổ phần MAB - Máy đo độ ồn                                 Máy đo 014－22a",
+  "doc_code": "014-22",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

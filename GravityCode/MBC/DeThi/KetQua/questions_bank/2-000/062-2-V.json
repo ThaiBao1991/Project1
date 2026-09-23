@@ -1,0 +1,50 @@
+{
+  "file_name": "062-2-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn Hiệu chỉnh - Điểm kiểm dụng cụ đo",
+  "doc_code": "062-2",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý về điểm kiểm, trường hợp kết quả điểm kiểm không có bất thường thì quy định ghi chép như thế nào?",
+      "options": {
+        "A": "Phải ghi chép lại toàn bộ chi tiết kết quả mỗi lần kiểm tra.",
+        "B": "Không cần ghi chép lại kết quả điểm kiểm. Tuy nhiên, nếu trong 1 tháng mà không có bất thường nào xảy ra thì cần phải ghi chép lại.",
+        "C": "Tuyệt đối không bao giờ được ghi chép kết quả nếu không có lỗi.",
+        "D": "Chỉ ghi chép lại khi người quản lý trực tiếp yêu cầu bằng văn bản."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Chú ý 2: Trường hợp kết quả điểm kiểm không có bất thường thì không cần ghi chép lại kết quả điểm kiểm. Tuy nhiên, nếu trong 1 tháng mà không có bất thường nào xảy ra thì cần phải ghi chép lại."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Thông số kỹ thuật và độ chính xác đối với đo độ ẩm của dụng cụ EXTECH/C0250 trong phạm vi 0.0 ~ 99.9% là bao nhiêu?",
+      "options": {
+        "A": "±3% (10~90%), ±5% (Ngoài giới hạn trên)",
+        "B": "±1% (10~90%), ±2% (Ngoài giới hạn trên)",
+        "C": "±0.6℃/0.9℉",
+        "D": "±(%5rdg+50 ppm)"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, Bảng thông số kỹ thuật EXTECH C0250, Hạng mục Độ ẩm: 0.0～99.9% - ±3% (10～90%) ±5% (Ngoài giới hạn trên)"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ thực hiện điểm kiểm cho dụng cụ đo môi trường trong phòng được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi ngày một lần trước khi làm việc",
+        "D": "Mỗi tháng một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Tiếng độ điểm kiểm: Mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

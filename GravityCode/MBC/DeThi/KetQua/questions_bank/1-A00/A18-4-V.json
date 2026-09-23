@@ -1,0 +1,59 @@
+{
+  "file_name": "A18-4-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN KIỂM TRA VÀ HIỆU CHÍNH DỤNG CỤ ĐO",
+  "doc_code": "A18-4",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo Biểu 1 ở Mục 2 'Nắm bắt được lĩnh vực đo đạc', nhóm thông số nào sau đây thuộc lĩnh vực 'Lực'?",
+      "options": {
+        "A": "Độ dày, Đô dinh",
+        "B": "Ngẫu lực, Tốc độ chảy",
+        "C": "Lưu lượng, Tốc độ chảy",
+        "D": "Nhiệt lượng, Nông độ"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, Biểu 1: Mục Lực bao gồm Ngẫu lực, Tốc độ chảy"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo Mục 3 'Phân khu thực tiễn thi hiệu chỉnh', trường hợp hiệu chỉnh ngoài công ty áp dụng cho loại máy móc nào?",
+      "options": {
+        "A": "Đối với các máy đo chuyên dụng hoặc đặc thù",
+        "B": "Đối với các máy tiêu chuẩn sở hữu mua thêm vào",
+        "C": "Khi gặp khó khăn trong việc tuyển chọn máy tiêu chuẩn thích hợp",
+        "D": "Khi máy tiêu chuẩn có giá thành cao, hoặc vì máy móc đặc thù nên khó mua vào"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 3, Mục 3: Hiệu chỉnh ngoài công ty - Đối với các máy đo chuyên dụng hoặc đặc thù"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo mục 1 'Soạn thảo bản mới', khi giải thích vai trò, ứng dụng, sĩ dạng của dụng cụ đo, tài liệu nào dưới đây không thuộc danh mục các loại quy định tham khảo khác thường được liệt kê?",
+      "options": {
+        "A": "ISO",
+        "B": "IEC",
+        "C": "JIS",
+        "D": "GB"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Mục 1: Các loại quy định tham khảo khác (ISO, IEC, ANSI, DIN, GB,...)"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140626.2433848,
+  "generated_at_iso": "2026-09-23T12:17:06",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 212446,
+    "modified_time": 1338273392.530011,
+    "modified_time_iso": "2012-05-29T13:36:32",
+    "file_hash_short": "85435507"
+  }
+}

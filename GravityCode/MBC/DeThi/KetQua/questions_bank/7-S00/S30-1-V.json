@@ -1,0 +1,50 @@
+{
+  "file_name": "S30-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh dụng cụ tiêu chuẩn - DỤNG CỤ DÒ",
+  "doc_code": "S30-1 f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn hiệu chỉnh dụng cụ S30-1 f, chu kỳ hiệu chỉnh đối với dụng cụ dò (S30-1) là bao lâu?",
+      "options": {
+        "A": "1 năm",
+        "B": "2 năm",
+        "C": "3 năm",
+        "D": "5 năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Mục 【Hiệu chỉnh】, Chu kỳ hiệu chỉnh: 3 năm"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Điều kiện môi trường về nhiệt độ xung quanh và độ ẩm tương đối được quy định khi thực hiện hiệu chỉnh là gì?",
+      "options": {
+        "A": "Nhiệt độ 20±5°C, độ ẩm tương đối 30~70%",
+        "B": "Nhiệt độ 23±5°C, độ ẩm tương đối 45~85%",
+        "C": "Nhiệt độ 25±2°C, độ ẩm tương đối 50~80%",
+        "D": "Nhiệt độ 20±2°C, độ ẩm tương đối 40~60%"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Mục 【Hiệu chỉnh】, Nhiệt độ xung quanh: 23±5°C, Độ ẩm tương đối 45~85%"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Đối với dụng cụ dò mã số 10076A (Agilent), phạm vi chỉnh sửa quy định trong tài liệu tiêu chuẩn kỹ thuật là bao nhiêu?",
+      "options": {
+        "A": "3 ~ 10pF",
+        "B": "6 ~ 20pF",
+        "C": "10 ~ 30pF",
+        "D": "15 ~ 25pF"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Bảng thể thức, mục 7. 10076A: Phạm vi chỉnh sửa ....6~20pF"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "025-7-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh・điểm kiểm dụng cụ đo",
+  "doc_code": "Đo đạc 025-7",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Dung sai cho phép đối với hạng mục Hiệu chỉnh chấn động (10m/s2 rms) là bao nhiêu?",
+      "options": {
+        "A": "±1%",
+        "B": "±5%",
+        "C": "±3%",
+        "D": "±15%"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Dung sai cho phép: 10m/s2 rms±3%"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tần suất kiểm tra cho hạng mục Điểm kiểm thiết bị đo chấn động (FFT + Dụng cụ gia tốc + Dây cáp) là khi nào?",
+      "options": {
+        "A": "12 tháng 1 lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "1 tháng 1 lần",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5: Tần suất kiểm tra: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý phần điểm kiểm, trường hợp phát hiện hoặc thay thế dụng cụ đo gia tốc do dễ hư hỏng, thao tác bắt buộc tiếp theo là gì?",
+      "options": {
+        "A": "Không cần làm gì nếu máy vẫn lên nguồn",
+        "B": "Chỉ cần ký lục kết quả điểm kiểm và tiếp tục sử dụng",
+        "C": "Trường hợp thay thế dụng cụ đo gia tốc phải hiệu chỉnh lại => Cần thay đổi độ cảm nhận nhập vào FFT",
+        "D": "Đem đi vứt bỏ ngay lập tức mà không cần báo cáo"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 5: Trường hợp thay thế dụng cụ đo gia tốc phải hiệu chỉnh lại. => Cần thay đổi độ cảm nhận nhập vào FFT"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

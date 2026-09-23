@@ -1,0 +1,50 @@
+{
+  "file_name": "056-6-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN KIỂM TRA HIỆU CHỈNH MÁY ĐO ĐẠC - Máy đo độ dẫn điện (dùng đo khay xốp)",
+  "doc_code": "Đo đạc 056-6",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi pha loãng dung dịch tiêu chuẩn Kali clorua (0.01mol/L) để kiểm tra độ nhạy điện cực trường hợp 3551-10D, cần dùng ống Pipet lấy bao nhiêu dung dịch tiêu chuẩn cho vào bình thí nghiệm 1L?",
+      "options": {
+        "A": "10 mL",
+        "B": "50 mL",
+        "C": "100 mL",
+        "D": "500 mL"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, phần I【Hiệu chỉnh】, mục '1.Phán định độ nhạy điện cực': Dùng ống Pipet lấy dung dịch tiêu chuẩn của《Biểu 1》（0.01mol/L）100mL vào bình thí nghiệm 1L..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình sử dụng và bảo quản điện cực đo độ dẫn điện, thao tác nào sau đây là ĐÚNG và bắt buộc theo tiêu chuẩn?",
+      "options": {
+        "A": "Dùng khăn giấy lau mạnh phần điện cực màu đen để làm sạch hoàn toàn cặn bẩn bám trên bề mặt.",
+        "B": "Khi đo dung dịch chủng loại khác, mỗi lần đo phải tẩy rửa điện cực bằng nước cất, lau hết giọt nước bằng giấy ăn hoặc giấy lọc rồi mới sử dụng; ngoài ra không được chạm vào phần điện cực màu đen.",
+        "C": "Có thể tái sử dụng dung dịch tiêu chuẩn nhiều lần nếu được bảo quản trong bình kín đậy kín nắp.",
+        "D": "Sau khi sử dụng xong, có thể cất ngay điện cực vào hộp mà không cần đậy nắp bảo vệ hay ngâm nước cất."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2 (1.Phán định độ nhạy điện cực), trang 3 (Bảo quản điện cực) và trang 4 (Chú ý khi sử dụng)"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tần suất kiểm tra ngoại quan đối với máy đo độ dẫn điện (dùng để đo khay xốp) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi tháng một lần",
+        "C": "Mỗi lần sử dụng",
+        "D": "Trước mỗi ca làm việc"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 4, phần Ⅱ【Kiểm tra】, mục 'Tần suất kiểm tra: Mỗi lần sử dụng'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

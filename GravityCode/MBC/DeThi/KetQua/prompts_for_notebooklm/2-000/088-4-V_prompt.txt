@@ -1,0 +1,387 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: BẢN TIÊU CHUẨN HIỆU CHỈNH ĐIỂM KIỂM          Ban chính BHCL công ty Mauchi Motor - Máy đo ion clo                         Dụng cụ đo  088-4a
+Mã số/Mã máy đo: ion clo                         D
+File gốc: 088-4-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/5
+
+BẢN TIÊU CHUẨN HIỆU CHỈNH ĐIỂM KIỂM          Ban chính BHCL công ty Mauchi Motor
+
+Ban hành   2020.6.16
+Cải chỉnh  2021.02.04
+Máy đo ion clo                         Dụng cụ đo  088-4a
+WTW  pH3310
+Ι【Hiệu chỉnh】
+
+Dung dịch chuẩn  Dung dich chuẩn ion cloA, B    dung dịch hỗ trợ Mask
+
+Chu kỳ hiệu chỉnh     3 tháng và khi cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+＜Chú ý＞
+Hiệu chỉnh tay sử dụng
+dung dịch chuẩn trước
+khi đo
+(2 điểm hiệu chỉnh:
+thực hiện hiệu chỉnh
+Zero và hiệu chỉnh
+Span/khoảng
+dao
+động)
+(1) Sử dụng máy đo sau khi đã hiệu chỉnh bằng dung dịch
+chuẩn.
+(2) Dung dịch chuẩn sẽ thay đổi độ pH do tồn lưu lâu dài, nên
+trường hợp sử dụng dung dịch chuẩn đạng tồn lưu phải đo so
+sánh độ pH với dung dịch chuẩn mới, sau khi xác nhận đồng
+nhất giá trị mới được sử dụng.
+Dùng chung
+(1)Rửa sạch phần điện cực và 2 lọ đựng chuyên dụng ( cỡ
+30ml) bằng nước tinh khiết ( nước cất), dùng giấy lọc, bông
+gòn,.. lau sạch nước
+Trường hợp của pH3310
+(2) Cho 10mg/L dung dịch chuẩn vào lọ đựng chuyên dụng A,
+cho thêm vào 1mL dung dịch hỗ trợ.
+(3) Nhấn nút <CAL>, xác nhận「Standard1」「10.00mg/L」
+hiển thị trên màn hình. (Trường hợp không giống thì thiết đặt
+bằng <▲><▼> )
+(4) Nhúng đầu điện cực vào dung dịch đã pha ở bước (2), rồi
+khuây nhẹ.
+(5) Nhấn nút <ENTER> bắt đầu đo, chờ việc đo kết thúc
+theo AR
+⇒Hiệu chỉnh Zero.
+(6) Máy phát ra tiếng pít, xác nhận「Standard2」「1000mg/L」
+hiển thị trên màn hình. (Trường hợp không giống thì thiết đặt
+bằng <▲><▼> ).
+(7) Cho 30ml dung dịch chuẩn 1000mg/L vào lọ đựng chuyên
+dụng B, cho thêm 1mL dung dịch hỗ trợ.
+(8) Rửa điện cực bằng nước tinh khiết, sau khi lau khô thì
+nhúng đầu điện cực vào dục dịch đã pha ở bước (7) rồi khuấy
+nhẹ.
+(9) Nhấn nút <ENTER> bắt đầu đo, chờ việc đo kết thúc theo
+AR
+⇒ Hiệu chỉnh Span
+(10) Nếu có tiếng pít thì ấn nút <M>, xác nhận kết quả. Nhấn
+nút <F1> để lưu cấu thành.
+
+Nơi chế tạo
+Thể thức
+Nồng độ dung dịch chuẩn dùng
+để pha
+WTW
+pH3310
+(A)10.00mg/L, (B)1,000mg/L
+Hach
+Sension2
+(A)100.00mg/L, (B)1,000mg/L
+12
+
+--- HẾT TRANG ---
+
+No.2/5
+
+Ι【Hiệu chỉnh】                                    Dụng cụ đo  088-4a
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+Hiệu chỉnh tay sử dụng
+dung dịch chuẩn trước
+khi đo
+(Tiếp theo)
+
+Trường hợp của Sension2
+(11) Cho 30ml dung dịch chuẩn 100mg/L vào lọ đựng chuyên
+dụng A, cho thêm 1mL dung dịch hỗ trợ
+(12)Nhấn nút <ISE/ｍV> và nhấn nút <CAL>. CAL ở phần
+trên cùng bên trái của màn hình. Xác nhận [mg/L] được hiển
+thị ở phần trung tâm. (Trường hợp không giống thì thiết đặt
+bằng <▲><▼> ）
+(13)Nhấn nút <ENTER>，CAL ở phần trên của màn hình,
+nồng độ dung dịch tiêu chuẩn từ 75~150mg/L được hiển thị ở
+phần trung tâm của Standard1
+(14) Nhúng đầu điện cực vào dung dịch đã pha ở bước (11),
+rồi khuây nhẹ.
+(15 Nhấn nút <ENTER> bắt đầu đo, chờ việc đo kết thúc theo
+AR
+⇒Hiệu chỉnh Zero.
+(16) Có tiếng píp phát ra 3 lần và màn hình hiển thị nồng độ
+dung dịch tiêu chuẩn từ 950~1150mg/L ở phần trung tâm
+của Standard1(Trường hợp không giống thì thiết đặt bằng
+<▲><▼> )
+(17)Cho 30ml dung dịch chuẩn 1000mg/L vào lọ đựng
+chuyên dụng B, cho thêm 1mL dung dịch hỗ trợ.
+(18) Rửa điện cực bằng nước tinh khiết, sau khi lau khô thì
+nhúng đầu điện cực vào dục dịch đã pha ở bước (17) rồi
+khuấy nhẹ.
+(19 )Nhấn nút <ENTER> bắt đầu đo, chờ việc đo kết thúc
+theo AR
+⇒ Hiệu chỉnh Span
+(20)Nếu có tiếng píp phát ra 3 lần thì nhấn nút <EXIT>，xác
+nhận hiển thị Store rồi nhấn <ENTER> để bảo lưu kết quả
+hiệu chỉnh.
+
+--- HẾT TRANG ---
+
+No.3/5
+
+Ι【Hiệu chỉnh】                                    Dụng cụ đo  088-4a
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+（Thực hiện sau khi
+hiệu chỉnh bằng dung
+dịch chuẩn ）
+Thí
+nghiệm
+tính
+năng
+
+《Phán định tổng
+quát》
+
+(1) Nhúng điện cực vào dung dịch chuẩn đựng trong lọ A rồi
+đọc kết quả hiển thị sau 10 phút. ⇒ Lần 1
+(2) Rửa sạch điện cực bằng nước tinh khiết (hoặc nước cất)
+rồi lau khô bằng giấy lọc, bông gòn…
+(3) Lại nhúng điện cực vào dung dịch chuẩn lúc nãy（10mg/L
+dung dịch chẩn）rồi đọc kết quả hiển thị sau 10 phút.⇒ Lần 2
+(4) Rửa sạch điện cực bằng nước tinh khiết (hoặc nước cất)
+rồi lau khô bằng giấy lọc, bông gòn…
+(5) Lại nhúng điện cực vào dung dịch chuẩn lúc nãy（10mg/L
+dung dịch chẩn）rồi đọc kết quả hiển thị sau 10 phút. .⇒ Lần
+3
+(6) Rửa sạch điện cực bằng nước tinh khiết (hoặc nước cất)
+rồi lau khô bằng giấy lọc, bông gòn…
+
+(7) Nhúng điện cực vào dung dịch chuẩn đựng trong lọ（Dung
+dịch chuẩn 1000mg/L）rồi đọc kết quả hiển thị sau đó.⇒ Lần
+1
+(8) Rửa sạch điện cực bằng nước tinh khiết (hoặc nước cất)
+rồi lau khô bằng giấy lọc, bông gòn…
+(9) Lại nhúng điện cực vào dung dịch chuẩn lúc nãy（Dung
+dịch chuẩn 1000mg/L）rồi đọc kết quả hiển thị sau đó.⇒ Lần
+2
+(10) Rửa sạch điện cực bằng nước tinh khiết (hoặc nước cất)
+rồi lau khô bằng giấy lọc, bông gòn…
+(11) Lại nhúng điện cực vào dung dịch chuẩn lúc nãy（Dung
+dịch chuẩn 1000mg/L）rồi đọc kết quả hiển thị sau đó.⇒ Lần
+3
+(12) Rửa sạch điện cực bằng nước tinh khiết (hoặc nước cất)
+rồi lau khô bằng giấy lọc, bông gòn…
+
+Trường hợp hiệu chỉnh ở trên không đạt thì có thể ảnh
+hưởng đến độ chính xác đo hoặc đo nhiệt độ bị lỗi nên sẽ
+phán định không đạt và gởi nhờ nơi sản xuất hiệu chỉnh ( bao
+gồm chỉnh sửa).
+
+3Giá
+trị
+bình
+quân của 3 lần
+phải nằm trong
+phạm
+vi
+bên
+dưới:
+Dung
+dịch
+chuẩn 10mg/L:
+±0.2mg/L
+
+Dung
+dịch
+chuẩn 100mg/L :
+±2mg/L
+Dung
+dịch
+chuẩn 1000mg/L
+±20mg/L
+
+－Trích dẫn・Văn bản liên quan－
+Phương pháp hiệu chỉnh：JIS Z 8802:2011, tham khảo bản hướng dẫn sử dụng nơi sản xuất
+Hạn mục hiệu chỉnh, qui cách phán định：Dựa theo bảng thành tích kiểm tra, qui cách nơi sản xuất
+
+--- HẾT TRANG ---
+
+No.4/5
+
+Ⅱ【Điểm kiểm】            Máy đo ion clo                  Dụng cụ đo 088-4a
+WTW   pH3310
+
+Tần suất điểm kiểm   Mỗi khi sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+＜Chú ý＞
+
+1．Ngoại quan, chức
+năng chung
+
+2 ．Thực hiện hiêu
+chuẩn trước khi đo
+
+3．Bảo lưu・bảo quản
+
+(1) Sử dụng máy đo sau khi hiệu chỉnh bằng dung dịch chuẩn
+(2) Dung dịch chuẩn sau khi sử dụng xong dán kín lại và bảo
+quản ở nơi mát mẻ tránh ánh sáng mặt trời.
+Hoặc, dung dịch chuẩn đã qua sử dụng, dung dịch để hở
+ngoài không khí thì độ pH sẽ biến đổi nên không được sử
+dụng.
+Ngược lại, luôn khyuến khích sử dụng dung dịch mới.
+(3) Trường hợp phần điện cực bị bẩn thì tiến hành tẩy rửa
+theo trình tự được ghi trong bản hướng dẫn sử dụng nơi
+sản xuất.
+
+Máy/phần điện cực không có khiếm khyết như bẩn, trầy,
+méo…
+Màn hình và các nút bấm không có dị thường.
+
+Xác nhận sai số giữa giá trị hiển thị đo được với giá trị thực
+của dung dịch dịch chuẩn theo bản hướng dẫn kiểm tra
+SE001ADA
+
+(1) Phần điện cực sau khi sử dụng nhất thiế phải được sửa
+sạch bằng nước tinh khiết, (hoặc nước cất) , lau khô bằng
+giấy lọc, bông gòn,…
+(2) Trường hợp phần điện cực bị bẩn thì tiến hành tẩy rửa
+theo trình tự được ghi trong bản hướng dẫn sử dụng nơi sản
+xuất.
+(3) Phần kết nối của máy với đầu nối dây cáp điện cực phải
+được sấy khô, hạn chế cách điện mức thấp nhất.
+(4) Nếu mức dung dịch còn cỡ nửa độ cao điện cực thì tiến
+hành châm thêm.
+(5) Việc bảo quản điện cực phải thực hiện theo trình tự ghi
+trong bảng hướng dẫn sử dụng.
+(6)Ngoài ra, những trường hợp cần thiết thì phải tuân theo
+bảng hướng dẫn sử dụng nơi sản xuất.
+
+Sai số giữa giá
+trị
+thực
+của
+dung dịch với
+giá trị đo được:
+theo
+phương
+pháp phán định
+của bản hướng
+dẫn
+kiểm
+tra
+SE001ADA
+Chú ý)
+1.Trường hợp kết quả điểm kiểm có bất thường thì ghi ghi chép lại và xử lý theo chỉ thị của người phụ
+trách quản lý.
+2. Trường hợp kết quả điểm kiểm không có bất thường thì không cần ghi lại. Tuy nhiên, Tuy nhiên, nếu
+trong 1 tháng mà kkhông có lần nào bất thường thì cần ghi chép lại.
+3. Nếu khi sử dụng thấy có bất thường thì xử lý theo chỉ thị của người chịu trách nhiệm quản lý.
+
+--- HẾT TRANG ---
+
+Tiêu chuẩn hiệu chỉnh-điểm kiểm         BẢN LAI LỊCH CẢI ĐÔI             Dụng cụ đo    088-4    No.5/5
+Ký
+hiệu
+Ngày
+Ký sự（nội dung cải đổi,..）
+Soạn
+thảo
+Xác nhận
+Công
+nhận
+
+2020.06.16
+
+Ban hành mới (Nơi yêu cầu: VDM)
+
+a
+
+2021.02.04
+
+．Thay đổi chu kỳ hiệu chỉnh   3 tháng →12 tháng
+．Bổ sung thể thức : Hach sension2 (Nơi yêu cầu : VNM)
+
+Ban chính BHCL công ty Mabuchi Motor
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "088-4-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH ĐIỂM KIỂM          Ban chính BHCL công ty Mauchi Motor - Máy đo ion clo                         Dụng cụ đo  088-4a",
+  "doc_code": "ion clo                         D",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

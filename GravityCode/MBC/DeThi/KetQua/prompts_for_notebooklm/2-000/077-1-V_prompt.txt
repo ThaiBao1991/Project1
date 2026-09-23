@@ -1,0 +1,233 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Thiết bị tao nước cất                                        Dụng cụ đo  077-1 c - Ι【Hiệu chỉnh】
+Mã số/Mã máy đo: 077-1
+File gốc: 077-1-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/3
+
+Bản tiêu chuẩn hiệu chỉnh điểm kiểm dụng cụ đo
+Ban chính BHCL công ty cổ phần Mabuchi Motor
+
+Ban hành 11-04-2007
+Cải đính  15-04-2025
+Thiết bị tao nước cất                                        Dụng cụ đo  077-1 c
+
+Ι【Hiệu chỉnh】
+
+Dụng cụ chuẩn           ―
+
+Chu kỳ hiệu chỉnh  Khi hạng mục điểm kiểm 1. không đạt (NG), và khi cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+※ Thiết bị này có thời gian bảo trì thay đổi tùy theo mục đích
+sử dụng, điều kiện môi trường nơi sử dụng, mùa, chất lượng
+nước cấp và lượng sử dụng. Do đó, không quy định chu kỳ
+hiệu chỉnh mà sẽ quản lý độ chính xác thông qua kiểm tra và
+bảo trì bởi nhà cung cấp dịch vụ như dưới đây.
+
+Mục điểm kiểm 1: Nếu giá trị điện dẫn (đo bằng máy điện dẫn)
+không đạt yêu cầu, tiến hành thay thế cartridge và bộ lọc. Sau
+khi thay thế, kiểm tra lại giá trị điện dẫn trên máy đo điện dẫn
+đi kèm với hệ thống sản xuất nước tinh khiết hoặc trên bảng
+hiển thị của panel, đảm bảo giá trị này nằm trong phạm vi tiêu
+chuẩn
+
+－Trích dẫn・văn bản liên quan－
+Phương pháp hiệu chỉnh：Theo phương pháp quản lý do nhà cung cấp khuyến nghị
+Trị phán định ：Thí nghiệm phun nước, thùng ẩm độ: Tính toán thiết định quy cách khi chế tạo thùng ẩm
+độ (ESPEC, FUTABA), ( trị cực đại 10μS/cm)
+Ngoài những điều đã nêu trên (như việc kiểm tra, tẩy rửa): quy cách khi chế tạo
+
+--- HẾT TRANG ---
+
+No.2/3
+
+Ⅱ【Điểm kiểm】        Thiết bị tao nước cất                  Dụng cụ đo 077-1 c
+
+Tiến độ điểm kiểm      Mỗi tháng 1 lần và mỗi lần sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+＜Hạng mục chú ý＞
+
+1. Xác nhận trị thiết bị
+đo đạc tỉ lệ dẫn điện
+
+2.Xác nhận thao tác
+
+3.Ngoại quan nước
+
+Tùy vào việc sử dụng, ứng dụng trị đo đạc hiệu chỉnh sẽ sai
+khác, nên biểu thị để xác nhận phạm vi có thể sử dụng (trị phán
+định) hay mục đích sử dụng lên hiện vật.
+(Ví dụ)
+Mục đích sử dụng：Dùng trong thí nghiệm phun nước và
+thùng ẩm độ.
+Phạm vi có thể sử dụng：dưới 3μS/cm
+
+Xác nhận rằng giá trị độ dẫn điện hiển thị trên đồng hồ đo độ
+dẫn điện hoặc bản hiển thị đi kèm với thiết bị sản xuất nước
+tinh khiết nằm trong quy cách
+＜Chú ý＞
+Tiến hành xác nhận tháo nước ra trước khi điểm kiểm chừng
+5 giây.
+
+[ Biểu trị phán định phân biệt cách ứng dụng, sử dụng]
+
+Có thể rút nước từ thiết bị sản xuất nước tinh khiết bằng thao
+tác thủ công
+
+Nước lấy từ thiết bị tạo nước cất không được vẩn đục hay
+có cặn bã.
+
+Tùy theo việc sử
+dụng, ứng dụng,
+nếu vượt quá
+giá trị phán định
+trong bảng bên
+trái, hãy yêu cầu
+nhà cung cấp
+thay thế bộ lọc
+cartridge.
+
+Không có bất
+thường
+
+Không có bất
+thường
+
+Chú ý)1.Kết quả kiểm tra được ghi lại mỗi tháng một lần bất kể có bất thường hay không
+2.Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy
+ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu.
+Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện
+hiệu chỉnh
+
+Ứng dụng, sử dụng
+Trị phán định
+Thí nghiệm phun nước,
+thùng ẩm độ
+Dưới 3μS/cm ※
+Ngoài những điều ghi trên
+（Kiểm tra, tẩy rửa…）
+Dưới 1μS/cm
+
+--- HẾT TRANG ---
+
+Tài liệu tiêu chuẩn hiệu chỉnh điểm kiểm
+Biểu lý lịch những ban hành, cải chính và hủy bỏ                Dụng cụ đo 077-1   No.3/3
+Ký
+hiệu
+Ngày
+tháng năm
+Nội dung (bao gồm những nội dung sửa đổi)
+Soạn
+thảo
+Xác
+nhận
+Công
+Nhận
+
+11.04.2007 Ban hành quy cách mới
+
+a
+11.05.2011
+【Hiệu chỉnh】Trị phán định: Thiết định quy cách phân biệt
+theo ứng dụng, sử dụng
+Bổ sung văn bản liên quan, trích dẫn
+【Điểm kiểm】Sửa lại toàn bộ
+
+b
+2016.04.01 Xoá bỏ thể thức ở tiêu đề (Borugano G-70A, hàng tương
+tự)
+Xoá bỏ thể thức CEH-12, dụng cụ chuẩn
+Hạng mục 1: Thay đổi nội dung (3)
+Biểu 1: Bổ sung trị phán định của đơn vị SI
+
+c
+2025.04.15
+・Cải đính toàn bộ (nội dung được sửa đổi theo phương
+pháp quản lý do nhà sản xuất chỉ định)
+・Ⅱ【Điểm kiểm】
+Tiến độ điểm kiểm sửa đổi thành「Mỗi tháng 1 lần và mỗi
+lần sử dụng」
+Cải đính toàn bộ hạng mục chú ý
+
+Ban chính BHCL công ty cổ phần Mabuchi Motor
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "077-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Thiết bị tao nước cất                                        Dụng cụ đo  077-1 c - Ι【Hiệu chỉnh】",
+  "doc_code": "077-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

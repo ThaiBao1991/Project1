@@ -1,0 +1,796 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Bản tiêu chuẩn hiệu chỉnh - điểm kiểm máy đo             Ban chính BHCL công ty cổ phần Mabuchi Motor - Máy đo:  004-2p
+Mã số/Mã máy đo: 004-2p
+File gốc: 004-2-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.１／6
+Bản tiêu chuẩn hiệu chỉnh - điểm kiểm máy đo             Ban chính BHCL công ty cổ phần Mabuchi Motor
+Ban hành:  05/ 07/ 2002
+Cải đính:    23/06/2025
+OSCILOSCOPE ( Máy hiện sóng)
+Máy đo:  004-2p
+（YOKOGAWA）
+Ι【Hiệu chỉnh】
+
+Dụng cụ chuẩn:
+Máy Osciloscope (S27-1)，máy Scope Calibrator [S06-1],
+dụng cụ chuẩn chỉ định nhà cung cấp
+
+Chu kì hiêu chỉnh:             24 tháng hoặc khi thấy cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp phán
+định
+＜Hạng mục chú ý＞
+
+１．Độ chính xác trục thời
+gian
+２．Độ chính xác DC
+（Độ chính xác
+trục thẳng đứng）
+Có thể yêu cầu hiệu chỉnh ở cơ quan ủy thác hiệu chỉnh hoặc nơi
+chế tạo. Tuy nhiên khi ủy thác hiệu chỉnh đến cơ quan ủy thác
+hiệu chỉnh thì phải tiến hành theo tài liệu A16-1 『Đánh giá nhà ủy
+thác hiệu chỉnh』
+Số quản lý phải theo từng máy hoặc theo mỗi cấu kiện của máy.
+
+Phương pháp phán định:theo biểu 1
+Phương pháp phán định:Theo 【biểu đính kèm】
+Biểu 1
+Chủng loại
+(MODEL)
+Độ chính xác trục thời gian
+Tín hiệu CAL
+DL 1540C/CL
+±(0.01%＋500ps)
+DL 708E/DL 716
+(701820)(701830)
+±0.005%
+DL 750/ DL 750P
+(701210) (701230)
+DL 850/DL 850E/
+DL 850EV
+DL 950
+±4.6ppm
+DL 9240L
+(701313)
+±0.001%
+Đời  DLM2000
+Đời  DLM4000
+±0.002%
+SL1400
+(701240)
+±0.005%
+DL9710L
+(701331)
+±0.001%
+DL350
+±0.001%
+Đời  DLM5000
+±3.5ppm (※)
+－Trích dẫn văn bản liên quan
+Qui cách phán định：Trích dẫn qui cách nơi chế tạo (※)Tiêu chuẩn độ chính xác trục thời gian,đời
+DLM5000 chỉ tính đến các thay đổi do nhà sản xuất chỉ định theo thời gian
+Thiết định trong công ty
+
+--- HẾT TRANG ---
+
+No.２／6
+
+【Biểu đính kèm】
+Máy đo 004-2p
+
+Chủng loại
+(Mẫu)
+
+Mẫu module đầu vào
+(Tên module)
+
+Độ chính xác/ phạm vi đo đạc hoặc độ chính xác DC
+( Độ chính xác trục thẳng đứng)
+
+DL  1540C/CL
+
+Khi 1mV/div ：±(5%  của  8div＋1LSB)
+(1mV/div thì  vận dụng cho DL1540/DL1540L )
+Khi 100mV/div:±(1.5%  của  8div＋1LSB)
+Trục điện áp khác:±(2.5%  của  8div＋1LSB)
+DL 708E
+(701820)
+
+DL 716
+(701830)
+701850
+(cách điện tốc độ cao)
+
+Khi 10mV/div～20V/div :±(1.5%  của  8div＋Độ chính xác điện áp
+offset) Độ chính xác điện áp offset＝±(0.04%  của  Dãy điện áp
+củafset＋1%  của  trị thiết định)
+701852
+(điện áp cách điện phân giải
+cao))
+Khi 50mV/div :±(1%  của  8div)
+Khi100mV/div～200V/div :±(0.5%  của  8div)
+701853
+(cách điện phân giải cao)
+Khi 5mV/div :±(1%  của  8div)
+Khi 10mV/div :±(0.5%  của  8div)
+Khi 20mV/div～20V/div :±(0.3%  của  8div)
+701855
+(cách điện tốc độ cao)
+Khi 5mV/div :±(2.0%  của  8div＋Độ chính xác điện áp offset)
+Khi 10mV/div～20V/div :±(1.5%  của  8div＋Độ chính xác điện áp offset)
+Độ chính xác điện áp offset＝±(0.04%  của  Dãy điện áp offset＋1%
+của  trị thiết định)
+
+701856
+(Tốc độ cao)
+Khi 5mV/div,10mV/div :±(1.5%  của  8div＋Độ chính xác điện áp offset)
+Khi 20mV/div～20V/div :±(1.2%  của  8div＋Độ chính xác điện áp offset)
+Độ chính xác điện áp offset＝±(0.04%  của  phạm vi điện áp offset＋1%
+của  giá trị đo)
+701857
+(Điện áp phân giải cao/cách
+điện RMS )
+±(0.5%  của  8div)
+
+701860
+(Nhiệt độ)
+Phạm vi đo đạc
+E:-200～800℃
+
+±(đọc 0.2%  ＋1.5℃) Tuy nhiên,
+-200～0℃:±(đọc 0.5% ±1.5℃)
+J:-200～1100℃
+K：-200～1300℃
+L:-200～900℃
+N:0～1300℃
+T:-200～400℃
+U:-200～400℃
+R:0～1700℃
+±(đọc 0.2%＋3℃)
+Tuy nhiên,0～200℃:±8℃
+200～800℃:±5℃
+S:0～1700℃
+B:400～1800℃
+±(đọc 0.2% ＋4℃)
+Tuy nhiên,400～700℃:±8℃
+W:0～2300℃
+±(đọc 0.2% ＋3℃)
+Khuôn
+0～300K
+0～50K:±8.0K  / 50～300K:±4.5K
+701870(Nhập logic)
+701880 (Sự biến thể)
+Dãy đo đạc
+0.5mV/V
+(1000×10-6 biến thể)
+Phạm vi đo đạc
+±1000×10-6 biến thể
+±1%  of
+FS
+±40×10-6
+biến thể
+1mV/V
+(2000×10-6 biến thể)
+±2000×10-6 biến thể
+2.5mV/V
+(5000×10-6 biến thể)
+±5000×10-6 biến thể
+5mV/V
+(10000×10-6 biến thể)
+±10000×10-6 biến thể
+10mV/V
+(20000×10-6 biến thể)
+±20000×10-6 biến thể
+
+--- HẾT TRANG ---
+
+No.３／6
+
+[Phụ biểu]                                                                                                                           Dụng cụ đo 004-2p
+
+Chủng loại
+(Mẫu)
+
+Mẫu module đầu vào
+(Tên module)
+
+Độ chính xác/ phạm vi đo đạc hoặc độ chính xác DC
+( Độ chính xác trục thẳng đứng)
+Đời DL350
+Đời DL750
+
+Đời DL 850
+Đời DL950
+701250
+(Tôcđộcao10MS/s cách điện 12 bit)
+Khi 5mV/div～20V/div:±(0.5%  của  10div)
+701251
+(Chức năng phân giải tốc
+độcao10MS/s cách điện 16 bit)
+5mV/div～20V/div:±(0.25%  của  10div)
+2mV/div : ±(0.3  %   của  10div)
+1mV/div : ±(0.5  %   của  10div)
+701255
+(Tôcđộcao10MS/s phi cách điện 12
+bit)
+Khi 5mV/div～20V/div :±(0.5%  của  10div)
+701260/701267
+(Điện áp cao 100kS/s
+Cách điện 16 bit gắn RMS)
+Chế độ đo hình sóng: độ chính xác DC ±(0.25%  của 10div)
+Chế độ đo RMS độ chính xác DC ±(1.0%  của  10div)
+Độ chính xác AC (Đầu vào sóng hình sin)
+±(1.5%  của  10div)
+Độ chính xác AC (ｸﾚｽﾄﾌｧｸﾀkhi dưới 2 )
+Phạm vi  40Hz～1kHz
+±(2.0%  của  10div)
+Đô chính xác AC (ｸﾚｽﾄﾌｧｸﾀ:Khi dưới 3)
+±(3.0%  của 10div)
+701261 (đa chức năng
+(điện áp/ nhiệt độ))
+701262 (đa chức năng(điện
+áp/nhiệt độ) gắn AAF )
+Độ cảm trục điên áp: h5mV/div～20V/div (bước 1-2-5)
+Độ chính xác điện áp:±(0.25%  của 10div)
+
+Phạm vi đo đạc
+B:0～1800℃
+Độ chính xác
+±(đọc 0.1% ＋2℃)
+Tuy nhiên,400～700℃:±8℃
+Phạm vi hữu hiệu là 400～1800℃
+E:-200～800℃
+±(đọc 0.1%＋1.5℃)
+Tuy nhiên,-200℃～0℃は
+±(đọc 0.2%＋1.5℃)
+J:-200～1100℃
+K:-200～1300℃
+L:-200～900℃
+N:0～1300℃
+R:0～1700℃
+±(đọc 0.1% ＋3℃)
+Tuy nhiên,0～200℃:±8℃
+200～800℃:±5℃
+S:0～1700℃
+T:-200～400℃
+±(đọc 0.1% ＋1.5℃)
+Tuy nhiên,-200℃～0℃は
+±(đọc 0.2% ＋1.5℃)
+U:-200～400℃
+W:0～2300℃
+±(đọc 0.1%＋3℃)
+Khuôn:
+0～300K
+0～50K:±4K
+50～300K:±2.5K
+
+--- HẾT TRANG ---
+
+No.４／6
+【Phụ biểu】
+D ụn g  c ụ đ o  ００４－２o
+
+Chủng loại
+(Mẫu)
+
+Mẫu module đầu vào
+(Tên module)
+
+Độ chính xác/ phạm vi đo đạc hoặc độ chính xác DC
+( Độ chính xác trục thẳng đứng)
+(tt)
+Đời DL  350
+Đời DL  750
+Đời DL  850
+Đời DL  950
+701265
+
+(Nhiệt độ/ độ chính xác
+điện áp cách điện cao)
+Độ cảm trục điên áp:100μV/div～10V/div(bước1-2-5 )
+Độ chính xác điện áp:±(0.08%  của  10div＋2μV)
+Phạm vi đo đạc
+B:0～1800℃
+Độ chính xác
+±(0.1%  ＋2℃)
+Tuy nhiên,400～700℃:±8℃
+Phạm vi hữu hiệu là 400～1800℃
+E:-200～800℃
+J:-200～1100℃
+K:-200～1300℃
+L:-200～900℃
+N:0～1300℃
+±(0.1%  ＋1.5℃) Tuy nhiên,-
+200℃～0℃は
+±(đọc 0.2% ＋1.5℃)
+R:0～1700℃
+±(đọc 0.1% ＋3℃)
+Tuy nhiên,0～200℃:±8℃
+200～800℃:±5℃
+S:0～1700℃
+T:-200～400℃
+±(0.1%  ＋1.5℃)
+Tuy nhiên,-200℃～0℃
+±(đọc 0.2% ＋1.5℃)
+U:-200～400℃
+W:0～2300℃
+±(đọc 0.1% ＋3℃)
+Crom mạ vàng:
+0～300K
+0～50K:±4K
+50～300K:±2.5K
+701270
+(Biến thể(NDIS))
+±(0.5%  của  FS＋5μSTR)
+701271
+(Biến thể(DSUB,đối ứng trục CAL)
+701275
+(Điện áp/ tốc độ cao)
+Chế độ đo hình sóng: độ chính xác DC:±(0.25%  của  10div)
+Chế độ đo đạc gia tốc:±(0.5%  của  10div) tại  1kHz
+
+701280/701281
+(Số tần số)
+[Định nghĩa độ chính xác đo đạc]
+±(0.05%  của  10div＋Độ chính xác phụ thuộc tần số đưa vào)
+[Độ chính xác phụ thuộc tần số đưa vào]
+Tần số đưa vào chưa đến 2kHz :0.05%  của  Tần số đưa vào＋
+0.001Hz
+Tần số đưa vào 2kHz～10kHz:0.1%  của  Tần số đưa vào
+Tần số đưa vào 10kHz～20kHz:0.3%  của  Tần số đưa vào
+Tần số đưa vào 20kHz 以上:0.5%  của  Tần số đưa vào
+720211
+(Mô đun cách điện 100MS/s 12 bit
+tốc độ cao
+10mV/div〜20V/div:±(0.5% của 10div)
+720212
+(Mô đun cách điện 200MS/s
+14bít tốc độ cao)
+10mV/div〜20V/div:±(0.5% của 10div)
+720250
+(Mô đun cách điện 10MS/s 12  bit
+tốc độ cao)
+5mV/div〜20V/div:±(0.5% của 10div)
+720254
+(Mô đun cách điện  4CH 1MS/s 16
+bit
+10mV/div〜50V/div:±(0.25% của 10div)
+
+--- HẾT TRANG ---
+
+Máy đo: 004-2p
+
+Chủng loại
+(Mẫu)
+
+Mẫu module đầu vào
+(Tên module)
+
+Độ chính xác/ phạm vi đo đạc hoặc độ chính xác DC
+( Độ chính xác trục thẳng đứng)
+(tiếp theo)
+Đời DL  350
+Đời DL750
+Đời DL850
+Đời DL950
+720281
+(Mô đun tần số)
+[Phạm vi đo]
+0.01Hz〜500kHz
+[Độ chính xác trục thẳng đứng]
+0.1Hz/div〜100kHz/div
+[Độ chính xác máy đo]
+±（0.05% of 10div＋Độ chính xác phụ thuộc vào tần số đưa
+vào）
+[Độ chính xác phụ thuộc vào tần số đầu vào]
+Tần số đưa vào chưa đến 2kHz 0.05% tần số đưa vào＋1mHz
+Tần số đưa vào 2kHz〜50kHz 0.05% của tần số đưa vào
+Tần số đưa vào 50kHz〜100kHz 0.1% của tần số đưa vào
+Tần số đưa vào 100kHz〜200kHz 0.2% của  tần số đưa vào
+Tần số đưa vào 200kHz hoặc cao hơn 0.5% của tần số đưa vào
+DL9240L
+(701313)
+Độ chính xác DC
+±(1.5% của 8div+độ chính xác điện áp offset)
+Độ chính xác điện áp offset
+2mV/div to 50mV/div   : ±(1% của giá trị đo+0.2mV)
+100mV/div to 500mV/div  : ±(1% của giá trị đo +2mV)
+1V/div to 5V/div  : ±(1% của giá trị đo +20mV)
+Đời DLM2000
+Đời DLM 4000
+Độ chính xác DC
+±(1.5% của 8div+độ chính xác điện áp offset)
+Độ chính xác điện áp offset
+2mV/div to 50mV/div   : ±(1% của giá trị đo+0.2mV)
+100mV/div to 500mV/div  : ±(1% của giá trị đo +2mV)
+1V/div to 10V/div     : ±(1% của giá trị đo +20mV)
+SL1400
+(701240)
+701250
+(Cách điện tốc độ cao 10MS/s 12
+bit)
+Khi 5mV/div～20V/div:±(0.5% của 10div)
+DL 9710L
+(701331)
+Độ chính xác DC
+Khi đầu vào 1MΩ：±(1.5% của 8div+độ chính xác điện áp offset)
+Khi đầu vào 50Ω：±(1.5% của 8div+ độ chính xác điện áp offset)
+Độ chính xác điện áp offset
+2mV/div to 50mV/div   : ±(1% của giá trị đo+0.2mV)
+100mV/div to 500mV/div  : ±(1% của giá trị đo +2mV)
+1V/div to 5V/div    : ±(1% của giá trị đo +20mV)
+Đời
+DLM5000
+
+Độ chính xác DC
+500μV/div：±(3.0％ của 8div＋độ chính xác điện áp offset)
+1 mV/div～10V/div：±(1.5％ của 8 div＋độ chính xác điện áp
+offset)
+độ chính xác điện áp offset
+500μV /div to 50mV/div : ±(1% của giá trị đo+0.2mV)
+100mV/div to 500mV/div  : ±(1% của giá trị đo+2mV)
+1V/div to 10V/div     : ±(1% của giá trị đo+20mV)
+
+No. 5/6
+
+--- HẾT TRANG ---
+
+No. 6/6
+
+Máy đo: 004-2n
+Ⅱ【Điểm kiểm】
+Osciloscope
+
+（ＹＯＫＯＧＡＷＡ）
+
+Chu kỳ kiểm tra:
+Mỗi tháng 1 lần và mỗi lần sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+1．Ngoại quan
+2. Xác nhận chức năng
+3．Chỉnh sửa pha dòng
+điện trên đầu đo
+（Trường hợp của đời
+DL 350, DL708E/DL716,
+đời DL750, đời DL850,
+đời DL950 thì đối tượng
+là module cách điện tốc
+độ cao hoặc module tốc
+độ cao）
+<Tuy nhiên, đối với đầu
+đo được hiệu chỉnh
+riêng biệt thì không cần
+chỉnh sửa>
+(1) Không có khiếm khuyết có hại như bị hỏng hóc.
+(2)  Phải kiểm tra xem dây kết nối với các máy đo khác đúng hay
+không.
+Xác nhận xem có dị thường ở các chức năng sử dụng đi kèm
+(Đầu đo đạc, chức năng thu phóng, các loại kích hoạt, bên
+trong máy in, …) không.
+Trường hợp không sử dụng đầu đo thì không cần tiến hành điểm
+kiểm những hạng mục này. Do giá trị điện dung đầu vào thay đổi
+theo từng chế độ nên khi thay đổi chế độ trên đầu tiếp xúc của que
+đo hãy tiến hành chỉnh sửa pha điện.
+Trường hợp sử dụng đầu đo được kết nối với module tần số thì hãy
+điều chỉnh pha điện của đầu đo bằng một module khác với module
+tần số.
+Tín hiệu dùng chỉnh sửa pha điện (hình sóng vuông)
+Tần số: 1kHz±1%
+Biên độ dao động: 1V±10%
+(1) Bật nguồn điện sang ON
+(2) Nối đầu đo vào chấu đo đầu vào.
+(3) Nối phần đầu của đầu đo vào chấu CAL/ chấu xuất điện
+COMP sau đó nối dây nối đất vào chấu điện có chức
+năng tiếp đất.
+(4) Bật  AUTOSET（Tham khảo bảng hướng dẫn sử dụng）
+(5) Xoay tụ điện khả biến bằng trục vít từ lỗ điều chỉnh pha điện trên
+đầu đo, sau đó điều chỉnh sao cho hình sóng hiển thị đúng với
+hình sóng vuông.
+
+Hình minh họa: Hình sóng sai do chỉnh sửa pha điện trên đầu đo
+
+Chú ý)
+1.Kết quả kiểm tra được ghi lại mỗi tháng một lần bất kể có bất thường hay không
+2.Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy
+ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu.
+Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện
+hiệu chỉnh
+
+--- HẾT TRANG ---
+
+Biểu lí lich ban hành cải chính bản tiêu chuẩn điểm kiểm hiệu chỉnh
+Máy đo
+００４－２
+
+Rev.
+Ngày
+Nội dung cải đính
+Soạn thảo
+Xác nhận
+Công nhận
+2002.07.05
+Ban hành mới
+
+Fujiyama
+Nara
+Mabuchi
+
+Yamashita
+a
+2006.02.07
+・ Vận dụng cho nhà sản xuất YOKOGAWA vào máy đo
+No.004-2:
+・ (Hợp nhất YOKOGAWA701820 và 701852 )
+→Osciloscope  YOKOGAWA
+・  Bổ sung thay đổi máy đo YOKOGAWA：DL1540C/CL từ
+No.004-3  thành 004-2
+・   Bổ sung YOKOGAWA:DL708E,DL750,DL750P
+Usui
+Nara
+Takahashi
+Ishino
+ｂ
+2007.10.10
+・Thay đổi chu kì hiệu chỉnh 12 tháng→24 tháng
+・Thay đổi mã số cải đính I【Hiệu chỉnh】№1/6～4/6  004-
+2a→004-2b
+※Ⅱ【Điểm kiểm】№5/6 は 004-2a  (Không thay đổi)
+Nara
+Takahashi
+Oonishi
+ｃ
+2009.10.07
+・Bổ sung YOKOGAWA:DL9240L
+・Thay đổi mã số cải đính I【Hiệu chỉnh】№1/6～4/6  004-
+2b→004-2c
+※Ⅱ【Điểm kiểm】№5/6 là 004-2a  (Không thay đổi)
+Nara
+Hanyu
+Takahashi
+Itokawa
+d
+2011.01.14
+・ 【Hiệu chỉnh】＜Hạng mục chú ý＞ －Trích dẫn văn bản
+liên quan－
+Thay đổi qui cách độ chính xác DC của
+module 701250
+・ Thay đổi mã số cải đínhⅠ【Hiệu chỉnh】No.1/6～4/6
+004-2c→004-2d
+※Ⅱ【Điểm kiểm】No.5/6 là 004-2a  (không thay đổi)
+Masunaga
+Nara
+Hanyu
+Itokawa
+
+e
+2013.12.16
+・Bổ sung DL850 (Nơi yêu cầu：Phòng kiểm tra JSM Ootoo)
+・Xóa bỏ: “Máy tiêu chuẩn: Máy hiệu chỉnh Oscilloscope, máy
+phát tín hiệu tiêu chuẩn.”
+Bổ sung: Scope Calibrator [S06-1]，
+Oscilloscope [S27-1]
+【Phụ lục】Xóa bỏ DL750(701210)/DL750P(701230)
+Bổ sung đời DL750・đời DL850
+【Điểm kiểm】 Xóa bỏ cụm từ
+Điểm kiểm này～Tham khảo bản hướng dẫn sử dụng
+3.Bình thường～Yêu cầu.
+
+Matsumoto
+(Mi)
+
+Murayama Itou
+
+Iwata
+
+f
+2015.04.01
+・【Hiệu chỉnh】Mẫu khuôn DL850E,
+DL850EV,DL716(701830)
+・【Biểu đính kèm】 Bổ sung DL716 701267,701281
+
+Hashida
+
+Murano Itou
+
+Itokawa
+
+g
+2016.08.18
+・【Hiệu chỉnh】Không thay đổi nội dung
+・【Điểm kiểm】004-1 Thay đổi tần xuất điểm kiểm giống vơi
+004-1
+Thay đổi phương pháp điểu kiểm và hạng mục 2,3
+Hạng mục 3. Bổ sung“＜Tuy nhiên, hiểu chỉnh riêng biệt～
+không cần chỉnh sửa＞”
+
+Matsumoto
+(Mi)
+
+Murano Itou
+
+Ishino
+
+h
+2016.12.01
+・【Hiệu chỉnh 】【Biểu đính kèm 】Bổ sung khuôn mẫu
+DLM2054(710130)
+・【Biểu đính kèm 】Chỉnh sửa quy cách độ chính xác
+DL9240L
+・Thay đổi mã số cải đính
+Ⅰ【Hiệu chỉnh】004-2g→004-2h ※Ⅱ【Điểm kiểm】không
+thay đổi 004-2g
+
+Murano
+
+Itou
+
+Ishino
+
+--- HẾT TRANG ---
+
+Biểu lí lich ban hành cải chính bản tiêu chuẩn điểm kiểm hiệu chỉnh
+Máy đo
+００４－２
+
+Rev.
+Ngày
+Ghi chép （nội dung cải đính）
+Soạn thảo
+Xác nhận
+Công nhận
+
+i
+2017.09.06
+・【Hiệu chỉnh 】【Biểu đính kèm 】Bổ sung mẫu khuôn
+SL1400(701240)
+・【Điểm kiểm】Hạng mục 3.
+Chu kỳ điểm kiểm: Hằng tháng→Mỗi lần sử dụng
+Phương pháp điểm kiểm: Bổ sung nội dung，Bổ sung “Hình
+minh họa: Hình sóng sai do chỉnh sửa pha điện trên đầu đo”
+
+Kikura
+
+Hatta Itou
+
+Ishino
+
+j
+2018.07.31
+・【Hiệu chỉnh 】【Biểu đính kèm 】Bổ sung mẫu khuôn
+DL9710L(701331), DLM4058
+・Thay đổi mã số cải đính
+Ⅰ【Hiệu chỉnh】004-2i→004-2j ※Ⅱ【Điểm kiểm】
+Không thay đổi 004-2i
+
+Koizumi
+
+Nara Itou
+
+Iwata
+
+k
+2021.06.30
+【Phụ biểu】Bổ sung thể thức
+720211,720250,720254,720281
+・Thay đổi mã số cải đính
+Ⅰ【Hiệu chỉnh】004-2j→004-2k ※Ⅱ
+【Điểm kiểm】004-2i không thay đổi
+
+l
+2021.10.21
+Bổ sung khuôn mẫu DL950 vào【Hiệu chỉnh】
+【Phụ lục 】【Điểm kiểm】
+
+m 2022.05.16 【Hiệu chỉnh】【Phụ biểu】【Điểm kiểm】Bổ sung thể thức
+DL350
+
+n
+2023.06.07
+・Bổ sung thể thức Đời DLM5000
+・Bảng 1 Tóm tắt đời DLM2000 và 4000 trong bảng đính kèm
+và sửa lỗi
+・Bổ sung ở bảng trích dẫn -văn bản liên quan đời DLM5000
+・Ⅱ【Điểm kiểm】
+Tiến độ điểm kiểm Cải đính「Mỗi tháng 1 lần và mỗi lần sử
+dụng
+Cải đính toàn bộ hạng mục chú ý
+
+o
+2025.1.10
+・Bổ sung [Dụng cụ chuẩn chỉ định nhà cung cấp] vào Dụng
+cụ chuẩn
+・701251…Chỉnh sửa ghi chép quy cách phán định (Độ chính
+xác DC)
+・Thay đổi mã số cải đính
+Ⅰ【Hiệu chỉnh】004-2n→004-2o ※Ⅱ【Điểm kiểm】004-2n
+không thay đổi
+
+p
+2025.06.23
+・【Phụ biểu】Bổ sung thể thức 720212
+・Thay đổi mã số cải đính
+Ⅰ【Hiệu chỉnh 】004-2o→004-2p ※ Ⅱ【Điểm
+kiểm】004-2n Không thay đổi
+
+Ban chính bảo hành chất lượng công ty cổ phần MAB
+
+山
+元
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "004-2-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh - điểm kiểm máy đo             Ban chính BHCL công ty cổ phần Mabuchi Motor - Máy đo:  004-2p",
+  "doc_code": "004-2p",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

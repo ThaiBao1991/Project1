@@ -1,0 +1,50 @@
+{
+  "file_name": "Z01-1-V.pdf",
+  "folder_name": "9-Z00 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn điểm kiểm – hiệu chỉnh máy đo (Qui cách phán định máy đo đa năng Digital ADVANTEST/ADCMT)",
+  "doc_code": "Z01-1 d",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi cần thêm qui cách phán định do phát sinh chủng loại mới, nhân viên phụ trách phải thực hiện theo thủ tục nào?",
+      "options": {
+        "A": "Tự ý chỉnh sửa trực tiếp trên máy đo mà không cần báo cáo.",
+        "B": "Làm theo dụng cụ đo No. A18-1 yêu cầu chỉnh sửa, ban hành qui cách mới của bảng tiêu chuẩn lên phòng BHCL của công ty.",
+        "C": "Chỉ cần thông báo miệng cho bộ phận sản xuất.",
+        "D": "Đợi đến kỳ bảo dưỡng định kỳ hàng năm mới cập nhật."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: (2) Thêm qui cách phán định do thêm chủng loại thì theo dụng cụ đo No. A18 - 1 yêu cầu chỉnh sửa ,ban hành qui cách mới của bảng tiêu chuẩn lên phòng BHCL của cty."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trong trường hợp thực hiện kiểm tra hoặc hiệu chỉnh máy đo đa năng Digital, nếu phát hiện có chủng loại thiết bị mới hoặc có thay đổi về tiêu chuẩn kỹ thuật không khớp với bảng qui cách hiện hành, hành động bắt buộc tuân thủ tuyệt đối theo qui định của công ty là gì?",
+      "options": {
+        "A": "Tự ý áp dụng mức sai số của dòng máy tương đương gần nhất để tiết kiệm thời gian.",
+        "B": "Tiến hành hiệu chỉnh theo kinh nghiệm cá nhân và bỏ qua bước phê duyệt.",
+        "C": "Tuân thủ theo đúng yêu cầu chỉnh sửa, ban hành qui cách mới của bảng tiêu chuẩn lên phòng BHCL của công ty trước khi áp dụng.",
+        "D": "Ngưng sử dụng vĩnh viễn thiết bị mà không cần lập báo cáo cải chính."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Thêm qui cách phán định do thêm chủng loại thì theo dụng cụ đo No. A18 - 1 yêu cầu chỉnh sửa ,ban hành qui cách mới của bảng tiêu chuẩn lên phòng BHCL của cty."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo qui định chung tại phần nội dung của tài liệu tiêu chuẩn, dấu * có ý nghĩa là gì?",
+      "options": {
+        "A": "Dấu biểu thị cần phải hiệu chỉnh bắt buộc trong mọi trường hợp sử dụng.",
+        "B": "Dấu biểu thị không cần hiệu chỉnh trong trường hợp không sử dụng thực tế.",
+        "C": "Dấu biểu thị sai số cho phép vượt mức giới hạn tiêu chuẩn.",
+        "D": "Dấu biểu thị thiết bị đang trong tình trạng hỏng hóc cần sửa chữa."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: (1) Dấu * là dấu biểu thị không cần hiệu chỉnh trong trường hợp không sử dụng thực tế."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

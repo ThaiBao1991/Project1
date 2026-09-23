@@ -1,0 +1,50 @@
+{
+  "file_name": "516-4-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Dial qeji không quay đủ 1 vòng",
+  "doc_code": "516-4 k",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục I [Hiệu chỉnh] trang 1, chu kỳ hiệu chỉnh và kiểm tra định kỳ đối với dụng cụ trắc định đồng hồ quay số chưa tới 1 vòng được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi 6 tháng một lần hoặc khi cần thiết",
+        "B": "Mỗi 24 tháng hoặc khi xác nhận cần thiết",
+        "C": "Mỗi 12 tháng hoặc khi xác nhận cần thiết",
+        "D": "Chỉ hiệu chỉnh khi dụng cụ bị rơi hoặc va đập mạnh"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1 - I. [Hiệu chỉnh] - Chu kỳ hiệu chỉnh: Mỗi 12 tháng hoặc khi xác nhận cần thiết."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo mục II [Điểm Kiểm] trang 5, khi kiểm tra quan sát bên ngoài đồng hồ quay số chưa tới 1 vòng, tiêu chuẩn đánh giá đối với đầu mũi kim đo là gì?",
+      "options": {
+        "A": "Độ bóng phải đều",
+        "B": "Độ dài phải chuẩn xác tuyệt đối theo vạch chia",
+        "C": "Không được có vết xước nhỏ ở thân kim",
+        "D": "Đầu mũi kim phải được mạ sáng bóng"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 5 - II. [Điểm Kiểm] - Đồ hồ quay số chưa tới 1 vòng - Tiến độ kiểm tra: Mỗi lần sử dụng. Hạng mục kiểm tra: 1. Quan sát bên ngoài... 2. Kiểm tra độ hao mòn dựa vào tình trạng bóng của đầu mũi kim đo. Phương pháp giám định: Độ bóng phải đều."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo phần Chú ý tại trang 5 của tài liệu tiêu chuẩn, khi kiểm tra phát hiện thấy kết quả bất thường, nhân viên phụ trách phải xử lý như thế nào?",
+      "options": {
+        "A": "Tự ý tháo gỡ đồng hồ ra để sửa chữa lại",
+        "B": "Ghi chép lại kết quả bất thường đó xử lý theo chỉ thị của người chịu trách nhiệm quản lý",
+        "C": "Bỏ qua nếu lỗi nhỏ và tiếp tục sử dụng cho ca sản xuất tiếp theo",
+        "D": "Chỉ báo cáo miệng cho trưởng nhóm vào cuối ca làm việc"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5 - Chú ý: 1. Kết quả kiểm tra trường hợp có bất thường, ghi chép lại kết quả bất thường đó xử lý theo chỉ thị của người chịu trách nhiệm quản lý."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

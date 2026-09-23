@@ -1,0 +1,50 @@
+{
+  "file_name": "536-2-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN KIỂM TRA VÀ HIỆU CHỈNH DỤNG CỤ ĐO - ĐỒNG HỒ ĐO DANG VẠCH 0.001 mm",
+  "doc_code": "536-2 c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục Chú ý trong tiêu chuẩn kiểm tra (Trang 5), trường hợp kết quả kiểm tra có bất thường, nhân viên phụ trách phải xử lý như thế nào?",
+      "options": {
+        "A": "Tự ý sửa chữa dụng cụ rồi tiếp tục sử dụng bình thường",
+        "B": "Ghi lại kết quả kiểm tra và xử lý theo chỉ thị của người chịu trách nhiệm quản lý",
+        "C": "Bỏ qua kết quả bất thường nếu sai số nhỏ hơn 0.01mm",
+        "D": "Lập tức vứt bỏ dụng cụ đo vào thùng rác phế liệu"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5: Chú ý 1: Trường hợp kết quả kiểm tra có bất thường thì ghi lại kết quả kiểm tra và xử lý theo chỉ thị của người chịu trách nhiệm quản lý."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo mục II [KIỂM TRA] của tiêu chuẩn dụng cụ đo 536-2 c, tiến độ kiểm tra Đồng hồ đo dạng vạch 0.001 mm được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5: II [KIỂM TRA] - Tiến độ kiểm tra: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo mục I [HIỆU CHỈNH], chu kỳ hiệu chỉnh đối với Đồng hồ đo dạng vạch Tester [S12-2] là bao lâu?",
+      "options": {
+        "A": "Mỗi 3 tháng và khi được xác định là cần thiết",
+        "B": "Mỗi 6 tháng và khi được xác định là cần thiết",
+        "C": "Mỗi 12 tháng và khi được xác định là cần thiết",
+        "D": "Mỗi 24 tháng và khi được xác định là cần thiết"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: I [HIỆU CHỈNH] - Chu kỳ hiệu chỉnh: Mỗi 12 tháng và khi được xác định là cần thiết"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

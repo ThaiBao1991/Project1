@@ -1,0 +1,50 @@
+{
+  "file_name": "592-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - ĐỒNG HỒ BẤM GIÂY",
+  "doc_code": "592-1a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trường hợp kết quả kiểm tra thấy bất thường hoặc nhận thấy sự bất thường trong khi sử dụng đồng hồ bấm giây, nhân viên cần xử lý như thế nào?",
+      "options": {
+        "A": "Tự ý tháo đồng hồ ra để sửa chữa pin và các nút bấm",
+        "B": "Tiếp tục sử dụng bình thường nếu sai số nhỏ",
+        "C": "Ghi chép lại kết quả đã kiểm tra và xử lí theo chỉ thị của người chịu trách nhiệm quản lí",
+        "D": "Vứt bỏ đồng hồ vào thùng rác chuyên dụng của xưởng"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: Chú ý 1 & 3: Trường hợp kết quả kiểm tra thấy bất thường, ghi chép lại kết quả đã kiểm tra và xử lí theo chỉ thị của người chịu trách nhiệm quản lí."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm đối với đồng hồ bấm giây được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi ngày một lần trước khi làm việc",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tuần một lần",
+        "D": "Mỗi tháng một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: II. [Điểm kiểm] - Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Trong mục kiểm tra động tác của đồng hồ bấm giây, quy trình thao tác chuẩn là gì?",
+      "options": {
+        "A": "Reset về 0, nhấn nút Start. Sau khoảng 30 giây nhấn nút Stop xác nhận có điểm gì khác thường không.",
+        "B": "Reset về 0, nhấn nút Start. Sau khoảng 60 giây nhấn nút Stop.",
+        "C": "Nhấn nút Start trực tiếp không cần Reset về 0, sau 10 giây nhấn Stop.",
+        "D": "Chỉ kiểm tra nút Reset và nút Stop, không cần dùng nút Start."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2: II. [Điểm kiểm] - 3. Xác nhận động tác: Reset về 0 , nhấn nút Start . Sau khoảng 30 giây nhấn nút Stop xác nhận có điểm gì khác thường không ."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,766 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Tiêu chuẩn kỹ thuật kiểm tra (038-4)
+Mã số/Mã máy đo: 038-4
+File gốc: 038-4-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No. 1/10
+
+Bản tiêu chuẩn điểm kiểm – hiệu chỉnh dụng cụ đo đạc
+
+Máy thí nghiệm điện trở cách điện/điện áp chịu đựng
+(Series KIKUSUI TOS5300)
+
+Ban chính BHCL công ty cổ phần
+Mabuchi Motor
+Ban hành: 12/10/2012
+Cải đính: 4/12/2024
+Dụng cụ đo đạc: 038-4c
+I. 【Hiệu chỉnh】
+Dụng cụ chuẩn: Đồng hồ đo điện áp cao [S56-1], dụng cụ hiệu chỉnh dòng điện [S57-1]
+Đồng hồ vạn năng kĩ thuật số [S13-1]
+Điện trở chịu tải dùng cho UL1270 [S16-1], dụng cụ điện trở 6 nấc điều chỉnh [S58-1]
+Chu kỳ hiệu chỉnh: 12 tháng hoặc khi xác nhận là cần thiết.
+
+Hạng mục
+hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+<Hạng mục
+chú ý>
+
+・ Để tránh bị giật điện, khi hiệu chỉnh phải đeo găng tay cao su
+cách điện.
+・ Dây kết nối phải sử dụng dây kiểm tra điện áp cao của hàng phụ
+tùng (TL31-TOS: Kikusui điện tử).
+・ Thao tác kết nối dây kiểm tra điện áp cao ở giữa thiết bị sẽ tiến
+hành sau khi xác nhận sự tắt đèn test của biểu thị tình trạng ③,
+tắt đèn âm li DANGER ②, biểu thị Zero đồng hồ điện áp
+ANALOG ①, tắt nút POWER ⑳.
+・ Nạp nguồn điện là sau khi xác nhận chỉ thị zero ① đồng hồ điện
+áp ANALOG thì sẽ tiến hành bật công tắc POWER ⑳.
+Ngoài ra, ở thời điểm này sẽ tăng tình trạng panel đã được bảo quản
+đồng thời và khi tắt công tắc POWER ⑳ của lần trước.
+・ Trường hợp không chỉ thị zero ① đồng hộ điện áp ANALOG
+bằng tắt công tắc POWER ⑳ thì cho khớp ở điểm zero bằng
+máy điều chỉnh có đồng hồ điện áp ANALOG ① ở dưới.
+・ Sau khi tắt công tắc POWER ⑳ thì sẽ bật công tắc POWER ⑳
+sau khoảng thời gian trên 10 phút.
+Nếu lặp lại ON/OFF thì sẽ là nguyên nhân gây sự cố và mất khả
+năng bảo hộ.
+・ Liên quan đến sử dụng khác thì tham khảo bảng thuyết minh sử
+dụng.
+
+<Cầu tạo thiết bị>
+Biểu 1
+Chức năng
+FUNCTION
+Sỹ dạng
+Mã khuôn
+TOS5300
+TOS5301
+TOS5302
+Chức năng
+đồng hồ đo
+điện áp
+ACW
+Xuất
+lực AC
+Phạm vi
+0.05kV～5.00kV
+Tỷ lệ biến động
+điện áp
+±10%
+DCW
+Xuất
+lực DC
+Phạm vi
+-
+0.05kV～6.00kV
+-
+
+Tỷ lệ biến động
+điện áp
+-
+±3%
+Chức năng
+đồng hồ
+điện trở
+cách điện
+IR
+Điện áp xuất ra
+-
+Tham
+khảo
+biểu 5
+Điện
+trở
+Phạm vi đo
+-
+Độ chính xác
+đo
+-
+
+--- HẾT TRANG ---
+
+No. 2/10
+
+I. 【Hiệu chỉnh】
+
+Dụng cụ đo đạc: 038-4c
+
+Hạng mục
+hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+【Chức năng
+đồng hồ đo
+điện áp chịu
+đựng】
+
+1. Điện áp
+xuất ra
+
+Mã khuôn đối tượng hiệu chỉnh: TOS5300，TOS5301，TOS5302
+(tham khảo biểu 1)
+(1) Xác nhận đồng hộ điện áp ANALOG ① của máy thí nghiệm điện
+trở cách điện/ điện áp chịu đựng (gọi là máy thí nghiệm, dưới)
+phải có biểu thị zero.
+(2) Kết nối đồng hồ điện áp cao ở chấu điện của máy thí nghiệm.
+(Hình 1)
+(3) Ấn phím FUNCTION ⑩ và tuyển chọn DCW hoặc là ACW.
+→ ACW: Thí nghiệm điện áp chịu đựng xoay chiều.
+→ DCW: Thí nghiệm điện áp chịu đựng một chiều.
+(4) Ấn phím SET, xoay nút ROTARY ⑪ của máy thí nghiệm chầm
+chậm ở bên phải, thiết định trị điện áp xuất ra ở biểu 2.
+(5) Ấn nút START ⑥
+(6) Yêu cầu phán định sai khác với trị biểu thị của đồng hồ đo điện
+áp cao đối với trị thiết định.
+Biểu 2
+FUNCTION
+Điện áp xuất
+lực
+Tỷ lệ biến
+động điện áp
+ACW
+5.00kV
+±10%
+DCW
+6.00kV
+± 3%
+
+(7) Ấn nút STOP ⑦ sẽ ngắt điện áp xuất ra.
+(8) Ấn phím SET, xoay nút ROTARY ⑪ về bên trái giá trị nhỏ nhất.
+Hình 1
+
+Dựa theo tỷ lệ
+biến động điện
+áp của biểu 2
+
+Đồng hồ điện áp cao
+Máy thí nghiệm điện trở cách
+điện/ điện áp chịu đựng
+Máy thí nghiệm điện trở cách điện/ điện áp chịu
+đựng
+Đồng hồ điện áp cao
+HIGH
+LOW
+
+--- HẾT TRANG ---
+
+No. 3/10
+
+I. 【Hiệu chỉnh】
+
+Dụng cụ đo đạc: 038-4c
+
+Hạng mục
+hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+2. Thí nghiệm
+giá trị dòng
+điện bằng
+máy hiệu
+chỉnh dòng
+điện
+
+(1) Xác nhận đồng hồ điện áp ANALOG ① của máy thí nghiệm phải
+có biểu thị zero. → Phải xoay nút ANALOG ⑪ về phía bên trái
+giá trị nhỏ nhất.
+(2) Kết nối máy hiệu chỉnh dòng điện ở chấu điện của máy thí
+nghiệm. (Hình vẽ 2)
+(3) Thiết định giới hạn trên của trị dòng điện ngắt của máy thí
+nghiệm, giới hạn dưới ở nút OFF.
+Giới hạn trên có 4 điểm 0.5mA，1mA，2mA，5mA.
+(4) Thiết định giá trị giới hạn trên của dòng điện ngắt của máy kiểm
+tra thành +0,1 mA tại điểm hiệu chuẩn và giới hạn dưới là OFF.
+(5) Ấn phím SET, thiết định giá trị điện áp xuất ra nhỏ nhất.
+(6) Ấn phím START ⑥
+(7) Ấn phím SET, xoay phải nút ROTARY ⑪ của máy thí nghiệm
+chầm chậm bên phải, thiết định điện áp xuất ra là 1kV.
+(8) Ở đồng hồ biểu thị máy hiệu chỉnh dòng điện, yêu cầu phán định
+sai số (%) với các giới hạn trên đã thiết định ở (3)..
+(9) Ấn nút STOP ⑦ sẽ ngắt điện áp xuất ra.
+(10) Ấn phím SET, xoay nút ROTARY ⑪ về bên trái giá trị nhỏ nhất.
+
+Biểu 3
+Trị giới hạn trên
+Phán định độ chính xác
+Trên 1.00 mA
+±(1.5%×trị giới hạn trên)
+Chưa được 1.00mA
+±(1.5%×trị giới hạn trên＋0.03mA)
+
+Hình 2
+
+Dựa theo phán
+định độ chính
+xác của biểu 3
+
+Máy thí nghiệm điện trở cách điện/ điện áp
+chịu đựng
+HIGH
+LOW
+Máy hiệu chỉnh dòng điện
+
+--- HẾT TRANG ---
+
+No. 4/10
+
+I. 【Hiệu chỉnh】
+
+Dụng cụ đo đạc: 038-4c
+
+Hạng mục
+hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+3. Thí nghiệm
+ngắt dòng
+điện bằng
+điện trở phụ
+tải
+
+(1) Xác nhận đồng hồ điện áp ANALOG ① của máy thí nghiệm phải
+có biểu thị zero.
+(2) Kết nối điện trở phụ tải dùng UL1270 (trị lớn nhất 2148kΩ). Hoặc
+kết nối máy biến trở 6 dial. (Hình vẽ 3,4)
+(3) Kết nối đồng hồ điện áp cao ở chấu điện điện của máy biến trở 6
+dial hoặc điện trở phụ tải dùng UL1270. (Hình vẽ 3,5)
+(4) Thiết định giới hạn trên của trị dòng điện ngắt của máy thí
+nghiệm, giới hạn dưới ở nút OFF.
+Giới hạn trên có 3 điểm 0.5mA，1mA，2mA.
+(5) Ấn phím SET, xoay nút ROTARY ⑪ của máy thí nghiệm chầm
+chậm bên phải, thiết định điện áp xuất lực ở 600V.
+(6) Ấn phím START ⑥.
+(7) Thiết định điện trở chịu tải dùng UL1270 và máy thí nghiệm, xác
+nhận phải được ngắt nguồn điện (tiếng còi) ở biểu 4.
+(8) Ấn nút STOP ⑦ sẽ ngắt điện áp xuất ra.
+(9) Ấn phím SET, xoay nút ROTARY ⑪ về bên trái giá trị nhỏ nhất.
+Biểu 4
+Điện áp xuất lực
+Ngắt dòng điện
+0.5mA
+1mA
+2mA
+600V
+AC:±10% / DC:± 3%
+1137 kΩ
+489 kΩ
+279 kΩ
+
+Hình 3
+
+Phải phát tiếng
+còi
+
+Máy thí nghiệm điện trở cách
+điện/ điện áp chịu đựng
+
+HIGH
+LOW
+
+Điện trở chịu tải dùng UL 1270
+Máy đo điện áp cao
+
+--- HẾT TRANG ---
+
+No. 5/10
+
+I. 【Hiệu chỉnh】
+Dụng cụ đo đạc: 038-4c
+
+Hạng
+mục
+hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phươn
+g pháp
+phán
+định
+
+【Chứ
+c năng
+đồng
+hồ điện
+trở
+cách
+điện】
+
+1. Đo
+đạc
+điện trở
+
+Mã số khuôn đối tượng hiệu chỉnh: TOS5302 (tham khảo biểu 1)
+
+(1) Xác nhận đồng hồ điện áp ANALOG ① của máy thí nghiệm phải có biểu thị
+zero.
+(2) Kết nối máy biến trở 6 dial ở chấu điện của máy thí nghiệm.(Hình vẽ 4)
+(3) Ấn phím FUNCTION ⑩ sẽ tuyển chọn IR. → IR: thí nghiệm điện trở cách điện.
+(4) Ấn phím SET ⑬, xoay nút ROTARY ⑪ của máy thí nghiệm và thiết định điện
+áp xuất ra.
+→ Theo biểu 5 (25V，50V，100V，125V，250V，500V，1000V)
+(5) Thiết định trị điện trở của máy biến trở 6 dial
+→ Theo biểu 5 (20MΩ，50MΩ，100MΩ)
+(6) Ấn phím START ⑥
+(7) Yêu cầu phán định sai số với trị đo đạc điện trở của đồng hồ điện trở cách điện
+đối với các trị thiết định (5) ghi trên.
+(8) Ấn nút STOP ⑦ sẽ ngắt điện áp xuất ra.
+(9) Ấn phím SET, xoay nút ROTARY ⑪ về bên trái giá trị nhỏ nhất.
+
+Dựa
+theo độ
+chính
+xác của
+biểu 5
+
+Hình 4
+Máy thí nghiệm điện áp
+chịu đựng/điện trở cách
+điện
+Máy biến trở 6 dial
+
+--- HẾT TRANG ---
+
+No. 6/10
+No.6/10
+
+I. Hiệu chỉnh                                   Dụng cụ đo đạc 038-4 c
+
+Hạng
+mục
+hiệu
+chỉnh
+Phương pháp hi ệu chỉnh
+Phương pháp
+phán đ ịnh
+2.Điện
+áp xuất
+ra
+
+(1) Xác nhận đồng hồ điện áp ANALOG ① của máy thí nghiệm phải có biểu
+thị zero.
+(2) Ấn phím FUNCTION ⑩ sẽ tuyển chọn IR
+(3) Kết nối đồng hồ vạn năng kĩ thuật số vào chấu điện của máy thí nghiệm.
+(4) Ấn phím SET ⑬, xoay nút ROTARY ⑪ của máy thí nghiệm và thiết định
+điện áp xuất ra.
+Điện áp thiết định: 25V，50V，100V，125V，250V，500V，1000V
+(5) Ấn phím START ⑥
+(6)Tính toán sự chênh lệch giữa giá trị đo điện áp và giá trị đo của đồng hồ
+vạn năng kỹ thuật số đối với các trị thiết định (4) ghi trên, sau đó phán định sai
+số điện áp đầu ra.
+(7) Tính toán sự chênh lệch giữa giá trị chuẩn của đồng hồ vạn năng
+kỹ thuật số và giá trị hiển thị điện áp của dụng cụ thử nghiệm, sau đó
+phán định sai số giá trị hiển thị.
+(8) Ấn nút STOP ⑦ sẽ ngắt điện áp xuất ra.
+(9) Thay đổi điện áp đ ầu ra, lặp lại từ (4) ～(8).
+(10) Tháo đồng hồ vạn năng kĩ thuật số ra khỏi chấu điện của máy thí nghiệm
+và kết nối đồng hồ điện áp cao với máy biến trở 6 dial. (Hình 5)
+(11) Ấn phím SET, xoay nút ROTARY ⑪ thiết định điện áp xuất ra.
+→ 500,1000[V] của biểu 5
+(12) Thiết định giá trị điện trở của máy biến trở 6dial.
+→ 20,50,100[MΩ]của biểu 5
+(13) Ấn nút START⑥
+(14) Tính toán sự chênh lệch giữa giá trị đo điện áp của đồng hồ điện
+áp cao đối với các trị thiết định (11) ghi trên, sau đó phán định sai số
+điện áp đ ầu ra.
+(15)Tính toán sự chênh lệch giữa giá trị chuẩn của đồng hồ đo điện áp cao và
+giá trị hiển thị điện áp của máy thử nghiệm, sau đó phán định sai số hiển thị
+(16) Ấn nút STOP ⑦ sẽ ngắt điện áp xuất ra.
+(17) Tiến hành lặp lại từ (11)～(16).
+(18) Ấn phím SET, xoay nút ROTARY thiết định điện áp xuất ra ở giá trị nhỏ
+nhất.
+
+Giá trị thiết
+lập
+-0～+5%
+Giá trị máy
+chuẩn ±(1％
++1V)
+
+Giá trị thiết
+lập
+-0～+5%
+Giá trị máy
+chuẩn ±(1％
++1V)
+
+Hình 5
+
+HIGH
+LOW
+Máy biến trở 6 dial
+Máy thí nghiệm điện trở cách
+điện/ điện áp chịu đựng
+Máy đo điện áp cao
+
+--- HẾT TRANG ---
+
+No. 7/10
+
+I. 【Hiệu chỉnh】
+
+Dụng cụ đo đạc: 038-4c
+
+Biểu 5
+
+Điện áp xuất ra
+Đo đạc điện trở
+Phạm vi đo đạc
+Trị thiết định của dụng cụ
+thay đổi biến trở 6 dial
+Độ chính xác
+25V
+0.03MΩ≦R≦25MΩ
+20MΩ
+±(2% of reading + 2digit)
+25 MΩ<R≦125MΩ
+50MΩ/100MΩ
+±5% of reading
+125 MΩ<R≦250MΩ
+-
+±10% of reading
+50V
+0.05MΩ≦R≦ 50MΩ
+20MΩ/50MΩ
+±(2% of reading + 2digit)
+50 MΩ<R≦250MΩ
+100MΩ
+±5% of reading
+250 MΩ<R≦500MΩ
+-
+±10% of reading
+100V
+0.100MΩ≦R≦100MΩ
+20MΩ/50MΩ/100MΩ
+±2% of reading
+100MΩ<R≦500MΩ
+-
+±5% of reading
+500 MΩ<R≦1GΩ
+-
+±10% of reading
+125V
+0.125MΩ≦R≦125MΩ
+20MΩ/50MΩ/100MΩ
+±2% of reading
+125 MΩ<R≦625MΩ
+-
+±5% of reading
+625 MΩ<R≦1.25GΩ
+-
+±10% of reading
+250V
+0.250MΩ≦R≦250MΩ
+20MΩ/50MΩ/100MΩ
+±2% of reading
+250 MΩ<R≦1.25GΩ
+-
+±5% of reading
+125 GΩ<R≦2.5GΩ
+-
+±10% of reading
+500V
+0.50MΩ≦R≦500MΩ
+20MΩ/50MΩ/100MΩ
+±2% of reading
+500 MΩ<R≦2.5GΩ
+-
+±5% of reading
+2.5 GΩ<R≦5GΩ
+-
+±10% of reading
+1000V
+1 MΩ≦R<1GΩ
+20MΩ/50MΩ/100MΩ
+±2% of reading
+1GΩ≦R≦5GΩ
+-
+±5% of reading
+
+Trích dẫn văn bản liên quan
+Quy cách phán định: Trích dẫn bản thuyết minh sử dụng
+
+--- HẾT TRANG ---
+
+No. 8/10
+
+I. 【Hiệu chỉnh】
+
+Dụng cụ đo đạc: 038-4c
+
+[Tên các bộ phận và ngoại quan]
+
+1. Đồng hồ điện áp ANALOG
+2. Đèn DANGER
+3. Biểu thị tình trạng
+4. DISPLAY
+5. Phím MEMORY
+6. Công tắc START
+7. Công tắc STOP
+8. Chấu điện HIGH VOLTAGE
+9. Chấu điện LOW VOLTAGE
+10. Phím FUNCTION
+11. Nút ROTARY
+12. Lỗ ốc vít
+13. Phím SET
+14. Phím UPR/ LWR
+15. Cổng nối REMOTE
+16. Phím TEST
+17. Cổng nối USB
+18. Phím LOCAL
+19. Phím MORE
+20. Công tắc POWER
+21. Vỏ bọc dùng bảo vệ
+
+Hình ảnh chính diện
+Máy
+điều
+chỉnh
+zero
+Phần
+thao tác
+điều
+kiện thí
+nghiệm
+
+--- HẾT TRANG ---
+
+No. 9/10
+
+II. 【Điểm kiểm】  Máy thí nghiệm điện trở cách điện
+(Series KIKUSUI TOS5300)
+
+Dụng cụ đo đạc: 038-4c
+
+Tiến độ điểm kiểm: mỗi lần sử dụng, mỗi một tháng
+
+Hạng mục
+điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1. Ngoại quan
+
+【Chức năng
+đồng hồ đo
+điện áp chịu
+đựng】
+
+2. Điều chỉnh
+0
+
+3. Phán định
+NG
+
+【Chức năng
+đồng hồ điện
+trở cách điện】
+
+4.Thiết bị
+cảnh báo
+
+Trên bề mặt biểu thị panel, dây kiểm tra điện áp cao và găng tay cao
+su dùng cách điện không có vết trầy, rách, bẩn… gây ảnh hưởng
+không thích hợp đo đạc.
+
+TOS5300，TOS5301，TOS5302
+
+Khi tắt nguồn điện, kim của đồng hồ điện áp ANALOG phải biểu thị
+zero.
+
+Làm đoản mạch chấu điện xuất ra, phải thao tác ngắt mạch điện và
+thiết bị phán định (tiếng còi).
+
+Chỉ TOS5302
+
+Làm đoản mạch chấu điện xuất ra, phải thao tác thiết bị cảnh báo.
+
+Thu ngắn khoảng cách chấu điện xuất ra để thiết bị cảnh báo hoạt
+động.
+
+Chú ý:
+1. Ký lục kết quả kiểm tra mỗi tháng một lần, dù có/không có dị thường.
+2. Nếu khi kiểm tra (hoặc khi sử dụng) có dị thường, hãy ký lục kết quả đó l ại.
+Xử lý theo chỉ thị của người chịu tách nhiệm phòng ban sở hữu.
+Phát hành đơn yêu c ầu tái hiệu chỉnh dụng cụ đo tại phòng ban thực thi hiệu chỉnh khi cần thiết.
+
+--- HẾT TRANG ---
+
+No. 10/10
+
+Dụng cụ đo đạc: 038-4
+
+Bản tiêu chuẩn hiệu chỉnh - điểm kiểm
+Biểu lai lịch ban hành, cải đính và hủy bỏ
+
+Dấu hiệu
+Ngày tháng năm
+Nội dung (Bao gồm những
+nội dung sửa đổi)
+Soạn thảo
+Xác nhận
+Công nhận
+
+12.10.2012
+Đã xác
+nhận toàn
+bộ nội dung
+Ban hành mới
+
+a
+2020.11.30
+・Thí nghiệmngắt chức năng
+đồng hồ đo điện áp chịu
+đựng bằng biến trở phụ
+tải.
+Thay đổi tên hạng mục
+Bổ sung máy biến trở 6
+dial vào dụng cụ sử dụng.
+・Chức năng điện trở cách
+điện Thay đổi 2. Trị phán
+định, pham vi đo đạc,
+phương pháp h i ệu chỉnh
+điện áp xuất ra.
+・2.Ngắt dòng đi ện bằng
+dụng cụ hiệu chỉnh điện lưu
+Thay đổi tên hạng mục
+Thay đổi giá trị ngắt dòng
+điện
+・Thay đổi mã số cải đính
+Ⅰ【Hệu chỉnh】
+038-4_→038-4a ※
+Ⅱ【Điểm kiểm】038-4_
+（Không thay đổi）
+
+b
+2023.9.5
+・Bổ sung đồng hồ đo vạn
+năng [S13-1] vào cột máy
+tiêu chuẩn.
+・Ⅱ【Điểm kiểm】
+Cải đính t ần suất keiẻm
+điểm「Mỗi lần sử dụng, mỗi
+tháng」
+Cải đính toàn ph
+ần hạng
+mục chú ý
+
+c
+
+2024.12.4
+
+・Ⅰ[Hiệu chỉnh] Chức năng
+điện trở cách điện 2. Bổ
+sung quy trình hiệu chỉnh giá
+trị hiển thị điện áp đ ầu ra và
+quy cách phán định
+・Thay đổi mã số cải đính
+Ⅰ【Hiệu chỉnh】
+038-4b→038-4c ※Ⅱ【Điểm
+kiểm】038-4b（Không thay
+đổi）
+
+山
+元
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "038-4-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tiêu chuẩn kỹ thuật kiểm tra (038-4)",
+  "doc_code": "038-4",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

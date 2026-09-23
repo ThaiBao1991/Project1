@@ -1,0 +1,50 @@
+{
+  "file_name": "543-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Máy thử nghiệm đo lực ép nén",
+  "doc_code": "543-1 l",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra hoặc sử dụng nếu phát hiện có bất thường, nhân viên phụ trách cần thực hiện quy trình xử lý nào dưới đây là đúng?",
+      "options": {
+        "A": "Tự ý tháo dỡ máy để sửa chữa bộ phận cơ khí bên trong.",
+        "B": "Tiếp tục sử dụng nếu sai số nhỏ hơn giới hạn cho phép ±1%.",
+        "C": "Ghi chép lại kết quả, xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu và làm đơn đề nghị hiệu chỉnh lại nếu cần thiết.",
+        "D": "Báo cáo trực tiếp lên Tổng Giám đốc công ty để dừng toàn bộ chuyền sản xuất."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3, Phần II 【Điểm kiểm】 - Chú ý: '2.Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện hiệu chỉnh'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi tiến hành xác nhận zero của đồng hồ tải trọng, tại sao tài liệu lưu ý phải để trong khoảng 1 phút rồi mới xác nhận ngay sau khi loại bỏ tải trọng?",
+      "options": {
+        "A": "Do máy chuẩn bị sập nguồn điện chính.",
+        "B": "Do có kẹp ngăn tải, ngay sau khi loại bỏ tải trọng có trường hợp vẫn còn 1 con số.",
+        "C": "Để chờ nhiệt độ môi trường đạt đúng chuẩn 25 độ C.",
+        "D": "Để hệ thống tự động bôi dầu nâng trục hoàn tất."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, Phần II【Điểm kiểm】mục 3 - [Chú ý]: 'Do có kẹp ngăn tải, ngay sau khi loại bỏ tải trọng thì có trường hợp vẫn còn 1 con số, do đó phải để trong khoảng 1 phút rồi mới xác nhận.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ thực hiện điểm kiểm định kỳ đối với máy thử nghiệm đo lực ép nén được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và trước khi sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "3 tháng 1 lần hoặc khi cần thiết",
+        "D": "6 tháng 1 lần hoặc khi cần thiết"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, Phần II 【Điểm kiểm】: 'Tiến độ điểm kiểm Mỗi tháng 1 lần và mối lần sử dụng'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

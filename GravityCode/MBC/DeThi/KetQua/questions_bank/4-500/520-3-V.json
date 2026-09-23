@@ -1,0 +1,50 @@
+{
+  "file_name": "520-3-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh và điểm kiểm thiết bị đo đạc - Thước kẹp điện tử",
+  "doc_code": "520-3e",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong mục điểm kiểm ngoại quan và hoạt động, nếu phát hiện có bất thường trong quá trình sử dụng, kỹ lục lại kết quả điểm kiểm thì nhân viên thao tác cần xử lý như thế nào?",
+      "options": {
+        "A": "Bỏ qua nếu không ảnh hưởng lớn đến kích thước đo",
+        "B": "Tự ý điều chỉnh lại vít của thước kẹp",
+        "C": "Xử lý theo chỉ thị của người có trách nhiệm quản lý",
+        "D": "Tiếp tục sử dụng nhưng ghi chú vào sổ theo dõi"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: Ghi chú 1 - Kết quả điểm kiểm, trường hợp có bất thường, kỷ lục lại kết quả điểm kiểm, xử lý theo chỉ thị của người có trách nhiệm quản lý."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi kiểm tra độ chính xác lặp lại và điều chỉnh 0 của thước kẹp điện tử, dung sai cho phép là bao nhiêu?",
+      "options": {
+        "A": "±0.01 mm",
+        "B": "±0.03 mm",
+        "C": "±0.05 mm",
+        "D": "±0.07 mm"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2: 2. Độ chính xác lặp lại và điều chỉnh 0 - Phương pháp điểm kiểm: ±0.01mm"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh thiết bị đo, chu kỳ hiệu chỉnh cho Thước kẹp điện tử (Mitutoyo No. 500-501-50 và 551-204-50) là bao lâu?",
+      "options": {
+        "A": "12 tháng và khi cần thiết",
+        "B": "24 tháng và khi cần thiết",
+        "C": "6 tháng và khi cần thiết",
+        "D": "36 tháng và khi cần thiết"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Chu kỳ hiệu chỉnh: 24 tháng và khi cần thiết"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

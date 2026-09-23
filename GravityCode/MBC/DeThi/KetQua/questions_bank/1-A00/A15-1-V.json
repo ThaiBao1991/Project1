@@ -1,0 +1,59 @@
+{
+  "file_name": "A15-1-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh, Điểm kiểm dụng cụ đo",
+  "doc_code": "A15-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, chu kì thiết định điểm kiểm dụng cụ đo thường được quy định như thế nào trừ các trường hợp đặc biệt?",
+      "options": {
+        "A": "Mỗi tuần một lần và mỗi tháng một lần",
+        "B": "Mỗi lần sử dụng và mỗi 1 tháng",
+        "C": "Chỉ thực hiện mỗi 3 tháng một lần",
+        "D": "Trước và sau mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2 - Hạng mục 5. Tiêu chuẩn thiết định chu kì điểm kiểm: Chu kì điểm kiểm là “mỗi lần sử dụng và mỗi 1 tháng” trừ các trường hợp đặc biệt."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Trong các trường hợp sau đây, trường hợp nào VẪN PHẢI thực hiện hiệu chỉnh mặc dù vẫn đang trong thời hạn hiệu lực?",
+      "options": {
+        "A": "Khi thay đổi vị trí lắp đặt của thiết bị đi kèm với mức nước (ví dụ: cân điện tử, kính hiển vi dụng cụ)",
+        "B": "Khi thay đổi người vận hành máy đo trong phân xưởng",
+        "C": "Khi số lượng sản phẩm đo vượt quá định mức trong ngày",
+        "D": "Khi nhiệt độ phòng đo thay đổi nhẹ trong ngưỡng cho phép"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2 - Hạng mục 4. Trường hợp cần thực hiện ngoài chu kì hiệu chỉnh: (1) Trường hợp thay đổi vị trí lắp đặt của thiết bị đi kèm với mức nước (ví dụ: cân điện tử, kính hiển vi dụng cụ)"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Ai là người duy nhất có thẩm quyền thao tác thay đổi chu kì hiệu chỉnh trên quản lí master (QAS MASTER) của sổ quản lí máy đo đạc (ACM)?",
+      "options": {
+        "A": "Trưởng bộ phận sử dụng thiết bị đo",
+        "B": "Nhân viên phụ trách bảo dưỡng tại cứ điểm",
+        "C": "MMK",
+        "D": "Nhân viên quản lý chất lượng (QA)"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1 - Hạng mục 3. Thay đổi chu kì hiệu chỉnh: 【MMK】 Thay đổi chu kì hiệu chỉnh từ quản lí master (QAS MASTER) của sổ quản lí máy đo đạc... ※Chỉ có MMK có thẩm quyền thao tác QAS MASTER."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140530.1052835,
+  "generated_at_iso": "2026-09-23T12:15:30",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 368411,
+    "modified_time": 1738814229.022938,
+    "modified_time_iso": "2025-02-06T10:57:09",
+    "file_hash_short": "0890675d"
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "file_name": "A12-2-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "PHẠM VI ÁP DỤNG ĐO ĐẠC/THÍ NGHIỆM/HIỆU CHỈNH DỤNG CỤ ĐO ĐẠC",
+  "doc_code": "A12-2 e",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo quy định về việc soạn thảo Laboratory Scopes, máy móc nào dưới đây KHÔNG ĐƯỢC PHÉP ghi chép vào danh sách yết thị tại phòng thí nghiệm?",
+      "options": {
+        "A": "Tất cả các máy móc đo đạc đang sử dụng và có yêu cầu hiệu chỉnh",
+        "B": "Các thiết bị tiêu chuẩn (S No.) đang được sử dụng trong phòng thí nghiệm",
+        "C": "Những máy móc ngoài đối tượng hiệu chỉnh hoặc không đang sử dụng (máy móc nhàn rỗi)",
+        "D": "Các thiết bị đo đạc chuyên dùng cho kiểm tra độ chính xác cao"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Mục 1: Những máy móc ngoài đối tượng hiệu chỉnh hoặc không đang sử dụng (máy móc nhàn rỗi) thì không được ghi chép vào."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi soạn thảo danh sách máy móc đo đạc trong Laboratory Scopes, đối với mục «Mã số», quy định cụ thể lấy từ đâu?",
+      "options": {
+        "A": "Lấy toàn bộ dãy số quản lý gồm 10 chữ số của thiết bị",
+        "B": "Lấy mã số quản lý máy móc của 4 kí tự sau cùng trong mã số quản lý máy móc đo đạc",
+        "C": "Lấy số serial do nhà sản xuất (Nơi chế tạo) cung cấp",
+        "D": "Lấy mã số theo thứ tự từ 0001 đến hết cho từng phòng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Mục 2, Nội dung ghi chép ③: 『Mã số』 thì phải lấy mã số quản lý máy móc của 4 kí tự sau cùng trong mã số quản lý máy móc đo đạc."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn A12-2 e, tần suất cập nhật nội dung yết thị Laboratory Scopes được quy định như thế nào?",
+      "options": {
+        "A": "Cập nhật mỗi năm 1 lần (tần suất cập nhật không được vượt quá 12 tháng)",
+        "B": "Cập nhật 6 tháng một lần theo định kỳ bảo dưỡng thiết bị",
+        "C": "Chỉ cập nhật khi có sự thay đổi về chủng loại máy móc đo đạc",
+        "D": "Cập nhật 2 năm một lần theo chu kỳ đánh giá IATF 16949"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, Mục 3: ※Nội dung yết thị phải cập nhật mỗi năm 1 lần. Tần suất cập nhật không được vượt quá 12 tháng."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140489.5851254,
+  "generated_at_iso": "2026-09-23T12:14:49",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 341893,
+    "modified_time": 1726460405.3725781,
+    "modified_time_iso": "2024-09-16T11:20:05",
+    "file_hash_short": "733fe0ef"
+  }
+}

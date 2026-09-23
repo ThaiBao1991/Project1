@@ -1,0 +1,50 @@
+{
+  "file_name": "556-3-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "DỤNG CỤ MICROMETER ĐO PHÍA TRONG DẠNG TRỤ (MITUTOYO: seri 133)",
+  "doc_code": "556-3",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo quy cách phán định độ chính xác tổng hợp của Micrometer seri 133, sai số cho phép đối với độ dài đo lớn nhất L = 100mm là bao nhiêu?",
+      "options": {
+        "A": "±3µm",
+        "B": "±5µm",
+        "C": "±4µm",
+        "D": "±(2+L/75)µm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Căn cứ bảng quy cách phán định tại trang 2: L=100mm → ±4µm."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi tiến hành kiểm tra ngoại quan cho dụng cụ Micrometer đo phía trong dạng trụ, những yếu tố nào cần được xác nhận bằng mắt?",
+      "options": {
+        "A": "Chỉ cần kiểm tra xem dụng cụ có bị rỉ sét hay không.",
+        "B": "Xác nhận xem dụng cụ có bị cong, khuyết, trầy, và bẩn hay không.",
+        "C": "Kiểm tra xem hộp đựng dụng cụ có còn nguyên vẹn không.",
+        "D": "Xác nhận xem mã số seri trên thân máy có khớp với hồ sơ không."
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ mục II.1 (Ngoại quan): Xác nhận bằng mắt xem có bị cong, khuyết, trầy, và bẩn hay không."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Trong quá trình sử dụng hoặc kiểm tra, nếu phát hiện kết quả bất thường hoặc nhận ra sự bất thường của dụng cụ, nhân viên phải làm gì?",
+      "options": {
+        "A": "Tự ý điều chỉnh lại điểm 0 của ống lót rồi tiếp tục đo.",
+        "B": "Ghi chép kết quả kiểm tra và xử lý theo chỉ thị của người quản lý có trách nhiệm.",
+        "C": "Vẫn tiếp tục sử dụng nếu sự sai lệch nằm trong khoảng cảm nhận được.",
+        "D": "Chuyển dụng cụ sang công đoạn khác ít quan trọng hơn để sử dụng."
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ mục II. Chú ý 1 và 3: Trường hợp bất thường... xử lý dựa vào chỉ thị của người quản lý có trách nhiệm."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

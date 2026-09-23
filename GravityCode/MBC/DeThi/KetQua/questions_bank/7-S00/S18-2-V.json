@@ -1,0 +1,50 @@
+{
+  "file_name": "S18-2-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn đo độ cứng (Dùng thí nghiệm độ cứng Lockwell)",
+  "doc_code": "S18-2 c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi tiến hành hiệu chỉnh dụng cụ đo độ cứng theo tài liệu, hạng mục nào sau đây được quy định là KHÔNG cần thiết phải thực hiện?",
+      "options": {
+        "A": "Giới hạn tin cậy trị TB",
+        "B": "Hạng mục tính đồng nhất",
+        "C": "Đo độ cứng phạm vi HRA",
+        "D": "Kiểm tra nhiệt độ xung quanh"
+      },
+      "correct_answer": "B",
+      "reference_note": "Hang mục lưu ý: (3) Khi hiệu chỉnh, không cần hạng mục tính đồng nhất."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Đối với bản tiêu chuẩn đo độ cứng (thí nghiệm độ cứng Lockwell), kỳ hạn hữu hiệu và cách xử lý cơ bản đối với dụng cụ khi không tính đến lý do số lần sử dụng ít là gì?",
+      "options": {
+        "A": "Kỳ hạn hữu hiệu 3 năm, xử lý như thiết bị đo lường thông thường",
+        "B": "Kỳ hạn hữu hiệu 5 năm, cơ bản sẽ xử lý như đối với hàng tiêu hao",
+        "C": "Không có kỳ hạn hữu hiệu, sử dụng đến khi hỏng",
+        "D": "Kỳ hạn hữu hiệu 1 năm, bắt buộc phải hủy bỏ ngay"
+      },
+      "correct_answer": "B",
+      "reference_note": "Hang mục lưu ý: (1) Ngoai trừ lý do so lần sử dụng ít v.v, cơ bản sẽ xử lý như đối với hàng tiêu hao. (Kỳ hạn hữu hiệu: 5 năm)"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh dụng cụ đo độ cứng Lockwell, chu kỳ hiệu chỉnh định kỳ cho dụng cụ tiêu chuẩn này là bao lâu?",
+      "options": {
+        "A": "1 năm",
+        "B": "3 năm",
+        "C": "5 năm",
+        "D": "10 năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Mục [Hiệu chỉnh]: Chu kỳ hiệu chỉnh 5 năm"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

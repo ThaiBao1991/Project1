@@ -1,0 +1,50 @@
+{
+  "file_name": "Z02-15-V.pdf",
+  "folder_name": "9-Z00 Ban V IT HOA",
+  "doc_title": "Tiêu chuẩn phán định máy kiểm tra hiện sóng",
+  "doc_code": "Z02-15 a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Đối với thể thức CQ5030-V và CQ5640-V, thông số Tín hiệu CAL (Phương pháp phán định hạng mục kiểm tra 2) yêu cầu giá trị tham khảo là gì?",
+      "options": {
+        "A": "0.1Vp-p (trị tham khảo) 1kHz Sóng sin",
+        "B": "0.5Vp-p (trị tham khảo) 1kHz Sóng hình vuông",
+        "C": "1.0Vp-p (trị tham khảo) 50Hz Sóng hình vuông",
+        "D": "0.5Vp-p (trị tham khảo) 10kHz Sóng sin"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, cột Tín hiệu CAL: 0.5Vp-p(trị tham khảo）1kHz Sóng hình vuông"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Phán định máy kiểm tra hình sóng dựa trên việc hiệu chỉnh những mục nào sau đây?",
+      "options": {
+        "A": "VOLTS/DIV, TIME/DIV, và tín hiệu xuất ra (tín hiệu CAL)",
+        "B": "VOLTS/DIV, FREQUENCY/DIV và dòng điện tiêu thụ",
+        "C": "TIME/DIV, DC/AC gain và điện áp nguồn",
+        "D": "VOLTS/DIV, tần số lấy mẫu và điện trở tiếp xúc"
+      },
+      "correct_answer": "A",
+      "reference_note": "Nội dung (1): Phán định máy kiểm tra hình sóng bằng việc hiệu chỉnh VOLTS/DIV，TIME/DIV，tín hiệu xuất ra（tín hiệu CAL）"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo Bểu 1 trong tiêu chuẩn phán định cho phép, trường hợp máy xem hình sóng dạng analog không có trị thực đo (điện áp, tần số…) với trị phán định nằm trong khoảng từ ±1% đến 4% thì áp dụng trị phán định cho phép là bao nhiêu?",
+      "options": {
+        "A": "±1%",
+        "B": "±3%",
+        "C": "±5%",
+        "D": "±10%"
+      },
+      "correct_answer": "C",
+      "reference_note": "Biểu 1: Trị phán định ±1%～4% -> Trị phán định cho phép ±5%"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

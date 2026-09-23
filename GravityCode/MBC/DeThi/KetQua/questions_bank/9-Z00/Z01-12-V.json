@@ -1,0 +1,50 @@
+{
+  "file_name": "Z01-12-V.pdf",
+  "folder_name": "9-Z00 Ban V IT HOA",
+  "doc_title": "Quy cách phán định máy đo đa năng Digital Sanwa",
+  "doc_code": "Z01-12 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, dấu * có ý nghĩa là gì trong quá trình kiểm tra hiệu chỉnh?",
+      "options": {
+        "A": "Dấu biểu thị cần phải hiệu chỉnh bắt buộc trong mọi trường hợp.",
+        "B": "Dấu biểu thị không cần hiệu chỉnh trong trường hợp không sử dụng thực tế.",
+        "C": "Dấu biểu thị thiết bị đo đã bị hỏng và cần đem đi sửa chữa.",
+        "D": "Dấu biểu thị thông số kỹ thuật vượt quá giới hạn cho phép."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: (1) Dấu * là dấu biểu thị không cần hiệu chỉnh trong trường hợp không sử dụng thực tế."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi cần thêm qui cách phán định do có chủng loại mới, nhân viên phụ trách cần thực hiện theo quy định nào?",
+      "options": {
+        "A": "Tự ý chỉnh sửa trên máy đo mà không cần báo cáo.",
+        "B": "Báo cáo theo dụng cụ đo No. A18 - 1 yêu cầu chỉnh sửa, ban hành qui cách mới lên phòng BHCL của công ty.",
+        "C": "Chỉ cần thông báo miệng cho tổ trưởng sản xuất.",
+        "D": "Ngừng sử dụng tất cả các máy đo đa năng trong nhà xưởng."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: (2) Thêm qui cách phán định do thêm chủng loại thì theo dụng cụ đo No. A18 - 1 yêu cầu chỉnh sửa ,ban hành qui cách mới của bảng tiêu chuẩn lên phòng BHCL của cty."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Quy cách phán định đối với Điện áp DC của dòng máy CD-700C/710C/720C ở dải đo 0.2V là bao nhiêu?",
+      "options": {
+        "A": "0.2V, độ chính xác ±(0.5% of reading + 1 digits)",
+        "B": "0.2V, độ chính xác ±(0.8% of reading + 1 digits)",
+        "C": "320.0mV, độ chính xác ±(0.8% of reading + 2 digits)",
+        "D": "2V, độ chính xác ±(1.0% of reading + 2 digits)"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2: Bảng thông số Điện áp DC cho khuôn mẫu CD-700C/710C/720C ở Range 0.2V là 0.5% +1"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

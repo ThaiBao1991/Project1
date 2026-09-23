@@ -1,0 +1,50 @@
+{
+  "file_name": "080-8-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - PICK UP GIA TỐC ĐỘ DÙNG ĐỂ ĐO RION",
+  "doc_code": "080-8b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục II [Điểm kiểm] và phần chú ý của tài liệu, khi phát hiện có bất thường trong quá trình điểm kiểm hoặc khi sử dụng, nhân viên thực hiện cần phải xử lý theo quy định nào sau đây?",
+      "options": {
+        "A": "Tự ý tháo sensor ra để chỉnh lại ốc kết nối rồi tiếp tục sử dụng",
+        "B": "Bỏ qua nếu không ảnh hưởng lớn đến kết quả đo đạc sản phẩm",
+        "C": "Ghi chép lại kết quả bất thường, xử lý theo chỉ thị của người chịu trách nhiệm bộ phận chủ quản và thực hiện yêu cầu tái hiệu chỉnh nếu cần thiết",
+        "D": "Chờ đến kỳ hạn 36 tháng sau mới gửi đi hiệu chỉnh lại"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, Chú ý số 2"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Thông số kỹ thuật chi tiết về đặc tính tần số đối với mã số khuôn PV-90B trong bảng hiệu chỉnh là bao nhiêu?",
+      "options": {
+        "A": "1Hz ~ 25kHz ±1dB",
+        "B": "10Hz ~ 10kHz ±0.5dB",
+        "C": "1Hz ~ 10kHz ±2dB",
+        "D": "5Hz ~ 20kHz ±1dB"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, Mục I [Hiệu chỉnh] - Đặc tính tần số: 1Hz～25kHz±1dB"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo mục II [Điểm kiểm] của tài liệu, tiến độ điểm kiểm đối với dụng cụ trắc định Pick up gia tốc độ RION được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và mỗi lần sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "Mỗi 3 tháng 1 lần và trước khi đo",
+        "D": "Chỉ kiểm tra khi phát hiện có bất thường"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Mục II [Điểm kiểm] - Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

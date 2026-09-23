@@ -1,0 +1,59 @@
+{
+  "file_name": "A02-1-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "HỆ THỐNG TRUY NGUYÊN DỤNG CỤ TIÊU CHUẨN",
+  "doc_code": "A02-1q",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục 4 của tiêu chuẩn, đối với hiệu chỉnh bên ngoài, theo nguyên tắc phải đáp ứng đầy đủ mấy điều kiện dưới đây?",
+      "options": {
+        "A": "Đáp ứng đầy đủ 2 điều kiện (Bản thành tích kiểm tra, Giấy chứng nhận hiệu chỉnh).",
+        "B": "Đáp ứng đầy đủ 3 điều kiện (Bản thành tích kiểm tra, Giấy chứng nhận hiệu chuẩn, Lưu đồ hệ thống truy nguyên).",
+        "C": "Đáp ứng đầy đủ 4 điều kiện bao gồm cả kỳ hạn lưu trữ tài liệu.",
+        "D": "Chỉ cần Giấy chứng nhận hiệu chỉnh có biểu tượng ilac-MRA."
+      },
+      "correct_answer": "B",
+      "reference_note": "Mục 4. Các tài liệu cần thiết (2) Đối với hiệu chỉnh bên ngoài: Theo nguyên tắc, phải đáp ứng đầy đủ ba điều kiện dưới đây: a. Bản thành tích kiểm tra, b. Giấy chứng nhận hiệu chỉnh, c. Lưu đồ hệ thống truy nguyên."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn dụng cụ đo đạc A02-1q, khi thực hiện hiệu chỉnh bên ngoài, theo nguyên tắc phải ưu tiên áp dụng hình thức nào?",
+      "options": {
+        "A": "Tổ chức hiệu chuẩn thông thường (d).",
+        "B": "Nhà chế tạo của thiết bị đối tượng (b).",
+        "C": "Tổ chức được chứng nhận bởi cơ quan công nhận chính thức của bên thứ ba công nhận là phòng thí nghiệm/hiệu chuẩn chứng nhận ISO/IEC 17025 theo ilac-MRA (a).",
+        "D": "Tổ chức được chứng nhận ISO/IEC 17025 không áp dụng theo ilac-MRA (c)."
+      },
+      "correct_answer": "C",
+      "reference_note": "Mục 3. Cơ quan hiệu chỉnh: ※ Đối với hiệu chỉnh bên ngoài, thì ưu tiên áp dụng theo (a)."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, kỳ hạn lưu trữ tài liệu đối với các tài liệu hiệu chỉnh được quy định dựa theo tài liệu nào?",
+      "options": {
+        "A": "Q-MAB-C033 [Tiêu chuẩn quản lý ký lục chất lượng]",
+        "B": "Tiêu chuẩn ISO/IEC 17025",
+        "C": "Tiêu chuẩn IATF 16949:2016",
+        "D": "Hướng dẫn hiệu chỉnh và điểm kiểm thiết bị đo A16-2"
+      },
+      "correct_answer": "A",
+      "reference_note": "Mục 4. Các tài liệu cần thiết (3) Kỳ hạn lưu trữ tài liệu: Dựa theo Q-MAB-C033 [Tiêu chuẩn quản lý ký lục chất lượng]"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140154.602048,
+  "generated_at_iso": "2026-09-23T12:09:14",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 283416,
+    "modified_time": 1769153367.7402096,
+    "modified_time_iso": "2026-01-23T14:29:27",
+    "file_hash_short": "5c20e7ae"
+  }
+}

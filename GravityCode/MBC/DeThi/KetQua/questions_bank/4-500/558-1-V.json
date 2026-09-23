@@ -1,0 +1,50 @@
+{
+  "file_name": "558-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Geji chuyên dùng đặc biệt",
+  "doc_code": "558-1 l",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, chu kỳ hiệu chỉnh đối với geji chuyên dùng đặc biệt được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tháng 1 lần",
+        "B": "12 tháng hoặc khi được cho là cần thiết",
+        "C": "24 tháng hoặc khi được cho là cần thiết (nếu cần thiết có thể được chứng nhận trong vòng 24 tháng)",
+        "D": "36 tháng hoặc định kỳ hàng năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: '24 tháng hoặc khi được cho là cần thiết. Chu kỳ hiệu chỉnh (Tuy nhiên, nếu cần thiết, nó có thể được chứng nhận trong vòng 24 tháng.)'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi tiến hành kiểm tra ngoại quan cho geji chuyên dùng đặc biệt theo mục II 【Điểm kiểm】, tiến độ điểm kiểm được thực hiện khi nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "6 tháng 1 lần",
+        "D": "Chỉ khi phát hiện sai hỏng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 10: 'Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng'"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý về xác nhận độ mòn trên cạnh sắc (Hình 15), phương pháp kiểm tra nào được yêu cầu và khi nào cần tiến hành thay thế?",
+      "options": {
+        "A": "Kiểm tra bằng mắt thường; nếu mòn nhẹ thì mài lại bằng đá mài dầu Arkansas",
+        "B": "Xác nhận bằng kính hiển vi có độ phóng đại khoảng 20 lần; trường hợp bị mài mòn nghiêm trọng thì tiến hành thay thế",
+        "C": "Đo trực tiếp bằng Micrometer; nếu lệch quá dung sai bản vẽ 10μm thì thay thế",
+        "D": "Sử dụng đồng hồ so kiểu đòn bẩy đo độ đảo; nếu vượt quá 0.002mm thì thay thế"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 8: '※ Chú ý: Xác nhận độ mòn trên cạnh sắc. Cạnh sắc có bị mòn đáng kể không? Xác nhận bằng kính hiển vi có độ phóng đại khoảng 20 lần. Trường hợp bị mài mòn nghiêm trọng thì tiến hành thay thế.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

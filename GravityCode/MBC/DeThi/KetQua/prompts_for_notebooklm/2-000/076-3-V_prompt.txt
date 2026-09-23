@@ -1,0 +1,231 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Bản tiêu chuẩn hiệu chỉnh-điểm kiểm - Máy phát tần số                                            Máy đo    076-3 c
+Mã số/Mã máy đo: 076-3 c
+File gốc: 076-3-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/3
+
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm
+
+Ban hành 22.06.2018
+Ngày cải đính 07/06/2023
+Máy phát tần số                                            Máy đo    076-3 c
+WF series của tập đoàn NF
+
+Ι【Hiệu chỉnh】
+
+Dụng cụ tiêu chuẩn          Dụng cụ tiêu chuẩn do nhà sản xuất chỉ định
+
+Chu kỳ hiệu chỉnh        Mỗi 24 tháng và khi thấy cần thiết
+
+Số khuôn
+Phương pháp hiệu chỉnh
+Phương
+pháp
+phán định
+
+WF1974
+WF1948
+WF1968
+WF1946B
+Ủy thác việc hiệu chỉnh cho nhà sản xuất hoặc công ty hiệu chỉnh dịch vụ.
+＜Hạng mục hiệu chỉnh và phương pháp phán định dựa theo bảng sau＞
+※Hạng mục hiệu chỉnh：luôn hiệu chỉnh độ chính xác biên độ và độ chính xác
+tần số trong (sóng hình sin). Trường hợp hiệu chỉnh tại nhà sản xuất phải thực
+thi hiệu chỉnh các hạng mục do nhà sản xuất chỉ định.
+Nhiệt độ và độ ẩm bảo quản trong phạm vi
+≦ 23℃±5℃  85%RH(độ ẩm tương đối)
+
+Hạng mục hiệu
+chỉnh
+Số khuôn
+Trị phán định
+Độ chính xác tần
+số
+WF1973/
+WF1974
+Thiết định ±10ppm
+WF1947/
+WF1948
+WF1967/
+WF1968
+WF1964B
+Độ chính xác biên
+độ
+WF1973/
+WF1974
+Thiết đặt ±(3% + 2mVp-p)
+※WF1946B thiết đặt 1kHz
+WF1947/
+WF1948
+WF1967/
+WF1968
+WF1964B
+Độ chính xác DC
+offset
+WF1973/
+WF1974
+Thiết đặt ±(｜3%｜ + 5mVp-p)
+WF1947/
+WF1948
+WF1967/
+WF1968
+Thiết đặt ±(｜3%｜ + 10mVp-p)
+WF1964B
+
+－Trích dẫn・văn bản liên quan－
+Quy cách phán định：Thiết lập quy cách phán định độc lập trong nội bộ công ty Mabuchi Motor dựa trên
+quan điểm khối mạch điện NF. Tham khảo bảng sĩ dạng, biểu thành tích hiệu chỉnh nơi sản xuất.
+
+--- HẾT TRANG ---
+
+No.2/3
+
+Ⅱ【Điểm kiểm】   Máy phát tần số                             Máy đo  076-3c
+(WF series của tập đoàn NF)
+
+Tiến độ điểm kiểm        Mỗi tháng 1 lần và mỗi lần sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1.Ngoại quan
+
+2.Xác nhận trạng thái
+biểu thị
+
+Kiểm tra bằng mắt, không có phế phẩm như vết bẩn, vết xước
+hay vỡ gây cản trở sử dụng.
+
+Màn hình hiển thị kỹ thuật số khi công tắc nguồn được
+bật’’ON’’ phải bình thường.
+
+Ghi chú
+1.Kết quả điểm kiểm được ghi chép lại mỗi tháng 1 lần bất kể có bất thường hay không
+2.Nếu có bất thường trong quá trình điểm kiểm(hoặc khi sử dụng) thì phải ghi chép lại kết quả đó，
+Và xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận chủ quản
+3.Thực hiện yêu cầu tái hiệu chỉnh của máy đo đạc đối với phòng ban thực hiện hiệu chỉnh nếu
+cần thiết.
+
+--- HẾT TRANG ---
+
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Biểu lý lịch ban hành-cải đính-hủy bỏ
+Máy đo  076-3    No.3/3
+Ký
+hiệu
+Năm.tháng
+.ngày
+Ghi chép (Nội dung thay đổi)
+Soạn
+thảo
+Xác
+nhận
+Công
+nhận
+
+2018.06.22
+
+Ban hành mới
+
+小泉
+
+菊池 奈良
+伊藤
+
+岩田
+a
+2022.08.23
+・Cải đính toàn phần kèm với thiết định quy cách phán
+định độc lập trong công ty
+・Trích dẫn・văn bản liên quan：bổ sung quy cách phán
+định
+Ⅰ【Hiệu chỉnh】076-3_→076-3a ※Ⅱ【điểm kiểm】
+076-3_（không thay đổi）
+
+b
+2022.10.17
+・Bổ sung thể thức WF1946B
+・Bổ sung [hình sóng sin] vào hạng mục hiệu chỉnh (vì
+không có phán định bằng hình sóng vuông）
+・Bổ sung tiến độ điểm kiểm (mỗi tháng 1 lần)
+
+c
+2023.06.07
+・Bổ sung thể thức WF1973,1947,1967
+・Ⅱ【Điểm kiểm】
+Cải đính toàn bộ hạng mục chú ý
+
+Ban chính BHCL công ty cổ phần Mabuchi
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "076-3-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm - Máy phát tần số                                            Máy đo    076-3 c",
+  "doc_code": "076-3 c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

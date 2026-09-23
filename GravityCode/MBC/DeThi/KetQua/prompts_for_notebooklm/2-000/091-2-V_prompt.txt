@@ -1,0 +1,1493 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Bản tiêu chuẩn kiểm tra, hiệu chỉnh máy móc đo đạc - Máy kiểm tra xung                             Đo đạc  091-2 a
+Mã số/Mã máy đo: xung
+File gốc: 091-2-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/17
+
+Bản tiêu chuẩn kiểm tra, hiệu chỉnh máy móc đo đạc
+Tổng ban BHCL công ty cổ phần MAB
+
+Ban hành  2014/  1/  24
+Cải chính    2017/ 12/  12
+Máy kiểm tra xung                             Đo đạc  091-2 a
+Mã số thiết bị：CR25-012M-AA
+
+Ι【Hiệu chỉnh】
+
+①Máy phát điện Form WAV [076-1], dụng cụ hỗ trợ ：điện trở 50～100Ω
+Máy tiêu chuẩn    ②Máy phát tần sô( chỉ WF1974)[S31-1], dụng cụ hỗ trợ：điện trở 50Ω
+
+Chu kỳ hiệu chỉnh   Mỗi 12 tháng và khi công nhận cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+
+＜Điểm chú ý＞
+
+＜Chuẩn bị trước hiệu
+chỉnh＞
+
+Bản tiêu chuẩn này quy định về 2 loại phương pháp hiệu chỉnh do máy tiêu chuẩn khác
+nhau.
+
+(1) Tiến hành chuẩn bị máy tiêu chuẩn. Phải tham khảo như sau đây.
+・Trường hợp sử dụng máy phát điện Form WAV：【phụ lục 1】(trang 8～)
+・Trường hợp sử dụng máy phát tần số (WF1974)：【phụ lục 2】(trang 12～)
+
+(2) Kết nối máy kiểm tra xung và máy tiêu chuẩn.
+
+① Xác nhận không có xuất lực từ máy tiêu chuẩn.
+・Trường hợp máy phát điện Form WAV, xác nhận đèn của nút RUN/STOP
+đang tắt.
+・Trường hợp máy phát tần số (WF1974), xác nhận đèn báo hiệu của phần
+trên chấu điện liên kết CH1 mặt trước màn hình điều khiển đang tắt.
+
+② Chuẩn bị dây cáp đồng trục loại có kẹp hình miệng cá sấu BNC, kết nối phía
+connector BNC của dây cáp đồng trục vào CH1 của chấu điện OUTPUT máy
+tiêu chuẩn.
+
+Trường hợp máy phát điện Form WAV
+Trường hợp máy phát tần số
+
+Trường hợp máy phát điện Form WAV
+Trường hợp máy phát tần số
+
+--- HẾT TRANG ---
+
+No.2/17
+
+Ι【Hiệu chỉnh】                               Đo đạc 091-2 a
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+
+＜Chuẩn bị trước hiệu
+chỉnh＞
+(Tiếp theo)
+
+Chênh lệch pha với
+điện áp xuất lực
+
+Kết nối chấu điện E của máy kiểm tra xung và phía –(màu đen) của dây cáp đồng trục
+đã liên kết ở ②, kết nối điện trở R của dụng cụ hỗ trợ vào giữa chấu điện A và phai + của
+dây cáp đồng trục giống như hình dưới.
+Ngoài ra, để đoản mạch và giải phóng giữa chấu điện M+ và chấu điện M- của
+máy kiểm tra xung kết nối SW.
+(Nều dùng tay có thể đoản mạch và giải phóng được thì không cần SW cũng được)
+
+(1) Xác nhận chấu điện DC-IN ở mặt sau của máy kiểm tra xung chưa kết nối.
+Sau khi bật nguồn điện, nhấn vào nút 設定 thiết đặt của màn hình MENU được hiển
+thị máy kiểm tra xung.
+
+(2) Vì hiển thị màn hình dưới nên OUT dữ liệu thì giữ nguyên OFF rồi nhấn nút，次へ
+tiếp theo
+
+(3) Sau khi hiển thị màn hình phía dưới bên trái thì nhấn クリア Clear .Sau đó hiển thị
+màn hình phía dưới bên phải, tiếp tục nhấn クリア Clear
+
+Máy tiêu
+chuẩn
+
+--- HẾT TRANG ---
+
+No.3/17
+
+Ι【Hiệu chỉnh】                                Đo đạc 091-2 a
+
+Hạng mục hiệu chỉnh
+
+Chênh lệch pha với điện
+áp xuất lực
+(tiếp theo)
+
+(4) Vì hiển thị màn hình phía dưới bên trái nên đợi cho đến khi hoàn tất trở về ban đầu.
+Sau đó, vì hiển thị màn hình phía dưới bên phải nên nhấn 戻るtrở về
+
+(5) Vì hiển thị màn hình dưới đây nên tiếp tục nhấn MENU
+
+(6) Ở màn hình MENU nhấn 検査kiểm tra
+
+(7) Hiển thị màn hình dưới đây.
+
+(8) Bắt đầu đo.
+Xuất lực của máy tiêu chuẩn là CH1.
+Trường hợp máy phát điện Form WAV, nhấn nút ON/OFF của phía phải CH1, xác
+nhận nút sáng lên màu đỏ.
+Trường hợp sử dụng máy phát tần số thì xác nhận chọn CH1 ở phía trên bên trái màn
+hình. Về phương pháp thiết định thì tham khảo 【phụ lục 2】(2) thiết định hình song
+nhập (mục 14).
+
+--- HẾT TRANG ---
+
+No.4/17
+
+Ι【Hiệu chỉnh】                                Đo đạc 091-2 a
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+
+Chênh lệch pha với điện
+áp xuất lực
+(tiếp theo)
+
+(9) Xuất lực hình sóng từ máy tiêu chuẩn.
+(10)
+
+(11)
+Làm cho đoản mạch chấu DC-OUT (+) và DC-OUT (-) của máy kiểm
+tra xung, bắt đầu đo. Đồng thời hiển thị hình sóng ở máy hiện sóng. Trường hợp trạng
+thái đoản mạch không ổn định, vì có trường hợp phán định cách điện NG nên khi đó
+thì nhấn nút リセットreset để hủy bỏ.
+
+(12) Khi đang đo thì vì hiển thị màn hình dưới đây nên hãy đợi cho đến khi hoàn tất.
+
+Trường hợp máy phát điện Form
+WAV, nhấn nút RUN/STOP,xác
+nhận đèn sáng lên màu đỏ
+Trường hợp máy phát tần số,
+nhấn nút OUT ,xác nhận đèn báo
+sáng lên màu vàng
+
+--- HẾT TRANG ---
+
+No.5/17
+
+Ι【Hiệu chỉnh】                                Đo đạc 091-2 a
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+
+Chênh lệch pha với điện
+áp xuất lực
+(tiếp theo)
+
+(13) Một trong những màn hình dưới sẽ hiển thị ra, ghi chép trị đo vào.
+Ngoài ra, kết quả kiểm tra và hiệu chỉnh thì vì không liên quan nên OK/NG đều
+được.
+Trường hợp phán định NG thì nhấn nút リセットreset xóa hiển thị NG
+
+※Sau khi hoàn tất kiểm tra nhưng vẫn tiếp tục đoản mạch chấu điện M(-)
+và chấu điện M(+) của máy kiểm tra xung thì sẽ OFF check như màn
+hình bên dưới nên giải phóng chấu M(-) và chấu M(+).
+
+(13)  Sau khi đo hoàn tất, nhấn nút 測定値trị đo của màn hình MENU, chọn Hi  vừa lặp
+lại nhấn nút  次へtiếp theo
+vừa đọc lấy trị đo hiển thị theo thứ tự.
+
+(14) Sau khi xác nhận toàn bộ trị đo Hi, trở về màn hình MENU lần nữa, nhấn vào trị
+đo, chọn Lo đọc lấy trị đo được.
+
+(15) Ký lục trị đo được, phán định bằng dung sai cho phép yêu cầu chênh lệch với trị tiêu
+chuẩn. Phương pháp phán định thì có ghi ở trang 6～7.
+
+(16) Dừng xuất lực hình sóng từ máy tiêu chuẩn
+
+(17) Chọn hình sóng tùy ý ở máy tiêu chuẩn, tiến hành đo hình sóng khác.
+Máy phát điện Form WAV thì【phụ lục 1】(3) chọn hình sóng nhập vào (trang 11)
+Máy phát tần số thì ở【phụ lục 2】(3) chọn hình sóng đưa vào (trang 14) chọn hình
+sóng.
+
+Trường hợp máy phát điện Form
+WAV, nhấn nút RUN/STOP，xác
+nhận nút RUN/STOPđang sáng.
+
+Trường hợp máy phát tần số,
+nhấn nút OUT, xác nhận đèn báo
+màu vàng đang sáng.
+
+--- HẾT TRANG ---
+
+No.6/17
+
+Ι【Hiệu chỉnh】                               Đo đạc 091-2 a
+
+Phương pháp phán định
+
+① Hạng mục xác nhận trị đo (WAVE_1)
+
+THr_avg
+[µs]
+tH_min
+[µs]
+AHr_max
+[µs]
+AHr_min
+[µs]
+AHf_max
+[µs]
+AHf_min
+[µs]
+CEHr
+[deg]
+CEHf
+[deg]
+Trị tiêu
+chuẩn
+156.0
+78.0
+0.0
+0.0
+0.0
+0.0
+0.000
+0.000
+Trị cho
+phép
+±0.4
+±0.4
+±0.4
+±0.4
+±0.4
+±0.4
+±0.05
+±0.05
+
+TLr_avg
+[µs]
+tL_min
+[µs]
+ALr_max
+[µs]
+ALr_min
+[µs]
+ALf_max
+[µs]
+ALf_min
+[µs]
+Trị tiêu
+chuẩn
+156.0
+78.0
+0.0
+0.0
+0.0
+0.0
+Trị cho
+phép
+±0.4
+-0.5/-1.3
+±0.4
+±0.4
+±0.4
+±0.4
+
+② Hạng mục xác nhận trị đo (WAVE_2)
+
+THr_avg
+[µs]
+tH_min
+[µs]
+AHr_max
+[µs]
+AHr_min
+[µs]
+AHf_max
+[µs]
+AHf_min
+[µs]
+CEHr
+[deg]
+CEHf
+[deg]
+Trị tiêu
+chuẩn
+78.0
+39.0
+0.0
+0.0
+0.0
+0.0
+0.000
+0.000
+Trị cho
+phép
+±0.4
+±0.4
+±0.4
+±0.4
+±0.4
+±0.4
+±0.05
+±0.05
+
+TLr_avg
+[µs]
+tL_min
+[µs]
+ALr_max
+[µs]
+ALr_min
+[µs]
+ALf_max
+[µs]
+ALf_min
+[µs]
+Trị tiêu
+chuẩn
+78.0
+39.0
+0.0
+0.0
+0.0
+0.0
+Trị cho
+phép
+±0.4
+-0.5/-1.3
+±0.4
+±0.4
+±0.4
+±0.4
+
+③ Hạng mục xác nhận trị đo (WAVE_3)
+
+THr_avg
+[µs]
+tH_min
+[µs]
+AHr_max
+[µs]
+AHr_min
+[µs]
+AHf_max[
+µs]
+AHf_min
+[µs]
+CEHr
+[deg]
+CEHf
+[deg]
+Trị tiêu
+chuẩn
+312.0
+156.0
+0.0
+0.0
+0.0
+0.0
+0.000
+0.000
+Trị cho
+phép
+±0.4
+±0.4
+±0.4
+±0.4
+±0.4
+±0.4
+±0.05
+±0.05
+
+TLr_avg
+[µs]
+tL_min
+[µs]
+ALr_max
+[µs]
+ALr_min
+[µs]
+ALf_max
+[µs]
+ALf_min
+[µs]
+Trị tiêu
+chuẩn
+312.0
+156.0
+0.0
+0.0
+0.0
+0.0
+Trị cho
+phép
+±0.4
+-0.5/-1.3
+±0.4
+±0.4
+±0.4
+±0.4
+
+--- HẾT TRANG ---
+
+No.7/17
+
+Ι【Hiệu chỉnh】                                Đo đạc 091-2 a
+
+Phương pháp phán đinh
+
+④ Hạng mục xác nhận trị đo (WAVE_4)
+
+THr_avg
+[µs]
+tH_min
+[µs]
+AHr_max
+[µs]
+AHr_min
+[µs]
+AHf_max
+[µs]
+AHf_min
+[µs]
+CEHr
+[deg]
+CEHf
+[deg]
+Trị tiêu
+chuẩn
+156.0
+76.0
+2.0
+-2.0
+2.0
+-2.0
+0.144
+0.144
+Trị cho
+phép
+±0.4
+±0.4
+±0.4
+±0.4
+±0.4
+±0.4
+±0.05
+±0.05
+
+TLr_avg
+[µs]
+tL_min
+[µs]
+ALr_max
+[µs]
+ALr_min
+[µs]
+ALf_max
+[µs]
+ALf_min
+[µs]
+Trị tiêu
+chuẩn
+156.0
+76.0
+2.0
+-2.0
+2.0
+-2.0
+Trị cho
+phép
+±0.4
+-0.5/-1.3
+±0.4
+±0.4
+±0.4
+±0.4
+
+⑤ Hạng mục xác nhận trị đo(WAVE_5)
+
+THr_avg
+[µs]
+tH_min
+[µs]
+AHr_max
+[µs]
+AHr_min
+[µs]
+AHf_max
+[µs]
+AHf_min
+[µs]
+CEHr
+[deg]
+CEHf
+[deg]
+Trị tiêu
+chuẩn
+156.0
+75.0
+12.0
+-12.0
+6.0
+-6.0
+0.216
+0.108
+Trị cho
+phép
+±0.4
+±0.4
+±0.4
+±0.4
+±0.4
+±0.4
+±0.05
+±0.05
+
+TLr_avg
+[µs]
+tL_min
+[µs]
+ALr_max
+[µs]
+ALr_min
+[µs]
+ALf_max
+[µs]
+ALf_min
+[µs]
+Trị tiêu
+chuẩn
+156.0
+75.0
+6.0
+-6.0
+12.0
+-12.0
+Trị cho
+phép
+±0.4
+-0.5/-1.3
+±0.4
+±0.4
+±0.4
+±0.4
+
+⑥ Hạng mục xác nhận trị đo (WAVE_6)
+
+THr_avg
+[µs]
+tH_min
+[µs]
+AHr_max
+[µs]
+AHr_min
+[µs]
+AHf_max
+[µs]
+AHf_min
+[µs]
+CEHr
+[deg]
+CEHf
+[deg]
+Trị tiêu
+chuẩn
+156.0
+70.0
+8.0
+-8.0
+8.0
+-8.0
+0.577
+0.577
+Trị cho
+phép
+±0.4
+±0.4
+±0.4
+±0.4
+±0.4
+±0.4
+±0.05
+±0.05
+
+TLr_avg
+[µs]
+tL_min
+[µs]
+ALr_max
+[µs]
+ALr_min
+[µs]
+ALf_max
+[µs]
+ALf_min
+[µs]
+Trị tiêu
+chuẩn
+156.0
+70.0
+8.0
+-8.0
+8.0
+-8.0
+Trị cho
+phép
+±0.4
+-0.5/-1.3
+±0.4
+±0.4
+±0.4
+±0.4
+
+－Trích dẫn・văn bản liên quan－
+Phương pháp hiệu chỉnh：Trích dẫn bản hướng dẫn sử dụng (EW12-002M-AA)
+Phương pháp phán định：Thiết định nội bộ (Trích dẫn KPTB phát hành EW12-002N-AA)
+
+--- HẾT TRANG ---
+
+No.8/17
+
+【Phụ lục 1】Chuẩn bị trước hiệu chỉnh của máy phát điện Form
+WAV             Đo đạc 091-2 a
+
+(1) Trở về ban đầu thiết định của máy phát điện Form WAV
+
+① Cắm nguồn điện vào, nhấn vào Tap 『SYSTEM』 được hiển thị trên màn hình điều khiển, tiếp theo nhấn 初
+期化 trở về ban đầu
+
+③ Vì hiển thị「toàn bộ thiết định quay về ban đầu」nên nhấn OK ,
+Đợi đến khi hoàn tất quay về ban đầu.
+
+③ Ở màn hình tiếp theo nhấn 設定 thiết định.
+
+④ Nhấn vào  バックライト đèn nền.
+
+Thiết định xuất lực
+Nhập vào hình
+sóng
+FD I/F
+SYSTEM
+LANGUAGE
+Thiết định
+Master/ slave
+Test
+OFF
+VERSION
+V 2.06
+Chuông báo
+Đèn nền
+Đồng hồ
+Quay về ban
+đầu
+Thời
+gian
+hiện
+tại
+
+09/04/06
+Thiết
+波形入力
+FD I/F
+SYSTEM
+LANGUAGE
+Thiết định
+Master/ slave
+
+Test
+OFF
+VERSION
+V 2.06
+Chuông báo
+Đèn nền
+Đồng hồ
+
+Quay về ban
+đầu
+Chuông báo
+Đèn nền
+ON
+Tự động
+tăt
+Trở về
+Đồng hồ
+09/04/06  09:52:23
+SYSTEM/thiết định
+
+--- HẾT TRANG ---
+
+No.9/17
+
+【Phụ lục1】Tiêu chuẩn trước hiệu chỉnh máy phát điện  Form WAV
+Đo đạc 091-2 a
+
+⑤ Vì hiển thị màn hình đền nền nên nhấn 常時ON luôn luôn ON.
+
+⑥ Xác nhận việc đang hiển thị常時ON luôn luôn ON  ở bên phải バックライト đèn nền ở màn hình ④,  nhấn
+vào  戻る trở về thì hoàn tất quay về ban đầu.
+
+(2) Đăng ký hình sóng tùy ý
+
+Ghi chép về phương pháp đang ký của hình sóng tùy ý đã sử dụng đĩa mềm đã có nhập dữ liệu hình sóng vào.
+Trường hợp không có dữ liệu hình sóng thì soạn thảo hình sóng tùy ý của 6 loại dưới đây sau khi tham khảo sách
+hướng dẫn sử dụng (hình dạng hình sóng tùy ý thì tham khảo trang 15【tham khảo】).
+Ngoài ra, ở nhóm hệ thống tổng ban BHCL MMK có dữ liệu hình sóng nên nếu cần thì hãy yêu cầu để nhận.
+
+① Để đang ký dữ liệu dùng để phát hình sóng tùy ý ở máy tiêu chuẩn thì chuẩn bị đĩa mềm đã nhập dữ liệu
+hình sóng vào. Ngoài ra, file dữ liệu dùng để phát hình sóng tùy ý thì vì có 6 loại WAVE_1.WFG～
+WAVE_6.WFG nên hãy xác nhận.
+
+② Sau khi hoàn tất quay về ban đầu, nếu nhấn vào Tap 『波形入力 nhập hình sóng』thì màn hình dưới đây
+sẽ hiển thị, hãy xác nhận 『あと8個の波形が入力でます。 Có thể nhập hình sóng của 8 con còn lại.』. Sau
+khi xác nhận, gắn đĩa mềm lưu WAVE_1.WFG～WAVE_6.WFG file dữ liệu dùng để phát hình sóng tùy ý,
+nhấn  nút  File.
+
+③ Ở màn hình chọn file, xác nhận『WAVE_1.WFG』 đang được chọn, nhấn nút 決定 quyết định.
+
+④ Nhấn 読込 đọc ở màn hình được hiển thị 「波形入力File File nhập hình sóng」.
+
+Thiết định
+ất l
+Nhập
+vào
+hì h ó
+FD I/F
+SYSTEM
+Hiển thị danh
+sách
+FILE
+GP-IB
+Có thể nhập hình sóng của 8 con còn lại.
+Trở về
+Hãy chọn file.
+Tên file
+WAVE_1 .WFG
+WAVE_2 .WFG
+WAVE_3 .WFG
+WAVE_4 .WFG
+WAVE_5 .WFG
+WAVE_6 .WFG
+3632
+2072
+6752
+25472
+12992
+25472
+09-04-02
+08:56:02
+09-04-02
+08:57:54
+
+size
+Ngày tháng
+
+--- HẾT TRANG ---
+
+No.10/17
+
+【Phụ lục1】Chuẩn bị trước hiệu chỉnh máy tạo sóng                 Đo đạc 091-2 a
+
+⑤ Click vào 決定 quyết định ở màn hình nhập hình sóng.
+
+⑥ Vì trở về màn hình ② nên xác nhận việc trở thành 『có thể nhập 7 hình sóng còn lại, nhấn vào  FILE
+
+⑦ Vì màn hình ③ được hiển thị nên chọn hàng 『WAVE_2.WFG』, nhấn vào 決定quyết định.
+
+⑧ Đọc tất cả dữ liệu hình sóng còn lại theo trình tự giống nhau, khi ở màn hình ② hiển thị 『có thể nhập hình
+sóng của 2 cái còn lại』 ,nhấn 一覧表示hiển thị danh sách.
+
+⑨ Vì màn hình dưới được hiển thị nên xác nhận việc hình sóng của WAVE_1～WAVE_6 được đăng
+ký, nhấn 戻るtrở về.
+
+⑩ Quay trở về màn hình ② một lần nũa, sau khi hiển thị 『có thể nhập 2 hình sóng còn lại』thì đăng ký hình
+sóng hoàn tất.
+
+Xóa
+Trở về
+Hãy nhập tên hình sóng(8 ký tự)
+Clear
+Quyết định
+Q
+WAVE_1
+W
+E
+R
+T
+Y
+U
+I
+O
+P
+A
+S
+D
+F
+G
+H
+J
+K
+L
+Z
+X
+C
+V
+N
+M
+B
+Chữ số
+WAVE_1
+Trởvề
+Biểu thị danh sách
+Toàn bộ có 6 hình sóng
+WAVE_2
+WAVE_3
+WAVE_4
+WAVE_5
+WAVE_6
+
+--- HẾT TRANG ---
+
+No.11/17
+
+【Phụ lục 1】Chuẩn bị trước hiệu chỉnh máy tạo sóng                 Đo đạc 091-2 a
+
+(3) Chọn hình sóng nhập vào
+
+① Cắm nguồn điện vào, sau khi màn hình dưới đây được hiển thị thì nhấn vào サイン波 sóng SIN.
+
+②  Vì màn hình chọn hình sóng dưới đây được hiển thị nên nhấn vào 任意波形hình sóng tùy ý.
+
+③ Ở màn hình tiếp theo, chọn hình sóng của đối tượng đo.
+④ Thêm nữa, ở màn hình tiếp theo, chọn 決定quyết định.
+⑤ Vì màn hình dưới đây được hiển thị nên, sau khi xác nhận hiển thị của phần trên biểu thị hình sóng trở thành
+hình sóng của đối tượng đo thì hoàn tất chuẩn bị trước hiệu chỉnh.
+
+CH1
+Hình sóng
+hậ
+à
+FD I/F
+SYSTEM
+Sóng SIN
+Tần số
+1.000 00kHz
+Qúet sạch
+Off
+Biên độ
+Off set
+Pha
+1.000 Vp
+0.000 V
+0.00deg
+Phạm
+vi
+10 V
+
+Sóng SIN
+Trở về
+Chọn hình sóng
+
+Sóng vuông
+
+Sóng xung
+
+Sóng
+tam
+iá
+
+Dốc lên
+
+Dốc xuống
+
+Tạp âm
+
+DC
+
+Hình sóng
+tù ý
+CH1
+Hình
+FD I/F
+SYSTEM
+
+Tầ n số
+clốck
+10.000  000  00 MHz ( 6.4102564 kHz )
+Qúet
+sạch
+Off
+Biên độ
+Off set
+Delay
+10.000 Vp
+0.000 V
+0
+Phạm
+vi
+10 V
+Cuộn
+WAVE_1
+Bố  lố c
+Vượt
+quá
+∞
+
+--- HẾT TRANG ---
+
+No.12/17
+
+【Phụ lục 2】Chuẩn bị trước hiệu chỉnh của máy phát sinh tần số(WF1974)         Đo đạc 091-2 a
+
+＜Chú ý khi thao tác＞
+・Chọn hạng mục trên màn hình thì di chuyển hạng mục bằng nút chữ thập, sử dụng nút ENTER để quyết định.
+・Khi nhập số,.. vào thì tiến hành xác định giá trị bằng nút ENTER.
+・Xóa thao tác khi chọn sai thì tiến hành bằng nút.
+・Hạng mục phần dưới màn hình thì có thể lựa chọn bằng nút đối ứng.
+
+(1)Đăng ký hình sóng tùy ý ※Trường hợp đã đăng ký thì có thể giản lược
+(Hình dạng của hình sóng tùy ý thì tham khảo mục 15【tham khảo】)
+
+① Bật nguồn điện, sau khi hiển thị màn hình thì nhấn nút MENU.
+② Chọn『3:ARB Edit』. Hoặc nhấn nút số  3 .
+③ Chọn 『New』phần dưới màn hình.
+④ Sau khi hiển thị 『ARB Points』nhấn nút Enter、nhập vào điểm kiểm soát của hình sóng tùy ý bằng nút
+chữ số. Sau khi nhập xong, xác định bằng nút ENTER、 chọn『OK』. Số điểm kiểm soát thì phải tham
+khảo biểu dưới.
+
+Loại hình sóng tùy ý (Tên đăng ký
+thì tùy ý)
+Điểm số kiểm soát của hình sóng tùy
+ý
+WAVE_1
+4
+WAVE_2
+4
+WAVE_3
+4
+WAVE_4
+32
+WAVE_5
+16
+WAVE_6
+32
+
+⑤ Nhập vào trị điểm kiểm soát. Trị thì tham khảo biểu của hạng mục tiếp theo.
+Trường hợp xóa, bổ sung điểm kiểm soát thì di chuyển hạng mục đến vị trí xóa, bổ sung, sau khi chọn
+『▼1/2』 của phần dưới bản vẽ thì chọn 『Insert』、『Delete』. Điểm kiểm soát không hiển thị hết trên
+màn hình thì sẽ nhập giá trị tùy ý vào vị trí của hình dưới hay cho hiển thị bằng việc chọn 『Index +1』、
+『Index -1』của phần dưới màn hình.
+※Trị điểm kiểm soát đã nhập vào hàng X(trục thời gian) thì giống với điểm kiểm soát tiếp theo không ,
+Trường hợp lớn thì sẽ hiển thị báo lỗi.
+Đầu tiên cho toàn bộ điểm kiểm soát gần với trị lớn nhất (X=1) rồi hãy thiết định.
+
+Nút chữ thập
+Nút đối ứng các hạng mục phần dưới màn hình
+NútCANCEL
+Nút ENTER
+
+--- HẾT TRANG ---
+
+No.13/17
+
+【Phụ lục 2】Chuẩn bị trước hiệu chỉnh của máy phát sinh tần số(WF1974)
+Đo đạc 091-2 a
+
+Biểu Trị điểm kiểm soát
+
+WAVE_1 ~ 3
+Index
+X
+Y
+0
+0.000000
+1.00000
+1
+0.500000
+1.00000
+2
+0.500001
+0.00000
+3
+0.999999
+0.00000
+4
+1.000000
+1.00000
+
+WAVE_5
+Index
+X
+Y
+0
+0.000000
+1.00000
+1
+0.120192
+1.00000
+2
+0.120193
+0.00000
+3
+0.240385
+0.00000
+4
+0.240386
+1.00000
+5
+0.370192
+1.00000
+6
+0.370193
+0.00000
+7
+0.500000
+0.00000
+8
+0.500001
+1.00000
+9
+0.629808
+1.00000
+10
+0.629809
+0.00000
+11
+0.759615
+0.00000
+12
+0.759616
+1.00000
+13
+0.879808
+1.00000
+14
+0.879809
+0.00000
+15
+0.999999
+0.00000
+16
+1.000000
+1.00000
+
+※Về hình dạng hình sóng thì ghi chép vào hạng mục 15 【tham khảo】.
+WAVE_6
+Index
+X
+Y
+0
+0.000000
+1.00000
+1
+0.062500
+1.00000
+2
+0.062501
+0.00000
+3
+0.125000
+0.00000
+4
+0.125001
+1.00000
+5
+0.190705
+1.00000
+6
+0.190706
+0.00000
+7
+0.256410
+0.00000
+8
+0.256411
+1.00000
+9
+0.325321
+1.00000
+10
+0.325322
+0.00000
+11
+0.394231
+0.00000
+12
+0.394232
+1.00000
+13
+0.459936
+1.00000
+14
+0.459937
+0.00000
+15
+0.525641
+0.00000
+16
+0.525642
+1.00000
+17
+0.588141
+1.00000
+18
+0.588142
+0.00000
+19
+0.650641
+0.00000
+20
+0.650642
+1.00000
+21
+0.709936
+1.00000
+22
+0.709937
+0.00000
+23
+0.769231
+0.00000
+24
+0.769232
+1.00000
+25
+0.825321
+1.00000
+26
+0.825322
+0.00000
+27
+0.881410
+0.00000
+28
+0.881411
+1.00000
+29
+0.940705
+1.00000
+30
+0.940706
+0.00000
+31
+0.999999
+0.00000
+32
+1.000000
+1.00000
+WAVE_4
+Index
+X
+Y
+0
+0.000000
+1.00000
+1
+0.060897
+1.00000
+2
+0.060898
+0.00000
+3
+0.121795
+0.00000
+4
+0.121796
+1.00000
+5
+0.183494
+1.00000
+6
+0.183495
+0.00000
+7
+0.245192
+0.00000
+8
+0.245193
+1.00000
+9
+0.307692
+1.00000
+10
+0.307693
+0.00000
+11
+0.370192
+0.00000
+12
+0.370193
+1.00000
+13
+0.433494
+1.00000
+14
+0.433495
+0.00000
+15
+0.496795
+0.00000
+16
+0.496796
+1.00000
+17
+0.560897
+1.00000
+18
+0.560898
+0.00000
+19
+0.625000
+0.00000
+20
+0.625001
+1.00000
+21
+0.688301
+1.00000
+22
+0.688302
+0.00000
+23
+0.751603
+0.00000
+24
+0.751604
+1.00000
+25
+0.814103
+1.00000
+26
+0.814104
+0.00000
+27
+0.876603
+0.00000
+28
+0.876604
+1.00000
+29
+0.938301
+1.00000
+30
+0.938302
+0.00000
+31
+0.999999
+0.00000
+32
+1.000000
+1.00000
+
+--- HẾT TRANG ---
+
+No.14/17
+
+【Phụ lục 2】Chuẩn bị trước hiệu chỉnh của máy phát sinh tần số(WF1974)
+Đo đạc 091-2 a
+
+⑥ Sau khi nhập điểm kiểm soát xong thì để lưu hình sóng thì chọn 『Store』ở phần dưới màn hình.
+(Trường hợp không có hạng mục 『Store』 thì chọn 『▼2/2』, để cho biểu thị hạng mục).
+⑦ Chọn số giá trị đang được hiển thị ở『ARB No.』, nhập mã số, hoặc chọn số bằng cách nhấn lên xuống nút
+chữ thập, tiến hành xác nhận hình sóng đang được đang ký ở nơi lưu trữ.
+⑧ Nhập 『ARB No.』ở nơi lưu trữ, sau khi xác nhận chọn 『OK』dưới màn hình.
+⑨ Trường hợp có dữ liệu hình sóng ở nơi lưu trữ thì được hiển thị 『Overwrite?』. Trường hợp ghi trên thì
+chọn 『OK』.
+⑩ Vì hiển thị tên lưu trữ ở bên cạnh『Name』nên trường hợp thay đổi thì chọn. Chọn chữ ký tự thì tiến hành
+bằng nút chữ thập và nút chữ số.
+⑪ Nhấn『OK』thì hình sóng được đăng ký.
+
+(2) Thiết định hình sóng nhập vào
+
+①
+Bật nguồn điện, sau khi màn hình hiển thị thì nhấn nút MENU
+②
+Chọn『1:Oscillator』. Hoặc nhấn nút số  1
+③
+Tham khảo hình dưới, tiến hành thiết định.
+
+[1]Single
+[2]CH1(chọn CH 1/CH2 dưới MENU )
+[3]1:Continuous
+[4]8:ARB
+[5]1:Norm ±FS (khi chọn hạng mục)
+[6] mô tả sau
+[7] mô tả sau
+[8]10.000 Vp-p( trường hợp đơn vị biểu thị
+là V thì nhấn 2 lần nút 『AMPTD』ở bên
+phải màn hình)
+[9]1:Auto
+[10]High-Z
+[11]+0.000 0 V
+[12]+0.000 deg
+[※] Trường hợp biểu thị là High,Low thì
+nhấn 2 lần nút 『OFFSET』ở bên phải
+màn hình.
+
+(3)
+Chọn hình sóng nhập vào
+
+①
+Chọn [6] hình trên
+②
+Chọn số đang hiển thị ở 『ARB No.』, nhập mã số, hoặc chọn số bằng cách nhấn lên xuống nút chữ thập,
+tiến hành xác nhận hình sóng được đăng ký.
+③
+Nhập 『ARB No.』của hình sóng nhập vào, sau khi xác định chọn 『OK』ở dưới màn hình.
+④
+Chọn [7] hình trên(trường hợp đơn vị biểu thị là Hz thì nhấn 2 lần nút 『FREQ』bên phải màn hình)
+⑤
+Nhập thời gian của từng hình sóng nhập vào.
+WAVE_1  :0.000 156 00 s
+WAVE_2  :0.000 078 00 s
+WAVE_3  :0.000 312 00 s
+WAVE_4, 6 :0.001 248 00 s
+WAVE_5  :0.000 624 00 s
+⑥
+Nhấn nút ENTER、hoàn thành chuẩn bị trước hiệu chỉnh
+
+[1]
+[2]
+[3]
+[4]
+[5]
+[6]
+[7]
+[8]
+[9]
+[10]
+[11]
+[12]
+[※]
+
+--- HẾT TRANG ---
+
+No.15/17
+
+【Tham khảo】                                   Đo đạc 091-2 a
+
+Hình dạng hình sóng tùy ý
+
+--- HẾT TRANG ---
+
+No.16/17
+
+Ⅱ【Kiểm tra】    Máy đo xung                                    Đo đạc 091-2 a
+Mã số thiết bị：CR25-012M-AA
+
+Tần suất kiểm tra      Mỗi lần sử dụng
+
+Hạng mục kiểm tra
+Phương pháp kiểm tra
+Phương pháp
+phán định
+
+1.Ngoại quan
+
+2.Trạng thái biểu thị
+
+(1) Xác nhận bằng mắt việc sau khi đo không có BHC như hư hại ,
+trầy xước, vết bẩn chướng ngại
+(2) Xác nhận tiến hành kết nối dây lead đúng, không bị lỏng .
+
+Sau khi bật nguồn điện, xác nhận không có mất hay thiếu biểu thị kỹ
+thuật số.
+
+Không có dị
+thường
+
+Không có dị
+thường
+
+Chú ý)  1.Kết quả kiểm tra, trường hợp có dị thường thì ký lục lại kết quả kiểm tra, xử lý theo chỉ thị của người chịu
+trách nhiệm quản lý.
+2.Kết quả kiểm tra, trường hợp không có dị thường thì không cần ký lục lại kết quả cũng được.
+Tuy nhiên, 1 tháng 1 lần dù không có dị thường thì cũng ghi lại nội dung đó.
+3.Trường hợp phát hiện ra dị thường khi đang sử dụng thì xử lý theo chỉ thị của người chịu trách nhiệm
+quản lý.
+
+--- HẾT TRANG ---
+
+Biểu lai lịch ban hành cải chính hủy bỏ  Bản tiêu chuẩn hiệu chỉnh・kiểm tra  Đo đạc 091-2  No.17/17
+Ký
+hiệu
+Ngày
+tháng năm
+Ghi chép (Nội dung ghi chép,…)
+Soạn
+thảo
+Xác nhận
+Công
+nhận
+
+2014.01.24
+
+Ban hành mới
+
+加藤
+
+村山 伊藤
+
+岩田
+a
+2017.12.12
+
+・Bổ sung phương pháp hiệu chỉnh máy phát sinh tần số (WF1974)
+・Phần chuẩn bị trước hiệu chỉnh đã được đính kèm phụ lục
+菊池
+八田
+藤田 伊藤
+
+石野
+
+Tổng ban BHCL công ty cổ phần MAB
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "091-2-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn kiểm tra, hiệu chỉnh máy móc đo đạc - Máy kiểm tra xung                             Đo đạc  091-2 a",
+  "doc_code": "xung",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

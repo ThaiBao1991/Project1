@@ -1,0 +1,50 @@
+{
+  "file_name": "086-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN ĐIỂM KIỂM HIỆU CHỈNH THIẾT BỊ - Máy đo hiệu chuẩn độ nhạy đơn giản pickup độ gia tốc dùng đo đạc Ono sokki",
+  "doc_code": "086-1 a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Trong mục kiểm tra ngoại quan và hạng mục chú ý, quy định nào sau đây là ĐÚNG để đảm bảo hiệu chỉnh và gia chấn chính xác?",
+      "options": {
+        "A": "Có thể ấn mạnh lực lên bàn gắn nếu bàn gắn bị bám dính dị vật",
+        "B": "Không được ấn một lực vô lý lên bàn gắn và bàn gắn cũng không được bị trầy",
+        "C": "Có thể dùng giấy nhám để làm sạch vết trầy trên bàn gắn",
+        "D": "Cho phép bám dính một lớp bụi mỏng trên bề mặt bàn gắn"
+      },
+      "correct_answer": "B",
+      "reference_note": "Ⅱ【Điểm kiểm】 - <Hạng mục chú ý>: Để có thể hiệu chỉnh và gia chấn một cách chính xác, không được ấn một lực vô lý lên bàn gắn và bàn gắn cũng không được bị trầy."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm (kiểm tra ngoại quan và tình trạng PIN) của máy đo hiệu chuẩn độ nhạy đơn giản pickup độ gia tốc được thực hiện khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi khi sử dụng",
+        "C": "Một lần một tháng",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Ⅱ【Điểm kiểm】 - Tiến độ điểm kiểm: Mỗi khi sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trị phán định tiêu chuẩn cho 'Độ gia tốc gia chấn' đối với thể thức VX-1100 và VX-1100A là bao nhiêu?",
+      "options": {
+        "A": "159.2 Hz ±1 %",
+        "B": "10 m/s² (rms) ±3 %",
+        "C": "±3 % ±1 digit",
+        "D": "10 m/s² (rms) ±5 %"
+      },
+      "correct_answer": "B",
+      "reference_note": "Ι【Hiệu chỉnh】 - Hạng mục: Độ gia tốc gia chấn - Trị phán định: 10 m/ s² (rms)±3 %"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

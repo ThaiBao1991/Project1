@@ -1,0 +1,50 @@
+{
+  "file_name": "Z03-2-V.pdf",
+  "folder_name": "9-Z00 Ban V IT HOA",
+  "doc_title": "Biểu liệt kê sỹ dạng máy kiểm tra trọng lượng (full scale 30kg trở xuống)",
+  "doc_code": "Z03-2",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo lịch sử ban hành cải đính hủy bỏ, việc bổ sung thể thức DC-180 và cải đính tỷ lệ, giá trị đo tối thiểu của DL-530L (DL-530L/DS-530L) được thực hiện vào thời gian nào?",
+      "options": {
+        "A": "2011.09.01",
+        "B": "2016.10.31",
+        "C": "2018.01.25",
+        "D": "2020.03.12"
+      },
+      "correct_answer": "D",
+      "reference_note": "Trang 3: 2020.03.12 - Bổ sung thể thức : DC-180 (Phòng kiểm tra DLM Sun) - Cải đính tỷ lệ và giá trị đo tối thiểu của DL-530L"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo mục tiêu chuẩn hiệu chỉnh-điểm kiểm của ban BHCL, mã số đo đạc áp dụng cho lần cải đính ban hành bản mới do bổ sung thể thức DC-600 là gì?",
+      "options": {
+        "A": "№A15-1",
+        "B": "№A18-1",
+        "C": "№Z585",
+        "D": "№B20-2"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Do việc bổ sung thể thức vào bảng sỉ dạng nên yêu cầu cải đính, ban hành bản mới của bản tiêu chuẩn của ban BHCL công ty chính theo mã số đo đạc №A18-1."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Đối với thể thức DC-8000 do Teraoka Seiko chế tạo, giá trị đọc tối thiểu (d) và tỉ lệ (e) tương ứng là bao nhiêu?",
+      "options": {
+        "A": "d = 0.1g, e = 1g",
+        "B": "d = 0.5g, e = 1g",
+        "C": "d = 1g, e = 10g",
+        "D": "d = 2g, e = 10g"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: DC-8000 | 5kg | 1g | 10g"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

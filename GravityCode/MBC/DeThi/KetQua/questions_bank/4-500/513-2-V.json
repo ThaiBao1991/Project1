@@ -1,0 +1,50 @@
+{
+  "file_name": "513-2-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "ĐỒNG HỒ ĐO LỰC NÉN, ÉP KỸ THUẬT SỐ",
+  "doc_code": "513-2 h",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ thực hiện điểm kiểm cho đồng hồ đo lực nén, ép kỹ thuật số được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Mỗi 12 tháng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: 'Tiến độ điểm kiểm Mỗi lần sử dụng'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo quy định về xử lý kết quả kiểm tra định kỳ đối với đồng hồ đo lực nén, ép kỹ thuật số, trường hợp không thấy bất thường thì tần suất ghi chép kết quả tối thiểu là mấy lần một tháng?",
+      "options": {
+        "A": "Không cần ghi chép gì nếu không có bất thường",
+        "B": "Ghi chép lại kết quả một lần trong một tuần",
+        "C": "Một tháng phải ghi chép lại kết quả một lần dù không có gì bất thường",
+        "D": "Ghi chép kết quả sau mỗi lần sử dụng trong ngày"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3: '2. Kết quả kiểm tra trường hợp không thấy bất thường, không ghi kết quả cũng được, nhưng một tháng phải ghi chép lại kết quả một lần dù không có gì bất thường.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi tiến hành hiệu chỉnh tải trọng cho đồng hồ đo lực, điểm hiệu chỉnh (tải trọng) được xem xét và đo đạc tại bao nhiêu điểm dựa trên trọng lượng lớn nhất của dụng cụ?",
+      "options": {
+        "A": "2 điểm",
+        "B": "3 điểm",
+        "C": "4 điểm",
+        "D": "5 điểm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: 'Điểm hiệu chỉnh (tải trọng) là 4 điểm đã xem xét trọng lượng lớn nhất của dụng cụ đo lực kỹ thuật số.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

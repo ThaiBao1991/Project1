@@ -1,0 +1,50 @@
+{
+  "file_name": "S21-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "TUA VIT NGẪU LỰC ( TORQUE DRIVE )",
+  "doc_code": "S21-1e",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Độ chính xác quy định đối với thể thức dòng MTD của nhà chế tạo TOHNICHI (MTD1MN, MTD2MN, MTD5MN, MTD10MN) là bao nhiêu?",
+      "options": {
+        "A": "TRỊ KIỂM TRA ± 1%",
+        "B": "TRỊ KIỂM TRA ± 2%",
+        "C": "TRỊ KIỂM TRA ± 3%",
+        "D": "TRỊ KIỂM TRA ± 5%"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Mục 5 (MTD1MN, MTD2MN, MTD5MN, MTD10MN - Sở chế tạo TOHNICHI): TRỊ KIỂM TRA ± 3%"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, chu kì hiệu chỉnh đối với Tua vít ngẫu lực (Torque drive) là bao lâu?",
+      "options": {
+        "A": "6 tháng",
+        "B": "1 năm",
+        "C": "2 năm",
+        "D": "3 năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, I. [Hiệu chỉnh]: Chu kì hiệu chỉnh: 2 năm"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Cơ quan nào thực hiện việc hiệu chỉnh đối với địa điểm MMK?",
+      "options": {
+        "A": "Viện nghiên cứu kỹ thuật công nghiệp",
+        "B": "Nhà sản xuất hiệu chỉnh",
+        "C": "Sở công nghiệp chính phủ Hương Cảng",
+        "D": "Trung tâm đo lường quốc gia Hoa Nam (SCM)"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Cơ quan thực thi hiệu chỉnh - Địa điểm MMK: Nhà sản xuất hiệu chỉnh"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

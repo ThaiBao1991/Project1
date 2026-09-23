@@ -1,0 +1,50 @@
+{
+  "file_name": "S32-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh・điểm kiểm Thiết bị đo tốc độ quay bằng đèn nháy (stroboscope)",
+  "doc_code": "S32-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Quy định nào sau đây về điều kiện môi trường hiệu chỉnh hoặc cơ quan thực thi hiệu chỉnh đã được cập nhật trong lần sửa đổi mới nhất (ngày 2026.06.25)?",
+      "options": {
+        "A": "Bổ sung giới hạn độ ẩm tương đối dưới 40% vào điều kiện hiệu chỉnh",
+        "B": "Xóa bỏ độ ẩm tương đối giới hạn dưới 40% của điều kiện hiệu chỉnh và bổ sung 'cơ quan tuân thủ theo A16-1'",
+        "C": "Tăng nhiệt độ xung quanh lên 25±5°C và bắt buộc độ ẩm cố định 85%",
+        "D": "Chỉ định độc quyền một cơ quan duy nhất tại Việt Nam thực hiện hiệu chỉnh"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: ・Xóa bỏ độ ẩm tương đối giới hạn dưới 40% của điều kiện hiệu chỉnh（theo JJG105）; ・Ở cơ quan thực thi hiệu chỉnh, bổ sung「cơ quan tuân thủ theo A16-1」"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Đối với thể thức thiết bị đo '4.DS-4AA/4AH (SUGAWARA)', mức độ chính xác tại dải đo từ 4000 đến 12000 r/min là bao nhiêu?",
+      "options": {
+        "A": "±1 r/min",
+        "B": "±2 r/min",
+        "C": "±3 r/min",
+        "D": "±4 r/min"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: 4000～12000 r/min にて:±2 r/min"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn kỹ thuật của thiết bị đo tốc độ quay bằng đèn nháy (stroboscope), chu kì hiệu chỉnh định kỳ cho thiết bị này là bao lâu?",
+      "options": {
+        "A": "1 năm",
+        "B": "2 năm",
+        "C": "3 năm",
+        "D": "6 tháng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: 【Hiệu chỉnh】 Chu kì hiệu chỉnh 2 năm"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

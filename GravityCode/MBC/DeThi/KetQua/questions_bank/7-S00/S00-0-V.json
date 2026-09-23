@@ -1,0 +1,50 @@
+{
+  "file_name": "S00-0-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh dụng cụ, máy chuẩn",
+  "doc_code": "S00-0 c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo quy định về kết quả hiệu chỉnh, trong trường hợp nào thì kết quả hiệu chỉnh được đóng dấu xác nhận lên bản thành tích?",
+      "options": {
+        "A": "Khi kết quả hiệu chỉnh thấp hơn 50% so với dung sai cho phép của máy chuẩn.",
+        "B": "Khi kết quả hiệu chỉnh nằm trong dung sai độ chính xác của máy chuẩn.",
+        "C": "Khi có ý kiến đồng ý trực tiếp bằng miệng của trưởng bộ phận bảo hành chất lượng.",
+        "D": "Khi kết quả hiệu chỉnh vượt quá dung sai cho phép nhưng có bản cam kết từ nhà cung cấp."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Hạng mục 3, ý (3) 'Kết quả hiệu chỉnh có nằm trong dung sai độ chính xác của máy chuẩn không, xác nhận dữ liệu có ghi chép thiết bị đã sử dụng để hiệu chỉnh không, đóng dấu xác nhận lên bản thành tích.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Mục đích chính của việc ban hành tài liệu tiêu chuẩn hiệu chỉnh dụng cụ, máy chuẩn (tiêu chuẩn A02-1) là gì?",
+      "options": {
+        "A": "Xác định rõ định mức sản lượng và thời gian hoàn thành cho từng loại dụng cụ, máy chuẩn.",
+        "B": "Xác lập việc truy nguyên về dụng cụ, máy chuẩn và xác định rõ độ chính xác dụng cụ, máy chuẩn và phương pháp thực thi hiệu chỉnh.",
+        "C": "Hướng dẫn cách sửa chữa, thay thế linh kiện khi máy chuẩn bị hư hỏng nặng tại xưởng.",
+        "D": "Quy định mức lương và chế độ đãi ngộ cho nhân viên phụ trách bộ phận bảo hành chất lượng."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Phần 'Ban hành tài liệu tiêu chuẩn hiệu chỉnh dụng cụ, máy chuẩn nhằm xác lập việc truy nguyên về dụng cụ, máy chuẩn (tiêu chuẩn A02-1), và xác định rõ độ chính xác dụng cụ, máy chuẩn và phương pháp thực thi hiệu chỉnh.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi mua dụng cụ, máy chuẩn mới theo qui cách mới, chúng ta cần phải xác nhận những gì?",
+      "options": {
+        "A": "Chỉ cần kiểm tra tem nhãn và hóa đơn mua hàng do nhà cung cấp gửi đến.",
+        "B": "Xác nhận bản thành tích của nhà sản xuất với tài liệu tiêu chuẩn hiệu chỉnh máy chuẩn và hướng dẫn của sách thuyết minh sử dụng, đóng dấu xác nhận vào bảng thành tích.",
+        "C": "Mang ngay ra cơ quan kiểm định quốc gia để cấp lại giấy chứng nhận mới hoàn toàn.",
+        "D": "Yêu cầu nhà sản xuất gửi chuyên gia sang lắp đặt và chạy thử trong vòng 1 tháng."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Hạng mục 2 'Xác nhận khi mua dụng cụ, máy chuẩn mới'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

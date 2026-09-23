@@ -1,0 +1,50 @@
+{
+  "file_name": "004-3-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "QUY CÁCH PHÁN ĐỊNH MÁY OCSILLOPE",
+  "doc_code": "004-3e",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, việc phán định máy Ocsilloscope được dựa theo các yếu tố hiệu chỉnh nào sau đây?",
+      "options": {
+        "A": "VOLTS/DIV, TIME/DIV và tín hiệu xuất ra (Tín hiệu CAL)",
+        "B": "Chỉ số điện áp nguồn và tần số quét ngang",
+        "C": "Độ rộng màn hình và tốc độ lấy mẫu tín hiệu",
+        "D": "Dòng điện tiêu thụ và điện trở đầu vào"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, Mục NỘI DUNG (1)"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi hiệu chỉnh bổ sung chủng loại mới, nếu có phát sinh trị phán định, cần thực hiện việc liên lạc thông tin như thế nào đến Ban Bảo Hành Chất Lượng Công Ty Chính?",
+      "options": {
+        "A": "Chỉ cần báo cáo miệng trực tiếp cho cấp trên trực tiếp tại công trường",
+        "B": "Phải liên lạc tên chủng loại, bản sách thuyết minh cách sử dụng tương đương (bản copy) đến Ban Bảo Hành Chất Lượng Công Ty Chính để xem sửa bản tiêu chuẩn",
+        "C": "Tự ý sửa đổi trực tiếp vào tài liệu gốc mà không cần thông báo",
+        "D": "Gửi email thông báo số lượng máy móc tồn kho cho bộ phận sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Mục NỘI DUNG (4)"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo Biểu 1 quy định về trị phán định cho phép đối với máy Ocsilloscope dạng analog không yêu cầu trị thực đo, khi trị phán định của biểu riêng là ±1%～4% thì trị phán định cho phép tương ứng là bao nhiêu?",
+      "options": {
+        "A": "±1%",
+        "B": "±5%",
+        "C": "±10%",
+        "D": "Dựa theo trị phán định của biểu riêng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Biểu 1"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

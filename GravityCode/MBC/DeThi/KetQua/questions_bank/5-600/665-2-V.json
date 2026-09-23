@@ -1,0 +1,50 @@
+{
+  "file_name": "665-2-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Đồng hồ đo áp suất/lưu lượng dùng cho máy hút bụi đi kèm với máy hàn điểm chân comi",
+  "doc_code": "665-2a",
+  "target_audience": "Nhân viên, Đội trưởng",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục Chú ý trong tiêu chuẩn điểm kiểm, trường hợp phát hiện có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) thì nhân viên cần xử lý như thế nào?",
+      "options": {
+        "A": "Tự ý tháo dỡ đồng hồ ra để sửa chữa bên trong",
+        "B": "Tiếp tục sử dụng bình thường nếu thông số đo vẫn hiển thị",
+        "C": "Ghi chép lại kết quả, xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu và làm đơn đề nghị hiệu chỉnh lại nếu cần thiết",
+        "D": "Chờ đến chu kỳ 24 tháng sau mới đem đi hiệu chỉnh lại"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: Chú ý 2) Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện hiệu chỉnh"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Thông số kỹ thuật và dải đo của đồng hồ đo lưu lượng SMC PFMB7501 dùng để đo lưu lượng hút bụi có phạm vi đo và độ chính xác là bao nhiêu?",
+      "options": {
+        "A": "0～-101.3 kPa, độ chính xác ±1.2% of F.S",
+        "B": "-0.100～＋1.000MPa, độ chính xác ±1.2% of F.S of Range",
+        "C": "5～500 L/min, độ chính xác ±9% of F.S.",
+        "D": "10～1000 L/min, độ chính xác ±5% of F.S."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Bảng NCC SMC PFMB7501, Phạm vi đo: 5～500 L/min, Độ chính xác: ±9% of F.S."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo mục II 【Điểm kiểm】, tiến độ thực hiện điểm kiểm ngoại quan đối với đồng hồ đo áp suất/lưu lượng dùng cho máy hút bụi đi kèm máy hàn điểm chân comi là khi nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "6 tháng 1 lần",
+        "D": "Chỉ khi phát sinh sự cố"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: II【Điểm kiểm】 - Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

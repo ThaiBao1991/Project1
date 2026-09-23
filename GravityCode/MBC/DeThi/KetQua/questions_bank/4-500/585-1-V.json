@@ -1,0 +1,50 @@
+{
+  "file_name": "585-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản Tiêu Chuẩn Điểm Kiểm - Hiệu Chỉnh Máy Đo (Thang đo dưới 30 Kg)",
+  "doc_code": "585-1n",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh máy đo (trang 1), chu kỳ hiệu chỉnh cho cân kiểm tra trọng lượng dưới 30 Kg được quy định như thế nào?",
+      "options": {
+        "A": "Cố định bắt buộc đúng 1 tháng một lần",
+        "B": "Khi cần thiết (không quá 3 tháng)",
+        "C": "Định kỳ 6 tháng một lần",
+        "D": "Chỉ khi cân có dấu hiệu hư hỏng nặng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1 - Phần I. Hiệu chỉnh: Chu kỳ hiệu chỉnh : Khi cần thiết ( không quá 3 tháng)"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo quy định xử lý bất thường tại trang 5, trong quá trình điểm kiểm nếu phát hiện có dị thường (ví dụ kết quả kiểm tra không đạt), nhân viên phải thực hiện thao tác nào sau đây?",
+      "options": {
+        "A": "Tự ý tháo dỡ thiết bị để sửa chữa mạch điện bên trong",
+        "B": "Tiếp tục sử dụng cân cho hết ca làm việc rồi mới báo cáo",
+        "C": "Ghi kết quả lại rồi xử lý theo chỉ thị của người có trách nhiệm quản lý",
+        "D": "Bỏ qua lỗi và tiếp tục cân hàng loạt sản phẩm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 5 - Chú ý ý 1: Trường hợp có dị thường trong kết quả điểm kiểm thì ghi kết quả lại rồi xử lý theo chỉ thị của người có trách nhiệm quản lý."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo mục kiểm tra hoạt động (trang 5), khi đặt vật đo lên đĩa cân, nhân viên phải xác nhận điều gì?",
+      "options": {
+        "A": "Xác nhận phân định không đạt như đèn đỏ sáng, động tác chuông reo hoặc phán định đạt như đèn xanh sáng, động tác chuông reo",
+        "B": "Cân tự động lưu dữ liệu vào hệ thống mạng nội bộ",
+        "C": "Đèn báo hiệu tắt hoàn toàn để tiết kiệm điện",
+        "D": "Cân phải phát ra âm thanh liên tục trong 5 phút"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 5 - Phần II [ Điểm kiểm ] - Kiểm tra hoạt động: Đặt vật đo lên đĩa cân, tiến hành xác nhận phân định không đạt như đèn đỏ sáng, động tác chuông reo hoặc phán định đạt như đèn xanh sáng, động tác chuông reo."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

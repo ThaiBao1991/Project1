@@ -1,0 +1,50 @@
+{
+  "file_name": "S09-2-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm",
+  "doc_code": "S09-2",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, chu kỳ hiệu chỉnh đối với quả cân tiêu chuẩn (N) là bao lâu?",
+      "options": {
+        "A": "1 năm",
+        "B": "2 năm",
+        "C": "3 năm",
+        "D": "5 năm"
+      },
+      "correct_answer": "D",
+      "reference_note": "【Hiệu chỉnh】 Chu kỳ hiệu chỉnh 5 năm"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Cơ quan thực thi hiệu chỉnh đối với cứ điểm MMK là cơ quan nào theo bảng quy định?",
+      "options": {
+        "A": "Nhà cung cấp hiệu chỉnh",
+        "B": "Viện nghiên cứu kỹ thuật công nghiệp",
+        "C": "Trung tâm đo lường quốc gia Hoa Nam (SCM)",
+        "D": "Đại liên (cơ quan tiêu chuẩn)"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2: Cứ điểm MMK - Ví dụ cơ quan thực thi: Nhà cung cấp hiệu chỉnh"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo phần chú thích trong bảng độ chính xác, các giá trị Newton (N) được thiết định tương ứng với các giá trị g trong ngoặc đơn thuộc cấp nào của JIS-B-7609?",
+      "options": {
+        "A": "Cấp F1",
+        "B": "Cấp F2",
+        "C": "Cấp M1",
+        "D": "Cấp M2"
+      },
+      "correct_answer": "C",
+      "reference_note": "※Các giá trị Newton (N) trong bảng được thiết định tương ứng với các giá trị g trong ngoặc đơn của cấp M1 JIS-B-7609."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

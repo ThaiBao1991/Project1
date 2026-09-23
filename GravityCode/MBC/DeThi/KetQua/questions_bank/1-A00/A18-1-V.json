@@ -1,0 +1,59 @@
+{
+  "file_name": "A18-1-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "Bảng tiêu chuẩn hiệu chỉnh và điểm kiểm dụng cụ đo",
+  "doc_code": "A18-1c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo phần chú ý về điểm kiểm dụng cụ đo, khi phát hiện có bất thường trong quá trình kiểm tra hoặc sử dụng, nhân viên phải thực hiện thao tác xử lý nào sau đây?",
+      "options": {
+        "A": "Tự ý tháo dỡ thiết bị để sửa chữa lỗi",
+        "B": "Tiếp tục sử dụng nếu sai số nhỏ hơn giới hạn cho phép",
+        "C": "Ghi chép lại kết quả và xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu, làm đơn đề nghị hiệu chỉnh lại nếu cần thiết",
+        "D": "Cất thiết bị vào kho chờ đến kỳ định kỳ 12 tháng sau"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 5, phần Chú ý) mục 2: 'Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện hiệu chỉnh'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo giai đoạn VIII trong tài liệu, tiến độ điểm kiểm đối với 'Thiết bị đo Ampe dạng chỉ thị 1 chiều' được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tháng một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "1 lần/tuần",
+        "D": "Xác nhận mỗi 12 tháng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5, Phần II. [Điểm kiểm]: 'Tiến độ điểm kiểm: Mỗi lần sử dụng'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi kiểm tra hạng mục 'Ngoại quan' của thiết bị đo Ampe theo điểm kiểm, nếu mặt kính bị dơ làm không thấy rõ vạch chia độ và kim biểu thị, thao tác xử lý đúng là gì?",
+      "options": {
+        "A": "Dùng giẻ lau... để lau sạch",
+        "B": "Tháo rời mặt kính để vệ sinh bên trong",
+        "C": "Thay thế mặt kính mới ngay lập tức",
+        "D": "Bỏ qua vì không ảnh hưởng đến kết quả đo"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 5, Hạng mục điểm kiểm 'Ngoại quan': 'Xác nhận xem mặt kính có bị dơ... Nếu bị dơ thì phải dùng giẻ lau… để lau sạch.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140585.8974197,
+  "generated_at_iso": "2026-09-23T12:16:25",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 413414,
+    "modified_time": 1738814152.0330894,
+    "modified_time_iso": "2025-02-06T10:55:52",
+    "file_hash_short": "27d40770"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "S07-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "THƯỚC RẬP BLOCK (VẬT LIỆU : THÉP, ZIRCONIA CERAMICS)",
+  "doc_code": "S07 -1 f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Điều kiện về nhiệt độ tiêu chuẩn quy định dùng để hiệu chuẩn Thước rập Block là bao nhiêu?",
+      "options": {
+        "A": "25±1℃",
+        "B": "15±1℃",
+        "C": "20±1℃",
+        "D": "23±2℃"
+      },
+      "correct_answer": "C",
+      "reference_note": "Mục 【Hiệu chuẩn】: Nhiệt độ tiêu chuẩn 20±1℃"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn dụng cụ S07-1 f, chu kì hiệu chuẩn đối với Thước rập Block (vật liệu: Thép, Zirconia Ceramics) là bao lâu?",
+      "options": {
+        "A": "01 năm",
+        "B": "02 năm",
+        "C": "03 năm",
+        "D": "06 tháng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Mục 【Hiệu chuẩn】: Chu kì hiệu chuẩn 02 năm"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo bảng độ chính xác của Thước rập Block, khi kích thước chuẩn vượt qua 10mm đến 25mm, dung sai kích thước cho phép (±) đối với Cấp K là bao nhiêu?",
+      "options": {
+        "A": "0.12 μm",
+        "B": "0.20 μm",
+        "C": "0.30 μm",
+        "D": "0.40 μm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Bảng độ chính xác: Kích thước vượt qua 10, Dưới 25, Cấp K, Dung sai kích thước cho phép (±) = 0.30"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "S27-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "OSCILLOSCOPE - Tài liệu tiêu chuẩn hiệu chỉnh",
+  "doc_code": "S27-1 m",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi tiến hành hiệu chuẩn thiết bị, điều kiện về nhiệt độ xung quanh và độ ẩm tương đối được khuyến nghị (giới thiệu) là gì?",
+      "options": {
+        "A": "Nhiệt độ 25 ± 5°C, Độ ẩm 30~80%",
+        "B": "Nhiệt độ 20 ± 5°C, Độ ẩm dưới 40%",
+        "C": "Nhiệt độ 23 ± 2°C, Độ ẩm tương đối 40~65%",
+        "D": "Nhiệt độ phòng không bắt buộc, Độ ẩm từ 50~90%"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Phần Ⅰ【Hiệu chuẩn】, Nhiệt độ xung quanh 23 ± 2°C (giới thiệu) Độ ẩm tương đối 40~65% (giới thiệu)"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh thiết bị OSCILLOSCOPE, chu kì hiệu chỉnh định kỳ cho dụng cụ chuẩn này là bao lâu?",
+      "options": {
+        "A": "01 năm",
+        "B": "02 năm",
+        "C": "06 tháng",
+        "D": "03 năm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Phần Ⅰ【Hiệu chuẩn】, Chu kì hiệu chỉnh: 02 năm"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trường hợp thực hiện hiệu chỉnh máy đo ở cơ quan hiệu chuẩn khác với nhà chế tạo, yêu cầu bắt buộc phải tuân thủ điều gì?",
+      "options": {
+        "A": "Chỉ cần tham khảo giá trị mẫu 1Vp-p 1kHz sóng vuông",
+        "B": "Có thể tự do thay đổi thông số theo ý muốn của cơ quan hiệu chuẩn",
+        "C": "Nhất định phải tiến hành theo VOLTS/DIV và TIME/DIV",
+        "D": "Không cần quan tâm đến độ chính xác nếu nhiệt độ phòng đạt 23 độ C"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, Chú thích: 'Trường hợp hiệu chỉnh ở cơ quan hiệu chuẩn khác, nhất định phải tiến hành theo VOLTS/DIV và TIME/DIV.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

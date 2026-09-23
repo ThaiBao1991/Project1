@@ -1,0 +1,50 @@
+{
+  "file_name": "091-2-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn kiểm tra, hiệu chỉnh máy móc đo đạc",
+  "doc_code": "CR25-012M-AA",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra hoặc hiệu chỉnh, trường hợp phát hiện ra dị thường (hoặc phán định NG), nhân viên thực hiện thao tác và xử lý theo quy định nào là chính xác nhất?",
+      "options": {
+        "A": "Tự ý điều chỉnh lại thông số máy phát tần số và tiếp tục sử dụng.",
+        "B": "Bỏ qua lỗi NG nếu kết quả đo chênh lệch nhỏ hơn dung sai cho phép.",
+        "C": "Xử lý theo chỉ thị của người chịu trách nhiệm quản lý và ký lục lại kết quả kiểm tra.",
+        "D": "Chỉ cần ghi vào sổ tay cá nhân mà không cần báo cáo cấp trên."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 16 (phần Chú ý) & Trang 5: Trường hợp phán định NG thì nhấn nút reset xóa hiển thị NG, xử lý theo chỉ thị của người chịu trách nhiệm quản lý."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi thực hiện chuẩn bị trước hiệu chỉnh, chu kỳ hiệu chỉnh định kỳ bắt buộc đối với máy kiểm tra xung là bao lâu?",
+      "options": {
+        "A": "Mỗi 6 tháng và khi công nhận cần thiết",
+        "B": "Mỗi 12 tháng và khi công nhận cần thiết",
+        "C": "Mỗi 24 tháng và khi thay đổi thiết bị",
+        "D": "Không bắt buộc định kỳ, chỉ hiệu chỉnh khi máy hỏng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Chu kỳ hiệu chỉnh - Mỗi 12 tháng và khi công nhận cần thiết"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, tần suất kiểm tra đối với hạng mục 'Ngoại quan' và 'Trạng thái biểu thị' của máy đo xung là khi nào?",
+      "options": {
+        "A": "Mỗi 12 tháng và khi công nhận cần thiết",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tuần một lần",
+        "D": "Mỗi ca làm việc trước khi sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 16: Tần suất kiểm tra - Mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

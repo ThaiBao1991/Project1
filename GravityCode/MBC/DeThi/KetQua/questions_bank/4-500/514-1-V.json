@@ -1,0 +1,50 @@
+{
+  "file_name": "514-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "ĐỒNG HỒ ĐO LỰC CĂNG",
+  "doc_code": "514-1 i",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn kiểm tra định kỳ đối với đồng hồ đo lực căng, tiến độ điểm kiểm tra được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và trước khi sử dụng ca sản xuất.",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng.",
+        "C": "3 tháng 1 lần hoặc khi có yêu cầu từ cấp trên.",
+        "D": "Chỉ kiểm tra khi phát hiện sản phẩm lỗi."
+      },
+      "correct_answer": "B",
+      "reference_note": "Phần II [Điểm kiểm]: Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Trong phương pháp điểm kiểm độ ổn định của kim đo và kim chỉ, bước kiểm tra nào sau đây KHÍ ĐƯỢC MÔ TẢ ĐÚNG trong tiêu chuẩn?",
+      "options": {
+        "A": "Chỉnh kim đo về số 0, gia thêm trọng tải tùy ý vào đầu kim đo, xác nhận sự chuyển động và trị biểu thị.",
+        "B": "Lắc mạnh đồng hồ theo chiều dọc để kiểm tra độ nhạy của ổ bi.",
+        "C": "Đặt đồng hồ vào buồng nhiệt độ cao để kiểm tra độ giãn nở của kim.",
+        "D": "Dùng tay uốn cong kim đo để kiểm tra độ dẻo."
+      },
+      "correct_answer": "A",
+      "reference_note": "Phần II [Điểm kiểm] Mục 2. Độ ổn định của kim đo và kim chỉ (1): Chỉnh kim đo về số 0, gia thêm trọng tải tùy ý vào đầu kim đo, xác nhận xem sự chuyển động của kim đo và trị biểu thị."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Khi phát hiện có điểm bất thường trong quá trình điểm kiểm hoặc khi đang sử dụng đồng hồ đo lực căng, nhân viên cần thực hiện thao tác nào sau đây?",
+      "options": {
+        "A": "Tự ý tháo dời thiết bị để sửa chữa lò xo bên trong.",
+        "B": "Tiếp tục sử dụng nếu sai số nhỏ hơn giới hạn cho phép.",
+        "C": "Ghi chép lại kết quả đó và xử lý theo chỉ thị của người chịu trách nhiệm bộ phận chủ quản.",
+        "D": "Đổi sang dùng đồng hồ khác và bỏ qua không cần ghi biên bản."
+      },
+      "correct_answer": "C",
+      "reference_note": "Phần II [Điểm kiểm] Ghi chú mục 2: Nếu có bất thường trong quá trình điểm kiểm (hoặc khi sử dụng) thì phải ghi chép lại kết quả đó và xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận chủ quản."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

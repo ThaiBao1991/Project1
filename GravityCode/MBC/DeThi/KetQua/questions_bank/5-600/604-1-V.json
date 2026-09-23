@@ -1,0 +1,50 @@
+{
+  "file_name": "604-1-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định MÁY ĐO CHIỀU DÀI DẠNG KỸ THUẬT SỐ (HEIDENHAIN CHẾ TẠO - SERIES METRO)",
+  "doc_code": "604-1b",
+  "target_audience": "Nhân viên, Đội trưởng",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Đối với các thể thức máy đo chiều dài MT1201 và MT1281, quy định về việc hiệu chỉnh trong công ty được thực hiện như thế nào?",
+      "options": {
+        "A": "Nhân viên kỹ thuật tại xưởng tự tiến hành hiệu chỉnh bằng block geji cấp 0",
+        "B": "Phải ủy thác việc hiệu chỉnh cho nhà sản xuất hoặc đại lý hiệu chỉnh",
+        "C": "Gửi lên phòng Quản lý chất lượng (BHCL) để hiệu chỉnh",
+        "D": "Có thể tự hiệu chỉnh nếu có giấy phép đặc biệt từ Trưởng phòng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Phần I【Hiệu chỉnh】 - Hạng mục Độ chính xác tổng hợp: 'Với thể thức MT1201 và MT1281 thì phải ủy thác việc hiệu chỉnh cho nhà sản xuất hoặc đại lý hiệu chỉnh.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi phát hiện kết quả kiểm tra định kỳ không thấy bất thường (máy hoạt động bình thường), quy định ghi chép hồ sơ như thế nào là đúng?",
+      "options": {
+        "A": "Không cần ghi chép bất cứ kết quả nào dưới mọi hình thức",
+        "B": "Chỉ cần ghi chép khi có sự cố hỏng hóc nặng xảy ra",
+        "C": "Không ghi chép kết quả cũng được, tuy nhiên dù không có bất thường nhưng mỗi tháng cũng phải ghi chép lại kết quả đó",
+        "D": "Phải ghi chép chi tiết từng giờ mỗi ca làm việc"
+      },
+      "correct_answer": "C",
+      "reference_note": "Phần II【Điểm kiểm】 - Ghi chú ý số 2: 'Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, Tuy nhiên, dù không có bất thường nhưng mỗi tháng cũng phải ghi chép lại kết quả đó'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ thực hiện điểm kiểm (kiểm tra hằng ngày/mỗi lần sử dụng) đối với máy đo chiều dài dạng kỹ thuật số Series Metro được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần trước khi sản xuất",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "36 tháng một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Phần II 【Điểm kiểm】: Tiến độ điểm kiểm - Mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

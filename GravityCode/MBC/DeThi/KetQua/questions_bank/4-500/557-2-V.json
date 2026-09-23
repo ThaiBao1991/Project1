@@ -1,0 +1,50 @@
+{
+  "file_name": "557-2-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "ĐỒNG HỒ ĐO NHIỆT ĐỘ ĐẦU MŨI HÀN (kiểu kỹ thuật số)",
+  "doc_code": "557-2 d",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo mục II về Thay đổi sensor nhiệt độ, khi nào thì phải thay mới sensor nhiệt độ cho thiết bị đo?",
+      "options": {
+        "A": "Sau 10 lần sử dụng",
+        "B": "Sau 50 lần sử dụng (vì sensor sẽ bị lão hóa)",
+        "C": "Sau 100 lần sử dụng",
+        "D": "Khi sensor có hiện tượng đứt dây hoặc bám chì"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2 - Tiêu chuẩn II - Mục 3: 'Phải thay mới sensor nhiệt độ sau 50 lần sử dụng (vì sensor sẽ bị lão hóa)'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo mục II (Điểm kiểm), tiến độ kiểm tra đối với Đồng hồ đo nhiệt độ đầu mũi hàn (HAKKO 191, QUICK 191AD) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi ngày một lần trước khi làm việc",
+        "B": "Mỗi lần sử dụng",
+        "C": "Một tuần một lần",
+        "D": "Một tháng một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2 - Tiêu chuẩn II (Điểm kiểm) - Tiến độ kiểm tra: 'Mỗi lần sử dụng'"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục Chú ý phần Điểm kiểm (trang 2), khi phát hiện kết quả điểm kiểm không có bất thường hoặc kết quả có dị thường, quy định xử lý nào sau đây là ĐÚNG?",
+      "options": {
+        "A": "Nếu không có bất thường thì không cần ghi chép cũng được, miễn là kiểm tra hàng ngày.",
+        "B": "Trường hợp có dị thường, được phép tự ý sửa chữa rồi tiếp tục sử dụng mà không cần báo cáo.",
+        "C": "Trường hợp kết quả điểm kiểm không thấy bất thường không ghi chép cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã điểm kiểm một lần dù không có gì bất thường xảy ra.",
+        "D": "Trường hợp có dị thường chỉ cần ghi nhớ bằng miệng và báo cáo vào cuối quý."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2 - Chú ý mục 2: 'Trường hợp kết quả điểm kiểm không thấy bất thường không ghi chép cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã điểm kiểm một lần dù không có gì bất thường xảy ra.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

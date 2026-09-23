@@ -1,0 +1,50 @@
+{
+  "file_name": "002-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh – Điểm kiểm dụng cụ đo: Đồng hồ đo điện áp DC",
+  "doc_code": "002-1d",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Trong trường hợp kết quả kiểm tra hàng ngày không phát hiện bất thường, việc ghi chép kết quả được thực hiện như thế nào?",
+      "options": {
+        "A": "Bắt buộc phải ghi chép đầy đủ sau mỗi lần kiểm tra",
+        "B": "Không cần ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại một lần",
+        "C": "Chỉ cần báo cáo bằng miệng cho người quản lý",
+        "D": "Không cần ghi chép cho đến khi có đợt hiệu chỉnh định kỳ 12 tháng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Mục Ghi chú (trang 2), khoản 2: Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn 002-1d, tiến độ kiểm tra (điểm kiểm) đối với đồng hồ đo điện áp DC được quy định như thế nào?",
+      "options": {
+        "A": "Định kỳ 12 tháng một lần",
+        "B": "Mỗi tuần một lần vào đầu tuần",
+        "C": "Mỗi lần sử dụng",
+        "D": "Chỉ kiểm tra khi có dấu hiệu hư hỏng"
+      },
+      "correct_answer": "C",
+      "reference_note": "Mục II [Kiểm tra]: Tiến độ kiểm tra - Mỗi lần sử dụng."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Khi thực hiện xác nhận độ chính xác cho đồng hồ đo điện áp DC cấp 0.5, sai số cho phép (phương pháp phán định) là bao nhiêu?",
+      "options": {
+        "A": "± 0.5% đối với trị số thang đo lớn nhất",
+        "B": "± 1.0% đối với trị số thang đo lớn nhất",
+        "C": "± 0.5% đối với giá trị đo thực tế",
+        "D": "1.0% max đối với chiều dài thang đo"
+      },
+      "correct_answer": "A",
+      "reference_note": "Mục I [Hiệu chỉnh], Hạng mục 1: Phương pháp phán định - Cấp 0.5 ± 0.5% (% đối với trị số thang đo lớn nhất)."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

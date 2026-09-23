@@ -1,0 +1,50 @@
+{
+  "file_name": "593-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "MÁY ĐO CHIỀU CAO TAY CHỔI",
+  "doc_code": "593-1a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ điểm kiểm tra đối với \"MÁY ĐO CHIỀU CAO TAY CHỔI\" (BHM-1) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi tháng một lần",
+        "C": "Mỗi lần sử dụng",
+        "D": "Trước khi giao ca sản xuất"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2 - Tiêu chuẩn II. [Điểm kiểm]: Tiến độ điểm kiểm - Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo phần chú ý trong tài liệu, trong trường hợp kết quả kiểm tra không thấy bất thường thì quy định ghi chép như thế nào là đúng?",
+      "options": {
+        "A": "Không cần ghi kết quả cũng được, nhưng mỗi tháng một lần phải ghi lại kết quả đã điểm kiểm dù không có gì bất thường xảy ra.",
+        "B": "Bắt buộc phải ghi chép lại đầy đủ kết quả đo đạc sau mỗi lần sử dụng mà không có ngoại lệ.",
+        "C": "Tuyệt đối không được ghi chép bất cứ kết quả nào nếu không có sự cho phép của người quản lý.",
+        "D": "Chỉ ghi kết quả khi có yêu cầu từ bộ phận bảo hành chất lượng."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2 - Chú ý mục 2: Kết quả kiểm tra trường hợp không thấy bất thường, không ghi kết quả cũng được, nhưng mỗi tháng một lần phải ghi lại kết quả đã điểm kiểm, dù không có gì bất thường xảy ra."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi tiến hành hiệu chỉnh thước chuẩn có kích thước 2.00mm, trị phán định dung sai cho phép là bao nhiêu?",
+      "options": {
+        "A": "2.00 ± 0.05 mm",
+        "B": "2.00 +0 / -0.02 mm",
+        "C": "2.00 ± 0.01 mm",
+        "D": "2.00 ± 0.02 mm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2 - Phần Phán định: (Ví dụ) kích thước chuẩn 2.00 thì trị phán định 2.00 ± 0.01mm"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

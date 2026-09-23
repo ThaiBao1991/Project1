@@ -1,0 +1,50 @@
+{
+  "file_name": "011-3-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh – điểm kiểm dụng cụ đo Máy thí nghiệm cuộn dây bằng xung lực DW – 9505, DWT – 05",
+  "doc_code": "011-3 a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh, chu kì hiệu chỉnh định kỳ đối với máy thí nghiệm cuộn dây bằng xung lực là bao lâu?",
+      "options": {
+        "A": "6 tháng",
+        "B": "12 tháng",
+        "C": "24 tháng",
+        "D": "3 tháng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: 'Chu kì hiệu chỉnh: 12 tháng'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Để đề phòng điện giật khi hiệu chỉnh máy đo điện áp xuất ra, nhân viên phải tuân thủ quy định an toàn nào dưới đây?",
+      "options": {
+        "A": "Phải sử dụng bao tay cao su cách điện khi hiệu chỉnh máy đo",
+        "B": "Chỉ cần ngắt nguồn điện chính trước khi thao tác",
+        "C": "Sử dụng gót chân tiếp đất và tháo trang sức bằng kim loại",
+        "D": "Không cần thiết bị bảo hộ nếu điện áp dưới 1.5kV"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: '<Chú ý> Để đề phòng điện giật phải sử dụng bao tay cao su cách điện khi hiệu chỉnh máy đo.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Trong quá trình kiểm tra định kỳ (Điểm Kiểm) \"Máy thí nghiệm cuộn dây bằng xung lực\", tiến độ kiểm tra được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi tháng một lần",
+        "C": "Mỗi lần sử dụng",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 6: 'Tiến độ kiểm tra: Mỗi lần sử dụng'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

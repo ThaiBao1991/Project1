@@ -1,0 +1,50 @@
+{
+  "file_name": "023-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - Máy ghi (YOKOGAWA)",
+  "doc_code": "023-1f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục I (Hiệu chỉnh), phương pháp phán định đối với hạng mục '1. Độ chính xác đo' của máy ghi là gì?",
+      "options": {
+        "A": "Dưới ±0.5% chiều rộng máy ghi",
+        "B": "Dưới ±2.0% bề rộng ghi chép có hiệu quả",
+        "C": "Dưới ±1.0% chiều rộng máy ghi có hiệu quả",
+        "D": "Dưới ±0.1% giá trị hiển thị kỹ thuật số"
+      },
+      "correct_answer": "C",
+      "reference_note": "I【Hiệu chỉnh】 - Hạng mục hiệu chỉnh 1. Độ chính xác đo - Phương pháp phán định: Dưới ±1.0% Chiều rộng máy ghi có hiệu quả."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ thực hiện điểm kiểm cho máy ghi (YOKOGAWA) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước mỗi ca làm việc"
+      },
+      "correct_answer": "B",
+      "reference_note": "II 【Điểm kiểm】 - Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo phần Ghi chú về điểm kiểm, trong trường hợp kết quả kiểm tra không thấy bất thường thì quy định ghi chép như thế nào là đúng?",
+      "options": {
+        "A": "Không cần ghi chép lại kết quả dưới mọi hình thức",
+        "B": "Mỗi tuần phải ghi chép lại kết quả đã kiểm tra một lần",
+        "C": "Mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra",
+        "D": "Phải ghi chép đầy đủ vào biên bản sau mỗi 2 giờ làm việc"
+      },
+      "correct_answer": "C",
+      "reference_note": "II 【Điểm kiểm】 - Ghi chú 2: Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

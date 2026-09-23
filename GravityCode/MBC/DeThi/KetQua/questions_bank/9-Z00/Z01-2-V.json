@@ -1,0 +1,50 @@
+{
+  "file_name": "Z01-2-V.pdf",
+  "folder_name": "9-Z00 Ban V IT HOA",
+  "doc_title": "Quy cách phán định Digital Multimeter FLUKE",
+  "doc_code": "Z01-2l",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục (2) của tài liệu tiêu chuẩn, khi muốn bổ sung quy cách phán định do bổ sung chủng loại mới, ta phải tuân thủ quy định nào sau đây?",
+      "options": {
+        "A": "Tự ý áp dụng theo tài liệu hướng dẫn sử dụng của hãng sản xuất bên ngoài mà không cần xin phép.",
+        "B": "Phải xin phép ban BHCL công ty chính ban hành mới - cải đính bản tiêu chuẩn dựa theo dụng cụ đo mã số A18-1, và lấy trị quy cách của bản hướng dẫn sử dụng.",
+        "C": "Chỉ cần báo cáo cho tổ trưởng sản xuất và tiến hành hiệu chỉnh ngay lập tức.",
+        "D": "Không cần làm thủ tục cải đính nếu thiết bị đo có thông số tương đương thể thức cũ."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Nội dung (2): 'Bổ sung quy cách phán định do bổ sung chủng loại, phải xin phép ban BHCL công ty chính ban hành mới-cải đính bản tiêu chuẩn dựa theo dụng cụ đo mã số A18-1. Ngoài ra, quy cách phán định sẽ lấy trị quy cách của bản hướng dẫn sử dụng'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo nội dung lưu ý trong tài liệu tiêu chuẩn, trường hợp nào thì không cần hiệu chỉnh dụng cụ đo?",
+      "options": {
+        "A": "Khi dụng cụ đo đã quá hạn hiệu chuẩn định kỳ.",
+        "B": "Khi dấu * là trường hợp nếu thực tế không sử dụng thì không cần hiệu chỉnh.",
+        "C": "Khi thiết bị đo bị lỗi hiển thị màn hình LCD.",
+        "D": "Khi kỹ thuật viên bận không tiến hành đo được."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Nội dung (1): 'Dấu＊là trường hợp nếu thực tế không sử dụng thì không cần hiệu chỉnh.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo bảng quy cách phán định, đối với thiết bị đo Digital Multimeter thể thức 77 (trang 3), dải đo (Range) và quy cách phán định đối với Điện áp DC ở mức 320mV là gì?",
+      "options": {
+        "A": "320mV - 0.5% +1",
+        "B": "320mV - 0.1% +1",
+        "C": "320mV - 0.3% +1",
+        "D": "320mV - 0.025% +6"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3, Bảng quy cách thể thức 77, Hạng mục Điện áp DC: '320mV | 0.3% +1'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

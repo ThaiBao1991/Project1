@@ -1,0 +1,50 @@
+{
+  "file_name": "071-3-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Thiết bị ghi dữ liệu (GRAPHTEC GL240/GL260/GL450/GL800/GL820/GL840/GL900/GL980)",
+  "doc_code": "071-3 h",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo quy định tại mục Chú ý về kết quả điểm kiểm và xử lý bất thường, nhân viên phải thực hiện hành động nào khi phát hiện bất thường?",
+      "options": {
+        "A": "Tự ý tháo thiết bị ra để sửa chữa các bộ phận bên trong",
+        "B": "Tiếp tục sử dụng nếu sai số nhỏ và ghi chép lại vào tháng sau",
+        "C": "Ghi chép lại kết quả bất thường và xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở quản, trường hợp cần thiết làm đơn đề nghị hiệu chỉnh lại",
+        "D": "Vứt bỏ thiết bị và lập biên bản mua mới ngay lập tức"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 4: Chú ý 2. Nếu có bất thường khi điểm kiểm (hoặc khi sử dụng) hãy ghi chép lại kết quả đó và xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở quản. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo ở bộ phận thực thi hiệu chỉnh"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm (kiểm tra định kỳ/hàng ngày) đối với thiết bị ghi dữ liệu được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và trước khi sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "Mỗi 3 tháng 1 lần",
+        "D": "Chỉ thực hiện khi thiết bị xảy ra sự cố"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 4: Tiến độ điểm kiểm Mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Trong quá trình chuẩn bị trước khi hiệu chỉnh độ chính xác đo điện áp, sau khi cắm nguồn điện thì phải để yên thiết bị trong thời gian tối thiểu bao lâu để máy ấm lên?",
+      "options": {
+        "A": "10 phút trở lên",
+        "B": "15 phút trở lên",
+        "C": "30 phút trở lên",
+        "D": "60 phút trở lên"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Sau khi cắm nguồn điện, phải để yên trong vòng 30 phút trở lên (máy ấm lên)."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

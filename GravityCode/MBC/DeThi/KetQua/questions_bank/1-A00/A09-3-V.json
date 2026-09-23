@@ -1,0 +1,59 @@
+{
+  "file_name": "A09-3-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM DỤNG CỤ ĐO (Quản lý file chủ)",
+  "doc_code": "A09-3",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi thực hiện đăng ký tên người đẻm trách hiệu chỉnh của phòng ban quản lý, nếu trường hợp biểu thị không hiện ra là do nguyên nhân nào?",
+      "options": {
+        "A": "Do máy tính bị mất kết nối mạng Internet.",
+        "B": "Do chưa đăng ký phòng ban đảm trách quản lý, nên phải đăng ký theo mục 2 trước.",
+        "C": "Do chưa nhập mã số nhân viên chính xác.",
+        "D": "Do chưa chọn ngôn ngữ hiển thị tiếng Anh."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: Hạng mục 2 (Đăng ký tên người đảm trách quản lý) - Lưu ý (*)"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trong trường hợp đăng ký bị sai hoặc nội dung đăng ký không còn cần thiết nữa đối với hạng mục 1 và hạng mục 2, thao tác xử lý bất thường/hủy bỏ chính xác theo tiêu chuẩn là gì?",
+      "options": {
+        "A": "Tự động xóa vĩnh viễn khỏi hệ thống bằng cách tắt nguồn máy tính.",
+        "B": "Check vào ô Delete và click vào Lưu đăng ký.",
+        "C": "Gọi điện báo cáo cấp trên trực tiếp mà không cần thao tác trên máy.",
+        "D": "Thay đổi tên máy đo thành chữ Delete."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: Hạng mục 3 (Hủy bỏ thông tin đăng ký cho hạng mục 1 và hạng mục 2) - Trình tự"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi thực hiện đăng ký tên gọi dụng cụ đo trong chương trình ACM [Quản lý file chủ], sau khi nhập mã số tiêu chuẩn dụng cụ đo và hiển thị dòng chữ thông báo, thao tác tiếp theo cần thực hiện là gì?",
+      "options": {
+        "A": "Nhập vào ngày tháng năm phát hành, thiết định cứ điểm tương ứng, nhập vào tên máy đo, nhập chu kỳ hiệu chỉnh và click vào Lưu đăng ký.",
+        "B": "Click trực tiếp vào nút Delete để xóa bỏ dữ liệu cũ.",
+        "C": "Chỉ nhập tên phòng ban quản lý rồi lưu lại.",
+        "D": "Check vào checkbox Hủy bỏ rồi click Lưu đăng ký."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: Hạng mục 1 (Đăng ký tên gọi dụng cụ đo) - Trình tự ban hành"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140343.8155396,
+  "generated_at_iso": "2026-09-23T12:12:23",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 286964,
+    "modified_time": 1338272323.6501138,
+    "modified_time_iso": "2012-05-29T13:18:43",
+    "file_hash_short": "39432fbc"
+  }
+}

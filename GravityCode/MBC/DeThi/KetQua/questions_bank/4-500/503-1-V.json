@@ -1,0 +1,50 @@
+{
+  "file_name": "503-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh và điểm kiểm dụng cụ đo Kính hiển vi công cụ",
+  "doc_code": "503-1 h",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Phương pháp phán định đối với 'Độ chính xác chỉ thị của bàn di chuyển' là gì (với L là lượng di chuyển của bàn đo bằng mm)?",
+      "options": {
+        "A": "Dưới (3+0.01L) µm",
+        "B": "Dưới (5+L/20) µm",
+        "C": "Dưới (4+L/25) µm",
+        "D": "Không được sai lệch khi di chuyển sang trái, phải"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1 - Mục 2. Độ chính xác chỉ thị của bàn di chuyển: Phương pháp phán định: Dưới (4+L/25)µm"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Khi kết quả điểm kiểm phát hiện có dị thường, nhân viên thao tác phải xử lý theo quy định nào dưới đây?",
+      "options": {
+        "A": "Tự ý tháo rời thiết bị để sửa chữa ngay lập tức.",
+        "B": "Bỏ qua nếu lỗi nhỏ và tiếp tục sử dụng đo sản phẩm hàng loạt.",
+        "C": "Ghi chép lại kết quả có dị thường, xử lý theo chỉ thị của người chịu trách nhiệm bộ môn sở hữu, và xin tái hiệu chỉnh nếu cần thiết.",
+        "D": "Chỉ cần ghi chép vào sổ 1 tháng 1 lần mà không cần báo cáo."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2 - Chú ý 2: Ghi chép lại kết quả trường hợp có dị thường khi điểm kiểm, xử lý theo chỉ thị của người chịu trách nhiệm bộ môn sở hữu. Trường hợp cần thiết thì xin tái hiệu chỉnh dụng cụ đo ở bộ môn thực thi hiệu chỉnh."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ điểm kiểm và châm dầu cho kính hiển vi công cụ được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và mỗi lần sử dụng.",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng châm dầu theo biểu dưới.",
+        "C": "6 tháng 1 lần và trước khi sử dụng.",
+        "D": "Chỉ thực hiện khi phát hiện có dị thường."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2 - Ⅱ【Điểm kiểm】: Tiến độ điểm kiểm Mỗi tháng 1 lần và mỗi lần sử dụng châm dầu theo biểu dưới."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

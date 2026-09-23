@@ -1,0 +1,50 @@
+{
+  "file_name": "522-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định Thước đo đường kính chiều sâu",
+  "doc_code": "522-1c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo mục II [Kiểm tra], tiến độ kiểm tra Thước đo đường kính chiều sâu được quy định khi nào?",
+      "options": {
+        "A": "Hàng tuần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Hàng tháng",
+        "D": "Mỗi năm một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, II [Kiểm tra], Tiến độ kiểm tra: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo phần [Hiệu chỉnh], chu kỳ hiệu chỉnh của thước đo chiều sâu (dụng cụ chuẩn: Dụng cụ block trên cấp 1 S07-1) là bao lâu?",
+      "options": {
+        "A": "6 tháng hoặc khi xác nhận thấy cần thiết",
+        "B": "12 tháng hoặc khi xác nhận thấy cần thiết",
+        "C": "24 tháng hoặc khi xác nhận thấy cần thiết",
+        "D": "3 tháng hoặc khi xác nhận thấy cần thiết"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Chu kỳ hiệu chỉnh: 12 tháng hoặc khi xác nhận thấy cần thiết"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục Ghi chú của quy trình kiểm tra, trong trường hợp kết quả kiểm tra không thấy bất thường (không ghi chép kết quả cũng được), nhưng tối thiểu bao lâu phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi quý một lần",
+        "C": "Mỗi tháng một lần",
+        "D": "Mỗi năm một lần"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, Ghi chú số 2: Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

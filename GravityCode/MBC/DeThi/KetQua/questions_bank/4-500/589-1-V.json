@@ -1,0 +1,50 @@
+{
+  "file_name": "589-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "ROTOR KIỂM TRA NGẪU LỰC K",
+  "doc_code": "589-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu kỹ thuật, khi tiến hành kiểm tra ngoại quan rotor, chúng ta cần xác nhận những yếu tố nào sau đây?",
+      "options": {
+        "A": "Chỉ kiểm tra chiều dài rotor và trọng lượng rotor có đúng tiêu chuẩn không.",
+        "B": "Xác nhận xem rotor có bị dơ, khiếm khuyết, tổn hại, hư hao và các linh kiện tạo thành có bị mất hay không, trục có bị dị thường, hao mòn, trầy xước hoặc bị cong không.",
+        "C": "Chỉ kiểm tra trục có bị trầy xước hay không, các bộ phận khác không quan trọng.",
+        "D": "Kiểm tra độ cứng bề mặt của rotor bằng máy đo chuyên dụng."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2 - Hạng mục điểm kiểm: 1. Ngoại quan"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Trong trường hợp kết quả kiểm tra không thấy bất thường (hoặc không ghi chép kết quả cũng được), theo quy định thì mỗi tháng phải thực hiện ghi chép lại kết quả đã kiểm tra ít nhất mấy lần dù không có gì bất thường xảy ra?",
+      "options": {
+        "A": "Mỗi tuần 1 lần",
+        "B": "Mỗi tháng 1 lần",
+        "C": "Mỗi quý 1 lần",
+        "D": "6 tháng 1 lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2 - Ghi chú mục 2"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Khi kiểm tra ngẫu lực K của nam châm, thao tác nào sau đây bị NGHIÊM CẤM thực hiện để đảm bảo an toàn và chất lượng?",
+      "options": {
+        "A": "Đeo găng tay sạch khi cầm rotor.",
+        "B": "Dùng tay nắm trục lôi ra, treo ngược lên hoặc xoay rotor một cách vô lí.",
+        "C": "Đặt rotor nhẹ nhàng lên bàn kiểm tra chuyên dụng.",
+        "D": "Sử dụng dụng cụ trắc định theo đúng chu kỳ hiệu chỉnh."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2 - Hạng mục điểm kiểm: 2. Việc khác"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

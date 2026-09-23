@@ -1,0 +1,621 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Tài liệu tiêu chuẩn hiệu chỉnh - và kiểm tra dụng cụ trắc định
+Mã số/Mã máy đo: 003-4
+File gốc: 003-4-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/7
+Tài liệu tiêu chuẩn hiệu chỉnh
+và kiểm tra dụng cụ trắc định
+
+THIẾT BỊ ĐO ĐIỆN ĐA NĂNG KĨ THUẬT SỐ IWATSU
+VOAC7411
+Mabuchi motor Co., Ltd
+Bộ phận bảo hành phẩm chất
+
+Ngày ban hành 09.01.2001
+Ngày thay đổi
+Dụng cụ trắc định 003-4
+
+Ⅰ(Hiệu chỉnh)
+Dụng cụ chuẩn
+Thiết bị hiệu chỉnh dòng điện một chiều, dụng cụ đo điện trở chuẩn, thiết bị
+đo điện đa năng kĩ thuật số
+Chu kỳ hiệu chỉnh
+Khi xác nhận thấy cần thiết (nhưng không vượt quá 12 tháng)
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+1. Hiệu chỉnh điện
+áp một chiều.
+
+Hiệu chỉnh theo tài liệu tiêu chuẩn 003-1.
+Trị số đo và trị số phán định theo biểu bên dưới.
+Tốc độ : SLOW
+
+※ Trường hợp hiệu chỉnh NG thì hiệu chỉnh zero, phải tiến
+hành xác nhận lại độ chính xác bằng cách hiệu chỉnh
+toàn bộ các giới hạn đo.
+(Phương pháp hiệu chỉnh tham khảo sách hướng dẫn
+cách sử dụng.)
+
+Tham khảo
+biểu
+
+Phạm vi
+Điện áp dưa vào
+Độ chính xác
++40.000mV
+39.961～40.039
+0
+0±7 số đếm
+40mV
+-40.000mV
+-39.961～-40.039
++400.00mV
+399.70～400.30
+0
+0±2 số đếm
+400mV
+-400.00mV
+-399.70～-400.30
++4.0000V
+399.70～4.0030
+0
+0±2 số đếm
+4V
+-4.0000V
+-3.9970～-4.0030
++40.000V
+39.970～40.030
+0
+0±2 số đếm
+40V
+-40.000V
+-39.970～-40.030
++400.00V
+399.70～400.30
+0
+0±2 số đếm
+400V
+-400.00V
+-399.70～-400.30
++1000.0V
+0999.1～1000.9
+0
+0±2 số đếm
+1000V
+-1000.0V
+-0999.1～-1000.9
+
+--- HẾT TRANG ---
+
+No.2/7
+Dụng cụ trắc định 003-4
+Ⅰ【Hiệu chỉnh】
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+2. Hiệu chỉnh
+dòng điện một
+chiều.
+Tốc độ : SLOW
+
+ò
+
+※ Trường hợp hiệu chỉnh NG thì hiệu chỉnh zero, phải tiến
+hành xác nhận lại độ chính xác bằng cách hiệu chỉnh
+toàn bộ các giới hạn đo.
+(Phương pháp hiệu chỉnh tham khảo sách hướng dẫn
+cách sử dụng.)
+
+Tham khảo
+biểu
+
+Phạm vi đo
+Dòng điện đưa vào
+Độ chính xác
++400.00μA
+399.13～400.87
+0
+0±7 (các số đếm)
+Nhập g.hạn lớn
+(Ví dụ 400mA)
+Biểu thị giới hạn lớn
+400μA
+-400.00μA
+-399.13～-400.87
++4.0000mA
+3.9913～4.0087
+4mA
+-4.0000mA
+-3.9913～-4.0087
++40.000mA
+39.913～40.087
+40mA
+-40.000mA
+-39.913～-40.087
++400.00mA
+399.13～400.87
+400mA
+-400.00mA
+-399.13～-400.87
++4.000A
+3.9873～4.0127
+4A
+-4.000A
+-3.9873～-4.0127
++10.000A
+09.955～10.045
+10A
+-10.000A
+-09.955～-10.045
+
+--- HẾT TRANG ---
+
+No.3/7
+Dụng cụ trắc định 003-4
+II Hiệu chỉnh
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+3. Hiệu chỉnh điện
+trở.
+Tốc độ <điện trở (Ω)>: SLOW
+
+ò
+
+Dành để xác nhận mức độ điểm kiểm, nên không cần sử
+dụng máy chuẩn cũng được.
+
+Tốc độ <điện trở (LO-Ω)>: SLOW
+
+ò
+
+Dành để xác nhận mức độ điểm kiểm, nên không cần sử
+dụng máy chuẩn cũng được.
+※ Trường hợp hiệu chỉnh NG thì hiệu chỉnh zero, phải tiến
+hành xác nhận lại độ chính xác bằng cách hiệu chỉnh
+toàn bộ các giới hạn đo.
+(Phương pháp hiệu chỉnh tham khảo sách hưởng dẫn cách
+sử dụng.)
+
+Tham khảo
+biểu
+
+Phạm vi
+Điện trở đưa vào
+Độ chính xác
+100.00Ω
+99.65～100.35
+400Ω
+0
+0±5 (các số đếm)
+1.0000kΩ
+0.9965～1.0035
+4kΩ
+0
+0±5 (các số đếm)
+10.000kΩ
+9.965～10.035
+40kΩ
+※ Nhập Max
+(ví dụ 400kΩ)
+Biểu thị max
+400kΩ
+4000kΩ
+40MΩ
+Thực tế không sử dụng nên không cần hiệu
+chỉnh
+
+Phạm vi
+Điện trở đưa vào
+Độ chính xác
+10.000Ω
+9.987～10.013
+40Ω
+0
+0±4 (các số đếm)
+100.00Ω
+99.90～100.10
+400Ω
+0
+0±2 (các số đếm)
+1.0000kΩ
+0.9990～1.0010
+4kΩ
+0
+0±2 (các số đếm)
+10.000kΩ
+9.990～10.010
+40kΩ
+※ Nhập Max
+(ví dụ 400kΩ)
+Biểu thị Max
+400kΩ
+4000kΩ
+40MΩ
+400MΩ
+Thực tế không sử dụng nên không cần hiệu
+chỉnh
+
+--- HẾT TRANG ---
+
+No.4/7
+Dụng cụ trắc định 003-4
+Ⅰ【Hiệu chỉnh】
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+4. Hiệu chỉnh điện
+áp xoay chiều.
+<Điện áp xoay chiều>. . . Tốc độ ( )
+
+<(điện áp (một chiều+xoay chiều)>. . . tốc độ ( )
+
+ò
+Trường hợp hiệu chỉnh NG thì off-set, phải xác nhận lại
+độ chính xác bằng cách tiến hành hiệu chỉnh lại ở các
+giới hạn đo, đặc tính số chu kỳ sóng, và điểm kiểm ở
+(Phương pháp hiệu chỉnh tham khảo sách hướng dẫn cách sử
+dụng.)
+
+Tham khảo
+biểu
+
+Tham khảo
+biểu
+
+Phạm vi
+Điện áp đưa
+vào
+Số chu kỳ
+sóng
+Độ chính xác
+
+400mV
+(SLOW)
+300.00mV
+20Hz～50Hz
+29820～
+30180
+4V
+(SLOW)
+3.0000V
+50Hz～10kHz
+29895～
+30105
+40V
+(SLOW)
+30.000V
+10kHz～
+30kHz
+29850～
+30150
+400V
+(SLOW)
+300.00V
+30kHz～
+100kHz
+29540～
+30460
+4V
+(FAST)
+3.0000V
+trên 200Hz
+2.9895～
+3.0105
+400mV
+(SLOW)
+Nhập max
+(ví duï 3V)
+(vídụ 1kHz)
+Biểu thị max
+750V
+(SLOW)
+750.0V
+20Hz～20kHz
+745.5～754.5
+Phạm vi
+Điện áp đưa
+vào
+Số chu kỳ
+sóng
+Độ chính xác
+
+400mV
+(SLOW)
+300.00mV
+20Hz～50Hz
+29810～
+30190
+4V
+(SLOW)
+3.0000V
+50Hz～10kHz
+29885～
+30115
+40V
+(SLOW)
+30.000V
+10kHz～
+30kHz
+29840～
+30160
+400V
+(SLOW)
+300.00V
+30kHz～
+100kHz
+29530～
+30470
+4V
+(FAST)
+3.0000V
+trên 200Hz
+2.9885～
+3.0115
+400mV
+(SLOW)
+Nhập max
+(ví dụ 3V)
+(ví dụ 1kHz)
+Biểu thị max
+750V
+(SLOW)
+750.0V
+20Hz～20kHz
+744.0～756.0
+
+--- HẾT TRANG ---
+
+No.5/7
+Dụng cụ trắc định 003-4
+Ⅰ【Hiệu chỉnh】
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+5. Hiệu chỉnh
+dòng điện
+xoay chiều.
+<dòng điện xoay chiều> Tốc độ là : SLOW (50Hz～1kHz )
+
+<(Dòng điện (một chiều+xoay chiều)>
+Tốc độ : SLOW (50Hz～ 1kHz)
+
+ò
+
+Trường hợp hiệu chỉnh NG thì hiệu chỉnh off-set, phải tiến
+hành xác nhận lại độ chính xác bằng cách hiệu chỉnh
+toàn bộ các giới hạn đo.
+(Phương pháp hiệu chỉnh tham khảo sách hướng dẫn cách sử
+dụng.)
+Ghi chú
+Trường hợp không có máy chuẩn thì phải gởi ra bên ngoài
+nhờ hiệu chỉnh.
+Khi gởi ra bên ngoài nhờ hiệu chỉnh thì phải dựa vào tài liệu
+A16-1 Đánh giá nơi được ủy thác hiệu chỉnh.
+
+Tham khảo
+biểu
+
+Tham khảo
+biểu
+
+Phạm vi
+Dòng điện đưa vào
+Độ chính xác
+400.00μA
+397.20～402.80
+400μA
+Nhập max
+(Ví dụ 4mA)
+Biểu thị max
+4mA
+4.0000mA
+3.9720～4.0280
+40mA
+40.000mA
+39.720～40.280
+400mA
+400.00mA
+397.20～402.80
+4A
+4.0000A
+3.9480～4.0520
+10A
+10.000A
+09.840～10.160
+Phạm vi
+Dòng điện đưa vào
+Độ chính xác
+400.00μA
+397-30～402.70
+400μA
+Nhập max
+(Ví dụ 4mA)
+Biểu thị max
+4mA
+4.0000mA
+3.9730～4.0270
+40mA
+40.000mA
+39.730～40.270
+400mA
+400.00mA
+397.30～402.70
+4A
+4.0000A
+3.9490～4.0510
+10A
+10.000A
+09.850～10.150
+
+--- HẾT TRANG ---
+
+No.6/7
+Dụng cụ trắc định 003-4
+Ⅱ 【Điểm kiểm】   THIẾT BỊ ĐO ĐIỆN ĐA NĂNG KĨ THUẬT SỐ
+
+Tiến độ kiểm tra       mức độ sử dụng
+
+Hạng mục điểm
+kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1. Xác nhận điểm 0.
+
+2. Việc khác
+
+Nhấn công tắc nguồn điện, xác nhận trạng thái biểu thị.
+
+Khi đã cho về “0” ở các chức năng (điện trở, dòng điện
+một chiều, điện áp một chiều), xác nhận độ chính xác ở
+các giới hạn.
+
+Xác nhận xem dây nối có được tiếp xúc một cách chính
+xác chưa.
+Có chổ nào bị lỏng, đứt dây . . . hay không.
+Rắc cắm có được cắm vào hoàn toàn chưa.
+
+Không có dị
+thường.
+
+Dựa theo tài liệu
+tiêu chuẩn hiệu
+chỉnh 003-4
+
+Khi phát hiện ra
+xử lý ngay.
+
+Ghi chú
+1. Trường hợp kiểm tra thấy bất thường, ghi chép lại kết quả đã kiểm tra và xử lý theo chỉ
+thị của người có trách nhiệm quản lý.
+2. Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được,
+nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường
+xảy ra.
+3. Trường hợp nhận ra sự bất thường trong khi sử dụng, sẽ xử lý dựa vào chỉ thị của người
+có trách nhiệm quản lý.
+
+--- HẾT TRANG ---
+
+No.7/7
+Dụng cụ trắc định 003-4
+Tài liệu tiêu chuẩn hiệu chỉnh điểm kiểm
+Biểu lý lịch những ban hành, cải chính và hủy bỏ
+
+Dấu
+hiệu
+Ngày tháng
+năm
+Nội dung (bao gồm những nội dung sửa
+đổi)
+Soạn thảo
+Xác nhận
+Công
+nhận
+
+09.01.2001
+Banhành qui cách mới
+Fuji yama
+Mabuchi
+Yama
+shita
+
+Mabuchi motor Co.,Ltd
+Bộ phận bảo hành phẩm chất
+Các nơi phân phối . . . công ty chính: Bộ phận bảo hành phẩm chất 1, Phòng phát triển thiết bị 1.
+(18) công ty quan hệ : HKM 2, CT-1 1, CT-2 1, CT-3 1, CT-4 1, CT-5 1, CT-6 1,
+DGM 1, TTC 1, TWM 1, TKM 1, DLM 1, MLM 1, JSM 1, VNM 1.
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "003-4-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh - và kiểm tra dụng cụ trắc định",
+  "doc_code": "003-4",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

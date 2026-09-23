@@ -1,0 +1,50 @@
+{
+  "file_name": "080‐3-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh - điểm kiểm dụng cụ PICK UP GIA TỐC ĐỘ DÙNG ĐỂ ĐO IMV",
+  "doc_code": "080-3b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ thực hiện điểm kiểm cho 'PICK UP GIA TỐC ĐỘ DÙNG ĐỂ ĐO IMV' được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và trước khi sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "3 tháng một lần hoặc khi cảm thấy cần thiết",
+        "D": "Mỗi 36 tháng hoặc trước mỗi lần đo"
+      },
+      "correct_answer": "B",
+      "reference_note": "II【Điểm kiểm】 - Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi tiến hành kiểm tra ngoại quan dụng cụ đo, tiêu chuẩn yêu cầu đối với dây cáp là gì?",
+      "options": {
+        "A": "Dây cáp phải được quấn gọn gàng quanh thiết bị",
+        "B": "Dây cáp không được gấp lại, không được xoắn",
+        "C": "Dây cáp có thể gấp khúc nhẹ nhưng không được đứt gãy",
+        "D": "Dây cáp phải được bọc lớp cách nhiệt bổ sung"
+      },
+      "correct_answer": "B",
+      "reference_note": "II【Điểm kiểm】 - Hạng mục 1. Ngoại quan: Dây cáp không được gấp lại, không được xoắn"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình điểm kiểm hoặc khi sử dụng, nếu phát hiện có bất thường xảy ra với dụng cụ đo, nhân viên thực hiện phải xử lý theo quy trình nào sau đây?",
+      "options": {
+        "A": "Tự ý tháo rời thiết bị để kiểm tra linh kiện bên trong",
+        "B": "Tiếp tục sử dụng nếu sai số nhỏ hơn giới hạn cho phép",
+        "C": "Ghi chép lại kết quả bất thường và xử lý theo chỉ thị của người chịu trách nhiệm bộ phận chủ quản",
+        "D": "Tự động gửi thẳng thiết bị đến nhà cung cấp để hiệu chỉnh lại mà không cần báo cáo"
+      },
+      "correct_answer": "C",
+      "reference_note": "II【Điểm kiểm】 - Chú ý mục 2: Nếu có bất thường trong quá trình điểm kiểm (hoặc khi sử dụng) thì phải ghi chép lại kết quả đó, và xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận chủ quản"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

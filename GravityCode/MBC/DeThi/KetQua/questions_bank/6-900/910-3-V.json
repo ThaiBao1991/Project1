@@ -1,0 +1,50 @@
+{
+  "file_name": "910-3-V.pdf",
+  "folder_name": "6-900 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh・điểm kiểm dụng cụ đo Máy đo gia áp hàn điểm thứ 2",
+  "doc_code": "910-3 c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ điểm kiểm (kiểm tra định kỳ) đối với máy đo gia áp hàn điểm thứ 2 được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần và trước khi sử dụng.",
+        "B": "Mỗi một tháng và mỗi lần sử dụng.",
+        "C": "3 tháng một lần và khi xác nhận là cần thiết.",
+        "D": "6 tháng một lần và sau khi bảo dưỡng."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5: 'Ⅱ【Điểm kiểm】 - Tiến độ điểm kiểm: Mỗi một tháng và mỗi lần sử dụng'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Quy cách phán định về độ chính xác (phạm vi đo và sai số) đối với mã số thiết bị CE03-033M-AA-TA (dùng cho φ8.8) là gì?",
+      "options": {
+        "A": "0～100N (0～10kgf), ±1% of F.S. ±1 digit",
+        "B": "0～200N (0～20kgf), ±2% of F.S. ±1 digit",
+        "C": "0～400N (0～40kgf), ±1% of F.S. ±1 digit",
+        "D": "0～500N (0～50kgf), ±0.5% of F.S. ±1 digit"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 4: 'Biểu 1: Dùng cho φ8.8 | CE03-033M-AA-TA | 0～400N(0～40kgf) | ±1% of F.S. ±1 digit'"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình điểm kiểm, nếu phát hiện có dị thường xảy ra thì nhân viên phụ trách cần phải thực hiện hành động nào sau đây?",
+      "options": {
+        "A": "Tự ý tháo dỡ thiết bị để sửa chữa ngay tại chỗ.",
+        "B": "Bỏ qua nếu lỗi nhỏ và tiếp tục sử dụng để đảm bảo tiến độ sản xuất.",
+        "C": "Kí lục kết quả đó và xử lý theo chỉ thị của người chịu trách nhiệm bộ môn sở hữu, đồng thời đăng kí tái hiệu chỉnh nếu cần thiết.",
+        "D": "Chỉ ghi chép vào sổ tay cá nhân mà không cần báo cáo cho cấp trên."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 5: 'Chú ý) 2. Khi điểm kiểm, nếu có dị thường phải kí lục kết quả đó và xử lý theo chỉ thị của người chịu trách nhiệm bộ môn sở hữu. Khi cần thiết, phải tiến hành đăng kí tái hiệu chỉnh dụng cụ đo cho bộ phận thực hiện hiệu chỉnh.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

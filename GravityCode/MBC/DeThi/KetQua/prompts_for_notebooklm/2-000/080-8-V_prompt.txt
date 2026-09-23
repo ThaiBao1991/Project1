@@ -1,0 +1,234 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Bản tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - Dụng cụ trắc định: 080-8b
+Mã số/Mã máy đo: 080-8
+File gốc: 080-8-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No. 1/3
+Bản tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định
+
+PICK UP GIA TỐC ĐỘ DÙNG ĐỂ ĐO
+RION
+
+Công Ty MABUCHI MOTOR
+Bộ phận bảo hành chất lượng
+
+Ngàyban hành: 06-01-2016
+Ngày cải đính : 01/08/2023
+Dụng cụ trắc định: 080-8b
+
+I. [Hiệu chỉnh]
+Dụng cụ tiêu chuẩn
+Dụng cụ tiêu chuẩn của nhà cung cấp hiệu chỉnh hoặc nơi chế tạo
+Chu kì hiệu chỉnh
+Mỗi 36 tháng hoặc khi thấy cần thiết
+
+Hạng mục hiệu
+chỉnh
+Phương pháphiệu chỉnh
+Phương pháp
+phán định
+
+( Sĩ dạng)
+
+Uỷ thác hiệu chỉnh cho nhà cung cấp hiệu chỉnh hoặc nơi
+chế tạo
+Phải báo cho người sử dụng việc phải luôn áp dụng tại độ
+nhạy mới nhất.
+
+Mã số khuôn
+Sĩ dạng
+Độ cảm
+nạp điện
+Đặc tính tần số
+PV-90B
+0.18pC/(m/s2)
+±20%
+1Hz～25kHz±1dB
+
+Trường hợp trị phán định là NG, yêu cầu nơi chế tạo
+chỉnh sửa và điều chỉnh
+
+Dựa theo biểu
+
+-
+Văn bản trích dẫn – liên quan –
+Quy cách phán định：thiết định trong công ty（theo 080-1），tham khảo quy cách nơi chế tạo
+2023.7 Từ quan điểm của nhóm quản lý chất lượng công ty Onosokki để tham khảo, dùng 3% bề rộng lệch
+độ nhạy
+
+--- HẾT TRANG ---
+
+No. 2/3
+
+Dụng cụ trắc định 080-8b
+
+II. [Điểm kiểm]               PICK UP GIA TỐC ĐỘ DÙNG ĐỂ ĐO
+RION
+
+Tiến độ điểm kiểm         Mỗi tháng 1 lần và mỗi lần sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp kết
+luận
+
+1. Ngoại quan
+
+2. Trạng thái kết nối
+( kiểu phân cách dây
+cáp với sensor)
+
+3. Biểu thị trị độ nhạy
+
+Dây cáp không được gấp lại, không được xoắn
+
+Không được để ốc kết nối giữa dây cáp với sensor
+bị lỏng
+
+Trị độ nhạy mới nhất (trị hiệu chính lần trước đó)
+phải được hiển thị trên máy
+
+Chú ý :
+1.Kết quả điểm kiểm được ghi chép lại mỗi tháng 1 lần bất kể có bất thường hay không
+2.Nếu có bất thường trong quá trình điểm kiểm(hoặc khi sử dụng) thì phải ghi chép lại kết quả đó，
+Và xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận chủ quản
+Thực hiện yêu cầu tái hiệu chỉnh của máy đo đạc đối với phòng ban thực hiện hiệu chỉnh nếu
+cần thiết.
+
+--- HẾT TRANG ---
+
+No. 3/3
+Dụng cụ trắc định 080-8
+Bản tiêu chuẩn hiệu chỉnh và kiểm tra
+Bản lý lịch những ban hành, cải chính và hủy bỏ
+Ký
+hiệu
+Ngày tháng
+năm
+Nội dung
+Soạn
+thảo
+Xác
+nhận
+Công
+Nhận
+
+06.01.2016
+Ban hành mới.
+橋田
+村野 伊藤
+石野
+a
+2022.02.24
+・Bổ sung quy cách phán định
+Đã thêm độ nhạy sạc của báo cáo
+hiệu chuẩn tại thời điểm hiệu chuẩn
+trước đó trong tiêu chuẩn vận
+chuyển của nhà sản xuất
+・Từ ngữ bên dưới đã được bổ sung
+bằng cách bổ sung quy cách phán
+địn h ở trên
+*1：Có sự khác biệt riêng về độ
+nhạy điện tích (các biến thể riêng lẻ)
+và các giá trị trong biểu là tiêu chuẩn
+xuất hàng của nơi chế tạo.
+・Trích dẫn・văn b ản liên quan
+Bổ sung quy cách phán định
+・Thay đổi mã số cải đính
+Ⅰ【Hiệu chỉnh】080-8 →080-8a
+※Ⅱ【Điểm kiểm】080-8
+(Không thay đổi)
+
+b
+2023.08.01
+・Thay đổi quy cách phán định
+2023.7 Từ quan điểm lần trước
+của nhóm quản lý chất lượng của
+Công
+ty
+Ono
+sokki
+để
+tham
+khảo,dùng 3% bề rộng lệch độ nhạy.
+・【Hiệu chỉnh】【Điểm kiểm】Sửa lại
+ghi chép việc sử dụng trị độ nhạy
+mới nhất
+・Ⅱ【Điểm kiểm】
+Tiến độ điểm kiểm Sửa đổi thành
+「Mỗi tháng 1 lần và mỗi lần sử
+dụng」
+Cải đính toàn bộ hạng mục chú ý
+
+Ban chính BHCL công ty cổ phần Mabuchi Motor
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "080-8-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - Dụng cụ trắc định: 080-8b",
+  "doc_code": "080-8",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

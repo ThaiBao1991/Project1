@@ -1,0 +1,50 @@
+{
+  "file_name": "598-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Thước kẹp OFFSET dùng cho lỗ PITCH",
+  "doc_code": "598-1 a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn kiểm tra thiết bị, tiến độ thực hiện điểm kiểm (kiểm tra hàng ngày/trước khi sử dụng) đối với thước kẹp OFFSET dùng cho lỗ PITCH được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, phần II【Điểm kiểm】, mục Tiến độ điểm kiểm: 'Mỗi lần sử dụng'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý trong tài liệu kiểm tra dụng cụ, trường hợp phát hiện ra dị thường khi đang sử dụng thiết bị, nhân viên thao tác cần phải xử lý như thế nào?",
+      "options": {
+        "A": "Tự ý tháo dỡ thiết bị để sửa chữa ngay lập tức",
+        "B": "Tiếp tục sử dụng hết ca làm việc rồi mới báo cáo",
+        "C": "Xử lý theo chỉ thị của người quản lý",
+        "D": "Bỏ qua nếu dị thường nhỏ và không ảnh hưởng nhiều"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, mục Chú ý 3: 'Trường hợp phát hiện ra dị thường khi đang sử dụng thì xử lý theo chỉ thị của người quản lý.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi tiến hành hiệu chỉnh độ chính xác đo lỗ pitch đối với thước kẹp lỗ―lỗ pitch có giá trị đọc nhỏ nhất 0.01mm và chiều dài đo từ 10 đến 300mm, trị dung sai cho phép là bao nhiêu?",
+      "options": {
+        "A": "±0.05 mm",
+        "B": "±0.07 mm",
+        "C": "±0.10 mm",
+        "D": "±0.12 mm"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, bảng thông số Hiệu chỉnh: Giá trị đọc nhỏ nhất 0.01mm, Chiều dài đo 10～300mm có Trị dung sai ±0.05mm"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

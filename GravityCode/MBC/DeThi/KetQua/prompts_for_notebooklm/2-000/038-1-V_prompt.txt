@@ -1,0 +1,305 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Tài liệu tiêu chuẩn hiệu chỉnh - và kiểm tra dụng cụ trắc định
+Mã số/Mã máy đo: 038-1
+File gốc: 038-1-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/4
+Tài liệu tiêu chuẩn hiệu chỉnh
+và kiểm tra dụng cụ trắc định
+
+Dụng cụ đo điện áp chịu đựng/điện trở cách điện
+TOA PIT-151B(CK04-001M-AA)，PIT-8771B(CK04-002M-AA)
+Thiết bị PIC-512AT của hãng Nihon Technart (trước đây là Tama
+Densoku)
+Ban chính BHCL công ty cổ phần
+Mabuchi Motor
+
+Ngày ban hành 20.06.1994
+Ngày thay đổi  23.04.2025
+Dụng cụ trắc định 038-1d
+
+Ⅰ【Hiệu chỉnh】
+Dụng cụ chuẩn
+Đồng hồ đo điện áp cao (S65-1)
+Dụng cụ hiệu chỉnh dòng điện (S57-1)
+Điện trở phụ tải dùng UL1270 (S16-1)
+Dụng cụ điện trở chuẩn (S02-1) hoặc dụng cụ thay đổi biến trở 6 dial
+[S58-1]
+Chu kỳ hiệu chỉnh
+12 tháng hoặc khi được cho là cần thiết
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp phán
+định
+
+[Hạng mục chú ý]
+
+[Chức năng đo điện
+áp chịu đựng]
+
+1. Điện áp đầu ra
+
+2. Dòng điện bị ngắt
+theo dụng cụ
+hiệu chỉnh dòng
+điện
+
+3.  Dòng điện bị
+ngắt do điện trở
+phụ tải dùng cho
+UL1270
+
+<Tính năng của máy
+điện trở cách điện>
+1. Đo điện trở
+2. Điện áp đầu ra.
+(1) Khi đo điện áp đầu ra 5kV thì hãy sử dụng dây dẫn
+cao áp (TL04-TOS: điện tử KIKOSUI).
+(2) Để đề phòng sự dẫn điện, khi hiệu chỉnh hãy sử
+dụng bao tay cách điện.
+
+(1) Xoay dụng cụ (dial) đo điện áp đầu ra ghi nhận
+kim của đồng hồ chị thị có thay đổi nhẹ nhàng
+không.
+(2) Nối với đồng hồ đo điện áp cao
+(3) Đọc sai lệch điện áp thực tế với chỉ số trên
+đồng hồ đo lúc điện áp đầu ra chỉ 5KV (chiều
+dài thang đo)
+※ PIC-512AT phải được thực hiện ở mức 2kV
+(toàn thang đo)
+
+(1) Nối với dụng cụ hiệu chỉnh dòng điện.
+(2) Chỉnh trị số giới dòng điện trên dụng cụ hiệu
+chỉnh sao cho khớp với đồng hồ điện áp.
+(3) Tăng dần trị số đầu ra trên đồng hồ điện áp đến
+1KV.
+(4) Đọc dòng điện bị ngắt bởi dụng cụ hiệu chỉnh
+dòng điện.
+
+(1)Nối điện trở phụ tải dùng cho UL 1270 vào đồng hồ
+chịu áp và nối đồng hồ đo điện áp cao vào điện trở phụ
+tải dùng cho UL1270
+(2)Tăng trị số điện trở phụ tải lên lớn nhất.
+(3) Dựa trên bảng, kiểm tra xem đồng hồ đo áp suất có
+bị đánh giá là không đạt (kêu còi) hay không, hoặc
+giảm điện trở tải để kiểm tra lại
+Biểu
+Điện áp
+Dòng điện bị ngắt
+đầu ra
+0.5mA
+1mA
+2mA
+600V
+1137k
+489k
+279k
+
+(1)Ở mỗi dải đo, kết nối một điện trở chuẩn hoặc dụng
+cụ thay đổi biến trở 6 dial giữa các đầu ra, sau đó đọc
+sai số giá trị hiển thị. Nếu sai số lớn, điều chỉnh bằng
+CAL.ADJ
+(2)Nối máy điện áp cao vào giữa chấu điện đưa ra đo
+trị số điện áp đầu ra ở mỗi phạm vi.
+
+tỉ lệ biến động điện
+áp  10%
+
+ 5%
+
+Còi báo
+
+ 10%
+
+ 5%
+
+--- HẾT TRANG ---
+
+Ⅱ【Điểm kiểm】Dụng cụ đo điện áp chịu đựng / điện trở cách điện
+Dụng cụ trắc định  038-1 d
+TOA PIT-151B(CK04-001M-AA)，PIT-8771B(CK04-002M-AA)
+Thiết bị PIC-512AT của hãng Nihon Technart (trước đây là Tama Densoku)
+
+Tiến độ điểm kiểm     Mối tháng 1 lần và mỗi lần sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điêm kiểm
+Phương pháp
+phán định
+
+【Chức năng đo điện
+áp chịu đựng】
+1.Điều chỉnh về 0
+
+2.Phán định NG
+
+【Chức năng đo điện
+trở cách điện】
+Hệ thống cảnh báo
+
+•
+Khi ngắt điện nguồn OFF điều chỉnh sao cho kim đo
+chỉ vào điểm 0.
+
+•
+Làm đoản mạch giữa các chấu điện đầu ra, kiểm tra
+tác động của dòng điện bị ngắt với thiết bị giám định
+(có chuông).
+
+•
+Đoản mạch giữa chấu đầu ra kiểm tra hoạt động của
+thiết bị báo động.
+
+Chú ý)1.Kết quả kiểm tra được ghi lại mỗi tháng một lần bất kể có bất thường hay không
+2.Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy
+ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu.
+Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện
+hiệu chỉnh
+
+No. 2/4
+
+--- HẾT TRANG ---
+
+No.4/4
+Dụng cụ trắc định 038-1
+Tài liệu tiêu chuẩn hiệu chỉnh điểm kiểm
+Biểu lý lịch những ban hành, cải chính và hủy bỏ
+
+Dấu
+hiệu
+Ngày tháng
+năm
+Nội dung (bao gồm những nội dung sửa
+đổi)
+Soạn
+thảo
+Xác
+nhận
+Công
+Nhận
+
+20.06.1994
+Ban hành qui cách mới.
+Nara
+Taka-
+Shi ma
+Ino
+a
+22.05.1996
+Ghi thêm loại máy đo TOA PIT-8771B
+Nara
+Mihara
+Saka-mo
+to
+b
+25.12.1996
+Ghi thêm điều chú ý ở phương pháp hiệu
+chỉnh
+Nara
+Mihara
+Saka-mo
+to
+
+c
+
+2007.04.25
+
+Tiêu đề : Bổ sung mã số thiết bị…
+
+奈良
+
+高橋
+
+糸川
+
+d
+
+2025.04.23
+
+・Thay đổi tên tiêu đề thành [Dụng cụ đo
+điện áp chịu đựng / điện trở cách điện]
+・Bổ sung thiết bị PIC-512AT của hãng
+Nihon Technart (trước đây là Tama
+Densoku)
+・Ⅰ【Hiệu chỉnh】
+Hạng mục hiệu chỉnh 1.Bổ sung ghi chú
+vào (3)
+・Ⅱ【Điểm kiểm】
+Tiến độ điểm kiểm sửa đổi thành「Mỗi
+tháng 1 lần và mỗi lần sử dụng」
+Sửa đổi toàn bộ hạng mục chú ý
+
+Ban chính BHCL công ty cổ phần Mabuchi Motor
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "038-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh - và kiểm tra dụng cụ trắc định",
+  "doc_code": "038-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

@@ -1,0 +1,50 @@
+{
+  "file_name": "098-2-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh điểm kiểm máy đo (Máy đo tĩnh điện SURPA 6505)",
+  "doc_code": "098-2",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Khi hiệu chỉnh trị số điện trở phần cổ tay (Wrist Strap), nếu máy biến đổi điện trở 6 số được điều chỉnh ở mức 11.0MΩ thì nội dung phán định hiển thị trên máy đo phải là gì?",
+      "options": {
+        "A": "Điểm sáng LOW",
+        "B": "Điểm sáng PASS",
+        "C": "Điểm sáng HIGH",
+        "D": "Không hiển thị điểm sáng nào"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1/4, Biểu 1 (Hiệu chỉnh trị số điện trở phần cổ tay): Trị số '11.0MΩ' tương ứng với nội dung phán định 'Điểm sáng HIGH'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Trong quá trình điểm kiểm máy đo tĩnh điện hàng ngày, nếu không phát hiện bất thường nào thì việc ghi chép kết quả được quy định như thế nào?",
+      "options": {
+        "A": "Bắt buộc phải ghi chép đầy đủ kết quả 'OK' sau mỗi lần kiểm tra.",
+        "B": "Không cần ghi chép lại hàng ngày, nhưng dù không phát sinh bất thường thì trong vòng một tháng vẫn phải ghi chép lại.",
+        "C": "Chỉ cần báo cáo miệng cho quản lý trực tiếp và không cần ghi chép.",
+        "D": "Không cần ghi chép lại dưới bất kỳ hình thức nào nếu thiết bị hoạt động bình thường."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3/4, mục Chú ý (2): 'Trong trường hợp không có bất thường thì không cần ghi chép lại. Tuy nhiên, dù cho không phát sinh trong vòng một tháng thì cũng cần phải ghi lại.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tần suất thực hiện điểm kiểm máy đo tĩnh điện SURPA 6505 là bao lâu?",
+      "options": {
+        "A": "Mỗi ngày một lần vào đầu ca làm việc",
+        "B": "Mỗi tuần một lần vào ngày thứ hai",
+        "C": "Mỗi lần sử dụng",
+        "D": "Mỗi tháng một lần trước khi sản xuất"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3/4, mục II 【Điểm kiểm】: 'Tần suất điểm kiểm: Mỗi lần sử dụng'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

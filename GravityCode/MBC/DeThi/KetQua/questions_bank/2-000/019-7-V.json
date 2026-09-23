@@ -1,0 +1,50 @@
+{
+  "file_name": "019-7-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh – điểm kiểm máy đo đạc Đồng hồ đo vòng xoay kĩ thuật số (Tiếp xúc・Không tiếp xúc) EXTECH RPM33",
+  "doc_code": "019-7",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Trong quá trình kiểm tra ngoại quan (mục 2 phần Kiểm tra), quy cách phán định đối với vết bẩn, vết vỡ, mẻ trên thiết bị là gì?",
+      "options": {
+        "A": "Không được có vết bẩn, vết vỡ, mẻ làm ảnh hưởng đến việc đo đạc của phần đo, phần kiểm xuất, phần biểu thị, viền, các loại nút (Không có dị thường)",
+        "B": "Cho phép có vết xước nhẹ ở viền và các loại nút miễn không ảnh hưởng đến phần hiển thị số",
+        "C": "Cho phép sử dụng bình thường nếu số đo không bị sai lệch quá ±1%",
+        "D": "Không cần kiểm tra ngoại quan nếu pin vẫn đầy và máy vẫn khởi động được"
+      },
+      "correct_answer": "A",
+      "reference_note": "Phần II【Kiểm tra】– Hạng mục 2. Ngoại quan: Không được có vết bẩn, vết vỡ, mẻ làm ảnh hưởng đến việc đo đạc..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trường hợp khi kiểm tra (hoặc khi sử dụng) thiết bị phát hiện có dị thường, nhân viên phụ trách phải xử lý như thế nào theo đúng quy định?",
+      "options": {
+        "A": "Tự ý tháo máy ra để sửa chữa mạch điện bên trong",
+        "B": "Tiếp tục sử dụng cho đến hết ca làm việc rồi mới báo cáo",
+        "C": "Kí lục lại kết quả đó, và xử lí theo chỉ thị của phòng ban sở hữu trách nhiệm; thực hiện yêu cầu tái hiệu chỉnh đối với phòng ban thực hiện hiệu chỉnh nếu cần thiết",
+        "D": "Cất thiết bị vào tủ dụng cụ và không cần ghi chép lại"
+      },
+      "correct_answer": "C",
+      "reference_note": "Phần II【Kiểm tra】– Chú ý 2: Trường hợp khi kiểm tra (hoặc khi sử dụng) nếu có dị thường, thì kí lục lại kết quả đó, và xử lí theo chỉ thị của phòng ban sở hữu trách nhiệm."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn kiểm tra, tần suất kiểm tra số lượng pin còn lại và ngoại quan của đồng hồ đo vòng xoay EXTECH RPM33 được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần và trước khi bảo trì",
+        "B": "Mỗi khi sử dụng, và mỗi 1 tháng",
+        "C": "Chỉ kiểm tra khi phát sinh lỗi đo đạc",
+        "D": "6 tháng một lần theo lịch của phòng đo lường"
+      },
+      "correct_answer": "B",
+      "reference_note": "Phần II【Kiểm tra】– Tần suất kiểm tra: Mỗi khi sử dụng, và mỗi 1 tháng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

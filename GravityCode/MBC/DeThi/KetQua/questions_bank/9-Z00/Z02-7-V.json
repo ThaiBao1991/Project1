@@ -1,0 +1,50 @@
+{
+  "file_name": "Z02-7-V.pdf",
+  "folder_name": "9-Z00 Ban V IT HOA",
+  "doc_title": "Quy cách phán định máy kiểm tra hình sóng (Tektronics (Sony cũ/ tektronics)",
+  "doc_code": "Z02-7 e",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trường hợp máy xem hình sóng dạng analog không có trị thực đo (điện áp, tần số…), quy định xử lý về trị phán định cho phép như thế nào?",
+      "options": {
+        "A": "Không cần phán định và bỏ qua hạng mục đó.",
+        "B": "Áp dụng trị phán định cho phép của biểu 1 đối với trị phán định.",
+        "C": "Sử dụng sai số cố định là ±20% trong mọi trường hợp.",
+        "D": "Đo lại bằng thiết bị chuẩn ngoài trước khi phán định."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Nội dung (3): Trường hợp máy xem hình sóng dạng analog không có trị thực đo (điện áp, tần số…) thì áp dụng trị phán định cho phép của biểu 1 đối với trị phán định."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo biểu 1 về 'Trị phán định cho phép', nếu trị phán định nằm trong khoảng từ ±1% đến ±4%, trị phán định cho phép sẽ là bao nhiêu?",
+      "options": {
+        "A": "±1%",
+        "B": "±5%",
+        "C": "±10%",
+        "D": "Theo trị phán định"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Biểu 1: ±1%～4% | ±5%"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, việc phán định máy kiểm tra hình sóng được thực hiện qua các hạng mục nào?",
+      "options": {
+        "A": "Hiệu chỉnh V/div, Time/div và tín hiệu xuất ra (tín hiệu CAL).",
+        "B": "Hiệu chỉnh dòng điện, điện áp DC và tần số cao tần.",
+        "C": "Kiểm tra ngoại quan, trọng lượng và kích thước máy.",
+        "D": "Kiểm tra nhiệt độ hoạt động và độ ẩm môi trường."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, Nội dung (1): (1)Phán định máy kiểm tra hình sóng qua việc hiệu chỉnh V/div, Time/div, tín hiệu xuất ra (tín hiệu CAL)"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

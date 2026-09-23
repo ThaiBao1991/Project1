@@ -1,0 +1,50 @@
+{
+  "file_name": "520-4-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định THƯỚC KẸP ĐINH ÁP",
+  "doc_code": "520-4 c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Phương pháp phán định độ chính xác khi đo phía ngoài cho thang đo nhỏ nhất 0.01mm là bao nhiêu?",
+      "options": {
+        "A": "±0.04mm",
+        "B": "±0.06mm",
+        "C": "±0.08mm",
+        "D": "±0.10mm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Bảng thông số: 'Thang đo nhỏ nhất 0.01mm: ±0.06mm.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo ghi chú hướng dẫn kiểm tra, trong trường hợp kết quả kiểm tra không thấy bất thường thì thao tác ghi chép như thế nào là phù hợp?",
+      "options": {
+        "A": "Không cần ghi chép lại kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.",
+        "B": "Bắt buộc phải ghi chép lại chi tiết đầy đủ 100% trong mỗi lần sử dụng hàng ngày.",
+        "C": "Chỉ cần ghi chép lại khi có yêu cầu từ cấp trên hoặc auditor đánh giá.",
+        "D": "Không cần ghi chép lại dưới bất kỳ hình thức nào nếu không có sản phẩm lỗi."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2, Ghi chú số 2: 'Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, chu kỳ hiệu chỉnh đối với thước kẹp đinh áp Mitutoyo No. 536, 573 là bao lâu?",
+      "options": {
+        "A": "6 tháng hoặc khi xác nhận cần thiết",
+        "B": "12 tháng hoặc khi xác nhận cần thiết",
+        "C": "24 tháng hoặc khi xác nhận cần thiết",
+        "D": "36 tháng hoặc khi xác nhận cần thiết"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Mục I [Hiệu chỉnh]: 'Chu kỳ hiệu chỉnh: 24 tháng hoặc khi xác nhận cần thiết'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

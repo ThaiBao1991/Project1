@@ -1,0 +1,50 @@
+{
+  "file_name": "075-5-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM Máy đo dùng vòng đeo cổ tay HOZAN F-206",
+  "doc_code": "075-5",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi tiến hành hiệu chỉnh giá trị điện trở cho máy đo, chu kì hiệu chỉnh tiêu chuẩn được quy định là bao lâu?",
+      "options": {
+        "A": "Mỗi 6 tháng và khi cần thiết",
+        "B": "Mỗi 12 tháng và khi nhận thấy cần thiết",
+        "C": "Mỗi 24 tháng và khi nhận thấy cần thiết",
+        "D": "Chỉ khi thiết bị hỏng mới hiệu chỉnh"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, phần I【Hiệu chỉnh】, mục Chu kì hiệu chỉnh: 'Mỗi 24 tháng và khi nhận thấy cần thiết'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra trước khi sử dụng, nếu sau khi bấm công tắc mà đèn LOW và HIGH sáng cùng lúc, thì đó là biểu hiện của trạng thái nào và cần phải xử lý ra sao?",
+      "options": {
+        "A": "Thiết bị bị lỗi mạch điện, cần gửi đi bảo dưỡng ngoài",
+        "B": "Thiết bị báo hiệu trạng thái hết pin, nên hãy nhanh chóng tiến hành thay pin",
+        "C": "Điện trở vòng đeo quá cao, cần vệ sinh lại thanh điện cực",
+        "D": "Thiết bị hoạt động bình thường, có thể tiếp tục sử dụng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, phần II【Điểm kiểm】, mục '2.Xác nhận lượng tồn pin': 'Nếu sau khi bấm công tắc đèn LOW/HIGH sáng cùng lúc thì báo hiệu trạng thái hết pin, nên hãy nhanh chóng tiến hành thay pin.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, chu kì kiểm tra (điểm kiểm) đối với máy đo dùng vòng đeo cổ tay HOZAN F-206 được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Mỗi 24 tháng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, phần II【Điểm kiểm】, mục Chu kì điểm kiểm: 'Mỗi lần sử dụng'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

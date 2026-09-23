@@ -1,0 +1,50 @@
+{
+  "file_name": "529-2-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định Thước đo khe hở",
+  "doc_code": "529-2 c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi tiến hành đo kiểm tra kích thước độ dày của cánh sườn, điểm đo cần cách chóp của cánh sườn khoảng bao nhiêu mm?",
+      "options": {
+        "A": "Khoảng 10mm",
+        "B": "Khoảng 15mm",
+        "C": "Khoảng 20mm",
+        "D": "Khoảng 25mm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: Điểm đo cách chóp của cánh sườn khoảng 20mm, chọn 3 điểm đo gần đầu mép theo hướng chiều dài và có khoảng cách đều nhau."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo mục kiểm tra ngoại quan trong tài liệu, tiến độ kiểm tra định kỳ đối với thước đo khe hở (thickness gages) được quy định như thế nào?",
+      "options": {
+        "A": "Kiểm tra 6 tháng một lần",
+        "B": "Kiểm tra mỗi lần sử dụng",
+        "C": "Kiểm tra 12 tháng một lần",
+        "D": "Kiểm tra trước mỗi ca làm việc"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: Ⅱ【Điểm kiểm】Thước đo khe hở - Tiến độ kiểm tra: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục ghi chú về quản lý kiểm tra, trong trường hợp kết quả kiểm tra không thấy bất thường thì quy định ghi chép kết quả ra sao?",
+      "options": {
+        "A": "Không cần ghi chép kết quả dưới bất kỳ hình thức nào trong suốt quá trình sử dụng.",
+        "B": "Mỗi tuần phải ghi chép lại kết quả đã kiểm tra một lần.",
+        "C": "Không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.",
+        "D": "Bắt buộc phải ghi chép đầy đủ kết quả vào sổ nhật ký sau mỗi lần sử dụng trong ngày."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3: Ghi chú mục 2: Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "537-2-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN KIỂM TRA VÀ HIỆU CHỈNH DỤNG CỤ ĐO - MÁY ĐO HÌNH DÁNG ĐỘ NHÁM BỀ MẶT (TOKYO SEIMITSU SURFCOM 120A)",
+  "doc_code": "537-2e",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ kiểm tra thiết bị định kỳ đối với các mục kiểm tra ngoại quan, tình trạng kim đo, hoạt động các bộ phận được thực hiện với tần suất như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi tháng một lần",
+        "C": "Mỗi lần sử dụng",
+        "D": "Mỗi 6 tháng một lần"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3, Mục Ⅱ【Điểm kiểm】: 'Tiến độ kiểm tra Mỗi lần sử dụng'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi thực hiện kiểm tra châm dầu định kỳ cho trụ của thiết bị, loại nhớt chuyên dụng nào được chỉ định sử dụng và bộ phận đỡ trục phía trên cần châm dầu với tần suất bao lâu?",
+      "options": {
+        "A": "Nhớt Mobil No.1, châm 1 tháng 1 lần",
+        "B": "Nhớt Mobil No.2, châm 1 năm 1 lần",
+        "C": "Nhớt Mobil No.2, châm mỗi lần sử dụng",
+        "D": "Nhớt chuyên dụng khác, châm 6 tháng 1 lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, Mục II - Hạng mục kiểm tra 5. Châm dầu: 'Châm nhớt chuyên dụng ( Mobil No.2) vào mặt chuyển động và bộ phận đỡ trục... (2) Tháo nắp trên của trụ ra, chỉ châm dầu vào bộ phận đỡ trục 1 năm 1 lần'"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình hiệu chỉnh máy đo độ nhám bề mặt, trường hợp có điều chỉnh núm TORIMA [PICKUP CAL] ở mặt sau bộ phận chỉ thị khuếch đại, thao tác bắt buộc tiếp theo phải tuân thủ là gì?",
+      "options": {
+        "A": "Chắc chắn phải làm lại \"1. Hiệu chỉnh tự động\"",
+        "B": "Tiến hành đo ngay mặt B của bản chuẩn để kiểm tra độ mòn kim",
+        "C": "Châm nhớt chuyên dụng Mobil No.2 vào bộ phận đỡ trục ngay lập tức",
+        "D": "Không cần thực hiện thêm thao tác gì nếu số liệu hiển thị Digital đã ổn định"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, Mục I【Hiệu chỉnh】: 'Trường hợp điều chỉnh TORIMA [PICKUP CAL] thì chắc chắn phải làm lại “ 1. Hiệu chỉnh tự động”.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

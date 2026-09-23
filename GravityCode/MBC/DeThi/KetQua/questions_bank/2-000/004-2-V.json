@@ -1,0 +1,50 @@
+{
+  "file_name": "004-2-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh - điểm kiểm máy đo OSCILOSCOPE (Máy hiện sóng) YOKOGAWA",
+  "doc_code": "004-2p",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu kỹ thuật, chu kì kiểm tra (Điểm kiểm) đối với máy đo Oscilloscope (YOKOGAWA) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và mỗi lần sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "6 tháng 1 lần hoặc khi thấy cần thiết",
+        "D": "24 tháng hoặc khi thấy cần thiết"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 6, Mục II 【Điểm kiểm】 Chu kỳ kiểm tra: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra định kỳ hoặc khi sử dụng, nếu phát hiện có bất thường đối với thiết bị đo, nhân viên vận hành cần phải xử lý theo quy định nào sau đây?",
+      "options": {
+        "A": "Tự ý tháo máy ra sửa chữa phần cứng bên trong để kịp tiến độ sản xuất",
+        "B": "Tiếp tục sử dụng bình thường nếu sai số nhỏ và ghi chú lại vào cuối tháng",
+        "C": "Ghi chép lại kết quả bất thường, xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu, làm đơn đề nghị hiệu chỉnh lại nếu cần thiết",
+        "D": "Đổi máy đo với bộ phận khác mà không cần báo cáo hay ghi chép lại"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 6, Phần Chú ý 2: Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện hiệu chỉnh"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi sử dụng đầu đo kết nối với module tần số trong hạng mục chỉnh sửa pha dòng điện trên đầu đo, nhân viên cần thực hiện thao tác nào để đảm bảo chính xác?",
+      "options": {
+        "A": "Tiến hành chỉnh sửa pha trực tiếp trên module tần số",
+        "B": "Tăng biên độ dao động lên 2V trước khi hiệu chỉnh",
+        "C": "Điều chỉnh pha điện của đầu đo bằng một module khác với module tần số",
+        "D": "Không cần chỉnh sửa pha điện khi dùng với module tần số"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 6, Mục 3: Trường hợp sử dụng đầu đo được kết nối với module tần số thì hãy điều chỉnh pha điện của đầu đo bằng một module khác với module tần số."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "080-3-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh - điểm kiểm dụng cụ PICK UP GIA TỐC ĐỘ DÙNG ĐỂ ĐO IMV",
+  "doc_code": "080-3b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý về xử lý bất thường trong quá trình điểm kiểm hoặc sử dụng, nhân viên phải thực hiện hành động nào sau đây?",
+      "options": {
+        "A": "Tự ý tháo rời thiết bị ra để kiểm tra mạch bên trong.",
+        "B": "Bỏ qua nếu lỗi nhỏ và tiếp tục sử dụng bình thường cho đến hết ca.",
+        "C": "Ghi chép lại kết quả bất thường và xử lý theo chỉ thị của người chịu trách nhiệm bộ phận chủ quản, đồng thời yêu cầu tái hiệu chỉnh nếu cần thiết.",
+        "D": "Chỉ cần thông báo miệng cho đồng nghiệp cùng ca làm việc là đủ."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: Chú ý 2: Nếu có bất thường trong quá trình điểm kiểm (hoặc khi sử dụng) thì phải ghi chép lại kết quả đó, và xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận chủ quản. Thực hiện yêu cầu tái hiệu chỉnh của máy đo đạc đối với phòng ban thực hiện hiệu chỉnh nếu cần thiết."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo mục ngoại quan và phương pháp điểm kiểm, điều kiện của dây cáp dụng cụ đo là gì?",
+      "options": {
+        "A": "Dây cáp có thể gấp lại gọn gàng nhưng không được xoắn.",
+        "B": "Dây cáp không được gấp lại, không được xoắn.",
+        "C": "Dây cáp được phép xoắn nhẹ để dễ thao tác.",
+        "D": "Không có yêu cầu cụ thể về dây cáp."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: 1. Ngoại quan - Dây cáp không được gấp lại, không được xoắn"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm đối với dụng cụ 'Pick up gia tốc độ dùng để đo IMV' được quy định như thế nào?",
+      "options": {
+        "A": "Chỉ thực hiện mỗi năm 1 lần khi hiệu chỉnh.",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng.",
+        "C": "Chỉ thực hiện trước khi bắt đầu ca làm việc.",
+        "D": "Mỗi 36 tháng hoặc khi cảm thấy cần thiết."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

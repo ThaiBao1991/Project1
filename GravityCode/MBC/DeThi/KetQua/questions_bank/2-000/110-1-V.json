@@ -1,0 +1,50 @@
+{
+  "file_name": "110-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH/ĐIỂM KIỂM DỤNG CỤ ĐO ĐẠC - Băng test tuổi thọ dùng cho TBOSL",
+  "doc_code": "110-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý về điểm kiểm ngoại quan (Phần II), trường hợp kết quả điểm kiểm không khác thường thì việc ký lục được quy định ra sao?",
+      "options": {
+        "A": "Phải ký lục đầy đủ sau mỗi lần sử dụng bắt buộc.",
+        "B": "Không cần ký lục kết quả điểm kiểm cũng được, tuy nhiên trong 1 tháng 1 lần dù không có khác thường thì vẫn ký lục nội dung đó.",
+        "C": "Chỉ ký lục khi có sự đồng ý của trưởng phòng BHCL.",
+        "D": "Tuyệt đối không được ký lục dưới mọi hình thức."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 6: '2. Trường hợp kết quả điểm kiểm không khác thường thì không ký lục kết quả điểm kiểm cũng được. Tuy nhiên, trong 1 tháng 1 lần dù không có khác thường thì vẫn ký lục nội dung đó.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tần suất điểm kiểm hạng mục 'Ngoại quan' đối với băng test tuổi thọ dùng cho TBOSL được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 6: 'Tần suất điểm kiểm: Mỗi lần sử dụng'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi kiểm tra độ chính xác tần số cho băng test tuổi thọ TBOSL, giá trị phán định quy định là bao nhiêu?",
+      "options": {
+        "A": "±0.1Hz",
+        "B": "±10mA",
+        "C": "±0.005mm",
+        "D": "±1.0Hz"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 3: 'Giá trị phán định: ±0.1Hz'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

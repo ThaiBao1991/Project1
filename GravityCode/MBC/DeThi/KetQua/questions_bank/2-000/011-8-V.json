@@ -1,0 +1,50 @@
+{
+  "file_name": "011-8-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm máy đo Máy thí nghiệm cuộn dây bằng xung lực CHROMA 19305/19305-10",
+  "doc_code": "011-8a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi tiến hành điều chỉnh (hiệu chuẩn) điện áp IWT, mật khẩu số cần nhập sau khi nhấn phím SYSTEM và chọn CALIBRATION là gì?",
+      "options": {
+        "A": "[1] [2] [3] [4]",
+        "B": "[5] [6] [7] [8]",
+        "C": "[7] [9] [3] [1]",
+        "D": "[9] [8] [7] [6]"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3: (3) Nhập mật khẩu [7] [9] [3] [1] bằng phím số và nhấn phím ENTER."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục lưu ý khi hiệu chỉnh máy thí nghiệm cuộn dây bằng xung lực, để tránh bị điện giật và đảm bảo an toàn, nhân viên thực hiện bắt buộc phải tuân thủ điều kiện nào sau đây?",
+      "options": {
+        "A": "Sử dụng găng tay cao su cách điện khi tiến hành hiệu chỉnh.",
+        "B": "Không cần tắt nguồn điện chính khi tháo lắp bản vách ngăn.",
+        "C": "Chỉ cần đeo khẩu trang và mặc áo bảo hộ thông thường.",
+        "D": "Đứng trực tiếp trên sàn ẩm ướt để tăng khả năng tiếp đất."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: ＜Lưu ý＞ ・Để tránh bị điện giật, khi hiệu chỉnh thì hãy sử dụng găng tay cao su cách điện"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ điểm kiểm (kiểm tra định kỳ) đối với máy thí nghiệm cuộn dây bằng xung lực được quy định như thế nào?",
+      "options": {
+        "A": "Chỉ kiểm tra 1 lần duy nhất khi đưa máy vào sử dụng.",
+        "B": "Mỗi lần sử dụng và mỗi tháng 1 lần.",
+        "C": "Chỉ kiểm tra định kỳ 6 tháng 1 lần.",
+        "D": "Mỗi tuần 1 lần và trước khi thay đổi sản phẩm."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 4: Tiến độ điểm kiểm: Mỗi lần sử dụng và mỗi tháng 1 lần"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

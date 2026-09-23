@@ -1,0 +1,50 @@
+{
+  "file_name": "558-3-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định Geji tiêu chuẩn chiều cao của bàn xoay (GB09-001M-AA)",
+  "doc_code": "558-3a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Chu kỳ hiệu chỉnh đối với Geji tiêu chuẩn chiều cao bàn xoay (GB09-001M-AA) là bao lâu?",
+      "options": {
+        "A": "Mỗi 1 tháng hoặc khi thấy cần thiết",
+        "B": "Mỗi 3 tháng hoặc khi thấy cần thiết",
+        "C": "Mỗi 6 tháng hoặc khi thấy cần thiết",
+        "D": "Mỗi 1 năm hoặc khi thấy cần thiết"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Chu kỳ hiệu chỉnh: Mỗi 3 tháng hoặc khi thấy cần thiết."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Sau khi sử dụng geji tiêu chuẩn chiều cao bàn xoay, thao tác chống sét cần thực hiện như thế nào?",
+      "options": {
+        "A": "Rửa sạch bằng nước và lau khô hoàn toàn",
+        "B": "Bôi một lớp dầu nhớt động cơ để bảo quản lâu dài",
+        "C": "Cần lau sạch dấu tay và vết bẩn, bôi một lượng dầu chống sét thích hợp",
+        "D": "Không cần làm sạch, chỉ cần cất vào hộp bảo quản"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 4: Sau khi sử dụng, cần lau sạch dấu tay và vết bẩn, bôi một lượng dầu chống sét thích hợp."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Chiều cao (mỗi •) và chênh lệch cao thấp đối với 4 điểm đo khi hiệu chỉnh chiều cao geji tiêu chuẩn là bao nhiêu?",
+      "options": {
+        "A": "10 ± 0.002, chênh lệch cao thấp dưới 0.001",
+        "B": "10 ± 0.005, chênh lệch cao thấp dưới 0.005",
+        "C": "10 ± 0.004, chênh lệch cao thấp dưới 0.002",
+        "D": "10 ± 0.010, chênh lệch cao thấp dưới 0.004"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Chiều cao(mỗi •) 10±0.004 Chênh lệch cao thấp dưới 0.002"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

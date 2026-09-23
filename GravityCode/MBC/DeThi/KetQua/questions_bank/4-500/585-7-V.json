@@ -1,0 +1,50 @@
+{
+  "file_name": "585-7-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH ĐIỂM KIỂM MÁY ĐO Cân Điểm kiểm trọng lượng (Thang đo trên 30 kg)",
+  "doc_code": "585-7 f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo quy định tại mục Chú ý của phần Điểm kiểm, nếu kết quả Điểm kiểm không có bất thường thì nhân viên cần thực hiện thao tác ghi chép như thế nào?",
+      "options": {
+        "A": "Phải ghi lại kết quả chi tiết vào sổ theo dõi mỗi ngày không được bỏ sót.",
+        "B": "Không cần ghi kết quả lại. Tuy nhiên, nếu trong 1 tháng mà không có lần nào bất thường thì cần ghi chép lại.",
+        "C": "Chỉ cần ghi chép lại khi có người quản lý yêu cầu kiểm tra độc lập.",
+        "D": "Không cần ghi chép lại dưới bất kỳ hình thức nào trong suốt vòng đời của cân."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, Chú ý) 2. Nếu kết quả Điểm kiểm không có bất thường thì không cần ghi kết quả lại. Tuy nhiên, nếu trong 1 tháng mà không có lần nào bất thường thì cần ghi chép lại."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, tần suất thực hiện Điểm kiểm (hạng mục ngoại quan, xác nhận mặt phẳng ngang, tính ổn định hiển thị, hoạt động) đối với cân trọng lượng thang đo trên 30kg là khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi khi sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước mỗi ca làm việc và sau khi bảo trì"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, II【Điểm kiểm】 Tần suất Điểm kiểm: Mỗi khi sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi tiến hành kiểm tra tính ổn định hiển thị của cân (mục 3 trong phần Điểm kiểm), sau khi nhấn công tắc ON và khởi động tầm 30 phút để reset về 0, nhân viên cần xác nhận điều gì tiếp theo?",
+      "options": {
+        "A": "Xác nhận xem có hiển thị ổn định hay không",
+        "B": "Kiểm tra độ ẩm môi trường xung quanh bàn cân",
+        "C": "Hiệu chỉnh lại toàn bộ dung sai của các quả cân chuẩn cấp 1",
+        "D": "Xác nhận xem thước thủy tại bàn cân đã cân bằng chưa"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 3, 3.Tính ổn định hiển thị: Nhấn công tắt ON, sau khi khởi động tầm 30 phút, cho reset về 0, xác nhận xem có hiển thị ổn định hay không?"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

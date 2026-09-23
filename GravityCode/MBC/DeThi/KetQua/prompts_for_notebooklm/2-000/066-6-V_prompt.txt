@@ -1,0 +1,216 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Tài liệu tiêu chuẩn hiệu chỉnh - và kiểm tra dụng cụ trắc định
+Mã số/Mã máy đo: 066-6
+File gốc: 066-6-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/15
+Tài liệu tiêu chuẩn hiệu chỉnh
+và kiểm tra dụng cụ trắc định
+
+Máy phân tích FFT
+(ONOSOKKI serie DS-3000)
+Mabuchi motor Co., Ltd
+Ban Bảo Hành Chất Lượng
+
+Ngày ban hành 2014/01/16
+Ngày thay đổi
+Dụng cụ trắc định 066-6
+I [Hiệu chỉnh]
+Dụng cụ chuẩn
+Dụng cụ chuẩn chỉ định ở nơi chế tạo hoặc của nhà cung cấp
+hiệu chỉnh
+Chu kỳ hiệu chỉnh
+24 tháng hoặc khi thấy cần thiết
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+Uỷ thác hiệu chỉnh cho nơi chế tạo hoặc nhà cung cấp
+hiệu chỉnh
+Điểm hiệu chỉnh, trị phán định dựa trên tài liệu [tham
+khảo] bản thành tích hiệu chỉnh nơi chế tạo
+Theo bên trái
+
+Trích dẫn – văn bản liên quan
+Quy cách phán định: trích dẫn biểu thành tích hiệu chỉnh nơi chế tạo
+Tham khảo biểu thành tích hiệu chỉnh tài liệu đính kèm
+
+Quỳnh Hoa 46447
+
+--- HẾT TRANG ---
+
+
+
+--- HẾT TRANG ---
+
+
+
+--- HẾT TRANG ---
+
+
+
+--- HẾT TRANG ---
+
+
+
+--- HẾT TRANG ---
+
+
+
+--- HẾT TRANG ---
+
+
+
+--- HẾT TRANG ---
+
+
+
+--- HẾT TRANG ---
+
+
+
+--- HẾT TRANG ---
+
+
+
+--- HẾT TRANG ---
+
+
+
+--- HẾT TRANG ---
+
+
+
+--- HẾT TRANG ---
+
+
+
+--- HẾT TRANG ---
+
+No.14/15
+Dụng cụ trắc định 066-6
+II[Điểm kiểm]  Máy phân tích FFT
+( ONOSOKKI series DS-3000)
+
+Tiến độ kiểm tra        Mỗi lần sử dụng
+
+Hạng mục điểm
+kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+Ngoại quan
+
+Xác nhận bằng mắt thường xem thử có sự không thích
+hợp nào gây ra cản trở lúc đo như là trên bề mặt bảng
+biểu thị có bẩn, trầy xước, hư hại hay không
+
+Ghi chú
+1. Trường hợp kiểm tra thấy bất thường, ghi chép lại kết quả đã kiểm tra và xử lý theo chỉ
+thị của người có trách nhiệm quản lý.
+2. Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng
+được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì
+bất thường xảy ra.
+3. Trường hợp nhận ra sự bất thường trong khi sử dụng, sẽ xử lý dựa vào chỉ thị của
+người có trách nhiệm quản lý.
+
+--- HẾT TRANG ---
+
+No.15/15
+Dụng cụ trắc định 066-6
+Tài liệu tiêu chuẩn hiệu chỉnh điểm kiểm
+Biểu lý lịch những ban hành, cải chính và hủy bỏ
+
+Dấu
+hiệu
+Ngày tháng
+năm
+Nội dung (bao gồm những nội dung sửa đổi)
+Soạn
+thảo
+Xác nhận
+Công
+nhận
+
+16.01.2014
+Ban hành qui cách mới
+加藤
+村山 伊藤
+岩田
+
+Ban BHCL Mabuchi motor Co.,Ltd
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "066-6-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh - và kiểm tra dụng cụ trắc định",
+  "doc_code": "066-6",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

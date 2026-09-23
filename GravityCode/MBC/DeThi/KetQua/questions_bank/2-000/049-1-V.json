@@ -1,0 +1,50 @@
+{
+  "file_name": "049-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Lắp đặt máy thí nghiệm chấn động (Sản phẩm IMV được điều khiển bởi RC-1120)",
+  "doc_code": "049-1 a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Chu kỳ hiệu chỉnh đối với dụng cụ trắc định lắp đặt máy thí nghiệm chấn động theo tài liệu là bao nhiêu tháng?",
+      "options": {
+        "A": "12 tháng",
+        "B": "18 tháng",
+        "C": "24 tháng",
+        "D": "36 tháng"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Chu kì hiệu chỉnh: 24 tháng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý khi hiệu chỉnh tự động, trường hợp độ sai lệch vượt quá bao nhiêu phần trăm thì thay sản phẩm mới và ghi kí lục lại giá trị nạp điện khi dùng channel thông thường (CH.1)?",
+      "options": {
+        "A": "Vượt quá 5%",
+        "B": "Vượt quá 10%",
+        "C": "Vượt quá 15%",
+        "D": "Vượt quá 20%"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5, Mục chú ý: Trường hợp độ sai lệch vượt quá 10% thì thay sản phẩm mới..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo mục II về Điểm kiểm, tần suất tiến hành điểm kiểm đối với máy thí nghiệm chấn động là bao lâu?",
+      "options": {
+        "A": "Điểm kiểm mỗi lần sử dụng",
+        "B": "Điểm kiểm 1 tuần 1 lần",
+        "C": "Điểm kiểm 1 tháng 1 lần",
+        "D": "Điểm kiểm 6 tháng 1 lần"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 6, Tiên độ điểm kiểm: Điểm kiểm mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

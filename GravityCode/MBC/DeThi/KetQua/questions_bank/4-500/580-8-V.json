@@ -1,0 +1,50 @@
+{
+  "file_name": "580-8-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN KIỂM TRA VÀ HIỆU CHÍNH DỤNG CỤ ĐO - Cân phân tích điện tử",
+  "doc_code": "580-8a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo phần Chú ý (trang 2), sau khi kiểm tra, trường hợp phát hiện bất thường thì phải xử lý như thế nào?",
+      "options": {
+        "A": "Tự ý tháo dỡ cân để sửa chữa bộ phận cơ khí bên trong.",
+        "B": "Tiếp tục sử dụng cho đến hết ca làm việc rồi mới báo cáo.",
+        "C": "Ghi chép kết quả kiểm tra rồi xử lý theo chỉ thị của người chịu trách nhiệm quản lý.",
+        "D": "Bỏ qua không ghi nhận nếu trong 1 tháng không có bất thường nào khác."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, Phần Chú ý, Mục 1: 'Sau khi kiểm tra, trường hợp bất thường thì ghi chép kết quả kiểm tra rồi xử lý theo chỉ thị của người chịu trách nhiệm quản lý.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, chu kỳ hiệu chỉnh đối với Cân phân tích điện tử (AND EK-400, EK-600H, EK-4000H, EK-6000H) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần trước khi sử dụng.",
+        "B": "3 tháng hoặc khi được xác nhận là cần thiết.",
+        "C": "6 tháng một lần theo kế hoạch định kỳ.",
+        "D": "1 năm một lần do bộ phận hiệu chuẩn chuyên trách."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Phần I [Hiệu chỉnh], Chu kỳ hiệu chỉnh: 3 tháng hoặc khi được xác nhận là cần thiết."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Khi kiểm tra hoạt động của cân phân tích điện tử theo tiêu chuẩn (tại mục II.3), sau khi đã tải trọng lên đĩa cân và lấy tải trọng ra khỏi đĩa, nhân viên thao tác cần xác nhận điều gì?",
+      "options": {
+        "A": "Cân phải tự động tắt nguồn sau 30 giây.",
+        "B": "Cân phải hiển thị đúng trọng lượng của quả cân hiệu chuẩn.",
+        "C": "Xem có trở lại trạng thái ban đầu không (mức 0.00g).",
+        "D": "Phải tiến hành hiệu chỉnh lại toàn bộ điểm kiểm ngay lập tức."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, Phần II [Điểm kiểm], Mục 3. Kiểm tra hoạt động: 'Sau khi đã tải trọng lên đĩa cân, biểu thị của panel biểu thị sẽ thay đổi. Sau đó tiếp tục lấy tải trọng ra khỏi đĩa, xác nhận xem có trở lại trạng thái ban đầu không.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

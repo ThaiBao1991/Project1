@@ -1,0 +1,229 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Bản tiêu chuẩn hiệu chỉnh – điểm kiểm máy đo đạc - Đồng hồ đo vòng xoay kĩ thuật số (Tiếp xúc・Không tiếp xúc)            Đo lường:    019-8
+Mã số/Mã máy đo: Ono HT-5500
+File gốc: 019-8-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/7
+
+Bản tiêu chuẩn hiệu chỉnh – điểm kiểm máy đo đạc
+Tổng ban BHCL
+Công ty Cổ phần Mabuchi Motor
+
+Ban hành: 05/12/2022
+Chỉnh
+sửa:
+ngày-tháng-
+năm
+Đồng hồ đo vòng xoay kĩ thuật số (Tiếp xúc・Không tiếp xúc)            Đo lường:    019-8
+Máy đo Ono HT-5500
+
+I [Hiệu chỉnh]
+
+Máy tiêu chuẩn   Nơi sản xuất hoặc nhà cung cấp hiệu chỉnh   Máy tiêu chuẩn chỉ định (khi hiệu chỉnh trong công ty) Stroboscope[S32-1]
+
+Chu kì hiệu chỉnh          Mỗi 12 tháng và Khi cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+Độ chính xác
+
+Đo tốc độ vòng quay
+Uỷ thác hiệu chỉnh cho nơi sản xuất, hoặc là nhà cung cấp hiệu
+chỉnh.
+Điểm hiệu chỉnh, giá trị phán định được dựa trên biểu thực tích
+hiệu chỉnh của nơi sản xuất nguyên vật liệu (tham khảo).
+※Trường hợp chỉ sử dụng chế độ không tiếp xúc, thì hiệu chỉnh
+trong nội bộ công ty cũng không có vấn đề.
+Trường hợp đó, biểu thị giới hạn sử dụng lên máy móc.
+Chiếu phần phát sáng của Stroboscope vào phần nhận ánh
+sáng của đồng hồ đo vòng quay kĩ thuật số, tìm kiếm sự chênh
+lệch của trị biểu thị của đồng hồ đo vòng xoay kĩ thuật số đối
+với trị biểu thị (tiêu chuẩn) của Stroboscope, và phán định.
+Các điểm hiệu chuẩn và quy cách phán định được thể hiện
+trong bảng dưới đây.
+
+Dựa vào biểu
+bên trái.
+
+Phạm vi
+Điểm hiệu chỉnh(r/min)
+Quy cách phán
+định
+HT-5500
+Hi
+1 vị trí trong 1000±5
+±1r/min
+1 vị trí trong 10000±10
+±3r/min
+1 vị trí trong 15000±10
+±4r/min
+1 vị trí trong 30000±20
+±7r/min
+1 vị trí trong 100000±50
+±21r/min
+
+【Chú ý】
+Máy tiêu chuẩn (Stroboscope) phải có phạm vi phát sáng ít
+nhất là từ 100 r/min～30000r/min. Ngoài ra, trường hợp sử
+dụng vượt quá phạm vi phát sáng của máy tiêu chuẩn thì phải
+yêu cầu hiệu chỉnh đối với nhà cung cấp.
+
+Trích dẫn・Văn b ản liên quan－
+Quy cách phán định：Dựa vàobản thực tích thí nghiệm・bản hướng dẫn sử dụng
+
+--- HẾT TRANG ---
+
+No.2/7
+II [Tham khảo] HT-5500                                   Đo lường: 019-8
+
+--- HẾT TRANG ---
+
+No.3/7
+[Tham khảo]                                                            Đo lường: 019-8
+
+--- HẾT TRANG ---
+
+
+
+--- HẾT TRANG ---
+
+No.4/7
+[Tham khảo]                                                            Đo lường: 019-8
+
+--- HẾT TRANG ---
+
+No.5/7
+II [Tham khảo]                                                                    Đo lường:019-8
+
+--- HẾT TRANG ---
+
+No.6/7
+
+II [Điểm kiểm]         [Đồng hồ đo vòng xoay kĩ thuật số (Tiếp xúc・Không tiếp xúc)       Đo lường: 019-8
+Máy đo Koino HT-5500
+
+Tần suất kiểm tra   Mỗi khi sử dụng, và mỗi 1 tháng
+
+Hạng mục kiểm tra
+Phương pháp kiểm tra
+Phương pháp
+phán định
+
+1.Lượng pin còn lại
+
+2.Ngoại quan
+
+Không được hết pin.
+Nếu số lượng pin còn lại bị thiếu, thì phải thay thế pin.
+
+Không được có vết bẩn, vỡ, mẻ làm ảnh hưởng đến việc đo
+đạc của phần đo, phần kiểm xuất, phần biểu thị, viền, các loại
+nút.
+
+Không có dị
+thường
+
+Không có dị
+thường
+
+--- HẾT TRANG ---
+
+Chú ý:
+1. Kết quả điểm kiểm không liên quan đến việc có dị thường hay không, kí lục lại 1 tháng 1 lần.
+2. Trường hợp nếu có dị thường khi điểm kiểm (hoặc khi sử dụng), thì kí lục lại kết quả đó, và xử lí theo
+chỉ thị của người chịu trách nhiệm của phòng ban sở hữu.
+Thực hiện yêu cầu tái hiệu chỉnh của máy đo đạc đối với phòng ban thực hiện hiệu chỉnh nếu cần thiết.
+
+--- HẾT TRANG ---
+
+No.7/7
+Bản yêu cầu điểm kiểm・ hiệu chỉnh Biểu lịch sử ban hành-cải đính-hủy bỏ       Đo lường: 019-8
+
+Kí
+hiệu
+Ngày-
+tháng-
+năm
+Lai lịch（Nội dung cải chính,..）
+Soạn thảo
+Xác nhận
+Công nhận
+
+2022.12.5
+Ban hành mới
+
+Ban Bảo hành chất lượng công ty chính Mabuchi Motor
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "019-8-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh – điểm kiểm máy đo đạc - Đồng hồ đo vòng xoay kĩ thuật số (Tiếp xúc・Không tiếp xúc)            Đo lường:    019-8",
+  "doc_code": "Ono HT-5500",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

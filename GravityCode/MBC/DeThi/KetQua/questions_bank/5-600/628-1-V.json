@@ -1,0 +1,50 @@
+{
+  "file_name": "628-1-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "Bảng tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định DỤNG CỤ THÍ NGHIỆM CƯỜNG ĐỘ BÁM DÍNH PHỦ SƠN",
+  "doc_code": "628-1b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ kiểm tra cho mục 1 và mục 2 của dụng cụ trắc định cường độ bám dính phủ sơn là gì?",
+      "options": {
+        "A": "Mục 1: mỗi tuần 1 lần, mục 2: mỗi tháng 1 lần",
+        "B": "Mục 1: mỗi tháng 1 lần, mục 2: mỗi lần sử dụng",
+        "C": "Mục 1: mỗi 6 tháng 1 lần, mục 2: mỗi năm 1 lần",
+        "D": "Mục 1: mỗi lần sử dụng, mục 2: mỗi năm 1 lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "II [ Điểm kiểm ] - Tiến độ kiểm tra: mục 1 : mỗi tháng 1 lần, mục 2 : mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục Chú ý về kết quả kiểm tra trường hợp không thấy bất thường, quy định nào sau đây là chính xác?",
+      "options": {
+        "A": "Không cần ghi chép bất cứ trường hợp nào kể cả khi có yêu cầu quản lý.",
+        "B": "Không ghi kết quả cũng được, nhưng mỗi tháng một lần phải ghi lại kết quả đã kiểm tra dù không có gì bất thường xảy ra.",
+        "C": "Phải ghi chép lại kết quả kiểm tra vào mỗi lần sử dụng bắt buộc.",
+        "D": "Chỉ cần báo cáo miệng cho người quản lý mà không cần lưu lại hồ sơ."
+      },
+      "correct_answer": "B",
+      "reference_note": "II [ Điểm kiểm ] - Chú ý: 2. Kết quả kiểm tra trường hợp không thấy bất thường, không ghi kết quả cũng được, nhưng mỗi tháng một lần phải ghi lại kết quả đã kiểm tra dù không có gì bất thường xảy ra."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Phương pháp định giá/phán định đối với trọng lượng của thanh tác động trong quá trình hiệu chỉnh là bao nhiêu?",
+      "options": {
+        "A": "100g ± 2g",
+        "B": "150g ± 5g",
+        "C": "200g ± 5g",
+        "D": "500g ± 10g"
+      },
+      "correct_answer": "C",
+      "reference_note": "I [Hiệu chỉnh] - Hạng mục hiệu chỉnh: Trọng lượng thanh tác động -> Phương pháp phán định: 200g ± 5g"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

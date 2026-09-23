@@ -1,0 +1,50 @@
+{
+  "file_name": "509-2-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Máy thí nghiệm độ cứng Rockwell",
+  "doc_code": "509-2 c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý về kết quả điểm kiểm và xử lý bất thường, phát biểu nào sau đây là ĐÚNG?",
+      "options": {
+        "A": "Trường hợp không thấy bất thường thì không cần ghi chép, hoàn toàn không phải ghi lại kết quả.",
+        "B": "Trường hợp nhận thấy sự bất thường trong khi sử dụng, sẽ xử lý dựa vào chỉ thị của người quản lý có trách nhiệm.",
+        "C": "Nhân viên trực tiếp tự ý sửa chữa máy ngay khi phát hiện thông số lệch chuẩn.",
+        "D": "Kết quả điểm kiểm chỉ cần báo cáo khi có lỗi nghiêm trọng xảy ra, không cần ghi chép định kỳ hàng tháng."
+      },
+      "correct_answer": "B",
+      "reference_note": "II【Điểm kiểm】 - Chú ý) 1 & 3: Trường hợp nhận thấy sự bất thường trong khi sử dụng, sẽ xử lý dựa vào chỉ thị của người quản lý có trách nhiệm."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ điểm kiểm (kiểm tra hàng ngày) máy thí nghiệm độ cứng Rockwell được quy định thực hiện vào thời điểm nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước khi kết thúc ca làm việc"
+      },
+      "correct_answer": "B",
+      "reference_note": "II【Điểm kiểm】 - Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo bảng hiệu chỉnh, chu kỳ hiệu chuẩn định kỳ cho miếng độ cứng tiêu chuẩn và máy thí nghiệm độ cứng Rockwell là bao lâu?",
+      "options": {
+        "A": "Mỗi 1 tháng và khi xác nhận là cần thiết",
+        "B": "Mỗi 6 tháng và khi xác nhận là cần thiết",
+        "C": "Mỗi 3 tháng và khi xác nhận là cần thiết",
+        "D": "Mỗi 1 năm và khi xác nhận là cần thiết"
+      },
+      "correct_answer": "C",
+      "reference_note": "I【Hiệu chỉnh】 - Chu kỳ hiệu chỉnh: Mỗi 3 tháng và khi xác nhận là cần thiết"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

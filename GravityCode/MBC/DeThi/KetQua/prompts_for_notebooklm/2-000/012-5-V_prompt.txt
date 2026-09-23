@@ -1,0 +1,279 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: BẢN TIÊU CHUẨN HIỆU CHỈNH・ĐIỂM KIỂM     Ban chính BHCL công ty cổ phần Mabuchi Motor - Máy đo máy phát điện                                Máy đo  012-5 b
+Mã số/Mã máy đo: m
+File gốc: 012-5-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+№1/4
+
+BẢN TIÊU CHUẨN HIỆU CHỈNH・ĐIỂM KIỂM     Ban chính BHCL công ty cổ phần Mabuchi Motor
+
+Ban hành  13.04.2011
+Cải đính 16.07.2014
+Máy đo máy phát điện                                Máy đo  012-5 b
+(MAGTROL DSP6001＋HD-515/715)
+
+Ι【Hiệu chỉnh】
+
+Dụng cụ tiêu chuẩn Quả cân chuẩn loại 1[S09-1]，Dụng cụ hỗ trợ : thanh hiệu chỉnh
+(chùm tia hiệu chỉnh)
+
+Chu kỳ hiệu chỉnh   6 tháng và khi được cho là cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+＜Hạng mục chú ý＞
+
+＜Chuẩn bị trước khi
+hiệu chỉnh＞
+
+Hiệu chỉnh giá trị ngẫu
+lực
+
+・Phải cẩn thận để trục không được rung lắc
+・Không được tăng ngẫu lực một cách đột ngột
+
+Sau khi bật công tắc nguồn, tiến hành khởi động làm nóng
+dần  từ 30 phút trở lên.
+
+(1) Gắn thanh hiệu chỉnh vào trục và cân bằng nó bằng
+thước thủy đi kèm với thanh hiệu chỉnh.
+
+(2) Tắt công tất『BRAKE』trên thiết bị chính
+(3) Nhấn giữ nút [TORQUE SET] cho đến khi nghe thấy tiếng
+bíp lần thứ hai để thiết đặt vào chế độ OPEN LOOP
+(4)  Bật công tắc『BRAKE』
+(5) Xoay núm điều chỉnh "TĂNG/GIẢM"
+("INCREASE/DECREASE") về phía bên phải để thiết đặt
+dòng điện trên 50% và sau đó áp dụng phanh.
+(6) Xác nhận xem màn hình đo ngẫu lực có bằng zero không
+Trường hợp nó không bằng zero, hãy điều chỉnh bằng vít
+điều chỉnh ‘ZERO’ của mặt sau của máy đo lực.
+
+Bột nước
+(bong bóng nước)
+Trình tự vít điều chỉnh (8)
+Trình tự vít điều chỉnh zero(6)
+
+--- HẾT TRANG ---
+
+№2/4
+
+Ⅰ【Hiệu chỉnh】
+Máy đo máy phát điện                 Máy đo 012-5b
+(MAGTROL DSP6001＋HD-515/715)
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+(7)［Phán định trước khi điều chỉnh]
+Gắn quả cân vào phía CW của thanh hiệu chỉnh trong
+trạng thái đã phanh và đọc chỉ số hiển thị
+Tham khảo (biểu 1) để biết điểm hiệu chỉnh và quả cân
+sử dụng.
+(8)［Điều chỉnh］
+Trường hợp cần thiết phải điều chỉnh thì phải điều chỉnh
+bằng vít điều chỉnh“CW CAL”ở  mặt sau của máy đo lực
+※Nếu giá trị ngẫu lực nằm trong phạm vi sử dụng thì
+không cần điều chỉnh
+(9) (7) ～(9) cũng được thực hiện theo hướng CCW
+(10) Sau khi hoàn tất hiệu chỉnh, dùng tay rung nhẹ một đầu
+thanh hiệu chỉnh và từ từ xoay núm điều chỉnh
+'Giảm/Tăng' DECREASE/INCREASE 』 theo ngược
+chiều kim đồng hồ  CCW để nhả phanh từ từ
+(11) Tắt công tất 『BRAKE』
+(12) Nhấn và giữ nút [TORQUE SET] cho đến khi bạn
+nghe thấy tiếng bíp thứ hai để nhả [OPEN LOOP] và quay
+lại menu chính.
+
+(Biểu 1)
+Mẫu mã
+của máy đo
+máy phát
+điện
+Quy mô
+đầy đủ
+Quả cân
+sử dụng
+Điểm hiệu
+chỉnh(Nm)
+Giá trị
+cho
+phép
+(Nm)
+HD-515-8N
+1.7Nm
+1.0kg
+1.700※1
+±0.004
+HD-715-8N
+6.5Nm
+2.5kg
+6.227※2
+±0.016
+
+※1：17.34cm×1.0 ㎏×0.0980665
+※2：(10 inch(25.4 ㎝)×2.5 ㎏)×0.0980665
+
+±0.25% quy mô
+đầy đủ
+(Theo biểu 1)
+－Trích dẫn・văn b ản liên quan－
+Quy cách phán định：Trích dẫn quy cách nơi chế tạo
+Phương pháp hiệu chỉnh： tham khảo bản hướng dẫn hiệu chỉnh cho thiết bị đo tốc độ ngẫu lực
+
+--- HẾT TRANG ---
+
+№3/4
+
+Ⅱ【Điểm kiểm】    Máy đo máy phát điện             Máy đo 012-5 b
+(MAGTROL DSP6001＋HD-515/715)
+
+Tiến độ điểm kiểm   Mỗi tháng 1 lần và mỗi lần sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+Ngoại quan
+
+(Bộ điều khiển)
+Không có bụi bẩn dính vào màn hình, các nút bấm và núm
+điều chỉnh âm lượng không được bị hư hỏng hoặc lỏng lẻo.
+(Phần đo đạc)
+Không có sự lỏng lẻo, đứt dây giữa các đầu nối
+
+Chú ý : 1.Phải ký lục kết quả điểm kiểm mỗi tháng 1 lần dù có/không có dị thường.
+2.Khi điểm kiểm, nếu có dị thường phải kí lục kết quả đó và xử lý theo chỉ thị của người chị trách nhiệm
+bộ môn sở hữu. Khi cần thiết, phải tiến hành đăng kí tái hiệu chỉnh dụng cụ đo cho bộ phận thực hiện hiệu
+chỉnh
+
+--- HẾT TRANG ---
+
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm  Biểu lý lịch ban hành-cải đính-hủy bỏ   Máy đo 012-5  №4/4
+Ký
+hiệu
+Năm.tháng
+.ngày
+Ghi chép (Nội dung thay đổi)
+Soạn
+thảo
+Xác
+nhận
+Công
+nhận
+
+2011.04.13
+
+Ban hành mới
+
+益永
+
+奈良 埴生
+
+糸川
+
+a
+
+2012.11.05
+
+（Theo bản chỉ thị ngoại lệ QB1-12-07-001）
+・Thay đổi chu kỳ hiệu chỉnh  3 tháng →6 tháng
+・Thay đổi mã số cải đính
+Ⅰ【Hiệu chỉnh】012-5_→012-5a ※Ⅱ【Điểm kiểm】
+012-5_(Không thay đổi）
+
+伊佐
+
+奈良 伊藤
+
+糸川
+
+b
+
+2024.7.16
+
+Ⅰ【Hiệu chỉnh】
+・Sửa lỗi ghi chép ở biểu 1
+Ⅱ【Điểm kiểm】
+Tiến độ điểm kiểm sửa đổi thành「Mỗi tháng 1 lần và
+mỗi lần sử dụng」
+Cải đính toàn bộ hạng mục chú ý
+
+Ban chính BHCL công ty cổ phần Mabuchi Motor
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "012-5-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH・ĐIỂM KIỂM     Ban chính BHCL công ty cổ phần Mabuchi Motor - Máy đo máy phát điện                                Máy đo  012-5 b",
+  "doc_code": "m",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

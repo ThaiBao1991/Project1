@@ -1,0 +1,50 @@
+{
+  "file_name": "S60-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh dụng cụ tiêu chuẩn Kim vát hình côn 0.03 mm",
+  "doc_code": "S60 - 1f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nhiệt độ tiêu chuẩn được quy định trong quá trình hiệu chỉnh dụng cụ Kim vát hình côn 0.03 mm là bao nhiêu?",
+      "options": {
+        "A": "20 ± 1 °C",
+        "B": "20 ± 3 °C",
+        "C": "22 ± 3 °C",
+        "D": "23 ± 2 °C"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Mục Hiệu chỉnh: Nhiệt độ tiêu chuẩn: 20 ± 3 °C"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo bản tiêu chuẩn hiệu chỉnh, chu kỳ hiệu chỉnh đối với dụng cụ tiêu chuẩn Kim vát hình côn 0.03 mm là bao lâu?",
+      "options": {
+        "A": "1 năm",
+        "B": "2 năm",
+        "C": "3 năm",
+        "D": "5 năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Mục Hiệu chỉnh: Chu kỳ hiệu chỉnh: 3 năm"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo bản tiêu chuẩn, mức độ chính xác (độ chính xác) cho phép đối với Seri TP (hình côn) khi kích thước ở khoảng φ 20.01 ~ φ 30.00 là bao nhiêu?",
+      "options": {
+        "A": "± 2 µm",
+        "B": "± 3 µm",
+        "C": "± 5 µm",
+        "D": "± 10 µm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Bảng Thể thức / Độ chính xác: Seri TP (hình côn) | φ 20.01 ~ φ 30.00 : ± 3 µm"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

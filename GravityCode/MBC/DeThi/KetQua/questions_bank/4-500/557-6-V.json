@@ -1,0 +1,50 @@
+{
+  "file_name": "557-6-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "ĐỒNG HỒ ĐO NHIỆT ĐỘ ĐẦU MŨI HÀN (Kiểu kỹ thuật số) (HOZAN H-767)",
+  "doc_code": "557-6a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kỳ hiệu chỉnh đối với đồng hồ đo nhiệt độ đầu mũi hàn (HOZAN H-767) là bao lâu?",
+      "options": {
+        "A": "6 tháng một lần",
+        "B": "12 tháng hoặc khi thấy cần thiết",
+        "C": "24 tháng một lần",
+        "D": "3 tháng một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Mục I. [Hiệu chỉnh] - Chu kỳ hiệu chỉnh : 12 tháng hoặc khi thấy cần thiết"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi kiểm tra ngoại quan đồng hồ đo nhiệt độ đầu mũi hàn, nội dung nào sau đây ĐÚNG với phương pháp điểm kiểm tra?",
+      "options": {
+        "A": "Bề mặt biểu thị điện tử không được có vết bẩn hay vết nứt, không khuyết số và không đứt sensor nhiệt độ",
+        "B": "Cho phép bề mặt biểu thị có vết nứt nhỏ nếu số vẫn hiển thị rõ",
+        "C": "Được phép sử dụng sensor nhiệt độ bị đứt dây chì hàn nếu đã nối lại",
+        "D": "Chỉ cần kiểm tra hiển thị số, không cần kiểm tra ngoại quan vỏ máy"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 4, II. [Điểm kiểm tra] - Mục 2. Ngoại quan: (1) Bề mặt biểu thị điện tử phải không có vết bẩn hay vết nứt. (2) Không được khuyết số của biểu thị. (3) Không đứt sensor nhiệt độ, không bị dây bẩn chì hàn."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục ngoại quan và chú ý điểm kiểm tra, khi nào bắt buộc phải thay thế sensor nhiệt độ mới?",
+      "options": {
+        "A": "Khi sensor bị bám bẩn nhẹ có thể lau sạch",
+        "B": "Cứ 12 tháng phải thay mới một lần (vì sensor nhiệt độ có thể bị kém chất lượng qua một thời gian sử dụng)",
+        "C": "Khi màn hình hiển thị điện tử bị mờ pin",
+        "D": "Khi nhiệt độ phòng chênh lệch quá 5 độ C"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 4, II. [Điểm kiểm tra] - (Ghi chú) Thay thế sensor nhiệt độ: Dù không có những khiếm khuyết có hại đi nữa, cứ 12 tháng phải thay mới một lần."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

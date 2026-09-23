@@ -1,0 +1,50 @@
+{
+  "file_name": "531-5-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH DỤNG CỤ ĐO - Máy đo LCR kỹ thuật số",
+  "doc_code": "531-5d",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo phần 'Chú ý' tại mục Điểm kiểm (trang 5), trường hợp kết quả điểm kiểm có dị thường thì phải xử lý thế nào?",
+      "options": {
+        "A": "Bỏ qua không cần ghi chép nếu máy vẫn khởi động bình thường",
+        "B": "Phải ghi chép lại kết quả điểm kiểm, xử lý theo chỉ thị của người có trách nhiệm quản lý",
+        "C": "Chỉ cần báo cáo miệng cho tổ trưởng và tiếp tục sử dụng",
+        "D": "Tự ý tháo máy để sửa chữa mạch bên trong"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5: 'Trường hợp kết quả điểm kiểm có dị thường thì phải ghi chép lại kết quả điểm kiểm, xử lý theo chỉ thị của người có trách nhiệm quản lý.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, chu kỳ hiệu chuẩn định kỳ đối với máy đo LCR kỹ thuật số (mã 3522-50, 3532-50, IM 3536) là bao lâu?",
+      "options": {
+        "A": "12 tháng",
+        "B": "24 tháng",
+        "C": "6 tháng",
+        "D": "36 tháng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: 'Chu kỳ hiệu chỉnh: mỗi 24 tháng và lúc xác nhận cần thiết'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi thực hiện quy trình chuẩn bị trước khi hiệu chỉnh/kiểm tra máy đo LCR IM3536 (ví dụ theo mục 1 của tài liệu bổ sung), thời gian làm nóng máy (warm-up) tối thiểu là bao nhiêu phút?",
+      "options": {
+        "A": "30 phút",
+        "B": "45 phút",
+        "C": "60 phút",
+        "D": "120 phút"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 4 và trang 6: '(ví dụ: IM3536 là 60 phút)' / 'tiến hành làm nóng máy từ 60 phút trở lên'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

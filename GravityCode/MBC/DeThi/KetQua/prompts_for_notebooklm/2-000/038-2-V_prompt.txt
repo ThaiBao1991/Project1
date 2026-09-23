@@ -1,0 +1,496 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Bản tiêu chuẩn hiệu chỉnh – điểm kiểm dụng cụ đo - ĐỒNG HỒ ĐO ĐIỆN TRỞ CÁCH ĐIỆN ĐIỆN ÁP CHỊU
+Mã số/Mã máy đo: 038-2
+File gốc: 038-2-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No. 1 / 7
+
+Người dịch: Nhị Vũ 20209
+Bản tiêu chuẩn hiệu chỉnh – điểm kiểm dụng cụ đo
+
+ĐỒNG HỒ ĐO ĐIỆN TRỞ CÁCH ĐIỆN ĐIỆN ÁP CHỊU
+ĐỰNG
+(HIOKI  3153)
+
+Mabuchi Motor Co., Ltd.
+Ban Bảo Hành Chất Lượng
+
+Ngày ban hành: 25.11.2009
+Ngày sửa đổi:
+Dụng cụ đo:
+038-2
+I. [Hiệu chỉnh]
+Đồng hồ điện áp cao [S56-1:149-10A], Máy hiệu chỉnh dòng điện [S57-1: TOS1200], Điện trở
+có́ tảidùng UL1270 [S16-1],
+Dụng cụ tiêu chuẩn: Máy điện trở chuẩn [S02-1] hoặc Máy thay đổi điện trở 6 dial [S58-1]
+
+Chu kỳ hiệu chỉnh   12 tháng và khi thấy cần thiết
+
+Hạng mục
+hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương
+pháp phán
+định
+
+[Đồng hồ điện
+áp chịu đựng]
+(Điện:
+AC/DC)
+
+1.Điện áp
+output
+
+※ Chi tiết về
+phương pháp
+thiết định thì
+hãy tham khảo
+ở Sách Thuyết
+minh sử dụng.
+<Chú ý>:
+(1) Sử dụng Test lead cao áp ( 9615: HIOKI phụ tùng chuẩn ).
+(2) Để tránh bị giật điện, khi thao tác phải đeo găng tay cao su cách điện.
+(3) Sau khi bật nguồn ( READY sáng đèn ), khởi động máy trên 10 phút.
+
+(1) Nhấn        của MANU, chọn chế độ điện áp chịu đựng.
+(sáng đèn )
+(2) Đồng hồ điện áp tương tự là 0 kV.
+(3) Đèn DANGER tắt.
+(4) Nối lại để không tuột đồng hồ điện áp cao. ( Tham khảo hình )
+※Chú ý thay thế AC/DC.
+Đồng hồ điện trở cách điện điện áp chịu đựng
+
+(5) Chọn điện áp Output bằng
+, thiết định bằng
+
+Trị thiết định lấy 3 điểm 5kV, 2.5kV, 500V.
+(6) Chọn thời gian kiểm tra bằng
+, nhấn ON/OFF để tắt.
+(7) Nhấn nút START. ( TEST và đèn DANGER sáng)
+(8) Lấy chênh lệch với trị đo đạc điện áp chịu đựng đối với trị biểu thị của
+đồng hồ điện áp cao và phán định.
+(9) Nhấn nút STOP. ( READY sáng đèn, đèn DANGER tắt )
+
+Tỉ lệ biến
+động
+điện
+áp
+AC± 7%
+DC± 16%
+
+W
+W
+
+--- HẾT TRANG ---
+
+No. 2 / 7
+
+Người dịch: Nhị Vũ 20209
+
+I [Hiệu chỉnh]                                                    Dụng cụ đo  038 – 2
+Hạng mục
+hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương
+pháp phán
+định
+
+2.Dòng điện bị
+ngắt do máy hiệu
+chỉnh dòng điện
+※Chi tiết phương
+pháp thiết định
+tham khảo Sách
+thuyết minh sử
+dụng
+
+(1) Nhấn       của MANU, chọn chế độ điện áp chịu đựng.
+(     sáng đèn)
+(2) Đồng hồ điện áp tương tự là 0kV.
+(3) Đèn DANGER tắt.
+(4) Nối lại để không tuột máy hiệu chỉnh dòng điện.(Tham khảo
+hình )
+※Chú ý thay đổi AC/DC.
+Đồng hồ điện trở cách điện điện áp chịu đựng
+
+(5) Gộp đồng hồ điện áp chịu đựng và dòng điện bị ngắt của
+máy hiệu chỉnh dòng điện.
+(6) Chọn trị giới hạn dưới dòng điện bị ngắt bằng
+,
+nhấn ON/OFF để tắt.
+(7) Chọn trị giới hạn trên dòng điện bị ngắt bằng
+,
+thiết định bằng
+
+Trị thiết định lấy 4 điểm 0.5mA, 1mA, 2mA, 5mA.
+(8) Chọn thời gian thí nghiệm bằng
+, nhấn ON/OFF
+để tắt.
+(9) Nhấn nút START. (TEST và đèn DANGER sáng)
+(10) Chọn điện áp Output bằng
+, tăng từ từ bằng
+đến 1 kV.
+(11) Đọc phán định trị dòng điện bị ngắt của máy hiệu chỉnh dòng
+điện.
+(12) Nhấn nút STOP (READY sáng, đèn DANGER tắt)
+
+±3%
+
+W
+W
+
+--- HẾT TRANG ---
+
+No. 3 / 7
+
+Người dịch: Nhị Vũ 20209
+I  [Hiệu chỉnh]                                   Dụng cụ đo  038 – 2
+
+Hạng mục
+hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương
+pháp phán
+định
+3.Dòng điện bị
+ngắt tại điện
+trở có tải dùng
+UL1270
+
+※Chi tiết
+phương pháp
+thiết định tham
+khảo Sách
+thuyết minh xử
+lý
+
+(1) Nhấn   của MANU, chọn chế độ điện áp chịu đựng.( Wsáng đèn).
+(2) Đồng hồ điện áp tương ứng là 0 kV.
+(3) Đèn DANGER tắt.
+(4) Nối lại để không tuột đồng hồ điện áp cao và điện trở có tải dùng cho
+UL1270 ( Tham khảo hình )
+※Chú ý thay đổi AC/DC.
+Đồng hồ điện trở cách điện điện áp chịu đựng
+
+(5) Chọn điện áp Output bằng
+, thiết định về 600V bằng
+
+(6) Chọn trị giới hạn dưới dòng điện bị ngắt bằng
+, nhấn
+ON/OFF để tắt.
+(7) Chọn trị giới hạn trên dòng điện bị ngắt bằng
+, thiết định
+bằng
+
+Trị thiết định lấy 3 điểm 0.5mA, 1mA, 2mA.
+(8) Chọn thời gian thí nghiệm bằng
+, nhấn ON/OFF để tắt.
+(9) Xoay nút quay điện trở có tải dùng UL1270, gộp giá trị điện trở về
+MAX (2148kΩ).
+(10) Nhấn nút START. (TEST và đèn DANGER sáng)
+(11) Thay đổi nút quay điện trở có tải dùng cho UL1270, lần lượt giảm trị
+điện trở, theo dõi điện áp Output được hiển thị trên đồng hồ điện áp
+cao, xác nhận dòng điện bị ngắt theo điều kiện của biểu dưới đây.
+Tuy nhiên, trường hợp điện áp Output thay đổi, điều chỉnh bằng
+về 600V.
+
+(12) Nhấn nút STOP. (READY sáng đèn, đèn DANGER tắt )
+
+Tình trạng
+FAIL
+
+W
+Dòng điện bị ngắt
+Điện áp
+Output
+0.5mA
+1mA
+2mA
+600V
+AC± 7%
+DC± 16%
+1137kΩ
+489kΩ
+279kΩ
+
+--- HẾT TRANG ---
+
+No. 4 / 7
+
+I  [Hiệu chỉnh]                                                 Dụng cụ đo  038 – 2
+
+Hạng mục
+hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+[Đồng hồ điện trở
+cách điện]
+( Điện: DC )
+
+※Chi tiết về
+phương pháp thiết
+định tham khảo
+bản thuyết minh
+xử lý
+
+4. Đo điện trở
+
+(1) Nhấn       của MANU, chọn chế độ điện áp chịu đựng.
+(       sáng đèn).
+(2) Đồng hồ điện áp tương ứng là 0kV.
+(3) Đèn DANGER tắt.
+(4) Nối lại để không tuột đồng hồ điện áp cao và máy thay đổi điện
+trở 6 dial ( Tham khảo hình )
+※Thay đổi thành DC.
+Đồng hồ điện trở cách điện điện áp chịu đựng
+
+(5) Thiết định trị điện trở thay đổi 6 dial.
+Trị thiết định lấy 3 điểm 20MΩ, 50MΩ, 100MΩ.
+(6) Chọn điện áp Output bằng
+, thiết định bằng
+Trị thiết định lấy 4 điểm 100V, 250V, 500V, 1000V.
+
+(7) Chọn trị giới hạn trên điện trở bằng
+, nhấn ON/OFF
+để tắt.
+(8) Chọn trị giới hạn dưới điện trở bằng
+, thiết định bằng
+dựa theo
+.của biểu 1.
+
+I
+I
+(5) Trị thiết định của máy thay
+đổi điện trở 6 dial
+(6)
+Điện áp Output
+20MΩ
+50MΩ
+100 MΩ
+100V
+10 MΩ
+250V
+3 MΩ
+30 MΩ
+500V
+5 MΩ
+1000V
+10 MΩ
+
+--- HẾT TRANG ---
+
+No. 5 / 7
+
+Người dịch: Vũ 20209
+I [Hiệu chỉnh]                                  Dụng cụ đo  038 – 2
+
+Hạng mục
+hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+4. Đo điện trở
+
+5. Điện áp Output
+
+(9) Chọn thời gian thí nghiêm bằng
+, nhấn ON/OF để tắt.
+
+(10) Nhấn nút START. (TEST và đèn DANGER sáng)
+(11) Lấy sự khác nhau với trị đo đạc điện trở của đồng hồ điện trở
+cách điện đối với trị thiết định (5).
+Biểu 2
+
+(5) Trị thiết định của máy thay
+đổi điện trở 6 dial
+(6)
+Điện áp Output
+20MΩ
+50MΩ
+100 MΩ
+100V
+±10 rdg
+250V
+500V
+1000V
+±4% rdg
+
+(12) Đo đạc điện trở (11), đồng thời lấy sự khác nhau với trị đo đạc
+điện áp của đồng hồ điện trở cách điện đối với trị biểu thị của
+đồng hồ điện áp cao để phán định. Ngoài ra, trị đo đạc điện áp
+trên -5% và dưới +50% của trị đo đạc (6).
+
+(13) Nhấn nút STOP. ( READY sáng đèn, đèn DANGER tắt )
+
+Theo biểu 2
+
+±(1.5% rdg
++2 digit)
+
+--- HẾT TRANG ---
+
+No. 6 / 7
+
+II  [Điểm kiểm]
+Dụng cụ đo 038 – 2
+ĐỒNG HỒ ĐO ĐIỆN TRỞ CÁCH ĐIỆN ĐIỆN ÁP CHỊU ĐỰNG
+(HIOKI  3153)
+
+Tiến độ điểm kiểm
+Mỗi lần sử dụng
+
+Hạng mục
+điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+1. Điều chỉnh
+ZERO của
+đồng hồ điện
+áp tương ứng
+
+2. Xác nhận nút
+START/STOP
+
+3. Ngoại quan
+
+4.  Đo đạc
+Trước khi cho nguồn điện vào, kim chỉ hiển thị “0”.
+Trường hợp kim chỉ bị lệch, xoay ốc vít điều chỉnh bằng tuốc
+nơ vít ngược chiều kim đồng hồ khớp với vị trí ZERO.
+
+Trước khi cho nguồn điện vào, nhấn từng nút, và xác nhận
+có tiếng click không.
+※ Cảm nhận Click
+Nhấn nút từ từ, khi cảm thấy điện trở chưa vào thì ấn lại lần
+nữa đến lúc có cảm giác “crack”.
+
+・ Trên bề mặt panel và trên hộp, không được có vết trầy
+nứt, bẩn gây ảnh hưởng đo đạc.
+・ Vỏ bọc của dây lead để test phải không có vết nứt, trầy,
+hư hỏng .
+・ Không có vết nứt, hư hỏng... trên bao tay cao su cách
+điện
+
+Sau khi cho nguồn điện vào (            sáng đèn), để máy
+khởi động trên 10 phút.
+
+Chú ý
+1. Trường hợp kết quả điểm kiểm có sự bất thường thì ghi lại kết quả điểm kiểm và xử lý theo chỉ thị
+của người chịu trách nhiệm quản lý.
+2. Trường hợp kết quả điểm kiểm không có bất thường thì có thể không ghi lại kết quả điểm kiểm.
+Tuy nhiên, trong 1 tháng, dù không có gì bất thường cũng phải 1 lần ghi
+lại nội dung điểm kiểm.
+3. Trường hợp đã phát hiện ra sự bất thường trong khi sử dụng thì sẽ xử lý theo chỉ thị của người
+chịu trách nhiệm quản lý.
+
+Người dịch: Nhị Vũ 20209
+READY
+
+--- HẾT TRANG ---
+
+Bản tiêu chuẩn hiệu chỉnh – điểm kiểm
+Dụng cụ đo 038 – 2
+No. 7/8
+BIỂU LÝ LỊCH BAN HÀNH – SỬA ĐỔI – HỦY BỎ
+
+Ký hiệu
+Ngày tháng năm
+Nội dung sửa đổi
+Soạn
+thảo
+Xác nhận
+Công
+nhận
+
+25.11.2009
+Đã
+Xác
+nhận
+toàn
+bộ
+nội
+dung
+Ban hành mới
+
+Nara
+Hanyuu
+Takashi
+Itokawa
+
+Mabuchi Motor Co., Ltd   Ban Bảo Hành Chất Lượng
+Người dịch: Nhị Vũ 20209
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "038-2-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh – điểm kiểm dụng cụ đo - ĐỒNG HỒ ĐO ĐIỆN TRỞ CÁCH ĐIỆN ĐIỆN ÁP CHỊU",
+  "doc_code": "038-2",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

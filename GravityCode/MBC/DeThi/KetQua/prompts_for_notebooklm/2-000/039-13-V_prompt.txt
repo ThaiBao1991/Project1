@@ -1,0 +1,328 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Bản tiêu chuẩn hiệu chỉnh-điểm kiểm   Ban chính BHCL công ty cổ phần MAB - Máy đo điện trở thấp                                    Máy đo    039-13
+Mã số/Mã máy đo: 039-13
+File gốc: 039-13-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/4
+
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm   Ban chính BHCL công ty cổ phần MAB
+
+Ban hành 24.03.2021
+Cải đính Năm tháng ngày
+Máy đo điện trở thấp                                    Máy đo    039-13
+TSURUGA  3585
+
+Ι【Hiệu chỉnh】
+
+Dụng cụ tiêu chuẩn     Máy điện trở tiêu chuẩn［S02-1］，Máy đo nhiệt độ độ ẩm［S65-1］
+
+Chu kỳ hiệu chỉnh          12 tháng và khi được cho là cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+＜Chuẩn bị trước khi
+hiệu chỉnh＞
+
+1.Đo điện trở
+(Điều kiện môi
+trường)
+Nhiệt độ
+23℃±5℃
+Độ ẩm dưới 80％
+
+Bật công tắc nguồn và tiến hành làm nóng máy ít nhất 30 phút.
+(1) Thiết định chu kỳ lấy mẫu
+① Nhấn phím F1[SEL]。 Dùng phím F1[SEL] để chọn
+GENERAL SET, sau đó nhấn phím  F4[ENT] để vào
+mục GENERAL SET
+②  Dùng phím F1  để chọn mục SAMPLE
+③ Dùng phím  F2[▲], F3[▼] để thay đổi thiết định
+thành“SLOW
+(2)Thực hiện điều chỉnh về 0
+①Nhấn phím  F1[SEL] , dùng phím  F1[SEL] để chọn
+GENERL SET, sau đó nhấn phím  F4[ENT] để vào
+GENERL SET
+②  Dùng phím F1 để chọn mục MEM.CTRL
+③  Dùng phím F2[▲], F3[▼]  để thay đổi thiết lập
+thành“MANUAL”
+④  Nhấn phím F4[ENT] để quay lại màn hình đo
+⑤  Đoản mạch 4 chấu điện SENSE và SOURCE, nhấn
+giữ phím F3[0ADJ] hơn 1 giây để giá trị hiển thị được
+ghi lại làm giá trị điều chỉnh về 0
+
+(3)Đo điện trở tiêu chuẩn.
+
+(4) Dựa vào giá trị điện trở tiêu chuẩn của điện trở chuẩn, phán
+định giá trị hiển thị trên máy đo điện trở theo [Biểu 1]
+［Biểu 1］
+Phạm vi
+Dụng cụ
+điện trở
+chuẩn
+Phán định
+30mΩ
+10mΩ
+±(0.2% of rdg.＋10digit)
+300mΩ
+100mΩ
+±(0.08% of rdg.＋3digit)
+3 Ω
+1 Ω
+30 Ω
+10 Ω
+300 Ω
+100 Ω
+3kΩ
+1kΩ
+30kΩ
+10kΩ
+※300kΩ
+100kΩ
+※Nếu không sử dụng, thì không cần hiệu chỉnh ở dải đo 300kΩ
+
+Theo biểu 1
+
+--- HẾT TRANG ---
+
+No.2/4
+
+Ι【Hiệ chỉnh】                           Máy đo 039-13
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+2.Xác nhận độ chính
+xác của việc đo nhiệt
+độ
+
+3.Kiểm tra chức năng
+bù nhiệt độ (T.C)
+
+(1) Đo nhiệt độ xung quanh của máy đo điện trở thấp (t) bằng
+nhiệt độ độ ẩm
+(2) Xác nhận rằng đầu dò nhiệt độ (Pt100Ω) đã được kết nối
+đúng vào jack phía sau
+(3)Thiết định điều kiện đo
+①Nhấn phím  F1[SEL] , dùng phím F4[ENT] để chọn
+MEMORY SET, sau đó nhấn phím  F4[ENT] để vào
+MEMORY SET.
+② Dùng phím F2[▲], F3[▼] để thay đổi thiết lập sang
+TEMP.
+(4)Nhấn phím ENT để quay lại màn hình hiển thị, sau đó đọc
+và xác định giá trị đo (nhiệt độ) từ cảm biến nhiệt độ.
+
+Phán định：t±(0.2% of rdg.＋0.2℃)
+
+(1)Xác nhận rằng đầu dò nhiệt độ (Pt100Ω) đã được kết nối
+đúng vào jack phía sau.
+(2)Thực hiện thiết định điều kiện đo
+①Nhấn phím F1[SEL], dùng phím F1[SEL] để chọn
+MEMORY SET, sau đó nhấn phím F4[ENT] để vào mục
+MEMORY SET.
+
+②Nhấn phím  F1  để  chọn FUNCTION
+③Dùng phím   F2[▲], F3[▼] để thay đổi thiết lập sang
+“T.C.”
+Thực hiện các thiết định dưới đây theo cùng quy trình như
+các bước ④②③.
+STD TEMP:20.0℃
+STD TC  :3930ppm
+
+(3) Áp dụng giá trị điện trở đã đo ở mục 1(3) vào công thức
+dưới đây để tính toán giá trị điện trở tại 20℃ (R20).
+Trị điện trở khi T.C tắt
+1＋0.00393×(t－20)
+
+(4)Áp dụng giá trị điện trở tại 20℃ (R20) đã tính ở bước (3) và
+giá trị điện trở khi T.C ON vào công thức dưới đây để tính tỷ
+lệ sai số.
+Việc đo được thực hiện trên mỗi dải đo
+
+(Trị điện trở khi T.C bật)－R20
+R20
+
+Theo như bên
+trái
+
+Tỉ lệ sai lệch
+±0.3%
+－Trích dẫn・văn bản liên quan－
+Quy cách phán định：Trích dẫn quy cách nơi chế tạo
+Độ chính xác của phép đo nhiệt độ trong quá trình kiểm tra được thiết định trong công ty
+R20＝
+Tỉ lệ sai lệch (%)
+×100
+
+--- HẾT TRANG ---
+
+No.3/4
+
+Ⅱ【Điểm kiểm】      Máy đo điện trở thấp                      Máy đo 039-13
+TSURUGA  3585
+
+Tiến độ điểm kiểm   Mỗi khi sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1.Ngoại quan
+
+2. Xác nhận cáp đầu
+vào và đầu dò nhiệt
+độ
+
+3.Xác nhận biểu thị
+
+4.Độ chính xác máy đo
+nhiệt độ
+
+Bằng cách quan sát bằng mắt thường, kiểm tra xem có bất kỳ
+khuyết điểm nào như vết bẩn, vết trầy xước, hư hỏng trên
+bản hiển thị gây cản trở cho việc đo đạc hay không
+
+(1) Cáp đầu vào có được kết nối đúng hay không?
+(2) Cáp đầu vào có bị đứt hoặc phần kết nối có bị lỏng
+không?
+(3) Đảm bảo đầu dò nhiệt độ được kết nối đúng vào jack cắm
+phía sau của máy đo điện trở thấp
+
+※Phải khởi động ít nhất 30 phút
+(1)Làm đoản mạch cáp đầu vào và xác nhận rằng thiết bị hiển
+thị giá trị bằng 0.
+(2) Xác nhận rằng các đèn hiển thị đang sáng bình thường
+
+(1) Đo nhiệt độ xung quanh của máy đo điện trở thấp
+(2)Thiết định điều kiện đo
+①Nhấn phím  F1[SEL]。Dùng phím  F4[ENT] để chọn
+MEMORY SET,sau đó nhấn  F4[ENT] để vào mục
+MEMORY SET
+②Dùng phím F2[▲], F3[▼]để thay đổi thiết định sang
+TEMP.
+(3) Xác nhận nhiệt độ bằng đầu dò nhiệt độ từ màn hình đo
+(4)So sánh (1) và (3), đảm bảo rằng không có sự chênh lệch
+vượt quá ±0,5℃ (theo thiết định nội bộ)
+※Tuy nhiên, chỉ thực hiện trong trường hợp có quản lý nhiệt
+độ
+
+Không có bất
+thường
+
+Trường hợp kết
+quả
+kiểm
+tra
+không đạt (NG),
+hãy
+yêu
+cầu
+hiệu chỉnh để
+tiến hành đánh
+giá chính thức
+Chú ý
+1. Trường hợp kiểm tra thấy bất thường, ghi chép lại kết quả đã kiểm tra và xử lý theo chỉ thị của
+người có trách nhiệm quản lý.
+2. Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được,
+nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy
+ra.
+3. Trường hợp nhận ra sự bất thường trong khi sử dụng, sẽ xử lý dựa vào chỉ thị của người có
+trách nhiệm quản lý.
+
+--- HẾT TRANG ---
+
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm  Biểu lý lịch ban hành-cải đính-hủy bỏ               Máy đo 039-13
+No.4/4
+Ký
+hiệu
+Năm tháng
+ngày
+Ghi chép (Nội dung thay đổi)
+Soạn
+thảo
+Xác
+nhận
+Công
+nhận
+
+2021.3.24
+
+Ban hành mới
+
+Ban chính BHCL công ty cổ phần Mabuchi Motor
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "039-13-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm   Ban chính BHCL công ty cổ phần MAB - Máy đo điện trở thấp                                    Máy đo    039-13",
+  "doc_code": "039-13",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

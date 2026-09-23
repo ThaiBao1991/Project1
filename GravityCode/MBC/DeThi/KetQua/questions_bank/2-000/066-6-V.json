@@ -1,0 +1,50 @@
+{
+  "file_name": "066-6-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định Máy phân tích FFT (ONOSOKKI serie DS-3000)",
+  "doc_code": "066-6",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, tiến độ kiểm tra mục ngoại quan đối với Máy phân tích FFT (ONOSOKKI series DS-3000) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Mỗi ca làm việc"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 14: Tiến độ kiểm tra - Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Chu kỳ hiệu chỉnh định kỳ đối với Máy phân tích FFT (ONOSOKKI serie DS-3000) theo quy chuẩn kỹ thuật là bao lâu?",
+      "options": {
+        "A": "12 tháng hoặc khi thấy cần thiết",
+        "B": "18 tháng hoặc khi thay đổi vị trí đo",
+        "C": "24 tháng hoặc khi thấy cần thiết",
+        "D": "36 tháng hoặc theo yêu cầu khách hàng"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Chu kỳ hiệu chỉnh: 24 tháng hoặc khi thấy cần thiết"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục ghi chú về điểm kiểm định, trong trường hợp kết quả kiểm tra không thấy bất thường thì quy định ghi chép như thế nào là đúng?",
+      "options": {
+        "A": "Không bắt buộc ghi chép kết quả, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra",
+        "B": "Bắt buộc phải ghi chép chi tiết vào sổ nhật ký sau mỗi lần bật máy sử dụng",
+        "C": "Chỉ ghi chép lại khi có sự cố kỹ thuật hoặc sai số vượt mức cho phép",
+        "D": "Không cần ghi chép bất cứ nội dung gì trong suốt vòng đời hiệu chỉnh 24 tháng"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 14: Ghi chú mục 2"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

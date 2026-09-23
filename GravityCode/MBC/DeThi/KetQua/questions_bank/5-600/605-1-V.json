@@ -1,0 +1,50 @@
+{
+  "file_name": "605-1-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định THIẾT BỊ ĐO MICRO METER DẠNG QUÉT TIA LASER Mitutoyo LSM-6000+LSM-503",
+  "doc_code": "605-1d",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ kiểm tra (Ⅱ [Điểm kiểm]) đối với thiết bị đo Micro meter dạng quét tia laser được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần sử dụng một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước mỗi ca làm việc 2 giờ"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: Tiến độ kiểm tra - Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trong các nội dung chú ý khi thao tác với thiết bị đo Micro meter dạng quét tia laser, quy định nào sau đây là tuyệt đối không được phép làm để đảm bảo an toàn?",
+      "options": {
+        "A": "Đóng nắp đậy tại bộ phận phát quang và bộ phận nhận ánh sáng lại sau khi sử dụng.",
+        "B": "Sử dụng giấy lau máy lau sạch dị vật hoặc dầu dính trên dụng cụ hiệu chỉnh mà không làm trầy xướt.",
+        "C": "Tuyệt đối không được nhìn trực tiếp vào tia laser chiếu từ bộ phận phát quang (kể cả lúc tia laser không phát ra ta cũng không nhìn vào nơi phát quang).",
+        "D": "Điều chỉnh độ cao của geji kích cỡ và laser bằng nhau để đưa phần tối của phần biểu thị LED về vị trí trung tâm."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Mục [Hiệu chỉnh] - Những việc cần chú ý (1)"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi đo tính lặp lại 3 lần tại vị trí thiết định offset của pin grand master (đối với dòng LSM-503), trị số nhập thiết định độ lệch thường cộng cả 3 lần đo là bao nhiêu?",
+      "options": {
+        "A": "± 0.04 µm",
+        "B": "± 0.11 µm",
+        "C": "± 0.50 µm",
+        "D": "± 0.3 µm"
+      },
+      "correct_answer": "D",
+      "reference_note": "Trang 2: Phương pháp phán định (LSM-503) - Trị số nhập thiết định độ lệch thường ± 0.3 µm (cộng cả 3 lần đo)"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

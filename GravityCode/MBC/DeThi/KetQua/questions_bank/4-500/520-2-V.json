@@ -1,0 +1,50 @@
+{
+  "file_name": "520-2-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - Thước kẹp điện tử",
+  "doc_code": "520-2h",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo chú ý tại mục điểm kiểm thước kẹp điện tử, khi phát hiện kết quả kiểm tra không thấy bất thường nhưng không ghi chép lại thì cần thực hiện như thế nào?",
+      "options": {
+        "A": "Bắt buộc phải lập biên bản sự cố và báo cáo cấp trên ngay lập tức",
+        "B": "Phải dừng chuyền sản xuất ngay để tiến hành kiểm tra lại toàn bộ",
+        "C": "Không ghi chép cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra",
+        "D": "Chỉ cần ghi chép lại khi có yêu cầu từ bộ phận quản lý chất lượng"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, phần Chú ý, điểm 2: 'Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục 【Hiệu chỉnh】 hạng mục 1 về 'Độ chính xác khi đo phía ngoài', phương pháp phán định (dung sai) cho phép là bao nhiêu?",
+      "options": {
+        "A": "±0.01 mm",
+        "B": "±0.02 mm",
+        "C": "±0.03 mm",
+        "D": "±0.05 mm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, mục 【Hiệu chỉnh】, hạng mục 1, phần 'Phương pháp phán định': '±0.03 mm'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn kiểm tra thước kẹp điện tử, tiến độ điểm kiểm (tần suất kiểm tra) được quy định như thế nào?",
+      "options": {
+        "A": "Kiểm tra 6 tháng một lần",
+        "B": "Kiểm tra mỗi lần sử dụng",
+        "C": "Kiểm tra 1 tuần một lần",
+        "D": "Kiểm tra hàng ngày trước khi vào ca"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, mục 【Điểm kiểm】, phần 'Tiến độ điểm kiểm': 'Mỗi lần sử dụng'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

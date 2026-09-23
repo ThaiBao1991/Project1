@@ -1,0 +1,50 @@
+{
+  "file_name": "509-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh Và điểm kiểm máy đo MÁY THÍ NGHIỆM ĐỘ CỨNG CỰC TIỂU",
+  "doc_code": "509-1j",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trường hợp kết quả kiểm tra định kỳ phát hiện thấy bất thường, nhân viên vận hành hoặc người phụ trách cần phải thực hiện hành động nào sau đây?",
+      "options": {
+        "A": "Tự ý tháo gỡ máy để sửa chữa lại các bộ phận cơ khí bên trong",
+        "B": "Tiếp tục sử dụng bình thường nếu lỗi không quá lớn và ghi chú lại vào cuối tuần",
+        "C": "Ghi chép lại kết quả đã kiểm tra và xử lý theo chỉ thị của người có trách nhiệm quản lý",
+        "D": "Chỉ cần báo cáo miệng cho đồng nghiệp cùng ca và không cần ghi chép lại"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3, Chú ý 1: Trường hợp kết quả kiểm tra thấy bất thường, ghi chép lại kết quả đã kiểm tra và xử lý theo chỉ thị của người có trách nhiệm quản lý"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi tiến hành kiểm tra độ chính xác tổng hợp độ cứng Vickers (HV) ở điều kiện thông thường, thời gian giữ lực thử nghiệm được quy định trong khoảng thời gian nào?",
+      "options": {
+        "A": "5 – 10 giây",
+        "B": "10 – 15 giây",
+        "C": "15 – 20 giây",
+        "D": "20 – 30 giây"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Ⅰ【Hiệu chỉnh】, mục 1.(1) ＜Điều kiện＞ ② Thời gian giữ: 10 – 15 giây"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ thực hiện điểm kiểm đối với 'MÁY THÍ NGHIỆM ĐỘ CỨNG CỰC TIỂU' được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần sử dụng một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Đầu ca làm việc mỗi ngày"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, II【Điểm kiểm】, Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

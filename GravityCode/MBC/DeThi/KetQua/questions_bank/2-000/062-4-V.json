@@ -1,0 +1,50 @@
+{
+  "file_name": "062-4-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Máy đo mùi",
+  "doc_code": "062-4",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ điểm kiểm (kiểm tra trước khi sử dụng) cho máy đo mùi là khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Tiến độ điểm kiểm Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo quy định về điểm kiểm, trường hợp kết quả điểm kiểm không có bất thường thì cần lưu ý điều gì đối với việc ghi chép?",
+      "options": {
+        "A": "Phải ghi chép lại đầy đủ kết quả điểm kiểm sau mỗi lần sử dụng bất kể có bất thường hay không.",
+        "B": "Không cần ghi chép lại kết quả điểm kiểm. Tuy nhiên, nếu trong 1 tháng mà không có bất thường nào xảy ra thì cần phải ghi chép lại.",
+        "C": "Chỉ ghi chép lại khi có sự đồng ý của trưởng phòng BHCL.",
+        "D": "Tuyệt đối không bao giờ được ghi chép kết quả điểm kiểm vào sổ."
+      },
+      "correct_answer": "B",
+      "reference_note": "Chú ý) 2.Trường hợp kết quả điểm kiểm không có bất thường thì không cần ghi chép lại kết quả điểm kiểm. Tuy nhiên, nếu trong 1 tháng mà không có bất thường nào xảy ra thì cần phải ghi chép lại."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Quy cách phán định đối với phạm vi đo 10ppm của máy đo mùi (Shin Cosmos Denki - XP-329m) là bao nhiêu?",
+      "options": {
+        "A": "250 ± 15%",
+        "B": "500 ± 15%",
+        "C": "Trên 750",
+        "D": "100 ± 10%"
+      },
+      "correct_answer": "A",
+      "reference_note": "Phạm vi đo: 10ppm - Quy cách phán định: 250±15％"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

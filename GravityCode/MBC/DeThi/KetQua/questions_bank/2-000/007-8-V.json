@@ -1,0 +1,50 @@
+{
+  "file_name": "007-8-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH ĐIỂM KIỂM DỤNG CỤ ĐO",
+  "doc_code": "007-8 a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi thực hiện hiệu chỉnh Đo điện trở cách điện (Biểu 1) đối với phạm vi đo 500V, điểm hiệu chỉnh theo trị trung tâm là bao nhiêu?",
+      "options": {
+        "A": "2MΩ",
+        "B": "5MΩ",
+        "C": "10MΩ",
+        "D": "50MΩ"
+      },
+      "correct_answer": "D",
+      "reference_note": "Trang 1 - Biểu 1: Phạm vi đo 500V có điểm hiệu chỉnh là 50MΩ(Trị trung tâm)"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ điểm kiểm đối với đồng hồ đo điện trở cách điện HIOKI (IR4051, 4052, 4053, 4054, 4055) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và mỗi quý 1 lần",
+        "B": "Mỗi lần sử dụng, mỗi tháng 1 lần",
+        "C": "Chỉ kiểm tra khi phát hiện thiết bị có bất thường",
+        "D": "6 tháng 1 lần và trước khi xuất kho"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 4 - Tiến độ điểm kiểm: Mỗi lần sử dụng, mỗi tháng 1 lần"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý về kiểm tra, trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) thì nhân viên phải xử lý như thế nào?",
+      "options": {
+        "A": "Tự ý tháo thiết bị ra để sửa chữa các mối nối bên trong",
+        "B": "Tiếp tục sử dụng nếu sai số nhỏ hơn giới hạn cho phép",
+        "C": "Ghi chép lại kết quả, xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu, làm đơn đề nghị hiệu chỉnh lại nếu cần thiết",
+        "D": "Cất thiết bị vào tủ dụng cụ và không cần báo cáo"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 4 - Chú ý) 2. Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu..."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

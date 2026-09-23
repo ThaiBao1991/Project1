@@ -1,0 +1,50 @@
+{
+  "file_name": "076-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh điểm kiểm dụng cụ đo Máy phát điện Form WAV (HIOKI 7075)",
+  "doc_code": "076-1a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục Chú ý trong phần Kiểm tra, khi kết quả kiểm tra có dị thường thì cần xử lý như thế nào?",
+      "options": {
+        "A": "Tự ý sửa chữa lại thiết bị rồi tiếp tục sử dụng",
+        "B": "Bỏ qua kết quả dị thường và tiếp tục đo",
+        "C": "Trì hoãn việc báo cáo đến cuối tuần",
+        "D": "Thì kí lục kết quả kiểm tra lại, xử trí theo chỉ thị của người chịu trách nhiệm quản lí"
+      },
+      "correct_answer": "D",
+      "reference_note": "Phần II. Kiểm tra - Chú ý: '1. Trường hợp kết quả kiểm tra có dị thường thì kí lục kết quả kiểm tra lại, xử trí theo chỉ thị của người chịu trách nhiệm quản lí.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi kiểm tra ngoại quan thiết bị, điểm nào sau đây KHÔNG ĐƯỢC PHÉP làm đối với màn hình cảm ứng?",
+      "options": {
+        "A": "Không được ấn mạnh màn hình cảm ứng bằng tay, vật cứng",
+        "B": "Không được chạm tay nhẹ lên màn hình",
+        "C": "Không được sử dụng bút cảm ứng chuyên dụng",
+        "D": "Không được lau chùi màn hình bằng khăn mềm"
+      },
+      "correct_answer": "A",
+      "reference_note": "Phần II. Kiểm tra - Mục 1. Ngoại quan: '<Chú ý> Không được ấn mạnh màn hình cảm ứng bằng tay, vật cứng'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kì hiệu chỉnh của máy phát điện Form WAV (HIOKI 7075) là bao lâu?",
+      "options": {
+        "A": "12 tháng và khi công nhận là cần thiết",
+        "B": "24 tháng và khi công nhận là cần thiết",
+        "C": "36 tháng và khi công nhận là cần thiết",
+        "D": "Bất cứ khi nào sử dụng"
+      },
+      "correct_answer": "C",
+      "reference_note": "Phần I. Hiệu chỉnh - Chu kì hiệu chỉnh: 'Mỗi 36 tháng và khi công nhận là cần thiết'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

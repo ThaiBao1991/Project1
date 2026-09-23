@@ -1,0 +1,50 @@
+{
+  "file_name": "578-7-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "BẢNG TIÊU CHUẨN HIỆU CHỈNH - ĐIỂM KIỂM DỤNG CỤ ĐO Cân điện tử Shinkoudenshi Model HTR Series",
+  "doc_code": "578-7",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kỳ hiệu chỉnh cho cân điện tử Shinkoudenshi Model HTR Series là bao lâu?",
+      "options": {
+        "A": "1 tháng 1 lần và khi cần thiết",
+        "B": "6 tháng 1 lần và khi cần thiết",
+        "C": "1 năm 1 lần",
+        "D": "Mỗi lần sử dụng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Mục I. [Hiệu chỉnh], Chu kỳ hiệu chỉnh: '6 tháng 1 lần và khi cần thiết'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý điểm kiểm cân điện tử, trường hợp kết quả điểm kiểm có dị thường thì phải xử lý như thế nào?",
+      "options": {
+        "A": "Không cần ghi chép gì nếu chỉ kiểm tra mỗi tháng 1 lần",
+        "B": "Tiếp tục sử dụng bình thường và báo cáo vào cuối tuần",
+        "C": "Ghi chép lại kết quả điểm kiểm, xử lý theo chỉ thị của người có trách nhiệm quản lý",
+        "D": "Tự ý tháo dời thiết bị để sửa chữa ngay lập tức"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, Chú ý 1: 'Trường hợp kết quả điểm kiểm có dị thường thì phải ghi chép lại kết quả điểm kiểm, xử lý theo chỉ thị của người có trách nhiệm quản lý.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Trong bước điều chỉnh độ bằng của cân điện tử HTR Series, nếu không cân bằng, ta tiến hành điều chỉnh bằng bộ phận nào dưới thân chính?",
+      "options": {
+        "A": "Vít điều chỉnh cân bằng",
+        "B": "Nút [Zero/Tare]",
+        "C": "Nút [On/Off]",
+        "D": "Quả cân tiêu chuẩn"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2, Mục II. [Điểm kiểm], Mục 2. Xác nhận độ cân bằng: 'bằng máy điều chỉnh của phần dưới thân chính (vít điều chỉnh cân bằng)'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

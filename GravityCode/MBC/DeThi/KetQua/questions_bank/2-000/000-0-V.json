@@ -1,0 +1,59 @@
+{
+  "file_name": "000-0-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn điểm kiểm hàng ngày dùng chung cho dụng cụ đo",
+  "doc_code": "000-0 g",
+  "target_audience": "Nhân viên, Đội trưởng, Kỹ thuật viên",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục Quản lý - bảo quản, quy định nào sau đây là bắt buộc tuân thủ đối với dụng cụ tiêu chuẩn được sử dụng tại bộ phận thực thi hiệu chỉnh?",
+      "options": {
+        "A": "Được phép mang ra sử dụng ở bất kỳ dây chuyền sản xuất nào nếu thiếu dụng cụ",
+        "B": "Theo nguyên tắc là dụng cụ đo đạc không được sử dụng ngoài hiệu chỉnh và được quản lý riêng biệt ngoài dụng cụ tiêu chuẩn, không được phép sử dụng khi chưa có sự cho phép của người đảm trách",
+        "C": "Có thể cho mượn tự do giữa các bộ phận mà không cần ghi chép",
+        "D": "Chỉ cần bảo quản chung trong hộp dụng cụ thông thường của phân xưởng"
+      },
+      "correct_answer": "B",
+      "reference_note": "※Dụng cụ tiêu chuẩn được sử dụng tại bộ phận thực thi hiệu chỉnh thì theo nguyên tắc là dụng cụ đo đạc không được sử dụng ngoài hiệu chỉnh và được quản lý riêng biệt ngoài dụng cụ tiêu chuẩn. Ngoài ra, không được phép sử dụng khi chưa có sự cho phép của người đảm trách."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ thực hiện việc điểm kiểm hàng ngày đối với dụng cụ đo được quy định vào thời điểm nào?",
+      "options": {
+        "A": "Mỗi tuần một lần trước khi sản xuất",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần vào đầu tháng",
+        "D": "Chỉ thực hiện khi phát hiện dụng cụ có dấu hiệu đo sai"
+      },
+      "correct_answer": "B",
+      "reference_note": "Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi sử dụng dầu chống sét để bôi cho các loại geji và bề mặt kim loại, cần phải lưu ý điểm quan trọng nào sau đây?",
+      "options": {
+        "A": "Bôi một lớp thật dày lên toàn bộ dụng cụ kể cả mạch điện",
+        "B": "Chỉ bôi khi dụng cụ để trong kho trên 6 tháng",
+        "C": "Chú ý không bôi dầu lên các mạch điện",
+        "D": "Sử dụng dầu CRC5-56 bôi trực tiếp lên bề mặt kính"
+      },
+      "correct_answer": "C",
+      "reference_note": "Ngoài ra, chú ý không bôi dầu lên các mạch điện."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140709.732126,
+  "generated_at_iso": "2026-09-23T12:18:29",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 211734,
+    "modified_time": 1658967836.3677905,
+    "modified_time_iso": "2022-07-28T07:23:56",
+    "file_hash_short": "dcdd973b"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "530-2-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Geji giới hạn 2 đầu hình trụ-phẳng",
+  "doc_code": "530-2 c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra (hoặc khi sử dụng) phát hiện thấy bất thường, nhân viên phụ trách cần xử lý theo trình tự nào sau đây là đúng quy định?",
+      "options": {
+        "A": "Tự ý mài giũa lại phần bị mòn để tiếp tục sử dụng",
+        "B": "Tiếp tục sử dụng hết ca sản xuất rồi mới báo cáo vào cuối tuần",
+        "C": "Ghi chép lại kết quả bất thường, xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu, trường hợp cần thiết làm đơn đề nghị hiệu chỉnh lại thiết bị đo",
+        "D": "Bỏ ngay dụng cụ vào thùng rác phế liệu mà không cần ghi chép"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, Chú ý mục 2: 'Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện hiệu chỉnh'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh và điểm kiểm, tiến độ thực hiện điểm kiểm ngoại quan đối với dụng cụ trắc định này được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "6 tháng 1 lần",
+        "D": "Chỉ kiểm tra trước khi đưa vào kho"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Phần Ⅱ【Điểm kiểm】Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi tiến hành đo kiểm tra kích thước đường kính ngoài phía thông đối với geji giới hạn 2 đầu hình trụ-phẳng, số lượng điểm đo theo quy định là bao nhiêu?",
+      "options": {
+        "A": "2 điểm A, B theo hướng Y",
+        "B": "3 điểm A, B, C theo hướng X",
+        "C": "4 điểm A, B theo 2 hướng X, Y",
+        "D": "1 điểm duy nhất ở giữa tâm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Phần I【Hiệu chỉnh】Hạng mục hiệu chỉnh Kích thước đường kính ngoài: Phía thông: 4 điểm A,B theo 2 hướng X,Y"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

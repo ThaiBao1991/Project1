@@ -1,0 +1,50 @@
+{
+  "file_name": "510-2-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "TIÊU CHUẨN HIỆU CHỈNH - ĐIỂM KIỂM Thiết bị thử nghiệm độ ăn khớp răng Pully/Gear TF-40NC",
+  "doc_code": "Dụng cụ đo 510-2",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục Lưu ý về điểm kiểm tra, trong trường hợp kết quả kiểm tra không thấy bất thường thì quy định ghi chép kết quả như thế nào là đúng?",
+      "options": {
+        "A": "Không cần ghi chép bất cứ kết quả nào trong suốt quá trình sử dụng thiết bị.",
+        "B": "Không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.",
+        "C": "Bắt buộc phải ghi chép lại kết quả kiểm tra hàng ngày vào biểu mẫu quản lý.",
+        "D": "Chỉ ghi chép kết quả khi có yêu cầu của cấp trên hoặc bộ phận bảo trì."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3/4 - Phần Lưu ý: Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tần suất điểm kiểm tra (ngoại quan và hoạt động của từng bộ phận) đối với thiết bị thử nghiệm độ ăn khớp răng TF-40NC là khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi khi sử dụng",
+        "C": "6 tháng một lần",
+        "D": "Mỗi ngày vào đầu ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3/4 - Phần II.【Điểm kiểm】 Tần suất điểm kiểm: Mỗi khi sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Trong quá trình hiệu chỉnh khoảng cách trung tâm bằng trục lệch tâm (MASTER), phương pháp phán định (tiêu chuẩn cho phép) của giá trị chênh lệch TCE là bao nhiêu?",
+      "options": {
+        "A": "±2μm",
+        "B": "±3μm",
+        "C": "±4μm",
+        "D": "±5μm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2/4 - Bảng Hạng mục hiệu chỉnh: Phương pháp phán định là ±4μm"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

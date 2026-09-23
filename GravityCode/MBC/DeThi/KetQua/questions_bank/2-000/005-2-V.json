@@ -1,0 +1,50 @@
+{
+  "file_name": "005-2-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định Dụng cụ đo số vòng quay motor",
+  "doc_code": "005-2 d",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi tiến hành hiệu chỉnh số vòng quay, yêu cầu về số điểm hiệu chỉnh là bao nhiêu?",
+      "options": {
+        "A": "Đúng 3 điểm tùy ý",
+        "B": "Đúng 5 điểm tùy ý, không bao gồm điểm cao nhất",
+        "C": "Trên 5 điểm tùy ý, bao gồm cả điểm cao nhất",
+        "D": "10 điểm liên tục từ thấp đến cao"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Tiến hành hiệu chỉnh số vòng quay trên năm điểm tùy ý, bao gồm cả điểm cao nhất (Trang 3 cập nhật: Thay đổi '5 điểm' thành 'trên 5 điểm')"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra hoặc sử dụng, nếu phát hiện có bất thường thì nhân viên cần thực hiện xử lý như thế nào?",
+      "options": {
+        "A": "Tự ý tháo dời thiết bị để sửa chữa mạch điện bên trong",
+        "B": "Bỏ qua nếu thiết bị vẫn hiển thị số liệu và tiếp tục sử dụng cho đến hết ca",
+        "C": "Ghi chép lại kết quả bất thường và xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu, làm đơn đề nghị hiệu chỉnh lại nếu cần thiết",
+        "D": "Chỉ lập biên bản báo cáo khi thiết bị ngừng hoạt động hoàn toàn"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện hiệu chỉnh"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ thực hiện điểm kiểm đối với dụng cụ đo số vòng quay motor là khi nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và mỗi lần sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "Chỉ khi phát hiện thấy có bất thường trong quá trình sử dụng",
+        "D": "6 tháng 1 lần và trước khi bắt đầu ca làm việc"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Tiến độ kiểm tra - Mỗi tháng 1 lần và mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

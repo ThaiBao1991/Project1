@@ -1,0 +1,50 @@
+{
+  "file_name": "581-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - Dung cụ kiểm tra góc nạp từ",
+  "doc_code": "581-1 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong phương pháp phán định xác nhận vị trí so với phần định vị (mục 3), tiêu chuẩn về độ tròn được quy định cụ thể là bao nhiêu?",
+      "options": {
+        "A": "Dưới 0.1 μm",
+        "B": "Dưới 0.2 μm",
+        "C": "Dưới 0.5 μm",
+        "D": "Dưới 1.0 μm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trích dẫn trang 2/6, cột Phương pháp phán định mục 3 có ghi chú viết tay: 'Độ tròn dưới 0.2 μm'."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo mục II [ĐIỂM KIỂM], tần số thực hiện việc kiểm tra ngoại quan và hoạt động của phần chỉ thị dụng cụ là khi nào?",
+      "options": {
+        "A": "Định kỳ 12 tháng một lần",
+        "B": "Đầu mỗi ca làm việc",
+        "C": "Mỗi lần sử dụng",
+        "D": "Khi có sự thay đổi về nhân sự"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trích dẫn trang 5/6, mục II [ĐIỂM KIỂM] - Tần số điểm kiểm: Mỗi lần sử dụng."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Trong trường hợp kết quả kiểm tra dụng cụ bình thường (không thấy khác thường), việc ghi chép kết quả được quy định như thế nào?",
+      "options": {
+        "A": "Bắt buộc phải ghi chép đầy đủ sau mỗi lần sử dụng",
+        "B": "Không cần ghi chép kết quả trong bất kỳ trường hợp nào nếu dụng cụ bình thường",
+        "C": "Chỉ cần báo cáo bằng miệng cho cấp trên trực tiếp",
+        "D": "Không ghi kết quả cũng được, nhưng một tháng một lần phải ghi lại kết quả bình thường đó"
+      },
+      "correct_answer": "D",
+      "reference_note": "Trích dẫn trang 5/6, Ghi chú số 4: 'Kết quả kiểm tra trong trường hợp không thấy khác thường thì không ghi kết quả cũng được. Nhưng một tháng một lần phải ghi lại kết quả bình thường đó'."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

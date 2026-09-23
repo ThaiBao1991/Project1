@@ -1,0 +1,50 @@
+{
+  "file_name": "584-2-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bảng tiêu chuẩn hiệu chỉnh và kiểm tra máy trắc định",
+  "doc_code": "584 - 2a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi kiểm tra tính ổn định của biểu thị tại mục II, sau khi găm ổ cắm lại, cần thực hiện làm nóng máy trong thời gian khoảng bao lâu?",
+      "options": {
+        "A": "Khoảng 10 phút",
+        "B": "Khoảng 15 phút",
+        "C": "Khoảng 30 phút",
+        "D": "Khoảng 60 phút"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, Mục II.[Kiểm tra], Hạng mục kiểm tra 2: 'Tuy nhiên, sau khi găm ổ cắm lại, thì thực hiện làm nóng máy trong thời gian khoảng 30 phút.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục Chú ý tại trang 2 của tài liệu, trong trường hợp không thấy bất thường, không ghi kết quả cũng được, nhưng quy định thời gian tối thiểu phải ghi chép lại kết quả đã kiểm tra là gì?",
+      "options": {
+        "A": "Mỗi tuần phải ghi chép lại một lần",
+        "B": "Mỗi tháng phải ghi chép lại một lần dù không có gì bất thường xảy ra",
+        "C": "Mỗi quý phải ghi chép lại một lần",
+        "D": "Chỉ khi nào có bất thường mới cần ghi chép"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Phần Chú ý, Mục 2: 'Kết quả kiểm tra trường hợp không thấy bất thường, không ghi kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo mục I (Hiệu chỉnh), phương pháp phán định độ chính xác của cân tiêu chuẩn đạt/không đạt là bao nhiêu?",
+      "options": {
+        "A": "±0.001g",
+        "B": "±0.005g",
+        "C": "±0.01g",
+        "D": "±3mg"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Hạng mục hiệu chỉnh 1: Phương pháp phán định ±0.005g"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

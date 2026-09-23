@@ -1,0 +1,50 @@
+{
+  "file_name": "519-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Geji Cylinder",
+  "doc_code": "519-1i",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn định kỳ, chu kỳ hiệu chỉnh của Geji Cylinder là bao lâu?",
+      "options": {
+        "A": "6 tháng và khi cần thiết",
+        "B": "12 tháng và khi cần thiết",
+        "C": "24 tháng và khi cần thiết",
+        "D": "Mỗi khi sử dụng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Chu kỳ hiệu chỉnh: 12 tháng và khi cần thiết"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trong trường hợp kết quả điểm kiểm có dị thường, nhân viên quản lý cần thực hiện thao tác nào theo quy định?",
+      "options": {
+        "A": "Tự ý sửa chữa lại thiết bị ngay lập tức rồi tiếp tục sử dụng",
+        "B": "Bỏ qua kết quả dị thường và tiếp tục kiểm tra lô hàng tiếp theo",
+        "C": "Ghi chép lại kết quả đã điểm kiểm và xử lý theo chỉ thị của người chịu trách nhiệm quản lý",
+        "D": "Chỉ báo cáo miệng cho bộ phận sản xuất mà không cần ghi chép lại"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3: Ghi chú mục 1: Trường hợp kết quả điểm kiểm có dị thường, ghi chép lại kết quả đã điểm kiểm và xử lý theo chỉ thị của người chịu trách nhiệm quản lý."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Thông số tiêu chuẩn cho 'Sai số tiếp giáp' của Geji Cylinder là bao nhiêu?",
+      "options": {
+        "A": "0.010mm trở xuống",
+        "B": "0.004mm trở xuống",
+        "C": "0.002 mm trở xuống",
+        "D": "0.005mm trở xuống"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Mục 2. Sai số tiếp giáp: 0.004mm trở xuống"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "Z02-4-V.pdf",
+  "folder_name": "9-Z00 Ban V IT HOA",
+  "doc_title": "Quy cách phán định máy kiểm tra hình sóng (IWATSU (Le Croy))",
+  "doc_code": "Z02-4 e",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo mục nội dung chính của tài liệu, việc phán định máy kiểm tra hình sóng được thực hiện thông qua việc hiệu chỉnh các hạng mục nào sau đây?",
+      "options": {
+        "A": "VOLTS/DIV, TIME/DIV, và tín hiệu xuất ra (tín hiệu CAL)",
+        "B": "Chỉ hiệu chỉnh điện áp DC và tần số đầu vào",
+        "C": "VOLTS/DIV, tần số quét và dòng điện tiêu thụ",
+        "D": "Độ rộng xung, biên độ đỉnh và trở kháng đầu ra"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, Mục (1): Phán định máy kiểm tra hình sóng bằng việc hiệu chỉnh VOLTS/DIV，TIME/DIV, tín hiệu xuất ra (tín hiệu CAL)."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo tài liệu tiêu chuẩn, đối với chủng loại máy DS-5400A (dòng sản phẩm DS-5400A), quy cách phán định chính xác cho hạng mục VOLTS/DIV sau lần cải đính ngày 2025.02.18 là gì?",
+      "options": {
+        "A": "±(0.5% + 0.5% full scale)",
+        "B": "±(1.5% + 0.5% full scale)",
+        "C": "±2% of full scale + Trị offset 1.5%",
+        "D": "Full scale ±1.5%"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2 & Trang 3 (Biểu lý lịch cải đính ngày 2025.02.18): Sai: ±(0.5%＋0.5%full scale), Đúng: ±(1.5%＋0.5%full scale)."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Trong trường hợp máy xem hình sóng dạng analog không có trị thực đo (điện áp, tần số...) và trị phán định nằm trong khoảng từ ±5% đến ±9%, thì trị phán định cho phép theo Biểu 1 là bao nhiêu?",
+      "options": {
+        "A": "±1%",
+        "B": "±5%",
+        "C": "±10%",
+        "D": "Theo trị phán định"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Biểu quy định trị phán định cho phép: ±5%～9% tương ứng với ±10%."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

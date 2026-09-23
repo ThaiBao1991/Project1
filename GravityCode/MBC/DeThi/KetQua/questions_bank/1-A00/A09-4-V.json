@@ -1,0 +1,59 @@
+{
+  "file_name": "A09-4-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM DỤNG CỤ ĐO (ACM [Quản lý DATA])",
+  "doc_code": "A09-4 a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Trong phần hướng dẫn xử lý dữ liệu (Xóa dữ liệu dùng cho hạng mục 1, 2) tại trang 5 của tài liệu, thao tác đầu tiên người thực hiện cần làm là gì?",
+      "options": {
+        "A": "Click vào nút 레コード保存 trực tiếp",
+        "B": "Nhập mã số máy đo cần hủy",
+        "C": "Check vào checkbox xoá",
+        "D": "Chọn phân loại Điểm kiểm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 5: 3 Xóa dữ liệu (Dùng cho hạng mục 1, 2) Trình tự: ○1 Check vào checkbox xoá, ○2 Click vào レコード保存"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Khi thực hiện đăng ký kết quả hiệu chỉnh dụng cụ đo trên ACM, nếu trong cùng một ngày mà nhập 2 lần trở lên thì quy định nhập số lần hiệu chỉnh như thế nào là chính xác theo tiêu chuẩn?",
+      "options": {
+        "A": "Luôn luôn nhập số [1] cho mọi lần nhập trong ngày",
+        "B": "Nhập [2 lần], [3 lần],… tương ứng theo số lần phát sinh trong ngày",
+        "C": "Không được phép nhập 2 lần trong cùng một ngày",
+        "D": "Hệ thống sẽ tự động nhận diện và khóa không cho nhập tiếp"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2 & 3: ※ Thông thường là [1]. Trong cùng một ngày mà nhập 2 lần trở lên thì nhập [2 lần], [3 lần],…"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn ACM [Quản lý DATA], khi thao tác đăng ký cá biệt dụng cụ đo, tại ô ''ngày đăng ký'', hệ thống sẽ tự động hiển thị ngày của chu kỳ hiệu chỉnh lần sau ở ô nào?",
+      "options": {
+        "A": "Ô ''mã số máy đo''",
+        "B": "Ô ''ngày hiệu chỉnh lần sau''",
+        "C": "Ô ''phạm vi đo đạc''",
+        "D": "Ô ''tên người đảm trách''"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: ※ Nhập vào ô ''ngày đăng ký'' thì tại ô ''ngày hiệu chỉnh lần sau'' sẽ tự động hiển thị ngày của chu kỳ hiệu chỉnh lần sau."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140357.9771883,
+  "generated_at_iso": "2026-09-23T12:12:37",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 1471855,
+    "modified_time": 1476092835.0271661,
+    "modified_time_iso": "2016-10-10T16:47:15",
+    "file_hash_short": "d38d9de8"
+  }
+}

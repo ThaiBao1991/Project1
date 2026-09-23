@@ -1,0 +1,50 @@
+{
+  "file_name": "633-4-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – KIỂM TRA DỤNG CỤ ĐO",
+  "doc_code": "633-4",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi kiểm tra độ ngang của cân, nếu phát hiện thân chính không ngang bằng thì thao tác điều chỉnh nào là đúng theo hướng dẫn?",
+      "options": {
+        "A": "Kê thêm giấy lót dưới chân cân",
+        "B": "Xoay chân điều chỉnh phần đáy thân chính để điều chỉnh cho thân chính ngang bằng lại",
+        "C": "Di dời cân sang vị trí khác bằng phẳng hơn ngay lập tức",
+        "D": "Hiệu chỉnh lại quả cân bên trong bằng menu AutoCal"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: 'Trường hợp không ngang bằng thì xoay chân điều chỉnh phần đáy thân chính, điều chỉnh cho thân chính ngang bằng lại'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ điểm kiểm (tần suất kiểm tra) đối với cân phân tích điện tử OHAUS Explorer Serie được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "6 tháng một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục Chú ý về kết quả điểm kiểm, trường hợp kết quả điểm kiểm không có dị thường thì quy định ghi chép ra sao?",
+      "options": {
+        "A": "Phải ghi chép lại kết quả điểm kiểm sau mỗi lần sử dụng trong ngày",
+        "B": "Tuyệt đối không được ghi chép vào sổ nhật ký",
+        "C": "Không cần ghi chép lại kết quả điểm kiểm, tuy nhiên mỗi tháng 1 lần dù không có dị thường cũng phải ghi chép lại",
+        "D": "Chỉ ghi chép lại khi có sự thay đổi vị trí thiết đặt cân"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3: '2. Trường hợp kết quả điểm kiểm không có dị thường thì không cần ghi chép lại kết quả điểm kiểm. Tuy nhiên, mỗi tháng 1 lần dù không có dị thường cũng phải ghi chép lại'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

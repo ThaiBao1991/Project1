@@ -1,0 +1,348 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Tài liệu tiêu chuẩn hiệu chỉnh - và điểm kiểm dụng cụ đo đạc
+Mã số/Mã máy đo: 056-4
+File gốc: 056-4-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/5
+Tài liệu tiêu chuẩn hiệu chỉnh
+và điểm kiểm dụng cụ đo đạc
+
+ĐỒNG HỒ ĐO TỈ LỆ DẪN ĐIỆN
+HORIBA (CEH-12)
+Mabuchi motor Co,. Ltd
+Ban Bảo Hành Chất Lượng
+
+Ngày ban hành  25.01.2016
+Ngày sửa đổi
+Dụng cụ đo đạc  056-4
+Ⅰ【Hiệu chỉnh】
+
+Dụng cụ chuẩn
+Dung dịch chuẩn : Potassium chloride (tỉ lệ dẫn điện 1.41 mS/cm) *Tham khảo
+biểu 1
+Chu kì hiệu chỉnh
+12 tháng và khi thấy cần thiết
+
+Hạng mục
+hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+hiệu chỉnh
+
+《
+Chuẩn
+bị
+trước khi hiệu
+chỉnh》
+
+［Chỉ định dung
+dịch chuẩn］
+
+Liên quan đến chi tiết về trình tự thiết định, đo thì tham khảo bản
+thuyết minh sử dụng.
+
+《Biểu 1》 Dung dịch chuẩn (potassium chloride) là hàng bán
+ngoài thị trường như dưới đây.
+Mã hàng
+Tỉ lệ dẫn điện
+(25℃)
+Dung lượng
+Nơi SX
+32887-08
+1.41mS/cm
+500ml
+Cty hóa học
+Kanto
+HI 7031L
+1413μS/cm
+(1.413mS/cm)
+500ml
+HANNA
+instruments
+
+--- HẾT TRANG ---
+
+No.2/5
+
+［Hệ đơn vị］
+
+［Hệ số nhiệt
+độ］
+
+［Thiết định
+hằng số cell］
+
+《Biểu 2》 Dưới đây là biểu tính đơn vị tham khảo.
+
+Đơn vị cũ
+⇒
+Đơn vị SI
+Số cell
+1cm-1
+⇒
+100m-1
+0.1cm-1
+⇒
+10m-1
+10cm-1
+⇒
+1000m-1
+Giá trị đo
+10μS／cm
+⇒
+1mS／m
+1mS／cm
+⇒
+100mS／m
+100mS／cm
+⇒
+10S／m
+
+Lấy chuẩn 25℃ (2% / ℃)
+
+Trường hợp kết nối điện cực lần đầu với thân máy thì thiết định số
+Cell
+1. Nhấn phím MODE để chọn chế độ hiệu chỉnh hằng số Cell.
+
+Hằng số Cell                   Thiết định trị chuẩn
+
+2. Nhấn nút RANGE thay đổi vị trí dấu thập phân của trị số, thay
+đổi đơn vị thiết định tỉ lệ dẫn điện của dung dịch chuẩn.
+3. Thiết định số cell được ghi trên nhãn điện cực bằng nút
+ ,.
+4. Sau khi thay đổi hằng số Cell nhấn nút ENTER.
+5. Trở về chế độ đo bằng nút  AUTO／MEAS
+
+SET    CELL
+CONST
+1.014
+×   1.0
+SET                CAL
+
+1.4.0.9m S/cm
+25.0℃
+
+--- HẾT TRANG ---
+
+No.3/5
+
+I【Hiệu chỉnh】                                                               Dụng cụ đo đạc  056-4
+
+Hạng mục
+hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+hiệu chỉnh
+
+1.Phán định độ
+cảm nhận điện
+cực
+
+《Xử lý sau
+hiệu chỉnh》
+
+［Bảo vệ, bảo
+quản
+điện
+cực］
+
+1. Mở nguồn điện sang ON.
+2. Tháo nắp bảo vệ điện cực.
+3. Ngâm điện cực vào nước tinh khiết với lượng thích hợp (nước
+ion).
+4. Chọn chế độ đo tỉ lệ dẫn điện.
+
+5. Cho một lượng dung dịch chuẩn thích hợp (khoảng 100ml) vào
+lọ thí nghiệm
+6. Ngâm điện cực vào dung dịch chuẩn.
+7. Nhấn phím AUTO／MEAS
+Đèn hiển thị “HOLD” sẽ nhấp nháy cho đến khi trị hiển thị ổn
+định. Khi hiển thị “HOLD” hết nhấp nháy thì đo hoàn tất
+
+8. Đọc và ghi chép lại giá trị hiển thị trên máy đo.
+
+Trường hợp cần thiết thì tiếp tục thực hiện như dưới đây.
+
+Hiệu chỉnh số cell :
+Hằng số Cell của điện cực được kiểm định khi xuất hàng ở nhà
+sản xuất, đã biểu thị rõ mức độ điện cực. Tuy nhiên có thể biến
+động tùy theo trạng thái sử dụng, do đó nên tiến hành hiệu chỉnh
+hằng số Cell.
+
+Sau khi hiệu chỉnh thì bảo vệ và bảo quản điện cực theo trình tự
+dưới đây :
+1. Rửa điện cực bằng nước tinh khiết (nước ion), dùng giấy Ro
+hoặc khăn giấy để lau khô nước.
+2. Dùng hộp bảo vệ đã có một lượng nước tinh khiết thích hợp
+(nước ion) để che phủ điện cực để bảo quản.
+
+±(0.5%F.S.
+±1digit)
+
+－Trích dẫn văn bản．liên quan－
+Phương pháp hiệu chỉnh : Tham khảo sách thuyết minh máy đo.
+Qui cách phán định    : Tham khảo sách thuyết minh máy đo.
+
+MEAS  A.RANGE
+1.45μ S/cm
+25.8℃
+T.C MODE  2%∟
+MEAS  A.RANGE        HOLD
+1.413 mS/cm
+26.8℃
+T.C MODE  2%∟
+
+--- HẾT TRANG ---
+
+No.4/5
+
+II【Điểm kiểm】                                          Dụng cụ đo đạc  056-4
+
+ĐỒNG HỒ ĐO TỈ LỆ DẪN ĐIỆN
+HORIBA (CEH-12)
+
+.   Tiến độ điểm kiểm             Mỗi lần sử dụng
+
+Haïng muïc
+điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+Ngoại quan
+
+Không được có những khuyết điểm gây hư hại đồng hồ và điện
+cực. Đặc biệt là đối với điện cực, xác nhận xem có dính dị vật
+không. Điện cực khi không sử dụng phải được bảo quản đậy
+nắp lại.
+
+《Chú y khi sử dụng》
+
+1. Không được ngâm đồng hồ đo vào nước.
+2. Không được để điện cực chạm vào máy móc.
+3. Không được để phần đầu nối của đồng hồ và đầu nối của
+điện cực chạm nước, không chạm tay vào đầu nối.
+4.Trường hợp đo dung dịch loại khác thì mỗi khi đo phải rửa
+điện cực bằng nước tinh khiết (nước ion) rồi lau khô bằng
+giấy Ro hoặc khăn giấy rồi mới sử dụng. Chú ý không để cho
+điện cực bị trầy xước, hư hỏng.
+5. Ngoài ra, phải tuân thủ hạng mục chú ý trong bản thuyết
+minh sử dụng.
+
+《Bảo quản sau khi sử dụng》
+
+1. Sau khi sử dụng, phải rửa sạch điện cực bằng nước tinh
+khiết (nước ion). Đồng thời cũng phải rửa bên trong nắp bảo
+vệ điện cực.
+2. Để hộp bảo vệ thật khô ráo nước rồi mới cho nước tinh khiết
+vào (nước ion) vào miếng bọt biển để giữ ẩm, rồi lấy nắp đậy
+điện cực vào.
+
+Ghi chú :
+1. Trường hợp kiểm tra thấy bất thường, ghi chép lại kết quả đã kiểm tra và xử lý theo chỉ thị
+của người có trách nhiệm quản lý.
+2. Trường hợp kết quả kiểm tra không thấy bất thường thì không ghi chép kết quả cũng được,
+nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy
+ra.
+3. Trường hợp nhận ra sự bất thường trong khi sử dụng, sẽ xử lý dựa vào chỉ thị của người có
+trách nhiệm quản lý.
+
+--- HẾT TRANG ---
+
+No.5/5
+Dụng cụ đo đạc  056-4
+Tài liệu tiêu chuẩn hiệu chỉnh và điểm kiểm
+Biểu lí lịch những ban hành, cải chính và hủy bỏ
+Kí
+hiệu
+Ngày tháng
+năm
+Nội dung (Bao gồm những nội dung sửa đổi)
+Soạn
+thảo
+Xác
+nhận
+Công
+nhận
+
+2016.01.25
+Ban hành bản mới (Đề án : TRIỀU P.Kiểm Tra VNM)
+Matsumo
+to
+Murano
+Ito
+Ishino
+
+Công ty Mabuchi motor Co,. Ltd  Ban Bảo hành chất
+lượng
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "056-4-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh - và điểm kiểm dụng cụ đo đạc",
+  "doc_code": "056-4",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

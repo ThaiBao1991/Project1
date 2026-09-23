@@ -1,0 +1,50 @@
+{
+  "file_name": "011-6-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ đo - Máy thí nghiệm quấn dây xung lực (ECG-KOKUSAI DWX-05A)",
+  "doc_code": "011-6c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi phát hiện có bất thường trong quá trình kiểm tra hoặc sử dụng thiết bị, nhân viên phụ trách cần thực hiện thao tác xử lý nào sau đây?",
+      "options": {
+        "A": "Tự ý tháo máy ra sửa chữa linh kiện bên trong",
+        "B": "Ghi chép lại kết quả và xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu, làm đơn đề nghị hiệu chỉnh lại nếu cần",
+        "C": "Tiếp tục sử dụng cho đến hết ca sản xuất rồi mới báo cáo",
+        "D": "Bỏ qua không cần ghi chép nếu lỗi nhỏ và không ảnh hưởng gì"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5: Ghi chú 2: Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục <Chuẩn bị trước khi hiệu chỉnh>, biện pháp an toàn bắt buộc nào được đề cập để đề phòng điện giật khi tiến hành hiệu chỉnh máy thí nghiệm quấn dây xung lực?",
+      "options": {
+        "A": "Mang bao tay cách điện bằng cao su",
+        "B": "Ngắt hoàn toàn nguồn điện lưới 220V trước khi thao tác",
+        "C": "Sử dụng bút thử điện kiểm tra trước khi đo",
+        "D": "Đứng trên thảm cao su chống tĩnh điện"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: <Chú ý> Để đề phòng điện giật, khi hiệu chỉnh cần mang bao tay cách điện bằng cao su."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ kiểm tra mục II 【Điểm kiểm】 đối với Máy thí nghiệm quấn dây xung lực (ECG-KOKUSAI DWX-05A) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi tháng một lần và trước khi ca làm việc",
+        "C": "Mỗi lần sử dụng",
+        "D": "Mỗi 12 tháng hoặc khi thấy cần thiết"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 5: Tiến độ kiểm tra: mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

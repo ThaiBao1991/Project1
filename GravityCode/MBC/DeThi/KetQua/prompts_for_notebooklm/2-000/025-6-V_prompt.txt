@@ -1,0 +1,714 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM            Công ty Mabuchi Motor – Bộ phận BHCL - Máy đo so sánh chấn động                          Máy đo  025－6 b
+Mã số/Mã máy đo: so s
+File gốc: 025-6-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/6
+BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM            Công ty Mabuchi Motor – Bộ phận BHCL
+
+Ban hành 02.09.2009
+Cải đính  16.01.2020
+Máy đo so sánh chấn động                          Máy đo  025－6 b
+ONOSOKKI VC-3100(VC-8310A)/VC-3200
+
+Ι【Hiệu chỉnh】
+
+Máy tiêu chuẩn        Máy tiêu chuẩn được chỉ định bởi nhà sản xuất
+
+Chu kì hiệu chỉnh          Mỗi 36 tháng và khi nhận thấy cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+1. Dòng điện nguồn
+điện dùng cho máy
+kiểm xuất
+
+2. Điện áp offset DC
+
+3.Tiếng ồn
+※ Đối với VC-3200 thì
+tiến hành đo độ ồn,
+sau đó tính toán phạm
+vi dải động
+
+Ủy thác việc hiệu chỉnh cho nhà sản xuất, nhà cung cấp hiệu
+chỉnh.
+＜Phương pháp phán định dựa theo biểu＞
+Do VC-8310A là vật đã được lắp VC-3100 vào hộp nguồn
+điện nên cũng sẽ tiến hành phán dịnh tương tự với VC-3100.
+
+Thiết đặt
+Phán định
+Cảm biến
+đầu vào
+VC-3100
+VC-3200
+2.400 ±0.480 mA
+3.50 ±0.70 mA
+
+Mẫu khuôn
+Thiết đặt
+(EXT input RANGE)
+Phán định
+VC-3100
+1.000 km/s2
+0.000 ±15.000 mV
+VC-3200
+2.000 m/s2
+0.000 ±17.000 mV
+Mẫu khuôn
+Thiết đặt
+(EXT input RANGE)
+Phán định
+VC-3100
+2.000 m/s2
+Dưới
+10.000mVrms
+VC-3200
+1.000 km/s2
+Trên 81.5 dB
+
+--- HẾT TRANG ---
+
+No.2/6
+
+Ⅰ【Hiệu chỉnh】                                                  Máy đo 025-6 b
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+4.Độ chính xác đầu vào
+
+Thiết đặt
+Tín
+hiệu
+đầu vào
+Chấu điệu đo
+Tiêu chuẩn phán định
+VC-3100
+(Độ chính xác thu được)
+Tiêu chuẩn phán định
+VC-3200
+(Phạm vi độ chính xác)
+EXT input
+RANGE=
+2.000 m/s2
+Sin wave
+160 Hz
+18 mVp-p
+THR OUT
+3.182 ±0.095 Vrms
+53.98 dB±0.22 dB
+AC OUT
+DC OUT
+3.182 ±0.095 V
+3.182 V ±2.6 %
+Trị biểu thị
+1.273 ±0.038 m/s2
+1.273 m/s2 ±2.6 %
+EXT input
+RANGE=
+5.00 m/s2
+Sin wave
+160 Hz
+45 mVp-p
+THR OUT
+-
+46.02 dB ±0.22 dB
+AC OUT
+DC OUT
+-
+3.182 V ±2.6 %
+Trị biểu thị
+-
+3.18 m/s2 ±2.6 %
+EXT input
+RANGE=
+10.00 m/s2
+Sin wave
+160 Hz
+90 mVp-p
+THR OUT
+3.182 ±0.095 Vrms
+40.00 dB±0.22 dB
+AC OUT
+DC OUT
+3.182 ±0.095 V
+3.182 V ±2.6 %
+Trị biểu thị
+6.36 ±0.19  m/s2
+6.36 m/s2 ±2.6 %
+EXT input
+RANGE=
+100.0 m/s2
+Sin wave
+160 Hz
+0.9 Vp-p
+THR OUT
+3.182 ±0.095 Vrms
+20.00 dB ±0.22 dB
+AC OUT
+DC OUT
+3.182 ±0.095 V
+3.182 V ±2.6 %
+Trị biểu thị
+63.6 ±1.9 m/s2
+63.6 m/s2 ±2.6 %
+EXT input
+RANGE=
+200.0 m/s2
+Sin wave
+160 Hz
+1.8 Vp-p
+THR OUT
+3.182 ±0.095 Vrms
+13.98 dB ±0.22 dB
+AC OUT
+DC OUT
+3.182 ±0.095 V
+3.182 V ±2.6 %
+Trị biểu thị
+127.3 ±3.8 m/s2
+127.3 m/s2 ±2.6 %
+EXT input
+RANGE=
+500.0 m/s2
+Sin wave
+160 Hz
+4.5 Vp-p
+THR OUT
+3.182 ±0.095 Vrms
+6.02 dB ±0.22 dB
+AC OUT
+DC OUT
+3.182 ±0.095 V
+3.182 V ±2.6 %
+Trị biểu thị
+318.2 ±9.5 m/s2
+318.2 m/s2 ±2.6 %
+EXT input
+RANGE=
+1.000
+km/s2
+Sin wave
+160 Hz
+9.0 Vp-p
+THR OUT
+3.182 ±0.095 Vrms
+0.00 dB ±0.22 dB
+AC OUT
+DC OUT
+3.182 ±0.095 V
+3.182V ±2.6 %
+Trị biểu thị
+0.636 ±0.019 km/s2
+0.636 km/s2 ±2.6 %
+
+--- HẾT TRANG ---
+
+No.3/6
+
+Ⅰ【Hiệu chỉnh】                                                    Máy đo 025-6 b
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp phán định
+
+5. Đặc tính số tần số
+
+6.アナログフィルタ特性
+
+VC-3100
+Thiết đặt
+Tín hiệu đầu vào
+Chấu điện đo
+Phán định
+EXT input
+RANGE=
+1.000
+km/s2
+Sin wave
+1.5 Hz 9.0 Vp-p
+THR OUT
+0.00
+±3.00
+dB
+AC OUT
+Sin wave
+3.0 Hz 9.0 Vp-p
+THR OUT
+0.00
+±0.50
+dB
+AC OUT
+Sin wave
+15 kHz 9.0 Vp-p
+THR OUT
+0.00
+±0.50
+dB
+AC OUT
+Sin wave
+20 kHz 9.0 Vp-p
+AC OUT
+0.00
+±3.00
+dB
+Sin wave
+40 kHz 9.0 Vp-p
+THR OUT
+0.00
+±3.00
+dB
+VC-3200
+Thiết đặt
+Tín hiệu đầu vào
+Chấu điện đo
+Phán định
+Thiết đặt
+Tín hiệu đầu vào
+Chấu điện đo
+Phán định
+EXT input
+RANGE=
+1.000
+km/s2
+Sin wave
+1.5 Hz 9.0 Vp-p
+THR OUT
+0.00
+±2.55
+dB
+EXT input
+RANGE=
+10.00
+m/s2
+Sin wave
+1.5 Hz 9.0 mVp-p
+AC OUT
+40.00
+±2.55 dB
+Sin wave
+3.0 Hz 9.0 Vp-p
+THR OUT
+0.00
+±0.42
+dB
+Sin wave
+3.0 Hz 9.0 mVp-p
+AC OUT
+40.00
+±0.42 dB
+Sin wave
+160 Hz 9.0 Vp-p
+THR OUT
+0.00
+±0.42
+dB
+Sin wave
+160 Hz 9.0
+mVp-p
+AC OUT
+40.00
+±0.42 dB
+Sin wave
+15 kHz 9.0 Vp-p
+THR OUT
+0.00
+±0.42
+dB
+Sin wave
+15 kHz 9.0
+mVp-p
+AC OUT
+40.00
+±0.42 dB
+Sin wave
+40 kHz 9.0 Vp-p
+THR OUT
+0.00
+±2.55
+dB
+Sin wave
+20 kHz 9.0
+mVp-p
+AC OUT
+40.00
+±2.55 dB
+VC-3100
+Thiết đặt
+Tín hiệu đầu vào
+Chấu điện đo
+Phán định
+EXT input
+RANGE=10.00 m/s2
+LOW CUT= ON
+Sin wave  3 Hz 90 mVp-p
+THR OUT
+37.00±1 dB
+Sin wave  10 Hz 90 mVp-p
+THR OUT
+37.00±1 dB
+EXT input
+RANGE=10.00 m/s2
+HI CUT= 1k
+Sin wave  1 kHz 90 mVp-p
+THR OUT
+37.00±1 dB
+EXT input
+RANGE=10.00 m/s2
+HI CUT= 10k
+Sin wave  10 kHz 90 mVp-p
+THR OUT
+37.00±1 dB
+VC-3200
+Thiết đặt
+Tín hiệu đầu vào
+Chấu điện đo
+Phán định
+EXT input
+RANGE= 10.00 m/s2
+LOW CUT= 3Hz
+Sin wave 1.5 Hz 90 mVp-p
+THR OUT
+22.00±2.55 dB
+Sin wave 3 Hz 90 mVp-p
+THR OUT
+37.00±0.85 dB
+EXT input
+RANGE= 10.00 m/s2
+LOW CUT= 10Hz
+Sin wave 5Hz 90 mVp-p
+THR OUT
+22.00±2.55 dB
+Sin wave 10Hz 90 mVp-p
+THR OUT
+37.00±0.85 dB
+EXT input
+RANGE= 10.00 m/s2
+HI CUT= 1k Hz
+Sin wave 1kHz 90 mVp-p
+THR OUT
+37.00±0.85 dB
+Sin wave 2kHz 90 mVp-p
+THR OUT
+22.00±2.55 dB
+EXT input
+RANGE= 10.00 m/s2
+HI CUT= 10k Hz
+Sin wave 10kHz 90 mVp-p
+THR OUT
+37.00±0.85 dB
+Sin wave 20kHz 90 mVp-p
+THR OUT
+22.00±2.55 dB
+
+--- HẾT TRANG ---
+
+No.4/6
+
+Ⅰ【Hiệu chỉnh】                                                   Máy đo 025-6 b
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp phán định
+
+7.Độ chính xác tuyến tính
+
+8.Tín hiệu CAL
+
+9. Xuất lực PHONE
+
+－Trích dẫn・Văn bản liên quan－
+Quy cách phán định: Trích dẫn quy cách nhà sản xuất.
+Thiết đặt
+Tín hiệu đầu vào
+Chấu
+điện đo
+Phán định
+VC-3100
+VC-3200
+VC-3100
+VC-3200
+EXT input
+RANGE=
+1.000 km/s2
+Sin wave
+160 Hz
+90 mVp-p
+Sin wave
+160 Hz
+9.00Vp-p
+THR
+OUT
+0.0320 ±0.0048 Vrms
+0.00% ±0.34%
+AC OUT
+0.0320 ±0.0048 Vrms
+0.00% ±0.34%
+DC OUT
+0.0320 ±0.0209 V
+0.00% ±0.34%
+Sin wave
+160 Hz
+0.9 Vp-p
+Sin wave
+160 Hz
+5.00Vp-p
+THR
+OUT
+0.3180 ±0.0095 Vrms
+0.00% ±0.34%
+AC OUT
+0.3180 ±0.0095 Vrms
+0.00% ±0.34%
+DC OUT
+0.3180 ±0.0295 V
+0.00% ±0.34%
+Sin wave
+160 Hz
+9.0 Vp-p
+Sin wave
+160 Hz
+1.00Vp-p
+THR
+OUT
+3.1820 ±0.0636 Vrms
+0.00% ±0.34%
+AC OUT
+3.1820 ±0.0954 Vrms
+0.00% ±0.34%
+DC OUT
+3.1820 ±0.0954 V
+0.00% ±0.34%
+Thiết đặt
+Tín hiệu đầu vào
+Chấu điện
+đo
+Hạng mục đo
+Phán định
+VC-3100
+VC-3200
+VC-3100
+VC-3200
+EXT input
+RANGE=
+1.000 km/s2
+Sin
+wave
+160 Hz
+9.0 Vp-p
+Sin wave
+1k Hz
+10.0 Vp-p
+PHONE
+(Tải trọng
+24Ω)
+
+Tối thiểu bên trái
+0.00～70.00
+mVrms
+0.00～20.00ｍVrms
+Tối thiểu bên phải
+Tối đa bên trái
+0.850～
+1.270 Vrms
+0.6300～
+0.7500Vrms
+Tối đa bên phải
+
+Thiết đặt
+Chấu điện
+đo
+Hạng mục đo
+Phán định
+VC-3100
+VC-3200
+CAL = ON
+THR OUT
+Số tần số
+160.0 ±4.80 Hz
+160.00 Hz ±2.5%
+Chấn động
+0.707±0.021 Vrms
+707.1 mVrms ±2.5%
+CAL = ON
+AC OUT
+Số tần số
+160.0 ±4.80 Hz
+160.00 Hv ±2.5%
+Chấn động
+0.707 ±0.021 Vrms
+707.1 mVrms ±2.5%
+
+--- HẾT TRANG ---
+
+No.5/6
+
+Ⅱ【Điểm kiểm】 Máy đo so sánh chấn động                                Máy đo 025-6 b
+ONOSOKKI VC-3100/VC-3200
+
+Tiến độ điểm kiểm   Mỗi lần sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1.Ngoại quan
+
+2. Xác nhận tín hiệu
+đầu vào CAL
+Kiểm tra bằng mắt để xác nhận không có lỗi nguy hại đối với
+việc đo đạc như dính bẩn, trầy xước, hư hỏng.
+
+(1) Nhấn nút [COND MENU], sau đó chọn
+8：CAL từ màn hình thiết đặt điều kiện rồi bấm [ENTER].
+
+(2) Khi hiển thị màn hình xuất tín hiệu CAL thì bấm nút
+[ENTER] rồi sử dụng các phím di chuyển lên xuống [△・▽] để
+bật ON xuất tín hiệu CAL.
+
+(3) Bấm [ENTER] để xuất tín hiệu CAL, và xác nhận 1V có
+được hiển thị ra hay không.
+
+1V
+(4) Bấm [COND MENU] để trở về màn hình thiết đặt điều
+kiện. (Khi trở về màn hình thiết đặt điều kiện thì tín hiệu CAL
+sẽ OFF)
+
+Chú ý:
+1. Trong trường hợp phát sinh những bất thường hãy ghi chép lại trong kết quả kiểm tra rồi xử lí theo chỉ
+thị của người quản lí.
+2. Trong trường hợp không có bất thường thì không cần ghi chép lại.
+Tuy nhiên, dù cho không phát sinh trong vòng một tháng thì cũng cần phải ghi lại.
+3. Trong trường hợp phát hiện thấy điểm bất thường trong quá trình sử dụng thì cẩn xử lí theo chỉ thị của
+nguời quản lí.
+
+--- HẾT TRANG ---
+
+BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM
+BIỂU LÍ LỊCH BAN HÀNH – CẢI ĐÍNH- HỦY BỎ             Máy đo  025-6    No.6/6
+
+Kí
+hiệu
+Ngày
+tháng năm
+Nội dung cải đính
+Soạn thảo
+Xác nhận
+Phê
+duyệt
+
+02.09.2009
+
+Ban hành quy định mới
+
+Masunaga
+Nara Hanyu
+Takahashi
+Itokaw
+a
+
+a
+
+26.12.2011
+
+・Thay đổi chu kì hiệu chỉnh（12 tháng→36 tháng）
+・Bổ sung Trích dẫn・Văn bản liên quan
+・Thay đổi mã số cải đínhⅠ【Hiệu chỉnh】No.1/6~4/6
+025-6_→025-6a
+※Ⅱ【Điểm kiểm】No.5/6 là 025-6_(không thay đổi)
+
+Masunaga
+
+Nara Hanyu
+
+Itokaw
+a
+b
+16.01.2020 Bổ sung mẫu khuôn
+VC-3200 （Nơi yêu cầu:
+VDM,JXM）
+Koizumi
+Ishi
+Fujita
+Itou
+
+Công ty Mabuchi Motor – Bộ phận BHCL
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "025-6-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM            Công ty Mabuchi Motor – Bộ phận BHCL - Máy đo so sánh chấn động                          Máy đo  025－6 b",
+  "doc_code": "so s",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

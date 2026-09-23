@@ -1,0 +1,50 @@
+{
+  "file_name": "S24-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "MIẾNG CHUẨN ĐỘ NHÁM BỀ MẶT",
+  "doc_code": "S24 - 1 f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Đối với cứ điểm DLM (bao gồm DWM), cơ quan nào được ủy quyền thực thi hiệu chỉnh theo quy định?",
+      "options": {
+        "A": "① Nhật Bản (Nhà chế tạo hiệu chỉnh), ② Trung tâm đo đạc quốc gia Hoa Nam (SCM)",
+        "B": "① Nhật Bản (hiệu chỉnh nơi chế tạo), ② Viện nghiên cứu đo lường tỉnh Liêu Ninh",
+        "C": "① Nhật Bản (Nhà sản xuất hiệu chuẩn), ② Nhà cung cấp hiệu chuẩn",
+        "D": "Phòng thí nghiệm tiêu chuẩn quốc gia"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: 'DLM ( bao gồm DWM ) -> ① Nhật bản (hiệu chỉnh nơi chế tạo), ② Viện nghiên cứu đo lường tỉnh Liêu Ninh'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Tiêu chí đánh giá (độ chính xác) đối với các miếng chuẩn độ nhám bề mặt E-MC-S10A, E-MC-S24A/B/C và SS-G・N được thống nhất quy định là bao nhiêu?",
+      "options": {
+        "A": "E-MC-S10A, E-MC-S24A/B/C là ±5%; SS-G・N là ±1.5%",
+        "B": "Thống nhất tất cả thành ±5% (Giá trị chỉ định / Trị số biểu thị ±5%)",
+        "C": "Thống nhất tất cả thành ±1.5%",
+        "D": "E-MC-S10A, E-MC-S24A/B/C là ±3%; SS-G・N là ±5%"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: 'Tiêu chí đánh giá : Giá trị tiêu chuẩn của nhà sản xuất (E-MC-S10A, E-MC-S24A / B / C → ± 5%, SS-G N → ± 1.5%) được thống nhất thành ± 5%'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, chu kỳ hiệu chỉnh và nhiệt độ tiêu chuẩn đối với thiết bị 'Miếng chuẩn độ nhám bề mặt' được quy định như thế nào?",
+      "options": {
+        "A": "Chu kỳ hiệu chỉnh 1 năm, Nhiệt độ tiêu chuẩn 20 ± 1°C",
+        "B": "Chu kỳ hiệu chỉnh 2 năm, Nhiệt độ tiêu chuẩn 20 ± 1°C",
+        "C": "Chu kỳ hiệu chỉnh 1 năm, Nhiệt độ tiêu chuẩn 25 ± 2°C",
+        "D": "Chu kỳ hiệu chỉnh 6 tháng, Nhiệt độ tiêu chuẩn 20 ± 2°C"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: '[Hiệu chỉnh] Chu kỳ hiệu chỉnh: 1 năm, Nhiệt độ tiêu chuẩn: 20 ± 1°C'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

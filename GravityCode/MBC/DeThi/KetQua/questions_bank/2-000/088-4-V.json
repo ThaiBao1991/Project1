@@ -1,0 +1,50 @@
+{
+  "file_name": "088-4-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH ĐIỂM KIỂM MÁY ĐO ION CLO",
+  "doc_code": "088-4a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo tiêu chuẩn hiệu chỉnh máy đo ion clo WTW pH3310, giá trị bình quân của 3 lần thí nghiệm tính năng đối với dung dịch chuẩn 10mg/L phải nằm trong phạm vi nào dưới đây?",
+      "options": {
+        "A": "±0.1 mg/L",
+        "B": "±0.2 mg/L",
+        "C": "±2 mg/L",
+        "D": "±20 mg/L"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3/5 - Mục Thí nghiệm tính năng: 'Giá trị bình quân của 3 lần phải nằm trong phạm vi bên dưới: Dung dịch chuẩn 10mg/L: ±0.2mg/L'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo quy định về bảo lưu và bảo quản điện cực, trường hợp mức dung dịch còn khoảng bao nhiêu thì tiến hành châm thêm?",
+      "options": {
+        "A": "Cỡ nửa độ cao điện cực",
+        "B": "Cỡ 1/4 độ cao điện cực",
+        "C": "Cỡ 3/4 độ cao điện cực",
+        "D": "Đầy ngập hoàn toàn điện cực"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 4/5 - Phần Ⅱ Điểm kiểm (Bảo lưu • bảo quản): '(4) Nếu mức dung dịch còn cỡ nửa độ cao điện cực thì tiến hành châm thêm.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Chu kỳ hiệu chỉnh định kỳ đối với máy đo ion clo theo bảng lai lịch cải đổi mới nhất là bao lâu?",
+      "options": {
+        "A": "1 tháng và khi cần thiết",
+        "B": "3 tháng và khi cần thiết",
+        "C": "6 tháng và khi cần thiết",
+        "D": "12 tháng và khi cần thiết"
+      },
+      "correct_answer": "D",
+      "reference_note": "Trang 1/5 và Trang 5/5 (Bản lai lịch cải đổi ngày 2021.02.04): 'Thay đổi chu kỳ hiệu chỉnh 3 tháng → 12 tháng'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

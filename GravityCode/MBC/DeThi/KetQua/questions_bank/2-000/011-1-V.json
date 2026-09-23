@@ -1,0 +1,50 @@
+{
+  "file_name": "011-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "THIẾT BỊ THÍ NGHIỆM CÁCH ĐIỆN CUỘN DÂY",
+  "doc_code": "011-1 f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Để đề phòng dòng điện cao áp trong quá trình hiệu chỉnh thiết bị thí nghiệm cách điện cuộn dây, người thực hiện bắt buộc phải tuân thủ yêu cầu bảo hộ nào?",
+      "options": {
+        "A": "Đeo kính bảo hộ chống tia văng bắn.",
+        "B": "Đeo bao tay cách điện.",
+        "C": "Đi giày chống tĩnh điện (ESD).",
+        "D": "Sử dụng thảm cao su chống mỏi chân."
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ mục [Chú ý] trang 1: 'Để đề phòng dòng điện cao áp nên khi hiệu chỉnh phải đeo bao tay cách điện vào.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, tiến độ thực hiện các 'Điểm kiểm' (Ⅱ) cho thiết bị thí nghiệm cách điện cuộn dây được quy định như thế nào?",
+      "options": {
+        "A": "Định kỳ 12 tháng một lần.",
+        "B": "Mỗi tuần một lần vào đầu ca làm việc.",
+        "C": "Mỗi tháng 1 lần và mỗi lần sử dụng.",
+        "D": "Chỉ thực hiện khi có sự thay đổi về nhân sự vận hành."
+      },
+      "correct_answer": "C",
+      "reference_note": "Căn cứ mục Ⅱ 【Điểm kiểm】 trang 2: 'Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng'."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi phát hiện bất thường trong quá trình kiểm tra hoặc sử dụng thiết bị, nhân viên phải xử lý như thế nào theo đúng quy định?",
+      "options": {
+        "A": "Tự ý điều chỉnh lại các chấu cắm điện nếu thấy bị lệch.",
+        "B": "Tiếp tục sử dụng nếu thiết bị vẫn đo được trị số sóng cao.",
+        "C": "Ghi chép lại kết quả và xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu.",
+        "D": "Chỉ cần báo cáo bằng miệng cho tổ trưởng mà không cần ghi chép."
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ mục Ghi chú 2 trang 2: 'Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

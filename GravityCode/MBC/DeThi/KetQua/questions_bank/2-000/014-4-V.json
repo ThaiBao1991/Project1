@@ -1,0 +1,50 @@
+{
+  "file_name": "014-4-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - Đo tiếng ồn (B & K) (Kiểu 2235)",
+  "doc_code": "014-4",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Trong trường hợp kết quả kiểm tra hàng ngày không phát hiện bất thường, quy định về việc ghi chép kết quả được thực hiện như thế nào?",
+      "options": {
+        "A": "Bắt buộc phải ghi chép đầy đủ vào sổ nhật ký mỗi ngày.",
+        "B": "Không cần ghi chép lại kết quả nếu không có lỗi xảy ra.",
+        "C": "Có thể không ghi chép hàng ngày, nhưng mỗi tháng phải ghi chép lại kết quả kiểm tra một lần.",
+        "D": "Chỉ cần ghi chép vào ngày cuối cùng của năm tài chính."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, mục Ghi chú số 2: Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả kiểm tra một lần dù không có gì bất thường xảy ra."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Khi tiến hành hiệu chỉnh máy đo tiếng ồn (Kiểu 2235), các thông số PolVoltage, Frequency Weighing và Display phải được thiết lập chính xác theo giá trị nào sau đây?",
+      "options": {
+        "A": "PolVoltage: 10V; Frequency Weighing: Slow; Display: MIN",
+        "B": "PolVoltage: 0V; Frequency Weighing: Fast; Display: MAX",
+        "C": "PolVoltage: 5V; Frequency Weighing: Fast; Display: AVG",
+        "D": "PolVoltage: 0V; Frequency Weighing: Slow; Display: MAX"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, mục 1 Phương pháp hiệu chỉnh: PolVoltage 0V, Frequency Weighing Fast, Display MAX."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, hạng mục 'Tiếp xúc microphone' của máy đo tiếng ồn cần được kiểm tra với tiến độ như thế nào?",
+      "options": {
+        "A": "Định kỳ 6 tháng một lần.",
+        "B": "Mỗi lần sử dụng.",
+        "C": "Một tuần một lần vào ngày thứ Hai.",
+        "D": "Chỉ kiểm tra khi có sự cố phát sinh."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, mục II 【kiểm tra】, cột Tiến độ kiểm tra: Mỗi lần sử dụng."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

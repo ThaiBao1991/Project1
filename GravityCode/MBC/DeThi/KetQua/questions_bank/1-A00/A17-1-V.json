@@ -1,0 +1,59 @@
+{
+  "file_name": "A17-1-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "PHƯƠNG PHÁP HOÁN ĐỔI CỦA ĐƠN VỊ SI",
+  "doc_code": "A17-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo bảng hoán đổi trọng lượng, lực trong tài liệu A17-1, giá trị quy đổi chính xác từ 1 kgf sang N (Newton) là bao nhiêu?",
+      "options": {
+        "A": "0.10197 N",
+        "B": "1 N",
+        "C": "9.80665 N",
+        "D": "0.0980665 N"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Mục 1. Phương pháp hoán đổi, Hoán đổi trọng lượng, lực (1 kgf = 9.80665 N)"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Trong bảng hoán đổi ngẫu lực của tài liệu A17-1, giá trị tương ứng của 1 kgf-cm tính theo đơn vị N-m là bao nhiêu?",
+      "options": {
+        "A": "1 N-m",
+        "B": "0.0980665 N-m",
+        "C": "10.197 N-m",
+        "D": "9.80665 N-m"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Mục 1. Phương pháp hoán đổi, Hoán đổi ngẫu lực (1 kgf-cm = 0.0980665 N-m)"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn A17-1, phương pháp hoán đổi của đơn vị SI được tiến hành ở hệ số như quy định bên dưới. Tuy nhiên, trong trường hợp nào thì phải ưu tiên sử dụng tài liệu chuẩn hiệu chỉnh điểm kiểm máy đó đã được phát hành cho từng loại máy?",
+      "options": {
+        "A": "Khi trường hợp hệ số đã được quy định ở tài liệu chuẩn hiệu chỉnh điểm kiểm máy đo đã được phát hành cho từng loại máy.",
+        "B": "Khi không có quy định cụ thể từ bộ phận bảo hành chất lượng.",
+        "C": "Khi đơn vị đo SI chưa được cập nhật phiên bản mới nhất.",
+        "D": "Khi có yêu cầu từ khách hàng nước ngoài."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, Mục 1. Phương pháp hoán đổi - Nội dung"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140572.881273,
+  "generated_at_iso": "2026-09-23T12:16:12",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 30332,
+    "modified_time": 1338273087.2897754,
+    "modified_time_iso": "2012-05-29T13:31:27",
+    "file_hash_short": "e11f3abb"
+  }
+}

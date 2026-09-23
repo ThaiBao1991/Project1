@@ -1,0 +1,50 @@
+{
+  "file_name": "072-4-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢNG TIÊU CHUẨN HIỆU CHỈNH ĐIỂM KIỂM DỤNG CỤ ĐO EDX",
+  "doc_code": "072-4",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình chuẩn bị khởi động và đo lường thiết bị phát tia X (EDX), thao tác an toàn bắt buộc nào phải được tuân thủ nghiêm ngặt trước khi tiến hành?",
+      "options": {
+        "A": "Phải đặt vật dụng hoặc tài liệu lên hệ thống phối điện để dễ thao tác",
+        "B": "Phải mở nắp ngăn thí nghiệm trong suốt quá trình đo để quan sát mẫu trực tiếp",
+        "C": "Vì phát ra tia X nên nhất định phải đậy nắp ngăn thí nghiệm lại trước khi đo",
+        "D": "Không cần đậy nắp nếu thời gian đo diễn ra dưới 1 phút"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: '※Chuẩn bị: Vì phát ra tia X nên nhất định phải đậy nắm ngăn thí nghiệm lại.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo quy định về ghi chép kết quả điểm kiểm tra (mỗi khi sử dụng), trường hợp kết quả điểm kiểm không có bất thường thì cần xử lý như thế nào?",
+      "options": {
+        "A": "Phải ghi chép lại đầy đủ vào mọi ca làm việc",
+        "B": "Không cần ghi lại, nhưng nếu trong 1 tháng mà không có lần nào bất thường thì cần ghi chép lại",
+        "C": "Bắt buộc báo cáo ngay cho cấp trên bằng văn bản",
+        "D": "Xóa bỏ toàn bộ dữ liệu trên hệ thống PCEDX Navi"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: 'Chú ý) 2. Trường hợp kết quả điểm kiểm không có bất thường thì không cần ghi lại. Tuy nhiên, nếu trong 1 tháng mà không có lần nào bất thường thì cần ghi chép lại.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kì hiệu chỉnh đối với thiết bị đo EDX (Shimadzu EDX-8000) tại điểm Việt Nam được quy định là bao lâu?",
+      "options": {
+        "A": "6 tháng",
+        "B": "12 tháng",
+        "C": "24 tháng",
+        "D": "36 tháng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: 'Chu kì hiệu chỉnh 24 tháng và khi cần thiết (Tuy nhiên chứ điểm Việt Nam thì 12 tháng)'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

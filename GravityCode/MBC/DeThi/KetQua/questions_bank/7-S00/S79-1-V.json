@@ -1,0 +1,50 @@
+{
+  "file_name": "S79-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "QUẢ CÂN CHUẨN CẤP 3",
+  "doc_code": "S79-1d",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo bảng độ chính xác của Quả cân chuẩn cấp 3, dung sai cho phép đối với lượng biểu thị 10kg là bao nhiêu?",
+      "options": {
+        "A": "±3000mg",
+        "B": "±1500mg",
+        "C": "±750mg",
+        "D": "±150mg"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Phần Độ chính xác: 10kg ứng với ±1500mg"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, chu kỳ hiệu chỉnh của dụng cụ tiêu chuẩn Quả cân chuẩn cấp 3 là bao nhiêu năm?",
+      "options": {
+        "A": "1 năm",
+        "B": "3 năm",
+        "C": "5 năm",
+        "D": "10 năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Mục Ⅰ[Hiệu chỉnh], Chu kỳ hiệu chỉnh 5 năm"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Quy cách phán định đối với Quả cân chuẩn cấp 3 trong tài liệu được tham khảo theo tiêu chuẩn nào?",
+      "options": {
+        "A": "JIS B 7609",
+        "B": "ISO 9001",
+        "C": "JIS B 7502",
+        "D": "OIML R111"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, Phần Trích dẫn văn bản liên quan: Quy cách phán định : tham khảo JIS B 7609"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

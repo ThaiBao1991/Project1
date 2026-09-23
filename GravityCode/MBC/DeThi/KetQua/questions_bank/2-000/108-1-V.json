@@ -1,0 +1,50 @@
+{
+  "file_name": "108-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn kiểm tra hiệu chỉnh máy đo",
+  "doc_code": "108-1a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Phương pháp phán định đối với thời gian hoạt động (ON) và thời gian phục hồi (OFF) trong hạng mục hiệu chỉnh là bao nhiêu?",
+      "options": {
+        "A": "±10msec",
+        "B": "±25msec",
+        "C": "±50msec",
+        "D": "±100msec"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, phần Ⅰ【Hiệu chỉnh】: Phương pháp phán định cho mục 1 và 2 là ±50msec"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, tần suất thực hiện kiểm tra đối với máy kiểm tra đặc tính ngắt mạch tự động là gì?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và mỗi lần sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "3 tháng 1 lần",
+        "D": "Chỉ khi phát hiện bất thường"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, phần Ⅱ【Điểm kiểm】: Tần suất kiểm tra: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trường hợp phát hiện có bất thường trong quá trình kiểm tra (hoặc khi sử dụng), nhân viên phụ trách cần phải thực hiện hành động nào theo đúng quy định?",
+      "options": {
+        "A": "Tự ý tháo máy ra sửa chữa ngay lập tức để không gián đoạn sản xuất",
+        "B": "Bỏ qua lỗi nếu thấy máy vẫn chạy bình thường và không ghi nhận lại",
+        "C": "Ghi chép lại kết quả, xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu, trường hợp cần thiết làm đơn đề nghị hiệu chỉnh lại thiết bị",
+        "D": "Chỉ báo cáo miệng cho đồng nghiệp cùng ca làm việc mà không cần ghi chép"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, Chú ý mục 2: Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện hiệu chỉnh"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

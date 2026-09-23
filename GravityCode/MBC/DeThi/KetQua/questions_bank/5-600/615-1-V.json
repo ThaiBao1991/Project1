@@ -1,0 +1,50 @@
+{
+  "file_name": "615-1-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ đo",
+  "doc_code": "615-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi kiểm tra ngoại quan mục điểm kiểm sơ đồ phóng ảnh, phương pháp phán định yêu cầu như thế nào đối với các vết biến dạng (cong, vênh), gãy, mài mòn...?",
+      "options": {
+        "A": "Cho phép có vết xước nhẹ không ảnh hưởng đo lường",
+        "B": "Phải không có ảnh hưởng gì đến việc sử dụng",
+        "C": "Được phép cong vênh trong giới hạn cho phép",
+        "D": "Không bắt buộc kiểm tra ngoại quan"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, phần II Điểm kiểm, Hạng mục 1 (Ngoại quan): 'Phải không có ảnh hưởng gì đến việc sử dụng.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo ghi chú điểm kiểm, khi sử dụng sơ đồ phóng ảnh để phán định cho việc kiểm tra, nếu có phát sinh nghi vấn thì phải xử lý như thế nào?",
+      "options": {
+        "A": "Tiếp tục sử dụng và theo dõi thêm",
+        "B": "Báo cáo cấp trên rồi tự sửa chữa",
+        "C": "Phải hủy bỏ",
+        "D": "Ghi chép lại rồi đưa vào sử dụng bình thường"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, phần II Điểm kiểm, Ghi chú số 1: 'Khi sử dụng sơ đồ phóng ảnh để phán định cho việc kiểm tra, trường hợp có phát sinh nghi vấn phải hủy bỏ.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiến độ kiểm tra được quy định trong tài liệu, dụng cụ trắc định này được kiểm tra khi nào?",
+      "options": {
+        "A": "Mỗi ngày một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tuần một lần",
+        "D": "Mỗi tháng một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, phần II Điểm kiểm: Tiến độ điểm kiểm - Mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

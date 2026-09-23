@@ -1,0 +1,50 @@
+{
+  "file_name": "665-1-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Máy phân tích lưu lượng khí TSI",
+  "doc_code": "665-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh - điểm kiểm, tiến độ thực hiện điểm kiểm đối với máy phân tích lưu lượng khí TSI (665-1) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và khi có yêu cầu đặc biệt",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "3 tháng 1 lần và trước khi bắt đầu ca làm việc",
+        "D": "6 tháng 1 lần và sau khi sử dụng xong"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: II 【Điểm kiểm】 - Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Chu kỳ hiệu chỉnh tiêu chuẩn được quy định cho máy phân tích lưu lượng khí TSI (665-1) là bao lâu?",
+      "options": {
+        "A": "6 tháng và khi được cho là cần thiết",
+        "B": "12 tháng và khi được cho là cần thiết",
+        "C": "24 tháng và khi được cho là cần thiết",
+        "D": "Chỉ hiệu chỉnh một lần duy nhất khi mua mới"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: I 【Hiệu chỉnh】 - Chu kỳ hiệu chỉnh: 12 tháng và khi được cho là cần thiết"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Khi kiểm tra ngoại quan thiết bị, nếu phát hiện bất thường trong quá trình kiểm tra hoặc sử dụng, nhân viên phụ trách phải xử lý theo quy định nào sau đây?",
+      "options": {
+        "A": "Tự ý tháo thiết bị ra để sửa chữa các bộ phận bên trong ngay lập tức",
+        "B": "Tiếp tục sử dụng thiết bị bình thường và chỉ ghi lại vào cuối tháng",
+        "C": "Ghi lại kết quả và xử lý theo hướng dẫn của người chịu trách nhiệm bộ phận sở quản, trường hợp cần thiết làm đơn đề nghị hiệu chỉnh lại thiết bị đo",
+        "D": "Cất thiết bị vào kho lưu trữ và không cần báo cáo cho ai"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3: Lưu ý 2: Nếu phát hiện bất thường trong quá trình kiểm tra (hoặc trong quá trình sử dụng), hãy ghi lại kết quả và xử lý theo hướng dẫn của người chịu trách nhiệm của bộ phận sở quản. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện hiệu chỉnh"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "079-3-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH-ĐIỂM ĐIỂM Dụng cụ phân tích loại bỏ tĩnh điện HOZAN F-237",
+  "doc_code": "079-3",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm (kiểm tra hằng ngày) đối với Dụng cụ phân tích loại bỏ tĩnh điện HOZAN F-237 được quy định như thế nào?",
+      "options": {
+        "A": "Kiểm tra 1 lần một tuần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Kiểm tra trước khi hết ca làm việc",
+        "D": "Kiểm tra 1 lần một tháng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục điểm kiểm ngoại quan, trước khi sử dụng thiết bị HOZAN F-237, nhân viên thao tác bắt buộc phải đảm bảo điều gì?",
+      "options": {
+        "A": "Đảm bảo đã bật nguồn điện trước 15 phút",
+        "B": "Phải đảm bảo kết nối dây nối đất trước khi sử dụng",
+        "C": "Phải lau chùi sạch bề mặt đầu đo bằng còn 99%",
+        "D": "Phải hiệu chỉnh lại giá trị đo về 0"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Phải đảm bảo kết nối dây nối đất trước khi sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Thông số kỹ thuật về độ chính xác yêu cầu khi thực hiện hiệu chỉnh thiết bị HOZAN F-237 là gì?",
+      "options": {
+        "A": "±5% giá trị biểu thị khi đo ±500V",
+        "B": "±10% giá trị biểu thị khi đo ±1000V",
+        "C": "±15% giá trị biểu thị khi đo ±1500V",
+        "D": "±20% giá trị biểu thị khi đo ±2000V"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Độ chính xác: ±10% giá trị biểu thị khi đo ±1000V"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

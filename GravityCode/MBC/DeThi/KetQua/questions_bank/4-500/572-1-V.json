@@ -1,0 +1,50 @@
+{
+  "file_name": "572-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH - KIỂM TRA DỤNG CỤ ĐO - ĐỒNG HỒ ĐO NHIỆT ĐỘ - ĐỘ ẨM",
+  "doc_code": "572 – 1 c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Khi thực hiện kiểm tra ngoại quan hoặc sử dụng đồng hồ đo nhiệt độ - độ ẩm, hạng mục chú ý nào sau đây là ĐÚNG theo tài liệu quy định?",
+      "options": {
+        "A": "Có thể ngâm trực tiếp thiết bị cảm ứng nhiệt độ - độ ẩm vào trong nước để rửa sạch bụi bẩn.",
+        "B": "Khi cần di chuyển đồng hồ đo nhiệt độ - độ ẩm, phải sử dụng thanh gạt bút để tách bút ghi ra khỏi form ghi.",
+        "C": "Trường hợp lượng form ghi còn ít, có thể tiếp tục sử dụng đến khi hết hẳn mực mà không cần thay.",
+        "D": "Không cần quan tâm đến độ cong của cần bút khi thay bút ghi hoặc form ghi."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3/4 - (Hạng mục chú ý khi sử dụng) (2): Trường hợp cần di chuyển đồng hồ đo nhiệt độ - độ ẩm, phải sử dụng thanh gạt bút để tách bút ghi ra khỏi form ghi."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Phương pháp phán định độ chính xác chỉ thị trong môi trường lắp đặt đối với nhiệt độ và độ ẩm là gì?",
+      "options": {
+        "A": "Nhiệt độ: ±1°C, Độ ẩm: ±2%rh",
+        "B": "Nhiệt độ: ±5°C, Độ ẩm: ±10%rh",
+        "C": "Nhiệt độ: ±3°C, Độ ẩm: ±5%rh",
+        "D": "Nhiệt độ: ±2°C, Độ ẩm: ±3%rh"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1/4 - Phương pháp phán định: Nhiệt độ: ±3°C, Độ ẩm: ±5%rh"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ kiểm tra ngoại quan đối với đồng hồ đo nhiệt độ - độ ẩm được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Một tháng một lần",
+        "D": "Trước khi hiệu chỉnh"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3/4 - II [Điểm kiểm] Tiến độ kiểm tra: Mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "562-6-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định MICROMET ĐIỆN KHÍ DẠNG NHỎ MINICOM-X",
+  "doc_code": "562-6",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Phương pháp phán định độ chính xác trong mục hiệu chỉnh 1 của Micrometer điện khí dạng nhỏ MINICOM-X là bao nhiêu?",
+      "options": {
+        "A": "F.S. ∓ 0.1%",
+        "B": "F.S. ∓ 1.0%",
+        "C": "F.S. ∓ 0.5%",
+        "D": "F.S. ∓ 0.05%"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1/4: Phương pháp phán định cho mục 1. Độ chính xác: F.S. の±0.5%"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu, chu kỳ kiểm tra (tiến độ điểm kiểm) đối với thiết bị đo Micromet dạng điện loại nhỏ MINICOM-X được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "3 tháng 1 lần",
+        "D": "Mỗi năm 1 lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3/4: Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi phát hiện bất thường trong quá trình kiểm tra (hoặc khi sử dụng), người lao động cần thực hiện thao tác nào sau đây?",
+      "options": {
+        "A": "Tự ý tháo thiết bị ra sửa chữa",
+        "B": "Tiếp tục sử dụng nếu sai số nhỏ",
+        "C": "Ghi chép lại kết quả, xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu và làm đơn đề nghị hiệu chỉnh lại nếu cần thiết",
+        "D": "Bỏ qua không cần báo cáo"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3/4: Chú ý 2: Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện hiệu chỉnh"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

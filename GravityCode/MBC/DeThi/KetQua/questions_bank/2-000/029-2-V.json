@@ -1,0 +1,50 @@
+{
+  "file_name": "029-2-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "MÁY SÓC NHIỆT",
+  "doc_code": "029-2a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo ghi chú số 1 trong tài liệu, khi kiểm tra máy sóc nhiệt mà phát hiện có sự bất thường, nhân viên phải xử lý như thế nào?",
+      "options": {
+        "A": "Ghi chép lại kết quả kiểm tra và xử lý theo chỉ thị của người có trách nhiệm quản lý",
+        "B": "Tự ý sửa chữa thiết bị để đảm bảo tiến độ sản xuất",
+        "C": "Không cần ghi chép nếu lỗi nhẹ, chỉ cần báo cáo bằng miệng",
+        "D": "Ngừng máy và đợi đến kỳ hiệu chỉnh 12 tháng tiếp theo mới xử lý"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ Ghi chú số 1: Trường hợp kiểm tra thấy bất thường, ghi chép lại kết quả kiểm tra và xử lý theo chỉ thị của người có trách nhiệm quản lý (Trang 2/3)."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo quy định tại mục II về điểm kiểm máy sóc nhiệt, tiến độ kiểm tra định kỳ được thực hiện với tần suất nào?",
+      "options": {
+        "A": "Mỗi ngày 1 lần",
+        "B": "Mỗi tuần 1 lần",
+        "C": "Mỗi tháng 1 lần",
+        "D": "12 tháng 1 lần"
+      },
+      "correct_answer": "C",
+      "reference_note": "Căn cứ mục II. Tiến độ kiểm tra: Mỗi tháng 1 lần (Trang 2/3)."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Khi thực hiện hiệu chỉnh máy sóc nhiệt, dung sai cho phép đối với trị số trắc định nhiệt độ là bao nhiêu?",
+      "options": {
+        "A": "± 1°C",
+        "B": "± 2°C",
+        "C": "± 3°C",
+        "D": "± 5°C"
+      },
+      "correct_answer": "C",
+      "reference_note": "Căn cứ mục I.(4) Phương pháp phán định: Dung sai cho phép đối với trị số trắc định ± 3°C (Trang 1/3)."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

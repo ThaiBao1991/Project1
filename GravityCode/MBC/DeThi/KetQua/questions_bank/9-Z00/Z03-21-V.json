@@ -1,0 +1,50 @@
+{
+  "file_name": "Z03-21-V.pdf",
+  "folder_name": "9-Z00 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH - ĐIỂM KIỂM MÁY ĐO",
+  "doc_code": "Z03-21",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, danh sách quy cách kiểm tra trọng lượng (tổng thể dưới 30kg) áp dụng cho loại máy đo nào?",
+      "options": {
+        "A": "CS-1000S, CS-2000S, CS-5000S, CS-10KS, CS-20KS",
+        "B": "CS-500S, CS-1000S, CS-2000S, CS-5000S",
+        "C": "CS-10KS, CS-20KS, CS-30KS, CS-50KS",
+        "D": "Tất cả các dòng máy cân điện tử trên thị trường"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: Danh sách máy gồm CS-1000S, CS-2000S, CS-5000S, CS-10KS, CS-20KS"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Thông số cân nặng tối đa và giá trị tối thiểu (d) của máy đo CS-5000S là bao nhiêu?",
+      "options": {
+        "A": "1,000g và 0.5g",
+        "B": "2,000g và 1g",
+        "C": "5,000g và 2g",
+        "D": "10kg và 0.005kg"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: Bảng danh sách quy cách máy CS-5000S có Cân nặng tối đa 5,000g, Giá trị tối thiểu (d) là 2g"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục các điểm chú ý, khi muốn bổ sung quy cách do bổ sung máy mới, nhân viên phải tuân thủ quy định nào sau đây?",
+      "options": {
+        "A": "Tự ý thêm vào danh sách quản lý cá nhân",
+        "B": "Phải xin phép bộ phận BHCL công ty chính về ban hành quy định mới, cải đính đối với bản tiêu chuẩn theo máy đo NoA18-1",
+        "C": "Chỉ cần báo cáo trưởng nhóm sản xuất là được",
+        "D": "Thay thế trực tiếp bản tiêu chuẩn cũ mà không cần phê duyệt"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Việc bổ sung quy cách do bổ sung máy phải xin phép bộ phận BHCL công ty chính về ban hành quy định mới, cải đính đối với bản tiêu chuẩn theo máy đo NoA18-1."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

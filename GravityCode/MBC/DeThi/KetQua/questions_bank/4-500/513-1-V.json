@@ -1,0 +1,50 @@
+{
+  "file_name": "513-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - Đồng hồ đo lực nén ép (Dạng Analog)",
+  "doc_code": "513-1i",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo mục Ghi chú về điểm kiểm, trường hợp kết quả kiểm tra không thấy bất thường thì quy định ghi chép kết quả như thế nào?",
+      "options": {
+        "A": "Phải ghi chép lại đầy đủ biên bản kiểm tra sau mỗi lần sử dụng",
+        "B": "Không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra",
+        "C": "Chỉ cần ghi chép khi phát hiện có sự cố bất thường",
+        "D": "Bắt buộc phải ghi chép nhật ký kiểm tra hàng ngày vào hệ thống máy tính"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, Ghi chú mục 2: Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn kiểm tra, tiến độ kiểm tra Đồng hồ đo lực nén ép (Dạng Analog) được quy định thực hiện vào thời điểm nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước mỗi ca làm việc"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, Mục II 【Điểm kiểm】, Tiến độ kiểm tra: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Khi thực hiện hiệu chỉnh tải trọng cho đồng hồ đo lực nén ép loại FS/FB, khoảng cách dung sai (khoảng cho phép) so với F.S là bao nhiêu?",
+      "options": {
+        "A": "±0.2% của F.S",
+        "B": "±0.4% của F.S",
+        "C": "±0.6% của F.S",
+        "D": "±1.0% của F.S"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Biểu 1: Thể thức FS/FB có Khoảng cách dung sai ±0.6% của F.S"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

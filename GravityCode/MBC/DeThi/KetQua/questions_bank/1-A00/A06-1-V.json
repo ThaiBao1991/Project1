@@ -1,0 +1,59 @@
+{
+  "file_name": "A06-1-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh Điểm kiểm dụng cụ - VẬN DỤNG XỬ LÍ MÁY NGHĨ",
+  "doc_code": "A06-1",
+  "target_audience": "Nhân viên / Đội trưởng",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi dụng cụ đã được chỉ định là máy nghĩ, việc hiển thị trên dụng cụ và hiệu chỉnh điểm kiểm được quy định như thế nào?",
+      "options": {
+        "A": "Phải dán nhãn máy nghĩ ghi ngày tháng năm xử lí, và những dụng cụ đã được chỉ định là máy nghĩ thì không cần hiệu chỉnh điểm kiểm",
+        "B": "Vẫn phải tiến hành hiệu chỉnh điểm kiểm định kì hàng tháng",
+        "C": "Không cần dán nhãn máy nghĩ nhưng bắt buộc phải hiệu chỉnh lại",
+        "D": "Chỉ cần ghi sổ tay thiết bị, không cần dán nhãn lên dụng cụ"
+      },
+      "correct_answer": "A",
+      "reference_note": "Mục 2 & Mục 3: Biểu thị máy nghĩ (dán nhãn ghi ngày tháng năm xử lí) và Hiệu chỉnh điểm kiểm máy nghĩ (những dụng cụ đã được chỉ định là máy nghĩ thì không cần hiệu chỉnh điểm kiểm)."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, trường hợp nào được định nghĩa là dụng cụ máy nghĩ?",
+      "options": {
+        "A": "Dụng cụ không dùng trên 1 tháng",
+        "B": "Dụng cụ không dùng trên 3 tháng",
+        "C": "Dụng cụ không dùng trên 6 tháng, hoặc dụng cụ sau một thời gian sử dụng nhất định, chưa có quy định ngày sử dụng lần sau, hoặc đang được bảo quản ở phòng quản lí thiết bị",
+        "D": "Dụng cụ không dùng trên 1 năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Mục 1. Quy định đặc biệt của máy nghĩ: (1) Dụng cụ đo không dùng trên 6 tháng. (2) Dụng cụ đo sau một thời gian sử dụng nhất định, chưa có quy định ngày sử dụng lần sau. (3) Dụng cụ đo đang được bảo quản ở phòng quản lí thiết bị."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Đối với những thiết bị, máy đo đã xử lí máy nghĩ, khi muốn giải trừ xử lí máy nghĩ để đưa vào sử dụng lại cần tiến hành quy trình nào sau đây?",
+      "options": {
+        "A": "Có thể dùng ngay lập tức nếu ngoại quan còn mới",
+        "B": "Phải tiến hành tái hiệu chỉnh rồi mới được sử dụng lại; hoặc nếu trạng thái bảo quản tốt, đặc tính ổn định, vẫn còn trong kì hạn hiệu chỉnh thì có thể sử dụng mà không cần làm gì thêm",
+        "C": "Chỉ cần tháo nhãn máy nghĩ ra là có thể sử dụng",
+        "D": "Phải xin ý kiến Giám đốc công ty trước khi tháo nhãn"
+      },
+      "correct_answer": "B",
+      "reference_note": "Mục 5. Giải trừ máy nghĩ: Đối với những thiết bị, máy đo đã xử lí máy nghĩ thì phải tiến hành tái hiệu chỉnh rồi mới được sử dụng lại. Nhưng có thể cho sử dụng trong trường hợp xác nhận thấy trạng thái bảo quản khá tốt và đặc tính ổn định với điều kiện máy móc thiết bị đo vẫn còn trong kì hạn hiệu chỉnh... Sau khi giải trừ máy nghĩ thì phải tháo nhãn máy nghĩ ra."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140260.7514443,
+  "generated_at_iso": "2026-09-23T12:11:00",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 66667,
+    "modified_time": 1636196245.3320446,
+    "modified_time_iso": "2021-11-06T17:57:25",
+    "file_hash_short": "b2b548e5"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "566-2-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "THIẾT BỊ ĐO ĐƯỜNG KÍNH NGOÀI KHÍA (Thước đo độ dày có đồng hồ loại 0.001mm)",
+  "doc_code": "566-2d",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh thiết bị đo đường kính ngoài khía, tiến độ kiểm tra mục 'Điểm kiểm' (ngoại quan, hoạt động của trục, độ ổn định kim chỉ thị) được quy định thực hiện khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "6 tháng một lần",
+        "D": "Trước khi giao ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: Ⅱ 【Điểm kiểm】 - Tiến độ kiểm tra: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục ghi chú về kết quả kiểm tra thiết bị, trường hợp kết quả kiểm tra không thấy bất thường thì quy định ghi chép như thế nào là đúng?",
+      "options": {
+        "A": "Phải ghi chép kết quả kiểm tra vào biên bản mỗi ngày dù không có bất thường",
+        "B": "Không cần ghi chép gì cả trong suốt quá trình sử dụng thiết bị",
+        "C": "Không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra",
+        "D": "Chỉ ghi chép lại khi có sự cố hoặc phát hiện thấy bất thường"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3: Ghi chú mục 2: Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Phương pháp phán định đối với hạng mục 'Độ chính xác đo đạc' của thiết bị đo đường kính ngoài khía là bao nhiêu?",
+      "options": {
+        "A": "±0.015mm",
+        "B": "±0.001mm",
+        "C": "±0.005mm",
+        "D": "±0.002mm"
+      },
+      "correct_answer": "D",
+      "reference_note": "Trang 2: Ⅰ【Hiệu chỉnh】 - 2. Độ chính xác đo đạc - Phương pháp phán định: ±0.002mm"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

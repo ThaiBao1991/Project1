@@ -1,0 +1,508 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Bảng tiêu chuẩn hiệu chỉnh - và kiểm tra máy trắc định
+Mã số/Mã máy đo: 003-1
+File gốc: 003-1-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No. 1/6
+
+Bảng tiêu chuẩn hiệu chỉnh
+
+Mabuchi Motor Co. Ltd.
+và kiểm tra máy trắc định
+
+Bộ phận bảo hành phẩm chất
+
+Ngày ban hành 04.05.1983
+ĐỒNG HỒ ĐO ĐIỆN ĐA NĂNG                  Ngày cải chính 2020.10.27
+Dụng cụ trắc định 003-1h
+I [Hiệu chỉnh]
+Thiết bị hiệu chỉnh dòng điện 1 chiều [S01-1], máy hiệu chỉnh đa giao thức [S01-3], máy điện trở chuẩn
+[S02-1], đồng hồ đo điện đa năng  [S13-1], Calibrater dạng cầm tay [S01-2]
+Dụng cụ hỗ trợ : Nguồn điện xoay chiều ( công nghiệp điện tử Kikusui, PCR500(500VAmax) hoặc những
+thiết bị tương tự.
+Dụng cụ tiêu chuẩn : Điện trở trng men( xếp 2 hng điện trở 10Ω100W )
+Chu kỳ hiệu chỉnh    12 tháng hoặc khi cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hi ệu chỉnh
+Phương pháp
+phán đ ịnh
+Hạng mục chú ý
+
+Chuẩn bị trước khi
+hiệu chỉnh
+
+1. Độ ổn định ở điểm
+0.
+
+2.Điện áp 1 chiều
+
+3.Dòng đ iện 1 chiều
+
+(1) Phán đ ịnh dựa trên hiệu chỉnh tính năng điện áp,
+điện trở, điện xoay chiều của máy.
+(2) Quy cách phán đ
+ịnh hiệu chỉnh được quy định ở ”
+quy cách phán đ
+ịnh đồng hồ đo điện đa năng mã
+số Z01”
+(3) Tùy theo loại đồng hồ đo đa năng mà các phạm vi
+đo có thể tự động thay đổi, và các công tắc cũng
+có thể thay đổi nên khi sử dụng phải dựa vào
+sách thuyết minh).
+Sau khi đưa nguồn điện vào để yên cho ổn định trên
+15 phút.
+(4) Trường hợp có chức năng đo ngoài những hạng
+mục ở (1) thì gởi nhờ hiệu chỉnh đến nhà chế tạo
+hoặc nhà cung cấp được ủy thác hiệu chỉnh
+
+Chỉnh điện áp dịng điện 1 chiều lên giới hạn cao nhất,
+làm đoản mạch chấu điện đầu vào và xác nhận xem
+có biểu thị về 0 không.
+Trị phán đ ịnh :
+Phạm vi nhỏ nhất điện p DC của quy cách phán đ
+ịnh
+đồng hồ đo điện đa năng m số Z01
+±(digits)
+±(f.s của ppm)
+(1) Cho tiếp xúc chấu điện đầu ra của thiết bị hiệu
+chỉnh dòng đi ện 1 chiều (hoặc máy hiệu chỉnh đa
+giao thức) với chấu điện đầu vào của đồng hồ đo
+đa năng.
+(2) Lấy điện ra từ thiết bị hiệu chỉnh dòng đi ện 1
+chiều (hoặc máy hiệu chỉnh đa giao thức), đối với
+trị đặt định của thiết bị hiệu chỉnh dòng đi ện 1
+chiều (hoặc máy hiệu chỉnh đa giao thức) phán
+định theo tính sai số là trị số biểu thị thực tế của
+đồng hồ đo đa năng.
+Điểm hiệu chỉnh :
+Trong mỗi phạm vi đo đạc thì có 2 điểm: điểm lớn
+nhất và điểm giữa
+(1) Cho tiếp xúc chấu điện đầu ra của thiết bị hiệu
+chỉnh dòng đi ện 1 chiều (hoặc máy hiệu chỉnh đa
+giao thức) với chấu điện đầu vào của đồng hồ đo
+đa năng.
+(2) Lấy điện ra từ thiết bị hiệu chỉnh dòng điện 1
+chiều (hoặc máy hiệu chỉnh đa giao thức), đối với
+trị đặt định của thiết bị hiệu chỉnh dòng điện 1
+chiều (hoặc máy hiệu chỉnh đa giao thức) phán
+định theo tính sai số của trị số biểu thị thực tế của
+đồng hồ đo đa năng.
+Điểm hiệu chỉnh :
+
+Theo như nội
+dung bên trái
+
+Theo quy cách
+phán đ ịnh đồng
+hồ đo điện đa
+năng mã số Z01
+
+Theo quy cách
+phán đ
+ịnh đồng
+hồ đo điện đa
+năng mã số Z01
+
+--- HẾT TRANG ---
+
+No. 2/6
+
+Hiệu chỉnh                                    Dụng cụ đo 003-1 h
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán đ ịnh
+4.Điện trở
+
+5.Điện áp xoay chiêu
+( khi sử dụng)
+
+(1) Cho tiếp xúc chấu điện điện trở đầu vào của đồng
+hồ đo đa năng với chấu điện tiêu chuẩn.
+(2) Phán đ ịnh bởi tính sai số giữa giá trị số điện trở
+tiêu chuẩn và trị số thực tế ở đồng hồ đo điện
+năng.
+Điểm hiệu chỉnh :
+Mỗi phạm vi đo đạc có 1 điểm được ghi bên dưới :
+0.1Ω, 1Ω,10Ω,100Ω,1kΩ,10kΩ
+
+[Trường hợp sử dụng dòng điện xoay chiều]
+(1) Mắc dây vào mạch điện hiệu chỉnh của đồng hồ
+đo điện đa năng, đồng hồ đo điện đa năng tiêu
+chuẩn ( phía dưới ghi là dụng cụ tiêu chuẩn),
+nguồn điện xoay chiều men như trong sơ đồ 1.
+
+Sơ đồ 1: Mạch điện hiệu chỉnh
+(2) Việc tăng hoặc giảm điện áp xuất ra của nguồn
+điện xoay chiều sẽ thiết định trị điện áp hiệu chỉnh,
+được phán đ ịnh bằng sự sai số giữa giá trị đo
+bằng dụng cụ tiêu chuẩn và giá trị đo bằng đồng
+hồ đo điện đa năng.
+Điểm hiệu chỉnh: Mỗi phạm vi đo điểm lớn nhất và
+điểm ở giữa
+[Trường hợp sử dụng máy hiệu chỉnh đa giao thức]
+(1) Mắc dây vào chấu điện đo điện áp xoay chiều của
+của đồng hồ đo điện đa năng với chấu điện xuất ra
+điện áp của máy hiệu chỉnh đa giao thức.
+
+(2) Thiết định trị điện áp của máy hiệu chỉnh đa giao
+thức.
+(3) Xuất điện áp từ máy hiệu chỉnh đa giao thức, đối
+với trị thiết định của máy hiệu chỉnh đa giao thức thì
+phán định bởi sai số của máy hiệu chỉnh đa giao thức
+với trị đo của đồng hồ đo điện đa năng.
+Điểm hiệu chỉnh: Mỗi phạm vi đo điểm ở giữa và
+điểm gần thang đo.
+
+Theo quy cách
+phán đ
+ịnh đồng
+hồ đo điện đa
+năng mã số Z01
+
+Theo quy cách
+phán đ ịnh đồng
+hồ đo điện đa
+năng mã số Z01
+
+[003-1] Đồng hồ đo điện đa năng
+Nguồn điện xoay chiều
+Dụng cụ chuẩn (đồng hồ đo điện đa
+năng)
+Máy hiệu chỉnh đa giao
+thức
+Đồng hồ đo điện đa năng
+
+--- HẾT TRANG ---
+
+No. 3/6
+
+kkk
+Hiệu chỉnh                                                          Dụng cụ đo 003-1 h
+
+Hạng mục kiểm tra
+Phương pháp kiểm tra
+Phương pháp
+phán đ ịnh
+
+6.Dòng đi ện xoay
+chiều (khi sử
+dụng )
+
+[Trường hợp sử dụng máy hiệu chỉnh nguồn điện xoay
+chiều]
+Nguồn điện xoay chiều
+Điện trở tráng men (xếp 2 hàng 10Ω100W )
+(1) Mắc dây vào mạch điện hiệu chỉnh của đồng hồ đo
+điện đa năng, đồng hồ đo điện đa năng tiêu chuẩn,
+nguồn điện xoay chiều và điện trở tráng men.
+
+Điện trở tráng
+men 10Ω100Wx2
+
+Sơ đồ 2 : Mạch điện hiệu chỉnh
+
+(2) Việc tăng hoặc giảm điện áp xuất ra của nguồn điện
+xoay chiều sẽ thiết định trị điện áp hiệu chỉnh, được
+phán đ ịnh bằng sự sai số giữa giá trị đo bằng dụng cụ
+tiêu chuẩn và giá trị đo bằng đồng hồ đo điện vạn năng.
+Điểm hiệu chỉnh : Mỗi phạm vi đo điểm lớn nhất và điểm ở
+giữa
+[Trường hợp sử dụng máy hiệu chỉnh đa giao thức]
+(1) Mắc dây vào chấu điện đo điện áp xoay chiều của của
+đồng hồ đo điện đa năng với chấu điện xuất ra dòng điện
+của máy hiệu chỉnh đa giao thức
+
+(2) Thiết định trị dòng điện của máy hiệu chỉnh đa giao thức.
+(3) Xuất điện áp từ máy hiệu chỉnh đa giao thức, đối với trị
+của số dây điện X trị thiết định của máy hiệu chỉnh đa giao
+thức thì phán định bởi sai số của máy hiệu chỉnh đa giao
+thức với trị đo của đồng hồ đo điện đa năng.
+Điểm hiệu chỉnh: Mỗi phạm vi đo điểm ở giữa và điểm gần
+thang đo.
+
+Theo quy cách
+phán đ ịnh đồng
+hồ đo điện đa
+năng mã số Z01
+
+Nguồn điện xoay chiều
+[003-1] Đồng hồ đo
+điện đa năng
+Dụng cụ tiêu chuẩn (Đồng
+hồ đo điện đa năng)
+Máy hiệu chỉnh đa giao thức
+Đồng hồ đo điện đa năng
+__
++
+
+--- HẾT TRANG ---
+
+No. 4/6
+Hiệu chỉnh                                                          Dụng cụ đo 003-1 h
+
+Hạng mục kiểm tra
+Phương pháp kiểm tra
+Phương pháp
+phán đ ịnh
+
+7.Nhiệt độ (khi sử
+dụng )
+
+(1) Ở mode đo nhiệt độ thì sẽ thay đổi biểu thị ở nhiệt độ ở
+phím RANGE.
+(2) Giữa chấu điện dùng đo nhiệt độ và COM, kết nối xuất
+ra từ nguồn của Calibrater dạng cầm tay, gia thêm nhiệt độ
+đo dựa theo biểu 1.
+Xác nhận sai số của đo nhiệt độ với trị biểu thị (℃) có nằm
+trong quy cách không và ghi chép.
+Biểu 1: Nhiệt độ đo đạc
+Nhiệt độ đo
+đạc
+-100℃
+100℃
+300℃
+
+±(1% of rdg
+±1℃)
+
+Trích dẫn văn bản liên quan
+Quy cách chế tạo: Chi tiết ở ZNo
+Trị đo nhiệt độ: Tham khảo quy cách chế tạo (Bản hướng dẫn sử dụng)
+Phạm vi đo nhiệt độ: Vì không sử dụng trên 300℃ nên thiết định giới hạn trên 300℃.
+
+--- HẾT TRANG ---
+
+II. Điểm kiểm:         Đồng hồ đo điện vạn năng                  Dụng cụ đo đạc 003-1h
+Tiến độ điểm kiểm: Điểm kiểm mỗi khi sử dụng                              No 5/6
+Hạng mục điểm kiểm
+Phương pháp đi ểm kiểm
+Phương pháp phán đ
+ịnh
+1. Ngoại quan
+
+2.Trạng thái biểu thị
+
+3.Kiểm tra điểm 0
+
+4.Kiểm tra cầu chì
+
+Điểm chú ý khi đổi
+cầu chì
+
+(1) Sau khi kiểm tra bẩn, trầy xước, hư hại bằng mắt thì
+kiểm tra các chư ớng ngại và có bất hợp cách hay
+không.
+(2)  Đặt chỗ tiếp xúc dây laed cho đúng, kiểm tra có
+trường hợp lỏng dây hay không.
+Kiểm tra khi nhấn công tắc thì biểu thị kĩ thuật số có trường
+hợp biểu thị thiếu hoặc không biểu thị hay không.
+Xác nhận đèn cảnh báo pin có sáng đèn không, trường
+hợp đèn sáng thì phải thay đổi dựa theo phương pháp theo
+đổi của bản thuyết minh sử dụng.
+
+Thiết định phạm vi điện trở (Ω), kiểm tra tính ổn định của
+chấu điện đầu vào khi làm đoản mạch khoảng 3 lần có về
+giá trị 0 hay gần giá trị 0 hay không.
+(1) Thiết định phạm vi điện trở (Ω)
+(2) Cắm dây đo vào chấu điện đầu vào điện trở, đầu dò
+của dây đo tiếp xúc với phần kim loại của chấu điện
+đầu vào dòng đi ện.
+
+(3) Khi đồng hồ đo điện đa năng biểu thị “ OL ” thì đổi cầu
+chì.
+(1) Để tránh bị điện giật hoặc trầy xước trước khi mở nắp
+phần nạp điện hoặc vỏ thì hãy ngắt dòng đi ện và kéo
+dây đo ra ngoài.
+(2) Số lượng ampe được chỉ định thì sử dụng điện áp và
+tốc độ hàn chảy đứt của cầu chì.
+
+Chú ý : 1. Nếu kết quả điểm kiểm có vấn đề dị thường xảy ra thì ghi chú vào kết quả điểm kiểm, sau đó xử lý
+theo chỉ thị của người quản lý có trách nhiệm.
+2. Nếu kết quả điểm kiểm không có gì dị thường thì không cần ghi cũng được. Tuy nhiên, 1 tháng
+không có dị thường thì cũng ghi vào.
+3.Trong trường hợp sử dụng mà phát sinh dị thường thì xử lý theo chỉ thị của người quản lý có trách
+nhiệm.
+Chấu điện
+nhập dòng
+điện
+Chấu điện
+xuất điện trở
+Mắc đầu dò chấu điện
+ở phần kim loại
+
+--- HẾT TRANG ---
+
+No. 6/6
+Dụng cụ đo 003-1 h
+Bảng tiêu chuẩn hiệu chỉnh và kiểm tra:
+Bảng lý lịch những ban hành, cải chính và hủy bỏ
+Kí hiệu
+Ngày tháng
+năm
+Nội dung
+Soạn
+thảo
+Kiểm tra
+Công
+nhận
+
+04.05.1983
+Ban hành mới
+Shima-m
+ura
+Taka
+-shima
+Ino
+a
+10.07.1991
+Cải chính
+Shima-m
+ura
+Taka
+-shima
+Ino
+b
+05.08.1994
+Xóa bỏ máy chuẩn (S01)(S02) (S13), hạng
+mục hiệu chỉnh 4 xóa bỏ điện áp chịu tải và
+điện trở cách đi ện, hạng mục hiệu chỉnh 3 ghi
+thêm điện thế cường độ dòng đi ện xoay chiều
+( thực thi khi cần thiết ), máy chuẩn (S13-1) 
+máy đo đi ện đa năng
+Nara
+Taka
+-shima
+Ino
+c
+22.02.1996
+Cải chính toàn bộ
+Nara
+Taka-shi
+ma
+Saka-
+moto
+d
+22.05.1996
+Hạng mục hiệu chỉnh 2 độ ổn định vị trí 0 thay
+đổi phương pháp phán đ
+ịnh.
+Nara
+Mikara
+Saka-
+moto
+e
+30.09.1998
+Hạng mục điểm kiểm 1 xác nhận điểm 0 thay
+đổi phương pháp đi ểm kiểm.
+Yama-gh
+ishi
+Mabu-chi  Saka-mo
+to
+f
+06.07.2010
+Cải đính toàn phần
+
+g
+
+16.4.2014
++ Bổ sung Calibrater dạng cầm tay[S01-2],
+máy hiệu chỉnh đa giao thức [S01-3]
+I. Hiệu chỉnh:
++ Bổ sung ngôn từ sau thiết bị hiệu chỉnh
+dòng điện xoay chiều (hoặc máy hiện chỉnh
+đa giao thức) ở mục 2, 3.
++ Hủy bỏ ngôn từ điện trở tráng men ở mục
+5.
++ Bổ sung [trường hợp sử dụng máy hiệu
+chỉnh đa giao thức] và [trường hợp sử dụng
+dòng điện xoay chiều] ở mục 5,6
++ Bổ sung mục 7.
++ Bổ sung trích dẫn văn bản liên quan.
+II. Điểm kiểm.
++ Bổ sung đèn cảnh báo “pin”
+
+Vũ 20209
+
+h
+2020.10.27
+Bổ sung phần yêu cầu hiệu chỉnh tới nhà
+chế to hoặc nhà cung cấp được ủy thác hiệu
+chỉnh ở phần ＜Hạng mục chú ý＞
+
+・Thay đổi mã số cải đính
+Ⅰ【Hiệu chỉnh】003-1g→003-1h ※Ⅱ【Điểm
+kiểm】003-1g（không thay đổi）
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "003-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bảng tiêu chuẩn hiệu chỉnh - và kiểm tra máy trắc định",
+  "doc_code": "003-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

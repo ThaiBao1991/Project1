@@ -1,0 +1,59 @@
+{
+  "file_name": "A18-3-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN KIỂM TRA VÀ HIỆU CHÍNH DỤNG CỤ ĐO",
+  "doc_code": "A18-3",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo tài liệu A18-3, khi kiểm tra hạng mục 'Trang thiết bị' đối với 'Bản tiêu chuẩn công đoạn' (ghi chép thông tin cơ bản của công đoàn sản xuất linh kiện cấp 1, cấp 2), các tiêu chuẩn và yêu cầu lĩnh vực nào sau đây bắt buộc phải tuân theo?",
+      "options": {
+        "A": "Tiêu chuẩn vận dụng bản tiêu chuẩn sản xuất (Q-MAB-C010) và Yêu cầu lĩnh vực dùng bản giải thích kiểm tra (U-MAB-D019)",
+        "B": "Tiêu chuẩn vận dụng bản tiêu chuẩn sản xuất (Q-MAB-C010), Yêu cầu lĩnh vực phát hành bản tiêu chuẩn công đoạn (Q-MAB-D004) và Yêu cầu lĩnh vực dùng bản tiêu chuẩn sản xuất linh kiện cấp 1, linh kiện cấp 2 (Q-MAB-D028)",
+        "C": "Tiêu chuẩn quản lý tài liệu kỹ thuật (Q-MAB-C012) và Tiêu chuẩn phân phối và quản lý việc bảo quản đối với bản vẽ (U-MMK-D518)",
+        "D": "Tiêu chuẩn vận dụng bản giải thích kiểm tra, bản vẽ đối với thiết bị máy móc sản xuất (Q-MAB-C034)"
+      },
+      "correct_answer": "B",
+      "reference_note": "Hạng mục 2. Trang thiết bị - Bản tiêu chuẩn công đoạn - Tiêu chuẩn vận dụng bản tiêu chuẩn sản xuất (Q-MAB-C010), Yêu cầu lĩnh vực phát hành bản tiêu chuẩn công đoạn (Q-MAB-D004), Yêu cầu lĩnh vực dùng bản tiêu chuẩn sản xuất linh kiện cấp 1, linh kiện cấp 2 (Q-MAB-D028)..."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Trong tài liệu A18-3, mục 'Trang thiết bị' có bao gồm tài liệu chỉ thị nào dùng để ghi chép tiến độ, phương pháp xác nhận về hạng mục điểm kiểm định kỳ của máy móc, thiết bị sản xuất?",
+      "options": {
+        "A": "Bản tiêu chuẩn công đoạn",
+        "B": "Biểu điểm kiểm khởi đầu công việc",
+        "C": "Biểu điểm kiểm định kỳ",
+        "D": "Bản giải thích kiểm tra, bản vẽ đối với thiết bị máy móc sản xuất"
+      },
+      "correct_answer": "C",
+      "reference_note": "Hạng mục 2. Trang thiết bị - Biểu điểm kiểm định kỳ - Ghi chép tiến độ, phương pháp xác nhận về hạng mục điểm kiểm định kỳ của máy móc, thiết bị sản xuất."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu A18-3, khi kiểm tra mục 'Đo đạc Kiểm tra', loại quy định liên quan nào được áp dụng cho 'Bản thuyết minh kiểm tra' quy định về sản phẩm, linh kiện do công ty sản xuất, linh kiện mua vào?",
+      "options": {
+        "A": "Tiêu chuẩn vận dụng bản quy cách kiểm tra (Q-MAB-C027) và Yêu cầu lĩnh vực dùng biểu xác nhận công đoạn (U-MAB-D010)",
+        "B": "Tiêu chuẩn vận dụng biểu điểm kiểm định kỳ (Q-MAB-C019)",
+        "C": "Tiêu chuẩn quản lý tài liệu kỹ thuật (Q-MAB-C012)",
+        "D": "Tiêu chuẩn vận dụng biểu kiểm khởi đầu công việc (Q-MAB-C009)"
+      },
+      "correct_answer": "A",
+      "reference_note": "Hạng mục 1. Đo đạc Kiểm tra - Bản thuyết minh kiểm tra - Quy định về sản phẩm, linh kiện... - Tiêu chuẩn vận dụng bản quy cách kiểm tra (Q-MAB-C027), Yêu cầu lĩnh vực dùng biểu xác nhận công đoạn (U-MAB-D010)"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140613.3073146,
+  "generated_at_iso": "2026-09-23T12:16:53",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 124098,
+    "modified_time": 1338340417.011598,
+    "modified_time_iso": "2012-05-30T08:13:37",
+    "file_hash_short": "36bedbbc"
+  }
+}

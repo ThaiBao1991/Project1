@@ -1,0 +1,50 @@
+{
+  "file_name": "039-4-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định Máy đo điện trở thấp (TSURUGA 3563)",
+  "doc_code": "039-4 c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra sử dụng, nếu kết quả kiểm tra không thấy bất thường nhưng theo quy định ghi chép, tần suất tối thiểu phải ghi lại kết quả kiểm tra là bao nhiêu thời gian một lần dù không có gì bất thường xảy ra?",
+      "options": {
+        "A": "Mỗi ngày một lần",
+        "B": "Mỗi tuần một lần",
+        "C": "Mỗi tháng một lần",
+        "D": "6 tháng một lần"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 6/7 - Ghi chú số 2: Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi thực hiện đo nhiệt độ tại hạng mục 2 của phần hiệu chỉnh, kết quả đo được từ sensor đo nhiệt độ phải nằm trong phạm vi nào so với nhiệt độ xung quanh (t)?",
+      "options": {
+        "A": "t ± (0.1% of rdg + 0.1℃)",
+        "B": "t ± (0.2% of rdg + 0.2℃)",
+        "C": "t ± 0.5℃",
+        "D": "t ± (0.5% of rdg + 0.3℃)"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2/7 - Phần I [Hiệu chỉnh], Hạng mục 2. Đo nhiệt độ - Phán định: kết quả đo được ở (5) phải ở trong phạm vi t±(0.2% of rdg + 0.2℃)."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ kiểm tra định kỳ đối với hạng mục 'Điểm kiểm' của máy đo điện trở thấp (TSURUGA 3563) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "6 tháng một lần",
+        "D": "Một năm một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 6/7 - Phần II [Điểm kiểm], Tiến độ kiểm tra: Mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

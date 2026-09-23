@@ -1,0 +1,50 @@
+{
+  "file_name": "516-7-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN KIỂM TRA VÀ HIỆU CHỈNH DỤNG CỤ ĐO",
+  "doc_code": "516-7b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục Chú ý (trang 3) của tài liệu kiểm tra dụng cụ đo, khi phát hiện trường hợp không thấy bất thường (không có kết quả kiểm tra), quy định tần suất phải ghi lại kết quả đã kiểm tra ít nhất là khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi tháng một lần phải ghi lại kết quả đã kiểm tra đó",
+        "C": "Mỗi quý một lần",
+        "D": "Không bắt buộc phải ghi lại nếu không có bất thường"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, Mục Chú ý - Ý số 2: Kết quả kiểm tra trường hợp không thấy bất thường, không ghi kết quả cũng được, nhưngmỗi tháng một lần phải ghi lại kết quả đã kiểm tra đó."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi tiến hành hiệu chỉnh trong phạm vi rộng cho Thước rập TM-91-2 bằng máy chuẩn Dial Gauge Testa (S12-1), độ chính xác khi đi trong phạm vi rộng (10mm) là bao nhiêu?",
+      "options": {
+        "A": "±10 µm",
+        "B": "±35 µm",
+        "C": "±50 µm",
+        "D": "±80 µm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Bảng thông số hiệu chỉnh: Phạm vi đo 10mm, Độ chính xác khi đi trong phạm vi rộng là 50 µm"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo mục II [Điểm kiểm] của tài liệu, chu kỳ kiểm tra đối với Thước rập dạng đọc số 0.01mm (Dạng Teclock TM-91-2) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần sử dụng một lần",
+        "B": "Mỗi tháng sử dụng một lần",
+        "C": "Mỗi lần sử dụng",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3, Mục II [Điểm kiểm] - Chu kỳ kiểm tra: Mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

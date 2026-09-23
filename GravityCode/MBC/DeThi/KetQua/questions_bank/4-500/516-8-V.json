@@ -1,0 +1,50 @@
+{
+  "file_name": "516-8-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN KIỂM TRA - HIỆU CHÍNH DỤNG CỤ ĐO (Đồng hồ đo kẻ vạch 0.1mm)",
+  "doc_code": "516-8 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong phương pháp kiểm tra độ ổn định của kim đo (mục 3), thao tác nào sau đây là đúng để xác nhận việc quay lại trị chỉ thị?",
+      "options": {
+        "A": "Nhấn kim đo từ mức 1/10 vòng từ điểm chuẩn đến điểm cuối của phạm vi đo.",
+        "B": "Cho kim đo hoạt động lên xuống nhẹ nhàng hay đột ngột 4, 5 lần.",
+        "C": "Xoay mặt kính đồng hồ 2 đến 3 vòng để kim đo tự ổn định.",
+        "D": "Dùng tay búng nhẹ vào mặt kính đồng hồ để kim đo về vị trí 0."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2/3, mục 3. Độ ổn định của kim đo, phần (2): Ở trạng thái (1) xác nhận việc quay lại trị chỉ thị sau khi cho kim đo hoạt động lên xuống nhẹ nhàng hay đột ngột 4, 5 lần."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Tần suất thực hiện việc kiểm tra (điểm tra) đối với đồng hồ đo kẻ vạch 0.1mm được quy định như thế nào?",
+      "options": {
+        "A": "Kiểm tra định kỳ 12 tháng một lần.",
+        "B": "Kiểm tra vào đầu mỗi ca làm việc.",
+        "C": "Kiểm tra mỗi lần sử dụng.",
+        "D": "Chỉ kiểm tra khi thấy kim đo có dấu hiệu bị kẹt."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2/3, mục Tiến độ kiểm tra: Mỗi lần sử dụng."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo quy định về xử lý kết quả kiểm tra, nếu kết quả không có gì bất thường thì việc ghi chép nhật ký được thực hiện như thế nào?",
+      "options": {
+        "A": "Bắt buộc phải ghi chép đầy đủ sau mỗi lần sử dụng.",
+        "B": "Tuyệt đối không cần ghi chép để tiết kiệm thời gian.",
+        "C": "Chỉ cần ghi chép khi có sự yêu cầu trực tiếp từ quản lý.",
+        "D": "Không nhất thiết phải ghi chép, nhưng định kỳ 1 tháng 1 lần phải ghi lại dù không có bất thường."
+      },
+      "correct_answer": "D",
+      "reference_note": "Trang 2/3, mục Chú ý 2: Trường hợp kết quả kiểm tra không có dị thường, nếu không ghi kết quả kiểm tra cũng được. Tuy nhiên, 1 tháng 1 lần sẽ ghi lại kỷ lục đó cho dù không có dị thường."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

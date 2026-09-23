@@ -1,0 +1,236 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Tài liệu tiêu chuẩn hiệu chỉnh - và điểm kiểm dụng cụ đo
+Mã số/Mã máy đo: 093-1
+File gốc: 093-1-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/3
+Tài liệu tiêu chuẩn hiệu chỉnh
+và điểm kiểm dụng cụ đo
+
+THIẾT BỊ ĐO ĐIỆN ÁP CAO DÙNG ĐO ĐẠC
+149-10A (Dùng điểm kiểm định kỳ)
+Mabuchi motor Co., Ltd
+Bộ phận bảo hành chất lượng
+
+Ngày ban hành    01.02.2012
+Ngày sửa đổi
+Dụng cụ đo     093-1
+Ⅰ【Hiệu chỉnh】
+Dụng cụ chuẩn
+Thiết bị đo điện áp cao [S56-1]/ Dụng cụ hỗ trợ: máy thí nghiệm chịu áp
+Chu kỳ hiệu chỉnh
+Mỗi 36 tháng và khi thấy cần thiết
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+«Hạng mục chú
+ý »
+
+(Chuẩn bị trước
+hiệu chỉnh)
+
+Dùng
+chung
+điện áp AC/DC
+
+«Hạng mục chú
+ý ⑤»
+Vì điện áp cao
+phải tắt OFF
+
+・Khi tiến hành hiệu chỉnh, phải đeo bao tay cao su cách điện để đề phòng
+bị giật điện.
+・ Phương pháp hiệu chỉnh này là hiệu chỉnh so sánh giữa máy chuẩn có
+nguồn phát sinh là đầu ra điện áp của dụng cụ thí nghiệm chịu áp (dụng
+cụ bổ trợ) với thiết bị đo điện áp cao dung đo đạc.
+Đối với trị biểu thị của thiết bị đo điện áp cao dùng đo đạc, tiến hành
+phán định bằng độ chính xác đo đạc (quy cách hiệu chỉnh) của máy
+chuẩn (thiết bị đo điện áp cao : S56-1)
+
+Bật công tắc nguồn điện của tất cả các thiết bị, để yên làm nóng thiết bị
+30 phút.
+
+Thao tác hiệu chỉnh phải tiến hành liên tục theo trình tự từ ① đến ⑩
+Tìm độ chính xác đo của dụng cụ chuẩn (thiết bị đo điện áp cao)
+① Kết nối máy thí nghiệm chịu áp với dụng cụ chuẩn (thiết bị đo điện
+áp cao)
+② Tắt nút đầu ra điện áp của máy thí nghiệm chịu áp, xác nhận điểm 0
+của máy chuẩn.
+③ Bật nút đầu ra điện áp của máy thí nghiệm chịu áp, quay số dùng để
+điều chỉnh đầu ra điện áp của máy thí nghiệm chịu áp và điều chỉnh
+trọ biểu thị của máy chuẩn sang khoảng 500V (Thiết định điện áp
+hiệu chỉnh)
+④ Đọc trị biểu thị của máy chuẩn.
+⑤ Ở trạng thái đã cố định quay số điều chỉnh ở ③, tắt nút đầu ra điện
+áp của máy thí nghiệm chịu áp.
+⑥ Trị ④ là quy cách hiệu chỉnh theo từng trường hợp bên dưới
+«Trường hợp AC» (50～60Hz)
+[Trị ④] ± {1 % của (Trị ④) + 0.05% của 10kV}
+«Trường hợp DC»
+[Trị ④] ± {0.5 % của (Trị ④) + 0.03% của 10kV}
+Phán định trị biểu thị của thiết bị đo điện áp cao dùng đo đạc bằng quy
+cách hiệu chỉnh
+⑦ Kết nối máy thí nghiệm chịu áp đã cố định quay số ở ⑤ với thiết bị
+đo điện áp cao dùng đo đạc.
+⑧ Tắt nút đầu ra điện áp của máy thí nghiệm chịu áp, xác nhận điểm 0
+của thiết bị đo điện áp cao dùng đo đạc.
+⑨ Bật nút đầu ra điện áp của máy thí nghiệm chịu áp, đọc trị biểu thị
+của thiết bị đo điện áp cao dùng đo đạc, phán định bằng quy cách
+hiệu chỉnh ở ⑥
+⑩ Điều chỉnh quay số dùng điều chỉnh đầu ra điện áp của máy thí
+nghiệm chịu áp về 0V.
+⑪ Tiến hành hiệu chỉnh ở 5 điểm 500V,1000V, 15000V, 2000V, 2500V
+
+0 ± 3V
+
+0 ± 3V
+
+Theo bên trái.
+
+Văn bản trích dẫn, liên quan
+Quy cách hiệu chỉnh: Điện áp AC/DC : bản thuyết minh thao tác
+Điểm 0: Áp dụng 10kV của 0.03% trong trị phán định DC.
+
+--- HẾT TRANG ---
+
+No.2/3
+
+Ⅱ 【Điểm kiểm】                                          Dụng cụ trắc định 093-1
+
+THIẾT BỊ ĐO ĐIỆN ÁP CAO DÙNG ĐO ĐẠC
+149-10A (Dùng điểm kiểm định kỳ)
+
+Tiến độ điểm kiểm           Mỗi lần sử dụng
+
+Hạng mục điểm
+kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1. Ngoại quan
+
+2. Trạng thái tiếp
+xúc máy dò
+
+3. Trạng thái biểu
+thị
+
+Phải không có dơ, trầy, hư hại gây ảnh hưởng đến việc đo đạc
+
+Máy dò được kết nối chính xác và không bị lỏng…
+
+Bật công tắc nguồn điện, biểu thị phải ổn định.
+
+Phải không có
+dị thường
+
+Chú ý:
+1. Kết quả kiểm tra trường hợp có bất thường, ghi chép kết quả bất thường đó, xử lý theo chỉ thị của
+người chịu trách nhiệm quản lý
+2. Kết quả kiểm tra trường hợp không thấy bất thường, không ghi kết quả cũng được, nhưng một tháng
+phải ghi chép lại kết quả một lần dù không có gì bất thường.
+3.  Trường hợp phát hiện ra sự bất thường trong khi sử dụng, xử lý theo chỉ thị của người chịu trách nhiệm
+quản lý.
+
+--- HẾT TRANG ---
+
+No.3/3
+Dụng cụ trắc định 093-1
+Tài liệu tiêu chuẩn hiệu chỉnh điểm kiểm
+Biểu lý lịch những ban hành, cải chính và hủy bỏ
+Dấu
+hiệu
+Ngày tháng
+năm
+Nội dung ( nội dung sửa đổi)
+Soạn
+thảo
+Xác
+nhận
+Công
+nhận
+
+01.02.2012
+Ban hành mới (ĐỀ ÁN : P.KT VNM TRIEU)
+Nara
+Hanyuu
+Itokawa
+
+MABUCHI MOTOR
+Ban Bảo Hành Chất Lượng
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "093-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh - và điểm kiểm dụng cụ đo",
+  "doc_code": "093-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

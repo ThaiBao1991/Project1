@@ -1,0 +1,50 @@
+{
+  "file_name": "S84-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh dụng cụ tiêu chuẩn - Dụng cụ hiệu chỉnh độ rung (chấn động) đơn giản (dùng cho pickup gia tốc độ dạng điện áp) ONO SOKKI",
+  "doc_code": "S84-1a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, điều kiện môi trường xung quanh khi thực hiện hiệu chỉnh dụng cụ là gì?",
+      "options": {
+        "A": "Nhiệt độ 25 ± 3ºC, Độ ẩm tương đối 40~70%",
+        "B": "Nhiệt độ 23 ± 3ºC, Độ ẩm tương đối 45~75%",
+        "C": "Nhiệt độ 20 ± 2ºC, Độ ẩm tương đối 50~80%",
+        "D": "Nhiệt độ 23 ± 5ºC, Độ ẩm tương đối 40~60%"
+      },
+      "correct_answer": "B",
+      "reference_note": "Nhiệt độ môi trường xung quanh 23 ± 3ºC Độ ẩm tương đối 45~75% (Trang 1)"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Thông số kỹ thuật chi tiết về tần số rung động và gia tốc rung động của thể thức VX-1100 là bao nhiêu?",
+      "options": {
+        "A": "Tần số rung động 100 Hz ± 1%, Gia tốc rung động 5m/S2 (rms) ± 3%",
+        "B": "Tần số rung động 159.2 Hz ± 1%, Gia tốc rung động 10m/S2 (rms) ± 3%",
+        "C": "Tần số rung động 159.2 Hz ± 5%, Gia tốc rung động 10m/S2 (rms) ± 5%",
+        "D": "Tần số rung động 200 Hz ± 1%, Gia tốc rung động 20m/S2 (rms) ± 3%"
+      },
+      "correct_answer": "B",
+      "reference_note": "Tần số rung động 159.2 Hz ± 1%, Gia tốc rung động 10m/S2 (rms) ± 3% (Trang 1)"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo tài liệu cải chính (cải đính) mới nhất, chu kỳ hiệu chỉnh của dụng cụ tiêu chuẩn này đã được thay đổi thành mấy năm?",
+      "options": {
+        "A": "1 năm",
+        "B": "2 năm",
+        "C": "3 năm",
+        "D": "5 năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Chu kỳ hiệu chỉnh 3 năm (Thay đổi chu kỳ hiệu chỉnh 1 năm -> 3 năm theo mục cải chính ngày 03.03.2009) (Trang 1 và 3)"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

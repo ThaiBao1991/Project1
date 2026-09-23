@@ -1,0 +1,216 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Bản tiêu chuẩn hiệu chỉnh-điểm kiểm máy đo             Ban BHCL công ty cổ phần Mabuchi Motor - Ι【Hiệu chỉnh】
+Mã số/Mã máy đo: 061-3
+File gốc: 061-3-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/3
+
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm máy đo             Ban BHCL công ty cổ phần Mabuchi Motor
+Ban hành 5/10/2012
+Cải đính   7/3/2024
+Đồng hồ đo lượng quang tích bằng tia tử ngoại                                                            Dụng cụ đo  061-3b
+Ushio Denki, CCS
+
+Ι【Hiệu chỉnh】
+
+Dụng cụ tiêu chuẩn         Máy chuẩn chỉ định của nơi chế tạo
+
+Chu kỳ hiệu chỉnh       12 tháng hoặc khi xác định là cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+Độ nhạy
+
+Phải ủy thác hiệu chỉnh cho nhà thao tác hiệu chỉnh hoặc
+cho nơi chế tạo
+
+Biểu
+Thân máy
+Máy cảm biến quang
+học tách rời
+Tiêu chuẩn phán
+định độ nhạy
+μA/(W/cm2)
+UIT-250
+UIT-250A
+UVD-S365
+38≦
+≦150
+UIT-201
+UVD-365PD
+
+Vì các thiết bị sau đây là sản phẩm ODM của Ushio Electric
+được sản xuất bởi công ty CCS, nên chúng sẽ được phán
+định dựa trên tiêu chuẩn giống với các model tương ứng.
+
+Ngoài ra, chứng chỉ do nhà sản xuất cấp phát hành sẽ được
+phát hành cho model tương ứng của Ushio Electric.
+
+Theo biểu
+－Trích dẫn・văn bản liên quan－quy cách phán
+định：bản thực tích hiệu chỉnh (Nhà chế tạo) ,
+theo ý kiến của nhà cung cấp
+
+--- HẾT TRANG ---
+
+No.2/3
+
+Ⅱ【Điểm kiểm】  Đồng hồ đo lượng quang tích bằng tia tử ngoại              Dụng cụ đo  061-3b
+Ushio Denki, CCS
+
+Tiến độ điểm kiểm       Mỗi tháng 1 lần & mỗi lần sử dụng
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1.Ngoại quan
+
+2. Xác nhận tác động
+ban đầu
+
+3. Hiển thị lỗi
+Không có bất hợp cách hoặc sự cố như hư hỏng, trầy,
+bẩn.v.v.. trên máy thu nhận ánh sáng, màn hình hiển thị, vỏ
+máy hoặc bất kỳ bộ phận nào khác có thể gây cản trở cho
+quá trình đo đạc.
+
+Nhấn công tắc Power để hoàn tất bình thường
+(Hạng mục chú ý: Trong thời gian này, không được chiếu
+ánh sáng lên bề mặt thu nhận ánh sáng)
+
+Phải không hiện lỗi lên màn hình hiển thị
+
+Không có gì
+bất thường
+Chú ý)1.Kết quả kiểm tra được ghi lại mỗi tháng một lần bất kể có bất thường hay không
+2.Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy
+ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu.
+Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện
+hiệu chỉnh
+
+--- HẾT TRANG ---
+
+No.3/3
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm  Bản lý lịch ban hành-cải đính-hủy bỏ      Dụng cụ đo  061-3
+Ký
+hiệu
+Năm tháng
+ngày
+Ghi chép（Nội dung cải đính）
+Soạn
+thảo
+Xác
+nhận
+Công
+nhận
+
+2012.10.05
+
+Ban hành mới (Yêu cầu：Phòng kiểm tra 亢银银)
+
+奈良
+
+埴生
+
+糸川
+a
+2015.04.17
+
+・Bổ sung thể thức(Bản thảo：Phòng BH TWM 林彦榮)
+・Thay đổi mã số cải đính
+Ⅰ【Hiệu chỉnh】061-3_→061-3a ※ Ⅱ【Điểm kiểm】061-3_
+（Không thay đổi）
+
+松本
+(未)
+
+村野 伊藤
+
+石野
+b
+2024.03.07
+・Bổ sung thể thức UIT-250A
+・Bổ sung tên nhà cung cấp CCS
+・Bổ sung hạng mục ghi chú về quy cách phán định và
+chứng chỉ hiệu chuẩn cho sản phẩm của CCS
+・Ⅱ【Điểm kiểm】
+Cải đính tiến độ điểm kiểm thành「Mỗi tháng 1 lần & mỗi
+lần sử dụng」
+Cải đính toàn bộ hạng mục chú ý
+
+Ban BHCL công ty cổ phần Mabuchi Motor
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "061-3-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm máy đo             Ban BHCL công ty cổ phần Mabuchi Motor - Ι【Hiệu chỉnh】",
+  "doc_code": "061-3",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

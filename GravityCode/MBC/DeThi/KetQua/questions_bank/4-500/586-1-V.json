@@ -1,0 +1,50 @@
+{
+  "file_name": "586-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "THIẾT BỊ 3 KIM (DÙNG KIỂM TRA CÁC LOẠI GEAR)",
+  "doc_code": "586-1b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo quy định, khi phát hiện có bất thường trong quá trình kiểm tra hoặc khi sử dụng thiết bị 3 kim, nhân viên cần xử lý như thế nào?",
+      "options": {
+        "A": "Tự ý tháo rời thiết bị để sửa chữa ngay lập tức",
+        "B": "Tiếp tục sử dụng nếu sai số nhỏ và ghi chú lại vào cuối tháng",
+        "C": "Ghi chép lại kết quả bất thường, xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu, làm đơn đề nghị hiệu chỉnh lại nếu cần thiết",
+        "D": "Bỏ qua thiết bị đó và chuyển sang dùng bộ thiết bị khác mà không cần báo cáo"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2 - Chú ý 2: Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu..."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm đối với Thiết bị 3 kim (dùng kiểm tra các loại gear) là khi nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và mỗi lần sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "6 tháng 1 lần và khi có yêu cầu",
+        "D": "Chỉ kiểm tra trước khi sử dụng thiết bị"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2 - Tiêu chuẩn điểm kiểm: Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi kiểm tra hạng mục kích thước đường kính ngoài của kim, phương pháp phán định đối với sai lệch tương hỗ của đường kính kim biểu thị giữa các kim của 3 kim trong bộ là bao nhiêu?",
+      "options": {
+        "A": "Dưới 0.5µm",
+        "B": "Dưới 1.0µm",
+        "C": "Dưới 2.5µm",
+        "D": "Dưới 5.0µm"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1 - Phần I [Hiệu chỉnh]: Sai lệch tương hỗ của đường kính kim biểu thị - Phương pháp phán định: Dưới 0.5µm"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

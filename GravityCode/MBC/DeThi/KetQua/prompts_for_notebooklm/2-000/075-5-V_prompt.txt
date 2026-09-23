@@ -1,0 +1,216 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM              Công ty Mabuchi Motor – Bộ phận BHCL - Máy đo dùng vòng đeo cổ tay                         Máy đo    075-5
+Mã số/Mã máy đo: d
+File gốc: 075-5-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/3
+
+BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM              Công ty Mabuchi Motor – Bộ phận BHCL
+
+Ban hành    27.08.2019
+
+Máy đo dùng vòng đeo cổ tay                         Máy đo    075-5
+HOZAN F-206
+
+Ι【Hiệu chỉnh】
+
+Máy tiêu chuẩn        Máy biến điện trở 6 nút xoay [S58-1]
+
+Chu kì hiệu chỉnh    Mỗi 24 tháng và khi nhận thấy cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương
+pháp
+phán định
+
+〈Nội dung chú ý〉
+
+Đo giátrị điện trở
+・Làm ngắn nhất có thể mã sử dụng cho việc kết nối với máy điện
+trở. (15cm trở xuống)
+・Nối đất thiết bị trên thảm hoặc những vật tương tự ít chịu ảnh
+hưởng của tiếng ồn (khí tĩnh điện) và không nên cầm bằng tay.
+・Điều kiện môi trường (dựa theo JIS Z 8703)… Nhiệt độ: 20℃±15℃,
+Độ ẩm: 45-85%
+(1) Kết nối chấu điện dẫn vào máy biến điện trở 6 nút xoay với thân
+máy như hình 1 bên dưới.
+(2) Điều chỉnh máy biến điện trở 6 nút xoay với từng giá trị đầu vào
+như biểu bên dưới, sau đọ chạm vào thanh điện cực bằng đầu
+dây dẫn và nhận nút phán định. Lúc nãy hãy giữ tay sao cho
+không được chạm vào thanh điện cực.
+Sau đó xác nhận nội dung phán định.
+
+－Trích dẫn・Văn b ản liên quan－
+Phương pháp hiệu chỉnh: Bản hướng dẫn sử dụng/ JIS Z 8703 (Điều kiện môi trường)
+Quy cách phán định: Đối với giá trị thiết định của bản hướng dẫn sử dụng (quy cách nhà chế tạo), máy điện
+trở tiêu chuẩn thì tiến hành thiết đặt dựa trên dung sai được ghi bên dưới.
+（Giá trị giới hạn dưới: 750kΩ-0%,+6% Giá trị giới hạn trên: 9MΩ-6%,+0%）
+Quy
+cách
+Phạm vi điện
+trở
+Trị thiết
+định máy
+điện trở
+Nội dung phán định
+LO
+R≦750kΩ
+730.0kΩ
+LO: đèn màu đỏ sáng
+GOO
+D
+750kΩ＜R＜
+9MΩ
+810.0kΩ
+GOOD: đèn màu xanh sáng, còi
+phát ra tiếp bíp
+8.3MΩ
+HI
+R≧9MΩ
+9.2MΩ
+HI: đèn màu đỏ sáng
+（Hình 1）
+Máy biến điển trở 6 nút
+xoay
+Đèn đỏ (LOW)
+Đèn đỏ (HIGH)
+Đèn xanh (GOOD)
+Nút phán định
+Giắc cắm
+
+--- HẾT TRANG ---
+
+No.2/3
+
+Ⅱ【Điểm kiểm】      Máy đo dùng vòng đeo cổ tay                         Máy đo  075-5
+HOZAN F-206
+
+Chu kì điểm kiểm       Mỗi lần sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1.Ngoại quan
+
+2.Xác nhận lượng tồn
+pin
+
+Xác nhận không có những lỗi gây nguy hại như dính bẩn, hư
+hỏng trên bề mặt, thanh điện cực. Và không đứt dây cap thanh
+điện cực.
+
+Nếu sau khi bấm công tắc đèn LOW/HIGH sáng cùng lúc thì
+báo hiệu trạng thái hết pin, nên hãy nhanh chóng tiến hành
+thay pin.
+
+Chú ý:
+1. Trong trường hợp phát sinh những bất thường hãy ghi chép lại trong kết quả kiểm tra rồi xử lí theo chỉ thị
+của người quản lí.
+2. Trong trường hợp không có bất thường thì không cần ghi chép lại.
+Tuy nhiên, dù cho không phát sinh trong vòng một tháng thì cũng cần phải ghi lại.
+3. Trong trường hợp phát hiện thấy điểm bất thường trong quá trình sử dụng thì cẩn xử lí theo chỉ thị của
+nguời quản lí.
+
+--- HẾT TRANG ---
+
+BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM
+BIỂU LÍ LỊCH BAN HÀNH – CẢI ĐÍNH – HỦY BỎ     Máy đo  075-5   No.3/3
+Kí
+hiệu
+Ngày
+tháng năm
+Nội dung cải đính
+Soạn
+thảo
+Xác nhận
+Phê
+duyệt
+
+27.08.2019
+
+Ban hành quy định mới
+
+Koizu
+mi
+
+Kikura
+Ishi
+Usui
+
+Itou
+
+Công ty Mabuchi Motor – Bộ phận BHCL
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "075-5-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM              Công ty Mabuchi Motor – Bộ phận BHCL - Máy đo dùng vòng đeo cổ tay                         Máy đo    075-5",
+  "doc_code": "d",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

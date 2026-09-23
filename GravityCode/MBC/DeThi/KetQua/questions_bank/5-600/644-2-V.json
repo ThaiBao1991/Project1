@@ -1,0 +1,50 @@
+{
+  "file_name": "644-2-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "Nhiệt kế tia hồng ngoại Keyence",
+  "doc_code": "644-2 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Trị phán định độ chính xác đối với các kiểu khuôn FT-H10 + FT-50A, FT-H10C + FT-50CA, FT-H20 + FT-50A là bao nhiêu?",
+      "options": {
+        "A": "±1.0 °C",
+        "B": "±1.5 °C",
+        "C": "±2.0 °C",
+        "D": "±1% của FS"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trị phán định FT-H10+FT-50A, FT-H10C+FT-50CA, FT-H20+FT-50A: ±1.5 ℃"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ thực hiện điểm kiểm (ngoại quan) đối với nhiệt kế tia hồng ngoại Keyence được quy định khi nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần",
+        "B": "Mỗi tháng 1 lần",
+        "C": "Mỗi lần sử dụng",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "C",
+      "reference_note": "Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra ngoại quan hoặc sử dụng nhiệt kế tia hồng ngoại Keyence, hạng mục chú ý quan trọng nào sau đây tuyệt đối phải tuân thủ để đảm bảo an toàn?",
+      "options": {
+        "A": "Không được chĩa ánh sáng của kim laze vào mắt.",
+        "B": "Không được để nhiệt kế tiếp xúc với nước.",
+        "C": "Không được sử dụng nhiệt kế ở nhiệt độ phòng vượt quá 50 độ C.",
+        "D": "Không được thay đổi vị trí thấu kính của cảm biến."
+      },
+      "correct_answer": "A",
+      "reference_note": "Hạng mục chú ý: Không được chĩa ánh sáng của kim laze vào mắt."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

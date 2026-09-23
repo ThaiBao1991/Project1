@@ -1,0 +1,59 @@
+{
+  "file_name": "A09-9-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "TIÊU CHUẨN HIỆU CHỈNH- ĐIỂM KIỂM",
+  "doc_code": "A09-9",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Khi thực hiện xuất dữ liệu Sổ quản lý dụng cụ đo lường và có nhập thời hạn hiệu chuẩn, dữ liệu sẽ được hệ thống xuất ra theo phạm vi nào?",
+      "options": {
+        "A": "Chỉ xuất ra dữ liệu đúng bằng ngày được nhập",
+        "B": "Xuất ra dữ liệu của kì hạn hiệu chỉnh tiếp theo từ kì hạn đã nhập trở về trước",
+        "C": "Xuất toàn bộ dữ liệu từ trước đến nay không phân biệt thời hạn",
+        "D": "Xuất dữ liệu tính từ kì hạn đã nhập trở về sau tương lai"
+      },
+      "correct_answer": "B",
+      "reference_note": "Nếu thời hạn hiệu chuẩn được nhập, dữ liệu của kì hạn hiệu chỉnh tiếp theo từ kì hạn đã nhập trở về trước sẽ được xuất ra."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi thực hiện thay đổi đồng thời người đảm trách quản lý và bộ môn quản lý cùng một lúc (check vào cả 2 ô), điều kiện áp dụng thay đổi là gì?",
+      "options": {
+        "A": "Chỉ cần trùng một trong hai điều kiện (Hoặc OR)",
+        "B": "Chỉ dữ liệu trùng lặp cả hai điều kiện mới được áp dụng thay đổi (Và AND)",
+        "C": "Áp dụng ngẫu nhiên cho toàn bộ dữ liệu trong hệ thống",
+        "D": "Không được phép thay đổi đồng thời cả hai mục này"
+      },
+      "correct_answer": "B",
+      "reference_note": "※ Trường hợp thay đổi đồng thời người đảm trách quản lý và bộ môn quản lý cùng một lúc (check vào cả 2 ô) thì cần lưu ý rằng chỉ dữ liệu trùng lặp cả hai điều kiện mới được áp dụng thay đổi. (=VÀ không phải OR)"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, số lượng dòng tối đa cho phép xuất ra trong một lần xuất file Excel trên phiên bản SMI là bao nhiêu?",
+      "options": {
+        "A": "500 dòng",
+        "B": "1000 dòng",
+        "C": "2000 dòng",
+        "D": "Không giới hạn số lượng"
+      },
+      "correct_answer": "B",
+      "reference_note": "※ Số lượng dòng 1 lần xuất ra có thể lên đến 1000 dòng, nếu số lượng dòng xuất ra nhiều hơn thể thì sẽ chia thành nhiều lần xuất ra."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140422.197302,
+  "generated_at_iso": "2026-09-23T12:13:42",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 466426,
+    "modified_time": 1636196338.097262,
+    "modified_time_iso": "2021-11-06T17:58:58",
+    "file_hash_short": "31d02ffd"
+  }
+}

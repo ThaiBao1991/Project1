@@ -1,0 +1,50 @@
+{
+  "file_name": "007-7-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Đồng hồ đo điện trở cách điện Dòng HIOKI 3451 / 3453",
+  "doc_code": "007-7",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục hạng mục chú ý khi hiệu chuẩn đồng hồ đo điện trở cách điện, người thao tác cần tuân thủ quy định an toàn nào sau để phòng tránh điện giật?",
+      "options": {
+        "A": "Mang găng tay cao su cách điện khi hiệu chuẩn",
+        "B": "Ngắt hoàn toàn nguồn điện lưới nhà xưởng",
+        "C": "Sử dụng thảm tĩnh điện ESD chuyên dụng",
+        "D": "Đeo kính bảo hộ và giày chống tĩnh điện"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: '＜Hạng mục chú ý＞ Khi hiệu chuẩn, hãy sử dụng găng tay cao su cách điện để phòng tránh điện giật.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi thực hiện kiểm tra ngoại quan cho đồng hồ đo điện trở cách điện, yêu cầu đối với lớp vỏ dây đo là gì?",
+      "options": {
+        "A": "Phải được quấn băng keo cách điện kỹ càng",
+        "B": "Không có vết nứt, vết rạn, rách hoặc hư hỏng nào trên lớp vỏ của dây đo",
+        "C": "Có thể có vết rạn nhỏ nếu không ảnh hưởng lõi đồng bên trong",
+        "D": "Phải sáng bóng và được bọc lò xo chống gãy"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: '1. Ngoại quan: Không có vết nứt, vết rạn, rách hoặc hư hỏng nào trên lớp vỏ của dây đo'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm đối với đồng hồ đo điện trở cách điện dòng HIOKI 3451 / 3453 được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và mỗi lần sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "6 tháng 1 lần",
+        "D": "Chỉ kiểm tra khi có yêu cầu bất thường"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: 'Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

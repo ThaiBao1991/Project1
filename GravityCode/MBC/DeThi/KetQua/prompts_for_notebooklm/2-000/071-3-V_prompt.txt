@@ -1,0 +1,475 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Bản tiêu chuẩn hiệu chỉnh-điểm kiểm   Ban chính BHCL công ty cổ phần Mabuchi Motor - Thiết bị ghi dữ liệu                                Máy đo    071-3 h
+Mã số/Mã máy đo: 071-3 h
+File gốc: 071-3-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/5
+
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm   Ban chính BHCL công ty cổ phần Mabuchi Motor
+
+Ban hành  28.03.2011
+Cải đính  03.08.2026
+Thiết bị ghi dữ liệu                                Máy đo    071-3 h
+（GRAPHTEC GL240/GL260/GL450/GL800/GL820/GL840/GL900/GL980）
+
+Ι【Hiệu chỉnh】
+
+Máy hiệu chỉnh đa sản phẩm[S01-3]
+Máy tiêu chuẩn  Thiết bị hiệu chỉnh dòng điện một chiều [S01-1]，máy hiệu chỉnh loại cầm tay [S01-2]
+
+Chu kỳ hiệu chỉnh      mỗi 24 tháng và khi xác định là cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+＜Chuẩn bị trước hiệu
+chỉnh＞
+
+1.Xác nhận hoạt động
+rơle
+
+2.Độ chính xác đo điện
+áp
+※ Vì không có sai số
+đo giữa đầu nối vít và
+đầu nối BNC, nên đầu
+nối sử dụng là tùy ý
+(GL900,980)
+
+Sau khi cắm nguồn điện, phải để yên trong vòng 30 phút trở
+lên (máy ấm lên).
+
+Thực thi điểm kiểm hạng mục 2. Phải thực hiện sử dụng
+toàn bộ CH
+
+Cho dòng điện áp không đổi vào 1CH, đọc lấy giá trị chênh
+lệch của trị điện áp đưa vào và trị hiển thị của máy được hiệu
+chỉnh.
+Trường hợp điện áp hiển thị không ổn định thì đọc lấy trị có
+có sự chênh lệch so với trị tiêu chuẩn lớn nhất.
+
+＜Trình tự＞
+(1) Kết nối máy tiêu chuẩn với chấu điện nhập tính hiệu
+analog của 1CH hoặc connector BNC (GL900/GL980).
+
+(2)Nhấn nút  MENU ,ở màn hình thiết định  AMP  hãy
+thiết định như dưới đây.
+
+Hình1 Ví dụ màn hình thiết định（GL800/900）
+
+Phải biểu thị.
+
+GL900/980
+±0.25% F.S
+GL800/820/840
+/450/240/260
+±0.1% F.S
+
+GL240/260
+GL450
+GL800/820
+GL840
+GL900/GL980
+Đầu vào
+Điện áp
+Phạm vi
+Có thể thiết lập toàn bộ phạm vi
+Màng lọc
+10
+On
+10
+10
+Line
+EU
+Off
+Logic/xung
+Off
+-
+Off
+off
+Off
+
+--- HẾT TRANG ---
+
+No.2/5
+
+Ι【Hiệu chỉnh】                              Máy đo  071-3 h
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+3. Độ chính xác đo
+nhiệt độ
+
+(3)Nhấn nút  MENU , ở màn hình thiết định  DATA thiết
+định theo như dưới đây.
+
+Khoảng cách lấy mẫu   :  200ms
+Thiết định phép tính thống kê(thiết định phép tính1,2)  :
+off
+
+(4)Nhấn nút QUIT , quay về màn hình đo.
+
+(5)Nhấn nút SPAN/TRACE/POSITION , làm hiển thị cửa sổ
+MONITOR.
+
+GL800,820,840,900,980            GL450
+
+(6) Cấp điện áp từ máy tiêu chuẩn
+Điện áp áp vào là ba điểm: điểm tối thiểu, điểm bằng
+không và điểm tối đa của mỗi phạm vi
+Đọc lấy sự chênh lệch của điện áp đưa vào và trị hiển thị
+cửa sổ MONITOR.
+※Nếu phạm vi từ 1-5V, không áp dụng điện áp tối thiểu
+và tối đa mà áp dụng điện áp 1V và 5V, sau đó đọc sai số so
+với giá trị hiển thị.
+
+Cấp dòng điện nhiệt điện động tiêu chuẩn tương đương nhiệt
+độ đo ở 1CH, đọc lấy sự chênh lệch của nhiệt độ đo và trị hiển
+thị của đối tượng được hiệu chỉnh(℃).
+
+＜Trình tự＞
+Tiến hành tiếp tục từ hạng mục hiệu chỉnh 2.(6).
+
+(7)Nhấn nút  MENU , chọn thẻ  OTHR  , ở màn hình thiết
+định, thiết định theo như dưới đây.
+
+Bù nhiệt độ phòng
+： ngoài trời
+【Chú ý】Sau khi hiệu chỉnh xong phải quay trở lại trong
+phòng.
+
+Đơn vị nhiệt độ
+
+： ℃
+
+GL900/980
+±(0.1%of
+rdg
++1.5℃)※
+GL800/820/840
+/450/240/260
+±(0.1%of rdg
++0.5℃）※
+※
+Cặp
+nhiệt
+điện loại T
+Tại
+-100＜TS≦400
+
+--- HẾT TRANG ---
+
+No.3/5
+
+Ι【Hiệu chỉnh】                             Máy đo 071-3 h
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+(8) Nhấn nút  MENU , ở màn hình thiết định AMP thiết định
+theo như dưới đây.
+
+(9)Nhấn nút QUIT , trở về màn hình đo đạc.
+
+(10) Cấp dòng điện nhiệt điện động tiêu chuẩn tương ứng với
+nhiệt độ đo từ máy tiêu chuẩn theo như biểu 1, đọc lấy sự
+chênh lệch của nhiệt tiêu chuẩn và trị hiển thị (℃) của cửa sổ
+MONITOR.
+※Hiệu chỉnh ba điểm gần với giá trị tối thiểu và tối đa
+trong phạm vi sử dụng thực tế. (Các điểm hiệu chuẩn trong
+bảng 1 là ví dụ tham khảo)
+
+－Trích dẫn・văn bản liên quan－
+Phương pháp hiệu chỉnh, hạng mục hiệu chỉnh: tham khảo bản thành tích hiệu chỉnh của nơi chế tạo
+. Không có sai số đo giữa CH (vì phần đo đạc là chung), chỉ thực hiện đo với 1CH.
+Quy cách phán định: Bản hướng dẫn sử dụng của nhà chế tạo, JIS C1602-2015 (Điện áp nhiệt điện động tiêu
+chuẩn)
+
+Biểu 1  Dòng điện nhiệt điện động tiêu chuẩn               (Đơn vị：mV)
+Nhiệt độ đo
+Cặp nhiệt điện
+-100℃
+100℃
+300℃
+400℃
+T
+-3.379
+4.279
+14.862
+20.872
+
+GL240/260
+GL450
+GL800/820
+GL840
+GL900/980
+Đầu vào
+Nhiệt độ
+Phạm vi
+TC-T
+Màng lọc
+10
+On
+10
+10
+Line
+Logic/Xung
+Off
+-
+Off
+off
+Off
+
+--- HẾT TRANG ---
+
+No.4/5
+
+Ⅱ【Điểm kiểm】       Thiết bị ghi dữ liệu                    Máy đo  071-3 h
+(GRAPHTEC GL240/GL260/GL450/GL800/GL820/GL840/GL900/GL980)
+
+Tiến độ điểm kiểm Mỗi tháng 1 lần và mỗi lần sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1.Ngoại quan
+
+2.Xác nhận hoạt động
+rơ le
+
+Xác nhận không có khuyết điểm có hại như hư hỏng, dính dị
+vật,…
+
+Cấp điện áp sử dụng vào toàn bộ CH, xác nhận hiển thị của
+trị điện áp ở MONITOR.
+
+Không có bất
+thường
+
+Phải
+hiển
+thị
+một cách bình
+thường
+Chú ý:
+1. Kết quả điểm kiểm sẽ được ghi chép lại mỗi tháng một lần, bất kể có bất thường hay không.
+2. Nếu có bất thường khi điểm kiểm (hoặc khi sử dụng) hãy ghi chép lại kết quả đó và xử lý theo chỉ thị của
+người chịu trách nhiệm của bộ phận sở quản.
+Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo ở bộ phận thực thi hiệu chỉnh
+
+--- HẾT TRANG ---
+
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm  Biểu lai lịch ban hành-cải đính-hủy bỏ
+Máy đo  071-3     No.5/5
+Ký
+hiệu
+Năm.tháng
+.ngày
+Ghi chép (Nội dung thay đổi)
+Soạn
+thảo
+Xác
+nhận
+Công
+nhận
+
+2011.03.28
+
+Ban hành mới
+
+村山
+
+奈良 埴生
+
+岩田
+
+ａ
+
+2011.04.21
+・Bổ sung quy cách GL450
+・Bổ sung từ ngữ, phản ánh thiết định của GL450 vào các
+hạng mục thiết định
+
+村山
+
+奈良 埴生
+
+糸川
+
+b
+
+2012.01.26
+・Bổ sung quy cách GL900
+・Bổ sung máy tiêu chuẩn（máy hiệu chỉnh nhiều sản
+phẩm[S01-3]）
+・Thay đổi chu kỳ hiệu chỉnh 12tháng→24tháng
+・Bổ sung từ ngữ phản ánh thiết định GL900 vào các hạng
+mục thiết định.
+・Bổ sung quy cách phán định hạng mục hiệu chỉnh 2,3
+・Thay đổi từ ngữ hạng mục hiệu chỉnh 2(4) và biểu 1 (chỉ
+định điểm hiệu chỉnh)
+
+村山
+
+奈良 埴生
+
+糸川
+
+c
+
+2013.02.08
+Ⅰ【Hiệu chỉnh】
+・Thay đổi hạng mục 1 「thực thi hạng mục kiểm tra 2.」
+・Bổ sung hạng mục 2(3) thiết định phép toán thống kê (thiết
+định phép toán1.2):off
+・Bổ sung hạng mục 3(7)【chú ý】
+Ⅱ【Kiểm tra】
+・Bổ sung hạng mục 2 xác nhận hoạt động rơ le
+
+橋田
+
+奈良 伊藤
+
+糸川
+
+d
+
+2015.02.10
+・Bổ sung quy cách GL820
+・Bổ sung từ ngữ phản ánh thiết đặt của GL820 vào các
+hạng mục thiết đặt
+
+松本
+(未)
+
+村野 伊藤
+
+石野
+
+e
+
+2020.03.06
+・Bổ sung quy cách GL840
+・Bổ sung từ ngữ phản ánh thiết đặt GL840 vào các hạng
+mục thiết đặt
+・Trích dẫn・văn bản liên quan JIS C1602-1995 → JIS
+C1602-2015
+
+小泉
+
+石井
+藤田
+
+伊藤
+f
+2022.04.12 ・Bổ sung thể thức GL240
+・Bổ sung từ và cụm từ phản ánh thiết đặt GL 240 trong mỗi
+hạng mục thiết đặt
+
+g
+2025.01.20 ・Bổ sung thể thức GL980
+Ⅰ【Hiệu chỉnh】
+・Hạng mục 1.Bổ sung thực hiện toàn bộ CH vào xác nhận
+hoạt động rơle
+・Hạng mục 2.Thay đổi ghi chép điện áp áp dụng,hủy bỏ
+biểu 1, chỉnh sửa quy cách phán định
+・Hạng mục 3.Bổ sung 400℃ vào biểu 1dòng điện nhiệt điện
+động tiêu chuẩn của độ chính xác đo nhiệt độ, hủy bỏ ghi chép
+của [giới hạn trên 300℃] từ giá trị phán định của trích
+dẫn-văn bản liên quan (yêu cầu từ phòng kiểm tra
+VNM),chỉnh sửa quy cách phán định.
+・Sửa đổi toàn bộ trích dẫn・văn bản liên quan
+Ⅱ【Điểm kiểm】
+・Tiến độ điểm kiểm sửa đổi sang「Mỗi tháng 1 lần và mỗi
+lần sử dụng」
+Sửa đổi toàn bộ hạng mục chú ý
+・Hạng mục 2. Hủy bỏ [GL900 thì xác nhận từng cái
+connector BNC của CH, bệ chấu điện kiểu vít ]
+
+h
+2026.08.03
+・Bổ sung thể thức GL260  (yêu cầu của VNM )
+・Ghi chú phạm vi nhiệt độ đo ở quy cách phán định của
+hạng mục 3.
+
+Ban chính BHCL công ty cổ phần Mabuchi Motor
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "071-3-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm   Ban chính BHCL công ty cổ phần Mabuchi Motor - Thiết bị ghi dữ liệu                                Máy đo    071-3 h",
+  "doc_code": "071-3 h",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

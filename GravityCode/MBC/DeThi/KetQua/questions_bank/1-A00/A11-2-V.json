@@ -1,0 +1,59 @@
+{
+  "file_name": "A11-2-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm",
+  "doc_code": "A11-2 f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh-điểm kiểm, tần suất thực hiện ghi chép kết quả điểm kiểm (không liên quan đến việc có dị thường hay không) là bao lâu?",
+      "options": {
+        "A": "1 tuần 1 lần",
+        "B": "1 tháng 1 lần",
+        "C": "6 tháng 1 lần",
+        "D": "12 tháng 1 lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2, Hạng mục 2.(2) Hạng mục lưu ý liên quan đến phương pháp ghi chép và xử lý: '1. Kết quả điểm kiểm không liên quan đến việc có dị thường hay không, kí lục lại 1 tháng 1 lần.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trường hợp phát hiện có dị thường khi điểm kiểm (hoặc khi sử dụng máy đo), quy trình xử lý chính xác theo quy định là gì?",
+      "options": {
+        "A": "Tự ý tháo dỡ máy để sửa chữa ngay lập tức",
+        "B": "Tiếp tục sử dụng bình thường nếu lỗi nhỏ",
+        "C": "Kí lục lại kết quả đó, và xử lí theo chỉ thị của người chịu trách nhiệm của phòng ban sở hữu, thực hiện yêu cầu tái hiệu chỉnh nếu cần thiết",
+        "D": "Vứt bỏ thiết bị và lập biên bản hủy"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, Hạng mục 2.(2) Hạng mục lưu ý liên quan đến phương pháp ghi chép và xử lý: '2. Trường hợp nếu có dị thường khi điểm kiểm (hoặc khi sử dụng), thì kí lục lại kết quả đó, và xử lí theo chỉ thị của người chịu trách nhiệm của phòng ban sở hữu. Thực hiện yêu cầu tái hiệu chỉnh của máy đo đạc đối với phòng ban thực hiện hiệu chỉnh nếu cần thiết.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Trong trường hợp thực hiện hiệu chỉnh bên ngoài và giấy chứng nhận hiệu chỉnh không có ghi nhận đạt/không đạt, thì cần phải thực hiện công việc gì trong nội bộ?",
+      "options": {
+        "A": "Làm thủ tục trả lại nhà cung cấp để cấp lại chứng nhận mới",
+        "B": "Bỏ qua không cần phán định vì nhà cung cấp đã đo bên ngoài",
+        "C": "Thực hiện đánh giá đạt/không đạt trong nội bộ",
+        "D": "Tự ý sửa lại giấy chứng nhận của nhà cung cấp"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Hạng mục 1.(3): '※ Trường hợp giấy chứng nhận hiệu chỉnh không có ghi nhận đạt/không đạt, thì cần thực hiện đánh giá đạt/không đạt trong nội bộ'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140461.7081542,
+  "generated_at_iso": "2026-09-23T12:14:21",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 476063,
+    "modified_time": 1765874233.9925196,
+    "modified_time_iso": "2025-12-16T15:37:13",
+    "file_hash_short": "3d6b41d8"
+  }
+}

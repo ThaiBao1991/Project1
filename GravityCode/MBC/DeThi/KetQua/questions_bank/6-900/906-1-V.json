@@ -1,0 +1,50 @@
+{
+  "file_name": "906-1-V.pdf",
+  "folder_name": "6-900 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và điểm kiểm dụng cụ đo Cân bằng nước kiểu sấy khô gia nhiệt AND MS-70",
+  "doc_code": "Tiêu chuẩn số 906-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ thực hiện điểm kiểm cho cân bằng nước kiểu sấy khô gia nhiệt AND MS-70 được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước mỗi ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 4, Mục Ⅱ 【Điểm kiểm】, Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo quy định về ghi chép kết quả điểm kiểm, trường hợp kết quả kiểm tra không thấy bất thường thì nhân viên cần tuân thủ yêu cầu nào sau đây?",
+      "options": {
+        "A": "Không cần ghi chép kết quả cũng được, nhưng bắt buộc mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra",
+        "B": "Phải ghi chép lại toàn bộ tất cả các lần kiểm tra vào sổ nhật ký hàng ngày",
+        "C": "Chỉ cần báo cáo miệng cho người phụ trách quản lý vào cuối tuần",
+        "D": "Tuyệt đối không được ghi chép bất kỳ nội dung nào nếu không phát hiện lỗi"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 4, Mục Ghi chú, Khoản 2: Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi kiểm tra ngoại quan phát hiện các bộ phận của cân có vết bẩn, phương pháp làm sạch đúng theo tài liệu tiêu chuẩn là gì?",
+      "options": {
+        "A": "Dùng giấy nhám mịn chà sạch vết bẩn trên bề mặt",
+        "B": "Dùng cồn 90 độ xịt trực tiếp lên bảng hiển thị và lau khô",
+        "C": "Vắt chặt vải đã nhúng vào nước hoặc nhúng vào nước có đổ một ít xà phòng trung tính rồi lau",
+        "D": "Dùng khí nén áp lực cao thổi bay vết bẩn"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 4, Mục Ⅱ 【Điểm kiểm】, Hạng mục ngoại quan: Đối với vết bẩn thì vắt chặt vải đã nhúng vào nước hoặc nhúng vào nước có đổ một ít xà phòng trung tính rồi lau"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

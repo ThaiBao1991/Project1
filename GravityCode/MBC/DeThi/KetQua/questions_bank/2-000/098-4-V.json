@@ -1,0 +1,50 @@
+{
+  "file_name": "098-4-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH ĐIỂM KIỂM",
+  "doc_code": "098-4",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tần suất điểm kiểm (kiểm tra hàng ngày) đối với thiết bị đo tĩnh điện HOZAN F208 được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần trước khi sử dụng ca sản xuất",
+        "B": "Mỗi khi sử dụng",
+        "C": "24 tháng một lần",
+        "D": "Mỗi tháng một lần và khi cần thiết"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2/3: Tần suất điểm kiểm: Mỗi khi sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi tiến hành hiệu chỉnh trị điện trở cho thiết bị đo tĩnh điện HOZAN F-208 bằng máy điện trở 6 nấc điều chỉnh [S58-1], nếu giá trị điện trở là 1.10×10⁵ Ω (0.11 MΩ), nội dung phán định hiển thị tương ứng là gì?",
+      "options": {
+        "A": "LOW sáng lên",
+        "B": "HIGH sáng lên",
+        "C": "PASS sáng lên",
+        "D": "Không có đèn nào sáng"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1/3: Bảng 1: Giá trị 1.10×10⁵Ω, MΩ: 0.11 MΩ, Nội dung phán định: PASS sáng lên"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục Lưu ý về điểm kiểm thiết bị, nếu kết quả điểm kiểm không có bất thường thì cần thực hiện việc ghi chép như thế nào?",
+      "options": {
+        "A": "Bắt buộc phải ghi lại kết quả điểm kiểm vào biên bản mỗi ngày dù không có bất thường.",
+        "B": "Không cần ghi kết quả điểm kiểm lại cũng được, tuy nhiên ngay cả khi không có lần nào bất thường trong một tháng thì cần ghi lại tình trạng này.",
+        "C": "Chỉ ghi chép lại khi có sự cố bất thường xảy ra trong quá trình đo.",
+        "D": "Lập báo cáo bất thường gửi trực tiếp lên Ban Quản lý Chất lượng định kỳ hàng tuần."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2/3: Lưu ý 2: Nếu kết quả điểm kiểm không có bất thường thì không cần ghi kết quả điểm kiểm lại cũng được. Tuy nhiên, ngay cả khi không có lần nào bất thường trong một tháng thì cần ghi lại tình trạng này."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

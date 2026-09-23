@@ -1,0 +1,50 @@
+{
+  "file_name": "515-2-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Đồng hồ kỹ thuật số 0.01mm (Dạng có bộ tính toán biểu thị)",
+  "doc_code": "515-2",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục Ghi chú về điểm kiểm, trong trường hợp kết quả kiểm tra không thấy bất thường thì quy định ghi chép lại kết quả như thế nào là đúng?",
+      "options": {
+        "A": "Không cần ghi chép lại kết quả dưới mọi hình thức",
+        "B": "Không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra",
+        "C": "Phải ghi chép đầy đủ 3 lần mỗi ngày vào sổ quản lý thiết bị",
+        "D": "Chỉ ghi chép khi có sự cố phát sinh trong quá trình sử dụng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: Ghi chú 2) Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi tiến hành kiểm tra hạng mục 'Ngoại quan' (Mục 1 của phần Điểm kiểm), phương pháp phán định đối với độ bóng của đầu mũi đo là gì?",
+      "options": {
+        "A": "Độ bóng phải thật sáng bóng như gương mới",
+        "B": "Độ bóng tùy thuộc vào nhà sản xuất",
+        "C": "Độ bóng phải đều",
+        "D": "Không có yêu cầu về độ bóng miễn là không mòn"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3: Phương pháp phán định mục 1. Ngoại quan: 'Độ bóng phải đều'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo mục 'Tiến độ điểm kiểm', thời gian và tần suất thực hiện việc điểm kiểm đối với đồng hồ kỹ thuật số 0.01mm là khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước mỗi ca làm việc"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: II【Điểm kiểm】 - Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

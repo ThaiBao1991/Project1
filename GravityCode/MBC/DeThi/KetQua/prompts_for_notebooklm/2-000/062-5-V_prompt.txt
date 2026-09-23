@@ -1,0 +1,187 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Bản tiêu chuẩn hiệu chỉnh-điểm kiểm   Ban chính BHCL công ty cổ phần MAB - Máy đo bụi                                    Dụng cụ đo    062-5
+Mã số/Mã máy đo: b
+File gốc: 062-5-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/3
+
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm   Ban chính BHCL công ty cổ phần MAB
+
+Ban hành 20.12.2022
+Cải đính  Năm tháng ngày
+Máy đo bụi                                    Dụng cụ đo    062-5
+
+Ι【Hiệu chỉnh】
+
+Dụng cụ tiêu chuẩn         Dụng cụ chuẩn chỉ định nhà cung cấp
+
+Chu kỳ hiệu chỉnh     24 tháng hoặc khi được cho là cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+Độ chính xác
+
+Uỷ thác việc hiệu chỉnh cho nhà cung cấp hiệu chỉnh
+
+Theo biểu
+
+Nhà sản xuất
+Thể
+thức
+Độ nhạy đo đạc
+Phạm vi đo
+Quy cách phán định
+（Đối với các hạt tiêu chuẩn）
+Công ty TNHH Công
+nghệ Tianchen Bắc
+Kinh
+LD-5C
+[Độ chính xác
+cao]
+1CPM=0.001mg/
+m3
+[Độ chính xác
+thấp]
+1CPM=0.01mg/m
+³
+[Độ chính xác
+cao]0.001～
+10.000mg/m3
+[Độ chính xác
+thấp]0.01～100
+mg/m³
+[Sai số biểu thị] ±10%
+[Độ chính xác lặp lại]
+±2%
+
+－Trích dẫn・văn bản liên quan－
+Quy cách phán định：Theo quy cách của nhà sản xuất / Tham khảo JJG 846-2015
+
+--- HẾT TRANG ---
+
+No.2/3
+
+Ⅱ【Điểm kiểm】    Máy đo bụi                Dụng cụ đo  062-5
+
+Tiến độ điểm kiểm        Mỗi tháng 1 lần và mỗi lần sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1.Ngoại quan
+
+2.Xác nhận hoạt động
+
+※Tiến hành hiệu chỉnh
+
+Không có các bất thường như vết bẩn, trầy xước, hư hỏng...
+gây cản trở cho việc đo đạc
+Các công tắc phải hoạt động bình thường
+
+Tùy theo yêu cầu, thực hiện hiệu chỉnh theo các bước
+hướng dẫn trong sách hướng dẫn sử dụng.
+
+Không có bất
+thường
+
+Phải hoạt động
+Chú ý)1.Kết quả kiểm tra được ghi lại mỗi tháng một lần bất kể có bất thường hay không
+2.Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy
+ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu.
+Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện
+hiệu chỉnh
+
+--- HẾT TRANG ---
+
+Bản tiêu chuẩn hiệu chỉnh-điểm kiểm  Biểu lý lịch ban hành-cải đính-hủy bỏ
+Dụng cụ đo  062-5   No.3/3
+Ký
+hiệu
+Năm tháng
+ngày
+Ghi chép (Nội dung thay đổi)
+Soạn
+thảo
+Xác nhận
+Công
+nhận
+
+2022.12.20 Ban hành mới(Nơi yêu cầu: Phòng kiểm tra JSM)
+
+Ban chính BHCL công ty cổ phần Mabuchi Motor
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "062-5-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm   Ban chính BHCL công ty cổ phần MAB - Máy đo bụi                                    Dụng cụ đo    062-5",
+  "doc_code": "b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

@@ -1,0 +1,59 @@
+{
+  "file_name": "A04-1-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh dụng cụ tiêu chuẩn - KÌ HẠN CÓ HIỆU LỰC CỦA VIỆC HIỆU CHỈNH CHU KÌ HIỆU CHỈNH",
+  "doc_code": "A04-1c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Đối với máy đo có chu kỳ hiệu chỉnh là 1 tháng, kì hạn hiệu chỉnh có hiệu lực được xác định cụ thể như thế nào?",
+      "options": {
+        "A": "Đúng 30 ngày kể từ ngày hiệu chỉnh thành công.",
+        "B": "Ngày cuối cùng của tháng tiếp theo kể từ ngày hiệu chỉnh.",
+        "C": "Sau 45 ngày kể từ ngày hiệu chỉnh hoặc từ ngày hiệu chỉnh đến cuối tháng tiếp theo, chọn bên sớm hơn.",
+        "D": "Sau 45 ngày kể từ ngày hiệu chỉnh hoặc từ ngày hiệu chỉnh đến cuối tháng tiếp theo, chọn bên muộn hơn."
+      },
+      "correct_answer": "C",
+      "reference_note": "Mục 2. Thời hạn hiệu lực của hiệu chuẩn: Đối với chu kì 1 tháng: 'Sau 45 ngày kể từ ngày hiệu chỉnh hoặc từ ngày hiệu chỉnh đến cuối tháng tiếp theo, chọn bên sớm hơn.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi phát hiện thiết bị đo lường đã quá thời hạn hiệu chuẩn, nhân viên phải xử lý thiết bị đó như thế nào theo đúng quy định?",
+      "options": {
+        "A": "Tiếp tục sử dụng tạm thời nếu thiết bị vẫn đo chính xác và đăng ký hiệu chỉnh lại vào cuối tuần.",
+        "B": "Chuyển ngay cho bộ phận bảo trì sửa chữa mà không cần dán nhãn cảnh báo để tránh mất thời gian.",
+        "C": "Phải có biểu thị lên máy đo đã quá kì hạn hiệu chỉnh và để ở một nơi riêng biệt với các máy đo khác.",
+        "D": "Tiêu hủy ngay lập tức để tránh lẫn lộn với các thiết bị đo khác đang hoạt động trên chuyền."
+      },
+      "correct_answer": "C",
+      "reference_note": "Mục 3. Xử lý thiết bị đo lường đã quá thời hạn hiệu chuẩn: 'Phải có biểu thị lên máy đo đã quá kì hạn hiệu chỉnh và để ở một nơi riêng biệt với các máy đo khác.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn A04-1c, chu kỳ hiệu chỉnh (theo tháng) của dụng cụ tiêu chuẩn được thiết định tùy ý theo các mức nào dưới đây?",
+      "options": {
+        "A": "1 / 2 / 3 / 6 / 12 / 24 / 36 tháng",
+        "B": "1 / 3 / 6 / 12 / 24 / 36 / 60 tháng",
+        "C": "3 / 6 / 12 / 24 / 48 tháng",
+        "D": "1 / 3 / 6 / 12 / 18 / 24 / 36 tháng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Mục 1. Chu kỳ hiệu chuẩn: 'Chu kì hiệu chỉnh (theo tháng) 1 / 3 / 6 / 12 / 24 / 36 / 60'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140211.8364432,
+  "generated_at_iso": "2026-09-23T12:10:11",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 67637,
+    "modified_time": 1752657517.5044093,
+    "modified_time_iso": "2025-07-16T16:18:37",
+    "file_hash_short": "94bd6e07"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "Z00-0-V.pdf",
+  "folder_name": "9-Z00 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH - ĐIỂM KIỂM DỤNG CỤ ĐO",
+  "doc_code": "Z00-0",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Mục đích chính của việc ban hành và vận dụng mã số Z cho dụng cụ đo là gì?",
+      "options": {
+        "A": "Để giảm chi phí mua sắm dụng cụ đo mới hàng năm.",
+        "B": "Để đối ứng với việc gia tăng tiêu chuẩn phán định hiệu chỉnh cùng với việc đưa vào máy đo.",
+        "C": "Để thay thế hoàn toàn các tiêu chuẩn đo lường cũ của tập đoàn.",
+        "D": "Để rút ngắn thời gian kiểm tra định kỳ các thiết bị sản xuất."
+      },
+      "correct_answer": "B",
+      "reference_note": "Nhằm mục đích đối ứng với việc gia tăng tiêu chuẩn phán định hiệu chỉnh cùng với việc đưa vào máy đo thì đã ban hành và vận dụng bản tiêu chuẩn ghi chép, chỉnh lý - phân loại tiêu chuẩn phán định hiệu chỉnh với mã số Z- dụng cụ đo lường."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Phương pháp vận dụng mã số Z cho dụng cụ đo được quy định như thế nào trong tiêu chuẩn Z00-0?",
+      "options": {
+        "A": "Mã số Z được cấp ngẫu nhiên bởi trưởng bộ phận sản xuất khi có thiết bị mới.",
+        "B": "Chỉ áp dụng mã số Z cho các dụng cụ đo đã hết hạn hiệu chuẩn.",
+        "C": "Chỉ định mã số Z tương ứng trong phương pháp phán định của bản tiêu chuẩn hiệu chỉnh - điểm kiểm dụng cụ đo.",
+        "D": "Mã số Z chỉ được sử dụng cho các dụng cụ đo tự chế tại nhà máy."
+      },
+      "correct_answer": "C",
+      "reference_note": "Chỉ định mã số Z- dụng cụ đo tương ứng trong phương pháp phán định của bản tiêu chuẩn hiệu chỉnh - điểm kiểm dụng cụ đo."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Trường hợp nào sau đây KHÔNG nằm trong điều kiện cần thiết để ban hành tiêu chuẩn mã số Z?",
+      "options": {
+        "A": "Trường hợp nơi chế tạo và thể thức nhiều.",
+        "B": "Tiêu chuẩn phán định khác nhau tùy theo sự kết hợp của thiết bị.",
+        "C": "Tiêu chuẩn phán định khác nhau tùy theo quy cách tham khảo - trích dẫn.",
+        "D": "Khi dụng cụ đo bị hư hỏng vật lý và cần phải tiêu hủy ngay lập tức."
+      },
+      "correct_answer": "D",
+      "reference_note": "Mục 2. Điều kiện cần thiết bao gồm: (1) Nơi chế tạo và thể thức nhiều; (2) Tiêu chuẩn phán định khác nhau tùy theo sự kết hợp thiết bị; (3) Tiêu chuẩn phán định khác nhau tùy theo quy cách tham khảo; (4) Trường hợp có tính cần thiết ban hành khác."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

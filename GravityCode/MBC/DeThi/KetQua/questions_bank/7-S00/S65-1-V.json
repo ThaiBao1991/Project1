@@ -1,0 +1,50 @@
+{
+  "file_name": "S65-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH ĐIỂM KIỂM - ĐỒNG HỒ ĐO NHIỆT ĐỘ ĐỘ ẨM",
+  "doc_code": "S65-1s",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi đơn vị sở hữu nhiều dụng cụ chuẩn để hiệu chỉnh, phương pháp thực hiện đúng theo tiêu chuẩn là gì?",
+      "options": {
+        "A": "Tất cả các máy đều phải gửi đi hiệu chỉnh tại cơ quan bên ngoài hàng năm.",
+        "B": "Chỉ cần hiệu chỉnh máy chính, các máy khác không cần kiểm tra lại.",
+        "C": "Lấy một máy làm chính (được hiệu chỉnh tại cơ quan hiệu chỉnh) làm cơ sở để hiệu chỉnh các máy chuẩn khác.",
+        "D": "Sử dụng máy có độ chính xác thấp hơn để hiệu chỉnh cho máy có độ chính xác cao hơn."
+      },
+      "correct_answer": "C",
+      "reference_note": "Căn cứ mục 【Chú ý khi sử dụng 】 trang 1: 'Trường hợp sở hữu nhiều dụng cụ chuẩn, lấy một máy làm chính, sẽ được hiệu chỉnh tại cơ quan hiệu chỉnh, lấy máy đó làm cơ sở, có thể sử dụng, hiệu chỉnh các máy chuẩn khác bằng quy cách ghi trên.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn S65-1s, chu kỳ hiệu chỉnh thông thường đối với đồng hồ đo nhiệt độ độ ẩm được quy định là bao lâu?",
+      "options": {
+        "A": "6 tháng",
+        "B": "1 năm",
+        "C": "2 năm",
+        "D": "Tùy thuộc vào tần suất sử dụng thực tế"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ mục 【Hiệu chỉnh】, dòng 'Chu kỳ hiệu chỉnh: 1 năm' tại trang 1 của tài liệu."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trong điều kiện hiệu chỉnh thông thường (10℃/30% và 30℃/70%), trị phán định sai lệch cho phép của đối tượng hiệu chỉnh so với máy chính trong công ty là bao nhiêu?",
+      "options": {
+        "A": "±0.3℃ / ±3%",
+        "B": "±1.0℃ / ±5%",
+        "C": "±0.5℃ / ±4%",
+        "D": "±0.2℃ / ±2%"
+      },
+      "correct_answer": "C",
+      "reference_note": "Căn cứ mục 【Chú ý khi sử dụng 】, đoạn cuối trang 1: 'trị phán định của đối tượng hiệu chỉnh đối so với máy chính có thể hiệu chỉnh trong công ty ở ±0.5℃/±4%.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

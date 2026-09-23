@@ -1,0 +1,50 @@
+{
+  "file_name": "012-7-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và điểm kiểm máy đo MOTOR PHÂN TÍCH (Motor analyzer)",
+  "doc_code": "012-7 a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo mục kiểm tra bộ phận đo ngẫu lực (loại bạc đạn hơi), khi dùng tay xoay trục ở trạng thái không tải, chỉ thị của đồng hồ áp lực hơi phải nằm trong khoảng nào?",
+      "options": {
+        "A": "1.0 ~ 1.5kg/cm2 (0.1 ~ 0.15MPa)",
+        "B": "1.5 ~ 2.0kg/cm2 (0.15 ~ 0.2MPa)",
+        "C": "2.0 ~ 2.5kg/cm2 (0.2 ~ 0.25MPa)",
+        "D": "2.5 ~ 3.0kg/cm2 (0.25 ~ 0.3MPa)"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 9 - II. Điểm kiểm - 1. Bộ phận đo ngẫu lực (Loại bạc đạn hơi)"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình hiệu chỉnh ngẫu lực của Motor Analyzer, khi thực hiện hiệu chỉnh trước điều chỉnh với ví dụ trọng lượng ngẫu lực định 200kg/cm (19.61N/m), vị trí trọng tâm trục đến rãnh (50cm) x trọng lượng (4kg) là bao nhiêu?",
+      "options": {
+        "A": "150kg",
+        "B": "100kg",
+        "C": "200kg",
+        "D": "250kg"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1 - I. Hiệu chỉnh - 1. Hiệu chỉnh trị ngẫu lực"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo chú ý tại mục Điểm kiểm (Trang 9), trong trường hợp thấy kết quả kiểm tra có bất thường thì cần xử lý như thế nào?",
+      "options": {
+        "A": "Tự ý sửa chữa và tiếp tục sử dụng mà không cần báo cáo.",
+        "B": "Ghi chép kết quả kiểm tra và xử lý theo chỉ thị của người quản lí có trách nhiệm.",
+        "C": "Không cần ghi chép gì nếu phát hiện bất thường nhỏ.",
+        "D": "Chờ đến cuối tháng mới ghi lại kết quả kiểm tra bất thường."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 9 - II. Điểm kiểm - Chú ý (1)"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

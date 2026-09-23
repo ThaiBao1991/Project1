@@ -1,0 +1,50 @@
+{
+  "file_name": "503-4-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN KIỂM TRA VÀ HIỆU CHỈNH DỤNG CỤ ĐO - Kính hiển vĩ công cụ VITO-2010",
+  "doc_code": "503-4",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục Chú ý (trang 2), sau khi kiểm tra, trường hợp phát hiện trường hợp bất thường trong khi sử dụng, quy trình xử lý đúng là gì?",
+      "options": {
+        "A": "Tự ý sửa chữa thiết bị và tiếp tục sử dụng bình thường",
+        "B": "Ghi chép lại kết quả rồi bỏ qua nếu lỗi nhỏ",
+        "C": "Sẽ xử lý dựa vào chỉ thị của người chịu trách nhiệm quản lý",
+        "D": "Dừng máy 1 tháng rồi báo cáo lên cấp trên"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: '3. Trường hợp nhận ra sự bất thường trong khi sử dụng, sẽ xử lý dựa vào chỉ thị của người chịu trách nhiệm quản lý.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn kiểm tra kính hiển vĩ công cụ VITO-2010, chu kỳ hiệu chỉnh cho phần 【Hiệu chỉnh】 là bao lâu?",
+      "options": {
+        "A": "1 tháng 1 lần và khi cần thiết",
+        "B": "3 tháng 1 lần",
+        "C": "6 tháng 1 lần và khi cần thiết",
+        "D": "1 năm 1 lần"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: 'Chu kỳ hiệu chỉnh: 6 tháng 1 lần và khi cần thiết'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Đối với hạng mục 'Độ chính xác chỉ thị khi gửi bản (table)', phương pháp kiểm tra thực hiện xác định vị trí X và Y như thế nào?",
+      "options": {
+        "A": "Tiến hành tại các điểm ở góc ngoài cùng của bàn máy",
+        "B": "Tiến hành tại các điểm chủ yếu của vị trí trung gian và chiều dài đo đạc lớn nhất",
+        "C": "Tiến hành ngẫu nhiên tại bất kỳ vị trí nào trên thước chuẩn",
+        "D": "Chỉ tiến hành tại điểm ban đầu khi khởi động máy"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: 'Về trục X và trục Y, sẽ tiến hành tại các điểm chủ yếu của vị trí trung gian và chiều dài đo đạc lớn nhất.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

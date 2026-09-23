@@ -1,0 +1,50 @@
+{
+  "file_name": "080-1-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh - điểm kiểm PICK UP GIA TỐC ĐỘ DÙNG ĐỂ ĐO",
+  "doc_code": "Dụng cụ đo 080-1f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Trong quá trình kiểm tra ngoại quan và trạng thái kết nối của dụng cụ đo, yêu cầu kỹ thuật nào sau đây là chính xác?",
+      "options": {
+        "A": "Dây cáp có thể gấp lại gọn gàng để tiết kiệm không gian",
+        "B": "Ốc kết nối giữa dây cáp với sensor có thể hơi lỏng miễn là tín hiệu vẫn truyền qua được",
+        "C": "Dây cáp không được gấp lại, không được xoắn và không được để ốc kết nối giữa dây cáp với sensor bị lỏng",
+        "D": "Cho phép dây cáp xoắn nhẹ nếu không ảnh hưởng đến độ nhạy"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: 1. Ngoại quan: Dây cáp không được gấp lại, không được xoắn. 2. Trạng thái kết nối: Không được để ốc kết nối giữa dây cáp với sensor bị lỏng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục kiểm tra trị độ nhạy và xử lý bất thường, khi thực hiện điểm kiểm hoặc sử dụng, điều kiện hiển thị trị độ nhạy nào là bắt buộc và phải xử lý thế nào khi có bất thường?",
+      "options": {
+        "A": "Trị độ nhạy mới nhất (trị hiệu chính lần trước đó) phải được hiển thị trên máy; nếu có bất thường phải ghi chép lại và xử lý theo chỉ thị của người chịu trách nhiệm bộ phận chủ quản",
+        "B": "Có thể dùng trị độ nhạy ban đầu của nhà chế tạo, nếu có bất thường tự ý sửa chữa lại phần cứng",
+        "C": "Không bắt buộc hiển thị trị độ nhạy trên máy, chỉ cần kiểm tra ngoại quan bằng mắt",
+        "D": "Trị độ nhạy hiển thị thế nào cũng được miễn là máy khởi động lên được, bất thường thì tự bỏ qua không cần báo cáo"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2: 3. Biểu thị trị độ nhạy: Trị độ nhạy mới nhất (trị hiệu chính lần trước đó) phải được hiển thị trên máy. Chú ý 2: Nếu có bất thường trong quá trình điểm kiểm (hoặc khi sử dụng) thì phải ghi chép lại kết quả đó, Và xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận chủ quản"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ điểm kiểm định kỳ đối với dụng cụ đo gia tốc (Pick up gia tốc) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và mỗi lần sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "Mỗi 3 tháng 1 lần",
+        "D": "Trước khi giao ca sản xuất"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2: Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

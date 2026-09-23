@@ -1,0 +1,50 @@
+{
+  "file_name": "517-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Thước rộp quay số dạng tay đòn có thang đo 0.01,0.002,0.001 mm (PEACOCK)",
+  "doc_code": "517-1 b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo bảng thông số hiệu chỉnh độ chính xác tổng hợp đối với thước đo 0.002 mm, phạm vi trắc định 0.20 mm có sai số từng dụng cụ cho phép là bao nhiêu?",
+      "options": {
+        "A": "±2 µm",
+        "B": "±3 µm",
+        "C": "±4 µm",
+        "D": "±5 µm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1 - Bảng thông số hiệu chỉnh: Thước Đo (mm): 0.002, Phạm vi trắc định (mm): 0.20, Sai số từng dụng cụ: ±3"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn kiểm tra dụng cụ rộp quay số dạng tay đòn (PEACOCK), tiến độ kiểm tra định kỳ được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi ngày trước khi sử dụng",
+        "B": "Mỗi lần sử dụng",
+        "C": "Hàng tuần",
+        "D": "Hàng tháng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2 - Tiêu chuẩn kiểm tra: Tiến độ kiểm tra: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý về kết quả kiểm tra tại trang 2, trường hợp trong quá trình kiểm tra không thấy có điểm khác thường thì quy định xử lý như thế nào?",
+      "options": {
+        "A": "Phải ghi chép kết quả kiểm tra vào sổ theo dõi hàng ngày một cách đầy đủ.",
+        "B": "Không ghi kết quả cũng được, nhưng một tháng một lần phải ghi lại kết quả bình thường đó.",
+        "C": "Phải báo cáo ngay cho người có trách nhiệm quản lý để lập biên bản.",
+        "D": "Dừng ngay việc sử dụng và gửi dụng cụ đi kiểm định lại."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2 - Chú ý (2): 'Kết quả kiểm tra trong trường hợp không thấy khác thường thì không ghi kết quả cũng được. Nhưng một tháng một lần phải ghi lại kết quả bình thường đó.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

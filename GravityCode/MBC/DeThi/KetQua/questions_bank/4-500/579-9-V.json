@@ -1,0 +1,50 @@
+{
+  "file_name": "579-9-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định CÂN PHÂN TÍCH ĐIỆN TỬ",
+  "doc_code": "579-9b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo mục II [Điểm kiểm], tần suất tiến độ điểm kiểm cân phân tích dạng điện tử được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi tháng một lần",
+        "C": "Mỗi lần sử dụng",
+        "D": "Trước mỗi ca làm việc"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, phần II. [ Điểm kiểm ], Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục Chú ý về kết quả kiểm tra, trường hợp không thấy bất thường thì quy định ghi chép kết quả ra sao?",
+      "options": {
+        "A": "Không cần ghi chép bất cứ lúc nào trong suốt năm.",
+        "B": "Mỗi ngày phải ghi lại kết quả điểm kiểm dù không có bất thường.",
+        "C": "Không ghi kết quả cũng được, nhưng mỗi tháng một lần phải ghi lại kết quả đã điểm kiểm, dù không có gì bất thường xảy ra.",
+        "D": "Chỉ ghi chép khi có người chịu trách nhiệm quản lý trực tiếp yêu cầu bằng văn bản."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2, Chú ý số 2: Kết quả kiểm tra trường hợp không thấy bất thường, không ghi kết quả cũng được, nhưng mỗi tháng một lần phải ghi lại kết quả đã điểm kiểm, dù không có gì bất thường xảy ra."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Đối với mã số khuôn TX2202L, dung sai cho phép theo bảng tiêu chuẩn hiệu chỉnh là bao nhiêu?",
+      "options": {
+        "A": "±0.004g",
+        "B": "±0.04g",
+        "C": "±0.02g",
+        "D": "±0.001g"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Bảng thông số: TX2202L có dung sai cho phép là ±0.04g"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

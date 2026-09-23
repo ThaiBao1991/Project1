@@ -1,0 +1,50 @@
+{
+  "file_name": "537-4-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm máy đo hình dạng độ nhám bề mặt",
+  "doc_code": "537-4 h",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi thực hiện châm dầu cho phần truyền động của thiết bị (dạng di chuyển dụng cụ xuất kiểm), tần suất và vị trí châm dầu chuẩn xác theo tài liệu là gì?",
+      "options": {
+        "A": "Mỗi tuần 1 lần, nhỏ 2 giọt dầu vào mép phải máy kiểm xuất",
+        "B": "Mỗi 6 tháng 1 lần, bôi mỡ toàn bộ thân máy",
+        "C": "Mỗi tháng 1 lần, nhỏ 1 giọt dầu bôi trơn chuyên dụng bằng dụng cụ châm dầu phụ trợ (No.02) khi di chuyển máy kiểm xuất đến vị trí cách mép trái phần tiếp xúc quay 50mm trở lên",
+        "D": "Mỗi ngày 1 lần trước khi vận hành máy"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 8: 5.Châm dầu (1) Đối với phần truyền động, mỗi tháng 1 lần sẽ nhỏ 1 giọt dầu bôi trơn chuyên dụng bằng dụng cụ châm dầu phụ trợ (No.02). Di chuyển máy kiểm xuất đến vị trí cách mép trái của phần tiếp xúc quay 50mm trở lên rồi tiến hành châm dầu."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo mục chú ý về quản lý kết quả điểm kiểm, trong trường hợp kết quả điểm kiểm không có dị thường thì quy định ghi chép như thế nào?",
+      "options": {
+        "A": "Không cần ghi chép kết quả vào bất kỳ hồ sơ nào trong suốt cả năm",
+        "B": "Không bắt buộc ký lục kết quả đó cũng được, nhưng trong vòng 1 tháng dù không có dị thường thì hãy ghi lại kết quả đó 1 lần (bắt buộc phải ghi chép lại)",
+        "C": "Chỉ cần báo cáo miệng cho người phụ trách quản lý mà không cần lưu hồ sơ",
+        "D": "Chỉ ghi chép lại khi có sự cố phát sinh ngoài ý muốn"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 8: Chú ý) 2. Trường hợp kết quả điểm kiểm không có dị thường thì không ký lục kết quả đó cũng được, nhưng trong vòng 1 tháng dù không có dị thường thì hãy ghi lại kết quả đó 1 lần. Tuy nhiên, dù không có bất thường trong vòng 1 tháng thì cũng phải ghi chép lại kết quả đó"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tiến độ điểm kiểm được quy định trong tài liệu, tần suất thực hiện các hạng mục điểm kiểm là bao lâu?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Mỗi 6 tháng một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 7: Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

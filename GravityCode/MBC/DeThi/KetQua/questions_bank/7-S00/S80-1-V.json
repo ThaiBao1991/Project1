@@ -1,0 +1,50 @@
+{
+  "file_name": "S80-1-V.pdf",
+  "folder_name": "7-S00 Ban V IT HOA",
+  "doc_title": "Geji dùng để định cỡ (Lazer scan micrometer)",
+  "doc_code": "S80-1",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn hiệu chỉnh S80-1, chu kỳ hiệu chỉnh đối với Geji dùng để định cỡ (Lazer scan micrometer) là bao lâu?",
+      "options": {
+        "A": "1 năm",
+        "B": "2 năm",
+        "C": "3 năm",
+        "D": "5 năm"
+      },
+      "correct_answer": "C",
+      "reference_note": "I [Hiệu chỉnh] - Chu kỳ hiệu chỉnh: 3 năm"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Đối với kích thước gọi φ 1mm của dụng cụ hiệu chỉnh Lazer scan micrometer, phạm vi và độ chính xác được quy định như thế nào?",
+      "options": {
+        "A": "Phạm vi φ 1.0 ± 0.001mm bằng đơn vị 0.1 µm có gắn trị số",
+        "B": "Phạm vi φ 1.0 ± 0.003mm bằng đơn vị 0.1 µm có gắn trị số",
+        "C": "Phạm vi φ 1.0 ± 0.01mm bằng đơn vị 1 µm có gắn trị số",
+        "D": "Phạm vi φ 1.0 ± 0.05mm bằng đơn vị 0.5 µm có gắn trị số"
+      },
+      "correct_answer": "B",
+      "reference_note": "Thể thức - Kích thước gọi φ 1mm: Là dụng cụ hiệu chỉnh trong phạm vi φ 1.0 ± 0.003mm bằng đơn vị 0.1 µm có gắn trị số."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Nhiệt độ tiêu chuẩn quy định dùng để hiệu chỉnh Geji dùng để định cỡ (Lazer scan micrometer) là bao nhiêu?",
+      "options": {
+        "A": "25 ± 1°C",
+        "B": "20 ± 1°C",
+        "C": "23 ± 2°C",
+        "D": "20 ± 2°C"
+      },
+      "correct_answer": "B",
+      "reference_note": "I [Hiệu chỉnh] - Nhiệt độ tiêu chuẩn: 20±1°C"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

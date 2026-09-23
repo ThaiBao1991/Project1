@@ -1,0 +1,50 @@
+{
+  "file_name": "602-4-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "Bản hiệu chỉnh-điểm kiểm máy đo Đồng hồ quản lý tải trọng",
+  "doc_code": "602-4 a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ thực hiện điểm kiểm đối với 'Đồng hồ quản lý tải trọng' là khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "Mỗi tháng một lần",
+        "D": "Mỗi 12 tháng"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5: Tiến độ điểm kiểm: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo chú thích về điểm kiểm, trong trường hợp có dị thường ở kết quả kiểm tra nhưng 1 tháng không có lần dị thường nào khác thì nhân viên cần phải làm gì?",
+      "options": {
+        "A": "Không cần ký lục kết quả kiểm tra dưới mọi hình thức",
+        "B": "Vẫn cần ký lục lại nội dung đó mặc dù không có lần dị thường nào trong tháng",
+        "C": "Lập biên bản hủy bỏ thiết bị ngay lập tức",
+        "D": "Chỉ báo cáo cho quản lý trực tiếp vào cuối năm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5: Chú thích 2: Trường hợp có dị thường ở kết quả kiểm tra thì có thể không cần ký lục lại kết quả kiểm tra. Tuy nhiên, cho dù 1 tháng không có lần dị thường nào cũng cần ký lục lại nội dung đó"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Phương pháp phán định tiêu chuẩn đối với độ chính xác tải trọng là bao nhiêu?",
+      "options": {
+        "A": "±1%",
+        "B": "±3%",
+        "C": "±5%",
+        "D": "±10%"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Hạng mục hiệu chỉnh 1. Độ chính xác tải trọng - Phương pháp phán định: ±5%"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

@@ -1,0 +1,50 @@
+{
+  "file_name": "656-1-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH-ĐIỂM KIỂM DỤNG CỤ ĐO - Máy đo cân bằng Series SHIMADZU SGB",
+  "doc_code": "656-1 c",
+  "target_audience": "Nhân viên, Đội trưởng phòng BHCL",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Khi xác nhận số vòng quay của rotor tiện cắt, số vòng quay hiển thị phải nằm trong quy cách nào và hiển thị bằng màu gì để được xác nhận là đạt yêu cầu?",
+      "options": {
+        "A": "1975～2025 [r/min], hiển thị bằng màu xanh lá cây.",
+        "B": "1900～2000 [r/min], hiển thị bằng màu vàng.",
+        "C": "1975～2025 [r/min], hiển thị bằng màu vàng.",
+        "D": "1975～2025 [r/min], hiển thị bằng màu đỏ."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 4: 'Xác nhận số vòng quay hiển thị phải nằm trong quy cách (1975～2025 [r/min]) đã thiết định ở (1). Nếu số vòng quay nằm trong quy cách thì trị số sẽ hiển thị bằng màu vàng.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi tiến hành hiệu chỉnh, nếu phát hiện hạng mục 1 (Xác nhận bù về 0) hoặc hạng mục 2 (Xác nhận tính trực tuyến) nằm ngoài quy cách phán định, bước xử lý tiếp theo đối với các kênh ngoài kênh đang sử dụng là gì?",
+      "options": {
+        "A": "Tiếp tục sử dụng bình thường vì chỉ có kênh hiện tại bị ảnh hưởng.",
+        "B": "Sử dụng RTR hàng mẫu và quả cân tùy ý (đất sét, nam châm,...) để tiến hành xác nhận độ chính xác đối với các kênh ngoài hiệu chỉnh.",
+        "C": "Lập tức gửi máy đi sửa chữa tại nhà cung cấp mà không cần kiểm tra thêm các kênh khác.",
+        "D": "Tăng trị số tốc độ đo lên mức tối đa để tự động bù sai lệch."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 9, Xử lý ngoài quy cách phán định: 'Trường hợp hạng mục 1,2 ngoài quy cách thì vì có khả năng cao là ở trạng thái thiết bị có vấn đề nên kênh ngoài kênh đang sử dụng ở hiệu chỉnh cũng có khả năng cao phát sinh độ chính xác không đạt. Đối với kênh ngoài hiệu chỉnh thì phải sử dụng RTR hàng mẫu và quả cân tùy ý (đất sét, nam châm,...) để tiến hành xác nhận độ chính xác.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, trong trường hợp kết quả điểm kiểm hàng ngày không phát hiện bất thường thì việc ghi chép kết quả được quy định như thế nào?",
+      "options": {
+        "A": "Bắt buộc phải ghi chép lại kết quả sau mỗi lần kiểm tra hàng ngày.",
+        "B": "Không cần ghi chép kết quả hàng ngày, nhưng bắt buộc phải ghi chép lại kết quả đã kiểm tra ít nhất một lần mỗi tháng dù không có bất thường xảy ra.",
+        "C": "Chỉ cần ghi chép khi có yêu cầu từ cấp trên hoặc khi có sự cố nghiêm trọng xảy ra.",
+        "D": "Hoàn toàn không cần ghi chép nếu không phát hiện bất thường trong suốt cả năm."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 10, Ghi chú 2: 'Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

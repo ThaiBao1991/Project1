@@ -1,0 +1,50 @@
+{
+  "file_name": "602-5-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "Hiệu chỉnh máy đo- Bản tiêu chuẩn kiểm tra Đồng hồ quản lý tải trọng",
+  "doc_code": "602-5a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo mục phán định hiệu chỉnh của đồng hồ quản lý tải trọng, tiêu chuẩn cho hạng mục 'Độ chính xác lặp lại' là bao nhiêu?",
+      "options": {
+        "A": "±5%",
+        "B": "Giá trị trung bình ±1%",
+        "C": "±1% of F.S.",
+        "D": "Giá trị trung bình ±5%"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1/4 - Bảng hạng mục hiệu chỉnh, mục 2. Độ chính xác lặp lại: 'Giá trị trung bình ±1%'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn kiểm tra, tuần suất tiến hành kiểm tra (điểm kiểm) đối với đồng hồ quản lý tải trọng được quy định như thế nào?",
+      "options": {
+        "A": "Cứ mỗi lần sử dụng",
+        "B": "Mỗi tuần một lần",
+        "C": "Mỗi tháng một lần",
+        "D": "Trước khi giao ca sản xuất"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 3/4 - Phần Ⅱ【Điểm kiểm】, mục 'Tuần suất kiểm tra: Cứ mỗi lần sử dụng'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi phát hiện có dị thường ở kết quả kiểm tra hoặc trong quá trình sử dụng, nhân viên thực hiện cần xử lý như thế nào?",
+      "options": {
+        "A": "Tự ý tháo dời thiết bị để sửa chữa lại cho đúng thông số.",
+        "B": "Bỏ qua không cần ghi chép lại nếu trong tháng không có lỗi nào khác.",
+        "C": "Kí lục kết quả kiểm tra và xử lý theo chỉ thị của người chịu trách nhiệm quản lý.",
+        "D": "Tiếp tục sử dụng bình thường vì thiết bị đã có chu kì hiệu chỉnh 12 tháng."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3/4 - Phần Ⅱ【Điểm kiểm】, mục 'Chú thích) 1 & 3'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

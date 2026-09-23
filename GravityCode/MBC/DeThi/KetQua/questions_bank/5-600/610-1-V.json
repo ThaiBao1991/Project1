@@ -1,0 +1,50 @@
+{
+  "file_name": "610-1-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – KIỂM TRA DỤNG CỤ ĐO - Thanh chuẩn của đồng hồ đo micrometer",
+  "doc_code": "610 – 1b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo phần hiệu chỉnh, khoảng sai lệch kích thước đối với thanh chuẩn của đồng hồ đo micrometer được phán định theo giá trị nào dưới đây?",
+      "options": {
+        "A": "Từ 1.0 µm trở xuống",
+        "B": "Từ 2.0 µm trở xuống",
+        "C": "Từ 5.0 µm trở xuống",
+        "D": "Dưới 0.5 µm"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1/5 và 2/5 - Hạng mục: Khoảng sai lệch kích thước - Trị số phán định / Phương pháp phán định: Dưới 2.0 µm"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm (ngoại quan) đối với thanh chuẩn của đồng hồ đo micrometer được quy định như thế nào?",
+      "options": {
+        "A": "Hàng tuần và mỗi lần sử dụng",
+        "B": "Hàng tháng và mỗi lần sử dụng",
+        "C": "36 tháng và khi thấy cần thiết",
+        "D": "6 tháng một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 4/5 - II 【Điểm kiểm】 Tiến độ điểm kiểm: Hàng tháng và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi phát hiện có bất thường trong quá trình kiểm tra hoặc sử dụng thiết bị đo, nhân viên phụ trách cần thực hiện thao tác nào sau đây?",
+      "options": {
+        "A": "Tự ý tháo rời thiết bị để sửa chữa ngay lập tức",
+        "B": "Tiếp tục sử dụng nếu sai số nhỏ hơn giới hạn cho phép",
+        "C": "Ghi chép lại kết quả, xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu và làm đơn đề nghị hiệu chỉnh nếu cần thiết",
+        "D": "Bỏ qua không cần ghi chép nếu không ảnh hưởng lớn đến sản xuất"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 4/5 - Chú ý mục 2: Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm..."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

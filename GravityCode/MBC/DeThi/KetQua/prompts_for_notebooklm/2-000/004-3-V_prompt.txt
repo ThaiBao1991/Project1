@@ -1,0 +1,787 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Tài liệu tiêu chuẩn hiệu chỉnh - và kiểm tra dụng cụ trắc định
+Mã số/Mã máy đo: 004-3
+File gốc: 004-3-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/6
+Tài liệu tiêu chuẩn hiệu chỉnh
+và kiểm tra dụng cụ trắc định
+
+QUY CÁCH PHÁN ĐỊNH MÁY OCSILLOPE
+
+Mabuchi motor Co., Ltd
+Bộ phận bảo hành phẩm chất
+
+Ngày ban hành 27.01.2005
+Ngày thay đổi  27.11.2009
+Dụng cụ trắc định 004-3e
+
+NỘI DUNG
+
+(1) Phán định máy Ocsilloscope theo dựa theo việc hiệu chỉnh VOLTS/DIV, TIME/DIV, tín hiệu xuất ra
+(Tín hiệu CAL).
+(2) Trị phán định hiệu chỉnh được quy định theo biểu riêng.
+Hạng mục ghi chú đặc biệt
+Trị phán định cho phép
+Trường hợp máy Ocsilloscope dạng analog không yêu cầu trị thực đo (điện áp, tần số…) thì áp
+dụng trị phán định cho phép của biểu 1 đối với trị phán định của biểu riêng
+
+Biểu 1
+
+Trị phán định của biểu riêng
+Trị phán định cho phép
+±0.9% trở xuống
+±1%
+±1%～4%
+±5%
+±5%～9%
+±10%
+±10% trở lên
+Dựa theo trị phán định của biểu
+riêng
+
+(3) Khi hiệu chỉnh bổ sung chủng loại, có thể ghi bổ sung trị phán định vào biểu riêng ở các công
+trường.(Trị phán định của sách thuyết minh cách sử dụng)
+(4) Trường hợp đã bổ sung trị phán định theo (3), phải liên lạc tên chủng loại, bản sách thuyết minh
+cách sử dụng tương đương (bản copy) đến Ban Bảo Hành Chất Lượng Công Ty Chính.
+Ban Bảo Hành Chất Lượng Công Ty Chính sẽ tiến hành xem sửa bản tiêu chuẩn theo nội dung liên
+lạc nhận đựợc.
+
+Người dịch: Ngọc Quỳnh 24250
+
+--- HẾT TRANG ---
+
+No.2/6
+Ⅰ【Biểu riêng】
+
+Dụng cụ trắc định 004-3 e
+Nhà sản
+xuất
+Hình thức
+VOLT/DIV
+TIME/DIV
+Tín hiệu CAL
+
+Điện tử
+KIKUSUI
+
+5513
+
+COS 5020/21
+
+COS
+5020TM/21TM
+
+COS 5040/41
+
+COS
+5040TM/41TM
+
+COS 6100A
+
+COM 7200A
+
+COR 5540/41
+
+COR 5520/21
+
+COR 5502
+
+COM 7100AGP
+
+COM 7101A
+
+COM 7060AGP
+
+COM 7061A
+
+COS 2020/40
+
+±5%
+
+±3%
+
+±3%
+
+±3%
+
+±3%
+
+±2%
+
+±3%
+
+±3%
+
+±3%
+
+CH1, CH2 5mV～
+5V±3%
+1mV, 2mV±5%
+
+CH1, CH2 5mV～
+5V±2%
+1mV, 2mV±4%
+CH3,CH4 0.1V,
+0.5V±5%
+
+CH1, CH2 5mV～
+5V±2%
+1mV, 2mV±4%
+CH3,CH4 0.1V,
+0.5V±5%
+
+CH1, CH2 5mV～
+5V±2%
+1mV, 2mV±4%
+CH3,CH4 0.1V,
+0.5V±5%
+
+CH1, CH2 5mV～
+5V±2%
+1mV, 2mV±4%
+CH3,CH4 0.1V,
+0.5V±5%
+
+5mV～5V±3%
+1mV, 2mV±5%
+
+±3%
+
+±3%
+
+±3%
+
+±3%
+
+±3%
+
+±2%
+
+±3%
+
+±3%
+
+±3%
+
+±3%
+
+±2%
+
+±2%
+
+±2%
+
+±2%
+
+±3%
+
+1Vp －p±3%  1kHz Phương
+hình sóng
+
+0.5Vp －p±2% 1kHz Phương
+hình sóng
+
+0.5Vp －p±2% 1kHz Phương
+hình sóng
+
+2Vp －p±2%  1kHz Phương
+hình sóng
+
+0.5Vp －p±2% 1kHz Phương
+hình sóng
+
+2Vp －p±2%  1kHz Phương
+hình sóng
+
+0.5Vp －p±2% 1kHz Phương
+hình sóng
+
+0.5Vp －p±2% 1kHz Phương
+hình sóng
+
+0.5Vp －p±2% 1kHz Phöông
+h.soùng
+
+0.5Vp －p±2% 1kHz Phương
+hình sóng
+
+0.5Vp －p±2% 1kHz Phương
+hình sóng
+
+0.5Vp －p±2% 1kHz Phương
+hình sóng
+
+0.5Vp －p±2% 1kHz Phương
+hình sóng
+
+0.5Vp －p±2% 1kHz Phương
+hình sóng
+
+0.5Vp －p±2% 1kHz Phương
+hình sóng
+
+Điện
+Tử
+Leader
+
+LBO-314/315
+
+3100A/3100D
+
+1020
+
+1021
+
+±3%
+
+5mV～5V±3%
+500μV,～2mV±5%
+
+±3%
+
+±3%
+
+±3%
+
+±3%
+
+±3%
+
+±3%
+
+0.5Vp －p±2% 1kHz Phương
+hình sóng
+
+0.5Vp －p±3% 1kHz Phương
+hình sóng
+
+0.5Vp －p±2% 1kHz Phương
+hình sóng
+
+0.5Vp －p±3% 1kHz Phương
+hình sóng
+
+Người dịch: Ngọc Quỳnh 24250
+
+--- HẾT TRANG ---
+
+No.3/6
+【Phụ biểu】
+
+Dụng cụ trắc định 004-3 e
+Nhà sản
+xuất
+Hình thức
+VOLT/DIV
+TIME/DIV
+Tín hieäu CAL
+
+YHP
+5183T/U
+Tham khảo sách
+thuyết minh
+Tham khảo sách
+thuyết minh
+
+2Vp-p (trị tham khảo) 1KHz
+Phương hình sóng
+SS 5040
+ 4%
+5%
+
+1Vp-p20% Phương hình sóng
+SS 5702
+4%
+5%
+
+0.3Vp-p3% Phương hình sóng
+SS 5702A
+5mV～10V 4%
+
+1mV 5%
+0.5μs～5ms4%
+10ms～0.2s5%
+
+0.3Vp-p3% 1KHz
+Phương hình sóng
+SS 5703
+4%
+0.5μs～5ms4%
+10ms～0.2s5%
+
+0.3Vp-p3% 1KHz
+Phương hình sóng
+SS 5116
+4%
+
+4%
+
+0.3Vp-p3% 1KHz
+Phương hình sóng
+SS 7602/03
+5mV～10V 4% 1mV
+5%
+0.5μs～5ms4%
+10ms～0.2s5%
+
+0.3Vp-p3% 1KHz
+Phương hình sóng
+SS 7604/05
+
+5mV～10V 2%
+1mV 3%
+2%
+
+0.3Vp-p1% 1KHz
+Phương hình sóng
+SS 7802/04
+2%
+2%
+
+0.6Vp-p1% 1KHz
+Phương hình sóng
+SS 7802A
+2%
+2%
+
+0.6Vp-p1%1KHz
+Phương hình sóng
+
+LT 224
+
+3%
+
+2%
+
+0.5Vp-p
+(trị
+tham
+khảo)
+Phương hình sóng  ※  Tham
+khảo sách thuyết minh rồi phán
+định
+LT 322
+3%
+2%
+0.5Vp-p
+(trị
+tham
+khảo)
+Phương hình sóng  ※  Tham
+khảo sách thuyết minh rồi phán
+định
+LT344L
+(1.5%+0.5% của
+toàn thang đo)
+Độ chính xác của
+trục thời gian là độ
+chính xác của đồng
+hồ 10ppm trở xuống
+Phương hình sóng có thể thay
+đổi trong phạm vi từ -1.0V ～
++1.0V
+DS 8812
+2%
+0.005%
+
+0.6Vp-p1% 1KHz
+phương hình sóng
+
+DS 4262ML
+2%
+0.005%
+
+1Vp-p1% 1KHz
+Phương hình sóng
+DS-6121A
+5mV/div
+～
+5V/div
+2%
+1mV/div,2mV/div
+4%
+0.1μs/div～
+0.1s/div:3%
+20ns/div và
+50ns/div:6%
+
+0.6Vp-p1% 1KHz
+Phương hình sóng
+IWATSU
+(Le Croy)
+
+DS-5110
+
+3%
+0.01%
+
+3Vp-p5% 1KHz
+Phương hình sóng
+
+Người dịch: Ngọc Quỳnh 24250
+
+--- HẾT TRANG ---
+
+No.4/6
+【Phụ biểu】
+Dụng cụ trắc định 004-3 e
+Nhà sản
+xuất
+Hình thức
+VOLT/DIV
+TIME/DIV
+Tín hiệu CAL
+
+HITACHI
+V-151B
+V-151F
+VC-6065
+VC-6165
+VC-6265
+VC-7502
+V-202
+V-212
+3%
+3%
+3%
+3%
+3%
+3%
+3%
+3%
+3%
+3%
+3%
+3%
+3%
+1%
+3%
+3%
+0.5Vp-p3% 1KHz Phương hình sóng
+0.5Vp-p3% 1KHz Phương hình sóng
+0.5Vp-p1% 1KHz Phương hình sóng
+0.5Vp-p1% 1KHz Phương hình sóng
+0.5Vp-p1% 1KHz Phương hình sóng
+0.5Vp-p1% 1KHz Phương hình sóng
+0.5Vp-p3% 1KHz Phương hình sóng
+0.5Vp-p3% 1KHz Phương hình sóng
+MATSU
+SHITA
+
+VP-5610A
+
+VP-5710A
+CH1, CH2  2%
+CH35%
+CH1, CH2  3%
+CH3, CH4  5%
+0.1μs~0.2s 4%
+50ns, 0.5s7%
+50ns~0.2s4%
+20ns, 0.5s5%
+0.3Vp-p 1.5% 1KHz  Phương hình
+sóng
+0.3Vp-p1.5% 1KHz  Phương hình
+sóng
+430A/2431L
+/2432A/2440
+TDS
+210/220/224
+
+TDS
+420/430A/460
+
+TDS 540
+
+TDS 2024
+ 2%
+
+2mV~5mV: 4%
+10mV trở lên:  
+3%
+
+ 2%
+
+ 1%
+ 3%
+ 0.005%
+
+100ppm
+(0,01%)
+ 0.05%
+
+ 0.005%
+ 0.005%
+
+0.4Vp-p1% 5MHz   Phương hình
+sóng
+5Vp-p 1kHz   Phương hình sóng(trị
+tham khảo)
+0.5Vp-p5% 1KHz  Phương hình sóng
+
+0.5Vp-p5% 1KHz   Phương hình
+sóng
+5Vp-p  1KHz   Phương hình sóng
+
+(Trị tham khaỏ)
+TDS 3032
+TDS 3032
+ 2%
+ 2%
+ 0.05%
+ 0.05%
+0.5Vp-p  1KHz     Phương hình sóng
+(Trị tham khảo)
+0.5Vp-p  1% KHz  Phương hình
+sóng
+(Trị tham khảo)
+
+DPO-4034
+ 1.5%
+ 5ppm( 0.0005%)
+2.5Vp-p 1% 1KHz   Phương hình
+sóng
+TECHTRONI
+CS
+(TêN
+CUÕ:
+SONY
+TECHTRONI
+CS)
+DPO-7104
+ 1%
+3.55ppm(0.0003%)
+2.5Vp-p 1% 1KHz   Phương hình
+sóng
+RYOTEI
+VP-5220A
+1ｍV～2mV5%
+5mV～2V3%
+5%
+0.3Vp-p2% 1KHz   Phương hình
+sóng
+
+Người dịch: Ngọc Quỳnh 24250
+
+--- HẾT TRANG ---
+
+No.5/6
+【Phụ biểu】
+
+Dụng cụ trắc định 004-3 e
+Nhà sản
+xuất
+Hình thức
+VOLT/DIV
+TIME/DIV
+Tín hiệu CAL
+
+MATRIX
+MOS-620
+5ｍV～5V3%
+(X5MAG5%)
+
+0.2μs~0.5s
+3%
+
+2Vp-p2% 1KHz Phương hình sóng
+
+Agilent
+54622A
+ 2%
+
+ 0.01%của trị
+đọc được,
+0.1% beà roäng
+maøn hình40ps
+5Vp-p   1.2KHz Phương hình sóng
+
+54820A
+
+ 1.25%
+
+ 0.05%
+
+Phương hình sóng có thể thay đổi
+trong phạm vi từ -2.5V～+2.5V
+GW
+INSTEK
+POS-620
+ 3%
+ 3%
+2Vp-p2% 1KHz   Phương hình
+sóng
+KEYENCE
+GR-7000
+ 0.21% cuûa
+20DIV
+50PPM
+(0.005%)
+2.5Vp-p(trị tham khảo)  Phương
+hình sóng
+
+Người dịch: Ngọc Quỳnh 24250
+
+--- HẾT TRANG ---
+
+No.6/6
+Dụng cụ trắc định 004-3
+Tài liệu tiêu chuẩn hiệu chỉnh điểm kiểm
+Biểu lý lịch những ban hành, cải chính và hủy bỏ
+
+Dấu
+hiệu
+Ngày tháng
+năm
+Nội dung
+(bao gồm những nội dung sửa đổi)
+Soạn
+thảo
+Xác nhận
+Công
+nhận
+
+27.01.2005
+・Ban hành quy cách mới
+・Tác thành quy cách mới  của biểu riêng dụng
+cụ đo 004-1bằng cách lấy quy cách phán đ?nh
+máy Ocsilloscope vào vào tiêu chuẩn 004-3
+này
+・Sửa chổ ghi sai Hitachi V-151B VOLTS/DIV 
+5%→ 3%, TIME/DIV 5%→ 3% , Tín hiệu
+CAL 0.5vp-p  5%1kHz Phương hình sóng
+→0.5vp-p  3% 1kHz Phương hình sóng
+・Bổ sung thể thức Hitachi BV-151F
+Horii
+Nara
+Itokawa
+
+04.10.2005
+・Thay đổi tên công ty Sony techtronics thành
+Nhật bản techtronics
+・Bổ sung thể thức Nhật bản Techtronics
+TSD2024
+
+Horii
+Nara
+Itokawa
+
+07.02.2006
+Nhà sản xuất: Do đã lấy số dụng cụ đo 004-2
+vào bản tiêu chuẩn YOKOGAWA nên xóa bỏ DL
+1540
+Horii
+Nara
+Ishino
+
+07.06.2007
+・ Bổ sung ghi chú đặc biệt vào nội dung (2)
+・ Bổ sung thể thức Iwatsu DS-5110(VDM Ha),
+GW INSTEK GOS-620(JSM)
+Nara
+Itokawa
+Itokawa
+
+28.01.2008
+・Thay đổi tên công ty Nhật Bản Techtronics
+thành Techtronics
+・Bổ sung thể thức techtronics DPO-7104,
+DP04034/KEYENCE GR-7000
+
+Ekiei
+Nara
+Itokawa
+e.
+Đã
+xác
+nhận
+toàn
+bộ
+27.11.2009
+Thêm mã hàng TDS 210/220/224 vào danh
+sách
+
+Ekiei
+
+Nara
+Itokawa
+Mabuchi motor Co.,Ltd
+Bộ bảo hành chất lượng
+Người dịch: Ngọc Quỳnh 24250
+
+a
+b
+c
+d
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "004-3-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh - và kiểm tra dụng cụ trắc định",
+  "doc_code": "004-3",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

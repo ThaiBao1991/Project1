@@ -1,0 +1,50 @@
+{
+  "file_name": "007-5-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định MÁY ĐO ĐIỆN TRỞ CÁCH ĐIỆN (MQ) KỸ THUẬT SỐ (TSURUGA 3567-A08)",
+  "doc_code": "007-5c",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Để phòng tránh việc giật điện nguy hiểm trong quá trình hiệu chỉnh thiết bị, nhân viên thao tác bắt buộc phải tuân thủ điều kiện an toàn nào dưới đây?",
+      "options": {
+        "A": "Phải đeo bao tay cách điện khi hiệu chỉnh",
+        "B": "Phải ngắt toàn bộ nguồn điện chính của phòng thí nghiệm",
+        "C": "Chỉ cần đứng trên thảm cao su mà không cần trang bị bảo hộ",
+        "D": "Sử dụng găng tay vải thông thường để thao tác nhanh"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1, Hạng mục hiệu chỉnh 1, Điều khoản chú ý: -Khi hiệu chỉnh, để phòng tránh việc giật điện, cần phải sử dụng bao tay cách điện."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn của tài liệu, chu kỳ hiệu chỉnh định kỳ đối với máy đo điện trở cách điện (TSURUGA 3567-A08) là bao lâu?",
+      "options": {
+        "A": "6 tháng hoặc khi phát hiện bất thường",
+        "B": "12 tháng hoặc khi cần thiết",
+        "C": "24 tháng hoặc khi xác nhận thấy cần thiết",
+        "D": "36 tháng định kỳ"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Phần I 【Hiệu chỉnh】, Chu kỳ hiệu chỉnh: 24 tháng hoặc khi xác nhận thấy cần thiết"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi tiến hành kiểm tra hàng ngày (mỗi lần sử dụng) đối với máy đo điện trở cách điện, nếu kết quả kiểm tra không thấy bất thường thì quy định về việc ghi chép kết quả như thế nào?",
+      "options": {
+        "A": "Phải ghi chép đầy đủ kết quả vào sổ nhật ký kiểm tra hàng ngày",
+        "B": "Không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra",
+        "C": "Tuyệt đối không bao giờ được ghi chép kết quả vào sổ",
+        "D": "Chỉ ghi chép khi cấp trên yêu cầu trực tiếp"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 5, Ghi chú số 2: Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

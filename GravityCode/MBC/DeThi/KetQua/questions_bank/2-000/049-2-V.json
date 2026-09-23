@@ -1,0 +1,50 @@
+{
+  "file_name": "049-2-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và điểm kiểm dụng cụ - Máy thí nghiệm chấn động (Hãng IMV : Hệ thống K2)",
+  "doc_code": "049 - 2a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình hiệu chỉnh độ nhạy pickup, theo công thức tính độ lệch độ nhạy nạp điện của máy được hiệu chỉnh và phản định, tri quy cách cho phép là bao nhiêu?",
+      "options": {
+        "A": "Dưới 5%",
+        "B": "Dưới 10%",
+        "C": "Dưới 15%",
+        "D": "Dưới 20%"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 12, (7) Áp dụng [Độ nhạy hiệu chỉnh lần này]... - Tri quy cách: dưới 10%"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn kiểm tra định kỳ thiết bị thí nghiệm chấn động (IMV chế tạo), tần suất thực hiện điểm kiểm là bao lâu?",
+      "options": {
+        "A": "Kiểm tra mỗi lần sử dụng",
+        "B": "Kiểm tra 1 tuần 1 lần",
+        "C": "Kiểm tra 1 tháng 1 lần",
+        "D": "Kiểm tra 6 tháng 1 lần"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 15, II. Điểm kiểm - Tiến độ điểm kiểm: 'Điểm kiểm mỗi lần sử dụng'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi thực hiện hiệu chỉnh độ nhạy pickup bằng nhãn Kusabi, nếu giá trị tăng tốc đọc được có độ lệch bao nhiêu % trở lên so với giá trị tăng tốc ghi ở trên thì phải xác xem xét lại định độ nhạy pickup có bị sai không?",
+      "options": {
+        "A": "3% trở lên",
+        "B": "5% trở lên",
+        "C": "10% trở lên",
+        "D": "15% trở lên"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 17, 3. Xác nhận: 'Giá trị tăng tốc đọc được nếu lệch 10% trở lên so với giá trị tăng tốc ghi ở trên thì hãy xác nhận xem trị thiết định độ nhạy pickup có bị sai không.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

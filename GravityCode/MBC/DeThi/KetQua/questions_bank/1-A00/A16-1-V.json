@@ -1,0 +1,59 @@
+{
+  "file_name": "A16-1-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "Bảng tiêu chuẩn hiệu chỉnh và điểm kiểm dụng cụ đo",
+  "doc_code": "A16-1o",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo tiêu chuẩn A16-1o, đối với nhà cung cấp hiệu chỉnh ủy thác không được chứng nhận ISO/IEC17025, việc xem xét đánh giá lại (đối với nhà cung cấp tiếp tục giao dịch) phải được thực hiện với tần suất ít nhất là bao lâu một lần?",
+      "options": {
+        "A": "Ít nhất 6 tháng một lần",
+        "B": "Ít nhất một năm một lần",
+        "C": "Ít nhất hai năm một lần",
+        "D": "Ít nhất ba năm một lần"
+      },
+      "correct_answer": "D",
+      "reference_note": "Trang 2, Hạng mục 6. Tần suất: 'Đối với nhà cung cấp tiếp dục giao dịch, việc xem xét đánh giá phải ít nhất ba năm một lần. Các bản cập nhật được phê duyệt trong nội bộ.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Trong điều kiện môi trường thực hành hiệu chỉnh (được quy định ở Điều kiện đánh giá No.2), mức nhiệt độ và độ ẩm tương đối tiêu chuẩn yêu cầu là bao nhiêu?",
+      "options": {
+        "A": "Nhiệt độ 20℃±5℃, độ ẩm 30～70%",
+        "B": "Nhiệt độ 23℃±7℃, độ ẩm 15～85%",
+        "C": "Nhiệt độ 25℃±2℃, độ ẩm 45～85%",
+        "D": "Nhiệt độ từ 5～35℃, độ ẩm 45～85%"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Phương pháp đánh giá (Điều kiện đánh giá No.2): 'Môi trường thực hành hiệu chỉnh : Đáp ứng các điều kiện nhiệt độ và độ ẩm quy định trong mục 1 của máy đo A12-1 Có đáp ứng nhiệt độ 23℃±7℃ độ ẩm 15～85％ (độ ẩm tương đối ) hay không?'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi cơ quan hiệu chỉnh ủy thác được chứng nhận bởi ISO/IEC17025 và mục số 1 trong Phụ lục 1 được đánh giá là 3 (có), điều kiện nào sau đây được áp dụng đối với các mục đánh giá tiếp theo từ mục 2 đến mục 11?",
+      "options": {
+        "A": "Phải đánh giá lại toàn bộ các mục từ 2 đến 11 một cách chi tiết",
+        "B": "Không cần thiết để đánh giá mục 2 bên dưới",
+        "C": "Chỉ đánh giá riêng mục 2 và mục 5",
+        "D": "Chỉ đánh giá các mục từ mục 5 đến mục 11"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, Phụ lục 1: '※Trường hợp mục 1 được đánh giá là 3 (có), thì không cần thiết để đánh giá mục 2 bên dưới.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140547.298915,
+  "generated_at_iso": "2026-09-23T12:15:47",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 281710,
+    "modified_time": 1746601372.2257137,
+    "modified_time_iso": "2025-05-07T14:02:52",
+    "file_hash_short": "9c83fa27"
+  }
+}

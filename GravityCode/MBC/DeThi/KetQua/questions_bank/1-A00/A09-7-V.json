@@ -1,0 +1,59 @@
+{
+  "file_name": "A09-7-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "TIÊU CHUẨN HIỆU CHỈNH ĐIỂM KIỂM",
+  "doc_code": "A09-7",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Chú ý quan trọng nào được nêu rõ khi thực hiện đăng ký hủy bỏ trên trang ACM SHEET?",
+      "options": {
+        "A": "Phải sao lưu dữ liệu ra file Excel trước khi thực hiện.",
+        "B": "Sau này sẽ không thể đăng ký dữ liệu ACM vào mã số trang tính tương ứng nữa nên hãy chú ý.",
+        "C": "Phải có chữ ký xác nhận của Trưởng ban BHCL.",
+        "D": "Dữ liệu máy móc đã đăng ký trước đó sẽ bị xóa hoàn toàn khỏi hệ thống."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: ※ Nếu đăng ký hủy bỏ, sau này sẽ không thể đăng ký dữ liệu ACM vào mã số trang tính tương ứng nên hãy chú ý."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, ai là người có quyền thao tác trong QSM MASTER của Phiên bản SMI ACM?",
+      "options": {
+        "A": "Tất cả các nhân viên trong bộ phận BHCL.",
+        "B": "Chỉ MMK mới có quyền thao tác.",
+        "C": "Đội trưởng các dây chuyền sản xuất.",
+        "D": "Bất kỳ nhân viên nào được phân công làm việc với máy tính."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1: Chỉ MMK mới có quyền thao tác trong QSM MASTER."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo quy định về thao tác xóa thông tin đăng ký tại trang REGIST và INSPECTION, nguyên tắc xử lý dữ liệu như thế nào?",
+      "options": {
+        "A": "Có thể tự do xóa bất kỳ dòng dữ liệu nào không còn sử dụng để làm gọn hệ thống.",
+        "B": "Dữ liệu sẽ tự động được xóa vĩnh viễn sau 30 ngày.",
+        "C": "Về nguyên tắc, dữ liệu sẽ không bị xóa trên màn hình này vì sẽ viết lại dữ liệu ACM của cơ sở.",
+        "D": "Phải dùng nút xóa đặc biệt trên bàn phím thay vì dùng nút trên màn hình."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: Bởi vì thao tác này viết lại dữ liệu ACM của cơ sở. Về nguyên tắc, dữ liệu sẽ không bị xóa trên màn hình này."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140396.6563237,
+  "generated_at_iso": "2026-09-23T12:13:16",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 351668,
+    "modified_time": 1636196297.651127,
+    "modified_time_iso": "2021-11-06T17:58:17",
+    "file_hash_short": "3c81bb5d"
+  }
+}

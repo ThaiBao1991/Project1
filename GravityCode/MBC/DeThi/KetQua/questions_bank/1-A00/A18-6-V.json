@@ -1,0 +1,59 @@
+{
+  "file_name": "A18-6-V.pdf",
+  "folder_name": "1-A00 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn điểm kiểm – hiệu chỉnh dụng cụ đo",
+  "doc_code": "A18-6b",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi xử lý tình huống kiểm xuất dị thường đối với thiết bị đo (Mục 5), nhân viên phụ trách cần thực hiện trình tự báo cáo như thế nào?",
+      "options": {
+        "A": "Tự ý tháo dỡ thiết bị để sửa chữa bên trong.",
+        "B": "Giữ nguyên trạng thái và tiếp tục sử dụng cho đến hết ca làm việc.",
+        "C": "Liên lạc ngay đến đại lý hoặc nhà chế tạo yêu cầu xử lý; trường hợp trị biểu thị biến động thì liên lạc người đảm trách quản lý; biểu thị nội dung dị thường bằng dán giấy ở thiết bị đo.",
+        "D": "Chỉ cần báo miệng cho đồng nghiệp cùng chuyền là đủ."
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 5, Mục (5) Khác - Xử lý khi kiểm xuất dị thường"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn A18-6b, khi soạn thảo bản mới về phần Chuẩn bị (Mục 1), các nội dung mô tả tính ổn định của loại thiết bị bao gồm những công việc nào?",
+      "options": {
+        "A": "Chỉ thực hiện việc vệ sinh và lau chùi thiết bị đo trước khi bật nguồn.",
+        "B": "Cho nguồn điện vào và sự đặt để thông điện (làm nóng), sự đặt để làm quen đến môi trường, vận chuyển làm quen, thử vận hành, xác nhận động tác.",
+        "C": "Chỉ cần đặt thiết bị ở nhiệt độ phòng và không cần làm nóng.",
+        "D": "Chỉ thực hiện thử vận hành mà không cần cấp nguồn điện."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Mục (1) Chuẩn bị - Tính ổn định của loại thiết bị"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo quy định về an toàn và bảo hộ tại Mục (4) của tiêu chuẩn A18-6b, biện pháp nào sau đây được yêu cầu tuân thủ nghiêm ngặt để phòng chống điện giật hoặc tiếp xúc trực tiếp?",
+      "options": {
+        "A": "Sử dụng găng tay, bao tay ngón để không tiếp xúc trực tiếp; đối với trường hợp điện áp cao, sử dụng dây kiểm tra dùng cho điện áp cao và bao cao su dùng cách điện.",
+        "B": "Chỉ cần đeo khẩu trang và kính bảo hộ trong suốt quá trình đo.",
+        "C": "Không cần sử dụng dụng cụ bảo hộ cách điện nếu điện áp dưới 220V.",
+        "D": "Chỉ sử dụng tay trần để thao tác nhằm tăng độ chính xác khi vặn nút xoay VR."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1 và Trang 5, Mục (1) & Mục (4) Sự bảo hộ"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": [],
+  "generated_at": 1790140655.8803573,
+  "generated_at_iso": "2026-09-23T12:17:35",
+  "app_version": "1.4",
+  "pdf_metadata": {
+    "file_size_bytes": 292315,
+    "modified_time": 1677132260.5682654,
+    "modified_time_iso": "2023-02-23T13:04:20",
+    "file_hash_short": "b8375bf4"
+  }
+}

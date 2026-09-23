@@ -1,0 +1,50 @@
+{
+  "file_name": "564-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "THIẾT BỊ ĐO MICROMET DẠNG TRỤC TIẾN THẲNG",
+  "doc_code": "564-1 f",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ kiểm tra thiết bị đo micrometer dạng trục tiến thẳng được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi tháng một lần",
+        "C": "Mỗi lần sử dụng",
+        "D": "Trước mỗi ca làm việc"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2: 'Tiến độ kiểm tra: Mỗi lần sử dụng'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi kiểm tra hoạt động hiệu chỉnh, lực đo tại điểm kiểm và hiệu chỉnh được xác định bằng cách nào?",
+      "options": {
+        "A": "Xoay núm điều chỉnh cho đến khi có âm thanh tách tách 3 lần",
+        "B": "Sử dụng cờ lê lực siết đến 5N",
+        "C": "Kẹp chặt block và vặn hết cỡ trục chính",
+        "D": "Dùng tay đẩy nhẹ trục chính đến khi dừng lại"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1: 'Lực đo khi tiến hành điểm kiểm, hiệu chỉnh thì sẽ xoay núm điều chỉnh cho đến khi có âm thanh tách tách 3 lần'"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Theo mục ghi chú về kết quả kiểm tra bất thường, quy định xử lý và ghi chép nào sau đây là chính xác nhất?",
+      "options": {
+        "A": "Chỉ cần báo cáo miệng cho quản lý, không cần ghi chép lại dưới mọi hình thức.",
+        "B": "Trường hợp kiểm tra không thấy bất thường thì không cần ghi chép, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.",
+        "C": "Phải ghi chép đầy đủ kết quả kiểm tra vào sổ tay cá nhân và giữ lại dùng riêng.",
+        "D": "Nếu thiết bị bị rơ lỏng nhẹ vẫn được tiếp tục sử dụng bình thường đến hết ca."
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: 'Ghi chú 2: Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

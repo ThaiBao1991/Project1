@@ -1,0 +1,50 @@
+{
+  "file_name": "517-2-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "THƯỚC RẬP QUAY SỐ DẠNG ĐÒN BẨY CÓ THANG ĐO 0.01, 0.002, 0.001mm",
+  "doc_code": "517-2h",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Khi kiểm tra ngoại quan thước rập quay số, nếu phát hiện có khiếm khuyết, có hư hại như ở mặt kính và bảng thang đo thì nhân viên thao tác cần xử lý như thế nào trước tiên?",
+      "options": {
+        "A": "Dùng cồn 90 độ để tẩy rửa toàn bộ bề mặt thiết bị",
+        "B": "Tiến hành tháo rời thiết bị để sửa chữa chi tiết bên trong",
+        "C": "Lau đi bằng vải",
+        "D": "Loại bỏ và vứt ngay thiết bị vào thùng rác phế liệu"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3, Mục II 【Điểm kiểm】, 1. Ngoại quan: 'Kiểm tra xem có khiếm khuyết, có hư hại không như dơ ở mặt kính và bảng thang đo, nếu dơ thì lau đi bằng vải.'"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn định kỳ hiệu chỉnh, chu kỳ hiệu chỉnh đối với thước rập quay số dạng đòn bẩy là bao lâu hoặc khi xác nhận thấy cần thiết?",
+      "options": {
+        "A": "Mỗi 6 tháng hoặc khi xác nhận thấy cần thiết",
+        "B": "Mỗi 12 tháng hoặc khi xác nhận thấy cần thiết",
+        "C": "Mỗi 24 tháng hoặc khi xác nhận thấy cần thiết",
+        "D": "Mỗi 3 tháng hoặc khi xác nhận thấy cần thiết"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 1, Mục I 【Hiệu chỉnh】, Chu kỳ hiệu chỉnh: 'Mỗi 12 tháng hoặc khi xác nhận thấy cần thiết.'"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trong trường hợp kết quả kiểm tra không thấy bất thường nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra, quy định xử lý đúng đối với nhân viên quản lý là gì?",
+      "options": {
+        "A": "Không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra dù không có gì bất thường xảy ra.",
+        "B": "Phải ghi chép lại toàn bộ số liệu đo vào sổ theo dõi hàng ngày một cách chi tiết.",
+        "C": "Bắt buộc phải dừng ngay dây chuyền sản xuất để lập biên bản.",
+        "D": "Chỉ cần ghi chép khi có sự cố bất thường xảy ra trong quá trình sử dụng."
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 3, Mục II 【Điểm kiểm】, Ghi chú số 2: 'Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra dù không có gì bất thường xảy ra.'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

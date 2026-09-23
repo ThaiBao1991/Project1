@@ -1,0 +1,50 @@
+{
+  "file_name": "518-1-V.pdf",
+  "folder_name": "4-500 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định - Dụng cụ Micro đo bên ngoài (0.001mm, 0.002mm, 0.01mm)",
+  "doc_code": "518-1j",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Trong trường hợp kết quả kiểm tra hàng ngày không phát hiện bất thường, quy định về việc ghi chép hồ sơ tại Mabuchi Motor là gì?",
+      "options": {
+        "A": "Bắt buộc phải ghi chép kết quả kiểm tra vào sổ nhật ký mỗi ngày.",
+        "B": "Không cần ghi chép kết quả, chỉ cần báo cáo miệng cho tổ trưởng.",
+        "C": "Không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần.",
+        "D": "Chỉ ghi chép khi có sự thay đổi nhân sự sử dụng dụng cụ."
+      },
+      "correct_answer": "C",
+      "reference_note": "Mục Ghi chú, điểm số 2: Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần (Trang 3)."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo bảng tiêu chuẩn độ chính xác tổng hợp, đối với dụng cụ Micro có độ dài đo lớn nhất trong khoảng từ 300mm đến 375mm, sai số cho phép là bao nhiêu?",
+      "options": {
+        "A": "± 4 μm",
+        "B": "± 5 μm",
+        "C": "± 6 μm",
+        "D": "± 8 μm"
+      },
+      "correct_answer": "C",
+      "reference_note": "Bảng độ chính xác tổng hợp tại Mục I: Độ dài đo lớn nhất 300 ~ 375 (mm) tương ứng ± 6 μm (Trang 1)."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tần suất thực hiện 'Điểm kiểm' (Inspection points) cho dụng cụ Micro đo bên ngoài được quy định như thế nào?",
+      "options": {
+        "A": "Định kỳ 12 tháng một lần.",
+        "B": "Mỗi lần sử dụng.",
+        "C": "Mỗi tuần một lần vào ngày thứ Hai.",
+        "D": "Chỉ thực hiện khi phát hiện dụng cụ có dấu hiệu hư hỏng."
+      },
+      "correct_answer": "B",
+      "reference_note": "Mục II [Điểm kiểm] - Tiến độ điểm kiểm: Mỗi lần sử dụng (Trang 2)."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

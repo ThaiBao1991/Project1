@@ -1,0 +1,50 @@
+{
+  "file_name": "014-22-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Máy đo độ ồn",
+  "doc_code": "014-22a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tài liệu, tiến độ điểm kiểm (kiểm tra hàng ngày/hàng tháng) đối với máy đo độ ồn được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và trước khi sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "Chỉ kiểm tra khi phát hiện máy có tiếng ồn lạ",
+        "D": "Mỗi 6 tháng 1 lần theo chu kỳ hiệu chỉnh"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3, II【Điểm kiểm】Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Theo tài liệu, tại sao khi tháo lắp máy tiêu chuẩn (microphone/bộ hiệu chỉnh) bắt buộc phải ngắt nguồn điện (Bật OFF)?",
+      "options": {
+        "A": "Để tiết kiệm pin cho thiết bị đo",
+        "B": "Để tránh bị điện giật khi tay ẩm ướt",
+        "C": "Vì có lo ngại gây ra hư hại do ảnh hưởng của áp lực khi tháo lắp máy tiêu chuẩn",
+        "D": "Để tránh làm mất dữ liệu hiệu chỉnh đã cài đặt sẵn trong bộ nhớ"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Mục 1.Hiệu chỉnh Microphone: 'Vì có lo ngại gây ra hư hại do ảnh hưởng của áp lực khi tháo lắp máy tiêu chuẩn nên khi tháo lắp nhất định phải ngắt nguồn điện（Bật OFF）'"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi thực hiện hiệu chỉnh Microphone với mức áp suất âm chuẩn của bộ hiệu chỉnh là 124 dB hoặc 114 dB, cần thiết định phạm vi (Range) trên máy đo độ ồn ở mức nào?",
+      "options": {
+        "A": "80 ~ 110 dB",
+        "B": "50 ~ 90 dB",
+        "C": "100 ~ 130 dB",
+        "D": "Tùy ý không cần thiết định phạm vi"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1, Mục 1.Hiệu chỉnh Microphone, bước (5): 'Khi mức áp suất âm chuẩn của bộ hiệu chỉnh âm thanh là 124 dB, 114 dB thì thiết định [100~130dB]'"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

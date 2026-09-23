@@ -1,0 +1,50 @@
+{
+  "file_name": "611-3-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM",
+  "doc_code": "611-3 a",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chỉnh máy đo 3 chiều OGP ZIP250, ZIP300, chu kì hiệu chỉnh được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi 12 tháng và khi nhận thấy cần thiết",
+        "B": "Mỗi 24 tháng và khi nhận thấy cần thiết",
+        "C": "Mỗi 36 tháng và khi nhận thấy cần thiết",
+        "D": "Mỗi 48 tháng và khi nhận thấy cần thiết"
+      },
+      "correct_answer": "C",
+      "reference_note": "Phần I【Hiệu chỉnh】 - Chu kì hiệu chình: Mỗi 36 tháng và khi nhận thấy cần thiết"
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình sử dụng máy đo 3 chiều OGP ZIP250, ZIP300, nếu phát hiện thấy điểm bất thường thì nhân viên phải xử lý theo cách nào dưới đây?",
+      "options": {
+        "A": "Tự ý tháo dỡ máy để kiểm tra linh kiện bên trong",
+        "B": "Ghi chép lại trong kết quả kiểm tra rồi xử lí theo chỉ thị của quản lí",
+        "C": "Bỏ qua không cần ghi chép nếu máy vẫn đo được sản phẩm",
+        "D": "Chờ đến kỳ hiệu chỉnh 36 tháng sau mới báo cáo"
+      },
+      "correct_answer": "B",
+      "reference_note": "Phần II【Điểm kiểm】 - Chú ý 1: Trong trường hợp phát sinh những bất thường hãy ghi chép lại trong kết quả kiểm tra rồi xử lí theo chỉ thị của quản lí."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Tần suất thực hiện điểm kiểm (kiểm tra hàng ngày/mỗi lần sử dụng) đối với máy đo 3 chiều OGP ZIP250, ZIP300 được quy định ra sao?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi tháng một lần",
+        "C": "Đầu mỗi ca làm việc",
+        "D": "Mỗi lần sử dụng"
+      },
+      "correct_answer": "D",
+      "reference_note": "Phần II【Điểm kiểm】 - Tần xuất điểm kiểm: Mỗi lần sử dụng"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

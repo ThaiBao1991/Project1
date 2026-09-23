@@ -1,0 +1,364 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM    Công ty Mabuchi Motor Co., LTD – Bộ phận BHCL - Máy đo điện trở cách điện                         Máy đo   007-10
+Mã số/Mã máy đo: 007-10
+File gốc: 007-10-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/6
+
+BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM    Công ty Mabuchi Motor Co., LTD – Bộ phận BHCL
+Ban hành  04/12/2019
+Cải đính
+Máy đo điện trở cách điện                         Máy đo   007-10
+TSURUGA 3587
+
+Ι【Hiệu chỉnh】
+
+Máy tiêu chuẩn      Máy biến trở 6 nút xoay [S58-1]，Máy điện áp cao[S56-1]
+
+Chu kì hiệu chỉnh      Mỗi 24 tháng và khi nhận thấy cần thiết
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+(Nội dung chú ý)
+
+(Thiết bị trước khi
+hiệu chỉnh)
+
+1. Độ chính xác giá trị
+đo điện trở
+
+・Để phòng tránh giật điện, hãy đeo bao cách điện rồi tiến
+hành hiệu chỉnh.
+・
+Bản tiêu chuẩn này là tài liệu mô tả trình tự phương pháp
+hiệu chỉnh. Hãy tham khảo tên các bộ phận máy đo điện trở
+cách điện kĩ thuật số và phương pháp sử dụng trên bản
+hướng dẫn.
+・Bật ON công tắc nguồn điện và tiến hành làm nóng máy
+trên 30 phút.
+
+Tiến hành xác nhận hạng mục điểm kiểm 1. Điểm 0 trên tất
+cả các phạm vi.
+
+Kết nối máy biến trở 6 nút xoay với chấu điện HIGH và
+chấu điện LOW như hình 1 và đọc từng giá trị hiển thị
+tương ứng với mỗi điện áp thí nghiệm.
+Ngoài ra, kết hợp máy biến trở 6 nút xoay với điểm hiệu
+chỉnh trên biểu 1 tương ứng với mỗi điện áp thí nghiệm để
+tiến hành hiệu chỉnh.
+
+Biểu 1
+Điện áp
+thí
+nghiệm
+Phạm
+vi điện
+trở
+Phạm vi đo
+đạc (hiển
+thị)
+Điểm
+hiệu
+chỉnh
+Phán định
+DC  25V
+AUTO
+0.000～
+999.0MΩ
+2MΩ
+5MΩ
+100MΩ
+±(2%rdg.
++3digit)
+DC  50V
+DC 100V
+0.000～
+9990MΩ
+DC 250V
+DC 500V
+0.00～
+9990MΩ
+50MΩ
+100MΩ
+DC1000V
+
+Có thể không
+ghi chép lại giá
+trị ±3digit
+
+Dựa theo biểu
+1.
+
+--- HẾT TRANG ---
+
+No.2/6
+
+Ι【Hiệu chỉnh】                               Máy đo 007-10
+
+Hạng mục hiệu chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+
+2.Điện áp không tải
+
+3.Định mức đo điện
+áp
+
+Kết nối máy đo điện áp cao với chấu điện GUARD và chấu
+điện HIGH như hình 2 và đọc từng giá trị hiển thị tương
+ứng với mỗi điện áp thí nghiệm,
+Biểu 2
+Điện áp thí nghiệm
+Phán định
+DC  25V
+±(1%+5V) đối với điện áp
+thí nghiệm
+DC  50V
+DC 100V
+DC 250V
+DC 500V
+DC1000V
+
+(1) Kết nối máy biến trở 6 nút xoay với chấu điện LOW và
+chấu điện HIGH như hình 3.
+Sau đó kết nối máy đo điện áp cao với chấu điện GUARD
+và chấu điện HIGH.
+(2) Dựa theo biểu 3 để thiết đặt máy biến trở 6 nút xoay tại
+mỗi điện áp thí nghiệm tương ứng với mỗi giá trị điện trở
+kết nối.
+(3) Đọc từng giá trị hiển thị trên máy đo điện áp cao tương
+ứng với mỗi điện áp thí nghiệm.
+
+Biểu3
+Điện áp thí
+nghiệm
+Giá trị điện
+trở kết nối
+Định mức đo
+dòng điện
+Phán định
+DC  25V
+25kΩ
+1mA
++10%
+-0% đối với
+điện áp thí
+nghiệm
+DC  50V
+50kΩ
+DC 100V
+100kΩ
+DC 250V
+250kΩ
+DC 500V
+500kΩ
+DC1000V
+1MΩ
+
+Dựa theo biểu
+2.
+
+Dựa theo biểu
+3
+
+--- HẾT TRANG ---
+
+No.3/6
+
+Ι【Hiệu chỉnh】                               Máy đo 007-10
+
+Hình 1
+
+Hình 2
+
+Máy điện trở cách điện
+Máy biến trở 6 nút
+xoay
+Máy đo điện áp cao
+Máy điện trở cách điện
+
+GND
+
+KV
+
+--- HẾT TRANG ---
+
+No.4/6
+
+Ι【Hiệu chỉnh】                           Máy đo 007-10
+
+Hình 3
+
+－Tài liệu liên quan, trích dẫn －
+Quy cách phán định: Trích dẫn quy cách của nhà chế tạo cho 1. Độ chính xác giá trị đo điện trở, 2.
+Điện áp không tải
+3. Trích dẫn JIS C 1302:2018 đối với định mức đo điện áp
+No.5/6
+
+GND
+
+KV
+Máy biến trở 6 nút
+xoay
+Máy đo điện áp cao
+Máy đo điện trở cách
+điện
+
+--- HẾT TRANG ---
+
+Ⅱ【Điểm kiểm】      Máy đo điện trở cách điện                      Máy đo 007-10
+TSURUGA 3587
+
+Tần suất điểm kiểm   Mỗi lần sử dụng
+
+Hạng mục điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+(Nội dung chú ý)
+
+1.Xác nhận cài đặt về
+0
+
+2. Xác nhận còi báo
+(thiết bị cảnh báo)
+
+Bật ON công tắc nguồn điện và tiến hành làm nóng máy
+trên 30 phút.
+Làm đoản mạch đầu đo (chấu điện HIGH và LOW phía
+trước màn hình) và xác nhận trên phần hiển thị có hiển thị
+về ) hay không.
+
+Làm đoản mạch đầu đo và xác nhận còi báo NG có reo
+không. Tuy nhiên, trường hợp không sử dụng còi báo cho
+việc kiểm tra thì có thể không thực hiện hạng mục này.
+Ngoài ra, cần dựa theo bản hướng dẫn sử dụng đối với
+phương pháp thiết đặt còi báo (thiết bị cảnh báo).
+
+(Ghi chú)
+Hãy tham khảo tên gọi các bộ phận máy đo điện trở cách
+điện và phương pháp sử dụng trên bản hướng dẫn sử
+dụng.
+
+Có thể không
+kí lục đối với
+giá trị ±3digit.
+
+Ghi chú
+1. Trường hợp kiểm tra thấy bất thường, ghi chép lại kết quả đã kiểm tra và xử lý theo chỉ thị
+của người có trách nhiệm quản lý.
+2. Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được,
+nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy
+ra.
+3. Trường hợp nhận ra sự bất thường trong khi sử dụng, sẽ xử lý dựa vào chỉ thị của người có
+trách nhiệm quản lý.
+
+--- HẾT TRANG ---
+
+BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM
+LÍ LỊCH BAN HÀNH – CẢI ĐÍNH – HỦY BỎ             Máy đo 007-10
+No.6/6
+Kí
+hiệu
+Năm
+Tháng
+Ngày
+Nội dung cải đính
+Soạn
+thảo
+Xác nhận
+Phê
+duyệt
+
+2019.12.0
+4
+
+Ban hành quy định mới (Người yêu cầu: LONG bộ phận
+kiểm tra)
+
+Koizu
+mi
+
+Kikura
+Ishi
+Usui
+
+Itou
+
+Công ty Mabuchi Motor Co., LTD – Bộ phận BHCL
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "007-10-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "BẢN TIÊU CHUẨN HIỆU CHỈNH – ĐIỂM KIỂM    Công ty Mabuchi Motor Co., LTD – Bộ phận BHCL - Máy đo điện trở cách điện                         Máy đo   007-10",
+  "doc_code": "007-10",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

@@ -1,0 +1,50 @@
+{
+  "file_name": "091-8-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "TIÊU CHUẨN HIỆU CHỈNH-ĐIỂM KIỂM",
+  "doc_code": "091-8",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn hiệu chuẩn máy đo kiểm tra xung 091-8, tần suất đối với các hạng mục điểm kiểm (ngoại quan, trạng thái hiển thị) được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi lần sử dụng",
+        "C": "6 tháng một lần",
+        "D": "12 tháng một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 6/7 - Tần suất điểm kiểm: Mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Khi thực hiện hiệu chỉnh trục điện áp cho máy đo kiểm tra xung, điều kiện nào yêu cầu phải thực hiện điều chỉnh bằng volume?",
+      "options": {
+        "A": "Chỉ thực hiện điều chỉnh khi có chênh lệch từ ±0.05V trở lên",
+        "B": "Chỉ thực hiện điều chỉnh khi có chênh lệch từ ±0.10V trở lên",
+        "C": "Chỉ thực hiện điều chỉnh khi có chênh lệch từ ±0.20V trở lên",
+        "D": "Thực hiện điều chỉnh bất cứ lúc nào thấy sai lệch"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 2/7 - Lưu ý: Chỉ thực hiện điều chỉnh khi có chênh lệch từ ±05V trở lên."
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình hiệu chỉnh trục thời gian bằng máy phát tần số, lưu ý cực kỳ quan trọng đối với nguồn điện của máy đo kiểm tra xung là gì?",
+      "options": {
+        "A": "Phải tắt nguồn máy đo kiểm tra xung trước khi kết nối cáp",
+        "B": "Phải rút nguồn điện của máy đo kiểm tra xung khi đo xong mục Vcc",
+        "C": "Tuyệt đối không tắt nguồn máy đo kiểm tra xung trong khi nhập tín hiệu của máy phát tần số",
+        "D": "Có thể tắt nguồn máy đo kiểm tra xung bất cứ lúc nào nếu xuất hiện màn hình phán định NG"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 3/7 và 5/7 - Lưu ý: Do có khả năng máy đo kiểm tra xung có thể bị hỏng, nên trong khi nhập tín hiệu của máy phát tần số tuyệt đối Không tắt nguồn máy đo kiểm tra xung."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

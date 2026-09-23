@@ -1,0 +1,421 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Tài liệu tiêu chuẩn hiệu chỉnh - và kiểm tra dụng cụ trắc định
+Mã số/Mã máy đo: 039-6
+File gốc: 039-6-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/6
+
+Quỳnh Hoa 46447
+
+Tài liệu tiêu chuẩn hiệu chỉnh
+Mabuchi Motor Co. Lt
+và kiểm tra dụng cụ trắc định
+Bộ phận bảo hành chất lượng
+
+Ngày ban hành 01.10.2004
+Máy đo điện trở thấp
+Ngày thay đổi:  01.04.2016
+HIOKI 3541
+Dụng cụ trắc định 039-6 b
+
+I [Hiệu chỉnh]
+Dụng cụ chuẩn       Máy đo điện trở chuẩn [S02-1], máy đo nhiệt độ-độ ẩm[S65-1]
+Chu kỳ hiệu chỉnh      12 tháng và khi cần thiết
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+Chuẩn bị trước
+hiệu chỉnh
+
+1. Đo điện trở
+(điều kiện môi
+trường)
+Nhiệt độ
+23℃±5℃
+Độ ẩm
+Dưới 80%
+
+* 1. Trường hợp không thiết định chức năng bổ sung
+nhiệt độ, tiến hành thiết định (đề cập sau)
+Đưa nguồn điện vào., làm nóng 60 phút
+
+(1) Tiến hành điều chỉnh điểm 0.
+① Cho dây cáp tiếp xúc vào nhau như hình vẽ 1
+(kẹp kevin 9287).
+② Ở giới hạn điều chỉnh, thiết định về phạm vi cần
+hiệu chỉnh.
+③ Nhấn nút [SHIFT]=>[OADJ] (đènOADJ sáng),
+điều chỉnh về 0 .
+
+(Ghi chú )
+a. Điều chỉnh 0 thực hiện mỗi giới hạn thiết định.
+b. Làm vô hiệu hóa chức năng bổ sung điện áp offset.
+nhấn [SHIFT]=>[PRINT/OVC3], đèn biểu thị (OVC) tắt
+(2) Cho dây cáp tiếp xúc với khí cụ điện trở chuẩn như
+hình vẽ 2.
+(3) Chuyển cơ năng bổ sung nhiệt độ (TC) sang OFF.
+(4) Phán định trị biểu thị của máy đo điện trở thấp so với
+trị điện trở chuẩn của khí cụ điện trở chuẩn dựa vào
+biểu 1.
+Biểu 1
+Phạm vi đo
+Trị điện trở chuẩn
+Phán định
+20m 
+10 m
+±0.013 m
+200m 
+100 m
+±0.112 m
+2 
+1 
+±0.00022 
+20 
+10 
+±0.0018 
+200 
+100 
+±0.011 
+2 k
+1 k
+±0.0001 k
+20 k
+10 k
+±0.001 k
+
+Theo biểu 1.
+
+Theo biểu 1
+
+--- HẾT TRANG ---
+
+No. 2/6
+I  [Hiệu chỉnh]                              Dụng cụ trắc định 039-6b
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp
+phán định
+2. Độ chính xác đo
+nhiệt độ
+
+3. Chức năng bổ
+sung nhiệt độ
+
+*Xác nhận đầu dò nhiệt độ phải được kết nối đúng vào
+đầu cắm của mặt sau đồng hồ điện trở thấp
+(1) Đo nhiệt độ chu vi xung quanh (t) của đồng hồ đo điện
+trở thấp của đồng hồ điện trở thấp
+(2) Nhấn [Ω/LPΩ/℃] , đọc trị đo (nhiệt độ) bằng đầu dò
+nhiệt độ rồi phán định
+Phán định : t±(0.45% of rdg.+0.8℃)
+
+(1) Đo nhiệt độ xung quanh(t)
+(2) Đưa giá trị điện trở đã đo được ở (4) của 1 vào công
+thức dưới đây, tính giá trị điện trở (R20) ở 20℃
+R20 = trị điện trở khi TC OFF : { 1+0.00393×(t-20)}
+(3) Đưa giá trị điện trở R20 ở 20℃ đã tính được ở (2)
+và giá trị điện trở lúc [TC] ON vào công thức dưới
+đây, để tính ra tỷ lệ sai số.
+Tiến hành đo đạc ở mỗi giới hạn.
+Tỷ lệ sai số (%) = { trị điện trở khi TC ON – R20) :
+R20 }× 100
+
+Theo bên trái
+
+Tỷ lệ sai số
+±0.45%
+
+- Trích dẫn / văn bản liên quan -
+Quy cách phán định: trích dẫn quy cách nhà chế tạo (bản thuyết minh sử dụng)
+Độ chính xác đo nhiệt độ lúc điểm kiểm: thiết định trong công ty
+Quỳnh Hoa 46447
+
+--- HẾT TRANG ---
+
+No.3/6
+
+No.5/10
+I  [Hiệu chỉnh]                                               Dụng cụ trắc định  039-6 b
+
+Hình 1
+Kẹp đỏ                                                         Kẹp đen
+
+Hình 2
+
+Kẹp Kelvin vào khí cụ điện trở chuẩn như
+vị trí hình vẽ.
+
+Quỳnh Hoa 46447
+KHÍ CỤ ĐIỆN TRỞ CHUẨN
+
+--- HẾT TRANG ---
+
+No. 4/6
+I  [Hiệu chỉnh]                                               Dụng cụ trắc định 039-6 b
+
+*1  Thiết định cơ năng bổ sung nhiệt độ
+
+<Chọn chức năng bổ sung nhiệt độ>
+1.  Nhấn
+(đèn SHIFT đỏ)
+
+Nhấn   ENTER  biểu thị thành màn hình Menu
+MENU
+
+2.
+Chon biểu thị TC/ △ t
+
+chọn chế độ bổ sung nhiệt độ CrrCt
+3.Nhấn  ENTER
+MENU      Xác định việc thiết định, trở về màn hình đo đạc.
+
+<Thiết định chỉnh sửa nhiệt độ (hệ số nhiệt độ, nhiệt độ tiêu chuẩn)>
+
+1. Nhấn
+(đèn SHIFT sẽ sáng lên),
+trở thành màn hình thiết định chỉnh sửa nhiệt độ
+↓
+TC/△t
+màn hình Main
+
+SET  4
+2.
+
+Thiết định hệ số nhiệt độ và nhiệt độ chuẩn.
+
+3. Nhấn  ENTER
+MENU
+
+Nhấn trong trường hợp muốn xóa thiết định.
+
+Nhiệt độ tiêu chuẩn (-10.0～
+99.9℃)
+Hệ số nhiệt độ (-9999 ～
+9999ppm)
+Xác định thiết định, trở về màn hình đo đạc.
+Lúc này, trị điện trở đã bổ sung nhiệt độ được biểu
+thị ở nội dung đã được thiết định được biểu thị
+
+Màn hình chính
+
+Màn hình phụ
+(màn hình phụ)
+
+--- HẾT TRANG ---
+
+No.5/6
+
+Dụng cụ trắc định 039-6 b
+II [Điểm kiểm]
+MÁY ĐO ĐIỆN TRỞ THẤP
+HIOKI 3541
+Tiến độ kiểm tra              Mỗi lần sử dụng
+
+Hạng mục kiểm tra
+Phương pháp kiểm tra
+Phương pháp
+phán định
+
+1. Xác nhận biểu
+thị
+
+2. Xác nhận dây
+cáp đưa vào, đầu
+dò nhiệt độ
+
+3. Độ chính xác đo
+nhiệt độ
+
+*Mở nguồn điện, làm nóng máy 60 phút
+Xác nhận biểu thị dưới đây
+(1)         Nhấn  SHIFT  Đèn shift đỏ
+
+Nhấn   ENTER   Trở về màn hình Menu
+MENU
+Dùng phím
+làm hiển thị màn hình thiết định:
+(Màn hình chính)  CALl b
+(Màn hình phụ)      Auto
+
+(2) Tại phạm vi đo, nhấn SHIFT=>OADJ (đèn OADJ
+sáng), điều chỉnh 0
+
+(1) Dây cáp đưa vào có đang được kết nối đúng không?
+(2) Có đứt dây cáp và lỏng phần kết nối không?
+(3) Đầu dò nhiệt độ phải được kết nối đúng với jack của
+mặt lưng máy đo điện trở thấp
+
+(1) Đo nhiệt độ xung quan máy đo điện trở thấp
+(2) Nhấn nút Ω/LPΩ/℃, xác nhận nhiệt độ bằng đầu dò
+nhiệt độ
+(3) So sánh (1)với (2), không được có chênh lệch từ ±
+1.0℃ trở lên ( thiết định công ty)
+ Tuy nhiên, chỉ tiến hành trong trường hợp được quản
+lý nhiệt độ
+
+Nếu phát hiện ra
+phải xử lý ngay.
+
+Trường hợp
+phán định NG,
+phải yêu cầu
+hiệu chỉnh và
+phán định chính
+thức
+
+Ghi chú
+1. Trường hợp kiểm tra thấy bất thường, ghi chép lại kết quả đã kiểm tra và xử lý theo
+chỉ thị của người có trách nhiệm quản lý.
+2. Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng
+được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì
+bất thường xảy ra.
+3. Trường hợp nhận ra sự bất thường trong khi sử dụng, sẽ xử lý dựa vào chỉ thị của
+người có trách nhiệm quản lý.
+
+Quỳnh Hoa 46447
+
+--- HẾT TRANG ---
+
+No.6/6
+Dụng cụ trắc định 039-6
+Tài liệu tiêu chuẩn hiệu chỉnh điểm kiểm
+Biểu lý lịch những ban hành, cải chính và hủy bỏ
+
+Dấu
+hiệu
+Ngày tháng
+năm
+Nội dung (bao gồm những nội dung sửa
+đổi)
+Soạn
+thảo
+Xác nhận
+Công
+nhận
+
+01.10.2004
+Ban hành qui cách mới
+Horii
+Fujiwara
+Itogawa
+a
+
+2013.04.15
+- Thay đổi kỳ hạn hiệu chỉnh :  Khi cần thiết
+nhưng không vượt quá 6 tháng →12 tháng
+- Bổ sung văn bản liên quan / trích dẫn
+ [Điểm kiểm] không thay đổi nội dung
+Isa
+
+Murayama
+Itou
+Itokawa
+b
+2016.04.01
+Dụng cụ chuẩn: máy đo nhiệt độ độ ẩm
+[S65-1]
+I[Hiệu chỉnh]
+-
+Mục 1: thay đổi nội dung
+-
+Bổ sung mục 2 nên hạ mã số hạng
+mục xuống dưới
+-
+Văn bản trích dẫn liên quan (quy cách
+phán định) bổ sung độ chính xác của
+điểm kiểm
+-
+Xoá bỏ bảng thành tích hiệu chỉnh
+máy đo điện trở
+II[ Điểm kiểm]
+-
+Mục 1: bổ sung phương pháp điều
+chỉnh 0
+-
+Mục 2: thay đổi phương pháp phán
+định, nội dung, tên hạng mục
+-
+Bổ sung mục 3
+橋田
+村野 伊藤
+石野
+
+Mabuchi motor Co.,Ltd
+Bộ phận bảo hành chất lượng
+Quỳnh Hoa 46447
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "039-6-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh - và kiểm tra dụng cụ trắc định",
+  "doc_code": "039-6",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

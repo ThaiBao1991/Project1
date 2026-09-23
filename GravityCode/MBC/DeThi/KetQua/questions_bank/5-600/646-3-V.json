@@ -1,0 +1,50 @@
+{
+  "file_name": "646-3-V.pdf",
+  "folder_name": "5-600 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Block geji dùng để xác nhận độ chính xác linh kiện thiết bị",
+  "doc_code": "646-3",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": true,
+      "question_text": "◎ Theo quy định về xử lý bất thường khi kiểm tra block geji, trường hợp kết quả kiểm tra không thấy bất thường thì quy định ghi chép kết quả như thế nào?",
+      "options": {
+        "A": "Bắt buộc phải ghi chép lại kết quả kiểm tra sau mỗi lần sử dụng trong ngày",
+        "B": "Không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra",
+        "C": "Tuyệt đối không được ghi chép vào sổ sách khi không có bất thường",
+        "D": "Chỉ cần ghi chép lại khi có sự cố nghiêm trọng xảy ra ở linh kiện thiết bị"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: Chú ý mục 2: Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được, nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường xảy ra."
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Theo tài liệu tiêu chuẩn, tần suất điểm kiểm (ngoại quan, chống gỉ) đối với block geji dùng để xác nhận độ chính xác linh kiện thiết bị là khi nào?",
+      "options": {
+        "A": "Mỗi tuần một lần",
+        "B": "Mỗi khi sử dụng",
+        "C": "24 tháng 1 lần",
+        "D": "Mỗi tháng một lần"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 3: Tần suất điểm kiểm: Mỗi khi sử dụng"
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Khi đo xác nhận biên độ chênh lệch kích thước (mục 1) bằng phương pháp hiệu chỉnh trong công ty, ta cần đặt block ge-ji như thế nào trên bệ phẳng?",
+      "options": {
+        "A": "Đặt nằm ngang trên bệ",
+        "B": "Đặt nghiêng 45 độ so với mặt bệ",
+        "C": "Đặt thẳng đứng block ge-ji lên bề mặt bệ",
+        "D": "Kẹp trên ê-tô chuyên dụng"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 1: Đặt thẳng đứng block ge-ji dùng xác nhận độ chính xác linh kiện thiết bị lên bề mặt bệ"
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}

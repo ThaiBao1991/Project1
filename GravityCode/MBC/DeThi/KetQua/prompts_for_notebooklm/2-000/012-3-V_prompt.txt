@@ -1,0 +1,431 @@
+Bạn là chuyên gia thẩm định và đào tạo tay nghề phòng Đảm bảo Chất lượng (BHCL) của công ty Mabuchi Motor.
+Dựa CHÍNH XÁC vào nội dung tài liệu tiêu chuẩn kỹ thuật dưới đây, hãy tạo ra một bộ câu hỏi trắc nghiệm kiểm tra nhận định tư cách nhân viên/đội trưởng.
+
+--- THÔNG TIN TÀI LIỆU NGUỒN ---
+Tên tài liệu: Tài liệu tiêu chuẩn hiệu chỉnh - và kiểm tra dụng cụ trắc định
+Mã số/Mã máy đo: s
+File gốc: 012-3-V.pdf (Thư mục: 2-000 Ban V IT HOA)
+
+--- NỘI DUNG TÀI LIỆU TIÊU CHUẨN ---
+No.1/7
+Tài liệu tiêu chuẩn hiệu chỉnh
+và kiểm tra dụng cụ trắc định
+
+Máy phân tích motor
+Phòng nghiên cứu Sugawara EMA1, EMA-1S
+
+Mabuchi motor Co., Ltd
+Bộ phận bảo hành phẩm chất
+
+Ngày ban hành 15.12.1995
+Ngày thay đổi  24.05.2007
+Dụng cụ trắc định 012-3f
+
+【Hiệu chỉnh】
+Dụng cụ chuẩn
+Quả cân (cấp 3 trở lên) (dụng cụ hỗ trợ: kẹp dùng hiệu chỉnh), Thiết bị
+hiệu chỉnh dòng điện 1 chiều (S01-1), Stroboscope (S32-1),
+Máy đo số vòng quay digital (019-1, 019-2)
+Chu kỳ hiệu chỉnh
+3 tháng và khi cần thiết
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp phán
+định
+
+1.Hiệu chỉnh trị số
+ngẫu lực
+
+2. Hiệu chỉnh trị số
+điện áp
+
+(1) Ấn nút điều khiển CALIB, chọn mode hiệu chỉnh.
+(2) Ấn nút điều khiển BRAKE ON , tạo ra từ tính hãm
+bộ phận đo ngẫu lực .
+(3) Đặt thanh dùng hiệu chỉnh phụ tùng ngang với trục
+của bộ phận đo ngẫu lực.
+(4) Ấn nút điều khiển Torque Zero  chỉnh biểu thị ngẫu
+lực của máy chính (Màn hình CRT) về 0.
+(5) Treo quả cân ngẫu lực quy định vào khe của 1 phía
+của thanh dùng hiệu chỉnh, đặt thanh dùng hiệu
+chỉnh nằm ngang (hình 1)
+Ví dụ: Trường hợp ngẫu lực quy định là 200g
+Cự li từ trung tâm trục đến khe (10cm) x quả cân
+(20g) = 200g.
+(6) (Hiệu chỉnh trước điều chỉnh)
+Xác nhận biểu thị ngẫu lực của máy chính (màn
+hình CRT)
+Tiếp theo, thêm ngẫu lực quy định giống với (5) vào
+thanh dùng hiệu chỉnh phía ngược lại rồi xác nhận
+biểu thị ngẫu lực của máy chính (màn hình CRT)
+(7) (Hiệu chỉnh sau điều chỉnh)
+Trường hợp cần điều chỉnh, xoay nút vặn hiệu
+chỉnh của bộ phận đo ngẫu lực, lặp lại từ (4) ~ (6) ở
+2 phía của thanh dùng hiệu chỉnh rồi llàm cho biểu
+thị  ngẫu lực (màn hình CRT) khớp với ngẫu lực
+quy định.
+(8) Sau khi hoàn tất điều chỉnh, vừa cho quay thanh
+dùng hiệu chỉnh bằng tay hoặc cho vận động lên
+xuống vừa ấn BRAKE OFF rồi loại trừ từ tính còn
+lại
+Hình 1
+
+ 0.5 % ngaãu löïc quy
+ñònh
+
+ 0.5 % ngaãu löïc quy
+ñònh
+
+Người dịch: Ngọc Quỳnh 24250
+
+Thanh dùng hiệu chỉnh
+Quả cân
+Cự li từ trung tâm
+trục đến khe
+Đồng hồ ngẫu lực
+
+--- HẾT TRANG ---
+
+Người dịch: Ngọc Quỳnh 24250
+
+No.2/7
+Dụng cụ trắc định 012-3f
+
+Ⅱ 【Hiệu chỉnh】
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp phán
+định
+
+2. Hiệu chỉnh trị
+điện áp
+(1) Trước khi hiệu chỉnh, tháo phối dây giữa a-b ở
+hình 2 (trường hợp đang được phối dây)
+(2) Nối thiết bị hiệu chỉnh dòng điện 1 chiều với
+EVA-1 (hình 2 a-c)
+(3) Ấn SET → DRIVE → #2 → EXIT
+(4) Ấn SET → RANGE →(trị thiết định)→ V→
+EXIT
+(thiết định phạm vi tự động)
+(5) Ấn CALIB
+(6) Xuất từ thiết bị hiệu chỉnh dòng điện 1 chiều trị
+giống với trị thiết định
+< Chú ý>
+Không xuất điện áp vượt quá trị thiết định
+(7) So sánh trị xuất ra của 6 với trị biểu thị trên máy
+rồi phán định.
+(8) Dừng xuất từ thiết bị hiệu chỉnh dòng điện 1
+chiều. Lặp lại từ (4) ~ (8) ở mỗi trị thiết định như
+bên dưới
+
+Ngoài ra, phải hiệu chỉnh ở trị thiết định theo trình
+tự 1, 2, 5, 10, 20, 50V
+Hình 2 (đại diện)
+
+±0.5%
+
+Thiết bị HC dòng điện 1 chiều
+Phần dòng điện
+Phần đo đạc dòng điện điện áp: EVA-1 (lắp vào VA-1)
+Phần điện áp
+Phần đo đạc dòng điện điện áp đơn vị 100A: VA-100A
+Đen
+Đỏ
+
+--- HẾT TRANG ---
+
+No.3/7
+
+Người dịch: Ngọc Quỳnh 24250
+
+Ⅱ 【Hiệu chỉnh】                             Dụng cụ trắc định 012-3f
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp phán
+định
+3. Hiệu chỉnh trị
+dòng điện
+
+(1) Trước khi hiệu chỉnh, tháo phối dây giữa a-b ở
+hình 3 (trường hợp đang được phối dây)
+(2) Nối thiết bị hiệu chỉnh dòng điện 1 chiều với
+EVA-1 00A (hình 3 b-d)
+(3) Ấn SET → DRIVE → #2 → EXIT
+(4) Ấn SET → RANGE →(trị thiết định)→ mA
+hoặc A →EXIT (thiết định phạm vi tự động)
+(5) Ấn CALIB  → MOTOR
+(6) Xuất từ thiết bị hiệu chỉnh dòng điện 1 chiều trị
+giống với trị thiết định
+< Chú ý>
+Không xuất dòng điện vượt quá trị thiết định
+(7) So sánh trị xuất ra của 6 với trị biểu thị trên máy
+rồi phán định.
+(8) Sau khi xác nhận trị biểu thị, ấn MOTOR→EXIT
+(8) Dừng xuất từ thiết bị hiệu chỉnh dòng điện 1
+chiều. Lặp lại từ (4) ~ (9) ở mỗi trị thiết định như
+bên dưới
+Ngoài ra, phải hiệu chỉnh ở trị thiết định theo trình
+tự 50, 100, 200, 500mA, 1, 2, 5A.
+Hình 3 (đại diện)
+
+±0.5%
+
+Phần dòng điện
+Thiết bị HC dòng điện 1 chiều
+Phần đo đạc dòng điện điện áp:
+EVA-1 (lắp vào VA-1)
+Phần điện áp
+Phần đo đạc dòng điện
+điện áp đơn vị 100A: VA-100A
+
+--- HẾT TRANG ---
+
+No.4/7
+
+Ⅱ 【Hiệu chỉnh】                       Dụng cụ trắc định 012-3f
+
+Hạng mục hiệu
+chỉnh
+Phương pháp hiệu chỉnh
+Phương pháp phán
+định
+4. Hiệu chỉnh số
+vòng quay
+
+Chọn motor tùy ý, hoạt dụng số vòng quay đó rồi
+hiệu chỉnh
+Ví dụ: RS-555VD-6516
+<sỹ dạng>
+Điện áp quy định: 13.5V
+Tải quy định: 156.9mN・m
+Số vòng quay không tải: 13,500~17,100rpm
+Dòng điện không tải: 1.8A max
+Số vòng quay có tải quy định: 9,2000~12,800rpm
+Dòng điện có tải: 28A max
+Dòng điện dừng: 120A max
+(1) SET  DRIVE #2
+(2) RANGE  17.100 r/min thiết định phạm vi số
+vòng quay (trị giới hạn trên của quy cách số
+vòng quay không tải)
+(3) RANGE120 A thiết định phạm vi trị dòng
+điện (trị giới hạn trên của quy cách dòng điện
+dừng)
+(4) RANGE 13.5 V thiết định phạm vi điện áp
+đo đạc (điện áp sử dụng motor hoặc phía nhỏ
+của điện áp dòng điện)
+(5) EXIT  MANU  0  mN・m thiết định không
+tải
+(6) Ấn CALIB, cho trị được biểu thị ở EV của màn
+hình khớp với điện áp dòng điện 1 cách tùy ý
+(dưới trị thiết định của (4))
+(7) Ấn TORQUE ZERO, bổ sung trị biểu thị zero.
+(8) Ấn 2 lần EXIT, thực hiện chế độ hiệu chỉnh
+(9) Thiết định motor trên bệ đo đạc của máy đo
+ngẫu lực (hình 4)
+(10) Ấn MANU
+(11) Cho phát quang của đồng hồ đo số vòng quay
+kỹ thuật số hoặc Osilicop đạt đến trục của đồng
+hô ngẫu lực (hình 4), ấn MOTOR. (motor quay
+liên tục)
+(12) Vừa đọc r/min số vòng quay được biểu thị trên
+màn hình vừa đọc số vòng quay của trục đồng
+hồ ngẫu lực bằng máy đo vòng quay kỹ thuật số
+hoặc Ossilicop (cw/ ccw) (hình 4)
+(13) Ấn MOTOR, cho motor dừng quay
+(14) __  mN・m
+Thiết định tải trọng tùy ý làm số vòng quay khoảng
+1/2~2/3 của số vòng quay khi không tải ở __
+(15) Ấn MOTOR (mắc tải lên motor, quay liên tục)
+(16) Đọc r/min số vòng quay được biểu thị ở màn
+hình, đồng thời, đọc số vòng quay (CW/CCW)
+của trục của đồng hồ ngẫu lực bằng đồng hồ đo
+số vòng quay kỹ thuật số hoặc là Stroboscope
+(hình 4)
+Để điều chỉnh số vòng quay, điều chỉnh điện áp
+đưa vào cũng được
+(17) Ấn MOTOR, cho motor dừng quay
+※ Tiếp tục, thay đổi ở máy đo ngẫu lực khác, lặp
+lại từ (5) đến (17) rồi hiệu chỉnh.
+
+CW/CCW khi không
+tải ±0.5％
+
+CW/CCW khi không
+tải ±0.5％
+
+Người dịch: Ngọc Quỳnh 24250
+
+--- HẾT TRANG ---
+
+I [Hiệu chỉnh]                                                    Dụng cụ đo đạc 012-3f
+Hình 4
+
+Hạng mục hiệu chỉnh 4 (11), (12), (16)
+Đọc số vòng quay của trục của đồng hồ ngẫu lực bằng phát quang của máy đo số vòng quay kỹ thuật
+số hoặc là Stroboscope
+
+Máy đo số vòng quay kỹ thuật số                 Đồng hồ ngẫu lực           Trục của đồng hồ ngẫu lực
+hoặc là Stroboscope
+
+Người dịch: Ngọc Quỳnh 24250
+
+No. 5/7
+
+--- HẾT TRANG ---
+
+No. 6/7
+
+Dụng cụ trắc định 012-3f
+
+Ⅱ 【Điểm kiểm】                Máy phân tích motor
+Phòng nghiên cứu Sugawara EMA1, EMA-1S
+
+Tiến độ kiểm tra      Mỗi lần sử dụng
+
+Hạng mục
+điểm kiểm
+Phương pháp điểm kiểm
+Phương pháp
+phán định
+
+1. Bộ phận đo
+ngẫu lực
+
+2. Bộ phận điều
+khiển
+
+(Kiểu bạc đạn hơi)
+Xoay trục ở trạng thái không tải, bằng ngón tay, xác
+nhận xem xoay có nhẹ không.
+Trị số chỉ thị đồng hồ đo áp lực hơi phải chỉ là 1.5~2.0
+Kg/cm2
+(Kiểu ổ bạc đạn)
+Cho hoạt động với công tắc bộ phận điều khiển ngẫu
+lực, và quạt sẽ quay. Không được đứt dây, lỏng kẹp,
+
+Màn hình CRT của máy không được bẩn và nút công
+tắc không được hỏng….
+
+Ghi chú
+1. Trường hợp kiểm tra thấy bất thường, ghi chép lại kết quả đã kiểm tra và xử lý theo chỉ
+thị của người có trách nhiệm quản lý.
+2. Trường hợp kết quả kiểm tra không thấy bất thường không ghi chép kết quả cũng được,
+nhưng mỗi tháng phải ghi chép lại kết quả đã kiểm tra một lần dù không có gì bất thường
+xảy ra.
+3. Trường hợp nhận ra sự bất thường trong khi sử dụng, sẽ xử lý dựa vào chỉ thị của người
+có trách nhiệm quản lý.
+
+Người dịch: Ngọc Quỳnh 24250
+
+--- HẾT TRANG ---
+
+Dụng cụ trắc định 012-3     No. 7/7
+
+Tài liệu tiêu chuẩn hiệu chỉnh điểm kiểm
+Biểu lý lịch những ban hành, cải chính và hủy bỏ
+Dấu
+hiệu
+Ngày tháng
+năm
+Nội dung (bao gồm những nội dung sửa
+đổi)
+Soạn
+thảo
+Xác
+nhận
+Công
+Nhận
+
+Quyết định quy cách mới.
+
+e
+12.07.1996
+Thay đổi kì hạn hiệu chỉnh: mổi 1 tháng 
+mổi 3 tháng.
+
+f đ
+Đã
+xác
+nhận
+toàn
+Bộ
+24.05.2007
+Cải đính toàn phần (bổ sung hiệu chỉnh số
+vòng quay... Theo yêu cầu của TWM)
+
+MABUCHI MOTOR Co.,Ltd
+Bộ phận bảo hành chất lượng
+Người dịch: Ngọc Quỳnh 24250
+
+--- YÊU CẦU BẮT BUỘC ĐỐI VỚI BỘ CÂU HỎI ---
+1. SỐ LƯỢNG CÂU HỎI: Tạo ÍT NHẤT 3 CÂU HỎI TRẮC NGHIỆM (4 lựa chọn A, B, C, D).
+2. NỘI DUNG DÀN TRẢI ĐỀU:
+   - Câu 1: Về ngoại quan, mục đích, tiến độ kiểm tra, thiết lập ban đầu (điểm 0, tư thế đặt, môi trường...).
+   - Câu 2: Về thông số kỹ thuật chi tiết, phương pháp đo/kiểm, tiêu chuẩn phán định (dung sai, giá trị đo, tần suất...).
+   - Câu 3: Về phương pháp xử lý khi có bất thường, quản lý bảo quản, chống gỉ sét, 4S hoặc ghi chép báo cáo.
+3. ĐÚNG 1 CÂU CHỦ CHỐT (ĐÁNH DẤU ◎):
+   - Trong các câu hỏi trên, PHẢI CHỌN ĐÚNG 1 CÂU QUAN TRỌNG NHẤT mang tính quyết định an toàn/chất lượng để đánh dấu ký hiệu ◎ vào trước nội dung câu hỏi.
+   - Đây là câu hỏi trọng yếu: Người thi sai câu này sẽ bị trượt ngay lập tức theo quy chuẩn kiểm tra REV 13.
+4. TÍNH CHÍNH XÁC:
+   - Đáp án đúng phải trích dẫn trực tiếp từ văn bản (có căn cứ rõ ràng).
+   - 3 phương án gây nhiễu phải hợp lý, sát thực tế sản xuất của Mabuchi Motor.
+   - Đối tượng kiểm tra mặc định: "Đội trưởng LK, TP, HC, ĐGSP, GCCK" hoặc đối tượng phù hợp nhất trong tài liệu.
+
+--- ĐỊNH DẠNG ĐẦU RA YÊU CẦU (JSON CHUẨN) ---
+Hãy trả về DUY NHẤT một khối JSON hợp lệ theo đúng cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+```json
+{
+  "file_name": "012-3-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh - và kiểm tra dụng cụ trắc định",
+  "doc_code": "s",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 1...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "A",
+      "reference_note": "Căn cứ theo mục 1: ..."
+    },
+    {
+      "question_number": 2,
+      "is_key": true,
+      "question_text": "◎ Nội dung câu hỏi chủ chốt quan trọng...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "D",
+      "reference_note": "Căn cứ theo mục 4: ..."
+    },
+    {
+      "question_number": 3,
+      "is_key": false,
+      "question_text": "Nội dung câu hỏi 3...?",
+      "options": {
+        "A": "Nội dung lựa chọn A",
+        "B": "Nội dung lựa chọn B",
+        "C": "Nội dung lựa chọn C",
+        "D": "Nội dung lựa chọn D"
+      },
+      "correct_answer": "B",
+      "reference_note": "Căn cứ theo mục 2: ..."
+    }
+  ]
+}
+```

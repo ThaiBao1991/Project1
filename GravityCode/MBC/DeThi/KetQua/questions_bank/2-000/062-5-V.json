@@ -1,0 +1,50 @@
+{
+  "file_name": "062-5-V.pdf",
+  "folder_name": "2-000 Ban V IT HOA",
+  "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm Máy đo bụi",
+  "doc_code": "062-5",
+  "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+  "questions": [
+    {
+      "question_number": 1,
+      "is_key": false,
+      "question_text": "Theo tiêu chuẩn, tiến độ điểm kiểm (kiểm tra hàng ngày/định kỳ) đối với máy đo bụi được quy định như thế nào?",
+      "options": {
+        "A": "Mỗi tuần 1 lần và mỗi lần sử dụng",
+        "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+        "C": "Chỉ kiểm tra trước khi sử dụng thiết bị",
+        "D": "6 tháng 1 lần và khi cần thiết"
+      },
+      "correct_answer": "B",
+      "reference_note": "Trang 2 - Tiến độ điểm kiểm: Mỗi tháng 1 lần và mỗi lần sử dụng"
+    },
+    {
+      "question_number": 2,
+      "is_key": false,
+      "question_text": "Thông số phạm vi đo đối với độ chính xác cao của máy đo bụi LD-5C theo tài liệu kỹ thuật là bao nhiêu?",
+      "options": {
+        "A": "0.001～10.000 mg/m³",
+        "B": "0.01～100 mg/m³",
+        "C": "1CPM = 0.001 mg/m³",
+        "D": "±10%"
+      },
+      "correct_answer": "A",
+      "reference_note": "Trang 1 - [Độ chính xác cao] 0.001～10.000mg/m3"
+    },
+    {
+      "question_number": 3,
+      "is_key": true,
+      "question_text": "◎ Trong quá trình kiểm tra hoặc khi sử dụng nếu phát hiện có bất thường đối với thiết bị đo bụi, người vận hành cần thực hiện bước xử lý nào sau đây?",
+      "options": {
+        "A": "Tự ý tháo thiết bị ra để sửa chữa các bộ phận bên trong",
+        "B": "Tiếp tục sử dụng nếu lỗi nhỏ và ghi chú lại vào cuối tháng",
+        "C": "Ghi chép lại kết quả, xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu và làm đơn đề nghị hiệu chỉnh lại nếu cần thiết",
+        "D": "Chuyển ngay thiết bị sang kho phế liệu mà không cần báo cáo"
+      },
+      "correct_answer": "C",
+      "reference_note": "Trang 2 - Chú ý) 2. Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo..."
+    }
+  ],
+  "status": "OK",
+  "validation_errors": []
+}
