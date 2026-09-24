@@ -272,3 +272,139 @@ Khi hàm được import từ thư mục khác, Python không tìm thấy file �
 - 9 folder trong `folder_order` khớp 100% với 9 thư mục thực trên đĩa.
 - Hệ thống **sẵn sàng sử dụng** qua `Chay_Giao_Dien.bat`.
 
+---
+
+## 2026-09-24 — Nâng Cấp Tính Năng Yêu Cầu Tùy Chỉnh & Trình Duyệt Câu Hỏi (AskCpl Style) — HOÀN THÀNH ✅
+
+### 1. Bối Cảnh & Yêu Cầu Người Dùng
+- Cho phép đưa vào yêu cầu thêm khi tạo câu hỏi hoặc khi rút gọn câu hỏi (tương tự AskCpl): người dùng có thể nhập yêu cầu ưu tiên chủ đề hoặc loại trừ các nội dung không mong muốn ngay trên giao diện.
+- Cung cấp ứng dụng/cửa sổ trực quan để duyệt câu hỏi (ví dụ có 80 câu): xem chi tiết câu hỏi & đáp án, chỉnh sửa trực tiếp, bật/tắt checkbox chọn câu hỏi, rồi bấm rút gọn để tự động xuất lại đề thi và biểu đáp án Word tương ứng.
+
+### 2. Triển Khai Kỹ Thuật
+1. **`auto_question_generator.py`**:
+   - Thêm tham số `extra_requirements` vào `_build_prompt()`, `_make_text_prompt()`, `generate_for_file()`, `run_batch()`, và `run_loop_until_complete()`.
+   - AI Gemini tiếp nhận yêu cầu bổ sung của người dùng và sinh câu hỏi bám sát tiêu chí ưu tiên/loại trừ.
+2. **`generate_rutgon.py`**:
+   - Tổng quát hóa tính năng lọc rút gọn từ `generate_rutgon_1A00.py` thành engine dùng chung cho mọi thư mục.
+   - Hỗ trợ chọn danh sách thư mục linh hoạt, bộ lọc cứng (ACM/SMI, ngày tháng cố định, đổi đơn vị kgf/N, mã số sheet/nhà cung cấp) kèm `extra_exclude_keywords` do người dùng tùy biến.
+   - Xuất Đề thi và Đáp án chuẩn mẫu REV 14.
+3. **`question_browser.py`**:
+   - `QuestionBrowser` (Cửa sổ 3 panel):
+     + **Trái**: Danh sách câu hỏi có checkbox chọn/bỏ hàng loạt, lọc theo thư mục, tìm kiếm nhanh, thống kê số câu đã chọn và số câu chủ chốt `◎`.
+     + **Giữa**: Xem chi tiết câu hỏi, các lựa chọn A/B/C/D, đáp án đúng và trạng thái câu chủ chốt.
+     + **Phải**: Form chỉnh sửa inline cho phép sửa nội dung câu hỏi, sửa đáp án, đổi câu chủ chốt `◎`, lưu tạm hoặc lưu vĩnh viễn vào questions_bank.
+     + **Nút xuất**: "📤 Xuất Word từ câu đã chọn" trực tiếp tạo file Đề thi và Đáp án từ tập câu hỏi người dùng đã duyệt.
+   - `RutGonDialog`: Hộp thoại popup cho phép tick chọn thư mục cần rút gọn và gõ từ khóa loại trừ bổ sung.
+4. **`app_gui.py`**:
+   - Bổ sung ô nhập `📝 Yêu cầu thêm (AI Prompt)` ngay trên thanh điều khiển.
+   - Thêm nút `🔍 Duyệt & Sửa Câu Hỏi` (mở QuestionBrowser) và nút `⚡ Rút Gọn Tùy Chọn...` (mở RutGonDialog).
+   - Truyền `extra_requirements` từ UI vào Worker Thread khi chạy vòng lặp sinh câu hỏi tự động.
+
+### 3. Kết Quả Kiểm Tra (Gate 2 Verification)
+- ✅ `python -m py_compile auto_question_generator.py generate_rutgon.py question_browser.py app_gui.py`: PASS, không có lỗi cú pháp.
+- ✅ Unit test prompt: `_build_prompt` chứa đúng nội dung `extra_requirements`.
+- ✅ Test `generate_rutgon.filter_and_build(folders=['1-A00'])`: Giữ lại đúng 80 câu (27 câu `◎`), loại 37 câu, xuất file Word Đề thi & Đáp án hoàn hảo.
+- ✅ Test imports: `app_gui`, `QuestionBrowser`, `RutGonDialog` khởi tạo thành công không xung đột.
+
+---
+
+## 2026-09-24 (bổ sung) — Sửa Lỗi RutGonDialog & Xuất Đề Thi + Đáp Án Tổng Hợp Rút Gọn — HOÀN THÀNH ✅
+
+### 1. Sửa Lỗi & Nâng Cấp Hộp Thoại Rút Gọn (`RutGonDialog`)
+- **Nguyên nhân lỗi trước đó**: `app_gui.py` truyền `RutGonDialog(self, log_fn=self._log)` nhưng constructor `RutGonDialog.__init__` ban đầu chưa khai báo `log_fn` và yêu cầu `available_folders` bắt buộc.
+- **Khắc phục**:
+  - `RutGonDialog.__init__(parent=None, available_folders=None, on_confirm_callback=None, log_fn=None)`:
+    + Tự động quét danh mục thư mục từ `questions_bank` nếu không được truyền vào.
+    + Nhận `log_fn` và ghi log thời gian thực ra console của app.
+    + Thêm các checkbox bật/tắt từng tiêu chí loại trừ: ACM/SMI, ngày tháng cố định, đổi đơn vị đo, quy định mã số sheet nhà cung cấp.
+    + Thêm Textbox cho phép người dùng gõ bất kỳ yêu cầu/từ khóa loại trừ bổ sung nào (mỗi dòng một cụm từ).
+    + Cho phép chọn xuất tên file theo chuẩn Tổng hợp (`DE THI TONG HOP RUT GON.docx`) hoặc theo tên thư mục.
+    + Tự động khởi chạy luồng nền (background thread) gọi `generate_rutgon.filter_and_build` mượt mà, không đơ UI.
+
+### 2. Xuất Bộ Đề Thi & Đáp Án Tổng Hợp Rút Gọn
+- Đã chạy engine rút gọn cho phần `1-A00 Ban V IT HOA` theo đầy đủ các tiêu chuẩn loại trừ:
+  + Loại bỏ 27 câu ACM/SMI thuộc các file A09-1 đến A09-9 và A15-1.
+  + Loại bỏ các câu hỏi mốc ngày tháng cố định (A00-1 Q3, A08-1 Q1, A13-1 Q2, A14-1 Q2).
+  + Loại bỏ các câu hỏi đổi đơn vị kgf sang N, hoán đổi trọng lượng/lực (A17-1 Q1, Q2).
+  + Loại bỏ các câu hỏi mã số sheet, mẫu thiết định khi thêm nhà cung cấp (A18-5 Q1, Q2, Q3).
+- **Kết quả xuất**:
+  - Giữ lại: **80 câu hỏi** chuyên môn kỹ thuật, trong đó có **27 câu chủ chốt `◎`**.
+  - Đã xuất 2 file Word hoàn chỉnh tại `KetQua/`:
+    + `KetQua/DE THI TONG HOP RUT GON.docx`
+    + `KetQua/DAP AN TONG HOP RUT GON.docx`
+
+---
+
+## 2026-09-24 (session 3) — Tính Năng Duyệt Từng File Riêng, Mở File Rút Gọn & Tự Động Lọc Bằng NLP Prompt — HOÀN THÀNH ✅
+
+### 1. Bối Cảnh & Nâng Cấp Theo Yêu Cầu
+1. **Duyệt & chỉnh sửa theo file riêng lẻ**:
+   - `QuestionBrowser`: Thêm Combobox `📄 File riêng:` để người dùng lọc xem và sửa câu hỏi của từng file tiêu chuẩn cụ thể (`A00-1-V.json`, `A01-1-V.json`...).
+2. **Mở bộ câu hỏi / file rút gọn để chỉnh sửa nhanh**:
+   - Thêm nút `📂 Mở File Rút Gọn JSON...`: Cho phép mở trực tiếp bất kỳ file JSON câu hỏi nào (đặc biệt là file rút gọn `DE THI TONG HOP RUT GON_questions.json`) để nạp vào giao diện, duyệt từng câu, thêm/bớt checkbox, sửa đáp án rồi xuất cập nhật lại Word.
+   - Khi xuất đề rút gọn: tự động lưu file `DE THI TONG HOP RUT GON_questions.json` song song với 2 file Word.
+3. **Tự động phân tích yêu cầu bằng ngôn ngữ tự nhiên (NLP Prompt Auto-Filter)**:
+   - Thêm khung Textbox trong QuestionBrowser để người dùng dán nguyên đoạn yêu cầu tiếng Việt (như: *- Các câu hỏi thuộc về phần 1-A00, Không đưa vào câu hỏi ngày tháng cố định, Không liên quan ACM SMI, Không đổi đơn vị, Bỏ mục nhà cung cấp...*).
+   - Nút `⚡ Phân Tích & Tự Động Lọc`:
+     + Tự động nhận diện thư mục nhắc tới (`1-A00`).
+     + Nhận diện các tiêu chuẩn loại trừ (không phân biệt hoa thường và không phân biệt có/không dấu tiếng Việt nhờ `strip_vietnamese_accents`).
+     + Tự động tick `[✓]` cho các câu ĐẠT tiêu chí và bỏ tick `[☐]` cho các câu vi phạm.
+   - Thêm nút `⚡ Xuất Nhanh Tổng Hợp Rút Gọn`: 1-click xuất ngay `DE THI TONG HOP RUT GON.docx` và `DAP AN TONG HOP RUT GON.docx`.
+
+### 2. Kết Quả Kiểm Tra (Gate 2 Verification)
+- ✅ `python -m py_compile question_browser.py generate_rutgon.py`: PASS.
+- ✅ Unit test NLP Prompt Filter: Phân tích đoạn prompt của user → giữ lại chính xác **80 câu ĐẠT (✓)** và **37 câu LOẠI (☐)**, trong đó có **27 câu chủ chốt `◎`**.
+- ✅ Unit test Single File Filter: Lọc riêng `A00-1-V.json` → hiển thị đúng 3 câu.
+- ✅ Unit test Open JSON: Mở `DE THI TONG HOP RUT GON_questions.json` → nạp đúng 80 câu vào trình duyệt.
+- ✅ Xuất file hoàn chỉnh: `DE THI TONG HOP RUT GON.docx`, `DAP AN TONG HOP RUT GON.docx`, `DE THI TONG HOP RUT GON_questions.json`.
+
+---
+
+## 2026-09-24 (session 4) — Sửa Lỗi Hiển Thị Bảng Khi Mở File Rút Gọn JSON & Chạy Vòng Lặp Tự Động Kiểm Tra — HOÀN THÀNH ✅
+
+### 1. Nguyên Nhân Lỗi & Cách Khắc Phục
+- **Nguyên nhân lỗi bảng trống**:
+  1. File JSON rút gọn lưu `folder_name` đầy đủ là `"1-A00 Ban V IT HOA"`, trong khi bộ lọc thư mục trên giao diện chỉ dùng slug ngắn `["1-A00", "2-000", ...]`. Hàm lọc `_apply_filter()` so sánh chuỗi chính xác (`it["folder"] not in selected_folders`) nên toàn bộ 80 câu hỏi bị lọc bỏ nhầm.
+  2. Khóa lưu tên file trong JSON là `file_name`, trong khi code đọc ban đầu tìm `pdf_filename` khiến tên file bị gán thành mặc định `file.json`.
+- **Khắc phục**:
+  - `_open_custom_json`: Đọc chuẩn cả `file_name` và `pdf_filename`, tự động chuẩn hóa slug thư mục `folder_slug = raw_folder.split()[0]`, đồng thời tự động đánh dấu tick chọn thư mục của file vừa nạp.
+  - `_apply_filter`: So sánh thư mục thông minh theo slug và tên đầy đủ (`it_slug == sf or sf in it_f`), không bao giờ bị lọc bỏ nhầm khi mở file rút gọn.
+  - Reset `_selected_file_filter = "(Tất cả file)"` ngay sau khi mở file JSON mới.
+
+### 2. Vòng Lặp Kiểm Tra Tự Động (Automated Verification Loop)
+- Đã chạy chuỗi kiểm tra tự động qua test script:
+  1. Nạp `DE THI TONG HOP RUT GON_questions.json` → `_all_q_items`: **80 câu**, `_filtered_items`: **80 câu**, số dòng trong Treeview: **80 dòng** (ĐÃ FIX TRIỆT ĐỂ, HIỂN THỊ ĐỦ 80 CÂU).
+  2. Lọc file riêng `A00-1-V.pdf` → đúng **2 câu** trong bảng.
+  3. Đặt lại `(Tất cả file)` → quay lại đủ **80 câu** trong bảng.
+  4. Chọn dòng đầu tiên (index 0) → nạp chuẩn nội dung vào panel Xem chi tiết (`_txt_view`) và panel Sửa câu hỏi (`_edit_question`).
+  5. `python -m py_compile` tất cả các file mã nguồn: **100% PASS, 0 lỗi**.
+
+---
+
+## 2026-09-24 (session 5) — Sửa UX/UI RutGonDialog & Lỗi Treeview Trống Khi Mở File JSON — HOÀN THÀNH ✅
+
+### 1. Nguyên Nhân & Khắc Phục
+
+#### Lỗi UX/UI `RutGonDialog` (Hình 1 — vùng tối khổng lồ trống):
+- **Root cause**: Dòng `self.grid_rowconfigure(2, weight=1)` — row 2 là `btn_bar` (thanh nút) được set weight=1, khiến nó chiếm toàn bộ không gian dọc, đẩy nút xuống cuối cùng và tạo vùng tối trống giữa content và nút.
+- **Fix**: Đổi thành `grid_rowconfigure(0, weight=0)` (header cố định), `grid_rowconfigure(1, weight=1)` (scroll area EXPAND lấp đầy), `grid_rowconfigure(2, weight=0)` (btn_bar cố định đáy). Thu gọn geometry từ `720x760` → `720x640`, minsize từ `650x680` → `640x560`.
+
+#### Lỗi Treeview trống khi mở file rút gọn JSON (Hình 2):
+- **Root cause**: `prompt_card` (CTkFrame chứa NLP prompt input) không có `grid_propagate(False)` → tự giãn theo nội dung bên trong → đẩy `tree_frame` (row=3) ra ngoài viewport, khiến Treeview không nhìn thấy dù đã có 80 câu hỏi.
+- **Fix**:
+  1. Thêm `height=120` + `grid_propagate(False)` cho `prompt_card` → chiều cao cố định, không chèn tree.
+  2. Thêm `height=200` cho `tree_frame` làm minheight khi container chưa render xong.
+  3. Thêm `self._list_tree.update_idletasks()` sau `_rebuild_list_tree` → buộc Tkinter re-render ngay lập tức.
+
+### 2. Vòng Lặp Kiểm Tra Tự Động (8/8 PASS)
+1. ✅ Syntax check `question_browser.py` — PASS
+2. ✅ File JSON tồn tại: `DE THI TONG HOP RUT GON_questions.json`
+3. ✅ Nạp JSON → đúng 80 câu hỏi
+4. ✅ `_apply_filter` → 80 câu (không bị lọc bỏ nhầm)
+5. ✅ `RutGonDialog` grid weights đã sửa đúng (row1=1, row2=0)
+6. ✅ `prompt_card.grid_propagate(False)` đã có
+7. ✅ `update_idletasks()` có trong `_rebuild_list_tree`
+8. ✅ `tree_frame` có minheight=200
+
+> **Chưa verify được qua UI thực**: Giao diện trực quan (vùng tối đã biến mất, Treeview hiển thị đủ câu) cần user chạy `python question_browser.py` hoặc mở qua `app_gui.py` để xác nhận bằng mắt.
+

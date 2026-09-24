@@ -30,6 +30,12 @@ import customtkinter as ctk
 from auto_question_generator import AutoQuestionGenerator
 import exam_word_merger
 
+try:
+    from question_browser import QuestionBrowser, RutGonDialog
+except ImportError:
+    QuestionBrowser = None
+    RutGonDialog = None
+
 
 # Thiết lập giao diện CustomTkinter
 ctk.set_appearance_mode("dark")
@@ -391,6 +397,28 @@ class DeThiApp(ctk.CTk):
         )
         self.lbl_mode_hint.pack(side="left", padx=8)
 
+        # Row yêu cầu thêm (AI Prompt bổ sung / Tiêu chí ưu tiên)
+        req_box = ctk.CTkFrame(btn_bar, fg_color="transparent")
+        req_box.pack(fill="x", padx=16, pady=(2, 4))
+
+        lbl_req = ctk.CTkLabel(
+            req_box,
+            text="📝 Yêu cầu thêm (AI Prompt):",
+            font=ctk.CTkFont(size=12, weight="bold"),
+            text_color="#cbd5e1"
+        )
+        lbl_req.pack(side="left", padx=(0, 8))
+
+        self.var_extra_req = tk.StringVar(value="")
+        self.entry_extra_req = ctk.CTkEntry(
+            req_box,
+            textvariable=self.var_extra_req,
+            placeholder_text="Ví dụ: Ưu tiên câu hỏi an toàn lao động; Không hỏi ngày tháng cố định, ACM, SMI...",
+            height=30,
+            font=ctk.CTkFont(size=11)
+        )
+        self.entry_extra_req.pack(side="left", fill="x", expand=True, padx=(0, 4))
+
         # Hàng nút 1: Điều khiển chạy
         btn_row1 = ctk.CTkFrame(btn_bar, fg_color="transparent")
         btn_row1.pack(fill="x", padx=12, pady=(8, 2))
@@ -441,6 +469,17 @@ class DeThiApp(ctk.CTk):
         )
         self.btn_scan_changes.pack(side="left", padx=(14, 4))
 
+        self.btn_open_browser = ctk.CTkButton(
+            btn_row1,
+            text="🔍 Duyệt & Sửa Câu Hỏi",
+            font=ctk.CTkFont(size=12, weight="bold"),
+            height=38, width=170,
+            fg_color="#0891b2",
+            hover_color="#0e7490",
+            command=self._open_question_browser
+        )
+        self.btn_open_browser.pack(side="left", padx=4)
+
         # Hàng nút 2: Xuất đề và kết quả
         btn_row2 = ctk.CTkFrame(btn_bar, fg_color="transparent")
         btn_row2.pack(fill="x", padx=12, pady=(2, 8))
@@ -488,6 +527,17 @@ class DeThiApp(ctk.CTk):
             command=self._export_rutgon_1a00
         )
         self.btn_export_rutgon.pack(side="left", padx=4)
+
+        self.btn_custom_rutgon = ctk.CTkButton(
+            btn_row2,
+            text="⚡ Rút Gọn Tùy Chọn...",
+            font=ctk.CTkFont(size=12, weight="bold"),
+            height=36,
+            fg_color="#ea580c",
+            hover_color="#c2410c",
+            command=self._open_rutgon_dialog
+        )
+        self.btn_custom_rutgon.pack(side="left", padx=4)
 
         self.btn_merge_all = ctk.CTkButton(
             btn_row2,
@@ -1060,12 +1110,18 @@ class DeThiApp(ctk.CTk):
                 self.ui_queue.put(("progress", p_dict))
 
             # Chạy tối đa 10 đợt quét tự động đến khi hoàn tất 100%
+            extra_req = getattr(self, "var_extra_req", None)
+            extra_req_str = extra_req.get().strip() if extra_req else ""
+            if extra_req_str:
+                self._log(f"📝 Yêu cầu thêm được áp dụng: {extra_req_str}")
+
             self.generator.run_loop_until_complete(
                 max_passes=10,
                 stop_check=lambda: self.stop_requested,
                 pause_check=lambda: self.pause_requested,
                 progress_callback=on_progress,
-                force_regenerate=force_regen
+                force_regenerate=force_regen,
+                extra_requirements=extra_req_str
             )
 
         except Exception as e:
@@ -1160,6 +1216,30 @@ class DeThiApp(ctk.CTk):
         except Exception as e:
             self._log(f"❌ Lỗi xuất đề thư mục: {e}")
             messagebox.showerror("Lỗi", f"Không thể xuất file Word:\n{e}")
+
+    def _open_question_browser(self):
+        """Mở cửa sổ duyệt, xem và chỉnh sửa câu hỏi."""
+        try:
+            if QuestionBrowser is not None:
+                win = QuestionBrowser(self)
+                win.grab_set()
+            else:
+                messagebox.showerror("Lỗi", "Không tìm thấy module question_browser.")
+        except Exception as e:
+            self._log(f"❌ Lỗi mở trình duyệt câu hỏi: {e}")
+            messagebox.showerror("Lỗi", f"Không thể mở trình duyệt câu hỏi:\n{e}")
+
+    def _open_rutgon_dialog(self):
+        """Mở hộp thoại cấu hình xuất đề rút gọn tùy chỉnh."""
+        try:
+            if RutGonDialog is not None:
+                dlg = RutGonDialog(self, log_fn=self._log)
+                dlg.grab_set()
+            else:
+                messagebox.showerror("Lỗi", "Không tìm thấy module RutGonDialog.")
+        except Exception as e:
+            self._log(f"❌ Lỗi mở hộp thoại rút gọn: {e}")
+            messagebox.showerror("Lỗi", f"Không thể mở hộp thoại rút gọn:\n{e}")
 
     def _export_rutgon_1a00(self):
         """Xuất Đề thi và Đáp án rút gọn riêng cho thư mục 1-A00 (loại bỏ ACM/SMI, ngày cố định, đổi đơn vị...)."""

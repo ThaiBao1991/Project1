@@ -1,0 +1,1631 @@
+{
+  "exam_title": "BÀI TEST NHẬN ĐỊNH TƯ CÁCH NHÂN VIÊN VÀ ĐỘI TRƯỞNG - 1-A00 (RÚT GỌN)",
+  "exam_revision": "BẢN RÚT GỌN CHỌN LỌC",
+  "total_questions": 80,
+  "total_key": 27,
+  "folders_used": [
+    "1-A00"
+  ],
+  "files": [
+    {
+      "file_name": "A00-1-V.pdf",
+      "folder_name": "1-A00 Ban V IT HOA",
+      "doc_title": "BẢN TIÊU CHUẨN ĐIỂM KIỂM – HIỆU CHỈNH MÁY ĐO",
+      "doc_code": "A00-1 c",
+      "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+      "questions": [
+        {
+          "question_number": 1,
+          "is_key": false,
+          "question_text": "Theo tài liệu A00-1 c, bản đo đạc mã số 'A00～' ứng với tên thường gọi nào?",
+          "options": {
+            "A": "Các loại máy tiêu chuẩn",
+            "B": "Trình tự nghiệp vụ quản lý chi tiết máy đo",
+            "C": "Tiêu chuẩn phán định hiệu chỉnh đặc định",
+            "D": "Các loại máy đo điện tử/điện khí"
+          },
+          "correct_answer": "B",
+          "reference_note": "Nội dung bảng: Ａ００～ | Trình tự nghiệp vụ quản lý chi tiết máy đo | Ａ－№"
+        },
+        {
+          "question_number": 2,
+          "is_key": true,
+          "question_text": "◎ Theo điều khoản đặc biệt của bản tiêu chuẩn (mã số 000-0), quy định về việc xác nhận máy đo gồm nội dung nào sau đây?",
+          "options": {
+            "A": "Quy định về việc mua sắm máy đo mới từ nhà cung cấp nước ngoài.",
+            "B": "Quy định về việc thanh lý các máy đo đã quá hạn sử dụng.",
+            "C": "Quy định về việc xác nhận máy đo được bảo trì và các tính năng có hoạt động bình thường hay không.",
+            "D": "Quy định về trình tự lập biên bản hiệu chuẩn máy đo hàng năm."
+          },
+          "correct_answer": "C",
+          "reference_note": "<Điều khoản đặc biệt> Bản tiêu chuẩn điểm kiểm thường nhật máy đo ( 000-0). Quy định về việc xác nhận máy đo được bảo trì và các tính năng có hoạt động bình thường hay không."
+        }
+      ],
+      "status": "OK",
+      "validation_errors": [],
+      "generated_at": 1790140126.6646369,
+      "generated_at_iso": "2026-09-23T12:08:46",
+      "app_version": "1.4",
+      "pdf_metadata": {
+        "file_size_bytes": 108993,
+        "modified_time": 1584758064.5709355,
+        "modified_time_iso": "2020-03-21T09:34:24",
+        "file_hash_short": "178bee99"
+      }
+    },
+    {
+      "file_name": "A01-1-V.pdf",
+      "folder_name": "1-A00 Ban V IT HOA",
+      "doc_title": "PHÂN BIỆT VÀ ĐẶC ĐỊNH PHƯƠNG PHÁP QUẢN LÝ MÁY ĐO",
+      "doc_code": "A01-1 e",
+      "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+      "questions": [
+        {
+          "question_number": 1,
+          "is_key": false,
+          "question_text": "Theo tài liệu A01-1 e, bộ môn thực thi hiệu chỉnh tiến hành xác nhận tình trạng yêu cầu (đặt định quy cách mới, hoặc thay đổi phân biệt) tại bộ môn liên quan với tiến độ là bao nhiêu lâu theo biểu quy định?",
+          "options": {
+            "A": "3 tháng 1 lần",
+            "B": "6 tháng 1 lần",
+            "C": "1 năm 1 lần",
+            "D": "Theo yêu cầu đột xuất"
+          },
+          "correct_answer": "B",
+          "reference_note": "Trang 1, Mục 3. Xác nhận tình trạng yêu cầu máy đo: \"...với tiến độ 6 tháng 1 lần theo biểu quy định (tham khảo mục 3 tài liệu A11-1).\""
+        },
+        {
+          "question_number": 2,
+          "is_key": false,
+          "question_text": "Theo tài liệu, đối với đối tượng ngoài hiệu chỉnh (mục đích sử dụng để tham khảo, không dùng cho việc phán định), phương pháp phân biệt được quy định như thế nào?",
+          "options": {
+            "A": "Dựa theo tài liệu A03-1.",
+            "B": "Dán nhãn \"ngoài đối tượng hiệu chỉnh\" theo chỉ định (Nhãn: Ngoại đối tượng hiệu chỉnh - Calibration Exempted).",
+            "C": "Sử dụng biểu quy định (tham khảo mục 3 tài liệu A11-1).",
+            "D": "Không cần dán nhãn phân biệt mà chỉ cần lưu kho."
+          },
+          "correct_answer": "B",
+          "reference_note": "Trang 1, Mục 2. Phương pháp phân biệt, (2) Ngoài đối tượng: Dán nhãn \"ngoài đối tượng hiệu chỉnh\" theo chỉ định."
+        },
+        {
+          "question_number": 3,
+          "is_key": true,
+          "question_text": "◎ Theo mục đích sử dụng máy đo (mục 1. Phương pháp đặc định máy đo ngoài đối tượng và thuộc đối tượng), máy đo nào sau đây thuộc \"Máy đo thuộc đối tượng hiệu chỉnh\" (dùng để kiểm tra, đo đạc, kiểm tra phản định đạt không đạt... đối với motor và linh kiện)?",
+          "options": {
+            "A": "Máy đo dùng với mục đích do tham khảo, không dùng cho việc phán định.",
+            "B": "Máy dùng để xác nhận điều kiện gia công thiết bị, công cụ.",
+            "C": "Máy đo 000 ~ (Loại máy đo điện/ điện tử).",
+            "D": "Tất cả các loại máy dùng để tham khảo kho hàng."
+          },
+          "correct_answer": "C",
+          "reference_note": "Trang 1, Mục 1, phần (1) Máy đo thuộc đối tượng hiệu chỉnh, bảng phân loại các sheet Máy đo 000 ~ (Loại máy đo điện/ điện tử)."
+        }
+      ],
+      "status": "OK",
+      "validation_errors": [],
+      "generated_at": 1790140141.2208133,
+      "generated_at_iso": "2026-09-23T12:09:01",
+      "app_version": "1.4",
+      "pdf_metadata": {
+        "file_size_bytes": 121307,
+        "modified_time": 1757898339.0331821,
+        "modified_time_iso": "2025-09-15T08:05:39",
+        "file_hash_short": "92a57683"
+      }
+    },
+    {
+      "file_name": "A02-1-V.pdf",
+      "folder_name": "1-A00 Ban V IT HOA",
+      "doc_title": "HỆ THỐNG TRUY NGUYÊN DỤNG CỤ TIÊU CHUẨN",
+      "doc_code": "A02-1q",
+      "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+      "questions": [
+        {
+          "question_number": 1,
+          "is_key": true,
+          "question_text": "◎ Theo mục 4 của tiêu chuẩn, đối với hiệu chỉnh bên ngoài, theo nguyên tắc phải đáp ứng đầy đủ mấy điều kiện dưới đây?",
+          "options": {
+            "A": "Đáp ứng đầy đủ 2 điều kiện (Bản thành tích kiểm tra, Giấy chứng nhận hiệu chỉnh).",
+            "B": "Đáp ứng đầy đủ 3 điều kiện (Bản thành tích kiểm tra, Giấy chứng nhận hiệu chuẩn, Lưu đồ hệ thống truy nguyên).",
+            "C": "Đáp ứng đầy đủ 4 điều kiện bao gồm cả kỳ hạn lưu trữ tài liệu.",
+            "D": "Chỉ cần Giấy chứng nhận hiệu chỉnh có biểu tượng ilac-MRA."
+          },
+          "correct_answer": "B",
+          "reference_note": "Mục 4. Các tài liệu cần thiết (2) Đối với hiệu chỉnh bên ngoài: Theo nguyên tắc, phải đáp ứng đầy đủ ba điều kiện dưới đây: a. Bản thành tích kiểm tra, b. Giấy chứng nhận hiệu chỉnh, c. Lưu đồ hệ thống truy nguyên."
+        },
+        {
+          "question_number": 2,
+          "is_key": false,
+          "question_text": "Theo tiêu chuẩn dụng cụ đo đạc A02-1q, khi thực hiện hiệu chỉnh bên ngoài, theo nguyên tắc phải ưu tiên áp dụng hình thức nào?",
+          "options": {
+            "A": "Tổ chức hiệu chuẩn thông thường (d).",
+            "B": "Nhà chế tạo của thiết bị đối tượng (b).",
+            "C": "Tổ chức được chứng nhận bởi cơ quan công nhận chính thức của bên thứ ba công nhận là phòng thí nghiệm/hiệu chuẩn chứng nhận ISO/IEC 17025 theo ilac-MRA (a).",
+            "D": "Tổ chức được chứng nhận ISO/IEC 17025 không áp dụng theo ilac-MRA (c)."
+          },
+          "correct_answer": "C",
+          "reference_note": "Mục 3. Cơ quan hiệu chỉnh: ※ Đối với hiệu chỉnh bên ngoài, thì ưu tiên áp dụng theo (a)."
+        },
+        {
+          "question_number": 3,
+          "is_key": false,
+          "question_text": "Theo tài liệu, kỳ hạn lưu trữ tài liệu đối với các tài liệu hiệu chỉnh được quy định dựa theo tài liệu nào?",
+          "options": {
+            "A": "Q-MAB-C033 [Tiêu chuẩn quản lý ký lục chất lượng]",
+            "B": "Tiêu chuẩn ISO/IEC 17025",
+            "C": "Tiêu chuẩn IATF 16949:2016",
+            "D": "Hướng dẫn hiệu chỉnh và điểm kiểm thiết bị đo A16-2"
+          },
+          "correct_answer": "A",
+          "reference_note": "Mục 4. Các tài liệu cần thiết (3) Kỳ hạn lưu trữ tài liệu: Dựa theo Q-MAB-C033 [Tiêu chuẩn quản lý ký lục chất lượng]"
+        }
+      ],
+      "status": "OK",
+      "validation_errors": [],
+      "generated_at": 1790140154.602048,
+      "generated_at_iso": "2026-09-23T12:09:14",
+      "app_version": "1.4",
+      "pdf_metadata": {
+        "file_size_bytes": 283416,
+        "modified_time": 1769153367.7402096,
+        "modified_time_iso": "2026-01-23T14:29:27",
+        "file_hash_short": "5c20e7ae"
+      }
+    },
+    {
+      "file_name": "A03-1-V.pdf",
+      "folder_name": "1-A00 Ban V IT HOA",
+      "doc_title": "Biểu thị kì hạn có hiệu lực hiệu chỉnh và số quản lý dụng cụ đo đạc",
+      "doc_code": "A03-1 i",
+      "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+      "questions": [
+        {
+          "question_number": 1,
+          "is_key": false,
+          "question_text": "Theo tài liệu A03-1, khi chu kỳ hiệu chỉnh của thiết bị đo là 12 tháng (1 năm), màu nền tương ứng của nhãn số quản lý và nhãn chứng nhận hiệu chỉnh là màu gì?",
+          "options": {
+            "A": "Màu đỏ",
+            "B": "Màu hồng",
+            "C": "Màu vàng",
+            "D": "Màu xanh lá"
+          },
+          "correct_answer": "C",
+          "reference_note": "Trang 1, Mục 2-(2) (Tham khảo) Mã màu / 12tháng (1năm)：vàng"
+        },
+        {
+          "question_number": 2,
+          "is_key": true,
+          "question_text": "◎ Theo mục 5-(1) của tiêu chuẩn, phần ghi thời hạn hiệu lực hiệu chỉnh trên nhãn chứng nhận đã hiệu chỉnh (trên nhãn được ghi là 'Exp date') phải được điền theo định dạng nào?",
+          "options": {
+            "A": "Năm/Tháng",
+            "B": "Năm/Tháng/Ngày",
+            "C": "Tháng/Ngày/Năm",
+            "D": "Ngày/Tháng/Năm"
+          },
+          "correct_answer": "B",
+          "reference_note": "Trang 3, Mục 5. Phương pháp ghi lên nhãn chứng nhận hiệu chỉnh - (1)"
+        },
+        {
+          "question_number": 3,
+          "is_key": false,
+          "question_text": "Đối với nhãn dùng cho dụng cụ chuẩn, quy định về phân loại màu nền theo chu kỳ hiệu chỉnh như thế nào?",
+          "options": {
+            "A": "Phân loại màu theo chu kỳ hiệu chỉnh giống như thiết bị đo thông thường",
+            "B": "Bắt buộc sử dụng màu trắng hoặc màu trong suốt",
+            "C": "Không phân loại màu theo chu kỳ hiệu chỉnh, và màu nền của nhãn phải là màu vàng kim",
+            "D": "Tùy thuộc vào lựa chọn của từng cứ điểm sản xuất"
+          },
+          "correct_answer": "C",
+          "reference_note": "Trang 1, Mục 2-(3) & Trang 2, Mục 4-(3)"
+        }
+      ],
+      "status": "OK",
+      "validation_errors": [],
+      "generated_at": 1790140167.1362004,
+      "generated_at_iso": "2026-09-23T12:09:27",
+      "app_version": "1.4",
+      "pdf_metadata": {
+        "file_size_bytes": 215761,
+        "modified_time": 1784541541.0811603,
+        "modified_time_iso": "2026-07-20T16:59:01",
+        "file_hash_short": "2924d536"
+      }
+    },
+    {
+      "file_name": "A03-2-V.pdf",
+      "folder_name": "1-A00 Ban V IT HOA",
+      "doc_title": "Bảng Tiêu Chuẩn Điểm Kiểm - Hiệu Chỉnh Máy Đo",
+      "doc_code": "A03 - 2 b",
+      "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+      "questions": [
+        {
+          "question_number": 1,
+          "is_key": true,
+          "question_text": "◎ Thiết kế cũ của nhãn chứng nhận hoàn tất hiệu chỉnh quản lí hằng tháng được quy định như thế nào khi muốn sử dụng cho hàng tồn kho?",
+          "options": {
+            "A": "Phải hủy bỏ toàn bộ và in lại nhãn mới hoàn toàn theo tiêu chuẩn tiếng Anh.",
+            "B": "Có thể sử dụng nhưng phải bổ sung ngày bằng nhãn riêng khác bên cạnh nhãn chứng nhận, hoặc ghi thêm E để biểu hiện cuối tháng tại ô ghi tháng.",
+            "C": "Chỉ cần dán đè nhãn mới lên mà không cần quan tâm đến định dạng cũ.",
+            "D": "Không được phép sử dụng cho hàng tồn kho trong mọi trường hợp."
+          },
+          "correct_answer": "B",
+          "reference_note": "Trang 2: Mục 3.(2) 'Thiết kế cũ của nhãn chứng nhận hoàn tất hiệu chỉnh quản lí hằng tháng chỉ có thể được sử dụng cho hàng tồn kho. Bổ sung ngày bằng nhãn riêng khác bên cạnh nhãn chứng nhận, hoặc ghi thêm E để biểu hiện cuối tháng tại ô ghi tháng của kì hạn hữu hiệu đối với hiệu chỉnh.'"
+        },
+        {
+          "question_number": 2,
+          "is_key": false,
+          "question_text": "Theo quy định về phân loại nhãn chứng nhận hoàn tất hiệu chỉnh quản lí hằng tháng, tháng 4 sẽ tương ứng với phông màu nào?",
+          "options": {
+            "A": "Màu hồng",
+            "B": "Màu đỏ",
+            "C": "Màu da cam",
+            "D": "Màu vàng"
+          },
+          "correct_answer": "B",
+          "reference_note": "Trang 1: 'Tháng 4: màu đỏ'"
+        },
+        {
+          "question_number": 3,
+          "is_key": false,
+          "question_text": "Trên nhãn chứng nhận hoàn tất hiệu chỉnh quản lí hằng tháng theo tiêu chuẩn mới, cụm từ 'Calibration expiration date' được viết tắt là gì?",
+          "options": {
+            "A": "Exp date",
+            "B": "Cal date",
+            "C": "Due date",
+            "D": "Exp limit"
+          },
+          "correct_answer": "A",
+          "reference_note": "Trang 2: Mục 3.(1) '(Calibration expiration date: được ghi là Exp date trên nhãn)'"
+        }
+      ],
+      "status": "OK",
+      "validation_errors": [],
+      "generated_at": 1790140179.0261734,
+      "generated_at_iso": "2026-09-23T12:09:39",
+      "app_version": "1.4",
+      "pdf_metadata": {
+        "file_size_bytes": 248755,
+        "modified_time": 1579085106.7105863,
+        "modified_time_iso": "2020-01-15T17:45:06",
+        "file_hash_short": "426b85f2"
+      }
+    },
+    {
+      "file_name": "A04-1-V.pdf",
+      "folder_name": "1-A00 Ban V IT HOA",
+      "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh dụng cụ tiêu chuẩn - KÌ HẠN CÓ HIỆU LỰC CỦA VIỆC HIỆU CHỈNH CHU KÌ HIỆU CHỈNH",
+      "doc_code": "A04-1c",
+      "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+      "questions": [
+        {
+          "question_number": 1,
+          "is_key": true,
+          "question_text": "◎ Đối với máy đo có chu kỳ hiệu chỉnh là 1 tháng, kì hạn hiệu chỉnh có hiệu lực được xác định cụ thể như thế nào?",
+          "options": {
+            "A": "Đúng 30 ngày kể từ ngày hiệu chỉnh thành công.",
+            "B": "Ngày cuối cùng của tháng tiếp theo kể từ ngày hiệu chỉnh.",
+            "C": "Sau 45 ngày kể từ ngày hiệu chỉnh hoặc từ ngày hiệu chỉnh đến cuối tháng tiếp theo, chọn bên sớm hơn.",
+            "D": "Sau 45 ngày kể từ ngày hiệu chỉnh hoặc từ ngày hiệu chỉnh đến cuối tháng tiếp theo, chọn bên muộn hơn."
+          },
+          "correct_answer": "C",
+          "reference_note": "Mục 2. Thời hạn hiệu lực của hiệu chuẩn: Đối với chu kì 1 tháng: 'Sau 45 ngày kể từ ngày hiệu chỉnh hoặc từ ngày hiệu chỉnh đến cuối tháng tiếp theo, chọn bên sớm hơn.'"
+        },
+        {
+          "question_number": 2,
+          "is_key": false,
+          "question_text": "Khi phát hiện thiết bị đo lường đã quá thời hạn hiệu chuẩn, nhân viên phải xử lý thiết bị đó như thế nào theo đúng quy định?",
+          "options": {
+            "A": "Tiếp tục sử dụng tạm thời nếu thiết bị vẫn đo chính xác và đăng ký hiệu chỉnh lại vào cuối tuần.",
+            "B": "Chuyển ngay cho bộ phận bảo trì sửa chữa mà không cần dán nhãn cảnh báo để tránh mất thời gian.",
+            "C": "Phải có biểu thị lên máy đo đã quá kì hạn hiệu chỉnh và để ở một nơi riêng biệt với các máy đo khác.",
+            "D": "Tiêu hủy ngay lập tức để tránh lẫn lộn với các thiết bị đo khác đang hoạt động trên chuyền."
+          },
+          "correct_answer": "C",
+          "reference_note": "Mục 3. Xử lý thiết bị đo lường đã quá thời hạn hiệu chuẩn: 'Phải có biểu thị lên máy đo đã quá kì hạn hiệu chỉnh và để ở một nơi riêng biệt với các máy đo khác.'"
+        },
+        {
+          "question_number": 3,
+          "is_key": false,
+          "question_text": "Theo tài liệu tiêu chuẩn A04-1c, chu kỳ hiệu chỉnh (theo tháng) của dụng cụ tiêu chuẩn được thiết định tùy ý theo các mức nào dưới đây?",
+          "options": {
+            "A": "1 / 2 / 3 / 6 / 12 / 24 / 36 tháng",
+            "B": "1 / 3 / 6 / 12 / 24 / 36 / 60 tháng",
+            "C": "3 / 6 / 12 / 24 / 48 tháng",
+            "D": "1 / 3 / 6 / 12 / 18 / 24 / 36 tháng"
+          },
+          "correct_answer": "B",
+          "reference_note": "Mục 1. Chu kỳ hiệu chuẩn: 'Chu kì hiệu chỉnh (theo tháng) 1 / 3 / 6 / 12 / 24 / 36 / 60'"
+        }
+      ],
+      "status": "OK",
+      "validation_errors": [],
+      "generated_at": 1790140211.8364432,
+      "generated_at_iso": "2026-09-23T12:10:11",
+      "app_version": "1.4",
+      "pdf_metadata": {
+        "file_size_bytes": 67637,
+        "modified_time": 1752657517.5044093,
+        "modified_time_iso": "2025-07-16T16:18:37",
+        "file_hash_short": "94bd6e07"
+      }
+    },
+    {
+      "file_name": "A05-1-V.pdf",
+      "folder_name": "1-A00 Ban V IT HOA",
+      "doc_title": "QUẢN LÝ SỬ DỤNG CÓ HẠN ĐỊNH MÁY ĐO",
+      "doc_code": "A05-1b",
+      "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+      "questions": [
+        {
+          "question_number": 1,
+          "is_key": false,
+          "question_text": "Theo mục chú ý của tiêu chuẩn, tại sao cần đặc biệt lưu ý khi một máy đo có độ chính xác không tốt ở một chức năng/phạm vi đo?",
+          "options": {
+            "A": "Vì nguyên nhân độ chính xác không tốt có thể ảnh hưởng tới toàn bộ các chức năng, phạm vi đo khác của máy đo.",
+            "B": "Vì máy đo sẽ tự động ngắt nguồn và không thể khởi động lại.",
+            "C": "Vì nó chỉ ảnh hưởng cục bộ đến chức năng đó, không liên quan đến các chức năng khác.",
+            "D": "Vì thiết bị sẽ bị loại bỏ ngay lập tức mà không được phép sửa chữa hay tận dụng."
+          },
+          "correct_answer": "A",
+          "reference_note": "Mục 5. Hạng mục chú ý: '(1) Nguyên nhân độ chính xác không tốt có thể ảnh hưởng tới toàn bộ các chức năng, phạm vi đo khác của máy đo.'"
+        },
+        {
+          "question_number": 2,
+          "is_key": true,
+          "question_text": "◎ Đối với thiết bị đo chỉ sử dụng một phần phạm vi đo đạc (Ví dụ: bồn nhiệt độ có quy cách -70°C ~ 300°C nhưng chỉ sử dụng từ -40°C ~ 120°C), việc hiệu chỉnh và kiểm tra được thực hiện như thế nào?",
+          "options": {
+            "A": "Vẫn phải tiến hành hiệu chỉnh toàn bộ phạm vi từ -70°C đến 300°C để đảm bảo tính đồng bộ.",
+            "B": "Chỉ tiến hành hiệu chỉnh và kiểm tra trong phạm vi sử dụng (-40°C ~ 120°C), và phải làm rõ việc không sử dụng ngoài phạm vi.",
+            "C": "Không cần hiệu chỉnh dải nhiệt độ sử dụng vì dải này đã nằm trong giới hạn thiết kế của bồn.",
+            "D": "Chỉ cần hiệu chỉnh tại điểm nhiệt độ phòng (25°C) và dán nhãn sử dụng hạn định."
+          },
+          "correct_answer": "B",
+          "reference_note": "Mục 1. Điều kiện sử dụng hạn định <Điều kiện 1>: 'Chỉ sử dụng trong 1 phần phạm vi giới hạn trong bản qui cách đầy đủ ở thiết bị đo, phải làm rõ việc không sử dụng ngoài phạm vi. Chỉ tiến hành hiệu chỉnh và kiểm tra trong phạm vi sử dụng.'"
+        },
+        {
+          "question_number": 3,
+          "is_key": false,
+          "question_text": "Theo tiêu chuẩn, kí hiệu sử dụng hạn định phải được chỉ dẫn ở vị trí nào trên thiết bị đo?",
+          "options": {
+            "A": "Dán đè lên nhãn dán thời hạn hiệu chỉnh để tiết kiệm diện tích.",
+            "B": "Chỉ dẫn ở gần nhãn dán thời hạn hiệu chỉnh.",
+            "C": "Dán ở mặt sau hoặc dưới đáy của máy đo để tránh che khuất tầm nhìn.",
+            "D": "Không cần dán nhãn nếu đã ghi rõ trong sổ tay quản lý thiết bị."
+          },
+          "correct_answer": "B",
+          "reference_note": "Mục 4. Biểu thị sử dụng hạn định: 'Do đó, kí hiệu sử dụng hạn định thì phải chỉ dẫn ở gần nhãn dán thời hạn hiệu chỉnh.'"
+        }
+      ],
+      "status": "OK",
+      "validation_errors": [],
+      "generated_at": 1790140247.1031692,
+      "generated_at_iso": "2026-09-23T12:10:47",
+      "app_version": "1.4",
+      "pdf_metadata": {
+        "file_size_bytes": 180388,
+        "modified_time": 1636199503.1683106,
+        "modified_time_iso": "2021-11-06T18:51:43",
+        "file_hash_short": "e3340b5b"
+      }
+    },
+    {
+      "file_name": "A06-1-V.pdf",
+      "folder_name": "1-A00 Ban V IT HOA",
+      "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh Điểm kiểm dụng cụ - VẬN DỤNG XỬ LÍ MÁY NGHĨ",
+      "doc_code": "A06-1",
+      "target_audience": "Nhân viên / Đội trưởng",
+      "questions": [
+        {
+          "question_number": 1,
+          "is_key": false,
+          "question_text": "Khi dụng cụ đã được chỉ định là máy nghĩ, việc hiển thị trên dụng cụ và hiệu chỉnh điểm kiểm được quy định như thế nào?",
+          "options": {
+            "A": "Phải dán nhãn máy nghĩ ghi ngày tháng năm xử lí, và những dụng cụ đã được chỉ định là máy nghĩ thì không cần hiệu chỉnh điểm kiểm",
+            "B": "Vẫn phải tiến hành hiệu chỉnh điểm kiểm định kì hàng tháng",
+            "C": "Không cần dán nhãn máy nghĩ nhưng bắt buộc phải hiệu chỉnh lại",
+            "D": "Chỉ cần ghi sổ tay thiết bị, không cần dán nhãn lên dụng cụ"
+          },
+          "correct_answer": "A",
+          "reference_note": "Mục 2 & Mục 3: Biểu thị máy nghĩ (dán nhãn ghi ngày tháng năm xử lí) và Hiệu chỉnh điểm kiểm máy nghĩ (những dụng cụ đã được chỉ định là máy nghĩ thì không cần hiệu chỉnh điểm kiểm)."
+        },
+        {
+          "question_number": 2,
+          "is_key": false,
+          "question_text": "Theo tiêu chuẩn, trường hợp nào được định nghĩa là dụng cụ máy nghĩ?",
+          "options": {
+            "A": "Dụng cụ không dùng trên 1 tháng",
+            "B": "Dụng cụ không dùng trên 3 tháng",
+            "C": "Dụng cụ không dùng trên 6 tháng, hoặc dụng cụ sau một thời gian sử dụng nhất định, chưa có quy định ngày sử dụng lần sau, hoặc đang được bảo quản ở phòng quản lí thiết bị",
+            "D": "Dụng cụ không dùng trên 1 năm"
+          },
+          "correct_answer": "C",
+          "reference_note": "Mục 1. Quy định đặc biệt của máy nghĩ: (1) Dụng cụ đo không dùng trên 6 tháng. (2) Dụng cụ đo sau một thời gian sử dụng nhất định, chưa có quy định ngày sử dụng lần sau. (3) Dụng cụ đo đang được bảo quản ở phòng quản lí thiết bị."
+        },
+        {
+          "question_number": 3,
+          "is_key": true,
+          "question_text": "◎ Đối với những thiết bị, máy đo đã xử lí máy nghĩ, khi muốn giải trừ xử lí máy nghĩ để đưa vào sử dụng lại cần tiến hành quy trình nào sau đây?",
+          "options": {
+            "A": "Có thể dùng ngay lập tức nếu ngoại quan còn mới",
+            "B": "Phải tiến hành tái hiệu chỉnh rồi mới được sử dụng lại; hoặc nếu trạng thái bảo quản tốt, đặc tính ổn định, vẫn còn trong kì hạn hiệu chỉnh thì có thể sử dụng mà không cần làm gì thêm",
+            "C": "Chỉ cần tháo nhãn máy nghĩ ra là có thể sử dụng",
+            "D": "Phải xin ý kiến Giám đốc công ty trước khi tháo nhãn"
+          },
+          "correct_answer": "B",
+          "reference_note": "Mục 5. Giải trừ máy nghĩ: Đối với những thiết bị, máy đo đã xử lí máy nghĩ thì phải tiến hành tái hiệu chỉnh rồi mới được sử dụng lại. Nhưng có thể cho sử dụng trong trường hợp xác nhận thấy trạng thái bảo quản khá tốt và đặc tính ổn định với điều kiện máy móc thiết bị đo vẫn còn trong kì hạn hiệu chỉnh... Sau khi giải trừ máy nghĩ thì phải tháo nhãn máy nghĩ ra."
+        }
+      ],
+      "status": "OK",
+      "validation_errors": [],
+      "generated_at": 1790140260.7514443,
+      "generated_at_iso": "2026-09-23T12:11:00",
+      "app_version": "1.4",
+      "pdf_metadata": {
+        "file_size_bytes": 66667,
+        "modified_time": 1636196245.3320446,
+        "modified_time_iso": "2021-11-06T17:57:25",
+        "file_hash_short": "b2b548e5"
+      }
+    },
+    {
+      "file_name": "A07-1-V.pdf",
+      "folder_name": "1-A00 Ban V IT HOA",
+      "doc_title": "Xử lí dung cụ đo hiệu chỉnh không hợp cách",
+      "doc_code": "A07 - 1 a",
+      "target_audience": "Nhân viên, Đội trưởng",
+      "questions": [
+        {
+          "question_number": 1,
+          "is_key": false,
+          "question_text": "Theo mục 4 của tiêu chuẩn A07-1 a, phương pháp xử lí đối với dụng cụ đo hiệu chỉnh không hợp cách yêu cầu như thế nào đối với việc ghi chép?",
+          "options": {
+            "A": "Chỉ cần ghi miệng báo cáo cho cấp trên",
+            "B": "Ghi chép tùy ý theo sổ tay cá nhân",
+            "C": "Phương pháp xử lí phải được ghi chép đầy đủ",
+            "D": "Không bắt buộc phải ghi chép lại"
+          },
+          "correct_answer": "C",
+          "reference_note": "Mục 4. Ghi chép - Tiêu chuẩn A07-1 a"
+        },
+        {
+          "question_number": 2,
+          "is_key": false,
+          "question_text": "Theo tiêu chuẩn A07-1 a, khi phát hiện dụng cụ đo có kết quả hiệu chỉnh không hợp cách, phương pháp biểu thị lên vật là gì?",
+          "options": {
+            "A": "Phải có biểu thị không hợp cách lên dụng cụ đo đã hiệu chỉnh không hợp cách, bằng cách dán giấy hay gắn bảng có ghi nội dung không hợp cách lên dụng cụ đó.",
+            "B": "Chỉ cần dán nhãn xanh thông đạt lên thiết bị.",
+            "C": "Cất ngay vào tủ dụng cụ để tránh người khác sử dụng.",
+            "D": "Không cần làm gì nếu thiết bị vẫn hoạt động bình thường."
+          },
+          "correct_answer": "A",
+          "reference_note": "Mục 1. Biểu thị lên hiện vật - Tiêu chuẩn A07-1 a"
+        },
+        {
+          "question_number": 3,
+          "is_key": true,
+          "question_text": "◎ Theo mục 3 của tiêu chuẩn A07-1 a, ai là người có trách nhiệm quản lí sau khi nhận thông báo về dụng cụ đo không hợp cách sẽ quyết định xử lí hủy bỏ, sửa chữa ở nhà sản xuất, hay các việc khác có ghi chép trên form thông báo?",
+          "options": {
+            "A": "Nhân viên sản xuất trực tiếp sử dụng thiết bị",
+            "B": "Người có trách nhiệm quản lí sau khi nhận thông báo",
+            "C": "Bộ phận bảo vệ nhà máy",
+            "D": "Nhân viên kho thiết bị đo lường"
+          },
+          "correct_answer": "B",
+          "reference_note": "Mục 3. Xử lí - Tiêu chuẩn A07-1 a"
+        }
+      ],
+      "status": "OK",
+      "validation_errors": [],
+      "generated_at": 1790140272.1343699,
+      "generated_at_iso": "2026-09-23T12:11:12",
+      "app_version": "1.4",
+      "pdf_metadata": {
+        "file_size_bytes": 56704,
+        "modified_time": 1339644015.0769937,
+        "modified_time_iso": "2012-06-14T10:20:15",
+        "file_hash_short": "9aaf4096"
+      }
+    },
+    {
+      "file_name": "A08-1-V.pdf",
+      "folder_name": "1-A00 Ban V IT HOA",
+      "doc_title": "Phương pháp xử lý Motor đã đo (Linh kiện, thành phẩm) bằng dụng hiệu chỉnh không hợp cách",
+      "doc_code": "A08-1 e",
+      "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+      "questions": [
+        {
+          "question_number": 2,
+          "is_key": true,
+          "question_text": "◎ Theo mục 3.2 của tiêu chuẩn, trường hợp nội dung không hợp cách có ảnh hưởng đến đặc tính của linh kiện thành phẩm cuối cùng và không thỏa mãn tiêu chuẩn phán định/trị qui cách đã thống nhất với khách hàng thì người chịu trách nhiệm bộ môn quản lý dụng cụ đo không hợp cách phải làm gì?",
+          "options": {
+            "A": "Tiến hành hủy toàn bộ số lượng motor đã sản xuất ngay lập tức mà không cần kiểm chứng.",
+            "B": "Kiểm chứng tổng hợp tình trạng không thỏa mãn các tiêu chuẩn phán định/trị quy cách đã thỏa thuận với khách hàng dựa vào dữ liệu trước sau (công đoạn trước, công đoạn sau).",
+            "C": "Chỉ cần báo cáo miệng cho trưởng bộ phận quản lí rồi tiếp tục xuất hàng bình thường.",
+            "D": "Tự ý quyết định thông báo trực tiếp cho khách hàng mà không cần tuân theo lưu đồ."
+          },
+          "correct_answer": "B",
+          "reference_note": "Mục 3. Tiêu chuẩn xử lý - (2) Trường hợp nội dung không hợp cách có ảnh hưởng đến đặc tính của linh kiện thành phẩm cuối cùng..."
+        },
+        {
+          "question_number": 3,
+          "is_key": false,
+          "question_text": "Theo lưu đồ khi thông báo đến khách hàng, sau khi bộ môn quản lí dụng cụ đo không hợp cách phán đoán thấy cần thiết thông báo đến khách hàng, bước tiếp theo ai sẽ là người báo cáo đến bộ môn kinh doanh?",
+          "options": {
+            "A": "Trưởng công trường trực tiếp báo cáo",
+            "B": "Người chịu trách nhiệm QLCL",
+            "C": "Nhân viên trực tiếp đo đạc",
+            "D": "Bộ phận bảo hành chất lượng trung ương"
+          },
+          "correct_answer": "B",
+          "reference_note": "Lưu đồ khi thông báo đến khách hàng: Người chị trách nhiệm QLCL sẽ báo cáo đến bộ môn kinh doanh."
+        }
+      ],
+      "status": "OK",
+      "validation_errors": [],
+      "generated_at": 1790140285.5719512,
+      "generated_at_iso": "2026-09-23T12:11:25",
+      "app_version": "1.4",
+      "pdf_metadata": {
+        "file_size_bytes": 215944,
+        "modified_time": 1685525088.1214912,
+        "modified_time_iso": "2023-05-31T16:24:48",
+        "file_hash_short": "2e35d003"
+      }
+    },
+    {
+      "file_name": "A10-1-V.pdf",
+      "folder_name": "1-A00 Ban V IT HOA",
+      "doc_title": "Bản tiêu chuẩn hiệu chỉnh và kiểm tra dụng cụ trắc định",
+      "doc_code": "A10-1h",
+      "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+      "questions": [
+        {
+          "question_number": 1,
+          "is_key": false,
+          "question_text": "Trong quy trình hiệu chuẩn nội bộ theo tiêu chuẩn A10-1h, kết quả hiệu chuẩn sau khi hoàn thành sẽ được xử lý như thế nào trước khi ghi chép và bảo quản?",
+          "options": {
+            "A": "Chỉ cần người thực hiện hiệu chuẩn đóng dấu mà không cần cấp trên xác nhận.",
+            "B": "Gửi trực tiếp cho nhà sản xuất để họ lưu kho dữ liệu.",
+            "C": "Trường hợp hiệu chuẩn nội bộ sẽ được xác nhận và đóng dấu bởi người thực hiện, sau đó cấp trên của nhân viên hiệu chuẩn hoặc người được cấp trên chỉ định sẽ xác nhận và đóng dấu trước khi ghi chép và bảo quản.",
+            "D": "Phải lập bản đề nghị tái hiệu chỉnh gửi lên ban giám đốc phê duyệt."
+          },
+          "correct_answer": "C",
+          "reference_note": "Trang 1, Mục 3. Chu kỳ hiệu chỉnh: 'Kết quả hiệu chuẩn, trong trường hợp hiệu chuẩn nội bộ, sẽ được xác nhận và đóng dấu bởi người thực hiện; ... Sau đó, cấp trên của nhân viên hiệu chuẩn hoặc người được cấp trên chỉ định sẽ xác nhận và đóng dấu trước khi ghi chép và bảo quản'"
+        },
+        {
+          "question_number": 2,
+          "is_key": true,
+          "question_text": "◎ Theo quy định của tiêu chuẩn A10-1h, ai là người có thẩm quyền thực hiện việc hiệu chuẩn từ mục 1 đến mục 3?",
+          "options": {
+            "A": "Bất kỳ nhân viên nào trong bộ phận sản xuất được giao nhiệm vụ kiểm tra sơ bộ.",
+            "B": "Nhân viên hiệu chuẩn đã được cấp chứng chỉ theo quy định tại A19-1 hoặc cơ quan hiệu chuẩn bên ngoài được quy định tại A02-1.",
+            "C": "Chỉ có cơ quan nhà nước độc lập bên ngoài mới được phép thực hiện, nhân viên nội bộ không được làm.",
+            "D": "Đội ngũ bảo trì thiết bị chung của nhà máy không cần chứng chỉ."
+          },
+          "correct_answer": "B",
+          "reference_note": "Trang 1, Mục 3. Chu kỳ hiệu chỉnh: 'Các hiệu chuẩn từ mục 1 đến 3 sẽ được thực hiện bởi nhân viên hiệu chuẩn được chứng nhận theo quy định tại A19-1 hoặc cơ quan hiệu chuẩn bên ngoài được quy định tại A02-1.'"
+        },
+        {
+          "question_number": 3,
+          "is_key": false,
+          "question_text": "Theo tiêu chuẩn A10-1h, việc thực thi kiểm tra dụng cụ đo và ghi chép biểu điểm kiểm do ai đảm trách và ai xác nhận?",
+          "options": {
+            "A": "Do nhân viên kho ghi chép, bộ phận mua hàng xác nhận và đóng dấu.",
+            "B": "Do người đảm trách sử dụng dụng cụ của từng bộ phận ghi chép và đóng dấu, cấp trên của nhóm hoặc người được cấp trên chỉ định xác nhận và đóng dấu.",
+            "C": "Do nhân viên hiệu chuẩn trực tiếp ghi chép và Trưởng phòng BHCL xác nhận.",
+            "D": "Do nhà sản xuất dụng cụ đo ghi chép và bộ phận quản lý thiết bị xác nhận."
+          },
+          "correct_answer": "B",
+          "reference_note": "Trang 1, Mục 4. Kiểm tra dụng cụ đo: 'Ghi ghép điểm kiểm sẽ được người đảm trách sử dụng dụng cụ của từng bộ phận ghi chép và đóng dấu, và sẽ được cấp trên của nhóm hoặc người được cấp trên chỉ định xác nhận và đóng dấu'"
+        }
+      ],
+      "status": "OK",
+      "validation_errors": [],
+      "generated_at": 1790140435.0902166,
+      "generated_at_iso": "2026-09-23T12:13:55",
+      "app_version": "1.4",
+      "pdf_metadata": {
+        "file_size_bytes": 266795,
+        "modified_time": 1765874071.006355,
+        "modified_time_iso": "2025-12-16T15:34:31",
+        "file_hash_short": "b3da82b3"
+      }
+    },
+    {
+      "file_name": "A11-1-V.pdf",
+      "folder_name": "1-A00 Ban V IT HOA",
+      "doc_title": "VĂN THƯ LIÊN LẠC QUẢN LÍ ĐỘ CHÍNH XÁC CỦA DỤNG CỤ ĐO",
+      "doc_code": "A11 - 1 m",
+      "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+      "questions": [
+        {
+          "question_number": 1,
+          "is_key": false,
+          "question_text": "Theo tài liệu tiêu chuẩn A11-1 m, \"GIẤY XÁC NHẬN VIỆC THIẾU SÓT YÊU CẦU XÁC NHẬN MÁY ĐO\" quy định tần suất thực hiện là bao lâu?",
+          "options": {
+            "A": "Thực thi 1 tháng / 1 lần",
+            "B": "Thực thi 3 tháng / 1 lần",
+            "C": "Thực thi 6 tháng / 1 lần",
+            "D": "Thực thi 1 năm / 1 lần"
+          },
+          "correct_answer": "C",
+          "reference_note": "Tiêu chuẩn A11-1 m, Trang 4, Tiêu đề: \"GIẤY XÁC NHẬN VIỆC THIẾU SÓT YÊU CẦU XÁC NHẬN MÁY ĐO (thực thi 6 tháng/1lần)\""
+        },
+        {
+          "question_number": 2,
+          "is_key": true,
+          "question_text": "◎ Khi sử dụng biểu mẫu \"ĐƠN YÊU CẦU QUẢN LÍ ĐỘ CHÍNH XÁC CỦA DỤNG CỤ ĐO\", chú ý quan trọng nào sau đây là bắt buộc tuyệt đối phải thực hiện đối với dụng cụ?",
+          "options": {
+            "A": "Nhất thiết phải ghi dụng cụ có số quản lý vào",
+            "B": "Có thể bỏ trống số quản lý nếu là dụng cụ mới mua",
+            "C": "Chỉ cần ghi tên máy đo, không bắt buộc ghi số quản lý",
+            "D": "Chỉ ghi số quản lý khi dụng cụ đó bị hư hỏng nặng"
+          },
+          "correct_answer": "A",
+          "reference_note": "Tiêu chuẩn A11-1 m, Trang 2, Mục Chú ý, Điều 1: \"Nhất thiết phải ghi dụng cụ có số quản lý vào.\""
+        },
+        {
+          "question_number": 3,
+          "is_key": false,
+          "question_text": "Trong \"ĐƠN YÊU CẦU QUẢN LÍ ĐỘ CHÍNH XÁC CỦA DỤNG CỤ ĐO\", hạng mục nào dưới đây KHÔNG phải là một trong các nội dung thuộc phần Ghi số hạng mục yêu cầu (đề nghị)?",
+          "options": {
+            "A": "Đăng ký (hiệu chỉnh)",
+            "B": "Hiệu chỉnh / tái hiệu chỉnh",
+            "C": "Thanh lý tài sản cố định",
+            "D": "Hủy bỏ hoặc Máy nghĩ"
+          },
+          "correct_answer": "C",
+          "reference_note": "Tiêu chuẩn A11-1 m, Trang 2, Ghi số hạng mục yêu cầu (đề nghị) gồm các số từ 1 đến 6: ① Đăng ký, ② Hiệu chỉnh/tái hiệu chỉnh, ③ Hủy bỏ, ④ Ngoài đối tượng, ⑤ Máy nghĩ, ⑥ Di chuyển."
+        }
+      ],
+      "status": "OK",
+      "validation_errors": [],
+      "generated_at": 1790140448.8472216,
+      "generated_at_iso": "2026-09-23T12:14:08",
+      "app_version": "1.4",
+      "pdf_metadata": {
+        "file_size_bytes": 233733,
+        "modified_time": 1338276001.1330159,
+        "modified_time_iso": "2012-05-29T14:20:01",
+        "file_hash_short": "2c516b5c"
+      }
+    },
+    {
+      "file_name": "A11-2-V.pdf",
+      "folder_name": "1-A00 Ban V IT HOA",
+      "doc_title": "Bản tiêu chuẩn hiệu chỉnh-điểm kiểm",
+      "doc_code": "A11-2 f",
+      "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+      "questions": [
+        {
+          "question_number": 1,
+          "is_key": false,
+          "question_text": "Theo tiêu chuẩn hiệu chỉnh-điểm kiểm, tần suất thực hiện ghi chép kết quả điểm kiểm (không liên quan đến việc có dị thường hay không) là bao lâu?",
+          "options": {
+            "A": "1 tuần 1 lần",
+            "B": "1 tháng 1 lần",
+            "C": "6 tháng 1 lần",
+            "D": "12 tháng 1 lần"
+          },
+          "correct_answer": "B",
+          "reference_note": "Trang 2, Hạng mục 2.(2) Hạng mục lưu ý liên quan đến phương pháp ghi chép và xử lý: '1. Kết quả điểm kiểm không liên quan đến việc có dị thường hay không, kí lục lại 1 tháng 1 lần.'"
+        },
+        {
+          "question_number": 2,
+          "is_key": true,
+          "question_text": "◎ Trường hợp phát hiện có dị thường khi điểm kiểm (hoặc khi sử dụng máy đo), quy trình xử lý chính xác theo quy định là gì?",
+          "options": {
+            "A": "Tự ý tháo dỡ máy để sửa chữa ngay lập tức",
+            "B": "Tiếp tục sử dụng bình thường nếu lỗi nhỏ",
+            "C": "Kí lục lại kết quả đó, và xử lí theo chỉ thị của người chịu trách nhiệm của phòng ban sở hữu, thực hiện yêu cầu tái hiệu chỉnh nếu cần thiết",
+            "D": "Vứt bỏ thiết bị và lập biên bản hủy"
+          },
+          "correct_answer": "C",
+          "reference_note": "Trang 2, Hạng mục 2.(2) Hạng mục lưu ý liên quan đến phương pháp ghi chép và xử lý: '2. Trường hợp nếu có dị thường khi điểm kiểm (hoặc khi sử dụng), thì kí lục lại kết quả đó, và xử lí theo chỉ thị của người chịu trách nhiệm của phòng ban sở hữu. Thực hiện yêu cầu tái hiệu chỉnh của máy đo đạc đối với phòng ban thực hiện hiệu chỉnh nếu cần thiết.'"
+        },
+        {
+          "question_number": 3,
+          "is_key": false,
+          "question_text": "Trong trường hợp thực hiện hiệu chỉnh bên ngoài và giấy chứng nhận hiệu chỉnh không có ghi nhận đạt/không đạt, thì cần phải thực hiện công việc gì trong nội bộ?",
+          "options": {
+            "A": "Làm thủ tục trả lại nhà cung cấp để cấp lại chứng nhận mới",
+            "B": "Bỏ qua không cần phán định vì nhà cung cấp đã đo bên ngoài",
+            "C": "Thực hiện đánh giá đạt/không đạt trong nội bộ",
+            "D": "Tự ý sửa lại giấy chứng nhận của nhà cung cấp"
+          },
+          "correct_answer": "C",
+          "reference_note": "Trang 1, Hạng mục 1.(3): '※ Trường hợp giấy chứng nhận hiệu chỉnh không có ghi nhận đạt/không đạt, thì cần thực hiện đánh giá đạt/không đạt trong nội bộ'"
+        }
+      ],
+      "status": "OK",
+      "validation_errors": [],
+      "generated_at": 1790140461.7081542,
+      "generated_at_iso": "2026-09-23T12:14:21",
+      "app_version": "1.4",
+      "pdf_metadata": {
+        "file_size_bytes": 476063,
+        "modified_time": 1765874233.9925196,
+        "modified_time_iso": "2025-12-16T15:37:13",
+        "file_hash_short": "3d6b41d8"
+      }
+    },
+    {
+      "file_name": "A12-1-V.pdf",
+      "folder_name": "1-A00 Ban V IT HOA",
+      "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh điểm kiểm dụng cụ đo - Điều kiện môi trường khi đo đạc, thí nghiệm, hiệu chỉnh máy đo",
+      "doc_code": "A12-1f",
+      "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+      "questions": [
+        {
+          "question_number": 1,
+          "is_key": true,
+          "question_text": "◎ Trong trường hợp có phát sinh nghi ngờ thì tiến hành hiệu chỉnh ở điều kiện nhiệt độ và độ ẩm nào (độ ẩm tương đối)?",
+          "options": {
+            "A": "Nhiệt độ 23°C ± 7°C và Độ ẩm 15% ~ 85%",
+            "B": "Nhiệt độ 20°C ± 2°C và Độ ẩm 65% ± 5%",
+            "C": "Nhiệt độ 25°C ± 2°C và Độ ẩm 50% ± 10%",
+            "D": "Nhiệt độ 20°C ± 5°C và Độ ẩm 60% ± 5%"
+          },
+          "correct_answer": "B",
+          "reference_note": "Trang 1, Mục 1. Chú thích: Trường hợp có phát sinh nghi ngờ thì hiệu chỉnh ở điều kiện: Nhiệt độ 20°C ± 2°C, Độ ẩm 65% ± 5%"
+        },
+        {
+          "question_number": 2,
+          "is_key": false,
+          "question_text": "Theo tài liệu tiêu chuẩn, nhiệt độ tiêu chuẩn khi đo đạc, thí nghiệm, hiệu chỉnh máy đo (ở mục 1) là bao nhiêu?",
+          "options": {
+            "A": "20°C ± 2°C",
+            "B": "23°C ± 7°C",
+            "C": "25°C ± 5°C",
+            "D": "22°C ± 1°C"
+          },
+          "correct_answer": "B",
+          "reference_note": "Trang 1, Mục 1. Điều kiện môi trường khi hiệu chỉnh máy đo: Nhiệt độ 23°C ± 7°C"
+        },
+        {
+          "question_number": 3,
+          "is_key": false,
+          "question_text": "Theo tiêu chuẩn, điều kiện môi trường (nhiệt độ, độ ẩm) khi hiệu chỉnh phải được ghi chép ở đâu?",
+          "options": {
+            "A": "Ghi nhớ trong đầu nhân viên hiệu chỉnh",
+            "B": "Báo cáo miệng cho quản lý bộ phận",
+            "C": "Ghi rõ ràng trong biểu ghi chép hiệu chỉnh",
+            "D": "Chỉ cần ghi khi có yêu cầu kiểm toán ISO"
+          },
+          "correct_answer": "C",
+          "reference_note": "Trang 1, Mục 1 (Ghi chép): Điều kiện môi trường (nhiệt độ, độ ẩm) khi hiệu chỉnh phải được ghi chép rõ ràng trong biểu ghi chép hiệu chỉnh."
+        }
+      ],
+      "status": "OK",
+      "validation_errors": [],
+      "generated_at": 1790140473.7852683,
+      "generated_at_iso": "2026-09-23T12:14:33",
+      "app_version": "1.4",
+      "pdf_metadata": {
+        "file_size_bytes": 46906,
+        "modified_time": 1338272746.7051113,
+        "modified_time_iso": "2012-05-29T13:25:46",
+        "file_hash_short": "64fd3d16"
+      }
+    },
+    {
+      "file_name": "A12-2-V.pdf",
+      "folder_name": "1-A00 Ban V IT HOA",
+      "doc_title": "PHẠM VI ÁP DỤNG ĐO ĐẠC/THÍ NGHIỆM/HIỆU CHỈNH DỤNG CỤ ĐO ĐẠC",
+      "doc_code": "A12-2 e",
+      "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+      "questions": [
+        {
+          "question_number": 1,
+          "is_key": true,
+          "question_text": "◎ Theo quy định về việc soạn thảo Laboratory Scopes, máy móc nào dưới đây KHÔNG ĐƯỢC PHÉP ghi chép vào danh sách yết thị tại phòng thí nghiệm?",
+          "options": {
+            "A": "Tất cả các máy móc đo đạc đang sử dụng và có yêu cầu hiệu chỉnh",
+            "B": "Các thiết bị tiêu chuẩn (S No.) đang được sử dụng trong phòng thí nghiệm",
+            "C": "Những máy móc ngoài đối tượng hiệu chỉnh hoặc không đang sử dụng (máy móc nhàn rỗi)",
+            "D": "Các thiết bị đo đạc chuyên dùng cho kiểm tra độ chính xác cao"
+          },
+          "correct_answer": "C",
+          "reference_note": "Trang 1, Mục 1: Những máy móc ngoài đối tượng hiệu chỉnh hoặc không đang sử dụng (máy móc nhàn rỗi) thì không được ghi chép vào."
+        },
+        {
+          "question_number": 2,
+          "is_key": false,
+          "question_text": "Khi soạn thảo danh sách máy móc đo đạc trong Laboratory Scopes, đối với mục «Mã số», quy định cụ thể lấy từ đâu?",
+          "options": {
+            "A": "Lấy toàn bộ dãy số quản lý gồm 10 chữ số của thiết bị",
+            "B": "Lấy mã số quản lý máy móc của 4 kí tự sau cùng trong mã số quản lý máy móc đo đạc",
+            "C": "Lấy số serial do nhà sản xuất (Nơi chế tạo) cung cấp",
+            "D": "Lấy mã số theo thứ tự từ 0001 đến hết cho từng phòng"
+          },
+          "correct_answer": "B",
+          "reference_note": "Trang 1, Mục 2, Nội dung ghi chép ③: 『Mã số』 thì phải lấy mã số quản lý máy móc của 4 kí tự sau cùng trong mã số quản lý máy móc đo đạc."
+        },
+        {
+          "question_number": 3,
+          "is_key": false,
+          "question_text": "Theo tiêu chuẩn A12-2 e, tần suất cập nhật nội dung yết thị Laboratory Scopes được quy định như thế nào?",
+          "options": {
+            "A": "Cập nhật mỗi năm 1 lần (tần suất cập nhật không được vượt quá 12 tháng)",
+            "B": "Cập nhật 6 tháng một lần theo định kỳ bảo dưỡng thiết bị",
+            "C": "Chỉ cập nhật khi có sự thay đổi về chủng loại máy móc đo đạc",
+            "D": "Cập nhật 2 năm một lần theo chu kỳ đánh giá IATF 16949"
+          },
+          "correct_answer": "A",
+          "reference_note": "Trang 1, Mục 3: ※Nội dung yết thị phải cập nhật mỗi năm 1 lần. Tần suất cập nhật không được vượt quá 12 tháng."
+        }
+      ],
+      "status": "OK",
+      "validation_errors": [],
+      "generated_at": 1790140489.5851254,
+      "generated_at_iso": "2026-09-23T12:14:49",
+      "app_version": "1.4",
+      "pdf_metadata": {
+        "file_size_bytes": 341893,
+        "modified_time": 1726460405.3725781,
+        "modified_time_iso": "2024-09-16T11:20:05",
+        "file_hash_short": "733fe0ef"
+      }
+    },
+    {
+      "file_name": "A13-1-V.pdf",
+      "folder_name": "1-A00 Ban V IT HOA",
+      "doc_title": "PHƯƠNG PHÁP ĐÁNH SỐ CỦA TÀI LIỆU TIÊU CHUẨN HIỆU CHỈNH ĐIỂM KIỂM",
+      "doc_code": "A13 - 1 c",
+      "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+      "questions": [
+        {
+          "question_number": 1,
+          "is_key": false,
+          "question_text": "Cách đánh số tài liệu cho dụng cụ đo hoặc dụng cụ chuẩn cùng chủng loại nhưng có thể thức, model khác nhau được quy định như thế nào?",
+          "options": {
+            "A": "Dùng chữ La Tinh viết hoa viết thường xen kẽ",
+            "B": "Đánh số 1.2.3... .10.11.12… (chữ số)",
+            "C": "Chỉ dùng ký hiệu dùng chung",
+            "D": "Không cần đánh số phân biệt"
+          },
+          "correct_answer": "B",
+          "reference_note": "Với dụng cụ đo, hoặc dụng cụ chuẩn cùng chủng loại nhưng có thể thức, model khác nhau thì đánh số 1.2.3... .10.11.12…(chữ số)."
+        },
+        {
+          "question_number": 3,
+          "is_key": true,
+          "question_text": "◎ Trong phương pháp đánh số tài liệu tiêu chuẩn hiệu chỉnh điểm kiểm, phần ký hiệu nào dùng để thể hiện mã cải chính?",
+          "options": {
+            "A": "Dùng chung cho tất cả các loại",
+            "B": "Chữ La Tinh a.b.c...z A.B.C…Z (chữ nhỏ, chữ to, chữ nhỏ,…)",
+            "C": "Chữ số từ 1.2.3... đến 10.11.12...",
+            "D": "Kết hợp chữ số với chữ la tinh"
+          },
+          "correct_answer": "B",
+          "reference_note": "Mã cải chính - Chữ La Tinh a.b.c...z A.B.C…Z (chữ nhỏ, chữ to, chữ nhỏ,…)"
+        }
+      ],
+      "status": "OK",
+      "validation_errors": [],
+      "generated_at": 1790140503.6225467,
+      "generated_at_iso": "2026-09-23T12:15:03",
+      "app_version": "1.4",
+      "pdf_metadata": {
+        "file_size_bytes": 424704,
+        "modified_time": 1476092895.1586058,
+        "modified_time_iso": "2016-10-10T16:48:15",
+        "file_hash_short": "3530e95c"
+      }
+    },
+    {
+      "file_name": "A14-1-V.pdf",
+      "folder_name": "1-A00 Ban V IT HOA",
+      "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh dụng cụ tiêu chuẩn",
+      "doc_code": "A14-1b",
+      "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+      "questions": [
+        {
+          "question_number": 1,
+          "is_key": false,
+          "question_text": "Khi dụng cụ đo được phân loại bằng mã sheet và cấu thành bằng nhiều dụng cụ nổi thì sẽ ghi liên tục các chữ cái alphabet bắt đầu từ chữ gì vào dụng cụ nối chính để phân loại?",
+          "options": {
+            "A": "Bắt đầu từ chữ B",
+            "B": "Bắt đầu từ chữ A",
+            "C": "Bắt đầu từ chữ Z",
+            "D": "Bắt đầu từ chữ C"
+          },
+          "correct_answer": "B",
+          "reference_note": "Trang 1, 'sẽ ghi liên tục các chữ cái alphabet bắt đầu từ chữ A vào dụng cụ nối chính để phân loại'"
+        },
+        {
+          "question_number": 3,
+          "is_key": true,
+          "question_text": "◎ Theo ví dụ phân loại máy đo độ tròn trong tiêu chuẩn, mã số của 'đầu đo φ 1.0' được ký hiệu như thế nào?",
+          "options": {
+            "A": "606-1-0001A",
+            "B": "606-1-0001B",
+            "C": "606-1-0001C",
+            "D": "606-1-0001D"
+          },
+          "correct_answer": "C",
+          "reference_note": "Trang 1, '606-1-0001C (đầu đo φ 1.0)'"
+        }
+      ],
+      "status": "OK",
+      "validation_errors": [],
+      "generated_at": 1790140515.508096,
+      "generated_at_iso": "2026-09-23T12:15:15",
+      "app_version": "1.4",
+      "pdf_metadata": {
+        "file_size_bytes": 30800,
+        "modified_time": 1481945900.6879456,
+        "modified_time_iso": "2016-12-17T10:38:20",
+        "file_hash_short": "83971c5e"
+      }
+    },
+    {
+      "file_name": "A15-1-V.pdf",
+      "folder_name": "1-A00 Ban V IT HOA",
+      "doc_title": "Tài liệu tiêu chuẩn hiệu chỉnh, Điểm kiểm dụng cụ đo",
+      "doc_code": "A15-1",
+      "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+      "questions": [
+        {
+          "question_number": 1,
+          "is_key": false,
+          "question_text": "Theo tiêu chuẩn, chu kì thiết định điểm kiểm dụng cụ đo thường được quy định như thế nào trừ các trường hợp đặc biệt?",
+          "options": {
+            "A": "Mỗi tuần một lần và mỗi tháng một lần",
+            "B": "Mỗi lần sử dụng và mỗi 1 tháng",
+            "C": "Chỉ thực hiện mỗi 3 tháng một lần",
+            "D": "Trước và sau mỗi ca sản xuất"
+          },
+          "correct_answer": "B",
+          "reference_note": "Trang 2 - Hạng mục 5. Tiêu chuẩn thiết định chu kì điểm kiểm: Chu kì điểm kiểm là “mỗi lần sử dụng và mỗi 1 tháng” trừ các trường hợp đặc biệt."
+        },
+        {
+          "question_number": 2,
+          "is_key": false,
+          "question_text": "Trong các trường hợp sau đây, trường hợp nào VẪN PHẢI thực hiện hiệu chỉnh mặc dù vẫn đang trong thời hạn hiệu lực?",
+          "options": {
+            "A": "Khi thay đổi vị trí lắp đặt của thiết bị đi kèm với mức nước (ví dụ: cân điện tử, kính hiển vi dụng cụ)",
+            "B": "Khi thay đổi người vận hành máy đo trong phân xưởng",
+            "C": "Khi số lượng sản phẩm đo vượt quá định mức trong ngày",
+            "D": "Khi nhiệt độ phòng đo thay đổi nhẹ trong ngưỡng cho phép"
+          },
+          "correct_answer": "A",
+          "reference_note": "Trang 2 - Hạng mục 4. Trường hợp cần thực hiện ngoài chu kì hiệu chỉnh: (1) Trường hợp thay đổi vị trí lắp đặt của thiết bị đi kèm với mức nước (ví dụ: cân điện tử, kính hiển vi dụng cụ)"
+        }
+      ],
+      "status": "OK",
+      "validation_errors": [],
+      "generated_at": 1790140530.1052835,
+      "generated_at_iso": "2026-09-23T12:15:30",
+      "app_version": "1.4",
+      "pdf_metadata": {
+        "file_size_bytes": 368411,
+        "modified_time": 1738814229.022938,
+        "modified_time_iso": "2025-02-06T10:57:09",
+        "file_hash_short": "0890675d"
+      }
+    },
+    {
+      "file_name": "A16-1-V.pdf",
+      "folder_name": "1-A00 Ban V IT HOA",
+      "doc_title": "Bảng tiêu chuẩn hiệu chỉnh và điểm kiểm dụng cụ đo",
+      "doc_code": "A16-1o",
+      "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+      "questions": [
+        {
+          "question_number": 1,
+          "is_key": true,
+          "question_text": "◎ Theo tiêu chuẩn A16-1o, đối với nhà cung cấp hiệu chỉnh ủy thác không được chứng nhận ISO/IEC17025, việc xem xét đánh giá lại (đối với nhà cung cấp tiếp tục giao dịch) phải được thực hiện với tần suất ít nhất là bao lâu một lần?",
+          "options": {
+            "A": "Ít nhất 6 tháng một lần",
+            "B": "Ít nhất một năm một lần",
+            "C": "Ít nhất hai năm một lần",
+            "D": "Ít nhất ba năm một lần"
+          },
+          "correct_answer": "D",
+          "reference_note": "Trang 2, Hạng mục 6. Tần suất: 'Đối với nhà cung cấp tiếp dục giao dịch, việc xem xét đánh giá phải ít nhất ba năm một lần. Các bản cập nhật được phê duyệt trong nội bộ.'"
+        },
+        {
+          "question_number": 2,
+          "is_key": false,
+          "question_text": "Trong điều kiện môi trường thực hành hiệu chỉnh (được quy định ở Điều kiện đánh giá No.2), mức nhiệt độ và độ ẩm tương đối tiêu chuẩn yêu cầu là bao nhiêu?",
+          "options": {
+            "A": "Nhiệt độ 20℃±5℃, độ ẩm 30～70%",
+            "B": "Nhiệt độ 23℃±7℃, độ ẩm 15～85%",
+            "C": "Nhiệt độ 25℃±2℃, độ ẩm 45～85%",
+            "D": "Nhiệt độ từ 5～35℃, độ ẩm 45～85%"
+          },
+          "correct_answer": "B",
+          "reference_note": "Trang 1, Phương pháp đánh giá (Điều kiện đánh giá No.2): 'Môi trường thực hành hiệu chỉnh : Đáp ứng các điều kiện nhiệt độ và độ ẩm quy định trong mục 1 của máy đo A12-1 Có đáp ứng nhiệt độ 23℃±7℃ độ ẩm 15～85％ (độ ẩm tương đối ) hay không?'"
+        },
+        {
+          "question_number": 3,
+          "is_key": false,
+          "question_text": "Khi cơ quan hiệu chỉnh ủy thác được chứng nhận bởi ISO/IEC17025 và mục số 1 trong Phụ lục 1 được đánh giá là 3 (có), điều kiện nào sau đây được áp dụng đối với các mục đánh giá tiếp theo từ mục 2 đến mục 11?",
+          "options": {
+            "A": "Phải đánh giá lại toàn bộ các mục từ 2 đến 11 một cách chi tiết",
+            "B": "Không cần thiết để đánh giá mục 2 bên dưới",
+            "C": "Chỉ đánh giá riêng mục 2 và mục 5",
+            "D": "Chỉ đánh giá các mục từ mục 5 đến mục 11"
+          },
+          "correct_answer": "B",
+          "reference_note": "Trang 3, Phụ lục 1: '※Trường hợp mục 1 được đánh giá là 3 (có), thì không cần thiết để đánh giá mục 2 bên dưới.'"
+        }
+      ],
+      "status": "OK",
+      "validation_errors": [],
+      "generated_at": 1790140547.298915,
+      "generated_at_iso": "2026-09-23T12:15:47",
+      "app_version": "1.4",
+      "pdf_metadata": {
+        "file_size_bytes": 281710,
+        "modified_time": 1746601372.2257137,
+        "modified_time_iso": "2025-05-07T14:02:52",
+        "file_hash_short": "9c83fa27"
+      }
+    },
+    {
+      "file_name": "A16-2-V.pdf",
+      "folder_name": "1-A00 Ban V IT HOA",
+      "doc_title": "Bản tiêu chuẩn hiệu chỉnh. Điểm kiểm máy đo",
+      "doc_code": "A16-2 e",
+      "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+      "questions": [
+        {
+          "question_number": 1,
+          "is_key": true,
+          "question_text": "◎ Theo quy định sửa đổi mới nhất , đối với trường hợp hiệu chỉnh chứng nhận ISO/IEC17025, điều kiện nào bắt buộc phải có đối với cơ quan chứng nhận?",
+          "options": {
+            "A": "Phải có dấu chứng nhận giữa ilac-MRA quốc tế với chứng nhận của cơ quan công nhận quốc gia với nhau",
+            "B": "Chỉ cần có giấy chứng nhận nội bộ của nhà cung cấp dịch vụ",
+            "C": "Chỉ cần có sự phê duyệt của Trưởng ban BHCL công ty Mabuchi",
+            "D": "Không cần quan tâm đến dấu chứng nhận quốc tế nếu thiết bị đo có độ chính xác cao"
+          },
+          "correct_answer": "A",
+          "reference_note": "Trang 1, Mục 2(2) và Trang 4 (Cải đính e 2022.03.10): 'Phải có dấu chứng nhận giữa ilac-MRA quốc tế với chứng nhận của cơ quan công nhận quốc gia với nhau.'"
+        },
+        {
+          "question_number": 2,
+          "is_key": false,
+          "question_text": "Khi tổ chức hiệu chỉnh được lựa chọn theo điều kiện không thể chứng nhận ISO/IEC17025, các yêu cầu của IATF16949:2016 mục 7.1.5.3.1 phải được đáp ứng điều nào sau đây?",
+          "options": {
+            "A": "Chỉ cần quy định phương pháp thí nghiệm mà không cần quan tâm điều kiện môi trường",
+            "B": "Phải quy định rõ điều kiện môi trường của nơi thí nghiệm, phương pháp thí nghiệm và năng lực nhân viên thực hiện",
+            "C": "Nhân viên thực hiện kiểm tra không bắt buộc phải đáp ứng yêu cầu năng lực",
+            "D": "Chỉ áp dụng tiêu chuẩn nội bộ của công ty cung cấp dịch vụ, không cần theo chuẩn ASTM, EN hay JIS"
+          },
+          "correct_answer": "B",
+          "reference_note": "Trang 1, Mục 2(3): '・Phải quy định rõ điều kiện môi trường của nơi thí nghiệm. ・Phương pháp thí nghiệm(hiệu chỉnh )được xác định. ・Các năng lực thực hiện kiểm tra cần thiết...'"
+        },
+        {
+          "question_number": 3,
+          "is_key": false,
+          "question_text": "Theo tài liệu, tần suất xem xét nội dung trả lời của bản yêu cầu đối với việc hiệu chỉnh chứng nhận ISO/IEC17025 hoặc tương ứng là bao lâu một lần?",
+          "options": {
+            "A": "1 năm / 1 lần",
+            "B": "2 năm / 1 lần",
+            "C": "3 năm / 1 lần",
+            "D": "5 năm / 1 lần"
+          },
+          "correct_answer": "C",
+          "reference_note": "Trang 1, Mục 2(3): 'Ngoài ra, 3 năm/ 1 lần phải xem xét nội dung trả lời của bản yêu cầu.'"
+        }
+      ],
+      "status": "OK",
+      "validation_errors": [],
+      "generated_at": 1790140560.3310006,
+      "generated_at_iso": "2026-09-23T12:16:00",
+      "app_version": "1.4",
+      "pdf_metadata": {
+        "file_size_bytes": 235299,
+        "modified_time": 1648616455.3123193,
+        "modified_time_iso": "2022-03-30T12:00:55",
+        "file_hash_short": "123a6925"
+      }
+    },
+    {
+      "file_name": "A17-1-V.pdf",
+      "folder_name": "1-A00 Ban V IT HOA",
+      "doc_title": "PHƯƠNG PHÁP HOÁN ĐỔI CỦA ĐƠN VỊ SI",
+      "doc_code": "A17-1",
+      "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+      "questions": [
+        {
+          "question_number": 3,
+          "is_key": false,
+          "question_text": "Theo tiêu chuẩn A17-1, phương pháp hoán đổi của đơn vị SI được tiến hành ở hệ số như quy định bên dưới. Tuy nhiên, trong trường hợp nào thì phải ưu tiên sử dụng tài liệu chuẩn hiệu chỉnh điểm kiểm máy đó đã được phát hành cho từng loại máy?",
+          "options": {
+            "A": "Khi trường hợp hệ số đã được quy định ở tài liệu chuẩn hiệu chỉnh điểm kiểm máy đo đã được phát hành cho từng loại máy.",
+            "B": "Khi không có quy định cụ thể từ bộ phận bảo hành chất lượng.",
+            "C": "Khi đơn vị đo SI chưa được cập nhật phiên bản mới nhất.",
+            "D": "Khi có yêu cầu từ khách hàng nước ngoài."
+          },
+          "correct_answer": "A",
+          "reference_note": "Trang 1, Mục 1. Phương pháp hoán đổi - Nội dung"
+        }
+      ],
+      "status": "OK",
+      "validation_errors": [],
+      "generated_at": 1790140572.881273,
+      "generated_at_iso": "2026-09-23T12:16:12",
+      "app_version": "1.4",
+      "pdf_metadata": {
+        "file_size_bytes": 30332,
+        "modified_time": 1338273087.2897754,
+        "modified_time_iso": "2012-05-29T13:31:27",
+        "file_hash_short": "e11f3abb"
+      }
+    },
+    {
+      "file_name": "A18-1-V.pdf",
+      "folder_name": "1-A00 Ban V IT HOA",
+      "doc_title": "Bảng tiêu chuẩn hiệu chỉnh và điểm kiểm dụng cụ đo",
+      "doc_code": "A18-1c",
+      "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+      "questions": [
+        {
+          "question_number": 1,
+          "is_key": true,
+          "question_text": "◎ Theo phần chú ý về điểm kiểm dụng cụ đo, khi phát hiện có bất thường trong quá trình kiểm tra hoặc sử dụng, nhân viên phải thực hiện thao tác xử lý nào sau đây?",
+          "options": {
+            "A": "Tự ý tháo dỡ thiết bị để sửa chữa lỗi",
+            "B": "Tiếp tục sử dụng nếu sai số nhỏ hơn giới hạn cho phép",
+            "C": "Ghi chép lại kết quả và xử lý theo chỉ thị của người chịu trách nhiệm bộ phận sở hữu, làm đơn đề nghị hiệu chỉnh lại nếu cần thiết",
+            "D": "Cất thiết bị vào kho chờ đến kỳ định kỳ 12 tháng sau"
+          },
+          "correct_answer": "C",
+          "reference_note": "Trang 5, phần Chú ý) mục 2: 'Trường hợp nếu có bất thường trong quá trình kiểm tra (hoặc khi sử dụng) hãy ghi chép lại kết quả. Xử lý theo chỉ thị của người chịu trách nhiệm của bộ phận sở hữu. Trường hợp cần thiết thì làm đơn đề nghị hiệu chỉnh lại thiết bị đo cho bộ phận thực hiện hiệu chỉnh'"
+        },
+        {
+          "question_number": 2,
+          "is_key": false,
+          "question_text": "Theo giai đoạn VIII trong tài liệu, tiến độ điểm kiểm đối với 'Thiết bị đo Ampe dạng chỉ thị 1 chiều' được quy định như thế nào?",
+          "options": {
+            "A": "Mỗi tháng một lần",
+            "B": "Mỗi lần sử dụng",
+            "C": "1 lần/tuần",
+            "D": "Xác nhận mỗi 12 tháng"
+          },
+          "correct_answer": "B",
+          "reference_note": "Trang 5, Phần II. [Điểm kiểm]: 'Tiến độ điểm kiểm: Mỗi lần sử dụng'"
+        },
+        {
+          "question_number": 3,
+          "is_key": false,
+          "question_text": "Khi kiểm tra hạng mục 'Ngoại quan' của thiết bị đo Ampe theo điểm kiểm, nếu mặt kính bị dơ làm không thấy rõ vạch chia độ và kim biểu thị, thao tác xử lý đúng là gì?",
+          "options": {
+            "A": "Dùng giẻ lau... để lau sạch",
+            "B": "Tháo rời mặt kính để vệ sinh bên trong",
+            "C": "Thay thế mặt kính mới ngay lập tức",
+            "D": "Bỏ qua vì không ảnh hưởng đến kết quả đo"
+          },
+          "correct_answer": "A",
+          "reference_note": "Trang 5, Hạng mục điểm kiểm 'Ngoại quan': 'Xác nhận xem mặt kính có bị dơ... Nếu bị dơ thì phải dùng giẻ lau… để lau sạch.'"
+        }
+      ],
+      "status": "OK",
+      "validation_errors": [],
+      "generated_at": 1790140585.8974197,
+      "generated_at_iso": "2026-09-23T12:16:25",
+      "app_version": "1.4",
+      "pdf_metadata": {
+        "file_size_bytes": 413414,
+        "modified_time": 1738814152.0330894,
+        "modified_time_iso": "2025-02-06T10:55:52",
+        "file_hash_short": "27d40770"
+      }
+    },
+    {
+      "file_name": "A18-2-V.pdf",
+      "folder_name": "1-A00 Ban V IT HOA",
+      "doc_title": "Bản tiêu chuẩn hiệu chỉnh・điểm kiểm",
+      "doc_code": "A18-2 k",
+      "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+      "questions": [
+        {
+          "question_number": 1,
+          "is_key": true,
+          "question_text": "◎ Theo quy định quản lý tài liệu và tiêu chuẩn kỹ thuật trong hệ thống, hành động nào sau đây là KHÔNG ĐÚNG đối với các văn bản liên quan, quy cách tham khảo không có sẵn trong biểu liệt kê?",
+          "options": {
+            "A": "Tra cứu quy cách JIS trực tiếp tại địa chỉ http://www.jisc.go.jp/",
+            "B": "Sử dụng Bản thuyết minh hướng dẫn sử dụng các máy đo đạc, Bản sĩ dạng, các loại Catalog và tài liệu liên quan JCSS, JAB.",
+            "C": "Tự ý bỏ qua không cần quan tâm đến các văn bản hướng dẫn sử dụng máy đo đạc nếu thấy không cần thiết.",
+            "D": "Tiến hành xem xét, sửa đổi, bổ sung vào biểu liệt kê khi có thay đổi cần thiết."
+          },
+          "correct_answer": "C",
+          "reference_note": "Trang 1: Ngoài ra, những văn bản liên quan không có trong ghi chép của biểu liệt kê gồm có Bản thuyết minh hướng dẫn sử dụng các máy đo đạc・Bản sĩ dạng・Các loại Catalog và tài liệu liên quan JCSS・JAB."
+        },
+        {
+          "question_number": 2,
+          "is_key": false,
+          "question_text": "Căn cứ vào bảng mã số văn bản liên quan cho 'Mã số máy: 000-0', tiêu chuẩn kỹ thuật nào được áp dụng cho 'Dầu chống sét'?",
+          "options": {
+            "A": "JIS K 2246 (2007), JIS K 2246 (2018), JIS K 2246 (2026)",
+            "B": "JIS B 7609 (2000), JIS B 7609 (2008)",
+            "C": "JIS C 1302 (2018), JIS C 1302 (2025)",
+            "D": "JIS Z 8703 (1983)"
+          },
+          "correct_answer": "A",
+          "reference_note": "Trang 3: Mã số máy 000-0, Tên văn bản: Dầu chống sét, Mã số quy cách: JIS K 2246 (2007), JIS K 2246 (2018), JIS K 2246 (2026)"
+        },
+        {
+          "question_number": 3,
+          "is_key": false,
+          "question_text": "Theo tài liệu tiêu chuẩn, biểu liệt kê các loại văn bản liên quan và quy cách tham khảo (A18-2 k) sẽ được tiến hành xem xét, sửa đổi khi nào?",
+          "options": {
+            "A": "Chỉ khi có sự thay đổi lớn về nhân sự trong phòng BHCL.",
+            "B": "Định kỳ đúng 1 năm một lần vào tháng 6.",
+            "C": "Khi cần thiết (bổ sung, thay đổi, xóa bỏ).",
+            "D": "Khi cơ quan Tiêu chuẩn Công nghiệp Nhật Bản giải thể."
+          },
+          "correct_answer": "C",
+          "reference_note": "Trang 1: Hơn nữa, biểu liệt kê này sẽ được tiến hành xem xét, sửa đổi khi cần thiết (bổ sung, thay đổi, xóa bỏ)."
+        }
+      ],
+      "status": "OK",
+      "validation_errors": [],
+      "generated_at": 1790140600.635583,
+      "generated_at_iso": "2026-09-23T12:16:40",
+      "app_version": "1.4",
+      "pdf_metadata": {
+        "file_size_bytes": 277604,
+        "modified_time": 1784541542.0841765,
+        "modified_time_iso": "2026-07-20T16:59:02",
+        "file_hash_short": "12a55f2c"
+      }
+    },
+    {
+      "file_name": "A18-3-V.pdf",
+      "folder_name": "1-A00 Ban V IT HOA",
+      "doc_title": "BẢN TIÊU CHUẨN KIỂM TRA VÀ HIỆU CHÍNH DỤNG CỤ ĐO",
+      "doc_code": "A18-3",
+      "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+      "questions": [
+        {
+          "question_number": 1,
+          "is_key": true,
+          "question_text": "◎ Theo tài liệu A18-3, khi kiểm tra hạng mục 'Trang thiết bị' đối với 'Bản tiêu chuẩn công đoạn' (ghi chép thông tin cơ bản của công đoàn sản xuất linh kiện cấp 1, cấp 2), các tiêu chuẩn và yêu cầu lĩnh vực nào sau đây bắt buộc phải tuân theo?",
+          "options": {
+            "A": "Tiêu chuẩn vận dụng bản tiêu chuẩn sản xuất (Q-MAB-C010) và Yêu cầu lĩnh vực dùng bản giải thích kiểm tra (U-MAB-D019)",
+            "B": "Tiêu chuẩn vận dụng bản tiêu chuẩn sản xuất (Q-MAB-C010), Yêu cầu lĩnh vực phát hành bản tiêu chuẩn công đoạn (Q-MAB-D004) và Yêu cầu lĩnh vực dùng bản tiêu chuẩn sản xuất linh kiện cấp 1, linh kiện cấp 2 (Q-MAB-D028)",
+            "C": "Tiêu chuẩn quản lý tài liệu kỹ thuật (Q-MAB-C012) và Tiêu chuẩn phân phối và quản lý việc bảo quản đối với bản vẽ (U-MMK-D518)",
+            "D": "Tiêu chuẩn vận dụng bản giải thích kiểm tra, bản vẽ đối với thiết bị máy móc sản xuất (Q-MAB-C034)"
+          },
+          "correct_answer": "B",
+          "reference_note": "Hạng mục 2. Trang thiết bị - Bản tiêu chuẩn công đoạn - Tiêu chuẩn vận dụng bản tiêu chuẩn sản xuất (Q-MAB-C010), Yêu cầu lĩnh vực phát hành bản tiêu chuẩn công đoạn (Q-MAB-D004), Yêu cầu lĩnh vực dùng bản tiêu chuẩn sản xuất linh kiện cấp 1, linh kiện cấp 2 (Q-MAB-D028)..."
+        },
+        {
+          "question_number": 2,
+          "is_key": false,
+          "question_text": "Trong tài liệu A18-3, mục 'Trang thiết bị' có bao gồm tài liệu chỉ thị nào dùng để ghi chép tiến độ, phương pháp xác nhận về hạng mục điểm kiểm định kỳ của máy móc, thiết bị sản xuất?",
+          "options": {
+            "A": "Bản tiêu chuẩn công đoạn",
+            "B": "Biểu điểm kiểm khởi đầu công việc",
+            "C": "Biểu điểm kiểm định kỳ",
+            "D": "Bản giải thích kiểm tra, bản vẽ đối với thiết bị máy móc sản xuất"
+          },
+          "correct_answer": "C",
+          "reference_note": "Hạng mục 2. Trang thiết bị - Biểu điểm kiểm định kỳ - Ghi chép tiến độ, phương pháp xác nhận về hạng mục điểm kiểm định kỳ của máy móc, thiết bị sản xuất."
+        },
+        {
+          "question_number": 3,
+          "is_key": false,
+          "question_text": "Theo tài liệu A18-3, khi kiểm tra mục 'Đo đạc Kiểm tra', loại quy định liên quan nào được áp dụng cho 'Bản thuyết minh kiểm tra' quy định về sản phẩm, linh kiện do công ty sản xuất, linh kiện mua vào?",
+          "options": {
+            "A": "Tiêu chuẩn vận dụng bản quy cách kiểm tra (Q-MAB-C027) và Yêu cầu lĩnh vực dùng biểu xác nhận công đoạn (U-MAB-D010)",
+            "B": "Tiêu chuẩn vận dụng biểu điểm kiểm định kỳ (Q-MAB-C019)",
+            "C": "Tiêu chuẩn quản lý tài liệu kỹ thuật (Q-MAB-C012)",
+            "D": "Tiêu chuẩn vận dụng biểu kiểm khởi đầu công việc (Q-MAB-C009)"
+          },
+          "correct_answer": "A",
+          "reference_note": "Hạng mục 1. Đo đạc Kiểm tra - Bản thuyết minh kiểm tra - Quy định về sản phẩm, linh kiện... - Tiêu chuẩn vận dụng bản quy cách kiểm tra (Q-MAB-C027), Yêu cầu lĩnh vực dùng biểu xác nhận công đoạn (U-MAB-D010)"
+        }
+      ],
+      "status": "OK",
+      "validation_errors": [],
+      "generated_at": 1790140613.3073146,
+      "generated_at_iso": "2026-09-23T12:16:53",
+      "app_version": "1.4",
+      "pdf_metadata": {
+        "file_size_bytes": 124098,
+        "modified_time": 1338340417.011598,
+        "modified_time_iso": "2012-05-30T08:13:37",
+        "file_hash_short": "36bedbbc"
+      }
+    },
+    {
+      "file_name": "A18-4-V.pdf",
+      "folder_name": "1-A00 Ban V IT HOA",
+      "doc_title": "BẢN TIÊU CHUẨN KIỂM TRA VÀ HIỆU CHÍNH DỤNG CỤ ĐO",
+      "doc_code": "A18-4",
+      "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+      "questions": [
+        {
+          "question_number": 1,
+          "is_key": false,
+          "question_text": "Theo Biểu 1 ở Mục 2 'Nắm bắt được lĩnh vực đo đạc', nhóm thông số nào sau đây thuộc lĩnh vực 'Lực'?",
+          "options": {
+            "A": "Độ dày, Đô dinh",
+            "B": "Ngẫu lực, Tốc độ chảy",
+            "C": "Lưu lượng, Tốc độ chảy",
+            "D": "Nhiệt lượng, Nông độ"
+          },
+          "correct_answer": "B",
+          "reference_note": "Trang 3, Biểu 1: Mục Lực bao gồm Ngẫu lực, Tốc độ chảy"
+        },
+        {
+          "question_number": 2,
+          "is_key": true,
+          "question_text": "◎ Theo Mục 3 'Phân khu thực tiễn thi hiệu chỉnh', trường hợp hiệu chỉnh ngoài công ty áp dụng cho loại máy móc nào?",
+          "options": {
+            "A": "Đối với các máy đo chuyên dụng hoặc đặc thù",
+            "B": "Đối với các máy tiêu chuẩn sở hữu mua thêm vào",
+            "C": "Khi gặp khó khăn trong việc tuyển chọn máy tiêu chuẩn thích hợp",
+            "D": "Khi máy tiêu chuẩn có giá thành cao, hoặc vì máy móc đặc thù nên khó mua vào"
+          },
+          "correct_answer": "A",
+          "reference_note": "Trang 3, Mục 3: Hiệu chỉnh ngoài công ty - Đối với các máy đo chuyên dụng hoặc đặc thù"
+        },
+        {
+          "question_number": 3,
+          "is_key": false,
+          "question_text": "Theo mục 1 'Soạn thảo bản mới', khi giải thích vai trò, ứng dụng, sĩ dạng của dụng cụ đo, tài liệu nào dưới đây không thuộc danh mục các loại quy định tham khảo khác thường được liệt kê?",
+          "options": {
+            "A": "ISO",
+            "B": "IEC",
+            "C": "JIS",
+            "D": "GB"
+          },
+          "correct_answer": "C",
+          "reference_note": "Trang 1, Mục 1: Các loại quy định tham khảo khác (ISO, IEC, ANSI, DIN, GB,...)"
+        }
+      ],
+      "status": "OK",
+      "validation_errors": [],
+      "generated_at": 1790140626.2433848,
+      "generated_at_iso": "2026-09-23T12:17:06",
+      "app_version": "1.4",
+      "pdf_metadata": {
+        "file_size_bytes": 212446,
+        "modified_time": 1338273392.530011,
+        "modified_time_iso": "2012-05-29T13:36:32",
+        "file_hash_short": "85435507"
+      }
+    },
+    {
+      "file_name": "A18-6-V.pdf",
+      "folder_name": "1-A00 Ban V IT HOA",
+      "doc_title": "Bản tiêu chuẩn điểm kiểm – hiệu chỉnh dụng cụ đo",
+      "doc_code": "A18-6b",
+      "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+      "questions": [
+        {
+          "question_number": 1,
+          "is_key": false,
+          "question_text": "Khi xử lý tình huống kiểm xuất dị thường đối với thiết bị đo (Mục 5), nhân viên phụ trách cần thực hiện trình tự báo cáo như thế nào?",
+          "options": {
+            "A": "Tự ý tháo dỡ thiết bị để sửa chữa bên trong.",
+            "B": "Giữ nguyên trạng thái và tiếp tục sử dụng cho đến hết ca làm việc.",
+            "C": "Liên lạc ngay đến đại lý hoặc nhà chế tạo yêu cầu xử lý; trường hợp trị biểu thị biến động thì liên lạc người đảm trách quản lý; biểu thị nội dung dị thường bằng dán giấy ở thiết bị đo.",
+            "D": "Chỉ cần báo miệng cho đồng nghiệp cùng chuyền là đủ."
+          },
+          "correct_answer": "C",
+          "reference_note": "Trang 5, Mục (5) Khác - Xử lý khi kiểm xuất dị thường"
+        },
+        {
+          "question_number": 2,
+          "is_key": false,
+          "question_text": "Theo tiêu chuẩn A18-6b, khi soạn thảo bản mới về phần Chuẩn bị (Mục 1), các nội dung mô tả tính ổn định của loại thiết bị bao gồm những công việc nào?",
+          "options": {
+            "A": "Chỉ thực hiện việc vệ sinh và lau chùi thiết bị đo trước khi bật nguồn.",
+            "B": "Cho nguồn điện vào và sự đặt để thông điện (làm nóng), sự đặt để làm quen đến môi trường, vận chuyển làm quen, thử vận hành, xác nhận động tác.",
+            "C": "Chỉ cần đặt thiết bị ở nhiệt độ phòng và không cần làm nóng.",
+            "D": "Chỉ thực hiện thử vận hành mà không cần cấp nguồn điện."
+          },
+          "correct_answer": "B",
+          "reference_note": "Trang 1, Mục (1) Chuẩn bị - Tính ổn định của loại thiết bị"
+        },
+        {
+          "question_number": 3,
+          "is_key": true,
+          "question_text": "◎ Theo quy định về an toàn và bảo hộ tại Mục (4) của tiêu chuẩn A18-6b, biện pháp nào sau đây được yêu cầu tuân thủ nghiêm ngặt để phòng chống điện giật hoặc tiếp xúc trực tiếp?",
+          "options": {
+            "A": "Sử dụng găng tay, bao tay ngón để không tiếp xúc trực tiếp; đối với trường hợp điện áp cao, sử dụng dây kiểm tra dùng cho điện áp cao và bao cao su dùng cách điện.",
+            "B": "Chỉ cần đeo khẩu trang và kính bảo hộ trong suốt quá trình đo.",
+            "C": "Không cần sử dụng dụng cụ bảo hộ cách điện nếu điện áp dưới 220V.",
+            "D": "Chỉ sử dụng tay trần để thao tác nhằm tăng độ chính xác khi vặn nút xoay VR."
+          },
+          "correct_answer": "A",
+          "reference_note": "Trang 1 và Trang 5, Mục (1) & Mục (4) Sự bảo hộ"
+        }
+      ],
+      "status": "OK",
+      "validation_errors": [],
+      "generated_at": 1790140655.8803573,
+      "generated_at_iso": "2026-09-23T12:17:35",
+      "app_version": "1.4",
+      "pdf_metadata": {
+        "file_size_bytes": 292315,
+        "modified_time": 1677132260.5682654,
+        "modified_time_iso": "2023-02-23T13:04:20",
+        "file_hash_short": "b8375bf4"
+      }
+    },
+    {
+      "file_name": "A18-7-V.pdf",
+      "folder_name": "1-A00 Ban V IT HOA",
+      "doc_title": "BẢN TIÊU CHUẨN KIỂM TRA VÀ HIỆU CHỈNH DỤNG CỤ ĐO",
+      "doc_code": "A18-7a",
+      "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+      "questions": [
+        {
+          "question_number": 1,
+          "is_key": true,
+          "question_text": "◎ Theo mục tiêu chuẩn an toàn, khi phát hiện biểu thị nguy hiểm hoặc cảnh báo (như điện áp cao, tia laser, tia X) bị bẩn, bong tróc hoặc không thể đọc được, thao tác phán định đúng là gì?",
+          "options": {
+            "A": "Tiếp tục sử dụng thiết bị bình thường nếu máy vẫn chạy ổn định",
+            "B": "Dùng bút dạ viết đè lại cảnh báo rồi tiếp tục đo đạc",
+            "C": "Bắt buộc biểu thị nguy hiểm, cảnh báo không bị bẩn, bong tróc và phải có thể đọc được",
+            "D": "Chỉ cần báo cáo quản lý vào cuối tháng"
+          },
+          "correct_answer": "C",
+          "reference_note": "Trang 4: 'Biểu thị nguy hiểm, cảnh báo không bị bẩn, bong tróc và có thể đọc được'"
+        },
+        {
+          "question_number": 2,
+          "is_key": false,
+          "question_text": "Khi kiểm tra trạng thái ngoại quan của dụng cụ đo và bộ phận đo đạc, trạng thái nào sau đây được xem là không đạt yêu cầu (có khiếm khuyết có hại)?",
+          "options": {
+            "A": "Bề mặt sạch sẽ, không có vết trầy xước",
+            "B": "Bẩn, hư hại, đứt dây, nứt, bể, mẻ, trầy, rỉ sét, biến màu",
+            "C": "Vạch chia trên thước có thể đọc được rõ ràng",
+            "D": "Nhãn giá trị biểu thị trên thiết bị gắn chắc chắn, dễ đọc"
+          },
+          "correct_answer": "B",
+          "reference_note": "Trang 4: 'Đối với máy đo, phải không có những trạng thái sau: Bẩn, hư hại, đứt dây, nứt, bể, mẻ, trầy, rỉ sét, biến màu, dính dị vật, mài mòn...'"
+        },
+        {
+          "question_number": 3,
+          "is_key": false,
+          "question_text": "Theo tài liệu, ngoại trừ những trường hợp đặc biệt, tần suất điểm kiểm (kiểm tra) dụng cụ đo được quy định như thế nào?",
+          "options": {
+            "A": "Mỗi tuần 1 lần và mỗi lần sử dụng",
+            "B": "Mỗi tháng 1 lần và mỗi lần sử dụng",
+            "C": "Chỉ kiểm tra khi phát sinh bất thường",
+            "D": "Mỗi năm 1 lần định kỳ"
+          },
+          "correct_answer": "B",
+          "reference_note": "Trang 1: 'Ngoại trừ những trường hợp đặc biệt, quy định là ''mỗi tháng 1 lần và mỗi lần sử dụng'''"
+        }
+      ],
+      "status": "OK",
+      "validation_errors": [],
+      "generated_at": 1790140670.2808456,
+      "generated_at_iso": "2026-09-23T12:17:50",
+      "app_version": "1.4",
+      "pdf_metadata": {
+        "file_size_bytes": 196189,
+        "modified_time": 1738814131.6071894,
+        "modified_time_iso": "2025-02-06T10:55:31",
+        "file_hash_short": "075bbc3a"
+      }
+    },
+    {
+      "file_name": "A19-1-V.pdf",
+      "folder_name": "1-A00 Ban V IT HOA",
+      "doc_title": "Tư cách nhân viên hiệu chỉnh và nội dung giáo dục, đánh giá",
+      "doc_code": "A19-1",
+      "target_audience": "Đội LK, TP, ĐGSP, HC, GCCK",
+      "questions": [
+        {
+          "question_number": 1,
+          "is_key": false,
+          "question_text": "Theo quy định về phương pháp giáo dục và nhận định tư cách cho nhân viên hiệu chỉnh, đối với Mục 3 (Giáo dục nghiệp vụ hiệu chỉnh của từng máy đo lường), kỹ năng được tiếp thu bằng cách nào?",
+          "options": {
+            "A": "Chỉ học lý thuyết trực tuyến trước khi làm việc",
+            "B": "Mỗi khi cần thiết sẽ tiếp thu kỹ năng thông qua OJT (hướng dẫn thông qua công việc thực tế)",
+            "C": "Không cần học và không cần đánh giá",
+            "D": "Tự học qua tài liệu mà không cần hướng dẫn"
+          },
+          "correct_answer": "B",
+          "reference_note": "Trang 2: '※Đối với mục 3, mỗi khi cần thiết sẽ tiếp thu kỹ năng thông qua OJT (hướng dẫn thông qua công việc thực tế)'"
+        },
+        {
+          "question_number": 2,
+          "is_key": true,
+          "question_text": "◎ Đối với kết quả đánh giá định kỳ, trong trường hợp các hạng mục đào tạo được xác định là cần đào tạo huấn luyện lại, thời hạn bắt buộc phải thực hiện đào tạo huấn luyện lại là trong vòng bao lâu kể từ sau khi đánh giá?",
+          "options": {
+            "A": "Trong vòng 1 tháng",
+            "B": "Trong vòng 3 tháng",
+            "C": "Trong vòng 6 tháng",
+            "D": "Trong vòng 1 năm"
+          },
+          "correct_answer": "C",
+          "reference_note": "Trang 2: 'Kết quả đánh giá định kỳ, đối với các hạng mục đào tạo được xác định là cần đào tạo huấn luyện lại, phải thực hiện đào tạo huấn luyện lại trong vòng 6 tháng kể từ sau khi đánh giá.'"
+        },
+        {
+          "question_number": 3,
+          "is_key": false,
+          "question_text": "Theo tiêu chuẩn A19-1, sau lần đánh giá đầu tiên bởi người đào tạo, tần suất định kỳ để trưởng bộ phận kiểm tra hoặc người được chỉ định tiến hành đánh giá lại hiệu quả của đào tạo, huấn luyện là bao lâu?",
+          "options": {
+            "A": "1 năm/ 1 lần",
+            "B": "2 năm/ 1 lần",
+            "C": "6 tháng/ 1 lần",
+            "D": "3 năm/ 1 lần"
+          },
+          "correct_answer": "B",
+          "reference_note": "Trang 2: 'Sau đó, với tần suất 2 năm/ 1 lần, trưởng bộ phận kiểm tra hoặc người được Trưởng bộ phận kiểm tra chỉ định sẽ tiến hành đánh giá xem hiệu quả của đào tạo,huấn luyện có được duy trì hay không.'"
+        }
+      ],
+      "status": "OK",
+      "validation_errors": [],
+      "generated_at": 1790140683.0568385,
+      "generated_at_iso": "2026-09-23T12:18:03",
+      "app_version": "1.4",
+      "pdf_metadata": {
+        "file_size_bytes": 301446,
+        "modified_time": 1781498825.2265267,
+        "modified_time_iso": "2026-06-15T11:47:05",
+        "file_hash_short": "9f1de40d"
+      }
+    },
+    {
+      "file_name": "A19-2-V.pdf",
+      "folder_name": "1-A00 Ban V IT HOA",
+      "doc_title": "BẢN TIÊU CHUẨN ĐIỂM KIỂM – HIỆU CHỈNH MÁY ĐO - Điều kiện đối với người giáo dục hiệu chỉnh dụng cụ đo",
+      "doc_code": "A19-2",
+      "target_audience": "Người giáo dục hiệu chỉnh dụng cụ đo tại các nhóm, đội",
+      "questions": [
+        {
+          "question_number": 1,
+          "is_key": true,
+          "question_text": "◎ Về nguyên tắc, điều kiện để trở thành người giáo dục hiệu chỉnh dụng cụ đo là phải nhận được chứng nhận tham gia khóa học bên ngoài liên quan đến tiêu chuẩn nào?",
+          "options": {
+            "A": "ISO 9001 về hệ thống quản lý chất lượng",
+            "B": "ISO 14001 về hệ thống quản lý môi trường",
+            "C": "ISO/IEC17025 (hạng mục yêu cầu cơ bản liên quan đến năng lực của cơ quan hiệu chỉnh và nơi thí nghiệm chất lượng nội bộ)",
+            "D": "ISO 45001 về hệ thống quản lý an toàn và sức khỏe nghề nghiệp"
+          },
+          "correct_answer": "C",
+          "reference_note": "Hạng mục 2. Điều kiện: Về nguyên tắc, điều kiện là phải nhận được chứng nhận tham gia khóa học bên ngoài liên quan đến “ISO/IEC17025, hạng mục yêu cầu cơ bản liên quan đến năng lực của cơ quan hiệu chỉnh và nơi thí nghiệm chất lượng nội bộ”"
+        },
+        {
+          "question_number": 2,
+          "is_key": false,
+          "question_text": "Theo bản tiêu chuẩn, đối tượng áp dụng của quy định điều kiện đối với người giáo dục hiệu chỉnh dụng cụ đo là ai?",
+          "options": {
+            "A": "Tất cả công nhân sản xuất trực tiếp tại các dây chuyền",
+            "B": "Người giáo dục hiệu chỉnh dụng cụ đo tại các nhóm, đội,...",
+            "C": "Bộ phận thu mua và kiểm tra chất lượng nguyên vật liệu",
+            "D": "Nhân viên bảo trì thiết bị cơ khí toàn công ty"
+          },
+          "correct_answer": "B",
+          "reference_note": "Hạng mục 1. Đối tượng: Người giáo dục hiệu chỉnh dụng cụ đo tại các nhóm, đội,..."
+        },
+        {
+          "question_number": 3,
+          "is_key": false,
+          "question_text": "Trong trường hợp không thể nhận được khóa học bên ngoài do không có cơ quan đào tạo hoặc khoảng cách xa, ứng viên cần đạt điều kiện gì để thay thế?",
+          "options": {
+            "A": "Phải hợp cách (từ 70 điểm trở lên) kỳ thi do MMK soạn thảo về quy cách ISO/IEC17025 và kiến thức về sự không chính xác",
+            "B": "Phải tự học và có xác nhận của trưởng bộ phận sản xuất",
+            "C": "Chỉ cần hoàn thành bài kiểm tra nội bộ từ 50 điểm trở lên do nhóm trưởng đánh giá",
+            "D": "Được miễn phí tham gia kiểm tra nếu có thâm niên làm việc trên 3 năm"
+          },
+          "correct_answer": "A",
+          "reference_note": "Hạng mục 2. Điều kiện: Vì vậy, trường hợp không thể nhận được khóa học như bên trên (*1) thì phải hợp cách ( từ 70 điểm trở lên) kỳ thi do MMK soạn thảo (quy cách ISO/IEC17025, kiến thức về sự không chính xác)"
+        }
+      ],
+      "status": "OK",
+      "validation_errors": [],
+      "generated_at": 1790140696.4864073,
+      "generated_at_iso": "2026-09-23T12:18:16",
+      "app_version": "1.4",
+      "pdf_metadata": {
+        "file_size_bytes": 214381,
+        "modified_time": 1547174889.2620375,
+        "modified_time_iso": "2019-01-11T09:48:09",
+        "file_hash_short": "cdf44522"
+      }
+    }
+  ]
+}

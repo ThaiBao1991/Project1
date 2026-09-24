@@ -254,20 +254,28 @@ class AutoQuestionGenerator:
         self.log(f"✅ Đã load {len(self.keys)} API key(s) từ {len(set(k['email'] for k in self.keys))} account(s).")
         self.log(f"✅ Model list: {self.models[:3]}...")
 
-    def _build_prompt(self, filename: str, folder_name: str) -> str:
-        """Xây dựng prompt đầy đủ với tên file và thư mục được điền vào."""
-        return GEMINI_AUTO_PROMPT.replace(
+    def _build_prompt(self, filename: str, folder_name: str, extra_requirements: str = "") -> str:
+        """Xây dựng prompt đầy đủ với tên file và thư mục được điền vào.
+        extra_requirements: Yêu cầu bổ sung tùy chỉnh từ người dùng (ghép vào cuối prompt).
+        """
+        base = GEMINI_AUTO_PROMPT.replace(
             "{{filename_placeholder}}", filename
         ).replace(
             "{{folder_placeholder}}", folder_name
         )
+        if extra_requirements and extra_requirements.strip():
+            base += (
+                "\n\nYÊu CẦU BỔ SUNG TÙY CHỈNH (do người dùng cấu hình thêm — bắt buộc tuân thủ):\n"
+                + extra_requirements.strip()
+            )
+        return base
 
-    def _make_text_prompt(self, filename: str, folder_name: str, full_text: str) -> str:
+    def _make_text_prompt(self, filename: str, folder_name: str, full_text: str, extra_requirements: str = "") -> str:
         """Tạo prompt text khi không dùng được Files API."""
         doc_text = full_text
         if len(doc_text) > 20000:
             doc_text = doc_text[:20000] + "\n...[rút gọn]..."
-        base_prompt = self._build_prompt(filename, folder_name)
+        base_prompt = self._build_prompt(filename, folder_name, extra_requirements)
         return (
             f"Tài liệu: {filename} ({folder_name})\n\n"
             f"Nội dung:\n{doc_text}\n\n"
@@ -275,13 +283,15 @@ class AutoQuestionGenerator:
         )
 
     def generate_for_file(self, pdf_path: str, folder_name: str,
-                          full_text: str = "", max_retries: int = 3) -> Optional[Dict]:
+                          full_text: str = "", max_retries: int = 3,
+                          extra_requirements: str = "") -> Optional[Dict]:
         """
         Sinh câu hỏi cho 1 file PDF. Thử Files API trước, fallback sang text prompt.
+        extra_requirements: Yêu cầu tùy chỉnh bổ sung từ người dùng.
         Trả về dict data hoặc None nếu thất bại.
         """
         filename = os.path.basename(pdf_path)
-        prompt_only = self._build_prompt(filename, folder_name)
+        prompt_only = self._build_prompt(filename, folder_name, extra_requirements)
         exclude_keys = set()
 
         for attempt in range(max_retries):
@@ -304,7 +314,7 @@ class AutoQuestionGenerator:
                 result = _call_gemini_with_file(prompt_only, file_uri, api_key, model)
             else:
                 # Fallback: Text prompt với nội dung đã extract
-                text_prompt = self._make_text_prompt(filename, folder_name, full_text)
+                text_prompt = self._make_text_prompt(filename, folder_name, full_text, extra_requirements)
                 result = _call_gemini_with_text(text_prompt, api_key, model)
 
             if result.get("ok") and result.get("text"):
@@ -468,7 +478,8 @@ class AutoQuestionGenerator:
                   stop_check=None,
                   pause_check=None,
                   progress_callback=None,
-                  force_regenerate: bool = False) -> Dict:
+                  force_regenerate: bool = False,
+                  extra_requirements: str = "") -> Dict:
         """
         Chạy sinh câu hỏi tự động hàng loạt cho các thư mục được chọn.
         Hỗ trợ:
@@ -476,6 +487,7 @@ class AutoQuestionGenerator:
         - pause_check(): callable -> bool để tạm dừng
         - progress_callback(dict): thông báo tiến độ cho GUI
         - force_regenerate: True để làm lại từ đầu (bỏ qua cache OK)
+        - extra_requirements: Yêu cầu tùy chỉnh bổ sung cho Gemini prompt
         """
         folders = selected_folders or self.folder_order
         all_sources = scan_all_sources(self.source_dir, self.folder_order)
@@ -552,7 +564,8 @@ class AutoQuestionGenerator:
                     "failed": failed
                 })
 
-            data = self.generate_for_file(pdf_path, item["folder_name"], full_text)
+            data = self.generate_for_file(pdf_path, item["folder_name"], full_text,
+                                          extra_requirements=extra_requirements)
 
             if data:
                 is_valid, errors = self.validator.validate_data(data)
@@ -605,7 +618,8 @@ class AutoQuestionGenerator:
                                 stop_check=None,
                                 pause_check=None,
                                 progress_callback=None,
-                                force_regenerate: bool = False) -> Dict:
+                                force_regenerate: bool = False,
+                                extra_requirements: str = "") -> Dict:
         """
         VÒNG LẶP TỰ ĐỘNG ĐẾN KHI HOÀN THÀNH (Zero-Error Loop):
         Tự động lặp lại nhiều đợt quét cho đến khi 100% các file PDF đều sinh câu hỏi hợp lệ OK.
@@ -613,6 +627,7 @@ class AutoQuestionGenerator:
         Hỗ trợ:
         - force_regenerate=False (Chế độ Bổ sung / Tiếp tục): bỏ qua các file đã OK, chỉ làm file mới hoặc thiếu.
         - force_regenerate=True (Chế độ Làm lại từ đầu): làm mới toàn bộ.
+        - extra_requirements: Chuỗi yêu cầu bổ sung (vd: "Ưu tiên an toàn lao động, không hỏi ngày tháng...")
         """
         folders = selected_folders or self.folder_order
 
@@ -621,6 +636,8 @@ class AutoQuestionGenerator:
         mode_str = "🔄 LÀM LẠI TỪ ĐẦU (Ghi đè)" if force_regenerate else "⚡ TIẾP TỤC / BỔ SUNG (Chỉ làm phần mới/thiếu)"
         self.log(f"\n🔄 BẮT ĐẦU VÒNG LẶP TỰ ĐỘNG (Tối đa {max_passes} đợt)")
         self.log(f"   Chế độ: {mode_str}")
+        if extra_requirements:
+            self.log(f"   📝 Yêu cầu thêm: {extra_requirements}")
         self.log(f"   🔍 Tổng số tài liệu: {detect['total_count']} | Đã có sẵn: {detect['done_count']} | Cần xử lý: {detect['missing_count'] if not force_regenerate else detect['total_count']}")
 
         pass_num = 1
@@ -638,7 +655,8 @@ class AutoQuestionGenerator:
                 stop_check=stop_check,
                 pause_check=pause_check,
                 progress_callback=progress_callback,
-                force_regenerate=current_force
+                force_regenerate=current_force,
+                extra_requirements=extra_requirements
             )
 
             # Kiểm tra tiến độ tổng thể
