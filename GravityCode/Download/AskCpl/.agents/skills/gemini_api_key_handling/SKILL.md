@@ -119,3 +119,96 @@ https://generativelanguage.googleapis.com/v1beta/...
 ```
 
 - **Xử lý SSE Streaming**: Khi Opencode ngắt sinh văn bản giữa chừng, client đóng socket $\rightarrow$ Bắt trọn ngoại lệ `BrokenPipeError`, `ConnectionResetError`, `ConnectionAbortedError` để luồng server không bị crash.
+
+---
+
+## 6. Pattern Model Rotation Nâng Cao (2026-10 — GetHtmlFromUrl / ai_translator)
+
+### 6.1. Per-Account Model Restriction (403 per account ≠ global)
+- Lỗi `403 + is_model_restriction()` **phụ thuộc vào account GCP**, không phải toàn cục.  
+- Account A bị 403 với `gemini-3.8-flash` không có nghĩa account B cũng bị.  
+- ✅ Đúng: Lưu vào `_account_restricted_models: Dict[str, Set[str]]` (key = email).  
+- ❌ Sai: `self.models.remove(model)` — xóa vĩnh viễn khỏi session, các account khác mất quyền thử.
+
+```python
+# Trong _call_api_with_retry:
+restricted_for_acct = self._account_restricted_models.get(email, set())
+models_to_try = [m for m in self.models if m not in restricted_for_acct]
+if not models_to_try:
+    # ⚠️ CỰC KỲ QUAN TRỌNG: Dùng continue, TUYỆT ĐỐI KHÔNG dùng break!
+    # Đoạn này nằm trực tiếp trong 'while not self.is_stopped:', break sẽ thoát văng khỏi vòng lặp và làm sập pipeline dịch.
+    for k in self.pool._keys:
+        if self.pool.account_of(k) == email:
+            exclude.add(k.get("key", ""))
+    account_attempts += 1
+    continue
+
+if status == 404 or is_model_restriction(resp_text):
+    self._account_restricted_models.setdefault(email, set()).add(model)
+    continue  # Không xóa khỏi self.models!
+```
+
+### 6.2. had_real_response Flag — Phân Biệt "403 Restriction" vs "Empty Content"
+- **Bug hay gặp**: Đếm "all_empty_rounds" cả khi toàn bộ models bị 403 (không phải empty thật).  
+- Sau 3 account đều 403 → báo lỗi "safety filter" sai — thực ra chưa model nào được thử thật sự.  
+- ✅ Giải pháp: `had_real_response = False` trước for loop; set `True` khi `status == 200`.
+
+```python
+had_real_response = False
+for model in models_to_try:
+    ...
+    if status == 200:
+        had_real_response = True
+        ...
+
+# Sau for loop:
+if had_real_response:
+    all_empty_rounds += 1        # Empty thật → tăng counter
+    if all_empty_rounds >= MAX_EMPTY_ROUNDS:
+        return False, "", "Safety filter blocked..."
+else:
+    pass  # 403/restriction → KHÔNG tăng, xoay account tiếp
+exclude.add(api_key)
+```
+
+### 6.3. all_empty_rounds Guard — Thoát Khỏi Infinite Empty Loop
+- Khi tất cả models đều trả về HTTP 200 nhưng content rỗng (bị safety filter), for loop kết thúc bình thường → while loop pick lại key cũ → **loop vô tận**.  
+- ✅ Giải pháp: `all_empty_rounds` counter + `MAX_EMPTY_ROUNDS = 3`. Sau 3 lần HTTP-200-but-empty thực sự → return lỗi rõ ràng.  
+- ✅ Kết hợp `exclude.add(api_key)` sau for loop để đảm bảo pick account mới mỗi round.
+
+### 6.4. safetySettings BLOCK_NONE — Bypass Safety Filter Cho Văn Học
+- Tiểu thuyết tu tiên có thể trigger Gemini safety filter (nội dung bạo lực, trang phục, v.v.) → response HTTP 200 nhưng `finishReason = "SAFETY"`.  
+- ✅ Thêm `safetySettings` vào mọi request body:
+
+```json
+"safetySettings": [
+    {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",  "threshold": "BLOCK_NONE"},
+    {"category": "HARM_CATEGORY_HATE_SPEECH",        "threshold": "BLOCK_NONE"},
+    {"category": "HARM_CATEGORY_DANGEROUS_CONTENT",  "threshold": "BLOCK_NONE"},
+    {"category": "HARM_CATEGORY_HARASSMENT",         "threshold": "BLOCK_NONE"}
+]
+```
+
+- ✅ Detect `finishReason == "SAFETY"` → log riêng `🚫 SAFETY FILTER`, không đếm vào empty_count.  
+- ⚠️ Lưu ý: `BLOCK_NONE` không bypass hard-coded policy của Google. Content hoàn toàn bị cấm vẫn sẽ bị chặn.
+
+### 6.5. 503 Server Overload — Chờ Trước Khi Thử Model Tiếp
+- 503 = Server quá tải tạm thời, **KHÔNG liên quan đến nội dung hay account**.  
+- ❌ Sai: Chuyển model ngay lập tức → hammer tất cả 8 models trong vài giây → aggravate overload.  
+- ✅ Đúng: Đẩy model xuống cuối queue + chờ **10s** trước khi thử model tiếp.
+
+```python
+if status in (500, 503):
+    self.models.remove(model); self.models.append(model)
+    for _ in range(10):
+        if self.is_stopped: return False, "", "Stopped"
+        time.sleep(1.0)
+    continue
+```
+
+### 6.6. Không Promote Model Thành Công Lên Đầu List
+- Pattern cũ: Khi model X thành công → `self.models.insert(0, X)` → phá vỡ thứ tự ưu tiên đã cấu hình.  
+- Sau nhiều request, tất cả call dồn vào model X → rate limit tập trung → 429 liên tục.  
+- ✅ Đúng: Giữ nguyên thứ tự `self.models` (từ settings.json), chỉ reset `_model_consecutive_empty[model] = 0` khi thành công.
+
+---

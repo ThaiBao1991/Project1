@@ -817,7 +817,25 @@ class MainWindow(QMainWindow):
                 else:
                     QMessageBox.information(self, "Hoàn tất", f"Đã tải xong!\n{msg}")
             else:
-                QMessageBox.information(self, "Hoàn tất", f"Đã tải xong!\n{msg}")
+                # Kiểm tra nếu là truyện nguồn Trung Quốc (China- hoặc 69shuba hoặc có thư mục chương lẻ)
+                save_path = self.txt_save_path.text().strip()
+                stem = Path(save_path).stem if save_path else ""
+                parent_dir = str(Path(save_path).parent) if save_path else ""
+                candidate_dir = os.path.join(parent_dir, stem)
+                is_china = ("China-" in (save_path or "") or "69shuba" in self.txt_url.text().lower())
+
+                if is_china and os.path.exists(candidate_dir) and os.path.isdir(candidate_dir):
+                    box = QMessageBox(self)
+                    box.setWindowTitle("Hoàn tất tải truyện Trung Quốc")
+                    box.setText(f"Đã tải xong toàn bộ các chương truyện tiếng Trung!\n{msg}\n\nBạn có muốn mở ngay công cụ AI Dịch Truyện để dịch bộ truyện này sang tiếng Việt không?")
+                    box.setIcon(QMessageBox.Icon.Information)
+                    btn_translate = box.addButton("🌐 Mở AI Dịch Ngay", QMessageBox.ButtonRole.ActionRole)
+                    btn_close = box.addButton("Đóng", QMessageBox.ButtonRole.RejectRole)
+                    box.exec()
+                    if box.clickedButton() == btn_translate:
+                        self._on_ai_translate()
+                else:
+                    QMessageBox.information(self, "Hoàn tất", f"Đã tải xong!\n{msg}")
         else:
             QMessageBox.warning(
                 self, "Chưa hoàn tất",
@@ -1087,6 +1105,25 @@ class MainWindow(QMainWindow):
             QMessageBox.information(self, "Thành công", msg)
         else:
             QMessageBox.critical(self, "Lỗi", msg)
+
+    def closeEvent(self, event):
+        """Bảo vệ tiến trình khi người dùng đóng ứng dụng: dừng sạch sẽ các background workers."""
+        if hasattr(self, '_title_fetch_worker') and self._title_fetch_worker and self._title_fetch_worker.isRunning():
+            self._title_fetch_worker.terminate()
+            self._title_fetch_worker.wait(1000)
+
+        if hasattr(self, 'worker') and self.worker and self.worker.isRunning():
+            self.worker.stop()
+            self.worker.wait(2000)
+
+        if hasattr(self, 'merge_worker') and self.merge_worker and self.merge_worker.isRunning():
+            self.merge_worker.wait(2000)
+
+        if hasattr(self, 'prc_worker') and self.prc_worker and self.prc_worker.isRunning():
+            self.prc_worker.stop()
+            self.prc_worker.wait(2000)
+
+        event.accept()
 
 
 if __name__ == "__main__":

@@ -1,3 +1,30 @@
+## 2026-10-03 — Cập Nhật Thứ Tự Ưu Tiên Model Gemini (Gemini 3.8 Flash & 3.5 Lite Lên Đầu) — HOÀN THÀNH ✅
+
+### 1. Vấn Đề Gốc Rễ Đã Giải Quyết
+- Google phát hành thế hệ model mới (`gemini-3.8-flash`, `gemini-3.7-flash`, `gemini-3.5-flash-lite`), cần cập nhật chuỗi ưu tiên fallback để tận dụng tối đa tốc độ (~1100-1600ms) và năng lực xử lý vượt trội.
+- Model `gemini-robotics-er-2-preview` (robotics) trước đó bị bật nhầm, cần tắt để tránh lỗi khi sinh văn bản.
+- Hàm `_infer_tier()` trong `AskCpl.py` chưa nhận diện `3.8`, `3.7`, `3.6` khiến các model này bị hạ xuống Tier C.
+
+### 2. Các Thay Đổi Cụ Thể
+- **`settings.json`**:
+  - Tái cấu trúc `model_priority`: đưa `gemini-3.8-flash` (Tier S, 1601ms), `gemini-3.5-flash-lite` (Tier S, 1152ms), `gemini-3.5-flash` lên top đầu.
+  - Vô hiệu hóa `gemini-robotics-er-2-preview` (`"enabled": false`).
+- **`settings.py`**:
+  - Cập nhật `_DEFAULT_MODEL_FALLBACKS` và `DEFAULT_SETTINGS["gemini"]["model_priority"]`.
+- **`gemini_safe.py`**:
+  - Đồng bộ `MODEL_FALLBACKS` với `gemini-3.8-flash` và `gemini-3.5-flash-lite` ở vị trí 1 & 2.
+- **`AskCpl.py`**:
+  - `_infer_tier()`: nhận diện `3.8`, `3.5` là Tier S; `3.7`, `3.6` là Tier A.
+  - `_do_discover_inner()`: bổ sung blacklist `"robotics"`, `"er-2"`, `"computer-use"`.
+  - `_FALLBACK_MODELS`: đồng bộ danh sách fallback mới.
+
+### 3. Kiểm Thử & Xác Minh (Verification)
+- ✅ `python -m py_compile settings.py gemini_safe.py AskCpl.py`: SYNTAX OK.
+- ✅ `python -m unittest test_gemini_safe_fallback.py`: 2/2 tests PASS 100%.
+- ✅ `get_active_model_list()` trả về đúng thứ tự ưu tiên mới với `gemini-3.8-flash` dẫn đầu.
+
+---
+
 ## 2026-09-17 — Sửa Lỗi "Invalid \escape" Do Công Thức LaTeX Trong Bước 3/3 — HOÀN THÀNH ✅
 
 ### 1. Vấn Đề Gốc Rễ Đã Giải Quyết

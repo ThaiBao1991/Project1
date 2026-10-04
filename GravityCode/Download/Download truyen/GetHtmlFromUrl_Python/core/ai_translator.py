@@ -14,11 +14,14 @@ logger = logging.getLogger("ai_translator")
 
 # Default fallback models in priority order (Khớp 100% với AskCpl gemini_safe.py)
 DEFAULT_MODELS = [
-    "gemini-3.5-flash",        # 🥇 Mới nhất — thế hệ 3.5
+    "gemini-3.8-flash",        # 🥇 Mới nhất — thế hệ 3.8
+    "gemini-3.5-flash-lite",   # ⚡ Siêu tốc & nhẹ — 3.5 lite
+    "gemini-3.5-flash",        # 🔴 Mạnh mẽ — 3.5 flash
     "gemini-3-flash-preview",  # 🥈 Rất tốt — preview
     "gemini-flash-latest",     # 🥉 Ổn định — flash latest
-    "gemini-3.1-flash-lite",   # 🔵 Nhanh & nhẹ — 3.1 lite
-    "gemini-flash-lite-latest" # 🔵 Dự phòng cuối — flash lite
+    "gemini-flash-lite-latest",# 🔵 Nhanh nhẹ — flash lite
+    "gemini-3.1-flash-lite",   # 🔵 3.1 lite
+    "gemini-3.7-flash"         # 🟣 Dự phòng — thế hệ 3.7
 ]
 
 # Cấu hình an toàn chuẩn AskCpl (gemini_safe.py / gemini_api_key_handling skill)
@@ -72,6 +75,50 @@ def is_model_restriction(msg: str) -> bool:
     )
     return any(m in low for m in markers)
 
+def load_configured_models() -> List[str]:
+    """Tự động tải danh sách model ưu tiên:
+    1. Ưu tiên đọc từ config/model_priority.json của dự án.
+    2. Nếu chưa có -> đọc từ AskCpl settings.json.
+    3. Nếu không có -> dùng DEFAULT_MODELS.
+    """
+    try:
+        from core.model_manager import get_active_models
+        models = get_active_models()
+        if models:
+            return models
+    except Exception:
+        pass
+    return load_askcpl_models()
+
+def load_configured_key_objects() -> List[Dict[str, Any]]:
+    """Tự động tải danh sách Gemini API Key:
+    1. Ưu tiên đọc từ config/gemini_keys.json (kho riêng của GetHtmlFromUrl).
+    2. Nếu chưa có -> đọc từ AskCpl settings.json.
+    """
+    try:
+        from core.key_manager import get_active_raw_keys
+        local_keys = get_active_raw_keys()
+        if local_keys:
+            return local_keys
+    except Exception:
+        pass
+    return load_askcpl_key_objects()
+
+def load_askcpl_models() -> List[str]:
+    """Tự động tải danh sách model ưu tiên từ AskCpl settings.json nếu có."""
+    if os.path.exists(ASKCPL_SETTINGS_PATH):
+        try:
+            with open(ASKCPL_SETTINGS_PATH, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            priority = data.get("gemini", {}).get("model_priority", [])
+            active = [m["name"] for m in priority if m.get("enabled", True) and m.get("name")]
+            if active:
+                return active
+        except Exception:
+            pass
+    return list(DEFAULT_MODELS)
+
+
 def load_askcpl_key_objects() -> List[Dict[str, Any]]:
     """Tự động tải danh sách Gemini API Key cùng metadata đầy đủ (email, project_id, status) từ AskCpl settings.json."""
     key_objects = []
@@ -84,20 +131,7 @@ def load_askcpl_key_objects() -> List[Dict[str, Any]]:
         
         seen_keys = set()
         
-        # Single key
-        single_key = gem.get("api_key", "")
-        if single_key:
-            dec = decode_token(single_key)
-            if dec and dec not in seen_keys:
-                seen_keys.add(dec)
-                key_objects.append({
-                    "key": dec,
-                    "email": "default_account@gmail.com",
-                    "project_id": "default",
-                    "status": "active"
-                })
-                
-        # List keys
+        # 1. Ưu tiên nạp từ list keys (api_keys) — chứa đầy đủ account thực tế
         list_keys = gem.get("api_keys", [])
         for item in list_keys:
             raw_k = item.get("key", "")
@@ -112,6 +146,20 @@ def load_askcpl_key_objects() -> List[Dict[str, Any]]:
                     if not obj.get("status"):
                         obj["status"] = "active"
                     key_objects.append(obj)
+                    
+        # 2. Chỉ nạp single key nếu list_keys rỗng
+        if not key_objects:
+            single_key = gem.get("api_key", "")
+            if single_key:
+                dec = decode_token(single_key)
+                if dec and dec not in seen_keys:
+                    seen_keys.add(dec)
+                    key_objects.append({
+                        "key": dec,
+                        "email": "askcpl_primary",
+                        "project_id": "1",
+                        "status": "active"
+                    })
     except Exception as e:
         logger.warning(f"Lỗi đọc keys từ AskCpl settings: {e}")
     return key_objects
@@ -120,17 +168,90 @@ def load_askcpl_keys() -> List[str]:
     """Tự động tải danh sách Gemini API Key (dạng chuỗi trần) từ AskCpl settings.json nếu có."""
     return [k["key"] for k in load_askcpl_key_objects() if k.get("key")]
 
+def probe_active_models(api_keys: List[Any], candidate_models: Optional[List[str]] = None, 
+                        timeout: float = 6.0, log_callback=None) -> List[str]:
+    """
+    Kiểm tra nhanh (ping 1-token) các model trong danh sách để chọn ra các model
+    thực sự đang online và phản hồi nhanh, loại bỏ các model quá tải (503), lỗi (404/400) hoặc timeout.
+    """
+    def _log(msg: str):
+        logger.info(msg)
+        if log_callback:
+            try:
+                log_callback(msg)
+            except Exception:
+                pass
+
+    if not api_keys:
+        return list(candidate_models or DEFAULT_MODELS)
+
+    # Lấy key active đầu tiên để test
+    first_key = ""
+    for k in api_keys:
+        if isinstance(k, dict) and k.get("key") and k.get("status", "active") == "active":
+            first_key = k["key"]
+            break
+        elif isinstance(k, str) and k.strip():
+            first_key = k.strip()
+            break
+
+    if not first_key:
+        return list(candidate_models or DEFAULT_MODELS)
+
+    cands = list(candidate_models or load_configured_models())
+    _log(f"🔍 [Model Probe] Đang kiểm tra phản hồi {len(cands)} model Gemini...")
+
+    alive_models: List[Tuple[str, int]] = []
+
+    payload = {
+        "contents": [{"parts": [{"text": "1"}]}],
+        "generationConfig": {"maxOutputTokens": 1}
+    }
+    headers = {"Content-Type": "application/json"}
+
+    for model in cands:
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={first_key}"
+        t0 = time.time()
+        try:
+            resp = requests.post(url, headers=headers, json=payload, timeout=timeout)
+            latency = int((time.time() - t0) * 1000)
+            if resp.status_code == 200:
+                alive_models.append((model, latency))
+                _log(f"  ✅ {model}: {latency}ms (Sẵn sàng)")
+            elif resp.status_code in (500, 503):
+                _log(f"  ⚠ {model}: Quá tải server ({resp.status_code}) -> Tạm loại khỏi danh sách.")
+            elif resp.status_code == 404 or is_model_restriction(resp.text):
+                _log(f"  ✗ {model}: Không hỗ trợ / Bị giới hạn ({resp.status_code}) -> Loại bỏ.")
+            elif resp.status_code == 429:
+                _log(f"  ⚡ {model}: Bị rate limit 429 tạm thời.")
+            else:
+                _log(f"  ⚠ {model}: HTTP {resp.status_code}")
+        except requests.exceptions.Timeout:
+            _log(f"  ⏱ {model}: Timeout (> {timeout}s) -> Loại bỏ.")
+        except Exception as e:
+            _log(f"  ✗ {model}: Lỗi kết nối ({type(e).__name__}) -> Bỏ qua.")
+
+    if alive_models:
+        alive_models.sort(key=lambda x: x[1])
+        result = [m[0] for m in alive_models]
+        _log(f"🎯 [Model Probe] Đã chọn {len(result)} model tối ưu: {', '.join(result)}")
+        return result
+
+    _log("⚠ [Model Probe] Không test được model nào qua mạng; sử dụng cấu hình mặc định.")
+    return cands
+
+
 def enrich_key_objects(keys: List[Any]) -> List[Dict[str, Any]]:
     """
     Bổ sung metadata (email, account) cho danh sách key.
-    Nếu key truyền vào dạng chuỗi trần, tra cứu trong AskCpl settings để lấy email thật.
+    Nếu key truyền vào dạng chuỗi trần, tra cứu trong kho riêng của dự án hoặc AskCpl để lấy email thật.
     Nếu không tìm thấy, phân phối cụm account giả lập để duy trì luân phiên và giãn cách.
     """
-    askcpl_map = {}
-    for obj in load_askcpl_key_objects():
+    known_map = {}
+    for obj in load_configured_key_objects():
         k_val = obj.get("key")
         if k_val:
-            askcpl_map[k_val] = obj
+            known_map[k_val] = obj
 
     enriched = []
     seen = set()
@@ -144,8 +265,8 @@ def enrich_key_objects(keys: List[Any]) -> List[Dict[str, Any]]:
             k_val = item.strip()
             if k_val and k_val not in seen:
                 seen.add(k_val)
-                if k_val in askcpl_map:
-                    enriched.append(dict(askcpl_map[k_val]))
+                if k_val in known_map:
+                    enriched.append(dict(known_map[k_val]))
                 else:
                     enriched.append({
                         "key": k_val,
@@ -460,19 +581,91 @@ def split_text_into_chunks(text: str, max_chars: int = 1500) -> List[str]:
     return chunks or [text]
 
 
+# ─── BỘ PHONG CÁCH VĂN PHONG DỊCH THUẬT (TRANSLATION STYLES) ────────────────────
+TRANSLATION_STYLES: Dict[str, Dict[str, Any]] = {
+    "fluent": {
+        "name": "Mượt mà thuần Việt (Đề xuất)",
+        "temperature": 0.65,
+        "top_p": 0.95,
+        "description": "Thoát ý, câu từ uyển chuyển, giàu cảm xúc, xóa bỏ triệt để cấu trúc câu tiếng Trung thô cứng.",
+        "system_instruction": """Bạn là dịch giả văn học và biên tập viên tiểu thuyết mạng tiếng Trung sang tiếng Việt chuyên nghiệp hàng đầu.
+Nhiệm vụ của bạn là chuyển ngữ tác phẩm sang tiếng Việt với văn phong mượt mà, thuần Việt, chuẩn mực như sách xuất bản, giàu nhạc điệu và cảm xúc.
+
+[BỘ QUY TẮC BÚT PHÁP VĂN HỌC BẮT BUỘC]:
+1. TUYỆT ĐỐI KHÔNG DỊCH WORD-BY-WORD (CHỐNG CONVERT):
+   - Thoát ly triệt để cấu trúc câu bị động và trật tự ngược của tiếng Trung.
+     * Tránh: "Bị hắn một quyền đánh lui..." -> Dịch mượt: "Một quyền của hắn đánh bật đối phương lùi lại..."
+     * Tránh: "Được nàng ánh mắt nhìn tới..." -> Dịch mượt: "Chạm phải ánh mắt của nàng..."
+   - Lược bỏ từ đệm rườm rà tiếng Trung: "trong lòng không khỏi có chút kinh ngạc" -> "thầm giật mình"; "hướng về phía trước đi đến" -> "bước về phía trước"; "phát sinh biến hóa" -> "biến chuyển".
+   - Sử dụng từ láy, từ tượng thanh, tượng hình thuần Việt để miêu tả hành động, biểu cảm, khí thế và cảnh vật.
+
+2. CHỌN LỌC HÁN-VIỆT VÀ THUẦN VIỆT HỢP LÝ:
+   - Danh từ riêng, tên nhân vật, môn phái, địa danh, tên chiêu thức, cảnh giới tu luyện: BẮT BUỘC giữ âm Hán-Việt chuẩn mực.
+   - Từ ngữ miêu tả hành động, trạng thái, tâm lý, đồ vật thường ngày: ƯU TIÊN dùng từ thuần Việt tự nhiên (ví dụ: "sắc mặt âm trầm" -> "vẻ mặt sa sầm", "thân hình khẽ động" -> "khẽ nhích người", "tiến vào gian phòng" -> "bước vào phòng").
+
+3. ĐẠI TỪ XƯNG HÔ LINH HOẠT THEO BỐI CẢNH & THỂ LOẠI:
+   - Tuyệt đối không dịch máy móc mọi nhân vật đều xưng "ngươi - ta".
+   - Biến hóa đại từ xưng hô phù hợp với địa vị, tuổi tác, quan hệ và thể loại tác phẩm:
+     * Tiên hiệp/kiếm hiệp: sư đồ (sư phụ - đồ nhi), đồng môn (huynh - đệ, sư tỷ - sư muội), kẻ thù (ngươi - ta, gã, hắn, y, lão tặc, tiểu tử).
+     * Khoa huyễn/học viện/đô thị (như Tu Chân Tứ Vạn Niên): thầy - trò, cậu - tôi, anh - em, mình - bạn, gã - cậu.
+   - Lời thoại phải tự nhiên, mang khẩu khí đời thường, thể hiện rõ cá tính nhân vật (ngạo mạn, hài hước, trêu chọc, lạnh lùng, uy nghiêm).
+
+4. XỬ LÝ THÀNH NGỮ VÀ QUÁN NGỮ:
+   - Dịch thoát ý hoặc dùng thành ngữ/tục ngữ tiếng Việt tương đương (ví dụ: "hổ khu nhất chấn" -> "người run lên / bừng bừng khí thế", "phách đầu cái não" -> "mắng xối xả", "cẩu huyết" -> "máu chó / tức nghẹn", "trang bức" -> "lên mặt / làm bộ").
+
+5. NGUYÊN TẮC BẢO TOÀN DỮ LIỆU:
+   - Dịch trọn vẹn 100% nội dung, không tóm tắt, không tự tiện cắt xén bất kỳ câu đoạn nào.
+   - Giữ nguyên cấu trúc phân đoạn văn bản."""
+    },
+    "classic_xianxia": {
+        "name": "Tiên hiệp cổ phong (Nhiều Hán-Việt)",
+        "temperature": 0.55,
+        "top_p": 0.95,
+        "description": "Giữ âm hưởng hùng tráng, sử thi, dùng nhiều từ Hán-Việt cổ phong trong xưng hô, chiêu thức.",
+        "system_instruction": """Bạn là một dịch giả tiểu thuyết tiên hiệp, kiếm hiệp cổ điển uyên thâm.
+Nhiệm vụ của bạn là chuyển ngữ tác phẩm sang tiếng Việt với văn phong cổ kính, hùng tráng, hào sảng và đậm chất tiên hiệp, kiếm hiệp cổ phong.
+
+[QUY TẮC BÚT PHÁP]:
+1. Giữ gìn hệ thống từ ngữ Hán-Việt trang trọng, cổ phong trong miêu tả khí thế, chiêu thức, pháp bảo, cảnh giới, đạo hạnh.
+2. Xưng hô chuẩn mực cổ phong: bản tọa, các hạ, đạo hữu, tiền bối, vãn bối, sư huynh, sư đệ, lão phu, tiểu bối.
+3. Câu văn uy nghiêm, nhịp điệu dứt khoát, giữ được không khí huyền bí, thâm sâu của giới tu chân.
+4. Dịch đầy đủ 100% nội dung, không cắt bớt hay tóm tắt."""
+    },
+    "literal": {
+        "name": "Bám sát nguyên tác (Trung tính)",
+        "temperature": 0.35,
+        "top_p": 0.90,
+        "description": "Dịch sát nghĩa từng câu chữ, trung tính, bảo toàn trật tự câu gốc.",
+        "system_instruction": """Bạn là dịch giả trung thực, dịch sát nghĩa văn bản tiểu thuyết tiếng Trung sang tiếng Việt.
+Nhiệm vụ của bạn là bám sát cấu trúc ngữ pháp và câu từ của nguyên tác, dịch chính xác, khách quan, không phóng tác thêm thắt, đảm bảo phản ánh đúng 100% từng câu chữ của tác giả."""
+    }
+}
+
+
 class GeminiTranslator:
     """Engine dịch thuật sử dụng Google Gemini API với Account-Cluster Rotation, Pacing Jitter, Glossary & Context chuẩn AskCpl."""
 
     def __init__(self, api_keys: List[Any], models: Optional[List[str]] = None, 
-                 pace_seconds: float = 3.5, log_callback=None):
+                 pace_seconds: float = 3.5, style: str = "fluent", log_callback=None):
         self.raw_keys = api_keys
         self.key_objects = enrich_key_objects(api_keys)
         self.pool = get_shared_account_pool(self.key_objects)
-        self.models = list(models or DEFAULT_MODELS)
+        self.models = list(models or load_configured_models())
+        self._original_models = list(self.models)  # Bản gốc để có thể restore thứ tự
         self.pace_seconds = max(2.0, pace_seconds)
+        self.style = style if style in TRANSLATION_STYLES else "fluent"
+        style_info = TRANSLATION_STYLES[self.style]
+        self.style_name = style_info["name"]
+        self.temperature = style_info["temperature"]
+        self.top_p = style_info.get("top_p", 0.95)
+        self.system_instruction = style_info["system_instruction"]
         self.log_callback = log_callback
         self._last_call_time = 0.0
         self.is_stopped = False
+        # Theo dõi model bị giới hạn theo từng account (không xóa khỏi global list)
+        self._account_restricted_models: Dict[str, Set[str]] = {}
+        # Đếm số lần phản hồi rỗng liên tiếp theo từng model
+        self._model_consecutive_empty: Dict[str, int] = {}
 
     def _log(self, msg: str):
         logger.info(msg)
@@ -495,7 +688,7 @@ class GeminiTranslator:
             time.sleep(wait)
         self._last_call_time = time.time()
 
-    def _call_api_with_retry(self, prompt: str, timeout: int = 60) -> Tuple[bool, str, str]:
+    def _call_api_with_retry(self, prompt: str, system_instruction: Optional[str] = None, timeout: int = 60) -> Tuple[bool, str, str]:
         """
         Gọi Gemini REST API với Account-Cluster Rotation, Cooldown hàng đợi và Pacing Jitter chuẩn AskCpl.
         Trả về (success, raw_text, error_message)
@@ -505,6 +698,8 @@ class GeminiTranslator:
 
         exclude: Set[str] = set()
         account_attempts = 0
+        all_empty_rounds = 0      # Đếm số lần toàn bộ models của một account đều rỗng/lỗi nhẹ
+        MAX_EMPTY_ROUNDS = 3      # Tối đa 3 account khác nhau đều thất bại thì báo lỗi hẳn
 
         while not self.is_stopped:
             key_obj = self.pool.pick(exclude=exclude)
@@ -526,7 +721,39 @@ class GeminiTranslator:
             project_id = key_obj.get("project_id", "")
             short_key = f"...{api_key[-6:]}" if len(api_key) >= 6 else "key"
 
-            for model in list(self.models):
+            # Lọc model: bỏ qua model bị giới hạn với account này (per-account restriction)
+            restricted_for_acct = self._account_restricted_models.get(email, set())
+            models_to_try = [m for m in self.models if m not in restricted_for_acct]
+            if not models_to_try:
+                self._log(f"  ⚠ Tất cả model đều bị giới hạn với account '{email}'. Chuyển account khác...")
+                # Thêm tất cả key của account này vào exclude để không bị pick lại trong lượt này
+                for k in self.pool._keys:
+                    if self.pool.account_of(k) == email:
+                        k_val = k.get("key", "")
+                        if k_val:
+                            exclude.add(k_val)
+                account_attempts += 1
+
+                # Kiểm tra nếu toàn bộ account trong pool đều đã bị giới hạn hết model
+                has_any_viable_account = any(
+                    any(m not in self._account_restricted_models.get(self.pool.account_of(k), set()) for m in self.models)
+                    for k in self.pool._keys if k.get("status") != "invalid" and k.get("key") not in exclude
+                )
+                if not has_any_viable_account and len(exclude) >= len(self.pool._keys):
+                    return False, "", "Tất cả tài khoản Google đều đã bị giới hạn toàn bộ danh sách model."
+
+                if account_attempts >= MAX_ACCOUNT_ATTEMPTS:
+                    self._log(f"  ⚠ Đã thử {MAX_ACCOUNT_ATTEMPTS} account, nghỉ 15s trước khi tiếp tục...")
+                    for _ in range(15):
+                        if self.is_stopped:
+                            return False, "", "Đã dừng bởi người dùng."
+                        time.sleep(1.0)
+                    account_attempts = 0
+                    exclude.clear()
+                continue
+
+            had_real_response = False  # True nếu ít nhất 1 model nhận được HTTP 200 thực sự
+            for model in models_to_try:
                 if self.is_stopped:
                     return False, "", "Đã dừng bởi người dùng."
 
@@ -535,13 +762,26 @@ class GeminiTranslator:
                        f"models/{model}:generateContent?key={api_key}")
 
                 headers = {"Content-Type": "application/json"}
-                body = {
+                body: Dict[str, Any] = {
                     "contents": [{"parts": [{"text": prompt}]}],
                     "generationConfig": {
-                        "temperature": 0.3,
+                        "temperature": self.temperature,
+                        "topP": self.top_p,
                         "maxOutputTokens": 8192
-                    }
+                    },
+                    # Tắt toàn bộ safety filter để dịch trọn vẹn văn học cổ điển (tiểu thuyết tu tiên)
+                    "safetySettings": [
+                        {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",  "threshold": "BLOCK_NONE"},
+                        {"category": "HARM_CATEGORY_HATE_SPEECH",          "threshold": "BLOCK_NONE"},
+                        {"category": "HARM_CATEGORY_DANGEROUS_CONTENT",    "threshold": "BLOCK_NONE"},
+                        {"category": "HARM_CATEGORY_HARASSMENT",           "threshold": "BLOCK_NONE"},
+                    ]
                 }
+                sys_inst = system_instruction or self.system_instruction
+                if sys_inst:
+                    body["systemInstruction"] = {
+                        "parts": [{"text": sys_inst}]
+                    }
 
                 try:
                     resp = requests.post(url, headers=headers, json=body, timeout=timeout)
@@ -549,31 +789,63 @@ class GeminiTranslator:
                     resp_text = resp.text
 
                     if status == 200:
+                        had_real_response = True  # Đã nhận phản hồi thực từ Gemini (dù rỗng)
                         try:
                             data = resp.json()
                         except Exception:
                             data = {}
                         candidates = data.get("candidates", [])
                         if candidates:
-                            parts = candidates[0].get("content", {}).get("parts", [])
+                            cand0 = candidates[0]
+                            finish_reason = cand0.get("finishReason", "")
+                            parts = cand0.get("content", {}).get("parts", [])
                             text = "".join(p.get("text", "") for p in parts)
                             if text.strip():
                                 self.pool.mark_success(key_obj)
+                                # Reset bộ đếm empty cho model vừa thành công
+                                self._model_consecutive_empty[model] = 0
                                 self._log(f"  ✨ [{email} | P{project_id}] Model '{model}' phản hồi thành công!")
                                 return True, text, ""
-                        self._log(f"  ⚠ Model '{model}' phản hồi rỗng; chuyển model fallback...")
+                            # Nội dung bị safety filter chặn
+                            if finish_reason == "SAFETY":
+                                self._log(
+                                    f"  🚫 [{email}] Model '{model}' bị Gemini SAFETY FILTER chặn "
+                                    f"(finishReason=SAFETY). Chuyển model khác..."
+                                )
+                                # Safety block: không đếm vào empty_count (lý do khác)
+                                continue
+                        # Phản hồi rỗng: đếm số lần liên tiếp
+                        empty_count = self._model_consecutive_empty.get(model, 0) + 1
+                        self._model_consecutive_empty[model] = empty_count
+                        if empty_count >= 2 and model in self.models and len(self.models) > 1:
+                            self._log(f"  ⚠ Model '{model}' phản hồi rỗng {empty_count} lần liên tiếp → đẩy xuống cuối hàng đợi (sẽ thử lại sau khi qua account khác)...")
+                            self.models.remove(model)
+                            self.models.append(model)
+                        else:
+                            self._log(f"  ⚠ Model '{model}' phản hồi rỗng; chuyển model fallback...")
                         continue
 
-                    # 500/503: Quá tải server Google (theo model) -> thử model tiếp theo
+                    # 500/503: Quá tải server Google (theo model) → đẩy model xuống cuối danh sách
                     if status in (500, 503):
-                        self._log(f"  ⚠ [{email}] Model '{model}' lỗi server {status} (quá tải). Tự động chuyển model fallback tiếp theo...")
-                        continue
-
-                    # 404 hoặc model restriction: model không được hỗ trợ
-                    if status == 404 or is_model_restriction(resp_text):
-                        self._log(f"  ⚠ Model '{model}' không hỗ trợ hoặc bị giới hạn ({status}). Bỏ qua model này...")
+                        self._log(f"  ⚠ [{email}] Model '{model}' lỗi server {status} (quá tải). Đẩy xuống cuối queue, chờ 10s...")
                         if model in self.models and len(self.models) > 1:
                             self.models.remove(model)
+                            self.models.append(model)
+                        # Chờ 10s để server bớt tải trước khi thử model tiếp
+                        for _ in range(10):
+                            if self.is_stopped:
+                                return False, "", "Đã dừng bởi người dùng."
+                            time.sleep(1.0)
+                        continue
+
+
+                    # 404 hoặc model restriction: ghi nhận per-account, KHÔNG xóa khỏi global list
+                    # (Account khác có thể dùng model này tốt bình thường)
+                    if status == 404 or is_model_restriction(resp_text):
+                        self._log(f"  ⚠ Model '{model}' không hỗ trợ hoặc bị giới hạn ({status}) với account '{email}'. Ghi nhớ per-account, chuyển model khác...")
+                        if email not in self._account_restricted_models:
+                            self._account_restricted_models[email] = set()
+                        self._account_restricted_models[email].add(model)
                         continue
 
                     # 429: Too Many Requests
@@ -612,12 +884,45 @@ class GeminiTranslator:
                     continue
 
                 except requests.exceptions.Timeout:
-                    self._log(f"  ⏱ Timeout khi gọi model '{model}' (> {timeout}s). Chuyển model fallback...")
+                    self._log(f"  ⏱ Timeout khi gọi model '{model}' (> {timeout}s). Đẩy model xuống cuối hàng đợi fallback...")
+                    if model in self.models and len(self.models) > 1:
+                        self.models.remove(model)
+                        self.models.append(model)
                     continue
                 except requests.exceptions.RequestException as e:
                     self._log(f"  🌐 Lỗi kết nối mạng ({type(e).__name__}) trên '{model}'. Thử lại...")
                     time.sleep(1.5)
                     continue
+
+            # Sau khi thử hết toàn bộ models_to_try mà không thành công
+            if had_real_response:
+                # Ít nhất 1 model nhận được HTTP 200 nhưng nội dung rỗng → đếm empty round thực
+                all_empty_rounds += 1
+                if all_empty_rounds >= MAX_EMPTY_ROUNDS:
+                    return False, "", (
+                        f"Tất cả models đều phản hồi rỗng sau {all_empty_rounds} lần thử các account khác nhau. "
+                        f"Nội dung có thể bị Gemini safety filter lọc bỏ."
+                    )
+                self._log(
+                    f"  ⚠ Models phản hồi rỗng với account '{email}' (lần {all_empty_rounds}/{MAX_EMPTY_ROUNDS}). "
+                    f"Chuyển account khác, thử lại..."
+                )
+            else:
+                # Toàn bộ là 403/restriction/503 — không phải empty thật, không tăng counter
+                self._log(
+                    f"  ⚠ Không model nào khả dụng với account '{email}' (403/503 restriction). "
+                    f"Chuyển account khác..."
+                )
+            exclude.add(api_key)
+            account_attempts += 1
+            if account_attempts >= MAX_ACCOUNT_ATTEMPTS:
+                self._log(f"  ⚠ Đã thử {MAX_ACCOUNT_ATTEMPTS} account, nghỉ 15s trước khi tiếp tục...")
+                for _ in range(15):
+                    if self.is_stopped:
+                        return False, "", "Đã dừng bởi người dùng."
+                    time.sleep(1.0)
+                account_attempts = 0
+                exclude.clear()
 
         return False, "", "Tiến trình dịch đã bị dừng hoặc cạn kiệt API keys."
 
@@ -657,19 +962,25 @@ class GeminiTranslator:
             is_first = (c_idx == 0)
             is_last = (c_idx == len(chunks) - 1)
 
-            prompt = f"""Bạn là dịch giả dịch tiểu thuyết tiếng Trung sang tiếng Việt chuyên nghiệp.
-Nhiệm vụ: Dịch phần {part_num}/{len(chunks)} của chương "{title_zh}" sang tiếng Việt với văn phong mượt mà, chuẩn phong cách tiên hiệp/đô thị.
+            prompt = f"""Dịch phần {part_num}/{len(chunks)} của chương "{title_zh}" sang tiếng Việt với văn phong mượt mà, thuần Việt, giàu cảm xúc, xóa bỏ lối dịch convert thô sượng.
 
 [QUY TẮC BẮT BUỘC]:
-1. TUÂN THỦ TỪ ĐIỂN THUẬT NGỮ CỐ ĐỊNH:
+1. TUÂN THỦ TỪ ĐIỂN THUẬT NGỮ CỐ ĐỊNH: Bắt buộc dùng đúng danh từ riêng dưới đây:
 {glossary_text}
 
 2. BỐI CẢNH CÁC CHƯƠNG TRƯỚC (Dùng để định hình đại từ xưng hô):
 {prev_summary_text}
 
-3. DỊCH ĐẦY ĐỦ VÀ CHÍNH XÁC: Dịch trọn vẹn từng câu từng đoạn của phần này, tuyệt đối không tóm tắt, không cắt bớt, ngắt đoạn rõ ràng.
+3. CHẤT LƯỢNG VĂN PHONG DỊCH:
+- Dịch thoát ý, mượt mà, câu văn tự nhiên, tránh cấu trúc câu bị động ngược và từ đệm thừa của tiếng Trung.
+- Xưng hô linh hoạt, ăn khớp với thể loại và bối cảnh (thầy - trò, sư tỷ - đệ, cậu - tôi, gã - hắn).
+- Ví dụ đối chiếu chất lượng:
+  * ❌ Thô cứng (Convert): "Lý Diệu trong lòng chấn động, hướng về phía trước nhìn lại, chỉ thấy một cái to lớn vô cùng hình cầu..."
+  * ✅ Mượt mà thuần Việt: "Lý Diệu thầm kinh hãi. Phóng mắt nhìn về phía trước, đập vào mắt hắn là một khối cầu khổng lồ vô song..."
 
-4. ĐỊNH DẠNG ĐẦU RA JSON:
+4. DỊCH ĐẦY ĐỦ 100%: Dịch trọn vẹn từng câu từng đoạn của phần này, tuyệt đối không tóm tắt, không cắt bớt, ngắt đoạn rõ ràng.
+
+5. ĐỊNH DẠNG ĐẦU RA JSON:
 Trả về duy nhất JSON:
 ```json
 {{
@@ -689,7 +1000,7 @@ Trả về duy nhất JSON:
 [NỘI DUNG TIẾNG TRUNG PHẦN {part_num}/{len(chunks)}]:
 {chunk_text}
 """
-            success, raw_resp, err_msg = self._call_api_with_retry(prompt)
+            success, raw_resp, err_msg = self._call_api_with_retry(prompt, system_instruction=self.system_instruction)
             if not success:
                 raise RuntimeError(err_msg or f"Lỗi dịch phần {part_num}/{len(chunks)}.")
 
@@ -725,23 +1036,29 @@ Trả về duy nhất JSON:
     def _translate_single_chunk(self, title_zh: str, content_zh: str,
                                 glossary_text: str, prev_summary_text: str) -> Dict[str, Any]:
         """Dịch 1 chương có độ dài bình thường trong 1 lần gọi duy nhất."""
-        prompt = f"""Bạn là dịch giả dịch tiểu thuyết tiếng Trung sang tiếng Việt chuyên nghiệp hàng đầu.
-Nhiệm vụ của bạn là dịch chương truyện sau đây sang tiếng Việt với văn phong mượt mà, thuần Việt, chuẩn phong cách tiên hiệp/kiếm hiệp/huyền huyễn/đô thị, giữ đúng cách xưng hô theo ngữ cảnh (huynh đệ, sư đồ, phụ tử, tiền bối, vãn bối, v.v.).
+        prompt = f"""Dịch chương tiểu thuyết sau đây từ tiếng Trung sang tiếng Việt với văn phong mượt mà, thuần Việt, giàu cảm xúc, xóa bỏ lối dịch convert thô sượng.
 
 [QUY TẮC BẮT BUỘC]:
-1. TUÂN THỦ TỪ ĐIỂN THUẬT NGỮ CỐ ĐỊNH: Bắt buộc dùng đúng bản dịch tiếng Việt cho các danh từ riêng đã có trong danh mục dưới đây. Tuyệt đối không tự ý đổi tên nhân vật hay vũ khí thành từ khác.
+1. TUÂN THỦ TỪ ĐIỂN THUẬT NGỮ CỐ ĐỊNH: Bắt buộc dùng đúng bản dịch tiếng Việt cho các danh từ riêng đã có trong danh mục dưới đây:
 {glossary_text}
 
 2. BỐI CẢNH CÁC CHƯƠNG TRƯỚC (Dùng để định hình đại từ xưng hô và mạch truyện liền mạch):
 {prev_summary_text}
 
-3. DỊCH ĐẦY ĐỦ VÀ CHÍNH XÁC: Dịch trọn vẹn từng câu từng đoạn của nội dung chương, không tóm lược, không cắt xén, chia đoạn văn rõ ràng bằng các dòng trống.
+3. CHẤT LƯỢNG VĂN PHONG DỊCH:
+- Dịch thoát ý, mượt mà, câu văn tự nhiên, thuần Việt, tránh cấu trúc câu bị động ngược và từ đệm thừa của tiếng Trung.
+- Xưng hô linh hoạt, ăn khớp với thể loại và bối cảnh (thầy - trò, sư tỷ - đệ, cậu - tôi, gã - hắn).
+- Ví dụ đối chiếu chất lượng:
+  * ❌ Thô cứng (Convert): "Lý Diệu trong lòng chấn động, hướng về phía trước nhìn lại, chỉ thấy một cái to lớn vô cùng hình cầu..."
+  * ✅ Mượt mà thuần Việt: "Lý Diệu thầm kinh hãi. Phóng mắt nhìn về phía trước, đập vào mắt hắn là một khối cầu khổng lồ vô song..."
 
-4. BẢNG THUẬT NGỮ MỚI & TÓM TẮT CHƯƠNG:
+4. DỊCH ĐẦY ĐỦ 100% VÀ CHÍNH XÁC: Dịch trọn vẹn từng câu từng đoạn của nội dung chương, không tóm lược, không cắt xén, chia đoạn văn rõ ràng bằng các dòng trống.
+
+5. BẢNG THUẬT NGỮ MỚI & TÓM TẮT CHƯƠNG:
 - Phát hiện bất kỳ tên nhân vật mới, môn phái mới, vũ khí/pháp bảo mới, địa danh mới xuất hiện trong chương này và phiên âm Hán-Việt chuẩn xác.
 - Viết 2-3 câu tóm tắt diễn biến then chốt của chương này làm tư liệu cho chương tiếp theo.
 
-5. ĐỊNH DẠNG KẾT QUẢ ĐẦU RA:
+6. ĐỊNH DẠNG KẾT QUẢ ĐẦU RA:
 Trả về duy nhất định dạng JSON hợp lệ theo cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
 ```json
 {{
@@ -763,7 +1080,7 @@ TIÊU ĐỀ: {title_zh}
 NỘI DUNG:
 {content_zh}
 """
-        success, raw_resp, err_msg = self._call_api_with_retry(prompt)
+        success, raw_resp, err_msg = self._call_api_with_retry(prompt, system_instruction=self.system_instruction)
         if not success:
             raise RuntimeError(err_msg or "Lỗi dịch chương với Gemini API.")
 

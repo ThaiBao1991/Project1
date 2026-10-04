@@ -17,11 +17,14 @@ DAILY_ACCOUNT_BUDGET = 1000   # ngân sách an toàn cho 1 account/ngày (Google
 DAILY_CALL_BUDGET = 3000          # ngân sách tổng toàn hệ thống
 PER_ACCOUNT_MIN_GAP = 8.0         # khoảng cách tối thiểu giữa 2 request vào cùng 1 account (chuẩn anti-ban)
 MODEL_FALLBACKS = [
-    "gemini-3.5-flash",        # 🥇 Tốt nhất — thế hệ mới nhất
+    "gemini-3.8-flash",        # 🥇 Mới nhất — thế hệ 3.8
+    "gemini-3.5-flash-lite",   # ⚡ Siêu tốc — 3.5 Lite
+    "gemini-3.5-flash",        # 🔴 Mạnh mẽ — 3.5 Flash
     "gemini-3-flash-preview",  # 🥈 Rất tốt
     "gemini-flash-latest",     # 🥉 Tốt, stable
+    "gemini-flash-lite-latest",# 🔵 Nhanh nhẹ
     "gemini-3.1-flash-lite",   # 🔵 Lite, dự phòng
-    "gemini-flash-lite-latest" # 🔵 Lite, dự phòng cuối
+    "gemini-3.7-flash"         # 🟣 Dự phòng — thế hệ 3.7
 ]
 
 # ─────────────────────────────────────────────────────────────

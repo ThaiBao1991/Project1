@@ -8,6 +8,12 @@ Dự án được xây dựng theo mô hình lai (Hybrid):
 
 ## Quá trình phát triển
 
+### Ngày 03/10/2026 — Hỗ Trợ Đa Dạng Key Models Thế Hệ Mới (Gemini 3.8 / 3.7 Tiered / 3.6 High)
+- **Vấn đề**: Cấu hình cứng `keyModel = 'gemini-3.1-pro-high'` dễ bị lỗi khi Google cập nhật hoặc thay thế model chính trên Antigravity IDE (ví dụ: `gemini-3.7-flash-tiered`, `gemini-3.6-flash-high`, `gemini-3.8-flash`).
+- **Giải pháp**:
+  - `sync_antigravity.py` & `extension.js`: Chuyển sang cơ chế danh sách ứng viên `keyCandidatesMap`. Tự động rà soát từ model ưu tiên nhất có mặt trong `balances` để làm Key Model đại diện cho group Gemini (`gemini-3.1-pro-high` -> `gemini-3.7-flash-tiered` -> `gemini-3.6-flash-high` -> `gemini-3.8-flash` -> `gemini-3.5-flash-low`).
+  - Đảm bảo tính toán % Quota chính xác và không bao giờ bị lệch khi IDE đổi model active.
+
 ### Ngày 18/08/2026 — Chế độ Read-Only mặc định & Dirty Check chống xung đột Git
 - **Vấn đề:** Extension tự động chạy ngầm sync mỗi 5 phút và liên tục ghi đè file `quota_data.dat`, `quota_db.sqlite3`, `active_account.txt` làm Git/GitHub liên tục báo modified, gây khó khăn khi đồng bộ snapshot tài khoản giữa các máy tính (ví dụ: máy nhà 40 accounts, máy phụ 2 accounts).
 - **Giải pháp:**

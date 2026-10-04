@@ -129,9 +129,18 @@ function computeGroupStatus(balances) {
         if (!groupBalances.length) continue;
         
         let keyModel = null;
-        if (groupName === 'claude') keyModel = 'claude-sonnet-4-6';
-        else if (groupName === 'gemini') keyModel = 'gemini-3.1-pro-high';
-        else if (groupName === 'gpt') keyModel = 'gpt-oss-120b-medium';
+        const keyCandidatesMap = {
+            claude: ['claude-sonnet-4-6', 'claude-opus-4-6-thinking'],
+            gemini: ['gemini-3.1-pro-high', 'gemini-3.7-flash-tiered', 'gemini-3.6-flash-high', 'gemini-3.8-flash', 'gemini-3.5-flash-low'],
+            gpt: ['gpt-oss-120b-medium']
+        };
+        const cands = keyCandidatesMap[groupName] || [];
+        for (const cand of cands) {
+            if (groupBalances.some(([m]) => m === cand)) {
+                keyModel = cand;
+                break;
+            }
+        }
 
         let isExhausted = false;
         let resetTime = 0;

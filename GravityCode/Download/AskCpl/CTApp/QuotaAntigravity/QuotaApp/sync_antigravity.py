@@ -114,12 +114,15 @@ def assess_account(acc):
             continue
 
         key_model = None
-        if group_name == 'claude':
-            key_model = 'claude-sonnet-4-6'
-        elif group_name == 'gemini':
-            key_model = 'gemini-3.1-pro-high'
-        elif group_name == 'gpt':
-            key_model = 'gpt-oss-120b-medium'
+        key_candidates = {
+            'claude': ['claude-sonnet-4-6', 'claude-opus-4-6-thinking'],
+            'gemini': ['gemini-3.1-pro-high', 'gemini-3.7-flash-tiered', 'gemini-3.6-flash-high', 'gemini-3.8-flash', 'gemini-3.5-flash-low'],
+            'gpt': ['gpt-oss-120b-medium']
+        }.get(group_name, [])
+        for cand in key_candidates:
+            if cand in group_balances:
+                key_model = cand
+                break
 
         is_exhausted = False
         reset_time = 0

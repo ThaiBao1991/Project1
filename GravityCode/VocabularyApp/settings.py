@@ -12,11 +12,14 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SETTINGS_PATH = os.path.join(BASE_DIR, "settings.json")
 
 _DEFAULT_MODEL_FALLBACKS = [
+    "gemini-3.8-flash",
+    "gemini-3.5-flash-lite",
     "gemini-3.5-flash",
     "gemini-3-flash-preview",
     "gemini-flash-latest",
-    "gemini-3.1-flash-lite",
     "gemini-flash-lite-latest",
+    "gemini-3.1-flash-lite",
+    "gemini-3.7-flash",
 ]
 
 DEFAULT_SETTINGS = {
@@ -38,11 +41,14 @@ DEFAULT_SETTINGS = {
         # Để trống = tự dò ../Download/AskCpl/settings.json (dùng chung kho API key)
         "askcpl_settings_path": "",
         "model_priority": [
-            {"name": "gemini-3.5-flash",        "enabled": True,  "tier": "S", "note": "Mạnh nhất — Gemini 3.5",       "latency_ms": 0},
+            {"name": "gemini-3.8-flash",        "enabled": True,  "tier": "S", "note": "Mới nhất — Gemini 3.8 Flash",  "latency_ms": 0},
+            {"name": "gemini-3.5-flash-lite",   "enabled": True,  "tier": "S", "note": "Siêu tốc — Gemini 3.5 Lite",   "latency_ms": 0},
+            {"name": "gemini-3.5-flash",        "enabled": True,  "tier": "S", "note": "Mạnh mẽ — Gemini 3.5 Flash",  "latency_ms": 0},
             {"name": "gemini-3-flash-preview",  "enabled": True,  "tier": "A", "note": "Rất tốt — Gemini 3 Preview",   "latency_ms": 0},
             {"name": "gemini-flash-latest",     "enabled": True,  "tier": "A", "note": "Ổn định — Flash Latest",       "latency_ms": 0},
+            {"name": "gemini-flash-lite-latest","enabled": True,  "tier": "B", "note": "Nhanh nhẹ — Flash Lite Latest", "latency_ms": 0},
             {"name": "gemini-3.1-flash-lite",   "enabled": True,  "tier": "B", "note": "Nhẹ & Nhanh — Gemini 3.1 Lite","latency_ms": 0},
-            {"name": "gemini-flash-lite-latest","enabled": True,  "tier": "B", "note": "Dự phòng — Flash Lite Latest", "latency_ms": 0}
+            {"name": "gemini-3.7-flash",        "enabled": True,  "tier": "A", "note": "Dự phòng — Gemini 3.7 Flash",  "latency_ms": 0}
         ]
     }
 }
