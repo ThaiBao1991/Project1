@@ -124401,3 +124401,8 @@ PermissionError: [WinError 32] The process cannot access the file because it is 
 [2026-09-24 13:06:54] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\558-01-D438.pdf
 [2026-09-24 13:06:54] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
 [2026-09-24 13:06:54] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+[2026-10-01 11:39:59] [INFO] Kích thước ảnh gốc cần gỡ: 190x146
+[2026-10-01 11:39:59] [OK] ✓   Trang 1: Đã gỡ đối tượng ảnh 959 (190x146)
+[2026-10-01 11:39:59] [OK] ✓   Trang 1: Đã gỡ đối tượng ảnh 959 (190x146)
+[2026-10-01 11:39:59] [OK] ✓ Đã lưu kết quả Gỡ Dấu vào: C:/Users/12953 bao/Desktop/KIemtracode/TEST_STAMP.pdf
+[2026-10-01 11:39:59] [INFO] Tổng kết: Đã gỡ 2 con dấu.

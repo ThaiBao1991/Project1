@@ -1,0 +1,8 @@
+# Danh sách các thư viện cần thiết cho Hệ thống MBC DeThi
+# Cài đặt toàn bộ bằng lệnh: pip install -r requirements.txt
+
+customtkinter>=5.2.0    # Giao diện đồ họa Desktop (Dark Mode UI)
+python-docx>=1.1.0      # Xử lý, đọc và xuất file Word (.docx) Đề thi & Đáp án
+pymupdf>=1.24.0         # Tên import: fitz - Đọc và trích xuất nội dung từ PDF tiêu chuẩn
+requests>=2.31.0        # Kết nối và gửi request tới Google Gemini API
+cryptography>=42.0.0    # Mã hóa và giải mã bảo mật AES-256 cho API Keys

@@ -19,6 +19,13 @@ import glob
 
 sys.stdout.reconfigure(encoding='utf-8')
 
+# Tự động kiểm tra và cài đặt thư viện cần thiết trước khi chạy
+try:
+    import check_requirements
+    check_requirements.ensure_dependencies(show_gui=False, auto_exit_on_fail=True)
+except ImportError:
+    pass
+
 from pdf_extractor import scan_all_sources
 from notebooklm_packager import package_pdf_to_file, parse_notebooklm_response
 from question_validator import QuestionValidator

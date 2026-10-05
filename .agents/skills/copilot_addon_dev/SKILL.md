@@ -1,0 +1,368 @@
+---
+name: "chrome-ai-autochat-extractor-addon"
+description: "Build or maintain Chrome/Edge Manifest V3 extensions that automate conversations with web AI assistants, extract replies, and export results. Use for content-script injection, CSP or download failures, chrome.storage limits, dropped IPC payloads, Unicode/Base64 corruption, session resume and crash recovery, minimized-tab throttling, multi-tab/profile collisions, false-positive scraped errors, CJK word counts, or large roadmap data freezing the popup."
+---
+
+# Hướng dẫn phát triển Addon Auto-Chat & Extract (mẫu: AskCpl)
+
+Kỹ năng này cung cấp kiến thức nền tảng và tài liệu tham khảo về luồng hoạt động của dạng addon tự động lặp hội thoại với trợ lý AI trên web (Copilot, Gemini, ChatGPT, Claude...), trích xuất nội dung trả lời và xuất file. Áp dụng cho addon gốc `AskCpl` lẫn mọi bản fork/clone/addon mới xây trên cùng kiến trúc. Khi bảo trì hoặc phát triển tính năng mới cho loại addon này, hãy luôn tuân theo các quy ước và ghi nhớ các bẫy kỹ thuật dưới đây.
+
+---
+
+## 1. Cấu trúc Addon (Manifest V3)
+
+| File | Vai trò |
+|------|---------|
+| `manifest.json` | Phân quyền (`downloads`, `storage`, `scripting`), Host Permission |
+| `popup.html` & `popup.js` | Giao diện điều khiển — nạp Roadmap, gửi Start/Stop/Resume |
+| `background.js` | Service Worker — xử lý `chrome.downloads` (CSP workaround) |
+| `content_script.js` | "Bộ não" — DOM injection, điền prompt, thu thập kết quả |
+
+---
+
+## 2. Luồng hoạt động chính (State Machine)
+
+1. **Khởi tạo**: Popup → `{ action: "start_loop", tabId }` → Content Script.
+2. **State Memory**: `isRunning = true`, `currentTabId` → lưu vào `chrome.storage.local`.
+3. **Run Day X**: `_runNextDayAttempt()` → tìm ô nhập → điền prompt → Enter/Click → `waitForResponseComplete()`.
+4. **Trích xuất & Tải file**: HTML → gửi về `background.js` Base64 Data URI → `chrome.downloads.download()`.
+5. **Chuyển ngày**: Tăng `currentDay` → cập nhật storage → reload nếu cần → tiếp tục loop.
+
+---
+
+## 3. QUY TẮC BẮT BUỘC KHI VIẾT CODE
+
+### ⚠️ VÀNG — Mã hóa Base64 UTF-8 hai chiều
+Khi lưu/đọc dữ liệu JSON qua Base64 có Unicode, dùng `TextEncoder` và `TextDecoder`. Không dùng `escape` hoặc `unescape` vì chúng đã lỗi thời.
+
+```javascript
+const bytesToBinary = (bytes) => {
+  let binary = "";
+  for (let index = 0; index < bytes.length; index += 0x8000) {
+    binary += String.fromCharCode(...bytes.subarray(index, index + 0x8000));
+  }
+  return binary;
+};
+
+const encodeBase64Utf8 = (obj) =>
+  btoa(bytesToBinary(new TextEncoder().encode(JSON.stringify(obj))));
+
+const decodeBase64Utf8 = (encoded) => {
+  const bytes = Uint8Array.from(atob(encoded), (char) => char.charCodeAt(0));
+  return JSON.parse(new TextDecoder().decode(bytes));
+};
+```
+
+**Hậu quả nếu encode/decode không đối xứng:** Chuỗi byte UTF-8 có thể bị hiểu nhầm thành Latin-1. Sau nhiều vòng Auto-Resume, dữ liệu bị nhân bản/phình to → IPC bị drop → addon treo.
+
+### ⚠️ IPC (sendMessage) giới hạn kích thước payload
+- `chrome.runtime.sendMessage` bị **drop im lặng** nếu payload quá lớn (~5-10MB).
+- **Không bao giờ nhúng Roadmap Data** (3000 bài) vào payload.
+- Luôn lưu vào `chrome.storage.local` key riêng (`roadmap_active`, `roadmap_{profile}`) rồi đọc trong Content Script.
+
+### ⚠️ chrome.storage.local giới hạn 10MB/key
+- Không lưu toàn bộ `addonConfigs` (bao gồm roadmap) vào 1 key duy nhất.
+- Roadmap phải lưu tách biệt: `chrome.storage.local.set({ ['roadmap_' + profileName]: data })`.
+
+---
+
+## 4. LỖI KINH ĐIỂN & GIẢI PHÁP (Đã áp dụng)
+
+### A. Edge không tạo thư mục khi tải file
+- **Hiện tượng**: Edge bỏ qua tham số `filename` từ `data:` URI, đổ hết ra thư mục Downloads ngoài.
+- **Giải pháp**: Dùng `chrome.downloads.onDeterminingFilename` trong `background.js`. Dùng `suggest({ filename: "thu_muc/file.html" })` để ép tên file.
+
+### B. Vòng lặp vô tận sau Stop (Thread Leaking)
+- **Hiện tượng**: Bấm Stop, trang vẫn tự chạy sau khi reload.
+- **Giải pháp**: Ghi `isRunning = false` xuống `chrome.storage.local` khi Stop. Chèn `if (!isRunning) return 'stop';` tại **mọi điểm await** trong luồng chính.
+
+### C. Multi-Tab xung đột (chung biến `runningState`)
+- **Hiện tượng**: Tab B vô tình chạy cùng Tab A.
+- **Giải pháp**: Lưu trạng thái theo Dictionary `runningStates[tabId]`. Tab chỉ Auto-Resume khi `get_tab_id` từ Background khớp với tabId lưu trong storage.
+
+### D. Roadmap quá lớn → Popup treo + IPC Drop [GĐ 43/44]
+- **Hiện tượng**: Load session.json → click Run → Addon không phản hồi, icon không lên.
+- **Giải pháp**:
+  - Strip `roadmapData` khỏi `sendMessage` payload.
+  - Lưu roadmap vào key riêng `roadmap_active`.
+  - `updateRoadmapPreview` chỉ hiển thị số bài, không `JSON.stringify` toàn bộ.
+  - Content Script đọc roadmap từ storage (async) thay vì nhận qua IPC.
+
+### E. Encoding Loop → file JSON phình to [GĐ 45]
+- **Hiện tượng**: Sau nhiều ngày chạy, session.json phình từ 4MB lên 28-53MB. Nội dung xuất hiện ký tự lỗi "ÃÂÃÂ...".
+- **Nguyên nhân**: Dữ liệu Unicode bị đọc như Latin-1, hoặc encode/decode không đối xứng.
+- **Giải pháp**: Dùng cùng cặp `encodeBase64Utf8` / `decodeBase64Utf8` ở mọi điểm lưu và tải session.
+
+### F. `isErrorContent` False Positive — Day 1503 bị reject [GĐ 46]
+- **Hiện tượng**: Add-on kẹt mãi ở bài có số chứa mã lỗi HTTP (VD: Day **1503** chứa **503**).
+- **Nguyên nhân**: `isErrorContent()` dùng `.includes('503')` → số `1503` bị nhận nhầm là lỗi 503.
+- **Giải pháp**:
+  1. **Length guard**: nếu `text.length > 400` → bypass kiểm tra (chắc chắn là bài giảng).
+  2. **Word Boundary**: dùng regex `\b503\b` thay cho `.includes('503')`.
+
+### G. `validateContent` False Reject với tiếng Nhật/Trung [GĐ 46]
+- **Nguyên nhân**: Đếm số từ bằng `split(/\s+/)`. Tiếng Nhật/Trung không có khoảng trắng → 2000 ký tự = "1 từ" → spam filter kích hoạt sai.
+- **Giải pháp**: Đổi sang tỷ lệ ký tự: `nameCharCount > text.length * 0.4`.
+
+### H. Background Throttling — Chrome chậm khi bị ẩn [GĐ 47]
+- **Hiện tượng**: Khi dùng app khác (Chrome bị ẩn/thu nhỏ), cả tiếng chưa xong 1 bài.
+- **Nguyên nhân**: Chrome throttle `setTimeout` của tab bị ẩn. Silent Audio có thể bị block bởi Autoplay Policy sau reload → bị tắt ngầm → throttle kích hoạt.
+- **Giải pháp (A+B)**:
+  - **A — Audio Health Check**: `_audioHealthInterval` (5s) kiểm tra `_silentAudio.paused` → tự `play()` lại nếu bị tắt.
+  - **B — Web Locks API**: `navigator.locks.request('askcpl_wakeLock', { mode: 'shared' }, () => new Promise(...))` — giữ lock suốt vòng lặp. Tab giữ lock sẽ không bị Chrome/Edge đưa vào trạng thái ngủ/frozen.
+
+---
+
+## 5. KIẾN TRÚC KEEPALIVE (chống Chrome throttle)
+
+```
+setupKeepAlive()
+  ├── _silentAudio (loop=true, volume=0.01)    ← phát audio im lặng
+  ├── _audioHealthInterval (5s)                ← restart audio nếu bị tắt [GĐ47-A]
+  ├── _wakeLockAbort (Web Locks API)           ← giữ lock chặn throttle [GĐ47-B]
+  ├── _keepAliveInterval (20s)                 ← ping background Service Worker
+  └── _heartbeatInterval (15s)                 ← cập nhật timestamp cho popup
+
+teardownKeepAlive()
+  ├── pause + removeAttribute('src') _silentAudio
+  ├── clearInterval _audioHealthInterval
+  ├── _wakeLockAbort._resolve() + .abort()     ← giải phóng lock
+  ├── clearInterval _keepAliveInterval
+  └── clearInterval _heartbeatInterval
+```
+
+---
+
+## 6. TÍNH NĂNG NÂNG CAO
+
+| Tính năng | Mô tả |
+|-----------|-------|
+| **Auto-Summarizer** | Hỏi AI secondary prompt tóm tắt < 20 từ sau mỗi bài. Xây dựng `historySummaries`. |
+| **Multi-Step Interrogation** | Hỏi sâu chủ đề đến khi đủ `targetCount`. Lưu vào `topicMemory`. |
+| **Roadmap Injection** | Nạp danh sách bài từ `.md` (cú pháp `## Day X`), tạo mục lục `index.html`. |
+| **Multi-Platform** | Hỗ trợ Gemini (`message-content`), Copilot (`.ac-textBlock`), ChatGPT (`div.markdown`). |
+| **Tab Binding** | Mỗi tab AI chạy lộ trình riêng song song. Trạng thái lưu theo `runningStates[tabId]`. |
+| **Auto End Day** | Tự tính ngày kết thúc từ số bài trong Roadmap nếu không nhập `endDay`. |
+
+---
+
+## 7. Ghi chú phạm vi
+
+Skill này chỉ chứa kiến thức kỹ thuật (cấu trúc addon, bẫy code, giải pháp đã kiểm chứng) — áp dụng chung cho mọi addon cùng dạng pattern. Quy trình làm việc (đọc log trước, xin duyệt plan, verify sau khi sửa...) được quản lý tập trung trong `AGENTS.md` / `GEMINI.md` ở cấp workspace/global, không lặp lại ở đây để tránh 2 nguồn quy tắc lệch nhau theo thời gian.
+
+---
+
+## 8. KỸ THUẬT NÂNG CAO — Bài học từ phân tích extension myfaveTT (19/07/2026)
+
+### I. Header Hijacking — Mượn chữ ký xác thực của chính trình duyệt
+
+**Bối cảnh:** API có cơ chế chống bot phức tạp (token động, cookie, chữ ký như X-Bogus). Không thể tự tạo token hợp lệ từ bên ngoài.
+
+**Ý tưởng:** Thay vì tự tạo token → để trình duyệt tạo token khi người dùng lướt web bình thường → intercept header đó rồi tái sử dụng.
+
+```javascript
+// background.js (service worker):
+chrome.webRequest.onSendHeaders.addListener(
+  function(details) {
+    const { requestHeaders, url } = details;
+    const ch = new BroadcastChannel("mychannel");
+    ch.postMessage({ type: "HEADERS_INTERCEPTED", payload: { requestHeaders, url } });
+    ch.close();
+  },
+  { urls: ["https://api.target.com/endpoint/*"] },
+  ["requestHeaders"]
+);
+```
+
+**Lưu ý:** Khai báo `"webRequest"` trong `permissions` và URL pattern trong `host_permissions`. Token có thời hạn — cần logic re-intercept.
+
+---
+
+### J. BroadcastChannel Collision — Xung đột kênh khi fork extension
+
+**Hiện tượng:** Fork extension + load cả 2 bản → một bản bị block ngay khi khởi động với thông báo *"already running in another tab"*.
+
+**Nguyên nhân:** `BroadcastChannel("tenkenh")` hoạt động trên **toàn bộ trình duyệt**. 2 extension dùng chung tên → handshake khởi động bị phản hồi bởi extension kia → block nhau.
+
+**Giải pháp:** Khi fork, đổi tên kênh sang tên độc nhất, **đồng bộ ở TẤT CẢ các file** (background.js, content_script.js, relay script):
+```javascript
+// Bản gốc:  new BroadcastChannel("myfaveTT")
+// Bản fork: new BroadcastChannel("mycustomFaveTT")
+```
+
+---
+
+### K. Iframe `src` — Đường dẫn tương đối bị resolve sai origin
+
+**Hiện tượng:** `iframe.src = "ui_offline/index.html"` → iframe trắng, không load được file.
+
+**Nguyên nhân:** Script chạy trong context trang host (VD: `tiktok.com`) → resolve thành `tiktok.com/ui_offline/index.html` → 404.
+
+**Giải pháp:** Dùng `chrome.runtime.getURL()`:
+```javascript
+// SAI:
+iframe.src = "ui_offline/index.html";
+
+// ĐÚNG:
+iframe.src = chrome.runtime.getURL("ui_offline/index.html");
+// → chrome-extension://[id]/ui_offline/index.html
+```
+
+File phải được khai báo trong `web_accessible_resources` của `manifest.json`.
+
+---
+
+### L. Fork Extension Offline — Checklist tách bản gốc thành bản Standalone
+
+```
+1. TẢI SOURCE:    Tải CRX → tìm ZIP magic bytes (PK\x03\x04) → giải nén
+2. PHÂN TÍCH:     Đọc manifest.json → Grep tất cả https:// → liệt kê phụ thuộc
+3. XÓA KEY:       Xóa trường "key" trong manifest → Chrome tạo ID mới, không ghi đè bản gốc
+4. ĐỔI CHANNEL:   Đổi tên BroadcastChannel sang tên độc nhất
+5. CÀO UI:        Scrape HTML/CSS/JS từ server UI về thư mục ui_offline/
+6. SỬA LOADER:    iframe.src = chrome.runtime.getURL("ui_offline/index.html")
+7. MANIFEST:      Thêm "ui_offline/*" vào web_accessible_resources
+8. BYPASS AUTH:   Tìm biến kiểm soát xác thực → set = true khi khởi tạo
+9. UNLOCK CAP:    Tìm hàm giới hạn số lượng → tăng lên 9999999
+10. VERIFY:       Load unpacked → kiểm tra chạy song song với bản gốc
+```
+
+```python
+import urllib.request, zipfile, io, os
+
+def download_crx(ext_id, out_dir):
+    url = (f"https://clients2.google.com/service/update2/crx"
+           f"?response=redirect&prodversion=114.0"
+           f"&x=id%3D{ext_id}%26uc")
+    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+    with urllib.request.urlopen(req) as r:
+        crx = r.read()
+    start = crx.find(b'PK\x03\x04')  # ZIP magic bytes
+    with zipfile.ZipFile(io.BytesIO(crx[start:])) as z:
+        z.extractall(out_dir)
+```
+
+---
+
+### M. Bơm Script Trực Tiếp Vào MAIN World Bằng MV3 (Bypass CSP)
+
+**Bối cảnh:** Trong MV3, khi muốn ghi đè các hàm native (như `window.fetch`, `document.execCommand`...) hoặc chui ra khỏi Isolated World của Content Script, cách cũ là chèn thẻ `<script>` vào DOM. Nhưng cách này thường bị chặn bởi CSP (Content Security Policy) của trang đích.
+
+**Giải pháp (Từ HangMauIntramart):** Sử dụng API `chrome.scripting.executeScript` với cờ `world: 'MAIN'`. Điều này cho phép Extension bơm trực tiếp hàm JavaScript vào ngữ cảnh của trang đích mà không cần can thiệp DOM hay lo ngại CSP.
+
+```javascript
+// background.js:
+async function executeMainScript(tabId, delaySeconds) {
+    await chrome.scripting.executeScript({
+        target: { tabId: tabId, frameIds: [0] },
+        world: 'MAIN',  // <-- QUAN TRỌNG: Chạy thẳng vào context của trang
+        func: getInjectedAutomationCode,
+        args: [delaySeconds || 5]
+    });
+}
+
+function getInjectedAutomationCode(delaySeconds) {
+    // Đoạn mã này có toàn quyền truy cập window.* của trang web gốc
+    window.__my_custom_flag = true;
+    const originalFetch = window.fetch;
+    // ... Override native APIs thoải mái ...
+}
+```
+
+---
+
+### N. Chống Throttle Khi Chuyển Tab/Minimized Bằng AudioContext (Silent Oscillator)
+
+**Bối cảnh:** Chromium bóp (throttle) các hàm như `setTimeout` và `setInterval` khi tab không còn active (minimized, chuyển ứng dụng khác). Điều này làm các luồng tự động chạy ngầm bị delay nặng.
+
+**Giải pháp (Từ HangMauIntramart):** Sử dụng Web Audio API để giữ tab hoạt động hết công suất. Bằng cách tạo ra một luồng âm thanh "im lặng" (gain = 0), trình duyệt sẽ ưu tiên tab này và không throttle nó.
+
+```javascript
+function keepTabAwake() {
+    try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        gainNode.gain.value = 0; // Mute hoàn toàn (Im lặng)
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        oscillator.start();
+        console.log('🔊 Đã bật khiên chống ngủ gật cho Tab (Chạy nền 100% công lực)');
+    } catch(e) {
+        console.log('Không thể bật chống ngủ gật: ' + e.message);
+    }
+}
+```
+**Lưu ý:** `AudioContext` thường yêu cầu tương tác (User Gesture) từ người dùng trước khi được phép phát tiếng, nên gọi hàm này sau khi người dùng click một nút (ví dụ: nút Start). Có thể kết hợp cùng Web Locks API (`navigator.locks`) để tạo thành lớp bảo vệ kép.
+
+---
+
+### O. Bảo Toàn Trạng Thái Script Khi Frame Con Tải Lại (Top-Window Injection)
+
+**Bối cảnh:** Đối với các hệ thống doanh nghiệp (như Intramart) sử dụng thẻ `<frameset>` lồng nhau phức tạp. Nếu dùng cấu hình `all_frames: true` trong `manifest.json` để nhúng `content_script.js` vào frame con (vd: `IM_MAIN`), mỗi khi frame này chuyển trang hoặc tải lại dữ liệu, script sẽ bị trình duyệt "khai tử" (killed), làm đứt gãy hoàn toàn luồng tự động hóa đang chạy dở.
+
+**Giải pháp (Từ HangMauIntramart):** 
+1. Ép Script CHỈ khởi chạy và lưu trạng thái ở cửa sổ gốc (Top Window) bằng điều kiện `if (window === window.top)`. Top Window hiếm khi bị reload nên trạng thái vòng lặp được bảo toàn.
+2. Từ Top Window, dùng hàm đệ quy duyệt qua mảng `window.frames` để mò vào tận Frame con cần thao tác. Nhờ cơ chế cùng nguồn gốc (Same-Origin), code từ Top Frame có thể thao tác DOM của Sub-Frame dễ dàng.
+
+```javascript
+// content_script.js
+if (window === window.top) {
+    console.log("Khởi chạy ở Top Window, an toàn không lo bị reload.");
+    
+    // Hàm đệ quy xuyên thấu các lớp frame
+    function getMainFrame() {
+        let foundFrame = null;
+        function collectFrames(win) {
+            if (win.name === 'IM_MAIN') foundFrame = win;
+            if (foundFrame || !win.frames) return;
+            for (let i = 0; i < win.frames.length; i++) {
+                try { collectFrames(win.frames[i]); } catch(e) {}
+            }
+        }
+        collectFrames(window);
+        return foundFrame;
+    }
+
+    // Vòng lặp hoặc thao tác logic đặt ở Top Window
+    setInterval(() => {
+        const frame = getMainFrame();
+        if (frame && frame.document.readyState === 'complete') {
+            // Thao tác DOM an toàn vào frame con
+            const table = frame.document.getElementById('list_table');
+            if (table) console.log("Tìm thấy bảng dữ liệu!");
+        }
+    }, 1000);
+}
+```
+---
+
+## 9. BÀI HỌC 2026-08-19 — Fix "Addon hay dừng & đứng" (CopilotWordExportAddon)
+
+Những nguyên nhân khiến addon vòng lặp tự động bị dừng/đứng lặng lẽ (không crash, không lỗi hiển thị):
+
+### P. maxFollowUp mặc định quá lớn → 1 ngày kẹt hàng giờ
+- **Nguyên nhân**: `maxFollowUp = 999` + vòng `while (!isCompleted && followUpCount < maxFollowUp)` — nếu AI cứ trả lời nội dung bổ sung mà không nói "Đã đầy đủ", addon hỏi bồi tới 999 lần, mỗi lần chờ tới 10 phút.
+- **Giải pháp**: mặc định 3 + **cap dung lượng tổng** `fullDayHtml` (~3MB) — `fullDayHtml` còn phình vô hạn gây treo tab & IPC drop khi gửi download. Log phân biệt rõ lý do dừng: "vượt dung lượng" vs "đạt giới hạn lần".
+
+### Q. Roadmap nhúng trong IPC payload → sendMessage drop im lặng
+- **Nguyên nhân**: Dù đã strip roadmapData khỏi session, vẫn còn sót trong: payload `start_loop` (popup.js), `buildConfigFromUI` (lưu vào addonConfigs >10MB/key), và `saveSession()` (session.json). Roadmap hàng nghìn bài (~MB) → `chrome.runtime.sendMessage`/`tabs.sendMessage` drop im lặng → **bấm Start không có gì xảy ra** / session.json không bao giờ tải được.
+- **Giải pháp**: roadmapData CHỈ nằm trong `chrome.storage.local` (`roadmap_active` / `roadmap_{profile}`). Content Script đọc từ storage, không nhận qua IPC. Khi load session file → fallback đọc roadmap từ storage.
+
+### R. Vòng retry vô hạn khi AI lỗi liên tục
+- **Nguyên nhân**: `while(isRunning){ retry++; ... }` không giới hạn — AI lỗi 503/rate-limit liên tục → retry vô hạn, mỗi lần chờ 10 phút → tưởng như "đứng" ở 1 ngày.
+- **Giải pháp**: `MAX_RETRIES = 5` → thất bại đủ 5 lần thì **bỏ qua ngày** (lưu session, nhảy ngày kế tiếp) kèm log rõ.
+
+### S. Ngưỡng stall quá nhạy → false-positive retry với AI chậm stream
+- **Nguyên nhân**: `checkStable15s` coi kẹt khi chữ không tăng trong 60s — nhưng Copilot có thể mất >60s trước khi stream token đầu (đang xếp hàng) → bị tưởng kẹt → retry lại từ đầu → ngày không bao giờ xong.
+- **Giải pháp**: 60s→**120s** + chỉ coi kẹt khi `!isAIGenerating()` (không có stop-generating button / loading indicator). Nếu UI còn báo generating → cho phép chờ tiếp.
+
+### T. Vòng reload vô hạn khi nút New Chat không tìm thấy
+- **Nguyên nhân**: `waitForNewChatReady` timeout 30s → `location.reload()` → resume → lại timeout → reload... vô hạn nếu nút New Chat không xuất hiện.
+- **Giải pháp**: (1) kiểm tra kết quả `clickNewChat()` — fail thì thử lần 2 sau 10s, vẫn fail thì **dừng hẳn** với log; (2) `waitForNewChatReady` giới hạn **3 lần reload** (biến đếm trong storage) rồi dừng; reset bộ đếm khi 1 ngày thành công.
+
+### U. MAX_TOTAL chờ phản hồi quá dài
+- **Nguyên nhân**: `MAX_TOTAL = 600000` (10 phút) — mỗi lần retry chết chậm.
+- **Giải pháp**: giảm xuống **240000** (4 phút) — retry nhanh, ít thời gian "đứng".
+
+**Kinh nghiệm chung**: Với loop dài hạn, mọi vòng lặp (follow-up, retry, reload, chờ phản hồi) đều phải có 2 lớp chặn: **giới hạn số lần** + **giới hạn thời gian/dung lượng**. Kiểm tra kết quả trả về của mọi thao tác DOM quan trọng (click, input) thay vì giả định thành công. Không bao giờ đưa dữ liệu lớn (~MB) qua IPC — chỉ qua chrome.storage.local.

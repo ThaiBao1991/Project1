@@ -1,0 +1,118 @@
+/* MBC Task Management & KPI - Custom Stylesheet */
+
+/* Tùy chỉnh thanh cuộn */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Mũi tên timeline Kế hoạch (Xanh dương) */
+.timeline-arrow-plan {
+  background: linear-gradient(90deg, #1b5e7d 0%, #2980b9 100%);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+  height: 18px;
+  position: relative;
+  border-radius: 2px 0 0 2px;
+}
+
+/* Mũi tên timeline Thực tích (Xanh lá) */
+.timeline-arrow-actual {
+  background: linear-gradient(90deg, #15803d 0%, #16a34a 100%);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+  height: 18px;
+  position: relative;
+  border-radius: 2px 0 0 2px;
+}
+
+/* Mũi tên Thực tích trễ hạn (Cam / Đỏ) */
+.timeline-arrow-late {
+  background: linear-gradient(90deg, #d97706 0%, #ea580c 100%);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+  height: 18px;
+  position: relative;
+  border-radius: 2px 0 0 2px;
+}
+
+/* Chevron mũi tên kết thúc bên phải */
+.arrow-head-plan {
+  width: 0;
+  height: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-left: 12px solid #2980b9;
+  position: absolute;
+  right: -12px;
+  top: 0;
+  z-index: 10;
+}
+
+.arrow-head-actual {
+  width: 0;
+  height: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-left: 12px solid #16a34a;
+  position: absolute;
+  right: -12px;
+  top: 0;
+  z-index: 10;
+}
+
+.arrow-head-late {
+  width: 0;
+  height: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-left: 12px solid #ea580c;
+  position: absolute;
+  right: -12px;
+  top: 0;
+  z-index: 10;
+}
+
+/* Nhãn hiển thị ngày ở cuối mũi tên trong chế độ Tháng */
+.arrow-date-tag {
+  font-size: 8px;
+  line-height: 1;
+  padding: 1px 3px;
+  background: rgba(0,0,0,0.4);
+  border-radius: 2px;
+  white-space: nowrap;
+  margin-right: 2px;
+}
+
+/* Sticky columns */
+.sticky-col-left {
+  position: sticky;
+  left: 0;
+  z-index: 20;
+}
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+
+/* Dòng nhóm công việc chính (Parent Task Group Header) */
+.parent-task-row {
+  background-color: #f8fafc;
+  border-top: 2px solid #cbd5e1;
+  border-bottom: 1px solid #cbd5e1;
+}
+
+/* In và xuất PDF */
+@media print {
+  .no-print { display: none !important; }
+  body { background: white; color: black; }
+  .overflow-x-auto, .overflow-y-auto { overflow: visible !important; }
+}

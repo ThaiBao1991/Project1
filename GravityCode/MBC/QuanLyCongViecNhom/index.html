@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MBC - Quản Lý Công Việc & Hiệu Suất Nhóm</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- FontAwesome 6 CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- SheetJS (xlsx) CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0284c7',
+              600: '#0369a1',
+              700: '#1b5e7d',
+              800: '#0f3d52',
+            },
+            actual: {
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col font-sans">
+
+  <!-- ================= TOP HEADER ================= -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm no-print">
+    <div class="max-w-[1920px] mx-auto px-4 py-2.5 flex items-center justify-between gap-4">
+      <!-- Logo & Title -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-700 to-sky-500 flex items-center justify-center text-white shadow-md shadow-sky-500/20">
+          <i class="fa-solid fa-chart-gantt text-lg"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-extrabold text-lg tracking-tight bg-gradient-to-r from-brand-800 via-sky-600 to-cyan-600 bg-clip-text text-transparent">MBC WORKSPACE</span>
+            <span class="text-xs px-2 py-0.5 rounded-full font-semibold bg-sky-100 text-sky-800 border border-sky-200">v2.6 Enterprise</span>
+          </div>
+          <p class="text-xs text-slate-500">Hệ Thống Quản Lý Kế Hoạch - Thực Tích & Hiệu Suất Nhân Sự</p>
+        </div>
+      </div>
+
+      <!-- Action Buttons Center/Right -->
+      <div class="flex items-center flex-wrap gap-2">
+        <!-- Nút Thêm Công Việc (Admin) -->
+        <button id="btnAddTask" onclick="openTaskModal()" class="inline-flex items-center gap-2 px-3 py-2 text-xs font-semibold rounded-lg bg-brand-700 text-white hover:bg-brand-800 transition shadow-sm">
+          <i class="fa-solid fa-plus"></i>
+          <span>Thêm Công Việc</span>
+        </button>
+
+        <!-- Nút Báo Cáo Tiến Độ Nhanh (Dành cho tất cả / nhân viên) -->
+        <button onclick="openQuickUpdateModal()" class="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-teal-600 text-white hover:bg-teal-700 transition shadow-sm" title="Chọn nhanh các công việc chưa xong để cập nhật">
+          <i class="fa-solid fa-check-to-slot"></i>
+          <span>Cập Nhật Tiến Độ</span>
+        </button>
+
+        <!-- Quản lý Nhân sự (Admin) -->
+        <button id="btnManageEmp" onclick="openEmployeeModal()" class="inline-flex items-center gap-2 px-3 py-2 text-xs font-semibold rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition shadow-sm">
+          <i class="fa-solid fa-users-gear"></i>
+          <span>Quản Lý Nhân Sự</span>
+        </button>
+
+        <!-- Bảng điểm hiệu suất -->
+        <button onclick="openPerformanceBoardModal()" class="inline-flex items-center gap-2 px-3 py-2 text-xs font-semibold rounded-lg bg-amber-500 text-white hover:bg-amber-600 transition shadow-sm">
+          <i class="fa-solid fa-award"></i>
+          <span>Bảng Điểm KPI</span>
+        </button>
+
+        <!-- Group Excel & Đồng bộ -->
+        <div class="h-6 w-px bg-slate-300 mx-1"></div>
+
+        <!-- Nút Xuất Báo Cáo Excel Trực Quan (Gantt Matrix như ảnh mẫu) -->
+        <button onclick="openExportConfigModal()" class="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 transition shadow-sm" title="Xuất báo cáo Excel đẹp mắt, có gộp dòng, thanh tiến độ liền mạch và tiêu đề tùy chỉnh">
+          <i class="fa-solid fa-file-excel"></i>
+          <span>Xuất Báo Cáo Excel</span>
+        </button>
+
+        <button onclick="exportRawDatabaseExcel()" class="inline-flex items-center gap-1.5 px-2.5 py-2 text-xs font-medium rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-300 transition" title="Xuất CSDL bảng phẳng .xlsx">
+          <i class="fa-solid fa-table"></i>
+          <span>CSDL .xlsx</span>
+        </button>
+
+        <button onclick="openImportExcelModal()" class="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-300 transition" title="Nhập danh sách công việc từ Excel (có chống trùng lặp)">
+          <i class="fa-solid fa-file-import text-emerald-600"></i>
+          <span>Nhập Excel</span>
+        </button>
+
+        <button onclick="openSyncModal()" class="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-300 transition" title="Quản lý và sao lưu file JSON trong thư mục">
+          <i class="fa-solid fa-database text-blue-600"></i>
+          <span>File JSON</span>
+        </button>
+
+        <!-- User Role / Account Profile -->
+        <div class="h-6 w-px bg-slate-300 mx-1"></div>
+
+        <div class="relative">
+          <button onclick="toggleUserDropdown()" class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 transition">
+            <div id="currentUserAvatar" class="w-7 h-7 rounded-full bg-brand-700 text-white flex items-center justify-center font-bold text-xs">
+              AD
+            </div>
+            <div class="text-left leading-tight hidden sm:block">
+              <div id="currentUserName" class="text-xs font-bold text-slate-800">Quản trị viên (Admin)</div>
+              <div id="currentUserRole" class="text-[10px] text-emerald-600 font-semibold uppercase tracking-wider">Admin - Toàn quyền</div>
+            </div>
+            <i class="fa-solid fa-chevron-down text-[10px] text-slate-400"></i>
+          </button>
+
+          <!-- Dropdown switch user -->
+          <div id="userDropdown" class="hidden absolute right-0 mt-2 w-72 bg-white rounded-xl shadow-xl border border-slate-200 py-2 z-50">
+            <div class="px-3 py-1.5 border-b border-slate-100 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+              Chọn vai trò hoặc nhân viên:
+            </div>
+            <div id="userListDropdown" class="max-h-64 overflow-y-auto py-1">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= KPI STATS CARDS ================= -->
+  <section class="max-w-[1920px] mx-auto px-4 pt-4 pb-2 w-full no-print">
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+      <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center text-lg">
+          <i class="fa-solid fa-list-check"></i>
+        </div>
+        <div>
+          <div class="text-[11px] font-medium text-slate-500">Tổng công việc</div>
+          <div id="kpiTotalTasks" class="text-lg font-bold text-slate-800">0</div>
+        </div>
+      </div>
+
+      <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center text-lg">
+          <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+        </div>
+        <div>
+          <div class="text-[11px] font-medium text-slate-500">Đang thực hiện</div>
+          <div id="kpiInProgress" class="text-lg font-bold text-amber-600">0</div>
+        </div>
+      </div>
+
+      <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <div>
+          <div class="text-[11px] font-medium text-slate-500">Đúng hạn (+3đ)</div>
+          <div id="kpiOnTime" class="text-lg font-bold text-emerald-600">0</div>
+        </div>
+      </div>
+
+      <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center text-lg">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+        </div>
+        <div>
+          <div class="text-[11px] font-medium text-slate-500">Hoàn thành trễ</div>
+          <div id="kpiLate" class="text-lg font-bold text-orange-600">0</div>
+        </div>
+      </div>
+
+      <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center text-lg">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <div>
+          <div class="text-[11px] font-medium text-slate-500">Tồn đọng quá hạn</div>
+          <div id="kpiOverdue" class="text-lg font-bold text-rose-600">0</div>
+        </div>
+      </div>
+
+      <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3 cursor-pointer hover:border-amber-400 transition" onclick="openPerformanceBoardModal()" title="Nhấn để xem bảng điểm chi tiết">
+        <div class="w-10 h-10 rounded-lg bg-amber-50 text-amber-500 flex items-center justify-center text-lg">
+          <i class="fa-solid fa-star"></i>
+        </div>
+        <div>
+          <div class="text-[11px] font-medium text-slate-500">Điểm KPI TB tháng</div>
+          <div id="kpiAvgScore" class="text-lg font-bold text-amber-600">100 đ</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BỘ LỌC & CHẾ ĐỘ XEM TOÀN CẢNH (NGÀY / TUẦN / THÁNG) ================= -->
+  <section class="max-w-[1920px] mx-auto px-4 py-2 w-full no-print">
+    <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-wrap items-center justify-between gap-3">
+      <!-- Bộ lọc bên trái -->
+      <div class="flex flex-wrap items-center gap-2.5">
+        <!-- Chế độ xem Toàn Cảnh (Scale): Ngày / Tuần / Tháng -->
+        <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-lg text-xs border border-slate-200">
+          <span class="text-slate-500 px-1 font-semibold"><i class="fa-solid fa-eye text-sky-600 mr-1"></i>Xem:</span>
+          <button onclick="setTimeScale('DAY')" id="btnScaleDay" class="px-2.5 py-1 rounded font-bold bg-white text-brand-700 shadow-sm text-xs transition">Theo Ngày</button>
+          <button onclick="setTimeScale('WEEK')" id="btnScaleWeek" class="px-2.5 py-1 rounded font-semibold text-slate-600 hover:bg-white text-xs transition">Theo Tuần</button>
+          <button onclick="setTimeScale('MONTH')" id="btnScaleMonth" class="px-2.5 py-1 rounded font-semibold text-slate-600 hover:bg-white text-xs transition">Toàn Cảnh Năm (Tháng)</button>
+        </div>
+
+        <div class="h-5 w-px bg-slate-200 hidden sm:block"></div>
+
+        <div class="flex items-center gap-1.5 text-xs">
+          <span class="text-slate-500 font-medium"><i class="fa-solid fa-user text-slate-400"></i> Nhân sự:</span>
+          <select id="filterEmployee" onchange="applyFilters()" class="bg-slate-50 border border-slate-300 text-slate-700 rounded-lg px-2.5 py-1.5 text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none font-medium">
+            <option value="ALL">-- Tất cả nhân sự --</option>
+          </select>
+        </div>
+
+        <div class="flex items-center gap-1.5 text-xs">
+          <span class="text-slate-500 font-medium"><i class="fa-regular fa-calendar text-slate-400"></i> Thời gian:</span>
+          <input type="month" id="filterMonth" onchange="applyFilters()" class="bg-slate-50 border border-slate-300 text-slate-700 rounded-lg px-2.5 py-1 text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none font-medium">
+          <button onclick="setCurrentMonth()" class="px-2 py-1 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded text-xs transition" title="Về tháng hiện tại">Nay</button>
+          <button onclick="setFullYearView()" class="px-2 py-1 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded text-xs transition" title="Xem toàn năm">Cả năm</button>
+        </div>
+
+        <div class="flex items-center gap-1.5 text-xs">
+          <span class="text-slate-500 font-medium"><i class="fa-solid fa-filter text-slate-400"></i> Tình trạng:</span>
+          <select id="filterStatus" onchange="applyFilters()" class="bg-slate-50 border border-slate-300 text-slate-700 rounded-lg px-2.5 py-1.5 text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none font-medium">
+            <option value="ALL">Tất cả tình trạng</option>
+            <option value="Đang làm">Đang làm</option>
+            <option value="Hoàn thành">Hoàn thành (Đúng hạn)</option>
+            <option value="Hoàn thành trễ">Hoàn thành trễ</option>
+            <option value="Quá hạn">Quá hạn chưa xong</option>
+          </select>
+        </div>
+
+        <div class="relative">
+          <input type="text" id="filterKeyword" oninput="applyFilters()" placeholder="Tìm kiếm công việc, mã CV, người làm..." class="bg-slate-50 border border-slate-300 text-slate-700 rounded-lg pl-8 pr-3 py-1.5 text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none w-52">
+          <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-slate-400 text-xs"></i>
+        </div>
+      </div>
+
+      <!-- Điều khiển timeline bên phải -->
+      <div class="flex items-center gap-2">
+        <div id="dayWindowControls" class="flex items-center gap-1 bg-slate-100 p-1 rounded-lg text-xs">
+          <span class="text-slate-400 px-1 font-medium">Khung ngày:</span>
+          <button onclick="setDaysWindow(10)" id="btnWindow10" class="px-2 py-0.5 rounded font-semibold text-slate-700 hover:bg-white transition text-xs">10 ngày</button>
+          <button onclick="setDaysWindow(15)" id="btnWindow15" class="px-2 py-0.5 rounded font-semibold text-slate-700 hover:bg-white transition text-xs">15 ngày</button>
+          <button onclick="setDaysWindow('month')" id="btnWindowMonth" class="px-2 py-0.5 rounded font-semibold bg-white text-brand-700 shadow-sm transition text-xs">Cả tháng</button>
+        </div>
+
+        <div class="flex items-center gap-1">
+          <button onclick="shiftTimelineDays(-5)" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center text-xs transition" title="Lùi 5 ngày">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <button onclick="shiftTimelineDays(5)" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center text-xs transition" title="Tiến 5 ngày">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+
+        <button onclick="window.print()" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-medium transition" title="In hoặc lưu PDF">
+          <i class="fa-solid fa-print"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BẢNG CÔNG VIỆC & BIỂU ĐỒ TIMELINE (MAIN GRID) ================= -->
+  <main class="max-w-[1920px] mx-auto px-4 py-2 w-full flex-1 flex flex-col">
+    <!-- Chú giải (Legend) -->
+    <div class="flex items-center justify-between text-xs text-slate-600 mb-2 px-1">
+      <div class="flex items-center gap-4">
+        <span class="font-bold text-slate-700"><i class="fa-solid fa-circle-info text-sky-600"></i> Chú thích biểu đồ:</span>
+        <div class="flex items-center gap-1.5">
+          <div class="w-7 h-3 rounded-sm bg-brand-700 flex items-center justify-end pr-0.5 text-[8px] text-white">
+            <i class="fa-solid fa-caret-right"></i>
+          </div>
+          <span class="font-medium text-brand-800">Kế hoạch (Ngày BĐ &rarr; Dự kiến)</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <div class="w-7 h-3 rounded-sm bg-emerald-600 flex items-center justify-end pr-0.5 text-[8px] text-white">
+            <i class="fa-solid fa-caret-right"></i>
+          </div>
+          <span class="font-medium text-emerald-700">Thực tích (Ngày BĐ &rarr; Hoàn thành)</span>
+        </div>
+        <div class="flex items-center gap-1.5 text-amber-600">
+          <i class="fa-solid fa-flag text-amber-500"></i>
+          <span>Mũi tên cam: Hoàn thành trễ / Quá hạn</span>
+        </div>
+      </div>
+      <div id="tableRecordCount" class="text-slate-500 font-medium">
+        Hiển thị: 0 công việc
+      </div>
+    </div>
+
+    <!-- Container bảng cuộn 2 chiều -->
+    <div class="bg-white rounded-xl border border-slate-300 shadow-sm overflow-hidden flex-1 flex flex-col">
+      <div class="overflow-x-auto overflow-y-auto max-h-[72vh] relative" id="tableScrollContainer">
+        <table class="w-full text-xs text-left border-collapse" id="mainGanttTable">
+          <thead class="bg-slate-100 text-slate-700 font-bold uppercase tracking-wider text-[11px] sticky-header border-b border-slate-300">
+            <tr id="tableHeaderRow">
+              <th class="p-2.5 border-r border-slate-300 text-center w-12 sticky-col-left bg-slate-100 shadow-[1px_0_0_0_#cbd5e1]">STT</th>
+              <th class="p-2.5 border-r border-slate-300 min-w-[170px] max-w-[210px] sticky-col-left bg-slate-100 shadow-[1px_0_0_0_#cbd5e1]" style="left: 48px;">Công việc chính</th>
+              <th class="p-2.5 border-r border-slate-300 min-w-[190px]">Nội dung chi tiết</th>
+              <th class="p-2.5 border-r border-slate-300 min-w-[130px]">Người thực hiện</th>
+              <th class="p-2.5 border-r border-slate-300 text-center w-24">Ngày bắt đầu</th>
+              <th class="p-2.5 border-r border-slate-300 text-center w-24">Thời gian dự kiến</th>
+              <th class="p-2.5 border-r border-slate-300 text-center w-24">Thời gian hoàn thành</th>
+              <th class="p-2.5 border-r border-slate-300 text-center w-28">Tình trạng</th>
+              <th class="p-2.5 border-r border-slate-300 min-w-[120px]">Ghi chú</th>
+              <th class="p-2.5 border-r border-slate-300 text-center w-20 bg-slate-200">Phân loại</th>
+              <!-- Cột Lưới Ngày / Tuần / Tháng sẽ được Javascript tạo động -->
+            </tr>
+          </thead>
+          <tbody id="tableBody" class="divide-y divide-slate-200 font-normal">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Empty state khi không có dữ liệu -->
+      <div id="emptyState" class="hidden p-12 text-center flex-1 flex flex-col items-center justify-center">
+        <div class="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 text-2xl mb-3">
+          <i class="fa-regular fa-folder-open"></i>
+        </div>
+        <div class="text-sm font-semibold text-slate-700">Không tìm thấy công việc nào phù hợp</div>
+        <p class="text-xs text-slate-500 mt-1">Hãy thử thay đổi bộ lọc hoặc thêm công việc mới vào hệ thống.</p>
+        <button onclick="openTaskModal()" class="mt-4 px-4 py-2 text-xs font-semibold rounded-lg bg-brand-700 text-white hover:bg-brand-800 transition">
+          <i class="fa-solid fa-plus mr-1"></i> Thêm Công Việc Mới
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= MODAL: THÊM / SỬA CÔNG VIỆC (PHÂN CẤP MAIN & SUBTASK) ================= -->
+  <div id="taskModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-2xl overflow-hidden animate-in fade-in zoom-in duration-150">
+      <div class="bg-gradient-to-r from-brand-800 to-sky-700 px-6 py-4 text-white flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <i class="fa-solid fa-pen-to-square text-lg text-sky-300"></i>
+          <h3 id="taskModalTitle" class="font-bold text-base">Thêm Công Việc Mới</h3>
+        </div>
+        <button onclick="closeTaskModal()" class="text-white/80 hover:text-white text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form id="taskForm" onsubmit="handleSaveTask(event)" class="p-6 space-y-4">
+        <input type="hidden" id="taskId">
+
+        <!-- Chọn công việc chính (Parent Task) -->
+        <div class="bg-sky-50/70 p-3.5 rounded-xl border border-sky-200 space-y-3">
+          <div>
+            <label class="block text-xs font-bold text-sky-900 uppercase mb-1">
+              <i class="fa-solid fa-diagram-project mr-1"></i> Nhóm Công Việc Chính (Dự án mẹ) <span class="text-rose-500">*</span>
+            </label>
+            <select id="taskParentSelect" onchange="handleParentSelectChange()" class="w-full text-xs px-3 py-2 border border-sky-300 rounded-lg bg-white focus:ring-2 focus:ring-brand-500 font-semibold text-slate-800">
+              <!-- Rendered by JS: list existing main tasks or create new -->
+            </select>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-600 mb-1">Mã Công Việc Chính</label>
+              <input type="text" id="taskMainCode" required placeholder="CV-TUM, CV-MAY-EP..." class="w-full text-xs px-3 py-1.5 border border-slate-300 rounded-lg uppercase font-bold text-sky-800">
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-[11px] font-semibold text-slate-600 mb-1">Tên Công Việc Chính</label>
+              <input type="text" id="taskMainTitle" required placeholder="Ví dụ: Sửa chữa máy TUM, Bảo dưỡng định kỳ máy ép..." class="w-full text-xs px-3 py-1.5 border border-slate-300 rounded-lg font-bold text-slate-800">
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- Nội dung chi tiết (Subtask) -->
+          <div class="sm:col-span-2">
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nội Dung Chi Tiết / Hạng Mục Cần Làm <span class="text-rose-500">*</span></label>
+            <textarea id="taskDetail" rows="2" required placeholder="Ví dụ: Giai đoạn 1: Xác nhận tình trạng linh kiện, Thay van áp suất..." class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none"></textarea>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Người Thực Hiện <span class="text-rose-500">*</span></label>
+            <select id="taskEmpId" required class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none font-medium">
+              <!-- Rendered by JS -->
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Tình Trạng</label>
+            <select id="taskStatus" onchange="handleTaskStatusChange()" class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none font-medium">
+              <option value="Đang làm">Đang làm</option>
+              <option value="Hoàn thành">Hoàn thành (Đúng hạn)</option>
+              <option value="Hoàn thành trễ">Hoàn thành trễ</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Ngày Bắt Đầu <span class="text-rose-500">*</span></label>
+            <input type="date" id="taskStartDate" required onchange="calculatePlanEndDate()" class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Thời Gian Dự Kiến (Số ngày) <span class="text-rose-500">*</span></label>
+            <div class="flex items-center gap-2">
+              <input type="number" id="taskPlanDays" min="1" max="365" value="1" required onchange="calculatePlanEndDate()" class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none">
+              <span class="text-xs text-slate-500 font-semibold whitespace-nowrap">ngày</span>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Ngày Kế Hoạch Xong</label>
+            <input type="date" id="taskPlanEndDate" class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg bg-slate-50 text-slate-600 focus:outline-none" readonly>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Thời Gian Hoàn Thành Thực Tế</label>
+            <input type="date" id="taskActualEndDate" class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none">
+            <span class="text-[10px] text-slate-400">Nếu đã xong thì chọn ngày, nếu đang làm để trống</span>
+          </div>
+
+          <div class="sm:col-span-2">
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Ghi Chú</label>
+            <input type="text" id="taskNote" placeholder="Ghi chú thêm về vật tư, nghiệm thu, lý do trễ hạn..." class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200 flex items-center justify-end gap-2">
+          <button type="button" onclick="closeTaskModal()" class="px-4 py-2 text-xs font-semibold rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition">Hủy bỏ</button>
+          <button type="submit" class="px-5 py-2 text-xs font-semibold rounded-lg bg-brand-700 hover:bg-brand-800 text-white shadow-sm transition">
+            <i class="fa-solid fa-floppy-disk mr-1"></i> Lưu Công Việc
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: CẬP NHẬT TIẾN ĐỘ NHANH (CHỌN NHANH VIỆC DỞ DANG) ================= -->
+  <div id="quickUpdateModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-lg overflow-hidden animate-in fade-in zoom-in duration-150">
+      <div class="bg-gradient-to-r from-emerald-700 to-teal-600 px-6 py-4 text-white flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-calendar-check text-lg"></i>
+          <div>
+            <h3 class="font-bold text-sm">Báo Cáo Tiến Độ Công Việc</h3>
+            <p class="text-[11px] text-emerald-100">Chọn nhanh các công việc chưa hoàn thành để cập nhật kết quả</p>
+          </div>
+        </div>
+        <button onclick="closeQuickUpdateModal()" class="text-white/80 hover:text-white text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form id="quickUpdateForm" onsubmit="handleSaveQuickUpdate(event)" class="p-6 space-y-4">
+        <input type="hidden" id="quickTaskId">
+
+        <!-- Dropdown chọn nhanh công việc dở dang -->
+        <div class="bg-emerald-50 p-3 rounded-xl border border-emerald-200">
+          <label class="block text-xs font-bold text-emerald-900 uppercase mb-1">
+            <i class="fa-solid fa-list-ul mr-1"></i> Chọn Nhanh Công Việc Chưa Xong:
+          </label>
+          <select id="quickTaskSelect" onchange="handleQuickTaskSelectChange()" class="w-full text-xs px-3 py-2 border border-emerald-300 rounded-lg bg-white font-medium text-slate-800 focus:ring-2 focus:ring-emerald-500">
+            <!-- Rendered by JS -->
+          </select>
+        </div>
+
+        <div class="border border-slate-200 rounded-xl p-3 bg-slate-50 space-y-1">
+          <div class="text-[11px] text-slate-500 font-medium">Hạng mục chi tiết:</div>
+          <div id="quickTaskTitle" class="text-xs font-bold text-slate-800 leading-snug">Sửa chữa máy TUM</div>
+          <div class="text-[11px] text-slate-500 pt-1">Người phụ trách: <span id="quickTaskEmp" class="font-semibold text-slate-700">Nguyễn Quang Thảo</span></div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Tình Trạng Cập Nhật <span class="text-rose-500">*</span></label>
+          <select id="quickTaskStatus" required class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 font-medium">
+            <option value="Đang làm">Đang làm</option>
+            <option value="Hoàn thành">Hoàn thành (Đúng hạn)</option>
+            <option value="Hoàn thành trễ">Hoàn thành trễ</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Ngày Hoàn Thành Thực Tế</label>
+          <input type="date" id="quickActualEndDate" class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Ghi Chú Tiến Độ</label>
+          <textarea id="quickTaskNote" rows="2" placeholder="Ghi chú kết quả, khó khăn hoặc xác nhận hoàn tất..." class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500"></textarea>
+        </div>
+
+        <div class="pt-3 border-t border-slate-200 flex items-center justify-end gap-2">
+          <button type="button" onclick="closeQuickUpdateModal()" class="px-4 py-2 text-xs font-semibold rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition">Đóng</button>
+          <button type="submit" class="px-4 py-2 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition">
+            <i class="fa-solid fa-check mr-1"></i> Cập Nhật Ngay
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: CẤU HÌNH XUẤT BÁO CÁO EXCEL (CONFIG TITLE) ================= -->
+  <div id="exportConfigModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-lg overflow-hidden animate-in fade-in zoom-in duration-150">
+      <div class="bg-gradient-to-r from-emerald-800 to-teal-700 px-6 py-4 text-white flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-sliders text-lg text-emerald-300"></i>
+          <div>
+            <h3 class="font-bold text-base">Cấu Hình Xuất Báo Cáo Excel</h3>
+            <p class="text-xs text-emerald-100">Tùy biến tiêu đề và chế độ hiển thị báo cáo Gantt</p>
+          </div>
+        </div>
+        <button onclick="closeExportConfigModal()" class="text-white/80 hover:text-white text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="p-6 space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Tiêu Đề Báo Cáo Trên Đầu File Excel <span class="text-rose-500">*</span></label>
+          <input type="text" id="exportReportTitle" required class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 font-bold text-slate-800">
+          <p class="text-[11px] text-slate-400 mt-1">Gợi ý: Tự động điền theo Nhân sự hoặc Tháng đang lọc. Bạn có thể chỉnh sửa tự do.</p>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Đơn Vị / Phòng Ban</label>
+          <input type="text" id="exportUnitName" value="MBC Group - Phân xưởng sản xuất" class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 text-slate-700">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Khung Thời Gian Xuất</label>
+          <select id="exportScaleSelect" class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 font-medium">
+            <option value="CURRENT">Theo khung thời gian đang xem trên web</option>
+            <option value="MONTH_ALL">Toàn cảnh 12 tháng năm 2026 & năm 2027</option>
+          </select>
+        </div>
+
+        <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3 text-xs text-emerald-800 space-y-1">
+          <div class="font-bold flex items-center gap-1.5"><i class="fa-solid fa-sparkles"></i> Mũi tên Gantt Excel cải tiến:</div>
+          <p>Thanh tiến độ Kế hoạch & Thực tích được làm <b>liền mạch, không đứt đoạn</b>, viền bo chuẩn và có mũi tên kết thúc <b>►</b> sắc nét ở ngày cuối.</p>
+        </div>
+
+        <div class="pt-3 border-t border-slate-200 flex items-center justify-end gap-2">
+          <button type="button" onclick="closeExportConfigModal()" class="px-4 py-2 text-xs font-semibold rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition">Hủy</button>
+          <button type="button" onclick="executeExportExcelReport()" class="px-5 py-2 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition">
+            <i class="fa-solid fa-download mr-1"></i> Tải Báo Cáo Excel Ngay
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: QUẢN LÝ NHÂN SỰ ================= -->
+  <div id="employeeModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden">
+      <div class="bg-gradient-to-r from-indigo-800 to-indigo-600 px-6 py-4 text-white flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <i class="fa-solid fa-users-gear text-lg text-indigo-300"></i>
+          <h3 class="font-bold text-base">Quản Lý Nhân Sự & Danh Sách Thành Viên</h3>
+        </div>
+        <button onclick="closeEmployeeModal()" class="text-white/80 hover:text-white text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="p-6 overflow-y-auto flex-1 space-y-6">
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+          <h4 id="empFormTitle" class="text-xs font-bold text-indigo-800 uppercase tracking-wider mb-3">Thêm Nhân Viên Mới</h4>
+          <form id="empForm" onsubmit="handleSaveEmployee(event)" class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+            <input type="hidden" id="empEditId">
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-600 mb-1">Mã NV <span class="text-rose-500">*</span></label>
+              <input type="text" id="empCode" required placeholder="NV01, NV02..." class="w-full text-xs px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-600 mb-1">Họ & Tên <span class="text-rose-500">*</span></label>
+              <input type="text" id="empName" required placeholder="Nguyễn Quang Thảo..." class="w-full text-xs px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-600 mb-1">Bộ Phận / Phòng Ban</label>
+              <input type="text" id="empDept" placeholder="Kỹ thuật, Bảo trì, Vận hành..." class="w-full text-xs px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+            </div>
+            <div class="flex items-end gap-2">
+              <button type="submit" class="flex-1 px-3 py-1.5 text-xs font-semibold rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition">
+                <i class="fa-solid fa-plus mr-1"></i> <span id="empBtnText">Thêm NV</span>
+              </button>
+              <button type="button" id="empCancelEditBtn" onclick="resetEmpForm()" class="hidden px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-700">
+                Hủy
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider">Danh Sách Nhân Viên Hiện Tại</h4>
+            <span class="text-xs text-slate-500" id="empCountBadge">Tổng số: 0 nhân viên</span>
+          </div>
+
+          <div class="border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+            <table class="w-full text-xs text-left">
+              <thead class="bg-slate-100 text-slate-600 font-semibold border-b border-slate-200">
+                <tr>
+                  <th class="p-3 text-center w-14">Mã NV</th>
+                  <th class="p-3">Họ và Tên</th>
+                  <th class="p-3">Bộ Phận</th>
+                  <th class="p-3 text-center">Số CV Phụ Trách</th>
+                  <th class="p-3 text-center">Điểm KPI Tháng Này</th>
+                  <th class="p-3 text-center w-40">Thao Tác</th>
+                </tr>
+              </thead>
+              <tbody id="empTableBody" class="divide-y divide-slate-100">
+                <!-- Rendered by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: BẢNG ĐIỂM HIỆU SUẤT TỔNG THỂ ================= -->
+  <div id="perfBoardModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-5xl max-h-[90vh] flex flex-col overflow-hidden">
+      <div class="bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-600 px-6 py-4 text-white flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <i class="fa-solid fa-trophy text-lg text-yellow-200"></i>
+          <div>
+            <h3 class="font-bold text-base">Bảng Xếp Hạng & Điểm Hiệu Suất (Performance Points)</h3>
+            <p class="text-xs text-amber-100">Bắt đầu 100 điểm/tháng (Tối đa 1200 điểm/năm) - Tự động cộng/trừ theo tiến độ công việc</p>
+          </div>
+        </div>
+        <button onclick="closePerformanceBoardModal()" class="text-white/80 hover:text-white text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="bg-amber-50 border-b border-amber-200 px-6 py-2.5 text-xs text-amber-900 flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-bold"><i class="fa-solid fa-scale-balanced"></i> Quy tắc:</span>
+          <span><b class="text-emerald-700">+3đ</b> Đúng hạn</span>
+          <span><b class="text-amber-700">-1đ</b> Trễ &le; 50%</span>
+          <span><b class="text-orange-700">-2đ</b> Trễ &le; 100%</span>
+          <span><b class="text-rose-700">-3đ</b> Trễ &gt; 100% (&lt; 1 tháng)</span>
+          <span><b class="text-red-700">-9đ/tháng</b> Trễ &gt; 1 tháng</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="font-semibold text-slate-700">Năm:</span>
+          <select id="perfYearSelect" onchange="renderPerformanceBoard()" class="bg-white border border-amber-300 text-xs rounded px-2 py-1 font-bold text-amber-900">
+            <option value="2026" selected>Năm 2026</option>
+            <option value="2025">Năm 2025</option>
+            <option value="2027">Năm 2027</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="p-6 overflow-y-auto flex-1">
+        <div class="border border-slate-200 rounded-xl overflow-x-auto shadow-sm">
+          <table class="w-full text-xs text-center border-collapse">
+            <thead class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
+              <tr>
+                <th class="p-2.5 text-left w-36">Nhân Viên</th>
+                <th class="p-2.5">T1</th>
+                <th class="p-2.5">T2</th>
+                <th class="p-2.5">T3</th>
+                <th class="p-2.5">T4</th>
+                <th class="p-2.5">T5</th>
+                <th class="p-2.5">T6</th>
+                <th class="p-2.5">T7</th>
+                <th class="p-2.5">T8</th>
+                <th class="p-2.5">T9</th>
+                <th class="p-2.5">T10</th>
+                <th class="p-2.5">T11</th>
+                <th class="p-2.5">T12</th>
+                <th class="p-2.5 bg-amber-100 text-amber-900 font-extrabold w-24">Tổng Năm</th>
+                <th class="p-2.5 w-28">Xếp Loại</th>
+              </tr>
+            </thead>
+            <tbody id="perfBoardTableBody" class="divide-y divide-slate-100">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: NHẬP EXCEL ================= -->
+  <div id="importModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-lg overflow-hidden">
+      <div class="bg-gradient-to-r from-emerald-800 to-emerald-600 px-6 py-4 text-white flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-file-excel text-lg text-emerald-300"></i>
+          <h3 class="font-bold text-base">Nhập Dữ Liệu Từ File Excel</h3>
+        </div>
+        <button onclick="closeImportExcelModal()" class="text-white/80 hover:text-white text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="p-6 space-y-4">
+        <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5 text-xs text-emerald-800 space-y-2">
+          <div class="font-bold flex items-center gap-1.5">
+            <i class="fa-solid fa-shield-check"></i> Cơ chế chống trùng lặp thông minh:
+          </div>
+          <p>Hệ thống sẽ kiểm tra từng dòng trong file Excel: <b>Chỉ thêm các công việc mới</b>. Các công việc đã trùng sẽ được <b>giữ nguyên</b>, không bị ghi đè!</p>
+        </div>
+
+        <div class="flex items-center justify-between p-3 border border-slate-200 rounded-xl bg-slate-50">
+          <div>
+            <div class="text-xs font-bold text-slate-700">Chưa có file mẫu?</div>
+            <div class="text-[11px] text-slate-500">Tải file mẫu Excel chuẩn để điền dữ liệu</div>
+          </div>
+          <button onclick="downloadExcelTemplate()" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-1.5 shadow-sm">
+            <i class="fa-solid fa-download"></i> Tải File Mẫu
+          </button>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Chọn file Excel (.xlsx, .xls)</label>
+          <div class="border-2 border-dashed border-slate-300 hover:border-emerald-500 rounded-xl p-6 text-center cursor-pointer transition" onclick="document.getElementById('excelFileInput').click()">
+            <input type="file" id="excelFileInput" accept=".xlsx, .xls" class="hidden" onchange="handleExcelFileSelect(event)">
+            <i class="fa-solid fa-cloud-arrow-up text-3xl text-emerald-600 mb-2"></i>
+            <div class="text-xs font-semibold text-slate-700" id="selectedFileName">Nhấn để chọn file hoặc kéo thả file vào đây</div>
+            <div class="text-[11px] text-slate-400 mt-1">Định dạng hỗ trợ: .xlsx, .xls</div>
+          </div>
+        </div>
+
+        <div id="importResultAlert" class="hidden p-3 rounded-lg text-xs"></div>
+
+        <div class="pt-3 border-t border-slate-200 flex items-center justify-end gap-2">
+          <button type="button" onclick="closeImportExcelModal()" class="px-4 py-2 text-xs font-semibold rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition">Đóng</button>
+          <button type="button" id="btnExecuteImport" onclick="processExcelImport()" disabled class="px-5 py-2 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white shadow-sm transition">
+            <i class="fa-solid fa-file-import mr-1"></i> Tiến Hành Nhập Excel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: QUẢN LÝ & SAO LƯU FILE JSON ================= -->
+  <div id="syncModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-lg overflow-hidden">
+      <div class="bg-gradient-to-r from-blue-800 to-sky-600 px-6 py-4 text-white flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-database text-lg text-sky-300"></i>
+          <h3 class="font-bold text-base">Quản Lý File CSDL JSON Trong Thư Mục</h3>
+        </div>
+        <button onclick="closeSyncModal()" class="text-white/80 hover:text-white text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="p-6 space-y-4">
+        <div class="bg-blue-50 border border-blue-200 rounded-xl p-3.5 text-xs text-blue-900 space-y-1">
+          <div class="font-bold flex items-center gap-1.5"><i class="fa-solid fa-folder-tree"></i> Các file JSON lưu trữ cùng thư mục ứng dụng:</div>
+          <p>Thư mục ứng dụng đã có sẵn: <b>database.json</b> (toàn bộ dữ liệu 2026-2027), <b>tasks.json</b> và <b>employees.json</b>. Bạn có thể tải cập nhật bất kỳ lúc nào để ghi đè vào thư mục!</p>
+        </div>
+
+        <div class="p-3.5 border border-slate-200 rounded-xl bg-slate-50 space-y-2.5">
+          <div class="text-xs font-bold text-slate-800">1. Tải cập nhật file JSON ra thư mục:</div>
+          <div class="grid grid-cols-3 gap-2">
+            <button onclick="exportDatabaseJson()" class="px-2.5 py-2 text-xs font-semibold rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition flex items-center justify-center gap-1 shadow-sm">
+              <i class="fa-solid fa-download"></i> database.json
+            </button>
+            <button onclick="exportTasksJson()" class="px-2.5 py-2 text-xs font-semibold rounded-lg bg-sky-600 hover:bg-sky-700 text-white transition flex items-center justify-center gap-1 shadow-sm">
+              <i class="fa-solid fa-download"></i> tasks.json
+            </button>
+            <button onclick="exportEmployeesJson()" class="px-2.5 py-2 text-xs font-semibold rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white transition flex items-center justify-center gap-1 shadow-sm">
+              <i class="fa-solid fa-download"></i> employees.json
+            </button>
+          </div>
+        </div>
+
+        <div class="p-3.5 border border-slate-200 rounded-xl bg-slate-50 space-y-2">
+          <div>
+            <div class="text-xs font-bold text-slate-800">2. Nạp CSDL từ file JSON (database, tasks hoặc employees)</div>
+            <div class="text-[11px] text-slate-500">Chọn file .json từ thư mục để cập nhật hoặc khôi phục dữ liệu</div>
+          </div>
+          <input type="file" id="jsonFileInput" accept=".json" class="block w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer" onchange="importDatabaseJson(event)">
+        </div>
+
+        <div class="pt-2 flex items-center justify-between text-xs text-slate-500">
+          <span>Khôi phục dữ liệu mẫu gốc 2026-2027:</span>
+          <button onclick="resetToSampleData()" class="text-rose-600 hover:underline font-semibold">Khôi phục demo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Core JavaScript Module -->
+  <script src="app.js"></script>
+</body>
+</html>

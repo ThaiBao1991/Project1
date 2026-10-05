@@ -4,8 +4,17 @@ import shutil
 import hashlib
 import tempfile
 import zipfile
-from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
-from cryptography.hazmat.backends import default_backend
+try:
+    from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+    from cryptography.hazmat.backends import default_backend
+except ImportError:
+    try:
+        import check_requirements
+        check_requirements.ensure_dependencies(show_gui=False, auto_exit_on_fail=True)
+    except Exception:
+        pass
+    from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+    from cryptography.hazmat.backends import default_backend
 
 # Chunk size t\u1ed1i \u01b0u cho I/O hi\u1ec7n \u0111\u1ea1i (4MB thay v\u00ec 64KB \u2192 ~3x nhanh h\u01a1n)
 _CHUNK = 4 * 1024 * 1024

@@ -23,6 +23,13 @@ import queue
 import subprocess
 from typing import Dict, Any, List, Optional
 
+# Tự động kiểm tra và cài đặt thư viện cần thiết trước khi khởi động giao diện
+try:
+    import check_requirements
+    check_requirements.ensure_dependencies(show_gui=True, auto_exit_on_fail=True)
+except ImportError:
+    pass
+
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 import customtkinter as ctk

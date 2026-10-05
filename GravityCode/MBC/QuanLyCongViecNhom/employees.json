@@ -1,0 +1,27 @@
+[
+  {
+    "id": "NV01",
+    "name": "Nguyễn Quang Thảo",
+    "dept": "Kỹ thuật - Bảo trì"
+  },
+  {
+    "id": "NV02",
+    "name": "Trần Văn Bình",
+    "dept": "Vận hành - Cơ khí"
+  },
+  {
+    "id": "NV03",
+    "name": "Lê Thị Thu",
+    "dept": "Quản lý chất lượng (QC)"
+  },
+  {
+    "id": "NV04",
+    "name": "Phạm Đức Minh",
+    "dept": "Kỹ thuật điện - Tự động hóa"
+  },
+  {
+    "id": "NV05",
+    "name": "Hoàng Hải Yến",
+    "dept": "Kế hoạch sản xuất"
+  }
+]

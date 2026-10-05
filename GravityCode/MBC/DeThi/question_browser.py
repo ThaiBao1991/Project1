@@ -65,6 +65,7 @@ class QuestionBrowser(ctk.CTkToplevel):
         self._filtered_items: List[Dict] = []   # subset sau khi filter
         self._current_item: Optional[Dict] = None
         self._selected_idx: Optional[int] = None  # index trong _filtered_items
+        self._last_toggle_idx: Optional[int] = None  # để hỗ trợ Shift+Click dải
 
         self._config: Dict = self._load_config()
         self._available_folders: List[str] = self._get_available_folders()
@@ -237,27 +238,37 @@ class QuestionBrowser(ctk.CTkToplevel):
         ctk.CTkLabel(hdr, text="📋 DANH SÁCH CÂU HỎI",
                      font=ctk.CTkFont(size=12, weight="bold")).pack(side="left")
 
-        # Toolbar: chọn tất cả / bỏ tất cả
+        # Toolbar: chọn tất cả / bỏ tất cả / xuất lại
         tbar = ctk.CTkFrame(box, fg_color="transparent")
         tbar.grid(row=1, column=0, sticky="ew", padx=10, pady=(0, 4))
 
-        btn_all = ctk.CTkButton(tbar, text="✅ Chọn tất cả", width=95, height=26,
+        btn_all = ctk.CTkButton(tbar, text="✅ Tất cả", width=78, height=26,
                                 fg_color="#1d4ed8", hover_color="#1e40af",
                                 font=ctk.CTkFont(size=10),
                                 command=self._select_all)
         btn_all.pack(side="left", padx=(0, 2))
 
-        btn_none = ctk.CTkButton(tbar, text="☐ Bỏ chọn", width=80, height=26,
+        btn_none = ctk.CTkButton(tbar, text="☐ Bỏ hết", width=70, height=26,
                                  fg_color="#374151", hover_color="#4b5563",
                                  font=ctk.CTkFont(size=10),
                                  command=self._deselect_all)
         btn_none.pack(side="left", padx=2)
 
-        btn_key = ctk.CTkButton(tbar, text="◎ Chỉ chủ chốt", width=95, height=26,
+        btn_key = ctk.CTkButton(tbar, text="◎ Chủ chốt", width=80, height=26,
                                 fg_color="#7c3aed", hover_color="#6d28d9",
                                 font=ctk.CTkFont(size=10),
                                 command=self._select_key_only)
         btn_key.pack(side="left", padx=2)
+
+        # Nút xuất lại động — tự cập nhật số câu đang được chọn
+        self._btn_export_refresh = ctk.CTkButton(
+            tbar, text="🔄 Xuất Lại (-- câu)",
+            width=140, height=26,
+            fg_color="#16a34a", hover_color="#15803d",
+            font=ctk.CTkFont(size=10, weight="bold"),
+            command=self._export_refresh
+        )
+        self._btn_export_refresh.pack(side="left", padx=(6, 0))
 
         # Box yêu cầu lọc tự nhiên — chiều cao CỐ ĐỊNH để không đẩy tree xuống
         prompt_card = ctk.CTkFrame(box, fg_color=DARK_BG, corner_radius=8, height=120)
@@ -449,26 +460,13 @@ class QuestionBrowser(ctk.CTkToplevel):
         btn_bar = ctk.CTkFrame(footer, fg_color="transparent")
         btn_bar.grid(row=0, column=2, sticky="e", padx=10, pady=6)
 
-        btn_export_quick = ctk.CTkButton(btn_bar,
-            text="⚡ Xuất Nhanh Tổng Hợp Rút Gọn",
-            font=ctk.CTkFont(size=12, weight="bold"),
-            height=36, fg_color="#059669", hover_color="#047857",
-            command=self._export_quick_tong_hop)
-        btn_export_quick.pack(side="left", padx=4)
-
+        # Nút xuất với tên file tùy chọn (save-as dialog)
         btn_export = ctk.CTkButton(btn_bar,
-            text="📤 Xuất Word từ câu đã chọn",
-            font=ctk.CTkFont(size=12, weight="bold"),
+            text="📤 Lưu Đề & Đáp Án tùy chọn...",
+            font=ctk.CTkFont(size=11, weight="bold"),
             height=36, fg_color="#7c3aed", hover_color="#6d28d9",
             command=self._export_selected)
         btn_export.pack(side="left", padx=4)
-
-        btn_export_all = ctk.CTkButton(btn_bar,
-            text="📦 Xuất Tất Cả (có chỉnh sửa)",
-            font=ctk.CTkFont(size=12, weight="bold"),
-            height=36, fg_color="#1d4ed8", hover_color="#1e40af",
-            command=self._export_all_edited)
-        btn_export_all.pack(side="left", padx=4)
 
         btn_close = ctk.CTkButton(btn_bar, text="✖ Đóng", width=80, height=36,
                                   fg_color="#4b5563", hover_color="#374151",
@@ -690,9 +688,14 @@ class QuestionBrowser(ctk.CTkToplevel):
             f"Bây giờ bạn có thể duyệt qua từng câu hỏi trong bảng, tick/bỏ tick hoặc chỉnh sửa trực tiếp, rồi bấm '⚡ Xuất Nhanh Tổng Hợp Rút Gọn'!"
         )
 
+
     def _export_quick_tong_hop(self):
-        """Xuất nhanh ra DE THI TONG HOP RUT GON.docx và DAP AN TONG HOP RUT GON.docx."""
-        checked = [it for it in self._filtered_items if it["checked"]]
+        """Xuất nhanh ra DE THI TONG HOP RUT GON.docx và DAP AN TONG HOP RUT GON.docx.
+        Lấy TẤT CẢ câu đang được tick (checked=True) trong _all_q_items —
+        không phụ thuộc vào folder filter hiện tại.
+        """
+        # Lấy toàn bộ câu được chọn (kể cả thư mục đang bị ẩn trong filter)
+        checked = [it for it in self._all_q_items if it["checked"]]
         if not checked:
             messagebox.showwarning("Chú ý", "Chưa chọn câu nào! Hãy đánh dấu ✓ các câu muốn xuất.")
             return
@@ -702,7 +705,7 @@ class QuestionBrowser(ctk.CTkToplevel):
             return
 
         exam_path = os.path.join(OUTPUT_DIR, "DE THI TONG HOP RUT GON.docx")
-        ans_path = os.path.join(OUTPUT_DIR, "DAP AN TONG HOP RUT GON.docx")
+        ans_path  = os.path.join(OUTPUT_DIR, "DAP AN TONG HOP RUT GON.docx")
         json_path = os.path.join(OUTPUT_DIR, "DE THI TONG HOP RUT GON_questions.json")
 
         def _run():
@@ -710,16 +713,23 @@ class QuestionBrowser(ctk.CTkToplevel):
                 file_data_list = self._build_file_data_list(checked)
                 config = dict(self._config)
                 exam_settings = dict(config.get("exam_settings", {}))
-                exam_settings["title"] = "BÀI TEST NHẬN ĐỊNH TƯ CÁCH NHÂN VIÊN VÀ ĐỘI TRƯỞNG - TỔNG HỢP RÚT GỌN"
+                exam_settings["title"]    = "BÀI TEST NHẬN ĐỊNH TƯ CÁCH NHÂN VIÊN VÀ ĐỘI TRƯỞNG - TỔNG HỢP RÚT GỌN"
                 exam_settings["revision"] = "BẢN RÚT GỌN CHỌN LỌC"
                 config["exam_settings"] = exam_settings
 
-                # Ghi JSON
+                total_q   = sum(len(fd.get("questions", [])) for fd in file_data_list)
+                total_key = sum(1 for fd in file_data_list
+                                for q in fd.get("questions", [])
+                                if q.get("is_key") or "◎" in q.get("question_text", ""))
+
+                # Ghi JSON (cập nhật lại file rút gọn)
                 with open(json_path, "w", encoding="utf-8") as f:
                     json.dump({
-                        "exam_title": exam_settings["title"],
-                        "total_questions": len(checked),
-                        "files": file_data_list
+                        "exam_title":      exam_settings["title"],
+                        "exam_revision":   exam_settings["revision"],
+                        "total_questions": total_q,
+                        "total_key":       total_key,
+                        "files":           file_data_list
                     }, f, ensure_ascii=False, indent=2)
 
                 exam_doc = build_exam_doc(config, file_data_list)
@@ -728,21 +738,29 @@ class QuestionBrowser(ctk.CTkToplevel):
                 ans_doc = build_answer_doc(config, file_data_list)
                 ans_doc.save(ans_path)
 
-                total_q = sum(len(fd.get("questions", [])) for fd in file_data_list)
                 self._log(f"✅ Đã xuất {total_q} câu → {os.path.basename(exam_path)}")
                 messagebox.showinfo("Thành công",
                     f"🎉 Đã xuất thành công Tổng Hợp Rút Gọn!\n\n"
-                    f"• Số câu: {total_q} câu\n"
+                    f"• Số câu: {total_q} câu  |  Câu chủ chốt ◎: {total_key}\n"
                     f"• Đề thi: DE THI TONG HOP RUT GON.docx\n"
                     f"• Đáp án: DAP AN TONG HOP RUT GON.docx\n"
-                    f"• File JSON lưu lại: DE THI TONG HOP RUT GON_questions.json\n\n"
+                    f"• File JSON: DE THI TONG HOP RUT GON_questions.json\n\n"
                     f"Lưu tại thư mục KetQua.")
             except Exception as e:
                 self._log(f"❌ Lỗi xuất: {e}")
                 messagebox.showerror("Lỗi", f"Xuất thất bại:\n{e}")
 
         threading.Thread(target=_run, daemon=True).start()
-        self._log(f"⏳ Đang xuất nhanh {len(checked)} câu hỏi...")
+        self._log(f"⏳ Đang xuất {len(checked)} câu hỏi đã chọn...")
+
+    def _export_refresh(self):
+        """Nút '🔄 Xuất Lại' trong toolbar — luôn xuất đúng bộ câu đang được tick.
+        Ghi đè DE THI TONG HOP RUT GON.docx và DAP AN TONG HOP RUT GON.docx.
+        Đây là luồng chính khi user tick/bỏ tick câu rồi muốn cập nhật file Word ngay.
+        """
+        self._export_quick_tong_hop()
+
+
 
     def _rebuild_list_tree(self):
         self._list_tree.delete(*self._list_tree.get_children())
@@ -762,14 +780,30 @@ class QuestionBrowser(ctk.CTkToplevel):
         self._list_tree.update_idletasks()
 
     def _update_status_bar(self):
-        total   = len(self._filtered_items)
-        checked = sum(1 for it in self._filtered_items if it["checked"])
-        edited  = sum(1 for it in self._filtered_items
-                      if it["q_data"] != it["q_edited"])
-        key_q   = sum(1 for it in self._filtered_items
-                      if it["q_edited"].get("is_key") or "◎" in it["q_edited"].get("question_text", ""))
+        total    = len(self._filtered_items)
+        checked  = sum(1 for it in self._filtered_items if it["checked"])
+        edited   = sum(1 for it in self._filtered_items
+                       if it["q_data"] != it["q_edited"])
+        key_q    = sum(1 for it in self._filtered_items
+                       if it["q_edited"].get("is_key") or "◎" in it["q_edited"].get("question_text", ""))
+        # Đếm tổng câu được chọn trên TOÀN BỘ (bao gồm cả thư mục đang bị ẩn)
+        checked_all = sum(1 for it in self._all_q_items if it["checked"])
+        key_all     = sum(1 for it in self._all_q_items
+                          if it["checked"] and (it["q_edited"].get("is_key") or "◎" in it["q_edited"].get("question_text", "")))
         self._lbl_status.configure(
             text=f"Tổng: {total} câu  |  Đã chọn: {checked}  |  Đã sửa: {edited}  |  Chủ chốt ◎: {key_q}")
+        # Cập nhật nút xuất lại với số câu sẽ xuất
+        if hasattr(self, "_btn_export_refresh"):
+            if checked_all > 0:
+                self._btn_export_refresh.configure(
+                    text=f"🔄 Xuất Lại ({checked_all} câu, {key_all}◎)",
+                    state="normal", fg_color="#16a34a", hover_color="#15803d"
+                )
+            else:
+                self._btn_export_refresh.configure(
+                    text="🔄 Xuất Lại (0 câu)",
+                    state="disabled", fg_color="#374151", hover_color="#374151"
+                )
 
     def _log(self, msg: str):
         self._lbl_log.configure(text=msg)
@@ -787,13 +821,29 @@ class QuestionBrowser(ctk.CTkToplevel):
         self._load_edit_form(self._current_item)
 
     def _on_space_toggle(self, event=None):
-        """Toggle checkbox khi nhấn Space hoặc Double-click."""
+        """Toggle checkbox khi nhấn Space hoặc Double-click.
+        Hỗ trợ Shift+Click để chọn/bỏ theo dải.
+        """
         sel = self._list_tree.selection()
         if not sel:
             return
         idx = int(sel[0])
         item = self._filtered_items[idx]
-        item["checked"] = not item["checked"]
+        new_state = not item["checked"]
+
+        # Shift+Click: toggle toàn bộ dải từ _last_toggle_idx đến idx
+        if (event and hasattr(event, "state") and (event.state & 0x1)) \
+                and hasattr(self, "_last_toggle_idx") and self._last_toggle_idx is not None:
+            lo = min(self._last_toggle_idx, idx)
+            hi = max(self._last_toggle_idx, idx)
+            for i in range(lo, hi + 1):
+                self._filtered_items[i]["checked"] = new_state
+            self._rebuild_list_tree()
+            self._update_status_bar()
+            return
+
+        self._last_toggle_idx = idx
+        item["checked"] = new_state
         chk = "✓" if item["checked"] else "☐"
         bg_tag = "checked" if item["checked"] else "unchecked"
         q = item["q_edited"]
