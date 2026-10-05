@@ -2,6 +2,9 @@ import sys
 import os
 import subprocess
 
+# Đảm bảo working directory luôn là thư mục gốc của GetHtmlFromUrl_Python
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
 if hasattr(sys.stdout, "reconfigure"):
     try:
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -16,6 +19,7 @@ REQUIRED_PACKAGES = {
     'bs4': 'beautifulsoup4>=4.12.0',
     'cloudscraper': 'cloudscraper>=1.2.71',
     'lxml': 'lxml>=5.2.0',
+    'curl_cffi': 'curl_cffi>=0.7.0',
 }
 
 def check_and_install_packages():

@@ -1,5 +1,95 @@
 # 📝 PROJECT MEMORY — GetHtmlFromUrl (Bản Python)
 
+## [2026-10-04] Fix Model Fallback Loop & Per-Account Restriction — HOÀN THÀNH ✅
+
+### Vấn đề gốc rễ
+1. **Loop vô tận khi phản hồi rỗng**: Khi model trả về HTTP 200 nhưng content rỗng, code `continue` qua hết danh sách models rồi pick key mới và lặp lại vòng từ đầu — dẫn đến cùng model bị empty được gọi mãi không thoát.
+2. **Model bị xóa vĩnh viễn khi 403**: Lỗi 403 "model restriction" phụ thuộc vào **account** (mỗi account có whitelist model riêng trên GCP). Code cũ `self.models.remove(model)` xóa toàn bộ khỏi session, kể cả các account khác vẫn dùng được.
+3. **Promote model thành công lên đầu**: Mỗi lần thành công đẩy model đó lên `index 0`, phá vỡ thứ tự ưu tiên đã cấu hình, tích lũy nhiều call dồn vào 1 model rồi bị rate limit.
+
+### Thay đổi (`core/ai_translator.py`)
+- **`__init__`**: Thêm `_account_restricted_models` (dict: `account → set[model]`) và `_model_consecutive_empty` (dict: `model → int`).
+- **Trước vòng `for model`**: Lọc ra `models_to_try` = các model KHÔNG bị restriction với account hiện tại. Nếu tất cả bị restrict → `break` sang account khác thay vì loop mãi.
+- **Success block**: Xóa 4 dòng promote-to-top; thay bằng `_model_consecutive_empty[model] = 0` (reset counter).
+- **Empty response**: Track `_model_consecutive_empty[model]`; nếu ≥ 2 lần liên tiếp → đẩy xuống cuối `self.models` (không xóa) + log rõ lần thứ mấy.
+- **403/404 restriction**: Ghi vào `_account_restricted_models[email].add(model)` thay vì `models.remove(model)`. Account khác vẫn thử được model đó bình thường.
+
+### Kết quả kiểm thử (Gate 2)
+- ✅ `python -m py_compile core/ai_translator.py` → SYNTAX OK
+- ✅ Logic cyclic: model bị empty sẽ xuống cuối, sau khi qua account mới có thể được thử lại
+- ✅ Logic per-account: model A bị giới hạn với account X vẫn được thử bình thường với account Y
+- ✅ Không còn loop vô tận: sau khi thử hết models_to_try → thoát for loop → pick account mới
+
+### [Hotfix 2026-10-04] Fix dừng dịch khi gặp account bị giới hạn tất cả models — HOÀN THÀNH ✅
+- **Root cause**: Khi một account bị giới hạn hết model (`not models_to_try`), code cũ gọi `break`. Do đoạn code này nằm trực tiếp trong vòng lặp `while not self.is_stopped:` (bên ngoài `for model`), lệnh `break` đã làm thoát văng khỏi vòng lặp `while`, nhảy thẳng xuống `return False` báo "cạn kiệt API keys" dù còn nhiều account khác.
+- **Fix (`core/ai_translator.py`)**:
+  - Đổi `break` thành `continue` để `self.pool.pick()` bốc ngay account tiếp theo.
+  - Loại trừ trọn vẹn tất cả key của account đó vào `exclude` trong lượt này.
+  - Thêm guard `has_any_viable_account` để nếu toàn bộ account trong pool thực sự đều bị giới hạn hết model thì dừng an toàn với thông báo rõ ràng, không bị treo loop.
+- **Kết quả kiểm thử (Gate 2)**:
+  - ✅ `python -m py_compile core/ai_translator.py` → SYNTAX OK
+  - ✅ Unit test mô phỏng: Account 1 bị restrict toàn bộ model → tự động chuyển sang Account 2 và dịch thành công 100%.
+  - ✅ Edge case test: Toàn bộ account đều bị restrict → thoát an toàn và trả về lỗi rõ ràng: `Tất cả tài khoản Google đều đã bị giới hạn toàn bộ danh sách model.`
+
+### [Hotfix 2026-10-04] Bổ sung curl_cffi vào Auto-Install & Neo Working Directory — HOÀN THÀNH ✅
+- **Vấn đề**: `core/engine.py` dùng `curl_cffi` để vượt Cloudflare Turnstile cho các site truyện Trung Quốc (`69shuba`), nhưng `main.py` (`REQUIRED_PACKAGES`) và `requirements.txt` chưa khai báo gói này. Ngoài ra, khi chạy qua shortcut Desktop hoặc terminal từ thư mục khác, `os.getcwd()` bị lệch.
+- **Fix (`main.py`, `requirements.txt`)**:
+  - `main.py`: Thêm `os.chdir(os.path.dirname(os.path.abspath(__file__)))` ngay dòng đầu tiên để app luôn chạy đúng thư mục gốc.
+  - `main.py`: Thêm `'curl_cffi': 'curl_cffi>=0.7.0'` vào `REQUIRED_PACKAGES`.
+  - `requirements.txt`: Bổ sung `curl_cffi>=0.7.0`.
+- **Kết quả kiểm thử (Gate 2)**:
+  - ✅ `python -m py_compile main.py` → SYNTAX OK
+  - ✅ `check_and_install_packages()` kiểm tra thành công, `curl_cffi` được nhận diện chính xác.
+
+### [Phase 24 — 2026-10-04] Bắt Lỗi Cào Rỗng, Safe CloseEvent & Nâng Cấp UX Dịch AI (ETA, Auto-Merge) — HOÀN THÀNH ✅
+- **Mục tiêu**: Khắc phục các lỗi tiềm ẩn trong engine cào truyện, an toàn luồng khi tắt ứng dụng và hoàn thiện trải nghiệm dịch AI (ước tính thời gian còn lại, tự động gộp file truyện).
+- **Chi tiết triển khai**:
+  1. **Engine Cào Truyện (`core/engine.py`)**:
+     - Bổ sung cơ chế phát hiện nội dung chương rỗng: Nếu sau khi cào và lọc bằng CSS selector mà nội dung rỗng hoặc chỉ chứa các thẻ HTML trống không có văn bản thực (`not re.sub(r'<[^>]+>', '', chapter.content).strip()`), tự động gán `chapter.is_get_failed = True`.
+     - Kích hoạt cơ chế retry tự động của `DownloadWorker`, ngăn chặn tình trạng ghi file chương rỗng/hỏng xuống đĩa.
+  2. **An toàn khi đóng cửa sổ (`gui/main_window.py`)**:
+     - Thêm override `closeEvent`: Dừng an toàn toàn bộ worker đang chạy ngầm (`_title_fetch_worker`, `worker`, `merge_worker`, `prc_worker`) trước khi thoát app, triệt tiêu nguy cơ thread leak hoặc crash tiến trình.
+  3. **Tự động gợi ý Dịch AI sau khi tải truyện Trung Quốc (`gui/main_window.py`)**:
+     - Trong `_on_finished`: Khi phát hiện vừa tải xong truyện từ host tiếng Trung (`is_china` và tồn tại thư mục chương lẻ), hiển thị hộp thoại với nút `🌐 Mở AI Dịch Ngay`. Bấm vào sẽ tự động mở hộp thoại Dịch AI và điền sẵn thư mục truyện.
+  4. **Nâng cấp UX Hộp Thoại Dịch AI (`gui/translate_dialog.py`)**:
+     - **Thống kê thời gian thực & ETA**: Thêm `stats_signal(elapsed, eta, speed)` vào `TranslateWorker`. Tính toán dựa trên số chương thực sự dịch qua AI, hiển thị rõ ràng trên nhãn `lbl_stats`: `⏱ Đã chạy: mm:ss | ⏳ Còn lại (ETA): mm:ss | ⚡ Tốc độ: X.Xs/chương`.
+     - **Tự động gộp file truyện dịch**: Thêm checkbox `chk_auto_merge` ("⚡ Tự động gộp file truyện khi dịch xong") được ghi nhớ qua `QSettings`. Khi dịch xong, tự động gọi `_auto_merge_translated()` kích hoạt `MergeWorker` gộp tất cả chương dịch thành file `<TenTruyen>_Dich.html` có mục lục hoàn chỉnh.
+- **Kết quả kiểm thử (Gate 2)**:
+  - ✅ `python -m py_compile core/engine.py gui/main_window.py gui/translate_dialog.py` → SYNTAX OK.
+  - ✅ Unit test `test_phase24_changes.py` pass 100%:
+    * Empty chapter detection kích hoạt chính xác `is_get_failed = True`.
+    * Valid chapter nội dung bình thường `is_get_failed = False`.
+    * `TranslateDialog` khởi tạo đầy đủ controls (`chk_auto_merge`, `lbl_stats`, `_auto_merge_translated`).
+    * `TranslateWorker.stats_signal` truyền phát thời gian, ETA, và tốc độ mượt mà.
+    * `MainWindow.closeEvent` sẵn sàng bảo vệ các tiến trình ngầm.
+
+### [Phase 25 — 2026-10-04] Độc Lập Hóa Quản Lý API Keys & Auto Discover / Xếp Hạng Model AI (Chuẩn AskCpl) — HOÀN THÀNH ✅
+- **Mục tiêu**: Giải phóng hoàn toàn sự phụ thuộc cứng vào AskCpl bằng module quản lý API Keys độc lập, đồng thời bổ sung tính năng Auto Discover khám phá toàn bộ model mới trên Google API, đo độ trễ thực tế và tự động xếp hạng model tối ưu.
+- **Chi tiết triển khai**:
+  1. **Quản Lý API Key Độc Lập & Đồng Bộ 2 Chiều (`core/key_manager.py`)**:
+     - Lưu trữ độc lập tại `config/gemini_keys.json` trong dự án với mã hóa bảo vệ token chuẩn `ENC:<reversed-b64>` tương thích an toàn.
+     - Hàm `sync_from_askcpl()` tự động quét và gộp các API key từ AskCpl mà không trùng lặp (đã đồng bộ thành công 155 keys từ 17 tài khoản Google).
+     - Hàm `sync_to_askcpl()` xuất ngược các key mới thêm trong GetHtmlFromUrl sang AskCpl.
+     - Hàm `validate_key()` ping nhanh kiểm tra tính sống/chết và độ trễ của từng API Key.
+  2. **Giao Diện Quản Lý API Keys (`gui/key_manager_dialog.py`)**:
+     - Cung cấp hộp thoại `ApiKeyManagerDialog` với bảng quản lý trực quan: thêm, sửa, xóa, bật/tắt key, kiểm tra key đã chọn, kiểm tra toàn bộ danh sách bằng worker nền, nút đồng bộ 2 chiều với AskCpl.
+  3. **Auto Discover & Đánh Giá / Xếp Hạng Model Chuẩn AskCpl (`core/model_manager.py` & `gui/model_priority_dialog.py`)**:
+     - Định nghĩa phân hạng Tier: 🔴 **Tier S** (+500đ), 🟠 **Tier A** (+300đ), 🟡 **Tier B** (+100đ), ⚪ **Tier C** (0đ).
+     - Thuật toán tính điểm xếp hạng: $\text{Score} = \text{Tier\_Bonus} + (1000 / \text{latency\_ms})$.
+     - Tính năng `🔍 Auto Discover & Đánh Giá`: Gọi `GET /v1beta/models` qua key active, lọc các model sinh văn bản, benchmark đo độ trễ bằng prompt nhẹ `"Hi"`, tính điểm và tự động sắp xếp model nhanh & tốt nhất lên đầu bảng fallback.
+     - Lưu trữ thứ tự ưu tiên vào `config/model_priority.json`.
+     - Cung cấp hộp thoại `ModelPriorityDialog` với bảng phân màu Tier, nút di chuyển ↑ Lên, ↓ Xuống, Bật/Tắt, Xếp theo Điểm, Khôi phục mặc định và khung console log trực quan.
+  4. **Tích Hợp Vào Hộp Thoại Dịch AI (`core/ai_translator.py` & `gui/translate_dialog.py`)**:
+     - `core/ai_translator.py`: Thêm `load_configured_models()` và `load_configured_key_objects()`. Ưu tiên sử dụng model và key từ cấu hình riêng của dự án, nếu chưa có mới fallback sang AskCpl.
+     - `gui/translate_dialog.py`: Bổ sung nút `🔑 Quản Lý Keys` và nút `⚙️ Model AI & Xếp Hạng`. Khi mở hộp thoại, tự động nạp từ kho riêng (`config/gemini_keys.json`) và thông báo rõ nguồn gốc key.
+- **Kết quả kiểm thử (Gate 2)**:
+  - ✅ `python -m py_compile` tất cả các file liên quan → SYNTAX OK.
+  - ✅ Unit test `test_phase25_features.py` vượt qua 100%:
+    * Mã hóa/giải mã/mask token hoạt động chính xác.
+    * Đồng bộ thành công 155 keys từ AskCpl vào `config/gemini_keys.json`.
+    * Phân loại Tier (S, A, B, C) chính xác 100%.
+    * `load_configured_models()` và `load_configured_key_objects()` ưu tiên kho nội bộ chính xác.
+    * Cả 3 giao diện `ApiKeyManagerDialog`, `ModelPriorityDialog`, `TranslateDialog` khởi tạo mượt mà, đầy đủ controls và liên kết dữ liệu hai chiều.
 ## 📍 Thông tin dự án
 - **Tên dự án**: GetHtmlFromUrl Python Port
 - **Đường dẫn**: `C:\Users\games\Desktop\Project\Python\Python MyWork\Project1\GravityCode\Download\Download truyen\GetHtmlFromUrl_Python`
@@ -254,11 +344,49 @@ GetHtmlFromUrl_Python/
   - **Đồng bộ tiến trình**: Sử dụng `get_shared_account_pool()` singleton dùng chung giữa các chương và các chunk trong suốt tiến trình dịch.
   - **Cập nhật giao diện**: `TranslateDialog` hiển thị chi tiết số lượng key và số lượng Google Account thực tế nạp từ AskCpl (VD: 156 keys từ 18 Google accounts).
 
+### ✅ Phase 21 — Đồng Bộ Thứ Tự Model Gemini Mới (Gemini 3.8 & 3.5 Lite) (2026-10-03)
+- [x] **Cập nhật `DEFAULT_MODELS` trong `core/ai_translator.py`**:
+  - Thứ tự ưu tiên mới: `gemini-3.8-flash` 🥇 -> `gemini-3.5-flash-lite` ⚡ -> `gemini-3.5-flash` 🔴 -> `gemini-3-flash-preview` 🥈 -> `gemini-flash-latest` 🥉 -> `gemini-flash-lite-latest` 🔵 -> `gemini-3.1-flash-lite` 🔵 -> `gemini-3.7-flash` 🟣.
+- [x] **Tích hợp `load_askcpl_models()`**:
+  - Tự động nạp động danh sách model ưu tiên từ `AskCpl/settings.json`, đảm bảo khi người dùng điều chỉnh thứ tự model trên AskCpl thì GetHtmlFromUrl_Python tự động đồng bộ ngay mà không cần cấu hình lại.
+
+### ✅ Phase 22 — Khử Bỏ Default Account Ảo & Tích Hợp Pre-flight Model Probe (2026-10-04)
+- [x] **Khử triệt để tài khoản ảo `default_account@gmail.com` (`core/ai_translator.py`)**:
+  - `load_askcpl_key_objects()` chỉ nạp tài khoản Google thực sự từ `api_keys` (155 keys từ 17 Google accounts chuẩn).
+  - Loại bỏ hoàn toàn việc gán phantom account `"default_account@gmail.com"` từ single key cũ khi `api_keys` đã đầy đủ.
+- [x] **Cơ chế Pre-flight Fast Model Probe & Dynamic Model Promotion/Demotion (`core/ai_translator.py`, `gui/translate_dialog.py`)**:
+  - Thêm hàm `probe_active_models()` ping nhanh 1-token (timeout 5s) qua các model để lọc ra danh sách model thực sự sống và phản hồi tốt nhất trước khi dịch. Loại bỏ ngay model 503 Overload, 404, 429, Timeout.
+  - Tích hợp tự động chạy Pre-flight probe trước khi dịch chương 1 trong `TranslateWorker`.
+  - Bổ sung nút **`⚡ Test Model AI`** trên giao diện `TranslateDialog` để người dùng kiểm tra trạng thái sống/chết của các model bất cứ lúc nào mà không làm đơ giao diện (chạy QThread nền).
+  - **Dynamic Sticky & Demotion**: Model dịch thành công được đưa lên đầu danh sách để ưu tiên dùng tiếp cho chương sau; model gặp 503 hoặc Timeout tự động bị đẩy xuống cuối hàng đợi fallback.
+
+### ✅ Phase 23 — Nâng Cấp Chất Lượng Dịch Thuật Văn Học & Tùy Chọn Phong Cách (2026-10-04)
+- [x] **Nâng cấp Văn Phong & Bộ Quy Tắc Bút Pháp Chống Convert (`core/ai_translator.py`)**:
+  - Tách rời và truyền tải hướng dẫn qua `systemInstruction` chính thức của Gemini API kích hoạt Persona sâu dịch giả & biên tập viên văn học.
+  - Ban hành **Bộ Quy Tắc Bút Pháp Văn Học Bắt Buộc**:
+    * Triệt tiêu cấu trúc câu bị động ngược tiếng Trung (vd: "bị hắn một quyền đánh lui" -> "một quyền của hắn đánh bật đối phương lùi lại").
+    * Xóa bỏ từ đệm rườm rà ("trong lòng không khỏi có chút...", "hướng về phía trước...").
+    * Phân định Hán-Việt cho danh từ riêng, cảnh giới, chiêu thức; ưu tiên thuần Việt tự nhiên cho miêu tả hành động, tâm lý, đồ vật thường ngày.
+    * Xưng hô linh hoạt theo ngữ cảnh và thể loại (sư đồ, huynh đệ, thầy - trò, cậu - tôi, gã - hắn).
+    * Bổ sung ví dụ đối chiếu Few-Shot (Convert thô vs Thuần Việt mượt mà) vào prompt.
+- [x] **Tham số Sinh Chuyên Biệt Cho Văn Học**:
+  - Nâng `temperature` từ `0.3` lên `0.65` và `topP: 0.95` (với phong cách Mượt mà thuần Việt) để AI tự do đảo cấu trúc câu, sử dụng từ láy, thành ngữ và biểu cảm giàu nhạc điệu.
+- [x] **Đa Dạng Hóa Phong Cách Dịch (`TRANSLATION_STYLES`)**:
+  - Hỗ trợ 3 phong cách:
+    1. `fluent`: *Mượt mà thuần Việt (Đề xuất)* - Temp 0.65, topP 0.95.
+    2. `classic_xianxia`: *Tiên hiệp cổ phong (Nhiều Hán-Việt)* - Temp 0.55, topP 0.95.
+    3. `literal`: *Bám sát nguyên tác (Trung tính)* - Temp 0.35, topP 0.90.
+- [x] **Tích Hợp Giao Diện Người Dùng (`gui/translate_dialog.py`)**:
+  - Thêm ComboBox `Văn phong dịch:` cùng nhãn giải thích trực quan trong nhóm cấu hình AI.
+  - Lưu và tự động khôi phục lựa chọn phong cách qua `QSettings` (`translate_style`).
+  - Truyền trực tiếp phong cách đã chọn vào `TranslateWorker` và `GeminiTranslator`, ghi log rõ ràng khi bắt đầu phiên dịch.
+
 ## ⏭️ TODO tiếp theo
 - Login Browser nhúng (WebEngineView) thay thế cho chức năng Mở Trình Duyệt ngoài.
 - Auto-Update check (Check version trên Github releases).
 - CAPTCHA detection & xử lý (Hỗ trợ bypass cloudflare nâng cao).
 - Tích hợp OpenClaw (Chrome được mở bình thường) cho các site chặn headless/automation hoàn toàn.
+
 
 
 

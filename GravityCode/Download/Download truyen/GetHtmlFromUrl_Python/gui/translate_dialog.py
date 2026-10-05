@@ -1,4 +1,5 @@
 import os
+import time
 import re
 import json
 import logging
@@ -7,14 +8,16 @@ from PyQt6.QtWidgets import (
     QTextEdit, QPushButton, QFileDialog, QMessageBox, 
     QLineEdit, QProgressBar, QCheckBox, QSpinBox, 
     QTableWidget, QTableWidgetItem, QHeaderView, QTabWidget,
-    QWidget, QGroupBox, QSplitter
+    QWidget, QGroupBox, QSplitter, QComboBox
 )
-from PyQt6.QtCore import Qt, QThread, pyqtSignal
+from PyQt6.QtCore import Qt, QThread, pyqtSignal, QSettings
 
 from core.ai_translator import (
     GeminiTranslator, GlossaryManager, TranslateProgress,
     extract_chapter_from_html, save_translated_chapter,
-    load_askcpl_keys, load_askcpl_key_objects, DEFAULT_MODELS
+    load_askcpl_keys, load_askcpl_key_objects, load_configured_key_objects,
+    load_configured_models, DEFAULT_MODELS,
+    probe_active_models, TRANSLATION_STYLES
 )
 from gui.workers import MergeWorker, PrcWorker
 
@@ -26,11 +29,13 @@ class TranslateWorker(QThread):
     log_signal = pyqtSignal(str)
     progress_signal = pyqtSignal(int, int, str)  # current, total, status_text
     glossary_updated_signal = pyqtSignal(int)    # total_terms
+    stats_signal = pyqtSignal(str, str, str)     # elapsed_str, eta_str, speed_str
     finished_signal = pyqtSignal(bool, str)      # success, message
 
     def __init__(self, source_dir: str, target_dir: str, 
                  api_keys: list, start_idx: int, end_idx: int,
-                 skip_existing: bool, pace_seconds: float = 3.5):
+                 skip_existing: bool, pace_seconds: float = 3.5,
+                 style: str = "fluent"):
         super().__init__()
         self.source_dir = source_dir
         self.target_dir = target_dir
@@ -39,6 +44,7 @@ class TranslateWorker(QThread):
         self.end_idx = end_idx
         self.skip_existing = skip_existing
         self.pace_seconds = pace_seconds
+        self.style = style
         self._is_stopped = False
         self.translator = None
 
@@ -88,15 +94,30 @@ class TranslateWorker(QThread):
             self.glossary_updated_signal.emit(total_terms)
             self.log_signal.emit(f"📖 Đã tải từ điển thuật ngữ: {total_terms} từ (nhân vật, pháp bảo, môn phái, địa danh).")
 
-            # 3. Khởi tạo Translator
-            self.translator = GeminiTranslator(
+            # 3. Pre-flight kiểm tra model phản hồi nhanh
+            self.log_signal.emit("🔍 Đang kiểm tra phản hồi các model Gemini khả dụng...")
+            configured_models = load_configured_models()
+            active_models = probe_active_models(
                 api_keys=self.api_keys,
-                pace_seconds=self.pace_seconds,
+                candidate_models=configured_models,
+                timeout=5.0,
                 log_callback=self.log_signal.emit
             )
 
+            # 4. Khởi tạo Translator
+            self.translator = GeminiTranslator(
+                api_keys=self.api_keys,
+                models=active_models,
+                pace_seconds=self.pace_seconds,
+                style=self.style,
+                log_callback=self.log_signal.emit
+            )
+            self.log_signal.emit(f"🎨 Phong cách văn phong: {self.translator.style_name} (Nhiệt độ: {self.translator.temperature})")
+
             completed_count = 0
+            actual_translated = 0
             total_task = len(target_files)
+            start_time = time.time()
 
             for i, fname in enumerate(target_files):
                 if self._is_stopped:
@@ -112,6 +133,20 @@ class TranslateWorker(QThread):
                     self.log_signal.emit(f"⏩ [Bỏ qua] {fname} (đã dịch trước đó).")
                     completed_count += 1
                     self.progress_signal.emit(completed_count, total_task, f"Đã qua: {fname}")
+                    el_sec = time.time() - start_time
+                    h = int(el_sec // 3600); m = int((el_sec % 3600) // 60); s = int(el_sec % 60)
+                    el_str = f"{h:02d}:{m:02d}:{s:02d}" if h > 0 else f"{m:02d}:{s:02d}"
+                    if actual_translated > 0:
+                        avg_s = el_sec / actual_translated
+                        sp_str = f"{avg_s:.1f}s/chương"
+                        rem = max(0, total_task - completed_count)
+                        eta_s = rem * avg_s
+                        eh = int(eta_s // 3600); em = int((eta_s % 3600) // 60); es = int(eta_s % 60)
+                        eta_str = f"{eh:02d}:{em:02d}:{es:02d}" if eh > 0 else f"{em:02d}:{es:02d}"
+                    else:
+                        sp_str = "--"
+                        eta_str = "--:--"
+                    self.stats_signal.emit(el_str, eta_str, sp_str)
                     continue
 
                 self.log_signal.emit(f"\n⏳ [{i + 1}/{total_task}] Đang đọc & dịch: {fname}...")
@@ -162,10 +197,24 @@ class TranslateWorker(QThread):
                     progress.mark_completed(fname, summary)
 
                     completed_count += 1
+                    actual_translated += 1
                     self.progress_signal.emit(completed_count, total_task, f"Xong: {title_vi}")
                     self.log_signal.emit(f"  ✅ Dịch thành công: {title_vi} ({len(content_vi)} ký tự)")
                     if summary:
                         self.log_signal.emit(f"  📝 Tóm tắt ngữ cảnh: {summary[:100]}...")
+
+                    # Tính toán thời gian thực tế, tốc độ và ETA
+                    now_t = time.time()
+                    el_sec = now_t - start_time
+                    h = int(el_sec // 3600); m = int((el_sec % 3600) // 60); s = int(el_sec % 60)
+                    el_str = f"{h:02d}:{m:02d}:{s:02d}" if h > 0 else f"{m:02d}:{s:02d}"
+                    avg_s = el_sec / actual_translated
+                    sp_str = f"{avg_s:.1f}s/chương"
+                    rem = max(0, total_task - completed_count)
+                    eta_s = rem * avg_s
+                    eh = int(eta_s // 3600); em = int((eta_s % 3600) // 60); es = int(eta_s % 60)
+                    eta_str = f"{eh:02d}:{em:02d}:{es:02d}" if eh > 0 else f"{em:02d}:{es:02d}"
+                    self.stats_signal.emit(el_str, eta_str, sp_str)
 
                 except Exception as ex:
                     self.log_signal.emit(f"  ❌ Lỗi khi dịch {fname}: {ex}")
@@ -358,14 +407,47 @@ class TranslateDialog(QDialog):
         lbl_key = QLabel("Gemini API Key(s):")
         lbl_key.setFixedWidth(140)
         self.txt_api_keys = QLineEdit()
-        self.txt_api_keys.setPlaceholderText("Dán API Key (phân cách bằng dấu phẩy nếu có nhiều key)...")
-        btn_load_askcpl = QPushButton("🔑 Nạp từ AskCpl")
+        self.txt_api_keys.setPlaceholderText("Dán API Key hoặc bấm 'Quản Lý Keys' để cấu hình độc lập...")
+
+        btn_manage_keys = QPushButton("🔑 Quản Lý Keys")
+        btn_manage_keys.setStyleSheet("font-weight: bold; color: #2e7d32;")
+        btn_manage_keys.setToolTip("Quản lý danh sách API Key độc lập trong dự án, thêm/xóa/sửa và đồng bộ 2 chiều với AskCpl")
+        btn_manage_keys.clicked.connect(self._on_open_key_manager)
+
+        btn_load_askcpl = QPushButton("📥 Nhập AskCpl")
         btn_load_askcpl.setToolTip("Tự động đọc danh sách API Key đã lưu trong AskCpl")
         btn_load_askcpl.clicked.connect(self._on_load_from_askcpl)
+
         row_key.addWidget(lbl_key)
         row_key.addWidget(self.txt_api_keys)
+        row_key.addWidget(btn_manage_keys)
         row_key.addWidget(btn_load_askcpl)
         ai_layout.addLayout(row_key)
+
+        # Hàng chọn phong cách văn phong dịch
+        row_style = QHBoxLayout()
+        lbl_style = QLabel("Văn phong dịch:")
+        lbl_style.setFixedWidth(140)
+        self.cbo_style = QComboBox()
+        for s_key, s_data in TRANSLATION_STYLES.items():
+            self.cbo_style.addItem(f"{s_data['name']}", s_key)
+        self.cbo_style.setToolTip("Chọn phong cách văn phong để AI chuyển ngữ mượt mà hoặc theo phong cách cổ điển")
+        self.cbo_style.currentIndexChanged.connect(self._on_style_changed)
+
+        # Load style đã lưu
+        _settings = QSettings("GetHtmlFromUrl", "TranslateDialog")
+        saved_style = _settings.value("translate_style", "fluent")
+        s_idx = self.cbo_style.findData(saved_style)
+        if s_idx >= 0:
+            self.cbo_style.setCurrentIndex(s_idx)
+
+        self.lbl_style_desc = QLabel(TRANSLATION_STYLES.get(saved_style, {}).get("description", ""))
+        self.lbl_style_desc.setStyleSheet("color: #616161; font-style: italic; font-size: 11px;")
+
+        row_style.addWidget(lbl_style)
+        row_style.addWidget(self.cbo_style, 1)
+        row_style.addWidget(self.lbl_style_desc, 2)
+        ai_layout.addLayout(row_style)
 
         row_params = QHBoxLayout()
         self.lbl_key_status = QLabel("Chưa nạp key.")
@@ -389,6 +471,20 @@ class TranslateDialog(QDialog):
         self.btn_glossary.clicked.connect(self._on_open_glossary)
         row_params.addWidget(self.btn_glossary)
 
+        # Nút quản lý & discover model (chuẩn AskCpl)
+        self.btn_model_mgr = QPushButton("⚙️ Model AI & Xếp Hạng")
+        self.btn_model_mgr.setStyleSheet("font-weight: bold; color: #00897b;")
+        self.btn_model_mgr.setToolTip("Quản lý thứ tự ưu tiên, Auto Discover tìm model mới & đo tốc độ xếp hạng chuẩn AskCpl")
+        self.btn_model_mgr.clicked.connect(self._on_open_model_priority)
+        row_params.addWidget(self.btn_model_mgr)
+
+        # Nút test model AI
+        self.btn_test_models = QPushButton("⚡ Test Nhanh")
+        self.btn_test_models.setStyleSheet("color: #6a1b9a;")
+        self.btn_test_models.setToolTip("Kiểm tra nhanh độ phản hồi của các model Gemini trước khi chạy")
+        self.btn_test_models.clicked.connect(self._on_test_models)
+        row_params.addWidget(self.btn_test_models)
+
         ai_layout.addLayout(row_params)
         layout.addWidget(grp_ai)
 
@@ -411,12 +507,18 @@ class TranslateDialog(QDialog):
         self.chk_resume = QCheckBox("Bỏ qua các chương đã dịch (Resume thông minh)")
         self.chk_resume.setChecked(True)
 
+        self.chk_auto_merge = QCheckBox("⚡ Tự động gộp file truyện khi dịch xong")
+        self.chk_auto_merge.setChecked(_settings.value("auto_merge", False, type=bool))
+        self.chk_auto_merge.toggled.connect(lambda v: _settings.setValue("auto_merge", v))
+
         row_range.addWidget(lbl_from)
         row_range.addWidget(self.spn_from)
         row_range.addWidget(lbl_to)
         row_range.addWidget(self.spn_to)
-        row_range.addSpacing(20)
+        row_range.addSpacing(15)
         row_range.addWidget(self.chk_resume)
+        row_range.addSpacing(15)
+        row_range.addWidget(self.chk_auto_merge)
         row_range.addStretch()
 
         ctrl_layout.addLayout(row_range)
@@ -457,6 +559,10 @@ class TranslateDialog(QDialog):
         self.progress_bar.setTextVisible(True)
         ctrl_layout.addWidget(self.progress_bar)
 
+        self.lbl_stats = QLabel("⏱ Đã chạy: 00:00 | ⏳ Còn lại (ETA): --:-- | ⚡ Tốc độ: --")
+        self.lbl_stats.setStyleSheet("color: #455a64; font-size: 11px; margin-top: 2px;")
+        ctrl_layout.addWidget(self.lbl_stats)
+
         layout.addWidget(grp_ctrl)
 
         # ── 4. Console Log ─────────────────────────────────────────────
@@ -470,15 +576,61 @@ class TranslateDialog(QDialog):
     # Logic Helpers & Event Handlers
     # -------------------------------------------------------------------
     def _auto_load_keys(self):
-        """Tự động nạp keys từ AskCpl settings khi mở dialog."""
-        key_objs = load_askcpl_key_objects()
+        """Tự động nạp keys: ưu tiên từ kho riêng config/gemini_keys.json, nếu chưa có thì nạp từ AskCpl."""
+        key_objs = load_configured_key_objects()
         if key_objs:
             keys = [k["key"] for k in key_objs if k.get("key")]
             accounts = set(k.get("email") for k in key_objs if k.get("email"))
             self.txt_api_keys.setText(", ".join(keys))
-            self.lbl_key_status.setText(f"✅ Đã tự động nạp {len(keys)} Gemini API keys từ {len(accounts)} Google accounts (AskCpl).")
+            from core.key_manager import get_active_raw_keys
+            if get_active_raw_keys():
+                self.lbl_key_status.setText(f"✅ Đã nạp {len(keys)} Gemini API keys từ {len(accounts)} tài khoản (Kho nội bộ dự án).")
+            else:
+                self.lbl_key_status.setText(f"✅ Đã nạp {len(keys)} Gemini API keys từ {len(accounts)} tài khoản (AskCpl).")
         else:
-            self.lbl_key_status.setText("Chưa tìm thấy keys từ AskCpl. Vui lòng dán key thủ công.")
+            self.lbl_key_status.setText("Chưa nạp key. Bấm '🔑 Quản Lý Keys' để thêm key hoặc dán thủ công.")
+
+    def _on_open_key_manager(self):
+        """Mở hộp thoại Quản lý API Key riêng của dự án."""
+        from gui.key_manager_dialog import ApiKeyManagerDialog
+        dlg = ApiKeyManagerDialog(parent=self)
+        if dlg.exec():
+            self._auto_load_keys()
+
+    def _on_open_model_priority(self):
+        """Mở hộp thoại Cài đặt Thứ tự Ưu tiên & Auto Discover Model chuẩn AskCpl."""
+        from gui.model_priority_dialog import ModelPriorityDialog
+        raw = self.txt_api_keys.text().strip()
+        first_key = raw.split(",")[0].strip() if raw else ""
+        dlg = ModelPriorityDialog(api_key=first_key, parent=self)
+        dlg.exec()
+
+    def _on_test_models(self):
+        raw = self.txt_api_keys.text().strip()
+        if not raw:
+            QMessageBox.warning(self, "Chưa có key", "Vui lòng nhập hoặc nạp API Key trước khi test model.")
+            return
+        keys = [k.strip() for k in raw.split(",") if k.strip()]
+        self._log("⚡ Bắt đầu kiểm tra tốc độ & độ phản hồi của các model Gemini...")
+        self.btn_test_models.setEnabled(False)
+
+        class ModelProbeWorker(QThread):
+            log_sig = pyqtSignal(str)
+            done_sig = pyqtSignal(list)
+            def __init__(self, key_list):
+                super().__init__()
+                self.key_list = key_list
+            def run(self):
+                res = probe_active_models(self.key_list, timeout=5.0, log_callback=self.log_sig.emit)
+                self.done_sig.emit(res)
+
+        self._model_probe_worker = ModelProbeWorker(keys)
+        self._model_probe_worker.log_sig.connect(self._log)
+        def _on_probe_finished(res):
+            self.btn_test_models.setEnabled(True)
+            self._log(f"🏁 Đã kiểm tra xong! {len(res)} model sẵn sàng phục vụ dịch.")
+        self._model_probe_worker.done_sig.connect(_on_probe_finished)
+        self._model_probe_worker.start()
 
     def _on_load_from_askcpl(self):
         key_objs = load_askcpl_key_objects()
@@ -583,6 +735,13 @@ class TranslateDialog(QDialog):
         dlg.exec()
         self._update_glossary_button_count()
 
+    def _on_style_changed(self):
+        s_key = self.cbo_style.currentData() or "fluent"
+        settings = QSettings("GetHtmlFromUrl", "TranslateDialog")
+        settings.setValue("translate_style", s_key)
+        desc = TRANSLATION_STYLES.get(s_key, {}).get("description", "")
+        self.lbl_style_desc.setText(desc)
+
     def _on_start_translate(self):
         src_dir = self.txt_source.text().strip()
         dst_dir = self.txt_target.text().strip()
@@ -617,6 +776,7 @@ class TranslateDialog(QDialog):
         end_idx = self.spn_to.value()
         skip_existing = self.chk_resume.isChecked()
         pace_sec = float(self.spn_pace.value())
+        style_key = self.cbo_style.currentData() or "fluent"
 
         self.worker = TranslateWorker(
             source_dir=src_dir,
@@ -625,11 +785,14 @@ class TranslateDialog(QDialog):
             start_idx=start_idx,
             end_idx=end_idx,
             skip_existing=skip_existing,
-            pace_seconds=pace_sec
+            pace_seconds=pace_sec,
+            style=style_key
         )
 
+        self.lbl_stats.setText("⏱ Đã chạy: 00:00 | ⏳ Còn lại (ETA): --:-- | ⚡ Tốc độ: --")
         self.worker.log_signal.connect(self._log)
         self.worker.progress_signal.connect(self._on_progress)
+        self.worker.stats_signal.connect(self._on_stats)
         self.worker.glossary_updated_signal.connect(lambda n: self.btn_glossary.setText(f"📖 Từ Điển Thuật Ngữ ({n} từ)"))
         self.worker.finished_signal.connect(self._on_translate_finished)
         self.worker.start()
@@ -646,18 +809,54 @@ class TranslateDialog(QDialog):
             self.progress_bar.setValue(pct)
             self.progress_bar.setFormat(f"{current}/{total} ({pct}%) - {status_text}")
 
+    def _on_stats(self, elapsed: str, eta: str, speed: str):
+        self.lbl_stats.setText(f"⏱ Đã chạy: {elapsed} | ⏳ Còn lại (ETA): {eta} | ⚡ Tốc độ: {speed}")
+
     def _on_translate_finished(self, success: bool, msg: str):
         self.btn_start.setEnabled(True)
         self.btn_stop.setEnabled(False)
         self._log(f"\n[TIẾN TRÌNH KẾT THÚC] {msg}")
         self._update_glossary_button_count()
         if success:
-            QMessageBox.information(
-                self, "Hoàn tất dịch", 
-                f"{msg}\n\nBạn có thể bấm '📚 Gộp Truyện Dịch' để tạo file tổng hợp hoàn chỉnh!"
-            )
+            if self.chk_auto_merge.isChecked():
+                self._log("⚡ Tùy chọn 'Tự động gộp file truyện khi dịch xong' đang bật. Đang tiến hành gộp...")
+                self._auto_merge_translated(silent=False)
+            else:
+                QMessageBox.information(
+                    self, "Hoàn tất dịch", 
+                    f"{msg}\n\nBạn có thể bấm '📚 Gộp Truyện Dịch' để tạo file tổng hợp hoàn chỉnh!"
+                )
         else:
             QMessageBox.warning(self, "Dừng / Lỗi dịch", msg)
+
+    def _auto_merge_translated(self, silent: bool = False):
+        """Tự động gộp các file chương đã dịch thành 1 file HTML tổng có mục lục."""
+        dst_dir = self.txt_target.text().strip()
+        if not dst_dir or not os.path.exists(dst_dir):
+            if not silent:
+                QMessageBox.warning(self, "Cảnh báo", "Thư mục dịch chưa tồn tại hoặc chưa có file nào.")
+            return
+
+        story_name = os.path.basename(os.path.dirname(dst_dir.rstrip("\\/"))) or "TruyenDich"
+        out_path = os.path.join(os.path.dirname(dst_dir), f"{story_name}_Dich.html")
+
+        self._log(f"\n📚 [Tự động gộp] Gom các chương dịch từ {dst_dir} → {out_path}...")
+        self.merge_worker = MergeWorker(
+            folder_path=dst_dir,
+            output_path=out_path,
+            story_title=f"{story_name} (Bản Dịch AI)",
+            ebook_info=f"Dịch tự động bởi AI Gemini. Tổng hợp từ thư mục {dst_dir}"
+        )
+        self.merge_worker.log_signal.connect(self._log)
+        def _on_auto_merged(res_msg):
+            self._log(f"✅ {res_msg}")
+            if not silent:
+                QMessageBox.information(
+                    self, "Gộp file hoàn tất",
+                    f"🎉 {res_msg}\n\nĐã xuất file gộp: {out_path}\nBạn có thể bấm '📱 Tạo PRC (Mobi)' để tạo sách đọc trên Kindle."
+                )
+        self.merge_worker.finished_signal.connect(_on_auto_merged)
+        self.merge_worker.start()
 
     def _log(self, text: str):
         self.txt_log.append(text)

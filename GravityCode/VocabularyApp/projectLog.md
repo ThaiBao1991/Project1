@@ -608,3 +608,7 @@ Tạo một ứng dụng desktop quản lý từ vựng đa ngôn ngữ (Tiếng
 | `web/style.css` | `white-space: pre-wrap` cho meaning/example. Scroll cho `.vocab-example` và flashcard back. |
 | `web/script.js` | Thêm `escapeHtml()`, `formatText()`. Ví dụ trong list có toggle ẩn/hiện. Flashcard dùng `innerHTML`. |
 | `web/index.html` | `h2#fc-meaning` → `p.fc-meaning-text`. Thêm meta description. |
+
+- [x] **Cập nhật thứ tự Model Gemini mới (2026-10-03):**
+  - Đồng bộ `_DEFAULT_MODEL_FALLBACKS` và `DEFAULT_SETTINGS["ai"]["model_priority"]` trong `settings.py` và `settings.json` sang thế hệ mới: `gemini-3.8-flash` (Tier S) và `gemini-3.5-flash-lite` (Tier S) đứng đầu, tiếp nối bởi `gemini-3.5-flash`, `gemini-3-flash-preview`, `gemini-flash-latest`, `gemini-flash-lite-latest`, `gemini-3.1-flash-lite`, `gemini-3.7-flash`. Đã kiểm tra qua `get_active_model_list()` PASS 100%.
+

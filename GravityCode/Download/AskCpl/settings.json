@@ -2382,60 +2382,74 @@
     "max_followup": 3,
     "model_priority": [
       {
+        "name": "gemini-3.8-flash",
+        "enabled": true,
+        "tier": "S",
+        "note": "Mới nhất — Gemini 3.8 Flash (1601ms)",
+        "latency_ms": 1601
+      },
+      {
         "name": "gemini-3.5-flash-lite",
         "enabled": true,
         "tier": "S",
-        "note": "[Mới tìm] Tier S — (1152ms)",
+        "note": "Siêu tốc — Gemini 3.5 Lite (1152ms)",
         "latency_ms": 1152
       },
       {
         "name": "gemini-3.5-flash",
         "enabled": true,
         "tier": "S",
-        "note": "Tier S — (11314ms)",
+        "note": "Mạnh mẽ — Gemini 3.5 Flash",
         "latency_ms": 11314
       },
       {
         "name": "gemini-3-flash-preview",
         "enabled": true,
         "tier": "A",
-        "note": "Tier A — (1529ms)",
+        "note": "Rất tốt — Gemini 3 Preview (1529ms)",
         "latency_ms": 1529
       },
       {
         "name": "gemini-flash-latest",
         "enabled": true,
         "tier": "A",
-        "note": "Tier A — (1598ms)",
+        "note": "Ổn định — Flash Latest (1598ms)",
         "latency_ms": 1598
       },
       {
         "name": "gemini-flash-lite-latest",
         "enabled": true,
         "tier": "B",
-        "note": "Tier B — (1337ms)",
+        "note": "Nhanh nhẹ — Flash Lite Latest (1337ms)",
         "latency_ms": 1337
       },
       {
         "name": "gemini-3.1-flash-lite",
         "enabled": true,
         "tier": "B",
-        "note": "Tier B — (2514ms)",
+        "note": "Nhẹ & Nhanh — Gemini 3.1 Lite (2514ms)",
         "latency_ms": 2514
+      },
+      {
+        "name": "gemini-3.7-flash",
+        "enabled": true,
+        "tier": "A",
+        "note": "Dự phòng — Gemini 3.7 Flash (5792ms)",
+        "latency_ms": 5792
       },
       {
         "name": "gemini-3.1-flash-lite-preview",
         "enabled": true,
         "tier": "B",
-        "note": "[Mới tìm] Tier B — (2964ms)",
+        "note": "Dự phòng — Gemini 3.1 Lite Preview (2964ms)",
         "latency_ms": 2964
       },
       {
-        "name": "gemini-2.5-flash-lite",
+        "name": "gemini-robotics-er-2-preview",
         "enabled": false,
-        "tier": "B",
-        "note": "[Mới tìm] Tier B — (Không truy cập được)",
-        "latency_ms": 0
+        "tier": "C",
+        "note": "Chuyên Robotics — Không dùng cho sinh văn bản",
+        "latency_ms": 1498
       },
       {
         "name": "gemini-3.5-transcribe",
@@ -2443,6 +2457,13 @@
         "tier": "S",
         "note": "Chuyên Audio/Speech — Không dùng cho sinh văn bản",
         "latency_ms": 933
+      },
+      {
+        "name": "gemini-2.5-flash-lite",
+        "enabled": false,
+        "tier": "B",
+        "note": "[Mới tìm] Tier B — (Không truy cập được)",
+        "latency_ms": 0
       },
       {
         "name": "gemini-3.1-pro-preview",
@@ -2464,27 +2485,6 @@
         "tier": "B",
         "note": "[Mới tìm] Tier B — (Không truy cập được)",
         "latency_ms": 0
-      },
-      {
-        "name": "gemini-robotics-er-2-preview",
-        "enabled": true,
-        "tier": "C",
-        "note": "[Mới tìm] Tier C — (1498ms)",
-        "latency_ms": 1498
-      },
-      {
-        "name": "gemini-3.8-flash",
-        "enabled": true,
-        "tier": "C",
-        "note": "[Mới tìm] Tier C — (1601ms)",
-        "latency_ms": 1601
-      },
-      {
-        "name": "gemini-3.7-flash",
-        "enabled": true,
-        "tier": "C",
-        "note": "[Mới tìm] Tier C — (5792ms)",
-        "latency_ms": 5792
       },
       {
         "name": "gemini-2.5-flash",

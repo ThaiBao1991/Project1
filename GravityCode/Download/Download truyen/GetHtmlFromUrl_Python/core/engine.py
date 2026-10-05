@@ -156,6 +156,17 @@ class GetHtmlEngine:
                     filtered_el = self.filter_html(el, page_config.css_filter)
                     html_parts.append(str(filtered_el))
                 chapter.content = "<br/>".join(html_parts)
+            else:
+                chapter.is_get_failed = True
+
+        # Nếu sau khi cào và lọc mà nội dung rỗng hoặc chỉ toàn thẻ HTML trống -> đánh dấu thất bại để kích hoạt retry
+        if not chapter.content or not chapter.content.strip():
+            chapter.is_get_failed = True
+        else:
+            raw_text = re.sub(r'<[^>]+>', '', chapter.content).strip()
+            if not raw_text:
+                chapter.is_get_failed = True
+
         return chapter
 
     # ======================================================================

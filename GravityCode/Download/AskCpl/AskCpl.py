@@ -1748,7 +1748,7 @@ Bắt buộc có đủ từ Ngày {from_day} đến Ngày {to_day}."""
             from settings import get_active_model_list as _gaml
             _FALLBACK_MODELS = _gaml()
         except Exception:
-            _FALLBACK_MODELS = ["gemini-3.5-flash", "gemini-3-flash-preview", "gemini-flash-latest", "gemini-3.1-flash-lite", "gemini-flash-lite-latest"]
+            _FALLBACK_MODELS = ["gemini-3.8-flash", "gemini-3.5-flash-lite", "gemini-3.5-flash", "gemini-3-flash-preview", "gemini-flash-latest", "gemini-flash-lite-latest", "gemini-3.1-flash-lite", "gemini-3.7-flash"]
         _prompt_chars = len(prompt)
         self.roadmap_gen_log(f"[{label}] Gửi yêu cầu Gemini (prompt={_prompt_chars:,} chars)...")
         if _prompt_chars > 3500:
@@ -4272,9 +4272,9 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
 
         def _infer_tier(name):
             n = name.lower()
-            if "3.5" in n or "3-ultra" in n:
+            if "3.8" in n or "3.5" in n or "3-ultra" in n:
                 return "S"
-            if "3-flash" in n or "3.0" in n or "flash-latest" in n:
+            if "3.7" in n or "3.6" in n or "3-flash" in n or "3.0" in n or "flash-latest" in n:
                 return "A"
             if "lite" in n or "3.1" in n:
                 return "B"
@@ -4481,7 +4481,7 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
                 n = mname.lower()
                 if "flash" not in n and "gemini" not in n:
                     continue
-                if any(x in n for x in ("embed", "vision", "imagen", "thinking", "image", "transcribe", "audio", "tts", "robotics")):
+                if any(x in n for x in ("embed", "vision", "imagen", "thinking", "image", "transcribe", "audio", "tts", "robotics", "er-2", "computer-use")):
                     continue
                 discovered.append(mname)
 
