@@ -1,0 +1,233 @@
+{
+  "extracted_at": "23:44:07 5/10/2026",
+  "vue_internal_model": null,
+  "dom_extracted": {
+    "customer": {
+      "code": "AGIMEXPHARM",
+      "name": "",
+      "taxCode": "",
+      "address": "",
+      "contact": ""
+    },
+    "voucher": {
+      "refNo": "BH150178l",
+      "refDate": "",
+      "employee": "",
+      "paymentTerm": ""
+    },
+    "items": [
+      {
+        "row": 1,
+        "raw_cells": [
+          "000",
+          "THIAMAZOL 5mg - SH Ba Đình",
+          "",
+          "0,0000",
+          "0,0000",
+          "0,0000",
+          "0,0000",
+          ""
+        ]
+      },
+      {
+        "row": 2,
+        "raw_cells": [
+          "001",
+          "KOACT 1000mg H15 T72",
+          "",
+          "71.428,5714",
+          "0,0000",
+          "0,0000",
+          "0,0000",
+          ""
+        ]
+      },
+      {
+        "row": 3,
+        "raw_cells": [
+          "001.0",
+          "CEFMETAZOL 0,5g",
+          "0,00",
+          "0,0000",
+          "13.428,5700",
+          "14.000,0000",
+          "0,0000",
+          ""
+        ]
+      },
+      {
+        "row": 4,
+        "raw_cells": [
+          "001.00040 KĐ",
+          "AGIDECOTYL 250mg (AGP) H100 T110",
+          "",
+          "39.047,6200",
+          "0,0000",
+          "0,0000",
+          "0,0000",
+          ""
+        ]
+      },
+      {
+        "row": 5,
+        "raw_cells": [
+          "001.00076 ĐN CL",
+          "AGINTIDIN 300mg BF (AGP) H100 T140",
+          "0,00",
+          "70.000,0000",
+          "0,0000",
+          "0,0000",
+          "0,0000",
+          ""
+        ]
+      },
+      {
+        "row": 6,
+        "raw_cells": [
+          "001.00121",
+          "CHARCOAL 25g (AGP-VN) T80",
+          "",
+          "25.714,2800",
+          "0,0000",
+          "0,0000",
+          "0,0000",
+          ""
+        ]
+      },
+      {
+        "row": 7,
+        "raw_cells": [
+          "AGIMEXPHARM",
+          "CÔNG TY CP DƯỢC PHẨM AGIMEXPHARM",
+          "1600699279",
+          "Số 27 Nguyễn Thái Học, Phường Long Xuyên, An Giang",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 8,
+        "raw_cells": [
+          "BACHHL",
+          "CÔNG TY TNHH DƯỢC PHẨM HẢI LONG",
+          "3100320249",
+          "Số 09 – Võ Thị Sáu – Nam Lý – Đồng Hới – Quảng Bình",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 9,
+        "raw_cells": [
+          "BINH199-E",
+          "BỆNH VIỆN 199 - BỘ CÔNG AN",
+          "0401557969",
+          "216 Nguyễn Công Trứ, Phường An Hải, Thành phố Đà Nẵng, Việt Nam.",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 10,
+        "raw_cells": [
+          "BINHAD-E",
+          "TRẠI GIAM AN ĐIỀM – CỤC C10",
+          "4000935762",
+          "Thôn Đại Mỹ, Xã Thượng Đức, Thành phố Đà Nẵng",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 11,
+        "raw_cells": [
+          "BINHBA-E",
+          "CÔNG TY TNHH PHÒNG KHÁM ĐA KHOA BÌNH AN",
+          "4000787433",
+          "Khối Long Xuyên 1, Xã Nam Phước, Thành phố Đà Nẵng, Việt Nam.",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 12,
+        "raw_cells": [
+          "BINHBA-O",
+          "CÔNG TY TNHH PHÒNG KHÁM ĐA KHOA BÌNH AN",
+          "4000787433",
+          "Khối Long Xuyên 1, Xã Nam Phước, Thành phố Đà Nẵng, Việt Nam.",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 13,
+        "raw_cells": [
+          "101.01275 KĐ",
+          "EZENSIMVA 10/10 (AGP-VN) H60 T168",
+          ""
+        ]
+      },
+      {
+        "row": 14,
+        "raw_cells": [
+          "001.00359 ĐN",
+          "KETOVAZOL 2% TUBE 5g (AGP) H1 T360",
+          ""
+        ]
+      },
+      {
+        "row": 15,
+        "raw_cells": [
+          "301.00194",
+          "POVIDONE 10% 20ml (AGP) T176",
+          ""
+        ]
+      },
+      {
+        "row": 16,
+        "raw_cells": [
+          "101.00001 ĐN-BHOA-R",
+          "ACECYST 200mg (AGP) H100 T84",
+          ""
+        ]
+      },
+      {
+        "row": 17,
+        "raw_cells": [
+          "101.00913 ĐN -R",
+          "STATINAGI 20 (AGP) H60 T140",
+          ""
+        ]
+      },
+      {
+        "row": 18,
+        "raw_cells": [
+          "",
+          "1",
+          "001.00040 KĐ",
+          "AGIDECOTYL 250mg (AGP) H100 T110",
+          "on",
+          "156",
+          "1561",
+          "131",
+          "H100",
+          "1,00",
+          "39.047,6200",
+          "39.048",
+          "5",
+          "1.952",
+          "",
+          "",
+          "33311",
+          "5111",
+          "on",
+          "",
+          "",
+          ""
+        ]
+      }
+    ]
+  },
+  "page_title": "BH150178l | CHI NHÁNH CÔNG TY CP DƯỢC PHẨM AGIMEXPHARM | Kế toán"
+}

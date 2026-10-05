@@ -1,0 +1,27 @@
+{
+  "extracted_at": "23:36:24 5/10/2026",
+  "total_api_calls": 1,
+  "api_urls": [
+    "POST /APIS/MiscAPI/api/monitor/personal/Accounting?buildver=2026-09-29T07%3A09%3A50.277Z&misacorever=2.0.0-release&uid=&tid="
+  ],
+  "voucher_structured": null,
+  "all_captured_responses": [
+    {
+      "url": "/APIS/MiscAPI/api/monitor/personal/Accounting?buildver=2026-09-29T07%3A09%3A50.277Z&misacorever=2.0.0-release&uid=&tid=",
+      "keys": [
+        "ValidateInfo",
+        "Success",
+        "Code",
+        "SubCode",
+        "UserMessage",
+        "SystemMessage",
+        "Data",
+        "GetLastData",
+        "ServerTime",
+        "TraceID"
+      ],
+      "sample": "{\"ValidateInfo\":[],\"Success\":true,\"Code\":0,\"SubCode\":0,\"UserMessage\":null,\"SystemMessage\":null,\"Data\":{\"Ads_AMISMobile\":true,\"NPS_Sync\":\"2025-07-14T08:02:59.574+07:00\",\"NPS_CheckTime\":\"2026-10-05T08:16:04.355+07:00\",\"FirstAccess_Accounting\":\"2025-07-14T08:03:19.750+07:00\"},\"GetLastData\":true,\"Server"
+    }
+  ],
+  "voucher_raw_full": null
+}
