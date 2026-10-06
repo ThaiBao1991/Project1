@@ -1,4 +1,4 @@
-{
+window.MBC_DEFAULT_DATABASE = {
   "version": "2.6",
   "currentUser": {
     "id": "admin",
@@ -305,4 +305,4 @@
       "note": "Kiểm tra chạy thử toàn tải máy TUM"
     }
   ]
-}
+};

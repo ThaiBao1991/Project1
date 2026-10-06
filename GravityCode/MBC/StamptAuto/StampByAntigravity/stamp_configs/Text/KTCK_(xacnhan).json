@@ -1,9 +1,9 @@
 {
     "folder_path": "C:/Users/12953 bao/Desktop/CodingTest/Test/Dong dau",
-    "pdf_sample_path": "C:/Users/12953 bao/Desktop/CodingTest/Test/Dong dau/L624605016-3.pdf",
+    "pdf_sample_path": "C:/Users/12953 Bao/Desktop/053-03-0016 copy.pdf",
     "stamp_image_path": "C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png",
     "template_image_path": "",
-    "scale_percent": 10.0,
+    "scale_percent": 15.0,
     "use_template_matching": true,
     "match_threshold": 80.0,
     "page_number": 0,
@@ -22,7 +22,8 @@
     "text_match_mode": "first",
     "text_match_count": 1,
     "text_offset_x": -20.0,
-    "text_offset_y": 10.0,
+    "text_offset_y": 15.0,
+    "apply_to_all_pages": false,
     "use_annotation": false,
     "file_format": "pdf"
 }

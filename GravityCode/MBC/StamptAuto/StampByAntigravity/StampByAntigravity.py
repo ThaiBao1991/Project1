@@ -30,22 +30,49 @@ import traceback
 import shutil
 import io
 
+import subprocess
 from pathlib import Path
 from datetime import datetime
+
+# ── Tự động kiểm tra & cài đặt thư viện thiếu ────────────────────────────────
+REQUIRED_PACKAGES = {
+    'fitz':  'pymupdf>=1.23.0',
+    'PIL':   'Pillow>=10.0.0',
+    'cv2':   'opencv-python>=4.8.0',
+    'numpy': 'numpy>=1.24.0',
+}
+
+def check_and_install_packages():
+    missing = []
+    for module_name, pip_name in REQUIRED_PACKAGES.items():
+        try:
+            __import__(module_name)
+        except ImportError:
+            missing.append(pip_name)
+
+    if not missing:
+        return
+
+    print(f"[*] Đang tự động cài đặt thư viện còn thiếu: {', '.join(missing)}")
+    try:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", *missing])
+        print("[*] Cài đặt thư viện thành công!")
+    except Exception as e:
+        print(f"[-] Không thể tự động cài đặt ({e}). Vui lòng cài thủ công: pip install {' '.join(missing)}")
+
+check_and_install_packages()
 
 # ── Thư viện ảnh và PDF ──────────────────────────────────────────────────────
 try:
     import fitz  # PyMuPDF
 except ImportError:
     print("LỖI: Thiếu thư viện PyMuPDF. Cài đặt bằng: pip install PyMuPDF")
-    input("Nhấn Enter để thoát...")
     sys.exit(1)
 
 try:
     from PIL import Image
 except ImportError:
     print("LỖI: Thiếu thư viện Pillow. Cài đặt bằng: pip install Pillow")
-    input("Nhấn Enter để thoát...")
     sys.exit(1)
 
 try:

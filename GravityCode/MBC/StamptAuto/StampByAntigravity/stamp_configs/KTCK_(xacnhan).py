@@ -2,8 +2,8 @@ r"""
 KTCK_(xacnhan).py — Config đóng dấu tự chứa (Self-Contained Stamp Config)
 =========================================================================
 Tên config  : KTCK_(xacnhan)
-Tạo lúc     : 2026-06-10 09:57:58
-Nguồn JSON  : c:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\Text\KTCK_(xacnhan).json
+Tạo lúc     : 2026-10-06 11:31:50
+Nguồn JSON  : C:\Users\12953 Bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\stamp_configs\Text\KTCK_(xacnhan).json
 Ảnh gốc     : C:/Users/12953 bao/Desktop/CodingTest/Test/Con dau/condauBao.png
 Kích thước  : 5 KB (embed base64)
 Format ảnh  : PNG
@@ -25,7 +25,7 @@ import io
 CONFIG_NAME          = "KTCK_(xacnhan)"
 
 # Tỉ lệ phóng to/thu nhỏ ảnh dấu (%) — 100 = nguyên kích thước gốc
-SCALE_PERCENT        = 10.0
+SCALE_PERCENT        = 15.0
 
 # Template Matching: True = tìm vị trí tự động, False = vị trí cố định
 USE_TEMPLATE_MATCHING = True
@@ -37,7 +37,7 @@ MATCH_THRESHOLD      = 80.0
 PAGE_NUMBER          = 0
 
 # True = đóng dấu TẤT CẢ trang, False = chỉ trang PAGE_NUMBER
-APPLY_TO_ALL_PAGES   = True
+APPLY_TO_ALL_PAGES   = False
 
 # Vùng khoanh trên canvas preview [x1, y1, x2, y2] (pixel canvas)
 STAMP_BBOX           = None
@@ -55,7 +55,7 @@ ANCHOR_TEXT          = "Xác nhận"
 TEXT_MATCH_MODE      = "first"  # "first", "custom", "all"
 TEXT_MATCH_COUNT     = 1
 TEXT_OFFSET_X        = -20.0
-TEXT_OFFSET_Y        = 10.0
+TEXT_OFFSET_Y        = 15.0
 
 # Loại đóng dấu: False = In chết vào PDF (Hard Stamp), True = Tạo Annotation nổi (nếu hỗ trợ)
 USE_ANNOTATION       = False

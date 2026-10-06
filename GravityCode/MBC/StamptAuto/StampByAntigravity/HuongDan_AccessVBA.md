@@ -34,11 +34,12 @@ Sub DongDauPDF()
     Dim configName As String
     Dim cmd As String
     
-    ' 1. Đường dẫn tới file python.exe của hệ thống
-    pythonExe = "C:\Python312\python.exe"
+    ' 1. Đường dẫn tới file python.exe của hệ thống (dùng "python" nếu đã có trong PATH hoặc đường dẫn tuyệt đối)
+    pythonExe = "python"
+    ' pythonExe = "C:\Users\12953 Bao\AppData\Local\Programs\Python\Python310\python.exe"
     
     ' 2. Đường dẫn tới file Engine chính: StampByAntigravity.py
-    scriptPathNew = "C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\StampByAntigravity.py"
+    scriptPathNew = "C:\Users\12953 Bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\StampByAntigravity.py"
     
     ' 3. Đường dẫn tới file PDF thực tế bạn muốn đóng dấu ngay lúc này
     ' (Có thể lấy từ tham số truyền vào, hoặc đường dẫn động từ CSDL của bạn)

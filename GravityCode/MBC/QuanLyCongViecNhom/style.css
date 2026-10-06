@@ -43,6 +43,15 @@
   border-radius: 2px 0 0 2px;
 }
 
+/* Mũi tên Tạm dừng / Dừng dự án (Xám sọc / Cam đất) */
+.timeline-arrow-paused {
+  background: repeating-linear-gradient(45deg, #64748b, #64748b 8px, #475569 8px, #475569 16px);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+  height: 18px;
+  position: relative;
+  border-radius: 2px 0 0 2px;
+}
+
 /* Chevron mũi tên kết thúc bên phải */
 .arrow-head-plan {
   width: 0;
@@ -74,6 +83,18 @@
   border-top: 9px solid transparent;
   border-bottom: 9px solid transparent;
   border-left: 12px solid #ea580c;
+  position: absolute;
+  right: -12px;
+  top: 0;
+  z-index: 10;
+}
+
+.arrow-head-paused {
+  width: 0;
+  height: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-left: 12px solid #475569;
   position: absolute;
   right: -12px;
   top: 0;

@@ -2,9 +2,10 @@
 
 ## 1. Cấu Trúc Thư Mục & Cách Khởi Chạy
 - **index.html**: Giao diện chính của ứng dụng. Bạn chỉ cần **nhấp đúp chuột** vào file này để mở trực tiếp trên trình duyệt (Chrome, Edge, Firefox, Cốc Cốc) mà không cần cài đặt server.
+- **database.js**: File cơ sở dữ liệu nền tảng JavaScript (chứa biến `window.MBC_DEFAULT_DATABASE`), giúp ứng dụng nạp dữ liệu tức thì 100% trơn tru khi mở trực tiếp file HTML offline mà không bị chặn bởi bảo mật CORS của trình duyệt.
 - **style.css**: Chứa toàn bộ giao diện thẩm mỹ, màu sắc và biểu đồ mũi tên.
 - **app.js**: Chứa toàn bộ logic xử lý dữ liệu, phân cấp công việc, chuyển đổi Ngày/Tuần/Tháng và xuất Excel.
-- **database.json**: Toàn bộ cơ sở dữ liệu hệ thống (2026-2027).
+- **database.json**: Toàn bộ cơ sở dữ liệu hệ thống (2026-2027) dùng để sao lưu và đồng bộ.
 - **tasks.json**: File dữ liệu danh sách công việc.
 - **employees.json**: File danh sách nhân sự.
 

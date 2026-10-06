@@ -169,3 +169,33 @@ Nếu bạn là AI assistant đang làm việc trên project này, hãy thực h
 - Fix load_config(): Neu pdf_sample_path trong config khong con ton tai, canh bao nen log va bo qua viec load preview (thay vi crash sau).
 
 *Cap nhat lan cuoi: 2026-07-07 13:20 (GMT+7)*
+
+### [2026-10-06] Khac phuc loi moi truong khong chay duoc & Tich hop Auto-Install
+- **Nguyen nhan loi khong chay duoc**:
+  - Cac file bat (`Chay_Giao_Dien.bat`, `test_stamp.bat`) va module VBA (`AccessVBA_StampByAntigravity.bas`) bi hardcode duong dan `C:\Python312\python.exe` von khong ton tai tren may (may hien tai chi co Python 3.10).
+  - Moi truong Python 3.10 chua duoc cai dat cac thu vien can thiet: `Pillow`, `opencv-python`, `numpy`.
+  - `main_gui.py` va `StampByAntigravity.py` chua co co che tu phuc hoi/tu cai dat thu vien, dong thoi `StampByAntigravity.py` co lenh `input()` gay treo vo han khi Access VBA goi ngam.
+- **Cac thay doi da thuc hien**:
+  - Cai dat day du `Pillow`, `opencv-python`, `numpy` tren moi truong Python 3.10.
+  - Cap nhat `Chay_Giao_Dien.bat` va `test_stamp.bat` tu dong do tim Python kha dung (qua PATH, `py -3`, hoac cac duong dan Python User/System).
+  - Tich hop pattern `check_and_install_packages()` tu dong kiem tra va cai dat thu vien thieu vao ca `StampByAntigravity.py` va `main_gui.py`.
+  - Loai bo `input()` gay treo tien trinh ngam trong `StampByAntigravity.py`.
+  - Cap nhat `PYTHON_EXE` thanh `python` trong `AccessVBA_StampByAntigravity.bas` va `HuongDan_AccessVBA.md`.
+- **Kiem tra (Verification)**:
+  - `test_stamp.bat` chay thanh cong (exit code 0), nhan dien day du 4 thu vien (`PyMuPDF`, `Pillow`, `OpenCV`, `NumPy`) va 4 cau hinh co san.
+  - `StampApp` (GUI) khoi tao thanh cong, khong co loi syntax hay runtime.
+
+*Cap nhat lan cuoi: 2026-10-06 07:46 (GMT+7)*
+
+### [2026-10-06] Sua loi Dong Dau Toan Bo Trang khi dung Text Anchor "first"
+- **Nguyen nhan**: `APPLY_TO_ALL_PAGES = True` trong config khien engine duyet qua TAT CA trang va dong dau trang nao tim thay chu "Xac nhan". Bien `text_match_mode = "first"` chi gioi han 1 lan tim kiem TREN MOI TRANG, khong phai tren toan file.
+- **Them bien moi `apply_to_all_pages` (tk.BooleanVar)** vao `main_gui.py`:
+  - Khai bao trong `__init__` (default = True de khong anh huong config cu).
+  - Them Checkbox "Dong dau TAT CA trang (bo tick = chi dong trang dau tien tim thay chu)" vao tab "Dong Dau Theo Chu".
+  - Dong bo qua `save_config()`, `get_current_ui_config()`, `load_config()`.
+- **Cap nhat config HIEUCHINH_(xacnhan)**:
+  - `HIEUCHINH_(xacnhan).py`: APPLY_TO_ALL_PAGES = False.
+  - `stamp_configs/Text/HIEUCHINH_(xacnhan).json`: them "apply_to_all_pages": false.
+- **Ket qua**: Khi Uncheck "Dong dau TAT CA trang" trong GUI, chi trang dau tien (trong ca file PDF) tim thay chu "Xac nhan" moi bi dong dau.
+
+*Cap nhat lan cuoi: 2026-10-06 09:32 (GMT+7)*

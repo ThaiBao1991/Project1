@@ -17,8 +17,10 @@ Attribute VB_Name = "StampByAntigravity_Module"
 ' ============================================================
 
 ' ── Cấu hình đường dẫn cố định ─────────────────────────────
-Private Const PYTHON_EXE   As String = "C:\Python312\python.exe"
-Private Const SCRIPT_PATH  As String = "C:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\StampByAntigravity.py"
+' Có thể dùng "python" (nếu đã có trong PATH) hoặc đường dẫn tuyệt đối:
+' Ví dụ: "C:\Users\12953 Bao\AppData\Local\Programs\Python\Python310\python.exe"
+Private Const PYTHON_EXE   As String = "python"
+Private Const SCRIPT_PATH  As String = "C:\Users\12953 Bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\StamptAuto\StampByAntigravity\StampByAntigravity.py"
 
 ' ── Hàm đóng dấu 1 file với 1 config ─────────────────────
 Public Function StampOneFile(pdfPath As String, configName As String) As Boolean

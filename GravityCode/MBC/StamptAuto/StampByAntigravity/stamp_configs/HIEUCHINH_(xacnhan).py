@@ -36,8 +36,8 @@ MATCH_THRESHOLD      = 80.0
 # Trang mẫu để cắt template (0-based)
 PAGE_NUMBER          = 0
 
-# True = đóng dấu TẤT CẢ trang, False = chỉ trang PAGE_NUMBER
-APPLY_TO_ALL_PAGES   = True
+# True = đóng dấu TẤT CẢ trang, False = chỉ đóng trang đầu tiên tìm thấy chữ (kết hợp với TEXT_MATCH_MODE="first")
+APPLY_TO_ALL_PAGES   = False
 
 # Vùng khoanh trên canvas preview [x1, y1, x2, y2] (pixel canvas)
 STAMP_BBOX           = None

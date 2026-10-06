@@ -18,9 +18,47 @@ import json
 import shutil
 import io
 import traceback
+import subprocess
 from datetime import datetime
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox, simpledialog
+
+# ── Tự động kiểm tra & cài đặt thư viện thiếu ────────────────────────────────
+REQUIRED_PACKAGES = {
+    'fitz':  'pymupdf>=1.23.0',
+    'PIL':   'Pillow>=10.0.0',
+    'cv2':   'opencv-python>=4.8.0',
+    'numpy': 'numpy>=1.24.0',
+}
+
+def check_and_install_packages():
+    missing = []
+    for module_name, pip_name in REQUIRED_PACKAGES.items():
+        try:
+            __import__(module_name)
+        except ImportError:
+            missing.append(pip_name)
+
+    if not missing:
+        return
+
+    print(f"[*] Đang tự động cài đặt thư viện còn thiếu: {', '.join(missing)}")
+    try:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", *missing])
+        print("[*] Cài đặt thư viện thành công!")
+    except Exception:
+        root = tk.Tk()
+        root.withdraw()
+        messagebox.showerror(
+            "Lỗi Thiếu Thư Viện",
+            f"Ứng dụng thiếu thư viện ({', '.join(missing)}) và không thể tự cài đặt.\n"
+            f"Vui lòng chạy lệnh sau trong CMD:\n\n"
+            f"python -m pip install {' '.join(missing)}"
+        )
+        sys.exit(1)
+
+check_and_install_packages()
+
 from PIL import Image, ImageTk, ImageDraw
 import fitz
 import cv2
@@ -93,6 +131,11 @@ class StampApp:
         # --- Advanced Options ---
         self.use_annotation = tk.BooleanVar(value=False)
         self.remove_mode = tk.BooleanVar(value=False)
+        
+        # --- Page Scope ---
+        # True  = đóng dấu TẤT CẢ trang trong file
+        # False = chỉ đóng dấu TRANG ĐẦU TIÊN tìm thấy chữ (text_match_mode "first" đúng nghĩa)
+        self.apply_to_all_pages = tk.BooleanVar(value=True)
         
         self.setup_ui()
         self.refresh_category_list()
@@ -235,6 +278,16 @@ class StampApp:
         
         ttk.Label(f, text="Lệch Y:").grid(row=row, column=2, sticky=tk.E, pady=5)
         ttk.Entry(f, textvariable=self.text_offset_y, width=10).grid(row=row, column=3, sticky=tk.W, padx=5)
+        row += 1
+        
+        # Checkbox: phạm vi trang đóng dấu
+        chk_frame = ttk.Frame(f)
+        chk_frame.grid(row=row, column=0, columnspan=4, sticky=tk.W, pady=4)
+        ttk.Checkbutton(
+            chk_frame,
+            text="Đóng dấu TẤT CẢ trang  (bỏ tick = chỉ đóng trang đầu tiên tìm thấy chữ)",
+            variable=self.apply_to_all_pages
+        ).pack(side=tk.LEFT)
         row += 1
         
         # Action Buttons
@@ -609,6 +662,8 @@ class StampApp:
             "text_offset_x": self.text_offset_x.get(),
             "text_offset_y": self.text_offset_y.get(),
             
+            "apply_to_all_pages": self.apply_to_all_pages.get(),
+            
             "use_annotation": self.use_annotation.get(),
             "file_format": self.file_format.get()
         }
@@ -689,6 +744,7 @@ class StampApp:
         self.text_offset_y.set(c.get("text_offset_y", 0.0))
         
         self.use_annotation.set(c.get("use_annotation", False))
+        self.apply_to_all_pages.set(c.get("apply_to_all_pages", True))
         
         if self.use_text_anchor.get():
             self.notebook.select(1)
@@ -812,7 +868,7 @@ class StampApp:
             "use_template_matching": self.use_template_matching.get(),
             "match_threshold":       self.match_threshold.get(),
             "page_number":           self.current_page_num,
-            "apply_to_all_pages":    True,
+            "apply_to_all_pages":    self.apply_to_all_pages.get(),
             # Dùng stamp_bbox_pdf (đơn vị PDF points) để engine hoạt động đúng
             "stamp_bbox":            self.stamp_bbox_pdf,
             "stamp_center":          self.stamp_center,
