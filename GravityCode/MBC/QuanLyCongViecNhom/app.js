@@ -10,9 +10,10 @@
 
 // ================= CONSTANTS & STATE =================
 const STORAGE_KEY = 'MBC_WORK_MANAGEMENT_DATA_V2';
+const DB_VERSION  = '3.1'; // Bump này khi muốn xóa cache LocalStorage & nạp lại từ database.js
 
 let appData = {
-  version: '2.6',
+  version: '3.1',
   currentUser: {
     id: 'admin',
     name: 'Quản trị viên (Admin)',
@@ -20,7 +21,8 @@ let appData = {
     dept: 'Ban Quản Trị'
   },
   employees: [],
-  tasks: []
+  tasks: [],
+  holidays: []
 };
 
 // View State
@@ -34,29 +36,107 @@ let viewState = {
   filterEndDate: '',
   filterYear: '2026',
   filterStatus: 'CHUA_HOAN_THANH', // Mặc định là các việc có chữ Hoàn thành sẽ không hiện ra
+  filterPriority: 'ALL',
+  filterSortBy: 'EMP_START',
+  filterMainTask: 'ALL',
   filterKeyword: '',
   groupByParent: false
 };
 
 // ================= HÀM HỖ TRỢ XÁC ĐỊNH KHOẢNG NĂM & CÔNG VIỆC CHÍNH =================
 function getTasksYearSpan() {
-  let minY = 2026;
-  let maxY = 2029;
-  if (appData && Array.isArray(appData.tasks)) {
-    appData.tasks.forEach(t => {
-      const s = parseDate(t.startDate);
-      const e = parseDate(t.actualEndDate || t.planEndDate);
-      if (s) {
-        minY = Math.min(minY, s.getFullYear());
-        maxY = Math.max(maxY, s.getFullYear());
-      }
-      if (e) {
-        minY = Math.min(minY, e.getFullYear());
-        maxY = Math.max(maxY, e.getFullYear());
-      }
-    });
+  // Ưu tiên khoảng lọc tự do nếu người dùng đã chọn
+  if (viewState.filterStartDate && viewState.filterEndDate) {
+    const fs = parseDate(viewState.filterStartDate);
+    const fe = parseDate(viewState.filterEndDate);
+    if (fs && fe) {
+      return { minYear: fs.getFullYear(), maxYear: fe.getFullYear() };
+    }
   }
-  return { minYear: minY, maxYear: Math.max(maxY, 2029) };
+
+  let minY = 9999;
+  let maxY = 2026;
+  const tasks = appData && Array.isArray(appData.tasks) ? appData.tasks : [];
+  // Chỉ xét tasks theo bộ lọc nhân viên đang active
+  const src = viewState.filterEmp !== 'ALL' ? tasks.filter(t => t.empId === viewState.filterEmp) : tasks;
+  src.forEach(t => {
+    const s = parseDate(t.startDate);
+    const e = parseDate(t.actualEndDate || t.planEndDate);
+    if (s) {
+      minY = Math.min(minY, s.getFullYear());
+      maxY = Math.max(maxY, s.getFullYear());
+    }
+    if (e) {
+      minY = Math.min(minY, e.getFullYear());
+      maxY = Math.max(maxY, e.getFullYear());
+    }
+  });
+  if (minY === 9999) minY = 2026;
+  return { minYear: minY, maxYear: Math.max(maxY, minY) };
+}
+
+/**
+ * Tính khoảng tháng thực tế của danh sách task (dùng cho MONTH view).
+ * Trả về { startYear, startMonth, endYear, endMonth } — chỉ trải đúng từ
+ * tháng bắt đầu sớm nhất → tháng kết thúc muộn nhất trong tập task.
+ */
+function getTasksMonthSpan(taskList) {
+  const now = new Date();
+  let minDate = null;
+  let maxDate = null;
+
+  const source = (taskList && taskList.length > 0) ? taskList : (appData.tasks || []);
+  source.forEach(t => {
+    const s = parseDate(t.startDate);
+    const e = parseDate(t.actualEndDate || t.planEndDate);
+    if (s && (!minDate || s < minDate)) minDate = s;
+    if (e && (!maxDate || e > maxDate)) maxDate = e;
+  });
+
+  if (!minDate) minDate = new Date(now.getFullYear(), now.getMonth(), 1);
+  if (!maxDate) maxDate = new Date(now.getFullYear(), 11, 31);
+
+  return {
+    startYear:  minDate.getFullYear(),
+    startMonth: minDate.getMonth() + 1,
+    endYear:    maxDate.getFullYear(),
+    endMonth:   maxDate.getMonth() + 1
+  };
+}
+
+/**
+ * Sinh mã công việc theo chuẩn CV-YYYY-XXXX.
+ * Tự động tìm số thứ tự lớn nhất trong năm year để tăng dần tuần tự.
+ */
+function generateNextTaskId(year) {
+  const y = year || new Date().getFullYear();
+  const prefix = `CV-${y}-`;
+  let maxNum = 0;
+  (appData.tasks || []).forEach(t => {
+    if (t.id && t.id.startsWith(prefix)) {
+      const num = parseInt(t.id.slice(prefix.length), 10);
+      if (!isNaN(num) && num > maxNum) maxNum = num;
+    }
+    if (t.mainTaskId && t.mainTaskId.startsWith(prefix)) {
+      const num = parseInt(t.mainTaskId.slice(prefix.length), 10);
+      if (!isNaN(num) && num > maxNum) maxNum = num;
+    }
+  });
+  return `${prefix}${String(maxNum + 1).padStart(4, '0')}`;
+}
+
+/**
+ * Hiển thị thời gian dự kiến linh hoạt theo đơn vị (giờ, ngày, tuần, tháng)
+ */
+function formatPlanDuration(task) {
+  if (!task) return '1 ngày';
+  if (task.planDuration && task.planUnit) {
+    return `${task.planDuration} ${task.planUnit}`;
+  }
+  if (task.planDays) {
+    return `${task.planDays} ngày`;
+  }
+  return '1 ngày';
 }
 
 function getMainTaskProgress(mainTaskId) {
@@ -115,8 +195,44 @@ function dateDiffInDays(d1, d2) {
   return Math.round(diffTime / (1000 * 60 * 60 * 24));
 }
 
+// Kiểm tra ngày có thuộc Lịch nghỉ đặc biệt / Ngày lễ không
+function getHolidayInfo(d) {
+  if (!d || !appData || !Array.isArray(appData.holidays)) return null;
+  const dStr = formatDate(d);
+  return appData.holidays.find(h => h.date === dStr) || null;
+}
+
+// Huy hiệu màu sắc theo nguồn yêu cầu (Giám đốc, Trưởng phòng, Đối ứng, Cải tiến, Khác)
+function getSourceBadge(source) {
+  if (!source) return '';
+  const s = source.trim();
+  if (s.includes('Giám đốc')) {
+    return '<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-bold bg-purple-100 text-purple-800 border border-purple-300 shadow-sm" title="Yêu cầu từ: Giám đốc"><i class="fa-solid fa-crown text-[8px] text-purple-600"></i> Giám đốc</span>';
+  } else if (s.includes('Trưởng phòng')) {
+    return '<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-bold bg-blue-100 text-blue-800 border border-blue-300 shadow-sm" title="Yêu cầu từ: Trưởng phòng"><i class="fa-solid fa-user-tie text-[8px] text-blue-600"></i> Trưởng phòng</span>';
+  } else if (s.includes('Đối ứng')) {
+    return '<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-100 text-amber-800 border border-amber-300 shadow-sm" title="Yêu cầu: Đối ứng sự cố"><i class="fa-solid fa-bolt text-[8px] text-amber-600"></i> Đối ứng</span>';
+  } else if (s.includes('Cải thiện') || s.includes('Cải tiến')) {
+    return '<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-sm" title="Yêu cầu: Cải thiện nội bộ"><i class="fa-solid fa-arrow-trend-up text-[8px] text-emerald-600"></i> Cải tiến</span>';
+  } else if (s.includes('Chiến lược')) {
+    return '<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-bold bg-rose-100 text-rose-800 border border-rose-300 shadow-sm" title="Dự án chiến lược"><i class="fa-solid fa-chess text-[8px] text-rose-600"></i> Chiến lược</span>';
+  } else {
+    return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-medium bg-slate-100 text-slate-700 border border-slate-300">${s}</span>`;
+  }
+}
+
 // ================= LƯU TRỮ LOCALSTORAGE & NẠP DỮ LIỆU BAN ĐẦU =================
 async function loadInitialData() {
+  // Kiểm tra version: nếu DB_VERSION khác version đang lưu -> xóa cache nạp lại mới
+  try {
+    const savedVer = localStorage.getItem(STORAGE_KEY + '_VER');
+    if (savedVer !== DB_VERSION) {
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.setItem(STORAGE_KEY + '_VER', DB_VERSION);
+      console.log(`[MBC Data] Phiên bản DB mới (${DB_VERSION}), đã xóa cache cũ và sẽ nạp lại dữ liệu...`);
+    }
+  } catch(e) {}
+
   // LỚP 1: Kiểm tra LocalStorage xem người dùng đã có dữ liệu lưu trữ hợp lệ chưa
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -124,6 +240,11 @@ async function loadInitialData() {
       const parsed = JSON.parse(raw);
       if (parsed && Array.isArray(parsed.employees) && Array.isArray(parsed.tasks) && parsed.tasks.length > 0) {
         appData = parsed;
+        if (!appData.holidays || !Array.isArray(appData.holidays) || appData.holidays.length === 0) {
+          if (window.MBC_DEFAULT_DATABASE && Array.isArray(window.MBC_DEFAULT_DATABASE.holidays)) {
+            appData.holidays = JSON.parse(JSON.stringify(window.MBC_DEFAULT_DATABASE.holidays));
+          }
+        }
         console.log(`[MBC Data] Nạp thành công dữ liệu từ LocalStorage: ${appData.tasks.length} công việc, ${appData.employees.length} nhân sự`);
         return;
       }
@@ -131,6 +252,7 @@ async function loadInitialData() {
   } catch (err) {
     console.warn('[MBC Data] Lỗi đọc LocalStorage:', err);
   }
+
 
   // LỚP 2: Xem xét và nạp từ window.MBC_DEFAULT_DATABASE (được nạp sẵn từ database.js qua thẻ <script>, không bị CORS chặn)
   if (typeof window !== 'undefined' && window.MBC_DEFAULT_DATABASE && Array.isArray(window.MBC_DEFAULT_DATABASE.tasks) && window.MBC_DEFAULT_DATABASE.tasks.length > 0) {
@@ -160,6 +282,7 @@ async function loadInitialData() {
 function saveDataToStorage() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+    renderFilterMainTasksSelect();
   } catch (err) {
     console.error('Lỗi lưu LocalStorage:', err);
   }
@@ -340,34 +463,121 @@ function closeUserDropdown() {
   if (el) el.classList.add('hidden');
 }
 
-// ================= GOM NHÓM & SẮP XẾP CÔNG VIỆC CÙNG DỰ ÁN LIỀN NHAU =================
+// ================= BỐ TRÍ & SẮP XẾP CÔNG VIỆC THEO NHIỀU TIÊU CHÍ =================
 function groupAndSortTasks(taskList) {
   if (!taskList || taskList.length === 0) return [];
 
-  // Tạo Map gom nhóm: key ưu tiên theo mainTaskId, nếu không có thì mainTaskTitle, sau đó title
-  const groups = new Map();
-  const groupOrder = [];
+  const sortBy = viewState.filterSortBy || (document.getElementById('filterSortBy') ? document.getElementById('filterSortBy').value : 'EMP_START');
 
-  taskList.forEach(task => {
-    const rawKey = (task.mainTaskId || task.mainTaskTitle || task.title || 'CV-KHAC').trim().toUpperCase();
-    if (!groups.has(rawKey)) {
-      groups.set(rawKey, []);
-      groupOrder.push(rawKey);
-    }
-    groups.get(rawKey).push(task);
-  });
+  // 1. Thứ tự mã việc (Mã CV tăng dần)
+  if (sortBy === 'TASK_ID') {
+    return [...taskList].sort((a, b) => (a.id || '').localeCompare(b.id || '', undefined, { numeric: true, sensitivity: 'base' }));
+  }
 
-  const sortedTasks = [];
-  groupOrder.forEach(key => {
-    const items = groups.get(key);
-    // Sắp xếp các công việc con trong nhóm theo Ngày bắt đầu tăng dần, sau đó theo ID
-    items.sort((a, b) => {
+  // 2. Ngày bắt đầu (Sớm nhất trước)
+  if (sortBy === 'START_DATE') {
+    return [...taskList].sort((a, b) => {
       const da = parseDate(a.startDate) || new Date(0);
       const db = parseDate(b.startDate) || new Date(0);
       if (da.getTime() !== db.getTime()) return da.getTime() - db.getTime();
       return (a.id || '').localeCompare(b.id || '');
     });
-    sortedTasks.push(...items);
+  }
+
+  // 3. Hạn hoàn thành / Deadline (Deadline gấp nhất lên trước)
+  if (sortBy === 'DEADLINE') {
+    return [...taskList].sort((a, b) => {
+      const da = parseDate(a.planEndDate) || new Date(9999, 0, 1);
+      const db = parseDate(b.planEndDate) || new Date(9999, 0, 1);
+      if (da.getTime() !== db.getTime()) return da.getTime() - db.getTime();
+      return (a.id || '').localeCompare(b.id || '');
+    });
+  }
+
+  // 4. Mức độ ưu tiên (Giám đốc ➔ Trưởng phòng ➔ Đối ứng ➔ Cải tiến ➔ Chiến lược ➔ Khác)
+  if (sortBy === 'PRIORITY') {
+    const getPriorityWeight = (src) => {
+      if (!src) return 99;
+      const s = src.toLowerCase();
+      if (s.includes('giám đốc')) return 1;
+      if (s.includes('trưởng phòng')) return 2;
+      if (s.includes('đối ứng')) return 3;
+      if (s.includes('cải tiến') || s.includes('cải thiện')) return 4;
+      if (s.includes('chiến lược')) return 5;
+      return 6;
+    };
+    return [...taskList].sort((a, b) => {
+      const wa = getPriorityWeight(a.taskSource);
+      const wb = getPriorityWeight(b.taskSource);
+      if (wa !== wb) return wa - wb;
+      const da = parseDate(a.startDate) || new Date(0);
+      const db = parseDate(b.startDate) || new Date(0);
+      return da.getTime() - db.getTime();
+    });
+  }
+
+  // 5. Quá hạn / Cần cập nhật tình trạng lên đầu
+  if (sortBy === 'OVERDUE') {
+    const systemToday = new Date(2026, 9, 7);
+    const getOverdueScore = (task) => {
+      const isCompleted = task.status === 'Hoàn thành' || task.status === 'Hoàn thành trễ' || !!task.actualEndDate;
+      const isPaused = task.status === 'Tạm dừng' || task.status === 'Dừng dự án';
+      if (isCompleted) return 100;
+      if (isPaused) return 80;
+      const pEnd = parseDate(task.planEndDate);
+      const isOverdue = pEnd && systemToday > pEnd;
+      const lastUpdate = parseDate(task.lastStatusUpdate || task.startDate);
+      const daysSinceUpdate = lastUpdate ? Math.floor((systemToday - lastUpdate) / (1000 * 60 * 60 * 24)) : 3;
+      const needUpdate = daysSinceUpdate >= 3;
+      if (isOverdue && needUpdate) return 1;
+      if (isOverdue) return 2;
+      if (needUpdate) return 3;
+      return 10;
+    };
+    return [...taskList].sort((a, b) => {
+      const sa = getOverdueScore(a);
+      const sb = getOverdueScore(b);
+      if (sa !== sb) return sa - sb;
+      const da = parseDate(a.planEndDate) || new Date(9999, 0, 1);
+      const db = parseDate(b.planEndDate) || new Date(9999, 0, 1);
+      return da.getTime() - db.getTime();
+    });
+  }
+
+  // 6. MẶC ĐỊNH (EMP_START): Gom nhóm tổng thể theo Người (empId), trong mỗi người sắp xếp theo Ngày nhận việc (startDate) tăng dần
+  const empOrder = [];
+  const empMap = new Map();
+
+  // Khởi tạo thứ tự nhân sự theo appData.employees để giữ thứ tự chuẩn ban đầu
+  if (appData && Array.isArray(appData.employees)) {
+    appData.employees.forEach(emp => {
+      empMap.set(emp.id, []);
+      empOrder.push(emp.id);
+    });
+  }
+
+  // Phân loại task vào từng người
+  taskList.forEach(task => {
+    const empKey = task.empId || 'UNASSIGNED';
+    if (!empMap.has(empKey)) {
+      empMap.set(empKey, []);
+      empOrder.push(empKey);
+    }
+    empMap.get(empKey).push(task);
+  });
+
+  const sortedTasks = [];
+  empOrder.forEach(empId => {
+    const tasks = empMap.get(empId) || [];
+    if (tasks.length === 0) return;
+    // Với mỗi người: sắp xếp theo Ngày nhận việc (startDate) tăng dần, sau đó theo ID
+    tasks.sort((a, b) => {
+      const da = parseDate(a.startDate) || new Date(0);
+      const db = parseDate(b.startDate) || new Date(0);
+      if (da.getTime() !== db.getTime()) return da.getTime() - db.getTime();
+      return (a.id || '').localeCompare(b.id || '');
+    });
+    sortedTasks.push(...tasks);
   });
 
   return sortedTasks;
@@ -378,6 +588,12 @@ function fitTimelineToTaskDates() {
   const currentTasks = appData.tasks.filter(t => {
     if (appData.currentUser.role === 'employee' && t.empId !== appData.currentUser.id) return false;
     if (viewState.filterEmp !== 'ALL' && t.empId !== viewState.filterEmp) return false;
+    if (viewState.filterMainTask && viewState.filterMainTask !== 'ALL') {
+      const mId = viewState.filterMainTask.toLowerCase();
+      const taskMain = (t.mainTaskId || '').toLowerCase();
+      const taskTitle = (t.mainTaskTitle || t.title || '').toLowerCase();
+      if (taskMain !== mId && taskTitle !== mId && (t.id || '').toLowerCase() !== mId) return false;
+    }
     return true;
   });
 
@@ -468,20 +684,36 @@ function getTimelineColumns() {
       });
     }
   } else if (viewState.timeScale === 'MONTH') {
-    // Chế độ xem theo Tháng: hiển thị tất cả các tháng từ minYear đến maxYear (ví dụ 2026 -> 2029...)
-    const { minYear, maxYear } = getTasksYearSpan();
-    for (let y = minYear; y <= maxYear; y++) {
-      for (let m = 1; m <= 12; m++) {
-        cols.push({
-          type: 'MONTH',
-          year: y,
-          month: m,
-          label: `T${m}/${y.toString().slice(-2)}`,
-          subLabel: `${y}`,
-          startDate: new Date(y, m - 1, 1),
-          endDate: new Date(y, m, 0, 23, 59, 59)
-        });
-      }
+    // Chế độ xem theo Tháng: Chỉ hiện từ tháng bắt đầu sớm nhất đến tháng kết thúc muộn nhất của dữ liệu
+    // Nếu có lọc theo khoảng ngày tự do thì ưu tiên khoảng đó
+    let mStart, mEnd;
+    if (viewState.filterStartDate && viewState.filterEndDate) {
+      const fs = parseDate(viewState.filterStartDate);
+      const fe = parseDate(viewState.filterEndDate);
+      mStart = { y: fs.getFullYear(), m: fs.getMonth() + 1 };
+      mEnd   = { y: fe.getFullYear(), m: fe.getMonth() + 1 };
+    } else {
+      // Lọc task hiện tại theo emp nếu đang filter
+      let srcTasks = appData.tasks || [];
+      if (viewState.filterEmp !== 'ALL') srcTasks = srcTasks.filter(t => t.empId === viewState.filterEmp);
+      const span = getTasksMonthSpan(srcTasks);
+      mStart = { y: span.startYear, m: span.startMonth };
+      mEnd   = { y: span.endYear,   m: span.endMonth   };
+    }
+
+    let cy = mStart.y, cm = mStart.m;
+    while (cy < mEnd.y || (cy === mEnd.y && cm <= mEnd.m)) {
+      cols.push({
+        type: 'MONTH',
+        year: cy,
+        month: cm,
+        label: `T${cm}/${cy.toString().slice(-2)}`,
+        subLabel: `${cy}`,
+        startDate: new Date(cy, cm - 1, 1),
+        endDate: new Date(cy, cm, 0, 23, 59, 59)
+      });
+      cm++;
+      if (cm > 12) { cm = 1; cy++; }
     }
   } else if (viewState.timeScale === 'WEEK') {
     // Chế độ xem theo Tuần: 12 tuần liên tiếp
@@ -510,6 +742,7 @@ function getTimelineColumns() {
         for (let i = 0; i < totalDays; i++) {
           const d = addDays(sDate, i);
           const isWeekend = d.getDay() === 0 || d.getDay() === 6;
+          const hol = getHolidayInfo(d);
           cols.push({
             type: 'DAY',
             date: d,
@@ -517,6 +750,9 @@ function getTimelineColumns() {
             subLabel: dayNames[d.getDay()],
             yearLabel: d.getFullYear(),
             isWeekend,
+            isHoliday: !!hol,
+            holidayType: hol ? hol.type : null,
+            holidayName: hol ? hol.name : '',
             startDate: d,
             endDate: d
           });
@@ -539,6 +775,7 @@ function getTimelineColumns() {
     for (let i = 0; i < totalDays; i++) {
       const d = addDays(baseDate, i);
       const isWeekend = d.getDay() === 0 || d.getDay() === 6;
+      const hol = getHolidayInfo(d);
       cols.push({
         type: 'DAY',
         date: d,
@@ -546,6 +783,9 @@ function getTimelineColumns() {
         subLabel: dayNames[d.getDay()],
         yearLabel: d.getFullYear(),
         isWeekend,
+        isHoliday: !!hol,
+        holidayType: hol ? hol.type : null,
+        holidayName: hol ? hol.name : '',
         startDate: d,
         endDate: d
       });
@@ -610,7 +850,18 @@ function renderMainTable() {
   timelineCols.forEach(col => {
     const th = document.createElement('th');
     const isWeekend = col.isWeekend;
-    th.className = `p-1.5 border-r border-slate-300 text-center min-w-[54px] max-w-[70px] font-semibold text-[10px] ${isWeekend ? 'bg-amber-50 text-amber-900' : 'bg-slate-100 text-slate-700'}`;
+    let thClass = isWeekend ? 'col-weekend text-amber-900' : 'bg-slate-100 text-slate-700';
+
+    if (col.isHoliday) {
+      if (col.holidayType === 'NATIONAL') {
+        thClass = 'col-holiday-national text-red-900 font-bold';
+      } else {
+        thClass = 'col-holiday-special text-purple-900 font-bold';
+      }
+      th.title = `Ngày nghỉ: ${col.holidayName}`;
+    }
+
+    th.className = `p-1.5 border-r border-slate-300 text-center min-w-[54px] max-w-[70px] font-semibold text-[10px] ${thClass}`;
 
     if (col.type === 'HOUR') {
       th.className = 'p-1.5 border-r border-slate-300 text-center min-w-[50px] font-semibold text-[10px] bg-slate-100 text-slate-700';
@@ -703,8 +954,43 @@ function renderMainTable() {
       }
     }
 
+    // LỌC THEO NGUỒN YÊU CẦU / ƯU TIÊN
+    const priFilter = viewState.filterPriority || (document.getElementById('filterPriority') ? document.getElementById('filterPriority').value : 'ALL');
+    if (priFilter && priFilter !== 'ALL') {
+      const tSource = (task.taskSource || '').toLowerCase();
+      const fPri = priFilter.toLowerCase();
+      if (!tSource.includes(fPri)) return false;
+    }
+
+    // LỌC THEO DỰ ÁN / CÔNG VIỆC CHÍNH
+    if (viewState.filterMainTask && viewState.filterMainTask !== 'ALL') {
+      const mId = viewState.filterMainTask.toLowerCase();
+      const taskMain = (task.mainTaskId || '').toLowerCase();
+      const taskTitle = (task.mainTaskTitle || task.title || '').toLowerCase();
+      if (taskMain !== mId && taskTitle !== mId && (task.id || '').toLowerCase() !== mId) {
+        return false;
+      }
+    }
+
     return true;
   });
+
+  // Cập nhật Banner dự án đang chọn
+  const banner = document.getElementById('activeProjectBanner');
+  if (banner) {
+    if (viewState.filterMainTask && viewState.filterMainTask !== 'ALL') {
+      const mTasks = getUniqueMainTasks();
+      const foundM = mTasks.find(m => m.id === viewState.filterMainTask);
+      const displayTitle = foundM ? `[${foundM.id}] ${foundM.title}` : viewState.filterMainTask;
+      const titleEl = document.getElementById('activeProjectTitle');
+      const badgeEl = document.getElementById('activeProjectBadge');
+      if (titleEl) titleEl.innerText = displayTitle;
+      if (badgeEl) badgeEl.innerText = `${filteredTasks.length} công việc`;
+      banner.classList.remove('hidden');
+    } else {
+      banner.classList.add('hidden');
+    }
+  }
 
   // GOM NHÓM & SẮP XẾP: Các việc cùng chung công việc chính luôn xếp liền kề nhau
   filteredTasks = groupAndSortTasks(filteredTasks);
@@ -722,11 +1008,53 @@ function renderMainTable() {
     emptyState.classList.add('hidden');
   }
 
+  // Ngày tham chiếu hệ thống (10/2026)
+  const systemToday = new Date(2026, 9, 7);
+  let prevEmpId = null;
+
   // Render từng công việc
   filteredTasks.forEach((task, idx) => {
     const isAdmin = appData.currentUser.role === 'admin';
     const isMyTask = appData.currentUser.id === task.empId;
     const isPaused = task.status === 'Tạm dừng' || task.status === 'Dừng dự án';
+    const isCompleted = task.status === 'Hoàn thành' || task.status === 'Hoàn thành trễ' || !!task.actualEndDate;
+
+    const currentSortBy = viewState.filterSortBy || (document.getElementById('filterSortBy') ? document.getElementById('filterSortBy').value : 'EMP_START');
+
+    // Phân cách nhóm nhân sự (chỉ khi đang sắp xếp theo Người => Thứ tự việc)
+    if (currentSortBy === 'EMP_START' && task.empId !== prevEmpId) {
+      prevEmpId = task.empId;
+      const empTaskCount = filteredTasks.filter(t => t.empId === task.empId).length;
+      const trGroup = document.createElement('tr');
+      trGroup.className = 'emp-group-header bg-slate-100/90 text-slate-800 border-y border-slate-300 font-bold text-xs select-none';
+      trGroup.innerHTML = `
+        <td colspan="${10 + timelineCols.length}" class="px-3 py-1.5 text-left sticky-col-left bg-gradient-to-r from-slate-100 via-indigo-50/60 to-transparent">
+          <div class="flex items-center gap-2">
+            <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-indigo-600 text-white text-[10px]"><i class="fa-solid fa-user"></i></span>
+            <span class="text-indigo-950 font-bold text-xs">${task.empName || 'Chưa phân công'} (${task.empId})</span>
+            <span class="text-[10px] font-normal text-slate-500">• ${empTaskCount} công việc (xếp theo ngày nhận việc)</span>
+          </div>
+        </td>
+      `;
+      tbody.appendChild(trGroup);
+    }
+
+    // Kiểm tra quá 3 ngày chưa cập nhật tình trạng đối với việc chưa hoàn tất
+    let isOverdueUpdate = false;
+    let daysSinceUpdate = 0;
+    if (!isCompleted && !isPaused) {
+      const lastUpdateStr = task.lastStatusUpdate || task.startDate;
+      const lastUpdateDate = parseDate(lastUpdateStr);
+      if (lastUpdateDate) {
+        daysSinceUpdate = Math.max(0, Math.floor((systemToday - lastUpdateDate) / (1000 * 60 * 60 * 24)));
+        if (daysSinceUpdate >= 3) {
+          isOverdueUpdate = true;
+        }
+      } else {
+        isOverdueUpdate = true;
+        daysSinceUpdate = 3;
+      }
+    }
 
     let statusBadge = '';
     if (isPaused) {
@@ -736,18 +1064,22 @@ function renderMainTable() {
     } else if (task.status === 'Hoàn thành trễ') {
       statusBadge = '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-orange-100 text-orange-800 border border-orange-300">Hoàn Thành trễ</span>';
     } else {
-      const today = new Date(2026, 9, 5);
       const pEnd = parseDate(task.planEndDate);
-      if (pEnd && today > pEnd) {
+      if (pEnd && systemToday > pEnd) {
         statusBadge = '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-800 border border-rose-300">Quá hạn</span>';
       } else {
         statusBadge = '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800 border border-blue-300">Đang làm</span>';
       }
     }
 
-    // Hiển thị Công việc chính & Phân cấp (Yêu cầu 2: Công việc chính hoàn thành khi toàn bộ việc con hoàn thành)
+    // Nguồn yêu cầu & Tiến độ công việc chính
+    const sourceBadge = getSourceBadge(task.taskSource);
     const mainProgress = task.mainTaskId ? getMainTaskProgress(task.mainTaskId) : null;
-    const mainBadge = task.mainTaskId ? `<span class="px-1.5 py-0.5 text-[9px] font-semibold bg-sky-50 text-sky-700 rounded border border-sky-200 mr-1">${task.mainTaskId}</span>` : '';
+    const mainBadge = task.mainTaskId ? `
+      <button type="button" onclick="filterByMainTask('${task.mainTaskId}')" class="px-1.5 py-0.5 text-[9px] font-semibold bg-sky-50 hover:bg-sky-100 text-sky-700 rounded border border-sky-200 mr-1 transition cursor-pointer" title="Nhấn để lọc xem các việc của dự án [${task.mainTaskId}] và tự căn chỉnh biểu đồ">
+        <i class="fa-solid fa-diagram-project text-[8px] mr-0.5"></i>${task.mainTaskId}
+      </button>
+    ` : '';
     let parentStatusBadge = '';
     if (mainProgress) {
       if (mainProgress.isAllCompleted) {
@@ -757,31 +1089,66 @@ function renderMainTable() {
       }
     }
 
+    // Hiển thị ngày cập nhật cuối (lastStatusUpdate)
+    const lastUpdateDisplayStr = task.lastStatusUpdate || task.startDate || '';
+    const lastUpdateDisplay = lastUpdateDisplayStr ? formatVnDate(lastUpdateDisplayStr) : 'Chưa rõ';
+    const lastUpdateInfo = (!isCompleted && !isPaused) ? `
+      <div class="mt-1 flex items-center gap-1" title="Lần cập nhật gần nhất: ${lastUpdateDisplay}">
+        <i class="fa-regular fa-clock text-slate-400 text-[8px]"></i>
+        <span class="text-[9px] ${isOverdueUpdate ? 'text-rose-600 font-semibold' : 'text-slate-400'}">
+          CN cuối: ${lastUpdateDisplay}
+        </span>
+      </div>
+    ` : '';
+
+    // Cảnh báo quá 3 ngày chưa cập nhật
+    const overdueWarning = isOverdueUpdate ? `
+      <div class="mt-1">
+        <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-bold bg-rose-100 text-rose-700 border border-rose-300 animate-pulse" title="Quá ${daysSinceUpdate} ngày chưa cập nhật tình trạng! Cần click 'Cập nhật tình trạng' để ghi nhận.">
+          <i class="fa-solid fa-triangle-exclamation"></i> Cần Cập Nhật (${daysSinceUpdate} ngày)
+        </span>
+      </div>
+    ` : '';
+
     // DÒNG 1: THÔNG TIN GỘP + KẾ HOẠCH
     const tr1 = document.createElement('tr');
-    tr1.className = 'hover:bg-slate-50/80 transition group';
+    tr1.className = `hover:bg-slate-50/80 transition group ${isOverdueUpdate ? 'row-overdue-update' : ''}`;
 
     const tdSTT = `<td rowspan="2" class="p-2 border-r border-b border-slate-300 text-center font-bold text-slate-500 bg-white sticky-col-left shadow-[1px_0_0_0_#cbd5e1]">${idx + 1}</td>`;
     const tdTitle = `
       <td rowspan="2" class="p-2 border-r border-b border-slate-300 bg-white sticky-col-left shadow-[1px_0_0_0_#cbd5e1]" style="left: 48px;">
-        <div class="font-bold text-slate-900 leading-snug">${task.mainTaskTitle || task.title}</div>
-        <div class="text-[10px] text-slate-500 flex items-center gap-1 mt-0.5">
+        <div class="font-bold text-slate-900 leading-snug">
+          <button type="button" onclick="filterByMainTask('${task.mainTaskId || task.id}')" class="text-left font-bold text-slate-900 hover:text-sky-700 transition cursor-pointer" title="Nhấn để chỉ xem các việc của dự án này và tự động căn chỉnh biểu đồ">
+            ${task.mainTaskTitle || task.title}
+          </button>
+        </div>
+        <div class="text-[10px] text-slate-500 flex flex-wrap items-center gap-1 mt-0.5">
           ${mainBadge}
           <span>${task.id}</span>
+          ${sourceBadge}
         </div>
         ${parentStatusBadge}
-        ${isAdmin ? `
-          <div class="mt-1 flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition">
-            <button onclick="toggleTaskPause('${task.id}')" class="text-amber-600 hover:text-amber-800 text-[10px] font-semibold" title="Tạm dừng hoặc tiếp tục công việc"><i class="fa-solid fa-circle-pause"></i> ${isPaused ? 'Tiếp tục' : 'Dừng'}</button>
-            <button onclick="editTask('${task.id}')" class="text-blue-600 hover:text-blue-800 text-[10px]"><i class="fa-solid fa-pen"></i> Sửa</button>
-            <button onclick="deleteTask('${task.id}')" class="text-rose-600 hover:text-rose-800 text-[10px]"><i class="fa-solid fa-trash"></i> Xóa</button>
-          </div>
-        ` : (isMyTask ? `
-          <div class="mt-1 flex items-center gap-1.5">
-            <button onclick="toggleTaskPause('${task.id}')" class="text-amber-600 hover:text-amber-800 text-[10px] font-semibold"><i class="fa-solid fa-circle-pause"></i> ${isPaused ? 'Tiếp tục' : 'Dừng'}</button>
-            <button onclick="openQuickUpdateModal('${task.id}')" class="text-emerald-600 hover:text-emerald-800 font-semibold text-[10px]"><i class="fa-solid fa-check-to-slot"></i> Cập nhật</button>
-          </div>
-        ` : '')}
+        ${lastUpdateInfo}
+        ${overdueWarning}
+        <div class="mt-1.5 flex flex-wrap items-center gap-1.5">
+          ${!isCompleted ? `
+            <button onclick="openStatusLogModal('${task.id}')" class="px-2 py-0.5 text-[10px] font-bold rounded bg-violet-100 text-violet-700 hover:bg-violet-200 border border-violet-300 transition flex items-center gap-1 shadow-sm" title="Ghi nhật ký / Cập nhật tình trạng công việc">
+              <i class="fa-solid fa-clipboard-list"></i> Cập nhật tình trạng
+            </button>
+          ` : ''}
+          ${isAdmin ? `
+            <div class="flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition">
+              <button onclick="toggleTaskPause('${task.id}')" class="text-amber-600 hover:text-amber-800 text-[10px] font-semibold" title="Tạm dừng hoặc tiếp tục công việc"><i class="fa-solid fa-circle-pause"></i> ${isPaused ? 'Tiếp tục' : 'Dừng'}</button>
+              <button onclick="editTask('${task.id}')" class="text-blue-600 hover:text-blue-800 text-[10px]"><i class="fa-solid fa-pen"></i> Sửa</button>
+              <button onclick="deleteTask('${task.id}')" class="text-rose-600 hover:text-rose-800 text-[10px]"><i class="fa-solid fa-trash"></i> Xóa</button>
+            </div>
+          ` : (isMyTask ? `
+            <div class="flex items-center gap-1.5">
+              <button onclick="toggleTaskPause('${task.id}')" class="text-amber-600 hover:text-amber-800 text-[10px] font-semibold"><i class="fa-solid fa-circle-pause"></i> ${isPaused ? 'Tiếp tục' : 'Dừng'}</button>
+              <button onclick="openQuickUpdateModal('${task.id}')" class="text-emerald-600 hover:text-emerald-800 font-semibold text-[10px]"><i class="fa-solid fa-check-to-slot"></i> Cập nhật</button>
+            </div>
+          ` : '')}
+        </div>
       </td>
     `;
     const tdDetail = `<td rowspan="2" class="p-2 border-r border-b border-slate-300 text-slate-700 font-medium">${task.detail || task.title}</td>`;
@@ -794,7 +1161,7 @@ function renderMainTable() {
       </td>
     `;
     const tdStart = `<td rowspan="2" class="p-2 border-r border-b border-slate-300 text-center font-medium text-slate-700">${formatVnDate(task.startDate)}</td>`;
-    const tdPlanDays = `<td rowspan="2" class="p-2 border-r border-b border-slate-300 text-center font-semibold text-slate-800">${task.planDays || 1} ngày</td>`;
+    const tdPlanDays = `<td rowspan="2" class="p-2 border-r border-b border-slate-300 text-center font-semibold text-slate-800">${formatPlanDuration(task)}</td>`;
     const tdActualDate = `<td rowspan="2" class="p-2 border-r border-b border-slate-300 text-center font-medium ${task.actualEndDate ? 'text-emerald-700 font-bold' : 'text-slate-400'}">${formatVnDate(task.actualEndDate) || (isPaused ? 'Tạm dừng' : 'Chưa hoàn thành')}</td>`;
     const tdStatus = `<td rowspan="2" class="p-2 border-r border-b border-slate-300 text-center">${statusBadge}</td>`;
     const tdNote = `<td rowspan="2" class="p-2 border-r border-b border-slate-300 text-slate-500 italic text-[11px]">${task.note || ''}</td>`;
@@ -808,15 +1175,19 @@ function renderMainTable() {
     // Vẽ thanh Kế hoạch theo các cột
     timelineCols.forEach(col => {
       const td = document.createElement('td');
-      td.className = 'p-0 border-r border-b border-slate-200 text-center relative h-7 min-w-[54px] bg-slate-50/30';
+      let cellBg = 'bg-slate-50/30';
+      if (col.isHoliday) {
+        cellBg = col.holidayType === 'NATIONAL' ? 'cell-national' : 'cell-special';
+      } else if (col.isWeekend) {
+        cellBg = 'cell-weekend';
+      }
+      td.className = `p-0 border-r border-b border-slate-200 text-center relative h-7 min-w-[54px] ${cellBg}`;
 
       const inRange = tStart && tPlanEnd && col.startDate <= tPlanEnd && col.endDate >= tStart;
 
       if (inRange) {
         const isStart = col.startDate <= tStart && col.endDate >= tStart;
         const isEnd = col.startDate <= tPlanEnd && col.endDate >= tPlanEnd;
-
-        // Nhãn ngày hoàn thành ở cuối mũi tên trong chế độ Tháng
         const dateTag = (viewState.timeScale === 'MONTH' && isEnd) ? `<span class="arrow-date-tag">${formatVnDate(task.planEndDate).slice(0, 5)}</span>` : '';
 
         td.innerHTML = `
@@ -831,18 +1202,28 @@ function renderMainTable() {
 
     // DÒNG 2: THỰC TÍCH
     const tr2 = document.createElement('tr');
-    tr2.className = 'hover:bg-slate-50/80 transition group border-b border-slate-300';
+    tr2.className = `hover:bg-slate-50/80 transition group border-b border-slate-300 ${isOverdueUpdate ? 'row-overdue-update' : ''}`;
     const tdLabelActual = `<td class="p-1.5 border-r border-b border-slate-300 text-center font-semibold text-emerald-800 bg-emerald-50/50 text-[10px]">Thực tích</td>`;
     tr2.innerHTML = tdLabelActual;
 
     let tActualEnd = parseDate(task.actualEndDate);
-    if (!tActualEnd && (task.status === 'Đang làm' || isPaused)) {
-      tActualEnd = new Date(2026, 9, 5);
+    const isInProgress = !isCompleted && !isPaused && (task.status === 'Đang làm' || !task.status || task.status === '');
+    if (!tActualEnd && isInProgress) {
+      // Đang làm: biểu đồ kéo dài từ startDate đến hôm nay
+      tActualEnd = systemToday;
+    } else if (!tActualEnd && isPaused) {
+      tActualEnd = systemToday;
     }
 
     timelineCols.forEach(col => {
       const td = document.createElement('td');
-      td.className = 'p-0 border-r border-b border-slate-300 text-center relative h-7 min-w-[54px] bg-emerald-50/10';
+      let cellBg = 'bg-emerald-50/10';
+      if (col.isHoliday) {
+        cellBg = col.holidayType === 'NATIONAL' ? 'cell-national' : 'cell-special';
+      } else if (col.isWeekend) {
+        cellBg = 'cell-weekend';
+      }
+      td.className = `p-0 border-r border-b border-slate-300 text-center relative h-7 min-w-[54px] ${cellBg}`;
 
       const inRange = tStart && tActualEnd && col.startDate <= tActualEnd && col.endDate >= tStart;
 
@@ -853,18 +1234,28 @@ function renderMainTable() {
 
         let barClass = 'timeline-arrow-actual';
         let headClass = 'arrow-head-actual';
+        let titleTip = `Thực tích: ${formatVnDate(task.startDate)} - ${formatVnDate(task.actualEndDate)}`;
+
         if (isPaused) {
           barClass = 'timeline-arrow-paused';
           headClass = 'arrow-head-paused';
+          titleTip = `Tạm dừng: ${formatVnDate(task.startDate)} - hiện tại`;
+        } else if (!task.actualEndDate && isInProgress) {
+          // Biểu đồ thực tích khi Đang làm: dải màu cyan/blue kèm animation
+          barClass = 'timeline-arrow-in-progress';
+          headClass = 'arrow-head-in-progress';
+          titleTip = `Đang làm (Tiến độ đến hôm nay ${formatVnDate(formatDate(systemToday))}): ${formatVnDate(task.startDate)} → Hiện tại`;
         } else if (isDelayed) {
           barClass = 'timeline-arrow-late';
           headClass = 'arrow-head-late';
+          titleTip = `Hoàn thành trễ: ${formatVnDate(task.startDate)} - ${formatVnDate(task.actualEndDate)}`;
         }
 
-        const dateTag = (viewState.timeScale === 'MONTH' && isEnd) ? `<span class="arrow-date-tag">${isPaused ? 'Dừng' : (task.actualEndDate ? formatVnDate(task.actualEndDate).slice(0, 5) : 'Đang làm')}</span>` : '';
+        const dateTag = (viewState.timeScale === 'MONTH' && isEnd) ? 
+          `<span class="arrow-date-tag">${isPaused ? 'Dừng' : (!task.actualEndDate && isInProgress ? 'Đang làm' : formatVnDate(task.actualEndDate).slice(0, 5))}</span>` : '';
 
         td.innerHTML = `
-          <div class="h-4 my-1.5 ${barClass} relative flex items-center justify-end text-white text-[9px] font-bold ${isStart ? 'rounded-l-sm ml-1' : ''} ${isEnd ? 'mr-0' : ''}" title="Thực tích: ${formatVnDate(task.startDate)} - ${isPaused ? 'Tạm dừng' : formatVnDate(task.actualEndDate || 'Đang làm')}">
+          <div class="h-4 my-1.5 ${barClass} relative flex items-center justify-end text-white text-[9px] font-bold ${isStart ? 'rounded-l-sm ml-1' : ''} ${isEnd ? 'mr-0' : ''}" title="${titleTip}">
             ${dateTag}
             ${isEnd ? `<div class="${headClass}"></div>` : ''}
           </div>
@@ -972,9 +1363,23 @@ function renderPerformanceBoard() {
   });
 }
 
-// ================= QUẢN LÝ NHÂN SỰ =================
+// ================= QUẢN LÝ NHÂN SỰ & TỰ ĐỘNG SINH MÃ NV-XXXX =================
+function generateNextEmpId() {
+  let maxNum = 0;
+  (appData.employees || []).forEach(emp => {
+    if (!emp.id) return;
+    const m = emp.id.match(/^NV[-_]?(\d+)$/i);
+    if (m) {
+      const num = parseInt(m[1], 10);
+      if (num > maxNum) maxNum = num;
+    }
+  });
+  return `NV-${String(maxNum + 1).padStart(4, '0')}`;
+}
+
 function openEmployeeModal() {
   document.getElementById('employeeModal').classList.remove('hidden');
+  resetEmpForm();
   renderEmployeeTable();
 }
 
@@ -1043,11 +1448,12 @@ function populateEmployeeSelects() {
 function handleSaveEmployee(e) {
   e.preventDefault();
   const editId = document.getElementById('empEditId').value;
-  const code = document.getElementById('empCode').value.trim().toUpperCase();
+  let code = document.getElementById('empCode').value.trim().toUpperCase();
   const name = document.getElementById('empName').value.trim();
   const dept = document.getElementById('empDept').value.trim();
 
-  if (!code || !name) return;
+  if (!code) code = generateNextEmpId();
+  if (!name) return;
 
   if (editId) {
     const emp = appData.employees.find(x => x.id === editId);
@@ -1064,8 +1470,8 @@ function handleSaveEmployee(e) {
     }
   } else {
     if (appData.employees.some(x => x.id === code)) {
-      alert(`Mã nhân viên "${code}" đã tồn tại! Vui lòng chọn mã khác.`);
-      return;
+      alert(`Mã nhân viên "${code}" đã tồn tại! Hệ thống sẽ tự động gán mã mới.`);
+      code = generateNextEmpId();
     }
     appData.employees.push({ id: code, name, dept });
   }
@@ -1081,7 +1487,9 @@ function editEmployee(id) {
   const emp = appData.employees.find(x => x.id === id);
   if (!emp) return;
   document.getElementById('empEditId').value = emp.id;
-  document.getElementById('empCode').value = emp.id;
+  const codeInput = document.getElementById('empCode');
+  codeInput.value = emp.id;
+  codeInput.readOnly = false;
   document.getElementById('empName').value = emp.name;
   document.getElementById('empDept').value = emp.dept || '';
 
@@ -1092,7 +1500,9 @@ function editEmployee(id) {
 
 function resetEmpForm() {
   document.getElementById('empEditId').value = '';
-  document.getElementById('empCode').value = '';
+  const codeInput = document.getElementById('empCode');
+  codeInput.value = generateNextEmpId();
+  codeInput.readOnly = true;
   document.getElementById('empName').value = '';
   document.getElementById('empDept').value = '';
 
@@ -1133,6 +1543,53 @@ function getUniqueMainTasks() {
   return Array.from(map.values());
 }
 
+// ================= BỘ LỌC DỰ ÁN & CĂN CHỈNH BIỂU ĐỒ TỰ ĐỘNG =================
+function renderFilterMainTasksSelect() {
+  const select = document.getElementById('filterMainTask');
+  if (!select) return;
+  const curVal = viewState.filterMainTask || 'ALL';
+  const mainTasks = getUniqueMainTasks();
+  let html = '<option value="ALL">-- Tất cả dự án --</option>';
+  mainTasks.forEach(mt => {
+    const isSel = mt.id === curVal ? 'selected' : '';
+    html += `<option value="${mt.id}" ${isSel}>[${mt.id}] ${mt.title} (${mt.subtasks.length} việc)</option>`;
+  });
+  select.innerHTML = html;
+  select.value = curVal;
+}
+
+function handleMainTaskFilterChange() {
+  const select = document.getElementById('filterMainTask');
+  viewState.filterMainTask = select ? select.value : 'ALL';
+  applyFilters();
+  if (viewState.filterMainTask !== 'ALL') {
+    fitTimelineToTaskDates();
+  }
+}
+
+function filterByMainTask(mainTaskId) {
+  if (!mainTaskId) return;
+  if (viewState.filterMainTask === mainTaskId) {
+    // Nhấn lại lần nữa -> Quay về xem tất cả
+    viewState.filterMainTask = 'ALL';
+  } else {
+    viewState.filterMainTask = mainTaskId;
+  }
+  const select = document.getElementById('filterMainTask');
+  if (select) select.value = viewState.filterMainTask;
+  applyFilters();
+  if (viewState.filterMainTask !== 'ALL') {
+    fitTimelineToTaskDates();
+  }
+}
+
+function clearProjectFilter() {
+  viewState.filterMainTask = 'ALL';
+  const select = document.getElementById('filterMainTask');
+  if (select) select.value = 'ALL';
+  applyFilters();
+}
+
 // ================= QUẢN LÝ CÔNG VIỆC (CRUD & SUBTASKS) =================
 function openTaskModal(taskId = null) {
   if (appData.currentUser.role !== 'admin') {
@@ -1167,18 +1624,32 @@ function openTaskModal(taskId = null) {
       document.getElementById('taskEmpId').value = task.empId;
       document.getElementById('taskStatus').value = task.status;
       document.getElementById('taskStartDate').value = task.startDate;
+      const durationInput = document.getElementById('taskPlanDuration');
+      const unitSelect = document.getElementById('taskPlanUnit');
+      if (durationInput) durationInput.value = task.planDuration || task.planDays || 1;
+      if (unitSelect) unitSelect.value = task.planUnit || 'ngày';
       document.getElementById('taskPlanDays').value = task.planDays || 1;
       document.getElementById('taskPlanEndDate').value = task.planEndDate || '';
       document.getElementById('taskActualEndDate').value = task.actualEndDate || '';
       document.getElementById('taskNote').value = task.note || '';
+      const sourceSelect = document.getElementById('taskSource');
+      if (sourceSelect) sourceSelect.value = task.taskSource || 'Cải thiện nội bộ';
     }
   } else {
     titleEl.innerText = 'Thêm Công Việc Mới';
     document.getElementById('taskId').value = '';
     document.getElementById('taskForm').reset();
     parentSelect.value = '__NEW__';
-    document.getElementById('taskMainCode').value = `CV-${Date.now().toString().slice(-4)}`;
+    const sourceSelect = document.getElementById('taskSource');
+    if (sourceSelect) sourceSelect.value = 'Cải thiện nội bộ';
+    // Sinh mã mainTaskCode tuần tự theo năm hiện tại (CV-YYYY-XXXX)
+    const curYear = new Date().getFullYear();
+    document.getElementById('taskMainCode').value = generateNextTaskId(curYear);
     document.getElementById('taskStartDate').value = '2026-10-01';
+    const durationInput = document.getElementById('taskPlanDuration');
+    const unitSelect = document.getElementById('taskPlanUnit');
+    if (durationInput) durationInput.value = 1;
+    if (unitSelect) unitSelect.value = 'ngày';
     document.getElementById('taskPlanDays').value = 1;
     calculatePlanEndDate();
   }
@@ -1197,7 +1668,10 @@ function handleParentSelectChange() {
     titleInput.readOnly = false;
     codeInput.classList.remove('bg-slate-100');
     titleInput.classList.remove('bg-slate-100');
-    if (!codeInput.value) codeInput.value = `CV-${Date.now().toString().slice(-4)}`;
+    if (!codeInput.value) {
+      const curYear = new Date().getFullYear();
+      codeInput.value = generateNextTaskId(curYear);
+    }
   } else {
     const mainTasks = getUniqueMainTasks();
     const found = mainTasks.find(m => m.id === val);
@@ -1218,12 +1692,32 @@ function closeTaskModal() {
 
 function calculatePlanEndDate() {
   const startStr = document.getElementById('taskStartDate').value;
-  const days = parseInt(document.getElementById('taskPlanDays').value) || 1;
-  if (startStr && days > 0) {
+  const durationInput = document.getElementById('taskPlanDuration');
+  const unitSelect = document.getElementById('taskPlanUnit');
+  const val = durationInput ? (parseFloat(durationInput.value) || 1) : (parseInt(document.getElementById('taskPlanDays').value) || 1);
+  const unit = unitSelect ? unitSelect.value : 'ngày';
+
+  if (startStr && val > 0) {
     const d = parseDate(startStr);
     if (d) {
-      const end = addDays(d, days - 1);
+      let end = d;
+      let daysEquivalent = Math.ceil(val);
+      if (unit === 'giờ') {
+        end = d; // Cùng ngày
+        daysEquivalent = 1;
+      } else if (unit === 'ngày') {
+        end = addDays(d, Math.ceil(val) - 1);
+        daysEquivalent = Math.ceil(val);
+      } else if (unit === 'tuần') {
+        end = addDays(d, Math.ceil(val * 7) - 1);
+        daysEquivalent = Math.ceil(val * 7);
+      } else if (unit === 'tháng') {
+        end = addDays(d, Math.ceil(val * 30) - 1);
+        daysEquivalent = Math.ceil(val * 30);
+      }
       document.getElementById('taskPlanEndDate').value = formatDate(end);
+      const hiddenDays = document.getElementById('taskPlanDays');
+      if (hiddenDays) hiddenDays.value = daysEquivalent;
     }
   }
 }
@@ -1245,10 +1739,16 @@ function handleSaveTask(e) {
   const empId = document.getElementById('taskEmpId').value;
   const status = document.getElementById('taskStatus').value;
   const startDate = document.getElementById('taskStartDate').value;
+  const durationInput = document.getElementById('taskPlanDuration');
+  const unitSelect = document.getElementById('taskPlanUnit');
+  const planDuration = durationInput ? (parseFloat(durationInput.value) || 1) : 1;
+  const planUnit = unitSelect ? unitSelect.value : 'ngày';
   const planDays = parseInt(document.getElementById('taskPlanDays').value) || 1;
   const planEndDate = document.getElementById('taskPlanEndDate').value;
   const actualEndDate = document.getElementById('taskActualEndDate').value;
   const note = document.getElementById('taskNote').value.trim();
+  const sourceSelect = document.getElementById('taskSource');
+  const taskSource = sourceSelect ? sourceSelect.value : 'Cải thiện nội bộ';
 
   const emp = appData.employees.find(x => x.id === empId);
   const empName = emp ? emp.name : 'Chưa phân công';
@@ -1264,13 +1764,18 @@ function handleSaveTask(e) {
       task.empName = empName;
       task.status = status;
       task.startDate = startDate;
+      task.planDuration = planDuration;
+      task.planUnit = planUnit;
       task.planDays = planDays;
       task.planEndDate = planEndDate;
       task.actualEndDate = actualEndDate;
       task.note = note;
+      task.taskSource = taskSource;
     }
   } else {
-    const newId = `TASK-${Date.now().toString().slice(-4)}`;
+    // Sinh mã CV chi tiết theo chuẩn CV-YYYY-XXXX (tự tăng theo năm bắt đầu)
+    const taskYear = startDate ? parseInt(startDate.slice(0, 4)) : new Date().getFullYear();
+    const newId = generateNextTaskId(taskYear);
     appData.tasks.push({
       id: newId,
       mainTaskId,
@@ -1280,11 +1785,15 @@ function handleSaveTask(e) {
       empId,
       empName,
       startDate,
+      planDuration,
+      planUnit,
       planDays,
       planEndDate,
       actualEndDate,
       status,
-      note
+      note,
+      taskSource,
+      lastStatusUpdate: startDate
     });
   }
 
@@ -1377,6 +1886,12 @@ function applyFilters() {
   viewState.filterMonth = document.getElementById('filterMonth').value;
   viewState.filterStatus = document.getElementById('filterStatus').value;
   viewState.filterKeyword = document.getElementById('filterKeyword').value;
+  const priEl = document.getElementById('filterPriority');
+  if (priEl) viewState.filterPriority = priEl.value;
+  const sortEl = document.getElementById('filterSortBy');
+  if (sortEl) viewState.filterSortBy = sortEl.value;
+  const mainEl = document.getElementById('filterMainTask');
+  if (mainEl) viewState.filterMainTask = mainEl.value;
 
   if (viewState.filterMonth && !viewState.filterStartDate) {
     viewState.startOffsetDate = `${viewState.filterMonth}-01`;
@@ -1479,29 +1994,96 @@ function shiftTimelineDays(days) {
   renderMainTable();
 }
 
-// ================= MODAL CẤU HÌNH XUẤT BÁO CÁO EXCEL (CONFIG TITLE) =================
+// ================= MODAL CẤU HÌNH XUẤT BÁO CÁO EXCEL (CONFIG TITLE & PERSISTENCE) =================
+const EXPORT_CONFIG_STORAGE_KEY = 'MBC_EXCEL_EXPORT_CONFIG';
+
+function generateSmartExportTitle() {
+  let title = 'BÁO CÁO KẾ HOẠCH & THỰC TÍCH CÔNG VIỆC NHÓM';
+  if (viewState.filterMainTask && viewState.filterMainTask !== 'ALL') {
+    const mTasks = getUniqueMainTasks();
+    const foundM = mTasks.find(m => m.id === viewState.filterMainTask);
+    const mName = foundM ? foundM.title : viewState.filterMainTask;
+    title += ` - DỰ ÁN: ${mName.toUpperCase()}`;
+  } else if (viewState.filterEmp !== 'ALL') {
+    const emp = appData.employees.find(e => e.id === viewState.filterEmp);
+    if (emp) title += ` - NHÂN SỰ: ${emp.name.toUpperCase()} (${emp.dept})`;
+  }
+  if (viewState.filterMonth) {
+    title += ` - THÁNG ${viewState.filterMonth.split('-')[1]}/${viewState.filterMonth.split('-')[0]}`;
+  } else {
+    title += ' - NĂM 2026';
+  }
+  return title;
+}
+
 function openExportConfigModal() {
   const modal = document.getElementById('exportConfigModal');
   const titleInput = document.getElementById('exportReportTitle');
+  const unitInput = document.getElementById('exportUnitName');
+  const scaleSelect = document.getElementById('exportScaleSelect');
+  const chk = document.getElementById('saveExportConfigCheckbox');
 
-  // Tự động tạo tiêu đề thông minh theo bộ lọc hiện tại
-  let generatedTitle = 'BÁO CÁO KẾ HOẠCH & THỰC TÍCH CÔNG VIỆC NHÓM';
-  if (viewState.filterEmp !== 'ALL') {
-    const emp = appData.employees.find(e => e.id === viewState.filterEmp);
-    if (emp) generatedTitle += ` - NHÂN SỰ: ${emp.name.toUpperCase()} (${emp.dept})`;
-  }
-  if (viewState.filterMonth) {
-    generatedTitle += ` - THÁNG ${viewState.filterMonth.split('-')[1]}/${viewState.filterMonth.split('-')[0]}`;
-  } else {
-    generatedTitle += ' - NĂM 2026';
-  }
+  // Đọc cấu hình đã lưu trong LocalStorage (nếu có)
+  try {
+    const raw = localStorage.getItem(EXPORT_CONFIG_STORAGE_KEY);
+    if (raw) {
+      const saved = JSON.parse(raw);
+      if (saved) {
+        if (saved.customUnit && unitInput) unitInput.value = saved.customUnit;
+        if (saved.exportScale && scaleSelect) scaleSelect.value = saved.exportScale;
+        if (saved.customTitle && saved.isCustomTitle && titleInput) {
+          titleInput.value = saved.customTitle;
+        } else if (titleInput) {
+          titleInput.value = generateSmartExportTitle();
+        }
+        if (chk) chk.checked = true;
+        modal.classList.remove('hidden');
+        return;
+      }
+    }
+  } catch(e) {}
 
-  titleInput.value = generatedTitle;
+  if (titleInput) titleInput.value = generateSmartExportTitle();
+  if (chk) chk.checked = true;
   modal.classList.remove('hidden');
 }
 
 function closeExportConfigModal() {
   document.getElementById('exportConfigModal').classList.add('hidden');
+}
+
+function saveExportConfigManual() {
+  const titleInput = document.getElementById('exportReportTitle');
+  const unitInput = document.getElementById('exportUnitName');
+  const scaleSelect = document.getElementById('exportScaleSelect');
+  const chk = document.getElementById('saveExportConfigCheckbox');
+
+  const customTitle = titleInput ? titleInput.value.trim() : '';
+  const customUnit = unitInput ? unitInput.value.trim() : '';
+  const exportScale = scaleSelect ? scaleSelect.value : 'CURRENT';
+  const isRemember = chk ? chk.checked : true;
+
+  if (isRemember) {
+    const config = { customTitle, customUnit, exportScale, isCustomTitle: true };
+    localStorage.setItem(EXPORT_CONFIG_STORAGE_KEY, JSON.stringify(config));
+    alert('Đã lưu cấu hình xuất báo cáo Excel thành công!');
+  } else {
+    localStorage.removeItem(EXPORT_CONFIG_STORAGE_KEY);
+    alert('Đã bỏ ghi nhớ cấu hình xuất Excel.');
+  }
+}
+
+function resetExportConfigToDefault() {
+  localStorage.removeItem(EXPORT_CONFIG_STORAGE_KEY);
+  const unitInput = document.getElementById('exportUnitName');
+  const scaleSelect = document.getElementById('exportScaleSelect');
+  const titleInput = document.getElementById('exportReportTitle');
+  const chk = document.getElementById('saveExportConfigCheckbox');
+
+  if (unitInput) unitInput.value = 'MBC Group - Phân xưởng sản xuất';
+  if (scaleSelect) scaleSelect.value = 'CURRENT';
+  if (chk) chk.checked = true;
+  if (titleInput) titleInput.value = generateSmartExportTitle();
 }
 
 // ================= XUẤT BÁO CÁO EXCEL TRỰC QUAN LIỀN MẠCH (GANTT MATRIX CHUẨN) =================
@@ -1515,44 +2097,16 @@ function executeExportExcelReport() {
   try {
     const customTitle = document.getElementById('exportReportTitle').value.trim() || 'BÁO CÁO KẾ HOẠCH & THỰC TÍCH CÔNG VIỆC NHÓM';
     const customUnit = document.getElementById('exportUnitName').value.trim() || 'MBC Group - Quản Lý Dự Án';
-    const exportScale = document.getElementById('exportScaleSelect').value; // 'CURRENT', 'MONTH_ALL'
+    const exportScale = document.getElementById('exportScaleSelect').value;
 
-    let timelineCols = getTimelineColumns();
-    if (exportScale === 'FIT_TASKS') {
-      // Ôm khít từ ngày đầu đến ngày kết thúc của các công việc xuất
-      let minStart = null;
-      let maxEnd = null;
-      tasksToExport.forEach(t => {
-        const s = parseDate(t.startDate);
-        const e = parseDate(t.actualEndDate || t.planEndDate);
-        if (s && (!minStart || s < minStart)) minStart = s;
-        if (e && (!maxEnd || e > maxEnd)) maxEnd = e;
-      });
-      if (minStart && maxEnd && minStart <= maxEnd) {
-        timelineCols = [];
-        const dayNames = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
-        const totalDays = dateDiffInDays(minStart, maxEnd) + 1;
-        for (let i = 0; i < totalDays; i++) {
-          const d = addDays(minStart, i);
-          timelineCols.push({
-            type: 'DAY',
-            date: d,
-            label: `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}`,
-            subLabel: dayNames[d.getDay()],
-            yearLabel: d.getFullYear(),
-            isWeekend: d.getDay() === 0 || d.getDay() === 6,
-            startDate: d,
-            endDate: d
-          });
-        }
-      }
-    } else if (exportScale && exportScale !== 'CURRENT') {
-      const origScale = viewState.timeScale;
-      viewState.timeScale = exportScale;
-      timelineCols = getTimelineColumns();
-      viewState.timeScale = origScale;
+    // Ghi nhớ cấu hình nếu checkbox được chọn
+    const chk = document.getElementById('saveExportConfigCheckbox');
+    if (chk && chk.checked) {
+      const config = { customTitle, customUnit, exportScale, isCustomTitle: true };
+      localStorage.setItem(EXPORT_CONFIG_STORAGE_KEY, JSON.stringify(config));
     }
 
+    // ── Bước 1: Lọc & gom nhóm task trước khi xây dựng timeline (fix hoisting bug) ──
     let tasksToExport = appData.tasks.filter(task => {
       if (appData.currentUser.role === 'employee' && task.empId !== appData.currentUser.id) return false;
       if (viewState.filterEmp !== 'ALL' && task.empId !== viewState.filterEmp) return false;
@@ -1577,6 +2131,38 @@ function executeExportExcelReport() {
 
     // GOM NHÓM & SẮP XẾP: Giữ các việc cùng dự án mẹ luôn đứng liền kề nhau trong Excel
     tasksToExport = groupAndSortTasks(tasksToExport);
+
+    // ── Bước 2: Xây dựng cột timeline sau khi đã có tasksToExport ──
+    let timelineCols = getTimelineColumns();
+    if (exportScale === 'FIT_TASKS') {
+      let minStart = null, maxEnd = null;
+      tasksToExport.forEach(t => {
+        const s = parseDate(t.startDate);
+        const e = parseDate(t.actualEndDate || t.planEndDate);
+        if (s && (!minStart || s < minStart)) minStart = s;
+        if (e && (!maxEnd || e > maxEnd)) maxEnd = e;
+      });
+      if (minStart && maxEnd && minStart <= maxEnd) {
+        timelineCols = [];
+        const dayNames = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
+        const totalDays = dateDiffInDays(minStart, maxEnd) + 1;
+        for (let i = 0; i < totalDays; i++) {
+          const d = addDays(minStart, i);
+          timelineCols.push({
+            type: 'DAY', date: d,
+            label: `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}`,
+            subLabel: dayNames[d.getDay()], yearLabel: d.getFullYear(),
+            isWeekend: d.getDay() === 0 || d.getDay() === 6,
+            startDate: d, endDate: d
+          });
+        }
+      }
+    } else if (exportScale && exportScale !== 'CURRENT') {
+      const origScale = viewState.timeScale;
+      viewState.timeScale = exportScale;
+      timelineCols = getTimelineColumns();
+      viewState.timeScale = origScale;
+    }
 
     // Thống kê cho thẻ KPI
     const totalExp = tasksToExport.length;
@@ -1689,7 +2275,7 @@ function executeExportExcelReport() {
           <td rowspan="2" class="info-cell" style="color: #334155;">↳ ${task.detail || task.title}</td>
           <td rowspan="2" class="info-cell" style="font-weight: 500;">${task.empName}</td>
           <td rowspan="2" style="text-align: center;" class="info-cell">${formatVnDate(task.startDate)}</td>
-          <td rowspan="2" style="text-align: center; font-weight: bold;" class="info-cell">${task.planDays || 1} ngày</td>
+          <td rowspan="2" style="text-align: center; font-weight: bold;" class="info-cell">${formatPlanDuration(task)}</td>
           <td rowspan="2" style="text-align: center;" class="info-cell">${formatVnDate(task.actualEndDate) || (isPaused ? 'Tạm dừng' : 'Chưa xong')}</td>
           <td rowspan="2" style="text-align: center; font-weight: bold;" class="info-cell">${task.status}</td>
           <td rowspan="2" style="text-align: center; font-weight: bold; color: ${mainProgress && mainProgress.isAllCompleted ? '#15803d' : '#0369a1'};" class="info-cell">${mainStatusText}</td>
@@ -2117,6 +2703,167 @@ function downloadJsonFile(obj, filename) {
   downloadAnchor.remove();
 }
 
+// ================= XUẤT DỮ LIỆU RA EXCEL (BẢNG PHẲNG) =================
+/**
+ * Xuất toàn bộ danh sách công việc ra file Excel bảng phẳng (không Gantt).
+ * Bao gồm đầy đủ các trường thông tin để thuận tiện phân tích / lưu trữ.
+ */
+function exportTasksDataToExcel() {
+  const today = new Date();
+  const todayStr = `${today.getDate().toString().padStart(2,'0')}/${(today.getMonth()+1).toString().padStart(2,'0')}/${today.getFullYear()}`;
+
+  // Header
+  const headers = [
+    'STT', 'Mã CV', 'Mã Dự Án', 'Tên Công Việc', 'Nội Dung Chi Tiết',
+    'Nhân Viên', 'Mã NV', 'Nguồn Yêu Cầu',
+    'Ngày Bắt Đầu', 'Dự Kiến', 'Ngày HT Kế Hoạch',
+    'Ngày HT Thực Tế', 'Trạng Thái', 'Điểm KPI',
+    'Cập Nhật Cuối', 'Ghi Chú'
+  ];
+
+  const statusMap = { 'Hoàn thành': '✔ Hoàn thành', 'Hoàn thành trễ': '⚠ Hoàn thành trễ', 'Đang làm': '▶ Đang làm', 'Tạm dừng': '⏸ Tạm dừng', 'Dừng dự án': '⏹ Dừng dự án' };
+
+  const rows = appData.tasks.map((t, i) => [
+    i + 1,
+    t.id || '',
+    t.mainTaskId || '',
+    t.mainTaskTitle || t.title || '',
+    t.detail || t.title || '',
+    t.empName || '',
+    t.empId || '',
+    t.taskSource || '',
+    formatVnDate(t.startDate) || '',
+    formatPlanDuration(t) || '',
+    formatVnDate(t.planEndDate) || '',
+    formatVnDate(t.actualEndDate) || '',
+    statusMap[t.status] || t.status || '',
+    t.kpiPoints !== undefined ? t.kpiPoints : '',
+    formatVnDate(t.lastStatusUpdate || t.startDate) || '',
+    t.note || ''
+  ]);
+
+  // Xây dựng HTML table để xuất
+  const title = `DANH SÁCH CÔNG VIỆC - MBC GROUP (Xuất: ${todayStr})`;
+  let html = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">`;
+  html += `<head><meta charset="UTF-8"><style>`;
+  html += `body{font-family:Arial,sans-serif;font-size:10pt;}`;
+  html += `table{border-collapse:collapse;width:100%;}`;
+  html += `td,th{border:1px solid #94a3b8;padding:4px 6px;vertical-align:middle;}`;
+  html += `.title-row td{background:#1e3a5f;color:white;font-weight:bold;font-size:13pt;text-align:center;border:none;padding:10px;}`;
+  html += `.date-row td{background:#f1f5f9;color:#475569;font-size:9pt;text-align:right;border:none;padding:3px 6px;}`;
+  html += `.header-row th{background:#334155;color:white;font-weight:bold;text-align:center;font-size:9pt;}`;
+  html += `.data-row td{font-size:9pt;}`;
+  html += `.data-row:nth-child(even) td{background:#f8fafc;}`;
+  html += `.status-done{color:#16a34a;font-weight:bold;}`;
+  html += `.status-late{color:#d97706;font-weight:bold;}`;
+  html += `.status-overdue{color:#dc2626;font-weight:bold;}`;
+  html += `.status-paused{color:#78716c;}`;
+  html += `</style></head><body>`;
+  html += `<table>`;
+  html += `<tr class="title-row"><td colspan="${headers.length}">${title}</td></tr>`;
+  html += `<tr class="date-row"><td colspan="${headers.length}">Tổng số: ${rows.length} công việc &nbsp;|&nbsp; Xuất lúc: ${todayStr}</td></tr>`;
+  html += `<tr class="header-row">${headers.map(h => `<th>${h}</th>`).join('')}</tr>`;
+  rows.forEach(r => {
+    const statusVal = String(r[12] || '');
+    let statusClass = '';
+    if (statusVal.includes('Hoàn thành trễ')) statusClass = 'status-late';
+    else if (statusVal.includes('Hoàn thành')) statusClass = 'status-done';
+    else if (statusVal.includes('Tạm dừng') || statusVal.includes('Dừng')) statusClass = 'status-paused';
+    html += `<tr class="data-row">${r.map((cell, ci) => `<td${ci === 12 && statusClass ? ` class="${statusClass}"` : ''}>${String(cell).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</td>`).join('')}</tr>`;
+  });
+  html += `</table></body></html>`;
+
+  const blob = new Blob([html], { type: 'application/vnd.ms-excel;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `DanhSach_CongViec_MBC_${today.getFullYear()}${String(today.getMonth()+1).padStart(2,'0')}${String(today.getDate()).padStart(2,'0')}.xls`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('✅ Đã xuất danh sách công việc ra Excel thành công!', 'success');
+}
+
+/**
+ * Xuất toàn bộ danh sách nhân sự ra file Excel bảng phẳng.
+ */
+function exportEmployeesDataToExcel() {
+  const today = new Date();
+  const todayStr = `${today.getDate().toString().padStart(2,'0')}/${(today.getMonth()+1).toString().padStart(2,'0')}/${today.getFullYear()}`;
+
+  const headers = [
+    'STT', 'Mã NV', 'Họ & Tên', 'Phòng Ban / Vị Trí', 'Email',
+    'Điện Thoại', 'Tổng Công Việc', 'Đã Hoàn Thành', 'Đang Làm', 'Tỷ Lệ HT (%)', 'Tổng Điểm KPI'
+  ];
+
+  const rows = appData.employees.map((emp, i) => {
+    const empTasks = appData.tasks.filter(t => t.empId === emp.id);
+    const doneCount = empTasks.filter(t => t.status && t.status.includes('Hoàn thành')).length;
+    const doingCount = empTasks.filter(t => t.status && !t.status.includes('Hoàn thành') && t.status !== 'Tạm dừng' && t.status !== 'Dừng dự án').length;
+    const total = empTasks.length;
+    const rate = total > 0 ? Math.round(doneCount / total * 100) : 0;
+    const kpiTotal = empTasks.reduce((sum, t) => sum + (t.kpiPoints || 0), 0);
+    return [
+      i + 1,
+      emp.id || '',
+      emp.name || '',
+      emp.dept || emp.position || '',
+      emp.email || '',
+      emp.phone || '',
+      total,
+      doneCount,
+      doingCount,
+      rate,
+      kpiTotal
+    ];
+  });
+
+  const title = `DANH SÁCH NHÂN SỰ - MBC GROUP (Xuất: ${todayStr})`;
+  let html = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">`;
+  html += `<head><meta charset="UTF-8"><style>`;
+  html += `body{font-family:Arial,sans-serif;font-size:10pt;}`;
+  html += `table{border-collapse:collapse;width:100%;}`;
+  html += `td,th{border:1px solid #94a3b8;padding:4px 6px;vertical-align:middle;}`;
+  html += `.title-row td{background:#164e63;color:white;font-weight:bold;font-size:13pt;text-align:center;border:none;padding:10px;}`;
+  html += `.date-row td{background:#f0f9ff;color:#0369a1;font-size:9pt;text-align:right;border:none;padding:3px 6px;}`;
+  html += `.header-row th{background:#0c4a6e;color:white;font-weight:bold;text-align:center;font-size:9pt;}`;
+  html += `.data-row td{font-size:9pt;}`;
+  html += `.data-row:nth-child(even) td{background:#f0f9ff;}`;
+  html += `.num{text-align:center;}`;
+  html += `.rate-good{color:#16a34a;font-weight:bold;text-align:center;}`;
+  html += `.rate-mid{color:#d97706;font-weight:bold;text-align:center;}`;
+  html += `.rate-low{color:#dc2626;font-weight:bold;text-align:center;}`;
+  html += `</style></head><body>`;
+  html += `<table>`;
+  html += `<tr class="title-row"><td colspan="${headers.length}">${title}</td></tr>`;
+  html += `<tr class="date-row"><td colspan="${headers.length}">Tổng nhân sự: ${rows.length} &nbsp;|&nbsp; Xuất lúc: ${todayStr}</td></tr>`;
+  html += `<tr class="header-row">${headers.map(h => `<th>${h}</th>`).join('')}</tr>`;
+  rows.forEach(r => {
+    const rate = r[9];
+    const rateClass = rate >= 80 ? 'rate-good' : rate >= 50 ? 'rate-mid' : 'rate-low';
+    html += `<tr class="data-row">${r.map((cell, ci) => {
+      let cls = '';
+      if (ci >= 6 && ci <= 8) cls = 'num';
+      if (ci === 9) cls = rateClass;
+      if (ci === 10) cls = 'num';
+      return `<td${cls ? ` class="${cls}"` : ''}>${String(cell).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</td>`;
+    }).join('')}</tr>`;
+  });
+  html += `</table></body></html>`;
+
+  const blob = new Blob([html], { type: 'application/vnd.ms-excel;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `DanhSach_NhanSu_MBC_${today.getFullYear()}${String(today.getMonth()+1).padStart(2,'0')}${String(today.getDate()).padStart(2,'0')}.xls`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('✅ Đã xuất danh sách nhân sự ra Excel thành công!', 'success');
+}
+
 function importDatabaseJson(e) {
   const file = e.target.files[0];
   if (!file) return;
@@ -2176,6 +2923,157 @@ function resetToSampleData() {
   restoreDefaultDatabase();
 }
 
+// ================= NHẬT KÝ CẬP NHẬT TÌNH TRẠNG (STATUS LOG MODAL) =================
+function openStatusLogModal(taskId) {
+  const task = appData.tasks.find(t => t.id === taskId);
+  if (!task) return;
+  document.getElementById('statusLogTaskId').value = task.id;
+  document.getElementById('statusLogTaskName').innerText = `[${task.id}] ${task.mainTaskTitle || task.title} - ${task.empName}`;
+  document.getElementById('statusLogStatus').value = task.status || 'Đang làm';
+  document.getElementById('statusLogContent').value = '';
+
+  const historyEl = document.getElementById('statusLogHistory');
+  const logs = task.statusLogs || [];
+  if (logs.length === 0) {
+    historyEl.innerHTML = '<div class="text-slate-400 text-center py-3 text-xs">Chưa có lịch sử cập nhật nào</div>';
+  } else {
+    historyEl.innerHTML = '';
+    logs.slice().reverse().forEach(log => {
+      const div = document.createElement('div');
+      div.className = 'p-2 rounded-lg bg-white border border-slate-200 text-xs space-y-0.5 shadow-xs';
+      div.innerHTML = `
+        <div class="flex items-center justify-between font-bold text-slate-700">
+          <span class="text-violet-700"><i class="fa-regular fa-clock mr-1"></i>${formatVnDate(log.date) || log.date}</span>
+          <span class="px-1.5 py-0.2 rounded text-[9px] font-semibold bg-violet-50 text-violet-700 border border-violet-200">${log.status || ''}</span>
+        </div>
+        <div class="text-slate-600 text-[11px]">${log.note ? log.note : '<em class="text-slate-400">Không ghi chú nội dung</em>'}</div>
+        <div class="text-[9px] text-slate-400 text-right">Người cập nhật: ${log.author || 'Thành viên'}</div>
+      `;
+      historyEl.appendChild(div);
+    });
+  }
+
+  document.getElementById('statusLogModal').classList.remove('hidden');
+}
+
+function closeStatusLogModal() {
+  document.getElementById('statusLogModal').classList.add('hidden');
+}
+
+function saveStatusLog() {
+  const taskId = document.getElementById('statusLogTaskId').value;
+  const task = appData.tasks.find(t => t.id === taskId);
+  if (!task) return;
+
+  const note = document.getElementById('statusLogContent').value.trim();
+  const status = document.getElementById('statusLogStatus').value;
+  const todayStr = '2026-10-07';
+
+  if (!task.statusLogs) task.statusLogs = [];
+  task.statusLogs.push({
+    date: todayStr,
+    note: note,
+    status: status,
+    author: (appData.currentUser && appData.currentUser.name) ? appData.currentUser.name : 'Người dùng'
+  });
+
+  task.status = status;
+  task.lastStatusUpdate = todayStr;
+  if (status.includes('Hoàn thành') && !task.actualEndDate) {
+    task.actualEndDate = todayStr;
+  }
+
+  saveDataToStorage();
+  closeStatusLogModal();
+  applyFilters();
+}
+
+// ================= LỊCH NGHỈ ĐẶC BIỆT & NGÀY LỄ (HOLIDAY MODAL) =================
+function openHolidayModal() {
+  renderHolidayList();
+  document.getElementById('holidayModal').classList.remove('hidden');
+}
+
+function closeHolidayModal() {
+  document.getElementById('holidayModal').classList.add('hidden');
+  applyFilters();
+}
+
+function renderHolidayList() {
+  const listEl = document.getElementById('holidayList');
+  const countBadge = document.getElementById('holidayCountBadge');
+  const holidays = appData.holidays || [];
+  if (countBadge) countBadge.innerText = `(${holidays.length} ngày)`;
+
+  if (holidays.length === 0) {
+    listEl.innerHTML = '<div class="text-xs text-slate-400 text-center py-4">Chưa có ngày nghỉ nào được cài đặt</div>';
+    return;
+  }
+
+  holidays.sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+
+  listEl.innerHTML = '';
+  holidays.forEach(h => {
+    const isNational = h.type === 'NATIONAL';
+    const div = document.createElement('div');
+    div.className = `flex items-center justify-between p-2.5 rounded-xl border text-xs ${isNational ? 'bg-red-50/70 border-red-200' : 'bg-purple-50/70 border-purple-200'} shadow-xs`;
+    div.innerHTML = `
+      <div class="flex items-center gap-2">
+        <span class="w-3 h-3 rounded-full ${isNational ? 'bg-red-500' : 'bg-purple-500'} shrink-0"></span>
+        <div>
+          <span class="font-bold text-slate-800">${formatVnDate(h.date)}</span>
+          <span class="text-slate-600 ml-2 font-medium">${h.name}</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="text-[10px] font-semibold px-2 py-0.5 rounded ${isNational ? 'bg-red-100 text-red-800 border border-red-300' : 'bg-purple-100 text-purple-800 border border-purple-300'}">
+          ${isNational ? 'Lễ quốc gia' : 'Nghỉ đặc biệt'}
+        </span>
+        <button onclick="deleteHoliday('${h.date}')" class="text-slate-400 hover:text-rose-600 px-1 py-0.5 transition" title="Xóa ngày nghỉ">
+          <i class="fa-solid fa-trash-can text-[11px]"></i>
+        </button>
+      </div>
+    `;
+    listEl.appendChild(div);
+  });
+}
+
+function addHoliday() {
+  const date = document.getElementById('holidayDate').value;
+  const type = document.getElementById('holidayType').value;
+  const name = document.getElementById('holidayName').value.trim();
+
+  if (!date) {
+    alert('Vui lòng chọn ngày nghỉ!');
+    return;
+  }
+  if (!name) {
+    alert('Vui lòng nhập tên / lý do ngày nghỉ!');
+    return;
+  }
+
+  if (!appData.holidays) appData.holidays = [];
+  const existing = appData.holidays.find(h => h.date === date);
+  if (existing) {
+    existing.name = name;
+    existing.type = type;
+  } else {
+    appData.holidays.push({ date, name, type });
+  }
+
+  saveDataToStorage();
+  document.getElementById('holidayName').value = '';
+  document.getElementById('holidayDate').value = '';
+  renderHolidayList();
+}
+
+function deleteHoliday(date) {
+  if (!confirm(`Bạn có chắc muốn xóa ngày nghỉ ${formatVnDate(date)}?`)) return;
+  appData.holidays = (appData.holidays || []).filter(h => h.date !== date);
+  saveDataToStorage();
+  renderHolidayList();
+}
+
 // ================= KHỞI ĐỘNG ỨNG DỤNG =================
 window.addEventListener('DOMContentLoaded', async () => {
   await loadInitialData();
@@ -2188,6 +3086,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   updateAuthUI();
   renderUserDropdown();
   populateEmployeeSelects();
+  renderFilterMainTasksSelect();
   applyFilters();
 
   document.addEventListener('click', (e) => {

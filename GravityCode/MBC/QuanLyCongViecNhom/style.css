@@ -137,3 +137,74 @@
   body { background: white; color: black; }
   .overflow-x-auto, .overflow-y-auto { overflow: visible !important; }
 }
+
+/* ═══ TÍNH NĂNG MỚI v3.0 ═══ */
+
+/* Thanh Gantt "Đang làm" — xanh dương nhạt, sọc pulse */
+.timeline-arrow-inprogress,
+.timeline-arrow-in-progress {
+  background: repeating-linear-gradient(
+    90deg,
+    #0284c7 0px, #0284c7 12px,
+    #06b6d4 12px, #06b6d4 20px
+  );
+  box-shadow: 0 1px 4px rgba(2,132,199,0.35);
+  height: 18px;
+  position: relative;
+  border-radius: 2px 0 0 2px;
+  animation: gantt-pulse 1.8s ease-in-out infinite;
+}
+@keyframes gantt-pulse {
+  0%,100% { opacity: 1; }
+  50%      { opacity: 0.7; }
+}
+
+.arrow-head-inprogress,
+.arrow-head-in-progress {
+  width: 0; height: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-left: 12px solid #06b6d4;
+  position: absolute; right: -12px; top: 0; z-index: 10;
+}
+
+/* Ô thứ 7 / Chủ nhật */
+.cell-weekend   { background-color: #fef9ec !important; }
+.col-weekend    { background-color: #fef3c7 !important; }
+
+/* Ô ngày lễ quốc gia */
+.cell-national  { background-color: #fef2f2 !important; }
+.col-holiday-national { background-color: #fee2e2 !important; color: #991b1b !important; }
+
+/* Ô ngày nghỉ đặc biệt (nội bộ) */
+.cell-special   { background-color: #f5f3ff !important; }
+.col-holiday-special { background-color: #ede9fe !important; color: #581c87 !important; }
+
+/* Badge nguồn yêu cầu */
+.src-gd   { background:#fee2e2; color:#991b1b; border:1px solid #fca5a5; }
+.src-tp   { background:#ffedd5; color:#9a3412; border:1px solid #fdba74; }
+.src-du   { background:#fef9c3; color:#854d0e; border:1px solid #fde047; }
+.src-ci   { background:#dcfce7; color:#166534; border:1px solid #86efac; }
+.src-kh   { background:#dbeafe; color:#1e40af; border:1px solid #93c5fd; }
+.src-kh2  { background:#e0e7ff; color:#3730a3; border:1px solid #a5b4fc; }
+.src-khac { background:#f1f5f9; color:#475569; border:1px solid #cbd5e1; }
+
+/* Hàng cần cập nhật (chưa log trong 3 ngày) */
+.row-needs-update td,
+.row-overdue-update td {
+  background-color: #fff1f2 !important;
+  border-top-color: #fecdd3 !important;
+  border-bottom-color: #fecdd3 !important;
+}
+.row-needs-update:hover td,
+.row-overdue-update:hover td {
+  background-color: #ffe4e6 !important;
+}
+
+/* Thanh ngăn cách nhóm nhân viên */
+.emp-group-divider td,
+.emp-group-header td {
+  font-weight: 700;
+  font-size: 11px;
+}
+

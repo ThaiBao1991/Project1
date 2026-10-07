@@ -288,21 +288,6 @@
       "actualEndDate": "",
       "status": "Tạm dừng",
       "note": "Tạm dừng chờ linh kiện bo mạch nhập khẩu"
-    },
-    {
-      "id": "TASK-1007",
-      "mainTaskId": "CV-TUM",
-      "mainTaskTitle": "Sửa chữa máy TUM",
-      "title": "Sửa chữa máy TUM",
-      "detail": "test máy và chạy rà tải",
-      "empId": "NV01",
-      "empName": "Nguyễn Quang Thảo",
-      "startDate": "2026-10-06",
-      "planDays": 1,
-      "planEndDate": "2026-10-06",
-      "actualEndDate": "",
-      "status": "Đang làm",
-      "note": "Kiểm tra chạy thử toàn tải máy TUM"
     }
   ]
 }
