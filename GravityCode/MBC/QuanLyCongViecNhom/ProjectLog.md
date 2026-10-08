@@ -3,8 +3,92 @@
 ## Thông Tin Dự Án
 - **Tên dự án:** Ứng dụng Web Quản Lý Công Việc & Nhân Sự Toàn Diện (Gantt Timeline & Performance Points)
 - **Vị trí:** `c:\Users\12953 Bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\QuanLyCongViecNhom`
-- **Phiên bản:** v3.3.0 (Timeline YEAR căn theo filter, Xuất Data Excel Công Việc & Nhân Sự, Hiển thị ngày cập nhật cuối)
-- **Ngày cập nhật:** 07/10/2026.
+- **Phiên bản:** v3.7.1 (Xóa Nhanh Công Việc Trực Tiếp Trên Bảng Gantt & Cảnh Báo Quá Hạn Cập Nhật)
+- **Ngày cập nhật:** 08/10/2026.
+
+---
+
+## Nhật Ký Cập Nhật (Change Log)
+
+### Phiên Bản 3.7.1 (08/10/2026) - Xóa Nhanh Công Việc Trên Bảng Gantt & Khắc Phục Cảnh Báo Quá Hạn Cập Nhật:
+1. **Xóa nhanh Công Việc trực tiếp trên Bảng Gantt chính:**
+   - Bổ sung cột **Checkbox** đầu tiên vào bảng Gantt (cố định `sticky-col-left` ở mép trái, vị trí `left: 0`).
+   - Checkbox header **"Chọn tất cả"** hỗ trợ chọn/bỏ chọn toàn bộ công việc đang hiển thị kèm trạng thái `indeterminate`.
+   - Nút **"🗑️ Xóa đã chọn (N)"** xuất hiện động trên thanh toolbar chính (cạnh số lượng công việc) kèm hiệu ứng chú ý `animate-pulse` khi có công việc được tick.
+   - Hộp thoại xác nhận xóa hiển thị chi tiết tên/mã các công việc đã chọn trước khi thực hiện.
+   - Hàm mới: `_onGanttTaskCheckboxChange`, `toggleSelectAllGanttTasks`, `_updateGanttBulkDeleteUI`, `bulkDeleteGanttSelectedTasks`.
+2. **Khắc phục triệt để lỗi "Công việc chưa có cập nhật gì nhưng không báo lên dù đã quá ngày" (Hình 1):**
+   - **Root cause cũ:** Code trước đây dùng fallback `task.lastStatusUpdate || task.startDate`, khiến công việc chưa từng cập nhật bị gán ngày cập nhật là `startDate`. Nếu `startDate` gần ngày hiện tại thì điều kiện `daysSinceUpdate >= 3` không đạt, làm hệ thống im lặng dù công việc đã quá hạn kết thúc kế hoạch (`planEndDate < today`).
+   - **Cơ chế mới:** Phân nhánh rõ ràng:
+     - Nếu **chưa cập nhật lần nào** (`!task.lastStatusUpdate`): Hệ thống kiểm tra nếu đã qua ngày kết thúc kế hoạch (`planEndDate < today`), lập tức bật cảnh báo đỏ `Cần Cập Nhật (Quá hạn N ngày)` nhấp nháy, hoặc nếu đã qua ngày bắt đầu >= 3 ngày cũng tự động cảnh báo. Cột "CN cuối" hiển thị rõ `Chưa cập nhật` màu đỏ thay vì nhầm tưởng đã cập nhật vào ngày bắt đầu.
+     - Nếu **đã từng cập nhật**: Kiểm tra quá 3 ngày chưa cập nhật tiếp, hoặc nếu công việc đã quá hạn kế hoạch mà lần cập nhật cuối diễn ra từ trước ngày kết thúc kế hoạch thì cũng bật cảnh báo yêu cầu cập nhật lại.
+3. **Bảo toàn dữ liệu CSDL:** Giữ nguyên 100% dữ liệu gốc trong `database.js` theo đúng yêu cầu người dùng.
+
+### Phiên Bản 3.7.0 (08/10/2026) - Xóa Nhanh Nhân Viên & Công Việc Hàng Loạt (Bulk Delete):
+1. **Xóa nhanh Nhân Viên trong modal Quản Lý Nhân Sự:**
+   - Thêm cột **checkbox** vào bảng danh sách nhân viên (cột đầu tiên).
+   - Checkbox header **"Chọn tất cả"** kèm trạng thái nửa chọn (indeterminate) khi chất chọn một phần.
+   - Nút **"🗑️ Xóa đã chọn (N)"** xuất hiện động khi có ít nhất 1 nhân viên được đánh dấu.
+   - Xác nhận xóa hiện danh sách tên nhân viên rõ ràng và cảnh báo công việc KHÔNG bị xóa theo.
+   - Hàm mới: `_onEmpCheckboxChange`, `_updateEmpBulkDeleteBtn`, `toggleSelectAllEmployees`, `bulkDeleteEmployees`.
+2. **Xóa nhanh Công Việc qua modal riêng (Bulk Delete Task Modal):**
+   - Thêm nút **"🗑️ Xóa Nhanh CV"** (màu đỏ Rose) trên thanh toolbar chính ngậy cạnh nút Cập Nhật Tiến Độ.
+   - Modal `bulkDeleteTaskModal` liệt kê **toàn bộ** công việc trong hệ thống, hiển thị: Tên CV, Nhân viên, Ngày bắt đầu, Kết thúc KH, Tiến độ (%), Trạng thái (màu sắc theo loại).
+   - Hỗ trợ **tìm kiếm thời gian thực** theo tên CV, tên/mã nhân viên, trạng thái.
+   - Checkbox **"Chọn tất cả"** kèm badge "Đã chọn: N" cập nhật động.
+   - Nút **"Xóa đã chọn (N)"** dưới footer, hiển thị số lượng, yêu cầu xác nhận trước khi xóa.
+   - Hàm mới: `openBulkDeleteTaskModal`, `closeBulkDeleteTaskModal`, `renderBulkTaskTable`, `filterBulkTaskList`, `toggleSelectAllBulkTasks`, `updateBulkTaskSelectionUI`, `executeBulkDeleteTasks`.
+3. **Nâng phiên bản:** DB_VERSION 3.6 → 3.7 trong `app.js` và `database.js`.
+
+### Phiên Bản 3.6.0 (08/10/2026) - Tùy Chọn Ngày Cập Nhật Tiến Độ, Cột Link Từng Việc & Xuất Công Việc Hiện Tại:
+1. **Tùy chọn Ngày cập nhật trong Modal Tiến độ (Hình 1):**
+   - Bổ sung ô chọn ngày `<input type="date" id="statusLogDate">` ngay trong modal ghi nhận nhật ký / cập nhật tình trạng.
+   - Mặc định tự động điền **Ngày hôm nay (`today`)**, người dùng có thể linh hoạt chọn ngày thực tế đã thực hiện công việc (ví dụ: hôm qua, tuần trước).
+   - Nhật ký tiến độ và mốc thời gian cập nhật `lastStatusUpdate` lưu chuẩn theo ngày được chọn, biểu tượng ghi chú `📝` trên thanh Gantt và biểu đồ xuất hiện chuẩn xác tại đúng ngày đó.
+2. **Cột Link / Tệp tài liệu tương ứng cho từng công việc (Yêu cầu 2):**
+   - **Bảng Gantt chính:** Bổ sung cột cố định **"Link / Tệp"** (vị trí giữa Ghi chú và Phân loại).
+   - **Tương tác nhanh:** Khi đã có link, hiển thị nút xanh `[↗ Mở]` kèm nút icon bút chì để sửa; khi chưa có link, hiển thị nút viền nét đứt `[+ Link]` giúp thao tác 1 chạm.
+   - **Modal sửa link riêng biệt (`taskLinkModal`):** Cho phép sửa hoặc dán nhanh link tài liệu/folder bất kỳ lúc nào mà không cần mở form Admin CRUD phức tạp.
+   - **Hỗ trợ đa định dạng đường dẫn:** Nhận diện và mở trực tiếp link web (`https://`, Google Drive...), giao thức `file:///` hoặc đường dẫn thư mục máy tính Windows (`C:\...`, mạng nội bộ UNC `\\server\share`).
+   - **Form CRUD công việc:** Tích hợp trường nhập `taskLink` trong modal thêm/sửa công việc của Admin.
+   - **Xuất báo cáo:** Cột Link / Tệp được đồng bộ hiển thị trên cả file Excel Gantt (`.xls`) và bảng dữ liệu phẳng (`.xlsx`).
+3. **Xuất Danh Sách Công Việc Hiện Tại ra Excel (.xlsx) (Hình 2):**
+   - Trong modal *Nhập Công Việc Vào Hệ Thống*, bổ sung khối màu Emerald **"📥 Xuất CV Hiện Tại (.xlsx)"** song song với khối Tải File Mẫu.
+   - Tự động xuất toàn bộ `appData.tasks` ra file Excel định dạng chuẩn mẫu import (Mã CV, Mã CV Chính, Tên CV chính, Nội dung chi tiết, Người thực hiện, Mã NV, Ngày bắt đầu, Thời gian dự kiến, Ngày hoàn thành, Tình trạng, Link / Tệp, Ghi chú).
+   - File xuất ra có thể dùng trực tiếp để chỉnh sửa hàng loạt và nạp lại qua Smart Merge (hệ thống tự động nhận diện `Mã CV` và nội dung để bảo toàn dữ liệu, không trùng lặp).
+   - Tự động chuyển đổi hiển thị khối Xuất CV khi ở tab "Công việc" và khối Xuất NV khi ở tab "Nhân sự".
+
+### Phiên Bản 3.5.0 (08/10/2026) - Khắc Phục Mũi Tên Tiến Độ, Note Icon Gantt & Excel, Tách Khối Xuất Nhân Sự Hiện Tại:
+1. **Khắc phục triệt để lỗi mất mũi tên tình trạng (Hình 1):**
+   - **Root cause:** Modal cập nhật tình trạng trước đây lưu `<option value="Dang lam">` (không dấu), làm lệch so sánh chuỗi `task.status === 'Đang làm'` khiến thanh thực tích không được kéo dài và bị ẩn hoàn toàn.
+   - **Giải pháp:** Chuẩn hóa toàn bộ danh sách trạng thái trong `statusLogModal` sang tiếng Việt có dấu chuẩn (`Đang làm`, `Tạm dừng`, `Hoàn thành`, `Hoàn thành trễ`). Đồng thời thêm hàm `normalizeTaskStatuses()` tự động chuẩn hóa dữ liệu cũ đã lưu trong `localStorage`.
+   - **Căn mốc ngày động:** Cho phép `tActualEnd` tự động nhận ngày cập nhật cuối `task.lastStatusUpdate` hoặc ngày hiện tại (thay vì cố định ở 07/10), giúp mũi tên cyan pulse của công việc đang làm vươn chuẩn xác đến đúng ngày cập nhật.
+2. **Biểu tượng ghi chú 📝 gắn trực tiếp trên thân mũi tên Gantt & Xuất ra Excel (Yêu cầu 2):**
+   - **Trên Web:** Ở những ngày có cập nhật tiến độ, biểu tượng ghi chú `📝` (kèm `%` tiến độ) được gắn **trực tiếp ngay giữa thân thanh mũi tên** trên biểu đồ Gantt. Rê chuột hiển thị popover/tooltip đầy đủ (Ngày, % tiến độ, nội dung ghi chú, người cập nhật). Click vào biểu tượng mở ngay modal lịch sử tiến độ.
+   - **Trên Excel Gantt (`.xls`):** Ô ngày có cập nhật hiển thị biểu tượng `📝 [XX%]` với màu sắc nhận diện đặc trưng và chú thích `title`. Cột Kế hoạch / Đang làm / Hoàn thành hiển thị đồng bộ màu cyan `#0284c7` và ký hiệu `►`.
+   - **Trên Excel Bảng phẳng (`.xlsx`):** Thêm cột riêng **"Lịch Sử Cập Nhật & Tiến Độ"** liệt kê chi tiết toàn bộ các mốc nhật ký của từng công việc.
+3. **Tách riêng khối Xuất Danh Sách Nhân Sự Hiện Tại (Hình 2):**
+   - Trong modal *Nhập Nhân Sự Vào Hệ Thống*, khu vực thao tác dữ liệu được tách thành 2 khối trực quan, rõ ràng:
+     1. Khối tím Indigo: **"📥 Xuất NV Hiện Tại (.xlsx)"** — xuất toàn bộ nhân viên đang có trong hệ thống (Mã NV, Họ Tên, Phòng ban, Email, Số điện thoại) để đối soát hoặc sửa đổi.
+     2. Khối xanh Teal: **"📄 Tải File Mẫu (.xlsx)"** — tải file mẫu trống chuẩn hóa cột để chuẩn bị import.
+   - Nút xuất dữ liệu nhân sự luôn sẵn sàng và hoạt động mượt mà.
+
+### Phiên Bản 3.4.0 (08/10/2026) - Marker Gantt, Quick Links & Excel Nhân Sự Hiện Tại:
+1. **Lưu & Hiển thị lịch sử cập nhật tiến độ trên biểu đồ Gantt:**
+   - Form "Cập nhật tình trạng" có thêm ô nhập **"Tiến độ hoàn thành (%)"** (0–100). Mỗi lần ghi nhận đều lưu `progress` vào `statusLogs[]`.
+   - Trên hàng **Thực tích** của mỗi công việc: các ngày đã ghi log xuất hiện **chấm tròn vàng nhỏ (●)** — hover để xem nội dung cập nhật nhanh.
+   - Modal "Cập nhật tình trạng" hiển thị **mini biểu đồ đường SVG** (tự động xuất hiện khi có ≥2 lần cập nhật có %) cho thấy tiến độ biến thiên qua thời gian.
+   - **Fix bug:** `saveStatusLog` không còn hardcode ngày `'2026-10-07'` — dùng ngày thực tế `new Date()` của hệ thống.
+2. **Nút "Liên Kết Nhanh" trên thanh Header:**
+   - Nút **🔗 Liên Kết** cố định trên thanh công cụ → mở modal Quick Links.
+   - Hỗ trợ mọi loại đường dẫn: `file:///`, `http://`, `https://`, đường dẫn Windows (`C:\...`) và UNC (`\\server\share`).
+   - Thêm/Xóa link tùy ý — lưu bền vào `localStorage` (`MBC_QUICK_LINKS`). Có 2 link mặc định (thư mục dự án + hướng dẫn).
+3. **Xuất nhân sự hiện tại ra Excel (.xlsx):**
+   - Trong modal Import Nhân Sự: nút **"Xuất NV Hiện Tại"** xuất hiện khi chuyển sang tab Nhân Sự, ẩn khi ở tab Công Việc.
+   - Xuất toàn bộ `appData.employees` ra file `.xlsx` (Mã NV, Họ Tên, Phòng Ban, Email, Điện Thoại) — phù hợp làm nguồn để chỉnh sửa và import lại.
+   - File mẫu nhân sự cũng được mở rộng thêm cột Email và Điện Thoại (từ 3 lên 5 cột).
+
+
 
 ---
 

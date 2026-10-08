@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
@@ -83,6 +83,12 @@
           <span>Cập Nhật Tiến Độ</span>
         </button>
 
+        <!-- Xóa Nhanh Công Việc -->
+        <button onclick="openBulkDeleteTaskModal()" class="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-rose-600 text-white hover:bg-rose-700 transition shadow-sm" title="Chọn và xóa nhanh nhiều công việc cùng lúc">
+          <i class="fa-solid fa-trash-can-arrow-up"></i>
+          <span>Xóa Nhanh CV</span>
+        </button>
+
         <!-- Quản lý Nhân sự (Admin) -->
         <button id="btnManageEmp" onclick="openEmployeeModal()" class="inline-flex items-center gap-2 px-3 py-2 text-xs font-semibold rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition shadow-sm">
           <i class="fa-solid fa-users-gear"></i>
@@ -129,6 +135,11 @@
         <button onclick="openSyncModal()" class="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-300 transition" title="Quản lý và sao lưu file JSON trong thư mục">
           <i class="fa-solid fa-database text-blue-600"></i>
           <span>File JSON</span>
+        </button>
+
+        <button onclick="openQuickLinksModal()" class="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg bg-sky-50 text-sky-700 hover:bg-sky-100 border border-sky-200 transition" title="Mo nhanh cac thu muc va file lien ket">
+          <i class="fa-solid fa-link text-sky-500"></i>
+          <span>Lien Ket</span>
         </button>
 
         <!-- User Role / Account Profile -->
@@ -384,8 +395,17 @@
           <span>Cam: Trễ hạn &nbsp;|&nbsp; Xám: Tạm dừng</span>
         </div>
       </div>
-      <div id="tableRecordCount" class="text-slate-500 font-medium">
-        Hiển thị: 0 công việc
+      <div class="flex items-center gap-3">
+        <!-- Nút Xóa Hàng Loạt Gantt (ẩn khi chưa chọn việc nào) -->
+        <button id="ganttBulkDeleteBtn" type="button" onclick="bulkDeleteGanttSelectedTasks()"
+          class="hidden px-2.5 py-1 text-xs font-semibold rounded-lg bg-rose-600 hover:bg-rose-700 text-white transition flex items-center gap-1.5 shadow-sm animate-pulse"
+          title="Xóa các công việc đang được chọn trong bảng Gantt">
+          <i class="fa-solid fa-trash-can"></i>
+          <span>Xóa đã chọn (<span id="ganttSelectedCount">0</span>)</span>
+        </button>
+        <div id="tableRecordCount" class="text-slate-500 font-medium">
+          Hiển thị: 0 công việc
+        </div>
       </div>
     </div>
 
@@ -395,8 +415,11 @@
         <table class="w-full text-xs text-left border-collapse" id="mainGanttTable">
           <thead class="bg-slate-100 text-slate-700 font-bold uppercase tracking-wider text-[11px] sticky-header border-b border-slate-300">
             <tr id="tableHeaderRow">
-              <th class="p-2.5 border-r border-slate-300 text-center w-12 sticky-col-left bg-slate-100 shadow-[1px_0_0_0_#cbd5e1]">STT</th>
-              <th class="p-2.5 border-r border-slate-300 min-w-[170px] max-w-[210px] sticky-col-left bg-slate-100 shadow-[1px_0_0_0_#cbd5e1]" style="left: 48px;">Công việc chính</th>
+              <th class="p-2 border-r border-slate-300 text-center w-10 sticky-col-left bg-slate-100 shadow-[1px_0_0_0_#cbd5e1]" style="left: 0;">
+                <input type="checkbox" id="selectAllGanttTasks" onchange="toggleSelectAllGanttTasks(this.checked)" class="w-3.5 h-3.5 text-brand-600 rounded border-slate-300 cursor-pointer" title="Chọn / Bỏ chọn tất cả công việc">
+              </th>
+              <th class="p-2.5 border-r border-slate-300 text-center w-10 sticky-col-left bg-slate-100 shadow-[1px_0_0_0_#cbd5e1]" style="left: 40px;">STT</th>
+              <th class="p-2.5 border-r border-slate-300 min-w-[170px] max-w-[210px] sticky-col-left bg-slate-100 shadow-[1px_0_0_0_#cbd5e1]" style="left: 80px;">Công việc chính</th>
               <th class="p-2.5 border-r border-slate-300 min-w-[190px]">Nội dung chi tiết</th>
               <th class="p-2.5 border-r border-slate-300 min-w-[130px]">Người thực hiện</th>
               <th class="p-2.5 border-r border-slate-300 text-center w-24">Ngày bắt đầu</th>
@@ -404,6 +427,7 @@
               <th class="p-2.5 border-r border-slate-300 text-center w-24">Thời gian hoàn thành</th>
               <th class="p-2.5 border-r border-slate-300 text-center w-28">Tình trạng</th>
               <th class="p-2.5 border-r border-slate-300 min-w-[120px]">Ghi chú</th>
+              <th class="p-2.5 border-r border-slate-300 text-center w-24">Link / Tệp</th>
               <th class="p-2.5 border-r border-slate-300 text-center w-20 bg-slate-200">Phân loại</th>
               <!-- Cột Lưới Ngày / Tuần / Tháng sẽ được Javascript tạo động -->
             </tr>
@@ -533,6 +557,14 @@
               <option value="Dự án chiến lược">🟣 Dự án chiến lược</option>
               <option value="Khác">&#9898; Khác</option>
             </select>
+          </div>
+
+          <div class="sm:col-span-2">
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">
+              <i class="fa-solid fa-link text-sky-600 mr-1"></i> Đường Dẫn Link / Thư Mục / File Tài Liệu
+            </label>
+            <input type="text" id="taskLink" placeholder="VD: https://drive.google.com/... hoặc file:///C:/MBC/ hoặc C:\MBC\TaiLieu" class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none">
+            <span class="text-[10px] text-slate-400">Gắn link tài liệu nghiệm thu, bản vẽ hoặc thư mục máy tính tương ứng với công việc này</span>
           </div>
 
           <div class="sm:col-span-2">
@@ -743,8 +775,11 @@
         <div>
           <div class="flex items-center justify-between mb-2">
             <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider">Danh Sách Nhân Viên Hiện Tại</h4>
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2 flex-wrap">
               <span class="text-xs text-slate-500 font-medium" id="empCountBadge">Tổng số: 0 nhân viên</span>
+              <button type="button" id="btnBulkDeleteEmp" onclick="bulkDeleteEmployees()" class="hidden px-2.5 py-1 text-xs font-semibold rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-300 transition flex items-center gap-1 shadow-sm" title="Xóa tất cả nhân viên đã chọn">
+                <i class="fa-solid fa-trash-can text-rose-600"></i> Xóa đã chọn (<span id="empSelectedCount">0</span>)
+              </button>
               <button type="button" onclick="openSmartImportModal('EMP')" class="px-2.5 py-1 text-xs font-semibold rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 transition flex items-center gap-1 shadow-sm" title="Nhập thêm nhân sự từ Excel">
                 <i class="fa-solid fa-cloud-arrow-up text-indigo-600"></i> Import Nhân Sự
               </button>
@@ -755,6 +790,9 @@
             <table class="w-full text-xs text-left">
               <thead class="bg-slate-100 text-slate-600 font-semibold border-b border-slate-200">
                 <tr>
+                  <th class="p-2 text-center w-8">
+                    <input type="checkbox" id="empSelectAll" onchange="toggleSelectAllEmployees(this.checked)" title="Chọn / Bỏ chọn tất cả" class="w-3.5 h-3.5 cursor-pointer accent-rose-500">
+                  </th>
                   <th class="p-3 text-center w-14">Mã NV</th>
                   <th class="p-3">Họ và Tên</th>
                   <th class="p-3">Bộ Phận</th>
@@ -870,13 +908,42 @@
           <p id="importRuleDesc">Hệ thống sẽ đối soát ID và thông tin: <b>Chỉ chèn các công việc chưa có</b>. Toàn bộ công việc đã tồn tại sẽ được giữ nguyên 100%, không bị trùng lặp hay ghi đè sai lệch!</p>
         </div>
 
-        <div class="flex items-center justify-between p-3 border border-slate-200 rounded-xl bg-slate-50">
+        <!-- Khối Xuất Công Việc Hiện Tại (Hiển thị khi ở tab Nhập Công Việc) -->
+        <div id="taskExportBox" class="p-3.5 border border-emerald-200 rounded-xl bg-emerald-50/80 flex items-center justify-between shadow-sm">
           <div>
-            <div class="text-xs font-bold text-slate-700">Tải file mẫu Excel chuẩn:</div>
-            <div class="text-[11px] text-slate-500">Mẫu có sẵn định dạng cột chuẩn xác</div>
+            <div class="text-xs font-bold text-emerald-950 flex items-center gap-1.5">
+              <i class="fa-solid fa-file-excel text-emerald-600"></i> Dữ liệu công việc hiện tại trong hệ thống:
+            </div>
+            <div class="text-[11px] text-emerald-700/90 mt-0.5">Xuất toàn bộ danh sách công việc ra Excel chuẩn định dạng Import để sửa đổi</div>
           </div>
-          <button type="button" onclick="downloadSmartImportTemplate()" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-teal-600 hover:bg-teal-700 text-white transition flex items-center gap-1.5 shadow-sm">
-            <i class="fa-solid fa-download"></i> Tải File Mẫu
+          <button id="btnExportCurrentTasks" type="button" onclick="exportCurrentTasksToExcel()" class="px-3.5 py-1.5 text-xs font-bold rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white transition flex items-center gap-1.5 shadow-sm whitespace-nowrap">
+            <i class="fa-solid fa-cloud-arrow-down"></i> Xuất CV Hiện Tại (.xlsx)
+          </button>
+        </div>
+
+        <!-- Khối Xuất Nhân Sự Hiện Tại (Hiển thị khi ở tab Nhập Nhân Sự) -->
+        <div id="empExportBox" class="hidden p-3.5 border border-indigo-200 rounded-xl bg-indigo-50/80 flex items-center justify-between shadow-sm">
+          <div>
+            <div class="text-xs font-bold text-indigo-950 flex items-center gap-1.5">
+              <i class="fa-solid fa-file-excel text-indigo-600"></i> Dữ liệu nhân sự hiện tại trong hệ thống:
+            </div>
+            <div class="text-[11px] text-indigo-700/90 mt-0.5">Xuất danh sách nhân viên hiện có kèm phòng ban, email, SĐT ra Excel</div>
+          </div>
+          <button id="btnExportCurrentEmp" type="button" onclick="exportCurrentEmployeesToExcel()" class="px-3.5 py-1.5 text-xs font-bold rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white transition flex items-center gap-1.5 shadow-sm whitespace-nowrap">
+            <i class="fa-solid fa-cloud-arrow-down"></i> Xuất NV Hiện Tại (.xlsx)
+          </button>
+        </div>
+
+        <!-- Khối Tải File Mẫu Excel Chuẩn -->
+        <div class="flex items-center justify-between p-3.5 border border-slate-200 rounded-xl bg-slate-50">
+          <div>
+            <div class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+              <i class="fa-solid fa-file-lines text-teal-600"></i> <span id="templateTitleText">Tải file mẫu Excel chuẩn:</span>
+            </div>
+            <div class="text-[11px] text-slate-500 mt-0.5" id="templateSubText">Mẫu có sẵn định dạng cột chuẩn xác để điền thêm</div>
+          </div>
+          <button type="button" onclick="downloadSmartImportTemplate()" class="px-3.5 py-1.5 text-xs font-bold rounded-lg bg-teal-600 hover:bg-teal-700 text-white transition flex items-center gap-1.5 shadow-sm whitespace-nowrap">
+            <i class="fa-solid fa-download"></i> Tải File Mẫu (.xlsx)
           </button>
         </div>
 
@@ -987,32 +1054,47 @@
         <button onclick="closeStatusLogModal()" class="text-white/80 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
-      <div class="p-5 space-y-4">
+      <div class="p-5 space-y-3 max-h-[80vh] overflow-y-auto">
         <input type="hidden" id="statusLogTaskId">
 
-        <!-- Lịch sử nhật ký -->
+        <!-- Bieu do tien do mini -->
+        <div id="statusLogMiniChart" class="hidden"></div>
+
+        <!-- Lich su nhat ky -->
         <div>
-          <div class="text-xs font-bold text-slate-700 uppercase mb-2"><i class="fa-solid fa-history text-violet-500 mr-1"></i>Lịch sử cập nhật:</div>
+          <div class="text-xs font-bold text-slate-700 uppercase mb-2"><i class="fa-solid fa-history text-violet-500 mr-1"></i>Lich su cap nhat:</div>
           <div id="statusLogHistory" class="max-h-44 overflow-y-auto space-y-1.5 border border-slate-200 rounded-xl p-2 bg-slate-50 text-xs">
-            <div class="text-slate-400 text-center py-3">Chưa có lịch sử nào</div>
+            <div class="text-slate-400 text-center py-3">Chua co lich su nao</div>
           </div>
         </div>
 
-        <!-- Thêm mục mới -->
+        <!-- Them muc moi -->
         <div class="bg-violet-50 border border-violet-200 rounded-xl p-3.5 space-y-3">
-          <div class="text-xs font-bold text-violet-900"><i class="fa-solid fa-plus-circle mr-1"></i>Ghi nhận cập nhật hôm nay:</div>
+          <div class="text-xs font-bold text-violet-900"><i class="fa-solid fa-plus-circle mr-1"></i>Ghi nhan cap nhat hom nay:</div>
           <div>
-            <label class="block text-[11px] font-semibold text-slate-600 mb-1">Nội dung thay đổi / Tiến độ (có thể để trống)</label>
-            <textarea id="statusLogContent" rows="2" placeholder="VD: Đã thay van áp suất, chờ phụ tùng, kiểm tra lại tuần sau..." class="w-full text-xs px-3 py-2 border border-violet-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:outline-none"></textarea>
+            <label class="block text-[11px] font-semibold text-slate-600 mb-1">Noi dung thay doi (co the de trong)</label>
+            <textarea id="statusLogContent" rows="2" placeholder="VD: Da thay van ap suat, cho phu tung, kiem tra lai tuan sau..." class="w-full text-xs px-3 py-2 border border-violet-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:outline-none"></textarea>
           </div>
-          <div>
-            <label class="block text-[11px] font-semibold text-slate-600 mb-1">Tình trạng hiện tại</label>
-            <select id="statusLogStatus" class="w-full text-xs px-3 py-2 border border-violet-300 rounded-lg focus:ring-2 focus:ring-violet-500 font-medium">
-              <option value="Đang làm">Đang làm</option>
-              <option value="Tạm dừng">⏸ Tạm dừng / Dừng dự án</option>
-              <option value="Hoàn thành">Hoàn thành (Đúng hạn)</option>
-              <option value="Hoàn thành trễ">Hoàn thành trễ</option>
-            </select>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-600 mb-1">
+                <i class="fa-regular fa-calendar-days text-violet-600 mr-1"></i>Ngày cập nhật
+              </label>
+              <input type="date" id="statusLogDate" class="w-full text-xs px-2.5 py-2 border border-violet-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:outline-none font-semibold text-slate-800 bg-white shadow-xs">
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-600 mb-1">Tiến độ hoàn thành (%)</label>
+              <input type="number" id="statusLogProgress" min="0" max="100" placeholder="VD: 40" class="w-full text-xs px-2.5 py-2 border border-violet-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:outline-none font-bold text-violet-700">
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-600 mb-1">Tình trạng hiện tại</label>
+              <select id="statusLogStatus" class="w-full text-xs px-2 py-2 border border-violet-300 rounded-lg focus:ring-2 focus:ring-violet-500 font-medium">
+                <option value="Đang làm">Đang làm</option>
+                <option value="Tạm dừng">⏸ Tạm dừng / Dừng dự án</option>
+                <option value="Hoàn thành">Hoàn thành (Đúng hạn)</option>
+                <option value="Hoàn thành trễ">Hoàn thành trễ</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -1020,6 +1102,38 @@
           <button type="button" onclick="closeStatusLogModal()" class="px-4 py-2 text-xs font-semibold rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700">Hủy</button>
           <button type="button" onclick="saveStatusLog()" class="px-5 py-2 text-xs font-semibold rounded-lg bg-violet-600 hover:bg-violet-700 text-white shadow-sm">
             <i class="fa-solid fa-save mr-1"></i> Ghi Nhận Cập Nhật
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: CẬP NHẬT LINK / TỆP TÀI LIỆU CÔNG VIỆC ================= -->
+  <div id="taskLinkModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-150">
+      <div class="bg-gradient-to-r from-sky-700 to-blue-600 px-6 py-3.5 text-white flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-link text-lg"></i>
+          <div>
+            <h3 class="font-bold text-sm">Gắn Link / Thư Mục Công Việc</h3>
+            <p class="text-[11px] text-sky-100" id="taskLinkModalSubTitle">Cập nhật đường dẫn tài liệu cho công việc</p>
+          </div>
+        </div>
+        <button onclick="closeTaskLinkModal()" class="text-white/80 hover:text-white text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="p-5 space-y-3">
+        <input type="hidden" id="taskLinkModalTaskId">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Đường dẫn Link / Thư mục / File:</label>
+          <input type="text" id="taskLinkModalInput" placeholder="VD: https://... hoặc file:///C:/... hoặc C:\Thumuc" class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:outline-none">
+          <p class="text-[10px] text-slate-400 mt-1">Hỗ trợ link web, Google Drive, thư mục mạng UNC hoặc đường dẫn folder máy tính.</p>
+        </div>
+        <div class="pt-3 border-t border-slate-200 flex items-center justify-end gap-2">
+          <button type="button" onclick="closeTaskLinkModal()" class="px-4 py-2 text-xs font-semibold rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700">Hủy</button>
+          <button type="button" onclick="saveTaskLinkFromModal()" class="px-5 py-2 text-xs font-semibold rounded-lg bg-sky-600 hover:bg-sky-700 text-white shadow-sm">
+            <i class="fa-solid fa-check mr-1"></i> Lưu Đường Dẫn
           </button>
         </div>
       </div>
@@ -1089,6 +1203,113 @@
   </div>
 
   <!-- Database & Core JavaScript Modules -->
+
+  <!-- ================= MODAL: QUICK LINKS (LIEN KET NHANH) ================= -->
+  <div id="quickLinksModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-lg overflow-hidden">
+      <div class="bg-gradient-to-r from-sky-700 to-cyan-600 px-6 py-4 text-white flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-link text-lg text-sky-200"></i>
+          <div>
+            <h3 class="font-bold text-sm">Lien Ket Nhanh</h3>
+            <p class="text-[11px] text-sky-100">Click de mo thu muc, file hoac trang web</p>
+          </div>
+        </div>
+        <button onclick="closeQuickLinksModal()" class="text-white/80 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="p-5 space-y-4">
+        <!-- Danh sach lien ket -->
+        <div>
+          <div class="text-xs font-bold text-slate-700 uppercase mb-2"><i class="fa-solid fa-list text-sky-500 mr-1"></i>Danh sach lien ket:</div>
+          <div id="quickLinksList" class="space-y-2 max-h-48 overflow-y-auto"></div>
+        </div>
+
+        <!-- Them lien ket moi -->
+        <div class="bg-sky-50 border border-sky-200 rounded-xl p-3.5 space-y-2.5">
+          <div class="text-xs font-bold text-sky-900"><i class="fa-solid fa-plus-circle mr-1"></i>Them lien ket moi:</div>
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-600 mb-1">Ten hien thi</label>
+            <input type="text" id="qlNewName" placeholder="VD: Thu muc du an, File Excel bao cao..." class="w-full text-xs px-3 py-2 border border-sky-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-600 mb-1">Duong dan (file://, http://, C:\\ hoac \\\\server\\share)</label>
+            <input type="text" id="qlNewUrl" placeholder="VD: file:///C:/Du_an/ hoac https://..." class="w-full text-xs px-3 py-2 border border-sky-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-600 mb-1">Mo ta ngan (tuy chon)</label>
+            <input type="text" id="qlNewDesc" placeholder="Mo ta..." class="w-full text-xs px-3 py-2 border border-sky-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:outline-none">
+          </div>
+          <button type="button" onclick="addQuickLink()" class="w-full px-4 py-2 text-xs font-semibold rounded-lg bg-sky-600 hover:bg-sky-700 text-white transition flex items-center justify-center gap-1.5 shadow-sm">
+            <i class="fa-solid fa-plus"></i> Them Lien Ket
+          </button>
+        </div>
+
+        <div class="pt-2 border-t border-slate-100 flex justify-end">
+          <button onclick="closeQuickLinksModal()" class="px-4 py-2 text-xs font-semibold rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700">Dong</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: XÓA NHANH CÔNG VIỆC ================= -->
+  <div id="bulkDeleteTaskModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-3xl max-h-[90vh] flex flex-col overflow-hidden">
+      <div class="bg-gradient-to-r from-rose-700 to-rose-500 px-6 py-4 text-white flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <i class="fa-solid fa-trash-can-arrow-up text-lg text-rose-200"></i>
+          <div>
+            <h3 class="font-bold text-base">Xóa Nhanh Công Việc</h3>
+            <p class="text-xs text-rose-100">Chọn các công việc muốn xóa, sau đó nhấn "Xóa đã chọn"</p>
+          </div>
+        </div>
+        <button onclick="closeBulkDeleteTaskModal()" class="text-white/80 hover:text-white text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Toolbar filter + select all -->
+      <div class="bg-rose-50 border-b border-rose-200 px-5 py-3 flex flex-wrap items-center gap-3">
+        <input type="text" id="bulkTaskSearchInput" oninput="filterBulkTaskList()" placeholder="🔍 Tìm kiếm tên công việc, nhân viên..." class="flex-1 min-w-[200px] text-xs px-3 py-1.5 border border-rose-300 rounded-lg focus:ring-2 focus:ring-rose-400 focus:outline-none">
+        <label class="flex items-center gap-1.5 text-xs font-semibold text-rose-700 cursor-pointer select-none">
+          <input type="checkbox" id="bulkTaskSelectAll" onchange="toggleSelectAllBulkTasks(this.checked)" class="w-3.5 h-3.5 accent-rose-600"> Chọn tất cả
+        </label>
+        <span class="text-xs text-rose-600 font-semibold" id="bulkTaskSelectedBadge">Đã chọn: 0</span>
+      </div>
+
+      <!-- Danh sách công việc -->
+      <div class="overflow-y-auto flex-1 p-4">
+        <table class="w-full text-xs text-left">
+          <thead class="bg-slate-100 text-slate-600 font-semibold sticky top-0">
+            <tr>
+              <th class="p-2 text-center w-8"></th>
+              <th class="p-2">Tên Công Việc</th>
+              <th class="p-2">Nhân Viên</th>
+              <th class="p-2 text-center">Bắt đầu</th>
+              <th class="p-2 text-center">Kết thúc KH</th>
+              <th class="p-2 text-center">Tiến độ</th>
+              <th class="p-2 text-center">Trạng thái</th>
+            </tr>
+          </thead>
+          <tbody id="bulkTaskTableBody" class="divide-y divide-slate-100">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer actions -->
+      <div class="border-t border-slate-200 px-5 py-3 flex items-center justify-between bg-slate-50">
+        <span class="text-xs text-slate-500">Tổng: <span id="bulkTaskTotalCount" class="font-bold text-slate-700">0</span> công việc</span>
+        <div class="flex gap-2">
+          <button onclick="closeBulkDeleteTaskModal()" class="px-4 py-2 text-xs font-semibold rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-700 transition">Hủy</button>
+          <button onclick="executeBulkDeleteTasks()" class="px-4 py-2 text-xs font-semibold rounded-lg bg-rose-600 hover:bg-rose-700 text-white transition flex items-center gap-1.5 shadow-sm">
+            <i class="fa-solid fa-trash-can"></i> Xóa đã chọn (<span id="bulkTaskDeleteCount">0</span>)
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="database.js"></script>
   <script src="app.js"></script>
 </body>

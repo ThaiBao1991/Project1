@@ -10,10 +10,10 @@
 
 // ================= CONSTANTS & STATE =================
 const STORAGE_KEY = 'MBC_WORK_MANAGEMENT_DATA_V2';
-const DB_VERSION  = '3.1'; // Bump này khi muốn xóa cache LocalStorage & nạp lại từ database.js
+const DB_VERSION  = '3.7'; // Bump này khi muốn xóa cache LocalStorage & nạp lại từ database.js
 
 let appData = {
-  version: '3.1',
+  version: '3.7',
   currentUser: {
     id: 'admin',
     name: 'Quản trị viên (Admin)',
@@ -277,6 +277,21 @@ async function loadInitialData() {
   } catch (err) {
     console.log('[MBC Data] Môi trường file:// không hỗ trợ fetch, ưu tiên dùng database.js');
   }
+
+  // Chuẩn hóa trạng thái nếu có dữ liệu cũ lưu không dấu
+  normalizeTaskStatuses();
+}
+
+function normalizeTaskStatuses() {
+  if (!appData || !Array.isArray(appData.tasks)) return;
+  appData.tasks.forEach(t => {
+    if (!t.status) return;
+    const s = t.status.trim();
+    if (s === 'Dang lam') t.status = 'Đang làm';
+    else if (s === 'Tam dung' || s === 'Dung du an') t.status = 'Tạm dừng';
+    else if (s === 'Hoan thanh') t.status = 'Hoàn thành';
+    else if (s === 'Hoan thanh tre') t.status = 'Hoàn thành trễ';
+  });
 }
 
 function saveDataToStorage() {
@@ -843,7 +858,7 @@ function renderMainTable() {
   const timelineCols = getTimelineColumns();
   const headerRow = document.getElementById('tableHeaderRow');
 
-  while (headerRow.children.length > 10) {
+  while (headerRow.children.length > 12) {
     headerRow.removeChild(headerRow.lastChild);
   }
 
@@ -1008,16 +1023,30 @@ function renderMainTable() {
     emptyState.classList.add('hidden');
   }
 
-  // Ngày tham chiếu hệ thống (10/2026)
-  const systemToday = new Date(2026, 9, 7);
+  // Ngày tham chiếu hệ thống (10/2026 hoặc ngày thực tế nếu đang ở 2026)
+  const realNow = new Date();
+  const systemToday = (realNow.getFullYear() === 2026)
+    ? new Date(realNow.getFullYear(), realNow.getMonth(), realNow.getDate())
+    : new Date(2026, 9, 8);
   let prevEmpId = null;
 
   // Render từng công việc
   filteredTasks.forEach((task, idx) => {
     const isAdmin = appData.currentUser.role === 'admin';
     const isMyTask = appData.currentUser.id === task.empId;
-    const isPaused = task.status === 'Tạm dừng' || task.status === 'Dừng dự án';
-    const isCompleted = task.status === 'Hoàn thành' || task.status === 'Hoàn thành trễ' || !!task.actualEndDate;
+    const rawStatus = (task.status || '').trim();
+    const isPaused = rawStatus === 'Tạm dừng' || rawStatus === 'Tam dung' || rawStatus === 'Dừng dự án' || rawStatus === 'Dung du an';
+    const isCompleted = rawStatus === 'Hoàn thành' || rawStatus === 'Hoan thanh' || rawStatus === 'Hoàn thành trễ' || rawStatus === 'Hoan thanh tre' || !!task.actualEndDate;
+    const isInProgress = !isCompleted && !isPaused;
+
+    // Ngày hiệu lực kết thúc cho việc đang làm (lấy ngày lớn nhất giữa systemToday và lastStatusUpdate)
+    let taskEffectiveToday = new Date(systemToday);
+    if (task.lastStatusUpdate) {
+      const lastUp = parseDate(task.lastStatusUpdate);
+      if (lastUp && lastUp > taskEffectiveToday) {
+        taskEffectiveToday = lastUp;
+      }
+    }
 
     const currentSortBy = viewState.filterSortBy || (document.getElementById('filterSortBy') ? document.getElementById('filterSortBy').value : 'EMP_START');
 
@@ -1028,7 +1057,7 @@ function renderMainTable() {
       const trGroup = document.createElement('tr');
       trGroup.className = 'emp-group-header bg-slate-100/90 text-slate-800 border-y border-slate-300 font-bold text-xs select-none';
       trGroup.innerHTML = `
-        <td colspan="${10 + timelineCols.length}" class="px-3 py-1.5 text-left sticky-col-left bg-gradient-to-r from-slate-100 via-indigo-50/60 to-transparent">
+        <td colspan="${12 + timelineCols.length}" class="px-3 py-1.5 text-left sticky-col-left bg-gradient-to-r from-slate-100 via-indigo-50/60 to-transparent">
           <div class="flex items-center gap-2">
             <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-indigo-600 text-white text-[10px]"><i class="fa-solid fa-user"></i></span>
             <span class="text-indigo-950 font-bold text-xs">${task.empName || 'Chưa phân công'} (${task.empId})</span>
@@ -1039,33 +1068,67 @@ function renderMainTable() {
       tbody.appendChild(trGroup);
     }
 
-    // Kiểm tra quá 3 ngày chưa cập nhật tình trạng đối với việc chưa hoàn tất
+    // Kiểm tra quá 3 ngày chưa cập nhật tình trạng hoặc quá hạn kế hoạch đối với việc chưa hoàn tất
     let isOverdueUpdate = false;
     let daysSinceUpdate = 0;
+    let overdueReason = '';
+
     if (!isCompleted && !isPaused) {
-      const lastUpdateStr = task.lastStatusUpdate || task.startDate;
-      const lastUpdateDate = parseDate(lastUpdateStr);
-      if (lastUpdateDate) {
-        daysSinceUpdate = Math.max(0, Math.floor((systemToday - lastUpdateDate) / (1000 * 60 * 60 * 24)));
-        if (daysSinceUpdate >= 3) {
+      const pEnd = parseDate(task.planEndDate);
+      const sDate = parseDate(task.startDate);
+
+      if (!task.lastStatusUpdate) {
+        // CHƯA CẬP NHẬT LẦN NÀO:
+        if (pEnd && taskEffectiveToday > pEnd) {
+          // Đã quá ngày kết thúc kế hoạch mà chưa cập nhật gì!
           isOverdueUpdate = true;
+          daysSinceUpdate = Math.max(1, Math.floor((taskEffectiveToday - pEnd) / (1000 * 60 * 60 * 24)));
+          overdueReason = `Quá hạn KH (${daysSinceUpdate} ngày) & chưa cập nhật lần nào`;
+        } else if (sDate && taskEffectiveToday >= sDate) {
+          // Đã qua ngày bắt đầu mà chưa cập nhật: nếu quá 3 ngày thì báo
+          const diffFromStart = Math.max(0, Math.floor((taskEffectiveToday - sDate) / (1000 * 60 * 60 * 24)));
+          if (diffFromStart >= 3) {
+            isOverdueUpdate = true;
+            daysSinceUpdate = diffFromStart;
+            overdueReason = `${diffFromStart} ngày chưa cập nhật tình trạng`;
+          }
+        } else if (!pEnd && !sDate) {
+          isOverdueUpdate = true;
+          daysSinceUpdate = 3;
+          overdueReason = 'Chưa cập nhật tình trạng';
         }
       } else {
-        isOverdueUpdate = true;
-        daysSinceUpdate = 3;
+        // ĐÃ TỪNG CẬP NHẬT TRƯỚC ĐÓ:
+        const lastUpdateDate = parseDate(task.lastStatusUpdate);
+        if (lastUpdateDate) {
+          daysSinceUpdate = Math.max(0, Math.floor((taskEffectiveToday - lastUpdateDate) / (1000 * 60 * 60 * 24)));
+          if (daysSinceUpdate >= 3) {
+            isOverdueUpdate = true;
+            overdueReason = `Quá ${daysSinceUpdate} ngày chưa cập nhật`;
+          } else if (pEnd && taskEffectiveToday > pEnd && lastUpdateDate < pEnd) {
+            // Đã quá hạn kế hoạch nhưng lần cập nhật cuối là từ trước khi hết hạn
+            isOverdueUpdate = true;
+            const overdueDays = Math.max(1, Math.floor((taskEffectiveToday - pEnd) / (1000 * 60 * 60 * 24)));
+            overdueReason = `Quá hạn KH (${overdueDays} ngày) & cần cập nhật lại`;
+          }
+        } else {
+          isOverdueUpdate = true;
+          daysSinceUpdate = 3;
+          overdueReason = 'Chưa cập nhật tình trạng';
+        }
       }
     }
 
     let statusBadge = '';
     if (isPaused) {
       statusBadge = '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-300">⏸ Tạm dừng</span>';
-    } else if (task.status === 'Hoàn thành') {
+    } else if (rawStatus === 'Hoàn thành' || rawStatus === 'Hoan thanh') {
       statusBadge = '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">Hoàn Thành</span>';
-    } else if (task.status === 'Hoàn thành trễ') {
+    } else if (rawStatus === 'Hoàn thành trễ' || rawStatus === 'Hoan thanh tre') {
       statusBadge = '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-orange-100 text-orange-800 border border-orange-300">Hoàn Thành trễ</span>';
     } else {
       const pEnd = parseDate(task.planEndDate);
-      if (pEnd && systemToday > pEnd) {
+      if (pEnd && taskEffectiveToday > pEnd) {
         statusBadge = '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-800 border border-rose-300">Quá hạn</span>';
       } else {
         statusBadge = '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800 border border-blue-300">Đang làm</span>';
@@ -1090,22 +1153,22 @@ function renderMainTable() {
     }
 
     // Hiển thị ngày cập nhật cuối (lastStatusUpdate)
-    const lastUpdateDisplayStr = task.lastStatusUpdate || task.startDate || '';
-    const lastUpdateDisplay = lastUpdateDisplayStr ? formatVnDate(lastUpdateDisplayStr) : 'Chưa rõ';
+    const hasStatusUpdate = !!(task.lastStatusUpdate && task.lastStatusUpdate.trim());
+    const lastUpdateDisplay = hasStatusUpdate ? formatVnDate(task.lastStatusUpdate) : 'Chưa cập nhật';
     const lastUpdateInfo = (!isCompleted && !isPaused) ? `
-      <div class="mt-1 flex items-center gap-1" title="Lần cập nhật gần nhất: ${lastUpdateDisplay}">
+      <div class="mt-1 flex items-center gap-1" title="${hasStatusUpdate ? `Lần cập nhật gần nhất: ${lastUpdateDisplay}` : 'Chưa từng ghi nhận cập nhật tiến độ'}">
         <i class="fa-regular fa-clock text-slate-400 text-[8px]"></i>
-        <span class="text-[9px] ${isOverdueUpdate ? 'text-rose-600 font-semibold' : 'text-slate-400'}">
+        <span class="text-[9px] ${(!hasStatusUpdate || isOverdueUpdate) ? 'text-rose-600 font-semibold' : 'text-slate-400'}">
           CN cuối: ${lastUpdateDisplay}
         </span>
       </div>
     ` : '';
 
-    // Cảnh báo quá 3 ngày chưa cập nhật
+    // Cảnh báo quá 3 ngày chưa cập nhật hoặc quá hạn kế hoạch
     const overdueWarning = isOverdueUpdate ? `
       <div class="mt-1">
-        <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-bold bg-rose-100 text-rose-700 border border-rose-300 animate-pulse" title="Quá ${daysSinceUpdate} ngày chưa cập nhật tình trạng! Cần click 'Cập nhật tình trạng' để ghi nhận.">
-          <i class="fa-solid fa-triangle-exclamation"></i> Cần Cập Nhật (${daysSinceUpdate} ngày)
+        <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-bold bg-rose-100 text-rose-700 border border-rose-300 animate-pulse" title="${overdueReason || `Quá ${daysSinceUpdate} ngày chưa cập nhật tình trạng! Cần click 'Cập nhật tình trạng' để ghi nhận.`}">
+          <i class="fa-solid fa-triangle-exclamation"></i> Cần Cập Nhật (${daysSinceUpdate > 0 ? `${daysSinceUpdate} ngày` : 'Quá hạn'})
         </span>
       </div>
     ` : '';
@@ -1114,9 +1177,14 @@ function renderMainTable() {
     const tr1 = document.createElement('tr');
     tr1.className = `hover:bg-slate-50/80 transition group ${isOverdueUpdate ? 'row-overdue-update' : ''}`;
 
-    const tdSTT = `<td rowspan="2" class="p-2 border-r border-b border-slate-300 text-center font-bold text-slate-500 bg-white sticky-col-left shadow-[1px_0_0_0_#cbd5e1]">${idx + 1}</td>`;
+    const tdCB = `
+      <td rowspan="2" class="p-2 border-r border-b border-slate-300 text-center bg-white sticky-col-left shadow-[1px_0_0_0_#cbd5e1]" style="left: 0;">
+        <input type="checkbox" class="gantt-task-cb w-3.5 h-3.5 text-brand-600 rounded border-slate-300 cursor-pointer" data-id="${task.id}" onchange="_onGanttTaskCheckboxChange(this)">
+      </td>
+    `;
+    const tdSTT = `<td rowspan="2" class="p-2 border-r border-b border-slate-300 text-center font-bold text-slate-500 bg-white sticky-col-left shadow-[1px_0_0_0_#cbd5e1]" style="left: 40px;">${idx + 1}</td>`;
     const tdTitle = `
-      <td rowspan="2" class="p-2 border-r border-b border-slate-300 bg-white sticky-col-left shadow-[1px_0_0_0_#cbd5e1]" style="left: 48px;">
+      <td rowspan="2" class="p-2 border-r border-b border-slate-300 bg-white sticky-col-left shadow-[1px_0_0_0_#cbd5e1]" style="left: 80px;">
         <div class="font-bold text-slate-900 leading-snug">
           <button type="button" onclick="filterByMainTask('${task.mainTaskId || task.id}')" class="text-left font-bold text-slate-900 hover:text-sky-700 transition cursor-pointer" title="Nhấn để chỉ xem các việc của dự án này và tự động căn chỉnh biểu đồ">
             ${task.mainTaskTitle || task.title}
@@ -1165,9 +1233,34 @@ function renderMainTable() {
     const tdActualDate = `<td rowspan="2" class="p-2 border-r border-b border-slate-300 text-center font-medium ${task.actualEndDate ? 'text-emerald-700 font-bold' : 'text-slate-400'}">${formatVnDate(task.actualEndDate) || (isPaused ? 'Tạm dừng' : 'Chưa hoàn thành')}</td>`;
     const tdStatus = `<td rowspan="2" class="p-2 border-r border-b border-slate-300 text-center">${statusBadge}</td>`;
     const tdNote = `<td rowspan="2" class="p-2 border-r border-b border-slate-300 text-slate-500 italic text-[11px]">${task.note || ''}</td>`;
+
+    let linkHtml = '';
+    if (task.link && task.link.trim()) {
+      const safeLink = task.link.trim();
+      const isWebUrl = /^https?:\/\//i.test(safeLink);
+      const isFileUri = /^file:\/\//i.test(safeLink);
+      const href = (isWebUrl || isFileUri) ? safeLink : (safeLink.includes(':') || safeLink.startsWith('\\\\') ? `file:///${safeLink.replace(/\\/g, '/')}` : safeLink);
+      linkHtml = `
+        <div class="flex items-center justify-center gap-1">
+          <a href="${href}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-sky-100 text-sky-800 hover:bg-sky-200 border border-sky-300 transition" title="Mở: ${safeLink.replace(/"/g, '&quot;')}">
+            <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i> Mở
+          </a>
+          <button type="button" onclick="openEditTaskLinkModal('${task.id}')" class="text-slate-400 hover:text-sky-600 p-0.5 text-[10px]" title="Chỉnh sửa link">
+            <i class="fa-solid fa-pen"></i>
+          </button>
+        </div>
+      `;
+    } else {
+      linkHtml = `
+        <button type="button" onclick="openEditTaskLinkModal('${task.id}')" class="px-1.5 py-0.5 text-[10px] rounded text-slate-400 hover:text-sky-700 hover:bg-sky-50 border border-dashed border-slate-300 transition" title="Thêm liên kết tệp/thư mục">
+          <i class="fa-solid fa-plus text-[8px]"></i> Link
+        </button>
+      `;
+    }
+    const tdLink = `<td rowspan="2" class="p-2 border-r border-b border-slate-300 text-center">${linkHtml}</td>`;
     const tdLabelPlan = `<td class="p-1.5 border-r border-b border-slate-300 text-center font-semibold text-slate-700 bg-sky-50/50 text-[10px]">Kế hoạch</td>`;
 
-    tr1.innerHTML = tdSTT + tdTitle + tdDetail + tdEmp + tdStart + tdPlanDays + tdActualDate + tdStatus + tdNote + tdLabelPlan;
+    tr1.innerHTML = tdCB + tdSTT + tdTitle + tdDetail + tdEmp + tdStart + tdPlanDays + tdActualDate + tdStatus + tdNote + tdLink + tdLabelPlan;
 
     const tStart = parseDate(task.startDate);
     const tPlanEnd = parseDate(task.planEndDate);
@@ -1207,12 +1300,13 @@ function renderMainTable() {
     tr2.innerHTML = tdLabelActual;
 
     let tActualEnd = parseDate(task.actualEndDate);
-    const isInProgress = !isCompleted && !isPaused && (task.status === 'Đang làm' || !task.status || task.status === '');
     if (!tActualEnd && isInProgress) {
-      // Đang làm: biểu đồ kéo dài từ startDate đến hôm nay
-      tActualEnd = systemToday;
+      // Đang làm: biểu đồ kéo dài từ startDate đến hôm nay/ngày cập nhật mới nhất
+      tActualEnd = taskEffectiveToday;
+      if (tStart && tActualEnd < tStart) tActualEnd = tStart;
     } else if (!tActualEnd && isPaused) {
-      tActualEnd = systemToday;
+      tActualEnd = taskEffectiveToday;
+      if (tStart && tActualEnd < tStart) tActualEnd = tStart;
     }
 
     timelineCols.forEach(col => {
@@ -1244,7 +1338,7 @@ function renderMainTable() {
           // Biểu đồ thực tích khi Đang làm: dải màu cyan/blue kèm animation
           barClass = 'timeline-arrow-in-progress';
           headClass = 'arrow-head-in-progress';
-          titleTip = `Đang làm (Tiến độ đến hôm nay ${formatVnDate(formatDate(systemToday))}): ${formatVnDate(task.startDate)} → Hiện tại`;
+          titleTip = `Đang làm (Tiến độ đến ${formatVnDate(formatDate(tActualEnd))}): ${formatVnDate(task.startDate)} → ${formatVnDate(formatDate(tActualEnd))}`;
         } else if (isDelayed) {
           barClass = 'timeline-arrow-late';
           headClass = 'arrow-head-late';
@@ -1254,9 +1348,38 @@ function renderMainTable() {
         const dateTag = (viewState.timeScale === 'MONTH' && isEnd) ? 
           `<span class="arrow-date-tag">${isPaused ? 'Dừng' : (!task.actualEndDate && isInProgress ? 'Đang làm' : formatVnDate(task.actualEndDate).slice(0, 5))}</span>` : '';
 
+        // Tìm các lần cập nhật trong ngày/cột này
+        const logMarkers = (task.statusLogs || []).filter(log => {
+          const logDate = parseDate(log.date);
+          return logDate && col.startDate <= logDate && col.endDate >= logDate;
+        });
+
+        // Biểu tượng ghi chú hiển thị TRỰC TIẾP TRÊN THÂN MŨI TÊN
+        let noteIconHtml = '';
+        if (logMarkers.length > 0) {
+          const lastLog = logMarkers[logMarkers.length - 1];
+          const progTxt = lastLog.progress !== undefined ? `${lastLog.progress}%` : '';
+          const tooltipContent = logMarkers.map(l => {
+            const p = l.progress !== undefined ? ` [${l.progress}%]` : '';
+            return `📋 ${formatVnDate(l.date)}${p}: ${l.note || 'Ghi nhận tiến độ'} (${l.author || 'Người dùng'})`;
+          }).join('\n');
+
+          noteIconHtml = `
+            <div onclick="openStatusLogModal('${task.id}')" 
+                 class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center cursor-pointer pointer-events-auto"
+                 title="${tooltipContent.replace(/"/g, '&quot;')}">
+              <span class="inline-flex items-center gap-0.5 px-1 py-0.5 rounded-full bg-amber-400 text-amber-950 text-[8px] font-black shadow border border-white hover:scale-110 hover:bg-amber-300 transition-transform">
+                <i class="fa-solid fa-note-sticky text-[8px] text-amber-900"></i>
+                ${progTxt ? `<span>${progTxt}</span>` : ''}
+              </span>
+            </div>
+          `;
+        }
+
         td.innerHTML = `
           <div class="h-4 my-1.5 ${barClass} relative flex items-center justify-end text-white text-[9px] font-bold ${isStart ? 'rounded-l-sm ml-1' : ''} ${isEnd ? 'mr-0' : ''}" title="${titleTip}">
             ${dateTag}
+            ${noteIconHtml}
             ${isEnd ? `<div class="${headClass}"></div>` : ''}
           </div>
         `;
@@ -1269,6 +1392,9 @@ function renderMainTable() {
   });
 
   updateKPIStats();
+  if (typeof _updateGanttBulkDeleteUI === 'function') {
+    _updateGanttBulkDeleteUI();
+  }
 }
 
 // ================= CẬP NHẬT THẺ KPI =================
@@ -1392,6 +1518,11 @@ function renderEmployeeTable() {
   tbody.innerHTML = '';
   document.getElementById('empCountBadge').innerText = `Tổng số: ${appData.employees.length} nhân sự`;
 
+  // Reset checkbox header
+  const selectAllCb = document.getElementById('empSelectAll');
+  if (selectAllCb) selectAllCb.checked = false;
+  _updateEmpBulkDeleteBtn();
+
   appData.employees.forEach(emp => {
     const empTasks = appData.tasks.filter(t => t.empId === emp.id);
     const scores = calculateEmployeeMonthlyScores(emp.id, 2026);
@@ -1400,6 +1531,9 @@ function renderEmployeeTable() {
     const tr = document.createElement('tr');
     tr.className = 'hover:bg-slate-50 transition';
     tr.innerHTML = `
+      <td class="p-2 text-center">
+        <input type="checkbox" class="emp-cb w-3.5 h-3.5 cursor-pointer accent-rose-500" data-id="${emp.id}" onchange="_onEmpCheckboxChange()">
+      </td>
       <td class="p-3 text-center font-bold text-indigo-700">${emp.id}</td>
       <td class="p-3 font-bold text-slate-800">${emp.name}</td>
       <td class="p-3 text-slate-600">${emp.dept || '-'}</td>
@@ -1632,6 +1766,8 @@ function openTaskModal(taskId = null) {
       document.getElementById('taskPlanEndDate').value = task.planEndDate || '';
       document.getElementById('taskActualEndDate').value = task.actualEndDate || '';
       document.getElementById('taskNote').value = task.note || '';
+      const linkInput = document.getElementById('taskLink');
+      if (linkInput) linkInput.value = task.link || '';
       const sourceSelect = document.getElementById('taskSource');
       if (sourceSelect) sourceSelect.value = task.taskSource || 'Cải thiện nội bộ';
     }
@@ -1639,6 +1775,8 @@ function openTaskModal(taskId = null) {
     titleEl.innerText = 'Thêm Công Việc Mới';
     document.getElementById('taskId').value = '';
     document.getElementById('taskForm').reset();
+    const linkInput = document.getElementById('taskLink');
+    if (linkInput) linkInput.value = '';
     parentSelect.value = '__NEW__';
     const sourceSelect = document.getElementById('taskSource');
     if (sourceSelect) sourceSelect.value = 'Cải thiện nội bộ';
@@ -1747,6 +1885,8 @@ function handleSaveTask(e) {
   const planEndDate = document.getElementById('taskPlanEndDate').value;
   const actualEndDate = document.getElementById('taskActualEndDate').value;
   const note = document.getElementById('taskNote').value.trim();
+  const linkInput = document.getElementById('taskLink');
+  const link = linkInput ? linkInput.value.trim() : '';
   const sourceSelect = document.getElementById('taskSource');
   const taskSource = sourceSelect ? sourceSelect.value : 'Cải thiện nội bộ';
 
@@ -1770,6 +1910,7 @@ function handleSaveTask(e) {
       task.planEndDate = planEndDate;
       task.actualEndDate = actualEndDate;
       task.note = note;
+      task.link = link;
       task.taskSource = taskSource;
     }
   } else {
@@ -1791,6 +1932,7 @@ function handleSaveTask(e) {
       planEndDate,
       actualEndDate,
       status,
+      link,
       note,
       taskSource,
       lastStatusUpdate: startDate
@@ -2196,10 +2338,10 @@ function executeExportExcelReport() {
       <body>
         <table>
           <tr>
-            <td colspan="${11 + timelineCols.length}" class="title-row">${customTitle}</td>
+            <td colspan="${12 + timelineCols.length}" class="title-row">${customTitle}</td>
           </tr>
           <tr>
-            <td colspan="${11 + timelineCols.length}" class="sub-title">Đơn vị: <b>${customUnit}</b> | Thời gian xuất: <b>${new Date().toLocaleString('vi-VN')}</b> | Tổng số việc: <b>${totalExp}</b></td>
+            <td colspan="${12 + timelineCols.length}" class="sub-title">Đơn vị: <b>${customUnit}</b> | Thời gian xuất: <b>${new Date().toLocaleString('vi-VN')}</b> | Tổng số việc: <b>${totalExp}</b></td>
           </tr>
           <tr></tr>
           <!-- THẺ KPI TỔNG HỢP TRÊN EXCEL -->
@@ -2210,12 +2352,14 @@ function executeExportExcelReport() {
             <td colspan="2" class="kpi-card" style="background-color: #f0fdf4; color: #15803d;">ĐÚNG HẠN (+3Đ): ${onTimeExp}</td>
             <td colspan="2" class="kpi-card" style="background-color: #fff7ed; color: #c2410c;">HOÀN THÀNH TRỄ: ${lateExp}</td>
             <td colspan="1" class="kpi-card" style="background-color: #fef2f2; color: #b91c1c;">QUÁ HẠN: ${overdueExp}</td>
-            <td colspan="${timelineCols.length}" style="background-color: #f1f5f9; font-size: 10px; color: #334155;">
+            <td colspan="${timelineCols.length + 1}" style="background-color: #f1f5f9; font-size: 10px; color: #334155;">
               <b>CHÚ THÍCH:</b> 
               <span style="color: #1e40af; font-weight: bold;">■ Kế hoạch (►)</span> | 
+              <span style="color: #0284c7; font-weight: bold;">■ Đang làm (►)</span> | 
               <span style="color: #15803d; font-weight: bold;">■ Đúng hạn (✔)</span> | 
               <span style="color: #64748b; font-weight: bold;">■ Tạm dừng (⏸)</span> | 
-              <span style="color: #d97706; font-weight: bold;">■ Trễ hạn (⚠)</span>
+              <span style="color: #d97706; font-weight: bold;">■ Trễ hạn (⚠)</span> | 
+              <span style="color: #b45309; font-weight: bold;">📝 Có ghi chú tiến độ</span>
             </td>
           </tr>
           <tr></tr>
@@ -2230,18 +2374,29 @@ function executeExportExcelReport() {
             <th style="width: 80px;">Hoàn Thành</th>
             <th style="width: 95px;">Tình Trạng</th>
             <th style="width: 115px;">Dự Án Chính</th>
+            <th style="width: 120px;">Link / Tệp</th>
             <th style="width: 65px;">Loại</th>
             ${timelineCols.map(col => `<th style="min-width: 48px;">${col.label}<br><span style="font-size: 9px; font-weight: normal; opacity: 0.8;">${col.subLabel || ''}</span></th>`).join('')}
           </tr>
     `;
 
     tasksToExport.forEach((task, idx) => {
-      const isPaused = task.status === 'Tạm dừng' || task.status === 'Dừng dự án';
+      const rawStatus = (task.status || '').trim();
+      const isPaused = rawStatus === 'Tạm dừng' || rawStatus === 'Tam dung' || rawStatus === 'Dừng dự án' || rawStatus === 'Dung du an';
+      const isCompleted = rawStatus === 'Hoàn thành' || rawStatus === 'Hoan thanh' || rawStatus === 'Hoàn thành trễ' || rawStatus === 'Hoan thanh tre' || !!task.actualEndDate;
+      const isInProgress = !isCompleted && !isPaused;
+
       const tStart = parseDate(task.startDate);
       const tPlanEnd = parseDate(task.planEndDate);
+      let taskEffectiveToday = (new Date().getFullYear() === 2026) ? new Date() : new Date(2026, 9, 8);
+      if (task.lastStatusUpdate) {
+        const lastUp = parseDate(task.lastStatusUpdate);
+        if (lastUp && lastUp > taskEffectiveToday) taskEffectiveToday = lastUp;
+      }
       let tActualEnd = parseDate(task.actualEndDate);
-      if (!tActualEnd && (task.status === 'Đang làm' || isPaused)) {
-        tActualEnd = new Date(2026, 9, 5);
+      if (!tActualEnd && (isInProgress || isPaused)) {
+        tActualEnd = taskEffectiveToday;
+        if (tStart && tActualEnd < tStart) tActualEnd = tStart;
       }
 
       const mainProgress = task.mainTaskId ? getMainTaskProgress(task.mainTaskId) : null;
@@ -2279,6 +2434,7 @@ function executeExportExcelReport() {
           <td rowspan="2" style="text-align: center;" class="info-cell">${formatVnDate(task.actualEndDate) || (isPaused ? 'Tạm dừng' : 'Chưa xong')}</td>
           <td rowspan="2" style="text-align: center; font-weight: bold;" class="info-cell">${task.status}</td>
           <td rowspan="2" style="text-align: center; font-weight: bold; color: ${mainProgress && mainProgress.isAllCompleted ? '#15803d' : '#0369a1'};" class="info-cell">${mainStatusText}</td>
+          <td rowspan="2" style="text-align: center; font-size: 10px;" class="info-cell">${task.link ? `<a href="${task.link}">Mở Link</a>` : ''}</td>
           <td class="plan-label">Kế hoạch</td>
       `;
 
@@ -2305,6 +2461,12 @@ function executeExportExcelReport() {
           const isLast = cIdx === actualIndices[actualIndices.length - 1];
           const isDelayed = !isPaused && tPlanEnd && col.startDate > tPlanEnd;
 
+          // Kiểm tra xem cột này có ghi nhận cập nhật không
+          const logForCol = (task.statusLogs || []).filter(l => {
+            const ld = parseDate(l.date);
+            return ld && col.startDate <= ld && col.endDate >= ld;
+          });
+
           let barColor = '#16a34a';
           let borderColor = '#14532d';
           let symbol = isLast ? '✔' : '—';
@@ -2313,14 +2475,26 @@ function executeExportExcelReport() {
             barColor = '#64748b';
             borderColor = '#334155';
             symbol = isLast ? '⏸' : '—';
+          } else if (!task.actualEndDate && isInProgress) {
+            barColor = '#0284c7'; // Xanh cyan/blue cho đang làm
+            borderColor = '#0369a1';
+            symbol = isLast ? '►' : '—';
           } else if (isDelayed) {
             barColor = '#d97706';
             borderColor = '#9a3412';
             symbol = isLast ? '⚠' : '—';
           }
 
+          let noteText = '';
+          if (logForCol.length > 0) {
+            const lastLog = logForCol[logForCol.length - 1];
+            const p = lastLog.progress !== undefined ? `${lastLog.progress}%` : '';
+            symbol = p ? `📝${p}` : '📝';
+            noteText = logForCol.map(l => `${l.date}${l.progress !== undefined ? ' ('+l.progress+'%)' : ''}: ${l.note || ''}`).join(' | ');
+          }
+
           const borderStyle = `border-top: 2px solid ${borderColor}; border-bottom: 2px solid ${borderColor}; ${isFirst ? `border-left: 2px solid ${borderColor};` : 'border-left: none;'} ${isLast ? `border-right: 2px solid ${borderColor};` : 'border-right: none;'}`;
-          row2 += `<td style="background-color: ${barColor}; ${borderStyle} text-align: center; color: #ffffff; font-weight: bold; font-size: 11px;">${symbol}</td>`;
+          row2 += `<td style="background-color: ${barColor}; ${borderStyle} text-align: center; color: #ffffff; font-weight: bold; font-size: 10px;" title="${noteText.replace(/"/g, '&quot;')}">${symbol}</td>`;
         } else {
           row2 += `<td class="${col.isWeekend ? 'weekend-cell' : ''}"></td>`;
         }
@@ -2426,6 +2600,10 @@ function switchSmartImportTarget(target) {
   const modalTitle = document.getElementById('importModalTitle');
   const modalIcon = document.getElementById('importModalIcon');
   const ruleDesc = document.getElementById('importRuleDesc');
+  const empBox = document.getElementById('empExportBox');
+  const taskBox = document.getElementById('taskExportBox');
+  const titleTxt = document.getElementById('templateTitleText');
+  const subTxt = document.getElementById('templateSubText');
 
   if (target === 'TASK') {
     if (tabTask) tabTask.className = 'flex-1 py-1.5 rounded-lg bg-white text-emerald-700 shadow-sm transition flex items-center justify-center gap-1.5';
@@ -2433,12 +2611,20 @@ function switchSmartImportTarget(target) {
     if (modalTitle) modalTitle.innerText = 'Nhập Công Việc Vào Hệ Thống (Chỉ Chèn Việc Chưa Có)';
     if (modalIcon) modalIcon.className = 'fa-solid fa-list-check text-lg text-emerald-300';
     if (ruleDesc) ruleDesc.innerHTML = 'Hệ thống sẽ đối soát ID và nội dung: <b>Chỉ chèn các công việc chưa có</b>. Toàn bộ công việc đã có sẽ được giữ nguyên 100%, không bị trùng lặp!';
+    if (empBox) empBox.classList.add('hidden');
+    if (taskBox) taskBox.classList.remove('hidden');
+    if (titleTxt) titleTxt.innerText = 'Tải file mẫu Excel Công Việc:';
+    if (subTxt) subTxt.innerText = 'Mẫu có sẵn định dạng cột chuẩn xác để thêm công việc mới';
   } else {
     if (tabEmp) tabEmp.className = 'flex-1 py-1.5 rounded-lg bg-white text-indigo-700 shadow-sm transition flex items-center justify-center gap-1.5';
     if (tabTask) tabTask.className = 'flex-1 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center justify-center gap-1.5';
     if (modalTitle) modalTitle.innerText = 'Nhập Nhân Sự Vào Hệ Thống (Chỉ Chèn Nhân Sự Mới)';
     if (modalIcon) modalIcon.className = 'fa-solid fa-users text-lg text-indigo-300';
     if (ruleDesc) ruleDesc.innerHTML = 'Hệ thống sẽ đối soát Mã nhân viên và Họ tên: <b>Chỉ thêm nhân sự mới</b>. Nhân sự đã có sẽ được giữ nguyên!';
+    if (empBox) empBox.classList.remove('hidden');
+    if (taskBox) taskBox.classList.add('hidden');
+    if (titleTxt) titleTxt.innerText = 'Tải file mẫu Excel Nhân Sự:';
+    if (subTxt) subTxt.innerText = 'Mẫu có sẵn định dạng cột chuẩn xác để thêm nhân sự mới';
   }
 }
 
@@ -2446,30 +2632,126 @@ function downloadSmartImportTemplate() {
   if (currentImportTarget === 'TASK') {
     downloadExcelTemplate();
   } else {
-    const templateData = [
-      ['Mã Nhân Viên', 'Họ Và Tên', 'Phòng Ban / Bộ Phận'],
-      ['NV06', 'Vũ Đình Trọng', 'Kỹ thuật - Bảo trì'],
-      ['NV07', 'Ngô Thu Trang', 'Kiểm tra chất lượng (QC)'],
-      ['NV08', 'Đỗ Mạnh Hùng', 'Kế hoạch sản xuất']
-    ];
-    const ws = XLSX.utils.aoa_to_sheet(templateData);
-    ws['!cols'] = [{ wch: 16 }, { wch: 25 }, { wch: 25 }];
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'MauImportNhanSu');
-    XLSX.writeFile(wb, 'MBC_Mau_Import_NhanSu.xlsx');
+    downloadEmployeeTemplate();
   }
+}
+
+function downloadEmployeeTemplate() {
+  const templateData = [
+    ['Mã Nhân Viên', 'Họ Và Tên', 'Phòng Ban / Bộ Phận', 'Email', 'Điện Thoại'],
+    ['NV06', 'Vũ Đình Trọng', 'Kỹ thuật - Bảo trì', 'trong.vd@mbc.vn', '0901234567'],
+    ['NV07', 'Ngô Thu Trang', 'Kiểm tra chất lượng (QC)', 'trang.nt@mbc.vn', '0912345678'],
+    ['NV08', 'Đỗ Mạnh Hùng', 'Kế hoạch sản xuất', 'hung.dm@mbc.vn', '0923456789']
+  ];
+  const ws = XLSX.utils.aoa_to_sheet(templateData);
+  ws['!cols'] = [{ wch: 16 }, { wch: 25 }, { wch: 28 }, { wch: 28 }, { wch: 16 }];
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'MauImportNhanSu');
+  XLSX.writeFile(wb, 'MBC_Mau_Import_NhanSu.xlsx');
+}
+
+function exportCurrentEmployeesToExcel() {
+  if (!appData.employees || appData.employees.length === 0) {
+    showToast('⚠️ Chưa có nhân sự nào trong hệ thống!', 'warning');
+    return;
+  }
+  const header = ['Mã Nhân Viên', 'Họ Và Tên', 'Phòng Ban / Bộ Phận', 'Email', 'Điện Thoại'];
+  const rows = appData.employees.map(emp => [
+    emp.id || '',
+    emp.name || '',
+    emp.dept || emp.position || '',
+    emp.email || '',
+    emp.phone || ''
+  ]);
+  const ws = XLSX.utils.aoa_to_sheet([header, ...rows]);
+  ws['!cols'] = [{ wch: 16 }, { wch: 28 }, { wch: 28 }, { wch: 30 }, { wch: 16 }];
+  // Highlight header row
+  const range = XLSX.utils.decode_range(ws['!ref']);
+  for (let C = range.s.c; C <= range.e.c; C++) {
+    const cellAddr = XLSX.utils.encode_cell({ r: 0, c: C });
+    if (!ws[cellAddr]) continue;
+    ws[cellAddr].s = { fill: { fgColor: { rgb: '0C4A6E' } }, font: { color: { rgb: 'FFFFFF' }, bold: true } };
+  }
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'DanhSachNhanSu');
+  const today = new Date();
+  const fname = `MBC_DanhSach_NhanSu_${today.getFullYear()}${String(today.getMonth()+1).padStart(2,'0')}${String(today.getDate()).padStart(2,'0')}.xlsx`;
+  XLSX.writeFile(wb, fname);
+  showToast(`✅ Đã xuất ${rows.length} nhân sự ra ${fname}!`, 'success');
+}
+
+function exportCurrentTasksToExcel() {
+  if (!appData.tasks || appData.tasks.length === 0) {
+    showToast('⚠️ Chưa có công việc nào trong hệ thống!', 'warning');
+    return;
+  }
+  const header = [
+    'Mã CV',
+    'Mã CV Chính',
+    'Công việc chính',
+    'Nội dung chi tiết',
+    'Người thực hiện',
+    'Mã NV',
+    'Ngày bắt đầu (YYYY-MM-DD)',
+    'Thời gian dự kiến (ngày)',
+    'Thời gian hoàn thành (YYYY-MM-DD)',
+    'Tình trạng',
+    'Link / Tệp',
+    'Ghi chú'
+  ];
+  const rows = appData.tasks.map(t => [
+    t.id || '',
+    t.mainTaskId || '',
+    t.mainTaskTitle || t.title || '',
+    t.detail || '',
+    t.empName || '',
+    t.empId || '',
+    t.startDate || '',
+    t.planDuration || t.planDays || 1,
+    t.actualEndDate || '',
+    t.status || 'Đang làm',
+    t.link || '',
+    t.note || ''
+  ]);
+  const ws = XLSX.utils.aoa_to_sheet([header, ...rows]);
+  ws['!cols'] = [
+    { wch: 16 },
+    { wch: 16 },
+    { wch: 28 },
+    { wch: 32 },
+    { wch: 22 },
+    { wch: 12 },
+    { wch: 26 },
+    { wch: 24 },
+    { wch: 28 },
+    { wch: 18 },
+    { wch: 32 },
+    { wch: 25 }
+  ];
+  const range = XLSX.utils.decode_range(ws['!ref']);
+  for (let C = range.s.c; C <= range.e.c; C++) {
+    const cellAddr = XLSX.utils.encode_cell({ r: 0, c: C });
+    if (!ws[cellAddr]) continue;
+    ws[cellAddr].s = { fill: { fgColor: { rgb: '047857' } }, font: { color: { rgb: 'FFFFFF' }, bold: true } };
+  }
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'DanhSachCongViec');
+  const today = new Date();
+  const fname = `MBC_DanhSach_CongViec_${today.getFullYear()}${String(today.getMonth()+1).padStart(2,'0')}${String(today.getDate()).padStart(2,'0')}.xlsx`;
+  XLSX.writeFile(wb, fname);
+  showToast(`✅ Đã xuất ${rows.length} công việc ra ${fname}!`, 'success');
 }
 
 function downloadExcelTemplate() {
   const templateData = [
-    ['Mã CV Chính', 'Công việc chính', 'Nội dung chi tiết', 'Người thực hiện', 'Mã NV', 'Ngày bắt đầu (YYYY-MM-DD)', 'Thời gian dự kiến (ngày)', 'Thời gian hoàn thành (YYYY-MM-DD)', 'Tình trạng', 'Ghi chú'],
-    ['CV-TUM', 'Sửa chữa máy TUM', 'Xác nhận tình trạng linh kiện', 'Nguyễn Quang Thảo', 'NV01', '2026-10-01', 1, '2026-10-01', 'Hoàn thành', 'Nghiệm thu tốt'],
-    ['CV-MAY-EP', 'Bảo dưỡng định kỳ máy ép', 'Kiểm tra đường ống dầu thủy lực', 'Trần Văn Bình', 'NV02', '2026-10-03', 3, '2026-10-05', 'Hoàn thành', 'Đúng hạn'],
-    ['CV-KIEM-DINH', 'Kiểm định thiết bị đo', 'Hiệu chuẩn thước kẹp điện tử', 'Lê Thị Thu', 'NV03', '2026-10-05', 2, '', 'Đang làm', 'Đang thực hiện']
+    ['Mã CV Chính', 'Công việc chính', 'Nội dung chi tiết', 'Người thực hiện', 'Mã NV', 'Ngày bắt đầu (YYYY-MM-DD)', 'Thời gian dự kiến (ngày)', 'Thời gian hoàn thành (YYYY-MM-DD)', 'Tình trạng', 'Link / Tệp', 'Ghi chú'],
+    ['CV-TUM', 'Sửa chữa máy TUM', 'Xác nhận tình trạng linh kiện', 'Nguyễn Quang Thảo', 'NV01', '2026-10-01', 1, '2026-10-01', 'Hoàn thành', 'https://drive.google.com/mbc', 'Nghiệm thu tốt'],
+    ['CV-MAY-EP', 'Bảo dưỡng định kỳ máy ép', 'Kiểm tra đường ống dầu thủy lực', 'Trần Văn Bình', 'NV02', '2026-10-03', 3, '2026-10-05', 'Hoàn thành', 'C:\\MBC\\BaoDuongMayEp', 'Đúng hạn'],
+    ['CV-KIEM-DINH', 'Kiểm định thiết bị đo', 'Hiệu chuẩn thước kẹp điện tử', 'Lê Thị Thu', 'NV03', '2026-10-05', 2, '', 'Đang làm', '', 'Đang thực hiện']
   ];
 
   const ws = XLSX.utils.aoa_to_sheet(templateData);
-  ws['!cols'] = [{ wch: 14 }, { wch: 25 }, { wch: 30 }, { wch: 20 }, { wch: 10 }, { wch: 25 }, { wch: 22 }, { wch: 28 }, { wch: 16 }, { wch: 25 }];
+  ws['!cols'] = [{ wch: 14 }, { wch: 25 }, { wch: 30 }, { wch: 20 }, { wch: 10 }, { wch: 25 }, { wch: 22 }, { wch: 28 }, { wch: 16 }, { wch: 28 }, { wch: 25 }];
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, 'MauImportCongViec');
   XLSX.writeFile(wb, 'MBC_Mau_Import_CongViec.xlsx');
@@ -2536,8 +2818,9 @@ function processSmartImport() {
     } else {
       const rows = parsedSmartImportData.data.slice(1);
       const header = parsedSmartImportData.data[0].map(h => String(h || '').trim().toLowerCase());
-      const colMainId = header.findIndex(h => h.includes('mã cv chính') || h.includes('mã cv'));
-      const colMainTitle = header.findIndex(h => h.includes('công việc chính') || h.includes('công việc'));
+      const colTaskId = header.findIndex(h => h === 'mã cv' || h === 'ma cv' || h.includes('mã công việc'));
+      const colMainId = header.findIndex(h => h.includes('mã cv chính') || h.includes('ma cv chinh') || (h.includes('mã cv') && h !== 'mã cv' && h !== 'ma cv'));
+      const colMainTitle = header.findIndex(h => h.includes('công việc chính') || h.includes('cong viec chinh') || h.includes('công việc'));
       const colDetail = header.findIndex(h => h.includes('chi tiết') || h.includes('nội dung'));
       const colEmp = header.findIndex(h => h.includes('người') || h.includes('thực hiện'));
       const colEmpId = header.findIndex(h => h.includes('mã nv'));
@@ -2545,12 +2828,14 @@ function processSmartImport() {
       const colDays = header.findIndex(h => (h.includes('dự kiến') && h.includes('thời gian')) || h.includes('ngày'));
       const colActual = header.findIndex(h => h.includes('hoàn thành'));
       const colStatus = header.findIndex(h => h.includes('tình trạng'));
+      const colLink = header.findIndex(h => h.includes('link') || h.includes('tệp') || h.includes('tài liệu'));
       const colNote = header.findIndex(h => h.includes('ghi chú'));
 
       rows.forEach((row, rIdx) => {
         if (!row || row.length === 0) return;
         const title = colMainTitle >= 0 ? String(row[colMainTitle] || '').trim() : '';
         if (!title) return;
+        const taskId = (colTaskId >= 0 && row[colTaskId]) ? String(row[colTaskId]).trim() : `TASK-IMP-${Date.now().toString().slice(-4)}${rIdx + 1}`;
         const mainTaskId = colMainId >= 0 ? String(row[colMainId] || `CV-${Date.now().toString().slice(-4)}`).trim().toUpperCase() : `CV-${Date.now().toString().slice(-4)}`;
         const detail = colDetail >= 0 ? String(row[colDetail] || '').trim() : '';
         const empName = colEmp >= 0 ? String(row[colEmp] || '').trim() : 'Nguyễn Quang Thảo';
@@ -2573,10 +2858,11 @@ function processSmartImport() {
           if (p.length === 3) actualEndDate = `${p[2]}-${p[1].padStart(2, '0')}-${p[0].padStart(2, '0')}`;
         }
         const status = colStatus >= 0 ? String(row[colStatus] || 'Đang làm').trim() : 'Đang làm';
+        const link = colLink >= 0 ? String(row[colLink] || '').trim() : '';
         const note = colNote >= 0 ? String(row[colNote] || '').trim() : '';
 
         rawTasks.push({
-          id: `TASK-IMP-${Date.now().toString().slice(-4)}${rIdx + 1}`,
+          id: taskId,
           mainTaskId,
           mainTaskTitle: title,
           title,
@@ -2588,6 +2874,7 @@ function processSmartImport() {
           planEndDate,
           actualEndDate,
           status,
+          link,
           note
         });
       });
@@ -2718,7 +3005,7 @@ function exportTasksDataToExcel() {
     'Nhân Viên', 'Mã NV', 'Nguồn Yêu Cầu',
     'Ngày Bắt Đầu', 'Dự Kiến', 'Ngày HT Kế Hoạch',
     'Ngày HT Thực Tế', 'Trạng Thái', 'Điểm KPI',
-    'Cập Nhật Cuối', 'Ghi Chú'
+    'Cập Nhật Cuối', 'Lịch Sử Cập Nhật & Tiến Độ', 'Link / Tài Liệu', 'Ghi Chú'
   ];
 
   const statusMap = { 'Hoàn thành': '✔ Hoàn thành', 'Hoàn thành trễ': '⚠ Hoàn thành trễ', 'Đang làm': '▶ Đang làm', 'Tạm dừng': '⏸ Tạm dừng', 'Dừng dự án': '⏹ Dừng dự án' };
@@ -2739,6 +3026,8 @@ function exportTasksDataToExcel() {
     statusMap[t.status] || t.status || '',
     t.kpiPoints !== undefined ? t.kpiPoints : '',
     formatVnDate(t.lastStatusUpdate || t.startDate) || '',
+    (t.statusLogs || []).map(l => `[${formatVnDate(l.date)}${l.progress !== undefined ? ' - ' + l.progress + '%' : ''}]: ${l.note || ''}`).join(' ; ') || '',
+    t.link || '',
     t.note || ''
   ]);
 
@@ -2931,9 +3220,56 @@ function openStatusLogModal(taskId) {
   document.getElementById('statusLogTaskName').innerText = `[${task.id}] ${task.mainTaskTitle || task.title} - ${task.empName}`;
   document.getElementById('statusLogStatus').value = task.status || 'Đang làm';
   document.getElementById('statusLogContent').value = '';
+  document.getElementById('statusLogProgress').value = '';
+
+  const now = new Date();
+  const todayStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+  const dateInputEl = document.getElementById('statusLogDate');
+  if (dateInputEl) dateInputEl.value = todayStr;
 
   const historyEl = document.getElementById('statusLogHistory');
   const logs = task.statusLogs || [];
+
+  // Vẽ mini SVG progress chart nếu có dữ liệu
+  const miniChartEl = document.getElementById('statusLogMiniChart');
+  if (miniChartEl) {
+    const logsWithProg = logs.filter(l => l.progress !== undefined && l.progress !== '');
+    if (logsWithProg.length >= 2) {
+      const W = 320, H = 80, PAD = 20;
+      const maxX = logsWithProg.length - 1;
+      const pts = logsWithProg.map((l, i) => {
+        const x = PAD + (i / maxX) * (W - PAD * 2);
+        const y = H - PAD - ((l.progress || 0) / 100) * (H - PAD * 2);
+        return `${x.toFixed(1)},${y.toFixed(1)}`;
+      }).join(' ');
+      const circles = logsWithProg.map((l, i) => {
+        const x = PAD + (i / maxX) * (W - PAD * 2);
+        const y = H - PAD - ((l.progress || 0) / 100) * (H - PAD * 2);
+        return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3" fill="#7c3aed" title="${formatVnDate(l.date)}: ${l.progress}%"/>`;
+      }).join('');
+      const labels = logsWithProg.map((l, i) => {
+        const x = PAD + (i / maxX) * (W - PAD * 2);
+        const y = H - PAD - ((l.progress || 0) / 100) * (H - PAD * 2);
+        return `<text x="${x.toFixed(1)}" y="${(y - 5).toFixed(1)}" text-anchor="middle" font-size="8" fill="#6d28d9">${l.progress}%</text>`;
+      }).join('');
+      miniChartEl.innerHTML = `
+        <div class="text-[10px] font-semibold text-violet-700 mb-1"><i class="fa-solid fa-chart-line mr-1"></i>Biểu đồ tiến độ theo các lần cập nhật:</div>
+        <svg width="${W}" height="${H}" class="w-full" viewBox="0 0 ${W} ${H}" style="background:#f5f3ff;border-radius:8px;">
+          <line x1="${PAD}" y1="${H-PAD}" x2="${W-PAD}" y2="${H-PAD}" stroke="#ddd6fe" stroke-width="1"/>
+          <line x1="${PAD}" y1="${PAD}" x2="${PAD}" y2="${H-PAD}" stroke="#ddd6fe" stroke-width="1"/>
+          <text x="${PAD-2}" y="${PAD+3}" text-anchor="end" font-size="7" fill="#9ca3af">100%</text>
+          <text x="${PAD-2}" y="${H-PAD+3}" text-anchor="end" font-size="7" fill="#9ca3af">0%</text>
+          <polyline points="${pts}" fill="none" stroke="#7c3aed" stroke-width="1.5" stroke-linejoin="round"/>
+          ${circles}${labels}
+        </svg>
+      `;
+      miniChartEl.classList.remove('hidden');
+    } else {
+      miniChartEl.innerHTML = '';
+      miniChartEl.classList.add('hidden');
+    }
+  }
+
   if (logs.length === 0) {
     historyEl.innerHTML = '<div class="text-slate-400 text-center py-3 text-xs">Chưa có lịch sử cập nhật nào</div>';
   } else {
@@ -2941,10 +3277,11 @@ function openStatusLogModal(taskId) {
     logs.slice().reverse().forEach(log => {
       const div = document.createElement('div');
       div.className = 'p-2 rounded-lg bg-white border border-slate-200 text-xs space-y-0.5 shadow-xs';
+      const progressBadge = (log.progress !== undefined && log.progress !== '') ? `<span class="ml-1 px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-50 text-amber-700 border border-amber-200">${log.progress}%</span>` : '';
       div.innerHTML = `
         <div class="flex items-center justify-between font-bold text-slate-700">
-          <span class="text-violet-700"><i class="fa-regular fa-clock mr-1"></i>${formatVnDate(log.date) || log.date}</span>
-          <span class="px-1.5 py-0.2 rounded text-[9px] font-semibold bg-violet-50 text-violet-700 border border-violet-200">${log.status || ''}</span>
+          <span class="text-violet-700"><i class="fa-regular fa-clock mr-1"></i>${formatVnDate(log.date) || log.date} ${progressBadge}</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-semibold bg-violet-50 text-violet-700 border border-violet-200">${log.status || ''}</span>
         </div>
         <div class="text-slate-600 text-[11px]">${log.note ? log.note : '<em class="text-slate-400">Không ghi chú nội dung</em>'}</div>
         <div class="text-[9px] text-slate-400 text-right">Người cập nhật: ${log.author || 'Thành viên'}</div>
@@ -2967,25 +3304,68 @@ function saveStatusLog() {
 
   const note = document.getElementById('statusLogContent').value.trim();
   const status = document.getElementById('statusLogStatus').value;
-  const todayStr = '2026-10-07';
+  const progressRaw = document.getElementById('statusLogProgress') ? document.getElementById('statusLogProgress').value.trim() : '';
+  const progress = progressRaw !== '' ? Math.min(100, Math.max(0, parseInt(progressRaw) || 0)) : undefined;
+
+  // Dùng ngày người dùng chọn hoặc mặc định ngày thực tế hệ thống
+  const now = new Date();
+  const todayDefault = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+  const dateInputEl = document.getElementById('statusLogDate');
+  const chosenDate = (dateInputEl && dateInputEl.value) ? dateInputEl.value : todayDefault;
 
   if (!task.statusLogs) task.statusLogs = [];
-  task.statusLogs.push({
-    date: todayStr,
+  const logEntry = {
+    date: chosenDate,
     note: note,
     status: status,
     author: (appData.currentUser && appData.currentUser.name) ? appData.currentUser.name : 'Người dùng'
-  });
+  };
+  if (progress !== undefined) logEntry.progress = progress;
+  task.statusLogs.push(logEntry);
 
   task.status = status;
-  task.lastStatusUpdate = todayStr;
+  task.lastStatusUpdate = chosenDate;
   if (status.includes('Hoàn thành') && !task.actualEndDate) {
-    task.actualEndDate = todayStr;
+    task.actualEndDate = chosenDate;
+  } else if (!status.includes('Hoàn thành') && task.actualEndDate) {
+    task.actualEndDate = '';
   }
 
   saveDataToStorage();
   closeStatusLogModal();
   applyFilters();
+  showToast('✅ Đã ghi nhận cập nhật tình trạng!', 'success');
+}
+
+// ================= MODAL GẮN LINK / TỆP CHO CÔNG VIỆC =================
+function openEditTaskLinkModal(taskId) {
+  const task = appData.tasks.find(t => t.id === taskId);
+  if (!task) return;
+  document.getElementById('taskLinkModalTaskId').value = task.id;
+  const subTitle = document.getElementById('taskLinkModalSubTitle');
+  if (subTitle) subTitle.innerText = `[${task.id}] ${task.mainTaskTitle || task.title} - ${task.empName}`;
+  const input = document.getElementById('taskLinkModalInput');
+  if (input) {
+    input.value = task.link || '';
+    setTimeout(() => input.focus(), 100);
+  }
+  document.getElementById('taskLinkModal').classList.remove('hidden');
+}
+
+function closeTaskLinkModal() {
+  document.getElementById('taskLinkModal').classList.add('hidden');
+}
+
+function saveTaskLinkFromModal() {
+  const taskId = document.getElementById('taskLinkModalTaskId').value;
+  const task = appData.tasks.find(t => t.id === taskId);
+  if (!task) return;
+  const linkVal = document.getElementById('taskLinkModalInput').value.trim();
+  task.link = linkVal;
+  saveDataToStorage();
+  closeTaskLinkModal();
+  applyFilters();
+  showToast(linkVal ? '✅ Đã cập nhật đường dẫn liên kết cho công việc!' : 'ℹ️ Đã xóa liên kết công việc!', 'success');
 }
 
 // ================= LỊCH NGHỈ ĐẶC BIỆT & NGÀY LỄ (HOLIDAY MODAL) =================
@@ -3096,3 +3476,311 @@ window.addEventListener('DOMContentLoaded', async () => {
     }
   });
 });
+
+// ================= QUICK LINKS (LIÊN KẾT NHANH) =================
+const QUICK_LINKS_KEY = 'MBC_QUICK_LINKS';
+
+function loadQuickLinks() {
+  try {
+    const raw = localStorage.getItem(QUICK_LINKS_KEY);
+    return raw ? JSON.parse(raw) : [
+      { id: 'ql1', name: '📁 Thư mục dự án', url: 'file:///C:/Users/12953 Bao/Desktop/desktop/work/Project/Python/BasicLearnPython/W3schools/Python Tutorial/GravityCode/MBC/QuanLyCongViecNhom/', desc: 'Thư mục chứa ứng dụng' },
+      { id: 'ql2', name: '📋 Hướng dẫn sử dụng', url: 'HuongDanSuDung.md', desc: 'File hướng dẫn' }
+    ];
+  } catch { return []; }
+}
+
+function saveQuickLinks(links) {
+  localStorage.setItem(QUICK_LINKS_KEY, JSON.stringify(links));
+}
+
+function openQuickLinksModal() {
+  renderQuickLinksModal();
+  document.getElementById('quickLinksModal').classList.remove('hidden');
+}
+
+function closeQuickLinksModal() {
+  document.getElementById('quickLinksModal').classList.add('hidden');
+}
+
+function renderQuickLinksModal() {
+  const links = loadQuickLinks();
+  const listEl = document.getElementById('quickLinksList');
+  if (!listEl) return;
+
+  if (links.length === 0) {
+    listEl.innerHTML = '<div class="text-slate-400 text-center py-4 text-xs">Chưa có liên kết nào. Thêm bên dưới!</div>';
+    return;
+  }
+
+  listEl.innerHTML = '';
+  links.forEach(link => {
+    const div = document.createElement('div');
+    div.className = 'flex items-center gap-2 p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 group transition';
+    div.innerHTML = `
+      <button onclick="openQuickLink('${encodeURIComponent(link.url)}')" class="flex-1 text-left min-w-0" title="${link.url}">
+        <div class="font-semibold text-sm text-sky-700 truncate">${link.name}</div>
+        <div class="text-[10px] text-slate-400 truncate">${link.url}</div>
+        ${link.desc ? `<div class="text-[10px] text-slate-500 italic">${link.desc}</div>` : ''}
+      </button>
+      <button onclick="openQuickLink('${encodeURIComponent(link.url)}')" class="px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-sky-100 text-sky-700 hover:bg-sky-200 transition flex items-center gap-1 shrink-0">
+        <i class="fa-solid fa-external-link-alt text-[10px]"></i> Mở
+      </button>
+      <button onclick="deleteQuickLink('${link.id}')" class="opacity-0 group-hover:opacity-100 transition text-rose-400 hover:text-rose-600 text-xs px-1.5" title="Xóa liên kết này">
+        <i class="fa-solid fa-trash"></i>
+      </button>
+    `;
+    listEl.appendChild(div);
+  });
+}
+
+function openQuickLink(encodedUrl) {
+  const url = decodeURIComponent(encodedUrl).trim();
+  if (!url) return;
+  // Xử lý đường dẫn file:/// và UNC (\\server\share)
+  let finalUrl = url;
+  if (url.startsWith('\\\\') || (url.length > 2 && url[1] === ':' && (url[2] === '\\' || url[2] === '/'))) {
+    // Windows absolute path → convert to file:///
+    finalUrl = 'file:///' + url.replace(/\\/g, '/');
+  }
+  window.open(finalUrl, '_blank');
+}
+
+function addQuickLink() {
+  const nameEl = document.getElementById('qlNewName');
+  const urlEl = document.getElementById('qlNewUrl');
+  const descEl = document.getElementById('qlNewDesc');
+  const name = nameEl ? nameEl.value.trim() : '';
+  const url = urlEl ? urlEl.value.trim() : '';
+  const desc = descEl ? descEl.value.trim() : '';
+
+  if (!name) { showToast('⚠️ Vui lòng nhập tên liên kết!', 'warning'); return; }
+  if (!url)  { showToast('⚠️ Vui lòng nhập đường dẫn!', 'warning'); return; }
+
+  const links = loadQuickLinks();
+  links.push({ id: 'ql' + Date.now(), name, url, desc });
+  saveQuickLinks(links);
+  if (nameEl) nameEl.value = '';
+  if (urlEl) urlEl.value = '';
+  if (descEl) descEl.value = '';
+  renderQuickLinksModal();
+  showToast('✅ Đã thêm liên kết: ' + name, 'success');
+}
+
+function deleteQuickLink(id) {
+  const links = loadQuickLinks().filter(l => l.id !== id);
+  saveQuickLinks(links);
+  renderQuickLinksModal();
+  showToast('🗑️ Đã xóa liên kết', 'success');
+}
+
+// ================= XÓA NHANH NHÂN VIÊN (BULK DELETE EMPLOYEE) =================
+function _onEmpCheckboxChange() {
+  _updateEmpBulkDeleteBtn();
+  // Cập nhật trạng thái checkbox "Chọn tất cả"
+  const all = Array.from(document.querySelectorAll('.emp-cb'));
+  const checked = all.filter(cb => cb.checked);
+  const selectAllCb = document.getElementById('empSelectAll');
+  if (selectAllCb) {
+    selectAllCb.checked = all.length > 0 && checked.length === all.length;
+    selectAllCb.indeterminate = checked.length > 0 && checked.length < all.length;
+  }
+}
+
+function _updateEmpBulkDeleteBtn() {
+  const checked = Array.from(document.querySelectorAll('.emp-cb:checked'));
+  const btn = document.getElementById('btnBulkDeleteEmp');
+  const countEl = document.getElementById('empSelectedCount');
+  if (btn) {
+    if (checked.length > 0) {
+      btn.classList.remove('hidden');
+    } else {
+      btn.classList.add('hidden');
+    }
+  }
+  if (countEl) countEl.innerText = checked.length;
+}
+
+function toggleSelectAllEmployees(checked) {
+  document.querySelectorAll('.emp-cb').forEach(cb => { cb.checked = checked; });
+  _updateEmpBulkDeleteBtn();
+}
+
+function bulkDeleteEmployees() {
+  const checked = Array.from(document.querySelectorAll('.emp-cb:checked'));
+  if (checked.length === 0) return;
+  const ids = checked.map(cb => cb.dataset.id);
+  const names = ids.map(id => {
+    const emp = appData.employees.find(e => e.id === id);
+    return emp ? `${emp.name} (${id})` : id;
+  });
+  if (!confirm(`Bạn có chắc muốn xóa ${ids.length} nhân viên sau đây?\n\n${names.join('\n')}\n\n⚠️ Lưu ý: Các công việc của nhân viên này sẽ KHÔNG bị xóa theo.`)) return;
+  appData.employees = appData.employees.filter(e => !ids.includes(e.id));
+  saveDataToStorage();
+  renderEmployeeTable();
+  renderUserDropdown();
+  applyFilters();
+  showToast(`🗑️ Đã xóa ${ids.length} nhân viên`, 'success');
+}
+
+// ================= XÓA NHANH CÔNG VIỆC (BULK DELETE TASK) =================
+let _bulkTaskList = []; // Cache danh sách task đang hiện trong modal
+
+function openBulkDeleteTaskModal() {
+  document.getElementById('bulkDeleteTaskModal').classList.remove('hidden');
+  document.getElementById('bulkTaskSearchInput').value = '';
+  document.getElementById('bulkTaskSelectAll').checked = false;
+  _bulkTaskList = [...appData.tasks]; // Lấy toàn bộ task
+  renderBulkTaskTable(_bulkTaskList);
+  updateBulkTaskSelectionUI();
+}
+
+function closeBulkDeleteTaskModal() {
+  document.getElementById('bulkDeleteTaskModal').classList.add('hidden');
+  _bulkTaskList = [];
+}
+
+function renderBulkTaskTable(taskList) {
+  const tbody = document.getElementById('bulkTaskTableBody');
+  const totalEl = document.getElementById('bulkTaskTotalCount');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+  if (totalEl) totalEl.innerText = taskList.length;
+
+  const statusColorMap = {
+    'Hoàn thành': 'text-emerald-700 bg-emerald-50',
+    'Đang thực hiện': 'text-sky-700 bg-sky-50',
+    'Chờ xử lý': 'text-amber-700 bg-amber-50',
+    'Tạm dừng': 'text-slate-600 bg-slate-100',
+    'Quá hạn': 'text-rose-700 bg-rose-50',
+  };
+
+  taskList.forEach(task => {
+    const statusClass = statusColorMap[task.status] || 'text-slate-600 bg-slate-50';
+    const tr = document.createElement('tr');
+    tr.className = 'hover:bg-rose-50/30 transition';
+    tr.dataset.taskId = task.id;
+    tr.innerHTML = `
+      <td class="p-2 text-center">
+        <input type="checkbox" class="bulk-task-cb w-3.5 h-3.5 cursor-pointer accent-rose-500" data-id="${task.id}" onchange="updateBulkTaskSelectionUI()">
+      </td>
+      <td class="p-2 font-semibold text-slate-800 max-w-[220px] truncate" title="${task.name}">${task.name || '(Chưa đặt tên)'}</td>
+      <td class="p-2 text-slate-600">${task.empName || task.empId || '-'}</td>
+      <td class="p-2 text-center text-slate-500">${task.startDate || '-'}</td>
+      <td class="p-2 text-center text-slate-500">${task.planEndDate || '-'}</td>
+      <td class="p-2 text-center font-bold text-indigo-600">${task.progress != null ? task.progress + '%' : '-'}</td>
+      <td class="p-2 text-center"><span class="px-1.5 py-0.5 rounded text-[10px] font-semibold ${statusClass}">${task.status || '-'}</span></td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  updateBulkTaskSelectionUI();
+}
+
+function filterBulkTaskList() {
+  const keyword = (document.getElementById('bulkTaskSearchInput').value || '').toLowerCase().trim();
+  if (!keyword) {
+    renderBulkTaskTable(appData.tasks);
+    _bulkTaskList = [...appData.tasks];
+    return;
+  }
+  const filtered = appData.tasks.filter(t =>
+    (t.name || '').toLowerCase().includes(keyword) ||
+    (t.empName || '').toLowerCase().includes(keyword) ||
+    (t.empId || '').toLowerCase().includes(keyword) ||
+    (t.status || '').toLowerCase().includes(keyword)
+  );
+  _bulkTaskList = filtered;
+  renderBulkTaskTable(filtered);
+}
+
+function toggleSelectAllBulkTasks(checked) {
+  document.querySelectorAll('.bulk-task-cb').forEach(cb => { cb.checked = checked; });
+  updateBulkTaskSelectionUI();
+}
+
+function updateBulkTaskSelectionUI() {
+  const all = Array.from(document.querySelectorAll('.bulk-task-cb'));
+  const checked = all.filter(cb => cb.checked);
+
+  const badge = document.getElementById('bulkTaskSelectedBadge');
+  const deleteCount = document.getElementById('bulkTaskDeleteCount');
+  const selectAllCb = document.getElementById('bulkTaskSelectAll');
+
+  if (badge) badge.innerText = `Đã chọn: ${checked.length}`;
+  if (deleteCount) deleteCount.innerText = checked.length;
+
+  if (selectAllCb) {
+    selectAllCb.checked = all.length > 0 && checked.length === all.length;
+    selectAllCb.indeterminate = checked.length > 0 && checked.length < all.length;
+  }
+}
+
+function executeBulkDeleteTasks() {
+  const checked = Array.from(document.querySelectorAll('.bulk-task-cb:checked'));
+  if (checked.length === 0) {
+    showToast('⚠️ Chưa chọn công việc nào để xóa!', 'warning');
+    return;
+  }
+  const ids = checked.map(cb => cb.dataset.id);
+  if (!confirm(`Bạn có chắc muốn xóa ${ids.length} công việc đã chọn?\n\n⚠️ Hành động này không thể hoàn tác!`)) return;
+  appData.tasks = appData.tasks.filter(t => !ids.includes(t.id));
+  saveDataToStorage();
+  closeBulkDeleteTaskModal();
+  applyFilters();
+  showToast(`🗑️ Đã xóa ${ids.length} công việc`, 'success');
+}
+
+// ================= XÓA NHANH CÔNG VIỆC TRÊN BẢNG GANTT CHÍNH =================
+function _onGanttTaskCheckboxChange(input) {
+  _updateGanttBulkDeleteUI();
+}
+
+function toggleSelectAllGanttTasks(checked) {
+  const cbs = document.querySelectorAll('.gantt-task-cb');
+  cbs.forEach(cb => { cb.checked = checked; });
+  _updateGanttBulkDeleteUI();
+}
+
+function _updateGanttBulkDeleteUI() {
+  const all = Array.from(document.querySelectorAll('.gantt-task-cb'));
+  const checked = all.filter(cb => cb.checked);
+  const btn = document.getElementById('ganttBulkDeleteBtn');
+  const countEl = document.getElementById('ganttSelectedCount');
+  const selectAllCb = document.getElementById('selectAllGanttTasks');
+
+  if (countEl) countEl.innerText = checked.length;
+  if (btn) {
+    if (checked.length > 0) {
+      btn.classList.remove('hidden');
+    } else {
+      btn.classList.add('hidden');
+    }
+  }
+  if (selectAllCb) {
+    selectAllCb.checked = all.length > 0 && checked.length === all.length;
+    selectAllCb.indeterminate = checked.length > 0 && checked.length < all.length;
+  }
+}
+
+function bulkDeleteGanttSelectedTasks() {
+  const checked = Array.from(document.querySelectorAll('.gantt-task-cb:checked'));
+  if (checked.length === 0) {
+    showToast('⚠️ Vui lòng chọn ít nhất 1 công việc để xóa!', 'warning');
+    return;
+  }
+  const ids = checked.map(cb => cb.dataset.id).filter(Boolean);
+  const tasksToDelete = appData.tasks.filter(t => ids.includes(t.id));
+  const previewNames = tasksToDelete.slice(0, 5).map(t => `• [${t.id}] ${t.title || t.mainTaskTitle || 'Công việc'}`).join('\n');
+  const moreText = tasksToDelete.length > 5 ? `\n... và ${tasksToDelete.length - 5} công việc khác` : '';
+
+  if (!confirm(`Bạn có chắc muốn xóa ${ids.length} công việc đã chọn trên bảng Gantt?\n\n${previewNames}${moreText}\n\n⚠️ Hành động này không thể hoàn tác!`)) {
+    return;
+  }
+
+  appData.tasks = appData.tasks.filter(t => !ids.includes(t.id));
+  saveDataToStorage();
+  applyFilters();
+  _updateGanttBulkDeleteUI();
+  showToast(`🗑️ Đã xóa thành công ${ids.length} công việc!`, 'success');
+}

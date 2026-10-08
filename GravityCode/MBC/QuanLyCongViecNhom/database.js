@@ -1,5 +1,5 @@
 window.MBC_DEFAULT_DATABASE = {
-  "version": "3.1",
+  "version": "3.7",
   "currentUser": {
     "id": "admin",
     "name": "Quản trị viên (Admin)",
@@ -44,6 +44,7 @@ window.MBC_DEFAULT_DATABASE = {
       "planEndDate": "2026-01-09",
       "actualEndDate": "2026-01-09",
       "status": "Hoàn thành",
+      "link": "file:///C:/MBC/HoSoBaoTri/TramBienAp/",
       "note": "Điện trở tiếp địa đạt chuẩn < 4 Ω"
     },
     {
@@ -277,6 +278,7 @@ window.MBC_DEFAULT_DATABASE = {
       "actualEndDate": "2026-10-02",
       "status": "Hoàn thành",
       "taskSource": "Cải tiến",
+      "link": "https://drive.google.com/drive/folders/mbc-tum-2026",
       "note": "Đã kiểm tra và thay thế 3 linh kiện đạt chuẩn"
     },
     {
@@ -313,7 +315,17 @@ window.MBC_DEFAULT_DATABASE = {
       "actualEndDate": "",
       "status": "Đang làm",
       "taskSource": "Trưởng phòng",
-      "note": "Đang chạy rà đồ gá, kiểm tra rung"
+      "note": "Đang chạy rà đồ gá, kiểm tra rung",
+      "lastStatusUpdate": "2026-10-08",
+      "statusLogs": [
+        {
+          "date": "2026-10-08",
+          "note": "Đang chạy rà đồ gá, kiểm tra rung và cân bằng động",
+          "status": "Đang làm",
+          "progress": 70,
+          "author": "Nguyễn Quang Thảo"
+        }
+      ]
     },
 
     // ═══════════════════════════════════════════════════════════════
