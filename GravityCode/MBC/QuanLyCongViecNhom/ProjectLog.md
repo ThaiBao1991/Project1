@@ -3,12 +3,115 @@
 ## Thông Tin Dự Án
 - **Tên dự án:** Ứng dụng Web Quản Lý Công Việc & Nhân Sự Toàn Diện (Gantt Timeline & Performance Points)
 - **Vị trí:** `c:\Users\12953 Bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\QuanLyCongViecNhom`
-- **Phiên bản:** v3.7.1 (Xóa Nhanh Công Việc Trực Tiếp Trên Bảng Gantt & Cảnh Báo Quá Hạn Cập Nhật)
-- **Ngày cập nhật:** 08/10/2026.
+- **Phiên bản:** v4.3.0 (Đánh Số Tuần Theo Từng Tháng & Quy Tắc Giao Thời Tháng Trên Timeline Gantt)
+- **Ngày cập nhật:** 09/10/2026.
 
 ---
 
 ## Nhật Ký Cập Nhật (Change Log)
+
+### Phiên Bản 4.3.0 (09/10/2026) - Đánh Số Tuần Theo Từng Tháng & Quy Tắc Giao Thời:
+1. **Đánh Số Tuần Nhóm Theo Từng Tháng (`Tuần X (TM)`):**
+   - Thay vì đánh số tuần liên tục từ 1 đến 14 gây mất dấu chu kỳ tháng, hệ thống giờ đây **đánh số tuần theo từng tháng riêng biệt**.
+   - **Quy tắc phân loại tháng của tuần:** Dựa theo **ngày bắt đầu của tuần (`wStart`)**:
+     - Tuần bắt đầu trong tháng 9 (`wStart` ở tháng 9, ví dụ `Tuần 5: 29/09 - 05/10/26`) có ngày kết thúc lấn sang tháng 10 thì **vẫn được tính thuộc về Tháng 9**, mang nhãn `Tuần 5 (T9)`.
+     - Tuần tiếp theo có ngày bắt đầu `06/10` (thuộc tháng 10) ➔ Hệ thống tự động **reset lại số tuần về 1**, mang nhãn `Tuần 1 (T10)`.
+     - Tương tự khi chuyển sang tháng 11: `Tuần 4 (T10): 27/10 - 2/11/26` ➔ `Tuần 1 (T11): 3/11 - 9/11/26`.
+2. **Đồng Bộ Lên Giao Diện & File Excel:**
+   - Header bảng Gantt HTML: Hiển thị rõ nét `Tuần X (TM)` ở dòng trên và dải ngày `d/m - d/m/yy` ở dòng dưới.
+   - Hàm `executeExportExcelReport`: Truyền `tasksToExport` vào `getTimelineColumns`, đồng bộ hoàn toàn nhãn tuần theo tháng khi xuất Gantt ra Excel.
+3. **Verify Gate 2 (Pass 100%):** Script kiểm tra 14 tuần liên tiếp xác nhận đúng toàn bộ các mốc tuần `Tuần 5 (T9)`, `Tuần 1 (T10)`, `Tuần 4 (T10)`, `Tuần 1 (T11)`.
+
+### Phiên Bản 4.2.0 (09/10/2026) - Tự Động Mở Rộng Gốc Timeline Gantt Cho Công Việc Quá Hạn & Tồn Đọng:
+1. **Khắc Phục Lỗi Biểu Đồ Không Hiện Gốc Thời Gian Cho Việc Tồn Đọng / Quá Hạn Từ Tháng Trước (Hình ảnh người dùng):**
+   - **Root cause cũ:** Khi xem theo tháng (ví dụ Tháng 10/2026), lưới timeline mặc định gán cứng `baseDate = 2026-10-01`. Do đó, công việc bắt đầu từ tháng 9 (như `CV-2026-0028` bắt đầu `20/09/2026`, hạn kế hoạch `27/09/2026`, chưa xong) bị rớt toàn bộ thanh Kế hoạch ra ngoài mép trái của biểu đồ (hàng Kế hoạch trống trơn), còn thanh Thực tích thì bắt đầu lơ lửng từ 01/10.
+   - **Cơ chế mới (`getTimelineColumns(taskList)`):**
+     - Quét toàn bộ danh sách công việc hiển thị (`taskList`) để tìm ngày bắt đầu sớm nhất `minTaskStart`.
+     - Nếu có công việc bắt đầu từ tháng trước (`minTaskStart < defaultBase`): Tự động **mở rộng mốc bắt đầu của lưới timeline về gốc tháng của công việc đó** (ngày đầu tháng của `minTaskStart`, ví dụ `2026-09-01`).
+     - Mở rộng số lượng tuần (14 tuần) và số ngày (trong chế độ xem cả tháng) để bao trọn từ tháng bắt đầu sớm nhất xuyên suốt qua tháng hiện tại và các tuần tiếp theo.
+     - **Kết quả:**
+       - Thanh **Kế hoạch** của công việc quá hạn tháng 9 hiển thị đầy đủ, sắc nét trên các tuần tháng 9 (Tuần 3 & 4).
+       - Thanh **Thực tích** dải màu xanh/cyan kéo dài liên tục từ ngày bắt đầu 20/09 qua tháng 10 tới ngày hôm nay, thể hiện trung thực việc trễ hạn.
+2. **Chuẩn Hóa Logic Lọc Tháng Cho Công Việc Chưa Xong (`renderMainTable`):**
+   - Định lý giao nhau thời gian: Với công việc chưa hoàn thành (`!task.actualEndDate`), ngày hiệu lực kết thúc được tính là hôm nay (`systemToday`). Do đó công việc bắt đầu tháng 9 nhưng chưa xong luôn xuất hiện hợp lệ trong bảng theo dõi Tháng 10 ở cả 2 chế độ Ngày và Tuần (không bị lọc mất nhầm).
+3. **Đồng Bộ Số Cột Cố Định Header:**
+   - Sửa vòng lặp dọn header thành `while (headerRow.children.length > 13)` và điều chỉnh phân cách nhóm nhân sự thành `colspan="${13 + timelineCols.length}"` khớp chính xác 13 cột cố định của bảng.
+4. **Bảo toàn CSDL:** Tuyệt đối giữ nguyên 100% dữ liệu trong `database.js`.
+5. **Verify Gate 2 (Đạt chuẩn 9/9):** Đã chạy script mô phỏng kiểm tra, xác nhận task tháng 9 chưa xong qua bộ lọc tháng 10, timeline lùi về `01/09/2026`, thanh kế hoạch hiển thị 2 tuần tháng 9, thanh thực tích trải dài 4 tuần từ tháng 9 sang tháng 10.
+
+### Phiên Bản 4.1.0 (09/10/2026) - Hiện Trạng Mới Nhất Trên Bảng Gantt & Đồng Bộ Xuất Excel Công Việc:
+1. **Bổ Sung Cột "Hiện Trạng" Trực Tiếp Trên Bảng Gantt Chính:**
+   - Vị trí: Đứng ngay **trước cột "Tình trạng"** (sau cột "Thời gian hoàn thành").
+   - Header bảng Gantt: `<th class="min-w-[130px] max-w-[180px]">Hiện Trạng</th>` trong `index.html`.
+   - Nội dung cell (`tdCurrentStatus`): Lấy **nội dung ghi chú của lần cập nhật mới nhất** (`latestLog.note`) kèm badge tiến độ `(X%)` và ngày cập nhật (`formatVnDate(latestLog.date)`).
+   - Nếu chưa có lượt cập nhật nào: Hiển thị placeholder dấu gạch ngang mờ `—` (`text-slate-300`).
+   - Có tooltip đầy đủ khi rê chuột qua ô: Ngày cập nhật + Tiến độ + Nội dung ghi chú.
+   - Thẻ `td` có thuộc tính `rowspan="2"` khớp với cấu trúc 2 dòng (Kế hoạch / Thực tế) của bảng Gantt.
+2. **Đồng Bộ Dữ Liệu Cập Nhật Mới Nhất Khi Xuất Excel Danh Sách Công Việc (`exportCurrentTasksToExcel`):**
+   - Giải quyết bài toán: Người dùng muốn xem tình trạng cập nhật ngay trong file danh sách công việc mà không bị trùng lặp nhiều dòng như file xuất lịch sử log riêng.
+   - Bổ sung 3 cột vào file Excel `DanhSachCongViec`:
+     - `Hiện Trạng (Ghi Chú Cập Nhật Mới Nhất)` (độ rộng cột 40).
+     - `Ngày Cập Nhật Cuối` (độ rộng cột 22).
+     - `Tiến Độ (%)` (độ rộng cột 14).
+   - Dữ liệu được trích xuất tự động từ entry mới nhất trong mảng `task.statusLogs`, đảm bảo 1 dòng = 1 công việc duy nhất, trực quan và tiện đối soát.
+3. **Verify Gate 2 (Đạt chuẩn):**
+   - Đã kiểm tra cú pháp và độ tương thích cấu trúc cột giữa `index.html` (13 cột cố định) và `app.js` (`tr1.innerHTML` chứa đúng 13 thẻ `td` theo đúng thứ tự).
+   - Thử nghiệm logic trích xuất log mới nhất và xuất Excel hoạt động trơn tru.
+
+### Phiên Bản 4.0.0 (09/10/2026) - Xuất Nhật Ký Cập Nhật Tình Trạng Ra Excel:
+1. **Hàm `exportStatusLogsToExcel()` — Xuất Nhật Ký Cập Nhật Tình Trạng:**
+   - Mỗi lượt cập nhật tình trạng (`statusLogs` entry) = **1 dòng riêng** trong file Excel (không gộp ô).
+   - Cột xuất: `STT` | `Mã CV` | `Tên Công Việc` | `Nội Dung Chi Tiết` | `Người Thực Hiện` | `Trạng Thái CV Hiện Tại` | `Ngày Cập Nhật` | `Tình Trạng Báo Cáo` | `Tiến Độ (%)` | `Nội Dung Ghi Chú` | `Người Cập Nhật` | `Nguồn Yêu Cầu` | `Hạn Kế Hoạch` | `Cập Nhật Cuối`.
+   - Sắp xếp: Mã CV → Ngày cập nhật tăng dần.
+   - Task chưa có log nào vẫn xuất 1 dòng placeholder `(Chưa có nhật ký cập nhật)` màu xám để dễ phát hiện.
+   - Màu sắc phân biệt trạng thái: Hoàn thành (xanh lá) | Hoàn thành trễ (cam) | Đang làm (xanh dương) | Tạm dừng (xám) | Dừng dự án (đỏ).
+   - Header file màu tím Indigo phân biệt với file xuất Công Việc (xanh) và Nhân Sự (xanh dương).
+   - Tên file: `NhatKy_CapNhat_TinhTrang_MBC_YYYYMMDD.xls`.
+2. **Nút "Xuất Nhật Ký" — 2 vị trí:**
+   - **importModal (Tab Công Việc):** Khối tím `#statusLogExportBox` — hiển thị khi ở tab CV, tự ẩn khi chuyển sang tab Nhân Sự (tích hợp vào `switchSmartImportTarget()`).
+   - **syncModal (Khu vực xuất Excel bảng phẳng):** Nút tím trải dài `col-span-2` bên dưới 2 nút Xuất CV / Xuất NV.
+3. **Fix bug:** Xóa đoạn code orphan bị duplicate trong `switchSmartImportTarget` (if/else block thừa ngoài hàm do lỗi tool replace trước đó).
+4. **Verify Gate 2 (Pass 9/9 + 3 logic tests):** Hàm tồn tại, 2 nút HTML tồn tại, không còn orphan code, logic sort log và placeholder hoạt động đúng.
+
+### Phiên Bản 3.9.0 (09/10/2026) - Người Phối Hợp / Người Phụ, Phân Cấp Tổng Giám Đốc & Bộ Lọc Nguồn Yêu Cầu:
+1. **Hỗ Trợ Người Phối Hợp / Người Phụ Trên Mỗi Công Việc:**
+   - Mỗi task giờ có thể có **1 người chính** (`empId`/`empName`) và **nhiều người phụ** (`supportEmpIds`, `supportEmpNames`).
+   - Form thêm/sửa công việc (`taskModal`): Đổi nhãn thành **Người Thực Hiện Chính**, bổ sung container `#supportEmpContainer` hiển thị danh sách checkbox nhân viên còn lại để chọn làm người phối hợp.
+   - Khi đổi người chính, hệ thống tự động cập nhật lại danh sách checkbox (loại trừ người đang chọn chính).
+   - **Bảng Gantt:** Cột nhân sự hiển thị icon ⭐ tên người chính + badge nhỏ `PH: [Tên người phụ]` nếu có.
+   - **Bộ lọc nhân viên:** Khi lọc 1 nhân viên, hiển thị cả công việc họ làm chính lẫn công việc họ phối hợp hỗ trợ.
+   - **Tìm kiếm từ khóa:** Nhận diện tên người phối hợp trong kết quả tìm kiếm.
+   - **Excel Xuất:** Thêm cột `Người phối hợp` (cột thứ 7 trong file `.xlsx`).
+   - **Excel Nhập (Smart Import):** Nhận diện cột `Người phối hợp` / `Người phụ` / `Hỗ trợ`, tự động tách theo dấu phẩy/chấm phẩy, map ID nhân sự trong hệ thống, lưu vào task.
+   - Hàm mới: `renderSupportEmpCheckboxes(selectedIds)`, `_onSupportEmpCheckboxChange(cb)`, `_updateSupportEmpOptions()`.
+2. **Bổ Sung Cấp Tổng Giám Đốc (TGĐ):**
+   - Huy hiệu `👑 TGĐ` màu đỏ đậm viền vàng (`bg-rose-900 text-amber-300 border-amber-400`) — phân biệt hẳn với Giám đốc (tím).
+   - `getSourceBadge()`: Kiểm tra `Tổng Giám đốc` / `TGĐ` / `TGD` TRƯỚC khi kiểm tra `Giám đốc` để tránh match nhầm chuỗi con.
+   - `getPriorityWeight()`: Tổng Giám đốc được trọng số cao nhất `0` (ưu tiên sắp xếp đầu tiên).
+   - Form thêm/sửa công việc: Thêm option `👑 Yêu cầu từ: Tổng Giám đốc` vào select `taskSource`.
+3. **Cập Nhật Bộ Lọc Toolbar - Nguồn Yêu Cầu:**
+   - Đổi nhãn bộ lọc từ `Ưu tiên:` thành `📌 Nguồn yêu cầu:` (phản ánh đúng chức năng lọc theo cấp giao việc).
+   - Thêm option `👑 Tổng Giám đốc` (ở đầu danh sách, trước Giám đốc).
+   - Logic `applyFilters()`: Phân biệt rõ `Tổng Giám đốc` vs `Giám đốc` thuần túy — khi lọc `Giám đốc` sẽ loại trừ các task thuộc `Tổng Giám đốc`.
+4. **Bảo toàn CSDL:** Tuyệt đối không chỉnh sửa `database.js` theo yêu cầu người dùng.
+5. **Verify Gate 2 (Pass 17/17):** Tất cả hàm mới tồn tại trong `app.js`, tất cả element mới tồn tại trong `index.html`, parseDurationString test pass 5/5 case.
+
+### Phiên Bản 3.8.0 (09/10/2026) - Tính Toán 2 Chiều Thời Gian Kế Hoạch, Đơn Vị Linh Hoạt & Cột Nguồn Yêu Cầu Excel:
+1. **Tính toán 2 chiều trên Form Thêm/Sửa Công Việc (taskModal):**
+   - **Chiều xuôi:** Nhập `Ngày bắt đầu` + `Thời gian dự kiến` (giờ / ngày / tuần / tháng) ➔ Tự động tính ra `Ngày kế hoạch xong`.
+   - **Chiều ngược:** Mở khóa ô `Ngày kế hoạch xong` (bỏ readonly). Khi người dùng chọn/đổi `Ngày kế hoạch xong` ➔ Hệ thống tự động tính ngược ra `Thời gian dự kiến` (số ngày/tuần/tháng tương ứng) qua hàm `calculatePlanDurationFromEndDate()`.
+2. **Cột "Nguồn Yêu Cầu" & Đơn Vị Thời Gian Linh Hoạt Trên File Excel:**
+   - **Xuất Excel Hiện Tại (`exportCurrentTasksToExcel`):**
+     - Bổ sung cột **"Nguồn yêu cầu"** (Giám đốc, Trưởng phòng, Đối ứng sự cố, Cải thiện nội bộ...) để đối soát rõ ràng người giao việc.
+     - Cột **"Thời gian dự kiến"** xuất định dạng linh hoạt (`4 giờ`, `5 ngày`, `2 tuần`, `1 tháng`...) thay vì chỉ là con số trơn.
+     - Bổ sung cột **"Ngày kế hoạch xong (YYYY-MM-DD)"** để phân biệt rõ ràng với ngày hoàn thành thực tế.
+   - **File Mẫu Import Excel (`downloadExcelTemplate`):**
+     - Đồng bộ các cột: `Nguồn yêu cầu`, `Thời gian dự kiến` (mẫu `1 ngày`, `3 ngày`, `2 tuần`), `Ngày kế hoạch xong (YYYY-MM-DD)`.
+   - **Nhập Excel Thông Minh (`processSmartImport`):**
+     - Hàm mới `parseDurationString(val)`: Tự động bóc tách số và đơn vị từ chuỗi (`"4 giờ"`, `"2 tuần"`, `"1 tháng"`, `"5 ngày"`, hoặc số thuần `5`).
+     - Tự động nhận diện cột `Nguồn yêu cầu` / `Người giao việc`.
+     - **Tự động tính 2 chiều khi Import:** Nếu file có thời gian dự kiến ➔ tự tính ngày kế hoạch xong; nếu file chỉ có ngày yêu cầu hoàn thành mà để trống thời gian dự kiến ➔ tự động tính ngược ra số ngày dự kiến.
+3. **Bảo toàn CSDL:** Giữ nguyên 100% dữ liệu gốc trong `database.js`.
 
 ### Phiên Bản 3.7.1 (08/10/2026) - Xóa Nhanh Công Việc Trên Bảng Gantt & Khắc Phục Cảnh Báo Quá Hạn Cập Nhật:
 1. **Xóa nhanh Công Việc trực tiếp trên Bảng Gantt chính:**

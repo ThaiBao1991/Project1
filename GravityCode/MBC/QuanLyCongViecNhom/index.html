@@ -299,10 +299,11 @@
         </div>
 
         <div class="flex items-center gap-1.5 text-xs">
-          <span class="text-slate-500 font-medium"><i class="fa-solid fa-flag text-amber-500"></i> Ưu tiên:</span>
+          <span class="text-slate-500 font-medium"><i class="fa-solid fa-flag text-amber-500"></i> Nguồn yêu cầu:</span>
           <select id="filterPriority" onchange="applyFilters()" class="bg-slate-50 border border-slate-300 text-slate-700 rounded-lg px-2.5 py-1.5 text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none font-medium">
             <option value="ALL">-- Tất cả nguồn yêu cầu --</option>
-            <option value="Giám đốc">👑 Giám đốc</option>
+            <option value="Tổng Giám đốc">👑 Tổng Giám đốc</option>
+            <option value="Giám đốc">🔴 Giám đốc</option>
             <option value="Trưởng phòng">👔 Trưởng phòng</option>
             <option value="Đối ứng">⚡ Đối ứng sự cố</option>
             <option value="Cải tiến">📈 Cải thiện nội bộ</option>
@@ -425,6 +426,7 @@
               <th class="p-2.5 border-r border-slate-300 text-center w-24">Ngày bắt đầu</th>
               <th class="p-2.5 border-r border-slate-300 text-center w-24">Thời gian dự kiến</th>
               <th class="p-2.5 border-r border-slate-300 text-center w-24">Thời gian hoàn thành</th>
+              <th class="p-2.5 border-r border-slate-300 min-w-[130px] max-w-[180px]">Hiện Trạng</th>
               <th class="p-2.5 border-r border-slate-300 text-center w-28">Tình trạng</th>
               <th class="p-2.5 border-r border-slate-300 min-w-[120px]">Ghi chú</th>
               <th class="p-2.5 border-r border-slate-300 text-center w-24">Link / Tệp</th>
@@ -499,10 +501,21 @@
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Người Thực Hiện <span class="text-rose-500">*</span></label>
-            <select id="taskEmpId" required class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none font-medium">
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">
+              Người Thực Hiện Chính <span class="text-rose-500">*</span>
+            </label>
+            <select id="taskEmpId" required onchange="_updateSupportEmpOptions()" class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none font-semibold text-slate-800">
               <!-- Rendered by JS -->
             </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">
+              Người Phối Hợp / Phụ <span class="text-[10px] text-slate-400 font-normal">(tùy chọn)</span>
+            </label>
+            <div id="supportEmpContainer" class="max-h-24 overflow-y-auto border border-slate-300 rounded-lg p-1.5 bg-slate-50 flex flex-wrap gap-1.5 min-h-[38px]">
+              <!-- Checkboxes rendered by JS -->
+            </div>
           </div>
 
           <div>
@@ -535,8 +548,10 @@
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Ngày Kế Hoạch Xong</label>
-            <input type="date" id="taskPlanEndDate" class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg bg-slate-50 text-slate-600 focus:outline-none" readonly>
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">
+              Ngày Kế Hoạch Xong <span class="text-[10px] text-brand-600 font-normal lowercase">(chọn để tự tính số ngày)</span>
+            </label>
+            <input type="date" id="taskPlanEndDate" onchange="calculatePlanDurationFromEndDate()" class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none font-semibold">
           </div>
 
           <div>
@@ -547,11 +562,12 @@
 
           <!-- Nguồn yêu cầu & Ghi chú -->
           <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nguồn Yêu Cầu</label>
-            <select id="taskSource" class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none font-medium">
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nguồn Yêu Cầu / Cấp Giao</label>
+            <select id="taskSource" class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none font-semibold">
+              <option value="Tổng Giám đốc">👑 Yêu cầu từ: Tổng Giám đốc</option>
               <option value="Giám đốc">🔴 Yêu cầu từ: Giám đốc</option>
-              <option value="Trưởng phòng">🟠 Yêu cầu từ: Trưởng phòng</option>
-              <option value="Đối ứng sự cố">🟡 Đối ứng sự cố</option>
+              <option value="Trưởng phòng">👔 Yêu cầu từ: Trưởng phòng</option>
+              <option value="Đối ứng sự cố">⚡ Đối ứng sự cố khẩn</option>
               <option value="Cải thiện nội bộ" selected>🟢 Cải thiện nội bộ</option>
               <option value="Kế hoạch định kỳ">🔵 Kế hoạch định kỳ</option>
               <option value="Dự án chiến lược">🟣 Dự án chiến lược</option>
@@ -921,6 +937,19 @@
           </button>
         </div>
 
+        <!-- Khối Xuất Nhật Ký Cập Nhật Tình Trạng (Tab CV) -->
+        <div id="statusLogExportBox" class="p-3.5 border border-violet-200 rounded-xl bg-violet-50/80 flex items-center justify-between shadow-sm">
+          <div>
+            <div class="text-xs font-bold text-violet-950 flex items-center gap-1.5">
+              <i class="fa-solid fa-clipboard-list text-violet-600"></i> Nhật ký cập nhật tình trạng:
+            </div>
+            <div class="text-[11px] text-violet-700/90 mt-0.5">Xuất toàn bộ lịch sử cập nhật — mỗi lượt cập nhật là 1 dòng riêng để kiểm tra &amp; theo dõi</div>
+          </div>
+          <button type="button" onclick="exportStatusLogsToExcel()" class="px-3.5 py-1.5 text-xs font-bold rounded-lg bg-violet-600 hover:bg-violet-700 text-white transition flex items-center gap-1.5 shadow-sm whitespace-nowrap">
+            <i class="fa-solid fa-list-check"></i> Xuất Nhật Ký (.xls)
+          </button>
+        </div>
+
         <!-- Khối Xuất Nhân Sự Hiện Tại (Hiển thị khi ở tab Nhập Nhân Sự) -->
         <div id="empExportBox" class="hidden p-3.5 border border-indigo-200 rounded-xl bg-indigo-50/80 flex items-center justify-between shadow-sm">
           <div>
@@ -1014,6 +1043,9 @@
             </button>
             <button onclick="exportEmployeesDataToExcel()" class="px-2.5 py-2 text-xs font-semibold rounded-lg bg-teal-600 hover:bg-teal-700 text-white transition flex items-center justify-center gap-1.5 shadow-sm">
               <i class="fa-solid fa-users"></i> Xuat Nhan Su (.xls)
+            </button>
+            <button onclick="exportStatusLogsToExcel()" class="col-span-2 px-2.5 py-2 text-xs font-semibold rounded-lg bg-violet-600 hover:bg-violet-700 text-white transition flex items-center justify-center gap-1.5 shadow-sm">
+              <i class="fa-solid fa-list-check"></i> Xuat Nhat Ky Cap Nhat Tinh Trang (.xls)
             </button>
           </div>
           <div class="text-[10px] text-emerald-700">Xuat bang du lieu phang day du (khong Gantt) phu hop de loc, phan tich trong Excel.</div>
