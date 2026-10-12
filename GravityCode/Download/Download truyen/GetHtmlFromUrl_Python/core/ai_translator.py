@@ -403,6 +403,146 @@ def get_shared_account_pool(key_objects: Optional[List[Dict[str, Any]]] = None) 
         return _shared_pool_instance
 
 
+RE_CJK = re.compile(r'[\u4e00-\u9fff\u3400-\u4dbf\uf900-\ufaff]')
+
+def has_cjk(text: str) -> bool:
+    """Kiểm tra chuỗi có chứa ký tự chữ Hán (CJK) hay không."""
+    return bool(RE_CJK.search(text)) if text else False
+
+
+# ─── MỎ NEO ÂM HÁN-VIỆT & CHỐNG ẢO GIÁC PHIÊN ÂM (SINO-VIETNAMESE DISAMBIGUATION) ───
+SINO_VIETNAMESE_ANCHORS = {
+    "祟": "Toái",    # Pinyin suì: AI hay đọc nhầm thành Súy (nhầm với 帅 shuài) hoặc Sùng (nhầm với 崇)
+    "崇": "Sùng",    # Pinyin chóng: hay bị nhầm sang Chung (钟)
+    "帅": "Soái",
+    "砼": "Đồng",
+    "怼": "Đỗi",
+    "魃": "Bạt",
+    "魑": "Ly",
+    "魅": "Mị",
+    "魍": "Vọng",
+    "魉": "Lượng",
+    "饕": "Thao",
+    "餮": "Thiết",
+    "弑": "Thí",
+    "戮": "Lục",
+    "枭": "Kiêu",
+    "傀": "Khôi",
+    "儡": "Lỗi",
+    "蛊": "Cổ",
+    "冥": "Minh",
+    "煞": "Sát",
+}
+
+# Bảng tra cứu các biến thể lệch phổ biến cho từng danh xưng để phục vụ tự động đồng bộ (Auto-Reconciliation)
+DISAMBIGUATION_ALIASES: Dict[str, List[str]] = {
+    "司祟": ["Tư Súy", "Tư Sùng", "Tư Chung", "Tư Tụy", "Tư Tuế"],
+    "司天祟": ["Tư Thiên Súy", "Tư Thiên Sùng", "Tư Thiên Chung"],
+    "祟": ["Súy", "Sùng", "Chung"]
+}
+
+
+def normalize_han_viet_term(zh: str, vi: str) -> str:
+    """
+    Chuẩn hóa các âm Hán-Việt bị AI đọc nhầm bính âm Pinyin hoặc nhìn nhầm mặt chữ.
+    Ví dụ: 司祟 bị nhầm thành Tư Súy / Tư Chung -> sửa thành Tư Toái.
+    """
+    normalized_vi = vi.strip()
+    if "祟" in zh:
+        # Nếu AI dịch thành Súy hoặc Chung do nhầm pinyin hoặc mặt chữ -> sửa thành Toái
+        normalized_vi = re.sub(r'\bSúy\b', 'Toái', normalized_vi, flags=re.IGNORECASE)
+        normalized_vi = re.sub(r'\bChung\b', 'Toái', normalized_vi, flags=re.IGNORECASE)
+    return normalized_vi
+
+
+def reconcile_text_with_terms(text: str, terms_map: Dict[str, str]) -> str:
+    """
+    Tự động rà soát và đồng bộ các biến thể tên bị lệch trong đoạn văn bản dịch
+    theo danh sách thuật ngữ chuẩn đã chốt.
+    """
+    if not text or not terms_map:
+        return text
+
+    modified_text = text
+    for zh, vi in terms_map.items():
+        if not zh or not vi:
+            continue
+        aliases = []
+        if zh in DISAMBIGUATION_ALIASES:
+            aliases.extend(DISAMBIGUATION_ALIASES[zh])
+
+        for alias in aliases:
+            if alias.lower() != vi.lower() and alias in modified_text:
+                pattern = r'\b' + re.escape(alias) + r'\b'
+                modified_text = re.sub(pattern, vi, modified_text)
+
+    return modified_text
+
+
+def reconcile_chapter_files(dich_dir: str, glossary: 'GlossaryManager', log_callback=None) -> Dict[str, int]:
+    """
+    Quét và đồng bộ nhất quán toàn bộ các file HTML chương trong thư mục dịch
+    theo từ điển thuật ngữ chuẩn (xóa bỏ toàn bộ các biến thể lệch tên).
+    Trả về dict: {"modified_files": int, "total_replacements": int}
+    """
+    if not os.path.exists(dich_dir):
+        return {"modified_files": 0, "total_replacements": 0}
+
+    alias_to_canonical: Dict[str, str] = {}
+    for cat in ["characters", "sects", "weapons", "locations", "others"]:
+        for zh, vi in glossary.data.get(cat, {}).items():
+            if zh in DISAMBIGUATION_ALIASES:
+                for alias in DISAMBIGUATION_ALIASES[zh]:
+                    if alias.lower() != vi.lower():
+                        alias_to_canonical[alias] = vi
+
+    if not alias_to_canonical:
+        return {"modified_files": 0, "total_replacements": 0}
+
+    modified_files = 0
+    total_replacements = 0
+
+    search_dirs = [dich_dir, os.path.dirname(dich_dir)]
+    processed_paths = set()
+
+    for s_dir in search_dirs:
+        if not os.path.exists(s_dir):
+            continue
+        try:
+            for fname in os.listdir(s_dir):
+                if not (fname.endswith('.html') or fname.endswith('.htm')):
+                    continue
+                fpath = os.path.join(s_dir, fname)
+                if fpath in processed_paths:
+                    continue
+                processed_paths.add(fpath)
+
+                with open(fpath, 'r', encoding='utf-8', errors='ignore') as fp:
+                    content = fp.read()
+
+                orig_content = content
+                file_replacements = 0
+                for alias, canonical in alias_to_canonical.items():
+                    if alias in content:
+                        pattern = r'\b' + re.escape(alias) + r'\b'
+                        matches = len(re.findall(pattern, content))
+                        if matches > 0:
+                            content = re.sub(pattern, canonical, content)
+                            file_replacements += matches
+
+                if content != orig_content:
+                    with open(fpath, 'w', encoding='utf-8') as fp:
+                        fp.write(content)
+                    modified_files += 1
+                    total_replacements += file_replacements
+                    if log_callback:
+                        log_callback(f"  ✨ Đồng bộ {fname}: thay thế {file_replacements} vị trí.")
+        except Exception as e:
+            logger.error(f"Lỗi khi đồng bộ file trong {s_dir}: {e}")
+
+    return {"modified_files": modified_files, "total_replacements": total_replacements}
+
+
 class GlossaryManager:
     """Quản lý từ điển thuật ngữ (nhân vật, môn phái, vũ khí, địa danh) cho truyện."""
     def __init__(self, glossary_file: str):
@@ -416,15 +556,61 @@ class GlossaryManager:
         }
         self.load()
 
+    @staticmethod
+    def clean_term(zh: Any, vi: Any) -> Optional[Tuple[str, str]]:
+        """
+        Làm sạch, chuẩn hóa và tự động sửa lỗi đảo ngược (Auto-Swap) cho cặp thuật ngữ.
+        Đảm bảo:
+        - Key (zh) BẮT BUỘC chứa chữ Hán (CJK).
+        - Value (vi) BẮT BUỘC là tiếng Việt (không được chứa chữ Hán).
+        - Tự động chuẩn hóa các âm Hán-Việt bị AI đọc nhầm bính âm Pinyin.
+        """
+        zh_str = str(zh or "").strip(" \t\r\n'\"{}[]")
+        vi_str = str(vi or "").strip(" \t\r\n'\"{}[]")
+        if not zh_str or not vi_str or zh_str == vi_str:
+            return None
+
+        # Tự động sửa lỗi bị đảo ngược cột: zh không có chữ Hán nhưng vi lại có chữ Hán
+        if not has_cjk(zh_str) and has_cjk(vi_str):
+            zh_str, vi_str = vi_str, zh_str
+
+        # Sau khi swap, zh bắt buộc phải có chữ Hán
+        if not has_cjk(zh_str):
+            return None
+
+        # vi không được chứa chữ Hán (nếu vẫn chứa chữ Hán nghĩa là chưa dịch sang tiếng Việt)
+        if has_cjk(vi_str):
+            return None
+
+        # Tự động chuẩn hóa âm Hán-Việt theo bảng mỏ neo
+        vi_str = normalize_han_viet_term(zh_str, vi_str)
+
+        return zh_str, vi_str
+
     def load(self):
         if os.path.exists(self.glossary_file):
             try:
                 with open(self.glossary_file, "r", encoding="utf-8") as f:
                     content = json.load(f)
                     if isinstance(content, dict):
+                        healed = False
                         for cat in ["characters", "sects", "weapons", "locations", "others"]:
                             if cat in content and isinstance(content[cat], dict):
-                                self.data[cat] = content[cat]
+                                cleaned_dict = {}
+                                for k, v in content[cat].items():
+                                    cleaned = self.clean_term(k, v)
+                                    if cleaned:
+                                        czh, cvi = cleaned
+                                        cleaned_dict[czh] = cvi
+                                        if czh != str(k) or cvi != str(v):
+                                            healed = True
+                                    else:
+                                        # Loại bỏ item rác / không hợp lệ
+                                        healed = True
+                                self.data[cat] = cleaned_dict
+                        if healed:
+                            logger.info(f"Đã tự động sửa lỗi đảo chiều & chuẩn hóa glossary: {self.glossary_file}")
+                            self.save()
             except Exception as e:
                 logger.error(f"Lỗi load glossary {self.glossary_file}: {e}")
 
@@ -437,7 +623,7 @@ class GlossaryManager:
             logger.error(f"Lỗi save glossary {self.glossary_file}: {e}")
 
     def add_terms(self, new_terms: Dict[str, Any]):
-        """Cập nhật các thuật ngữ mới vào từ điển."""
+        """Cập nhật các thuật ngữ mới vào từ điển (có tự động phát hiện đảo ngược và chuẩn hóa)."""
         if not isinstance(new_terms, dict):
             return
         updated = False
@@ -445,10 +631,12 @@ class GlossaryManager:
             terms = new_terms.get(cat, {})
             if isinstance(terms, dict):
                 for zh, vi in terms.items():
-                    zh_str = str(zh).strip()
-                    vi_str = str(vi).strip()
-                    if zh_str and vi_str and zh_str not in self.data[cat]:
-                        self.data[cat][zh_str] = vi_str
+                    cleaned = self.clean_term(zh, vi)
+                    if not cleaned:
+                        continue
+                    czh, cvi = cleaned
+                    if czh not in self.data[cat]:
+                        self.data[cat][czh] = cvi
                         updated = True
         if updated:
             self.save()
@@ -600,7 +788,9 @@ Nhiệm vụ của bạn là chuyển ngữ tác phẩm sang tiếng Việt vớ
    - Sử dụng từ láy, từ tượng thanh, tượng hình thuần Việt để miêu tả hành động, biểu cảm, khí thế và cảnh vật.
 
 2. CHỌN LỌC HÁN-VIỆT VÀ THUẦN VIỆT HỢP LÝ:
-   - Danh từ riêng, tên nhân vật, môn phái, địa danh, tên chiêu thức, cảnh giới tu luyện: BẮT BUỘC giữ âm Hán-Việt chuẩn mực.
+   - Danh từ riêng, tên nhân vật, môn phái, địa danh, tên chiêu thức, cảnh giới tu luyện: BẮT BUỘC giữ âm Hán-Việt chuẩn mực theo sách vở tự điển (Sino-Vietnamese).
+   - TUYỆT ĐỐI KHÔNG dùng bính âm Pinyin tiếng Trung để phiên âm trại âm (Ví dụ: chữ 祟 là Toái/Tụy, cấm phiên âm theo pinyin suì thành Súy; 帅 mới là Soái/Súy; 崇 là Sùng; 钟 là Chung).
+   - Tên nhân vật phải nhất quán, biểu đạt đúng tính cách nhân vật (tà phái, chính phái, cao nhân).
    - Từ ngữ miêu tả hành động, trạng thái, tâm lý, đồ vật thường ngày: ƯU TIÊN dùng từ thuần Việt tự nhiên (ví dụ: "sắc mặt âm trầm" -> "vẻ mặt sa sầm", "thân hình khẽ động" -> "khẽ nhích người", "tiến vào gian phòng" -> "bước vào phòng").
 
 3. ĐẠI TỪ XƯNG HÔ LINH HOẠT THEO BỐI CẢNH & THỂ LOẠI:
@@ -944,7 +1134,7 @@ class GeminiTranslator:
         chunks = split_text_into_chunks(content_zh, max_chars=1400)
 
         if len(chunks) <= 1:
-            return self._translate_single_chunk(title_zh, content_zh, glossary_text, prev_summary_text)
+            return self._translate_single_chunk(title_zh, content_zh, glossary, glossary_text, prev_summary_text)
 
         # Chương dài: Dịch tuần tự từng phần và ghép lại
         self._log(f"  📑 Chương dài ({len(content_zh)} chữ Hán) → Tự động chia thành {len(chunks)} phần nhỏ để dịch trọn vẹn không bị cắt cụt...")
@@ -980,18 +1170,24 @@ class GeminiTranslator:
 
 4. DỊCH ĐẦY ĐỦ 100%: Dịch trọn vẹn từng câu từng đoạn của phần này, tuyệt đối không tóm tắt, không cắt bớt, ngắt đoạn rõ ràng.
 
-5. ĐỊNH DẠNG ĐẦU RA JSON:
+5. ĐỊNH DẠNG ĐẦU RA JSON & QUY CHUẨN THUẬT NGỮ MỚI:
+- Bảng "new_terms": Phát hiện bất kỳ tên nhân vật mới, môn phái mới, vũ khí/pháp bảo mới, địa danh mới xuất hiện trong phần này.
+- QUY TẮC BẮT BUỘC CHO THUẬT NGỮ MỚI (new_terms):
+  * CẤU TRÚC KEY - VALUE: Khóa (Key) BẮT BUỘC là CHỮ HÁN GỐC trong truyện, Giá trị (Value) là TÊN TIẾNG VIỆT tương ứng. TUYỆT ĐỐI KHÔNG ĐẢO NGƯỢC (Ví dụ đúng: {{"葛强": "Cát Cường"}}, cấm viết ngược: {{"Cát Cường": "葛强"}}).
+  * Tên người / Địa danh / Tông môn: Phiên âm Hán-Việt chuẩn xác, viết hoa đúng chính tả (Ví dụ: "楚休红" -> "Sở Hưu Hồng").
+  * Chức danh / Nghề nghiệp / Xưng hô đi kèm tên: Dịch nghĩa sang tiếng Việt và đảo trật tự tự nhiên (Ví dụ: "毛校长" -> "Hiệu trưởng Mao", không để thô cứng "Mao hiệu trưởng"; "小李师傅" -> "Bác thợ Lý" hoặc "Sư phụ Lý" tùy ngữ cảnh, cấm dịch thô "Tiểu Lý sư phó").
+  * Biệt danh / Pháp hiệu: Giữ âm Hán-Việt hùng tráng nếu là ngoại hiệu tu tiên (Ví dụ: "黑面神" -> "Hắc Diện Thần", "末日战狂" -> "Mạt Nhật Chiến Cuồng").
 Trả về duy nhất JSON:
 ```json
 {{
   "title_vi": "Tiêu đề tiếng Việt của chương",
   "content_vi": "Nội dung dịch tiếng Việt đầy đủ của phần này...",
   "new_terms": {{
-    "characters": {{}},
-    "sects": {{}},
-    "weapons": {{}},
-    "locations": {{}},
-    "others": {{}}
+    "characters": {{ "chữ Hán gốc": "Tên tiếng Việt Hán-Việt" }},
+    "sects": {{ "chữ Hán gốc": "Tên tiếng Việt Hán-Việt" }},
+    "weapons": {{ "chữ Hán gốc": "Tên tiếng Việt Hán-Việt" }},
+    "locations": {{ "chữ Hán gốc": "Tên tiếng Việt Hán-Việt" }},
+    "others": {{ "chữ Hán gốc": "Tên tiếng Việt Hán-Việt" }}
   }},
   "summary": "Tóm tắt 1-2 câu diễn biến nếu đây là phần cuối của chương, nếu chưa hết để trống."
 }}
@@ -1009,21 +1205,35 @@ Trả về duy nhất JSON:
             if is_first and parsed.get("title_vi"):
                 chapter_title_vi = parsed["title_vi"]
 
+            # Cập nhật thuật ngữ mới in-flight ngay lập tức cho các chunk tiếp theo
+            new_chunk_terms = parsed.get("new_terms", {})
+            if new_chunk_terms and isinstance(new_chunk_terms, dict):
+                glossary.add_terms(new_chunk_terms)
+                glossary_text = glossary.format_for_prompt()
+                for cat, kvs in new_chunk_terms.items():
+                    if isinstance(kvs, dict):
+                        if cat not in combined_terms:
+                            combined_terms[cat] = {}
+                        combined_terms[cat].update(kvs)
+
             part_content = parsed.get("content_vi", "").strip()
+            # Intra-chunk reconciliation: Đồng bộ nội bộ chunk theo danh sách terms hiện tại
+            all_current_terms = {}
+            for cat_data in glossary.data.values():
+                all_current_terms.update(cat_data)
+            part_content = reconcile_text_with_terms(part_content, all_current_terms)
+
             if part_content:
                 translated_parts.append(part_content)
-
-            # Thu thập thuật ngữ mới
-            for cat, kvs in parsed.get("new_terms", {}).items():
-                if isinstance(kvs, dict):
-                    if cat not in combined_terms:
-                        combined_terms[cat] = {}
-                    combined_terms[cat].update(kvs)
 
             if is_last or parsed.get("summary"):
                 final_summary = parsed.get("summary", final_summary)
 
-        full_content_vi = "\n\n".join(translated_parts)
+        # Final chapter pass reconciliation: Đảm bảo toàn bộ các phần đều đồng bộ nhất quán
+        all_current_terms = {}
+        for cat_data in glossary.data.values():
+            all_current_terms.update(cat_data)
+        full_content_vi = reconcile_text_with_terms("\n\n".join(translated_parts), all_current_terms)
         self._log(f"  ✅ Đã dịch và ghép nối thành công trọn vẹn {len(chunks)} phần! (Tổng cộng {len(full_content_vi)} ký tự tiếng Việt)")
 
         return {
@@ -1034,6 +1244,7 @@ Trả về duy nhất JSON:
         }
 
     def _translate_single_chunk(self, title_zh: str, content_zh: str,
+                                glossary: GlossaryManager,
                                 glossary_text: str, prev_summary_text: str) -> Dict[str, Any]:
         """Dịch 1 chương có độ dài bình thường trong 1 lần gọi duy nhất."""
         prompt = f"""Dịch chương tiểu thuyết sau đây từ tiếng Trung sang tiếng Việt với văn phong mượt mà, thuần Việt, giàu cảm xúc, xóa bỏ lối dịch convert thô sượng.
@@ -1055,7 +1266,12 @@ Trả về duy nhất JSON:
 4. DỊCH ĐẦY ĐỦ 100% VÀ CHÍNH XÁC: Dịch trọn vẹn từng câu từng đoạn của nội dung chương, không tóm lược, không cắt xén, chia đoạn văn rõ ràng bằng các dòng trống.
 
 5. BẢNG THUẬT NGỮ MỚI & TÓM TẮT CHƯƠNG:
-- Phát hiện bất kỳ tên nhân vật mới, môn phái mới, vũ khí/pháp bảo mới, địa danh mới xuất hiện trong chương này và phiên âm Hán-Việt chuẩn xác.
+- Phát hiện bất kỳ tên nhân vật mới, môn phái mới, vũ khí/pháp bảo mới, địa danh mới xuất hiện trong chương này.
+- QUY TẮC BẮT BUỘC CHO THUẬT NGỮ MỚI (new_terms):
+  * CẤU TRÚC KEY - VALUE: Khóa (Key) BẮT BUỘC là CHỮ HÁN GỐC trong truyện, Giá trị (Value) là TÊN TIẾNG VIỆT tương ứng. TUYỆT ĐỐI KHÔNG ĐẢO NGƯỢC (Ví dụ đúng: {{"葛强": "Cát Cường"}}, cấm viết ngược: {{"Cát Cường": "葛强"}}).
+  * Tên người / Địa danh / Tông môn: Phiên âm Hán-Việt chuẩn xác, viết hoa đúng chính tả (Ví dụ: "楚休红" -> "Sở Hưu Hồng").
+  * Chức danh / Nghề nghiệp / Xưng hô đi kèm tên: Dịch nghĩa sang tiếng Việt và đảo trật tự tự nhiên (Ví dụ: "毛校长" -> "Hiệu trưởng Mao", không để thô cứng "Mao hiệu trưởng"; "小李师傅" -> "Bác thợ Lý" hoặc "Sư phụ Lý" tùy ngữ cảnh, cấm dịch thô "Tiểu Lý sư phó").
+  * Biệt danh / Pháp hiệu: Giữ âm Hán-Việt hùng tráng nếu là ngoại hiệu tu tiên (Ví dụ: "黑面神" -> "Hắc Diện Thần", "末日战狂" -> "Mạt Nhật Chiến Cuồng").
 - Viết 2-3 câu tóm tắt diễn biến then chốt của chương này làm tư liệu cho chương tiếp theo.
 
 6. ĐỊNH DẠNG KẾT QUẢ ĐẦU RA:
@@ -1065,11 +1281,11 @@ Trả về duy nhất định dạng JSON hợp lệ theo cấu trúc sau (khôn
   "title_vi": "Tiêu đề tiếng Việt của chương",
   "content_vi": "Nội dung dịch tiếng Việt đầy đủ các đoạn văn...",
   "new_terms": {{
-    "characters": {{ "tên tiếng Trung": "Tên tiếng Việt Hán Việt" }},
-    "sects": {{ "tên tiếng Trung": "Tên tiếng Việt Hán Việt" }},
-    "weapons": {{ "tên tiếng Trung": "Tên tiếng Việt Hán Việt" }},
-    "locations": {{ "tên tiếng Trung": "Tên tiếng Việt Hán Việt" }},
-    "others": {{ "tên tiếng Trung": "Tên tiếng Việt Hán Việt" }}
+    "characters": {{ "chữ Hán gốc": "Tên tiếng Việt Hán-Việt" }},
+    "sects": {{ "chữ Hán gốc": "Tên tiếng Việt Hán-Việt" }},
+    "weapons": {{ "chữ Hán gốc": "Tên tiếng Việt Hán-Việt" }},
+    "locations": {{ "chữ Hán gốc": "Tên tiếng Việt Hán-Việt" }},
+    "others": {{ "chữ Hán gốc": "Tên tiếng Việt Hán-Việt" }}
   }},
   "summary": "Tóm tắt 2-3 câu cốt truyện chính của chương này."
 }}
@@ -1084,7 +1300,18 @@ NỘI DUNG:
         if not success:
             raise RuntimeError(err_msg or "Lỗi dịch chương với Gemini API.")
 
-        return self._parse_translation_response(raw_resp, title_zh, content_zh)
+        parsed = self._parse_translation_response(raw_resp, title_zh, content_zh)
+        new_terms = parsed.get("new_terms", {})
+        if new_terms and isinstance(new_terms, dict):
+            glossary.add_terms(new_terms)
+
+        all_current_terms = {}
+        for cat_data in glossary.data.values():
+            all_current_terms.update(cat_data)
+
+        content_vi = reconcile_text_with_terms(parsed.get("content_vi", ""), all_current_terms)
+        parsed["content_vi"] = content_vi
+        return parsed
 
     def _parse_translation_response(self, raw_resp: str, default_title_zh: str, default_content_zh: str) -> Dict[str, Any]:
         """Trích xuất và chuẩn hóa dữ liệu JSON trả về từ Gemini."""

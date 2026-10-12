@@ -1,5 +1,77 @@
 # 📝 PROJECT MEMORY — GetHtmlFromUrl (Bản Python)
 
+## [2026-10-12] Hệ Thống Mỏ Neo Hán-Việt & Đồng Bộ Nhất Quán Tên Truyện (3 Tầng Bảo Vệ) — HOÀN THÀNH ✅
+
+### Vấn đề gốc rễ
+1. **Ảo giác âm Hán-Việt**: Gemini dịch chữ Hán hiếm hoặc mặt chữ dễ nhầm bằng cách đọc trại bính âm Pinyin (`祟` suì ➔ đọc trại thành *Súy*, nhầm với `帅` shuài; hoặc nhìn nhầm mặt chữ `祟` thành `崇` chóng ➔ dịch thành *Sùng* hoặc *Chung*).
+2. **Độ trễ cập nhật từ điển giữa các Chunk**: Khi nhân vật mới xuất hiện ở Chunk 1, AI dịch trước khi chốt term, khiến Chunk 1 bị gọi tên lệch; đồng thời `glossary_text` không được cập nhật cho Chunk 2, Chunk 3 trong cùng một chương.
+
+### Triển khai
+1. **Tầng 1 - Mỏ neo âm Hán-Việt & Bảng chống ảo giác (`core/ai_translator.py`)**:
+   - Khai báo `SINO_VIETNAMESE_ANCHORS` và `DISAMBIGUATION_ALIASES` neo giữ âm chính thống cho các chữ Hán hiếm/dễ nhầm.
+   - Thêm `normalize_han_viet_term()`: Tự động phát hiện và chuẩn hóa các âm Hán-Việt bị đọc nhầm Pinyin (ví dụ `司祟` bị AI đoán thành *Tư Súy / Tư Chung* ➔ tự động chuẩn hóa về *Tư Toái*).
+   - Tăng cường System Instruction: Bắt buộc dùng âm Hán-Việt sách vở tự điển, nghiêm cấm dùng Pinyin phiên âm trại âm tiếng Việt.
+2. **Tầng 2 - In-Flight Glossary Propagation & Intra-Chapter Reconciliation (`core/ai_translator.py`)**:
+   - Ngay khi Chunk 1 phát hiện thuật ngữ mới, nạp ngay lập tức vào `glossary` và tái tạo lại `glossary_text` cho các Chunk tiếp theo của chương.
+   - Hàm `reconcile_text_with_terms()`: Tự động quét và đồng bộ nội bộ chunk và toàn chương, xóa bỏ tình trạng đoạn đầu dùng tên cũ, đoạn sau dùng tên mới.
+3. **Tầng 3 - Công cụ đồng bộ nhất quán toàn bộ tác phẩm (`core/ai_translator.py` & `gui/translate_dialog.py`)**:
+   - Thêm hàm `reconcile_chapter_files()`: Quét toàn bộ hàng nghìn file chương và file gộp HTML, thay thế các biến thể lệch tên theo word boundary.
+   - Bổ sung nút `🔄 Đồng Bộ Nhất Quán Tên Truyện` trực tiếp trong hộp thoại `GlossaryDialog` để người dùng kích hoạt 1 chạm.
+
+### Kết quả kiểm thử (Gate 2)
+- ✅ `python -m py_compile core/ai_translator.py gui/translate_dialog.py` → SYNTAX OK.
+- ✅ Unit test `normalize_han_viet_term`: `司祟 -> Tư Súy / Tư Chung` tự động chuẩn hóa về `Tư Toái` 100%.
+- ✅ Unit test `reconcile_text_with_terms`: Thay thế chính xác cụm danh xưng `Tư Súy`, `Tư Sùng`, `Tư Chung` thành `Tư Toái`.
+- ✅ Test thực tế trên truyện *Cẩu Tại Sơ Thánh Ma Môn Đương Nhân Tài*: Đã đồng bộ thành công **215 file chương** và chuẩn hóa **2.372 vị trí danh xưng lệch** về duy nhất một tên chuẩn `Tư Toái`.
+- ✅ `python -m compileall -q .` → Toàn bộ dự án compile thành công 100%.
+
+## [2026-10-12] Module Quản Lý & Lập Chỉ Mục Truyện Dịch AI (`ai_translated_novels.json`) — HOÀN THÀNH ✅
+
+### Mục tiêu
+Tạo hệ thống quản lý danh mục tập trung cho toàn bộ các bộ truyện được dịch bằng AI trong thư viện `D:\Tai Ebook\html`. Cho phép tra cứu nhanh xem truyện đã tải/dịch chưa, tình trạng dịch, số chương, từ điển thuật ngữ và file gộp (HTML, PRC).
+
+### Triển khai
+1. **Module lập chỉ mục (`core/novel_indexer.py`)**:
+   - Tự động duyệt qua toàn bộ các thư mục truyện trong `D:\Tai Ebook\html`.
+   - Phân tích thông minh tên tiếng Trung gốc (`title_zh`) và tên tiếng Việt (`title_vi`) qua regex tên thư mục, mã định danh truyện trên 69shuba (như `26390` ➔ *我的诡异人生*), và file resume `_Resume.json`.
+   - Thống kê chi tiết: số chương đã dịch, tổng số chương nguồn, số lượng thuật ngữ glossary, tình trạng gộp file HTML và PRC.
+   - Hàm `save_novel_index()` tự động xuất ra file JSON chuẩn UTF-8.
+2. **File danh mục trung tâm (`D:\Tai Ebook\html\ai_translated_novels.json`)**:
+   - Đã quét và lập danh mục thành công **7 bộ truyện lớn** với tổng cộng **14.292 chương** đã dịch trọn vẹn:
+     * *Bốn Vạn Năm Tu Luyện* (3.529 chương, 3.553 từ glossary)
+     * *Trận Vấn Trường Sinh / Hỏi Về Tuổi Thọ* (1.431 chương, 4.696 từ glossary)
+     * *Cuộc Đời Quỷ Dị Của Tôi* (1.905 chương, 1.654 từ glossary)
+     * *Tu Chân Tứ Vạn Niên (bản 2)* (3.529 chương, 4.823 từ glossary)
+     * *Tôi Là Linh Hồn Chính Trong Biểu Ngữ Zunhun* (1.247 chương, 1.985 từ glossary)
+     * *Cẩu Tại Yêu Vũ Loạn Thế Tu Tiên* (1.108 chương, 5.025 từ glossary)
+     * *Cẩu Tại Sơ Thánh Ma Môn Đương Nhân Tài* (1.543 chương, 1.790 từ glossary)
+
+### Kết quả kiểm thử (Gate 2)
+- ✅ `python -m py_compile core/novel_indexer.py` → SYNTAX OK.
+- ✅ Đã tạo và kiểm chứng file `D:\Tai Ebook\html\ai_translated_novels.json` nạp qua `json.load()` thành công 100%.
+
+## [2026-10-12] Khắc phục đảo chiều Glossary (Auto-Swap) & Chuẩn hóa Thuật ngữ AI — HOÀN THÀNH ✅
+
+### Vấn đề gốc rễ
+1. **Lỗi đảo ngược cột Tiếng Việt -> Tiếng Hán**: Trong một số trường hợp, model AI bị ảo giác hoặc trích xuất ngược: đặt tên tiếng Việt vừa dịch làm Key và chữ Hán làm Value (`"Cát Cường": "葛强"` thay vì `"葛强": "Cát Cường"`). Bảng `GlossaryManager` không kiểm tra chữ Hán, dẫn tới lưu nguyên vẹn vào `_glossary.json`, hiển thị ngược trên giao diện và làm hỏng prompt của các chương sau.
+2. **Thuật ngữ nửa Hán nửa Việt**: Do prompt chưa phân định rõ ranh giới giữa Tên riêng (phiên âm Hán-Việt) và Chức danh/Nghề nghiệp đi kèm (thuần Việt hóa và đảo ngữ), dẫn đến các trường hợp như `毛校长 -> Mao hiệu trưởng` (thô) hoặc `小李师傅 -> Tiểu Lý sư phó`.
+
+### Thay đổi (`core/ai_translator.py`)
+- **Nhận diện chữ Hán**: Thêm `RE_CJK` và hàm `has_cjk(text)` kiểm tra ký tự Unicode CJK (`[\u4e00-\u9fff\u3400-\u4dbf\uf900-\ufaff]`).
+- **Nâng cấp `GlossaryManager`**:
+  * Thêm `clean_term(zh, vi)`: Tự động phát hiện trường hợp `zh` không có CJK nhưng `vi` có CJK ➔ Tự động **hoán đổi vị trí (Auto-Swap)** `zh, vi = vi, zh`. Đồng thời lọc bỏ các thuật ngữ rác (không có CJK hoặc chưa dịch).
+  * `add_terms()`: Sử dụng `clean_term()` để làm sạch và tự động đảo ngược trước khi nạp vào từ điển.
+  * `load()` (Auto-Heal): Tự động quét và vá lỗi toàn bộ file `_glossary.json` đã lưu từ trước, sửa ngay lập tức các dòng bị ngược và lưu lại file sạch.
+- **Tối ưu Prompt AI**:
+  * Bổ sung quy định cấu trúc bắt buộc: Khóa (Key) là CHỮ HÁN GỐC, Giá trị (Value) là TÊN TIẾNG VIỆT, cấm tuyệt đối viết ngược.
+  * Phân biệt rõ: Tên riêng giữ âm Hán-Việt; Chức danh/nghề nghiệp đi kèm dịch nghĩa và đảo ngữ tự nhiên sang tiếng Việt (VD: `毛校长 -> Hiệu trưởng Mao`, `小李师傅 -> Bác thợ Lý / Sư phụ Lý`).
+
+### Kết quả kiểm thử (Gate 2)
+- ✅ `python -m py_compile core/ai_translator.py` → SYNTAX OK.
+- ✅ Unit test `has_cjk()` và `clean_term()`: Tự động swap chính xác `{"Cát Cường": "葛强"} -> ("葛强", "Cát Cường")`, lọc sạch rác.
+- ✅ Test thực tế trên `D:\Tai Ebook\html\(Bốn Vạn Năm Tu Luyện_tach\dich\_glossary.json`: Đã tự động vá lỗi dòng 48 từ `"Cát Cường": "葛强"` thành `"葛强": "Cát Cường"`.
+- ✅ `python -m compileall -q .` → Toàn bộ dự án compile thành công 100%.
+
 ## [2026-10-04] Fix Model Fallback Loop & Per-Account Restriction — HOÀN THÀNH ✅
 
 ### Vấn đề gốc rễ

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#161616" />
+  <meta name="description" content="Tra cứu video TikTok đã tải từ myfaveTT" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="myfaveTT" />
+  <title>myfaveTT Archive</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ── Header ─────────────────────────────────── -->
+<div id="header">
+  <div class="app-title">
+    <span style="font-size:1.4rem">🎵</span>
+    <h1>myfaveTT Archive</h1>
+    <span id="stats-line">…</span>
+  </div>
+
+  <div id="search-wrap">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+      <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input
+      id="search"
+      type="search"
+      autocomplete="off"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="false"
+      placeholder="Tìm tên tác giả hoặc @username…"
+    />
+  </div>
+
+  <div id="tabs">
+    <button class="tab-btn active" data-tab="fav">❤️ Favorites</button>
+    <button class="tab-btn" data-tab="likes">👍 Likes</button>
+  </div>
+</div>
+
+<!-- ── Content ────────────────────────────────── -->
+<div id="main">
+
+  <!-- Loading state -->
+  <div id="loading">
+    <div class="spinner"></div>
+    <span>Đang tải dữ liệu…</span>
+  </div>
+
+  <!-- Empty state -->
+  <div id="empty" style="display:none">
+    <div style="font-size:2.5rem">🔍</div>
+    <p>Không tìm thấy tác giả nào.</p>
+  </div>
+
+  <!-- Result count -->
+  <div id="result-bar"></div>
+
+  <!-- Author list -->
+  <div id="author-list"></div>
+
+  <!-- Infinite scroll trigger (outside author-list so innerHTML clear doesn't remove it) -->
+  <div id="scroll-sentinel" style="height:4px"></div>
+</div>
+
+<!-- ── Footer ────────────────────────────────── -->
+<div id="footer">myfaveTT Archive</div>
+
+<script src="app.js"></script>
+</body>
+</html>

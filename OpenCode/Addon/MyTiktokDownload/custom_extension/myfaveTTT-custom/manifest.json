@@ -1,0 +1,45 @@
+{
+  "name": "myfaveTTT Custom (Stop on Error)",
+  "version": "1.12.70.1",
+  "description": "myfaveTT with stop-on-error + failing-video link (custom copy)",
+  "manifest_version": 3,
+  "action": {
+    "default_title": "myfaveTTT"
+  },
+  "background": {
+    "service_worker": "b.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.tiktok.com/*"
+      ],
+      "js": [
+        "c.js"
+      ],
+      "css": [
+        "style.css"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "matches": [
+        "https://www.tiktok.com/*"
+      ],
+      "resources": [
+        "rl.html",
+        "s.js"
+      ]
+    }
+  ],
+  "icons": {
+    "256": "icon-256.png"
+  },
+  "permissions": [
+    "webRequest"
+  ],
+  "host_permissions": [
+    "https://*.tiktok.com/api/post/item_list/"
+  ]
+}

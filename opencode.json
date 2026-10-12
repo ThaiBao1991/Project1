@@ -1,0 +1,11 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "providers": ["opencode"],
+  "model": "opencode/nemotron-3-ultra-free",
+  "agent": {
+    "rules": { "path": "C:/Users/games/Desktop/Project/Python/Python MyWork/Project1/OpenCode/Setting/.opencode/AGENTS.md" },
+    "skills": { "path": "C:/Users/games/Desktop/Project/Python/Python MyWork/Project1/OpenCode/Setting/.opencode/skills.json" },
+    "plugins": { "path": "C:/Users/games/Desktop/Project/Python/Python MyWork/Project1/OpenCode/Setting/.opencode/plugins.json" },
+    "mcp": { "path": "C:/Users/games/Desktop/Project/Python/Python MyWork/Project1/OpenCode/Setting/.opencode/mcp_config.json" }
+  }
+}

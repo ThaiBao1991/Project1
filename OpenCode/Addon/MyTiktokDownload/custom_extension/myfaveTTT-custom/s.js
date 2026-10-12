@@ -1,0 +1,736 @@
+const e=new BroadcastChannel(`myfaveTTT`),t=new BroadcastChannel(`params-guard`),n={gt:!0,ce:"*",qe:!1,Re:!1,P:!0,We:!0,Ee:{start:0,end:0},ft:!0,rt:!0,it:!1},r={ze:!1,Ne:!1,get Ve(){return this.ze||this.Ne}};function i(e,t){(document.getElementById("myfaveTTT")||{contentWindow:window}).contentWindow.postMessage({direction:2,type:e,payload:t},"*")}const a=i;function o(e,t){(document.getElementById("myfaveTTT")||{contentWindow:window}).contentWindow.postMessage({direction:6,type:e,payload:t},"*")}function s(t,n){e.postMessage({type:t,payload:n})}const c={Z(){document.documentElement.style.pointerEvents=``,document.documentElement.style.overflow=``},Ge(){document.documentElement.style.overflow=`hidden`,document.documentElement.style.pointerEvents=`none`,document.querySelector(`aside#myfaveTTT-container`).style.pointerEvents=`auto`}},l=`Expected a function`,u=NaN,d=/^\s+|\s+$/g,f=/^[-+]0x[0-9a-f]+$/i,ee=/^0b[01]+$/i,p=/^0o[0-7]+$/i,te=parseInt,ne=typeof global==`object`&&global&&global.Object===Object&&global,re=typeof self==`object`&&self&&self.Object===Object&&self,ie=ne||re||Function(`return this`)(),ae=Object.prototype.toString,oe=Math.max,se=Math.min,ce=function(){return ie.Date.now()};function le(e,t,n){let r,i,a,o,s,c,u=0,d=!1,f=!1,ee=!0;if(typeof e!=`function`)throw TypeError(l);t=pe(t)||0,ue(n)&&(d=!!n.leading,f=`maxWait`in n,a=f?oe(pe(n.maxWait)||0,t):a,ee=`trailing`in n?!!n.trailing:ee);function p(t){let n=r,a=i;return r=i=void 0,u=t,o=e.apply(a,n),o}function te(e){return u=e,s=setTimeout(ie,t),d?p(e):o}function ne(e){let n=e-c,r=e-u,i=t-n;return f?se(i,a-r):i}function re(e){let n=e-c,r=e-u;return c===void 0||n>=t||n<0||f&&r>=a}function ie(){let e=ce();if(re(e))return ae(e);s=setTimeout(ie,ne(e))}function ae(e){return s=void 0,ee&&r?p(e):(r=i=void 0,o)}function le(){s!==void 0&&clearTimeout(s),u=0,r=c=i=s=void 0}function m(){return s===void 0?o:ae(ce())}function de(){let e=ce(),n=re(e);if(r=arguments,i=this,c=e,n){if(s===void 0)return te(c);if(f)return s=setTimeout(ie,t),p(c)}return s===void 0&&(s=setTimeout(ie,t)),o}return de.cancel=le,de.flush=m,de}function m(e,t,n){let r=!0,i=!0;if(typeof e!=`function`)throw TypeError(l);return ue(n)&&(r=`leading`in n?!!n.leading:r,i=`trailing`in n?!!n.trailing:i),le(e,t,{leading:r,maxWait:t,trailing:i})}function ue(e){let t=typeof e;return!!e&&(t==`object`||t==`function`)}function de(e){return!!e&&typeof e==`object`}function fe(e){return typeof e==`symbol`||de(e)&&ae.call(e)==`[object Symbol]`}function pe(e){if(typeof e==`number`)return e;if(fe(e))return u;if(ue(e)){let t=typeof e.valueOf==`function`?e.valueOf():e;e=ue(t)?t+``:t}if(typeof e!=`string`)return e===0?e:+e;e=e.replace(d,``);let t=ee.test(e);return t||p.test(e)?te(e.slice(2),t?2:8):f.test(e)?u:+e}function me(e,t,n){i(1,{err:e,location:t,silently:n})}const he=m(me,500);function h(e,t,r){r?he(e,t,r):(me(e,t,r),k.se(`because of error @ ${t}`),n.P||c.Z());try{window.__tttOnErr&&window.__tttOnErr(t,e&&e.message||String(e))}catch(_){}}async function ge(e){let t=[];for await(let n of e.keys())t.push(n);return t.length===0}async function g(e,t,n=!0){try{let r=t.split(`/`),i=e;for(let e of r)i=await i.getDirectoryHandle(e,{create:n});return i}catch(e){throw h(e,`gfh23`),e}}async function _(e,t,n=!0){try{let r=t.split(`/`),i=r.pop(),a=e;for(let e of r)a=await a.getDirectoryHandle(e,{create:!0});return await a.getFileHandle(i,{create:n})}catch(e){if(e.name===`NotFoundError`&&!n)return;throw h(e,`gfh29`),e}}async function v(e,t){let n=await e.createWritable();await n.write(t),await n.close()}async function y(e,t){let n=await _(e,t,!1);if(n)return await(await n.getFile()).text()}async function _e(e){return await(await e.getFile()).arrayBuffer()}async function ve(e,t,n){if(n){let n=(await e.getFile()).stream(),r=await t.createWritable();await n.pipeTo(r),`${e.name}${t.name}`;return}if(!n){let n=await _e(e);`${e.name}`,v(t,n).then(()=>{`${t.name}`})}}async function ye(e,t){await e.removeEntry(t)}const b={w:!1};async function be(){let e=await g(O.a,`data/.appdata`);async function t(t,n){let r=await _(e,t,!1);if(!r){`${t}`;return}`${t}${n}`,await ve(r,await _(e,n),`patiently`),`${t}`,await ye(e,t)}await Promise.allSettled([t(`db.js`,`db_likes.js`),t(`dba.js`,`db_authors.js`),t(`dbf.js`,`db_following.js`),t(`dbv.js`,`db_videos.js`),t(`dbvd.js`,`db_texts.js`),t(`dbb.js`,`db_bookmarked.js`)])}async function xe(){b.w&&(b.w=!1,await be())}const Se=(e,t)=>t.some(t=>e instanceof t);let Ce,we;function Te(){return Ce||=[IDBDatabase,IDBObjectStore,IDBIndex,IDBCursor,IDBTransaction]}function Ee(){return we||=[IDBCursor.prototype.advance,IDBCursor.prototype.continue,IDBCursor.prototype.continuePrimaryKey]}const De=new WeakMap,Oe=new WeakMap,ke=new WeakMap;function Ae(e){let t=new Promise((t,n)=>{let r=()=>{e.removeEventListener(`success`,i),e.removeEventListener(`error`,a)},i=()=>{t(x(e.result)),r()},a=()=>{n(e.error),r()};e.addEventListener(`success`,i),e.addEventListener(`error`,a)});return ke.set(t,e),t}function je(e){if(De.has(e))return;let t=new Promise((t,n)=>{let r=()=>{e.removeEventListener(`complete`,i),e.removeEventListener(`error`,a),e.removeEventListener(`abort`,a)},i=()=>{t(),r()},a=()=>{n(e.error||new DOMException(`AbortError`,`AbortError`)),r()};e.addEventListener(`complete`,i),e.addEventListener(`error`,a),e.addEventListener(`abort`,a)});De.set(e,t)}let Me={get(e,t,n){if(e instanceof IDBTransaction){if(t===`done`)return De.get(e);if(t===`store`)return n.objectStoreNames[1]?void 0:n.objectStore(n.objectStoreNames[0])}return x(e[t])},set(e,t,n){return e[t]=n,!0},has(e,t){return e instanceof IDBTransaction&&(t===`done`||t===`store`)||t in e}};function Ne(e){Me=e(Me)}function Pe(e){return Ee().includes(e)?function(...t){return e.apply(Ie(this),t),x(this.request)}:function(...t){return x(e.apply(Ie(this),t))}}function Fe(e){return typeof e==`function`?Pe(e):(e instanceof IDBTransaction&&je(e),Se(e,Te())?new Proxy(e,Me):e)}function x(e){if(e instanceof IDBRequest)return Ae(e);if(Oe.has(e))return Oe.get(e);let t=Fe(e);return t!==e&&(Oe.set(e,t),ke.set(t,e)),t}const Ie=e=>ke.get(e);function Le(e,t,{blocked:n,upgrade:r,blocking:i,terminated:a}={}){let o=indexedDB.open(e,t),s=x(o);return r&&o.addEventListener(`upgradeneeded`,e=>{r(x(o.result),e.oldVersion,e.newVersion,x(o.transaction),e)}),n&&o.addEventListener(`blocked`,e=>n(e.oldVersion,e.newVersion,e)),s.then(e=>{a&&e.addEventListener(`close`,()=>a()),i&&e.addEventListener(`versionchange`,e=>i(e.oldVersion,e.newVersion,e))}).catch(()=>{}),s}const Re=[`get`,`getKey`,`getAll`,`getAllKeys`,`count`],ze=[`put`,`add`,`delete`,`clear`],Be=new Map;function Ve(e,t){if(!(e instanceof IDBDatabase&&!(t in e)&&typeof t==`string`))return;if(Be.get(t))return Be.get(t);let n=t.replace(/FromIndex$/,``),r=t!==n,i=ze.includes(n);if(!(n in(r?IDBIndex:IDBObjectStore).prototype)||!(i||Re.includes(n)))return;let a=async function(e,...t){let a=this.transaction(e,i?`readwrite`:`readonly`),o=a.store;return r&&(o=o.index(t.shift())),(await Promise.all([o[n](...t),i&&a.done]))[0]};return Be.set(t,a),a}Ne(e=>({...e,get:(t,n,r)=>Ve(t,n)||e.get(t,n,r),has:(t,n)=>!!Ve(t,n)||e.has(t,n)}));const He=[`continue`,`continuePrimaryKey`,`advance`],Ue={},We=new WeakMap,Ge=new WeakMap,Ke={get(e,t){if(!He.includes(t))return e[t];let n=Ue[t];return n||=Ue[t]=function(...e){We.set(this,Ge.get(this)[t](...e))},n}};async function*qe(...e){let t=this;if(t instanceof IDBCursor||(t=await t.openCursor(...e)),!t)return;t=t;let n=new Proxy(t,Ke);for(Ge.set(n,t),ke.set(n,Ie(t));t;)yield n,t=await(We.get(n)||t.continue()),We.delete(n)}function Je(e,t){return t===Symbol.asyncIterator&&Se(e,[IDBIndex,IDBObjectStore,IDBCursor])||t===`iterate`&&Se(e,[IDBIndex,IDBObjectStore])}Ne(e=>({...e,get(t,n,r){return Je(t,n)?qe:e.get(t,n,r)},has(t,n){return Je(t,n)||e.has(t,n)}}));const Ye=Le(`myfaveTT`,3,{upgrade(e,t,n,r){switch(t){case 0:i();case 1:a();case 2:o()}function i(){e.createObjectStore(`likesCache`),e.createObjectStore(`followingCache`)}function a(){e.createObjectStore(`misc`)}function o(){e.createObjectStore(`following`)}}}),Xe={async fe(e){try{return await(await Ye).get(`misc`,e)}catch(e){h(e,`Nxn397`,`silently`);return}},async G(e,t){return(await Ye).put(`misc`,t,e)}};function S(e){return new Promise(t=>{setTimeout(()=>{t(e)},e)})}function Ze(e){let t=5e3,n={cap:t/5,nextToBuy:`increase "likes" limit: from ${t/5} to ${t}`,lineItemDescription:`"Permanently allow downloading up to ${t} MP4s from [Likes]"`};if(e===0)return n;let r=t*e,i=r+t;return{cap:r,nextToBuy:`increase "likes" limit: from ${r} to ${i}`,lineItemDescription:`"Permanently allow downloading up to ${i} MP4s from [Likes]"`}}const C=new class{constructor(){this.u={},this.H=!1}G(e){this.u=e,e?.profile?.uid?.includes(`bt5AXaQ7rN`)&&(this.H=!0)}};function Qe(){try{return Ze(C.u.unlocks.likeLevel).cap}catch(e){return h(e,`ud17`),0}}const $e={rootReadme:``,about_db:``,archiveHtml:``,appJs:``,backupsReadme:``,crswapReadme:``};function et(e){Object.assign($e,e)}async function tt(e){try{let t=$e[e];if(!t&&(await S(4e3),t=$e[e],!t)){h(Error(`hasn't received ${e}`),`Jsf340`);return}switch(e){case`rootReadme`:await v(await _(O.a,`instruction.txt`),t),ye(O.a,`ReadMe.txt`).catch(()=>null);break;case`about_db`:await v(await _(O.a,`data/.appdata/How db works.txt`),t);break;case`archiveHtml`:await v(await _(O.a,`Archive.html`),t);break;case`appJs`:await v(await _(O.a,`data/.appdata/app.js`),t);break;case`backupsReadme`:await v(await _(O.a,`data/.appdata/backups/instructions.txt`),t),ye(await g(O.a,`data/.appdata/backups`),`ReadMe.txt`).catch(()=>null);break;case`crswapReadme`:await v(await _(O.a,`data/.appdata/what_is_crswap？.txt`),t)}$e[e]=``}catch(e){throw e.message&&(e.message+=` @ wsa57`),e}}async function nt(e){try{let t=await g(e,`data/.appdata`),n=await g(t,`backups`),r=await g(n,it());if(!await ge(r))return;let i=[];for await(let e of t.keys()){if(!e.endsWith(`.js`)&&!e.endsWith(`.json`))continue;let n=await _(t,e,!1),a=await _(r,e);i.push(ve(n,a))}await Promise.all(i),tt(`backupsReadme`),C.H?console.debug(`is developer himself, don't delete the oldest backup on a rolling basis`):rt(n)}catch(e){h(e,`bu43`,`silently`)}}async function rt(e){let t=[];for await(let n of e.keys())t.push(n);let n=t.filter(e=>/^\d{4}-\d{2}-\d{2}$/.test(e));n.length>10&&await e.removeEntry(n.sort()[0],{recursive:!0})}function it(){let e=new Date;return`${String(e.getFullYear())}-${String(e.getMonth()+1).padStart(2,`0`)}-${String(e.getDate()).padStart(2,`0`)}`}async function at(){try{let e=await g(O.a,`data/.appdata`);for await(let t of e.keys())t.endsWith(`.crswap`)&&await e.removeEntry(t),t===`what_is_crswap？.txt`&&await e.removeEntry(t)}catch(e){h(e,`hcf31`,`silently`)}}const w={schemaVersion:7,user:{uid:``,id:``,uniqueId:``,nickname:``},authors:{},videos:{},videoDescriptions:{},likes:{downloadStatus:`unset`,officialList:[],downloaded:new Set,total:0,numDisappeared:0,lastRun:{start:0,finish:0}},bookmarked:{officialList:[],downloaded:new Set,total:0,numDisappeared:0,lastRun:{start:0,finish:0}},following:{officialAuthorList:new Set,started:new Set,notInterested:new Set,authorItems:{},lastRun:{}}},ot=`背𓄹剃`,st=`⑀⦃`;function ct(e,t){return t instanceof Set?[...t]:typeof t==`string`?t.replaceAll("`",ot).replaceAll("${",st):t}function lt(e,t){switch(e){case`downloaded`:case`disappeared`:case`notInterested`:case`started`:case`officialAuthorList`:case`inFolder`:if(Array.isArray(t))return new Set(t)}return typeof t==`string`?t.replaceAll(st,"${").replaceAll(ot,"`"):t}function ut(e,t){if(t===`db`){let{schemaVersion:t,user:n,likes:r}=e;return JSON.stringify({schemaVersion:t,user:n,likes:r},ct)}if(t===`dba`)return JSON.stringify(e.authors,ct);if(t===`dbv`)return JSON.stringify(e.videos);if(t===`dbf`)return JSON.stringify(e.following,ct);if(t===`dbvd`)return JSON.stringify(e.videoDescriptions,ct);if(t===`dbb`)return JSON.stringify(e.bookmarked,ct);throw Error(`invalid dbName`)}function dt(e){let t=JSON.parse(e,lt);if(t.schemaVersion&&t.schemaVersion<4&&t.following.downloadLog)for(let[e,n]of Object.entries(t.following.downloadLog))t.following.downloadLog[e]=new Set(n);return t}function ft(e,t){return`window.${t}=String.raw\``+e+"`;"}function pt(e){let t=e.indexOf(`{`),n=e.lastIndexOf(`}`)-e.length+1;return e.slice(t,n)}function mt(e,t){return ft(ut(e,t),t)}function ht(e){if(e===``)throw Error(`file is empty`);return dt(pt(e))}function gt(e){let t=new TextEncoder().encode(e),n=new CompressionStream(`gzip`),r=n.writable.getWriter();return r.write(t),r.close(),new Response(n.readable).arrayBuffer()}async function _t(e){let t=new DecompressionStream(`gzip`),n=t.writable.getWriter();n.write(e),n.close();let r=await new Response(t.readable).arrayBuffer();return new TextDecoder().decode(r)}async function vt(e){let t=new File([e],`temp.bin`,{type:`application/octet-stream`}),n=new FileReader;return(await new Promise(e=>{n.onload=()=>e(n.result),n.readAsDataURL(t)})).split(`base64,`)[1]}const yt=typeof Uint8Array>`u`?[]:new Uint8Array(256);for(let e=0;e<64;e++)yt[`ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/`.charCodeAt(e)]=e;function bt(e){let t=e.length*.75,n=e.length,r,i=0,a,o,s,c;e[e.length-1]===`=`&&(t--,e[e.length-2]===`=`&&t--);let l=new ArrayBuffer(t),u=new Uint8Array(l);for(r=0;r<n;r+=4)a=yt[e.charCodeAt(r)],o=yt[e.charCodeAt(r+1)],s=yt[e.charCodeAt(r+2)],c=yt[e.charCodeAt(r+3)],u[i++]=a<<2|o>>4,u[i++]=(o&15)<<4|s>>2,u[i++]=(s&3)<<6|c&63;return l}async function xt(e){return await vt(await gt(e))}async function St(e){return await _t(bt(e))}function Ct(e,t){return t instanceof Set?[...t]:t}function wt(e,t){switch(e){case`downloaded`:case`disappeared`:case`notInterested`:case`started`:case`officialAuthorList`:case`inFolder`:if(Array.isArray(t))return new Set(t)}return t}function Tt(e,t){if(t===`db`){let{schemaVersion:t,user:n,likes:r}=e;return JSON.stringify({schemaVersion:t,user:n,likes:r},Ct)}if(t===`dba`)return JSON.stringify(e.authors);if(t===`dbv`)return JSON.stringify(e.videos);if(t===`dbf`)return JSON.stringify(e.following,Ct);if(t===`dbvd`)return JSON.stringify(e.videoDescriptions);if(t===`dbb`)return JSON.stringify(e.bookmarked,Ct);throw Error(`invalid dbName`)}function Et(e){let t=JSON.parse(e,wt);if(t.schemaVersion&&t.schemaVersion<4&&t.following.downloadLog)for(let[e,n]of Object.entries(t.following.downloadLog))t.following.downloadLog[e]=new Set(n);return t}function Dt(e,t){return`window.${t}_base64="${e}";`}function Ot(e){let t=e.indexOf(`"`),n=e.lastIndexOf(`"`);return e.slice(t+1,n)}async function kt(e){return Et(await St(e))}async function At(e,t){return Dt(await xt(Tt(e,t)),t)}async function T(e){if(e===``)throw Error(`file is empty`);return e.substring(0,100).includes(`String.raw`)?ht(e):await kt(Ot(e))}const E={db:{modified:!1,writing:!1},dba:{modified:!1,writing:!1},dbv:{modified:!1,writing:!1},dbvd:{modified:!1,writing:!1},dbf:{modified:!1,writing:!1},dbb:{modified:!1,writing:!1}};function D(e){e===`mainOrLikes`&&(E.db.modified=!0),e===`authors`&&(E.dba.modified=!0),e===`videos`&&(E.dbv.modified=!0),e===`videoDescriptions`&&(E.dbvd.modified=!0),e===`following`&&(E.dbf.modified=!0),e===`bookmarked`&&(E.dbb.modified=!0)}const jt={db:`db_likes`,dba:`db_authors`,dbv:`db_videos`,dbvd:`db_texts`,dbf:`db_following`,dbb:`db_bookmarked`},Mt=e=>async(t,n)=>{if(!E[e].writing&&E[e].modified)try{E[e].writing=!0;do`${e}`,E[e].modified=!1,await v(await _(n,`data/.appdata/${jt[e]}.js`),await(C.u.preferences.usePlainTextDb?mt:At)(t,e));while(E[e].modified);E[e].modified=!1}catch(e){h(e,`Vsg140`,`silently`)}finally{E[e].writing=!1}},Nt=m(Mt(`db`),5e3),Pt=m(Mt(`dba`),5e3),Ft=m(Mt(`dbv`),5e3),It=m(Mt(`dbvd`),5e3),Lt=m(Mt(`dbf`),5e3),Rt=m(Mt(`dbb`),5e3);function zt(e,t){if(C.H&&n.ft){qt(e,t);return}Ft(e,t),It(e,t),Nt(e,t),Pt(e,t),Lt(e,t),Rt(e,t)}const Bt=e=>async(t,n)=>{if(E[e].modified){console.debug(`slowly`,`write to ${e}.js`);try{await v(await _(n,`data/.appdata/${jt[e]}.js`),await(C.u.preferences.usePlainTextDb?mt:At)(t,e)),E[e].modified=!1}catch(e){h(e,`Txk898`,`silently`)}}},Vt=m(Bt(`db`),4e4),Ht=m(Bt(`dba`),45e3),Ut=m(Bt(`dbv`),5e4),Wt=m(Bt(`dbvd`),55e3),Gt=m(Bt(`dbf`),6e4),Kt=m(Bt(`dbb`),35e3);function qt(e,t){Ut(e,t),Wt(e,t),Vt(e,t),Ht(e,t),Gt(e,t),Kt(e,t)}function Jt(e){return e.schemaVersion>=7?!1:(e.schemaVersion===1&&Yt(e),e.schemaVersion===2&&Xt(e),e.schemaVersion===3&&Zt(e),e.schemaVersion===4&&Qt(e),e.schemaVersion===5&&$t(e),e.schemaVersion===6&&en(e),!0)}function Yt(e){e.schemaVersion=2,e.likes.total=0,e.likes.numDisappeared=0}function Xt(e){e.schemaVersion=3,e.likes.lastRun.start=e.likes.lastRun.start||e.likes.lastRun.collect||0,delete e.likes.lastRun.collect,e.likes.lastRun.finish=e.likes.lastRun.finish||e.likes.lastRun.download||0,delete e.likes.lastRun.download,Object.values(e.following.lastRun).forEach(e=>{e.start=e.start||e.scroll||0,delete e.scroll,e.finish=e.finish||e.download||0,delete e.download,e.bottom=e.bottom||e.finish||0})}function Zt(e){e.schemaVersion=4,e.following.authorItems||={},e.following.downloadLog&&(Object.entries(e.following.downloadLog).forEach(([t,n])=>{e.following.authorItems[t]={inFolder:n,disappeared:new Set}}),delete e.following.downloadLog)}function Qt(e){e.schemaVersion=5,e.videoDescriptions=Object.fromEntries(Object.entries(e.videos).map(([e,t])=>[e,t.desc])),Object.values(e.videos).forEach(e=>delete e.desc)}function $t(e){e.schemaVersion=6,D(`mainOrLikes`),D(`authors`),D(`videos`),D(`videoDescriptions`),D(`following`)}function en(e){e.schemaVersion=7,e.bookmarked=w.bookmarked,D(`bookmarked`)}function tn(e,t){return t instanceof Set?[...t]:t}let nn=!1;async function rn(e,t){if(!nn){nn=!0;try{let n={...e};n.user={...e.user},delete n.user.uid,await v(await _(t,`data/.appdata/facts.json`),JSON.stringify(n,tn))}catch(e){h(e,`Ttm367`,`silently`)}finally{nn=!1}}}const O=new class{constructor(){this.a=null,this.e=null}async Xe(e,t){this.a=e,this.e=t,at(),await nt(e),tt(`archiveHtml`),tt(`about_db`),tt(`appJs`),tt(`rootReadme`),await xe(),Jt(t)&&await this._(),Xe.G(`archiveFolderHandle`,e)}async catchUp(){D(`videos`),await this._()}async _(){try{if(!this.e||!this.a)return;zt(this.e,this.a)}catch(e){h(e,`a42`)}}q(){rn(this.e,this.a)}},k={p:0,se(e=``){`${e}`,this.p++,O.catchUp(),O.q(),a(45,!1),a(46,!1)},s(e,t=``){let n=e!==this.p;return n&&`${t}`,n}};let an=0;const A={};async function on(){let e=[];Object.entries(A).forEach(async([t,n])=>{let{createTime:r,cover:i,video:a}=n;i&&a?e.push(sn(n)):Date.now()-r>1e5&&(delete A[t],h(Error(`took over 100s`),`ts47`,`silently`))}),e.length&&(await Promise.allSettled(e),await O._())}async function sn(e){let{startWritingToDiskTime:t,key:n,type:r,itemData:{id:o,author:s},cover:c,video:l,size:u}=e;if(t!==0){if(Date.now()-t<2e4)return;delete A[n],h(Error(`stuck in writing`),`ts74`,`silently`);return}e.startWritingToDiskTime=Date.now();try{let e=``;switch(r){case`liked`:e=`data/Likes`;break;case`bookmarked`:e=`data/Favorites`;break;case`following`:e=`data/Following/${s.id}`;break;default:throw Error(`ts96`)}let t=`${e}/covers/${o}.jpg`,n=`${e}/videos/${o}.mp4`,d=_(O.a,t).then(e=>v(e,c)),f=_(O.a,n).then(e=>v(e,l));switch(await Promise.all([d,f]),O.e.videos[o].size=u,r){case`liked`:{O.e.likes.downloaded.add(o),D(`mainOrLikes`),a(23,O.e.likes.downloaded.size);let e=O.e.likes.downloaded.size;e%50==0&&i(28,{total:O.e.likes.total,numMp4InLocalFolder:e});break}case`bookmarked`:O.e.bookmarked.downloaded.add(o),D(`bookmarked`),a(41,{numLocalMp4:O.e.bookmarked.downloaded.size});break;case`following`:{let e=O.e.following.authorItems;e[s.id].inFolder.add(o),D(`following`),a(29,{authorId:s.id,count:e[s.id].inFolder.size});break}default:throw Error(`ts140`)}}catch(e){h(e,`ts71`,`silently`)}finally{delete A[n]}}const j=new class{addNew(e){A[e.key]=e,an=Object.keys(A).length}$e(e,t){A[e]&&(A[e].cover=t,on())}et(e,t){A[e]&&(A[e].size=t)}tt(e,t){A[e]&&(A[e].video=t,on())}ke(e){A[e],A[e]&&delete A[e]}},M={l(e,t){i(2,{event:e,params:t})}},N={C:`initial`,mt:{},pt:{},o:{i:{Me:``,Be:``,He:0,g:!1},x:{Oe:``,Q:!1,pe:!1}},De:{},F:0,Pe:0,Y:0,le:new Set};function cn(){let e=new Set([`project`]),t=Object.fromEntries(Object.entries(window).filter(([e,t])=>!!isNaN(Number(e)))),n=JSON.stringify(t,function(t,n){try{return e.has(t)?void 0:Array.isArray(n)||ln(n)?n:typeof n==`string`?n.substring(0,30):typeof n==`number`?n:void 0}catch{return}});return JSON.parse(n)}function ln(e){if(!un(e))return!1;let t=Object.getPrototypeOf(e);return t===Object.prototype||t===null}function un(e){return dn(e)===`[object Object]`}function dn(e){return Object.prototype.toString.call(e)}const P={n:{extensionVersion:`1.12.70`,V:[],m:[],je:`unset`,parsedScriptTags:`unset`,everythingFromWindow:`unset`,fetchSelfResult:`unset`},async lt(){await S(3e3);try{this.n.everythingFromWindow=cn()}catch(e){this.n.everythingFromWindow={err_serializing_window:e?.message},h(e,`Omf364`,`silently`)}i(34,{fatalErrors:this.n.V,benignErrors:this.n.m,gotValuesFrom:this.n.je,everything:JSON.stringify(this.n)})}};async function F(e,t){if(!e)return{json:{},err:Error(`${t} no response at all`)};let n=e.ok,r=e.status,i=e.headers.get(`Content-Type`),a=e.headers.get(`content-length`),o=``,s=t;if(!n)s+=JSON.stringify({statusCode:r});else if(a===`0`)s+=JSON.stringify({statusCode:r,mime:i,contentLength:a});else if(i?.includes(`text`))o=await e.text(),s+=JSON.stringify({statusCode:r,mime:i,contentLength:a,content:o});else if(!i||!i?.includes(`application/json`))s+=JSON.stringify({statusCode:r,mime:i,contentLength:a});else try{return o=await e.text(),{json:JSON.parse(o),err:null}}catch{s+=JSON.stringify({statusCode:r,mime:i,contentLength:a,content:o})}return{json:{},err:Error(s)}}const I={},L={},fn={};function R(e){try{let t=document.getElementById(e);if(!t)return null;let n=t?.textContent;return n?JSON.parse(n):null}catch(t){return h(t,`Wfi656_${e}`,`silently`),null}}async function pn(){function e(){return!!(I.wid&&I.region&&I.language)}try{if(Object.assign(I,window.SIGI_STATE?.AppContext?.appContext),e())return z.c.appContext=`window.sigi`;if(P.n.m.push(`window.sigi has no appContext`),Object.assign(I,R(`SIGI_STATE`)?.AppContext?.appContext),e())return z.c.appContext=`sigi_script_tag`;P.n.m.push(`sigi_script_tag has no appContext`);let t=0;for(;t<3;){if(t++,Object.assign(I,window.__$UNIVERSAL_DATA$__?.__DEFAULT_SCOPE__?.[`webapp.app-context`]),e())return z.c.appContext=`window.universal_data`;await S(1e3)}if(P.n.m.push(`window.universal_data has no appContext`),Object.assign(I,R(`__UNIVERSAL_DATA_FOR_REHYDRATION__`)),e())return z.c.appContext=`universal_data_script_tag`;P.n.m.push(`universal_data_script_tag has no appContext`);let{err:n,json:r}=await F(await fetch(`/node-webapp/api/common-app-context`,{credentials:`include`}),`Ycy694`);if(n)throw n;if(r.statusCode===0){if(Object.assign(I,r),P.n.fetchSelfResult=r,e())return z.c.appContext=`fetched`;P.n.V.push(`fetch_self returned no appContext`)}else P.n.V.push(`error inside fetch_self json`);z.c.appContext=`failed`,z.r=`error`}catch(e){P.n.V.push(`Voq363: ${e.message}`),z.c.appContext=`failed`,z.r=`error`}}function mn(){function e(){return!!L.os}if(Object.assign(L,window.SIGI_STATE?.BizContext?.bizContext),e())return z.c.bizContext=`window.sigi`;if(P.n.m.push(`window.sigi has no bizContext`),Object.assign(L,R(`SIGI_STATE`)?.BizContext?.bizContext),e())return z.c.bizContext=`sigi_script_tag`;if(P.n.m.push(`sigi_script_tag has no bizContext`),Object.assign(L,window.__$UNIVERSAL_DATA$__?.__DEFAULT_SCOPE__?.[`webapp.biz-context`]),e())return z.c.bizContext=`window.universal_data`;if(P.n.m.push(`window.universal_data has no bizContext`),Object.assign(L,R(`__UNIVERSAL_DATA_FOR_REHYDRATION__`)),e())return z.c.bizContext=`universal_data_script_tag`;P.n.m.push(`universal_data_script_tag has no bizContext`),z.c.bizContext=`failed`}function hn(){function e(){return!!(fn.mTApi&&fn.rootApi)}if(Object.assign(fn,L.domains),e())return z.c.domains=`bizContext`;if(P.n.m.push(`bizContext has no domains`),Object.assign(fn,R(`api-domains`)),e())return z.c.domains=`domains_script_tag`;P.n.m.push(`domains_script_tag has no domains`),z.c.domains=`failed`}const z={r:`unset`,async ne(){this.r=`populating`,await pn(),mn(),hn(),this.r===`populating`&&(this.r=`done`)},get T(){return{id:I.user?.uid||null,nickname:I.user?.nickName||null,secUid:I.user?.secUid||null,uniqueId:I.user?.uniqueId||null}},get forParams(){let e=navigator.userAgent?.includes(`Mac`)?`mac`:`windows`;return{app_language:I.language,device_id:I.wid,language:I.language,os:L.os||e,priority_region:I.user?.region,region:I.region,webcast_language:I.language,WebIdLastTime:I.webIdCreatedTime,coverFormat:L.videoCoverSettings?.format||2,odinId:I.odinId}},get forEndpoint(){return fn},c:{appContext:`unset`,bizContext:`unset`,domains:`unset`},st(){P.n.je=this.c,P.n,this.T,P.n.V?.length!==0&&(P.n.parsedScriptTags={sigi_state:R(`SIGI_STATE`)?.AppContext?.appContext,universal_data:R(`__UNIVERSAL_DATA_FOR_REHYDRATION__`),domains:R(`api-domains`)},P.lt())},ot(){M.l(`app_context_from`,{status:this.c.appContext}),M.l(`biz_context_from`,{status:this.c.bizContext}),M.l(`domains_from`,{status:this.c.domains})}};function gn(){return{aid:`1988`,app_name:`tiktok_web`,browser_language:navigator.language,browser_name:navigator.appCodeName,browser_online:navigator.onLine,browser_platform:navigator.platform,browser_version:navigator.appVersion,channel:`tiktok_web`,cookie_enabled:navigator.cookieEnabled,device_platform:`web_pc`,focus_state:!0,history_len:window.history.length,is_fullscreen:window.matchMedia(`(display-mode: fullscreen)`).matches,is_page_visible:!0,referer:document.referrer,screen_height:screen.height,screen_width:screen.width,tz_name:Intl.DateTimeFormat().resolvedOptions().timeZone,verifyFp:document.cookie.match(/s_v_web_id=(\w+)/)?.[1],data_collection_enabled:!0,user_is_login:!0,clientABVersions:_n()}}function _n(){let e=window.__$UNIVERSAL_DATA$__?.__DEFAULT_SCOPE__,t=e?.[`webapp.app-context`]?.abTestVersion?.versionName?.split(`,`)??[],n=e?.[`seo.abtest`],r=[...Object.values(n?.parameters?.clientABVersions??{}),...n?.vidList??[]];return[...t,...r].filter(Boolean).join(`,`)}function vn(){let{app_language:e,device_id:t,region:n,webcast_language:r,os:i,priority_region:a,WebIdLastTime:o,odinId:s}=z.forParams;return{app_language:e,device_id:t,os:i,priority_region:a,region:n,webcast_language:r,WebIdLastTime:o,odinId:s}}const yn=`user`;function bn(){let{secUid:e}=z.T;if(!e)throw Error(`no secUid  @ Crd943`);return{from_page:yn,secUid:e,language:z.forParams.language,coverFormat:z.forParams.coverFormat,video_encoding:`dash`,needPinnedItemIds:!0,post_item_list_request_type:0}}function xn(){let{secUid:e}=z.T;if(!e)throw Error(`no secUid @ Fik267`);return{scene:21,secUid:e,from_page:yn}}function Sn(){return{language:z.forParams.language,from_page:yn,coverFormat:z.forParams.coverFormat,enable_cache:!1,video_encoding:`dash`,needPinnedItemIds:!0,post_item_list_request_type:0}}function Cn(){let{uniqueId:e}=z.T;if(!e)throw Error(`no secUid or id @ gsp26`);return{from_page:yn,secUid:``,uniqueId:e,language:z.forParams.language}}function wn(){return{language:z.forParams.language,from_page:yn,secUid:z.T.secUid,coverFormat:z.forParams.coverFormat,video_encoding:`dash`,needPinnedItemIds:!0,post_item_list_request_type:0}}const Tn={v1(){let e=z.forEndpoint.mTApi||``;return e?.startsWith(`https://`)||(e=`https://m.tiktok.com`),e},v2(){return z.forEndpoint.mTApi?.includes(`us.tiktok.com`)?`https://us.tiktok.com`:`https://m.tiktok.com`},v3(){let e=z.forEndpoint.mTApi||``;return e?.startsWith(`https://`)||(e=`https://www.tiktok.com`),e},v4(){return`https://www.tiktok.com`}};var B=class{#e;constructor(e){let t=Tn.v4(),n={...gn(),...vn()};switch(e){case`likes`:this.#e=new URL(`${t}/api/favorite/item_list/`),Object.assign(n,bn());break;case`following`:this.#e=new URL(`${t}/api/user/list/`),Object.assign(n,xn());break;case`authorItems`:this.#e=new URL(`${t}/api/post/item_list/`),Object.assign(n,Sn());break;case`self`:this.#e=new URL(`${t}/api/user/detail/`),Object.assign(n,Cn());break;case`ping`:this.#e=new URL(`https://us.tiktok.com/api/favorite/item_list/`),Object.assign(n,bn());break;case`bookmarked`:this.#e=new URL(`${t}/api/user/collect/item_list/`),Object.assign(n,wn())}return Object.entries(n).forEach(([e,t])=>{this.#e.searchParams.set(e,t?.toString()||``)}),this}k(e){return this.#e.searchParams.set(`cursor`,e),this}ye({maxCursor:e,minCursor:t}){return this.#e.searchParams.set(`maxCursor`,String(e)),this.#e.searchParams.set(`minCursor`,String(t)),this}y(e){return this.#e.searchParams.set(`count`,String(e)),this}be(e){return this.#e.searchParams.set(`secUid`,e),this}ht(e){return this.#e.searchParams.set(`userId`,e),this}v(){return this.#e.toString()}};const En={W:`unset`},Dn={Ye:!1};function V(e){return e.replace(`https://`,``).replace(`.tiktok.com`,``)}function On(e){let t=new URL(e.urlWithParams),n=t.searchParams.get(`cursor`)||``;if((t.searchParams.get(`secUid`)||``)===N.o.i.Be&&n===N.o.x.Oe)return;e.urlWithParams;let r=t.origin,a=z.forEndpoint?.mTApi||`none`,o=z.forEndpoint?.rootApi||`none`;if(En.W===`unset`){En.W=r;let t=r===a?`captured_and_mTApi_are_both_${V(a)}`:`captured_${V(origin)}_but_mTApi_is_${V(a)}`,n=r===o?`captured_and_rootApi_are_both_${V(o)}`:`captured_${V(origin)}_but_rootApi_is_${V(o)}`;if(M.l(`captured_url`,{concern:t}),M.l(`captured_url`,{concern:n}),r!==a||r!==o){let t=new B(`authorItems`).k(`0`).y(30).be(`foo`).v();i(43,{officialUrl:e.urlWithParams,myUrl:t,capturedHeaders:e.requestHeaders,mea480HasTriggered:Dn.Ye})}return}r!==En.W&&(M.l(`captured_url`,{concern:`captured_switched_from_${V(En.W)}_to_${V(r)}`}),r!==a&&M.l(`captured_url`,{concern:`switched_to_${V(origin)}_but_mTApi_is_${V(a)}`}),En.W=r)}const H=e=>t=>{let n={};for(let r of e)n[r]=t?.[r];return n},kn=e=>t=>{let n={};return t.forEach(t=>{n[t[e]]=t}),n};function An(e){let t=H([`id`,`desc`,`createTime`,`itemMute`,`imagePost`])(e);return t.video=H([`id`,`cover`,`playAddr`,`downloadAddr`,`format`,`duration`])(e.video),t.stats=H([`diggCount`,`playCount`])(e.stats),t.author=H([`id`,`uniqueId`,`nickname`,`avatarLarger`,`privateAccount`])(e.author),t.authorStats=e.authorStats&&H([`followerCount`,`heartCount`,`videoCount`])(e.authorStats),t.music={id:e.music?.id},t.bestQuality=Nn(e),t}function jn(e){let t=H([`id`,`uniqueId`,`nickname`,`avatarThumb`,`privateAccount`,`secUid`])(e.user);return t.videoCount=e.stats.videoCount,t}const Mn={url:``,width:0,bitrate:0,size:0,codec:``};function Nn(e){try{let t=Pn(e);if(!t.length)return Mn;let n=C.u?.preferences?.downloadBestQuality!==!1,r=n?t:t.filter(e=>!Fn(e.codec));return(r.length?r:t).reduce((e,t)=>In(t,e,n)?t:e)}catch(e){return h(e,`Yer603`,`silently`),Mn}}function Pn(e){let t=[],n=e.video?.playAddr||e.video?.downloadAddr||e.video?.PlayAddrStruct?.UrlList?.[0];n&&e.video?.width&&e.video.format===`mp4`&&t.push({url:n,width:e.video.width,bitrate:e.video.bitrate||0,size:e.video.PlayAddrStruct?.DataSize||0,codec:e.video.codecType||``});for(let n of e.video?.bitrateInfo||[]){let e=n.PlayAddr?.UrlList?.[0];e&&n.PlayAddr.Width&&n.PlayAddr.DataSize&&n.Format===`mp4`&&t.push({url:e,width:n.PlayAddr.Width,bitrate:n.Bitrate,size:n.PlayAddr.DataSize,codec:n.CodecType})}return t}const Fn=e=>e?.includes(`265`)??!1;function In(e,t,n){return e.width===t.width?n&&Fn(e.codec)!==Fn(t.codec)?Fn(e.codec):e.bitrate===t.bitrate?e.size>t.size:e.bitrate>t.bitrate:e.width>t.width}function Ln(e){return e.imagePost,!e.imagePost}function U(e){if(e.imagePost)return!0;let t=e.id;if(!t)return h(Error(`no id, ${JSON.stringify(e)}`),`Mxt490`,`silently`),!1;if(N.C===`likes`&&O.e.likes.downloaded.has(t)||N.C===`bookmarked`&&O.e.bookmarked.downloaded.has(t))return!0;if(N.C===`following`){let n=e.author?.id;if(!n)return h(Error(`no author id`),`Eme929`,`silently`),!1;if(O.e.following.authorItems[n]?.inFolder?.has(t))return!0}if(!e.video)return h(Error(`no video`),`Knl767`,`silently`),!1;if(!e.video.duration)return h(Error(`no video duration, ${JSON.stringify(e.video)}`),`Zeu868`,`silently`),!1;if(!e.bestQuality.url)return h(Error(`no video addr`),`Qkc489`,`silently`),!1;if(!e.video.cover)return h(Error(`no cover`),`Cpq844`,`silently`),!1;if(e.id!==e.video.id)return h(Error(`${e.id} different from ${e.video.id}`),`Lce495`,`silently`),!1;if(e.video.format===`mov`)return h(Error(`video format is mov`),`Vxc172`,`silently`),!1;if(e.video.format!==`mp4`)return h(Error(`video format is ${e.video.format}`),`va38`,`silently`),!1;if(n.qe){let t=new URL(e.bestQuality.url),n=t.searchParams.get(`expire`)||t.searchParams.get(`x-expires`);if(!n||n.length!==10)return h(Error(`video url no exp: ${e.bestQuality.url}`),`pid86`,`silently`),!1}if(n.it){let t=new URL(e.video.cover),n=t.searchParams.get(`expire`)||t.searchParams.get(`x-expires`)||t.searchParams.get(`x-orig-expires`);if(!n||n.length!==10)return h(Error(`cover url no exp: ${e.video.cover}`),`pid100`,`silently`),!1}return!0}let Rn=0,zn=0;async function Bn(){let e=new B(`self`);for(;!navigator.onLine;)await S(1e3);let{err:t,json:n}=await F(await fetch(e.v(),{credentials:`include`}),`fsp19`);if(t){h(t,`tlf22`,`silently`),Vn.r=`error`;return}Rn=n?.userInfo?.stats?.diggCount,Rn===void 0&&h(Error(`totalLikes is undefined`),`tlf31`,`silently`),zn=n?.userInfo?.stats?.followingCount,zn===void 0&&h(Error(`totalFollowing is undefined`),`tlf34`,`silently`),Vn.r=`fetched`}const Vn={r:`unset`,async ne(){this.r===`unset`&&(await Bn(),O.e.likes.total=Rn||0,D(`mainOrLikes`),Rn&&a(27,Rn),zn&&a(33,zn))}},W={I:!1};function Hn(){document.querySelector(`a[href="/"`)?.click()}function Un(e){if(!e)return!1;let t=new URL(e),n=t.searchParams.get(`expire`)||t.searchParams.get(`x-expires`);return n?(Number(n+`000`)-Date.now())/1e3/60<30:!1}function Wn(e){return[e.video.playAddr,e.video.cover].some(Un)}function Gn(e){return e.some(Wn)}function Kn(e){return Un(e.avatarThumb)}async function qn(){let e=k.p,t=[],[n,r]=[0,0],i=0;do{if(await S(1e3),k.s(e,`fetch followed authors (old way)`))return null;let o=new B(`following`).ye({maxCursor:n,minCursor:r}).y(n===0?10:20);try{for(;!navigator.onLine;)await S(1e3);let{err:e,json:i}=await F(await window.fetch(o.v(),{credentials:`include`}),`fa29`);if(e)throw e;let{statusCode:s,userList:c}=i;if(s!=0)throw Error(`Err fetching followed users, ${JSON.stringify(i)}`);if(t=(c||[]).concat(t),{maxCursor:n,minCursor:r}=i,a(13,{currentTotal:t.length}),typeof n!=`number`||typeof r!=`number`)throw Error(`Things have changed? Author cursor is no longer number?`)}catch(e){if(i++,i<=3)continue;throw e}if(i=0,t.length===0)return[]}while(String(n)!==`-1`&&String(r)!==`-1`);return t}const Jn=new class{constructor(){this.r=`unset`,this.#e=`unset`}#e;async#t(){function e(){let e=document.querySelectorAll(`div[class*="-DivUserContainer"]`);return e[e.length-1]}let t=e();return t||=(h(Error(`authorList possibly not found`),`ale41`,`silently`),Hn(),await S(3e3),e()),t}Qe(){this.r=`paused`}async Ke(){try{if(this.r===(this.r=`expanding`))return;await S(1e3);let e=await this.#t();if(!e){h(Error(`cannot find authorList`),`ale64`,`silently`),this.r=`failed`;return}if(e.lastChild.tagName===`A`){this.r=`expanded`;return}if(this.#e===`unset`){this.#e=e.lastChild.textContent,this.#e,this.#n(e);return}if(this.#e===e.lastChild.textContent){this.#n(e);return}if(e.lastChild.textContent!==this.#e){this.r=`expanded`;return}}catch(e){h(e,`ale92`)}}async#n(e){for(;;){if(this.r===`paused`)return;if(e.lastChild?.click(),await S(2500),e.lastChild.tagName===`A`){this.r=`expanded`;return}if(e.lastChild?.textContent!==this.#e){this.r=`expanded`;return}}}};let Yn=0;async function Xn(e){let t=Yn=Date.now();for(Jn.Ke();;){if(Yn>t){`${e}`;return}let n=document.querySelector(`a[href*="${e}"]`);if(n){`${e}`,await S(1e3),n.click(),a(40);return}if(Jn.r===`expanded`)throw Error(`user_link_not_on_current_page`);await S(500)}}function Zn(){let e=z.T.nickname?.toLowerCase();document.querySelector(`a[href*="${e}"]`)?.click?.()}function Qn(e){return{async _e(){let t=await(await Ye).get(`followingCache`,e);return!t?.items||Gn(t.items)?{items:[],hasScrolledToBottom:!1}:t},async G(t,n){return(await Ye).put(`followingCache`,{items:t,hasScrolledToBottom:n},e)}}}function $n(e,t,n,r){if(e.length===0)return n;let i=new Set(n),a=e[e.length-1].createTime,o=new Set(e.map(e=>e.id));for(let e of t)o.has(e)||r[e].createTime>=a&&i.add(e);for(let e of i)o.has(e)&&i.delete(e);return i}function er(e){let t=kn(`id`)(e),n=e.map(e=>e.id);return[...new Set(n)].map(e=>t[e])}function tr(e,t){try{O.e.videoDescriptions[e.id]=e.desc,D(`videoDescriptions`),O.e.videos[e.id]=nr(e,O.e),D(`videos`),t!==`following`&&(O.e.authors[e.author.id]=rr(e,O.e),D(`authors`))}catch(e){h(e,`Xwo697`)}}function nr(e,t){let n={authorId:e.author.id,createTime:e.createTime,itemMute:e.itemMute,diggCount:e.stats.diggCount,playCount:e.stats.playCount,audioId:e.music?.id},r=t.videos[e.id];return Object.assign({},r,n)}function rr(e,t){let n=t.authors[e.author.id]||null,r={uniqueIds:[e.author.uniqueId],nicknames:[e.author.nickname],followerCount:e.authorStats?.followerCount||n?.followerCount||0,heartCount:e.authorStats?.heartCount||n?.heartCount||0,videoCount:e.authorStats?.videoCount||n?.videoCount||0};return n&&(r.uniqueIds=[...new Set([...r.uniqueIds,...n.uniqueIds])],r.nicknames=[...new Set([...r.nicknames,...n.nicknames])]),Object.assign({},n,r)}function ir(e){let t=N.De[e];if(!t){h(Error(`${e} not found`),`Ymx360`,`silently`);return}i(47,JSON.stringify(t))}const ar=m(ir,2e4),or={Te(e,t){try{if(!Array.isArray(e))return;N.De={};for(let n of e){let e=`${n.id}_${t}`;N.De[e]=n}}catch(e){h(e,`Xaz622`,`silently`)}},ct(e){ar(e)}};function sr(){let e=N.F-N.Pe===1;if(N.Pe=N.F,e?N.Y++:N.Y=1,N.C!==`following`&&N.Y>7){h(Error(`Pause - download rejected for multiple videos in a row`),`Ifw969`);return}}var cr=class{constructor(e,t){this.d=e,this.N=t,this.M=`${this.d.id}_${this.N}`}get J(){let e=this.d.id;switch(this.N){case`liked`:return N.C=`likes`,!!O.e.likes.downloaded.has(e);case`bookmarked`:return N.C=`bookmarked`,!!O.e.bookmarked.downloaded.has(e);case`following`:{let t=this.d.author.id;return N.C=`following`,!!O.e.following.authorItems[t]?.inFolder?.has(e)}default:throw Error(`bli53`)}}get $(){let e=this.d.video.duration;return typeof e==`number`?e>(this.N===`liked`?C.u.preferences.skipVideosLongerThanMinutes.liked:this.N===`bookmarked`?C.u.preferences.skipVideosLongerThanMinutes.bookmarked:this.N===`following`?C.u.preferences.skipVideosLongerThanMinutes.following:0)*60:(h(Error(`duration not number`),`Pas722`),!0)}dt(){return Wn(this.d)}#e(){let e=this.d.id,t=this.d.author.id;switch(this.N){case`liked`:O.e.likes.downloaded.add(e),D(`mainOrLikes`),a(23,O.e.likes.downloaded.size);break;case`bookmarked`:O.e.bookmarked.downloaded.add(e),D(`bookmarked`),a(41,{numLocalMp4:O.e.bookmarked.downloaded.size});break;case`following`:{let n=O.e.following.authorItems;n[t].inFolder.add(e),D(`following`),a(29,{authorId:t,count:n[t].inFolder.size})}}}async X(){try{window.__tttCurrent={id:this.d.id,author:(this.d.author||{}).uniqueId||"",authorId:(this.d.author||{}).id||"",type:this.N,itemData:this.d}}catch(_){}if(n.Re){this.#e();return}j.addNew({createTime:Date.now(),startWritingToDiskTime:0,key:this.M,type:this.N,itemData:this.d}),await this.#t(),await this.#n()}async#t(){try{let e=await fetch(this.d.video.cover),t=e.headers.get(`Content-Type`);if(!t?.startsWith(`image`))throw Error(`cover type is ${t}`);let n=await e.arrayBuffer();if(n.byteLength===0)throw Error(`download result is 0 bit`);j.$e(this.M,n)}catch(e){j.ke(this.M),e.message===`Failed to fetch`?h(Error(`fetch failed ${this.d.video.cover}`),`bi60`,`silently`):h(e,`bi63`,`silently`)}}async#n(){let e=new AbortController;try{let t=setTimeout(()=>e.abort(),15e3),n=setTimeout(()=>e.abort(),1e5),r=await fetch(this.d.bestQuality.url,{signal:e.signal,credentials:`include`});if(clearTimeout(t),r.status===403){or.ct(this.M),sr();return}if(!String(r.status).startsWith(`2`))throw Error(`video status code ${r.status}`);if(r.status===206)throw Error(`status 206, video could be very large`);let i=r.headers.get(`Content-Type`);if(!i?.includes(`video/mp4`))throw Error(`video type is ${i}`);let a=Number(r.headers.get(`Content-Length`));if(!a)throw Error(`unknown video size`);let s=(a/1024/1024).toFixed(1)+`MB`;j.et(this.M,s);let c=await r.arrayBuffer();if(c.byteLength===0)throw Error(`download result is 0 bit`);o(`please_resync_this_video`,{tempStorageKey:this.M,arrayBuffer:c}),clearTimeout(n),N.le.clear()}catch(t){if(e.abort(),j.ke(this.M),t.message?.includes?.(`video is too large, skip`))return;t.message===`Failed to fetch`?h(Error(`fetch failed ${this.d.video.playAddr||this.d.video.downloadAddr}`),`bi127`,`silently`):h(t,`bi130`,`silently`)}}};const lr={};let ur=0;async function dr(e,t){if(!C.H||!n.rt)return!1;let r=e.id,a=e.author.id;if(!r||!a)return!1;let o=JSON.stringify({folder:`myfaveTT`,type:t,authorId:a,videoId:r,verbose:!!ur});if(i(53,o),await S(300),lr[o]||await S(1e3),lr[o]||await S(5e3),!lr[o])return ur<=3?(ur++,console.error(new Date().toLocaleTimeString(),`didn't find local video info for:`,o),await S(6e4),!0):(alert(`local server not up? See error in console`),!0);ur=0;let{width:s,size:c,codec:l}=e.bestQuality,{width:u,size:d,codec:f}=lr[o];if(console.debug({newWidth:s,newSize:c,newCodec:l,oldWidth:u,oldSize:d,oldCodec:f,id:e.id}),delete lr[o],s<u)return!1;if(s>u)return console.debug(`new width ${s} > old width ${u}, re-download`),!0;let ee=f.includes(`hev`)||f.includes(`hvc`)||f.includes(`hevc`),p=l?.includes(`265`),te=Number(c)>Number(d),ne=Number(c)<Number(d);return te&&p?(console.debug(`new size ${c} > old size ${d}, new codec is ${l}, re-download`),!0):te&&!ee&&!p?(console.debug(`new size ${c} > old size ${d}, both are not h265, re-download`),!0):ne&&p&&!ee?(console.debug(`new size ${c} < old size ${d} but new codec is ${l} while old codec is ${f} , re-download`),!0):!1}async function fr(){if(n.Re){await S(100);return}let e;an<=2?e=5:(e=2+(an-2)*5,`${an}${e}`),await S(e*1e3)}async function pr(e){let t=k.p;O.e.following.started.add(e),D(`following`);let n=(await Qn(e)._e()).items;for(let e of n)tr(e,`following`);let r=n[0]?.author?.uniqueId;`${r}`;for(let[r,a]of n.entries()){if(k.s(t,`download videos from one author (old way)`))return;if(!U(a))continue;if(window.__tttStop){await(window.__tttWaitResume?window.__tttWaitResume():Promise.resolve())}let o=new cr(a,`following`);if((!o.J||await dr(a,`following`))&&!o.$){if(o.dt()){q.he(e);return}for(;!navigator.onLine;)await S(1e3);i(17,{total:n.length,current:r+1}),N.F=r+1,o.X().catch(e=>h(e,`doa22`,`silently`)),await fr()}}k.s(t,`after download author items (old way)`)||(O.e.following.lastRun[e].finish=Date.now(),D(`following`),K.g&&n.length>0&&(`${r}`,O.e.following.lastRun[e].bottom=Date.now(),D(`following`)),await S(2e3),await q.he(e))}const G={xe:{minimalScrollInterval:1e3,maximalScrollDistance:750,desiredIntervalBetweenRequests:7e3},te:!1,ae:null,ie:1200,re:400,Fe:0,Ue(){Date.now()-this.Fe>this.xe.desiredIntervalBetweenRequests?(this.ie=Math.max(this.ie-50,this.xe.minimalScrollInterval),this.re=Math.min(this.re+50,this.xe.maximalScrollDistance)):(this.ie+=50,this.re-=50),this.Fe=Date.now()}};function mr(){let{scrollHeight:e,scrollTop:t,clientHeight:n}=document.documentElement;return e-t-n<20}function hr(e){let t=e[0].author.id;if(e.some(e=>e.author.id!==t))throw Error(`not all videos share the same author`);return t}async function gr(){try{if(k.s(q.ee,`page down`)&&(G.te=!1),!G.te||(G.ae=setTimeout(gr,G.ie),!K.i))return;if(K.z>=1){await K.oe();return}if(mr()){await S(2e3),K.g=!0,await K.oe();return}if(document.visibilityState===`hidden`)return;window.scrollBy({top:G.re,left:0,behavior:`smooth`})}catch(e){h(e,`scr56`)}}const K=new class{constructor(){this.#e=[],this.#t=!1,this.i=``,this.#n=0,this.g=!1,this.z=0}#e;#t;#n;Se(){let e=O.e.following.lastRun[this.i].bottom,{bottomNoMoreOftenThanDays:t,randomize:n}=C.u.preferences,r=Date.now(),i=t*24*60*60*1e3,a=r-e;if(`${Math.round(a/864e5)}`,!n)return a>i;if(a<i/2)return!1;let o=(a-i/2)/(i/2),s=String(e).slice(-3);return Number(s)/1e3<o}async ut(e,t){try{this.i=e,this.g=!1,this.z=0,this.#e=[],this.#t=!1,O.e.following.lastRun[e]||={start:0,finish:0,bottom:0},O.e.following.lastRun[e].start=Date.now(),D(`following`),a(36,t),await Xn(t),await S(2e3),a(37,t),await S(2e3),c.Ge(),this.#r()}catch(e){h(e,`sr150`)}}#r(){G.te=!0,G.ae&&clearTimeout(G.ae),gr()}we(){clearTimeout(G.ae),G.te=!1}async Je(e){if(e.length===0){h(Error(`repeat failed?`),`scr78`,`silently`);return}let t=hr(e);if(t!==this.i)return;if(this.#t=!0,Gn(this.#e)){this.we(),q.he(t),this.i=``;return}this.Se()||(e.filter(U).slice(-10).every(e=>O.e.following.authorItems[t].inFolder.has(e.id))?this.z++:this.z=0),this.#e.push(...e),this.#e=er(this.#e),i(16,this.#e.length),G.Ue(),await _r(t,this.#e);{let e=this.#e[this.#e.length-1],n=await Qn(t)._e();if(n.items.find(t=>t.id===e.id)){this.g=n.hasScrolledToBottom,await this.oe();return}}let n=C.u.preferences.maxScroll||1e3;if(this.#e.length>n){`${n}`,this.#e=this.#e.slice(0,n),this.g=!0,await this.oe();return}}async oe(){try{if(!this.i)return;let e=this.i;if(this.i=``,this.we(),this.#e.length>0)this.#n=0;else if(this.#n++,this.#n>=3){this.#t?h(Error(`three_consecutive_empty_authors`),`scr177`):h(Error(`sw not awaken`),`scr233`,`silently`),c.Z();return}let t=await Qn(e)._e(),n=er(this.#e.concat(t.items));a(16,n.length),await Qn(e).G(n,this.g),`${n[0]?.author?.uniqueId}`,n.length,pr(e)}catch(e){h(e,`scr173`)}}};async function _r(e,t){let{inFolder:n,disappeared:r}=O.e.following.authorItems[e],i=$n(t,n,r,O.e.videos);O.e.following.authorItems[e].disappeared=i,r.size!==i.size&&(a(31,{authorId:e,quantity:i.size-r.size}),K.z=0,D(`following`),await O._())}const q=new class{constructor(){this.ee=0,this.#e={},this.at={alreadyInArchive:[],willAddToArchive:[],notInterested:[]},this.#t=[],this.#n=[]}#e;#t;#n;#r(){return!(!(Object.keys(this.#e).length>0)||Object.values(this.#e).some(Kn))}async j(){try{if(!this.#r()){Vn.ne().catch(e=>{h(e,`ll147`,`silently`)});let e=await qn();if(!e)return;if(!W.I)throw Error(`resync is not ready - this should be a one-time error, reload to fix.`);let t=e.map(jn);this.#t=t.map(e=>e.id),t.forEach(e=>{e.lastChecked=O.e.following.lastRun[e.id]?.finish||0}),this.#e=kn(`id`)(t)}a(14,{authorDict:this.#e,officialList:this.#t,started:[...O.e.following.started],notInterested:[...O.e.following.notInterested]})}catch(e){h(e,`ff27`)}}async ge(e){location.pathname.includes(`@`)&&(Hn(),await S(3e3)),i(20,`following`),this.at=e,O.e.following.notInterested=new Set(e.notInterested),D(`following`);let t=[...e.willAddToArchive,...e.alreadyInArchive].sort((e,t)=>(O.e.following.lastRun[e]?.finish||0)-(O.e.following.lastRun[t]?.finish||0));this.#n=t.map(e=>({authorId:e,status:`queued`})),C.H&&(this.#n=this.#n.filter(e=>{let t=O.e.following.lastRun[e.authorId]?.finish||0;return(Date.now()-t)/1e3/60/60/24>5}),this.#n.length>150&&(this.#n.length=150)),await O._(),this.#o(),await this.#i()}async#i(){if(k.s(this.ee,`move from author to author (old way)`))return;let e=this.#n.find(e=>e.status===`queued`);if(e){e.status=`current`;let t=this.#e[e.authorId].uniqueId;i(15,this.#n),O.e.following.authorItems[e.authorId]||={inFolder:new Set,disappeared:new Set},D(`following`),await K.ut(e.authorId,t),a(29,{authorId:e.authorId,count:O.e.following.authorItems[e.authorId].inFolder.size})}else{if(k.s(this.ee,`after move from author to author (old way)`))return;this.#s()}}async he(e){try{this.#o(`maybe`);let t=this.#n.find(t=>t.authorId===e);t&&(t.status=`finished`),await O.catchUp(),`${e}`,await this.#i()}catch(e){h(e,`ff101`)}}get#a(){let{officialAuthorList:e,started:t,notInterested:n}=O.e.following;return{numFollowed:e.size,numStarted:t.size,numNotInterested:n.size,numCappedOut:[...e].filter(e=>!t.has(e)).filter(e=>!n.has(e)).length}}#o(e){e&&Math.random()>.2||i(22,this.#a)}async#s(){i(15,this.#n),i(18,this.#a),c.Z(),O.q()}},vr={Ae:``,Ie:``,Le:0},J={me:0,K:0,B:0};async function yr(e){if(k.s(q.ee,`repeatRequest`))return null;let{url:t,urlWithParams:n,requestHeaders:r}=e,i=r.find(e=>e.name===`x-tt-params`);if(!i)return null;if(n){let e=new URL(n);e.searchParams.delete(`X-Bogus`),e.searchParams.delete(`msToken`),e.searchParams.delete(`_signature`),t=e.toString()}let a={[i.name]:i.value,Accept:`application/json, text/plain, text/csv, */*`};for(;;){await S(1e3);let{err:e,json:n}=await F(await fetch(t,{headers:a,credentials:`include`}),`rp57`);if(e){if(J.me++<=3){h(e,`rr62`,`silently`),await S(J.me*1e3);continue}return h(Error(`failed to get video urls from user page`),`rr59`),null}J.me=0;let{statusCode:r}=n,i=n.itemList.map(An);if(r!=0){if(J.K++,J.K<=3){`${J.K}`,await S(J.K*1e3);continue}return h(Error(`Err in repeat captured request, ${JSON.stringify(n)}`),`rr74`),null}if(r==0&&(J.K=0),!i)return[];let o=i.filter(U);if(o.length>0&&(J.B=0),i.length>9&&o.length===0){if(J.B++,J.B<=3){`${J.B}`,await S(J.B*1e3);continue}return h(Error(JSON.stringify(An(i[0]))),`rr101`),null}let s=i.filter(Ln),{Ae:c,Ie:l,Le:u}=vr;return s[0].id===c&&s[s.length-1].id===l&&s.length===u?null:(vr.Ae=s[0].id,vr.Ie=s[s.length-1].id,vr.Le=s.length,s)}}let br=``;async function xr(e){if(On(e),K.i){if(br===(br=JSON.stringify(e))){console.error(`double listener?!`);return}try{let t=await yr(e);t&&await K.Je(t)}catch(e){h(e,`hcr26`,`silently`)}}}function Sr(e,n,r){`${r}`,t.postMessage({type:`compare`,payload:{myUrl:e,officialUrl:n,category:r}})}function Cr(e){let{category:t,payload:n}=e.data;t===`official_tiktok_likes`&&Sr(new B(`likes`).k(`0`).y(16).v(),n.officialUrl,t),t===`official_tiktok_followed_authors`&&Sr(new B(`following`).ye({maxCursor:0,minCursor:0}).y(30).v(),n.officialUrl,t),t===`official_tiktok_author_items`&&Sr(new B(`authorItems`).k(`0`).y(16).be(`whatever_the_authors_secUid_is`).v(),n.officialUrl,t),t===`official_tiktok_bookmarked`&&Sr(new B(`bookmarked`).k(`0`).y(16).v(),n.officialUrl,t)}function wr(e,t){let n=new Set(t);for(let r=e.length-1;r>=0;r--){let i=e[r];if(n.has(i)){let n=t.indexOf(i);return e.concat(t.slice(n+1))}}return e.concat(t)}let Tr=Date.now();async function Er(e){let t=Date.now()-Tr;if(t<e){let n=e-t;`${n}`,await S(n)}Tr=Date.now()}let Dr=!1;async function*Or(){let e=k.p;Dr=!1;let t=`0`,n=!0,r={h:0,S:0,f:0,D:0};for(;;){await Er(5e3);let i=new B(`bookmarked`).k(t).y(16),o=[],s={};try{for(;!navigator.onLine;)await S(1e3);if(k.s(e,`scroll down bookmarked`))break;let t=await window.fetch(i.v(),{credentials:`include`}),n=null;if({err:n,json:s}=await F(t,`hec800`),n)throw n;if(or.Te(s.itemList,`bookmarked`),o=s.itemList?.map?.(An),s.statusCode!=0)throw Error(`Yzy056`+JSON.stringify(s))}catch(e){if(r.h++,r.h<=3){`${r.h}`,await S(r.h*7e3);continue}if(!(s.cursor&&s.cursor!=t)){if(e.message.includes(`hec800`)){a(46,!0),await S(3e5),a(46,!1);continue}h(e,`Chv322`);break}}if(r.h=0,a(46,!1),!s.hasMore||s.cursor!=`0`&&s.cursor!=`-1`)r.D=0;else if(h(Error(`cursor is ${s.cursor} but hasMore is ${s.hasMore}`),`Uhb368`,`silently`),r.D++,r.D<3)continue;if(o){let e=o.some(e=>!U(e));if(!e&&r.f>0&&(r.f--,`${r.f}`),e){if(r.S++,r.S<3&&r.f<3){await S(r.S*3e3);continue}r.f++}if(r.S=0,o.filter(U).length===0&&o.length>9&&r.f>10){h(Error(`some component in the tiktok server is temporarily unstable. Wait a few hours and try again.`),`Mar695`);break}s.total&&(a(41,{historicTotal:s.total}),O.e.bookmarked.total=s.total),yield o.filter(Ln)}if({cursor:t,hasMore:n}=s,!n&&t==`0`&&(Dr=!0),t==`-1`&&h(Error(`cursor is -1`),`Swa471`,`silently`),t==`0`||t==`-1`||!t)break}}const kr=[];let Ar=0;const jr={R:0,E(){let e=new Set(O.e.bookmarked.officialList),t=0;for(let n of O.e.bookmarked.downloaded)e.has(n)||t++;return t},de(){a(41,{numDownloadedThenDisappeared:this.E()})},ue(){a(41,{newDeletionDetected:this.E()-this.R})}};async function*Mr(){kr.length=0,Ar=0,jr.R=jr.E();for await(let e of Or()){kr.push(...e),a(41,{scrolledTo:kr.length});for(let t of e)tr(t,`bookmarked`);await Nr(kr);for(let t of e)Ar++,yield t}}async function Nr(e){let t=O.e.bookmarked.officialList.length;O.e.bookmarked.officialList=wr(e.map(e=>e.id),O.e.bookmarked.officialList),t!==O.e.bookmarked.officialList.length&&(jr.ue(),D(`bookmarked`),await O._())}const Pr=new class{async j(){let e=k.p;await this.#e();for await(let t of Mr()){if(window.__tttStop){await(window.__tttWaitResume?window.__tttWaitResume():Promise.resolve())}if(!U(t))continue;let n=new cr(t,`bookmarked`);if((!n.J||await dr(t,`bookmarked`))&&!n.$){for(;!navigator.onLine;)await S(1e3);if(k.s(e,`download bookmarked one by one`))return;if(a(41,{nowAt:Ar}),N.F=Ar,n.X().catch(e=>h(e,`Shc782`,`silently`)),await fr(),!W.I){h(Error(`resync is not ready`),`Jsy087`);return}}}k.s(e,`after download bookmarked items`)||this.#t()}async#e(){O.e.bookmarked.lastRun.start=Date.now(),D(`bookmarked`),a(41,{subView:`downloading`,scrolledTo:0,showNowAt:!1,numLocalMp4:O.e.bookmarked.downloaded.size}),i(20,`bookmarked`),await S(4e3)}async#t(){Dr&&(O.e.bookmarked.lastRun.finish=Date.now(),O.e.bookmarked.numDisappeared=O.e.bookmarked.total-kr.length),jr.de(),D(`bookmarked`),a(41,{subView:`done`}),O.catchUp(),O.q(),i(54,{officialListLength:O.e.bookmarked.officialList.length,numMp4InLocalFolder:O.e.bookmarked.downloaded.size})}};async function Fr(){await S(2500)}const Ir={Se(){let e=O.e.following.lastRun[N.o.i.Me].bottom,{bottomNoMoreOftenThanDays:t,randomize:n}=C.u.preferences,r=Date.now(),i=t*24*60*60*1e3,a=r-e;if(`${Math.round(a/864e5)}`,!n)return a>i;if(a<i/2)return!1;let o=(a-i/2)/(i/2),s=String(e).slice(-3);return Number(s)/1e3<o},shouldScrollMore(){return!!(this.Se()||Date.now()-N.o.i.He<6e3||!N.o.x.pe||N.o.x.Q)}},Y={currentAuthorId:``,t:`normal`,U:``,b:0,O:0,L:0,async ve(e){await S(e*1e3),this.b++,this.t=`normal`},async Ce(e){await S(e*1e3),this.O++,O.e.following.lastRun[this.currentAuthorId].finish=Date.now(),D(`following`),O._()},l(e){switch(`${e}`,[`flawless_bunch`,`new_author_begins`].includes(e)||h(Error(e),`Yzn586`,`silently`),e){case`new_author_begins`:this.b=0,this.t=`normal`;return;case`flawless_bunch`:this.t=`normal`,this.L=0,this.b=0,this.O=0;return;case`captcha`:this.b===0?this.t=`retry`:this.b>=1&&this.O===0?this.t=`skipAuthor`:this.b>=1&&this.O>=1&&(this.t=`pause`,a(42));return;case`captcha_solved`:this.t=`normal`;return;case`other_fetch_error`:case`request_blocked`:case`valid_json_containing_error`:case`empty_response`:this.b<2?(`${e}`,this.t=`retry`):this.b>=2&&this.O<=1?this.t=`skipAuthor`:this.b>=2&&this.O>=2&&(`${e}`,this.U=`Dyb767 ${e}`,this.t=`throw`);return;case`flawed_items`:`${this.L}`,this.L++,this.t=this.L<=3?`retry`:`normal`;return;case`all_items_flawed`:this.L<=6?this.t=`normal`:this.O<=2?(`${this.L}`,this.t=`skipAuthor`):(this.U=`Mcy770 all items flawed and 3 authors skipped in a row`,this.t=`throw`);return}}};async function*Lr(e){let t=k.p,n=`0`,r=!0,i=0;for(Y.currentAuthorId=e.id,Y.l(`new_author_begins`);;){if(await Er(7e3),!Ir.shouldScrollMore())return;let o=new B(`authorItems`).y(16).k(n).be(e.secUid);N.o.i.Be=e.secUid,N.o.x.Oe=n;let s=[],c={};try{for(;!navigator.onLine;)await S(1e3);for(;Y.t===`pause`;)await S(1e3);if(k.s(t,`scroll down one author`))return;let e=await fetch(o.v(),{credentials:`include`}),n=null;if({err:n,json:c}=await F(e,`Fru804`),n){let e=n.message.includes(`no response at all`),t=JSON.stringify(c)===`{}`,r=n.message?.includes?.(`"statusCode":200`)&&n.message?.includes?.(`"contentLength":"0"`),o=n.message.includes(`429`);if(r){if(Y.l(`captcha`),Y.t===`pause`){Zn();continue}}else if(o){a(45,!0),await S(i++<30?6e4:2e5),a(45,!1);continue}else t?Y.l(`empty_response`):e?Y.l(`request_blocked`):Y.l(`other_fetch_error`);if(Y.t===`retry`){await Y.ve(7);continue}if(Y.t===`skipAuthor`){await Y.Ce(7);return}if(Y.t===`throw`){h(n,Y.U||`Onn977`);return}continue}}catch{}if(i=0,s=c.itemList?.map?.(An),c.statusCode!=0){if(Y.l(`valid_json_containing_error`),Y.t===`retry`){await Y.ve(10);continue}let e=!!(c.cursor&&c.cursor!=`0`&&c.cursor!=`-1`&&c.cursor!=n);if(e&&(Y.t=`normal`),Y.t===`skipAuthor`&&!e){await Y.Ce(10);return}if(Y.t===`throw`&&!e){let e=`${Y.U}`;c.itemList?(e+=`statusCode ${c.statusCode}, has itemList`,h(Error(e),`Pxv309`)):(e+=JSON.stringify(c),h(Error(e),`Oxa972`));return}}if(s){or.Te(c.itemList,`following`);let t=s.some(e=>!U(e));if(t&&Y.l(`flawed_items`),Y.t===`retry`){await Y.ve(10);continue}s.length>2&&!t&&Y.l(`flawless_bunch`);{let e=s.filter(U);if(s.length>5&&e.length===0&&Y.l(`all_items_flawed`),Y.t===`skipAuthor`){await Y.Ce(10);return}if(Y.t===`throw`){h(Error(Y.U),`Vna097`);return}}let n=s.filter(Ln),r=n[n.length-1],i=O.e.following.authorItems[e.id].inFolder.has(r?.id);N.o.x.pe=i,yield n}if({cursor:n,hasMore:r}=c,n==`0`||n==`-1`||!n){N.o.i.g=!0,await S(1e4);return}}}const X=[];let Rr;async function*zr(e){X.length=0,Rr=0;let t=Lr(e);for(;;){let n=X[Rr];if(n)yield n,Rr++;else{let n=C.u.preferences.maxScroll||1e3;if(X.length>=n){`${n}`,N.o.i.g=!0;break}let r=await t.next();if(r.done)break;X.push(...r.value),a(38,X.length);for(let e of r.value)tr(e,`following`);try{Vr(e.id,X)}catch(e){h(e,`dfo34`,`silently`)}}}}async function Br(e){let t=k.p;if(O.e.following.started.add(e.id),O.e.following.authorItems[e.id]||={inFolder:new Set,disappeared:new Set},O.e.following.lastRun[e.id]||={start:0,finish:0,bottom:0,firstAdded:new Date().setHours(0,0,0,0)},O.e.following.lastRun[e.id].start=Date.now(),D(`following`),a(36,e.uniqueId),await S(2500),a(37,e.uniqueId),await S(2500),a(38,0),await S(1500),a(29,{authorId:e.id,count:O.e.following.authorItems[e.id].inFolder.size}),await S(500),!k.s(t,`scroll this author`)){if(N.o.i.Me=e.id,N.o.i.g=!1,N.o.i.He=Date.now(),N.o.x.Q=!1,N.o.x.pe=!1,!e.privateAccount)for await(let n of zr(e)){if(e.id!==n.author.id){`${e.nickname}${n.author.nickname}`;continue}if(N.Y>5){O.e.following.lastRun[e.id].finish=Date.now(),N.le.add(e.id),N.le.size>=3&&h(Error(`Need to pause - tiktok server rejected video downloading for 3 accounts in a row`),`Qot679`);return}if(k.s(t,`download mp4 from one author`))return;if(!U(n))continue;if(window.__tttStop){await(window.__tttWaitResume?window.__tttWaitResume():Promise.resolve())}let r=new cr(n,`following`);if((!r.J||await dr(n,`following`))&&!r.$){for(;!navigator.onLine;)await S(1e3);a(39,Rr+1),N.F=Rr+1,r.X().catch(e=>h(e,`dfo96`,`silently`)),await fr()}}k.s(t,`after download author items`)||(N.o.i.g&&(O.e.following.lastRun[e.id].bottom=Date.now()),e.nickname,O.e.following.lastRun[e.id].finish=Date.now(),D(`following`),O.catchUp())}}function Vr(e,t){if(!O.e.following.authorItems[e])return;N.o.x.Q=!1;let{inFolder:n,disappeared:r}=O.e.following.authorItems[e],i=$n(t,n,r,O.e.videos);O.e.following.authorItems[e].disappeared=i,r.size!==i.size&&(a(31,{authorId:e,quantity:i.size-r.size}),N.o.x.Q=!0,D(`following`))}async function Hr(e){try{let t=await fetch(e),n=t.headers.get(`Content-Type`);if(!n?.startsWith(`image`))throw Error(`avatar type is ${n}, url ${e}`);let r=await t.blob();return{err:null,blob:r,blobSize:r.size}}catch(e){return{err:e,blob:null,blobSize:0}}}const Ur={};function Wr(){`${Object.keys(Ur).length}`,Object.entries(Ur).forEach(async([e,t])=>{try{let n=await(await _(O.a,`data/Following/Avatars/${e}`)).createWritable();delete Ur[e],await n.write(t),await n.close()}catch(e){h(e,`Fwc167`,`silently`)}})}const Gr=m(Wr,1e4);function Kr(e,t){Ur[e]=t,Gr()}const Z={},qr=[];let Jr=!1;const Yr=[];let Xr=!1;function Zr(e){Array.isArray(e)&&(e.forEach(e=>{let t=e?.user?.id;Number(t)&&(Z[t]={small:e.user.avatarThumb,large:e.user.avatarLarger,nickname:e.user.nickname},qr.push(t),Z[t].small)}),Qr())}async function Qr(){if(!Jr){Jr=!0;try{for(;;){let e=qr.shift();if(!e)break;await ei(e)}}catch(e){h(e,`Mxv433`)}finally{Jr=!1}}}async function $r(){if(!Xr){Xr=!0;try{for(;;){let e=Yr.shift();if(!e)break;await ti(e)}}catch(e){h(e,`Uss122`)}finally{Xr=!1}}}async function ei(e){try{if(!Z[e]){qr.push(e),await S(200);return}let{nickname:t,small:n}=Z[e];if(!n||n===`GCed`)return;let r=`small_${e}.jpg`,i=!1,a=await(await _(O.a,`data/Following/Avatars/${r}`,!1))?.getFile(),o=a?.size||0;if(o==0&&(i=!0),o>0){let e=a?.lastModified||0,t=(Date.now()-e)/864e5,n=t/100;Math.random()<n&&(`${Math.round(t)}`,i=!0)}if(!i){Z[e].small=`GCed`,Z[e].large=`GCed`;return}let{err:s,blob:c,blobSize:l}=await Hr(n);if(s){h(s,`Lto224`,`silently`);return}l!==o&&(`${o}${l}`,Yr.push(e),$r()),Kr(r,c),Z[e].small=`GCed`,await S(100)}catch(e){h(e,`Dxv877`,`silently`)}}async function ti(e){try{if(!Z[e]){h(Error(`author data not fetched yet: ${e}`),`Zos284`,`silently`),await S(100);return}let{nickname:t,large:n}=Z[e];if(!n||n===`GCed`)return;let{err:r,blob:i}=await Hr(n);if(r){h(r,`Xbv915`,`silently`);return}Kr(`large_${e}.jpg`,i),Z[e].large=`GCed`,await S(1500)}catch(e){h(e,`Hxx447`,`silently`)}}const ni={async fe(){try{let e=C.u.profile.uid;return await(await Ye).get(`following`,e)}catch(e){h(e,`Zmk787`,`silently`);return}},async nt(e){let t=await Ye,n=C.u.profile.uid;return t.put(`following`,e,n)}};let ri=!1,ii=[];const Q={officialList:[],authorDict:{}};async function ai(){a(50,{started:[...O.e.following.started],notInterested:[...O.e.following.notInterested]});let e=await ni.fe();e?setTimeout(()=>a(49),100):a(48),!ri&&(oi(e),await li(),ci())}function oi(e){ri=!0,e&&(e.forEach(e=>{e.lastChecked=O.e.following.lastRun[e.id]?.finish||0}),Q.officialList=e.map(e=>e.id),Q.authorDict=kn(`id`)(e),a(51,Q))}function si(e){Zr(e),e.forEach(ui);let t=e.map(jn).filter(e=>!!(Number(e.id)&&e.secUid));t.forEach(e=>{e.lastChecked=O.e.following.lastRun[e.id]?.finish||0,Q.authorDict[e.id]=e}),ii=ii.concat(t);let r=ii.map(e=>e.id).slice(n.Ee.start);Q.officialList=wr(r,Q.officialList),a(13,{currentTotal:ii.length}),a(51,Q),O.e.following.officialAuthorList=new Set(Q.officialList),D(`following`)}async function ci(){await S(300),a(52,Q),ni.nt(ii),O._()}async function li(){let[e,t]=[0,0],r=0,i=!0;for(;;){await Er(4e3);let o=new B(`following`).ye({maxCursor:e,minCursor:t}).y(30);try{for(;!navigator.onLine;)await S(1e3);let{err:r,json:s}=await F(await window.fetch(o.v(),{credentials:`include`}),`Uaq119`);if(r)throw r;let{statusCode:c,userList:l,total:u}=s;if(c!=0){let e;throw e=c==10101&&s.status_code==0?`Temporary error on the TikTok server, please try again in a few hours.`:`Error fetching followed users.`,Error(`${e} ${JSON.stringify(s)}`)}if(Array.isArray(l)&&(si(l),u&&a(33,u)),n.Ee.end&&ii.length>=n.Ee.end||({maxCursor:e,minCursor:t,hasMore:i}=s,t==0||t==-1||!t))break}catch(e){if(r++,r<=3)continue;throw e}r=0}ci()}function ui(e){if(!Number(e.user?.id))return;let{id:t,uniqueId:n,nickname:r,signature:i,privateAccount:a}=e.user,{followerCount:o,videoCount:s,heartCount:c}=e.stats,l=O.e.authors[t],u={uniqueIds:[n],nicknames:[r],followerCount:o||l?.followerCount||0,heartCount:c||l?.heartCount||0,videoCount:s||l?.videoCount||0,signature:i||l?.signature||``,privateAccount:a||l?.privateAccount||!1};l&&(u.uniqueIds=[...new Set([n,...l.uniqueIds])],u.nicknames=[...new Set([r,...l.nicknames])]),O.e.authors[t]=u,D(`authors`)}async function di(e){try{let t=await O.a.getDirectoryHandle(`data`);t=await t.getDirectoryHandle(`Following`),await t.removeEntry(e,{recursive:!0})}catch(e){h(e,`Okh543`,`silently`)}}async function fi(e,t){for(let n of t)try{if(e.alreadyInArchive.includes(n)||e.willAddToArchive.includes(n))continue;(O.e.following.started.has(n)||O.e.following.authorItems?.[n]?.inFolder?.size)&&(O.e.following.started.delete(n),delete O.e.following.authorItems[n],D(`following`),await di(n))}catch(e){h(e,`Fvt078`,`silently`)}O._()}let pi=[],mi=[];function hi(){let{officialAuthorList:e,started:t,notInterested:n}=O.e.following;return{numFollowed:e.size,numStarted:t.size,numNotInterested:n.size,numCappedOut:[...e].filter(e=>!t.has(e)).filter(e=>!n.has(e)).length}}function gi(e){e&&Math.random()>.2||i(22,hi())}async function _i(){let e=k.p;for(;;){if(k.s(e,`move from author to author`))return;pi.length===0&&i(15,pi);let t=pi.find(e=>e.status===`queued`);if(!t)break;if(!Q.officialList.includes(t.authorId)){t.status=`finished`;continue}t.status=`current`,i(15,pi);let n=Q.authorDict[t.authorId];try{await Br(n),await Fr()}catch(e){h(e,`ff96`,`silently`)}t.status=`finished`,gi(`maybe`)}k.s(e,`after moving from author to author`)||(i(18,hi()),O.q())}function vi(){i(20,`following`),pi=mi.sort((e,t)=>(O.e.following.lastRun[e]?.finish||0)-(O.e.following.lastRun[t]?.finish||0)).map(e=>({authorId:e,status:`queued`})),_i().catch(e=>h(e,`Ktj412`))}const yi={async j(){ai().catch(e=>h(e,`Qze176`))},async ge(e){let{userSelections:t,officialList:r}=e;O.e.following.notInterested=new Set(t.notInterested),D(`following`),await O._(),gi(),fi(t,r),W.I||h(Error(`resync is not ready - this should be a one-time error, reload to fix.`),`Mrx148`),Object.values(Q.authorDict).forEach(e=>{e.lastChecked=O.e.following.lastRun[e.id]?.finish||0}),a(51,Q),mi=[...t.willAddToArchive,...t.alreadyInArchive],t.alreadyInArchive.length>40&&n.We?a(44,mi):vi()},Ze(e){`${e.length}`,mi=e,vi()}};let bi=!1,xi=!1;async function*Si(){let e=k.p;bi=!1;let t=`0`,n=!0,r={h:0,S:0,f:0,D:0};for(;;){await Er(5e3);let i=new B(`likes`).k(t).y(16),o=[],s={};try{for(;!navigator.onLine;)await S(1e3);if(k.s(e,`scroll down likes`))break;let t=await window.fetch(i.v(),{credentials:`include`}),n=null;if({err:n,json:s}=await F(t,`gab45`),n)throw n;if(or.Te(s.itemList,`likes`),o=s.itemList?.map?.(An),s.statusCode!=0){if(s.type===`verify`){h(Error(`need to solve captcha`),`fl39`);break}throw Error(`code: ${s.code} ${s.type}`)}}catch(e){if(r.h++,r.h<=3){`${r.h}`,await S(r.h*7e3);continue}if(!(s.cursor&&s.cursor!=t)){if(e.message.includes(`gab45`)){xi||h(e,`Gqh894 tiktok server rejects requisition of Likes list`),a(46,!0),await S(3e5),a(46,!1);continue}h(e,`Yzu175`);break}}if(r.h=0,a(46,!1),!s.hasMore||s.cursor!=`0`&&s.cursor!=`-1`)r.D=0;else if(h(Error(`cursor is ${s.cursor} but hasMore is ${s.hasMore}`),`Kpd036`,`silently`),r.D++,r.D<3)continue;if(o){xi=!0;let e=o.some(e=>!U(e));if(!e&&r.f>0&&(r.f--,`${r.f}`),e){if(r.S++,r.S<3&&r.f<3){await S(r.S*3e3);continue}r.f++}if(r.S=0,o.filter(U).length===0&&o.length>9&&r.f>10){h(Error(`some component in the tiktok server is temporarily unstable. Wait a few hours and try again.`),`Xjo996`);break}yield o.filter(Ln)}if({cursor:t,hasMore:n}=s,!n&&t==`0`&&(bi=!0),t==`-1`&&h(Error(`cursor is -1`),`Etr208`,`silently`),t==`0`||t==`-1`||!t)break}}const Ci=[];let wi=0;const Ti={R:0,E(){let e=new Set(O.e.likes.officialList),t=0;for(let n of O.e.likes.downloaded)e.has(n)||t++;return t},de(){a(30,this.E())},ue(){a(32,this.E()-this.R)}};async function*Ei(){Ci.length=0,wi=0,Ti.R=Ti.E();for await(let e of Si()){Ci.push(...e),a(25,Ci.length);for(let t of e)tr(t,`liked`);await Di(Ci);for(let t of e)wi++,yield t}}async function Di(e){let t=O.e.likes.officialList.length;O.e.likes.officialList=wr(e.map(e=>e.id),O.e.likes.officialList),t!==O.e.likes.officialList.length&&(Ti.ue(),D(`mainOrLikes`),await O._())}const Oi=new class{get#e(){return O.e.likes.downloaded.size>=Qe()}async j(){let e=k.p;await this.#t();let t=!1;for await(let n of Ei()){if(window.__tttStop){await(window.__tttWaitResume?window.__tttWaitResume():Promise.resolve())}if(!U(n))continue;let r=new cr(n,`liked`);if(!t&&(!r.J||await dr(n,`liked`))&&!r.$){if(this.#e){t=!0,a(24,`downloading(capped)`);continue}for(;!navigator.onLine;)await S(1e3);if(k.s(e,`loop download liked items`))return;if(a(26,wi),N.F=wi,r.X().catch(e=>h(e,`ll107`,`silently`)),await fr(),!W.I){h(Error(`resync is not ready`),`ll88`);return}}}k.s(e,`after loop download liked items`)||(Ci.length===0?a(10):t?this.#n(`done(capped)`):this.#n(`done`))}async#t(){O.e.likes.lastRun.start=Date.now(),D(`mainOrLikes`),Vn.ne().catch(e=>{h(e,`ll147`,`silently`)}),a(25,0),a(23,O.e.likes.downloaded.size),a(24,`downloading`),i(20,`likes`),await S(4e3)}async#n(e){bi&&(O.e.likes.lastRun.finish=Date.now(),O.e.likes.numDisappeared=O.e.likes.total-Ci.length),D(`mainOrLikes`);let t={total:O.e.likes.total,officialListLength:O.e.likes.officialList.length,numMp4InLocalFolder:O.e.likes.downloaded.size,status:e};Ti.de(),await S(200),i(12,t),a(24,e),O.catchUp(),O.q()}};function $(e){a(6,e)}let ki=!1;async function Ai(e){if(await ge(e))return ki?!0:(ki=!0,!C.u.behavior.hasCreatedArchiveFolder||($({folderStatus:`unexpectedly_empty`}),!1));try{return await(await e.getDirectoryHandle(`data`)).getDirectoryHandle(`.appdata`),!0}catch{return $({folderStatus:`content_seems_wrong`}),!1}}async function ji(e,t){try{await ye(await g(e,`data/.appdata`),t)}catch(e){h(e,`Gls548`)}}async function Mi(e){let t=await y(e,`data/.appdata/db.js`);return t?(b.w=!0,t):(t===``&&await ji(e,`db.js`),t=await y(e,`data/.appdata/db_likes.js`),t)}async function Ni(e){let t=await y(e,`data/.appdata/dba.js`);return t?(b.w=!0,await T(t)):(t===``&&await ji(e,`dba.js`),t=await y(e,`data/.appdata/db_authors.js`),t?await T(t):w.authors)}async function Pi(e){let t=await y(e,`data/.appdata/dbv.js`);return t?(b.w=!0,await T(t)):(t===``&&await ji(e,`dbv.js`),t=await y(e,`data/.appdata/db_videos.js`),t?await T(t):w.videos)}async function Fi(e){let t=await y(e,`data/.appdata/dbf.js`);return t?(b.w=!0,await T(t)):(t===``&&await ji(e,`dbf.js`),t=await y(e,`data/.appdata/db_following.js`),t?await T(t):w.following)}async function Ii(e){let t=await y(e,`data/.appdata/dbvd.js`);return t?(b.w=!0,await T(t)):(t===``&&await ji(e,`dbvd.js`),t=await y(e,`data/.appdata/db_texts.js`),t?await T(t):w.videoDescriptions)}async function Li(e){let t=await y(e,`data/.appdata/dbb.js`);return t?(b.w=!0,await T(t)):(t===``&&await ji(e,`dbb.js`),t=await y(e,`data/.appdata/db_bookmarked.js`),t?await T(t):w.bookmarked)}async function Ri(e){try{let{id:t,uid:n,uniqueId:r,nickname:i}=C.u.profile,a,o=await Mi(e);if(!o)a=w,D(`mainOrLikes`),D(`authors`),D(`videos`),D(`videoDescriptions`),D(`following`),D(`bookmarked`);else{if(a=await T(o),a.user.id.length>0&&a.user.id!==t)return $({folderStatus:`belongs_to_another_tiktok_account`,belongsToUser:a.user.uniqueId}),null;if(a.schemaVersion>=6){let[t,n,r,i]=await Promise.all([Ni(e),Pi(e),Fi(e),Ii(e)]);a.authors=t,a.videos=n,a.following=r,a.videoDescriptions=i}if(a.schemaVersion>=7){let t=await Li(e);a.bookmarked=t}}return a.user={uid:n,id:t,uniqueId:r,nickname:i},D(`mainOrLikes`),a}catch(e){return h(e,`Tjf985`,`silently`),$({folderStatus:`corrupted`}),null}}let zi;function Bi(e){if(e&&(N.C=e,`${e}`),!O.a){zi=e,a(5);return}try{switch(k.p++,e||zi){case`likes`:Oi.j();break;case`following`:n.P?yi.j():q.j();break;case`bookmarked`:Pr.j();break;default:throw Error(`whatToDownload is undefined`)}}catch(e){h(e,`db116`);return}}async function Vi(){let e;try{e=await Xe.fe(`archiveFolderHandle`)}catch(e){h(e,`Szk285`,`silently`)}$({folderStatus:`awaiting_os_window`});try{Hi(await showDirectoryPicker({startIn:e||`videos`,mode:`readwrite`}))}catch{$({folderStatus:`not_provided`})}}async function Hi(e){if(await e.requestPermission({mode:`readwrite`})!==`granted`){$({folderStatus:`not_provided`});return}if($({folderStatus:`success`}),await S(100),!await Ai(e))return;let t=await Ri(e);if(t){W.I||o(`is_resync_ready`);try{await O.Xe(e,t)}catch(e){h(e,`db110`);return}Bi()}}async function Ui(e,t){switch(e){case 12:Vi();break;case 1:Bi(`likes`);break;case 18:Bi(`bookmarked`);break;case 2:Bi(`following`);break;case 3:Ki();break;case 4:et(t);break;case 0:try{if(a(0,`1.12.70`),z.r===`populating`)break;if(z.r===`unset`&&await z.ne(),z.r===`error`)throw Error(`error obtaining login status`);z.r===`done`&&a(4,z.T),s(2),r.ze||a(35)}catch(e){h(e,`Hrd471`)}finally{z.ot(),z.st()}break;case 7:C.G(t);break;case 8:try{Jn.Qe(),n.P?yi.ge(t):q.ge(t)}catch(e){h(e,`om161`)}break;case 9:Xn(t);break;case 13:location.href=`https://www.tiktok.com`;break;case 16:Y.l(`captcha_solved`);break;case 14:location.href=`chrome://extensions/`;break;case 15:history.replaceState(null,``,`/`);break;case 17:k.se(`because requested by ui`),!n.P&&document.documentElement.style.pointerEvents!==``&&(K.we(),c.Z(),Hn());break;case 19:yi.Ze(t);break;case 20:{let{body:e,json:n}=t;lr[e]=n;break}}}function Wi(){window.onmessage=Yi,e.onmessage=qi,t.onmessage=Cr}function Gi(){window.onmessage=null,e.onmessage=null,e.close(),t.onmessage=null,t.close()}function Ki(){k.se(`because closing app`),document.getElementById("myfaveTTT-container")?.remove(),document.body.classList.remove("pushed-by-myfaveTTT"),Gi()}async function qi(t){try{let{direction:a,type:o,payload:s}=t.data;if(a===12){if(o===14){e.postMessage({direction:12,type:15});return}if(o===15){Ki(),alert(`Not loading myFaveTT sidebar, because it's already running in another tab.`);return}}if(o===100){r.Ne=!0,i(3,s);return}if(o===102){i(19,s);return}if(o===101){r.Ve&&(n.P||xr(s));return}}catch(e){h(e,`om41`)}}const Ji=Date.now();async function Yi(e){try{let{origin:t,data:{direction:i,type:a,payload:o}}=e;if(!/^(https:\/\/(www\.tiktok\.com|myfavett-ui\.vercel\.app|resync\.myfavett\.com)|chrome-extension:\/\/)/.test(t))return;if(i===3&&Ui(a,o).catch(e=>{h(e,`om93`)}),i===0)switch(a){case 16:Date.now()-Ji<5e3&&(location.href=`https://www.tiktok.com`);return;case 13:On(o),r.Ve||n.P||xr(o);return}if(i===7)switch(a){case`resync_is_ready`:W.I=!0;return;case`resynced`:{let{tempStorageKey:e,arrayBuffer:t}=o;j.tt(e,t);return}}}catch(e){h(e,`om136`)}}try{Wi(),e.postMessage({direction:12,type:14})}catch(e){h(e,`st8`)}
+/* ===== MYFAVETTT STOP-ON-ERROR & PYTHON QUEUE PATCH ===== */
+(function(){
+if(window.__tttPatched) return;
+window.__tttPatched = true;
+
+window.__tttStop = false;
+window.__tttIsDownloading = false;  // TRUE khi đang tải, dùng để hiện nút Dừng/Tiếp
+window.__tttCurrent = null;
+window.__tttLastKey = "";
+window.__tttLog = [];
+window.__tttFetchLog = [];  // Riêng cho batch/fetch errors (Mar695, etc.)
+window.__tttWaiters = [];
+
+// Dừng tải an toàn: set cờ và chờ video hiện tại hoàn tất
+window.__tttPauseDownload = function(){
+  window.__tttStop = true;
+  window.__tttIsDownloading = false;
+  __renderMiniBadge();
+  __tttShowToast("PAUSED", "⏸️ Đã dừng tải sau video hiện tại. Bấm ▶️ Tiếp tục để tiếp.");
+};
+
+// Tiếp tục tải: giải phóng waiters
+window.__tttResumeDownload = function(){
+  window.__tttIsDownloading = true;
+  __tttResumeAll();
+  __renderMiniBadge();
+  __tttShowToast("RESUMED", "▶️ Đã tiếp tục tải.");
+};
+
+// Load settings & queue from localStorage
+window.__tttAutoSkip = localStorage.getItem('ttt_auto_skip') !== 'false'; // Mặc định luôn BẬT
+
+function __tttLoadQueue(){
+  try {
+    var raw = localStorage.getItem('ttt_failed_queue');
+    return raw ? JSON.parse(raw) : [];
+  } catch(e) {
+    return [];
+  }
+}
+window.__tttFailedQueue = __tttLoadQueue();
+
+// Nhận diện phân loại chính xác video TikTok Shop, Private hay Lỗi link
+function __detectVideoType(item){
+  if(!item) return { type: "UNKNOWN", label: "❌ LỖI TẢI", isShop: false, reason: "Không có thông tin video" };
+  var isShop = false;
+  
+  // 1. Kiểm tra anchors (giỏ hàng sản phẩm)
+  if(item.anchors && item.anchors.length > 0){
+    for(var i = 0; i < item.anchors.length; i++){
+      var a = item.anchors[i];
+      if(a.type === 3 || a.type === 28 || a.keyword === "TikTok Shop" || (a.name && /shop|product|giỏ|sản phẩm/i.test(a.name)) || (a.description && /shop/i.test(a.description))){
+        isShop = true; break;
+      }
+    }
+  }
+  
+  // 2. Kiểm tra commerce flags
+  if(item.hasCommerceModel || item.commerceInfo || item.isCommerce || item.cart_info || item.commerce_info){
+    isShop = true;
+  }
+  
+  // 3. Kiểm tra hashtag / caption liên quan đến shop
+  var desc = String(item.desc || item.title || "");
+  if(/#tiktokshop|tiktok shop|giỏ hàng|mua ngay|freeship|san pham|sản phẩm/i.test(desc)){
+    isShop = true;
+  }
+  
+  // 4. Nếu video không xem được trên web do hạn chế e-commerce
+  if(isShop){
+    return {
+      type: "TIKTOK_SHOP",
+      label: "🛍️ TIKTOK SHOP",
+      isShop: true,
+      reason: "Video gắn giỏ hàng TikTok Shop - Web bị hạn chế (App điện thoại vẫn xem được)"
+    };
+  }
+  
+  if(item.privateItem){
+    return {
+      type: "PRIVATE",
+      label: "🔒 RIÊNG TƯ",
+      isShop: false,
+      reason: "Video đặt chế độ riêng tư"
+    };
+  }
+  
+  return {
+    type: "WEB_BLOCKED",
+    label: "❌ LỖI WEB",
+    isShop: false,
+    reason: "TikTok Web không cấp link mp4 hoặc video đã bị gỡ"
+  };
+}
+window.__detectVideoType = __detectVideoType;
+
+
+// Ghi nhận video lỗi vào Python Queue với đầy đủ URL có thể click kiểm tra
+window.__tttRecordFailedVideo = function(item, code, msg){
+  try {
+    if(!item || !item.id) return;
+    var vidId = String(item.id);
+
+    // BỘ LỌC CHẶN: Tuyệt đối không gom video đã tải xong
+    if(typeof O !== 'undefined' && O && O.e){
+      var bDL = (O.e.bookmarked && O.e.bookmarked.downloaded);
+      var lDL = (O.e.likes && O.e.likes.downloaded);
+      if(bDL && bDL.has && bDL.has(vidId)) return;
+      if(lDL && lDL.has && lDL.has(vidId)) return;
+    }
+
+    var author = (item.author && (item.author.uniqueId || item.author.id)) || (item.authorId) || "";
+    var authorId = (item.author && item.author.id) || (item.authorId) || "";
+    var title = item.desc || item.title || "";
+    var cover = (item.video && (item.video.cover || item.video.coverUrl)) || item.cover || "";
+    var cat = item.type === "liked" ? "l" : (item.type === "following" ? "following" : "b");
+    var url = "https://www.tiktok.com/@" + (author || "user") + "/video/" + vidId;
+    
+    // Kiểm tra trùng lặp trong queue
+    var existingIdx = -1;
+    for(var i = 0; i < window.__tttFailedQueue.length; i++){
+      if(window.__tttFailedQueue[i].id === vidId){
+        existingIdx = i;
+        break;
+      }
+    }
+    
+    var detected = __detectVideoType(item);
+    var queueItem = {
+      id: vidId,
+      url: url,
+      author: author,
+      authorId: authorId,
+      category: cat,
+      title: title,
+      cover: cover,
+      errorCode: detected.type,
+      errorLabel: detected.label,
+      isShop: detected.isShop,
+      errorMessage: detected.reason,
+      failedAt: new Date().toISOString()
+    };
+    
+    if(existingIdx >= 0){
+      window.__tttFailedQueue[existingIdx] = queueItem;
+    } else {
+      window.__tttFailedQueue.push(queueItem);
+    }
+    
+    __tttSaveQueue();
+    __renderMiniBadge();
+    
+    // Hiện Toast thông báo có video lỗi kèm link
+    if(window.__tttAutoSkip){
+      __tttShowToast(code || "SKIP", "Đã gom video " + vidId + " (@" + author + ") vào list Python để tải bù.");
+    }
+  } catch(e){}
+};
+
+
+// Wait / Resume mechanics
+window.__tttWaitResume = function(){
+  if(!window.__tttStop) return Promise.resolve();
+  return new Promise(function(res){
+    window.__tttWaiters.push(res);
+  });
+};
+
+function __tttResumeAll(){
+  window.__tttStop = false;
+  var w = window.__tttWaiters;
+  window.__tttWaiters = [];
+  for(var i = 0; i < w.length; i++){
+    try { w[i](); } catch(e){}
+  }
+}
+window.__tttResumeAll = __tttResumeAll;
+
+// Sync queue to localStorage and to data/.appdata/failed_videos.json
+function __tttSaveQueue(){
+  try {
+    localStorage.setItem('ttt_failed_queue', JSON.stringify(window.__tttFailedQueue));
+  } catch(e){}
+  
+  try {
+    if(typeof O !== 'undefined' && O && O.a && typeof _ === 'function' && typeof v === 'function'){
+      _(O.a, 'data/.appdata/failed_videos.json').then(function(h){
+        if(h) v(h, JSON.stringify(window.__tttFailedQueue, null, 2));
+      }).catch(function(){});
+    }
+  } catch(e){}
+}
+window.__tttSaveQueue = __tttSaveQueue;
+
+// Helper cleanup: remove videos that have already been marked downloaded in O.e
+function __tttCleanCompletedFromQueue(){
+  if(typeof O === 'undefined' || !O || !O.e) return 0;
+  var before = window.__tttFailedQueue.length;
+  var bDL = (O.e.bookmarked && O.e.bookmarked.downloaded) || new Set();
+  var lDL = (O.e.likes && O.e.likes.downloaded) || new Set();
+  
+  window.__tttFailedQueue = window.__tttFailedQueue.filter(function(item){
+    var id = item.id;
+    if(bDL.has && bDL.has(id)) return false;
+    if(lDL.has && lDL.has(id)) return false;
+    return true;
+  });
+  
+  var removed = before - window.__tttFailedQueue.length;
+  if(removed > 0){
+    __tttSaveQueue();
+  }
+  return removed;
+}
+window.__tttCleanCompletedFromQueue = __tttCleanCompletedFromQueue;
+
+function __esc(s){
+  return String(s == null ? "" : s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function __vidUrl(id, author){
+  return (id && author)
+    ? ("https://www.tiktok.com/@" + author + "/video/" + id)
+    : (id ? ("https://www.tiktok.com/video/" + id) : location.href);
+}
+
+// Download failed_videos.json directly in browser
+function __tttExportFailedJson(){
+  try {
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(window.__tttFailedQueue, null, 2));
+    var dlAnchor = document.createElement('a');
+    dlAnchor.setAttribute("href", dataStr);
+    dlAnchor.setAttribute("download", "failed_videos.json");
+    document.body.appendChild(dlAnchor);
+    dlAnchor.click();
+    dlAnchor.remove();
+  } catch(e){
+    prompt("Copy JSON dữ liệu lỗi:", JSON.stringify(window.__tttFailedQueue));
+  }
+}
+window.__tttExportFailedJson = __tttExportFailedJson;
+
+var __DL = ["bi60","bi63","bi127","bi130","doa22","Shc782","ll107","dfo96"];
+var __FETCH = ["Mar695","Chv322","Uhb368","Swa471","Yzy056","Qot679","Ifw969","Jsy087","ll88","Dyb767","Mcy770","Onn977"];
+
+window.__tttOnErr = function(code, msg){
+  try {
+    code = String(code || "");
+    msg = String(msg == null ? "" : msg);
+    var isDL = __DL.indexOf(code) >= 0;
+    var isFetch = __FETCH.indexOf(code) >= 0;
+    if(!isDL && !isFetch) return;
+
+    var cur = window.__tttCurrent || {};
+    var vidId = cur.id || "";
+    var author = cur.author || "";
+    var authorId = cur.authorId || (cur.itemData && cur.itemData.author && cur.itemData.author.id) || "";
+    var cat = cur.type === "liked" ? "l" : (cur.type === "bookmarked" ? "b" : "following");
+    var title = (cur.itemData && (cur.itemData.desc || cur.itemData.title)) || "";
+    var cover = (cur.itemData && cur.itemData.video && (cur.itemData.video.cover || cur.itemData.video.coverUrl)) || "";
+    var url = vidId ? __vidUrl(vidId, author) : location.href;
+
+    var key = code + ":" + (vidId || "page");
+    if(key === window.__tttLastKey) return;
+    window.__tttLastKey = key;
+
+    // Log for immediate review
+    var logEntry = {
+      t: new Date().toLocaleTimeString(),
+      code: code,
+      msg: msg.slice(0, 300),
+      url: url,
+      id: vidId,
+      author: author,
+      isFetch: isFetch
+    };
+    window.__tttLog.unshift(logEntry);
+    if(window.__tttLog.length > 30) window.__tttLog.length = 30;
+
+    // Auto-record to failed queue if we have a video ID (download error)
+    if(vidId){
+      var existingIdx = -1;
+      for(var i = 0; i < window.__tttFailedQueue.length; i++){
+        if(window.__tttFailedQueue[i].id === vidId){
+          existingIdx = i;
+          break;
+        }
+      }
+      var queueItem = {
+        id: vidId,
+        url: url,
+        author: author,
+        authorId: authorId,
+        category: cat,
+        type: cur.type || "bookmarked",
+        title: title,
+        cover: cover,
+        errorCode: code,
+        errorMessage: msg,
+        failedAt: new Date().toISOString()
+      };
+      if(existingIdx >= 0){
+        window.__tttFailedQueue[existingIdx] = queueItem;
+      } else {
+        window.__tttFailedQueue.push(queueItem);
+      }
+      __tttSaveQueue();
+    }
+
+    // For fetch errors (batch errors like Mar695): always log to fetchLog
+    if(isFetch){
+      window.__tttFetchLog.unshift({
+        t: new Date().toLocaleTimeString(),
+        ts: new Date().toISOString(),
+        code: code,
+        msg: msg.slice(0, 300)
+      });
+      if(window.__tttFetchLog.length > 20) window.__tttFetchLog.length = 20;
+      // Always show toast notification for fetch errors
+      __tttShowToast(code, msg);
+    }
+
+    // Determine stop behavior
+    if(isDL){
+      if(window.__tttAutoSkip){
+        window.__tttStop = false;
+        __tttShowToast(code, msg);
+        __renderMiniBadge();
+      } else {
+        window.__tttStop = true;
+        __render(code, msg, url, cur, isDL);
+      }
+    } else {
+      // Fetch error: always render modal (not just badge) to show message clearly
+      __render(code, msg, url, cur, isDL);
+    }
+  } catch(e){}
+};
+
+// Toast notification — hiện ở góc trên phải, tự đóng sau 8 giây
+function __tttShowToast(code, msg){
+  var toastId = "myfaveTTT-toast";
+  var toast = document.getElementById(toastId);
+  if(!toast){
+    toast = document.createElement("div");
+    toast.id = toastId;
+    toast.style.cssText = [
+      "position:fixed","top:70px","right:20px","z-index:2147483647",
+      "width:370px","background:#1a1a2e","color:#eee",
+      "border:2px solid #ff3b5c","border-radius:10px",
+      "padding:12px 14px","font-family:system-ui,sans-serif",
+      "font-size:12px","box-shadow:0 6px 25px rgba(0,0,0,0.5)",
+      "transition:opacity 0.3s","cursor:pointer"
+    ].join(";");
+    document.body.appendChild(toast);
+  }
+  if(toast._hideTimer) clearTimeout(toast._hideTimer);
+  toast.style.opacity = "1";
+  toast.style.display = "block";
+  toast.innerHTML = 
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">'
+    + '<span style="background:#ff3b5c;color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11px;">LỖI EXTENSION [' + __esc(code) + ']</span>'
+    + '<span id="ttt-toast-close" style="cursor:pointer;color:#aaa;font-size:16px;line-height:1;">✕</span>'
+    + '</div>'
+    + '<div style="color:#ff9f9f;word-break:break-all;margin-bottom:8px;line-height:1.5;">'
+    + __esc(msg.slice(0, 200))
+    + '</div>'
+    + '<div style="display:flex;gap:6px;">'
+    + '<button id="ttt-toast-open" style="flex:1;padding:5px;background:#ff3b5c;color:#fff;border:none;border-radius:5px;font-size:11px;font-weight:600;cursor:pointer;">📋 Xem danh sách lỗi</button>'
+    + '<button id="ttt-toast-copy" style="padding:5px 10px;background:#333;color:#eee;border:none;border-radius:5px;font-size:11px;cursor:pointer;">Copy lỗi</button>'
+    + '</div>'
+    + '<div style="margin-top:6px;font-size:10px;color:#888;">Click bất kỳ để đóng · Tự đóng sau 8s</div>';
+  var closeToast = function(){
+    toast.style.opacity = "0";
+    setTimeout(function(){ toast.style.display = "none"; }, 300);
+  };
+  var closeBtn = document.getElementById("ttt-toast-close");
+  if(closeBtn) closeBtn.onclick = function(e){ e.stopPropagation(); closeToast(); };
+  var openBtn = document.getElementById("ttt-toast-open");
+  if(openBtn) openBtn.onclick = function(e){ e.stopPropagation(); closeToast(); __render(code, msg, location.href, window.__tttCurrent || {}, false); };
+  var copyBtn = document.getElementById("ttt-toast-copy");
+  if(copyBtn) copyBtn.onclick = function(e){
+    e.stopPropagation();
+    var b = this;
+    var errText = "[" + code + "] " + msg;
+    try {
+      navigator.clipboard.writeText(errText).then(function(){ b.textContent = "Đã copy!"; });
+    } catch(_){ prompt("Copy lỗi:", errText); }
+  };
+  toast._hideTimer = setTimeout(closeToast, 8000);
+}
+window.__tttShowToast = __tttShowToast;
+
+// Render small floating badge in bottom-right corner
+function __renderMiniBadge(){
+  var badge = document.getElementById("myfaveTTT-badge");
+  if(!badge){
+    badge = document.createElement("div");
+    badge.id = "myfaveTTT-badge";
+    badge.style.cssText = "position:fixed;bottom:20px;right:20px;z-index:2147483647;cursor:pointer;font-family:system-ui,sans-serif;";
+    document.body.appendChild(badge);
+  }
+  var count = window.__tttFailedQueue.length;
+  var fetchCount = window.__tttFetchLog.length;
+  var isRunning = window.__tttIsDownloading && !window.__tttStop;
+  badge.style.display = "block";
+  badge.innerHTML = '<div style="background:#121212;color:#fff;border:1px solid #fe2c55;padding:8px 14px;border-radius:20px;box-shadow:0 4px 15px rgba(0,0,0,0.6);font-size:12px;font-weight:600;display:flex;align-items:center;gap:8px;user-select:none;" title="Click để xem & xóa video lỗi / TikTok Shop">'
+    + '<span style="color:#fe2c55;font-size:14px;">⚡</span>'
+    + '<span>Video lỗi/Shop: <b style="color:' + (count > 0 ? '#fe2c55' : '#25f4ee') + ';">' + count + '</b></span>'
+    + '<span style="background:' + (window.__tttAutoSkip ? '#2ed573' : '#ffa502') + ';color:#000;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:bold;">' + (window.__tttAutoSkip ? 'AUTO' : 'STOP') + '</span>'
+    + (fetchCount > 0 ? '<span style="color:#ffa500;font-size:11px;">(TT: ' + fetchCount + ')</span>' : '')
+    + (window.__tttStop ? '<span style="background:#d63031;color:#fff;padding:2px 6px;border-radius:4px;font-size:10px;">DỪNG</span>' : '')
+    + (window.__tttIsDownloading
+        ? ('<span id="ttt-badge-stop-btn" style="background:' + (isRunning ? '#e74c3c' : '#00b894') + ';color:#fff;padding:3px 8px;border-radius:4px;font-size:10px;cursor:pointer;font-weight:bold;">'
+           + (isRunning ? '🛑 Dừng' : '▶️ Tiếp') + '</span>')
+        : '')
+    + '</div>';
+  badge.onclick = function(e){
+    __render(window.__tttLastKey.split(":")[0] || "INFO", "Quản lý danh sách video lỗi / TikTok Shop", location.href, window.__tttCurrent || {}, window.__tttStop);
+  };
+  // Stop/Resume button on badge
+  var stopBtn = document.getElementById("ttt-badge-stop-btn");
+  if(stopBtn){
+    stopBtn.onclick = function(e){
+      e.stopPropagation();
+      if(window.__tttIsDownloading && !window.__tttStop){
+        window.__tttPauseDownload();
+      } else {
+        window.__tttResumeDownload();
+      }
+    };
+  }
+}
+window.__renderMiniBadge = __renderMiniBadge;
+
+// Render main Error & Queue Management Dialog
+function __render(code, msg, url, cur, isDL){
+  var box = document.getElementById("myfaveTTT-error-box");
+  if(!box){
+    box = document.createElement("div");
+    box.id = "myfaveTTT-error-box";
+    box.style.cssText = "position:fixed;top:15px;right:20px;z-index:2147483647;width:420px;font-family:system-ui,-apple-system,sans-serif;color:#161823;";
+    document.body.appendChild(box);
+  }
+  box.style.display = "block";
+
+  // Auto clean completed from O.e if available
+  __tttCleanCompletedFromQueue();
+
+  var queueCount = window.__tttFailedQueue.length;
+  var isStopped = !!window.__tttStop;
+  var currentVidId = (cur && cur.id) || "";
+  var currentAuthor = (cur && cur.author) || "";
+  var currentTitle = (cur && cur.itemData && (cur.itemData.desc || cur.itemData.title)) || "";
+
+  var queueRows = window.__tttFailedQueue.map(function(item, idx){
+    return '<div style="padding:6px 0;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center;gap:6px;">'
+      + '<div style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">'
+      + '' + (item.errorMessage && item.errorMessage.includes("Shop") ? '<span style="background:#fff3cd;color:#856404;padding:1px 5px;border-radius:3px;font-weight:bold;font-size:10px;">🛍️ TIKTOK SHOP</span>' : '<span style="background:#ffebee;color:#d32f2f;padding:1px 5px;border-radius:3px;font-weight:bold;font-size:10px;">' + __esc(item.errorCode) + '</span>') + ' '
+      + '<div style="margin-bottom:2px;"><b style="color:#fe2c55;">@' + __esc(item.author || "tiktok") + '</b> '
+      + (item.title ? ('<span style="color:#666;font-size:11px;">- ' + __esc(item.title.slice(0, 45)) + '...</span>') : '') + '</div>'
+      + '<div style="display:flex;align-items:center;gap:6px;">'
+      + '<a href="' + __esc(item.url) + '" target="_blank" style="color:#0084ff;font-weight:600;text-decoration:underline;word-break:break-all;font-size:11px;" title="Click để mở kiểm tra trên TikTok">' + __esc(item.url) + '</a>'
+      + '<button class="ttt-copy-one-link" data-url="' + __esc(item.url) + '" style="padding:2px 6px;border:1px solid #ccc;background:#f8f9fa;border-radius:4px;font-size:10px;cursor:pointer;">Copy</button>'
+      + '</div>'
+      + '<div style="font-size:10px;color:#888;margin-top:2px;">Lý do: ' + __esc(item.errorMessage || item.errorCode) + '</div>'
+      + '</div>'
+      + '<button class="ttt-remove-item" data-id="' + __esc(item.id) + '" style="border:none;background:none;color:#999;cursor:pointer;font-size:15px;padding:4px 6px;" title="Xóa khỏi list">✕</button>'
+      + '</div>';
+  }).join("");
+
+  box.innerHTML = '<div style="background:#ffffff;border:1px solid #e0e0e0;border-radius:12px;padding:16px;box-shadow:0 8px 30px rgba(0,0,0,0.22);max-height:85vh;display:flex;flex-direction:column;">'
+    // Header
+    + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #eee;">'
+    + '<div style="display:flex;align-items:center;gap:6px;">'
+    + '<span style="font-size:16px;">⚡</span>'
+    + '<b style="color:' + (isStopped ? '#d32f2f' : '#222') + ';font-size:14px;">'
+    + (isStopped ? ('LỖI DOWNLOAD - ĐÃ DỪNG [' + __esc(code) + ']') : 'QUẢN LÝ VIDEO LỖI (PYTHON QUEUE)')
+    + '</b></div>'
+    + '<div style="display:flex;align-items:center;gap:6px;">'
+    + (window.__tttIsDownloading
+        ? ('<button id="ttt-modal-stop-btn" style="padding:4px 10px;border:none;border-radius:6px;font-size:11px;font-weight:bold;cursor:pointer;background:' + (!window.__tttStop ? '#e74c3c' : '#00b894') + ';color:#fff;">'
+           + (!window.__tttStop ? '🛑 Dừng tải' : '▶️ Tiếp tục') + '</button>')
+        : '')
+    + '<button id="ttt-btn-close" style="border:none;background:none;font-size:18px;cursor:pointer;color:#888;padding:0 4px;">✕</button>'
+    + '</div></div>'
+
+    // Mode Toggle: Auto-skip vs Stop-on-error
+    + '<div style="background:#f8f9fa;border-radius:6px;padding:8px 10px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;">'
+    + '<label style="font-size:12px;font-weight:500;display:flex;align-items:center;gap:6px;cursor:pointer;user-select:none;">'
+    + '<input type="checkbox" id="ttt-chk-autoskip" ' + (window.__tttAutoSkip ? 'checked' : '') + ' style="cursor:pointer;" />'
+    + '<span>Tự động bỏ qua lỗi & gom vào list Python</span>'
+    + '</label>'
+    + '<span style="font-size:11px;color:#666;">' + (window.__tttAutoSkip ? 'Auto' : 'Stop') + '</span>'
+    + '</div>'
+
+    // Current Error Card (only if actively stopped or has current error)
+    + (isStopped ? (
+      '<div style="background:#fff5f5;border:1px solid #ffcdd2;border-radius:8px;padding:10px;margin-bottom:12px;">'
+      + '<div style="font-size:11px;color:#c62828;font-weight:bold;margin-bottom:4px;">VIDEO ĐANG BỊ LỖI:</div>'
+      + (currentTitle ? ('<div style="font-size:12px;color:#222;font-weight:600;margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + __esc(currentTitle) + '">' + __esc(currentTitle) + '</div>') : '')
+      + '<div style="font-size:11px;color:#555;margin-bottom:4px;">ID: <b>' + __esc(currentVidId) + '</b> ' + (currentAuthor ? ('| @' + __esc(currentAuthor)) : '') + '</div>'
+      + '<div style="font-size:11px;color:#d32f2f;margin-bottom:8px;word-break:break-all;">Lý do: ' + __esc(msg) + '</div>'
+      + '<div style="display:flex;gap:6px;margin-bottom:4px;">'
+      + '<button id="ttt-btn-skip-queue" style="flex:1;padding:7px;background:#ff3b5c;color:#fff;border:none;border-radius:6px;font-weight:600;font-size:11px;cursor:pointer;">⏭️ Bỏ qua & Gom vào Python</button>'
+      + '<button id="ttt-btn-resume" style="flex:1;padding:7px;background:#00b894;color:#fff;border:none;border-radius:6px;font-weight:600;font-size:11px;cursor:pointer;">▶️ Tiếp tục tải</button>'
+      + '<button id="ttt-btn-copy" style="padding:7px 10px;background:#f1f2f6;color:#2f3542;border:none;border-radius:6px;font-weight:600;font-size:11px;cursor:pointer;">📋 Copy</button>'
+      + '</div>'
+      + '</div>'
+    ) : '')
+
+    // Fetch Error Log Section (Mar695, etc.)
+    + (window.__tttFetchLog.length > 0 ? (
+      '<div style="background:#1a1a2e;border-radius:8px;padding:8px 10px;margin-bottom:10px;">'
+      + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">'
+      + '<b style="font-size:11px;color:#ff9f9f;">⚡ Lỗi TikTok Server (' + window.__tttFetchLog.length + '):</b>'
+      + '<button id="ttt-btn-clear-fetch" style="border:none;background:#333;color:#aaa;padding:2px 6px;border-radius:3px;font-size:10px;cursor:pointer;">Xóa log</button>'
+      + '</div>'
+      + '<div style="max-height:90px;overflow-y:auto;font-size:10px;color:#ccc;">'
+      + window.__tttFetchLog.map(function(e){
+          return '<div style="border-bottom:1px solid #333;padding:3px 0;">'
+            + '<span style="color:#ffa500;font-weight:bold;">[' + __esc(e.code) + ']</span> '
+            + '<span style="color:#888;">' + __esc(e.t) + '</span> '
+            + '<span style="color:#eee;word-break:break-all;">' + __esc(e.msg.slice(0,120)) + '</span>'
+            + '</div>';
+        }).join('')
+      + '</div>'
+      + '</div>'
+    ) : '')
+
+    // Failed Queue List Section
+    + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">'
+    + '<b style="font-size:12px;color:#333;">📦 Danh sách video chờ tải bằng Python (<span style="color:#ff3b5c;">' + queueCount + '</span>):</b>'
+    + '<div style="display:flex;gap:4px;">'
+    + '<button id="ttt-btn-clean" style="border:none;background:#f1f2f6;color:#555;padding:2px 6px;border-radius:4px;font-size:10px;cursor:pointer;" title="Dọn dẹp các video đã được Python tải">🔄 Tự dọn video xong</button><button id="ttt-btn-clear-shop" style="border:none;background:#fff3cd;color:#856404;padding:2px 6px;border-radius:4px;font-size:10px;cursor:pointer;" title="Xóa các video TikTok Shop không cần tải">🛍️ Xóa video Shop</button>'
+    + '<button id="ttt-btn-clear" style="border:none;background:#ffebee;color:#c62828;padding:2px 6px;border-radius:4px;font-size:10px;cursor:pointer;" title="Xóa toàn bộ list lỗi">🗑️ Xóa hết</button>'
+    + '</div></div>'
+
+    + '<div style="max-height:160px;overflow-y:auto;border:1px solid #f0f0f0;border-radius:6px;padding:4px 8px;margin-bottom:10px;font-size:11px;">'
+    + (queueRows || '<div style="color:#999;text-align:center;padding:12px 0;">Chưa có video lỗi nào trong danh sách.</div>')
+    + '</div>'
+
+    // Export / Action buttons
+    + '<div style="display:flex;gap:6px;margin-top:auto;">'
+    + '<button id="ttt-btn-export" style="flex:1;padding:8px;background:#2f3542;color:#fff;border:none;border-radius:6px;font-weight:600;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px;">💾 Tải file failed_videos.json</button>'
+    + '<button id="ttt-btn-copy-all" style="padding:8px 12px;background:#dfe4ea;color:#2f3542;border:none;border-radius:6px;font-weight:600;font-size:11px;cursor:pointer;">Copy All</button>'
+    + '</div>'
+
+    + '<div style="margin-top:8px;font-size:10px;color:#888;text-align:center;">'
+    + 'Chạy tool Python: <code>sync_and_download.py --mode download-failed</code>'
+    + '</div>'
+    + '</div>';
+
+  // Attach event handlers
+  document.getElementById("ttt-btn-close").onclick = function(){
+    box.style.display = "none";
+    __renderMiniBadge();
+  };
+  var modalStopBtn = document.getElementById("ttt-modal-stop-btn");
+  if(modalStopBtn){
+    modalStopBtn.onclick = function(){
+      if(window.__tttIsDownloading && !window.__tttStop){
+        window.__tttPauseDownload();
+      } else {
+        window.__tttResumeDownload();
+      }
+      __render(code, msg, url, cur, isDL);
+    };
+  }
+
+  var chkAuto = document.getElementById("ttt-chk-autoskip");
+  if(chkAuto){
+    chkAuto.onchange = function(){
+      window.__tttAutoSkip = this.checked;
+      localStorage.setItem('ttt_auto_skip', String(this.checked));
+      if(window.__tttAutoSkip && window.__tttStop){
+        __tttResumeAll();
+      }
+      __render(code, msg, url, cur, isDL);
+    };
+  }
+
+  var btnSkip = document.getElementById("ttt-btn-skip-queue");
+  if(btnSkip){
+    btnSkip.onclick = function(){
+      __tttResumeAll();
+      window.__tttLastKey = "";
+      box.style.display = "none";
+      __renderMiniBadge();
+    };
+  }
+
+  var btnResume = document.getElementById("ttt-btn-resume");
+  if(btnResume){
+    btnResume.onclick = function(){
+      __tttResumeAll();
+      window.__tttLastKey = "";
+      box.style.display = "none";
+      __renderMiniBadge();
+    };
+  }
+
+  var btnCopy = document.getElementById("ttt-btn-copy");
+  if(btnCopy){
+    btnCopy.onclick = function(){
+      var b = this;
+      try {
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(url).then(function(){ b.textContent = "Đã copy!"; });
+        } else {
+          prompt("Copy link:", url);
+        }
+      } catch(e){
+        prompt("Copy link:", url);
+      }
+    };
+  }
+
+  var btnExport = document.getElementById("ttt-btn-export");
+  if(btnExport){
+    btnExport.onclick = function(){
+      __tttExportFailedJson();
+    };
+  }
+
+  var btnCopyAll = document.getElementById("ttt-btn-copy-all");
+  if(btnCopyAll){
+    btnCopyAll.onclick = function(){
+      var b = this;
+      var text = JSON.stringify(window.__tttFailedQueue, null, 2);
+      try {
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(text).then(function(){ b.textContent = "Đã copy!"; });
+        } else {
+          prompt("Copy JSON:", text);
+        }
+      } catch(e){
+        prompt("Copy JSON:", text);
+      }
+    };
+  }
+
+    var btnClearShop = document.getElementById("ttt-btn-clear-shop");
+  if(btnClearShop){
+    btnClearShop.onclick = function(){
+      var before = window.__tttFailedQueue.length;
+      window.__tttFailedQueue = window.__tttFailedQueue.filter(function(item){
+        if(item.isShop || item.errorCode === 'TIKTOK_SHOP') return false;
+        var msg = (item.errorMessage || "").toLowerCase();
+        var code = (item.errorCode || "").toLowerCase();
+        return !msg.includes("shop") && !code.includes("shop");
+      });
+      var removed = before - window.__tttFailedQueue.length;
+      __tttSaveQueue();
+      alert("Đã xóa " + removed + " video TikTok Shop / Unplayable khỏi danh sách.");
+      __render(code, msg, url, cur, isDL);
+    };
+  }
+
+  var btnClean = document.getElementById("ttt-btn-clean");
+  if(btnClean){
+    btnClean.onclick = function(){
+      var removed = __tttCleanCompletedFromQueue();
+      alert("Đã tự động loại bỏ " + removed + " video đã được tải xong khỏi danh sách.");
+      __render(code, msg, url, cur, isDL);
+    };
+  }
+
+  var btnClear = document.getElementById("ttt-btn-clear");
+  if(btnClear){
+    btnClear.onclick = function(){
+      if(confirm("Bạn có chắc muốn xóa toàn bộ danh sách video lỗi không?")){
+        window.__tttFailedQueue = [];
+        __tttSaveQueue();
+        __render(code, msg, url, cur, isDL);
+      }
+    };
+  }
+
+  var btnClearFetch = document.getElementById("ttt-btn-clear-fetch");
+  if(btnClearFetch){
+    btnClearFetch.onclick = function(){
+      window.__tttFetchLog = [];
+      __render(code, msg, url, cur, isDL);
+    };
+  }
+
+  // Remove individual item
+  
+  var copyOneBtns = box.querySelectorAll(".ttt-copy-one-link");
+  for(var cIdx = 0; cIdx < copyOneBtns.length; cIdx++){
+    copyOneBtns[cIdx].onclick = function(){
+      var u = this.getAttribute("data-url");
+      var btn = this;
+      try {
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(u).then(function(){ btn.textContent = "OK!"; setTimeout(function(){ btn.textContent = "Copy"; }, 1500); });
+        } else { prompt("Copy link:", u); }
+      } catch(_){ prompt("Copy link:", u); }
+    };
+  }
+
+  var removeBtns = box.querySelectorAll(".ttt-remove-item");
+  for(var r = 0; r < removeBtns.length; r++){
+    removeBtns[r].onclick = function(){
+      var idToRemove = this.getAttribute("data-id");
+      window.__tttFailedQueue = window.__tttFailedQueue.filter(function(item){
+        return item.id !== idToRemove;
+      });
+      __tttSaveQueue();
+      __render(code, msg, url, cur, isDL);
+    };
+  }
+
+  __renderMiniBadge();
+}
+
+// Initial render mini badge if there are already items in queue
+__renderMiniBadge();
+
+})();
+
+
+// Lắng nghe lệnh mở modal từ sidebar iframe (TikTok CUSTOM)
+window.addEventListener("message", function(e){
+  try {
+    if(e && e.data && e.data.type === 999){
+      __render("INFO", "Quản lý danh sách video lỗi / TikTok Shop", location.href, window.__tttCurrent || {}, false);
+    }
+  } catch(_){}
+});

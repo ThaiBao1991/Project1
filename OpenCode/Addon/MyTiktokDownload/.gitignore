@@ -1,0 +1,39 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Configs & Credentials (Tuyệt đối không đẩy token/key lên GitHub)
+.config.json
+.deploy_config.json
+settings.json
+*.env
+*.env.*
+credentials.json
+token.json
+secret_vault.dat
+
+# Media & Downloads (File cá nhân & dung lượng lớn)
+downloads/
+extracted/
+custom_extension/unpacked/
+custom_extension/*.zip
+*.zip
+*.mp4
+*.jpg
+*.jpeg
+*.png
+*.webp
+*.sqlite3
+*.db
+
+# Webapp personal data & nested git
+webapp/data.json
+webapp/.git/
+
+# IDE / OS files
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
+.DS_Store

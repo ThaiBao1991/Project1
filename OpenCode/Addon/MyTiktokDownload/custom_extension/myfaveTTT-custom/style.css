@@ -1,0 +1,35 @@
+:root {
+	--myfaveTTT-width: 390px;
+}
+
+
+
+body.pushed-by-myfaveTTT {
+	border-left: var(--myfaveTTT-width) solid transparent;
+}
+body.pushed-by-myfaveTTT #app-header {
+	width: calc(100% - var(--myfaveTTT-width));
+}
+
+
+body {
+	overflow-x: hidden;
+}
+
+
+iframe#myfaveTTT {
+	place-self: stretch;
+	border: none;
+}
+
+
+aside#myfaveTTT-container {
+	display: grid;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: var(--myfaveTTT-width);
+	height: 100vh;
+	z-index: 1001;
+}
+

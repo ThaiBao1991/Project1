@@ -300,6 +300,11 @@ class GlossaryDialog(QDialog):
 
         # Bottom buttons
         bottom_row = QHBoxLayout()
+        btn_reconcile = QPushButton("🔄 Đồng Bộ Nhất Quán Tên Truyện")
+        btn_reconcile.setToolTip("Quét toàn bộ các file chương và đồng bộ triệt để các biến thể tên lệch theo đúng từ điển chuẩn")
+        btn_reconcile.setStyleSheet("background-color: #1565c0; color: white; font-weight: bold; padding: 6px 14px;")
+        btn_reconcile.clicked.connect(self._on_reconcile)
+
         btn_save = QPushButton("💾 Lưu Thay Đổi")
         btn_save.setStyleSheet("background-color: #2e7d32; color: white; font-weight: bold; padding: 6px 16px;")
         btn_save.clicked.connect(self._on_save)
@@ -307,6 +312,7 @@ class GlossaryDialog(QDialog):
         btn_close = QPushButton("Đóng")
         btn_close.clicked.connect(self.reject)
 
+        bottom_row.addWidget(btn_reconcile)
         bottom_row.addStretch()
         bottom_row.addWidget(btn_save)
         bottom_row.addWidget(btn_close)
@@ -323,7 +329,8 @@ class GlossaryDialog(QDialog):
         if row >= 0:
             table.removeRow(row)
 
-    def _on_save(self):
+    def _save_table_to_glossary(self):
+        from core.ai_translator import GlossaryManager
         for cat_key, table in self.tables.items():
             new_dict = {}
             for r in range(table.rowCount()):
@@ -331,12 +338,42 @@ class GlossaryDialog(QDialog):
                 vi_item = table.item(r, 1)
                 zh = zh_item.text().strip() if zh_item else ""
                 vi = vi_item.text().strip() if vi_item else ""
-                if zh and vi:
+                cleaned = GlossaryManager.clean_term(zh, vi)
+                if cleaned:
+                    czh, cvi = cleaned
+                    new_dict[czh] = cvi
+                elif zh and vi:
                     new_dict[zh] = vi
             self.glossary.data[cat_key] = new_dict
         self.glossary.save()
+
+    def _on_save(self):
+        self._save_table_to_glossary()
         QMessageBox.information(self, "Thành công", "Đã lưu từ điển thuật ngữ thành công!")
         self.accept()
+
+    def _on_reconcile(self):
+        self._save_table_to_glossary()
+        dich_dir = os.path.dirname(self.glossary.glossary_file)
+        ret = QMessageBox.question(
+            self,
+            "Xác nhận đồng bộ nhất quán",
+            f"Hệ thống sẽ quét toàn bộ các file chương đã dịch trong:\n{dich_dir}\n"
+            "và tự động thay thế tất cả các biến thể tên bị lệch theo đúng danh sách chuẩn của từ điển.\n\n"
+            "Tiến hành ngay?",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+            QMessageBox.StandardButton.Yes
+        )
+        if ret == QMessageBox.StandardButton.Yes:
+            from core.ai_translator import reconcile_chapter_files
+            res = reconcile_chapter_files(dich_dir, self.glossary)
+            QMessageBox.information(
+                self,
+                "Hoàn thành đồng bộ",
+                f"✅ Đã đồng bộ nhất quán thành công!\n"
+                f"- Số file chương đã cập nhật: {res['modified_files']}\n"
+                f"- Tổng số vị trí danh xưng đã chuẩn hóa: {res['total_replacements']}"
+            )
 
 
 class TranslateDialog(QDialog):

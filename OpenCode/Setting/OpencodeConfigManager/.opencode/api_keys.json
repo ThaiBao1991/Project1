@@ -1,0 +1,18 @@
+{
+  "openrouter": [
+    {
+      "key": "ENC:N2ExNGI3ZDIxMGQ1YmQ2NDQ0MmZlNjViYjZiODI3YTY0MmJhMTVkNzY0MmU0NTYzZjA4ODY2ZWI2MmE3NzlmZC0xdi1yby1rcw==",
+      "email": "svendn03",
+      "project_id": "1",
+      "status": "active",
+      "cooldown_until": 0,
+      "reset_time": 0,
+      "next_check_time": 0,
+      "last_check_time": 0,
+      "today_calls": 0,
+      "today_account_calls": 0,
+      "call_date": "",
+      "error_msg": ""
+    }
+  ]
+}
