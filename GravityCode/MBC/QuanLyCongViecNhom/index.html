@@ -89,6 +89,12 @@
           <span>Xóa Nhanh CV</span>
         </button>
 
+        <!-- Quản lý Dự Án -->
+        <button id="btnManageProjects" onclick="openProjectManageModal()" class="inline-flex items-center gap-2 px-3 py-2 text-xs font-semibold rounded-lg bg-sky-700 text-white hover:bg-sky-800 transition shadow-sm" title="Quản lý danh sách dự án, thêm mới, sửa tên hoặc xóa dự án">
+          <i class="fa-solid fa-diagram-project"></i>
+          <span>Quản Lý Dự Án</span>
+        </button>
+
         <!-- Quản lý Nhân sự (Admin) -->
         <button id="btnManageEmp" onclick="openEmployeeModal()" class="inline-flex items-center gap-2 px-3 py-2 text-xs font-semibold rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition shadow-sm">
           <i class="fa-solid fa-users-gear"></i>
@@ -175,7 +181,7 @@
   <!-- ================= KPI STATS CARDS ================= -->
   <section class="max-w-[1920px] mx-auto px-4 pt-4 pb-2 w-full no-print">
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-      <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+      <div id="cardKpiTotal" onclick="filterByKpiStatus('ALL')" class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3 cursor-pointer hover:border-sky-400 hover:shadow-md hover:scale-[1.02] transition select-none" title="Nhấn để lọc: Tất cả công việc (Bao gồm đã hoàn thành)">
         <div class="w-10 h-10 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center text-lg">
           <i class="fa-solid fa-list-check"></i>
         </div>
@@ -185,7 +191,7 @@
         </div>
       </div>
 
-      <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+      <div id="cardKpiInProgress" onclick="filterByKpiStatus('DANG_LAM')" class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3 cursor-pointer hover:border-amber-400 hover:shadow-md hover:scale-[1.02] transition select-none" title="Nhấn để lọc: Đang làm / Đang thực hiện">
         <div class="w-10 h-10 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center text-lg">
           <i class="fa-solid fa-spinner fa-spin-pulse"></i>
         </div>
@@ -195,7 +201,7 @@
         </div>
       </div>
 
-      <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+      <div id="cardKpiOnTime" onclick="filterByKpiStatus('Hoàn thành')" class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3 cursor-pointer hover:border-emerald-400 hover:shadow-md hover:scale-[1.02] transition select-none" title="Nhấn để lọc: Hoàn thành đúng hạn (+3đ)">
         <div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg">
           <i class="fa-solid fa-circle-check"></i>
         </div>
@@ -205,7 +211,7 @@
         </div>
       </div>
 
-      <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+      <div id="cardKpiLate" onclick="filterByKpiStatus('Hoàn thành trễ')" class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3 cursor-pointer hover:border-orange-400 hover:shadow-md hover:scale-[1.02] transition select-none" title="Nhấn để lọc: Hoàn thành trễ">
         <div class="w-10 h-10 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center text-lg">
           <i class="fa-solid fa-clock-rotate-left"></i>
         </div>
@@ -215,7 +221,7 @@
         </div>
       </div>
 
-      <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+      <div id="cardKpiOverdue" onclick="filterByKpiStatus('QUA_HAN')" class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3 cursor-pointer hover:border-rose-400 hover:shadow-md hover:scale-[1.02] transition select-none" title="Nhấn để lọc: Tồn đọng quá hạn chưa xong">
         <div class="w-10 h-10 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center text-lg">
           <i class="fa-solid fa-triangle-exclamation"></i>
         </div>
@@ -225,7 +231,7 @@
         </div>
       </div>
 
-      <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3 cursor-pointer hover:border-amber-400 transition" onclick="openPerformanceBoardModal()" title="Nhấn để xem bảng điểm chi tiết">
+      <div id="cardKpiScore" class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3 cursor-pointer hover:border-amber-400 hover:shadow-md hover:scale-[1.02] transition select-none" onclick="openPerformanceBoardModal()" title="Nhấn để xem bảng điểm chi tiết">
         <div class="w-10 h-10 rounded-lg bg-amber-50 text-amber-500 flex items-center justify-center text-lg">
           <i class="fa-solid fa-star"></i>
         </div>
@@ -254,16 +260,26 @@
 
         <div class="h-5 w-px bg-slate-200 hidden sm:block"></div>
 
-        <div class="flex items-center gap-1.5 text-xs">
+        <div class="flex items-center gap-1.5 text-xs relative">
           <span class="text-slate-500 font-medium"><i class="fa-solid fa-user text-slate-400"></i> Nhân sự:</span>
-          <select id="filterEmployee" onchange="applyFilters()" class="bg-slate-50 border border-slate-300 text-slate-700 rounded-lg px-2.5 py-1.5 text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none font-medium">
+          <div class="relative flex items-center">
+            <input type="text" id="filterEmployeeSearch" list="employeeDatalist" placeholder="-- Tất cả nhân sự --" onchange="handleEmployeeSearchInputChange(this.value)" oninput="handleEmployeeSearchInputLive(this.value)" class="bg-slate-50 border border-slate-300 text-slate-700 rounded-lg pl-2.5 pr-6 py-1 text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none font-medium w-48 hover:bg-white transition" autocomplete="off" title="Nhấp chọn hoặc gõ tên / mã nhân viên để lọc ngay">
+            <button type="button" onclick="clearEmployeeFilterInput()" class="absolute right-1.5 text-slate-400 hover:text-rose-600 text-[10px] p-0.5" title="Xóa chọn nhân sự"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+          <datalist id="employeeDatalist"></datalist>
+          <select id="filterEmployee" onchange="applyFilters()" class="hidden">
             <option value="ALL">-- Tất cả nhân sự --</option>
           </select>
         </div>
 
-        <div class="flex items-center gap-1.5 text-xs">
+        <div class="flex items-center gap-1.5 text-xs relative">
           <span class="text-slate-500 font-medium"><i class="fa-solid fa-diagram-project text-sky-500"></i> Dự án:</span>
-          <select id="filterMainTask" onchange="handleMainTaskFilterChange()" class="bg-slate-50 border border-slate-300 text-slate-700 rounded-lg px-2.5 py-1.5 text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none font-semibold text-sky-900 max-w-[200px] truncate" title="Lọc theo dự án / công việc chính và tự động căn chỉnh biểu đồ">
+          <div class="relative flex items-center">
+            <input type="text" id="filterMainTaskSearch" list="mainTaskDatalist" placeholder="-- Tất cả dự án --" onchange="handleMainTaskSearchInputChange(this.value)" oninput="handleMainTaskSearchInputLive(this.value)" class="bg-slate-50 border border-slate-300 text-slate-700 rounded-lg pl-2.5 pr-6 py-1 text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none font-semibold text-sky-900 w-52 hover:bg-white transition truncate" autocomplete="off" title="Nhấp chọn hoặc gõ mã / tên dự án để lọc ngay">
+            <button type="button" onclick="clearMainTaskFilterInput()" class="absolute right-1.5 text-slate-400 hover:text-rose-600 text-[10px] p-0.5" title="Xóa chọn dự án"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+          <datalist id="mainTaskDatalist"></datalist>
+          <select id="filterMainTask" onchange="handleMainTaskFilterChange()" class="hidden">
             <option value="ALL">-- Tất cả dự án --</option>
           </select>
         </div>
@@ -425,6 +441,7 @@
               <th class="p-2.5 border-r border-slate-300 min-w-[130px]">Người thực hiện</th>
               <th class="p-2.5 border-r border-slate-300 text-center w-24">Ngày bắt đầu</th>
               <th class="p-2.5 border-r border-slate-300 text-center w-24">Thời gian dự kiến</th>
+              <th class="p-2.5 border-r border-slate-300 text-center w-24 text-sky-900 bg-sky-50/40">Dự tính xong</th>
               <th class="p-2.5 border-r border-slate-300 text-center w-24">Thời gian hoàn thành</th>
               <th class="p-2.5 border-r border-slate-300 min-w-[130px] max-w-[180px]">Hiện Trạng</th>
               <th class="p-2.5 border-r border-slate-300 text-center w-28">Tình trạng</th>
@@ -456,71 +473,116 @@
 
   <!-- ================= MODAL: THÊM / SỬA CÔNG VIỆC (PHÂN CẤP MAIN & SUBTASK) ================= -->
   <div id="taskModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-2xl overflow-hidden animate-in fade-in zoom-in duration-150">
-      <div class="bg-gradient-to-r from-brand-800 to-sky-700 px-6 py-4 text-white flex items-center justify-between">
-        <div class="flex items-center gap-2.5">
-          <i class="fa-solid fa-pen-to-square text-lg text-sky-300"></i>
-          <h3 id="taskModalTitle" class="font-bold text-base">Thêm Công Việc Mới</h3>
+    <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden animate-in fade-in zoom-in duration-150">
+      <!-- Header cố định -->
+      <div class="bg-gradient-to-r from-brand-800 to-sky-700 px-5 py-3 text-white flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-pen-to-square text-base text-sky-300"></i>
+          <h3 id="taskModalTitle" class="font-bold text-sm sm:text-base">Thêm Công Việc Mới</h3>
         </div>
-        <button onclick="closeTaskModal()" class="text-white/80 hover:text-white text-lg">
+        <button type="button" onclick="closeTaskModal()" class="text-white/80 hover:text-white text-lg p-1 transition">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
-      <form id="taskForm" onsubmit="handleSaveTask(event)" class="p-6 space-y-4">
+      <!-- Thân Form cuộn độc lập -->
+      <form id="taskForm" onsubmit="handleSaveTask(event)" class="flex-1 overflow-y-auto p-4 sm:p-5 space-y-2.5 text-xs">
         <input type="hidden" id="taskId">
+        <input type="hidden" id="taskParentSelect" value="__STANDALONE__">
 
-        <!-- Chọn công việc chính (Parent Task) -->
-        <div class="bg-sky-50/70 p-3.5 rounded-xl border border-sky-200 space-y-3">
-          <div>
-            <label class="block text-xs font-bold text-sky-900 uppercase mb-1">
-              <i class="fa-solid fa-diagram-project mr-1"></i> Nhóm Công Việc Chính (Dự án mẹ) <span class="text-rose-500">*</span>
+        <!-- Khối Liên Kết Dự Án Mẹ / Độc Lập -->
+        <div class="bg-sky-50/70 p-3 rounded-xl border border-sky-200 space-y-2">
+          <!-- Top bar của khối: Tiêu đề + Các nút hành động nhanh -->
+          <div class="flex flex-wrap items-center justify-between gap-1.5">
+            <label class="text-[11px] font-bold text-sky-900 uppercase flex items-center gap-1">
+              <i class="fa-solid fa-diagram-project text-sky-600"></i> Liên Kết Dự Án / Nhóm Việc
             </label>
-            <select id="taskParentSelect" onchange="handleParentSelectChange()" class="w-full text-xs px-3 py-2 border border-sky-300 rounded-lg bg-white focus:ring-2 focus:ring-brand-500 font-semibold text-slate-800">
-              <!-- Rendered by JS: list existing main tasks or create new -->
-            </select>
+            <div class="flex items-center gap-1">
+              <!-- Nút tự chuyển thành dự án riêng -->
+              <button type="button" id="btnMakeSelfProject" onclick="setSelfAsProject()" class="px-2 py-0.5 text-[10px] font-bold rounded bg-amber-100 hover:bg-amber-200 text-amber-800 border border-amber-300 transition flex items-center gap-1 shadow-2xs" title="Biến công việc này thành một Dự Án Mẹ độc lập">
+                <i class="fa-solid fa-star text-amber-600"></i> Tự làm Dự án
+              </button>
+              <!-- Nút hủy dự án (Việc riêng lẻ) -->
+              <button type="button" id="btnUnlinkProject" onclick="setStandaloneProject()" class="px-2 py-0.5 text-[10px] font-bold rounded bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 transition flex items-center gap-1 shadow-2xs" title="Hủy liên kết dự án, công việc trở thành việc độc lập riêng lẻ">
+                <i class="fa-solid fa-link-slash text-slate-500"></i> Việc riêng lẻ
+              </button>
+              <!-- Nút tạo dự án mới -->
+              <button type="button" id="btnCreateNewProject" onclick="selectParentTask('__NEW__')" class="px-2 py-0.5 text-[10px] font-bold rounded bg-emerald-100 hover:bg-emerald-200 text-emerald-800 border border-emerald-300 transition flex items-center gap-1 shadow-2xs" title="Tạo một mã dự án mẹ mới hoàn toàn">
+                <i class="fa-solid fa-plus text-emerald-600"></i> + Tạo mới
+              </button>
+            </div>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <!-- Thanh hiển thị trạng thái dự án hiện tại (Selected Card) -->
+          <div id="parentSelectedCard" class="p-2 rounded-lg bg-white border border-sky-300 flex items-center justify-between shadow-xs">
+            <div class="flex items-center gap-2 min-w-0 pr-2">
+              <span id="parentSelectedBadge" class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-300 shrink-0">
+                Riêng lẻ
+              </span>
+              <span id="parentSelectedTitle" class="font-bold text-slate-800 text-xs truncate">
+                Công việc riêng lẻ (Không thuộc dự án nào)
+              </span>
+            </div>
+            <button type="button" id="btnToggleParentSearch" onclick="toggleParentSearchList()" class="px-2 py-1 text-[11px] font-bold rounded bg-sky-600 hover:bg-sky-700 text-white shrink-0 transition flex items-center gap-1">
+              <i class="fa-solid fa-magnifying-glass text-[9px]"></i> Đổi dự án
+            </button>
+          </div>
+
+          <!-- Khối tìm kiếm & danh sách dự án (Mặc định ẩn, bật lên khi bấm Đổi dự án) -->
+          <div id="parentSearchBox" class="hidden space-y-1.5 pt-1 border-t border-sky-200">
+            <div class="relative">
+              <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2 text-slate-400 text-xs"></i>
+              <input type="text" id="taskParentSearchInput" oninput="handleParentSearchFilter(this.value)" placeholder="🔍 Gõ mã (CV-...), tên dự án, tên việc, hoặc tên nhân viên..." class="w-full text-xs pl-7 pr-7 py-1.5 border border-sky-300 rounded-lg bg-white focus:ring-2 focus:ring-brand-500 font-medium text-slate-800">
+              <button type="button" onclick="clearParentSearchFilter()" id="taskParentSearchClear" class="hidden absolute right-2.5 top-1.5 text-slate-400 hover:text-slate-600 text-xs">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+            <div id="taskParentListContainer" class="max-h-36 overflow-y-auto border border-sky-200 rounded-lg bg-white p-1 space-y-1 shadow-inner">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+
+          <!-- Ô nhập Mã & Tên công việc chính (Chỉ hiện khi chọn tạo dự án mới) -->
+          <div id="parentNewInputs" class="hidden grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 border-t border-sky-200">
             <div>
-              <label class="block text-[11px] font-semibold text-slate-600 mb-1">Mã Công Việc Chính</label>
-              <input type="text" id="taskMainCode" required placeholder="CV-TUM, CV-MAY-EP..." class="w-full text-xs px-3 py-1.5 border border-slate-300 rounded-lg uppercase font-bold text-sky-800">
+              <label class="block text-[10px] font-semibold text-slate-600 mb-0.5">Mã Công Việc Chính</label>
+              <input type="text" id="taskMainCode" placeholder="CV-..." class="w-full text-xs px-2.5 py-1 border border-slate-300 rounded-lg uppercase font-bold text-sky-800 bg-white">
             </div>
             <div class="sm:col-span-2">
-              <label class="block text-[11px] font-semibold text-slate-600 mb-1">Tên Công Việc Chính</label>
-              <input type="text" id="taskMainTitle" required placeholder="Ví dụ: Sửa chữa máy TUM, Bảo dưỡng định kỳ máy ép..." class="w-full text-xs px-3 py-1.5 border border-slate-300 rounded-lg font-bold text-slate-800">
+              <label class="block text-[10px] font-semibold text-slate-600 mb-0.5">Tên Công Việc Chính</label>
+              <input type="text" id="taskMainTitle" placeholder="Nhập tên dự án / công việc chính..." class="w-full text-xs px-2.5 py-1 border border-slate-300 rounded-lg font-bold text-slate-800 bg-white">
             </div>
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <!-- Nội dung chi tiết (Subtask) -->
           <div class="sm:col-span-2">
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nội Dung Chi Tiết / Hạng Mục Cần Làm <span class="text-rose-500">*</span></label>
-            <textarea id="taskDetail" rows="2" required placeholder="Ví dụ: Giai đoạn 1: Xác nhận tình trạng linh kiện, Thay van áp suất..." class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none"></textarea>
+            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Nội Dung Chi Tiết / Hạng Mục Cần Làm <span class="text-rose-500">*</span></label>
+            <textarea id="taskDetail" rows="2" required placeholder="Ví dụ: Giai đoạn 1: Xác nhận tình trạng linh kiện, Thay van áp suất..." class="w-full text-xs px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none"></textarea>
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">
+            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">
               Người Thực Hiện Chính <span class="text-rose-500">*</span>
             </label>
-            <select id="taskEmpId" required onchange="_updateSupportEmpOptions()" class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none font-semibold text-slate-800">
+            <select id="taskEmpId" required onchange="_updateSupportEmpOptions()" class="w-full text-xs px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none font-semibold text-slate-800 bg-white">
               <!-- Rendered by JS -->
             </select>
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">
+            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">
               Người Phối Hợp / Phụ <span class="text-[10px] text-slate-400 font-normal">(tùy chọn)</span>
             </label>
-            <div id="supportEmpContainer" class="max-h-24 overflow-y-auto border border-slate-300 rounded-lg p-1.5 bg-slate-50 flex flex-wrap gap-1.5 min-h-[38px]">
+            <div id="supportEmpContainer" class="max-h-20 overflow-y-auto border border-slate-300 rounded-lg p-1 bg-slate-50 flex flex-wrap gap-1 min-h-[32px]">
               <!-- Checkboxes rendered by JS -->
             </div>
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Tình Trạng</label>
-            <select id="taskStatus" onchange="handleTaskStatusChange()" class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none font-medium">
+            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Tình Trạng</label>
+            <select id="taskStatus" onchange="handleTaskStatusChange()" class="w-full text-xs px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none font-medium bg-white">
               <option value="Đang làm">Đang làm</option>
               <option value="Tạm dừng">⏸ Tạm dừng / Dừng dự án</option>
               <option value="Hoàn thành">Hoàn thành (Đúng hạn)</option>
@@ -529,15 +591,15 @@
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Ngày Bắt Đầu <span class="text-rose-500">*</span></label>
-            <input type="date" id="taskStartDate" required onchange="calculatePlanEndDate()" class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none">
+            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Ngày Bắt Đầu <span class="text-rose-500">*</span></label>
+            <input type="date" id="taskStartDate" required onchange="calculatePlanEndDate()" class="w-full text-xs px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none bg-white">
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Thời Gian Dự Kiến <span class="text-rose-500">*</span></label>
-            <div class="flex items-center gap-2">
-              <input type="number" id="taskPlanDuration" min="0.5" max="3650" step="any" value="1" required onchange="calculatePlanEndDate()" class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none font-semibold">
-              <select id="taskPlanUnit" onchange="calculatePlanEndDate()" class="text-xs px-2.5 py-2 border border-slate-300 rounded-lg bg-slate-50 font-bold text-slate-700 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Thời Gian Dự Kiến <span class="text-rose-500">*</span></label>
+            <div class="flex items-center gap-1.5">
+              <input type="number" id="taskPlanDuration" min="0.5" max="3650" step="any" value="1" required onchange="calculatePlanEndDate()" class="w-full text-xs px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none font-semibold bg-white">
+              <select id="taskPlanUnit" onchange="calculatePlanEndDate()" class="text-xs px-2 py-1.5 border border-slate-300 rounded-lg bg-slate-50 font-bold text-slate-700 focus:ring-2 focus:ring-brand-500 focus:outline-none">
                 <option value="giờ">Giờ</option>
                 <option value="ngày" selected>Ngày</option>
                 <option value="tuần">Tuần</option>
@@ -548,22 +610,22 @@
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">
+            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">
               Ngày Kế Hoạch Xong <span class="text-[10px] text-brand-600 font-normal lowercase">(chọn để tự tính số ngày)</span>
             </label>
-            <input type="date" id="taskPlanEndDate" onchange="calculatePlanDurationFromEndDate()" class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none font-semibold">
+            <input type="date" id="taskPlanEndDate" onchange="calculatePlanDurationFromEndDate()" class="w-full text-xs px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none font-semibold bg-white">
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Thời Gian Hoàn Thành Thực Tế</label>
-            <input type="date" id="taskActualEndDate" class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none">
-            <span class="text-[10px] text-slate-400">Nếu đã xong thì chọn ngày, nếu đang làm để trống</span>
+            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Thời Gian Hoàn Thành Thực Tế</label>
+            <input type="date" id="taskActualEndDate" class="w-full text-xs px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none bg-white">
+            <span class="text-[9px] text-slate-400">Nếu đã xong thì chọn ngày, nếu đang làm để trống</span>
           </div>
 
-          <!-- Nguồn yêu cầu & Ghi chú -->
+          <!-- Nguồn yêu cầu -->
           <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nguồn Yêu Cầu / Cấp Giao</label>
-            <select id="taskSource" class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none font-semibold">
+            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Nguồn Yêu Cầu / Cấp Giao</label>
+            <select id="taskSource" class="w-full text-xs px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none font-semibold bg-white">
               <option value="Tổng Giám đốc">👑 Yêu cầu từ: Tổng Giám đốc</option>
               <option value="Giám đốc">🔴 Yêu cầu từ: Giám đốc</option>
               <option value="Trưởng phòng">👔 Yêu cầu từ: Trưởng phòng</option>
@@ -576,26 +638,27 @@
           </div>
 
           <div class="sm:col-span-2">
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">
+            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">
               <i class="fa-solid fa-link text-sky-600 mr-1"></i> Đường Dẫn Link / Thư Mục / File Tài Liệu
             </label>
-            <input type="text" id="taskLink" placeholder="VD: https://drive.google.com/... hoặc file:///C:/MBC/ hoặc C:\MBC\TaiLieu" class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none">
-            <span class="text-[10px] text-slate-400">Gắn link tài liệu nghiệm thu, bản vẽ hoặc thư mục máy tính tương ứng với công việc này</span>
+            <input type="text" id="taskLink" placeholder="VD: https://drive.google.com/... hoặc file:///C:/MBC/ hoặc C:\MBC\TaiLieu" class="w-full text-xs px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none bg-white">
+            <span class="text-[9px] text-slate-400">Link tài liệu nghiệm thu, bản vẽ hoặc thư mục máy tính</span>
           </div>
 
           <div class="sm:col-span-2">
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Ghi Chú</label>
-            <input type="text" id="taskNote" placeholder="Ghi chú thêm về vật tư, nghiệm thu, lý do trễ hạn..." class="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none">
+            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Ghi Chú</label>
+            <input type="text" id="taskNote" placeholder="Ghi chú thêm về vật tư, nghiệm thu, lý do trễ hạn..." class="w-full text-xs px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none bg-white">
           </div>
         </div>
-
-        <div class="pt-4 border-t border-slate-200 flex items-center justify-end gap-2">
-          <button type="button" onclick="closeTaskModal()" class="px-4 py-2 text-xs font-semibold rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition">Hủy bỏ</button>
-          <button type="submit" class="px-5 py-2 text-xs font-semibold rounded-lg bg-brand-700 hover:bg-brand-800 text-white shadow-sm transition">
-            <i class="fa-solid fa-floppy-disk mr-1"></i> Lưu Công Việc
-          </button>
-        </div>
       </form>
+
+      <!-- Footer cố định luôn nhìn thấy -->
+      <div class="p-3 bg-slate-50 border-t border-slate-200 flex items-center justify-end gap-2 shrink-0">
+        <button type="button" onclick="closeTaskModal()" class="px-4 py-1.5 text-xs font-semibold rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-700 transition">Hủy bỏ</button>
+        <button type="submit" form="taskForm" class="px-5 py-1.5 text-xs font-bold rounded-lg bg-brand-700 hover:bg-brand-800 text-white shadow-sm transition flex items-center gap-1.5">
+          <i class="fa-solid fa-floppy-disk"></i> Lưu Công Việc
+        </button>
+      </div>
     </div>
   </div>
 
@@ -823,6 +886,113 @@
             </table>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: QUẢN LÝ DỰ ÁN & CÔNG VIỆC CHÍNH ================= -->
+  <div id="projectManageModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-4xl max-h-[92vh] flex flex-col overflow-hidden animate-in fade-in zoom-in duration-150">
+      <!-- Modal Header -->
+      <div class="bg-gradient-to-r from-sky-800 via-sky-700 to-indigo-800 px-6 py-4 text-white flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white text-lg backdrop-blur-sm border border-white/20">
+            <i class="fa-solid fa-diagram-project text-sky-200"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-base sm:text-lg">Quản Lý Danh Sách Dự Án</h3>
+            <p class="text-xs text-sky-200">Thêm mới, đổi tên hoặc xóa dự án. Quản lý liên kết các công việc con.</p>
+          </div>
+        </div>
+        <button onclick="closeProjectManageModal()" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition" title="Đóng">
+          <i class="fa-solid fa-xmark text-base"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 space-y-5 overflow-y-auto flex-1 bg-slate-50">
+        <!-- Card: Thêm Dự Án Mới -->
+        <div class="bg-white p-4 rounded-xl border border-sky-200 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-sky-950 flex items-center gap-2">
+              <i class="fa-solid fa-plus-circle text-sky-600"></i>
+              <span>Thêm Dự Án / Công Việc Chính Mới</span>
+            </h4>
+            <span class="text-[11px] text-slate-500 italic">Mã được tự động đề xuất</span>
+          </div>
+          <form id="formAddNewProject" onsubmit="handleAddNewProject(event)" class="grid grid-cols-1 sm:grid-cols-12 gap-3">
+            <div class="sm:col-span-4">
+              <label class="block text-[11px] font-semibold text-slate-600 mb-1">Mã Dự Án <span class="text-rose-500">*</span></label>
+              <div class="relative">
+                <input type="text" id="newProjectCode" required placeholder="CV-2026-xxxx" class="w-full text-xs font-bold uppercase px-3 py-2 border border-slate-300 rounded-lg text-sky-900 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                <button type="button" onclick="suggestNextProjectCode()" class="absolute right-2 top-2 text-[10px] text-sky-600 hover:text-sky-800 font-bold" title="Lấy mã tự động tiếp theo">Tự sinh</button>
+              </div>
+            </div>
+            <div class="sm:col-span-6">
+              <label class="block text-[11px] font-semibold text-slate-600 mb-1">Tên Dự Án / Nhóm Việc <span class="text-rose-500">*</span></label>
+              <input type="text" id="newProjectTitle" required placeholder="Nhập tên dự án hoặc công việc chính..." class="w-full text-xs font-bold px-3 py-2 border border-slate-300 rounded-lg text-slate-800 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+            </div>
+            <div class="sm:col-span-2 flex items-end">
+              <button type="submit" class="w-full py-2 px-3 bg-brand-700 hover:bg-brand-800 text-white rounded-lg text-xs font-bold transition shadow-sm flex items-center justify-center gap-1.5 h-[34px]">
+                <i class="fa-solid fa-plus"></i>
+                <span>Thêm</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Card: Danh Sách Các Dự Án Hiện Có -->
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2">
+                <i class="fa-solid fa-list-check text-indigo-600"></i>
+                <span>Danh Sách Dự Án Trong Hệ Thống</span>
+              </h4>
+              <span id="projectTotalBadge" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-100 text-sky-800 border border-sky-200">0 dự án</span>
+            </div>
+            <!-- Nút Xóa Hàng Loạt Dự Án (ẩn khi chưa tick) + Ô tìm kiếm dự án -->
+            <div class="flex items-center gap-2">
+              <button type="button" id="btnBulkDeleteProjects" onclick="handleBulkDeleteProjects()" class="hidden px-2.5 py-1 text-xs font-bold rounded-lg bg-rose-600 hover:bg-rose-700 text-white transition flex items-center gap-1.5 shadow-sm animate-pulse" title="Xóa tất cả các dự án đang được tick chọn">
+                <i class="fa-solid fa-trash-can"></i>
+                <span>Xóa đã chọn (<span id="selectedProjectCount">0</span>)</span>
+              </button>
+              <div class="relative w-64">
+                <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-slate-400 text-xs"></i>
+                <input type="text" id="projectSearchInput" oninput="renderProjectManageList(this.value)" placeholder="Tìm mã hoặc tên dự án..." class="w-full text-xs pl-8 pr-3 py-1.5 border border-slate-300 rounded-lg bg-slate-50 focus:bg-white focus:ring-2 focus:ring-brand-500 focus:outline-none font-medium">
+              </div>
+            </div>
+          </div>
+
+          <!-- Bảng danh sách dự án -->
+          <div class="overflow-x-auto border border-slate-200 rounded-lg max-h-[46vh] overflow-y-auto">
+            <table class="w-full text-xs text-left border-collapse">
+              <thead class="bg-slate-100 text-slate-700 font-bold uppercase text-[10px] sticky top-0 z-10 border-b border-slate-200">
+                <tr>
+                  <th class="p-2.5 w-10 text-center">
+                    <input type="checkbox" id="selectAllProjects" onchange="toggleSelectAllProjects(this.checked)" class="w-3.5 h-3.5 rounded text-sky-600 border-slate-300 cursor-pointer" title="Chọn / Bỏ chọn tất cả">
+                  </th>
+                  <th class="p-2.5 w-10 text-center">STT</th>
+                  <th class="p-2.5 w-32">Mã Dự Án</th>
+                  <th class="p-2.5 min-w-[200px]">Tên Dự Án</th>
+                  <th class="p-2.5 text-center w-36">Tiến Độ / Số Việc</th>
+                  <th class="p-2.5 text-center w-52">Thao Tác</th>
+                </tr>
+              </thead>
+              <tbody id="projectManageTableBody" class="divide-y divide-slate-100">
+                <!-- Rendered by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-6 py-3 bg-white border-t border-slate-200 flex items-center justify-between">
+        <span class="text-xs text-slate-500 italic">💡 Mẹo: Khi xóa dự án, bạn có thể chọn giữ lại các công việc con (chuyển thành việc riêng lẻ) hoặc xóa tất cả.</span>
+        <button type="button" onclick="closeProjectManageModal()" class="px-4 py-1.5 rounded-lg border border-slate-300 hover:bg-slate-100 text-slate-700 text-xs font-semibold transition">
+          Đóng
+        </button>
       </div>
     </div>
   </div>
@@ -1130,11 +1300,16 @@
           </div>
         </div>
 
-        <div class="pt-3 border-t border-slate-200 flex items-center justify-end gap-2">
-          <button type="button" onclick="closeStatusLogModal()" class="px-4 py-2 text-xs font-semibold rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700">Hủy</button>
-          <button type="button" onclick="saveStatusLog()" class="px-5 py-2 text-xs font-semibold rounded-lg bg-violet-600 hover:bg-violet-700 text-white shadow-sm">
-            <i class="fa-solid fa-save mr-1"></i> Ghi Nhận Cập Nhật
+        <div class="pt-3 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2">
+          <button type="button" onclick="snoozeStatusUpdate(3)" class="px-3 py-2 text-xs font-semibold rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-300 transition flex items-center gap-1.5 shadow-xs" title="Gia hạn theo dõi thêm 3 ngày mà không ghi nội dung ghi chú mới">
+            <i class="fa-solid fa-clock-rotate-left text-amber-600"></i> Không có cập nhật mới (+3 ngày)
           </button>
+          <div class="flex items-center gap-2 ml-auto">
+            <button type="button" onclick="closeStatusLogModal()" class="px-4 py-2 text-xs font-semibold rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700">Hủy</button>
+            <button type="button" onclick="saveStatusLog()" class="px-5 py-2 text-xs font-semibold rounded-lg bg-violet-600 hover:bg-violet-700 text-white shadow-sm">
+              <i class="fa-solid fa-save mr-1"></i> Ghi Nhận Cập Nhật
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -3,12 +3,145 @@
 ## Thông Tin Dự Án
 - **Tên dự án:** Ứng dụng Web Quản Lý Công Việc & Nhân Sự Toàn Diện (Gantt Timeline & Performance Points)
 - **Vị trí:** `c:\Users\12953 Bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\QuanLyCongViecNhom`
-- **Phiên bản:** v4.3.0 (Đánh Số Tuần Theo Từng Tháng & Quy Tắc Giao Thời Tháng Trên Timeline Gantt)
-- **Ngày cập nhật:** 09/10/2026.
+- **Phiên bản:** v4.8.0 (Chuẩn Hóa Trạng Thái Hoàn Thành & Đang Thực Hiện; Sửa Lỗi Lọc Nguồn 'Cải Tiến'/'Cải Thiện'; Tự Động Sao Chép Đường Dẫn Tệp Link Mở Nhanh; Nâng Cấp Ô Gõ Tìm Kiếm Trực Tiếp Nhân Sự & Dự Án Bằng Datalist)
+- **Ngày cập nhật:** 13/10/2026.
 
 ---
 
 ## Nhật Ký Cập Nhật (Change Log)
+
+### Phiên Bản 4.8.0 (13/10/2026) - Chuẩn Hóa Trạng Thái Công Việc, Lọc Nguồn & Tìm Kiếm Nhanh Datalist:
+
+1. **Chuẩn Hóa Trạng Thái "Hoàn Thành" & "Đang Thực Hiện" (Hình 1 & Hình 2):**
+   - **Hình 1:** Khi công việc có trạng thái được ghi nhận là "Hoàn thành" (như qua cập nhật hoặc file Excel), hệ thống giữ nguyên vẹn kết quả là **"Hoàn Thành"** đúng hạn kể cả khi ô `actualEndDate` chưa nhập riêng. Cột thời gian hoàn thành tự động hiển thị ngày kết thúc kế hoạch thay vì hiển thị "Chưa hoàn thành".
+   - **Hình 2:** Công việc đang làm dở dù đã vượt quá thời hạn dự tính kế hoạch vẫn giữ đúng bản chất là **"Đang thực hiện"** kèm chỉ báo trễ tiến độ (`Đang thực hiện (Trễ hạn)`). Khi người dùng lọc thẻ "Đang thực hiện", các công việc này **vẫn luôn hiển thị đầy đủ**, không còn bị loại nhầm khỏi danh sách đang làm.
+
+2. **Cơ Chế Mở Tệp / Link & Tự Động Sao Chép Đường Dẫn Windows (Hình 3):**
+   - Do chính sách bảo mật Sandbox của trình duyệt web (Chrome, Edge) không cho phép mã web kích hoạt trực tiếp phần mềm hệ thống (như tự mở Excel/Word) mà sẽ tải tệp xuống:
+   - Hệ thống bổ sung tính năng **Tự động sao chép đường dẫn tệp sạch (Clean Path)** vào Clipboard ngay khi click nút `[Mở]` kèm Toast thông báo hướng dẫn: *"Nhấn Win+R hoặc dán vào File Explorer để mở trực tiếp"*.
+   - Hướng dẫn người dùng thiết lập 1 lần trên trình duyệt: Chuột phải vào file tải xuống chọn *"Luôn mở tệp loại này"* (Always open files of this type) để trình duyệt tự động gọi phần mềm mặc định của máy tính mở file khi nhấp.
+
+3. **Sửa Lỗi Lọc Nguồn Yêu Cầu "Cải Tiến" / "Cải Thiện" (Hình 4):**
+   - Bổ sung cơ chế so khớp linh hoạt hai chiều: Khi click badge `[Cải tiến]`, bộ lọc sẽ tìm kiếm đồng thời cả từ khóa `Cải tiến` lẫn `Cải thiện` / `Cải thiện nội bộ`. Tương tự, hỗ trợ viết tắt `TGĐ` cho `Tổng Giám đốc`, `TP` cho `Trưởng phòng`.
+   - Cung cấp thông báo Toast hiển thị trực quan nguồn yêu cầu đang lọc và tự động đồng bộ giá trị trên dropdown `#filterPriority`.
+
+4. **Nâng Cấp Ô Nhập Tìm Kiếm Trực Tiếp Nhân Sự & Dự Án (Hình 5):**
+   - Thay thế các dropdown tĩnh khó cuộn bằng cặp **Searchable Input + HTML5 `<datalist>`** cho cả **Nhân sự (`#filterEmployeeSearch`)** và **Dự án (`#filterMainTaskSearch`)**.
+   - Người dùng vừa có thể bấm mũi tên chọn từ danh sách, vừa có thể **gõ trực tiếp** tên, mã nhân viên (vd: `Bảo`, `Thảo`, `NV01`) hoặc mã, tên dự án (vd: `4598`, `Brose`, `CV-2026-0049`) để lọc tức thì.
+   - Bổ sung nút ✖ xóa nhanh để quay về chế độ hiển thị toàn bộ chỉ với 1 click.
+
+---
+
+### Phiên Bản 4.7.0 (13/10/2026) - Khắc Phục Lỗi Quản Lý Dự Án & Chuẩn Hóa Logic Hoàn Thành Công Việc:
+
+1. **Khắc Phục Lỗi Quản Lý Dự Án & Bổ Sung Xóa Nhanh Hàng Loạt (Hình 1 & 2):**
+   - **Nguyên nhân cũ:** `getUniqueMainTasks()` trước đó dùng fallback `t.mainTaskId || t.id`, dẫn tới tất cả việc riêng lẻ không thuộc dự án (`mainTaskId = ''`) đều tự động bị biến thành 1 dự án riêng (sinh ra 49 dự án ảo). Khi bấm xóa, task con vẫn còn nên dự án lại tự động sinh lại.
+   - **Xử lý:**
+     - Tách biệt hoàn toàn: Công việc riêng lẻ tuyệt đối KHÔNG bao giờ bị xem là dự án.
+     - Hàm `ensureProjectsInitialized()` tự động dọn dẹp (cleanse) các dự án rác sinh nhầm từ ID của các công việc riêng lẻ cũ.
+     - Thêm cột **Checkbox Chọn Nhiều** và nút **"Chọn tất cả" (`selectAllProjects`)** trong bảng quản lý dự án.
+     - Bổ sung nút **"🗑️ Xóa đã chọn (n)" (`handleBulkDeleteProjects`)** trên toolbar: cho phép tick chọn hàng loạt dự án để xóa một lần nhanh chóng; toàn bộ công việc con thuộc các dự án đó tự động chuyển thành việc riêng lẻ an toàn.
+
+2. **Sửa Lỗi Chưa Có Ngày Hoàn Thành Nhưng Được Tính Là Hoàn Thành (Hình 3):**
+   - **Nguyên nhân cũ:** Logic hiển thị trạng thái và thống kê chỉ dựa vào chuỗi `task.status === 'Hoàn thành'` lưu từ trước mà không kiểm tra trường ngày kết thúc thực tế (`actualEndDate`).
+   - **Xử lý:**
+     - Xây dựng hàm chuẩn hóa duy nhất toàn hệ thống: `getTaskEffectiveStatus(task, refToday)`.
+     - Quy tắc cứng: Nếu `actualEndDate` còn trống hoặc không hợp lệ -> Công việc **KHÔNG BAO GIỜ** được xem là "Hoàn thành" (hiển thị đúng là "Đang làm" hoặc "Quá hạn" nếu ngày kết thúc kế hoạch < hôm nay).
+
+3. **Sửa Lỗi Thời Gian Hoàn Thành Đúng Kỳ Hạn Lại Bị Đánh Dấu Quá Hạn (Hình 4):**
+   - **Nguyên nhân cũ:** Một số công việc đã có ngày kết thúc thực tế (`actualEndDate`) trùng khớp hoặc trước hạn kế hoạch (`planEndDate`) (ví dụ ngày kết thúc thực tế `09/10/2026` <= ngày kế hoạch `09/10/2026`), nhưng do `task.status` chưa được cập nhật từ import Excel hoặc form cũ, rơi vào nhánh so sánh ngày kế hoạch với `today (13/10/2026)` dẫn đến bị dán nhãn "Quá hạn".
+   - **Xử lý:**
+     - Khi `actualEndDate` tồn tại: so sánh trực tiếp `actualEndDate` với `planEndDate`.
+     - Nếu `actualEndDate <= planEndDate` -> Luôn luôn là **"Hoàn thành"** (Đúng hạn).
+     - Nếu `actualEndDate > planEndDate` -> Là **"Hoàn thành trễ"**.
+     - Đồng bộ toàn diện: Cả bảng dữ liệu chính (`renderMainTable`), bộ lọc, thống kê điểm KPI (`updateKPIStats`), tiến độ công việc mẹ (`getMainTaskProgress`) và modal quản lý dự án (`renderProjectManageList`) đều dùng chung hàm `getTaskEffectiveStatus(task)` và `isTaskCompleted(task)`.
+
+---
+
+### Phiên Bản 4.6.0 (13/10/2026) - Quản Lý Dự Án CRUD, Click Thẻ KPI & Click Nguồn Yêu Cầu Lọc:
+
+1. **Quản Lý Dự Án Toàn Diện (`projectManageModal` & Header Button):**
+   - **Nút "Quản Lý Dự Án" trên Header:** Bổ sung nút truy cập nhanh với icon `fa-diagram-project` màu xanh dương nổi bật.
+   - **Form Thêm Dự Án Mới:** Cho phép nhập mã dự án (hỗ trợ nút "Tự sinh" tự động đề xuất mã tiếp theo như `CV-2026-xxxx`), nhập tên dự án và thêm trực tiếp vào hệ thống.
+   - **Bảng Danh Sách Dự Án Hệ Thống:**
+     - Hiển thị toàn bộ các dự án kèm mã badge, tên dự án, số lượng công việc con và thanh tiến độ hoàn thành (% và số việc đã hoàn tất).
+     - Ô tìm kiếm nhanh dự án theo mã hoặc tên theo thời gian thực.
+     - **Nút ✏️ Sửa Tên Dự Án (`handleEditProjectTitle`):** Cho phép đổi tên dự án và tự động cập nhật đồng bộ cho toàn bộ công việc con thuộc dự án đó.
+     - **Nút 🗑️ Xóa Dự Án (`handleDeleteProject`):** Cơ chế xóa an toàn. Nếu dự án có công việc con, hệ thống cung cấp lựa chọn giữ lại các công việc (chuyển thành việc riêng lẻ độc lập) trước khi xóa dự án; nếu dự án không có việc con thì xóa ngay.
+   - Tự động đồng bộ và nạp `appData.projects`, lưu `saveDataToStorage()`, cập nhật dropdown `#filterMainTask` và danh sách chọn dự án mẹ trong modal thêm việc.
+
+2. **Click Thẻ KPI Để Lọc Nhanh Công Việc (`filterByKpiStatus` & `highlightActiveKpiCard`):**
+   - Các thẻ thống kê KPI ở hàng trên cùng đã trở thành các nút bấm tương tác (hiệu ứng hover nổi, scale nhẹ):
+     - **Tổng công việc:** Click để xem tất cả công việc (`filterStatus = 'ALL'`).
+     - **Đang thực hiện:** Click để lọc công việc đang làm (`filterStatus = 'DANG_LAM'`).
+     - **Đúng hạn (+3đ):** Click để lọc công việc hoàn thành đúng hạn (`filterStatus = 'Hoàn thành'`).
+     - **Hoàn thành trễ:** Click để lọc công việc hoàn thành trễ (`filterStatus = 'Hoàn thành trễ'`).
+     - **Tồn đọng quá hạn:** Click để lọc công việc quá hạn chưa xong (`filterStatus = 'QUA_HAN'`).
+   - **Cơ chế Toggle:** Click vào thẻ đang lọc một lần nữa sẽ tự động đưa bộ lọc về trạng thái mặc định (*Chưa hoàn thành*).
+   - **Hiệu ứng Active Card:** Thẻ KPI đang được lọc sẽ có viền sáng xanh (`ring-2 ring-brand-500 bg-sky-50/50 shadow-md`) giúp người dùng nắm bắt ngay trạng thái hiển thị.
+
+3. **Click Huy Hiệu Nguồn Yêu Cầu (Trưởng Phòng / Giám Đốc / TGĐ) & Dự Án Để Lọc Tức Thì:**
+   - **Nguồn yêu cầu (`getSourceBadge`):** Chuyển toàn bộ các huy hiệu nguồn yêu cầu (Trưởng phòng, Giám đốc, Tổng Giám đốc, Đối ứng, Cải tiến, Chiến lược) thành các nút bấm tương tác.
+   - **Hàm `filterByPriority(priorityVal)`:** Khi click vào badge "Trưởng phòng" trên bất kỳ dòng công việc nào, hệ thống sẽ tự động gán bộ lọc nguồn yêu cầu về "Trưởng phòng", cập nhật dropdown và lọc bảng tức thì. Click lại lần 2 để hủy lọc (quay về `ALL`).
+   - **Badge Dự án (`mainBadge`) & Tên Dự Án:** Giữ nguyên và tăng cường tính năng click lọc theo mã/tên dự án kèm tính năng tự động thu phóng timeline biểu đồ Gantt vừa vặn theo tiến độ dự án.
+
+---
+
+1. **Tái thiết kế `getAvailableParentTasks(currentTaskId)` (`app.js`):**
+   - Trước đây `getUniqueMainTasks()` chỉ lấy danh sách các `mainTaskId` nên task `CV-2026-0028` (đang là con của `CV-8174`) không xuất hiện trong danh sách chọn dự án mẹ.
+   - Nay hàm mới trả về **toàn bộ**: (1) các dự án mẹ hiện có (gom từ `mainTaskId`) + (2) **tất cả công việc khác trong hệ thống** (kể cả việc riêng lẻ), loại trừ duy nhất chính công việc đang sửa.
+   - Mỗi mục hiển thị badge loại (`Dự án` / `Công việc`), mã CV, tên, số lượng việc/người phụ trách.
+   - **Tìm kiếm real-time** qua `searchStr` bao gồm: id, title, detail, empName, mainTaskTitle → gõ "SMI", "hộp mẫu", "Tới", "FVDM" là ra ngay.
+
+2. **3 Nút Hành Động Nhanh trong taskModal:**
+   - **🍃 Việc riêng lẻ** (`setStandaloneProject()`): `mainTaskId = ''`, không thuộc dự án nào.
+   - **⭐ Tự làm Dự án** (`setSelfAsProject()`): `mainTaskId = task.id`, tự trở thành dự án gốc độc lập.
+   - **✨ + Tạo mới** (`selectParentTask('__NEW__')`): hiện ô nhập mã và tên dự án mẹ mới.
+
+3. **Selected Card (`parentSelectedCard`):** Hiển thị trực quan trạng thái liên kết hiện tại (riêng lẻ / tự làm dự án / thuộc dự án X). Nút "Đổi dự án" toggle danh sách tìm kiếm.
+
+4. **`handleSaveTask()` hỗ trợ đầy đủ 4 chế độ:**
+   - `__STANDALONE__`: `mainTaskId = ''`.
+   - `__SELF__`: `mainTaskId = task.id` (promote thành dự án gốc).
+   - `__NEW__`: `mainTaskId` và `mainTaskTitle` lấy từ ô nhập mới.
+   - **ID cụ thể (vd. `CV-2026-0028`):** Tự động promote công việc mẹ thành dự án gốc độc lập nếu trước đó nó đang bị gán dưới dự án khác (chống circular hierarchy).
+
+5. **Root Cause Issue 2 đã fix:** `CV-2026-0028` không xuất hiện vì bị gán `mainTaskId: CV-8174`. Nay chọn `CV-2026-0028` làm mẹ cho `CV-2026-0053` → `CV-2026-0028` tự động được promote thành gốc, `CV-2026-0053` liên kết đúng.
+
+---
+
+### Phiên Bản 4.4.0 (13/10/2026) - Khắc Phục Lệch Cột, Lọc Dự Án Mẹ, Xuất Nhập Toàn Bộ Note Excel & Nhãn Mũi Tên Gantt:
+1. **Khắc Phục Lỗi Lệch Cột Trên Bảng Gantt Chính (Hình 1):**
+   - **Root cause:** Trong hàm `renderMainTable()` của `app.js`, `tr1.innerHTML` trước đó thiếu thẻ `tdPlanEndDate` ("Dự tính xong"), khiến tất cả các cột phía sau (`Thời gian hoàn thành`, `Hiện Trạng`, `Tình trạng`, `Ghi chú`, `Link / Tệp`, `Phân loại`) bị dịch chuyển lệch sang trái 1 cột so với header `thead`.
+   - **Giải pháp:** Bổ sung `tdPlanEndDate` (`formatVnDate(task.planEndDate) || '—'`) ngay sau `tdPlanDays` trong `tr1.innerHTML`.
+   - Khớp chuẩn 100% đúng **14 cột cố định** của bảng.
+2. **Bộ Chọn & Lọc Nhanh Dự Án Mẹ Trong Task Modal (Hình 2):**
+   - Cải tiến phần chọn `Nhóm Công Việc Chính (Dự án mẹ)` trong `taskModal` (`index.html` & `app.js`).
+   - Bổ sung ô tìm kiếm nhanh `taskParentSearchInput`: Lọc tức thì theo mã dự án (`CV-...`) hoặc tên dự án theo thời gian thực (real-time).
+   - Container cuộn tùy biến (`max-h-44 overflow-y-auto`) hiển thị thẻ từng dự án mẹ với mã badge, tên và số lượng hạng mục việc con.
+   - Nút `+ Tạo Công Việc Chính Mới` luôn ghim đầu danh sách với màu xanh nổi bật, tự động sinh mã CV mới theo năm hiện tại khi chọn.
+3. **Xuất/Nhập Toàn Bộ Lịch Sử Note Excel & Nút Gia Hạn 3 Ngày Không Lưu Note Rác (Hình 3):**
+   - **Xuất Excel động (`exportCurrentTasksToExcel`):**
+     - Quét toàn bộ công việc để tìm số lượng ghi chú nhiều nhất `maxNotes`.
+     - Tự động sinh số cột động: `Nhật Ký 1 [Ngày - Tiến Độ - Nội Dung]`, `Nhật Ký 2`, ..., `Nhật Ký N`.
+     - Xuất đầy đủ lịch sử theo thứ tự thời gian.
+   - **Nhập Excel thông minh (`processSmartImport`):**
+     - Tự động nhận diện các cột `Nhật ký`, `Lịch sử cập nhật`, `Hiện trạng ghi chú`.
+     - Bóc tách ngày, % tiến độ, nội dung ghi chú và nạp đầy đủ vào mảng `task.statusLogs`.
+     - Hỗ trợ cập nhật/ghép note bổ sung vào các công việc đã tồn tại trong hệ thống.
+   - **Nút "Không có cập nhật mới (+3 ngày)":**
+     - Tích hợp nút hành động trực tiếp vào chân modal cập nhật tình trạng (`statusLogModal`).
+     - Khi bấm: Tự động cập nhật `task.lastStatusUpdate = hôm nay`, reset bộ đếm cảnh báo quá hạn cập nhật thêm 3 ngày mà **hoàn toàn không ghi thêm dòng note rác** vào `task.statusLogs`.
+4. **Hiển Thị Ngày Bắt Đầu & Kết Thúc Trên Mũi Tên Biểu Đồ Gantt (Hình 4):**
+   - Bỏ giới hạn chỉ bật ở chế độ Tháng: Giờ đây áp dụng đồng bộ cho **tất cả các chế độ xem (Ngày, Tuần, Tháng)**.
+   - **Tại gốc mũi tên (`isStart`):** Luôn hiển thị nhãn ngày bắt đầu (`formatVnDate(task.startDate).slice(0, 5)`).
+   - **Tại chóp mũi tên (`isEnd`):** 
+     - Dòng Kế hoạch: Hiển thị ngày kết thúc kế hoạch (`planEndDate`).
+     - Dòng Thực tích: Hiển thị ngày hoàn thành thực tế (`actualEndDate`) nếu đã xong, hoặc ngày hiện tại / hôm nay nếu đang làm / tạm dừng.
+   - **Trường hợp thanh ngắn (1 ô vừa là gốc vừa là chóp):** Tự động hiển thị dạng kết hợp rút gọn `d/m → d/m` gọn gàng trong thân mũi tên.
+   - Định dạng CSS `.arrow-date-tag`: Nền đen bóng mờ tương phản cao (`rgba(15, 23, 42, 0.7)`), chữ trắng đậm nét, đổ bóng tinh tế.
+5. **Bảo Toàn Cơ Sở Dữ Liệu:** Giữ nguyên 100% file gốc `database.js`.
+6. **Verify Gate 2 (Đạt chuẩn 100%):** Script kiểm tra tự động xác nhận toàn bộ 14 cột, các hàm modal, logic lọc, nút gia hạn, dynamic note export/import và date tag trên timeline.
 
 ### Phiên Bản 4.3.0 (09/10/2026) - Đánh Số Tuần Theo Từng Tháng & Quy Tắc Giao Thời:
 1. **Đánh Số Tuần Nhóm Theo Từng Tháng (`Tuần X (TM)`):**
