@@ -3,12 +3,169 @@
 ## Thông Tin Dự Án
 - **Tên dự án:** Ứng dụng Web Quản Lý Công Việc & Nhân Sự Toàn Diện (Gantt Timeline & Performance Points)
 - **Vị trí:** `c:\Users\12953 Bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\QuanLyCongViecNhom`
-- **Phiên bản:** v4.8.0 (Chuẩn Hóa Trạng Thái Hoàn Thành & Đang Thực Hiện; Sửa Lỗi Lọc Nguồn 'Cải Tiến'/'Cải Thiện'; Tự Động Sao Chép Đường Dẫn Tệp Link Mở Nhanh; Nâng Cấp Ô Gõ Tìm Kiếm Trực Tiếp Nhân Sự & Dự Án Bằng Datalist)
-- **Ngày cập nhật:** 13/10/2026.
+- **Phiên bản:** v5.4.0 (Khớp 100% 63/63 Công Việc Hiển Thị & Nút [Toàn Bộ]; Cải Tiến Toàn Diện Báo Cáo Excel: Cột Dự Án Chuẩn, Bổ Sung Người Giao Việc, Thể Loại, Nhật Ký 1-2-3, Hiện Trạng, Chống Đè Chữ Wraptext & Sắp Xếp 3 Cấp)
+- **Ngày cập nhật:** 14/10/2026.
 
 ---
 
 ## Nhật Ký Cập Nhật (Change Log)
+
+### Phiên Bản 5.4.0 (14/10/2026) - Khớp 100% 63 Công Việc, Nút [Toàn Bộ] & Chuẩn Hóa Xuất Excel:
+
+1. **Khắc Phục 63 vs 54 Công Việc & Nút [Toàn Bộ] (Hình 1):**
+   - **Nguyên nhân gốc:** Logic `tEnd` trong bộ lọc tháng trước đây lấy `parseDate(task.actualEndDate)` trước khi kiểm tra việc đã xong hay chưa, khiến 5 công việc đang làm/tạm dừng có ngày cũ trong `actualEndDate` bị tính nhầm là kết thúc trong quá khứ và bị ẩn. Thêm 4 việc của tháng khác/năm sau dẫn đến thiếu đúng 9 việc (63 - 9 = 54).
+   - **Xử lý:**
+     + Sửa thuật toán tính `tEnd` trong `renderMainTable()`, `isTaskInMonth()`, `isTaskInYear()`: Việc chưa hoàn thành luôn tồn đọng và hiển thị, không dùng `actualEndDate` cũ để loại bỏ.
+     + Bổ sung nút **[Toàn bộ]** ngay cạnh nút `[Nay]` và `[Vừa hạn cuối]` trên thanh công cụ. Click 1 chạm là hiển thị trọn vẹn **63/63 công việc** không sót việc nào.
+     + Click thẻ KPI "Tổng số việc (63)" tự động kích hoạt chế độ toàn bộ và thu phóng biểu đồ khớp 63 việc.
+
+2. **Chuẩn Hóa Cấu Trúc Cột Xuất Báo Cáo Excel (Hình 2):**
+   - Cột **"Dự Án Chính"**: Hiển thị tên/mã dự án thực tế (`task.mainTaskTitle || task.mainTaskId || 'Việc độc lập'`), loại bỏ hoàn toàn các chuỗi không có ý nghĩa như "Độc lập" hay "Đang làm (1/3)".
+   - Cột **"Hoàn Thành"**: Chỉ hiển thị ngày hoàn thành thực tế (`dd/mm/yyyy`), nếu chưa hoàn thành để ô trống `""` (không còn điền chữ "Tạm dừng" hay "Chưa xong" trùng lặp với cột Tình trạng).
+   - Bổ sung 6 cột mới theo yêu cầu:
+     + **Người Giao Việc**: Trích xuất từ `task.taskSource` (Tổng Giám đốc, Giám đốc, Trưởng phòng...).
+     + **Thể Loại**: Phân loại chuẩn `Theo dự án` hoặc `Việc độc lập`.
+     + **Hiện Trạng (Mới Nhất)**: Nội dung ghi chú cập nhật mới nhất từ `statusLogs` hoặc `task.note`.
+     + **Ghi Chú Lần 1**: Lịch sử cập nhật lần 1 `[Ngày - Tiến độ%]: Nội dung`.
+     + **Ghi Chú Lần 2**: Lịch sử cập nhật lần 2 `[Ngày - Tiến độ%]: Nội dung`.
+     + **Ghi Chú Lần 3**: Lịch sử cập nhật lần 3 `[Ngày - Tiến độ%]: Nội dung`.
+
+3. **Khắc Phục Wraptext Chống Đè Chữ, Khớp Bộ Lọc & Sắp Xếp 3 Cấp (Hình 3):**
+   - **Chống đè chữ:** Áp dụng CSS `white-space: normal; word-break: break-word; overflow-wrap: break-word; height: auto; mso-height-source: auto; table-layout: auto;` kết hợp độ rộng cột hào phóng (200px - 240px cho mô tả và nhật ký), đảm bảo Excel tự động tính chiều cao hàng theo nội dung, chữ không bao giờ bị đè hay cắt ngang.
+   - **Sửa triệt để lọc "Đang làm" lọt việc "Tạm dừng":** Sử dụng `getTaskEffectiveStatus(task, today)` trong hàm xuất Excel, khi lọc `DANG_LAM` loại bỏ triệt để 100% các công việc có trạng thái `Tạm dừng` hoặc đã hoàn thành.
+   - **Sắp xếp 3 cấp khi xuất Excel:**
+     1. Cấp 1: Nhóm theo **Dự án chính** (các công việc cùng dự án đứng liền kề nhau, việc độc lập gom sau).
+     2. Cấp 2: Sắp xếp theo **Người thực hiện** (A ➔ Z).
+     3. Cấp 3: Sắp xếp theo **Tình trạng** (`Đang làm` ➔ `Đang làm (Trễ hạn)` ➔ `Tạm dừng` ➔ `Hoàn thành` ➔ `Hoàn thành trễ`).
+
+---
+
+### Phien Ban 5.3.0 (14/10/2026) - Chon Nhanh Nhan Su & Bao Toan Nhat Ky Hien Trang:
+
+1. **Chon Nhanh Nhan Vien Chinh (taskModal):**
+   - O tim kiem taskEmpSearchInput + datalist taskEmpDatalist goi y ten/ma NV khi go.
+   - Go ten hoac ma NV (vd: Bao, NV06) tu dong map sang select taskEmpId.
+   - Badge xanh taskEmpSelectedBadge hien thi NV da chon. Nut X de xoa.
+   - Khi sua CV cu: o search tu dien ten NV chinh tu database.
+
+2. **Chon Nhanh Nhan Su Phoi Hop/Phu (taskModal):**
+   - Nut Tat ca va Bo chon de chon/bo chon toan bo nguoi phu cung luc.
+   - O loc nhanh supportEmpSearchInput - filter realtime trong danh sach checkbox.
+   - Badge supportEmpCountBadge cap nhat realtime so nguoi phu da chon.
+
+3. **Bao Toan Lich Su Nhat Ky Hien Trang (statusLogs):**
+   - Sua handleSaveTask(): task.statusLogs KHONG bi xoa khi chinh sua CV da hoan thanh.
+   - Task moi khoi tao statusLogs: [] de nhat quan cau truc du lieu.
+
+4. **Ham JS Moi:** populateTaskEmpDatalist, handleLeadEmpSearch, handleLeadEmpSelectChange,
+   clearLeadEmpSearch, selectAllSupportEmps, clearAllSupportEmps,
+   filterSupportEmpList, updateSupportEmpCountBadge.
+
+### Phiên Bản 5.2.0 (14/10/2026) - Khớp 100% 56 Thống Kê KPI, Bộ Lọc Tháng/Năm & Nút Mở Thử Kênh Đôi:
+
+1. **Khớp Chuẩn Xác 100% 56 Công Việc Thống Kê KPI (Hình 1):**
+   - **Vấn đề cũ:** Tổng số công việc là 56, nhưng các thẻ con cộng lại chỉ được 24 việc (thiếu 32 việc). Nguyên nhân:
+     + Hàm `updateKPIStats()` so khớp nhầm trạng thái `st === 'Quá hạn'` trong khi `getTaskEffectiveStatus()` trả về chuỗi `'Đang làm (Trễ hạn)'`, dẫn tới toàn bộ các việc đang làm bị trễ hạn bị rơi ra ngoài không được đếm vào thẻ Đang làm hay Quá hạn.
+     + Thiếu hoàn toàn thẻ thống kê cho 15 công việc đang ở trạng thái **Tạm dừng**.
+   - **Xử lý triệt để:**
+     + Bổ sung thẻ KPI thứ 5: **"Tạm dừng"** (`cardKpiPaused`, icon `fa-circle-pause`, số lượng 15 việc). Click vào thẻ lọc ngay danh sách 15 việc tạm dừng.
+     + Sửa thuật toán đếm: Tổng số (56) = Đang thực hiện (29) + Đúng hạn (9) + Hoàn thành trễ (3) + Tạm dừng (15). Khớp chuẩn 100% không bao giờ lệch dù chỉ 1 việc.
+     + Thẻ phụ "Tồn đọng trễ hạn" hiển thị đúng số lượng công việc đang làm mà đã quá thời hạn kế hoạch.
+
+2. **Bộ Lọc Phạm Vi Thời Gian Cho Hàng Thẻ Thống Kê KPI (Hình 1):**
+   - Tích hợp thanh điều khiển phạm vi ngay trên hàng thẻ KPI:
+     + Dropdown `#kpiScopeFilter`:
+       - `🌐 Toàn bộ (Tất cả 56 công việc)`: Thống kê toàn cảnh mọi công việc trong hệ thống.
+       - `📅 Theo tháng đang xem`: Tự động tính toán số lượng việc giao thoa với tháng được chọn trên thanh công cụ (vd: Tháng 10/2026).
+       - `📆 Cả năm (2026)`: Thống kê toàn bộ các việc phát sinh hoặc diễn ra trong năm.
+     + Badge nhãn `#kpiScopeSummary`: Hiển thị trực quan phạm vi và số việc đang xét (vd: `Phạm vi: Toàn bộ (56 việc)` hoặc `Phạm vi: Tháng 10/2026 (48 việc)`).
+
+3. **Cơ Chế Mở File / Thư Mục Kênh Đôi & Nút [ ↗ Mở Thử ] Trên Modal Link (Hình 2):**
+   - **Nút [ ↗ Mở Thử ]:** Bổ sung nút màu xanh ngọc lục bảo ngay trong modal `taskLinkModal`. Khi dán đường dẫn file Excel, Word hoặc thư mục mạng UNC (`\\vdm-fsvr\...`), người dùng có thể bấm `[ ↗ Mở Thử ]` để kiểm tra mở Explorer hoặc ứng dụng Windows ngay lập tức trước khi lưu.
+   - **Kỹ thuật Mở Kênh Đôi (Dual-Channel Bridge):**
+     + Kênh 1 (`fetch`): Gửi yêu cầu tới `http://127.0.0.1:38271/open?path=...`.
+     + Kênh 2 (`invisible iframe` fallback): Nếu trình duyệt Chrome chạy từ giao thức `file:///` chặn CORS / Private Network Access, hệ thống tự động kích hoạt một `iframe` ngầm không hiển thị để gửi lệnh GET trực tiếp tới Python helper, đảm bảo lệnh mở `explorer.exe` hoặc `os.startfile` luôn luôn được thực thi 100%.
+     + Tự động sao chép đường dẫn sạch vào Clipboard kèm thông báo hướng dẫn.
+   - **Khởi động Localhost Cùng Origin:** Cập nhật `Chay_Ung_Dung_MBC.vbs` và `start_app.bat` tự động mở trình duyệt tới `http://127.0.0.1:38271/` (phục vụ trực tiếp từ helper), loại bỏ hoàn toàn mọi rào cản CORS và bảo mật trình duyệt.
+
+---
+
+### Phiên Bản 5.1.0 (14/10/2026) - CSDL Đa Profile, Tự Làm Sạch Link & Popup Sửa Nhân Sự:
+
+1. **CSDL Tập Trung Lưu Thẳng Ổ Đĩa Dùng Chung Mọi Chrome Profile (Hình 1):**
+   - Vấn đề cũ: Người dùng có nhiều tài khoản/Profile Chrome (`gms00-09`, `gms10-19`, `gsv20->`), trước đây lưu vào `localStorage` riêng lẻ của từng profile dẫn đến lệch dữ liệu.
+   - Giải pháp: Bổ sung 2 API vào `open_file_helper.py`:
+     - `GET /api/data`: Đọc file `database.json` trong thư mục `QuanLyCongViecNhom` trên máy tính.
+     - `POST /api/data`: Nhận dữ liệu cập nhật và ghi trực tiếp vào `database.json` (tự động sao lưu `database.backup.json` an toàn chống hỏng file).
+   - Bảo toàn tuyệt đối dữ liệu: Khi mở web app trên profile `gms00-09`, nếu `localStorage` có dữ liệu thực tế (16 nhân viên, danh sách công việc đầy đủ) lớn hơn file mẫu trên máy, hệ thống ưu tiên giữ nguyên 100% dữ liệu này và đồng bộ ngay vào `database.json`. Các profile khác (`gms10-19`, `gsv20->`) mở lên sẽ tự động nạp chung CSDL này.
+   - Mọi thao tác thêm/sửa/xóa công việc, nhân sự đều ghi đồng thời vào `localStorage` và `database.json` trên ổ đĩa.
+
+2. **Tự Động Làm Sạch & Chuẩn Hóa Link Windows Khi Dán (Hình 2):**
+   - Vấn đề cũ: Khi người dùng copy đường dẫn từ Explorer bằng "Copy as path", Windows tự bọc dấu ngoặc kép `"..."`. Code cũ không gỡ bỏ ngoặc kép làm `os.startfile` bị lỗi cú pháp `WinError 123`.
+   - Giải pháp:
+     - Tạo hàm `autoCleanWindowsPath()` ở cả frontend `app.js` và `open_file_helper.py`: Tự động loại bỏ hoàn toàn mọi dấu ngoặc kép (`"`, `'`), khoảng trắng thừa, tiền tố `file:///`, chuẩn hóa dấu gạch chéo ngược `\` cho cả ổ đĩa cục bộ (`C:\...`) và thư mục mạng UNC (`\\vdm-fsvr\...`).
+     - Tích hợp sự kiện `oninput` và `onpaste` trên các ô nhập link (`taskLink`, `taskLinkModalInput`): Khi người dùng dán đường dẫn từ Windows Explorer, hệ thống tự động làm sạch và hiển thị đường dẫn chuẩn ngay lập tức.
+     - `openTaskFileLink()`: Gọi `autoCleanWindowsPath()` trước khi gửi sang Python helper, hiển thị thông báo lỗi chi tiết nếu đường dẫn không tồn tại trên máy thay vì báo sai "Chưa bật helper".
+
+3. **Bộ Lọc Dự Án Trực Quan (Hình 3):**
+   - Vấn đề cũ: Dùng thẻ HTML5 `<datalist>` khiến Chrome không tự động mở danh sách khi nhấp chuột vào ô (chỉ hiện con trỏ nhấp nháy `|-- Tất cả dự án --`), gõ tìm kiếm không ăn khớp.
+   - Giải pháp: Chuyển đổi bộ lọc Dự án thành dạng Dropdown `<select id="filterMainTask">` giao diện đẹp mắt, nhấp chuột là mở ngay danh sách tất cả các dự án kèm số lượng công việc con `[Mã] Tên dự án (N việc)`, có mục `🍃 Chưa thuộc dự án nào (Việc riêng lẻ)`, chọn là lọc ngay lập tức; có nút `[x]` để xóa chọn về Tất cả dự án.
+
+4. **Modal Popup Chỉnh Sửa Nhân Sự Trực Tiếp (Hình 4):**
+   - Vấn đề cũ: Khi danh sách nhân viên dài và người dùng cuộn xuống dòng cuối cùng (như NV-0016 Võ Thị Lý), nhấn nút sửa [✏️] thì form nằm khuất ở đầu trang, màn hình không tự cuộn lên nên người dùng tưởng nút bị liệt.
+   - Giải pháp: Tạo Modal Popup **"Chỉnh Sửa Thông Tin Nhân Sự"** (`editEmployeeModal`) hiện ngay giữa màn hình khi nhấn nút [✏️]:
+     - Hiển thị đầy đủ: Mã NV, Họ & Tên, Bộ phận / Phòng ban.
+     - Nhấn [Cập Nhật] là lưu dữ liệu, tự động đồng bộ tên nhân sự trong tất cả các công việc liên quan và ghi xuống `database.json`.
+
+1. **File Khởi Động 1-Click `Chay_Ung_Dung_MBC.vbs`:**
+   - Thay thế hoàn toàn `start_app.bat`: Click đúp → Python helper chạy hoàn toàn ngầm (không hiện cửa sổ đen) + trình duyệt tự mở `index.html`.
+   - Tạo `cai_dat_tu_khoi_dong.bat`: Chạy 1 lần duy nhất → Python helper tự khởi động cùng Windows mỗi khi bật máy.
+   - Tạo `huy_tu_khoi_dong.bat`: Gỡ cài đặt tự khởi động khi cần.
+
+2. **Sửa Triệt Để Lỗi Mở File/Thư Mục UNC Mạng Nội Bộ (Hình 1 & 2):**
+   - Hàm `_normalizeWindowsPathForBridge()` trong `app.js`: Bảo toàn 100% định dạng UNC (`\\vdm-fsvr\...`), xử lý mọi biến thể (`file://`, `file:///`, `\\`, `//`).
+   - `open_file_helper.py`: Logic chuẩn hóa đường dẫn hoàn toàn cải tiến — nhận diện UNC vs local drive; fallback tự động qua `explorer.exe` nếu `os.startfile` báo lỗi.
+   - **`_fallbackLocalFileOpen()`** khi helper chưa chạy: Tuyệt đối KHÔNG gọi `window.open()` (tránh Chrome tải file về hoặc hiển thị "Index of"). Chỉ sao chép đường dẫn vào Clipboard + hiển thị toast cảnh báo hướng dẫn.
+
+3. **Cải Thiện Nút "Tự Làm Dự Án" (Hình 3):**
+   - Click `[⭐ Tự làm Dự án]`: Hệ thống tự động lấy nội dung chi tiết (`taskDetail`) của công việc hiện tại làm Tên Dự Án Mẹ mới. Mã dự án mẹ = mã công việc hiện tại.
+   - Danh sách chọn dự án mẹ `getAvailableParentTasks()`: Loại bỏ hoàn toàn các công việc thường, **chỉ giữ lại Dự án thực thụ** (sạch sẽ, đúng chuẩn).
+
+4. **Bộ Lọc Công Việc Chưa Thuộc Dự Án (Hình 4):**
+   - Thêm option `🍃 Chưa thuộc dự án nào (Việc riêng lẻ)` vào ô lọc Dự án.
+   - Cả 3 block `filterMainTask` trong `applyFilters`, `fitTimelineToTaskDates` và banner đều xử lý đúng khi `__NO_PROJECT__`.
+   - Có thể chọn từ dropdown hoặc gõ "chưa thuộc" / "riêng lẻ" vào ô tìm kiếm dự án.
+
+5. **Gom Gọn Header: Menu Quản Trị CSDL Dropdown (Hình 5):**
+   - Giữ lại 3 nút nghiệp vụ: `+ Thêm Công Việc`, `Cập Nhật Tiến Độ`, `Bảng Điểm KPI`.
+   - 8 nút admin gom vào menu `[🗄️ Quản Trị CSDL ▾]` sang trọng: Dự án, Nhân sự, Lịch nghỉ, Xóa CV, Xuất Excel Gantt, Xuất CSDL xlsx, Import CV, Import Nhân sự, File JSON.
+   - Chấm màu `🟢/⚪` ngay trên nút báo trạng thái File Helper đang chạy hay chưa; tự kiểm tra mỗi 15 giây.
+   - Menu tự đóng khi click ra ngoài.
+
+---
+---
+
+## Nhật Ký Cập Nhật (Change Log)
+
+### Phiên Bản 4.9.0 (14/10/2026) - Chuẩn Hóa Ngày Hoàn Thành Thực Tế & Micro-Bridge Mở File Windows Trực Tiếp:
+
+1. **Chuẩn Hóa Cột "Thời Gian Hoàn Thành" Khi Chưa Có Ngày Thực Tế (Hình 1 & Hình 2):**
+   - **Vấn đề cũ:** Tại modal sửa công việc, trường *Thời gian hoàn thành thực tế* để trống (`dd/mm/yyyy`), nhưng trên bảng dữ liệu chính cột *Thời gian hoàn thành* lại bị tự động điền ngày kết thúc kế hoạch (`25/06/2026`).
+   - **Xử lý:**
+     - Loại bỏ hoàn toàn fallback tự điền ngày kết thúc kế hoạch vào cột hoàn thành thực tế.
+     - Kiểm tra biến `hasActualEnd = !!(task.actualEndDate && String(task.actualEndDate).trim() && String(task.actualEndDate).trim() !== 'Chưa hoàn thành')`.
+     - Nếu `hasActualEnd` có giá trị: Hiển thị ngày dạng `dd/mm/yyyy` (in đậm màu ngọc bích `text-emerald-700`).
+     - Nếu chưa có: Hiển thị rõ ràng là **"Chưa có"** (màu xám `text-slate-400`), hoặc **"Tạm dừng"** nếu công việc đang hoãn. Tuyệt đối không sinh ngày ảo.
+
+2. **Giải Pháp Mở Tệp Cục Bộ Bằng Ứng Dụng Mặc Định Windows (Hình 3):**
+   - **Vấn đề cũ:** Do Sandbox bảo mật của trình duyệt web (Chrome, Edge), khi bấm nút `[Mở]` tệp đính kèm (như `.xlsx`, `.docx`, `.pdf`), trình duyệt mặc định tải tệp về thư mục Downloads thay vì khởi chạy trực tiếp Microsoft Excel/Word.
+   - **Xử lý triệt để:**
+     - Tạo micro-bridge chuẩn Python không phụ thuộc thư viện ngoài: `open_file_helper.py` chạy dịch vụ HTTP cục bộ siêu nhẹ tại `127.0.0.1:38271`.
+     - Khi nhận yêu cầu `/open?path=...`, helper gọi trực tiếp hàm native `os.startfile(clean_path)` của Windows, mở ngay ứng dụng mặc định (Excel, Word, PDF Reader, File Explorer) với đúng file gốc mà **không tải xuống**.
+     - Cung cấp file chạy nhanh 1-click **`start_app.bat`**: Tự động bật `open_file_helper.py` dưới nền và mở `index.html` trên trình duyệt.
+     - Hàm `openTaskFileLink(taskId)` trên `app.js` gửi `fetch` tới helper cục bộ (timeout 1.2s). Nếu helper đang chạy -> file mở ngay lập tức trên máy. Nếu chưa bật helper -> tự động kích hoạt fallback sao chép đường dẫn vào Clipboard và hướng dẫn người dùng.
+
+---
 
 ### Phiên Bản 4.8.0 (13/10/2026) - Chuẩn Hóa Trạng Thái Công Việc, Lọc Nguồn & Tìm Kiếm Nhanh Datalist:
 
