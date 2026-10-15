@@ -308,12 +308,19 @@
       "planUnit": "ngày",
       "planDays": 106,
       "planEndDate": "2026-04-30",
-      "actualEndDate": "2026-07-06",
+      "actualEndDate": "",
       "status": "Tạm dừng",
-      "link": "",
+      "link": "\\\\vdm-fsvr\\KIEMTRA\\4. DUNG CHUNG\\0. DIEM VAN DE KIEM TRA\\16.2026\\VDM-26-006",
       "note": "",
-      "statusLogs": [],
-      "lastStatusUpdate": ""
+      "statusLogs": [
+        {
+          "date": "2026-10-15",
+          "note": "20/7/2026\nMMK không chấp nhận thay đổi dù khác với tiêu chuẩn vì đảm bảo chất lượng",
+          "status": "Tạm dừng",
+          "author": "Quản trị viên (Admin)"
+        }
+      ],
+      "lastStatusUpdate": "2026-10-15"
     },
     {
       "id": "CV-2026-0008",
