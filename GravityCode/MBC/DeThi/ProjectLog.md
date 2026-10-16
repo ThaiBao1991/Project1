@@ -408,3 +408,100 @@ Khi hàm được import từ thư mục khác, Python không tìm thấy file �
 
 > **Chưa verify được qua UI thực**: Giao diện trực quan (vùng tối đã biến mất, Treeview hiển thị đủ câu) cần user chạy `python question_browser.py` hoặc mở qua `app_gui.py` để xác nhận bằng mắt.
 
+---
+
+## 2026-10-16 — Tạo Bộ Đề Thi & Đáp Án Rút Gọn 50 Câu (35 Câu 1-A00 + 15 Câu Các Phần Còn Lại) — HOÀN THÀNH ✅
+
+### 1. Yêu Cầu & Tiêu Chuẩn Lọc
+- **Tổng số câu**: Đúng **50 câu hỏi trắc nghiệm** (REV 14 chuẩn REV 13).
+  + **35 câu thuộc nhóm 1-A00**: Phủ kín 29 bản tiêu chuẩn A00 - A18 (vòng 1 lấy 29 câu tốt nhất mỗi bản, vòng 2 lấy thêm 6 câu á quân từ các tiêu chuẩn cốt lõi với điều kiện KHÔNG trùng lặp chủ đề).
+  + **15 câu thuộc toàn bộ các phần còn lại**: Phân bổ đều cho 8 thư mục (`2-000`: 4 câu, `3-400`: 1 câu, `4-500`: 4 câu, `5-600`: 2 câu, `6-900`: 1 câu, `7-S00`: 1 câu, `8-T00`: 1 câu, `9-Z00`: 1 câu), khử trùng lặp thiết bị và nội dung.
+- **Tiêu chí loại trừ (Negative Filters)**:
+  + Loại bỏ mốc ngày tháng cố định (ngày ban hành, ngày cải đính cụ thể).
+  + Loại bỏ câu liên quan đến phần mềm ACM, SMI.
+  + Loại bỏ câu đổi đơn vị (kgf -> N, ngẫu lực).
+  + Loại bỏ câu đặt mã số sheet nhà cung cấp.
+- **Tiêu chí ưu tiên nghiệp vụ (5 Trụ Cột Cốt Lõi)**:
+  1. Quy định dán nhãn & màu sắc (chu kỳ 12 tháng, màu tháng, nhãn chứng nhận).
+  2. Quy trình xử lý bất hợp cách (máy đo NG, xử lý motor đã đo, thông báo khách hàng).
+  3. Thời gian lưu trữ tài liệu (kỳ hạn lưu trữ hồ sơ hiệu chỉnh).
+  4. Nội dung cần xác nhận & Điều kiện môi trường (xác nhận máy đo, nhiệt độ 20±2°C, độ ẩm).
+  5. Đặc biệt chú ý, máy nghĩ, sử dụng hạn định (câu chủ chốt ◎, giải trừ máy nghĩ).
+
+### 2. Các Module & File Đã Tạo
+- `generate_rutgon_50cau.py` [MỚI]: Engine chọn lọc, khử trùng lặp và xuất bộ đề 50 câu.
+- `KetQua/DE THI TONG HOP 50 CAU RUT GON.docx` [MỚI]: File Đề thi Word chuẩn format REV 13/14 (50 câu).
+- `KetQua/DAP AN TONG HOP 50 CAU RUT GON.docx` [MỚI]: File Đáp án Word chuẩn bảng 3 cột x 17 hàng (50 ô đáp án khớp 100%).
+- `KetQua/DE THI TONG HOP 50 CAU RUT GON_questions.json` [MỚI]: Snapshot dữ liệu JSON lưu trữ 50 câu hỏi.
+
+### 3. Kết Quả Kiểm Tra V2.0 & Hạn Chế Phát Hiện
+- Phát hiện câu 21 vẫn dính đơn vị SI (`A17-1`).
+- Phát hiện nhiều câu khuôn mẫu "khi phát hiện dị thường trong quá trình điểm kiểm/sử dụng thì xử lý thế nào" lặp đi lặp lại ở các bản tiêu chuẩn máy đo (máy phóng ảnh 505-1, kính hiển vi 503-1...).
+
+---
+
+## 2026-10-16 — Cải Tiến V3.0: Khử Sạch Câu Khuôn Mẫu Generic & Đổi Đơn Vị SI, Linh Hoạt Bù Câu — HOÀN THÀNH ✅
+
+### 1. Giải Pháp Kỹ Thuật Đã Triển Khai
+1. **Loại trừ tuyệt đối đơn vị SI & File A17-1**:
+   - Cập nhật `generate_rutgon.py`: Chặn toàn bộ file `A17-*` và các từ khóa `đơn vị SI`, `hệ số hoán đổi`, `hoán đổi đơn vị`, `hệ số quy đổi`, `chuyển đổi đơn vị`.
+2. **Loại trừ triệt để câu hỏi khuôn mẫu "dị thường điểm kiểm"**:
+   - Nâng cấp `is_generic_abnormal` trong `generate_rutgon_50cau.py` với regex quét các mẫu câu hỏi *"khi phát hiện dị thường/bất thường trong quá trình kiểm tra/sử dụng thì xử lý/làm gì"*.
+   - Khắc phục lỗi lọt câu: Không bị đánh lừa bởi các từ khóa đáp án (`báo cáo`, `ngừng sử dụng`, `ghi chép`).
+   - Phạt trừ 500 điểm để loại bỏ hoàn toàn các câu này, ưu tiên câu kỹ thuật đặc thù (chu kỳ châm dầu, độ chính xác bàn di chuyển, sai số đồng hồ DC, dung sai thước...).
+3. **Cơ chế linh hoạt bù câu từ các tiêu chuẩn khác (theo chỉ đạo người dùng)**:
+   - Nếu nhóm 1-A00 qua kiểm tra nghiêm ngặt không đủ 35 câu (sau khi loại SI và generic), hệ thống tự động tính số lượng thiếu `deficit` và bù từ các tiêu chuẩn thiết bị khác (`2-000` đến `9-Z00`).
+   - Kết quả thực tế: 1-A00 chọn được 35 câu chất lượng cao (28 câu độc lập từ 28 bản tiêu chuẩn + 7 câu thứ 2 khác chủ đề từ các file cốt lõi); nhóm còn lại chọn đúng 15 câu đặc trưng kỹ thuật, phủ đều 8 thư mục.
+4. **Cơ chế an toàn chống lỗi File Lock (PermissionError)**:
+   - Tự động bắt lỗi nếu file Word đang mở bởi người dùng, lưu sang file có hậu tố `_Moi.docx` kèm thông báo rõ ràng.
+
+### 2. Kết Quả Kiểm Tra (Gate 2 — Definition of Done) — ✅ PASS 100%
+1. **Build/Run Check**: `python -m py_compile generate_rutgon_50cau.py generate_rutgon.py` — PASS.
+2. **Kiểm tra phân bổ câu hỏi**:
+   - Đề thi Word: **50 câu hỏi** (35 câu 1-A00 + 15 câu tiêu chuẩn thiết bị khác).
+   - Đáp án Word: **50 ô đáp án** (khớp chuẩn 100% với đề thi).
+   - Ký hiệu câu chủ chốt `◎`: **29 / 50 câu**.
+3. **Kiểm tra tiêu chí chất lượng**:
+   - Câu khuôn mẫu "bất thường điểm kiểm": **0 / 50 câu** (đã khử sạch).
+   - Câu đổi đơn vị SI: **0 / 50 câu** (đã khử sạch).
+   - Câu ngày tháng cố định / ACM / SMI: **0 / 50 câu**.
+   - Trùng lặp file: **0 file bị chọn > 2 câu** (chỉ có 7 file lớn chọn 2 câu có chủ đề hoàn toàn khác nhau).
+4. **File kết quả đã xuất**:
+   - `KetQua/DE THI TONG HOP 50 CAU RUT GON.docx`
+   - `KetQua/DAP AN TONG HOP 50 CAU RUT GON.docx`
+   - `KetQua/DE THI TONG HOP 50 CAU RUT GON_questions.json`
+
+---
+
+## 2026-10-16 — Cải Tiến V4.0: Bộ Đề Rút Gọn 60 Câu (80% Tiêu Chuẩn 1-A00, Sạch 100% Tiếng Nhật & Không Hỏi Mã Số Vẹt) — HOÀN THÀNH ✅
+
+### 1. Yêu Cầu Cải Tiến & Nghiệp Vụ
+1. **Nâng tổng số câu lên đúng 60 câu**:
+   - Mục tiêu 80% từ tiêu chuẩn 1-A00 (~48 câu).
+   - Thực tế tuyển chọn 1-A00: Chọn được **43 câu đạt chuẩn chất lượng cao nhất** (từ 26 bản tiêu chuẩn 1-A00, không generic, không SI, không hỏi mã số vẹt).
+   - Bù 17 câu đặc thù thiết bị từ các tiêu chuẩn còn lại (`2-000` đến `9-Z00`) đảm bảo tổng đúng 60 câu.
+2. **Loại bỏ câu hỏi tra cứu mã số hình thức**:
+   - Chặn các câu chỉ hỏi mã số/ký hiệu biểu thị cho tên gọi nào (như câu `A00~ ứng với tên gọi nào`).
+   - Ưu tiên các câu hỏi về hành động, trách nhiệm, quy định bảo trì và xác nhận máy đo thực tế.
+3. **Làm sạch 100% tiếng Nhật và tham chiếu số trang mơ hồ**:
+   - Bộ lọc regex tự động làm sạch toàn bộ các cụm tiếng Nhật trong ngoặc `【校正】`, `(判定法)`, `【点検】`...
+   - Loại bỏ các cụm tham chiếu số trang gây khó hiểu (`tại trang 4`, `trang 2`...).
+   - Bổ sung tên thiết bị cụ thể vào nội dung câu hỏi nếu câu hỏi thiếu ngữ cảnh.
+
+### 2. Kết Quả Kiểm Tra (Gate 2 — Definition of Done) — ✅ PASS 100%
+1. **Build/Run Check**: `python -m py_compile generate_rutgon_50cau.py generate_rutgon.py` — PASS.
+2. **Kiểm tra chất lượng 60 câu**:
+   - Ký tự tiếng Nhật còn sót lại: **0 / 60 câu**.
+   - Câu hỏi khuôn mẫu dị thường generic: **0 / 60 câu**.
+   - Câu hỏi đổi đơn vị SI: **0 / 60 câu**.
+   - Câu hỏi tra cứu mã số vẹt: **0 / 60 câu**.
+   - Ký hiệu câu chủ chốt `◎`: **32 / 60 câu**.
+3. **Khớp file Word**:
+   - Đề thi Word: Đúng **60 câu hỏi** trắc nghiệm.
+   - Đáp án Word: Đúng **60 ô đáp án** (bảng 3 cột x 20 hàng chuẩn chỉnh).
+4. **File kết quả đã xuất**:
+   - `KetQua/DE THI TONG HOP 60 CAU RUT GON.docx`
+   - `KetQua/DAP AN TONG HOP 60 CAU RUT GON.docx`
+   - `KetQua/DE THI TONG HOP 60 CAU RUT GON_questions.json`
+
+

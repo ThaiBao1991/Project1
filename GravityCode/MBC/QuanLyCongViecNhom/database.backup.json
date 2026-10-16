@@ -308,12 +308,19 @@
       "planUnit": "ngày",
       "planDays": 106,
       "planEndDate": "2026-04-30",
-      "actualEndDate": "2026-07-06",
+      "actualEndDate": "",
       "status": "Tạm dừng",
       "link": "\\\\vdm-fsvr\\KIEMTRA\\4. DUNG CHUNG\\0. DIEM VAN DE KIEM TRA\\16.2026\\VDM-26-006",
       "note": "",
-      "statusLogs": [],
-      "lastStatusUpdate": ""
+      "statusLogs": [
+        {
+          "date": "2026-10-15",
+          "note": "20/7/2026\nMMK không chấp nhận thay đổi dù khác với tiêu chuẩn vì đảm bảo chất lượng",
+          "status": "Tạm dừng",
+          "author": "Quản trị viên (Admin)"
+        }
+      ],
+      "lastStatusUpdate": "2026-10-15"
     },
     {
       "id": "CV-2026-0008",
@@ -333,7 +340,7 @@
       "planEndDate": "2026-05-15",
       "actualEndDate": "",
       "status": "Tạm dừng",
-      "link": "",
+      "link": "\\\\vdm-fsvr\\KIEMTRA\\4. DUNG CHUNG\\11. CAC DU AN PHONG KIEM TRA\\2026\\2. CẢI THIỆN  SỐ CÔNG KIỂM TRA, NGHIỆP VỤ LÃNG PHÍ\\5. Tận dụng dữ liệu kiểm tra GCKK dùng cho hiệu chỉnh ( Q Thảo)-Cancel",
       "note": "",
       "statusLogs": [
         {
@@ -364,7 +371,7 @@
       "planEndDate": "2026-05-15",
       "actualEndDate": "",
       "status": "Tạm dừng",
-      "link": "",
+      "link": "\\\\vdm-fsvr\\KIEMTRA\\4. DUNG CHUNG\\11. CAC DU AN PHONG KIEM TRA\\2026\\2. CẢI THIỆN  SỐ CÔNG KIỂM TRA, NGHIỆP VỤ LÃNG PHÍ\\6. Đưa vào kiểm tra GCCK bằng máy đo tự động ( Mr Thảo- Tạm dừng) - Mục tiêu năm",
       "note": "",
       "statusLogs": [
         {
@@ -1176,7 +1183,7 @@
           "progress": 80
         }
       ],
-      "lastStatusUpdate": "2026-10-13"
+      "lastStatusUpdate": "2026-10-16"
     },
     {
       "id": "CV-2026-0039",
@@ -1207,7 +1214,7 @@
           "progress": 70
         }
       ],
-      "lastStatusUpdate": "2026-10-13"
+      "lastStatusUpdate": "2026-10-16"
     },
     {
       "id": "CV-2026-0040",
@@ -1803,7 +1810,7 @@
       "planEndDate": "2026-11-20",
       "actualEndDate": "",
       "status": "Đang làm",
-      "link": "",
+      "link": "\\\\vdm-fsvr\\KIEMTRA\\2. NHOM HO TRO KIEM TRA\\4. DUNG CHUNG\\11. CÔNG VIỆC CẦN THỰC HIỆN\\2026\\25.THAY DOI HOA CHAT",
       "note": "",
       "taskSource": "Giám đốc",
       "lastStatusUpdate": "2026-10-14",
@@ -1840,7 +1847,7 @@
       "planEndDate": "2026-12-28",
       "actualEndDate": "",
       "status": "Đang làm",
-      "link": "",
+      "link": "\\\\vdm-fsvr\\KIEMTRA\\2. NHOM HO TRO KIEM TRA\\4. DUNG CHUNG\\11. CÔNG VIỆC CẦN THỰC HIỆN\\2026\\25.THAY DOI HOA CHAT",
       "note": "",
       "taskSource": "Giám đốc",
       "lastStatusUpdate": "2026-10-14",

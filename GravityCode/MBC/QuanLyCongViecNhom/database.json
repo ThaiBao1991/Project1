@@ -340,7 +340,7 @@
       "planEndDate": "2026-05-15",
       "actualEndDate": "",
       "status": "Tạm dừng",
-      "link": "",
+      "link": "\\\\vdm-fsvr\\KIEMTRA\\4. DUNG CHUNG\\11. CAC DU AN PHONG KIEM TRA\\2026\\2. CẢI THIỆN  SỐ CÔNG KIỂM TRA, NGHIỆP VỤ LÃNG PHÍ\\5. Tận dụng dữ liệu kiểm tra GCKK dùng cho hiệu chỉnh ( Q Thảo)-Cancel",
       "note": "",
       "statusLogs": [
         {
@@ -371,7 +371,7 @@
       "planEndDate": "2026-05-15",
       "actualEndDate": "",
       "status": "Tạm dừng",
-      "link": "",
+      "link": "\\\\vdm-fsvr\\KIEMTRA\\4. DUNG CHUNG\\11. CAC DU AN PHONG KIEM TRA\\2026\\2. CẢI THIỆN  SỐ CÔNG KIỂM TRA, NGHIỆP VỤ LÃNG PHÍ\\6. Đưa vào kiểm tra GCCK bằng máy đo tự động ( Mr Thảo- Tạm dừng) - Mục tiêu năm",
       "note": "",
       "statusLogs": [
         {
@@ -651,7 +651,7 @@
       "link": "",
       "note": "",
       "statusLogs": [],
-      "lastStatusUpdate": "2026-10-13"
+      "lastStatusUpdate": "2026-10-16"
     },
     {
       "id": "CV-2026-0020",
@@ -1183,7 +1183,7 @@
           "progress": 80
         }
       ],
-      "lastStatusUpdate": "2026-10-13"
+      "lastStatusUpdate": "2026-10-16"
     },
     {
       "id": "CV-2026-0039",
@@ -1214,7 +1214,7 @@
           "progress": 70
         }
       ],
-      "lastStatusUpdate": "2026-10-13"
+      "lastStatusUpdate": "2026-10-16"
     },
     {
       "id": "CV-2026-0040",
@@ -1810,7 +1810,7 @@
       "planEndDate": "2026-11-20",
       "actualEndDate": "",
       "status": "Đang làm",
-      "link": "",
+      "link": "\\\\vdm-fsvr\\KIEMTRA\\2. NHOM HO TRO KIEM TRA\\4. DUNG CHUNG\\11. CÔNG VIỆC CẦN THỰC HIỆN\\2026\\25.THAY DOI HOA CHAT",
       "note": "",
       "taskSource": "Giám đốc",
       "lastStatusUpdate": "2026-10-14",
@@ -1847,7 +1847,7 @@
       "planEndDate": "2026-12-28",
       "actualEndDate": "",
       "status": "Đang làm",
-      "link": "",
+      "link": "\\\\vdm-fsvr\\KIEMTRA\\2. NHOM HO TRO KIEM TRA\\4. DUNG CHUNG\\11. CÔNG VIỆC CẦN THỰC HIỆN\\2026\\25.THAY DOI HOA CHAT",
       "note": "",
       "taskSource": "Giám đốc",
       "lastStatusUpdate": "2026-10-14",

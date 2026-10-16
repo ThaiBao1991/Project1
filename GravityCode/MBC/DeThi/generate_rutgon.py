@@ -80,17 +80,38 @@ def should_exclude_question(
             if date_count >= 2:
                 return True, "Các phương án lựa chọn là các mốc ngày tháng cố định"
 
-    # 3. Đổi đơn vị (kgf sang Newton, hoán đổi trọng lượng/ngẫu lực)
+    # 3. Đổi đơn vị (kgf sang Newton, hoán đổi trọng lượng/ngẫu lực, đơn vị SI)
     if exclude_conversions:
-        if re.search(r"\b(kgf|Newton|N-m|kgf-cm)\b", full_text, re.IGNORECASE) or "hoan doi trong luong" in full_text_norm:
-            return True, "Hỏi về hoán đổi đơn vị đo (kgf, Newton...)"
+        if fname.startswith("A17-"):
+            return True, "File chuyên đề tiêu chuẩn hoán đổi đơn vị SI (A17-)"
+        si_patterns = [
+            r"\b(kgf|Newton|N-m|kgf-cm)\b",
+            r"\bdon vi SI\b",
+            r"\bhe so hoan doi\b",
+            r"\bhoan doi don vi\b",
+            r"\bhe so quy doi\b",
+            r"\bchuyen doi don vi\b",
+        ]
+        if any(re.search(p, full_text, re.IGNORECASE) for p in si_patterns) or "hoan doi trong luong" in full_text_norm or "don vi si" in full_text_norm:
+            return True, "Hỏi về hoán đổi đơn vị đo (kgf, Newton, đơn vị SI...)"
 
     # 4. Đặt mã số sheet / số mẫu khi thêm nhà cung cấp
     if exclude_ncc_sheet:
         if "ma so sheet" in full_text_norm or "so mau thiet dinh" in full_text_norm or "them vao nha cung cap" in full_text_norm:
             return True, "Hỏi về quy định đặt mã số sheet / mẫu thiết định khi thêm nhà cung cấp"
 
-    # 5. Từ khóa loại trừ bổ sung tùy chỉnh
+    # 5. Loại bỏ câu hỏi thuần túy tra cứu mã số hình thức (hỏi vẹt mã số thay vì nội dung)
+    code_lookup_patterns = [
+        r"ung voi ten thuong goi nao",
+        r"ma so .* ung voi",
+        r"ma so cua .* la gi",
+        r"phan ky hieu .* bieu thi",
+        r"ky hieu .* bieu thi cho",
+    ]
+    if any(re.search(p, full_text_norm) for p in code_lookup_patterns):
+        return True, "Câu hỏi tra cứu mã số hình thức (cần hỏi về nội dung/yêu cầu thay vì mã số)"
+
+    # 6. Từ khóa loại trừ bổ sung tùy chỉnh
     if extra_exclude_keywords:
         for kw in extra_exclude_keywords:
             kw_clean = kw.strip().lower()
