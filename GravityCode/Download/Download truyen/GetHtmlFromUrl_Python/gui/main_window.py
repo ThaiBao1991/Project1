@@ -4,7 +4,6 @@ Clone 1:1 giao diện UI.java từ bản Java gốc (GetTextFromHtml-V1.5.6 by M
 """
 
 import os
-from pathlib import Path
 import sys
 import time
 import webbrowser
@@ -15,10 +14,9 @@ from PyQt6.QtWidgets import (
     QMenuBar, QMenu, QStatusBar, QFrame, QSizePolicy, QToolButton
 )
 from PyQt6.QtGui import QAction, QColor, QFont, QPalette, QIcon
-from PyQt6.QtCore import Qt, pyqtSlot, QSettings, QTimer, QThread, pyqtSignal as _pyqtSignal
+from PyQt6.QtCore import Qt, pyqtSlot, QSettings
 
 from core.page_config_mgr import PageConfigManager
-from core.engine import GetHtmlEngine
 import json
 from gui.workers import DownloadWorker, MergeWorker, PrcWorker
 from gui.dialogs import DownloadRangeDialog, EbookInfoDialog
@@ -28,49 +26,7 @@ from gui.quick_login_dialog import QuickLoginDialog
 from gui.config_mgr_dialog import ConfigManagerDialog
 from gui.resume_dialog import ResumeDialog
 from gui.html_fixer_dialog import HtmlFixerDialog
-
-
-class TitleFetchWorker(QThread):
-    """Background thread: fetch tên truyện từ URL mà không block UI thread."""
-    title_ready = _pyqtSignal(str, str)   # (clean_title, save_path)
-
-    def __init__(self, url: str, cfg, engine, last_dir: str, parent=None):
-        super().__init__(parent)
-        self.url = url
-        self.cfg = cfg
-        self.engine = engine
-        self.last_dir = last_dir
-
-    def run(self):
-        import re as _re
-        try:
-            from utils.translator import translate_chinese_novel_title
-            soup = self.engine.fetch_html(self.url, self.cfg)
-            clean_title = ""
-            if soup:
-                h1 = (soup.select_one('.booknav2 h1 a')
-                      or soup.select_one('.booknav2 h1')
-                      or soup.select_one('h1'))
-                raw_title = h1.get_text(strip=True) if h1 else ""
-                if not raw_title and soup.title:
-                    raw_title = soup.title.get_text(strip=True)
-                if raw_title:
-                    raw_title = _re.sub(r'最新章节.*$', '', raw_title)
-                    raw_title = _re.sub(r'(无弹窗|全文阅读|txt下载|列表).*$', '', raw_title).strip()
-                    raw_title = raw_title.split('-')[0].split('_')[0].split(',')[0].strip()
-                    if raw_title:
-                        viet_title = translate_chinese_novel_title(raw_title)
-                        clean_title = f"China-{raw_title}-({viet_title})"
-            if not clean_title:
-                slug = self.url.rstrip('/').split('/')[-1].replace('.htm', '').replace('.html', '')
-                clean_title = f"China-{slug}"
-        except Exception:
-            slug = self.url.rstrip('/').split('/')[-1].replace('.htm', '').replace('.html', '')
-            clean_title = f"China-{slug}"
-
-        import os as _os
-        save_path = _os.path.join(self.last_dir, f"{clean_title}.html")
-        self.title_ready.emit(clean_title, save_path)
+from gui.translate_dialog import TranslateDialog
 
 
 class MainWindow(QMainWindow):
@@ -80,7 +36,6 @@ class MainWindow(QMainWindow):
 
     APP_TITLE = "GetTextFromHtml - Python Edition by Mkbyme"
     SETTINGS_KEY_ONE_PER_FILE = "ui/one_per_file"
-    SETTINGS_KEY_MERGE_FILES = "ui/merge_files"
     SETTINGS_KEY_ADD_EBOOK_INFO = "ui/add_ebook_info"
     SETTINGS_KEY_USE_RANGE = "ui/use_range"
     SETTINGS_KEY_DELETE_FOLDER = "ui/delete_folder"
@@ -103,17 +58,9 @@ class MainWindow(QMainWindow):
 
         self.worker: DownloadWorker | None = None
         self.merge_worker: MergeWorker | None = None
-        self.engine = GetHtmlEngine()
         self._download_range = (0, -1)   # (start_idx, end_idx)
         self._ebook_info_html = ""
         self._total_chapters = 0  # set khi nhận chapter_list_ready signal
-
-        # Debounce timer + background worker cho auto-title truyện Trung
-        self._title_fetch_timer = QTimer(self)
-        self._title_fetch_timer.setSingleShot(True)
-        self._title_fetch_timer.timeout.connect(self._do_fetch_chinese_title)
-        self._title_fetch_worker: TitleFetchWorker | None = None
-        self._pending_chinese_url = ""   # URL đang chờ fetch title
 
         self._build_menu()
         self._build_ui()
@@ -229,12 +176,10 @@ class MainWindow(QMainWindow):
         act_merge.triggered.connect(self._on_merge_story)
         menu_tools.addAction(act_merge)
 
-        act_split = QAction("✂️ Tách Truyện Gộp Thành Từng Chương", self)
-        act_split.triggered.connect(self._on_split_chapters)
-        menu_tools.addAction(act_split)
+        menu_tools.addSeparator()
 
-        act_translate = QAction("🌐 AI Dịch Truyện (Gemini)", self)
-        act_translate.triggered.connect(self._on_ai_translate)
+        act_translate = QAction("🌐 Dịch Truyện (AI Translate)", self)
+        act_translate.triggered.connect(self._on_translate_story)
         menu_tools.addAction(act_translate)
 
         mb.addMenu(menu_tools)
@@ -340,11 +285,17 @@ class MainWindow(QMainWindow):
         self.btn_create_prc.setToolTip("Biên dịch file HTML thành sách PRC (Mobi)")
         self.btn_create_prc.clicked.connect(self._on_create_prc_manual)
 
+        self.btn_translate = QPushButton("🌐 Dịch")
+        self.btn_translate.setFixedWidth(80)
+        self.btn_translate.setToolTip("Mở cửa sổ dịch truyện bằng AI (Gemini)")
+        self.btn_translate.clicked.connect(self._on_translate_story)
+
         row3.addWidget(self.btn_host_count)
         row3.addWidget(self.cbo_page_config)
         row3.addWidget(self.btn_resume)
         row3.addWidget(self.btn_merge)
         row3.addWidget(self.btn_create_prc)
+        row3.addWidget(self.btn_translate)
         root.addLayout(row3)
 
         # ── Hàng 4: Link hướng dẫn ───────────────────────────────────
@@ -375,12 +326,9 @@ class MainWindow(QMainWindow):
 
         grp_save = QGroupBox("Tùy Chỉnh Lưu Tệp")
         vbox_sv = QVBoxLayout(grp_save)
-        self.chk_merge_files = QCheckBox("Gộp các chương thành 1 tệp")
-        self.chk_merge_files.toggled.connect(self._on_merge_files_toggled)
         self.chk_one_file_per = QCheckBox("Mỗi chương thành 1 tệp")
         self.chk_delete_folder = QCheckBox("Xóa thư mục tạm sau khi gộp")
         self.chk_auto_prc = QCheckBox("Tự động tạo PRC sau tải")
-        vbox_sv.addWidget(self.chk_merge_files)
         vbox_sv.addWidget(self.chk_one_file_per)
         vbox_sv.addWidget(self.chk_delete_folder)
         vbox_sv.addWidget(self.chk_auto_prc)
@@ -426,25 +374,18 @@ class MainWindow(QMainWindow):
                 continue
             if type_filter == "Web: Việt Nam" and not getattr(c, 'is_vietnamese_host', False):
                 continue
-            if type_filter == "Web: Trung Quốc" and getattr(c, 'is_vietnamese_host', False):
-                continue
             filtered.append(c)
 
         for c in filtered:
             label = f"{c.page_code}"
             if getattr(c, 'is_vietnamese_host', False):
                 label += " - Web: Việt Nam"
-            else:
-                label += " - Web: Trung Quốc"
             self.cbo_page_config.addItem(label, userData=c)
 
         self.btn_host_count.setText(f"{len(self._all_configs)} Host")
 
     def _restore_settings(self):
         """Khôi phục trạng thái UX (checkbox) từ lần chạy trước"""
-        self.chk_merge_files.setChecked(
-            self.settings.value(self.SETTINGS_KEY_MERGE_FILES, True, type=bool)
-        )
         self.chk_one_file_per.setChecked(
             self.settings.value(self.SETTINGS_KEY_ONE_PER_FILE, False, type=bool)
         )
@@ -460,12 +401,9 @@ class MainWindow(QMainWindow):
         self.chk_auto_prc.setChecked(
             self.settings.value(self.SETTINGS_KEY_AUTO_PRC, False, type=bool)
         )
-        # Đồng bộ trạng thái enable của checkbox xóa thư mục
-        self.chk_delete_folder.setEnabled(self.chk_merge_files.isChecked())
 
     def _save_settings(self):
         """Lưu trạng thái UX"""
-        self.settings.setValue(self.SETTINGS_KEY_MERGE_FILES, self.chk_merge_files.isChecked())
         self.settings.setValue(self.SETTINGS_KEY_ONE_PER_FILE, self.chk_one_file_per.isChecked())
         self.settings.setValue(self.SETTINGS_KEY_ADD_EBOOK_INFO, self.chk_add_ebook_info.isChecked())
         self.settings.setValue(self.SETTINGS_KEY_USE_RANGE, self.chk_download_range.isChecked())
@@ -476,21 +414,28 @@ class MainWindow(QMainWindow):
     # Event Handlers
     # ---------------------------------------------------------------
     def _on_url_changed(self, text: str):
-        """Khi URL thay đổi → tự động chọn host phù hợp trong dropdown và gợi ý tên lưu.
-        Lưu ý: KHÔNG gọi fetch_html ở đây (block UI). Việc fetch title được
-        chuyển sang TitleFetchWorker (background QThread) với debounce 600ms.
-        """
+        """Khi URL thay đổi → tự động chọn host phù hợp trong dropdown và gợi ý tên lưu."""
         text = text.strip()
         if not text:
-            self._title_fetch_timer.stop()
             return
 
         import re
         from urllib.parse import urlparse
+        
+        # 1. Tự động điền nơi lưu file nếu có lịch sử
+        last_dir = self.settings.value(self.SETTINGS_KEY_LAST_SAVE_DIR, "")
+        if last_dir and os.path.exists(last_dir):
+            slug = text.rstrip("/").split("/")[-1]
+            if slug:
+                # Convert slug thành tên có nghĩa: bỏ -, ., _, viết hoa
+                clean_title = re.sub(r'[-._]', ' ', slug).title()
+                # Remove duplicate spaces
+                clean_title = " ".join(clean_title.split())
+                ext = ".txt" if self.txt_save_path.text().endswith(".txt") else ".html"
+                self.txt_save_path.setText(os.path.join(last_dir, f"{clean_title}{ext}"))
 
-        # 1. Nhận diện host (chỉ dùng local config — không gọi mạng)
+        # 2. Nhận diện host
         matched = self.config_mgr.get_config_by_url(text)
-        is_chinese_host = False
         if matched:
             for i in range(self.cbo_page_config.count()):
                 data = self.cbo_page_config.itemData(i)
@@ -499,79 +444,14 @@ class MainWindow(QMainWindow):
                     self.lbl_status.setText(f"✅ Đã nhận diện host: {matched.page_code}")
                     self.lbl_status.setStyleSheet("color: green; font-weight: bold;")
                     break
-            is_chinese_host = not getattr(matched, 'is_vietnamese_host', True)
         else:
             try:
                 domain = urlparse(text).netloc
                 if domain:
                     self.lbl_status.setText(f"❌ Host chưa được hỗ trợ: {domain}")
                     self.lbl_status.setStyleSheet("color: red; font-weight: bold;")
-                    if '69shuba' in domain or '69shu' in domain:
-                        is_chinese_host = True
-            except Exception:
+            except:
                 pass
-
-        # 2. Tự động điền nơi lưu file
-        last_dir = self.settings.value(self.SETTINGS_KEY_LAST_SAVE_DIR, "")
-        if not last_dir or not os.path.exists(last_dir):
-            last_dir = os.path.join(os.path.expanduser("~"), "Downloads")
-
-        if is_chinese_host:
-            # Bật checkbox mỗi chương 1 file ngay lập tức (không cần fetch)
-            self.chk_one_file_per.setChecked(True)
-
-            # Tên file tạm dựa trên slug (sẽ được cập nhật sau khi fetch xong)
-            slug = text.rstrip("/").split("/")[-1].replace(".htm", "").replace(".html", "")
-            placeholder = f"China-{slug}"
-            self.txt_save_path.setText(os.path.join(last_dir, f"{placeholder}.html"))
-            self.lbl_status.setText(self.lbl_status.text() + " ⏳ Đang lấy tên truyện...")
-
-            # Khởi động debounce timer — chỉ fetch sau 600ms không gõ phím
-            self._pending_chinese_url = text
-            self._title_fetch_timer.stop()
-            self._title_fetch_timer.start(600)
-        else:
-            self._title_fetch_timer.stop()
-            slug = text.rstrip("/").split("/")[-1]
-            if slug:
-                clean_title = re.sub(r'[-._]', ' ', slug).title()
-                clean_title = " ".join(clean_title.split())
-                ext = ".txt" if self.txt_save_path.text().endswith(".txt") else ".html"
-                self.txt_save_path.setText(os.path.join(last_dir, f"{clean_title}{ext}"))
-
-    def _do_fetch_chinese_title(self):
-        """Gọi sau debounce timer 600ms — chạy TitleFetchWorker ở background."""
-        url = self._pending_chinese_url
-        if not url:
-            return
-
-        # Hủy worker cũ nếu còn chạy
-        if self._title_fetch_worker and self._title_fetch_worker.isRunning():
-            self._title_fetch_worker.quit()
-            self._title_fetch_worker.wait(500)
-
-        matched = self.config_mgr.get_config_by_url(url)
-        if not matched:
-            from models.page_config import PageConfig
-            matched = PageConfig(page_code='www.69shuba.com', by_pass_cloudflare=True)
-
-        last_dir = self.settings.value(self.SETTINGS_KEY_LAST_SAVE_DIR, "")
-        if not last_dir or not os.path.exists(last_dir):
-            last_dir = os.path.join(os.path.expanduser("~"), "Downloads")
-
-        self._title_fetch_worker = TitleFetchWorker(url, matched, self.engine, last_dir, parent=self)
-        self._title_fetch_worker.title_ready.connect(self._on_title_fetched)
-        self._title_fetch_worker.start()
-
-    @pyqtSlot(str, str)
-    def _on_title_fetched(self, clean_title: str, save_path: str):
-        """Callback khi TitleFetchWorker hoàn tất — cập nhật UI."""
-        # Chỉ cập nhật nếu URL vẫn là URL đang chờ (user chưa đổi URL khác)
-        current_url = self.txt_url.text().strip()
-        if self._pending_chinese_url and self._pending_chinese_url == current_url:
-            self.txt_save_path.setText(save_path)
-            cur_status = self.lbl_status.text().replace(" ⏳ Đang lấy tên truyện...", "")
-            self.lbl_status.setText(cur_status + f" ✅ Tên: {clean_title[:40]}")
 
     def _on_host_selected(self, idx: int):
         """Khi chọn host trong dropdown → cập nhật link hướng dẫn"""
@@ -620,15 +500,8 @@ class MainWindow(QMainWindow):
         file_format = "txt" if save_path.endswith(".txt") else "html"
 
         # ── Auto-detect slug folder (Smart Resume) ───────────────────────
-        from pathlib import Path
-        save_stem = Path(save_path).stem
-        if save_stem.startswith("China-"):
-            slug = save_stem
-        else:
-            slug = url.rstrip("/").split("/")[-1]
-            if slug.endswith(('.htm', '.html')):
-                slug = slug.rsplit('.', 1)[0]
-        story_title_guess = save_stem
+        slug = url.rstrip("/").split("/")[-1]
+        story_title_guess = slug.replace("-", " ").title()
         parent_dir = os.path.dirname(save_path)
         slug_dir = os.path.join(parent_dir, slug)
         resume_json_path = os.path.join(parent_dir, f"{story_title_guess}_Resume.json")
@@ -700,7 +573,6 @@ class MainWindow(QMainWindow):
             config_mgr=self.config_mgr,
             save_path=save_path,
             is_divide_file=self.chk_one_file_per.isChecked(),
-            is_merge_file=self.chk_merge_files.isChecked(),
             ebook_info=self._ebook_info_html,
             start_idx=start_idx,
             end_idx=end_idx,
@@ -712,12 +584,29 @@ class MainWindow(QMainWindow):
         self.worker.progress_signal.connect(self._on_progress)
         self.worker.finished_signal.connect(self._on_finished)
         self.worker.chapter_list_ready.connect(self._on_chapter_list_ready)
+        self.worker.story_title_signal.connect(self._on_story_title_known)
         if resume_data:
             self._total_chapters = len(resume_data.get("all_links", []))
         self.worker.start()
 
         # Lưu lịch sử save_path
         self.settings.setValue(self.SETTINGS_KEY_LAST_SAVE_DIR, os.path.dirname(save_path))
+
+    @pyqtSlot(str)
+    def _on_story_title_known(self, story_title: str):
+        """Cập nhật tên file gợi ý khi worker biết tên truyện thật (ví dụ: TienGia.html)."""
+        if not story_title:
+            return
+        current_save = self.txt_save_path.text().strip()
+        if not current_save:
+            return
+        parent_dir = os.path.dirname(current_save)
+        ext = ".txt" if current_save.endswith(".txt") else ".html"
+        # Tên file mới: TienGia/TienGia.html (thư mục con cùng tên)
+        new_path = os.path.join(parent_dir, story_title, f"{story_title}{ext}")
+        self.txt_save_path.setText(new_path)
+        self.settings.setValue(self.SETTINGS_KEY_LAST_SAVE_DIR, os.path.join(parent_dir, story_title))
+
 
     @pyqtSlot()
     def _on_cancel(self):
@@ -759,13 +648,11 @@ class MainWindow(QMainWindow):
             config_mgr=self.config_mgr,
             save_path=save_path,
             is_divide_file=self.chk_one_file_per.isChecked(),
-            is_merge_file=self.chk_merge_files.isChecked(),
             ebook_info=self._ebook_info_html,
             start_idx=resume_data.get("start_idx", 0),
             end_idx=resume_data.get("end_idx", -1),
             file_format=file_format,
-            resume_data=resume_data,
-            delete_folder=self.chk_delete_folder.isChecked(),
+            resume_data=resume_data
         )
         self.worker.log_signal.connect(self.txt_log.append)
         self.worker.progress_signal.connect(self._on_progress)
@@ -801,14 +688,14 @@ class MainWindow(QMainWindow):
                     self.worker.start_idx = dlg.start_index
                     self.worker.end_idx = dlg.end_index
 
-    @pyqtSlot(bool, str)
-    def _on_finished(self, success: bool, msg: str):
+    @pyqtSlot(str)
+    def _on_finished(self, msg: str):
         self._toggle_download_state(False)
         self.progress_bar.setValue(100)
         self.lbl_status.setText("Trạng Thái Không")
         self._save_settings()
         self.txt_log.append(f"\n🏁 {msg}")
-        if success:
+        if "Lỗi" not in msg:
             if self.chk_auto_prc.isChecked() and hasattr(self, 'worker') and self.worker and getattr(self.worker, 'file_format', 'html') == 'html':
                 final_path = self.txt_save_path.text().strip()
                 if final_path and os.path.exists(final_path):
@@ -817,31 +704,7 @@ class MainWindow(QMainWindow):
                 else:
                     QMessageBox.information(self, "Hoàn tất", f"Đã tải xong!\n{msg}")
             else:
-                # Kiểm tra nếu là truyện nguồn Trung Quốc (China- hoặc 69shuba hoặc có thư mục chương lẻ)
-                save_path = self.txt_save_path.text().strip()
-                stem = Path(save_path).stem if save_path else ""
-                parent_dir = str(Path(save_path).parent) if save_path else ""
-                candidate_dir = os.path.join(parent_dir, stem)
-                is_china = ("China-" in (save_path or "") or "69shuba" in self.txt_url.text().lower())
-
-                if is_china and os.path.exists(candidate_dir) and os.path.isdir(candidate_dir):
-                    box = QMessageBox(self)
-                    box.setWindowTitle("Hoàn tất tải truyện Trung Quốc")
-                    box.setText(f"Đã tải xong toàn bộ các chương truyện tiếng Trung!\n{msg}\n\nBạn có muốn mở ngay công cụ AI Dịch Truyện để dịch bộ truyện này sang tiếng Việt không?")
-                    box.setIcon(QMessageBox.Icon.Information)
-                    btn_translate = box.addButton("🌐 Mở AI Dịch Ngay", QMessageBox.ButtonRole.ActionRole)
-                    btn_close = box.addButton("Đóng", QMessageBox.ButtonRole.RejectRole)
-                    box.exec()
-                    if box.clickedButton() == btn_translate:
-                        self._on_ai_translate()
-                else:
-                    QMessageBox.information(self, "Hoàn tất", f"Đã tải xong!\n{msg}")
-        else:
-            QMessageBox.warning(
-                self, "Chưa hoàn tất",
-                f"⚠️ Quá trình tải chưa hoàn tất!\n\n{msg}\n\n"
-                f"👉 Hãy kiểm tra lại mạng hoặc bấm nút 'Tiếp Tục' (Resume) để tải bù các chương còn thiếu trước khi tạo PRC."
-            )
+                QMessageBox.information(self, "Hoàn tất", f"Đã tải xong!\n{msg}")
 
     @pyqtSlot(int)
     def _on_range_checked(self, state: int):
@@ -861,13 +724,6 @@ class MainWindow(QMainWindow):
                 self._ebook_info_html = ""
         else:
             self._ebook_info_html = ""
-
-    @pyqtSlot(bool)
-    def _on_merge_files_toggled(self, checked: bool):
-        """Khi bật/tắt gộp file -> điều khiển checkbox xóa thư mục tạm"""
-        self.chk_delete_folder.setEnabled(checked)
-        if not checked:
-            self.chk_delete_folder.setChecked(False)
 
     def _filter_host_list(self):
         """Lọc danh sách host theo text search"""
@@ -961,33 +817,6 @@ class MainWindow(QMainWindow):
             dlg.exec()
         except Exception as e:
             QMessageBox.critical(self, "Lỗi", f"Không thể mở Sửa HTML:\n{e}")
-
-    def _on_split_chapters(self):
-        try:
-            from gui.chapter_splitter_dialog import ChapterSplitterDialog
-            default_file = self.txt_save_path.text().strip()
-            dlg = ChapterSplitterDialog(default_file=default_file, parent=self)
-            dlg.exec()
-        except Exception as e:
-            QMessageBox.critical(self, "Lỗi", f"Không thể mở Tiện ích Tách Chương:\n{e}")
-
-    def _on_ai_translate(self):
-        try:
-            from gui.translate_dialog import TranslateDialog
-            dlg = TranslateDialog(self)
-            # Gợi ý thư mục nếu có save_path
-            save_path = self.txt_save_path.text().strip()
-            if save_path:
-                stem = Path(save_path).stem
-                parent_dir = str(Path(save_path).parent)
-                candidate_dir = os.path.join(parent_dir, stem)
-                if os.path.exists(candidate_dir) and os.path.isdir(candidate_dir):
-                    dlg.txt_source.setText(candidate_dir)
-                elif os.path.exists(save_path) and os.path.isfile(save_path):
-                    dlg.txt_source.setText(save_path)
-            dlg.exec()
-        except Exception as e:
-            QMessageBox.critical(self, "Lỗi", f"Không thể mở Tiện ích AI Dịch:\n{e}")
 
     def _on_merge_story(self):
         """Gộp các file chương HTML từ 1 thư mục thành file tổng hợp."""
@@ -1106,24 +935,25 @@ class MainWindow(QMainWindow):
         else:
             QMessageBox.critical(self, "Lỗi", msg)
 
-    def closeEvent(self, event):
-        """Bảo vệ tiến trình khi người dùng đóng ứng dụng: dừng sạch sẽ các background workers."""
-        if hasattr(self, '_title_fetch_worker') and self._title_fetch_worker and self._title_fetch_worker.isRunning():
-            self._title_fetch_worker.terminate()
-            self._title_fetch_worker.wait(1000)
+    # ---------------------------------------------------------------
+    # Chức năng Dịch Truyện (AI Translate)
+    # ---------------------------------------------------------------
+    def _on_translate_story(self):
+        """Mở cửa sổ dịch truyện AI (TranslateDialog)"""
+        dlg = TranslateDialog(parent=self)
 
-        if hasattr(self, 'worker') and self.worker and self.worker.isRunning():
-            self.worker.stop()
-            self.worker.wait(2000)
+        # Gợi ý thư mục nguồn từ save_path hiện tại (slug folder của truyện vừa tải)
+        save_path = self.txt_save_path.text().strip()
+        if save_path and os.path.isfile(save_path):
+            # Slug folder cùng thư mục với file tổng
+            slug = self.txt_url.text().strip().rstrip("/").split("/")[-1]
+            slug_dir = os.path.join(os.path.dirname(save_path), slug)
+            if os.path.isdir(slug_dir):
+                dlg.txt_source.setText(slug_dir)
+            else:
+                dlg.txt_source.setText(os.path.dirname(save_path))
 
-        if hasattr(self, 'merge_worker') and self.merge_worker and self.merge_worker.isRunning():
-            self.merge_worker.wait(2000)
-
-        if hasattr(self, 'prc_worker') and self.prc_worker and self.prc_worker.isRunning():
-            self.prc_worker.stop()
-            self.prc_worker.wait(2000)
-
-        event.accept()
+        dlg.exec()
 
 
 if __name__ == "__main__":

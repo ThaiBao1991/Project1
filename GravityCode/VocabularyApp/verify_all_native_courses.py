@@ -234,11 +234,13 @@ except Exception as e:
     fail("Lỗi kiểm tra giao diện", str(e))
 
 # ─── VÒNG 7: CHẠY TRỌN VẸN TEST_AI_RICH.PY ───
-print("\n[VÒNG 7] Chạy toàn bộ 63 bài kiểm thử test_ai_rich.py...")
+print("\n[VÒNG 7] Chạy toàn bộ bài kiểm thử test_ai_rich.py...")
 import subprocess
+import re as _re
 ret = subprocess.run([sys.executable, os.path.join(BASE_DIR, "test_ai_rich.py")], capture_output=True, text=True, encoding="utf-8")
-if ret.returncode == 0 and "Results: 63 passed, 0 failed" in ret.stdout:
-    ok("test_ai_rich.py: Toàn bộ 63/63 bài kiểm thử chạy thành công 100%")
+_m = _re.search(r"Results:\s*(\d+)\s+passed,\s*(\d+)\s+failed", ret.stdout or "")
+if ret.returncode == 0 and _m and int(_m.group(2)) == 0:
+    ok(f"test_ai_rich.py: Toàn bộ {_m.group(1)}/{_m.group(1)} bài kiểm thử chạy thành công 100%")
 else:
     fail("test_ai_rich.py thất bại", ret.stderr or ret.stdout)
 

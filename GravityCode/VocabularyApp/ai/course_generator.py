@@ -26,6 +26,21 @@ from ai.language_profiler import (
     get_or_create_language_profile,
     get_rule_based_fallback_profile,
 )
+from ai.media_schema import (
+    COURSE_FORMAT_VERSION,
+    DIALOGUE_LIMITS,
+    DIALOGUE_SCHEMA,
+    GRAMMAR_V4_EXTRA,
+    GRAMMAR_V5_EXTRA,
+    LEGACY_FORMAT_VERSION,
+    VOCAB_V4_EXTRA,
+    VOCAB_V5_EXTRA,
+    apply_defaults_in_memory,
+    apply_v4_defaults_in_memory,   # alias tương thích ngược
+    cefr_for_stage,
+    resolve_dialogue_limits,
+    validate_dialogue,
+)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -218,6 +233,12 @@ CONTENT_SCHEMA = {
                 "explanation": {"type": "STRING"},
                 "example_sentence": {"type": "STRING"},
                 "example_meaning_vi": {"type": "STRING"},
+                # ── v4 (optional — không đưa vào `required`) ──
+                **VOCAB_V4_EXTRA,
+                # ── v5 (optional — không đưa vào `required`) ──
+                # KHÔNG thêm `sources`: dẫn chứng do ai/evidence.py lấp từ API,
+                # không để AI bịa nguồn.
+                **VOCAB_V5_EXTRA,
             },
             "required": ["word", "pronunciation", "part_of_speech", "meaning_vi",
                          "explanation", "example_sentence", "example_meaning_vi"],
@@ -256,6 +277,10 @@ CONTENT_SCHEMA = {
                     },
                     "required": ["sentence", "meaning_vi"],
                 }},
+                # ── v4 (optional) ──
+                **GRAMMAR_V4_EXTRA,
+                # ── v5 (optional) ──
+                **GRAMMAR_V5_EXTRA,
             },
             "required": ["title", "explanation", "examples"],
         }},
@@ -559,11 +584,33 @@ def build_content_prompt(lang_name: str, day_num: int, total_days: int, words: l
         f"nếu từ gốc ít hơn {MIN_VOCAB}, BỔ SUNG các từ liên quan cùng chủ đề/giao tiếp "
         f"thông dụng để đạt tối thiểu {MIN_VOCAB} từ. Mỗi từ gồm:\n"
         f"   - pronunciation: cách đọc chuẩn (romaji/pinyin/IPA/romanization tùy ngôn ngữ)\n"
+        f"   - ipa: PHIÊN ÂM QUỐC TẾ theo chuẩn IPA bọc trong /.../. Với tiếng Nhật/Trung/Hàn "
+        f"BẮT BUỘC ghi IPA của âm đọc (ví dụ /neko/ cho 猫) chứ KHÔNG ghi romaji/pinyin. "
+        f"TUYỆT ĐỐI KHÔNG để trống, KHÔNG viết \"N/A\", KHÔNG chép lại pronunciation.\n"
+        f"   - phonetic_note: 1-3 câu tiếng Việt mô tả vị trí môi/lưỡi/răng, độ mở miệng, "
+        f"rung thanh quản hay không, và lỗi đọc sai thường gặp của người Việt với âm này. "
+        f"Với JA/KO/ZH mô tả THANH ĐIỆU (thanh nhấp/trầm/huyền/sắc/ngang/nặng). "
+        f"BẮT BUỘC viết ít nhất 1 câu (≥40 ký tự) — TUYỆT ĐỐI KHÔNG để trống.\n"
+        f"   - syllables: chia âm tiết của từ, mỗi âm tiết 1 phần tử, dùng dấu gạch nối "
+        f"(chỉ khi ngôn ngữ có âm tiết: JA/KO/ZH/VN; ngôn ngữ khác để mảng rỗng)\n"
+        f"   - pitch_accent: trọng âm thanh dạng số trong ngoặc vuông (chỉ JA/KO/ZH), "
+        f"ví dụ 猫: [0]; ngôn ngữ khác để chuỗi rỗng\n"
+        f"   - rhymes: 2-4 từ nghe giống (rhyme với từ này) để luyện phát âm\n"
+        f"   - etymology: 1-2 câu nguồn gốc từ (vd Hán-Việt, Latin, tiếng Pháp) nếu biết chắc, "
+        f"không chắc thì để chuỗi rỗng\n"
         f"   - part_of_speech: loại từ tiếng Việt\n"
+        f"   - pos: mã ngữ pháp ngắn tiếng Anh, đúng 1 trong: "
+        f"n. v. adj. adv. pron. num. conj. prep. interj. aux.\n"
         f"   - meaning_vi: nghĩa tiếng Việt chính xác, tự nhiên\n"
         f"   - explanation: giải thích CHUYÊN SÂU 2-4 câu: sắc thái, cách dùng, kết từ "
         f"thông dụng, khác gì từ đồng nghĩa, mẹo nhớ\n"
-        f"   - example_sentence + example_meaning_vi: 1 câu ví dụ thực tế kèm dịch\n\n"
+        f"   - example_sentence + example_meaning_vi: 1 câu ví dụ thực tế kèm dịch\n"
+        f"   - image_prompt: prompt TIẾNG ANH (TUYỆT ĐỐI KHÔNG dùng tiếng Việt) để AI vẽ "
+        f"minh họa cho từ này. 12-25 từ. Bắt buộc mở đầu bằng \"Flat vector illustration,\" "
+        f"hoặc \"Simple flat icon,\". Mô tả rõ: đối tượng + hành động + bối cảnh + phong cách. "
+        f"KHÔNG chứa chữ viết, KHÔNG chứa watermark, KHÔNG nhắc tên ngôn ngữ. Với từ vật thể "
+        f"cụ thể → vẽ đúng đối tượng. Với từ trừu tượng/tình cảm → hình ẩn dụ đơn giản. "
+        f"Với từ chức năng → vẽ một người đang dùng nó.\n\n"
         f"3. sentence_patterns: ÍT NHẤT {MIN_PATTERNS} CÁCH DÙNG CÂU / mẫu câu. Mỗi mẫu gồm:\n"
         f"   - pattern: mẫu câu (đánh dấu phần biến thiên bằng ...)\n"
         f"   - meaning_vi: nghĩa của mẫu\n"
@@ -576,8 +623,123 @@ def build_content_prompt(lang_name: str, day_num: int, total_days: int, words: l
         f"   - title: tên điểm ngữ pháp\n"
         f"   - explanation: giảng chi tiết 5-10 câu: cấu trúc, cách chia, sắc thái, "
         f"phân biệt với mẫu dễ nhầm, lỗi sai thường gặp của người Việt\n"
-        f"   - examples: 3-4 câu ví dụ song ngữ (nhúng từ vựng của bài)\n\n"
-        f"Chỉ trả về JSON, không thêm chữ nào ngoài JSON."
+        f"   - examples: 3-4 câu ví dụ song ngữ (nhúng từ vựng của bài)\n"
+        f"   - pronunciation_focus: 1-3 câu về trọng âm / nguyên âm dài-ngắn / thanh điệu / "
+        f"âm đầu-cuối đặc trưng của cấu trúc này, và lỗi đọc sai hay gặp của người Việt\n"
+        f"   - common_mistakes: BẮT BUỘC đủ 2-4 lỗi sai THỰC TẾ của người Việt với cấu trúc này. "
+        f"Mỗi lỗi gồm: wrong (câu sai), right (câu đúng), why_vi (1 câu tiếng Việt tại sao sai). "
+        f"TUYỆT ĐỐI KHÔNG để mảng rỗng.\n"
+        f"   - mini_quiz: BẮT BUỘC đủ 2 câu trắc nghiệm 4 lựa chọn ôm cấu trúc vừa dạy. Mỗi câu: "
+        f"question, options (ĐÚNG 4 lựa chọn, không trùng nhau), answer_index (0-3), "
+        f"explanation ngắn 1-2 câu. TUYỆT ĐỐI KHÔNG để mảng rỗng.\n"
+        f"   - references: 0-2 nguồn tham khảo cho điểm ngữ pháp này. Mỗi nguồn gồm: "
+        f"title (tên nguồn), url (đường dẫn), note_vi (ghi chú tiếng Việt ngắn). "
+        f"Không chắc thì để mảng rỗng, TUYỆT ĐỐI KHÔNG bịa URL\n\n"
+        f"Chỉ trả về JSON, không thêm chữ nào ngoài JSON. Với ipa và phonetic_note: "
+        f"TUYỆT ĐỐI KHÔNG bỏ trống và KHÔNG viết \"N/A\" — viết ngắn gọn nhất có thể nhưng "
+        f"phải CÓ nội dung thật.\n\n"
+        f"⚠️ KIỂM TRA CUỐI TRƯỚC KHI TRẢ LỜI (Gemini hay BỎ QUA field nếu không nhắc lại ở cuối):\n"
+        f"- Mỗi mục vocab PHẢI CÓ đủ: ipa, phonetic_note, syllables, pitch_accent, rhymes, "
+        f"etymology.\n"
+        f"- Mỗi mục grammar PHẢI CÓ đủ: pronunciation_focus, common_mistakes (2-4 lỗi thật), "
+        f"mini_quiz (2 câu trắc nghiệm thật).\n"
+        f"- TUYỆT ĐỐI KHÔNG được bỏ trống bất kỳ mảng nào ở trên; nếu không chắc thì điền giá trị "
+        f"ngắn gọn hợp lệ, KHÔNG để mảng rỗng."
+    )
+
+
+def build_dialogue_prompt(lang_name: str, lesson: dict, level: str = "",
+                          level_tag: str = "A2", review: bool = False,
+                          kind: str = "micro") -> str:
+    """Sinh HỘI THOẠI ROLEPLAY NGẮN + ĐƠN GIẢN cho ngày (gọi AI riêng, schema riêng).
+
+    Tách riêng khỏi content là BẮT BUỘC: content v4 đã gần đầy max_output_tokens
+    (16384); gộp thêm dialogue sẽ tái diễn bug "JSON bị cắt" (projectLog Update 12).
+
+    kind:
+      • "micro" (mặc định) — hội thoại luyện nói hằng ngày: ≤6 lượt, ≤220 ký tự TỔNG,
+        mỗi lượt ≤8 từ, mỗi lượt phải chứa ≥1 từ của ngày.
+      • "scene" — bối cảnh dài hơn (dùng cho ngày ôn tập): ≤12 lượt, ≤900 ký tự.
+    Đo thật trước v5: Anh median 663 ký tự / max 4274 → quá dài, sửa ở đây.
+    """
+    kind = (kind or "micro").strip().lower()
+    if kind not in ("micro", "scene"):
+        kind = "micro"
+    # Ngày ôn tập cần gom nhiều từ → nới sang bộ giới hạn 'scene' (vẫn có trần cứng)
+    if review and kind == "micro":
+        kind = "scene"
+
+    lim = resolve_dialogue_limits({"kind": kind})
+    max_turns = int(lim["max_turns"])
+    max_chars = int(lim["max_total_chars"])
+    max_words = int(lim["max_words_per_line"])
+    min_hits = int(lim.get("min_vocab_hits", 1))
+
+    vocab_items = [v for v in (lesson.get("vocab") or []) if isinstance(v, dict)]
+    vocab_lines = []
+    word_names = []
+    for v in vocab_items[:12]:
+        w = str(v.get("word", "")).strip()
+        if not w:
+            continue
+        word_names.append(w)
+        pr = str(v.get("pronunciation", "")).strip()
+        mv = str(v.get("meaning_vi") or v.get("meaning") or "").strip()
+        vocab_lines.append(f"- {w} ({pr}) — {mv}" if mv else f"- {w} ({pr})")
+    if not vocab_lines:
+        vocab_lines = ["- (chưa có danh sách từ — hãy tự chọn 4-6 từ vựng cụ thể, nghĩa rõ)"]
+    gram_lines = [f"- {g.get('title', '')}" for g in (lesson.get("grammar") or [])
+                  if isinstance(g, dict)]
+    topic = (lesson.get("topic") or lesson.get("title") or "").strip()
+
+    extra = ""
+    if level_tag in ("C1", "C2"):
+        extra += ("- Với C1/C2: giữ câu ngắn nhưng thêm SẮC THÁI văn hóa ẩn trong 1 lượt "
+                  "(nói thật khác nói sách vỏ).\n")
+    if review:
+        extra += ("- Đây là NGÀY ÔN TẬP: hồi tụ từ vựng của các ngày trước vào cùng tình huống, "
+                  "nhưng VẪN giữ đúng trần lượt/ký tự ở trên.\n")
+
+    words_block = ", ".join(word_names) if word_names else "(tự chọn từ vựng cụ thể, nghĩa rõ)"
+
+    return (
+        f"Bạn là diễn đạt viên kịch bản hội thoại cho giáo trình {lang_name} dạy người Việt.\n"
+        f"CHỦ ĐỀ NGÀY NÀY: {topic}\n"
+        f"CẤP ĐỘ (CEFR): {level_tag}" + (f" — {level}" if level else "") + "\n"
+        f"LOẠI HỘI THOẠI: {kind}\n\n"
+        f"=== TỪ VỰNG CẦN DÙNG (giữ nguyên dạng viết trong danh sách này) ===\n"
+        + "\n".join(vocab_lines) + "\n\n"
+        f"=== CẤU TRÚC NGỮ PHÁP CẦN DÙNG ===\n" + "\n".join(gram_lines) + "\n\n"
+        f"=== TỪ KHÓA PHẢI CÓ TRONG HỘI THOẠI ===\n{words_block}\n\n"
+        f"GIỚI HẠN TUYỆT ĐỐI (vi phạm là kết quả bị loại):\n"
+        f"- TỐI ĐA {max_turns} lượt.\n"
+        f"- TỐI ĐA {max_chars} KÝ TỰ TỔNG cho TẤT CẢ các lượt (cộng lại).\n"
+        f"- Mỗi lượt TỐI ĐA {max_words} từ.\n"
+        f"- Mỗi lượt PHẢI chứa ÍT NHẤT {min_hits} từ trong danh sách từ khóa ở trên.\n"
+        f"- cultural_note TỐI ĐA 1 CÂU.\n\n"
+        f"YÊU CẦU:\n"
+        f"- Sinh ĐÚNG 1 hội thoại (1 kịch bản) dạng ROLEPLAY: 2 người nói luân phiên (A/B), "
+        f"khoảng {max_turns} lượt, mỗi lượt một câu ngắn.\n"
+        f"- Mỗi lượt: speaker (nhãn A/B hoặc vai người nói), line_target (câu NGÔN NGỮ ĐÍCH), "
+        f"line_vi (dịch nghĩa tiếng Việt).\n"
+        f"- focus_words: 1-3 từ/cụm trong câu mà người học cần chú ý (mảng).\n"
+        f"- emotion: cảm xúc của lượt nói (VD: thân thiện, nghiêm túc, bối rối, tức giận nhẹ).\n"
+        f"- tone: sắc thái/giọng điệu (VD: lịch sự, thân mật, gấp gáp, nhẹ nhàng).\n"
+        f"- situation: 1 câu mô tả tình huống thật (ai gặp ai, ở đâu, vì sao cần nói).\n"
+        f"- cultural_note: TỐI ĐA 1 CÂU về điểm VĂN HÓA/NGỮ CẢNH ẨN mà người bản xứ quan tâm. "
+        f"Không có gì đặc biệt thì ghi '- Không có điểm văn hóa đặc biệt'. TUYỆT ĐỐI viết dài hơn 1 câu.\n"
+        f"- level_tag: '{level_tag}'.\n"
+        f"- difficulty: '{level_tag}' (CEFR thực tế của hội thoại).\n"
+        f"- new_words: danh sách các từ MỚI dùng trong hội thoại (tối đa 8 từ).\n"
+        f"- grammar_used: tên cấu trúc ngữ pháp đã dạy được dùng trong hội thoại.\n"
+        f"- kind: '{kind}'.\n"
+        f"- ƯU TIÊN từ có NGHĨA RÕ (danh từ cụ thể, động từ phổ biến) — TRÁNH từ trừu tượng "
+        f"khó dùng trong câu ngắn.\n"
+        f"- Câu phải là TIẾNG NÓI ĐỜI THƯỜNG, đơn giản, tự nhiên: không thành ngữ phức tạp, "
+        f"không câu dài dồn nhiều mệnh đề, không từ hiếm.\n"
+        f"- Dùng ÍT NHẤT 1 cấu trúc ngữ pháp nêu trên.\n"
+        f"{extra}"
+        f"- KHÔNG thêm chữ ngoài JSON."
     )
 
 
@@ -1401,42 +1563,6 @@ def build_master_backbone(language: str, fsi: dict, coord, log_fn=None, stop_che
         "total_target_days": len(master_items),
         "items": master_items
     }
-    return repaired
-
-
-def parse_curriculum_json(text: str, start_day: int = 1) -> dict:
-    data = json.loads(_strip_json(text))
-    days_out = []
-    for d in data.get("days") or []:
-        if not isinstance(d, dict):
-            continue
-        try:
-            day_num = int(d.get("day", 0))
-        except (TypeError, ValueError):
-            continue
-        if day_num <= 0:
-            continue
-        words_out = []
-        for w in d.get("words") or []:
-            if isinstance(w, dict) and str(w.get("word", "")).strip():
-                words_out.append({
-                    "word": str(w.get("word")).strip(),
-                    "pronunciation": str(w.get("pronunciation", "")).strip(),
-                    "meaning_vi": str(w.get("meaning_vi", "")).strip(),
-                })
-        days_out.append({
-            "day": day_num,
-            "title": str(d.get("title", "")).strip(),
-            "phase": str(d.get("phase", "")).strip(),
-            "words": words_out,
-        })
-    if not days_out:
-        raise ValueError("Giáo trình trả về không có ngày hợp lệ")
-    days_out.sort(key=lambda x: x["day"])
-    # Chuẩn hóa lại đánh số start_day .. start_day + N - 1
-    for i, d in enumerate(days_out, start_day):
-        d["day"] = i
-    return {"days": days_out}
 
 
 # ─── Backbone: Khung giáo trình bắt buộc ────────────────────────────────────────
@@ -1770,6 +1896,54 @@ def _clean_quiz_list(items) -> list:
     return out
 
 
+def _s(val, limit: int = 0) -> str:
+    """Chuẩn hoá chuỗi an toàn: None → '', bỏ khoảng trắng, cắt độ dài nếu có limit.
+
+    Khi limit > 0, ĐỘ DÀI CUỐI CÙNG ≤ limit (đã tính cả dấu '...').
+    """
+    if val is None:
+        return ""
+    s = str(val).strip()
+    if limit and len(s) > limit:
+        s = s[:max(0, limit - 3)].rstrip() + "..."
+    return s
+
+
+def _safe_str_list(val, limit: int = 12) -> list:
+    """Ép 1 giá trị AI trả về thành list[str] an toàn (bỏ rỗng, cắt độ dài)."""
+    out = []
+    if isinstance(val, (list, tuple, set)):
+        for x in val:
+            s = _s(x)
+            if s:
+                out.append(s)
+            if len(out) >= limit:
+                break
+    elif isinstance(val, str):
+        s = _s(val)
+        if s:
+            out.append(s)
+    return out
+
+
+def _clean_references(val, limit: int = 8) -> list:
+    """Ép 1 giá trị AI trả về thành list[dict] dẫn chứng an toàn."""
+    out = []
+    if not isinstance(val, (list, tuple)):
+        return out
+    for r in val[:limit]:
+        if not isinstance(r, dict):
+            continue
+        item = {
+            "title": _s(r.get("title", "")),
+            "url": _s(r.get("url", "")),
+            "note_vi": _s(r.get("note_vi", "")),
+        }
+        if item["title"] or item["url"]:
+            out.append(item)
+    return out
+
+
 def parse_content_json(text: str) -> dict:
     data = json.loads(_strip_json(text))
     if not isinstance(data.get("title"), str) or not data["title"].strip():
@@ -1778,14 +1952,32 @@ def parse_content_json(text: str) -> dict:
     clean_vocab = []
     for v in data.get("vocab") or []:
         if isinstance(v, dict) and str(v.get("word", "")).strip():
+            ex_sent = str(v.get("example_sentence", "")).strip()
+            ex_vi = str(v.get("example_meaning_vi", "")).strip()
             clean_vocab.append({
-                "word": str(v.get("word", "")).strip(),
-                "pronunciation": str(v.get("pronunciation", "")).strip(),
-                "part_of_speech": str(v.get("part_of_speech", "")).strip(),
-                "meaning_vi": str(v.get("meaning_vi", "")).strip(),
-                "explanation": str(v.get("explanation", "")).strip(),
-                "example_sentence": str(v.get("example_sentence", "")).strip(),
-                "example_meaning_vi": str(v.get("example_meaning_vi", "")).strip(),
+                # ── 7 field CŨ (canonical — app cũ đọc theo tên) ──
+                "word": _s(v.get("word", "")),
+                "pronunciation": _s(v.get("pronunciation", "")),
+                "part_of_speech": _s(v.get("part_of_speech", "")),
+                "meaning_vi": _s(v.get("meaning_vi", "")),
+                "explanation": _s(v.get("explanation", "")),
+                "example_sentence": ex_sent,
+                "example_meaning_vi": ex_vi,
+                # ── v4 ──
+                "ipa": _s(v.get("ipa", "")) or _s(v.get("pronunciation", "")),
+                "phonetic_note": _s(v.get("phonetic_note", "")),
+                "pos": _s(v.get("pos", "")),
+                "image_prompt": _s(v.get("image_prompt", "")) or None,
+                # ── v5 ──
+                "syllables": _safe_str_list(v.get("syllables"), 8),
+                "pitch_accent": _s(v.get("pitch_accent", "")),
+                "rhymes": _safe_str_list(v.get("rhymes"), 6),
+                "etymology": _s(v.get("etymology", "")),
+                # alias COMPUTED (không do AI sinh) — giữ đồng bộ với field cũ
+                "example_target": ex_sent,
+                "example_vi": ex_vi,
+                "image_ref": None,
+                "audio_ref": None,
             })
 
     clean_patterns = []
@@ -1819,10 +2011,25 @@ def parse_content_json(text: str) -> dict:
                     "sentence": str(ex.get("sentence", "")).strip(),
                     "meaning_vi": str(ex.get("meaning_vi", "")).strip(),
                 })
+        mistakes = []
+        for m in g.get("common_mistakes") or []:
+            if isinstance(m, dict) and str(m.get("wrong", "")).strip():
+                mistakes.append({
+                    "wrong": str(m.get("wrong", "")).strip(),
+                    "right": str(m.get("right", "")).strip(),
+                    "why_vi": str(m.get("why_vi", "")).strip(),
+                })
         clean_grammar.append({
-            "title": str(g["title"]).strip(),
-            "explanation": str(g.get("explanation", "")).strip(),
+            # ── 3 field CŨ ──
+            "title": _s(g["title"]),
+            "explanation": _s(g.get("explanation", "")),
             "examples": examples,
+            # ── v4 ──
+            "pronunciation_focus": _s(g.get("pronunciation_focus", "")),
+            "common_mistakes": mistakes,
+            "mini_quiz": _clean_quiz_list(g.get("mini_quiz")),
+            # ── v5 ──
+            "references": _clean_references(g.get("references")),
         })
 
     return {
@@ -1832,6 +2039,70 @@ def parse_content_json(text: str) -> dict:
         "common_sentences": clean_common,
         "grammar": clean_grammar,
     }
+
+
+def parse_dialogue_json(text: str) -> list:
+    """Parse JSON hội thoại → list dialogue đã chuẩn hoá. Trả [] nếu hỏng."""
+    try:
+        data = json.loads(_strip_json(text))
+    except (ValueError, json.JSONDecodeError):
+        return []
+    if not isinstance(data, dict):
+        return []
+    out = []
+    for d in data.get("dialogue") or []:
+        if not isinstance(d, dict):
+            continue
+        turns = []
+        for t in d.get("turns") or []:
+            if not isinstance(t, dict):
+                continue
+            line = _s(t.get("line_target", ""))
+            if not line:
+                continue
+            turns.append({
+                "speaker": _s(t.get("speaker", "")) or "A",
+                "line_target": line,
+                "line_vi": _s(t.get("line_vi", "")),
+                "focus_words": [_s(w) for w in (t.get("focus_words") or [])
+                                if _s(w)][:6],
+                "emotion": _s(t.get("emotion", "")),
+                "tone": _s(t.get("tone", "")),
+            })
+        if len(turns) < 2:      # hội thoại tối thiểu 2 lượt
+            continue
+        kind = _s(d.get("kind", "")).lower()
+        if kind not in ("micro", "scene"):
+            kind = "micro"
+        # cultural_note: cắt còn ≤200 ký tự để hội thoại không bị "phình" văn bản
+        cultural = _s(d.get("cultural_note", ""), limit=200)
+        out.append({
+            "situation": _s(d.get("situation", "")),
+            "level_tag": _s(d.get("level_tag", "")) or "A2",
+            "title": _s(d.get("title", "")),
+            "cultural_note": cultural,
+            "audio_ref": None,
+            "turns": turns,
+            # ── v5 ──
+            "difficulty": _s(d.get("difficulty", "")) or (_s(d.get("level_tag", "")) or "A2"),
+            "new_words": _safe_str_list(d.get("new_words"), 12),
+            "grammar_used": _s(d.get("grammar_used", "")),
+            "kind": kind,
+        })
+    return out
+
+
+def check_dialogue_limits(dialogue: dict, lesson: dict = None, limits: dict = None) -> dict:
+    """Kiểm tra 1 hội thoại (vừa AI sinh) có đạt giới hạn NGẮN không.
+
+    Trả về {"ok", "errors", "stats"} — dùng để log cảnh báo / retry.
+    """
+    vocab_words = []
+    if isinstance(lesson, dict):
+        vocab_words = [str(v.get("word", "")).strip()
+                       for v in (lesson.get("vocab") or [])
+                       if isinstance(v, dict) and str(v.get("word", "")).strip()]
+    return validate_dialogue(dialogue, vocab_words, limits=limits)
 
 
 def parse_quiz_json(text: str, keys: tuple = None) -> dict:
@@ -1870,6 +2141,8 @@ def normalize_lesson(lesson: dict) -> dict:
         lesson["quiz"] = {}
     for key in ("vocab", "pattern", "common", "grammar", "mixed"):
         lesson["quiz"].setdefault(key, [])
+    # ── Lớp v4/v5 (dùng chung helper với course_db để 1 nguồn sự thật duy nhất) ──
+    apply_defaults_in_memory(lesson)
     return lesson
 
 
@@ -1990,10 +2263,11 @@ def audit_and_supplement_course(language: str, level: str = None, coord=None,
             needed = target_days - count_exist
             log_fn(f"\n   ▶ Phát hiện Chặng {st['stage_num']}/6: '{st['name']}' bị hụt ngày ({count_exist}/{target_days} ngày) → Đang bổ sung +{needed} ngày...")
             base_slots = build_stage_universal_template(s_idx, target_days)
-            # Lấy các slot chưa có
+            # Lấy các slot chưa có — giữ nguyên slot_id duy nhất từ template
+            # (build_stage_universal_template gán slot_id = 1..target_days).
+            # BUG cũ: gán đè slot["slot_id"] = len(supp_slots) khiến MỌI slot
+            # cùng id → topics_map khớp sai → tên chủ đề AI bị mất.
             supp_slots = base_slots[count_exist:count_exist + needed]
-            for slot in supp_slots:
-                slot["slot_id"] = len(supp_slots)
             st_items = []
             try:
                 res_adapt = coord.request(
@@ -2035,7 +2309,7 @@ def audit_and_supplement_course(language: str, level: str = None, coord=None,
     backbone["items"] = bb_items
     course["backbone"] = backbone
     course["total_days"] = len(bb_items)
-    course["format_version"] = 3
+    course["format_version"] = COURSE_FORMAT_VERSION
     if level and not course.get("level"):
         course["level"] = level
     course_db.save_course(language, course)
@@ -2112,9 +2386,11 @@ def generate_course(language: str,
             "quiz_ab": lambda t: parse_quiz_json(t, keys=("vocab_quiz", "pattern_quiz")),
             "quiz_cd": lambda t: parse_quiz_json(t, keys=("common_quiz", "grammar_quiz")),
             "quiz":    parse_quiz_json,
+            "dialogue": parse_dialogue_json,
         }
         parser = _PARSERS.get(kind, parse_content_json)
-        _WHAT = {"quiz": "trắc nghiệm", "quiz_ab": "trắc nghiệm A/B", "quiz_cd": "trắc nghiệm C/D"}
+        _WHAT = {"quiz": "trắc nghiệm", "quiz_ab": "trắc nghiệm A/B",
+                 "quiz_cd": "trắc nghiệm C/D", "dialogue": "hội thoại"}
         what = _WHAT.get(kind, "nội dung")
         for attempt in (1, 2):
             if stop_check and stop_check():
@@ -2227,6 +2503,17 @@ def generate_course(language: str,
     filled = [it for it in bb_items if it.get("filled_day") is not None]
     unfilled = [it for it in bb_items if it.get("filled_day") is None]
 
+    # ── Giới hạn theo target_days do người dùng chọn trong UI ──────────────
+    # target_days = None → AI tự suy luận (chuẩn Bản xứ C2) → không giới hạn.
+    # target_days > 0   → cắt lộ trình còn lại cho đúng số ngày đã chọn.
+    if target_days and int(target_days) > 0:
+        want = int(target_days)
+        remain = max(0, want - len(filled))
+        if len(unfilled) > remain:
+            log_fn(f"🎯 Giới hạn theo lựa chọn của bạn: chỉ sinh tới Ngày {want} "
+                   f"(bỏ qua {len(unfilled) - remain} chủ đề vượt quá).")
+            unfilled = unfilled[:remain]
+
     log_fn(f"📊 Tiến độ Backbone: {len(filled)}/{len(bb_items)} chủ đề đã học "
            f"({'%.0f' % (100*len(filled)/len(bb_items))}%) — còn {len(unfilled)} chủ đề.")
     if not unfilled:
@@ -2266,7 +2553,7 @@ def generate_course(language: str,
     course["plan"] = full_plan
     course["total_days"] = len(full_plan)
     course["level"] = level
-    course["format_version"] = 3
+    course["format_version"] = COURSE_FORMAT_VERSION
     if not course.get("words_per_day"):
         course["words_per_day"] = wpd
     course_db.save_course(language, course)
@@ -2416,3 +2703,43 @@ def generate_course(language: str,
     return {"generated": generated, "skipped": skipped, "failed": failed,
             "total_days": total_bb or len(plan),
             "backbone_filled": filled_now, "backbone_total": total_bb}
+
+
+# ─── CLI tự kiểm tra schema v5 (python -m ai.course_generator) ─────────────────
+if __name__ == "__main__":
+    import sys as _sys
+    try:
+        _sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
+    _lesson = {
+        "title": "Mua sắm ở chợ",
+        "vocab": [{"word": "cat", "pronunciation": "/kæt/", "meaning_vi": "con mèo"},
+                  {"word": "fish", "pronunciation": "/fɪʃ/", "meaning_vi": "con cá"}],
+        "grammar": [{"title": "How much is this?"}],
+    }
+    _good = {"kind": "micro", "turns": [
+        {"speaker": "A", "line_target": "I love this market."},
+        {"speaker": "B", "line_target": "I want to buy fish."},
+    ]}
+    _bad = {"kind": "micro", "turns": [
+        {"speaker": "A", "line_target": "I would like to purchase some fresh fish today please."},
+    ] * 8}
+
+    print("=== SCHEMA v5 ===")
+    print("COURSE_FORMAT_VERSION =", COURSE_FORMAT_VERSION,
+          "| LEGACY_FORMAT_VERSION =", LEGACY_FORMAT_VERSION)
+    print("DIALOGUE_LIMITS =", json.dumps(DIALOGUE_LIMITS, ensure_ascii=False))
+    print("\n--- validate_dialogue (hợp lệ) ---")
+    print(json.dumps(validate_dialogue(_good, ["cat", "fish"]), ensure_ascii=False, indent=2))
+    print("\n--- validate_dialogue (vi phạm) ---")
+    print(json.dumps(validate_dialogue(_bad, ["cat", "fish"]), ensure_ascii=False, indent=2))
+    print("\n--- build_dialogue_prompt (micro) ---")
+    print(build_dialogue_prompt("Tiếng Anh", _lesson, level_tag="A1", kind="micro"))
+    print("\n--- CONTENT_SCHEMA: field vocab ---")
+    print(sorted(CONTENT_SCHEMA["properties"]["vocab"]["items"]["properties"].keys()))
+    print("required vocab =", CONTENT_SCHEMA["properties"]["vocab"]["items"]["required"])
+    print("--- CONTENT_SCHEMA: field grammar ---")
+    print(sorted(CONTENT_SCHEMA["properties"]["grammar"]["items"]["properties"].keys()))
+    print("required grammar =", CONTENT_SCHEMA["properties"]["grammar"]["items"]["required"])

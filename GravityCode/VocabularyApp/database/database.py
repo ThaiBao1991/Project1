@@ -5,6 +5,7 @@ Hỗ trợ đa ngôn ngữ bằng cách lưu mỗi ngôn ngữ thành 1 file JSO
 
 import json
 import os
+import shutil
 from datetime import datetime
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -15,9 +16,10 @@ if not os.path.exists(DATA_DIR):
 
 
 def _get_json_path(language: str) -> str:
-    # Ví dụ: "Tiếng Anh" -> "tieng_anh.json" hoặc giữ nguyên tuỳ cấu hình.
-    # Để đơn giản, thay thế khoảng trắng và viết thường.
-    filename = language.strip().lower().replace(" ", "_") + ".json"
+    # BUG ĐÃ SỬA (L-67): quy tắc slug giờ nằm Ở 1 NGUỒN DUY NHẤT (ai/paths.py).
+    # Trước đây copy-paste ở 6 chỗ ⇒ đổi 1 chỗ là 5 chỗ lệch.
+    from ai.paths import lang_slug
+    filename = lang_slug(language) + ".json"
     if not filename or filename == ".json":
         filename = "default.json"
     return os.path.join(DATA_DIR, filename)
@@ -26,9 +28,14 @@ def _get_json_path(language: str) -> str:
 # ─── Load / Save ───────────────────────────────────────────────────────────────
 
 def load_data(language: str) -> dict:
-    """Đọc toàn bộ data từ file JSON của ngôn ngữ tương ứng.
-    Đảm bảo luôn trả về dict có đủ key bắt buộc (vocabularies, last_updated)
-    dù file JSON thiếu trường hay bị hỏng cấu trúc.
+    """�ọc toàn bộ data từ file JSON của ngôn ngữ tương ứng.
+
+    BUG ĐÃ SỬA (L-E): trước đây nuốt mọi exception và trả về list RỖNG ⇒
+    lần `add_vocab`/`update_vocab` kế tiếp sẽ GHI ĐÈ file bằng 1 từ duy nhất,
+    xoá vĩnh viễn toàn bộ từ vựng. Giờ:
+      • file hỏng → sao lưu `.corrupt-<ts>.bak` rồi NÉM lỗi
+        (caller bắt lỗi ⇒ KHÔNG ghi đè dữ liệu).
+      • file không hợp lệ (không phải dict) → cũng ném lỗi.
     """
     path = _get_json_path(language)
     if not os.path.exists(path):
@@ -36,14 +43,31 @@ def load_data(language: str) -> dict:
     try:
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
-        if not isinstance(data, dict):
-            return {"vocabularies": [], "last_updated": ""}
-        # Đảm bảo luôn có key bắt buộc, tránh KeyError ở caller
-        data.setdefault("vocabularies", [])
-        data.setdefault("last_updated", "")
-        return data
+    except Exception as e:
+        _backup_corrupt(path)
+        raise ValueError(
+            f"File dữ liệu '{os.path.basename(path)}' bị hỏng — đã sao lưu, "
+            f"KHÔNG ghi đè. Hãy sửa hoặc khôi phục file gốc. ({e})") from e
+    if not isinstance(data, dict):
+        _backup_corrupt(path)
+        raise ValueError(
+            f"File dữ liệu '{os.path.basename(path)}' không hợp lệ — đã sao lưu, "
+            f"KHÔNG ghi đè.")
+    # Đảm bảo luôn có key bắt buộc, tránh KeyError ở caller
+    data.setdefault("vocabularies", [])
+    data.setdefault("last_updated", "")
+    return data
+
+
+def _backup_corrupt(path: str) -> str:
+    """Sao lưu file JSON hỏng trước khi caller ném lỗi."""
+    try:
+        ts = datetime.now().strftime("%Y%m%d-%H%M%S")
+        bak = f"{path}.corrupt-{ts}.bak"
+        shutil.copy2(path, bak)
+        return bak
     except Exception:
-        return {"vocabularies": [], "last_updated": ""}
+        return ""
 
 
 def save_data(language: str, data: dict):
@@ -194,39 +218,62 @@ def get_all_dates(language: str) -> list:
     return sorted({v.get("date_tag", "") for v in get_all_vocab(language) if v.get("date_tag")})
 
 def get_available_languages() -> list:
+    """Danh sách ngôn ngữ thật sự có dữ liệu.
+
+    BUG ĐÃ SỬA (L-A): trước đây quét MỌI `data/*.json` ⇒ các file hệ thống
+    (blocked_accounts.json, blocked_keys.json, language_profiles_cache.json,
+    tts_quota.json, tts_voices.json) bị hiện thành "ngôn ngữ" ⇒ dropdown có 13 mục
+    thay vì 8. Giờ chỉ nhận:
+      • data/ai_courses/<slug>/course.json  (khóa học AI)
+      • data/<slug>.json có chứa "vocabularies" (từ vựng nhập tay)
+    """
     langs = []
     seen = set()
 
-    # 1. File từ vựng nhập tay (data/*.json)
-    if os.path.exists(DATA_DIR):
-        for f in os.listdir(DATA_DIR):
-            if f.endswith(".json"):
-                name = f[:-5].replace("_", " ").title()
-                key = name.strip().lower()
-                if key and key not in seen:
-                    seen.add(key)
-                    langs.append(name)
+    def _add(display_name):
+        display_name = (display_name or "").strip()
+        if not display_name:
+            return
+        key = display_name.lower()
+        if key not in seen:
+            seen.add(key)
+            langs.append(display_name)
 
-    # 2. Khóa học AI (data/ai_courses/*/course.json)
+    # 1. Khóa học AI (data/ai_courses/*/course.json)
     ai_courses_dir = os.path.join(DATA_DIR, "ai_courses")
-    if os.path.exists(ai_courses_dir):
+    if os.path.isdir(ai_courses_dir):
         for folder in sorted(os.listdir(ai_courses_dir)):
             cpath = os.path.join(ai_courses_dir, folder, "course.json")
-            if os.path.isfile(cpath):
-                display_name = ""
-                try:
-                    with open(cpath, "r", encoding="utf-8") as fp:
-                        cdata = json.load(fp)
-                        display_name = (cdata.get("language") or "").strip()
-                except Exception:
-                    pass
-                if not display_name:
-                    display_name = folder.replace("_", " ").title()
+            if not os.path.isfile(cpath):
+                continue
+            display_name = ""
+            try:
+                with open(cpath, "r", encoding="utf-8") as fp:
+                    cdata = json.load(fp)
+                display_name = (cdata.get("language") or "").strip()
+            except Exception:
+                pass
+            if not display_name:
+                display_name = folder.replace("_", " ").title()
+            _add(display_name)
 
-                key = display_name.strip().lower()
-                if key and key not in seen:
-                    seen.add(key)
-                    langs.append(display_name)
+    # 2. File từ vựng nhập tay — CHỈ file có key "vocabularies"
+    if os.path.isdir(DATA_DIR):
+        for f in sorted(os.listdir(DATA_DIR)):
+            if not f.endswith(".json") or f == "index.json":
+                continue
+            path = os.path.join(DATA_DIR, f)
+            if not os.path.isfile(path):
+                continue
+            try:
+                with open(path, "r", encoding="utf-8") as fp:
+                    data = json.load(fp)
+            except Exception:
+                continue
+            if not isinstance(data, dict) or "vocabularies" not in data:
+                continue          # file hệ thống → bỏ qua
+            _add(f[:-5].replace("_", " ").title())
 
     return langs
+
 

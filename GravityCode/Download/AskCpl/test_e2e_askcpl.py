@@ -1,17 +1,9 @@
 import sys
 import os
 import json
-
-if hasattr(sys.stdout, "reconfigure"):
-    try:
-        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-        sys.stderr.reconfigure(encoding="utf-8", errors="replace")
-    except Exception:
-        pass
-
 sys.path.append(r"c:\Users\12953 bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\Download\AskCpl")
 import tkinter as tk
-from AskCpl import AskCplApp
+from AskCpl import App
 from auto_ai_worker import run_auto_ai
 from settings import load_settings
 
@@ -28,7 +20,7 @@ def test_e2e_askcpl():
     print("=== KHỞI TẠO ASK CPL ENGINE ===")
     root = tk.Tk()
     root.withdraw()
-    app = AskCplApp(root)
+    app = App(root)
 
     # Ghi đè log để in ra console
     def mock_log(msg):

@@ -7,9 +7,9 @@ Tương đương TAuto.java của phiên bản Java gốc.
 import os
 import re
 import time
-import random
 import json
 import logging
+import unicodedata
 import concurrent.futures
 from datetime import datetime
 from pathlib import Path
@@ -19,6 +19,28 @@ from core.engine import GetHtmlEngine
 from models.chapter import Chapter
 
 logger = logging.getLogger(__name__)
+
+
+def slugify_title(text: str) -> str:
+    """
+    Chuyển tiêu đề thành dạng không dấu, Title Case, chỉ chứa ASCII.
+    Ví dụ: 'Tiên Giả Biến Thượng' → 'TienGiaBienThuong'
+    Với chữ Hán hoặc các ký tự không dịch được → fallback về chuỗi gốc.
+    """
+    if not text:
+        return text
+    # Bước 1: Normalize NFD (tách dấu thanh ra riêng) và loại bỏ combining marks
+    nfd = unicodedata.normalize('NFD', text)
+    ascii_text = nfd.encode('ascii', 'ignore').decode('ascii')
+    # Bước 2: Nếu kết quả quá ngắn so với đầu vào (chữ Hán, ký tự đặc biệt) → giữ lại slug gốc
+    if len(ascii_text.strip()) < len(text.strip()) * 0.4:
+        return text
+    # Bước 3: Chỉ giữ chữ cái, số, khoảng trắng
+    ascii_text = re.sub(r'[^a-zA-Z0-9\s]', '', ascii_text)
+    # Bước 4: Title Case, bỏ khoảng trắng thừa → CamelCase
+    words = [w.capitalize() for w in ascii_text.split() if w]
+    return ''.join(words) if words else text
+
 
 
 def html_to_text(html: str) -> str:
@@ -42,11 +64,12 @@ class DownloadWorker(QThread):
     """
     progress_signal = pyqtSignal(int, str, str)   # (index, status, error_msg)
     log_signal = pyqtSignal(str)
-    finished_signal = pyqtSignal(bool, str)       # (success: bool, message: str)
+    finished_signal = pyqtSignal(str)
     chapter_list_ready = pyqtSignal(int)          # total_count
+    story_title_signal = pyqtSignal(str)          # tên truyện thật (sau khi fetch được)
 
     def __init__(self, url: str, config_mgr: PageConfigManager, save_path: str,
-                 is_divide_file: bool = False, is_merge_file: bool = True, ebook_info: str = "",
+                 is_divide_file: bool = False, ebook_info: str = "",
                  start_idx: int = 0, end_idx: int = -1, file_format: str = "html",
                  manual_links: list[str] = None, page_config=None, resume_data: dict = None,
                  delete_folder: bool = False):
@@ -55,7 +78,6 @@ class DownloadWorker(QThread):
         self.config_mgr = config_mgr
         self.save_path = save_path
         self.is_divide_file = is_divide_file
-        self.is_merge_file = is_merge_file
         self.ebook_info = ebook_info
         self.start_idx = start_idx
         self.end_idx = end_idx
@@ -77,17 +99,11 @@ class DownloadWorker(QThread):
     def stop(self):
         self.is_running = False
 
-    def _get_max_workers(self, page_config=None):
-        if page_config and getattr(page_config, 'max_connection', 0) > 0:
-            return page_config.max_connection
-        if page_config and getattr(page_config, 'content_mode', '') == 'xtruyen_decrypt':
-            return 1  # xtruyen.vn bắt buộc chạy 1 luồng để tránh bị khóa IP
+    def _get_max_workers(self):
         settings = QSettings("Mkbyme", "GetHtmlFromUrl")
         return settings.value("download/max_connection", 1, type=int)
 
-    def _get_delay_ms(self, page_config=None):
-        if page_config and getattr(page_config, 'delay_ms', 0) > 0:
-            return page_config.delay_ms
+    def _get_delay_ms(self):
         settings = QSettings("Mkbyme", "GetHtmlFromUrl")
         return settings.value("download/delay_ms", 300, type=int)
 
@@ -190,7 +206,7 @@ class DownloadWorker(QThread):
                 page_config = self.forced_page_config or self.config_mgr.get_config_by_url(self.url)
                 if not page_config:
                     self.log_signal.emit(f"❌ Không tìm thấy cấu hình hỗ trợ cho URL: {self.url}")
-                    self.finished_signal.emit(False, "Lỗi: Không hỗ trợ site này.")
+                    self.finished_signal.emit("Lỗi: Không hỗ trợ site này.")
                     return
 
                 self.log_signal.emit(f"🔄 Sử dụng cấu hình host: {page_config.page_code}")
@@ -204,7 +220,7 @@ class DownloadWorker(QThread):
 
                 if not all_links:
                     self.log_signal.emit("❌ Không tìm thấy danh sách chương nào.")
-                    self.finished_signal.emit(False, "Lỗi: Không tìm thấy link chương.")
+                    self.finished_signal.emit("Lỗi: Không tìm thấy link chương.")
                     return
                 
                 total = len(all_links)
@@ -217,20 +233,27 @@ class DownloadWorker(QThread):
                 selected_links = all_links[start:end + 1]
 
                 story_title = self._extract_story_title()
+                self.story_title_signal.emit(story_title)
+                self.log_signal.emit(f"📖 Tên truyện: {story_title}")
                 save_dir, final_path = self._prepare_save_paths(story_title)
                 
                 self.chapters = [None] * len(selected_links)
                 chapters_status = [{"status": "pending", "title": ""} for _ in selected_links]
 
-            max_workers = self._get_max_workers(page_config)
-            base_delay_sec = self._get_delay_ms(page_config) / 1000.0
-            self.log_signal.emit(f"📥 Bắt đầu tải với {max_workers} luồng (Khoảng nghỉ cơ bản: {base_delay_sec:.1f}s)...")
-
-            self.is_ip_banned_encountered = False
+            is_cf_site = getattr(page_config, 'by_pass_cloudflare', False) or "69shu" in getattr(page_config, 'page_code', '') or "69shu" in self.url
+            if is_cf_site:
+                # Host có Cloudflare: Cưỡng chế chạy 1 luồng tuần tự, tối thiểu 10 giây/chương để chống rate-limit
+                safe_workers = 1
+                delay_sec = max(10.0, self._get_delay_ms() / 1000.0)
+                self.log_signal.emit(f"🛡️ Host có bảo vệ Cloudflare: Tự động chạy 1 luồng tuần tự (nghỉ {delay_sec:.1f}s/chương) để tránh bị chặn.")
+            else:
+                safe_workers = self._get_max_workers()
+                delay_sec = self._get_delay_ms() / 1000.0
+                self.log_signal.emit(f"📥 Bắt đầu tải với {safe_workers} luồng (nghỉ {delay_sec:.1f}s)...")
 
             # 3. HÀM WORKER CHO TỪNG CHƯƠNG (CHẠY TRONG THREADPOOL)
             def download_single(local_idx: int, link: str):
-                if not self.is_running or self.is_ip_banned_encountered:
+                if not self.is_running:
                     return
                     
                 # Bỏ qua nếu đã tải xong trong quá trình resume
@@ -242,33 +265,22 @@ class DownloadWorker(QThread):
                 
                 full_link = link if link.startswith("http") else f"https://{page_config.page_code}{link}"
                 
-                max_retries = 3
+                max_retries = 3 if is_cf_site else 5
                 chapter = None
                 for attempt in range(max_retries):
-                    if not self.is_running or self.is_ip_banned_encountered:
+                    if not self.is_running:
                         return
-                    chapter = self.engine.get_chapter_title_and_content(full_link, page_config)
+                    chapter = self.engine.get_chapter_title_and_content(full_link, page_config, log_fn=self.log_signal.emit)
                     chapter.url = full_link
                     
-                    # Nếu bị chặn IP hoặc cảnh báo spam -> kích hoạt ngắt mạch, không retry mù quáng
-                    if getattr(chapter, 'is_ip_banned', False):
-                        self.is_ip_banned_encountered = True
-                        break
-
                     if not chapter.is_get_failed:
                         break  # Thành công thì thoát vòng lặp retry
                         
                     if attempt < max_retries - 1:
                         self.log_signal.emit(f"  ⚠️ Lỗi chương {global_idx + 1}, thử lại lần {attempt + 2}/{max_retries}...")
-                        time.sleep(1.5 + attempt)  # Nghỉ tăng dần trước khi thử lại
+                        time.sleep(2.0 if is_cf_site else 1.0)
 
-                if getattr(chapter, 'is_ip_banned', False):
-                    self.download_failed_count += 1
-                    self.failed_links.append(full_link)
-                    chapters_status[local_idx] = {"status": "error", "title": "Bị khóa IP do spam"}
-                    self.progress_signal.emit(global_idx, "⛔ Khóa IP", "Máy chủ chặn spam")
-                    self.log_signal.emit(f"  ⛔ Máy chủ tạm khóa IP khi tải: {full_link}")
-                elif chapter.is_get_failed:
+                if chapter.is_get_failed:
                     self.download_failed_count += 1
                     self.failed_links.append(full_link)
                     chapters_status[local_idx] = {"status": "error", "title": chapter.title}
@@ -286,26 +298,26 @@ class DownloadWorker(QThread):
                 # Cập nhật _Resume.json liên tục sau mỗi chương
                 self._save_resume_state(story_title, final_path, all_links, save_dir, chapters_status)
 
+                # Với host Cloudflare, nghỉ thêm sau khi hoàn tất chương để tránh spam
+                if is_cf_site:
+                    time.sleep(delay_sec)
+
             # 4. CHẠY THREADPOOL EXECUTOR CÓ AUTO-RESUME TỐI ĐA 5 LẦN
             for auto_resume_attempt in range(5):
                 if not self.is_running:
                     break
                     
-                self.is_ip_banned_encountered = False
-                max_workers = self._get_max_workers(page_config)
-                with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+                with concurrent.futures.ThreadPoolExecutor(max_workers=safe_workers) as executor:
                     futures = []
                     for idx, link in enumerate(selected_links):
-                        if not self.is_running or self.is_ip_banned_encountered:
+                        if not self.is_running:
                             break
                         # Bỏ qua nếu đã tải xong (từ lần trước hoặc lần thử nghiệm trong cùng session)
                         if chapters_status[idx].get("status") == "done":
                             continue
                             
                         futures.append(executor.submit(download_single, idx, link))
-                        # Khoảng nghỉ + Jitter ngẫu nhiên giữa các lần gửi request
-                        jitter = random.uniform(0.3, 1.0) if base_delay_sec > 0.5 else 0
-                        time.sleep(base_delay_sec + jitter)
+                        time.sleep(delay_sec) # Khoảng nghỉ tránh spam request quá nhanh
                     
                     # Chờ tất cả xong
                     for future in concurrent.futures.as_completed(futures):
@@ -313,31 +325,6 @@ class DownloadWorker(QThread):
 
                 if not self.is_running:
                     break
-
-                # Xử lý Circuit Breaker nếu phát hiện bị khóa IP
-                if self.is_ip_banned_encountered:
-                    self.log_signal.emit("⚠️ Máy chủ phát hiện tần suất cao và tạm khóa IP!")
-                    self.log_signal.emit("⏳ Đang tạm dừng 45 giây để máy chủ hạ nhiệt và mở lại IP...")
-                    for _ in range(45):
-                        if not self.is_running:
-                            break
-                        time.sleep(1)
-
-                    if not self.is_running:
-                        break
-
-                    # Thử kiểm tra nhẹ nhàng 1 request xem IP đã thông chưa
-                    self.log_signal.emit("🔄 Đang kiểm tra lại trạng thái IP...")
-                    probe_link = selected_links[0] if selected_links[0].startswith("http") else f"https://{page_config.page_code}{selected_links[0]}"
-                    test_ch = self.engine.get_chapter_title_and_content(probe_link, page_config)
-                    if getattr(test_ch, 'is_ip_banned', False):
-                        self.log_signal.emit("❌ IP vẫn đang bị tạm khóa. Dừng tải để bảo vệ an toàn cho IP của bạn!")
-                        self.log_signal.emit("💡 Mẹo: Toàn bộ tiến trình đã được lưu an toàn vào file Resume.")
-                        self.log_signal.emit("👉 Bạn có thể đổi mạng (phát 4G/bật VPN) hoặc chờ 5-10 phút rồi bấm 'Tải Tiếp'.")
-                        self.finished_signal.emit(False, "Tạm dừng do IP bị giới hạn spam. Tiến trình đã được lưu an toàn.")
-                        return
-                    else:
-                        self.log_signal.emit("✅ Máy chủ đã mở lại IP! Tiếp tục tiến trình tải...")
 
                 # Kiểm tra xem đã hoàn thành 100% chưa
                 if all(ch is not None for ch in self.chapters):
@@ -347,7 +334,7 @@ class DownloadWorker(QThread):
                 failed_count = sum(1 for ch in self.chapters if ch is None)
                 if auto_resume_attempt < 4:
                     self.log_signal.emit(f"🔄 Auto-resume lần {auto_resume_attempt + 1}/5: còn {failed_count} chương lỗi. Đang thử lại...")
-                    time.sleep(3)
+                    time.sleep(2)
                 else:
                     self.log_signal.emit(f"❌ Đã thử tải tự động 5 lần nhưng vẫn còn {failed_count} chương lỗi.")
 
@@ -355,7 +342,7 @@ class DownloadWorker(QThread):
             import traceback
             err_msg = traceback.format_exc()
             logger.error(f"Error in run: {e}\n{err_msg}")
-            self.finished_signal.emit(False, f"Lỗi: {e}")
+            self.finished_signal.emit(f"Lỗi: {e}")
             self.log_signal.emit(f"❌ CHI TIẾT LỖI:\n{err_msg}")
             return
 
@@ -385,66 +372,112 @@ class DownloadWorker(QThread):
                     pass
 
         if all_done:
-            if not self.is_merge_file:
-                self.log_signal.emit(f"✅ Tải xong trọn vẹn {len(self.chapters)} chương.")
-                self.log_signal.emit(f"📂 BẢO LƯU NGUYÊN VẸN các file chương trong thư mục: {save_dir}")
-                self.log_signal.emit("💡 Tùy chọn 'Gộp các chương thành 1 tệp' đang TẮT: Giữ nguyên từng chương lẻ, không tạo file gộp.")
-                self.finished_signal.emit(True, f"Hoàn tất tải {len(self.chapters)} chương! File từng chương đã lưu trong thư mục.")
-            else:
-                self.log_signal.emit(f"✅ Tải xong {len(self.chapters)} chương. Đang tự động gộp file...")
+            self.log_signal.emit(f"✅ Tải xong {len(self.chapters)} chương. Đang tự động gộp file...")
+            
+            # Tự động gộp
+            if final_path:
+                self._save_concatenate_file(story_title, final_path)
+                self.log_signal.emit(f"✅ Đã gộp thành công vào: {final_path}")
                 
-                # Tự động gộp
-                if final_path:
-                    self._save_concatenate_file(story_title, final_path)
-                    self.log_signal.emit(f"✅ Đã gộp thành công vào: {final_path}")
-                    
-                    # Tự động xóa thư mục nếu user đã check
-                    if self.delete_folder and save_dir and os.path.exists(save_dir):
-                        import shutil
-                        try:
-                            shutil.rmtree(save_dir, ignore_errors=True)
-                            self.log_signal.emit(f"🧹 Đã xóa thư mục tạm: {save_dir}")
-                        except Exception as e:
-                            self.log_signal.emit(f"⚠️ Lỗi xóa thư mục tạm: {e}")
-                            
-                self.finished_signal.emit(True, "Hoàn tất và đã gộp file tự động!")
+                # Tự động xóa thư mục nếu user đã check
+                if self.delete_folder and save_dir and os.path.exists(save_dir):
+                    import shutil
+                    try:
+                        shutil.rmtree(save_dir, ignore_errors=True)
+                        self.log_signal.emit(f"🧹 Đã xóa thư mục tạm: {save_dir}")
+                    except Exception as e:
+                        self.log_signal.emit(f"⚠️ Lỗi xóa thư mục tạm: {e}")
+                        
+            self.finished_signal.emit("Hoàn tất và đã gộp file tự động!")
         else:
-            self.finished_signal.emit(False, f"Chưa hoàn tất: còn {self.download_failed_count} chương tải thất bại. Vui lòng bấm 'Tiếp Tục' (Resume) để tải lại.")
+            self.finished_signal.emit(f"Hoàn tất ({self.download_failed_count} chương thất bại). Xem ErrorLog để tải lại.")
 
     # ------------------------------------------------------------------
     # Private Helpers
     # ------------------------------------------------------------------
     def _extract_story_title(self) -> str:
-        """Lấy tên truyện từ save_path hoặc URL"""
-        if self.save_path:
-            return Path(self.save_path).stem
-        path_part = self.url.rstrip("/").split("/")[-1]
-        # Chuyển dấu gạch ngang thành khoảng trắng, viết hoa từng chữ
-        return path_part.replace("-", " ").title()
+        """
+        Lấy tên truyện:
+        1. Thử fetch trang và lấy <title> hoặc <h1> đầu tiên.
+        2. Slugify (bỏ dấu tiếng Việt) → dạng TienGia.
+        3. Fallback về slug từ URL nếu không lấy được.
+        """
+        import re as _re
+        slug_fallback = self.url.rstrip("/").split("/")[-1]
+        slug_fallback = _re.sub(r'[-._]', ' ', slug_fallback).title()
+
+        try:
+            page_config = self.page_config or self.config_mgr.get_config_by_url(self.url)
+            if not page_config:
+                return slug_fallback
+
+            soup = self.engine.fetch_html(self.url, page_config)
+            if not soup:
+                return slug_fallback
+
+            raw_title = ""
+            # Ưu tiên <h1> trong trang (thường chính xác hơn <title>)
+            h1 = soup.find('h1')
+            if h1:
+                raw_title = h1.get_text(strip=True)
+            # Fallback: <title> tag
+            if not raw_title:
+                title_tag = soup.find('title')
+                if title_tag:
+                    raw_title = title_tag.get_text(strip=True)
+                    # Thường <title> có dạng "Tên Truyện | Site", lấy phần trước "|" hoặc –
+                    for sep in ['|', '–', '-', '—']:
+                        if sep in raw_title:
+                            raw_title = raw_title.split(sep)[0].strip()
+                            break
+
+            if raw_title:
+                slugified = slugify_title(raw_title)
+                if slugified and len(slugified) > 1:
+                    return slugified
+        except Exception as e:
+            logger.warning(f"_extract_story_title: không thể fetch trang, fallback về slug: {e}")
+
+        return slug_fallback
 
     def _prepare_save_paths(self, story_title: str):
-        """Chuẩn bị đường dẫn lưu file. Dùng tên truyện/file làm tên thư mục lưu các chương lẻ."""
+        """
+        Chuẩn bị đường dẫn lưu file.
+        - Dùng story_title (tên trư ẫn, đã slugify) làm cả tên thư mục lẫn tên file.
+        - Ví dụ: story_title='TienGia' → TienGia/TienGia.html
+        - Vẫn tạo symlink/alias bằng URL slug để Resume hoạt động.
+        """
         if not self.save_path:
             return None, None
 
         ext = f".{self.file_format}"
-        base_name = self.save_path
-        if not base_name.endswith(ext):
-            base_name = base_name + ext
+        parent_dir = str(Path(self.save_path).parent)
 
-        parent_dir = str(Path(base_name).parent)
-        stem = Path(base_name).stem
-        if stem.startswith("China-") or not self.url:
-            folder_name = stem
-        else:
-            folder_name = self.url.rstrip("/").split("/")[-1]
-            if folder_name.endswith(('.htm', '.html')):
-                folder_name = folder_name.rsplit('.', 1)[0]
-            if not folder_name or folder_name.isdigit():
-                folder_name = stem
-
-        save_dir = os.path.join(parent_dir, folder_name)
+        # Dùng story_title đã slugify làm tên thư mục
+        # slugify_title đã dạng CamelCase (VD: TienGia), an toàn làm tên thư mục
+        safe_folder = re.sub(r'[\\/:*?"<>|]', '_', story_title) if story_title else (
+            self.url.rstrip("/").split("/")[-1]
+        )
+        save_dir = os.path.join(parent_dir, safe_folder)
         os.makedirs(save_dir, exist_ok=True)
+
+        # Tạo thư mục alias theo URL slug để Resume vẫn tìm được (symlink trên Windows dùng junction)
+        url_slug = self.url.rstrip("/").split("/")[-1] if self.url else ""
+        if url_slug and url_slug != safe_folder:
+            alias_dir = os.path.join(parent_dir, url_slug)
+            if not os.path.exists(alias_dir):
+                try:
+                    os.makedirs(alias_dir, exist_ok=True)
+                    # Ghi file marker để Resume dialog biết redirect về thư mục thật
+                    marker = os.path.join(alias_dir, "_folder_alias.json")
+                    with open(marker, "w", encoding="utf-8") as _f:
+                        import json as _json
+                        _json.dump({"real_folder": safe_folder}, _f)
+                except Exception:
+                    pass
+
+        # Tên file output: TienGia/TienGia.html
+        base_name = os.path.join(save_dir, f"{safe_folder}{ext}")
 
         return save_dir, base_name
 
@@ -455,19 +488,13 @@ class DownloadWorker(QThread):
             ext = f".{self.file_format}"
             file_path = os.path.join(save_dir, f"{idx + 1:04d}_{safe_title}{ext}")
 
-            with open(file_path, "w", encoding="utf-8-sig") as f:
+            with open(file_path, "w", encoding="utf-8") as f:
                 if self.file_format == "html":
                     content_str = chapter.content or ""
                     content_str = re.sub(r'(?<!>)\n(?!<)', '<br/>\n', content_str)
                     
-                    f.write("<!DOCTYPE html>\n<html lang='zh-CN'>\n<head>\n")
-                    f.write("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n")
-                    f.write(f"<title>{chapter.title}</title>\n")
-                    f.write("<style> body { font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; line-height: 1.8; padding: 20px; } .chapter-content { white-space: pre-wrap; font-size: 18px; } </style>\n")
-                    f.write("</head>\n<body>\n")
                     f.write(f"<h2>{chapter.title}</h2>\n")
                     f.write(f"<div class='chapter-content'>\n{content_str}\n</div>\n")
-                    f.write("</body>\n</html>\n")
                 else:
                     f.write(f"{chapter.title}\n\n")
                     f.write(html_to_text(chapter.content or ""))

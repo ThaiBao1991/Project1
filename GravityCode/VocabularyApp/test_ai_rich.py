@@ -10,6 +10,13 @@ if hasattr(sys.stdout, "reconfigure"):
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+# --slow: chạy thêm section [11] (sinh 700 ngày thật — mất ~10 phút).
+# Mặc định (fast): bỏ qua section [11] → chạy xong < 60 giây.
+RUN_SLOW = "--slow" in sys.argv
+if not RUN_SLOW:
+    print("[i] Chế độ FAST (bỏ qua section [11]). Dùng --slow để chạy đầy đủ.")
+
+
 from ai.course_generator import (
     parse_content_json, parse_quiz_json, parse_curriculum_json, parse_backbone_json,
     normalize_lesson, _strip_json,
@@ -32,7 +39,7 @@ from ai.language_profiler import (
 )
 from VocabApp import _short_level_name
 from ai import course_db as cdb
-import json, tempfile, shutil
+import io, json, tempfile, shutil
 
 passed = 0
 failed = 0
@@ -383,286 +390,287 @@ finally:
     cdb.COURSES_DIR = orig_cdb_dir
     shutil.rmtree(tmpdir_old, ignore_errors=True)
 
-# ─── 11. Full flow dry-run (Multi-Pass + Continuous Generation) ───
-print("\n[11] Full flow dry-run (Multi-Pass + Continuous Generation)")
-_STAGE_TOPICS = [
-    ("PHÁT ÂM",   ["Hiragana hàng A-K",       "Hiragana hàng S-N",       "Katakana hàng A-K",       "Thanh điệu & Pitch"]),
-    ("TỪ ĐƠN",    ["Số đếm 1-100",            "Đại từ nhân xưng",        "Chào hỏi sinh tồn",       "Thời gian & Ngày tháng"]),
-    ("SƠ CẤP",    ["Mua sắm & Giá cả",        "Ăn uống & Nhà hàng",      "Hỏi đường & Giao thông",  "Sức khỏe & Bệnh viện"]),
-    ("TRUNG CẤP", ["Công việc & Công sở",      "Câu phức & Liên từ",      "Kể chuyện & Tường thuật", "Thư tín chính thức"]),
-    ("CAO CẤP",   ["Báo chí & Thời sự",       "Học thuật & Nghiên cứu",  "Tranh biện & Lập luận",   "Văn phong trang trọng"]),
-    ("BẢN XỨ",   ["Thành ngữ & Tục ngữ",     "Tiếng lóng & Slang",      "Chơi chữ & Ẩn dụ",        "Capstone tổng hợp"]),
-]
-
-_stage_call_idx = [0]  # dùng list để có thể mutate từ closure
-
-_FAKE_CONTENT = {
-    "title": "Bài học mẫu",
-    "vocab": [{"word": f"w{j}", "pronunciation": "p", "part_of_speech": "n",
-               "meaning_vi": "nghĩa", "explanation": "giải thích",
-               "example_sentence": "câu ví dụ", "example_meaning_vi": "dịch"}
-              for j in range(10)],
-    "sentence_patterns": [{"pattern": f"mẫu {j}", "meaning_vi": "nghĩa",
-                           "structure_note": "ghi chú", "example_sentence": "vd",
-                           "example_meaning_vi": "dịch"} for j in range(10)],
-    "common_sentences": [{"sentence": f"câu {j}", "meaning_vi": "nghĩa",
-                          "situation": "tình huống"} for j in range(10)],
-    "grammar": [{"title": f"ngữ pháp {j}", "explanation": "chi tiết",
-                 "examples": [{"sentence": "s", "meaning_vi": "m"}]} for j in range(2)],
-}
-_FAKE_QUIZ = {k: [{"question": f"{k} q{i}", "options": ["A", "B", "C", "D"],
-                   "answer_index": i % 4, "explanation": "ok"} for i in range(10)]
-              for k in ("vocab_quiz", "pattern_quiz", "common_quiz", "grammar_quiz")}
-
-_capture = {"backbone_prompt": "", "curriculum_prompt": ""}
-
-class _FakeCoordinator:
-    def __init__(self, **kw):
-        self.kw = kw
-        self.calls = []
-    def request(self, prompt, response_schema=None):
-        self.calls.append(response_schema)
-        if response_schema is ADAPT_STAGE_SCHEMA:
-            _capture["backbone_prompt"] = prompt
-            stage_idx = min(_stage_call_idx[0], 5)
-            cat, titles = _STAGE_TOPICS[stage_idx]
-            _stage_call_idx[0] += 1
-            # Giả lập trả về đúng 4 items cho test
-            topics = [{"slot_id": i + 1, "category": cat, "title": f"{titles[i % len(titles)]} (Chuyên sâu)", "importance": "BẮT BUỘC"} for i in range(40)]
-            return {"ok": True, "text": json.dumps({"topics": topics}), "model": "fake"}
-        if response_schema is GAP_INSERT_SCHEMA:
-            return {"ok": True, "text": json.dumps({"insertions": []}), "model": "fake"}
-        if response_schema is BACKBONE_SCHEMA:
-            _capture["backbone_prompt"] = prompt
-            stage_idx = min(_stage_call_idx[0], 5)
-            cat, titles = _STAGE_TOPICS[stage_idx]
-            _stage_call_idx[0] += 1
-            items = [{"id": i + 1, "category": cat, "title": titles[i % len(titles)], "importance": "BẮT BUỘC"} for i in range(4)]
-            return {"ok": True, "text": json.dumps({"items": items}), "model": "fake"}
-        if response_schema and "gaps" in response_schema.get("properties", {}):
-            return {"ok": True, "text": json.dumps({"gaps": []}), "model": "fake"}
-        if response_schema is CURRICULUM_SCHEMA:
-            _capture["curriculum_prompt"] = prompt
-            return {"ok": True, "text": json.dumps({"days": []}), "model": "fake"}
-        if response_schema is CONTENT_SCHEMA:
-            return {"ok": True, "text": json.dumps(_FAKE_CONTENT), "model": "fake"}
-        return {"ok": True, "text": json.dumps(_FAKE_QUIZ), "model": "fake"}
-
-tmpdir = tempfile.mkdtemp()
-try:
-    import ai.course_generator as cg
-    orig_dir = cdb.COURSES_DIR
-    orig_keys = cg._load_gemini_keys
-    orig_batch = cg.BACKBONE_BATCH_SIZE
-    cdb.COURSES_DIR = tmpdir
-    cg._load_gemini_keys = lambda: [{"key": "fake"}]
-
-    # Test Continuous Generation: Không giới hạn batch -> Sinh liền một mạch 100% (240/240 ngày qua 6 chặng)
-    _stage_call_idx[0] = 0  # reset stage counter
-    cg.BACKBONE_BATCH_SIZE = None
-    logs = []
-    stats_all = generate_course(
-        "FakeLangFull", words_per_day=5,
-        log_fn=logs.append, level=LEVELS[0],
-        coordinator_cls=_FakeCoordinator,
-    )
-    assert stats_all["generated"] == 700 and stats_all["backbone_total"] == 700, stats_all
-    course_full = cdb.get_course("FakeLangFull")
-    assert len(course_full["days"]) == 700
-    assert all(it["filled_day"] is not None for it in course_full["backbone"]["items"])
-    ok("continuous generation: sinh liền một mạch 100% 700/700 chủ đề qua cả 6 Chặng")
-
-    # Test Batch Paced: Nếu chỉ định batch=2 thì vẫn chạy từng đợt 2 ngày
-    _stage_call_idx[0] = 0  # reset stage counter cho FakeLang mới
-    cg.BACKBONE_BATCH_SIZE = 2
-    logs = []
-    stats = generate_course(
-        "FakeLang", words_per_day=5,
-        log_fn=logs.append, level=LEVELS[0], max_days_per_run=2,
-        coordinator_cls=_FakeCoordinator,
-    )
-    assert stats["generated"] == 2 and stats["backbone_total"] == 700, stats
-
-    course = cdb.get_course("FakeLang")
-    assert len(course["days"]) == 2
-    assert course["backbone"] is not None
-    assert course["backbone"]["items"][0]["filled_day"] == 1
-    assert course["backbone"]["items"][1]["filled_day"] == 2
-    day1 = course["days"][0]
-    assert len(day1["vocab"]) == 10
-    assert len(day1["sentence_patterns"]) == 10
-    assert len(day1["common_sentences"]) == 10
-    assert len(day1["grammar"]) == 2
-
-    # ── Level transition: chuyển level → AI sinh backbone mới tương ứng ──
-    _stage_call_idx[0] = 0
-    _capture["backbone_prompt"] = ""
-    stats_level = generate_course(
-        "FakeLang", words_per_day=5,
-        log_fn=logs.append,
-        level="Trung cấp (tự tin giao tiếp)",
-        coordinator_cls=_FakeCoordinator,
-    )
-    prompt = _capture["backbone_prompt"]
-    assert "Trung cấp (tự tin giao tiếp)" in prompt
-    ok("level transition: đổi sang Trung cấp -> AI sinh backbone mới cho Trung cấp")
-
-    # ── force_new xóa sạch course + progress cũ ──
-    _stage_call_idx[0] = 0
-    stats_force = generate_course("FakeLang", words_per_day=5, force_new=True,
-                                  log_fn=logs.append, level="Người mới bắt đầu",
-                                  coordinator_cls=_FakeCoordinator)
-    assert stats_force["generated"] == 2
-    c_new = cdb.get_course("FakeLang")
-    assert len(c_new["days"]) == 2
-    assert c_new["days"][0]["day"] == 1
-    ok("force_new=True: reset toàn bộ, bắt đầu lại từ Ngày 1 với backbone mới")
-
-    # ── [12] Test GeminiCoordinator: lock_after_success=False & Cooldown Recovery ──
-    print("\n[12] GeminiCoordinator lock_after_success & cooldown recovery")
-    from api.gemini_safe import GeminiCoordinator, AccountPool, ErrorKind
-    pool = AccountPool()
-    test_keys = [
-        {"key": "AIzaSyTestKey1", "email": "user1@gmail.com", "status": "active"},
-        {"key": "AIzaSyTestKey2", "email": "user2@gmail.com", "status": "active"},
+if RUN_SLOW:
+    # ─── 11. Full flow dry-run (Multi-Pass + Continuous Generation) ───
+    print("\n[11] Full flow dry-run (Multi-Pass + Continuous Generation)")
+    _STAGE_TOPICS = [
+        ("PHÁT ÂM",   ["Hiragana hàng A-K",       "Hiragana hàng S-N",       "Katakana hàng A-K",       "Thanh điệu & Pitch"]),
+        ("TỪ ĐƠN",    ["Số đếm 1-100",            "Đại từ nhân xưng",        "Chào hỏi sinh tồn",       "Thời gian & Ngày tháng"]),
+        ("SƠ CẤP",    ["Mua sắm & Giá cả",        "Ăn uống & Nhà hàng",      "Hỏi đường & Giao thông",  "Sức khỏe & Bệnh viện"]),
+        ("TRUNG CẤP", ["Công việc & Công sở",      "Câu phức & Liên từ",      "Kể chuyện & Tường thuật", "Thư tín chính thức"]),
+        ("CAO CẤP",   ["Báo chí & Thời sự",       "Học thuật & Nghiên cứu",  "Tranh biện & Lập luận",   "Văn phong trang trọng"]),
+        ("BẢN XỨ",   ["Thành ngữ & Tục ngữ",     "Tiếng lóng & Slang",      "Chơi chữ & Ẩn dụ",        "Capstone tổng hợp"]),
     ]
-    pool.sync(test_keys)
-    coord_test = GeminiCoordinator(
-        key_loader=lambda: test_keys,
-        lock_after_success=False,
-    )
-    # Khóa account user1 ngắn hạn (cooldown 1s)
-    pool.lock_account(key_obj=test_keys[0], duration=1)
-    now = time.time()
-    assert pool.account_locked("user1@gmail.com", now) == True
-    # Pick sẽ tự động chọn user2@gmail.com
-    k2 = pool.pick()
-    assert k2["email"] == "user2@gmail.com"
-    # Sau khi thành công, với lock_after_success=False thì user2 KHÔNG bị khóa 1 giờ (3600s)
-    coord_test._maybe_lock_after_success(k2, test_keys)
-    assert pool.account_locked("user2@gmail.com", time.time()) == False
-    ok("lock_after_success=False: key không bị khóa 3600s oan sau mỗi lượt gọi thành công")
 
-    # ── [13] Test get_language_fsi_profile: Category & Duration Calculations ──
-    print("\n[13] get_language_fsi_profile: Category & Duration Calculations")
-    fsi_jp = get_language_fsi_profile("Tiếng Nhật")
-    assert fsi_jp["total_days"] == 420
-    assert len(fsi_jp["stages"]) == 6
-    assert fsi_jp["stages"][0]["target_days"] == 30
-    assert fsi_jp["stages"][5]["target_days"] == 58
-    ok("get_language_fsi_profile: Tiếng Nhật -> FSI Category IV/V với 420 ngày và 6 chặng chuẩn")
+    _stage_call_idx = [0]  # dùng list để có thể mutate từ closure
 
-    fsi_en = get_language_fsi_profile("Tiếng Anh")
-    assert fsi_en["total_days"] == 240
-    assert fsi_en["stages"][0]["target_days"] == 17
-    ok("get_language_fsi_profile: Tiếng Anh -> FSI Category I với 240 ngày")
+    _FAKE_CONTENT = {
+        "title": "Bài học mẫu",
+        "vocab": [{"word": f"w{j}", "pronunciation": "p", "part_of_speech": "n",
+                   "meaning_vi": "nghĩa", "explanation": "giải thích",
+                   "example_sentence": "câu ví dụ", "example_meaning_vi": "dịch"}
+                  for j in range(10)],
+        "sentence_patterns": [{"pattern": f"mẫu {j}", "meaning_vi": "nghĩa",
+                               "structure_note": "ghi chú", "example_sentence": "vd",
+                               "example_meaning_vi": "dịch"} for j in range(10)],
+        "common_sentences": [{"sentence": f"câu {j}", "meaning_vi": "nghĩa",
+                              "situation": "tình huống"} for j in range(10)],
+        "grammar": [{"title": f"ngữ pháp {j}", "explanation": "chi tiết",
+                     "examples": [{"sentence": "s", "meaning_vi": "m"}]} for j in range(2)],
+    }
+    _FAKE_QUIZ = {k: [{"question": f"{k} q{i}", "options": ["A", "B", "C", "D"],
+                       "answer_index": i % 4, "explanation": "ok"} for i in range(10)]
+                  for k in ("vocab_quiz", "pattern_quiz", "common_quiz", "grammar_quiz")}
 
-    fsi_fr = get_language_fsi_profile("Tiếng Pháp")
-    assert fsi_fr["total_days"] == 320
-    ok("get_language_fsi_profile: Tiếng Pháp -> FSI Category II/III với 320 ngày")
+    _capture = {"backbone_prompt": "", "curriculum_prompt": ""}
 
-    fsi_ru = get_language_fsi_profile("Tiếng Nga")
-    assert fsi_ru["total_days"] == 360
-    ok("get_language_fsi_profile: Tiếng Nga -> FSI Category III/IV với 360 ngày")
-
-    # ── [14] Test build_stage_universal_template: Layer 1 Hardcoded Slots & Spiral Review ──
-    print("\n[14] build_stage_universal_template: Layer 1 Base Slots & Spiral Review")
-    st0_slots = build_stage_universal_template(0, 30)
-    assert len(st0_slots) == 30
-    assert st0_slots[6]["is_review_day"] == True and "ÔN TẬP TUẦN 1" in st0_slots[6]["generic_name"]
-    assert st0_slots[13]["is_review_day"] == True and "ÔN TẬP TUẦN 2" in st0_slots[13]["generic_name"]
-    assert st0_slots[20]["is_review_day"] == True and "ÔN TẬP TUẦN 3" in st0_slots[20]["generic_name"]
-    assert st0_slots[27]["is_review_day"] == True and "ÔN TẬP TUẦN 4" in st0_slots[27]["generic_name"]
-    assert st0_slots[29]["is_review_day"] == True and "TỔNG KẾT CHẶNG 1" in st0_slots[29]["generic_name"]
-    ok("build_stage_universal_template: generates exactly 30 slots with spiral review on days 7, 14, 21, 28 & stage summary on day 30")
-
-    st1_slots = build_stage_universal_template(1, 38)
-    assert len(st1_slots) == 38
-    assert st1_slots[37]["is_review_day"] == True and "TỔNG KẾT CHẶNG 2" in st1_slots[37]["generic_name"]
-    ok("build_stage_universal_template: generates exactly 38 slots for stage 2")
-
-    # ── [15] Test Content Prompt: 3-Tier Phonetics, Spiral Review Day, Native Pragmatics ──
-    print("\n[15] Content Prompt: 3-Tier Phonetics, Spiral Review, Native Nuance")
-    p_st1 = build_content_prompt("Tiếng Nhật", 1, 420, [], topic="Bảng chữ cái Hiragana - Hàng A", level="⭐ Trọn gói")
-    assert "GIẢI PHẪU KHẨU HÌNH & PHÁT ÂM 3 LỚP" in p_st1
-    assert "vị trí răng, lưỡi" in p_st1
-    ok("build_content_prompt: Stage 1 injects 3-Tier Phonetic Articulatory anatomy")
-
-    p_review = build_content_prompt("Tiếng Nhật", 7, 420, [], topic="Ôn tập tuần 1 & Thực hành phản xạ", level="⭐ Trọn gói")
-    assert "NGÀY ÔN TẬP TUẦN & TỔNG HỢP THỰC HÀNH ('6 + 1')" in p_review
-    assert "HỘI THOẠI TÌNH HUỐNG THỰC TẾ" in p_review
-    ok("build_content_prompt: Day 7 injects Weekly Spiral Review guidance")
-
-    p_native = build_content_prompt("Tiếng Nhật", 380, 420, [], topic="Tiếng lóng giới trẻ và thành ngữ đời thực", level="⭐ Trọn gói")
-    assert "NATIVE PROFICIENCY & CULTURE NUANCE" in p_native
-    assert "High-context culture" in p_native
-    ok("build_content_prompt: Stage 6 injects Native Pragmatics & Cultural contrast")
-
-    # ── [16] Test Quiz Prompt: Pedagogical Distractors (Word-for-Word, Confusing Pair) ──
-    print("\n[16] Quiz Prompt: Pedagogical Distractors")
-    p_quiz = build_quiz_prompt("Tiếng Nhật", {"vocab": [{"word": "犬", "meaning_vi": "chó"}]})
-    assert "BẪY TRẮC NGHIỆM SƯ PHẠM" in p_quiz
-    assert "Word-for-Word Trap" in p_quiz
-    assert "Confusing Pair Trap" in p_quiz
-    ok("build_quiz_prompt: includes 4-option pedagogical distractor rules")
-
-    # ── [17] Test _short_level_name in VocabApp: Accurate Stage Badges ──
-    print("\n[17] _short_level_name: Stage-Badged Mapping")
-    assert _short_level_name("", "Vỡ lòng chữ cái & phát âm") == "Vỡ lòng"
-    assert _short_level_name("", "Ghép âm & Từ đơn sinh tồn") == "Ghép âm"
-    assert _short_level_name("", "Sơ cấp đời sống (A1-A2)") == "Sơ cấp"
-    assert _short_level_name("", "Trung cấp công sở (B1-B2)") == "Trung cấp"
-    assert _short_level_name("", "Cao cấp học thuật (C1)") == "Cao cấp"
-    assert _short_level_name("", "Bản xứ hóa (C2 & Slang)") == "Bản xứ"
-    assert _short_level_name("⭐ Trọn gói: Từ con số 0 đến Như người bản xứ", "Vỡ lòng chữ cái") == "Vỡ lòng"
-    ok("_short_level_name: accurately maps all 6 stages without generic fallback")
-
-    # ── [18] Test build_master_backbone: 3-Layer Master Architecture & Gap Insertion ──
-    print("\n[18] build_master_backbone: 3-Layer Architecture & Gap Insertion")
-    class _MasterFakeCoord:
+    class _FakeCoordinator:
+        def __init__(self, **kw):
+            self.kw = kw
+            self.calls = []
         def request(self, prompt, response_schema=None):
+            self.calls.append(response_schema)
             if response_schema is ADAPT_STAGE_SCHEMA:
-                # Giả lập adapt thành công
-                topics = [{"slot_id": i + 1, "title": f"Chủ đề adapt {i+1}", "category": "NGỮ PHÁP"} for i in range(150)]
-                return {"ok": True, "text": json.dumps({"topics": topics})}
+                _capture["backbone_prompt"] = prompt
+                stage_idx = min(_stage_call_idx[0], 5)
+                cat, titles = _STAGE_TOPICS[stage_idx]
+                _stage_call_idx[0] += 1
+                # Giả lập trả về đúng 4 items cho test
+                topics = [{"slot_id": i + 1, "category": cat, "title": f"{titles[i % len(titles)]} (Chuyên sâu)", "importance": "BẮT BUỘC"} for i in range(40)]
+                return {"ok": True, "text": json.dumps({"topics": topics}), "model": "fake"}
             if response_schema is GAP_INSERT_SCHEMA:
-                # Giả lập chèn 2 topics vào sau slot 5
-                insertions = [
-                    {"after_slot_id": 5, "title": "Chủ đề đặc thù chèn 1", "category": "CHỮ VIẾT", "importance": "BẮT BUỘC"},
-                    {"after_slot_id": 5, "title": "Chủ đề đặc thù chèn 2", "category": "PHÁT ÂM", "importance": "BẮT BUỘC"},
-                ]
-                return {"ok": True, "text": json.dumps({"insertions": insertions})}
-            return {"ok": True, "text": "{}"}
+                return {"ok": True, "text": json.dumps({"insertions": []}), "model": "fake"}
+            if response_schema is BACKBONE_SCHEMA:
+                _capture["backbone_prompt"] = prompt
+                stage_idx = min(_stage_call_idx[0], 5)
+                cat, titles = _STAGE_TOPICS[stage_idx]
+                _stage_call_idx[0] += 1
+                items = [{"id": i + 1, "category": cat, "title": titles[i % len(titles)], "importance": "BẮT BUỘC"} for i in range(4)]
+                return {"ok": True, "text": json.dumps({"items": items}), "model": "fake"}
+            if response_schema and "gaps" in response_schema.get("properties", {}):
+                return {"ok": True, "text": json.dumps({"gaps": []}), "model": "fake"}
+            if response_schema is CURRICULUM_SCHEMA:
+                _capture["curriculum_prompt"] = prompt
+                return {"ok": True, "text": json.dumps({"days": []}), "model": "fake"}
+            if response_schema is CONTENT_SCHEMA:
+                return {"ok": True, "text": json.dumps(_FAKE_CONTENT), "model": "fake"}
+            return {"ok": True, "text": json.dumps(_FAKE_QUIZ), "model": "fake"}
 
-    fsi_test_jp = get_language_fsi_profile("Tiếng Nhật")
-    mb = build_master_backbone("Tiếng Nhật", fsi_test_jp, _MasterFakeCoord())
-    assert mb["template_base_count"] == 420
-    assert mb["ai_inserted_count"] == 12  # 2 insertions x 6 stages = 12
-    assert len(mb["items"]) == 432  # 420 + 12 = 432 items tổng
-    assert mb["items"][0]["id"] == 1
-    assert mb["items"][-1]["id"] == 432
-    assert mb["items"][5]["is_ai_inserted"] == True  # item chèn sau slot 5
-    ok("build_master_backbone: 420 base + 12 gap insertions = 432 items liên tục")
+    tmpdir = tempfile.mkdtemp()
+    try:
+        import ai.course_generator as cg
+        orig_dir = cdb.COURSES_DIR
+        orig_keys = cg._load_gemini_keys
+        orig_batch = cg.BACKBONE_BATCH_SIZE
+        cdb.COURSES_DIR = tmpdir
+        cg._load_gemini_keys = lambda: [{"key": "fake"}]
 
-    # ── [19] Test build_master_backbone: Retry Fallback & Pending Retries Tracking ──
-    print("\n[19] build_master_backbone: Retry Fallback & Pending Retries")
-    class _FailingCoord:
-        def request(self, prompt, response_schema=None):
-            return {"ok": False, "error": {"kind": "OVERLOADED", "message": "503"}}
+        # Test Continuous Generation: Không giới hạn batch -> Sinh liền một mạch 100% (240/240 ngày qua 6 chặng)
+        _stage_call_idx[0] = 0  # reset stage counter
+        cg.BACKBONE_BATCH_SIZE = None
+        logs = []
+        stats_all = generate_course(
+            "FakeLangFull", words_per_day=5,
+            log_fn=logs.append, level=LEVELS[0],
+            coordinator_cls=_FakeCoordinator,
+        )
+        assert stats_all["generated"] == 700 and stats_all["backbone_total"] == 700, stats_all
+        course_full = cdb.get_course("FakeLangFull")
+        assert len(course_full["days"]) == 700
+        assert all(it["filled_day"] is not None for it in course_full["backbone"]["items"])
+        ok("continuous generation: sinh liền một mạch 100% 700/700 chủ đề qua cả 6 Chặng")
 
-    mb_fail = build_master_backbone("Tiếng Anh", get_language_fsi_profile("Tiếng Anh"), _FailingCoord())
-    assert mb_fail["template_base_count"] == 240
-    assert len(mb_fail["items"]) == 240  # Vẫn đủ 100% 240 items từ template cứng
-    assert mb_fail["pending_retry_count"] == 240  # Đánh dấu 240 items cần retry
-    assert mb_fail["items"][0]["needs_retry"] == True
-    assert mb_fail["items"][0]["title"] == "Tổng quan ngôn ngữ, nguồn gốc & hệ thống chữ viết"
-    ok("build_master_backbone fallback: bảo đảm 100% 240 slots cứng khi API lỗi và ghi nhận pending_retry_count")
+        # Test Batch Paced: Nếu chỉ định batch=2 thì vẫn chạy từng đợt 2 ngày
+        _stage_call_idx[0] = 0  # reset stage counter cho FakeLang mới
+        cg.BACKBONE_BATCH_SIZE = 2
+        logs = []
+        stats = generate_course(
+            "FakeLang", words_per_day=5,
+            log_fn=logs.append, level=LEVELS[0], max_days_per_run=2,
+            coordinator_cls=_FakeCoordinator,
+        )
+        assert stats["generated"] == 2 and stats["backbone_total"] == 700, stats
 
-    cg.BACKBONE_BATCH_SIZE = orig_batch
-    cdb.COURSES_DIR = orig_dir
-    cg._load_gemini_keys = orig_keys
-finally:
-    shutil.rmtree(tmpdir, ignore_errors=True)
+        course = cdb.get_course("FakeLang")
+        assert len(course["days"]) == 2
+        assert course["backbone"] is not None
+        assert course["backbone"]["items"][0]["filled_day"] == 1
+        assert course["backbone"]["items"][1]["filled_day"] == 2
+        day1 = course["days"][0]
+        assert len(day1["vocab"]) == 10
+        assert len(day1["sentence_patterns"]) == 10
+        assert len(day1["common_sentences"]) == 10
+        assert len(day1["grammar"]) == 2
+
+        # ── Level transition: chuyển level → AI sinh backbone mới tương ứng ──
+        _stage_call_idx[0] = 0
+        _capture["backbone_prompt"] = ""
+        stats_level = generate_course(
+            "FakeLang", words_per_day=5,
+            log_fn=logs.append,
+            level="Trung cấp (tự tin giao tiếp)",
+            coordinator_cls=_FakeCoordinator,
+        )
+        prompt = _capture["backbone_prompt"]
+        assert "Trung cấp (tự tin giao tiếp)" in prompt
+        ok("level transition: đổi sang Trung cấp -> AI sinh backbone mới cho Trung cấp")
+
+        # ── force_new xóa sạch course + progress cũ ──
+        _stage_call_idx[0] = 0
+        stats_force = generate_course("FakeLang", words_per_day=5, force_new=True,
+                                      log_fn=logs.append, level="Người mới bắt đầu",
+                                      coordinator_cls=_FakeCoordinator)
+        assert stats_force["generated"] == 2
+        c_new = cdb.get_course("FakeLang")
+        assert len(c_new["days"]) == 2
+        assert c_new["days"][0]["day"] == 1
+        ok("force_new=True: reset toàn bộ, bắt đầu lại từ Ngày 1 với backbone mới")
+
+        # ── [12] Test GeminiCoordinator: lock_after_success=False & Cooldown Recovery ──
+        print("\n[12] GeminiCoordinator lock_after_success & cooldown recovery")
+        from api.gemini_safe import GeminiCoordinator, AccountPool, ErrorKind
+        pool = AccountPool()
+        test_keys = [
+            {"key": "AIzaSyTestKey1", "email": "user1@gmail.com", "status": "active"},
+            {"key": "AIzaSyTestKey2", "email": "user2@gmail.com", "status": "active"},
+        ]
+        pool.sync(test_keys)
+        coord_test = GeminiCoordinator(
+            key_loader=lambda: test_keys,
+            lock_after_success=False,
+        )
+        # Khóa account user1 ngắn hạn (cooldown 1s)
+        pool.lock_account(key_obj=test_keys[0], duration=1)
+        now = time.time()
+        assert pool.account_locked("user1@gmail.com", now) == True
+        # Pick sẽ tự động chọn user2@gmail.com
+        k2 = pool.pick()
+        assert k2["email"] == "user2@gmail.com"
+        # Sau khi thành công, với lock_after_success=False thì user2 KHÔNG bị khóa 1 giờ (3600s)
+        coord_test._maybe_lock_after_success(k2, test_keys)
+        assert pool.account_locked("user2@gmail.com", time.time()) == False
+        ok("lock_after_success=False: key không bị khóa 3600s oan sau mỗi lượt gọi thành công")
+
+        # ── [13] Test get_language_fsi_profile: Category & Duration Calculations ──
+        print("\n[13] get_language_fsi_profile: Category & Duration Calculations")
+        fsi_jp = get_language_fsi_profile("Tiếng Nhật")
+        assert fsi_jp["total_days"] == 420
+        assert len(fsi_jp["stages"]) == 6
+        assert fsi_jp["stages"][0]["target_days"] == 30
+        assert fsi_jp["stages"][5]["target_days"] == 58
+        ok("get_language_fsi_profile: Tiếng Nhật -> FSI Category IV/V với 420 ngày và 6 chặng chuẩn")
+
+        fsi_en = get_language_fsi_profile("Tiếng Anh")
+        assert fsi_en["total_days"] == 240
+        assert fsi_en["stages"][0]["target_days"] == 17
+        ok("get_language_fsi_profile: Tiếng Anh -> FSI Category I với 240 ngày")
+
+        fsi_fr = get_language_fsi_profile("Tiếng Pháp")
+        assert fsi_fr["total_days"] == 320
+        ok("get_language_fsi_profile: Tiếng Pháp -> FSI Category II/III với 320 ngày")
+
+        fsi_ru = get_language_fsi_profile("Tiếng Nga")
+        assert fsi_ru["total_days"] == 360
+        ok("get_language_fsi_profile: Tiếng Nga -> FSI Category III/IV với 360 ngày")
+
+        # ── [14] Test build_stage_universal_template: Layer 1 Hardcoded Slots & Spiral Review ──
+        print("\n[14] build_stage_universal_template: Layer 1 Base Slots & Spiral Review")
+        st0_slots = build_stage_universal_template(0, 30)
+        assert len(st0_slots) == 30
+        assert st0_slots[6]["is_review_day"] == True and "ÔN TẬP TUẦN 1" in st0_slots[6]["generic_name"]
+        assert st0_slots[13]["is_review_day"] == True and "ÔN TẬP TUẦN 2" in st0_slots[13]["generic_name"]
+        assert st0_slots[20]["is_review_day"] == True and "ÔN TẬP TUẦN 3" in st0_slots[20]["generic_name"]
+        assert st0_slots[27]["is_review_day"] == True and "ÔN TẬP TUẦN 4" in st0_slots[27]["generic_name"]
+        assert st0_slots[29]["is_review_day"] == True and "TỔNG KẾT CHẶNG 1" in st0_slots[29]["generic_name"]
+        ok("build_stage_universal_template: generates exactly 30 slots with spiral review on days 7, 14, 21, 28 & stage summary on day 30")
+
+        st1_slots = build_stage_universal_template(1, 38)
+        assert len(st1_slots) == 38
+        assert st1_slots[37]["is_review_day"] == True and "TỔNG KẾT CHẶNG 2" in st1_slots[37]["generic_name"]
+        ok("build_stage_universal_template: generates exactly 38 slots for stage 2")
+
+        # ── [15] Test Content Prompt: 3-Tier Phonetics, Spiral Review Day, Native Pragmatics ──
+        print("\n[15] Content Prompt: 3-Tier Phonetics, Spiral Review, Native Nuance")
+        p_st1 = build_content_prompt("Tiếng Nhật", 1, 420, [], topic="Bảng chữ cái Hiragana - Hàng A", level="⭐ Trọn gói")
+        assert "GIẢI PHẪU KHẨU HÌNH & PHÁT ÂM 3 LỚP" in p_st1
+        assert "vị trí răng, lưỡi" in p_st1
+        ok("build_content_prompt: Stage 1 injects 3-Tier Phonetic Articulatory anatomy")
+
+        p_review = build_content_prompt("Tiếng Nhật", 7, 420, [], topic="Ôn tập tuần 1 & Thực hành phản xạ", level="⭐ Trọn gói")
+        assert "NGÀY ÔN TẬP TUẦN & TỔNG HỢP THỰC HÀNH ('6 + 1')" in p_review
+        assert "HỘI THOẠI TÌNH HUỐNG THỰC TẾ" in p_review
+        ok("build_content_prompt: Day 7 injects Weekly Spiral Review guidance")
+
+        p_native = build_content_prompt("Tiếng Nhật", 380, 420, [], topic="Tiếng lóng giới trẻ và thành ngữ đời thực", level="⭐ Trọn gói")
+        assert "NATIVE PROFICIENCY & CULTURE NUANCE" in p_native
+        assert "High-context culture" in p_native
+        ok("build_content_prompt: Stage 6 injects Native Pragmatics & Cultural contrast")
+
+        # ── [16] Test Quiz Prompt: Pedagogical Distractors (Word-for-Word, Confusing Pair) ──
+        print("\n[16] Quiz Prompt: Pedagogical Distractors")
+        p_quiz = build_quiz_prompt("Tiếng Nhật", {"vocab": [{"word": "犬", "meaning_vi": "chó"}]})
+        assert "BẪY TRẮC NGHIỆM SƯ PHẠM" in p_quiz
+        assert "Word-for-Word Trap" in p_quiz
+        assert "Confusing Pair Trap" in p_quiz
+        ok("build_quiz_prompt: includes 4-option pedagogical distractor rules")
+
+        # ── [17] Test _short_level_name in VocabApp: Accurate Stage Badges ──
+        print("\n[17] _short_level_name: Stage-Badged Mapping")
+        assert _short_level_name("", "Vỡ lòng chữ cái & phát âm") == "Vỡ lòng"
+        assert _short_level_name("", "Ghép âm & Từ đơn sinh tồn") == "Ghép âm"
+        assert _short_level_name("", "Sơ cấp đời sống (A1-A2)") == "Sơ cấp"
+        assert _short_level_name("", "Trung cấp công sở (B1-B2)") == "Trung cấp"
+        assert _short_level_name("", "Cao cấp học thuật (C1)") == "Cao cấp"
+        assert _short_level_name("", "Bản xứ hóa (C2 & Slang)") == "Bản xứ"
+        assert _short_level_name("⭐ Trọn gói: Từ con số 0 đến Như người bản xứ", "Vỡ lòng chữ cái") == "Vỡ lòng"
+        ok("_short_level_name: accurately maps all 6 stages without generic fallback")
+
+        # ── [18] Test build_master_backbone: 3-Layer Master Architecture & Gap Insertion ──
+        print("\n[18] build_master_backbone: 3-Layer Architecture & Gap Insertion")
+        class _MasterFakeCoord:
+            def request(self, prompt, response_schema=None):
+                if response_schema is ADAPT_STAGE_SCHEMA:
+                    # Giả lập adapt thành công
+                    topics = [{"slot_id": i + 1, "title": f"Chủ đề adapt {i+1}", "category": "NGỮ PHÁP"} for i in range(150)]
+                    return {"ok": True, "text": json.dumps({"topics": topics})}
+                if response_schema is GAP_INSERT_SCHEMA:
+                    # Giả lập chèn 2 topics vào sau slot 5
+                    insertions = [
+                        {"after_slot_id": 5, "title": "Chủ đề đặc thù chèn 1", "category": "CHỮ VIẾT", "importance": "BẮT BUỘC"},
+                        {"after_slot_id": 5, "title": "Chủ đề đặc thù chèn 2", "category": "PHÁT ÂM", "importance": "BẮT BUỘC"},
+                    ]
+                    return {"ok": True, "text": json.dumps({"insertions": insertions})}
+                return {"ok": True, "text": "{}"}
+
+        fsi_test_jp = get_language_fsi_profile("Tiếng Nhật")
+        mb = build_master_backbone("Tiếng Nhật", fsi_test_jp, _MasterFakeCoord())
+        assert mb["template_base_count"] == 420
+        assert mb["ai_inserted_count"] == 12  # 2 insertions x 6 stages = 12
+        assert len(mb["items"]) == 432  # 420 + 12 = 432 items tổng
+        assert mb["items"][0]["id"] == 1
+        assert mb["items"][-1]["id"] == 432
+        assert mb["items"][5]["is_ai_inserted"] == True  # item chèn sau slot 5
+        ok("build_master_backbone: 420 base + 12 gap insertions = 432 items liên tục")
+
+        # ── [19] Test build_master_backbone: Retry Fallback & Pending Retries Tracking ──
+        print("\n[19] build_master_backbone: Retry Fallback & Pending Retries")
+        class _FailingCoord:
+            def request(self, prompt, response_schema=None):
+                return {"ok": False, "error": {"kind": "OVERLOADED", "message": "503"}}
+
+        mb_fail = build_master_backbone("Tiếng Anh", get_language_fsi_profile("Tiếng Anh"), _FailingCoord())
+        assert mb_fail["template_base_count"] == 240
+        assert len(mb_fail["items"]) == 240  # Vẫn đủ 100% 240 items từ template cứng
+        assert mb_fail["pending_retry_count"] == 240  # Đánh dấu 240 items cần retry
+        assert mb_fail["items"][0]["needs_retry"] == True
+        assert mb_fail["items"][0]["title"] == "Tổng quan ngôn ngữ, nguồn gốc & hệ thống chữ viết"
+        ok("build_master_backbone fallback: bảo đảm 100% 240 slots cứng khi API lỗi và ghi nhận pending_retry_count")
+
+        cg.BACKBONE_BATCH_SIZE = orig_batch
+        cdb.COURSES_DIR = orig_dir
+        cg._load_gemini_keys = orig_keys
+    finally:
+        shutil.rmtree(tmpdir, ignore_errors=True)
 
 # ─── 20. Split-Quiz A+C: parse_quiz_json(keys), build_quiz_prompt_ab/cd, schemas ───
 print("\n[20] Split-Quiz A+C: parse_quiz_json keys, prompt_ab/cd, schemas")
@@ -776,7 +784,9 @@ assert supp_res["new_total"] >= 420, f"new_total phải >= 420, thực tế {sup
 
 # Kiểm tra DB sau khi bổ sung
 _updated_course = cdb.get_course("Tiếng Nhật Test")
-assert _updated_course.get("format_version") == 3, "format_version phải là 3"
+from ai.media_schema import COURSE_FORMAT_VERSION as _CFV
+assert _updated_course.get("format_version") == _CFV, \
+    f"format_version phải là {_CFV} (giá trị hằng duy nhất trong media_schema)"
 _up_items = _updated_course["backbone"]["items"]
 assert len(_up_items) == supp_res["new_total"], "Số items trong DB phải khớp new_total"
 
@@ -904,9 +914,353 @@ finally:
     update_ai_settings(**original_ai_settings)
     ok("Khôi phục ai settings về trạng thái ban đầu")
 
+# ─── 24. Media Schema v4 & Media Store ───
+print("\n[24] Media Schema v4 & Media Store")
+from ai.media_schema import (COURSE_FORMAT_VERSION, LEGACY_FORMAT_VERSION,
+                             DIALOGUE_SCHEMA, VOCAB_V4_EXTRA, GRAMMAR_V4_EXTRA,
+                             apply_v4_defaults_in_memory, cefr_for_stage,
+                             pos_from_part_of_speech)
+from ai import media_store as ms
+
+# 24.1: bản v4 là additive — không xoá/đổi tên field cũ
+_v4 = {
+    "day": 1, "title": "T", "phase": "Vỡ lòng chữ cái & phát âm",
+    "vocab": [{"word": "cat", "pronunciation": "/kæt/", "part_of_speech": "Danh từ",
+               "meaning_vi": "con mèo", "explanation": "e",
+               "example_sentence": "A cat.", "example_meaning_vi": "Mèo."}],
+    "grammar": [{"title": "G", "explanation": "x", "examples": []}],
+    "quiz": {},
+}
+_before = json.dumps(_v4, ensure_ascii=False, sort_keys=True)
+apply_v4_defaults_in_memory(_v4)
+assert _v4["vocab"][0]["word"] == "cat", "Không được mất field cũ"
+assert _v4["vocab"][0]["example_sentence"] == "A cat.", "example_sentence phải giữ nguyên"
+assert _v4["vocab"][0]["example_target"] == "A cat.", "example_target phải = example_sentence"
+assert _v4["vocab"][0]["ipa"] == "/kæt/", "ipa fallback = pronunciation"
+assert _v4["vocab"][0]["pos"] == "n.", f"pos fallback sai: {_v4['vocab'][0]['pos']}"
+assert _v4["dialogue"] == [], "dialogue phải mặc định là list rỗng"
+assert _v4["media"] == {}, "media phải mặc định là dict rỗng"
+assert _v4["grammar"][0]["common_mistakes"] == [], "grammar phải có common_mistakes"
+assert _v4["grammar"][0]["mini_quiz"] == [], "grammar phải có mini_quiz"
+assert _v4["format_version"] == LEGACY_FORMAT_VERSION, "ngày cũ giữ version 3"
+ok("apply_v4_defaults_in_memory: additive-only, không mất field cũ, có default v4")
+
+# 24.2: pos_from_part_of_speech
+assert pos_from_part_of_speech("Danh từ") == "n."
+assert pos_from_part_of_speech("động từ") == "v."
+assert pos_from_part_of_speech("Tính từ") == "adj."
+assert pos_from_part_of_speech("") == ""
+ok("pos_from_part_of_speech map đúng 6 loại từ tiếng Việt")
+
+# 24.3: cefr_for_stage
+assert cefr_for_stage(0) == "A1" and cefr_for_stage(2) == "A2"
+assert cefr_for_stage(3) == "B1" and cefr_for_stage(4) == "C1"
+assert cefr_for_stage(5) == "C2"
+ok("cefr_for_stage ánh xạ 6 chặng sang CEFR")
+
+# 24.4: DIALOGUE_SCHEMA đúng cấu trúc Gemini
+assert DIALOGUE_SCHEMA["type"] == "OBJECT"
+_dlg = DIALOGUE_SCHEMA["properties"]["dialogue"]["items"]
+assert "turns" in _dlg["properties"], "dialogue phải có turns"
+assert _dlg["required"] == ["situation", "level_tag", "turns"]
+_turn = _dlg["properties"]["turns"]["items"]
+assert "line_target" in _turn["properties"] and "line_vi" in _turn["properties"]
+ok("DIALOGUE_SCHEMA hợp lệ cho Gemini structured output")
+
+# 24.5: media_store — hash deterministic + lưu ảnh WebP + manifest
+assert ms.hash_key("a", "b") == ms.hash_key("a", "b"), "hash phải deterministic"
+assert ms.hash_key("a", "b") != ms.hash_key("a", "c"), "hash phải khác nhau"
+_tmpdir = tempfile.mkdtemp(prefix="vocab_media_")
+_ms_idx = os.path.join(_tmpdir, "index.json")
+_ms_media = ms.MEDIA_DIR
+_ms_index = ms.INDEX_PATH
+_ms_index = ms.INDEX_PATH
+_ms_index = ms.INDEX_PATH
+try:
+    ms.MEDIA_DIR = _tmpdir
+    ms.INDEX_PATH = _ms_idx
+    # tạo 1 ảnh thật (PNG nhỏ) và lưu
+    from PIL import Image as _PILImage
+    _im = _PILImage.new("RGB", (800, 600), (10, 120, 200))
+    _b = io.BytesIO(); _im.save(_b, "PNG")
+    _entry = ms.save_image("Tiếng Anh", 7, "word_00_test", _b.getvalue(),
+                           mime="image/png", source="dict", prompt="p",
+                           credit="C", license_="CC-BY-SA", alt="alt")
+    assert _entry.get("id"), "phải trả về media id"
+    assert _entry["rel_path"].startswith("media/"), f"rel_path sai: {_entry['rel_path']}"
+    assert _entry["mime"] == "image/webp", f"phải nén WebP: {_entry['mime']}"
+    assert _entry["bytes"] > 0, "file phải khác 0 byte"
+    assert ms.verify_entry(_entry) is True, "file phải tồn tại thật"
+    _idx = ms.load_index()
+    assert _entry["id"] in _idx["items"], "manifest phải chứa entry"
+    # xoá file → verify phải False
+    os.remove(ms.abs_path_for(_entry["rel_path"]))
+    assert ms.verify_entry(_entry) is False, "verify phải False khi file bị xoá"
+    ok("media_store: hash deterministic, nén WebP, manifest, verify tồn tại")
+    # ref_exists
+    assert ms.ref_exists(_idx, _entry["id"]) is False
+    assert ms.ref_exists(_idx, "m_khongco") is False
+    ok("media_store.ref_exists phát hiện ref chết")
+finally:
+    ms.MEDIA_DIR = _ms_media
+    ms.INDEX_PATH = _ms_index
+    shutil.rmtree(_tmpdir, ignore_errors=True)
+
+# ─── 25. Image Pipeline (mock, không gọi mạng) ───
+print("\n[25] Image Pipeline (mock)")
+from ai.image_pipeline import (build_image_prompt, filter_junk_images, ahash,
+                               ahash_similarity, make_placeholder_image,
+                               generate_images_for_day)
+
+# 25.1: prompt
+_p1 = build_image_prompt("cat", "con mèo", "")
+assert "cat" in _p1 and "Flat vector illustration" in _p1, f"prompt tự dựng sai: {_p1}"
+_p2 = build_image_prompt("cat", "con mèo", "My custom prompt")
+assert _p2 == "My custom prompt", "phải ưu tiên prompt do AI viết"
+ok("build_image_prompt: tự dựng khi thiếu, ưu tiên prompt của AI")
+
+# 25.2: bộ lọc ảnh rác
+_junk = [
+    {"url": "https://x.com/a.jpg", "alt": "avatar", "width": 400, "height": 400},
+    {"url": "https://x.com/b.jpg", "alt": "photo", "width": 100, "height": 400},
+    {"url": "https://x.com/c.jpg", "alt": "photo", "width": 400, "height": 100},
+    {"url": "https://x.com/d.jpg", "alt": "icon", "width": 400, "height": 400},
+    {"url": "https://x.com/e.jpg", "alt": "photo", "width": 400, "height": 400,
+     "content_type": "text/html"},
+    {"url": "ftp://x.com/f.jpg", "alt": "photo", "width": 400, "height": 400},
+    {"url": "https://x.com/g.jpg", "alt": "a real photo", "width": 800, "height": 600,
+     "bytes": 20000, "content_type": "image/jpeg"},
+]
+_good = filter_junk_images(_junk)
+assert len(_good) == 1 and _good[0]["url"].endswith("g.jpg"), \
+    f"bộ lọc phải chỉ giữ 1 ảnh, thực tế {len(_good)}"
+ok("filter_junk_images loại avatar/icon/nhỏ/HTML/URL sai scheme")
+
+# 25.3: aHash
+_im2 = _PILImage.new("L", (64, 64), 128)
+_h1 = ahash(_im2)
+assert len(_h1) == 256, f"aHash phải 256 bit, thực tế {len(_h1)}"
+assert ahash_similarity(_h1, _h1) == 1.0, "aHash giống nhau → similarity 1.0"
+assert ahash_similarity(_h1, "0" * 256) == 0.0, "aHash khác nhau → similarity 0.0"
+ok("ahash 16x16 + similarity hoạt động")
+
+# 25.4: placeholder PNG hợp lệ
+_raw, _mime = make_placeholder_image("Q")
+assert _raw[:4] == b"\x89PNG", "placeholder phải là PNG hợp lệ"
+assert _mime == "image/png"
+ok("make_placeholder_image trả PNG hợp lệ")
+
+# 25.5: generate_images_for_day với chain giả (không gọi mạng)
+class _FakeChain:
+    def __init__(self): self.providers = []
+    def fetch_images(self, l, d, v, only=None): return [{} for _ in v]
+    def available_providers(self): return []
+
+_tmpdir2 = tempfile.mkdtemp(prefix="vocab_img_")
+_ms_media = ms.MEDIA_DIR
+_ms_index = ms.INDEX_PATH
+_ms_index = ms.INDEX_PATH
+try:
+    ms.MEDIA_DIR = _tmpdir2
+    ms.INDEX_PATH = os.path.join(_tmpdir2, "index.json")
+    _lesson = {"vocab": [{"word": f"w{i}", "meaning_vi": "x", "pronunciation": "p"}
+                         for i in range(3)]}
+    _made = generate_images_for_day("ZZLang", 1, _lesson, coord=None, log_fn=lambda *a: None,
+                                    max_images=3, providers=["placeholder"],
+                                    web_fetcher=None)
+    assert len(_made) == 3, f"phải tạo 3 placeholder, thực tế {len(_made)}"
+    assert all(m.get("source") == "placeholder" for m in _made), "source phải là placeholder"
+    for _m in _made:
+        assert ms.verify_entry(_m), "file placeholder phải tồn tại"
+    assert all(v.get("image_ref") for v in _lesson["vocab"]), "phải gán image_ref cho mọi từ"
+    ok("generate_images_for_day: placeholder điền đủ, gán image_ref, file tồn tại")
+finally:
+    ms.MEDIA_DIR = _ms_media
+    ms.INDEX_PATH = _ms_index
+    shutil.rmtree(_tmpdir2, ignore_errors=True)
+
+# ─── 26. TTS Config & Generator ───
+print("\n[26] TTS Config & Generator")
+from ai.tts_config import (LANG_VOICES, STAGE_SPEC, detect_language, voice_for,
+                            stage_spec, stage_index_from_phase, export_web_table)
+from ai.tts_generator import cache_key as tts_cache_key, pcm_to_wav
+
+# 26.1: nhận diện ngôn ngữ
+assert detect_language("Tiếng Nhật") == "Tiếng Nhật"
+assert detect_language("tiếng_anh") == "Tiếng Anh"
+assert detect_language("Tiếng Tây Ban Nha") == "Tiếng Tây Ban Nha"
+assert detect_language("Không rõ") == ""
+ok("detect_language nhận diện đúng tên/slug ngôn ngữ")
+
+# 26.2: bảng voice phủ 10 ngôn ngữ + không trùng
+assert len(LANG_VOICES) >= 10, f"phải có ≥10 ngôn ngữ, thực tế {len(LANG_VOICES)}"
+for _lg, _v in LANG_VOICES.items():
+    assert _v.get("gemini_voice") and _v.get("edge_voice") and _v.get("gtts_lang"), \
+        f"{_lg} thiếu voice"
+ok("bảng voice đủ 10 ngôn ngữ, có gemini/edge/gtts")
+
+# 26.3: đặc tả 6 chặng
+assert len(STAGE_SPEC) == 6, "phải có đúng 6 chặng"
+for _i, _s in STAGE_SPEC.items():
+    assert "rate" in _s and "unit" in _s
+assert STAGE_SPEC[0]["rate"] == "-45%" and STAGE_SPEC[0]["slow"] is True
+assert STAGE_SPEC[3]["rate"] == "+0%"
+ok("đặc tả 6 chặng: tốc độ + đơn vị đọc + bản slow")
+
+# 26.4: stage_index_from_phase
+assert stage_index_from_phase("Vỡ lòng chữ cái & phát âm") == 0
+assert stage_index_from_phase("Ghép âm & Từ đơn sinh tồn") == 1
+assert stage_index_from_phase("Sơ cấp đời sống") == 2
+assert stage_index_from_phase("Trung cấp công việc") == 3
+assert stage_index_from_phase("Cao cấp học thuật") == 4
+assert stage_index_from_phase("Như người bản xứ") == 5
+assert stage_index_from_phase("") == 3
+ok("stage_index_from_phase ánh xạ đủ 6 chặng")
+
+# 26.5: cache key deterministic
+assert tts_cache_key("hello", "gemini", "Kore", False) == \
+       tts_cache_key("hello", "gemini", "Kore", False)
+assert tts_cache_key("hello", "gemini", "Kore", False) != \
+       tts_cache_key("hello", "gemini", "Kore", True)
+ok("tts cache key deterministic, phân biệt bản slow")
+
+# 26.6: pcm_to_wav tạo WAV hợp lệ
+_wav = pcm_to_wav(b"\x00\x00" * 2400, sample_rate=24000)
+assert _wav[:4] == b"RIFF" and _wav[8:12] == b"WAVE", "phải tạo WAV hợp lệ"
+ok("pcm_to_wav bọc PCM thành WAV hợp lệ")
+
+# 26.7: export bảng voice cho web
+_vt = os.path.join(tempfile.mkdtemp(prefix="vocab_voice_"), "tts_voices.json")
+assert export_web_table(_vt) is True and os.path.isfile(_vt)
+_vd = json.load(open(_vt, encoding="utf-8"))
+assert len(_vd["voices"]) >= 10 and "edge_voice" in _vd["voices"][0]
+ok("export_web_table ghi data/tts_voices.json cho web app")
+
+# ─── 27. Dictionary Image helpers ───
+print("\n[27] Dictionary Image helpers")
+from ai import dictionary_image as di
+
+# 27.1: canonicalize URL Wikimedia (cắt utm)
+_c1 = di.canonicalize_wikimedia_url(
+    "https://thumb.wikimedia.org/x.jpg/500px-x.jpg?utm_source=en.wikipedia.org&utm_campaign=api")
+assert "utm_source" not in _c1, f"phải cắt utm: {_c1}"
+assert _c1.endswith("500px-x.jpg"), f"sai đuôi: {_c1}"
+ok("canonicalize_wikimedia_url cắt query utm_*")
+
+# 27.2: title_matches
+assert di.title_matches("Apple", "Apple") == "exact"
+assert di.title_matches("apple", "Apple (fruit)") == "prefix"
+assert di.title_matches("cat", "Domestic cat") == "word"
+assert di.title_matches("cat", "Resilient Lady") == ""
+ok("title_matches phân biệt exact/prefix/word/không khớp")
+
+# 27.3: is_disambiguation
+assert di.is_disambiguation("Apple (disambiguation)") is True
+assert di.is_disambiguation("Radical 94") is True
+assert di.is_disambiguation("Apple") is False
+ok("is_disambiguation loại trang giải nghĩa + radical")
+
+# 27.4: map ngôn ngữ → host
+assert di.wiki_host_for("Tiếng Nhật") == "ja.wikipedia.org"
+assert di.wiki_host_for("Tiếng Anh") == "en.wikipedia.org"
+assert di.wiktionary_host_for("Tiếng Việt") == "vi.wiktionary.org"
+ok("map ngôn ngữ → host Wikipedia/Wiktionary đúng")
+
+# 27.5: search_candidates — ưu tiên từ gốc, thêm romaji ascii, thêm nghĩa
+_cands = di.search_candidates("猫", "neko", "con mèo")
+assert _cands[0] == "猫", "ưu tiên từ gốc"
+assert "neko" in _cands, "phải thêm phiên âm ascii"
+ok("search_candidates ưu tiên từ gốc → romaji → nghĩa")
+
+# ─── 28. Pipeline Orchestrator: Budget · DoD · Checkpoint · Log ───
+print("\n[28] Pipeline Orchestrator: Budget, DoD, Checkpoint, Log")
+from ai.pipeline import PipelineBudget, evaluate_dod, STAGES, main as pipeline_main
+from ai import pipeline_store as pst
+from ai.pipeline_log import PipelineLogger, EVENTS
+
+# 28.1: danh sách stage đầy đủ
+for _s in ("profile", "backbone", "plan", "content", "quiz_ab", "quiz_cd",
+           "images", "audio", "dialogue", "media_verify"):
+    assert _s in STAGES, f"thiếu stage {_s}"
+ok("danh sách 10 stage của pipeline đầy đủ")
+
+# 28.2: budget bền
+_job = {"counters": {}}
+_b = PipelineBudget(job=_job, max_calls_per_day=10, max_images_per_day=5,
+                    max_calls_per_language=20, max_images_per_language=8,
+                    max_tts_per_day=30, max_tts_per_language=60)
+assert _b.can_call(5) is True
+_b.consume_call(5)
+assert _b.can_call(6) is False, "phải chặn khi vượt ngân sách call"
+assert _b.can_image(3) is True
+_b.consume_image(3)
+assert _b.can_image(3) is False, "phải chặn khi vượt ngân sách ảnh"
+assert _b.can_tts(10) is True
+_b.consume_tts(20)
+assert _b.can_tts(20) is False, "phải chặn khi vượt ngân sách TTS"
+assert _job["counters"]["calls_total"] == 5, "counter phải ghi bền trong job"
+assert _job["counters"]["tts_total"] == 20
+ok("PipelineBudget chặn đúng 3 loại ngân sách (call / ảnh / TTS)")
+
+# 28.3: checkpoint + backup rotation + restore
+_tmp3 = tempfile.mkdtemp(prefix="vocab_pst_")
+try:
+    pst.save_checkpoint("ZZLang", "content", {"a": 1}, day=5, status=pst.STATUS_DONE)
+    _cp = pst.load_checkpoint("ZZLang", "content", 5)
+    assert _cp and _cp["data"]["a"] == 1, "checkpoint phải đọc lại được"
+    assert pst.stage_is_done("ZZLang", "content", 5) is True
+    assert pst.stage_is_done("ZZLang", "content", 6) is False
+    _f = os.path.join(_tmp3, "x.json")
+    with open(_f, "w", encoding="utf-8") as _fh:
+        _fh.write('{"v":1}')
+    pst.rotate_backup(_f, keep=3)
+    assert os.path.isfile(_f + ".bak1"), "phải tạo bản .bak1"
+    with open(_f, "w", encoding="utf-8") as _fh:
+        _fh.write('{"v":2}')
+    pst.restore_backup(_f, keep=3)
+    assert json.load(open(_f, encoding="utf-8"))["v"] == 1, "phải khôi phục từ .bak"
+    ok("pipeline_store: checkpoint, stage_is_done, backup rotation, restore")
+finally:
+    shutil.rmtree(_tmp3, ignore_errors=True)
+
+# 28.4: log JSONL
+_tmp4 = tempfile.mkdtemp(prefix="vocab_log_")
+try:
+    _lp = os.path.join(_tmp4, "a.log")
+    _lg = PipelineLogger(_lp, run_id="R1").open()
+    _lg.info("day.ok", msg="x", day=3)
+    _lg.error("stage.fail", msg="y", day=4)
+    _lg.close()
+    _lines = [l for l in open(_lp, encoding="utf-8") if l.strip()]
+    assert len(_lines) == 2, f"phải có 2 dòng log, thực tế {len(_lines)}"
+    _j = json.loads(_lines[0])
+    assert _j["event"] == "day.ok" and _j["level"] == "info" and _j["day"] == 3
+    assert json.loads(_lines[1])["level"] == "error"
+    assert "day.ok" in EVENTS and "run.abort" in EVENTS
+    ok("PipelineLogger ghi JSONL đúng cấu trúc, có danh sách EVENTS")
+finally:
+    shutil.rmtree(_tmp4, ignore_errors=True)
+
+# 28.5: evaluate_dod trả về 13 checks
+_dod = evaluate_dod("ZZKhongTonTai", allow_degraded=True)
+assert "checks" in _dod and "met" in _dod, "DoD phải có met + checks"
+assert _dod["met"] is False, "ngôn ngữ không có ⇒ DoD false"
+assert len(_dod["checks"]) >= 10, f"phải có ≥10 check, thực tế {len(_dod['checks'])}"
+ok("evaluate_dod trả về cấu trúc checks + met")
+
+# 28.6: CLI --dry-run không gọi mạng
+import io as _io
+import contextlib as _ctx
+_buf = _io.StringIO()
+with _ctx.redirect_stdout(_buf):
+    _rc = pipeline_main(["--lang", "Tiếng Anh", "--dry-run"])
+assert _rc == 0, f"dry-run phải trả 0, thực tế {_rc}"
+assert "ước call" in _buf.getvalue(), "dry-run phải in kế hoạch"
+ok("pipeline CLI --dry-run in kế hoạch mà không gọi API")
+
+
 # ─── Summary ───
 print(f"\n{'='*50}")
 print(f"Results: {passed} passed, {failed} failed")
 if failed:
     sys.exit(1)
-

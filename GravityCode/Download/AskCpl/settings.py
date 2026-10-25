@@ -33,11 +33,6 @@ DEFAULT_SETTINGS = {
         "host": get_local_ip(),
         "port": 5678
     },
-    "background_runner": {
-        "enabled_at_logon": False,
-        "chrome_user_data_dir": "",
-        "chrome_profile_dir": "Default"
-    },
     "gemini": {
         "api_key": "",
         "api_keys": [],
@@ -54,17 +49,7 @@ DEFAULT_SETTINGS = {
             "expand_mode": "llm"
         },
         "enable_followup": True,
-        "max_followup": 3,
-        "model_priority": [
-            {"name": "gemini-3.8-flash",        "enabled": True,  "tier": "S", "note": "Mới nhất — Gemini 3.8 Flash",  "latency_ms": 0},
-            {"name": "gemini-3.5-flash-lite",   "enabled": True,  "tier": "S", "note": "Siêu tốc — Gemini 3.5 Lite",   "latency_ms": 0},
-            {"name": "gemini-3.5-flash",        "enabled": True,  "tier": "S", "note": "Mạnh mẽ — Gemini 3.5 Flash",  "latency_ms": 0},
-            {"name": "gemini-3-flash-preview",  "enabled": True,  "tier": "A", "note": "Rất tốt — Gemini 3 Preview",   "latency_ms": 0},
-            {"name": "gemini-flash-latest",     "enabled": True,  "tier": "A", "note": "Ổn định — Flash Latest",       "latency_ms": 0},
-            {"name": "gemini-flash-lite-latest","enabled": True,  "tier": "B", "note": "Nhanh nhẹ — Flash Lite Latest", "latency_ms": 0},
-            {"name": "gemini-3.1-flash-lite",   "enabled": True,  "tier": "B", "note": "Nhẹ & Nhanh — Gemini 3.1 Lite","latency_ms": 0},
-            {"name": "gemini-3.7-flash",        "enabled": True,  "tier": "A", "note": "Dự phòng — Gemini 3.7 Flash",  "latency_ms": 0}
-        ]
+        "max_followup": 3
     }
 }
 
@@ -105,9 +90,6 @@ def load_settings() -> dict:
             # Tự động ghi đè IP nếu đang là 127.0.0.1 để tránh bị chặn
             if merged["server"].get("host") == "127.0.0.1":
                 merged["server"]["host"] = get_local_ip()
-
-        if "background_runner" in data:
-            merged["background_runner"].update(data["background_runner"])
                 
         if "gemini" in data:
             merged["gemini"].update(data["gemini"])
@@ -184,33 +166,3 @@ def update_gemini_settings(**kwargs):
         s["gemini"] = dict(DEFAULT_SETTINGS["gemini"])
     s["gemini"].update(kwargs)
     save_settings(s)
-
-
-# ─────────────────────────────────────────────────────────────
-# Helper: lấy danh sách model đang enabled theo thứ tự ưu tiên
-# ─────────────────────────────────────────────────────────────
-_DEFAULT_MODEL_FALLBACKS = [
-    "gemini-3.8-flash",
-    "gemini-3.5-flash-lite",
-    "gemini-3.5-flash",
-    "gemini-3-flash-preview",
-    "gemini-flash-latest",
-    "gemini-flash-lite-latest",
-    "gemini-3.1-flash-lite",
-    "gemini-3.7-flash",
-]
-
-def get_active_model_list() -> list:
-    """Trả về list tên model đang enabled theo thứ tự ưu tiên từ settings.json.
-    
-    Backward-compatible: nếu settings chưa có 'model_priority', trả về list mặc định cứng.
-    """
-    try:
-        s = load_settings()
-        priority = s.get("gemini", {}).get("model_priority", [])
-        if not priority:
-            return list(_DEFAULT_MODEL_FALLBACKS)
-        enabled = [m["name"] for m in priority if m.get("enabled", True) and m.get("name")]
-        return enabled if enabled else list(_DEFAULT_MODEL_FALLBACKS)
-    except Exception:
-        return list(_DEFAULT_MODEL_FALLBACKS)

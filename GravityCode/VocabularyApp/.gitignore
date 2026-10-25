@@ -1,0 +1,45 @@
+# ─── Dữ liệu người dùng (KHÔNG commit) ───────────────────────────────────────
+# settings.json chứa GitHub PAT (dù "mã hoá" bằng base64 đảo chuỗi — KHÔNG phải mã hoá thật)
+settings.json
+settings.local.json
+*.token
+*.secret
+
+# Dữ liệu sinh tự động: khóa học AI, media, audio, log, cache
+data/
+!data/.gitkeep
+
+# ─── Python ──────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.venv/
+venv/
+env/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# ─── Đóng gói / rác ─────────────────────────────────────────────────────────
+*.zip
+*.rar
+*.7z
+debug.zip
+test.zip
+myfaveTT-custom.zip
+build_custom_extension.py
+New Text Document.txt
+
+# ─── IDE / OS ────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*~
+Thumbs.db
+desktop.ini
+.DS_Store

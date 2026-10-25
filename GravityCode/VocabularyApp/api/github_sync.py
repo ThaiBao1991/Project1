@@ -147,8 +147,21 @@ class GitHubSync:
             return False
 
         # 2. Upload tat ca cac file JSON trong folder data/
+        #    CHỈ upload file NGÔN NGỮ (data/<slug>.json).
+        #    Loại trừ các file hệ thống (index.json, language_profiles_cache.json)
+        #    để không bị coi nhầm là 1 "ngôn ngữ" và không đẩy cache nội bộ lên web.
+        _SYSTEM_JSON = {"index.json", "language_profiles_cache.json",
+                        "blocked_accounts.json", "blocked_keys.json",
+                        "tts_quota.json", "tts_voices.json", "evidence_cache.json",
+                        "image_cache.json"}
+        # File hệ thống (bắt đầu bằng "_") cũng loại — ví dụ _jobs.json
+        def _is_system_file(fname: str) -> bool:
+            return fname in _SYSTEM_JSON or fname.startswith("_")
         if os.path.exists(DATA_DIR):
-            json_files = glob.glob(os.path.join(DATA_DIR, "*.json"))
+            json_files = [
+                p for p in glob.glob(os.path.join(DATA_DIR, "*.json"))
+                if not _is_system_file(os.path.basename(p))
+            ]
             if not json_files:
                 log_fn("Khong co du lieu JSON nao trong data/")
             else:
@@ -162,13 +175,20 @@ class GitHubSync:
                 self.upload_content(json.dumps({"languages": available_langs}), "data/index.json", "update: lang list", log_fn)
 
             # 2b. Upload khoa hoc AI (data/ai_courses/<ngon_ngu>/*.json)
+            #     BUG ĐÃ SỬA (L-O): bỏ qua thư mục checkpoint "_pipeline" và
+            #     file hệ thống "_jobs.json" — đây là trạng thái nội bộ, không
+            #     được đẩy lên repo public.
             courses_root = os.path.join(DATA_DIR, "ai_courses")
             if os.path.isdir(courses_root):
                 uploaded = 0
                 for root, _dirs, files in os.walk(courses_root):
                     rel_dir = os.path.relpath(root, DATA_DIR).replace(os.sep, "/")
+                    if "_pipeline" in rel_dir.split("/"):
+                        continue
                     for fname in sorted(files):
                         if not fname.endswith(".json"):
+                            continue
+                        if fname.startswith("_"):
                             continue
                         local = os.path.join(root, fname)
                         repo_path = f"data/{rel_dir}/{fname}"
@@ -176,6 +196,42 @@ class GitHubSync:
                             uploaded += 1
                 if uploaded:
                     log_fn(f"🎓 Đã upload {uploaded} file khóa học AI.")
+
+        # 2c. Upload MEDIA (ảnh minh họa + âm thanh) — CHỈ ngôn ngữ được chọn
+        #     Cấu hình: settings.json -> media.sync_langs (rỗng = không sync media)
+        media_root = os.path.join(DATA_DIR, "media")
+        if os.path.isdir(media_root):
+            try:
+                from settings import load_settings
+                sync_langs = (load_settings().get("media", {}) or {}).get("sync_langs") or []
+            except Exception:
+                sync_langs = []
+            uploaded_media = 0
+            if sync_langs:
+                for slug in sync_langs:
+                    src_dir = os.path.join(media_root, slug)
+                    if not os.path.isdir(src_dir):
+                        log_fn(f"⚠ Không có thư mục media: {slug}")
+                        continue
+                    files = []
+                    for root, _dirs, fnames in os.walk(src_dir):
+                        for fn in fnames:
+                            files.append(os.path.join(root, fn))
+                    for fp in files:
+                        rel = os.path.relpath(fp, media_root).replace(os.sep, "/")
+                        if self.upload_file(fp, f"data/media/{rel}",
+                                           f"update: data/media/{rel}", log_fn):
+                            uploaded_media += 1
+                    log_fn(f"📷 Đã sync media cho '{slug}' ({len(files)} file).")
+                # manifest media
+                mi = os.path.join(media_root, "index.json")
+                if os.path.isfile(mi):
+                    self.upload_file(mi, "data/media/index.json",
+                                     "update: data/media/index.json", log_fn)
+                if uploaded_media:
+                    log_fn(f"📷 Tổng cộng {uploaded_media} file media đã upload.")
+            else:
+                log_fn("📷 Bỏ qua sync media (chưa chọn ngôn ngữ nào trong media.sync_langs).")
 
         # 3. Upload cac file web len root
         for wfile in ["index.html", "style.css", "script.js"]:
@@ -186,10 +242,16 @@ class GitHubSync:
                 if wfile == "index.html":
                     log_fn(f"WARN: web/{wfile} khong tim thay!")
 
-        # manifest.json (PWA)
+        # manifest.json (PWA) + icons
         mf = os.path.join(WEB_DIR, "manifest.json")
         if os.path.exists(mf):
             self.upload_file(mf, "manifest.json", "update: manifest", log_fn)
+        icon_dir = os.path.join(WEB_DIR, "icons")
+        if os.path.isdir(icon_dir):
+            for ifile in sorted(os.listdir(icon_dir)):
+                if ifile.lower().endswith((".png", ".webp", ".svg", ".ico")):
+                    self.upload_file(os.path.join(icon_dir, ifile),
+                                     f"icons/{ifile}", f"update: icons/{ifile}", log_fn)
 
         # 4. README.md tro toi web URL
         pages_url = self.get_pages_url()

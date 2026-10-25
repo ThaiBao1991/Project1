@@ -4,8 +4,6 @@
 
 let isRunning        = false;
 let currentDay       = 1;
-let startDayGlobal   = 1;
-let missingQueue     = [];
 let prefixStr        = "Day ";
 let currentAgentName = "";
 let folderName       = "";
@@ -480,25 +478,7 @@ function downloadDayHtml(dayLabel, rawHtmlContent) {
     });
     return filename;
 }
-function getMaxDayFromDayIndex(days) {
-    if (!days || days.length === 0) return 0;
-    let maxD = 0;
-    for (const d of days) {
-        const m = String(d.day).match(/\d+/);
-        if (m) {
-            const num = parseInt(m[0], 10);
-            if (num > maxD) maxD = num;
-        }
-    }
-    return maxD;
-}
-
 function updateIndex() {
-    dayIndex.sort((a, b) => {
-        const ma = parseInt((String(a.day).match(/\d+/) || [0])[0], 10);
-        const mb = parseInt((String(b.day).match(/\d+/) || [0])[0], 10);
-        return ma - mb;
-    });
     sendDownloadMessageWithRetry({
         action: "download_index", agentName: currentAgentName,
         folderName, days: dayIndex, filename: `${folderName}/index.html`,
@@ -506,17 +486,11 @@ function updateIndex() {
     });
 }
 function saveSession() {
-    const maxDay = getMaxDayFromDayIndex(dayIndex) || currentDay;
-    dayIndex.sort((a, b) => {
-        const ma = parseInt((String(a.day).match(/\d+/) || [0])[0], 10);
-        const mb = parseInt((String(b.day).match(/\d+/) || [0])[0], 10);
-        return ma - mb;
-    });
     sendDownloadMessageWithRetry({
         action: "download_session",
         data: JSON.stringify({
             agentName: currentAgentName, folderName, prefix: prefixStr,
-            lastDay: maxDay, totalSaved: dayIndex.length,
+            lastDay: currentDay, totalSaved: dayIndex.length,
             savedAt: new Date().toISOString(), days: dayIndex,
             topicMemory: topicMemory,
             platform: currentPlatform,
@@ -552,26 +526,13 @@ function handleResumeSessionRequest(request) {
         currentAgentName = s.agentName || "Copilot";
         folderName  = s.folderName || makeFolderName(currentAgentName);
         prefixStr   = s.prefix || "Day ";
+        currentDay  = request.currentDay ? parseInt(request.currentDay, 10) : (s.lastDay || 0) + 1;
         
         let rawDays = s.days || [];
-        const seen = new Set();
-        dayIndex = [];
-        for (const d of rawDays) {
-            const m = String(d.day).match(/\d+/);
-            const key = m ? parseInt(m[0], 10) : d.day;
-            if (!seen.has(key)) {
-                seen.add(key);
-                dayIndex.push(d);
-            }
-        }
-        dayIndex.sort((a, b) => {
-            const ma = parseInt((String(a.day).match(/\d+/) || [0])[0], 10);
-            const mb = parseInt((String(b.day).match(/\d+/) || [0])[0], 10);
-            return ma - mb;
+        dayIndex = rawDays.filter(d => {
+            const match = String(d.day).match(/\d+/);
+            return match ? parseInt(match[0], 10) < currentDay : true;
         });
-
-        const maxD = getMaxDayFromDayIndex(dayIndex);
-        currentDay = request.currentDay ? parseInt(request.currentDay, 10) : (maxD || s.lastDay || 0) + 1;
         endDay      = request.endDay || null;
         promptMode  = request.promptMode || s.promptMode || 'basic';
         isAdvanced  = request.isAdvanced || false;
@@ -653,10 +614,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         clearRunningState();
         sendStatus("Đã dừng.");
         sendResponse({ status: "stopped" });
-    }
-    else if (request.action === "sweep_missing_days") {
-        handleSweepMissingDaysRequest(request);
-        sendResponse({ status: "sweeping" });
     }
     else if (request.action === "extract_current_page") {
         const platform = request.platform || "copilot";
@@ -1201,21 +1158,7 @@ function buildPromptWithMemory(day) {
     if (promptMode === 'file_md' && roadmapData) {
         const found = roadmapData.find(d => d.day === day);
         if (found && found.prompt) {
-            let p = found.prompt;
-            // Tự động bổ sung yêu cầu công thức LaTeX và trắc nghiệm nếu prompt chưa có
-            const hasFormula = /công thức|latex|\$\$|\$|toán|kỹ thuật/i.test(p);
-            const hasQuiz = /trắc nghiệm|câu hỏi tự kiểm tra|quiz/i.test(p);
-            let extra = [];
-            if (!hasFormula) {
-                extra.push("- Bắt buộc trình bày đầy đủ các công thức toán học/kỹ thuật/vật lý liên quan chuẩn LaTeX ($$...$$ hoặc $...$), giải thích rõ các đại lượng và đơn vị đo (ví dụ: Ohm Ω, V, A, W, F...).");
-            }
-            if (!hasQuiz) {
-                extra.push("- Cuối bài giảng BẮT BUỘC có mục '### Câu hỏi trắc nghiệm & Tình huống thực tế' gồm 3-5 câu trắc nghiệm tự kiểm tra kèm đáp án chi tiết và giải thích.");
-            }
-            if (extra.length > 0) {
-                p += "\n\n[YÊU CẦU ĐỊNH DẠNG & NỘI DUNG BỔ SUNG]\n" + extra.join("\n");
-            }
-            return p;
+            return found.prompt;
         }
         return `${prefixStr}${day}`; // Fallback
     }
@@ -1254,8 +1197,6 @@ function buildPromptWithMemory(day) {
 
         prompt += `[BÀI HỌC HÔM NAY]\nHôm nay là Ngày ${day}: ${dayData.title}\n`;
         prompt += `Yêu cầu chi tiết: ${dayData.detail}\n`;
-        prompt += `- Bắt buộc trình bày đầy đủ các công thức toán học/kỹ thuật/vật lý liên quan chuẩn LaTeX ($$...$$ hoặc $...$), giải thích rõ các đại lượng và đơn vị đo (ví dụ: Ohm Ω, V, A, W, F...).\n`;
-        prompt += `- Cuối bài giảng BẮT BUỘC có mục '### Câu hỏi trắc nghiệm & Tình huống thực tế' gồm 3-5 câu trắc nghiệm tự kiểm tra kèm đáp án chi tiết và giải thích.\n`;
         prompt += buildMemoryPrompt();
         
         return prompt;
@@ -1504,17 +1445,8 @@ async function processExtractedContent(promptLabel, responseHtml) {
         saveSession();
     }
 
-    // ── NẾU ĐANG TRONG CHẾ ĐỘ TẢI BÙ THIẾU ──
-    if (missingQueue && missingQueue.length > 0) {
-        setTimeout(() => runNextMissingDay(), 0);
-        return;
-    }
-
-    // ── KHI ĐẠT NGÀY KẾT THÚC: QUÉT ĐỐI CHIẾU XEM CÓ NGÀY NÀO BỊ THIẾU KHÔNG ──
     if (endDay && currentDay >= endDay) {
-        const hasMissing = checkAndSweepMissingDays();
-        if (hasMissing) return;
-        finishLoop(`Hoàn tất 100%: Đã tải đầy đủ toàn bộ ${dayIndex.length}/${endDay} ngày, không thiếu ngày nào.`);
+        finishLoop(`Hoàn tất: Đạt đến Ngày kết thúc (${endDay}).`);
         return;
     }
 
@@ -1522,97 +1454,4 @@ async function processExtractedContent(promptLabel, responseHtml) {
     saveRunningState(currentDay, promptLabel);
     sendStatus(`Chuẩn bị hỏi Day ${currentDay}...`);
     setTimeout(() => runNextDay(), 0);
-}
-
-// ── CƠ CHẾ QUÉT & TẢI BÙ CÁC NGÀY BỊ THIẾU (MISSING DAYS AUTO-SWEEP) ──
-function checkAndSweepMissingDays() {
-    const recordedDays = new Set();
-    for (const d of dayIndex) {
-        const m = String(d.day).match(/\d+/);
-        if (m) recordedDays.add(parseInt(m[0], 10));
-    }
-    const minD = startDayGlobal || 1;
-    const maxD = endDay || currentDay;
-    const missing = [];
-    for (let d = minD; d <= maxD; d++) {
-        if (!recordedDays.has(d)) {
-            missing.push(d);
-        }
-    }
-    if (missing.length > 0) {
-        appLog(`🔍 [QUÉT THIẾU] Phát hiện ${missing.length} ngày bị thiếu trong dải Day ${minD}..${maxD}: [${missing.join(', ')}]. Bắt đầu tự động tải bù...`);
-        sendStatus(`Bắt đầu tải bù ${missing.length} ngày bị thiếu...`);
-        missingQueue = missing;
-        setTimeout(() => runNextMissingDay(), 1000);
-        return true;
-    }
-    return false;
-}
-
-async function runNextMissingDay() {
-    if (!isRunning) return;
-    if (!missingQueue || missingQueue.length === 0) {
-        finishLoop(`Hoàn tất 100%: Đã tải đầy đủ toàn bộ ${dayIndex.length} ngày trong dải (${startDayGlobal} - ${endDay}), không còn ngày nào bị thiếu!`);
-        return;
-    }
-    currentDay = missingQueue.shift();
-    appLog(`🚀 [TẢI BÙ] Đang tải bù Ngày ${currentDay} (còn ${missingQueue.length} ngày trong hàng đợi)...`);
-    sendStatus(`Tải bù Day ${currentDay}...`);
-    saveRunningState(currentDay, `Day ${currentDay} (Tải bù)`);
-    runNextDay();
-}
-
-function handleSweepMissingDaysRequest(request) {
-    if (request.tabId) currentTabId = request.tabId;
-    if (!isRunning) {
-        const s = request.session || {};
-        isRunning = true;
-        currentAgentName = s.agentName || request.agentName || "Copilot";
-        folderName  = s.folderName || makeFolderName(currentAgentName);
-        prefixStr   = s.prefix || request.prefix || "Day ";
-        startDayGlobal = request.startDay ? parseInt(request.startDay, 10) : 1;
-        endDay      = request.endDay ? parseInt(request.endDay, 10) : null;
-        promptMode  = request.promptMode || s.promptMode || 'basic';
-        isAdvanced  = request.isAdvanced || false;
-        topicPromptStr = request.topicPrompt || "";
-        targetCount    = request.targetCount || 4;
-        detailConfigs  = request.details || [];
-        autoFollowUp   = request.autoFollowUp !== undefined ? request.autoFollowUp : true;
-        maxFollowUp    = request.maxFollowUp || 3;
-        topicMemory    = s.topicMemory || {};
-        currentPlatform = request.platform || s.platform || "copilot";
-        historySummaries = s.historySummaries || [];
-        
-        let rawDays = s.days || dayIndex || [];
-        dayIndex = rawDays;
-        
-        chrome.storage.local.get(['roadmap_active'], (res) => {
-            roadmapData = res.roadmap_active || null;
-            if (!endDay && roadmapData) {
-                endDay = calcAutoEndDay(roadmapData, promptMode);
-            }
-            if (!endDay) endDay = 600;
-            
-            const recordedDays = new Set();
-            for (const d of dayIndex) {
-                const m = String(d.day).match(/\d+/);
-                if (m) recordedDays.add(parseInt(m[0], 10));
-            }
-            const missing = [];
-            for (let d = startDayGlobal; d <= endDay; d++) {
-                if (!recordedDays.has(d)) missing.push(d);
-            }
-            
-            if (missing.length === 0) {
-                appLog(`✅ [QUÉT THIẾU] Đã đủ toàn bộ ${endDay} ngày, không có ngày nào bị thiếu!`);
-                finishLoop(`Đã kiểm tra: Không có ngày nào bị thiếu trong dải (${startDayGlobal} - ${endDay}).`);
-                return;
-            }
-            
-            missingQueue = missing;
-            appLog(`🔍 [QUÉT THIẾU] Tìm thấy ${missing.length} ngày bị thiếu: [${missing.join(', ')}]. Bắt đầu tải bù...`);
-            setupKeepAlive();
-            runNextMissingDay();
-        });
-    }
 }

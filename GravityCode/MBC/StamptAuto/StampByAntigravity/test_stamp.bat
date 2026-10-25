@@ -6,21 +6,13 @@ echo   TEST: StampByAntigravity.py
 echo ============================================================
 echo.
 
-SET PYTHON=python
-python --version >nul 2>&1
-if errorlevel 1 (
-    if exist "%LOCALAPPDATA%\Programs\Python\Python310\python.exe" (
-        SET "PYTHON=%LOCALAPPDATA%\Programs\Python\Python310\python.exe"
-    ) else if exist "C:\Python312\python.exe" (
-        SET PYTHON=C:\Python312\python.exe
-    )
-)
+SET PYTHON=C:\Python312\python.exe
 SET SCRIPT=%~dp0StampByAntigravity.py
 
 echo [1] Kiem tra Python...
 %PYTHON% --version
 if errorlevel 1 (
-    echo LOI: Khong tim thay Python kha dung tren he thong
+    echo LOI: Khong tim thay Python tai %PYTHON%
     pause & exit /b 1
 )
 

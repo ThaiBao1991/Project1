@@ -40,16 +40,50 @@ DEFAULT_SETTINGS = {
     "ai": {
         # Để trống = tự dò ../Download/AskCpl/settings.json (dùng chung kho API key)
         "askcpl_settings_path": "",
+        # Model sinh ảnh minh họa (Gemini native image). Thứ tự = thứ tự thử.
+        "image_models": [
+            "gemini-2.5-flash-image",
+            "gemini-3.1-flash-image",
+            "gemini-3-pro-image",
+            "gemini-nano-banana-2.1",
+        ],
+        "image_model": "gemini-2.5-flash-image",
         "model_priority": [
-            {"name": "gemini-3.8-flash",        "enabled": True,  "tier": "S", "note": "Mới nhất — Gemini 3.8 Flash",  "latency_ms": 0},
-            {"name": "gemini-3.5-flash-lite",   "enabled": True,  "tier": "S", "note": "Siêu tốc — Gemini 3.5 Lite",   "latency_ms": 0},
-            {"name": "gemini-3.5-flash",        "enabled": True,  "tier": "S", "note": "Mạnh mẽ — Gemini 3.5 Flash",  "latency_ms": 0},
-            {"name": "gemini-3-flash-preview",  "enabled": True,  "tier": "A", "note": "Rất tốt — Gemini 3 Preview",   "latency_ms": 0},
-            {"name": "gemini-flash-latest",     "enabled": True,  "tier": "A", "note": "Ổn định — Flash Latest",       "latency_ms": 0},
-            {"name": "gemini-flash-lite-latest","enabled": True,  "tier": "B", "note": "Nhanh nhẹ — Flash Lite Latest", "latency_ms": 0},
-            {"name": "gemini-3.1-flash-lite",   "enabled": True,  "tier": "B", "note": "Nhẹ & Nhanh — Gemini 3.1 Lite","latency_ms": 0},
-            {"name": "gemini-3.7-flash",        "enabled": True,  "tier": "A", "note": "Dự phòng — Gemini 3.7 Flash",  "latency_ms": 0}
+            # Quota Gemini free tier = 20 call/ngày / PROJECT / MODEL ⇒ mỗi model
+            # là một "quota bucket" riêng. Càng nhiều model trong chain ⇒ càng
+            # nhiều dung lượng/ngày. Đo 2026-10-21: gemini-3.8-flash,
+            # gemini-3.8-flash-lite, gemini-2.5-flash/pro đều 404 hoặc hết quota.
+            {"name": "gemini-3.6-flash",        "enabled": True,  "tier": "S", "note": "Còn quota, ưu tiên",   "latency_ms": 0},
+            {"name": "gemini-3.5-flash",        "enabled": True,  "tier": "S", "note": "Ổn định, còn quota",  "latency_ms": 0},
+            {"name": "gemini-flash-lite-latest","enabled": True,  "tier": "A", "note": "Nhẹ, bucket riêng",   "latency_ms": 0},
+            {"name": "gemini-3.7-flash",        "enabled": True,  "tier": "A", "note": "Bucket riêng/ngày",    "latency_ms": 0},
+            {"name": "gemini-3.1-pro-preview",  "enabled": True,  "tier": "A", "note": "Bucket riêng/ngày",    "latency_ms": 0},
+            {"name": "gemini-4-argon",          "enabled": True,  "tier": "B", "note": "Bucket riêng/ngày",    "latency_ms": 0},
+            {"name": "gemini-pro-latest",       "enabled": True,  "tier": "B", "note": "Bucket riêng/ngày",    "latency_ms": 0},
+            {"name": "gemini-flash-latest",     "enabled": True,  "tier": "B", "note": "Bucket riêng/ngày",    "latency_ms": 0},
+            {"name": "gemini-omni-1.1-flash",   "enabled": True,  "tier": "B", "note": "Bucket riêng/ngày",    "latency_ms": 0},
+            {"name": "gemini-3.8-flash",        "enabled": True,  "tier": "S", "note": "Mới nhất — quota 20/ngày/project/model", "latency_ms": 0}
         ]
+    },
+    "media": {
+        "dir": "data/media",
+        # Danh sách ngôn ngữ được phép sync media lên GitHub Pages (rỗng = không sync media)
+        "sync_langs": [],
+        # Chuỗi provider ảnh theo thứ tự ưu tiên:
+        #   gemini     — Gemini native image (cần key trả phí; free tier limit:0)
+        #   web        — Web AI (addon Chrome / Selenium / OpenClaw) — CẦN CÀI ADDON THỦ CÔNG
+        #   dict       — Ảnh từ từ điển / kho ảnh Wikimedia (0 key, luôn khả dụng)
+        #   placeholder— Chữ cái đầu (luôn có, không để trống)
+        # Mặc định KHÔNG bật "web" (thiếu addon ⇒ mỗi lần mất ~60s chờ timeout).
+        "image_providers": ["dict", "placeholder"],
+        "webp_quality": 80,
+        "max_px": 512,
+        "max_images_per_day": 60,
+        "max_tracks_audio_per_day": 12,
+        # TTS: "auto" → gemini-tts → edge-tts → gTTS → pyttsx3 (chỉ khi có voice khớp locale)
+        "tts_engine": "auto",
+        "tts_models": ["gemini-3.8-flash-tts", "gemini-3.8-flash-lite-tts"],
+        "audio_dir": "data/audio"
     }
 }
 
@@ -84,6 +118,7 @@ def load_settings() -> dict:
         merged["github"].update(data.get("github", {}))
         merged["gdrive"].update(data.get("gdrive", {}))
         merged["ai"].update(data.get("ai", {}))
+        merged["media"].update(data.get("media", {}))
         
         # Giải mã token khi load lên app
         token = merged["github"].get("token")

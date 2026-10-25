@@ -1,0 +1,50 @@
+[
+  {
+    "day": 86,
+    "topic_id": "tham_do_giam_dinh_quang_dong_sat_va_phan_ngach_hop_kim",
+    "topic": "Thăm dò giám định quặng sắt đồng tự nhiên và phân ngạch hợp kim phế tích",
+    "phase": "Thu gom Phế tích, Khai khoáng & Luyện kim Rèn đúc",
+    "kind": "extraction",
+    "estimated_minutes": 30,
+    "concrete_project": "Trích xuất chi tiết các thực thể: Quặng Hematit đỏ, Quặng Magnetit từ tính, Quặng Limonit nâu, Quặng Siderit cacbonat, Quặng Chalcopyrit đồng vàng, Quặng Malachit đồng xanh lục, Quặng Azurit đồng xanh lam, Quặng Cuprit đồng đỏ, Đồng đỏ phế liệu tản nhiệt, Đồng thau phế liệu ống nước, Đồng thanh phế tích ổ bạc, Nhôm hợp kim khung cửa, Hợp kim kẽm đúc zamak, Chì cực ắc quy phế tích, Thép kết cấu dầm cầu, Gang cầu khối động cơ",
+    "materials": [],
+    "definition_of_done": [
+      "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+    ],
+    "details": [
+      "Trích xuất chỉ số Võ, Trí",
+      "Trích xuất năng lực ẩn"
+    ],
+    "keywords": [
+      "quặng sắt đồng",
+      "hợp kim phế tích",
+      "phân loại kim loại",
+      "khai khoáng dã chiến"
+    ],
+    "prerequisites": []
+  },
+  {
+    "day": 87,
+    "topic_id": "xay_lo_dung_luyen_gang_thoi_ren_toi_ram_va_phoi_duc_cat",
+    "topic": "Xây lò đứng luyện gang thỏi, bí quyết rèn tôi ram thép và tạo phôi đúc cát",
+    "phase": "Thu gom Phế tích, Khai khoáng & Luyện kim Rèn đúc",
+    "kind": "extraction",
+    "estimated_minutes": 30,
+    "concrete_project": "Trích xuất chi tiết các thực thể: Lò cao đứng thân đất sét samot, Đá vôi trợ dung khử xỉ, Than củi cứng luyện kim, Bễ thổi khí piston kép, Ống thổi gió chịu nhiệt tuyere, Cửa tháo gang lỏng và xỉ, Sắt xốp bloomery nguyên sinh, Búa rèn thép carbon cao, Đe rèn thép mặt tôi cứng, Nhíp ô tô tái chế rèn dao rựa, Dung dịch nước muối tôi thép, Bể dầu tôi nhiệt luyện phân cấp, Thang màu oxit nhiệt độ ram, Hòm khuôn đúc cát hai nửa cope-drag, Cát silica phối trộn bentonite ẩm, Ruột khuôn cát cháy tro trấu",
+    "materials": [],
+    "definition_of_done": [
+      "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào"
+    ],
+    "details": [
+      "Trích xuất chỉ số Võ, Trí",
+      "Trích xuất năng lực ẩn"
+    ],
+    "keywords": [
+      "lò cao luyện gang",
+      "rèn thép carbon",
+      "tôi ram nhiệt luyện",
+      "khuôn đúc cát"
+    ],
+    "prerequisites": []
+  }
+]

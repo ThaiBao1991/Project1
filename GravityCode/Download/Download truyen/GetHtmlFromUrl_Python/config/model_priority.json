@@ -1,0 +1,142 @@
+[
+  {
+    "enabled": true,
+    "latency_ms": 1474,
+    "name": "gemini-3.5-flash",
+    "note": "Tier S — (1474ms)",
+    "tier": "S"
+  },
+  {
+    "enabled": true,
+    "latency_ms": 1718,
+    "name": "gemini-3.8-flash",
+    "note": "Tier S — (1718ms)",
+    "tier": "S"
+  },
+  {
+    "enabled": true,
+    "latency_ms": 4958,
+    "name": "gemini-3.5-flash-lite",
+    "note": "Tier S — (4958ms)",
+    "tier": "S"
+  },
+  {
+    "enabled": true,
+    "latency_ms": 934,
+    "name": "gemini-3-flash-preview",
+    "note": "Tier A — (934ms)",
+    "tier": "A"
+  },
+  {
+    "enabled": true,
+    "latency_ms": 2392,
+    "name": "gemini-3.6-flash",
+    "note": "[Mới] Tier A — (2392ms)",
+    "tier": "A"
+  },
+  {
+    "enabled": true,
+    "latency_ms": 0,
+    "name": "gemini-flash-latest",
+    "note": "Tier A — (Timeout)",
+    "tier": "A"
+  },
+  {
+    "enabled": true,
+    "latency_ms": 0,
+    "name": "gemini-3.7-flash",
+    "note": "Tier A — (Lỗi)",
+    "tier": "A"
+  },
+  {
+    "enabled": true,
+    "latency_ms": 5518,
+    "name": "gemini-flash-lite-latest",
+    "note": "Tier B — (5518ms)",
+    "tier": "B"
+  },
+  {
+    "enabled": true,
+    "latency_ms": 0,
+    "name": "gemini-3.1-flash-lite",
+    "note": "Tier B — (Lỗi)",
+    "tier": "B"
+  },
+  {
+    "enabled": false,
+    "latency_ms": 0,
+    "name": "gemini-2.5-flash-lite",
+    "note": "[Mới] Tier B — (Không khả dụng)",
+    "tier": "B"
+  },
+  {
+    "enabled": false,
+    "latency_ms": 0,
+    "name": "gemini-3.1-pro-preview",
+    "note": "[Mới] Tier B — (Rate limit)",
+    "tier": "B"
+  },
+  {
+    "enabled": false,
+    "latency_ms": 0,
+    "name": "gemini-3.1-pro-preview-customtools",
+    "note": "[Mới] Tier B — (Rate limit)",
+    "tier": "B"
+  },
+  {
+    "enabled": false,
+    "latency_ms": 0,
+    "name": "gemini-3.1-flash-lite-preview",
+    "note": "[Mới] Tier B — (Lỗi)",
+    "tier": "B"
+  },
+  {
+    "enabled": false,
+    "latency_ms": 0,
+    "name": "gemini-2.5-flash",
+    "note": "[Mới] Tier C — (Không khả dụng)",
+    "tier": "C"
+  },
+  {
+    "enabled": false,
+    "latency_ms": 0,
+    "name": "gemini-2.5-pro",
+    "note": "[Mới] Tier C — (Không khả dụng)",
+    "tier": "C"
+  },
+  {
+    "enabled": false,
+    "latency_ms": 0,
+    "name": "gemini-pro-latest",
+    "note": "[Mới] Tier C — (Rate limit)",
+    "tier": "C"
+  },
+  {
+    "enabled": false,
+    "latency_ms": 0,
+    "name": "gemini-nano-banana-2.1",
+    "note": "[Mới] Tier C — (Rate limit)",
+    "tier": "C"
+  },
+  {
+    "enabled": false,
+    "latency_ms": 0,
+    "name": "gemini-omni-flash-preview",
+    "note": "[Mới] Tier C — (Rate limit)",
+    "tier": "C"
+  },
+  {
+    "enabled": false,
+    "latency_ms": 0,
+    "name": "gemini-omni-1.1-flash",
+    "note": "[Mới] Tier C — (Rate limit)",
+    "tier": "C"
+  },
+  {
+    "enabled": false,
+    "latency_ms": 0,
+    "name": "gemini-4-argon",
+    "note": "[Mới] Tier C — (Rate limit)",
+    "tier": "C"
+  }
+]

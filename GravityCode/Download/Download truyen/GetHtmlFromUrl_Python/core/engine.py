@@ -1,10 +1,10 @@
 import logging
-import re
-import base64
-import zlib
-import html as html_module
 import requests
 import cloudscraper
+try:
+    from curl_cffi import requests as curl_requests
+except ImportError:
+    curl_requests = None
 from bs4 import BeautifulSoup, Tag
 from typing import List, Tuple, Optional
 
@@ -13,30 +13,29 @@ from models.chapter import Chapter
 
 logger = logging.getLogger(__name__)
 
-try:
-    from curl_cffi import requests as curl_requests
-    HAS_CURL_CFFI = True
-except ImportError:
-    HAS_CURL_CFFI = False
-
 class GetHtmlEngine:
     def __init__(self):
         self.session = requests.Session()
         self.session.headers.update({
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
         })
-        # Lớp Cloudscraper và curl_cffi dùng cho bypass Cloudflare
+        # Lớp Cloudscraper dùng cho bypass Cloudflare cơ bản
         self.cf_scraper = cloudscraper.create_scraper(browser={'browser': 'chrome', 'platform': 'windows', 'mobile': False})
-        self.curl_session = curl_requests.Session(impersonate='chrome120') if HAS_CURL_CFFI else None
+        # curl_cffi Session chuyên dụng để vượt Cloudflare Turnstile hiện đại (69shuba, v.v.)
+        self.curl_session = None
+        if curl_requests:
+            try:
+                self.curl_session = curl_requests.Session(impersonate="chrome120")
+                self.curl_session.headers.update({
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                    'Accept-Language': 'zh-CN,zh;q=0.9,vi;q=0.8,en;q=0.7',
+                })
+            except Exception as e:
+                logger.warning(f"Không thể khởi tạo curl_cffi Session: {e}")
 
     def _get_scraper(self, page_config):
-        """Trả về session, curl_session hoặc cf_scraper kèm theo cookies nếu có."""
-        if getattr(page_config, 'by_pass_cloudflare', False) and self.curl_session:
-            scraper = self.curl_session
-        elif getattr(page_config, 'by_pass_cloudflare', False):
-            scraper = self.cf_scraper
-        else:
-            scraper = self.session
+        """Trả về session hoặc cf_scraper kèm theo cookies nếu có."""
+        scraper = self.cf_scraper if getattr(page_config, 'by_pass_cloudflare', False) else self.session
         custom_cookies = getattr(page_config, '_custom_cookies', None)
         if custom_cookies:
             scraper.cookies.update(custom_cookies)
@@ -82,245 +81,174 @@ class GetHtmlEngine:
             
         return soup_or_tag
 
-    def fetch_html(self, url: str, page_config: PageConfig) -> Optional[BeautifulSoup]:
-        """Tải HTML từ URL, tự động xử lý Cloudflare và charset tiếng Trung (GBK/GB18030/UTF-8)"""
+    def _is_cf_challenge(self, resp) -> bool:
+        """Kiểm tra xem response có phải trang Cloudflare Turnstile / Bot challenge không"""
+        if resp is None:
+            return False
+        if resp.status_code in (403, 503, 429):
+            return True
+        text_lower = getattr(resp, 'text', '').lower()
+        if any(k in text_lower for k in [
+            "cf-turnstile", "challenges.cloudflare.com", "verify you are human",
+            "just a moment...", "checking your browser", "cf-chl-widget"
+        ]):
+            return True
+        return False
+
+    def solve_cloudflare_challenge(self, url: str, log_fn=None) -> bool:
+        """
+        Bật trình duyệt Chrome thật (không headless) để người dùng nhấp 'Verify you are human'.
+        Lắng nghe đến khi vượt qua, trích xuất cookie và nạp vào session.
+        """
+        import time
+        from selenium import webdriver
+        from selenium.webdriver.chrome.options import Options
+
+        def _log(msg):
+            logger.info(msg)
+            if log_fn:
+                log_fn(msg)
+
+        _log("⚠️ Cloudflare yêu cầu xác minh bảo mật ('Verify you are human')!")
+        _log("🌐 Đang mở trình duyệt Chrome... Vui lòng nhấp vào ô 'Verify you are human' trên trình duyệt.")
+
+        driver = None
         try:
-            # Chuẩn hóa URL cho 69shuba: nếu là link giới thiệu /book/XXX.htm thì chuyển sang /book/XXX/ để lấy mục lục
-            if '69shuba' in url and url.endswith('.htm') and '/book/' in url:
-                url = re.sub(r'\.htm$', '/', url)
+            opts = Options()
+            opts.add_argument('--disable-blink-features=AutomationControlled')
+            opts.add_experimental_option('excludeSwitches', ['enable-automation'])
+            opts.add_experimental_option('useAutomationExtension', False)
+            opts.add_argument('--window-size=960,720')
 
-            scraper = self._get_scraper(page_config)
-            headers = {}
-            if '69shuba' in url or not getattr(page_config, 'is_vietnamese_host', True):
-                if '/book/' in url:
-                    headers['Referer'] = f"{url.split('/book/')[0]}/"
-                elif '/txt/' in url:
-                    # Trang chương của 69shuba: Referer từ trang sách
-                    parts = url.split('/txt/')
-                    headers['Referer'] = f"{parts[0]}/book/{parts[1].split('/')[0]}/"
+            driver = webdriver.Chrome(options=opts)
+            driver.get(url)
+
+            # Polling tối đa 90 giây chờ người dùng click qua challenge
+            solved = False
+            for sec in range(90):
+                time.sleep(1)
+                try:
+                    current_title = driver.title.lower()
+                    page_source = driver.page_source.lower()
+                except Exception:
+                    # Người dùng có thể đã tắt trình duyệt
+                    break
+
+                # Nếu title không còn là "just a moment..." và trang đã tải được nội dung bình thường
+                if "just a moment" not in current_title and "attention required" not in current_title:
+                    cookies = driver.get_cookies()
+                    has_cf_cookie = any(c['name'] == 'cf_clearance' for c in cookies)
+                    has_content = "catalog" in page_source or "txtnav" in page_source or "chapter" in page_source
+                    if has_cf_cookie or has_content:
+                        _log(f"✅ Đã xác minh Cloudflare thành công! Đang lưu cookie và tiếp tục tải...")
+                        # Cập nhật cookies vào curl_session và requests session
+                        if self.curl_session:
+                            for c in cookies:
+                                self.curl_session.cookies.set(c['name'], c['value'], domain=c.get('domain', ''))
+                        for c in cookies:
+                            self.session.cookies.set(c['name'], c['value'], domain=c.get('domain', ''))
+                        solved = True
+                        break
+
+            if not solved:
+                _log("⚠️ Hết thời gian chờ xác minh Cloudflare (hoặc trình duyệt đã bị đóng).")
+            return solved
+        except Exception as e:
+            _log(f"❌ Lỗi khi mở trình duyệt xác minh: {e}")
+            return False
+        finally:
+            if driver:
+                try:
+                    driver.quit()
+                except Exception:
+                    pass
+
+    def fetch_html(self, url: str, page_config: PageConfig, log_fn=None) -> Optional[BeautifulSoup]:
+        """Tải HTML từ URL"""
+        try:
+            # 1. Chuẩn hóa URL cho 69shuba nếu dán nhầm link chi tiết /book/XXX.htm
+            if "69shuba" in url or "69shu" in url:
+                import re
+                m = re.search(r'/(?:book/)?(\d+)\.htm', url)
+                if m:
+                    book_id = m.group(1)
+                    url = f"https://www.69shuba.com/{book_id}/"
+
+            # 2. Ưu tiên curl_cffi nếu bypass Cloudflare hoặc gặp host 69shu
+            is_cf = getattr(page_config, 'by_pass_cloudflare', False) or "69shu" in url or "69shu" in getattr(page_config, 'page_code', '')
+            if self.curl_session and is_cf:
+                headers = {'Referer': 'https://www.69shuba.com/'} if '69shu' in url else {}
+                custom_cookies = getattr(page_config, '_custom_cookies', None)
+                cookies = custom_cookies if custom_cookies else None
+                resp = self.curl_session.get(url, headers=headers, cookies=cookies, timeout=25)
+                
+                # Kiểm tra nếu dính Cloudflare Challenge (Turnstile / 403)
+                if self._is_cf_challenge(resp):
+                    if self.solve_cloudflare_challenge(url, log_fn=log_fn):
+                        # Thử tải lại sau khi đã bấm human thành công
+                        resp = self.curl_session.get(url, headers=headers, timeout=25)
+                        if self._is_cf_challenge(resp):
+                            logger.error(f"Vẫn bị chặn sau khi giải Cloudflare: {url}")
+                            return None
+                    else:
+                        return None
+
+                if resp.status_code >= 400:
+                    logger.error(f"Lỗi tải {url}: HTTP {resp.status_code}")
+                    return None
+                
+                # Giải mã encoding phù hợp (69shuba dùng GBK)
+                content = resp.content
+                if "69shu" in url or not getattr(page_config, 'is_vietnamese_host', True):
+                    try:
+                        html_text = content.decode('gbk')
+                    except UnicodeDecodeError:
+                        html_text = content.decode('utf-8', errors='ignore')
                 else:
-                    headers['Referer'] = url
+                    html_text = resp.text
+                return BeautifulSoup(html_text, 'html.parser')
 
-            resp = scraper.get(url, headers=headers, timeout=25)
+            # 3. Fallback scraper thông thường
+            scraper = self._get_scraper(page_config)
+            resp = scraper.get(url, timeout=25)
+            if self._is_cf_challenge(resp):
+                if self.solve_cloudflare_challenge(url, log_fn=log_fn):
+                    resp = scraper.get(url, timeout=25)
             resp.raise_for_status()
-
             # Tự động detect encoding
-            content_bytes = resp.content
-            charset_m = re.search(rb'charset=["\']?([a-zA-Z0-9_-]+)', content_bytes[:1024])
-            if charset_m:
-                encoding = charset_m.group(1).decode('ascii', errors='ignore').lower()
-                if encoding in ('gbk', 'gb2312'):
-                    encoding = 'gb18030'
-            else:
-                encoding = getattr(resp, 'apparent_encoding', None) or 'utf-8'
-
-            try:
-                html_text = content_bytes.decode(encoding, errors='replace')
-            except Exception:
-                html_text = resp.text
-
-            return BeautifulSoup(html_text, 'html.parser')
+            resp.encoding = resp.apparent_encoding 
+            return BeautifulSoup(resp.text, 'html.parser')
         except Exception as e:
             logger.error(f"Lỗi tải {url}: {e}")
             return None
 
-    def get_chapter_title_and_content(self, url: str, page_config: PageConfig) -> Chapter:
-        """Lấy tiêu đề và nội dung của một chương truyện.
-        Dispatch tới một trong các mode:
-          - 'xtruyen_decrypt' : base64-custom + zlib inflate (xtruyen.vn)
-          - 'openclaw'        : dùng Chrome thật qua OpenClaw CLI (các site bị bảo vệ JS mạnh)
-          - ''               : standard CSS selector (mặc định)
-        """
-        mode = getattr(page_config, 'content_mode', '')
-        if mode == 'xtruyen_decrypt':
-            return self._get_chapter_xtruyen(url, page_config)
-        if mode == 'openclaw':
-            return self._get_chapter_openclaw(url, page_config)
-        # ── Standard mode ───────────────────────────────────────────────────
+    def get_chapter_title_and_content(self, url: str, page_config: PageConfig, log_fn=None) -> Chapter:
+        """Lấy tiêu đề và nội dung của một chương truyện"""
         chapter = Chapter()
-        soup = self.fetch_html(url, page_config)
+        
+        soup = self.fetch_html(url, page_config, log_fn=log_fn)
         if not soup:
             chapter.is_get_failed = True
             return chapter
-        # Lấy tiêu đề TRƯỜC KHI filter
+            
+        # Lấy tiêu đề TRƯỚC KHI filter
         if page_config.css_query_get_chapter_title:
             title_els = soup.select(page_config.css_query_get_chapter_title)
             if title_els:
                 chapter.title = title_els[0].get_text(strip=True)
+                
         # Lấy nội dung
         if page_config.css_query_get_chapter_content:
             content_els = soup.select(page_config.css_query_get_chapter_content)
             if content_els:
                 html_parts = []
                 for el in content_els:
+                    # Chỉ áp dụng filter lên content block
                     filtered_el = self.filter_html(el, page_config.css_filter)
                     html_parts.append(str(filtered_el))
+                    
                 chapter.content = "<br/>".join(html_parts)
-            else:
-                chapter.is_get_failed = True
-
-        # Nếu sau khi cào và lọc mà nội dung rỗng hoặc chỉ toàn thẻ HTML trống -> đánh dấu thất bại để kích hoạt retry
-        if not chapter.content or not chapter.content.strip():
-            chapter.is_get_failed = True
-        else:
-            raw_text = re.sub(r'<[^>]+>', '', chapter.content).strip()
-            if not raw_text:
-                chapter.is_get_failed = True
-
-        return chapter
-
-    # ======================================================================
-    # MODE: xtruyen_decrypt  ─ Custom base64 + zlib inflate (xtruyen.vn)
-    # Cơ chế:
-    #   1. HTML trang chương chứa <script id="decompress-script"> với biến
-    #      const data_x = "..."; — chuỗi base64 dùng bảng chữ cái URL-safe riêng.
-    #   2. Dịch bảng chữ cái custom -> standard base64.
-    #   3. base64.b64decode() -> raw bytes -> zlib.decompress() -> HTML text chương.
-    #   4. Các bảng cử `s` và `c` được parse động từ script để tránh giả mã cứng.
-    # ======================================================================
-    def _get_chapter_xtruyen(self, url: str, page_config: PageConfig) -> Chapter:
-        """Giải mã nội dung chương từ xtruyen.vn (và các site cùng cơ chế)."""
-        chapter = Chapter()
-        try:
-            scraper = self._get_scraper(page_config)
-            headers = {
-                'Referer': f"https://{page_config.page_code}/",
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
-                'Accept-Language': 'vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7',
-                'Sec-Ch-Ua': '"Not A(Brand";v="8", "Chromium";v="132", "Google Chrome";v="132"',
-                'Sec-Ch-Ua-Mobile': '?0',
-                'Sec-Ch-Ua-Platform': '"Windows"',
-                'Sec-Fetch-Dest': 'document',
-                'Sec-Fetch-Mode': 'navigate',
-                'Sec-Fetch-Site': 'same-origin',
-                'Sec-Fetch-User': '?1',
-                'Upgrade-Insecure-Requests': '1',
-            }
-            resp = scraper.get(url, headers=headers, timeout=25)
-            html_text = resp.text
-
-            # Kiểm tra xem có bị tạm khóa IP / spam dữ liệu không
-            spam_signatures = [
-                "Truy cập bị từ chối",
-                "tạm khóa IP",
-                "spam dữ liệu quá nhanh",
-                "hành vi spam",
-                "khóa IP của bạn"
-            ]
-            if any(sig in html_text for sig in spam_signatures) or resp.status_code in (429, 403):
-                logger.warning(f"⚠️ xtruyen: Hệ thống tạm khóa IP hoặc chặn spam tại {url}")
-                chapter.is_ip_banned = True
-                chapter.is_get_failed = True
-                return chapter
-
-            resp.raise_for_status()
-
-            # ── 1. Parse bảng chữ cái từ script (tránh hardcode) ──────────────
-            # Script chứa: const s = _0x2d6e55(0x122), c = _0x2d6e55(0x121);
-            # sau khi obfuscation rã ra thì s và c được define trong mảng _0x15f240
-            # có giá trị cố định nên có thể parse được bằng regex
-            S_FALLBACK = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
-            C_FALLBACK = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_'
-
-            # Parse trực tiếp từ mảng constant trong JS
-            arr_match = re.search(
-                r"'(ABCDEFGHIJKLMNOPQRSTUVWXYZ[^']{44,70})'",
-                html_text
-            )
-            cust_match = re.search(
-                r"'(0123456789abcdefghijklmnopqrstuvwxyz[^']{25,40})'" ,
-                html_text
-            )
-            s_chars = arr_match.group(1) if arr_match else S_FALLBACK
-            c_chars = cust_match.group(1) if cust_match else C_FALLBACK
-
-            # ── 2. Tìm data_x ────────────────────────────────────────────────
-            data_match = re.search(r'const\s+data_x\s*=\s*"([^"]+)"', html_text)
-            if not data_match:
-                logger.error(f"xtruyen_decrypt: không tìm thấy data_x tại {url}")
-                chapter.is_get_failed = True
-                return chapter
-            data_x = data_match.group(1)
-
-            # ── 3. Dịch bảng chữ cái + b64decode + zlib inflate ──────────
-            trans_table = str.maketrans(c_chars, s_chars)
-            translated = data_x.translate(trans_table)
-            raw_bytes  = base64.b64decode(translated)
-            content_html = zlib.decompress(raw_bytes).decode('utf-8')
-
-            # ── 4. Lấy title từ JSON-LD schema trong HTML ──────────────────
-            soup = BeautifulSoup(html_text, 'html.parser')
-            chapter.title = ""
-
-            # Thử từ JSON-LD ("name": "Chương X - Tiêu đề")
-            for s_tag in soup.find_all('script', type='application/ld+json'):
-                name_m = re.search(r'"name"\s*:\s*"([^"]+)"', s_tag.get_text())
-                if name_m:
-                    chapter.title = html_module.unescape(name_m.group(1)).strip()
-                    break
-
-            # Fallback: tham số CSS cấu hình
-            if not chapter.title and page_config.css_query_get_chapter_title:
-                t_els = soup.select(page_config.css_query_get_chapter_title)
-                if t_els:
-                    chapter.title = t_els[0].get_text(strip=True)
-
-            # Fallback cuối: rút tiêu từ đầu nội dung (dòng đầu tiên thường là "Chương N: Tên")
-            if not chapter.title:
-                first_line = re.split(r'</?p>', content_html.strip())[0]
-                chapter.title = BeautifulSoup(first_line, 'html.parser').get_text(strip=True)
-
-            chapter.content = content_html
-            return chapter
-
-        except Exception as e:
-            logger.error(f"xtruyen_decrypt lỗi tại {url}: {e}")
-            chapter.is_get_failed = True
-            return chapter
-
-    # ======================================================================
-    # MODE: openclaw ─ Chrome thật qua OpenClaw CLI (các site chẹn bot mạnh)
-    # Cơ chế:
-    #   1. Python gọi `openclaw browser start` → bật Chrome thật (không có
-    #      --enable-automation, không có headless flag) → bypass DevTools detect.
-    #   2. `openclaw browser open <url>` → mở tab mới, chờ JS render.
-    #   3. `openclaw browser wait --selector <css>` → chờ đến khi content xuất hiện.
-    #   4. `openclaw browser evaluate --fn "return el.innerHTML;" --json` → lấy HTML.
-    #   5. Đóng tab sau khi lấy xong.
-    # Lưu ý: OpenClaw phải được cài và có trong PATH (npm install -g openclaw).
-    # ======================================================================
-    def _get_chapter_openclaw(self, url: str, page_config: PageConfig) -> Chapter:
-        """Dùng Chrome thật qua OpenClaw CLI để lấy nội dung chương."""
-        from core.openclaw_browser import OpenClawBrowser, OpenClawBrowserError
-
-        chapter = Chapter()
-        browser = OpenClawBrowser(timeout_ms=40000)
-
-        result = browser.fetch_chapter(
-            url=url,
-            content_selector=page_config.css_query_get_chapter_content or "body",
-            title_selector=page_config.css_query_get_chapter_title or None,
-            wait_selector=page_config.css_query_get_chapter_content or None,
-            wait_ms=8000,
-            wait_after_nav=3.0,
-        )
-
-        if not result.get("ok"):
-            logger.error(f"openclaw mode lỗi tại {url}: {result.get('error')}")
-            chapter.is_get_failed = True
-            return chapter
-
-        chapter.title   = result.get("title", "")
-        raw_html        = result.get("content", "")
-
-        # Apply css_filter nếu có
-        if page_config.css_filter and raw_html:
-            soup_content = BeautifulSoup(raw_html, "html.parser")
-            soup_content = self.filter_html(soup_content, page_config.css_filter)
-            chapter.content = str(soup_content)
-        else:
-            chapter.content = raw_html
-
+                
         return chapter
 
     def get_list_chapter_links(self, url: str, page_config: PageConfig, log_fn=None) -> List[str]:
@@ -332,17 +260,10 @@ class GetHtmlEngine:
         """
         # ── Mode 1: AJAX Pagination ────────────────────────────────────
         if page_config.ajax_list_chap_url:
-            links = self._get_links_ajax(url, page_config, log_fn=log_fn)
-        else:
-            # ── Mode 2: Static HTML (có thể có nhiều trang) ──────────────────
-            links = self._get_links_static(url, page_config, log_fn=log_fn)
+            return self._get_links_ajax(url, page_config, log_fn=log_fn)
 
-        if getattr(page_config, 'is_revert_chapter_list', False) and links:
-            if log_fn:
-                log_fn("🔄 Đảo ngược thứ tự danh sách chương (chương 1 ở đầu)...")
-            links.reverse()
-
-        return links
+        # ── Mode 2: Static HTML (có thể có nhiều trang) ──────────────────
+        return self._get_links_static(url, page_config, log_fn=log_fn)
 
     # ------------------------------------------------------------------
     def _get_links_ajax(self, story_url: str, page_config: PageConfig, log_fn=None) -> List[str]:
@@ -470,40 +391,30 @@ class GetHtmlEngine:
             if log_fn:
                 log_fn(f"  📄 Đang quét mục lục trang {page_num}...")
                 
-            soup = self.fetch_html(current_url, page_config)
+            soup = self.fetch_html(current_url, page_config, log_fn=log_fn)
             if not soup:
                 break
 
             page_links = []
             for el in soup.select(css_query):
-                if el.name == 'option':
-                    # ── Xử lý <option> selector (VD: xtruyen.vn dùng select làm mục lục) ──
-                    # Option có data-redirect (URL đầy đủ) → dùng trực tiếp
-                    redirect = el.get('data-redirect', '')
-                    if redirect:
-                        href = redirect
-                    else:
-                        # Build URL từ text option: "Chương 42" → /truyen/{slug}/chuong-42/
-                        opt_text = el.get_text(strip=True)
-                        chap_m = re.search(r'\d+', opt_text)
-                        if chap_m:
-                            # Lấy slug từ URL trang truyện (phần path thứ 2)
-                            from urllib.parse import urlparse as _up
-                            parsed_base = _up(current_url)
-                            path_parts = [p for p in parsed_base.path.split('/') if p]
-                            slug = path_parts[1] if len(path_parts) > 1 else path_parts[0]
-                            href = f"{parsed_base.scheme}://{parsed_base.netloc}/truyen/{slug}/chuong-{chap_m.group()}/"
-                        else:
-                            continue
-                elif el.name == 'a' and el.has_attr('href'):
+                if el.name == 'a' and el.has_attr('href'):
                     href = el['href']
+                    if href and href not in seen:
+                        seen.add(href)
+                        page_links.append(href)
+                elif el.name in ('ul', 'ol', 'div'):
+                    # Nếu selector chọn trúng container (như #catalog ul), lặp qua tất cả thẻ a bên trong
+                    for a in el.find_all('a', href=True):
+                        href = a['href']
+                        if href and href not in seen:
+                            seen.add(href)
+                            page_links.append(href)
                 else:
                     a = el.find('a', href=True)
                     href = a['href'] if a else ""
-
-                if href and href not in seen:
-                    seen.add(href)
-                    page_links.append(href)
+                    if href and href not in seen:
+                        seen.add(href)
+                        page_links.append(href)
 
             if not page_links:
                 break
@@ -534,5 +445,11 @@ class GetHtmlEngine:
             import time as _time
             _time.sleep(0.5)
             current_url = next_url
+
+        # Nếu cấu hình yêu cầu đảo ngược thứ tự danh sách chương (như 69shuba sắp xếp chương mới nhất lên đầu)
+        if getattr(page_config, 'is_revert_chapter_list', False):
+            links.reverse()
+            if log_fn:
+                log_fn("  🔄 Đã đảo ngược thứ tự danh sách chương (từ chương 1 đến chương cuối).")
 
         return links

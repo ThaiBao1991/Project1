@@ -47,6 +47,12 @@ OPTIONAL_PACKAGES = {
     'pyttsx3': 'pyttsx3>=2.90',
     'gtts': 'gTTS>=2.3.2',
     'pygame': 'pygame-ce>=2.5.0',
+    # Thêm mới: pipeline media (ảnh WebP) + TTS neural + bridge Web AI
+    'edge_tts': 'edge-tts>=7.3',
+    'PIL': 'Pillow>=10.0',
+    'flask': 'Flask>=3.0',
+    'numpy': 'numpy>=1.26',
+    'selenium': 'selenium>=4.18',
 }
 
 def _import_ok(module_name: str) -> bool:
@@ -179,6 +185,9 @@ from database.database import (
     delete_vocab, get_stats, get_all_topics, get_all_types, get_all_dates,
     get_available_languages, find_vocab_by_word
 )
+from database import review_store
+from ai.srs import (GRADES, GRADE_LABELS_VI, STATE_NEW, STATE_LEARNING,
+                    STATE_REVIEW, STATE_MASTERED, mastery_level)
 from settings import (
     load_settings, save_settings,
     update_github_settings, update_gdrive_settings, update_ai_settings,
@@ -1373,6 +1382,105 @@ class SettingsSyncTab(ctk.CTkFrame):
         btn(scroll, "⚙️ Cài Đặt & Khám Phá Model AI", C["accent"], C["accent2"], w=260, h=36,
             cmd=lambda: ModelSettingsDialog(self.app)).pack(anchor="w", pady=8)
 
+        sep(scroll)
+
+        # ── Bridge Web AI (Chrome addon) ──
+        lbl(scroll, "🌐 Bridge Web AI (Chrome Addon)", 15, "bold", C["accent"]).pack(anchor="w", pady=(10,4))
+        lbl(scroll, "Bật bridge để addon VocabAIExtractor lấy nội dung + ảnh minh họa từ "
+                    "Gemini/ChatGPT/Copilot. Sau đó load unpacked thư mục "
+                    "addon/VocabAIExtractor trong Chrome.", 12, color=C["muted"]).pack(anchor="w", pady=2)
+
+        br_row = ctk.CTkFrame(scroll, fg_color="transparent"); br_row.pack(anchor="w", pady=6)
+        self.btn_bridge = btn(br_row, "▶ Bật Bridge (5690)", C["success"], "#018786",
+                              w=170, h=34, cmd=self._toggle_bridge)
+        self.btn_bridge.pack(side="left", padx=(0,10))
+        btn(br_row, "📋 Copy Token", C["card2"], C["accent"], w=140, h=34,
+            cmd=self._copy_bridge_token).pack(side="left")
+
+        self.lbl_bridge = lbl(scroll, "Trạng thái: Đang tắt", 12, color=C["muted"])
+        self.lbl_bridge.pack(anchor="w", pady=4)
+
+        tok_frame = ctk.CTkFrame(scroll, fg_color=C["card2"])
+        tok_frame.pack(fill="x", pady=(4, 14))
+        lbl(tok_frame, "Token bridge:", 12, color=C["muted"]).pack(side="left", padx=12, pady=8)
+        self.lbl_bridge_token = lbl(tok_frame, "-", 12, "bold", C["accent"])
+        self.lbl_bridge_token.pack(side="left")
+
+        sep(scroll)
+
+        # ── Media / Ảnh minh họa ──
+        lbl(scroll, "🖼️ Ảnh Minh Họa & Media", 15, "bold", C["accent"]).pack(anchor="w", pady=(10,4))
+        _ms = load_settings().get("media", {}) or {}
+        self.media_providers = combo(scroll, ["web, dict, placeholder", "dict, placeholder",
+                                             "web, dict, placeholder, gemini"],
+                                    width=280)
+        try:
+            self.media_providers.set(", ".join(_ms.get("image_providers") or ["web", "dict", "placeholder"]))
+        except Exception:
+            pass
+        self.media_providers.pack(anchor="w", pady=2)
+        lbl(scroll, "Chuỗi nguồn ảnh (cao → thấp). 'dict' = Wikipedia/Wiktionary/Commons (0 key, luôn dùng được).",
+            11, color=C["muted"]).pack(anchor="w", pady=2)
+
+        self.media_sync_langs = entry(scroll, "Ngôn ngữ sync media lên web (csv, ví dụ: tiếng_anh,nhật)")
+        self.media_sync_langs.insert(0, ",".join(_ms.get("sync_langs") or []))
+        self.media_sync_langs.pack(anchor="w", pady=2)
+        lbl(scroll, "Để trống = không sync media lên GitHub Pages (tiết kiệm dung lượng repo).",
+            11, color=C["muted"]).pack(anchor="w", pady=2)
+
+        btn(scroll, "💾 Lưu Cài Đặt Media", C["accent"], C["accent2"], w=200, h=34,
+            cmd=self._save_media_settings).pack(anchor="w", pady=10)
+
+    # ── Bridge Web AI ──────────────────────────────────────────────────────
+    def _toggle_bridge(self):
+        from ai.web_ai_bridge import get_bridge, stop_bridge
+        b = get_bridge()
+        if b is not None and getattr(self, "_bridge_on", False):
+            stop_bridge()
+            self._bridge_on = False
+            self.btn_bridge.configure(text="▶ Bật Bridge (5690)")
+            self.lbl_bridge.configure(text="Trạng thái: Đã tắt", text_color=C["muted"])
+            self.lbl_bridge_token.configure(text="-")
+            return
+        b = get_bridge()
+        if b is None:
+            self.lbl_bridge.configure(text="Trạng thái: Không khởi động được (thiếu Flask?)",
+                                     text_color=C["danger"])
+            return
+        self._bridge_on = True
+        self.btn_bridge.configure(text="⏹ Tắt Bridge")
+        self.lbl_bridge.configure(text=f"Trạng thái: ĐANG CHẠY tại http://127.0.0.1:{b.port}",
+                                  text_color=C["success"])
+        self.lbl_bridge_token.configure(text=b.token)
+
+    def _copy_bridge_token(self):
+        from ai.web_ai_bridge import get_bridge
+        b = get_bridge()
+        if b is None:
+            messagebox.showwarning("Bridge", "Bridge chưa bật. Bấm 'Bật Bridge' trước.", parent=self.app)
+            return
+        self.app.clipboard_clear()
+        self.app.clipboard_append(b.token)
+        self.lbl_bridge_token.configure(text=b.token)
+        messagebox.showinfo("Bridge", f"Đã copy token:\n{b.token}", parent=self.app)
+
+    def _save_media_settings(self):
+        from settings import update_ai_settings
+        providers = [p.strip() for p in (self.media_providers.get() or "").split(",") if p.strip()]
+        langs = [l.strip() for l in (self.media_sync_langs.get() or "").split(",") if l.strip()]
+        try:
+            update_ai_settings(media_providers=providers)
+        except Exception:
+            pass
+        s = load_settings()
+        s.setdefault("media", {})
+        s["media"]["image_providers"] = providers
+        s["media"]["sync_langs"] = langs
+        from settings import save_settings
+        save_settings(s)
+        messagebox.showinfo("Thành công", f"Đã lưu:\n• Nguồn ảnh: {', '.join(providers)}\n"
+                                             f"• Sync media: {', '.join(langs) or '(không)'}", parent=self.app)
+
     def _log(self, msg: str):
         def _append():
             self.log_box.configure(state="normal")
@@ -1460,6 +1568,23 @@ class SettingsSyncTab(ctk.CTkFrame):
 # ══════════════════════════════════════════════════════════════════════════════
 SOURCE_SELF = "📖 Từ vựng tự học"
 SOURCE_AI = "🤖 Khóa học AI chuyên sâu"
+SOURCE_SRS = "🔁 Ôn tập SM-2 (lặp lại ngắt quãng)"
+
+# (grade, nhãn, màu nền, màu hover) cho 4 nút đánh giá SM-2
+SRS_GRADE_STYLE = (
+    ("again", "😵 Quên", "#cf6679", "#b04a5a"),
+    ("hard",  "😕 Khó", "#ffb300", "#d18f00"),
+    ("good",  "🙂 Được", "#03dac6", "#018786"),
+    ("easy",  "😎 Dễ", "#bb86fc", "#9965f4"),
+)
+
+# Nhãn trạng thái thuộc (dùng cho cả GUI lẫn web)
+SRS_STATE_LABEL = {
+    STATE_NEW: "🆕 Mới",
+    STATE_LEARNING: "📖 Đang học",
+    STATE_REVIEW: "🔁 Đang ôn",
+    STATE_MASTERED: "🏆 Đã thuộc",
+}
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -1881,6 +2006,16 @@ class CourseGenerationDialog(ctk.CTkToplevel):
         ctk.CTkCheckBox(opt2, text="Làm lại từ đầu (xóa khóa cũ)",
                         variable=self.var_force, fg_color=C["accent"]).pack(side="right")
 
+        # Tùy chọn pipeline media (ảnh minh họa + audio + hội thoại)
+        opt3 = ctk.CTkFrame(self, fg_color="transparent")
+        opt3.pack(fill="x", padx=20, pady=(6, 0))
+        self.var_media = ctk.BooleanVar(value=True)
+        ctk.CTkCheckBox(opt3, text="🖼️🔊 Sinh ảnh minh họa + âm thanh + hội thoại (pipeline tự trị)",
+                        variable=self.var_media, fg_color=C["accent"]).pack(side="left")
+        self.var_rebuild = ctk.BooleanVar(value=False)
+        ctk.CTkCheckBox(opt3, text="↻ Sinh lại nội dung (thêm IPA / khẩu hình phát âm)",
+                        variable=self.var_rebuild, fg_color=C["accent"]).pack(side="left", padx=(14, 0))
+
         btn_row = ctk.CTkFrame(self, fg_color="transparent")
         btn_row.pack(pady=10)
         self.btn_start = btn(btn_row, "▶ Tiếp tục / Bắt đầu sinh", C["success"], "#018786",
@@ -1898,6 +2033,24 @@ class CourseGenerationDialog(ctk.CTkToplevel):
 
         btn(btn_row, "⚙️ Cài đặt Model", C["card2"], C["accent"], w=145, h=38,
             cmd=lambda: ModelSettingsDialog(self)).pack(side="left", padx=(10, 0))
+
+        # ── MỞ TRỰC TIẾP GEMINI / GROK (đường lùi an toàn, 0 chi phí) ──
+        # Copy prompt vào clipboard + mở tab ⇒ người dùng tự dán & Enter.
+        # KHÔNG dùng deep-link ?q= (các dịch vụ không hỗ trợ ổn định).
+        self.ai_platform = ctk.StringVar(value="gemini")
+        ai_row = ctk.CTkFrame(self, fg_color="transparent")
+        ai_row.pack(pady=(0, 4))
+        lbl(ai_row, "Tra cứu nhanh bằng AI web:", 12, color=C["muted"]).pack(
+            side="left", padx=(0, 8))
+        self.ai_platform_box = ctk.CTkComboBox(
+            ai_row, values=["gemini", "grok", "chatgpt", "claude", "copilot",
+                           "perplexity", "deepseek", "aistudio"],
+            variable=self.ai_platform, width=130, height=30)
+        self.ai_platform_box.pack(side="left", padx=(0, 8))
+        btn(ai_row, "🔎 Mở & copy prompt", C["card2"], C["accent"], w=175, h=32,
+            cmd=self._open_ai_web).pack(side="left", padx=(0, 8))
+        lbl(ai_row, "ℹ️ Copy prompt → mở tab → dán & Enter (không tự động hoá để tránh vi phạm ToS)",
+            11, color=C["muted"]).pack(side="left")
 
         self.progress = ctk.CTkProgressBar(self, progress_color=C["accent"], height=8)
         self.progress.pack(fill="x", padx=20, pady=(0, 6))
@@ -1977,6 +2130,55 @@ class CourseGenerationDialog(ctk.CTkToplevel):
             self.log_box.configure(state="disabled")
         self.after(0, _append)
 
+    def _open_ai_web(self):
+        """Mở Gemini/Grok/... : copy prompt vào clipboard + mở tab.
+
+        Cơ chế AN TOÀN: KHÔNG tự động gõ/click (đã có bằng chứng Google trả
+        CAPTCHA /sorry/index và Grok có tos-gate khi truy cập tự động) ⇒ chỉ
+        copy + mở tab, người dùng tự dán & Enter.
+        """
+        try:
+            from ai import web_ai_urls
+        except Exception as e:
+            messagebox.showerror("Lỗi", f"Không tải được module web_ai_urls: {e}", parent=self)
+            return
+
+        plat = (self.ai_platform.get() or "gemini").strip()
+        lang = self.app.current_language
+        # Prompt: ưu tiên từ của ngày đang học, không thì prompt tổng quát
+        prompt = ""
+        try:
+            course = course_db.get_course(lang) or {}
+            lesson = None
+            for d in course.get("days", []):
+                v = d.get("vocab") or []
+                if v:
+                    lesson = d
+                    break
+            if lesson:
+                ws = [str(x.get("word") or "") for x in lesson["vocab"][:12] if x.get("word")]
+                prompt = web_ai_urls.build_course_prompt(
+                    lang, lesson.get("title") or lesson.get("topic") or "", ws)
+        except Exception:
+            prompt = ""
+        if not prompt:
+            prompt = web_ai_urls.build_lookup_prompt(
+                lang, extra="Hãy cho tôi một bài học từ vựng ngắn gọn cho chủ đề này.")
+
+        res = web_ai_urls.open_platform(plat, prompt, log_fn=self._log)
+        if not res.get("ok"):
+            messagebox.showerror("Không mở được", res.get("error", "Lỗi không rõ"), parent=self)
+            return
+        self._log(f"{res.get('label')}: đã mở tab và "
+                  f"{'copy prompt' if res.get('copied') else 'KHÔNG copy được prompt'}.")
+        if res.get("copied"):
+            messagebox.showinfo(
+                res.get("label", "AI web"),
+                f"Đã mở {res.get('label')} và COPY prompt vào clipboard.\n\n"
+                "Bấm Ctrl+V trong ô chat rồi Enter.\n"
+                "(Không tự động gõ để tránh vi phạm điều khoản dịch vụ.)",
+                parent=self)
+
     def _parse_target_days(self) -> int | None:
         val = self.cb_duration.get() or ""
         m = re.search(r"(\d+)\s*ngày", val)
@@ -2038,6 +2240,31 @@ class CourseGenerationDialog(ctk.CTkToplevel):
 
         def _worker():
             try:
+                if self.var_media.get():
+                    # Đường pipeline tự trị: sinh content + quiz + ẢNH + AUDIO + HỘI THOẠI
+                    from ai.pipeline import run_pipeline
+                    res = run_pipeline(
+                        self.app.current_language,
+                        words_per_day=wpd,
+                        level=level,
+                        full=True,
+                        mode=("enrich" if self.var_rebuild.get() else "media"),
+                        target_days=target_days,
+                        force_new=self.var_force.get(),
+                        allow_degraded=True,
+                        media=True,
+                        workers=4,
+                        log_fn=self._log,
+                        stop_check=self._stop_event.is_set,
+                        on_progress=lambda p: self.after(
+                            0, lambda: self.progress.set(
+                                max(0.0, min(1.0, p.get("pct", 0) / 100.0)))),
+                    )
+                    self._log(f"🏁 {res['status'].upper()}: {res['days_done']}/{res['total_days']} ngày, "
+                              f"calls={res['calls']}, ảnh={res['images']}. "
+                              f"DoD={res['definition_of_done']['met']}")
+                    self.after(0, lambda: self._done(success=res.get("ok", False)))
+                    return
                 result = generate_course(
                     self.app.current_language, words_per_day=wpd,
                     force_new=self.var_force.get(),
@@ -2348,7 +2575,10 @@ class ScrollableDayDropdown(ctk.CTkFrame):
                         continue
                 self._filtered_items.append(item)
                 lb.insert("end", f"  {full_label}")
-                if f"Ngày {day_num}" in self._current_text and f"Ngày {day_num} " in self._current_text + " ":
+                # BUG ĐÃ SỬA (L-U): so khớp SUBSTRING "Ngày 1" cũng khớp "Ngày 11"
+                # ⇒ highlight sai ngày trong dropdown. Giờ: regex có ranh giới số.
+                if re.search(rf"Ngày\s+{re.escape(str(day_num))}(?!\d)",
+                             self._current_text):
                     selected_idx = len(self._filtered_items) - 1
 
             if self._filtered_items:
@@ -2409,6 +2639,12 @@ class StudyTab(ctk.CTkFrame):
         self._course = None
         self._quiz = None
         self._building_quiz = False
+        # SRS (SM-2)
+        self._srs_queue = []
+        self._srs_idx = 0
+        self._srs_revealed = False
+        self._srs_pool_cache = {}
+        self._current_lesson = None
         self._build()
         # CTk chặn bind_all → bind trên cửa sổ chính (vẫn nhận phím từ mọi widget con)
         self.winfo_toplevel().bind("<KeyPress>", self._on_global_key, add="+")
@@ -2419,7 +2655,7 @@ class StudyTab(ctk.CTkFrame):
         head.pack(fill="x"); head.pack_propagate(False)
 
         lbl(head, "Nguồn học:", 14, color=C["accent"]).pack(side="left", padx=(14, 6))
-        self.cb_source = combo(head, [SOURCE_SELF, SOURCE_AI], width=250)
+        self.cb_source = combo(head, [SOURCE_SELF, SOURCE_AI, SOURCE_SRS], width=250)
         self.cb_source.set(SOURCE_SELF)
         self.cb_source.configure(command=lambda _c: self._on_source_change())
         self.cb_source.pack(side="left", padx=(0, 14))
@@ -2478,6 +2714,8 @@ class StudyTab(ctk.CTkFrame):
         btn(ctop, "Sau ▶", C["card2"], C["accent"], w=68, h=32, cmd=self._next_day).pack(side="left", padx=(4, 8))
         btn(ctop, "📑 Danh sách kéo cuộn", C["card2"], C["accent"], w=160, h=32,
             cmd=self._open_day_selector_dialog).pack(side="left", padx=(0, 8))
+        btn(ctop, "📚 Dẫn chứng", C["card2"], C["accent"], w=130, h=32,
+            cmd=self._run_evidence_for_day).pack(side="left", padx=(0, 8))
         self.lbl_day_status = lbl(ctop, "", 12, color=C["success"])
         self.lbl_day_status.pack(side="left", padx=4)
 
@@ -2506,6 +2744,22 @@ class StudyTab(ctk.CTkFrame):
                                           wraplength=330, font=("Consolas", 12),
                                           text_color=C["muted"])
         self.quiz_feedback.pack(anchor="w", padx=14, pady=(8, 4))
+
+        # ── Hàng đánh giá SRS (SM-2) — chấm mức nhớ của từ vựng đang luyện ──
+        self.srs_grade_frame = ctk.CTkFrame(quiz_box, fg_color="transparent")
+        self.srs_grade_frame.pack(fill="x", padx=14, pady=(6, 2))
+        self.lbl_srs_grade = lbl(self.srs_grade_frame, "", 11, color=C["muted"])
+        self.lbl_srs_grade.pack(anchor="w", pady=(0, 3))
+        self.srs_grade_btns_q = {}
+        grow = ctk.CTkFrame(self.srs_grade_frame, fg_color="transparent")
+        grow.pack(fill="x")
+        for gname, glabel, gcolor, ghov in SRS_GRADE_STYLE:
+            gb = btn(grow, glabel, gcolor, ghov, w=78, h=30,
+                     cmd=(lambda g=gname: self._grade_current_word(g)))
+            gb.pack(side="left", padx=2)
+            gb.configure(state="disabled")
+            self.srs_grade_btns_q[gname] = gb
+
         qbtn_row = ctk.CTkFrame(quiz_box, fg_color="transparent")
         qbtn_row.pack(side="bottom", pady=12)
         self.btn_confirm = btn(qbtn_row, "✅ Chốt đáp án", C["success"], "#018786",
@@ -2516,6 +2770,10 @@ class StudyTab(ctk.CTkFrame):
         self.btn_next_q.pack(side="left", padx=4)
         self.btn_next_q.configure(state="disabled")
 
+        # ── Khung Ôn tập SRS (SM-2) ────────────────────────────────────────────
+        self.srs_frame = ctk.CTkFrame(self, fg_color="transparent")
+        self._build_srs()
+
         # ── Thanh trạng thái dưới cùng ──
         bottom = ctk.CTkFrame(self, fg_color=C["sidebar"], height=34, corner_radius=0)
         bottom.pack(fill="x"); bottom.pack_propagate(False)
@@ -2523,6 +2781,281 @@ class StudyTab(ctk.CTkFrame):
         self.lbl_bottom.pack(side="left", padx=14, pady=7)
 
         self._on_source_change(initial=True)
+
+    # ── Ôn tập SRS (SM-2) ─────────────────────────────────────────────────────
+    def _build_srs(self):
+        top = ctk.CTkFrame(self.srs_frame, fg_color="transparent")
+        top.pack(fill="x", padx=14, pady=(8, 0))
+        self.lbl_srs_stats = lbl(top, "", 13, color=C["accent"])
+        self.lbl_srs_stats.pack(side="left", padx=6)
+        btn(top, "▶ Ôn tập", C["success"], "#018786", w=110, h=32,
+            cmd=self._srs_start).pack(side="right", padx=3)
+        btn(top, "⏭ Bỏ qua", C["card2"], C["accent"], w=96, h=32,
+            cmd=self._srs_skip).pack(side="right", padx=3)
+        btn(top, "↻ Ôn lại từ đầu", C["card2"], C["accent"], w=140, h=32,
+            cmd=self._srs_restart).pack(side="right", padx=3)
+        btn(top, "🗑️ Xoá tiến độ ôn", C["card2"], C["danger"], w=150, h=32,
+            cmd=self._srs_clear).pack(side="right", padx=3)
+
+        self.srs_card = ctk.CTkFrame(self.srs_frame, fg_color=C["card"],
+                                     corner_radius=16, border_width=1,
+                                     border_color=C["accent"])
+        self.srs_card.pack(fill="both", expand=True, padx=40, pady=18)
+        self.srs_counter = lbl(self.srs_card, "0 / 0", 13, color=C["muted"])
+        self.srs_counter.pack(anchor="ne", padx=15, pady=(10, 0))
+        self.srs_word = lbl(self.srs_card, "", 44, "bold", C["accent"])
+        self.srs_word.pack(pady=(26, 4))
+        self.srs_pron = lbl(self.srs_card, "", 18, color=C["muted"])
+        self.srs_pron.pack(pady=(0, 6))
+        self.srs_mean = ctk.CTkLabel(self.srs_card, text="", justify="center",
+                                     wraplength=720, font=("Segoe UI", 16),
+                                     text_color=C["text"])
+        self.srs_mean.pack(pady=(0, 6))
+        self.srs_meta = lbl(self.srs_card, "", 12, color=C["muted"])
+        self.srs_meta.pack(pady=(0, 6))
+        btn(self.srs_card, "🔄 Xem nghĩa / Ẩn", C["card2"], C["accent"],
+            w=190, h=36, cmd=self._srs_flip).pack(pady=(0, 12))
+
+        grow = ctk.CTkFrame(self.srs_frame, fg_color="transparent")
+        grow.pack(fill="x", padx=40, pady=(0, 18))
+        self.srs_grade_btns = {}
+        for gname, glabel, gcolor, ghov in SRS_GRADE_STYLE:
+            gb = btn(grow, glabel, gcolor, ghov, w=160, h=44,
+                     cmd=(lambda g=gname: self._srs_grade(g)))
+            gb.pack(side="left", padx=5)
+            self.srs_grade_btns[gname] = gb
+
+    def _srs_pool(self):
+        """{từ: {meaning_vi, pronunciation, ipa}} — gộp từ vựng tự học + khóa học AI."""
+        pool = {}
+        for v in self._cards or []:
+            if not isinstance(v, dict):
+                continue
+            w = str(v.get("word") or "").strip()
+            if not w:
+                continue
+            pool[w] = {
+                "meaning_vi": v.get("meaning") or v.get("meaning_vi") or "",
+                "pronunciation": v.get("pronunciation") or "",
+                "ipa": v.get("ipa") or "",
+            }
+        for w, info in (self._srs_pool_cache or {}).items():
+            pool.setdefault(w, dict(info))
+        return pool
+
+    def _srs_load_course_bg(self):
+        """Nạp từ vựng khóa học AI ở luồng nền (không block UI)."""
+        lang = self.app.current_language
+
+        def _work():
+            pool = {}
+            try:
+                course = course_db.get_course(lang, apply_v4=False, persist=False) or {}
+                for d in course.get("days") or []:
+                    for v in d.get("vocab") or []:
+                        if not isinstance(v, dict):
+                            continue
+                        w = str(v.get("word") or "").strip()
+                        if not w:
+                            continue
+                        pool.setdefault(w, {
+                            "meaning_vi": v.get("meaning_vi") or "",
+                            "pronunciation": v.get("pronunciation") or "",
+                            "ipa": v.get("ipa") or "",
+                        })
+            except Exception:
+                pool = {}
+
+            def _done():
+                self._srs_pool_cache = pool
+                self.refresh_srs_stats()
+                if self._srs_queue:
+                    self._srs_show()
+            try:
+                self.after(0, _done)
+            except Exception:
+                pass
+
+        threading.Thread(target=_work, daemon=True).start()
+
+    def refresh_srs_stats(self):
+        """Cập nhật dòng thống kê SRS (đến hạn / streak / đã thuộc)."""
+        try:
+            st = review_store.stats(self.app.current_language)
+        except Exception:
+            return
+        pool_size = len(self._srs_pool())
+        self.lbl_srs_stats.configure(
+            text=(f"📊 Đến hạn: {st.get('due_today', 0)} · 🔁 Streak: "
+                  f"{st.get('streak', 0)} ngày (kỷ lục {st.get('longest_streak', 0)}) · "
+                  f"🏆 Đã thuộc: {st.get('mastered', 0)}/{st.get('total', 0)} · "
+                  f"📈 ease TB: {st.get('avg_ease', 0)}"))
+
+    def _srs_start(self):
+        lang = self.app.current_language
+        pool = self._srs_pool()
+        if not pool:
+            self.lbl_srs_stats.configure(
+                text="⚠ Chưa có từ vựng nào để ôn. Thêm từ ở tab Danh Sách Từ Vựng "
+                     "hoặc mở khóa học AI.")
+            return
+        try:
+            review_store.sync_from_vocab(
+                lang, list(pool.keys()),
+                {w: (info.get("meaning_vi") or "") for w, info in pool.items()})
+            queue = review_store.due_queue(lang, limit=60)
+        except Exception as e:
+            messagebox.showerror("Lỗi ôn tập", f"Không tải được hàng đợi ôn tập:\n{e}",
+                                 parent=self)
+            return
+        if not queue:
+            self.lbl_srs_stats.configure(
+                text="✅ Không có từ nào đến hạn lúc này. Hẹn ôn lại sau nhé!")
+            self.srs_word.configure(text="🎉")
+            self.srs_mean.configure(text="Chưa có từ đến hạn. Bấm ▶ Ôn tập sau nhé.")
+            self.srs_pron.configure(text="")
+            self.srs_meta.configure(text="")
+            self._srs_set_buttons(False)
+            return
+        self._srs_queue = [q["key"] for q in queue]
+        self._srs_idx = 0
+        self._srs_revealed = False
+        self._srs_show()
+        self.refresh_srs_stats()
+
+    def _srs_set_buttons(self, enabled: bool):
+        for b in (self.srs_grade_btns or {}).values():
+            try:
+                b.configure(state="normal" if enabled else "disabled")
+            except Exception:
+                pass
+
+    def _srs_show(self):
+        lang = self.app.current_language
+        if not self._srs_queue or self._srs_idx >= len(self._srs_queue):
+            self.srs_counter.configure(text=f"{len(self._srs_queue)} / {len(self._srs_queue)}")
+            self.srs_word.configure(text="🎉 Xong rồi!")
+            self.srs_mean.configure(
+                text="Bạn đã ôn hết hàng đợi hôm nay. Quay lại sau khi tới hạn nhé!")
+            self.srs_pron.configure(text="")
+            self.srs_meta.configure(text="")
+            self._srs_set_buttons(False)
+            return
+        word = self._srs_queue[self._srs_idx]
+        info = self._srs_pool().get(word) or {}
+        st = review_store.get_state(lang, word)
+        self.srs_counter.configure(text=f"{self._srs_idx + 1} / {len(self._srs_queue)}")
+        self.srs_word.configure(text=word)
+        pron = str(info.get("pronunciation") or "")
+        ipa = str(info.get("ipa") or "")
+        self.srs_pron.configure(
+            text=(f"/{pron}/" if pron else "")
+                 + (f"    🔊 {ipa}" if ipa and ipa != pron else ""))
+        self.srs_mean.configure(
+            text=(info.get("meaning_vi") or "—") if self._srs_revealed else "••••••  (bấm Xem nghĩa)")
+        lv = mastery_level(st)
+        try:
+            from datetime import datetime as _dt
+            due_txt = _dt.fromtimestamp(float(st.get("due") or 0)).strftime("%d/%m %H:%M")
+        except Exception:
+            due_txt = "—"
+        self.srs_meta.configure(
+            text=(f"{SRS_STATE_LABEL.get(lv, lv)} · hẹn ôn {due_txt} · "
+                  f"ease {float(st.get('ease') or 2.5):.2f} · "
+                  f"đã ôn {int(st.get('reps') or 0)} lần"))
+        self._srs_update_previews(word)
+        self._srs_set_buttons(True)
+
+    def _srs_update_previews(self, word):
+        """Ghi lên nút phỏng đoán khoảng cách lần ôn kế tiếp (SM-2)."""
+        try:
+            from ai.srs import review as _review
+            st = review_store.get_state(self.app.current_language, word)
+            for gname, glabel, _c, _h in SRS_GRADE_STYLE:
+                _new, info = _review(st, gname)
+                days = info.get("next_review_in_days", 0)
+                if days < 1:
+                    txt = f"{glabel}\n({int(round(days * 1440))} phút)"
+                else:
+                    txt = f"{glabel}\n({days:g} ngày)"
+                try:
+                    self.srs_grade_btns[gname].configure(text=txt)
+                except Exception:
+                    pass
+        except Exception:
+            pass
+
+    def _srs_grade(self, grade):
+        if not self._srs_queue or self._srs_idx >= len(self._srs_queue):
+            return
+        lang = self.app.current_language
+        word = self._srs_queue[self._srs_idx]
+        info = self._srs_pool().get(word) or {}
+        try:
+            _st, rinfo = review_store.record_review(
+                lang, word, grade,
+                extra={"meaning_vi": info.get("meaning_vi") or ""})
+        except Exception as e:
+            messagebox.showerror("Lỗi ôn tập", f"Không lưu được lần ôn:\n{e}", parent=self)
+            return
+        nxt = rinfo.get("next_review_in_days", 0)
+        when = (f"{int(round(nxt * 1440))} phút" if nxt < 1 else f"{nxt:g} ngày")
+        self.srs_meta.configure(
+            text=f"✅ {rinfo.get('label', '')} · lần ôn kế tiếp sau {when}")
+        self._srs_idx += 1
+        self._srs_revealed = False
+        self._srs_show()
+        self.refresh_srs_stats()
+
+    def _srs_skip(self):
+        if not self._srs_queue or self._srs_idx >= len(self._srs_queue):
+            return
+        self._srs_idx += 1
+        self._srs_revealed = False
+        self._srs_show()
+
+    def _srs_flip(self):
+        self._srs_revealed = not self._srs_revealed
+        self._srs_show()
+
+    def _srs_restart(self):
+        lang = self.app.current_language
+        if not messagebox.askyesno(
+                "Ôn lại từ đầu",
+                f"Xoá toàn bộ tiến độ ôn tập của '{lang}' và bắt đầu lại?",
+                parent=self):
+            return
+        try:
+            review_store.reset(lang)
+        except Exception as e:
+            messagebox.showerror("Lỗi", str(e), parent=self)
+            return
+        self._srs_queue = []
+        self._srs_idx = 0
+        self.refresh_srs_stats()
+        self._srs_start()
+
+    def _srs_clear(self):
+        lang = self.app.current_language
+        if not messagebox.askyesno(
+                "Xoá tiến độ ôn",
+                f"Xoá toàn bộ lịch ôn tập (SM-2) của '{lang}'?",
+                parent=self):
+            return
+        try:
+            review_store.reset(lang)
+        except Exception as e:
+            messagebox.showerror("Lỗi", str(e), parent=self)
+            return
+        self._srs_queue = []
+        self._srs_idx = 0
+        self.srs_word.configure(text="")
+        self.srs_mean.configure(text="")
+        self.srs_pron.configure(text="")
+        self.srs_meta.configure(text="")
+        self.srs_counter.configure(text="0 / 0")
+        self._srs_set_buttons(False)
+        self.refresh_srs_stats()
 
     # ── Điều hướng chung ─────────────────────────────────────────────────────
     def refresh_language(self):
@@ -2532,6 +3065,8 @@ class StudyTab(ctk.CTkFrame):
         self._flipped = False
         self._render_card()
         self._reload_course()
+        self._srs_pool_cache = {}
+        self.refresh_srs_stats()
 
     def _on_source_change(self, initial=False):
         src = self.cb_source.get()
@@ -2543,8 +3078,15 @@ class StudyTab(ctk.CTkFrame):
             self.flash_frame.pack_forget()
             self.course_frame.pack(fill="both", expand=True)
             self._reload_course()
+        elif src == SOURCE_SRS:
+            self.flash_frame.pack_forget()
+            self.course_frame.pack_forget()
+            self.srs_frame.pack(fill="both", expand=True)
+            self.refresh_srs_stats()
+            self._srs_load_course_bg()
         else:
             self.course_frame.pack_forget()
+            self.srs_frame.pack_forget()
             self.flash_frame.pack(fill="both", expand=True)
             self._render_card()
 
@@ -2747,9 +3289,11 @@ class StudyTab(ctk.CTkFrame):
             self.ent_jump_day.insert(0, str(day))
         lesson = self._get_day_lesson(day) if day else None
         if not lesson:
+            self._current_lesson = None
             self._set_lesson_text("Không có dữ liệu ngày này.")
             self._reset_quiz_widgets()
             return
+        self._current_lesson = lesson
         self._render_lesson_text(lesson)
         self._update_day_status(day)
         self._start_quiz(day, lesson.get("quiz") or {})
@@ -2787,17 +3331,50 @@ class StudyTab(ctk.CTkFrame):
 
         lines.append("🔤 TỪ VỰNG CHUYÊN SÂU")
         lines.append("-" * 60)
+        media_index = self._media_index()
         for i, v in enumerate(lesson.get("vocab", []), 1):
+            ipa = v.get("ipa") or v.get("pronunciation") or ""
+            ipa_ev = v.get("ipa_ev") or ""
             lines.append(f"{i}. {v.get('word', '')}"
                          + (f"  [{v['pronunciation']}]" if v.get("pronunciation") else "")
-                         + (f" ({v['part_of_speech']})" if v.get("part_of_speech") else ""))
+                         + (f"  🔊 {ipa}" if ipa and ipa != v.get("pronunciation") else "")
+                         + (f"  📖 {ipa_ev}" if ipa_ev and ipa_ev != ipa else "")
+                         + (f" ({v['part_of_speech']})" if v.get("part_of_speech") else "")
+                         + (f"  <{v['pos']}>" if v.get("pos") else ""))
+            # Ảnh minh họa
+            img_path = self._media_file(media_index, v.get("image_ref"))
+            if img_path:
+                lines.append(f"   🖼️ Ảnh: {img_path}")
             lines.append(f"   Nghĩa: {v.get('meaning_vi') or '—'}")
+            if v.get("phonetic_note"):
+                lines.append(f"   👄 Khẩu hình: {v['phonetic_note']}")
             if v.get("explanation"):
                 lines.append(f"   Giải thích: {v['explanation']}")
             if v.get("example_sentence"):
                 lines.append(f"   💬 {v['example_sentence']}")
                 if v.get("example_meaning_vi"):
                     lines.append(f"      → {v['example_meaning_vi']}")
+            # Audio
+            audio = self._media_file(media_index, v.get("audio_ref"))
+            if audio:
+                lines.append(f"   🔊 Audio: {audio}")
+            # Dẫn chứng (Wikipedia/Wiktionary)
+            for s in (v.get("sources") or []):
+                if not isinstance(s, dict):
+                    continue
+                title = s.get("title") or s.get("kind") or "nguồn"
+                url = s.get("url") or ""
+                lic = s.get("license") or ""
+                line = f"   📚 Nguồn: {title}"
+                if url:
+                    line += f" — {url}"
+                if lic:
+                    line += f" ({lic})"
+                lines.append(line)
+                if s.get("quote"):
+                    lines.append(f"      “{s['quote'][:160]}”")
+            if v.get("etymology"):
+                lines.append(f"   🏛️ Từ nguyên: {v['etymology'][:200]}")
             lines.append("")
 
         patterns = lesson.get("sentence_patterns") or []
@@ -2838,9 +3415,129 @@ class StudyTab(ctk.CTkFrame):
                     lines.append(f"    💬 {ex.get('sentence', '')}")
                     if ex.get("meaning_vi"):
                         lines.append(f"       → {ex['meaning_vi']}")
+                if g.get("pronunciation_focus"):
+                    lines.append(f"  👄 Phát âm: {g['pronunciation_focus']}")
+                for m in g.get("common_mistakes", []):
+                    lines.append(f"  ❌ {m.get('wrong', '')}")
+                    lines.append(f"  ✅ {m.get('right', '')}")
+                    if m.get("why_vi"):
+                        lines.append(f"     ↳ {m['why_vi']}")
+                if g.get("mini_quiz"):
+                    lines.append("  🧠 Kiểm tra nhanh:")
+                    for q in g["mini_quiz"]:
+                        opts = q.get("options") or []
+                        lines.append(f"     • {q.get('question', '')}")
+                        for oi, o in enumerate(opts):
+                            lines.append(f"       {chr(65 + oi)}. {o}")
+                        if q.get("explanation"):
+                            lines.append(f"       → {q['explanation']}")
+                lines.append("")
+
+        # ── HỘI THOẠI (roleplay) ──────────────────────────────────────────
+        dialogues = lesson.get("dialogue") or []
+        if dialogues:
+            lines.append("💬 HỘI THOẠI (ROLEPLAY)")
+            lines.append("-" * 60)
+            for di, dlg in enumerate(dialogues):
+                lines.append(f"  ▶ {dlg.get('title') or f'Kịch bản {di+1}'}"
+                             + (f"  [{dlg.get('level_tag')}]" if dlg.get("level_tag") else ""))
+                if dlg.get("situation"):
+                    lines.append(f"    📌 {dlg['situation']}")
+                d_audio = self._media_file(media_index, dlg.get("audio_ref"))
+                if d_audio:
+                    lines.append(f"    🔊 Audio cả đoạn: {d_audio}")
+                for t in dlg.get("turns", []):
+                    lines.append(f"    {t.get('speaker', 'A')}: {t.get('line_target', '')}")
+                    if t.get("line_vi"):
+                        lines.append(f"       → {t['line_vi']}")
+                    if t.get("tone") or t.get("emotion"):
+                        lines.append(f"       🎭 {t.get('emotion', '')} {t.get('tone', '')}".rstrip())
+                    if t.get("focus_words"):
+                        lines.append(f"       🔍 Từ trọng tâm: {', '.join(t['focus_words'])}")
+                if dlg.get("cultural_note"):
+                    lines.append(f"    🌏 {dlg['cultural_note']}")
                 lines.append("")
 
         self._set_lesson_text("\n".join(lines))
+
+    # ── Dẫn chứng (Wikipedia/Wiktionary) ───────────────────────────────────
+    def _run_evidence_for_day(self):
+        """Tra dẫn chứng cho ngày đang xem (chạy nền, không block UI)."""
+        day = self._selected_day_num()
+        lesson = self._get_day_lesson(day) if day else None
+        if not lesson:
+            messagebox.showinfo("Không có dữ liệu",
+                                "Hãy chọn một ngày có bài học trước khi tra dẫn chứng.",
+                                parent=self)
+            return
+        lang = self.app.current_language
+        self.lbl_bottom.configure(text="📚 Đang tra dẫn chứng (Wikipedia/Wiktionary)…")
+
+        def _work():
+            try:
+                from ai.pipeline_evidence import run_evidence_stage
+                run_evidence_stage(lang, day, lesson, log_fn=lambda m: None,
+                                   force=True)
+            except Exception as e:
+                def _err():
+                    self.lbl_bottom.configure(
+                        text=f"⚠ Lỗi tra dẫn chứng: {type(e).__name__}: {e}")
+                try:
+                    self.after(0, _err)
+                except Exception:
+                    pass
+                return
+
+            def _done():
+                try:
+                    course_db.save_course(lang, self._course)
+                except Exception:
+                    pass
+                if self._current_lesson:
+                    self._render_lesson_text(self._current_lesson)
+                self.lbl_bottom.configure(
+                    text=f"📚 Đã tra dẫn chứng cho Ngày {day} "
+                         f"(dữ liệu lưu trong data/ai_courses/).")
+            try:
+                self.after(0, _done)
+            except Exception:
+                pass
+
+        threading.Thread(target=_work, daemon=True).start()
+
+    # ── Media helpers ──────────────────────────────────────────────────────
+    def _media_index(self):
+        """Manifest media (cache 1 lần / 30s)."""
+        import time
+        now = time.time()
+        if getattr(self, "_media_idx_ts", 0) + 30 > now:
+            return getattr(self, "_media_idx_cache", None) or {}
+        try:
+            from ai import media_store
+            self._media_idx_cache = media_store.load_index()
+            self._media_idx_ts = now
+        except Exception:
+            self._media_idx_cache = {}
+            self._media_idx_ts = now
+        return self._media_idx_cache
+
+    def _media_file(self, index, ref):
+        """Đường dẫn file media tuyệt đối theo ref, hoặc '' nếu không có."""
+        if not ref or not index:
+            return ""
+        entry = (index.get("items") or {}).get(ref)
+        if not entry:
+            return ""
+        rel = entry.get("rel_path") or ""
+        if not rel:
+            return ""
+        try:
+            from ai import media_store
+            path = media_store.abs_path_for(rel)
+        except Exception:
+            return ""
+        import os
+        return path if os.path.isfile(path) else ""
 
     # ── Trắc nghiệm ──────────────────────────────────────────────────────────
     def _reset_quiz_widgets(self):
@@ -2851,6 +3548,70 @@ class StudyTab(ctk.CTkFrame):
         self._clear_quiz_options()
         self.btn_confirm.configure(state="disabled")
         self.btn_next_q.configure(state="disabled")
+        self._set_grade_buttons(None)
+
+    def _set_grade_buttons(self, word):
+        """Bật/tắt 4 nút đánh giá SM-2 theo từ vựng của câu hỏi hiện tại."""
+        try:
+            for b in (self.srs_grade_btns_q or {}).values():
+                b.configure(state="normal" if word else "disabled")
+        except Exception:
+            pass
+        try:
+            if word:
+                st = review_store.get_state(self.app.current_language, word)
+                lv = mastery_level(st)
+                self.lbl_srs_grade.configure(
+                    text=f"🧠 Nhớ từ '{word}'? ({SRS_STATE_LABEL.get(lv, lv)})")
+            else:
+                self.lbl_srs_grade.configure(text="🧠 Không xác định được từ của câu này")
+        except Exception:
+            pass
+
+    def _current_quiz_vocab_word(self):
+        """Từ vựng mà câu trắc nghiệm hiện tại đang hỏi (None nếu không khớp)."""
+        qz = self._quiz
+        if not qz:
+            return None
+        try:
+            q = qz["questions"][qz["idx"]]
+        except (IndexError, KeyError, TypeError):
+            return None
+        low = str(q.get("question") or "").lower()
+        if not low:
+            return None
+        for v in ((self._current_lesson or {}).get("vocab") or []):
+            if not isinstance(v, dict):
+                continue
+            w = str(v.get("word") or "").strip()
+            if w and len(w) >= 2 and w.lower() in low:
+                return w
+        return None
+
+    def _grade_current_word(self, grade):
+        """Ghi 1 lần ôn SM-2 cho từ vựng của câu trắc nghiệm đang xem."""
+        word = self._current_quiz_vocab_word()
+        if not word:
+            self.lbl_srs_grade.configure(text="⚠ Câu này không hỏi từ cụ thể nào")
+            return
+        meaning = ""
+        for v in ((self._current_lesson or {}).get("vocab") or []):
+            if isinstance(v, dict) and str(v.get("word") or "").strip() == word:
+                meaning = v.get("meaning_vi") or ""
+                break
+        try:
+            _st, rinfo = review_store.record_review(
+                self.app.current_language, word, grade,
+                extra={"meaning_vi": meaning})
+        except Exception as e:
+            messagebox.showerror("Lỗi ôn tập", f"Không lưu được lần ôn:\n{e}", parent=self)
+            return
+        nxt = rinfo.get("next_review_in_days", 0)
+        when = (f"{int(round(nxt * 1440))} phút" if nxt < 1 else f"{nxt:g} ngày")
+        self.lbl_srs_grade.configure(
+            text=f"✅ '{word}': {rinfo.get('label', '')} · ôn lại sau {when}")
+        self._set_grade_buttons(word)
+        self.app.update_stats()
 
     def _clear_quiz_options(self):
         for r in self.quiz_radios:
@@ -2907,6 +3668,7 @@ class StudyTab(ctk.CTkFrame):
             self.quiz_radios.append(rb)
         self.btn_confirm.configure(state="normal")
         self.btn_next_q.configure(state="disabled")
+        self._set_grade_buttons(self._current_quiz_vocab_word())
 
     def _confirm_answer(self):
         qz = self._quiz
@@ -3031,8 +3793,15 @@ class App(ctk.CTk):
             pass
 
     def update_stats(self):
-        # Refresh UI nếu cần update text hiển thị theo count
-        pass
+        """Làm mới các chỉ số hiển thị (SRS streak / đến hạn, thống kê từ vựng)."""
+        try:
+            self.view_study.refresh_srs_stats()
+        except Exception:
+            pass
+        try:
+            self.view_list.refresh()
+        except Exception:
+            pass
 
 if __name__ == "__main__":
     app = App()

@@ -20,83 +20,6 @@ class RoadmapValidationError(ValueError):
     """Raised when an LLM response cannot be used as a roadmap."""
 
 
-def _text(value: Any) -> str:
-    return value.strip() if isinstance(value, str) else ""
-
-
-def normalize_micro_fields(item: dict[str, Any], day_number: int | None = None) -> tuple[dict[str, Any], list[str]]:
-    """Automatically heal and clamp micro-day fields so LLM edge cases never crash validation.
-
-    Returns (healed_item, list_of_fix_descriptions).
-    """
-    fixes = []
-    day = day_number if day_number is not None else item.get("day", 0)
-    topic = _text(item.get("topic")) or f"Day {day}"
-
-    # 1. estimated_minutes: strictly int, clamped to [5, 30]
-    minutes = item.get("estimated_minutes")
-    healed_min = 30
-    if isinstance(minutes, int):
-        healed_min = max(5, min(30, minutes))
-    elif isinstance(minutes, (float, str)):
-        digits = re.findall(r"\d+", str(minutes))
-        if digits:
-            try:
-                healed_min = max(5, min(30, int(digits[0])))
-            except ValueError:
-                healed_min = 30
-    if item.get("estimated_minutes") != healed_min:
-        fixes.append(f"estimated_minutes: {item.get('estimated_minutes')} -> {healed_min}")
-        item["estimated_minutes"] = healed_min
-
-    # 2. concrete_project: >= 4 chars, non-vague
-    concrete = _text(item.get("concrete_project"))
-    vague_words = ("tìm hiểu", "nghiên cứu", "tổng quan", "học về", "khái niệm", "lý thuyết về")
-    if len(concrete) < 4:
-        concrete = f"Thực hành ứng dụng và làm chủ {topic}"
-        fixes.append(f"concrete_project: bù nội dung cụ thể cho Day {day}")
-    elif concrete.casefold().startswith(vague_words):
-        cleaned = re.sub(r"^(?:tìm hiểu|nghiên cứu|tổng quan|học về|khái niệm|lý thuyết về)\s*", "", concrete, flags=re.IGNORECASE).strip()
-        concrete = f"Thực hành {cleaned}" if cleaned else f"Thực hành {topic}"
-        fixes.append(f"concrete_project: đổi văn phong hành động ('{concrete}')")
-    item["concrete_project"] = concrete
-
-    # 3. materials: non-empty list of non-empty strings
-    materials = item.get("materials")
-    if not isinstance(materials, list) or not any(_text(m) for m in materials):
-        item["materials"] = ["Tài liệu hướng dẫn bài học", "Công cụ thực hành"]
-        fixes.append(f"materials: bù danh sách tài liệu mặc định cho Day {day}")
-    else:
-        cleaned_mat = [_text(m) for m in materials if _text(m)]
-        item["materials"] = cleaned_mat if cleaned_mat else ["Tài liệu hướng dẫn bài học", "Công cụ thực hành"]
-
-    # 4. definition_of_done: non-empty list of non-empty strings
-    done = item.get("definition_of_done")
-    if not isinstance(done, list) or not any(_text(d) for d in done):
-        item["definition_of_done"] = [f"Hoàn thành toàn bộ bài tập và kiểm tra kết quả của Day {day}"]
-        fixes.append(f"definition_of_done: bù tiêu chí hoàn thành cho Day {day}")
-    else:
-        cleaned_done = [_text(d) for d in done if _text(d)]
-        item["definition_of_done"] = cleaned_done if cleaned_done else [f"Hoàn thành toàn bộ bài tập và kiểm tra kết quả của Day {day}"]
-
-    # 5. details: non-empty list of non-empty strings
-    details = item.get("details")
-    if not isinstance(details, list) or not any(_text(d) for d in details):
-        item["details"] = [f"Nội dung trọng tâm và bài tập của {topic}"]
-        fixes.append(f"details: bù nội dung chi tiết cho Day {day}")
-    else:
-        item["details"] = [str(d).strip() for d in details if str(d).strip()] or [f"Nội dung trọng tâm của {topic}"]
-
-    # 6. keywords: list of strings
-    keywords = item.get("keywords")
-    if not isinstance(keywords, list) or not keywords:
-        item["keywords"] = [topic.split()[0].lower() if topic.split() else "roadmap"]
-    else:
-        item["keywords"] = [str(k).strip() for k in keywords if str(k).strip()]
-
-    return item, fixes
-
-
 def restore_locked_day_identity(existing: list[dict[str, Any]], candidate: Any) -> tuple[list[dict[str, Any]], list[tuple[int, str, str]]]:
     """Keep stable Day IDs/source metadata while accepting content revisions.
 
@@ -104,15 +27,6 @@ def restore_locked_day_identity(existing: list[dict[str, Any]], candidate: Any) 
     Models sometimes correct an opaque ID spelling, which must not invalidate a
     successful content review or silently break those links.
     """
-    if isinstance(candidate, dict):
-        for k in ("days", "skeleton", "items", "phases", "data", "result", "revised_days"):
-            if isinstance(candidate.get(k), list):
-                candidate = candidate[k]
-                break
-        else:
-            if all(isinstance(v, dict) for v in candidate.values()):
-                candidate = list(candidate.values())
-
     if not isinstance(candidate, list):
         raise RoadmapValidationError("phase tích hợp không trả về mảng JSON.")
     expected_days = [item.get("day") for item in existing]
@@ -130,63 +44,8 @@ def restore_locked_day_identity(existing: list[dict[str, Any]], candidate: Any) 
         item["topic_id"] = old_id
         # Source files are user-selected local provenance, not model content.
         item["source_files"] = list(original.get("source_files", []))
-        item, _ = normalize_micro_fields(item, original.get("day"))
         restored.append(item)
     return restored, changes
-
-
-def _repair_json_escapes(s: str) -> str:
-    """Tự động sửa các chuỗi escape không hợp lệ trong JSON (thường gặp khi LLM sinh công thức LaTeX)."""
-    result = []
-    in_string = False
-    i = 0
-    n = len(s)
-    while i < n:
-        c = s[i]
-        if c == '"':
-            backslashes = 0
-            j = i - 1
-            while j >= 0 and s[j] == '\\':
-                backslashes += 1
-                j -= 1
-            if backslashes % 2 == 0:
-                in_string = not in_string
-            result.append(c)
-            i += 1
-        elif in_string and c == '\\':
-            if i + 1 < n:
-                nxt = s[i + 1]
-                if nxt in ('"', '\\', '/'):
-                    result.append(c)
-                    result.append(nxt)
-                    i += 2
-                elif nxt == 'u':
-                    if i + 5 < n and all(ch in '0123456789abcdefABCDEF' for ch in s[i+2:i+6]):
-                        result.append(c)
-                        result.append(nxt)
-                        result.extend(s[i+2:i+6])
-                        i += 6
-                    else:
-                        result.append('\\\\')
-                        i += 1
-                elif nxt in ('n', 'r', 't', 'b', 'f'):
-                    if i + 2 < n and s[i + 2].isalpha():
-                        result.append('\\\\')
-                        i += 1
-                    else:
-                        result.append(c)
-                        result.append(nxt)
-                        i += 2
-                else:
-                    result.append('\\\\')
-                    i += 1
-            else:
-                result.append('\\\\')
-                i += 1
-        else:
-            result.append(c)
-            i += 1
-    return "".join(result)
 
 
 def load_json_response(text: str) -> Any:
@@ -207,49 +66,22 @@ def load_json_response(text: str) -> Any:
     repaired = re.sub(r",\s*([}\]])", r"\1", candidates[-1]) if candidates else value
     repaired = re.sub(r"([,{]\s*)([A-Za-z_][A-Za-z0-9_-]*)(\s*:)", r'\1"\2"\3', repaired)
     candidates.append(repaired)
-
-    # Thêm candidate đã sửa escape LaTeX / backslash
-    candidates.append(_repair_json_escapes(repaired))
-
     last_error = None
     for candidate in candidates:
         try:
-            return json.loads(candidate, strict=False)
+            return json.loads(candidate)
         except json.JSONDecodeError as exc:
             last_error = exc
             try:
-                parsed, _end = json.JSONDecoder(strict=False).raw_decode(candidate)
+                parsed, _end = json.JSONDecoder().raw_decode(candidate)
                 return parsed
             except json.JSONDecodeError as raw_error:
                 last_error = raw_error
-
-    # Phục hồi từng bước nếu lỗi cụ thể là "Invalid \escape"
-    for candidate in candidates:
-        curr = candidate
-        fixed = False
-        for _ in range(100):
-            try:
-                return json.loads(curr, strict=False)
-            except json.JSONDecodeError as exc:
-                if "Invalid \\escape" in exc.msg and exc.pos > 0 and curr[exc.pos - 1] == "\\":
-                    curr = curr[:exc.pos - 1] + "\\\\" + curr[exc.pos:]
-                    fixed = True
-                else:
-                    if fixed:
-                        try:
-                            parsed, _end = json.JSONDecoder(strict=False).raw_decode(curr)
-                            return parsed
-                        except json.JSONDecodeError:
-                            pass
-                    last_error = exc
-                    break
-        if fixed:
-            try:
-                return json.loads(curr, strict=False)
-            except json.JSONDecodeError as exc:
-                last_error = exc
-
     raise RoadmapValidationError(f"Phản hồi JSON không hợp lệ: {last_error.msg if last_error else 'rỗng'}") from last_error
+
+
+def _text(value: Any) -> str:
+    return value.strip() if isinstance(value, str) else ""
 
 
 def _similar(left: str, right: str) -> float:
@@ -274,7 +106,7 @@ def _cycles(edges: dict[str, list[str]]) -> bool:
     return any(visit(node) for node in edges)
 
 
-def validate_plan(plan: Any, expected_days: int | None = None, require_micro: bool = False, sim_check_enabled: bool = True, sim_threshold: float = 0.96, auto_heal_micro: bool = False) -> dict[str, Any]:
+def validate_plan(plan: Any, expected_days: int | None = None, require_micro: bool = False, sim_check_enabled: bool = True, sim_threshold: float = 0.96) -> dict[str, Any]:
     """Validate a reviewed skeleton and return it unchanged when it is safe."""
     if not isinstance(plan, dict):
         raise RoadmapValidationError("Roadmap phải là JSON object.")
@@ -307,8 +139,6 @@ def validate_plan(plan: Any, expected_days: int | None = None, require_micro: bo
         first_day[topic_id] = min(first_day.get(topic_id, day), day)
         titles.append((day, title))
         if require_micro:
-            if auto_heal_micro:
-                normalize_micro_fields(item, day)
             minutes = item.get("estimated_minutes")
             concrete = _text(item.get("concrete_project"))
             materials = item.get("materials")
@@ -362,16 +192,16 @@ def validate_plan(plan: Any, expected_days: int | None = None, require_micro: bo
     return plan
 
 
-def validate_revision(original_plan: dict, revised_plan: Any, expected_days: int | None = None, require_micro: bool = False, sim_check_enabled: bool = True, sim_threshold: float = 0.96, auto_heal_micro: bool = False) -> dict[str, Any]:
+def validate_revision(original_plan: dict, revised_plan: Any, expected_days: int | None = None, require_micro: bool = False, sim_check_enabled: bool = True, sim_threshold: float = 0.96) -> dict[str, Any]:
     """A critic may add material, but cannot silently delete existing topics."""
-    validate_plan(original_plan, expected_days, require_micro, sim_check_enabled=sim_check_enabled, sim_threshold=sim_threshold, auto_heal_micro=auto_heal_micro)
+    validate_plan(original_plan, expected_days, require_micro, sim_check_enabled=sim_check_enabled, sim_threshold=sim_threshold)
     old_ids = {item["topic_id"] for item in original_plan["skeleton"]}
     new_items = revised_plan.get("skeleton", []) if isinstance(revised_plan, dict) else []
     new_ids = {item.get("topic_id") for item in new_items if isinstance(item, dict)}
     removed = old_ids - new_ids
     if removed:
         raise RoadmapValidationError("Bản phản biện làm mất topic cũ: " + ", ".join(sorted(removed)[:8]))
-    validate_plan(revised_plan, expected_days=expected_days, require_micro=require_micro, sim_check_enabled=sim_check_enabled, sim_threshold=sim_threshold, auto_heal_micro=auto_heal_micro)
+    validate_plan(revised_plan, expected_days=expected_days, require_micro=require_micro, sim_check_enabled=sim_check_enabled, sim_threshold=sim_threshold)
     return revised_plan
 
 
@@ -387,27 +217,12 @@ def render_markdown(plan: dict[str, Any], lessons: Iterable[dict[str, Any]]) -> 
     by_day = {item.get("day"): item for item in lessons if isinstance(item, dict)}
     lines = [f"# Roadmap: {_text(plan['domain_profile'].get('title')) or 'Untitled'}", ""]
     for item in plan["skeleton"]:
-        day_num = item["day"]
-        lesson = by_day.get(day_num, {})
+        lesson = by_day.get(item["day"], {})
         prompt = _text(lesson.get("prompt"))
         exercises = lesson.get("exercises")
         tags = lesson.get("tags")
-
-        # Tự động bù đắp exercises nếu thiếu hoặc rỗng để không làm hỏng tiến trình
-        clean_exercises = [str(ex).strip() for ex in exercises if isinstance(ex, str) and str(ex).strip()] if isinstance(exercises, list) else []
-        if not clean_exercises:
-            topic_name = item.get("topic") or f"Day {day_num}"
-            clean_exercises = [f"Thực hành chi tiết: {topic_name}", "Tự kiểm tra và hoàn thành checklist nghiệm thu"]
-
-        # Tự động bù đắp tags nếu thiếu hoặc rỗng
-        clean_tags = [str(tg).strip() for tg in tags if isinstance(tg, str) and str(tg).strip()] if isinstance(tags, list) else []
-        if not clean_tags:
-            kw_tags = [f"#{str(k).strip().replace(' ', '_')}" for k in item.get("keywords", []) if isinstance(k, str) and str(k).strip()]
-            clean_tags = ["#roadmap", f"#day{day_num}", *kw_tags]
-
-        if not prompt:
-            raise RoadmapValidationError(f"Nội dung Day {item['day']} thiếu prompt.")
-
+        if not prompt or not isinstance(exercises, list) or not exercises or not isinstance(tags, list) or not tags:
+            raise RoadmapValidationError(f"Nội dung Day {item['day']} thiếu prompt, exercises hoặc tags.")
         source_files = [str(source).strip() for source in item.get("source_files", []) if _text(source)]
         lines.extend([
             f"## Day {item['day']} — {item['topic']}",
@@ -416,10 +231,10 @@ def render_markdown(plan: dict[str, Any], lessons: Iterable[dict[str, Any]]) -> 
             prompt,
             "",
             "**Bài tập:**",
-            *[f"- {exercise}" for exercise in clean_exercises],
+            *[f"- {_text(exercise)}" for exercise in exercises if _text(exercise)],
             "",
             "**Tags:**",
-            " ".join(clean_tags),
+            " ".join(str(tag) for tag in tags if _text(tag)),
             "",
             "---",
             "",
@@ -443,7 +258,7 @@ def verify_markdown(markdown: str, expected_days: int) -> None:
 def atomic_write(path: str | Path, content: str) -> None:
     target = Path(path)
     target.parent.mkdir(parents=True, exist_ok=True)
-    fd, temporary = tempfile.mkstemp(prefix=".tmp_part_", suffix=".tmp", dir=target.parent, text=True)
+    fd, temporary = tempfile.mkstemp(prefix=f".{target.name}.", suffix=".tmp", dir=target.parent, text=True)
     try:
         with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as handle:
             handle.write(content)
