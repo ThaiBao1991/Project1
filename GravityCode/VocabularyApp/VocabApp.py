@@ -2117,10 +2117,23 @@ class CourseGenerationDialog(ctk.CTkToplevel):
         if "trọn gói" in level.lower():
             from ai.course_generator import get_language_native_profile
             fsi = get_language_native_profile(self.app.current_language)
-            text = f"→ {fsi['category_name']}: ~{fsi['total_days']} ngày Bản xứ C2 (6 chặng)"
+            total_d = fsi.get('total_days', 0)
+            lang_lower = (self.app.current_language or "").lower()
+            is_hard = any(k in lang_lower for k in ["nhật", "japanese", "japan", "nihongo",
+                                                     "trung", "chinese", "mandarin", "hán",
+                                                     "hàn", "korean", "hangul",
+                                                     "ả rập", "arabic"])
+            if total_d >= 1000 and is_hard:
+                text = (f"→ {fsi['category_name']}: ~{total_d} ngày Bản xứ C2 (6 chặng) — "
+                        f"⚠️ Khuyên dùng: chia thành các khóa 30/60/90 ngày")
+                text_color = C["warn"]
+            else:
+                text = f"→ {fsi['category_name']}: ~{fsi['total_days']} ngày Bản xứ C2 (6 chặng)"
+                text_color = C["success"]
         else:
             text = f"→ {', '.join(phase_names)} · tối thiểu {min_d} ngày"
-        self.lbl_level_info.configure(text=text, text_color=C["success"])
+            text_color = C["success"]
+        self.lbl_level_info.configure(text=text, text_color=text_color)
 
     def _log(self, msg):
         def _append():

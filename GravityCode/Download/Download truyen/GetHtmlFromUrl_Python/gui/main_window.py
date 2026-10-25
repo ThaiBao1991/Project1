@@ -18,7 +18,7 @@ from PyQt6.QtCore import Qt, pyqtSlot, QSettings
 
 from core.page_config_mgr import PageConfigManager
 import json
-from gui.workers import DownloadWorker, MergeWorker, PrcWorker
+from gui.workers import DownloadWorker, MergeWorker, PrcWorker, TitleFetchWorker
 from gui.dialogs import DownloadRangeDialog, EbookInfoDialog
 from gui.manual_get_ui import ManualGetUI
 from gui.settings_dialog import SettingsDialog
@@ -58,6 +58,7 @@ class MainWindow(QMainWindow):
 
         self.worker: DownloadWorker | None = None
         self.merge_worker: MergeWorker | None = None
+        self._title_fetch_worker: TitleFetchWorker | None = None
         self._download_range = (0, -1)   # (start_idx, end_idx)
         self._ebook_info_html = ""
         self._total_chapters = 0  # set khi nhận chapter_list_ready signal
@@ -421,18 +422,33 @@ class MainWindow(QMainWindow):
 
         import re
         from urllib.parse import urlparse
+        from pathlib import Path
         
         # 1. Tự động điền nơi lưu file nếu có lịch sử
         last_dir = self.settings.value(self.SETTINGS_KEY_LAST_SAVE_DIR, "")
-        if last_dir and os.path.exists(last_dir):
-            slug = text.rstrip("/").split("/")[-1]
-            if slug:
-                # Convert slug thành tên có nghĩa: bỏ -, ., _, viết hoa
-                clean_title = re.sub(r'[-._]', ' ', slug).title()
-                # Remove duplicate spaces
-                clean_title = " ".join(clean_title.split())
-                ext = ".txt" if self.txt_save_path.text().endswith(".txt") else ".html"
-                self.txt_save_path.setText(os.path.join(last_dir, f"{clean_title}{ext}"))
+        if not last_dir or not os.path.isdir(last_dir):
+            if os.path.exists(r"D:\Tai Ebook\html"):
+                last_dir = r"D:\Tai Ebook\html"
+            else:
+                last_dir = os.path.expanduser(r"~\Downloads")
+        
+        slug = text.rstrip("/").split("/")[-1]
+        if slug:
+            clean_title = re.sub(r'[-._]', ' ', slug).title()
+            clean_title = " ".join(clean_title.split()) or "Truyen"
+            ext = ".txt" if self.txt_save_path.text().endswith(".txt") else ".html"
+            self.txt_save_path.setText(os.path.join(last_dir, clean_title, f"{clean_title}{ext}"))
+
+        # Dừng worker fetch title cũ nếu đang chạy
+        if self._title_fetch_worker and self._title_fetch_worker.isRunning():
+            self._title_fetch_worker.stop()
+            self._title_fetch_worker.wait(200)
+
+        # Chạy worker fetch & dịch tên truyện thật ngầm
+        if text.startswith("http://") or text.startswith("https://"):
+            self._title_fetch_worker = TitleFetchWorker(text, self.config_mgr)
+            self._title_fetch_worker.title_ready_signal.connect(self._on_title_fetched)
+            self._title_fetch_worker.start()
 
         # 2. Nhận diện host
         matched = self.config_mgr.get_config_by_url(text)
@@ -441,8 +457,8 @@ class MainWindow(QMainWindow):
                 data = self.cbo_page_config.itemData(i)
                 if data and data.page_code == matched.page_code:
                     self.cbo_page_config.setCurrentIndex(i)
-                    self.lbl_status.setText(f"✅ Đã nhận diện host: {matched.page_code}")
-                    self.lbl_status.setStyleSheet("color: green; font-weight: bold;")
+                    self.lbl_status.setText(f"✅ Đã nhận diện host: {matched.page_code} | 🔍 Đang nhận diện tên truyện...")
+                    self.lbl_status.setStyleSheet("color: #1976d2; font-weight: bold;")
                     break
         else:
             try:
@@ -452,6 +468,40 @@ class MainWindow(QMainWindow):
                     self.lbl_status.setStyleSheet("color: red; font-weight: bold;")
             except:
                 pass
+
+    @pyqtSlot(str, str)
+    def _on_title_fetched(self, orig_title: str, vi_title: str):
+        """Khi worker lấy và dịch xong tên truyện thật từ URL."""
+        import re
+        from pathlib import Path
+
+        display_title = vi_title.strip() if vi_title else orig_title.strip()
+        if not display_title:
+            return
+
+        current_save = self.txt_save_path.text().strip()
+        base_dir = self.settings.value(self.SETTINGS_KEY_LAST_SAVE_DIR, "")
+        if not base_dir or not os.path.isdir(base_dir):
+            if current_save:
+                parts = Path(current_save).parts
+                if len(parts) >= 3:
+                    base_dir = str(Path(*parts[:-2]))
+                else:
+                    base_dir = os.path.dirname(current_save)
+            else:
+                base_dir = r"D:\Tai Ebook\html" if os.path.exists(r"D:\Tai Ebook\html") else os.path.expanduser(r"~\Downloads")
+
+        safe_title = re.sub(r'[\\/:*?"<>|]', '_', display_title).strip()
+        ext = ".txt" if current_save.endswith(".txt") else ".html"
+        new_path = os.path.join(base_dir, safe_title, f"{safe_title}{ext}")
+        self.txt_save_path.setText(new_path)
+
+        msg = f"Tên truyện: {orig_title}"
+        if vi_title and vi_title != orig_title:
+            msg += f" → {vi_title}"
+        self.lbl_status.setText(f"✅ {msg}")
+        self.lbl_status.setStyleSheet("color: green; font-weight: bold;")
+        self.txt_log.append(f"✅ {msg}")
 
     def _on_host_selected(self, idx: int):
         """Khi chọn host trong dropdown → cập nhật link hướng dẫn"""
@@ -467,17 +517,26 @@ class MainWindow(QMainWindow):
 
     @pyqtSlot()
     def _on_browse_save(self):
-        """Mở dialog chọn nơi lưu file và ghi nhớ thư mục."""
+        """Mở dialog chọn nơi lưu file và ghi nhớ thư mục gốc."""
+        from pathlib import Path
         ext_filter = "HTML Files (*.html);;Text Files (*.txt)"
         
-        # Mở dialog tại thư mục lưu cuối (nếu có)
         last_dir = self.settings.value(self.SETTINGS_KEY_LAST_SAVE_DIR, "")
+        current_save = self.txt_save_path.text().strip()
+        initial_dir = current_save or last_dir
         
-        save_path, _ = QFileDialog.getSaveFileName(self, "Chọn nơi lưu file", last_dir, ext_filter)
+        save_path, _ = QFileDialog.getSaveFileName(self, "Chọn nơi lưu file", initial_dir, ext_filter)
         if save_path:
             self.txt_save_path.setText(save_path)
-            # Lưu lại thư mục vừa chọn
-            self.settings.setValue(self.SETTINGS_KEY_LAST_SAVE_DIR, os.path.dirname(save_path))
+            # Lưu lại base_dir
+            chosen_dir = os.path.dirname(save_path)
+            parent_of_chosen = str(Path(chosen_dir).parent)
+            file_stem = Path(save_path).stem
+            if Path(chosen_dir).name.lower() == file_stem.lower() and os.path.isdir(parent_of_chosen):
+                base_save_dir = parent_of_chosen
+            else:
+                base_save_dir = chosen_dir
+            self.settings.setValue(self.SETTINGS_KEY_LAST_SAVE_DIR, base_save_dir)
 
     @pyqtSlot()
     def _on_start_download(self):
@@ -589,8 +648,16 @@ class MainWindow(QMainWindow):
             self._total_chapters = len(resume_data.get("all_links", []))
         self.worker.start()
 
-        # Lưu lịch sử save_path
-        self.settings.setValue(self.SETTINGS_KEY_LAST_SAVE_DIR, os.path.dirname(save_path))
+        # Lưu lịch sử base save_path
+        from pathlib import Path
+        chosen_dir = os.path.dirname(save_path)
+        file_stem = Path(save_path).stem
+        parent_of_chosen = str(Path(chosen_dir).parent)
+        if Path(chosen_dir).name.lower() == file_stem.lower() and os.path.isdir(parent_of_chosen):
+            base_save_dir = parent_of_chosen
+        else:
+            base_save_dir = chosen_dir
+        self.settings.setValue(self.SETTINGS_KEY_LAST_SAVE_DIR, base_save_dir)
 
     @pyqtSlot(str)
     def _on_story_title_known(self, story_title: str):
@@ -600,12 +667,21 @@ class MainWindow(QMainWindow):
         current_save = self.txt_save_path.text().strip()
         if not current_save:
             return
-        parent_dir = os.path.dirname(current_save)
+        from pathlib import Path
+        import re
+
+        base_dir = self.settings.value(self.SETTINGS_KEY_LAST_SAVE_DIR, "")
+        if not base_dir or not os.path.isdir(base_dir):
+            parts = Path(current_save).parts
+            if len(parts) >= 3:
+                base_dir = str(Path(*parts[:-2]))
+            else:
+                base_dir = os.path.dirname(current_save)
+
+        safe_title = re.sub(r'[\\/:*?"<>|]', '_', story_title).strip()
         ext = ".txt" if current_save.endswith(".txt") else ".html"
-        # Tên file mới: TienGia/TienGia.html (thư mục con cùng tên)
-        new_path = os.path.join(parent_dir, story_title, f"{story_title}{ext}")
+        new_path = os.path.join(base_dir, safe_title, f"{safe_title}{ext}")
         self.txt_save_path.setText(new_path)
-        self.settings.setValue(self.SETTINGS_KEY_LAST_SAVE_DIR, os.path.join(parent_dir, story_title))
 
 
     @pyqtSlot()

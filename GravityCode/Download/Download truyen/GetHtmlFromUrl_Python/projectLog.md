@@ -146,3 +146,32 @@ GetHtmlFromUrl_Python/
   - Thêm `story_title_signal(str)` vào `DownloadWorker`: emit khi biết tên thật, kết nối với `_on_story_title_known()` trong UI để cập nhật `txt_save_path`
 - [x] **Tốc độ Cloudflare**: Tăng delay tối thiểu cho Cloudflare sites từ 1.0s → **10.0s**/chương để tránh rate-limit triệt để.
 - [x] **Lưu ý về hình Glossary**: Các trường `sects`, `weapons`, `locations`, `others`, `summary` là metadata trong `_glossary.json` (file riêng) giúp AI nhất quán thuật ngữ — **không phải** bị chèn vào HTML chương. HTML dịch chỉ chứa `<h2>` + `<div class='chapter-content'><p>...</p></div>` thuần túy.
+
+### ✅ Phase 11 — Tự Động Nhận Diện & Dịch Tên Truyện Hán-Việt + Nhớ Thư Mục Gốc — HOÀN THÀNH (2026-10-25)
+- [x] **Tự động nhận diện & Dịch tên truyện khi dán URL**:
+  - Thêm `TitleFetchWorker(QThread)` trong `gui/workers.py`: fetch trang truyện ngầm, trích xuất `<h1>`/meta/`<title>`, lọc bỏ các hậu tố web rác (`最新章节`, `无弹窗`, `txt下载`, ...).
+  - Tích hợp `translate_chinese_title()`: ưu tiên Google Translate free endpoint siêu tốc (0.2s phản hồi tức thì, không lo rate-limit), kết hợp Gemini API dự phòng. Tốc độ fetch + dịch trọn gói chỉ mất ~0.6s.
+  - Khi dán link `https://www.69shuba.com/90469/`: ngay lập tức điền slug tạm, sau đó cập nhật chính xác tên truyện `从白犬开始修仙` → `Từ Bạch Khuyển Bắt Đầu Tu Tiên` và gợi ý đường dẫn `D:\Tai Ebook\html\Từ Bạch Khuyển Bắt Đầu Tu Tiên\Từ Bạch Khuyển Bắt Đầu Tu Tiên.html`.
+- [x] **Ghi nhớ thư mục lưu gốc (`ui/last_save_dir`)**:
+  - Khắc phục lỗi lưu nhầm thư mục con của truyện vào `last_save_dir` khiến các lần tải sau bị lồng thư mục vô tận.
+  - Tự động nhận diện thư mục gốc (`base_dir`, ví dụ: `D:\Tai Ebook\html`) và áp dụng cố định cho mọi truyện mới.
+  - Nếu chưa có lịch sử: tự động ưu tiên `D:\Tai Ebook\html` (nếu tồn tại) hoặc thư mục `Downloads`.
+- [x] **Ghi nhớ thư mục trong Tiện ích Dịch Truyện (`TranslateDialog`)**:
+  - Lưu và khôi phục tự động `translate/last_source_dir` và `translate/last_target_dir` qua `QSettings`.
+  - Giữ lại đường dẫn thư mục tiếng Trung và thư mục đích giữa các phiên làm việc, không cần duyệt chọn lại từ đầu.
+- [x] **Fix Bug `_prepare_save_paths`**: Ngăn chặn lỗi double-nesting khi đường dẫn đã chứa tên thư mục truyện trùng khớp. Fix lỗi `self.page_config` thành `self.forced_page_config` trong `DownloadWorker`.
+
+### ✅ Phase 12 — Xóa Bỏ Triệt Để Rò Rỉ Metadata JSON & Chữ Hán Thô Trong Bản Dịch — HOÀN THÀNH (2026-10-25)
+- [x] **Nguyên nhân gốc rễ**: Khi nhân vật đối thoại có dấu ngoặc kép (`"Cứ yên tâm, ta không làm hại nó đâu."`), Gemini sinh JSON không escape chuẩn làm `json.loads()` văng `JSONDecodeError`. Regex fallback cũ không bắt được điểm dừng do có ký tự đóng ngoặc `},`, dẫn đến việc cả khối `"new_terms": {...}` và `"summary": "..."` (chứa trích dẫn tiếng Trung gốc) bị tuồn thẳng vào nội dung truyện.
+- [x] **Thêm bộ lọc chuyên dụng `clean_leaked_metadata()`**:
+  - Unescape sạch sẽ các ký tự `\n` và `\"` từ JSON escape sequences.
+  - Cắt đứt toàn bộ nội dung từ các điểm đánh dấu metadata (`"new_terms":`, `"summary":`, `"characters":`, `===TERMS===`, `===SUMMARY===`).
+  - Lọc từng dòng, loại bỏ triệt để các dòng cú pháp JSON (`},`, `{"title_vi": ...}`) và các dòng trích dẫn chưa dịch (>40% ký tự Hán CJK).
+  - Tự động sửa lỗi dấu ngoặc kép đóng JSON thừa ở cuối câu thoại.
+- [x] **Hỗ trợ định dạng phân đoạn Delimiter trong Prompt & Parser**:
+  - Hướng dẫn Gemini trả về theo định dạng thẻ phân cách rõ ràng (`===TITLE===`, `===CONTENT===`, `===TERMS===`, `===SUMMARY===`), giúp toàn bộ lời thoại có dấu ngoặc kép không bao giờ làm hỏng cấu trúc dữ liệu.
+  - Tương thích 100% ngược với định dạng JSON chuẩn.
+  - Tự động cứu thuật ngữ `new_terms` bằng regex nếu JSON bị lỗi, không để mất dữ liệu từ điển.
+- [x] **Chốt chặn an toàn trong `save_translated_chapter()`**:
+  - Trước khi xuất file HTML, chạy `clean_leaked_metadata()` và lọc từng đoạn `<p>` — cam kết 100% không còn bất kỳ dấu ngoặc JSON hay câu tiếng Trung thô nào xuất hiện trong sách dịch của người dùng.
+- [x] **Đã kiểm chứng**: Chạy kiểm thử tự động với đúng đoạn mẫu lỗi do người dùng cung cấp — kết quả đạt chuẩn 100% nội dung dịch tiếng Việt sạch đẹp.

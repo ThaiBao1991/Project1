@@ -306,12 +306,18 @@ def run_pipeline(language: str, *,
         if not resume:
             _reset_pipeline(language)
         if force_new:
-            from ai.pipeline_store import restore_backup
+            from ai.pipeline_store import restore_backup, pipeline_dir
+            import shutil
             rotate_backup(course_db.course_path(language))
             rotate_backup(course_db.progress_path(language))
             log.warn("backup.rotate", msg="Đã backup course.json/progress.json trước khi xoá.")
             course_db.delete_course(language)
             course_db.reset_progress(language)
+            # Xóa toàn bộ checkpoint cũ để không bị stage "done" stale từ lần chạy trước
+            pdir = pipeline_dir(language)
+            if os.path.isdir(pdir):
+                shutil.rmtree(pdir, ignore_errors=True)
+                log.warn("checkpoint.clear", msg=f"Đã xóa checkpoints cũ tại {pdir}")
 
         # ── Kiểm tra key ───────────────────────────────────────────────────
         ok, reason = chain.providers[0].available() if chain.providers else (False, "no provider")
@@ -347,6 +353,12 @@ def run_pipeline(language: str, *,
             course["level"] = level
             course_db.save_course(language, course)
             course = course_db.get_course(language) or course
+            # Nếu chế độ media/enrich nhưng chưa có course, phải tự sinh profile/backbone/plan
+            if mode in ("media", "enrich"):
+                for s in (STAGE_PROFILE, STAGE_BACKBONE, STAGE_PLAN):
+                    if s not in stages:
+                        stages.append(s)
+                emit(f"🆕 Tạo course trống cho '{language}' — thêm stage profile/backbone/plan vào pipeline.")
 
         # ── STAGE GLOBAL ───────────────────────────────────────────────────
         fsi = None
@@ -367,6 +379,15 @@ def run_pipeline(language: str, *,
         else:
             plan = _plan_from_existing_days(course)
             emit(f"📋 Dùng plan có sẵn: {len(plan)} ngày (chế độ {mode}).")
+
+        # ── Áp dụng target_days nếu người dùng chọn số ngày cụ thể ──
+        if target_days and int(target_days) > 0 and plan:
+            want = int(target_days)
+            if len(plan) > want:
+                plan = plan[:want]
+                emit(f"🎯 Giới hạn plan còn {want} ngày theo lựa chọn của bạn (cắt từ {len(plan)} ngày).")
+            else:
+                emit(f"📋 Plan có {len(plan)} ngày, nhỏ hơn hoặc bằng target_days={want}, giữ nguyên.")
 
         # ── STAGE PER-DAY ──────────────────────────────────────────────────
         if not plan:

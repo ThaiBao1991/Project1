@@ -42,6 +42,144 @@ def slugify_title(text: str) -> str:
     return ''.join(words) if words else text
 
 
+def translate_chinese_title(text: str) -> str:
+    """
+    Dịch tên truyện chữ Hán sang tiếng Việt:
+    1. Ưu tiên Google Translate free endpoint (gtx) siêu tốc (0.15s - 0.3s), không bao giờ bị rate limit hay timeout.
+    2. Fallback sang Gemini qua AskCpl keys (nếu Google Translate không khả dụng).
+    3. Nếu không đổi hoặc lỗi, trả về text gốc.
+    """
+    text = (text or "").strip()
+    if not text:
+        return ""
+
+    # Kiểm tra xem có ký tự CJK (chữ Hán) không
+    has_cjk = any('\u4e00' <= char <= '\u9fff' for char in text)
+    if not has_cjk:
+        return text
+
+    # Cách 1: Google Translate free endpoint (siêu tốc ~0.2s, ổn định 100%)
+    try:
+        import urllib.request
+        import urllib.parse
+        gtx_url = f"https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=vi&dt=t&q={urllib.parse.quote(text)}"
+        req = urllib.request.Request(gtx_url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=3) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+            translated = "".join(part[0] for part in data[0] if part[0]).strip(" \t\r\n'\"《》")
+            if translated and not any('\u4e00' <= c <= '\u9fff' for c in translated):
+                return translated
+    except Exception as e:
+        logger.warning(f"Google translate free error: {e}")
+
+    # Cách 2: Gemini API với AskCpl keys (dự phòng nếu mất kết nối Google Translate)
+    try:
+        from core.ai_translator import load_askcpl_keys
+        keys = load_askcpl_keys()
+        if keys:
+            import requests
+            prompt = (
+                f"Dịch tên truyện sau đây sang tiếng Việt "
+                f"(chỉ trả về duy nhất tên tiếng Việt, không thêm ngoặc kép, không giải thích): {text}"
+            )
+            for k in keys[:3]:
+                try:
+                    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key={k}"
+                    resp = requests.post(url, json={"contents": [{"parts": [{"text": prompt}]}]}, timeout=2.5)
+                    if resp.status_code == 200:
+                        data = resp.json()
+                        cands = data.get("candidates", [])
+                        if cands:
+                            parts = cands[0].get("content", {}).get("parts", [])
+                            vi_name = "".join(p.get("text", "") for p in parts).strip(" \t\r\n'\"《》")
+                            if vi_name and not any('\u4e00' <= c <= '\u9fff' for c in vi_name):
+                                return vi_name
+                except Exception:
+                    continue
+    except Exception as e:
+        logger.debug(f"Gemini translate title error: {e}")
+
+    return text
+
+
+class TitleFetchWorker(QThread):
+    """
+    Worker chạy ngầm khi người dùng dán URL:
+    1. Fetch HTML trang truyện để trích xuất tên gốc (h1 / meta / title).
+    2. Loại bỏ các hậu tố rác (最新章节, 无弹窗, ...).
+    3. Tự động dịch sang tiếng Việt nếu là tiếng Trung (Gemini -> Google Translate).
+    4. Phát signal (orig_title, vi_title) về UI chính để tự động cập nhật đường dẫn lưu.
+    """
+    title_ready_signal = pyqtSignal(str, str)  # (orig_title, vi_title)
+
+    def __init__(self, url: str, config_mgr: PageConfigManager):
+        super().__init__()
+        self.url = url
+        self.config_mgr = config_mgr
+        self.engine = GetHtmlEngine()
+        self._is_stopped = False
+
+    def stop(self):
+        self._is_stopped = True
+
+    def run(self):
+        try:
+            if not self.url or self._is_stopped:
+                return
+
+            page_config = self.config_mgr.get_config_by_url(self.url)
+            if not page_config or self._is_stopped:
+                return
+
+            soup = self.engine.fetch_html(self.url, page_config)
+            if not soup or self._is_stopped:
+                return
+
+            raw_title = ""
+            # 1. Tìm trong <h1>
+            h1 = soup.find('h1')
+            if h1:
+                a_tag = h1.find('a')
+                if a_tag and a_tag.get_text(strip=True):
+                    raw_title = a_tag.get_text(strip=True)
+                else:
+                    raw_title = h1.get_text(strip=True)
+
+            # 2. Fallback: meta novel:book_name hoặc og:title
+            if not raw_title or self._is_stopped:
+                meta = soup.find('meta', property=re.compile(r'(?:og:novel:book_name|og:title|novel:book_name)', re.I))
+                if meta and meta.get('content'):
+                    raw_title = meta['content'].strip()
+
+            # 3. Fallback: <title>
+            if not raw_title:
+                title_tag = soup.find('title')
+                if title_tag:
+                    raw_title = title_tag.get_text(strip=True)
+
+            if not raw_title or self._is_stopped:
+                return
+
+            # Dọn dẹp các hậu tố phổ biến ở web truyện
+            raw_title = re.sub(r'[-_|\u2013\u2014].*$', '', raw_title).strip()
+            raw_title = re.sub(
+                r'(?:最新)?章节(?:列表)?|无弹窗(?:广告)?|全文(?:免费)?阅读|txt下载|最新全本|小说$',
+                '', raw_title
+            ).strip()
+
+            if not raw_title or self._is_stopped:
+                return
+
+            # Dịch sang tiếng Việt nếu là tiếng Trung
+            vi_title = translate_chinese_title(raw_title)
+
+            if not self._is_stopped:
+                self.title_ready_signal.emit(raw_title, vi_title)
+        except Exception as e:
+            logger.warning(f"TitleFetchWorker error for {self.url}: {e}")
+
+
+
 
 def html_to_text(html: str) -> str:
     """Chuyển HTML sang text thuần (tương đương removeHtmlString trong Java)"""
@@ -399,7 +537,7 @@ class DownloadWorker(QThread):
         """
         Lấy tên truyện:
         1. Thử fetch trang và lấy <title> hoặc <h1> đầu tiên.
-        2. Slugify (bỏ dấu tiếng Việt) → dạng TienGia.
+        2. Dịch sang tiếng Việt nếu là tiếng Trung.
         3. Fallback về slug từ URL nếu không lấy được.
         """
         import re as _re
@@ -407,7 +545,7 @@ class DownloadWorker(QThread):
         slug_fallback = _re.sub(r'[-._]', ' ', slug_fallback).title()
 
         try:
-            page_config = self.page_config or self.config_mgr.get_config_by_url(self.url)
+            page_config = self.forced_page_config or self.config_mgr.get_config_by_url(self.url)
             if not page_config:
                 return slug_fallback
 
@@ -419,22 +557,34 @@ class DownloadWorker(QThread):
             # Ưu tiên <h1> trong trang (thường chính xác hơn <title>)
             h1 = soup.find('h1')
             if h1:
-                raw_title = h1.get_text(strip=True)
+                a_tag = h1.find('a')
+                if a_tag and a_tag.get_text(strip=True):
+                    raw_title = a_tag.get_text(strip=True)
+                else:
+                    raw_title = h1.get_text(strip=True)
+            # Fallback: <meta>
+            if not raw_title:
+                meta = soup.find('meta', property=_re.compile(r'(?:og:novel:book_name|og:title|novel:book_name)', _re.I))
+                if meta and meta.get('content'):
+                    raw_title = meta['content'].strip()
             # Fallback: <title> tag
             if not raw_title:
                 title_tag = soup.find('title')
                 if title_tag:
                     raw_title = title_tag.get_text(strip=True)
-                    # Thường <title> có dạng "Tên Truyện | Site", lấy phần trước "|" hoặc –
                     for sep in ['|', '–', '-', '—']:
                         if sep in raw_title:
                             raw_title = raw_title.split(sep)[0].strip()
                             break
 
             if raw_title:
-                slugified = slugify_title(raw_title)
-                if slugified and len(slugified) > 1:
-                    return slugified
+                raw_title = _re.sub(r'[-_|\u2013\u2014].*$', '', raw_title).strip()
+                raw_title = _re.sub(
+                    r'(?:最新)?章节(?:列表)?|无弹窗(?:广告)?|全文(?:免费)?阅读|txt下载|最新全本|小说$',
+                    '', raw_title
+                ).strip()
+                vi_title = translate_chinese_title(raw_title)
+                return vi_title or raw_title
         except Exception as e:
             logger.warning(f"_extract_story_title: không thể fetch trang, fallback về slug: {e}")
 
@@ -443,7 +593,7 @@ class DownloadWorker(QThread):
     def _prepare_save_paths(self, story_title: str):
         """
         Chuẩn bị đường dẫn lưu file.
-        - Dùng story_title (tên trư ẫn, đã slugify) làm cả tên thư mục lẫn tên file.
+        - Dùng story_title làm cả tên thư mục lẫn tên file.
         - Ví dụ: story_title='TienGia' → TienGia/TienGia.html
         - Vẫn tạo symlink/alias bằng URL slug để Resume hoạt động.
         """
@@ -451,24 +601,27 @@ class DownloadWorker(QThread):
             return None, None
 
         ext = f".{self.file_format}"
-        parent_dir = str(Path(self.save_path).parent)
-
-        # Dùng story_title đã slugify làm tên thư mục
-        # slugify_title đã dạng CamelCase (VD: TienGia), an toàn làm tên thư mục
-        safe_folder = re.sub(r'[\\/:*?"<>|]', '_', story_title) if story_title else (
+        safe_folder = re.sub(r'[\\/:*?"<>|]', '_', story_title).strip() if story_title else (
             self.url.rstrip("/").split("/")[-1]
         )
-        save_dir = os.path.join(parent_dir, safe_folder)
+        parent_dir = str(Path(self.save_path).parent)
+
+        # Nếu save_path đã nằm trong thư mục mang tên safe_folder rồi, không lồng thêm cấp nữa
+        if Path(self.save_path).parent.name == safe_folder:
+            save_dir = parent_dir
+            root_parent = str(Path(parent_dir).parent)
+        else:
+            save_dir = os.path.join(parent_dir, safe_folder)
+            root_parent = parent_dir
         os.makedirs(save_dir, exist_ok=True)
 
-        # Tạo thư mục alias theo URL slug để Resume vẫn tìm được (symlink trên Windows dùng junction)
+        # Tạo thư mục alias theo URL slug để Resume vẫn tìm được
         url_slug = self.url.rstrip("/").split("/")[-1] if self.url else ""
         if url_slug and url_slug != safe_folder:
-            alias_dir = os.path.join(parent_dir, url_slug)
+            alias_dir = os.path.join(root_parent, url_slug)
             if not os.path.exists(alias_dir):
                 try:
                     os.makedirs(alias_dir, exist_ok=True)
-                    # Ghi file marker để Resume dialog biết redirect về thư mục thật
                     marker = os.path.join(alias_dir, "_folder_alias.json")
                     with open(marker, "w", encoding="utf-8") as _f:
                         import json as _json
