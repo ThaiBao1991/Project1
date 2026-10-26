@@ -93061,6 +93061,7 @@ PermissionError: [WinError 32] The process cannot access the file because it is 
 [2026-08-12 10:59:12] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\558-01-4545.pdf
 [2026-08-12 10:59:12] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
 [2026-08-12 10:59:12] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+<<<<<<< HEAD
 [2026-08-25 07:59:26] [INFO] ============================================================
 [2026-08-25 07:59:26] [INFO] === BAT DAU: StampByAntigravity ===
 [2026-08-25 07:59:26] [INFO] File PDF  : \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\025-05-0001.pdf
@@ -155994,3 +155995,5 @@ PermissionError: [Errno 13] Permission denied: '\\\\vdm-fsvr\\KIEMTRA\\4. DUNG C
 [2026-10-26 14:08:48] [OK] ✓ Đã lưu kết quả vào file gốc: \\vdm-fsvr\KIEMTRA\4. DUNG CHUNG\19. CHUONG TRINH\9. HIEU CHINH\datae\558-01-2050.pdf
 [2026-10-26 14:08:48] [INFO] Tổng kết: đóng dấu 1 trang, bỏ qua 0 trang.
 [2026-10-26 14:08:48] [OK] ✓ ĐÃ ĐÓNG DẤU THÀNH CÔNG.
+=======
+>>>>>>> a0b4d5cfc63eff70b800ef4c529a5955497e62de

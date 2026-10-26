@@ -1,0 +1,42 @@
+{
+  "name": "Vocabulary App - Học Từ Vựng Đa Ngôn Ngữ",
+  "short_name": "Vocabulary",
+  "description": "Ứng dụng học từ vựng đa ngôn ngữ — Flashcard, Khóa học AI theo ngày, Luyện viết, Trắc nghiệm.",
+  "lang": "vi",
+  "dir": "ltr",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#121212",
+  "theme_color": "#121212",
+  "categories": ["education", "productivity"],
+  "icons": [
+    {
+      "src": "icons/icon192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Học theo ngày (AI Course)",
+      "short_name": "AI Course",
+      "url": "./index.html#course",
+      "icons": [{ "src": "icons/icon192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Flashcard",
+      "short_name": "Flashcard",
+      "url": "./index.html#flashcard",
+      "icons": [{ "src": "icons/icon192.png", "sizes": "192x192", "type": "image/png" }]
+    }
+  ]
+}

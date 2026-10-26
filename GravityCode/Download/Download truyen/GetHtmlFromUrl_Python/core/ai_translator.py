@@ -540,7 +540,50 @@ def reconcile_chapter_files(dich_dir: str, glossary: 'GlossaryManager', log_call
         except Exception as e:
             logger.error(f"Lỗi khi đồng bộ file trong {s_dir}: {e}")
 
-    return {"modified_files": modified_files, "total_replacements": total_replacements}
+def clean_leaked_metadata(text: str) -> str:
+    """
+    Loại bỏ triệt để mọi phần rác JSON (new_terms, summary, characters, ...)
+    và các đoạn trích dẫn tiếng Trung bị rò rỉ vào nội dung truyện.
+    Khắc phục trường hợp Gemini sinh dấu ngoặc kép trong hội thoại làm vỡ JSON string.
+    """
+    if not text:
+        return ""
+
+    # 0. Giải mã unescape các ký tự \n và \" từ chuỗi JSON escape
+    text = text.replace('\\n', '\n').replace('\\"', '"')
+
+    # 1. Cắt đứt mọi nội dung từ chỗ bắt đầu metadata (new_terms, summary, ...)
+    pattern = r'(?:\n\s*[\}\],]*\s*|\s*,\s*|(?<=\n)\s*)"(?:new_terms|summary|characters|sects|weapons|locations|others)"\s*:'
+    m = re.search(pattern, text)
+    if m:
+        text = text[:m.start()]
+
+    # Cắt nếu còn sót từ khóa marker
+    for marker in ['"new_terms"', '"summary"', '===TERMS===', '===SUMMARY===']:
+        if marker in text:
+            text = text.split(marker)[0]
+
+    # 2. Làm sạch từng dòng và loại bỏ các dòng cú pháp JSON và tiếng Trung thô
+    lines = [l.strip() for l in text.split('\n')]
+    cleaned = []
+    for l in lines:
+        if not l:
+            continue
+        # Bỏ dòng chỉ chứa cú pháp JSON như: },  hoặc "content_vi":
+        if re.match(r'^[\s\}\{\[\],"\']+$', l):
+            continue
+        if re.match(r'^"(?:title_vi|content_vi|new_terms|summary)"\s*:', l):
+            continue
+        # Bỏ dòng chứa quá 40% ký tự Hán (CJK) chưa dịch (tránh rò rỉ trích dẫn Trung từ summary)
+        cjk_count = sum(1 for c in l if '\u4e00' <= c <= '\u9fff')
+        if cjk_count > 0 and cjk_count / len(l) > 0.4:
+            continue
+        # Sửa dấu ngoặc kép thừa đóng JSON ở cuối dòng nếu số dấu " trong dòng bị lẻ
+        if l.endswith('"') and l.count('"') % 2 != 0:
+            l = l[:-1].rstrip()
+        cleaned.append(l)
+
+    return '\n\n'.join(cleaned)
 
 
 class GlossaryManager:
@@ -1170,28 +1213,29 @@ class GeminiTranslator:
 
 4. DỊCH ĐẦY ĐỦ 100%: Dịch trọn vẹn từng câu từng đoạn của phần này, tuyệt đối không tóm tắt, không cắt bớt, ngắt đoạn rõ ràng.
 
-5. ĐỊNH DẠNG ĐẦU RA JSON & QUY CHUẨN THUẬT NGỮ MỚI:
-- Bảng "new_terms": Phát hiện bất kỳ tên nhân vật mới, môn phái mới, vũ khí/pháp bảo mới, địa danh mới xuất hiện trong phần này.
-- QUY TẮC BẮT BUỘC CHO THUẬT NGỮ MỚI (new_terms):
-  * CẤU TRÚC KEY - VALUE: Khóa (Key) BẮT BUỘC là CHỮ HÁN GỐC trong truyện, Giá trị (Value) là TÊN TIẾNG VIỆT tương ứng. TUYỆT ĐỐI KHÔNG ĐẢO NGƯỢC (Ví dụ đúng: {{"葛强": "Cát Cường"}}, cấm viết ngược: {{"Cát Cường": "葛强"}}).
-  * Tên người / Địa danh / Tông môn: Phiên âm Hán-Việt chuẩn xác, viết hoa đúng chính tả (Ví dụ: "楚休红" -> "Sở Hưu Hồng").
-  * Chức danh / Nghề nghiệp / Xưng hô đi kèm tên: Dịch nghĩa sang tiếng Việt và đảo trật tự tự nhiên (Ví dụ: "毛校长" -> "Hiệu trưởng Mao", không để thô cứng "Mao hiệu trưởng"; "小李师傅" -> "Bác thợ Lý" hoặc "Sư phụ Lý" tùy ngữ cảnh, cấm dịch thô "Tiểu Lý sư phó").
-  * Biệt danh / Pháp hiệu: Giữ âm Hán-Việt hùng tráng nếu là ngoại hiệu tu tiên (Ví dụ: "黑面神" -> "Hắc Diện Thần", "末日战狂" -> "Mạt Nhật Chiến Cuồng").
-Trả về duy nhất JSON:
+5. ĐỊNH DẠNG ĐẦU RA (Khuyên dùng thẻ phân cách rõ ràng để hội thoại có ngoặc kép không bị lỗi JSON):
+===TITLE===
+Tiêu đề tiếng Việt của chương
+
+===CONTENT===
+Nội dung dịch tiếng Việt đầy đủ của phần này (chia đoạn bằng 2 dấu xuống dòng).
+TUYỆT ĐỐI KHÔNG chèn glossary, bảng thuật ngữ hay tóm tắt vào trong phần CONTENT này!
+
+===TERMS===
 ```json
 {{
-  "title_vi": "Tiêu đề tiếng Việt của chương",
-  "content_vi": "Nội dung dịch tiếng Việt đầy đủ của phần này...",
-  "new_terms": {{
-    "characters": {{ "chữ Hán gốc": "Tên tiếng Việt Hán-Việt" }},
-    "sects": {{ "chữ Hán gốc": "Tên tiếng Việt Hán-Việt" }},
-    "weapons": {{ "chữ Hán gốc": "Tên tiếng Việt Hán-Việt" }},
-    "locations": {{ "chữ Hán gốc": "Tên tiếng Việt Hán-Việt" }},
-    "others": {{ "chữ Hán gốc": "Tên tiếng Việt Hán-Việt" }}
-  }},
-  "summary": "Tóm tắt 1-2 câu diễn biến nếu đây là phần cuối của chương, nếu chưa hết để trống."
+  "characters": {{ "chữ Hán gốc": "Tên tiếng Việt Hán-Việt" }},
+  "sects": {{ "chữ Hán gốc": "Tên tiếng Việt Hán-Việt" }},
+  "weapons": {{ "chữ Hán gốc": "Tên tiếng Việt Hán-Việt" }},
+  "locations": {{ "chữ Hán gốc": "Tên tiếng Việt Hán-Việt" }},
+  "others": {{ "chữ Hán gốc": "Tên tiếng Việt Hán-Việt" }}
 }}
 ```
+
+===SUMMARY===
+Tóm tắt 1-2 câu diễn biến nếu đây là phần cuối của chương, nếu chưa hết để trống.
+
+(Hoặc bạn có thể trả về JSON hợp lệ với các trường title_vi, content_vi, new_terms, summary).
 
 [NỘI DUNG TIẾNG TRUNG PHẦN {part_num}/{len(chunks)}]:
 {chunk_text}
@@ -1222,6 +1266,7 @@ Trả về duy nhất JSON:
             for cat_data in glossary.data.values():
                 all_current_terms.update(cat_data)
             part_content = reconcile_text_with_terms(part_content, all_current_terms)
+            part_content = clean_leaked_metadata(part_content)
 
             if part_content:
                 translated_parts.append(part_content)
@@ -1234,6 +1279,7 @@ Trả về duy nhất JSON:
         for cat_data in glossary.data.values():
             all_current_terms.update(cat_data)
         full_content_vi = reconcile_text_with_terms("\n\n".join(translated_parts), all_current_terms)
+        full_content_vi = clean_leaked_metadata(full_content_vi)
         self._log(f"  ✅ Đã dịch và ghép nối thành công trọn vẹn {len(chunks)} phần! (Tổng cộng {len(full_content_vi)} ký tự tiếng Việt)")
 
         return {
@@ -1275,7 +1321,30 @@ Trả về duy nhất JSON:
 - Viết 2-3 câu tóm tắt diễn biến then chốt của chương này làm tư liệu cho chương tiếp theo.
 
 6. ĐỊNH DẠNG KẾT QUẢ ĐẦU RA:
-Trả về duy nhất định dạng JSON hợp lệ theo cấu trúc sau (không kèm lời chào hay giải thích ngoài JSON):
+Bạn có thể trả về theo 1 trong 2 định dạng:
+Định dạng 1 (Khuyên dùng - dùng thẻ phân cách rõ ràng để tránh lỗi dấu ngoặc kép trong hội thoại):
+===TITLE===
+Tiêu đề tiếng Việt của chương
+
+===CONTENT===
+Nội dung dịch tiếng Việt đầy đủ các đoạn văn (chia đoạn bằng các dòng trống).
+TUYỆT ĐỐI KHÔNG chèn bảng thuật ngữ hay tóm tắt vào trong phần CONTENT này!
+
+===TERMS===
+```json
+{{
+  "characters": {{ "chữ Hán gốc": "Tên tiếng Việt Hán-Việt" }},
+  "sects": {{ "chữ Hán gốc": "Tên tiếng Việt Hán-Việt" }},
+  "weapons": {{ "chữ Hán gốc": "Tên tiếng Việt Hán-Việt" }},
+  "locations": {{ "chữ Hán gốc": "Tên tiếng Việt Hán-Việt" }},
+  "others": {{ "chữ Hán gốc": "Tên tiếng Việt Hán-Việt" }}
+}}
+```
+
+===SUMMARY===
+Tóm tắt 2-3 câu cốt truyện chính của chương này làm tư liệu cho chương tiếp theo.
+
+HOẶC Định dạng 2 (JSON chuẩn):
 ```json
 {{
   "title_vi": "Tiêu đề tiếng Việt của chương",
@@ -1310,71 +1379,114 @@ NỘI DUNG:
             all_current_terms.update(cat_data)
 
         content_vi = reconcile_text_with_terms(parsed.get("content_vi", ""), all_current_terms)
+        content_vi = clean_leaked_metadata(content_vi)
         parsed["content_vi"] = content_vi
         return parsed
 
     def _parse_translation_response(self, raw_resp: str, default_title_zh: str, default_content_zh: str) -> Dict[str, Any]:
-        """Trích xuất và chuẩn hóa dữ liệu JSON trả về từ Gemini."""
+        """Trích xuất và chuẩn hóa dữ liệu trả về từ Gemini (hỗ trợ cả dạng Delimiter lẫn JSON)."""
         text = raw_resp.strip()
+        title_vi = default_title_zh
+        content_vi = ""
+        new_terms = {}
+        summary_vi = ""
 
-        # Remove markdown code blocks if present
-        if "```json" in text:
-            m = re.search(r"```json\s*(.*?)\s*```", text, re.DOTALL)
+        # Case 1: Định dạng phân đoạn bằng Delimiter (khắc phục 100% lỗi ngoặc kép trong hội thoại)
+        if "===CONTENT===" in text:
+            if "===TITLE===" in text:
+                t_part = text.split("===CONTENT===")[0]
+                m_t = re.search(r'===TITLE===\s*(.+)', t_part)
+                if m_t:
+                    title_vi = m_t.group(1).strip()
+            
+            c_part = text.split("===CONTENT===")[1]
+            for delim in ["===TERMS===", "===SUMMARY==="]:
+                if delim in c_part:
+                    c_part = c_part.split(delim)[0]
+            content_vi = clean_leaked_metadata(c_part)
+
+            if "===TERMS===" in text:
+                terms_part = text.split("===TERMS===")[1]
+                if "===SUMMARY===" in terms_part:
+                    terms_part = terms_part.split("===SUMMARY===")[0]
+                terms_match = re.search(r'(\{[\s\S]*\})', terms_part)
+                if terms_match:
+                    try:
+                        new_terms = json.loads(terms_match.group(1))
+                    except Exception:
+                        pass
+            
+            if "===SUMMARY===" in text:
+                summary_vi = text.split("===SUMMARY===")[1].strip()
+
+            return {
+                "title_vi": title_vi,
+                "content_vi": content_vi,
+                "new_terms": new_terms if isinstance(new_terms, dict) else {},
+                "summary": summary_vi
+            }
+
+        # Case 2: Parse JSON chuẩn
+        clean_json = text
+        if "```json" in clean_json:
+            m = re.search(r"```json\s*(.*?)\s*```", clean_json, re.DOTALL)
             if m:
-                text = m.group(1).strip()
-        elif "```" in text:
-            m = re.search(r"```\s*(.*?)\s*```", text, re.DOTALL)
+                clean_json = m.group(1).strip()
+        elif "```" in clean_json:
+            m = re.search(r"```\s*(.*?)\s*```", clean_json, re.DOTALL)
             if m:
-                text = m.group(1).strip()
+                clean_json = m.group(1).strip()
 
         try:
-            data = json.loads(text)
+            data = json.loads(clean_json)
             if isinstance(data, dict):
-                content_str = str(data.get("content_vi", "")).strip()
-                content_str = content_str.replace('\\n', '\n').replace('\\"', '"')
+                c_str = str(data.get("content_vi", "")).strip()
                 return {
                     "title_vi": str(data.get("title_vi", "")).strip() or default_title_zh,
-                    "content_vi": content_str,
-                    "new_terms": data.get("new_terms", {}),
+                    "content_vi": clean_leaked_metadata(c_str),
+                    "new_terms": data.get("new_terms", {}) if isinstance(data.get("new_terms"), dict) else {},
                     "summary": str(data.get("summary", "")).strip()
                 }
         except Exception:
             pass
 
-        # Fallback parsing nếu model trả về JSON bị lỗi format ký tự đặc biệt
-        title_vi = default_title_zh
+        # Case 3: Fallback regex trích xuất linh hoạt khi JSON bị vỡ do dấu ngoặc kép
         m_title = re.search(r'"title_vi"\s*:\s*"([^"]+)"', text)
         if m_title:
             title_vi = m_title.group(1)
 
-        summary_vi = ""
         m_sum = re.search(r'"summary"\s*:\s*"([^"]+)"', text)
         if m_sum:
             summary_vi = m_sum.group(1)
 
-        # Trích content_vi linh hoạt: giữa "content_vi": "..." và ", "new_terms" hoặc "summary" hoặc đóng ngoặc }
-        content_vi = ""
+        # Cố gắng cứu new_terms từ chuỗi JSON lỗi
+        m_terms = re.search(r'"new_terms"\s*:\s*(\{[\s\S]*?\})\s*,\s*"summary"', text)
+        if not m_terms:
+            m_terms = re.search(r'"new_terms"\s*:\s*(\{[\s\S]*?\})\s*\}', text)
+        if m_terms:
+            try:
+                new_terms = json.loads(m_terms.group(1))
+            except Exception:
+                pass
+
         m_content = re.search(r'"content_vi"\s*:\s*"(.*?)(?:"\s*,\s*"(?:new_terms|summary|title_vi)"|"\s*\}\s*$)', text, re.DOTALL)
         if m_content:
-            content_vi = m_content.group(1).replace("\\n", "\n").replace('\\"', '"')
+            content_vi = m_content.group(1)
         else:
             m_simple = re.search(r'"content_vi"\s*:\s*"([\s\S]*?)(?:"\s*,\s*"|"\s*\}\s*$)', text)
             if m_simple:
-                content_vi = m_simple.group(1).replace("\\n", "\n").replace('\\"', '"')
+                content_vi = m_simple.group(1)
             else:
-                # Fallback cuối: Lấy toàn bộ text nhưng làm sạch sạch sẽ mọi cấu trúc JSON/markdown
                 content_vi = raw_resp
                 content_vi = re.sub(r'```(?:json)?\s*', '', content_vi)
                 content_vi = re.sub(r'```', '', content_vi)
                 content_vi = re.sub(r'^\s*\{\s*"title_vi"[^}]*?"content_vi"\s*:\s*"', '', content_vi, flags=re.DOTALL)
-                content_vi = re.sub(r'"\s*,\s*"(?:new_terms|summary)"[\s\S]*$', '', content_vi)
-                content_vi = re.sub(r'"\s*\}\s*$', '', content_vi)
-                content_vi = content_vi.replace('\\n', '\n').replace('\\"', '"').strip()
 
+        content_vi = clean_leaked_metadata(content_vi)
         return {
             "title_vi": title_vi,
             "content_vi": content_vi,
-            "new_terms": {},
+            "new_terms": new_terms if isinstance(new_terms, dict) else {},
             "summary": summary_vi
         }
 
@@ -1439,11 +1551,23 @@ def save_translated_chapter(output_file: str, title_vi: str, content_vi: str):
     """
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     
-    # Giải mã triệt để ký tự \n và \" thô
-    content_vi = content_vi.replace('\\n', '\n').replace('\\"', '"')
+    # Làm sạch triệt để metadata rò rỉ trước khi ghi file
+    content_vi = clean_leaked_metadata(content_vi)
 
-    # Format paragraphs
-    paragraphs = [p.strip() for p in content_vi.split("\n") if p.strip()]
+    # Format paragraphs (lọc bỏ các đoạn rỗng hoặc chứa ký tự rác)
+    paragraphs = []
+    for p in content_vi.split("\n\n"):
+        p_clean = p.strip()
+        if not p_clean:
+            continue
+        # Bỏ qua nếu là cú pháp JSON hoặc có >40% chữ Hán
+        if re.match(r'^[\s\}\{\[\],"\']+$', p_clean):
+            continue
+        cjk_count = sum(1 for c in p_clean if '\u4e00' <= c <= '\u9fff')
+        if cjk_count > 0 and cjk_count / len(p_clean) > 0.4:
+            continue
+        paragraphs.append(p_clean)
+
     if paragraphs:
         body_html = "\n".join([f"<p>{p}</p>" for p in paragraphs])
     else:

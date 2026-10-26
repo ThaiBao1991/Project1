@@ -5,6 +5,13 @@ let flashcardIndex = 0;
 
 // Pagination for Lazy Loading
 let currentPage = 1;
+// paths.js cung cấp VOCAB_SLUG — nếu load lỗi thì dùng fallback tại đây
+if (typeof VOCAB_SLUG !== 'function') {
+    var VOCAB_SLUG = function (s) {
+        return String(s || '').trim().toLowerCase().replace(/\s+/g, '_');
+    };
+}
+
 const ITEMS_PER_PAGE = 30;
 
 const langSelect = document.getElementById("language-select");
@@ -91,7 +98,7 @@ async function init() {
 
 async function loadLanguage(lang) {
     currentLanguage = lang;
-    const filename = lang.toLowerCase().replace(/ /g, "_") + ".json";
+    const filename = VOCAB_SLUG(lang) + ".json";
     // Reset cache khóa học AI theo ngôn ngữ mới
     courseData = null;
     courseSlug = "";
@@ -426,7 +433,7 @@ function saveCourseProgress(p) {
 }
 
 async function ensureCourseLoaded() {
-    const slug = currentLanguage.toLowerCase().replace(/ /g, "_");
+    const slug = VOCAB_SLUG(currentLanguage);
     if (courseData && courseSlug === slug) { renderCourseShell(); return; }
     courseSlug = slug;
     courseData = null;
@@ -446,7 +453,64 @@ async function ensureCourseLoaded() {
             </p>`;
         return;
     }
+    // Nạp manifest media (ảnh + audio) — LAZY, chỉ khi khóa học có dữ liệu v4
+    await loadMediaIndex();
     renderCourseShell();
+}
+
+// ─── Manifest media (ảnh minh họa + âm thanh) ───────────────────────────────
+let mediaIndex = null;
+let mediaIndexPromise = null;
+
+async function loadMediaIndex() {
+    if (mediaIndexPromise) return mediaIndexPromise;
+    mediaIndexPromise = (async () => {
+        try {
+            let res = await fetch("data/media/index.json").catch(() => null);
+            if (!res || !res.ok) res = await fetch("../data/media/index.json").catch(() => null);
+            if (!res || !res.ok) { mediaIndex = { items: {} }; return mediaIndex; }
+            mediaIndex = await res.json();
+            if (!mediaIndex.items) mediaIndex.items = {};
+        } catch (e) {
+            mediaIndex = { items: {} };
+        }
+        return mediaIndex;
+    })();
+    return mediaIndexPromise;
+}
+
+function mediaEntry(ref) {
+    if (!ref || !mediaIndex || !mediaIndex.items) return null;
+    return mediaIndex.items[ref] || null;
+}
+
+function mediaUrl(ref) {
+    const e = mediaEntry(ref);
+    if (!e) return "";
+    if (e.url) return e.url;
+    if (!e.rel_path) return "";
+    // rel_path = "media/<slug>/d0001/xxx.webp" ; web root chứa "data/"
+    return "data/" + e.rel_path;
+}
+
+function mediaImgHtml(ref, alt) {
+    const e = mediaEntry(ref);
+    if (!e) return "";
+    const url = mediaUrl(ref);
+    if (!url) return "";
+    const credit = e.credit ? `<div class="media-credit">📷 ${escapeHtml(e.credit)}${e.license ? " · " + escapeHtml(e.license) : ""}</div>` : "";
+    return `<div class="media-img-wrap">
+        <img class="media-img" loading="lazy" src="${escapeHtml(url)}" alt="${escapeHtml(alt || "")}" onerror="this.closest('.media-img-wrap')?.remove()">
+        ${credit}
+    </div>`;
+}
+
+function mediaAudioHtml(ref, label) {
+    const e = mediaEntry(ref);
+    if (!e) return "";
+    const url = mediaUrl(ref);
+    if (!url) return "";
+    return `<audio class="media-audio" controls preload="none" src="${escapeHtml(url)}"></audio>`;
 }
 
 function renderCourseShell() {
@@ -498,16 +562,24 @@ function renderCourseDay(dayNum) {
 
     // ── Từ vựng ──
     (lesson.vocab || []).forEach((v, i) => {
+        const ipa = v.ipa || v.pronunciation || "";
+        const showIpa = ipa && ipa !== v.pronunciation;
+        const audioRef = (lesson.media && lesson.media.vocab_audio)
+            ? (lesson.media.vocab_audio[v.word] || v.audio_ref) : v.audio_ref;
         html += `
         <div class="vocab-item">
             <div class="vocab-header">
                 <div>
                     <div class="vocab-word">${i + 1}. ${escapeHtml(v.word)}</div>
                     ${v.pronunciation ? `<div class="vocab-pronunciation">/${escapeHtml(v.pronunciation)}/</div>` : ""}
+                    ${showIpa ? `<div class="vocab-ipa" title="Phiên âm quốc tế">🔊 ${escapeHtml(ipa)}</div>` : ""}
+                    ${v.pos ? `<span class="pos-badge">${escapeHtml(v.pos)}</span>` : ""}
                 </div>
                 ${v.part_of_speech ? `<span class="badge">${escapeHtml(v.part_of_speech)}</span>` : ""}
             </div>
+            ${mediaImgHtml(v.image_ref, v.meaning_vi || v.word)}
             <div class="vocab-meaning">${escapeHtml(v.meaning_vi || "")}</div>
+            ${v.phonetic_note ? `<div class="phonetic-note">👄 ${escapeHtml(v.phonetic_note)}</div>` : ""}
             ${v.explanation ? `<div class="lesson-explanation">💡 ${formatText(v.explanation)}</div>` : ""}
             ${v.example_sentence ? `
             <div class="vocab-example expanded">
@@ -516,6 +588,7 @@ function renderCourseDay(dayNum) {
                     ${v.example_meaning_vi ? `<div class="vocab-example-meaning">${formatText(v.example_meaning_vi)}</div>` : ""}
                 </div>
             </div>` : ""}
+            ${audioRef ? `<div class="media-audio-row">${mediaAudioHtml(audioRef, v.word)}</div>` : ""}
         </div>`;
     });
 
@@ -557,6 +630,41 @@ function renderCourseDay(dayNum) {
                     <div style="margin-top:8px;">💬 ${formatText(ex.sentence || "")}
                         ${ex.meaning_vi ? `<div class="vocab-example-meaning">${formatText(ex.meaning_vi)}</div>` : ""}
                     </div>`).join("")}
+                ${g.pronunciation_focus ? `<div class="phonetic-note">👄 ${escapeHtml(g.pronunciation_focus)}</div>` : ""}
+                ${(g.common_mistakes || []).map(m => `
+                    <div class="mistake-box">
+                        <div class="mistake-wrong">❌ ${escapeHtml(m.wrong || "")}</div>
+                        <div class="mistake-right">✅ ${escapeHtml(m.right || "")}</div>
+                        ${m.why_vi ? `<div class="vocab-example-meaning">${escapeHtml(m.why_vi)}</div>` : ""}
+                    </div>`).join("")}
+            </div>`;
+        });
+    }
+
+    // ── HộI THOẠI (roleplay) ──
+    const dialogues = lesson.dialogue || [];
+    if (dialogues.length) {
+        html += `<div class="section-title">💬 Hội thoại (Roleplay)</div>`;
+        dialogues.forEach((dlg, di) => {
+            const dAudio = (lesson.media && lesson.media.dialogue_audio)
+                ? (lesson.media.dialogue_audio[String(di)] || dlg.audio_ref) : dlg.audio_ref;
+            html += `<div class="dialogue-box">
+                <div class="dialogue-head">
+                    <b>${escapeHtml(dlg.title || `Kịch bản ${di + 1}`)}</b>
+                    ${dlg.level_tag ? `<span class="phase-badge">${escapeHtml(dlg.level_tag)}</span>` : ""}
+                </div>
+                ${dlg.situation ? `<div class="dialogue-situation">📌 ${escapeHtml(dlg.situation)}</div>` : ""}
+                ${dAudio ? `<div class="media-audio-row">${mediaAudioHtml(dAudio, dlg.title || "")}</div>` : ""}
+                ${(dlg.turns || []).map(t => `
+                    <div class="dialogue-turn">
+                        <span class="dialogue-speaker">${escapeHtml(t.speaker || "A")}</span>
+                        <div class="dialogue-line">
+                            <div class="dialogue-target">${formatText(t.line_target || "")}</div>
+                            ${t.line_vi ? `<div class="vocab-example-meaning">${formatText(t.line_vi)}</div>` : ""}
+                            ${t.tone || t.emotion ? `<div class="dialogue-tone">🎭 ${escapeHtml([t.emotion, t.tone].filter(Boolean).join(" · "))}</div>` : ""}
+                        </div>
+                    </div>`).join("")}
+                ${dlg.cultural_note ? `<div class="dialogue-culture">🌏 ${escapeHtml(dlg.cultural_note)}</div>` : ""}
             </div>`;
         });
     }

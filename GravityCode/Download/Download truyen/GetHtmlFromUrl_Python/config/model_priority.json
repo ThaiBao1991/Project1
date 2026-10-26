@@ -1,0 +1,142 @@
+[
+  {
+    "enabled": true,
+    "latency_ms": 1024,
+    "name": "gemini-3.5-flash-lite",
+    "note": "Tier S — (1024ms)",
+    "tier": "S"
+  },
+  {
+    "enabled": true,
+    "latency_ms": 3317,
+    "name": "gemini-3.5-flash",
+    "note": "Tier S — (3317ms)",
+    "tier": "S"
+  },
+  {
+    "enabled": true,
+    "latency_ms": 0,
+    "name": "gemini-3.8-flash",
+    "note": "Tier S — (Rate limit)",
+    "tier": "S"
+  },
+  {
+    "enabled": true,
+    "latency_ms": 759,
+    "name": "gemini-3-flash-preview",
+    "note": "Tier A — (759ms)",
+    "tier": "A"
+  },
+  {
+    "enabled": true,
+    "latency_ms": 4299,
+    "name": "gemini-3.6-flash",
+    "note": "Tier A — (4299ms)",
+    "tier": "A"
+  },
+  {
+    "enabled": true,
+    "latency_ms": 0,
+    "name": "gemini-flash-latest",
+    "note": "Tier A — (Rate limit)",
+    "tier": "A"
+  },
+  {
+    "enabled": true,
+    "latency_ms": 0,
+    "name": "gemini-3.7-flash",
+    "note": "Tier A — (Timeout)",
+    "tier": "A"
+  },
+  {
+    "enabled": true,
+    "latency_ms": 505,
+    "name": "gemini-flash-lite-latest",
+    "note": "Tier B — (505ms)",
+    "tier": "B"
+  },
+  {
+    "enabled": true,
+    "latency_ms": 1436,
+    "name": "gemini-3.1-flash-lite-preview",
+    "note": "Tier B — (1436ms)",
+    "tier": "B"
+  },
+  {
+    "enabled": true,
+    "latency_ms": 8044,
+    "name": "gemini-3.1-flash-lite",
+    "note": "Tier B — (8044ms)",
+    "tier": "B"
+  },
+  {
+    "enabled": false,
+    "latency_ms": 0,
+    "name": "gemini-2.5-flash-lite",
+    "note": "Tier B — (Không khả dụng)",
+    "tier": "B"
+  },
+  {
+    "enabled": false,
+    "latency_ms": 0,
+    "name": "gemini-3.1-pro-preview",
+    "note": "Tier B — (Rate limit)",
+    "tier": "B"
+  },
+  {
+    "enabled": false,
+    "latency_ms": 0,
+    "name": "gemini-3.1-pro-preview-customtools",
+    "note": "Tier B — (Rate limit)",
+    "tier": "B"
+  },
+  {
+    "enabled": false,
+    "latency_ms": 0,
+    "name": "gemini-2.5-flash",
+    "note": "Tier C — (Không khả dụng)",
+    "tier": "C"
+  },
+  {
+    "enabled": false,
+    "latency_ms": 0,
+    "name": "gemini-2.5-pro",
+    "note": "Tier C — (Không khả dụng)",
+    "tier": "C"
+  },
+  {
+    "enabled": false,
+    "latency_ms": 0,
+    "name": "gemini-pro-latest",
+    "note": "Tier C — (Rate limit)",
+    "tier": "C"
+  },
+  {
+    "enabled": false,
+    "latency_ms": 0,
+    "name": "gemini-nano-banana-2.1",
+    "note": "Tier C — (Rate limit)",
+    "tier": "C"
+  },
+  {
+    "enabled": false,
+    "latency_ms": 0,
+    "name": "gemini-omni-flash-preview",
+    "note": "Tier C — (Rate limit)",
+    "tier": "C"
+  },
+  {
+    "enabled": false,
+    "latency_ms": 0,
+    "name": "gemini-omni-1.1-flash",
+    "note": "Tier C — (Rate limit)",
+    "tier": "C"
+  },
+  {
+    "enabled": false,
+    "latency_ms": 0,
+    "name": "gemini-4-argon",
+    "note": "Tier C — (Rate limit)",
+    "tier": "C"
+  }
+]

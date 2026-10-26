@@ -1,9 +1,99 @@
+import base64
+import json
+import os
 import random
 import re
 import threading
 import time
 
 import requests
+
+# ─────────────────────────────────────────────────────────────
+# Blocklist account bị từ chối vĩnh viễn (403 denied access)
+# Lưu bền trên đĩa để các lần chạy sau bỏ qua ngay, không tốn call.
+# ─────────────────────────────────────────────────────────────
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BLOCKED_ACCOUNTS_PATH = os.path.join(BASE_DIR, "data", "blocked_accounts.json")
+BLOCKED_KEYS_PATH = os.path.join(BASE_DIR, "data", "blocked_keys.json")
+_blocked_lock = threading.Lock()
+
+
+def _load_blocked(path: str) -> dict:
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            d = json.load(f)
+        return d if isinstance(d, dict) else {}
+    except Exception:
+        return {}
+
+
+def _save_blocked(path: str, data: dict) -> bool:
+    try:
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        tmp = path + ".tmp"
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        os.replace(tmp, path)
+        return True
+    except OSError:
+        return False
+
+
+def load_blocked_accounts() -> dict:
+    return _load_blocked(BLOCKED_ACCOUNTS_PATH)
+
+
+def block_account(account: str, reason: str = "") -> bool:
+    """Ghi account vào blocklist bền. Trả True nếu mới thêm."""
+    if not account:
+        return False
+    with _blocked_lock:
+        data = load_blocked_accounts()
+        if account in data:
+            return False
+        data[account] = {"reason": reason[:200], "at": time.strftime("%Y-%m-%dT%H:%M:%S")}
+        if not _save_blocked(BLOCKED_ACCOUNTS_PATH, data):
+            return False
+    return True
+
+
+def unblock_account(account: str) -> bool:
+    with _blocked_lock:
+        data = load_blocked_accounts()
+        if account not in data:
+            return False
+        data.pop(account, None)
+        if not _save_blocked(BLOCKED_ACCOUNTS_PATH, data):
+            return False
+    return True
+
+
+def load_blocked_keys() -> dict:
+    return _load_blocked(BLOCKED_KEYS_PATH)
+
+
+def block_key(api_key: str, reason: str = "") -> bool:
+    """Ghi API key chết vĩnh viễn vào blocklist bền (theo hash, không lưu key gốc)."""
+    if not api_key:
+        return False
+    import hashlib
+    khash = hashlib.sha256(api_key.encode("utf-8")).hexdigest()[:16]
+    with _blocked_lock:
+        data = load_blocked_keys()
+        if khash in data:
+            return False
+        data[khash] = {"reason": reason[:200], "at": time.strftime("%Y-%m-%dT%H:%M:%S")}
+        if not _save_blocked(BLOCKED_KEYS_PATH, data):
+            return False
+    return True
+
+
+def is_blocked_key(api_key: str) -> bool:
+    if not api_key:
+        return False
+    import hashlib
+    khash = hashlib.sha256(api_key.encode("utf-8")).hexdigest()[:16]
+    return khash in load_blocked_keys()
 
 # ─────────────────────────────────────────────────────────────
 # Cấu hình an toàn chuẩn (skill: gemini_api_key_handling)
@@ -22,6 +112,14 @@ MODEL_FALLBACKS = [
     "gemini-flash-lite-latest" # 🔵 Lite, dự phòng cuối
 ]
 
+# Model SINH ẢNH (Gemini native image) — dùng responseModalities=["TEXT","IMAGE"]
+IMAGE_MODEL_FALLBACKS = [
+    "gemini-2.5-flash-image",
+    "gemini-3.1-flash-image",
+    "gemini-3-pro-image",
+    "gemini-nano-banana-2.1",
+]
+
 # ─────────────────────────────────────────────────────────────
 # Global Rate Limiter — mọi call Gemini đều đi qua pace()
 # ─────────────────────────────────────────────────────────────
@@ -29,12 +127,28 @@ _pace_lock = threading.Lock()
 _last_call_ts = 0.0
 
 
-def pace():
-    """Nghỉ 3.5-5.0s + jitter 0.5-1.5s kể từ lần gọi trước (thread-safe, toàn tiến trình)."""
+def pace(interval: float = None):
+    """Nghỉ giữa 2 lần gọi Gemini (thread-safe, khoá toàn tiến trình).
+
+    Mặc định: khoảng nghỉ THÍCH ỨNG theo số **PROJECT** (account) khả dụng.
+
+    ⚠️ QUOTA RPM CỦA GEMINI FREE TIER LÀ **15/PHÚT MỖI PROJECT**, không phải
+    mỗi key. Đo thật: 9-10 key/account nhưng 1 project/account ⇒ 5 account
+    chỉ chịu được 5 × 15 = 75 call/phút TỔNG.
+    Tính theo số KEY (47) ⇒ 94 call/phút ⇒ 429 ⇒ mọi key bị cooldown ⇒
+    vòng lặp chờ 6 × 20 s ⇒ treo pipeline.
+    """
     global _last_call_ts
+    if interval is None:
+        try:
+            n = max(1, _get_pool().usable_project_count())
+        except Exception:
+            n = 5
+        # 60 / (n_project × 11) giây ⇒ ~11 call/phút/project (dưới 15 RPM)
+        interval = min(5.0, max(0.8, 60.0 / (n * 11.0)))
     with _pace_lock:
-        base = random.uniform(PACE_MIN, PACE_MAX)
-        jitter = random.uniform(*PACE_JITTER)
+        base = random.uniform(0.6, 1.0) * interval
+        jitter = random.uniform(*PACE_JITTER) * 0.2
         elapsed = time.time() - _last_call_ts
         wait = base + jitter - elapsed
         if wait > 0:
@@ -129,20 +243,64 @@ def classify_response(status_code, body):
     if status_code == 429:
         if "perday" in low or "per-day" in low or "per day" in low or "daily" in low:
             return ErrorKind.QUOTA_DAILY, message
+        # Gemini free tier báo hạn mứn NGÀY theo message:
+        #   "Quota exceeded for metric: ..._free_tier_requests, limit: 20, model: X
+        #    Please retry in 13h33m50s."
+        # Message KHÔNG chứa chữ "perday" ⇒ nếu không nhận diện, sẽ bị coi là
+        # rate-limit tạm thời ⇒ retry vô ích 12 lần × 65 s ⇒ TREO pipeline.
+        if "please retry in" in low:
+            m = re.search(r"please retry in\s*(\d+(?:\.\d+)?)\s*h", low)
+            if m and float(m.group(1)) >= 0.25:
+                return ErrorKind.QUOTA_DAILY, message
+        if "limit: 0" in low:
+            return ErrorKind.QUOTA_DAILY, message
         return ErrorKind.QUOTA_RATE, message
     if status_code in (401, 403):
         if ("api_key_invalid" in low or "invalid authentication" in low
                 or "invalid key" in low or "api key not valid" in low
-                or "api key not found" in low or "access_token_type_unsupported" in low):
+                or "api key not found" in low or "access_token_type_unsupported" in low
+                or is_dead_key_message(low)):
             return ErrorKind.INVALID_KEY, message
         return ErrorKind.REQUEST_BAD, message
     if status_code == 400:
-        if "api_key_invalid" in low:
+        if "api_key_invalid" in low or is_dead_key_message(low):
             return ErrorKind.INVALID_KEY, message
         return ErrorKind.REQUEST_BAD, message
     if status_code >= 500:
         return ErrorKind.SERVER, message
     return ErrorKind.REQUEST_BAD, message
+
+
+# Message của API key chết vĩnh viễn (service account bị xoá/vô hiệu).
+# Đo trên máy: "The bound service account is deleted or disabled. The service
+# account bound to the API key must be active." (HTTP 400).
+# Nếu không phân loại đúng, 1 key chết sẽ ABORT cả request dù còn 47 key tốt.
+_DEAD_KEY_MARKERS = (
+    "bound service account is deleted",
+    "service account bound to the api key",
+    "service account is deleted or disabled",
+    "api key has been deleted",
+    "key is invalid or has been deleted",
+)
+
+
+def is_dead_key_message(low: str) -> bool:
+    return any(m in (low or "") for m in _DEAD_KEY_MARKERS)
+
+
+# Từ chối ở CẤP ACCOUNT (không phải cấp model) — không đáng thử model khác,
+# phải khoá account và xoay key ngay.
+_ACCOUNT_DENIAL_MARKERS = (
+    "has been denied access",
+    "your project has been denied access",
+    "permission denied",
+    "does not have access to",
+)
+
+
+def is_account_denial(msg: str) -> bool:
+    low = (msg or "").lower()
+    return any(m in low for m in _ACCOUNT_DENIAL_MARKERS)
 
 
 def retry_delay_from(msg):
@@ -176,6 +334,33 @@ def extract_text(body):
         return parts[0].get("text", "") if parts else ""
     except Exception:
         return ""
+
+
+def extract_image(body):
+    """Trả (b64, mime) từ phần tử ảnh đầu tiên trong response Gemini.
+
+    Xử lý CẢ 2 casing của key (inlineData / inline_data, mimeType / mime_type)
+    — theo mẫu AskCpl/gemini_image_pipeline.py:39-44.
+    """
+    try:
+        candidates = body.get("candidates", []) if isinstance(body, dict) else []
+        if not candidates:
+            return "", ""
+        parts = (candidates[0].get("content", {}) or {}).get("parts", []) or []
+        for part in parts:
+            if not isinstance(part, dict):
+                continue
+            inline = part.get("inlineData") or part.get("inline_data") or {}
+            if not isinstance(inline, dict):
+                continue
+            data = inline.get("data")
+            if not data:
+                continue
+            mime = inline.get("mimeType") or inline.get("mime_type") or "image/png"
+            return str(data), str(mime)
+    except Exception:
+        pass
+    return "", ""
 
 
 # ─────────────────────────────────────────────────────────────
@@ -230,8 +415,45 @@ class AccountPool:
                     return True
             return False
 
+    def lock_key(self, key_obj, duration=60):
+        """Khoá RIÊNG 1 key (giới hạn RPM/TPM là theo project = theo key).
+
+        Khoá cả account (lock_account) là quá nặng: 1 key chạm RPM sẽ chặn
+        luôn 9-10 key khác của account đó ⇒ 5 luồng song song hết key.
+        """
+        if not key_obj:
+            return 0
+        until = int(time.time() + duration)
+        with self._lock:
+            key_obj["cooldown_until"] = until
+        return until
+
+    def usable_count(self) -> int:
+        """Số key hiện dùng được (không tính key đang cooldown/exhausted)."""
+        try:
+            return len(self._usable_keys(set()))
+        except Exception:
+            return 1
+
+    def usable_project_count(self) -> int:
+        """Số PROJECT (account) hiện dùng được.
+
+        QUOTA RPM của Gemini free tier là **15/phút mỗi PROJECT** ⇒ phải tính
+        theo số account, không theo số key (1 account có 9-10 key nhưng chỉ
+        1 project ⇒ cộng dồn về 1 hạn mức 15 RPM).
+        """
+        try:
+            accts = set()
+            for k in self._usable_keys(set()):
+                accts.add(self.account_of(k))
+            return max(1, len(accts))
+        except Exception:
+            return 5
+
     def _usable_keys(self, exclude):
         now = time.time()
+        blocked = load_blocked_accounts()
+        blocked_keys = load_blocked_keys()
         usable = []
         for k in self._keys:
             status = k.get("status", "active")
@@ -244,7 +466,13 @@ class AccountPool:
             raw = k.get("key")
             if not raw or raw in exclude:
                 continue
+            import hashlib
+            khash = hashlib.sha256(raw.encode("utf-8")).hexdigest()[:16]
+            if khash in blocked_keys:
+                continue
             acct = self.account_of(k)
+            if acct in blocked:
+                continue
             cd_until = max(self._cooldown.get(acct, 0), k.get("cooldown_until", 0))
             if cd_until > now:
                 continue
@@ -291,7 +519,8 @@ class GeminiCoordinator:
     def __init__(self, models=None, log_fn=None, on_key_status=None,
                  key_loader=None, stop_check=None, temperature=0.1,
                  max_output_tokens=8192, timeout=90, max_transient=6,
-                 daily_budget=DAILY_CALL_BUDGET, lock_after_success=False):
+                 daily_budget=DAILY_CALL_BUDGET, lock_after_success=False,
+                 image_models=None):
         # Danh sách model fallback — ưu tiên đọc từ settings.json (người dùng tùy chỉnh)
         if models:
             self._models = list(models)
@@ -302,6 +531,16 @@ class GeminiCoordinator:
                 self._models = _from_settings if _from_settings else list(MODEL_FALLBACKS)
             except Exception:
                 self._models = list(MODEL_FALLBACKS)
+        # Danh sách model SINH ẢNH (Gemini native image) — đọc từ settings ai.image_models
+        if image_models:
+            self._image_models = list(image_models)
+        else:
+            try:
+                from settings import load_settings
+                _img = (load_settings().get("ai", {}) or {}).get("image_models") or []
+                self._image_models = list(_img) if _img else list(IMAGE_MODEL_FALLBACKS)
+            except Exception:
+                self._image_models = list(IMAGE_MODEL_FALLBACKS)
         self._log = log_fn or (lambda msg: None)
         self._on_key_status = on_key_status
         self._key_loader = key_loader or (lambda: [])
@@ -322,6 +561,11 @@ class GeminiCoordinator:
     def models(self):
         """Danh sách model fallback đang được điều phối."""
         return list(self._models)
+
+    @property
+    def image_models(self):
+        """Danh sách model SINH ẢNH đang được điều phối."""
+        return list(self._image_models)
 
     # ── callback nội bộ ──
     def _mark(self, key_obj, status, error_msg):
@@ -410,7 +654,21 @@ class GeminiCoordinator:
                 kind = ErrorKind.EMPTY
                 msg = "phản hồi rỗng"
                 return {"kind": kind, "message": msg, "status_code": status_code, "model": model}
+            if kind == ErrorKind.QUOTA_DAILY:
+                # Mỗi model là 1 quota bucket riêng (20 call/ngày/project/model)
+                # → hết quota model này thì THỬ MODEL KHÁC trước khi đổi key.
+                if model is not self._models[-1]:
+                    self._log(f"⏳ Model '{model}' hết quota hôm nay — thử model khác trước.")
+                    last = {"kind": kind, "message": msg, "status_code": status_code,
+                            "model": model}
+                    continue
+                return {"kind": kind, "message": msg, "status_code": status_code,
+                        "model": model}
+
             if kind == ErrorKind.REQUEST_BAD:
+                if is_account_denial(msg):
+                    # Lỗi cấp ACCOUNT → trả về ngay để request() khoá account + xoay key.
+                    return {"kind": kind, "message": msg, "status_code": status_code, "model": model}
                 if model is not self._models[-1]:
                     self._log(f"⚠ Model '{model}' từ chối request ({msg[:60]}); thử model fallback.")
                     last = {"kind": kind, "message": msg, "status_code": status_code, "model": model}
@@ -468,10 +726,10 @@ class GeminiCoordinator:
                             future_cooldowns.append(cd - now)
 
                 # Nếu có key đang cooldown hoặc đã thử qua các account trong exclude
-                if (account_attempts > 0 or future_cooldowns or exclude) and retry_exhausted_rounds < 12:
+                if (account_attempts > 0 or future_cooldowns or exclude) and retry_exhausted_rounds < 3:
                     retry_exhausted_rounds += 1
                     wait_s = min(future_cooldowns) if future_cooldowns else 15
-                    wait_s = max(5, min(int(wait_s) + 1, 30))
+                    wait_s = max(5, min(int(wait_s) + 1, 15))
                     self._log(f"⏳ Tất cả key đang tạm nghỉ tốc độ (cooldown). Tự động chờ {wait_s}s để hồi phục (lần {retry_exhausted_rounds}/12)...")
                     for _ in range(wait_s):
                         if self._stop_check():
@@ -501,7 +759,17 @@ class GeminiCoordinator:
                         "model": res.get("model"), "total_calls": total}
 
             if kind == ErrorKind.QUOTA_DAILY:
-                self._log(f"⚠ Key {email} hết quota ngày (Daily). Khóa account 60 phút, chuyển key...")
+                # Quota Gemini free tier là **20 call/ngày / PROJECT / MODEL**
+                # ⇒ mỗi model là một "quota bucket" RIÊNG.
+                # Phải thử model TIẾP THEO trước khi đổi key, nếu không sẽ
+                # vô hiệu hoá 8-10 key/account chỉ vì 1 model hết quota.
+                _m = res.get("model")
+                if _m and _m != self._models[-1]:
+                    self._log(f"⏳ Model '{_m}' hết quota hôm nay — thử model khác trước.")
+                    last = {"kind": kind, "message": msg, "status_code": status_code,
+                            "model": _m}
+                    continue
+                self._log(f"⚠ Key {email} hết quota ngày (mọi model). Khóa account 60 phút, chuyển key...")
                 self._lock_account(key_obj, duration=ACCOUNT_COOLDOWN, reason=f"HTTP 429 Daily: {msg[:90]}")
                 self._mark(key_obj, "exhausted", f"HTTP 429 Daily: {msg[:90]}")
                 exclude.add(api_key)
@@ -513,25 +781,44 @@ class GeminiCoordinator:
                 continue
 
             if kind == ErrorKind.QUOTA_RATE:
-                # 429 RPM/TPM = giới hạn tốc độ 1 phút -> cooldown ngắn (60s), TUYỆT ĐỐI KHÔNG đánh dấu exhausted
+                # 429 RPM/TPM là giới hạn THEO PROJECT (theo key) → khoá riêng key,
+                # KHÔNG khoá cả account (sẽ chặn 9-10 key khác của account).
+                # Mỗi model cũng có RPM bucket riêng → thử model khác trước.
                 retry_delay = retry_delay_from(msg)
-                self._log(f"⚠ Key {email} chạm giới hạn tốc độ RPM/TPM ({retry_delay}s). Cooldown {retry_delay}s (không khóa vĩnh viễn), đổi key...")
-                self._lock_account(key_obj, duration=retry_delay, reason=f"HTTP 429 RPM/TPM: {msg[:90]}")
+                if model is not self._models[-1]:
+                    self._log(f"⚠ Model '{model}' chạm giới hạn tốc độ — thử model khác...")
+                    last = {"kind": kind, "message": msg, "status_code": status_code,
+                            "model": model}
+                    continue
+                self._log(f"⚠ Key {email} chạm giới hạn tốc độ ({retry_delay}s). Cooldown riêng key, đổi key...")
+                self._pool.lock_key(key_obj, duration=retry_delay)
                 exclude.add(api_key)
                 account_attempts += 1
                 if account_attempts >= MAX_ACCOUNT_ATTEMPTS:
-                    self._log(f"⚠ Đã thử {MAX_ACCOUNT_ATTEMPTS} account gặp giới hạn tốc độ. Tạm dừng 15s để server Google giải tỏa lưu lượng...")
-                    time.sleep(15)
+                    time.sleep(5)
                     account_attempts = 0
                 continue
 
             if kind == ErrorKind.INVALID_KEY:
+                block_key(api_key, f"HTTP {res.get('status_code', '')}: {msg[:120]}")
                 self._mark(key_obj, "invalid", f"HTTP {res.get('status_code', '')}: {msg[:90]}")
-                self._log(f"✗ Key {email} bị từ chối (Invalid). Chuyển key...")
+                self._log(f"✗ Key {email} bị từ chối (Invalid). Đã blocklist, chuyển key...")
                 exclude.add(api_key)
                 continue
 
             if kind == ErrorKind.REQUEST_BAD:
+                if is_account_denial(msg):
+                    # Lỗi cấp ACCOUNT (403 denied access) → khoá vĩnh viễn + xoay key.
+                    block_account(pool.account_of(key_obj), msg)
+                    self._log(f"⚠ Account {email} bị từ chối vĩnh viễn (denied access). "
+                              f"Đã đưa vào blocklist, chuyển key...")
+                    self._lock_account(key_obj, reason=f"Account denied: {msg[:80]}")
+                    exclude.add(api_key)
+                    account_attempts += 1
+                    if account_attempts >= MAX_ACCOUNT_ATTEMPTS:
+                        time.sleep(15)
+                        account_attempts = 0
+                    continue
                 if is_model_restriction(msg):
                     # 403 denied access / model đã ngừng: lỗi theo account, xoay account.
                     self._log(f"⚠ Key {email} không được phép dùng model này ({msg[:80]}). Khóa account, xoay key...")
@@ -556,3 +843,190 @@ class GeminiCoordinator:
                 continue
 
             return {"ok": False, "text": "", "error": {"kind": kind, "message": msg[:200]}}
+
+    # ────────────────────────────────────────────────────────────────────────
+    # ẢNH: Gemini native image (responseModalities = ["TEXT","IMAGE"])
+    # Tái dùng AccountPool.pick() + pace() + classify_response() + model fallback
+    # (KHÔNG gọi requests.post trần như bản AskCpl — thiếu pace/retry/rotation)
+    # ────────────────────────────────────────────────────────────────────────
+    def _try_image_models(self, prompt_text, api_key, models, timeout):
+        last = None
+        for model in models:
+            if self._stop_check():
+                return {"kind": ErrorKind.STOPPED, "model": model}
+            url = (f"https://generativelanguage.googleapis.com/v1beta/"
+                   f"models/{model}:generateContent?key={api_key}")
+            config = {"responseModalities": ["TEXT", "IMAGE"]}
+            try:
+                resp = requests.post(url, headers={"Content-Type": "application/json"},
+                                     json={"contents": [{"parts": [{"text": prompt_text}]}],
+                                           "generationConfig": config},
+                                     timeout=timeout)
+                ctype = resp.headers.get("content-type", "")
+                body = resp.json() if "application/json" in ctype else {}
+                status_code = resp.status_code
+            except requests.exceptions.Timeout:
+                if model is not models[-1]:
+                    self._log(f"⏱ Model ảnh '{model}' quá lâu (Timeout > {timeout}s); thử model ảnh khác...")
+                    last = {"kind": ErrorKind.NETWORK, "message": "timeout", "model": model}
+                    continue
+                return {"kind": ErrorKind.NETWORK, "message": "timeout", "model": model}
+            except requests.exceptions.RequestException as exc:
+                if model is not models[-1]:
+                    self._log(f"🌐 Model ảnh '{model}' lỗi kết nối ({type(exc).__name__}); thử model ảnh khác...")
+                    last = {"kind": ErrorKind.NETWORK,
+                            "message": f"{type(exc).__name__}: {exc}", "model": model}
+                    continue
+                return {"kind": ErrorKind.NETWORK,
+                        "message": f"{type(exc).__name__}: {exc}", "model": model}
+
+            kind, msg = classify_response(status_code, body)
+            if kind == ErrorKind.OK:
+                b64, mime = extract_image(body)
+                if b64:
+                    return {"kind": ErrorKind.OK, "b64": b64, "mime": mime,
+                            "model": model, "message": msg}
+                kind = ErrorKind.EMPTY
+                msg = "phản hồi không chứa ảnh"
+                return {"kind": kind, "message": msg, "status_code": status_code, "model": model}
+            # Model ảnh bị giới hạn cứng (limit: 0) → vô hiệu vĩnh viễn, KHÔNG phải
+            # rate-limit tạm thời. Bỏ qua model, KHÔNG đánh dấu key exhausted
+            # (quota là theo MODEL, không phải theo key).
+            if kind == ErrorKind.QUOTA_RATE and "limit: 0" in msg:
+                if model is not models[-1]:
+                    self._log(f"⛔ Model ảnh '{model}' bị giới hạn cứng (limit: 0) — vô hiệu vĩnh viễn.")
+                    last = {"kind": ErrorKind.QUOTA_DAILY, "message": msg,
+                            "status_code": status_code, "model": model, "hard_quota": True}
+                    continue
+                return {"kind": ErrorKind.QUOTA_DAILY, "message": msg,
+                        "status_code": status_code, "model": model, "hard_quota": True}
+            if kind == ErrorKind.REQUEST_BAD:
+                if is_account_denial(msg):
+                    return {"kind": kind, "message": msg, "status_code": status_code, "model": model}
+                if is_model_restriction(msg):
+                    # Model ảnh chết / account bị chặn → thử model ảnh khác
+                    if model is not models[-1]:
+                        self._log(f"⚠ Model ảnh '{model}' không khả dụng ({msg[:70]}); thử model ảnh khác.")
+                        last = {"kind": kind, "message": msg, "status_code": status_code,
+                                "model": model}
+                        continue
+                return {"kind": kind, "message": msg, "status_code": status_code, "model": model}
+            if kind in (ErrorKind.SERVER, ErrorKind.NETWORK, ErrorKind.EMPTY):
+                if model is not models[-1]:
+                    self._log(f"⚠ Model ảnh '{model}' lỗi {kind} ({msg[:60]}); thử model ảnh khác.")
+                    last = {"kind": kind, "message": msg, "status_code": status_code,
+                            "model": model}
+                    continue
+            return {"kind": kind, "message": msg, "status_code": status_code, "model": model}
+        return last or {"kind": ErrorKind.NETWORK, "message": "hết model ảnh fallback", "model": None}
+
+    def request_image(self, prompt_text, model=None, timeout=None, models=None) -> dict:
+        """Sinh 1 ảnh bằng Gemini native image.
+
+        Trả về:
+          {"ok": True,  "b64": str, "mime": str, "model": str, "key": dict}
+          {"ok": False, "error": {"kind": str, "message": str}}
+        """
+        pool = self._pool
+        exclude = set()
+        cand_models = list(models) if models else ([model] if model else list(self._image_models))
+        if not cand_models:
+            return {"ok": False, "error": {"kind": ErrorKind.REQUEST_BAD,
+                                           "message": "không có model ảnh nào được cấu hình"}}
+        tout = timeout or 180
+        account_attempts = 0
+        MAX_ACCOUNT_ATTEMPTS = 3
+
+        while True:
+            if self._stop_check():
+                return {"ok": False, "error": {"kind": ErrorKind.STOPPED}}
+            pool.sync(self._key_loader() or [])
+            key_obj = pool.pick(exclude)
+            if not key_obj:
+                if account_attempts > 0 and exclude:
+                    # Tất cả key đang cooldown → chờ ngắn rồi thử lại
+                    wait_s = 15
+                    self._log(f"⏳ Key ảnh đang cooldown — chờ {wait_s}s rồi thử lại...")
+                    for _ in range(wait_s):
+                        if self._stop_check():
+                            return {"ok": False, "error": {"kind": ErrorKind.STOPPED}}
+                        time.sleep(1)
+                    exclude.clear()
+                    account_attempts = 0
+                    continue
+                return {"ok": False, "error": {"kind": ErrorKind.NO_KEY}}
+            api_key = key_obj.get("key") or ""
+            email = key_obj.get("email") or "?"
+            pace()
+            res = self._try_image_models(prompt_text, api_key, cand_models, tout)
+            kind = res.get("kind")
+            msg = res.get("message", "")
+
+            if kind == ErrorKind.OK:
+                total = track_call()
+                self._touch(key_obj)
+                if total > self._daily_budget:
+                    self._log(f"⚠ Đã gọi {total:,} lần hôm nay (ngân sách {self._daily_budget:,}/ngày).")
+                return {"ok": True, "b64": res["b64"], "mime": res.get("mime", "image/png"),
+                        "model": res.get("model"), "key": key_obj, "total_calls": total}
+
+            if kind == ErrorKind.QUOTA_DAILY:
+                if res.get("hard_quota"):
+                    # Giới hạn cứng theo MODEL → đánh dấu model chết, KHÔNG phí key.
+                    self._log(f"⛔ Model ảnh '{res.get('model')}' hết quota cứng (limit: 0) — bỏ qua model này.")
+                    return {"ok": False,
+                            "error": {"kind": ErrorKind.QUOTA_DAILY,
+                                      "message": msg[:200],
+                                      "model": res.get("model"),
+                                      "hard_quota": True}}
+                self._log(f"⚠ Key {email} hết quota ngày khi sinh ảnh. Chuyển key...")
+                self._lock_account(key_obj, duration=ACCOUNT_COOLDOWN, reason=f"HTTP 429 Daily (image): {msg[:80]}")
+                self._mark(key_obj, "exhausted", f"HTTP 429 Daily (image): {msg[:80]}")
+                exclude.add(api_key)
+                account_attempts += 1
+                if account_attempts >= MAX_ACCOUNT_ATTEMPTS:
+                    time.sleep(15)
+                    account_attempts = 0
+                continue
+
+            if kind == ErrorKind.QUOTA_RATE:
+                retry_delay = retry_delay_from(msg)
+                self._log(f"⚠ Key {email} chạm giới hạn tốc độ (ảnh, {retry_delay}s). Cooldown riêng key, đổi key...")
+                self._pool.lock_key(key_obj, duration=retry_delay)
+                exclude.add(api_key)
+                account_attempts += 1
+                if account_attempts >= MAX_ACCOUNT_ATTEMPTS:
+                    time.sleep(5)
+                    account_attempts = 0
+                continue
+
+            if kind == ErrorKind.INVALID_KEY:
+                block_key(api_key, f"HTTP {res.get('status_code', '')} (image): {msg[:120]}")
+                self._mark(key_obj, "invalid", f"HTTP {res.get('status_code', '')} (image): {msg[:80]}")
+                exclude.add(api_key)
+                continue
+
+            if kind == ErrorKind.REQUEST_BAD:
+                if is_account_denial(msg):
+                    block_account(pool.account_of(key_obj), msg)
+                    self._log(f"⚠ Account {email} bị từ chối vĩnh viễn (denied access). Đã blocklist.")
+                    self._lock_account(key_obj, reason=f"Account denied (image): {msg[:80]}")
+                    exclude.add(api_key)
+                    account_attempts += 1
+                    continue
+                if is_model_restriction(msg):
+                    self._lock_account(key_obj, reason=f"Model image restriction: {msg[:80]}")
+                    exclude.add(api_key)
+                    account_attempts += 1
+                    continue
+                return {"ok": False,
+                        "error": {"kind": kind, "message": msg[:200],
+                                  "status_code": res.get("status_code"),
+                                  "model": res.get("model")}}
+
+            if kind in (ErrorKind.SERVER, ErrorKind.NETWORK, ErrorKind.EMPTY):
+                return {"ok": False,
+                        "error": {"kind": kind, "message": msg[:200],
+                                  "model": res.get("model")}}
+
+            return {"ok": False, "error": {"kind": kind, "message": msg[:200]}}

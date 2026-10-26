@@ -4,9 +4,388 @@
 
 > **⚠️ Quy tắc làm việc**: AI luôn đọc file này trước, sau đó **đề xuất phương án** và chờ người dùng đồng ý trước khi viết code.
 
+> 📦 **BÀN GIAO ĐẦY ĐỦ (đọc file này để tiếp tục)**: [`docs/UPGRADE_17.md`](docs/UPGRADE_17.md)
+> — bản đồ cập nhật Update 17: SRS ôn tập SM-2, dẫn chứng (evidence), stage pipeline opt-in.
+> [`docs/UPGRADE_16.md`](docs/UPGRADE_16.md) — bản đồ kiến trúc, toàn bộ lệnh, giới hạn thật đã đo, 28 bug đã sửa.
+
+---
+## 📋 Cập nhật mới nhất — 2026-10-22 (Update 17)
+
+### 🔁 SRS ÔN TẬP (SM-2) VÀO GUI — HOÀN THỰC ✅
+
+**Module mới:** `database/review_store.py` — lưu trạng thái ôn tập SM-2 bền theo ngôn ngữ vào `data/reviews/<slug>.json` (khoá riêng / ngôn ngữ, ghi atomic + retry `PermissionError` trên Windows).
+
+**API:** `load_states`, `get_state`, `record_review(language, word, grade, relaxed, extra)`, `due_queue(language, limit)`, `is_due_now`, `stats(language)` (due_today, streak, longest_streak, mastery_pct, avg_ease, …), `history(language, days)`, `reset(language)`, `sync_from_vocab(language, words, meaning_map)`.
+
+Thuật toán SM-2 thuần nằm trong `ai/srs.py` (15/15 test đã có) — `review_store` chỉ lo lưu.
+
+**GUI (`VocabApp.py`, StudyTab):**
+- Thêm nguồn học `SOURCE_SRS = "🔁 Ôn tập SM-2 (lặp lại ngắt quãng)"` vào bộ lọc nguồn học (căn bên `SOURCE_SELF`, `SOURCE_AI`).
+- Khung SRS riêng: thống kê (đến hạn hôm nay, streak, đã thuộc, ease TB), nút ▶ Ôn tập / ⏭ Bỏ qua / ↻ Ôn lại từ đầu / 🗑️ Xoá tiến độ ôn, thẻ từ vựng (dự đoán âm + nghĩa ẩn/hiện), 4 nút đánh giá Again/Hard/Good/Easy hiển thị dự đoán khoảng cách lần ôn kế tiếp (SM-2).
+- Trong khóa học AI: bảng trắc nghiệm có 4 nút đánh giá SM-2 chấm từ vựng của câu hỏi hiện tại (khớp từ trong câu hỏi → từ vựng ngày đó); sau mỗi lần chốt đáp án có thể đánh giá mức nhớ.
+- `App.update_stats()` đã triển khai: làm mới stats SRS + refresh danh sách từ vựng.
+- Lưu ý: khi vào chế độ SRS, từ vựng khóa học AI được nạp ở luồng nền (`_srs_load_course_bg`) để không block UI.
+
+### 📚 DẪN CHỨNG (EVIDENCE) — WIKIPEDIA / WIKTIONARY ✅
+
+**Module mới:** `ai/pipeline_evidence.py` — stage `STAGE_EVIDENCE = "evidence"` (thuộc `STAGES_OPTIONAL`, **KHÔNG nằm trong `STAGES` mặc định** ⇒ không bị bật khi `--full`, tránh chạm chặn Wikimedia ~30.000 request/IP).
+
+- `run_evidence_stage(language, day, lesson, log_fn, max_words=10, use_ai, force)` — gọi `evidence.attach_to_lesson()` với giới hạn 10 từ/ngày (mỗi từ ~2-3 request), cache bền `data/evidence_cache.json` (30 ngày), KHÔNG BAO GIỜ raise.
+- `attach_to_lesson()` đã bổ sung tham số `limit`, không xoá `etymology` do AI sinh, chỉ ghi `ipa_ev` khi Wiktionary có IPA chuẩn.
+- Checkpoint riêng: `data/ai_courses/<slug>/_pipeline/days/dNNNN/evidence.json`.
+
+**CLI:** cờ `--evidence` bật stage evidence (chạy sau content, trước quiz). Ví dụ: `python -m ai.pipeline --all --mode media --full --evidence --workers 4`.
+
+**GUI:** nút `📚 Dẫn chứng` trên thanh điều khiển khóa học AI — chạy nền cho ngày đang xem, lưu `course.json`, sau đó render lại.
+- RenderDesktop `_render_lesson_text`: mỗi từ hiển thị khối `📚 Nguồn:` (tiêu đề + URL + giấy phép + trích dẫn 160 ký tự) và `🏛️ Từ nguyên:`; IPA chuẩn Wiktionary hiện dưới dạng `📖 <IPA>`.
+
+### ✅ KẾT QUẢ KIỂM CHỨNG (Update 17)
+- `py_compile` → 5 file đã đụng sạch (0 lỗi)
+- `test_ai_rich.py` → **79/79 PASS** (section 28 pipeline: 10 stage đầy đủ, không bị ảnh bởi STAGE_EVIDENCE optional)
+- `tools/verify_p0_fixes.py` → **14/14 PASS**
+- `tools/verify_no_rewrite.py` → PASS (8 course.json KHÔNG bị ghi lại khi đọc)
+
+### ⏭️ VIỆC CÒN LẠI (xếp theo ưu tiên — xem UPGRADE_17.md mục 7)
+1. Tích hợp `ai/evidence.py` vào `web/script.js` (render khối "📚 Nguồn" ở course view web).
+2. Gọi `media_schema.validate_dialogue()` trong `ai/pipeline_media.py::run_dialogue_stage` → log cảnh báo + retry nếu AI không tuân thủ giới hạn hội thoại.
+3. Tách 1 call AI riêng cho grammar enrichment (`common_mistakes`/`mini_quiz`) — Gemini loại bỏ mảng lồng optional khi response lớn.
+4. Chạy pipeline enrich: `python -m ai.pipeline --all --mode enrich --full --allow-degraded --workers 4` → IPA thật + khẩu hình + lỗi sai + mini_quiz + dialogue ngắn (~2 ngày quota text).
+5. Bảo mật Git PAT: revoke token + `git filter-repo` (xem UPGRADE_16 mục 7.4).
+6. OpenClaw: cần thao tác user cài native-messaging host (xem UPGRADE_16 mục 4.4).
+
+---
+## 📋 Cập nhật mới nhất — 2026-10-21 (Update 16)
+
+### 🧠🖼️🔊 RENDER TOÀN BỘ TỪ ĐIỂN: Ảnh Minh Họa + Phát Âm + Ngữ Pháp + Hội Thoại (Pipeline Tự Trị) — HOÀN THÀNH ✅
+
+**Bối cảnh:** 8 khóa học AI đã có sẵn **3.010 ngày / 30.102 từ vựng / 135 MB** nhưng **không có ảnh, không có audio, không có hội thoại, thiếu IPA & giải thích phát âm**.
+
+**Kết quả kiểm chứng thực tế (đo trên máy, 2026-10-21):**
+
+| Hạng mục | Kết quả |
+|---|---|
+| `test_ai_rich.py` | ✅ **79/79 PASS** (chế độ FAST < 60s; `--slow` bổ sung section [11]) |
+| `verify_all_native_courses.py` | ✅ **27/27 PASS** (7 vòng) |
+| `py_compile` | ✅ **37 file sạch** (0 lỗi) · `node --check web/script.js` OK |
+| 8 file `course.json` | ✅ **KHÔNG đổi 1 byte** khi `get_course()` đọc (soft default v4 trong RAM) |
+| GUI smoke test | ✅ TỪ VỰNG · NGỮ PHÁP · HỘI THOẠI · Ảnh · Audio · IPA · widget trắc nghiệm (4 option thật) |
+| **Phủ ảnh** | ✅ **30.102 / 30.102 từ = 100%** (8 ngôn ngữ) |
+| **Phủ audio** | ✅ **30.102 / 30.102 từ = 100%** (edge-tts, 11/11 ngôn ngữ) |
+| **Phủ hội thoại** | 🔄 **1.713 / 3.010 ngày = 56%** — đang chạy nền, bị giới hạn bởi quota text 2.000 call/ngày |
+| Dung lượng media | media **544 MB** (30.567 file) · audio **341 MB** (34.289 mp3) |
+| Tốc độ | ✅ media (ảnh+audio) ~2-4 s/ngày với 6 luồng · **~150 ảnh/phút, ~110 mp3/phút** |
+
+> ⚠️ **Chất lượng ảnh**: 1.180 / 30.567 ảnh là ảnh THẬT từ Wikipedia; 29.387 là placeholder
+> (chữ cái đầu). Nguyên nhân: **Wikimedia đã chặn IP sau ~30.000 request** (429 cho MỌI request).
+> Khi block hết, chạy lại `python -m ai.pipeline --all --mode media --full` — cache bền
+> (`data/media/image_cache.json`) + throttle + circuit breaker sẽ tự thay placeholder bằng ảnh thật.
+> Chạy thử 1 ngày đã xác nhận: **9/10 ảnh thật** (Wikipedia/Wiktionary, 0.7-2.7 s/từ).
+
+
 ---
 
-## 📋 Cập nhật mới nhất — 2026-09-05 (Update 15)
+### 🔴 PHÁT HIỆN QUAN TRỌNG — Gemini **KHÔNG** sinh được ảnh (free tier `limit: 0`)
+
+Đo thật với 90 key Gemini (9 account):
+
+```
+HTTP 429 | RESOURCE_EXHAUSTED
+msg: "Quota exceeded for metric: generativelanguage.googleapis.com/
+      generate_content_free_tier_requests, limit: 0, model: gemini-2.5-flash-image"
+```
+
+**Mọi** model ảnh đều `limit: 0` trên free tier (đã thử 9 model: `gemini-2.5-flash-image`, `gemini-3.1-flash-image`, `gemini-3-pro-image`, `gemini-3.1-flash-lite-image`, `nano-banana-pro-preview`, `gemini-omni-*`, `gemini-4-argon`).
+→ **Đây là hạn mứn CỨNG, không phải rate-limit tạm thời** ⇒ tầng ảnh AI bị loại khỏi chuỗi mặc định (code vẫn giữ để dùng khi có key trả phí).
+
+**Ngược lại, Gemini TTS hoạt động tốt** (`gemini-3.8-flash-tts` → `audio/wav`): thử thành công vi/ja/zh/ko/en.
+
+**Chẩn đoán pool key (90 key):**
+
+| Nhóm | Số lượng | Ghi chú |
+|---|---|---|
+| ✅ Hoạt động | **47** | 5 account: gamesvendn, 09, 10, 13, 16 (9-10 key/account) |
+| ⛔ Chết vĩnh viễn | 16 | *"The bound service account is deleted or disabled"* (HTTP 400) |
+| 🚫 Bị từ chối | 27 | *"Your project has been denied access"* (HTTP 403) — 3 account |
+
+→ Đã thêm **blocklist bền** (`data/blocked_accounts.json`, `data/blocked_keys.json`) + sửa `classify_response()` để key chết **xoay key** thay vì abort cả request.
+
+---
+
+### 🏗️ Kiến trúc mới — 4 module lõi + orchestrator tự trị
+
+| File mới | Vai trò |
+|---|---|
+| `ai/media_schema.py` | Schema v4 (additive-only) + `apply_v4_defaults_in_memory()` + `DIALOGUE_SCHEMA` |
+| `ai/media_store.py` | Lưu media (WebP 512px q80) + manifest `data/media/index.json` + cache theo hash |
+| `ai/pipeline_store.py` | Checkpoint từng stage + `data/ai_courses/_jobs.json` (budget bền) + backup rotation |
+| `ai/pipeline_log.py` | Log JSONL có cấu trúc (`data/logs/<slug>_<ts>.log`) + danh sách `EVENTS` |
+| `ai/pipeline.py` | **Orchestrator tự trị** — `run_pipeline()` là single source of truth cho GUI + CLI |
+| `ai/providers.py` | `ProviderChain` — thử lần lượt provider, tự chuyển khi provider lỗi |
+| `ai/pipeline_media.py` | 4 stage media: images / audio / dialogue / media_verify |
+| `ai/image_pipeline.py` | Chuỗi provider ảnh 5 tầng + bộ lọc ảnh rác 6 lớp + aHash 16×16 |
+| `ai/dictionary_image.py` | **Tầng ảnh THẬT đang chạy** — Wikipedia/Wiktionary/Commons (0 key, 0.5-2.2s/ảnh) |
+| `ai/tts_config.py` | Bảng voice 11 ngôn ngữ (Gemini/edge-tts/gTTS/SAPI5) + đặc tả đọc 6 chặng |
+| `ai/tts_generator.py` | Cascade TTS 4 tầng + cache mp3 theo hash + PCM→WAV→MP3 (ffmpeg) |
+| `ai/bridge_server.py` | *(Phase 4)* Cầu nối app ↔ addon Chrome qua local HTTP (cổng 5690) |
+| `ai/web_ai_bridge.py` | *(Phase 4)* Tầng Web AI: addon → Selenium → OpenClaw |
+| `ai/selenium_web_ai.py` | *(Phase 4)* Selenium anti-detect |
+| `ai/openclaw_web_ai.py` | *(Phase 4)* OpenClaw browser CLI wrapper (fix 3 blocker) |
+
+**Schema v4 (additive, 100% backward-compatible):**
+```jsonc
+vocab[]  : { ...7 field cũ GIỮ NGUYÊN...,
+             "ipa", "phonetic_note", "pos", "image_prompt",
+             "example_target" (computed), "example_vi" (computed),
+             "image_ref", "audio_ref" }
+grammar[]: { "pronunciation_focus", "common_mistakes":[{wrong,right,why_vi}], "mini_quiz":[] }
+lesson   : { "dialogue":[{situation,level_tag,cultural_note,
+                          turns:[{speaker,line_target,line_vi,focus_words,emotion,tone}]}],
+             "media":{vocab_images,vocab_audio,dialogue_audio} }
+```
+
+**Migration 2 tầng (quan trọng — tránh phình git):**
+- **Tầng A (cấu trúc)**: `grammar` dict→list, `quiz` list→dict, chuẩn hoá `level` → **ghi đĩa** (giữ hành vi cũ)
+- **Tầng B (v4 mềm)**: `ipa`/`pos`/`example_target`/`dialogue`/`media` → **chỉ `setdefault` trong RAM, KHÔNG ghi**
+  > Lý do: 8 file = 135 MB đang được track git. Backfill đầy đủ tạo diff ~27 MB → blob git mới **vĩnh viễn**, không thu hồi được, mà không đổi lại giá trị gì.
+
+---
+
+### 🔧 7 bug đã sửa
+
+| # | File:line | Lỗi | Fix |
+|---|---|---|---|
+| 1 | `verify_all_native_courses.py:240` | hardcode `"Results: 63 passed"` (thực tế 67→79) | regex `Results: (\d+) passed, (\d+) failed` + assert `failed==0` |
+| 2 | `ai/course_generator.py:1996` | `slot["slot_id"] = len(supp_slots)` ⇒ **mọi slot cùng id** → map tên chủ đề AI sai | giữ `slot_id` unique của `build_stage_universal_template` |
+| 3 | `ai/course_generator.py:2070` | `target_days` là **dead param** ⇒ lựa chọn "số ngày" trong UI vô tác dụng | cắt `unfilled` theo `target_days` thật |
+| 4 | `ai/course_generator.py:1404` | `return repaired` unreachable, `repaired` chưa định nghĩa | xoá |
+| 5 | `ai/course_generator.py:665` | `parse_curriculum_json` định nghĩa trùng 2 lần | xoá bản thứ nhất |
+| 6 | `api/github_sync.py:151` | `language_profiles_cache.json` bị upload + liệt kê nhầm là "ngôn ngữ" | lọc `_SYSTEM_JSON` |
+| 7 | `web/manifest.json` | code tham chiếu nhưng file không tồn tại | **tạo** PWA manifest + 2 icon PNG + upload `icons/` |
+
+**Thêm 4 bug phát hiện khi chạy thật:**
+| # | File:line | Lỗi | Fix |
+|---|---|---|---|
+| 8 | `api/gemini_safe.py:145` | key chết (`service account deleted`) **abort cả request** dù còn 47 key tốt | `is_dead_key_message()` → `INVALID_KEY` → xoay key + blocklist bền |
+| 9 | `api/gemini_safe.py:464` | 403 cấp account làm **đốt cả 8 model** trước khi xoay key | `is_account_denial()` → trả về ngay + blocklist account bền |
+| 10 | `ai/media_store.py` | `Image.LANCZOS` **đã bị xoá trong Pillow 12** ⇒ nén WebP luôn fail | `Image.Resampling.LANCZOS` (+ fallback giữ ảnh gốc) |
+| 11 | `ai/image_pipeline.py` | `_save_image_entry` truyền **raw bytes** vào `save_b64_image` (hàm base64-decode) ⇒ ảnh hỏng | thêm `media_store.save_image_bytes()` |
+
+**Thêm 3 bug phát hiện khi chạy song song nhiều ngày:**
+| # | File:line | Lỗi | Fix |
+|---|---|---|---|
+| 12 | `ai/media_store.py:save_index()` | **Windows `os.replace` ném `PermissionError`** khi file manifest đang được thread khác mở đọc ⇒ file media đã ghi xong nhưng **MẤT entry manifest** (đo thật: **18.500 file ảnh nhưng manifest chỉ còn 1.369 entry**) | retry 10 lần (`os.replace` + `time.sleep` tăng dần) + fallback ghi trực tiếp |
+| 13 | `ai/media_store.py` | không có cách khôi phục file "mồ côi" | thêm `media_store.reindex()` — quét lại `data/media/` và dựng manifest từ đĩa. **Đã dùng để khôi phục 35.445 entry mồ côi** (4.087 → 39.532) |
+| 14 | `ai/openclaw_web_ai.py:192` | `r.get("result")` khi `r` là **list** ⇒ `AttributeError` | kiểm `isinstance(r, dict)` |
+| 15 | `ai/media_store.py` | manifest 39.532 entry (~20 MB JSON) ⇒ mỗi lần lưu 1 media **ghi lại toàn bộ manifest** = 2.6 GB I/O/vòng ngày ⇒ **treo** | cache index trong RAM + ghi theo lô (≥100 entry hoặc ≥15 s) + `flush_index()` |
+| 16 | `ai/tts_generator.py` | TTS 429 ⇒ thử **tới 90 key**, mỗi key chờ pace ⇒ **treo pipeline** (tái hiện bằng `faulthandler`) | `MAX_TTS_KEY_TRY=4` + tracker quota bền theo ngày + xoay 5 model TTS |
+| 17 | `ai/gemini_safe.py` | 429 RPM khoá **cả account** (9-10 key) ⇒ 6 luồng hết key | `AccountPool.lock_key()` — khoá riêng 1 key |
+| 18 | `ai/gemini_safe.py::pace()` | nghỉ cố định 3.5-5 s ⇒ lãng phí 6-8× khi có 47 key | **pace thích ứng**: `min(5, max(0.8, 60/(số_project × 11)))` = 0.9 s |
+| 19 | `api/gemini_safe.py::classify_response()` | quota **NGÀY** (20/project/model) có message *"Please retry in 13h33m"* **không chứa "perday"** ⇒ phân loại nhầm `QUOTA_RATE` ⇒ retry 12×65s **treo** | nhận diện `"please retry in Nh"` + `"limit: 0"` → `QUOTA_DAILY` |
+| 20 | `api/gemini_safe.py::_try_models` | 1 model hết quota ⇒ vô hiệu hoá **cả 8-10 key** của account | thử **model khác** trước (mỗi model = 1 quota bucket riêng) |
+| 21 | `api/gemini_safe.py::request()` | biến `model` không tồn tại trong `request()` ⇒ `NameError` | dùng `res.get("model")` |
+| 22 | `ai/tts_generator.py` | Gemini TTS đứng đầu cascade ⇒ mỗi câu mất 7.4 s chỉ để nhận 429 | đảo: `cache` → **edge-tts** (0.6-4.3 s, 11/11 ngôn ngữ) → Gemini → gTTS → pyttsx3 |
+| 23 | `settings.json` | `media.image_providers` vẫn là `["web","dict","placeholder"]` ⇒ mỗi ngày mất ~60 s chờ tầng Web AI | đặt `["dict","placeholder"]` (tầng `web` bật tay sau khi cài addon) |
+| 24 | `ai/pipeline_media.py::run_audio_stage` | tạo file mp3 nhưng **không gắn `v["audio_ref"]`** ⇒ app không tìm thấy audio của từ | gắn `v["audio_ref"]` + `lesson["media"]["vocab_audio"]`; thêm `tools/link_media_refs.py` để gắn lại cho các ngày đã render (khớp theo tên file `word_<idx>_` / `audio_<kind>_<idx>_`, chuẩn hoá lang về slug vì manifest có cả `Tiếng Trung` lẫn `tiếng_trung`) |
+| 25 | `ai/dictionary_image.py` | **36 request Wikimedia đồng thời** (6 luồng pipeline × 6 worker ảnh) ⇒ bị rate-limit ⇒ **96% ảnh thành placeholder** (chỉ 1.147/30.116 ảnh thật) | thêm throttle toàn tiến trình: `Semaphore(4)` + tối thiểu **0.2 s** giữa 2 request + retry 429/403/503 với backoff. Đo lại: **10/10 ảnh thật trong 4.3 s** |
+| 26 | `ai/pipeline_media.py::run_media_verify_stage` | ngày bị kill giữa chừng để lại checkpoint "done" nhưng **không có file media** ⇒ không bao giờ được sinh lại | verify luôn chạy (bỏ early-return) + đếm từ thiếu `image_ref`/`audio_ref` ⇒ đánh dấu stage images/audio = **PENDING** để vòng quét sau sinh bù. Thêm `tools/replace_placeholders.py` để đánh dấu lại toàn bộ ngày có placeholder |
+| 27 | `ai/dictionary_image.py` | **Wikimedia chặn IP sau ~30.000 request** (429 cho MỌI request) ⇒ mỗi từ mất 10 s chỉ để nhận 429 ⇒ nuốt hết thời gian pipeline | 3 lớp: (1) throttle toàn tiến trình `Semaphore(8)` + 0.1 s, (2) **cache bền** `data/media/image_cache.json` (cache cả kết quả "không có ảnh"), (3) **circuit breaker** 5×429 ⇒ khoá 15 phút + `WORD_DEADLINE_SECONDS=10` |
+| 28 | `ai/dictionary_image.py` | tìm ảnh theo **nghĩa tiếng Việt** với khớp "prefix" ⇒ "chạy" khớp "Chay Bowes" (cầu thủ) ⇒ ảnh sai nghĩa | nhánh nghĩa VN chỉ nhận khớp **`exact`** |
+
+**Circuit breaker tầng Web AI** (`ai/web_ai_bridge.py`): khi không cài addon / thiếu chromedriver, mỗi ngày mất **~60 s** chờ timeout. Sau **3 lần thất bại liên tiếp** → tạm vô hiệu tầng Web AI trong **30 phút** (có thể thử lại). Tự động bật lại khi hết thời gian chờ.
+
+> **QUYẾT ĐỊNH**: `media.image_providers` **mặc định = `["dict", "placeholder"]`** — tầng `web` **tắt mặc định** vì cần Chrome addon cài thủ công; bật lại sau khi cài addon (hướng dẫn trong `tools/README.md` + SKILL mục 5).
+
+---
+
+### 🔴 PHÁT HIỆN THEN CHỐT — QUOTA TTS THẬT CỦA GEMINI (10/ngày/key/model)
+
+API trả về (đo 2026-10-21 lúc 23:47):
+
+```
+quotaId:          GenerateRequestsPerDayPerProjectPerModel-FreeTier
+quotaDimensions:  {location: global, model: gemini-3.8-flash-tts}
+quotaValue:       10
+"Please retry in 14h8m43s"
+```
+
+⇒ **10 request/ngày / MỖI KEY / MỖI MODEL** — hạn mứn **NGÀY**, không phải RPM.
+
+| Hạng mục | Số |
+|---|---|
+| Model TTS dùng được | **5** (`3.8-flash-tts`, `3.8-flash-lite-tts`, `3.1-flash-tts-preview`, `2.5-flash-preview-tts`, `2.5-pro-preview-tts`) |
+| Sức chứa thực tế | 10 × 5 × ~47 key ≈ **2.350 file TTS/ngày** (dùng 1 model ⇒ chỉ 470/ngày) |
+| Quota reset | **0h00 theo giờ Google** |
+
+**⇒ Thay đổi thiết kế bắt buộc:**
+1. `ai/tts_generator.py` xoay **nhiều model TTS** (mỗi model hạn mức riêng) + sắp theo model còn nhiều quota nhất.
+2. Tracker quota **bền theo ngày**: `data/tts_quota.json` = `{date, used:{"<keyhash>|<model>": n}}`.
+3. Hết quota → stage audio đánh dấu **PENDING** (không phải `done`) ⇒ chạy lại ngày sau, không bỏ sót.
+4. `MAX_TTS_KEY_TRY = 4` — trước đây thử **tới 90 key** × pace ⇒ **treo cả pipeline** (đã tái hiện bằng `faulthandler`).
+5. Cooldown key sau 429 = **300 s** (quota là NGÀY ⇒ 60 s không giúp).
+
+**Bài học**: quota Gemini free tier có **2 tầng** — RPM (15/phút) cho text, và **RPD theo (project, model)** cho TTS. Tầng RPD mới là thứ giới hạn thật sự khi sinh hàng loạt.
+
+---
+
+### 🔴 QUOTA TEXT CŨNG LÀ **20/NGÀY/PROJECT/MODEL** (không phải 15 RPM)
+
+Đo lúc 00:25 (sau khi đã dùng hết quota ngày):
+
+```
+quotaMetric:   generativelanguage.googleapis.com/generate_content_free_tier_requests
+quotaValue:    20
+quotaDimensions: {location: global, model: gemini-3.8-flash}
+"Please retry in 13h33m50s"
+```
+
+**Hệ quả nghiêm trọng:** message **KHÔNG chứa chữ "perday"** ⇒ `classify_response()` phân loại thành `QUOTA_RATE` (tạm thời) ⇒ **retry 12 lần × 65 s ⇒ treo pipeline** thay vì đánh dấu hết quota.
+
+**Sửa (3 điểm):**
+1. `classify_response()` nhận diện `"please retry in Nh"` (N ≥ 0.25 giờ) và `"limit: 0"` → `QUOTA_DAILY`.
+2. **Mỗi model là một "quota bucket" RIÊNG** ⇒ khi 1 model hết quota phải **thử model khác TRƯỚC khi đổi key** (nếu không sẽ vô hiệu hoá 8-10 key của account chỉ vì 1 model hết quota).
+3. `pace()` tính theo **số PROJECT (account)** khả dụng, không phải số key:
+   `interval = min(5, max(0.8, 60/(n_project × 11)))` → 5 project ⇒ 0.9 s/lần (≤ 11 RPM/project).
+
+**Cấu trúc pool key thật** (đo): 90 key = **10 `project_id` × 9 account**, mỗi (account, project) đúng 1 key.
+
+| Hạng mục | Số |
+|---|---|
+| Project | 10 (mỗi project có 9 key, 1/account) |
+| Model text dùng được | 10 (thêm mới sau khi đo) |
+| **Sức chứa text/ngày** | 10 × 10 × 20 = **2.000 call/ngày** (thực ~1.200 vì ~1/3 key chết) |
+| ⇒ 3.010 ngày cần dialogue | **~2-3 ngày chạy nền** (pipeline tự resume) |
+
+**Model chain mới** (`settings.json → ai.model_priority`): `gemini-3.6-flash` · `gemini-3.5-flash` · `gemini-flash-lite-latest` · `gemini-3.7-flash` · `gemini-3.1-pro-preview` · `gemini-4-argon` · `gemini-pro-latest` · `gemini-flash-latest` · `gemini-omni-1.1-flash` · `gemini-3.8-flash`
+> `gemini-2.5-flash` / `gemini-2.5-pro` → **404** *"no longer available to new users"*. `gemini-3.8-flash-lite` → **404**.
+
+---
+
+### 🔊 TTS — ĐẢO THỨ TỰ CASCADE (edge-tts lên đầu)
+
+Đo thực tế (2026-10-21, 11 ngôn ngữ):
+
+| Engine | Kết quả | Thời gian/file |
+|---|---|---|
+| **edge-tts** | ✅ **11/11 ngôn ngữ** | **0.6-4.3 s** |
+| **gTTS** | ✅ 11/11 | 0.3 s |
+| Gemini TTS | ✅ nhưng **quota 10/ngày/key/model** | 429 + 7.4 s lãng phí/câu |
+| pyttsx3 | ⚠️ máy này chỉ có en-US×2 + ja-JP×1 | — |
+
+⇒ Cascade mới: `cache` → **edge-tts** → Gemini TTS → gTTS → pyttsx3.
+> Trước đó Gemini TTS đứng đầu ⇒ mỗi câu mất 7.4 s chỉ để nhận 429 rồi mới rơi xuống edge-tts (nhanh gấp 10-20×).
+
+---
+
+### 🎨 Chuỗi nguồn ảnh (thực tế, đã kiểm chứng)
+
+| Tầng | Nguồn | Trạng thái | Ghi chú |
+|---|---|---|---|
+| T1 | Gemini native image | ❌ `limit: 0` free tier | code giữ lại, dùng khi có key trả phí |
+| T2a | Chrome addon (Gemini/ChatGPT/Copilot) | Phase 4 | giữ `<img>`, tải về qua local bridge |
+| T2b | Selenium | Phase 4 | anti-detect, profile riêng |
+| T2c | OpenClaw browser CLI | Phase 4 | cần profile `chrome` đã pair |
+| **T3a** | **Openverse** (`api.openverse.org`) | ⚠️ **không ổn định** (timeout 60s) | chỉ dùng fallback cuối, timeout 12s |
+| **T3b** | **Wikipedia/Wiktionary `pageimages`** | ✅ **đang chạy** | 0 key, 0.5-2.2s/ảnh, CC-BY-SA + attribution |
+| **T3c** | **Wikimedia Commons search** | ✅ **đang chạy** | tìm thẳng trong kho ảnh (namespace 6) |
+| T4 | Placeholder (chữ cái đầu) | ✅ luôn có | 616 byte, không để trống |
+
+**Lọc độ liên quan (tránh ảnh sai nghĩa):** `title_matches()` → `exact` / `prefix` / `word` / không khớp; bỏ trang định nghĩa + trang "Radical N"; `confidence` lưu vào manifest (`high` / `medium` / `low`).
+
+---
+
+### 🔊 TTS — đặc tả 6 chặng
+
+| Chặng | Đơn vị đọc | edge-tts rate | Số file/từ |
+|---|---|---|---|
+| Vỡ lòng | từng ký tự/âm lẻ | `-45%` | 2 (normal+slow) |
+| Ghép âm | âm tiết | `-30%` | 2 |
+| Sơ cấp | từ + mẫu câu ngắn | `-15%` | 2 |
+| Trung cấp | câu đầy đủ | `+0%` | 1 |
+| Cao cấp | đoạn 3-5 câu | `-5%` | 1 |
+| Bản xứ | thành ngữ + hội thoại | `+0%` | 1 + từng lượt |
+
+Cascade: `cache mp3` → **Gemini TTS** (WAV) → `edge-tts` → `gTTS` → `pyttsx3` (**chỉ khi có voice khớp locale** — máy này chỉ có en-US×2 + ja-JP×1 ⇒ 8/10 ngôn ngữ KHÔNG có giọng offline ⇒ **tuyệt đối không fallback sang giọng Anh**).
+
+---
+
+### 🤖 Orchestrator tự trị (`ai/pipeline.py`)
+
+```bash
+python -m ai.pipeline --lang japanese --full      # 1 ngôn ngữ
+python -m ai.pipeline --all --full --workers 6     # 8 ngôn ngữ, 6 luồng
+python -m ai.pipeline --all --mode media --full    # GIỮ content, chỉ thêm media
+python -m ai.pipeline --lang tiếng_anh --status     # xem trạng thái + DoD
+python -m ai.pipeline --lang tiếng_anh --dry-run   # kế hoạch, 0 call
+```
+
+- **Stage**: `profile → backbone → plan` (global) · `content → quiz_ab → quiz_cd → images → audio → dialogue → media_verify` (mỗi ngày)
+- **Checkpoint** từng stage ⇒ dừng giữa chừng chạy lại là tiếp tục
+- **Budget bền** 3 loại: `call` (1200/ngày) · `ảnh` (60/ngày) · `TTS` (3000/ngày) — TTS tách riêng vì khác quota metric
+- **DoD** 13 check boolean ⇒ `progress.json.pipeline.definition_of_done.met`
+- **Chế độ `media`**: giữ nguyên content/quiz sẵn có, chỉ thêm media (tiết kiệm ~8.000 call)
+- **Xử lý ngày song song** (`--workers N`): mỗi ngày độc lập, chỉ `save_course` có lock
+
+**Chính sách tự quyết (17 tình huống):** model 404 → dead list · 403 account → blocklist vĩnh viễn · 429 Daily → xoay key rồi chờ quota · JSON cắt → retry → split → salvage → `deferred_days` → đi tiếp · mất mạng → thoát mềm code 75 · đĩa đầy → dừng code 74 · hết key → code 78.
+
+---
+
+### 🌐 Web app (Phase 7)
+
+- `web/script.js`: nạp `data/media/index.json` (lazy), render **ảnh minh họa + credit**, **IPA + pos badge**, **khẩu hình phát âm**, **common_mistakes + mini_quiz**, **khối hội thoại** (từng lượt + audio + cultural_note)
+- `web/style.css`: `.media-img-wrap`, `.media-audio`, `.vocab-ipa`, `.pos-badge`, `.phonetic-note`, `.mistake-box`, `.dialogue-box/turn/speaker/culture`
+- `web/index.html` + `web/manifest.json`: PWA thật (2 icon PNG)
+- `api/github_sync.py`: `full_sync` upload `data/media/<lang>/` **theo `media.sync_langs`** (chọn lọc) + manifest
+
+---
+
+### 🧪 Test (Phase 9)
+
+- Tách **FAST** (mặc định, < 60s, bỏ qua section [11]) và **SLOW** (`--slow`, ~10 phút, sinh 700 ngày thật)
+- Thêm section **[24]** Media Schema v4 & Store · **[25]** Image Pipeline (mock) · **[26]** TTS Config & Generator · **[27]** Dictionary Image helpers · **[28]** Pipeline Orchestrator (Budget/DoD/Checkpoint/Log)
+- Tổng: **67 → 79 test**
+
+---
+
+### 📚 Skill & Rule mới (trong `VocabularyApp/.agents/`)
+
+- `skills/vocab_ai_media/SKILL.md` — 9 mục: Gemini native image · bộ lọc 6 lớp · aHash · addon MV3 · Selenium anti-detect · **OpenClaw CLI 3 blocker** · TTS cascade · bảng voice 11 ngôn ngữ · tham chiếu nhanh
+- `rules/vocab_ai_content_rules.md` — schema additive-only · migration dirty-flag · token/JSON truncation · chuỗi media 5 tầng · TTS theo 6 chặng · budget · backup an toàn
+
+---
+
+### 📦 GÓI BÀN GIAO (đọc để tiếp tục phiên sau)
+
+| Tài liệu | Vai trò |
+|---|---|
+| **`docs/UPGRADE_16.md`** ⭐ | **BÀN GIAO CHÍNH** — bản đồ kiến trúc, toàn bộ lệnh, giới hạn thật đã đo (quota Gemini 20/ngày/project/model · ảnh `limit: 0` · Wikimedia IP block · bằng chứng ToS · OpenClaw cần pair lại), 28 bug đã sửa, **danh sách việc còn lại** |
+| `.agents/skills/vocab_ai_media/SKILL.md` | 12 mục kiến thức media (đọc TRƯỚC khi sửa media) |
+| `.agents/rules/vocab_ai_content_rules.md` | 11 mục quy tắc nội dung (schema additive, migration 2 tầng, budget, attribution) |
+| `tools/README.md` | 12 script chẩn đoán/verify + kỳ vọng output |
+| `ai/pipeline_log.py::EVENTS` | Danh sách event log chuẩn |
+
+**Kết quả kiểm chứng cuối (22/10/2026):**
+```
+test_ai_rich.py            → 79/79 PASS
+verify_all_native_courses  → 27/27 PASS
+tools/verify_p0_fixes.py   → 14/14 PASS   (tự tái hiện 14 lỗi P0)
+tools/verify_no_rewrite.py → PASS        (8 course.json KHÔNG bị ghi lại khi đọc)
+py_compile                 → 44/44 file OK
+node --check (web + addon) → OK
+GUI smoke test             → TỪ VỰNG · NGỮ PHÁP · HỘI THOẠI · ẢNH · AUDIO · IPA · TRẮC NGHIỆM
+```
+
+**Việc còn lại (xếp theo ưu tiên — xem `docs/UPGRADE_16.md` mục 7):**
+1. `python -m ai.pipeline --all --mode enrich --full --allow-degraded --workers 4` → có **IPA thật + khẩu hình + lỗi sai + mini_quiz + dialogue ngắn** (~2 ngày quota)
+2. Nối `ai/srs.py` (SM-2, 15/15 test) vào GUI: bảng `review_state`, nút Again/Hard/Good/Easy, hàng đợi "đến hạn", streak, thống kê (`App.update_stats()` hiện là `pass`)
+3. Nối `ai/evidence.py` (dẫn chứng, 7/7 test) vào pipeline + render khối "📚 Nguồn"
+4. Tách 1 call AI riêng cho grammar enrichment (Gemini **loại bỏ** optional nested-array khi response lớn ⇒ `common_mistakes`/`mini_quiz` rỗng)
+5. Git PAT: cần **BẠN** revoke token tại https://github.com/settings/tokens rồi chạy:
+   `git filter-repo --path GravityCode/VocabularyApp/settings.json --invert-paths`
+   (đã untrack `data/` + `settings.json` + `__pycache__`, file vẫn còn trên đĩa)
+6. OpenClaw: cần **BẠN** chạy `openclaw.cmd browser extension install` rồi bấm icon extension trong Chrome "Profile 3" (thiếu native-messaging host `com.openclaw.browser_relay`)
+
+---
+
 
 ### ⚙️ Cài Đặt Model AI, Quản Lý Thứ Tự Ưu Tiên & Tự Động Khám Phá / Benchmark (Đồng Bộ Cơ Chế AskCpl) — HOÀN THÀNH ✅
 
@@ -44,6 +423,14 @@
 | `VocabApp.py` | Tạo `ModelSettingsDialog`, thêm nút cài đặt vào `CourseGenerationDialog` và `SettingsSyncTab`, log danh sách model active. |
 | `test_ai_rich.py` | Bổ sung Test Section [23] kiểm thử Model Priority, Coordinator và Fallback. |
 | `projectLog.md` | Ghi nhận nhật ký Update 15. |
+
+---
+
+## 📋 Cập nhật trước đó — 2026-09-05 (Update 15)
+
+### ⚙️ Cài Đặt Model AI, Quản Lý Thứ Tự Ưu Tiên & Tự Động Khám Phá / Benchmark (Đồng Bộ Cơ Chế AskCpl) — HOÀN THÀNH ✅
+
+*(Xem bảng file đã sửa ở cuối mục này.)*
 
 ---
 

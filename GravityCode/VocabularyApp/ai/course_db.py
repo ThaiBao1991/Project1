@@ -7,24 +7,35 @@ Ghi file đều dùng kiểu atomic (tmp + os.replace) để không hỏng dữ 
 """
 
 import json
+
+from ai.paths import lang_slug
 import os
+import threading
 from datetime import datetime
+
+from ai.media_schema import (
+    COURSE_FORMAT_VERSION,
+    LEGACY_FORMAT_VERSION,
+    apply_v4_defaults_in_memory,
+)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 COURSES_DIR = os.path.join(BASE_DIR, "data", "ai_courses")
 
+# Khoá ghi file — pipeline chạy nhiều ngày SONG SONG, mỗi ngày ghi course.json
+# ⇒ cần serialize để không ghi đè lẫn nhau.
+_WRITE_LOCK = threading.RLock()
+
 
 def _atomic_write(path: str, data: dict):
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    tmp = path + ".tmp"
-    with open(tmp, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
-    os.replace(tmp, path)
+    with _WRITE_LOCK:
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        tmp = path + ".tmp"
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        os.replace(tmp, path)
 
 
-def lang_slug(language: str) -> str:
-    """'Tiếng Nhật' → 'tiếng_nhật' (khớp quy tắc đặt tên file của database.py)."""
-    return (language or "").strip().lower().replace(" ", "_")
 
 
 def course_dir(language: str) -> str:
@@ -41,15 +52,34 @@ def progress_path(language: str) -> str:
 
 # ─── Course ────────────────────────────────────────────────────────────────────
 
-def get_course(language: str):
+def get_course(language: str, *, apply_v4: bool = True, persist: bool = None):
     """Trả về dict khóa học hoặc None nếu chưa có.
-    Tự migrate định dạng cũ (grammar=dict, quiz=list) sang mới."""
+
+    Migration 2 tầng:
+      • TẦNG A (cấu trúc): grammar dict→list, quiz list→dict, chuẩn hoá level
+        → GHI ĐĨA (giữ nguyên hành vi cũ).
+      • TẦNG B (v4 mềm): ipa, pos, example_target, example_vi, dialogue, media
+        → chỉ setdefault trong RAM, KHÔNG ghi đĩa.
+
+    Lý do Tầng B không ghi đĩa: 8 file course.json = 135 MB đang được track git.
+    Backfill đầy đủ sẽ tạo diff ~27 MB → blob git mới vĩnh viễn, không thu hồi
+    được, mà không đổi lại giá trị gì (app mới đã có default runtime).
+
+    Args:
+        apply_v4: bật lớp soft-default v4 trong bộ nhớ (mặc định True).
+        persist:  None = auto (chỉ ghi khi thực sự thay đổi cấu trúc)
+                  True  = ép ghi
+                  False = không ghi (chế độ chỉ-đọc)
+    """
     path = course_path(language)
     if not os.path.exists(path):
         return None
     try:
-        with open(path, "r", encoding="utf-8") as f:
-            course = json.load(f)
+        # Đọc cũng phải nằm trong khoá: trên Windows, os.replace() sẽ FAIL
+        # (Access is denied) nếu đích đang được mở để đọc ở thread khác.
+        with _WRITE_LOCK:
+            with open(path, "r", encoding="utf-8") as f:
+                course = json.load(f)
     except Exception:
         return None
     migrated = False
@@ -92,14 +122,61 @@ def get_course(language: str):
             elif not curr_lvl and course.get("level"):
                 lesson["level"] = course["level"]
                 migrated = True
-    if migrated:
+
+        # ── TẦNG B: soft-default v4 — bơm vào RAM, KHÔNG set `migrated` ──
+        if apply_v4:
+            apply_v4_defaults_in_memory(lesson)
+
+    # format_version: KHÔNG bump khi chỉ đọc.
+    if course.get("format_version") is None:
+        course["format_version"] = LEGACY_FORMAT_VERSION
+    course.setdefault("media_manifest", "data/media/index.json")
+
+    if migrated and persist is not False:
         save_course(language, course)
     return course
 
 
-def save_course(language: str, course: dict):
+def migrate_course(language: str, to_version: int = COURSE_FORMAT_VERSION,
+                   backfill: bool = False, log_fn=print) -> dict:
+    """Nâng cấp 1 khóa học lên version đích.
+
+    backfill=False (mặc định): chỉ đánh dấu version, KHÔNG ghi lại 135 MB.
+    backfill=True: ghi đầy đủ field v4 — dùng khi thực sự cần.
+    """
+    course = get_course(language, apply_v4=True, persist=False)
+    if not course:
+        return {"ok": False, "reason": "not_found", "language": language}
+    if not backfill:
+        course["format_version"] = to_version
+        save_course(language, course)
+        log_fn(f"✅ {language}: đánh dấu format_version={to_version} (không backfill)")
+        return {"ok": True, "written": True, "backfilled": False,
+                "days": len(course.get("days", []))}
+    for lesson in course.get("days", []):
+        apply_v4_defaults_in_memory(lesson)
+        lesson["format_version"] = to_version
+    course["format_version"] = to_version
+    save_course(language, course)
+    log_fn(f"✅ {language}: backfill đầy đủ field v4 cho "
+           f"{len(course.get('days', []))} ngày")
+    return {"ok": True, "written": True, "backfilled": True,
+            "days": len(course.get("days", []))}
+
+
+def save_course(language: str, course: dict, backup: bool = False):
+    """Ghi khóa học (atomic).
+
+    backup=True → tạo bản .bak1..bak5 trước khi ghi (chỉ dùng khi thao tác
+    nguy hiểm như force_new / migrate). Mặc định KHÔNG backup vì 8 file
+    21 MB × 5 bản = ~840 MB không cần thiết cho mỗi lần lưu.
+    """
     course["updated_at"] = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
-    _atomic_write(course_path(language), course)
+    path = course_path(language)
+    if backup:
+        from ai.pipeline_store import rotate_backup
+        rotate_backup(path)
+    _atomic_write(path, course)
 
 
 def new_course(language: str, vocabs: list, words_per_day: int) -> dict:
@@ -160,8 +237,9 @@ def get_progress(language: str) -> dict:
     if not os.path.exists(path):
         return json.loads(json.dumps(DEFAULT_PROGRESS))
     try:
-        with open(path, "r", encoding="utf-8") as f:
-            p = json.load(f)
+        with _WRITE_LOCK:
+            with open(path, "r", encoding="utf-8") as f:
+                p = json.load(f)
         base = json.loads(json.dumps(DEFAULT_PROGRESS))
         base.update(p if isinstance(p, dict) else {})
         return base
@@ -194,3 +272,30 @@ def mark_day_completed(language: str, day: int, score: int = None):
 
 def reset_progress(language: str):
     save_progress(language, json.loads(json.dumps(DEFAULT_PROGRESS)))
+
+
+# ─── CLI: python -m ai.course_db --migrate "Tiếng Anh" [--backfill] ──────────
+if __name__ == "__main__":
+    import argparse
+    import sys
+
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
+    ap = argparse.ArgumentParser(description="Công cụ bảo trì khóa học AI")
+    ap.add_argument("--migrate", metavar="LANGUAGE", help="Tên ngôn ngữ cần migrate")
+    ap.add_argument("--backfill", action="store_true",
+                    help="Ghi đầy đủ field v4 xuống đĩa (mặc định: chỉ đánh dấu version)")
+    ap.add_argument("--list", action="store_true", help="Liệt kê khóa học có sẵn")
+    args = ap.parse_args()
+
+    if args.list:
+        for name in sorted(os.listdir(COURSES_DIR)) if os.path.isdir(COURSES_DIR) else []:
+            if os.path.isfile(os.path.join(COURSES_DIR, name, "course.json")):
+                print(" -", name)
+    if args.migrate:
+        r = migrate_course(args.migrate, backfill=args.backfill)
+        print(r)
+        sys.exit(0 if r.get("ok") else 1)
+    if not args.list:
+        ap.print_help()

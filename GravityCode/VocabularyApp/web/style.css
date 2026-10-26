@@ -8,6 +8,7 @@
     --accent-hover: #9965f4;
     --border: #383838;
     --success: #03dac6;
+    --danger: #cf6679;
 }
 
 * {
@@ -832,3 +833,148 @@ tr:last-child td {
     text-align: center;
 }
 
+
+/* ══════════════════════════════════════════════════════════════
+   MEDIA + V4 (ảnh minh họa · IPA · hội thoại · lỗi sai thường gặp)
+   ══════════════════════════════════════════════════════════════ */
+
+.media-img-wrap {
+    margin: 10px 0 8px;
+    max-width: 320px;
+}
+
+.media-img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    display: block;
+}
+
+.media-credit {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    line-height: 1.35;
+}
+
+.media-audio-row {
+    margin-top: 8px;
+}
+
+.media-audio {
+    width: 100%;
+    max-width: 340px;
+    height: 34px;
+    display: block;
+}
+
+.vocab-ipa {
+    font-family: "Segoe UI", sans-serif;
+    color: var(--accent);
+    font-size: 13px;
+    margin-top: 2px;
+}
+
+.pos-badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 1px 7px;
+    border-radius: 10px;
+    background: var(--card-bg-alt);
+    color: var(--text-muted);
+    margin-left: 6px;
+    vertical-align: middle;
+}
+
+.phonetic-note {
+    font-size: 13px;
+    color: #cfd8dc;
+    background: rgba(187, 134, 252, 0.08);
+    border-left: 3px solid var(--accent);
+    padding: 7px 10px;
+    border-radius: 0 8px 8px 0;
+    margin: 8px 0;
+    line-height: 1.5;
+}
+
+.mistake-box {
+    margin-top: 8px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: rgba(207, 102, 121, 0.08);
+    border-left: 3px solid var(--danger);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.mistake-wrong { color: var(--danger); }
+.mistake-right { color: var(--success); }
+
+.dialogue-box {
+    margin: 10px 0;
+    padding: 12px;
+    border-radius: 10px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+}
+
+.dialogue-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+}
+
+.dialogue-situation {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.dialogue-turn {
+    display: flex;
+    gap: 9px;
+    margin: 8px 0;
+    align-items: flex-start;
+}
+
+.dialogue-speaker {
+    flex: 0 0 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #121212;
+    font-weight: 700;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dialogue-line { flex: 1; min-width: 0; }
+
+.dialogue-target {
+    font-size: 15px;
+    line-height: 1.45;
+}
+
+.dialogue-tone {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 3px;
+}
+
+.dialogue-culture {
+    margin-top: 10px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: rgba(3, 218, 198, 0.08);
+    border-left: 3px solid var(--success);
+    font-size: 13px;
+    line-height: 1.5;
+}

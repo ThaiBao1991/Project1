@@ -1,0 +1,52 @@
+[
+  {
+    "day": 74,
+    "topic_id": "tuyen_khoang_dat_set_chuyen_dung_pha_men_tro_va_nung_sanh_dung_tich",
+    "topic": "Tuyển khoáng đất sét mịn, pha chế men tro xương và nung đồ sành chứa hóa chất",
+    "phase": "Gốm sứ, Thủy tinh Thô & Xi măng La Mã",
+    "kind": "extraction",
+    "estimated_minutes": 30,
+    "concrete_project": "Trích xuất quy trình khai thác và chế tác: Đất sét cao lanh Kaolin, Đất sét dẻo Ball clay, Bột thạch anh nghiền mịn, Men tro rơm rạ kiềm, Men tro gỗ cứng, Men fenspat trường thạch, Chum sành tráng men da lươn, Bình gốm nung mộc đựng nước, Nồi nấu kim loại bằng gốm chịu nhiệt, Hũ sành nút bấc bảo quản axit, Ống dẫn gốm chịu mài mòn, Gạch sành chịu hóa chất, Bàn xoay gốm truyền động bàn đạp, Dụng cụ gọt gọt cạo ba-via đất sét, Khuôn dập ép đất sét dã chiến.",
+    "materials": [],
+    "definition_of_done": [
+      "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào",
+      "Liệt kê đầy đủ 15 thực thể gốm sành, nguyên liệu và dụng cụ chế tác"
+    ],
+    "details": [
+      "Trích xuất đặc tính cơ lý, độ co ngót và nhiệt độ chịu lửa của từng loại đất sét",
+      "Trích xuất công thức phối chế men tro tự nhiên chống thấm axit và dung môi"
+    ],
+    "keywords": [
+      "đất sét kaolin",
+      "men tro tự nhiên",
+      "nung sành sứ",
+      "bình gốm chống thấm"
+    ],
+    "prerequisites": []
+  },
+  {
+    "day": 75,
+    "topic_id": "che_thoi_thuy_tinh_cat_thach_anh_va_tron_be_tong_pozzolana_bien",
+    "topic": "Chế tác thủy tinh thổi silicat cát biển và đúc bê tông Pozzolana chịu nước mặn",
+    "phase": "Gốm sứ, Thủy tinh Thô & Xi măng La Mã",
+    "kind": "extraction",
+    "estimated_minutes": 30,
+    "concrete_project": "Trích xuất công nghệ tinh chế và phối trộn: Cát thạch anh thô sàng lọc, Tro soda trích ly rong biển, Đá vôi nung CaO tinh khiết, Bột tro núi lửa Pozzolana, Tro xỉ lò than nghiền mịn, Thủy tinh kali oxit chịu nhiệt, Ống thổi thủy tinh thép rỗng, Khuôn đúc chai lọ thủy tinh bằng gỗ ướt, Bình cầu thủy tinh chưng cất, Bột thủy tinh làm kín mối nối, Vôi tôi Ca(OH)2 dạng hồ dẻo, Bê tông Pozzolana đông kết ngầm, Khối đá nhân tạo kè chắn sóng, Vữa trát bể nước chống thấm Pozzolana, Ống thoát nước vữa vôi thủy lực.",
+    "materials": [],
+    "definition_of_done": [
+      "Đúng bảng Markdown, không bỏ sót bất kỳ thực thể nào",
+      "Liệt kê đầy đủ 15 thực thể thủy tinh thô, vôi tôi và vữa pozzolana La Mã"
+    ],
+    "details": [
+      "Trích xuất tỷ lệ phối trộn cát thạch anh với trợ dung kiềm hạ điểm nóng chảy",
+      "Trích xuất phản ứng đóng rắn thủy lực và công thức bê tông pozzolana chịu nước mặn"
+    ],
+    "keywords": [
+      "thủy tinh silicat",
+      "ống thổi thủy tinh",
+      "bê tông pozzolana",
+      "vôi thủy lực"
+    ],
+    "prerequisites": []
+  }
+]

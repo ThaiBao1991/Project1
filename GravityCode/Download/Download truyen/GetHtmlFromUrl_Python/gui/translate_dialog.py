@@ -387,8 +387,20 @@ class TranslateDialog(QDialog):
         self.merge_worker: MergeWorker | None = None
         self.prc_worker: PrcWorker | None = None
 
+        self.settings = QSettings("Mkbyme", "GetHtmlFromUrl")
         self._build_ui()
         self._auto_load_keys()
+        self._restore_settings()
+
+    def _restore_settings(self):
+        """Khôi phục thư mục đã chọn lần trước từ QSettings"""
+        last_src = self.settings.value("translate/last_source_dir", "")
+        if last_src and os.path.exists(last_src) and not self.txt_source.text():
+            self.txt_source.setText(last_src)
+
+        last_dst = self.settings.value("translate/last_target_dir", "")
+        if last_dst and not self.txt_target.text():
+            self.txt_target.setText(last_dst)
 
     def _build_ui(self):
         layout = QVBoxLayout(self)
@@ -685,9 +697,11 @@ class TranslateDialog(QDialog):
             QMessageBox.warning(self, "Không tìm thấy", "Không tìm thấy API Key nào trong AskCpl settings.json.")
 
     def _on_browse_source(self):
-        folder = QFileDialog.getExistingDirectory(self, "Chọn thư mục chứa các file chương tiếng Trung")
+        last_dir = self.txt_source.text().strip() or self.settings.value("translate/last_source_dir", "")
+        folder = QFileDialog.getExistingDirectory(self, "Chọn thư mục chứa các file chương tiếng Trung", last_dir)
         if folder:
             self.txt_source.setText(folder)
+            self.settings.setValue("translate/last_source_dir", folder)
 
     def _on_split_source_file(self):
         """Mở dialog tách file gộp và tự động điền thư mục xuất vào ô nguồn."""
@@ -698,6 +712,7 @@ class TranslateDialog(QDialog):
         if dlg.exec():
             if dlg.result_output_dir and os.path.exists(dlg.result_output_dir):
                 self.txt_source.setText(dlg.result_output_dir)
+                self.settings.setValue("translate/last_source_dir", dlg.result_output_dir)
                 self._log(f"✂️ Đã chọn thư mục vừa tách chương: {dlg.result_output_dir}")
 
     def _on_source_changed(self, text: str):
@@ -719,6 +734,7 @@ class TranslateDialog(QDialog):
         # Auto set target to /dich
         target_path = os.path.join(src_path, "dich")
         self.txt_target.setText(target_path)
+        self.settings.setValue("translate/last_source_dir", src_path)
 
         # Scan files
         html_files = [
@@ -745,9 +761,11 @@ class TranslateDialog(QDialog):
         self._update_glossary_button_count()
 
     def _on_browse_target(self):
-        folder = QFileDialog.getExistingDirectory(self, "Chọn thư mục lưu bản dịch")
+        last_dir = self.txt_target.text().strip() or self.settings.value("translate/last_target_dir", "")
+        folder = QFileDialog.getExistingDirectory(self, "Chọn thư mục lưu bản dịch", last_dir)
         if folder:
             self.txt_target.setText(folder)
+            self.settings.setValue("translate/last_target_dir", folder)
             self._update_glossary_button_count()
 
     def _update_glossary_button_count(self):
@@ -786,6 +804,9 @@ class TranslateDialog(QDialog):
         if not src_dir or not os.path.exists(src_dir):
             QMessageBox.warning(self, "Cảnh báo", "Vui lòng chọn thư mục chứa các file chương tiếng Trung hợp lệ.")
             return
+
+        self.settings.setValue("translate/last_source_dir", src_dir)
+        self.settings.setValue("translate/last_target_dir", dst_dir)
 
         if os.path.isfile(src_dir):
             reply = QMessageBox.question(

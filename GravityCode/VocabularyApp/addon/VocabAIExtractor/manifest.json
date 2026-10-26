@@ -1,0 +1,48 @@
+{
+  "manifest_version": 3,
+  "name": "Vocab AI Extractor",
+  "version": "1.0.0",
+  "description": "Lấy nội dung bài học + hình ảnh minh họa từ Gemini/ChatGPT/Copilot/Grok/Claude/Perplexity/DeepSeek về app VocabularyApp.",
+  "permissions": ["storage", "activeTab", "scripting", "downloads", "unlimitedStorage"],
+  "host_permissions": [
+    "https://gemini.google.com/*",
+    "https://chatgpt.com/*",
+    "https://copilot.microsoft.com/*",
+    "https://*.bing.com/chat*",
+    "https://grok.com/*",
+    "https://claude.ai/*",
+    "https://www.perplexity.ai/*",
+    "https://chat.deepseek.com/*",
+    "http://127.0.0.1:5690/*",
+    "http://localhost:5690/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Vocab AI Extractor"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://gemini.google.com/*",
+        "https://chatgpt.com/*",
+        "https://copilot.microsoft.com/*",
+        "https://*.bing.com/chat*",
+        "https://grok.com/*",
+        "https://claude.ai/*",
+        "https://www.perplexity.ai/*",
+        "https://chat.deepseek.com/*"
+      ],
+      "js": ["content_script.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
