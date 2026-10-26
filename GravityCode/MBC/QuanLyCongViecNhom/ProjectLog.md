@@ -3,12 +3,36 @@
 ## Thông Tin Dự Án
 - **Tên dự án:** Ứng dụng Web Quản Lý Công Việc & Nhân Sự Toàn Diện (Gantt Timeline & Performance Points)
 - **Vị trí:** `c:\Users\12953 Bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\MBC\QuanLyCongViecNhom`
-- **Phiên bản:** v5.4.0 (Khớp 100% 63/63 Công Việc Hiển Thị & Nút [Toàn Bộ]; Cải Tiến Toàn Diện Báo Cáo Excel: Cột Dự Án Chuẩn, Bổ Sung Người Giao Việc, Thể Loại, Nhật Ký 1-2-3, Hiện Trạng, Chống Đè Chữ Wraptext & Sắp Xếp 3 Cấp)
-- **Ngày cập nhật:** 14/10/2026.
+- **Phiên bản:** v5.5.0 (Thêm Tính Năng Xuất Excel Chuẩn Biểu Mẫu "Quản Lý Đối Ứng Chỉ Thị Nội Bộ P.KT - Năm 2026")
+- **Ngày cập nhật:** 26/10/2026.
 
 ---
 
 ## Nhật Ký Cập Nhật (Change Log)
+
+### Phiên Bản 5.5.0 (26/10/2026) - Xuất Excel Chuẩn Biểu Mẫu "Quản Lý Đối Ứng Chỉ Thị Nội Bộ P.KT - Năm 2026":
+
+1. **Khởi Tạo Chức Năng Xuất Excel Biểu Mẫu P.KT (`exportDoiUngChiThiExcel`):**
+   - **Tương thích chính xác biểu mẫu:** Khớp 100% cấu trúc, bố cục dòng tiêu đề, màu sắc header (`#E6B8B7`), tên sheet XML (`Nghiệp vụ chung`) theo file mẫu gốc: `FormMau/2. File quan ly doi ung chi thi noi bo P.Kiem Tra-nam 2026.xlsb`.
+   - **Cấu trúc 12 cột chuẩn:**
+     1. `Đối tượng`: Trích xuất từ `task.taskSource` (Giám đốc, Trưởng phòng, Mục tiêu năm, Nội bộ P.KT...).
+     2. `Đảm trách`: Người đang nhận việc (`task.empName`), tự động chuẩn hóa sang định dạng Mã NV + Tên (ví dụ: `12333 Sỹ`, `13011 Thanh`, `11466 Thảo`, `25762 Na`, `20301 Liễu`, `11533 Vũ`...).
+     3. `Chịu trách nhiệm`: Mặc định là **`12953 Bảo`** theo chỉ đạo.
+     4. `Nội dung`: Tên / nội dung chi tiết công việc kết hợp đầy đủ (`task.title: task.detail`).
+     5. `Ngày chỉ thị lần đầu`: Ngày bắt đầu công việc `dd/mm/yyyy`.
+     6. `Kỳ hạn yêu cầu`: Ngày hạn kế hoạch `dd/mm/yyyy`.
+     7. `Ngày hoàn tất`: Ngày hoàn thành thực tế (chỉ hiển thị ngày hoặc để trống nếu chưa xong).
+     8. `Tình trạng xử lý`: Chuẩn hóa mã trạng thái biểu mẫu (`HT DUNGHAN`, `HT TRUOCHAN`, `HT TREHAN`, `CHUADENHAN`, `TRE HAN`, `TAM DUNG`).
+     9. `Lý do thay đổi kỳ hạn`: Trích xuất từ `task.changeReason`.
+     10. `Note`: Lấy **nội dung nhật ký / ghi chú mới nhất** từ `statusLogs` hoặc `task.note`.
+     11. `Link dữ liệu`: Render hyperlink chữ **`XEM`** màu xanh dương đậm có gạch chân, click mở tài liệu trực tiếp.
+     12. `Nơi báo cáo`: Xác định cấp báo cáo (`Giám đốc`, `Trưởng Phòng`...) dựa trên nguồn việc `task.taskSource`.
+   - **Quy tắc sắp xếp:** Chuẩn hóa thứ tự 3 cấp: `Dự án chính => Người đảm trách => Tình trạng xử lý => Ngày bắt đầu`.
+   - **Giao diện người dùng (UI):**
+     + Thêm nút bấm tại **Menu Quản Trị (Admin)**: `Xuất Đối Ứng Chỉ Thị P.KT (Form 2026)`.
+     + Thêm nút bấm nổi bật tại **Modal Sao Lưu & Xuất Dữ Liệu**: `Xuất Đối Ứng Chỉ Thị P.KT (Form Mẫu 2026 .xls)`.
+
+---
 
 ### Phiên Bản 5.4.0 (14/10/2026) - Khớp 100% 63 Công Việc, Nút [Toàn Bộ] & Chuẩn Hóa Xuất Excel:
 

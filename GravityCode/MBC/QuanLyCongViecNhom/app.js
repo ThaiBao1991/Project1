@@ -5166,6 +5166,297 @@ function exportTasksDataToExcel() {
 }
 
 /**
+ * Xuất dữ liệu đối ứng chỉ thị nội bộ P.KT theo chuẩn Form mẫu 2026.
+ * (Tương thích với "FormMau/2. File quan ly doi ung chi thi noi bo P.Kiem Tra-nam 2026.xlsb")
+ */
+function exportDoiUngChiThiExcel() {
+  const today = new Date();
+  const todayStr = `${today.getDate().toString().padStart(2, '0')}/${(today.getMonth() + 1).toString().padStart(2, '0')}/${today.getFullYear()}`;
+  const todayStrCompact = `${today.getFullYear()}${String(today.getMonth() + 1).padStart(2, '0')}${String(today.getDate()).padStart(2, '0')}`;
+
+  // 12 Cột đúng chuẩn biểu mẫu:
+  const headers = [
+    'Đối tượng',
+    'Đảm trách',
+    'Chịu trách nhiệm',
+    'Nội dung',
+    'Ngày chỉ thị lần đầu',
+    'Kỳ hạn yêu cầu',
+    'Ngày hoàn tất',
+    'Tình trạng xử lý',
+    'Lý do thay đổi kỳ hạn',
+    'Note',
+    'Link dữ liệu',
+    'Nơi báo cáo'
+  ];
+
+  // Danh mục mã hóa tên NV theo mã số công ty (chuẩn Form mẫu)
+  const empCodeMap = {
+    'Phan Thanh Thái Bảo': '12953 Bảo',
+    'Thái Bảo': '12953 Bảo',
+    'Bảo': '12953 Bảo',
+    'Nguyễn Tấn Sỹ': '12333 Sỹ',
+    'Tấn Sỹ': '12333 Sỹ',
+    'Sỹ': '12333 Sỹ',
+    'Lê Cao Thanh': '13011 Thanh',
+    'Cao Thanh': '13011 Thanh',
+    'Thanh': '13011 Thanh',
+    'Nguyễn Quang Thảo': '11466 Thảo',
+    'Quang Thảo': '11466 Thảo',
+    'Thảo': '11466 Thảo',
+    'Phan Thùy Ni Na': '25762 Na',
+    'Ni Na': '25762 Na',
+    'Na': '25762 Na',
+    'Lê Thị Thu Liễu': '20301 Liễu',
+    'Thu Liễu': '20301 Liễu',
+    'Liễu': '20301 Liễu',
+    'Hoàng Tiến Vũ': '11533 Vũ',
+    'Tiến Vũ': '11533 Vũ',
+    'Vũ': '11533 Vũ'
+  };
+
+  const formatEmpCodeName = (name, id) => {
+    const trimmed = (name || '').trim();
+    if (empCodeMap[trimmed]) return empCodeMap[trimmed];
+    // Tìm thử họ tên một phần
+    for (const [k, v] of Object.entries(empCodeMap)) {
+      if (trimmed && (k.includes(trimmed) || trimmed.includes(k))) return v;
+    }
+    if (id && String(id).match(/^\d+/)) {
+      const parts = trimmed.split(' ');
+      const short = parts.length > 0 ? parts[parts.length - 1] : trimmed;
+      return `${id} ${short}`.trim();
+    }
+    return trimmed;
+  };
+
+  // Xác định tình trạng xử lý chuẩn biểu mẫu
+  const getDoiUngStatus = (task) => {
+    const st = (task.status || '').trim();
+    if (st === 'Tạm dừng' || st === 'Dừng dự án') return { text: 'TAM DUNG', cls: 'st-tamdung' };
+
+    const planEnd = typeof parseDate === 'function' ? parseDate(task.planEndDate) : new Date(task.planEndDate);
+    const actualEnd = typeof parseDate === 'function' ? parseDate(task.actualEndDate) : (task.actualEndDate ? new Date(task.actualEndDate) : null);
+
+    if (st.includes('Hoàn thành')) {
+      if (actualEnd && planEnd && !isNaN(actualEnd.getTime()) && !isNaN(planEnd.getTime())) {
+        const diffDays = Math.round((actualEnd.getTime() - planEnd.getTime()) / (1000 * 3600 * 24));
+        if (diffDays < 0) return { text: 'HT TRUOCHAN', cls: 'st-ht-truochan' };
+        if (diffDays === 0) return { text: 'HT DUNGHAN', cls: 'st-ht-dunghan' };
+        return { text: 'HT TREHAN', cls: 'st-ht-trehan' };
+      }
+      if (st.includes('trễ')) return { text: 'HT TREHAN', cls: 'st-ht-trehan' };
+      return { text: 'HT DUNGHAN', cls: 'st-ht-dunghan' };
+    }
+
+    if (planEnd && !isNaN(planEnd.getTime())) {
+      const todayZero = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      const planEndZero = new Date(planEnd.getFullYear(), planEnd.getMonth(), planEnd.getDate());
+      if (todayZero.getTime() > planEndZero.getTime()) {
+        return { text: 'TRE HAN', cls: 'st-trehan' };
+      }
+      return { text: 'CHUADENHAN', cls: 'st-chuadenhan' };
+    }
+    return { text: 'CHUADENHAN', cls: 'st-chuadenhan' };
+  };
+
+  // Sắp xếp: Dự án chính => Người (Đảm trách) => Tình trạng => Ngày bắt đầu
+  const tasksToExport = (appData.tasks || []);
+  const statusOrderMap = { 'Đang làm': 1, 'Đang làm (Trễ hạn)': 2, 'Tạm dừng': 3, 'Hoàn thành': 4, 'Hoàn thành trễ': 5 };
+  const sortedTasks = [...tasksToExport];
+  sortedTasks.sort((a, b) => {
+    const projA = (a.mainTaskId || a.mainTaskTitle || '').trim();
+    const projB = (b.mainTaskId || b.mainTaskTitle || '').trim();
+    if (projA && !projB) return -1;
+    if (!projA && projB) return 1;
+    if (projA !== projB) return projA.localeCompare(projB, 'vi', { numeric: true, sensitivity: 'base' });
+
+    const empA = (a.empName || '').trim();
+    const empB = (b.empName || '').trim();
+    if (empA !== empB) return empA.localeCompare(empB, 'vi', { sensitivity: 'base' });
+
+    const effA = typeof getTaskEffectiveStatus === 'function' ? getTaskEffectiveStatus(a, today) : a.status;
+    const effB = typeof getTaskEffectiveStatus === 'function' ? getTaskEffectiveStatus(b, today) : b.status;
+    const ordA = statusOrderMap[effA] || 99;
+    const ordB = statusOrderMap[effB] || 99;
+    if (ordA !== ordB) return ordA - ordB;
+
+    const da = (typeof parseDate === 'function' ? parseDate(a.startDate) : new Date(a.startDate)) || new Date(0);
+    const db = (typeof parseDate === 'function' ? parseDate(b.startDate) : new Date(b.startDate)) || new Date(0);
+    return da.getTime() - db.getTime();
+  });
+
+  // Map dữ liệu
+  const rows = sortedTasks.map(t => {
+    // 1. Đối tượng (Nội dung liên quan: Giám đốc, Trưởng phòng, Mục tiêu năm, Nội bộ P.KT...)
+    const doiTuong = t.taskSource || 'Nội bộ P.KT';
+
+    // 2. Đảm trách (Người đang nhận việc)
+    const damTrach = formatEmpCodeName(t.empName, t.empId);
+
+    // 3. Chịu trách nhiệm (Mặc định là 12953 Bảo)
+    const chiuTrachNhiem = '12953 Bảo';
+
+    // 4. Nội dung
+    let noiDung = '';
+    if (t.title && t.detail && t.title.trim() !== t.detail.trim()) {
+      noiDung = `${t.title}: ${t.detail}`;
+    } else {
+      noiDung = t.detail || t.title || '';
+    }
+
+    // 5. Ngày chỉ thị lần đầu
+    const ngayChiThi = (typeof formatVnDate === 'function' ? formatVnDate(t.startDate) : t.startDate) || '';
+
+    // 6. Kỳ hạn yêu cầu
+    const kyHan = (typeof formatVnDate === 'function' ? formatVnDate(t.planEndDate) : t.planEndDate) || '';
+
+    // 7. Ngày hoàn tất
+    const actualEndStr = (t.actualEndDate && String(t.actualEndDate).trim() !== 'Chưa hoàn thành')
+      ? ((typeof formatVnDate === 'function' ? formatVnDate(t.actualEndDate) : t.actualEndDate) || '')
+      : '';
+
+    // 8. Tình trạng xử lý
+    const stObj = getDoiUngStatus(t);
+
+    // 9. Lý do thay đổi kỳ hạn
+    const lyDo = t.changeReason || '';
+
+    // 10. Note: Lấy ghi chú / nhật ký mới nhất
+    const logs = Array.isArray(t.statusLogs) ? [...t.statusLogs].sort((a, b) => (a.date || '').localeCompare(b.date || '')) : [];
+    const latestLog = logs.length > 0 ? logs[logs.length - 1] : null;
+    let noteMoiNhat = '';
+    if (latestLog && latestLog.note) {
+      const logD = typeof formatVnDate === 'function' ? formatVnDate(latestLog.date) : latestLog.date;
+      const logP = (latestLog.progress !== undefined && latestLog.progress !== '') ? ` (${latestLog.progress}%)` : '';
+      noteMoiNhat = `[${logD}${logP}]: ${latestLog.note}`;
+    } else {
+      noteMoiNhat = t.note || '';
+    }
+
+    // 11. Link dữ liệu
+    const linkUrl = (t.link || '').trim();
+
+    // 12. Nơi báo cáo: Giám đốc, Trưởng phòng... (dựa theo taskSource hoặc default Trưởng phòng)
+    let noiBaoCao = 'Trưởng Phòng';
+    const sLower = (t.taskSource || '').toLowerCase();
+    if (sLower.includes('giám đốc') || sLower.includes('gđ') || sLower.includes('director')) {
+      noiBaoCao = 'Giám đốc';
+    } else if (sLower.includes('phó giám đốc') || sLower.includes('pgđ')) {
+      noiBaoCao = 'Phó Giám đốc';
+    } else if (sLower.includes('trưởng phòng') || sLower.includes('tp')) {
+      noiBaoCao = 'Trưởng Phòng';
+    } else if (t.taskSource && t.taskSource !== 'Cải thiện nội bộ' && t.taskSource !== 'Nội bộ P.KT') {
+      noiBaoCao = t.taskSource;
+    }
+
+    return {
+      doiTuong,
+      damTrach,
+      chiuTrachNhiem,
+      noiDung,
+      ngayChiThi,
+      kyHan,
+      actualEndStr,
+      statusText: stObj.text,
+      statusClass: stObj.cls,
+      lyDo,
+      noteMoiNhat,
+      linkUrl,
+      noiBaoCao
+    };
+  });
+
+  const escapeHtml = (s) => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+  // Xây dựng bảng chuẩn Microsoft Excel HTML
+  let html = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">`;
+  html += `<head><meta charset="UTF-8">`;
+  html += `<!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>Nghiệp vụ chung</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]-->`;
+  html += `<style>`;
+  html += `body{font-family:Arial,'Segoe UI',sans-serif;font-size:10pt;}`;
+  html += `table{border-collapse:collapse;width:100%;table-layout:auto;}`;
+  html += `td,th{border:0.5pt solid #7f7f7f;padding:6px 8px;vertical-align:middle;mso-number-format:"\\@";white-space:normal;word-break:break-word;overflow-wrap:break-word;height:auto;mso-height-source:auto;}`;
+  html += `.title-row td{background:#FFFFFF;color:#1F497D;font-weight:bold;font-size:16pt;text-align:center;border:none;padding:14px 6px;}`;
+  html += `.hint-row td{background:#FFFFFF;color:#595959;font-style:italic;font-size:9pt;border:none;padding:4px 6px;}`;
+  html += `.header-row th{background:#E6B8B7;color:#000000;font-weight:bold;text-align:center;font-size:10pt;padding:8px 6px;border:0.5pt solid #7f7f7f;vertical-align:middle;}`;
+  html += `.data-row td{font-size:9.5pt;}`;
+  html += `.data-row:nth-child(even) td{background:#FDF9F9;}`;
+  html += `.c-center{text-align:center;}`;
+  html += `.c-bold{font-weight:bold;}`;
+  html += `.c-doi-tuong{text-align:center;font-weight:bold;}`;
+  html += `.c-dam-trach{text-align:center;font-weight:bold;color:#1F497D;}`;
+  html += `.c-trach-nhiem{text-align:center;font-weight:bold;color:#002060;}`;
+  html += `.c-noi-dung{text-align:left;}`;
+  html += `.c-date{text-align:center;}`;
+  html += `.c-status{text-align:center;font-weight:bold;}`;
+  html += `.c-reason{text-align:left;}`;
+  html += `.c-note{text-align:left;}`;
+  html += `.c-link{text-align:center;}`;
+  html += `.c-report{text-align:center;font-weight:bold;}`;
+  html += `.st-ht-dunghan{color:#006100;font-weight:bold;}`;
+  html += `.st-ht-truochan{color:#008000;font-weight:bold;}`;
+  html += `.st-ht-trehan{color:#9C6500;font-weight:bold;}`;
+  html += `.st-trehan{color:#9C0006;font-weight:bold;background:#FFC7CE;}`;
+  html += `.st-chuadenhan{color:#1F497D;}`;
+  html += `.st-tamdung{color:#7F7F7F;}`;
+  html += `</style></head><body>`;
+  html += `<table>`;
+  html += `<tr class="title-row"><td colspan="12">QUẢN LÝ ĐỐI ỨNG CHỈ THỊ LIÊN QUAN NGHIỆP VỤ CHUNG PHÒNG KIỂM TRA</td></tr>`;
+  html += `<tr><td colspan="12" style="border:none;height:8px;"></td></tr>`;
+  html += `<tr class="hint-row"><td colspan="12">NHẬP TÊN NV CẦN TÌM VÀO Ô MÀU XANH BÊN DƯỚI (Tổng số: ${rows.length} công việc &nbsp;|&nbsp; Xuất lúc: ${todayStr})</td></tr>`;
+  html += `<tr><td colspan="12" style="border:none;height:8px;"></td></tr>`;
+  html += `<tr class="header-row">`;
+  html += `<th style="width:120px;">Đối tượng</th>`;
+  html += `<th style="width:110px;">Đảm trách</th>`;
+  html += `<th style="width:130px;">Chịu trách nhiệm</th>`;
+  html += `<th style="width:340px;">Nội dung</th>`;
+  html += `<th style="width:120px;">Ngày chỉ thị lần đầu</th>`;
+  html += `<th style="width:110px;">Kỳ hạn yêu cầu</th>`;
+  html += `<th style="width:110px;">Ngày hoàn tất</th>`;
+  html += `<th style="width:130px;">Tình trạng xử lý</th>`;
+  html += `<th style="width:200px;">Lý do thay đổi kỳ hạn</th>`;
+  html += `<th style="width:280px;">Note</th>`;
+  html += `<th style="width:90px;">Link dữ liệu</th>`;
+  html += `<th style="width:120px;">Nơi báo cáo</th>`;
+  html += `</tr>`;
+
+  rows.forEach(r => {
+    const linkCell = r.linkUrl
+      ? `<a href="${r.linkUrl.replace(/"/g, '&quot;')}" target="_blank" style="color:#0000FF;font-weight:bold;text-decoration:underline;">XEM</a>`
+      : '';
+
+    html += `<tr class="data-row">`;
+    html += `<td class="c-doi-tuong">${escapeHtml(r.doiTuong)}</td>`;
+    html += `<td class="c-dam-trach">${escapeHtml(r.damTrach)}</td>`;
+    html += `<td class="c-trach-nhiem">${escapeHtml(r.chiuTrachNhiem)}</td>`;
+    html += `<td class="c-noi-dung">${escapeHtml(r.noiDung)}</td>`;
+    html += `<td class="c-date">${escapeHtml(r.ngayChiThi)}</td>`;
+    html += `<td class="c-date">${escapeHtml(r.kyHan)}</td>`;
+    html += `<td class="c-date">${escapeHtml(r.actualEndStr)}</td>`;
+    html += `<td class="c-status ${r.statusClass}">${escapeHtml(r.statusText)}</td>`;
+    html += `<td class="c-reason">${escapeHtml(r.lyDo)}</td>`;
+    html += `<td class="c-note">${escapeHtml(r.noteMoiNhat)}</td>`;
+    html += `<td class="c-link">${linkCell}</td>`;
+    html += `<td class="c-report">${escapeHtml(r.noiBaoCao)}</td>`;
+    html += `</tr>`;
+  });
+
+  html += `</table></body></html>`;
+
+  const blob = new Blob([html], { type: 'application/vnd.ms-excel;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `QuanLy_DoiUng_ChiThi_NoiBo_PKT_${todayStrCompact}.xls`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('✅ Đã xuất file Quản lý đối ứng chỉ thị nội bộ P.KT thành công!', 'success');
+}
+
+/**
  * Xuất toàn bộ danh sách nhân sự ra file Excel bảng phẳng.
  */
 function exportEmployeesDataToExcel() {

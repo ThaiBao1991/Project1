@@ -121,6 +121,9 @@
             <button onclick="exportRawDatabaseExcel();closeAdminMenu()" class="w-full text-left flex items-center gap-2.5 px-3 py-2 text-xs text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 transition">
               <i class="fa-solid fa-table w-4 text-teal-600"></i> Xuất CSDL .xlsx (Bảng phẳng)
             </button>
+            <button onclick="exportDoiUngChiThiExcel();closeAdminMenu()" class="w-full text-left flex items-center gap-2.5 px-3 py-2 text-xs text-slate-700 hover:bg-amber-50 hover:text-amber-800 transition">
+              <i class="fa-solid fa-file-signature w-4 text-amber-600"></i> Xuất Đối Ứng Chỉ Thị P.KT (Form 2026)
+            </button>
             <button onclick="openSmartImportModal('TASK');closeAdminMenu()" class="w-full text-left flex items-center gap-2.5 px-3 py-2 text-xs text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 transition">
               <i class="fa-solid fa-file-circle-plus w-4 text-emerald-500"></i> Import Công Việc (Smart)
             </button>
@@ -1313,6 +1316,9 @@
             </button>
             <button onclick="exportStatusLogsToExcel()" class="col-span-2 px-2.5 py-2 text-xs font-semibold rounded-lg bg-violet-600 hover:bg-violet-700 text-white transition flex items-center justify-center gap-1.5 shadow-sm">
               <i class="fa-solid fa-list-check"></i> Xuat Nhat Ky Cap Nhat Tinh Trang (.xls)
+            </button>
+            <button onclick="exportDoiUngChiThiExcel()" class="col-span-2 px-2.5 py-2 text-xs font-semibold rounded-lg bg-amber-600 hover:bg-amber-700 text-white transition flex items-center justify-center gap-1.5 shadow-sm">
+              <i class="fa-solid fa-file-signature"></i> Xuất Đối Ứng Chỉ Thị P.KT (Form Mẫu 2026 .xls)
             </button>
           </div>
           <div class="text-[10px] text-emerald-700">Xuat bang du lieu phang day du (khong Gantt) phu hop de loc, phan tich trong Excel.</div>
