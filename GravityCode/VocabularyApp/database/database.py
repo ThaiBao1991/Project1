@@ -220,6 +220,8 @@ def get_all_dates(language: str) -> list:
 def get_available_languages() -> list:
     """Danh sách ngôn ngữ thật sự có dữ liệu.
 
+    Trả về list tuple: (tên_hiển thị, slug, số_ngày)
+
     BUG ĐÃ SỬA (L-A): trước đây quét MỌI `data/*.json` ⇒ các file hệ thống
     (blocked_accounts.json, blocked_keys.json, language_profiles_cache.json,
     tts_quota.json, tts_voices.json) bị hiện thành "ngôn ngữ" ⇒ dropdown có 13 mục
@@ -230,14 +232,14 @@ def get_available_languages() -> list:
     langs = []
     seen = set()
 
-    def _add(display_name):
+    def _add(display_name: str, slug: str = "", num_days: int = 0):
         display_name = (display_name or "").strip()
         if not display_name:
             return
         key = display_name.lower()
         if key not in seen:
             seen.add(key)
-            langs.append(display_name)
+            langs.append({"display": display_name, "slug": slug, "num_days": num_days})
 
     # 1. Khóa học AI (data/ai_courses/*/course.json)
     ai_courses_dir = os.path.join(DATA_DIR, "ai_courses")
@@ -247,15 +249,17 @@ def get_available_languages() -> list:
             if not os.path.isfile(cpath):
                 continue
             display_name = ""
+            num_days = 0
             try:
                 with open(cpath, "r", encoding="utf-8") as fp:
                     cdata = json.load(fp)
                 display_name = (cdata.get("language") or "").strip()
+                num_days = len(cdata.get("days", []))
             except Exception:
                 pass
             if not display_name:
                 display_name = folder.replace("_", " ").title()
-            _add(display_name)
+            _add(display_name, folder, num_days)
 
     # 2. File từ vựng nhập tay — CHỈ file có key "vocabularies"
     if os.path.isdir(DATA_DIR):
@@ -272,7 +276,7 @@ def get_available_languages() -> list:
                 continue
             if not isinstance(data, dict) or "vocabularies" not in data:
                 continue          # file hệ thống → bỏ qua
-            _add(f[:-5].replace("_", " ").title())
+            _add(f[:-5].replace("_", " ").title(), f[:-5], 0)
 
     return langs
 

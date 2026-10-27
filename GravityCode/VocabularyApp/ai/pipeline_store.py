@@ -251,20 +251,90 @@ def clear_stale_running(language: str, max_age_seconds: int = 1800) -> int:
 
 
 # ─── Model chết ──────────────────────────────────────────────────────────────
-def load_dead_models(language: str) -> list:
-    return read_json(dead_models_path(language), []) or []
+DEAD_MODEL_COOLDOWN_MINUTES = 30          # Khóa model 30 phút sau 3 lần lỗi
+MAX_FAILURES_BEFORE_DEAD = 3              # Số lần lỗi trước khi khóa model
 
 
-def mark_dead_model(language: str, model: str, reason: str = "") -> list:
+def load_dead_models(language: str) -> dict:
+    """Trả dict {model_name: {"until": ts, "fail_count": n}} hoặc {}."""
+    data = read_json(dead_models_path(language), {}) or {}
+    now = time.time()
+    # Tự động xóa model đã hết hạn cooldown
+    cleaned = {}
+    for model, info in data.items():
+        if not isinstance(info, dict):
+            # Format cũ: list ⇒ chuyển sang dict với fail_count=0, không khóa
+            cleaned[model] = {"until": 0, "fail_count": 0}
+            continue
+        until = info.get("until", 0)
+        if until <= now:
+            continue  # Đã hết hạn cooldown ⇒ bỏ qua (cho phép thử lại)
+        cleaned[model] = info
+    if len(cleaned) != len(data):
+        save_dead_models(language, cleaned)
+    return cleaned
+
+
+def save_dead_models(language: str, dead: dict) -> None:
+    atomic_write_json(dead_models_path(language), dead)
+
+
+def mark_dead_model(language: str, model: str, reason: str = "") -> dict:
+    """Đánh dấu model lỗi. Sau MAX_FAILURES_BEFORE_DEAD lần ⇒ khóa DEAD_MODEL_COOLDOWN_MINUTES phút."""
     dead = load_dead_models(language)
-    if model and model not in dead:
-        dead.append(model)
-        atomic_write_json(dead_models_path(language), dead)
+    now = time.time()
+    entry = dead.get(model, {"until": 0, "fail_count": 0})
+    if not isinstance(entry, dict):
+        entry = {"until": 0, "fail_count": 0}
+    entry["fail_count"] = int(entry.get("fail_count", 0)) + 1
+    entry["reason"] = reason[:200]
+    entry["last_fail_at"] = _now()
+
+    if entry["fail_count"] >= MAX_FAILURES_BEFORE_DEAD:
+        entry["until"] = now + DEAD_MODEL_COOLDOWN_MINUTES * 60
+        entry["status"] = "dead"
+    else:
+        entry["status"] = "warning"
+
+    dead[model] = entry
+    save_dead_models(language, dead)
     return dead
 
 
 def is_dead_model(language: str, model: str) -> bool:
-    return model in load_dead_models(language)
+    """Kiểm tra model hiện đang bị khóa cooldown hay không."""
+    dead = load_dead_models(language)
+    entry = dead.get(model)
+    if not entry:
+        return False
+    until = entry.get("until", 0)
+    return until > time.time()
+
+
+def reset_dead_model(language: str, model: str) -> dict:
+    """Mở khóa model (dùng cho nút Reset trong GUI)."""
+    dead = load_dead_models(language)
+    if model in dead:
+        dead[model] = {"until": 0, "fail_count": 0, "status": "active",
+                       "reason": "reset by user", "reset_at": _now()}
+        save_dead_models(language, dead)
+    return dead
+
+
+def get_available_models(language: str, all_models: list) -> list:
+    """Lọc ra các model chưa bị khóa cooldown."""
+    dead = load_dead_models(language)
+    now = time.time()
+    available = []
+    for m in all_models:
+        entry = dead.get(m)
+        if not entry:
+            available.append(m)
+            continue
+        until = entry.get("until", 0)
+        if until <= now:
+            available.append(m)
+    return available
 
 
 # ─── State (cache) ────────────────────────────────────────────────────────────

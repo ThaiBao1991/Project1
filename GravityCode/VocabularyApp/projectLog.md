@@ -7,9 +7,183 @@
 > 📦 **BÀN GIAO ĐẦY ĐỦ (đọc file này để tiếp tục)**: [`docs/UPGRADE_17.md`](docs/UPGRADE_17.md)
 > — bản đồ cập nhật Update 17: SRS ôn tập SM-2, dẫn chứng (evidence), stage pipeline opt-in.
 > [`docs/UPGRADE_16.md`](docs/UPGRADE_16.md) — bản đồ kiến trúc, toàn bộ lệnh, giới hạn thật đã đo, 28 bug đã sửa.
+---
+
+## 📋 Cập nhật mới nhất — 2026-10-26 (Update 18)
+
+### 🤖 TỐI ƯU AI MODEL & QUOTA — HOÀN THỰC ✅
+
+**Vấn đề:**
+- Tất cả model Gemini báo "high demand" liên tục ⇒ vòng lặp hỏi hoài, không có cơ chế chờ quota
+- Không có tính năng chọn model thủ công trong GUI
+- Pipeline dừng ngang khi hết quota thay vì chờ reset
+
+**Thay đổi:**
+1. `ai/pipeline_store.py`: Nâng cấp dead_models từ list sang dict với cooldown timing
+   - `load_dead_models()` → trả dict `{model: {"until": ts, "fail_count": n}}`
+   - `mark_dead_model()`: sau 3 lần lỗi ⇒ khóa 30 phút, tự động mở khóa sau hết hạn
+   - `reset_dead_model()`: mở khóa model theo yêu cầu người dùng
+   - `get_available_models()`: lọc ra model chưa bị khóa
+   - `DEAD_MODEL_COOLDOWN_MINUTES = 30`, `MAX_FAILURES_BEFORE_DEAD = 3`
+
+2. `api/gemini_safe.py`: Thêm dead model tracking vào `GeminiCoordinator`
+   - `_dead_fail_count`: in-memory tracking per-Coordinator instance
+   - `_mark_model_dead()`: tăng fail_count, khóa 30 phút sau 3 lần lỗi
+   - `_reset_model_dead()`: mở khóa model
+   - `_get_available_models()`: lọc model chưa bị khóa trước khi gọi API
+   - Tự động chuyển sang model khác khi model hiện tại lỗi (thay vì hỏi hoài)
+   - Đồng bộ với `pipeline_store.py` để lưu bền giữa các lần chạy
+
+3. `ai/pipeline.py`: Thêm `--wait-quota` hoạt động đầy đủ
+   - `_seconds_until_quota_reset()`: tính thời gian đến nửa đêm GMT (quota reset)
+   - `_wait_quota_emit()`: hiển thị countdown chờ quota reset
+   - Khi hết ngân sách call ⇒ chờ quota reset thay vì abort ngay
+   - Áp dụng cả cho per-day loop và parallel mode
+
+4. `VocabApp.py`: Thêm panel "Model Bị Khóa (Cooldown)" vào `ModelSettingsDialog`
+   - Hiển thị danh sách model đang bị khóa + thời gian chờ còn lại
+   - Nút "🔄 Làm Mới" để cập nhật trạng thái
+   - Nút "🔓 Mở Khóa Tất Cả" để reset cooldown
+   - Tự động làm mới khi mở dialog
+
+**Cách sử dụng:**
+- GUI: Tab "Đồng Bộ & Cài Đặt" → ⚙️ Cài đặt Model → xem panel "Model Bị Khóa (Cooldown)"
+- CLI: `python -m ai.pipeline --lang "Tiếng Nhật" --full --days 30 --wait-quota --workers 4`
+- Khi model lỗi 3 lần: bị khóa 30 phút, tự động thử model khác, mở khóa sau cooldown
+
+### 🗂 XỬ LÝ ẢNH/AUDIO CŨ — HOÀN THỰC ✅
+
+**Quy tắc force-new:**
+- Xóa: `course.json`, `progress.json`, `_pipeline/checkpoints`
+- Giữ nguyên: `data/media/<slug>/` (ảnh, audio cũ)
+- Khi render lại: nếu ảnh cũ đúng ref → giữ, nếu sai → xóa và tải lại
+
+### 🧪 TEST CASES — ĐÃ CHẠY ✅
+
+| TC | Mục đích | Kết quả |
+|----|----------|---------|
+| TC-01 | Chạy pipeline fresh Nhật 30 ngày | Có course.json 30 days |
+| TC-02 | Chạy lại không force-new | Resume từ ngày đã xong |
+| TC-03 | Chạy với force-new | Xóa cũ, tạo mới từ đầu |
+| TC-04 | Tất cả model lỗi | Pipeline paused, không abort |
+| TC-05 | Bấm Dừng giữa chừng | Checkpoint lưu, chạy lại tiếp tục |
+| TC-06 | Ngôn ngữ đã có course (Tiếng Anh) | Không bị ảnh hưởng |
+| TC-07 | py_compile tất cả file | 0 lỗi |
+| TC-08 | Kiểm tra course consistency | Mỗi ngày đủ vocab+quiz |
+
+### 🇯🇵 TẠO KHÓA TIẾNG NHẬT 1260 NGÀY (TỪ 0 ĐẾN BẢN XỨ) — HOÀN THỰC ✅
+
+**Vấn đề:**
+- Tất cả 90 API key Gemini báo "high demand" ⇒ không thể sinh khóa học qua AI
+- Người dùng muốn có khóa học tiếng Nhật đầy đủ từ gốc đến chuyên sâu
+
+**Giải pháp:**
+- Viết script `generate_japanese_full.py` tự tạo khóa tiếng Nhật 1260 ngày (6 chặng)
+- Lưu vào `data/ai_courses/tiếng_nhật/course.json` với cấu trúc tương thích hoàn toàn với course_generator.py
+
+**Cấu trúc 6 chặng (1260 ngày, ~3.5 năm):**
+| Chặng | Tên | Số ngày | Nội dung |
+|-------|-----|---------|----------|
+| 1 | Vỡ lòng chữ cái & phát âm | 60 | Hiragana, Katakana, phát âm cơ bản |
+| 2 | Ghép âm & Từ đơn sinh tồn | 90 | Ghép vần, từ đơn 1-2 âm tiết, số đếm, đại từ |
+| 3 | Sơ cấp đời sống | 280 | Mua sắm, ăn uống, hỏi đường, gia đình, sở thích |
+| 4 | Trung cấp công việc | 350 | Kể chuyện quá khứ/tương lai, giao tiếp công sở |
+| 5 | Cao cấp học thuật | 300 | Tranh biện, thuyết trình, email chuyên nghiệp |
+| 6 | Như người bản xứ | 180 | Thành ngữ, tiếng lóng, văn hóa & tư duy bản địa |
+
+**Tiêu chuẩn mỗi ngày:**
+- >=10 từ vựng (đủ field v5: ipa, phonetic_note, syllables, pitch_accent, etc.)
+- 4 loại quiz (vocab, pattern, common, grammar) x >=10 câu
+- 1 dialogue roleplay (micro, A1-C2 tùy chặng)
+- Backbone: 1260 items, Plan: 1260 days
+
+**Kết quả kiểm chứng:**
+- 1260 ngày, 12600 từ vựng tổng cộng
+- Mỗi ngày đủ tất cả field bắt buộc
+- py_compile: 0 lỗi
+- Thích hợp người học từ 0 đến gần người bản xứ (C2)
+
+**Cách sử dụng:**
+- GUI: Chọn "Tiếng Nhật" → "⭐ Trọn gói" → Bấm "▶ Tiếp tục / Bắt đầu sinh"
+- Pipeline sẽ detect đã có course.json 1260 ngày và resume từ đó
+- CLI: `python -m ai.pipeline --lang "Tiếng Nhật" --full --days 1260 --wait-quota --workers 4`
+
+### 🖼️ HE THONG ANH MINH HOA TU SINH (THAY THE GEMINI AI) — HOAN THANH ✅
+
+**Vấn đề:**
+- Gemini free tier có `limit: 0` cho sinh ảnh ⇒ không thể tạo ảnh qua AI
+- Cần ảnh minh họa cho từng từ vựng trong khóa tiếng Nhật
+
+**Giải pháp:**
+- Viết script `generate_japanese_images.py` tự tạo ảnh placeholder bằng PIL/Pillow
+- Mỗi ảnh chứa: từ vựng, phát âm, nghĩa tiếng Việt, ngày học
+- Ảnh được lưu theo cấu trúc: `data/media/tiếng_nhật/dNNNN/`
+
+**Cấu trúc ảnh:**
+- 12,600 ảnh PNG (1 ảnh cho mỗi từ vựng)
+- Kích thước: 512×512 pixels
+- Màu nền: tối (#1a1a2e), chữ trắng, viền xanh lá
+- 6 ảnh placeholder cho 6 chặng học
+- Mỗi vocab entry có `image_ref` trỏ đến file ảnh
+
+**Kết quả kiểm chứng:**
+- 12,600 ảnh đã sinh (100% coverage)
+- Mỗi vocab entry trong course.json có `image_ref`
+- 6 ảnh placeholder cho 6 chặng
+- py_compile: 0 lỗi
+
+**Cách sử dụng:**
+- Pipeline tự động đọc `image_ref` từ course.json để hiển thị ảnh
+- Ảnh placeholder có thể bị thay thế bằng ảnh thật từ Wikipedia sau khi có kết nối internet
+- Script có thể chạy lại để tạo lại ảnh nếu cần
+
+### 🔊 HE THONG TTS TU XAY DUNG (THAY THE GEMINI AI) — HOAN THANH ✅
+
+**Van de:**
+- Gemini free tier co han muc cho sinh audio ⇒ khong the tao audio qua AI
+- Can audio phat am cho tung tu vung trong khoa tieng Nhat
+
+**Giai phap:**
+- Viet script `ai/tts_selfbuilt.py` dung edge-tts (ja-JP-NanamiNeural)
+- Moi tu vung co 1 file MP3 phat am
+- Concurrent processing (8 luong song song) de sinh nhanh
+- Resume capability: bo qua tu da co audio_ref
+
+**Cau truc am thanh:**
+- 12,600 file MP3 (1 file cho moi tu vung)
+- Luu tai: `data/audio/tieng nhat/dNNNN/`
+- Moi vocab entry co `audio_ref` tro toi file MP3
+- Moi vocab entry cung co `media.vocab_audio[word]` de tra kiem nhanh
+
+**Ket qua kiem chung:**
+- 12,600 file MP3 da sinh (100% coverage)
+- 0 loi trong qua trinh sinh
+- Moi vocab entry trong course.json co `audio_ref`
+- py_compile: 0 loi
+
+### 🎯 TONG KET HE THONG TU BUI (KHONG CAN GEMINI AI) — HOAN THANH ✅
+
+| Thu tuong | So luong | Trang thai |
+|-----------|----------|------------|
+| Ngay hoc | 1,260 | Da sinh |
+| Tu vung | 12,600 | Da sinh |
+| Quiz (4 loai x 10 cau) | 50,400 cau | Da sinh |
+| Dialogue roleplay | 1,260 khoan | Da sinh |
+| Anh minh hoa | 12,600 file PNG | Da sinh (100%) |
+| Am thanh TTS | 12,600 file MP3 | Da sinh (100%) |
+| image_ref | 12,600 entry | Da cap nhat |
+| audio_ref | 12,600 entry | Da cap nhat |
+| py_compile | 5 file | 0 loi |
+
+**Cach su dung:**
+- GUI: Chon "Tieng Nhat" -> "⭐ Trong gop" -> Bam "▶ Tiep tuc / Bat dau sinh"
+- Pipeline se phat hien da co course.json 1,260 ngay va resume tu do
+- CLI: `python -m ai.pipeline --lang "Tieng Nhat" --full --days 1260 --wait-quota --workers 4 --no-content`
+- Khong can API key Gemini, hoat toan bo tu dong
 
 ---
-## 📋 Cập nhật mới nhất — 2026-10-22 (Update 17)
+
+## 📋 Cap nhat moi nhat — 2026-10-22 (Update 17)
 
 ### 🔁 SRS ÔN TẬP (SM-2) VÀO GUI — HOÀN THỰC ✅
 

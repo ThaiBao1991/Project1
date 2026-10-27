@@ -519,7 +519,7 @@ def build_curriculum_prompt(lang_name: str, level: str, words_per_day: int,
 
 
 def build_content_prompt(lang_name: str, day_num: int, total_days: int, words: list,
-                         topic: str = "", level: str = "") -> str:
+                         topic: str = "", level: str = "", phase: str = "") -> str:
     lines = [f"- {v.get('word', '')} ({v.get('pronunciation') or 'chưa có phát âm'})"
              f" — nghĩa hiện có: {(v.get('meaning') or '')[:200]}" for v in words]
     word_list = "\n".join(lines) if lines else "(trống)"
@@ -1453,54 +1453,79 @@ def build_master_backbone(language: str, fsi: dict, coord, log_fn=None, stop_che
         # Layer 1: Universal Template Slots
         base_slots = build_stage_universal_template(s_idx, target_days)
 
-        # Layer 2: AI Adaptation (Thích ứng ngôn ngữ)
+        # Layer 2: AI Adaptation (Thích ứng ngôn ngữ) — batch để tránh tràn JSON trên chặng lớn
         adapted_slots = []
-        adapt_success = False
-        for attempt in range(1, 3):
-            if stop_check and stop_check():
-                raise GenerationStopped()
-            log_fn(f"     ✦ Layer 2: AI đang đặt tên chuyên sâu cho {target_days} chủ đề (Lần {attempt}/2)...")
-            res_adapt = coord.request(
-                build_stage_adapt_prompt(language, st, fsi, base_slots),
-                response_schema=ADAPT_STAGE_SCHEMA
-            )
-            if res_adapt.get("ok"):
-                try:
-                    data = json.loads(_strip_json(res_adapt.get("text", "")))
-                    topics_list = data.get("topics", [])
-                    if isinstance(topics_list, list) and len(topics_list) > 0:
-                        topics_map = {}
-                        for t in topics_list:
-                            if isinstance(t, dict) and "slot_id" in t and "title" in t:
-                                topics_map[int(t["slot_id"])] = t
+        adapt_success = True
+        BATCH_SIZE = 50
 
-                        for slot in base_slots:
-                            s_id = slot["slot_id"]
-                            item_copy = dict(slot)
-                            if s_id in topics_map:
-                                t_info = topics_map[s_id]
-                                item_copy["title"] = str(t_info.get("title", slot["generic_name"])).strip()
-                                if t_info.get("category"):
-                                    item_copy["category"] = str(t_info["category"]).strip()
-                            else:
-                                item_copy["title"] = slot["generic_name"]
-                            adapted_slots.append(item_copy)
+        for batch_start in range(0, len(base_slots), BATCH_SIZE):
+            batch_slots = base_slots[batch_start:batch_start + BATCH_SIZE]
+            # Lưu slot_id gốc, đánh số lại trong batch (1..batch_size) để prompt ngắn gọn
+            for i, slot in enumerate(batch_slots):
+                slot["_orig_slot_id"] = slot["slot_id"]
+                slot["slot_id"] = i + 1
 
-                        adapt_success = True
-                        log_fn(f"     ✓ Layer 2 thành công: Đã chuyển ngữ 100% {len(adapted_slots)} chủ đề Chặng {st['stage_num']}.")
-                        break
-                except Exception as e:
-                    log_fn(f"     ⚠ Layer 2 JSON parse lỗi ({e}), thử lại...")
+            batch_adapted = []
+            batch_success = False
+            end_idx = min(batch_start + len(batch_slots), len(base_slots))
 
-        if not adapt_success:
-            log_fn(f"     ⚠️ Layer 2 AI không phản hồi sau 2 lần thử. Áp dụng Fallback Template gốc & Ghi chú hoàn thiện sau.")
-            adapted_slots = []
-            for slot in base_slots:
-                item_copy = dict(slot)
-                item_copy["title"] = slot["generic_name"]
-                item_copy["needs_retry"] = True
-                adapted_slots.append(item_copy)
-            pending_retries += len(adapted_slots)
+            for attempt in range(1, 3):
+                if stop_check and stop_check():
+                    raise GenerationStopped()
+                log_fn(f"     ✦ Layer 2: AI đang đặt tên chuyên sâu cho chủ đề {batch_start+1}-{end_idx}/{len(base_slots)} Chặng {st['stage_num']} (Lần {attempt}/2)...")
+                res_adapt = coord.request(
+                    build_stage_adapt_prompt(language, st, fsi, batch_slots),
+                    response_schema=ADAPT_STAGE_SCHEMA
+                )
+                if res_adapt.get("ok"):
+                    try:
+                        data = json.loads(_strip_json(res_adapt.get("text", "")))
+                        topics_list = data.get("topics", [])
+                        if isinstance(topics_list, list) and len(topics_list) > 0:
+                            topics_map = {}
+                            for t in topics_list:
+                                if isinstance(t, dict) and "slot_id" in t and "title" in t:
+                                    topics_map[int(t["slot_id"])] = t
+
+                            for slot in batch_slots:
+                                s_id = slot["slot_id"]
+                                orig_id = slot.pop("_orig_slot_id")
+                                item_copy = dict(slot)
+                                item_copy["slot_id"] = orig_id
+                                if s_id in topics_map:
+                                    t_info = topics_map[s_id]
+                                    item_copy["title"] = str(t_info.get("title", slot["generic_name"])).strip()
+                                    if t_info.get("category"):
+                                        item_copy["category"] = str(t_info["category"]).strip()
+                                else:
+                                    item_copy["title"] = slot["generic_name"]
+                                batch_adapted.append(item_copy)
+
+                            batch_success = True
+                            break
+                    except Exception as e:
+                        log_fn(f"     ⚠ Layer 2 JSON parse lỗi ({e}), thử lại...")
+
+            if not batch_success:
+                pending_retries += len(batch_slots)
+                for slot in batch_slots:
+                    orig_id = slot.pop("_orig_slot_id")
+                    item_copy = dict(slot)
+                    item_copy["slot_id"] = orig_id
+                    item_copy["title"] = slot["generic_name"]
+                    item_copy["needs_retry"] = True
+                    batch_adapted.append(item_copy)
+                adapt_success = False
+
+            adapted_slots.extend(batch_adapted)
+
+        # Sắp xếp lại theo slot_id để giữ thứ tự
+        adapted_slots.sort(key=lambda s: s["slot_id"])
+
+        if adapt_success:
+            log_fn(f"     ✓ Layer 2 thành công: Đã chuyển ngữ 100% {len(adapted_slots)} chủ đề Chặng {st['stage_num']}.")
+        else:
+            log_fn(f"     ⚠️ Layer 2 một số batch thất bại. Các chủ đề fallback sẽ dùng tên gốc.")
 
         # Layer 3: Gap Insertion (AI bổ sung đặc thù vào đúng vị trí sau slot chỉ định)
         if adapt_success:

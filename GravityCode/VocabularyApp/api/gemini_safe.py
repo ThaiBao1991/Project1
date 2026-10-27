@@ -8,6 +8,11 @@ import time
 
 import requests
 
+from ai.pipeline_store import (load_dead_models, mark_dead_model,
+                               is_dead_model, reset_dead_model,
+                               get_available_models, DEAD_MODEL_COOLDOWN_MINUTES,
+                               MAX_FAILURES_BEFORE_DEAD)
+
 # ─────────────────────────────────────────────────────────────
 # Blocklist account bị từ chối vĩnh viễn (403 denied access)
 # Lưu bền trên đĩa để các lần chạy sau bỏ qua ngay, không tốn call.
@@ -552,6 +557,22 @@ class GeminiCoordinator:
         self._daily_budget = daily_budget
         self._lock_after_success = lock_after_success
         self._pool = _get_pool()
+        # Dead model tracking: {model_name: {"fail_count": n, "until": ts}}
+        self._dead_fail_count = {}
+        self._dead_lock = threading.Lock()
+        # Nạp dead models từ persistent storage (per-language __global__)
+        try:
+            from ai.pipeline_store import load_dead_models as _ldm
+            _saved = _ldm("__global__") or {}
+            now = time.time()
+            for model, info in _saved.items():
+                if not isinstance(info, dict):
+                    continue
+                until = info.get("until", 0)
+                if until > now:
+                    self._dead_fail_count[model] = info
+        except Exception:
+            pass
         try:
             warn_account_health(self._key_loader(), self._log)
         except Exception:
@@ -566,6 +587,107 @@ class GeminiCoordinator:
     def image_models(self):
         """Danh sách model SINH ẢNH đang được điều phối."""
         return list(self._image_models)
+
+    # ── Dead model tracking ──
+    def _is_model_dead(self, model: str) -> bool:
+        """Kiểm tra model hiện đang bị khóa cooldown (30 phút sau 3 lần lỗi)."""
+        with self._dead_lock:
+            entry = self._dead_fail_count.get(model)
+            if not entry:
+                return False
+            until = entry.get("until", 0)
+            if until <= time.time():
+                # Hết hạn cooldown ⇒ xóa khỏi tracking
+                del self._dead_fail_count[model]
+                return False
+            return True
+
+    def _mark_model_dead(self, model: str, reason: str = "") -> None:
+        """Đánh dấu model lỗi. Sau MAX_FAILURES_BEFORE_DEAD lần ⇒ khóa 30 phút."""
+        with self._dead_lock:
+            entry = self._dead_fail_count.get(model, {"fail_count": 0, "until": 0})
+            entry["fail_count"] = int(entry.get("fail_count", 0)) + 1
+            entry["reason"] = reason[:200]
+            entry["last_fail_at"] = time.strftime("%Y-%m-%dT%H:%M:%S")
+
+            if entry["fail_count"] >= MAX_FAILURES_BEFORE_DEAD:
+                entry["until"] = time.time() + DEAD_MODEL_COOLDOWN_MINUTES * 60
+                entry["status"] = "dead"
+                self._log(f"⛔ Model '{model}' bị khóa {DEAD_MODEL_COOLDOWN_MINUTES} phút "
+                          f"(sau {entry['fail_count']} lần lỗi): {reason[:80]}")
+            else:
+                entry["status"] = "warning"
+                self._log(f"⚠ Model '{model}' lỗi lần {entry['fail_count']}/{MAX_FAILURES_BEFORE_DEAD}: {reason[:80]}")
+
+            self._dead_fail_count[model] = entry
+
+        # Đồng bộ xuống persistent storage (per-language)
+        try:
+            from ai.pipeline_store import (load_dead_models as _ldm,
+                                           save_dead_models as _sdm,
+                                           mark_dead_model as _mdm)
+            # Sử dụng slug 'default' cho dead model chung cho tất cả ngôn ngữ
+            _mdm("__global__", model, reason)
+        except Exception:
+            pass
+
+    def _reset_model_dead(self, model: str) -> None:
+        """Mở khóa model (dùng cho nút Reset trong GUI)."""
+        with self._dead_lock:
+            self._dead_fail_count.pop(model, None)
+
+        # Đồng bộ xuống persistent storage
+        try:
+            from ai.pipeline_store import (load_dead_models as _ldm,
+                                           save_dead_models as _sdm,
+                                           reset_dead_model as _rdm)
+            _rdm("__global__", model)
+        except Exception:
+            pass
+
+    def _get_available_models(self) -> list:
+        """Lọc ra các model chưa bị khóa cooldown."""
+        with self._dead_lock:
+            now = time.time()
+            available = []
+            for m in self._models:
+                entry = self._dead_fail_count.get(m)
+                if not entry:
+                    available.append(m)
+                    continue
+                until = entry.get("until", 0)
+                if until <= now:
+                    # Hết hạn cooldown ⇒ xóa và cho phép thử lại
+                    del self._dead_fail_count[m]
+                    available.append(m)
+            return available
+
+    def get_dead_models_info(self) -> dict:
+        """Trả thông tin dead models để GUI hiển thị."""
+        with self._dead_lock:
+            now = time.time()
+            result = {}
+            for m in self._models:
+                entry = self._dead_fail_count.get(m)
+                if not entry:
+                    result[m] = {"status": "active", "fail_count": 0, "until": 0,
+                                 "wait_seconds": 0}
+                    continue
+                until = entry.get("until", 0)
+                if until <= now:
+                    result[m] = {"status": "active", "fail_count": 0, "until": 0,
+                                 "wait_seconds": 0}
+                    continue
+                wait_seconds = int(until - now)
+                result[m] = {
+                    "status": entry.get("status", "warning"),
+                    "fail_count": entry.get("fail_count", 0),
+                    "until": until,
+                    "wait_seconds": wait_seconds,
+                    "reason": entry.get("reason", ""),
+                    "last_fail_at": entry.get("last_fail_at", ""),
+                }
+            return result
 
     # ── callback nội bộ ──
     def _mark(self, key_obj, status, error_msg):
@@ -612,7 +734,14 @@ class GeminiCoordinator:
     def _try_models(self, prompt_text, api_key, json_mode, response_schema,
                     temperature, max_output_tokens, timeout):
         last = None
-        for model in self._models:
+        # Lọc ra các model chưa bị khóa cooldown
+        available_models = self._get_available_models()
+        if not available_models:
+            # Tất cả model đều đang dead ⇒ thử model cuối cùng trong danh sách gốc
+            # (có thể đã hết cooldown nhưng _get_available_models chưa cập nhật)
+            available_models = list(self._models)
+
+        for model in available_models:
             if self._stop_check():
                 return {"kind": ErrorKind.STOPPED, "model": model}
             url = (f"https://generativelanguage.googleapis.com/v1beta/"
@@ -632,13 +761,15 @@ class GeminiCoordinator:
                 body = resp.json() if "application/json" in ctype else {}
                 status_code = resp.status_code
             except requests.exceptions.Timeout:
-                if model is not self._models[-1]:
+                self._mark_model_dead(model, "timeout")
+                if model is not available_models[-1]:
                     self._log(f"⏱ Model '{model}' phản hồi quá lâu (Timeout > {timeout}s); chuyển sang model fallback...")
                     last = {"kind": ErrorKind.NETWORK, "message": "timeout", "model": model}
                     continue
                 return {"kind": ErrorKind.NETWORK, "message": "timeout", "model": model}
             except requests.exceptions.RequestException as exc:
-                if model is not self._models[-1]:
+                self._mark_model_dead(model, f"{type(exc).__name__}: {exc}")
+                if model is not available_models[-1]:
                     self._log(f"🌐 Model '{model}' lỗi kết nối ({type(exc).__name__}); chuyển sang model fallback...")
                     last = {"kind": ErrorKind.NETWORK, "message": f"{type(exc).__name__}: {exc}", "model": model}
                     continue
@@ -647,6 +778,9 @@ class GeminiCoordinator:
 
             kind, msg = classify_response(status_code, body)
             if kind == ErrorKind.OK:
+                # Reset fail_count khi gọi thành công
+                with self._dead_lock:
+                    self._dead_fail_count.pop(model, None)
                 text = extract_text(body)
                 if text:
                     return {"kind": ErrorKind.OK, "text": text,
@@ -657,7 +791,7 @@ class GeminiCoordinator:
             if kind == ErrorKind.QUOTA_DAILY:
                 # Mỗi model là 1 quota bucket riêng (20 call/ngày/project/model)
                 # → hết quota model này thì THỬ MODEL KHÁC trước khi đổi key.
-                if model is not self._models[-1]:
+                if model is not available_models[-1]:
                     self._log(f"⏳ Model '{model}' hết quota hôm nay — thử model khác trước.")
                     last = {"kind": kind, "message": msg, "status_code": status_code,
                             "model": model}
@@ -669,7 +803,7 @@ class GeminiCoordinator:
                 if is_account_denial(msg):
                     # Lỗi cấp ACCOUNT → trả về ngay để request() khoá account + xoay key.
                     return {"kind": kind, "message": msg, "status_code": status_code, "model": model}
-                if model is not self._models[-1]:
+                if model is not available_models[-1]:
                     self._log(f"⚠ Model '{model}' từ chối request ({msg[:60]}); thử model fallback.")
                     last = {"kind": kind, "message": msg, "status_code": status_code, "model": model}
                     continue
@@ -682,7 +816,8 @@ class GeminiCoordinator:
                 if isinstance(err, dict):
                     raw_msg = err.get("message", "") or ""
             if kind in (ErrorKind.SERVER, ErrorKind.NETWORK, ErrorKind.EMPTY):
-                if model is not self._models[-1]:
+                self._mark_model_dead(model, f"{kind}: {msg[:100]}")
+                if model is not available_models[-1]:
                     self._log(f"⚠ Model '{model}' lỗi {kind} ({msg[:60]}); thử model fallback.")
                     last = {"kind": kind, "message": msg, "status_code": status_code,
                             "raw_msg": raw_msg, "model": model}
@@ -851,7 +986,15 @@ class GeminiCoordinator:
     # ────────────────────────────────────────────────────────────────────────
     def _try_image_models(self, prompt_text, api_key, models, timeout):
         last = None
-        for model in models:
+        # Lọc ra các model ảnh chưa bị khóa cooldown
+        available_models = self._get_available_models()
+        # Nếu có models được truyền vào (từ request_image), lấy giao với available
+        if models:
+            available_models = [m for m in models if m in available_models] or available_models
+        if not available_models:
+            available_models = list(models) if models else list(self._image_models)
+
+        for model in available_models:
             if self._stop_check():
                 return {"kind": ErrorKind.STOPPED, "model": model}
             url = (f"https://generativelanguage.googleapis.com/v1beta/"
@@ -866,13 +1009,15 @@ class GeminiCoordinator:
                 body = resp.json() if "application/json" in ctype else {}
                 status_code = resp.status_code
             except requests.exceptions.Timeout:
-                if model is not models[-1]:
+                self._mark_model_dead(model, "timeout")
+                if model is not available_models[-1]:
                     self._log(f"⏱ Model ảnh '{model}' quá lâu (Timeout > {timeout}s); thử model ảnh khác...")
                     last = {"kind": ErrorKind.NETWORK, "message": "timeout", "model": model}
                     continue
                 return {"kind": ErrorKind.NETWORK, "message": "timeout", "model": model}
             except requests.exceptions.RequestException as exc:
-                if model is not models[-1]:
+                self._mark_model_dead(model, f"{type(exc).__name__}: {exc}")
+                if model is not available_models[-1]:
                     self._log(f"🌐 Model ảnh '{model}' lỗi kết nối ({type(exc).__name__}); thử model ảnh khác...")
                     last = {"kind": ErrorKind.NETWORK,
                             "message": f"{type(exc).__name__}: {exc}", "model": model}
@@ -882,6 +1027,9 @@ class GeminiCoordinator:
 
             kind, msg = classify_response(status_code, body)
             if kind == ErrorKind.OK:
+                # Reset fail_count khi gọi thành công
+                with self._dead_lock:
+                    self._dead_fail_count.pop(model, None)
                 b64, mime = extract_image(body)
                 if b64:
                     return {"kind": ErrorKind.OK, "b64": b64, "mime": mime,
@@ -905,14 +1053,15 @@ class GeminiCoordinator:
                     return {"kind": kind, "message": msg, "status_code": status_code, "model": model}
                 if is_model_restriction(msg):
                     # Model ảnh chết / account bị chặn → thử model ảnh khác
-                    if model is not models[-1]:
+                    if model is not available_models[-1]:
                         self._log(f"⚠ Model ảnh '{model}' không khả dụng ({msg[:70]}); thử model ảnh khác.")
                         last = {"kind": kind, "message": msg, "status_code": status_code,
                                 "model": model}
                         continue
                 return {"kind": kind, "message": msg, "status_code": status_code, "model": model}
             if kind in (ErrorKind.SERVER, ErrorKind.NETWORK, ErrorKind.EMPTY):
-                if model is not models[-1]:
+                self._mark_model_dead(model, f"{kind}: {msg[:100]}")
+                if model is not available_models[-1]:
                     self._log(f"⚠ Model ảnh '{model}' lỗi {kind} ({msg[:60]}); thử model ảnh khác.")
                     last = {"kind": kind, "message": msg, "status_code": status_code,
                             "model": model}
@@ -929,7 +1078,16 @@ class GeminiCoordinator:
         """
         pool = self._pool
         exclude = set()
+        # Lọc model ảnh theo dead_models (không gọi model đang cooldown)
         cand_models = list(models) if models else ([model] if model else list(self._image_models))
+        available = self._get_available_models()
+        if available:
+            # Chỉ giữ những model trong available, nhưng nếu models được truyền vào rõ ràng
+            # thì ưu tiên danh sách đó (lọc theo available)
+            if models:
+                cand_models = [m for m in models if m in available] or available
+            else:
+                cand_models = available
         if not cand_models:
             return {"ok": False, "error": {"kind": ErrorKind.REQUEST_BAD,
                                            "message": "không có model ảnh nào được cấu hình"}}
