@@ -164,7 +164,7 @@
       "planEndDate": "2026-06-25",
       "actualEndDate": "",
       "status": "Hoàn thành",
-      "link": "file:///C:/MBC/HoSoBaoTri/TramBienAp/",
+      "link": "\\\\vdm-fsvr\\KIEMTRA\\4. DUNG CHUNG\\11. CAC DU AN PHONG KIEM TRA\\2026\\1. CẢI THIỆN LAYOUT, MÔI TRƯỜNG LÀM VIỆC\\1. Chuẩn hóa các loại tủ sử dụng tại phòng kiểm tra (Mr Sỹ)",
       "note": "",
       "statusLogs": [],
       "lastStatusUpdate": ""
@@ -187,7 +187,7 @@
       "planEndDate": "2026-07-25",
       "actualEndDate": "2026-06-30",
       "status": "Hoàn thành trễ",
-      "link": "",
+      "link": "\\\\vdm-fsvr\\KIEMTRA\\4. DUNG CHUNG\\11. CAC DU AN PHONG KIEM TRA\\2026\\1. CẢI THIỆN LAYOUT, MÔI TRƯỜNG LÀM VIỆC\\2. Chuẩn hóa các loại vĩ lấy hàng tại phòng kiểm tra (Mr Sỹ)",
       "note": "",
       "statusLogs": [],
       "lastStatusUpdate": ""
@@ -279,12 +279,12 @@
       "empName": "Lê Cao Thanh",
       "supportEmpIds": [],
       "supportEmpNames": [],
-      "taskSource": "Trưởng Phòng",
-      "startDate": "2026-09-01",
+      "taskSource": "",
+      "startDate": "2026-01-15",
       "planDuration": 1,
       "planUnit": "ngày",
       "planDays": 1,
-      "planEndDate": "2026-09-01",
+      "planEndDate": "2026-01-15",
       "actualEndDate": "",
       "status": "Tạm dừng",
       "link": "",
@@ -394,15 +394,15 @@
       "empName": "Lê Cao Thanh",
       "supportEmpIds": [],
       "supportEmpNames": [],
-      "taskSource": "Trưởng Phòng",
+      "taskSource": "Cải thiện nội bộ",
       "startDate": "2026-01-15",
-      "planDuration": 1,
+      "planDuration": 1066,
       "planUnit": "ngày",
-      "planDays": 1,
-      "planEndDate": "2026-01-15",
+      "planDays": 1066,
+      "planEndDate": "2028-12-15",
       "actualEndDate": "",
       "status": "Tạm dừng",
-      "link": "",
+      "link": "\\\\vdm-fsvr\\KIEMTRA\\4. DUNG CHUNG\\11. CAC DU AN PHONG KIEM TRA\\2026\\2. CẢI THIỆN  SỐ CÔNG KIỂM TRA, NGHIỆP VỤ LÃNG PHÍ\\7. Đưa vào sử dụng máy độ nhám tự động(Mr Thanh) - Mục tiêu năm",
       "note": "",
       "statusLogs": [],
       "lastStatusUpdate": ""
@@ -456,10 +456,10 @@
       "planEndDate": "2027-02-08",
       "actualEndDate": "",
       "status": "Đang làm",
-      "link": "",
+      "link": "\\\\vdm-fsvr\\KIEMTRA\\4. DUNG CHUNG\\11. CAC DU AN PHONG KIEM TRA\\2026\\2. CẢI THIỆN  SỐ CÔNG KIỂM TRA, NGHIỆP VỤ LÃNG PHÍ\\9. Đưa vào sử dụng máy IMX (Ms Lý) - Mục tiêu năm",
       "note": "",
       "statusLogs": [],
-      "lastStatusUpdate": "2026-10-14"
+      "lastStatusUpdate": "2026-10-28"
     },
     {
       "id": "CV-2026-0013",
@@ -471,18 +471,25 @@
       "empName": "Lê Cao Thanh",
       "supportEmpIds": [],
       "supportEmpNames": [],
-      "taskSource": "Trưởng Phòng",
+      "taskSource": "",
       "startDate": "2026-01-15",
-      "planDuration": 1,
-      "planUnit": "ngày",
-      "planDays": 1,
-      "planEndDate": "2026-01-15",
+      "planDuration": 76,
+      "planUnit": "tuần",
+      "planDays": 532,
+      "planEndDate": "2027-06-30",
       "actualEndDate": "",
       "status": "Đang làm",
-      "link": "",
+      "link": "\\\\vdm-fsvr\\KIEMTRA\\4. DUNG CHUNG\\11. CAC DU AN PHONG KIEM TRA\\2026\\2. CẢI THIỆN  SỐ CÔNG KIỂM TRA, NGHIỆP VỤ LÃNG PHÍ\\10. Nâng cao hiệu suất sử dụng máy INExiv (Mr Thảo) - Mục tiêu năm",
       "note": "",
-      "statusLogs": [],
-      "lastStatusUpdate": "2026-10-14"
+      "statusLogs": [
+        {
+          "date": "2026-09-11",
+          "note": "Mr Thanh chuyển nghiệp vụ cho Ms Duyên",
+          "status": "Đang làm",
+          "author": "Quản trị viên (Admin)"
+        }
+      ],
+      "lastStatusUpdate": "2026-10-28"
     },
     {
       "id": "CV-2026-0014",
@@ -563,7 +570,7 @@
       "planEndDate": "2026-12-10",
       "actualEndDate": "",
       "status": "Tạm dừng",
-      "link": "",
+      "link": "\\\\vdm-fsvr\\KIEMTRA\\4. DUNG CHUNG\\11. CAC DU AN PHONG KIEM TRA\\2026\\2. CẢI THIỆN  SỐ CÔNG KIỂM TRA, NGHIỆP VỤ LÃNG PHÍ\\13. Giản lược chu kỳ hiệu chỉnh (Q Thảo)",
       "note": "",
       "statusLogs": [
         {
@@ -651,7 +658,7 @@
       "link": "",
       "note": "",
       "statusLogs": [],
-      "lastStatusUpdate": "2026-10-16"
+      "lastStatusUpdate": "2026-10-28"
     },
     {
       "id": "CV-2026-0020",
