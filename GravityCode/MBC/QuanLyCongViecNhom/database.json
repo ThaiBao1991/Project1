@@ -701,7 +701,7 @@
       "planEndDate": "2026-12-31",
       "actualEndDate": "",
       "status": "Đang làm",
-      "link": "",
+      "link": "\\\\vdm-fsvr\\KIEMTRA\\4. DUNG CHUNG\\11. CAC DU AN PHONG KIEM TRA\\2026\\3. CẢI THIỆN ĐỘ CHÍNH XÁC KIỂM TRA\\2. Rà soát bản thuyết minh kiểm tra, cải thiện điểm không phù hợp thực tế VDM (Ms Lieu) - Mục tiêu năm",
       "note": "",
       "statusLogs": [
         {
@@ -757,13 +757,13 @@
       "supportEmpNames": [],
       "taskSource": "Trưởng phòng",
       "startDate": "2026-01-15",
-      "planDuration": 1,
-      "planUnit": "ngày",
-      "planDays": 1,
-      "planEndDate": "2026-01-15",
+      "planDuration": 50,
+      "planUnit": "tuần",
+      "planDays": 350,
+      "planEndDate": "2026-12-30",
       "actualEndDate": "",
       "status": "Đang làm",
-      "link": "",
+      "link": "https://www.69shuba.com/book/53371.htm",
       "note": "",
       "statusLogs": [
         {
@@ -771,9 +771,15 @@
           "note": "1/10/2026 chuyển qua cho Lê cao Thanh",
           "status": "Đang làm",
           "author": "Quản trị viên (Admin)"
+        },
+        {
+          "date": "2026-10-29",
+          "note": "87/149 kiện",
+          "status": "Đang làm",
+          "author": "Quản trị viên (Admin)"
         }
       ],
-      "lastStatusUpdate": "2026-10-14"
+      "lastStatusUpdate": "2026-10-29"
     },
     {
       "id": "CV-2026-0024",
@@ -793,7 +799,7 @@
       "planEndDate": "2026-11-10",
       "actualEndDate": "",
       "status": "Đang làm",
-      "link": "",
+      "link": "\\\\vdm-fsvr\\KIEMTRA\\4. DUNG CHUNG\\11. CAC DU AN PHONG KIEM TRA\\2026\\3. CẢI THIỆN ĐỘ CHÍNH XÁC KIỂM TRA\\7. Tạo hướng dẫn sử dụng các máy đo đặc thù (Mr Thảo) - Mục tiêu năm",
       "note": "",
       "statusLogs": [
         {
@@ -804,7 +810,7 @@
           "progress": 50
         }
       ],
-      "lastStatusUpdate": "2026-10-13"
+      "lastStatusUpdate": "2026-10-29"
     },
     {
       "id": "CV-2026-0025",
@@ -818,16 +824,23 @@
       "supportEmpNames": [],
       "taskSource": "Trưởng phòng",
       "startDate": "2026-01-15",
-      "planDuration": 1,
-      "planUnit": "ngày",
-      "planDays": 1,
-      "planEndDate": "2026-01-15",
-      "actualEndDate": "2026-12-31",
+      "planDuration": 50,
+      "planUnit": "tuần",
+      "planDays": 350,
+      "planEndDate": "2026-12-30",
+      "actualEndDate": "",
       "status": "Đang làm",
-      "link": "",
+      "link": "\\\\vdm-fsvr\\KIEMTRA\\4. DUNG CHUNG\\11. CAC DU AN PHONG KIEM TRA\\2026\\3. CẢI THIỆN ĐỘ CHÍNH XÁC KIỂM TRA\\8. Xác nhân lại list thiết bị kiểm tra toàn chủng loại (Ms Na) -Mục tiêu năm",
       "note": "",
-      "statusLogs": [],
-      "lastStatusUpdate": ""
+      "statusLogs": [
+        {
+          "date": "2026-10-29",
+          "note": "Tháng 10 : 10/16 kiện\nTổng số : 21 kiên",
+          "status": "Đang làm",
+          "author": "Quản trị viên (Admin)"
+        }
+      ],
+      "lastStatusUpdate": "2026-10-29"
     },
     {
       "id": "CV-2026-0026",
@@ -1816,11 +1829,11 @@
       "planDays": 130,
       "planEndDate": "2026-11-20",
       "actualEndDate": "",
-      "status": "Đang làm",
+      "status": "Tạm dừng",
       "link": "\\\\vdm-fsvr\\KIEMTRA\\2. NHOM HO TRO KIEM TRA\\4. DUNG CHUNG\\11. CÔNG VIỆC CẦN THỰC HIỆN\\2026\\25.THAY DOI HOA CHAT",
       "note": "",
       "taskSource": "Giám đốc",
-      "lastStatusUpdate": "2026-10-14",
+      "lastStatusUpdate": "2026-10-29",
       "statusLogs": [
         {
           "date": "2026-09-14",
@@ -1834,6 +1847,12 @@
           "status": "Đang làm",
           "author": "Quản trị viên (Admin)",
           "progress": 60
+        },
+        {
+          "date": "2026-10-29",
+          "note": "Dừng vì hóa chất chỉ thị màu không đúng",
+          "status": "Tạm dừng",
+          "author": "Quản trị viên (Admin)"
         }
       ]
     },
@@ -1889,6 +1908,29 @@
       "note": "",
       "taskSource": "Cải thiện nội bộ",
       "lastStatusUpdate": "2026-10-09"
+    },
+    {
+      "id": "CV-2026-0067",
+      "mainTaskId": "CV-2026-0067",
+      "mainTaskTitle": "Đối ứng 2026",
+      "title": "Đối ứng 2026",
+      "detail": "Sau khi giám tra brose phát hiện máy đo cân bằng có trước và sau cắt gọt nhưng chỉ đo sau cắt gọt\n=> Kiểm tra toàn bộ hạng mục đo và đánh giá lại nếu thiếu",
+      "empId": "NV07",
+      "empName": "Nguyễn Thị Thoa",
+      "supportEmpIds": [],
+      "supportEmpNames": [],
+      "startDate": "2026-10-29",
+      "planDuration": 30,
+      "planUnit": "ngày",
+      "planDays": 30,
+      "planEndDate": "2026-11-27",
+      "actualEndDate": "",
+      "status": "Đang làm",
+      "link": "",
+      "statusLogs": [],
+      "note": "",
+      "taskSource": "Cải thiện nội bộ",
+      "lastStatusUpdate": "2026-10-29"
     }
   ],
   "projects": [
@@ -1935,6 +1977,10 @@
     {
       "id": "CV-2026-0064",
       "title": "Thay đổi hóa chất cấp 2 (9/2026)"
+    },
+    {
+      "id": "CV-2026-0067",
+      "title": "Đối ứng 2026"
     }
   ]
 }
