@@ -1834,6 +1834,34 @@ def _backbone_phase(category: str, phase_indices: list) -> str:
     return JOURNEY_PHASES[0][0]
 
 
+def _get_item_phase(it: dict, phase_indices: list = None) -> str:
+    """Xác định phase của 1 backbone item.
+
+    Hàm này phải ở cấp MODULE vì `ai/pipeline.py` import trực tiếp để dựng
+    plan. Trước đây nó là hàm lồng trong `generate_course()` nên pipeline
+    crash `ImportError: cannot import name '_get_item_phase'` sau khi đã sinh
+    xong profile + backbone (mất toàn bộ công).
+    """
+    s_idx = it.get("stage_idx")
+    if isinstance(s_idx, int) and 0 <= s_idx < len(JOURNEY_PHASES):
+        return JOURNEY_PHASES[s_idx][0]
+    cat = (it.get("category") or "").upper()
+    if any(k in cat for k in ("CHỮ VIẾT", "ALPHABET", "BẢNG CHỮ", "KÝ TỰ", "NÉT VIẾT", "PHÁT ÂM", "KHẨU HÌNH")):
+        return JOURNEY_PHASES[0][0]
+    if any(k in cat for k in ("GHÉP ÂM", "TỪ ĐƠN", "SINH TỒN", "SỐ ĐẾM", "ĐẠI TỪ")):
+        return JOURNEY_PHASES[1][0]
+    if any(k in cat for k in ("SƠ CẤP", "CÂU ĐƠN", "MUA SẮM", "ĂN UỐNG", "HỎI ĐƯỜNG", "ĐỜI SỐNG")):
+        return JOURNEY_PHASES[2][0]
+    if any(k in cat for k in ("CÔNG SỞ", "LIÊN TỪ", "CÂU PHỨC", "TRUNG CẤP", "KỂ CHUYỆN", "CÔNG VIỆC")):
+        return JOURNEY_PHASES[3][0]
+    if any(k in cat for k in ("HỌC THUẬT", "BÁO CHÍ", "TRANH BIỆN", "THUYẾT TRÌNH", "CAO CẤP")):
+        return JOURNEY_PHASES[4][0]
+    if any(k in cat for k in ("VĂN HOÁ", "SLANG", "THÀNH NGỮ", "BẢN XỨ", "IDIOM", "ẨN DỤ", "CHƠI CHỮ")):
+        return JOURNEY_PHASES[5][0]
+    return _backbone_phase(it.get("category", ""),
+                          phase_indices or list(range(len(JOURNEY_PHASES))))
+
+
 def _normalize_title(text: str) -> str:
     """Chuẩn hóa tiêu đề để so khớp độ tương đồng."""
     t = (text or "").lower()
@@ -2600,25 +2628,6 @@ def generate_course(language: str,
         or not backbone.get("items")
     )
 
-    def _get_item_phase(it):
-        s_idx = it.get("stage_idx")
-        if s_idx is not None and isinstance(s_idx, int) and 0 <= s_idx < len(JOURNEY_PHASES):
-            return JOURNEY_PHASES[s_idx][0]
-        cat = (it.get("category") or "").upper()
-        if any(k in cat for k in ("CHỮ VIẾT", "ALPHABET", "BẢNG CHỮ", "KÝ TỰ", "NÉT VIẾT", "PHÁT ÂM", "KHẨU HÌNH")):
-            return JOURNEY_PHASES[0][0]
-        if any(k in cat for k in ("GHÉP ÂM", "TỪ ĐƠN", "SINH TỒN", "SỐ ĐẾM", "ĐẠI TỪ")):
-            return JOURNEY_PHASES[1][0]
-        if any(k in cat for k in ("SƠ CẤP", "CÂU ĐƠN", "MUA SẮM", "ĂN UỐNG", "HỎI ĐƯỜNG", "ĐỜI SỐNG")):
-            return JOURNEY_PHASES[2][0]
-        if any(k in cat for k in ("CÔNG SỞ", "LIÊN TỪ", "CÂU PHỨC", "TRUNG CẤP", "KỂ CHUYỆN", "CÔNG VIỆC")):
-            return JOURNEY_PHASES[3][0]
-        if any(k in cat for k in ("HỌC THUẬT", "BÁO CHÍ", "TRANH BIỆN", "THUYẾT TRÌNH", "CAO CẤP")):
-            return JOURNEY_PHASES[4][0]
-        if any(k in cat for k in ("VĂN HOÁ", "SLANG", "THÀNH NGỮ", "BẢN XỨ", "IDIOM", "ẨN DỤ", "CHƠI CHỮ")):
-            return JOURNEY_PHASES[5][0]
-        return _backbone_phase(it.get("category", ""), phase_indices)
-
     if need_backbone:
         if is_full_journey:
             backbone = build_master_backbone(language, fsi, coord, log_fn=log_fn, stop_check=stop_check)
@@ -2717,7 +2726,7 @@ def generate_course(language: str,
         plan.append({
             "day": start_day + i,
             "title": it["title"],
-            "phase": _get_item_phase(it),
+            "phase": _get_item_phase(it, phase_indices),
             "words": [],
             "backbone_id": it["id"],
         })

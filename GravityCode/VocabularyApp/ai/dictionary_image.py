@@ -40,7 +40,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # 2 request + retry khi 429. Đo lại: 10/10 ảnh thật, không còn 429.
 _WIKI_SEM = threading.Semaphore(8)
 _WIKI_MIN_INTERVAL = 0.10
-WORD_DEADLINE_SECONDS = 10.0
+WORD_DEADLINE_SECONDS = 20.0
 # Circuit breaker Wikimedia
 _WIKI_BLOCK_AFTER = 5          # 5 lần 429 liên tiếp
 _WIKI_BLOCK_SECONDS = 900      # khoá 15 phút
@@ -135,8 +135,13 @@ def _save_cache() -> None:
         pass
 
 
+# Tăng version khi logic tìm ảnh thay đổi (vd sửa map host ngôn ngữ) để
+# các cache "không có ảnh" cũ không tiếp tục chặn từ đã tìm được ảnh.
+IMAGE_CACHE_VERSION = 2
+
+
 def _cache_key(lang: str, word: str) -> str:
-    return f"{_norm_lang(lang)}|{_norm_word(word)}"
+    return f"v{IMAGE_CACHE_VERSION}|{_norm_lang(lang)}|{_norm_word(word)}"
 
 
 def _norm_word(w: str) -> str:
@@ -148,11 +153,25 @@ def _norm_lang(v) -> str:
     return re.sub(r"[^a-z0-9]+", "_", str(v or "").strip().lower()).strip("_")
 
 
+NEGATIVE_CACHE_TTL = 7 * 24 * 3600   # 7 ngày: lỗi mạng tạm thời không bị nhớ mãi
+
+
 def _cache_get(lang: str, word: str):
-    """Trả (hit, info). info=None ⇒ đã biết là KHÔNG có ảnh."""
+    """Trả (hit, info). info=None ⇒ đã biết là KHÔNG có ảnh.
+
+    Cache âm có TTL 7 ngày: nếu Wikimedia timeout/429 tạm thời, từ đó sẽ được
+    thử lại sau 7 ngày thay vì bị placeholder vĩnh viễn.
+    """
     with _cache_lock:
         v = _load_cache().get(_cache_key(lang, word), "__miss__")
     if v == "__miss__":
+        return False, None
+    if isinstance(v, dict) and "__none__" in v:
+        if time.time() - float(v.get("__none__") or 0) > NEGATIVE_CACHE_TTL:
+            return False, None
+        return True, None
+    if v is None:
+        # Entry cũ không có timestamp — coi như miss để có cơ hội tìm lại.
         return False, None
     return True, v
 
@@ -160,7 +179,8 @@ def _cache_get(lang: str, word: str):
 def _cache_put(lang: str, word: str, info) -> None:
     global _cache_dirty
     with _cache_lock:
-        _load_cache()[_cache_key(lang, word)] = info
+        _load_cache()[_cache_key(lang, word)] = (
+            {"__none__": time.time()} if info is None else info)
         _cache_dirty += 1
         if _cache_dirty >= 50:
             _save_cache()
@@ -195,6 +215,17 @@ WIKTIONARY_HOSTS = {
     "Tiếng Việt": "vi.wiktionary.org",
 }
 WIKTIONARY_HOSTS_DEFAULT = "en.wiktionary.org"
+
+
+def _norm_lang_key(v) -> str:
+    """Chuẩn hoá tên ngôn ngữ để so khớp: 'Tiếng Nhật' == 'tiếng_nhật'."""
+    s = unicodedata.normalize("NFKD", str(v or ""))
+    s = "".join(c for c in s if not unicodedata.combining(c))
+    return re.sub(r"[^a-z0-9]+", "_", s.lower()).strip("_")
+
+
+_WIKI_HOST_BY_NORM = {_norm_lang_key(k): v for k, v in WIKI_HOSTS.items()}
+_WIKTIONARY_HOST_BY_NORM = {_norm_lang_key(k): v for k, v in WIKTIONARY_HOSTS.items()}
 
 COMMONS_API = "https://commons.wikimedia.org/w/api.php"
 
@@ -257,11 +288,17 @@ def is_disambiguation(title: str) -> bool:
 
 
 def wiki_host_for(language: str) -> str:
-    return WIKI_HOSTS.get((language or "").strip(), WIKI_HOSTS_DEFAULT)
+    s = (language or "").strip()
+    if s in WIKI_HOSTS:
+        return WIKI_HOSTS[s]
+    return _WIKI_HOST_BY_NORM.get(_norm_lang_key(s), WIKI_HOSTS_DEFAULT)
 
 
 def wiktionary_host_for(language: str) -> str:
-    return WIKTIONARY_HOSTS.get((language or "").strip(), WIKTIONARY_HOSTS_DEFAULT)
+    s = (language or "").strip()
+    if s in WIKTIONARY_HOSTS:
+        return WIKTIONARY_HOSTS[s]
+    return _WIKTIONARY_HOST_BY_NORM.get(_norm_lang_key(s), WIKTIONARY_HOSTS_DEFAULT)
 
 
 # ─── Tải ảnh (chống hotlink bằng Referer) ────────────────────────────────────

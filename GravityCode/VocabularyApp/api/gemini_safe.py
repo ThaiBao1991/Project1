@@ -72,17 +72,34 @@ def load_blocked_keys() -> dict:
     return _load_blocked(BLOCKED_KEYS_PATH)
 
 
-def block_key(api_key: str, reason: str = "") -> bool:
-    """Ghi API key chết vĩnh viễn vào blocklist bền (theo hash, không lưu key gốc)."""
+def _blocked_entry_active(entry) -> bool:
+    """Entry blocklist còn hiệu lực? Không có `until` = vĩnh viễn (key chết)."""
+    try:
+        until = int((entry or {}).get("until") or 0)
+    except Exception:
+        until = 0
+    return until <= 0 or until > time.time()
+
+
+def block_key(api_key: str, reason: str = "", ttl: int = None) -> bool:
+    """Ghi key vào blocklist bền (theo hash, không lưu key gốc).
+
+    ttl=None  → vĩnh viễn (key invalid/chết thật).
+    ttl=giây  → tạm nghỉ, hết hạn sẽ tự thử lại. Dùng cho 403 free-tier:
+                key vẫn còn sống, chỉ project chưa bật billing.
+    """
     if not api_key:
         return False
     import hashlib
     khash = hashlib.sha256(api_key.encode("utf-8")).hexdigest()[:16]
     with _blocked_lock:
         data = load_blocked_keys()
-        if khash in data:
+        if khash in data and _blocked_entry_active(data[khash]):
             return False
-        data[khash] = {"reason": reason[:200], "at": time.strftime("%Y-%m-%dT%H:%M:%S")}
+        entry = {"reason": reason[:200], "at": time.strftime("%Y-%m-%dT%H:%M:%S")}
+        if ttl:
+            entry["until"] = int(time.time() + ttl)
+        data[khash] = entry
         if not _save_blocked(BLOCKED_KEYS_PATH, data):
             return False
     return True
@@ -93,7 +110,8 @@ def is_blocked_key(api_key: str) -> bool:
         return False
     import hashlib
     khash = hashlib.sha256(api_key.encode("utf-8")).hexdigest()[:16]
-    return khash in load_blocked_keys()
+    entry = load_blocked_keys().get(khash)
+    return bool(entry) and _blocked_entry_active(entry)
 
 # ─────────────────────────────────────────────────────────────
 # Cấu hình an toàn chuẩn (skill: gemini_api_key_handling)
@@ -102,6 +120,10 @@ PACE_MIN = 3.5
 PACE_MAX = 5.0
 PACE_JITTER = (0.5, 1.5)          # jitter phá tần số bot
 ACCOUNT_COOLDOWN = 3600           # 60 phút nghỉ cho 1 account sau batch/429
+# 403 "free tier is not available" là lỗi cấp PROJECT: key còn sống, chỉ project
+# chưa đủ điều kiện free tier. Bật billing là key cũ dùng lại được ⇒ tạm nghỉ
+# 24h rồi tự thử lại, KHÔNG block vĩnh viễn.
+FREE_TIER_RETRY_SECONDS = 24 * 3600
 MAX_KEYS_PER_ACCOUNT = 2          # khuyến nghị 1-2 key/account
 DAILY_CALL_BUDGET = 3000          # ngân sách call/ngày, vượt thì cảnh báo
 MODEL_FALLBACKS = [
@@ -312,7 +334,12 @@ def retry_delay_from(msg):
 
 
 def is_project_billing_error(msg) -> bool:
-    """403 'free tier is not available' → cả project/key không dùng được model nào."""
+    """403 'free tier is not available' → cả PROJECT không dùng được model nào.
+
+    Google docs (troubleshooting#project-unavailable): eligibility được xét ở
+    cấp Google Cloud project; tạo key mới trong cùng project KHÔNG sửa được.
+    Nhưng key không chết: bật billing cho project là key cũ dùng lại được.
+    """
     return "free tier is not available" in (msg or "").lower()
 
 
@@ -326,7 +353,7 @@ def is_model_restriction(msg):
         "denied access", "has been denied", "no longer available", "is not found",
         "not found for api version", "not supported for generatecontent",
         "does not have access", "access to the model", "permission denied",
-        "no longer available to new users", "free tier is not available",
+        "no longer available to new users",
     )
     return any(m in low for m in markers)
 
@@ -473,7 +500,8 @@ class AccountPool:
                 continue
             import hashlib
             khash = hashlib.sha256(raw.encode("utf-8")).hexdigest()[:16]
-            if khash in blocked_keys:
+            entry = blocked_keys.get(khash)
+            if entry and _blocked_entry_active(entry):
                 continue
             acct = self.account_of(k)
             if acct in blocked:
@@ -786,6 +814,7 @@ class GeminiCoordinator:
                     temperature, max_output_tokens, timeout, ordered_models=None,
                     email=None, deadline=None):
         last = None
+        billing_hits = 0
         models = ordered_models if ordered_models is not None else self._models
         n_models = len(models)
         acct = email or "?"
@@ -842,10 +871,20 @@ class GeminiCoordinator:
             ok = (kind == ErrorKind.OK) and bool(text)
             self._record_model_result(model, ok, ms)
             if kind == ErrorKind.REQUEST_BAD and is_project_billing_error(msg):
-                # Lỗi billing cấp PROJECT: thử model nào cũng 403 ⇒ dừng ngay,
-                # để request() khóa account và xoay key thay vì đốt 8 lượt gọi.
+                # 403 free-tier có thể là cấp PROJECT hoặc chỉ model này. Thử
+                # tối đa 1 model kế để xác nhận; nếu model kế chạy được thì
+                # KHÔNG tạm nghỉ key (tránh khóa oan vì model cũ).
+                billing_hits += 1
+                if billing_hits < 2 and _nxt:
+                    self._log(f"⚠ '{model}' báo free-tier — thử '{_nxt}' "
+                              f"để xác nhận cấp project…{_acct_tag}")
+                    last = {"kind": kind, "message": msg,
+                            "status_code": status_code, "model": model,
+                            "billing": True}
+                    continue
                 return {"kind": kind, "message": msg,
-                        "status_code": status_code, "model": model}
+                        "status_code": status_code, "model": model,
+                        "billing": True, "confirmed": True}
             if kind == ErrorKind.OK:
                 if text:
                     return {"kind": ErrorKind.OK, "text": text,
@@ -1025,6 +1064,18 @@ class GeminiCoordinator:
                 continue
 
             if kind == ErrorKind.REQUEST_BAD:
+                if is_project_billing_error(msg):
+                    # "free tier is not available for this project" là lỗi cấp
+                    # PROJECT, không phải cấp Gmail. Chỉ tạm nghỉ KEY này (24h)
+                    # để các key khác (project khác) vẫn được thử; KHÔNG khóa
+                    # account và KHÔNG block vĩnh viễn — bật billing là dùng lại.
+                    block_key(api_key,
+                              f"HTTP {res.get('status_code', '')}: {msg[:120]}",
+                              ttl=FREE_TIER_RETRY_SECONDS)
+                    self._log(f"⚠ Key {email} thuộc project chưa có free tier — "
+                              f"tạm nghỉ 24h (bật billing rồi thử lại), chuyển key...")
+                    exclude.add(api_key)
+                    continue
                 if is_account_denial(msg):
                     # Lỗi cấp ACCOUNT (403 denied access) → khoá vĩnh viễn + xoay key.
                     block_account(pool.account_of(key_obj), msg)
@@ -1072,6 +1123,7 @@ class GeminiCoordinator:
     # ────────────────────────────────────────────────────────────────────────
     def _try_image_models(self, prompt_text, api_key, models, timeout):
         last = None
+        billing_hits = 0
         for model in models:
             if self._stop_check():
                 return {"kind": ErrorKind.STOPPED, "model": model}
@@ -1122,6 +1174,19 @@ class GeminiCoordinator:
                 return {"kind": ErrorKind.QUOTA_DAILY, "message": msg,
                         "status_code": status_code, "model": model, "hard_quota": True}
             if kind == ErrorKind.REQUEST_BAD:
+                if is_project_billing_error(msg):
+                    # Xác nhận bằng tối đa 1 model ảnh kế trước khi tạm nghỉ key.
+                    billing_hits += 1
+                    if billing_hits < 2 and model != models[-1]:
+                        self._log(f"⚠ Model ảnh '{model}' báo free-tier — thử "
+                                  f"'{models[models.index(model) + 1]}' để xác nhận…")
+                        last = {"kind": kind, "message": msg,
+                                "status_code": status_code, "model": model,
+                                "billing": True}
+                        continue
+                    return {"kind": kind, "message": msg,
+                            "status_code": status_code, "model": model,
+                            "billing": True, "confirmed": True}
                 if is_account_denial(msg):
                     return {"kind": kind, "message": msg, "status_code": status_code, "model": model}
                 if is_model_restriction(msg):
@@ -1228,6 +1293,14 @@ class GeminiCoordinator:
                 continue
 
             if kind == ErrorKind.REQUEST_BAD:
+                if is_project_billing_error(msg):
+                    block_key(api_key,
+                              f"HTTP {res.get('status_code', '')} (image): {msg[:120]}",
+                              ttl=FREE_TIER_RETRY_SECONDS)
+                    self._log(f"⚠ Key {email} thuộc project chưa có free tier (ảnh) — "
+                              f"tạm nghỉ 24h (bật billing rồi thử lại), chuyển key...")
+                    exclude.add(api_key)
+                    continue
                 if is_account_denial(msg):
                     block_account(pool.account_of(key_obj), msg)
                     self._log(f"⚠ Account {email} bị từ chối vĩnh viễn (denied access). Đã blocklist.")

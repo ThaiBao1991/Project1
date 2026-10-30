@@ -321,6 +321,8 @@ def _stage_dict(language, day, vocab, log_fn, quota, budget, entries) -> int:
     if len(pairs) < len(vocab):
         log_fn(f"   🖼️  Giữ {len(vocab) - len(pairs)} ảnh thật, "
                f"tìm {len(pairs)} ảnh còn thiếu.")
+        # Đánh dấu từ còn thiếu để bù lần sau (không ghi đè ảnh thật)
+    # Nếu chưa có ảnh thật cho từ → giữ placeholder; không ghi đè thật bằng placeholder
 
     words = [{"word": v.get("word", ""), "pronunciation": v.get("pronunciation", ""),
               "meaning_vi": v.get("meaning_vi", "")} for _i, v in pairs]

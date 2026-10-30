@@ -202,7 +202,7 @@ python -m api.model_catalog --refresh      # dò catalog thật (cần key)
 
 ---
 
-## 7.3. FIX SINH KHÓA HỌC AI — CONTENT RỖNG KÉO THEO QUIZ/ẢNH/AUDIO RỖNG (2026-10-30)
+## 7.5. FIX SINH KHÓA HỌC AI — CONTENT RỖNG KÉO THEO QUIZ/ẢNH/AUDIO RỖNG (2026-10-30)
 
 ### Triệu chứng
 - Bấm **Sinh khóa học AI** → `0/0 ngày`, `calls=1`, `ảnh=0`, PAUSED, `course.json` 303 byte.
@@ -227,7 +227,7 @@ python -m api.model_catalog --refresh      # dò catalog thật (cần key)
 - `api/gemini_safe.py`:
   - `report_invalid_output()`: ghi fail + cooldown 180s cho model trả output sai.
   - `_model_score`: model chưa từng thành công xếp cuối (`-100000`); phạt latency có trần 500.
-  - `is_project_billing_error()` + early return trong `_try_models`; `is_model_restriction` nhận `free tier is not available` ⇒ khóa account, xoay key.
+  - `is_project_billing_error()` + early return trong `_try_models`; `free tier is not available` được xử lý riêng ở mục 7.6 (tạm nghỉ KEY 24h, không khóa cả account).
 - `tools/smoke_test_pipeline.py`: smoke test thật 1 ngày (khóa tạm `tiếng_nhật_smoke`), stages `content → quiz_ab → quiz_cd → images → audio → dialogue → media_verify`.
 
 ### Kết quả smoke thật (2026-10-30)
@@ -242,8 +242,55 @@ python -m api.model_catalog --refresh      # dò catalog thật (cần key)
 `test_ai_rich.py` **85/85** · adaptive **7/7** · resolver **6/6** · card **6/6** · recover **6/6** · slug **6/6** · extend **7/7** · model_catalog **13/13** · `py_compile` OK.
 
 ### Còn lại
-- **1400 ngày**: profile tiếng Nhật hiện 420 ngày; `--days 1400` chỉ cắt plan, chưa scale backbone. Cần Phase 3: scale `stage_days` + chunk AI adapt/gap theo lô ~80 slot.
-- Chạy full trên máy chính có data thật + pool JLPT (~12.500 từ).
+- **1400 ngày**: profile tiếng Nhật đã sinh được 1400 ngày / 6 chặng `[100,200,300,350,250,200]`, backbone 1406 chủ đề (mục 7.6). Vẫn cần chạy full trên máy chính có data thật + pool JLPT (~12.500 từ).
+- Validate từ vựng với từ điển/pool để chặn từ bị cắt như `ホテ` (đáng lẽ `ホテル`).
+
+---
+
+## 7.6. FIX ABORT SAU BACKBONE, ẢNH THẬT & XOAY KEY (2026-10-30)
+
+### Triệu chứng
+- GUI báo `0/0 ngày, calls=2, ảnh=0`, ABORTED, dù log đã sinh xong profile 1400 ngày + backbone 1406 chủ đề.
+- Khóa mới toàn ảnh placeholder (chữ cái), không phải ảnh minh họa thật.
+
+### Nguyên nhân
+1. `_get_item_phase` là hàm **lồng** trong `generate_course()`, nhưng `ai/pipeline.py::_stage_plan` import ở cấp module ⇒ `ImportError: cannot import name '_get_item_phase'` sau khi đã đốt công sinh profile/backbone. `calls=2` là bộ đếm budget (2 lượt content), **không phải** số lần thử key/API.
+2. `dictionary_image.WIKI_HOSTS` dùng tên hiển thị (`"Tiếng Nhật"`), còn pipeline truyền slug (`"tiếng_nhật"`) ⇒ rơi về `en.wikipedia.org` ⇒ không tìm được ảnh bài viết tiếng Nhật ⇒ placeholder. Cache âm lưu `None` vĩnh viễn nên lỗi 429/timeout tạm thời cũng thành placeholder mãi.
+3. `free tier is not available` là lỗi cấp **PROJECT** (Google xét eligibility theo Google Cloud project), nhưng code khóa cả Gmail account 60 phút ⇒ bỏ qua oan các key khác (project khác) trong cùng account. Bản vá đầu tiên lại block **vĩnh viễn** key — quá tay, vì bật billing là key cũ dùng lại được.
+
+### Đã sửa
+- `ai/course_generator.py`: đưa `_get_item_phase` ra cấp module; `generate_course()` truyền `phase_indices`; pipeline import được.
+- `ai/dictionary_image.py`: chuẩn hóa tên ngôn ngữ (`tiếng_nhật` == `Tiếng Nhật`) cho Wikipedia/Wiktionary; `IMAGE_CACHE_VERSION=2`; cache âm có TTL 7 ngày; deadline mỗi từ 10 → 20s.
+- `api/gemini_safe.py`: `free tier is not available` → `block_key(ttl=24h)` (tạm nghỉ, `blocked_keys.json` có `until`) + bỏ qua key đó, **không** khóa account, **không** block vĩnh viễn; vẫn early-return trong `_try_models` để không thử 8 model trên cùng project chết. Áp dụng cả đường ảnh.
+- Đã kiểm chứng thực tế 2 key bị lỗi × 4 model (`gemini-3.6-flash`, `gemini-3.5-flash`, `gemini-flash-lite-latest`, `gemini-4-argon`): **cả 4 đều 403 cùng message** ⇒ lỗi cấp project, không phải model cũ. Google docs `troubleshooting#project-unavailable` cũng ghi rõ: tạo key mới trong cùng project không sửa được, phải bật billing.
+- Trước khi tạm nghỉ key, code thử tối đa **1 model kế** để xác nhận: model kế chạy được ⇒ chỉ model cũ lỗi, key vẫn giữ; cả 2 cùng 403 ⇒ mới tạm nghỉ key 24h. Tránh khóa oan key vì một model cụ thể.
+
+### Kết quả kiểm chứng (2026-10-30)
+- Plan: **1406 ngày** (1400 template + 6 AI bổ sung).
+- Ngày 13: **12 từ**, 10 mẫu câu, 10 câu thông dụng, 2 ngữ pháp, **quiz 40 câu** (10/10/10/10), 12 audio, 1 hội thoại, **0 từ giả**.
+- Ảnh: **11/12 ảnh thật** (Wikipedia/Commons), 1 placeholder (`ホテ` — nhiều khả năng bị cắt từ `ホテル`).
+- `test_ai_rich.py` **85/85** · adaptive **7/7** · model_catalog **13/13** · resolver **6/6** · `py_compile` OK.
+
+### Xoay key — hành vi hiện tại
+| Tình huống | Phạm vi khóa | Thời gian |
+|---|---|---|
+| 429 RPM/TPM | 1 key | ~60-65s (`retryDelay`) |
+| 429 quota ngày | account | 60 phút (Google thực tế reset 00:00 Pacific) |
+| 403 denied access | account | vĩnh viễn (`blocked_accounts.json`) |
+| 401/403 invalid key | key | vĩnh viễn (`blocked_keys.json`) |
+| 403 free tier not available | key (project) | tạm nghỉ 24h (`blocked_keys.json` có `until`) — bật billing là key cũ dùng lại được |
+| 503/timeout | model | 90-300s (model cooldown) |
+
+- Trong 1 key: `_try_models` thử lần lượt model (adaptive order). 429 daily → thử model kế (mỗi model một bucket quota riêng). 403 free-tier → dừng ngay vì cả project chết, không thử 8 model.
+- Không "chỉ khóa model": cùng project thì model cũ lẫn mới đều 403 (đã test), nên khóa model sẽ lặp lại 8-10 lần vô ích. Khóa key có TTL là đúng phạm vi project, và vẫn tự phục hồi sau khi bật billing.
+- Lỗi model cũ bị khai tử (`no longer available to new users`, 404) là lỗi **khác** → chỉ cooldown model, không đụng key.
+- Giữa các account: `request()` lấy key từ pool, bỏ qua invalid/blocked/cooldown, thử tới khi thành công hoặc hết key. `MAX_REQUEST_SECONDS=300` giới hạn 1 request; nếu mọi key timeout 120s thì có thể dừng sau 2-3 key.
+- Lock account 60 phút là **in-memory**; restart app sẽ reset. Blocklist invalid key là vĩnh viễn; free-tier là TTL 24h nên tự thử lại.
+
+### Còn lại
+- Validate vocab với từ điển/pool để chặn từ bị cắt (`ホテ`).
+- Persist account cooldown nếu cần giữ qua restart.
+- Chạy full 1400 ngày trên máy chính với pool JLPT thật.
 
 ---
 

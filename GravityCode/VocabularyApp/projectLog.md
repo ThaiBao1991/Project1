@@ -29,12 +29,12 @@
 1. `_run_day` gọi `build_content_prompt(..., phase)` 7 tham số nhưng hàm chỉ nhận 6 ⇒ `TypeError` ⇒ pipeline abort `calls=0`.
 2. Model đôi khi trả `vocab: []` dù schema required; pipeline cũ vẫn checkpoint content `done` ⇒ `_run_day` trả `None`, bỏ qua quiz/media.
 3. Retry dùng lại đúng model vừa trả rỗng; model scoring xếp model 0 success (3.8 timeout) lên trên model chạy được (flash-lite).
-4. 403 `free tier is not available` bị thử hết 8 model trên cùng key thay vì khóa account.
+4. 403 `free tier is not available` bị thử hết 8 model trên cùng key; sau đó code còn khóa cả Gmail account 60 phút (quá tay).
 
 **Đã sửa:**
 - `ai/course_generator.py`: `build_content_prompt` nhận `phase`; `ai_lang_name()` bỏ hậu tố `_smoke/_test` + `_` → khoảng trắng; `parse_content_json` giữ partial content; thêm `VOCAB_FILL_SCHEMA` + `build_vocab_fill_prompt` + `parse_vocab_json`; sanitize tên ngôn ngữ trong prompt quiz/dialogue/grammar.
 - `ai/pipeline.py`: `_run_day` gọi prompt nhỏ chỉ sinh vocab khi content thiếu; nếu vẫn 0 từ ⇒ **không checkpoint**, trả `None`; `_ask_with_retry` báo `coord.report_invalid_output(model)` khi parse lỗi.
-- `api/gemini_safe.py`: `report_invalid_output()` (fail + cooldown 180s); `_model_score` xếp model 0 success cuối + phạt latency có trần; `is_project_billing_error()` early-return; `is_model_restriction` nhận `free tier is not available` → khóa account/xoay key.
+- `api/gemini_safe.py`: `report_invalid_output()` (fail + cooldown 180s); `_model_score` xếp model 0 success cuối + phạt latency có trần; `is_project_billing_error()` early-return; `free tier is not available` → tạm nghỉ **KEY** 24h, không khóa cả account (chi tiết mục 7.6 UPGRADE_17).
 - `tools/smoke_test_pipeline.py`: smoke test thật 1 ngày, khóa tạm `tiếng_nhật_smoke`, stages `content → quiz_ab → quiz_cd → images → audio → dialogue → media_verify`.
 
 **Kết quả smoke thật (2026-10-30):**
@@ -47,7 +47,27 @@
 
 **Test hồi quy:** `test_ai_rich.py` 85/85 · adaptive 7/7 · resolver 6/6 · card 6/6 · recover 6/6 · slug 6/6 · extend 7/7 · model_catalog 13/13 · `py_compile` OK.
 
-**Còn lại:** profile tiếng Nhật hiện 420 ngày; `--days 1400` mới chỉ cắt plan, chưa scale backbone. Cần Phase 3 (scale `stage_days` + chunk AI adapt/gap ~80 slot/lô) trước khi chạy full 1400 ngày trên máy chính.
+**Còn lại:** profile tiếng Nhật đã sinh được 1400 ngày / 6 chặng `[100,200,300,350,250,200]`, backbone 1406 chủ đề. Vẫn cần chạy full trên máy chính với pool JLPT thật; thêm validate vocab để chặn từ bị cắt như `ホテ`.
+
+### 🩹 FIX ABORT SAU BACKBONE + ẢNH THẬT + XOAY KEY (cùng ngày)
+
+**Triệu chứng:** GUI báo `0/0 ngày, calls=2, ảnh=0`, ABORTED dù log đã sinh xong profile 1400 ngày + backbone 1406 chủ đề. Ảnh khóa mới toàn placeholder.
+
+**Nguyên nhân:**
+1. `_get_item_phase` là hàm lồng trong `generate_course()`, nhưng `ai/pipeline.py::_stage_plan` import ở cấp module ⇒ `ImportError: cannot import name '_get_item_phase'`. `calls=2` là bộ đếm budget (2 lượt content), không phải số lần thử key.
+2. `dictionary_image.WIKI_HOSTS` dùng tên hiển thị (`"Tiếng Nhật"`) nhưng pipeline truyền slug (`"tiếng_nhật"`) ⇒ rơi về `en.wikipedia.org` ⇒ không có ảnh Nhật ⇒ placeholder. Cache âm lưu `None` vĩnh viễn.
+3. `free tier is not available` là lỗi cấp **project** (Google xét theo Google Cloud project), nhưng code khóa cả account 60 phút. Bản vá đầu lại block vĩnh viễn key — quá tay, vì bật billing là key cũ dùng lại được.
+
+**Đã sửa:**
+- `ai/course_generator.py`: `_get_item_phase` ra cấp module; `generate_course()` truyền `phase_indices`.
+- `ai/dictionary_image.py`: chuẩn hóa tên ngôn ngữ cho host Wikipedia/Wiktionary; cache version 2; cache âm TTL 7 ngày; deadline 10→20s.
+- `api/gemini_safe.py`: free-tier 403 → `block_key(ttl=24h)` (tạm nghỉ, có `until`), không khóa account, không block vĩnh viễn; vẫn early-return khỏi `_try_models`; áp dụng cả ảnh.
+- Kiểm chứng 2 key lỗi × 4 model cũ/mới (`gemini-3.6-flash`, `gemini-3.5-flash`, `gemini-flash-lite-latest`, `gemini-4-argon`): cả 4 đều 403 cùng message ⇒ lỗi cấp project, không phải model cũ. Google docs `troubleshooting#project-unavailable` xác nhận tạo key mới trong cùng project không sửa được, phải bật billing.
+- Trước khi tạm nghỉ key, thử tối đa 1 model kế để xác nhận; model kế chạy được thì giữ key, cả 2 cùng 403 mới tạm nghỉ 24h.
+
+**Kết quả thật:** Plan 1406 ngày. Ngày 13: 12 từ, 10 mẫu câu, 10 câu thông dụng, 2 ngữ pháp, quiz 40 câu, 12 audio, 1 hội thoại, 0 từ giả. Ảnh **11/12 thật** (Wikipedia/Commons), 1 placeholder (`ホテ` — nghi bị cắt từ `ホテル`). `test_ai_rich.py` 85/85, adaptive 7/7, model_catalog 13/13, resolver 6/6, `py_compile` OK.
+
+**Xoay key:** 429 RPM → khóa 1 key ~60-65s; 429 quota ngày → account 60 phút (Google reset 00:00 Pacific); 403 denied → account vĩnh viễn; 401/403 invalid → key vĩnh viễn; 403 free-tier → key tạm nghỉ 24h (tự thử lại, bật billing là dùng được); 503/timeout → model 90-300s. Lock account là in-memory, restart app reset; free-tier TTL nằm trong `blocked_keys.json`.
 
 ---
 ## 📋 Cập nhật — 2026-10-27 (Update 17.1)
