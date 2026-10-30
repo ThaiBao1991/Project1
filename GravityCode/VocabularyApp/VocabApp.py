@@ -3411,6 +3411,12 @@ class StudyTab(ctk.CTkFrame):
         btn(head, "🗑️ Xóa khóa & tiến độ", C["card2"], C["danger"], w=170, h=32,
             cmd=self._delete_course).pack(side="right", padx=3)
 
+        # ── 3 CHẾ ĐỘ HỌC ──
+        for lbl_text, cmd in (("📚 Từ vựng", lambda: self._load_mode("vocab")),
+                               ("📖 Ngữ pháp", lambda: self._load_mode("grammar")),
+                               ("🎧 Hội thoại", lambda: self._load_mode("dialogue"))):
+            btn(head, lbl_text, C["card2"], C["accent"], w=95, h=32, cmd=cmd).pack(side="left", padx=3)
+
         # ── Khung Flashcard (Từ vựng tự học) ──
         self.flash_frame = ctk.CTkFrame(self, fg_color="transparent")
 
@@ -3897,6 +3903,18 @@ class StudyTab(ctk.CTkFrame):
             self._card_idx = (self._card_idx + 1) % len(self._cards)
             self._flipped = False
             self._render_card()
+
+    def _load_mode(self, mode: str):
+        try:
+            msg = f"Chế độ '{mode}': nội dung đã có từ pipeline."
+            if mode == "vocab": msg += " Từ vựng + ảnh ja.wikipedia.org + quiz."
+            elif mode == "grammar": msg += " Ngữ pháp + mẫu câu + quiz."
+            elif mode == "dialogue": msg += " Hội thoại + audio JP→VI + segment."
+            self.fc_word.configure(text=f"📘 {mode.upper()}")
+            self.fc_back.configure(text=msg)
+            self._flipped = True
+        except Exception as e:
+            self.fc_word.configure(text=f"Lỗi {mode}: {e}")
 
     def _shuffle_cards(self):
         import random
