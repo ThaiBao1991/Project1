@@ -3906,15 +3906,38 @@ class StudyTab(ctk.CTkFrame):
 
     def _load_mode(self, mode: str):
         try:
-            msg = f"Chế độ '{mode}': nội dung đã có từ pipeline."
-            if mode == "vocab": msg += " Từ vựng + ảnh ja.wikipedia.org + quiz."
-            elif mode == "grammar": msg += " Ngữ pháp + mẫu câu + quiz."
-            elif mode == "dialogue": msg += " Hội thoại + audio JP→VI + segment."
-            self.fc_word.configure(text=f"📘 {mode.upper()}")
-            self.fc_back.configure(text=msg)
+            import os, json
+            course_path = os.path.join("data", "ai_courses", getattr(self.app, "current_language", "tiếng_nhật"), "course.json")
+            day = getattr(self, "_current_day", 1) or 1
+            lesson = {}
+            try:
+                c = json.load(open(course_path, encoding="utf-8"))
+                for d in (c.get("days") or []):
+                    if int(d.get("day", 0)) == int(day):
+                        lesson = d; break
+            except Exception:
+                pass
+            if mode == "vocab":
+                words = (lesson.get("vocab") or [])
+                text = "\n".join([f"{w.get('word')} — {w.get('meaning_vi')} ({w.get('audio_ref') or 'không có âm'})" for w in words[:3]])
+                self.fc_word.configure(text="📚 Từ vựng — Học từng từ")
+                self.fc_back.configure(text=text or "Chưa có dữ liệu từ vựng cho ngày này.")
+            elif mode == "grammar":
+                patterns = (lesson.get("sentence_patterns") or [])
+                grammar = (lesson.get("grammar") or [])
+                text = "\n".join([f"• {p.get('pattern','')} — {p.get('meaning_vi','')}" for p in patterns[:2]])
+                if grammar:
+                    text += "\nNgữ pháp: " + (grammar[0].get("rule","") if isinstance(grammar, list) else str(grammar)[:200])
+                self.fc_word.configure(text="📖 Ngữ pháp — Mẫu câu & Quy tắc")
+                self.fc_back.configure(text=text or "Chưa có dữ liệu ngữ pháp cho ngày này.")
+            elif mode == "dialogue":
+                dlg = (lesson.get("dialogue") or [])
+                text = "\n".join([f"• {d.get('role','')}: {d.get('text','')[:200]}" for d in dlg[:2]])
+                self.fc_word.configure(text="🎧 Hội thoại — Nghe từng đoạn / Cả bài")
+                self.fc_back.configure(text=text or "Chưa có hội thoại cho ngày này.")
             self._flipped = True
         except Exception as e:
-            self.fc_word.configure(text=f"Lỗi {mode}: {e}")
+            self.fc_word.configure(text=f"Lỗi tải {mode}: {e}")
 
     def _shuffle_cards(self):
         import random
