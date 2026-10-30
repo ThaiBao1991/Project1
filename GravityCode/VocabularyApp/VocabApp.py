@@ -4208,7 +4208,7 @@ class StudyTab(ctk.CTkFrame):
         for i, it in enumerate(items):
             wrapper = ctk.CTkFrame(self.media_strip, width=110, height=140,
                                    fg_color=C["card2"], corner_radius=10,
-                                   border_width=2, border_color="transparent")
+                                   border_width=2, border_color=C.get("accent2", "#bb86fc"))
             wrapper.grid(row=0, column=i, padx=4, pady=6, sticky="n")
             self._media_cards[i] = wrapper
 
