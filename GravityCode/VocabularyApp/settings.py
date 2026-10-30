@@ -82,7 +82,11 @@ DEFAULT_SETTINGS = {
         "max_tracks_audio_per_day": 12,
         # TTS: "auto" → gemini-tts → edge-tts → gTTS → pyttsx3 (chỉ khi có voice khớp locale)
         "tts_engine": "auto",
-        "tts_models": ["gemini-3.8-flash-tts", "gemini-3.8-flash-lite-tts"],
+        "tts_models": [
+            "gemini-3.8-flash-tts",        # tiếng Nhật
+            "gemini-3.8-flash-lite-tts",   # tiếng Việt
+        ],
+        "tts_bilingual_mode": True,
         "audio_dir": "data/audio"
     }
 }

@@ -135,8 +135,22 @@ def run_audio_stage(language: str, day: int, lesson: dict, chain, log_fn=print,
     def _one(i_item):
         i, it = i_item
         try:
-            return i, synthesize(language, it["text"], stage_idx=stage_idx,
-                                 coord=coord, log_fn=None)
+            res_jp = synthesize(language, it["text"], stage_idx=stage_idx,
+                              coord=coord, log_fn=None, voice="ja-JP")
+            if res_jp and res_jp.get("path"):
+                try:
+                    from settings import load_settings
+                    s = load_settings()
+                    if s.get("media", {}).get("tts_bilingual_mode"):
+                        vi_text = (it.get("meaning_vi") or it["text"]).split(",")[0]
+                        res_vi = synthesize(language, vi_text, stage_idx=stage_idx,
+                                            coord=coord, log_fn=None, voice="vi-VN")
+                        if res_vi and res_vi.get("path"):
+                            return i, (res_jp, res_vi)
+                except Exception:
+                    pass
+                return i, res_jp
+            return i, {}
         except Exception:
             return i, {}
 
