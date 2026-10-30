@@ -8,7 +8,7 @@ Ghi file đều dùng kiểu atomic (tmp + os.replace) để không hỏng dữ 
 
 import json
 
-from ai.paths import lang_slug
+from ai.paths import canonical_slug, lang_slug
 import os
 import threading
 from datetime import datetime
@@ -39,7 +39,8 @@ def _atomic_write(path: str, data: dict):
 
 
 def course_dir(language: str) -> str:
-    return os.path.join(COURSES_DIR, lang_slug(language))
+    # canonical_slug: 'Nhật'/'ja' → 'tiếng_nhật' — hết split-brain khóa học.
+    return os.path.join(COURSES_DIR, canonical_slug(language))
 
 
 def course_path(language: str) -> str:

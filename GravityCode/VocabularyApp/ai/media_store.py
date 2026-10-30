@@ -19,7 +19,7 @@ import hashlib
 import io
 import json
 
-from ai.paths import lang_slug
+from ai.paths import canonical_slug, lang_slug
 import os
 import shutil
 import threading
@@ -75,7 +75,9 @@ except Exception:  # pragma: no cover
 
 
 def media_dir(lang: str, day=None) -> str:
-    d = os.path.join(MEDIA_DIR, lang_slug(lang))
+    # canonical_slug: media MỚI sinh dưới slug chuẩn ('Nhật' → 'tiếng_nhật');
+    # rel_path cũ trong manifest ('media/nhật/…') được giữ nguyên chuỗi khi tra.
+    d = os.path.join(MEDIA_DIR, canonical_slug(lang))
     if day is not None:
         d = os.path.join(d, f"d{int(day):04d}")
     return d
@@ -84,7 +86,7 @@ def media_dir(lang: str, day=None) -> str:
 def rel_path_for(lang: str, day, filename: str) -> str:
     """Đường dẫn tương đối so với thư mục data/ (dùng cho web + manifest)."""
     daypart = f"d{int(day):04d}" if day is not None else "_"
-    return f"media/{lang_slug(lang)}/{daypart}/{filename}"
+    return f"media/{canonical_slug(lang)}/{daypart}/{filename}"
 
 
 def abs_path_for(rel: str) -> str:

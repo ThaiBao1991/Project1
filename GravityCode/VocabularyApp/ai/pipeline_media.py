@@ -10,7 +10,7 @@ Mỗi stage:
 import os
 
 from ai import media_store
-from ai.media_schema import cefr_for_stage
+from ai.media_schema import DIALOGUE_LIMITS, cefr_for_stage, validate_dialogue
 from ai.pipeline_store import (STAGE_AUDIO, STAGE_DIALOGUE, STAGE_IMAGES,
                                STAGE_MEDIA_VERIFY, STATUS_DEGRADED,
                                STATUS_DONE, STATUS_PENDING, STATUS_SKIPPED,
@@ -191,6 +191,41 @@ def run_audio_stage(language: str, day: int, lesson: dict, chain, log_fn=print,
 
 
 # ─── TẦNG HỘI THOẠI ──────────────────────────────────────────────────────────
+def _validate_dialogues(dialogues: list, lesson: dict) -> list:
+    """Chạy media_schema.validate_dialogue() cho từng hội thoại. KHÔNG nâng lỗi."""
+    vocab_words = []
+    for v in (lesson.get("vocab") or []):
+        if isinstance(v, dict):
+            w = str(v.get("word", "")).strip()
+            if w:
+                vocab_words.append(w)
+    out = []
+    for d in dialogues:
+        if not isinstance(d, dict):
+            continue
+        try:
+            out.append(validate_dialogue(d, vocab_words))
+        except Exception as e:          # validator không bao giờ được phá stage
+            out.append({"ok": False, "errors": [f"validator lỗi: {type(e).__name__}: {e}"],
+                        "stats": {}})
+    return out
+
+
+def _dialogue_retry_prompt(prompt: str, invalid: list) -> str:
+    """Thêm lời nhắc mạnh hơn khi lần 1 AI không tôn trọng giới hạn hội thoại NGẮN."""
+    flat = " | ".join(invalid)[:300]
+    max_turns = int(DIALOGUE_LIMITS.get("max_turns", 6))
+    max_chars = int(DIALOGUE_LIMITS.get("max_total_chars", 220))
+    max_words = int(DIALOGUE_LIMITS.get("max_words_per_line", 8))
+    return (
+        prompt
+        + f"\n\n⚠ CẢNH BÁO NHIỆM VỤ TRƯỚC VI PHẠM GIỚI HẠN: {flat}\n"
+        f"- Hãy RÚT NGẮN MỘT TRẦN ĐỘNG HUYẾT: TỐI ĐA {max_turns} lượt, "
+        f"TỐI ĐA {max_chars} ký tự tổng, mỗi lượt ≤ {max_words} từ.\n"
+        f"- KHÔNG dồn nhiều ý vào một lượt dài — mỗi lượt CHỈ 1 câu NGẮN tự nhiên.\n"
+    )
+
+
 def run_dialogue_stage(language: str, day: int, lesson: dict, coord, log_fn=print,
                        level: str = "", budget=None,
                        allow_degraded: bool = True) -> dict:
@@ -211,10 +246,10 @@ def run_dialogue_stage(language: str, day: int, lesson: dict, coord, log_fn=prin
     level_tag = cefr_for_stage(stage_idx)
     review = bool(lesson.get("is_review_day"))
 
+    prompt = build_dialogue_prompt(language, lesson, level=level,
+                                   level_tag=level_tag, review=review)
     try:
-        res = coord.request(build_dialogue_prompt(language, lesson, level=level,
-                                                   level_tag=level_tag, review=review),
-                            response_schema=DIALOGUE_SCHEMA)
+        res = coord.request(prompt, response_schema=DIALOGUE_SCHEMA)
     except Exception as e:
         log_fn(f"   ⚠ Lỗi gọi AI cho hội thoại: {e}")
         res = {"ok": False}
@@ -229,14 +264,44 @@ def run_dialogue_stage(language: str, day: int, lesson: dict, coord, log_fn=prin
         err = res.get("error", {})
         log_fn(f"   ⚠ Hội thoại thất bại [{err.get('kind')}]: {str(err.get('message',''))[:80]}")
 
+    # ── KIỂM TRA GIỚI HẠN HỘI THOẠI (6 lượt / 220 ký tự / ≤8 từ mỗi lượt) ──
+    validation = _validate_dialogues(dialogues, lesson)
+    invalid = [errs for v in validation if not v.get("ok") for errs in (v.get("errors") or [])]
+    retried = False
+    if dialogues and invalid and res.get("ok"):
+        # AI không tuân thủ giới hạn ⇒ thử lại ĐÚNG 1 lần, chỉ khi còn ngân sách.
+        if budget is None or getattr(budget, "can_call", lambda n: True)(1):
+            log_fn(f"   ⚠ Hội thoại Ngày {day} vi phạm giới hạn — thử lại 1 lần: "
+                   f"{('; '.join(invalid))[:200]}")
+            try:
+                res2 = coord.request(_dialogue_retry_prompt(prompt, invalid),
+                                     response_schema=DIALOGUE_SCHEMA)
+                if budget is not None:
+                    budget.consume_call()
+                if res2.get("ok"):
+                    dialogues2 = parse_dialogue_json(res2.get("text", ""))
+                    v2 = _validate_dialogues(dialogues2, lesson)
+                    bad2 = sum(1 for v in v2 if not v.get("ok"))
+                    bad1 = sum(1 for v in validation if not v.get("ok"))
+                    if dialogues2 and bad2 < bad1:
+                        dialogues, validation, retried = dialogues2, v2, True
+            except Exception as e:
+                log_fn(f"   ⚠ Thử lại hội thoại lỗi: {type(e).__name__}: {e}")
+        else:
+            log_fn(f"   ⚠ Hết ngân sách — bỏ qua thử lại hội thoại Ngày {day}.")
+
     # Gắn vào lesson (để web + desktop đọc)
     if dialogues:
         lesson["dialogue"] = dialogues
 
-    data = {"dialogues": dialogues, "generated": len(dialogues), "level_tag": level_tag}
+    data = {"dialogues": dialogues, "generated": len(dialogues), "level_tag": level_tag,
+            "validation": {"ok": not invalid, "n_invalid": sum(1 for v in validation
+                                                              if not v.get("ok")),
+                           "errors": invalid, "retried": retried}}
     status = STATUS_DONE if dialogues else (STATUS_DEGRADED if allow_degraded else STATUS_SKIPPED)
     save_checkpoint(language, STAGE_DIALOGUE, data, day=day, status=status)
-    log_fn(f"   💬 Hội thoại Ngày {day}: {len(dialogues)} kịch bản ({level_tag}).")
+    warn = "" if not invalid else f" — ⚠ {sum(1 for v in validation if not v.get('ok'))} kịch bản vi phạm giới hạn"
+    log_fn(f"   💬 Hội thoại Ngày {day}: {len(dialogues)} kịch bản ({level_tag}){warn}.")
     return data
 
 

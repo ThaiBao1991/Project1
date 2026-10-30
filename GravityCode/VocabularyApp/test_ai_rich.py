@@ -1258,6 +1258,57 @@ assert _rc == 0, f"dry-run phải trả 0, thực tế {_rc}"
 assert "ước call" in _buf.getvalue(), "dry-run phải in kế hoạch"
 ok("pipeline CLI --dry-run in kế hoạch mà không gọi API")
 
+# 28.7: stage tùy chọn đăng ký đúng
+from ai.pipeline_store import STAGE_GRAMMAR_ENRICH, STAGES_OPTIONAL
+assert STAGE_GRAMMAR_ENRICH not in STAGES, "grammar_enrich phải là stage TÙY CHỌN"
+assert STAGE_GRAMMAR_ENRICH in STAGES_OPTIONAL, "grammar_enrich phải nằm trong STAGES_OPTIONAL"
+ok("stage grammar_enrich nằm trong STAGES_OPTIONAL, không đè STAGES mặc định")
+
+
+# ─── 29. Grammar Enrichment + Dialogue Validate (Update 17.1) ───
+print("\n[29] Grammar Enrichment + Dialogue Validate")
+from ai.course_generator import (GRAMMAR_ENRICH_SCHEMA,
+                                 build_grammar_enrich_prompt,
+                                 parse_grammar_enrich_json)
+from ai.pipeline_media import _validate_dialogues
+
+assert "grammar" in GRAMMAR_ENRICH_SCHEMA["properties"], "schema phải có key grammar"
+ok("GRAMMAR_ENRICH_SCHEMA đúng cấu trúc (key grammar)")
+
+_lesson_g = {
+    "grammar": [
+        {"title": "は vs が", "explanation": "phân biệt trợ từ", "examples": []},
+        {"title": "Trợ động từ たい", "explanation": "", "examples": []},
+    ],
+}
+_pge = build_grammar_enrich_prompt("Tiếng Nhật", _lesson_g)
+assert "は vs が" in _pge and "Trợ động từ たい" in _pge
+assert "common_mistakes" in _pge and "mini_quiz" in _pge
+ok("build_grammar_enrich_prompt nhúng đủ title + yêu cầu 2 field")
+
+_gjson = json.dumps({"grammar": [
+    {"title": "は vs が",
+     "common_mistakes": [{"wrong": "は", "right": "が", "why_vi": "nhầm trợ từ chủ thể"}],
+     "mini_quiz": [{"question": "...", "options": ["A", "B", "C", "D"],
+                    "answer_index": 2, "explanation": "ok"}]},
+]}, ensure_ascii=False)
+_pg = parse_grammar_enrich_json(_gjson)
+assert len(_pg) == 1 and _pg[0]["title"] == "は vs が", "phải đọc đủ 1 bài"
+assert _pg[0]["common_mistakes"][0]["wrong"] == "は"
+assert _pg[0]["mini_quiz"][0]["answer_index"] == 2
+ok("parse_grammar_enrich_json đọc đúng JSON chuẩn (mistake + mini_quiz)")
+
+assert parse_grammar_enrich_json("rác không phải JSON") == []
+ok("parse_grammar_enrich_json trả [] an toàn khi JSON hỏng")
+
+_les_v = {"vocab": [{"word": "cat"}]}
+_dbad = {"kind": "micro", "turns": [{"line_target": "Hi cat nice to see you again today with all"}]}
+_vbad = _validate_dialogues([_dbad], _les_v)
+assert _vbad[0]["ok"] is False, "hội thoại quá dài bị cờ"
+_dgood = {"kind": "micro", "turns": [{"line_target": "Hi cat"}, {"line_target": "Meow now"}]}
+assert _validate_dialogues([_dgood], _les_v)[0]["ok"] is True, "hội thoại hợp lệ phải qua"
+ok("_validate_dialogues bắt vi phạm (≤6 lượt / ≤220 ký tự / ≤8 từ mỗi lượt)")
+
 
 # ─── Summary ───
 print(f"\n{'='*50}")

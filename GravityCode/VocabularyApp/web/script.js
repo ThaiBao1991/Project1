@@ -480,8 +480,16 @@ async function loadMediaIndex() {
 }
 
 function mediaEntry(ref) {
-    if (!ref || !mediaIndex || !mediaIndex.items) return null;
-    return mediaIndex.items[ref] || null;
+    if (!ref) return null;
+    let r = (mediaIndex && mediaIndex.items) ? mediaIndex.items[ref] : null;
+    if (r) return r;
+    // Parity desktop: ref không phải m_* → chấp nhận rel_path kho data/
+    // ("media/<slug>/d0001/x.webp" hoặc "audio/<slug>/.../x.mp3", có thể "data/" prefix).
+    if (typeof ref !== "string") return null;
+    const safe = String(ref).trim().replace(/\\/g, "/").replace(/^data\//, "");
+    if (!safe || safe.includes("..") || safe.startsWith("/")) return null;
+    if (!/^(media|audio)\//.test(safe)) return null;
+    return { rel_path: safe, _direct: true };
 }
 
 function mediaUrl(ref) {
@@ -510,7 +518,8 @@ function mediaAudioHtml(ref, label) {
     if (!e) return "";
     const url = mediaUrl(ref);
     if (!url) return "";
-    return `<audio class="media-audio" controls preload="none" src="${escapeHtml(url)}"></audio>`;
+    // onerror: file thiếu/404 → tự gỡ element (không để audio chết trên UI)
+    return `<audio class="media-audio" controls preload="none" src="${escapeHtml(url)}" onerror="this.remove()"></audio>`;
 }
 
 function renderCourseShell() {
@@ -564,6 +573,8 @@ function renderCourseDay(dayNum) {
     (lesson.vocab || []).forEach((v, i) => {
         const ipa = v.ipa || v.pronunciation || "";
         const showIpa = ipa && ipa !== v.pronunciation;
+        const sources = (Array.isArray(v.sources) ? v.sources : []).filter(Boolean);
+        const hasEvidence = sources.length > 0 || v.etymology;
         const audioRef = (lesson.media && lesson.media.vocab_audio)
             ? (lesson.media.vocab_audio[v.word] || v.audio_ref) : v.audio_ref;
         html += `
@@ -573,6 +584,7 @@ function renderCourseDay(dayNum) {
                     <div class="vocab-word">${i + 1}. ${escapeHtml(v.word)}</div>
                     ${v.pronunciation ? `<div class="vocab-pronunciation">/${escapeHtml(v.pronunciation)}/</div>` : ""}
                     ${showIpa ? `<div class="vocab-ipa" title="Phiên âm quốc tế">🔊 ${escapeHtml(ipa)}</div>` : ""}
+                    ${v.ipa_ev && v.ipa_ev !== ipa ? `<div class="vocab-ipa" title="IPA chuẩn theo Wiktionary">📖 ${escapeHtml(v.ipa_ev)}</div>` : ""}
                     ${v.pos ? `<span class="pos-badge">${escapeHtml(v.pos)}</span>` : ""}
                 </div>
                 ${v.part_of_speech ? `<span class="badge">${escapeHtml(v.part_of_speech)}</span>` : ""}
@@ -589,6 +601,18 @@ function renderCourseDay(dayNum) {
                 </div>
             </div>` : ""}
             ${audioRef ? `<div class="media-audio-row">${mediaAudioHtml(audioRef, v.word)}</div>` : ""}
+            ${hasEvidence ? `
+            <div class="evidence-box">
+                ${sources.map(s => {
+                    const linkText = s.title || s.kind || "nguồn";
+                    return `<div class="evidence-source">
+                    ${s.url ? `<a href="${escapeHtml(s.url)}" target="_blank" rel="noopener noreferrer">📚 ${escapeHtml(linkText)}</a>` : `<span>📚 ${escapeHtml(linkText)}</span>`}
+                    ${s.license ? `<span class="evidence-license"> — ${escapeHtml(s.license)}</span>` : ""}
+                    ${s.quote ? `<div class="evidence-quote">“${escapeHtml(String(s.quote).slice(0, 160))}”</div>` : ""}
+                </div>`;
+                }).join("")}
+                ${v.etymology ? `<div class="evidence-etymology">🏛️ Từ nguyên: ${escapeHtml(String(v.etymology).slice(0, 200))}</div>` : ""}
+            </div>` : ""}
         </div>`;
     });
 

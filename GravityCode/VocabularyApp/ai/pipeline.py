@@ -30,9 +30,11 @@ import time
 from datetime import datetime
 
 from ai import course_db
+from ai.course_generator import GenerationStopped
 from ai.pipeline_log import EVENTS, open_logger, prune_logs
 from ai.pipeline_store import (STAGE_AUDIO, STAGE_BACKBONE, STAGE_CONTENT,
-                               STAGE_DIALOGUE, STAGE_EVIDENCE, STAGE_IMAGES,
+                               STAGE_DIALOGUE, STAGE_EVIDENCE,
+                               STAGE_GRAMMAR_ENRICH, STAGE_IMAGES,
                                STAGE_MEDIA_VERIFY,
                                STAGE_PLAN, STAGE_PROFILE, STAGE_QUIZ_AB,
                                STAGE_QUIZ_CD, STAGES, STATUS_DEGRADED,
@@ -152,7 +154,15 @@ def evaluate_dod(language: str, allow_degraded: bool = True) -> dict:
 
     plan = load_checkpoint(language, STAGE_PLAN)
     plan_days = ((plan or {}).get("data") or {}).get("days") or []
-    checks["plan_complete"] = bool(plan_days and len(plan_days) == len(plan_days))
+    # BUG ĐÃ SỬA (Phase 7): trước đây `len(plan_days) == len(plan_days)` — luôn
+    # True khi checkpoint có ngày ⇒ check VÔ NGHĨA. Giờ: checkpoint phải DONE
+    # và PHỦ HẾT ngày đang có trong course.json.
+    course_day_nums = {int(d.get("day", 0)) for d in days if d.get("day")}
+    plan_day_nums = {int(p.get("day", 0)) for p in plan_days}
+    checks["plan_complete"] = bool(
+        plan_days
+        and ((plan or {}).get("status") in (STATUS_DONE, STATUS_DEGRADED))
+        and (not course_day_nums or plan_day_nums.issuperset(course_day_nums)))
 
     def _stage_all_done(stage, require_content=False):
         if not days:
@@ -210,8 +220,13 @@ def run_pipeline(language: str, *,
                  max_audio_per_day: int = 12,
                  max_run_seconds: int = MAX_RUN_SECONDS,
                  evidence: bool = False,
-                 workers: int = 1) -> dict:
+                 grammar_enrich: bool = False,
+                 workers: int = 1,
+                 offline: bool = False) -> dict:
     """Chạy pipeline cho 1 ngôn ngữ. Tự quyết định mọi thứ.
+
+    offline=True (Phase 6): 0 API call — chỉ chạy stage media_verify để
+    soát/thử lại liên kết media có sẵn trong manifest.
 
     Trả dict:
       {"ok", "status": done|paused|aborted, "language", "run_id", "total_days",
@@ -255,6 +270,10 @@ def run_pipeline(language: str, *,
     if evidence and STAGE_EVIDENCE not in stages:
         # Stage TÙY CHỌN: tra Wikimedia (IP bị chặn sau ~30.000 request) ⇒ bật tay.
         stages = list(stages) + [STAGE_EVIDENCE]
+    if grammar_enrich and STAGE_GRAMMAR_ENRICH not in stages:
+        # Stage TÙY CHỌN: gọi AI RIÊNG cho common_mistakes / mini_quiz mảng nested
+        # bị Gemini bỏ khi output lớn ⇒ chi phí 1 call/ngày, vẫn tốn quota lý.
+        stages = list(stages) + [STAGE_GRAMMAR_ENRICH]
 
     run_id = f"{datetime.now():%Y-%m-%dT%H-%M-%S}__{course_db.lang_slug(language)}"
     log = open_logger(language, run_id, level="info")
@@ -279,6 +298,27 @@ def run_pipeline(language: str, *,
     budget = budget or PipelineBudget(job=job)
     chain = chain or ProviderChain.default(log_fn=log_fn or log.info)
 
+    if offline:
+        # ── OFFLINE (Phase 6): 0 API call — chỉ media_verify (manifest ↔ course) ──
+        stages = [STAGE_MEDIA_VERIFY]
+        media, full, mode = True, False, "full"
+
+    # ── Guard (Phase 6): target_days vượt ngân sách call ⇒ báo rõ ngay từ đầu ──
+    # (trước đây pipeline lặng lẽ PAUSED giữa chừng khiến người dùng tưởng treo)
+    if target_days and int(target_days) > 0:
+        try:
+            _used = int((job.get("counters") or {}).get("calls_total", 0))
+        except Exception:
+            _used = 0
+        _remain = max(0, budget.max_calls_per_language - _used)
+        _est = int(target_days) * 4   # ước: content + quiz AB + quiz CD + dialogue
+        if _est > _remain:
+            emit(f"⚠ target_days={int(target_days)} ước ~{_est} call, "
+                 f"vượt ngân sách còn {_remain} (max {budget.max_calls_per_language}/ngôn ngữ, "
+                 f"đã dùng {_used}).")
+            emit("   → Thêm --max-calls-per-language <n> hoặc giảm --days. "
+                 "Pipeline vẫn chạy và sẽ PAUSED gọn khi chạm trần.")
+
     t0 = time.time()
     errors = []
     status = "done"
@@ -293,6 +333,7 @@ def run_pipeline(language: str, *,
     # UnboundLocalError che mất nguyên nhân thật.
     plan = []
     done_days = 0
+    total = 0            # số ngày vòng run này (dùng cả trong finally)
     course = {}
 
     log.event("run.start", msg=f"Bắt đầu pipeline: stages={','.join(stages)}",
@@ -321,8 +362,10 @@ def run_pipeline(language: str, *,
 
         # ── Kiểm tra key ───────────────────────────────────────────────────
         ok, reason = chain.providers[0].available() if chain.providers else (False, "no provider")
-        if not ok:
+        if not ok and not offline:
             raise PipelineAbort(f"Không có provider AI khả dụng: {reason}", EXIT_CONFIG, "no_key")
+        if not ok and offline:
+            emit("📴 Chế độ offline: bỏ qua kiểm tra AI — chỉ stage media_verify (0 call).")
 
         # BUG ĐÃ SỬA (L-F): `get_course()` trả None khi file JSON hỏng ⇒ trước đây
         # `course = {}` rồi `save_course()` GHI ĐÈ file course.json hỏng bằng khóa
@@ -353,12 +396,16 @@ def run_pipeline(language: str, *,
             course["level"] = level
             course_db.save_course(language, course)
             course = course_db.get_course(language) or course
-            # Nếu chế độ media/enrich nhưng chưa có course, phải tự sinh profile/backbone/plan
-            if mode in ("media", "enrich"):
-                for s in (STAGE_PROFILE, STAGE_BACKBONE, STAGE_PLAN):
-                    if s not in stages:
-                        stages.append(s)
-                emit(f"🆕 Tạo course trống cho '{language}' — thêm stage profile/backbone/plan vào pipeline.")
+            emit(f"🆕 Tạo course trống cho '{language}'.")
+        # Khóa chưa có ngày nào + chế độ media/enrich ⇒ phải sinh CẢ nội dung/quiz.
+        # Nếu chỉ thêm profile/backbone/plan, _run_day sẽ bỏ qua mọi ngày ⇒ 0/0, ảnh=0.
+        if mode in ("media", "enrich") and not (course.get("days") or []):
+            for s in (STAGE_PROFILE, STAGE_BACKBONE, STAGE_PLAN,
+                      STAGE_CONTENT, STAGE_QUIZ_AB, STAGE_QUIZ_CD):
+                if s not in stages:
+                    stages.append(s)
+            emit("🆕 Khóa chưa có ngày nào — tự bật thêm stage profile/backbone/plan/"
+                 "content/quiz (không chỉ media).")
 
         # ── STAGE GLOBAL ───────────────────────────────────────────────────
         fsi = None
@@ -369,7 +416,8 @@ def run_pipeline(language: str, *,
             fsi = _cached_profile(language)
 
         if STAGE_BACKBONE in stages:
-            _stage_backbone(language, level, fsi, coord, log, budget, emit, resume, course)
+            _stage_backbone(language, level, fsi, coord, log, budget, emit, resume, course,
+                            stop_check=stop_check)
             progress(8, STAGE_BACKBONE)
 
         plan = []
@@ -409,7 +457,7 @@ def run_pipeline(language: str, *,
                     raise GenerationStopped()
                 if time.time() - t0 > max_run_seconds:
                     raise PipelinePause("Đạt giới hạn thời gian chạy.", "max_run_seconds")
-                if not budget.can_call(4):
+                if not offline and not budget.can_call(4):
                     raise PipelinePause("Đạt ngân sách call hôm nay.", "budget")
 
                 dnum = int(pday.get("day", 0))
@@ -475,6 +523,13 @@ def run_pipeline(language: str, *,
         job["updated_at"] = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
         dod = evaluate_dod(language, allow_degraded=allow_degraded)
         job["definition_of_done"] = dod
+        # BUG ĐÃ SỬA (Phase 7): trước đây progress.json chỉ được cập nhật trên
+        # đường THÀNH CÔNG ⇒ run PAUSED/ABORTED vẫn để progress cũ → bar 0%.
+        # Giờ: ghi trạng thái pipeline trong MỌI đường thoát (finally).
+        try:
+            _write_progress_pipeline(language, job, dod, run_id, level, total)
+        except Exception:
+            pass
         record_run(jobs, run_id, {
             "language": language, "status": status, "exit_code": exit_code,
             "started_at": run_id.split("__")[0], "ended_at": datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
@@ -537,7 +592,8 @@ def _cached_profile(language):
         return {}
 
 
-def _stage_backbone(language, level, fsi, coord, log, budget, emit, resume, course):
+def _stage_backbone(language, level, fsi, coord, log, budget, emit, resume, course,
+                    stop_check=None):
     """Backbone 3 lớp — khung giáo trình bắt buộc."""
     if resume and stage_is_done(language, STAGE_BACKBONE):
         cp = load_checkpoint(language, STAGE_BACKBONE) or {}
@@ -548,7 +604,7 @@ def _stage_backbone(language, level, fsi, coord, log, budget, emit, resume, cour
 
     from ai.course_generator import build_master_backbone
     try:
-        bb = build_master_backbone(language, fsi, coord, log.info, None)
+        bb = build_master_backbone(language, fsi, coord, log.info, stop_check)
     except Exception as e:
         log.error("stage.fail", msg=f"Backbone lỗi: {e}", stage=STAGE_BACKBONE)
         bb = {"items": course.get("backbone", {}).get("items") or []}
@@ -684,11 +740,12 @@ def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
              level, allow_degraded, max_images, max_audio, chain, resume,
              save_each_day=True):
     """Chạy 7 stage của 1 ngày. Trả lesson dict hoặc None."""
-    from ai.course_generator import (DIALOGUE_SCHEMA, build_content_prompt,
-                                     build_dialogue_prompt, build_quiz_prompt_ab,
-                                     build_quiz_prompt_cd, normalize_lesson,
+    from ai.course_generator import (DIALOGUE_SCHEMA, MIN_VOCAB, VOCAB_FILL_SCHEMA,
+                                     build_content_prompt, build_dialogue_prompt,
+                                     build_quiz_prompt_ab, build_quiz_prompt_cd,
+                                     build_vocab_fill_prompt, normalize_lesson,
                                      parse_content_json, parse_dialogue_json,
-                                     parse_quiz_json)
+                                     parse_quiz_json, parse_vocab_json)
     from ai.pipeline_media import (run_audio_stage, run_dialogue_stage,
                                     run_images_stage, run_media_verify_stage)
 
@@ -719,6 +776,45 @@ def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
                                         level, pday.get("phase", "")),
             None, parse_content_json, log, STAGE_CONTENT, budget, 3)
         if ok:
+            vocab = list(data.get("vocab") or [])
+            if len(vocab) < MIN_VOCAB:
+                # Model có thể trả thiếu vocab dù schema required. Gọi 1 prompt
+                # nhỏ chỉ sinh từ vựng để cứu ngày, tránh checkpoint rỗng.
+                log.warn("stage.degraded",
+                         msg=f"Content Ngày {day_num} chỉ có {len(vocab)} từ — "
+                             f"gọi bổ sung vocab (cần {MIN_VOCAB}).",
+                         stage=STAGE_CONTENT, day=day_num)
+                ok_fill, extra, err_fill = _ask_with_retry(
+                    coord,
+                    build_vocab_fill_prompt(
+                        language, day_num, pday.get("title", ""), level,
+                        [v.get("word") for v in vocab],
+                        need=max(3, MIN_VOCAB - len(vocab) + 2)),
+                    VOCAB_FILL_SCHEMA, parse_vocab_json, log, "vocab_fill",
+                    budget, 2)
+                if ok_fill:
+                    seen = {str(v.get("word", "")).strip() for v in vocab}
+                    for v in extra:
+                        w = str(v.get("word", "")).strip()
+                        if w and w not in seen:
+                            vocab.append(v)
+                            seen.add(w)
+                    data["vocab"] = vocab
+                    log.event("stage.ok",
+                              msg=f"Bổ sung vocab Ngày {day_num}: +{len(extra)} từ "
+                                  f"(tổng {len(vocab)}).",
+                              stage=STAGE_CONTENT, day=day_num)
+                else:
+                    log.warn("stage.fail",
+                             msg=f"Bổ sung vocab Ngày {day_num} thất bại: {err_fill}",
+                             stage=STAGE_CONTENT, day=day_num)
+            if not (data.get("vocab") or []):
+                # Không có từ nào ⇒ KHÔNG checkpoint "done" để lần sau retry,
+                # tránh khóa học rỗng mà vẫn báo hoàn thành.
+                log.error("stage.fail",
+                          msg=f"Content Ngày {day_num} không có vocab — bỏ qua ngày.",
+                          stage=STAGE_CONTENT, day=day_num)
+                return None
             lesson.update(data)
             lesson["title"] = data.get("title") or lesson.get("title", "")
             lesson["phase"] = pday.get("phase", lesson.get("phase", ""))
@@ -778,6 +874,18 @@ def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
         else:
             log.error("stage.fail", msg=f"Quiz CD Ngày {day_num}: {err}",
                       stage=STAGE_QUIZ_CD, day=day_num)
+
+    # ── NGỮ PHÁP BỔ SUNG (call AI RIÊNG) ─────────────────────────────────
+    # Stage TÙY CHỌN (--grammar): Gemini hay BỎ mảng lồng optional khi output
+    # lớn ⇒ call riêng chỉ sinh common_mistakes / mini_quiz và gộp vào lesson.
+    if STAGE_GRAMMAR_ENRICH in stages:
+        try:
+            from ai.pipeline_grammar import run_grammar_enrich_stage
+            run_grammar_enrich_stage(language, day_num, lesson, coord, log_fn=emit,
+                                     budget=budget)
+        except Exception as e:
+            log.warn("stage.fail", msg=f"Ngữ pháp bổ sung Ngày {day_num}: {e}",
+                     stage=STAGE_GRAMMAR_ENRICH, day=day_num)
 
     # ── MEDIA ────────────────────────────────────────────────────────────
     if STAGE_IMAGES in stages:
@@ -840,11 +948,15 @@ def _ask_with_retry(coord, prompt, schema, parser, log, stage, budget, attempts)
             if data is None or (isinstance(data, (list, dict)) and not data):
                 last_err = "parse rỗng"
                 log.warn("json.invalid", msg="Parse rỗng", stage=stage, attempt=attempt)
+                if hasattr(coord, "report_invalid_output"):
+                    coord.report_invalid_output(res.get("model"), "parse rỗng")
                 continue
             return True, data, ""
         except (ValueError, json.JSONDecodeError) as e:
             last_err = f"JSON hỏng: {e}"
             log.warn("json.truncated", msg=last_err, stage=stage, attempt=attempt)
+            if hasattr(coord, "report_invalid_output"):
+                coord.report_invalid_output(res.get("model"), str(e))
             continue
     return False, None, last_err or "thất bại"
 
@@ -889,7 +1001,10 @@ def _parse_args(argv):
                     help="full=sinh lại tất cả | media=GIỮ content, chỉ thêm ảnh+audio+hội thoại "
                          "| enrich=media + regenerate content để có field v4")
     ap.add_argument("--level", help="Tên level (mặc định: Trọn Gói)")
-    ap.add_argument("--days", type=int, help="Giới hạn số ngày mục tiêu")
+    ap.add_argument("--days", type=int, default=60,
+                    help="Giới hạn số ngày mục tiêu (mặc định 60 cho lần chạy có AI)")
+    ap.add_argument("--offline", action="store_true",
+                    help="0 API call — chỉ chạy stage media_verify (so khớp manifest ↔ course)")
     ap.add_argument("--stages", help="Chọn subset stage (csv)")
     ap.add_argument("--from-day", type=int, default=1)
     ap.add_argument("--to-day", type=int)
@@ -900,6 +1015,9 @@ def _parse_args(argv):
     ap.add_argument("--evidence", action="store_true",
                     help="Bật stage DẪN CHỨNG (Wikipedia/Wiktionary). "
                          "KHÔNG tốn quota Gemini nhưng Wikimedia chặn IP sau ~30k request.")
+    ap.add_argument("--grammar", action="store_true",
+                    help="Bật stage NGỮ PHÁP BỔ SUNG (call AI riêng cho common_mistakes/"
+                         "mini_quiz — 1 call/ngày, tốn quota text).")
     ap.add_argument("--allow-degraded", action="store_true", help="DoD chấp nhận stage lỗi")
     ap.add_argument("--max-calls-per-day", type=int, default=MAX_CALLS_PER_DAY)
     ap.add_argument("--max-images-per-day", type=int, default=MAX_IMAGES_PER_DAY)
@@ -972,8 +1090,16 @@ def main(argv=None) -> int:
                   f"{course_db.lang_slug(lg)} --full")
         return EXIT_OK
 
-    if not args.full and not stages:
+    if args.offline:
+        # OFFLINE (Phase 6): 0 API call — lệnh người dùng vẫn như thường,
+        # run_pipeline tự siết stages về media_verify.
+        print("📴 --offline: chỉ chạy media_verify (so khớp manifest ↔ course), 0 API call.")
+
+    if not args.offline and not args.full and not stages:
         print("⚠ Không có --full hoặc --stages → chạy full mặc định.")
+
+    if args.offline:
+        args.full = False
 
     if args.mode != "full" and not args.full:
         # media/enrich: vẫn cần các stage media + dialogue
@@ -1005,7 +1131,9 @@ def main(argv=None) -> int:
                 wait_quota=args.wait_quota,
                 max_run_seconds=args.max_run_seconds,
                 evidence=args.evidence,
+                grammar_enrich=args.grammar,
                 workers=args.workers,
+                offline=args.offline,
             )
             results.append(res)
             if res["status"] != "done" and res["exit_code"] != EXIT_OK:

@@ -913,6 +913,42 @@ tr:last-child td {
 .mistake-wrong { color: var(--danger); }
 .mistake-right { color: var(--success); }
 
+/* ── Dẫn chứng (Wikipedia / Wiktionary) — khớp render desktop VocabApp.py ── */
+.evidence-box {
+    margin: 8px 0 0;
+    padding: 7px 10px;
+    border-radius: 0 8px 8px 0;
+    background: rgba(187, 134, 252, 0.06);
+    border-left: 3px solid var(--border);
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--text-muted);
+}
+
+.evidence-box a {
+    color: var(--accent);
+    text-decoration: none;
+    word-break: break-all;
+}
+
+.evidence-box a:hover { text-decoration: underline; }
+
+.evidence-license { color: var(--text-muted); }
+
+.evidence-quote {
+    font-style: italic;
+    margin-top: 2px;
+    padding-left: 12px;
+    color: var(--text-main);
+    opacity: 0.85;
+}
+
+.evidence-etymology {
+    margin-top: 5px;
+    color: var(--text-main);
+    opacity: 0.9;
+}
+
 .dialogue-box {
     margin: 10px 0;
     padding: 12px;

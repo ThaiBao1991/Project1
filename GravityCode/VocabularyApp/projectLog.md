@@ -8,8 +8,98 @@
 > — bản đồ cập nhật Update 17: SRS ôn tập SM-2, dẫn chứng (evidence), stage pipeline opt-in.
 > [`docs/UPGRADE_16.md`](docs/UPGRADE_16.md) — bản đồ kiến trúc, toàn bộ lệnh, giới hạn thật đã đo, 28 bug đã sửa.
 
+# Vocabulary App - Project Log
+
+Đây là file nhật ký để theo dõi tiến độ xây dựng ứng dụng học từ vựng (VocabularyApp).
+
+> **⚠️ Quy tắc làm việc**: AI luôn đọc file này trước, sau đó **đề xuất phương án** và chờ người dùng đồng ý trước khi viết code.
+
+> 📦 **BÀN GIAO ĐẦY ĐỦ (đọc file này để tiếp tục)**: [`docs/UPGRADE_17.md`](docs/UPGRADE_17.md)
+> — bản đồ cập nhật Update 17: SRS ôn tập SM-2, dẫn chứng (evidence), stage pipeline opt-in.
+> [`docs/UPGRADE_16.md`](docs/UPGRADE_16.md) — bản đồ kiến trúc, toàn bộ lệnh, giới hạn thật đã đo, 28 bug đã sửa.
+
 ---
-## 📋 Cập nhật mới nhất — 2026-10-22 (Update 17)
+## 📋 Cập nhật mới nhất — 2026-10-30 (Fix sinh khóa AI: content rỗng)
+
+### 🩹 VÌ SAO KHÓA MỚI MẤT QUIZ / MẪU CÂU / NGỮ PHÁP / ẢNH / AUDIO
+
+**Triệu chứng:** bấm **Sinh khóa học AI** → `0/0 ngày`, `calls=1`, `ảnh=0`, PAUSED, `course.json` 303 byte. Khóa mới có ngày nhưng `vocab=0` ⇒ quiz 4 loại, patterns, common, grammar, ảnh, audio đều rỗng (khác khóa cũ 450 ngày đã có sẵn dữ liệu).
+
+**Nguyên nhân gốc:**
+1. `_run_day` gọi `build_content_prompt(..., phase)` 7 tham số nhưng hàm chỉ nhận 6 ⇒ `TypeError` ⇒ pipeline abort `calls=0`.
+2. Model đôi khi trả `vocab: []` dù schema required; pipeline cũ vẫn checkpoint content `done` ⇒ `_run_day` trả `None`, bỏ qua quiz/media.
+3. Retry dùng lại đúng model vừa trả rỗng; model scoring xếp model 0 success (3.8 timeout) lên trên model chạy được (flash-lite).
+4. 403 `free tier is not available` bị thử hết 8 model trên cùng key thay vì khóa account.
+
+**Đã sửa:**
+- `ai/course_generator.py`: `build_content_prompt` nhận `phase`; `ai_lang_name()` bỏ hậu tố `_smoke/_test` + `_` → khoảng trắng; `parse_content_json` giữ partial content; thêm `VOCAB_FILL_SCHEMA` + `build_vocab_fill_prompt` + `parse_vocab_json`; sanitize tên ngôn ngữ trong prompt quiz/dialogue/grammar.
+- `ai/pipeline.py`: `_run_day` gọi prompt nhỏ chỉ sinh vocab khi content thiếu; nếu vẫn 0 từ ⇒ **không checkpoint**, trả `None`; `_ask_with_retry` báo `coord.report_invalid_output(model)` khi parse lỗi.
+- `api/gemini_safe.py`: `report_invalid_output()` (fail + cooldown 180s); `_model_score` xếp model 0 success cuối + phạt latency có trần; `is_project_billing_error()` early-return; `is_model_restriction` nhận `free tier is not available` → khóa account/xoay key.
+- `tools/smoke_test_pipeline.py`: smoke test thật 1 ngày, khóa tạm `tiếng_nhật_smoke`, stages `content → quiz_ab → quiz_cd → images → audio → dialogue → media_verify`.
+
+**Kết quả smoke thật (2026-10-30):**
+- 12 từ thật, 0 từ giả.
+- 10 mẫu câu, 10 câu thông dụng, 2 bài ngữ pháp.
+- Quiz 40 câu: vocab 10 / pattern 10 / common 10 / grammar 10.
+- Ảnh 12/12 từ (`image_ref`), audio 12/12 từ (`audio_ref`), **24/24 file media tồn tại**.
+- 1 hội thoại; `days=1/1`; `calls=12`.
+- `status=paused` / `DoD=False` là do smoke cố ý bỏ `profile/backbone/plan` (chạy per-day), không phải lỗi.
+
+**Test hồi quy:** `test_ai_rich.py` 85/85 · adaptive 7/7 · resolver 6/6 · card 6/6 · recover 6/6 · slug 6/6 · extend 7/7 · model_catalog 13/13 · `py_compile` OK.
+
+**Còn lại:** profile tiếng Nhật hiện 420 ngày; `--days 1400` mới chỉ cắt plan, chưa scale backbone. Cần Phase 3 (scale `stage_days` + chunk AI adapt/gap ~80 slot/lô) trước khi chạy full 1400 ngày trên máy chính.
+
+---
+## 📋 Cập nhật — 2026-10-27 (Update 17.1)
+
+### 🔗 NẮP NẾO 3 TÍNH NĂNG MỤC 7.1 UPGRADE_17 ÁP DỤNG TẦNG WEB + PIPELINE ✅
+
+Mục tiêu: hoàn tất 3 mục ưu tiên cao nhất của UPGRADE_17 §7.1 ("nếo code đã viết").
+
+**1. Dẫn chứng (evidence) vào WEB** — `web/script.js::renderCourseDay` + `web/style.css`:
+- Khối `📚 Nguồn` ngay sau audio của từng từ: link nguồn (Wikipedia/Wiktionary), giấy phép, trích dẫn tối đa 160 ký tự — khớp chính xác format render desktop `VocabApp.py::_render_lesson_text`.
+- Khối `🏛️ Từ nguyên:` (etymology, tối đa 200 ký tự).
+- IPA chuẩn Wiktionary hiển thị `📖 <ipa_ev>` khi khác IPA từ AI (dòng phụ,với title="IPA chuẩn theo Wiktionary").
+- CSS mới: `.evidence-box` / `.evidence-source` / `.evidence-quote` / `.evidence-license` / `.evidence-etymology` (viền trái, màu accent, nhạt hơn mistake-box vì là tăng cường).
+- An toàn: toàn bộ URL/quote/title đi qua `escapeHtml()`, link `rel="noopener noreferrer"`.
+
+**2. Kiểm tra giới hạn hội thoại** — `ai/pipeline_media.py`:
+- `_validate_dialogues()` chạy `media_schema.validate_dialogue()` cho từng kịch bản trước khi gắn vào lesson (từ vựng lấy từ `lesson.vocab`).
+- Nếu vi phạm (quá 6 lượt / 220 ký tự / lượt >8 từ...) → log cảnh báo + **thử lại ĐÚNG 1 lần** với `_dialogue_retry_prompt()` (lời nhắc mạnh hơn về trần lượt/ký tự). Chỉ thử lại khi còn ngân sách (`budget.can_call(1)`, tiêu `consume_call()`); thử lại chỉ giữ kết quả nếu TỐT HƠN bài đầu (đếm số kịch bản lỗi giảm).
+- Checkpoint stage dialogue giờ lưu thêm `validation: {ok, n_invalid, errors, retried}` — KHÔNG thay đổi shape cũ (`dialogues`, `generated`, `level_tag`), additive-only.
+- KHÔNG BAO GIỜ raise: validator/thử lại lỗi đều được nuốt, stage vẫn hoàn tất như cũ.
+
+**3. Stage NGỮ PHÁP BỔ SUNG (grammar enrichment)** — biến code sẵn có thành stage thật:
+- `ai/pipeline_store.py`: hằng `STAGE_GRAMMAR_ENRICH = "grammar_enrich"`, thuộc `STAGES_OPTIONAL` cùng evidence ⇒ `--full` KHÔNG bật tự động (ai muốn bật tay).
+- `ai/course_generator.py`: `GRAMMAR_ENRICH_SCHEMA` (khóa `grammar`, mỗi bài: `title` nguyên văn + `common_mistakes` + `mini_quiz`, mảng rỗng cho phần đã đủ) · `build_grammar_enrich_prompt(lang_name, lesson)` (danh sách bài + trạng thái thiếu) · `parse_grammar_enrich_json(text)` (an toàn, lỗi → []) + `_clean_mistakes_list()`.
+- `ai/pipeline.py`: tham số `run_pipeline(grammar_enrich=...)`, chạy sau quiz CD trước media trong `_run_day`, CLI cờ `--grammar`.
+- Module `ai/pipeline_grammar.py` (giữ nguyên logic gộp theo title, chỉ gộp phần có dữ liệu, KHÔNG ghi đè bằng rỗng).
+- Ghi checkpoint riêng `days/dNNNN/grammar_enrich.json`, `skipped` khi bài nào cũng đã đủ ⇒ không tốn quota vô ích.
+
+**Lệnh mới:**
+```bash
+# Bổ sung common_mistakes + mini_quiz cho 8 khóa (call AI riêng, ~1 call/ngày ⇒ tốn quota text)
+python -m ai.pipeline --all --mode media --full --grammar --allow-degraded --workers 4
+# Notebook: stage Evidence vẫn dùng --evidence (KHÔNG tốn quota Gemini)
+```
+
+**Kiểm chứng (2026-10-27, môi trường worktree KHÔNG có course.json thật ⇒ các check phụ thuộc dữ liệu hiển thị N/A):**
+- `py_compile` → 9 file đã đụng sạch (0 lỗi) · `node --check web/script.js` OK
+- `test_ai_rich.py` → **85/85 PASS** (79 cũ + 6 mới: section 28.7 + 29 — schema/prompt/parse grammar enrichment, `_validate_dialogues`, STAGES_OPTIONAL)
+- `tools/verify_no_rewrite.py` → PASS (course.json KHÔNG bị ghi lại khi đọc)
+- `tools/verify_p0_fixes.py` → 13/14 — mục L-A chờ data thật (get_available_languages trả 0 vì `data/ai_courses/` chỉ còn artifact test zz* trong worktree; L-B ✅). KHÔNG phải hồi quy.
+
+### ⏭️ VIỆC CÒN LẠI (xếp theo ưu tiên — xem UPGRADE_17.md mục 7)
+1. ~~Tích hợp `ai/evidence.py` vào `web/script.js`~~ — ✅ XONG 2026-10-27.
+2. ~~Gọi `media_schema.validate_dialogue()` trong `run_dialogue_stage`~~ — ✅ XONG 2026-10-27.
+3. ~~Tách 1 call AI riêng cho grammar enrichment~~ — ✅ XONG 2026-10-27.
+4. Chạy pipeline enrich: `python -m ai.pipeline --all --mode enrich --full --allow-degraded --workers 4` → IPA thật + khẩu hình + lỗi sai + mini_quiz + dialogue ngắn (~2 ngày quota text). Bổ sung: `python -m ai.pipeline --all --mode media --full --grammar` để lấp common_mistakes/mini_quiz.
+5. Bảo mật Git PAT: revoke token + `git filter-repo` (xem UPGRADE_16 mục 7.4).
+6. OpenClaw: cần thao tác user cài native-messaging host (xem UPGRADE_16 mục 4.4).
+7. Đa năng học tập (UPGRADE_17 §7.3): export/import, backup/restore, dictation, quick-lookup…
+
+---
+## 📋 Cập nhật — 2026-10-22 (Update 17)
 
 ### 🔁 SRS ÔN TẬP (SM-2) VÀO GUI — HOÀN THỰC ✅
 
@@ -998,4 +1088,36 @@ Tạo một ứng dụng desktop quản lý từ vựng đa ngôn ngữ (Tiếng
 
 - [x] **Cập nhật thứ tự Model Gemini mới (2026-10-03):**
   - Đồng bộ `_DEFAULT_MODEL_FALLBACKS` và `DEFAULT_SETTINGS["ai"]["model_priority"]` trong `settings.py` và `settings.json` sang thế hệ mới: `gemini-3.8-flash` (Tier S) và `gemini-3.5-flash-lite` (Tier S) đứng đầu, tiếp nối bởi `gemini-3.5-flash`, `gemini-3-flash-preview`, `gemini-flash-latest`, `gemini-flash-lite-latest`, `gemini-3.1-flash-lite`, `gemini-3.7-flash`. Đã kiểm tra qua `get_active_model_list()` PASS 100%.
+
+---
+
+### 2026-10-27 — Update 17.2: 7 phase Media-UX + dữ liệu Nhật + Model selector
+Hoàn thành trọn plan `vocabapp-japanese-media-ux-plan.md` (P1→P7). Chi tiết lệnh + bảng trong `docs/UPGRADE_17.md` mục **"Update 17.2"**.
+
+**Files mới**:
+| File | Vai trò |
+|------|---------|
+| `ai/media_card.py` | Thẻ từ PNG CJK (gradient, cache SHA-1 `data/media/_cards/`), font CJK riêng + Latin riêng |
+| `ai/media_resolver.py` | Resolve media `m_*`/rel/abs/thiếu/traversal (an toàn) |
+| `tools/recover_japanese_course.py` | Khôi phục 444 ngày từ manifest — 0 API, guard từ giả |
+| `tools/fix_japanese_slug.py` | Dọn split-brain Nhật (dry-run mặc định, `--apply` có backup) |
+| `tools/extend_japanese_course.py` | 445 → 1260 ngày, pool JLPT, không trùng từ, checkpoint 20 câu |
+| `api/model_catalog.py` | Catalog model thật + tier 2026 + rank + cache 24h + `build_run_priority` |
+| `tools/dedupe_methods.py` | AST dùng method trùng (code chết), dry-run / `--apply` |
+| `data/seed/ja/dict.json` | Seed 105 từ kana + N5 + test suites tương ứng (7 file) |
+
+**Files sửa (tóm tắt)**: `ai/paths.py` (`canonical_slug`, `LANG_ALIASES`, `web_slug_table` dedupe) · `ai/course_db.py` + `ai/media_store.py` + `database/database.py` (\u200bcanonical mọi đường MỚI, dropdown gộp alias) · `ai/pipeline.py` (`GenerationStopped` module-level, `--offline`, `--days` mặc định 60, guard budget, DoD `plan_complete` hết hằng-True, progress.json ghi trong `finally`) · `api/gemini_safe.py` (log `⚠ 'm1' fail (429) → thử 'm2'`, FIX NameError `model`/`status_code` 2 nhánh QUOTA của `request()`) · `VocabApp.py` (StudyTab media strip + `play_audio_file` + `jp_font()` + `MediaViewerDialog`; ModelSettingsDialog 7 cột + filter + nút «🔄 Dò model mới»; CourseGenerationDialog OptionMenu Model override→restore).
+
+**Kiểm tra**: `test_ai_rich.py` **85/85** · `test_media_resolver/card/recover/slug_canonical` 6/6 · `test_extend_course` 7/7 · `test_model_catalog` 13/13 · `verify_no_rewrite.py` PASS · `node --check` OK · `py_compile` toàn bộ OK. (`verify_p0_fixes` 13/14 — L-A phụ thuộc data thật máy chính.)
+
+**Còn lại (MÁY CHÍNH mới chạy được — data thật bị gitignore)**:
+```powershell
+python tools\recover_japanese_course.py --apply      # 444 ngày thật → course.json
+python tools\fix_japanese_slug.py                    # dry-run → --apply
+python tools\extend_japanese_course.py --status      # cần n5..n1_pool.json (~12.500 từ)
+python tools\extend_japanese_course.py --dry-run     # → --apply (445→1260)
+python -m api.model_catalog --refresh                # dò catalog thật (cần key)
+python -m ai.pipeline --all --mode enrich --full     # IPA/khẩu hình (cần quota ~2 ngày)
+# Trước khi migrate: dừng process cũ đang ghi log rác data/logs\mật_* (PID 25072 theo plan).
+```
 

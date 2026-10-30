@@ -311,6 +311,11 @@ def retry_delay_from(msg):
     return 65
 
 
+def is_project_billing_error(msg) -> bool:
+    """403 'free tier is not available' → cả project/key không dùng được model nào."""
+    return "free tier is not available" in (msg or "").lower()
+
+
 def is_model_restriction(msg):
     """Lỗi 403/404 về quyền truy cập model/account, không phải lỗi prompt.
 
@@ -321,7 +326,7 @@ def is_model_restriction(msg):
         "denied access", "has been denied", "no longer available", "is not found",
         "not found for api version", "not supported for generatecontent",
         "does not have access", "access to the model", "permission denied",
-        "no longer available to new users",
+        "no longer available to new users", "free tier is not available",
     )
     return any(m in low for m in markers)
 
@@ -518,7 +523,7 @@ def _get_pool():
 class GeminiCoordinator:
     def __init__(self, models=None, log_fn=None, on_key_status=None,
                  key_loader=None, stop_check=None, temperature=0.1,
-                 max_output_tokens=8192, timeout=90, max_transient=6,
+                 max_output_tokens=8192, timeout=90, max_transient=3,
                  daily_budget=DAILY_CALL_BUDGET, lock_after_success=False,
                  image_models=None):
         # Danh sách model fallback — ưu tiên đọc từ settings.json (người dùng tùy chỉnh)
@@ -552,6 +557,35 @@ class GeminiCoordinator:
         self._daily_budget = daily_budget
         self._lock_after_success = lock_after_success
         self._pool = _get_pool()
+        # ── Model performance tracking (probe + adaptive rotation) ──
+        self._model_stats = {}   # model -> {ok, fail, total_ms, count, consec_fail, last_ok_ts}
+        self._model_cooldown = {}  # model -> ts hết cooldown (tránh gọi lại model vừa timeout/503)
+        self._probe_done = set() # models đã từng được probe-tested
+        self._probe_counter = 0  # đếm lượt gọi để định kỳ chọc model khác
+        try:
+            from settings import load_settings
+            _ad = (load_settings().get("ai", {}) or {}).get("adaptive_model", True)
+            self._adaptive = bool(_ad)
+        except Exception:
+            self._adaptive = True
+        self._stats_pending = 0  # đếm để định kỳ lưu stats vào settings (không ghi mỗi call)
+        # Seed stats từ settings (kết quả probe của các lần chạy trước) nếu có
+        try:
+            from settings import load_settings
+            _ps = (load_settings().get("ai", {}) or {}).get("model_probe_stats") or {}
+            for m, st in _ps.items():
+                self._model_stats[str(m)] = {
+                    "ok": int(st.get("ok", 0)),
+                    "fail": int(st.get("fail", 0)),
+                    "total_ms": int(st.get("total_ms", 0)),
+                    "count": int(st.get("count", 0)),
+                    "consec_fail": int(st.get("consec_fail", 0)),
+                    "last_ok_ts": float(st.get("last_ok_ts", 0)),
+                }
+                if self._model_stats[str(m)]["count"] > 0:
+                    self._probe_done.add(str(m))
+        except Exception:
+            pass
         try:
             warn_account_health(self._key_loader(), self._log)
         except Exception:
@@ -585,7 +619,118 @@ class GeminiCoordinator:
             except Exception:
                 pass
 
+    # ── Model performance tracking ──
+    def _model_score(self, model: str) -> float:
+        """Điểm ưu tiên model: thành công cao + latency thấp + ít fail liên tiếp.
+        Chưa probe → điểm 0 (trung lập, sẽ được chọc thử sau)."""
+        s = self._model_stats.get(model)
+        if not s or s["count"] == 0:
+            return 0.0
+        # Model chưa từng thành công ⇒ xếp cuối, tránh việc timeout nhanh
+        # (avg_ms thấp) lại được điểm cao hơn model chậm nhưng chạy được.
+        if s["ok"] == 0:
+            return -100000.0 - (s["consec_fail"] * 1000.0)
+        rate = s["ok"] / max(1, s["count"])
+        avg_ms = s["total_ms"] / max(1, s["ok"])
+        # Chặn trần phạt latency: model chậm 30-60s vẫn hơn model fail 100%.
+        latency_penalty = min(avg_ms / 10.0, 500.0)
+        return rate * 1000.0 - latency_penalty - (s["consec_fail"] * 100.0)
+
+    def _record_model_result(self, model: str, ok: bool, ms=None):
+        """Ghi nhận kết quả 1 lần gọi model (dùng cho thống kê + adaptive order)."""
+        s = self._model_stats.setdefault(
+            model, {"ok": 0, "fail": 0, "total_ms": 0, "count": 0, "consec_fail": 0, "last_ok_ts": 0.0})
+        s["count"] += 1
+        if ok:
+            s["ok"] += 1
+            s["consec_fail"] = 0
+            s["last_ok_ts"] = time.time()
+            self._model_cooldown.pop(model, None)
+            if ms is not None:
+                s["total_ms"] += ms
+        else:
+            s["fail"] += 1
+            s["consec_fail"] += 1
+        self._probe_done.add(model)
+        # Định kỳ lưu stats vào settings.json (mỗi 10 lần) để giữ nguyên qua các lần chạy
+        self._stats_pending += 1
+        if self._stats_pending >= 10:
+            self._stats_pending = 0
+            self.save_probe_stats_to_settings()
+
+    def _cooldown_model(self, model: str, seconds: int):
+        """Tạm bỏ qua model vừa timeout/503 để request sau không chờ lại từ đầu."""
+        if not model:
+            return
+        self._model_cooldown[model] = time.time() + max(30, int(seconds))
+
+    def report_invalid_output(self, model: str, reason: str = "", seconds: int = 180):
+        """Model trả JSON hợp lệ nhưng thiếu field bắt buộc (vd vocab rỗng).
+
+        Không coi là thành công: ghi fail + cooldown để lần retry chuyển model
+        khác thay vì lặp lại đúng model vừa trả output rỗng.
+        """
+        if not model:
+            return
+        self._record_model_result(model, ok=False)
+        self._cooldown_model(model, seconds)
+        self._log(f"⚠ Model '{model}' trả output không hợp lệ "
+                  f"({str(reason)[:90]}) — tạm bỏ qua {seconds}s.")
+
+    def get_model_ranking(self) -> list:
+        """Trả danh sách model sắp xếp theo điểm (tốt nhất đầu) — dùng GUI hiển thị."""
+        return sorted(self._models, key=self._model_score, reverse=True)
+
+    def _adaptive_model_order(self) -> list:
+        """
+        Thứ tự gọi model cho lần này:
+        - Exploitation: sắp theo điểm (model tốt nhất trước).
+        - Exploration: mỗi PROBE_EVERY lượt gọi, chèn 1 model chưa probe / ít probe
+          vào vị trí cao (sau model tốt nhất) để không giẫm chân mãi ở 1 chỗ,
+          vẫn cho model còn lại cơ hội chứng minh mình tốt hơn.
+        """
+        PROBE_EVERY = 6
+        self._probe_counter += 1
+        now = time.time()
+        alive = [m for m in self._models if self._model_cooldown.get(m, 0) <= now]
+        if not alive:
+            # Tất cả đang cooldown: chọn model hết cooldown sớm nhất để không kẹt.
+            alive = [min(self._models, key=lambda m: self._model_cooldown.get(m, 0))]
+        unprobed = [m for m in alive if m not in self._probe_done]
+        low_tested = [m for m in alive
+                      if self._model_stats.get(m, {}).get("count", 0) < 3 and m not in unprobed]
+        exploration_pool = unprobed or low_tested or []
+
+        ordered = sorted(alive, key=self._model_score, reverse=True)
+
+        if self._adaptive and self._probe_counter % PROBE_EVERY == 0 and exploration_pool:
+            challenger = exploration_pool[0]
+            if challenger in ordered:
+                ordered.remove(challenger)
+                pos = min(2, len(ordered))          # sau model tốt nhất (index 0)
+                ordered.insert(pos, challenger)
+                self._log(f"🔍 Thử(model-thử): '{challenger}' (khám phá model thay thế)")
+        return ordered
+
+    def save_probe_stats_to_settings(self):
+        """Lưu _model_stats vào settings.json (ai.model_probe_stats) để giữ nguyên qua các lần chạy."""
+        try:
+            from settings import load_settings, update_ai_settings
+            st = {}
+            for m, s in self._model_stats.items():
+                if s["count"] > 0:
+                    st[m] = {
+                        "ok": s["ok"], "fail": s["fail"], "total_ms": s["total_ms"],
+                        "count": s["count"], "consec_fail": s["consec_fail"],
+                        "last_ok_ts": s["last_ok_ts"],
+                    }
+            if st:
+                update_ai_settings(model_probe_stats=st)
+        except Exception:
+            pass
+
     def _lock_account(self, key_obj, duration=ACCOUNT_COOLDOWN, reason=""):
+        """Khóa toàn bộ account (mọi key cùng Gmail) trong `duration` giây."""
         until = self._pool.lock_account(key_obj=key_obj, duration=duration)
         if key_obj:
             key_obj["cooldown_until"] = until
@@ -609,12 +754,51 @@ class GeminiCoordinator:
         if has_free:
             self._lock_account(key_obj, reason="Batch rotation lock")
 
+    def get_all_keys_status(self) -> list:
+        """Trả về danh sách trạng thái tất cả key để GUI hiển thị (email, key masked, status, cooldown...)."""
+        now = time.time()
+        out = []
+        try:
+            pool = self._pool
+            # Nạp key từ settings trước khi đọc trạng thái (nếu không pool sẽ rỗng).
+            pool.sync(self._key_loader() or [])
+            for k in pool._keys:
+                email = k.get("email", "unknown")
+                raw = k.get("key", "")
+                # Mask key: chỉ hiển thị 4 ký tự cuối
+                masked = ("*" * max(0, len(raw) - 4)) + raw[-4:] if raw else ""
+                status = k.get("status", "active")
+                cd = max(pool._cooldown.get(email, 0), k.get("cooldown_until", 0))
+                locked = cd > now
+                out.append({
+                    "email": email,
+                    "key_masked": masked,
+                    "status": status,
+                    "cooldown_until": cd,
+                    "locked": locked,
+                    "next_check": k.get("next_check_time", 0),
+                })
+        except Exception:
+            pass
+        return out
+
     def _try_models(self, prompt_text, api_key, json_mode, response_schema,
-                    temperature, max_output_tokens, timeout):
+                    temperature, max_output_tokens, timeout, ordered_models=None,
+                    email=None, deadline=None):
         last = None
-        for model in self._models:
+        models = ordered_models if ordered_models is not None else self._models
+        n_models = len(models)
+        acct = email or "?"
+        for mi, model in enumerate(models):
             if self._stop_check():
                 return {"kind": ErrorKind.STOPPED, "model": model}
+            if deadline is not None and time.time() > deadline:
+                return {"kind": ErrorKind.NETWORK,
+                        "message": "request deadline exceeded", "model": model}
+            # Log fallback rõ ràng: "⚠ '3.6-flash' fail (429) → thử '3.8-flash' [gmail]"
+            _nxt = models[mi + 1] if mi + 1 < n_models else None
+            _arw = f" → thử '{_nxt}'" if _nxt else ""
+            _acct_tag = f" [{acct}]" if acct and acct != "?" else ""
             url = (f"https://generativelanguage.googleapis.com/v1beta/"
                    f"models/{model}:generateContent?key={api_key}")
             config = {"maxOutputTokens": max_output_tokens, "temperature": temperature}
@@ -623,6 +807,7 @@ class GeminiCoordinator:
                 config["responseSchema"] = response_schema
             elif json_mode:
                 config["responseMimeType"] = "application/json"
+            t0 = time.time()
             try:
                 resp = requests.post(url, headers={"Content-Type": "application/json"},
                                      json={"contents": [{"parts": [{"text": prompt_text}]}],
@@ -631,23 +816,37 @@ class GeminiCoordinator:
                 ctype = resp.headers.get("content-type", "")
                 body = resp.json() if "application/json" in ctype else {}
                 status_code = resp.status_code
+                ms = int((time.time() - t0) * 1000)
             except requests.exceptions.Timeout:
-                if model is not self._models[-1]:
-                    self._log(f"⏱ Model '{model}' phản hồi quá lâu (Timeout > {timeout}s); chuyển sang model fallback...")
+                ms = None
+                self._record_model_result(model, False, None)
+                self._cooldown_model(model, 300)
+                if _nxt:
+                    self._log(f"⏱ '{model}' fail (timeout >{timeout}s){_arw}{_acct_tag}")
                     last = {"kind": ErrorKind.NETWORK, "message": "timeout", "model": model}
                     continue
                 return {"kind": ErrorKind.NETWORK, "message": "timeout", "model": model}
             except requests.exceptions.RequestException as exc:
-                if model is not self._models[-1]:
-                    self._log(f"🌐 Model '{model}' lỗi kết nối ({type(exc).__name__}); chuyển sang model fallback...")
+                ms = None
+                self._record_model_result(model, False, None)
+                self._cooldown_model(model, 120)
+                if _nxt:
+                    self._log(f"🌐 '{model}' fail ({type(exc).__name__}){_arw}{_acct_tag}")
                     last = {"kind": ErrorKind.NETWORK, "message": f"{type(exc).__name__}: {exc}", "model": model}
                     continue
                 return {"kind": ErrorKind.NETWORK,
                         "message": f"{type(exc).__name__}: {exc}", "model": model}
 
             kind, msg = classify_response(status_code, body)
+            text = extract_text(body) if kind == ErrorKind.OK else None
+            ok = (kind == ErrorKind.OK) and bool(text)
+            self._record_model_result(model, ok, ms)
+            if kind == ErrorKind.REQUEST_BAD and is_project_billing_error(msg):
+                # Lỗi billing cấp PROJECT: thử model nào cũng 403 ⇒ dừng ngay,
+                # để request() khóa account và xoay key thay vì đốt 8 lượt gọi.
+                return {"kind": kind, "message": msg,
+                        "status_code": status_code, "model": model}
             if kind == ErrorKind.OK:
-                text = extract_text(body)
                 if text:
                     return {"kind": ErrorKind.OK, "text": text,
                             "model": model, "message": msg}
@@ -657,8 +856,8 @@ class GeminiCoordinator:
             if kind == ErrorKind.QUOTA_DAILY:
                 # Mỗi model là 1 quota bucket riêng (20 call/ngày/project/model)
                 # → hết quota model này thì THỬ MODEL KHÁC trước khi đổi key.
-                if model is not self._models[-1]:
-                    self._log(f"⏳ Model '{model}' hết quota hôm nay — thử model khác trước.")
+                if _nxt:
+                    self._log(f"⏳ '{model}' fail (429 quota ngày){_arw}{_acct_tag}")
                     last = {"kind": kind, "message": msg, "status_code": status_code,
                             "model": model}
                     continue
@@ -669,8 +868,8 @@ class GeminiCoordinator:
                 if is_account_denial(msg):
                     # Lỗi cấp ACCOUNT → trả về ngay để request() khoá account + xoay key.
                     return {"kind": kind, "message": msg, "status_code": status_code, "model": model}
-                if model is not self._models[-1]:
-                    self._log(f"⚠ Model '{model}' từ chối request ({msg[:60]}); thử model fallback.")
+                if _nxt:
+                    self._log(f"⚠ '{model}' fail ({status_code} — {msg[:60]}){_arw}{_acct_tag}")
                     last = {"kind": kind, "message": msg, "status_code": status_code, "model": model}
                     continue
                 return {"kind": kind, "message": msg, "status_code": status_code, "model": model}
@@ -682,8 +881,10 @@ class GeminiCoordinator:
                 if isinstance(err, dict):
                     raw_msg = err.get("message", "") or ""
             if kind in (ErrorKind.SERVER, ErrorKind.NETWORK, ErrorKind.EMPTY):
-                if model is not self._models[-1]:
-                    self._log(f"⚠ Model '{model}' lỗi {kind} ({msg[:60]}); thử model fallback.")
+                # 503 high-demand / timeout: tạm bỏ qua model này ở các request sau.
+                self._cooldown_model(model, 180 if status_code == 503 else 90)
+                if _nxt:
+                    self._log(f"⚠ '{model}' fail ({status_code} — {msg[:60]}){_arw}{_acct_tag}")
                     last = {"kind": kind, "message": msg, "status_code": status_code,
                             "raw_msg": raw_msg, "model": model}
                     continue
@@ -702,16 +903,24 @@ class GeminiCoordinator:
         pool = self._pool
         exclude = set()
         transient = 0
+        transient_accounts = 0
         temp = temperature if temperature is not None else self._temperature
         mout = max_output_tokens or self._max_output_tokens
         tout = timeout or self._timeout
         account_attempts = 0
         retry_exhausted_rounds = 0
         MAX_ACCOUNT_ATTEMPTS = 3  # Giới hạn thử tối đa 3 account khác nhau/lượt gọi để tránh đốt sạch pool
+        started = time.time()
+        MAX_REQUEST_SECONDS = 300  # 1 request không được phép treo quá 5 phút
 
         while True:
             if self._stop_check():
                 return {"ok": False, "text": "", "error": {"kind": ErrorKind.STOPPED}}
+            if time.time() - started > MAX_REQUEST_SECONDS:
+                self._log(f"⏱ Request vượt {MAX_REQUEST_SECONDS}s — dừng thử để tránh treo pipeline.")
+                return {"ok": False, "text": "",
+                        "error": {"kind": ErrorKind.NETWORK,
+                                  "message": f"request timeout budget {MAX_REQUEST_SECONDS}s"}}
             pool.sync(self._key_loader() or [])
             key_obj = pool.pick(exclude)
             if not key_obj:
@@ -742,8 +951,11 @@ class GeminiCoordinator:
             api_key = key_obj.get("key") or ""
             email = key_obj.get("email") or "?"
             pace()
+            # Thứ tự model thích nghi: tốt nhất trước + định kỳ chọc model mới (exploration)
+            ordered = self._adaptive_model_order() if self._adaptive else None
             res = self._try_models(prompt_text, api_key, json_mode, response_schema,
-                                   temp, mout, tout)
+                                   temp, mout, tout, ordered_models=ordered, email=email,
+                                   deadline=started + MAX_REQUEST_SECONDS)
             kind = res.get("kind")
             msg = res.get("message", "")
 
@@ -764,10 +976,12 @@ class GeminiCoordinator:
                 # Phải thử model TIẾP THEO trước khi đổi key, nếu không sẽ
                 # vô hiệu hoá 8-10 key/account chỉ vì 1 model hết quota.
                 _m = res.get("model")
-                if _m and _m != self._models[-1]:
-                    self._log(f"⏳ Model '{_m}' hết quota hôm nay — thử model khác trước.")
-                    last = {"kind": kind, "message": msg, "status_code": status_code,
-                            "model": _m}
+                _mi = self._models.index(_m) if _m in self._models else -1
+                if 0 <= _mi < len(self._models) - 1:
+                    # (hiếm — _try_models đã tự xoay model; đường lùi an toàn)
+                    self._log(f"⏳ '{_m}' fail (429 quota ngày) → thử '{self._models[_mi + 1]}'…")
+                    last = {"kind": kind, "message": msg,
+                            "status_code": res.get("status_code"), "model": _m}
                     continue
                 self._log(f"⚠ Key {email} hết quota ngày (mọi model). Khóa account 60 phút, chuyển key...")
                 self._lock_account(key_obj, duration=ACCOUNT_COOLDOWN, reason=f"HTTP 429 Daily: {msg[:90]}")
@@ -785,10 +999,14 @@ class GeminiCoordinator:
                 # KHÔNG khoá cả account (sẽ chặn 9-10 key khác của account).
                 # Mỗi model cũng có RPM bucket riêng → thử model khác trước.
                 retry_delay = retry_delay_from(msg)
-                if model is not self._models[-1]:
-                    self._log(f"⚠ Model '{model}' chạm giới hạn tốc độ — thử model khác...")
-                    last = {"kind": kind, "message": msg, "status_code": status_code,
-                            "model": model}
+                # FIX (Phase 5): trước đây dùng biến `model`/`status_code` KHÔNG
+                # tồn tại trong hàm này ⇒ NameError mỗi khi gặp 429 tốc độ.
+                _m = res.get("model")
+                _mi = self._models.index(_m) if _m in self._models else -1
+                if 0 <= _mi < len(self._models) - 1:
+                    self._log(f"⚠ '{_m}' fail (429 tốc độ) → thử '{self._models[_mi + 1]}'…")
+                    last = {"kind": kind, "message": msg,
+                            "status_code": res.get("status_code"), "model": _m}
                     continue
                 self._log(f"⚠ Key {email} chạm giới hạn tốc độ ({retry_delay}s). Cooldown riêng key, đổi key...")
                 self._pool.lock_key(key_obj, duration=retry_delay)
@@ -831,7 +1049,10 @@ class GeminiCoordinator:
 
             if kind in (ErrorKind.SERVER, ErrorKind.NETWORK, ErrorKind.EMPTY):
                 transient += 1
-                if transient >= self._max_transient:
+                # Đổi key/account ở lần sau; không thử lại cùng key 6 vòng.
+                exclude.add(api_key)
+                transient_accounts += 1
+                if transient >= self._max_transient or transient_accounts >= 2:
                     return {"ok": False, "text": "",
                             "error": {"kind": kind, "message": msg[:200]}}
                 delay = min(2 ** transient, 30)

@@ -51,7 +51,7 @@ class GeminiApiProvider(Provider):
                                           log_fn=self._log,
                                           temperature=0.35,
                                           max_output_tokens=16384,
-                                          timeout=180,
+                                          timeout=120,
                                           lock_after_success=False)
         except Exception as e:
             self._log(f"⚠ Không khởi tạo được GeminiCoordinator: {e}")

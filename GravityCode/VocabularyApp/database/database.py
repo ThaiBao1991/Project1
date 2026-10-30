@@ -18,8 +18,9 @@ if not os.path.exists(DATA_DIR):
 def _get_json_path(language: str) -> str:
     # BUG ĐÃ SỬA (L-67): quy tắc slug giờ nằm Ở 1 NGUỒN DUY NHẤT (ai/paths.py).
     # Trước đây copy-paste ở 6 chỗ ⇒ đổi 1 chỗ là 5 chỗ lệch.
-    from ai.paths import lang_slug
-    filename = lang_slug(language) + ".json"
+    # BUG ĐÃ SỬA (split-brain): 'Nhật' → canonical 'tiếng_nhật'.
+    from ai.paths import canonical_slug
+    filename = canonical_slug(language) + ".json"
     if not filename or filename == ".json":
         filename = "default.json"
     return os.path.join(DATA_DIR, filename)
@@ -226,18 +227,12 @@ def get_available_languages() -> list:
     thay vì 8. Giờ chỉ nhận:
       • data/ai_courses/<slug>/course.json  (khóa học AI)
       • data/<slug>.json có chứa "vocabularies" (từ vựng nhập tay)
+    BUG ĐÃ SỬA (split-brain): entry có cùng canonical_slug chỉ hiện 1 lần —
+    khóa học AI chiếm chỗ trước, file vocab canonical tiếp theo; alias
+    ("nhật", …) trùng → ẨN. Dropdown hết 2 mục "Nhật"/"Tiếng Nhật".
     """
-    langs = []
-    seen = set()
-
-    def _add(display_name):
-        display_name = (display_name or "").strip()
-        if not display_name:
-            return
-        key = display_name.lower()
-        if key not in seen:
-            seen.add(key)
-            langs.append(display_name)
+    from ai.paths import LANG_ALIASES, canonical_slug, lang_display, lang_slug
+    chosen = {}   # canonical_slug → display name (ưu tiên bản canonical)
 
     # 1. Khóa học AI (data/ai_courses/*/course.json)
     ai_courses_dir = os.path.join(DATA_DIR, "ai_courses")
@@ -246,6 +241,9 @@ def get_available_languages() -> list:
             cpath = os.path.join(ai_courses_dir, folder, "course.json")
             if not os.path.isfile(cpath):
                 continue
+            cs = canonical_slug(folder)
+            if cs in chosen:
+                continue          # canonical đã chiếm chỗ — ẩn alias học trùng
             display_name = ""
             try:
                 with open(cpath, "r", encoding="utf-8") as fp:
@@ -254,8 +252,13 @@ def get_available_languages() -> list:
             except Exception:
                 pass
             if not display_name:
-                display_name = folder.replace("_", " ").title()
-            _add(display_name)
+                display_name = lang_display(cs)
+            # display vẫn là tên alias (VD course.json ghi "Nhật") → đổi sang
+            # tên chuẩn để dropdown không còn 2 cách viết cho 1 ngôn ngữ.
+            dslug = canonical_slug(display_name)
+            if dslug == cs and lang_slug(display_name) in LANG_ALIASES:
+                display_name = lang_display(cs)
+            chosen[cs] = display_name
 
     # 2. File từ vựng nhập tay — CHỈ file có key "vocabularies"
     if os.path.isdir(DATA_DIR):
@@ -272,8 +275,12 @@ def get_available_languages() -> list:
                 continue
             if not isinstance(data, dict) or "vocabularies" not in data:
                 continue          # file hệ thống → bỏ qua
-            _add(f[:-5].replace("_", " ").title())
+            cs = canonical_slug(f[:-5])
+            if cs in chosen:
+                # khóa học AI của cùng canonical đã có — file vocab trùng lặp → bỏ
+                continue
+            chosen[cs] = lang_display(cs)
 
-    return langs
+    return [chosen[cs] for cs in sorted(chosen)]
 
 

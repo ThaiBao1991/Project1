@@ -62,6 +62,9 @@ STAGE_MEDIA_VERIFY = "media_verify"
 # Stage DẪN CHỨNG — KHÔNG nằm trong STAGES mặc định: tra Wikimedia (IP bị
 # chặn sau ~30.000 request) ⇒ phải bật tay bằng --evidence / --stages evidence.
 STAGE_EVIDENCE = "evidence"
+# Stage NGỮ PHÁP BỔ SUNG — tùy chọn như evidence: gọi AI RIÊNG cho
+# common_mistakes / mini_quiz (Gemini hay bỏ mảng lồng optional khi output lớn).
+STAGE_GRAMMAR_ENRICH = "grammar_enrich"
 
 STAGES = (
     STAGE_PROFILE, STAGE_BACKBONE, STAGE_PLAN,
@@ -70,7 +73,7 @@ STAGES = (
 )
 
 # Stage chạy THÊM khi bật tay (evidence + grammar enrichment)
-STAGES_OPTIONAL = (STAGE_EVIDENCE,)
+STAGES_OPTIONAL = (STAGE_EVIDENCE, STAGE_GRAMMAR_ENRICH)
 
 # Trạng thái stage
 STATUS_PENDING = "pending"

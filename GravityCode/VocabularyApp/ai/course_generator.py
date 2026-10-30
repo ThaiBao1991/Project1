@@ -46,6 +46,18 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 DEFAULT_WORDS_PER_DAY = 10
 MIN_VOCAB = 10
+
+
+def ai_lang_name(lang_name: str) -> str:
+    """Tên ngôn ngữ sạch để đưa vào prompt AI.
+
+    Bỏ hậu tố môi trường (`_smoke`, `_test`, `_demo`...) và đổi gạch dưới
+    thành khoảng trắng — tránh model hiểu nhầm là ngôn ngữ lạ rồi trả vocab rỗng.
+    """
+    s = str(lang_name or "").replace("_", " ").strip()
+    junk = {"smoke", "test", "demo", "tmp", "temp", "sandbox"}
+    parts = [p for p in s.split() if p.lower() not in junk]
+    return " ".join(parts) or s
 MIN_PATTERNS = 10
 MIN_SENTENCES = 10
 MIN_GRAMMAR = 2
@@ -330,6 +342,39 @@ QUIZ_SCHEMA_CD = {
     "required": ["common_quiz", "grammar_quiz"],
 }
 
+# ─── Schema: NGỮ PHÁP BỔ SUNG (grammar enrichment — gọi AI RIÊNG) ──────────────
+# Lý do tách: content v4 thêm GRAMMAR_V4_EXTRA gần vượt trần max_output_tokens,
+# Gemini hay BỎ mảng lồng optional (common_mistakes / mini_quiz) khi output lớn.
+# Output nhỏ + schema riêng ⇒ không lặp bug "JSON bị cắt".
+_ENRICH_MISTAKE_ITEM = {
+    "type": "OBJECT",
+    "properties": {
+        "wrong":  {"type": "STRING"},
+        "right":  {"type": "STRING"},
+        "why_vi": {"type": "STRING"},
+    },
+    "required": ["wrong", "right", "why_vi"],
+}
+
+GRAMMAR_ENRICH_SCHEMA = {
+    "type": "OBJECT",
+    "properties": {
+        "grammar": {"type": "ARRAY", "items": {
+            "type": "OBJECT",
+            "properties": {
+                "title": {"type": "STRING",
+                          "description": "Sao chép NGUYÊN VĂN title của bài ngữ pháp tương ứng"},
+                "common_mistakes": {"type": "ARRAY", "items": _ENRICH_MISTAKE_ITEM,
+                                    "description": "3-5 lỗi sai hay gặp của người Việt; bỏ trống [] nếu bài đã đủ"},
+                "mini_quiz": {"type": "ARRAY", "items": _QUIZ_ITEM,
+                              "description": "3-5 trắc nghiệm 4 lựa chọn; bỏ trống [] nếu bài đã đủ"},
+            },
+            "required": ["title", "common_mistakes", "mini_quiz"],
+        }},
+    },
+    "required": ["grammar"],
+}
+
 # ─── Schema 3: BACKBONE — Khung giáo trình bắt buộc (sinh 1 lần / level) ────────
 BACKBONE_SCHEMA = {
     "type": "OBJECT",
@@ -519,7 +564,8 @@ def build_curriculum_prompt(lang_name: str, level: str, words_per_day: int,
 
 
 def build_content_prompt(lang_name: str, day_num: int, total_days: int, words: list,
-                         topic: str = "", level: str = "") -> str:
+                         topic: str = "", level: str = "", phase: str = "") -> str:
+    lang_name = ai_lang_name(lang_name)
     lines = [f"- {v.get('word', '')} ({v.get('pronunciation') or 'chưa có phát âm'})"
              f" — nghĩa hiện có: {(v.get('meaning') or '')[:200]}" for v in words]
     word_list = "\n".join(lines) if lines else "(trống)"
@@ -535,7 +581,7 @@ def build_content_prompt(lang_name: str, day_num: int, total_days: int, words: l
 
     # ── Hướng dẫn sư phạm thích ứng theo từng giai đoạn (Stage-Adaptive Pedagogy) ──
     stage_guide = ""
-    t_lower = (topic or "").lower()
+    t_lower = f"{topic or ''} {phase or ''}".lower()
     is_stage_1 = any(k in t_lower for k in ["chữ cái", "phát âm", "phiên âm", "bảng chữ", "vỡ lòng", "nhập môn", "khẩu hình", "thanh điệu", "nét viết", "hiragana", "katakana", "hangul", "pinyin", "ipa"]) or (day_num <= 3 and "trọn gói" in (level or "").lower())
     is_stage_2 = any(k in t_lower for k in ["ghép âm", "từ đơn", "sinh tồn", "tập đọc", "số đếm", "đại từ"]) and not is_stage_1
     is_stage_native = any(k in t_lower for k in ["bản xứ", "thành ngữ", "tiếng lóng", "slang", "idiom", "chơi chữ", "văn hóa", "kính ngữ", "sắc thái"])
@@ -662,6 +708,7 @@ def build_dialogue_prompt(lang_name: str, lesson: dict, level: str = "",
       • "scene" — bối cảnh dài hơn (dùng cho ngày ôn tập): ≤12 lượt, ≤900 ký tự.
     Đo thật trước v5: Anh median 663 ký tự / max 4274 → quá dài, sửa ở đây.
     """
+    lang_name = ai_lang_name(lang_name)
     kind = (kind or "micro").strip().lower()
     if kind not in ("micro", "scene"):
         kind = "micro"
@@ -762,6 +809,7 @@ def _quiz_trap_rules() -> str:
 
 def build_quiz_prompt_ab(lang_name: str, lesson: dict) -> str:
     """Nửa đầu: chỉ sinh vocab_quiz + pattern_quiz (~20 câu, ~6-8k tokens output)."""
+    lang_name = ai_lang_name(lang_name)
     vocab_lines = [f"- {v['word']} ({v.get('pronunciation', '')}): {v.get('meaning_vi', '')}"
                    for v in lesson.get("vocab", [])]
     pattern_lines = [f"- {p.get('pattern', '')}: {p.get('meaning_vi', '')}"
@@ -785,6 +833,7 @@ def build_quiz_prompt_ab(lang_name: str, lesson: dict) -> str:
 
 def build_quiz_prompt_cd(lang_name: str, lesson: dict) -> str:
     """Nửa sau: chỉ sinh common_quiz + grammar_quiz (~20 câu, ~6-8k tokens output)."""
+    lang_name = ai_lang_name(lang_name)
     common_lines = [f"- {s.get('sentence', '')}: {s.get('meaning_vi', '')}"
                     for s in lesson.get("common_sentences", [])]
     grammar_lines = []
@@ -805,6 +854,78 @@ def build_quiz_prompt_cd(lang_name: str, lesson: dict) -> str:
         f"explanation ngắn 1-2 câu. Đáp án phân bố đều A/B/C/D.\n"
         f"Chỉ trả về JSON với 2 key: common_quiz và grammar_quiz. Không thêm chữ nào ngoài JSON."
     )
+
+
+def build_grammar_enrich_prompt(lang_name: str, lesson: dict) -> str:
+    """Prompt bổ sung common_mistakes + mini_quiz cho ngữ pháp (call AI RIÊNG).
+
+    Output NHỎ (chỉ mảng grammar) ⇒ Gemini không bỏ mảng lồng optional như khi
+    gộp vào cuộc call content lớn (bug đã đo ở Update 16 & 17).
+    Chỉ sinh PHẦN CÒN THIẾU cho từng bài; phần đã có trả mảng rỗng [].
+    """
+    lang_name = ai_lang_name(lang_name)
+    gram_lines = []
+    for i, g in enumerate(lesson.get("grammar") or [], 1):
+        if not (isinstance(g, dict) and str(g.get("title", "")).strip()):
+            continue
+        n_cm = len(g.get("common_mistakes") or [])
+        n_mq = len(g.get("mini_quiz") or [])
+        gram_lines.append(
+            f"- Bài {i}: title=\"{g.get('title', '')}\" — "
+            f"Giải thích: {(g.get('explanation') or '')[:180]} — "
+            f"[Đang có: common_mistakes={n_cm}, mini_quiz={n_mq}]"
+        )
+    if not gram_lines:
+        gram_lines = ["- (bài học này chưa có mục ngữ pháp — hãy trả JSON với mảng grammar rỗng)"]
+    return (
+        f"Bạn là biên tập viên ngữ pháp cho giáo trình {lang_name} dạy người Việt.\n"
+        f"Mỗi bài dưới đây THIẾU common_mistakes hoặc mini_quiz (hoặc cả hai).\n"
+        f"→ CHỈ sinh PHẦN CÒN THIẾU của từng bài. Phần nào đã đủ, trả mảng rỗng [] cho phần đó.\n\n"
+        f"=== DANH SÁCH BÀI NGỮ PHÁP ===\n" + "\n".join(gram_lines) + "\n\n"
+        f"YÊU CẦU:\n"
+        f"- common_mistakes: 3-5 entry wrong|right|why_vi, mô tả LỖI SAI HAY GẶP THẬT "
+        f"của người Việt học {lang_name} (dịch thô, nhầm trợ từ, chia sai...).\n"
+        f"- mini_quiz: 3-5 câu trắc nghiệm 4 lựa chọn (question, options ĐÚNG 4 đáp án, "
+        f"answer_index 0-3, explanation 1-2 câu) luyện đúng điểm ngữ pháp của bài.\n"
+        f"- title: sao chép NGUYÊN VĂN, KHÔNG đổi, KHÔNG thêm bớt ký tự (dùng để ghép kết quả).\n"
+        f"- Chỉ trả JSON 1 key: grammar (mảng). Không thêm chữ nào ngoài JSON."
+    )
+
+
+def _clean_mistakes_list(items) -> list:
+    """Chuẩn hoá mảng common_mistakes từ AI (bỏ entry sai)."""
+    out = []
+    for m in items or []:
+        if isinstance(m, dict) and str(m.get("wrong", "")).strip():
+            out.append({
+                "wrong": str(m.get("wrong", "")).strip(),
+                "right": str(m.get("right", "")).strip(),
+                "why_vi": str(m.get("why_vi", "")).strip(),
+            })
+    return out
+
+
+def parse_grammar_enrich_json(text: str) -> list:
+    """Parse JSON grammar enrichment → list bài (title + common_mistakes + mini_quiz).
+
+    Trả [] nếu hỏng — stage gọi phải tự fallback an toàn (KHÔNG raise).
+    """
+    try:
+        data = json.loads(_strip_json(text))
+    except (ValueError, json.JSONDecodeError):
+        return []
+    if not isinstance(data, dict):
+        return []
+    out = []
+    for g in data.get("grammar") or []:
+        if not (isinstance(g, dict) and str(g.get("title", "")).strip()):
+            continue
+        out.append({
+            "title": str(g["title"]).strip(),
+            "common_mistakes": _clean_mistakes_list(g.get("common_mistakes")),
+            "mini_quiz": _clean_quiz_list(g.get("mini_quiz")),
+        })
+    return out
 
 
 # ─── Parse & validate ──────────────────────────────────────────────────────────
@@ -1944,41 +2065,57 @@ def _clean_references(val, limit: int = 8) -> list:
     return out
 
 
+def _clean_vocab_item(v) -> dict:
+    """Chuẩn hoá 1 item vocab từ AI (trả {} nếu không có word)."""
+    if not isinstance(v, dict) or not str(v.get("word", "")).strip():
+        return {}
+    ex_sent = str(v.get("example_sentence", "")).strip()
+    ex_vi = str(v.get("example_meaning_vi", "")).strip()
+    return {
+        # ── 7 field CŨ (canonical — app cũ đọc theo tên) ──
+        "word": _s(v.get("word", "")),
+        "pronunciation": _s(v.get("pronunciation", "")),
+        "part_of_speech": _s(v.get("part_of_speech", "")),
+        "meaning_vi": _s(v.get("meaning_vi", "")),
+        "explanation": _s(v.get("explanation", "")),
+        "example_sentence": ex_sent,
+        "example_meaning_vi": ex_vi,
+        # ── v4 ──
+        "ipa": _s(v.get("ipa", "")) or _s(v.get("pronunciation", "")),
+        "phonetic_note": _s(v.get("phonetic_note", "")),
+        "pos": _s(v.get("pos", "")),
+        "image_prompt": _s(v.get("image_prompt", "")) or None,
+        # ── v5 ──
+        "syllables": _safe_str_list(v.get("syllables"), 8),
+        "pitch_accent": _s(v.get("pitch_accent", "")),
+        "rhymes": _safe_str_list(v.get("rhymes"), 6),
+        "etymology": _s(v.get("etymology", "")),
+        # alias COMPUTED (không do AI sinh) — giữ đồng bộ với field cũ
+        "example_target": ex_sent,
+        "example_vi": ex_vi,
+        "image_ref": None,
+        "audio_ref": None,
+    }
+
+
+def _clean_vocab_list(raw) -> list:
+    out = []
+    for v in raw or []:
+        item = _clean_vocab_item(v)
+        if item:
+            out.append(item)
+    return out
+
+
 def parse_content_json(text: str) -> dict:
     data = json.loads(_strip_json(text))
     if not isinstance(data.get("title"), str) or not data["title"].strip():
         raise ValueError("Thiếu title")
 
-    clean_vocab = []
-    for v in data.get("vocab") or []:
-        if isinstance(v, dict) and str(v.get("word", "")).strip():
-            ex_sent = str(v.get("example_sentence", "")).strip()
-            ex_vi = str(v.get("example_meaning_vi", "")).strip()
-            clean_vocab.append({
-                # ── 7 field CŨ (canonical — app cũ đọc theo tên) ──
-                "word": _s(v.get("word", "")),
-                "pronunciation": _s(v.get("pronunciation", "")),
-                "part_of_speech": _s(v.get("part_of_speech", "")),
-                "meaning_vi": _s(v.get("meaning_vi", "")),
-                "explanation": _s(v.get("explanation", "")),
-                "example_sentence": ex_sent,
-                "example_meaning_vi": ex_vi,
-                # ── v4 ──
-                "ipa": _s(v.get("ipa", "")) or _s(v.get("pronunciation", "")),
-                "phonetic_note": _s(v.get("phonetic_note", "")),
-                "pos": _s(v.get("pos", "")),
-                "image_prompt": _s(v.get("image_prompt", "")) or None,
-                # ── v5 ──
-                "syllables": _safe_str_list(v.get("syllables"), 8),
-                "pitch_accent": _s(v.get("pitch_accent", "")),
-                "rhymes": _safe_str_list(v.get("rhymes"), 6),
-                "etymology": _s(v.get("etymology", "")),
-                # alias COMPUTED (không do AI sinh) — giữ đồng bộ với field cũ
-                "example_target": ex_sent,
-                "example_vi": ex_vi,
-                "image_ref": None,
-                "audio_ref": None,
-            })
+    # Model đôi khi trả vocab rỗng dù schema required. KHÔNG raise ở đây:
+    # giữ lại patterns/common/grammar (phần đã sinh đúng) và để _run_day gọi
+    # prompt nhỏ chỉ sinh vocab — rẻ và ổn định hơn retry cả content.
+    clean_vocab = _clean_vocab_list(data.get("vocab"))
 
     clean_patterns = []
     for p in data.get("sentence_patterns") or []:
@@ -2039,6 +2176,47 @@ def parse_content_json(text: str) -> dict:
         "common_sentences": clean_common,
         "grammar": clean_grammar,
     }
+
+
+# ─── Schema phụ: CHỈ sinh từ vựng (fallback khi content thiếu vocab) ─────────
+VOCAB_FILL_SCHEMA = {
+    "type": "OBJECT",
+    "properties": {"vocab": CONTENT_SCHEMA["properties"]["vocab"]},
+    "required": ["vocab"],
+}
+
+
+def build_vocab_fill_prompt(lang_name: str, day_num: int, topic: str = "",
+                            level: str = "", existing_words: list = None,
+                            need: int = MIN_VOCAB) -> str:
+    """Prompt nhỏ, tập trung 100% vào vocab — dùng khi content chính trả vocab rỗng."""
+    lang_name = ai_lang_name(lang_name)
+    existing = [str(w).strip() for w in (existing_words or []) if str(w).strip()]
+    avoid = ""
+    if existing:
+        avoid = ("\nKHÔNG lặp lại các từ đã có: " + ", ".join(existing[:40]) + ".\n")
+    return (
+        f"Bạn là gia sư {lang_name} cho người Việt. Hãy bổ sung từ vựng cho "
+        f"Ngày {day_num} — chủ đề: '{topic or 'giao tiếp cơ bản'}'"
+        f"{f' (trình độ: {level})' if level else ''}.\n"
+        f"Trả về JSON đúng schema, gồm ĐÚNG {need} từ vựng {lang_name} THẬT, "
+        f"thông dụng, đúng chủ đề.{avoid}\n"
+        f"Mỗi từ BẮT BUỘC có đủ: word, pronunciation (romaji/pinyin/IPA), "
+        f"part_of_speech, meaning_vi, explanation (tiếng Việt), "
+        f"example_sentence (câu {lang_name}), example_meaning_vi.\n"
+        f"KHÔNG bịa từ, KHÔNG dùng từ giữ chỗ kiểu '単語1'/'tango1'/"
+        f"'Nghĩa từ vựng số 1'. Chỉ trả JSON, không thêm chữ nào ngoài JSON."
+    )
+
+
+def parse_vocab_json(text: str) -> list:
+    """Parse JSON {vocab:[...]} → list vocab đã chuẩn hoá."""
+    data = json.loads(_strip_json(text))
+    raw = data.get("vocab") if isinstance(data, dict) else data
+    items = _clean_vocab_list(raw)
+    if not items:
+        raise ValueError("Thiếu vocab")
+    return items
 
 
 def parse_dialogue_json(text: str) -> list:
@@ -2175,7 +2353,7 @@ def audit_and_supplement_course(language: str, level: str = None, coord=None,
         cls = coordinator_cls or GeminiCoordinator
         coord = cls(
             key_loader=_load_gemini_keys, log_fn=log_fn,
-            temperature=0.35, max_output_tokens=16384, timeout=180,
+            temperature=0.35, max_output_tokens=16384, timeout=120,
             lock_after_success=False
         )
 
@@ -2377,7 +2555,7 @@ def generate_course(language: str,
 
     coord_cls = coordinator_cls or GeminiCoordinator
     coord = coord_cls(key_loader=_load_gemini_keys, log_fn=log_fn,
-                      temperature=0.35, max_output_tokens=16384, timeout=180,
+                      temperature=0.35, max_output_tokens=16384, timeout=120,
                       lock_after_success=False)
 
     def _ask(prompt, schema, kind):

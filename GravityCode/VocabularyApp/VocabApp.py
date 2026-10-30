@@ -175,6 +175,58 @@ def speak_word(word: str, lang_name: str = ""):
 
     threading.Thread(target=_run, daemon=True).start()
 
+
+def play_audio_file(path: str, word: str = None, lang_name: str = "") -> bool:
+    """Phát 1 file audio ĐÃ CÓ trên đĩa (mp3/wav) — nhanh hơn TTS, đúng giọng đã ghi.
+
+    Dùng chung _tts_lock với speak_word (pygame.mixer không dùng đồng thời được).
+    Nếu file lỗi/không có ⇒ fallback speak_word() (TTS đọc live).
+
+    Trả True nếu đã có file và được nạp (phát async trên thread nền);
+    trả False nếu không có file (bên gọi tự quyết định TTS).
+    """
+    if not path or not os.path.isfile(path):
+        if word:
+            speak_word(word, lang_name)
+        return False
+
+    def _run():
+        try:
+            import pygame
+            with _tts_lock:
+                pygame.mixer.init()
+                pygame.mixer.music.load(path)
+                pygame.mixer.music.play()
+        except Exception:
+            # File tồn tại nhưng mixer không phát được → TTS đọc word
+            if word:
+                speak_word(word, lang_name)
+
+    threading.Thread(target=_run, daemon=True).start()
+    return True
+
+
+def stop_audio():
+    """Dừng mọi âm thanh đang phát (đổi ngày, đóng dialog, đóng app)."""
+    try:
+        import pygame
+        if pygame.mixer.get_init():
+            pygame.mixer.music.stop()
+    except Exception:
+        pass
+
+
+def audio_playing() -> bool:
+    """Đang phát audio nào không (để trình tự 'Nghe cả ngày' chờ đúng lượt)."""
+    try:
+        import pygame
+        if pygame.mixer.get_init():
+            return bool(pygame.mixer.music.get_busy())
+    except Exception:
+        pass
+    return False
+
+
 import customtkinter as ctk
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -291,6 +343,24 @@ def btn(parent, text, color=None, hov=None, w=130, h=36, cmd=None, **kw):
                           width=w, height=h, command=cmd,
                           font=ctk.CTkFont(size=13, weight="bold"), text_color="#121212" if color in [C["accent"], C["success"], C["warn"]] else C["text"], **kw)
 
+
+def jp_font(size: int, weight: str = "normal"):
+    """Font Tk có chữ Nhật (kana/kanji) cho giao diện desktop — 1 nguồn duy nhất.
+
+    Chọn Meiryo trước (đủ kana + kanji + Latin), thuận: Yu Gothic → MS Gothic → mặc định.
+    """
+    try:
+        from tkinter import font as tkfont
+        fams = set(tkfont.families())
+        for fam in ("Meiryo UI", "Meiryo", "Yu Gothic UI", "Yu Gothic",
+                    "MS Gothic", "Segoe UI"):
+            if fam in fams:
+                return ctk.CTkFont(family=fam, size=size, weight=weight)
+    except Exception:
+        pass
+    return ctk.CTkFont(size=size, weight=weight)
+
+
 # ══════════════════════════════════════════════════════════════════════════════
 # Preview Dialog
 # ══════════════════════════════════════════════════════════════════════════════
@@ -376,6 +446,221 @@ class PreviewDialog(ctk.CTkToplevel):
             tree.insert('', 'end', values=cols[:len(headers)])
             
         tree.pack(fill="x", padx=5, pady=10)
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Media Viewer Dialog — xem word-card/ảnh lớn + phát audio từng từ
+# ══════════════════════════════════════════════════════════════════════════════
+class MediaViewerDialog(ctk.CTkToplevel):
+    """Xem to 1 từ của ngày học: card/ảnh 384×384 + reading + nghĩa + ví dụ.
+
+    Phím: ←/→ đổi từ · Space phát · Esc đóng. Tự phát khi mở (nếu
+    settings.json ui.media_autoplay = true — toggle được bằng nút 🔉).
+    """
+
+    def __init__(self, parent, items, idx=0, lang_name="", title=""):
+        super().__init__(parent)
+        self.title(title or "Xem từ")
+        self.geometry("480x680")
+        self.configure(fg_color=C["bg"])
+        self.transient(parent)
+        self.grab_set()
+        self.lift()
+        self.focus_force()
+
+        self._items = list(items or [])
+        self._idx = max(0, min(int(idx), len(self._items) - 1)) if self._items else 0
+        self._lang = lang_name
+        self._img_refs = {}          # giữ ref ảnh CTkImage — tránh GC trắng ảnh
+
+        try:
+            self._autoplay = bool(
+                (load_settings().get("ui") or {}).get("media_autoplay", True))
+        except Exception:
+            self._autoplay = True
+
+        # ── Ảnh / word-card lớn ──
+        self.img_holder = ctk.CTkLabel(self, text="")
+        self.img_holder.pack(pady=(18, 6))
+
+        # ── Thông tin từ ──
+        self.lbl_word = ctk.CTkLabel(self, text="", font=jp_font(34, "bold"),
+                                     text_color=C["text"])
+        self.lbl_word.pack(pady=(4, 0))
+        self.lbl_reading = ctk.CTkLabel(self, text="", font=jp_font(20),
+                                        text_color=C["accent"])
+        self.lbl_reading.pack()
+        self.lbl_romaji = ctk.CTkLabel(self, text="", font=("Consolas", 14),
+                                       text_color=C["muted"])
+        self.lbl_romaji.pack()
+        self.lbl_meaning = ctk.CTkLabel(self, text="", font=("Segoe UI", 16, "bold"),
+                                        wraplength=420, text_color=C["text"])
+        self.lbl_meaning.pack(pady=(8, 0))
+        self.lbl_pos = ctk.CTkLabel(self, text="", font=("Segoe UI", 12),
+                                    text_color=C["muted"])
+        self.lbl_pos.pack()
+        self.lbl_example = ctk.CTkLabel(self, text="", justify="center",
+                                        wraplength=430, font=jp_font(15),
+                                        text_color=C["text"])
+        self.lbl_example.pack(pady=(10, 0))
+        self.lbl_ex_vi = ctk.CTkLabel(self, text="", justify="center",
+                                      wraplength=430, font=("Segoe UI", 13),
+                                      text_color=C["muted"])
+        self.lbl_ex_vi.pack(pady=(2, 0))
+
+        # ── Nút điều khiển ──
+        row = ctk.CTkFrame(self, fg_color="transparent")
+        row.pack(side="bottom", fill="x", pady=12)
+        btn(row, "🔊 Nghe", C["accent"], C["accent2"], w=96, h=40,
+            cmd=lambda: self.play_current()).pack(side="left", padx=(14, 4), expand=False)
+        btn(row, "🐢 Chậm 0.75×", C["card2"], C["accent"], w=120, h=40,
+            cmd=self.play_slow).pack(side="left", padx=4)
+        btn(row, "🔁 Lặp 3×", C["card2"], C["accent"], w=96, h=40,
+            cmd=self.play_repeat).pack(side="left", padx=4)
+        self.btn_auto = btn(row, "🔉", C["card2"], C["accent"], w=44, h=40,
+                            cmd=self._toggle_autoplay)
+        self.btn_auto.pack(side="left", padx=4)
+        btn(row, "📖 Đóng", C["card2"], C["danger"], w=88, h=40,
+            cmd=self.destroy).pack(side="right", padx=(4, 14))
+
+        self.lbl_counter = ctk.CTkLabel(self, text="", font=("Consolas", 12),
+                                        text_color=C["muted"])
+        self.lbl_counter.pack(side="bottom", pady=(0, 2))
+
+        # ── Phím tắt ──
+        self.bind("<Left>", lambda _e: self.step(-1))
+        self.bind("<Right>", lambda _e: self.step(1))
+        self.bind("<space>", lambda _e: self.play_current())
+        self.bind("<Escape>", lambda _e: self.destroy())
+        self.protocol("WM_DELETE_WINDOW", self._on_close)
+
+        self.step(0)                     # render item đầu
+        self._toggle_autoplay(refresh=True)   # vẽ đúng trạng thái nút
+        if self._autoplay and self._items:
+            self.play_current()
+
+    # ── Logic ──
+    def step(self, delta: int):
+        if not self._items:
+            self.lbl_word.configure(text="(trống)")
+            return
+        self._idx = (self._idx + delta) % len(self._items)
+        self._render_item()
+
+    def current(self) -> dict:
+        if 0 <= self._idx < len(self._items):
+            return self._items[self._idx]
+        return {}
+
+    def _render_item(self):
+        it = self.current()
+        word = str(it.get("word") or "")
+        self.lbl_word.configure(text=word)
+        reading = str(it.get("reading") or "")
+        romaji = str(it.get("romaji") or "")
+        self.lbl_reading.configure(text=f"/{reading}/" if reading else "")
+        self.lbl_romaji.configure(text=romaji)
+        self.lbl_meaning.configure(text=it.get("meaning") or "—")
+        self.lbl_pos.configure(text=it.get("pos") or "")
+        ex_ja = str(it.get("example_ja") or it.get("example") or "")
+        ex_vi = str(it.get("example_vi") or "")
+        self.lbl_example.configure(text=ex_ja)
+        self.lbl_ex_vi.configure(text=ex_vi)
+        self.lbl_counter.configure(text=f"{self._idx + 1} / {len(self._items)}"
+                                        f"   (←/→ đổi từ · Space phát · Esc đóng)")
+
+        # ── Ảnh: ưu tiên ảnh thật ≥, không có thì word-card ──
+        img = self._load_image(it, side=384)
+        self._img_refs["big"] = img
+        if img is not None:
+            self.img_holder.configure(image=img, text="")
+        else:
+            self.img_holder.configure(image=None, text="🖼️", font=jp_font(64))
+
+    def _load_image(self, it, side=384):
+        """CTkImage từ ảnh thật (nếu source != placeholder + có file) hoặc word-card."""
+        try:
+            from customtkinter import CTkImage
+            from PIL import Image as PILImage
+            from ai.media_resolver import resolve_media_path
+            p = resolve_media_path(it.get("image_ref"))
+            real = ""
+            if p:
+                real = p
+            else:
+                from ai.media_card import get_word_card_path
+                real = get_word_card_path(it.get("word") or "",
+                                          it.get("reading") or "",
+                                          it.get("meaning") or "", 384,
+                                          int(it.get("level") or 0))
+            if not real or not os.path.isfile(real):
+                return None
+            pil = PILImage.open(real).convert("RGB")
+            pil.thumbnail((side, side))
+            return CTkImage(light_value=pil, dark_value=pil, size=pil.size)
+        except Exception:
+            return None
+
+    # ── Phát âm thanh ──
+    def play_current(self):
+        self._play(self.current())          # file có sẵn hoặc TTS — đều 1 lần
+
+    def play_slow(self):
+        """Phát bản slow (0.75×) nếu kho có; không có file slow → TTS đọc live."""
+        self._play(self.current(), rate="slow")
+
+    def play_repeat(self):
+        """Phát lại 3 lần — mỗi lần cách 1.7s, không chiếm thread Tk."""
+        it = self.current()
+        if not it:
+            return
+
+        def _again(left):
+            if left <= 0 or not self.winfo_exists():
+                return
+            stop_audio()
+            self._play(it)
+            self.after(1700, lambda: _again(left - 1))
+        _again(3)
+
+    def _play(self, it, rate: str = "normal") -> bool:
+        """Phát file audio của từ. rate='slow' → dùng bản slow nếu kho có.
+
+        play_audio_file: có file → phát; thiếu file → TTS đọc live (fallback).
+        """
+        path = it.get("audio_path") or ""
+        if rate == "slow":
+            path = it.get("audio_path_slow") or path
+        try:
+            from ai.media_resolver import resolve_media_path
+            return play_audio_file(resolve_media_path(path),
+                                   word=str(it.get("word") or ""),
+                                   lang_name=self._lang) or True
+        except Exception:
+            try:
+                speak_word(str(it.get("word") or ""), self._lang)
+            except Exception:
+                pass
+            return False
+
+    # ── Toggle tự phát + đóng ──
+    def _toggle_autoplay(self, refresh=False):
+        if not refresh:
+            self._autoplay = not self._autoplay
+            try:
+                s = load_settings()
+                s.setdefault("ui", {})["media_autoplay"] = self._autoplay
+                save_settings(s)
+            except Exception:
+                pass
+        try:
+            self.btn_auto.configure(text="🔉 tự phát" if self._autoplay else "🔇 tắt tự phát")
+        except Exception:
+            pass
+
+    def _on_close(self):
+        stop_audio()
+        self.destroy()
+
 
 # ══════════════════════════════════════════════════════════════════════════════
 # Writing Practice Dialogs
@@ -1602,14 +1887,10 @@ class ModelSettingsDialog(ctk.CTkToplevel):
 
     @staticmethod
     def _infer_tier(name):
-        n = name.lower()
-        if "3.5" in n or "3-ultra" in n:
-            return "S"
-        if "3-flash" in n or "3.0" in n or "flash-latest" in n:
-            return "A"
-        if "lite" in n or "3.1" in n:
-            return "B"
-        return "C"
+        # Quy tắc 2026 (api/model_catalog.py): pro→S, lite→B, flash→A,
+        # khác→C; -preview/-exp HẠ 1 bậc. Tự dò thấy 3.6/3.7/3.8 xếp đúng.
+        from api.model_catalog import infer_tier
+        return infer_tier(name)
 
     def __init__(self, parent):
         super().__init__(parent)
@@ -1627,6 +1908,17 @@ class ModelSettingsDialog(ctk.CTkToplevel):
                 for m in _DEFAULT_MODEL_FALLBACKS
             ]
         self._models = [dict(m) for m in _saved]
+
+        # Thống kê probe model (ok/fail/latency/lần thử) — đọc từ settings để hiển thị
+        self._probe_stats = {}
+        try:
+            _ps = (load_settings().get("ai", {}) or {}).get("model_probe_stats") or {}
+            self._probe_stats = {str(k): dict(v) for k, v in _ps.items()}
+        except Exception:
+            self._probe_stats = {}
+        # Bật/tắt ưu tiên model tốt nhất (đồng bộ coordinator qua settings)
+        self._adaptive_var = ctk.BooleanVar(
+            value=bool((load_settings().get("ai", {}) or {}).get("adaptive_model", True)))
 
         # Window
         self.title("⚙️  Cài Đặt & Tự Khám Phá Model AI — VocabularyApp")
@@ -1651,7 +1943,19 @@ class ModelSettingsDialog(ctk.CTkToplevel):
         tree_frame = ctk.CTkFrame(self, fg_color=C["card"], corner_radius=8)
         tree_frame.pack(fill="both", expand=True, padx=14, pady=(10, 4))
 
-        cols = ("order", "tier", "name", "note", "latency", "enabled")
+        # ── Bộ lọc: Tất cả / Mới nhất / Ổn định / Rẻ–nhanh / Đang bật ──
+        frow = ctk.CTkFrame(tree_frame, fg_color="transparent")
+        frow.pack(fill="x", padx=6, pady=(6, 0))
+        lbl(frow, "Lọc:", 11, color=C["muted"]).pack(side="left", padx=(4, 6))
+        self._filter_name = "Tất cả"
+        self.cb_model_filter = ctk.CTkComboBox(
+            frow, values=["Tất cả", "Mới nhất", "Ổn định", "Rẻ–nhanh", "Đang bật"],
+            width=140, height=28, command=self._on_filter)
+        self.cb_model_filter.set("Tất cả")
+        self.cb_model_filter.pack(side="left")
+
+        cols = ("order", "tier", "name", "version", "note", "latency", "ok", "fail",
+                "count", "avg_ms", "key", "status")
         style = _ttk.Style()
         style.theme_use("clam")
         style.configure("ModelDark.Treeview",
@@ -1666,12 +1970,19 @@ class ModelSettingsDialog(ctk.CTkToplevel):
         self._tree = _ttk.Treeview(tree_frame, columns=cols, show="headings",
                                    selectmode="browse", height=12,
                                    style="ModelDark.Treeview")
-        for col, txt, w in [("order", "#", 36), ("tier", "Tier", 62),
-                             ("name", "Tên Model", 235), ("note", "Ghi chú", 200),
-                             ("latency", "Độ trễ", 80), ("enabled", "Trạng thái", 90)]:
+        for col, txt, w in [("order", "#", 36), ("tier", "Loại", 62),
+                             ("name", "Tên Model", 200),
+                             ("version", "Version", 72),
+                             ("note", "Ghi chú", 72),
+                             ("latency", "Độ trễ", 52),
+                             ("ok", "OK", 30), ("fail", "Fail", 34),
+                             ("count", "Lần", 34), ("avg_ms", "ms", 36),
+                             ("key", "Key / Gmail", 200),
+                             ("status", "Trạng thái", 118)]:
             self._tree.heading(col, text=txt)
-            self._tree.column(col, width=w, anchor="center" if col in ("order","tier","latency","enabled") else "w",
-                              stretch=(col == "name"))
+            self._tree.column(col, width=w, anchor="center" if col in
+                              ("order", "tier", "version", "latency", "status")
+                              else "w", stretch=(col in ("name", "note")))
 
         vsb = _ttk.Scrollbar(tree_frame, orient="vertical", command=self._tree.yview)
         self._tree.configure(yscrollcommand=vsb.set)
@@ -1697,11 +2008,31 @@ class ModelSettingsDialog(ctk.CTkToplevel):
                                  C["success"], "#018786", width=210, height=34,
                                  cmd=self._do_discover)
         self._btn_discover.pack(side="left", padx=2)
+        self._btn_catalog = btn(disc, "🔄 Dò model mới", C["card2"], C["accent"],
+                                width=140, height=34, cmd=self._do_catalog)
+        self._btn_catalog.pack(side="left", padx=(2, 6))
+        self._btn_probe = btn(disc, "🧪 Thử mẫu model", C["card2"], C["warn"],
+                              width=120, height=34, cmd=self._do_probe_models)
+        self._btn_probe.pack(side="left", padx=(2, 6))
+        self._btn_keys = btn(disc, "🔑 Xem tất cả key", C["card2"], C["accent"],
+                             width=120, height=34, cmd=self._do_show_all_keys)
+        self._btn_keys.pack(side="left", padx=(2, 6))
+        ctk.CTkCheckBox(disc, text="Tự động ưu tiên model tốt nhất",
+                        variable=self._adaptive_var, command=self._on_adaptive_toggle,
+                        fg_color=C["accent"]).pack(side="left", padx=(10, 2))
+        lbl(disc, "Khoảng dừng (giây):", 9, color=C["muted"]).pack(side="left", padx=(10, 2))
+        self._pace_var = ctk.StringVar(value="0")
+        self._pace_entry = ctk.CTkEntry(disc, textvariable=self._pace_var, width=45, height=28)
+        self._pace_entry.pack(side="left", padx=2)
+        ctk.CTkCheckBox(disc, text="Tùy chỉnh", variable=ctk.BooleanVar(value=False),
+                        fg_color=C["accent"]).pack(side="left", padx=2)
         self._btn_stop = btn(disc, "⏹ Dừng", C["card2"], C["danger"],
                              width=80, height=34, cmd=lambda: self._stop_flag.__setitem__(0, True))
         self._btn_stop.pack(side="left", padx=2)
         self._btn_stop.configure(state="disabled")
-        lbl(disc, "← Tự quét model mới nhất từ Google API rồi đo tốc độ & xếp hạng",
+        lbl(disc, "← 'Dò model mới' lấy catalog (không đo) · 'Thử mẫu' gọi thật ~5 model để đo OK/ms · "
+                  "Ưu tiên tối ưu đồng bộ vào settings (ai.adaptive_model) · "
+                  "Khoảng dừng 0 = tự động theo số tài khoản còn sống",
             9, color=C["muted"]).pack(side="left", padx=8)
 
         # Log panel
@@ -1743,16 +2074,99 @@ class ModelSettingsDialog(ctk.CTkToplevel):
         if ms <= 0: return "—"
         return f"{ms}ms" if ms < 1000 else f"{ms/1000:.1f}s"
 
+    def _status_icon(self, m):
+        """🟢 sống · 🟡 cooldown · ⚫ chết · 🚫 preview · ☒ tắt."""
+        note = str(m.get("note") or "")
+        if "Không truy cập" in note or "(Lỗi)" in note:
+            return "⚫ chết"
+        if "Rate limit" in note:
+            return "🟡 cooldown"
+        try:
+            from api.model_catalog import is_preview
+            if is_preview(m.get("name", "")):
+                return "🚫 preview"
+        except Exception:
+            pass
+        return "🟢 sống" if m.get("enabled", True) else "☒ tắt"
+
+    def _filtered_models(self):
+        """Danh sách index THẬT trong self._models theo bộ lọc đang chọn.
+
+        'Đang bật' chỉ lọc; 'Mới nhất' sắp version desc; 'Ổn định' bỏ preview
+        chưa đo; 'Rẻ–nhanh' đưa lite/flash lên đầu (stable sort 2 lớp).
+        """
+        try:
+            from api.model_catalog import is_preview, version_key
+        except Exception:
+            def version_key(n): return (0, 0)
+            def is_preview(n): return False
+        f = self._filter_name
+        idxs = list(range(len(self._models)))
+        if f == "Đang bật":
+            idxs = [i for i in idxs if self._models[i].get("enabled", True)]
+        elif f == "Mới nhất":
+            idxs.sort(key=lambda i: version_key(self._models[i]["name"]),
+                      reverse=True)
+        elif f == "Ổn định":
+            idxs = [i for i in idxs
+                    if (self._models[i].get("latency_ms") or 0) > 0
+                    or not is_preview(self._models[i]["name"])]
+        elif f == "Rẻ–nhanh":
+            idxs.sort(key=lambda i: version_key(self._models[i]["name"]),
+                      reverse=True)                # lớp 2: version desc
+            idxs.sort(key=lambda i: 0 if ("lite" in self._models[i]["name"].lower()
+                                          or "flash" in self._models[i]["name"].lower())
+                      else 1)                      # lớp 1: lite/flash đầu (stable)
+        return idxs
+
+    def _on_filter(self, choice=None):
+        self._filter_name = self.cb_model_filter.get() or "Tất cả"
+        self._refresh_tree()
+        n = len(self._filtered_models())
+        self._log_msg(f"🔎 Bộ lọc '{self._filter_name}': {n}/{len(self._models)} model.")
+
     def _refresh_tree(self):
         self._tree.delete(*self._tree.get_children())
-        for i, m in enumerate(self._models, 1):
-            tier  = m.get("tier", self._infer_tier(m["name"]))
+        try:
+            from api.model_catalog import version_key
+        except Exception:
+            def version_key(n): return (0, 0)
+        rows = self._filtered_models()
+        # Lấy email đang active 1 lần cho cả bảng (tránh tạo coordinator mỗi dòng).
+        key_email = ""
+        try:
+            from api.gemini_safe import GeminiCoordinator
+            from ai.course_generator import _load_gemini_keys
+            _coord = GeminiCoordinator(models=self._models, log_fn=lambda m: None,
+                                       key_loader=_load_gemini_keys)
+            _st = _coord.get_all_keys_status()
+            active_emails = [x["email"] for x in _st
+                             if x["status"] == "active" and not x["locked"]]
+            if active_emails:
+                key_email = active_emails[0]
+        except Exception:
+            pass
+        for row, idx in enumerate(rows, 1):
+            m = self._models[idx]
+            tier = m.get("tier") or self._infer_tier(m["name"])
+            m["tier"] = tier
             badge = self._TIER_META.get(tier, self._TIER_META["C"])["badge"]
-            lat   = self._latency_str(m.get("latency_ms", 0))
-            en    = "✅ Bật" if m.get("enabled", True) else "☒ Tắt"
-            tag   = "en" if m.get("enabled", True) else "dis"
-            self._tree.insert("", "end", iid=str(i - 1),
-                              values=(i, badge, m["name"], m.get("note", ""), lat, en),
+            maj, mnr = version_key(m["name"])
+            ver = f"{maj}.{mnr}" if maj else "—"
+            lat = self._latency_str(m.get("latency_ms", 0))
+            st = self._probe_stats.get(m["name"], {})
+            ok_n = int(st.get("ok", 0))
+            fail_n = int(st.get("fail", 0))
+            cnt = int(st.get("count", 0))
+            avg_s = str(st.get("total_ms", 0) // max(1, ok_n)) if ok_n else "—"
+            tag = "en" if m.get("enabled", True) else "dis"
+            # iid = index THẬT trong self._models ⇒ _sel_idx/_move_* luôn đúng kể cả khi đang lọc
+            self._tree.insert("", "end", iid=str(idx),
+                              values=(row, badge, m["name"], ver,
+                                      str(m.get("note") or ""), lat,
+                                      ok_n, fail_n, cnt, avg_s,
+                                      key_email,
+                                      self._status_icon(m)),
                               tags=(tag,))
         self._tree.tag_configure("en",  foreground="#e0e0ff")
         self._tree.tag_configure("dis", foreground="#555577")
@@ -1766,21 +2180,30 @@ class ModelSettingsDialog(ctk.CTkToplevel):
         if idx is None or idx == 0: return
         self._models[idx - 1], self._models[idx] = self._models[idx], self._models[idx - 1]
         self._refresh_tree()
-        self._tree.selection_set(str(idx - 1))
+        try:
+            self._tree.selection_set(str(idx - 1))
+        except Exception:
+            pass
 
     def _move_down(self):
         idx = self._sel_idx()
         if idx is None or idx >= len(self._models) - 1: return
         self._models[idx], self._models[idx + 1] = self._models[idx + 1], self._models[idx]
         self._refresh_tree()
-        self._tree.selection_set(str(idx + 1))
+        try:
+            self._tree.selection_set(str(idx + 1))
+        except Exception:
+            pass
 
     def _toggle_enabled(self):
         idx = self._sel_idx()
         if idx is None: return
         self._models[idx]["enabled"] = not self._models[idx].get("enabled", True)
         self._refresh_tree()
-        self._tree.selection_set(str(idx))
+        try:
+            self._tree.selection_set(str(idx))
+        except Exception:
+            pass
 
     def _auto_sort(self):
         def _score(m):
@@ -1809,6 +2232,57 @@ class ModelSettingsDialog(ctk.CTkToplevel):
 
     # ── Auto Discover ──
 
+    def _do_catalog(self):
+        """Dò NHANH danh mục model từ Google API (cache 24h) — không benchmark.
+
+        Dedupe theo tên + xếp hạng via model_catalog.rank_models, báo 'N model mới'.
+        """
+        import threading
+        self._btn_catalog.configure(state="disabled", text="⏳ Đang dò…")
+
+        def _run():
+            try:
+                self._catalog_inner()
+            except Exception as ex:
+                self._log_msg(f"❌ Lỗi dò catalog: {ex}")
+            finally:
+                self.after(0, lambda: self._btn_catalog.configure(
+                    state="normal", text="🔄 Dò model mới"))
+
+        threading.Thread(target=_run, daemon=True).start()
+
+    def _catalog_inner(self):
+        from api import model_catalog as mc
+        entries = mc.get_catalog(force=False, log=lambda m: self._log_msg(str(m)))
+        if not entries:
+            self._log_msg("⚠ Catalog rỗng — kiểm tra key hoặc mạng.")
+            return
+        self._log_msg(f"🌐 Catalog: {len(entries)} model sinh nội dung.")
+        existing = {str(m.get("name")) for m in self._models}
+        fresh = 0
+        for e in entries:
+            name = str(e.get("name") or "")
+            if not name or name in existing:
+                continue
+            self._models.append({
+                "name": name, "enabled": False,
+                "tier": e.get("tier") or mc.infer_tier(name),
+                "note": "[Catalog] " + str(e.get("display") or name),
+                "latency_ms": 0,
+            })
+            fresh += 1
+        # Xếp lại toàn bộ theo rank mới (tier + version, preview/dead xuống cuối)
+        lat = {m["name"]: m.get("latency_ms", 0) for m in self._models}
+        ranked = mc.rank_models([m["name"] for m in self._models], latencies=lat)
+        order = {n: i for i, n in enumerate(ranked)}
+        self._models.sort(key=lambda m: order.get(m["name"], 10**9))
+        self.after(0, self._refresh_tree)
+        if fresh:
+            self._log_msg(f"✅ Dò xong: {fresh} model mới (tổng {len(self._models)}) —"
+                          " model mới đang TẮT, bật cần thì chọn ☑/☒ Bật/Tắt.")
+        else:
+            self._log_msg("ℹ Không có model nào mới so với danh sách hiện tại.")
+
     def _do_discover(self):
         import threading
         self._stop_flag[0] = False
@@ -1823,6 +2297,131 @@ class ModelSettingsDialog(ctk.CTkToplevel):
             finally:
                 self.after(0, lambda: self._btn_discover.configure(state="normal", text="🔍 Auto Discover & Đánh giá"))
                 self.after(0, lambda: self._btn_stop.configure(state="disabled"))
+
+        threading.Thread(target=_run, daemon=True).start()
+
+    def _on_adaptive_toggle(self):
+        """Lưu cài đặt 'Tự động ưu tiên model tốt nhất' vào settings (coordinator đọc khi chạy)."""
+        try:
+            update_ai_settings(adaptive_model=bool(self._adaptive_var.get()))
+            self._log_msg("🔧 Đã lưu 'Tự động ưu tiên model tốt nhất' = %s" %
+                          ("BẬT" if self._adaptive_var.get() else "TẮT"))
+        except Exception as ex:
+            self._log_msg(f"⚠ Không lưu được adaptive_model: {ex}")
+
+    def _do_probe_models(self):
+        """Thử gọi thật tối đa 5 model đang bật bằng key active đầu tiên, đo OK/ms,
+        ghi thống kê vào settings (ai.model_probe_stats) để hiển thị + ưu tiên sau này."""
+        import threading, time, requests as _req
+        from ai.course_generator import _load_gemini_keys
+        self._btn_probe.configure(state="disabled", text="⏳ Đang thử mẫu...")
+        self._btn_stop.configure(state="normal")
+        self._stop_flag[0] = False
+
+        def _run():
+            try:
+                all_keys = _load_gemini_keys()
+                now = time.time()
+                active_key = None
+                for k in all_keys:
+                    if k.get("status", "active") == "active" and k.get("cooldown_until", 0) <= now:
+                        raw = k.get("key", "")
+                        if raw:
+                            active_key = raw
+                            break
+                if not active_key:
+                    self._log_msg("❌ Không tìm thấy API key active để thử mẫu.")
+                    return
+                candidates = [m for m in self._models if m.get("enabled", True)] or list(self._models)
+                candidates = candidates[:5]
+                if not candidates:
+                    self._log_msg("⚠ Không có model nào để thử.")
+                    return
+                payload = {"contents": [{"parts": [{"text": "Hi"}]}],
+                           "generationConfig": {"maxOutputTokens": 5}}
+                stats = {}
+                for m in candidates:
+                    if self._stop_flag[0]:
+                        self._log_msg("🛑 Người dùng yêu cầu dừng thử mẫu.")
+                        break
+                    name = m.get("name", "")
+                    if not name:
+                        continue
+                    url = (f"https://generativelanguage.googleapis.com/v1beta/"
+                           f"models/{name}:generateContent?key={active_key}")
+                    t0 = time.time()
+                    ok = False
+                    ms = None
+                    try:
+                        r = _req.post(url, json=payload,
+                                      headers={"Content-Type": "application/json"}, timeout=15)
+                        ms = int((time.time() - t0) * 1000)
+                        if r.status_code == 200:
+                            ok = True
+                            self._log_msg(f"  ✅ {name}: {ms}ms")
+                        elif r.status_code == 429:
+                            self._log_msg(f"  ⚠ {name}: Rate limit (429)")
+                        else:
+                            self._log_msg(f"  ✗ {name}: HTTP {r.status_code}")
+                    except Exception as ex:
+                        self._log_msg(f"  ✗ {name}: {type(exc).__name__}")
+                    old = self._probe_stats.get(name, {"ok": 0, "fail": 0,
+                                                       "total_ms": 0, "count": 0})
+                    old["count"] += 1
+                    if ok:
+                        old["ok"] += 1
+                        old["total_ms"] += ms
+                    else:
+                        old["fail"] += 1
+                    stats[name] = old
+                self._probe_stats.update(stats)
+                update_ai_settings(model_probe_stats=dict(self._probe_stats))
+                self._log_msg(f"✅ Thử mẫu xong: {len(stats)} model. Đã lưu vào settings.")
+                self.after(0, self._refresh_tree)
+            except Exception as ex:
+                self._log_msg(f"❌ Lỗi thử mẫu: {ex}")
+            finally:
+                self.after(0, lambda: self._btn_probe.configure(state="normal", text="🧪 Thử mẫu model"))
+                self.after(0, lambda: self._btn_stop.configure(state="disabled"))
+
+        threading.Thread(target=_run, daemon=True).start()
+
+    def _do_show_all_keys(self):
+        """Hiển thị trạng thái tất cả API key (email, masked key, status, cooldown...)."""
+        import threading
+        self._btn_keys.configure(state="disabled", text="⏳ Đang tải...")
+        self._stop_flag[0] = False
+
+        def _run():
+            try:
+                from api.gemini_safe import GeminiCoordinator
+                from ai.course_generator import _load_gemini_keys
+                coord = GeminiCoordinator(models=self._models, log_fn=lambda m: None,
+                                          key_loader=_load_gemini_keys)
+                keys = coord.get_all_keys_status()
+                if not keys:
+                    self._log_msg("⚠ Không tìm thấy API key nào trong settings.")
+                    return
+                lines = ["🔑 Trạng thái tất cả API key:"]
+                for k in keys:
+                    lock_tag = " 🔒 KHÓA" if k["locked"] else ""
+                    status_tag = {
+                        "active": "🟢",
+                        "exhausted": "🟡",
+                        "invalid": "⚫",
+                    }.get(k["status"], "⚪")
+                    lines.append(
+                        f"  {status_tag} {k['email']} | {k['key_masked']} | "
+                        f"{k['status']}{lock_tag}"
+                    )
+                self._log_msg("\n".join(lines))
+                self._log_msg(f"📊 Tổng: {len(keys)} key · "
+                              f"{sum(1 for k in keys if not k['locked'] and k['status']=='active')} active · "
+                              f"{sum(1 for k in keys if k['locked'])} đang cooldown/khóa")
+            except Exception as ex:
+                self._log_msg(f"❌ Lỗi tải trạng thái key: {ex}")
+            finally:
+                self.after(0, lambda: self._btn_keys.configure(state="normal", text="🔑 Xem tất cả key"))
 
         threading.Thread(target=_run, daemon=True).start()
 
@@ -1956,6 +2555,8 @@ class CourseGenerationDialog(ctk.CTkToplevel):
         self.geometry("680x580")
         self.configure(fg_color=C["bg"])
         self.grab_set(); self.lift(); self.focus_force()
+        # Đóng giữa chừng cũng trả model_priority về cấu hình đã lưu
+        self.protocol("WM_DELETE_WINDOW", self._destroy_with_restore)
 
         lang = app.current_language
         lbl(self, f"🤖 Khóa học AI riêng cho: {lang}", 16, "bold", C["accent"]).pack(pady=(15, 2))
@@ -2015,6 +2616,22 @@ class CourseGenerationDialog(ctk.CTkToplevel):
         self.var_rebuild = ctk.BooleanVar(value=False)
         ctk.CTkCheckBox(opt3, text="↻ Sinh lại nội dung (thêm IPA / khẩu hình phát âm)",
                         variable=self.var_rebuild, fg_color=C["accent"]).pack(side="left", padx=(14, 0))
+
+        # ── Model cho lần chạy này (mục 5 Phase 5) ──
+        # 'Tự động' = theo danh sách đã lưu trong ⚙️ Cài đặt Model.
+        # Lựa khác (Mới nhất / Ổn định / Rẻ–nhanh / tên model) chỉ áp dụng CHO
+        # RIÊNG lần chạy này: ghi tạm settings → trả lại sau khi run xong.
+        self._model_old = None
+        opt4 = ctk.CTkFrame(self, fg_color="transparent")
+        opt4.pack(fill="x", padx=20, pady=(6, 0))
+        lbl(opt4, "Model lần chạy này:", 13).pack(side="left", padx=(0, 8))
+        self.cb_model = ctk.CTkOptionMenu(opt4, values=["Tự động"], width=340, height=30)
+        self.cb_model.set("Tự động")
+        self.cb_model.pack(side="left")
+        lbl(opt4, "← Tự động = theo Cài đặt; chọn khác chỉ áp dụng run này",
+            11, color=C["muted"]).pack(side="left", padx=(8, 0))
+        self._refresh_model_choices()
+        self._load_catalog_async()
 
         btn_row = ctk.CTkFrame(self, fg_color="transparent")
         btn_row.pack(pady=10)
@@ -2192,6 +2809,93 @@ class CourseGenerationDialog(ctk.CTkToplevel):
                 "(Không tự động gõ để tránh vi phạm điều khoản dịch vụ.)",
                 parent=self)
 
+    # ── Model cho lần chạy ──
+
+    def _refresh_model_choices(self):
+        """Đổ menu Model: Tự động / Mới nhất / Ổn định / Rẻ–nhanh + tên model thật
+        (settings đã lưu trước, catalog sau). Lỗi catalogue chỉ thu gọn menu."""
+        choices = ["Tự động", "Mới nhất", "Ổn định", "Rẻ–nhanh"]
+        try:
+            from api import model_catalog as mc
+            from settings import load_settings
+            saved = load_settings().get("ai", {}).get("model_priority") or []
+            names = [str(m.get("name")) for m in saved
+                     if m.get("enabled", True) and m.get("name")]
+            for e in mc.get_catalog():
+                n = str(e.get("name") or "")
+                if n and n not in names:
+                    names.append(n)
+            choices += names[:60]
+        except Exception:
+            pass
+        try:
+            cur = self.cb_model.get() or "Tự động"
+        except Exception:
+            cur = "Tự động"
+        if cur not in choices:
+            cur = "Tự động"
+        try:
+            self.cb_model.configure(values=choices)
+            self.cb_model.set(cur)
+        except Exception:
+            pass
+
+    def _load_catalog_async(self):
+        """Nạp/fetch catalog nền — menu tự cập nhật khi xong (không khóa UI)."""
+        def _job():
+            try:
+                from api import model_catalog as mc
+                mc.get_catalog()
+            except Exception:
+                pass
+            try:
+                self.after(0, self._refresh_model_choices)
+            except Exception:
+                pass
+        threading.Thread(target=_job, daemon=True).start()
+
+    def _model_override(self):
+        """Áp dụng lựa chọn Model cho RUN NÀY: ghi tạm settings model_priority.
+
+        Trả danh sách cũ để `_restore_models` trả lại sau khi run xong;
+        None = không can thiệp. Gọi ở MAIN thread (trước lúc chạy worker)
+        để khỏi đụng file cùng lúc.
+        """
+        try:
+            choice = self.cb_model.get() or "Tự động"
+        except Exception:
+            return None
+        if not choice or choice in ("Tự động", "Auto"):
+            return None
+        try:
+            from api import model_catalog as mc
+            from settings import load_settings
+            old = load_settings().get("ai", {}).get("model_priority") or []
+            priority = mc.build_run_priority(choice, settings_models=old)
+            if not priority:
+                self._log(f"⚠ Model '{choice}' không khớp catalog/settings — dùng nguyên cấu hình đã lưu.")
+                return None
+            update_ai_settings(model_priority=[
+                {"name": n, "enabled": True, "tier": mc.infer_tier(n),
+                 "note": "[run]", "latency_ms": 0} for n in priority])
+            self._log(f"🎛 Run này dùng '{choice}' → ưu tiên: {' → '.join(priority[:3])}"
+                      f"{(' … +%d model nữa' % (len(priority) - 3)) if len(priority) > 3 else ''}")
+            return old
+        except Exception as e:
+            self._log(f"⚠ Không áp dụng được model '{choice}': {e} — dùng cấu hình đã lưu.")
+            return None
+
+    def _restore_models(self, old):
+        """Trả lại model_priority đã lưu sau khi run kết thúc (old=None → bỏ qua)."""
+        if old is None:
+            return
+        try:
+            update_ai_settings(model_priority=old)
+            self._log("↩ Đã trả danh sách model về cấu hình đã lưu.")
+        except Exception:
+            pass
+        self._model_old = None
+
     def _parse_target_days(self) -> int | None:
         val = self.cb_duration.get() or ""
         m = re.search(r"(\d+)\s*ngày", val)
@@ -2210,6 +2914,8 @@ class CourseGenerationDialog(ctk.CTkToplevel):
         self.btn_supplement.configure(state="disabled")
         self.btn_stop.configure(state="normal")
         self.progress.set(0)
+        # Ghi tạm model cho run này (trả lại khi _done)
+        self._model_old = self._model_override()
 
         def _worker():
             try:
@@ -2246,6 +2952,8 @@ class CourseGenerationDialog(ctk.CTkToplevel):
         self.btn_supplement.configure(state="disabled")
         self.btn_stop.configure(state="normal")
         self.progress.set(0)
+        # Ghi tạm model cho run này (trả lại khi _done) — main thread trước worker
+        self._model_old = self._model_override()
 
         def _on_day_done(day, total, lesson):
             frac = day / max(total, 1)
@@ -2256,12 +2964,24 @@ class CourseGenerationDialog(ctk.CTkToplevel):
                 if self.var_media.get():
                     # Đường pipeline tự trị: sinh content + quiz + ẢNH + AUDIO + HỘI THOẠI
                     from ai.pipeline import run_pipeline
+                    from ai import course_db as _cdb
+                    _cur = _cdb.get_course(self.app.current_language) or {}
+                    _has_days = bool(_cur.get("days")) and not self.var_force.get()
+                    # Nút "Sinh khóa học AI" = sinh đầy đủ (nội dung + quiz + media).
+                    # Chế độ media chỉ dùng khi bấm riêng "Chỉ bổ sung media" (CLI --mode media).
+                    _mode = "enrich" if self.var_rebuild.get() else "full"
+                    if not _has_days:
+                        self._log("🆕 Khóa chưa có ngày nào → chạy FULL: "
+                                  "nội dung + trắc nghiệm + ảnh + audio.")
+                    else:
+                        self._log("🔄 Chạy FULL: sinh tiếp ngày còn thiếu + bổ sung media "
+                                  "(ngày đã có sẽ được giữ nguyên).")
                     res = run_pipeline(
                         self.app.current_language,
                         words_per_day=wpd,
                         level=level,
                         full=True,
-                        mode=("enrich" if self.var_rebuild.get() else "media"),
+                        mode=_mode,
                         target_days=target_days,
                         force_new=self.var_force.get(),
                         allow_degraded=True,
@@ -2304,8 +3024,18 @@ class CourseGenerationDialog(ctk.CTkToplevel):
         self.btn_start.configure(state="normal")
         self.btn_supplement.configure(state="normal")
         self.btn_stop.configure(state="disabled")
+        # Trả model_priority về cấu hình đã lưu (run đã xong)
+        try:
+            self._restore_models(self._model_old)
+        except Exception:
+            pass
         if success:
             self.on_finished()
+
+    def _destroy_with_restore(self):
+        """Đóng dialog giữa chừng vẫn trả model_priority về cấu hình cũ."""
+        self._restore_models(self._model_old)
+        self.destroy()
 
 
 def _short_level_name(level_name: str, phase_name: str = "") -> str:
@@ -2735,9 +3465,31 @@ class StudyTab(ctk.CTkFrame):
         cbody = ctk.CTkFrame(self.course_frame, fg_color="transparent")
         cbody.pack(fill="both", expand=True, padx=14, pady=6)
 
-        self.lesson_text = ctk.CTkTextbox(cbody, fg_color=C["card"], text_color=C["text"],
+        # ── Cột trái: media strip + ô nội dung bài học ──
+        cleft = ctk.CTkFrame(cbody, fg_color="transparent")
+        cleft.pack(side="left", fill="both", expand=True, padx=(0, 8))
+
+        mhead = ctk.CTkFrame(cleft, fg_color="transparent")
+        mhead.pack(fill="x", pady=(0, 4))
+        self.lbl_media_cover = lbl(mhead, "", 12, color=C["muted"])
+        self.lbl_media_cover.pack(side="left", padx=(2, 8))
+        btn(mhead, "🔊 Nghe cả ngày", C["card2"], C["success"], w=140, h=30,
+            cmd=self._play_day_audio).pack(side="right", padx=(4, 2))
+        btn(mhead, "⏹ Dừng", C["card2"], C["danger"], w=76, h=30,
+            cmd=self._stop_play_seq).pack(side="right", padx=2)
+
+        # Media strip: 10 thẻ cuộn ngang (ảnh thật xin, không có thì word-card chữ NHẬT)
+        self.media_strip = ctk.CTkScrollableFrame(cleft, orientation="horizontal",
+                                                  height=152, fg_color=C["card"],
+                                                  corner_radius=10)
+        self.media_strip.pack(fill="x", pady=(0, 6))
+        self._img_refs = {}          # BẮT BUỘC giữ ref ảnh — CTkImage bị GC → trắng
+        self._media_cards = {}       # idx → frame thẻ (để ring highlight khi phát)
+        self._seq_active = False     # trạng thái "Nghe cả ngày"
+
+        self.lesson_text = ctk.CTkTextbox(cleft, fg_color=C["card"], text_color=C["text"],
                                           font=("Consolas", 14), wrap="word", corner_radius=10)
-        self.lesson_text.pack(side="left", fill="both", expand=True, padx=(0, 8))
+        self.lesson_text.pack(side="left", fill="both", expand=True)
         self.lesson_text.configure(state="disabled")
 
         quiz_box = ctk.CTkFrame(cbody, fg_color=C["card"], corner_radius=10, width=370)
@@ -3300,14 +4052,18 @@ class StudyTab(ctk.CTkFrame):
         if day is not None:
             self.ent_jump_day.delete(0, "end")
             self.ent_jump_day.insert(0, str(day))
+        stop_audio()                     # đổi ngày ⇒ không để "audio ma" đang phát
+        self._stop_play_seq(silent=True)
         lesson = self._get_day_lesson(day) if day else None
         if not lesson:
             self._current_lesson = None
             self._set_lesson_text("Không có dữ liệu ngày này.")
             self._reset_quiz_widgets()
+            self._render_media_strip(None)
             return
         self._current_lesson = lesson
         self._render_lesson_text(lesson)
+        self._render_media_strip(lesson)
         self._update_day_status(day)
         self._start_quiz(day, lesson.get("quiz") or {})
 
@@ -3326,6 +4082,229 @@ class StudyTab(ctk.CTkFrame):
         self.lesson_text.delete("1.0", "end")
         self.lesson_text.insert("1.0", content)
         self.lesson_text.configure(state="disabled")
+
+    # ── MEDIA STRIP: 10 thẻ từ vựng + phát audio + media viewer ───────────────
+    def _build_media_items(self, lesson):
+        """Chuẩn hoá vocab của ngày thành các item cho media strip / viewer."""
+        items = []
+        if not lesson:
+            return items
+        from ai.media_resolver import resolve_media_path
+        media_index = self._media_index()
+        level = 0
+        slug = course_db.lang_slug(self.app.current_language)
+        day = int(lesson.get("day") or 0)
+        for v in lesson.get("vocab") or []:
+            if not isinstance(v, dict):
+                continue
+            word = str(v.get("word") or "").strip()
+            if not word:
+                continue
+            audio_ref = v.get("audio_ref") or ""
+            # fallback: lesson.media.vocab_audio[word] (phổ biến ở khóa v4)
+            if not audio_ref:
+                mm = (lesson.get("media") or {}).get("vocab_audio") or {}
+                audio_ref = mm.get(word, "")
+            item = {
+                "word": word,
+                "reading": str(v.get("pronunciation") or "").strip(),
+                "romaji": str(v.get("ipa") or "").strip(),
+                "meaning": str(v.get("meaning_vi") or "").strip(),
+                "pos": str(v.get("part_of_speech") or v.get("pos") or "").strip(),
+                "example_ja": str(v.get("example_sentence") or "").strip(),
+                "example_vi": str(v.get("example_meaning_vi") or "").strip(),
+                "image_ref": v.get("image_ref") or "",
+                "image_path": "",
+                "audio_path": "",
+                "audio_path_slow": "",
+            }
+            p = resolve_media_path(item["image_ref"], media_index)
+            item["image_path"] = p if p else ""
+            p = resolve_media_path(audio_ref, media_index)
+            item["audio_path"] = p if p else ""
+            slow = item["audio_path"].replace(".mp3", "_slow.mp3") if item["audio_path"] else ""
+            item["audio_path_slow"] = slow if slow and os.path.isfile(slow) else ""
+            # Nhuộm card theo chặng: ~100 ngày / chặng khi không có phase rõ
+            item["level"] = min(5, max(0, (day - 1) // 100))
+            item["_slug"] = slug
+            items.append(item)
+        return items
+
+    def _card_is_real_image(self, idx, item, media_index=None):
+        """Ảnh THẬT (không placeholder) và file tồn tại trên đĩa?"""
+        if not item.get("image_path"):
+            return False
+        try:
+            from ai.media_resolver import media_entry
+            e = media_entry(item.get("image_ref"), media_index)
+            if e and str(e.get("source") or "") == "placeholder":
+                return False
+            return True
+        except Exception:
+            return False
+
+    def _render_media_strip(self, lesson):
+        """Vẽ 10 thẻ từ vựng cuộn ngang (audio ▶ + click mở viewer)."""
+        for w in (self.media_strip.winfo_children() or []):
+            w.destroy()
+        self._img_refs.clear()
+        self._media_cards.clear()
+        self._update_media_cover(lesson)
+        if not lesson:
+            lbl(self.media_strip, "— chưa có bài học —", 12,
+                color=C["muted"]).pack(padx=10, pady=50)
+            return
+        items = self._build_media_items(lesson)
+        media_index = self._media_index()
+        try:
+            from customtkinter import CTkImage
+            from PIL import Image as PILImage
+            from ai.media_card import get_word_card_path
+        except Exception as e:
+            lbl(self.media_strip, f"(media tắt: {e})", 11, color=C["muted"]).pack(padx=10, pady=50)
+            return
+        real_imgs = 0
+        for i, it in enumerate(items):
+            wrapper = ctk.CTkFrame(self.media_strip, width=110, height=140,
+                                   fg_color=C["card2"], corner_radius=10,
+                                   border_width=2, border_color="transparent")
+            wrapper.grid(row=0, column=i, padx=4, pady=6, sticky="n")
+            self._media_cards[i] = wrapper
+
+            img_widget = ctk.CTkLabel(wrapper, text="", width=96, height=96)
+            img_widget.pack(pady=(6, 2))
+            ref = None
+            if self._card_is_real_image(i, it, media_index):
+                try:
+                    pil = PILImage.open(it["image_path"]).convert("RGB")
+                    pil.thumbnail((96, 96))
+                    ref = CTkImage(light_value=pil, dark_value=pil, size=(96, 96))
+                    real_imgs += 1
+                except Exception:
+                    ref = None
+            if ref is None:
+                card = get_word_card_path(it["word"], it["reading"], it["meaning"],
+                                          192, int(it.get("level") or 0))
+                if card and os.path.isfile(card):
+                    try:
+                        pil = PILImage.open(card).convert("RGB")
+                        pil.thumbnail((96, 96))
+                        ref = CTkImage(light_value=pil, dark_value=pil, size=(96, 96))
+                    except Exception:
+                        ref = None
+            self._img_refs[i] = ref
+            if ref is not None:
+                img_widget.configure(image=ref)
+            else:
+                img_widget.configure(text=it["word"][:2], font=jp_font(26))
+
+            wl = ctk.CTkLabel(wrapper, text=it["word"], font=jp_font(15, "bold"),
+                              text_color=C["text"])
+            wl.pack()
+            rl = ctk.CTkLabel(wrapper, text=(it["reading"] or "—")[:10],
+                              font=jp_font(11), text_color=C["muted"])
+            rl.pack()
+
+            prow = ctk.CTkFrame(wrapper, fg_color="transparent")
+            prow.pack(pady=(2, 6))
+            btn(prow, "▶", C["accent"], C["accent2"], w=34, h=24,
+                cmd=(lambda ii=it: self._play_vocab(ii))).pack(side="left", padx=2)
+            btn(prow, "📖", C["card2"], C["accent"], w=34, h=24,
+                cmd=(lambda ii=i: self._open_media_viewer(ii))).pack(side="left", padx=2)
+            # Click 2 lần vào card cũng mở viewer
+            wrapper.bind("<Double-Button-1>", lambda _e, ii=i: self._open_media_viewer(ii))
+
+        self._update_media_cover(lesson)
+
+    def _update_media_cover(self, lesson):
+        """Badge 🖼 a/b · 🔊 a/b đổi màu theo độ phủ media."""
+        if not lesson:
+            self.lbl_media_cover.configure(text="", text_color=C["muted"])
+            return
+        items = self._build_media_items(lesson)
+        n = len(items)
+        n_img = sum(1 for it in items if it.get("image_path"))
+        n_aud = sum(1 for it in items if it.get("audio_path"))
+        color = C["success"] if (n and n_aud >= n) else \
+                (C["warn"] if n_img + n_aud > 0 else C["muted"])
+        self.lbl_media_cover.configure(
+            text=f"🗓 Ngày {lesson.get('day', '?')} · 🖼 {n_img}/{n} · 🔊 {n_aud}/{n}",
+            text_color=color)
+
+    def _media_ring(self, idx):
+        """Highlight thẻ đang phát (viền accent); tắt khi idx=None."""
+        for i, w in self._media_cards.items():
+            try:
+                w.configure(border_color=C["accent"] if i == idx else "transparent")
+            except Exception:
+                pass
+
+    def _play_vocab(self, it):
+        """Phát 1 item (ngắn) — file trước, không có thì TTS. Trả True khi phát được."""
+        try:
+            from ai.media_resolver import resolve_media_path
+            return play_audio_file(resolve_media_path(it.get("audio_path") or ""),
+                                   word=it.get("word") or "",
+                                   lang_name=self.app.current_language) or True
+        except Exception:
+            try:
+                speak_word(it.get("word") or "", self.app.current_language)
+            except Exception:
+                pass
+            return False
+
+    def _play_day_audio(self):
+        """🔊 Nghe cả ngày: tuần tự 10 từ (file mp3 trước, thiếu thì TTS)."""
+        if self._seq_active:
+            self._stop_play_seq()
+            return
+        items = self._build_media_items(self._current_lesson)
+        if not items:
+            self.lbl_bottom.configure(text="⚠ Chưa có bài học để nghe.")
+            return
+        self._seq_active = True
+        self.lbl_bottom.configure(text=f"🔊 Nghe cả ngày: {len(items)} từ — bấm ⏹ để dừng.")
+        self.after(150, lambda: self._play_seq(0, items))
+
+    def _stop_play_seq(self, silent=False):
+        self._seq_active = False
+        self._media_ring(None)
+        if not silent:
+            stop_audio()
+            self.lbl_bottom.configure(text="⏹ Đã dừng nghe cả ngày.")
+
+    def _play_seq(self, i, items):
+        if not self._seq_active:
+            return
+        if i >= len(items):
+            self._seq_active = False
+            self._media_ring(None)
+            self.lbl_bottom.configure(text="✅ Đã nghe xong cả ngày.")
+            return
+        self._media_ring(i)
+        self._play_vocab(items[i])
+        self.after(400, lambda: self._watch_seq(i + 1, items))
+
+    def _watch_seq(self, nxt, items):
+        """Chờ mixer hết bài hoặc fallback TTS yên tĩnh rồi chuyển từ kế tiếp."""
+        if not self._seq_active:
+            return
+        if audio_playing():
+            self.after(300, lambda: self._watch_seq(nxt, items))
+            return
+        # TTS không qua pygame ⇒ không biết khi nào hết: chờ cố định 2.2s rồi đi tiếp
+        self.after(2200, lambda: self._play_seq(nxt, items))
+
+    def _open_media_viewer(self, idx):
+        items = self._build_media_items(self._current_lesson)
+        if not items:
+            return
+        try:
+            MediaViewerDialog(self.winfo_toplevel(), items, idx=idx,
+                              lang_name=self.app.current_language,
+                              title=f"Xem từ — Ngày {self._selected_day_num() or '?'}")
+        except Exception as e:
+            self.lbl_bottom.configure(text=f"⚠ Không mở được media viewer: {e}")
 
     def _render_lesson_text(self, lesson):
         lines = [f"📚 NGÀY {lesson.get('day', '?')} — {(lesson.get('title') or '').upper()}"]
@@ -3354,9 +4333,10 @@ class StudyTab(ctk.CTkFrame):
                          + (f"  📖 {ipa_ev}" if ipa_ev and ipa_ev != ipa else "")
                          + (f" ({v['part_of_speech']})" if v.get("part_of_speech") else "")
                          + (f"  <{v['pos']}>" if v.get("pos") else ""))
-            # Ảnh minh họa
+            # Ảnh minh họa — CHỈ hiện path khi debug (DEBUG_MEDIA_PATHS=1);
+            # UI chính hiển thị qua media strip + media viewer.
             img_path = self._media_file(media_index, v.get("image_ref"))
-            if img_path:
+            if img_path and os.environ.get("DEBUG_MEDIA_PATHS") == "1":
                 lines.append(f"   🖼️ Ảnh: {img_path}")
             lines.append(f"   Nghĩa: {v.get('meaning_vi') or '—'}")
             if v.get("phonetic_note"):
@@ -3367,9 +4347,9 @@ class StudyTab(ctk.CTkFrame):
                 lines.append(f"   💬 {v['example_sentence']}")
                 if v.get("example_meaning_vi"):
                     lines.append(f"      → {v['example_meaning_vi']}")
-            # Audio
+            # Audio — CHỈ hiện path khi debug; phát qua media strip/▶.
             audio = self._media_file(media_index, v.get("audio_ref"))
-            if audio:
+            if audio and os.environ.get("DEBUG_MEDIA_PATHS") == "1":
                 lines.append(f"   🔊 Audio: {audio}")
             # Dẫn chứng (Wikipedia/Wiktionary)
             for s in (v.get("sources") or []):
@@ -3457,7 +4437,7 @@ class StudyTab(ctk.CTkFrame):
                 if dlg.get("situation"):
                     lines.append(f"    📌 {dlg['situation']}")
                 d_audio = self._media_file(media_index, dlg.get("audio_ref"))
-                if d_audio:
+                if d_audio and os.environ.get("DEBUG_MEDIA_PATHS") == "1":
                     lines.append(f"    🔊 Audio cả đoạn: {d_audio}")
                 for t in dlg.get("turns", []):
                     lines.append(f"    {t.get('speaker', 'A')}: {t.get('line_target', '')}")
@@ -3791,6 +4771,15 @@ class App(ctk.CTk):
         self.view_sync.pack(fill="both", expand=True)
 
         self.set_language(self.current_language)
+        self.protocol("WM_DELETE_WINDOW", self.on_close)
+
+    def on_close(self):
+        """Đóng app: dừng mọi audio đang phát (kể cả TTS pygame) rồi thoát."""
+        try:
+            stop_audio()
+        except Exception:
+            pass
+        self.destroy()
 
     def set_language(self, lang):
         self.current_language = lang
