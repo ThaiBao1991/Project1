@@ -3388,6 +3388,12 @@ class StudyTab(ctk.CTkFrame):
         self._srs_revealed = False
         self._srs_pool_cache = {}
         self._current_lesson = None
+        # 3 nút chế độ: lọc bài đang xem (full | vocab | grammar | dialogue)
+        self._study_mode = "full"
+        self._dlg_turns = []     # [(speaker, line_ja, line_vi)]
+        self._dlg_rows = []      # frame từng lượt (highlight)
+        self._dlg_idx = 0
+        self._dlg_seq = False    # đang "Nghe cả bài"
         self._build()
         # CTk chặn bind_all → bind trên cửa sổ chính (vẫn nhận phím từ mọi widget con)
         self.winfo_toplevel().bind("<KeyPress>", self._on_global_key, add="+")
@@ -3411,11 +3417,12 @@ class StudyTab(ctk.CTkFrame):
         btn(head, "🗑️ Xóa khóa & tiến độ", C["card2"], C["danger"], w=170, h=32,
             cmd=self._delete_course).pack(side="right", padx=3)
 
-        # ── 3 CHẾ ĐỘ HỌC ──
-        for lbl_text, cmd in (("📚 Từ vựng", lambda: self._load_mode("vocab")),
+        # ── 4 CHẾ ĐỘ HỌC (lọc bài đang xem) ──
+        for lbl_text, cmd in (("📑 Tất cả", lambda: self._load_mode("full")),
+                               ("📚 Từ vựng", lambda: self._load_mode("vocab")),
                                ("📖 Ngữ pháp", lambda: self._load_mode("grammar")),
                                ("🎧 Hội thoại", lambda: self._load_mode("dialogue"))):
-            btn(head, lbl_text, C["card2"], C["accent"], w=95, h=32, cmd=cmd).pack(side="left", padx=3)
+            btn(head, lbl_text, C["card2"], C["accent"], w=92, h=32, cmd=cmd).pack(side="left", padx=3)
 
         # ── Khung Flashcard (Từ vựng tự học) ──
         self.flash_frame = ctk.CTkFrame(self, fg_color="transparent")
@@ -3492,6 +3499,9 @@ class StudyTab(ctk.CTkFrame):
         self._img_refs = {}          # BẮT BUỘC giữ ref ảnh — CTkImage bị GC → trắng
         self._media_cards = {}       # idx → frame thẻ (để ring highlight khi phát)
         self._seq_active = False     # trạng thái "Nghe cả ngày"
+
+        # Panel HỘI THOẠI (chế độ 🎧): danh sách lượt + nghe từng lượt / cả bài
+        self.dlg_panel = ctk.CTkFrame(cleft, fg_color=C["card"], corner_radius=10)
 
         self.lesson_text = ctk.CTkTextbox(cleft, fg_color=C["card"], text_color=C["text"],
                                           font=("Consolas", 14), wrap="word", corner_radius=10)
@@ -3905,39 +3915,140 @@ class StudyTab(ctk.CTkFrame):
             self._render_card()
 
     def _load_mode(self, mode: str):
-        try:
-            import os, json
-            course_path = os.path.join("data", "ai_courses", getattr(self.app, "current_language", "tiếng_nhật"), "course.json")
-            day = getattr(self, "_current_day", 1) or 1
-            lesson = {}
+        """📚/📖/🎧/📑 Lọc bài đang xem theo chế độ — render vào ô nội dung ĐANG HIỂN THỊ."""
+        if mode not in ("full", "vocab", "grammar", "dialogue"):
+            return
+        self._study_mode = mode
+        # Đang ở nguồn tự học/SRS → tự chuyển sang Khóa học AI (khóa phải có sẵn)
+        if self.cb_source.get() != SOURCE_AI:
+            if not (self._course or {}).get("days"):
+                self.lbl_bottom.configure(
+                    text="⚠ Chưa có khóa học AI — bấm 🤖 Sinh khóa học AI để tạo trước.")
+                return
+            self.cb_source.set(SOURCE_AI)
+            self._on_source_change()      # đã render theo _study_mode mới
+        lesson = self._current_lesson
+        if not lesson:
+            day = self._selected_day_num()
+            lesson = self._get_day_lesson(day) if day else None
+        if not lesson:
+            self.lbl_bottom.configure(
+                text="⚠ Chưa có bài học cho ngày này — chọn ngày khác hoặc sinh khóa AI.")
+            return
+        self._render_lesson_text(lesson)
+        self._sync_dlg_panel(lesson)
+        names = {"full": "📑 Tất cả", "vocab": "📚 Từ vựng",
+                 "grammar": "📖 Ngữ pháp", "dialogue": "🎧 Hội thoại"}
+        self.lbl_bottom.configure(
+            text=f"Chế độ {names[mode]} — Ngày {lesson.get('day', '?')} · nội dung đã lọc.")
+
+    # ── PANEL HỘI THOẠI (chế độ 🎧): nghe từng lượt / cả bài / ⏮⏭⏹ ─────────
+    def _sync_dlg_panel(self, lesson):
+        self._dlg_seq = False
+        for w in (self.dlg_panel.winfo_children() or []):
+            w.destroy()
+        self._dlg_rows = []
+        self._dlg_turns = []
+        self._dlg_idx = 0
+        if getattr(self, "_study_mode", "full") != "dialogue" or not lesson:
+            self.dlg_panel.pack_forget()
+            return
+        for dlg in (lesson.get("dialogue") or []):
+            for t in (dlg.get("turns") or []):
+                line = str(t.get("line_target") or "").strip()
+                if line:
+                    self._dlg_turns.append((str(t.get("speaker") or "A"), line,
+                                            str(t.get("line_vi") or "").strip()))
+        head = ctk.CTkFrame(self.dlg_panel, fg_color="transparent")
+        head.pack(fill="x", padx=10, pady=(8, 4))
+        lbl(head, f"🎧 HỘI THOẠI — {len(self._dlg_turns)} lượt", 13, "bold", C["accent"]).pack(side="left")
+        btn(head, "⏹ Dừng", C["card2"], C["danger"], w=70, h=30, cmd=self._dlg_stop).pack(side="right", padx=2)
+        btn(head, "⏭ Tiếp", C["card2"], C["accent"], w=70, h=30, cmd=lambda: self._dlg_move(+1)).pack(side="right", padx=2)
+        btn(head, "⏮ Trước", C["card2"], C["accent"], w=76, h=30, cmd=lambda: self._dlg_move(-1)).pack(side="right", padx=2)
+        btn(head, "▶️ Nghe cả bài", C["success"], "#018786", w=120, h=30, cmd=self._dlg_play_all).pack(side="right", padx=2)
+        body = ctk.CTkScrollableFrame(self.dlg_panel, height=130, fg_color="transparent")
+        body.pack(fill="x", padx=6, pady=(0, 8))
+        if not self._dlg_turns:
+            lbl(body, "— Ngày này chưa có hội thoại —", 12, color=C["muted"]).pack(pady=16)
+        for i, (spk, line, vi) in enumerate(self._dlg_turns):
+            row = ctk.CTkFrame(body, fg_color=C["card2"], corner_radius=8)
+            row.pack(fill="x", pady=2, padx=2)
+            self._dlg_rows.append(row)
+            b = btn(row, "▶️", C["accent"], C["accent2"], w=40, h=28,
+                    cmd=lambda ii=i: self._dlg_play_turn(ii))
+            b.pack(side="left", padx=(6, 8), pady=4)
+            txt = f"{spk}: {line}" + (f"\n   → {vi}" if vi else "")
+            tl = ctk.CTkLabel(row, text=txt, justify="left", anchor="w",
+                              font=("Consolas", 13), text_color=C["text"])
+            tl.pack(side="left", fill="x", expand=True, padx=(0, 8), pady=4)
+            row.bind("<Double-Button-1>", lambda _e, ii=i: self._dlg_play_turn(ii))
+        self.dlg_panel.pack(fill="x", pady=(0, 6), before=self.lesson_text)
+
+    def _dlg_highlight(self, idx):
+        for i, r in enumerate(self._dlg_rows):
             try:
-                c = json.load(open(course_path, encoding="utf-8"))
-                for d in (c.get("days") or []):
-                    if int(d.get("day", 0)) == int(day):
-                        lesson = d; break
+                r.configure(border_width=2 if i == idx else 0, border_color=C["accent"])
             except Exception:
                 pass
-            if mode == "vocab":
-                words = (lesson.get("vocab") or [])
-                text = "\n".join([f"{w.get('word')} — {w.get('meaning_vi')} ({w.get('audio_ref') or 'không có âm'})" for w in words[:3]])
-                self.fc_word.configure(text="📚 Từ vựng — Học từng từ")
-                self.fc_back.configure(text=text or "Chưa có dữ liệu từ vựng cho ngày này.")
-            elif mode == "grammar":
-                patterns = (lesson.get("sentence_patterns") or [])
-                grammar = (lesson.get("grammar") or [])
-                text = "\n".join([f"• {p.get('pattern','')} — {p.get('meaning_vi','')}" for p in patterns[:2]])
-                if grammar:
-                    text += "\nNgữ pháp: " + (grammar[0].get("rule","") if isinstance(grammar, list) else str(grammar)[:200])
-                self.fc_word.configure(text="📖 Ngữ pháp — Mẫu câu & Quy tắc")
-                self.fc_back.configure(text=text or "Chưa có dữ liệu ngữ pháp cho ngày này.")
-            elif mode == "dialogue":
-                dlg = (lesson.get("dialogue") or [])
-                text = "\n".join([f"• {d.get('role','')}: {d.get('text','')[:200]}" for d in dlg[:2]])
-                self.fc_word.configure(text="🎧 Hội thoại — Nghe từng đoạn / Cả bài")
-                self.fc_back.configure(text=text or "Chưa có hội thoại cho ngày này.")
-            self._flipped = True
-        except Exception as e:
-            self.fc_word.configure(text=f"Lỗi tải {mode}: {e}")
+
+    def _dlg_play_turn(self, i):
+        if not self._dlg_turns or not (0 <= i < len(self._dlg_turns)):
+            return
+        self._dlg_seq = False
+        self._dlg_idx = i
+        self._dlg_highlight(i)
+        spk, line, _vi = self._dlg_turns[i]
+        self.lbl_bottom.configure(
+            text=f"🎧 Lượt {i + 1}/{len(self._dlg_turns)} · {spk}: {line[:50]}")
+        speak_word(line, self.app.current_language)
+
+    def _dlg_play_all(self):
+        if not self._dlg_turns:
+            self.lbl_bottom.configure(text="⚠ Ngày này chưa có hội thoại để nghe.")
+            return
+        if self._dlg_seq:
+            self._dlg_stop()
+            return
+        self._dlg_seq = True
+        self.lbl_bottom.configure(
+            text=f"▶️ Nghe cả bài: {len(self._dlg_turns)} lượt — bấm ⏹ để dừng.")
+        self.after(150, lambda: self._dlg_step(0))
+
+    def _dlg_step(self, i):
+        if not self._dlg_seq:
+            return
+        if i >= len(self._dlg_turns):
+            self._dlg_seq = False
+            self._dlg_highlight(None)
+            self.lbl_bottom.configure(text="✅ Đã nghe xong hội thoại.")
+            return
+        self._dlg_idx = i
+        self._dlg_highlight(i)
+        spk, line, _vi = self._dlg_turns[i]
+        self.lbl_bottom.configure(text=f"🎧 {i + 1}/{len(self._dlg_turns)} · {spk}: {line[:50]}")
+        speak_word(line, self.app.current_language)
+        self.after(500, lambda: self._dlg_watch(i))
+
+    def _dlg_watch(self, i):
+        """Chờ mixer hết bài rồi mới sang lượt kế (TTS không qua mixer → chờ 1.6s)."""
+        if not self._dlg_seq:
+            return
+        if audio_playing():
+            self.after(300, lambda: self._dlg_watch(i))
+            return
+        self.after(1600, lambda: self._dlg_step(i + 1))
+
+    def _dlg_move(self, delta):
+        if not self._dlg_turns:
+            return
+        self._dlg_seq = False
+        self._dlg_play_turn(max(0, min(len(self._dlg_turns) - 1, self._dlg_idx + delta)))
+
+    def _dlg_stop(self):
+        self._dlg_seq = False
+        stop_audio()
+        self._dlg_highlight(None)
+        self.lbl_bottom.configure(text="⏹ Đã dừng hội thoại.")
 
     def _shuffle_cards(self):
         import random
@@ -4101,9 +4212,11 @@ class StudyTab(ctk.CTkFrame):
             self._set_lesson_text("Không có dữ liệu ngày này.")
             self._reset_quiz_widgets()
             self._render_media_strip(None)
+            self._sync_dlg_panel(None)
             return
         self._current_lesson = lesson
         self._render_lesson_text(lesson)
+        self._sync_dlg_panel(lesson)
         self._render_media_strip(lesson)
         self._update_day_status(day)
         self._start_quiz(day, lesson.get("quiz") or {})
@@ -4348,6 +4461,8 @@ class StudyTab(ctk.CTkFrame):
             self.lbl_bottom.configure(text=f"⚠ Không mở được media viewer: {e}")
 
     def _render_lesson_text(self, lesson):
+        """Vẽ bài học vào ô nội dung — lọc theo _study_mode (full/vocab/grammar/dialogue)."""
+        mode = getattr(self, "_study_mode", "full")
         lines = [f"📚 NGÀY {lesson.get('day', '?')} — {(lesson.get('title') or '').upper()}"]
         meta = []
         lvl = lesson.get("level") or (self._course or {}).get("level") or ""
@@ -4362,6 +4477,16 @@ class StudyTab(ctk.CTkFrame):
             lines += ["  |  ".join(meta), "-" * 60]
         lines += ["=" * 60, ""]
 
+        if mode != "full":
+            _banner = {"vocab": "📚 CHẾ ĐỘ TỪ VỰNG", "grammar": "📖 CHẾ ĐỘ NGỮ PHÁP",
+                       "dialogue": "🎧 CHẾ ĐỘ HỘI THOẠI"}.get(mode, mode)
+            lines.append(f">>> {_banner} — nội dung đã lọc theo nút bấm.")
+            lines.append("")
+
+        _keep_vocab = mode in ("full", "vocab")
+        _keep_grammar = mode in ("full", "grammar")
+        _keep_dialogue = mode in ("full", "dialogue")
+        _sec = len(lines)
         lines.append("🔤 TỪ VỰNG CHUYÊN SÂU")
         lines.append("-" * 60)
         media_index = self._media_index()
@@ -4411,6 +4536,9 @@ class StudyTab(ctk.CTkFrame):
                 lines.append(f"   🏛️ Từ nguyên: {v['etymology'][:200]}")
             lines.append("")
 
+        if not _keep_vocab:
+            del lines[_sec:]
+        _sec = len(lines)
         patterns = lesson.get("sentence_patterns") or []
         if patterns:
             lines.append("📝 CÁCH DÙNG CÂU / MẪU CÂU")
@@ -4468,6 +4596,9 @@ class StudyTab(ctk.CTkFrame):
                 lines.append("")
 
         # ── HỘI THOẠI (roleplay) ──────────────────────────────────────────
+        if not _keep_grammar:
+            del lines[_sec:]
+        _sec = len(lines)
         dialogues = lesson.get("dialogue") or []
         if dialogues:
             lines.append("💬 HỘI THOẠI (ROLEPLAY)")
@@ -4492,6 +4623,8 @@ class StudyTab(ctk.CTkFrame):
                     lines.append(f"    🌏 {dlg['cultural_note']}")
                 lines.append("")
 
+        if not _keep_dialogue:
+            del lines[_sec:]
         self._set_lesson_text("\n".join(lines))
 
     # ── Dẫn chứng (Wikipedia/Wiktionary) ───────────────────────────────────
