@@ -32,14 +32,15 @@ def check(name):
 @check("L-A get_available_languages chỉ trả ngôn ngữ THẬT (không có 'Blocked Accounts'...)")
 def _l_a():
     from database.database import get_available_languages
-    langs = get_available_languages()
-    bad = [l for l in langs if any(k in l.lower() for k in
+    langs = get_available_languages()   # list dict {display, slug, num_days}
+    names = [l["display"] for l in langs]
+    bad = [l for l in names if any(k in l.lower() for k in
            ("blocked", "quota", "voices", "profiles cache", "index"))]
     if bad:
         return False, f"lọt file hệ thống: {bad}"
     if len(langs) < 8:
-        return False, f"chỉ có {len(langs)} ngôn ngữ (mong đợi >= 8): {langs}"
-    return True, f"{len(langs)} ngôn ngữ: {', '.join(langs)}"
+        return False, f"chỉ có {len(langs)} ngôn ngữ (mong đợi >= 8): {names}"
+    return True, f"{len(langs)} ngôn ngữ: {', '.join(names)}"
 
 
 # ── L-B: github_sync không upload file hệ thống ────────────────────────────

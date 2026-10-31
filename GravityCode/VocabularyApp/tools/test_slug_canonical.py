@@ -73,7 +73,9 @@ with tempfile.TemporaryDirectory() as tmp:
                 json.dump({"language": "Tiếng Nhật" if slug != "tiếng_anh" else "English"},
                           f, ensure_ascii=False)
         got = db.get_available_languages()
-        assert got == ["English", "Tiếng Nhật"], got
+        # Format mới: list dict {display, slug, num_days} (App sắp xếp theo num_days)
+        assert all(set(x) >= {"display", "slug", "num_days"} for x in got), got
+        assert [x["display"] for x in got] == ["English", "Tiếng Nhật"], got
         ok("get_available_languages: alias 'nhật' bị gộp — dropdown còn 2 mục chuẩn")
     finally:
         db.DATA_DIR = old_db_data
@@ -89,7 +91,7 @@ with tempfile.TemporaryDirectory() as tmp:
         with open(os.path.join(ai, "nhật", "course.json"), "w", encoding="utf-8") as f:
             json.dump({"language": "Nhật"}, f, ensure_ascii=False)
         got = db.get_available_languages()
-        assert got == ["Tiếng Nhật"], got     # display từ slug chuẩn, không còn 'Nhật'
+        assert [x["display"] for x in got] == ["Tiếng Nhật"], got   # display từ slug chuẩn
         ok("alias không có canonical vẫn hiện nhưng display theo slug chuẩn")
     finally:
         db.DATA_DIR = old_db_data
@@ -103,7 +105,7 @@ with tempfile.TemporaryDirectory() as tmp:
             with open(os.path.join(tmp, f"{name}.json"), "w", encoding="utf-8") as f:
                 json.dump({"vocabularies": [{"word": "あ"}]}, f, ensure_ascii=False)
         got = db.get_available_languages()
-        assert got == ["Tiếng Nhật"], got
+        assert [x["display"] for x in got] == ["Tiếng Nhật"], got
         ok("vocab file alias nhật.json + canonical tiếng_nhật.json → chỉ hiển thị 1")
     finally:
         db.DATA_DIR = old_db_data

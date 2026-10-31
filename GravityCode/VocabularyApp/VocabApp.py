@@ -245,6 +245,11 @@ from settings import (
     update_github_settings, update_gdrive_settings, update_ai_settings,
     get_active_model_list, _DEFAULT_MODEL_FALLBACKS,
 )
+from ai.pipeline_store import (load_dead_models, mark_dead_model,
+                               reset_dead_model, get_available_models,
+                               DEAD_MODEL_COOLDOWN_MINUTES,
+                               MAX_FAILURES_BEFORE_DEAD)
+from api.gemini_safe import GeminiCoordinator
 from api.github_sync import GitHubSync
 from api.gdrive_sync import GDriveSync
 from ai import course_db
@@ -259,30 +264,48 @@ ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
 
 C = {
-    "bg":      "#121212",
-    "sidebar": "#1e1e1e",
-    "card":    "#2c2c2c",
-    "card2":   "#383838",
-    "accent":  "#bb86fc",
-    "accent2": "#9965f4",
-    "text":    "#ffffff",
-    "muted":   "#a0a0a0",
-    "success": "#03dac6",
-    "warn":    "#ffb300",
-    "danger":  "#cf6679",
+    # Deep dark background
+    "bg":      "#0f0f14",
+    "sidebar": "#1a1a24",
+    "card":    "#1e1e2a",
+    "card2":   "#252536",
+    "card3":   "#2d2d42",
+    # Accent colors - vibrant purple/blue
+    "accent":  "#8b5cf6",
+    "accent2": "#7c3aed",
+    "accent3": "#6d28d9",
+    # Semantic colors
+    "text":    "#f8fafc",
+    "text2":   "#cbd5e1",
+    "muted":   "#94a3b8",
+    "success": "#22d3ee",
+    "warn":    "#fbbf24",
+    "danger":  "#ef4444",
+    # Border
+    "border":  "#333346",
 }
 
 WORD_TYPES = ["", "Danh từ (n)", "Động từ (v)", "Tính từ (adj)", "Trạng từ (adv)", "Đại từ (pro)", "Giới từ (prep)", "Khác"]
 
-# ══════════════════════════════════════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════════════════════════
 # Helpers
-# ══════════════════════════════════════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════════════════════════
 def lbl(parent, text, size=12, weight="normal", color=None, **kw):
     return ctk.CTkLabel(parent, text=text, text_color=color or C["text"],
                         font=ctk.CTkFont(size=size, weight=weight), **kw)
 
+def h1(parent, text, **kw):
+    """Heading 1 - large title"""
+    return ctk.CTkLabel(parent, text=text, text_color=C["accent"],
+                        font=ctk.CTkFont(size=24, weight="bold"), **kw)
+
+def h2(parent, text, **kw):
+    """Heading 2 - section title"""
+    return ctk.CTkLabel(parent, text=text, text_color=C["text"],
+                        font=ctk.CTkFont(size=16, weight="bold"), **kw)
+
 def sep(parent):
-    ctk.CTkFrame(parent, height=1, fg_color=C["card2"]).pack(fill="x", padx=15, pady=6)
+    ctk.CTkFrame(parent, height=1, fg_color=C["border"]).pack(fill="x", padx=15, pady=8)
 
 def enable_entry_undo(ctk_widget):
     w = ctk_widget._entry if hasattr(ctk_widget, "_entry") else ctk_widget
@@ -325,7 +348,16 @@ def enable_entry_undo(ctk_widget):
 def entry(parent, placeholder="", width=440):
     e = ctk.CTkEntry(parent, placeholder_text=placeholder, width=width,
                         fg_color=C["card"], border_color=C["accent"],
-                        text_color=C["text"], corner_radius=8)
+                        text_color=C["text"], corner_radius=8, border_width=1)
+    enable_entry_undo(e)
+    return e
+
+def search_entry(parent, placeholder="Tìm từ, nghĩa, phát âm...", width=300):
+    """Specialized search entry with icon-like styling"""
+    e = ctk.CTkEntry(parent, placeholder_text=placeholder, width=width,
+                        fg_color=C["card"], border_color=C["accent"],
+                        text_color=C["text"], corner_radius=20, border_width=1,
+                        height=36)
     enable_entry_undo(e)
     return e
 
@@ -333,15 +365,32 @@ def combo(parent, values, width=200):
     c = ctk.CTkComboBox(parent, values=values, width=width,
                             fg_color=C["card"], border_color=C["accent"],
                             text_color=C["text"], button_color=C["accent"],
-                            dropdown_fg_color=C["card2"])
+                            dropdown_fg_color=C["card2"], corner_radius=8)
     enable_entry_undo(c)
     return c
 
-def btn(parent, text, color=None, hov=None, w=130, h=36, cmd=None, **kw):
+def btn(parent, text, color=None, hov=None, w=130, h=36, cmd=None, primary=False, **kw):
+    """Enhanced button with primary/secondary styling"""
+    if primary:
+        fg = color or C["accent"]
+        hover = hov or C["accent2"]
+        txt_color = "#ffffff"
+    else:
+        fg = color or C["card2"]
+        hover = hov or C["card3"]
+        txt_color = C["text"]
     return ctk.CTkButton(parent, text=text,
-                          fg_color=color or C["accent"], hover_color=hov or C["accent2"],
+                          fg_color=fg, hover_color=hover,
                           width=w, height=h, command=cmd,
-                          font=ctk.CTkFont(size=13, weight="bold"), text_color="#121212" if color in [C["accent"], C["success"], C["warn"]] else C["text"], **kw)
+                          font=ctk.CTkFont(size=13, weight="bold"), text_color=txt_color, **kw)
+
+def primary_btn(parent, text, w=130, h=38, cmd=None, **kw):
+    """Primary action button"""
+    return btn(parent, text, color=C["accent"], hov=C["accent2"], w=w, h=h, cmd=cmd, primary=True, **kw)
+
+def ghost_btn(parent, text, w=110, h=34, cmd=None, **kw):
+    """Ghost button - subtle secondary action"""
+    return btn(parent, text, color=C["card2"], hov=C["card3"], w=w, h=h, cmd=cmd, **kw)
 
 
 def jp_font(size: int, weight: str = "normal"):
@@ -1350,8 +1399,22 @@ class VocabListTab(ctk.CTkFrame):
         tb.pack(fill="x"); tb.pack_propagate(False)
 
         lbl(tb, "Ngôn Ngữ:", 14, color=C["accent"]).pack(side="left", padx=(14,4))
-        self.cb_lang_main = combo(tb, self.app.available_languages, width=150)
-        self.cb_lang_main.set(self.app.current_language)
+        
+        # Xây dựng danh sách hiển thị: "Tiếng Nhật (1260 ngày)"
+        display_values = []
+        for l in self.app.available_languages:
+            if l["num_days"] > 0:
+                display_values.append(f"{l['display']} ({l['num_days']} ngày)")
+            else:
+                display_values.append(l["display"])
+        self.cb_lang_main = combo(tb, display_values, width=200)
+        # Tìm index của ngôn ngữ hiện tại
+        current_idx = 0
+        for i, l in enumerate(self.app.available_languages):
+            if l["slug"] == self.app.current_language:
+                current_idx = i
+                break
+        self.cb_lang_main.set(display_values[current_idx])
         self.cb_lang_main.configure(command=self._on_lang_change)
         self.cb_lang_main.pack(side="left", padx=(0,12))
 
@@ -1439,11 +1502,22 @@ class VocabListTab(ctk.CTkFrame):
             )
         ).pack(side="left", padx=4)
 
-    def _on_lang_change(self, choice):
+    def _on_lang_change(self, choice: str):
+        """choice là chuỗi hiển thị như 'Tiếng Nhật (1260 ngày)' hoặc 'Tiếng Anh'."""
+        # Tìm slug tương ứng
+        for l in self.app.available_languages:
+            if l["num_days"] > 0:
+                display = f"{l['display']} ({l['num_days']} ngày)"
+            else:
+                display = l["display"]
+            if display == choice:
+                self.app.set_language(l["slug"])
+                return
+        # Nếu không tìm thấy, dùng trực tiếp choice làm slug
         self.app.set_language(choice)
 
     def refresh_filters(self):
-        lang = self.app.current_language
+        lang = self.app.current_language  # Đây là slug (ví dụ: "tiếng_nhật")
         topics = ["Tất cả chủ đề"] + get_all_topics(lang)
         types = ["Tất cả"] + get_all_types(lang)
         dates = ["Tất cả ngày"] + get_all_dates(lang)
@@ -1526,7 +1600,10 @@ class VocabListTab(ctk.CTkFrame):
         lang = d.get_input()
         if lang and lang.strip():
             lang = lang.strip()
-            self.app.set_language(lang)
+            # Tự động tạo slug từ tên
+            from ai.paths import lang_slug
+            slug = lang_slug(lang)
+            self.app.set_language(slug)
 
     def _add(self):
         if not self.app.current_language: return
@@ -2044,6 +2121,23 @@ class ModelSettingsDialog(ctk.CTkToplevel):
                                        state="disabled")
         self._log_box.pack(fill="x", padx=4, pady=(0, 4))
 
+        # ── Dead Model Status Panel ──
+        dead_frame = ctk.CTkFrame(self, fg_color=C["card"], corner_radius=6)
+        dead_frame.pack(fill="x", padx=14, pady=(0, 4))
+        lbl(dead_frame, "🚫 Model Bị Khóa (Cooldown)", 9, "bold", C["warn"]).pack(anchor="w", padx=8, pady=(4, 0))
+        dead_ctrl = ctk.CTkFrame(dead_frame, fg_color="transparent")
+        dead_ctrl.pack(fill="x", padx=8, pady=(0, 4))
+        self._dead_box = ctk.CTkTextbox(dead_frame, height=60, fg_color="#1a1a1a",
+                                        text_color="#ffb300", font=("Consolas", 9),
+                                        state="disabled")
+        self._dead_box.pack(fill="x", padx=4, pady=(0, 4))
+        btn(dead_ctrl, "🔄 Làm Mới", C["card2"], C["accent"], width=80, height=26,
+            cmd=self._refresh_dead_models).pack(side="left", padx=2)
+        btn(dead_ctrl, "🔓 Mở Khóa Tất Cả", C["card2"], C["success"], width=110, height=26,
+            cmd=self._reset_all_dead).pack(side="left", padx=2)
+        lbl(dead_ctrl, f"Khóa {DEAD_MODEL_COOLDOWN_MINUTES} phút sau {MAX_FAILURES_BEFORE_DEAD} lần lỗi",
+            8, color=C["muted"]).pack(side="right", padx=4)
+
         # Bottom buttons
         bot = ctk.CTkFrame(self, fg_color=C["sidebar"], height=52, corner_radius=0)
         bot.pack(fill="x", side="bottom")
@@ -2056,6 +2150,8 @@ class ModelSettingsDialog(ctk.CTkToplevel):
             9, color=C["muted"]).pack(side="right", padx=12)
 
         self._log_msg("📋 Dialog sẵn sàng. Nhấn '🔍 Auto Discover & Đánh giá' để quét model mới nhất.")
+        # Hiển thị trạng thái model bị khóa ban đầu
+        self.after(100, self._refresh_dead_models)
 
     # ── helpers ──
 
@@ -2069,6 +2165,64 @@ class ModelSettingsDialog(ctk.CTkToplevel):
             except Exception:
                 pass
         self.after(0, _do)
+
+    def _refresh_dead_models(self):
+        """Hiển thị danh sách model đang bị khóa cooldown."""
+        try:
+            dead_info = {}
+            # Lấy từ in-memory tracking trong GeminiCoordinator
+            # Nếu có coordinator đang chạy, lấy từ đó; ngược lại đọc từ file
+            try:
+                from ai.pipeline_store import load_dead_models as _ldm
+                dead_raw = _ldm(self.app.current_language if hasattr(self, 'app') else 'Tiếng Nhật')
+            except Exception:
+                dead_raw = {}
+            lines = []
+            if not dead_raw:
+                lines.append("✅ Không có model nào đang bị khóa.")
+            else:
+                import time
+                now = time.time()
+                for model, info in dead_raw.items():
+                    if not isinstance(info, dict):
+                        continue
+                    until = info.get("until", 0)
+                    fail_count = info.get("fail_count", 0)
+                    status = info.get("status", "warning")
+                    reason = info.get("reason", "")
+                    if until <= now:
+                        lines.append(f"✅ {model}: đã hết hạn cooldown (đã sẵn sàng)")
+                        continue
+                    wait_s = int(until - now)
+                    mins = wait_s // 60
+                    secs = wait_s % 60
+                    icon = "🔴" if status == "dead" else "🟡"
+                    lines.append(f"{icon} {model}: khóa {mins}p{secs:02d}s (lỗi {fail_count}x: {reason})")
+            self._dead_box.configure(state="normal")
+            self._dead_box.delete("1.0", "end")
+            self._dead_box.insert("1.0", "\n".join(lines))
+            self._dead_box.configure(state="disabled")
+            self._log_msg("🔄 Đã làm mới trạng thái model bị khóa.")
+        except Exception as e:
+            self._log_msg(f"❌ Lỗi làm mới model khóa: {e}")
+
+    def _reset_all_dead(self):
+        """Mở khóa tất cả model đang bị cooldown."""
+        try:
+            from ai.pipeline_store import load_dead_models as _ldm, save_dead_models as _sdm
+            lang = getattr(self, 'app', None)
+            lang_name = lang.current_language if lang else 'Tiếng Nhật'
+            dead = _ldm(lang_name)
+            reset_count = 0
+            for model in list(dead.keys()):
+                dead[model] = {"until": 0, "fail_count": 0, "status": "active",
+                               "reason": "reset by user", "reset_at": time.strftime("%Y-%m-%dT%H:%M:%S")}
+                reset_count += 1
+            _sdm(lang_name, dead)
+            self._refresh_dead_models()
+            self._log_msg(f"🔓 Đã mở khóa {reset_count} model.")
+        except Exception as e:
+            self._log_msg(f"❌ Lỗi mở khóa model: {e}")
 
     def _latency_str(self, ms):
         if ms <= 0: return "—"
@@ -3400,21 +3554,34 @@ class StudyTab(ctk.CTkFrame):
 
     # ── UI ────────────────────────────────────────────────────────────────────
     def _build(self):
-        head = ctk.CTkFrame(self, fg_color=C["sidebar"], height=52, corner_radius=0)
+        # ── Header hiện đại ──
+        head = ctk.CTkFrame(self, fg_color=C["sidebar"], height=64, corner_radius=0)
         head.pack(fill="x"); head.pack_propagate(False)
 
-        lbl(head, "Nguồn học:", 14, color=C["accent"]).pack(side="left", padx=(14, 6))
-        self.cb_source = combo(head, [SOURCE_SELF, SOURCE_AI, SOURCE_SRS], width=250)
+        head_inner = ctk.CTkFrame(head, fg_color="transparent")
+        head_inner.pack(fill="both", expand=True, padx=16, pady=8)
+
+        # Left: Nguồn học
+        lbl(head_inner, "Nguồn học:", 13, "bold", C["accent"]).pack(side="left", padx=(0, 8))
+        self.cb_source = combo(head_inner, [SOURCE_SELF, SOURCE_AI, SOURCE_SRS], width=220)
         self.cb_source.set(SOURCE_SELF)
         self.cb_source.configure(command=lambda _c: self._on_source_change())
-        self.cb_source.pack(side="left", padx=(0, 14))
+        self.cb_source.pack(side="left", padx=(0, 16))
 
+        # Middle: Tìm kiếm từ vựng (trong toàn bộ khóa học)
+        lbl(head_inner, "🔍 Tra cứu từ:", 13, "bold", C["muted"]).pack(side="left", padx=(16, 6))
+        self.ent_search = search_entry(head_inner, placeholder="Nhập từ cần tra cứu...", width=260)
+        self.ent_search.pack(side="left", padx=(0, 8))
+        self.ent_search.bind("<KeyRelease>", lambda _e: self._on_search_change())
+        self.ent_search.bind("<Return>", lambda _e: self._select_searched_word())
+
+        # Right: Nút hành động
         btn(head, "🔀 Trộn thẻ", C["card2"], C["accent"], w=100, h=32,
-            cmd=self._shuffle_cards).pack(side="left", padx=3)
+            cmd=self._shuffle_cards).pack(side="right", padx=3)
 
-        btn(head, "🤖 Sinh khóa học AI", C["success"], "#018786", w=170, h=32,
-            cmd=self._open_generation).pack(side="right", padx=14)
-        btn(head, "🗑️ Xóa khóa & tiến độ", C["card2"], C["danger"], w=170, h=32,
+        btn(head, "🤖 Sinh khóa học AI", C["success"], "#018786", w=150, h=32,
+            cmd=self._open_generation).pack(side="right", padx=3)
+        btn(head, "🗑️ Xóa khóa & tiến độ", C["card2"], C["danger"], w=150, h=32,
             cmd=self._delete_course).pack(side="right", padx=3)
 
         # ── 4 CHẾ ĐỘ HỌC (lọc bài đang xem) ──
@@ -3455,6 +3622,8 @@ class StudyTab(ctk.CTkFrame):
 
         ctop = ctk.CTkFrame(self.course_frame, fg_color="transparent", height=44)
         ctop.pack(fill="x", padx=14, pady=(8, 0))
+
+        # Day selector section
         btn(ctop, "◀ Trước", C["card2"], C["accent"], w=68, h=32, cmd=self._prev_day).pack(side="left", padx=(0, 4))
 
         lbl(ctop, "Ngày:", 13, color=C["accent"]).pack(side="left", padx=(2, 2))
@@ -3468,19 +3637,37 @@ class StudyTab(ctk.CTkFrame):
         self.cb_day = ScrollableDayDropdown(ctop, on_select=self._select_day_by_num, width=320, height=32)
         self.cb_day.pack(side="left")
         btn(ctop, "Sau ▶", C["card2"], C["accent"], w=68, h=32, cmd=self._next_day).pack(side="left", padx=(4, 8))
-        btn(ctop, "📑 Danh sách kéo cuộn", C["card2"], C["accent"], w=160, h=32,
+        btn(ctop, "📑 Danh sách", C["card2"], C["accent"], w=160, h=32,
             cmd=self._open_day_selector_dialog).pack(side="left", padx=(0, 8))
         btn(ctop, "📚 Dẫn chứng", C["card2"], C["accent"], w=130, h=32,
             cmd=self._run_evidence_for_day).pack(side="left", padx=(0, 8))
         self.lbl_day_status = lbl(ctop, "", 12, color=C["success"])
         self.lbl_day_status.pack(side="left", padx=4)
 
+        # Progress bar under header
+        prog_frame = ctk.CTkFrame(self.course_frame, fg_color="transparent", height=30)
+        prog_frame.pack(fill="x", padx=14, pady=(4, 2))
+        prog_frame.pack_propagate(False)
+        self.lbl_prog_info = lbl(prog_frame, "Khóa học chưa được tải", 12, color=C["muted"])
+        self.lbl_prog_info.pack(side="left", padx=8)
+        self.progress_bar = ctk.CTkProgressBar(prog_frame, width=200)
+        self.progress_bar.pack(side="right", padx=8)
+        self.progress_bar.set(0)
+
         cbody = ctk.CTkFrame(self.course_frame, fg_color="transparent")
         cbody.pack(fill="both", expand=True, padx=14, pady=6)
 
-        # ── Cột trái: media strip + ô nội dung bài học ──
+        # ── Cột trái: header ngày + media panel + ô nội dung bài học ──
         cleft = ctk.CTkFrame(cbody, fg_color="transparent")
         cleft.pack(side="left", fill="both", expand=True, padx=(0, 8))
+
+        # Header: tiêu đề ngày + trạng thái (từ master)
+        left_header = ctk.CTkFrame(cleft, fg_color=C["card2"], corner_radius=8)
+        left_header.pack(fill="x", pady=(0, 4))
+        self.lbl_day_title = lbl(left_header, "Không có bài học nào", 16, "bold", C["accent"])
+        self.lbl_day_title.pack(side="left", padx=12, pady=6)
+        self.lbl_day_status2 = lbl(left_header, "", 11, color=C["warn"])
+        self.lbl_day_status2.pack(side="right", padx=12, pady=6)
 
         mhead = ctk.CTkFrame(cleft, fg_color="transparent")
         mhead.pack(fill="x", pady=(0, 4))
@@ -3508,13 +3695,20 @@ class StudyTab(ctk.CTkFrame):
         self.lesson_text.pack(side="left", fill="both", expand=True)
         self.lesson_text.configure(state="disabled")
 
-        quiz_box = ctk.CTkFrame(cbody, fg_color=C["card"], corner_radius=10, width=370)
+        # Right: Quiz panel
+        quiz_box = ctk.CTkFrame(cbody, fg_color=C["card"], corner_radius=12, border_width=1, border_color=C["border"], width=370)
         quiz_box.pack(side="right", fill="y", padx=(0, 0))
         quiz_box.pack_propagate(False)
-        self.quiz_lbl_num = lbl(quiz_box, "Trắc nghiệm", 14, "bold", C["accent"])
-        self.quiz_lbl_num.pack(anchor="w", padx=14, pady=(12, 2))
+
+        q_header = ctk.CTkFrame(quiz_box, fg_color=C["card2"], corner_radius=8)
+        q_header.pack(fill="x", padx=12, pady=8)
+        self.quiz_lbl_num = lbl(q_header, "Trắc nghiệm", 14, "bold", C["accent"])
+        self.quiz_lbl_num.pack(anchor="w", padx=14, pady=(10, 2))
+        self.quiz_lbl_day = lbl(q_header, "", 11, color=C["muted"])
+        self.quiz_lbl_day.pack(anchor="w", padx=14, pady=(0, 8))
+
         self.quiz_question = ctk.CTkLabel(quiz_box, text="", justify="left", anchor="nw",
-                                          wraplength=330, font=("Consolas", 14),
+                                          wraplength=330, font=("Segoe UI", 14),
                                           text_color=C["text"])
         self.quiz_question.pack(anchor="w", padx=14, pady=(0, 8))
         self.quiz_var = tk.StringVar(value="")
@@ -3522,7 +3716,7 @@ class StudyTab(ctk.CTkFrame):
         self.quiz_opts_frame = ctk.CTkFrame(quiz_box, fg_color="transparent")
         self.quiz_opts_frame.pack(fill="x", padx=14)
         self.quiz_feedback = ctk.CTkLabel(quiz_box, text="", justify="left", anchor="nw",
-                                          wraplength=330, font=("Consolas", 12),
+                                          wraplength=330, font=("Segoe UI", 12),
                                           text_color=C["muted"])
         self.quiz_feedback.pack(anchor="w", padx=14, pady=(8, 4))
 
@@ -3563,7 +3757,200 @@ class StudyTab(ctk.CTkFrame):
 
         self._on_source_change(initial=True)
 
-    # ── Ôn tập SRS (SM-2) ─────────────────────────────────────────────────────
+    # ── Tìm kiếm từ vựng ─────────────────────────────────────────────────────
+    def _on_search_change(self):
+        """Xử lý khi người dùng gõ tìm kiếm từ."""
+        query = self.ent_search.get().strip()
+        if not query:
+            self._clear_search_results()
+            return
+        self._search_words(query)
+
+    def _search_words(self, query: str):
+        """Tìm kiếm từ vựng trong toàn bộ dữ liệu (tự học + khóa học AI)."""
+        try:
+            # Tìm trong database từ vựng tự học
+            from database.database import search_vocab
+            results = search_vocab(self.app.current_language, query)
+        except Exception:
+            results = []
+
+        # Tìm trong khóa học AI
+        try:
+            course = course_db.get_course(self.app.current_language, apply_v4=False, persist=False) or {}
+            for d in course.get("days", []):
+                for v in d.get("vocab", []):
+                    if isinstance(v, dict):
+                        w = str(v.get("word") or "")
+                        if query.lower() in w.lower() or query.lower() in str(v.get("meaning_vi") or "").lower():
+                            results.append({
+                                "word": w,
+                                "pronunciation": v.get("pronunciation", ""),
+                                "meaning_vi": v.get("meaning_vi", ""),
+                                "part_of_speech": v.get("part_of_speech", ""),
+                                "source": f"Ngày {d.get('day', 0)}",
+                                "example": v.get("example_sentence", ""),
+                                "example_meaning": v.get("example_meaning_vi", ""),
+                            })
+        except Exception:
+            pass
+
+        self._display_search_results(results)
+
+    def _display_search_results(self, results: list):
+        """Hiển thị kết quả tìm kiếm trong một popup."""
+        self._clear_search_results()
+
+        if not results:
+            self._show_search_empty()
+            return
+
+        # Tạo popup hiển thị kết quả
+        self._search_popup = ctk.CTkToplevel(self)
+        self._search_popup.title("Kết quả tra cứu từ")
+        self._search_popup.geometry("500x400")
+        self._search_popup.configure(fg_color=C["bg"])
+        self._search_popup.transient(self.winfo_toplevel())
+        self._search_popup.grab_set()
+
+        # Header
+        hdr = ctk.CTkFrame(self._search_popup, fg_color=C["sidebar"], height=44, corner_radius=0)
+        hdr.pack(fill="x"); hdr.pack_propagate(False)
+        lbl(hdr, f"Kết quả: {len(results)} từ", 14, "bold", C["accent"]).pack(side="left", padx=16, pady=10)
+        btn(hdr, "Đóng", C["card2"], C["accent"], w=70, h=28, cmd=self._search_popup.destroy).pack(side="right", padx=12, pady=8)
+
+        # Scrollable list
+        list_frame = ctk.CTkScrollableFrame(self._search_popup, fg_color=C["card"], corner_radius=8)
+        list_frame.pack(fill="both", expand=True, padx=12, pady=10)
+
+        for item in results[:50]:  # Giới hạn 50 kết quả
+            item_frame = ctk.CTkFrame(list_frame, fg_color=C["card2"], corner_radius=6)
+            item_frame.pack(fill="x", padx=8, pady=4)
+
+            word_lbl = lbl(item_frame, item["word"], 15, "bold", C["text"])
+            word_lbl.pack(anchor="w", padx=12, pady=(8, 0))
+
+            pron_lbl = lbl(item_frame, item.get("pronunciation", ""), 12, color=C["muted"])
+            pron_lbl.pack(anchor="w", padx=12, pady=(0, 2))
+
+            mean_lbl = lbl(item_frame, item.get("meaning_vi", ""), 13, color=C["success"])
+            mean_lbl.pack(anchor="w", padx=12, pady=(0, 2))
+
+            source_lbl = lbl(item_frame, item.get("source", ""), 10, color=C["muted"])
+            source_lbl.pack(anchor="w", padx=12, pady=(0, 8))
+
+            # Nút chọn từ này để học
+            btn(item_frame, "📖 Chọn", C["accent"], C["accent2"], w=70, h=26,
+                cmd=lambda w=item["word"]: self._select_searched_word(w)).pack(side="right", padx=8, pady=4)
+
+    def _clear_search_results(self):
+        """Đóng popup tìm kiếm nếu có."""
+        if hasattr(self, '_search_popup') and self._search_popup and self._search_popup.winfo_exists():
+            self._search_popup.destroy()
+            self._search_popup = None
+
+    def _show_search_empty(self):
+        """Hiển thị thông báo không tìm thấy."""
+        self._search_popup = ctk.CTkToplevel(self)
+        self._search_popup.title("Kết quả tra cứu từ")
+        self._search_popup.geometry("400x200")
+        self._search_popup.configure(fg_color=C["bg"])
+        self._search_popup.transient(self.winfo_toplevel())
+        self._search_popup.grab_set()
+
+        hdr = ctk.CTkFrame(self._search_popup, fg_color=C["sidebar"], height=44, corner_radius=0)
+        hdr.pack(fill="x"); hdr.pack_propagate(False)
+        lbl(hdr, "Kết quả tra cứu", 14, "bold", C["accent"]).pack(side="left", padx=16, pady=10)
+        btn(hdr, "Đóng", C["card2"], C["accent"], w=70, h=28, cmd=self._search_popup.destroy).pack(side="right", padx=12, pady=8)
+
+        body = ctk.CTkFrame(self._search_popup, fg_color=C["card"], corner_radius=8)
+        body.pack(fill="both", expand=True, padx=12, pady=10)
+        lbl(body, "Không tìm thấy từ nào khớp", 14, color=C["muted"]).pack(expand=True)
+
+    def _select_searched_word(self, word: str = None):
+        """Chọn một từ từ kết quả tìm kiếm để xem chi tiết."""
+        if not word:
+            # Lấy từ hiện đang nhập trong ô tìm kiếm
+            word = self.ent_search.get().strip()
+        if not word:
+            return
+
+        self._clear_search_results()
+
+        # Tìm trong khóa học AI
+        try:
+            course = course_db.get_course(self.app.current_language, apply_v4=False, persist=False) or {}
+            for d in course.get("days", []):
+                for v in d.get("vocab", []):
+                    if isinstance(v, dict) and v.get("word") == word:
+                        # Chuyển đến ngày chứa từ này
+                        day_num = d.get("day", 0)
+                        self.cb_day.set(f"Ngày {day_num}")
+                        self._select_day_by_num(day_num)
+                        return
+        except Exception:
+            pass
+
+        # Nếu không tìm thấy trong khóa học AI, hiển thị thông báo chi tiết từ
+        self._show_word_detail(word)
+
+    def _show_word_detail(self, word: str):
+        """Hiển thị chi tiết một từ vựng."""
+        self._clear_search_results()
+
+        detail_popup = ctk.CTkToplevel(self)
+        detail_popup.title(f"Chi tiết: {word}")
+        detail_popup.geometry("500x400")
+        detail_popup.configure(fg_color=C["bg"])
+        detail_popup.transient(self.winfo_toplevel())
+        detail_popup.grab_set()
+
+        hdr = ctk.CTkFrame(detail_popup, fg_color=C["sidebar"], height=44, corner_radius=0)
+        hdr.pack(fill="x"); hdr.pack_propagate(False)
+        lbl(hdr, word, 16, "bold", C["accent"]).pack(side="left", padx=16, pady=10)
+        btn(hdr, "Đóng", C["card2"], C["accent"], w=70, h=28, cmd=detail_popup.destroy).pack(side="right", padx=12, pady=8)
+
+        body = ctk.CTkScrollableFrame(detail_popup, fg_color=C["card"], corner_radius=8)
+        body.pack(fill="both", expand=True, padx=12, pady=10)
+
+        # Tìm thông tin từ
+        found_word = None
+        try:
+            course = course_db.get_course(self.app.current_language, apply_v4=False, persist=False) or {}
+            for d in course.get("days", []):
+                for v in d.get("vocab", []):
+                    if isinstance(v, dict) and v.get("word") == word:
+                        found_word = v
+                        found_day = d.get("day", 0)
+                        break
+                if found_word:
+                    break
+        except Exception:
+            pass
+
+        if found_word:
+            lbl(body, "Phát âm:", 12, "bold", C["muted"]).pack(anchor="w", padx=12, pady=(10, 0))
+            lbl(body, found_word.get("pronunciation", ""), 14, color=C["text"]).pack(anchor="w", padx=12, pady=(0, 8))
+
+            lbl(body, "Nghĩa:", 12, "bold", C["muted"]).pack(anchor="w", padx=12, pady=(0, 0))
+            lbl(body, found_word.get("meaning_vi", ""), 14, color=C["success"]).pack(anchor="w", padx=12, pady=(0, 8))
+
+            if found_word.get("ipa"):
+                lbl(body, "IPA:", 12, "bold", C["muted"]).pack(anchor="w", padx=12, pady=(8, 0))
+                lbl(body, found_word["ipa"], 13, color=C["warn"]).pack(anchor="w", padx=12, pady=(0, 8))
+
+            if found_word.get("example_sentence"):
+                lbl(body, "Câu mẫu:", 12, "bold", C["muted"]).pack(anchor="w", padx=12, pady=(8, 0))
+                lbl(body, found_word["example_sentence"], 13, color=C["text2"]).pack(anchor="w", padx=12, pady=(0, 2))
+                lbl(body, found_word.get("example_meaning_vi", ""), 12, color=C["muted"]).pack(anchor="w", padx=12, pady=(0, 8))
+
+            lbl(body, f"Ngày: {found_day}", 11, color=C["muted"]).pack(anchor="w", padx=12, pady=(8, 0))
+        else:
+            lbl(body, "Không tìm thấy chi tiết từ này trong khóa học hiện tại.", 13, color=C["muted"]).pack(expand=True)
+
+        btn(body, "Đóng", C["card2"], C["accent"], w=100, h=32, cmd=detail_popup.destroy).pack(pady=12)
+
+    # ── Khung Ôn tập SRS (SM-2) ────────────────────────────────────────────
     def _build_srs(self):
         top = ctk.CTkFrame(self.srs_frame, fg_color="transparent")
         top.pack(fill="x", padx=14, pady=(8, 0))
@@ -3851,6 +4238,7 @@ class StudyTab(ctk.CTkFrame):
 
     def _on_source_change(self, initial=False):
         src = self.cb_source.get()
+        print(f"[DEBUG] _on_source_change: src='{src}'")
         if not initial:
             self._cards = list(get_all_vocab(self.app.current_language))
             self._card_idx = 0
@@ -3870,6 +4258,230 @@ class StudyTab(ctk.CTkFrame):
             self.srs_frame.pack_forget()
             self.flash_frame.pack(fill="both", expand=True)
             self._render_card()
+
+    # ── Tìm kiếm từ vựng ─────────────────────────────────────────────────────
+    def _on_search_change(self):
+        """Xử lý khi người dùng gõ tìm kiếm từ."""
+        query = self.ent_search.get().strip()
+        if not query:
+            self._clear_search_results()
+            return
+        self._search_words(query)
+
+    def _search_words(self, query: str):
+        """Tìm kiếm từ vựng trong toàn bộ dữ liệu (tự học + khóa học AI)."""
+        try:
+            from database.database import search_vocab
+            results = search_vocab(self.app.current_language, query)
+        except Exception:
+            results = []
+
+        # Tìm trong khóa học AI
+        try:
+            course = course_db.get_course(self.app.current_language, apply_v4=False, persist=False) or {}
+            for d in course.get("days", []):
+                for v in d.get("vocab", []):
+                    if isinstance(v, dict):
+                        w = str(v.get("word") or "")
+                        if query.lower() in w.lower() or query.lower() in str(v.get("meaning_vi") or "").lower():
+                            results.append({
+                                "word": w,
+                                "pronunciation": v.get("pronunciation", ""),
+                                "meaning_vi": v.get("meaning_vi", ""),
+                                "part_of_speech": v.get("part_of_speech", ""),
+                                "source": f"Ngày {d.get('day', 0)}",
+                                "example": v.get("example_sentence", ""),
+                                "example_meaning": v.get("example_meaning_vi", ""),
+                            })
+        except Exception:
+            pass
+
+        self._display_search_results(results)
+
+    def _display_search_results(self, results: list):
+        """Hiển thị kết quả tìm kiếm trong một popup."""
+        self._clear_search_results()
+
+        if not results:
+            self._show_search_empty()
+            return
+
+        self._search_popup = ctk.CTkToplevel(self)
+        self._search_popup.title("Kết quả tra cứu từ")
+        self._search_popup.geometry("520x420")
+        self._search_popup.configure(fg_color=C["bg"])
+        self._search_popup.transient(self.winfo_toplevel())
+        self._search_popup.grab_set()
+
+        hdr = ctk.CTkFrame(self._search_popup, fg_color=C["sidebar"], height=44, corner_radius=0)
+        hdr.pack(fill="x"); hdr.pack_propagate(False)
+        lbl(hdr, f"Kết quả: {len(results)} từ", 14, "bold", C["accent"]).pack(side="left", padx=16, pady=10)
+        btn(hdr, "Đóng", C["card2"], C["accent"], w=70, h=28, cmd=self._search_popup.destroy).pack(side="right", padx=12, pady=8)
+
+        list_frame = ctk.CTkScrollableFrame(self._search_popup, fg_color=C["card"], corner_radius=8)
+        list_frame.pack(fill="both", expand=True, padx=12, pady=10)
+
+        for item in results[:50]:
+            item_frame = ctk.CTkFrame(list_frame, fg_color=C["card2"], corner_radius=6)
+            item_frame.pack(fill="x", padx=8, pady=4)
+
+            word_lbl = lbl(item_frame, item["word"], 15, "bold", C["text"])
+            word_lbl.pack(anchor="w", padx=12, pady=(8, 0))
+
+            pron_lbl = lbl(item_frame, item.get("pronunciation", ""), 12, color=C["muted"])
+            pron_lbl.pack(anchor="w", padx=12, pady=(0, 2))
+
+            mean_lbl = lbl(item_frame, item.get("meaning_vi", ""), 13, color=C["success"])
+            mean_lbl.pack(anchor="w", padx=12, pady=(0, 2))
+
+            source_lbl = lbl(item_frame, item.get("source", ""), 10, color=C["muted"])
+            source_lbl.pack(anchor="w", padx=12, pady=(0, 8))
+
+            btn(item_frame, "📖 Chọn", C["accent"], C["accent2"], w=70, h=26,
+                cmd=lambda w=item["word"]: self._select_searched_word(w)).pack(side="right", padx=8, pady=4)
+            btn(item_frame, "➕ Ôn tập", C["success"], "#018786", w=70, h=26,
+                cmd=lambda w=item["word"]: self._add_to_review(w)).pack(side="right", padx=4, pady=4)
+
+    def _clear_search_results(self):
+        """Đóng popup tìm kiếm nếu có."""
+        if hasattr(self, '_search_popup') and self._search_popup and self._search_popup.winfo_exists():
+            self._search_popup.destroy()
+            self._search_popup = None
+
+    def _show_search_empty(self):
+        """Hiển thị thông báo không tìm thấy."""
+        self._search_popup = ctk.CTkToplevel(self)
+        self._search_popup.title("Kết quả tra cứu từ")
+        self._search_popup.geometry("400x200")
+        self._search_popup.configure(fg_color=C["bg"])
+        self._search_popup.transient(self.winfo_toplevel())
+        self._search_popup.grab_set()
+
+        hdr = ctk.CTkFrame(self._search_popup, fg_color=C["sidebar"], height=44, corner_radius=0)
+        hdr.pack(fill="x"); hdr.pack_propagate(False)
+        lbl(hdr, "Kết quả tra cứu", 14, "bold", C["accent"]).pack(side="left", padx=16, pady=10)
+        btn(hdr, "Đóng", C["card2"], C["accent"], w=70, h=28, cmd=self._search_popup.destroy).pack(side="right", padx=12, pady=8)
+
+        body = ctk.CTkFrame(self._search_popup, fg_color=C["card"], corner_radius=8)
+        body.pack(fill="both", expand=True, padx=12, pady=10)
+        lbl(body, "Không tìm thấy từ nào khớp", 14, color=C["muted"]).pack(expand=True)
+
+    def _select_searched_word(self, word: str = None):
+        """Chọn một từ từ kết quả tìm kiếm để xem chi tiết."""
+        if not word:
+            word = self.ent_search.get().strip()
+        if not word:
+            return
+
+        self._clear_search_results()
+
+        try:
+            course = course_db.get_course(self.app.current_language, apply_v4=False, persist=False) or {}
+            for d in course.get("days", []):
+                for v in d.get("vocab", []):
+                    if isinstance(v, dict) and v.get("word") == word:
+                        day_num = d.get("day", 0)
+                        self.cb_day.set(f"Ngày {day_num}")
+                        self._select_day_by_num(day_num)
+                        self._switch_to_ai_source()
+                        return
+        except Exception:
+            pass
+
+        self._show_word_detail(word)
+
+    def _switch_to_ai_source(self):
+        """Chuyển sang tab Khóa học AI."""
+        self.cb_source.set(SOURCE_AI)
+        self._on_source_change()
+
+    def _show_word_detail(self, word: str):
+        """Hiển thị chi tiết một từ vựng."""
+        self._clear_search_results()
+
+        detail_popup = ctk.CTkToplevel(self)
+        detail_popup.title(f"Chi tiết: {word}")
+        detail_popup.geometry("500x400")
+        detail_popup.configure(fg_color=C["bg"])
+        detail_popup.transient(self.winfo_toplevel())
+        detail_popup.grab_set()
+
+        hdr = ctk.CTkFrame(detail_popup, fg_color=C["sidebar"], height=44, corner_radius=0)
+        hdr.pack(fill="x"); hdr.pack_propagate(False)
+        lbl(hdr, word, 16, "bold", C["accent"]).pack(side="left", padx=16, pady=10)
+        btn(hdr, "Đóng", C["card2"], C["accent"], w=70, h=28, cmd=detail_popup.destroy).pack(side="right", padx=12, pady=8)
+
+        body = ctk.CTkScrollableFrame(detail_popup, fg_color=C["card"], corner_radius=8)
+        body.pack(fill="both", expand=True, padx=12, pady=10)
+
+        found_word = None
+        try:
+            course = course_db.get_course(self.app.current_language, apply_v4=False, persist=False) or {}
+            for d in course.get("days", []):
+                for v in d.get("vocab", []):
+                    if isinstance(v, dict) and v.get("word") == word:
+                        found_word = v
+                        found_day = d.get("day", 0)
+                        break
+                if found_word:
+                    break
+        except Exception:
+            pass
+
+        if found_word:
+            lbl(body, "Phát âm:", 12, "bold", C["muted"]).pack(anchor="w", padx=12, pady=(10, 0))
+            lbl(body, found_word.get("pronunciation", ""), 14, color=C["text"]).pack(anchor="w", padx=12, pady=(0, 8))
+
+            lbl(body, "Nghĩa:", 12, "bold", C["muted"]).pack(anchor="w", padx=12, pady=(0, 0))
+            lbl(body, found_word.get("meaning_vi", ""), 14, color=C["success"]).pack(anchor="w", padx=12, pady=(0, 8))
+
+            if found_word.get("ipa"):
+                lbl(body, "IPA:", 12, "bold", C["muted"]).pack(anchor="w", padx=12, pady=(8, 0))
+                lbl(body, found_word["ipa"], 13, color=C["warn"]).pack(anchor="w", padx=12, pady=(0, 8))
+
+            if found_word.get("example_sentence"):
+                lbl(body, "Câu mẫu:", 12, "bold", C["muted"]).pack(anchor="w", padx=12, pady=(8, 0))
+                lbl(body, found_word["example_sentence"], 13, color=C["text2"]).pack(anchor="w", padx=12, pady=(0, 2))
+                lbl(body, found_word.get("example_meaning_vi", ""), 12, color=C["muted"]).pack(anchor="w", padx=12, pady=(0, 8))
+
+            lbl(body, f"Ngày: {found_day}", 11, color=C["muted"]).pack(anchor="w", padx=12, pady=(8, 0))
+        else:
+            lbl(body, "Không tìm thấy chi tiết từ này trong khóa học hiện tại.", 13, color=C["muted"]).pack(expand=True)
+
+        btn_row = ctk.CTkFrame(body, fg_color="transparent")
+        btn_row.pack(pady=12)
+        btn(btn_row, "➕ Thêm vào ôn tập", C["success"], "#018786", w=140, h=32,
+            cmd=lambda: self._add_to_review(word)).pack(side="left", padx=5)
+        btn(btn_row, "Đóng", C["card2"], C["accent"], w=80, h=32,
+            cmd=detail_popup.destroy).pack(side="left", padx=5)
+
+    def _add_to_review(self, word: str):
+        """Thêm từ vào danh sách ôn tập SM-2."""
+        try:
+            from database.review_store import sync_from_vocab, due_queue
+            lang = self.app.current_language
+            meaning = ""
+            try:
+                course = course_db.get_course(lang, apply_v4=False, persist=False) or {}
+                for d in course.get("days", []):
+                    for v in d.get("vocab", []):
+                        if isinstance(v, dict) and v.get("word") == word:
+                            meaning = v.get("meaning_vi", "")
+                            break
+                    if meaning:
+                        break
+            except Exception:
+                pass
+
+            sync_from_vocab(lang, [word], {word: meaning})
+            queue = due_queue(lang, limit=1)
+            print(f"[DEBUG] Đã thêm từ '{word}' vào ôn tập. Queue: {len(queue)}")
+            self.lbl_bottom.configure(text=f"✅ Đã thêm '{word}' vào danh sách ôn tập.", text_color=C["success"])
+            self.after(3000, lambda: self.lbl_bottom.configure(text="", text_color=C["muted"]))
+        except Exception as e:
+            print(f"[DEBUG] Lỗi thêm vào ôn tập: {e}")
+            self.lbl_bottom.configure(text=f"❌ Lỗi thêm vào ôn tập: {e}", text_color=C["danger"])
+            self.after(3000, lambda: self.lbl_bottom.configure(text="", text_color=C["muted"]))
 
     # ── Flashcard: Từ vựng tự học ────────────────────────────────────────────
     def _render_card(self):
@@ -4097,8 +4709,9 @@ class StudyTab(ctk.CTkFrame):
             self.lbl_total_days.configure(text="/ 0")
             self.ent_jump_day.delete(0, "end")
             self.lbl_day_status.configure(text="")
-            self.lbl_bottom.configure(
-                text=f"Chưa có khóa học AI cho '{lang}'. Bấm 🤖 Sinh khóa học AI để tạo.")
+            self.lbl_day_title.configure(text="Không có bài học nào")
+            self.lbl_prog_info.configure(text="Chưa có khóa học AI. Bấm 🤖 Sinh khóa học AI để tạo.")
+            self.progress_bar.set(0)
             self._set_lesson_text("Chưa có khóa học AI.\n\n"
                                   "Bấm nút 🤖 Sinh khóa học AI ở góc trên phải để tạo "
                                   "khóa học chuyên sâu theo ngày (từ vựng + ngữ pháp + trắc nghiệm).")
@@ -4130,6 +4743,11 @@ class StudyTab(ctk.CTkFrame):
             text=f"Khóa học AI '{lang}'{level_info}: {total} ngày · "
                  f"hoàn thành {len(done)}/{total}. "
                  f"Dữ liệu lưu tại data/ai_courses/")
+        # Cập nhật progress bar
+        pct = len(done) / total if total > 0 else 0
+        self.progress_bar.set(pct)
+        self.lbl_prog_info.configure(
+            text=f"Tiến độ: {len(done)}/{total} ngày · {pct*100:.0f}%")
 
     def _select_day_by_num(self, day_num: int):
         for item in self.cb_day._items:
@@ -4213,6 +4831,9 @@ class StudyTab(ctk.CTkFrame):
             self._reset_quiz_widgets()
             self._render_media_strip(None)
             self._sync_dlg_panel(None)
+            self.lbl_day_title.configure(text="Không có bài học nào")
+            self.lbl_day_status2.configure(text="")
+            self.progress_bar.set(0)
             return
         self._current_lesson = lesson
         self._render_lesson_text(lesson)
@@ -4220,6 +4841,20 @@ class StudyTab(ctk.CTkFrame):
         self._render_media_strip(lesson)
         self._update_day_status(day)
         self._start_quiz(day, lesson.get("quiz") or {})
+        # Cập nhật tiêu đề ngày và progress bar
+        self.lbl_day_title.configure(text=f"Ngày {day} — {lesson.get('title', '')}")
+        prog = course_db.get_progress(self.app.current_language)
+        done = set(prog.get("completed_days", []))
+        total = len(days)
+        pct = len(done) / total if total > 0 else 0
+        self.progress_bar.set(pct)
+        self.lbl_prog_info.configure(
+            text=f"Tiến độ: {len(done)}/{total} ngày · {pct*100:.0f}%")
+        # Cập nhật trạng thái ngày trong label nhỏ
+        if day in done:
+            self.lbl_day_status2.configure(text="✅ Hoàn thành", text_color=C["success"])
+        else:
+            self.lbl_day_status2.configure(text="⏳ Chưa hoàn thành", text_color=C["warn"])
 
     def _update_day_status(self, day):
         prog = course_db.get_progress(self.app.current_language)
@@ -4919,10 +5554,12 @@ class App(ctk.CTk):
         self.geometry("1100x700")
         self.configure(fg_color=C["bg"])
 
-        self.available_languages = get_available_languages()
+        self.available_languages = get_available_languages()  # list of dict: {display, slug, num_days}
         if not self.available_languages:
-            self.available_languages = ["English"]
-        self.current_language = self.available_languages[0]
+            self.available_languages = [{"display": "English", "slug": "english", "num_days": 0}]
+        # Chọn ngôn ngữ có số ngày lớn nhất (mặc định là Tiếng Nhật 1260 ngày)
+        self.available_languages.sort(key=lambda x: x["num_days"], reverse=True)
+        self.current_language = self.available_languages[0]["slug"]
         self.last_topic = ""
         self.last_date_tag = ""
 
@@ -4955,12 +5592,30 @@ class App(ctk.CTk):
             pass
         self.destroy()
 
-    def set_language(self, lang):
-        self.current_language = lang
-        if lang not in self.available_languages:
-            self.available_languages.append(lang)
-            self.view_list.cb_lang_main.configure(values=self.available_languages)
-        self.view_list.cb_lang_main.set(lang)
+    def set_language(self, lang_slug: str):
+        """lang_slug là slug của ngôn ngữ (ví dụ: "tiếng_nhật", "tiếng_anh")."""
+        # Tìm thông tin ngôn ngữ từ available_languages
+        lang_info = None
+        for l in self.available_languages:
+            if l["slug"] == lang_slug:
+                lang_info = l
+                break
+        if not lang_info:
+            # Nếu không tìm thấy, dùng lang_slug làm display
+            lang_info = {"display": lang_slug.replace("_", " ").title(), "slug": lang_slug, "num_days": 0}
+        
+        self.current_language = lang_slug
+        self.current_language_display = lang_info["display"]
+        self.current_language_num_days = lang_info["num_days"]
+        
+        # Cập nhật dropdown trong VocabListTab
+        display_values = [f"{l['display']} ({l['num_days']} ngày)" if l['num_days'] > 0 else l['display'] for l in self.available_languages]
+        self.view_list.cb_lang_main.configure(values=display_values)
+        
+        # Tìm index hiện tại
+        current_display = f"{lang_info['display']} ({lang_info['num_days']} ngày)" if lang_info['num_days'] > 0 else lang_info['display']
+        self.view_list.cb_lang_main.set(current_display)
+        
         self.view_list.refresh_filters()
         self.view_list.refresh()
         try:

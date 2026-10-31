@@ -221,6 +221,8 @@ def get_all_dates(language: str) -> list:
 def get_available_languages() -> list:
     """Danh sách ngôn ngữ thật sự có dữ liệu.
 
+    Trả về list tuple: (tên_hiển thị, slug, số_ngày)
+
     BUG ĐÃ SỬA (L-A): trước đây quét MỌI `data/*.json` ⇒ các file hệ thống
     (blocked_accounts.json, blocked_keys.json, language_profiles_cache.json,
     tts_quota.json, tts_voices.json) bị hiện thành "ngôn ngữ" ⇒ dropdown có 13 mục
@@ -232,7 +234,7 @@ def get_available_languages() -> list:
     ("nhật", …) trùng → ẨN. Dropdown hết 2 mục "Nhật"/"Tiếng Nhật".
     """
     from ai.paths import LANG_ALIASES, canonical_slug, lang_display, lang_slug
-    chosen = {}   # canonical_slug → display name (ưu tiên bản canonical)
+    chosen = {}   # canonical_slug → {display, slug, num_days} (ưu tiên bản canonical)
 
     # 1. Khóa học AI (data/ai_courses/*/course.json)
     ai_courses_dir = os.path.join(DATA_DIR, "ai_courses")
@@ -245,10 +247,12 @@ def get_available_languages() -> list:
             if cs in chosen:
                 continue          # canonical đã chiếm chỗ — ẩn alias học trùng
             display_name = ""
+            num_days = 0
             try:
                 with open(cpath, "r", encoding="utf-8") as fp:
                     cdata = json.load(fp)
                 display_name = (cdata.get("language") or "").strip()
+                num_days = len(cdata.get("days", []))
             except Exception:
                 pass
             if not display_name:
@@ -258,7 +262,7 @@ def get_available_languages() -> list:
             dslug = canonical_slug(display_name)
             if dslug == cs and lang_slug(display_name) in LANG_ALIASES:
                 display_name = lang_display(cs)
-            chosen[cs] = display_name
+            chosen[cs] = {"display": display_name, "slug": folder, "num_days": num_days}
 
     # 2. File từ vựng nhập tay — CHỈ file có key "vocabularies"
     if os.path.isdir(DATA_DIR):
@@ -279,7 +283,7 @@ def get_available_languages() -> list:
             if cs in chosen:
                 # khóa học AI của cùng canonical đã có — file vocab trùng lặp → bỏ
                 continue
-            chosen[cs] = lang_display(cs)
+            chosen[cs] = {"display": lang_display(cs), "slug": f[:-5], "num_days": 0}
 
     return [chosen[cs] for cs in sorted(chosen)]
 

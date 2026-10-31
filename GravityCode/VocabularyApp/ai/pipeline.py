@@ -70,6 +70,33 @@ MAX_STAGE_ATTEMPTS = {
 }
 MAX_DEFERRED_PASSES = 3
 
+
+def _seconds_until_quota_reset() -> int:
+    """Tính số giây còn lại đến nửa đêm GMT (quota Gemini reset hằng ngày 00:00 UTC)."""
+    now = datetime.utcnow()
+    tomorrow = now.replace(hour=0, minute=0, second=0, microsecond=0)
+    tomorrow = tomorrow.replace(day=tomorrow.day + 1)
+    delta = (tomorrow - now).total_seconds()
+    return max(1, int(delta))
+
+
+def _wait_quota_emit(emit, wait_seconds: int, label: str = "quota"):
+    """Hiển thị countdown chờ quota reset, cho phép dừng bằng stop_check."""
+    total = wait_seconds
+    waited = 0
+    chunk = 10  # kiểm tra stop_check mỗi 10 giây
+    while waited < total:
+        remaining = total - waited
+        mins = remaining // 60
+        secs = remaining % 60
+        emit(f"⏳ Chờ {label} reset: còn {mins}p{secs:02d}s...")
+        step = min(chunk, total - waited)
+        for _ in range(step):
+            time.sleep(1)
+            waited += 1
+        # Không có stop_check trong hàm này; người dùng dừng bằng cách ctrl+C
+    emit(f"✅ {label} đã reset, tiếp tục pipeline...")
+
 # Exit codes
 EXIT_OK = 0
 EXIT_INTERNAL = 70
@@ -415,6 +442,31 @@ def run_pipeline(language: str, *,
         else:
             fsi = _cached_profile(language)
 
+        # ── Scale down stage_days theo target_days để không sinh toàn bộ 1460+ slot ──
+        if target_days and int(target_days) > 0 and fsi:
+            want = int(target_days)
+            total_std = fsi.get("total_days", 0)
+            if total_std > want:
+                ratio = want / total_std
+                new_stages = []
+                running = 0
+                for i, st in enumerate(fsi["stages"]):
+                    scaled = max(1, int(st["target_days"] * ratio))
+                    # Đảm bảo tổng không vượt quá want
+                    if running + scaled > want and i < len(fsi["stages"]) - 1:
+                        scaled = max(1, want - running - (len(fsi["stages"]) - i - 1))
+                    new_st = dict(st)
+                    new_st["target_days"] = scaled
+                    # Cập nhật start_day/end_day trong stages_info
+                    new_st["start_day"] = running + 1
+                    new_st["end_day"] = running + scaled
+                    running += scaled
+                    new_stages.append(new_st)
+                fsi["stages"] = new_stages
+                fsi["total_days"] = running
+                fsi["recommended_days"] = running
+                emit(f"🎯 Có {want} ngày mục tiêu → đã thu gọn hồ sơ ngôn ngữ còn {running} ngày qua 6 chặng.")
+
         if STAGE_BACKBONE in stages:
             _stage_backbone(language, level, fsi, coord, log, budget, emit, resume, course,
                             stop_check=stop_check)
@@ -450,7 +502,7 @@ def run_pipeline(language: str, *,
                 language, days_to_do, course, coord, log, budget, emit, stages,
                 level, allow_degraded, max_images_per_day, max_audio_per_day,
                 chain, resume, total, progress, stop_check, t0, max_run_seconds,
-                workers)
+                workers, wait_quota=wait_quota)
         else:
             for idx, pday in enumerate(days_to_do):
                 if stop_check and stop_check():
@@ -458,13 +510,23 @@ def run_pipeline(language: str, *,
                 if time.time() - t0 > max_run_seconds:
                     raise PipelinePause("Đạt giới hạn thời gian chạy.", "max_run_seconds")
                 if not offline and not budget.can_call(4):
-                    raise PipelinePause("Đạt ngân sách call hôm nay.", "budget")
+                    if wait_quota:
+                        wait_s = _seconds_until_quota_reset()
+                        mins = wait_s // 60
+                        emit(f"⏳ Đã đạt ngân sách call hôm nay — chờ quota reset (khoảng {mins}p)...")
+                        _wait_quota_emit(emit, wait_s, "ngân sách call")
+                        # Sau khi chờ, kiểm tra lại budget
+                        if not budget.can_call(4):
+                            raise PipelinePause("Vẫn hết ngân sách sau khi chờ reset.", "budget")
+                    else:
+                        raise PipelinePause("Đạt ngân sách call hôm nay.", "budget")
 
                 dnum = int(pday.get("day", 0))
                 log.context(lang=language, stage=STAGE_CONTENT, day=dnum)
                 lesson = _run_day(language, dnum, pday, course, coord, log, budget, emit,
                                    stages, level, allow_degraded, max_images_per_day,
-                                   max_audio_per_day, chain, resume)
+                                   max_audio_per_day, chain, resume,
+                                   wait_quota=wait_quota)
                 if lesson:
                     done_days += 1
                 progress(12 + int(80 * (idx + 1) / total), STAGE_CONTENT, dnum)
@@ -619,7 +681,32 @@ def _stage_backbone(language, level, fsi, coord, log, budget, emit, resume, cour
 
 def _stage_plan(language, level, log, emit, resume, course):
     """Plan — danh sách ngày (tất định, derive từ backbone)."""
-    from ai.course_generator import _get_item_phase
+    JOURNEY_PHASES_LOCAL = [
+        ("Vỡ lòng chữ cái & phát âm", ""),
+        ("Ghép âm & Từ đơn sinh tồn", ""),
+        ("Sơ cấp đời sống", ""),
+        ("Trung cấp công việc", ""),
+        ("Cao cấp học thuật", ""),
+        ("Như người bản xứ", ""),
+    ]
+    def _get_item_phase_local(it):
+        s_idx = it.get("stage_idx")
+        if s_idx is not None and isinstance(s_idx, int) and 0 <= s_idx < len(JOURNEY_PHASES_LOCAL):
+            return JOURNEY_PHASES_LOCAL[s_idx][0]
+        cat = (it.get("category") or "").upper()
+        if any(k in cat for k in ("CHỮ VIẾT", "ALPHABET", "BẢNG CHỮ", "KÝ TỰ", "NÉT VIẾT", "PHÁT ÂM", "KHẨU HÌNH")):
+            return JOURNEY_PHASES_LOCAL[0][0]
+        if any(k in cat for k in ("GHÉP ÂM", "TỪ ĐƠN", "SINH TỒN", "SỐ ĐẾM", "ĐẠI TỪ")):
+            return JOURNEY_PHASES_LOCAL[1][0]
+        if any(k in cat for k in ("SƠ CẤP", "CÂU ĐƠN", "MUA SẮM", "ĂN UỐNG", "HỎI ĐƯỜNG", "ĐỜI SỐNG")):
+            return JOURNEY_PHASES_LOCAL[2][0]
+        if any(k in cat for k in ("CÔNG SỞ", "LIÊN TỪ", "CÂU PHỨC", "TRUNG CẤP", "KỂ CHUYỆN", "CÔNG VIỆC")):
+            return JOURNEY_PHASES_LOCAL[3][0]
+        if any(k in cat for k in ("HỌC THUẬT", "BÁO CHÍ", "TRANH BIỆN", "THUYẾT TRÌNH", "CAO CẤP")):
+            return JOURNEY_PHASES_LOCAL[4][0]
+        if any(k in cat for k in ("VĂN HOÁ", "SLANG", "THÀNH NGỮ", "BẢN XỨ", "IDIOM", "ẨN DỤ", "CHƠI CHỮ")):
+            return JOURNEY_PHASES_LOCAL[5][0]
+        return JOURNEY_PHASES_LOCAL[0][0]
     bb = load_checkpoint(language, STAGE_BACKBONE) or {}
     items = (bb.get("data") or {}).get("items") or []
     if not items:
@@ -630,7 +717,7 @@ def _stage_plan(language, level, log, emit, resume, course):
             "day": i,
             "backbone_id": it.get("id", i),
             "title": it.get("title") or it.get("generic_name", ""),
-            "phase": _get_item_phase(it),
+            "phase": _get_item_phase_local(it),
             "stage_idx": it.get("stage_idx"),
             "is_review_day": bool(it.get("is_review_day")),
             "is_ai_inserted": bool(it.get("is_ai_inserted")),
@@ -672,7 +759,7 @@ def _plan_from_existing_days(course: dict) -> list:
 def _run_days_parallel(language, days_to_do, course, coord, log, budget, emit,
                        stages, level, allow_degraded, max_images, max_audio,
                        chain, resume, total, progress, stop_check, t0,
-                       max_run_seconds, workers=1):
+                       max_run_seconds, workers=1, wait_quota=False):
     """Xử lý N ngày SONG SONG. Mỗi ngày độc lập; chỉ save course.json có lock."""
     import threading
     from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -688,7 +775,15 @@ def _run_days_parallel(language, days_to_do, course, coord, log, budget, emit,
         if time.time() - t0 > max_run_seconds:
             return dnum, None, "timeout"
         if not budget.can_call(4):
-            return dnum, None, "budget"
+            if wait_quota:
+                wait_s = _seconds_until_quota_reset()
+                mins = wait_s // 60
+                emit_safe(f"⏳ Ngày {dnum}: hết ngân sách call — chờ quota reset (khoảng {mins}p)...")
+                _wait_quota_emit(emit_safe, wait_s, "ngân sách call")
+                if not budget.can_call(4):
+                    return dnum, None, "budget"
+            else:
+                return dnum, None, "budget"
         try:
             lesson = _run_day(language, dnum, pday, course, coord, log, budget,
                               emit_safe, stages, level, allow_degraded, max_images,
@@ -738,7 +833,7 @@ def _run_days_parallel(language, days_to_do, course, coord, log, budget, emit,
 
 def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
              level, allow_degraded, max_images, max_audio, chain, resume,
-             save_each_day=True):
+             save_each_day=True, wait_quota=False):
     """Chạy 7 stage của 1 ngày. Trả lesson dict hoặc None."""
     from ai.course_generator import (DIALOGUE_SCHEMA, MIN_VOCAB, VOCAB_FILL_SCHEMA,
                                      build_content_prompt, build_dialogue_prompt,
@@ -769,7 +864,15 @@ def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
     # ── STAGE CONTENT ─────────────────────────────────────────────────────────
     if STAGE_CONTENT in stages and not stage_is_done(language, STAGE_CONTENT, day_num):
         if not budget.can_call(2):
-            raise PipelinePause("Hết ngân sách call — dừng trước khi sinh content.", "budget")
+            if wait_quota:
+                wait_s = _seconds_until_quota_reset()
+                mins = wait_s // 60
+                emit(f"⏳ Ngày {day_num}: hết ngân sách call — chờ quota reset (khoảng {mins}p)...")
+                _wait_quota_emit(emit, wait_s, "ngân sách call")
+                if not budget.can_call(2):
+                    raise PipelinePause("Vẫn hết ngân sách sau khi chờ reset.", "budget")
+            else:
+                raise PipelinePause("Hết ngân sách call — dừng trước khi sinh content.", "budget")
         ok, data, err = _ask_with_retry(
             coord, build_content_prompt(language, day_num, len(course.get("plan") or [day_num]),
                                         pday.get("words") or [], pday.get("title", ""),

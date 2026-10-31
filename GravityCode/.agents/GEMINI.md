@@ -41,8 +41,9 @@ Sau khi viết code xong, task KHÔNG được coi là hoàn thành cho đến k
 5. [ ] **Dọn sạch debug**: Không còn `console.log`, `print` rác thừa, không còn comment TODO vô nghĩa.
 6. [ ] **Báo cáo kết quả kiểm tra trung thực**: Trình bày rõ đã test cái gì, bằng cách nào, kết quả thực tế ra sao và có giới hạn nào chưa test được.
 7. [ ] **Cập nhật `ProjectLog.md`** phản ánh đúng trạng thái mới của dự án.
+8. [ ] **Tự Động Lưu & Push-All Skill/Rule**: Nếu có kỹ thuật mới, bài học kiến trúc đắt giá, hoặc sửa đổi/tạo mới Skill hay Rule, Agent BẮT BUỘC TỰ ĐỘNG lưu trực tiếp vào `GravityCode\SKILL_RULE\` và TỰ ĐỘNG chạy lệnh sync `--push-all` trước khi kết thúc task. Không để người dùng phải làm thủ công.
 
-⛔ **KHÔNG được tuyên bố "xong / done" nếu chưa đi qua đủ 7 mục trên.**
+⛔ **KHÔNG được tuyên bố "xong / done" nếu chưa đi qua đủ 8 mục trên.**
 
 ---
 
@@ -82,3 +83,16 @@ Tuyệt đối lưu ý khi lưu trữ và truyền tải dữ liệu JSON (đặ
 - **Đa tài khoản & Xoay Key (Key Rotation)**: Luôn gom nhóm key theo account và xoay vòng key tự động khi gọi API.
 - **Xử lý lỗi Quota 429 & 503**: Khi một key bị dính 429 (Resource Exhausted), đánh dấu tạm nghỉ (cooldown) cho account đó và lập tức chuyển sang account khác. Tuyệt đối không retry dồn dập vào cùng 1 key bị khóa.
 - **Kỹ thuật Blind Fire**: Khi gặp lỗi auth hoặc rate limit, chuyển key dự phòng ngay tức khắc trong luồng nền mà không làm gián đoạn trải nghiệm người dùng.
+---
+
+## 6. Quy Tắc Thu Hoạch & Đồng Bộ Kỹ Năng / Quy Chuẩn (Tự Động 100%)
+
+- **Kho Lưu Trữ Gốc (Source of Truth)**: `GravityCode\SKILL_RULE\` là nơi tập trung toàn bộ kỹ năng (`skills/`) và quy tắc (`rules/`) của hệ thống.
+- **Agent Bắt Buộc Tự Động Thực Hiện (Autonomous Auto-Sync)**: Khi Agent giải quyết xong một bài toán khó, sửa lỗi kiến trúc lớn, hoặc tạo mới/cập nhật Skill hay Rule trong bất kỳ dự án nào:
+  1. Agent **tự động** đóng gói kiến thức thành Skill (`SKILL.md`) hoặc Rule (`*.md`) và lưu trực tiếp vào `GravityCode\SKILL_RULE\`.
+  2. Agent **tự động** kích hoạt lệnh đồng bộ toàn cục trước khi kết thúc task:
+     ```bash
+     python "C:\Users\12953 Bao\Desktop\desktop\work\Project\Python\BasicLearnPython\W3schools\Python Tutorial\GravityCode\SKILL_RULE\sync_skills_rules.py" --push-all
+     ```
+  3. Lệnh trên sẽ tự động cập nhật ngay lập tức vào cấu hình máy tính `C:\Users\12953 Bao\.gemini\config\` (Global) và `.agents\` (Workspace), giúp mọi dự án khác trên máy tính này đều thừa hưởng được kỹ năng mới.
+  4. Tuyệt đối không để kỹ năng hay quy chuẩn mới bị cô lập riêng lẻ ở dự án con và tuyệt đối không để người dùng phải sao chép hay chạy lệnh sync thủ công.
