@@ -294,6 +294,28 @@ python -m api.model_catalog --refresh      # dò catalog thật (cần key)
 
 ---
 
+## 7.7. PANEL CHỌN ĐƯỢC (TỪ VỰNG/NGỮ PHÁP) + LOG XOAY KEY + MERGE GITHUB (2026-10-31)
+
+### Panel từ vựng chọn được (thay dải thẻ ngang — theo yêu cầu "10 từ = 10 lựa chọn")
+- `StudyTab._render_vocab_panel(lesson)` mode-aware: 📚/📑 → `_render_vocab_rows`; 📖 → `_render_grammar_rows`; 🎧 → panel ẩn (`pack_forget`, dlg_panel đảm nhiệm).
+- Mỗi dòng từ: `[ảnh thật 44px (Wikipedia/word-card fallback)] [từ + reading] [nghĩa VI] [▶]` — **click bất kỳ đâu trên dòng** → `MediaViewerDialog` (ảnh 384×384, ví dụ, ←/→, Esc).
+- `_media_ring(idx)` highlight dòng đang phát bằng `fg_color` (bug cũ `border_color="transparent"` → ValueError bị nuốt). Badge cover 🖼🔊 + seq "🔊 Nghe cả ngày" giữ nguyên trên panel mới.
+
+### Panel ngữ pháp click → chi tiết
+- `_render_grammar_rows(lesson)`: mẫu câu 📝 (`sentence_patterns`) + bài ngữ pháp 📐 (`grammar`, dict đơn → list) — mỗi dòng click → `GrammarDetailDialog` (lớp mới, UX như MediaViewerDialog).
+- `GrammarDetailDialog`: giải thích · ví dụ JP+VI (🔊 `speak_word`) · `common_mistakes` ❌/✅ · `mini_quiz` 🧠 · ←/→ chuyển mục · Esc đóng.
+
+### Log AI đang dùng key/account nào (`api/gemini_safe.py`)
+- `GeminiCoordinator._log_key_pick(pool, key_obj, email)` — gọi trong `request()` + `request_image()` sau `pool.pick()`:
+  `🔑 Đang dùng key của account: user@gmail.com [key 3/90]` (lần đầu) · `🔄 Đổi sang account: …` (khi đổi) — **chỉ hiện khi đổi**, không spam mỗi request.
+- Mục đích: người theo dõi bằng mắt thấy rõ xoay vòng account, không để 1 account dùng liên tục.
+
+### Merge `origin/master` vào branch (chuẩn bị đẩy GitHub)
+- 6 file conflict giải kiểu **giữ cả 2 phía**: VocabApp.py (header ngày master + media/dlg panel branch) · gemini_safe.py (adaptive probe HEAD + dead-model tracking master — 2 hệ thống độc lập đều dùng ngoài conflict) · database.py (canonical dedup + trả dict `{display, slug, num_days}` — App sort theo `num_days`, dùng `slug` làm `current_language`) · pipeline.py (offline guard + wait_quota) · course_generator.py (`ai_lang_name`) · projectLog.md.
+- Test: `test_ai_rich` 85/85 · `tools/test_3mode` **41/41** (17 test mới) · `test_slug_canonical` 6/6 · `py_compile` OK.
+
+---
+
 ## 8. NGUYÊN TẮC BẮT BUỘC KHI SỬA TIẾP
 
 1. Đọc `projectLog.md` + `docs/UPGRADE_17.md` trước. Cập nhật cả 2 sau khi sửa.

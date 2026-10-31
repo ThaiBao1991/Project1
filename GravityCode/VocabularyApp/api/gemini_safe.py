@@ -590,6 +590,7 @@ class GeminiCoordinator:
         self._daily_budget = daily_budget
         self._lock_after_success = lock_after_success
         self._pool = _get_pool()
+        self._last_email_used = None   # email key vừa dùng — log khi ĐỔI account
         # ── Model performance tracking (probe + adaptive rotation) ──
         self._model_stats = {}   # model -> {ok, fail, total_ms, count, consec_fail, last_ok_ts}
         self._model_cooldown = {}  # model -> ts hết cooldown (tránh gọi lại model vừa timeout/503)
@@ -932,6 +933,25 @@ class GeminiCoordinator:
             pass
         return out
 
+    def _log_key_pick(self, pool, key_obj, email):
+        """Hiển thị key/account ĐANG DÙNG trong log sinh khóa.
+
+        Mục đích: người theo dõi bằng MẮT thấy rõ việc xoay vòng account
+        (không để 1 account bị dùng liên tục gây vi phạm quota).
+        Chỉ hiện khi ĐỔI account — không spam mỗi request.
+        """
+        try:
+            keys = getattr(pool, "_keys", []) or []
+            idx = next((i for i, k in enumerate(keys) if k is key_obj), -1)
+            tag = f" [key {idx + 1}/{len(keys)}]" if idx >= 0 else ""
+            if email != self._last_email_used:
+                arrow = "🔑 Đang dùng key của account: " if self._last_email_used is None \
+                        else "🔄 Đổi sang account: "
+                self._last_email_used = email
+                self._log(f"{arrow}{email}{tag}")
+        except Exception:
+            pass
+
     def _try_models(self, prompt_text, api_key, json_mode, response_schema,
                     temperature, max_output_tokens, timeout, ordered_models=None,
                     email=None, deadline=None):
@@ -1122,6 +1142,7 @@ class GeminiCoordinator:
                 return {"ok": False, "text": "", "error": {"kind": ErrorKind.NO_KEY}}
             api_key = key_obj.get("key") or ""
             email = key_obj.get("email") or "?"
+            self._log_key_pick(pool, key_obj, email)
             pace()
             # Thứ tự model thích nghi: tốt nhất trước + định kỳ chọc model mới (exploration)
             ordered = self._adaptive_model_order() if self._adaptive else None
@@ -1399,6 +1420,7 @@ class GeminiCoordinator:
                 return {"ok": False, "error": {"kind": ErrorKind.NO_KEY}}
             api_key = key_obj.get("key") or ""
             email = key_obj.get("email") or "?"
+            self._log_key_pick(pool, key_obj, email)
             pace()
             res = self._try_image_models(prompt_text, api_key, cand_models, tout)
             kind = res.get("kind")

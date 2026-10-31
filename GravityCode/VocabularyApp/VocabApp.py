@@ -497,6 +497,124 @@ class PreviewDialog(ctk.CTkToplevel):
         tree.pack(fill="x", padx=5, pady=10)
 
 # ══════════════════════════════════════════════════════════════════════════════
+# Grammar Detail Dialog — chi tiết 1 mục ngữ pháp (từ danh sách 📖)
+# ══════════════════════════════════════════════════════════════════════════════
+class GrammarDetailDialog(ctk.CTkToplevel):
+    """Chi tiết ngữ pháp: giải thích · ví dụ (🔊 TTS) · lỗi sai · mini-quiz.
+
+    Phím: ←/→ chuyển mục khác trong ngày · Esc đóng. Đồng bộ UX MediaViewerDialog.
+    """
+
+    def __init__(self, parent, items, idx=0, lang_name="", title=""):
+        super().__init__(parent)
+        self.title(title or "Ngữ pháp")
+        self.geometry("580x620")
+        self.configure(fg_color=C["bg"])
+        self.transient(parent)
+        self.grab_set()
+        self.lift()
+        self.focus_force()
+        self._items = list(items or [])
+        self._idx = max(0, min(int(idx), len(self._items) - 1)) if self._items else 0
+        self._lang = lang_name
+
+        top = ctk.CTkFrame(self, fg_color="transparent")
+        top.pack(fill="x", padx=12, pady=(10, 4))
+        self.lbl_pos = lbl(top, "", 12, color=C["muted"])
+        self.lbl_pos.pack(side="left")
+        btn(top, "⏮ Trước", C["card2"], C["accent"], w=90, h=30,
+            cmd=lambda: self._move(-1)).pack(side="right", padx=2)
+        btn(top, "Tiếp ⏭", C["card2"], C["accent"], w=90, h=30,
+            cmd=lambda: self._move(+1)).pack(side="right", padx=2)
+        btn(top, "🔊 Nghe ví dụ", C["success"], "#018786", w=120, h=30,
+            cmd=self._speak_first).pack(side="right", padx=2)
+
+        self.body = ctk.CTkTextbox(self, fg_color=C["card"], text_color=C["text"],
+                                   font=("Consolas", 13), wrap="word", corner_radius=10)
+        self.body.pack(fill="both", expand=True, padx=12, pady=(0, 12))
+        self.body.configure(state="disabled")
+
+        self.bind("<Escape>", lambda _e: self.destroy())
+        self.bind("<Left>", lambda _e: self._move(-1))
+        self.bind("<Right>", lambda _e: self._move(+1))
+        self._render()
+
+    def _render(self):
+        self.body.configure(state="normal")
+        self.body.delete("1.0", "end")
+        it = self._items[self._idx] if self._items else {}
+        lines = []
+        if it.get("kind") == "pattern":
+            lines.append(f"📝 {it.get('pattern', '')}")
+            if it.get("meaning_vi"):
+                lines.append(f"   → {it['meaning_vi']}")
+            if it.get("structure_note"):
+                lines.append(f"\n📌 {it['structure_note']}")
+            if it.get("example_sentence"):
+                lines.append("\n💬 Ví dụ:")
+                lines.append(f"   {it['example_sentence']}")
+                if it.get("example_meaning_vi"):
+                    lines.append(f"   → {it['example_meaning_vi']}")
+        else:
+            lines.append(f"📐 {it.get('title', '')}")
+            if it.get("explanation"):
+                lines.append(f"\n{it['explanation']}")
+            exs = [e for e in (it.get("examples") or []) if isinstance(e, dict)]
+            if exs:
+                lines.append("\n💬 Ví dụ:")
+                for ex in exs:
+                    lines.append(f"   {ex.get('sentence', '')}")
+                    if ex.get("meaning_vi"):
+                        lines.append(f"   → {ex['meaning_vi']}")
+            if it.get("pronunciation_focus"):
+                lines.append(f"\n👄 Phát âm: {it['pronunciation_focus']}")
+            mis = [m for m in (it.get("common_mistakes") or []) if isinstance(m, dict)]
+            if mis:
+                lines.append("\n❌ Lỗi thường gặp:")
+                for m in mis:
+                    lines.append(f"   ❌ {m.get('wrong', '')}")
+                    lines.append(f"   ✅ {m.get('right', '')}")
+                    if m.get("why_vi"):
+                        lines.append(f"      ↳ {m['why_vi']}")
+            quiz = [q for q in (it.get("mini_quiz") or []) if isinstance(q, dict)]
+            if quiz:
+                lines.append("\n🧠 Kiểm tra nhanh:")
+                for q in quiz:
+                    lines.append(f"   • {q.get('question', '')}")
+                    for oi, o in enumerate(q.get("options") or []):
+                        lines.append(f"     {chr(65 + oi)}. {o}")
+                    if q.get("explanation"):
+                        lines.append(f"     → {q['explanation']}")
+        if not lines:
+            lines = ["(mục này chưa có nội dung chi tiết)"]
+        self.body.insert("1.0", "\n".join(lines))
+        self.body.configure(state="disabled")
+        self.lbl_pos.configure(text=f"{self._idx + 1}/{len(self._items)}")
+
+    def _speak_first(self):
+        """🔊 Phát TTS ví dụ đầu tiên của mục hiện tại."""
+        it = self._items[self._idx] if self._items else {}
+        text = str(it.get("example_sentence") or "").strip()
+        if not text:
+            exs = [e for e in (it.get("examples") or []) if isinstance(e, dict)]
+            if exs:
+                text = str(exs[0].get("sentence") or "").strip()
+        if not text:
+            text = str(it.get("pattern") or it.get("title") or "").strip()
+        if text:
+            try:
+                speak_word(text, self._lang)
+            except Exception:
+                pass
+
+    def _move(self, delta):
+        if not self._items:
+            return
+        self._idx = (self._idx + delta) % len(self._items)
+        self._render()
+
+
+# ══════════════════════════════════════════════════════════════════════════════
 # Media Viewer Dialog — xem word-card/ảnh lớn + phát audio từng từ
 # ══════════════════════════════════════════════════════════════════════════════
 class MediaViewerDialog(ctk.CTkToplevel):
@@ -3678,9 +3796,10 @@ class StudyTab(ctk.CTkFrame):
         btn(mhead, "⏹ Dừng", C["card2"], C["danger"], w=76, h=30,
             cmd=self._stop_play_seq).pack(side="right", padx=2)
 
-        # Media strip: 10 thẻ cuộn ngang (ảnh thật xin, không có thì word-card chữ NHẬT)
-        self.media_strip = ctk.CTkScrollableFrame(cleft, orientation="horizontal",
-                                                  height=152, fg_color=C["card"],
+        # Panel CHỌN ĐƯỢC: danh sách dòng dọc — 📚 danh sách từ (click → chi tiết),
+        # 📖 danh sách ngữ pháp (click → chi tiết), 🎧 ẩn (dlg_panel đảm nhiệm)
+        self.media_strip = ctk.CTkScrollableFrame(cleft, orientation="vertical",
+                                                  height=248, fg_color=C["card"],
                                                   corner_radius=10)
         self.media_strip.pack(fill="x", pady=(0, 6))
         self._img_refs = {}          # BẮT BUỘC giữ ref ảnh — CTkImage bị GC → trắng
@@ -4549,6 +4668,7 @@ class StudyTab(ctk.CTkFrame):
             return
         self._render_lesson_text(lesson)
         self._sync_dlg_panel(lesson)
+        self._render_vocab_panel(lesson)
         names = {"full": "📑 Tất cả", "vocab": "📚 Từ vựng",
                  "grammar": "📖 Ngữ pháp", "dialogue": "🎧 Hội thoại"}
         self.lbl_bottom.configure(
@@ -4829,7 +4949,7 @@ class StudyTab(ctk.CTkFrame):
             self._current_lesson = None
             self._set_lesson_text("Không có dữ liệu ngày này.")
             self._reset_quiz_widgets()
-            self._render_media_strip(None)
+            self._render_vocab_panel(None)
             self._sync_dlg_panel(None)
             self.lbl_day_title.configure(text="Không có bài học nào")
             self.lbl_day_status2.configure(text="")
@@ -4838,7 +4958,7 @@ class StudyTab(ctk.CTkFrame):
         self._current_lesson = lesson
         self._render_lesson_text(lesson)
         self._sync_dlg_panel(lesson)
-        self._render_media_strip(lesson)
+        self._render_vocab_panel(lesson)
         self._update_day_status(day)
         self._start_quiz(day, lesson.get("quiz") or {})
         # Cập nhật tiêu đề ngày và progress bar
@@ -4932,43 +5052,67 @@ class StudyTab(ctk.CTkFrame):
         except Exception:
             return False
 
-    def _render_media_strip(self, lesson):
-        """Vẽ 10 thẻ từ vựng cuộn ngang (audio ▶ + click mở viewer)."""
+    def _render_vocab_panel(self, lesson):
+        """Panel CHỌN ĐƯỢC theo chế độ — 10 từ = 10 dòng chọn được (như panel hội thoại).
+
+        - 📚/📑: danh sách từ vựng — mỗi dòng [ảnh 44px] [từ + reading] [nghĩa VI] [▶];
+          click vào dòng → MediaViewerDialog (ảnh 384×384, ví dụ, ←/→, Esc — tính năng sẵn có).
+        - 📖: danh sách ngữ pháp — mẫu câu + bài ngữ pháp; click → GrammarDetailDialog.
+        - 🎧: panel ẩn (dlg_panel đảm nhiệm).
+        """
         for w in (self.media_strip.winfo_children() or []):
             w.destroy()
         self._img_refs.clear()
         self._media_cards.clear()
         self._update_media_cover(lesson)
+        mode = getattr(self, "_study_mode", "full")
+        if mode == "dialogue":
+            self.media_strip.pack_forget()
+            return
         if not lesson:
             lbl(self.media_strip, "— chưa có bài học —", 12,
-                color=C["muted"]).pack(padx=10, pady=50)
+                color=C["muted"]).pack(padx=10, pady=30)
+            self.media_strip.pack(fill="x", pady=(0, 6), before=self.lesson_text)
             return
+        if mode == "grammar":
+            self._render_grammar_rows(lesson)
+        else:
+            self._render_vocab_rows(lesson)
+
+    def _render_vocab_rows(self, lesson):
+        """Danh sách dòng từ vựng chọn được (thumbnail thật 44px + từ + nghĩa VI)."""
         items = self._build_media_items(lesson)
-        media_index = self._media_index()
+        head = ctk.CTkFrame(self.media_strip, fg_color="transparent")
+        head.pack(fill="x", padx=8, pady=(6, 2))
+        lbl(head, f"📚 TỪ VỰNG — {len(items)} từ · bấm vào dòng để xem chi tiết",
+            13, "bold", C["accent"]).pack(side="left")
+        if not items:
+            lbl(self.media_strip, "— Ngày này chưa có từ vựng —", 12,
+                color=C["muted"]).pack(pady=20)
+            self.media_strip.pack(fill="x", pady=(0, 6), before=self.lesson_text)
+            return
         try:
             from customtkinter import CTkImage
             from PIL import Image as PILImage
             from ai.media_card import get_word_card_path
         except Exception as e:
-            lbl(self.media_strip, f"(media tắt: {e})", 11, color=C["muted"]).pack(padx=10, pady=50)
+            lbl(self.media_strip, f"(ảnh tạm tắt: {e})", 11,
+                color=C["muted"]).pack(padx=10, pady=20)
+            self.media_strip.pack(fill="x", pady=(0, 6), before=self.lesson_text)
             return
-        real_imgs = 0
+        media_index = self._media_index()
         for i, it in enumerate(items):
-            wrapper = ctk.CTkFrame(self.media_strip, width=110, height=140,
-                                   fg_color=C["card2"], corner_radius=10,
-                                   border_width=2, border_color=C.get("accent2", "#bb86fc"))
-            wrapper.grid(row=0, column=i, padx=4, pady=6, sticky="n")
-            self._media_cards[i] = wrapper
-
-            img_widget = ctk.CTkLabel(wrapper, text="", width=96, height=96)
-            img_widget.pack(pady=(6, 2))
+            row = ctk.CTkFrame(self.media_strip, fg_color=C["card2"], corner_radius=8)
+            row.pack(fill="x", padx=6, pady=2)
+            self._media_cards[i] = row
+            thumb = ctk.CTkLabel(row, text="", width=44, height=44)
+            thumb.pack(side="left", padx=(6, 8), pady=4)
             ref = None
             if self._card_is_real_image(i, it, media_index):
                 try:
                     pil = PILImage.open(it["image_path"]).convert("RGB")
-                    pil.thumbnail((96, 96))
-                    ref = CTkImage(light_value=pil, dark_value=pil, size=(96, 96))
-                    real_imgs += 1
+                    pil.thumbnail((44, 44))
+                    ref = CTkImage(light_value=pil, dark_value=pil, size=(44, 44))
                 except Exception:
                     ref = None
             if ref is None:
@@ -4977,33 +5121,83 @@ class StudyTab(ctk.CTkFrame):
                 if card and os.path.isfile(card):
                     try:
                         pil = PILImage.open(card).convert("RGB")
-                        pil.thumbnail((96, 96))
-                        ref = CTkImage(light_value=pil, dark_value=pil, size=(96, 96))
+                        pil.thumbnail((44, 44))
+                        ref = CTkImage(light_value=pil, dark_value=pil, size=(44, 44))
                     except Exception:
                         ref = None
             self._img_refs[i] = ref
             if ref is not None:
-                img_widget.configure(image=ref)
+                thumb.configure(image=ref)
             else:
-                img_widget.configure(text=it["word"][:2], font=jp_font(26))
+                thumb.configure(text=(it["word"] or "?")[:1], font=jp_font(16))
+            info = f"{it['word']}  ({it['reading'] or '—'})\n{it['meaning'] or ''}"
+            tl = ctk.CTkLabel(row, text=info, justify="left", anchor="w",
+                              font=jp_font(13), text_color=C["text"])
+            tl.pack(side="left", fill="x", expand=True, pady=4)
+            btn(row, "▶", C["accent"], C["accent2"], w=36, h=28,
+                cmd=(lambda ii=it: self._play_vocab(ii))).pack(side="right", padx=6)
+            # Click bất kỳ đâu trên dòng (trừ nút ▶) → mở chi tiết MediaViewerDialog
+            for wdg in (row, thumb, tl):
+                wdg.bind("<Button-1>", lambda _e, ii=i: self._open_media_viewer(ii))
+        self.media_strip.pack(fill="x", pady=(0, 6), before=self.lesson_text)
 
-            wl = ctk.CTkLabel(wrapper, text=it["word"], font=jp_font(15, "bold"),
-                              text_color=C["text"])
-            wl.pack()
-            rl = ctk.CTkLabel(wrapper, text=(it["reading"] or "—")[:10],
-                              font=jp_font(11), text_color=C["muted"])
-            rl.pack()
+    def _render_grammar_rows(self, lesson):
+        """Danh sách ngữ pháp chọn được: mẫu câu (📝) + bài ngữ pháp (📐).
 
-            prow = ctk.CTkFrame(wrapper, fg_color="transparent")
-            prow.pack(pady=(2, 6))
-            btn(prow, "▶", C["accent"], C["accent2"], w=34, h=24,
-                cmd=(lambda ii=it: self._play_vocab(ii))).pack(side="left", padx=2)
-            btn(prow, "📖", C["card2"], C["accent"], w=34, h=24,
-                cmd=(lambda ii=i: self._open_media_viewer(ii))).pack(side="left", padx=2)
-            # Click 2 lần vào card cũng mở viewer
-            wrapper.bind("<Double-Button-1>", lambda _e, ii=i: self._open_media_viewer(ii))
+        Click 1 dòng → GrammarDetailDialog (giải thích · ví dụ 🔊 · lỗi sai · mini-quiz).
+        """
+        entries = []
+        for p in (lesson.get("sentence_patterns") or []):
+            if isinstance(p, dict) and str(p.get("pattern") or "").strip():
+                e = dict(p)
+                e["kind"] = "pattern"
+                entries.append(e)
+        gitems = lesson.get("grammar") or []
+        if isinstance(gitems, dict):
+            gitems = [gitems] if gitems.get("title") else []
+        for g in gitems:
+            if isinstance(g, dict) and str(g.get("title") or "").strip():
+                e = dict(g)
+                e["kind"] = "grammar"
+                entries.append(e)
+        head = ctk.CTkFrame(self.media_strip, fg_color="transparent")
+        head.pack(fill="x", padx=8, pady=(6, 2))
+        lbl(head, f"📖 NGỮ PHÁP — {len(entries)} mục · bấm vào dòng để xem chi tiết",
+            13, "bold", C["accent"]).pack(side="left")
+        if not entries:
+            lbl(self.media_strip, "— Ngày này chưa có ngữ pháp —", 12,
+                color=C["muted"]).pack(pady=20)
+        for i, e in enumerate(entries):
+            row = ctk.CTkFrame(self.media_strip, fg_color=C["card2"], corner_radius=8)
+            row.pack(fill="x", padx=6, pady=2)
+            if e["kind"] == "pattern":
+                icon, main, sub = "📝", str(e.get("pattern") or ""), str(e.get("meaning_vi") or "")
+            else:
+                icon, main = "📐", str(e.get("title") or "")
+                sub = ""
+                if e.get("explanation"):
+                    sub = str(e["explanation"])[:90]
+            badge = ctk.CTkLabel(row, text=icon, width=28, font=jp_font(15),
+                                 text_color=C["accent"])
+            badge.pack(side="left", padx=(8, 4), pady=4)
+            info = main + (f"\n{sub}" if sub else "")
+            tl = ctk.CTkLabel(row, text=info, justify="left", anchor="w",
+                              font=jp_font(13), text_color=C["text"])
+            tl.pack(side="left", fill="x", expand=True, pady=4)
+            for wdg in (row, badge, tl):
+                wdg.bind("<Button-1>",
+                         lambda _e, ii=i, ee=entries: self._open_grammar_dialog(ii, ee))
+        self.media_strip.pack(fill="x", pady=(0, 6), before=self.lesson_text)
 
-        self._update_media_cover(lesson)
+    def _open_grammar_dialog(self, idx, entries):
+        """Mở chi tiết 1 mục ngữ pháp (←/→ chuyển mục, Esc đóng)."""
+        try:
+            day = (self._current_lesson or {}).get("day", "")
+            GrammarDetailDialog(self.winfo_toplevel(), entries, idx=idx,
+                                lang_name=self.app.current_language,
+                                title=f"Ngữ pháp — Ngày {day}")
+        except Exception as e:
+            self.lbl_bottom.configure(text=f"⚠ Không mở được chi tiết ngữ pháp: {e}")
 
     def _update_media_cover(self, lesson):
         """Badge 🖼 a/b · 🔊 a/b đổi màu theo độ phủ media."""
@@ -5021,10 +5215,10 @@ class StudyTab(ctk.CTkFrame):
             text_color=color)
 
     def _media_ring(self, idx):
-        """Highlight thẻ đang phát (viền accent); tắt khi idx=None."""
+        """Highlight dòng đang phát (nền accent); tắt khi idx=None."""
         for i, w in self._media_cards.items():
             try:
-                w.configure(border_color=C["accent"] if i == idx else "transparent")
+                w.configure(fg_color=C["accent"] if i == idx else C["card2"])
             except Exception:
                 pass
 

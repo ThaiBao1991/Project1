@@ -192,7 +192,29 @@
 > [`docs/UPGRADE_16.md`](docs/UPGRADE_16.md) — bản đồ kiến trúc, toàn bộ lệnh, giới hạn thật đã đo, 28 bug đã sửa.
 
 ---
-## 📋 Cập nhật mới nhất — 2026-10-30 (Fix sinh khóa AI: content rỗng)
+## 📋 Cập nhật mới nhất — 2026-10-31 (Panel chọn được + log xoay key + merge GitHub)
+
+### 📚 PANEL TỪ VỰNG CHỌN ĐƯỢC (thay dải thẻ ngang) + 📖 NGỮ PHÁP CLICK → CHI TIẾT
+
+**Theo yêu cầu: 10 từ = 10 lựa chọn (giống panel hội thoại), ngữ pháp cũng click → chi tiết:**
+- `media_strip` cuộn ngang → **panel dọc chọn được** (`_render_vocab_panel`): mỗi dòng `[ảnh thật 44px] [từ + reading] [nghĩa VI] [▶]` — click bất kỳ đâu trên dòng → `MediaViewerDialog` (ảnh 384×384, ví dụ, ←/→, Esc — tính năng sẵn có).
+- Chế độ 📖 ngữ pháp → `_render_grammar_rows`: mẫu câu 📝 + bài ngữ pháp 📐, click → `GrammarDetailDialog` MỚI (giải thích · ví dụ 🔊 TTS · lỗi sai ❌ · mini-quiz 🧠; ←/→ chuyển mục, Esc đóng).
+- Chế độ 🎧 hội thoại: panel từ ẩn (dlg_panel đảm nhiệm). Badge cover 🖼🔊 + "🔊 Nghe cả ngày" giữ nguyên.
+- Fix âm thầm: highlight dòng đang phát dùng `fg_color` (thay `border_color="transparent"` gây ValueError bị nuốt — cùng bug lớp với fix trước).
+
+### 🔑 LOG AI ĐANG DÙNG KEY/ACCOUNT NÀO (nhìn bằng mắt theo dõi xoay vòng)
+
+- `GeminiCoordinator._log_key_pick()` — áp dụng cho `request()` + `request_image()`: lần đầu `🔑 Đang dùng key của account: user@gmail.com [key 3/90]`; khi đổi `🔄 Đổi sang account: …` — **chỉ hiện khi ĐỔI account** (không spam mỗi request).
+- Mục đích: người theo dõi thấy rõ việc xoay vòng, tránh 1 account bị dùng liên tục gây vi phạm quota.
+
+### 🔗 MERGE `origin/master` VÀO BRANCH (chuẩn bị đẩy GitHub)
+
+- 6 file conflict đã giải, **giữ cả 2 phía**: VocabApp.py (header ngày của master + panel branch), gemini_safe.py (adaptive HEAD + dead-model master — cả 2 hệ thống đều được dùng ngoài conflict), database.py (canonical dedup + dict `{display, slug, num_days}`), pipeline.py (offline guard + wait_quota), course_generator.py (`ai_lang_name`), projectLog.md.
+- `get_available_languages()` trả list dict `{display, slug, num_days}` (App sort theo num_days, dùng slug) — cập nhật `tools/test_slug_canonical.py` + `verify_p0_fixes.py` theo format mới.
+- Test: `test_ai_rich` **85/85** · `tools/test_3mode` **41/41** (17 test mới: panel từ/ngữ pháp, dialog, log key) · slug **6/6** · `py_compile` OK. (`verify_p0_fixes` L-A fail "2 ngôn ngữ" là giới hạn worktree không có data thật — không phải hồi quy.)
+
+---
+## 📋 Cập nhật — 2026-10-30 (Fix sinh khóa AI: content rỗng)
 
 ### 🩹 VÌ SAO KHÓA MỚI MẤT QUIZ / MẪU CÂU / NGỮ PHÁP / ẢNH / AUDIO
 
