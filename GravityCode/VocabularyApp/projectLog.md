@@ -192,7 +192,36 @@
 > [`docs/UPGRADE_16.md`](docs/UPGRADE_16.md) — bản đồ kiến trúc, toàn bộ lệnh, giới hạn thật đã đo, 28 bug đã sửa.
 
 ---
-## 📋 Cập nhật mới nhất — 2026-10-31 (Panel chọn được + log xoay key + merge GitHub)
+## 📋 Cập nhật mới nhất — 2026-11-01 (Fix nút chế độ · bù ảnh thật · quản lý API key)
+
+### 🔧 1. 4 NÚT CHẾ ĐỘ HỌC — HÀNG RIÊNG, TO, CÓ TRẠNG THÁI ĐANG CHỌN
+
+**Bug:** 4 nút 📑📚📖🎧 bị pack vào `head` (height=64) SAU khi `head_inner` (`expand=True`) đã chiếm hết không gian ⇒ bị nén ~60px, chữ nhỏ xíu, chen chúc (ảnh người dùng báo "bố trí bị thu nhỏ và xấu").
+**Fix:** tách thành `mode_row` RIÊNG cao 52px ngay dưới header; nút 150×40, font bold 14; `StudyTab._mode_btns` + `_highlight_mode(mode)` (gọi từ `_load_mode`) tô sáng nút ĐANG CHỌN nền accent, chữ trắng — trước đây không biết đang ở chế độ nào.
+
+### 🖼️ 2. BÙ ẢNH THẬT CHO TỪ PLACEHOLDER — TOOL `tools/fix_placeholder_images.py`
+
+**Chẩn đoán:** 255 từ = 18 ảnh thật · 194 placeholder · 43 không ref. Nguyên nhân 2 tầng:
+1. **Cache âm của `dictionary_image`**: hồi sinh khóa, Wikimedia 429 rate-limit ⇒ hàng loạt từ bị ghi nhớ "KHÔNG có ảnh" đến 7 ngày (`NEGATIVE_CACHE_TTL`) ⇒ chạy lại cũng bỏ qua.
+2. **Từ kana/từ trừu tượng**: あ/い/う… không có bài Wikipedia (bài đều viết kanji); 発音/意味/勉強 không có ảnh minh họa phù hợp. Openverse cũng trả rỗng.
+
+**Tool** (`providers=["dict"]` — MIỄN PHÍ, 0 API key, 0 quota): đếm before → purge cache âm của đúng từ ngày đang xử lý (`--refresh-cache`) → `_stage_dict` tìm LIVE (không bao giờ đè ảnh thật đã có) → ghi course.json atomic + backup .bak1 → `flush_index()` manifest (bắt buộc — stage chỉ đánh dấu "unsaved").
+**Kết quả thật (24 ngày, chạy 2 lần):** 18 → **35 ảnh thật** (+17), placeholder 194 → 182, không ref 43 → 38. 182 còn lại đã xác minh LIVE: nguồn miễn phí thực sự không có — thumbnail tự fallback word-card chữ Nhật (thiết kế sẵn).
+
+### 🗂️ 3. QUẢN LÝ API KEY — `ApiKeyManagerDialog` (đồng bộ 3 dự án)
+
+**Mẫu:** GetHtmlFromUrl_Python `gui/key_manager_dialog.py` + AskCpl `setup_api_keys_tab`. VocabularyApp đã đọc key thẳng từ **AskCpl settings.json** (`_load_gemini_keys`) ⇒ thêm UI quản lý ghi thẳng vào CÙNG file nguồn chung (AskCpl · GetHtmlFromUrl · VocabApp tự sync).
+- Nút **🗂️ Quản lý API Key** ở tab Cài đặt (kế "🔑 Xem tất cả key").
+- Bảng: # · email · key mask (`AIzaSyAbCd…wxyz`) · 🟢Bật/🔴Tắt · ✅/❌ latency ms · ghi chú lỗi.
+- Nút: ➕ Thêm · ✏️ Sửa (`_KeyEditDialog`) · 🗑️ Xóa · ☑ Bật/Tắt · 🔍 Kiểm tra đã chọn · ⚡ Kiểm tra tất cả (thread nền — gọi THẬT Gemini "Hi", không đóng băng UI) · 💾 Lưu (**atomic + backup .bak1**, GIỮ nguyên mọi khóa khác trong settings.json, key luôn encode `ENC:`).
+- Helpers thuần (test không cần GUI): `keymgr_mask_key/decode_key/load_keys/save_keys/validate_key`.
+- **Lưu ý:** Bật/Tắt/Xóa/Thêm chỉ hiệu lực sau khi bấm 💾 Lưu; app đang chạy ở máy khác cần mở lại dialog để thấy thay đổi.
+
+### ✅ TEST (chạy thật)
+`tools/test_key_manager.py` **42/42** (encode/decode ENC:, mask, save/load roundtrip + backup + atomic, validate với requests giả lập 200/400/timeout, đủ method dialog) · `tools/test_3mode.py` 41/41 · `test_ai_rich.py` 85/85 · `test_slug_canonical` 6/6 · `py_compile` OK.
+
+---
+## 📋 Cập nhật — 2026-10-31 (Panel chọn được + log xoay key + merge GitHub)
 
 ### 📚 PANEL TỪ VỰNG CHỌN ĐƯỢC (thay dải thẻ ngang) + 📖 NGỮ PHÁP CLICK → CHI TIẾT
 

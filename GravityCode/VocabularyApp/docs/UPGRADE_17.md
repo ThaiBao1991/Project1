@@ -316,6 +316,26 @@ python -m api.model_catalog --refresh      # dò catalog thật (cần key)
 
 ---
 
+## 7.8. FIX NÚT CHẾ ĐỘ · BÙ ẢNH THẬT · QUẢN LÝ API KEY (2026-11-01)
+
+### 4 nút chế độ — hàng riêng, to, có trạng thái đang chọn
+- Bug: nút pack vào `head` (height=64) sau `head_inner` (`expand=True`) bị nén ~60px.
+- Fix: `mode_row` riêng 52px dưới header · nút 150×40 bold 14 · `_mode_btns` + `_highlight_mode(mode)` (gọi trong `_load_mode`) tô nút đang chọn nền accent.
+
+### Bù ảnh thật — `tools/fix_placeholder_images.py` (miễn phí, 0 key)
+- Nguyên nhân placeholder: (1) **cache âm** `dictionary_image` — Wikimedia 429 lúc sinh khóa ⇒ "không có ảnh" bị nhớ 7 ngày (`NEGATIVE_CACHE_TTL`); (2) từ kana/từ trừu tượng Wikipedia thực sự không có ảnh.
+- Tool: đếm before → `--refresh-cache` purge cache âm của từ ngày đang xử lý → `_stage_dict` LIVE (`providers=["dict"]`, không đè ảnh thật) → course.json atomic + `.bak1` → `media_store.flush_index()` (bắt buộc — không flush thì manifest mất entry mới khi thoát).
+- Kết quả thật 24 ngày: 18 → 35 ảnh thật · placeholder 194 → 182 (182 còn lại xác minh LIVE là không có nguồn miễn phí; thumbnail fallback word-card). Lệnh:
+  `python tools/fix_placeholder_images.py "tiếng_nhật" --days 1-24 --refresh-cache`
+
+### Quản lý API key — `ApiKeyManagerDialog` (VocabApp.py)
+- Nút 🗂️ ở tab Cài đặt · ghi thẳng **AskCpl settings.json** (nguồn chung AskCpl/GetHtmlFromUrl/VocabApp).
+- Bảng email · key mask · 🟢/🔴 · latency ms · Thêm/Sửa/Xóa/Bật-Tắt · 🔍/⚡ kiểm tra (thread nền, gọi thật Gemini "Hi") · 💾 Lưu atomic + backup `.bak1`, giữ nguyên khóa khác, key encode `ENC:`.
+- Helpers thuần test được: `keymgr_mask_key/decode_key/load_keys/save_keys/validate_key`; test `tools/test_key_manager.py` **42/42**.
+- Regression: test_3mode 41/41 · ai_rich 85/85 · slug 6/6 · py_compile OK.
+
+---
+
 ## 8. NGUYÊN TẮC BẮT BUỘC KHI SỬA TIẾP
 
 1. Đọc `projectLog.md` + `docs/UPGRADE_17.md` trước. Cập nhật cả 2 sau khi sửa.

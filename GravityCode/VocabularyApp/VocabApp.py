@@ -615,6 +615,414 @@ class GrammarDetailDialog(ctk.CTkToplevel):
 
 
 # ══════════════════════════════════════════════════════════════════════════════
+# QUẢN LÝ API KEY — nguồn chung AskCpl settings.json
+# (AskCpl · GetHtmlFromUrl_Python · VocabularyApp đọc/ghi CÙNG 1 file ⇒ tự sync)
+# ══════════════════════════════════════════════════════════════════════════════
+
+def keymgr_mask_key(raw: str) -> str:
+    """AIzaSyAbCd…wxyz — không bao giờ lộ key đầy đủ trong UI."""
+    k = (raw or "").strip()
+    if not k:
+        return "(trống)"
+    if len(k) <= 12:
+        return k[:4] + "…" + k[-2:]
+    return k[:10] + "…" + k[-4:]
+
+
+def keymgr_decode_key(entry: dict) -> str:
+    """Giải mã key của 1 entry (chuẩn ENC: đảo + base64 — dùng chung settings.decode_token)."""
+    raw = (entry or {}).get("key") or ""
+    if raw.startswith("ENC:"):
+        try:
+            from settings import decode_token
+            raw = decode_token(raw)
+        except Exception:
+            pass
+    return raw
+
+
+def keymgr_load_keys(path: str) -> list:
+    """Đọc danh sách key từ AskCpl settings.json (giữ nguyên shape entry)."""
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except Exception:
+        return []
+    return list(((data.get("gemini") or {}).get("api_keys")) or [])
+
+
+def keymgr_save_keys(path: str, keys: list) -> None:
+    """Ghi key vào AskCpl settings.json — GIỮ NGUYÊN khóa khác + atomic + backup.
+
+    Key luôn lưu dạng ENC: (chuẩn tương thích AskCpl/GetHtmlFromUrl).
+    Backup .bak1 chỉ tạo 1 lần (không đè backup gốc).
+    """
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except Exception:
+        data = {}
+    try:
+        from settings import encode_token
+    except Exception:
+        encode_token = lambda s: s  # noqa: E731
+    out = []
+    for k in keys:
+        item = dict(k)
+        raw = (item.get("key") or "").strip()
+        if raw and not raw.startswith("ENC:"):
+            item["key"] = encode_token(raw)
+        out.append(item)
+    data.setdefault("gemini", {})
+    data["gemini"]["api_keys"] = out
+    if os.path.exists(path):
+        bak = path + ".bak1"
+        if not os.path.exists(bak):
+            try:
+                import shutil
+                shutil.copy2(path, bak)
+            except Exception:
+                pass
+    tmp = path + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+    os.replace(tmp, path)
+
+
+def keymgr_validate_key(raw_key: str, timeout: int = 30):
+    """Gọi thật Gemini "Hi" để kiểm tra key. Trả (ok, message, latency_ms)."""
+    import time as _time
+    import requests
+    t0 = _time.time()
+    try:
+        r = requests.post(
+            "https://generativelanguage.googleapis.com/v1beta/models/"
+            "gemini-2.5-flash:generateContent",
+            headers={"x-goog-api-key": (raw_key or "").strip()},
+            json={"contents": [{"parts": [{"text": "Hi"}]}]},
+            timeout=timeout)
+        ms = int((_time.time() - t0) * 1000)
+        if r.status_code == 200:
+            return True, "Hợp lệ", ms
+        try:
+            msg = (r.json().get("error") or {}).get("message", r.text)[:80]
+        except Exception:
+            msg = (r.text or "")[:80]
+        return False, f"HTTP {r.status_code}: {msg}", ms
+    except Exception as e:
+        ms = int((_time.time() - t0) * 1000)
+        return False, f"{type(e).__name__}: {e}"[:80], ms
+
+
+class _KeyEditDialog(ctk.CTkToplevel):
+    """Hộp thoại Thêm/Sửa 1 key (email · key · project_id · ghi chú)."""
+
+    def __init__(self, parent, entry=None):
+        super().__init__(parent)
+        self.title("Sửa key" if entry else "Thêm key mới")
+        self.geometry("520x300")
+        self.configure(fg_color=C["bg"])
+        self.transient(parent)
+        self.grab_set()
+        self.result = None
+        e = entry or {}
+
+        box = ctk.CTkFrame(self, fg_color="transparent")
+        box.pack(fill="both", expand=True, padx=16, pady=14)
+        self.ents = {}
+        for row, (fld, label, show) in enumerate((
+                ("email", "Email:", None),
+                ("key", "API Key:", "*"),
+                ("project_id", "Project ID (tùy chọn):", None),
+                ("note", "Ghi chú (tùy chọn):", None))):
+            lbl(box, label, 13, "bold", C["accent"]).grid(
+                row=row, column=0, sticky="w", pady=6, padx=(0, 8))
+            ent = ctk.CTkEntry(box, width=360, height=32, show=show or "")
+            ent.grid(row=row, column=1, sticky="we", pady=6)
+            v = str(e.get(fld) or "")
+            if fld == "key":
+                v = keymgr_decode_key(e) if e else ""
+            if v:
+                ent.insert(0, v)
+            self.ents[fld] = ent
+        box.grid_columnconfigure(1, weight=1)
+
+        brow = ctk.CTkFrame(self, fg_color="transparent")
+        brow.pack(fill="x", padx=16, pady=(0, 12))
+        btn(brow, "✔ Lưu", C["success"], "#018786", w=110, h=34,
+            cmd=self._ok).pack(side="right", padx=4)
+        btn(brow, "✖ Hủy", C["card2"], C["danger"], w=110, h=34,
+            cmd=self.destroy).pack(side="right", padx=4)
+        self.bind("<Escape>", lambda _e: self.destroy())
+        self.ents["email"].focus_set()
+
+    def _ok(self):
+        key = self.ents["key"].get().strip()
+        if not key:
+            self.ents["key"].focus_set()
+            return
+        self.result = {fld: ent.get().strip() for fld, ent in self.ents.items()}
+        self.destroy()
+
+
+class ApiKeyManagerDialog(ctk.CTkToplevel):
+    """Bảng quản lý Gemini API key — ghi thẳng AskCpl settings.json (nguồn chung).
+
+    Cùng mẫu UX với GetHtmlFromUrl_Python/gui/key_manager_dialog.py:
+    bảng email · key (mask) · trạng thái · nút Thêm/Sửa/Xóa/Bật-Tắt/Kiểm tra/
+    Lưu; kiểm tra gọi THẬT Gemini "Hi" trên nền (thread) + đo latency ms.
+    """
+
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.title("🗂️ Quản lý API Key — nguồn chung AskCpl settings.json")
+        self.geometry("960x620")
+        self.configure(fg_color=C["bg"])
+        self.transient(parent)
+        self.grab_set()
+        self._keys = []
+        self._sel = None           # idx dòng đang chọn
+        self._validating = False
+        self._path = self._settings_path()
+        self._load()
+        self._build()
+        self._render()
+        self.bind("<Escape>", lambda _e: self.destroy())
+
+    # ── đường dẫn / dữ liệu ──────────────────────────────────────────────────
+    @staticmethod
+    def _settings_path():
+        try:
+            from ai.course_generator import askcpl_settings_path
+            return askcpl_settings_path()
+        except Exception:
+            return ""
+
+    def _load(self):
+        self._keys = keymgr_load_keys(self._path) if self._path else []
+
+    def _save(self):
+        if not self._path:
+            self._log("❌ Không tìm thấy AskCpl settings.json — không lưu được.")
+            return
+        try:
+            keymgr_save_keys(self._path, self._keys)
+            self._log(f"💾 Đã lưu {len(self._keys)} key → {self._path}")
+        except Exception as e:
+            self._log(f"❌ Lỗi lưu: {type(e).__name__}: {e}")
+
+    # ── UI ───────────────────────────────────────────────────────────────────
+    def _build(self):
+        top = ctk.CTkFrame(self, fg_color="transparent")
+        top.pack(fill="x", padx=14, pady=(10, 4))
+        lbl(top, "Gemini API Keys", 16, "bold", C["accent"]).pack(side="left")
+        self.lbl_sum = lbl(top, "", 12, color=C["muted"])
+        self.lbl_sum.pack(side="left", padx=14)
+        lbl(top, f"📄 {self._path}", 10, color=C["muted"]).pack(side="right")
+
+        ctrl = ctk.CTkFrame(self, fg_color="transparent")
+        ctrl.pack(fill="x", padx=14, pady=2)
+        _bc = {"width": 108, "height": 32, "corner_radius": 6}
+        btn(ctrl, "➕ Thêm", C["success"], "#018786", **_bc,
+            cmd=self._add).pack(side="left", padx=3)
+        btn(ctrl, "✏️ Sửa", C["card2"], C["accent"], **_bc,
+            cmd=self._edit).pack(side="left", padx=3)
+        btn(ctrl, "🗑️ Xóa", C["card2"], C["danger"], **_bc,
+            cmd=self._delete).pack(side="left", padx=3)
+        btn(ctrl, "☑ Bật/Tắt", C["card2"], C["warn"], **_bc,
+            cmd=self._toggle).pack(side="left", padx=3)
+        btn(ctrl, "🔍 Kiểm tra đã chọn", C["card2"], C["accent"],
+            width=150, height=32, cmd=lambda: self._check([self._sel])).pack(side="left", padx=3)
+        self._btn_check_all = btn(ctrl, "⚡ Kiểm tra tất cả", C["warn"], "#d97706",
+                                  width=140, height=32, cmd=self._check_all)
+        self._btn_check_all.pack(side="left", padx=3)
+        btn(ctrl, "💾 Lưu", C["success"], "#018786", **_bc,
+            cmd=self._save).pack(side="right", padx=3)
+
+        # Bảng
+        head = ctk.CTkFrame(self, fg_color=C["sidebar"], corner_radius=6, height=30)
+        head.pack(fill="x", padx=14, pady=(6, 2))
+        head.pack_propagate(False)
+        for w, t in ((40, "#"), (250, "Email"), (190, "Key (đã mask)"),
+                     (110, "Trạng thái"), (150, "Kiểm tra"), (120, "Ghi chú")):
+            lbl(head, t, 11, "bold", C["accent"]).pack(
+                side="left", padx=(8, 0), pady=6, width=w)
+        self.tbl = ctk.CTkScrollableFrame(self, fg_color=C["card"], corner_radius=8)
+        self.tbl.pack(fill="both", expand=True, padx=14, pady=(0, 6))
+
+        self._log_box = ctk.CTkTextbox(self, height=70, fg_color="#0d1117",
+                                       text_color="#00e676", font=("Consolas", 10),
+                                       state="disabled")
+        self._log_box.pack(fill="x", padx=14, pady=(0, 10))
+
+    def _render(self):
+        for w in (self.tbl.winfo_children() or []):
+            w.destroy()
+        n_on = sum(1 for k in self._keys if str(k.get("status") or "active") == "active")
+        self.lbl_sum.configure(text=f"Tổng {len(self._keys)} key — {n_on} đang bật")
+        if not self._keys:
+            lbl(self.tbl, "— Chưa có key nào (bấm ➕ Thêm) —", 12,
+                color=C["muted"]).pack(pady=24)
+            return
+        for i, k in enumerate(self._keys):
+            sel = (i == self._sel)
+            row = ctk.CTkFrame(self.tbl,
+                               fg_color=C["accent"] if sel else C["card2"],
+                               corner_radius=6, height=34)
+            row.pack(fill="x", padx=4, pady=2)
+            row.pack_propagate(False)
+            on = str(k.get("status") or "active") == "active"
+            last = k.get("error_msg") or ""
+            lat = k.get("latency_ms")
+            w_no = lbl(row, str(i + 1), 11, color=C["muted"], width=32)
+            w_no.pack(side="left", padx=(8, 0), pady=6)
+            w_mail = lbl(row, (k.get("email") or "(không có email)"), 11, width=240)
+            w_mail.pack(side="left", padx=(0, 4), pady=6)
+            w_key = lbl(row, keymgr_mask_key(keymgr_decode_key(k)), 11,
+                        color=C["muted"], width=180)
+            w_key.pack(side="left", padx=(0, 4), pady=6)
+            btn(row, "🟢 Bật" if on else "🔴 Tắt",
+                C["success"] if on else C["danger"],
+                "#018786" if on else "#b91c1c", w=80, h=24,
+                cmd=lambda ii=i: self._toggle_at(ii)).pack(side="left", padx=6)
+            res = ("—" if lat is None else
+                   (f"✅ {lat}ms" if not last else f"❌ {lat}ms"))
+            w_res = lbl(row, res, 11,
+                        color=C["success"] if (lat is not None and not last)
+                        else (C["danger"] if last else C["muted"]),
+                        width=140)
+            w_res.pack(side="left", padx=(0, 4), pady=6)
+            w_note = lbl(row, (last[:28] + "…") if len(last) > 28 else last, 10,
+                         color=C["muted"], width=160)
+            w_note.pack(side="left", padx=(0, 6), pady=6)
+            # Tk KHÔNG bubbling event lên widget cha → bind trên MỌI widget con
+            # (label không tự xử lý click nên giờ click đâu cũng chọn được dòng).
+            for wdg in (row, w_no, w_mail, w_key, w_res, w_note):
+                wdg.bind("<Button-1>", lambda _e, ii=i: self._select(ii))
+
+    def _select(self, i):
+        self._sel = i
+        self._render()
+
+    def _log(self, msg):
+        try:
+            self._log_box.configure(state="normal")
+            self._log_box.insert("end", msg + "\n")
+            self._log_box.see("end")
+            self._log_box.configure(state="disabled")
+        except Exception:
+            pass
+
+    # ── thao tác ─────────────────────────────────────────────────────────────
+    def _add(self):
+        dlg = _KeyEditDialog(self)
+        self.wait_window(dlg)
+        if dlg.result:
+            e = dict(dlg.result)
+            e.setdefault("type", "GEMINI API")
+            e.setdefault("status", "active")
+            self._keys.append(e)
+            self._sel = len(self._keys) - 1
+            self._render()
+            self._log(f"➕ Thêm key {keymgr_mask_key(keymgr_decode_key(e))} "
+                      f"({e.get('email') or 'không email'}) — bấm 💾 Lưu để ghi file.")
+
+    def _edit(self):
+        if self._sel is None:
+            self._log("⚠ Chọn 1 dòng trước khi ✏️ Sửa.")
+            return
+        dlg = _KeyEditDialog(self, self._keys[self._sel])
+        self.wait_window(dlg)
+        if dlg.result:
+            old = self._keys[self._sel]
+            old.update(dlg.result)
+            self._render()
+            self._log(f"✏️ Đã sửa dòng {self._sel + 1} — bấm 💾 Lưu để ghi file.")
+
+    def _delete(self):
+        if self._sel is None:
+            self._log("⚠ Chọn 1 dòng trước khi 🗑️ Xóa.")
+            return
+        k = self._keys.pop(self._sel)
+        self._sel = None
+        self._render()
+        self._log(f"🗑️ Đã xóa {keymgr_mask_key(keymgr_decode_key(k))} "
+                  f"({k.get('email') or 'không email'}) — bấm 💾 Lưu để ghi file.")
+
+    def _toggle_at(self, i):
+        k = self._keys[i]
+        k["status"] = "disabled" if str(k.get("status") or "active") == "active" else "active"
+        self._render()
+
+    def _toggle(self):
+        if self._sel is None:
+            self._log("⚠ Chọn 1 dòng trước khi ☑ Bật/Tắt.")
+            return
+        self._toggle_at(self._sel)
+
+    # ── kiểm tra key (thread nền — không đóng băng UI) ───────────────────────
+    def _check_all(self):
+        self._check(list(range(len(self._keys))))
+
+    def _check(self, idxs):
+        if self._validating:
+            self._log("⏳ Đang kiểm tra — đợi lượt hiện tại xong.")
+            return
+        jobs = [(i, keymgr_decode_key(self._keys[i])) for i in idxs
+                if i is not None and 0 <= i < len(self._keys)]
+        jobs = [(i, raw) for i, raw in jobs if raw]
+        if not jobs:
+            self._log("⚠ Không có key nào để kiểm tra.")
+            return
+        self._validating = True
+        self._btn_check_all.configure(state="disabled")
+        self._log(f"🔍 Đang kiểm tra {len(jobs)} key (gọi thật Gemini 'Hi')...")
+        import threading as _threading
+        _threading.Thread(target=self._check_worker, args=(jobs,), daemon=True).start()
+
+    def _check_worker(self, jobs):
+        for i, raw in jobs:
+            ok, msg, ms = keymgr_validate_key(raw)
+            try:
+                self.after(0, lambda ii=i, o=ok, m=msg, l=ms: self._on_check_result(ii, o, m, l))
+            except Exception:
+                pass
+        try:
+            self.after(0, self._check_done)
+        except Exception:
+            pass
+
+    def _on_check_result(self, i, ok, msg, ms):
+        if not (0 <= i < len(self._keys)):
+            return
+        k = self._keys[i]
+        k["status"] = "active" if ok else "disabled"
+        try:
+            from datetime import datetime
+            k["last_check_time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        except Exception:
+            pass
+        k["error_msg"] = "" if ok else msg
+        k["latency_ms"] = ms
+        self._render()
+        tag = "✅" if ok else "❌"
+        self._log(f"{tag} Key {i + 1} ({k.get('email') or 'không email'}): {msg} — {ms}ms"
+                  + ("" if ok else " → tắt key."))
+        if ok and self._sel is None:
+            self._sel = i
+
+    def _check_done(self):
+        self._validating = False
+        try:
+            self._btn_check_all.configure(state="normal")
+        except Exception:
+            pass
+        n_on = sum(1 for k in self._keys if str(k.get("status") or "active") == "active")
+        self._log(f"✔ Xong — {n_on}/{len(self._keys)} key đang bật. "
+                  f"Bấm 💾 Lưu để giữ kết quả vào AskCpl settings.json.")
+
+
+# ══════════════════════════════════════════════════════════════════════════════
 # Media Viewer Dialog — xem word-card/ảnh lớn + phát audio từng từ
 # ══════════════════════════════════════════════════════════════════════════════
 class MediaViewerDialog(ctk.CTkToplevel):
@@ -2212,6 +2620,9 @@ class ModelSettingsDialog(ctk.CTkToplevel):
         self._btn_keys = btn(disc, "🔑 Xem tất cả key", C["card2"], C["accent"],
                              width=120, height=34, cmd=self._do_show_all_keys)
         self._btn_keys.pack(side="left", padx=(2, 6))
+        btn(disc, "🗂️ Quản lý API Key", C["card2"], C["warn"],
+            width=140, height=34,
+            cmd=lambda: ApiKeyManagerDialog(self.winfo_toplevel())).pack(side="left", padx=(2, 6))
         ctk.CTkCheckBox(disc, text="Tự động ưu tiên model tốt nhất",
                         variable=self._adaptive_var, command=self._on_adaptive_toggle,
                         fg_color=C["accent"]).pack(side="left", padx=(10, 2))
@@ -3702,12 +4113,27 @@ class StudyTab(ctk.CTkFrame):
         btn(head, "🗑️ Xóa khóa & tiến độ", C["card2"], C["danger"], w=150, h=32,
             cmd=self._delete_course).pack(side="right", padx=3)
 
-        # ── 4 CHẾ ĐỘ HỌC (lọc bài đang xem) ──
-        for lbl_text, cmd in (("📑 Tất cả", lambda: self._load_mode("full")),
-                               ("📚 Từ vựng", lambda: self._load_mode("vocab")),
-                               ("📖 Ngữ pháp", lambda: self._load_mode("grammar")),
-                               ("🎧 Hội thoại", lambda: self._load_mode("dialogue"))):
-            btn(head, lbl_text, C["card2"], C["accent"], w=92, h=32, cmd=cmd).pack(side="left", padx=3)
+        # ── 4 CHẾ ĐỘ HỌC — hàng RIÊNG ngay dưới header ──
+        # BUG ĐÃ SỬA: trước đây 4 nút bị pack vào `head` (height=64) SAU khi
+        # head_inner (expand=True) đã chiếm hết không gian ⇒ bị nén còn ~60px,
+        # chữ nhỏ xíu, 4 nút chen chúc. Giờ có hàng riêng cao 52px, nút 150×40,
+        # font bold 14 + nút ĐANG CHỌN được tô sáng (trước đây không biết đang
+        # ở chế độ nào).
+        mode_row = ctk.CTkFrame(self, fg_color="transparent", height=52)
+        mode_row.pack(fill="x", padx=14, pady=(6, 2))
+        mode_row.pack_propagate(False)
+        lbl(mode_row, "Chế độ học:", 13, "bold", C["muted"]).pack(side="left", padx=(2, 10))
+        self._mode_btns = {}     # mode → nút (tô sáng nút đang chọn)
+        for _mode, _text in (("full", "📑 Tất cả"), ("vocab", "📚 Từ vựng"),
+                              ("grammar", "📖 Ngữ pháp"), ("dialogue", "🎧 Hội thoại")):
+            _b = ctk.CTkButton(
+                mode_row, text=_text, width=150, height=40,
+                fg_color=C["card2"], hover_color=C["accent"],
+                font=ctk.CTkFont(size=14, weight="bold"), text_color=C["text"],
+                command=lambda m=_mode: self._load_mode(m))
+            _b.pack(side="left", padx=4)
+            self._mode_btns[_mode] = _b
+        self._highlight_mode("full")
 
         # ── Khung Flashcard (Từ vựng tự học) ──
         self.flash_frame = ctk.CTkFrame(self, fg_color="transparent")
@@ -4645,11 +5071,22 @@ class StudyTab(ctk.CTkFrame):
             self._flipped = False
             self._render_card()
 
+    def _highlight_mode(self, mode: str):
+        """Tô sáng nút chế độ ĐANG CHỌN (nền accent); các nút còn lại mặc định."""
+        for m, b in (getattr(self, "_mode_btns", None) or {}).items():
+            try:
+                active = (m == mode)
+                b.configure(fg_color=C["accent"] if active else C["card2"],
+                            text_color="#ffffff" if active else C["text"])
+            except Exception:
+                pass
+
     def _load_mode(self, mode: str):
         """📚/📖/🎧/📑 Lọc bài đang xem theo chế độ — render vào ô nội dung ĐANG HIỂN THỊ."""
         if mode not in ("full", "vocab", "grammar", "dialogue"):
             return
         self._study_mode = mode
+        self._highlight_mode(mode)
         # Đang ở nguồn tự học/SRS → tự chuyển sang Khóa học AI (khóa phải có sẵn)
         if self.cb_source.get() != SOURCE_AI:
             if not (self._course or {}).get("days"):
