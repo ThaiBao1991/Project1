@@ -643,8 +643,8 @@ class TranslateDialog(QDialog):
         """Mở hộp thoại Quản lý API Key riêng của dự án."""
         from gui.key_manager_dialog import ApiKeyManagerDialog
         dlg = ApiKeyManagerDialog(parent=self)
-        if dlg.exec():
-            self._auto_load_keys()
+        dlg.exec()
+        self._auto_load_keys()  # Luôn đồng bộ lại ô txt_api_keys kể cả khi đóng bằng [X] hay nút Đóng
 
     def _on_open_model_priority(self):
         """Mở hộp thoại Cài đặt Thứ tự Ưu tiên & Auto Discover Model chuẩn AskCpl."""

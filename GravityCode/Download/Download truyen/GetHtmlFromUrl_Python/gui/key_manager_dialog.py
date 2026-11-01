@@ -1,16 +1,19 @@
 import os
 import time
+from typing import List
 from PyQt6.QtWidgets import (
     QDialog, QVBoxLayout, QHBoxLayout, QLabel, 
     QPushButton, QTableWidget, QTableWidgetItem, QHeaderView,
     QMessageBox, QInputDialog, QLineEdit, QGroupBox, QMenu
 )
 from PyQt6.QtCore import Qt, QThread, pyqtSignal
-from PyQt6.QtGui import QColor, QBrush, QFont
+from PyQt6.QtGui import QColor, QBrush, QFont, QAction
 
 from core.key_manager import (
     load_local_keys, save_local_keys, encode_token, decode_token,
-    mask_key, sync_from_askcpl, sync_to_askcpl, validate_key
+    mask_key, sync_from_askcpl, sync_to_askcpl, validate_key,
+    sync_merge_two_way, overwrite_from_askcpl, overwrite_to_askcpl,
+    remove_keys_from_askcpl, ASKCPL_SETTINGS_PATH
 )
 
 
@@ -112,20 +115,29 @@ class ApiKeyManagerDialog(QDialog):
     """Giao diện chính Quản Lý API Keys của GetHtmlFromUrl."""
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setWindowTitle("🔑 Quản Lý Gemini API Keys (Độc Lập)")
-        self.resize(800, 520)
+        self.setWindowTitle("🔑 Quản Lý Gemini API Keys (Độc Lập & Đồng Bộ AskCpl)")
+        self.resize(860, 540)
         self.keys_data = load_local_keys()
         self.validation_worker = None
         self._build_ui()
         self._refresh_table()
+
+    def keyPressEvent(self, event):
+        """Bắt sự kiện phím Delete trên bàn phím để xóa nhanh các dòng đã chọn."""
+        if event.key() == Qt.Key.Key_Delete:
+            self._on_delete_key()
+            event.accept()
+        else:
+            super().keyPressEvent(event)
 
     def _build_ui(self):
         layout = QVBoxLayout(self)
 
         # Thanh hướng dẫn
         lbl_info = QLabel(
-            "Quản lý danh sách Google Gemini API Keys được lưu trữ độc lập trong dự án (config/gemini_keys.json).\n"
-            "Bạn có thể nạp, chỉnh sửa, kiểm tra trạng thái sống của key hoặc đồng bộ 2 chiều với AskCpl."
+            "Quản lý danh sách Google Gemini API Keys (lưu tại config/gemini_keys.json).\n"
+            "• Hỗ trợ chọn nhiều dòng (giữ Shift/Ctrl/kéo chuột) để Xóa hàng loạt bằng nút hoặc phím Delete.\n"
+            "• Đồng bộ 2 chiều với AskCpl để 2 ứng dụng luôn sở hữu chung 100% danh sách key."
         )
         lbl_info.setStyleSheet("color: #424242; font-size: 12px; margin-bottom: 4px;")
         lbl_info.setWordWrap(True)
@@ -142,18 +154,20 @@ class ApiKeyManagerDialog(QDialog):
         btn_edit.clicked.connect(self._on_edit_key)
         tb_layout.addWidget(btn_edit)
 
-        btn_del = QPushButton("🗑️ Xóa")
-        btn_del.setStyleSheet("color: #c62828;")
+        btn_del = QPushButton("🗑️ Xóa (Delete)")
+        btn_del.setStyleSheet("color: #c62828; font-weight: bold;")
+        btn_del.setToolTip("Xóa một hoặc nhiều key đã chọn (Phím tắt: Delete)")
         btn_del.clicked.connect(self._on_delete_key)
         tb_layout.addWidget(btn_del)
 
         btn_toggle = QPushButton("☑/☒ Bật / Tắt")
+        btn_toggle.setToolTip("Bật hoặc tắt trạng thái các key đã chọn")
         btn_toggle.clicked.connect(self._on_toggle_status)
         tb_layout.addWidget(btn_toggle)
 
         tb_layout.addSpacing(15)
 
-        btn_test_sel = QPushButton("🔍 Kiểm Tra Key Đã Chọn")
+        btn_test_sel = QPushButton("🔍 Kiểm Tra Đã Chọn")
         btn_test_sel.clicked.connect(self._on_test_selected)
         tb_layout.addWidget(btn_test_sel)
 
@@ -161,6 +175,12 @@ class ApiKeyManagerDialog(QDialog):
         btn_test_all.setStyleSheet("color: #6a1b9a; font-weight: 500;")
         btn_test_all.clicked.connect(self._on_test_all)
         tb_layout.addWidget(btn_test_all)
+
+        btn_clean_invalid = QPushButton("🧹 Xóa Key Lỗi")
+        btn_clean_invalid.setStyleSheet("color: #d32f2f;")
+        btn_clean_invalid.setToolTip("Tự động xóa tất cả các key có kết quả kiểm tra thất bại (đỏ ❌)")
+        btn_clean_invalid.clicked.connect(self._on_clean_invalid_keys)
+        tb_layout.addWidget(btn_clean_invalid)
 
         tb_layout.addStretch()
         layout.addLayout(tb_layout)
@@ -177,7 +197,9 @@ class ApiKeyManagerDialog(QDialog):
         self.table.horizontalHeader().setSectionResizeMode(4, QHeaderView.ResizeMode.Stretch)
         self.table.setColumnWidth(1, 180)
         self.table.setColumnWidth(2, 220)
+        # Hỗ trợ chọn nhiều dòng (ExtendedSelection)
         self.table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
+        self.table.setSelectionMode(QTableWidget.SelectionMode.ExtendedSelection)
         self.table.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
         self.table.doubleClicked.connect(self._on_edit_key)
         layout.addWidget(self.table)
@@ -185,15 +207,36 @@ class ApiKeyManagerDialog(QDialog):
         # ── Thanh đồng bộ & Lưu ─────────────────────────────────
         bottom_layout = QHBoxLayout()
 
-        btn_sync_from = QPushButton("📥 Nhập Từ AskCpl")
-        btn_sync_from.setToolTip("Đọc tất cả keys từ AskCpl settings.json và gộp vào danh sách riêng của dự án này")
-        btn_sync_from.clicked.connect(self._on_sync_from_askcpl)
-        bottom_layout.addWidget(btn_sync_from)
+        btn_sync_twoway = QPushButton("🔄 Đồng Bộ 2 Chiều (AskCpl)")
+        btn_sync_twoway.setStyleSheet("background-color: #0288d1; color: white; font-weight: bold; padding: 6px 12px;")
+        btn_sync_twoway.setToolTip("Hợp nhất tất cả keys của cả 2 bên: Cả GetHtmlFromUrl và AskCpl đều sẽ có cùng danh sách đầy đủ nhất 100%")
+        btn_sync_twoway.clicked.connect(self._on_sync_merge_twoway)
+        bottom_layout.addWidget(btn_sync_twoway)
 
-        btn_sync_to = QPushButton("📤 Xuất Sang AskCpl")
-        btn_sync_to.setToolTip("Gửi các keys đang có sang AskCpl settings.json để dùng chung")
-        btn_sync_to.clicked.connect(self._on_sync_to_askcpl)
-        bottom_layout.addWidget(btn_sync_to)
+        btn_sync_menu = QPushButton("⚙️ Tùy Chọn AskCpl ▾")
+        btn_sync_menu.setToolTip("Các tùy chọn đồng bộ chuyên sâu: Nhập, Xuất, Ghi đè")
+        menu_sync = QMenu(self)
+        
+        act_import = QAction("📥 Nhập Thêm từ AskCpl (Không ghi đè)", self)
+        act_import.triggered.connect(self._on_sync_from_askcpl)
+        menu_sync.addAction(act_import)
+
+        act_export = QAction("📤 Xuất Thêm sang AskCpl (Không ghi đè)", self)
+        act_export.triggered.connect(self._on_sync_to_askcpl)
+        menu_sync.addAction(act_export)
+
+        menu_sync.addSeparator()
+
+        act_overwrite_from = QAction("📥 Ghi Đè 100% từ AskCpl sang Đây", self)
+        act_overwrite_from.triggered.connect(self._on_overwrite_from_askcpl)
+        menu_sync.addAction(act_overwrite_from)
+
+        act_overwrite_to = QAction("📤 Ghi Đè 100% từ Đây sang AskCpl", self)
+        act_overwrite_to.triggered.connect(self._on_overwrite_to_askcpl)
+        menu_sync.addAction(act_overwrite_to)
+
+        btn_sync_menu.setMenu(menu_sync)
+        bottom_layout.addWidget(btn_sync_menu)
 
         bottom_layout.addStretch()
 
@@ -207,10 +250,20 @@ class ApiKeyManagerDialog(QDialog):
         bottom_layout.addWidget(btn_save)
 
         btn_close = QPushButton("Đóng")
-        btn_close.clicked.connect(self.close)
+        btn_close.clicked.connect(self.accept)
         bottom_layout.addWidget(btn_close)
 
         layout.addLayout(bottom_layout)
+
+    def _notify_pool_update(self):
+        """Thông báo cho AccountPool đang chạy (in-memory) cập nhật tức thì danh sách key sau khi thêm/sửa/xóa."""
+        try:
+            from core.ai_translator import get_shared_account_pool, load_configured_key_objects, enrich_key_objects
+            pool = get_shared_account_pool()
+            raw_objs = load_configured_key_objects()
+            pool.sync(enrich_key_objects(raw_objs))
+        except Exception as e:
+            pass
 
     def _refresh_table(self):
         self.table.setRowCount(len(self.keys_data))
@@ -245,11 +298,19 @@ class ApiKeyManagerDialog(QDialog):
 
         self.lbl_summary.setText(f"Tổng cộng: {len(self.keys_data)} keys ({active_count} đang bật)")
 
+    def _get_selected_rows(self) -> List[int]:
+        """Lấy danh sách các chỉ số dòng được chọn, sắp xếp giảm dần (để pop không bị lệch)."""
+        selection_model = self.table.selectionModel()
+        if not selection_model:
+            return []
+        rows = sorted(list({idx.row() for idx in selection_model.selectedRows()}), reverse=True)
+        if not rows:
+            rows = sorted(list({idx.row() for idx in self.table.selectedIndexes()}), reverse=True)
+        return rows
+
     def _get_selected_row(self) -> int:
-        selected = self.table.selectedIndexes()
-        if not selected:
-            return -1
-        return selected[0].row()
+        rows = self._get_selected_rows()
+        return rows[0] if rows else -1
 
     def _on_add_key(self):
         dlg = ApiKeyEditDialog(parent=self)
@@ -289,46 +350,123 @@ class ApiKeyManagerDialog(QDialog):
             save_local_keys(self.keys_data)
 
     def _on_delete_key(self):
-        row = self._get_selected_row()
-        if row < 0 or row >= len(self.keys_data):
-            QMessageBox.warning(self, "Chọn dòng", "Vui lòng chọn một dòng để xóa!")
+        """Xóa 1 hoặc nhiều API key được chọn bằng nút hoặc phím Delete."""
+        rows = self._get_selected_rows()
+        if not rows:
+            QMessageBox.warning(self, "Chọn dòng", "Vui lòng chọn ít nhất một dòng để xóa! (Giữ Shift hoặc Ctrl để chọn nhiều).")
             return
-        item = self.keys_data[row]
-        email = item.get("email", "Không tên")
+        count = len(rows)
+        if count == 1:
+            row = rows[0]
+            item = self.keys_data[row]
+            email = item.get("email", "Không tên")
+            msg = f"Bạn có chắc muốn xóa API key của tài khoản '{email}'?"
+        else:
+            msg = f"Bạn có chắc muốn xóa {count} API keys đã chọn?"
+
         reply = QMessageBox.question(
             self, "Xác nhận xóa",
-            f"Bạn có chắc muốn xóa API key của tài khoản '{email}'?",
+            msg,
             QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
         )
         if reply == QMessageBox.StandardButton.Yes:
-            self.keys_data.pop(row)
+            deleted_raw = []
+            for r in rows:
+                raw = decode_token(self.keys_data[r].get("key", ""))
+                if raw:
+                    deleted_raw.append(raw)
+                self.keys_data.pop(r)
+
             self._refresh_table()
             save_local_keys(self.keys_data)
+            self._notify_pool_update()
+
+            if os.path.exists(ASKCPL_SETTINGS_PATH) and deleted_raw:
+                ask_reply = QMessageBox.question(
+                    self, "Đồng bộ xóa với AskCpl",
+                    f"Đã xóa {count} keys khỏi cấu hình GetHtmlFromUrl.\n\n"
+                    f"Bạn có muốn xóa đồng thời các key này trong AskCpl để giữ 2 bên luôn đồng nhất không?",
+                    QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+                )
+                if ask_reply == QMessageBox.StandardButton.Yes:
+                    removed = remove_keys_from_askcpl(deleted_raw)
+                    QMessageBox.information(self, "Thông báo", f"Đã xóa thành công {removed} key tương ứng trong AskCpl!")
 
     def _on_toggle_status(self):
-        row = self._get_selected_row()
-        if row < 0 or row >= len(self.keys_data):
+        """Bật/tắt trạng thái cho 1 hoặc nhiều key được chọn."""
+        rows = self._get_selected_rows()
+        if not rows:
             return
-        item = self.keys_data[row]
-        cur = item.get("status", "active")
-        item["status"] = "disabled" if cur == "active" else "active"
+        any_active = any(self.keys_data[r].get("status", "active") == "active" for r in rows)
+        new_status = "disabled" if any_active else "active"
+        for r in rows:
+            self.keys_data[r]["status"] = new_status
         self._refresh_table()
         save_local_keys(self.keys_data)
 
-    def _on_test_selected(self):
-        row = self._get_selected_row()
-        if row < 0 or row >= len(self.keys_data):
-            QMessageBox.warning(self, "Chọn dòng", "Vui lòng chọn một key để kiểm tra!")
+    def _on_clean_invalid_keys(self):
+        """Quét và xóa toàn bộ các key bị đánh dấu đỏ ❌ sau khi kiểm tra."""
+        invalid_rows = []
+        for r in range(self.table.rowCount()):
+            it = self.table.item(r, 4)
+            if it and "❌" in it.text():
+                invalid_rows.append(r)
+
+        if not invalid_rows:
+            QMessageBox.information(
+                self, "Thông báo",
+                "Không tìm thấy key lỗi nào (❌).\n"
+                "Hãy bấm '⚡ Kiểm Tra Tất Cả' để quét tình trạng key trước khi dọn rác."
+            )
             return
-        raw = decode_token(self.keys_data[row].get("key", ""))
-        self.table.setItem(row, 4, QTableWidgetItem("⏳ Đang kiểm tra..."))
-        ok, msg, ms = validate_key(raw)
-        it = QTableWidgetItem(f"{'✅' if ok else '❌'} {msg}")
-        if ok:
-            it.setForeground(QBrush(QColor("#2e7d32")))
-        else:
-            it.setForeground(QBrush(QColor("#c62828")))
-        self.table.setItem(row, 4, it)
+
+        # Sắp xếp giảm dần để xóa an toàn
+        invalid_rows.sort(reverse=True)
+        count = len(invalid_rows)
+        reply = QMessageBox.question(
+            self, "Xác nhận dọn key lỗi",
+            f"Tìm thấy {count} API key bị lỗi (đỏ ❌).\n\n"
+            f"Bạn có muốn xóa toàn bộ {count} key lỗi này khỏi danh sách không?",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+        )
+        if reply == QMessageBox.StandardButton.Yes:
+            deleted_raw = []
+            for r in invalid_rows:
+                raw = decode_token(self.keys_data[r].get("key", ""))
+                if raw:
+                    deleted_raw.append(raw)
+                self.keys_data.pop(r)
+
+            self._refresh_table()
+            save_local_keys(self.keys_data)
+            self._notify_pool_update()
+
+            if os.path.exists(ASKCPL_SETTINGS_PATH) and deleted_raw:
+                ask_reply = QMessageBox.question(
+                    self, "Dọn dẹp cả bên AskCpl",
+                    f"Đã xóa {count} key lỗi khỏi GetHtmlFromUrl.\n\n"
+                    f"Bạn có muốn xóa luôn các key hỏng này trong AskCpl không?",
+                    QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+                )
+                if ask_reply == QMessageBox.StandardButton.Yes:
+                    removed = remove_keys_from_askcpl(deleted_raw)
+                    QMessageBox.information(self, "Thông báo", f"Đã xóa {removed} key lỗi khỏi AskCpl!")
+
+    def _on_test_selected(self):
+        rows = self._get_selected_rows()
+        if not rows:
+            QMessageBox.warning(self, "Chọn dòng", "Vui lòng chọn ít nhất một key để kiểm tra!")
+            return
+        for row in rows:
+            raw = decode_token(self.keys_data[row].get("key", ""))
+            self.table.setItem(row, 4, QTableWidgetItem("⏳ Đang kiểm tra..."))
+            ok, msg, ms = validate_key(raw)
+            it = QTableWidgetItem(f"{'✅' if ok else '❌'} {msg}")
+            if ok:
+                it.setForeground(QBrush(QColor("#2e7d32")))
+            else:
+                it.setForeground(QBrush(QColor("#c62828")))
+            self.table.setItem(row, 4, it)
 
     def _on_test_all(self):
         if not self.keys_data:
@@ -349,6 +487,19 @@ class ApiKeyManagerDialog(QDialog):
         self.validation_worker.finished_signal.connect(lambda txt: QMessageBox.information(self, "Hoàn tất kiểm tra", txt))
         self.validation_worker.start()
 
+    def _on_sync_merge_twoway(self):
+        """Hợp nhất 2 chiều để cả 2 ứng dụng đều có danh sách key giống hệt nhau 100%."""
+        added_local, added_ask, total = sync_merge_two_way()
+        self.keys_data = load_local_keys()
+        self._refresh_table()
+        QMessageBox.information(
+            self, "Đồng Bộ 2 Chiều Thành Công",
+            f"✅ Đã hợp nhất 100% API Keys giữa GetHtmlFromUrl và AskCpl!\n\n"
+            f"• Thêm mới vào GetHtmlFromUrl: {added_local} keys\n"
+            f"• Thêm mới vào AskCpl: {added_ask} keys\n"
+            f"• Tổng số key hiện có ở cả 2 bên: {total} keys."
+        )
+
     def _on_sync_from_askcpl(self):
         added, total = sync_from_askcpl()
         self.keys_data = load_local_keys()
@@ -365,6 +516,31 @@ class ApiKeyManagerDialog(QDialog):
             f"Đã xuất thành công {added} API Key sang AskCpl settings.json!\nTổng số keys trong AskCpl: {total}"
         )
 
+    def _on_overwrite_from_askcpl(self):
+        reply = QMessageBox.warning(
+            self, "Xác nhận ghi đè",
+            "Hành động này sẽ XÓA TOÀN BỘ danh sách key hiện tại của GetHtmlFromUrl "
+            "và thay thế 100% bằng danh sách từ AskCpl.\n\nBạn có chắc chắn muốn tiếp tục?",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+        )
+        if reply == QMessageBox.StandardButton.Yes:
+            count, total = overwrite_from_askcpl()
+            self.keys_data = load_local_keys()
+            self._refresh_table()
+            QMessageBox.information(self, "Thông báo", f"Đã ghi đè thành công {count} keys từ AskCpl!")
+
+    def _on_overwrite_to_askcpl(self):
+        reply = QMessageBox.warning(
+            self, "Xác nhận ghi đè",
+            "Hành động này sẽ GHI ĐÈ 100% danh sách key trong AskCpl bằng danh sách hiện có ở đây.\n\n"
+            "Bạn có chắc chắn muốn tiếp tục?",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+        )
+        if reply == QMessageBox.StandardButton.Yes:
+            count, total = overwrite_to_askcpl()
+            QMessageBox.information(self, "Thông báo", f"Đã ghi đè thành công {count} keys sang AskCpl!")
+
     def _on_save_all(self):
         save_local_keys(self.keys_data)
+        self._notify_pool_update()
         self.accept()

@@ -175,3 +175,41 @@ GetHtmlFromUrl_Python/
 - [x] **Chốt chặn an toàn trong `save_translated_chapter()`**:
   - Trước khi xuất file HTML, chạy `clean_leaked_metadata()` và lọc từng đoạn `<p>` — cam kết 100% không còn bất kỳ dấu ngoặc JSON hay câu tiếng Trung thô nào xuất hiện trong sách dịch của người dùng.
 - [x] **Đã kiểm chứng**: Chạy kiểm thử tự động với đúng đoạn mẫu lỗi do người dùng cung cấp — kết quả đạt chuẩn 100% nội dung dịch tiếng Việt sạch đẹp.
+
+### ✅ Phase 13 — Tối Ưu Xoay Vòng Key, Blind Fire Ngắt Lỗi 401 & Đồng Bộ 2 Chiều AskCpl — HOÀN THÀNH (2026-11-01)
+- [x] **Khắc phục lỗi lặp 8 models khi gặp key chết 401**:
+  - Phân loại lỗi HTTP 401 (Unauthorized, Service Account deleted/disabled, Invalid key) là lỗi xác thực cấp độ Key/Account, không liên quan đến Model.
+  - Áp dụng kỹ thuật Blind Fire chuẩn: Ngay khi gặp 401 hoặc 403 không có quyền, đánh dấu key `invalid` vĩnh viễn trong pool và `break` ngay khỏi vòng lặp model, lập tức chuyển sang account khác mà không thử tiếp 8 models vô ích.
+- [x] **Xóa bỏ dứt điểm email giả lập `account_X@custom`**:
+  - Nâng cấp `enrich_key_objects()`: Nạp và tra cứu metadata đối tượng key từ CẢ kho nội bộ `gemini_keys.json` VÀ `AskCpl/settings.json`.
+  - Nếu key do người dùng dán tự do, hiển thị rõ ràng `Key #X (AIzaSy...xxxx)` thay vì tự sinh email giả làm người dùng hoang mang.
+- [x] **Quản lý API Key nâng cao (Đa chọn, Xóa hàng loạt bằng nút / Delete)**:
+  - Cho phép chọn nhiều dòng (`ExtendedSelection`: Shift/Ctrl/kéo chuột, Ctrl+A).
+  - Xóa hàng loạt: Bắt sự kiện phím `Delete` trên bàn phím và nút "🗑️ Xóa (Delete)", xóa an toàn toàn bộ các dòng được chọn với chỉ 1 popup xác nhận.
+  - Bật / Tắt hàng loạt các dòng đang chọn.
+  - Nút tiện ích "🧹 Xóa Key Lỗi": Tự động lọc và xóa sạch toàn bộ các key bị đánh dấu đỏ ❌ sau khi bấm "⚡ Kiểm Tra Tất Cả".
+- [x] **Đồng bộ 2 chiều toàn diện với AskCpl**:
+  - Thêm tính năng "🔄 Đồng Bộ 2 Chiều Với AskCpl": Hợp nhất 100% key của cả 2 ứng dụng để 2 bên đều sở hữu cùng danh sách key đầy đủ nhất.
+  - Thêm tùy chọn "Ghi đè từ AskCpl" và "Ghi đè sang AskCpl".
+  - Khi xóa key trong GetHtmlFromUrl, cung cấp tùy chọn xóa đồng bộ luôn bên AskCpl.
+  - Sửa endpoint test trong `validate_key()` từ model cũ `gemini-2.5-flash` (bị 404) sang model ổn định `gemini-2.0-flash`.
+- [x] **Đã kiểm chứng**: Toàn bộ unit tests mô phỏng lỗi 401 (chặn đứng lặp model sau 1 lần gọi) và multi-selection rows order đều vượt qua 100%.
+
+### ✅ Phase 13.2 — Ngắt Ngay HTTP 400 "API key not valid" & Hot-Reload Pool Khi Xóa Key — HOÀN THÀNH (2026-11-01)
+- [x] **Xử lý dứt điểm HTTP 400 "API key not valid" (Chống lặp vô ích qua 8 models)**:
+  - Nhận diện chính xác phản hồi HTTP 400 mang nội dung `"API key not valid. Please pass a valid API key."` hoặc `INVALID_ARGUMENT`.
+  - Phân loại trực tiếp vào `INVALID_KEY`: Đánh dấu key `invalid` trong pool, thêm vào `exclude` và `break` ngay tức khắc khỏi vòng lặp model (Blind Fire) sau đúng 1 lần gọi đầu tiên.
+  - Đồng bộ hàm `classify_response` trong `AskCpl/gemini_safe.py` và `validate_key` trong `core/key_manager.py` để nhận diện 400 key chết mà không retry thừa.
+- [x] **Hot-Reload AccountPool & Đồng Bộ UI Ngay Khi Xóa Key**:
+  - Khắc phục triệt để hiện tượng "key đã xóa trên UI nhưng tiến trình dịch vẫn nhớ và tiếp tục gọi":
+    + Thêm cơ chế `_notify_pool_update()` vào `ApiKeyManagerDialog`: Mỗi khi xóa key (nút Xóa, phím Delete, Dọn key lỗi ❌, bật/tắt, hoặc nạp/ghi đè AskCpl), hệ thống gọi `pool.sync(...)` ngay tức thì vào `AccountPool` in-memory.
+    + Các key đã bị xóa sẽ biến mất khỏi RAM ngay lập tức, không bao giờ bị `pool.pick()` chọn lại trong các chương tiếp theo.
+    + Sửa nút "Đóng" và sự kiện đóng dialog `ApiKeyManagerDialog`: Luôn tự động kích hoạt `self._auto_load_keys()` trên `TranslateDialog` để ô `txt_api_keys` trên giao diện chính được làm mới 100%, kể cả khi đóng bằng phím tắt, nút Đóng hay nút [X].
+- [x] **Tối ưu công cụ đồng bộ `sync_skills_rules.py`**:
+  - Chuyển cơ chế sang `shutil.copytree(dirs_exist_ok=True)` với fallback file-by-file, giải quyết triệt để lỗi `WinError 32` (file lock do IDE/editor) trên Windows.
+- [x] **Đã kiểm chứng**:
+  - Test mô phỏng HTTP 400 API key invalid: Xác nhận chỉ gọi đúng 1 lần rồi `break` ngay lập tức, key bị gán status `invalid`.
+  - Test AskCpl phân loại 400: Trả về `ErrorKind.INVALID_KEY`.
+  - Test validate_key 400: Báo lỗi ngay không fallback.
+  - Test Pool Instant Sync: Key bị xóa trên UI biến mất khỏi pool trong RAM ngay lập tức.
+  - Cả 2 project compile sạch lỗi (`0 errors`). Đã chạy `--push-all` cập nhật Global & Workspace.
