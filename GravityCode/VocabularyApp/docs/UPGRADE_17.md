@@ -358,6 +358,35 @@ python -m api.model_catalog --refresh      # dò catalog thật (cần key)
 
 ---
 
+## 7.10. ĐỒNG BỘ KEY 2 CHIỀU GETHTMLFROMURL ↔ ASKCPL (2026-11-03)
+
+### Mục tiêu
+Nút bấm trong `ApiKeyManagerDialog` để hợp nhất key giữa 2 nguồn chung: **GetHtmlFromUrl** `config/gemini_keys.json` (mảng JSON `{id,key,email,status,note,cooldown_until}`) ↔ **AskCpl** `settings.json` (`gemini.api_keys`). Cùng chuẩn key mã hoá `ENC:` (đảo + base64) với `core/key_manager.py` của GetHtmlFromUrl.
+
+### Thanh công cụ (dòng 2 — `ctrl2`)
+Dòng 1 đã ~742px (cửa sổ 960px) nên 2 nút đồng bộ tách hàng riêng:
+- **📥 Nhận từ GetHtmlFromUrl** → `keymgr_sync_from_gethtml()` — ghi thẳng AskCpl settings.json.
+- **📤 Gửi sang GetHtmlFromUrl** → `keymgr_sync_to_gethtml()` — ghi thẳng gemini_keys.json.
+- Cả 2: thiếu file/thư mục → log ❌ rõ ràng (không ném), thành công → reload + render bảng.
+
+### Helpers mới (`VocabApp.py`, thuần — test không cần GUI)
+| Helper | Vai trò |
+|---|---|
+| `keymgr_gethtml_keys_path()` | đường dẫn tuyệt đối tới `gemini_keys.json` (không hardcode ổ đĩa) |
+| `keymgr_load_gethtml_keys()` | đọc mảng JSON — thiếu/hỏng/sai kiểu → `[]` (không ném) |
+| `keymgr_save_gethtml_keys()` | ghi atomic (tmp + `os.replace`) + backup `.bak1` 1 lần |
+| `_keymgr_merge(src, dst, fields=None)` | hợp nhất theo **key thô** (decode trước): trùng → **giữ bản dst** (disabled/cooldown không bị đổi) chỉ lấp email/note **trống**; mới → append, encode `ENC:`, **tự sinh id** khi thiếu/trùng; `fields` lọc field khi sang phía GetHtmlFromUrl (error_msg/latency_ms không lọt) |
+| `keymgr_sync_from_gethtml(askcpl, gethtml="")` | trả `(added, total, changed)` — idempotent, chỉ ghi khi `changed` |
+| `keymgr_sync_to_gethtml(askcpl, gethtml="")` | trả `(added, total, changed)` — như trên, phía GetHtmlFromUrl |
+
+### Kết quả thật
+- **Dry-run 2 file THẬT** (chỉ đọc): GetHtmlFromUrl **197 key** = AskCpl **197 key**, giao 197/197, cả 2 chiều `+0, changed=False` → 2 nguồn đã đồng bộ, bấm nút sẽ báo "Không có key mới" (an toàn, không ghi gì).
+- **Test `tools/test_key_manager.py`: 42 → 80/80** (section 7 mới, file tạm — không đụng file thật): path/load/sanitize, save atomic + `.bak1`, merge dedup key thô (thô vs ENC: cũng nhận), keep dst vs lấp chỗ trống, id tự sinh + chống trùng id, sync 2 chiều, idempotent chạy lại, file thiếu không ném, giữ khóa khác (`github.token`), lọc field lạ, roundtrip tập key thô bằng nhau, thiếu `gemini.api_keys` không ném.
+- **Bug test đã bắt + sửa**: biến `total` trong `main()` trùng tên bảng đếm toàn cục → `TypeError` cuối file; expectation email fixture sai (email 2 phía giống nhau ⇒ test "giữ bản dst" vô nghĩa → đổi fixture phân biệt rõ keep vs fill).
+- **Suite xanh**: key_manager **80/80** · smoke **15/15** · 3mode **41/41** · ai_rich **85/85** · slug **6/6** · `py_compile` OK.
+
+---
+
 ## 8. NGUYÊN TẮC BẮT BUỘC KHI SỬA TIẾP
 
 1. Đọc `projectLog.md` + `docs/UPGRADE_17.md` trước. Cập nhật cả 2 sau khi sửa.

@@ -729,6 +729,153 @@ def keymgr_validate_key(raw_key: str, timeout: int = 30):
         return False, f"{type(e).__name__}: {e}"[:80], ms
 
 
+# ── Đồng bộ 2 chiều với GetHtmlFromUrl_Python ────────────────────────────────
+# Nguồn chung #2: config/gemini_keys.json = MẢNG JSON entry
+# {id,key,email,status,note,cooldown_until} — cùng format core/key_manager.py.
+_GETHTML_ENTRY_FIELDS = ("id", "key", "email", "status", "note", "cooldown_until")
+
+
+def keymgr_gethtml_keys_path() -> str:
+    """Đường dẫn gemini_keys.json của GetHtmlFromUrl_Python (từ thư mục VocabApp)."""
+    base = os.path.dirname(os.path.abspath(__file__))
+    return os.path.abspath(os.path.join(
+        base, "..", "Download", "Download truyen",
+        "GetHtmlFromUrl_Python", "config", "gemini_keys.json"))
+
+
+def keymgr_load_gethtml_keys(path: str) -> list:
+    """Đọc mảng JSON key của GetHtmlFromUrl — thiếu/hỏng/sai kiểu → [] (không ném)."""
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except Exception:
+        return []
+    if not isinstance(data, list):
+        return []
+    return [e for e in data if isinstance(e, dict)]
+
+
+def keymgr_save_gethtml_keys(keys: list, path: str) -> None:
+    """Ghi mảng key của GetHtmlFromUrl — atomic (tmp + os.replace) + backup .bak1 1 lần."""
+    d = os.path.dirname(path)
+    if d:
+        os.makedirs(d, exist_ok=True)
+    if os.path.exists(path):
+        bak = path + ".bak1"
+        if not os.path.exists(bak):
+            try:
+                import shutil
+                shutil.copy2(path, bak)
+            except Exception:
+                pass
+    tmp = path + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(keys, f, ensure_ascii=False, indent=2)
+    os.replace(tmp, path)
+
+
+def _keymgr_merge(src: list, dst: list, fields=None) -> tuple:
+    """Hợp nhất src vào dst theo key THÔ (sau decode ENC:). Trả (merged, added).
+
+    • Key trùng: GIỮ nguyên entry dst (trạng thái disabled/cooldown của bản đang
+      hoạt động không bị đổi), chỉ lấp email/note nếu dst đang TRỐNG.
+    • Key mới: append — key luôn encode lại dạng ENC:, id tự sinh khi thiếu
+      hoặc trùng id đã có.
+    • fields: nếu truyền vào, entry MỚI chỉ giữ các field trong danh sách
+      (khi ghi sang file GetHtmlFromUrl — không để error_msg/latency_ms của
+      AskCpl lọt sang).
+    merged là bản sao — dst gốc KHÔNG bị đụng.
+    """
+    import time as _time
+    try:
+        from settings import encode_token
+    except Exception:
+        encode_token = lambda s: s  # noqa: E731
+    merged = [dict(e) for e in dst]
+    by_raw = {}
+    for e in merged:
+        raw = keymgr_decode_key(e)
+        if raw:
+            by_raw[raw] = e
+    ids = {str(e.get("id") or "") for e in merged}
+    added = 0
+    now = int(_time.time() * 1000)
+    for s in src:
+        if not isinstance(s, dict):
+            continue
+        raw = keymgr_decode_key(s)
+        if not raw:
+            continue
+        hit = by_raw.get(raw)
+        if hit is not None:
+            # trùng → giữ dst, chỉ lấp chỗ trống
+            if not str(hit.get("email") or "").strip() and str(s.get("email") or "").strip():
+                hit["email"] = s["email"]
+            if not str(hit.get("note") or "").strip() and str(s.get("note") or "").strip():
+                hit["note"] = s["note"]
+            continue
+        item = dict(s)
+        if fields is not None:
+            item = {k: v for k, v in item.items() if k in fields}
+        item["key"] = encode_token(raw)
+        item.setdefault("email", "")
+        item.setdefault("status", "active")
+        item.setdefault("note", "")
+        if fields is not None:
+            item.setdefault("cooldown_until", 0)
+        eid = str(item.get("id") or "").strip()
+        if not eid or eid in ids:
+            base = f"key_{now}_{added}"
+            eid = base
+            n = 1
+            while eid in ids:
+                n += 1
+                eid = f"{base}_{n}"
+        item["id"] = eid
+        ids.add(eid)
+        merged.append(item)
+        by_raw[raw] = item
+        added += 1
+    return merged, added
+
+
+def keymgr_sync_from_gethtml(askcpl_path: str, gethtml_path: str = "") -> tuple:
+    """📥 Hợp nhất key từ GetHtmlFromUrl gemini_keys.json → AskCpl settings.json.
+
+    Trả (added, total, changed): số key mới, tổng sau hợp nhất, file có đổi không.
+    Idempotent (chạy lại → changed=False); ghi qua keymgr_save_keys → GIỮ khóa
+    khác trong settings + atomic + backup .bak1.
+    """
+    gpath = gethtml_path or keymgr_gethtml_keys_path()
+    if not askcpl_path or not os.path.exists(askcpl_path):
+        return 0, 0, False
+    dst = keymgr_load_keys(askcpl_path)
+    src = keymgr_load_gethtml_keys(gpath)
+    merged, added = _keymgr_merge(src, dst)
+    changed = merged != dst
+    if changed:
+        keymgr_save_keys(askcpl_path, merged)
+    return added, len(merged), changed
+
+
+def keymgr_sync_to_gethtml(askcpl_path: str, gethtml_path: str = "") -> tuple:
+    """📤 Hợp nhất key từ AskCpl settings.json → file GetHtmlFromUrl.
+
+    Trả (added, total, changed). Key trùng giữ bản GetHtmlFromUrl; entry mới
+    chỉ giữ field chuẩn _GETHTML_ENTRY_FIELDS. Idempotent + atomic + .bak1.
+    """
+    gpath = gethtml_path or keymgr_gethtml_keys_path()
+    if not askcpl_path or not os.path.exists(askcpl_path):
+        return 0, 0, False
+    src = keymgr_load_keys(askcpl_path)
+    dst = keymgr_load_gethtml_keys(gpath)
+    merged, added = _keymgr_merge(src, dst, fields=_GETHTML_ENTRY_FIELDS)
+    changed = merged != dst
+    if changed:
+        keymgr_save_gethtml_keys(merged, gpath)
+    return added, len(merged), changed
+
+
 class _KeyEditDialog(ctk.CTkToplevel):
     """Hộp thoại Thêm/Sửa 1 key (email · key · project_id · ghi chú)."""
 
@@ -826,6 +973,63 @@ class ApiKeyManagerDialog(ctk.CTkToplevel):
         except Exception as e:
             self._log(f"❌ Lỗi lưu: {type(e).__name__}: {e}")
 
+    # ── đồng bộ 2 chiều với GetHtmlFromUrl ────────────────────────────────────
+    def _sync_from_gethtml(self):
+        """📥 Nạp key từ GetHtmlFromUrl gemini_keys.json → AskCpl settings.json."""
+        if not self._path:
+            self._log("❌ Không tìm thấy AskCpl settings.json — không đồng bộ được.")
+            return
+        gpath = keymgr_gethtml_keys_path()
+        if not os.path.isfile(gpath):
+            self._log(f"❌ Không tìm thấy file GetHtmlFromUrl: {gpath}")
+            return
+        try:
+            added, total, changed = keymgr_sync_from_gethtml(self._path, gpath)
+        except Exception as e:
+            self._log(f"❌ Lỗi đồng bộ: {type(e).__name__}: {e}")
+            return
+        if not changed:
+            self._log(f"📥 Không có key mới từ GetHtmlFromUrl (đã đủ {total} key).")
+            return
+        self._load()
+        if self._sel is not None and self._sel >= len(self._keys):
+            self._sel = None
+        self._render()
+        if added:
+            self._log(f"📥 Nhận từ GetHtmlFromUrl: +{added} key mới → tổng {total} "
+                      f"(key trùng giữ bản AskCpl, ghi atomic + .bak1).")
+        else:
+            self._log(f"📥 Nhận từ GetHtmlFromUrl: không có key mới — đã lấp "
+                      f"email/note còn trống (tổng {total} key).")
+        self._log("⚠ Bảng đã tải lại từ file — chỉnh sửa chưa 💾 Lưu sẽ bị thay.")
+
+    def _sync_to_gethtml(self):
+        """📤 Nạp key từ AskCpl settings.json → file GetHtmlFromUrl."""
+        if not self._path:
+            self._log("❌ Không tìm thấy AskCpl settings.json — không đồng bộ được.")
+            return
+        gpath = keymgr_gethtml_keys_path()
+        if not os.path.isdir(os.path.dirname(gpath)):
+            self._log(f"❌ Không tìm thấy thư mục GetHtmlFromUrl: "
+                      f"{os.path.dirname(gpath)}")
+            return
+        try:
+            added, total, changed = keymgr_sync_to_gethtml(self._path, gpath)
+        except Exception as e:
+            self._log(f"❌ Lỗi đồng bộ: {type(e).__name__}: {e}")
+            return
+        if not changed:
+            self._log(f"📤 Không có key mới cần gửi (file GetHtmlFromUrl đã đủ "
+                      f"{total} key).")
+            return
+        if added:
+            self._log(f"📤 Gửi sang GetHtmlFromUrl: +{added} key mới → tổng {total} "
+                      f"(key trùng giữ bản GetHtmlFromUrl, ghi atomic + .bak1).")
+        else:
+            self._log(f"📤 Gửi sang GetHtmlFromUrl: không có key mới — đã lấp "
+                      f"email/note còn trống (tổng {total} key).")
+        self._log(f"📄 {gpath}")
+
     # ── UI ───────────────────────────────────────────────────────────────────
     def _build(self):
         top = ctk.CTkFrame(self, fg_color="transparent")
@@ -853,6 +1057,19 @@ class ApiKeyManagerDialog(ctk.CTkToplevel):
         self._btn_check_all.pack(side="left", padx=3)
         btn(ctrl, "💾 Lưu", C["success"], "#018786", **_bc,
             cmd=self._save).pack(side="right", padx=3)
+
+        # Dòng 2: đồng bộ 2 chiều với GetHtmlFromUrl (dòng 1 đã ~742px,
+        # thêm 2 nút nữa sẽ tràn 960px ⇒ tách hàng riêng)
+        ctrl2 = ctk.CTkFrame(self, fg_color="transparent")
+        ctrl2.pack(fill="x", padx=14, pady=2)
+        lbl(ctrl2, "🔗 Đồng bộ", 12, "bold", C["accent"]).pack(side="left", padx=(2, 8))
+        _sc = {"width": 210, "height": 30, "corner_radius": 6}
+        btn(ctrl2, "📥 Nhận từ GetHtmlFromUrl", C["card2"], C["accent"], **_sc,
+            cmd=self._sync_from_gethtml).pack(side="left", padx=3)
+        btn(ctrl2, "📤 Gửi sang GetHtmlFromUrl", C["card2"], C["accent"], **_sc,
+            cmd=self._sync_to_gethtml).pack(side="left", padx=3)
+        lbl(ctrl2, "key trùng tự bỏ qua — không mất bản cũ", 10,
+            color=C["muted"]).pack(side="left", padx=10)
 
         # Bảng
         head = ctk.CTkFrame(self, fg_color=C["sidebar"], corner_radius=6, height=30)

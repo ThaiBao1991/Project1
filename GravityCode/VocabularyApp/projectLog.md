@@ -192,6 +192,25 @@
 > [`docs/UPGRADE_16.md`](docs/UPGRADE_16.md) — bản đồ kiến trúc, toàn bộ lệnh, giới hạn thật đã đo, 28 bug đã sửa.
 
 ---
+## 📋 Cập nhật mới nhất — 2026-11-03 (Đồng bộ key 2 chiều GetHtmlFromUrl ↔ AskCpl)
+
+### 🔗 ĐỒNG BỘ KEY GIỮA 2 NGUỒN CHUNG — NÚT BẤM TRONG QUẢN LÝ API KEY
+
+**Yêu cầu:** hợp nhất key giữa **GetHtmlFromUrl** `config/gemini_keys.json` (mảng JSON 197 entry `{id,key,email,status,note,cooldown_until}`) ↔ **AskCpl** `settings.json` (`gemini.api_keys`) ngay trong `ApiKeyManagerDialog`, cùng chuẩn mã hoá `ENC:` (đảo + base64).
+
+**Đã làm:**
+1. **Helpers thuần** (`VocabApp.py`): `keymgr_gethtml_keys_path()` (đường dẫn tương đối, không hardcode ổ đĩa) · `keymgr_load_gethtml_keys()` (thiếu/hỏng/sai kiểu → `[]`, không ném) · `keymgr_save_gethtml_keys()` (atomic tmp + `os.replace`, backup `.bak1` 1 lần) · **`_keymgr_merge(src, dst, fields=None)`** — hợp nhất theo **key thô** (decode trước nên key thô vs `ENC:` vẫn nhận ra trùng): trùng → **giữ nguyên bản dst** (status disabled, cooldown, error_msg không bị đổi) chỉ lấp email/note đang **trống**; mới → append, encode `ENC:`, **tự sinh id** khi thiếu hoặc trùng id; `fields` lọc field khi ghi sang phía GetHtmlFromUrl (error_msg/latency_ms không lọt sang) · `keymgr_sync_from_gethtml()` / `keymgr_sync_to_gethtml()` trả `(added, total, changed)`, **idempotent** (chạy lại → `changed=False`, không ghi).
+2. **UI** (`ApiKeyManagerDialog._build`): hàng `ctrl2` riêng (dòng 1 đã ~742px/960px) với 2 nút **📥 Nhận từ GetHtmlFromUrl** / **📤 Gửi sang GetHtmlFromUrl** + nhãn giải thích. Handler: guard file/thư mục thiếu → log ❌; thành công → `_load() + _render()` + log kết quả; khi chỉ lấp email/note (không thêm key) → message riêng cho rõ; sau khi nạp lại có dòng cảnh báo "chỉnh sửa chưa 💾 Lưu sẽ bị thay".
+
+**Test thật (`tools/test_key_manager.py`, file tạm — không đụng file thật): 42 → 80/80.**
+- Bắt **2 bug thật** khi viết test: (a) biến `total` trong `main()` trùng tên bảng đếm toàn cục → `TypeError` ở dòng kết quả; (b) expectation email fixture sai + email 2 phía giống nhau khiến test "giữ bản dst" **vô nghĩa** → đổi fixture phân biệt rõ keep vs fill.
+- Cases: path tuyệt đối · load thiếu/hỏng/sai kiểu → `[]` · save atomic + `.bak1` · merge dedup key thô · keep dst vs lấp chỗ trống (dst không bị đụng) · id tự sinh + chống trùng id · entry rỗng/không phải dict bị bỏ · sync 2 chiều + idempotent · file thiếu không ném · giữ khóa khác (`github.token`) · lọc field lạ · roundtrip tập key thô bằng nhau · thiếu `gemini.api_keys` không ném.
+
+**Dry-run THẬT trên 2 file thật (chỉ đọc):** GetHtmlFromUrl **197** = AskCpl **197**, giao **197/197**, cả 2 chiều `+0, changed=False` → 2 nguồn đã đồng bộ sẵn, bấm nút sẽ báo "Không có key mới" (an toàn — không ghi gì).
+
+**Suite xanh:** key_manager **80/80** · smoke **15/15** · 3mode **41/41** · ai_rich **85/85** · slug **6/6** · `py_compile` OK. Chi tiết: `docs/UPGRADE_17.md` mục **7.10**.
+
+---
 ## 📋 Cập nhật mới nhất — 2026-11-02 (Fix audio 0 track → PAUSED · chống trùng keyword GUI)
 
 ### 🔊 VÌ SAO PIPELINE `PAUSED` + `DoD=False` — AUDIO 0 TRACK MỌI NGÀY
