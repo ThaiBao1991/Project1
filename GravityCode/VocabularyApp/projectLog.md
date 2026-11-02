@@ -192,6 +192,32 @@
 > [`docs/UPGRADE_16.md`](docs/UPGRADE_16.md) — bản đồ kiến trúc, toàn bộ lệnh, giới hạn thật đã đo, 28 bug đã sửa.
 
 ---
+## 📋 Cập nhật mới nhất — 2026-11-02 (Fix audio 0 track → PAUSED · chống trùng keyword GUI)
+
+### 🔊 VÌ SAO PIPELINE `PAUSED` + `DoD=False` — AUDIO 0 TRACK MỌI NGÀY
+
+**Triệu chứng:** `🏁 PAUSED: 24/24 ngày, calls=71, ảnh=29. DoD=False` — log mọi ngày `🔊 Audio Ngày N: 0 track`, `media_verify` đánh dấu `pending` (`thiếu 12 ref`).
+
+**Nguyên nhân gốc — 3 bug ẩn chained:**
+1. **`synthesize()` không có tham số `voice`** nhưng `pipeline_media.py` gọi `synthesize(..., voice="ja-JP")` / `voice="vi-VN"` (thêm trong commit `704b2ad`, SAU lần chạy 30/10) → `TypeError` bị `except Exception: return i, {}` **nuốt im lặng** → 0 track mọi ngày. (Các ngày 1-10, 13 done 12 tracks là di vật từ lần chạy 30/10, trước khi bug vào.)
+2. **Tuple song ngữ crash tracks loop**: `tts_bilingual_mode=True` (default) khiến `_one` trả tuple `(res_jp, res_vi)` nhưng loop gọi `r.get("engine")` trên tuple → `AttributeError` (bug ẩn bị mask bởi bug 1 — chưa từng nổ vì TypeError xảy ra trước).
+3. **Không có `meaning_vi` + hardcode locale**: `_audio_items_for` không copy `meaning_vi` ⇒ fallback sang `it["text"]` ⇒ đọc lại TỪ NHẬT bằng giọng Việt; `voice="ja-JP"` hardcode ⇒ khóa học tiếng Trung/Hàn bị đọc giọng Nhật.
+
+**Đã sửa:**
+- `ai/tts_config.py`: **`voice_conf_for_locale("ja-JP")`** — map BCP-47 → `LANG_VOICES` (khớp prefix `edge_voice` → `sapi` → `gtts_lang`), fallback `DEFAULT_VOICE`, không bao giờ ném lỗi.
+- `ai/tts_generator.py`: **`synthesize(..., voice: str = "")`** — locale tùy chọn; rỗng ⇒ `voice_for(language)` như cũ (0 caller cũ bị đổi hành vi). Test thật: `synthesize('tiếng_nhật', 'こんにちは', voice='ja-JP')` → **18576 bytes, edge-tts, ja-JP-NanamiNeural**.
+- `ai/pipeline_media.py`: `_loc_target` suy từ `voice_for(language)["edge_voice"]` (bỏ hardcode); `_one` không nuốt lỗi → log `⚠️ Lỗi TTS` (3 lỗi đầu, closure list — không race với 4 luồng song song); tracks loop **tách tuple → 2 track** (JP gắn `audio_ref`, VI gắn `meaning_audio_ref` — field phụ, không đè); `_audio_items_for` copy `meaning_vi` từ vocab; chỉ đọc nghĩa khi có `meaning_vi` thật.
+- `VocabApp.py`: `btn/lbl/h1/h2` gom opts rồi `opts.update(kw)` — **chống trùng keyword** (caller thắng, không bao giờ "multiple values"); fix `width` lọt vào `.pack()` trong bảng key (bug thật bắt được bằng smoke test).
+
+**Kết quả thật (chạy pipeline THẬT):**
+- Test ngày 11: **0 → 24 track** (24 gắn vào từ vựng) — song ngữ JP+VI hoạt động.
+- Chạy lại 24 ngày: **`DONE 24/24, calls=71, ảnh=29, DoD: True`** (458.6s) — trước: `PAUSED, DoD=False`.
+- `--status`: **✅ `all_days_audio`**; còn `❌ all_days_images` (38 từ kana/abstract không có ảnh nguồn miễn phí — chấp nhận degraded, đã xác minh LIVE ở entry trước).
+- Checkpoint: 25/27 done, **440 tracks**; 2 file ngày 25-26 là mồ côi từ plan cũ 26 ngày (course hiện 24 ngày → không ảnh hưởng DoD).
+
+**Test (chạy thật, lặp đến sạch):** `tools/test_gui_smoke.py` **15/15** (mới — mở 12 dialog + App chính, bắt crash lúc khởi tạo) · key_manager **42/42** · 3mode **41/41** · ai_rich **85/85** · slug **6/6** · `py_compile` OK.
+
+---
 ## 📋 Cập nhật mới nhất — 2026-11-01 (Fix nút chế độ · bù ảnh thật · quản lý API key)
 
 ### 🔧 1. 4 NÚT CHẾ ĐỘ HỌC — HÀNG RIÊNG, TO, CÓ TRẠNG THÁI ĐANG CHỌN

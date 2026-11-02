@@ -336,6 +336,28 @@ python -m api.model_catalog --refresh      # dò catalog thật (cần key)
 
 ---
 
+## 7.9. FIX AUDIO 0 TRACK → PIPELINE PAUSED + TRÙNG KEYWORD GUI (2026-11-02)
+
+### Vì sao `PAUSED, DoD=False` — audio 0 track mọi ngày
+- **Bug 1 (gốc):** `pipeline_media.py` gọi `synthesize(..., voice="ja-JP"/"vi-VN")` nhưng `synthesize()` **không có tham số `voice`** (thêm trong commit `704b2ad`, sau lần chạy 30/10) → `TypeError` bị `except: return {}` **nuốt im lặng** → 0 track → `media_verify` đánh audio `pending` (`thiếu 12 ref`) → check `all_days_audio=False` → `status = "paused"`. (Các ngày done 12 tracks là di vật từ trước bug.)
+- **Bug 2 (ẩn):** `tts_bilingual_mode=True` (default) → `_one` trả **tuple** `(res_jp, res_vi)` nhưng tracks loop gọi `r.get("engine")` trên tuple → `AttributeError` (chưa từng nổ vì bug 1 xảy ra trước).
+- **Bug 3 (ẩn):** `_audio_items_for` không copy `meaning_vi` → fallback `it["text"]` ⇒ đọc lại từ Nhật bằng giọng Việt; `voice="ja-JP"` hardcode ⇒ khóa Trung/Hàn bị đọc giọng Nhật.
+
+### Đã sửa
+- `ai/tts_config.py`: **`voice_conf_for_locale(locale)`** — BCP-47 → `LANG_VOICES` (prefix `edge_voice` → `sapi` → `gtts_lang`), fallback `DEFAULT_VOICE`, không ném lỗi.
+- `ai/tts_generator.py`: **`synthesize(..., voice: str = "")`** — locale tùy chọn; rỗng → `voice_for(language)` như cũ (không đổi hành vi caller cũ).
+- `ai/pipeline_media.py`: `_loc_target` từ `voice_for(language)["edge_voice"]` (bỏ hardcode) · `_one` log lỗi (`⚠️ Lỗi TTS`, closure list, không race 4 luồng) · tracks loop **tách tuple → 2 track** (JP → `audio_ref`, VI → `meaning_audio_ref` field phụ) · `_audio_items_for` copy `meaning_vi`.
+- `VocabApp.py`: `btn/lbl/h1/h2` → `opts = dict(...); opts.update(kw)` **chống trùng keyword** (`CTkButton() got multiple values for 'width'` — crash ModelSettingsDialog); fix `width` lọt `.pack()` trong bảng key.
+- **`tools/test_gui_smoke.py` (mới):** mở 12 dialog + `App()` toàn tab → bắt crash lúc khởi tạo · **15/15**.
+
+### Kết quả thật
+- Ngày 11 test: **0 → 24 track** (song ngữ JP+VI). Chạy lại 24 ngày: **`DONE 24/24 … DoD: True`** (458.6s) — trước: `PAUSED, DoD=False`.
+- `--status`: **✅ all_days_audio** · ❌ all_days_images (38 từ kana/abstract không có ảnh nguồn miễn phí — degraded, xem 7.8).
+- Checkpoint 25/27 done · **440 tracks** · 2 file ngày 25-26 mồ côi từ plan cũ 26 ngày (course 24 ngày, không ảnh hưởng DoD).
+- Test: smoke **15/15** · key_manager **42/42** · 3mode **41/41** · ai_rich **85/85** · slug **6/6** · compile OK.
+
+---
+
 ## 8. NGUYÊN TẮC BẮT BUỘC KHI SỬA TIẾP
 
 1. Đọc `projectLog.md` + `docs/UPGRADE_17.md` trước. Cập nhật cả 2 sau khi sửa.

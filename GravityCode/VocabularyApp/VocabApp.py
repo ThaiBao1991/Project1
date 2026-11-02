@@ -291,18 +291,26 @@ WORD_TYPES = ["", "Danh từ (n)", "Động từ (v)", "Tính từ (adj)", "Tr�
 # Helpers
 # ═══════════════════════════════════════════════════════════════════════════════
 def lbl(parent, text, size=12, weight="normal", color=None, **kw):
-    return ctk.CTkLabel(parent, text=text, text_color=color or C["text"],
-                        font=ctk.CTkFont(size=size, weight=weight), **kw)
+    # CHỐNG TRÙNG KEYWORD: gom opts rồi update(kw) — caller truyền text=/
+    # text_color=/font= qua **dict cũng không bao giờ ném "multiple values".
+    opts = dict(text=text, text_color=color or C["text"],
+                font=ctk.CTkFont(size=size, weight=weight))
+    opts.update(kw)
+    return ctk.CTkLabel(parent, **opts)
 
 def h1(parent, text, **kw):
     """Heading 1 - large title"""
-    return ctk.CTkLabel(parent, text=text, text_color=C["accent"],
-                        font=ctk.CTkFont(size=24, weight="bold"), **kw)
+    opts = dict(text=text, text_color=C["accent"],
+                font=ctk.CTkFont(size=24, weight="bold"))
+    opts.update(kw)
+    return ctk.CTkLabel(parent, **opts)
 
 def h2(parent, text, **kw):
     """Heading 2 - section title"""
-    return ctk.CTkLabel(parent, text=text, text_color=C["text"],
-                        font=ctk.CTkFont(size=16, weight="bold"), **kw)
+    opts = dict(text=text, text_color=C["text"],
+                font=ctk.CTkFont(size=16, weight="bold"))
+    opts.update(kw)
+    return ctk.CTkLabel(parent, **opts)
 
 def sep(parent):
     ctk.CTkFrame(parent, height=1, fg_color=C["border"]).pack(fill="x", padx=15, pady=8)
@@ -370,7 +378,14 @@ def combo(parent, values, width=200):
     return c
 
 def btn(parent, text, color=None, hov=None, w=130, h=36, cmd=None, primary=False, **kw):
-    """Enhanced button with primary/secondary styling"""
+    """Enhanced button with primary/secondary styling.
+
+    CHỐNG TRÙNG KEYWORD (bug thật đã gặp): caller truyền `**{"width": 88,
+    "height": 30, ...}` (kiểu `_bc`) mà btn() đã có width=w, height=h tường
+    minh ⇒ CTkButton ném "got multiple values for keyword argument 'width'".
+    Giờ gom hết vào dict rồi `opts.update(kw)` — kw của caller LUÔN thắng,
+    không bao giờ truyền trùng key.
+    """
     if primary:
         fg = color or C["accent"]
         hover = hov or C["accent2"]
@@ -379,10 +394,10 @@ def btn(parent, text, color=None, hov=None, w=130, h=36, cmd=None, primary=False
         fg = color or C["card2"]
         hover = hov or C["card3"]
         txt_color = C["text"]
-    return ctk.CTkButton(parent, text=text,
-                          fg_color=fg, hover_color=hover,
-                          width=w, height=h, command=cmd,
-                          font=ctk.CTkFont(size=13, weight="bold"), text_color=txt_color, **kw)
+    opts = dict(fg_color=fg, hover_color=hover, width=w, height=h, command=cmd,
+                font=ctk.CTkFont(size=13, weight="bold"), text_color=txt_color)
+    opts.update(kw)
+    return ctk.CTkButton(parent, text=text, **opts)
 
 def primary_btn(parent, text, w=130, h=38, cmd=None, **kw):
     """Primary action button"""
@@ -845,8 +860,10 @@ class ApiKeyManagerDialog(ctk.CTkToplevel):
         head.pack_propagate(False)
         for w, t in ((40, "#"), (250, "Email"), (190, "Key (đã mask)"),
                      (110, "Trạng thái"), (150, "Kiểm tra"), (120, "Ghi chú")):
-            lbl(head, t, 11, "bold", C["accent"]).pack(
-                side="left", padx=(8, 0), pady=6, width=w)
+            # width phải truyền vào LABEL (pack không nhận width — bug thật
+            # đã bắt được bằng smoke test: TclError "bad option -width")
+            lbl(head, t, 11, "bold", C["accent"], width=w).pack(
+                side="left", padx=(8, 0), pady=6)
         self.tbl = ctk.CTkScrollableFrame(self, fg_color=C["card"], corner_radius=8)
         self.tbl.pack(fill="both", expand=True, padx=14, pady=(0, 6))
 

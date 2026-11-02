@@ -138,6 +138,33 @@ def voice_for(language: str) -> dict:
     return LANG_VOICES.get(lang, DEFAULT_VOICE)
 
 
+def voice_conf_for_locale(locale: str) -> dict:
+    """Map locale BCP-47 ('ja-JP', 'vi-VN', 'zh-CN'…) → entry LANG_VOICES.
+
+    BUG ĐÃ SỬA (2026-11-01): run_audio_stage gọi synthesize(..., voice="ja-JP")
+    để đọc ĐÚNG ngôn ngữ câu (tiếng Nhật) và nghĩa (tiếng Việt) trong 1 bài —
+    nhưng trước đây synthesize() không có tham số voice ⇒ TypeError bị nuốt
+    trong except ⇒ MỌI ngày ra 0 track audio ⇒ media_verify đánh dấu audio
+    PENDING ⇒ DoD=False ⇒ pipeline PAUSED.
+    Khớp theo: (1) prefix edge_voice, (2) sapi locale, (3) gtts_lang.
+    Trả DEFAULT_VOICE nếu không khớp (không bao giờ ném lỗi).
+    """
+    loc = (locale or "").strip().lower()
+    if not loc:
+        return DEFAULT_VOICE
+    for conf in LANG_VOICES.values():
+        if conf["edge_voice"].lower().startswith(loc + "-"):
+            return conf
+    for conf in LANG_VOICES.values():
+        if loc in [s.lower() for s in conf.get("sapi", [])]:
+            return conf
+    short = loc.split("-")[0]
+    for conf in LANG_VOICES.values():
+        if conf["gtts_lang"].lower().split("-")[0] == short:
+            return conf
+    return DEFAULT_VOICE
+
+
 def stage_spec(stage_idx) -> dict:
     try:
         return STAGE_SPEC.get(int(stage_idx), DEFAULT_STAGE_SPEC)

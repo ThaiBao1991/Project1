@@ -73,7 +73,14 @@ def _audio_items_for(lesson: dict, stage_idx: int, max_items: int) -> list:
     for v in (lesson.get("vocab") or []):
         w = str(v.get("word") or "").strip()
         if w:
-            items.append({"text": w, "kind": "vocab", "index": len(items)})
+            item = {"text": w, "kind": "vocab", "index": len(items)}
+            # TTS song ngữ cần NGHĨA VIỆT của từ — trước đây không copy ⇒
+            # it.get("meaning_vi") luôn None ⇒ đọc lại TỪ NHẬT bằng giọng
+            # Việt (thay vì đọc nghĩa). (bug ẩn trong commit 704b2ad)
+            mv = str(v.get("meaning_vi") or "").strip()
+            if mv:
+                item["meaning_vi"] = mv
+            items.append(item)
 
     if spec["unit"] in ("sentence", "paragraph", "idiom"):
         for p in (lesson.get("sentence_patterns") or [])[:4]:
@@ -115,6 +122,12 @@ def run_audio_stage(language: str, day: int, lesson: dict, chain, log_fn=print,
     from ai.tts_generator import synthesize, tts_quota_remaining
     coord = chain.providers[0].coord if chain.providers else None
 
+    # Locale của từ vựng theo NGÔN NGỮ KHÓA HỌC (edge_voice "ja-JP-NanamiNeural"
+    # → "ja-JP"). Trước đây hardcode "ja-JP" ⇒ khóa học tiếng Trung/Hàn… bị đọc
+    # giọng Nhật. Nếu không map được → để "" (synthesize tự chọn theo language).
+    _edge = voice_for(language).get("edge_voice") or ""
+    _loc_target = "-".join(_edge.split("-")[:2]) if _edge.count("-") >= 1 else ""
+
     # Quota TTS hôm nay đã cạn? → đánh dấu PENDING (chưa xong) để chạy lại
     # ngày mai, KHÔNG đánh dấu done (để không bỏ sót vĩnh viễn).
     try:
@@ -131,53 +144,83 @@ def run_audio_stage(language: str, day: int, lesson: dict, chain, log_fn=print,
     # Sinh SONG SONG (TTS là nút thắt cổ chai: 12 track × ~8s nếu tuần tự)
     from concurrent.futures import ThreadPoolExecutor
     results = [{}] * len(items)
+    # Lỗi TTS tích lũy cho NGÀY NÀY (closure — pipeline chạy 4 luồng song song
+    # ⇒ KHÔNG dùng list module-level, sẽ bị race khi clear()).
+    audio_errors = []
 
     def _one(i_item):
         i, it = i_item
+        errs = []
         try:
             res_jp = synthesize(language, it["text"], stage_idx=stage_idx,
-                              coord=coord, log_fn=None, voice="ja-JP")
+                                coord=coord, log_fn=errs.append, voice=_loc_target)
             if res_jp and res_jp.get("path"):
                 try:
                     from settings import load_settings
                     s = load_settings()
-                    if s.get("media", {}).get("tts_bilingual_mode"):
-                        vi_text = (it.get("meaning_vi") or it["text"]).split(",")[0]
-                        res_vi = synthesize(language, vi_text, stage_idx=stage_idx,
-                                            coord=coord, log_fn=None, voice="vi-VN")
+                    # Chỉ đọc nghĩa khi CÓ meaning_vi thật — trước đây fallback
+                    # sang it["text"] ⇒ đọc lại từ Nhật bằng giọng Việt.
+                    vi_raw = str(it.get("meaning_vi") or "").split(",")[0].strip()
+                    if s.get("media", {}).get("tts_bilingual_mode") and vi_raw:
+                        res_vi = synthesize(language, vi_raw, stage_idx=stage_idx,
+                                            coord=coord, log_fn=errs.append,
+                                            voice="vi-VN")
                         if res_vi and res_vi.get("path"):
                             return i, (res_jp, res_vi)
-                except Exception:
-                    pass
+                except Exception as e_vi:
+                    errs.append(f"bilingual: {type(e_vi).__name__}: {e_vi}")
                 return i, res_jp
+            # KHÔNG nuốt lỗi im lặng nữa — bug cũ: TypeError bị except ⇒ 0 track
+            # mà không ai biết vì sao (gây PAUSED toàn pipeline).
+            if errs:
+                audio_errors.append(f"#{it.get('index')}: {errs[-1]}")
             return i, {}
-        except Exception:
+        except Exception as e:
+            audio_errors.append(f"#{it.get('index')}: {type(e).__name__}: {e}")
             return i, {}
 
     with ThreadPoolExecutor(max_workers=6) as ex:
         for i, r in ex.map(_one, list(enumerate(items))):
             results[i] = r
 
+    # Bật đèn lỗi (thay cho nuốt im lặng): in 3 lỗi đầu + tổng số.
+    if audio_errors:
+        for msg in audio_errors[:3]:
+            log_fn(f"   ⚠️ Lỗi TTS Ngày {day}: {msg}")
+        if len(audio_errors) > 3:
+            log_fn(f"   ⚠️ ...và {len(audio_errors) - 3} lỗi TTS khác.")
+
     tracks = []
     for it, r in zip(items, results):
         if not r:
             continue
-        entry = media_store.save_audio(
-            language, day,
-            f"audio_{it['kind']}_{it['index']:02d}_{media_store.hash_key(it['text'], r.get('engine'))}",
-            _read_bytes(r["path"]),
-            mime="audio/mpeg" if r["path"].endswith(".mp3") else "audio/wav",
-            source="tts", text=it["text"], engine=r.get("engine", ""),
-            voice=r.get("voice", ""), rate=r.get("rate", ""),
-            kind=f"{it['kind']}_audio")
-        if entry:
-            tracks.append({
-                "kind": it["kind"], "index": it["index"], "text": it["text"],
-                "ref": entry.get("id"), "engine": r.get("engine"),
-                "file": entry.get("rel_path"),
-            })
-        if budget is not None:
-            budget.consume_tts()
+        # TTS song ngữ trả TUPLE (res_jp, res_vi) — trước đây đưa thẳng tuple
+        # vào r.get() ⇒ AttributeError (bug ẩn, bị mask bởi TypeError ở trên).
+        # Giờ tách từng track: JP (đọc từ) + VI (đọc nghĩa).
+        parts = list(r) if isinstance(r, tuple) else [r]
+        for pi, res in enumerate(parts):
+            if not res or not res.get("path"):
+                continue
+            is_vi = isinstance(r, tuple) and pi == 1
+            entry = media_store.save_audio(
+                language, day,
+                f"audio_{it['kind']}_{it['index']:02d}"
+                f"{'_vi' if is_vi else ''}_"
+                f"{media_store.hash_key(it['text'], res.get('engine'))}",
+                _read_bytes(res["path"]),
+                mime="audio/mpeg" if res["path"].endswith(".mp3") else "audio/wav",
+                source="tts", text=it["text"], engine=res.get("engine", ""),
+                voice=res.get("voice", ""), rate=res.get("rate", ""),
+                kind=f"{it['kind']}_audio")
+            if entry:
+                tracks.append({
+                    "kind": it["kind"], "index": it["index"], "text": it["text"],
+                    "ref": entry.get("id"), "engine": res.get("engine"),
+                    "file": entry.get("rel_path"),
+                    "variant": "vi" if is_vi else "target",
+                })
+            if budget is not None:
+                budget.consume_tts()
 
     # ── GẮN audio vào TỪ VỰNG + bảng media của ngày ──────────────────────
     # BẮT BUỘC: web + desktop đọc `v["audio_ref"]` và `lesson["media"]["vocab_audio"]`.
@@ -189,6 +232,12 @@ def run_audio_stage(language: str, day: int, lesson: dict, chain, log_fn=print,
         if tr["kind"] != "vocab":
             continue
         vi = tr["index"]
+        if tr.get("variant") == "vi":
+            # Track NGHĨA tiếng Việt — ref phụ, KHÔNG đè audio_ref (mặc định
+            # phát âm từ). App chưa đọc field này nhưng dữ liệu được giữ.
+            if 0 <= vi < len(vocab):
+                vocab[vi]["meaning_audio_ref"] = tr["ref"]
+            continue
         if 0 <= vi < len(vocab):
             vocab[vi]["audio_ref"] = tr["ref"]
             vocab_audio[vocab[vi].get("word", str(vi))] = tr["ref"]

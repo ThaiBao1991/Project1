@@ -28,7 +28,7 @@ import wave
 
 from ai.media_store import hash_key
 from ai.tts_config import (DEFAULT_STAGE_SPEC, NARRATIVE_GEMINI_VOICES,
-                            stage_spec, voice_for)
+                            stage_spec, voice_conf_for_locale, voice_for)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 AUDIO_DIR = os.path.join(BASE_DIR, "data", "audio")
@@ -411,9 +411,13 @@ def wav_bytes_to_mp3(wav_data: bytes) -> bytes:
 
 # ─── API chính ───────────────────────────────────────────────────────────────
 def synthesize(language: str, text: str, stage_idx: int = 3, slow: bool = False,
-               coord=None, log_fn=None, prefer: str = "auto"):
+               coord=None, log_fn=None, prefer: str = "auto", voice: str = ""):
     """Sinh 1 file âm thanh, có cache. Trả dict {path, bytes, engine, voice, rate}
     hoặc {} nếu thất bại.
+
+    voice (2026-11-01): locale BCP-47 tùy chọn ('ja-JP', 'vi-VN') — CHỌN GIỌNG
+    theo locale thay vì theo `language`. Dùng khi 1 bài cần đọc CẢ 2 thứ tiếng
+    (câu Nhật + nghĩa Việt). Rỗng ⇒ dùng voice_for(language) như cũ.
     """
     def _log(m):
         if log_fn:
@@ -425,7 +429,7 @@ def synthesize(language: str, text: str, stage_idx: int = 3, slow: bool = False,
     text = (text or "").strip()
     if not text:
         return {}
-    vconf = voice_for(language)
+    vconf = voice_conf_for_locale(voice) if voice else voice_for(language)
     spec = stage_spec(stage_idx)
     rate = spec.get("rate", "+0%")
     pitch = spec.get("pitch", "+0Hz")
