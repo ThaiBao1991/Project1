@@ -12,6 +12,7 @@ PACE_MIN = 3.5
 PACE_MAX = 5.0
 PACE_JITTER = (0.5, 1.5)          # jitter phá tần số bot
 ACCOUNT_COOLDOWN = 3600           # 60 phút nghỉ cho 1 account sau batch/429
+PER_ACCOUNT_MIN_GAP = 8.0         # Khoảng cách tối thiểu giữa 2 request vào cùng 1 Google account (kể cả chỉ còn 1 account)
 MAX_KEYS_PER_ACCOUNT = 2          # khuyến nghị 1-2 key/account
 DAILY_CALL_BUDGET = 3000          # ngân sách call/ngày, vượt thì cảnh báo
 MODEL_FALLBACKS = ["gemini-flash-latest", "gemini-3-flash-preview", "gemini-3.1-flash-lite", "gemini-3.5-flash", "gemini-flash-lite-latest"]
@@ -124,14 +125,18 @@ def classify_response(status_code, body):
         if "perday" in low or "per-day" in low or "per day" in low or "daily" in low:
             return ErrorKind.QUOTA_DAILY, message
         return ErrorKind.QUOTA_RATE, message
-    if status_code in (401, 403):
+    if status_code == 401:
+        return ErrorKind.INVALID_KEY, message
+    if status_code == 403:
         if ("api_key_invalid" in low or "invalid authentication" in low
                 or "invalid key" in low or "api key not valid" in low
-                or "api key not found" in low or "access_token_type_unsupported" in low):
+                or "api key not found" in low or "access_token_type_unsupported" in low
+                or "deleted" in low or "disabled" in low or "service account" in low
+                or "permission denied" in low or "caller does not have permission" in low):
             return ErrorKind.INVALID_KEY, message
         return ErrorKind.REQUEST_BAD, message
     if status_code == 400:
-        if "api_key_invalid" in low:
+        if any(w in low for w in ("api_key_invalid", "api key not valid", "invalid api key", "key not valid", "api_key_deleted")):
             return ErrorKind.INVALID_KEY, message
         return ErrorKind.REQUEST_BAD, message
     if status_code >= 500:
@@ -183,7 +188,32 @@ class AccountPool:
         self._cooldown = {}          # account -> unlock ts
         self._last_account = None
         self._acct_counters = {}
+        self._account_last_used = {} # account -> timestamp lần gọi gần nhất
         self._lock = threading.Lock()
+
+    def get_cooldown_status(self, exclude=None):
+        """Kiểm tra trạng thái cooldown của toàn bộ pool."""
+        exclude = set(exclude or [])
+        now = time.time()
+        with self._lock:
+            live_keys = [k for k in self._keys if k.get("status") != "invalid"]
+            if not live_keys:
+                return None, 0.0, False, 0
+            usable = self._usable_keys(exclude)
+            if usable:
+                return None, 0.0, True, len(live_keys)
+            min_wait = float("inf")
+            soonest_acct = None
+            for k in live_keys:
+                acct = self.account_of(k)
+                cd = self._cooldown.get(acct, 0)
+                wait_time = max(0.0, cd - now)
+                if wait_time < min_wait:
+                    min_wait = wait_time
+                    soonest_acct = acct
+            if min_wait == float("inf"):
+                min_wait = 0.0
+            return soonest_acct, min_wait, True, len(live_keys)
 
     def sync(self, keys):
         self._keys = list(keys or [])
@@ -247,6 +277,12 @@ class AccountPool:
             else:
                 idx = 0
             acct = names[idx]
+            now = time.time()
+            last_ts = self._account_last_used.get(acct, 0)
+            if (now - last_ts) < PER_ACCOUNT_MIN_GAP and len(names) > 1:
+                ready_accts = [a for a in names if (now - self._account_last_used.get(a, 0)) >= PER_ACCOUNT_MIN_GAP]
+                if ready_accts:
+                    acct = ready_accts[0]
             self._last_account = acct
             keys = groups[acct]
             counter = self._acct_counters.get(acct, 0)
@@ -403,10 +439,35 @@ class GeminiCoordinator:
             pool.sync(self._key_loader() or [])
             key_obj = pool.pick(exclude)
             if not key_obj:
-                return {"ok": False, "text": "", "error": {"kind": ErrorKind.NO_KEY}}
+                soonest_acct, wait_sec, has_live, live_count = pool.get_cooldown_status(exclude)
+                if not has_live or live_count == 0:
+                    return {"ok": False, "text": "", "error": {"kind": ErrorKind.NO_KEY, "msg": "Tất cả key đều invalid"}}
+                if wait_sec <= 0:
+                    exclude.clear()
+                    time.sleep(1.0)
+                    continue
+                if wait_sec <= 300:
+                    wait_int = int(wait_sec) + 2
+                    self._log(f"⏳ Tất cả tài khoản đang tạm nghỉ (cooldown). Tài khoản '{soonest_acct}' sẽ hồi phục sau {wait_int}s. Tự động chờ...")
+                    for _ in range(wait_int):
+                        if self._stop_check():
+                            return {"ok": False, "text": "", "error": {"kind": ErrorKind.STOPPED}}
+                        time.sleep(1.0)
+                    exclude.clear()
+                    continue
+                else:
+                    return {"ok": False, "text": "", "error": {"kind": ErrorKind.NO_KEY, "msg": f"Tất cả account hết hạn mức ngày, cần nghỉ {int(wait_sec//60)} phút"}}
+
             api_key = key_obj.get("key") or ""
             email = key_obj.get("email") or "?"
             pace()
+            # Khóa cứng giãn cách trên cùng 1 account >= 8.0s
+            last_ts = pool._account_last_used.get(email, 0)
+            elapsed = time.time() - last_ts
+            if elapsed < PER_ACCOUNT_MIN_GAP:
+                wait_gap = PER_ACCOUNT_MIN_GAP - elapsed
+                time.sleep(wait_gap)
+            pool._account_last_used[email] = time.time()
             res = self._try_models(prompt_text, api_key, json_mode, response_schema,
                                    temp, mout, tout)
             kind = res.get("kind")

@@ -63,9 +63,18 @@ def push_to_destination(dest_name, target_skills, target_rules):
             src_item = os.path.join(SOURCE_SKILLS, item)
             dst_item = os.path.join(target_skills, item)
             if os.path.isdir(src_item):
-                if os.path.exists(dst_item):
-                    shutil.rmtree(dst_item)
-                shutil.copytree(src_item, dst_item)
+                try:
+                    shutil.copytree(src_item, dst_item, dirs_exist_ok=True)
+                except Exception:
+                    for root, _, files in os.walk(src_item):
+                        rel = os.path.relpath(root, src_item)
+                        dest_dir = os.path.join(dst_item, rel)
+                        os.makedirs(dest_dir, exist_ok=True)
+                        for f in files:
+                            try:
+                                shutil.copy2(os.path.join(root, f), os.path.join(dest_dir, f))
+                            except Exception:
+                                pass
                 skill_count += 1
             elif os.path.isfile(src_item):
                 shutil.copy2(src_item, dst_item)

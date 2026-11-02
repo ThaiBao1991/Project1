@@ -244,14 +244,25 @@ def probe_active_models(api_keys: List[Any], candidate_models: Optional[List[str
 def enrich_key_objects(keys: List[Any]) -> List[Dict[str, Any]]:
     """
     Bổ sung metadata (email, account) cho danh sách key.
-    Nếu key truyền vào dạng chuỗi trần, tra cứu trong kho riêng của dự án hoặc AskCpl để lấy email thật.
-    Nếu không tìm thấy, phân phối cụm account giả lập để duy trì luân phiên và giãn cách.
+    Tra cứu trong cả kho AskCpl và kho nội bộ dự án để lấy email tài khoản thật.
+    Nếu không tìm thấy (key dán tự do), gán nhãn rõ ràng theo mask của key để người dùng nhận biết,
+    không sinh email giả lập gây hiểu nhầm.
     """
     known_map = {}
-    for obj in load_configured_key_objects():
+    # 1. Nạp từ AskCpl
+    for obj in load_askcpl_key_objects():
         k_val = obj.get("key")
         if k_val:
-            known_map[k_val] = obj
+            known_map[k_val] = dict(obj)
+    # 2. Ưu tiên nạp/ghi đè từ kho nội bộ dự án
+    try:
+        from core.key_manager import get_active_raw_keys
+        for obj in get_active_raw_keys():
+            k_val = obj.get("key")
+            if k_val:
+                known_map[k_val] = dict(obj)
+    except Exception:
+        pass
 
     enriched = []
     seen = set()
@@ -268,9 +279,10 @@ def enrich_key_objects(keys: List[Any]) -> List[Dict[str, Any]]:
                 if k_val in known_map:
                     enriched.append(dict(known_map[k_val]))
                 else:
+                    short_k = f"{k_val[:6]}...{k_val[-4:]}" if len(k_val) > 10 else "***"
                     enriched.append({
                         "key": k_val,
-                        "email": f"account_{(idx % 5) + 1}@custom",
+                        "email": f"Key #{idx + 1} ({short_k})",
                         "project_id": str(idx + 1),
                         "status": "active"
                     })
@@ -351,6 +363,40 @@ class AccountPool:
             usable.append(k)
         return usable
 
+    def get_cooldown_status(self, exclude: Optional[Set[str]] = None) -> Tuple[Optional[str], float, bool, int]:
+        """
+        Kiểm tra trạng thái cooldown của toàn bộ pool.
+        Trả về: (soonest_account, min_wait_seconds, has_live_keys, live_key_count)
+        """
+        exclude_set = set(exclude or [])
+        now = time.time()
+        with self._lock:
+            live_keys = [k for k in self._keys if k.get("status") != "invalid"]
+            if not live_keys:
+                return None, 0.0, False, 0
+
+            # Nếu còn key usable (không bị exclude và không bị cooldown)
+            usable = self._usable_keys(exclude_set)
+            if usable:
+                return None, 0.0, True, len(live_keys)
+
+            # Tính thời gian chờ ngắn nhất đến khi có account hồi phục
+            min_wait = float("inf")
+            soonest_acct = None
+
+            for k in live_keys:
+                acct = self.account_of(k)
+                cd_until = max(self._cooldown.get(acct, 0), k.get("cooldown_until", 0))
+                wait_time = max(0.0, cd_until - now)
+                if wait_time < min_wait:
+                    min_wait = wait_time
+                    soonest_acct = acct
+
+            if min_wait == float("inf"):
+                min_wait = 0.0
+
+            return soonest_acct, min_wait, True, len(live_keys)
+
     def pick(self, exclude: Optional[Set[str]] = None) -> Optional[Dict[str, Any]]:
         exclude_set = set(exclude or [])
         with self._lock:
@@ -373,11 +419,10 @@ class AccountPool:
                 idx = 0
             acct = names[idx]
 
-            # Kiểm tra khoảng cách an toàn PER_ACCOUNT_MIN_GAP (>= 8.0s) trên cùng 1 account
+            # Nếu có nhiều account, ưu tiên account đã qua thời gian giãn cách >= 8.0s
             now = time.time()
             last_ts = self._account_last_used.get(acct, 0)
             if (now - last_ts) < PER_ACCOUNT_MIN_GAP and len(names) > 1:
-                # Tìm account khác đã qua thời gian giãn cách >= 8.0s
                 ready_accts = [a for a in names if (now - self._account_last_used.get(a, 0)) >= PER_ACCOUNT_MIN_GAP]
                 if ready_accts:
                     acct = ready_accts[0]
@@ -387,7 +432,6 @@ class AccountPool:
             counter = self._acct_counters.get(acct, 0)
             self._acct_counters[acct] = counter + 1
             picked = keys[counter % len(keys)]
-            self._account_last_used[acct] = time.time()
             return picked
 
 _shared_pool_instance: Optional[AccountPool] = None
@@ -911,15 +955,37 @@ class GeminiTranslator:
     def stop(self):
         self.is_stopped = True
 
-    def _wait_pacing(self):
-        """Giữ khoảng cách an toàn 3.5s - 5.0s + jitter ngẫu nhiên 0.5s - 1.5s để phá tần số bot."""
+    def _wait_pacing(self, account: Optional[str] = None):
+        """Giữ khoảng cách an toàn:
+        1. Nhịp thở ngẫu nhiên 3.5s - 5.0s + jitter 0.5s - 1.5s để chống bot.
+        2. KHOÁ CỨNG GIÃN CÁCH TRÊN CÙNG 1 ACCOUNT: Đảm bảo khoảng cách giữa 2 lần gọi vào
+           CÙNG 1 GOOGLE ACCOUNT luôn >= PER_ACCOUNT_MIN_GAP (8.0s) (kể cả khi chỉ còn 1 account).
+        """
+        now = time.time()
         base = random.uniform(max(PACE_MIN, self.pace_seconds), max(PACE_MAX, self.pace_seconds + 1.5))
         jitter = random.uniform(*PACE_JITTER)
-        elapsed = time.time() - self._last_call_time
-        wait = (base + jitter) - elapsed
-        if wait > 0:
-            time.sleep(wait)
-        self._last_call_time = time.time()
+        elapsed_global = now - self._last_call_time
+        wait_global = (base + jitter) - elapsed_global
+
+        wait_acct = 0.0
+        if account:
+            last_acct_ts = self.pool._account_last_used.get(account, 0)
+            elapsed_acct = now - last_acct_ts
+            if elapsed_acct < PER_ACCOUNT_MIN_GAP:
+                wait_acct = PER_ACCOUNT_MIN_GAP - elapsed_acct
+
+        total_wait = max(wait_global, wait_acct)
+        if total_wait > 0:
+            end_time = time.time() + total_wait
+            while time.time() < end_time:
+                if self.is_stopped:
+                    return
+                time.sleep(min(0.2, end_time - time.time()))
+
+        current_ts = time.time()
+        self._last_call_time = current_ts
+        if account:
+            self.pool._account_last_used[account] = current_ts
 
     def _call_api_with_retry(self, prompt: str, system_instruction: Optional[str] = None, timeout: int = 60) -> Tuple[bool, str, str]:
         """
@@ -937,17 +1003,45 @@ class GeminiTranslator:
         while not self.is_stopped:
             key_obj = self.pool.pick(exclude=exclude)
             if not key_obj:
-                # Kiểm tra nếu tất cả account đang tạm thời bị cooldown (ví dụ rate limit 65s)
-                if account_attempts > 0:
-                    self._log("  ⏳ Các account đang trong thời gian nghỉ tốc độ (cooldown). Nghỉ 10s để hồi phục lưu lượng...")
-                    for _ in range(10):
+                soonest_acct, wait_sec, has_live, live_count = self.pool.get_cooldown_status(exclude=exclude)
+                if not has_live or live_count == 0:
+                    return False, "", "Tất cả API keys/accounts đều đã bị Google khóa hoặc vô hiệu hóa vĩnh viễn (HTTP 401 Invalid)."
+
+                # Nếu các key chỉ bị loại trừ tạm thời trong lượt quay vòng vừa rồi
+                if wait_sec <= 0:
+                    exclude.clear()
+                    account_attempts = 0
+                    time.sleep(1.0)
+                    continue
+
+                # Toàn bộ account đang tạm nghỉ cooldown (ví dụ 429 RPM 65s)
+                if wait_sec <= 300:
+                    wait_int = int(wait_sec) + 2
+                    self._log(
+                        f"  ⏳ Tất cả tài khoản đang tạm nghỉ tốc độ (cooldown). Tài khoản '{soonest_acct}' "
+                        f"sẽ sẵn sàng sau {wait_int}s. Tự động chờ để tránh khóa account..."
+                    )
+                    for _ in range(wait_int):
                         if self.is_stopped:
                             return False, "", "Đã dừng bởi người dùng."
                         time.sleep(1.0)
                     exclude.clear()
                     account_attempts = 0
                     continue
-                return False, "", "Tất cả API keys/accounts đều bị lỗi, hết hạn hoặc đang trong thời gian khóa."
+                else:
+                    # Daily Limit 60 phút
+                    wait_min = int(wait_sec // 60) + 1
+                    self._log(
+                        f"  ⚠ Toàn bộ {live_count} tài khoản đều đã chạm hạn mức ngày (Daily Limit). "
+                        f"Tài khoản sớm nhất '{soonest_acct}' cần nghỉ {wait_min} phút. Đang chờ phục hồi..."
+                    )
+                    for _ in range(min(int(wait_sec) + 5, 3600)):
+                        if self.is_stopped:
+                            return False, "", "Đã dừng bởi người dùng."
+                        time.sleep(1.0)
+                    exclude.clear()
+                    account_attempts = 0
+                    continue
 
             api_key = key_obj.get("key", "")
             email = key_obj.get("email", "unknown")
@@ -990,7 +1084,7 @@ class GeminiTranslator:
                 if self.is_stopped:
                     return False, "", "Đã dừng bởi người dùng."
 
-                self._wait_pacing()
+                self._wait_pacing(account=email)
                 url = (f"https://generativelanguage.googleapis.com/v1beta/"
                        f"models/{model}:generateContent?key={api_key}")
 
@@ -1103,14 +1197,36 @@ class GeminiTranslator:
                             account_attempts = 0
                         break # Break model loop để đổi account
 
-                    # 401/403: Key lỗi hoặc vô hiệu
-                    if status in (401, 403):
-                        if any(w in resp_text.lower() for w in ("api_key_invalid", "invalid authentication", "invalid key", "not valid", "not found")):
-                            self._log(f"  ✗ Key {short_key} ({email}) không hợp lệ (Invalid). Đánh dấu loại bỏ key này...")
-                            self.pool.mark_invalid(key_obj, reason=f"HTTP {status} Invalid Key")
+                    # 400: API Key không hợp lệ hoặc đã bị Google vô hiệu hóa (API key not valid / INVALID_ARGUMENT)
+                    if status == 400:
+                        low_resp = resp_text.lower()
+                        if any(w in low_resp for w in ("api key not valid", "api_key_invalid", "invalid api key", "key not valid", "api_key_deleted")):
+                            reason = f"HTTP 400: {resp_text[:120]}"
+                            self._log(f"  ✗ Key {short_key} ({email}) API key không hợp lệ hoặc đã bị Google vô hiệu hóa ({status}). Đánh dấu loại bỏ key này...")
+                            self.pool.mark_invalid(key_obj, reason=reason)
                             exclude.add(api_key)
-                            break
-                        self._log(f"  ⚠ [{email}] HTTP {status}: {resp_text[:100]}. Thử model tiếp theo...")
+                            break  # Ngắt ngay khỏi vòng lặp model, không thử tiếp các model khác trên key đã chết!
+
+                    # 401: Key xác thực thất bại hoàn toàn (Service account deleted/disabled, Invalid key, Revoked)
+                    if status == 401:
+                        reason = f"HTTP 401: {resp_text[:120]}"
+                        if "deleted" in resp_text.lower() or "disabled" in resp_text.lower():
+                            self._log(f"  ✗ Key {short_key} ({email}) Service account đã bị xóa/vô hiệu hóa. Đánh dấu loại bỏ key này...")
+                        else:
+                            self._log(f"  ✗ Key {short_key} ({email}) không hợp lệ hoặc bị Google khóa ({status}). Đánh dấu loại bỏ key này...")
+                        self.pool.mark_invalid(key_obj, reason=reason)
+                        exclude.add(api_key)
+                        break  # Ngắt ngay khỏi vòng lặp model, không thử tiếp các model khác trên key đã chết!
+
+                    # 403: Bị từ chối quyền truy cập (Permission denied / Billing disabled)
+                    if status == 403:
+                        low_resp = resp_text.lower()
+                        if any(w in low_resp for w in ("api_key_invalid", "invalid authentication", "invalid key", "not valid", "not found", "deleted", "disabled", "service account", "permission denied", "caller does not have permission", "api has not been used", "billing")):
+                            self._log(f"  ✗ Key {short_key} ({email}) bị từ chối quyền truy cập ({status}). Đánh dấu loại bỏ key này...")
+                            self.pool.mark_invalid(key_obj, reason=f"HTTP 403: {resp_text[:120]}")
+                            exclude.add(api_key)
+                            break  # Ngắt ngay khỏi vòng lặp model, chuyển sang key khác
+                        self._log(f"  ⚠ [{email}] HTTP 403: {resp_text[:100]}. Thử model tiếp theo...")
                         continue
 
                     self._log(f"  ⚠ HTTP {status} từ '{model}' ({email}): {resp_text[:120]}. Thử model tiếp theo...")

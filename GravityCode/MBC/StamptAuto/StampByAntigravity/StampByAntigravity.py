@@ -339,9 +339,15 @@ def stamp_pdf(pdf_path: str, cfg: dict, custom_output: str = None) -> bool:
             text_instances = page.search_for(anchor_text, clip=clip_rect)
             if text_instances:
                 if text_match_mode == "first":
+                    remaining = 1 - stamped_count
+                    if remaining <= 0:
+                        break
                     text_instances = [text_instances[0]]
                 elif text_match_mode == "custom":
-                    text_instances = text_instances[:text_match_count]
+                    remaining = max(0, text_match_count - stamped_count)
+                    if remaining <= 0:
+                        break
+                    text_instances = text_instances[:remaining]
                 
                 for inst in text_instances:
                     x0, y0, x1, y1 = inst
@@ -419,6 +425,15 @@ def stamp_pdf(pdf_path: str, cfg: dict, custom_output: str = None) -> bool:
             page.insert_image(img_rect, filename=temp_stamp_path)
             stamped_count += 1
             log_ok(f"  Trang {page_num+1}: Đã chèn dấu tại Rect{img_rect}")
+
+        # Dung som neu da dat du so luong o che do Text Anchor
+        if use_text_anchor:
+            if text_match_mode == "first" and stamped_count >= 1:
+                log_info(f"  Da dong dau vi tri dau tien (che do 'first') tai trang {page_num+1}, dung duyet cac trang tiep theo.")
+                break
+            elif text_match_mode == "custom" and stamped_count >= text_match_count:
+                log_info(f"  Da dong du {stamped_count}/{text_match_count} dau (che do 'custom'), dung duyet cac trang tiep theo.")
+                break
 
     # ── Lưu PDF ──────────────────────────────────────────────────────────────
     if stamped_count > 0:

@@ -169,3 +169,18 @@ Nếu bạn là AI assistant đang làm việc trên project này, hãy thực h
 - Fix load_config(): Neu pdf_sample_path trong config khong con ton tai, canh bao nen log va bo qua viec load preview (thay vi crash sau).
 
 *Cap nhat lan cuoi: 2026-07-07 13:20 (GMT+7)*
+
+
+### [2026-11-02] Fix Lỗi Đóng Dấu Chữ Ở Nhiều Trang Khi Chọn Chế Độ "first" / "custom"
+
+#### 1. Hiện tượng & Nguyên nhân:
+- **Hiện tượng**: File PDF nhiều trang (VD: `053-03-000422231231.pdf`), dù chọn chế độ `"first"` (chỉ đóng dấu ở vị trí đầu tiên) nhưng cả 2 trang đều bị đóng dấu.
+- **Nguyên nhân**: Logic trước đó áp dụng `text_match_mode == "first"` độc lập trên TỪNG TRANG trong vòng lặp duyệt trang. Khi sang Trang 2, nếu tiếp tục thấy chữ cần tìm (như "Xác nhận"), nó lại lấy vị trí đầu tiên của Trang 2 và đóng dấu tiếp.
+
+#### 2. Cách sửa trong `StampByAntigravity.py`:
+- Trong hàm `stamp_pdf()`, khi bật `use_text_anchor`:
+  - Thêm logic tính toán số lượng vị trí còn lại được phép đóng trên tài liệu (`remaining = 1 - stamped_count` cho `"first"` hoặc `max(0, text_match_count - stamped_count)` cho `"custom"`).
+  - Ngay sau khi hoàn thành đóng dấu tại trang hiện tại, nếu đã đạt đủ chỉ tiêu (`stamped_count >= 1` với `"first"`, hoặc `stamped_count >= text_match_count` với `"custom"`), lập tức `break` ngắt vòng lặp trang, không duyệt các trang tiếp theo.
+  - Chế độ `"all"` vẫn tiếp tục duyệt và đóng tất cả vị trí tìm thấy trên toàn bộ tài liệu.
+
+*Cập nhật lần cuối: 2026-11-02 (GMT+7)*
