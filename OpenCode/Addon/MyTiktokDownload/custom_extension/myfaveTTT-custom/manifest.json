@@ -25,11 +25,14 @@
   "web_accessible_resources": [
     {
       "matches": [
-        "https://www.tiktok.com/*"
+        "https://www.tiktok.com/*",
+        "<all_urls>"
       ],
       "resources": [
         "rl.html",
-        "s.js"
+        "s.js",
+        "ui/*",
+        "ui/assets/*"
       ]
     }
   ],

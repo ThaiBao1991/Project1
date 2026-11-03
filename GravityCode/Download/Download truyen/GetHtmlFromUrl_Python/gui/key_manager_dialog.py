@@ -35,11 +35,11 @@ class KeyValidationWorker(QThread):
         for row_idx, raw_key in self.key_rows:
             if self._is_stopped:
                 break
-            ok, msg, ms = validate_key(raw_key, timeout=8.0)
+            ok, msg, ms = validate_key(raw_key, timeout=7.0)
             if ok:
                 valid_count += 1
             self.item_validated_signal.emit(row_idx, ok, msg, ms)
-            time.sleep(0.3)
+            time.sleep(0.4)
         self.finished_signal.emit(f"Đã kiểm tra xong! {valid_count}/{len(self.key_rows)} key hoạt động bình thường.")
 
 
@@ -452,6 +452,22 @@ class ApiKeyManagerDialog(QDialog):
                     removed = remove_keys_from_askcpl(deleted_raw)
                     QMessageBox.information(self, "Thông báo", f"Đã xóa {removed} key lỗi khỏi AskCpl!")
 
+    def _format_test_result_item(self, ok: bool, msg: str) -> QTableWidgetItem:
+        clean_msg = msg.lstrip("✅❌⚠ ").strip()
+        if ok:
+            icon = "✅"
+            color = "#2e7d32"  # Xanh lá: Hoạt động tốt
+        elif "⚠" in msg or "503" in msg or "429" in msg or "timeout" in msg.lower() or "quá tải" in msg.lower() or "bận" in msg.lower():
+            icon = "⚠"
+            color = "#ef6c00"  # Cam: Cảnh báo tạm thời (Key vẫn sống, server bận hoặc mạng lag)
+        else:
+            icon = "❌"
+            color = "#c62828"  # Đỏ: Key chết thực sự (401 / 400 Invalid / 403 Revoked)
+
+        it = QTableWidgetItem(f"{icon} {clean_msg}")
+        it.setForeground(QBrush(QColor(color)))
+        return it
+
     def _on_test_selected(self):
         rows = self._get_selected_rows()
         if not rows:
@@ -460,13 +476,8 @@ class ApiKeyManagerDialog(QDialog):
         for row in rows:
             raw = decode_token(self.keys_data[row].get("key", ""))
             self.table.setItem(row, 4, QTableWidgetItem("⏳ Đang kiểm tra..."))
-            ok, msg, ms = validate_key(raw)
-            it = QTableWidgetItem(f"{'✅' if ok else '❌'} {msg}")
-            if ok:
-                it.setForeground(QBrush(QColor("#2e7d32")))
-            else:
-                it.setForeground(QBrush(QColor("#c62828")))
-            self.table.setItem(row, 4, it)
+            ok, msg, ms = validate_key(raw, timeout=7.0)
+            self.table.setItem(row, 4, self._format_test_result_item(ok, msg))
 
     def _on_test_all(self):
         if not self.keys_data:
@@ -479,9 +490,7 @@ class ApiKeyManagerDialog(QDialog):
 
         self.validation_worker = KeyValidationWorker(key_rows)
         def _on_item(row, ok, msg, ms):
-            it = QTableWidgetItem(f"{'✅' if ok else '❌'} {msg}")
-            it.setForeground(QBrush(QColor("#2e7d32") if ok else QColor("#c62828")))
-            self.table.setItem(row, 4, it)
+            self.table.setItem(row, 4, self._format_test_result_item(ok, msg))
 
         self.validation_worker.item_validated_signal.connect(_on_item)
         self.validation_worker.finished_signal.connect(lambda txt: QMessageBox.information(self, "Hoàn tất kiểm tra", txt))

@@ -213,3 +213,25 @@ GetHtmlFromUrl_Python/
   - Test validate_key 400: Báo lỗi ngay không fallback.
   - Test Pool Instant Sync: Key bị xóa trên UI biến mất khỏi pool trong RAM ngay lập tức.
   - Cả 2 project compile sạch lỗi (`0 errors`). Đã chạy `--push-all` cập nhật Global & Workspace.
+
+### ✅ Phase 13.3 — Tối Ưu Kiểm Tra Key (Model Siêu Tốc), Phân Loại 3 Trạng Thái & Xóa Bỏ Vòng Lặp Vô Tận 429 — HOÀN THÀNH (2026-11-03)
+- [x] **Khắc phục lỗi kiểm tra key bị Timeout > 8s & HTTP 503 (Ảnh 1)**:
+  - Cập nhật model kiểm tra trong `validate_key()`: Thay thế model cũ đã bị khai tử `gemini-2.0-flash` (HTTP 404) và fallback `gemini-flash-latest` (bị treo timeout 15s) bằng cặp model thế hệ mới phản hồi siêu nhanh:
+    + Model chính: `gemini-3.5-flash-lite` (latency ~680ms - 750ms).
+    + Model fallback: `gemini-3-flash-preview` (latency ~790ms).
+  - Phân loại rõ ràng 3 trạng thái kiểm tra trên UI:
+    + `✅` (Xanh): Hoạt động tốt.
+    + `⚠` (Cam): Cảnh báo tạm thời (503 server quá tải, 429 chạm trần RPM, Timeout mạng lag) — **Key vẫn sống**, giữ nguyên để phục vụ dịch.
+    + `❌` (Đỏ): Key chết thực sự (401 Unauthorized, 400 API key not valid, 403 Revoked).
+  - Bảo vệ nút "🧹 Xóa Key Lỗi": Chỉ quét và xóa các dòng có `❌` đỏ, cam kết **không bao giờ xóa nhầm các key sống đang gặp cảnh báo tạm thời `⚠`**.
+- [x] **Dẹp bỏ dứt điểm vòng lặp vô tận 429 & thông báo giả `(403/503 restriction)`**:
+  - Khi một model chạm trần tốc độ 429 RPM: Tự động chuyển mượt mà sang **model fallback tiếp theo** trên cùng account (như `gemini-3-flash-preview`, `gemini-3.5-flash`, `gemini-3.1-flash-lite`...) vì mỗi model có hạn mức RPM độc lập. Không vội khóa account ngay ở model đầu tiên gây lãng phí 9 model còn lại.
+  - Chỉ khóa cooldown account khi TẤT CẢ các model của account đó đều trả về 429 hoặc gặp 429 Daily Limit.
+  - Tách biệt hoàn toàn luồng ngắt `break_reason`: Ngăn chặn việc in thông báo giả `(403/503 restriction)` khi lỗi thực tế là 429 rate limit.
+  - Xóa bỏ việc gọi `exclude.clear()` bừa bãi ở cuối vòng lặp: Đảm bảo khi tất cả tài khoản đều bị tạm nghỉ, hệ thống sẽ dừng lại đếm ngược thông minh (Smart Cooldown Queue) và tự động chạy tiếp khi account hồi phục, triệt tiêu 100% hiện tượng xoay vòng vô tận.
+- [x] **Cập nhật Skill Toàn Cục**: Bổ sung Rule 12 (*Fallback Model Nội Bộ Khi Gặp 429 RPM*) và Rule 13 (*Phân Loại Trực Quan Trạng Thái Key*) vào `SKILL.md`, đồng bộ tự động `--push-all`.
+- [x] **Đã kiểm chứng**:
+  - Test thực tế `validate_key()` trên key thật: Phản hồi `✅ Hoạt động tốt (686ms)`.
+  - Test mô phỏng fallback 429: Model 1 bị 429 tự động chuyển sang Model 2 và dịch thành công 100%.
+  - Test vòng lặp 429: Không còn xuất hiện bất kỳ dòng log `(403/503 restriction)` sai lệch nào.
+  - Compile kiểm tra cú pháp: Passed 100% (0 errors).

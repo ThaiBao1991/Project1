@@ -34,6 +34,7 @@
 | 2026-10-12 | Tạo module src/secret_vault.py: Mã hóa hai chiều GitHub Token qua Windows DPAPI / Vault, chống quét chuỗi ghp_ từ GitHub Secret Scanning/Push Protection |
 | 2026-10-12 | Tích hợp tính năng Web Viewer PWA (từ myfaveTT_viewer) qua src/viewer_sync.py: Tổng hợp 6,500+ tác giả ra webapp/data.json và deploy lên GitHub Pages bằng in-memory auth (không lưu token vào git config) |
 | 2026-10-12 | Nâng cấp gui_manager.py v1.1.0: Thêm Tab "Web Viewer (PWA)" cho phép cấu hình Repo, Token ẩn, 1-Click tạo data & deploy GitHub Pages, mở web trên điện thoại |
+| 2026-11-03 | Sửa dứt điểm lỗi kẹt spinner (2 chấm xoay vòng đỏ/xanh) khi click "Download all my Favorites": Chuyển s.js & r.js sang window.addEventListener('message') chống bị TikTok ghi đè, bọc an toàn chống crash destructure e.data, hỗ trợ linh hoạt origin tiktok.com / www.tiktok.com, gán targetOrigin '*' khi relay và log debug [myfaveTTT] chi tiết |
 
 ---
 

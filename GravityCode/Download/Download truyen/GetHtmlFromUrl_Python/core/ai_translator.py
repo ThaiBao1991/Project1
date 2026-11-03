@@ -1070,16 +1070,16 @@ class GeminiTranslator:
                     return False, "", "Tất cả tài khoản Google đều đã bị giới hạn toàn bộ danh sách model."
 
                 if account_attempts >= MAX_ACCOUNT_ATTEMPTS:
-                    self._log(f"  ⚠ Đã thử {MAX_ACCOUNT_ATTEMPTS} account, nghỉ 15s trước khi tiếp tục...")
-                    for _ in range(15):
+                    self._log(f"  ⚠ Đã thử {MAX_ACCOUNT_ATTEMPTS} account, nghỉ 10s trước khi tiếp tục...")
+                    for _ in range(10):
                         if self.is_stopped:
                             return False, "", "Đã dừng bởi người dùng."
                         time.sleep(1.0)
                     account_attempts = 0
-                    exclude.clear()
                 continue
 
             had_real_response = False  # True nếu ít nhất 1 model nhận được HTTP 200 thực sự
+            break_reason = None        # 'auth_dead', '429_rpm', '429_daily'
             for model in models_to_try:
                 if self.is_stopped:
                     return False, "", "Đã dừng bởi người dùng."
@@ -1154,15 +1154,10 @@ class GeminiTranslator:
 
                     # 500/503: Quá tải server Google (theo model) → đẩy model xuống cuối danh sách
                     if status in (500, 503):
-                        self._log(f"  ⚠ [{email}] Model '{model}' lỗi server {status} (quá tải). Đẩy xuống cuối queue, chờ 10s...")
+                        self._log(f"  ⚠ [{email}] Model '{model}' lỗi server {status} (quá tải). Đẩy xuống cuối queue, thử model tiếp...")
                         if model in self.models and len(self.models) > 1:
                             self.models.remove(model)
                             self.models.append(model)
-                        # Chờ 10s để server bớt tải trước khi thử model tiếp
-                        for _ in range(10):
-                            if self.is_stopped:
-                                return False, "", "Đã dừng bởi người dùng."
-                            time.sleep(1.0)
                         continue
 
 
@@ -1181,21 +1176,24 @@ class GeminiTranslator:
                         if any(w in low_resp for w in ("perday", "per-day", "daily")):
                             self._log(f"  ⚠ Account '{email}' hết quota ngày (Daily). Khóa account 60 phút, chuyển account khác...")
                             self.pool.lock_account(key_obj, duration=ACCOUNT_COOLDOWN, reason="429 Daily Limit")
+                            exclude.add(api_key)
+                            break_reason = '429_daily'
+                            break
                         else:
                             delay = retry_delay_from(resp_text)
-                            self._log(f"  ⚡ Account '{email}' chạm giới hạn tốc độ RPM/TPM ({delay}s). Cooldown {delay}s (không xóa key), chuyển account khác...")
-                            self.pool.lock_account(key_obj, duration=delay, reason=f"429 RPM ({delay}s)")
-
-                        exclude.add(api_key)
-                        account_attempts += 1
-                        if account_attempts >= MAX_ACCOUNT_ATTEMPTS:
-                            self._log(f"  ⚠ Đã thử {MAX_ACCOUNT_ATTEMPTS} account gặp giới hạn tốc độ. Tạm dừng 15s để server Google giải tỏa lưu lượng...")
-                            for _ in range(15):
-                                if self.is_stopped:
-                                    return False, "", "Đã dừng bởi người dùng."
-                                time.sleep(1.0)
-                            account_attempts = 0
-                        break # Break model loop để đổi account
+                            cur_idx = models_to_try.index(model) if model in models_to_try else len(models_to_try) - 1
+                            # Nếu account còn model fallback khác chưa thử: thử ngay model tiếp theo!
+                            if cur_idx < len(models_to_try) - 1:
+                                next_model = models_to_try[cur_idx + 1]
+                                self._log(f"  ⚡ Model '{model}' ({email}) chạm giới hạn RPM/TPM ({delay}s). Thử ngay model dự phòng '{next_model}'...")
+                                continue
+                            else:
+                                # Đã thử hết toàn bộ model trên account này mà đều bị 429:
+                                self._log(f"  ⚡ Toàn bộ model khả dụng của account '{email}' đều chạm giới hạn RPM ({delay}s). Cooldown {delay}s, chuyển account khác...")
+                                self.pool.lock_account(key_obj, duration=delay, reason=f"429 RPM ({delay}s)")
+                                exclude.add(api_key)
+                                break_reason = '429_rpm'
+                                break
 
                     # 400: API Key không hợp lệ hoặc đã bị Google vô hiệu hóa (API key not valid / INVALID_ARGUMENT)
                     if status == 400:
@@ -1205,6 +1203,7 @@ class GeminiTranslator:
                             self._log(f"  ✗ Key {short_key} ({email}) API key không hợp lệ hoặc đã bị Google vô hiệu hóa ({status}). Đánh dấu loại bỏ key này...")
                             self.pool.mark_invalid(key_obj, reason=reason)
                             exclude.add(api_key)
+                            break_reason = 'auth_dead'
                             break  # Ngắt ngay khỏi vòng lặp model, không thử tiếp các model khác trên key đã chết!
 
                     # 401: Key xác thực thất bại hoàn toàn (Service account deleted/disabled, Invalid key, Revoked)
@@ -1216,6 +1215,7 @@ class GeminiTranslator:
                             self._log(f"  ✗ Key {short_key} ({email}) không hợp lệ hoặc bị Google khóa ({status}). Đánh dấu loại bỏ key này...")
                         self.pool.mark_invalid(key_obj, reason=reason)
                         exclude.add(api_key)
+                        break_reason = 'auth_dead'
                         break  # Ngắt ngay khỏi vòng lặp model, không thử tiếp các model khác trên key đã chết!
 
                     # 403: Bị từ chối quyền truy cập (Permission denied / Billing disabled)
@@ -1225,6 +1225,7 @@ class GeminiTranslator:
                             self._log(f"  ✗ Key {short_key} ({email}) bị từ chối quyền truy cập ({status}). Đánh dấu loại bỏ key này...")
                             self.pool.mark_invalid(key_obj, reason=f"HTTP 403: {resp_text[:120]}")
                             exclude.add(api_key)
+                            break_reason = 'auth_dead'
                             break  # Ngắt ngay khỏi vòng lặp model, chuyển sang key khác
                         self._log(f"  ⚠ [{email}] HTTP 403: {resp_text[:100]}. Thử model tiếp theo...")
                         continue
@@ -1243,9 +1244,26 @@ class GeminiTranslator:
                     time.sleep(1.5)
                     continue
 
-            # Sau khi thử hết toàn bộ models_to_try mà không thành công
+            # Xử lý các trường hợp ngắt chủ động để đổi account
+            if break_reason == 'auth_dead':
+                # Key chết đã bị loại vĩnh viễn trong pool, chuyển account khác ngay
+                continue
+
+            if break_reason in ('429_rpm', '429_daily'):
+                # Account đã bị khóa cooldown và thêm vào exclude.
+                # Tuyệt đối KHÔNG xóa exclude ở đây (tránh lặp vô tận vòng lặp vào cùng 1 account).
+                account_attempts += 1
+                if account_attempts >= MAX_ACCOUNT_ATTEMPTS:
+                    self._log(f"  ⚠ Đã thử {MAX_ACCOUNT_ATTEMPTS} account gặp rate limit 429. Tạm nghỉ 10s giải tỏa lưu lượng...")
+                    for _ in range(10):
+                        if self.is_stopped:
+                            return False, "", "Đã dừng bởi người dùng."
+                        time.sleep(1.0)
+                    account_attempts = 0
+                continue
+
+            # Chỉ khi đã thực sự thử HẾT toàn bộ models_to_try mà không thành công (break_reason is None):
             if had_real_response:
-                # Ít nhất 1 model nhận được HTTP 200 nhưng nội dung rỗng → đếm empty round thực
                 all_empty_rounds += 1
                 if all_empty_rounds >= MAX_EMPTY_ROUNDS:
                     return False, "", (
@@ -1257,7 +1275,6 @@ class GeminiTranslator:
                     f"Chuyển account khác, thử lại..."
                 )
             else:
-                # Toàn bộ là 403/restriction/503 — không phải empty thật, không tăng counter
                 self._log(
                     f"  ⚠ Không model nào khả dụng với account '{email}' (403/503 restriction). "
                     f"Chuyển account khác..."
@@ -1265,13 +1282,12 @@ class GeminiTranslator:
             exclude.add(api_key)
             account_attempts += 1
             if account_attempts >= MAX_ACCOUNT_ATTEMPTS:
-                self._log(f"  ⚠ Đã thử {MAX_ACCOUNT_ATTEMPTS} account, nghỉ 15s trước khi tiếp tục...")
-                for _ in range(15):
+                self._log(f"  ⚠ Đã thử {MAX_ACCOUNT_ATTEMPTS} account, nghỉ 10s trước khi tiếp tục...")
+                for _ in range(10):
                     if self.is_stopped:
                         return False, "", "Đã dừng bởi người dùng."
                     time.sleep(1.0)
                 account_attempts = 0
-                exclude.clear()
 
         return False, "", "Tiến trình dịch đã bị dừng hoặc cạn kiệt API keys."
 

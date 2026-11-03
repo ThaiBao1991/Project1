@@ -59,7 +59,7 @@ manifest = {
     "action": {"default_title": "myfaveTTT"},
     "background": {"service_worker": "b.js"},
     "content_scripts": [{"matches": ["https://www.tiktok.com/*"], "js": ["c.js"], "css": ["style.css"]}],
-    "web_accessible_resources": [{"matches": ["https://www.tiktok.com/*"], "resources": ["rl.html", "s.js"]}],
+    "web_accessible_resources": [{"matches": ["https://www.tiktok.com/*", "<all_urls>"], "resources": ["rl.html", "s.js", "ui/*", "ui/assets/*"]}],
     "icons": {"256": "icon-256.png"},
     "permissions": ["webRequest"],
     "host_permissions": ["https://*.tiktok.com/api/post/item_list/"],
@@ -72,8 +72,34 @@ b = (OUT / "b.js").read_text(encoding="utf-8")
 b = rep_all(b, "BroadcastChannel(`myfaveTT`)", "BroadcastChannel(`myfaveTTT`)", "b.js channel", 1)
 (OUT / "b.js").write_text(b, encoding="utf-8")
 
-r = (OUT / "r.js").read_text(encoding="utf-8")
-r = rep_all(r, "BroadcastChannel(`myfaveTT`)", "BroadcastChannel(`myfaveTTT`)", "r.js channel", 1)
+r = (
+    'const e=`https://www.tiktok.com`,'
+    't=(typeof chrome!=="undefined"&&chrome.runtime&&chrome.runtime.getURL)?chrome.runtime.getURL(`ui/index.html`):`ui/index.html`,'
+    'n=document.createElement(`iframe`);'
+    'n.src=t,n.id=`ui`,n.allow=`local-network-access *`,document.body.appendChild(n);'
+    'const r=`https://resync.myfavett.com`,i=document.createElement(`iframe`);'
+    'i.src=r,i.id=`resync`,document.body.appendChild(i);'
+    'function a(evt){'
+    'if(!evt||!evt.data)return;'
+    'let o=evt.origin||"";'
+    'let s=evt.data;'
+    'if(o===e||o.includes("tiktok.com")){'
+    'switch(s.direction){'
+    'case 2:console.debug("[myfaveTTT:r.js] TikTok -> UI:",s.type);n.contentWindow?.postMessage(s,"*");return;'
+    'case 6:i.contentWindow?.postMessage(s,r);return;'
+    '}'
+    '}'
+    'if(o.startsWith("chrome-extension://")||o===location.origin||o==="null"){'
+    'console.debug("[myfaveTTT:r.js] UI -> TikTok parent:",s.type);'
+    'parent.postMessage({direction:3,...s},"*");'
+    '}'
+    'if(o===r){parent.postMessage({direction:7,...s},"*");}'
+    '}'
+    'window.addEventListener("message",a);'
+    'window.onmessage=a;'
+    'const o=new BroadcastChannel(`myfaveTTT`);'
+    'o.onmessage=t=>{let{direction:n}=t.data||{};n===0&&parent.postMessage(t.data,"*")};\n'
+)
 (OUT / "r.js").write_text(r, encoding="utf-8")
 
 # ---- 4. c.js renames ----
@@ -100,18 +126,31 @@ s = rep_all(s, "aside#myfaveTT-container", "aside#myfaveTTT-container", "s.js as
 s = rep_all(
     s,
     "function i(e,t){sidebar.postMessage({direction:2,type:e,payload:t},n.ce)}",
-    "function i(e,t){(document.getElementById(\"myfaveTTT\")||{contentWindow:window}).contentWindow.postMessage({direction:2,type:e,payload:t},\"*\")}",
+    'function i(e,t){try{console.debug("[myfaveTTT:s.js] Posting dir2 type=" + e, t);let el=document.getElementById("myfaveTTT");let win=(el&&el.contentWindow)||window.frames["sidebarTTT"]||window.frames["sidebar"]||window;win.postMessage({direction:2,type:e,payload:t},"*");}catch(_e){console.error("[myfaveTTT:s.js] Post dir2 error:",_e);}}',
     "s.js post dir2",
     1,
 )
 s = rep_all(
     s,
     "function o(e,t){sidebar.postMessage({direction:6,type:e,payload:t},n.ce)}",
-    "function o(e,t){(document.getElementById(\"myfaveTTT\")||{contentWindow:window}).contentWindow.postMessage({direction:6,type:e,payload:t},\"*\")}",
+    'function o(e,t){try{let el=document.getElementById("myfaveTTT");let win=(el&&el.contentWindow)||window.frames["sidebarTTT"]||window.frames["sidebar"]||window;win.postMessage({direction:6,type:e,payload:t},"*");}catch(_e){}}',
     "s.js post dir6",
     1,
 )
-s = rep_all(s, "if(t!==n.ce)return;", "if(!/^(https:\\/\\/(www\\.tiktok\\.com|myfavett-ui\\.vercel\\.app|resync\\.myfavett\\.com)|chrome-extension:\\/\\/)/.test(t))return;", "s.js Yi origin filter", 1)
+s = rep_all(
+    s,
+    "function Wi(){window.onmessage=Yi,e.onmessage=qi,t.onmessage=Cr}",
+    'function Wi(){window.addEventListener("message",Yi),window.onmessage=Yi,e.onmessage=qi,t.onmessage=Cr}',
+    "s.js Wi listener",
+    1,
+)
+s = rep_all(
+    s,
+    "async function Yi(e){try{let{origin:t,data:{direction:i,type:a,payload:o}}=e;if(t!==n.ce)return;",
+    'async function Yi(e){try{if(!e||!e.data||typeof e.data!=="object")return;let t=e.origin||"";let{direction:i,type:a,payload:o}=e.data;if(!/^(https:\\/\\/(www\\.)?tiktok\\.com|https:\\/\\/myfavett-ui\\.vercel\\.app|https:\\/\\/resync\\.myfavett\\.com|chrome-extension:\\/\\/)/.test(t))return;if(i===3)console.debug("[myfaveTTT:s.js] Received UI action type=" + a, o);',
+    "s.js Yi filter",
+    1,
+)
 s = rep_all(s, "ce:`chrome-extension://" + ORIG_ID + "`", 'ce:"*"', "s.js ce literal", 1)
 s = rep_all(s, "https://chrome.google.com/webstore/detail/myfavett/" + ORIG_ID, "chrome://extensions/", "s.js webstore link", 1)
 s = rep_all(s, "getElementById(`myfaveTT-container`)", 'getElementById("myfaveTTT-container")', "s.js close-app container", 1)

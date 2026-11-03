@@ -358,15 +358,15 @@ def remove_keys_from_askcpl(raw_keys_to_remove: List[str]) -> int:
         return 0
 
 
-def validate_key(raw_key: str, timeout: float = 8.0) -> Tuple[bool, str, int]:
+def validate_key(raw_key: str, timeout: float = 7.0) -> Tuple[bool, str, int]:
     """Kiểm tra xem API key có hoạt động hay không bằng prompt nhẹ 'Hi'.
-    Sử dụng endpoint sinh nội dung chuẩn (Blind Fire) với model gemini-2.0-flash.
+    Sử dụng endpoint sinh nội dung chuẩn (Blind Fire) với model tốc độ cao gemini-3.5-flash-lite / gemini-3-flash-preview.
     Trả về: (is_valid, message, latency_ms)
     """
     if not raw_key:
-        return False, "Key rỗng", 0
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={raw_key}"
-    fallback_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={raw_key}"
+        return False, "❌ Key rỗng", 0
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key={raw_key}"
+    fallback_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key={raw_key}"
     payload = {
         "contents": [{"parts": [{"text": "Hi"}]}],
         "generationConfig": {"maxOutputTokens": 2}
@@ -379,23 +379,25 @@ def validate_key(raw_key: str, timeout: float = 8.0) -> Tuple[bool, str, int]:
         if resp.status_code == 200:
             return True, f"Hoạt động tốt ({ms}ms)", ms
         elif resp.status_code == 429:
-            return True, f"Key sống nhưng bị giới hạn quota tạm thời (429)", ms
+            return True, f"⚠ Key sống (Tạm nghẽn hạn ngạch 429)", ms
         elif resp.status_code == 401:
             if "service account" in resp_text and ("deleted" in resp_text or "disabled" in resp_text):
-                return False, f"Service account đã bị xóa hoặc vô hiệu hóa (401)", ms
-            return False, f"Key không hợp lệ hoặc bị Google khóa (401)", ms
+                return False, f"❌ Service account đã bị xóa hoặc vô hiệu hóa (401)", ms
+            return False, f"❌ Key không hợp lệ hoặc bị Google khóa (401)", ms
         elif resp.status_code == 400:
             if any(w in resp_text for w in ("api key not valid", "api_key_invalid", "invalid api key", "key not valid", "api_key_deleted")):
-                return False, "API key không hợp lệ hoặc đã bị vô hiệu hóa (400)", ms
+                return False, "❌ API key không hợp lệ hoặc đã bị vô hiệu hóa (400)", ms
             t1 = time.time()
             resp2 = requests.post(fallback_url, json=payload, headers={"Content-Type": "application/json"}, timeout=timeout)
             ms2 = int((time.time() - t1) * 1000)
-            return (resp2.status_code == 200), f"Lỗi HTTP 400: {resp.text[:80]}", ms2
+            if resp2.status_code == 200:
+                return True, f"Hoạt động tốt ({ms2}ms)", ms2
+            return False, f"⚠ HTTP 400: {resp.text[:80]}", ms2
         elif resp.status_code == 403:
-            if any(w in resp_text for w in ("deleted", "disabled", "service account", "permission denied")):
-                return False, f"Bị từ chối quyền truy cập (403)", ms
-            return False, f"Lỗi quyền hạn (403)", ms
-        elif resp.status_code == 404:
+            if any(w in resp_text for w in ("deleted", "disabled", "service account", "permission denied", "caller does not have permission")):
+                return False, f"❌ Bị từ chối quyền truy cập (403)", ms
+            return False, f"❌ Lỗi quyền hạn (403)", ms
+        elif resp.status_code in (404, 500, 503):
             t1 = time.time()
             resp2 = requests.post(fallback_url, json=payload, headers={"Content-Type": "application/json"}, timeout=timeout)
             ms2 = int((time.time() - t1) * 1000)
@@ -403,18 +405,24 @@ def validate_key(raw_key: str, timeout: float = 8.0) -> Tuple[bool, str, int]:
             if resp2.status_code == 200:
                 return True, f"Hoạt động tốt ({ms2}ms)", ms2
             elif resp2.status_code == 429:
-                return True, f"Key sống nhưng bị 429", ms2
+                return True, f"⚠ Key sống (Tạm nghẽn hạn ngạch 429)", ms2
             elif resp2.status_code == 401:
-                if "service account" in resp2_text and ("deleted" in resp2_text or "disabled" in resp2_text):
-                    return False, f"Service account bị xóa/vô hiệu hóa (401)", ms2
-                return False, f"Key không hợp lệ hoặc bị khóa (401)", ms2
+                return False, f"❌ Key không hợp lệ hoặc bị khóa (401)", ms2
             elif resp2.status_code == 403:
-                return False, f"Bị từ chối quyền truy cập (403)", ms2
+                return False, f"❌ Bị từ chối quyền truy cập (403)", ms2
             else:
-                return False, f"Lỗi HTTP {resp2.status_code}", ms2
+                return False, f"⚠ Server Google bận ({resp.status_code}) — Key vẫn sống", ms
         else:
-            return False, f"Lỗi HTTP {resp.status_code}", ms
+            return False, f"⚠ Lỗi HTTP {resp.status_code}", ms
     except requests.exceptions.Timeout:
-        return False, "Timeout > 8s", int((time.time() - t0) * 1000)
+        try:
+            t1 = time.time()
+            resp2 = requests.post(fallback_url, json=payload, headers={"Content-Type": "application/json"}, timeout=3.5)
+            ms2 = int((time.time() - t1) * 1000)
+            if resp2.status_code == 200:
+                return True, f"Hoạt động tốt ({ms2}ms)", ms2
+        except Exception:
+            pass
+        return False, "⚠ Timeout > 7s (Mạng lag) — Key chưa xác định", int((time.time() - t0) * 1000)
     except Exception as e:
-        return False, f"Lỗi kết nối: {e}", int((time.time() - t0) * 1000)
+        return False, f"⚠ Lỗi kết nối: {e}", int((time.time() - t0) * 1000)
