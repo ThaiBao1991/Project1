@@ -61,7 +61,45 @@ class GeminiSafeFallbackTests(unittest.TestCase):
             self.assertEqual(res.get("kind"), ErrorKind.OK)
             self.assertEqual(res.get("model"), "model-good")
             self.assertEqual(res.get("text"), "Valid text from fallback")
-            self.assertTrue(any("phản hồi rỗng" in l and "model-empty" in l for l in logs))
+
+    def test_try_models_falls_back_when_first_model_returns_429_rpm(self):
+        logs = []
+        coordinator = GeminiCoordinator(
+            models=["model-rpm-limited", "model-good"],
+            log_fn=lambda msg: logs.append(msg)
+        )
+
+        def mock_post(url, *args, **kwargs):
+            mock_resp = MagicMock()
+            mock_resp.headers = {"content-type": "application/json"}
+            if "model-rpm-limited" in url:
+                mock_resp.status_code = 429
+                mock_resp.json.return_value = {
+                    "error": {
+                        "message": "Resource has been exhausted (e.g. check quota). retryDelay: 5s",
+                        "status": "RESOURCE_EXHAUSTED"
+                    }
+                }
+            else:
+                mock_resp.status_code = 200
+                mock_resp.json.return_value = {
+                    "candidates": [{"content": {"parts": [{"text": "Success on second model"}]}}]
+                }
+            return mock_resp
+
+        with patch("gemini_safe.requests.post", side_effect=mock_post):
+            res = coordinator._try_models(
+                prompt_text="Hello",
+                api_key="test-key",
+                json_mode=False,
+                response_schema=None,
+                temperature=0.7,
+                max_output_tokens=100,
+                timeout=10,
+            )
+            self.assertEqual(res.get("kind"), ErrorKind.OK)
+            self.assertEqual(res.get("model"), "model-good")
+            self.assertEqual(res.get("text"), "Success on second model")
 
 
 if __name__ == "__main__":

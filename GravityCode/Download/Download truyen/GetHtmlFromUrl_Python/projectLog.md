@@ -235,3 +235,19 @@ GetHtmlFromUrl_Python/
   - Test mô phỏng fallback 429: Model 1 bị 429 tự động chuyển sang Model 2 và dịch thành công 100%.
   - Test vòng lặp 429: Không còn xuất hiện bất kỳ dòng log `(403/503 restriction)` sai lệch nào.
   - Compile kiểm tra cú pháp: Passed 100% (0 errors).
+
+### 🚀 Phase 13.4 — Đồng Bộ 2 Chiều: Tích Hợp Quản Lý Reset Time 24h/3h, Auto-Recovery & Cột "Khôi Phục Sau" Trên UI Từ AskCpl — HOÀN THÀNH (2026-11-04)
+- [x] **Quản lý mốc thời gian Reset đầy đủ & Bền vững (Persistence)**:
+  - Bổ sung `reset_time` (mốc 24h: `now + 86400`) và `next_check_time` (mốc 3h: `now + 10800`) vào `core/key_manager.py` và `core/ai_translator.py`.
+  - Khi dính HTTP 429 Daily Limit: Tự động tính toán mốc `reset_time` 24h và lưu bền vững xuống file `config/gemini_keys.json` (không còn bị mất cooldown khi tắt ứng dụng).
+- [x] **Cơ chế Auto-Recovery (Tự động phục hồi trạng thái Active sau 24h)**:
+  - Trong `load_local_keys()` và `AccountPool._usable_keys()`: Tự động kiểm tra `now > reset_time`. Nếu đã qua 24h, tự động chuyển key từ `exhausted` về `active`, xóa `reset_time` và `next_check_time` mà không cần người dùng thao tác thủ công.
+  - Cho phép thử nghiệm sớm nếu `now > next_check_time` (sau 3h).
+- [x] **Giao diện UI trực quan với cột "Khôi phục sau"**:
+  - Bổ sung cột thứ 5 vào `QTableWidget` trong `ApiKeyManagerDialog`: `["#", "Account (Email)", "API Key", "Trạng thái", "Khôi phục sau", "Ghi chú & Kiểm tra"]`.
+  - Hiển thị thông minh thời gian còn lại: `⏳ Còn 14h 25m (HH:MM DD/MM)`, `⏳ Cooldown 45s (RPM)`, `🔄 Đã đến hạn phục hồi`, hoặc `❌ Khóa vĩnh viễn`.
+- [x] **Đồng bộ 2 chiều toàn vẹn giữa 2 dự án**:
+  - Các hàm `sync_from_askcpl()`, `sync_to_askcpl()`, `sync_merge_two_way()`, `overwrite_*()` đồng bộ đầy đủ các trường `reset_time`, `next_check_time`, `last_check_time`, `error_msg`, `cooldown_until` mà không làm rơi rớt dữ liệu thời gian.
+- [x] **Đã kiểm chứng**:
+  - Unit tests cho cả `AskCpl` (3/3 tests) và `Download truyện` (4/4 tests) đều passed 100%.
+  - Cả 2 dự án compile sạch sẽ `0 errors`.
