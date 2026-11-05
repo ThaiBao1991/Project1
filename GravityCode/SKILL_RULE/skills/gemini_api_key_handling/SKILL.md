@@ -122,6 +122,19 @@ Tài liệu quy chuẩn bắt buộc áp dụng khi xây dựng các module gọ
   - Hộp thoại Quản lý Key khi đóng bằng bất kỳ cách nào (nút Đóng, Lưu & Áp Dụng, hoặc dấu [X]) đều phải tự động tải lại danh sách key hiển thị trên giao diện chính.
   - Đảm bảo các key vừa bị xóa biến mất khỏi RAM ngay tức khắc, không bao giờ bị gọi lại trong các chương dịch tiếp theo mà không cần khởi động lại ứng dụng.
 
+### 🛡️ 12. Fallback Model Nội Bộ Khi Gặp 429 RPM (Intra-Account Model Fallback)
+- Khi một model gặp HTTP 429 RPM (Resource Exhausted tạm thời):
+  - **KHÔNG được vội khóa account ngay và ngắt vòng lặp model**: Google cấp hạn ngạch RPM độc lập cho từng model (ví dụ: `gemini-3.5-flash-lite`, `gemini-3-flash-preview`, `gemini-3.5-flash` đều có quota bucket riêng).
+  - Hệ thống BẮT BUỘC thử ngay model dự phòng tiếp theo trên cùng account đó trước khi quyết định khóa account.
+  - Chỉ khi TẤT CẢ các model khả dụng của account đó đều trả về 429 hoặc gặp 429 Daily Limit, lúc đó mới khóa account đó và chuyển account khác.
+
+### 🛡️ 13. Phân Loại Trực Quan Trạng Thái Key (Tri-State Visual Status & Safe Cleaning)
+- Kết quả kiểm tra key phải phân loại rõ ràng 3 trạng thái:
+  - `✅` (Xanh): Key hoạt động tốt.
+  - `⚠` (Cam): Cảnh báo tạm thời (HTTP 503 Server bận, HTTP 429 Hết quota tạm thời, Timeout mạng) $ightarrow$ **Key vẫn sống**, giữ lại để phục vụ dịch, tuyệt đối không đánh đồng với key hỏng.
+  - `❌` (Đỏ): Key chết thực sự (HTTP 401 Unauthorized, HTTP 400 API key not valid, HTTP 403 Service account deleted/disabled/revoked).
+- Tính năng "🧹 Xóa Key Lỗi" CHỈ ĐƯỢC PHÉP lọc và xóa các dòng có dấu `❌` đỏ, bảo vệ an toàn 100% cho các dòng `⚠` màu cam.
+
 ---
 
 ## 5. Kiến trúc Proxy Trung Gian cho Opencode (Local Proxy Architecture)

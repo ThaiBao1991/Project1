@@ -1,3 +1,21 @@
+## 2026-11-04 — Đồng Bộ 2 Chiều: Tích Hợp Fallback Model 429 RPM (Rule 12), Fix Thinking Tokens & Bổ Sung Model Mới Từ Download Truyện
+
+### Mục tiêu & Bối cảnh
+- Kế thừa và nâng cấp các ưu điểm tối ưu hóa từ dự án Download truyện (GetHtmlFromUrl_Python) vào AskCpl.
+- Khắc phục triệt để hiện tượng mất văn bản khi Gemini trả về thought part và xử lý nghẽn 429 RPM thông minh hơn.
+
+### Các cải tiến đã hoàn tất
+1. **Áp dụng Rule 12 (Fallback Model nội bộ khi gặp 429 RPM)**:
+   - Trong `gemini_safe.py:GeminiCoordinator._try_models`: Khi một model chạm hạn mức RPM (Requests Per Minute), tự động chuyển sang model fallback tiếp theo trên cùng account thay vì ngủ chờ hoặc vội khóa account 60 phút. Tận dụng hạn ngạch RPM độc lập của từng model.
+2. **Khắc phục lỗi trích xuất text khi có Thought Tokens (`extract_text`)**:
+   - Duyệt qua toàn bộ `parts` và nối `text`: `"".join(p.get("text", "") for p in parts if isinstance(p, dict) and p.get("text"))`.
+   - Tránh việc model trả về part đầu tiên là `thought` làm `extract_text` trả về rỗng `""`.
+   - Cập nhật unit tests `test_gemini_safe_fallback.py`: Toàn bộ 3/3 tests passed 100%.
+3. **Cập nhật danh sách model fallback thế hệ mới**:
+   - `MODEL_FALLBACKS` bổ sung: `gemini-3.8-flash`, `gemini-3.5-flash-lite`, `gemini-3.5-flash`, `gemini-3-flash-preview`...
+
+---
+
 ## 2026-08-19 — Hoàn tất Roadmap Python 6410 ngày + Sửa lỗi gemini_safe + Cải tiến Roadmap Expander + Fix Addon dừng/đứng
 
 ### Mục tiêu & Bối cảnh
@@ -2583,8 +2601,10 @@ efresh_list() ngay bên trong vòng lặp sau mỗi lần gọi API trả kết 
   - data_ChucQuan.md: Day du 15 cap Van Quan + 15 cap Vo Quan + Chuc Dac Biet + Di Toc + Huong dan phan luong.
   - data_VuKhi_Do.md: Toan bo he vu khi (Dao, Thuong, Kiem, Cung, Quat), To Ky, Sach, Bang Nguyen lieu ren.
 - Trang thai: Hoan thanh Phase 9. Cho nguoi dung xem lai.
-# #   P h a s e   9 :   E x h a u s t i v e   D a t a b a s e   C o m p l e t e d  
- -   U p d a t e d   a l l   w i k i   f i l e s   ( T u o n g ,   S k i l l ,   C h u c Q u a n ,   V u K h i _ D o ,   L i n h ,   M e o )   w i t h   e x h a u s t i v e   d a t a   f r o m   g a m e r s k y ,   a l i 2 1 3 ,   a n d   g a m e r . c o m . t w .   F o r m a t t e d   w i t h   M a r k d o w n   t a b l e s .  
+# #   P h a s e   9 :   E x h a u s t i v e   D a t a b a s e   C o m p l e t e d 
+ 
+ -   U p d a t e d   a l l   w i k i   f i l e s   ( T u o n g ,   S k i l l ,   C h u c Q u a n ,   V u K h i _ D o ,   L i n h ,   M e o )   w i t h   e x h a u s t i v e   d a t a   f r o m   g a m e r s k y ,   a l i 2 1 3 ,   a n d   g a m e r . c o m . t w .   F o r m a t t e d   w i t h   M a r k d o w n   t a b l e s . 
+ 
  
 ## 2026-08-06: HOÀN TẤT RÀ SOÁT LẦN 2 (Vòng 2/5)
 - Đã hoàn tất bổ sung sâu dữ liệu Tướng, Chức Quan, Binh Chủng, Vũ Khí, Mẹo (SG7).
