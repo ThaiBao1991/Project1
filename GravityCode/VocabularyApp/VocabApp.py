@@ -729,6 +729,52 @@ def keymgr_validate_key(raw_key: str, timeout: int = 30):
         return False, f"{type(e).__name__}: {e}"[:80], ms
 
 
+def keymgr_retry_seconds(msg: str) -> int:
+    """P4: parse thời gian chờ trong message lỗi ('retry in 13h', '33m', '4s') → giây.
+
+    Không thấy đơn vị thời gian hợp lệ → 3600 (1 giờ): đoán an toàn để không
+    quét lại key mỗi vài giây khi quota ngày chưa hồi.
+    """
+    if not msg:
+        return 3600
+    for unit, factor in ((r"h\b", 3600), (r"m\b", 60), (r"s\b", 1)):
+        m = re.search(r"(\d+(?:\.\d+)?)\s*" + unit, msg, re.IGNORECASE)
+        if m:
+            try:
+                return max(1, int(float(m.group(1)) * factor))
+            except Exception:
+                break
+    return 3600
+
+
+def keymgr_classify_check(ok: bool, msg: str):
+    """P4: phân loại kết quả kiểm tra key → (status, reset_secs).
+
+    status ∈ "active" | "exhausted" (hết quota tạm — tự hồi sau reset_secs)
+           | "invalid" (key chết thật) | "disabled" (tắt / lỗi khác).
+    Thứ tự: ok → quota/429/retry → free-tier/billing → invalid markers → disabled.
+    """
+    if ok:
+        return "active", 0
+    low = (msg or "").lower()
+    # 1) Hết quota tạm (429) — key CHƯA chết, chỉ cần chờ hồi
+    if ("429" in low or "quota" in low or "resource_exhausted" in low
+            or "rate limit" in low or "too many requests" in low
+            or "retry in" in low):
+        return "exhausted", keymgr_retry_seconds(msg)
+    # 2) Project không bật billing/free-tier — sửa ở Google Cloud, key không chết
+    if ("free tier is not available" in low or "billing" in low
+            or "project has been deleted" in low):
+        return "disabled", 0
+    # 3) Key chết thật (API key không hợp lệ / xác thực thất bại)
+    if ("api key not valid" in low or "api_key_invalid" in low
+            or "invalid api key" in low or "unauthenticated" in low
+            or "http 401" in low or "http 403" in low):
+        return "invalid", 0
+    # 4) Lỗi khác (mạng, 5xx, 404 model...) — KHÔNG kết luận key chết
+    return "disabled", 0
+
+
 # ── Đồng bộ 2 chiều với GetHtmlFromUrl_Python ────────────────────────────────
 # Nguồn chung #2: config/gemini_keys.json = MẢNG JSON entry
 # {id,key,email,status,note,cooldown_until} — cùng format core/key_manager.py.
@@ -943,13 +989,17 @@ class ApiKeyManagerDialog(ctk.CTkToplevel):
         self.transient(parent)
         self.grab_set()
         self._keys = []
-        self._sel = None           # idx dòng đang chọn
+        self._sel = None           # idx dòng chọn chính (dòng vừa bấm)
+        self._sels = set()         # P4: đa chọn (click thường/Ctrl/Shift)
+        self._anchor = None        # P4: mốc dải Shift
         self._validating = False
         self._path = self._settings_path()
         self._load()
         self._build()
         self._render()
         self.bind("<Escape>", lambda _e: self.destroy())
+        # P4: phím Delete xóa nhanh các dòng đang chọn (mẫu từ GetHtmlFromUrl)
+        self.bind("<Delete>", self._on_delete_key)
 
     # ── đường dẫn / dữ liệu ──────────────────────────────────────────────────
     @staticmethod
@@ -962,6 +1012,7 @@ class ApiKeyManagerDialog(ctk.CTkToplevel):
 
     def _load(self):
         self._keys = keymgr_load_keys(self._path) if self._path else []
+        self._clamp_sel()
 
     def _save(self):
         if not self._path:
@@ -991,9 +1042,7 @@ class ApiKeyManagerDialog(ctk.CTkToplevel):
         if not changed:
             self._log(f"📥 Không có key mới từ GetHtmlFromUrl (đã đủ {total} key).")
             return
-        self._load()
-        if self._sel is not None and self._sel >= len(self._keys):
-            self._sel = None
+        self._load()          # _load tự _clamp_sel() — selection không tràn idx
         self._render()
         if added:
             self._log(f"📥 Nhận từ GetHtmlFromUrl: +{added} key mới → tổng {total} "
@@ -1051,7 +1100,10 @@ class ApiKeyManagerDialog(ctk.CTkToplevel):
         btn(ctrl, "☑ Bật/Tắt", C["card2"], C["warn"], **_bc,
             cmd=self._toggle).pack(side="left", padx=3)
         btn(ctrl, "🔍 Kiểm tra đã chọn", C["card2"], C["accent"],
-            width=150, height=32, cmd=lambda: self._check([self._sel])).pack(side="left", padx=3)
+            width=150, height=32,
+            # P4: kiểm tra MỌI dòng đang chọn (đa chọn), không chỉ 1 dòng
+            cmd=lambda: self._check(sorted(i for i in self._sels
+                                           if i is not None))).pack(side="left", padx=3)
         self._btn_check_all = btn(ctrl, "⚡ Kiểm tra tất cả", C["warn"], "#d97706",
                                   width=140, height=32, cmd=self._check_all)
         self._btn_check_all.pack(side="left", padx=3)
@@ -1070,6 +1122,11 @@ class ApiKeyManagerDialog(ctk.CTkToplevel):
             cmd=self._sync_to_gethtml).pack(side="left", padx=3)
         lbl(ctrl2, "key trùng tự bỏ qua — không mất bản cũ", 10,
             color=C["muted"]).pack(side="left", padx=10)
+        # P4: dọn key lỗi hàng loạt (mẫu nút 🧹 của GetHtmlFromUrl) —
+        # đặt chếch phải để không đẩy hàng 1 (đã ~850px) tràn khung 960px
+        btn(ctrl2, "🧹 Xóa Key Lỗi", C["card2"], C["danger"], width=150,
+            height=30, corner_radius=6,
+            cmd=self._clean_invalid).pack(side="right", padx=3)
 
         # Bảng
         head = ctk.CTkFrame(self, fg_color=C["sidebar"], corner_radius=6, height=30)
@@ -1093,19 +1150,23 @@ class ApiKeyManagerDialog(ctk.CTkToplevel):
         for w in (self.tbl.winfo_children() or []):
             w.destroy()
         n_on = sum(1 for k in self._keys if str(k.get("status") or "active") == "active")
-        self.lbl_sum.configure(text=f"Tổng {len(self._keys)} key — {n_on} đang bật")
+        sel_tag = f" · đã chọn {len(self._sels)}" if len(self._sels) > 1 else ""
+        self.lbl_sum.configure(
+            text=f"Tổng {len(self._keys)} key — {n_on} đang bật{sel_tag}")
         if not self._keys:
             lbl(self.tbl, "— Chưa có key nào (bấm ➕ Thêm) —", 12,
                 color=C["muted"]).pack(pady=24)
             return
+        import time as _time
+        now = _time.time()
         for i, k in enumerate(self._keys):
-            sel = (i == self._sel)
+            sel = (i in self._sels)
             row = ctk.CTkFrame(self.tbl,
                                fg_color=C["accent"] if sel else C["card2"],
                                corner_radius=6, height=34)
             row.pack(fill="x", padx=4, pady=2)
             row.pack_propagate(False)
-            on = str(k.get("status") or "active") == "active"
+            kind = str(k.get("status") or "active")
             last = k.get("error_msg") or ""
             lat = k.get("latency_ms")
             w_no = lbl(row, str(i + 1), 11, color=C["muted"], width=32)
@@ -1115,28 +1176,99 @@ class ApiKeyManagerDialog(ctk.CTkToplevel):
             w_key = lbl(row, keymgr_mask_key(keymgr_decode_key(k)), 11,
                         color=C["muted"], width=180)
             w_key.pack(side="left", padx=(0, 4), pady=6)
-            btn(row, "🟢 Bật" if on else "🔴 Tắt",
-                C["success"] if on else C["danger"],
-                "#018786" if on else "#b91c1c", w=80, h=24,
+            # Nút toggle 4 trạng thái (P4): 🟢 Bật · ⏳ Quota · ❌ Lỗi · 🔴 Tắt
+            _tg = {"active":    ("🟢 Bật", C["success"], "#018786", C["text"]),
+                   "exhausted": ("⏳ Quota", C["warn"], "#d97706", "#0f0f14"),
+                   "invalid":   ("❌ Lỗi", C["danger"], "#b91c1c", C["text"]),
+                   }.get(kind, ("🔴 Tắt", C["card2"], "#b91c1c", C["text"]))
+            btn(row, _tg[0], _tg[1], _tg[2], w=80, h=24, text_color=_tg[3],
                 cmd=lambda ii=i: self._toggle_at(ii)).pack(side="left", padx=6)
-            res = ("—" if lat is None else
-                   (f"✅ {lat}ms" if not last else f"❌ {lat}ms"))
-            w_res = lbl(row, res, 11,
-                        color=C["success"] if (lat is not None and not last)
-                        else (C["danger"] if last else C["muted"]),
-                        width=140)
+            # Cột "Kiểm tra": ✅ ok · ⏳ quota tạm (đếm ngược) · ❌ lỗi
+            if lat is None:
+                res, res_c = "—", C["muted"]
+            elif kind == "exhausted":
+                res, res_c = f"⏳ {lat}ms", C["warn"]
+            elif last:
+                res, res_c = f"❌ {lat}ms", C["danger"]
+            else:
+                res, res_c = f"✅ {lat}ms", C["success"]
+            w_res = lbl(row, res, 11, color=res_c, width=140)
             w_res.pack(side="left", padx=(0, 4), pady=6)
-            w_note = lbl(row, (last[:28] + "…") if len(last) > 28 else last, 10,
-                         color=C["muted"], width=160)
+            # Cột ghi chú: quota tạm hiện countdown "⏳ hồi sau XhYm" (P4)
+            if kind == "exhausted":
+                reset_at = int(k.get("next_check_time") or k.get("reset_time") or 0)
+                secs = max(0, int(reset_at - now))
+                h, rem = divmod(secs, 3600)
+                mm, s = divmod(rem, 60)
+                hm = f"{h}h{mm:02d}m" if h else (f"{mm}m" if mm else f"{s}s")
+                w_note = lbl(row, f"⏳ hồi sau {hm}", 10, color=C["warn"], width=160)
+            else:
+                w_note = lbl(row, (last[:28] + "…") if len(last) > 28 else last, 10,
+                             color=C["muted"], width=160)
             w_note.pack(side="left", padx=(0, 6), pady=6)
-            # Tk KHÔNG bubbling event lên widget cha → bind trên MỌI widget con
-            # (label không tự xử lý click nên giờ click đâu cũng chọn được dòng).
+            # Tk KHÔNG bubbling event lên widget cha → bind trên MỌI widget con.
+            # Bind cả 3 sequence: trên Windows <Button-1> chỉ bắn khi KHÔNG có
+            # modifier (đã test thật) ⇒ không double-fire; Ctrl/Shift+click
+            # chọn nhiều dòng (P4, mẫu ExtendedSelection của GetHtmlFromUrl).
             for wdg in (row, w_no, w_mail, w_key, w_res, w_note):
-                wdg.bind("<Button-1>", lambda _e, ii=i: self._select(ii))
+                wdg.bind("<Button-1>", lambda e, ii=i: self._select(ii, e))
+                wdg.bind("<Control-Button-1>", lambda e, ii=i: self._select(ii, e))
+                wdg.bind("<Shift-Button-1>", lambda e, ii=i: self._select(ii, e))
 
-    def _select(self, i):
-        self._sel = i
+    def _select(self, i, event=None):
+        """P4: chọn 1 dòng (click) · +Ctrl (bỏ/chọn từng dòng) · +Shift (dải).
+
+        Gọi `_select(i)` không event (kiểu cũ) vẫn chọn đơn — backward-compat.
+        """
+        if i is None or not (0 <= i < len(self._keys)):
+            return
+        if event is None:
+            self._sels = {i}
+            self._anchor = i
+            self._sel = i
+            self._render()
+            return
+        state = getattr(event, "state", 0) or 0
+        if state & 0x0001:                      # Shift: chọn dải từ anchor
+            if self._anchor is not None:
+                a, b = sorted((int(self._anchor), int(i)))
+                self._sels = set(range(a, b + 1))
+            else:
+                self._sels = {i}
+                self._anchor = i
+            self._sel = i
+        elif state & 0x0004:                    # Ctrl: bật/tắt từng dòng
+            if i in self._sels:
+                self._sels.discard(i)
+            else:
+                self._sels.add(i)
+                self._anchor = i
+            self._sel = (i if i in self._sels
+                         else (max(self._sels) if self._sels else None))
+        else:                                   # click thường: chọn đúng 1
+            self._sels = {i}
+            self._anchor = i
+            self._sel = i
         self._render()
+
+    def _clamp_sel(self):
+        """Giữ _sel/_anchor/_sels luôn trỏ vào key hợp lệ sau khi list đổi."""
+        self._sels = {i for i in (self._sels or set())
+                      if i is not None and 0 <= i < len(self._keys)}
+        if self._sels:
+            if self._sel not in self._sels:
+                self._sel = max(self._sels)
+            if self._anchor not in self._sels:
+                self._anchor = self._sel
+        else:
+            self._sel = None
+            self._anchor = None
+
+    def _on_delete_key(self, _event=None):
+        """P4: phím Delete xóa nhanh các dòng đang chọn (mẫu GetHtmlFromUrl)."""
+        if self._sels:
+            self._delete()
+        return "break"
 
     def _log(self, msg):
         try:
@@ -1157,13 +1289,18 @@ class ApiKeyManagerDialog(ctk.CTkToplevel):
             e.setdefault("status", "active")
             self._keys.append(e)
             self._sel = len(self._keys) - 1
+            self._sels = {self._sel}
+            self._anchor = self._sel
             self._render()
             self._log(f"➕ Thêm key {keymgr_mask_key(keymgr_decode_key(e))} "
                       f"({e.get('email') or 'không email'}) — bấm 💾 Lưu để ghi file.")
 
     def _edit(self):
-        if self._sel is None:
+        if self._sel is None or not self._sels:
             self._log("⚠ Chọn 1 dòng trước khi ✏️ Sửa.")
+            return
+        if len(self._sels) > 1:
+            self._log("⚠ Đang chọn nhiều dòng — bấm chọn đúng 1 dòng để ✏️ Sửa.")
             return
         dlg = _KeyEditDialog(self, self._keys[self._sel])
         self.wait_window(dlg)
@@ -1174,25 +1311,74 @@ class ApiKeyManagerDialog(ctk.CTkToplevel):
             self._log(f"✏️ Đã sửa dòng {self._sel + 1} — bấm 💾 Lưu để ghi file.")
 
     def _delete(self):
-        if self._sel is None:
-            self._log("⚠ Chọn 1 dòng trước khi 🗑️ Xóa.")
+        idxs = sorted((i for i in self._sels
+                       if i is not None and 0 <= i < len(self._keys)),
+                      reverse=True)
+        if not idxs:
+            self._log("⚠ Chọn 1 (hoặc nhiều) dòng trước khi 🗑️ Xóa.")
             return
-        k = self._keys.pop(self._sel)
+        removed = [self._keys.pop(i) for i in idxs]
         self._sel = None
+        self._sels = set()
+        self._anchor = None
         self._render()
-        self._log(f"🗑️ Đã xóa {keymgr_mask_key(keymgr_decode_key(k))} "
-                  f"({k.get('email') or 'không email'}) — bấm 💾 Lưu để ghi file.")
+        if len(removed) == 1:
+            k = removed[0]
+            self._log(f"🗑️ Đã xóa {keymgr_mask_key(keymgr_decode_key(k))} "
+                      f"({k.get('email') or 'không email'}) — bấm 💾 Lưu để ghi file.")
+        else:
+            self._log(f"🗑️ Đã xóa {len(removed)} key "
+                      f"(đa chọn) — bấm 💾 Lưu để ghi file.")
+
+    def _clean_invalid(self):
+        """P4: dọn hàng loạt các key có lỗi (error_msg) — mẫu 🧹 của GetHtmlFromUrl."""
+        bad = [k for k in self._keys if k.get("error_msg")]
+        if not bad:
+            self._log("🧹 Không có key lỗi nào (hãy 🔍 Kiểm tra trước).")
+            return
+        if not messagebox.askyesno(
+                "🧹 Xóa Key Lỗi",
+                f"Xóa {len(bad)}/{len(self._keys)} key có lỗi khỏi bảng?\n\n"
+                f"Lưu ý: chưa 💾 Lưu — bấm 💾 Lưu để ghi file."):
+            return
+        self._keys = [k for k in self._keys if not k.get("error_msg")]
+        self._clamp_sel()
+        self._render()
+        self._log(f"🧹 Đã xóa {len(bad)} key có lỗi — còn {len(self._keys)} key "
+                  f"(bấm 💾 Lưu để ghi file).")
+
+    def _flip(self, i):
+        """Đảo trạng thái bật/tắt tại dòng i (không render — caller tự render)."""
+        k = self._keys[i]
+        if str(k.get("status") or "active") == "active":
+            k["status"] = "disabled"
+            return "disabled"
+        k["status"] = "active"
+        # Bật lại = gạt bỏ cờ lỗi/hết-quota cũ để pool dùng ngay
+        k.pop("next_check_time", None)
+        k.pop("reset_time", None)
+        k["error_msg"] = ""
+        return "active"
 
     def _toggle_at(self, i):
-        k = self._keys[i]
-        k["status"] = "disabled" if str(k.get("status") or "active") == "active" else "active"
+        if not (0 <= i < len(self._keys)):
+            return
+        st = self._flip(i)
         self._render()
+        self._log(("🔴 Đã tắt" if st == "disabled" else "🟢 Đã bật")
+                  + f" key dòng {i + 1} — bấm 💾 Lưu để ghi file.")
 
     def _toggle(self):
-        if self._sel is None:
-            self._log("⚠ Chọn 1 dòng trước khi ☑ Bật/Tắt.")
+        idxs = sorted(i for i in self._sels
+                      if i is not None and 0 <= i < len(self._keys))
+        if not idxs:
+            self._log("⚠ Chọn dòng trước khi ☑ Bật/Tắt.")
             return
-        self._toggle_at(self._sel)
+        states = [self._flip(i) for i in idxs]
+        self._render()
+        n_on = sum(1 for s in states if s == "active")
+        self._log(f"☑ Đã đổi {len(idxs)} dòng: {n_on} bật · "
+                  f"{len(idxs) - n_on} tắt — bấm 💾 Lưu để ghi file.")
 
     # ── kiểm tra key (thread nền — không đóng băng UI) ───────────────────────
     def _check_all(self):
@@ -1230,20 +1416,48 @@ class ApiKeyManagerDialog(ctk.CTkToplevel):
         if not (0 <= i < len(self._keys)):
             return
         k = self._keys[i]
-        k["status"] = "active" if ok else "disabled"
+        # P4: 3 trạng thái thật — active / exhausted (tự hồi) / invalid (chết);
+        # lỗi khác (mạng, 5xx…) → disabled, KHÔNG kết luận key chết.
+        kind, reset_secs = keymgr_classify_check(ok, msg)
         try:
+            import time as _time
+            now = int(_time.time())
             from datetime import datetime
             k["last_check_time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         except Exception:
-            pass
+            now = 0
+        k["status"] = kind
+        if kind == "exhausted":
+            until = now + int(reset_secs)
+            k["next_check_time"] = until   # pool skip key tới lúc này
+            k["reset_time"] = until        # field chéo chuẩn GetHtmlFromUrl
+        else:
+            k.pop("next_check_time", None)
+            k.pop("reset_time", None)
         k["error_msg"] = "" if ok else msg
         k["latency_ms"] = ms
         self._render()
-        tag = "✅" if ok else "❌"
-        self._log(f"{tag} Key {i + 1} ({k.get('email') or 'không email'}): {msg} — {ms}ms"
-                  + ("" if ok else " → tắt key."))
-        if ok and self._sel is None:
+        if ok:
+            tag = "✅"
+            tail = ""
+        elif kind == "exhausted":
+            tag = "⏳"
+            h, rem = divmod(int(reset_secs), 3600)
+            mm = rem // 60
+            tail = (f" → hết quota tạm, tự hồi sau {h}h{mm:02d}m"
+                    if h else f" → hết quota tạm, tự hồi sau {mm}m")
+        elif kind == "invalid":
+            tag = "❌"
+            tail = " → key KHÔNG hợp lệ (đánh dấu đen)."
+        else:
+            tag = "⚠"
+            tail = " → tạm tắt (lỗi không xác định là key chết)."
+        self._log(f"{tag} Key {i + 1} ({k.get('email') or 'không email'}): "
+                  f"{msg} — {ms}ms{tail}")
+        if ok and not self._sels:
+            self._sels = {i}
             self._sel = i
+            self._anchor = i
 
     def _check_done(self):
         self._validating = False

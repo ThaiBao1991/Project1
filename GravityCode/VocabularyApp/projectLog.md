@@ -247,6 +247,34 @@
 **Phát hiện thêm — CHƯA sửa (ngoài phạm vi đã đồng ý):** `_try_image_models()` cũng rơi thẳng `return` khi 429 tốc độ (log không nói dối nên không gây spam, nhưng cùng gốc bệnh — cần test riêng); 2 tiến trình (VocabApp + GetHtmlFromUrl) dùng chung 197 key trong khi `pace()` chỉ tính 1 tiến trình ⇒ tổng rate ×2.
 
 ---
+
+## 📋 Cập nhật mới nhất — 2026-11-05b (Học GetHtmlFromUrl: backoff RPM · gap/account · key 3 trạng thái · UI đa chọn · sửa GHE)
+
+**Nguyên tắc:** so sánh VocabApp vs GetHtmlFromUrl bản Desktop thật (`core/ai_translator.py` 3590 dòng, `gui/key_manager_dialog.py` 1176 dòng PyQt6), chắt điểm mạnh bên mạnh hơn theo từng mảng. Người dùng duyệt: **P1+P2, P4, P3, P5, P6a + bug X**; **không làm P6b**.
+
+**Đã sửa (`api/gemini_safe.py`):**
+1. **P1 backoff RPM**: `compute_rpm_cooldown` 65→120→300s (cap) theo số 429 liên tiếp per-account (`record_rpm_429`/`clear_rpm_429`, chuỗi >10 phút tự reset, gọi tốt ⇒ clear); áp ở QUOTA_RATE text + ảnh. **Giữ `lock_key`** (không khoá account).
+2. **P2 gap/account**: `PER_ACCOUNT_MIN_GAP = 8.0` + `_account_last_used`; `pace(account=email)` áp gap cứng ≥8s giữa 2 call cùng account (kể cả khi chỉ còn 1 account).
+3. **P5 empty**: tách `EMPTY` khỏi nhánh transient; `MAX_EMPTY_ROUNDS = 3` → message đúng bệnh "safety filter"; `_try_models` OK-rỗng → thử model kế, rỗng ≥2 lần → demote 300s (bug test: streak pop trước khi đếm → chỉ pop khi text THẬT).
+4. **P6a + bug X**: nhánh `QUOTA_RATE` trong `_try_image_models` (429 → model ảnh kế cùng key); **bug X** lọc candidate model ảnh giao với model TEXT ⇒ URL gửi nhầm `models/gemini-3.5-flash` (mock chứng minh) → sửa bằng `_filter_live_models(candidates)`; verify URL `models/gemini-2.5-flash-image` + trả ảnh OK.
+
+**Đã sửa (`VocabApp.py` — P4 UI `ApiKeyManagerDialog`):**
+- **Đa chọn** `_sels`/`_anchor` + bind `<Button-1>/<Control-Button-1>/<Shift-Button-1>` (test Tk thật: plain chỉ bắn khi không modifier ⇒ không double-fire); `_select(i, event)` backward-compat; phím **`<Delete>`** xóa nhanh; nút **🧹 Xóa Key Lỗi** (hàng ctrl2, có confirm) xóa mọi key có `error_msg`; `_clamp_sel()` chống idx tràn.
+- **3 trạng thái**: helper thuần `keymgr_classify_check` → active/exhausted/invalid/disabled (ok → quota/429 → billing → invalid → disabled) + `keymgr_retry_seconds` parse `13h/33m/4s` (default 3600); exhausted ghi `next_check_time` + `reset_time`; toggle 4 nhãn 🟢/⏳Quota/❌Lỗi/🔴Tắt; note "⏳ hồi sau XhYm"; `lbl_sum` hiện số dòng đã chọn.
+- **Pool**: `_usable_keys` giờ tôn trọng `status == "disabled"` (trước đây **🔴 Tắt KHÔNG có tác dụng** — pool không đọc status này) + `exhausted` kiểm `max(next_check_time, reset_time)`.
+
+**Đã sửa GHE Desktop (CHỈ GHI FILE, KHÔNG COMMIT — WIP người dùng):**
+- `ai_translator.py`: nhánh 429 daily bắt regex `retry in\s+\d+h` ("Please retry in 13h" không chứa marker "day" ⇒ trước rơi RPM 65s) + `reset_time` theo giờ thật; `retry_delay_from` parse thêm `h/m` (verify `'Please retry in 13h'` → 46805s); gộp `is_model_restriction` trùng (2 → 1).
+- `key_manager_dialog.py`: `_on_test_selected` đồng bộ block UI → tách `_start_validation()` chạy `KeyValidationWorker` dùng chung với `_on_test_all`.
+- Verify: `py_compile` 2 file OK + import module thật OK.
+
+**Test mới/mở rộng (mock 0 mạng):** `test_quota_rate` **36 → 72/72** (sections 9–13: backoff unit + tích hợp 65→120→300s + clear, gap ≥8s sleep giả, empty → safety filter, ảnh 429 + URL model ảnh); `test_key_manager` **80 → 111/111** (sections 8–10: classify/retry, đa chọn Ctrl/Shift/clamp object giả, pool disabled/exhausted).
+
+**Suite xanh:** quota_rate 72/72 · adaptive 7/7 · 3mode 41/41 · key_manager 111/111 · key_cooldown PASS · slug 6/6 · ai_rich 85/85 · smoke 15/15 · `py_compile` OK. Chi tiết: `docs/UPGRADE_17.md` mục **7.12**.
+
+**KHÔNG làm:** P6b (rate-limiter chia sẻ 2 tiến trình) · chưa trả lời câu hỏi 10 key/account tạo cùng 1 project hay 10 project riêng (ảnh hưởng lock_key vs lock_account dài hạn).
+
+---
 ## 📋 Cập nhật mới nhất — 2026-11-02 (Fix audio 0 track → PAUSED · chống trùng keyword GUI)
 
 ### 🔊 VÌ SAO PIPELINE `PAUSED` + `DoD=False` — AUDIO 0 TRACK MỌI NGÀY

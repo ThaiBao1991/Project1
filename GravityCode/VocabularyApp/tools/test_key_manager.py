@@ -3,15 +3,21 @@
 
 Chạy:  python tools/test_key_manager.py
 
-Bao phủ:
+Bao phủ (số thứ tự = dòng "── N." khi chạy):
   1. encode/decode ENC: (chuẩn dùng chung AskCpl/GetHtmlFromUrl — đảo + base64)
   2. mask key (không lộ full key trong UI)
-  3. save/load roundtrip → key luôn lưu ENC:, khóa khác trong settings giữ nguyên,
+  3. decode key từ entry (đã mã hóa / thô / rỗng)
+  4. save/load roundtrip → key luôn lưu ENC:, khóa khác trong settings giữ nguyên,
      backup .bak1, ghi atomic (không còn file .tmp)
-  4. validate key với requests GIẢ LẬP (200 → hợp lệ, 400 → lỗi có thông điệp)
-  5. các method của dialog tồn tại (import VocabApp — không tạo cửa sổ)
-  6. đồng bộ 2 chiều GetHtmlFromUrl ↔ AskCpl (dedup theo key thô, 2 chiều,
+  5. validate key với requests GIẢ LẬP (200 → hợp lệ, 400 → lỗi có thông điệp)
+  6. các method của dialog tồn tại (import VocabApp — không tạo cửa sổ)
+  7. đồng bộ 2 chiều GetHtmlFromUrl ↔ AskCpl (dedup theo key thô, 2 chiều,
      file thiếu/khỏng không ném, id tự sinh, .bak1, roundtrip, giữ khóa khác)
+  8. P4: phân loại kết quả kiểm tra (active/exhausted/invalid/disabled) +
+     parse thời gian chờ '13h/33m/4s' (input giả lập — không gọi mạng)
+  9. P4: đa chọn dòng (click thường/Ctrl/Shift) + clamp idx — logic trên
+     object giả, không tạo cửa sổ Tk
+ 10. P4: pool tôn trọng status disabled / exhausted (next_check_time/reset_time)
 """
 import json
 import os
@@ -24,9 +30,11 @@ fails = []
 total = [0]
 
 
-def ck(name, cond):
+def ck(name, cond, detail=None):
     total[0] += 1
-    print(("PASS " if cond else "FAIL ") + name)
+    # detail (tùy chọn, P4): in kèm khi FAIL để biết vì sao
+    suffix = "" if (cond or detail is None) else f" | {detail}"
+    print(("PASS " if cond else "FAIL ") + name + suffix)
     if not cond:
         fails.append(name)
 
@@ -38,7 +46,8 @@ def main():
                           _KeyEditDialog, keymgr_gethtml_keys_path,
                           keymgr_load_gethtml_keys, keymgr_save_gethtml_keys,
                           keymgr_sync_from_gethtml, keymgr_sync_to_gethtml,
-                          _keymgr_merge)
+                          _keymgr_merge, keymgr_classify_check,
+                          keymgr_retry_seconds)
     from settings import encode_token, decode_token
 
     # ── 1. encode/decode ENC: chuẩn dùng chung ──
@@ -148,7 +157,9 @@ def main():
               "_toggle", "_toggle_at", "_check", "_check_all",
               "_check_worker", "_on_check_result", "_check_done",
               "_save", "_load", "_settings_path", "_log",
-              "_sync_from_gethtml", "_sync_to_gethtml"):
+              "_sync_from_gethtml", "_sync_to_gethtml",
+              # P4
+              "_clean_invalid", "_on_delete_key", "_clamp_sel", "_flip"):
         ck(f"ApiKeyManagerDialog.{m} tồn tại", hasattr(ApiKeyManagerDialog, m))
     ck("_KeyEditDialog._ok tồn tại", hasattr(_KeyEditDialog, "_ok"))
     ck("helper module tồn tại",
@@ -159,7 +170,9 @@ def main():
                                   keymgr_load_gethtml_keys,
                                   keymgr_save_gethtml_keys,
                                   keymgr_sync_from_gethtml,
-                                  keymgr_sync_to_gethtml, _keymgr_merge)))
+                                  keymgr_sync_to_gethtml, _keymgr_merge,
+                                  keymgr_classify_check,
+                                  keymgr_retry_seconds)))
 
     # ── 7. đồng bộ 2 chiều GetHtmlFromUrl ↔ AskCpl (file tạm — không đụng file thật) ──
     ck("gethtml path: trả về đường dẫn tuyệt đối",
@@ -328,6 +341,112 @@ def main():
         p_added, p_total, p_changed = keymgr_sync_to_gethtml(plain, gpath)
         ck("sync_to: settings thiếu gemini.api_keys → +0, không đổi, không ném",
            p_added == 0 and p_changed is False)
+
+    # ── 8. P4: phân loại kết quả kiểm tra + parse thời gian chờ ──
+    print("\n── 8. P4: keymgr_classify_check / keymgr_retry_seconds ──")
+    ck("retry: 'Please retry in 13h' → 13*3600",
+       keymgr_retry_seconds("Please retry in 13h") == 13 * 3600)
+    ck("retry: 'retry in 33m' → 33*60",
+       keymgr_retry_seconds("retry in 33m") == 33 * 60)
+    ck("retry: 'retry in 4s' → 4",
+       keymgr_retry_seconds("retry in 4s") == 4)
+    ck("retry: không có đơn vị thời gian → 3600 (mặc định)",
+       keymgr_retry_seconds("HTTP 429: Quota exceeded for quota") == 3600)
+    ck("retry: msg rỗng → 3600",
+       keymgr_retry_seconds("") == 3600)
+    ck("retry: '450ms' KHÔNG bị hiểu nhầm là giây",
+       keymgr_retry_seconds("HTTP 500: timeout after 450ms") == 3600)
+
+    ck("classify ok → active",
+       keymgr_classify_check(True, "Hợp lệ") == ("active", 0))
+    kind, secs = keymgr_classify_check(
+        False, "HTTP 429: Resource has been exhausted. Please retry in 13h")
+    ck("classify 429 + retry 13h → exhausted + 13h",
+       kind == "exhausted" and secs == 13 * 3600, (kind, secs))
+    kind2, secs2 = keymgr_classify_check(
+        False, "HTTP 429: Quota exceeded for quota metric 'per day'")
+    ck("classify 429 không retry → exhausted + 3600",
+       kind2 == "exhausted" and secs2 == 3600, (kind2, secs2))
+    ck("classify free-tier/billing → disabled (không đếm là key chết)",
+       keymgr_classify_check(
+           False, "HTTP 403: free tier is not available for this method")[0]
+       == "disabled")
+    ck("classify 'API key not valid' → invalid",
+       keymgr_classify_check(
+           False, "HTTP 400: API key not valid. Please pass a valid API key.")[0]
+       == "invalid")
+    ck("classify HTTP 401 → invalid",
+       keymgr_classify_check(False, "HTTP 401: UNAUTHENTICATED")[0] == "invalid")
+    ck("classify lỗi mạng (timeout) → disabled, KHÔNG vội kết luận key chết",
+       keymgr_classify_check(False, "ConnectTimeout: timed out")[0] == "disabled")
+
+    # ── 9. P4: đa chọn dòng (logic trên object giả — không tạo cửa sổ Tk) ──
+    print("\n── 9. P4: đa chọn dòng (click/Ctrl/Shift) + clamp ──")
+    d = object.__new__(ApiKeyManagerDialog)
+    d._keys = [{"key": f"x{i}", "email": f"k{i}@t"} for i in range(6)]
+    d._sel = None
+    d._sels = set()
+    d._anchor = None
+    renders = []
+    d._render = lambda: renders.append(1)
+
+    class _Evt:
+        def __init__(self, state):
+            self.state = state
+
+    d._select(2)                              # click thường
+    ck("click thường → chọn đúng 1 dòng + anchor",
+       d._sels == {2} and d._sel == 2 and d._anchor == 2)
+    d._select(4, _Evt(0x0004))                # Ctrl+click
+    ck("Ctrl+click thêm dòng", d._sels == {2, 4}, sorted(d._sels))
+    d._select(2, _Evt(0x0004))                # Ctrl+click lại → bỏ
+    ck("Ctrl+click dòng đã chọn → bỏ chọn", d._sels == {4}, sorted(d._sels))
+    d._select(0, _Evt(0x0001))                # Shift+click (anchor=4)
+    ck("Shift+click chọn dải từ anchor (0..4)",
+       d._sels == {0, 1, 2, 3, 4}, sorted(d._sels))
+    d._select(5, _Evt(0x0000))                # click thường reset
+    ck("click thường reset về 1 dòng", d._sels == {5}, sorted(d._sels))
+    d._select(1)                              # kiểu cũ, không event
+    ck("_select(i) kiểu cũ (backward-compat) vẫn chọn đơn",
+       d._sels == {1} and d._sel == 1)
+    ck("_select gọi _render mỗi lần", len(renders) >= 5, len(renders))
+    d._select(99)                             # idx tràn → bỏ qua, không ném
+    ck("idx tràn → bỏ qua không đổi selection", d._sels == {1})
+    d._sels = {1, 9, -2}
+    d._sel = 9
+    d._anchor = 9
+    d._clamp_sel()
+    ck("_clamp_sel dọn idx tràn, giữ idx hợp lệ",
+       d._sels == {1} and d._sel == 1 and d._anchor == 1,
+       (sorted(d._sels), d._sel, d._anchor))
+
+    # ── 10. P4: pool tôn trọng status disabled/exhausted ──
+    print("\n── 10. P4: pool bỏ key disabled + exhausted (chưa tới hạn hồi) ──")
+    import time as _t
+    import api.gemini_safe as gs
+
+    p = gs.AccountPool()                      # pool RIÊNG — không đụng singleton
+    nowi = int(_t.time())
+    p.sync([
+        {"key": "P4_K1", "email": "p4a@example.com", "status": "active"},
+        {"key": "P4_K2", "email": "p4a@example.com", "status": "disabled"},
+        {"key": "P4_K3", "email": "p4b@example.com", "status": "exhausted",
+         "next_check_time": nowi + 3600},
+        {"key": "P4_K4", "email": "p4c@example.com", "status": "exhausted",
+         "reset_time": nowi + 3600},          # chuẩn GetHtmlFromUrl
+        {"key": "P4_K5", "email": "p4d@example.com", "status": "exhausted",
+         "reset_time": nowi - 10},            # đã hết hạn → dùng lại được
+    ])
+    usable = sorted(k["key"] for k in p._usable_keys(set()))
+    ck("active vẫn dùng được", "P4_K1" in usable, usable)
+    ck("disabled BỊ BỎ (toggle 🔴 Tắt có tác dụng thật)",
+       "P4_K2" not in usable, usable)
+    ck("exhausted + next_check_time tương lai bị bỏ",
+       "P4_K3" not in usable, usable)
+    ck("exhausted + reset_time tương lai (chuẩn GHE) bị bỏ",
+       "P4_K4" not in usable, usable)
+    ck("exhausted hết hạn → dùng lại được",
+       "P4_K5" in usable, usable)
 
     print()
     print(f"KẾT QUẢ: {total[0] - len(fails)}/{total[0]} pass")

@@ -125,6 +125,10 @@ PACE_MIN = 3.5
 PACE_MAX = 5.0
 PACE_JITTER = (0.5, 1.5)          # jitter phá tần số bot
 ACCOUNT_COOLDOWN = 3600           # 60 phút nghỉ cho 1 account sau batch/429
+# P2 (học GetHtmlFromUrl): KHOÁ cứng khoảng cách tối thiểu giữa 2 lần gọi vào
+# CÙNG 1 account — quota RPM là theo project/account, quay lại account quá
+# nhanh dù vẫn tôn trọng pace toàn cục vẫn ăn 429.
+PER_ACCOUNT_MIN_GAP = 8.0
 # 403 "free tier is not available" là lỗi cấp PROJECT: key còn sống, chỉ project
 # chưa đủ điều kiện free tier. Bật billing là key cũ dùng lại được ⇒ tạm nghỉ
 # 24h rồi tự thử lại, KHÔNG block vĩnh viễn.
@@ -152,9 +156,10 @@ IMAGE_MODEL_FALLBACKS = [
 # ─────────────────────────────────────────────────────────────
 _pace_lock = threading.Lock()
 _last_call_ts = 0.0
+_account_last_used = {}    # account -> ts call gần nhất (P2: gap cứng per-account)
 
 
-def pace(interval: float = None):
+def pace(interval: float = None, account: str = None):
     """Nghỉ giữa 2 lần gọi Gemini (thread-safe, khoá toàn tiến trình).
 
     Mặc định: khoảng nghỉ THÍCH ỨNG theo số **PROJECT** (account) khả dụng.
@@ -164,6 +169,11 @@ def pace(interval: float = None):
     chỉ chịu được 5 × 15 = 75 call/phút TỔNG.
     Tính theo số KEY (47) ⇒ 94 call/phút ⇒ 429 ⇒ mọi key bị cooldown ⇒
     vòng lặp chờ 6 × 20 s ⇒ treo pipeline.
+
+    P2 (học GetHtmlFromUrl `_wait_pacing`): nếu truyền `account` thì áp thêm
+    gap CỨNG ≥ `PER_ACCOUNT_MIN_GAP` (8s) giữa 2 call vào CÙNG account — kể cả
+    khi chỉ còn 1 account. Gap toàn cục không đủ, vì pool round-robin vẫn có
+    thể quay lại cùng account nhanh hơn 8s khi số account ít.
     """
     global _last_call_ts
     if interval is None:
@@ -179,11 +189,20 @@ def pace(interval: float = None):
         # Siết về [0.85, 1.15] để thực tế không bao giờ vượt target quá 15%.
         base = random.uniform(0.85, 1.15) * interval
         jitter = random.uniform(*PACE_JITTER) * 0.2
-        elapsed = time.time() - _last_call_ts
+        now = time.time()
+        elapsed = now - _last_call_ts
         wait = base + jitter - elapsed
+        if account:
+            # P2: gap cứng theo account (luôn tôn trọng, kể cả khi chỉ còn 1
+            # account — đây chính là chỗ GHE không bao giờ bị 429 vì quay lại).
+            gap_left = PER_ACCOUNT_MIN_GAP - (now - _account_last_used.get(account, 0.0))
+            if gap_left > wait:
+                wait = gap_left
         if wait > 0:
             time.sleep(wait)
         _last_call_ts = time.time()
+        if account:
+            _account_last_used[account] = _last_call_ts
 
 
 # ─────────────────────────────────────────────────────────────
@@ -341,6 +360,21 @@ def retry_delay_from(msg):
     return 65
 
 
+def compute_rpm_cooldown(msg, consecutive_429: int = 1) -> int:
+    """P1 (học GetHtmlFromUrl): backoff LŨY TIẾN cho 429 tốc độ.
+
+    65s → 120s → 300s (capped) theo số 429 tốc độ LIÊN TIẾP của cùng account.
+    Trước đây cố định 65s: account cứ 65s lại bị đập 1 lần → 429 lặp vô tận
+    với key mới. Đếm liên tiếp, reset khi gọi thành công (clear_rpm_429).
+    """
+    delay = retry_delay_from(msg)
+    if consecutive_429 >= 3:
+        return max(delay, 300)
+    if consecutive_429 == 2:
+        return max(delay, 120)
+    return max(delay, 65)
+
+
 def is_project_billing_error(msg) -> bool:
     """403 'free tier is not available' → cả PROJECT không dùng được model nào.
 
@@ -413,6 +447,7 @@ class AccountPool:
         self._keys = []
         self._cooldown = {}          # account -> unlock ts
         self._key_cooldown = {}      # raw key -> unlock ts (sống sót qua sync())
+        self._rpm_429 = {}           # account -> (số 429 liên tiếp, ts) — P1 backoff
         self._last_account = None
         self._acct_counters = {}
         self._lock = threading.Lock()
@@ -492,6 +527,30 @@ class AccountPool:
                 self._key_cooldown[raw] = until
         return until
 
+    def record_rpm_429(self, account, now=None):
+        """P1: đếm 429 tốc độ LIÊN TIẾP của account — trả về số lần (≥1).
+
+        Chuỗi bị reset nếu cách lần 429 trước > 10 phút (không còn "liên tiếp"),
+        và reset hẳn khi account gọi thành công (clear_rpm_429).
+        """
+        if not account:
+            return 1
+        now = now if now is not None else time.time()
+        with self._lock:
+            count, last_ts = self._rpm_429.get(account, (0, 0.0))
+            if now - last_ts > 600:
+                count = 0
+            count += 1
+            self._rpm_429[account] = (count, now)
+            return count
+
+    def clear_rpm_429(self, account):
+        """P1: gọi thành công ⇒ reset bộ đếm 429 liên tiếp của account."""
+        if not account:
+            return
+        with self._lock:
+            self._rpm_429.pop(account, None)
+
     def usable_count(self) -> int:
         """Số key hiện dùng được (không tính key đang cooldown/exhausted)."""
         try:
@@ -523,8 +582,13 @@ class AccountPool:
             status = k.get("status", "active")
             if status == "invalid":
                 continue
+            if status == "disabled":
+                # P4: nút 🔴 Tắt trong dialog PHẢI thực sự ngừng dùng key —
+                # trước đây pool bỏ qua status này ⇒ toggle tắt không có tác dụng.
+                continue
             if status == "exhausted":
-                nct = k.get("next_check_time", 0)
+                # next_check_time: VocabApp ghi; reset_time: chuẩn GetHtmlFromUrl
+                nct = max(k.get("next_check_time", 0), k.get("reset_time", 0))
                 if nct > 0 and now < nct:
                     continue
             raw = k.get("key")
@@ -650,6 +714,8 @@ class GeminiCoordinator:
         # Dead model tracking: {model_name: {"fail_count": n, "until": ts}}
         self._dead_fail_count = {}
         self._dead_lock = threading.Lock()
+        # P5: đếm phản hồi rỗng LIÊN TIẾP theo model (2 lần → tạm nghỉ model)
+        self._empty_streak = {}
         # Nạp dead models từ persistent storage (per-language __global__)
         try:
             from ai.pipeline_store import load_dead_models as _ldm
@@ -737,20 +803,30 @@ class GeminiCoordinator:
 
     def _get_available_models(self) -> list:
         """Lọc ra các model chưa bị khóa cooldown."""
+        return self._filter_live_models(self._models)
+
+    def _filter_live_models(self, candidates) -> list:
+        """Loại các model đang cooldown/dead khỏi DANH SÁCH ỨNG VIÊN bất kỳ.
+
+        FIX bug X (sinh ảnh gọi nhầm model text): đường ảnh trước đây giao
+        model ảnh với `self._get_available_models()` (= model TEXT) ⇒ giao
+        rỗng ⇒ fallback về model TEXT ⇒ Google từ chối `responseModalities`
+        IMAGE → xoay hết key. Ảnh phải lọc theo đúng danh sách model ảnh.
+        """
         with self._dead_lock:
             now = time.time()
-            available = []
-            for m in self._models:
+            out = []
+            for m in candidates:
                 entry = self._dead_fail_count.get(m)
                 if not entry:
-                    available.append(m)
+                    out.append(m)
                     continue
                 until = entry.get("until", 0)
                 if until <= now:
                     # Hết hạn cooldown ⇒ xóa và cho phép thử lại
                     del self._dead_fail_count[m]
-                    available.append(m)
-            return available
+                    out.append(m)
+            return out
 
     def get_dead_models_info(self) -> dict:
         """Trả thông tin dead models để GUI hiển thị."""
@@ -1062,15 +1138,33 @@ class GeminiCoordinator:
                         "status_code": status_code, "model": model,
                         "billing": True, "confirmed": True}
             if kind == ErrorKind.OK:
-                # Reset fail_count dead-model khi gọi thành công
+                # 200 THẬT + text THẬT ⇒ reset mọi chuỗi lỗi của model
                 with self._dead_lock:
                     self._dead_fail_count.pop(model, None)
                 if text:
+                    with self._dead_lock:
+                        self._empty_streak.pop(model, None)   # P5: hết chuỗi rỗng
                     return {"kind": ErrorKind.OK, "text": text,
                             "model": model, "message": msg}
-                kind = ErrorKind.EMPTY
-                msg = "phản hồi rỗng"
-                return {"kind": kind, "message": msg, "status_code": status_code, "model": model}
+                # P5 (học GetHtmlFromUrl): 200 nhưng rỗng KHÔNG phải lỗi mạng —
+                # thử model KẾ trên cùng key (safety filter có thể theo model);
+                # rỗng ≥2 lần liên tiếp → tạm cooldown model này rồi mới tiếp.
+                # Trước đây return ngay sau 1 model → request() retry mù quáng.
+                with self._dead_lock:
+                    n_empty = self._empty_streak.get(model, 0) + 1
+                    self._empty_streak[model] = n_empty
+                if _nxt:
+                    if n_empty >= 2:
+                        self._cooldown_model(model, 300)
+                        self._log(f"⚠ '{model}' phản hồi rỗng {n_empty} lần liên tiếp"
+                                  f" — tạm nghỉ model{_arw}{_acct_tag}")
+                    else:
+                        self._log(f"⚠ '{model}' phản hồi rỗng{_arw}{_acct_tag}")
+                    last = {"kind": ErrorKind.EMPTY, "message": "phản hồi rỗng",
+                            "status_code": status_code, "model": model}
+                    continue
+                return {"kind": ErrorKind.EMPTY, "message": "phản hồi rỗng",
+                        "status_code": status_code, "model": model}
             if kind == ErrorKind.QUOTA_DAILY:
                 # Mỗi model là 1 quota bucket riêng (20 call/ngày/project/model)
                 # → hết quota model này thì THỬ MODEL KHÁC trước khi đổi key.
@@ -1145,6 +1239,8 @@ class GeminiCoordinator:
         account_attempts = 0
         retry_exhausted_rounds = 0
         MAX_ACCOUNT_ATTEMPTS = 3  # Giới hạn thử tối đa 3 account khác nhau/lượt gọi để tránh đốt sạch pool
+        empty_rounds = 0
+        MAX_EMPTY_ROUNDS = 3      # P5: 200-rỗng ở đủ 3 account ⇒ báo safety filter
         started = time.time()
         MAX_REQUEST_SECONDS = 300  # 1 request không được phép treo quá 5 phút
 
@@ -1186,7 +1282,7 @@ class GeminiCoordinator:
             api_key = key_obj.get("key") or ""
             email = key_obj.get("email") or "?"
             self._log_key_pick(pool, key_obj, email)
-            pace()
+            pace(account=email)   # P2: + gap cứng ≥8s trên cùng account
             # Thứ tự model thích nghi: tốt nhất trước + định kỳ chọc model mới (exploration)
             ordered = self._adaptive_model_order() if self._adaptive else None
             res = self._try_models(prompt_text, api_key, json_mode, response_schema,
@@ -1198,6 +1294,7 @@ class GeminiCoordinator:
             if kind == ErrorKind.OK:
                 total = track_call()
                 self._touch(key_obj)
+                pool.clear_rpm_429(email)   # P1: gọi tốt ⇒ reset backoff account
                 if self._lock_after_success:
                     self._maybe_lock_after_success(key_obj, pool._keys)
                 if total > self._daily_budget:
@@ -1236,8 +1333,10 @@ class GeminiCoordinator:
                 # thử model kế thật, và lock_key KHÔNG bao giờ chạy → key không
                 # cooldown → model đầu bảng bị đập lại mọi account (xoay 197 key
                 # vô tận). Bỏ hẳn: khoá key thật + đổi key thật, log truthy.
-                retry_delay = retry_delay_from(msg)
-                self._log(f"⚠ Key {email} chạm giới hạn tốc độ ({retry_delay}s). Cooldown riêng key, đổi key...")
+                n429 = pool.record_rpm_429(email)              # P1: 429 liên tiếp
+                retry_delay = compute_rpm_cooldown(msg, n429)  # P1: 65→120→300s
+                self._log(f"⚠ Key {email} chạm giới hạn tốc độ (lần {n429} liên tiếp, "
+                          f"{retry_delay}s). Cooldown riêng key, đổi key...")
                 self._pool.lock_key(key_obj, duration=retry_delay)
                 exclude.add(api_key)
                 account_attempts += 1
@@ -1288,7 +1387,26 @@ class GeminiCoordinator:
                         "error": {"kind": kind, "message": msg[:200],
                                   "status_code": res.get("status_code")}}
 
-            if kind in (ErrorKind.SERVER, ErrorKind.NETWORK, ErrorKind.EMPTY):
+            if kind == ErrorKind.EMPTY:
+                # P5 (học GetHtmlFromUrl `had_real_response`/`MAX_EMPTY_ROUNDS`):
+                # HTTP 200 nhưng MỌI model/account đều rỗng KHÔNG phải lỗi mạng —
+                # retry + sleep 2^n như transient là vô ích và che giấu bệnh thật.
+                # Thử key khác tối đa MAX_EMPTY_ROUNDS lần rồi báo đúng bệnh
+                # (rất có thể safety filter), người dùng biết đường sửa prompt.
+                empty_rounds += 1
+                exclude.add(api_key)
+                if empty_rounds >= MAX_EMPTY_ROUNDS:
+                    return {"ok": False, "text": "",
+                            "error": {"kind": ErrorKind.EMPTY,
+                                      "message": f"phản hồi rỗng {empty_rounds} lần ở nhiều "
+                                                 f"account/model khác nhau — rất có thể prompt "
+                                                 f"bị safety filter lọc. {msg[:80]}"}}
+                self._log(f"⚠ Mọi model phản hồi rỗng với key {email} "
+                          f"(lần {empty_rounds}/{MAX_EMPTY_ROUNDS}) — đổi key, thử lại...")
+                account_attempts += 1
+                continue
+
+            if kind in (ErrorKind.SERVER, ErrorKind.NETWORK):
                 transient += 1
                 # Đổi key/account ở lần sau; không thử lại cùng key 6 vòng.
                 exclude.add(api_key)
@@ -1300,7 +1418,7 @@ class GeminiCoordinator:
                 if kind == ErrorKind.NETWORK:
                     self._log(f"🌐 Lỗi kết nối mạng: {msg[:70]}. Chờ {delay}s để kết nối lại (lần {transient}/{self._max_transient})...")
                 else:
-                    self._log(f"⚠ Máy chủ bận/phản hồi rỗng: {msg[:70]}. Chờ {delay}s rồi thử lại (lần {transient}/{self._max_transient})...")
+                    self._log(f"⚠ Máy chủ bận: {msg[:70]}. Chờ {delay}s rồi thử lại (lần {transient}/{self._max_transient})...")
                 time.sleep(delay)
                 continue
 
@@ -1314,12 +1432,17 @@ class GeminiCoordinator:
     def _try_image_models(self, prompt_text, api_key, models, timeout):
         last = None
         billing_hits = 0
-        # Lọc model ảnh dead (chưa bị khóa cooldown); giao với list truyền vào nếu có
-        available_models = self._get_available_models()
+        # FIX bug X: ỨNG VIÊN là model ẢNH — lọc dead theo đúng danh sách ảnh.
+        # Trước đây giao với `self._get_available_models()` (model TEXT) ⇒ rỗng
+        # ⇒ fallback về model TEXT ⇒ request_image gửi nhầm model (đã mock
+        # chứng minh: URL ra `models/gemini-3.5-flash` thay vì model ảnh).
         if models:
-            available_models = [m for m in models if m in available_models] or available_models
+            candidates = list(models)
+        else:
+            candidates = list(self._image_models)
+        available_models = self._filter_live_models(candidates)
         if not available_models:
-            available_models = list(models) if models else list(self._image_models)
+            available_models = candidates
         models = available_models    # fallback checks (models[-1]) dùng chung list đã lọc
 
         for model in available_models:
@@ -1376,6 +1499,21 @@ class GeminiCoordinator:
                     continue
                 return {"kind": ErrorKind.QUOTA_DAILY, "message": msg,
                         "status_code": status_code, "model": model, "hard_quota": True}
+            if kind == ErrorKind.QUOTA_RATE:
+                # FIX P6a (đồng bộ _try_models text): 429 tốc độ là bucket THEO
+                # MODEL → cooldown model này rồi thử model ảnh KẾ trên CÙNG key.
+                # Trước đây KHÔNG có nhánh này → rơi thẳng `return` cuối hàm →
+                # request_image xoay key oan dù vẫn còn model ảnh khác dùng được
+                # (log không nói dối nhưng phí key vô ích).
+                self._cooldown_model(model, retry_delay_from(msg))
+                if model is not models[-1]:
+                    nxt = models[models.index(model) + 1]
+                    self._log(f"⚠ Model ảnh '{model}' fail (429 tốc độ) → thử '{nxt}' trên cùng key…")
+                    last = {"kind": kind, "message": msg, "status_code": status_code,
+                            "model": model}
+                    continue
+                return {"kind": kind, "message": msg, "status_code": status_code,
+                        "model": model}
             if kind == ErrorKind.REQUEST_BAD:
                 if is_project_billing_error(msg):
                     # Xác nhận bằng tối đa 1 model ảnh kế trước khi tạm nghỉ key.
@@ -1419,16 +1557,13 @@ class GeminiCoordinator:
         """
         pool = self._pool
         exclude = set()
-        # Lọc model ảnh theo dead_models (không gọi model đang cooldown)
+        # FIX bug X: lọc theo MODEL ẢNH sống (dead-store), KHÔNG giao với
+        # self._models (text) — trước đây giao rỗng ⇒ fallback về model TEXT.
         cand_models = list(models) if models else ([model] if model else list(self._image_models))
-        available = self._get_available_models()
-        if available:
-            # Chỉ giữ những model trong available, nhưng nếu models được truyền vào rõ ràng
-            # thì ưu tiên danh sách đó (lọc theo available)
-            if models:
-                cand_models = [m for m in models if m in available] or available
-            else:
-                cand_models = available
+        if not cand_models:
+            cand_models = list(self._image_models)
+        live = self._filter_live_models(cand_models)
+        cand_models = live or cand_models    # mọi model đều dead → vẫn thử bản gốc
         if not cand_models:
             return {"ok": False, "error": {"kind": ErrorKind.REQUEST_BAD,
                                            "message": "không có model ảnh nào được cấu hình"}}
@@ -1457,7 +1592,7 @@ class GeminiCoordinator:
             api_key = key_obj.get("key") or ""
             email = key_obj.get("email") or "?"
             self._log_key_pick(pool, key_obj, email)
-            pace()
+            pace(account=email)   # P2: + gap cứng ≥8s trên cùng account
             res = self._try_image_models(prompt_text, api_key, cand_models, tout)
             kind = res.get("kind")
             msg = res.get("message", "")
@@ -1465,6 +1600,7 @@ class GeminiCoordinator:
             if kind == ErrorKind.OK:
                 total = track_call()
                 self._touch(key_obj)
+                pool.clear_rpm_429(email)   # P1: gọi tốt ⇒ reset backoff account
                 if total > self._daily_budget:
                     self._log(f"⚠ Đã gọi {total:,} lần hôm nay (ngân sách {self._daily_budget:,}/ngày).")
                 return {"ok": True, "b64": res["b64"], "mime": res.get("mime", "image/png"),
@@ -1490,8 +1626,10 @@ class GeminiCoordinator:
                 continue
 
             if kind == ErrorKind.QUOTA_RATE:
-                retry_delay = retry_delay_from(msg)
-                self._log(f"⚠ Key {email} chạm giới hạn tốc độ (ảnh, {retry_delay}s). Cooldown riêng key, đổi key...")
+                n429 = pool.record_rpm_429(email)              # P1: 429 liên tiếp
+                retry_delay = compute_rpm_cooldown(msg, n429)  # P1: 65→120→300s
+                self._log(f"⚠ Key {email} chạm giới hạn tốc độ (ảnh, lần {n429} liên tiếp, "
+                          f"{retry_delay}s). Cooldown riêng key, đổi key...")
                 self._pool.lock_key(key_obj, duration=retry_delay)
                 exclude.add(api_key)
                 account_attempts += 1

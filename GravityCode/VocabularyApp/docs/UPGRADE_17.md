@@ -432,9 +432,59 @@ Log hứa "thử model kế" nhưng thực tế **xoay sang account khác** và 
 ### Kết quả hồi quy (mọi suite xanh)
 `test_quota_rate` **36/36** · `test_adaptive_model` **7/7** · `test_3mode` **41/41** · `test_key_manager` **80/80** · `test_key_cooldown` PASS · `test_ai_rich` **85/85** · `test_gui_smoke` **15/15** · `test_slug_canonical` **6/6** · `py_compile` OK.
 
-### Phát hiện thêm — CHƯA sửa (ngoài phạm vi đã đồng ý)
-- **`_try_image_models()`** (path sinh ảnh): 429 tốc độ cũng rơi thẳng `return` → `request_image()` xoay key ngay dù còn model ảnh khác. Log ở đó **không nói dối** (nói "Cooldown riêng key, đổi key" là thật) nên không gây spam nhận biết, nhưng là cùng gốc bệnh: nên thêm nhánh thử model ảnh kế. Cần test riêng trước khi sửa.
-- **2 tiến trình dùng chung 197 key** (VocabApp + GetHtmlFromUrl) cùng lúc: `pace()` chỉ tính trong 1 tiến trình ⇒ tổng rate ×2. Ngoài phạm vi fix này; nếu muốn phải đặt rate-limiter chia sẻ (file lock / đếm tập trung).
+### Phát hiện thêm — cập nhật ở §7.12
+- ~~**`_try_image_models()`** (path sinh ảnh): 429 tốc độ cũng rơi thẳng `return`~~ → **ĐÃ SỬA ở §7.12** (P6a), kèm cả **bug X** phát hiện thêm: lọc candidate model ảnh giao với model TEXT ⇒ fallback sai model.
+- **2 tiến trình dùng chung 197 key** (VocabApp + GetHtmlFromUrl) cùng lúc: `pace()` chỉ tính trong 1 tiến trình ⇒ tổng rate ×2. **VẪN CHƯA LÀM** (P6b — người dùng quyết định không làm lượt này; muốn phải đặt rate-limiter chia sẻ file lock / đếm tập trung).
+
+---
+
+## 7.12. HỌC TỪ GETHTMLFROMURL: BACKOFF RPM · GAP/ACCOUNT · KEY 3 TRẠNG THÁI · UI ĐA CHỌN · SỬA GHE (2026-11-05b)
+
+So sánh kỹ 2 bên: VocabApp (`api/gemini_safe.py`) vs GetHtmlFromUrl bản Desktop thật (`core/ai_translator.py` 3590 dòng, `gui/key_manager_dialog.py` 1176 dòng PyQt6). Người dùng duyệt lần lượt: **P1+P2, P4, P3, P5, P6a** + **bug X**; **không làm P6b**.
+
+### P1 — Backoff RPM lũy tiến 65 → 120 → 300s (GHE → VocabApp)
+- `compute_rpm_cooldown(msg, consecutive)` (mới, `api/gemini_safe.py`): 429 tốc độ lần 1 → 65s, lần 2 → 120s, ≥3 → 300s (cap), luôn tôn trọng `retryDelay` thật của Google nếu lớn hơn.
+- `AccountPool.record_rpm_429(account)` đếm 429 **liên tiếp** per-account (chuỗi cách >10 phút tự reset), `clear_rpm_429` gọi khi `request()` thành công ⇒ backoff tự về 0.
+- Áp ở cả 2 đường text (`request()` QUOTA_RATE) và ảnh (`request_image` QUOTA_RATE). **Giữ lock granularity = `lock_key`** (không khoá account như GHE — quota RPM theo project nhưng khoá key nhẹ hơn, xoay được).
+
+### P2 — Gap cứng ≥8s giữa 2 lần gọi CÙNG account (GHE `_wait_pacing` → VocabApp)
+- Hằng `PER_ACCOUNT_MIN_GAP = 8.0`, dict `_account_last_used`; `pace(interval, account=None)` áp gap cứng theo account (luôn tôn trọng, kể cả khi chỉ còn 1 account) bên trên pace toàn cục.
+- Mọi call site đổi thành `pace(account=email)`.
+
+### P5 — Phản hồi rỗng ≠ lỗi mạng (`had_real_response`/`MAX_EMPTY_ROUNDS` của GHE → VocabApp)
+- Tách `ErrorKind.EMPTY` khỏi nhánh transient (`SERVER/NETWORK` giữ nguyên y hệt); đếm `MAX_EMPTY_ROUNDS = 3` → dừng với message đúng bệnh: **"rất có thể prompt bị safety filter lọc"**, không sleep retry 2^n vô ích.
+- `_try_models()`: 200 nhưng rỗng → thử model **kế** trên cùng key (trước đây return ngay sau 1 model); rỗng ≥2 lần liên tiếp → demote (cooldown 300s) kèm log "N lần liên tiếp".
+- Bug bắt được khi test: streak bị `pop` trước khi đếm ⇒ luôn là 1 → chỉ pop khi **text THẬT**.
+
+### P6a + bug X — đường sinh ảnh
+- **P6a**: thêm nhánh `QUOTA_RATE` vào `_try_image_models` (429 → `_cooldown_model` + thử model ảnh **kế** trên cùng key; hết list mới trả `QUOTA_RATE`).
+- **bug X** (mock chứng minh, 0 mạng): `request_image`/`_try_image_models` lọc candidate bằng `self._get_available_models()` (danh sách model **TEXT**) → giao rỗng → fallback về model TEXT → URL gửi lên Google là `models/gemini-3.5-flash` thay vì model ảnh. Sửa bằng helper `_filter_live_models(candidates)` lọc theo đúng danh sách ẢNH sống; verify: URL ra `models/gemini-2.5-flash-image`, trả ảnh OK.
+
+### P4 — Nâng cấp `ApiKeyManagerDialog` (VocabApp.py)
+- **Đa chọn**: `_sels` (set) + `_anchor`; bind `<Button-1>`, `<Control-Button-1>`, `<Shift-Button-1>` trên mọi widget con (test Tk thật: `<Button-1>` chỉ bắn khi **không** modifier ⇒ 3 bind không double-fire); `_select(i, event=None)` giữ backward-compat kiểu cũ; `<Delete>` xóa nhanh selection; nút **🧹 Xóa Key Lỗi** ở hàng `ctrl2` (có `askyesno` xác nhận) xóa mọi key có `error_msg`; `_clamp_sel()` giữ idx hợp lệ sau khi list đổi.
+- **3 trạng thái key**: helper thuần `keymgr_classify_check(ok, msg)` → `active | exhausted | invalid | disabled` (thứ tự: ok → quota/429/retry → free-tier/billing → invalid markers → disabled) + `keymgr_retry_seconds(msg)` parse `'13h'/'33m'/'4s'` (default 3600, không nhầm `'450ms'`). `_on_check_result` ghi `next_check_time` + `reset_time` cho exhausted → pool tự skip tới hạn hồi.
+- **UI**: toggle 4 nhãn 🟢 Bật / ⏳ Quota / ❌ Lỗi / 🔴 Tắt; cột Kiểm tra có màu ⏳ cho quota tạm; cột Ghi chú hiện **"⏳ hồi sau XhYm"**; `lbl_sum` hiện số dòng đang chọn; log từng trạng thái.
+- **Pool (`_usable_keys`)**: thêm nhánh bỏ `status == "disabled"` — trước đây **🔴 Tắt không có tác dụng thật** (pool không đọc status này) + `exhausted` kiểm `max(next_check_time, reset_time)` (chuẩn field của GHE).
+
+### P3 — Sửa GHE Desktop (**CHỈ GHI FILE, KHÔNG COMMIT** — WIP của người dùng)
+- `core/ai_translator.py`:
+  1. Nhánh 429 daily: bắt thêm regex `retry in\s+(\d+)\s*h` — "Please retry in 13h" không chứa marker "day" nào nên trước đây **rơi nhánh RPM 65s**; `reset_time` giờ lấy theo **giờ thật** Google báo (thay vì 86400 cứng).
+  2. `retry_delay_from`: parse thêm đơn vị `h`/`m` (trước chỉ `s`) — verify thật `'Please retry in 13h'` → **46805s**.
+  3. Gộp `is_model_restriction` định nghĩa **2 lần** (dòng ~159 & ~1659) → còn 1 nguồn (giữ def đầu file).
+- `gui/key_manager_dialog.py`: `_on_test_selected` trước đây **validate đồng bộ trên GUI thread** (mỗi key timeout 7s + `processEvents()` vá tạm → chọn 20 key UI treo hàng chục giây) → tách `_start_validation(key_rows, done_title)` chạy `KeyValidationWorker` **dùng chung** với `_on_test_all`; cập nhật từng dòng realtime qua signal.
+- Verify: `py_compile` cả 2 file OK + import module thật (`is_model_restriction` còn 1 def, `retry_delay_from` đúng 46805).
+
+### Test (mở rộng, mock 0 mạng thật)
+| Suite | Trước | Sau |
+|---|---|---|
+| `tools/test_quota_rate.py` | 36/36 | **72/72** (+sections 9–13: backoff unit + tích hợp 65→120→300s + clear, gap ≥8s/account với sleep giả, empty → safety filter 3 account, ảnh 429 + URL đúng model ảnh + `request_image` lock_key) |
+| `tools/test_key_manager.py` | 80/80 | **111/111** (+sections 8–10: classify/retry, đa chọn Ctrl/Shift/clamp trên object giả không cần Tk, pool tôn trọng disabled/exhausted) |
+| `test_adaptive_model` / `test_3mode` / `test_key_cooldown` / `test_slug_canonical` / `test_ai_rich` / `test_gui_smoke` | 7/7 · 41/41 · PASS · 6/6 · 85/85 · 15/15 | **y nguyên, xanh** (smoke tạo `ApiKeyManagerDialog` với UI mới OK) |
+| `py_compile` | — | OK (`VocabApp.py`, `api/gemini_safe.py`, 2 file test, 2 file GHE) |
+
+### KHÔNG làm (đã báo người dùng)
+- **P6b** — rate-limiter chia sẻ giữa 2 tiến trình (file lock): rủi ro cao, chưa duyệt.
+- Câu hỏi **10 key/account tạo cùng 1 project hay 10 project riêng** (197 key/20 account, `project_id` trống): chưa trả lời — ảnh hưởng dài hạn tới việc lock_key vs lock_account.
 
 ---
 

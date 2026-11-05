@@ -16,6 +16,13 @@ Bao phủ (theo plan fix log "429 tốc độ → thử model" + xoay 197 key v�
   6. pace(): burst không bao giờ nhanh hơn target quá 15% (uniform ≥ 0.85).
   7. classify_response(): phân biệt 429 daily vs 429 rate.
   8. lock_key() sống sót qua pool.sync() với dict loader mới (bug production).
+  9. P1 backoff RPM: compute_rpm_cooldown 65→120→300s + record/clear/reset.
+ 10. P1 tích hợp: 429 liên tiếp ⇒ khoá key 65 → 120 → 300s (request()).
+ 11. P2 gap cứng ≥8s giữa 2 call cùng account (pace(account=...)).
+ 12. P5 phản hồi rỗng: thử model kế + demote + dừng ở 3 account (safety filter).
+ 13. P6a+bug X ảnh: 429 model ảnh → model ảnh khác CÙNG key; URL gọi ĐÚNG
+     model ảnh (không còn rơi về model text); mọi model 429 → QUOTA_RATE;
+     request_image lock_key + đổi key thật.
 """
 import os
 import sys
@@ -83,8 +90,10 @@ def reset_pool():
     p._keys = []
     p._cooldown = {}
     p._key_cooldown = {}
+    p._rpm_429 = {}
     p._last_account = None
     p._acct_counters = {}
+    gs._account_last_used = {}
     return p
 
 
@@ -306,6 +315,238 @@ ck("sau lock: usable = 0", p8.usable_count() == 0, p8.usable_count())
 p8.sync(fresh())                      # bug cũ: cooldown bị vứt mất → usable = 1
 ck("sau sync lại: usable vẫn = 0 (cooldown giữ)", p8.usable_count() == 0,
    p8.usable_count())
+
+# ════════════════════════════════════════════════════════════════════════════
+print("\n=== 9. P1: backoff RPM lũy tiến 65 → 120 → 300s ===")
+d1 = gs.compute_rpm_cooldown("Resource has been exhausted", 1)
+d2 = gs.compute_rpm_cooldown("Resource has been exhausted", 2)
+d3 = gs.compute_rpm_cooldown("Resource has been exhausted", 3)
+d9 = gs.compute_rpm_cooldown("Resource has been exhausted", 9)
+ck("lần 1 → 65s", d1 == 65, d1)
+ck("lần 2 → 120s", d2 == 120, d2)
+ck("lần ≥3 → 300s (capped)", d3 == 300 and d9 == 300, (d3, d9))
+ck("retryDelay thật của Google (>65) vẫn được tôn trọng",
+   gs.compute_rpm_cooldown("retryDelay: 150s", 1) >= 150)
+p9 = reset_pool()
+ck("record lần lượt 1→2→3",
+   (p9.record_rpm_429("x@y"), p9.record_rpm_429("x@y"), p9.record_rpm_429("x@y"))
+   == (1, 2, 3))
+p9.clear_rpm_429("x@y")
+ck("clear khi thành công ⇒ đếm lại từ 1", p9.record_rpm_429("x@y") == 1)
+p9._rpm_429["old@y"] = (5, _real_time.time() - 700)   # 429 cũ >10 phút
+ck("chuỗi cách >10 phút ⇒ không còn 'liên tiếp' (reset về 1)",
+   p9.record_rpm_429("old@y") == 1)
+
+print("\n=== 10. P1: 429 liên tiếp ⇒ khoá key 65 → 120 → 300s (request) ===")
+reset_pool()
+logs10 = []
+coord10, loader10 = make_coord(["m-a"], [KEY1, KEY2], logs10)
+_handler["fn"] = lambda url: (_Resp(429, RATE_BODY)
+                              if "AIzaTestKey0001" in url else _Resp(200, OK_BODY))
+
+
+def _unlock_key1():
+    coord10._pool._key_cooldown.pop("AIzaTestKey0001", None)
+    for k in coord10._pool._keys:
+        if k.get("key") == "AIzaTestKey0001":
+            k.pop("cooldown_until", None)
+
+
+def _round():
+    _unlock_key1()                      # mở key1 để ép 429 lại (counter tăng)
+    t0 = _real_time.time()
+    r = coord10.request("xin chao")
+    until = coord10._pool._key_cooldown.get("AIzaTestKey0001", 0)
+    return r, until - t0
+
+
+r10a, d10a = _round()                   # 429 lần 1 → 65s
+ck("round 1: key1 khoá ~65s", 58 <= d10a <= 72, d10a)
+r10b, d10b = _round()                   # lần 2 → 120s
+ck("round 2: key1 khoá ~120s (backoff)", 112 <= d10b <= 132, d10b)
+r10c, d10c = _round()                   # lần 3 → 300s
+ck("round 3: key1 khoá ~300s (capped)", 288 <= d10c <= 315, d10c)
+ck("cả 3 round vẫn ok nhờ key2 (không treo)",
+   all(r.get("ok") for r in (r10a, r10b, r10c)),
+   (r10a.get("ok"), r10b.get("ok"), r10c.get("ok")))
+ck("counter a@ = 3 sau 3 lần 429",
+   coord10._pool._rpm_429.get("a@gmail.com", (0,))[0] == 3,
+   coord10._pool._rpm_429)
+j10 = "\n".join(logs10)
+ck("log ghi rõ số lần liên tiếp 1/2/3",
+   all(f"lần {n} liên tiếp" in j10 for n in (1, 2, 3)), j10)
+# a@ gọi tốt ⇒ reset backoff
+_handler["fn"] = lambda url: _Resp(200, OK_BODY)
+_unlock_key1()
+coord10.request("xin chao")
+ck("gọi thành công ⇒ clear backoff của a@",
+   "a@gmail.com" not in coord10._pool._rpm_429, coord10._pool._rpm_429)
+
+# ════════════════════════════════════════════════════════════════════════════
+print("\n=== 11. P2: gap cứng ≥8s giữa 2 call CÙNG account (pace thật) ===")
+gs.pace = _orig_pace                    # dùng pace THẬT (sleep giả, không thật)
+slept11 = []
+
+
+class _Rand11:
+    def uniform(self, a, b):
+        return a                       # kịch bản xấu nhất: base nhỏ nhất
+
+
+class _TimeProxy11:
+    def time(self):
+        return _real_time.time()
+
+    def sleep(self, s):
+        slept11.append(s)              # ghi nhận chứ KHÔNG ngủ thật (test nhanh)
+
+    def __getattr__(self, n):
+        return getattr(_real_time, n)
+
+
+_orig_rand11, _orig_time11 = gs.random, gs.time
+_last_ts_orig11 = gs._last_call_ts
+_saved_used11 = gs._account_last_used
+try:
+    gs.random = _Rand11()
+    gs.time = _TimeProxy11()
+    gs._last_call_ts = 0.0             # elapsed cực lớn → không chờ global
+    gs._account_last_used = {}
+    gs.pace(interval=1.0, account="acct@test")   # lần đầu: chưa từng dùng → không chờ
+    gs.pace(interval=1.0, account="acct@test")   # ngay sau đó: gap 8s chưa đủ
+    ck("call thứ 2 cùng account PHẢI chờ ≥8s (gap cứng)",
+       bool(slept11) and slept11[-1] >= 7.9, slept11)
+    gs._account_last_used.clear()
+    gs.pace(interval=1.0, account="acct2@test")  # account khác → không bị vướng gap
+    ck("account khác không bị ảnh hưởng bởi gap của acct1",
+       bool(slept11) and slept11[-1] < 7.9, slept11)
+finally:
+    gs.random, gs.time = _orig_rand11, _orig_time11
+    gs._last_call_ts = _last_ts_orig11
+    gs._account_last_used = _saved_used11
+    gs.pace = lambda *a, **k: None     # trả lại pace tắt cho các test sau
+
+# ════════════════════════════════════════════════════════════════════════════
+print("\n=== 12. P5: phản hồi rỗng → thử model kế + dừng ở 3 account ===")
+reset_pool()
+logs12 = []
+coord12, _ = make_coord(["m-a", "m-b"], [KEY1], logs12)
+EMPTY_BODY = {"candidates": [{"content": {"parts": []}}]}
+urls12 = []
+
+
+def _h12(url):
+    urls12.append(url)
+    return _Resp(200, EMPTY_BODY)
+
+
+_handler["fn"] = _h12
+r12 = coord12._try_models("hi", "AIzaTestKey0001", False, None, 0.1, 100, 10,
+                          ordered_models=["m-a", "m-b"], email="a@gmail.com")
+ck("mọi model rỗng đều được thử (2 POST, không bỏ cuộc sau 1 model)",
+   len(urls12) == 2, urls12)
+ck("_try_models trả kind=empty", r12.get("kind") == gs.ErrorKind.EMPTY, r12)
+j12 = "\n".join(logs12)
+ck("log rỗng có mũi tên '→ thử' (đúng lời hứa)",
+   "phản hồi rỗng" in j12 and "→ thử 'm-b'" in j12, logs12)
+urls12[:] = []
+r12b = coord12._try_models("hi", "AIzaTestKey0001", False, None, 0.1, 100, 10,
+                           ordered_models=["m-a", "m-b"], email="a@gmail.com")
+ck("rỗng 2 lần liên tiếp ⇒ demote (cooldown 300s) model m-a",
+   coord12._model_cooldown.get("m-a", 0) > _real_time.time() + 250,
+   coord12._model_cooldown)
+ck("log demote ghi '2 lần liên tiếp'", "2 lần liên tiếp" in "\n".join(logs12), logs12)
+ck("round 2 vẫn trả kind=empty (không treo)", r12b.get("kind") == gs.ErrorKind.EMPTY, r12b)
+
+# 12c: 3 account đều rỗng → báo ĐÚNG bệnh (safety filter), không retry chậm
+reset_pool()
+logs12c = []
+keys3 = [{"key": "AIzaTestKey0001", "email": "a@gmail.com", "status": "active"},
+         {"key": "AIzaTestKey0002", "email": "b@gmail.com", "status": "active"},
+         {"key": "AIzaTestKey0003", "email": "c@gmail.com", "status": "active"}]
+coord12c, _ = make_coord(["m-a"], keys3, logs12c)
+_handler["fn"] = lambda url: _Resp(200, EMPTY_BODY)
+t12 = _real_time.time()
+r12c = coord12c.request("xin chao")
+took12 = _real_time.time() - t12
+ck("fail sau đúng 3 account rỗng (kind=empty)",
+   r12c.get("ok") is False and r12c.get("error", {}).get("kind") == gs.ErrorKind.EMPTY,
+   r12c)
+ck("message chỉ đúng bệnh: safety filter",
+   "safety filter" in r12c.get("error", {}).get("message", ""), r12c)
+ck("log đủ các lần (lần N/3)",
+   sum("phản hồi rỗng với key" in l for l in logs12c) == 2, logs12c)
+ck("KHÔNG sleep retry 2^n như lỗi mạng (nhanh <2s)", took12 < 2.0, took12)
+ck("KHÔNG còn log 'Máy chủ bận' cho lỗi rỗng",
+   not any("Máy chủ bận" in l for l in logs12c), logs12c)
+
+# ════════════════════════════════════════════════════════════════════════════
+print("\n=== 13. P6a + bug X: ảnh 429 → model ảnh khác + URL ĐÚNG model ảnh ===")
+reset_pool()
+logs13 = []
+coord13, _ = make_coord(["m-text"], [KEY1], logs13)
+IMG_OK = {"candidates": [{"content": {"parts": [
+    {"inlineData": {"mimeType": "image/png", "data": "QUJD"}}]}}]}
+urls13 = []
+
+
+def _h13(url):
+    urls13.append(url)
+    if "models/img-a" in url:
+        return _Resp(429, RATE_BODY)
+    return _Resp(200, IMG_OK)
+
+
+_handler["fn"] = _h13
+r13 = coord13._try_image_models("ve con meo", "AIzaTestKey0001",
+                                ["img-a", "img-b"], 10)
+ck("bug X: URL gọi ĐÚNG model ảnh (img-a → img-b, không rơi về text)",
+   len(urls13) == 2 and "models/img-a" in urls13[0] and "models/img-b" in urls13[1],
+   urls13)
+ck("P6a: ảnh OK trên model ảnh kế, CÙNG key", r13.get("kind") == gs.ErrorKind.OK
+   and r13.get("model") == "img-b" and r13.get("b64") == "QUJD", r13)
+ck("log 429 tốc độ ảnh có '→ thử img-b'",
+   "429 tốc độ" in "\n".join(logs13) and "→ thử 'img-b'" in "\n".join(logs13), logs13)
+ck("key KHÔNG bị khoá oan (cooldown rỗng)", not coord13._pool._key_cooldown,
+   coord13._pool._key_cooldown)
+
+# 13b: mọi model ảnh 429 tốc độ ⇒ trả QUOTA_RATE sau khi thử đủ (không rơi return)
+urls13[:] = []
+
+
+def _h13b(url):
+    urls13.append(url)
+    return _Resp(429, RATE_BODY)
+
+
+_handler["fn"] = _h13b
+r13b = coord13._try_image_models("ve", "AIzaTestKey0001", ["img-a", "img-b"], 10)
+ck("mọi model ảnh 429 ⇒ kind=quota_rate (không rơi return mập mờ)",
+   r13b.get("kind") == gs.ErrorKind.QUOTA_RATE, r13b)
+ck("đã thử đủ 2 model ảnh (2 POST)", len(urls13) == 2, urls13)
+
+# 13c: request_image — key1 429 mọi model ⇒ lock_key thật + đổi key, key2 OK
+reset_pool()
+logs13c = []
+coord13c, _ = make_coord(["m-text"], [KEY1, KEY2], logs13c)
+
+
+def _h13c(url):
+    if "AIzaTestKey0001" in url:
+        return _Resp(429, RATE_BODY)
+    return _Resp(200, IMG_OK)
+
+
+_handler["fn"] = _h13c
+t13 = _real_time.time()
+r13c = coord13c.request_image("ve con meo", models=["img-a", "img-b"])
+delta13 = coord13c._pool._key_cooldown.get("AIzaTestKey0001", 0) - t13
+ck("request_image ok trên key2", r13c.get("ok") is True
+   and r13c.get("key", {}).get("key") == "AIzaTestKey0002", r13c)
+ck("key1 bị lock_key thật ~65s (backoff lần 1)", 58 <= delta13 <= 72, delta13)
+j13 = "\n".join(logs13c)
+ck("log ảnh: 'Cooldown riêng key' THẬT + số lần liên tiếp",
+   "Cooldown riêng key" in j13 and "lần 1 liên tiếp" in j13, logs13c)
 
 # ── kết thúc ─────────────────────────────────────────────────────────────────
 requests.post = _orig_post
