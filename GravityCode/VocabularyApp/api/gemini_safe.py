@@ -174,7 +174,10 @@ def pace(interval: float = None):
         # 60 / (n_project × 11) giây ⇒ ~11 call/phút/project (dưới 15 RPM)
         interval = min(5.0, max(0.8, 60.0 / (n * 11.0)))
     with _pace_lock:
-        base = random.uniform(0.6, 1.0) * interval
+        # FIX: uniform(0.6, 1.0) cho phép call nhanh hơn target tới 1.67 lần
+        # ⇒ burst vượt 15 RPM/project → 429 "tốc độ" dồn dập.
+        # Siết về [0.85, 1.15] để thực tế không bao giờ vượt target quá 15%.
+        base = random.uniform(0.85, 1.15) * interval
         jitter = random.uniform(*PACE_JITTER) * 0.2
         elapsed = time.time() - _last_call_ts
         wait = base + jitter - elapsed
@@ -409,12 +412,32 @@ class AccountPool:
     def __init__(self):
         self._keys = []
         self._cooldown = {}          # account -> unlock ts
+        self._key_cooldown = {}      # raw key -> unlock ts (sống sót qua sync())
         self._last_account = None
         self._acct_counters = {}
         self._lock = threading.Lock()
 
     def sync(self, keys):
-        self._keys = list(keys or [])
+        """Nạp lại danh sách key, NHƯNG GIỮ cooldown của key/account.
+
+        FIX (429 lặp vô hạn): loader production (`_load_gemini_keys`) trả về
+        dict MỚI mỗi lần gọi, còn `request()` gọi `pool.sync()` mỗi vòng lặp →
+        `cooldown_until` ghi trên dict cũ bị vứt mất ⇒ key bị 429 vẫn được pick
+        lại ngay vòng sau (cooldown 65s vô hiệu 100% trong production).
+        Giữ map level-pool và dán lại vào dict mới.
+        """
+        new_keys = list(keys or [])
+        now = time.time()
+        with self._lock:
+            # Dọn cooldown đã hết hạn
+            self._key_cooldown = {k: ts for k, ts in self._key_cooldown.items()
+                                  if ts > now}
+            for k in new_keys:
+                raw = k.get("key") or ""
+                ts = self._key_cooldown.get(raw, 0)
+                if ts > max(0, k.get("cooldown_until", 0)):
+                    k["cooldown_until"] = ts
+            self._keys = new_keys
 
     @staticmethod
     def account_of(key_obj):
@@ -461,8 +484,12 @@ class AccountPool:
         if not key_obj:
             return 0
         until = int(time.time() + duration)
+        raw = key_obj.get("key") or ""
         with self._lock:
             key_obj["cooldown_until"] = until
+            if raw:
+                # Level-pool: giữ qua các lần sync() (dict loader là bản sao mới)
+                self._key_cooldown[raw] = until
         return until
 
     def usable_count(self) -> int:
@@ -1055,6 +1082,22 @@ class GeminiCoordinator:
                 return {"kind": kind, "message": msg, "status_code": status_code,
                         "model": model}
 
+            if kind == ErrorKind.QUOTA_RATE:
+                # FIX (429 lặp vô hạn): trước đây 429 tốc độ KHÔNG có nhánh →
+                # rơi xuống `return` cuối hàm ⇒ chỉ thử đúng 1 model rồi bỏ cuộc,
+                # request() hiểu là "hết model" và xoay SANG ACCOUNT MỚI liên tục
+                # (log "⚠ 'gemini-3.5-flash' fail (429 tốc độ) → thử …" nói dối).
+                # Giờ: tạm cooldown model này (RPM là bucket THEO MODEL) rồi thử
+                # model TIẾP THEO trên CÙNG key — đúng những gì log đã hứa.
+                self._cooldown_model(model, retry_delay_from(msg))
+                if _nxt:
+                    self._log(f"⚠ '{model}' fail (429 tốc độ){_arw}{_acct_tag}")
+                    last = {"kind": kind, "message": msg, "status_code": status_code,
+                            "model": model}
+                    continue
+                return {"kind": kind, "message": msg, "status_code": status_code,
+                        "model": model}
+
             if kind == ErrorKind.REQUEST_BAD:
                 if is_account_denial(msg):
                     # Lỗi cấp ACCOUNT → trả về ngay để request() khoá account + xoay key.
@@ -1166,16 +1209,12 @@ class GeminiCoordinator:
             if kind == ErrorKind.QUOTA_DAILY:
                 # Quota Gemini free tier là **20 call/ngày / PROJECT / MODEL**
                 # ⇒ mỗi model là một "quota bucket" RIÊNG.
-                # Phải thử model TIẾP THEO trước khi đổi key, nếu không sẽ
-                # vô hiệu hoá 8-10 key/account chỉ vì 1 model hết quota.
-                _m = res.get("model")
-                _mi = self._models.index(_m) if _m in self._models else -1
-                if 0 <= _mi < len(self._models) - 1:
-                    # (hiếm — _try_models đã tự xoay model; đường lùi an toàn)
-                    self._log(f"⏳ '{_m}' fail (429 quota ngày) → thử '{self._models[_mi + 1]}'…")
-                    last = {"kind": kind, "message": msg,
-                            "status_code": res.get("status_code"), "model": _m}
-                    continue
+                # FIX (429 lặp vô hạn): `_try_models` ĐÃ tự thử mọi model trên
+                # key này rồi mới trả về QUOTA_DAILY. Nhánh cũ
+                # (`_mi < len-1 → continue`) là LÓNG MẮT: index tính trên
+                # self._models tĩnh trong khi _try_models chạy theo thứ tự
+                # adaptive ⇒ continue vòng ngoài = XOAY ACCOUNT, trong khi log
+                # vẫn báo "→ thử model kế". Bỏ hẳn → khoá account thật.
                 self._log(f"⚠ Key {email} hết quota ngày (mọi model). Khóa account 60 phút, chuyển key...")
                 self._lock_account(key_obj, duration=ACCOUNT_COOLDOWN, reason=f"HTTP 429 Daily: {msg[:90]}")
                 self._mark(key_obj, "exhausted", f"HTTP 429 Daily: {msg[:90]}")
@@ -1190,17 +1229,14 @@ class GeminiCoordinator:
             if kind == ErrorKind.QUOTA_RATE:
                 # 429 RPM/TPM là giới hạn THEO PROJECT (theo key) → khoá riêng key,
                 # KHÔNG khoá cả account (sẽ chặn 9-10 key khác của account).
-                # Mỗi model cũng có RPM bucket riêng → thử model khác trước.
+                # FIX (429 lặp vô hạn): `_try_models` ĐÃ thử mọi model trên key
+                # này (mỗi model cooldown retry_delay) rồi mới trả về QUOTA_RATE.
+                # Nhánh cũ `_mi < len-1 → continue` nói "→ thử model kế" nhưng
+                # continue vòng NGOÀI = pool.pick() đổi ACCOUNT — không bao giờ
+                # thử model kế thật, và lock_key KHÔNG bao giờ chạy → key không
+                # cooldown → model đầu bảng bị đập lại mọi account (xoay 197 key
+                # vô tận). Bỏ hẳn: khoá key thật + đổi key thật, log truthy.
                 retry_delay = retry_delay_from(msg)
-                # FIX (Phase 5): trước đây dùng biến `model`/`status_code` KHÔNG
-                # tồn tại trong hàm này ⇒ NameError mỗi khi gặp 429 tốc độ.
-                _m = res.get("model")
-                _mi = self._models.index(_m) if _m in self._models else -1
-                if 0 <= _mi < len(self._models) - 1:
-                    self._log(f"⚠ '{_m}' fail (429 tốc độ) → thử '{self._models[_mi + 1]}'…")
-                    last = {"kind": kind, "message": msg,
-                            "status_code": res.get("status_code"), "model": _m}
-                    continue
                 self._log(f"⚠ Key {email} chạm giới hạn tốc độ ({retry_delay}s). Cooldown riêng key, đổi key...")
                 self._pool.lock_key(key_obj, duration=retry_delay)
                 exclude.add(api_key)

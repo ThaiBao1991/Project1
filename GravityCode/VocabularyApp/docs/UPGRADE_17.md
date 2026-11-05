@@ -387,6 +387,57 @@ Dòng 1 đã ~742px (cửa sổ 960px) nên 2 nút đồng bộ tách hàng riê
 
 ---
 
+## 7.11. FIX LỜI GHI 429 "TỐC ĐỘ" NÓI DỊC + XOAY 197 KEY VÔ TẬN (2026-11-05)
+
+### Triệu chứng (log người dùng)
+```
+⚠ 'gemini-3.5-flash' fail (429 tốc độ) → thử 'gemini-flash-lite-latest'…
+🔄 Đổi sang account: …[key 173/197] → key 93 → 192 → 1 → 85 → 22 → 35 … (lặp vô tận)
+```
+Log hứa "thử model kế" nhưng thực tế **xoay sang account khác** và không bao giờ thử model kế; key không bao giờ được cooldown ⇒ cùng một model đầu bảng (adaptive luôn xếp `gemini-3.5-flash` lên đầu) bị đập lại trên mọi account.
+
+### Nguyên nhân (4 lỗi, đã đọc code xác minh)
+
+| # | Vị trí | Lỗi |
+|---|---|---|
+| 1 | `_try_models()` | **Không có nhánh `QUOTA_RATE`** → 429 tốc độ rơi thẳng xuống `return` cuối hàm ⇒ bỏ cuộc sau đúng 1 model (trong khi 429 quota ngày và 503/timeout đều có nhánh `continue` sang model kế) |
+| 2 | `request()` · nhánh `QUOTA_RATE` | `if _mi < len-1: log("→ thử model kế"); continue` — nhưng `continue` là vòng **NGOÀI** → `pool.pick()` **đổi account**, không thử model kế. `_mi` còn tính trên `self._models` tĩnh trong khi `_try_models` chạy theo thứ tự **adaptive** (sai lệch index). Hệ quả: `lock_key()` chỉ nằm sau nhánh này ⇒ **gần như không bao giờ chạy** → key không cooldown |
+| 3 | `request()` · nhánh `QUOTA_DAILY` | Cùng cấu trúc "nói dối" y hệt (bug tiềm ẩn cùng gốc, index lệch adaptive) |
+| 4 | `pace()` | `base = random.uniform(0.6, 1.0) × interval` ⇒ có thời điểm chạy nhanh hơn target tới **1.67×** → burst vượt 15 RPM/project → chính nó sinh ra 429 tốc độ dồn dập |
+
+**Lỗi 5 (phát hiện thêm khi verify — nghiêm trọng nhất, ảnh hưởng production):**
+`request()` gọi `pool.sync(loader())` **mỗi vòng lặp**, còn `_load_gemini_keys()` trả về `dict MỚI` mỗi lần (`item = dict(k)`) ⇒ `cooldown_until` mà `lock_key()` ghi trên dict cũ **bị vứt ngay vòng kế**. Tức cooldown 65s **vô hiệu 100% trong production** — mọi key "cooldown" vẫn bị pick lại. Repro sẵn có: `tools/test_key_cooldown.py`.
+
+### Đã sửa (`api/gemini_safe.py`)
+
+1. **`_try_models()`** — thêm nhánh `QUOTA_RATE`: `_cooldown_model(model, retry_delay_from(msg))` rồi `continue` sang **model tiếp theo trên CÙNG key** (đúng lời log đã hứa). Chỉ trả `QUOTA_RATE` ra ngoài khi đã hết model.
+2. **`request()` · `QUOTA_RATE`** — xoá hẳn nhánh `_mi < len-1 → continue` nói dối. Khi mọi model đã fail tốc độ ⇒ `lock_key(key_obj, retry_delay)` (65s) **thật** + `exclude` + đổi key thật, log truthy `"Cooldown riêng key, đổi key..."`.
+3. **`request()` · `QUOTA_DAILY`** — xoá nhánh tương tự ⇒ đi thẳng tới `_lock_account(ACCOUNT_COOLDOWN=3600)` + `_mark(exhausted)` + `exclude`.
+4. **`pace()`** — `uniform(0.6, 1.0)` → **`uniform(0.85, 1.15)`**: không bao giờ vượt target quá 15% (trước: 1.67×).
+5. **`AccountPool`** — thêm `_key_cooldown: {raw_key → unlock_ts}` **level-pool**; `lock_key()` ghi cả vào map này; `sync()` dọn entry hết hạn và **dán lại `cooldown_until` vào dict mới**. (Cấp account vốn đã sống nhờ `self._cooldown` dict — chỉ cấp key là bị mất.)
+
+### Test mới — `tools/test_quota_rate.py` (mock `requests.post`, 0 mạng thật) **36/36 PASS**
+
+| # | Case |
+|---|---|
+| 1 | model A 429-tốc-độ → model B 200 ⇒ **OK trên CÙNG key**, log có `→ thử`, **KHÔNG** có `Đổi sang account`, key không bị khóa oan (2 POST, cùng key) |
+| 2 | mọi model 429-tốc-độ ⇒ `_try_models` trả `QUOTA_RATE` (hết rơi `return` mập mờ), đã thử đủ 2 model |
+| 3 | mọi model 429-tốc-độ ⇒ `lock_key` 65s **thật** + `Đổi sang account: b@` thật + cooldown **sống sót qua `pool.sync(dict mới)`** |
+| 4 | mọi model 429-quota-ngày ⇒ khóa account ~3600s + đổi key; mọi log `→ thử` đều có tag account (thật); không còn log `…` cấp `request()` |
+| 5 | Regression: 429 quota ngày model A → model B OK cùng key |
+| 6 | `pace()` kịch bản xấu nhất (uniform lấy cận dưới) ⇒ nghỉ ≥ 0.85 × interval; không còn `(0.6, 1.0)` |
+| 7 | `classify_response`: `Please retry in 13h`→DAILY · `exhausted`→RATE · `limit: 0`→DAILY · `per day`→DAILY |
+| 8 | `lock_key` + `sync` lặp lại ⇒ `usable` giữ 0 (bug cũ trả về 1) |
+
+### Kết quả hồi quy (mọi suite xanh)
+`test_quota_rate` **36/36** · `test_adaptive_model` **7/7** · `test_3mode` **41/41** · `test_key_manager` **80/80** · `test_key_cooldown` PASS · `test_ai_rich` **85/85** · `test_gui_smoke` **15/15** · `test_slug_canonical` **6/6** · `py_compile` OK.
+
+### Phát hiện thêm — CHƯA sửa (ngoài phạm vi đã đồng ý)
+- **`_try_image_models()`** (path sinh ảnh): 429 tốc độ cũng rơi thẳng `return` → `request_image()` xoay key ngay dù còn model ảnh khác. Log ở đó **không nói dối** (nói "Cooldown riêng key, đổi key" là thật) nên không gây spam nhận biết, nhưng là cùng gốc bệnh: nên thêm nhánh thử model ảnh kế. Cần test riêng trước khi sửa.
+- **2 tiến trình dùng chung 197 key** (VocabApp + GetHtmlFromUrl) cùng lúc: `pace()` chỉ tính trong 1 tiến trình ⇒ tổng rate ×2. Ngoài phạm vi fix này; nếu muốn phải đặt rate-limiter chia sẻ (file lock / đếm tập trung).
+
+---
+
 ## 8. NGUYÊN TẮC BẮT BUỘC KHI SỬA TIẾP
 
 1. Đọc `projectLog.md` + `docs/UPGRADE_17.md` trước. Cập nhật cả 2 sau khi sửa.

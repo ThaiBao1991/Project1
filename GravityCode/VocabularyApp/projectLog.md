@@ -211,6 +211,42 @@
 **Suite xanh:** key_manager **80/80** · smoke **15/15** · 3mode **41/41** · ai_rich **85/85** · slug **6/6** · `py_compile` OK. Chi tiết: `docs/UPGRADE_17.md` mục **7.10**.
 
 ---
+## 📋 Cập nhật mới nhất — 2026-11-05 (Fix log 429 "tốc độ" nói dối + xoay 197 key vô tận)
+
+### 🛑 NGUỒN GỐC: 4 LỖI TRONG `api/gemini_safe.py` + 1 LỖI COOLDOWN BỊ VỨT
+
+**Triệu chứng (log người dùng):**
+```
+⚠ 'gemini-3.5-flash' fail (429 tốc độ) → thử 'gemini-flash-lite-latest'…
+🔄 Đổi sang account: …[key 173/197] → 93 → 192 → 1 → 85 → 22 → 35 … (lặp)
+```
+
+**Nguyên nhân:**
+1. **`_try_models()` thiếu nhánh `QUOTA_RATE`** — 429 tốc độ rơi thẳng `return` cuối hàm ⇒ bỏ cuộc sau 1 model. (429 quota ngày và 503/timeout đều có `continue` sang model kế.)
+2. **`request()` · QUOTA_RATE nói dối** — log `"→ thử '{next}'"` rồi `continue` vòng **NGOÀI** ⇒ `pool.pick()` **đổi account**, chẳng bao giờ thử model kế. `_mi` còn tính trên `self._models` tĩnh trong khi `_try_models` chạy theo thứ tự **adaptive** (index lệch). Hậu quả: `lock_key()` gần như không bao giờ chạy → key không cooldown → model đầu bảng (adaptive luôn xếp `gemini-3.5-flash` lên đầu) bị đập lại trên mọi account → xoay 197 key vô tận.
+3. **`request()` · QUOTA_DAILY cùng cấu trúc nói dối** (bug tiềm ẩn cùng gốc).
+4. **`pace()` burst** — `uniform(0.6, 1.0) × interval` ⇒ có lúc nhanh hơn target **1.67×** → vượt 15 RPM/project → tự sinh ra 429 tốc độ dồn dập.
+5. **(Phát hiện thêm khi verify — nghiêm trọng nhất)** `request()` gọi `pool.sync(loader())` mỗi vòng trong khi `_load_gemini_keys()` trả `dict MỚI` mỗi lần ⇒ `cooldown_until` do `lock_key()` ghi trên dict cũ **bị vứt ngay vòng kế**. Cooldown 65s **vô hiệu 100% trong production**. Repro: `tools/test_key_cooldown.py`.
+
+**Đã sửa (`api/gemini_safe.py`):**
+1. `_try_models()`: thêm nhánh `QUOTA_RATE` → `_cooldown_model(model, retry_delay_from(msg))` + **thử model tiếp trên CÙNG key**; trả `QUOTA_RATE` ra ngoài chỉ khi đã hết model.
+2. `request()` QUOTA_RATE: **xoá hẳn** nhánh `_mi < len-1 → continue` → `lock_key(key_obj, retry_delay)` **thật** + `exclude` + đổi key thật, log `"Cooldown riêng key, đổi key..."`.
+3. `request()` QUOTA_DAILY: **xoá** nhánh tương tự → đi thẳng `_lock_account(3600)` + `_mark(exhausted)` + `exclude`.
+4. `pace()`: `uniform(0.6, 1.0)` → **`uniform(0.85, 1.15)`** (không vượt target quá 15%).
+5. `AccountPool`: thêm `_key_cooldown: {raw_key → unlock_ts}` **level-pool**; `lock_key()` ghi cả vào map; `sync()` dọn entry hết hạn + **dán lại `cooldown_until` vào dict loader mới**. (Cấp account vốn sống nhờ `pool._cooldown` — chỉ cấp key là bị mất.)
+
+**Test mới `tools/test_quota_rate.py` (mock `requests.post`, 0 mạng thật): 36/36 PASS**
+- ① model A 429-tốc-độ → model B 200 ⇒ **OK cùng key**, log có `→ thử`, **KHÔNG** có `Đổi sang account`, key không bị khóa oan (đúng 2 POST, cùng key)
+- ② mọi model 429-tốc-độ ⇒ trả `QUOTA_RATE` + đã thử đủ mọi model
+- ③ mọi model 429-tốc-độ ⇒ `lock_key` 65s thật + đổi key thật + **cooldown sống sót qua `pool.sync(dict mới)`**
+- ④ mọi model 429-quota-ngày ⇒ khóa account ~3600s + đổi key, hết log `…` nói dối
+- ⑤ regression daily-quota model kế cùng key · ⑥ `pace()` cận dưới ≥ 0.85 × interval, hết `(0.6, 1.0)` · ⑦ `classify` daily vs rate · ⑧ `lock_key` + `sync` lặp → `usable` giữ 0 (bug cũ = 1)
+
+**Suite xanh:** quota_rate **36/36** · adaptive **7/7** · 3mode **41/41** · key_manager **80/80** · key_cooldown PASS · ai_rich **85/85** · smoke **15/15** · slug **6/6** · `py_compile` OK. Chi tiết: `docs/UPGRADE_17.md` mục **7.11**.
+
+**Phát hiện thêm — CHƯA sửa (ngoài phạm vi đã đồng ý):** `_try_image_models()` cũng rơi thẳng `return` khi 429 tốc độ (log không nói dối nên không gây spam, nhưng cùng gốc bệnh — cần test riêng); 2 tiến trình (VocabApp + GetHtmlFromUrl) dùng chung 197 key trong khi `pace()` chỉ tính 1 tiến trình ⇒ tổng rate ×2.
+
+---
 ## 📋 Cập nhật mới nhất — 2026-11-02 (Fix audio 0 track → PAUSED · chống trùng keyword GUI)
 
 ### 🔊 VÌ SAO PIPELINE `PAUSED` + `DoD=False` — AUDIO 0 TRACK MỌI NGÀY
