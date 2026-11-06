@@ -125,15 +125,19 @@ PACE_MIN = 3.5
 PACE_MAX = 5.0
 PACE_JITTER = (0.5, 1.5)          # jitter phá tần số bot
 ACCOUNT_COOLDOWN = 3600           # 60 phút nghỉ cho 1 account sau batch/429
+# P7: cũng là FALLBACK khi không parse được thời gian retry quota NGÀY
+# (không tìm thấy "retry in …" trong message lỗi 429).
 # P2 (học GetHtmlFromUrl): KHOÁ cứng khoảng cách tối thiểu giữa 2 lần gọi vào
-# CÙNG 1 account — quota RPM là theo project/account, quay lại account quá
-# nhanh dù vẫn tôn trọng pace toàn cục vẫn ăn 429.
+# CÙNG 1 account — P7 xác nhận quota RPM là theo PROJECT = theo từng KEY
+# (10 key/account = 10 project RIÊNG, không cộng dồn), nhưng gap theo account
+# vẫn giữ: round-robin có thể quay lại cùng account quá nhanh khi số account
+# ít — an toàn dưới cả hai giả định.
 PER_ACCOUNT_MIN_GAP = 8.0
 # 403 "free tier is not available" là lỗi cấp PROJECT: key còn sống, chỉ project
 # chưa đủ điều kiện free tier. Bật billing là key cũ dùng lại được ⇒ tạm nghỉ
 # 24h rồi tự thử lại, KHÔNG block vĩnh viễn.
 FREE_TIER_RETRY_SECONDS = 24 * 3600
-MAX_KEYS_PER_ACCOUNT = 2          # khuyến nghị 1-2 key/account
+MAX_KEYS_PER_ACCOUNT = 10         # P7: 10 key/account = 10 project RIÊNG (đã xác nhận) — quota KHÔNG dồn vào account
 DAILY_CALL_BUDGET = 3000          # ngân sách call/ngày, vượt thì cảnh báo
 MODEL_FALLBACKS = [
     "gemini-3.5-flash",        # 🥇 Tốt nhất — thế hệ mới nhất
@@ -162,13 +166,14 @@ _account_last_used = {}    # account -> ts call gần nhất (P2: gap cứng per
 def pace(interval: float = None, account: str = None):
     """Nghỉ giữa 2 lần gọi Gemini (thread-safe, khoá toàn tiến trình).
 
-    Mặc định: khoảng nghỉ THÍCH ỨNG theo số **PROJECT** (account) khả dụng.
+    Mặc định: khoảng nghỉ THÍCH ỨNG theo số **PROJECT** (key) khả dụng.
 
-    ⚠️ QUOTA RPM CỦA GEMINI FREE TIER LÀ **15/PHÚT MỖI PROJECT**, không phải
-    mỗi key. Đo thật: 9-10 key/account nhưng 1 project/account ⇒ 5 account
-    chỉ chịu được 5 × 15 = 75 call/phút TỔNG.
-    Tính theo số KEY (47) ⇒ 94 call/phút ⇒ 429 ⇒ mọi key bị cooldown ⇒
-    vòng lặp chờ 6 × 20 s ⇒ treo pipeline.
+    P7 (đã xác nhận pool: 10 key/account = 10 PROJECT RIÊNG): quota RPM
+    **15/PHÚT MỖI PROJECT = MỖI KEY RIÊNG**, không cộng dồn theo account
+    (mỗi project có hạn mức 15 RPM độc lập).
+    Đếm theo số KEY dùng được (mỗi key = 1 project) ⇒
+    interval = min(5.0, max(0.8, 60/(n_key × 11))) ⇒ cap cứng 0.8s =
+    75 call/phút TỔNG — dưới xa tổng hạn mức mọi project cộng lại nên an toàn.
 
     P2 (học GetHtmlFromUrl `_wait_pacing`): nếu truyền `account` thì áp thêm
     gap CỨNG ≥ `PER_ACCOUNT_MIN_GAP` (8s) giữa 2 call vào CÙNG account — kể cả
@@ -182,6 +187,7 @@ def pace(interval: float = None, account: str = None):
         except Exception:
             n = 5
         # 60 / (n_project × 11) giây ⇒ ~11 call/phút/project (dưới 15 RPM)
+        # P7: project = key (10 key/account = 10 project riêng)
         interval = min(5.0, max(0.8, 60.0 / (n * 11.0)))
     with _pace_lock:
         # FIX: uniform(0.6, 1.0) cho phép call nhanh hơn target tới 1.67 lần
@@ -226,7 +232,12 @@ def track_call():
 
 
 def account_health_report(keys):
-    """Cảnh báo nếu 1 account có quá nhiều key (nguy cơ bị Google khóa)."""
+    """Cảnh báo nếu 1 account có quá nhiều key.
+
+    P7 (đã xác nhận): 10 key/account = 10 PROJECT RIÊNG — quota KHÔNG dồn
+    vào account ⇒ 10 key/account là bình thường, không cảnh báo⚠ oan.
+    Chỉ cảnh báo khi vượt ngưỡng (phòng khi Google siết số project mỗi account).
+    """
     counts = {}
     for k in keys or []:
         acct = (k.get("email") or "unknown").strip() or "unknown"
@@ -235,11 +246,10 @@ def account_health_report(keys):
     for acct, n in counts.items():
         if n > MAX_KEYS_PER_ACCOUNT:
             issues.append(
-                f"⚠ Account '{acct}' có {n} key — vượt mức khuyến nghị {MAX_KEYS_PER_ACCOUNT}/account, "
-                f"dễ bị Google khóa. Nên tách sang account khác."
+                f"⚠ Account '{acct}' có {n} key — vượt mức khuyến nghị "
+                f"{MAX_KEYS_PER_ACCOUNT}/account (mỗi key là 1 project riêng, "
+                f"không dồn quota). Nên tách sang account khác."
             )
-        elif n >= 2:
-            issues.append(f"ℹ Account '{acct}' có {n} key (tối đa khuyến nghị {MAX_KEYS_PER_ACCOUNT}).")
     return issues
 
 
@@ -260,7 +270,7 @@ def warn_account_health(keys, log_fn):
 # ─────────────────────────────────────────────────────────────
 class ErrorKind:
     OK = "ok"
-    QUOTA_DAILY = "quota_daily"   # 429 PerDay → exhausted + khóa account
+    QUOTA_DAILY = "quota_daily"   # 429 PerDay → exhausted + khóa riêng KEY (P7)
     QUOTA_RATE = "quota_rate"     # 429 RPM/TPM → đợi retryDelay rồi thử lại
     INVALID_KEY = "invalid_key"   # 401/403 + API_KEY_INVALID → invalid
     REQUEST_BAD = "request_bad"   # 400/schema/model → không vô hiệu key
@@ -360,12 +370,29 @@ def retry_delay_from(msg):
     return 65
 
 
+def daily_retry_from(msg, default=ACCOUNT_COOLDOWN):
+    """P7: parse thời gian chờ quota NGÀY từ message (vd 'Please retry in 13h33m50s').
+
+    Trả về số GIÂY chờ đúng theo Google. Không parse được / ≤0 ⇒ fallback
+    `default` (60 phút — hành vi cũ). Capped 24h (quota free tier resets hằng ngày).
+    """
+    m = re.search(r'retry\s+in\s+(\d+)\s*h(?:\s*(\d+)\s*m)?(?:\s*(\d+)\s*s)?',
+                  msg or "", re.IGNORECASE)
+    if not m:
+        return default
+    secs = int(m.group(1)) * 3600 + int(m.group(2) or 0) * 60 + int(m.group(3) or 0)
+    if secs <= 0:
+        return default
+    return min(secs, 24 * 3600)
+
+
 def compute_rpm_cooldown(msg, consecutive_429: int = 1) -> int:
     """P1 (học GetHtmlFromUrl): backoff LŨY TIẾN cho 429 tốc độ.
 
-    65s → 120s → 300s (capped) theo số 429 tốc độ LIÊN TIẾP của cùng account.
-    Trước đây cố định 65s: account cứ 65s lại bị đập 1 lần → 429 lặp vô tận
-    với key mới. Đếm liên tiếp, reset khi gọi thành công (clear_rpm_429).
+    65s → 120s → 300s (capped) theo số 429 tốc độ LIÊN TIẾP của cùng KEY
+    (P7: mỗi key = 1 project RIÊNG ⇒ backoff per-key, không per-account).
+    Trước đây cố định 65s: key cứ 65s lại bị đập 1 lần → 429 lặp vô tận
+    với key mới. Đếm liên tiếp, reset khi key gọi thành công (clear_rpm_429).
     """
     delay = retry_delay_from(msg)
     if consecutive_429 >= 3:
@@ -441,7 +468,7 @@ def extract_image(body):
 # Account-Cluster Rotation + Cooldown 1h
 # ─────────────────────────────────────────────────────────────
 class AccountPool:
-    """Gom key theo account; xoay vòng account; khóa account sau 429 hoặc xong batch."""
+    """Gom key theo account; xoay vòng account; khóa KEY sau 429 (P7: quota theo project = theo key), account khi bị từ chối/xong batch."""
 
     def __init__(self):
         self._keys = []
@@ -501,14 +528,16 @@ class AccountPool:
                     k.pop("cooldown_until", None)
 
     def account_locked(self, account, now=None):
+        """P7: account có bị KHOÁ CẤP ACCOUNT không (lock_account)?
+
+        Chỉ nhìn `self._cooldown`. KHÔNG nhầm với khoá 1 key lân cá: 10 key/
+        account = 10 project RIÊNG ⇒ key A hết quota KHÔNG được coi là
+        "account bị khoá" (trước đây khoá 1 key làm account_locked=True →
+        khoá oan 9 key project khác ở mắt người đọc/batch rotation).
+        """
         now = now or time.time()
         with self._lock:
-            if self._cooldown.get(account, 0) > now:
-                return True
-            for k in self._keys:
-                if self.account_of(k) == account and k.get("cooldown_until", 0) > now:
-                    return True
-            return False
+            return self._cooldown.get(account, 0) > now
 
     def lock_key(self, key_obj, duration=60):
         """Khoá RIÊNG 1 key (giới hạn RPM/TPM là theo project = theo key).
@@ -527,29 +556,32 @@ class AccountPool:
                 self._key_cooldown[raw] = until
         return until
 
-    def record_rpm_429(self, account, now=None):
-        """P1: đếm 429 tốc độ LIÊN TIẾP của account — trả về số lần (≥1).
+    def record_rpm_429(self, ident, now=None):
+        """P7: đếm 429 tốc độ LIÊN TIẾP của MỘT KEY — trả về số lần (≥1).
 
+        `ident` là identity của key (raw API key). P7 xác nhận mỗi key = 1
+        project RIÊNG ⇒ backoff phải per-key: key B thành công KHÔNG được
+        xoá bộ đếm của key A (trước đây per-account → sai).
         Chuỗi bị reset nếu cách lần 429 trước > 10 phút (không còn "liên tiếp"),
-        và reset hẳn khi account gọi thành công (clear_rpm_429).
+        và reset hẳn khi chính key đó gọi thành công (clear_rpm_429).
         """
-        if not account:
+        if not ident:
             return 1
         now = now if now is not None else time.time()
         with self._lock:
-            count, last_ts = self._rpm_429.get(account, (0, 0.0))
+            count, last_ts = self._rpm_429.get(ident, (0, 0.0))
             if now - last_ts > 600:
                 count = 0
             count += 1
-            self._rpm_429[account] = (count, now)
+            self._rpm_429[ident] = (count, now)
             return count
 
-    def clear_rpm_429(self, account):
-        """P1: gọi thành công ⇒ reset bộ đếm 429 liên tiếp của account."""
-        if not account:
+    def clear_rpm_429(self, ident):
+        """P7: key gọi thành công ⇒ reset bộ đếm 429 liên tiếp CỦA CHÍNH KEY đó."""
+        if not ident:
             return
         with self._lock:
-            self._rpm_429.pop(account, None)
+            self._rpm_429.pop(ident, None)
 
     def usable_count(self) -> int:
         """Số key hiện dùng được (không tính key đang cooldown/exhausted)."""
@@ -559,17 +591,14 @@ class AccountPool:
             return 1
 
     def usable_project_count(self) -> int:
-        """Số PROJECT (account) hiện dùng được.
+        """Số PROJECT hiện dùng được.
 
-        QUOTA RPM của Gemini free tier là **15/phút mỗi PROJECT** ⇒ phải tính
-        theo số account, không theo số key (1 account có 9-10 key nhưng chỉ
-        1 project ⇒ cộng dồn về 1 hạn mức 15 RPM).
+        P7 (đã xác nhận): 10 key/account = 10 project RIÊNG — quota RPM
+        **15/phút mỗi PROJECT = mỗi KEY riêng**, không cộng dồn theo account
+        ⇒ đếm theo số key dùng được (mỗi key = 1 project).
         """
         try:
-            accts = set()
-            for k in self._usable_keys(set()):
-                accts.add(self.account_of(k))
-            return max(1, len(accts))
+            return max(1, len(self._usable_keys(set())))
         except Exception:
             return 5
 
@@ -1294,7 +1323,7 @@ class GeminiCoordinator:
             if kind == ErrorKind.OK:
                 total = track_call()
                 self._touch(key_obj)
-                pool.clear_rpm_429(email)   # P1: gọi tốt ⇒ reset backoff account
+                pool.clear_rpm_429(api_key)  # P1+P7: gọi tốt ⇒ reset backoff CỦA KEY NÀY
                 if self._lock_after_success:
                     self._maybe_lock_after_success(key_obj, pool._keys)
                 if total > self._daily_budget:
@@ -1311,9 +1340,14 @@ class GeminiCoordinator:
                 # (`_mi < len-1 → continue`) là LÓNG MẮT: index tính trên
                 # self._models tĩnh trong khi _try_models chạy theo thứ tự
                 # adaptive ⇒ continue vòng ngoài = XOAY ACCOUNT, trong khi log
-                # vẫn báo "→ thử model kế". Bỏ hẳn → khoá account thật.
-                self._log(f"⚠ Key {email} hết quota ngày (mọi model). Khóa account 60 phút, chuyển key...")
-                self._lock_account(key_obj, duration=ACCOUNT_COOLDOWN, reason=f"HTTP 429 Daily: {msg[:90]}")
+                # vẫn báo "→ thử model kế". Bỏ hẳn → khoá riêng key thật.
+                # P7: quota NGÀY cũng là theo PROJECT (= theo key; 10 key/account
+                # = 10 project RIÊNG) ⇒ KHÔNG khoá cả account — trước đây khoá
+                # oan 9 key project khác 60 phút vì 1 key hết quota ngày.
+                daily_wait = daily_retry_from(msg)  # parse 'retry in 13h…' (fallback 60 phút)
+                self._log(f"⚠ Key {email} hết quota ngày (mọi model). "
+                          f"Khóa riêng key {daily_wait // 60} phút, chuyển key...")
+                self._pool.lock_key(key_obj, duration=daily_wait)
                 self._mark(key_obj, "exhausted", f"HTTP 429 Daily: {msg[:90]}")
                 exclude.add(api_key)
                 account_attempts += 1
@@ -1333,7 +1367,7 @@ class GeminiCoordinator:
                 # thử model kế thật, và lock_key KHÔNG bao giờ chạy → key không
                 # cooldown → model đầu bảng bị đập lại mọi account (xoay 197 key
                 # vô tận). Bỏ hẳn: khoá key thật + đổi key thật, log truthy.
-                n429 = pool.record_rpm_429(email)              # P1: 429 liên tiếp
+                n429 = pool.record_rpm_429(api_key)           # P1+P7: 429 liên tiếp CỦA KEY
                 retry_delay = compute_rpm_cooldown(msg, n429)  # P1: 65→120→300s
                 self._log(f"⚠ Key {email} chạm giới hạn tốc độ (lần {n429} liên tiếp, "
                           f"{retry_delay}s). Cooldown riêng key, đổi key...")
@@ -1600,7 +1634,7 @@ class GeminiCoordinator:
             if kind == ErrorKind.OK:
                 total = track_call()
                 self._touch(key_obj)
-                pool.clear_rpm_429(email)   # P1: gọi tốt ⇒ reset backoff account
+                pool.clear_rpm_429(api_key)  # P1+P7: gọi tốt ⇒ reset backoff CỦA KEY NÀY
                 if total > self._daily_budget:
                     self._log(f"⚠ Đã gọi {total:,} lần hôm nay (ngân sách {self._daily_budget:,}/ngày).")
                 return {"ok": True, "b64": res["b64"], "mime": res.get("mime", "image/png"),
@@ -1615,8 +1649,11 @@ class GeminiCoordinator:
                                       "message": msg[:200],
                                       "model": res.get("model"),
                                       "hard_quota": True}}
-                self._log(f"⚠ Key {email} hết quota ngày khi sinh ảnh. Chuyển key...")
-                self._lock_account(key_obj, duration=ACCOUNT_COOLDOWN, reason=f"HTTP 429 Daily (image): {msg[:80]}")
+                # P7: quota NGÀY ảnh cũng theo PROJECT (= theo key) → khoá riêng key.
+                daily_wait = daily_retry_from(msg)  # parse 'retry in 13h…' (fallback 60 phút)
+                self._log(f"⚠ Key {email} hết quota ngày khi sinh ảnh. "
+                          f"Khóa riêng key {daily_wait // 60} phút, chuyển key...")
+                self._pool.lock_key(key_obj, duration=daily_wait)
                 self._mark(key_obj, "exhausted", f"HTTP 429 Daily (image): {msg[:80]}")
                 exclude.add(api_key)
                 account_attempts += 1
@@ -1626,7 +1663,7 @@ class GeminiCoordinator:
                 continue
 
             if kind == ErrorKind.QUOTA_RATE:
-                n429 = pool.record_rpm_429(email)              # P1: 429 liên tiếp
+                n429 = pool.record_rpm_429(api_key)           # P1+P7: 429 liên tiếp CỦA KEY
                 retry_delay = compute_rpm_cooldown(msg, n429)  # P1: 65→120→300s
                 self._log(f"⚠ Key {email} chạm giới hạn tốc độ (ảnh, lần {n429} liên tiếp, "
                           f"{retry_delay}s). Cooldown riêng key, đổi key...")

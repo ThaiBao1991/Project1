@@ -10,7 +10,8 @@ Bao phủ (theo plan fix log "429 tốc độ → thử model" + xoay 197 key v�
      return "hết model fallback" mập mờ như trước).
   3. request(): mọi model 429-tốc-độ ⇒ lock_key(retry_delay) THẬT + đổi
      key/account thật + cooldown SỐNG SÓT qua pool.sync(dict mới).
-  4. request(): mọi model 429-quota-ngày ⇒ khóa account 60 phút + đổi key,
+  4. request(): mọi model 429-quota-ngày ⇒ khóa RIÊNG key (đúng thời gian
+     'retry in 13h33m50s'), account KHÔNG bị khóa oan, đổi key,
      không còn nhánh log "→ thử model kế" nói dối.
   5. _try_models(): 429 quota ngày ⇒ thử model tiếp trên cùng key (regression).
   6. pace(): burst không bao giờ nhanh hơn target quá 15% (uniform ≥ 0.85).
@@ -23,6 +24,10 @@ Bao phủ (theo plan fix log "429 tốc độ → thử model" + xoay 197 key v�
  13. P6a+bug X ảnh: 429 model ảnh → model ảnh khác CÙNG key; URL gọi ĐÚNG
      model ảnh (không còn rơi về model text); mọi model 429 → QUOTA_RATE;
      request_image lock_key + đổi key thật.
+ 14. P7 "10 key/account = 10 project RIÊNG": daily_retry_from (parse
+     'retry in 13h33m50s' → 48830s, fallback 60 phút, cap 24h); counter 429
+     per-key (clear key B KHÔNG xoá key A); usable_project_count theo KEY;
+     health KHÔNG cảnh báo 10 key/account; ảnh daily cũng khoá key.
 """
 import os
 import sys
@@ -112,6 +117,8 @@ def make_coord(models, keys, logs):
 
 KEY1 = {"key": "AIzaTestKey0001", "email": "a@gmail.com", "status": "active"}
 KEY2 = {"key": "AIzaTestKey0002", "email": "b@gmail.com", "status": "active"}
+# P7: key cùng account với KEY1 (10 key/account = 10 project riêng)
+KEY1B = {"key": "AIzaTestKey0011", "email": "a@gmail.com", "status": "active"}
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -196,10 +203,10 @@ k1 = next((k for k in coord3._pool._keys if k["key"] == "AIzaTestKey0001"), None
 ck("cooldown vẫn còn sau pool.sync(dict mới)", bool(k1) and k1.get("cooldown_until", 0) > now,
    k1)
 
-print("\n=== 4. Mọi model 429 quota NGÀY ⇒ khóa account 60 phút + đổi key ===")
+print("\n=== 4. Mọi model 429 quota NGÀY ⇒ khóa RIÊNG key (retry 13h), account KHÔNG bị khóa ===")
 reset_pool()
 logs4 = []
-coord4, _ = make_coord(["m-a", "m-b"], [KEY1, KEY2], logs4)
+coord4, _ = make_coord(["m-a", "m-b"], [KEY1, KEY1B, KEY2], logs4)
 
 
 def _h4(url):
@@ -209,6 +216,7 @@ def _h4(url):
 
 
 _handler["fn"] = _h4
+t4 = _real_time.time()
 res4 = coord4.request("xin chao")
 now4 = _real_time.time()
 ck("request() vẫn ok=True (key2 cứu)", res4.get("ok") is True, res4)
@@ -222,11 +230,21 @@ ck("mọi log '→ thử' quota ngày đều có tag account (thật, cùng key)
    all("[a@gmail.com]" in l for l in _daily_arrow), _daily_arrow)
 ck("KHÔNG còn log nói dối cấp request() (kết thúc '…')",
    not any(l.rstrip().endswith("…") and "quota ngày" in l for l in logs4), logs4)
-ck("account a@ bị khóa ~60 phút",
-   coord4._pool.account_locked("a@gmail.com") and
-   coord4._pool._cooldown.get("a@gmail.com", 0) - now4 > 3500,
-   coord4._pool._cooldown)
+# P7: quota NGÀY là theo PROJECT = theo key ⇒ chỉ khoá key1, đúng thời gian
+# Google yêu cầu trong message ('Please retry in 13h33m50s' = 48830s).
+d4 = coord4._pool._key_cooldown.get("AIzaTestKey0001", 0) - t4
+ck("key1 bị khóa riêng ~48830s (13h33m50s từ message, không phải 60 phút)",
+   48700 <= d4 <= 48900, d4)
+ck("account a@ KHÔNG bị khóa (hết quota 1 key không khoá oan cả account)",
+   not coord4._pool.account_locked("a@gmail.com") and
+   "a@gmail.com" not in coord4._pool._cooldown, coord4._pool._cooldown)
+ck("key1B (cùng account a@) KHÔNG bị khoá oan — còn 2 key dùng được",
+   "AIzaTestKey0011" not in coord4._pool._key_cooldown and
+   coord4._pool.usable_count() == 2,
+   (coord4._pool._key_cooldown, coord4._pool.usable_count()))
 ck("key2 được dùng", res4.get("key", {}).get("key") == "AIzaTestKey0002", res4.get("key"))
+ck("log ghi rõ 'Khóa riêng key' (truthy, không nói 'Khóa account')",
+   "Khóa riêng key" in j4 and "Khóa account" not in j4, j4)
 
 print("\n=== 5. Regression: 429 quota ngày ở model A → model B OK cùng key ===")
 reset_pool()
@@ -369,18 +387,18 @@ ck("round 3: key1 khoá ~300s (capped)", 288 <= d10c <= 315, d10c)
 ck("cả 3 round vẫn ok nhờ key2 (không treo)",
    all(r.get("ok") for r in (r10a, r10b, r10c)),
    (r10a.get("ok"), r10b.get("ok"), r10c.get("ok")))
-ck("counter a@ = 3 sau 3 lần 429",
-   coord10._pool._rpm_429.get("a@gmail.com", (0,))[0] == 3,
+ck("counter KEY1 = 3 sau 3 lần 429 (key2 OK từng round KHÔNG xoá được — per-key)",
+   coord10._pool._rpm_429.get("AIzaTestKey0001", (0,))[0] == 3,
    coord10._pool._rpm_429)
 j10 = "\n".join(logs10)
 ck("log ghi rõ số lần liên tiếp 1/2/3",
    all(f"lần {n} liên tiếp" in j10 for n in (1, 2, 3)), j10)
-# a@ gọi tốt ⇒ reset backoff
+# key1 gọi tốt ⇒ reset backoff của CHÍNH key1
 _handler["fn"] = lambda url: _Resp(200, OK_BODY)
 _unlock_key1()
 coord10.request("xin chao")
-ck("gọi thành công ⇒ clear backoff của a@",
-   "a@gmail.com" not in coord10._pool._rpm_429, coord10._pool._rpm_429)
+ck("gọi thành công ⇒ clear backoff CỦA KEY1 (không phải theo account)",
+   "AIzaTestKey0001" not in coord10._pool._rpm_429, coord10._pool._rpm_429)
 
 # ════════════════════════════════════════════════════════════════════════════
 print("\n=== 11. P2: gap cứng ≥8s giữa 2 call CÙNG account (pace thật) ===")
@@ -547,6 +565,60 @@ ck("key1 bị lock_key thật ~65s (backoff lần 1)", 58 <= delta13 <= 72, delt
 j13 = "\n".join(logs13c)
 ck("log ảnh: 'Cooldown riêng key' THẬT + số lần liên tiếp",
    "Cooldown riêng key" in j13 and "lần 1 liên tiếp" in j13, logs13c)
+
+# ════════════════════════════════════════════════════════════════════════════
+print("\n=== 14. P7: 10 key/account = 10 project RIÊNG (daily parse, counter/key, health) ===")
+# 14a: daily_retry_from — parse đúng thời Google yêu cầu, fallback, cap
+ck("daily_retry_from('Please retry in 13h33m50s') = 48830s",
+   gs.daily_retry_from("Please retry in 13h33m50s.") == 48830,
+   gs.daily_retry_from("Please retry in 13h33m50s."))
+ck("không parse được ⇒ fallback 60 phút (hành vi cũ)",
+   gs.daily_retry_from("Quota exceeded, no time info") == 3600 and
+   gs.daily_retry_from("") == 3600,
+   (gs.daily_retry_from("Quota exceeded, no time info"), gs.daily_retry_from("")))
+ck("cap 24h (quota free tier reset hằng ngày)",
+   gs.daily_retry_from("retry in 48h") == 24 * 3600, gs.daily_retry_from("retry in 48h"))
+
+# 14b: counter 429 PER-KEY — key B thành công KHÔNG được xoá backoff key A
+p14 = reset_pool()
+p14.record_rpm_429("kA")
+p14.record_rpm_429("kB")
+ck("2 key có counter RIÊNG (cùng lúc mỗi bên = 1)",
+   p14._rpm_429["kA"][0] == 1 and p14._rpm_429["kB"][0] == 1, p14._rpm_429)
+p14.clear_rpm_429("kB")                 # key B gọi thành công
+ck("clear(keyB) KHÔNG xoá counter keyA (keyA tiếp tục = 2, không về 1)",
+   p14.record_rpm_429("kA") == 2 and "kB" not in p14._rpm_429, p14._rpm_429)
+
+# 14c: usable_project_count = số KEY dùng được (mỗi key = 1 project)
+p14.sync([{"key": "k1", "email": "a@x", "status": "active"},
+          {"key": "k2", "email": "a@x", "status": "active"},
+          {"key": "k3", "email": "a@x", "status": "active"}])
+ck("3 key / 1 account ⇒ 3 project (không phải 1 như giả định cũ)",
+   p14.usable_project_count() == 3, p14.usable_project_count())
+
+# 14d: health — 10 key/account là bình thường (10 project riêng), chỉ >10 mới⚠
+k10 = [{"key": f"kk{i}", "email": "a@x", "status": "active"} for i in range(10)]
+ck("10 key/account ⇒ KHÔNG cảnh báo (đúng ngưỡng mới)",
+   gs.account_health_report(k10) == [], gs.account_health_report(k10))
+k11 = k10 + [{"key": "kk10", "email": "a@x", "status": "active"}]
+ck("11 key/account ⇒ đúng 1 cảnh báo ⚠ (vẫn còn giới hạn)",
+   len(gs.account_health_report(k11)) == 1, gs.account_health_report(k11))
+
+# 14e: ảnh daily cũng khoá KEY (không khoá account)
+reset_pool()
+logs14 = []
+coord14, _ = make_coord(["m-text"], [KEY1, KEY2], logs14)
+_handler["fn"] = lambda url: (_Resp(429, DAILY_BODY)
+                              if "AIzaTestKey0001" in url else _Resp(200, IMG_OK))
+t14 = _real_time.time()
+r14 = coord14.request_image("ve con meo", models=["img-a"])
+d14 = coord14._pool._key_cooldown.get("AIzaTestKey0001", 0) - t14
+ck("ảnh daily: ok nhờ key2 (không treo)", r14.get("ok") is True and
+   r14.get("key", {}).get("key") == "AIzaTestKey0002", r14)
+ck("ảnh daily: key1 khoá ~48830s (theo 'retry in 13h33m50s')",
+   48700 <= d14 <= 48900, d14)
+ck("ảnh daily: account a@ KHÔNG bị khóa",
+   "a@gmail.com" not in coord14._pool._cooldown, coord14._pool._cooldown)
 
 # ── kết thúc ─────────────────────────────────────────────────────────────────
 requests.post = _orig_post

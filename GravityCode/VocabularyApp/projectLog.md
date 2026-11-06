@@ -275,6 +275,27 @@
 **KHÔNG làm:** P6b (rate-limiter chia sẻ 2 tiến trình) · chưa trả lời câu hỏi 10 key/account tạo cùng 1 project hay 10 project riêng (ảnh hưởng lock_key vs lock_account dài hạn).
 
 ---
+## 📋 Cập nhật mới nhất — 2026-11-07 (P7: 10 key/account = 10 project RIÊNG — khoá quota ngày theo key, counter 429 per-key)
+
+**Câu hỏi đã trả lời (người dùng xác nhận):** 10 key/account = **10 project RIÊNG** (197 key/20 account, `project_id` trống) ⇒ mọi giả định "1 account = 1 project" trong code là **SAI**. Người dùng duyệt phạm vi **A (tối thiểu đúng-sai)** + **sửa cả GHE**; **GIỮ** gap 8s/account (P2).
+
+**Đã sửa (`api/gemini_safe.py`):**
+1. **QUOTA_DAILY text + ảnh**: `_lock_account(60 phút)` → `lock_key` với thời gian parse bằng helper mới **`daily_retry_from(msg)`** (`'Please retry in 13h33m50s'` → **48830s**, fallback 60 phút, cap 24h). Trước: 1 key hết quota ngày → **9 key project khác bị khoá oan 60 phút**.
+2. **P1 counter per-key**: `record_rpm_429`/`clear_rpm_429` đổi identity từ email → **raw key** (4 call site) — key B thành công không còn xoá backoff của key A; key C không bị phạt 120s oan.
+3. **`MAX_KEYS_PER_ACCOUNT` 2 → 10** + `account_health_report` bỏ nhánh ℹ — hết cảnh báo ⚠/ℹ oan cho **mọi 20 account mỗi startup**.
+4. **`account_locked()`** chỉ nhìn `_cooldown` cấp account (trước: True nếu **1 key** của account đang cooldown → nhầm khoá key = khoá account).
+5. **`usable_project_count()`** đếm theo **key** (mỗi key = 1 project); sửa docstring `pace()` / `compute_rpm_cooldown()` / class `AccountPool`.
+6. **Giữ nguyên**: gap cứng 8s/account (P2) + pace cap 0.8s = 75 call/phút — an toàn dưới cả 2 giả định.
+
+**Đã sửa GHE Desktop (CHỈ GHI FILE, KHÔNG COMMIT — WIP người dùng):** `core/ai_translator.py` nhánh 429 daily: bỏ `pool.lock_account` + loop `account_of(k) == email` đánh dấu mọi key → chỉ mark **key bị 429** (`cooldown_until`/`status`/`reset_time` trên `key_obj`), `save_local_keys` match theo **key** (`decode_token` — file lưu bản `ENC:`), `exclude` 1 key. Verify: `py_compile` OK + import module thật OK.
+
+**Test:** `tools/test_quota_rate` 72 → **86/86** — section 4 viết lại (key1 khoá ~48830s · account a@ KHÔNG khoá · key1B cùng account còn dùng · log "Khóa riêng key"), section 10 đổi assert counter theo key1, **section 14 mới +10 case** (`daily_retry_from` parse/fallback/cap · counter 2 key độc lập · `usable_project_count` 3 key/1 account = 3 · health 10 key = 0 / 11 key = 1 ⚠ · ảnh daily khoá key).
+
+**Suite xanh (mock 0 mạng):** quota_rate 86/86 · key_manager 111/111 · 3mode 41/41 · adaptive 7/7 · slug 6/6 · ai_rich 85/85 · smoke PASS · cooldown PASS · `py_compile` 0 lỗi. Chi tiết: `docs/UPGRADE_17.md` mục **7.13**.
+
+**KHÔNG làm:** P6b (rate-limiter chia sẻ 2 tiến trình) · gap theo key (phạm vi B — người dùng từ chối).
+
+---
 ## 📋 Cập nhật mới nhất — 2026-11-02 (Fix audio 0 track → PAUSED · chống trùng keyword GUI)
 
 ### 🔊 VÌ SAO PIPELINE `PAUSED` + `DoD=False` — AUDIO 0 TRACK MỌI NGÀY

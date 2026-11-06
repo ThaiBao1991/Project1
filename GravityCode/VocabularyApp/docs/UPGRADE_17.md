@@ -484,7 +484,33 @@ So sánh kỹ 2 bên: VocabApp (`api/gemini_safe.py`) vs GetHtmlFromUrl bản De
 
 ### KHÔNG làm (đã báo người dùng)
 - **P6b** — rate-limiter chia sẻ giữa 2 tiến trình (file lock): rủi ro cao, chưa duyệt.
-- Câu hỏi **10 key/account tạo cùng 1 project hay 10 project riêng** (197 key/20 account, `project_id` trống): chưa trả lời — ảnh hưởng dài hạn tới việc lock_key vs lock_account.
+- Câu hỏi **10 key/account tạo cùng 1 project hay 10 project riêng** (197 key/20 account, `project_id` trống): ~~chưa trả lời~~ → **ĐÃ TRẢ LỜI: 10 project RIÊNG** — sửa ở mục 7.13.
+
+---
+
+## 7.13. P7 — HIỂU ĐÚNG "10 KEY/ACCOUNT = 10 PROJECT RIÊNG": KHOÁ QUOTA NGÀY THEO KEY · COUNTER 429 PER-KEY (2026-11-07)
+
+**Câu hỏi đã trả lời (người dùng xác nhận):** 10 key/account = **10 project RIÊNG** (197 key/20 account, `project_id` trống) — KHÔNG phải "1 account = 1 project" như giả định cũ trong code. RPM/daily quota là **theo project = theo từng key**, không cộng dồn vào account. Phạm vi duyệt: **A (tối thiểu đúng-sai)** + **sửa cả GHE**; **GIỮ** gap 8s/account.
+
+### Sửa trong `api/gemini_safe.py`
+1. **`QUOTA_DAILY` (text + ảnh)**: `_lock_account(ACCOUNT_COOLDOWN)` → `self._pool.lock_key(key_obj, duration=daily_wait)` với helper mới **`daily_retry_from(msg)`** — parse `'Please retry in 13h33m50s'` → **48830s**, không parse được → fallback 60 phút, cap 24h. Trước: 1 key hết quota ngày → **9 key project khác của cùng account bị khoá oan 60 phút**.
+2. **P1 counter per-key**: `record_rpm_429`/`clear_rpm_429` đổi identity từ email → **raw API key** (4 call site text + ảnh). Trước: key B thành công **xoá sai** backoff của key A; key C dính 429 lần đầu bị phạt 120s oan.
+3. **`MAX_KEYS_PER_ACCOUNT` 2 → 10** + `account_health_report` bỏ nhánh ℹ — trước đây bắn ⚠/ℹ cho **mọi 20 account mỗi startup** (mỗi account 10 key là bình thường, không dồn quota).
+4. **`account_locked()`**: chỉ nhìn `_cooldown` cấp account — trước True nếu **bất kỳ key nào** của account đang cooldown (khoá 1 key làm cả account bị coi là khoá ở batch rotation/mắt người đọc).
+5. **`usable_project_count()`**: đếm theo **số key dùng được** (mỗi key = 1 project); sửa docstring `pace()`, `compute_rpm_cooldown()`, class `AccountPool` cho đúng thực tế.
+6. **GIỮ NGUYÊN** (đã chốt): gap cứng `PER_ACCOUNT_MIN_GAP = 8s`/account (P2) — an toàn dưới cả 2 giả định (7.5 call/phút/account ≪ mọi ngưỡng); pace toàn cục vẫn cap 0.8s = 75 call/phút TỔNG.
+
+### Sửa GHE Desktop (`core/ai_translator.py` — CHỈ GHI FILE, KHÔNG COMMIT — WIP người dùng)
+- Nhánh 429 daily: bỏ `pool.lock_account` + loop `account_of(k) == email` đánh dấu **mọi key** của account `exhausted` → chỉ đánh dấu **key bị 429** (`cooldown_until` + `status`/`reset_time`/`next_check_time` trên chính `key_obj`); `save_local_keys` match theo **key** (`decode_token(lk.key) == raw` — file lưu bản `ENC:`) thay vì theo email; `exclude` chỉ thêm key đó ⇒ 9 key project khác vẫn dùng được.
+- Verify: `py_compile` OK + import module thật OK (còn đúng 1 nhánh daily, không còn `lock_account` trong daily).
+
+### Test (`tools/test_quota_rate.py`: 72 → **86/86**, mock 0 mạng)
+- **Section 4 viết lại**: daily → key1 khoá **~48830s** (đúng `retry in 13h33m50s`), account a@ **KHÔNG** nằm trong `_cooldown`, key1B cùng account còn dùng được (`usable_count == 2`), log có "Khóa riêng key" và hết "Khóa account".
+- **Section 10 đổi assert**: counter theo **key1** (key2 OK từng round không xoá được — bằng chứng per-key); clear khi key1 gọi tốt.
+- **Section 14 mới (+10 case)**: `daily_retry_from` (parse/fallback 60 phút/cap 24h) · 2 key có counter độc lập + clear key B không đụng key A · `usable_project_count` 3 key/1 account = **3** · health 10 key = 0 cảnh báo / 11 key = đúng 1 ⚠ · ảnh daily cũng khoá key, account không khoá.
+
+### Suite xanh
+`test_quota_rate` **86/86** · `test_key_manager` **111/111** · `test_3mode` **41/41** · `test_adaptive_model` **7/7** · `test_slug_canonical` **6/6** · `test_ai_rich` **85/85** · `smoke_test_pipeline` **PASS** · `test_key_cooldown` **PASS** · `py_compile` 0 lỗi (VocabApp + test + GHE).
 
 ---
 
