@@ -38,7 +38,8 @@ from ai.pipeline_store import (STAGE_AUDIO, STAGE_BACKBONE, STAGE_CONTENT,
                                STAGE_MEDIA_VERIFY,
                                STAGE_PLAN, STAGE_PROFILE, STAGE_QUIZ_AB,
                                STAGE_QUIZ_CD, STAGES, STATUS_DEGRADED,
-                               STATUS_DONE, STATUS_FAILED, STATUS_SKIPPED,
+                               STATUS_DONE, STATUS_FAILED, STATUS_PENDING,
+                               STATUS_SKIPPED,
                                atomic_write_json, bump_counters,
                                clear_stale_running, day_stage_path,
                                get_language_job, is_dead_model, list_pipeline_languages,
@@ -918,6 +919,20 @@ def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
                           msg=f"Content Ngày {day_num} không có vocab — bỏ qua ngày.",
                           stage=STAGE_CONTENT, day=day_num)
                 return None
+            # Fix 3: content sinh lại ĐỔI danh sách từ ⇒ ref media/dialogue cũ
+            # trỏ sai từ mới → invalidate checkpoint để stage media chạy lại
+            # NGAY trong run này (trước: checkpoint stale "done" → skip →
+            # lesson mất ref → verify báo thiếu; dialogue mất vĩnh viễn).
+            _old_words = [str(v.get("word") or "").strip()
+                          for v in (lesson.get("vocab") or [])]
+            if _old_words != [str(v.get("word") or "").strip() for v in vocab]:
+                for _stg in (STAGE_IMAGES, STAGE_AUDIO, STAGE_DIALOGUE):
+                    try:
+                        _cp = load_checkpoint(language, _stg, day_num) or {}
+                        save_checkpoint(language, _stg, _cp.get("data") or {},
+                                        day=day_num, status=STATUS_PENDING)
+                    except Exception:
+                        pass
             lesson.update(data)
             lesson["title"] = data.get("title") or lesson.get("title", "")
             lesson["phase"] = pday.get("phase", lesson.get("phase", ""))

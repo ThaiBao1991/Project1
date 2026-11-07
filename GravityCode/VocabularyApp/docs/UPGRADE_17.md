@@ -514,6 +514,29 @@ So sánh kỹ 2 bên: VocabApp (`api/gemini_safe.py`) vs GetHtmlFromUrl bản De
 
 ---
 
+## 7.14. FIX PIPELINE MEDIA: SKIP RE-ATTACH · VERIFY GIỮ DATA + ĐẾM DIALOGUE · INVALIDATE KHI CONTENT ĐỔI TỪ (2026-11-07b)
+
+**Triệu chứng (log thật):** `🏁 PAUSED: 34/34 ngày, calls=71, ảnh=30. DoD=False` với log mâu thuẫn: `"Audio Ngày N đã có — bỏ qua"` nhưng `"Ngày N thiếu 2 ảnh / 12 audio"`; ảnh `"Xong 10 ảnh"` vẫn `"thiếu 2 ảnh"`. Course `tiếng_nhật` day31-34: `co_audio=0, dialogue=0` dù checkpoint dialogue `done gen=1` → **hội thoại MẤT trong course.json** mà DoD vẫn `all_days_dialogue=true`.
+
+**Đúng thiết kế 2-lượt (không phải bug):** run này mark `pending` → run sau sinh bù (ảnh cap 10/run, tích lũy — day1-30 đã 12/12). **4 bug THẬT:**
+1. **Skip không re-attach** (`pipeline_media.py`): checkpoint done → log "bỏ qua" + trả data nhưng KHÔNG ghi ref vào lesson → verify đếm thấy thiếu trong CÙNG run (log trái nhau).
+2. **Verify ghi đè phá data**: mark pending bằng `{"pending_reason"}` **thay thế toàn bộ `data`** → mất list tracks/images đã sinh.
+3. **Verify KHÔNG đếm dialogue**: checkpoint dialogue vẫn done → skip mãi → `lesson.dialogue=0` flush vào course.json → **mất vĩnh viễn**, DoD `all_days_dialogue=true` = lừa (chỉ check status checkpoint).
+4. **Content regen không invalidate** checkpoint media/dialogue → stale done → skip.
+
+**Sửa:**
+1. `ai/pipeline_media.py` — helper mới **`_reattach_audio()`**: skip audio → gắn lại `audio_ref`/`vocab_audio`/`meaning_audio_ref` từ tracks, **guard `text == word`** (từ đã đổi → KHÔNG gắn ref sai → verify mark pending sinh bù). Dialogue skip → ghi lại `lesson["dialogue"]` nếu rỗng.
+2. **`run_media_verify_stage`**: mark pending = **merge** `pending_reason` vào data CÓ SẴN (không thay thế); đếm thêm `n_no_dlg` → mark `STAGE_DIALOGUE` pending + log `"... / N hội thoại"`.
+3. **`pipeline.py::_run_day`**: content sinh lại mà danh sách từ **ĐỔI** → invalidate (pending) checkpoint images/audio/dialogue ngày đó → stage chạy lại NGAY trong run; từ **GIỐNG** → giữ nguyên (không đốt media oan).
+
+**Test mới `tools/test_pipeline_media_fix.py`: 25/25 PASS** (mock 0 mạng) — 7 nhóm: re-attach text khớp/khác/variant vi · dialogue re-attach (kèm không đè) · verify giữ data khi pending · verify đếm dialogue · content đổi từ → invalidate / giống từ → giữ done.
+
+**Suite xanh:** media_fix 25/25 · quota_rate 86/86 · key_manager 111/111 · 3mode 41/41 · slug 6/6 · adaptive 7/7 · ai_rich 85/85 · smoke PASS · cooldown PASS · `py_compile` 0 lỗi.
+
+**Không làm (phạm vi B — chờ duyệt riêng):** bật `image_providers` gemini/web (ảnh AI thật — hiện chỉ `dict`/`placeholder` = chữ cái đầu) · GUI truyền `max_images_per_day` từ settings (60) thay vì default 10.
+
+---
+
 ## 8. NGUYÊN TẮC BẮT BUỘC KHI SỬA TIẾP
 
 1. Đọc `projectLog.md` + `docs/UPGRADE_17.md` trước. Cập nhật cả 2 sau khi sửa.

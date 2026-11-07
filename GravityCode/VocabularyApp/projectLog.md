@@ -275,6 +275,22 @@
 **KHÔNG làm:** P6b (rate-limiter chia sẻ 2 tiến trình) · chưa trả lời câu hỏi 10 key/account tạo cùng 1 project hay 10 project riêng (ảnh hưởng lock_key vs lock_account dài hạn).
 
 ---
+## 📋 Cập nhật mới nhất — 2026-11-07b (Fix pipeline media: skip re-attach · verify giữ data + đếm dialogue · invalidate khi content đổi từ)
+
+**Triệu chứng (log thật):** `🏁 PAUSED: 34/34 ngày, calls=71, ảnh=30. DoD=False` + log mâu thuẫn (`"Audio Ngày N đã có — bỏ qua"` vs `"thiếu 2 ảnh / 12 audio"`; `"Xong 10 ảnh"` vs `"thiếu 2 ảnh"`); course `tiếng_nhật` day31-34 `co_audio=0, dialogue=0` trong khi checkpoint dialogue `done gen=1` → **hội thoại mất vĩnh viễn** trong course.json, DoD `all_days_dialogue=true` = lừa. Cơ chế 2-lượt (run sau sinh bù audio + 2 ảnh thiếu do cap 10/run) là ĐÚNG thiết kế — nhưng 4 bug thật bên dưới.
+
+**Nguyên nhân:** ① skip branch (checkpoint done) trả data nhưng KHÔNG re-attach ref vào lesson → verify đếm thấy thiếu trong CÙNG run; ② verify mark pending **GHI ĐÈ** data checkpoint bằng `{"pending_reason"}` (mất tracks/images đã sinh); ③ verify **KHÔNG đếm dialogue** → checkpoint dialogue done → skip mãi → `lesson.dialogue=0` bị flush; ④ content regen không invalidate checkpoint media/dialogue (stale done → skip).
+
+**Đã sửa:**
+1. `ai/pipeline_media.py`: helper mới **`_reattach_audio()`** — skip audio gắn lại `audio_ref`/`vocab_audio`/`meaning_audio_ref` từ tracks, **guard `text == word`** (từ đã đổi → không gắn ref sai → verify mark pending sinh bù); dialogue skip ghi lại `lesson["dialogue"]` nếu rỗng.
+2. `ai/pipeline_media.py::run_media_verify_stage`: pending = **merge** `pending_reason` vào data CŨ (không phá checkpoint); đếm thêm `n_no_dlg` → mark `STAGE_DIALOGUE` pending + log `"... / N hội thoại"`.
+3. `ai/pipeline.py::_run_day`: content sinh lại **ĐỔI danh sách từ** → invalidate (pending) checkpoint images/audio/dialogue ngày đó → chạy lại ngay trong run; từ **GIỐNG** → giữ nguyên (không đốt media oan).
+
+**Test mới:** `tools/test_pipeline_media_fix.py` **25/25 PASS** (7 nhóm, mock 0 mạng). **Suite xanh:** quota_rate 86/86 · key_manager 111/111 · 3mode 41/41 · slug 6/6 · adaptive 7/7 · ai_rich 85/85 · smoke PASS · cooldown PASS · `py_compile` 0 lỗi.
+
+**Không làm (phạm vi B — chờ duyệt riêng):** bật `image_providers` gemini/web (ảnh AI thật — hiện `["dict","placeholder"]` = chữ cái đầu) · GUI truyền `max_images_per_day` từ settings (60) thay vì default 10. Chi tiết: `docs/UPGRADE_17.md` mục **7.14**.
+
+---
 ## 📋 Cập nhật mới nhất — 2026-11-07 (P7: 10 key/account = 10 project RIÊNG — khoá quota ngày theo key, counter 429 per-key)
 
 **Câu hỏi đã trả lời (người dùng xác nhận):** 10 key/account = **10 project RIÊNG** (197 key/20 account, `project_id` trống) ⇒ mọi giả định "1 account = 1 project" trong code là **SAI**. Người dùng duyệt phạm vi **A (tối thiểu đúng-sai)** + **sửa cả GHE**; **GIỮ** gap 8s/account (P2).

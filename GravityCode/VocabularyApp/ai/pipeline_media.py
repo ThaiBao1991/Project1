@@ -103,14 +103,44 @@ def _audio_items_for(lesson: dict, stage_idx: int, max_items: int) -> list:
     return items[:max_items]
 
 
+def _reattach_audio(lesson: dict, data: dict) -> None:
+    """Gắn lại `audio_ref` từ checkpoint vào lesson khi skip (fix log mâu thuẫn).
+
+    Bug đã sửa: skip trả `data` nhưng KHÔNG ghi ref vào lesson ⇒ sau khi content
+    sinh lại (vocab mới mất ref), verify báo "thiếu 12 audio" trong CÙNG run với
+    log "Audio đã có — bỏ qua". Guard `text == word`: checkpoint cũ trỏ từ KHÁC
+    (content đã đổi) ⇒ KHÔNG gắn ref sai vào từ mới — verify sẽ mark pending
+    để sinh bù.
+    """
+    vocab = (lesson or {}).get("vocab") or []
+    if not vocab:
+        return
+    vocab_audio = lesson.setdefault("media", {}).setdefault("vocab_audio", {})
+    for tr in (data.get("tracks") or []):
+        if not isinstance(tr, dict) or tr.get("kind") != "vocab":
+            continue
+        vi = tr.get("index", -1)
+        if not (0 <= vi < len(vocab)) or not tr.get("ref"):
+            continue
+        if str(tr.get("text") or "") != str(vocab[vi].get("word") or ""):
+            continue                    # từ đã đổi ⇒ không gắn ref cũ
+        if tr.get("variant") == "vi":
+            vocab[vi]["meaning_audio_ref"] = tr["ref"]
+            continue
+        vocab[vi]["audio_ref"] = tr["ref"]
+        vocab_audio[vocab[vi].get("word", str(vi))] = tr["ref"]
+
+
 def run_audio_stage(language: str, day: int, lesson: dict, chain, log_fn=print,
                     max_items: int = 12, budget=None,
                     allow_degraded: bool = True) -> dict:
     """Sinh âm thanh cho 1 ngày."""
     if stage_is_done(language, STAGE_AUDIO, day, allow_degraded=allow_degraded):
         cp = load_checkpoint(language, STAGE_AUDIO, day) or {}
+        data = cp.get("data") or {"skipped": True}
+        _reattach_audio(lesson, data)
         log_fn(f"   ⏭  Audio Ngày {day} đã có — bỏ qua.")
-        return cp.get("data") or {"skipped": True}
+        return data
 
     stage_idx = stage_index_from_phase(lesson.get("phase", ""))
     items = _audio_items_for(lesson, stage_idx, max_items)
@@ -295,8 +325,13 @@ def run_dialogue_stage(language: str, day: int, lesson: dict, coord, log_fn=prin
     """Sinh hội thoại roleplay cho 1 ngày (gọi AI riêng — không gộp vào content)."""
     if stage_is_done(language, STAGE_DIALOGUE, day, allow_degraded=allow_degraded):
         cp = load_checkpoint(language, STAGE_DIALOGUE, day) or {}
+        data = cp.get("data") or {"skipped": True}
+        # Fix: skip không re-attach ⇒ lesson.dialogue=0 bị flush vào course.json
+        # (mất hội thoại vĩnh viễn vì verify KHÔNG đếm dialogue). Gắn lại ngay.
+        if not (lesson.get("dialogue") or []) and (data.get("dialogues") or []):
+            lesson["dialogue"] = data["dialogues"]
         log_fn(f"   ⏭  Hội thoại Ngày {day} đã có — bỏ qua.")
-        return cp.get("data") or {"skipped": True}
+        return data
 
     if not coord:
         save_checkpoint(language, STAGE_DIALOGUE, {"skipped": True, "dialogues": []},
@@ -414,18 +449,28 @@ def run_media_verify_stage(language: str, day: int, lesson: dict, log_fn=print,
             if not ok:
                 missing.append(ref)
 
-    # Ngày thiếu ref ⇒ đánh dấu lại stage tương ứng là PENDING để sinh bù
-    if n_no_img or n_no_aud:
-        for stg, cnt in ((STAGE_IMAGES, n_no_img), (STAGE_AUDIO, n_no_aud)):
+    # Ngày thiếu ref ⇒ đánh dấu lại stage tương ứng là PENDING để sinh bù.
+    # Fix 2: GIỮ data cũ khi mark pending (trước đây ghi đè bằng {"pending_reason"}
+    # ⇒ phá checkpoint: mất list tracks/images/dialogues đã sinh).
+    # Fix đếm thêm DIALOGUE: lesson.dialogue rỗng mà verify không đếm ⇒ checkpoint
+    # dialogue vẫn done → skip mãi → hội thoại mất vĩnh viễn trong course.json
+    # mà DoD vẫn báo all_days_dialogue=true (lừa).
+    n_no_dlg = 0 if (lesson.get("dialogue") or []) else 1
+    if n_no_img or n_no_aud or n_no_dlg:
+        for stg, cnt in ((STAGE_IMAGES, n_no_img), (STAGE_AUDIO, n_no_aud),
+                         (STAGE_DIALOGUE, n_no_dlg)):
             if cnt > 0:
                 try:
-                    save_checkpoint(language, stg,
-                                    {"pending_reason": f"thiếu {cnt} ref"},
+                    old = load_checkpoint(language, stg, day) or {}
+                    merged = dict(old.get("data") or {})
+                    merged["pending_reason"] = f"thiếu {cnt} ref"
+                    save_checkpoint(language, stg, merged,
                                     day=day, status=STATUS_PENDING)
                 except Exception:
                     pass
-        log_fn(f"   ⚠ Ngày {day} thiếu {n_no_img} ảnh / {n_no_aud} audio — "
-               f"đánh dấu để sinh bù lần sau.")
+        log_fn(f"   ⚠ Ngày {day} thiếu {n_no_img} ảnh / {n_no_aud} audio"
+               + (f" / {n_no_dlg} hội thoại" if n_no_dlg else "")
+               + " — đánh dấu để sinh bù lần sau.")
 
     result = "pass" if not missing else ("partial" if items else "fail")
     data = {"result": result, "items": items, "missing": missing,
