@@ -324,7 +324,8 @@ def run_pipeline(language: str, *,
     jobs = load_jobs()
     job = get_language_job(jobs, language)
     budget = budget or PipelineBudget(job=job)
-    chain = chain or ProviderChain.default(log_fn=log_fn or log.info)
+    chain = chain or ProviderChain.default(log_fn=log_fn or log.info,
+                                           stop_check=stop_check)
 
     if offline:
         # ── OFFLINE (Phase 6): 0 API call — chỉ media_verify (manifest ↔ course) ──

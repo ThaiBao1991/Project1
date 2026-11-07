@@ -275,6 +275,20 @@
 **KHÔNG làm:** P6b (rate-limiter chia sẻ 2 tiến trình) · chưa trả lời câu hỏi 10 key/account tạo cùng 1 project hay 10 project riêng (ảnh hưởng lock_key vs lock_account dài hạn).
 
 ---
+## 📋 Cập nhật mới nhất — 2026-11-07c (Fix nút Dừng · log timestamp · 400 "API key not valid" hết spam)
+
+**Triệu chứng:** bấm ⏹ nhưng pipeline vẫn chạy + spam `⚠ 'model' fail (400 — API key not valid…) → thử 'model kế'` lặp vô hạn; log không có ngày giờ.
+
+**Nguyên nhân:** ① `GeminiApiProvider._ensure()` tạo coord KHÔNG truyền `stop_check` → `request()`/`_try_models` không bao giờ thấy lệnh dừng (`lambda: False`) — `run_pipeline(stop_check)` chỉ check ở ranh giới ngày ⇒ nút Dừng chờ hàng phút mới ăn; ② `VocabApp.py` thiếu `import time`, 3 `_log` chèn msg trần; ③ `classify_response` nhánh 400 chỉ bắt `api_key_invalid` (gạch dưới) → `"API key not valid"` rơi `REQUEST_BAD` → key chết không bị loại → retry ×3 + quay hết model (≈8 dòng/request) + đốt RPM → có thể dính 429 oan. *(400 key-invalid không vi phạm chính sách — key sai Google từ chối, không "khóa" thêm; rủi ro thật duy nhất = spam RPM.)*
+
+**Đã sửa:**
+1. **Nút Dừng**: `ai/providers.py` (`GeminiApiProvider(stop_check=)` → `GeminiCoordinator`; `ProviderChain.default(stop_check=)`) + `ai/pipeline.py` truyền `stop_check=stop_check` → dừng ngay trong `while` request (≤1s).
+2. **Timestamp**: `import time` + 3 `_log` (1273/2820/3886) prefix `[HH:MM:SS]`.
+3. **400 key-invalid**: classify nhánh 400 thêm `"api key not valid"` → `INVALID_KEY` → `_try_models` trả ngay model đầu (0 model kế) → `request()` blocklist + chuyển key — hết spam.
+
+**Test:** `test_quota_rate` 86 → **94/94** (section15: key1 đúng1 POST + blocklist + restore file · section16: stop → 0 POST + provider truyền stop_check xuống coord). **Suite:** media_fix 25/25 · keymgr 111/111 · 3mode 41/41 · slug 6/6 · adaptive 7/7 · ai_rich 85/85 · smoke PASS · cooldown PASS · `py_compile` 0. Chi tiết: `docs/UPGRADE_17.md` mục **7.15**.
+
+---
 ## 📋 Cập nhật mới nhất — 2026-11-07b (Fix pipeline media: skip re-attach · verify giữ data + đếm dialogue · invalidate khi content đổi từ)
 
 **Triệu chứng (log thật):** `🏁 PAUSED: 34/34 ngày, calls=71, ảnh=30. DoD=False` + log mâu thuẫn (`"Audio Ngày N đã có — bỏ qua"` vs `"thiếu 2 ảnh / 12 audio"`; `"Xong 10 ảnh"` vs `"thiếu 2 ảnh"`); course `tiếng_nhật` day31-34 `co_audio=0, dialogue=0` trong khi checkpoint dialogue `done gen=1` → **hội thoại mất vĩnh viễn** trong course.json, DoD `all_days_dialogue=true` = lừa. Cơ chế 2-lượt (run sau sinh bù audio + 2 ảnh thiếu do cap 10/run) là ĐÚNG thiết kế — nhưng 4 bug thật bên dưới.

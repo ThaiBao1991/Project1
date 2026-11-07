@@ -322,7 +322,13 @@ def classify_response(status_code, body):
             return ErrorKind.INVALID_KEY, message
         return ErrorKind.REQUEST_BAD, message
     if status_code == 400:
-        if "api_key_invalid" in low or is_dead_key_message(low):
+        # FIX: "API key not valid. Please pass a valid API key." (400) trước đây
+        # chỉ check "api_key_invalid" (gạch dưới) ⇒ rơi REQUEST_BAD → key chết
+        # KHÔNG bị loại → retry ×3 + quay hết mọi model = spam log vô hạn
+        # (8 dòng/request) + đốt RPM → có thể dính 429 rate-limit oan.
+        # Lỗi là ở KEY, không ở model ⇒ INVALID_KEY: block + chuyển key NGAY.
+        if ("api_key_invalid" in low or "api key not valid" in low
+                or is_dead_key_message(low)):
             return ErrorKind.INVALID_KEY, message
         return ErrorKind.REQUEST_BAD, message
     if status_code >= 500:

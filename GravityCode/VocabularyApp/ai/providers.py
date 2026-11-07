@@ -35,9 +35,13 @@ class GeminiApiProvider(Provider):
 
     name = "gemini_api"
 
-    def __init__(self, coord=None, log_fn=None):
+    def __init__(self, coord=None, log_fn=None, stop_check=None):
         self._coord = coord
         self._log = log_fn or (lambda m: None)
+        # FIX nút Dừng: trước đây coord tạo KHÔNG có stop_check →
+        # request()/_try_models không bao giờ thấy lệnh dừng (lambda: False)
+        # → nút ⏹ chỉ ăn ở ranh giới ngày ⇒ cảm giác "không hoạt động".
+        self._stop_check = stop_check
 
     def _ensure(self):
         if self._coord is not None:
@@ -52,7 +56,8 @@ class GeminiApiProvider(Provider):
                                           temperature=0.35,
                                           max_output_tokens=16384,
                                           timeout=120,
-                                          lock_after_success=False)
+                                          lock_after_success=False,
+                                          stop_check=self._stop_check)
         except Exception as e:
             self._log(f"⚠ Không khởi tạo được GeminiCoordinator: {e}")
             self._coord = None
@@ -203,8 +208,8 @@ class ProviderChain:
         self.unavailable = {}
 
     @classmethod
-    def default(cls, log_fn=None, coord=None, include_web=True):
-        provs = [GeminiApiProvider(coord=coord, log_fn=log_fn)]
+    def default(cls, log_fn=None, coord=None, include_web=True, stop_check=None):
+        provs = [GeminiApiProvider(coord=coord, log_fn=log_fn, stop_check=stop_check)]
         if include_web:
             provs.append(WebAiProvider(log_fn=log_fn))
         provs.append(DictProvider())

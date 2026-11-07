@@ -16,6 +16,7 @@ import webbrowser
 import tkinter as tk
 from tkinter import messagebox, filedialog, ttk
 import subprocess
+import time
 
 # Fix UnicodeEncodeError trên Windows terminal
 try:
@@ -1273,7 +1274,7 @@ class ApiKeyManagerDialog(ctk.CTkToplevel):
     def _log(self, msg):
         try:
             self._log_box.configure(state="normal")
-            self._log_box.insert("end", msg + "\n")
+            self._log_box.insert("end", f"[{time.strftime('%H:%M:%S')}] {msg}\n")
             self._log_box.see("end")
             self._log_box.configure(state="disabled")
         except Exception:
@@ -2820,7 +2821,7 @@ class SettingsSyncTab(ctk.CTkFrame):
     def _log(self, msg: str):
         def _append():
             self.log_box.configure(state="normal")
-            self.log_box.insert("end", msg + "\n")
+            self.log_box.insert("end", f"[{time.strftime('%H:%M:%S')}] {msg}\n")
             self.log_box.see("end")
             self.log_box.configure(state="disabled")
         self.after(0, _append)
@@ -3886,7 +3887,7 @@ class CourseGenerationDialog(ctk.CTkToplevel):
     def _log(self, msg):
         def _append():
             self.log_box.configure(state="normal")
-            self.log_box.insert("end", msg + "\n")
+            self.log_box.insert("end", f"[{time.strftime('%H:%M:%S')}] {msg}\n")
             self.log_box.see("end")
             self.log_box.configure(state="disabled")
         self.after(0, _append)

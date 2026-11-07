@@ -28,6 +28,10 @@ Bao phủ (theo plan fix log "429 tốc độ → thử model" + xoay 197 key v�
      'retry in 13h33m50s' → 48830s, fallback 60 phút, cap 24h); counter 429
      per-key (clear key B KHÔNG xoá key A); usable_project_count theo KEY;
      health KHÔNG cảnh báo 10 key/account; ảnh daily cũng khoá key.
+ 15. 400 "API key not valid" → INVALID_KEY: blocklist + chuyển key NGAY,
+     đúng 1 POST/key chết (KHÔNG quay hết model, hết spam log).
+ 16. stop_check (nút Dừng) → STOPPED ngay, 0 POST; GeminiApiProvider
+     TRUYỀN stop_check xuống coord (chuỗi run_pipeline → chain → request).
 """
 import os
 import sys
@@ -619,6 +623,81 @@ ck("ảnh daily: key1 khoá ~48830s (theo 'retry in 13h33m50s')",
    48700 <= d14 <= 48900, d14)
 ck("ảnh daily: account a@ KHÔNG bị khóa",
    "a@gmail.com" not in coord14._pool._cooldown, coord14._pool._cooldown)
+
+# ══════════════════════════════════════════════════════════════════════════════
+print("\n=== 15. 400 'API key not valid' → INVALID_KEY: block + chuyển key, KHÔNG quay model ===")
+# block_key ghi FILE bền → chụp trước để restore (không để lại dấu vết test)
+_bl_path = gs.BLOCKED_KEYS_PATH
+_bl_before = gs.load_blocked_keys()
+reset_pool()
+logs15 = []
+coord15, _ = make_coord(["m-a", "m-b", "m-c"], [KEY1, KEY2], logs15)
+_posts15 = []
+
+
+def _h15(url):
+    _posts15.append(url)
+    if "AIzaTestKey0001" in url:
+        return _Resp(400, {"error": {
+            "message": "API key not valid. Please pass a valid API key.",
+            "status": "INVALID_ARGUMENT"}})
+    return _Resp(200, OK_BODY)
+
+
+_handler["fn"] = _h15
+r15 = coord15.request("xin chao")
+try:
+    ck("request() ok nhờ key2 (key1 chết không kéo sập cả lượt)",
+       r15.get("ok") is True and r15.get("key", {}).get("key") == "AIzaTestKey0002",
+       r15)
+    ck("key1 đúng 1 POST (INVALID_KEY trả ngay model đầu, KHÔNG quay hết model)",
+       sum(1 for u in _posts15 if "AIzaTestKey0001" in u) == 1, _posts15)
+    ck("log 'bị từ chối (Invalid)' — blocklist + chuyển key",
+       any("bị từ chối (Invalid)" in l for l in logs15), logs15)
+    ck("KHÔNG có log '→ thử' (lỗi ở KEY, không thử model kế)",
+       not any("→ thử" in l for l in logs15), logs15)
+    ck("key1 nằm trong blocklist bền (is_blocked_key)",
+       gs.is_blocked_key("AIzaTestKey0001"), gs.load_blocked_keys())
+finally:
+    gs._save_blocked(_bl_path, _bl_before)   # restore nguyên trạng file blocklist
+
+# ══════════════════════════════════════════════════════════════════════════════
+print("\n=== 16. stop_check (nút Dừng) → STOPPED ngay, 0 POST ===")
+reset_pool()
+logs16 = []
+c16 = gs.GeminiCoordinator(models=["m-a"], log_fn=logs16.append,
+                           key_loader=lambda: [dict(KEY1)],
+                           stop_check=lambda: True)
+c16._adaptive = False
+logs16[:] = []
+_posts16 = []
+_handler["fn"] = lambda url: (_posts16.append(url), _Resp(200, OK_BODY))[1]
+r16 = c16.request("xin chao")
+ck("ok=False, kind=stopped", r16.get("ok") is False and
+   r16.get("error", {}).get("kind") == "stopped", r16)
+ck("0 POST (dừng trước khi gọi mạng)", len(_posts16) == 0, _posts16)
+
+# 16b: GeminiApiProvider TRUYỀN stop_check xuống coord
+# (chuỗi: run_pipeline(stop_check) → ProviderChain.default → provider → request)
+from ai import course_generator as _cg        # noqa: E402
+from ai import providers as _prov             # noqa: E402
+_orig_loader = _cg._load_gemini_keys
+_cg._load_gemini_keys = lambda: [{"key": "AIzaStopTest01", "email": "s@x",
+                                  "status": "active"}]
+try:
+    _p16 = _prov.GeminiApiProvider(log_fn=lambda m: None,
+                                   stop_check=lambda: True)
+    _c16 = _p16.coord
+    _posts16b = []
+    _handler["fn"] = lambda url: (_posts16b.append(url), _Resp(200, OK_BODY))[1]
+    r16b = _c16.request("x") if _c16 else {"ok": False,
+                                           "error": {"kind": "no_key"}}
+    ck("provider tạo coord CÒN stop_check → request STOPPED, 0 POST",
+       r16b.get("ok") is False and r16b.get("error", {}).get("kind") == "stopped"
+       and len(_posts16b) == 0, (r16b, _posts16b))
+finally:
+    _cg._load_gemini_keys = _orig_loader
+    _handler["fn"] = None
 
 # ── kết thúc ─────────────────────────────────────────────────────────────────
 requests.post = _orig_post

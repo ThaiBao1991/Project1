@@ -537,6 +537,28 @@ So sánh kỹ 2 bên: VocabApp (`api/gemini_safe.py`) vs GetHtmlFromUrl bản De
 
 ---
 
+## 7.15. FIX NÚT DỪNG · LOG CÓ TIMESTAMP · 400 "API key not valid" KHÔNG SPAM (2026-11-07c)
+
+**Triệu chứng (log thật):** bấm ⏹ Dừng nhưng pipeline vẫn chạy + spam `⚠ 'gemini-3.7-flash' fail (400 — API key not valid…) → thử 'model kế'` lặp vô hạn; log không có ngày giờ.
+
+**Nguyên nhân (3):**
+1. **Nút Dừng không ăn giữa request**: `GeminiCoordinator` tạo trong `GeminiApiProvider._ensure()` (`providers.py`) KHÔNG truyền `stop_check` → default `lambda: False` (`gemini_safe.py:705`) → `request()`/`_try_models` **không bao giờ thấy lệnh dừng**; `run_pipeline(stop_check)` chỉ check ở ranh giới ngày/backbone ⇒ bấm Dừng phải chờ hàng phút mới có hiệu lực.
+2. **Log không timestamp**: `VocabApp.py` chưa `import time`; 3 hàm `_log` chèn `msg` trần.
+3. **400 spam vô hạn**: `classify_response` nhánh 400 chỉ bắt `"api_key_invalid"` (gạch dưới) → message `"API key not valid"` **rơi `REQUEST_BAD`** → key chết KHÔNG bị loại → retry ×3 + quay hết mọi model (≈8 dòng log/request) + đốt RPM ⇒ **có thể dính 429 rate-limit oan**. *(400 key-invalid KHÔNG vi phạm chính sách — key sai thì Google từ chối, không "khóa" thêm; rủi ro duy nhất là spam RPM.)*
+
+**Sửa:**
+1. **Nút Dừng**: `ai/providers.py` — `GeminiApiProvider(stop_check=)` + `_ensure()` truyền vào `GeminiCoordinator(stop_check=...)`; `ProviderChain.default(..., stop_check=)`; `ai/pipeline.py` — `ProviderChain.default(..., stop_check=stop_check)` ⇒ chuỗi GUI → `request()` dừng ngay trong `while` (≤1s), kể cả giữa vòng thử model.
+2. **Timestamp**: `VocabApp.py` — `import time` + 3 `_log` (dòng 1273/2820/3886) prefix `[HH:MM:SS]`.
+3. **400 key-invalid**: `classify_response` nhánh 400 thêm `"api key not valid"` → **`INVALID_KEY`** → `_try_models` trả ngay model đầu (**0 model kế** — lỗi ở KEY không ở model) → `request()` đã có nhánh: `block_key` (blocklist bền) + `exclude` + **chuyển key khác** — hết spam.
+
+**Test `tools/test_quota_rate.py` 86 → 94/94** (mock 0 mạng):
+- **Section 15**: key2 cứu request · key1 đúng **1 POST** (không quay model) · log `"bị từ chối (Invalid)"` · không log `→ thử` · key1 vào blocklist bền (+ restore file blocklist sau test).
+- **Section 16**: `stop_check=True` → `kind=stopped` + **0 POST**; `GeminiApiProvider(stop_check=)` tạo coord THẬT còn stop → `request` STOPPED 0 POST (chứng minh chuỗi run_pipeline → chain → request).
+
+**Suite xanh:** quota 94/94 · media_fix 25/25 · key_manager 111/111 · 3mode 41/41 · slug 6/6 · adaptive 7/7 · ai_rich 85/85 · smoke PASS · cooldown PASS · `py_compile` 0 lỗi.
+
+---
+
 ## 8. NGUYÊN TẮC BẮT BUỘC KHI SỬA TIẾP
 
 1. Đọc `projectLog.md` + `docs/UPGRADE_17.md` trước. Cập nhật cả 2 sau khi sửa.
