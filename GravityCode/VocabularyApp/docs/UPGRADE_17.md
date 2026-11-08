@@ -559,6 +559,42 @@ So sánh kỹ 2 bên: VocabApp (`api/gemini_safe.py`) vs GetHtmlFromUrl bản De
 
 ---
 
+## 7.16. DASHBOARD WEB ĐIỀU KHIỂN PIPELINE (localhost:5690) (2026-11-08)
+
+**Yêu cầu:** trang web HTML trên CÙNG máy (localhost) để Start/Dừng pipeline, xem log realtime + tiến độ từ trình duyệt — cùng máy, không mở LAN.
+
+**Kiến trúc:**
+```
+Browser http://127.0.0.1:5690/dashboard (poll JSON 1.5–2s)
+   ▼
+Flask bridge_server (bind 127.0.0.1 — CŨ, chỉ THÊM routes)
+   ▼
+ai/pipeline_control.py (MỚI) — trạng thái DÙNG CHUNG
+   • STOP_EVENT singleton  → GUI ⏹ và web ⏹ set CÙNG 1 sự kiện (dừng ≤1s)
+   • LOG buffer ring 2000 dòng có id tăng dần (thread-safe)
+   • STATUS {running, source=gui|web, language, pct, day, stage…}
+   ▼
+run_pipeline(thread nền, stop_check=STOP_EVENT.is_set, log_fn=buffer)
+```
+
+**File mới (2):**
+1. **`ai/pipeline_control.py`** — `STOP_EVENT` · `log_append()/log_snapshot(since_id)` · `set_running()/set_progress()/status_snapshot()` · `request_stop()` · `start_pipeline(...)` (guard `already_running:source`, ALWAYS `STOP_EVENT.clear()` trước run mới) · `_run_pipeline` (seam để test mock) · `_runner` (thread, ghi 🏁 + `last_result`).
+2. **`web/dashboard.html`** — self-contained (CSS/JS inline, không CDN): dropdown khóa (từ `/dash/courses` — đọc DB thật) · dropdown cấp độ · từ/ngày · số ngày · force_new · nút ▶Start/⏹Dừng · thanh tiến độ + elapsed + nguồn (GUI/Web) · log timestamp auto-scroll (poll `since_id`, tối đa 2000 dòng) · ô nhập token (hiện khi chưa auth). Token nhận từ `?token=` URL → `sessionStorage` → nhúng server-side → nhập tay; URL tự `replaceState` giấu token.
+
+**Sửa (2):**
+3. **`ai/bridge_server.py`** — thêm routes: `GET /dashboard` (serve HTML, nhúng token CHỈ khi `?token=` đúng) · `GET /api/vocab/dash/status` · `GET /api/vocab/dash/logs?since=` · `GET /api/vocab/dash/courses` · `POST /api/vocab/dash/start` · `POST /api/vocab/dash/stop`. **Auth bắt buộc** header `X-Vocab-Bridge` HOẶC `?token=` (chống CSRF) → 401. `missing_language`→400, `already_running`→409. Fix import: `_build_app` insert base dir vào `sys.path` + helper `_pctl()` (chạy CLI `python ai/bridge_server.py` không còn `ModuleNotFoundError`).
+4. **`VocabApp.py`** — ① `CourseGenerationDialog._stop_event` → dùng `pipeline_control.STOP_EVENT` (nút ⏹ GUI = ⏹ web); ② `_log` (dialog) vừa ghi LogBox vừa `log_append()` → web đọc được log GUI; ③ `_start`: guard `is_running()` (web đang chạy → warning, không start đôi) + `set_running(source="gui")`; `_supplement` cũng set; `_on_pipeline_progress()` mới đẩy `on_progress` lên STATUS + thanh GUI; `_on_day_done` cũng update; `_done` → `set_running(False)`; ④ `App.__init__` auto-start bridge sau 1.2s (`_autostart_bridge`) → mở app là dùng được ngay `http://127.0.0.1:5690/dashboard` (nhãn ở tab Cài đặt tự cập nhật; thiếu Flask → ghi rõ).
+
+**Test `tools/test_web_dashboard.py` — 42/42 (Flask test client + mock `pc._run_pipeline`, 0 mở cổng, 0 gọi mạng):**
+- pipeline_control thuần (15): guard missing_language · log since_id không lặp · start clear stop cũ · start lần 2 → `already_running:web` · request_stop → set event · fake thoát → `last_result=aborted` · log ⏹/🏁.
+- routes (27): dashboard nhúng token đúng/sai · 6 endpoint thiếu/sai token → 401 · status qua header lẫn `?token=` · logs since · courses list · start→200 + 409 lần 2 → stop→`stopped:true` → running=false.
+
+**Test thật (server CLI + HTTP thật + browser):** health/dashboard/status/logs/courses 200 (courses trả **2 khóa thật** + 7 levels) · thiếu token 401 · trang auto-auth qua `?token=` (`authBox` ẩn, nút Start bật) · `POST stop` từ JS trang → log hiện `[13:58:54] ⏹ Dashboard: Dừng khi chưa có run nào…` với timestamp.
+
+**Suite xanh:** dashboard 42/42 · quota 94/94 · media_fix 25/25 · key_manager 111/111 · 3mode 41/41 · slug 6/6 · adaptive 7/7 · ai_rich 85/85 · smoke PASS · cooldown PASS · `py_compile` 0.
+
+---
+
 ## 8. NGUYÊN TẮC BẮT BUỘC KHI SỬA TIẾP
 
 1. Đọc `projectLog.md` + `docs/UPGRADE_17.md` trước. Cập nhật cả 2 sau khi sửa.

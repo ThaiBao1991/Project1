@@ -21,6 +21,7 @@ import os
 import queue
 import re
 import secrets
+import sys
 import threading
 import time
 from datetime import datetime
@@ -59,6 +60,11 @@ class VocabBridge:
     # ── Flask app ───────────────────────────────────────────────────────
     def _build_app(self):
         from flask import Flask, request, jsonify
+        # Đảm bảo import được package `ai`, `database` cả khi chạy CLI
+        # (python ai/bridge_server.py → sys.path[0] chỉ có thư mục ai/).
+        _base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        if _base not in sys.path:
+            sys.path.insert(0, _base)
         app = Flask("vocab_bridge")
         app.config["MAX_CONTENT_LENGTH"] = MAX_CONTENT_LENGTH
         bridge = self
@@ -141,6 +147,123 @@ class VocabBridge:
                 bridge.state["current"] = None
                 bridge.state["state"] = "idle"
             return jsonify({"ok": True})
+
+        # ── Dashboard web (localhost) — xem UPGRADE_17 §7.16 ────────────
+        # Trang điều khiển: start/dừng pipeline + log realtime + tiến độ.
+        # Vẫn bind 127.0.0.1 (không LAN); mọi API điều khiển BẮT BUỘC token
+        # (header X-Vocab-Bridge hoặc ?token= cho browser) chống CSRF.
+        _dash_html_path = os.path.join(
+            os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+            "web", "dashboard.html")
+
+        def _auth_dash():
+            tok = request.headers.get(TOKEN_HEADER) or request.args.get("token") or ""
+            return bool(tok) and tok == bridge.token
+
+        def _need_dash_auth():
+            if _auth_dash():
+                return None
+            return jsonify({"ok": False, "error": "bad_token"}), 401
+
+        def _pctl():
+            # Import pipeline_control: chạy trong app (cwd=VocabApp) hay CLI
+            # (python ai/bridge_server.py → sys.path[0]=ai/) đều được.
+            try:
+                from ai import pipeline_control
+            except ImportError:
+                import pipeline_control
+            return pipeline_control
+
+        @app.get("/dashboard")
+        def dashboard_page():
+            try:
+                with open(_dash_html_path, "r", encoding="utf-8") as f:
+                    html = f.read()
+            except OSError:
+                return (jsonify({"ok": False, "error": "dashboard_missing",
+                                 "path": _dash_html_path}), 404)
+            # Nhúng token CHỈ khi request mang token hợp lệ (?token=…);
+            # token sai/rỗng → KHÔNG đụng placeholder → JS coi là chưa auth.
+            if request.args.get("token") == bridge.token:
+                html = html.replace("__TOKEN_PLACEHOLDER__", bridge.token)
+            return html, 200, {"Content-Type": "text/html; charset=utf-8"}
+
+        @app.get("/api/vocab/dash/status")
+        def dash_status():
+            err = _need_dash_auth()
+            if err:
+                return err
+            pc = _pctl()
+            return jsonify({"ok": True, "port": bridge.port,
+                            **pc.status_snapshot()})
+
+        @app.get("/api/vocab/dash/logs")
+        def dash_logs():
+            err = _need_dash_auth()
+            if err:
+                return err
+            pc = _pctl()
+            try:
+                since = max(0, int(request.args.get("since", 0)))
+            except Exception:
+                since = 0
+            return jsonify({"ok": True, **pc.log_snapshot(since)})
+
+        @app.get("/api/vocab/dash/courses")
+        def dash_courses():
+            err = _need_dash_auth()
+            if err:
+                return err
+            try:
+                from database.database import get_available_languages
+                langs = get_available_languages() or []
+            except Exception:
+                langs = []
+            try:
+                from ai.course_generator import LEVELS, DEFAULT_LEVEL
+                levels, default_level = list(LEVELS), DEFAULT_LEVEL
+            except Exception:
+                levels, default_level = [], ""
+            return jsonify({"ok": True, "languages": langs,
+                            "levels": levels, "default_level": default_level})
+
+        @app.post("/api/vocab/dash/start")
+        def dash_start():
+            err = _need_dash_auth()
+            if err:
+                return err
+            pc = _pctl()
+            data = request.get_json(silent=True) or {}
+
+            def _pos_int(v):
+                try:
+                    iv = int(v)
+                    return iv if iv > 0 else None
+                except Exception:
+                    return None
+
+            ok, reason = pc.start_pipeline(
+                data.get("language"),
+                words_per_day=_pos_int(data.get("words_per_day")) or 10,
+                level=(data.get("level") or None),
+                target_days=_pos_int(data.get("target_days")),
+                force_new=bool(data.get("force_new")),
+                source="web",
+            )
+            if not ok:
+                # missing_language = lỗi input (400); đã đang chạy = xung đột (409)
+                code = 400 if reason == "missing_language" else 409
+                return jsonify({"ok": False, "reason": reason,
+                                "error": reason}), code
+            return jsonify({"ok": True, "reason": reason})
+
+        @app.post("/api/vocab/dash/stop")
+        def dash_stop():
+            err = _need_dash_auth()
+            if err:
+                return err
+            pc = _pctl()
+            return jsonify({"ok": True, "stopped": pc.request_stop()})
 
         return app
 

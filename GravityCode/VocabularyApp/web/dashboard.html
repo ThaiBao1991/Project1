@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🎛️ Vocab Pipeline Dashboard</title>
+<style>
+  :root{
+    --bg:#0e0e10; --card:#18181b; --card2:#212124; --line:#2c2c31;
+    --txt:#e7e7ea; --muted:#8b8b93; --accent:#00b8d4; --accent2:#0097a7;
+    --ok:#00c853; --warn:#ffb300; --danger:#ff5252;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);
+    font-family:Segoe UI,system-ui,-apple-system,sans-serif;font-size:14px}
+  header{display:flex;align-items:center;gap:12px;padding:14px 20px;
+    background:var(--card);border-bottom:1px solid var(--line);
+    position:sticky;top:0;z-index:5}
+  header h1{font-size:17px;margin:0;font-weight:600}
+  .pill{margin-left:auto;padding:4px 12px;border-radius:99px;font-size:12px;
+    font-weight:600;background:var(--card2);border:1px solid var(--line);color:var(--muted)}
+  .pill.run{background:#003d1f;border-color:#006b35;color:#5dffa8}
+  .pill.run.web{background:#00343d;border-color:#007084;color:#6fe6ff}
+  main{max-width:1100px;margin:0 auto;padding:18px 20px 40px;
+    display:grid;grid-template-columns:1fr;gap:16px}
+  .grid2{display:grid;grid-template-columns:340px 1fr;gap:16px}
+  @media (max-width:860px){.grid2{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .card h2{font-size:13px;text-transform:uppercase;letter-spacing:.6px;
+    color:var(--muted);margin:0 0 12px}
+  label{display:block;font-size:12px;color:var(--muted);margin:10px 0 4px}
+  select,input[type=text],input[type=number],input[type=password]{
+    width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--line);
+    background:var(--card2);color:var(--txt);font-size:14px;outline:none}
+  select:focus,input:focus{border-color:var(--accent)}
+  .row{display:flex;gap:8px}
+  .row>*{flex:1}
+  .chk{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:13px}
+  .btns{display:flex;gap:10px;margin-top:16px}
+  button{flex:1;padding:10px 14px;border-radius:9px;border:0;font-size:14px;
+    font-weight:600;cursor:pointer;color:#fff}
+  #btnStart{background:var(--accent)} #btnStart:hover{background:var(--accent2)}
+  #btnStop{background:#3a3a40;color:#aaa;cursor:not-allowed}
+  #btnStop.on{background:var(--danger);cursor:pointer}
+  button:disabled{opacity:.5;cursor:not-allowed}
+  .stat{display:flex;justify-content:space-between;padding:7px 0;
+    border-bottom:1px dashed var(--line);font-size:13px}
+  .stat:last-child{border-bottom:0}
+  .stat b{font-weight:600}
+  .bar{height:14px;background:var(--card2);border-radius:99px;overflow:hidden;margin:6px 0 4px}
+  .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),#4dd0e1);
+    transition:width .6s;border-radius:99px}
+  .pct{font-size:26px;font-weight:700;color:var(--accent)}
+  #logBox{background:#0a0a0c;border:1px solid var(--line);border-radius:9px;
+    padding:10px 12px;height:340px;overflow-y:auto;font-family:Consolas,'Courier New',monospace;
+    font-size:12.5px;line-height:1.55;white-space:pre-wrap;word-break:break-word}
+  #logBox .t{color:#5c5c66}
+  #logBox .err{color:#ff8a80}
+  #logBox .ok{color:#69f0ae}
+  .loghead{display:flex;align-items:center;gap:12px;margin-bottom:8px;font-size:12px;color:var(--muted)}
+  .loghead label{margin:0;display:flex;align-items:center;gap:5px}
+  #authBox{background:#3d2020;border:1px solid #7a3030;border-radius:10px;
+    padding:14px;margin-bottom:4px}
+  #authBox h3{margin:0 0 6px;font-size:14px;color:#ff8a80}
+  #authBox p{margin:6px 0;font-size:13px;color:#e0b4b4}
+  code{background:#00000066;padding:1px 6px;border-radius:5px;font-size:12px}
+  .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);
+    background:var(--card2);border:1px solid var(--line);color:var(--txt);
+    padding:10px 18px;border-radius:10px;font-size:13px;opacity:0;pointer-events:none;
+    transition:opacity .3s;z-index:20}
+  .toast.show{opacity:1}
+  footer{text-align:center;color:#4a4a52;font-size:12px;padding:10px}
+</style>
+</head>
+<body>
+<header>
+  <h1>🎛️ Vocab Pipeline Dashboard</h1>
+  <span style="font-size:12px;color:var(--muted)">localhost only</span>
+  <span id="pill" class="pill">IDLE</span>
+</header>
+
+<main>
+  <div id="authBox">
+    <h3>🔑 Cần token để điều khiển</h3>
+    <p>Mở app → tab <b>Đồng Bộ &amp; Cài Đặt</b> → <b>Copy token</b>, dán vào dưới đây
+       (hoặc mở lại trang kèm <code>?token=...</code>).</p>
+    <div class="row">
+      <input type="password" id="tokenIn" placeholder="Dán token của bridge (5690)">
+      <button id="btnToken" style="flex:0 0 110px;background:#616161">Lưu</button>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h2>⚙️ Điều khiển</h2>
+      <label>Khóa học (ngôn ngữ)</label>
+      <select id="lang"><option value="">— Chọn khóa —</option></select>
+      <label>Cấp độ</label>
+      <select id="level"><option value="">Mặc định</option></select>
+      <div class="row">
+        <div><label>Từ / ngày</label><input type="number" id="wpd" value="10" min="1" max="50"></div>
+        <div><label>Số ngày (rỗng = toàn khóa)</label><input type="number" id="days" min="1" placeholder="vd: 40"></div>
+      </div>
+      <div class="chk"><input type="checkbox" id="force"><label for="force" style="margin:0">Force new (sinh lại từ đầu)</label></div>
+      <div class="btns">
+        <button id="btnStart">▶ Start</button>
+        <button id="btnStop">⏹ Dừng</button>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin:12px 0 0">
+        Start/Dừng dùng chung sự kiện với GUI — đang chạy ở app thì web báo bận và ngược lại.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>📊 Tiến độ</h2>
+      <div style="display:flex;align-items:baseline;gap:10px">
+        <span class="pct" id="pct">0%</span>
+        <span id="phase" style="color:var(--muted);font-size:13px">chưa có run</span>
+      </div>
+      <div class="bar"><i id="bar"></i></div>
+      <div class="stat"><span>Khóa</span><b id="sLang">—</b></div>
+      <div class="stat"><span>Ngày</span><b id="sDay">—</b></div>
+      <div class="stat"><span>Thời gian chạy</span><b id="sElapsed">—</b></div>
+      <div class="stat"><span>Nguồn</span><b id="sSrc">—</b></div>
+      <div class="stat"><span>Lần dừng cuối</span><b id="sStop">—</b></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="loghead">
+      <b style="color:var(--txt)">📜 Log realtime</b>
+      <span id="logCount">0 dòng</span>
+      <label><input type="checkbox" id="autoScroll" checked> Tự cuộn</label>
+      <button id="btnClear" style="flex:0 0 auto;padding:4px 12px;font-size:12px;background:#3a3a40">Xóa màn hình</button>
+    </div>
+    <div id="logBox"></div>
+  </div>
+</main>
+
+<footer>127.0.0.1:5690 · token bắt buộc với mọi API điều khiển</footer>
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+/* ── Token: ?token= URL → sessionStorage → window.__DASH_TOKEN__ → nhập tay ── */
+const URL_TOK = new URL(location.href).searchParams.get("token");
+window.__DASH_TOKEN__ = "__TOKEN_PLACEHOLDER__";   // server nhúng token nếu ?token= hợp lệ
+let injected = window.__DASH_TOKEN__ || "";
+if (injected === "__TOKEN_PLACEHOLDER__") injected = "";   // chưa auth
+let TOKEN = URL_TOK || sessionStorage.getItem("dash_token") || injected || "";
+if (URL_TOK) {
+  sessionStorage.setItem("dash_token", URL_TOK);
+  history.replaceState({}, "", "/dashboard");   // giấu token khỏi URL
+}
+const H = {"X-Vocab-Bridge": TOKEN};
+let lastId = 0, authed = false, stopShown = null;
+
+const $ = id => document.getElementById(id);
+function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");
+  clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("show"),3200);}
+
+async function api(path, opt){
+  opt = opt || {};
+  opt.headers = Object.assign({}, opt.headers, {"X-Vocab-Bridge": TOKEN});
+  const r = await fetch(path, opt);
+  if (r.status === 401){ setAuth(false); throw new Error("bad_token"); }
+  setAuth(true);
+  return r.json();
+}
+function setAuth(ok){
+  authed = ok;
+  $("authBox").style.display = ok ? "none" : "";
+  $("btnStart").disabled = !ok;
+  $("btnStop").disabled = !ok;
+}
+
+/* ── Token box ── */
+$("btnToken").onclick = () => {
+  const v = $("tokenIn").value.trim();
+  if (!v) return;
+  TOKEN = v; H["X-Vocab-Bridge"] = v;
+  sessionStorage.setItem("dash_token", v);
+  $("tokenIn").value = "";
+  refreshAuth();
+};
+async function refreshAuth(){
+  try{ await api("/api/vocab/dash/status"); toast("✅ Token hợp lệ"); }
+  catch(e){ toast("❌ Token không đúng"); }
+}
+
+/* ── Danh sách khóa + cấp độ ── */
+async function loadCourses(){
+  try{
+    const j = await api("/api/vocab/dash/courses");
+    const sel = $("lang");
+    sel.innerHTML = '<option value="">— Chọn khóa —</option>';
+    (j.languages || []).forEach(l => {
+      const o = document.createElement("option");
+      o.value = l.slug;
+      o.textContent = (l.display || l.slug) +
+        (l.num_days ? ` (${l.num_days} ngày)` : "");
+      sel.appendChild(o);
+    });
+    const lv = $("level");
+    lv.innerHTML = '<option value="">Mặc định</option>';
+    (j.levels || []).forEach(x => {
+      const o = document.createElement("option");
+      o.value = x; o.textContent = x; lv.appendChild(o);
+    });
+  }catch(e){ /* chưa auth — để sau */ }
+}
+
+/* ── Trạng thái ── */
+async function pollStatus(){
+  let j;
+  try{ j = await api("/api/vocab/dash/status"); }
+  catch(e){ return; }
+  const run = !!j.running;
+  const pill = $("pill");
+  pill.textContent = run ? ("RUNNING · " + (j.source || "?").toUpperCase()) : "IDLE";
+  pill.className = "pill" + (run ? " run" + (j.source === "web" ? " web" : "") : "");
+  const pct = Math.max(0, Math.min(100, Number(j.pct) || 0));
+  $("pct").textContent = pct.toFixed(pct % 1 ? 1 : 0) + "%";
+  $("bar").style.width = pct + "%";
+  $("phase").textContent = run
+    ? ((j.stage || "đang chạy") + (j.language ? " · " + j.language : ""))
+    : (j.last_result ? ("kết thúc: " + (j.last_result.status || (j.last_result.ok ? "done" : "error")))
+                     : "chưa có run");
+  $("sLang").textContent = j.language || "—";
+  $("sDay").textContent = j.total_days
+    ? (j.day || 0) + " / " + j.total_days + " ngày" : "—";
+  $("sElapsed").textContent = run && j.elapsed_s
+    ? (Math.floor(j.elapsed_s/60) + "m " + (j.elapsed_s%60) + "s") : "—";
+  $("sSrc").textContent = run ? (j.source === "gui" ? "GUI (app)" : "Web") : "—";
+  if (j.stop_requested && stopShown !== true){
+    $("sStop").textContent = "đang yêu cầu dừng…"; stopShown = true;
+  } else if (!j.stop_requested){ stopShown = null;
+    if (!run) $("sStop").textContent = j.last_result
+      ? (j.last_result.status || "-") : "—";
+  }
+  $("btnStart").disabled = !authed || run;
+  const bs = $("btnStop");
+  bs.classList.toggle("on", run);
+  bs.disabled = !authed;
+}
+
+/* ── Log (poll since_id) ── */
+function esc(s){const d=document.createElement("div");d.textContent=s;return d.innerHTML;}
+function addLine(l){
+  const box = $("logBox");
+  const cls = /❌|FAIL|lỗi/i.test(l.msg) ? "err"
+            : /🏁|✅|OK|PASS/i.test(l.msg) ? "ok" : "";
+  const div = document.createElement("div");
+  div.className = cls;
+  div.innerHTML = '<span class="t">[' + esc(l.t) + ']</span> ' + esc(l.msg);
+  box.appendChild(div);
+  while (box.children.length > 2000) box.removeChild(box.firstChild);
+  $("logCount").textContent = box.children.length + " dòng";
+  if ($("autoScroll").checked) box.scrollTop = box.scrollHeight;
+}
+async function pollLogs(){
+  let j;
+  try{ j = await api("/api/vocab/dash/logs?since=" + lastId); }
+  catch(e){ return; }
+  (j.lines || []).forEach(addLine);
+  lastId = j.last_id || lastId;
+}
+$("btnClear").onclick = () => { $("logBox").innerHTML = ""; $("logCount").textContent = "0 dòng"; };
+
+/* ── Start / Dừng ── */
+$("btnStart").onclick = async () => {
+  const lang = $("lang").value;
+  if (!lang){ toast("⚠ Chọn khóa học trước"); return; }
+  $("btnStart").disabled = true;
+  try{
+    const j = await api("/api/vocab/dash/start", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({
+        language: lang,
+        level: $("level").value || null,
+        words_per_day: parseInt($("wpd").value, 10) || 10,
+        target_days: parseInt($("days").value, 10) || null,
+        force_new: $("force").checked
+      })
+    });
+    if (j.ok){ toast("▶ Đã gửi lệnh Start"); pollStatus(); pollLogs(); }
+    else toast("⚠ " + (j.reason || "không start được"));
+  }catch(e){ toast("❌ Lỗi: " + e.message); }
+  finally{ pollStatus(); }
+};
+$("btnStop").onclick = async () => {
+  if (!$("btnStop").classList.contains("on")) return;
+  try{
+    await api("/api/vocab/dash/stop", {method:"POST"});
+    toast("⏹ Đã gửi lệnh Dừng (≤1s)"); pollLogs(); pollStatus();
+  }catch(e){ toast("❌ Lỗi: " + e.message); }
+};
+
+/* ── Boot ── */
+setAuth(!!TOKEN);
+pollStatus(); pollLogs(); loadCourses();
+setInterval(pollStatus, 2000);
+setInterval(pollLogs, 1500);
+</script>
+</body>
+</html>

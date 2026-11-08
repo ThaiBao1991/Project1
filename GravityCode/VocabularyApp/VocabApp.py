@@ -3680,7 +3680,10 @@ class CourseGenerationDialog(ctk.CTkToplevel):
         super().__init__(parent)
         self.app = app
         self.on_finished = on_finished
-        self._stop_event = threading.Event()
+        # DÙNG CHUNG stop event với Dashboard web (localhost): nút ⏹ ở đây
+        # và ⏹ trên web set cùng 1 sự kiện → pipeline dừng ≤1s (§7.16).
+        from ai.pipeline_control import STOP_EVENT
+        self._stop_event = STOP_EVENT
         self._running = False
 
         self.title("Sinh khóa học AI chuyên sâu")
@@ -3885,6 +3888,13 @@ class CourseGenerationDialog(ctk.CTkToplevel):
         self.lbl_level_info.configure(text=text, text_color=text_color)
 
     def _log(self, msg):
+        # Ghi cả vào buffer chung để Dashboard web đọc được log realtime (§7.16)
+        try:
+            from ai.pipeline_control import log_append
+            log_append(msg)
+        except Exception:
+            pass
+
         def _append():
             self.log_box.configure(state="normal")
             self.log_box.insert("end", f"[{time.strftime('%H:%M:%S')}] {msg}\n")
@@ -4042,6 +4052,13 @@ class CourseGenerationDialog(ctk.CTkToplevel):
         level = self.cb_level.get() or DEFAULT_LEVEL
         self._running = True
         self._stop_event.clear()
+        try:
+            from ai import pipeline_control as _pctl
+            _pctl.set_running(True, source="gui",
+                              language=self.app.current_language,
+                              level=level, mode="supplement")
+        except Exception:
+            pass
         self.btn_start.configure(state="disabled")
         self.btn_supplement.configure(state="disabled")
         self.btn_stop.configure(state="normal")
@@ -4071,6 +4088,19 @@ class CourseGenerationDialog(ctk.CTkToplevel):
     def _start(self):
         if self._running:
             return
+        # Guard chung với Dashboard web: web đang chạy → không start thêm (§7.16)
+        try:
+            from ai import pipeline_control as _pctl
+            if _pctl.is_running():
+                src = _pctl.status_snapshot().get("source", "?")
+                messagebox.showwarning(
+                    "Pipeline đang chạy",
+                    f"Đang có run từ {'web dashboard' if src == 'web' else 'GUI'} — "
+                    "chờ nó xong hoặc bấm Dừng trước.",
+                    parent=self)
+                return
+        except Exception:
+            pass
         try:
             wpd = int(self.cb_wpd.get())
         except ValueError:
@@ -4080,6 +4110,14 @@ class CourseGenerationDialog(ctk.CTkToplevel):
 
         self._running = True
         self._stop_event.clear()
+        try:
+            from ai import pipeline_control as _pctl
+            _pctl.set_running(True, source="gui",
+                              language=self.app.current_language,
+                              level=level, mode="full",
+                              total_days=target_days or 0)
+        except Exception:
+            pass
         self.btn_start.configure(state="disabled")
         self.btn_supplement.configure(state="disabled")
         self.btn_stop.configure(state="normal")
@@ -4089,6 +4127,12 @@ class CourseGenerationDialog(ctk.CTkToplevel):
 
         def _on_day_done(day, total, lesson):
             frac = day / max(total, 1)
+            try:
+                from ai.pipeline_control import set_progress
+                set_progress({"pct": frac * 100.0, "day": day,
+                              "total_days": total})
+            except Exception:
+                pass
             self.after(0, lambda f=frac: self.progress.set(f))
 
         def _worker():
@@ -4121,9 +4165,7 @@ class CourseGenerationDialog(ctk.CTkToplevel):
                         workers=4,
                         log_fn=self._log,
                         stop_check=self._stop_event.is_set,
-                        on_progress=lambda p: self.after(
-                            0, lambda: self.progress.set(
-                                max(0.0, min(1.0, p.get("pct", 0) / 100.0)))),
+                        on_progress=lambda p: self._on_pipeline_progress(p),
                     )
                     self._log(f"🏁 {res['status'].upper()}: {res['days_done']}/{res['total_days']} ngày, "
                               f"calls={res['calls']}, ảnh={res['images']}. "
@@ -4151,8 +4193,26 @@ class CourseGenerationDialog(ctk.CTkToplevel):
 
         threading.Thread(target=_worker, daemon=True).start()
 
+    def _on_pipeline_progress(self, p):
+        """on_progress của run_pipeline: đẩy lên Dashboard + thanh tiến độ GUI."""
+        try:
+            from ai.pipeline_control import set_progress
+            set_progress(p)
+        except Exception:
+            pass
+        try:
+            frac = max(0.0, min(1.0, (p.get("pct") or 0) / 100.0))
+            self.after(0, lambda f=frac: self.progress.set(f))
+        except Exception:
+            pass
+
     def _done(self, success):
         self._running = False
+        try:
+            from ai.pipeline_control import set_running
+            set_running(False)
+        except Exception:
+            pass
         self.btn_start.configure(state="normal")
         self.btn_supplement.configure(state="normal")
         self.btn_stop.configure(state="disabled")
@@ -6663,6 +6723,36 @@ class App(ctk.CTk):
 
         self.set_language(self.current_language)
         self.protocol("WM_DELETE_WINDOW", self.on_close)
+
+        # Dashboard web (localhost): tự bật bridge khi app mở → dùng được ngay
+        # http://127.0.0.1:5690/dashboard không cần bấm nút trong Cài đặt (§7.16).
+        self.after(1200, self._autostart_bridge)
+
+    def _autostart_bridge(self):
+        """Tự bật bridge server + cập nhật nhãn ở tab Cài đặt (nếu có)."""
+        try:
+            from ai.web_ai_bridge import get_bridge
+            b = get_bridge()
+        except Exception:
+            b = None
+        vs = getattr(self, "view_sync", None)
+        if vs is None:
+            return
+        try:
+            if b is None:
+                vs.lbl_bridge.configure(
+                    text="Trạng thái: Chưa bật (thiếu Flask?)",
+                    text_color=C["danger"])
+                return
+            vs._bridge_on = True
+            vs.btn_bridge.configure(text="⏹ Tắt Bridge")
+            vs.lbl_bridge.configure(
+                text=(f"Trạng thái: ĐANG CHẠY tại http://127.0.0.1:{b.port}"
+                      " · Dashboard: /dashboard"),
+                text_color=C["success"])
+            vs.lbl_bridge_token.configure(text=b.token)
+        except Exception:
+            pass
 
     def on_close(self):
         """Đóng app: dừng mọi audio đang phát (kể cả TTS pygame) rồi thoát."""

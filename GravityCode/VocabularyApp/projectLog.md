@@ -275,6 +275,19 @@
 **KHÔNG làm:** P6b (rate-limiter chia sẻ 2 tiến trình) · chưa trả lời câu hỏi 10 key/account tạo cùng 1 project hay 10 project riêng (ảnh hưởng lock_key vs lock_account dài hạn).
 
 ---
+## 📋 Cập nhật mới nhất — 2026-11-08 (Dashboard web localhost: Start/Dừng · log realtime · tiến độ từ trình duyệt)
+
+**Yêu cầu:** giao diện web HTML trên CÙNG máy để điều khiển pipeline (Start/Dừng, xem log realtime + tiến độ) từ trình duyệt.
+
+**Đã làm:**
+1. **`ai/pipeline_control.py` (MỚI)** — trạng thái DÙNG CHUNG GUI↔web: `STOP_EVENT` singleton (nút ⏹ cả2 phía set cùng1 sự kiện → dừng ≤1s) · LOG buffer ring 2000 dòng có id + timestamp · STATUS {running, source, language, pct, day, stage, last_result} · `start_pipeline()` guard `already_running` + luôn clear stop cũ · `_run_pipeline` seam cho test mock.
+2. **`web/dashboard.html` (MỚI)** — self-contained: dropdown khóa (đọc DB thật) + cấp độ + từ/ngày + số ngày + force_new · ▶Start/⏹Dừng · thanh tiến độ/elapsed/nguồn (GUI/Web) · log timestamp auto-scroll poll `since_id` · ô token (auth khi chưa đăng nhập).
+3. **`ai/bridge_server.py`** — thêm `GET /dashboard` +5 API `dash/*` (status/logs/courses/start/stop); **auth bắt buộc** header `X-Vocab-Bridge` hoặc `?token=` → 401; nhúng token chỉ khi `?token=` đúng; 400/409 phân loại lỗi; fix import khi chạy CLI (`sys.path` base dir + `_pctl()`).
+4. **`VocabApp.py`** — dialog dùng chung `STOP_EVENT`; `_log` ghi buffer (web đọc được log GUI); `_start` guard không start đôi với web + `set_running(gui)`; `_on_pipeline_progress` đẩy progress lên STATUS; `_done` set running False; **auto-start bridge khi app mở** → mở app là dùng ngay `http://127.0.0.1:5690/dashboard`.
+
+**Test:** `tools/test_web_dashboard.py` **42/42** (Flask test client + mock run —0 cổng,0 mạng) · test thật server CLI + HTTP + browser: health/dashboard/status/logs/courses 200 (2 khóa thật +7 levels), thiếu token 401, trang auto-auth, log `[13:58:54] ⏹ Dashboard:…` hiện realtime. Suite xanh: dashboard42 · quota94 · media25 · keymgr111 · 3mode41 · slug6 · adaptive7 · ai_rich85 · smoke PASS · cooldown PASS · compile0. Chi tiết: `docs/UPGRADE_17.md` mục **7.16**.
+
+---
 ## 📋 Cập nhật mới nhất — 2026-11-07c (Fix nút Dừng · log timestamp · 400 "API key not valid" hết spam)
 
 **Triệu chứng:** bấm ⏹ nhưng pipeline vẫn chạy + spam `⚠ 'model' fail (400 — API key not valid…) → thử 'model kế'` lặp vô hạn; log không có ngày giờ.
