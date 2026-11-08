@@ -131,9 +131,27 @@ Tài liệu quy chuẩn bắt buộc áp dụng khi xây dựng các module gọ
 ### 🛡️ 13. Phân Loại Trực Quan Trạng Thái Key (Tri-State Visual Status & Safe Cleaning)
 - Kết quả kiểm tra key phải phân loại rõ ràng 3 trạng thái:
   - `✅` (Xanh): Key hoạt động tốt.
-  - `⚠` (Cam): Cảnh báo tạm thời (HTTP 503 Server bận, HTTP 429 Hết quota tạm thời, Timeout mạng) $ightarrow$ **Key vẫn sống**, giữ lại để phục vụ dịch, tuyệt đối không đánh đồng với key hỏng.
+  - `⚠` (Cam): Cảnh báo tạm thời (HTTP 503 Server bận, HTTP 429 Hết quota tạm thời, Timeout mạng) $
+ightarrow$ **Key vẫn sống**, giữ lại để phục vụ dịch, tuyệt đối không đánh đồng với key hỏng.
   - `❌` (Đỏ): Key chết thực sự (HTTP 401 Unauthorized, HTTP 400 API key not valid, HTTP 403 Service account deleted/disabled/revoked).
 - Tính năng "🧹 Xóa Key Lỗi" CHỈ ĐƯỢC PHÉP lọc và xóa các dòng có dấu `❌` đỏ, bảo vệ an toàn 100% cho các dòng `⚠` màu cam.
+
+### 🛡️ 14. Khắc phục Lỗi Trượt Cooldown (The Sliding Carousel 429 Bug) & Nhận diện Google Daily Limit chuẩn xác
+1. **Lỗi Trượt Cooldown (Sliding Carousel 429 Bug)**:
+   - Khi có nhiều tài khoản (ví dụ 14 accounts), việc duyệt tuần tự các model và nghỉ 10s giữa 3 accounts tốn khoảng 70-80s.
+   - Nếu chỉ đặt cooldown cố định 65s cho 429 RPM: Khi account cuối cùng vừa dính 429 thì account đầu tiên đã hết 65s cooldown (`wait_sec <= 0`). Hệ thống lập tức nhảy vào thử lại account 1 chỉ sau 1s, tạo thành **vòng xoáy carousel vô tận** không lối thoát.
+   - **Quy chuẩn bắt buộc**: Khi toàn bộ các account trong pool đều đã được thử và thất bại trong cùng 1 vòng lặp (`all_exhausted_this_round`): **Bắt buộc áp dụng thời gian chờ an toàn tối thiểu 60 giây**, đếm ngược từng mốc (60s, 30s, 15s, 5s) trước khi cho phép bắt đầu vòng lặp mới.
+   - Áp dụng **Exponential Backoff** cho số lần liên tiếp dính 429 RPM của từng account: Lần 1: 65s -> Lần 2: 120s -> Lần 3+: 300s. Reset về 0 ngay khi có request thành công (200 OK).
+
+2. **Nhận diện chuẩn xác 100% Google Daily Limit (Space-tolerant Regex)**:
+   - Google API trả về thông điệp lỗi Daily Limit có chứa khoảng trắng: `Quota exceeded for quota metric 'Generate Content API requests' and limit 'Requests per day per project'...`
+   - **Cấm kỵ**: Chỉ kiểm tra `"perday"` (viết liền) sẽ bỏ sót toàn bộ chuỗi lỗi thật của Google, khiến Daily Limit (cần khóa 24h) bị hiểu nhầm thành RPM (chỉ khóa 65s), dẫn đến xoay vòng vô nghĩa.
+   - **Bắt buộc**: Sử dụng bộ nhận diện đa dạng có khoảng trắng:
+     `daily_markers = ("per day", "requests per day", "day per project", "daily", "perday", "per-day", "free_tier_requests_per_day", "quota_daily", "rpd")`
+
+3. **Ngăn ngừa Spam 0ms giữa các Model trên cùng một Account khi lỗi cấp Dự án**:
+   - Khi một account bị Google trả về mã lỗi 429 cấp độ Project (`RATE_LIMIT_EXCEEDED` / `Requests per day per project` / `Resource has been exhausted`): Toàn bộ các model (`flash-lite`, `flash`, `flash-preview`) thuộc account đó đều bị khóa đồng thời.
+   - Tuyệt đối KHÔNG gọi tiếp 2-3 model dự phòng khác trong cùng 1 tick 0ms trên cùng account đó. Ngay khi nhận diện lỗi Project-level: Khóa tạm account đó và chuyển ngay sang Account khác (`break` khỏi model loop).
 
 ---
 

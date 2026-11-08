@@ -78,3 +78,17 @@ Tất cả các AI khi làm việc trên máy tính này trong tương lai đề
     - Các nút 1-chạm: `[🚀 ĐỒNG BỘ TẤT CẢ (Push-All)]`, `[🔍 QUÉT THU HOẠCH (Harvest)]`, `[➕ THÊM MỚI]`, `[📁 MỞ THƯ MỤC]`.
     - Xử lý đa luồng (`threading.Thread` + `queue.Queue`), giao diện luôn mượt 60fps không giật đơ.
   * Tạo file launcher tiện dụng `Run_SkillRuleHub.bat`.
+
+
+---
+
+## 2026-11-05 — Mở Rộng Đồng Bộ 2 Chiều Project 1 $\Leftrightarrow$ Project 2 (SettingAILocal)
+
+### 1. Bối Cảnh & Quyết Định
+- Kết nối kho kỹ năng và quy chuẩn giữa **Project 1** (`.../Project1`) và **Project 2** (`.../Project2/SettingAILocal`).
+- Thiết lập cơ chế tự động đồng bộ 2 chiều: Mọi skill/rule mới ở Project 1 sẽ tự động sang Project 2; ngược lại mọi skill/rule mới trong tương lai ở Project 2 sẽ tự động vào lại Project 1 và Global (~/.gemini/config).
+
+### 2. Triển Khai
+- Nâng cấp `sync_skills_rules.py` hỗ trợ thuật toán đồng bộ 2 chiều `sync_directory_bidirectional` (mtime resolution).
+- Thiết lập đầy đủ 25 Skills, 10 Rules, `README.md`, `ProjectLog.md`, `SkillRuleApp.py` và thư mục runtime `.agents` tại Project 2.
+- Cập nhật quy chuẩn toàn cục `skill_rule_sync_protocol.md`, `workflow_rules.md`, `AGENTS.md`.

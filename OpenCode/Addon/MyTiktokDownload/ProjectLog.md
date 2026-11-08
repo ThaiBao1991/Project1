@@ -35,6 +35,7 @@
 | 2026-10-12 | Tích hợp tính năng Web Viewer PWA (từ myfaveTT_viewer) qua src/viewer_sync.py: Tổng hợp 6,500+ tác giả ra webapp/data.json và deploy lên GitHub Pages bằng in-memory auth (không lưu token vào git config) |
 | 2026-10-12 | Nâng cấp gui_manager.py v1.1.0: Thêm Tab "Web Viewer (PWA)" cho phép cấu hình Repo, Token ẩn, 1-Click tạo data & deploy GitHub Pages, mở web trên điện thoại |
 | 2026-11-03 | Sửa dứt điểm lỗi kẹt spinner (2 chấm xoay vòng đỏ/xanh) khi click "Download all my Favorites": Chuyển s.js & r.js sang window.addEventListener('message') chống bị TikTok ghi đè, bọc an toàn chống crash destructure e.data, hỗ trợ linh hoạt origin tiktok.com / www.tiktok.com, gán targetOrigin '*' khi relay và log debug [myfaveTTT] chi tiết |
+| 2026-11-09 | Triệt để Auto-Skip khi gặp lỗi tải/fetch trên Extension: Vô hiệu hóa `k.se()` trong hàm `h()` để không tăng `k.p++` gây ngắt vòng lặp; thay `break;` bằng `continue;` khi dính `Mar695` trong `Or()`; mở rộng danh sách mã lỗi validation `__DL`; tự động ghi nhận video lỗi vào `failed_videos.json` (hàng đợi Python) và lập tức chuyển sang video tiếp theo mà không dừng hay treo tab |
 
 ---
 

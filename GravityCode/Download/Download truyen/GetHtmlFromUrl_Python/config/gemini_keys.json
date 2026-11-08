@@ -165,7 +165,10 @@
     "email": "gamesvendn09@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_21",
@@ -173,7 +176,10 @@
     "email": "gamesvendn09@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_22",
@@ -181,7 +187,10 @@
     "email": "gamesvendn09@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_23",
@@ -189,7 +198,10 @@
     "email": "gamesvendn09@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_24",
@@ -197,7 +209,10 @@
     "email": "gamesvendn09@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_25",
@@ -205,7 +220,10 @@
     "email": "gamesvendn09@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_26",
@@ -213,7 +231,10 @@
     "email": "gamesvendn09@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_27",
@@ -221,7 +242,10 @@
     "email": "gamesvendn09@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_28",
@@ -229,7 +253,10 @@
     "email": "gamesvendn09@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_29",
@@ -237,7 +264,10 @@
     "email": "gamesvendn09@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_30",
@@ -245,7 +275,10 @@
     "email": "gamesvendn10@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_31",
@@ -253,7 +286,10 @@
     "email": "gamesvendn10@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_32",
@@ -261,7 +297,10 @@
     "email": "gamesvendn10@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_33",
@@ -269,7 +308,10 @@
     "email": "gamesvendn10@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_34",
@@ -277,7 +319,10 @@
     "email": "gamesvendn10@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_35",
@@ -285,7 +330,10 @@
     "email": "gamesvendn10@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_36",
@@ -293,7 +341,10 @@
     "email": "gamesvendn10@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_37",
@@ -301,7 +352,10 @@
     "email": "gamesvendn10@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_38",
@@ -309,7 +363,10 @@
     "email": "gamesvendn10@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_39",
@@ -317,7 +374,10 @@
     "email": "gamesvendn10@gmail.com",
     "status": "active",
     "note": "",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_40",
@@ -485,7 +545,10 @@
     "email": "gamesvendn13@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_61",
@@ -493,7 +556,10 @@
     "email": "gamesvendn13@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_62",
@@ -501,7 +567,10 @@
     "email": "gamesvendn13@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_63",
@@ -509,7 +578,10 @@
     "email": "gamesvendn13@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_64",
@@ -517,7 +589,10 @@
     "email": "gamesvendn13@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_65",
@@ -525,7 +600,10 @@
     "email": "gamesvendn13@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_66",
@@ -533,7 +611,10 @@
     "email": "gamesvendn13@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_67",
@@ -541,7 +622,10 @@
     "email": "gamesvendn13@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_68",
@@ -549,7 +633,10 @@
     "email": "gamesvendn13@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_69",
@@ -557,7 +644,10 @@
     "email": "gamesvendn13@gmail.com",
     "status": "active",
     "note": "",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_70",
@@ -645,7 +735,10 @@
     "email": "gamesvendn01@gmail.com",
     "status": "active",
     "note": "",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_81",
@@ -653,7 +746,10 @@
     "email": "gamesvendn01@gmail.com",
     "status": "active",
     "note": "",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_82",
@@ -661,7 +757,10 @@
     "email": "gamesvendn01@gmail.com",
     "status": "active",
     "note": "",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_83",
@@ -669,7 +768,10 @@
     "email": "gamesvendn01@gmail.com",
     "status": "active",
     "note": "",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_84",
@@ -677,7 +779,10 @@
     "email": "gamesvendn01@gmail.com",
     "status": "active",
     "note": "",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_85",
@@ -685,7 +790,10 @@
     "email": "gamesvendn01@gmail.com",
     "status": "active",
     "note": "",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_86",
@@ -693,7 +801,10 @@
     "email": "gamesvendn01@gmail.com",
     "status": "active",
     "note": "",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_87",
@@ -701,7 +812,10 @@
     "email": "gamesvendn01@gmail.com",
     "status": "active",
     "note": "",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_88",
@@ -709,7 +823,10 @@
     "email": "gamesvendn01@gmail.com",
     "status": "active",
     "note": "",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_89",

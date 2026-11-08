@@ -244,7 +244,7 @@ function __tttExportFailedJson(){
 }
 window.__tttExportFailedJson = __tttExportFailedJson;
 
-var __DL = ["bi60","bi63","bi127","bi130","doa22","Shc782","ll107","dfo96"];
+var __DL = ["bi60","bi63","bi127","bi130","doa22","Shc782","ll107","dfo96","Qkc489","Knl767","Zeu868","Cpq844","Vxc172","va38","Mxt490"];
 var __FETCH = ["Mar695","Chv322","Uhb368","Swa471","Yzy056","Qot679","Ifw969","Jsy087","ll88","Dyb767","Mcy770","Onn977"];
 
 window.__tttOnErr = function(code, msg){
@@ -320,22 +320,15 @@ window.__tttOnErr = function(code, msg){
         msg: msg.slice(0, 300)
       });
       if(window.__tttFetchLog.length > 20) window.__tttFetchLog.length = 20;
-      // Always show toast notification for fetch errors
-      __tttShowToast(code, msg);
     }
 
-    // Determine stop behavior
-    if(isDL){
-      if(window.__tttAutoSkip){
-        window.__tttStop = false;
-        __tttShowToast(code, msg);
-        __renderMiniBadge();
-      } else {
-        window.__tttStop = true;
-        __render(code, msg, url, cur, isDL);
-      }
+    // Luôn ưu tiên Auto-Skip: Ghi vào queue cho Python và BỎ QUA CHẠY TIẾP, KHÔNG DỪNG!
+    if(window.__tttAutoSkip){
+      window.__tttStop = false;
+      __tttShowToast(code, (isFetch ? "Mẻ lỗi [" + code + "]: " : "Lỗi tải [" + code + "]: ") + "Đã gom vào Python queue để tải sau. Đang tải tiếp...");
+      __renderMiniBadge();
     } else {
-      // Fetch error: always render modal (not just badge) to show message clearly
+      window.__tttStop = true;
       __render(code, msg, url, cur, isDL);
     }
   } catch(e){}

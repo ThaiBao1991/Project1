@@ -53,9 +53,10 @@ Tài liệu quy chuẩn bắt buộc áp dụng khi xây dựng các module gọ
 | Mã HTTP | Tình trạng | Nguyên nhân | Hành động chuẩn |
 | :--- | :--- | :--- | :--- |
 | **`200 OK`** | **Active** | Key sống, model hỗ trợ | Cập nhật `last_check_time`, tăng bộ đếm lượt gọi, tiếp tục sử dụng. |
-| **`429` (Rate/Daily)** | **Exhausted** | Hết Quota hoặc quá tốc độ RPM | **Khóa Cooldown 60 phút (3600s)** cho tài khoản đó, tự động đổi sang tài khoản khác. |
+| **`429` (Rate/Daily)** | **Exhausted** | Hết Quota hoặc quá tốc độ RPM | **Khóa Cooldown 60 phút (3600s)** cho Daily hoặc theo `retryDelay` (65s) cho RPM. Tự động đổi sang tài khoản khác. |
 | **`503` (Overloaded)** | **Active (Busy)** | Server Google quá tải tạm thời | **Giữ nguyên trạng thái Active** (KHÔNG đánh dấu invalid). Đổi sang tài khoản khác với Random Jitter Delay (1.0s - 2.2s). |
-| **`401 / 403 / 400`** | **Invalid** | Key bị thu hồi (`API_KEY_INVALID`) | Đánh dấu `invalid` (loại bỏ khỏi pool). |
+| **`401` (Unauthorized)** | **Invalid** | Key sai, bị thu hồi, hoặc Service Account bị xóa/vô hiệu hóa | **Đánh dấu `invalid` vĩnh viễn**. **Ngắt ngay vòng lặp model (Blind Fire)**, chuyển thẳng sang account khác, KHÔNG thử các model tiếp theo trên key chết. |
+| **`403` (Forbidden)** | **Invalid / Restrict** | Bị cấm quyền truy cập hoặc giới hạn model | Nếu do quyền tài khoản/billing/service account: đánh dấu `invalid`. Nếu do model restriction: ghi nhớ per-account và chuyển model khác. |
 | **`500 / 502 / 504`** | **Server/Network** | Lỗi mạng hoặc hạ tầng Google | Thử lại có giãn cách Exponential Backoff (tối đa 2 lần). |
 | **Nội bộ** | **`ALL_BUDGET_EXHAUSTED`** | Tất cả tài khoản trong pool đều đạt ngân sách ngày | **Dừng an toàn toàn bộ pipeline**, lưu checkpoint `session.json`, nghỉ ngơi đến 0h ngày hôm sau. |
 
@@ -72,7 +73,8 @@ Tài liệu quy chuẩn bắt buộc áp dụng khi xây dựng các module gọ
 
 ### 🛡️ 2. Giãn cách trên CÙNG 1 TÀI KHOẢN (`PER_ACCOUNT_MIN_GAP >= 8.0s`)
 - Không bao giờ bắn liên tiếp 2 request vào cùng 1 tài khoản trong thời gian ngắn.
-- Nếu phải gọi lại cùng tài khoản, bắt buộc chờ ít nhất **8 - 15 giây** hoặc tự động luân chuyển Round-Robin sang tài khoản khác.
+- **KHOÁ CỨNG KỂ CẢ KHI CHỈ CÒN 1 ACCOUNT**: Dù trong pool chỉ còn đúng 1 account duy nhất hoạt động, hệ thống vẫn bắt buộc đo khoảng cách từ lần gọi trước. Nếu chưa đủ `8.0s`, chủ động dừng ngủ bù số giây còn thiếu trước khi gửi request tiếp theo để không bao giờ vượt trần RPM.
+- Khi có nhiều account: tự động ưu tiên Round-Robin sang các account đã nghỉ ngơi `>= 8.0s`.
 
 ### 🛡️ 3. Giới hạn số lần thử lại tối đa (`MAX_ATTEMPTS = 3`)
 - Khi gặp lỗi (429, 503), mỗi prompt tối đa chỉ thử qua **3 tài khoản khác nhau**.
@@ -98,6 +100,58 @@ Tài liệu quy chuẩn bắt buộc áp dụng khi xây dựng các module gọ
 ### 🛡️ 8. Bộ đếm Bền vững Qua Phiên Làm Việc (Session-Persistent Call Tracking)
 - Theo dõi lượt gọi song song theo ngày `YYYY-MM-DD`: tổng toàn cục, tổng theo account (`email`), tổng theo key.
 - Đồng bộ các trường `today_calls`, `today_account_calls`, `call_date` vào đĩa (`settings.json`). Khi ứng dụng khởi động lại giữa ngày, bộ đếm tự động khôi phục, ngăn ngừa việc gọi vượt hạn ngạch do restart app.
+
+---
+
+### 🛡️ 9. Cơ chế Hàng Đợi Cooldown Thông Minh (Smart Cooldown Queue)
+- Khi toàn bộ tài khoản trong pool đều đang bị tạm khóa cooldown (do 429 RPM hoặc rate limit):
+  - **TUYỆT ĐỐI KHÔNG DỪNG / CRASH TIẾN TRÌNH**.
+  - Tính thời gian chờ ngắn nhất đến khi tài khoản sớm nhất hồi phục (`soonest_acct = min(cd_until - now)`).
+  - Nếu `wait_sec <= 300s`: Tự động đếm ngược chờ đủ số giây, hiển thị tiến độ cho người dùng và tự động tiếp tục công việc khi tài khoản sẵn sàng.
+  - Chỉ dừng khi 100% key trong pool bị `HTTP 401 / Invalid` (chết vĩnh viễn không thể hồi phục).
+
+### 🛡️ 10. Ngắt Lỗi Xác Thực 401 & 400 Dead Key Tức Thì (Instant 401/400 Auth Break)
+- Mã lỗi **HTTP 401** và **HTTP 400 ("API key not valid")**:
+  - Bao gồm `API_KEY_INVALID`, `The bound service account is deleted or disabled`, và `API key not valid. Please pass a valid API key`.
+  - Đây là lỗi của **KEY / ACCOUNT**, hoàn toàn KHÔNG liên quan đến Model.
+  - Khi gặp 401 hoặc 400 với thông điệp key không hợp lệ: Đánh dấu key là `invalid` ngay lập tức, ngắt ngay khỏi vòng lặp model (`break`) và chuyển sang account khác (Blind Fire). TUYỆT ĐỐI KHÔNG lặp thử 8 models trên cùng 1 key chết gây lãng phí thời gian và nghẽn luồng.
+
+### 🛡️ 11. Đồng Bộ Động Danh Sách Key In-Memory (Dynamic Pool Hot-Reload)
+- Khi người dùng thêm, xóa, sửa hoặc lọc bỏ key lỗi (❌) từ giao diện Quản lý API Key:
+  - Hệ thống BẮT BUỘC gọi cập nhật ngay lập tức vào `AccountPool` in-memory đang chạy (`pool.sync(...)`).
+  - Hộp thoại Quản lý Key khi đóng bằng bất kỳ cách nào (nút Đóng, Lưu & Áp Dụng, hoặc dấu [X]) đều phải tự động tải lại danh sách key hiển thị trên giao diện chính.
+  - Đảm bảo các key vừa bị xóa biến mất khỏi RAM ngay tức khắc, không bao giờ bị gọi lại trong các chương dịch tiếp theo mà không cần khởi động lại ứng dụng.
+
+### 🛡️ 12. Fallback Model Nội Bộ Khi Gặp 429 RPM (Intra-Account Model Fallback)
+- Khi một model gặp HTTP 429 RPM (Resource Exhausted tạm thời):
+  - **KHÔNG được vội khóa account ngay và ngắt vòng lặp model**: Google cấp hạn ngạch RPM độc lập cho từng model (ví dụ: `gemini-3.5-flash-lite`, `gemini-3-flash-preview`, `gemini-3.5-flash` đều có quota bucket riêng).
+  - Hệ thống BẮT BUỘC thử ngay model dự phòng tiếp theo trên cùng account đó trước khi quyết định khóa account.
+  - Chỉ khi TẤT CẢ các model khả dụng của account đó đều trả về 429 hoặc gặp 429 Daily Limit, lúc đó mới khóa account đó và chuyển account khác.
+
+### 🛡️ 13. Phân Loại Trực Quan Trạng Thái Key (Tri-State Visual Status & Safe Cleaning)
+- Kết quả kiểm tra key phải phân loại rõ ràng 3 trạng thái:
+  - `✅` (Xanh): Key hoạt động tốt.
+  - `⚠` (Cam): Cảnh báo tạm thời (HTTP 503 Server bận, HTTP 429 Hết quota tạm thời, Timeout mạng) $
+ightarrow$ **Key vẫn sống**, giữ lại để phục vụ dịch, tuyệt đối không đánh đồng với key hỏng.
+  - `❌` (Đỏ): Key chết thực sự (HTTP 401 Unauthorized, HTTP 400 API key not valid, HTTP 403 Service account deleted/disabled/revoked).
+- Tính năng "🧹 Xóa Key Lỗi" CHỈ ĐƯỢC PHÉP lọc và xóa các dòng có dấu `❌` đỏ, bảo vệ an toàn 100% cho các dòng `⚠` màu cam.
+
+### 🛡️ 14. Khắc phục Lỗi Trượt Cooldown (The Sliding Carousel 429 Bug) & Nhận diện Google Daily Limit chuẩn xác
+1. **Lỗi Trượt Cooldown (Sliding Carousel 429 Bug)**:
+   - Khi có nhiều tài khoản (ví dụ 14 accounts), việc duyệt tuần tự các model và nghỉ 10s giữa 3 accounts tốn khoảng 70-80s.
+   - Nếu chỉ đặt cooldown cố định 65s cho 429 RPM: Khi account cuối cùng vừa dính 429 thì account đầu tiên đã hết 65s cooldown (`wait_sec <= 0`). Hệ thống lập tức nhảy vào thử lại account 1 chỉ sau 1s, tạo thành **vòng xoáy carousel vô tận** không lối thoát.
+   - **Quy chuẩn bắt buộc**: Khi toàn bộ các account trong pool đều đã được thử và thất bại trong cùng 1 vòng lặp (`all_exhausted_this_round`): **Bắt buộc áp dụng thời gian chờ an toàn tối thiểu 60 giây**, đếm ngược từng mốc (60s, 30s, 15s, 5s) trước khi cho phép bắt đầu vòng lặp mới.
+   - Áp dụng **Exponential Backoff** cho số lần liên tiếp dính 429 RPM của từng account: Lần 1: 65s -> Lần 2: 120s -> Lần 3+: 300s. Reset về 0 ngay khi có request thành công (200 OK).
+
+2. **Nhận diện chuẩn xác 100% Google Daily Limit (Space-tolerant Regex)**:
+   - Google API trả về thông điệp lỗi Daily Limit có chứa khoảng trắng: `Quota exceeded for quota metric 'Generate Content API requests' and limit 'Requests per day per project'...`
+   - **Cấm kỵ**: Chỉ kiểm tra `"perday"` (viết liền) sẽ bỏ sót toàn bộ chuỗi lỗi thật của Google, khiến Daily Limit (cần khóa 24h) bị hiểu nhầm thành RPM (chỉ khóa 65s), dẫn đến xoay vòng vô nghĩa.
+   - **Bắt buộc**: Sử dụng bộ nhận diện đa dạng có khoảng trắng:
+     `daily_markers = ("per day", "requests per day", "day per project", "daily", "perday", "per-day", "free_tier_requests_per_day", "quota_daily", "rpd")`
+
+3. **Ngăn ngừa Spam 0ms giữa các Model trên cùng một Account khi lỗi cấp Dự án**:
+   - Khi một account bị Google trả về mã lỗi 429 cấp độ Project (`RATE_LIMIT_EXCEEDED` / `Requests per day per project` / `Resource has been exhausted`): Toàn bộ các model (`flash-lite`, `flash`, `flash-preview`) thuộc account đó đều bị khóa đồng thời.
+   - Tuyệt đối KHÔNG gọi tiếp 2-3 model dự phòng khác trong cùng 1 tick 0ms trên cùng account đó. Ngay khi nhận diện lỗi Project-level: Khóa tạm account đó và chuyển ngay sang Account khác (`break` khỏi model loop).
 
 ---
 
