@@ -1,0 +1,1 @@
+httpshuggingface.comlabonneMeta-Llama-3.1-8B-Instruct-abliterated-GGUFresolvemainmeta-llama-3.1-8b-instruct-abliterated.Q4_K_M.ggufdownload=true
