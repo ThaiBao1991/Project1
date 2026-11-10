@@ -280,23 +280,35 @@ if TOK:
 
     r = client.get("/data/index.json")
     j = r.get_json()
-    ck("data/index.json fallback → languages list KHÔNG rỗng (khóa AI thật)",
+    langs = (j.get("languages") or []) if r.status_code == 200 else []
+    ck("data/index.json → 200 + languages KHÔNG rỗng (file thật hoặc synth khóa AI)",
        r.status_code == 200 and isinstance(j.get("languages"), list)
-       and len(j.get("languages") or []) >= 1, j)
-    ck("index.json có 'tiếng_nhật' (course.json thật trên đĩa)",
-       "tiếng_nhật" in (j.get("languages") or []), j)
+       and len(langs) >= 1, j)
+    # Môi trường thích ứng: file THẬT có (Desktop đã export) → nội dung do nó
+    # quyết định; file THIẾU (worktree/chưa export) → BẮT BUỘC synth đúng khóa AI.
+    _idx_real = os.path.isfile(os.path.join(BASE, "data", "index.json"))
+    if not _idx_real:
+        ck("index.json THIẾU → synth có 'tiếng_nhật' (course.json thật trên đĩa)",
+           "tiếng_nhật" in langs, j)
 
-    slug0 = (j.get("languages") or ["tiếng_nhật"])[0]
+    slug0 = langs[0] if langs else "tiếng_nhật"
     r = client.get(f"/data/ai_courses/{slug0}/course.json")
     cj = r.get_json() if r.status_code == 200 else None
     ck("course.json THẬT → 200 + có mảng days (tab Khóa học AI render)",
        r.status_code == 200 and isinstance((cj or {}).get("days"), list),
        r.status_code)
 
+    _vocab_real = os.path.isfile(os.path.join(BASE, "data", f"{slug0}.json"))
     r = client.get(f"/data/{slug0}.json")
-    ck("vocab <slug>.json chưa export → {vocabularies:[]} 200 (UI sạch)",
-       r.status_code == 200 and r.get_json().get("vocabularies") == [],
-       r.get_json())
+    if _vocab_real:
+        ck("vocab <slug>.json THẬT đã export → 200 + có vocabularies",
+           r.status_code == 200
+           and isinstance(r.get_json().get("vocabularies"), list),
+           r.status_code)
+    else:
+        ck("vocab <slug>.json chưa export → {vocabularies:[]} 200 (UI sạch)",
+           r.status_code == 200 and r.get_json().get("vocabularies") == [],
+           r.get_json())
     ck("data thiếu (có '/') → 404 JSON",
        client.get("/data/nonexistent_dir/xx.json").status_code == 404)
     rt = client.get("/data/../../settings.json")
