@@ -2305,10 +2305,10 @@ Trả JSON MẢNG đúng số phần tử, mỗi phần {{"day":N,"prompt":"..."
                 if len(masked_key) > 10:
                     masked_key = masked_key[:4] + "*" * (len(masked_key)-8) + masked_key[-4:]
 
-                rt = k.get("reset_time", 0)
+                rt = k.get("reset_time") or 0
                 rt_str = datetime.datetime.fromtimestamp(rt).strftime('%Y-%m-%d %H:%M') if rt > 0 else "-"
 
-                lc = k.get("last_check_time", 0)
+                lc = k.get("last_check_time") or 0
                 lc_str = datetime.datetime.fromtimestamp(lc).strftime('%Y-%m-%d %H:%M') if lc > 0 else "-"
 
                 disp_status = k.get("status", "active")

@@ -62,6 +62,8 @@ class MainWindow(QMainWindow):
         self._download_range = (0, -1)   # (start_idx, end_idx)
         self._ebook_info_html = ""
         self._total_chapters = 0  # set khi nhận chapter_list_ready signal
+        self._detected_resume_data = None
+        self._detected_resume_path = ""
 
         self._build_menu()
         self._build_ui()
@@ -219,6 +221,7 @@ class MainWindow(QMainWindow):
         self.txt_save_path = QLineEdit()
         self.txt_save_path.setPlaceholderText("Chọn đường dẫn lưu file...")
         self.txt_save_path.setReadOnly(False)
+        self.txt_save_path.textChanged.connect(self._on_save_path_changed)
         self.btn_browse = QPushButton("📂 Chọn...")
         self.btn_browse.setFixedWidth(90)
         self.btn_browse.clicked.connect(self._on_browse_save)
@@ -291,12 +294,18 @@ class MainWindow(QMainWindow):
         self.btn_translate.setToolTip("Mở cửa sổ dịch truyện bằng AI (Gemini)")
         self.btn_translate.clicked.connect(self._on_translate_story)
 
+        self.btn_keys = QPushButton("🔑 Keys")
+        self.btn_keys.setFixedWidth(80)
+        self.btn_keys.setToolTip("Quản lý danh sách Gemini API Keys, kiểm tra Quota & mốc Reset 24h")
+        self.btn_keys.clicked.connect(self._on_open_key_manager)
+
         row3.addWidget(self.btn_host_count)
         row3.addWidget(self.cbo_page_config)
         row3.addWidget(self.btn_resume)
         row3.addWidget(self.btn_merge)
         row3.addWidget(self.btn_create_prc)
         row3.addWidget(self.btn_translate)
+        row3.addWidget(self.btn_keys)
         root.addLayout(row3)
 
         # ── Hàng 4: Link hướng dẫn ───────────────────────────────────
@@ -433,11 +442,14 @@ class MainWindow(QMainWindow):
                 last_dir = os.path.expanduser(r"~\Downloads")
         
         slug = text.rstrip("/").split("/")[-1]
-        if slug:
-            clean_title = re.sub(r'[-._]', ' ', slug).title()
+        clean_slug = re.sub(r'\.html?$', '', slug, flags=re.I)
+        if clean_slug:
+            clean_title = re.sub(r'[-._]', ' ', clean_slug).title()
             clean_title = " ".join(clean_title.split()) or "Truyen"
             ext = ".txt" if self.txt_save_path.text().endswith(".txt") else ".html"
             self.txt_save_path.setText(os.path.join(last_dir, clean_title, f"{clean_title}{ext}"))
+
+        self._check_and_update_resume_ui()
 
         # Dừng worker fetch title cũ nếu đang chạy
         if self._title_fetch_worker and self._title_fetch_worker.isRunning():
@@ -495,6 +507,7 @@ class MainWindow(QMainWindow):
         ext = ".txt" if current_save.endswith(".txt") else ".html"
         new_path = os.path.join(base_dir, safe_title, f"{safe_title}{ext}")
         self.txt_save_path.setText(new_path)
+        self._check_and_update_resume_ui()
 
         msg = f"Tên truyện: {orig_title}"
         if vi_title and vi_title != orig_title:
@@ -537,6 +550,151 @@ class MainWindow(QMainWindow):
             else:
                 base_save_dir = chosen_dir
             self.settings.setValue(self.SETTINGS_KEY_LAST_SAVE_DIR, base_save_dir)
+            self._check_and_update_resume_ui()
+
+    def _on_save_path_changed(self, text: str):
+        """Khi đường dẫn lưu thay đổi → tự động quét resume"""
+        self._check_and_update_resume_ui()
+
+    def _find_resume_data(self, url: str = "", save_path: str = ""):
+        """
+        Tìm kiếm thông minh file _Resume.json hoặc thư mục chương của truyện.
+        Trả về (resume_file_path, resume_data).
+        """
+        import json
+        import re
+        from pathlib import Path
+
+        if not url:
+            url = self.txt_url.text().strip()
+        if not save_path:
+            save_path = self.txt_save_path.text().strip()
+
+        # 1. Quét theo save_path hiện tại
+        if save_path:
+            candidate_dir = os.path.dirname(save_path) if save_path.lower().endswith(('.html', '.txt')) else save_path
+            if os.path.isdir(candidate_dir):
+                # 1a. Tìm trực tiếp file *_Resume.json trong candidate_dir
+                try:
+                    resume_files = [
+                        os.path.join(candidate_dir, f)
+                        for f in os.listdir(candidate_dir)
+                        if f.endswith("_Resume.json")
+                    ]
+                    for rf in sorted(resume_files, key=os.path.getmtime, reverse=True):
+                        with open(rf, "r", encoding="utf-8") as f:
+                            data = json.load(f)
+                            if data and ("chapters_status" in data or "all_links" in data):
+                                return rf, data
+                except Exception:
+                    pass
+
+                # 1b. Kiểm tra xem có _folder_alias.json trỏ sang thư mục thật không
+                alias_file = os.path.join(candidate_dir, "_folder_alias.json")
+                if os.path.isfile(alias_file):
+                    try:
+                        with open(alias_file, "r", encoding="utf-8") as f:
+                            alias_info = json.load(f)
+                        real_folder = alias_info.get("real_folder")
+                        if real_folder:
+                            real_dir = os.path.join(os.path.dirname(candidate_dir), real_folder)
+                            if os.path.isdir(real_dir):
+                                r_files = [
+                                    os.path.join(real_dir, f)
+                                    for f in os.listdir(real_dir)
+                                    if f.endswith("_Resume.json")
+                                ]
+                                for rf in sorted(r_files, key=os.path.getmtime, reverse=True):
+                                    with open(rf, "r", encoding="utf-8") as f:
+                                        data = json.load(f)
+                                        if data and ("chapters_status" in data or "all_links" in data):
+                                            return rf, data
+                    except Exception:
+                        pass
+
+        # 2. Quét theo URL slug và alias trong base_dir
+        if url:
+            raw_slug = url.rstrip("/").split("/")[-1]
+            clean_slug = re.sub(r'\.html?$', '', raw_slug, flags=re.I)
+            base_dir = self.settings.value(self.SETTINGS_KEY_LAST_SAVE_DIR, "")
+            if not base_dir or not os.path.isdir(base_dir):
+                if save_path:
+                    parts = Path(save_path).parts
+                    base_dir = str(Path(*parts[:-2])) if len(parts) >= 3 else os.path.dirname(save_path)
+                else:
+                    base_dir = r"D:\Tai Ebook\html" if os.path.exists(r"D:\Tai Ebook\html") else os.path.expanduser(r"~\Downloads")
+
+            for s in [clean_slug, raw_slug]:
+                if not s or not os.path.isdir(base_dir):
+                    continue
+                slug_folder = os.path.join(base_dir, s)
+                if os.path.isdir(slug_folder):
+                    alias_file = os.path.join(slug_folder, "_folder_alias.json")
+                    if os.path.isfile(alias_file):
+                        try:
+                            with open(alias_file, "r", encoding="utf-8") as f:
+                                alias_info = json.load(f)
+                            rf_name = alias_info.get("real_folder")
+                            if rf_name:
+                                rf_dir = os.path.join(base_dir, rf_name)
+                                if os.path.isdir(rf_dir):
+                                    r_files = [
+                                        os.path.join(rf_dir, f)
+                                        for f in os.listdir(rf_dir)
+                                        if f.endswith("_Resume.json")
+                                    ]
+                                    for rf in sorted(r_files, key=os.path.getmtime, reverse=True):
+                                        with open(rf, "r", encoding="utf-8") as f:
+                                            data = json.load(f)
+                                            if data and ("chapters_status" in data or "all_links" in data):
+                                                return rf, data
+                        except Exception:
+                            pass
+                    r_files = [
+                        os.path.join(slug_folder, f)
+                        for f in os.listdir(slug_folder)
+                        if f.endswith("_Resume.json")
+                    ]
+                    for rf in sorted(r_files, key=os.path.getmtime, reverse=True):
+                        try:
+                            with open(rf, "r", encoding="utf-8") as f:
+                                data = json.load(f)
+                                if data and ("chapters_status" in data or "all_links" in data):
+                                    return rf, data
+                        except Exception:
+                            pass
+
+        return "", None
+
+    def _check_and_update_resume_ui(self):
+        """Kiểm tra xem truyện hiện tại đã có dữ liệu tải dang dở chưa để cập nhật UI."""
+        rf_path, resume_data = self._find_resume_data()
+        self._detected_resume_data = resume_data
+        self._detected_resume_path = rf_path
+
+        if resume_data:
+            chapters_status = resume_data.get("chapters_status", [])
+            total = len(chapters_status) or len(resume_data.get("all_links", []))
+            done_count = sum(1 for s in chapters_status if s.get("status") == "done")
+            error_count = total - done_count
+
+            if error_count > 0:
+                self.btn_resume.setEnabled(True)
+                self.btn_resume.setText(f"Tải Tiếp ({error_count})")
+                self.btn_resume.setToolTip(f"Đã tải {done_count}/{total} chương. Bấm để chỉ tải tiếp {error_count} chương còn thiếu.")
+                self.btn_resume.setStyleSheet("background-color: #f57c00; color: white; font-weight: bold;")
+                self.lbl_status.setText(f"📂 Phát hiện tiến trình cũ: đã tải {done_count}/{total} chương (còn {error_count} chương thiếu). Bấm [Tải Tiếp] để tải bù!")
+                self.lbl_status.setStyleSheet("color: #e65100; font-weight: bold;")
+            elif total > 0 and error_count == 0:
+                self.btn_resume.setEnabled(False)
+                self.btn_resume.setText("Đã đủ 100%")
+                self.btn_resume.setStyleSheet("")
+                self.lbl_status.setText(f"✅ Truyện đã tải đủ {total}/{total} chương.")
+                self.lbl_status.setStyleSheet("color: green; font-weight: bold;")
+        else:
+            self.btn_resume.setEnabled(False)
+            self.btn_resume.setText("Tải Tiếp/T...")
+            self.btn_resume.setStyleSheet("")
 
     @pyqtSlot()
     def _on_start_download(self):
@@ -558,36 +716,24 @@ class MainWindow(QMainWindow):
 
         file_format = "txt" if save_path.endswith(".txt") else "html"
 
-        # ── Auto-detect slug folder (Smart Resume) ───────────────────────
-        slug = url.rstrip("/").split("/")[-1]
-        story_title_guess = slug.replace("-", " ").title()
-        parent_dir = os.path.dirname(save_path)
-        slug_dir = os.path.join(parent_dir, slug)
-        resume_json_path = os.path.join(parent_dir, f"{story_title_guess}_Resume.json")
+        # ── Smart Resume Detection ───────────────────────────────────────
+        rf_path, resume_data = self._find_resume_data(url=url, save_path=save_path)
+        if resume_data:
+            chapters_status = resume_data.get("chapters_status", [])
+            total = len(chapters_status) or len(resume_data.get("all_links", []))
+            done_count = sum(1 for s in chapters_status if s.get("status") == "done")
+            error_count = total - done_count
 
-        if os.path.exists(slug_dir):
-            resume_data = None
-            if os.path.exists(resume_json_path):
-                try:
-                    with open(resume_json_path, "r", encoding="utf-8") as f:
-                        resume_data = json.load(f)
-                except Exception:
-                    pass
-
-            if resume_data:
-                chapters_status = resume_data.get("chapters_status", [])
-                done_count = sum(1 for s in chapters_status if s.get("status") == "done")
-                error_count = sum(1 for s in chapters_status if s.get("status") != "done")
-                total = len(chapters_status)
-
+            if error_count > 0:
+                story_title = resume_data.get("story_title", "Truyện")
                 reply = QMessageBox.question(
                     self, "Phát Hiện Tiến Trình Cũ",
-                    f"📂 Phát hiện thư mục '{slug}' đã có dữ liệu.\n\n"
+                    f"📂 Phát hiện truyện '{story_title}' đã có dữ liệu tải dang dở:\n\n"
                     f"  • Đã tải xong: {done_count}/{total} chương\n"
                     f"  • Còn cần tải: {error_count} chương\n\n"
-                    f"✅ [Có]    → Chỉ tải {error_count} chương còn thiếu (Resume)\n"
-                    f"🔄 [Không] → Tải lại từ đầu (ghi đè thư mục cũ)\n"
-                    f"✕  [Hủy]   → Không làm gì",
+                    f"✅ [Có (Yes)]    → Chỉ tải {error_count} chương còn thiếu (Resume)\n"
+                    f"🔄 [Không (No)]  → Tải lại từ đầu (ghi đè thư mục cũ)\n"
+                    f"✕  [Hủy]        → Hủy bỏ",
                     QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No | QMessageBox.StandardButton.Cancel
                 )
                 if reply == QMessageBox.StandardButton.Cancel:
@@ -601,17 +747,30 @@ class MainWindow(QMainWindow):
                     return
                 # Nếu No: fall through → tải lại từ đầu
             else:
-                # Có folder nhưng không có Resume JSON
-                html_files = [f for f in os.listdir(slug_dir) if f.lower().endswith(".html")]
+                # Đã tải đủ 100% nhưng người dùng bấm Tải
                 reply = QMessageBox.question(
-                    self, "Phát Hiện Thư Mục Cũ",
-                    f"📂 Phát hiện thư mục '{slug}' đã có {len(html_files)} file chương.\n"
-                    f"Không tìm thấy file Resume.json.\n\n"
-                    f"Tải lại từ đầu và ghi đè vào thư mục này?",
+                    self, "Truyện Đã Tải Đủ",
+                    f"📂 Truyện đã tải đủ {total}/{total} chương trong thư mục.\n\n"
+                    f"Bạn có muốn tải lại từ đầu để ghi đè không?",
                     QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
                 )
                 if reply == QMessageBox.StandardButton.No:
                     return
+        else:
+            # Kiểm tra xem thư mục đích đã có các file html chương chưa
+            target_dir = os.path.dirname(save_path) if save_path.lower().endswith(('.html', '.txt')) else save_path
+            if target_dir and os.path.isdir(target_dir):
+                html_files = [f for f in os.listdir(target_dir) if f.lower().endswith(".html") and not f.startswith("_")]
+                if len(html_files) > 1:
+                    reply = QMessageBox.question(
+                        self, "Phát Hiện Thư Mục Đã Có File",
+                        f"📂 Thư mục '{os.path.basename(target_dir)}' đã chứa {len(html_files)} file HTML chương.\n"
+                        f"Không tìm thấy file Resume.json.\n\n"
+                        f"Bạn có chắc muốn tải và ghi đè vào thư mục này?",
+                        QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+                    )
+                    if reply == QMessageBox.StandardButton.No:
+                        return
         # ───────────────────────────────────────────────────────────
 
         self._toggle_download_state(True)
@@ -693,8 +852,27 @@ class MainWindow(QMainWindow):
 
     @pyqtSlot()
     def _on_resume(self):
-        """Tiếp tục tải (Resume) — đặt lại trạng thái và bắt đầu lại"""
-        self._on_start_download()
+        """Tiếp tục tải bù các chương thiếu bằng resume_data"""
+        rf_path, resume_data = self._find_resume_data()
+        if resume_data:
+            url = self.txt_url.text().strip()
+            # Khôi phục URL từ resume_data nếu ô URL trống hoặc link chưa đủ
+            if not url or url == "http://resume":
+                all_links = resume_data.get("all_links", [])
+                if all_links:
+                    url = all_links[0]
+                    self.txt_url.setText(url)
+            save_path = self.txt_save_path.text().strip() or resume_data.get("final_path", "")
+            if save_path and not self.txt_save_path.text().strip():
+                self.txt_save_path.setText(save_path)
+            file_format = "txt" if save_path.endswith(".txt") else "html"
+            self._toggle_download_state(True)
+            self.txt_log.clear()
+            self.progress_bar.setValue(0)
+            self.lbl_status.setText("Đang khôi phục (Resume)...")
+            self._start_worker(url, save_path, file_format, resume_data=resume_data)
+        else:
+            self._on_start_download()
 
     def _on_resume_from_data(self, resume_data: dict):
         """Khôi phục trạng thái tải từ file JSON mới"""
@@ -771,16 +949,38 @@ class MainWindow(QMainWindow):
         self.lbl_status.setText("Trạng Thái Không")
         self._save_settings()
         self.txt_log.append(f"\n🏁 {msg}")
-        if "Lỗi" not in msg:
+
+        # Cập nhật lại UI Resume
+        self._check_and_update_resume_ui()
+
+        all_done = (hasattr(self, 'worker') and self.worker and 
+                    getattr(self.worker, 'chapters', None) and 
+                    all(ch is not None for ch in self.worker.chapters))
+
+        if all_done:
             if self.chk_auto_prc.isChecked() and hasattr(self, 'worker') and self.worker and getattr(self.worker, 'file_format', 'html') == 'html':
                 final_path = self.txt_save_path.text().strip()
                 if final_path and os.path.exists(final_path):
                     self.txt_log.append("🚀 Đang tự động biên dịch PRC...")
                     self._start_prc_worker(final_path)
                 else:
-                    QMessageBox.information(self, "Hoàn tất", f"Đã tải xong!\n{msg}")
+                    QMessageBox.information(self, "Hoàn tất", f"Đã tải xong 100%!\n{msg}")
             else:
-                QMessageBox.information(self, "Hoàn tất", f"Đã tải xong!\n{msg}")
+                QMessageBox.information(self, "Hoàn tất", f"Đã tải xong 100%!\n{msg}")
+        else:
+            # Còn chương thiếu / bị lỗi
+            failed_count = sum(1 for ch in getattr(self.worker, 'chapters', []) if ch is None) if (hasattr(self, 'worker') and self.worker and self.worker.chapters) else 0
+            if failed_count > 0:
+                reply = QMessageBox.question(
+                    self, "Tải Chưa Hoàn Tất",
+                    f"⚠️ Quá trình tải đã dừng lại nhưng vẫn còn {failed_count} chương chưa tải được (do lỗi mạng hoặc site chặn tạm thời).\n\n"
+                    f"Bạn có muốn tiếp tục tải lại ngay các chương thiếu (Resume) không?",
+                    QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+                )
+                if reply == QMessageBox.StandardButton.Yes:
+                    self._on_resume()
+            else:
+                QMessageBox.warning(self, "Thông báo", f"{msg}")
 
     @pyqtSlot(int)
     def _on_range_checked(self, state: int):
@@ -1014,21 +1214,33 @@ class MainWindow(QMainWindow):
     # ---------------------------------------------------------------
     # Chức năng Dịch Truyện (AI Translate)
     # ---------------------------------------------------------------
+    def _on_open_key_manager(self):
+        """Mở hộp thoại Quản lý API Key trực tiếp từ giao diện chính."""
+        from gui.key_manager_dialog import ApiKeyManagerDialog
+        dlg = ApiKeyManagerDialog(parent=self)
+        dlg.exec()
+
     def _on_translate_story(self):
         """Mở cửa sổ dịch truyện AI (TranslateDialog)"""
-        dlg = TranslateDialog(parent=self)
-
-        # Gợi ý thư mục nguồn từ save_path hiện tại (slug folder của truyện vừa tải)
         save_path = self.txt_save_path.text().strip()
-        if save_path and os.path.isfile(save_path):
-            # Slug folder cùng thư mục với file tổng
-            slug = self.txt_url.text().strip().rstrip("/").split("/")[-1]
-            slug_dir = os.path.join(os.path.dirname(save_path), slug)
-            if os.path.isdir(slug_dir):
-                dlg.txt_source.setText(slug_dir)
-            else:
-                dlg.txt_source.setText(os.path.dirname(save_path))
+        story_dir = ""
+        if save_path:
+            candidate = os.path.dirname(save_path) if save_path.lower().endswith(('.html', '.txt')) else save_path
+            if os.path.isdir(candidate):
+                story_dir = candidate
 
+        # Nếu chưa tìm thấy từ save_path, tìm từ worker.save_dir hoặc resume_data
+        if not story_dir and hasattr(self, 'worker') and self.worker:
+            worker_dir = getattr(self.worker, 'save_dir', '')
+            if worker_dir and os.path.isdir(worker_dir):
+                story_dir = worker_dir
+
+        if not story_dir and getattr(self, '_detected_resume_data', None):
+            res_dir = self._detected_resume_data.get("save_dir", "")
+            if res_dir and os.path.isdir(res_dir):
+                story_dir = res_dir
+
+        dlg = TranslateDialog(parent=self, initial_source_dir=story_dir)
         dlg.exec()
 
 

@@ -251,3 +251,99 @@ GetHtmlFromUrl_Python/
 - [x] **Đã kiểm chứng**:
   - Unit tests cho cả `AskCpl` (3/3 tests) và `Download truyện` (4/4 tests) đều passed 100%.
   - Cả 2 dự án compile sạch sẽ `0 errors`.
+
+### 🚀 Phase 14 — Nâng Cấp Smart Resume, Khắc Phục Nhận Diện Thư Mục Dịch & Bổ Sung Vòng Lặp Auto-Retry Đa Vòng (Tải & Dịch) — HOÀN THÀNH (2026-11-05)
+- [x] **Khắc phục lỗi không tự nhận Resume khi tải lại truyện (69shuba & các host)**:
+  - Viết hàm tìm kiếm thông minh `_find_resume_data(url, save_path)`: Quét trực tiếp thư mục lưu trữ truyện (`candidate_dir`), tìm file `*_Resume.json` mới nhất và phân giải bí danh `_folder_alias.json` từ URL slug (chuẩn hóa `/book/51211.htm` thành `51211`).
+  - Xóa bỏ hoàn toàn giả định đường dẫn cứng `slug_dir = os.path.join(parent_dir, slug)` gây ra lỗi không bao giờ tìm thấy file resume tiếng Việt.
+  - Tự động kích hoạt nút "Tải Tiếp (X)" (màu cam nổi bật) và cập nhật thanh trạng thái `lbl_status` ngay khi người dùng dán link, chọn file lưu hoặc fetch xong tên truyện.
+  - Khi bấm "Tải Xuống" hoặc "Tải Tiếp", hệ thống hiển thị chính xác hộp thoại: Đã tải bao nhiêu chương, còn thiếu bao nhiêu chương và cung cấp tùy chọn tải bù 100% chính xác.
+- [x] **Khắc phục lỗi "Dịch thư mục sai" (TranslateDialog)**:
+  - Cải tiến `_on_translate_story()`: Tự động trích xuất thư mục chứa các file chương tiếng Trung (`story_dir`) từ `txt_save_path` (bất kể file gộp đã tạo hay chưa), hoặc từ `worker.save_dir` / `resume_data`, và truyền trực tiếp qua `initial_source_dir`.
+  - Khắc phục lỗi `os.path.isfile(save_path)` cũ khiến các truyện tải dở/chưa gộp bị rớt lại thư mục của truyện cũ ở phiên trước.
+  - Tự động điền thư mục đích `<thư_mục_truyện>/dich` và cập nhật thống kê số chương tiếng Trung / số chương đã dịch.
+  - Bộ lọc file an toàn: Tự động lọc bỏ file gộp tổng (trùng tên thư mục) khỏi danh sách chương cần dịch, ngăn ngừa lỗi nạp nhầm file gộp 50MB vào AI.
+- [x] **Cơ chế Auto-Retry Loop đa vòng cho cả Tải Truyện và Dịch Truyện**:
+  - **Dịch truyện (TranslateWorker)**: Bổ sung vòng lặp Auto-Retry 5 vòng (`max_rounds = 5`). Sau mỗi vòng, worker tự động kiểm tra lại danh sách các chương chưa hoàn thành (hoặc file lỗi < 30 bytes) và tiếp tục dịch bù cho đến khi đạt 100%. Nếu sau 5 vòng vẫn còn lỗi (do key hết quota), UI hiển thị thông báo chi tiết và nút "Dịch Tiếp" 1-click.
+  - **Tải truyện (DownloadWorker & MainWindow)**: Sửa lỗi tích lũy trùng link trong `failed_links`. Khi phiên tải kết thúc mà vẫn còn chương lỗi, `_on_finished` tự động hiện thông báo hỏi người dùng có muốn tiếp tục Resume ngay không.
+- [x] **Đã kiểm chứng**:
+  - Test chuẩn hóa URL 69shuba `https://www.69shuba.com/book/51211.htm` -> slug sạch `51211`.
+  - Test nhận diện Resume tự động: Phát hiện chính xác 100 chương đã tải và 4581 chương còn thiếu, kích hoạt nút `Tải Tiếp (4581)`.
+  - Test TranslateDialog: Nhận đúng thư mục truyện, tự động đặt `.../dich`, lọc bỏ file gộp tổng.
+  - Test TranslateWorker Auto-Retry: Mô phỏng lỗi mạng 429 ở vòng 1, worker tự động lặp lại vòng 2 và hoàn tất 100% (3/3 chương).
+  - Biên dịch toàn bộ mã nguồn sạch sẽ `0 errors`.
+
+
+### 🚀 Phase 15 — Khắc Phục Lỗi Xoay Vòng Vô Hạn 429 (Sliding Carousel Cooldown Bug), Chuẩn Hóa Nhận Diện Daily Limit & Đồng Bộ Timestamp [HH:MM:SS] — HOÀN THÀNH (2026-11-05)
+- [x] **Chuẩn hóa Timestamp [HH:MM:SS] toàn bộ hệ thống Log**:
+  - Viết hàm `format_log_time(msg: str)` chuẩn hóa thời gian: Tự động gắn tiền tố `[HH:MM:SS]` cho tất cả thông điệp log trong `ai_translator.py` (`probe_active_models`, `GeminiTranslator._log`) và `translate_dialog.py` (`TranslateDialog._log`).
+  - Hỗ trợ an toàn các dòng log có ký tự xuống dòng `\n` hoặc đã có sẵn timestamp (không bị nhân đôi timestamp).
+- [x] **Khắc phục lỗi trượt thời gian Cooldown (The Sliding Carousel 429 Bug)**:
+  - **Nguyên nhân gốc rễ**: Khi có nhiều account (~14 account), việc thử tuần tự các model và tạm nghỉ 10s tốn khoảng 73s. Vì cooldown RPM cố định 65s < 73s, nên khi account 14 thất bại thì account 1 đã hết thời gian cooldown (`wait_sec <= 0`). Hàm `get_cooldown_status()` trả về `wait_sec = 0.0`, khiến hệ thống chỉ nghỉ đúng 1.0s (`time.sleep(1.0)`) rồi lại tiếp tục quét lại account 1, tạo thành một vòng xoáy 429 không hồi kết.
+  - **Giải pháp dứt điểm**:
+    1. Khi phát hiện toàn bộ các account đang hoạt động đều đã được thử và thất bại trong cùng một lượt (`all_exhausted_this_round`), hệ thống **bắt buộc tạm dừng tối thiểu 60 giây** (`enforced_wait = max(int(wait_sec), 60)`).
+    2. Hiển thị thông báo đếm ngược an toàn trên UI/Console: `⏳ Còn 60s...`, `⏳ Còn 30s...`, `⏳ Còn 15s...`, `⏳ Còn 5s...` giúp người dùng theo dõi minh bạch mà không bị nghẽn log.
+- [x] **Nhận diện chính xác 100% mã lỗi Google Daily Limit**:
+  - Mở rộng tập mẫu nhận diện `daily_markers` để bao quát đầy đủ thông báo lỗi thực tế của Google: `"requests per day"`, `"day per project"`, `"per day"`, `"free_tier_requests_per_day"`, `"quota_daily"`, `"rpd"`.
+  - Khắc phục lỗ hổng trước đây (chỉ kiểm tra `"perday"` viết liền) khiến Google Daily Limit bị xếp nhầm thành lỗi RPM 65s.
+- [x] **Ngăn chặn spam 0ms giữa các fallback models trên cùng một account**:
+  - Khi một account bị trả về lỗi cấp độ dự án (`is_project_rpm`: `"quota exceeded"`, `"rate_limit_exceeded"`, `"per project"`), hệ thống ngay lập tức khóa cooldown account đó và chuyển ngay sang account khác — không thử tiếp các model dự phòng trong tích tắc (vốn chắc chắn sẽ tiếp tục bị 429 và tăng nguy cơ bị Google gắn cờ lạm dụng).
+- [x] **Cơ chế Exponential Backoff cho Cooldown RPM**:
+  - Bổ sung bộ đếm dính 429 RPM liên tiếp trong `AccountPool` (`_account_rpm_429_count`).
+  - Lũy tiến thời gian tạm nghỉ: Lần 1: max(delay, 65s) -> Lần 2: max(delay, 120s) -> Lần 3 trở đi: max(delay, 300s).
+  - Tự động reset bộ đếm về 0 ngay khi account có 1 lượt gọi API thành công (`mark_success`).
+- [x] **Đã kiểm chứng**:
+  - Test 1 (Timestamp): Định dạng `[HH:MM:SS]` hoạt động chuẩn xác với text thường, newline và text đã có sẵn timestamp.
+  - Test 2 (Exponential Backoff): Cooldown 65s -> 120s -> 300s chính xác 100%.
+  - Test 3 (AccountPool Counter): Tăng đếm liên tiếp và reset khi thành công.
+  - Test 4 (Phân loại 429): Google Daily Limit thực tế được nhận diện là Daily; Google Project RPM được nhận diện là Project RPM.
+  - Test 5 (TranslateDialog GUI Log): Mọi dòng log trên giao diện cửa sổ dịch thuật đều tự động có `[HH:MM:SS]`.
+  - Kiểm tra cú pháp `py_compile`: Không có lỗi compile.
+
+
+### 🚀 Phase 16 — Đồng Bộ Trực Quan Quản Lý Key Chuẩn AskCpl, Trực Quan Hóa Reset Time 24h & Nâng Cấp Độ Ổn Định Hai Chiều — HOÀN THÀNH (2026-11-05)
+- [x] **Trực quan hóa thời gian Reset 24h chuẩn AskCpl (`key_manager.py`)**:
+  - Khắc phục triệt để lỗi `TypeError: '>' not supported between instances of 'NoneType' and 'int'` khi nạp key có `reset_time: null`.
+  - Hàm `format_reset_time_display()` hiển thị chính xác theo chuẩn ngày giờ AskCpl: `YYYY-MM-DD HH:MM (⏳ Còn Xh Ym)` cho các key dính quota ngày (`exhausted`), hoặc mốc giờ cụ thể nếu đã được cấu hình.
+  - Sửa lỗi hàm `validate_key()`: Trả về bộ 4 giá trị `(is_valid, status_kind, message, latency_ms)`. Khi dính 429, đánh dấu rõ `status_kind = "exhausted"` thay vì trả về `True` như trước đây (tránh việc code tưởng test thành công rồi tự động xóa mất `reset_time`).
+- [x] **Nâng cấp toàn diện giao diện Quản Lý API Key (`key_manager_dialog.py`)**:
+  - **Màu sắc & Làm nổi bật trực quan (Visual Highlighting)**:
+    - Key `Exhausted` (Hết quota ngày): Tô nền hàng màu vàng nhạt `#fff9c4`, chữ cam đậm `#bf360c` in đậm, thể hiện rõ thời gian phục hồi.
+    - Key `Invalid` (Khóa/Lỗi): Tô nền hàng màu đỏ nhạt `#ffebee`, chữ đỏ `#c62828`.
+    - Key `Active`: Trạng thái `✅ Bật` màu xanh lá cây `#2e7d32`.
+    - Phát hiện & cảnh báo trùng `Project ID` trên cùng một Email (tô nền đỏ `#ffcdd2` kèm tooltip cảnh báo như AskCpl).
+  - **Cải tiến tiến trình kiểm tra key (`_on_test_selected`, `_on_test_all`)**:
+    - Khi kiểm tra phát hiện 429: Tự động gán `status = "exhausted"`, `reset_time = now + 86400`, `next_check_time = now + 10800`.
+    - Tự động cập nhật cột "Trạng thái", cột "Khôi phục sau" và **tự động lưu ngay xuống file `config/gemini_keys.json`**, đồng bộ in-memory pool ngay lập tức.
+  - **Nâng cấp Hộp thoại Sửa Key (`ApiKeyEditDialog`)**:
+    - Bổ sung dropdown chọn trạng thái: `Active`, `Exhausted`, `Invalid`, `Disabled`.
+    - Bổ sung trường hiển thị ngày giờ `Khôi phục sau` với 2 nút tiện ích: `⏰ Khóa 24h` (tự cộng 86400s) và `🔄 Reset ngay` (đưa về Active).
+    - Bổ sung trường `Project ID` và nút `👁️` hiện/ẩn API Key.
+    - Bổ sung nút `🔍 Kiểm Tra Key` trực tiếp ngay trong form sửa key.
+- [x] **Bổ sung lối tắt "🔑 Keys" lên Màn Hình Chính (`MainWindow`)**:
+  - Thêm nút `🔑 Keys` ngay cạnh nút `🌐 Dịch` trên hàng điều khiển chính của `GetHtmlFromUrl`, cho phép mở nhanh Quản lý Key mà không cần mở hộp thoại Dịch Truyện.
+- [x] **Nâng cấp độ ổn định cho AskCpl (`AskCpl\gemini_safe.py` & `AskCpl\AskCpl.py`)**:
+  - Mang cơ chế chống trượt cooldown 429 (`all_exhausted_this_round` -> nghỉ tối thiểu 60s có đếm ngược) sang `AskCpl\gemini_safe.py`.
+  - Mở rộng tập mẫu nhận diện Daily Limit dạng chuỗi có khoảng trắng (`"requests per day"`, `"day per project"`).
+  - Tích hợp ngắt rate limit cấp độ Project (`is_project_rpm`), tránh spam 0ms qua các fallback model trên cùng account.
+  - Sửa lỗi ép kiểu an toàn `rt = k.get("reset_time") or 0` trong `AskCpl.py` chống crash khi `reset_time` là null.
+- [x] **Đã kiểm chứng**:
+  - Test 1 (Reset Time Display): Xử lý an toàn `None`, hiển thị `2026-11-05 14:00 (⏳ Còn 2h 0m)`.
+  - Test 2 (Local Keys Load): Nạp 197 keys an toàn, không có lỗi ngoại lệ.
+  - Test 3 (Validate Key): Trả về cấu trúc 4 phần tử chính xác.
+  - Test 4 (AskCpl Daily): Nhận diện đúng `quota_daily` từ Google error message.
+  - Toàn bộ file ở cả 2 dự án (`AskCpl` và `GetHtmlFromUrl_Python`) đều biên dịch sạch `py_compile` (0 errors).
+
+
+### 🛠️ Hotfix 16.1 — Sửa Lỗi Tự Thoát Khi Mở Quản Lý API Key & Kiểm Thử Toàn Diện (2026-11-05)
+- [x] **Nguyên nhân lỗi tự thoát**:
+  - Khi dọn dẹp các dòng trùng lặp, một dòng thừa `def _on_edit_key(self):` ở cấp độ module đã khiến phương thức `_on_delete_key` bị lồng sai scope (không thuộc class `ApiKeyManagerDialog`), dẫn tới lỗi `AttributeError: 'ApiKeyManagerDialog' object has no attribute '_on_delete_key'` ngay khi khởi tạo giao diện UI.
+  - Thiếu các import widget `QFormLayout`, `QComboBox`, `QApplication` từ `PyQt6.QtWidgets` trong `key_manager_dialog.py`.
+- [x] **Đã khắc phục & Kiểm thử thực tế (Truth Only)**:
+  - Loại bỏ dòng thừa, đưa `_on_delete_key` và toàn bộ các phương thức thao tác về đúng lớp `ApiKeyManagerDialog`.
+  - Bổ sung đầy đủ import `QFormLayout`, `QComboBox`, `QApplication`.
+  - Khởi tạo thành công `ApiKeyManagerDialog` trên 197 keys thực tế:
+    - Hiển thị trực quan: `Row 20 (exhausted): gamesvendn09@gmail.com ⚠️ Quota 2026-11-06 10:51 (⏳ Còn 21h 45m)`.
+    - Key active hiển thị: `✅ Bật`.
+  - Hộp thoại `ApiKeyEditDialog` khởi tạo độc lập và truyền nhận dữ liệu chuẩn xác 100%.
+  - Nút `🔑 Keys` trên giao diện chính (`MainWindow`) và `TranslateDialog` đều đã được kiểm tra liên kết mở hộp thoại thành công.

@@ -1,0 +1,6 @@
+{
+  "models_dir": "D:\\LocalAI\\models",
+  "selected_model": "📦 [GGUF] Llama-3.2-3B-Instruct-abliterated.Q4_K_M.gguf",
+  "port": 11434,
+  "api_key": "ollama"
+}

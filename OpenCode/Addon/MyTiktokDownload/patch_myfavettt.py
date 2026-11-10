@@ -164,13 +164,30 @@ s = rep_once(
     "s.js X track",
 )
 
-# h(): hook error overlay
+# h(): hook error overlay with Auto-Skip protection (never kill k.se when auto-skipping download errors)
+h_hook = (
+    "function h(e,t,r){"
+    "try{window.__tttOnErr&&window.__tttOnErr(t,e&&e.message||String(e))}catch(_){}"
+    "var isAutoSkip=(typeof window!=='undefined'&&window.__tttAutoSkip!==false);"
+    "var isDlOrFetchErr=['bi60','bi63','bi127','bi130','doa22','Shc782','ll107','dfo96','Mar695','Ifw969','Chv322','Jsy087','ll88','Qkc489','Knl767','Zeu868','Cpq844','Vxc172','va38'].indexOf(t)>=0;"
+    "if(isAutoSkip||isDlOrFetchErr){"
+    "console.warn('[myfaveTTT:AutoSkip] Bỏ qua lỗi @ ' + t + ' (đã ghi vào Python queue):', e&&e.message||e);"
+    "return;"
+    "}"
+    "r?he(e,t,r):(me(e,t,r),k.se(`because of error @ ${t}`),n.P||c.Z())"
+    "}"
+)
 s = rep_once(
     s,
     "function h(e,t,r){r?he(e,t,r):(me(e,t,r),k.se(`because of error @ ${t}`),n.P||c.Z())}",
-    "function h(e,t,r){r?he(e,t,r):(me(e,t,r),k.se(`because of error @ ${t}`),n.P||c.Z());try{window.__tttOnErr&&window.__tttOnErr(t,e&&e.message||String(e))}catch(_){}}",
+    h_hook,
     "s.js h hook",
 )
+
+# Mar695: do not break favorites scrolling, reset counter and continue
+mar695_old = ">10){h(Error(`some component in the tiktok server is temporarily unstable. Wait a few hours and try again.`),`Mar695`);break}"
+mar695_new = ">10){h(Error(`some component in the tiktok server is temporarily unstable. Wait a few hours and try again.`),`Mar695`);r.f=0;continue}"
+s = rep_once(s, mar695_old, mar695_new, "s.js Mar695 no break")
 
 # driver loops: stop checks
 s = rep_once(

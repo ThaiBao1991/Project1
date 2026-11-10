@@ -127,11 +127,18 @@ class TitleFetchWorker(QThread):
             if not self.url or self._is_stopped:
                 return
 
-            page_config = self.config_mgr.get_config_by_url(self.url)
+            # Chuẩn hóa URL cho 69shuba nếu là dạng /book/XXX.htm
+            norm_url = self.url
+            if "69shuba" in norm_url or "69shu" in norm_url:
+                m = re.search(r'/(?:book/)?(\d+)\.htm', norm_url)
+                if m:
+                    norm_url = f"https://www.69shuba.com/{m.group(1)}/"
+
+            page_config = self.config_mgr.get_config_by_url(norm_url)
             if not page_config or self._is_stopped:
                 return
 
-            soup = self.engine.fetch_html(self.url, page_config)
+            soup = self.engine.fetch_html(norm_url, page_config)
             if not soup or self._is_stopped:
                 return
 
@@ -420,13 +427,16 @@ class DownloadWorker(QThread):
 
                 if chapter.is_get_failed:
                     self.download_failed_count += 1
-                    self.failed_links.append(full_link)
+                    if full_link not in self.failed_links:
+                        self.failed_links.append(full_link)
                     chapters_status[local_idx] = {"status": "error", "title": chapter.title}
                     self.progress_signal.emit(global_idx, "❌ Lỗi", f"Thất bại sau {max_retries} lần")
                     self.log_signal.emit(f"  ❌ Thất bại hoàn toàn: {full_link}")
                 else:
                     self.chapters[local_idx] = chapter
                     chapters_status[local_idx] = {"status": "done", "title": chapter.title}
+                    if full_link in self.failed_links:
+                        self.failed_links.remove(full_link)
                     self.progress_signal.emit(global_idx, "✅ Xong", "")
                     self.log_signal.emit(f"  ✅ Chương {global_idx + 1}: {chapter.title[:50] if chapter.title else '(no title)'}")
 
@@ -617,20 +627,24 @@ class DownloadWorker(QThread):
 
         # Tạo thư mục alias theo URL slug để Resume vẫn tìm được
         url_slug = self.url.rstrip("/").split("/")[-1] if self.url else ""
-        if url_slug and url_slug != safe_folder:
-            alias_dir = os.path.join(root_parent, url_slug)
-            if not os.path.exists(alias_dir):
-                try:
-                    os.makedirs(alias_dir, exist_ok=True)
-                    marker = os.path.join(alias_dir, "_folder_alias.json")
-                    with open(marker, "w", encoding="utf-8") as _f:
-                        import json as _json
-                        _json.dump({"real_folder": safe_folder}, _f)
-                except Exception:
-                    pass
+        clean_slug = re.sub(r'\.html?$', '', url_slug, flags=re.I)
+        slug_candidates = set(filter(None, [url_slug, clean_slug]))
+        for s in slug_candidates:
+            if s != safe_folder:
+                alias_dir = os.path.join(root_parent, s)
+                if not os.path.exists(alias_dir):
+                    try:
+                        os.makedirs(alias_dir, exist_ok=True)
+                        marker = os.path.join(alias_dir, "_folder_alias.json")
+                        with open(marker, "w", encoding="utf-8") as _f:
+                            import json as _json
+                            _json.dump({"real_folder": safe_folder}, _f)
+                    except Exception:
+                        pass
 
         # Tên file output: TienGia/TienGia.html
         base_name = os.path.join(save_dir, f"{safe_folder}{ext}")
+        self.save_dir = save_dir
 
         return save_dir, base_name
 

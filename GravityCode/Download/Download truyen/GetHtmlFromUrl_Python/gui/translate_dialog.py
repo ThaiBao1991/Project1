@@ -61,11 +61,17 @@ class TranslateWorker(QThread):
 
             os.makedirs(self.target_dir, exist_ok=True)
 
-            # 1. Tìm tất cả file HTML trong thư mục nguồn
-            all_files = sorted([
-                f for f in os.listdir(self.source_dir)
-                if f.lower().endswith((".html", ".htm")) and not f.startswith("_")
-            ])
+            # 1. Tìm tất cả file HTML trong thư mục nguồn (lọc bỏ file gộp tổng)
+            src_folder_name = os.path.basename(os.path.normpath(self.source_dir)).lower()
+            all_files = []
+            for f in sorted(os.listdir(self.source_dir)):
+                if not f.lower().endswith((".html", ".htm")) or f.startswith("_"):
+                    continue
+                f_lower = f.lower()
+                # Bỏ qua file gộp tổng (thường trùng tên thư mục truyện)
+                if f_lower == f"{src_folder_name}.html" or f_lower == f"{src_folder_name}.htm":
+                    continue
+                all_files.append(f)
 
             if not all_files:
                 self.finished_signal.emit(False, "Không tìm thấy file chương HTML nào trong thư mục nguồn.")
@@ -114,117 +120,142 @@ class TranslateWorker(QThread):
             )
             self.log_signal.emit(f"🎨 Phong cách văn phong: {self.translator.style_name} (Nhiệt độ: {self.translator.temperature})")
 
-            completed_count = 0
             actual_translated = 0
             total_task = len(target_files)
             start_time = time.time()
+            max_rounds = 5  # Tự động lặp lại tối đa 5 vòng cho các chương thiếu/lỗi
 
-            for i, fname in enumerate(target_files):
+            for round_idx in range(max_rounds):
                 if self._is_stopped:
-                    self.log_signal.emit("⏸ Đã dừng tiến trình dịch theo yêu cầu.")
-                    self.finished_signal.emit(False, "Đã tạm dừng tiến trình dịch.")
-                    return
+                    break
 
-                src_file_path = os.path.join(self.source_dir, fname)
-                dst_file_path = os.path.join(self.target_dir, fname)
+                # Tìm danh sách các file còn thiếu hoặc chưa dịch xong
+                missing_files = []
+                for fname in target_files:
+                    dst_file_path = os.path.join(self.target_dir, fname)
+                    # File coi là đã dịch xong nếu có trong progress và file tồn tại với dung lượng > 30 bytes
+                    is_done = (progress.is_completed(fname) and 
+                               os.path.exists(dst_file_path) and 
+                               os.path.getsize(dst_file_path) > 30)
+                    if not is_done:
+                        missing_files.append(fname)
 
-                # Kiểm tra resume
-                if self.skip_existing and (progress.is_completed(fname) or os.path.exists(dst_file_path)):
-                    self.log_signal.emit(f"⏩ [Bỏ qua] {fname} (đã dịch trước đó).")
-                    completed_count += 1
-                    self.progress_signal.emit(completed_count, total_task, f"Đã qua: {fname}")
-                    el_sec = time.time() - start_time
-                    h = int(el_sec // 3600); m = int((el_sec % 3600) // 60); s = int(el_sec % 60)
-                    el_str = f"{h:02d}:{m:02d}:{s:02d}" if h > 0 else f"{m:02d}:{s:02d}"
-                    if actual_translated > 0:
-                        avg_s = el_sec / actual_translated
+                if not missing_files:
+                    break  # Đã hoàn thành 100% tất cả các chương!
+
+                if round_idx > 0:
+                    self.log_signal.emit(
+                        f"\n🔄 [Tự động lặp lại - Vòng {round_idx + 1}/{max_rounds}]: "
+                        f"Phát hiện còn {len(missing_files)} chương dịch thiếu/lỗi. Đang tiếp tục dịch bù..."
+                    )
+                    time.sleep(3.0)
+
+                for idx_m, fname in enumerate(missing_files):
+                    if self._is_stopped:
+                        self.log_signal.emit("⏸ Đã dừng tiến trình dịch theo yêu cầu.")
+                        self.finished_signal.emit(False, "Đã tạm dừng tiến trình dịch.")
+                        return
+
+                    src_file_path = os.path.join(self.source_dir, fname)
+                    dst_file_path = os.path.join(self.target_dir, fname)
+
+                    # Bỏ qua nếu đã hoàn tất
+                    if self.skip_existing and progress.is_completed(fname) and os.path.exists(dst_file_path) and os.path.getsize(dst_file_path) > 30:
+                        continue
+
+                    # Tính số chương đã hoàn thành
+                    cur_completed = total_task - len(missing_files) + idx_m
+                    self.log_signal.emit(f"\n⏳ [{cur_completed + 1}/{total_task}] Đang đọc & dịch: {fname} (Vòng {round_idx + 1})...")
+                    self.progress_signal.emit(cur_completed, total_task, f"Đang dịch: {fname}")
+
+                    # Trích xuất nội dung chương tiếng Trung
+                    title_zh, content_zh = extract_chapter_from_html(src_file_path)
+                    if not content_zh.strip():
+                        self.log_signal.emit(f"⚠️ File {fname} không có nội dung văn bản. Bỏ qua.")
+                        continue
+
+                    # Lấy ngữ cảnh tóm tắt trước đó
+                    prev_summary = progress.data.get("last_summary", "")
+
+                    try:
+                        # Gọi Gemini dịch
+                        res = self.translator.translate_chapter(
+                            title_zh=title_zh,
+                            content_zh=content_zh,
+                            glossary=glossary,
+                            previous_summary=prev_summary
+                        )
+
+                        title_vi = res.get("title_vi", title_zh)
+                        content_vi = res.get("content_vi", "")
+                        new_terms = res.get("new_terms", {})
+                        summary = res.get("summary", "")
+
+                        # Cập nhật từ điển nếu phát hiện thuật ngữ mới
+                        if new_terms:
+                            glossary.add_terms(new_terms)
+                            total_terms = sum(len(v) for v in glossary.data.values())
+                            self.glossary_updated_signal.emit(total_terms)
+                            
+                            # In thông tin thuật ngữ mới
+                            added_strs = []
+                            for cat, kvs in new_terms.items():
+                                if isinstance(kvs, dict):
+                                    for zh, vi in kvs.items():
+                                        added_strs.append(f"{zh}→{vi}")
+                            if added_strs:
+                                self.log_signal.emit(f"  ✨ Thuật ngữ mới ghi nhận: {', '.join(added_strs[:6])}")
+
+                        # Lưu file dịch ra HTML
+                        save_translated_chapter(dst_file_path, title_vi, content_vi)
+
+                        # Đánh dấu hoàn thành & lưu rolling summary
+                        progress.mark_completed(fname, summary)
+
+                        actual_translated += 1
+                        done_now = total_task - len(missing_files) + idx_m + 1
+                        self.progress_signal.emit(done_now, total_task, f"Xong: {title_vi}")
+                        self.log_signal.emit(f"  ✅ Dịch thành công: {title_vi} ({len(content_vi)} ký tự)")
+                        if summary:
+                            self.log_signal.emit(f"  📝 Tóm tắt ngữ cảnh: {summary[:100]}...")
+
+                        # Tính toán thời gian thực tế, tốc độ và ETA
+                        now_t = time.time()
+                        el_sec = now_t - start_time
+                        h = int(el_sec // 3600); m = int((el_sec % 3600) // 60); s = int(el_sec % 60)
+                        el_str = f"{h:02d}:{m:02d}:{s:02d}" if h > 0 else f"{m:02d}:{s:02d}"
+                        avg_s = el_sec / max(1, actual_translated)
                         sp_str = f"{avg_s:.1f}s/chương"
-                        rem = max(0, total_task - completed_count)
+                        rem = max(0, len(missing_files) - idx_m - 1)
                         eta_s = rem * avg_s
                         eh = int(eta_s // 3600); em = int((eta_s % 3600) // 60); es = int(eta_s % 60)
                         eta_str = f"{eh:02d}:{em:02d}:{es:02d}" if eh > 0 else f"{em:02d}:{es:02d}"
-                    else:
-                        sp_str = "--"
-                        eta_str = "--:--"
-                    self.stats_signal.emit(el_str, eta_str, sp_str)
-                    continue
+                        self.stats_signal.emit(el_str, eta_str, sp_str)
 
-                self.log_signal.emit(f"\n⏳ [{i + 1}/{total_task}] Đang đọc & dịch: {fname}...")
-                self.progress_signal.emit(completed_count, total_task, f"Đang dịch: {fname}")
+                    except Exception as ex:
+                        self.log_signal.emit(f"  ❌ Lỗi khi dịch {fname}: {ex}")
+                        logger.error(f"Lỗi dịch {fname}: {ex}")
+                        time.sleep(2.0)
 
-                # Trích xuất nội dung chương tiếng Trung
-                title_zh, content_zh = extract_chapter_from_html(src_file_path)
-                if not content_zh.strip():
-                    self.log_signal.emit(f"⚠️ File {fname} không có nội dung văn bản. Bỏ qua.")
-                    continue
+            # Quét kiểm tra trạng thái cuối cùng
+            final_missing = []
+            for fname in target_files:
+                dst_file_path = os.path.join(self.target_dir, fname)
+                is_done = (progress.is_completed(fname) and 
+                           os.path.exists(dst_file_path) and 
+                           os.path.getsize(dst_file_path) > 30)
+                if not is_done:
+                    final_missing.append(fname)
 
-                # Lấy ngữ cảnh tóm tắt trước đó
-                prev_summary = progress.data.get("last_summary", "")
-
-                try:
-                    # Gọi Gemini dịch
-                    res = self.translator.translate_chapter(
-                        title_zh=title_zh,
-                        content_zh=content_zh,
-                        glossary=glossary,
-                        previous_summary=prev_summary
-                    )
-
-                    title_vi = res.get("title_vi", title_zh)
-                    content_vi = res.get("content_vi", "")
-                    new_terms = res.get("new_terms", {})
-                    summary = res.get("summary", "")
-
-                    # Cập nhật từ điển nếu phát hiện thuật ngữ mới
-                    if new_terms:
-                        glossary.add_terms(new_terms)
-                        total_terms = sum(len(v) for v in glossary.data.values())
-                        self.glossary_updated_signal.emit(total_terms)
-                        
-                        # In thông tin thuật ngữ mới
-                        added_strs = []
-                        for cat, kvs in new_terms.items():
-                            if isinstance(kvs, dict):
-                                for zh, vi in kvs.items():
-                                    added_strs.append(f"{zh}→{vi}")
-                        if added_strs:
-                            self.log_signal.emit(f"  ✨ Thuật ngữ mới ghi nhận: {', '.join(added_strs[:6])}")
-
-                    # Lưu file dịch ra HTML
-                    save_translated_chapter(dst_file_path, title_vi, content_vi)
-
-                    # Đánh dấu hoàn thành & lưu rolling summary
-                    progress.mark_completed(fname, summary)
-
-                    completed_count += 1
-                    actual_translated += 1
-                    self.progress_signal.emit(completed_count, total_task, f"Xong: {title_vi}")
-                    self.log_signal.emit(f"  ✅ Dịch thành công: {title_vi} ({len(content_vi)} ký tự)")
-                    if summary:
-                        self.log_signal.emit(f"  📝 Tóm tắt ngữ cảnh: {summary[:100]}...")
-
-                    # Tính toán thời gian thực tế, tốc độ và ETA
-                    now_t = time.time()
-                    el_sec = now_t - start_time
-                    h = int(el_sec // 3600); m = int((el_sec % 3600) // 60); s = int(el_sec % 60)
-                    el_str = f"{h:02d}:{m:02d}:{s:02d}" if h > 0 else f"{m:02d}:{s:02d}"
-                    avg_s = el_sec / actual_translated
-                    sp_str = f"{avg_s:.1f}s/chương"
-                    rem = max(0, total_task - completed_count)
-                    eta_s = rem * avg_s
-                    eh = int(eta_s // 3600); em = int((eta_s % 3600) // 60); es = int(eta_s % 60)
-                    eta_str = f"{eh:02d}:{em:02d}:{es:02d}" if eh > 0 else f"{em:02d}:{es:02d}"
-                    self.stats_signal.emit(el_str, eta_str, sp_str)
-
-                except Exception as ex:
-                    self.log_signal.emit(f"  ❌ Lỗi khi dịch {fname}: {ex}")
-                    logger.error(f"Lỗi dịch {fname}: {ex}")
-                    # Chờ một chút trước khi tiếp tục
-                    self.sleep(2)
-
-            self.progress_signal.emit(total_task, total_task, "Hoàn tất dịch!")
-            self.log_signal.emit(f"\n🎉 HOÀN THÀNH DỊCH {completed_count}/{total_task} chương!")
-            self.finished_signal.emit(True, f"Đã hoàn thành dịch {completed_count}/{total_task} chương.")
+            final_done = total_task - len(final_missing)
+            if not final_missing:
+                self.progress_signal.emit(total_task, total_task, "Hoàn tất 100%!")
+                self.log_signal.emit(f"\n🎉 HOÀN THÀNH DỊCH 100% ({total_task}/{total_task} chương)!")
+                self.finished_signal.emit(True, f"Đã hoàn thành dịch 100% ({total_task}/{total_task} chương).")
+            else:
+                self.progress_signal.emit(final_done, total_task, f"Còn {len(final_missing)} chương lỗi")
+                self.log_signal.emit(f"\n⚠️ Đã qua {max_rounds} vòng lặp: Dịch được {final_done}/{total_task} chương. Còn {len(final_missing)} chương chưa dịch được.")
+                self.finished_signal.emit(False, f"Còn {len(final_missing)} chương chưa dịch được sau {max_rounds} vòng.")
 
         except Exception as e:
             self.log_signal.emit(f"❌ Lỗi ngoại lệ trong luồng dịch: {e}")
@@ -378,7 +409,7 @@ class GlossaryDialog(QDialog):
 
 class TranslateDialog(QDialog):
     """Dialog Tiện ích Dịch Truyện AI (Trung → Việt) tích hợp vào GetHtmlFromUrl."""
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, initial_source_dir: str = ""):
         super().__init__(parent)
         self.setWindowTitle("🌐 Tiện Ích AI Dịch Truyện (Google Gemini)")
         self.resize(880, 680)
@@ -391,6 +422,9 @@ class TranslateDialog(QDialog):
         self._build_ui()
         self._auto_load_keys()
         self._restore_settings()
+
+        if initial_source_dir and os.path.isdir(initial_source_dir):
+            self.txt_source.setText(initial_source_dir)
 
     def _restore_settings(self):
         """Khôi phục thư mục đã chọn lần trước từ QSettings"""
@@ -736,10 +770,12 @@ class TranslateDialog(QDialog):
         self.txt_target.setText(target_path)
         self.settings.setValue("translate/last_source_dir", src_path)
 
-        # Scan files
+        # Scan files (bỏ qua file gộp lớn trùng tên thư mục)
+        src_folder_name = os.path.basename(os.path.normpath(src_path)).lower()
         html_files = [
             f for f in os.listdir(src_path)
             if f.lower().endswith((".html", ".htm")) and not f.startswith("_")
+            and f.lower() != f"{src_folder_name}.html" and f.lower() != f"{src_folder_name}.htm"
         ]
         count = len(html_files)
         self.spn_to.setMaximum(max(1, count))
@@ -875,6 +911,10 @@ class TranslateDialog(QDialog):
         self.btn_stop.setEnabled(False)
         self._log(f"\n[TIẾN TRÌNH KẾT THÚC] {msg}")
         self._update_glossary_button_count()
+        # Cập nhật lại số liệu thống kê thư mục
+        if self.txt_source.text().strip():
+            self._on_source_changed(self.txt_source.text().strip())
+
         if success:
             if self.chk_auto_merge.isChecked():
                 self._log("⚡ Tùy chọn 'Tự động gộp file truyện khi dịch xong' đang bật. Đang tiến hành gộp...")
@@ -885,7 +925,17 @@ class TranslateDialog(QDialog):
                     f"{msg}\n\nBạn có thể bấm '📚 Gộp Truyện Dịch' để tạo file tổng hợp hoàn chỉnh!"
                 )
         else:
-            QMessageBox.warning(self, "Dừng / Lỗi dịch", msg)
+            if "chưa dịch được" in msg or "chương lỗi" in msg:
+                reply = QMessageBox.question(
+                    self, "Dịch Chưa Hoàn Tất",
+                    f"⚠️ {msg}\n\n"
+                    f"Bạn có muốn bấm 'Dịch Tiếp' ngay để dịch bù các chương còn thiếu không?",
+                    QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+                )
+                if reply == QMessageBox.StandardButton.Yes:
+                    self._on_start_translate()
+            else:
+                QMessageBox.warning(self, "Dừng / Lỗi dịch", msg)
 
     def _auto_merge_translated(self, silent: bool = False):
         """Tự động gộp các file chương đã dịch thành 1 file HTML tổng có mục lục."""
@@ -917,6 +967,15 @@ class TranslateDialog(QDialog):
         self.merge_worker.start()
 
     def _log(self, text: str):
+        if not text:
+            return
+        prefix_nl = ""
+        stripped = str(text)
+        while stripped.startswith("\n"):
+            prefix_nl += "\n"
+            stripped = stripped[1:]
+        if not re.match(r'^\s*\[\d{2}:\d{2}:\d{2}\]', stripped):
+            text = f"{prefix_nl}{time.strftime('[%H:%M:%S]')} {stripped}"
         self.txt_log.append(text)
 
     def _on_merge_translated(self):
