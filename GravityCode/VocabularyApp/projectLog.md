@@ -275,6 +275,20 @@
 **KHÔNG làm:** P6b (rate-limiter chia sẻ 2 tiến trình) · chưa trả lời câu hỏi 10 key/account tạo cùng 1 project hay 10 project riêng (ảnh hưởng lock_key vs lock_account dài hạn).
 
 ---
+## 📋 Cập nhật mới nhất — 2026-11-10 (Fix dashboard: dropdown sau auth · trạng thái CHƯA KẾT NỐI · trang học `/index` hiển thị nội dung)
+
+**Triệu chứng:** dashboard mở lên "không chạy ra kết quả gì" (log 0 dòng, dropdown khóa trống); `web/index.html` trắng/chưa có nội dung khi serve qua server.
+
+**Nguyên nhân (4):** ① `loadCourses()` chỉ gọi **1 lần lúc boot** — token chưa đúng lúc mở → 401 bị nuốt → dán token xong không nạp lại → dropdown trống vĩnh viễn, không Start được; ② chưa kết nối vẫn hiện `IDLE · 0% · chưa có run` (mặc định giả gây hiểu nhầm), mọi lỗi poll bị `catch{return}` nuốt im lặng; ③ server **không có route `/index`**; ④ `script.js` chết toàn bộ (pre-existing, chỉ lộ khi serve HTTP): `paths.js` khai `const VOCAB_SLUG` toàn cục, `script.js` khai `var VOCAB_SLUG` cùng tên → **SyntaxError "already been declared"** → mọi hàm (`init`, `switchView`, `loadLanguage`, `ensureCourseLoaded`) undefined → trang trắng.
+
+**Đã sửa:**
+1. **`web/dashboard.html`** — `setAuth` chuyển chưa auth → auth → tự gọi `loadCourses()` (dropdown nạp ngay sau token đúng) + log `🔗 Đã kết nối bridge — N khóa học sẵn sàng.`; chưa auth → pill **`CHƯA KẾT NỐI`** đỏ + phase "cần dán token…"; poll lỗi mạng → pill **`MẤT KẾT NỐI`** (hết im lặng); thêm nút header **📚 Trang học → `/index`**.
+2. **`ai/bridge_server.py`** — route `GET /index` (serve `web/index.html`) · `GET /<path:fn>` static trong `web/` · `GET /data/<path:fn>` (serve `data/`: course.json, media, ảnh/audio; **fallback**: `data/index.json` thiếu → **synth** danh sách khóa AI có `course.json` thật; `<slug>.json` chưa export → `{"vocabularies":[]}` để UI sạch; traversal → 4xx). Không auth (chỉ đọc, bind 127.0.0.1).
+3. **`web/script.js`** — bỏ `var VOCAB_SLUG` trùng tên → alias `slugOf` (typeof-guard + fallback) + 2 chỗ gọi (`loadLanguage`, `ensureCourseLoaded`). *(Không sửa `paths.js` — file sinh tự động.)*
+
+**Test:** `tools/test_web_dashboard.py` **42 → 54/54** (section 6: `/index` thật, static 200, index.json synth có `tiếng_nhật`, course.json thật có `days`, vocab fallback, thiếu 404, traversal 4xx, media manifest 200). Test thật server CLI + browser: chưa token → `CHƯA KẾT NỐI` + ô token hiện + Start disabled; `?token=` → dropdown 2 khóa + log kết nối; `/index` → badge `Hoàn thành 0/114 ngày`, **Ngày 1** render từ `course.json` thật với **12 ảnh + 12 audio** + quiz, tab List sạch. Suite xanh: dashboard54 · quota94 · media25 · keymgr111 · 3mode41 · slug6 · ai_rich85 · smoke PASS · compile0. Chi tiết: `docs/UPGRADE_17.md` mục **7.17**.
+
+---
 ## 📋 Cập nhật mới nhất — 2026-11-08 (Dashboard web localhost: Start/Dừng · log realtime · tiến độ từ trình duyệt)
 
 **Yêu cầu:** giao diện web HTML trên CÙNG máy để điều khiển pipeline (Start/Dừng, xem log realtime + tiến độ) từ trình duyệt.

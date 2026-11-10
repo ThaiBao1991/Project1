@@ -17,10 +17,14 @@
     background:var(--card);border-bottom:1px solid var(--line);
     position:sticky;top:0;z-index:5}
   header h1{font-size:17px;margin:0;font-weight:600}
-  .pill{margin-left:auto;padding:4px 12px;border-radius:99px;font-size:12px;
+  .pill{padding:4px 12px;border-radius:99px;font-size:12px;
     font-weight:600;background:var(--card2);border:1px solid var(--line);color:var(--muted)}
   .pill.run{background:#003d1f;border-color:#006b35;color:#5dffa8}
   .pill.run.web{background:#00343d;border-color:#007084;color:#6fe6ff}
+  .pill.off{background:#3d1515;border-color:#7a3030;color:#ff8a80}
+  #studyLink{margin-left:auto;text-decoration:none}
+  #studyLink:hover{border-color:var(--accent);color:var(--accent)}
+  #pill{margin-left:10px}
   main{max-width:1100px;margin:0 auto;padding:18px 20px 40px;
     display:grid;grid-template-columns:1fr;gap:16px}
   .grid2{display:grid;grid-template-columns:340px 1fr;gap:16px}
@@ -76,6 +80,7 @@
 <header>
   <h1>🎛️ Vocab Pipeline Dashboard</h1>
   <span style="font-size:12px;color:var(--muted)">localhost only</span>
+  <a id="studyLink" class="pill" href="/index" target="_blank">📚 Trang học</a>
   <span id="pill" class="pill">IDLE</span>
 </header>
 
@@ -168,10 +173,20 @@ async function api(path, opt){
   return r.json();
 }
 function setAuth(ok){
+  const was = authed;
   authed = ok;
   $("authBox").style.display = ok ? "none" : "";
   $("btnStart").disabled = !ok;
   $("btnStop").disabled = !ok;
+  // FIX: trước đây loadCourses chỉ chạy 1 lần lúc boot — token chưa đúng lúc
+  // mở trang ⇒ dropdown trống VĨNH VIỄN. Giờ: vừa auth xong là nạp lại khóa.
+  if (ok && !was) loadCourses();
+  if (!ok){
+    // Không để "IDLE · 0%" giả làm hiểu nhầm là đã kết nối
+    $("pill").textContent = "CHƯA KẾT NỐI";
+    $("pill").className = "pill off";
+    $("phase").textContent = "cần dán token (ô phía trên) hoặc mở ?token=…";
+  }
 }
 
 /* ── Token box ── */
@@ -189,6 +204,7 @@ async function refreshAuth(){
 }
 
 /* ── Danh sách khóa + cấp độ ── */
+let coursesLinked = false;
 async function loadCourses(){
   try{
     const j = await api("/api/vocab/dash/courses");
@@ -207,14 +223,28 @@ async function loadCourses(){
       const o = document.createElement("option");
       o.value = x; o.textContent = x; lv.appendChild(o);
     });
-  }catch(e){ /* chưa auth — để sau */ }
+    if (!coursesLinked){
+      coursesLinked = true;
+      addLine({t: new Date().toTimeString().slice(0,8),
+               msg: `🔗 Đã kết nối bridge — ${(j.languages || []).length} khóa học sẵn sàng.`});
+    }
+  }catch(e){ /* chưa auth / token sai — setAuth đã hiện ô dán token */ }
 }
 
 /* ── Trạng thái ── */
 async function pollStatus(){
   let j;
   try{ j = await api("/api/vocab/dash/status"); }
-  catch(e){ return; }
+  catch(e){
+    // bad_token → setAuth(false) đã hiện "CHƯA KẾT NỐI" trong api().
+    // Lỗi khác (app/bridge tắt, mạng) → báo rõ thay vì im lặng.
+    if (!e || e.message !== "bad_token"){
+      $("pill").textContent = "MẤT KẾT NỐI";
+      $("pill").className = "pill off";
+      $("phase").textContent = "không gọi được server — app đã đóng?";
+    }
+    return;
+  }
   const run = !!j.running;
   const pill = $("pill");
   pill.textContent = run ? ("RUNNING · " + (j.source || "?").toUpperCase()) : "IDLE";
@@ -261,7 +291,12 @@ function addLine(l){
 async function pollLogs(){
   let j;
   try{ j = await api("/api/vocab/dash/logs?since=" + lastId); }
-  catch(e){ return; }
+  catch(e){
+    if (!e || e.message !== "bad_token"){
+      $("logCount").textContent = "mất kết nối server";
+    }
+    return;
+  }
   (j.lines || []).forEach(addLine);
   lastId = j.last_id || lastId;
 }

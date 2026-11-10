@@ -264,6 +264,47 @@ if TOK:
     ck("stop khi idle → stopped=false",
        r.get_json().get("stopped") is False, r.get_json())
 
+    print("\n=== 6. Trang học /index + static + data ===")
+    r = client.get("/index")
+    body = r.get_data(as_text=True)
+    ck("/index → 200 là index.html thật (không trỏ nhầm static generic)",
+       r.status_code == 200 and "<title>" in body and "script.js" in body
+       and "Vocabulary" in body, r.status_code)
+    r = client.get("/script.js")
+    ck("/script.js → 200 + có init()", r.status_code == 200
+       and "async function init" in r.get_data(as_text=True), r.status_code)
+    ck("/style.css → 200", client.get("/style.css").status_code == 200)
+    ck("/paths.js → 200 + VOCAB_LANGS", client.get("/paths.js").status_code == 200
+       and "VOCAB_LANGS" in client.get("/paths.js").get_data(as_text=True))
+    ck("/manifest.json → 200", client.get("/manifest.json").status_code == 200)
+
+    r = client.get("/data/index.json")
+    j = r.get_json()
+    ck("data/index.json fallback → languages list KHÔNG rỗng (khóa AI thật)",
+       r.status_code == 200 and isinstance(j.get("languages"), list)
+       and len(j.get("languages") or []) >= 1, j)
+    ck("index.json có 'tiếng_nhật' (course.json thật trên đĩa)",
+       "tiếng_nhật" in (j.get("languages") or []), j)
+
+    slug0 = (j.get("languages") or ["tiếng_nhật"])[0]
+    r = client.get(f"/data/ai_courses/{slug0}/course.json")
+    cj = r.get_json() if r.status_code == 200 else None
+    ck("course.json THẬT → 200 + có mảng days (tab Khóa học AI render)",
+       r.status_code == 200 and isinstance((cj or {}).get("days"), list),
+       r.status_code)
+
+    r = client.get(f"/data/{slug0}.json")
+    ck("vocab <slug>.json chưa export → {vocabularies:[]} 200 (UI sạch)",
+       r.status_code == 200 and r.get_json().get("vocabularies") == [],
+       r.get_json())
+    ck("data thiếu (có '/') → 404 JSON",
+       client.get("/data/nonexistent_dir/xx.json").status_code == 404)
+    rt = client.get("/data/../../settings.json")
+    ck("path traversal /data/../../ → KHÔNG lộ file ngoài (4xx)",
+       rt.status_code in (400, 404), rt.status_code)
+    ck("media manifest thật → 200 (data/media/index.json)",
+       client.get("/data/media/index.json").status_code == 200)
+
 # ── kết thúc (restore nguyên trạng) ─────────────────────────────────────────
 pc.STOP_EVENT.set()
 wait_for(lambda: not pc.is_running(), timeout=15.0)   # chắc thread fake đã thoát

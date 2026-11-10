@@ -265,6 +265,48 @@ class VocabBridge:
             pc = _pctl()
             return jsonify({"ok": True, "stopped": pc.request_stop()})
 
+        # ── Trang học từ vựng web/index.html + static + data (§7.17) ────
+        # index.html fetch relative: "data/index.json", "data/<slug>.json",
+        # "data/ai_courses/<slug>/course.json", "data/media/index.json" + ảnh/
+        # audio qua "data/media|audio/<slug>/…" + assets (script.js, style.css…).
+        # KHÔNG auth: chỉ đọc file tĩnh/data (giao diện học), bind 127.0.0.1.
+        from flask import send_from_directory
+        from werkzeug.security import safe_join as _safe_join
+        _web_dir = os.path.join(_base, "web")
+        _data_dir = os.path.join(_base, "data")
+
+        @app.get("/index")
+        def web_index():
+            return send_from_directory(_web_dir, "index.html")
+
+        @app.get("/<path:fn>")
+        def web_static(fn):
+            # File trong web/ (script.js, style.css, paths.js, manifest.json,
+            # icons/…). send_from_directory tự chặn path traversal.
+            # Route CHẶT (/dashboard, /api/…) sort trước → không bị đè.
+            return send_from_directory(_web_dir, fn)
+
+        @app.get("/data/<path:fn>")
+        def web_data(fn):
+            real = _safe_join(_data_dir, fn)
+            if real and os.path.isfile(real):
+                return send_from_directory(_data_dir, fn)
+            # Fallback: data/index.json CHƯA CÓ (chưa export) → synth danh sách
+            # khóa AI CÓ THẬT trên đĩa → tab "Khóa học AI" hiển thị ngay.
+            if fn == "index.json":
+                langs = []
+                ac = os.path.join(_data_dir, "ai_courses")
+                if os.path.isdir(ac):
+                    for name in sorted(os.listdir(ac)):
+                        if os.path.isfile(os.path.join(ac, name, "course.json")):
+                            langs.append(name)
+                return jsonify({"languages": langs})
+            # File vocab <slug>.json chưa export → list rỗng để UI hiển thị
+            # sạch ("Không tìm thấy…") thay vì lỗi đỏ "Error loading".
+            if fn.endswith(".json") and "/" not in fn:
+                return jsonify({"vocabularies": []})
+            return jsonify({"ok": False, "error": "not_found"}), 404
+
         return app
 
     # ── Lưu kết quả ────────────────────────────────────────────────────

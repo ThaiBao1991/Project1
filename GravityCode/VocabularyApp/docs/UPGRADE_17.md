@@ -595,6 +595,31 @@ run_pipeline(thread nền, stop_check=STOP_EVENT.is_set, log_fn=buffer)
 
 ---
 
+## 7.17. FIX DASHBOARD (dropdown sau auth · trạng thái CHƯA KẾT NỐI) + TRANG HỌC `/index` HIỂN THỊ NỘI DUNG (2026-11-10)
+
+**Triệu chứng:** mở dashboard "không chạy ra kết quả gì" (log 0 dòng, dropdown trống); `web/index.html` không hiện nội dung khi serve qua server.
+
+**Nguyên nhân (4):**
+1. **Dropdown khóa trống vĩnh viễn**: `loadCourses()` chỉ gọi **1 lần lúc boot** — token chưa đúng khi mở trang → 401 bị nuốt (`catch{để sau}`) → dán token xong `refreshAuth()` **không gọi lại** → không chọn được khóa → không Start được.
+2. **Giá trị mặc định gây hiểu nhầm**: chưa kết nối mà vẫn hiện `IDLE · 0% · chưa có run · 0 dòng`; mọi lỗi poll bị `catch{return}` nuốt im lặng.
+3. **`/index` không có route**: server chỉ phục vụ `/dashboard` + API.
+4. **`script.js` chết toàn bộ** (lỗi pre-existing khi serve qua HTTP): `paths.js` (load trước) khai `const VOCAB_SLUG` toàn cục, `script.js` khai `var VOCAB_SLUG` cùng tên → **`var` conflict `const` → SyntaxError "already been declared"** ngay khi instantiate → MỌI hàm (`init`, `switchView`, `loadLanguage`, `ensureCourseLoaded`) undefined → trang trắng/chưa có dữ liệu. *(Dòng `if (typeof…)` guard runtime không cứu được vì lỗi ở mức parse/instantiate.)*
+
+**Sửa:**
+1. **`web/dashboard.html`**: `setAuth(true)` khi chuyển **chưa auth → auth** → tự gọi `loadCourses()` (dropdown nạp ngay sau token đúng); log local `🔗 Đã kết nối bridge — N khóa học sẵn sàng.`; chưa auth → pill **`CHƯA KẾT NỐI`** (đỏ) + phase "cần dán token…"; poll lỗi mạng → pill **`MẤT KẾT NỐI`** (không còn im lặng); thêm nút header **`📚 Trang học` → `/index`**.
+2. **`ai/bridge_server.py`**: thêm route `GET /index` (serve `web/index.html`) · `GET /<path:fn>` (static trong `web/`: script.js, style.css, paths.js, manifest, icons — `send_from_directory` chặn traversal) · `GET /data/<path:fn>` (serve `data/`: `ai_courses/*/course.json`, `media/index.json`, ảnh/audio; **fallback**: `data/index.json` thiếu → **synth** `{"languages":[khóa AI có course.json thật]}`; `<slug>.json` vocab chưa export → `{"vocabularies":[]}` để UI sạch thay vì lỗi đỏ; traversal → 4xx). Không auth (chỉ đọc, bind 127.0.0.1).
+3. **`web/script.js`**: bỏ `var VOCAB_SLUG` trùng tên → alias `slugOf` (typeof-guard, fallback khi `paths.js` không load) + 2 chỗ gọi (`loadLanguage`, `ensureCourseLoaded`).
+
+**Test `tools/test_web_dashboard.py` 42 → 54/54** (section 6: `/index` là index.html thật · script/style/paths/manifest 200 · index.json synth có `tiếng_nhật` · course.json THẬT 200 có `days` · vocab fallback rỗng · data thiếu 404 · traversal 4xx · media manifest 200).
+
+**Test thật (server CLI + browser):**
+- Dashboard chưa token → pill **`CHƯA KẾT NỐI`** + ô dán token hiện + Start disabled; `?token=` → auto-auth → dropdown **2 khóa** + log `🔗 Đã kết nối` + pill IDLE thật.
+- `/index` → dropdown khóa (synth) → tab **AI Course**: badge `Hoàn thành 0/114 ngày · trình độ: ⭐ Trọn gói…`, **Ngày 1** render từ `course.json` thật với **12 ảnh + 12 audio** + quiz; tab List hiện sạch "Không tìm thấy từ vựng nào phù hợp" (fallback).
+
+**Suite xanh:** dashboard 54/54 · quota 94/94 · media_fix 25/25 · key_manager 111/111 · 3mode 41/41 · slug 6/6 · ai_rich 85/85 · smoke PASS · `py_compile` 0.
+
+---
+
 ## 8. NGUYÊN TẮC BẮT BUỘC KHI SỬA TIẾP
 
 1. Đọc `projectLog.md` + `docs/UPGRADE_17.md` trước. Cập nhật cả 2 sau khi sửa.

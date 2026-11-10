@@ -5,12 +5,13 @@ let flashcardIndex = 0;
 
 // Pagination for Lazy Loading
 let currentPage = 1;
-// paths.js cung cấp VOCAB_SLUG — nếu load lỗi thì dùng fallback tại đây
-if (typeof VOCAB_SLUG !== 'function') {
-    var VOCAB_SLUG = function (s) {
-        return String(s || '').trim().toLowerCase().replace(/\s+/g, '_');
-    };
-}
+// paths.js (script load TRƯỚC) đã khai `const VOCAB_SLUG` toàn cục.
+// KHÔNG được khai lại cùng tên bằng var/const/function — mọi cách đều ném
+// SyntaxError "Identifier 'VOCAB_SLUG' has already been declared" NGAY khi
+// instantiate ⇒ toàn bộ script.js chết (mọi hàm undefined). Dùng alias nội bộ.
+const slugOf = (typeof VOCAB_SLUG === "function")
+    ? VOCAB_SLUG
+    : (s) => String(s || "").trim().toLowerCase().replace(/\s+/g, "_");
 
 const ITEMS_PER_PAGE = 30;
 
@@ -98,7 +99,7 @@ async function init() {
 
 async function loadLanguage(lang) {
     currentLanguage = lang;
-    const filename = VOCAB_SLUG(lang) + ".json";
+    const filename = slugOf(lang) + ".json";
     // Reset cache khóa học AI theo ngôn ngữ mới
     courseData = null;
     courseSlug = "";
@@ -433,7 +434,7 @@ function saveCourseProgress(p) {
 }
 
 async function ensureCourseLoaded() {
-    const slug = VOCAB_SLUG(currentLanguage);
+    const slug = slugOf(currentLanguage);
     if (courseData && courseSlug === slug) { renderCourseShell(); return; }
     courseSlug = slug;
     courseData = null;
