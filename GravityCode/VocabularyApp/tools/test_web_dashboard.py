@@ -284,12 +284,18 @@ if TOK:
     ck("data/index.json → 200 + languages KHÔNG rỗng (file thật hoặc synth khóa AI)",
        r.status_code == 200 and isinstance(j.get("languages"), list)
        and len(langs) >= 1, j)
-    # Môi trường thích ứng: file THẬT có (Desktop đã export) → nội dung do nó
-    # quyết định; file THIẾU (worktree/chưa export) → BẮT BUỘC synth đúng khóa AI.
+    # Môi trường thích ứng: file THẬT có (đã export) → nội dung do nó quyết
+    # định; file THIẾU → route synth từ dir khóa AI. Tên dir KHÁC NHAU giữa
+    # máy (worktree 'tiếng_nhật' vs Desktop 'nhật') → KHÔNG hardcode slug,
+    # chỉ bắt buộc: mọi slug synth đều trỏ tới course.json THẬT trên đĩa.
     _idx_real = os.path.isfile(os.path.join(BASE, "data", "index.json"))
     if not _idx_real:
-        ck("index.json THIẾU → synth có 'tiếng_nhật' (course.json thật trên đĩa)",
-           "tiếng_nhật" in langs, j)
+        _all_real = bool(langs) and all(
+            os.path.isfile(os.path.join(BASE, "data", "ai_courses",
+                                        s, "course.json"))
+            for s in langs)
+        ck("index.json THIẾU → synth từ khóa AI có course.json THẬT trên đĩa",
+           _all_real, langs[:5])
 
     slug0 = langs[0] if langs else "tiếng_nhật"
     r = client.get(f"/data/ai_courses/{slug0}/course.json")
