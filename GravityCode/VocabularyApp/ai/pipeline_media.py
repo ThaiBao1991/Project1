@@ -21,7 +21,7 @@ from ai.tts_config import stage_index_from_phase, stage_spec, voice_for
 # ─── TẦNG ẢNH ────────────────────────────────────────────────────────────────
 def run_images_stage(language: str, day: int, lesson: dict, chain, log_fn=print,
                      max_images: int = 10, budget=None, dead_models=None,
-                     allow_degraded: bool = True) -> dict:
+                     allow_degraded: bool = True, stop_check=None) -> dict:
     """Sinh ảnh minh họa cho 1 ngày. Trả dict kết quả stage."""
     if stage_is_done(language, STAGE_IMAGES, day, allow_degraded=allow_degraded):
         cp = load_checkpoint(language, STAGE_IMAGES, day) or {}
@@ -48,6 +48,14 @@ def run_images_stage(language: str, day: int, lesson: dict, chain, log_fn=print,
         "images": entries,
         "skipped": False,
     }
+    if stop_check and stop_check():
+        # FIX nút Dừng: ảnh đã sinh vẫn gắn vào vocab (generate ghi ref trực
+        # tiếp) — checkpoint PENDING để lần sau sinh nốt, RỒI dừng ngay
+        # (không chạy audio/dialogue/verify phía sau khi đã bấm Dừng).
+        from ai.course_generator import GenerationStopped
+        save_checkpoint(language, STAGE_IMAGES, data, day=day,
+                        status=STATUS_PENDING)
+        raise GenerationStopped()
     status = STATUS_DONE if entries else (STATUS_DEGRADED if allow_degraded else STATUS_SKIPPED)
     save_checkpoint(language, STAGE_IMAGES, data, day=day, status=status)
     return data
@@ -112,6 +120,31 @@ def _reattach_audio(lesson: dict, data: dict) -> None:
     (content đã đổi) ⇒ KHÔNG gắn ref sai vào từ mới — verify sẽ mark pending
     để sinh bù.
     """
+    # ── Audio HỘI THOẠI (kind=dialogue) — guard theo TITLE: dialogue sinh lại
+    # đổi title ⇒ KHÔNG gắn ref cũ vào hội thoại mới (verify sẽ mark pending).
+    dlg_list = (lesson or {}).get("dialogue") or []
+    if dlg_list:
+        dlg_audio = (lesson or {}).setdefault("media", {}) \
+                                 .setdefault("dialogue_audio", {})
+        for tr in (data.get("dialogue_tracks") or []):
+            if not isinstance(tr, dict):
+                continue
+            try:
+                di = int(tr.get("index", -1))
+            except Exception:
+                continue
+            if not (0 <= di < len(dlg_list)) or not tr.get("ref"):
+                continue
+            if not isinstance(dlg_list[di], dict):
+                continue
+            d = dlg_list[di]
+            if d.get("audio_ref"):
+                continue
+            if str(tr.get("text") or "") != str(d.get("title") or ""):
+                continue                    # title đổi ⇒ không gắn ref cũ
+            dlg_audio[str(di)] = tr["ref"]
+            d["audio_ref"] = tr["ref"]
+
     vocab = (lesson or {}).get("vocab") or []
     if not vocab:
         return
@@ -133,8 +166,14 @@ def _reattach_audio(lesson: dict, data: dict) -> None:
 
 def run_audio_stage(language: str, day: int, lesson: dict, chain, log_fn=print,
                     max_items: int = 12, budget=None,
-                    allow_degraded: bool = True) -> dict:
-    """Sinh âm thanh cho 1 ngày."""
+                    allow_degraded: bool = True, stop_check=None) -> dict:
+    """Sinh âm thanh cho 1 ngày (từ vựng · nghĩa · CÂU · hội thoại).
+
+    FIX 2026-11-11:
+      • `stop_check` — bấm Dừng ⇒ dừng giữa chừng, giữ phần đã sinh (PENDING).
+      • Make-up chỉ sinh phần THIẾU (từ đã có ref ⇒ KHÔNG TTS lại).
+      • Sinh audio HỘI THOẠI (trước đây 0/1.302 hội thoại có audio).
+    """
     if stage_is_done(language, STAGE_AUDIO, day, allow_degraded=allow_degraded):
         cp = load_checkpoint(language, STAGE_AUDIO, day) or {}
         data = cp.get("data") or {"skipped": True}
@@ -142,15 +181,20 @@ def run_audio_stage(language: str, day: int, lesson: dict, chain, log_fn=print,
         log_fn(f"   ⏭  Audio Ngày {day} đã có — bỏ qua.")
         return data
 
+    from ai.course_generator import GenerationStopped
+    if stop_check and stop_check():
+        raise GenerationStopped()
+
     stage_idx = stage_index_from_phase(lesson.get("phase", ""))
     items = _audio_items_for(lesson, stage_idx, max_items)
-    if not items:
+    if not items and not (lesson.get("dialogue") or []):
+        # Không có từ VÀ không có hội thoại ⇒ không có gì để đọc.
         save_checkpoint(language, STAGE_AUDIO, {"skipped": True, "tracks": []},
                         day=day, status=STATUS_SKIPPED)
         return {"skipped": True, "tracks": []}
 
     from ai.tts_generator import synthesize, tts_quota_remaining
-    coord = chain.providers[0].coord if chain.providers else None
+    coord = chain.providers[0].coord if (chain and chain.providers) else None
 
     # Locale của từ vựng theo NGÔN NGỮ KHÓA HỌC (edge_voice "ja-JP-NanamiNeural"
     # → "ja-JP"). Trước đây hardcode "ja-JP" ⇒ khóa học tiếng Trung/Hàn… bị đọc
@@ -178,36 +222,63 @@ def run_audio_stage(language: str, day: int, lesson: dict, chain, log_fn=print,
     # ⇒ KHÔNG dùng list module-level, sẽ bị race khi clear()).
     audio_errors = []
 
+    vocab_live = lesson.get("vocab") or []
+    try:
+        from settings import load_settings
+        _bilingual = bool((load_settings().get("media") or {})
+                          .get("tts_bilingual_mode"))
+    except Exception:
+        _bilingual = False
+
     def _one(i_item):
         i, it = i_item
+        if stop_check and stop_check():
+            return i, None              # đã bấm Dừng — không synth thêm
         errs = []
+        # Make-up chỉ sinh phần THIẾU: từ đã có audio_ref (và audio nghĩa nếu
+        # bật song ngữ) ⇒ KHÔNG TTS lại toàn bộ (trước đây pass bù tốn ~20
+        # file/ngày đã đủ).
+        need_jp, need_vi = True, False
+        if it["kind"] == "vocab" and 0 <= it.get("index", -1) < len(vocab_live):
+            v = vocab_live[it["index"]]
+            need_jp = not v.get("audio_ref")
+            if _bilingual and it.get("meaning_vi"):
+                need_vi = not v.get("meaning_audio_ref")
+            if not need_jp and not need_vi:
+                return i, ()            # đã đủ 2 loại — bỏ qua
+        res_jp, res_vi = None, None
         try:
-            res_jp = synthesize(language, it["text"], stage_idx=stage_idx,
-                                coord=coord, log_fn=errs.append, voice=_loc_target)
-            if res_jp and res_jp.get("path"):
-                try:
-                    from settings import load_settings
-                    s = load_settings()
-                    # Chỉ đọc nghĩa khi CÓ meaning_vi thật — trước đây fallback
-                    # sang it["text"] ⇒ đọc lại từ Nhật bằng giọng Việt.
-                    vi_raw = str(it.get("meaning_vi") or "").split(",")[0].strip()
-                    if s.get("media", {}).get("tts_bilingual_mode") and vi_raw:
+            if need_jp:
+                res_jp = synthesize(language, it["text"], stage_idx=stage_idx,
+                                    coord=coord, log_fn=errs.append,
+                                    voice=_loc_target)
+                if not (res_jp and res_jp.get("path")):
+                    res_jp = None
+                    if errs:
+                        audio_errors.append(f"#{it.get('index')}: {errs[-1]}")
+            if need_vi:
+                # Chỉ đọc nghĩa khi CÓ meaning_vi thật — trước đây fallback
+                # sang it["text"] ⇒ đọc lại từ Nhật bằng giọng Việt.
+                vi_raw = str(it.get("meaning_vi") or "").split(",")[0].strip()
+                if vi_raw and not (stop_check and stop_check()):
+                    try:
                         res_vi = synthesize(language, vi_raw, stage_idx=stage_idx,
                                             coord=coord, log_fn=errs.append,
                                             voice="vi-VN")
-                        if res_vi and res_vi.get("path"):
-                            return i, (res_jp, res_vi)
-                except Exception as e_vi:
-                    errs.append(f"bilingual: {type(e_vi).__name__}: {e_vi}")
-                return i, res_jp
-            # KHÔNG nuốt lỗi im lặng nữa — bug cũ: TypeError bị except ⇒ 0 track
-            # mà không ai biết vì sao (gây PAUSED toàn pipeline).
-            if errs:
-                audio_errors.append(f"#{it.get('index')}: {errs[-1]}")
-            return i, {}
+                        if not (res_vi and res_vi.get("path")):
+                            res_vi = None
+                    except Exception as e_vi:
+                        errs.append(f"bilingual: {type(e_vi).__name__}: {e_vi}")
         except Exception as e:
             audio_errors.append(f"#{it.get('index')}: {type(e).__name__}: {e}")
-            return i, {}
+            return i, None
+        if res_jp and res_vi:
+            return i, (res_jp, res_vi)
+        if res_jp:
+            return i, res_jp
+        if res_vi:
+            return i, (None, res_vi)     # chỉ thiếu audio nghĩa ⇒ sinh nốt
+        return i, None
 
     with ThreadPoolExecutor(max_workers=6) as ex:
         for i, r in ex.map(_one, list(enumerate(items))):
@@ -274,12 +345,72 @@ def run_audio_stage(language: str, day: int, lesson: dict, chain, log_fn=print,
         else:
             vocab_audio[str(tr["index"])] = tr["ref"]
 
-    data = {"engine_stage": stage_idx, "tracks": tracks, "generated": len(tracks),
-            "skipped": not tracks}
-    status = STATUS_DONE if tracks else (STATUS_DEGRADED if allow_degraded else STATUS_SKIPPED)
+    # ── AUDIO HỘI THOẠI (Fix 2026-11-11) ─────────────────────────────────────
+    # Web luôn render nút phát hội thoại (media.dialogue_audio[di] || dlg.audio_ref)
+    # nhưng KHÔNG stage nào từng sinh ref ⇒ 0/1.302 hội thoại có audio
+    # ("nhiều ngày chưa đủ âm thanh"). 1 file/hội thoại — edge-TTS, 0 quota AI.
+    dialogues = [d for d in (lesson.get("dialogue") or []) if isinstance(d, dict)]
+    dlg_audio = media_map.setdefault("dialogue_audio", {})
+    dialogue_tracks = []
+    dlg_errs = []
+    for di, d in enumerate(dialogues):
+        if stop_check and stop_check():
+            break
+        if dlg_audio.get(str(di)) or d.get("audio_ref"):
+            continue                       # đã có — idempotent
+        turns = d.get("turns") or []
+        text = " … ".join(
+            str(t.get("line_target") or t.get("line") or "").strip()
+            for t in turns if isinstance(t, dict)
+            and (t.get("line_target") or t.get("line"))
+        ).strip()
+        if not text:
+            continue
+        try:
+            res_d = synthesize(language, text, stage_idx=stage_idx, coord=coord,
+                               log_fn=dlg_errs.append, voice=_loc_target)
+        except Exception as e_d:
+            audio_errors.append(f"dialogue#{di}: {type(e_d).__name__}: {e_d}")
+            continue
+        if not (res_d and res_d.get("path")):
+            if dlg_errs:
+                audio_errors.append(f"dialogue#{di}: {dlg_errs[-1]}")
+            continue
+        entry = media_store.save_audio(
+            language, day, f"audio_dialogue_{di:02d}_"
+            f"{media_store.hash_key(text, res_d.get('engine'))}",
+            _read_bytes(res_d["path"]),
+            mime="audio/mpeg" if res_d["path"].endswith(".mp3") else "audio/wav",
+            source="tts", text=text, engine=res_d.get("engine", ""),
+            voice=res_d.get("voice", ""), rate=res_d.get("rate", ""),
+            kind="dialogue_audio")
+        if entry:
+            ref = entry.get("id")
+            dlg_audio[str(di)] = ref
+            d["audio_ref"] = ref
+            dialogue_tracks.append({"index": di, "text": d.get("title", ""),
+                                    "ref": ref, "engine": res_d.get("engine", ""),
+                                    "file": entry.get("rel_path")})
+            if budget is not None:
+                budget.consume_tts()
+
+    stopped = bool(stop_check and stop_check())
+    data = {"engine_stage": stage_idx, "tracks": tracks,
+            "generated": len(tracks), "dialogue_tracks": dialogue_tracks,
+            "skipped": not (tracks or dialogue_tracks)}
+    if stopped:
+        # Dừng giữa chừng: GIỮ phần đã sinh (refs đã gắn vào lesson),
+        # checkpoint PENDING để lần sau sinh nốt — KHÔNG đánh dấu done.
+        save_checkpoint(language, STAGE_AUDIO, data, day=day,
+                        status=STATUS_PENDING)
+        raise GenerationStopped()
+    status = STATUS_DONE if (tracks or dialogue_tracks) else (
+        STATUS_DEGRADED if allow_degraded else STATUS_SKIPPED)
     save_checkpoint(language, STAGE_AUDIO, data, day=day, status=status)
-    log_fn(f"   🔊 Audio Ngày {day}: {len(tracks)} track "
-           f"({sum(1 for t in tracks if t['kind'] == 'vocab')} gắn vào từ vựng).")
+    log_fn(f"   🔊 Audio Ngày {day}: {len(tracks)} track"
+           + (f" + {len(dialogue_tracks)} audio hội thoại"
+              if dialogue_tracks else "")
+           + f" ({sum(1 for t in tracks if t['kind'] == 'vocab')} gắn vào từ vựng).")
     return data
 
 
@@ -338,7 +469,8 @@ def run_dialogue_stage(language: str, day: int, lesson: dict, coord, log_fn=prin
                         day=day, status=STATUS_SKIPPED)
         return {"skipped": True, "dialogues": []}
 
-    from ai.course_generator import (DIALOGUE_SCHEMA, build_dialogue_prompt,
+    from ai.course_generator import (DIALOGUE_SCHEMA, GenerationStopped,
+                                     build_dialogue_prompt,
                                      parse_dialogue_json)
     stage_idx = stage_index_from_phase(lesson.get("phase", ""))
     level_tag = cefr_for_stage(stage_idx)
@@ -348,6 +480,8 @@ def run_dialogue_stage(language: str, day: int, lesson: dict, coord, log_fn=prin
                                    level_tag=level_tag, review=review)
     try:
         res = coord.request(prompt, response_schema=DIALOGUE_SCHEMA)
+    except GenerationStopped:
+        raise
     except Exception as e:
         log_fn(f"   ⚠ Lỗi gọi AI cho hội thoại: {e}")
         res = {"ok": False}
@@ -360,6 +494,11 @@ def run_dialogue_stage(language: str, day: int, lesson: dict, coord, log_fn=prin
             dialogues = []
     else:
         err = res.get("error", {})
+        if err.get("kind") == "stopped":
+            # FIX nút Dừng (2026-11-11): TRƯỚC đây nuốt lỗi → vẫn lưu checkpoint
+            # degraded + chạy tiếp media_verify → "đánh dấu sinh bù lần sau"
+            # ngay cả khi người dùng vừa bấm ⏹. Giờ dừng NGAY tại đây.
+            raise GenerationStopped()
         log_fn(f"   ⚠ Hội thoại thất bại [{err.get('kind')}]: {str(err.get('message',''))[:80]}")
 
     # ── KIỂM TRA GIỚI HẠN HỘI THOẠI (6 lượt / 220 ký tự / ≤8 từ mỗi lượt) ──
@@ -374,6 +513,8 @@ def run_dialogue_stage(language: str, day: int, lesson: dict, coord, log_fn=prin
             try:
                 res2 = coord.request(_dialogue_retry_prompt(prompt, invalid),
                                      response_schema=DIALOGUE_SCHEMA)
+                if (res2.get("error") or {}).get("kind") == "stopped":
+                    raise GenerationStopped()      # dừng ngay (không nuốt)
                 if budget is not None:
                     budget.consume_call()
                 if res2.get("ok"):
@@ -383,6 +524,8 @@ def run_dialogue_stage(language: str, day: int, lesson: dict, coord, log_fn=prin
                     bad1 = sum(1 for v in validation if not v.get("ok"))
                     if dialogues2 and bad2 < bad1:
                         dialogues, validation, retried = dialogues2, v2, True
+            except GenerationStopped:
+                raise
             except Exception as e:
                 log_fn(f"   ⚠ Thử lại hội thoại lỗi: {type(e).__name__}: {e}")
         else:
@@ -456,8 +599,37 @@ def run_media_verify_stage(language: str, day: int, lesson: dict, log_fn=print,
     # dialogue vẫn done → skip mãi → hội thoại mất vĩnh viễn trong course.json
     # mà DoD vẫn báo all_days_dialogue=true (lừa).
     n_no_dlg = 0 if (lesson.get("dialogue") or []) else 1
-    if n_no_img or n_no_aud or n_no_dlg:
-        for stg, cnt in ((STAGE_IMAGES, n_no_img), (STAGE_AUDIO, n_no_aud),
+
+    # FIX 2026-11-11 (âm thanh): trước đây verify CHỈ đếm image_ref/audio_ref
+    # của TỪ ⇒ audio NGHĨA (bật song ngữ) và audio HỘI THOẠI thiếu → KHÔNG
+    # mark pending → không bao giờ sinh bù ("nhiều ngày chưa đủ âm thanh").
+    try:
+        from settings import load_settings
+        _bilingual = bool((load_settings().get("media") or {})
+                          .get("tts_bilingual_mode"))
+    except Exception:
+        _bilingual = False
+    n_no_mean = 0
+    if _bilingual:
+        for v in vocab:
+            if (isinstance(v, dict) and str(v.get("meaning_vi") or "").strip()
+                    and v.get("audio_ref") and not v.get("meaning_audio_ref")):
+                n_no_mean += 1
+    n_no_dlg_aud = 0
+    _dlg_list = lesson.get("dialogue") or []
+    if _dlg_list:
+        _dmap = (lesson.get("media") or {}).get("dialogue_audio") or {}
+        for _di, _d in enumerate(_dlg_list):
+            if not (isinstance(_d, dict) and
+                    (_dmap.get(str(_di)) or _d.get("audio_ref"))):
+                n_no_dlg_aud += 1
+    n_aud_gap = n_no_aud + n_no_mean + n_no_dlg_aud
+
+    # Ngày thiếu ref ⇒ đánh dấu lại stage tương ứng là PENDING để sinh bù.
+    # Fix 2: GIỮ data cũ khi mark pending (trước đây ghi đè bằng {"pending_reason"}
+    # ⇒ phá checkpoint: mất list tracks/images/dialogues đã sinh).
+    if n_no_img or n_aud_gap or n_no_dlg:
+        for stg, cnt in ((STAGE_IMAGES, n_no_img), (STAGE_AUDIO, n_aud_gap),
                          (STAGE_DIALOGUE, n_no_dlg)):
             if cnt > 0:
                 try:
@@ -468,13 +640,25 @@ def run_media_verify_stage(language: str, day: int, lesson: dict, log_fn=print,
                                     day=day, status=STATUS_PENDING)
                 except Exception:
                     pass
-        log_fn(f"   ⚠ Ngày {day} thiếu {n_no_img} ảnh / {n_no_aud} audio"
-               + (f" / {n_no_dlg} hội thoại" if n_no_dlg else "")
-               + " — đánh dấu để sinh bù lần sau.")
+        _gap = []
+        if n_no_img:
+            _gap.append(f"{n_no_img} ảnh")
+        if n_no_aud:
+            _gap.append(f"{n_no_aud} audio từ")
+        if n_no_mean:
+            _gap.append(f"{n_no_mean} audio nghĩa")
+        if n_no_dlg_aud:
+            _gap.append(f"{n_no_dlg_aud} audio hội thoại")
+        if n_no_dlg:
+            _gap.append(f"{n_no_dlg} hội thoại")
+        log_fn(f"   ⚠ Ngày {day} thiếu " + " / ".join(_gap)
+               + " — đánh dấu để sinh bù (run này sẽ bù ngay nếu còn ngân sách).")
 
     result = "pass" if not missing else ("partial" if items else "fail")
     data = {"result": result, "items": items, "missing": missing,
-            "no_image_ref": n_no_img, "no_audio_ref": n_no_aud,
+            "no_image_ref": n_no_img, "no_audio_ref": n_aud_gap,
+            "no_meaning_audio_ref": n_no_mean,
+            "no_dialogue_audio_ref": n_no_dlg_aud,
             "policy": "media_optional", "checked_at": _now()}
     status = STATUS_DONE if result in ("pass", "partial") else STATUS_DEGRADED
     save_checkpoint(language, STAGE_MEDIA_VERIFY, data, day=day, status=status)

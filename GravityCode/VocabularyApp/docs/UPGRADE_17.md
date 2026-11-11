@@ -636,6 +636,23 @@ run_pipeline(thread nền, stop_check=STOP_EVENT.is_set, log_fn=buffer)
 
 ---
 
+## 7.19. FIX 3 LỖI PIPELINE: ⏹ DỪNG ĂN NGAY · BÙ TRONG CÙNG RUN · AUDIO NGHĨA/HỘI THOẠI (2026-11-11b)
+
+**Triệu chứng (user):** ① bấm ⏹ Dừng mà pipeline vẫn chạy tiếp; ② media bị "đánh dấu sinh bù lần sau" thay vì chạy hết trong 1 run; ③ nhiều ngày chưa đủ âm thanh.
+
+**Chẩn thật (data Desktop):** ③ **1.302 hội thoại → 0 có `audio_ref`** (`media.dialogue_audio={}` rỗng — không stage nào từng sinh audio hội thoại) · **`meaning_audio_ref` = 0/1.414** dù `tts_bilingual_mode: true` · khóa nhật chỉ 27 checkpoint content vs 1.414 ngày plan (hầu như rỗng) · `tiếng_nhật` 1.260 ngày media 0 file audio. ① `_run_days_parallel` submit hết futures chờ 4 luồng chạy hết ngày; `_run_day` không stop_check giữa stage; `_ask_with_retry` retry 3 lần khi `kind="stopped"`; `run_dialogue_stage` nuốt stopped → vẫn verify + mark makeup. ② GUI chạy single-pass (`passes=2` chỉ khi CLI `--all`) → verify mark PENDING luôn chờ lần chạy sau.
+
+**Sửa:**
+- **A. Dừng ăn ngay** (`pipeline.py` · `pipeline_media.py`): `_ask_with_retry` raise `GenerationStopped` NGAY khi `kind="stopped"`/exception (không retry 3) · `_run_day(..., stop_check=)` + `_stop()` trước MỖI stage · `run_images_stage`/`run_audio_stage` dừng giữa chừng → **save PENDING + raise** (giữ phần đã sinh, không synth thêm) · `run_dialogue_stage` raise thay nuốt · `_run_days_parallel`: `except GenerationStopped → "stopped"`, **cancel futures hàng đợi** (các luồng thoát ≤1 stage nhờ stop_check) + `try/finally` flush `course.json` (fix mất ≤9 ngày khi dừng).
+- **B. Bù trong cùng run**: hàm mới `_media_pending_days` + `_makeup_pending_days(max_passes=2)` — **MỌI run (kể cả GUI ▶)** tự quét ngày media PENDING sau day loop và bù tối đa 2 vòng; dừng khi: đã Dừng · hết quota · hết thời gian · không ngày nào tiến triển. Giữ nguyên `passes=2 if --all` (vô hại).
+- **C. Đủ âm thanh**: sinh **audio HỘI THOẠI** (edge-TTS, 1 file/hội thoại nối lượt bằng " … " → `media.dialogue_audio[di]` + `dlg.audio_ref`, checkpoint `dialogue_tracks`, re-attach guard theo TITLE) · make-up **skip-existing từng variant** (từ đã đủ `audio_ref`/`meaning_audio_ref` → không TTS lại; sinh nghĩa đọc `meaning_vi` thật — fix trước fallback sang `it["text"]` ⇒ đọc lại tiếng Nhật bằng giọng Việt) · `run_media_verify_stage` đếm thêm **audio nghĩa + audio hội thoại thiếu** → mark AUDIO pending với log liệt kê cụ thể · fix crash `chain=None` ở `coord = chain.providers…`. Web `/index` đọc `media.dialogue_audio[di] || dlg.audio_ref` (`script.js:694`) → nút phát hội thoại sáng ngay khi có ref; **verify chạy lại mọi ngày mỗi run** (không skip) nên khóa cũ thiếu audio cũng bị mark → bù ngay trong run.
+
+**Test:** `tools/test_stop_makeup.py` mới **37/37** — A1/A1b dừng ngay (gọi ĐÚNG 1 lần) · A2 `_run_day` raise trước stage · A3 parallel không treo + finally save · A4 dialogue không checkpoint degraded · A5 audio dừng → PENDING không synth · B6/B7 makeup bù ngay/dừng khi Dừng/hết quota · **B8 integration**: `run_pipeline` thật → audio stage gọi đúng 2 lần (day loop + pass bù) → checkpoint DONE · C8/C8b skip-existing + audio nghĩa + audio hội thoại + reattach TITLE · C9 verify đếm. Suite xanh: dashboard57 · quota94 · media25 · stop_makeup37 · keymgr111 · 3mode41 · slug6 · ai_rich85 · smoke15 · compile0.
+
+**Cách dùng:** restart app để nút ⏹/GUI chạy code mới → ▶ chạy bình thường; bấm ⏹ là dừng trong ≤1 stage (phần đã sinh giữ nguyên); ngày media thiếu tự bù **ngay trong run** (log `🔁 Pass bù …`); khóa cũ audio/hội thoại thiếu được verify đánh dấu + bù dần ở các run sau.
+
+---
+
 ## 8. NGUYÊN TẮC BẮT BUỘC KHI SỬA TIẾP
 
 1. Đọc `projectLog.md` + `docs/UPGRADE_17.md` trước. Cập nhật cả 2 sau khi sửa.

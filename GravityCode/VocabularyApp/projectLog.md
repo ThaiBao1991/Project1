@@ -275,6 +275,17 @@
 **KHÔNG làm:** P6b (rate-limiter chia sẻ 2 tiến trình) · chưa trả lời câu hỏi 10 key/account tạo cùng 1 project hay 10 project riêng (ảnh hưởng lock_key vs lock_account dài hạn).
 
 ---
+## 📋 Cập nhật mới nhất — 2026-11-11b (Fix 3 lỗi pipeline: ⏹ Dừng ăn ngay · bù trong cùng run · audio nghĩa/hội thoại)
+
+**Yêu cầu (user):** ① nút Dừng không hoạt động; ② pipeline "đánh dấu sinh bù lần sau" thay vì chạy hết trong 1 run; ③ nhiều ngày chưa đủ âm thanh. Đã duyệt plan A+B+C.
+
+**Chẩn thật (data Desktop):** ③ **1.302 hội thoại → 0 có `audio_ref`** + `media.dialogue_audio={}` rỗng (không stage nào từng sinh audio hội thoại) · `meaning_audio_ref` = **0/1.414** dù `tts_bilingual_mode: true` · `tiếng_nhật` 1.260 ngày media 0 file audio. ① stop chỉ check đầu ngày → `_ask_with_retry` retry 3 lần khi `kind="stopped"`, `run_dialogue_stage` nuốt stopped → vẫn verify/mark makeup; `_run_days_parallel` không cancel futures, không save khi dừng (mất ≤9 ngày). ② GUI single-pass (`passes=2` chỉ khi CLI `--all`).
+
+**Đã sửa:** **A** — `_ask_with_retry` raise `GenerationStopped` ngay · `_run_day` `_stop()` trước mỗi stage · images/audio dừng giữa chừng → save PENDING + raise (giữ phần đã sinh) · dialogue raise thay nuốt · parallel cancel futures + `try/finally` flush `course.json`. **B** — `_media_pending_days` + `_makeup_pending_days(max_passes=2)`: mọi run (kể cả GUI ▶) tự bù ngày media PENDING sau day loop, dừng khi Dừng/hết quota/hết giờ/không tiến triển. **C** — sinh **audio hội thoại** (edge-TTS 1 file/hội thoại → `media.dialogue_audio[di]` + `dlg.audio_ref`, ckpt `dialogue_tracks`, reattach guard TITLE) · makeup skip-existing từng variant + audio nghĩa đọc `meaning_vi` thật · verify đếm audio nghĩa + audio hội thoại → mark AUDIO pending · fix crash `chain=None`.
+
+**Test:** `tools/test_stop_makeup.py` mới **37/37** (dừng A1–A5 · makeup B6–B7 · **B8 integration `run_pipeline` bù 2 lần** · audio C8–C9). Suite xanh: dashboard57 · quota94 · media25 · keymgr111 · 3mode41 · slug6 · ai_rich85 · smoke15 · compile0. **Cần restart app** để fix GUI hiệu lực. Chi tiết: `docs/UPGRADE_17.md` mục **7.19**.
+
+---
 ## 📋 Cập nhật mới nhất — 2026-11-11 (Trang học hết nhắc "Đồng Bộ lên GitHub" + hướng dẫn mở đúng cách)
 
 **Yêu cầu (user):** dữ liệu (từ vựng/ảnh/audio) đã có sẵn trên máy — sao phải đẩy lên GitHub mới xem được web; đảm bảo toàn bộ tính năng chạy ổn.
