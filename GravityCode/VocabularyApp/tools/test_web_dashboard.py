@@ -278,6 +278,8 @@ if TOK:
        "Đồng Bộ lên GitHub" not in sj, sj.find("GitHub"))
     ck("/script.js hướng dẫn mở 127.0.0.1:5690/index khi load lỗi + phân biệt file://",
        "127.0.0.1:5690/index" in sj and 'location.protocol === "file:"' in sj, None)
+    ck("/script.js có listener đổi ngày khóa học (change → renderCourseDay)",
+       'daySelect.addEventListener("change"' in sj, None)
     ck("/style.css → 200", client.get("/style.css").status_code == 200)
     ck("/paths.js → 200 + VOCAB_LANGS", client.get("/paths.js").status_code == 200
        and "VOCAB_LANGS" in client.get("/paths.js").get_data(as_text=True))

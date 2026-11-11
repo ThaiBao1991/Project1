@@ -425,6 +425,13 @@ const progressBadge = document.getElementById("course-progress-badge");
 let courseData = null;
 let courseSlug = "";
 
+// FIX: dropdown chọn ngày trước đây KHÔNG có listener → đổi ngày nội dung
+// vẫn kẹt ở ngày đầu (renderCourseDay chỉ chạy 1 lần trong renderCourseShell).
+daySelect.addEventListener("change", (e) => {
+    const n = Number(e.target.value);
+    if (n && courseData) renderCourseDay(n);
+});
+
 function courseProgressKey() {
     return `vocabapp_ai_progress_${courseSlug}`;
 }
