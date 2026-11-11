@@ -271,8 +271,13 @@ if TOK:
        r.status_code == 200 and "<title>" in body and "script.js" in body
        and "Vocabulary" in body, r.status_code)
     r = client.get("/script.js")
+    sj = r.get_data(as_text=True)
     ck("/script.js → 200 + có init()", r.status_code == 200
-       and "async function init" in r.get_data(as_text=True), r.status_code)
+       and "async function init" in sj, r.status_code)
+    ck("/script.js hết nhắc 'Đồng Bộ lên GitHub' (dữ liệu LOCAL, không cần GitHub)",
+       "Đồng Bộ lên GitHub" not in sj, sj.find("GitHub"))
+    ck("/script.js hướng dẫn mở 127.0.0.1:5690/index khi load lỗi + phân biệt file://",
+       "127.0.0.1:5690/index" in sj and 'location.protocol === "file:"' in sj, None)
     ck("/style.css → 200", client.get("/style.css").status_code == 200)
     ck("/paths.js → 200 + VOCAB_LANGS", client.get("/paths.js").status_code == 200
        and "VOCAB_LANGS" in client.get("/paths.js").get_data(as_text=True))

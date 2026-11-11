@@ -275,6 +275,17 @@
 **KHÔNG làm:** P6b (rate-limiter chia sẻ 2 tiến trình) · chưa trả lời câu hỏi 10 key/account tạo cùng 1 project hay 10 project riêng (ảnh hưởng lock_key vs lock_account dài hạn).
 
 ---
+## 📋 Cập nhật mới nhất — 2026-11-11 (Trang học hết nhắc "Đồng Bộ lên GitHub" + hướng dẫn mở đúng cách)
+
+**Yêu cầu (user):** dữ liệu (từ vựng/ảnh/audio) đã có sẵn trên máy — sao phải đẩy lên GitHub mới xem được web; đảm bảo toàn bộ tính năng chạy ổn.
+
+**Sự thật:** trang **KHÔNG cần GitHub** — đọc trực tiếp `data/` local qua server nội bộ app (`127.0.0.1:5690/index`). Dòng "Đồng Bộ lên GitHub" là copy placeholder cũ. Chẩn nhật screenshot (`Failed to load data` + ngày trống + "cho ."): 5690 trống → mở thẳng `web/index.html` bằng `file://` → trình duyệt chặn `fetch`.
+
+**Đã sửa (`web/script.js`, 3 chỗ):** ① `init()` catch → thay "Failed to load data" bằng hướng dẫn phân biệt `file://` ("Mở sai cách… mở app VocabApp rồi vào 127.0.0.1:5690/index") vs server khác; ② `loadLanguage()` catch → cùng thông báo thay "Error loading vocabulary data."; ③ placeholder khóa học → bỏ "Đồng Bộ lên GitHub", nói dữ liệu nằm ngay trên máy đọc từ `data/` local + fix "cho ." (language rỗng → "(chưa chọn khóa)").
+
+**Test:** `test_web_dashboard.py` 54 → **56/56** (2 check regression mới). Thật browser: `/index` init OK · List/Flashcard/AI Course render · 114 ngày + 12 ảnh + 12 audio · chặn fetch giả lập → catch hiện đúng thông báo · dashboard `?token=` IDLE + 2 khóa + link 📚. Suite xanh: dashboard56 · quota94 · media25 · keymgr111 · 3mode41 · slug6 · ai_rich85 · smoke PASS · compile0. Chi tiết: `docs/UPGRADE_17.md` mục **7.18**.
+
+---
 ## 📋 Cập nhật mới nhất — 2026-11-10 (Fix dashboard: dropdown sau auth · trạng thái CHƯA KẾT NỐI · trang học `/index` hiển thị nội dung)
 
 **Triệu chứng:** dashboard mở lên "không chạy ra kết quả gì" (log 0 dòng, dropdown khóa trống); `web/index.html` trắng/chưa có nội dung khi serve qua server.

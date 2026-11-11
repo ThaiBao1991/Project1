@@ -620,6 +620,21 @@ run_pipeline(thread nền, stop_check=STOP_EVENT.is_set, log_fn=buffer)
 
 ---
 
+## 7.18. TRANG HỌC HẾT NHẮC "ĐỒNG BỘ LÊN GITHUB" + HƯỚNG DẪN MỞ ĐÚNG CÁCH (2026-11-11)
+
+**Triệu chứng (user):** mở trang thấy `Failed to load data` + dropdown ngày trống + *"Chưa có khóa học AI cho ."* + dòng "*sau đó Đồng Bộ lên GitHub để học tại đây*" → hiểu nhầm phải đẩy dữ liệu lên GitHub mới xem được.
+
+**Sự thật:** dữ liệu (từ vựng · ảnh · âm thanh · khóa AI) nằm **LOCAL** trong `data/` của máy; trang đọc qua server nội bộ app (`127.0.0.1:5690`, route `/index` + `/data/*` §7.17) — **KHÔNG cần GitHub**. Dòng GitHub là copy placeholder cũ. Chẩn nhật: 5690 trống (app chưa mở) → user mở thẳng `web/index.html` (`file://`) → trình duyệt chặn `fetch` → init lỗi.
+
+**Sửa (`web/script.js`, 3 chỗ):**
+1. **`init()` catch** — thay `"Failed to load data"` chung chung: `file://` → `⚠ Mở sai cách (file://) — mở app VocabApp rồi vào 127.0.0.1:5690/index`; server khác → `⚠ Không tải được dữ liệu local — mở qua app VocabApp`.
+2. **`loadLanguage()` catch** — thay `"Error loading vocabulary data."` bằng cùng 2 thông báo hướng dẫn (có link `http://127.0.0.1:5690/index`).
+3. **Placeholder khóa học** — bỏ "*Đồng Bộ lên GitHub*": `file://` → hướng dẫn mở qua app (dữ liệu nằm ngay trên máy); server mà thiếu khóa → "*Khóa học lưu ngay trên máy, trang đọc trực tiếp từ `data/` local*" + sửa lỗi hiện "*cho .*" (language rỗng → "(chưa chọn khóa)").
+
+**Test:** `test_web_dashboard.py` 54 → **56/56** (2 check mới: hết nhắc "Đồng Bộ lên GitHub" · có hướng dẫn `127.0.0.1:5690/index` + phân biệt `file://`). Test thật browser: `/index` init OK (dropdown 2 khóa) · List/Flashcard/AI Course render · 114 ngày + 12 ảnh + 12 audio · chặn fetch giả lập → catch hiện thông báo mới đúng · nhánh `file://` đúng chuỗi · dashboard `?token=` vẫn IDLE + 2 khóa + link 📚 Trang học. Suite xanh: dashboard56 · quota94 · media25 · keymgr111 · 3mode41 · slug6 · ai_rich85 · smoke PASS · compile0.
+
+---
+
 ## 8. NGUYÊN TẮC BẮT BUỘC KHI SỬA TIẾP
 
 1. Đọc `projectLog.md` + `docs/UPGRADE_17.md` trước. Cập nhật cả 2 sau khi sửa.

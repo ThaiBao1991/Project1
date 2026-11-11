@@ -92,7 +92,11 @@ async function init() {
             langSelect.innerHTML = "<option>No languages found</option>";
         }
     } catch (e) {
-        langSelect.innerHTML = "<option>Failed to load data</option>";
+        // Dữ liệu (từ vựng/ảnh/audio) nằm LOCAL trong data/ của máy — trang
+        // phải qua server nội bộ app (127.0.0.1:5690). KHÔNG cần GitHub.
+        langSelect.innerHTML = (location.protocol === "file:")
+            ? "<option>⚠ Mở sai cách (file://) — mở app VocabApp rồi vào 127.0.0.1:5690/index</option>"
+            : "<option>⚠ Không tải được dữ liệu local — mở qua app VocabApp (127.0.0.1:5690)</option>";
         console.error(e);
     }
 }
@@ -116,7 +120,9 @@ async function loadLanguage(lang) {
         applyFilters();
     } catch (e) {
         console.error(e);
-        listContainer.innerHTML = "<p>Error loading vocabulary data.</p>";
+        listContainer.innerHTML = (location.protocol === "file:")
+            ? "<p>⚠ Mở sai cách (file://) — dữ liệu đọc từ máy qua app VocabApp: vào <b>http://127.0.0.1:5690/index</b></p>"
+            : "<p>⚠ Không tải được dữ liệu local — mở app VocabApp rồi vào <b>http://127.0.0.1:5690/index</b></p>";
     }
 }
 
@@ -446,11 +452,18 @@ async function ensureCourseLoaded() {
     } catch (e) {
         daySelect.innerHTML = "<option value=''>—</option>";
         progressBadge.textContent = "";
+        // Không còn nhắc việc đẩy dữ liệu lên git — dữ liệu nằm NGAY trên máy,
+        // trang đọc trực tiếp từ data/ local qua server của app.
+        const tip = (location.protocol === "file:")
+            ? `⚠ Trang đang mở sai cách (file://).<br>
+                Dữ liệu (từ vựng · ảnh · âm thanh) nằm <b>ngay trên máy bạn</b> —<br>
+                mở app VocabApp rồi vào <b>http://127.0.0.1:5690/index</b> là thấy ngay, không cần GitHub.`
+            : `🤖 Chưa có khóa học AI cho <b>${escapeHtml(currentLanguage || "(chưa chọn khóa)")}</b>.<br><br>
+                Mở app desktop → tab 🎓 Học Tập → bấm 🤖 Sinh khóa học AI —<br>
+                khóa học lưu ngay trên máy, trang này đọc trực tiếp từ <b>data/</b> local.`;
         courseContent.innerHTML = `
             <p style="color:var(--text-muted);padding:30px 10px;text-align:center;">
-                🤖 Chưa có khóa học AI cho <b>${escapeHtml(currentLanguage)}</b>.<br><br>
-                Mở app desktop → tab 🎓 Học Tập → bấm 🤖 Sinh khóa học AI,<br>
-                sau đó Đồng Bộ lên GitHub để học tại đây.
+                ${tip}
             </p>`;
         return;
     }
