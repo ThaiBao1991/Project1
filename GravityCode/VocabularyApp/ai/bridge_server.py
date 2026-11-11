@@ -37,6 +37,12 @@ def _now() -> str:
     return datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 
 
+def _display_lang_name(slug: str) -> str:
+    """Tên hiển thị đẹp cho slug: 'tiếng_nhật' → 'Tiếng Nhật' (FIX 2026-11-12)."""
+    s = (slug or "").replace("_", " ").strip()
+    return s[:1].upper() + s[1:] if s else slug
+
+
 class VocabBridge:
     """Bridge server cho addon. Dùng `with` hoặc gọi start()/stop()."""
 
@@ -293,14 +299,20 @@ class VocabBridge:
                 return send_from_directory(_data_dir, fn)
             # Fallback: data/index.json CHƯA CÓ (chưa export) → synth danh sách
             # khóa AI CÓ THẬT trên đĩa → tab "Khóa học AI" hiển thị ngay.
+            # FIX 2026-11-12 (Gói 2): bỏ qua thư mục dự phòng (prefix "_",
+            # ví dụ _alias_nhat_cu) + trả kèm tên hiển thị đẹp.
             if fn == "index.json":
                 langs = []
+                names = {}
                 ac = os.path.join(_data_dir, "ai_courses")
                 if os.path.isdir(ac):
                     for name in sorted(os.listdir(ac)):
+                        if name.startswith("_"):
+                            continue          # thư mục dự phòng/nội bộ
                         if os.path.isfile(os.path.join(ac, name, "course.json")):
                             langs.append(name)
-                return jsonify({"languages": langs})
+                            names[name] = _display_lang_name(name)
+                return jsonify({"languages": langs, "names": names})
             # File vocab <slug>.json chưa export → list rỗng để UI hiển thị
             # sạch ("Không tìm thấy…") thay vì lỗi đỏ "Error loading".
             if fn.endswith(".json") and "/" not in fn:

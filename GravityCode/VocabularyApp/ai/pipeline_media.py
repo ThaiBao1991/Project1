@@ -17,6 +17,11 @@ from ai.pipeline_store import (STAGE_AUDIO, STAGE_DIALOGUE, STAGE_IMAGES,
                                load_checkpoint, save_checkpoint, stage_is_done)
 from ai.tts_config import stage_index_from_phase, stage_spec, voice_for
 
+# FIX 2026-11-12 (Gói 2): số lần tối đa được đánh dấu "sinh bù" cho 1 stage.
+# Quá số lần ⇒ giữ trạng thái, KHÔNG đánh dấu PENDING nữa ⇒ pass bù hội tụ
+# (trước: 12 ngày dialogue pending ⇒ 12 call Gemini mỗi run, mãi mãi).
+MAX_PENDING_MAKES = 3
+
 
 # ─── TẦNG ẢNH ────────────────────────────────────────────────────────────────
 def run_images_stage(language: str, day: int, lesson: dict, chain, log_fn=print,
@@ -34,9 +39,17 @@ def run_images_stage(language: str, day: int, lesson: dict, chain, log_fn=print,
                         day=day, status=STATUS_SKIPPED)
         return {"skipped": True, "images": []}
 
+    # FIX 2026-11-12 (Gói 2): cap ảnh mặc định (10) < số từ/ngày (10-12) ⇒
+    # 2 từ không có ảnh ⇒ verify mark PENDING ⇒ pass bù lặp mãi (25 ngày kẹt
+    # vĩnh viễn, mỗi run lại tốn công). max_images <= 0 ⇒ phủ HẾT số từ
+    # (tầng dict/placeholder không tốn quota AI).
+    if max_images <= 0:
+        max_images = max(1, len(vocab))
+
     from ai.image_pipeline import generate_images_for_day
     entries = generate_images_for_day(
-        language, day, lesson, coord=(chain.providers[0].coord if chain.providers else None),
+        language, day, lesson,
+        coord=(chain.providers[0].coord if (chain and chain.providers) else None),
         log_fn=log_fn, max_images=max_images, budget=budget,
         dead_models=dead_models, providers=None,
         web_fetcher=(lambda l, d, v: chain.fetch_images(l, d, v, only=["web_ai"]))
@@ -478,6 +491,16 @@ def run_dialogue_stage(language: str, day: int, lesson: dict, coord, log_fn=prin
 
     prompt = build_dialogue_prompt(language, lesson, level=level,
                                    level_tag=level_tag, review=review)
+    # FIX 2026-11-12 (Gói 2): call hội thoại PHẢI tính vào ngân sách.
+    # Trước đây call ĐẦU TIÊN của mỗi ngày không can_call/không
+    # consume_call ⇒ ~1.400 call Gemini lọt khỏi bộ đếm bền (_jobs.json),
+    # đúng thứ mà bộ đếm này sinh ra để chặn.
+    if budget is not None and not budget.can_call(1):
+        log_fn("   ⏸ Hết ngân sách — bỏ qua hội thoại (chạy lại để tiếp tục).")
+        save_checkpoint(language, STAGE_DIALOGUE,
+                        {"skipped": True, "reason": "budget", "dialogues": []},
+                        day=day, status=STATUS_PENDING)
+        return {"skipped": True, "dialogues": []}
     try:
         res = coord.request(prompt, response_schema=DIALOGUE_SCHEMA)
     except GenerationStopped:
@@ -488,6 +511,8 @@ def run_dialogue_stage(language: str, day: int, lesson: dict, coord, log_fn=prin
 
     dialogues = []
     if res.get("ok"):
+        if budget is not None:
+            budget.consume_call()
         try:
             dialogues = parse_dialogue_json(res.get("text", ""))
         except Exception:
@@ -628,6 +653,10 @@ def run_media_verify_stage(language: str, day: int, lesson: dict, log_fn=print,
     # Ngày thiếu ref ⇒ đánh dấu lại stage tương ứng là PENDING để sinh bù.
     # Fix 2: GIỮ data cũ khi mark pending (trước đây ghi đè bằng {"pending_reason"}
     # ⇒ phá checkpoint: mất list tracks/images/dialogues đã sinh).
+    # FIX 2026-11-12 (Gói 2): GIỚI HẠN số lần đánh dấu bù. Trước đây mỗi run
+    # lại mark PENDING ⇒ pass bù gọi lại AI mãi (đo thật: 12 ngày dialogue
+    # pending ⇒ 12 call Gemini MỖI RUN, mãi mãi, không hội tụ). Sau N lần
+    # thất bại ⇒ giữ trạng thái, KHÔNG mark pending nữa (log rõ lý do).
     if n_no_img or n_aud_gap or n_no_dlg:
         for stg, cnt in ((STAGE_IMAGES, n_no_img), (STAGE_AUDIO, n_aud_gap),
                          (STAGE_DIALOGUE, n_no_dlg)):
@@ -635,6 +664,18 @@ def run_media_verify_stage(language: str, day: int, lesson: dict, log_fn=print,
                 try:
                     old = load_checkpoint(language, stg, day) or {}
                     merged = dict(old.get("data") or {})
+                    tries = int(merged.get("pending_count") or 0) + 1
+                    if tries > MAX_PENDING_MAKES:
+                        # Đã thử đủ số lần ⇒ DỪNG đánh dấu bù (đổi sang
+                        # degraded để pass bù không gọi lại AI nữa).
+                        merged["pending_count"] = MAX_PENDING_MAKES
+                        merged["pending_stopped"] = (
+                            f"đã thử sinh bù {MAX_PENDING_MAKES} lần — dừng để "
+                            f"tránh đốt quota vô hạn")
+                        save_checkpoint(language, stg, merged, day=day,
+                                        status=STATUS_DEGRADED)
+                        continue
+                    merged["pending_count"] = tries
                     merged["pending_reason"] = f"thiếu {cnt} ref"
                     save_checkpoint(language, stg, merged,
                                     day=day, status=STATUS_PENDING)

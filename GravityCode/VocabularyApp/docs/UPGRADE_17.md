@@ -636,6 +636,44 @@ run_pipeline(thread nền, stop_check=STOP_EVENT.is_set, log_fn=buffer)
 
 ---
 
+## 7.20. GÓI 2 — KHÔI PHỤC & BẢO TOÀN KHÓA HỌC (2026-11-12)
+
+**Bối cảnh:** rà soát toàn app (4 hướng: web UI · logic pipeline · key/anti-block · server/SRS) → chốt 4 gói cải tiến. User duyệt thứ tự **2 → 3 → 4** (Gói 1 = key để sau, xem mục *Khuyến nghị về key*).
+
+**Chẩn thật (đo trên data Desktop, 2026-11-12):**
+
+| slug | ngày | vocab rỗng | quiz rỗng | hội thoại rỗng | ảnh `degraded` | audio nghĩa | audio hội thoại |
+|---|---|---|---|---|---|---|---|
+| **tiếng_nhật** | **KHÔNG CÓ `course.json`** | – | – | – | – | – | – |
+| nhật (alias cũ) | 1414 | **1410** | 1414 | 1410 | – | 0 | 0 |
+| tiếng_anh | 259 | 0 | 1 | 18 | 1 | 0 | 0 |
+| tiếng_hàn_quốc | 450 | 0 | 5 | 34 | 205 | 0 | 0 |
+| tiếng_nga | 381 | 0 | 0 | 84 | **381** | 0 | 0 |
+| tiếng_pháp | 343 | 0 | 0 | 57 | **343** | 0 | 0 |
+| tiếng_trung | 446 | 0 | 4 | **423** | **446** | 0 | 0 |
+| tiếng_tây_ban_nha | 345 | 0 | 4 | **329** | **345** | 0 | 0 |
+| tiếng_đức | 342 | 0 | 0 | **310** | **335** | 0 | 0 |
+
+⇒ **1.260 ngày Nhật đã sinh xong (content + quiz = `done` trong `_pipeline`) nhưng KHÔNG có `course.json` ⇒ web không hiển thị được**; khóa alias `nhật` là 1.414 ngày mà **1.410 ngày rỗng**; media manifest 32.8 MB / 65.013 entry trong khi đĩa có **77.626 file** ⇒ **12.655 file mồ côi** (mất entry ⇒ nút media biến mất).
+
+**Đã sửa (10 mục):**
+1. **Tool `tools/rebuild_course_from_checkpoints.py`** — dựng `course.json` canonical **TỪ CHECKPOINT** (0 call AI, 0 quota): `--dry-run` mặc định, `--apply` mới ghi (có backup). **Kết quả: 1.260 ngày · 12.600 từ · 50.400 câu hỏi · 46.9 MB** (`data/ai_courses/tiếng_nhật/course.json`).
+2. **Tool `tools/reindex_media.py`** — dựng lại manifest từ file thật (id = `m_` + hash(rel_path, sha256), **giống hệt** cách `save_*` tạo id ⇒ khôi phục đúng ref mà `course.json` trỏ tới). `--check` chỉ báo cáo.
+3. **Flush `course.json` Ở MỌI ĐƯỜNG THOÁT** (`pipeline.py` `finally`) — trước đây bấm ⏹ mất ≤9 ngày (checkpoint có, `course.json` chưa ⇒ web không thấy).
+4. **Khôi phục quiz từ checkpoint khi resume** (`quiz_ab`/`quiz_cd` → `lesson["quiz"]`) — trước đây 14 ngày mất quiz **vĩnh viễn** dù data còn trên đĩa.
+5. **Xoá skeleton ngày rỗng** khi stage content thất bại (`_drop_empty_lesson`) — web không còn hiện "ngày trống".
+6. **`canonical_slug` thống nhất** cho `pipeline_store.pipeline_dir` · `tts_generator.audio_dir` · `review_store.reviews_path` — trước đây `--lang ja` ghi checkpoint vào thư mục **khác** với `course.json` ⇒ resume hỏng, mọi stage chạy lại tốn quota.
+7. **Call hội thoại ĐƯỢC tính quota** (`can_call` + `consume_call`) — trước đây call đầu mỗi ngày không tính ⇒ ~1.400 call Gemini lọt khỏi bộ đếm bền `_jobs.json`.
+8. **Ảnh phủ hết số từ** (`max_images_per_day=0` ⇒ theo số từ) — trước đây cap 10 < 12 từ/ngày ⇒ **25 ngày kẹt PENDING vĩnh viễn** + pass bù lặp mãi.
+9. **Pass bù hội tụ** (`MAX_PENDING_MAKES=3`) — verify chỉ đánh dấu "sinh bù" tối đa 3 lần rồi chuyển `degraded` ⇒ hết hiện tượng **12 call Gemini mỗi run, mãi mãi**.
+10. **Chống ghi đè `course.json`** — `course_db.update_day()` (đọc bản mới nhất trên đĩa → sửa đúng 1 ngày) thay cho việc GUI ghi lại `self._course` (snapshot cũ) ⇒ không còn mất ngày của pipeline; `media_store.save_index` không còn ghi thẳng vào file live (tránh manifest **truncated**); `bridge_server` bỏ qua thư mục dự phòng `_…` + trả `names` tên hiển thị đẹp.
+
+**Test:** `tools/test_course_recovery.py` mới **18/18** (resume quiz · xoá ngày rỗng · flush khi dừng · canonical slug · dialogue tính quota · ảnh phủ hết từ · pass bù hội tụ · `update_day`). `tools/test_3mode.py` chuyển sang lesson mẫu khi khóa canonical chưa có hội thoại (trước đó test **SKIP** vì file chưa tồn tại, nay fail vì lý do không liên quan code) → 41/41. Suite xanh: media25 · stop_makeup37 · recovery18 · dashboard57 · quota94 · keymgr111 · 3mode41 · slug6 · ai_rich85 · smoke15 · compile0.
+
+**Khuyến nghị về key (chưa làm — user chọn để sau):** repo `Project1` đang **PUBLIC** và 3 file chứa **197 key/20 account** đang được track trong git (`ENC:` chỉ là base64 đảo chuỗi ⇒ giải mộc được). Việc ít rủi ro nhất: **đổi repo sang private** (chặn ngay rò rỉ mới) → rồi mới gỡ file khỏi index + `gitignore` + purge history + **rotate key**.
+
+---
+
 ## 7.19. FIX 3 LỖI PIPELINE: ⏹ DỪNG ĂN NGAY · BÙ TRONG CÙNG RUN · AUDIO NGHĨA/HỘI THOẠI (2026-11-11b)
 
 **Triệu chứng (user):** ① bấm ⏹ Dừng mà pipeline vẫn chạy tiếp; ② media bị "đánh dấu sinh bù lần sau" thay vì chạy hết trong 1 run; ③ nhiều ngày chưa đủ âm thanh.

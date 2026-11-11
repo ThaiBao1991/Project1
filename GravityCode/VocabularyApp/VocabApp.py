@@ -6432,7 +6432,10 @@ class StudyTab(ctk.CTkFrame):
 
             def _done():
                 try:
-                    course_db.save_course(lang, self._course)
+                    # FIX 2026-11-12 (Gói 2): KHÔNG ghi lại self._course (bản
+                    # snapshot cũ) — chỉ cập nhật đúng NGÀY này vào file mới
+                    # nhất trên đĩa, tránh ghi đè dữ liệu pipeline vừa sinh.
+                    course_db.update_day(lang, day, lesson)
                 except Exception:
                     pass
                 if self._current_lesson:

@@ -21,7 +21,7 @@ Nguyên tắc:
 
 import json
 
-from ai.paths import lang_slug
+from ai.paths import canonical_slug, lang_slug
 import os
 import shutil
 import threading
@@ -87,7 +87,12 @@ STATUS_FAILED = "failed"
 
 
 def pipeline_dir(language: str) -> str:
-    return os.path.join(COURSES_DIR, lang_slug(language), "_pipeline")
+    # FIX 2026-11-12 (Gói 2): dùng canonical_slug (KHÔNG lang_slug) — trước đây
+    # `--lang ja`/`Japanese` ghi checkpoint vào data/ai_courses/ja/_pipeline
+    # trong khi course.json nằm ở .../tiếng_nhật/ ⇒ resume đọc sai thư mục ⇒
+    # mọi stage chạy lại từ đầu + đốt quota. Đo thật: course "nhật" (alias)
+    # và checkpoint "tiếng_nhật" nằm ở 2 thư mục khác nhau.
+    return os.path.join(COURSES_DIR, canonical_slug(language), "_pipeline")
 
 
 def stage_path(language: str, stage: str) -> str:

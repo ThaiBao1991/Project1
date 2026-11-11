@@ -275,6 +275,19 @@
 **KHÔNG làm:** P6b (rate-limiter chia sẻ 2 tiến trình) · chưa trả lời câu hỏi 10 key/account tạo cùng 1 project hay 10 project riêng (ảnh hưởng lock_key vs lock_account dài hạn).
 
 ---
+## 📋 Cập nhật mới nhất — 2026-11-12 (Gói 2 — khôi phục & bảo toàn khóa học)
+
+**Bối cảnh:** rà soát toàn app (web UI · logic pipeline · key/anti-block · server/SRS) → chốt 4 gói cải tiến; user duyệt thứ tự **2 → 3 → 4** (gói key để sau).
+
+**Chẩn thật (đo trên data Desktop):** **1.260 ngày Nhật đã sinh xong** (content + quiz `done` trong `_pipeline`) nhưng **KHÔNG có `course.json`** ⇒ web không hiển thị; khóa alias `nhật` là 1.414 ngày mà **1.410 ngày rỗng**; manifest media 32.8 MB / 65.013 entry vs **77.626 file trên đĩa** ⇒ 12.655 file mồ côi; ~1.200 ngày thiếu hội thoại; ~2.000 ngày ảnh `degraded`; 0 audio nghĩa; 0 audio hội thoại.
+
+**Đã sửa (10 mục):** ① tool `tools/rebuild_course_from_checkpoints.py` dựng `course.json` **từ checkpoint** (0 call AI) → **1.260 ngày · 12.600 từ · 50.400 câu hỏi · 46.9 MB**; ② tool `tools/reindex_media.py` khôi phục manifest từ file thật; ③ flush `course.json` ở **mọi đường thoát** (hết mất ≤9 ngày khi bấm ⏹); ④ **khôi phục quiz từ checkpoint** khi resume (14 ngày mất quiz vĩnh viễn); ⑤ **xoá skeleton ngày rỗng** khi content fail; ⑥ `canonical_slug` thống nhất cho `pipeline_dir`/`audio_dir`/`reviews_path` (hết split-brain `--lang ja`); ⑦ **call hội thoại tính quota** (~1.400 call lọt khỏi bộ đếm bền); ⑧ ảnh phủ hết số từ (`max_images_per_day=0`) — hết 25 ngày kẹt PENDING; ⑨ **pass bù hội tụ** (`MAX_PENDING_MAKES=3`) — hết 12 call Gemini mỗi run; ⑩ `course_db.update_day()` chống GUI ghi đè `course.json` · `save_index` không ghi thẳng file live · `bridge_server` bỏ thư mục dự phòng + tên hiển thị đẹp.
+
+**Test:** `tools/test_course_recovery.py` mới **18/18** · `test_3mode.py` chuyển sang lesson mẫu khi khóa canonical chưa có hội thoại → 41/41. Suite xanh: media25 · stop_makeup37 · recovery18 · dashboard57 · quota94 · keymgr111 · 3mode41 · slug6 · ai_rich85 · smoke15 · compile0.
+
+**Chưa làm (user chọn để sau):** gói key (repo public đang lộ 197 key — khuyến nghị đổi repo sang **private** trước). Chi tiết: `docs/UPGRADE_17.md` mục **7.20**.
+
+---
 ## 📋 Cập nhật mới nhất — 2026-11-11b (Fix 3 lỗi pipeline: ⏹ Dừng ăn ngay · bù trong cùng run · audio nghĩa/hội thoại)
 
 **Yêu cầu (user):** ① nút Dừng không hoạt động; ② pipeline "đánh dấu sinh bù lần sau" thay vì chạy hết trong 1 run; ③ nhiều ngày chưa đủ âm thanh. Đã duyệt plan A+B+C.

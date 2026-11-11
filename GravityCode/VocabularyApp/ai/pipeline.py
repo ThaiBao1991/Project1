@@ -244,7 +244,7 @@ def run_pipeline(language: str, *,
                  on_progress=None,
                  stop_check=None,
                  coordinator_cls=None,
-                 max_images_per_day: int = 10,
+                 max_images_per_day: int = 0,
                  max_audio_per_day: int = 12,
                  max_run_seconds: int = MAX_RUN_SECONDS,
                  evidence: bool = False,
@@ -578,6 +578,15 @@ def run_pipeline(language: str, *,
         errors.append(f"{type(e).__name__}: {e}")
         log.event("run.abort", msg=f"{type(e).__name__}: {e}")
     finally:
+        # FIX 2026-11-12 (Gói 2): flush `course.json` Ở MỌI ĐƯỜNG THOÁT.
+        # Trước đây chỉ flush trong vòng ngày (mỗi 10 ngày) ⇒ bấm ⏹ giữa
+        # chừng mất ≤9 ngày đã hoàn thành: checkpoint có nhưng course.json chưa
+        # ⇒ WEB KHÔNG THẤY (đo thật: 4 checkpoint mới hơn course.json).
+        try:
+            if course:
+                course_db.save_course(language, course)
+        except Exception:
+            pass
         # Lưu trạng thái + job
         try:
             from ai import media_store
@@ -958,6 +967,10 @@ def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
 
     days = course.setdefault("days", [])
     lesson = next((d for d in days if int(d.get("day", 0)) == day_num), None)
+    # FIX 2026-11-12 (Gói 2): đánh dấu ngày VỪA tạo (skeleton rỗng) — nếu
+    # stage content thất bại thì XOÁ skeleton khỏi course, không để lại
+    # "ngày rỗng" trên web (đo thật: 8 ngày không có key "vocab").
+    lesson_created = False
     if lesson is None:
         if STAGE_CONTENT not in stages:
             # Chế độ media: ngày chưa có content → bỏ qua (không tạo rỗng)
@@ -969,6 +982,7 @@ def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
                   "topic": pday.get("title", ""), "words": [],
                   "format_version": 4}
         days.append(lesson)
+        lesson_created = True
     lesson.setdefault("quiz", {})
     for k in ("vocab", "pattern", "common", "grammar", "mixed"):
         lesson["quiz"].setdefault(k, [])
@@ -977,6 +991,20 @@ def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
         """FIX nút Dừng: kiểm tra giữa CÁC STAGE trong ngày → thoát ngay."""
         if stop_check and stop_check():
             raise GenerationStopped()
+
+    def _drop_empty_lesson():
+        """FIX 2026-11-12 (Gói 2): xoá skeleton ngày RỖNG khỏi course.
+
+        Trước đây lesson được append vào `days` TRƯỚC khi content chạy ⇒ khi
+        content fail, ngày rỗng vẫn còn trong course.json ⇒ web hiện "ngày
+        trống" cho người dùng (đo thật: 8/114 ngày).
+        """
+        if not lesson_created:
+            return
+        try:
+            days.remove(lesson)
+        except ValueError:
+            pass
 
     # ── STAGE CONTENT ─────────────────────────────────────────────────────────
     _stop()
@@ -1035,6 +1063,7 @@ def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
                 log.error("stage.fail",
                           msg=f"Content Ngày {day_num} không có vocab — bỏ qua ngày.",
                           stage=STAGE_CONTENT, day=day_num)
+                _drop_empty_lesson()
                 return None
             # Fix 3: content sinh lại ĐỔI danh sách từ ⇒ ref media/dialogue cũ
             # trỏ sai từ mới → invalidate checkpoint để stage media chạy lại
@@ -1063,6 +1092,7 @@ def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
         else:
             log.error("stage.fail", msg=f"Content Ngày {day_num} thất bại: {err}",
                       stage=STAGE_CONTENT, day=day_num)
+            _drop_empty_lesson()
             return None
     elif not lesson.get("vocab"):
         # Resume: lấy từ checkpoint
@@ -1098,6 +1128,16 @@ def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
         else:
             log.error("stage.fail", msg=f"Quiz AB Ngày {day_num}: {err}",
                       stage=STAGE_QUIZ_AB, day=day_num)
+    elif STAGE_QUIZ_AB in stages:
+        # FIX 2026-11-12 (Gói 2): RESUME — checkpoint quiz đã "done" nhưng
+        # course.json chưa có ⇒ khôi phục từ checkpoint. Trước đây KHÔNG có
+        # nhánh này ⇒ 14 ngày mất quiz VĨNH VIỄN (dữ liệu còn trên đĩa!).
+        _cp = load_checkpoint(language, STAGE_QUIZ_AB, day_num) or {}
+        _d = _cp.get("data") or {}
+        if _d and not (lesson.get("quiz") or {}).get("vocab"):
+            for _src, _dst in (("vocab_quiz", "vocab"), ("pattern_quiz", "pattern")):
+                if _d.get(_src):
+                    lesson["quiz"][_dst] = _d[_src]
 
     # ── QUIZ CD ──────────────────────────────────────────────────────────
     if STAGE_QUIZ_CD in stages and not stage_is_done(language, STAGE_QUIZ_CD, day_num):
@@ -1112,6 +1152,14 @@ def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
         else:
             log.error("stage.fail", msg=f"Quiz CD Ngày {day_num}: {err}",
                       stage=STAGE_QUIZ_CD, day=day_num)
+    elif STAGE_QUIZ_CD in stages:
+        # FIX 2026-11-12 (Gói 2): resume — khôi phục quiz CD từ checkpoint.
+        _cp = load_checkpoint(language, STAGE_QUIZ_CD, day_num) or {}
+        _d = _cp.get("data") or {}
+        if _d and not (lesson.get("quiz") or {}).get("common"):
+            for _src, _dst in (("common_quiz", "common"), ("grammar_quiz", "grammar")):
+                if _d.get(_src):
+                    lesson["quiz"][_dst] = _d[_src]
 
     # ── NGỮ PHÁP BỔ SUNG (call AI RIÊNG) ─────────────────────────────────
     # Stage TÙY CHỌN (--grammar): Gemini hay BỎ mảng lồng optional khi output

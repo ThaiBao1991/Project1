@@ -175,9 +175,21 @@ def save_index(index: dict) -> None:
             time.sleep(0.02 * (attempt + 1))
         except OSError:
             time.sleep(0.05)
-    # Hết cách retry → ghi trực tiếp (chấp nhận rủi ro, tốt hơn mất entry)
+    # Hết cách retry → KHÔNG ghi thẳng vào file live (trước đây ghi ⇒ đọc
+    # giữa lúc ghi sẽ thấy manifest TRUNCATED ⇒ mất entry hàng loạt).
+    # Giờ: ghi vào file dự phòng `.tmp2` rồi thử replace lần nữa; nếu vẫn lỗi
+    # thì GIỮ NGUYÊN file cũ (mất entry còn hơn mất manifest).
     try:
-        with open(INDEX_PATH, "w", encoding="utf-8") as f:
+        tmp2 = INDEX_PATH + ".tmp2"
+        with open(tmp2, "w", encoding="utf-8") as f:
+            json.dump(index, f, ensure_ascii=False, indent=2)
+        os.replace(tmp2, INDEX_PATH)
+        _last_flush = time.time()
+        return
+    except OSError:
+        pass
+    try:
+        with open(INDEX_PATH + ".tmp2", "w", encoding="utf-8") as f:
             json.dump(index, f, ensure_ascii=False, indent=2)
     except OSError:
         pass

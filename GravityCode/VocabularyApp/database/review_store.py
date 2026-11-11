@@ -27,7 +27,7 @@ import threading
 import time
 from datetime import datetime
 
-from ai.paths import lang_slug
+from ai.paths import canonical_slug, lang_slug
 from ai.srs import (GRADES, STATE_NEW, build_queue, is_due, mastery_level,
                     mastery_stats, new_state, review, serialize, deserialize,
                     streak_from_days, longest_streak_from_days, daily_history)
@@ -57,7 +57,10 @@ def reviews_dir() -> str:
 
 def reviews_path(language: str) -> str:
     """data/reviews/<slug>.json"""
-    return os.path.join(REVIEWS_DIR, f"{lang_slug(language)}.json")
+    # FIX 2026-11-12 (Gói 2): canonical_slug — SRS của alias ('nhật') phải
+    # chung file với khóa học canonical ('tiếng_nhật'), nếu không web/GUI sẽ
+    # ghi 2 file review tách rời (split-brain tiến độ học).
+    return os.path.join(REVIEWS_DIR, f"{canonical_slug(language)}.json")
 
 
 # ─── Ghi/đọc atomic ───────────────────────────────────────────────────────────

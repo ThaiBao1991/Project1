@@ -180,6 +180,35 @@ def save_course(language: str, course: dict, backup: bool = False):
     _atomic_write(path, course)
 
 
+def update_day(language: str, day_num: int, lesson: dict) -> bool:
+    """Cập nhật 1 ngày trong `course.json` (đọc bản MỚI NHẤT trước khi ghi).
+
+    FIX 2026-11-12 (Gói 2): GUI từng ghi lại `self._course` — một SNAPSHOT có
+    thể đã cũ (đọc lúc mở app). Nếu pipeline đã chạy trong lúc đó, toàn bộ
+    ngày mới bị GHI ĐÈ ⇒ mất dữ liệu. Hàm này đọc file hiện tại trên đĩa,
+    thay đúng 1 ngày, rồi ghi ⇒ không đụng phần còn lại.
+    """
+    path = course_path(language)
+    course = get_course(language, persist=False) or {}
+    if not course:
+        return False
+    days = course.setdefault("days", [])
+    target = None
+    for d in days:
+        try:
+            if int(d.get("day", 0)) == int(day_num):
+                target = d
+                break
+        except Exception:
+            continue
+    if target is not None:
+        days[days.index(target)] = lesson
+    else:
+        days.append(lesson)
+    save_course(language, course)
+    return True
+
+
 def new_course(language: str, vocabs: list, words_per_day: int) -> dict:
     """Tạo khung khóa học mới (chưa có nội dung ngày)."""
     return {
