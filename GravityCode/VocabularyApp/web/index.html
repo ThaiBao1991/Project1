@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- FIX 2026-11-12 (Gói 3): bỏ maximum-scale/user-scalable=no (chặn pinch-zoom = lỗi a11y) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vocabulary App - Học Từ Vựng</title>
     <meta name="description" content="Ứng dụng học từ vựng đa ngôn ngữ - Flashcard & Danh sách">
     <link rel="manifest" href="manifest.json">
@@ -25,19 +26,21 @@
         </div>
         <div class="search-bar">
             <div class="search-wrapper">
-                <input type="text" id="search-input" placeholder="Search word, meaning...">
-                <span id="clear-search" class="clear-btn" style="display: none;">&times;</span>
+                <input type="text" id="search-input" placeholder="Tìm từ, nghĩa..." aria-label="Tìm kiếm từ vựng">
+                <!-- FIX 2026-11-12 (Gói 3): <span> → <button> (bấm được bằng bàn phím, có nhãn cho screen reader) -->
+                <button type="button" id="clear-search" class="clear-btn" aria-label="Xoá tìm kiếm" hidden>&times;</button>
             </div>
         </div>
         <div class="filters">
-            <select id="filter-topic"><option value="">All Topics</option></select>
-            <select id="filter-type"><option value="">All Types</option></select>
-            <select id="filter-date"><option value="">All Dates</option></select>
+            <select id="filter-topic" aria-label="Lọc theo chủ đề"><option value="">Tất cả chủ đề</option></select>
+            <select id="filter-type" aria-label="Lọc theo loại từ"><option value="">Tất cả loại</option></select>
+            <select id="filter-date" aria-label="Lọc theo ngày"><option value="">Tất cả ngày</option></select>
         </div>
-        <div class="view-toggles">
-            <button id="btn-list" class="active">List View</button>
-            <button id="btn-flashcard">Flashcards</button>
-            <button id="btn-course">🎓 AI Course</button>
+        <div class="view-toggles" role="tablist" aria-label="Chế độ xem">
+            <button id="btn-list" class="active" role="tab" aria-selected="true">📋 Danh sách</button>
+            <button id="btn-flashcard" role="tab" aria-selected="false">🃏 Thẻ từ</button>
+            <button id="btn-course" role="tab" aria-selected="false">🎓 Khóa học AI</button>
+            <button id="btn-review" role="tab" aria-selected="false">🧠 Ôn tập</button>
         </div>
     </header>
 
@@ -83,14 +86,29 @@
         <!-- AI Course View -->
         <div id="course-view" class="view-container">
             <div class="course-header">
-                <select id="course-day-select"><option value="">—</option></select>
+                <select id="course-day-select" aria-label="Chọn ngày học"><option value="">—</option></select>
                 <span id="course-progress-badge" class="badge"></span>
             </div>
-            <div id="course-content">
+            <div id="course-content" aria-live="polite">
                 <p style='color:var(--text-muted);padding:20px;text-align:center;'>
                     Chưa có khóa học AI. Mở app desktop → tab 🎓 Học Tập → 🤖 Sinh khóa học AI.
                 </p>
             </div>
+        </div>
+
+        <!-- ÔN TẬP (SM-2) — Gói 3: học từ online thật sự -->
+        <div id="review-view" class="view-container">
+            <div id="srs-stats" class="srs-stats"></div>
+            <div id="srs-card" class="srs-card">
+                <p class="srs-hint">Bấm 🧠 Ôn tập để bắt đầu.</p>
+            </div>
+            <div id="srs-actions" class="srs-actions" hidden>
+                <button class="srs-btn srs-again"   data-grade="again">😵 Quên hẳn</button>
+                <button class="srs-btn srs-hard"    data-grade="hard">😕 Khó</button>
+                <button class="srs-btn srs-good"    data-grade="good">🙂 Được</button>
+                <button class="srs-btn srs-easy"    data-grade="easy">😎 Rất dễ</button>
+            </div>
+            <div id="srs-feedback" class="srs-feedback" aria-live="polite"></div>
         </div>
     </main>
     <!-- Writing Practice Modal -->
@@ -135,8 +153,11 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- FIX 2026-11-12 (Gói 3): BỎ 2 script CDN (marked + DOMPurify).
+         Trước: mất mạng/CDN chặn ⇒ `marked` undefined ở top-level ⇒ script.js
+         CHẾT HOÀN TOÀN (trang trắng); thêm nữa nếu DOMPurify lỗi thì innerHTML
+         thô của nội dung AI (XSS). Nay: markdown mini-render TỰ escape trong
+         script.js ⇒ hoạt động offline + an toàn. -->
     <script src="script.js"></script>
 </body>
 </html>

@@ -31,19 +31,26 @@ const viewList = document.getElementById("list-view");
 const viewFlashcard = document.getElementById("flashcard-view");
 const viewCourse = document.getElementById("course-view");
 
-// ─── Chuyển đổi view 3 chiều ──────────────────────────────────────────────────
+// ─── Chuyển đổi view 4 chiều (+ Ôn tập SM-2 — Gói 3) ─────────────────────────
+const btnReview = document.getElementById("btn-review");
+const viewReview = document.getElementById("review-view");
+
 function switchView(name) {
     const views = {
         list:      [btnList, viewList],
         flashcard: [btnFlashcard, viewFlashcard],
         course:    [btnCourse, viewCourse],
+        review:    [btnReview, viewReview],
     };
     Object.entries(views).forEach(([key, [b, v]]) => {
+        if (!b || !v) return;
         b.classList.toggle("active", key === name);
         v.classList.toggle("active", key === name);
+        b.setAttribute("aria-selected", key === name ? "true" : "false");
     });
     if (name === "flashcard") renderFlashcard();
     if (name === "course") ensureCourseLoaded();
+    if (name === "review") loadSrsQueue();
 }
 
 // ─── Helper: escape HTML để an toàn khi dùng innerHTML ───────────────────────
@@ -56,17 +63,29 @@ function escapeHtml(str) {
         .replace(/"/g, "&quot;");
 }
 
-// ─── Cấu hình Marked.js để hỗ trợ Markdown Table và Line breaks ──────────────────
-marked.setOptions({
-    breaks: true,
-    gfm: true
-});
-
-// ─── Helper: parse Markdown (sanitize bằng DOMPurify nếu có) ──────────────────
+// ─── Markdown mini-renderer (Gói 3 — 2026-11-12) ────────────────────────────────
+// TRƯỚC: `marked.parse()` + `DOMPurify.sanitize()` tải từ CDN jsdelivr.
+//   ① Mất mạng / CDN bị chặn ⇒ `marked` undefined ở top-level ⇒ script.js CHẾT
+//      HOÀN TOÀN ⇒ trang trắng (app local-first lại phụ thuộc mạng ngoài).
+//   ② Nếu DOMPurify lỗi nhưng marked tải được ⇒ innerHTML THÔ của nội dung AI
+//      (stored XSS trong app local).
+// NAY: tự escape trước, rồi áp markdown cơ bản ⇒ không mạng, không XSS.
 function formatText(str) {
     if (!str) return "";
-    const html = marked.parse(str);
-    return window.dompurify ? DOMPurify.sanitize(html) : html;
+    let t = escapeHtml(String(str));
+    // code inline
+    t = t.replace(/`([^`\n]+)`/g, "<code>$1</code>");
+    // **đậm** / *nghiêng*
+    t = t.replace(/\*\*([^*\n]+)\*\*/g, "<strong>$1</strong>");
+    t = t.replace(/(^|[\s(])\*([^*\n]+)\*(?=[\s).,;:!?]|$)/g, "$1<em>$2</em>");
+    // gạch ngang
+    t = t.replace(/~~([^~\n]+)~~/g, "<del>$1</del>");
+    // link an toàn (chỉ http/https)
+    t = t.replace(/\[([^\]\n]+)\]\((https?:\/\/[^)\s]+)\)/g,
+                  '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+    // dòng mới → <br>
+    t = t.replace(/\r\n/g, "\n").replace(/\n/g, "<br>");
+    return t;
 }
 
 // Fetch languages list
@@ -81,15 +100,17 @@ async function init() {
         
         langSelect.innerHTML = "";
         if (data.languages && data.languages.length > 0) {
+            // Gói 3: dùng tên hiển thị đẹp nếu server có ("names").
+            const names = data.names || {};
             data.languages.forEach(lang => {
                 const opt = document.createElement("option");
                 opt.value = lang;
-                opt.textContent = lang;
+                opt.textContent = names[lang] || lang;
                 langSelect.appendChild(opt);
             });
             loadLanguage(data.languages[0]);
         } else {
-            langSelect.innerHTML = "<option>No languages found</option>";
+            langSelect.innerHTML = "<option>Chưa có khóa học nào</option>";
         }
     } catch (e) {
         // Dữ liệu (từ vựng/ảnh/audio) nằm LOCAL trong data/ của máy — trang
@@ -149,7 +170,8 @@ function applyFilters() {
     const tDate = filterDate.value;
     
     // Toggle Clear button visibility
-    clearSearchBtn.style.display = q.length > 0 ? "block" : "none";
+    // Gói 3: <button> dùng thuộc tính `hidden` (đúng ngữ nghĩa) thay vì display.
+    clearSearchBtn.hidden = !(q.length > 0);
     
     filteredVocabs = vocabularies.filter(v => {
         if (tTopic && v.topic !== tTopic) return false;
@@ -417,6 +439,8 @@ btnFlashcard.addEventListener("click", () => switchView("flashcard"));
 
 btnCourse.addEventListener("click", () => switchView("course"));
 
+btnReview.addEventListener("click", () => switchView("review"));
+
 // ─── Khóa học AI (lưu database kiểu AskCpl: data/ai_courses/<lang>/course.json) ─
 const daySelect = document.getElementById("course-day-select");
 const courseContent = document.getElementById("course-content");
@@ -446,11 +470,37 @@ function saveCourseProgress(p) {
     localStorage.setItem(courseProgressKey(), JSON.stringify(p));
 }
 
+// ─── Khóa học: tải THEO NGÀY thay vì cả file (Gói 3) ──────────────────────────
+// Trước: web tải TOÀN BỘ course.json (khóa Nhật 47 MB) + manifest media
+// 38 MB ⇒ mở tab nặng, đổi ngày không nhẹ. Nay: API index (danh sách ngày)
+// + API day/<n> (1 ngày ~40 KB), có fallback về course.json cũ.
+let courseIndex = null;      // [{day,title,phase,topic}]
+let courseDayCache = {};     // day → lesson
+
 async function ensureCourseLoaded() {
     const slug = slugOf(currentLanguage);
     if (courseData && courseSlug === slug) { renderCourseShell(); return; }
     courseSlug = slug;
     courseData = null;
+    courseIndex = null;
+    courseDayCache = {};
+
+    // 1) API nhẹ: index + tải từng ngày
+    try {
+        const r = await fetch(`api/vocab/course/${encodeURIComponent(slug)}/index`);
+        if (r.ok) {
+            const j = await r.json();
+            if (j && j.ok && Array.isArray(j.days) && j.days.length) {
+                courseIndex = j.days;
+                courseData = { days: j.days, level: j.level || "" };
+                await loadMediaIndex();
+                renderCourseShell();
+                return;
+            }
+        }
+    } catch (e) { /* không có API ⇒ fallback bên dưới */ }
+
+    // 2) fallback: tải course.json (file lớn)
     try {
         let res = await fetch(`data/ai_courses/${slug}/course.json`).catch(() => null);
         if (!res || !res.ok) res = await fetch(`../data/ai_courses/${slug}/course.json`).catch(() => null);
@@ -528,8 +578,12 @@ function mediaImgHtml(ref, alt) {
     const url = mediaUrl(ref);
     if (!url) return "";
     const credit = e.credit ? `<div class="media-credit">📷 ${escapeHtml(e.credit)}${e.license ? " · " + escapeHtml(e.license) : ""}</div>` : "";
+    // FIX 2026-11-12 (Gói 3): file hỏng → hiện chip cảnh báo thay vì xoá im
+    // lặng (trước: onerror xoá element ⇒ người dùng không biết là "không có
+    // ảnh" hay "tải hỏng").
     return `<div class="media-img-wrap">
-        <img class="media-img" loading="lazy" src="${escapeHtml(url)}" alt="${escapeHtml(alt || "")}" onerror="this.closest('.media-img-wrap')?.remove()">
+        <img class="media-img" loading="lazy" src="${escapeHtml(url)}" alt="${escapeHtml(alt || "")}"
+             onerror="this.style.display='none';this.parentNode?.querySelector('.media-missing')?.remove();this.parentNode?.insertAdjacentHTML('beforeend','<div class=&quot;media-missing&quot;>⚠ Ảnh không tải được</div>');">
         ${credit}
     </div>`;
 }
@@ -539,8 +593,12 @@ function mediaAudioHtml(ref, label) {
     if (!e) return "";
     const url = mediaUrl(ref);
     if (!url) return "";
-    // onerror: file thiếu/404 → tự gỡ element (không để audio chết trên UI)
-    return `<audio class="media-audio" controls preload="none" src="${escapeHtml(url)}" onerror="this.remove()"></audio>`;
+    // FIX 2026-11-12 (Gói 3): lỗi/404 → chip "⚠ Không có audio" (thay vì
+    // xoá lặng lẽ ⇒ không phân biệt được "chưa sinh" với "file hỏng").
+    return `<span class="media-audio-wrap">
+        <audio class="media-audio" controls preload="none" src="${escapeHtml(url)}"
+               onerror="this.style.display='none';this.parentNode?.querySelector('.media-missing')?.remove();this.parentNode?.insertAdjacentHTML('beforeend','<span class=&quot;media-missing&quot;>⚠ Không có audio</span>');"></audio>
+    </span>`;
 }
 
 function renderCourseShell() {
@@ -578,8 +636,29 @@ function flattenQuiz(quizData) {
     return out;
 }
 
-function renderCourseDay(dayNum) {
-    const lesson = (courseData.days || []).find(d => Number(d.day) === Number(dayNum));
+async function renderCourseDay(dayNum) {
+    let lesson = (courseData.days || []).find(d => Number(d.day) === Number(dayNum));
+    // Gói 3: khi dùng API theo ngày, `courseData.days` chỉ là metadata ⇒ phải
+    // tải nội dung ngày đó (cache theo ngày).
+    if (!lesson || !(lesson.vocab || lesson.quiz || lesson.dialogue)) {
+        const cached = courseDayCache[dayNum];
+        if (cached) {
+            lesson = cached;
+        } else if (courseIndex) {
+            courseContent.innerHTML =
+                `<p style="color:var(--text-muted);padding:20px;text-align:center;">⏳ Đang tải Ngày ${dayNum}…</p>`;
+            try {
+                const r = await fetch(`api/vocab/course/${encodeURIComponent(slugOf(currentLanguage))}/day/${dayNum}`);
+                if (r.ok) {
+                    const j = await r.json();
+                    if (j && j.ok && j.lesson) {
+                        lesson = j.lesson;
+                        courseDayCache[dayNum] = lesson;
+                    }
+                }
+            } catch (e) { /* giữ nguyên nội dung cũ */ }
+        }
+    }
     if (!lesson) return;
     const prog = getCourseProgress();
     const alreadyDone = new Set(prog.completed_days || []).has(Number(dayNum));
@@ -622,6 +701,7 @@ function renderCourseDay(dayNum) {
                 </div>
             </div>` : ""}
             ${audioRef ? `<div class="media-audio-row">${mediaAudioHtml(audioRef, v.word)}</div>` : ""}
+            ${v.meaning_audio_ref ? `<div class="media-audio-row"><span class="media-audio-label">🔈 Nghĩa (tiếng Việt)</span>${mediaAudioHtml(v.meaning_audio_ref, v.meaning_vi)}</div>` : ""}
             ${hasEvidence ? `
             <div class="evidence-box">
                 ${sources.map(s => {
@@ -1007,3 +1087,150 @@ drawCanvas.addEventListener("touchmove", (e) => {
     const p = getPracticePos(e); practiceStroke(p.x, p.y);
 }, { passive: false });
 drawCanvas.addEventListener("touchend", () => { isPracticing = false; });
+
+// ════════════════════════════════════════════════════════════════════════════
+// ÔN TẬP SM-2 (Gói 3 — 2026-11-12)
+// Trước đây web KHÔNG có bất kỳ API ghi tiến độ học nào ⇒ "học từ online"
+// không đóng được vòng lặp (tiến độ chỉ nằm trong localStorage của trình
+// duyệt, app desktop không thấy). Nay dùng chung engine SM-2 sẵn có
+// (ai/srs.py + database/review_store.py) qua API, và GHI CHUNG file
+// data/reviews/<slug>.json với app desktop.
+// ════════════════════════════════════════════════════════════════════════════
+const srsState = { items: [], idx: 0, revealed: false, stats: null };
+
+async function loadSrsQueue() {
+    const slug = slugOf(currentLanguage);
+    const card = document.getElementById("srs-card");
+    const actions = document.getElementById("srs-actions");
+    const fb = document.getElementById("srs-feedback");
+    if (!slug) {
+        card.innerHTML = '<p class="srs-hint">Chọn khóa học trước khi ôn tập.</p>';
+        actions.hidden = true;
+        return;
+    }
+    card.innerHTML = '<p class="srs-hint">⏳ Đang tải hàng đợi ôn tập…</p>';
+    try {
+        const r = await fetch(`api/vocab/srs/queue?lang=${encodeURIComponent(slug)}&limit=20`);
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        const j = await r.json();
+        srsState.items = j.items || [];
+        srsState.stats = j.stats || null;
+        srsState.idx = 0;
+        srsState.revealed = false;
+        renderSrsStats();
+        renderSrsCard();
+    } catch (e) {
+        card.innerHTML = '<p class="srs-hint">⚠ Không tải được hàng đợi ôn tập. '
+            + 'Cần khóa học AI có sẵn trên máy (mở app VocabApp → sinh khóa học).</p>';
+        actions.hidden = true;
+        if (fb) fb.textContent = "";
+    }
+}
+
+function renderSrsStats() {
+    const box = document.getElementById("srs-stats");
+    if (!box) return;
+    const s = srsState.stats || {};
+    const total = s.total ?? 0;
+    const mastered = s.mastered ?? 0;
+    const due = s.due ?? s.due_today ?? 0;
+    const streak = s.streak ?? 0;
+    box.innerHTML = `
+        <span class="srs-stat"><b>${escapeHtml(String(due))}</b> đến hạn</span>
+        <span class="srs-stat"><b>${escapeHtml(String(mastered))}</b>/${escapeHtml(String(total))} đã thuộc</span>
+        <span class="srs-stat">🔥 ${escapeHtml(String(streak))} ngày liền</span>`;
+}
+
+function renderSrsCard() {
+    const card = document.getElementById("srs-card");
+    const actions = document.getElementById("srs-actions");
+    const fb = document.getElementById("srs-feedback");
+    if (!card) return;
+    const it = srsState.items[srsState.idx];
+    if (!it) {
+        card.innerHTML = '<p class="srs-hint">🎉 Hết hàng đợi! Hôm nay đã ôn xong.</p>';
+        if (actions) actions.hidden = true;
+        if (fb) fb.textContent = "";
+        return;
+    }
+    if (actions) actions.hidden = false;
+    const audio = mediaAudioHtml(it.audio_ref);
+    if (!srsState.revealed) {
+        card.innerHTML = `
+            <div class="srs-word">${escapeHtml(it.word)}</div>
+            <div class="srs-pron">${it.pronunciation ? "/" + escapeHtml(it.pronunciation) + "/" : ""}</div>
+            ${audio}
+            <button class="srs-reveal" id="srs-reveal">👀 Xem nghĩa</button>`;
+        const rv = document.getElementById("srs-reveal");
+        if (rv) rv.addEventListener("click", () => {
+            srsState.revealed = true;
+            renderSrsCard();
+        });
+        // KHÔNG xoá feedback ở đây (Gói 3 fix): sau khi chấm điểm, thông báo
+        // "ôn lại sau N ngày" phải còn lại cho tới lần chấm kế tiếp.
+    } else {
+        const meanAudio = it.meaning_audio_ref ? mediaAudioHtml(it.meaning_audio_ref) : "";
+        card.innerHTML = `
+            <div class="srs-word">${escapeHtml(it.word)}</div>
+            <div class="srs-pron">${it.pronunciation ? "/" + escapeHtml(it.pronunciation) + "/" : ""}</div>
+            <div class="srs-meaning">${escapeHtml(it.meaning_vi || "")}</div>
+            ${it.example_sentence ? `<div class="srs-example">${formatText(it.example_sentence)}
+                <div class="muted">${escapeHtml(it.example_meaning_vi || "")}</div></div>` : ""}
+            ${mediaImgHtml(it.image_ref, it.word)}
+            ${audio}${meanAudio}
+            <div class="srs-day">📚 Ngày ${escapeHtml(String(it.day ?? ""))}</div>`;
+    }
+}
+
+async function srsGrade(grade) {
+    const it = srsState.items[srsState.idx];
+    const fb = document.getElementById("srs-feedback");
+    if (!it) return;
+    try {
+        const r = await fetch("api/vocab/srs/review", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                lang: slugOf(currentLanguage),
+                word: it.word,
+                grade: grade,
+                correct: grade !== "again",
+            }),
+        });
+        const j = await r.json().catch(() => ({}));
+        if (j && j.ok && j.info) {
+            const d = j.info.next_review_in_days;
+            const when = (d == null) ? "?" :
+                (d < 1 ? Math.round(d * 24 * 60) + " phút" : Math.round(d) + " ngày");
+            if (fb) fb.textContent = `✅ Đã lưu — ôn lại sau ${when}.`;
+        } else {
+            if (fb) fb.textContent = "⚠ Không lưu được kết quả ôn tập.";
+        }
+    } catch (e) {
+        if (fb) fb.textContent = "⚠ Lỗi mạng khi lưu kết quả ôn tập.";
+    }
+    srsState.idx += 1;
+    srsState.revealed = false;
+    try {
+        const r2 = await fetch(`api/vocab/srs/stats?lang=${encodeURIComponent(slugOf(currentLanguage))}`);
+        const j2 = await r2.json();
+        if (j2 && j2.stats) srsState.stats = j2.stats;
+    } catch (e) { /* giữ stats cũ */ }
+    renderSrsStats();
+    renderSrsCard();
+}
+
+document.querySelectorAll(".srs-btn").forEach(b => {
+    b.addEventListener("click", () => srsGrade(b.dataset.grade));
+});
+
+// Phím tắt 1-4 để chấm điểm nhanh (chỉ khi đang ở tab Ôn tập)
+document.addEventListener("keydown", (e) => {
+    if (!viewReview || !viewReview.classList.contains("active")) return;
+    if (e.target && ["INPUT", "TEXTAREA", "SELECT"].includes(e.target.tagName)) return;
+    const map = { "1": "again", "2": "hard", "3": "good", "4": "easy" };
+    const g = map[e.key];
+    if (!g) return;
+    if (!srsState.revealed && e.key !== "1") return;   // lộ nghĩa trước
+    srsGrade(g);
+});

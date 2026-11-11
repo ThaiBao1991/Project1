@@ -636,6 +636,26 @@ run_pipeline(thread nền, stop_check=STOP_EVENT.is_set, log_fn=buffer)
 
 ---
 
+## 7.21. GÓI 3 — WEB HỌC THẬT: ÔN TẬP SM-2 · TẢI THEO NGÀY · OFFLINE · AN TOÀN (2026-11-12)
+
+**Vấn đề (đo thật):** rà soát web cho thấy trang học là **trình xem read-only**: không có API nào ghi tiến độ học ⇒ "học từ online" không đóng được vòng lặp. SM-2 (`ai/srs.py`) + kho trạng thái (`database/review_store.py`) đã viết hoàn chỉnh nhưng **chỉ app desktop gọi** — web không có route nào. Thêm: web tải **cả file `course.json` 47 MB** + manifest media 38 MB; phụ thuộc **2 script CDN**; `DOMPurify` lỗi ⇒ `innerHTML` thô của nội dung AI; `/data/*` mở toàn bộ (đọc được tiến độ ôn tập + log pipeline).
+
+**Đã sửa:**
+1. **API ÔN TẬP SM-2** (mới, `ai/bridge_server.py`): `GET /api/vocab/srs/queue?lang=&limit=` · `POST /api/vocab/srs/review {lang, word, grade}` (grade ∈ again/hard/good/easy) · `GET /api/vocab/srs/stats`. Ghi **chung file `data/reviews/<slug>.json`** với app desktop ⇒ tiến độ học một nơi. Lần đầu mở tab Ôn tập sẽ `sync_from_vocab` để hàng đợi có từ chưa học. **Origin check** (chỉ `http://127.0.0.1:5690` / `localhost:5690`) ⇒ chặn CSRF từ web khác (Origin lạ → **403**).
+2. **Tab 🧠 Ôn tập** trên web (`web/index.html` + `web/script.js`): thẻ từ (mặt trước: từ + phiên âm + audio · lật: nghĩa + ví dụ + ảnh + audio từ + audio nghĩa) · 4 nút chấm điểm đúng nhãn tiếng Việt của app (`😵 Quên hẳn / 😕 Khó / 🙂 Được / 😎 Rất dễ`) · hiện lịch ôn tới ("ôn lại sau N ngày") · thanh thống kê (đến hạn · đã thuộc · 🔥 streak) · phím tắt `1-4`.
+3. **Tải khóa học THEO NGÀY**: `GET /api/vocab/course/<slug>/index` (danh sách ngày) + `GET /api/vocab/course/<slug>/day/<n>` (1 ngày ~40 KB), cache theo mtime phía server ⇒ mở tab/đổi ngày **không còn tải 47 MB**; có fallback về `course.json` cũ.
+4. **BỎ phụ thuộc CDN**: `marked` + `DOMPurify` (jsdelivr) bị gỡ khỏi `index.html`; `formatText()` nay **tự escape** rồi áp markdown cơ bản ⇒ (i) app chạy được **offline**, (ii) không còn đường `innerHTML` thô của nội dung AI (XSS).
+5. **Media lỗi hiện rõ**: trước `onerror` xoá im lặng (không phân biệt "chưa có" với "file hỏng") ⇒ nay hiện chip `⚠ Không có audio` / `⚠ Ảnh không tải được`; thêm hàng **audio nghĩa** (`meaning_audio_ref`) vốn có trong dữ liệu nhưng web bỏ qua.
+6. **A11y & responsive**: bỏ `user-scalable=no` (chặn pinch-zoom) · `#clear-search` `<span>` → `<button>` có `aria-label` · `role="tablist"` + `aria-selected` + `aria-live` · `:focus-visible` cho bàn phím · `@media (max-width: 720px)` (bố cục dọc trên điện thoại) · `prefers-reduced-motion` · nhãn tiếng Việt thay chữ Anh.
+7. **Bridge hardening**: `/data/*` **chặn** `reviews/`, `logs/`, `_pipeline/`, `*.bak*`, `*.tmp*` (403) — trang học không cần chúng · `/api/vocab/next` **không còn trả lại `bridge_token`** trong body.
+8. **GUI**: nút **📚 Trang học** + **🎛️ Dashboard** (mở đúng URL, dashboard kèm token — trước phải gõ tay/copy tay) · **che token** trên màn hình (giống API key) · thông báo lỗi bridge nói đúng nguyên nhân (thiếu Flask) thay vì nuốt lỗi.
+
+**Test:** `tools/test_srs_api.py` mới **17/17** (index + lesson theo ngày + queue có nghĩa/audio · review ghi state & lịch ôn tới · grade sai → 400 · Origin lạ → 403 · gzip · file review tách theo slug). Test thật bằng **trình duyệt**: dropdown hiện tên đẹp ("Tiếng Nhật") · khóa Nhật **1.260 ngày** trong dropdown · Ngày 1 render **10 audio + 10 ảnh** · tab Ôn tập: hàng đợi **1.956 từ** (Tiếng Anh) · chấm "Được" ⇒ streak **1 ngày**, "đến hạn" 1956 → 1955, file `data/reviews/tiếng_anh.json` ghi đúng (`cat`: state=review, interval≈4h, reps=1) · **0 lỗi console**. Suite xanh: media25 · stop_makeup37 · recovery18 · srs_api17 · dashboard57 · quota94 · keymgr111 · 3mode41 · slug6 · ai_rich85 · smoke15 · compile0.
+
+**PHÁT HIỆN QUAN TRỌNG (cần quyết định — Gói 4):** sau khi khôi phục, đo nội dung khóa Nhật cho thấy **100% là dữ liệu sinh tự động** (`単語10`, `tango10`, "Nghĩa từ vựng số 10") ⇒ 1.260 ngày này **không dùng để học được**, phải sinh lại bằng Gemini (≈ 1.260 × 4 call). Sáu khóa còn lại (Anh · Hàn · Nga · Pháp · Trung · Tây · Đức) là nội dung thật nhưng thiếu **hội thoại (~130 ngày)** và **ảnh (~1.300 ngày `degraded`)** ⇒ cần bù media (edge-TTS + Wikipedia, **không tốn quota Gemini**).
+
+---
+
 ## 7.20. GÓI 2 — KHÔI PHỤC & BẢO TOÀN KHÓA HỌC (2026-11-12)
 
 **Bối cảnh:** rà soát toàn app (4 hướng: web UI · logic pipeline · key/anti-block · server/SRS) → chốt 4 gói cải tiến. User duyệt thứ tự **2 → 3 → 4** (Gói 1 = key để sau, xem mục *Khuyến nghị về key*).

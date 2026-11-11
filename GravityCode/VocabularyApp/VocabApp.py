@@ -2742,6 +2742,13 @@ class SettingsSyncTab(ctk.CTkFrame):
         lbl(tok_frame, "Token bridge:", 12, color=C["muted"]).pack(side="left", padx=12, pady=8)
         self.lbl_bridge_token = lbl(tok_frame, "-", 12, "bold", C["accent"])
         self.lbl_bridge_token.pack(side="left")
+        # FIX 2026-11-12 (Gói 3): 2 nút mở nhanh — trước đây phải tự gõ
+        # địa chỉ + copy token qua clipboard (người dùng hay báo "không mở
+        # được"). Token hiển thị dạng che (như API key).
+        btn(tok_frame, "🎛️ Dashboard", C["accent"], C["accent2"], w=118, h=30,
+            cmd=self._open_dashboard_page).pack(side="right", padx=6, pady=8)
+        btn(tok_frame, "📚 Trang học", C["accent"], C["accent2"], w=118, h=30,
+            cmd=self._open_study_page).pack(side="right", padx=6, pady=8)
 
         sep(scroll)
 
@@ -2788,7 +2795,41 @@ class SettingsSyncTab(ctk.CTkFrame):
         self.btn_bridge.configure(text="⏹ Tắt Bridge")
         self.lbl_bridge.configure(text=f"Trạng thái: ĐANG CHẠY tại http://127.0.0.1:{b.port}",
                                   text_color=C["success"])
-        self.lbl_bridge_token.configure(text=b.token)
+        # FIX 2026-11-12 (Gói 3): che token (như API key) — trước hiện plaintext
+        # ngay trên màn hình (nguy cơ người khác chép/xem).
+        self.lbl_bridge_token.configure(text=self._mask_bridge_token(b.token))
+
+    @staticmethod
+    def _mask_bridge_token(tok: str) -> str:
+        tok = str(tok or "")
+        if len(tok) <= 12:
+            return tok[:2] + "…" if tok else "-"
+        return f"{tok[:6]}…{tok[-4:]}"
+
+    def _open_study_page(self):
+        """Mở trang học trên trình duyệt (Gói 3)."""
+        from ai.web_ai_bridge import get_bridge
+        b = get_bridge()
+        port = getattr(b, "port", 5690) if b is not None else 5690
+        try:
+            webbrowser.open(f"http://127.0.0.1:{port}/index")
+        except Exception as e:
+            messagebox.showwarning("Trang học", f"Không mở được trình duyệt: {e}",
+                                   parent=self.app)
+
+    def _open_dashboard_page(self):
+        """Mở dashboard kèm token (Gói 3) — không cần copy tay."""
+        from ai.web_ai_bridge import get_bridge
+        b = get_bridge()
+        if b is None:
+            messagebox.showwarning("Bridge", "Bridge chưa bật. Bấm 'Bật Bridge' trước.",
+                                   parent=self.app)
+            return
+        try:
+            webbrowser.open(f"http://127.0.0.1:{b.port}/dashboard?token={b.token}")
+        except Exception as e:
+            messagebox.showwarning("Dashboard", f"Không mở được trình duyệt: {e}",
+                                   parent=self.app)
 
     def _copy_bridge_token(self):
         from ai.web_ai_bridge import get_bridge
@@ -2798,8 +2839,8 @@ class SettingsSyncTab(ctk.CTkFrame):
             return
         self.app.clipboard_clear()
         self.app.clipboard_append(b.token)
-        self.lbl_bridge_token.configure(text=b.token)
-        messagebox.showinfo("Bridge", f"Đã copy token:\n{b.token}", parent=self.app)
+        self.lbl_bridge_token.configure(text=self._mask_bridge_token(b.token))
+        messagebox.showinfo("Bridge", "Đã copy token bridge vào clipboard.", parent=self.app)
 
     def _save_media_settings(self):
         from settings import update_ai_settings

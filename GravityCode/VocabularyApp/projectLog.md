@@ -275,6 +275,17 @@
 **KHÔNG làm:** P6b (rate-limiter chia sẻ 2 tiến trình) · chưa trả lời câu hỏi 10 key/account tạo cùng 1 project hay 10 project riêng (ảnh hưởng lock_key vs lock_account dài hạn).
 
 ---
+## 📋 Cập nhật mới nhất — 2026-11-12b (Gói 3 — web học thật: ôn tập SM-2 · tải theo ngày · offline · an toàn)
+
+**Vấn đề (đo thật):** web là **trình xem read-only** — không có API nào ghi tiến độ học ⇒ "học từ online" không đóng được vòng lặp (SM-2 `ai/srs.py` + `database/review_store.py` đã có nhưng **chỉ app desktop gọi**). Thêm: web tải cả `course.json` 47 MB + manifest 38 MB; phụ thuộc 2 script CDN (mất mạng ⇒ trang chết; DOMPurify lỗi ⇒ innerHTML thô của nội dung AI); `/data/*` mở toàn bộ (đọc được tiến độ ôn tập + log pipeline).
+
+**Đã sửa:** ① **3 API ôn tập SM-2** (`/api/vocab/srs/queue|review|stats`) ghi **chung `data/reviews/<slug>.json`** với app desktop, có **Origin check** (Origin lạ → 403); ② **tab 🧠 Ôn tập** (thẻ từ + 4 nút chấm điểm + lịch ôn tới + streak + phím 1-4); ③ **tải khóa học theo ngày** (`/api/vocab/course/<slug>/index|day/<n>`, cache theo mtime) — không còn tải 47 MB; ④ **bỏ CDN** `marked`+`DOMPurify` → `formatText()` tự escape ⇒ chạy offline + hết đường XSS; ⑤ media lỗi hiện chip `⚠ Không có audio` (thay vì xoá im lặng) + thêm audio **nghĩa**; ⑥ a11y/responsive (bỏ `user-scalable=no`, `#clear-search` → button, `role=tab`, `aria-live`, `:focus-visible`, `@media 720px`, nhãn tiếng Việt); ⑦ bridge hardening (`/data/*` chặn `reviews|logs|_pipeline`, `/next` không echo token); ⑧ GUI có nút **📚 Trang học** + **🎛️ Dashboard** + che token.
+
+**Test:** `tools/test_srs_api.py` mới **17/17**; test thật bằng trình duyệt: tên khóa đẹp · **1.260 ngày** trong dropdown · Ngày 1 có 10 audio + 10 ảnh · Ôn tập hàng đợi **1.956 từ** · chấm "Được" ⇒ streak 1, đến hạn 1956→1955, file review ghi đúng (`cat`: state=review, interval≈4h) · 0 lỗi console. Suite xanh: media25 · stop_makeup37 · recovery18 · srs_api17 · dashboard57 · quota94 · keymgr111 · 3mode41 · slug6 · ai_rich85 · smoke15 · compile0.
+
+**Cần quyết (Gói 4):** đo nội dung cho thấy **100% khóa Nhật là dữ liệu giả** (`単語10`/`tango10`) ⇒ phải sinh lại bằng Gemini (≈5.000 call) hoặc bỏ khóa này; 6 khóa còn lại là nội dung thật nhưng thiếu **hội thoại (~130 ngày)** + **ảnh (~1.300 ngày)** ⇒ bù media bằng edge-TTS/Wikipedia (0 quota Gemini). Chi tiết: `docs/UPGRADE_17.md` mục **7.21**.
+
+---
 ## 📋 Cập nhật mới nhất — 2026-11-12 (Gói 2 — khôi phục & bảo toàn khóa học)
 
 **Bối cảnh:** rà soát toàn app (web UI · logic pipeline · key/anti-block · server/SRS) → chốt 4 gói cải tiến; user duyệt thứ tự **2 → 3 → 4** (gói key để sau).

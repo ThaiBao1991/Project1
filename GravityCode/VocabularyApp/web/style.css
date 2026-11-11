@@ -59,6 +59,26 @@ select:focus, input:focus {
     border-color: var(--accent);
 }
 
+/* ─── Gói 3 (2026-11-12): focus rõ cho bàn phím + nút ẩn/hiện ────────────── */
+button:focus-visible,
+select:focus-visible,
+input:focus-visible,
+a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+#clear-search {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0 6px;
+}
+#clear-search:hover { color: var(--text-main); }
+[hidden] { display: none !important; }
+
 .search-wrapper {
     position: relative;
     width: 100%;
@@ -1013,4 +1033,122 @@ tr:last-child td {
     border-left: 3px solid var(--success);
     font-size: 13px;
     line-height: 1.5;
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   ÔN TẬP SM-2 (Gói 3) + chip media lỗi + responsive
+   ════════════════════════════════════════════════════════════════════════════ */
+.srs-stats {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 14px;
+}
+.srs-stat {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 4px 14px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+.srs-stat b { color: var(--accent); }
+
+.srs-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 26px 20px;
+    text-align: center;
+    min-height: 190px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.srs-word {
+    font-size: 2.1rem;
+    font-weight: 700;
+    line-height: 1.3;
+    word-break: break-word;
+}
+.srs-pron { color: var(--text-muted); }
+.srs-meaning { font-size: 1.25rem; color: var(--success); }
+.srs-example {
+    background: var(--card-bg-alt);
+    border-radius: 10px;
+    padding: 10px 14px;
+    max-width: 640px;
+    width: 100%;
+}
+.srs-day { color: var(--text-muted); font-size: 0.85rem; }
+.srs-hint { color: var(--text-muted); }
+.srs-reveal {
+    background: var(--accent);
+    color: #16121f;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 22px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+.srs-reveal:hover { background: var(--accent-hover); }
+
+.srs-actions {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-top: 14px;
+}
+.srs-btn {
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    color: var(--text-main);
+    border-radius: 10px;
+    padding: 12px 6px;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+.srs-btn:hover { background: var(--card-bg-alt); }
+.srs-again:hover { border-color: var(--danger); }
+.srs-hard:hover  { border-color: #ffb300; }
+.srs-good:hover  { border-color: var(--success); }
+.srs-easy:hover  { border-color: var(--accent); }
+.srs-feedback {
+    text-align: center;
+    color: var(--text-muted);
+    min-height: 24px;
+    margin-top: 8px;
+}
+
+.media-missing {
+    color: #ffb300;
+    font-size: 0.85rem;
+    margin-top: 4px;
+}
+.media-audio-label {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-right: 6px;
+}
+.media-audio-wrap { display: inline-block; }
+
+/* ─── Responsive (Gói 3): trước đây KHÔNG có @media nào ─────────────────────── */
+@media (max-width: 720px) {
+    header { padding: 10px; }
+    h1 { font-size: 1.2rem; }
+    .header-top { flex-direction: column; align-items: stretch; gap: 8px; }
+    .filters { flex-direction: column; }
+    .filters select { width: 100%; }
+    .view-toggles { flex-wrap: wrap; }
+    .view-toggles button { flex: 1 1 45%; }
+    .srs-actions { grid-template-columns: repeat(2, 1fr); }
+    .srs-word { font-size: 1.7rem; }
+    .vocab-word { font-size: 1.05rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
 }
