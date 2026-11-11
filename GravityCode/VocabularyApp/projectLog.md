@@ -281,9 +281,9 @@
 
 **Sự thật:** trang **KHÔNG cần GitHub** — đọc trực tiếp `data/` local qua server nội bộ app (`127.0.0.1:5690/index`). Dòng "Đồng Bộ lên GitHub" là copy placeholder cũ. Chẩn nhật screenshot (`Failed to load data` + ngày trống + "cho ."): 5690 trống → mở thẳng `web/index.html` bằng `file://` → trình duyệt chặn `fetch`.
 
-**Đã sửa (`web/script.js`, 3 chỗ):** ① `init()` catch → thay "Failed to load data" bằng hướng dẫn phân biệt `file://` ("Mở sai cách… mở app VocabApp rồi vào 127.0.0.1:5690/index") vs server khác; ② `loadLanguage()` catch → cùng thông báo thay "Error loading vocabulary data."; ③ placeholder khóa học → bỏ "Đồng Bộ lên GitHub", nói dữ liệu nằm ngay trên máy đọc từ `data/` local + fix "cho ." (language rỗng → "(chưa chọn khóa)").
+**Đã sửa (`web/script.js`, 4 chỗ):** ① `init()` catch → thay "Failed to load data" bằng hướng dẫn phân biệt `file://` ("Mở sai cách… mở app VocabApp rồi vào 127.0.0.1:5690/index") vs server khác; ② `loadLanguage()` catch → cùng thông báo thay "Error loading vocabulary data."; ③ placeholder khóa học → bỏ "Đồng Bộ lên GitHub", nói dữ liệu nằm ngay trên máy đọc từ `data/` local + fix "cho ." (language rỗng → "(chưa chọn khóa)"); ④ **fix dropdown chọn ngày không có listener** → đổi ngày nội dung kẹt ở ngày đầu → thêm `daySelect.addEventListener("change", …)`.
 
-**Test:** `test_web_dashboard.py` 54 → **56/56** (2 check regression mới). Thật browser: `/index` init OK · List/Flashcard/AI Course render · 114 ngày + 12 ảnh + 12 audio · chặn fetch giả lập → catch hiện đúng thông báo · dashboard `?token=` IDLE + 2 khóa + link 📚. Suite xanh: dashboard56 · quota94 · media25 · keymgr111 · 3mode41 · slug6 · ai_rich85 · smoke PASS · compile0. Chi tiết: `docs/UPGRADE_17.md` mục **7.18**.
+**Test:** `test_web_dashboard.py` 54 → **57/57** (3 check regression mới). Thật browser: `/index` init OK · List/Flashcard/AI Course render · 114 ngày + 12 ảnh + 12 audio · chặn fetch giả lập → catch hiện đúng thông báo · dashboard `?token=` IDLE + 2 khóa + link 📚. Suite xanh: dashboard57 · quota94 · media25 · keymgr111 · 3mode41 · slug6 · ai_rich85 · smoke PASS · compile0. Chi tiết: `docs/UPGRADE_17.md` mục **7.18**.
 
 ---
 ## 📋 Cập nhật mới nhất — 2026-11-10 (Fix dashboard: dropdown sau auth · trạng thái CHƯA KẾT NỐI · trang học `/index` hiển thị nội dung)

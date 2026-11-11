@@ -630,8 +630,9 @@ run_pipeline(thread nền, stop_check=STOP_EVENT.is_set, log_fn=buffer)
 1. **`init()` catch** — thay `"Failed to load data"` chung chung: `file://` → `⚠ Mở sai cách (file://) — mở app VocabApp rồi vào 127.0.0.1:5690/index`; server khác → `⚠ Không tải được dữ liệu local — mở qua app VocabApp`.
 2. **`loadLanguage()` catch** — thay `"Error loading vocabulary data."` bằng cùng 2 thông báo hướng dẫn (có link `http://127.0.0.1:5690/index`).
 3. **Placeholder khóa học** — bỏ "*Đồng Bộ lên GitHub*": `file://` → hướng dẫn mở qua app (dữ liệu nằm ngay trên máy); server mà thiếu khóa → "*Khóa học lưu ngay trên máy, trang đọc trực tiếp từ `data/` local*" + sửa lỗi hiện "*cho .*" (language rỗng → "(chưa chọn khóa)").
+4. **FIX thêm (không liên quan GitHub nhưng chặn "toàn bộ tính năng")**: dropdown **chọn ngày không có listener** → đổi ngày nội dung vẫn kẹt ở ngày đầu (`renderCourseDay` chỉ chạy 1 lần trong `renderCourseShell`) → thêm `daySelect.addEventListener("change", …)`.
 
-**Test:** `test_web_dashboard.py` 54 → **56/56** (2 check mới: hết nhắc "Đồng Bộ lên GitHub" · có hướng dẫn `127.0.0.1:5690/index` + phân biệt `file://`). Test thật browser: `/index` init OK (dropdown 2 khóa) · List/Flashcard/AI Course render · 114 ngày + 12 ảnh + 12 audio · chặn fetch giả lập → catch hiện thông báo mới đúng · nhánh `file://` đúng chuỗi · dashboard `?token=` vẫn IDLE + 2 khóa + link 📚 Trang học. Suite xanh: dashboard56 · quota94 · media25 · keymgr111 · 3mode41 · slug6 · ai_rich85 · smoke PASS · compile0.
+**Test:** `test_web_dashboard.py` 54 → **57/57** (3 check mới: hết nhắc "Đồng Bộ lên GitHub" · có hướng dẫn `127.0.0.1:5690/index` + phân biệt `file://` · có listener đổi ngày). Test thật browser: `/index` init OK (dropdown 2 khóa) · List/Flashcard/AI Course render · 114 ngày + 12 ảnh + 12 audio · chặn fetch giả lập → catch hiện thông báo mới đúng · nhánh `file://` đúng chuỗi · dashboard `?token=` vẫn IDLE + 2 khóa + link 📚 Trang học. Suite xanh: dashboard57 · quota94 · media25 · keymgr111 · 3mode41 · slug6 · ai_rich85 · smoke PASS · compile0.
 
 ---
 
