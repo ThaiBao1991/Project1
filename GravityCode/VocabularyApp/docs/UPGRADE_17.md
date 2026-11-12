@@ -636,6 +636,26 @@ run_pipeline(thread nền, stop_check=STOP_EVENT.is_set, log_fn=buffer)
 
 ---
 
+## 7.29. GÓI 6 (tiếp) — NGHĨA TIẾNG VIỆT & KẾT QUẢ KHÓA NHẬT SAU KHI BỔ SUNG OFFLINE (2026-11-12i)
+
+**Nghĩa tiếng Việt cho nguồn offline**: Wiktionary Nhật chỉ có mục "Tiếng Việt" cho **3/1.200** từ ⇒ không đủ. Bổ sung `tools/translate_vi.py`: dịch gloss **tiếng Anh** (EDICT) → **tiếng Việt** theo **lô 25 từ/request** (delay 0,6 s), cache vĩnh viễn `data/offline_src/vi_meanings.json` ⇒ **gọi 1 lần (116 giây cho 2.200 từ) là xong, sau đó không cần mạng**. `offline_content.load_wiki_cache()` gộp 2 nguồn (Wiktionary + bản dịch).
+
+**Kết quả khóa `tiếng_nhật` sau khi bổ sung (đo bằng `tools/verify_courses.py` + `tools/audit_curriculum.py`):**
+
+| Hạng mục | Trước | Hiện tại |
+|---|---|---|
+| ngày | 103 | **200** (103 AI + 97 offline) |
+| từ vựng | 1.219 | **2.189** (1.600 từ khác nhau) |
+| ngữ pháp | 209 | **597 mục** (396 có ví dụ · 596 có mini_quiz) |
+| hội thoại | 97 | **194 bài** (875 lượt · 560 có từ trọng tâm) |
+| trắc nghiệm | 4.009 | **4.979 câu** (0 câu lỗi) |
+| field/từ | 94-96 % | **97-100 %** (pronunciation · ipa · POS · nghĩa · ví dụ · phonetic_note · syllables) |
+| placeholder | 0 | **0** |
+
+**Nguyên tắc thiết kế (giữ nguyên):** **AI trước — offline làm lưới an toàn.** AI lỗi/hết quota ⇒ tự động rơi về offline (`stage.fallback_offline`, đã có test); AI chạy lại ⇒ nội dung AI ghi đè offline (checkpoint content `done` bị xoá ⇒ AI sinh lại). ⇒ *"API chạy đúng và chính bạn chạy vẫn đúng"*.
+
+---
+
 ## 7.28. GÓI 6 — NGUỒN NỘI DUNG OFFLINE: KHÔNG CHỜ API, HỌC ĐƯỢC NGAY (2026-11-12h)
 
 **Yêu cầu (user):** *"Nếu bạn có khả năng tự lấy và tạo giáo trình thì đừng chờ API nữa — tự kiểm tra, so sát, thay thế, bổ sung toàn bộ; ưu tiên tiếng Nhật; phải từ thấp lên cao (bảng chữ cái → từ vựng cơ bản → ngữ pháp…); đưa vào pipeline quản lý chặt chẽ, API chạy đúng và chính bạn chạy vẫn đúng."*
