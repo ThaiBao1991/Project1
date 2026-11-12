@@ -636,6 +636,28 @@ run_pipeline(thread nền, stop_check=STOP_EVENT.is_set, log_fn=buffer)
 
 ---
 
+## 7.28. GÓI 6 — NGUỒN NỘI DUNG OFFLINE: KHÔNG CHỜ API, HỌC ĐƯỢC NGAY (2026-11-12h)
+
+**Yêu cầu (user):** *"Nếu bạn có khả năng tự lấy và tạo giáo trình thì đừng chờ API nữa — tự kiểm tra, so sát, thay thế, bổ sung toàn bộ; ưu tiên tiếng Nhật; phải từ thấp lên cao (bảng chữ cái → từ vựng cơ bản → ngữ pháp…); đưa vào pipeline quản lý chặt chẽ, API chạy đúng và chính bạn chạy vẫn đúng."*
+
+**Đã làm (KHÔNG tốn quota Gemini):**
+1. **Nguồn offline** (`ai/offline_content.py`):
+   • **EDICT/JMdict** (140.672 mục, tải 1 lần từ edrdg.org — file EUC-JP) → từ vựng + kana đọc + từ loại + nghĩa Anh.
+   • **Wiktionary** (`ja.wiktionary.org` action API) → **nghĩa TIẾNG VIỆT** + ví dụ (cache `data/offline_src/wiktionary_vi.json`).
+   • **Bảng 92 kana** (46 hiragana + 46 katakana) sinh bằng code: romaji · IPA · nghĩa Việt · mẹo phát âm.
+   • **Bảng ngữ pháp N5→N3** tự soạn (`ai/offline_grammar.py`, 22 mục: mỗi mục có giải thích · 2 ví dụ JA/VI · trọng tâm phát âm · lỗi thường gặp · mini_quiz).
+   • **Hội thoại micro 4 lượt** + **trắc nghiệm đảo nghĩa** sinh bằng template từ từ của ngày.
+2. **Thứ tự "từ thấp lên cao"**: xếp theo (số kanji, số kana) ⇒ **0 kanji (kana thuần) → 1 kanji + 1-2 kana → 2 kanji**; **10 ngày đầu = bảng chữ cái**, sau đó = từ vựng cơ bản theo độ khó tăng dần. (Không có nguồn tần suất — edrdg/JPDB/GitHub-raw đều 404/chặn — nên dùng độ khó thay tần suất.)
+3. **Đưa vào pipeline (fallback)**: `ai/pipeline.py` — khi stage **content** của AI thất bại (hết quota/lỗi mạng) ⇒ **tự sinh bằng nguồn offline** và ghi log `stage.fallback_offline` ⇒ "API chạy đúng" (dùng AI) mà "chính bạn chạy vẫn đúng" (không còn phụ thuộc quota).
+4. **Tool `tools/build_offline_course.py`**: dựng cả khóa offline (mặc định 200 ngày) + ghi **đúng định dạng `course.json` + checkpoint** (content/quiz/dialogue) để pipeline/media chạy tiếp. Đã áp dụng cho `tiếng_nhật`: **200 ngày** (103 ngày AI + 97 ngày offline) · **1.992 từ, chỉ 11 từ lặp** · 1.994 câu hỏi · 200 bài hội thoại · 22 mục ngữ pháp.
+5. **Tool `tools/fetch_offline_sources.py`**: tải EDICT + nghĩa Việt Wiktionary (có cache, chạy nền).
+
+**Test:** `tools/test_offline_content.py` **18/18** (92 kana đủ field · EDICT >10.000 mục · thứ tự độ khó TĂNG DẦN không lùi · ngày 1 = bảng chữ cái có vocab/ngữ pháp/hội thoại/quiz · ngày 12 = từ vựng đủ field v4 · quiz đáp án hợp lệ · hội thoại ≥2 lượt và dùng từ của ngày).
+
+**Khi quota Gemini reset (07:00 VN):** job AI sẽ tự sinh tiếp 1.060 ngày Nhật còn lại và **ghi đè phần offline** (checkpoint content `done` bị xoá ⇒ AI sinh lại) ⇒ nhưng nếu muốn GIỮ offline làm nền, dùng `--no-resume` có chọn lọc hoặc chạy pipeline với `--stages` bỏ content.
+
+---
+
 ## 7.27. CHỮA MANIFEST MẤT ENTRY + ĐỘ ĐẦY ĐỦ MEDIA SAU GÓI 5 (2026-11-12g)
 
 **Sự cố:** media khóa Nhật đã sinh đủ (3.761 file / 49 MB) và refs **đã ghi vào `course.json`**, nhưng **manifest (`data/media/index.json`) mất entry** ⇒ web `mediaEntry(ref)` trả `null` ⇒ **không hiện nút ảnh/âm thanh dù file có thật**. Nguyên nhân: job bị kết thúc đột ngột nên `media_store.flush_index()` (chạy trong `finally` của `run_pipeline`) **không kịp ghi manifest**; index chỉ lưu entry trong RAM của process.

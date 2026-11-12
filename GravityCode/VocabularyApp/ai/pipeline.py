@@ -1136,10 +1136,24 @@ def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
                 course_db.save_course(language, course)
             log.event("stage.ok", msg=f"Content Ngày {day_num} OK", stage=STAGE_CONTENT, day=day_num)
         else:
-            log.error("stage.fail", msg=f"Content Ngày {day_num} thất bại: {err}",
-                      stage=STAGE_CONTENT, day=day_num)
-            _drop_empty_lesson()
-            return None
+            # Gói 6 (2026-11-12): AI thất bại (hết quota / lỗi mạng) ⇒ FALLBACK
+            # sang nguồn OFFLINE (EDICT + Wiktionary + bảng ngữ pháp tự soạn) để
+            # khóa học VẪN học được. Không tốn quota Gemini.
+            log.warn("stage.fallback_offline",
+                     msg=f"Content Ngày {day_num} thất bại ({err}) — dùng nguồn "
+                         f"OFFLINE (EDICT/Wiktionary, không tốn quota AI).",
+                     stage=STAGE_CONTENT, day=day_num)
+            try:
+                from ai import offline_content as _off
+                data = _off.build_offline_day(day_num)
+                ok = True
+            except Exception as _e:
+                log.error("stage.fail",
+                          msg=f"Content Ngày {day_num} thất bại: {err} "
+                              f"(và fallback offline lỗi: {_e})",
+                          stage=STAGE_CONTENT, day=day_num)
+                _drop_empty_lesson()
+                return None
     elif not lesson.get("vocab"):
         # Resume: lấy từ checkpoint
         cp = load_checkpoint(language, STAGE_CONTENT, day_num) or {}
