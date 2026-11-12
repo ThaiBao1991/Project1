@@ -654,6 +654,24 @@ run_pipeline(thread nền, stop_check=STOP_EVENT.is_set, log_fn=buffer)
 
 **Nguyên tắc thiết kế (giữ nguyên):** **AI trước — offline làm lưới an toàn.** AI lỗi/hết quota ⇒ tự động rơi về offline (`stage.fallback_offline`, đã có test); AI chạy lại ⇒ nội dung AI ghi đè offline (checkpoint content `done` bị xoá ⇒ AI sinh lại). ⇒ *"API chạy đúng và chính bạn chạy vẫn đúng"*.
 
+**Lỗi hệ thống đã vá (quan trọng):** `media_store.flush_index()` ghi thẳng **cache RAM của process** ⇒ khi 2 tiến trình cùng sinh media (pipeline + bù media), tiến trình này **xoá entry của tiến trình kia** ⇒ ảnh/âm thanh "biến mất" khỏi web dù file vẫn trên đĩa (đo thật: khóa Nhật 930 audio → **0** sau một lần job khác ghi manifest). Nay `flush_index()` **đọc đĩa + MERGE** trước khi ghi ⇒ nhiều tiến trình không còn đánh nhau.
+
+**Số liệu cuối 8 khóa (`tools/verify_courses.py`, chỉ tính file THẬT):**
+
+| | ngày | từ | ảnh | audio từ | audio nghĩa | audio hội thoại | placeholder | ngày rỗng |
+|---|---|---|---|---|---|---|---|---|
+| tiếng_anh | 259 | 2.590 | 2.590 ✓ | 2.590 ✓ | 2.590 ✓ | 241 ✓ | 0 | 0 |
+| tiếng_hàn_quốc | 450 | 4.500 | 4.500 ✓ | 4.500 ✓ | 4.500 ✓ | 416 ✓ | 0 | 0 |
+| tiếng_nga | 381 | 3.811 | 3.811 ✓ | 3.811 ✓ | 3.701 ✓ | 288 ↑ | 0 | 0 |
+| **tiếng_nhật** | **200** | **2.189** | **2.189 ✓** | **2.189 ✓** | **2.189 ✓** | **194 ✓** | 0 | 0 |
+| tiếng_pháp | 343 | 3.430 | 3.430 ✓ | 3.430 ✓ | 2.080 ↑ | 187 ↑ | 0 | 0 |
+| tiếng_trung | 446 | 4.460 | 4.460 ✓ | 4.460 ✓ | 4.390 ✓ | 22 ⚠ | 0 | 0 |
+| tiếng_tây_ban_nha | 345 | 3.450 | 3.450 ✓ | 3.450 ✓ | 3.420 ✓ | 16 ⚠ | 0 | 0 |
+| tiếng_đức | 342 | 3.420 | 3.420 ✓ | 3.420 ✓ | 3.220 ✓ | 30 ⚠ | 0 | 0 |
+| **TỔNG** | **2.666** | **27.850** | **27.850 (100 %)** | **27.850 (100 %)** | **26.090 (94 %)** | **1.394** | **0** | **0** |
+
+Còn thiếu **hội thoại** của Trung/Tây/Đức ≈ 1.290 bài ⇒ cần 1 call Gemini/ngày ⇒ chờ quota reset (07:00 VN).
+
 ---
 
 ## 7.28. GÓI 6 — NGUỒN NỘI DUNG OFFLINE: KHÔNG CHỜ API, HỌC ĐƯỢC NGAY (2026-11-12h)
