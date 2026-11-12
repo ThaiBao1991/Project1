@@ -295,6 +295,47 @@ def main() -> int:
             except Exception as e:
                 ck("panel quiz không crash", False, f"{type(e).__name__}: {e}")
 
+            # ── 10. bấm nút chế độ ⇒ hiện ĐÚNG ngày đang chọn ─────────────
+            print("\n=== 10. bấm nút chế độ học ⇒ đúng ngày đang chọn ===")
+            try:
+                c2 = {"days": [
+                    {"day": 1, "phase": "P", "title": "Ngày 1", "topic": "T1",
+                     "vocab": [{"word": "猫", "meaning_vi": "mèo"}],
+                     "grammar": [{"title": "NGỮ PHÁP NGÀY 1"}],
+                     "dialogue": [{"title": "HỘI THOẠI NGÀY 1", "turns": []}],
+                     "quiz": {}},
+                    {"day": 2, "phase": "P", "title": "Ngày 2", "topic": "T2",
+                     "vocab": [{"word": "犬", "meaning_vi": "chó"}],
+                     "grammar": [{"title": "NGỮ PHÁP NGÀY 2",
+                                  "explanation": "Giải thích ngữ pháp ngày 2"}],
+                     "dialogue": [{"title": "HỘI THOẠI NGÀY 2", "turns": []}],
+                     "quiz": {}},
+                ]}
+                tab._course = c2
+                # Đặt nguồn = Khóa học AI TRƯỚC (nếu không, _load_mode sẽ gọi
+                # _on_source_change → _reload_course → nạp course thật từ đĩa).
+                try:
+                    tab.cb_source.set("🤖 Khóa học AI chuyên sâu")
+                except Exception:
+                    pass
+                tab.cb_day.set_items([(1, "Ngày 1", "N5", False),
+                                      (2, "Ngày 2", "N5", False)])
+                tab._select_day_by_num(1)
+                root.update_idletasks()
+                tab._select_day_by_num(2)          # chọn ngày 2
+                root.update_idletasks()
+                tab._load_mode("grammar")          # bấm nút "Ngữ pháp"
+                root.update_idletasks()
+                txt = tab.lesson_text.get("1.0", "end")
+                ck("bấm 'Ngữ pháp' hiện nội dung NGÀY 2 (không phải ngày 1)",
+                   "NGÀY 2" in txt and "NGÀY 1" not in txt, txt[:160])
+                ck("có phần NGỮ PHÁP của ngày 2",
+                   "NGỮ PHÁP NGÀY 2" in txt, txt[-200:])
+                ck("không hiện phần TỪ VỰNG khi ở chế độ Ngữ pháp",
+                   "TỪ VỰNG CHUYÊN SÂU" not in txt, txt[:160])
+            except Exception as e:
+                ck("bấm nút chế độ không crash", False, f"{type(e).__name__}: {e}")
+
             try:
                 tab.destroy()
             except Exception:

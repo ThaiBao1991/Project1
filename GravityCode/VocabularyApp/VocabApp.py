@@ -5768,7 +5768,18 @@ class StudyTab(ctk.CTkFrame):
                 return
             self.cb_source.set(SOURCE_AI)
             self._on_source_change()      # đã render theo _study_mode mới
-        lesson = self._current_lesson
+        lesson = None
+        # FIX 2026-11-13: bấm nút chế độ học phải hiện ĐÚNG NGÀY ĐANG CHỌN.
+        # Trước đây dùng `self._current_lesson` (bài CŨ) ⇒ chọn Ngày 200 rồi
+        # bấm "Ngữ pháp" lại ra Ngày 43 (ảnh chụp của user).
+        _day_now = self._selected_day_num()
+        if _day_now:
+            try:
+                lesson = self._get_day_lesson(_day_now)
+            except Exception:
+                lesson = None
+        if not lesson:
+            lesson = self._current_lesson
         if not lesson:
             day = self._selected_day_num()
             lesson = self._get_day_lesson(day) if day else None
@@ -5779,6 +5790,7 @@ class StudyTab(ctk.CTkFrame):
                 text=f"⚠ Ngày {_dn} chưa có nội dung — bấm 🤖 Sinh khóa học AI "
                      f"để tạo, hoặc chọn ngày khác (app tự nạp lại khi sinh xong).")
             return
+        self._current_lesson = lesson
         self._render_lesson_text(lesson)
         self._sync_dlg_panel(lesson)
         self._render_vocab_panel(lesson)
@@ -6051,6 +6063,17 @@ class StudyTab(ctk.CTkFrame):
         self.cb_day.set_items(items)
         self.lbl_total_days.configure(text=f"/ {len(days)}")
         last = prog.get("last_day") if prog.get("last_day") in days else days[0]
+        # FIX 2026-11-13: GIỮ ngày đang xem. Trước đây `_reload_course` luôn
+        # chọn `last_day` (ngày cuối đã học) ⇒ mỗi lần auto-sync 5 s hoặc
+        # bấm nút chế độ học, app NHẢY về ngày cũ ⇒ "bấm là không tới nơi
+        # đúng" (ảnh chụp của user: dropdown Ngày 200 nhưng nội dung Ngày 43).
+        _cur = None
+        try:
+            _cur = self._selected_day_num()
+        except Exception:
+            _cur = None
+        if _cur in days:
+            last = _cur
         self._select_day_by_num(last)
         total = len(days)
         level_str = (self._course or {}).get("level", "")
@@ -6070,6 +6093,13 @@ class StudyTab(ctk.CTkFrame):
             if item[0] == day_num:
                 self.cb_day.set(item[1])
                 break
+        # FIX 2026-11-13: đồng bộ ô nhập ngày (trước đây ô nhập giữ giá
+        # trị cũ ⇒ các hàm đọc theo ô nhập sẽ trỏ về ngày khác).
+        try:
+            self.ent_jump_day.delete(0, "end")
+            self.ent_jump_day.insert(0, str(day_num))
+        except Exception:
+            pass
         self._load_selected_day()
 
     def _on_jump_day(self):
@@ -6628,6 +6658,14 @@ class StudyTab(ctk.CTkFrame):
                 if s.get("situation"):
                     lines.append(f"   📌 Tình huống: {s['situation']}")
             lines.append("")
+
+        # FIX 2026-11-13: "mẫu câu" + "câu thông dụng" thuộc phần TỪ VỰNG
+        # ⇒ ở chế độ Ngữ pháp/Hội thoại phải ẩn; và mốc `_sec` phải ĐẶT LẠI
+        # trước khối NGỮ PHÁP — trước đây nó trỏ vào trước khối mẫu câu ⇒
+        # khi bấm "Ngữ pháp" app XOÁ LUÔN phần ngữ pháp (chỉ còn banner).
+        if not _keep_vocab:
+            del lines[_sec:]
+        _sec = len(lines)
 
         grammar_items = lesson.get("grammar") or []
         if isinstance(grammar_items, dict):
