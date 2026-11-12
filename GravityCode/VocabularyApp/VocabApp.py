@@ -5328,7 +5328,14 @@ class StudyTab(ctk.CTkFrame):
         self._flipped = False
         self._render_card()
         self._reload_course()
+        # FIX 2026-11-12 (Gói 4): reset cache pool SRS thì PHẢI nạp lại —
+        # trước đây cache bị xoá mà không nạp ⇒ panel ôn tập hiện 0/0 dù
+        # khóa học có hàng nghìn từ (đúng triệu chứng trong ảnh chụp).
         self._srs_pool_cache = {}
+        try:
+            self._srs_load_course_bg()
+        except Exception:
+            pass
         self.refresh_srs_stats()
 
     def _on_source_change(self, initial=False):
@@ -5650,8 +5657,11 @@ class StudyTab(ctk.CTkFrame):
             day = self._selected_day_num()
             lesson = self._get_day_lesson(day) if day else None
         if not lesson:
+            # FIX 2026-11-12 (Gói 4): nói rõ NGÀY nào rỗng + cách xử lý.
+            _dn = self._selected_day_num()
             self.lbl_bottom.configure(
-                text="⚠ Chưa có bài học cho ngày này — chọn ngày khác hoặc sinh khóa AI.")
+                text=f"⚠ Ngày {_dn} chưa có nội dung — bấm 🤖 Sinh khóa học AI "
+                     f"để tạo, hoặc chọn ngày khác (app tự nạp lại khi sinh xong).")
             return
         self._render_lesson_text(lesson)
         self._sync_dlg_panel(lesson)
@@ -5805,9 +5815,64 @@ class StudyTab(ctk.CTkFrame):
             return "break"
 
     # ── Khóa học AI ──────────────────────────────────────────────────────────
+    def _course_file_mtime(self):
+        """mtime file course.json trên đĩa (None nếu chưa có)."""
+        try:
+            return os.path.getmtime(course_db.course_path(self.app.current_language))
+        except OSError:
+            return None
+
+    def _schedule_sync(self):
+        """Hẹn lần kiểm tra tự đồng bộ (5s)."""
+        try:
+            if getattr(self, "_sync_after", None) is None:
+                self._sync_after = self.after(5000, self._sync_tick)
+        except Exception:
+            self._sync_after = None
+
+    def _sync_tick(self):
+        """Tự nạp lại khóa học khi file trên đĩa vừa đổi.
+
+        FIX 2026-11-12 (Gói 4): trước đây GUI giữ `self._course` trong RAM ⇒
+        khi pipeline sinh xong (hoặc khi khóa học được đổi tên/đổi slug) app
+        vẫn hiện dữ liệu CŨ ⇒ người dùng thấy "0 từ / 0 nội dung" dù file
+        trên đĩa đã đầy. Nay tự nạp lại + vẽ lại ngày đang xem.
+        """
+        self._sync_after = None
+        try:
+            if not self.winfo_exists():
+                return
+            mt = self._course_file_mtime()
+            if mt is not None and getattr(self, "_course_mtime", None) != mt:
+                self._reload_course()
+                day = self._selected_day_num()
+                if day:
+                    try:
+                        self._select_day_by_num(day)
+                    except Exception:
+                        pass
+                # FIX 2026-11-12 (Gói 4): nạp lại pool ôn tập + thống kê
+                # (khóa học vừa có thêm từ ⇒ hàng đợi SM-2 phải cập nhật).
+                try:
+                    self._srs_pool_cache = {}
+                    self._srs_load_course_bg()
+                    self.refresh_srs_stats()
+                except Exception:
+                    pass
+                try:
+                    self._log("🔄 Khóa học vừa được cập nhật trên đĩa — đã nạp lại.")
+                except Exception:
+                    pass
+        except Exception:
+            pass
+        self._schedule_sync()
+
     def _reload_course(self):
         lang = self.app.current_language
         self._course = course_db.get_course(lang)
+        # FIX 2026-11-12 (Gói 4): nhớ mtime + bật cơ chế tự đồng bộ.
+        self._course_mtime = self._course_file_mtime()
+        self._schedule_sync()
         prog = course_db.get_progress(lang)
         days = sorted(int(d.get("day", 0)) for d in (self._course or {}).get("days", []))
         if not days:
@@ -5819,9 +5884,18 @@ class StudyTab(ctk.CTkFrame):
             self.lbl_day_title.configure(text="Không có bài học nào")
             self.lbl_prog_info.configure(text="Chưa có khóa học AI. Bấm 🤖 Sinh khóa học AI để tạo.")
             self.progress_bar.set(0)
-            self._set_lesson_text("Chưa có khóa học AI.\n\n"
-                                  "Bấm nút 🤖 Sinh khóa học AI ở góc trên phải để tạo "
-                                  "khóa học chuyên sâu theo ngày (từ vựng + ngữ pháp + trắc nghiệm).")
+            # FIX 2026-11-12 (Gói 4): empty state PHẢI nói rõ làm gì tiếp —
+            # trước đây chỉ 1 dòng "Chưa có khóa học AI" ⇒ người dùng tưởng
+            # app hỏng. Nêu 3 lựa chọn cụ thể.
+            self._set_lesson_text(
+                "Chưa có khóa học AI cho ngôn ngữ này.\n\n"
+                "• Bấm 🤖 Sinh khóa học AI (góc trên phải) để tạo nội dung "
+                "theo từng ngày.\n"
+                "• Nếu pipeline đang chạy: nội dung sẽ TỰ HIỆN trong vài giây "
+                "khi sinh xong (app tự nạp lại, không cần bấm gì).\n"
+                "• Muốn xem nội dung trên trình duyệt: bấm 📚 Trang học "
+                "(trong khung Bridge Web AI).\n\n"
+                "Sau khi có khóa học, bấm ▶ Ôn tập để học theo lịch SM-2.")
             self._reset_quiz_widgets()
             return
         items = []
@@ -5958,10 +6032,39 @@ class StudyTab(ctk.CTkFrame):
         self.lbl_prog_info.configure(
             text=f"Tiến độ: {len(done)}/{total} ngày · {pct*100:.0f}%")
         # Cập nhật trạng thái ngày trong label nhỏ
+        # FIX 2026-11-12 (Gói 4): kèm ĐỘ ĐẦY ĐỦ của ngày (từ · ngữ pháp ·
+        # hội thoại · audio) ⇒ người dùng thấy ngay ngày nào còn thiếu gì,
+        # thay vì "0/0 · 0/0" gây hiểu nhầm là app lỗi.
+        _sum = self._day_content_summary(lesson)
         if day in done:
-            self.lbl_day_status2.configure(text="✅ Hoàn thành", text_color=C["success"])
+            self.lbl_day_status2.configure(text="✅ Hoàn thành" + (f" · {_sum}" if _sum else ""),
+                                           text_color=C["success"])
         else:
-            self.lbl_day_status2.configure(text="⏳ Chưa hoàn thành", text_color=C["warn"])
+            self.lbl_day_status2.configure(text="⏳ Chưa hoàn thành" + (f" · {_sum}" if _sum else ""),
+                                           text_color=C["warn"])
+
+    @staticmethod
+    def _day_content_summary(lesson) -> str:
+        """Tóm tắt độ đầy đủ 1 ngày: '12 từ · 2 ngữ pháp · 1 hội thoại · 24 audio'."""
+        if not lesson:
+            return ""
+        v = lesson.get("vocab") or []
+        g = len(lesson.get("grammar") or [])
+        d = len(lesson.get("dialogue") or [])
+        n_aud = sum(1 for x in v if isinstance(x, dict) and x.get("audio_ref"))
+        n_img = sum(1 for x in v if isinstance(x, dict) and x.get("image_ref"))
+        bits = []
+        if v:
+            bits.append(f"{len(v)} từ")
+        if g:
+            bits.append(f"{g} ngữ pháp")
+        if d:
+            bits.append(f"{d} hội thoại")
+        if n_aud:
+            bits.append(f"{n_aud} audio")
+        if n_img:
+            bits.append(f"{n_img} ảnh")
+        return " · ".join(bits)
 
     def _update_day_status(self, day):
         prog = course_db.get_progress(self.app.current_language)
@@ -6818,7 +6921,14 @@ class App(ctk.CTk):
             # Nếu không tìm thấy, dùng lang_slug làm display
             lang_info = {"display": lang_slug.replace("_", " ").title(), "slug": lang_slug, "num_days": 0}
         
-        self.current_language = lang_slug
+        # FIX 2026-11-12 (Gói 4): dùng CANONICAL slug — trước đây giữ slug thô
+        # ("nhật") trong khi course.json nằm ở thư mục canonical ("tiếng_nhật")
+        # ⇒ app đọc nhầm (hoặc đọc file rỗng) ⇒ người dùng thấy "0 nội dung".
+        try:
+            from ai.paths import canonical_slug as _canon
+            self.current_language = _canon(lang_slug)
+        except Exception:
+            self.current_language = lang_slug
         self.current_language_display = lang_info["display"]
         self.current_language_num_days = lang_info["num_days"]
         

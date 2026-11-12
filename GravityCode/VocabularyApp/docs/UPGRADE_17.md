@@ -636,6 +636,31 @@ run_pipeline(thread nền, stop_check=STOP_EVENT.is_set, log_fn=buffer)
 
 ---
 
+## 7.22. GÓI 4 — FIX UX "KHÔNG THẤY NỘI DUNG" + ĐỘ ĐẦY ĐỦ NGÀY (2026-11-12b)
+
+**Triệu chứng (ảnh chụp từ user):** tab Học Tập hiện *"0/0 · 0/0"*, dòng *"nội dung đã lọc"*, ô *"Chưa hoàn thành"*, panel Ôn tập **0/0**, thanh tiến độ *0/1414 ngày* — trong khi file `course.json` trên đĩa **đã đầy**. Người dùng bấm "Sinh khóa học AI" mà **không thấy nội dung**.
+
+**Nguyên nhân (3, đều là lỗi cache/slug — không phải lỗi sinh nội dung):**
+1. **GUI giữ cache trong RAM**: `self._course` nạp lúc mở app ⇒ pipeline sinh xong (hoặc khóa học bị đổi tên) nhưng GUI vẫn hiện bản cũ (rỗng). Không có nút "làm mới", không tự nạp lại.
+2. **Slug thô trong GUI**: `App.set_language()` lưu slug như `"nhật"` trong khi `course.json` nằm ở thư mục canonical `"tiếng_nhật"` ⇒ app đọc nhầm (hoặc đọc file rỗng) ⇒ mọi panel rỗng.
+3. **Pool ôn tập không nạp lại**: `refresh_language()` xoá `_srs_pool_cache` nhưng **không nạp lại** ⇒ panel Ôn tập luôn 0/0 dù khóa học có hàng nghìn từ.
+
+**Đã sửa (`VocabApp.py`):**
+- **Tự đồng bộ 5 giây/lần**: `_course_file_mtime()` + `_sync_tick()` — thấy `course.json` trên đĩa đổi ⇒ **tự nạp lại khóa học, vẽ lại ngày đang xem, nạp lại pool ôn tập, cập nhật thống kê** (không cần bấm gì, không cần restart app).
+- **Canonical slug** cho `App.set_language()` ⇒ alias (`nhật`/`ja`) và slug chuẩn luôn trỏ cùng file.
+- **Empty state nói rõ làm gì tiếp** (3 lựa chọn cụ thể): bấm 🤖 Sinh khóa học AI · nội dung sẽ tự hiện nếu pipeline đang chạy · mở 📚 Trang học trên trình duyệt (thay vì 1 dòng "Chưa có khóa học AI" khiến tưởng app hỏng).
+- **Ngày rỗng nêu rõ**: "⚠ Ngày N chưa có nội dung — bấm 🤖 Sinh khóa học AI để tạo, hoặc chọn ngày khác".
+- **Badge độ đầy đủ ngày**: `⏳ Chưa hoàn thành · 12 từ · 2 ngữ pháp · 1 hội thoại · 12 audio · 10 ảnh` (thay vì "0/0 · 0/0" gây hiểu nhầm).
+- **Pool ôn tập nạp lại** sau khi sinh/đổi khóa học.
+
+**Tool mới:** `tools/verify_courses.py` — báo cáo độ đầy đủ mọi khóa (ngày rỗng · từ · ngữ pháp · hội thoại · quiz · ảnh · audio từ · audio nghĩa · audio hội thoại · số từ "placeholder") đo trên `course.json` + file media thật.
+
+**Test:** `tools/test_study_sync.py` mới **16/16** (canonical slug · tóm tắt độ đầy đủ · **auto-sync khi file đổi (không bấm gì)** · empty state có hướng dẫn · pool ôn tập có nghĩa · không crash khi thiếu file). **Full suite chạy 2 vòng liên tiếp: FAILs = 0** (media25 · stop_makeup37 · recovery18 · srs_api17 · study_sync16 · dashboard57 · quota94 · keymgr111 · 3mode41 · slug6 · ai_rich85 · smoke15 · media_resolver6 · media_card6 · compile0).
+
+**Lưu ý:** app đang chạy phải **restart 1 lần** để nạp code GUI mới; sau đó app tự đồng bộ mọi thay đổi tiếp theo.
+
+---
+
 ## 7.21. GÓI 3 — WEB HỌC THẬT: ÔN TẬP SM-2 · TẢI THEO NGÀY · OFFLINE · AN TOÀN (2026-11-12)
 
 **Vấn đề (đo thật):** rà soát web cho thấy trang học là **trình xem read-only**: không có API nào ghi tiến độ học ⇒ "học từ online" không đóng được vòng lặp. SM-2 (`ai/srs.py`) + kho trạng thái (`database/review_store.py`) đã viết hoàn chỉnh nhưng **chỉ app desktop gọi** — web không có route nào. Thêm: web tải **cả file `course.json` 47 MB** + manifest media 38 MB; phụ thuộc **2 script CDN**; `DOMPurify` lỗi ⇒ `innerHTML` thô của nội dung AI; `/data/*` mở toàn bộ (đọc được tiến độ ôn tập + log pipeline).

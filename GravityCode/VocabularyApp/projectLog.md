@@ -275,6 +275,19 @@
 **KHÔNG làm:** P6b (rate-limiter chia sẻ 2 tiến trình) · chưa trả lời câu hỏi 10 key/account tạo cùng 1 project hay 10 project riêng (ảnh hưởng lock_key vs lock_account dài hạn).
 
 ---
+## 📋 Cập nhật mới nhất — 2026-11-12c (Gói 4b — fix UX "không thấy nội dung" + độ đầy đủ ngày)
+
+**Triệu chứng (ảnh user):** tab Học Tập hiện "0/0 · 0/0", "nội dung đã lọc", ôn tập 0/0, tiến độ 0/1414 — trong khi `course.json` **trên đĩa đã đầy**; bấm "Sinh khóa học AI" mà không thấy nội dung.
+
+**Nguyên nhân (3, đều là cache/slug — KHÔNG phải lỗi sinh nội dung):** ① GUI giữ `self._course` trong RAM ⇒ không tự nạp lại khi pipeline sinh xong/khóa học đổi tên, không có nút làm mới; ② `App.set_language()` lưu slug thô ("nhật") trong khi file ở thư mục canonical ("tiếng_nhật") ⇒ đọc nhầm file rỗng; ③ `refresh_language()` xoá `_srs_pool_cache` mà **không nạp lại** ⇒ panel ôn tập luôn 0/0.
+
+**Đã sửa (`VocabApp.py`):** tự đồng bộ **5s/lần** (thấy `course.json` đổi ⇒ nạp lại khóa học + vẽ lại ngày + nạp lại pool ôn tập + cập nhật thống kê) · canonical slug cho `set_language` · empty state nêu 3 cách làm tiếp (Sinh khóa học AI · tự hiện khi pipeline chạy · mở 📚 Trang học) · ngày rỗng nêu rõ "Ngày N chưa có nội dung" · badge độ đầy đủ ("12 từ · 2 ngữ pháp · 1 hội thoại · 12 audio · 10 ảnh") thay cho "0/0 · 0/0".
+
+**Tool mới:** `tools/verify_courses.py` — báo cáo độ đầy đủ mọi khóa (từ · ngữ pháp · hội thoại · quiz · ảnh · audio từ/nghĩa/hội thoại · từ placeholder) đo trên `course.json` + file media thật.
+
+**Test:** `tools/test_study_sync.py` mới **16/16**; **full suite 2 vòng liên tiếp: FAILs = 0** (media25 · stop_makeup37 · recovery18 · srs_api17 · study_sync16 · dashboard57 · quota94 · keymgr111 · 3mode41 · slug6 · ai_rich85 · smoke15 · media_resolver6 · media_card6 · compile0). **Cần restart app 1 lần** để nạp code GUI mới.
+
+---
 ## 📋 Cập nhật mới nhất — 2026-11-12b (Gói 3 — web học thật: ôn tập SM-2 · tải theo ngày · offline · an toàn)
 
 **Vấn đề (đo thật):** web là **trình xem read-only** — không có API nào ghi tiến độ học ⇒ "học từ online" không đóng được vòng lặp (SM-2 `ai/srs.py` + `database/review_store.py` đã có nhưng **chỉ app desktop gọi**). Thêm: web tải cả `course.json` 47 MB + manifest 38 MB; phụ thuộc 2 script CDN (mất mạng ⇒ trang chết; DOMPurify lỗi ⇒ innerHTML thô của nội dung AI); `/data/*` mở toàn bộ (đọc được tiến độ ôn tập + log pipeline).
