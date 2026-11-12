@@ -47,33 +47,36 @@ def download_edict():
 
 
 def _wiki_fetch(word: str) -> dict:
-    q = urllib.parse.urlencode({
-        "action": "query", "prop": "extracts", "titles": word,
-        "format": "json", "explaintext": "1", "redirects": "1"})
-    req = urllib.request.Request(f"{WIKI_API}?{q}",
-                                 headers={"User-Agent": "VocabularyApp/1.0 (offline)"})
-    try:
-        with urllib.request.urlopen(req, timeout=25) as r:
-            data = json.loads(r.read().decode("utf-8", "replace"))
-    except Exception:
-        return {}
-    pages = (data.get("query") or {}).get("pages") or {}
-    out = {}
-    for p in pages.values():
-        if not isinstance(p, dict):
+    """Nghĩa tiếng Việt cho 1 từ: thử ja.wiktionary (mục 'Tiếng Việt') rồi
+    vi.wiktionary (mục 'Tiếng Việt' = Hán Việt của chữ Hán, mục 'Tiếng Nhật')."""
+    for dom, heads in (("ja.wiktionary.org", ("Tiếng Việt",)),
+                       ("vi.wiktionary.org", ("Tiếng Việt", "Tiếng Nhật"))):
+        q = urllib.parse.urlencode({
+            "action": "query", "prop": "extracts", "titles": word,
+            "format": "json", "explaintext": "1", "redirects": "1"})
+        req = urllib.request.Request(f"https://{dom}/w/api.php?{q}",
+                                     headers={"User-Agent": "VocabularyApp/1.0 (offline)"})
+        try:
+            with urllib.request.urlopen(req, timeout=25) as r:
+                data = json.loads(r.read().decode("utf-8", "replace"))
+        except Exception:
             continue
-        txt = p.get("extract") or ""
-        # lấy phần "== Tiếng Việt ==" (có thể là "== Tiếng Việt ==" hoặc "== {{-vi-}} ==")
-        m = re.search(r"==\s*(?:Tiếng Việt|\{\{-vi-\}\})\s*==(.*?)(?=\n== |\Z)",
-                      txt, re.S)
-        if not m:
-            continue
-        sec = m.group(1)
-        defs = re.findall(r"^(?:\{\{[^}]*\}\}\s*)?(.+)$", sec, re.M)
-        defs = [d.strip(" *") for d in defs if d.strip(" *")][:4]
-        if defs:
-            out["vi"] = "; ".join(defs)[:220]
-    return out
+        pages = (data.get("query") or {}).get("pages") or {}
+        for p in pages.values():
+            if not isinstance(p, dict):
+                continue
+            txt = p.get("extract") or ""
+            for head in heads:
+                pat = (r"==\s*" + re.escape(head) + r"\s*==(.*?)(?=\n== |\Z)")
+                m = re.search(pat, txt, re.S)
+                if not m:
+                    continue
+                sec = m.group(1)
+                defs = re.findall(r"^(?:\{\{[^}]*\}\}\s*)?(.+)$", sec, re.M)
+                defs = [d.strip(" *") for d in defs if d.strip(" *")][:4]
+                if defs:
+                    return {"vi": "; ".join(defs)[:220]}
+    return {}
 
 
 def fetch_wiktionary(words, limit=1500, delay=0.05):

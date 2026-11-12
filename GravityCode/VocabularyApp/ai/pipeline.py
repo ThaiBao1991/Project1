@@ -1146,7 +1146,6 @@ def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
             try:
                 from ai import offline_content as _off
                 data = _off.build_offline_day(day_num)
-                ok = True
             except Exception as _e:
                 log.error("stage.fail",
                           msg=f"Content Ngày {day_num} thất bại: {err} "
@@ -1154,6 +1153,30 @@ def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
                           stage=STAGE_CONTENT, day=day_num)
                 _drop_empty_lesson()
                 return None
+            # Ghi thẳng lesson (không đi qua nhánh `if ok:` phía trên — Python
+            # không quay lại nhánh if sau khi vào else).
+            lesson.update({
+                "title": data.get("title") or lesson.get("title", ""),
+                "phase": pday.get("phase", lesson.get("phase", "")),
+                "topic": data.get("title") or lesson.get("topic", ""),
+                "level": level,
+                "format_version": 4,
+                "vocab": data.get("vocab") or [],
+                "sentence_patterns": data.get("sentence_patterns") or [],
+                "common_sentences": data.get("common_sentences") or [],
+                "grammar": data.get("grammar") or [],
+                "quiz": data.get("quiz") or {},
+                "dialogue": data.get("dialogue") or [],
+            })
+            save_checkpoint(language, STAGE_CONTENT, data, day=day_num,
+                            status=STATUS_DONE)
+            if save_each_day:
+                course_db.save_course(language, course)
+            log.event("stage.ok",
+                      msg=f"Content Ngày {day_num} OK (nguồn OFFLINE — "
+                          f"{len(data.get('vocab') or [])} từ)",
+                      stage=STAGE_CONTENT, day=day_num)
+            return lesson
     elif not lesson.get("vocab"):
         # Resume: lấy từ checkpoint
         cp = load_checkpoint(language, STAGE_CONTENT, day_num) or {}
