@@ -130,11 +130,18 @@ def load_edict(path: str = None) -> dict:
 
 
 def load_wiki_cache() -> dict:
-    try:
-        with open(WIKI_CACHE, "r", encoding="utf-8") as f:
-            return json.load(f) or {}
-    except Exception:
-        return {}
+    """Nghĩa tiếng Việt đã cache: Wiktionary + bản dịch (tools/translate_vi.py)."""
+    out = {}
+    for p in (WIKI_CACHE, os.path.join(SRC_DIR, "vi_meanings.json")):
+        try:
+            with open(p, "r", encoding="utf-8") as f:
+                data = json.load(f) or {}
+        except Exception:
+            continue
+        for w, v in data.items():
+            if isinstance(v, dict) and v.get("vi"):
+                out.setdefault(w, {}).update(v)
+    return out
 
 
 def difficulty(word: str, reading: str) -> tuple:
