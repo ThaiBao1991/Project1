@@ -636,6 +636,31 @@ run_pipeline(thread nền, stop_check=STOP_EVENT.is_set, log_fn=buffer)
 
 ---
 
+## 7.27. CHỮA MANIFEST MẤT ENTRY + ĐỘ ĐẦY ĐỦ MEDIA SAU GÓI 5 (2026-11-12g)
+
+**Sự cố:** media khóa Nhật đã sinh đủ (3.761 file / 49 MB) và refs **đã ghi vào `course.json`**, nhưng **manifest (`data/media/index.json`) mất entry** ⇒ web `mediaEntry(ref)` trả `null` ⇒ **không hiện nút ảnh/âm thanh dù file có thật**. Nguyên nhân: job bị kết thúc đột ngột nên `media_store.flush_index()` (chạy trong `finally` của `run_pipeline`) **không kịp ghi manifest**; index chỉ lưu entry trong RAM của process.
+
+**Cách chữa (đã chạy):** `python tools/reindex_media.py` — quét lại toàn bộ file trong `data/media/` và dựng lại manifest (`id = "m_" + hash(rel_path, sha256)` — **giống hệt** cách `save_*` tạo id ⇒ khớp đúng ref mà `course.json` đang trỏ). Kết quả: **89.672 → 81.629 entry** (bỏ các entry của file đã bị xoá) · 385 s · manifest 40,3 MB.
+⇒ **Khi thấy nút media biến mất dù file có trên đĩa → chạy `tools/reindex_media.py`.**
+
+**Độ đầy đủ media sau khi bù (đo bằng `tools/verify_courses.py`, chỉ tính file THẬT):**
+
+| khóa học | ngày | từ | ảnh | audio từ | **audio nghĩa** | **audio hội thoại** |
+|---|---|---|---|---|---|---|
+| tiếng_anh | 259 | 2.590 | 2.590 ✓ | 2.590 ✓ | **2.590 ✓** | **241 ✓** |
+| tiếng_hàn_quốc | 450 | 4.500 | 4.500 ✓ | 4.500 ✓ | **4.500 ✓** | **416 ✓** |
+| **tiếng_nhật** | 103 | 1.219 | **1.219 ✓** | **1.219 ✓** | **1.219 ✓** | **97 ✓** |
+| tiếng_nga | 381 | 3.811 | 3.811 ✓ | 3.811 ✓ | 3.061 ↑ | 234 ↑ |
+| tiếng_đức | 342 | 3.420 | 3.420 ✓ | 3.420 ✓ | 3.220 ↑ | 30 |
+| tiếng_tây_ban_nha | 345 | 3.450 | 3.450 ✓ | 3.450 ✓ | 3.420 ↑ | 16 |
+| tiếng_trung | 446 | 4.460 | 4.460 ✓ | 4.460 ✓ | 4.390 ↑ | 22 |
+| tiếng_pháp | 343 | 3.430 | 3.430 ✓ | 3.430 ✓ | 0 (đang bù) | 0 |
+| **TỔNG** | 2.667 | **26.880** | **26.880 ✓** | **26.880 ✓** | **22.400 (83 %)** | **1.056** |
+
+⇒ **Ảnh + audio từ: 100 % mọi khóa.** Còn thiếu: **audio nghĩa** của Pháp (đang bù) và **hội thoại** (nội dung + audio) của Trung/Tây/Đức/Pháp ≈ **1.400 bài** — cần 1 call Gemini/ngày ⇒ chờ quota reset 07:00 VN.
+
+---
+
 ## 7.26. GÓI 5 (không cần AI) — LỘ TRÌNH HỌC TỪ 0 + TÌNH TRẠNG QUOTA (2026-11-12f)
 
 **Bối cảnh:** quota Gemini **đã cạn** (197 key/20 account hết quota hôm nay) ⇒ job sinh khóa Nhật tự chờ reset **~20 giờ** (07:00 VN hôm sau) ⇒ mọi việc cần AI dừng. User chọn: **chờ reset, tập trung làm việc KHÔNG cần AI**.
