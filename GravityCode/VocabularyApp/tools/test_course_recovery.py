@@ -137,8 +137,11 @@ def main() -> int:
            len((lesson or {}).get("quiz", {}).get("common") or []) == 1,
            (lesson or {}).get("quiz"))
 
-        # ══ 2. Content fail ⇒ xoá skeleton ngày rỗng ══════════════════════
-        print("\n=== 2. Content fail ⇒ xoá skeleton rỗng ===")
+        # ══ 2. Content fail ⇒ KHÔNG để lại ngày rỗng ═════════════════════
+        # Gói 6 (2026-11-12): content AI fail ⇒ pipeline FALLBACK sang nguồn
+        # OFFLINE (EDICT/Wiktionary) nếu có ⇒ ngày vẫn học được; nếu không
+        # có nguồn offline ⇒ trả None và XOÁ skeleton.
+        print("\n=== 2. Content fail ⇒ fallback offline hoặc xoá skeleton ===")
         course2 = {"days": [], "plan": [{"day": 2, "title": "T2", "phase": "P"}]}
 
         class _CoordFail:
@@ -150,9 +153,21 @@ def main() -> int:
                            stages=[STAGE_CONTENT], level="L1", allow_degraded=True,
                            max_images=0, max_audio=12, chain=None, resume=True,
                            save_each_day=False)
-        ck("content fail ⇒ trả None", out is None, out)
-        ck("skeleton rỗng ĐÃ bị xoá khỏi days", not course2.get("days"),
-           course2.get("days"))
+        try:
+            from ai import offline_content as _oc
+            _has_offline = bool(_oc.load_edict())
+        except Exception:
+            _has_offline = False
+        if _has_offline:
+            ck("content fail ⇒ có nội dung fallback offline",
+               out is not None and bool((out or {}).get("vocab")),
+               (out or {}).get("vocab"))
+            ck("ngày rỗng KHÔNG còn trong course", len(course2.get("days") or []) >= 1,
+               course2.get("days"))
+        else:
+            ck("content fail ⇒ trả None", out is None, out)
+            ck("skeleton rỗng ĐÃ bị xoá khỏi days", not course2.get("days"),
+               course2.get("days"))
 
         # ══ 3. run_pipeline bị DỪNG ⇒ course.json vẫn flush ════════════════
         print("\n=== 3. Dừng ⇒ course.json vẫn được flush ===")
