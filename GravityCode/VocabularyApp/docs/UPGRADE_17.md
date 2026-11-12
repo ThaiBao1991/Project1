@@ -636,6 +636,28 @@ run_pipeline(thread nền, stop_check=STOP_EVENT.is_set, log_fn=buffer)
 
 ---
 
+## 7.24. AUDIT CHẤT LƯỢNG NỘI DUNG + GIÁO TRÌNH + FIX TclError KHI ĐÓNG APP (2026-11-12d)
+
+**1) Lỗi `_tkinter.TclError: invalid command name ...!ctkcanvas`** (user gặp khi đóng app): customtkinter đang **vẽ lại** một widget đã bị `destroy()` ⇒ lệnh canvas không còn tồn tại. Nguồn: timer tự đồng bộ 5 s của tab Học Tập (§7.22) còn sống lúc cửa sổ bị xoá.
+**Đã sửa:** `_cancel_sync()` hủy timer trước khi `destroy()` (gọi từ `App.on_close`) · `_sync_tick` chỉ vẽ lại khi tab **đang hiển thị** (nếu không thì chỉ nhớ mtime, lần sau mở tab mới nạp) · mọi thao tác widget bọc `try/except`.
+**Lưu ý vận hành:** trên máy đang chạy **4 tiến trình `main.py` + 1 `VocabApp.py`** ⇒ đóng các instance thừa (chỉ nên có 1 app).
+
+**2) Tool mới `tools/audit_curriculum.py`** — đo chất lượng nội dung + giáo trình mọi khóa (không đo checkpoint, đo `course.json` thật):
+
+| khóa học | ngày | từ (unique) | trùng lặp | pronunciation/ipa/POS/nghĩa/ví dụ | ngữ pháp (có ví dụ / mini_quiz) | hội thoại (lượt / có từ trọng tâm) | trắc nghiệm |
+|---|---|---|---|---|---|---|---|
+| tiếng_anh | 259 | 2.590 (**1.956**) | **24,5 %** | 100 % / 100 % / 100 % / 100 % / 100 % | 583 (100 % / **0 %**) | 241 bài · 2.268 lượt · 2.122 | 10.334 (0 lỗi) |
+| tiếng_nhật (mới) | 103 | 1.197 (**627**) | **47,6 %** | 100 % / 100 % / 100 % / 100 % / 100 % | 205 (**3 %** / 99 %) | 97 bài · 487 lượt · 269 | 4.009 (0 lỗi) |
+
+**3) Giáo trình — ĐÚNG KHUNG 6 CHẶNG** (backbone 1.260 mục = 1 ngày/mục, phase = tiền tố tiêu đề):
+`Vỡ lòng chữ cái & phát âm` 60 ngày · `Ghép âm & Từ đơn sinh tồn` 90 · `Sơ cấp đời sống` 280 · `Trung cấp công việc` 350 · `Cao cấp học thuật` 300 · `Như người bản xứ` 180 = **1.260 ngày**. 10 ngày đầu khóa Nhật có **34,5 % kana thuần** ⇒ đúng bước "học từ 0" (bảng chữ cái trước).
+
+**4) VẤN ĐỀ THẬT CẦN SỬA — "nhiều ngày" ≠ "nhiều nội dung mới":**
+Đo trùng lặp **theo chặng** (khóa Nhật): chặng 1 `Vỡ lòng` 59 ngày → 272/701 từ lặp (**38 %**) · chặng 2 `Ghép âm` 44 ngày → 298/496 lặp (**60 %**). ⇒ 1.260 ngày hiện chỉ ~630 từ **khác nhau** ở 103 ngày đầu ⇒ học 200+ ngày mà không có đủ từ mới là do **logic sinh**, không phải do giới hạn quota.
+⇒ Đề xuất **Gói 5** (chờ user duyệt): ① content prompt nhận "từ đã dùng" và yêu cầu **≥5 từ MỚI + ≤5 từ ÔN LẠI** mỗi ngày (đúng sư phạm), đo tỉ lệ từ mới theo ngày/chặng và ghi log; ② bổ sung field còn thiếu ở 6 khóa cũ (`phonetic_note`, `syllables`, `grammar.mini_quiz`); ③ tab "Bắt đầu từ 0" (lộ trình 6 chặng + mốc + flow đọc→nghe→nối câu→ôn SM-2); ④ sinh media (ảnh + audio từ/nghĩa/hội thoại) cho khóa Nhật.
+
+---
+
 ## 7.23. GỘP 1 BẢN CHUẨN MỖI NGÔN NGỮ + LÀM LẠI HÀNG NÚT & PANEL RỖNG (2026-11-12c)
 
 **Yêu cầu (user):** *"quá nhiều bản tiếng Nhật — thống nhất lại 1 bản chuẩn; cần từ vựng, ngữ pháp, phát âm, hình ảnh; giao diện các nút Sinh AI / Xóa tiến độ đang quá xấu."*

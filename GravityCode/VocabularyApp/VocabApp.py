@@ -5850,6 +5850,18 @@ class StudyTab(ctk.CTkFrame):
         except Exception:
             self._sync_after = None
 
+    def _cancel_sync(self):
+        """Hủy timer tự đồng bộ (gọi trước khi destroy — tránh TclError)."""
+        try:
+            if getattr(self, "_sync_after", None) is not None:
+                try:
+                    self.after_cancel(self._sync_after)
+                except Exception:
+                    pass
+                self._sync_after = None
+        except Exception:
+            pass
+
     def _sync_tick(self):
         """Tự nạp lại khóa học khi file trên đĩa vừa đổi.
 
@@ -5864,6 +5876,13 @@ class StudyTab(ctk.CTkFrame):
                 return
             mt = self._course_file_mtime()
             if mt is not None and getattr(self, "_course_mtime", None) != mt:
+                # An toàn: chỉ vẽ lại khi tab ĐANG hiển thị. Nếu không, chỉ
+                # nhớ mtime mới ⇒ lần sau mở tab sẽ nạp (tránh race vẽ với
+                # customtkinter ⇒ TclError "invalid command name").
+                if not self.winfo_ismapped():
+                    self._course_mtime = mt
+                    self._schedule_sync()
+                    return
                 self._reload_course()
                 day = self._selected_day_num()
                 if day:
@@ -6941,6 +6960,14 @@ class App(ctk.CTk):
         """Đóng app: dừng mọi audio đang phát (kể cả TTS pygame) rồi thoát."""
         try:
             stop_audio()
+        except Exception:
+            pass
+        # FIX 2026-11-12 (Gói 4): HỦY timer tự đồng bộ trước khi destroy.
+        # Nếu timer `_sync_tick` còn sống khi cửa sổ bị xoá ⇒ customtkinter
+        # vẽ lại widget đã bị destroy ⇒ _tkinter.TclError:
+        # "invalid command name ...!ctkcanvas" (lỗi user gặp khi đóng app).
+        try:
+            self.view_study._cancel_sync()
         except Exception:
             pass
         self.destroy()
