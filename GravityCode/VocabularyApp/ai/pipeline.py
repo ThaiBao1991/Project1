@@ -64,6 +64,9 @@ MAX_IMAGES_PER_LANGUAGE = 5000
 MAX_TTS_PER_DAY = 3000
 MAX_TTS_PER_LANGUAGE = 40000
 MAX_RUN_SECONDS = 6 * 3600
+# Gói 5.1 (2026-11-12): số từ MỚI tối thiểu mỗi ngày — đo thật trước đó
+# 24-48 % từ là lặp ⇒ "1.260 ngày" chỉ ~630 từ khác nhau.
+MIN_NEW_WORDS_PER_DAY = 5
 MAX_STAGE_ATTEMPTS = {
     STAGE_CONTENT: 3, STAGE_QUIZ_AB: 3, STAGE_QUIZ_CD: 3,
     STAGE_IMAGES: 3, STAGE_AUDIO: 2, STAGE_DIALOGUE: 2,
@@ -948,6 +951,31 @@ def _makeup_pending_days(language, course, stages, coord, log, budget, emit,
     return n_done
 
 
+def _known_words(course: dict, day_num: int, limit: int = 150) -> list:
+    """Danh sách TỪ ĐÃ DÙNG ở các ngày trước (Gói 5.1 — chống AI lặp từ).
+
+    Đo thật (2026-11-12): 24-48 % từ giữa các ngày là TRÙNG ⇒ "1.260 ngày"
+    hoá ra chỉ ~630 từ khác nhau. Đưa danh sách này vào prompt content để
+    AI tạo tối thiểu `MIN_NEW_WORDS_PER_DAY` từ MỚI mỗi ngày.
+    """
+    out = []
+    try:
+        for d in course.get("days") or []:
+            try:
+                if int(d.get("day", 0)) >= int(day_num):
+                    continue
+            except Exception:
+                continue
+            for v in (d.get("vocab") or []):
+                if isinstance(v, dict):
+                    w = str(v.get("word") or "").strip()
+                    if w:
+                        out.append(w)
+    except Exception:
+        pass
+    return out[-limit:] if limit else out
+
+
 def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
              level, allow_degraded, max_images, max_audio, chain, resume,
              save_each_day=True, wait_quota=False, stop_check=None):
@@ -1019,10 +1047,13 @@ def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
                     raise PipelinePause("Vẫn hết ngân sách sau khi chờ reset.", "budget")
             else:
                 raise PipelinePause("Hết ngân sách call — dừng trước khi sinh content.", "budget")
+        # Gói 5.1: đưa TỪ ĐÃ DÙNG vào prompt + yêu cầu ≥5 từ MỚI (chống lặp).
+        _known = _known_words(course, day_num)
         ok, data, err = _ask_with_retry(
             coord, build_content_prompt(language, day_num, len(course.get("plan") or [day_num]),
                                         pday.get("words") or [], pday.get("title", ""),
-                                        level, pday.get("phase", "")),
+                                        level, pday.get("phase", ""),
+                                        known_words=_known, min_new=MIN_NEW_WORDS_PER_DAY),
             None, parse_content_json, log, STAGE_CONTENT, budget, 3)
         if ok:
             vocab = list(data.get("vocab") or [])
@@ -1085,7 +1116,22 @@ def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
             lesson["topic"] = pday.get("title", lesson.get("topic", ""))
             lesson["level"] = level
             lesson["format_version"] = 4
-            save_checkpoint(language, STAGE_CONTENT, data, day=day_num, status=STATUS_DONE)
+            # Gói 5.1: đo TỈ LỆ TỪ MỚI (chống AI lặp từ) — ghi vào
+            # checkpoint + log cảnh báo khi thấp.
+            _known_set = {str(w).strip() for w in _known}
+            _n_new = sum(1 for v in vocab
+                         if str(v.get("word") or "").strip() not in _known_set)
+            _ratio = round(_n_new / max(1, len(vocab)), 3)
+            _ck_data = dict(data)
+            _ck_data["new_words"] = _n_new
+            _ck_data["new_word_ratio"] = _ratio
+            if _ratio < 0.4:
+                log.warn("stage.low_new_ratio",
+                         msg=f"Ngày {day_num} chỉ có {_n_new}/{len(vocab)} từ MỚI "
+                             f"({_ratio:.0%}) — nhiều từ bị lặp từ ngày trước.",
+                         stage=STAGE_CONTENT, day=day_num)
+            save_checkpoint(language, STAGE_CONTENT, _ck_data, day=day_num,
+                            status=STATUS_DONE)
             if save_each_day:
                 course_db.save_course(language, course)
             log.event("stage.ok", msg=f"Content Ngày {day_num} OK", stage=STAGE_CONTENT, day=day_num)

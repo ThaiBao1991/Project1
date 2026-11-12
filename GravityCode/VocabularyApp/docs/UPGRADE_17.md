@@ -636,6 +636,21 @@ run_pipeline(thread nền, stop_check=STOP_EVENT.is_set, log_fn=buffer)
 
 ---
 
+## 7.25. GÓI 5.1 — SỬA LOGIC SINH: CHỐNG AI LẶP TỪ (2026-11-12e)
+
+**Vấn đề đo được (§7.24):** 24-48 % từ giữa các ngày là **trùng** ⇒ "1.260 ngày" thực chất chỉ ~630 từ khác nhau ⇒ học 200-450 ngày **không đủ nội dung mới**. Nguyên nhân **không phải quota** mà là prompt content **không yêu cầu tỷ lệ từ mới** — AI tự chọn lại từ dễ (động từ, số đếm…).
+
+**Đã sửa:**
+- `ai/course_generator.build_content_prompt(..., known_words=[], min_new=5)`: thêm khối **"🧠 CÁC TỪ ĐÃ DÙNG Ở NHỮNG NGÀY TRƯỚC"** (150 từ gần nhất) + ràng buộc **"ÍT NHẤT 5 từ phải là TỪ MỚI"** + **"TỐI ĐA 5 từ được phép lặp lại (phần ÔN LẠI, kèm ví dụ câu khác)"** ⇒ mỗi ngày học **5 từ mới + 5 từ ôn lại** (đúng sư phạm "học từ 0": không quên từ cũ nhờ SM-2).
+- `ai/pipeline._known_words(course, day_num, limit=150)`: gom từ của các ngày **trước** (bỏ từ rỗng, giới hạn 150 từ để prompt không phình).
+- **Đo tỉ lệ từ mới** sau mỗi ngày: checkpoint content lưu `new_words` + `new_word_ratio`; tỉ lệ < 40 % ⇒ log cảnh báo `stage.low_new_ratio` (để thấy ngay ngày nào AI lặp).
+
+**Test:** `tools/test_new_word_ratio.py` mới **13/13** (`_known_words` gom đúng + giới hạn + bỏ từ rỗng · prompt có/không khối "từ đã dùng" · đo `new_words`/`new_word_ratio` đúng · cảnh báo khi tỉ lệ thấp · không cảnh báo khi tỉ lệ cao).
+
+**Kế hoạch còn lại của Gói 5:** 5.2 bù hội thoại cho Trung/Tây/Đức (~1.150 ngày) + media còn thiếu · 5.3 đồng bộ field cho 7 khóa cũ (`phonetic_note`, `syllables`, `grammar.mini_quiz`) — cả hai dùng quota Gemini nên chạy nền khi pool còn quota.
+
+---
+
 ## 7.24. AUDIT CHẤT LƯỢNG NỘI DUNG + GIÁO TRÌNH + FIX TclError KHI ĐÓNG APP (2026-11-12d)
 
 **1) Lỗi `_tkinter.TclError: invalid command name ...!ctkcanvas`** (user gặp khi đóng app): customtkinter đang **vẽ lại** một widget đã bị `destroy()` ⇒ lệnh canvas không còn tồn tại. Nguồn: timer tự đồng bộ 5 s của tab Học Tập (§7.22) còn sống lúc cửa sổ bị xoá.
