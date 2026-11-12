@@ -636,6 +636,35 @@ run_pipeline(thread nền, stop_check=STOP_EVENT.is_set, log_fn=buffer)
 
 ---
 
+## 7.23. GỘP 1 BẢN CHUẨN MỖI NGÔN NGỮ + LÀM LẠI HÀNG NÚT & PANEL RỖNG (2026-11-12c)
+
+**Yêu cầu (user):** *"quá nhiều bản tiếng Nhật — thống nhất lại 1 bản chuẩn; cần từ vựng, ngữ pháp, phát âm, hình ảnh; giao diện các nút Sinh AI / Xóa tiến độ đang quá xấu."*
+
+### ① Gộp khóa học — tool `tools/consolidate_courses.py`
+Trước khi gộp có **8 thư mục cùng ngôn ngữ Nhật + 6 artifact test**:
+
+| thư mục | ngày | có nội dung | MB | quyết định |
+|---|---|---|---|---|
+| `nhật` (alias cũ) | 1.414 | 59 | 8,4 | dọn (trùng) |
+| `_alias_nhat_cu` | 1.414 | 59 | 8,4 | dọn |
+| `_nhat_placeholder_cu` | 1.260 | 1.260 (**placeholder**) | 94,6 | dọn |
+| `tiếng_nhật_smoke` | 1 | 1 | 0,1 | dọn (test) |
+| `zz_corrupt` · `zzkhongcokey` · `zzlang` | 0 | 0 | 0 | dọn (test) |
+| **`tiếng_nhật` (canonical)** | đang sinh | nội dung THẬT | – | **GIỮ** |
+
+Nguyên tắc: mỗi ngôn ngữ chỉ giữ **một** bản (tên canonical + nhiều ngày có nội dung nhất); bản bị loại **chuyển vào `data/_trash/<timestamp>/`** (không xoá ngay — xoá hẳn bằng `--apply --purge-trash`); `__global__` (chứa `dead_models.json` dùng chung) **giữ nguyên**; media trùng (`media/nhật`, `media/_nhat_placeholder_cu` 352,6 MB, `media/tiếng_nhật_smoke`, `media/zztest`) + file review của alias cũng dọn.
+**Kết quả:** còn **8 khóa chuẩn** (`tiếng_anh · hàn_quốc · nga · nhật · pháp · trung · tây_ban_nha · đức`) + `__global__`; giải phóng **~438 MB**; không mất khóa chuẩn nào (đã kiểm tra lại `course.json` còn đủ).
+
+### ② Giao diện
+- **Hàng nút hành động bị tràn**: 3 nút (`🤖 Sinh khóa học AI`, `🗑️ Xóa khóa & tiến độ`, `🔀 Trộn thẻ`) pack `side="right"` vào `head` trong khi `head_inner` (`expand=True`) đã chiếm hết bề ngang ⇒ nút bị đẩy và **bị cắt chữ** ("Iron the…" trong ảnh). Nay chuyển sang **hàng riêng "Thao tác:"** dưới header, kèm 2 nút mới: `🔄 Tải lại` (nạp lại khóa học) và `📚 Trang học (web)` (mở trang học 127.0.0.1:5690/index).
+- **Panel Trắc nghiệm rỗng**: khi không có câu hỏi ⇒ **ẩn hẳn 4 nút chấm** (Quên/Khó/Được/Dễ đang mờ chết cứng) và bỏ dòng *"🧠 Không xác định được từ của câu này"* ⇒ không còn 2 dòng vô nghĩa + 4 nút mờ.
+
+**Test:** `tools/test_study_sync.py` mở rộng lên **30/30** (thêm: **layout** — 5 nút hành động không bị nén và không tràn khỏi cửa sổ 1400×900; **panel rỗng** — 4 nút chấm bị ẩn khi không có câu và hiện lại khi có câu). Full suite **2 vòng: FAILs = 0** · compile0.
+
+**Lưu ý vận hành:** đang chạy **2 tiến trình `VocabApp.py`** (24468, 24928) ⇒ đóng 1 instance, và **restart app** để nạp code GUI mới (auto-sync 5s · canonical slug · badge độ đầy đủ · hàng nút mới).
+
+---
+
 ## 7.22. GÓI 4 — FIX UX "KHÔNG THẤY NỘI DUNG" + ĐỘ ĐẦY ĐỦ NGÀY (2026-11-12b)
 
 **Triệu chứng (ảnh chụp từ user):** tab Học Tập hiện *"0/0 · 0/0"*, dòng *"nội dung đã lọc"*, ô *"Chưa hoàn thành"*, panel Ôn tập **0/0**, thanh tiến độ *0/1414 ngày* — trong khi file `course.json` trên đĩa **đã đầy**. Người dùng bấm "Sinh khóa học AI" mà **không thấy nội dung**.

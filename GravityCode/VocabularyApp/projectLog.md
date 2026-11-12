@@ -275,6 +275,19 @@
 **KHÔNG làm:** P6b (rate-limiter chia sẻ 2 tiến trình) · chưa trả lời câu hỏi 10 key/account tạo cùng 1 project hay 10 project riêng (ảnh hưởng lock_key vs lock_account dài hạn).
 
 ---
+## 📋 Cập nhật mới nhất — 2026-11-12d (Gộp 1 bản chuẩn mỗi ngôn ngữ · làm lại hàng nút + panel rỗng)
+
+**Yêu cầu (user):** *"quá nhiều bản tiếng Nhật — thống nhất 1 bản chuẩn; cần từ vựng, ngữ pháp, phát âm, hình ảnh; giao diện các nút Sinh AI / Xóa tiến độ đang quá xấu."*
+
+**① Gộp khóa học** — tool mới `tools/consolidate_courses.py` (dry-run mặc định; `--apply` dọn; `--apply --purge-trash` xoá hẳn). Trước: 8 thư mục Nhật + 6 artifact test (`nhật` 1.414 ngày/59 có nội dung, `_alias_nhat_cu`, `_nhat_placeholder_cu` 1.260 ngày **placeholder**, `tiếng_nhật_smoke`, `zz*`). Sau: **8 khóa chuẩn** (`tiếng_anh · hàn_quốc · nga · nhật · pháp · trung · tây_ban_nha · đức`) + `__global__` (giữ `dead_models.json`); dọn media trùng (`media/nhật`, `media/_nhat_placeholder_cu` 352,6 MB, smoke, zztest) + review của alias ⇒ **giải phóng ~438 MB**, bản bị loại nằm trong `data/_trash/<ts>/` (hoàn tác được).
+
+**② Giao diện** — hàng nút hành động bị **cắt chữ** ("Iron the…") vì 3 nút pack `side="right"` vào `head` bị `head_inner` đẩy ⇒ chuyển sang **hàng riêng "Thao tác:"** + thêm `🔄 Tải lại` và `📚 Trang học (web)`. Panel Trắc nghiệm rỗng ⇒ **ẩn 4 nút chấm** (Quên/Khó/Được/Dễ) + bỏ dòng "không xác định được từ của câu này".
+
+**Test:** `tools/test_study_sync.py` → **30/30** (thêm layout: 5 nút không nén/không tràn ở 1400×900; panel rỗng: ẩn/hiện 4 nút chấm). Full suite **2 vòng: FAILs = 0** · compile0.
+
+**Vận hành:** đang chạy **2 tiến trình VocabApp.py** ⇒ đóng 1; **restart app** để nạp code GUI mới.
+
+---
 ## 📋 Cập nhật mới nhất — 2026-11-12c (Gói 4b — fix UX "không thấy nội dung" + độ đầy đủ ngày)
 
 **Triệu chứng (ảnh user):** tab Học Tập hiện "0/0 · 0/0", "nội dung đã lọc", ôn tập 0/0, tiến độ 0/1414 — trong khi `course.json` **trên đĩa đã đầy**; bấm "Sinh khóa học AI" mà không thấy nội dung.

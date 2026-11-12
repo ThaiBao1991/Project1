@@ -4655,13 +4655,33 @@ class StudyTab(ctk.CTkFrame):
         self.ent_search.bind("<Return>", lambda _e: self._select_searched_word())
 
         # Right: Nút hành động
-        btn(head, "🔀 Trộn thẻ", C["card2"], C["accent"], w=100, h=32,
-            cmd=self._shuffle_cards).pack(side="right", padx=3)
-
-        btn(head, "🤖 Sinh khóa học AI", C["success"], "#018786", w=150, h=32,
-            cmd=self._open_generation).pack(side="right", padx=3)
-        btn(head, "🗑️ Xóa khóa & tiến độ", C["card2"], C["danger"], w=150, h=32,
-            cmd=self._delete_course).pack(side="right", padx=3)
+        # FIX 2026-11-12 (Gói 4): 3 nút này trước đây pack side="right" vào
+        # `head` — nhưng `head_inner` (expand=True) đã chiếm hết bề ngang ⇒ nút
+        # bị đẩy/cắt ("Iron the…" trong ảnh chụp). Nay chuyển sang HÀNG RIÊNG
+        # bên dưới (action_row), đủ chỗ, chữ không bị nén.
+        action_row = ctk.CTkFrame(self, fg_color="transparent", height=42)
+        action_row.pack(fill="x", padx=14, pady=(2, 0))
+        action_row.pack_propagate(False)
+        lbl(action_row, "Thao tác:", 12, "bold", C["muted"]).pack(side="left", padx=(2, 10))
+        btn(action_row, "🤖 Sinh khóa học AI", C["success"], "#018786", w=170, h=34,
+            cmd=self._open_generation).pack(side="left", padx=3)
+        btn(action_row, "🗑️ Xóa khóa & tiến độ", C["card2"], C["danger"], w=170, h=34,
+            cmd=self._delete_course).pack(side="left", padx=3)
+        btn(action_row, "🔀 Trộn thẻ", C["card2"], C["accent"], w=110, h=34,
+            cmd=self._shuffle_cards).pack(side="left", padx=3)
+        btn(action_row, "🔄 Tải lại", C["card2"], C["accent"], w=100, h=34,
+            cmd=self._reload_course).pack(side="left", padx=3)
+        try:
+            def _open_web():
+                import webbrowser
+                from ai.web_ai_bridge import get_bridge
+                b = get_bridge()
+                port = getattr(b, "port", 5690) if b is not None else 5690
+                webbrowser.open(f"http://127.0.0.1:{port}/index")
+            btn(action_row, "📚 Trang học (web)", C["card2"], C["success"], w=140, h=34,
+                cmd=_open_web).pack(side="left", padx=3)
+        except Exception:
+            pass
 
         # ── 4 CHẾ ĐỘ HỌC — hàng RIÊNG ngay dưới header ──
         # BUG ĐÃ SỬA: trước đây 4 nút bị pack vào `head` (height=64) SAU khi
@@ -6640,10 +6660,26 @@ class StudyTab(ctk.CTkFrame):
         self._set_grade_buttons(None)
 
     def _set_grade_buttons(self, word):
-        """Bật/tắt 4 nút đánh giá SM-2 theo từ vựng của câu hỏi hiện tại."""
+        """Bật/tắt 4 nút đánh giá SM-2 theo từ vựng của câu hỏi hiện tại.
+
+        FIX 2026-11-12 (Gói 4): khi KHÔNG có câu hỏi ⇒ ẨN hẳn cụm 4 nút
+        (Quên/Khó/Được/Dễ) + bỏ dòng "Không xác định được từ của câu này"
+        ⇒ panel Trắc nghiệm không còn 2 dòng vô nghĩa + 4 nút mờ chết cứng.
+        """
         try:
             for b in (self.srs_grade_btns_q or {}).values():
-                b.configure(state="normal" if word else "disabled")
+                if word:
+                    b.configure(state="normal")
+                    try:
+                        b.pack(side="left", padx=2)
+                    except Exception:
+                        pass
+                else:
+                    b.configure(state="disabled")
+                    try:
+                        b.pack_forget()
+                    except Exception:
+                        pass
         except Exception:
             pass
         try:
@@ -6653,7 +6689,7 @@ class StudyTab(ctk.CTkFrame):
                 self.lbl_srs_grade.configure(
                     text=f"🧠 Nhớ từ '{word}'? ({SRS_STATE_LABEL.get(lv, lv)})")
             else:
-                self.lbl_srs_grade.configure(text="🧠 Không xác định được từ của câu này")
+                self.lbl_srs_grade.configure(text="")
         except Exception:
             pass
 

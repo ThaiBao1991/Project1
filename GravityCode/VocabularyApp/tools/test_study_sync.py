@@ -91,7 +91,9 @@ def main() -> int:
 
         # ── 3-6. GUI thật ───────────────────────────────────────────────────
         root = ctk.CTk()
-        root.withdraw()
+        root.geometry("1400x900")
+        root.deiconify()      # cần cửa sổ THẬT để đo layout (withdraw ⇒ mọi
+        root.update()         # widget có width=1 ⇒ không đo được)
         app = type("AppStub", (), {})()
         app.current_language = LANG
         app.current_language_display = "Test"
@@ -104,7 +106,9 @@ def main() -> int:
         tab = None
         try:
             tab = V.StudyTab(root, app)
+            tab.pack(fill="both", expand=True)   # phải pack để có geometry thật
             root.update_idletasks()
+            root.update()
         except Exception as e:
             print(f"  ⚠ không dựng được StudyTab: {type(e).__name__}: {e}")
 
@@ -184,6 +188,65 @@ def main() -> int:
                 ck("sync tick không crash khi file biến mất", True, "")
             except Exception as e:
                 ck("sync tick không crash", False, f"{type(e).__name__}: {e}")
+
+            # ── 7. LAYOUT: nút hành động không bị cắt ─────────────────────
+            print("\n=== 7. layout: nút hành động không bị nén/cắt ===")
+            try:
+                root.geometry("1400x900")
+                root.update_idletasks()
+                root.update()
+                names = ("Sinh khóa học AI", "Xóa khóa & tiến độ", "Trộn thẻ",
+                         "Tải lại", "Trang học (web)")
+                found = {}
+
+                def _walk(w):
+                    for c in w.winfo_children():
+                        try:
+                            t = str(c.cget("text"))
+                        except Exception:
+                            t = ""
+                        for n in names:
+                            if n in t and n not in found:
+                                found[n] = c
+                        _walk(c)
+                _walk(root)
+                for n in names:
+                    b = found.get(n)
+                    if b is None:
+                        ck(f"có nút '{n}'", False, "không tìm thấy")
+                        continue
+                    req, act = b.winfo_reqwidth(), b.winfo_width()
+                    right = b.winfo_rootx() - root.winfo_rootx() + act
+                    ck(f"nút '{n}' không bị nén",
+                       act >= req - 2, f"req={req} act={act}")
+                    ck(f"nút '{n}' không tràn khỏi cửa sổ",
+                       right <= root.winfo_width() + 2,
+                       f"right={right} win={root.winfo_width()}")
+            except Exception as e:
+                ck("layout check không crash", False, f"{type(e).__name__}: {e}")
+
+            # ── 8. panel trắc nghiệm rỗng ⇒ ẩn 4 nút chấm ───────────────
+            print("\n=== 8. không có câu ⇒ ẩn 4 nút chấm điểm ===")
+            try:
+                btns = list((tab.srs_grade_btns_q or {}).values())
+                ck("có 4 nút chấm SM-2", len(btns) == 4, len(btns))
+                tab._set_grade_buttons(None)
+                root.update_idletasks()
+                # Kiểm tra LOGIC ẩn/hiện (winfo_manager) — không phụ thuộc panel
+                # cha có đang hiển thị hay không.
+                ck("ẩn hết nút khi không có câu",
+                   all((b.winfo_manager() or "") == "" for b in btns),
+                   [b.winfo_manager() for b in btns])
+                ck("không còn dòng 'không xác định được từ'",
+                   (tab.lbl_srs_grade.cget("text") or "") == "",
+                   tab.lbl_srs_grade.cget("text"))
+                tab._set_grade_buttons("猫")
+                root.update_idletasks()
+                ck("hiện lại nút khi có câu",
+                   all((b.winfo_manager() or "") != "" for b in btns),
+                   [b.winfo_manager() for b in btns])
+            except Exception as e:
+                ck("panel quiz không crash", False, f"{type(e).__name__}: {e}")
 
             try:
                 tab.destroy()
