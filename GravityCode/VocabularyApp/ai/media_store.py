@@ -211,11 +211,29 @@ def _upsert_index(entry: dict) -> None:
 
 
 def flush_index() -> int:
-    """Ghi ngay manifest ra đĩa. Trả số entry chưa được ghi trước đó."""
+    """Ghi ngay manifest ra đĩa. Trả số entry chưa được ghi trước đó.
+
+    FIX 2026-11-12 (Gói 6): **ĐỌC ĐĨA + MERGE** trước khi ghi. Trước đây
+    ghi thẳng cache của process ⇒ khi 2 tiến trình cùng sinh media (pipeline +
+    bù media) thì tiến trình này **xoá entry của tiến trình kia** ⇒ ảnh/âm
+    thanh "biến mất" khỏi web dù file vẫn trên đĩa (đo thật: khóa Nhật còn
+    930 audio → 0 sau khi job khác ghi manifest).
+    """
     global _unsaved
     with _WRITE_LOCK:
         n = _unsaved
-        save_index(load_index())
+        idx = load_index()
+        try:
+            with open(INDEX_PATH, "r", encoding="utf-8") as f:
+                disk = json.load(f)
+        except Exception:
+            disk = None
+        if isinstance(disk, dict) and isinstance(disk.get("items"), dict):
+            merged = dict(disk["items"])
+            merged.update(idx.get("items") or {})
+            idx = dict(idx)
+            idx["items"] = merged
+        save_index(idx)
         _unsaved = 0
     return n
 
