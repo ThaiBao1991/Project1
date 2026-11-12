@@ -636,6 +636,21 @@ run_pipeline(thread nền, stop_check=STOP_EVENT.is_set, log_fn=buffer)
 
 ---
 
+## 7.26. GÓI 5 (không cần AI) — LỘ TRÌNH HỌC TỪ 0 + TÌNH TRẠNG QUOTA (2026-11-12f)
+
+**Bối cảnh:** quota Gemini **đã cạn** (197 key/20 account hết quota hôm nay) ⇒ job sinh khóa Nhật tự chờ reset **~20 giờ** (07:00 VN hôm sau) ⇒ mọi việc cần AI dừng. User chọn: **chờ reset, tập trung làm việc KHÔNG cần AI**.
+
+**Đã làm (không dùng AI):**
+1. **Dialog "🗺️ Lộ Trình Học Từ 0"** (GUI, `CourseRoadmapDialog`): 6 chặng giáo trình · mỗi chặng hiện **số ngày · số từ · số từ khác nhau · đã hoàn thành** · nút **"Bắt đầu (Ngày N)"** nhảy thẳng tới ngày đầu chặng · hàng hướng dẫn **5 bước mỗi ngày: ① Đọc chữ + phiên âm → ② Nghe TTS → ③ Nối câu (ví dụ) → ④ Tự nhớ (lật thẻ) → ⑤ Ôn SM-2 (chấm điểm)**. Nút `🗺️ Lộ trình` trong hàng "Thao tác:".
+2. **Bù media tiếp (edge-TTS + Wikipedia, 0 quota)**: nhóm B xong (Trung · Tây · Đức — **1.103 ngày** bù media), Tiếng Anh xong, đang chạy: Hàn · Nga · Pháp · **Tiếng Nhật**.
+3. **Gói 5.1** (logic sinh chống lặp từ) đã merge ở §7.25.
+
+**Test:** `tools/test_study_sync.py` → **36/36** (thêm case lộ trình: mở được · hiện tên chặng · hiện mốc ngày/từ · có nút "Bắt đầu" cho từng chặng · bấm trả về đúng ngày). Full suite **2 vòng: FAILs = 0** (16 file test) · compile0.
+
+**Khi quota reset (07:00 VN):** ① job sinh khóa Nhật tự chạy tiếp (đang chờ sẵn) → ② bù hội thoại Trung/Tây/Đức (~1.150 ngày, 1 call/ngày) → ③ đồng bộ field 7 khóa cũ (`phonetic_note`, `syllables`, `grammar.mini_quiz`) → ④ bù media cho các ngày Nhật mới sinh.
+
+---
+
 ## 7.25. GÓI 5.1 — SỬA LOGIC SINH: CHỐNG AI LẶP TỪ (2026-11-12e)
 
 **Vấn đề đo được (§7.24):** 24-48 % từ giữa các ngày là **trùng** ⇒ "1.260 ngày" thực chất chỉ ~630 từ khác nhau ⇒ học 200-450 ngày **không đủ nội dung mới**. Nguyên nhân **không phải quota** mà là prompt content **không yêu cầu tỷ lệ từ mới** — AI tự chọn lại từ dễ (động từ, số đếm…).

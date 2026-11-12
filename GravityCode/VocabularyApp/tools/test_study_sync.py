@@ -225,7 +225,54 @@ def main() -> int:
             except Exception as e:
                 ck("layout check không crash", False, f"{type(e).__name__}: {e}")
 
-            # ── 8. panel trắc nghiệm rỗng ⇒ ẩn 4 nút chấm ───────────────
+            # ── 9. Lộ trình học từ 0 ─────────────────────────────────────────
+            print("\n=== 9. lộ trình học từ 0 (6 chặng · nút bắt đầu) ===")
+            try:
+                course_rm = {"days": [
+                    {"day": 1, "phase": "Vỡ lòng chữ cái & phát âm",
+                     "vocab": [{"word": "あ"}, {"word": "い"}]},
+                    {"day": 2, "phase": "Vỡ lòng chữ cái & phát âm",
+                     "vocab": [{"word": "う"}]},
+                    {"day": 3, "phase": "Sơ cấp đời sống",
+                     "vocab": [{"word": "家"}]},
+                ]}
+                picked = []
+                dlg = V.CourseRoadmapDialog(root, course_rm,
+                                            {"completed_days": [1]},
+                                            lambda d: picked.append(d))
+                root.update_idletasks()
+                root.update()
+                ck("mở được lộ trình", dlg is not None, "")
+
+                texts, btns = [], []
+
+                def _walk(w):
+                    for c in w.winfo_children():
+                        try:
+                            t = str(c.cget("text"))
+                            texts.append(t)
+                            if "Bắt đầu" in t:
+                                btns.append(c)
+                        except Exception:
+                            pass
+                        _walk(c)
+                _walk(dlg)
+                txt = "\n".join(texts)
+                ck("hiện tên chặng", "Vỡ lòng" in txt or "Sơ cấp" in txt, txt[:200])
+                ck("có hướng dẫn 5 bước", "① Đọc" in txt and "⑤ Ôn" in txt, txt[:250])
+                ck("có nút 'Bắt đầu' cho mỗi chặng", len(btns) >= 2, len(btns))
+                ck("hiện mốc số ngày/từ", "ngày" in txt and "từ" in txt, txt[:250])
+                if btns:
+                    btns[0].invoke()
+                    root.update()
+                    ck("bấm 'Bắt đầu' trả về ngày đúng",
+                       picked and picked[0] == 1, picked)
+                try:
+                    dlg.destroy()
+                except Exception:
+                    pass
+            except Exception as e:
+                ck("lộ trình không crash", False, f"{type(e).__name__}: {e}")
             print("\n=== 8. không có câu ⇒ ẩn 4 nút chấm điểm ===")
             try:
                 btns = list((tab.srs_grade_btns_q or {}).values())

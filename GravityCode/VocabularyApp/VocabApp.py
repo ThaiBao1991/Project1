@@ -4307,6 +4307,99 @@ def _short_level_name(level_name: str, phase_name: str = "") -> str:
     return level_name[:10] if level_name else ""
 
 
+class CourseRoadmapDialog(ctk.CTkToplevel):
+    """🗺️ LỘ TRÌNH HỌC TỪ 0 — 6 chặng · mốc số ngày/từ · nút bắt đầu.
+
+    Dành cho người MỚI ("chưa biết từ nào"): thấy rõ phải học bao nhiêu
+    chặng, mỗi chặng bao nhiêu ngày/từ, đã học tới đâu, và bắt đầu từ đâu.
+    Mỗi ngày học theo 5 bước: Đọc → Nghe → Nối câu → Tự nhớ → Ôn SM-2.
+    """
+
+    STEPS = ("① Đọc chữ + phiên âm", "② Nghe TTS", "③ Nối câu (ví dụ)",
+             "④ Tự nhớ (lật thẻ)", "⑤ Ôn SM-2 (chấm điểm)")
+
+    def __init__(self, parent, course, progress, on_pick_day):
+        super().__init__(parent)
+        self.course = course or {}
+        self.progress = progress or {}
+        self.on_pick_day = on_pick_day
+        self.title("🗺️ Lộ Trình Học Từ 0")
+        self.geometry("760x640")
+        self.minsize(640, 460)
+        self.configure(fg_color=C["bg"])
+        self.transient(parent)
+        self.grab_set()
+
+        top = ctk.CTkFrame(self, fg_color=C["sidebar"], height=54, corner_radius=0)
+        top.pack(fill="x")
+        top.pack_propagate(False)
+        lbl(top, "🗺️ Lộ Trình Học Từ 0", 16, "bold", C["accent"]).pack(side="left", padx=16)
+
+        done = set(self.progress.get("completed_days", []) or [])
+        days = [d for d in (self.course.get("days") or []) if isinstance(d, dict)]
+        total_days = len(days)
+        lbl(top, f"{len(done)}/{total_days} ngày đã hoàn thành", 12,
+            color=C["muted"]).pack(side="right", padx=16)
+
+        # Hướng dẫn 5 bước mỗi ngày
+        guide = ctk.CTkFrame(self, fg_color=C["card"])
+        guide.pack(fill="x", padx=14, pady=(10, 6))
+        lbl(guide, "Mỗi ngày học theo 5 bước:", 13, "bold", C["text"]).pack(
+            side="left", padx=12, pady=8)
+        lbl(guide, "  →  ".join(self.STEPS), 12, color=C["muted"]).pack(
+            side="left", padx=(0, 12), pady=8)
+
+        # Gom ngày theo chặng (phase)
+        phases = {}
+        for d in days:
+            ph = (d.get("phase") or "Khác").strip()
+            phases.setdefault(ph, []).append(d)
+        order = sorted(phases.items(),
+                       key=lambda kv: min(int(x.get("day", 0) or 0)
+                                          for x in kv[1]))
+
+        scroll = ctk.CTkScrollableFrame(self, fg_color="transparent")
+        scroll.pack(fill="both", expand=True, padx=12, pady=(4, 10))
+
+        seen_words = set()
+        for i, (ph, ds) in enumerate(order, 1):
+            words = []
+            for d in ds:
+                for v in (d.get("vocab") or []):
+                    if isinstance(v, dict):
+                        w = str(v.get("word") or "").strip()
+                        if w:
+                            words.append(w)
+            uniq = len(set(words))
+            n_done = sum(1 for d in ds if int(d.get("day", 0) or 0) in done)
+            first_day = min(int(d.get("day", 0) or 0) for d in ds)
+            card = ctk.CTkFrame(scroll, fg_color=C["card"])
+            card.pack(fill="x", pady=4)
+            lbl(card, f"Chặng {i} · {ph}", 14, "bold", C["accent"]).pack(
+                side="left", padx=12, pady=8)
+            info = (f"{len(ds)} ngày · {len(words)} từ ({uniq} từ khác nhau) · "
+                    f"đã hoàn thành {n_done}/{len(ds)} ngày")
+            lbl(card, info, 11, color=C["muted"]).pack(side="left", padx=(0, 12))
+            btn(card, f"Bắt đầu (Ngày {first_day})", C["success"], "#018786",
+                w=170, h=32,
+                cmd=lambda d=first_day: self._pick(d)).pack(side="right", padx=12,
+                                                          pady=6)
+            seen_words.update(words)
+
+        lbl(scroll, f"Tổng: {len(seen_words)} từ khác nhau trong toàn khóa.",
+            11, color=C["muted"]).pack(anchor="w", padx=6, pady=(6, 0))
+
+    def _pick(self, day):
+        try:
+            self.on_pick_day(day)
+        except Exception:
+            pass
+        try:
+            self.destroy()
+        except Exception:
+            pass
+
+
 class DaySelectorDialog(ctk.CTkToplevel):
     """Cửa sổ chọn ngày siêu tốc (High-Performance Treeview), tìm kiếm tức thì và phân nhóm theo Cấp độ."""
 
@@ -4671,6 +4764,9 @@ class StudyTab(ctk.CTkFrame):
             cmd=self._shuffle_cards).pack(side="left", padx=3)
         btn(action_row, "🔄 Tải lại", C["card2"], C["accent"], w=100, h=34,
             cmd=self._reload_course).pack(side="left", padx=3)
+        # Gói 5 (2026-11-12): lộ trình học từ 0 — 6 chặng · mốc · bắt đầu.
+        btn(action_row, "🗺️ Lộ trình", C["card2"], C["accent"], w=110, h=34,
+            cmd=self._open_roadmap).pack(side="left", padx=3)
         try:
             def _open_web():
                 import webbrowser
@@ -6018,6 +6114,18 @@ class StudyTab(ctk.CTkFrame):
             return
         prog = course_db.get_progress(self.app.current_language)
         DaySelectorDialog(self.winfo_toplevel(), self._course, prog, self._select_day_by_num)
+
+    def _open_roadmap(self):
+        """🗺️ Lộ trình học từ 0: 6 chặng · mốc ngày/từ · nút bắt đầu."""
+        if not self._course or not self._course.get("days"):
+            messagebox.showinfo(
+                "Lộ trình",
+                "Chưa có khóa học AI cho ngôn ngữ này.\n\n"
+                "Bấm 🤖 Sinh khóa học AI để tạo nội dung trước đã.")
+            return
+        prog = course_db.get_progress(self.app.current_language)
+        CourseRoadmapDialog(self.winfo_toplevel(), self._course, prog,
+                            self._select_day_by_num)
 
     def _selected_day_num(self):
         txt = self.cb_day.get()
