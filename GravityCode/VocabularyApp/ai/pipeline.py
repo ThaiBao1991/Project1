@@ -535,7 +535,7 @@ def run_pipeline(language: str, *,
                     raise GenerationStopped()
                 if time.time() - t0 > max_run_seconds:
                     raise PipelinePause("Đạt giới hạn thời gian chạy.", "max_run_seconds")
-                if not offline and not budget.can_call(4):
+                if not offline and _needs_ai_budget(stages) and not budget.can_call(4):
                     if wait_quota:
                         wait_s = _seconds_until_quota_reset()
                         mins = wait_s // 60
@@ -819,7 +819,7 @@ def _run_days_parallel(language, days_to_do, course, coord, log, budget, emit,
             return dnum, None, "stopped"
         if time.time() - t0 > max_run_seconds:
             return dnum, None, "timeout"
-        if not budget.can_call(4):
+        if _needs_ai_budget(stages) and not budget.can_call(4):
             if wait_quota:
                 wait_s = _seconds_until_quota_reset()
                 mins = wait_s // 60
@@ -970,6 +970,19 @@ def _makeup_pending_days(language, course, stages, coord, log, budget, emit,
         if ran == 0:
             break            # không tiến triển → dừng (tránh quay vô hạn)
     return n_done
+
+
+def _needs_ai_budget(stages) -> bool:
+    """Các stage này có TỐN call Gemini ⇒ mới cần budget call.
+
+    FIX 2026-11-14 (Gói 4): job **media** (ảnh Wikipedia + audio edge-TTS) không
+    tốn 1 call Gemini nào, nhưng trước đây vẫn bị chặn bởi `budget.can_call(4)`
+    trước mỗi ngày ⇒ khi budget AI đã hết (1.400 call/ngày) thì **media
+    không sinh được gì cả** (đo thật: 8 khóa chạy media 1-5 phút rồi dừng,
+    media vẫn 12-33 %).
+    """
+    return bool({STAGE_CONTENT, STAGE_QUIZ_AB, STAGE_QUIZ_CD,
+                 STAGE_DIALOGUE} & set(stages or []))
 
 
 def _known_words(course: dict, day_num: int, limit: int = 150) -> list:
