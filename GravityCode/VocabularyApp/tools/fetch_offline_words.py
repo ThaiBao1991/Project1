@@ -118,13 +118,13 @@ def _wiki(word, section):
 TRANSLATE = "https://translate.googleapis.com/translate_a/single"
 
 
-def _translate_batch(words):
+def _translate_batch(words, src="auto"):
     """Dịch lô từ sang tiếng Việt (1 request cho 25 từ) — nhanh gấp ~50× so với
     gọi Wiktionary từng từ (đo thật: 231 từ/giờ ⇒ 26.000 từ mất 4,6 ngày)."""
     out = []
     for i in range(0, len(words), 25):
         chunk = words[i:i + 25]
-        q = urllib.parse.urlencode({"client": "gtx", "sl": "auto", "tl": "vi",
+        q = urllib.parse.urlencode({"client": "gtx", "sl": src, "tl": "vi",
                                    "dt": "t", "q": "\n".join(chunk)})
         req = urllib.request.Request(f"{TRANSLATE}?{q}",
                                      headers={"User-Agent": "Mozilla/5.0"})
@@ -166,7 +166,11 @@ def build(iso, limit, delay=0.12):
     done = 0
     for i in range(0, len(todo), 25):
         chunk = todo[i:i + 25]
-        vi = _translate_batch(chunk)
+        # Dịch bằng MÃ ngôn ngữ (sl=ko/ru/zh/...) — dùng "auto" KHÔNG nhận
+        # Hàn/Nga (đo được: 25.025 từ duyệt ⇒ 0 từ có nghĩa Việt).
+        vi = _translate_batch(chunk, src=iso if iso != "en" else "auto")
+        if not any(vi):
+            vi = _translate_batch(chunk, src="auto")
         for w, v in zip(chunk, vi):
             if v:
                 cache[w] = {"vi": v[:220], "gloss": v[:220]}
