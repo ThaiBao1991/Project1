@@ -86,17 +86,16 @@ def main() -> int:
     _log(f"=== WATCHDOG bắt đầu · khóa: {', '.join(langs)} ===")
     while True:
         t0 = time.time()
-        _log("──────── VÒNG A: AI (cần AI) ────────")
+        _log("──────── VÒNG: AI + MEDIA XEN KẼ (mỗi khóa) ────────")
         for lg in langs:
             # Timeout 45 phút/khóa: hết quota thì bỏ qua (checkpoint đã lưu,
-            # resume được) để watchdog KHÔNG bị kẹt chờ ⇒ vòng B (media) và
-            # vòng C (verify) vẫn chạy. Vòng sau (sau 15 phút) sẽ thử AI lại.
+            # resume được) để watchdog KHÔNG bị kẹt chờ.
+            # XEN KẼ: sau khi thử AI cho khóa này → bù media NGAY cho khóa này
+            # (không đợi hết 9 khóa) ⇒ "phần không cần AI thì tiếp tục liền".
             _run([sys.executable, "-X", "utf8", "-m", "ai.pipeline",
                   "--lang", lg, "--stages", "content,quiz_ab,quiz_cd,dialogue",
                   "--days", "9999", "--workers", "4", "--wait-quota",
                   "--max-calls-per-day", "1200"], 45 * 60, f"AI {lg}")
-        _log("──────── VÒNG B: MEDIA (0 quota) ────────")
-        for lg in langs:
             _run([sys.executable, "-X", "utf8", "-m", "ai.pipeline",
                   "--lang", lg, "--stages", "images,audio,media_verify",
                   "--days", "9999", "--workers", "2"], 6 * 3600, f"media {lg}")
