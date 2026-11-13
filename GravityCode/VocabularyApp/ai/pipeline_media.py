@@ -21,6 +21,10 @@ from ai.tts_config import stage_index_from_phase, stage_spec, voice_for
 # Quá số lần ⇒ giữ trạng thái, KHÔNG đánh dấu PENDING nữa ⇒ pass bù hội tụ
 # (trước: 12 ngày dialogue pending ⇒ 12 call Gemini mỗi run, mãi mãi).
 MAX_PENDING_MAKES = 3
+# FIX 2026-11-14 (Gói 8): stage media (ảnh/audio) không tốn quota Gemini ⇒
+# cho phép bù lại nhiều lần hơn (đo thật: 1.157 ngày Nhật bị "chốt" sau 3
+# lần bù thất bại ⇒ ảnh/audio thiếu vĩnh viễn).
+MAX_PENDING_MAKES_MEDIA = 12
 
 
 # ─── TẦNG ẢNH ────────────────────────────────────────────────────────────────
@@ -28,12 +32,21 @@ def run_images_stage(language: str, day: int, lesson: dict, chain, log_fn=print,
                      max_images: int = 10, budget=None, dead_models=None,
                      allow_degraded: bool = True, stop_check=None) -> dict:
     """Sinh ảnh minh họa cho 1 ngày. Trả dict kết quả stage."""
-    if stage_is_done(language, STAGE_IMAGES, day, allow_degraded=allow_degraded):
-        cp = load_checkpoint(language, STAGE_IMAGES, day) or {}
+    vocab = (lesson or {}).get("vocab") or []
+    # FIX 2026-11-14 (Gói 8): checkpoint "skipped" từ lúc ngày đó CHƯA có vocab
+    # ⇒ 0 ảnh. Nay khóa đã có content ⇒ phải sinh lại, nhưng `stage_is_done`
+    # coi "skipped" là "đã xong" ⇒ ảnh KHÔNG BAO GIỜ được sinh (đo thật:
+    # tiếng_trung 439/446 ngày ảnh = skipped ⇒ ảnh% = 0).
+    _cp0 = load_checkpoint(language, STAGE_IMAGES, day) or {}
+    _st0 = _cp0.get("status")
+    _was_empty = bool((_cp0.get("data") or {}).get("skipped")) or _st0 == STATUS_SKIPPED
+    if vocab and _was_empty:
+        log_fn(f"   ♻️ Ảnh Ngày {day} trước đây 'skipped' (chưa có từ) — sinh lại.")
+    elif stage_is_done(language, STAGE_IMAGES, day, allow_degraded=allow_degraded):
+        cp = _cp0
         log_fn(f"   ⏭ Ảnh Ngày {day} đã có — bỏ qua.")
         return cp.get("data") or {"skipped": True}
 
-    vocab = (lesson or {}).get("vocab") or []
     if not vocab:
         save_checkpoint(language, STAGE_IMAGES, {"skipped": True, "images": []},
                         day=day, status=STATUS_SKIPPED)
@@ -187,9 +200,16 @@ def run_audio_stage(language: str, day: int, lesson: dict, chain, log_fn=print,
       • Make-up chỉ sinh phần THIẾU (từ đã có ref ⇒ KHÔNG TTS lại).
       • Sinh audio HỘI THOẠI (trước đây 0/1.302 hội thoại có audio).
     """
-    if stage_is_done(language, STAGE_AUDIO, day, allow_degraded=allow_degraded):
-        cp = load_checkpoint(language, STAGE_AUDIO, day) or {}
-        data = cp.get("data") or {"skipped": True}
+    # FIX 2026-11-14 (Gói 8): "skipped" cũng có nghĩa "lúc đó chưa có gì để đọc"
+    # ⇒ nay có vocab/dialogue thì phải sinh lại (xem run_images_stage).
+    _cpa = load_checkpoint(language, STAGE_AUDIO, day) or {}
+    _sta = _cpa.get("status")
+    _sk_a = bool((_cpa.get("data") or {}).get("skipped")) or _sta == STATUS_SKIPPED
+    _has_content = bool((lesson or {}).get("vocab") or (lesson or {}).get("dialogue"))
+    if _has_content and _sk_a:
+        log_fn(f"   ♻️ Audio Ngày {day} trước đây 'skipped' — sinh lại.")
+    elif stage_is_done(language, STAGE_AUDIO, day, allow_degraded=allow_degraded):
+        data = _cpa.get("data") or {"skipped": True}
         _reattach_audio(lesson, data)
         log_fn(f"   ⏭  Audio Ngày {day} đã có — bỏ qua.")
         return data
@@ -665,13 +685,19 @@ def run_media_verify_stage(language: str, day: int, lesson: dict, log_fn=print,
                     old = load_checkpoint(language, stg, day) or {}
                     merged = dict(old.get("data") or {})
                     tries = int(merged.get("pending_count") or 0) + 1
-                    if tries > MAX_PENDING_MAKES:
-                        # Đã thử đủ số lần ⇒ DỪNG đánh dấu bù (đổi sang
-                        # degraded để pass bù không gọi lại AI nữa).
-                        merged["pending_count"] = MAX_PENDING_MAKES
+                    # FIX 2026-11-14 (Gói 8): stage MEDIA (ảnh/audio) KHÔNG tốn
+                    # call Gemini ⇒ hết quota không phải lý do để dừng bù.
+                    # Trước đây sau 3 lần bù thất bại ⇒ chuyển "degraded" ⇒
+                    # `stage_is_done` coi là xong ⇒ ảnh/audio THIẾU VĨNH VIỄN
+                    # (đo thật: tiếng_nhật 1.157 ngày pending bị "chốt").
+                    # ⇒ media cho phép bù lại nhiều lần (chỉ chặn khi đã thử
+                    # quá nhiều lần liên tiếp mà vẫn 0 kết quả).
+                    _cap = (MAX_PENDING_MAKES if stg == STAGE_DIALOGUE
+                            else MAX_PENDING_MAKES_MEDIA)
+                    if tries > _cap:
+                        merged["pending_count"] = _cap
                         merged["pending_stopped"] = (
-                            f"đã thử sinh bù {MAX_PENDING_MAKES} lần — dừng để "
-                            f"tránh đốt quota vô hạn")
+                            f"đã thử sinh bù {_cap} lần — dừng để tránh lặp vô hạn")
                         save_checkpoint(language, stg, merged, day=day,
                                         status=STATUS_DEGRADED)
                         continue

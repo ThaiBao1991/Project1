@@ -568,7 +568,8 @@ def run_pipeline(language: str, *,
         done_days += _makeup_pending_days(
             language, course, stages, coord, log, budget, emit, level,
             allow_degraded, max_images_per_day, max_audio_per_day, chain,
-            resume, stop_check, wait_quota, t0, max_run_seconds, progress)
+            resume, stop_check, wait_quota, t0, max_run_seconds, progress,
+            source=source)
 
         # ── Commit ─────────────────────────────────────────────────────────
         course_db.save_course(language, course)
@@ -909,7 +910,7 @@ def _media_pending_days(language, course, stages):
 def _makeup_pending_days(language, course, stages, coord, log, budget, emit,
                          level, allow_degraded, max_images, max_audio, chain,
                          resume, stop_check, wait_quota, t0, max_run_seconds,
-                         progress=None, max_passes=2) -> int:
+                         progress=None, max_passes=2, source: str = "auto") -> int:
     """PASS BÙ NGAY TRONG RUN (Fix 2026-11-11: không để "sinh bù lần sau").
 
     Trước đây chỉ CLI `--all` mới quét vòng 2 (dòng passes=2) — GUI bấm ▶
@@ -931,7 +932,9 @@ def _makeup_pending_days(language, course, stages, coord, log, budget, emit,
         pending = _media_pending_days(language, course, media_stages)
         if not pending:
             break
-        if not budget.can_call(1):
+        # Job media (ảnh/audio) KHÔNG tốn call Gemini ⇒ không được chặn bởi
+        # budget AI (đo được: "đã bù 0/1157 ngày" vì budget đã hết).
+        if _needs_ai_budget(stages) and not budget.can_call(1):
             emit(f"⏸ Hết ngân sách — dừng pass bù ({len(pending)} ngày còn thiếu, "
                  f"▶ chạy lại để tiếp tục).")
             break

@@ -197,7 +197,15 @@ def save_index(index: dict) -> None:
 
 
 def _upsert_index(entry: dict) -> None:
-    """Thêm/cập nhật 1 entry manifest — ghi theo LÔ (không ghi lại 20 MB mỗi lần)."""
+    """Thêm/cập nhật 1 entry manifest — ghi theo LÔ (không ghi lại 20 MB mỗi lần).
+
+    FIX 2026-11-14 (Gói 8): khi flush theo lô, PHẢI ĐỌC ĐĨA + MERGE trước khi
+    ghi (giống `flush_index`). Trước đây ghi thẳng cache RAM ⇒ khi 2 tiến
+    trình cùng sinh media (ví dụ 8 ngôn ngữ chạy song song) thì tiến trình
+    này **xoá entry của tiến trình kia** ⇒ file media có trên đĩa nhưng mất
+    manifest ⇒ app không hiện (đo thật: 157.091 file media nhưng manifest
+    chỉ còn ~39.000 entry).
+    """
     global _unsaved
     with _WRITE_LOCK:
         index = load_index()
@@ -206,8 +214,23 @@ def _upsert_index(entry: dict) -> None:
         import time
         if (_unsaved >= FLUSH_EVERY_ITEMS
                 or (time.time() - _last_flush) >= FLUSH_EVERY_SECONDS):
-            save_index(index)
+            _flush_merged(index)
             _unsaved = 0
+
+
+def _flush_merged(index: dict) -> None:
+    """Ghi manifest: đọc đĩa → merge với cache RAM → ghi atomic."""
+    try:
+        with open(INDEX_PATH, "r", encoding="utf-8") as f:
+            disk = json.load(f)
+    except Exception:
+        disk = None
+    if isinstance(disk, dict) and isinstance(disk.get("items"), dict):
+        merged = dict(disk["items"])
+        merged.update(index.get("items") or {})
+        index = dict(index)
+        index["items"] = merged
+    save_index(index)
 
 
 def flush_index() -> int:

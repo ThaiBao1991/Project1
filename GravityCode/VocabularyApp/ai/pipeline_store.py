@@ -128,7 +128,16 @@ def atomic_write_json(path: str, data) -> None:
             json.dump(data, f, ensure_ascii=False, indent=2)
             f.flush()
             os.fsync(f.fileno())
-        os.replace(tmp, path)
+        import time as _t
+    last = None
+    for _i in range(12):
+        try:
+            os.replace(tmp, path)
+            return
+        except OSError as e:
+            last = e
+            _t.sleep(0.25 * (_i + 1))
+    os.replace(tmp, path)
 
 
 def read_json(path: str, default=None):

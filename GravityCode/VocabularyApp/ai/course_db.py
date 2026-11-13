@@ -33,6 +33,17 @@ def _atomic_write(path: str, data: dict):
         tmp = path + ".tmp"
         with open(tmp, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
+        # FIX 2026-11-14: retry khi file đang bị PROCESS KHÁC mở (WinError 32)
+        # — xảy ra khi 2 job (watchdog + bù media) ghi cùng course.json.
+        import time as _t
+        last = None
+        for _i in range(12):
+            try:
+                os.replace(tmp, path)
+                return
+            except OSError as e:
+                last = e
+                _t.sleep(0.25 * (_i + 1))
         os.replace(tmp, path)
 
 
