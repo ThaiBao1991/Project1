@@ -62,16 +62,24 @@ def phase_for_day(day: int, total_days: int) -> tuple:
     return PHASES[-1][0], LEVELS[-1], len(PHASES)
 
 
-def build_days(days: int, wiki: dict, edict: dict) -> list:
+def build_days(days: int, wiki: dict, edict: dict, generic: dict = None) -> list:
     kana = offline_content.build_kana_vocab()
     words = offline_content.select_words(edict, limit=max(60, days * WORDS_PER_DAY))
+    generic = generic or {}
     out = []
     for d in range(1, days + 1):
         _ph, _lvl, _ord = phase_for_day(d, days)
-        if d <= KANA_DAYS:
+        if d <= KANA_DAYS and edict:
             chunk = kana[(d - 1) * WORDS_PER_DAY:(d - 1) * WORDS_PER_DAY + WORDS_PER_DAY]
             phase = f"{_ph} (offline)"
             title = f"Bảng chữ cái — Ngày {d}"
+        elif generic:
+            # Nguồn wordfreq/Wiktionary (mọi ngôn ngữ khác Nhật)
+            i = (d - 1) * WORDS_PER_DAY
+            keys = list(generic.keys())[i:i + WORDS_PER_DAY]
+            chunk = keys
+            phase = f"{_ph} (offline)"
+            title = f"{_ph} — Ngày {d}"
         else:
             i = (d - KANA_DAYS - 1) * WORDS_PER_DAY
             chunk = words[i:i + WORDS_PER_DAY]
@@ -81,6 +89,9 @@ def build_days(days: int, wiki: dict, edict: dict) -> list:
         for w in chunk:
             if isinstance(w, dict):
                 vocab.append(w)
+            elif generic:
+                vocab.append(offline_content.build_vocab_item_generic(
+                    w, (generic.get(w) or {}).get("gloss", ""), wiki))
             else:
                 info = edict.get(w) or {}
                 vocab.append(offline_content.build_vocab_item(w, info, wiki))
@@ -106,15 +117,25 @@ def main() -> int:
     args = ap.parse_args()
 
     t0 = time.time()
-    edict = offline_content.load_edict()
-    print(f"EDICT2: {len(edict)} mục")
-    if not edict:
-        print("⚠ Chưa có data/offline_src/edict2.gz — chạy tools/fetch_offline_sources.py")
+    # Nguồn theo ngôn ngữ: Nhật dùng EDICT (kana đọc + từ loại); các ngôn
+    # ngữ khác dùng wordfreq + Wiktionary (words_<iso>.json).
+    iso = offline_content.ISO_BY_LANG.get(args.lang, "")
+    generic = offline_content.load_words(iso) if iso else {}
+    edict = {}
+    if iso in ("", "ja"):
+        edict = offline_content.load_edict()
+        print(f"EDICT2: {len(edict)} mục")
+    if generic:
+        print(f"Nguồn wordfreq/Wiktionary [{iso}]: {len(generic)} từ")
+    if not edict and not generic:
+        print(f"⚠ Chưa có nguồn cho '{args.lang}' — chạy:\n"
+              f"   python tools\\fetch_offline_sources.py        (EDICT + Wiktionary Việt)\n"
+              f"   python tools\\fetch_offline_words.py --lang {iso or 'en'} --limit 3000")
         return 1
     wiki = offline_content.load_wiki_cache()
-    print(f"Wiktionary cache: {len(wiki)} từ có nghĩa tiếng Việt")
+    print(f"Wiktionary/dịch cache: {len(wiki)} từ có nghĩa tiếng Việt")
 
-    day_list = build_days(args.days, wiki, edict)
+    day_list = build_days(args.days, wiki, edict, generic)
     n_words = sum(len(d["vocab"]) for d in day_list)
     n_uniq = len({v["word"] for d in day_list for v in d["vocab"]})
     n_vi = sum(1 for d in day_list for v in d["vocab"]

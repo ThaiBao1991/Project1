@@ -121,7 +121,7 @@ def _wiki(word, section):
     return {}
 
 
-def build(iso, limit, delay=0.35):
+def build(iso, limit, delay=0.12):
     section, _minlen, _kana = LANGS.get(iso, ("English", 3, False))
     path = _cache_path(iso)
     try:

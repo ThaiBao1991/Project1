@@ -305,6 +305,46 @@ PHASES = (
 LEVELS = ("N5", "N5", "N4", "N3", "N2", "N1")
 
 
+# ── Nguồn từ cho MỌI ngôn ngữ (wordfreq + Wiktionary) ───────────────────────────
+# slug khóa học → mã ISO để tra bảng từ đã dựng (`data/offline_src/words_<iso>.json`)
+ISO_BY_LANG = {
+    "tiếng_anh": "en", "tiếng_trung": "zh", "tiếng_nhật": "ja",
+    "tiếng_hàn_quốc": "ko", "tiếng_pháp": "fr", "tiếng_đức": "de",
+    "tiếng_tây_ban_nha": "es", "tiếng_nga": "ru", "tiếng_italia": "it",
+    "tiếng_bồ_đào_nha": "pt", "tiếng_việt": "vi",
+}
+
+
+def load_words(iso: str) -> dict:
+    """Đọc bảng từ đã dựng cho ngôn ngữ: {từ: {gloss, reading, pos}}."""
+    path = os.path.join(SRC_DIR, f"words_{iso}.json")
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f) or {}
+    except Exception:
+        return {}
+
+
+def build_vocab_item_generic(word: str, gloss: str, wiki: dict = None) -> dict:
+    """Vocab item cho nguồn wordfreq/Wiktionary (không có kana đọc)."""
+    wiki = wiki or {}
+    w = wiki.get(word) or {}
+    vi = w.get("vi") or ""
+    gl = (gloss or "").strip()
+    return {
+        "word": word,
+        "pronunciation": "",
+        "ipa": "",
+        "part_of_speech": "",
+        "meaning_vi": vi or (f"[EN] {gl}" if gl else ""),
+        "explanation": gl,
+        "example_sentence": "",
+        "example_meaning_vi": "",
+        "phonetic_note": "",
+        "syllables": [],
+    }
+
+
 def phase_for_day(day: int, total_days: int) -> tuple:
     """(tên chặng, cấp độ, thứ tự chặng) cho ngày N theo tỉ lệ 6 chặng."""
     total_w = sum(x[1] for x in PHASES)
