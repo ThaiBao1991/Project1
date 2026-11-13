@@ -6649,6 +6649,12 @@ class StudyTab(ctk.CTkFrame):
                         lines.append(f"      → {p['example_meaning_vi']}")
                 lines.append("")
 
+        # FIX 2026-11-13: "MẪU CÂU" (cách dùng câu) thuộc phần NGỮ PHÁP nên
+        # vẫn hiện ở chế độ Ngữ pháp; "CÂU THÔNG DỤNG" thuộc phần TỪ VỰNG.
+        if mode not in ("full", "vocab", "grammar"):
+            del lines[_sec:]
+        _sec = len(lines)
+
         common = lesson.get("common_sentences") or []
         if common:
             lines.append("💬 CÂU THÔNG DỤNG GIAO TIẾP")
@@ -6659,11 +6665,11 @@ class StudyTab(ctk.CTkFrame):
                     lines.append(f"   📌 Tình huống: {s['situation']}")
             lines.append("")
 
-        # FIX 2026-11-13: "mẫu câu" + "câu thông dụng" thuộc phần TỪ VỰNG
-        # ⇒ ở chế độ Ngữ pháp/Hội thoại phải ẩn; và mốc `_sec` phải ĐẶT LẠI
-        # trước khối NGỮ PHÁP — trước đây nó trỏ vào trước khối mẫu câu ⇒
-        # khi bấm "Ngữ pháp" app XOÁ LUÔN phần ngữ pháp (chỉ còn banner).
-        if not _keep_vocab:
+        # FIX 2026-11-13: "mẫu câu" + "câu thông dụng" — "mẫu câu" giữ ở chế độ
+        # Ngữ pháp, "câu thông dụng" thuộc phần Từ vựng. Và mốc `_sec` phải
+        # ĐẶT LẠI trước khối NGỮ PHÁP — trước đây nó trỏ vào trước khối mẫu
+        # câu ⇒ khi bấm "Ngữ pháp" app XOÁ LUÔN phần ngữ pháp (chỉ còn banner).
+        if mode not in ("full", "vocab"):
             del lines[_sec:]
         _sec = len(lines)
 
@@ -6683,11 +6689,18 @@ class StudyTab(ctk.CTkFrame):
                         lines.append(f"       → {ex['meaning_vi']}")
                 if g.get("pronunciation_focus"):
                     lines.append(f"  👄 Phát âm: {g['pronunciation_focus']}")
-                for m in g.get("common_mistakes", []):
-                    lines.append(f"  ❌ {m.get('wrong', '')}")
-                    lines.append(f"  ✅ {m.get('right', '')}")
-                    if m.get("why_vi"):
-                        lines.append(f"     ↳ {m['why_vi']}")
+                for m in g.get("common_mistakes") or []:
+                    # FIX 2026-11-13: common_mistakes có 2 kiểu — list[str] (AI
+                    # sinh) hoặc list[dict] (offline sinh). Trước đây chỉ giả
+                    # định dict ⇒ AttributeError ⇒ CRASH khi bấm nút "Ngữ pháp"
+                    # ⇒ nội dung không đổi (đúng triệu chứng của user).
+                    if isinstance(m, dict):
+                        lines.append(f"  ❌ {m.get('wrong', '')}")
+                        lines.append(f"  ✅ {m.get('right', '')}")
+                        if m.get("why_vi"):
+                            lines.append(f"     ↳ {m['why_vi']}")
+                    else:
+                        lines.append(f"  ❌ {m}")
                 if g.get("mini_quiz"):
                     lines.append("  🧠 Kiểm tra nhanh:")
                     for q in g["mini_quiz"]:

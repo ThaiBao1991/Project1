@@ -636,6 +636,28 @@ run_pipeline(thread nền, stop_check=STOP_EVENT.is_set, log_fn=buffer)
 
 ---
 
+## 7.31. GÓI 7 — FIX "BẤM NÚT KHÔNG TỚI NƠI ĐÚNG" + VÒNG LẶP KIỂM TRA (2026-11-13)
+
+**Triệu chứng (user, ảnh 13/11):** bấm "Ngữ pháp" **không đổi gì** (vẫn ra từ vựng) · chọn **Ngày 1095 nhưng nội dung ra Ngày 1** (dù khóa đã có 1.260 ngày).
+
+**Nguyên nhân (tìm được bằng vòng lặp test, không phải đoán):**
+
+| # | Nguyên nhân | Sửa |
+|---|---|---|
+| 1 | **`common_mistakes` là `list[str]` (AI sinh) nhưng code render giả định `list[dict]`** ⇒ `AttributeError` **CRASH** khi bấm "Ngữ pháp" ⇒ ô nội dung giữ nguyên ⇒ "bấm không đổi gì" | render chịu cả 2 kiểu (`VocabApp._render_lesson_text`) |
+| 2 | `_reload_course()` (gọi cả khi **auto-sync 5 s**) luôn chọn `last_day` ⇒ **nhảy về ngày cũ** | giữ ngày đang xem nếu còn hợp lệ |
+| 3 | Ô nhập ngày không đồng bộ dropdown | `_select_day_by_num` đồng bộ cả ô nhập |
+| 4 | Mốc cắt `_sec` trỏ **trước khối "mẫu câu"** ⇒ bấm "Ngữ pháp" **xoá luôn phần ngữ pháp** | tách lọc: *Từ vựng (+câu thông dụng)* / *Ngữ pháp (+mẫu câu)* / *Hội thoại* |
+
+**Tool mới `tools/test_day_nav_loop.py`** — **vòng lặp kiểm tra điều hướng** (mô phỏng đúng thao tác app, dùng **course THẬT 1.260 ngày**):
+- **A.** chọn ngày N (ngẫu nhiên có seed) ⇒ tiêu đề + nội dung + ô nhập đúng N.
+- **B.** bấm 4 chế độ ⇒ nội dung lọc đúng (Ngữ pháp không lẫn từ vựng, và ngược lại) + đúng ngày đang chọn.
+- **C.** gọi lại `_load_selected_day()` / `_reload_course()` (mô phỏng auto-sync) ⇒ **KHÔNG nhảy ngày**.
+
+**Kết quả:** `test_day_nav_loop` **930/930 PASS** (30 vòng × course thật) · `test_study_sync` 39/39 · `test_3mode` 41/41 · `test_gui_smoke` 15/15 · `test_course_recovery` 18/18.
+
+---
+
 ## 7.29. GÓI 6 (tiếp) — NGHĨA TIẾNG VIỆT & KẾT QUẢ KHÓA NHẬT SAU KHI BỔ SUNG OFFLINE (2026-11-12i)
 
 **Nghĩa tiếng Việt cho nguồn offline**: Wiktionary Nhật chỉ có mục "Tiếng Việt" cho **3/1.200** từ ⇒ không đủ. Bổ sung `tools/translate_vi.py`: dịch gloss **tiếng Anh** (EDICT) → **tiếng Việt** theo **lô 25 từ/request** (delay 0,6 s), cache vĩnh viễn `data/offline_src/vi_meanings.json` ⇒ **gọi 1 lần (116 giây cho 2.200 từ) là xong, sau đó không cần mạng**. `offline_content.load_wiki_cache()` gộp 2 nguồn (Wiktionary + bản dịch).
