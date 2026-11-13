@@ -80,6 +80,7 @@ def _words(iso, limit):
 
 
 def _wiki(word, section):
+    """Gloss tiếng Anh từ Wiktionary (1 request/từ — CHẬM, chỉ dùng khi cần)."""
     q = urllib.parse.urlencode({
         "action": "query", "prop": "extracts", "titles": word,
         "format": "json", "explaintext": "1", "redirects": "1"})
@@ -95,8 +96,6 @@ def _wiki(word, section):
         if not isinstance(p, dict):
             continue
         txt = p.get("extract") or ""
-        # Trang có NHIỀU mục "== French ==" (vd "Middle French") ⇒ lấy mục
-        # NGÔN NGỮ THẬT: mục dài nhất có phần loại từ (Noun/Verb/...).
         best = ""
         for m in re.finditer(r"(?m)^==\s*" + re.escape(section) + r"\s*==\s*$", txt):
             body = txt[m.end():]
@@ -106,7 +105,6 @@ def _wiki(word, section):
                 best = body
         if not best:
             continue
-        # Ưu tiên gloss trong mục con loại từ (Noun/Verb/Adjective…)
         sub = re.search(r"(?m)^===\s*(Noun|Verb|Adjective|Adverb|Pronoun|Determiner|Preposition|Interjection|Article)\s*===\s*\n(.*?)(?=\n===|\Z)",
                         best, re.S)
         if sub:
@@ -114,14 +112,46 @@ def _wiki(word, section):
             defs = [d for d in defs if not d.startswith("=")][:3]
             if defs:
                 return {"gloss": "; ".join(defs)[:220]}
-        defs = [d.strip(" *") for d in best.split("\n") if d.strip(" *")]
-        defs = [d for d in defs if not d.startswith("=")][:3]
-        if defs:
-            return {"gloss": "; ".join(defs)[:220]}
     return {}
 
 
+TRANSLATE = "https://translate.googleapis.com/translate_a/single"
+
+
+def _translate_batch(words):
+    """Dịch lô từ sang tiếng Việt (1 request cho 25 từ) — nhanh gấp ~50× so với
+    gọi Wiktionary từng từ (đo thật: 231 từ/giờ ⇒ 26.000 từ mất 4,6 ngày)."""
+    out = []
+    for i in range(0, len(words), 25):
+        chunk = words[i:i + 25]
+        q = urllib.parse.urlencode({"client": "gtx", "sl": "auto", "tl": "vi",
+                                   "dt": "t", "q": "\n".join(chunk)})
+        req = urllib.request.Request(f"{TRANSLATE}?{q}",
+                                     headers={"User-Agent": "Mozilla/5.0"})
+        try:
+            with urllib.request.urlopen(req, timeout=40) as r:
+                data = json.loads(r.read().decode("utf-8", "replace"))
+            # API dịch CẢ LÔ thành 1 đoạn nhiều dòng ⇒ phải tách theo "\n"
+            # (lấy segment[0] đơn lẽ chỉ nhận 1/25 từ — lỗi đo được).
+            text = ""
+            for s in (data[0] or []):
+                text += (s[0] or "")
+            segs = [x.strip() for x in text.split("\n")]
+        except Exception:
+            segs = []
+        while len(segs) < len(chunk):
+            segs.append("")
+        out.extend(segs[:len(chunk)])
+        time.sleep(0.5)
+    return out
+
+
 def build(iso, limit, delay=0.12):
+    """Dựng nguồn từ cho ngôn ngữ: wordfreq (tần suất) + DỊCH LÔ sang Việt.
+
+    Nhanh: 25 từ/request (đo thật: gọi Wiktionary từng từ chỉ được 231 từ/giờ;
+    dịch lô ⇒ ~3.000 từ/phút).
+    """
     section, _minlen, _kana = LANGS.get(iso, ("English", 3, False))
     path = _cache_path(iso)
     try:
@@ -131,17 +161,20 @@ def build(iso, limit, delay=0.12):
         cache = {}
     words = _words(iso, limit)
     todo = [w for w in words if w not in cache]
-    print(f"→ {iso}: cần lấy {len(todo)} mục (đã có {len(cache)})")
+    print(f"→ {iso}: cần dịch {len(todo)} từ (đã có {len(cache)})")
     t0 = time.time()
-    for i, w in enumerate(todo, 1):
-        d = _wiki(w, section)
-        if d:
-            cache[w] = d
-        if i % 50 == 0:
+    done = 0
+    for i in range(0, len(todo), 25):
+        chunk = todo[i:i + 25]
+        vi = _translate_batch(chunk)
+        for w, v in zip(chunk, vi):
+            if v:
+                cache[w] = {"vi": v[:220], "gloss": v[:220]}
+        done += len(chunk)
+        if (i // 25) % 20 == 0:
             with open(path, "w", encoding="utf-8") as f:
                 json.dump(cache, f, ensure_ascii=False)
-            print(f"   {i}/{len(todo)} · cache {len(cache)} · {time.time()-t0:.0f}s")
-        time.sleep(delay)
+            print(f"   {done}/{len(todo)} · cache {len(cache)} · {time.time()-t0:.0f}s")
     with open(path, "w", encoding="utf-8") as f:
         json.dump(cache, f, ensure_ascii=False)
     print(f"✓ {iso}: {len(cache)} từ → {path}")

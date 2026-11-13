@@ -91,7 +91,7 @@ def build_days(days: int, wiki: dict, edict: dict, generic: dict = None) -> list
                 vocab.append(w)
             elif generic:
                 vocab.append(offline_content.build_vocab_item_generic(
-                    w, (generic.get(w) or {}).get("gloss", ""), wiki))
+                    w, (generic.get(w) or {}).get("gloss", ""), generic))
             else:
                 info = edict.get(w) or {}
                 vocab.append(offline_content.build_vocab_item(w, info, wiki))

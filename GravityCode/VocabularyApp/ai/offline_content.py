@@ -326,11 +326,13 @@ def load_words(iso: str) -> dict:
 
 
 def build_vocab_item_generic(word: str, gloss: str, wiki: dict = None) -> dict:
-    """Vocab item cho nguồn wordfreq/Wiktionary (không có kana đọc)."""
+    """Vocab item cho nguồn wordfreq/dịch (không có kana đọc)."""
     wiki = wiki or {}
     w = wiki.get(word) or {}
     vi = w.get("vi") or ""
     gl = (gloss or "").strip()
+    if not vi and gl.startswith("[EN] "):
+        vi = gl[5:]
     return {
         "word": word,
         "pronunciation": "",
