@@ -153,18 +153,31 @@ GRAMMAR = [
 ]
 
 
-def grammar_for_day(day: int, per_cycle: int = 4) -> list:
-    """Các mục ngữ pháp cho ngày N (xoay vòng, theo cấp độ tăng dần)."""
-    if not GRAMMAR:
+def grammar_for_day(day: int, per_cycle: int = 4, level: str = "") -> list:
+    """Các mục ngữ pháp cho ngày N.
+
+    FIX 2026-11-13: chọn mục **THEO CẤP ĐỘ của chặng** (N5/N4/N3/N2/N1) và
+    gộp thêm bộ N4→N1 (`ai/offline_grammar_advanced.py`) ⇒ bài học đa dạng, không
+    lặp 22 mục suốt 2.520 ngày (đo thật trước đó: mỗi mục lặp ~44 lần).
+    """
+    try:
+        from ai.offline_grammar_advanced import GRAMMAR_ADV
+        pool_all = list(GRAMMAR) + list(GRAMMAR_ADV)
+    except Exception:
+        pool_all = list(GRAMMAR)
+    pool = [g for g in pool_all if (not level or g[1] == level)]
+    if not pool:
+        pool = list(pool_all)
+    if not pool:
         return []
-    start = ((day - 1) // per_cycle) % len(GRAMMAR)
-    n = min(per_cycle, len(GRAMMAR))
-    picked = [GRAMMAR[(start + i) % len(GRAMMAR)] for i in range(n)]
+    start = ((day - 1) // per_cycle) % len(pool)
+    n = min(per_cycle, len(pool))
+    picked = [pool[(start + i) % len(pool)] for i in range(n)]
     out = []
-    for (title, level, expl, exs, focus, mistakes, quiz) in picked:
+    for (title, lvl, expl, exs, focus, mistakes, quiz) in picked:
         out.append({
             "title": title,
-            "level": level,
+            "level": lvl,
             "explanation": expl,
             "examples": [{"sentence": j, "meaning_vi": v} for j, v in exs],
             "pronunciation_focus": focus,

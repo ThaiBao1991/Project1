@@ -382,13 +382,19 @@ def build_offline_day(day: int, edict: dict = None, wiki: dict = None,
         phase = "Từ vựng cơ bản (offline)"
         title = f"Từ vựng cơ bản — Ngày {day}"
 
+    # Cấp độ & chặng theo tỉ lệ 6 chặng (N5→N1) — ngữ pháp chọn THEO cấp độ.
+    try:
+        _ph, _lvl, _ord = phase_for_day(day, 2520)
+    except Exception:
+        _ph, _lvl = phase, "N5"
+
     vocab = []
     for w in chunk:
         if isinstance(w, dict):
             vocab.append(w)
         else:
             vocab.append(build_vocab_item(w, edict.get(w) or {}, wiki))
-    grammar = grammar_for_day(day)
+    grammar = grammar_for_day(day, level=_lvl)
     dialogue = build_dialogue(vocab, topic=title)
     quiz = build_quiz(vocab)
     return {
