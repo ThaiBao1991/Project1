@@ -293,6 +293,29 @@ KANA_DAYS = 10          # 10 ngày đầu: bảng chữ cái (92 kana / 10 từ/
 WORDS_PER_DAY = 10
 
 
+# ── Giáo trình 6 chặng (dùng chung cho pipeline offline + tool dựng khóa) ─────
+PHASES = (
+    ("Vỡ lòng chữ cái & phát âm", 60),
+    ("Ghép âm & Từ đơn sinh tồn", 90),
+    ("Sơ cấp đời sống", 280),
+    ("Trung cấp công việc", 350),
+    ("Cao cấp học thuật", 300),
+    ("Như người bản xứ", 180),
+)
+LEVELS = ("N5", "N5", "N4", "N3", "N2", "N1")
+
+
+def phase_for_day(day: int, total_days: int) -> tuple:
+    """(tên chặng, cấp độ, thứ tự chặng) cho ngày N theo tỉ lệ 6 chặng."""
+    total_w = sum(x[1] for x in PHASES)
+    acc = 0
+    for i, (name, w) in enumerate(PHASES, 1):
+        acc += max(1, round(w * max(1, total_days) / total_w))
+        if day <= acc:
+            return name, LEVELS[i - 1], i
+    return PHASES[-1][0], LEVELS[-1], len(PHASES)
+
+
 def build_offline_day(day: int, edict: dict = None, wiki: dict = None,
                       pool: list = None) -> dict:
     """Dựng nội dung 1 ngày KHÔNG CẦN AI (schema v4, tương thích pipeline).

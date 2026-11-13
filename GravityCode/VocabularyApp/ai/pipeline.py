@@ -239,6 +239,7 @@ def run_pipeline(language: str, *,
                  force_new: bool = False,
                  media: bool = True,
                  allow_degraded: bool = False,
+                 source: str = "auto",
                  budget: PipelineBudget = None,
                  chain=None,
                  flush_every_days: int = 10,
@@ -360,6 +361,11 @@ def run_pipeline(language: str, *,
     _prov_ok, _prov_reason = (chain.providers[0].available() if chain.providers
                               else (False, "no provider"))
     coord = chain.providers[0].coord if (_prov_ok and chain.providers) else None
+    # Gói 6 (2026-11-13): --source offline ⇒ KHÔNG gọi Gemini (0 quota).
+    # coord = None ⇒ _ask_with_retry trả lỗi ngay ⇒ stage content rơi vào
+    # nhánh fallback offline (EDICT/Wiktionary + ngữ pháp tự soạn).
+    if (source or "auto") == "offline":
+        coord = None
     # BUG ĐÃ SỬA (L-C/L-F): các biến dùng ở `return` cuối PHẢI khởi tạo trước
     # `try` — nếu exception xảy ra sớm thì `plan`/`done_days` chưa gán ⇒
     # UnboundLocalError che mất nguyên nhân thật.
@@ -485,6 +491,21 @@ def run_pipeline(language: str, *,
             plan = _plan_from_existing_days(course)
             emit(f"📋 Dùng plan có sẵn: {len(plan)} ngày (chế độ {mode}).")
 
+        # Gói 6 (2026-11-13): --source offline ⇒ KHÔNG cần AI ⇒ tự dựng plan
+        # theo 6 chặng (không gọi stage plan/backbone/profile của Gemini).
+        if source == "offline" and not plan:
+            try:
+                from ai.offline_content import phase_for_day as _pfd
+                _n = int(target_days or 100)
+                plan = []
+                for _i in range(1, _n + 1):
+                    _ph, _lvl, _o = _pfd(_i, _n)
+                    plan.append({"day": _i, "title": f"{_ph} — Ngày {_i}",
+                                 "phase": _ph, "level": _lvl, "words": []})
+                emit(f"📋 Plan OFFLINE: {_n} ngày theo 6 chặng (0 call AI).")
+            except Exception as _e:
+                log.warn("stage.fail", msg=f"Không dựng được plan offline: {_e}")
+
         # ── Áp dụng target_days nếu người dùng chọn số ngày cụ thể ──
         if target_days and int(target_days) > 0 and plan:
             want = int(target_days)
@@ -531,7 +552,7 @@ def run_pipeline(language: str, *,
                 lesson = _run_day(language, dnum, pday, course, coord, log, budget, emit,
                                    stages, level, allow_degraded, max_images_per_day,
                                    max_audio_per_day, chain, resume,
-                                   wait_quota=wait_quota, stop_check=stop_check)
+                                   wait_quota=wait_quota, stop_check=stop_check, source=source)
                 if lesson:
                     done_days += 1
                 progress(12 + int(80 * (idx + 1) / total), STAGE_CONTENT, dnum)
@@ -812,7 +833,7 @@ def _run_days_parallel(language, days_to_do, course, coord, log, budget, emit,
             lesson = _run_day(language, dnum, pday, course, coord, log, budget,
                               emit_safe, stages, level, allow_degraded, max_images,
                               max_audio, chain, resume, save_each_day=False,
-                              stop_check=stop_check)
+                              stop_check=stop_check, source=source)
             return dnum, lesson, ""
         except GenerationStopped:
             # Nút Dừng được TÔN TRỌNG trong ngày (không biến thành day.fail)
@@ -936,7 +957,7 @@ def _makeup_pending_days(language, course, stages, coord, log, budget, emit,
                                   emit, media_stages, level, allow_degraded,
                                   max_images, max_audio, chain, resume,
                                   save_each_day=True, wait_quota=wait_quota,
-                                  stop_check=stop_check)
+                                  stop_check=stop_check, source=source)
             except (GenerationStopped, PipelinePause):
                 raise
             except Exception as e:
@@ -978,7 +999,8 @@ def _known_words(course: dict, day_num: int, limit: int = 150) -> list:
 
 def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
              level, allow_degraded, max_images, max_audio, chain, resume,
-             save_each_day=True, wait_quota=False, stop_check=None):
+             save_each_day=True, wait_quota=False, stop_check=None,
+             source: str = "auto"):
     """Chạy 7 stage của 1 ngày. Trả lesson dict hoặc None.
 
     FIX nút Dừng (2026-11-11): nhận `stop_check` — kiểm tra TRƯỚC MỖI stage
@@ -1037,7 +1059,7 @@ def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
     # ── STAGE CONTENT ─────────────────────────────────────────────────────────
     _stop()
     if STAGE_CONTENT in stages and not stage_is_done(language, STAGE_CONTENT, day_num):
-        if not budget.can_call(2):
+        if source != "offline" and not budget.can_call(2):
             if wait_quota:
                 wait_s = _seconds_until_quota_reset()
                 mins = wait_s // 60
@@ -1390,6 +1412,10 @@ def _parse_args(argv):
     ap.add_argument("--offline", action="store_true",
                     help="0 API call — chỉ chạy stage media_verify (so khớp manifest ↔ course)")
     ap.add_argument("--stages", help="Chọn subset stage (csv)")
+    ap.add_argument("--source", default="auto", choices=("auto", "ai", "offline"),
+                    help="Nguồn nội dung: auto = AI trước, tự rơi về OFFLINE khi "
+                         "hết quota/lỗi; ai = chỉ Gemini; offline = chỉ nguồn "
+                         "offline (EDICT/Wiktionary, 0 quota)")
     ap.add_argument("--from-day", type=int, default=1)
     ap.add_argument("--to-day", type=int)
     ap.add_argument("--words-per-day", type=int, default=10)
@@ -1517,6 +1543,7 @@ def main(argv=None) -> int:
                 evidence=args.evidence,
                 grammar_enrich=args.grammar,
                 workers=args.workers,
+                source=args.source,
                 offline=args.offline,
             )
             results.append(res)
