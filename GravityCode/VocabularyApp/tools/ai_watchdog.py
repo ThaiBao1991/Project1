@@ -99,8 +99,15 @@ def main() -> int:
             _run([sys.executable, "-X", "utf8", "-m", "ai.pipeline",
                   "--lang", lg, "--stages", "images,audio,media_verify",
                   "--days", "9999", "--workers", "2"], 6 * 3600, f"media {lg}")
-        _log("──────── VÒNG C: VERIFY ────────")
+        _log("──────── VÒNG C: VERIFY + THÔNG BÁO ────────")
         verify(langs)
+        # Kiểm tra "đã đủ chưa" ⇒ TỰ THÔNG BÁO Windows cho người dùng
+        try:
+            subprocess.run([sys.executable, "-X", "utf8", "tools/check_done.py"],
+                           capture_output=True, text=True, encoding="utf-8",
+                           errors="replace", cwd=BASE, timeout=1800)
+        except Exception as _e:
+            _log(f"   check_done lỗi: {_e}")
         _log(f"── xong vòng sau {(time.time()-t0)/60:.1f} phút ──")
         if args.once:
             break
