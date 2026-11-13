@@ -38,21 +38,45 @@ from ai.pipeline_store import (STAGE_CONTENT, STAGE_DIALOGUE,  # noqa: E402
 WORDS_PER_DAY = 10
 KANA_DAYS = 10          # 10 ngày đầu: bảng chữ cái (92 kana / 10 từ)
 
+# 6 chặng giáo trình (N5 → "như người bản xứ"). Tỉ lệ ngày chuẩn hoá theo tổng
+# số ngày yêu cầu ⇒ mở rộng 1.260 → 2.520+ ngày vẫn đúng tỉ lệ chặng.
+PHASES = (
+    ("Vỡ lòng chữ cái & phát âm", 60),
+    ("Ghép âm & Từ đơn sinh tồn", 90),
+    ("Sơ cấp đời sống", 280),
+    ("Trung cấp công việc", 350),
+    ("Cao cấp học thuật", 300),
+    ("Như người bản xứ", 180),
+)
+LEVELS = ("N5", "N5", "N4", "N3", "N2", "N1")
+
+
+def phase_for_day(day: int, total_days: int) -> tuple:
+    """(tên chặng, cấp độ, thứ tự chặng) cho ngày N theo tỉ lệ 6 chặng."""
+    total_w = sum(x[1] for x in PHASES)
+    acc = 0
+    for i, (name, w) in enumerate(PHASES, 1):
+        acc += max(1, round(w * max(1, total_days) / total_w))
+        if day <= acc:
+            return name, LEVELS[i - 1], i
+    return PHASES[-1][0], LEVELS[-1], len(PHASES)
+
 
 def build_days(days: int, wiki: dict, edict: dict) -> list:
     kana = offline_content.build_kana_vocab()
     words = offline_content.select_words(edict, limit=max(60, days * WORDS_PER_DAY))
     out = []
     for d in range(1, days + 1):
+        _ph, _lvl, _ord = phase_for_day(d, days)
         if d <= KANA_DAYS:
             chunk = kana[(d - 1) * WORDS_PER_DAY:(d - 1) * WORDS_PER_DAY + WORDS_PER_DAY]
-            phase = "Vỡ lòng chữ cái & phát âm (offline)"
+            phase = f"{_ph} (offline)"
             title = f"Bảng chữ cái — Ngày {d}"
         else:
             i = (d - KANA_DAYS - 1) * WORDS_PER_DAY
             chunk = words[i:i + WORDS_PER_DAY]
-            phase = "Từ vựng cơ bản (offline)"
-            title = f"Từ vựng cơ bản — Ngày {d}"
+            phase = f"{_ph} (offline)"
+            title = f"{_ph} — Ngày {d}"
         vocab = []
         for w in chunk:
             if isinstance(w, dict):
@@ -64,7 +88,7 @@ def build_days(days: int, wiki: dict, edict: dict) -> list:
         dlg = offline_content.build_dialogue(vocab, topic=title)
         quiz = offline_content.build_quiz(vocab)
         out.append({
-            "day": d, "title": title, "phase": phase, "level": "N5",
+            "day": d, "title": title, "phase": phase, "level": _lvl,
             "topic": title, "words": [v.get("word") for v in vocab],
             "format_version": 4, "vocab": vocab,
             "sentence_patterns": [], "common_sentences": [],
