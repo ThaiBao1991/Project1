@@ -48,6 +48,10 @@ LANGS = [
     ("fr", "tiếng_pháp"),
     ("de", "tiếng_đức"),
     ("es", "tiếng_tây_ban_nha"),
+    # 3 ngôn ngữ "tương lai" (đã khai báo trong ISO_BY_LANG) — cùng 1 lệnh.
+    ("it", "tiếng_italia"),
+    ("pt", "tiếng_bồ_đào_nha"),
+    ("vi", "tiếng_việt"),
 ]
 ISO_BY_SLUG = {slug: iso for iso, slug in LANGS}
 
