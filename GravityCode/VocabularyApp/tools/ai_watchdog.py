@@ -96,18 +96,11 @@ def main() -> int:
                   "--lang", lg, "--stages", "content,quiz_ab,quiz_cd,dialogue",
                   "--days", "9999", "--workers", "4", "--wait-quota",
                   "--max-calls-per-day", "1200"], 45 * 60, f"AI {lg}")
-            _run([sys.executable, "-X", "utf8", "-m", "ai.pipeline",
-                  "--lang", lg, "--stages", "images,audio,media_verify",
-                  "--days", "9999", "--workers", "2",
-                  # FIX 2026-11-14 (Gói 7): media 0 quota Gemini ⇒ KHÔNG được
-                  # bị chặn bởi trần budget AI (đo thật: media đứng 12-33 %
-                  # vì budget AI hết trước khi tới bước media).
-                  "--max-calls-per-day", "999999",
-                  "--max-calls-per-language", "999999"], 6 * 3600, f"media {lg}")
+            # (Gói 7) Bước media KHÔNG chạy tuần tự ở đây nữa — nó chạy
+            # SONG SONG cho cả 8 khóa ở cuối vòng (xem bên dưới). Chạy tuần tự
+            # tốn 8 × 6h = 48h cho 1 vòng ⇒ quá chậm.
         # ── VÒNG BÙ MEDIA SONG SONG (Gói 7) ──────────────────────────────────
-        # Bước media trên chạy TUẦN TỰ 8 khóa ⇒ 8 × 6h = 48h mới xong 1 vòng.
-        # Thay bằng tools/fill_media.py (nhiều khóa song song) ⇒ nhanh gấp ~4-8.
-        # Chạy SAU khi vòng AI để không tranh manifest.
+        # tools/fill_media.py có LOCK ⇒ không tranh với job media thủ công.
         _run([sys.executable, "-X", "utf8", "tools/fill_media.py",
               "--jobs", "4", "--workers", "2", "--rounds", "1"],
              8 * 3600, "bù media SONG SONG (8 khóa)")

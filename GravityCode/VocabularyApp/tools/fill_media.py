@@ -41,7 +41,59 @@ LANGS = [
 # Ngày ưu tiên (chặng 1-2 = người học dùng trước) — ưu tiên tuyệt đối.
 PRIORITY_DAYS = 600
 
+# ── LOCK: chỉ 1 job bù media chạy tại 1 thời điểm ───────────────────────────
+# 2 job media cùng chạy ⇒ tranh ghi `data/media/index.json` + `course.json`
+# (đo thật 14/11: WinError 32 + mất entry manifest). Dùng file lock chứa PID.
+LOCK_PATH = os.path.join(BASE, "data", "logs", "fill_media.lock")
+
 _print_lock = threading.Lock()
+
+
+def _pid_alive(pid: int) -> bool:
+    try:
+        import psutil
+        return psutil.pid_exists(pid)
+    except Exception:
+        pass
+    try:
+        out = subprocess.run(["tasklist", "/FI", f"PID eq {pid}"],
+                             capture_output=True, text=True, timeout=20)
+        return str(pid) in (out.stdout or "")
+    except Exception:
+        return False
+
+
+def acquire_lock() -> bool:
+    """Giữ 1 job media tại 1 thời điểm. Trả False nếu đã có job khác."""
+    os.makedirs(os.path.dirname(LOCK_PATH), exist_ok=True)
+    if os.path.isfile(LOCK_PATH):
+        try:
+            with open(LOCK_PATH, encoding="utf-8") as f:
+                old = int((f.read() or "0").strip() or 0)
+        except Exception:
+            old = 0
+        if old and old != os.getpid() and _pid_alive(old):
+            log(f"⏭ Đã có job bù media khác đang chạy (PID {old}) — bỏ qua.")
+            return False
+        try:
+            os.remove(LOCK_PATH)
+        except OSError:
+            pass
+    try:
+        with open(LOCK_PATH, "w", encoding="utf-8") as f:
+            f.write(str(os.getpid()))
+    except OSError:
+        return True          # không ghi được lock thì vẫn chạy (bỏ qua)
+    return True
+
+
+def release_lock() -> None:
+    try:
+        with open(LOCK_PATH, encoding="utf-8") as f:
+            if int((f.read() or "0").strip() or 0) == os.getpid():
+                os.remove(LOCK_PATH)
+    except Exception:
+        pass
 
 
 def log(msg: str) -> None:
@@ -116,6 +168,8 @@ def main() -> int:
 
     log(f"bù media: {len(targets)} khóa · {args.jobs} song song · "
         f"disk còn {free_gb():.1f} GB")
+    if not acquire_lock():
+        return 0
     to_day = None if args.all_days else PRIORITY_DAYS
     threads: list[threading.Thread] = []
     sem = threading.Semaphore(max(1, args.jobs))
@@ -125,12 +179,15 @@ def main() -> int:
         with sem:
             results[lang] = worker(lang, to_day, args.workers, args.rounds)
 
-    for t in targets:
-        th = threading.Thread(target=run, args=(t,), daemon=False)
-        th.start()
-        threads.append(th)
-    for th in threads:
-        th.join()
+    try:
+        for t in targets:
+            th = threading.Thread(target=run, args=(t,), daemon=False)
+            th.start()
+            threads.append(th)
+        for th in threads:
+            th.join()
+    finally:
+        release_lock()
     log("HOÀN TẤT bù media: " + ", ".join(f"{k}={v}" for k, v in results.items()))
     return 0
 
