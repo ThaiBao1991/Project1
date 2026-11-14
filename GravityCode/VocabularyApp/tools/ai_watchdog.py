@@ -98,7 +98,19 @@ def main() -> int:
                   "--max-calls-per-day", "1200"], 45 * 60, f"AI {lg}")
             _run([sys.executable, "-X", "utf8", "-m", "ai.pipeline",
                   "--lang", lg, "--stages", "images,audio,media_verify",
-                  "--days", "9999", "--workers", "2"], 6 * 3600, f"media {lg}")
+                  "--days", "9999", "--workers", "2",
+                  # FIX 2026-11-14 (Gói 7): media 0 quota Gemini ⇒ KHÔNG được
+                  # bị chặn bởi trần budget AI (đo thật: media đứng 12-33 %
+                  # vì budget AI hết trước khi tới bước media).
+                  "--max-calls-per-day", "999999",
+                  "--max-calls-per-language", "999999"], 6 * 3600, f"media {lg}")
+        # ── VÒNG BÙ MEDIA SONG SONG (Gói 7) ──────────────────────────────────
+        # Bước media trên chạy TUẦN TỰ 8 khóa ⇒ 8 × 6h = 48h mới xong 1 vòng.
+        # Thay bằng tools/fill_media.py (nhiều khóa song song) ⇒ nhanh gấp ~4-8.
+        # Chạy SAU khi vòng AI để không tranh manifest.
+        _run([sys.executable, "-X", "utf8", "tools/fill_media.py",
+              "--jobs", "4", "--workers", "2", "--rounds", "1"],
+             8 * 3600, "bù media SONG SONG (8 khóa)")
         _log("──────── VÒNG C: VERIFY + THÔNG BÁO ────────")
         verify(langs)
         # Kiểm tra "đã đủ chưa" ⇒ TỰ THÔNG BÁO Windows cho người dùng
