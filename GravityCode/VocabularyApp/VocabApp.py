@@ -409,6 +409,81 @@ def ghost_btn(parent, text, w=110, h=34, cmd=None, **kw):
     return btn(parent, text, color=C["card2"], hov=C["card3"], w=w, h=h, cmd=cmd, **kw)
 
 
+class ToolTip:
+    """Tooltip nhẹ cho CTkButton (Tk không có sẵn).
+
+    Hiện sau 500ms hover, tự ẩn khi rời chuột. Không crash nếu widget bị
+    hủy giữa chừng (rất hay xảy ra khi đóng/nạp lại khóa học).
+    """
+
+    def __init__(self, widget, text: str, delay: int = 500):
+        self.widget = widget
+        self.text = text
+        self.delay = delay
+        self._after_id = None
+        self._win = None
+        try:
+            widget.bind("<Enter>", self._schedule, add="+")
+            widget.bind("<Leave>", self._hide, add="+")
+            widget.bind("<ButtonPress>", self._hide, add="+")
+        except Exception:
+            pass
+
+    def _schedule(self, _e=None):
+        self._cancel()
+        try:
+            self._after_id = self.widget.after(self.delay, self._show)
+        except Exception:
+            self._after_id = None
+
+    def _cancel(self):
+        if self._after_id:
+            try:
+                self.widget.after_cancel(self._after_id)
+            except Exception:
+                pass
+            self._after_id = None
+
+    def _show(self):
+        self._after_id = None
+        if self._win is not None:
+            return
+        try:
+            x = self.widget.winfo_rootx() + self.widget.winfo_width() // 2
+            y = self.widget.winfo_rooty() + self.widget.winfo_height() + 6
+            self._win = ctk.CTkToplevel(self.widget)
+            self._win.overrideredirect(True)
+            self._win.attributes("-topmost", True)
+            frm = ctk.CTkFrame(self._win, fg_color=C["card3"], corner_radius=6)
+            frm.pack()
+            ctk.CTkLabel(frm, text=self.text, text_color=C["text"],
+                         font=ctk.CTkFont(size=12),
+                         wraplength=320, justify="left").pack(padx=10, pady=6)
+            self._win.update_idletasks()
+            w = self._win.winfo_width()
+            self._win.geometry(f"+{max(0, x - w // 2)}+{y}")
+        except Exception:
+            self._win = None
+
+    def _hide(self, _e=None):
+        self._cancel()
+        if self._win is not None:
+            try:
+                self._win.destroy()
+            except Exception:
+                pass
+            self._win = None
+
+
+def tip(widget, text: str):
+    """Gắn tooltip cho widget (an toàn, bỏ qua nếu lỗi)."""
+    try:
+        ToolTip(widget, text)
+    except Exception:
+        pass
+    return widget
+
+
 def jp_font(size: int, weight: str = "normal"):
     """Font Tk có chữ Nhật (kana/kanji) cho giao diện desktop — 1 nguồn duy nhất.
 
@@ -4747,37 +4822,53 @@ class StudyTab(ctk.CTkFrame):
         self.ent_search.bind("<KeyRelease>", lambda _e: self._on_search_change())
         self.ent_search.bind("<Return>", lambda _e: self._select_searched_word())
 
-        # Right: Nút hành động
-        # FIX 2026-11-12 (Gói 4): 3 nút này trước đây pack side="right" vào
-        # `head` — nhưng `head_inner` (expand=True) đã chiếm hết bề ngang ⇒ nút
-        # bị đẩy/cắt ("Iron the…" trong ảnh chụp). Nay chuyển sang HÀNG RIÊNG
-        # bên dưới (action_row), đủ chỗ, chữ không bị nén.
-        action_row = ctk.CTkFrame(self, fg_color="transparent", height=42)
+        # ── THANH CÔNG CỤ (Gói 7 — 2026-11-14): gom nút thành 3 NHÓM rõ ràng ──
+        # Vấn đề user báo: "hàng nút Sinh AI / Xoá tiến độ đang xấu" — trước đây
+        # 6 nút chen nhúc trên 1 hàng, nhãn dài ("🤖 Sinh khóa học AI" 170px),
+        # không phân nhóm, không có tooltip ⇒ không biết nút nào làm gì.
+        # Nay: NHÓM 1 "Học" · NHÓM 2 "Khóa học" · NHÓM 3 "Nguy hiểm" (đẩy sang
+        # phải, viền đỏ) — mỗi nút có TOOLTIP giải thích, nhãn ngắn gọn.
+        action_row = ctk.CTkFrame(self, fg_color="transparent", height=40)
         action_row.pack(fill="x", padx=14, pady=(2, 0))
         action_row.pack_propagate(False)
-        lbl(action_row, "Thao tác:", 12, "bold", C["muted"]).pack(side="left", padx=(2, 10))
-        btn(action_row, "🤖 Sinh khóa học AI", C["success"], "#018786", w=170, h=34,
-            cmd=self._open_generation).pack(side="left", padx=3)
-        btn(action_row, "🗑️ Xóa khóa & tiến độ", C["card2"], C["danger"], w=170, h=34,
-            cmd=self._delete_course).pack(side="left", padx=3)
-        btn(action_row, "🔀 Trộn thẻ", C["card2"], C["accent"], w=110, h=34,
-            cmd=self._shuffle_cards).pack(side="left", padx=3)
-        btn(action_row, "🔄 Tải lại", C["card2"], C["accent"], w=100, h=34,
-            cmd=self._reload_course).pack(side="left", padx=3)
-        # Gói 5 (2026-11-12): lộ trình học từ 0 — 6 chặng · mốc · bắt đầu.
-        btn(action_row, "🗺️ Lộ trình", C["card2"], C["accent"], w=110, h=34,
-            cmd=self._open_roadmap).pack(side="left", padx=3)
-        try:
-            def _open_web():
-                import webbrowser
-                from ai.web_ai_bridge import get_bridge
-                b = get_bridge()
-                port = getattr(b, "port", 5690) if b is not None else 5690
-                webbrowser.open(f"http://127.0.0.1:{port}/index")
-            btn(action_row, "📚 Trang học (web)", C["card2"], C["success"], w=140, h=34,
-                cmd=_open_web).pack(side="left", padx=3)
-        except Exception:
-            pass
+
+        def _sep(parent, side="left"):
+            s = ctk.CTkFrame(parent, fg_color=C["border"], width=1, height=22)
+            s.pack(side=side, padx=8, pady=4)
+            return s
+
+        def _tool(parent, text, fg, hov, w, cmd, tip_text, danger=False):
+            kw = dict(border_width=1, border_color=C["danger"] if danger else C["border"])
+            b = btn(parent, text, fg, hov, w=w, h=32, cmd=cmd, **kw)
+            tip(b, tip_text)
+            b.pack(side="left", padx=2)
+            return b
+
+        # NHÓM 1 — HỌC
+        lbl(action_row, "Học", 12, "bold", C["muted"]).pack(side="left", padx=(2, 8))
+        _tool(action_row, "📚 Trang học", C["accent"], C["accent2"], 118,
+              self._open_web_tab,
+              "Mở bản học trên trình duyệt (có ôn tập SRS, ô trắc nghiệm)")
+        _tool(action_row, "🗺️ Lộ trình", C["card2"], C["accent"], 104,
+              self._open_roadmap,
+              "Lộ trình học từ 0: 6 chặng (N5→N1) · mốc ngày/từ · bắt đầu")
+        _tool(action_row, "🔀 Trộn thẻ", C["card2"], C["accent"], 100,
+              self._shuffle_cards,
+              "Xáo trộn thẻ từ vựng để luyện nhớ không theo thứ tự")
+        _sep(action_row)
+        # NHÓM 2 — KHÓA HỌC
+        lbl(action_row, "Khóa học", 12, "bold", C["muted"]).pack(side="left", padx=(0, 8))
+        _tool(action_row, "🤖 Sinh AI", C["success"], "#018786", 106,
+              self._open_generation,
+              "Sinh nội dung khóa học bằng AI (từ vựng · ngữ pháp · hội thoại · trắc nghiệm)")
+        _tool(action_row, "🔄 Tải lại", C["card2"], C["accent"], 96,
+              self._reload_course,
+              "Nạp lại khóa học từ đĩa (sau khi job nền vừa sinh xong)")
+        # NHÓM 3 — NGUY HIỂM (đẩy sang phải)
+        _tool(action_row, "🗑️ Xóa", C["card2"], C["danger"], 92,
+              self._delete_course,
+              "Xóa khóa học VÀ toàn bộ tiến độ học của khóa này (không hoàn tác được)",
+              danger=True)
 
         # ── 4 CHẾ ĐỘ HỌC — hàng RIÊNG ngay dưới header ──
         # BUG ĐÃ SỬA: trước đây 4 nút bị pack vào `head` (height=64) SAU khi
@@ -5754,8 +5845,35 @@ class StudyTab(ctk.CTkFrame):
             except Exception:
                 pass
 
+    def _open_web_tab(self):
+        """📚 Trang học — mở web app (ưu tiên tab trong app, fallback trình duyệt).
+
+        Gói 7 (2026-11-14): trước đây nút "Trang học (web)" nằm trong block
+        try/except ngay trong _build() ⇒ nếu import lỗi thì nút BIẾN MẤT im
+        lặng, không có lý do. Nay tách thành method + luôn hiện nút, ghi log
+        lỗi vào thanh trạng thái nếu không mở được.
+        """
+        url = "http://127.0.0.1:5690/index"
+        try:
+            from ai.web_ai_bridge import get_bridge
+            b = get_bridge()
+            port = getattr(b, "port", 5690) if b is not None else 5690
+            url = f"http://127.0.0.1:{port}/index"
+        except Exception:
+            pass
+        try:
+            import webbrowser
+            webbrowser.open(url)
+            self._log(f"🌐 Đã mở trang học: {url}")
+        except Exception as e:
+            try:
+                self.lbl_bottom.configure(
+                    text=f"⚠ Không mở được trang học ({type(e).__name__}). "
+                         f"Mở thủ công: {url}")
+            except Exception:
+                pass
+
     def _load_mode(self, mode: str):
-        """📚/📖/🎧/📑 Lọc bài đang xem theo chế độ — render vào ô nội dung ĐANG HIỂN THỊ."""
         if mode not in ("full", "vocab", "grammar", "dialogue"):
             return
         self._study_mode = mode
@@ -5826,7 +5944,9 @@ class StudyTab(ctk.CTkFrame):
         body = ctk.CTkScrollableFrame(self.dlg_panel, height=130, fg_color="transparent")
         body.pack(fill="x", padx=6, pady=(0, 8))
         if not self._dlg_turns:
-            lbl(body, "— Ngày này chưa có hội thoại —", 12, color=C["muted"]).pack(pady=16)
+            # Gói 7 (2026-11-14): không có hội thoại ⇒ ẨN panel rỗng.
+            self.dlg_panel.pack_forget()
+            return
         for i, (spk, line, vi) in enumerate(self._dlg_turns):
             row = ctk.CTkFrame(body, fg_color=C["card2"], corner_radius=8)
             row.pack(fill="x", pady=2, padx=2)
@@ -6214,10 +6334,12 @@ class StudyTab(ctk.CTkFrame):
         # thay vì "0/0 · 0/0" gây hiểu nhầm là app lỗi.
         _sum = self._day_content_summary(lesson)
         if day in done:
-            self.lbl_day_status2.configure(text="✅ Hoàn thành" + (f" · {_sum}" if _sum else ""),
+            self.lbl_day_status2.configure(text="✅ Đã học xong" + (f" · {_sum}" if _sum else ""),
                                            text_color=C["success"])
         else:
-            self.lbl_day_status2.configure(text="⏳ Chưa hoàn thành" + (f" · {_sum}" if _sum else ""),
+            # Gói 7 (2026-11-14): "Chưa hoàn thành" gây hiểu nhầm là app lỗi
+            # ⇒ nói rõ: ngày này CHƯA HỌC, còn bao nhiêu nội dung đã có.
+            self.lbl_day_status2.configure(text="📖 Chưa học ngày này" + (f" · {_sum}" if _sum else ""),
                                            text_color=C["warn"])
 
     @staticmethod
@@ -6248,10 +6370,11 @@ class StudyTab(ctk.CTkFrame):
         if day in prog.get("completed_days", []):
             s = prog.get("quiz_scores", {}).get(str(day), {}).get("score")
             self.lbl_day_status.configure(
-                text=f"✅ Đã hoàn thành" + (f" — điểm cao nhất: {s}%" if s is not None else ""),
+                text=f"✅ Đã học xong" + (f" — điểm cao nhất: {s}%" if s is not None else ""),
                 text_color=C["success"])
         else:
-            self.lbl_day_status.configure(text="⏳ Chưa hoàn thành", text_color=C["warn"])
+            # Gói 7 (2026-11-14): nhãn rõ nghĩa (chưa HỌC, không phải app lỗi).
+            self.lbl_day_status.configure(text="📖 Chưa học ngày này", text_color=C["warn"])
 
     def _set_lesson_text(self, content):
         self.lesson_text.configure(state="normal")
@@ -6337,9 +6460,9 @@ class StudyTab(ctk.CTkFrame):
             self.media_strip.pack_forget()
             return
         if not lesson:
-            lbl(self.media_strip, "— chưa có bài học —", 12,
-                color=C["muted"]).pack(padx=10, pady=30)
-            self.media_strip.pack(fill="x", pady=(0, 6), before=self.lesson_text)
+            # Gói 7 (2026-11-14): panel RỖNG làm giao diện rối ⇒ ẨN hẳn thay
+            # vì hiện 1 dòng "— chưa có bài học —" trong khung 248px.
+            self.media_strip.pack_forget()
             return
         if mode == "grammar":
             self._render_grammar_rows(lesson)
@@ -6354,9 +6477,8 @@ class StudyTab(ctk.CTkFrame):
         lbl(head, f"📚 TỪ VỰNG — {len(items)} từ · bấm vào dòng để xem chi tiết",
             13, "bold", C["accent"]).pack(side="left")
         if not items:
-            lbl(self.media_strip, "— Ngày này chưa có từ vựng —", 12,
-                color=C["muted"]).pack(pady=20)
-            self.media_strip.pack(fill="x", pady=(0, 6), before=self.lesson_text)
+            # Gói 7 (2026-11-14): ngày không có từ vựng ⇒ ẨN panel rỗng.
+            self.media_strip.pack_forget()
             return
         try:
             from customtkinter import CTkImage

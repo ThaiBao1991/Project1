@@ -1,23 +1,29 @@
 # -*- coding: utf-8 -*-
-"""tools/build_all_courses.py — DỰNG/BỔ SUNG khóa học "0 → bản xứ" cho MỌI ngôn ngữ.
+"""tools/build_all_courses.py — DỰNG/BỔ SUNG khóa học "0 → bản xứ" cho MỌI
+ngôn ngữ bằng **MỘT LỆNH**, chạy lại được (idempotent), LẶP tới khi hoàn thành.
 
-MỘT LỆNH duy nhất, chạy lại được (idempotent) — thay cho hàng chục lệnh rời rạc:
-  Bước 1 · Nguồn từ: wordfreq (tần suất thật) + DỊCH LÔ sang tiếng Việt
-          → cache `data/offline_src/words_<iso>.json`
-  Bước 2 · Giáo trình 6 chặng N5→N1 (từ thấp lên cao) + ngữ pháp theo cấp độ
-          + hội thoại + trắc nghiệm → `course.json` + checkpoint
-  Bước 3 · Media (ảnh Wikipedia + audio edge-TTS, 0 quota Gemini)
-  Bước 4 · Verify độ đầy đủ (tools/verify_courses.py)
+Vòng lặp (mỗi vòng tự động bỏ qua phần đã đủ):
+  B1 · Nguồn từ     : wordfreq (tần suất thật) + DỊCH LÔ 25 từ/request → tiếng Việt
+  B2 · Giáo trình   : 6 chặng N5→N1 (từ thấp lên cao) + ngữ pháp theo cấp độ
+                      + hội thoại + trắc nghiệm → course.json + checkpoint
+  B3 · Media        : ảnh (Wikipedia/điển) + audio edge-TTS (từ/nghĩa/hội thoại)
+                      — 0 quota Gemini, chạy SONG SONG nhiều khóa
+  B4 · Kiểm tra    : tools/check_done.py → tiêu chí "đủ" + toast Windows
+  → nếu còn khóa chưa đủ ⇒ LẶP vòng (tới khi đủ, hoặc hết số vòng cho phép)
 
 Cách dùng:
-  python tools/build_all_courses.py                     # tất cả ngôn ngữ còn thiếu
-  python tools/build_all_courses.py --lang tiếng_anh     # 1 ngôn ngữ
-  python tools/build_all_courses.py --days 2520 --only-source   # chỉ lấy nguồn từ
-Ngôn ngữ mới (chưa có trong danh sách): thêm vào ISO_BY_LANG (ai/offline_content.py).
+  python tools/build_all_courses.py                    # tất cả ngôn ngữ, lặp tới khi đủ
+  python tools/build_all_courses.py --lang tiếng_hàn_quốc
+  python tools/build_all_courses.py --rounds 1         # chỉ 1 vòng
+  python tools/build_all_courses.py --only-source      # chỉ lấy nguồn từ
+  python tools/build_all_courses.py --status           # chỉ in bảng độ đầy đủ
+
+Ngôn ngữ mới: thêm 1 dòng vào ISO_BY_LANG (ai/offline_content.py) rồi chạy lại.
 """
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import subprocess
 import sys
@@ -41,6 +47,7 @@ LANGS = [
     ("de", "tiếng_đức"),
     ("es", "tiếng_tây_ban_nha"),
 ]
+ISO_BY_SLUG = {slug: iso for iso, slug in LANGS}
 
 
 def _log(m):
@@ -62,10 +69,9 @@ def _run(cmd, timeout, label):
         return -1
 
 
+# ─── B1: nguồn từ + nghĩa tiếng Việt ─────────────────────────────────────────
 def ensure_source(iso: str, limit: int) -> int:
-    """Bước 1: nguồn từ + nghĩa tiếng Việt (dịch lô, nhanh)."""
     path = os.path.join(offline_content.SRC_DIR, f"words_{iso}.json")
-    have = 0
     try:
         with open(path, encoding="utf-8") as f:
             have = len(json.load(f) or {})
@@ -83,52 +89,107 @@ def ensure_source(iso: str, limit: int) -> int:
         return 0
 
 
+# ─── B2: giáo trình 0 → bản xứ ───────────────────────────────────────────────
 def build_course(lang: str, days: int) -> bool:
     _run([sys.executable, "-X", "utf8", "tools/build_offline_course.py",
           "--lang", lang, "--days", str(days), "--apply"], 3600, f"dựng {lang}")
     return True
 
 
-def fill_media(lang: str) -> None:
-    _run([sys.executable, "-X", "utf8", "-m", "ai.pipeline", "--lang", lang,
-          "--stages", "images,audio,media_verify", "--days", "9999",
-          "--workers", "2"], 6 * 3600, f"media {lang}")
+# ─── B3: media (0 quota) ─────────────────────────────────────────────────────
+def fill_media(langs, jobs: int, workers: int, all_days: bool) -> None:
+    cmd = [sys.executable, "-X", "utf8", "tools/fill_media.py",
+           "--jobs", str(jobs), "--workers", str(workers), "--rounds", "1"]
+    if all_days:
+        cmd.append("--all-days")
+    for lg in langs:
+        cmd += ["--lang", lg]
+    _run(cmd, 14 * 3600, f"media {len(langs)} khóa (song song)")
 
 
-def verify(langs) -> None:
+# ─── B4: kiểm tra ────────────────────────────────────────────────────────────
+def verify(langs=None) -> str:
     _run([sys.executable, "-X", "utf8", "tools/verify_courses.py"], 3600, "verify")
     try:
-        subprocess.run([sys.executable, "-X", "utf8", "tools/check_done.py"],
-                       cwd=BASE, timeout=1800)
-    except Exception:
-        pass
+        p = subprocess.run([sys.executable, "-X", "utf8", "tools/check_done.py",
+                            "--quiet"], cwd=BASE, capture_output=True, text=True,
+                           encoding="utf-8", errors="replace", timeout=2400)
+        out = p.stdout or ""
+        for line in out.splitlines():
+            if line.strip():
+                print("   " + line.strip()[:150], flush=True)
+        return out
+    except Exception as e:
+        _log(f"   ⚠ check_done lỗi: {e}")
+        return ""
+
+
+def _not_done(out: str) -> list:
+    """Danh sách khóa chưa đủ (parse từ output check_done)."""
+    bad = []
+    for line in (out or "").splitlines():
+        s = line.strip()
+        if not s or s.startswith("→") or s.startswith("KIỂM TRA"):
+            continue
+        if s.startswith("Còn thiếu"):
+            break
+        # dòng dạng: tiếng_anh   2520  12.1 ... ✅/…
+        if "…" in s or s.rstrip().endswith("...") or "✅" not in s:
+            parts = s.split()
+            if len(parts) >= 2 and parts[0].startswith("tiếng"):
+                bad.append(parts[0])
+    return bad
 
 
 def main() -> int:
-    import json
     ap = argparse.ArgumentParser()
     ap.add_argument("--lang", default="")
     ap.add_argument("--days", type=int, default=2520)
     ap.add_argument("--word-limit", type=int, default=26000)
     ap.add_argument("--only-source", action="store_true")
     ap.add_argument("--no-media", action="store_true")
+    ap.add_argument("--rounds", type=int, default=3,
+                    help="số vòng lặp tối đa (mỗi vòng bỏ qua phần đã đủ)")
+    ap.add_argument("--jobs", type=int, default=3)
+    ap.add_argument("--workers", type=int, default=2)
+    ap.add_argument("--all-days", action="store_true",
+                    help="bù media tới hết ngay (mặc định: chặng 1-2 trước)")
+    ap.add_argument("--status", action="store_true", help="chỉ in bảng độ đầy đủ")
     args = ap.parse_args()
+
+    if args.status:
+        verify()
+        return 0
 
     targets = ([x for x in LANGS if x[1] == args.lang] if args.lang else LANGS)
     if not targets:
-        print(f"⚠ chưa hỗ trợ '{args.lang}' (có: {', '.join(l for _i, l in LANGS)})")
+        print(f"⚠ chưa hỗ trợ '{args.lang}' "
+              f"(có: {', '.join(l for _i, l in LANGS)})")
         return 1
-    for iso, lang in targets:
-        t0 = time.time()
-        _log(f"═══════ {lang} (iso={iso}) ═══════")
-        ensure_source(iso, args.word_limit)
+
+    for rnd in range(1, max(1, args.rounds) + 1):
+        _log(f"══════════ VÒNG {rnd}/{args.rounds} ══════════")
+        for iso, lang in targets:
+            t0 = time.time()
+            _log(f"─────── {lang} (iso={iso}) ───────")
+            ensure_source(iso, args.word_limit)
+            if args.only_source:
+                continue
+            build_course(lang, args.days)
+            _log(f"◀ {lang} nội dung xong sau {(time.time()-t0)/60:.1f} phút")
         if args.only_source:
-            continue
-        build_course(lang, args.days)
+            break
         if not args.no_media:
-            fill_media(lang)
-        _log(f"◀ {lang} xong sau {(time.time()-t0)/60:.1f} phút")
-    verify([l for _i, l in targets])
+            fill_media([l for _i, l in targets], args.jobs, args.workers,
+                       args.all_days)
+        out = verify()
+        bad = _not_done(out)
+        if not bad:
+            _log("✅ TẤT CẢ KHÓA ĐÃ ĐỦ — hoàn thành!")
+            break
+        _log(f"⟳ còn {len(bad)} khóa chưa đủ: {', '.join(bad)} → vòng tiếp")
+        if rnd >= args.rounds:
+            _log(f"⚠ đã hết {args.rounds} vòng — chạy lại lệnh này để tiếp.")
     _log("HOÀN TẤT")
     return 0
 

@@ -528,7 +528,7 @@ def run_pipeline(language: str, *,
                 language, days_to_do, course, coord, log, budget, emit, stages,
                 level, allow_degraded, max_images_per_day, max_audio_per_day,
                 chain, resume, total, progress, stop_check, t0, max_run_seconds,
-                workers, wait_quota=wait_quota)
+                workers, wait_quota=wait_quota, source=source)
         else:
             for idx, pday in enumerate(days_to_do):
                 if stop_check and stop_check():
@@ -805,7 +805,8 @@ def _plan_from_existing_days(course: dict) -> list:
 def _run_days_parallel(language, days_to_do, course, coord, log, budget, emit,
                        stages, level, allow_degraded, max_images, max_audio,
                        chain, resume, total, progress, stop_check, t0,
-                       max_run_seconds, workers=1, wait_quota=False):
+                       max_run_seconds, workers=1, wait_quota=False,
+                       source: str = "auto"):
     """Xử lý N ngày SONG SONG. Mỗi ngày độc lập; chỉ save course.json có lock."""
     import threading
     from concurrent.futures import ThreadPoolExecutor, as_completed
