@@ -37,8 +37,10 @@ def main():
     # ── A. tên tmp duy nhất ────────────────────────────────────────────────
     tmp_dir = tempfile.mkdtemp(prefix="vocab_manifest_")
     orig_path = media_store.INDEX_PATH
+    orig_media = media_store.MEDIA_DIR
     orig_cache = media_store._index_cache
     try:
+        media_store.MEDIA_DIR = tmp_dir        # reindex trong test chỉ quét
         media_store.INDEX_PATH = os.path.join(tmp_dir, "index.json")
         media_store._index_cache = None
 
@@ -62,6 +64,11 @@ def main():
            f"items={list((got.get('items') or {}).keys())}")
 
         # ── B. manifest hỏng ⇒ tự khôi phục ────────────────────────────────
+        # Tạo 1 file media thật trong thư mục tạm ⇒ reindex dựng lại được.
+        os.makedirs(os.path.join(tmp_dir, "tiếng_nhật", "d0001"), exist_ok=True)
+        with open(os.path.join(tmp_dir, "tiếng_nhật", "d0001", "word_00_x.webp"),
+                  "wb") as f:
+            f.write(b"x" * 32)
         with open(media_store.INDEX_PATH, "w", encoding="utf-8") as f:
             f.write('{"items": {"m_a": {}}}')     # JSON 1
             f.write('{"items": {"m_b": {}}}')     # JSON 2 nối liền ⇒ HỎNG
@@ -72,14 +79,30 @@ def main():
            f"items={len(items)}")
     finally:
         media_store.INDEX_PATH = orig_path
+        media_store.MEDIA_DIR = orig_media
         media_store._index_cache = orig_cache
         shutil.rmtree(tmp_dir, ignore_errors=True)
 
-    # ── D. reindex từ đĩa (dùng thư mục media thật) ───────────────────────
+    # ── D. reindex từ đĩa (thư mục TẠM — không quét cả 158k file thật) ──
     try:
+        tmp_media = tempfile.mkdtemp(prefix="vocab_media_")
+        os.makedirs(os.path.join(tmp_media, "tiếng_nhật", "d0001"), exist_ok=True)
+        for i, name in enumerate(("word_00_aaa.webp", "audio_00_bbb.mp3")):
+            with open(os.path.join(tmp_media, "tiếng_nhật", "d0001", name),
+                      "wb") as f:
+                f.write(b"x" * 64)
+        orig_media = media_store.MEDIA_DIR
+        orig_index = media_store.INDEX_PATH
+        media_store.MEDIA_DIR = tmp_media
+        media_store.INDEX_PATH = os.path.join(tmp_media, "index.json")
+        media_store._index_cache = None
         res = media_store.reindex(log_fn=lambda *a: None)
         ck("reindex() dựng lại manifest từ đĩa",
-           res.get("items", 0) > 0, f"items={res.get('items')}")
+           res.get("items", 0) == 2, f"items={res.get('items')}")
+        media_store.MEDIA_DIR = orig_media
+        media_store.INDEX_PATH = orig_index
+        media_store._index_cache = None
+        shutil.rmtree(tmp_media, ignore_errors=True)
     except Exception as e:
         ck("reindex() dựng lại manifest từ đĩa", False,
            f"{type(e).__name__}: {e}")
