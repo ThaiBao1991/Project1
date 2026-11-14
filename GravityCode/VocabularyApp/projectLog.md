@@ -1624,3 +1624,32 @@ python -m ai.pipeline --all --mode enrich --full     # IPA/khẩu hình (cần q
 # Trước khi migrate: dừng process cũ đang ghi log rác data/logs\mật_* (PID 25072 theo plan).
 ```
 
+
+
+---
+
+## 2026-11-14 — Gói 6/7/8: 1 lệnh "0 → bản xứ" cho mọi ngôn ngữ + 6 lỗi media + làm lại UI
+
+**Kết quả chính:**
+- **8 khóa đều có 2.520 ngày** nội dung "0 → bản xứ" (từ vựng · ngữ pháp theo cấp độ ·
+  hội thoại · trắc nghiệm · 100 % nghĩa tiếng Việt).
+- **1 lệnh** dựng/bổ sung mọi ngôn ngữ, idempotent, lặp tới khi đủ:
+  `python tools\build_all_courses.py` (ngôn ngữ mới = thêm 1 dòng `ISO_BY_LANG`).
+- **Dịch lô 25 từ/request**: 231 từ/giờ → **300 từ/giây** (26.000 từ = 90 giây).
+
+**6 lỗi media đã tìm & sửa (đều có số liệu):**
+1. `_makeup_pending_days` thiếu tham số `source` ⇒ NameError ⇒ "đã bù 0/1157 ngày".
+2. `_run_days_parallel` thiếu tham số `source` ⇒ **600 day.fail** khi `--workers > 1`.
+3. `budget.can_call(4)` chặn cả job media **0 quota Gemini** ⇒ media đứng ở 12-33 %.
+4. ảnh/audio `skipped` bị coi là "đã xong" ⇒ **không bao giờ sinh lại** (tiếng_trung 439/446 ngày).
+5. `MAX_PENDING_MAKES=3` "chốt" media ⇒ 1.157 ngày Nhật mất vĩnh viễn.
+6. `_upsert_index` ghi manifest không merge ⇒ **mất entry** khi nhiều process (157k file / 39k entry).
+
+**UI (Gói 8):** thanh công cụ gom 3 nhóm (Học · Khóa học · Nguy hiểm) · nhãn ngắn <= 16 ký tự ·
+**tooltip mới** (class `ToolTip`) · ẩn panel rỗng (phải `grid_remove()` `_parent_canvas` của
+`CTkScrollableFrame`, `pack_forget()` không có tác dụng) · nhãn "Chưa hoàn thành" → "Chưa học ngày này".
+
+**Test:** test_ui_toolbar **7/7** · test_day_nav_loop **310/310** · test_study_sync **39/39** ·
+test_gui_smoke **15/15** · py_compile OK.
+
+**Commit:** `7.39` → `7.40` (media) → `7.41` (pipeline+ui) → `7.42` (ui+test) — đã push `master`.

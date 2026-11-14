@@ -948,3 +948,120 @@ Nguyên tắc: mỗi ngôn ngữ chỉ giữ **một** bản (tên canonical + n
 | `projectLog.md` | Nhật ký dự án (Update 17 ở đầu file) |
 | `ai/pipeline_log.py::EVENTS` | Danh sách event log chuẩn |
 | `ai/paths.py` | Quy tắc slug/path duy nhất |
+
+
+---
+
+## 7.30. GÓI 8 — LÀM LẠI GIAO DIỆN: THANH CÔNG CỤ + ẨN PANEL RỖNG (2026-11-14b)
+
+**Yêu cầu user:** "các nút Sinh AI / Xoá tiến độ / hàng thao tác đang xấu → cần làm lại".
+
+### Đã làm
+1. **Thanh công cụ gom 3 nhóm** (thay 6 nút chen nhúc trên 1 hàng):
+   - **Học**: 📚 Trang học · 🗺️ Lộ trình · 🔀 Trộn thẻ
+   - **Khóa học**: 🤖 Sinh AI · 🔄 Tải lại
+   - **Nguy hiểm**: 🗑️ Xóa (viền đỏ, tách bạch, đẩy sang phải)
+   Nhãn rút gọn ≤ 16 ký tự (trước: "🤖 Sinh khóa học AI" 170 px), có **dấu phân cách** giữa các nhóm.
+2. **Tooltip mới** (`class ToolTip` trong `VocabApp.py`): hover 500 ms → hiện giải thích nút
+   (Tkinter không có tooltip sẵn; CTkButton bind vào `_canvas` nên phải bọc riêng).
+3. **Ẩn panel rỗng** — `media_strip` (danh sách từ) và `dlg_panel` (hội thoại) **không còn hiện
+   khung 248 px trống** khi ngày không có nội dung.
+4. **Nhãn trạng thái rõ nghĩa**: "⏳ Chưa hoàn thành" → **"📖 Chưa học ngày này"** (nhãn cũ gây
+   hiểu nhầm là app lỗi); "✅ Hoàn thành" → "✅ Đã học xong".
+
+### BUG THẬT phát hiện khi làm UI (đo được)
+`CTkScrollableFrame` (CustomTkinter **6.0.0**) dựng như sau:
+
+```
+_parent_frame
+  └─ _parent_canvas (Canvas)   ← GRID vào _parent_frame  ⇒ QUYẾT ĐỊNH HIỂN THỊ
+       └─ canvas window item → chính frame (pack trong canvas, KHÔNG quyết định hiển thị)
+```
+
+⇒ `media_strip.pack_forget()` **KHÔNG ẩn panel** (canvas vẫn nằm trong grid) ⇒ panel rỗng vẫn
+chiếm 248 px. Đã thêm helper `set_scroll_visible(scrollable, visible)` dùng
+`canvas.grid_remove()` / `canvas.grid()`.
+
+### Test
+`tools/test_ui_toolbar.py` → **7/7 PASS** (6 nút đúng nhãn · nhãn ≤ 16 ký tự · mọi nút có
+tooltip bind `<Enter>` trên canvas · nút Xóa viền đỏ · panel rỗng ẩn thật (kiểm tra
+`grid_info()` của `_parent_canvas`) · nhãn trạng thái mới).
+Hồi quy: `test_day_nav_loop` **310/310** · `test_study_sync` **39/39** · `test_gui_smoke` **15/15**.
+
+---
+
+## 7.29. GÓI 7 — 5 LỖI "MEDIA KHÔNG BAO GIỜ ĐƯỢC BÙ" (2026-11-14a)
+
+**Bối cảnh:** 8 khóa đều đã có **2.520 ngày** nội dung ("0 → bản xứ"), nhưng **media % rất thấp**
+(ảnh 0-46 %, audio 12-92 %, hội thoại 0,6-92 %). Job "bù media" chạy mãi mà **không tăng** được
+gì. Đo từng tầng ⇒ tìm ra **5 lỗi thật**, tất cả đều là *media 0 quota bị hệ thống chặn như
+job AI* hoặc *sinh rồi bị coi là "xong" rồi bỏ rơi*.
+
+### 5 lỗi (đều có số liệu đo được)
+
+| # | Lỗi | Hậu quả đo được | Cách sửa |
+|---|---|---|---|
+| 1 | `_makeup_pending_days()` dùng `source=source` nhưng **không có tham số `source`** | `NameError` ⇒ **"đã bù 0/1157 ngày"** — pass bù media không bao giờ chạy | thêm `source: str = "auto"` + truyền `source=source` từ caller |
+| 2 | `_run_days_parallel()` dùng `source=source` nhưng **không có tham số** | `NameError` ⇒ **600 `day.fail`** khi chạy `--workers > 1` (đúng cấu hình job bù media!) | thêm `source: str = "auto"` vào signature + truyền từ caller |
+| 3 | `budget.can_call(4)` chạy **trước mỗi ngày** cho mọi pipeline ⇒ job media (**0 call Gemini**) cũng bị chặn khi hết quota AI | media đứng im ở 12-33 % | `_needs_ai_budget(stages)`: chỉ stage **cần AI** (content · quiz · dialogue) mới bị chặn |
+| 4 | `run_images_stage` / `run_audio_stage`: checkpoint **`skipped`** (lúc đó ngày chưa có vocab) bị `stage_is_done` coi là **"đã xong"** ⇒ **không bao giờ sinh lại** | tiếng_trung **439/446 ngày** ảnh = skipped ⇒ ảnh % = 0 | nếu nay đã có vocab/dialogue mà checkpoint = skipped ⇒ **sinh lại** |
+| 5 | `MAX_PENDING_MAKES = 3` áp cho **cả media** ⇒ sau 3 lần bù thất bại, chuyển `degraded` ⇒ `stage_is_done` coi là xong | tiếng_nhật **1.157 ngày** bị "chốt" | `MAX_PENDING_MAKES_MEDIA = 12` (media 0 quota không sợ đốt quota) |
+
+### Bug thứ 6 (phát hiện khi đo song song)
+`media_store._upsert_index()` khi flush theo lô **ghi thẳng cache RAM, không merge đĩa** ⇒ khi
+nhiều tiến trình cùng sinh media (8 khóa song song) thì tiến trình này **xoá entry của tiến
+trình kia** ⇒ file media có trên đĩa nhưng mất manifest ⇒ app không hiện.
+Đo thật: **157.091 file media** nhưng manifest chỉ còn ~39.000 entry.
+Sửa: `_flush_merged()` — đọc đĩa → merge cache → ghi atomic (giống `flush_index`).
+
+### Công cụ mới
+- `tools/fill_media.py` — **bù media nhiều khóa song song** (`--jobs`, `--workers`, `--all-days`),
+  tự dừng khi disk < 6 GB, chạy lại được (idempotent).
+- `tools/check_scope.py` (mới, trong `tools/`) — **kiểm tra tĩnh biến chưa định nghĩa** (loại
+  NameError) bằng `ast` — chính là công cụ đã bắt được lỗi #2.
+
+### Test
+`tools/test_day_nav_loop.py --rounds 30` → **930/930** (course thật 2.520 ngày) ·
+`tools/test_study_sync.py` → **39/39** · `tools/test_ui_toolbar.py` → **7/7** ·
+`tools/test_gui_smoke.py` → **15/15** · `py_compile` toàn bộ file sửa → OK.
+
+---
+
+## 7.28. GÓI 6 — 1 LỆNH DỰNG "0 → BẢN XỨ" CHO MỌI NGÔN NGỮ (2026-11-13/14)
+
+**Yêu cầu user:** *"vấn đề chính là phải học từ 0 → bản xứ với mọi ngôn ngữ · làm sao để tương
+lai tạo được · hiện tại là bổ sung · lặp đến khi hoàn thành"*.
+
+### ① "Tương lai tạo được" → 1 LỆNH
+```powershell
+python toolsuild_all_courses.py                 # mọi ngôn ngữ, LẶP tới khi đủ
+python toolsuild_all_courses.py --lang tiếng_hàn_quốc
+python toolsuild_all_courses.py --status        # chỉ xem bảng độ đầy đủ
+```
+Một lệnh đó chạy **vòng lặp 4 bước** (mỗi vòng bỏ qua phần đã đủ):
+- **B1 nguồn từ**: `wordfreq` (tần suất thật) + **dịch lô 25 từ/request** → tiếng Việt
+- **B2 giáo trình**: 6 chặng N5→N1 (từ thấp lên cao) + ngữ pháp **theo cấp độ chặng** +
+  hội thoại + trắc nghiệm
+- **B3 media**: ảnh (Wikipedia/điển) + audio edge-TTS (từ/nghĩa/hội thoại) — **0 quota Gemini**
+- **B4 kiểm tra**: `tools/check_done.py` → tiêu chí "đủ" + **toast Windows**
+Ngôn ngữ mới chỉ cần **thêm 1 dòng vào `ISO_BY_LANG`** (`ai/offline_content.py`) rồi chạy lệnh.
+
+### ② "Dịch lô" — từ 231 từ/giờ → **300 từ/giây**
+Trước đây gọi Wiktionary **1 request/từ** ⇒ 26.000 từ mất **4,6 ngày**. Đổi sang dịch lô
+**25 từ/request** ⇒ 26.000 từ chỉ **~90 giây**.
+Hai lỗi đo được khi làm:
+- API dịch cả lô trả về **1 đoạn nhiều dòng** ⇒ mất 24/25 từ ⇒ phải tách theo `\n`.
+- `sl=auto` **không nhận Hàn/Nga** (đo: 25.025 từ duyệt ⇒ **0 từ** có nghĩa Việt) ⇒ phải
+  dùng **mã ngôn ngữ** (`sl=ko/ru/zh`). Test: `사람 → người`, `하지만 → Nhưng`.
+
+### ③ Kết quả (đo thật 14/11)
+8 khóa đều có **2.520 ngày** nội dung: tiếng_nhật · tiếng_trung · tiếng_anh · tiếng_hàn_quốc ·
+tiếng_nga · tiếng_pháp · tiếng_đức · tiếng_tây_ban_nha — với **100 % nghĩa tiếng Việt**
+(kiểm chứng: `한다 = làm`, `다른 = khác`, `дождался = chờ đợi`, `一个 = một`, `中国 = Trung Quốc`).
+
+### ④ "Lặp đến khi hoàn thành" — 3 vòng lặp chạy song song
+1. **Watchdog 24/7** (`tools/ai_watchdog.py`): AI (00:00 VN, quota reset) → bù media → verify → check_done.
+2. **Task Scheduler `VocabularyApp-CheckDone`** mỗi 30 phút → `check_done` → **toast Windows** khi đủ.
+3. **`build_all_courses.py`**: chạy lại bất kỳ lúc nào để bổ sung phần còn thiếu.
+Theo dõi: `data/logs/check_status.txt` (bảng độ đầy đủ) · `data/logs/watchdog.log` ·
+`data/logs/fill_media_v3.log` (bù media).
