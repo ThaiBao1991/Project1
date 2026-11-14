@@ -130,42 +130,96 @@ FLUSH_EVERY_SECONDS = 15.0
 
 
 def load_index() -> dict:
-    """Manifest (có cache trong RAM — file có thể tới 20 MB)."""
+    """Manifest (có cache trong RAM — file có thể tới 20 MB).
+
+    FIX 2026-11-14 (Gói 8): nếu file manifest HỎNG (JSON lỗi) ⇒ KHÔNG được
+    âm thầm trả về index rỗng (⇒ app mất sạch media) mà phải:
+      ① thử các file dự phòng (`.tmp2`, `.bak_reindex`) rồi
+      ② tự `reindex()` dựng lại manifest từ file thật trên đĩa.
+    Đo thật 14/11 22:11: manifest 86 MB hỏng ⇒ mọi khóa báo "ảnh 0.0 %".
+    """
     global _index_cache
     if _index_cache is not None:
         return _index_cache
     if not os.path.exists(INDEX_PATH):
         _index_cache = {"format_version": INDEX_FORMAT_VERSION, "items": {}}
         return _index_cache
+    data = None
     try:
         with open(INDEX_PATH, "r", encoding="utf-8") as f:
             data = json.load(f)
         if not isinstance(data, dict):
-            raise ValueError
-    except Exception:
-        data = {"format_version": INDEX_FORMAT_VERSION, "items": {}}
+            raise ValueError("not a dict")
+    except Exception as e:
+        print(f"⚠ Manifest media HỎNG ({type(e).__name__}: {e}) — khôi phục…")
+        data = _recover_index()
     data.setdefault("format_version", INDEX_FORMAT_VERSION)
     data.setdefault("items", {})
     _index_cache = data
     return data
 
 
+def _recover_index() -> dict:
+    """Khôi phục manifest: thử file dự phòng → reindex từ đĩa."""
+    import glob
+    for pat in (INDEX_PATH + ".tmp2", INDEX_PATH + ".bak_reindex",
+                INDEX_PATH + ".bak1", INDEX_PATH + ".bak2"):
+        for cand in sorted(glob.glob(pat)):
+            try:
+                with open(cand, "r", encoding="utf-8") as f:
+                    d = json.load(f)
+                if isinstance(d, dict) and isinstance(d.get("items"), dict):
+                    print(f"✅ Khôi phục manifest từ {os.path.basename(cand)} "
+                          f"({len(d['items'])} entry)")
+                    try:
+                        os.replace(cand, INDEX_PATH)
+                    except OSError:
+                        pass
+                    return d
+            except Exception:
+                continue
+    # Cuối cùng: dựng lại từ toàn bộ file media trên đĩa.
+    try:
+        res = reindex(log_fn=print)
+        print(f"✅ Đã dựng lại manifest từ đĩa: {res['items']} entry")
+        return load_index()
+    except Exception as e:
+        print(f"⚠ Không dựng lại được manifest: {e}")
+        return {"format_version": INDEX_FORMAT_VERSION, "items": {}}
+
+
 def save_index(index: dict) -> None:
-    """Ghi manifest (atomic) — CÓ retry cho Windows.
+    """Ghi manifest (atomic) — CÓ retry cho Windows + tên tmp DUY NHẤT.
 
     Lý do retry: trên Windows, `os.replace` ném PermissionError nếu file đích
     đang được tiến trình khác mở để đọc. Lỗi này làm MẤT entry manifest
     trong khi file media đã ghi xong ⇒ file "mồ côi" (đo thật: 18.500 file ảnh
     nhưng manifest chỉ còn 1.369 entry).
+
+    FIX 2026-11-14 (Gói 8): tên file tmp PHẢI DUY NHẤT theo tiến trình.
+    Trước đây mọi process dùng chung `index.json.tmp` ⇒ 2 process mở file
+    đó ở chế độ "w" (truncate) rồi ghi ⇒ **file cuối chứa 2 JSON nối liền**
+    ⇒ `json.load` lỗi "Extra data" ⇒ **toàn bộ media biến mất khỏi app**
+    (đo thật 14/11 22:11: manifest 86 MB hỏng ⇒ mọi khóa báo ảnh 0.0 %).
     """
     import time
     from datetime import datetime
     global _last_flush
     index["updated_at"] = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
     os.makedirs(MEDIA_DIR, exist_ok=True)
-    tmp = INDEX_PATH + ".tmp"
-    with open(tmp, "w", encoding="utf-8") as f:
-        json.dump(index, f, ensure_ascii=False, indent=2)
+    # tmp DUY NHẤT cho từng tiến trình/thread ⇒ không ai ghi đè của ai.
+    tmp = f"{INDEX_PATH}.tmp.{os.getpid()}.{threading.get_ident()}"
+    try:
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(index, f, ensure_ascii=False, indent=2)
+            f.flush()
+            os.fsync(f.fileno())
+    except OSError:
+        try:
+            os.remove(tmp)
+        except OSError:
+            pass
+        return
     for attempt in range(10):
         try:
             os.replace(tmp, INDEX_PATH)
@@ -175,22 +229,10 @@ def save_index(index: dict) -> None:
             time.sleep(0.02 * (attempt + 1))
         except OSError:
             time.sleep(0.05)
-    # Hết cách retry → KHÔNG ghi thẳng vào file live (trước đây ghi ⇒ đọc
-    # giữa lúc ghi sẽ thấy manifest TRUNCATED ⇒ mất entry hàng loạt).
-    # Giờ: ghi vào file dự phòng `.tmp2` rồi thử replace lần nữa; nếu vẫn lỗi
-    # thì GIỮ NGUYÊN file cũ (mất entry còn hơn mất manifest).
+    # Hết cách retry → giữ file tmp (không xóa) để không mất dữ liệu, và
+    # giữ nguyên file live (mất entry còn hơn mất manifest).
     try:
-        tmp2 = INDEX_PATH + ".tmp2"
-        with open(tmp2, "w", encoding="utf-8") as f:
-            json.dump(index, f, ensure_ascii=False, indent=2)
-        os.replace(tmp2, INDEX_PATH)
-        _last_flush = time.time()
-        return
-    except OSError:
-        pass
-    try:
-        with open(INDEX_PATH + ".tmp2", "w", encoding="utf-8") as f:
-            json.dump(index, f, ensure_ascii=False, indent=2)
+        os.remove(tmp)
     except OSError:
         pass
 

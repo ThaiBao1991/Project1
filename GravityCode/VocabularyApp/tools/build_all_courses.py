@@ -38,7 +38,9 @@ if hasattr(sys.stdout, "reconfigure"):
 from ai import offline_content  # noqa: E402
 
 # iso → slug khóa học (khớp ISO_BY_LANG trong ai/offline_content.py)
+# "ja" dùng EDICT/JMdict (đã có sẵn) ⇒ KHÔNG cần fetch wordfreq.
 LANGS = [
+    ("ja", "tiếng_nhật"),
     ("zh", "tiếng_trung"),
     ("en", "tiếng_anh"),
     ("ko", "tiếng_hàn_quốc"),
@@ -71,6 +73,10 @@ def _run(cmd, timeout, label):
 
 # ─── B1: nguồn từ + nghĩa tiếng Việt ─────────────────────────────────────────
 def ensure_source(iso: str, limit: int) -> int:
+    if iso == "ja":
+        # Nhật dùng EDICT/JMdict (đã có sẵn trong data/offline_src/edict.gz)
+        _log("   nguồn [ja] dùng EDICT/JMdict — bỏ qua fetch")
+        return 0
     path = os.path.join(offline_content.SRC_DIR, f"words_{iso}.json")
     try:
         with open(path, encoding="utf-8") as f:
@@ -98,6 +104,9 @@ def build_course(lang: str, days: int) -> bool:
 
 # ─── B3: media (0 quota) ─────────────────────────────────────────────────────
 def fill_media(langs, jobs: int, workers: int, all_days: bool) -> None:
+    # FIX 2026-11-14: `--lang` trong fill_media là action="append" ⇒ truyền
+    # nhiều lần mới giữ được HẾT các khóa (trước đây argparse chỉ giữ giá
+    # trị CUỐI ⇒ chỉ bù được 1 khóa).
     cmd = [sys.executable, "-X", "utf8", "tools/fill_media.py",
            "--jobs", str(jobs), "--workers", str(workers), "--rounds", "1"]
     if all_days:

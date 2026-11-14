@@ -149,7 +149,8 @@ def worker(lang: str, to_day: int | None, workers: int, rounds: int) -> None:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--lang", default="")
+    ap.add_argument("--lang", action="append", default=[],
+                    help="giới hạn các khóa (lặp lại được: --lang A --lang B)")
     ap.add_argument("--jobs", type=int, default=3, help="số khóa chạy song song")
     ap.add_argument("--workers", type=int, default=2, help="luồng/ngày trong 1 khóa")
     ap.add_argument("--all-days", action="store_true",
@@ -158,7 +159,8 @@ def main() -> int:
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
-    targets = [args.lang] if args.lang else LANGS
+    # `--lang` lặp lại được ⇒ giữ đúng thứ tự, bỏ trùng.
+    targets = list(dict.fromkeys(args.lang)) if args.lang else list(LANGS)
     targets = [t for t in targets if t]
     if args.dry_run:
         for t in targets:
