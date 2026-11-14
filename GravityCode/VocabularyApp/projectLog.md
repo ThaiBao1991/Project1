@@ -1670,3 +1670,16 @@ test_gui_smoke **15/15** · py_compile OK.
   báo 0,0 %). Đã sửa: tmp duy nhất theo PID + **tự phục hồi** (file dự phòng → reindex từ đĩa).
   Đã phục hồi **169.560 entry**. Test mới `tools/test_media_manifest.py`.
 - `fill_media.py --lang` nhận nhiều khóa; `build_all_courses.py` thêm tiếng Nhật (EDICT).
+
+
+---
+
+## 2026-11-15 — Hệ thống tự chạy 24/7 + dữ liệu 8 khóa đồng đều + nghĩa Nhật sạch
+
+- **4 tiến trình nền tự chạy**: bù media (4 khóa song song) · watchdog AI + toast Windows ·
+  Task Scheduler check_done mỗi 30' · 1 lệnh `build_all_courses.py` để bổ sung.
+- **Race AI vs media** đã xử lý: watchdog nhường vòng AI khi job media giữ lock.
+- **8 khóa đều 2.520 ngày**, 22,7k-24,8k từ khác nhau, 11-15 câu/ngày, 3,7-3,9 ngữ pháp/ngày.
+- **`tools/fix_meaning_tags.py`**: sạch 792 nghĩa Nhật dính hậu tố nguồn (+312 từ dịch lại).
+- **Test**: ui_toolbar 7/7 · day_nav_loop 930/930 · study_sync 39/39 · gui_smoke 15/15 ·
+  media_manifest 5/5.

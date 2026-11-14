@@ -1118,3 +1118,48 @@ báo "ảnh 0,0 %, audio 0,0 %"** (đo thật 14/11 22:11).
   thực sự bù được **tất cả** (trước argparse chỉ giữ giá trị CUỐI ⇒ chỉ bù 1 khóa).
 - `build_all_courses.py` thêm **tiếng Nhật** (iso `ja`, dùng EDICT/JMdict — không cần fetch
   wordfreq) ⇒ 1 lệnh giờ phủ **đủ 8 khóa**.
+
+
+---
+
+## 7.32. HỆ THỐNG TỰ CHẠY + TRẠNG THÁI ĐO ĐƯỢC (2026-11-15)
+
+### Các tiến trình nền (tự chạy 24/7, không cần canh)
+| Tiến trình | Việc | Khi nào |
+|---|---|---|
+| `tools/fill_media.py` | bù ảnh + audio từ/nghĩa + audio hội thoại (0 quota) | liên tục, 4 khóa song song |
+| `tools/ai_watchdog.py` | AI (content · quiz · dialogue) khi có quota → verify → **toast Windows** | mỗi vòng |
+| Task Scheduler `VocabularyApp-CheckDone` | `check_done` → toast khi khóa đủ | mỗi 30 phút |
+| `tools/build_all_courses.py` | dựng/bổ sung mọi ngôn ngữ (1 lệnh) | khi cần |
+
+**Race đã xử lý:** AI (watchdog) và media (fill_media) cùng ghi `course.json` của một khóa
+⇒ watchdog giờ **nhường** vòng AI khi job media đang giữ lock (`data/logs/fill_media.lock`).
+Media là phần **0 quota** (làm được mọi lúc), AI chờ quota reset 00:00 nên nhường không mất gì.
+
+### Trạng thái đo được (15/11 00:15)
+Nội dung — **8 khóa đều 2.520 ngày**, đồng đều:
+
+| khóa học | ngày | từ khác nhau | câu/ngày | ngữ pháp/ngày |
+|---|---|---|---|---|
+| tiếng_nhật | 2.520 | 24.765 | 11,2 | 3,9 |
+| tiếng_trung | 2.520 | 22.698 | 15,3 | 3,7 |
+| tiếng_anh | 2.520 | 24.075 | 13,1 | 3,8 |
+| tiếng_hàn_quốc | 2.520 | 23.118 | 15,3 | 3,7 |
+| tiếng_nga | 2.520 | 23.805 | 14,5 | 3,7 |
+| tiếng_pháp | 2.520 | 23.968 | 14,1 | 3,8 |
+| tiếng_tây_ban_nha | 2.520 | 23.718 | 14,1 | 3,8 |
+| tiếng_đức | 2.520 | 23.763 | 14,1 | 3,8 |
+
+Media (đang bù, ~11 s/ngày/khóa, 4 khóa song song): tiếng_nhật ảnh **83,6 %** · hội thoại
+**83,3 %** · audio từ 91,7 % — các khóa còn lại 15-23 % (đang tăng đều).
+
+### Dữ liệu Nhật đã được làm sạch
+`tools/fix_meaning_tags.py`: khóa Nhật có **792 nghĩa** dính hậu tố nguồn
+("konpeito (por: …)", "smetana (rus:)") ⇒ 418 nghĩa cắt sạch + **312 từ dịch lại**
+bằng dịch lô ⇒ còn lại 1.084 nghĩa **không dấu** ("Xe taxi", "em trai", "leng keng") —
+đó là tiếng Việt hợp lệ, giữ nguyên. Sau khi sửa: **0 nghĩa có hậu tố ở cả 8 khóa**.
+
+### Test
+`test_ui_toolbar` **7/7** · `test_day_nav_loop` (30 vòng, course thật 2.520 ngày) **930/930** ·
+`test_study_sync` **39/39** · `test_gui_smoke` **15/15** · `test_media_manifest` **5/5** ·
+`py_compile` toàn bộ file sửa → OK.
