@@ -75,6 +75,32 @@ def verify(langs):
             _log("   " + line)
 
 
+def media_lock_busy() -> bool:
+    """Job bù media đang chạy? (đọc lock PID của tools/fill_media.py)
+
+    FIX 2026-11-15 (Gói 7): AI (watchdog) và media (fill_media) CÙNG ghi
+    `course.json` của một khóa ⇒ race (đo thật: cả 2 job chạy khóa Nhật).
+    ⇒ Khi media đang chạy thì watchdog **nhường** vòng AI (media 0 quota, làm
+    được mọi lúc; AI chờ quota reset 00:00 hằng ngày vẫn được).
+    """
+    p = os.path.join(LOG_DIR, "fill_media.lock")
+    if not os.path.isfile(p):
+        return False
+    try:
+        with open(p, encoding="utf-8") as f:
+            pid = int((f.read() or "0").strip() or 0)
+    except Exception:
+        return False
+    if not pid:
+        return False
+    try:
+        out = subprocess.run(["tasklist", "/FI", f"PID eq {pid}"],
+                             capture_output=True, text=True, timeout=25)
+        return str(pid) in (out.stdout or "")
+    except Exception:
+        return False
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--once", action="store_true")
@@ -87,18 +113,22 @@ def main() -> int:
     while True:
         t0 = time.time()
         _log("──────── VÒNG: AI + MEDIA XEN KẼ (mỗi khóa) ────────")
-        for lg in langs:
-            # Timeout 45 phút/khóa: hết quota thì bỏ qua (checkpoint đã lưu,
-            # resume được) để watchdog KHÔNG bị kẹt chờ.
-            # XEN KẼ: sau khi thử AI cho khóa này → bù media NGAY cho khóa này
-            # (không đợi hết 9 khóa) ⇒ "phần không cần AI thì tiếp tục liền".
-            _run([sys.executable, "-X", "utf8", "-m", "ai.pipeline",
-                  "--lang", lg, "--stages", "content,quiz_ab,quiz_cd,dialogue",
-                  "--days", "9999", "--workers", "4", "--wait-quota",
-                  "--max-calls-per-day", "1200"], 45 * 60, f"AI {lg}")
-            # (Gói 7) Bước media KHÔNG chạy tuần tự ở đây nữa — nó chạy
-            # SONG SONG cho cả 8 khóa ở cuối vòng (xem bên dưới). Chạy tuần tự
-            # tốn 8 × 6h = 48h cho 1 vòng ⇒ quá chậm.
+        # FIX 2026-11-15: nếu job bù media đang chạy (fill_media giữ lock) ⇒
+        # watchdog NHƯỜNG vòng AI để 2 tiến trình không ghi chung course.json.
+        if media_lock_busy():
+            _log("⏸ Job bù media đang chạy — bỏ qua vòng AI lần này "
+                 "(media 0 quota, làm được mọi lúc; AI chờ vòng sau).")
+        else:
+            for lg in langs:
+                # Timeout 45 phút/khóa: hết quota thì bỏ qua (checkpoint đã lưu,
+                # resume được) để watchdog KHÔNG bị kẹt chờ.
+                _run([sys.executable, "-X", "utf8", "-m", "ai.pipeline",
+                      "--lang", lg, "--stages", "content,quiz_ab,quiz_cd,dialogue",
+                      "--days", "9999", "--workers", "4", "--wait-quota",
+                      "--max-calls-per-day", "1200"], 45 * 60, f"AI {lg}")
+                # (Gói 7) Bước media KHÔNG chạy tuần tự ở đây nữa — nó chạy
+                # SONG SONG cho cả 8 khóa ở cuối vòng (xem bên dưới). Chạy tuần tự
+                # tốn 8 × 6h = 48h cho 1 vòng ⇒ quá chậm.
         # ── VÒNG BÙ MEDIA SONG SONG (Gói 7) ──────────────────────────────────
         # tools/fill_media.py có LOCK ⇒ không tranh với job media thủ công.
         _run([sys.executable, "-X", "utf8", "tools/fill_media.py",
