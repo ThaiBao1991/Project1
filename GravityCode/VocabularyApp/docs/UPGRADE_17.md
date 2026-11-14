@@ -1065,3 +1065,56 @@ tiếng_nga · tiếng_pháp · tiếng_đức · tiếng_tây_ban_nha — với
 3. **`build_all_courses.py`**: chạy lại bất kỳ lúc nào để bổ sung phần còn thiếu.
 Theo dõi: `data/logs/check_status.txt` (bảng độ đầy đủ) · `data/logs/watchdog.log` ·
 `data/logs/fill_media_v3.log` (bù media).
+
+
+---
+
+## 7.31. ĐỒNG BỘ NỘI DUNG 8 KHÓA + FIX MANIFEST MEDIA HỎNG (2026-11-14c)
+
+### ① Nguồn từ bị hỏng ở 4 khóa (đo được)
+`words_<iso>.json` lưu **10 từ** (Pháp) / 13.650 (Trung) / 21.850 (Anh) / 21.900 (Đức)
+⇒ khóa Pháp chỉ có **2.560 từ khác nhau cho 2.520 ngày** (= 1 từ/ngày) ⇒ **không đạt
+"0 → bản xứ"**. Nguyên nhân: lần fetch đầu dùng bản dịch lô cũ (mất 24/25 từ mỗi lô).
+Đã fetch lại bằng bản dịch lô **đã sửa** (mã ngôn ngữ + tách theo dòng):
+**en · zh · fr · ko · ru · es = 26.000 từ, 100 % có nghĩa tiếng Việt**.
+
+### ② Khóa Hàn chỉ có 450 ngày ⇒ đã dựng lại lên 2.520 ngày
+Trước: 450 ngày · 2.859 từ · 2,4 ngữ pháp/ngày. Sau: **2.520 ngày · 23.118 từ · 3,7 ngữ pháp/ngày**.
+
+### ③ Dựng lại khóa mà KHÔNG mất ảnh/audio đã sinh
+`build_offline_course.py` trước đây ghi đè `vocab` ⇒ mất `image_ref`/`audio_ref` ⇒ app mất
+ảnh/âm thanh đã tải về (tốn hàng giờ TTS). Đã thêm: khi dựng lại, **giữ lại media ref của các
+từ TRÙNG** (đo thật: Pháp giữ 1.071 · Trung 4.167 · Anh 6.467 · Đức 992).
+
+### ④ Kết quả — 8 KHÓA ĐỒNG ĐỀU (đo thật)
+
+| khóa học | ngày | từ khác nhau | câu/ngày | ngữ pháp/ngày |
+|---|---|---|---|---|
+| tiếng_nhật | 2.520 | 24.765 | 11,2 | 3,9 |
+| tiếng_trung | 2.520 | 22.698 | 15,3 | 3,7 |
+| tiếng_anh | 2.520 | 24.075 | 13,1 | 3,8 |
+| tiếng_hàn_quốc | 2.520 | 23.118 | 15,3 | 3,7 |
+| tiếng_nga | 2.520 | 23.805 | 14,5 | 3,7 |
+| tiếng_pháp | 2.520 | 23.968 | 14,1 | 3,8 |
+| tiếng_tây_ban_nha | 2.520 | 23.718 | 14,1 | 3,8 |
+| tiếng_đức | 2.520 | 23.763 | 14,1 | 3,8 |
+
+### ⑤ BUG MANIFEST NGHIÊM TRỌNG (làm mất TOÀN BỘ media)
+`save_index()` ghi vào **tên file tmp CỐ ĐỊNH** `index.json.tmp` cho **mọi tiến trình** ⇒ khi
+2 tiến trình ghi đồng thời: P1 mở file ở chế độ `"w"` (truncate) rồi ghi 86 MB, P2 cũng mở
+file đó ở chế độ `"w"` ⇒ phần đuôi của JSON1 còn sót lại ⇒ `index.json` chứa **2 JSON nối liền**
+⇒ `json.load` lỗi *"Extra data"* ⇒ `load_index()` **nuốt lỗi, trả index RỖNG** ⇒ **mọi khóa
+báo "ảnh 0,0 %, audio 0,0 %"** (đo thật 14/11 22:11).
+
+Đã sửa (3 phần):
+1. `save_index` dùng **tên tmp DUY NHẤT theo PID + thread** ⇒ không process nào ghi đè của ai.
+2. `load_index` khi JSON hỏng ⇒ **tự khôi phục**: thử `.tmp2` / `.bak_reindex` → nếu không được
+   ⇒ `reindex()` dựng lại manifest từ toàn bộ file thật trên đĩa (đã phục hồi **169.560 entry**).
+3. `tools/test_media_manifest.py` — test A: tên tmp duy nhất · B: manifest hỏng ⇒ tự phục hồi
+   (không rỗng) · C: round-trip giữ entry · D: `reindex()` dựng lại từ đĩa.
+
+### ⑥ Thêm 2 lỗi nhỏ khác
+- `fill_media.py --lang` giờ là `action="append"` ⇒ `build_all_courses.py` truyền nhiều khóa
+  thực sự bù được **tất cả** (trước argparse chỉ giữ giá trị CUỐI ⇒ chỉ bù 1 khóa).
+- `build_all_courses.py` thêm **tiếng Nhật** (iso `ja`, dùng EDICT/JMdict — không cần fetch
+  wordfreq) ⇒ 1 lệnh giờ phủ **đủ 8 khóa**.

@@ -1653,3 +1653,20 @@ python -m ai.pipeline --all --mode enrich --full     # IPA/khẩu hình (cần q
 test_gui_smoke **15/15** · py_compile OK.
 
 **Commit:** `7.39` → `7.40` (media) → `7.41` (pipeline+ui) → `7.42` (ui+test) — đã push `master`.
+
+
+---
+
+## 2026-11-14 (buổi tối) — Đồng bộ nội dung 8 khóa + fix manifest media hỏng
+
+- **Nguồn từ bị hỏng ở 4 khóa** (Pháp chỉ còn 10 từ!) ⇒ fetch lại bằng bản dịch lô đã sửa:
+  **en · zh · fr · ko · ru · es = 26.000 từ, 100 % nghĩa Việt**.
+- **Khóa Hàn 450 → 2.520 ngày** (23.118 từ, 3,7 ngữ pháp/ngày).
+- **`build_offline_course.py` giữ lại media ref** khi dựng lại (không mất ảnh/audio đã sinh).
+- **Kết quả: 8 khóa ĐỒNG ĐỀU** — mỗi khóa 2.520 ngày · 22.7k-24.8k từ khác nhau ·
+  11-15 câu/ngày · 3,7-3,9 ngữ pháp/ngày.
+- **BUG manifest nghiêm trọng**: `save_index` dùng chung tên `.tmp` cho mọi process ⇒ 2 JSON
+  nối liền ⇒ `json.load` lỗi ⇒ `load_index` trả index rỗng ⇒ **mất sạch media** (mọi khóa
+  báo 0,0 %). Đã sửa: tmp duy nhất theo PID + **tự phục hồi** (file dự phòng → reindex từ đĩa).
+  Đã phục hồi **169.560 entry**. Test mới `tools/test_media_manifest.py`.
+- `fill_media.py --lang` nhận nhiều khóa; `build_all_courses.py` thêm tiếng Nhật (EDICT).
