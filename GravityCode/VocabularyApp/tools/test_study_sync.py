@@ -195,8 +195,10 @@ def main() -> int:
                 root.geometry("1400x900")
                 root.update_idletasks()
                 root.update()
-                names = ("Sinh khóa học AI", "Xóa khóa & tiến độ", "Trộn thẻ",
-                         "Tải lại", "Trang học (web)")
+                # Gói 7 (2026-11-14): nhãn nút ĐÃ rút gọn + nhóm lại
+                # (Học · Khóa học · Nguy hiểm). Cập nhật nhãn ở đây.
+                names = ("Sinh AI", "Xóa", "Trộn thẻ",
+                         "Tải lại", "Trang học")
                 found = {}
 
                 def _walk(w):

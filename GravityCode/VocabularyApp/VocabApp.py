@@ -409,6 +409,36 @@ def ghost_btn(parent, text, w=110, h=34, cmd=None, **kw):
     return btn(parent, text, color=C["card2"], hov=C["card3"], w=w, h=h, cmd=cmd, **kw)
 
 
+def set_scroll_visible(scrollable, visible: bool) -> bool:
+    """Ẩn/hiện một CTkScrollableFrame — PHẢI thao tác `_parent_canvas`.
+
+    LÝ do (đo thật 14/11): CustomTkinter 6.0 dựng CTkScrollableFrame như sau:
+        _parent_frame
+          └─ _parent_canvas (Canvas)  ← GRID vào _parent_frame  ⇒ quyết định HIỂN THỊ
+               └─ window item → chính frame (pack trong canvas, KHÔNG quyết định hiển thị)
+    ⇒ gọi `scrollable.pack_forget()` KHÔNG ẩn panel (canvas vẫn nằm trong
+    grid) ⇒ panel rỗng vẫn chiếm 248px. Phải `grid_remove()` canvas.
+
+    Trả True nếu thao tác thành công.
+    """
+    canvas = getattr(scrollable, "_parent_canvas", None)
+    bar = getattr(scrollable, "_scrollbar", None)
+    try:
+        if visible:
+            if canvas is not None:
+                canvas.grid()
+            if bar is not None:
+                bar.grid()
+        else:
+            if canvas is not None:
+                canvas.grid_remove()
+            if bar is not None:
+                bar.grid_remove()
+        return True
+    except Exception:
+        return False
+
+
 class ToolTip:
     """Tooltip nhẹ cho CTkButton (Tk không có sẵn).
 
@@ -6457,12 +6487,12 @@ class StudyTab(ctk.CTkFrame):
         self._update_media_cover(lesson)
         mode = getattr(self, "_study_mode", "full")
         if mode == "dialogue":
-            self.media_strip.pack_forget()
+            set_scroll_visible(self.media_strip, False)
             return
         if not lesson:
             # Gói 7 (2026-11-14): panel RỖNG làm giao diện rối ⇒ ẨN hẳn thay
             # vì hiện 1 dòng "— chưa có bài học —" trong khung 248px.
-            self.media_strip.pack_forget()
+            set_scroll_visible(self.media_strip, False)
             return
         if mode == "grammar":
             self._render_grammar_rows(lesson)
@@ -6478,7 +6508,7 @@ class StudyTab(ctk.CTkFrame):
             13, "bold", C["accent"]).pack(side="left")
         if not items:
             # Gói 7 (2026-11-14): ngày không có từ vựng ⇒ ẨN panel rỗng.
-            self.media_strip.pack_forget()
+            set_scroll_visible(self.media_strip, False)
             return
         try:
             from customtkinter import CTkImage
@@ -6487,7 +6517,7 @@ class StudyTab(ctk.CTkFrame):
         except Exception as e:
             lbl(self.media_strip, f"(ảnh tạm tắt: {e})", 11,
                 color=C["muted"]).pack(padx=10, pady=20)
-            self.media_strip.pack(fill="x", pady=(0, 6), before=self.lesson_text)
+            set_scroll_visible(self.media_strip, True)
             return
         media_index = self._media_index()
         for i, it in enumerate(items):
@@ -6528,7 +6558,7 @@ class StudyTab(ctk.CTkFrame):
             # Click bất kỳ đâu trên dòng (trừ nút ▶) → mở chi tiết MediaViewerDialog
             for wdg in (row, thumb, tl):
                 wdg.bind("<Button-1>", lambda _e, ii=i: self._open_media_viewer(ii))
-        self.media_strip.pack(fill="x", pady=(0, 6), before=self.lesson_text)
+        set_scroll_visible(self.media_strip, True)
 
     def _render_grammar_rows(self, lesson):
         """Danh sách ngữ pháp chọn được: mẫu câu (📝) + bài ngữ pháp (📐).
@@ -6576,7 +6606,7 @@ class StudyTab(ctk.CTkFrame):
             for wdg in (row, badge, tl):
                 wdg.bind("<Button-1>",
                          lambda _e, ii=i, ee=entries: self._open_grammar_dialog(ii, ee))
-        self.media_strip.pack(fill="x", pady=(0, 6), before=self.lesson_text)
+        set_scroll_visible(self.media_strip, True)
 
     def _open_grammar_dialog(self, idx, entries):
         """Mở chi tiết 1 mục ngữ pháp (←/→ chuyển mục, Esc đóng)."""
