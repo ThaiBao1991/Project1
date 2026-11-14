@@ -162,6 +162,23 @@ def main() -> int:
     course["level"] = course.get("level") or "N5"
     course["source"] = "offline"
     old = {int(d.get("day", 0)): d for d in (course.get("days") or [])}
+    # FIX 2026-11-14 (Gói 7): GIỮ media ref của các từ TRÙNG khi dựng lại.
+    # Trước đây dựng lại offline ⇒ ghi đè vocab ⇒ mất image_ref/audio_ref ⇒
+    # app không hiện ảnh/âm thanh đã sinh (đo thật: khóa Pháp có 100 % media
+    # nhưng dựng lại sẽ mất sạch).
+    media_refs: dict = {}
+    for _dd in old.values():
+        for _v in (_dd.get("vocab") or []):
+            if not isinstance(_v, dict):
+                continue
+            _w = str(_v.get("word") or "").strip()
+            if not _w:
+                continue
+            _refs = {k: _v.get(k) for k in
+                     ("image_ref", "audio_ref", "meaning_audio_ref") if _v.get(k)}
+            if _refs:
+                media_refs.setdefault(_w, {}).update(_refs)
+    n_kept = 0
     merged = []
     for d in day_list:
         prev = old.get(d["day"])
@@ -170,6 +187,17 @@ def main() -> int:
             # có nội dung nguồn offline (để lần chạy sau có nghĩa Việt mới
             # thì cập nhật được).
             d = dict(prev)
+        else:
+            for _v in (d.get("vocab") or []):
+                if not isinstance(_v, dict):
+                    continue
+                _refs = media_refs.get(str(_v.get("word") or "").strip())
+                if not _refs:
+                    continue
+                for _k, _val in _refs.items():
+                    if not _v.get(_k):
+                        _v[_k] = _val
+                        n_kept += 1
         merged.append(d)
     for d in old.values():
         if int(d.get("day", 0)) > len(day_list):
@@ -196,7 +224,8 @@ def main() -> int:
                         {"dialogues": d["dialogue"], "source": "offline"},
                         day=d["day"], status=STATUS_DONE)
     print(f"\n✅ Đã ghi {len(merged)} ngày vào {course_db.course_path(args.lang)} "
-          f"(+ checkpoint content/quiz/dialogue)")
+          f"(+ checkpoint content/quiz/dialogue)"
+          + (f" · giữ lại {n_kept} media ref" if n_kept else ""))
     return 0
 
 
