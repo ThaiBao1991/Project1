@@ -32,15 +32,16 @@
         dataBase: "data",
 
         // Media theo gói .zip trên GitHub Releases: slug → tag release
+        // (tag ASCII: "tiếng_nhật" → "data-tieng-nhat-v1")
         releases: {
-            "tiếng_nhật": "data-tiếng_nhật-v1",
-            "tiếng_trung": "data-tiếng_trung-v1",
-            "tiếng_anh": "data-tiếng_anh-v1",
-            "tiếng_hàn_quốc": "data-tiếng_hàn_quốc-v1",
-            "tiếng_nga": "data-tiếng_nga-v1",
-            "tiếng_pháp": "data-tiếng_pháp-v1",
-            "tiếng_tây_ban_nha": "data-tiếng_tây_ban_nha-v1",
-            "tiếng_đức": "data-tiếng_đức-v1"
+            "tiếng_nhật": "data-tieng-nhat-v1",
+            "tiếng_trung": "data-tieng-trung-v1",
+            "tiếng_anh": "data-tieng-anh-v1",
+            "tiếng_hàn_quốc": "data-tieng-han-quoc-v1",
+            "tiếng_nga": "data-tieng-nga-v1",
+            "tiếng_pháp": "data-tieng-phap-v1",
+            "tiếng_tây_ban_nha": "data-tieng-tay-ban-nha-v1",
+            "tiếng_đức": "data-tieng-duc-v1"
         },
 
         // Tự tải gói media khi mở ngày thuộc gói đó (điện thoại: bật 4G/WiFi)

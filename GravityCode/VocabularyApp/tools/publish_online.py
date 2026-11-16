@@ -31,11 +31,14 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import shutil
 import sys
 import time
+import unicodedata
 import urllib.request
 import urllib.error
+import urllib.parse
 import zipfile
 from datetime import datetime
 
@@ -252,14 +255,46 @@ def _export_vocab(slug: str, limit_per_day: int = 0) -> list:
     return out
 
 
+def ascii_slug(slug: str) -> str:
+    """Slug ASCII cho tag release (URL GitHub không nhận Unicode thoải mái).
+
+    'tiếng_nhật' → 'tieng-nhat'  (bỏ dấu, space → '-')
+    """
+    s = unicodedata.normalize("NFD", slug or "")
+    s = "".join(c for c in s if not unicodedata.combining(c))
+    s = s.replace("_", "-").replace(" ", "-")
+    s = re.sub(r"[^A-Za-z0-9-]", "", s).strip("-").lower()
+    return s or "lang"
+
+
+def release_tag(slug: str, ver: str = "v1") -> str:
+    return f"data-{ascii_slug(slug)}-{ver}"
+
+
 def _github_token() -> str:
-    """Lấy token GitHub từ settings.json của AskCpl (đã mã hoá ENC:)."""
+    """Lấy token GitHub có quyền GHI lên repo.
+
+    ƯU TIÊN 1: credential git đã lưu (`git credential fill`) — đây là token
+    của chính user sở hữu repo ⇒ có scope `repo` (đo thật: token trong
+    settings.json thuộc user KHÁC ⇒ POST /releases trả 404).
+    ƯU TIÊN 2: settings.json (AskCpl) — dùng cho repo khác.
+    ƯU TIÊN 3: $env:GITHUB_TOKEN.
+    """
     import base64
-    cands = [
-        os.path.join(BASE, "..", "Download", "AskCpl", "settings.json"),
-        os.path.join(BASE, "settings.json"),
-    ]
-    for p in cands:
+    import subprocess
+    try:
+        p = subprocess.run(["git", "credential", "fill"],
+                           input="protocol=https\nhost=github.com\n\n",
+                           capture_output=True, text=True, timeout=60)
+        for line in (p.stdout or "").splitlines():
+            if line.startswith("password="):
+                tok = line.split("=", 1)[1].strip()
+                if tok:
+                    return tok
+    except Exception:
+        pass
+    for p in (os.path.join(BASE, "..", "Download", "AskCpl", "settings.json"),
+              os.path.join(BASE, "settings.json")):
         p = os.path.abspath(p)
         if not os.path.isfile(p):
             continue
@@ -300,7 +335,7 @@ def upload_release(slug: str, tag: str, token: str) -> int:
 
     # tạo (hoặc dùng lại) release
     try:
-        rel = _req(f"{api}/releases/tags/{tag}")
+        rel = _req(f"{api}/releases/tags/{urllib.parse.quote(tag)}")
         _log(f"release {tag} đã tồn tại — dùng lại")
     except urllib.error.HTTPError:
         rel = _req(f"{api}/releases", {
@@ -315,10 +350,17 @@ def upload_release(slug: str, tag: str, token: str) -> int:
         if fn in existing:
             continue
         fp = os.path.join(zdir, fn)
-        url = f"{api}/releases/{rel['id']}/assets?name={urllib.parse.quote(fn)}"
+        if os.path.getsize(fp) == 0:
+            continue          # gói rỗng (media chưa bù tới) ⇒ bỏ qua
+        # ⚠ Upload asset phải dùng host **uploads.github.com** (đo thật 17/11:
+        # POST api.github.com/repos/.../releases/{id}/assets trả **404 Not Found**
+        # với repo này, còn uploads.github.com thì OK).
+        url = (f"https://uploads.github.com/repos/{GITHUB_REPO}/releases/"
+               f"{rel['id']}/assets?name={urllib.parse.quote(fn)}")
         h = dict(headers)
         h["Content-Type"] = "application/octet-stream"
-        data = open(fp, "rb").read()
+        with open(fp, "rb") as fh:
+            data = fh.read()
         r = urllib.request.Request(url, data=data, headers=h, method="POST")
         with urllib.request.urlopen(r, timeout=3600) as resp:
             resp.read()
@@ -361,7 +403,7 @@ def main() -> int:
                  [s for s in sorted(os.listdir(OUT))
                   if os.path.isdir(os.path.join(OUT, s, "media"))])
         for s in slugs:
-            upload_release(s, args.tag or f"data-{s}-v1", tok)
+            upload_release(s, args.tag or release_tag(s), tok)
     return 0
 
 

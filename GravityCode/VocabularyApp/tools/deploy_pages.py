@@ -43,7 +43,20 @@ def _log(m):
 
 
 def _token() -> str:
+    """Token GitHub có quyền ghi — ưu tiên credential git (đúng user sở hữu repo)."""
     import os
+    import subprocess
+    try:
+        p = subprocess.run(["git", "credential", "fill"],
+                           input="protocol=https\nhost=github.com\n\n",
+                           capture_output=True, text=True, timeout=60)
+        for line in (p.stdout or "").splitlines():
+            if line.startswith("password="):
+                tok = line.split("=", 1)[1].strip()
+                if tok:
+                    return tok
+    except Exception:
+        pass
     for p in (os.path.join(BASE, "..", "Download", "AskCpl", "settings.json"),
               os.path.join(BASE, "settings.json")):
         p = os.path.abspath(p)
