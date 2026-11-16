@@ -1,4 +1,5 @@
 let currentLanguage = "";
+let currentView = "list";   // view đang hiện (Gói 10: dùng để nạp lại khóa học khi đổi ngôn ngữ)
 let vocabularies = [];
 let filteredVocabs = [];
 let flashcardIndex = 0;
@@ -36,6 +37,7 @@ const btnReview = document.getElementById("btn-review");
 const viewReview = document.getElementById("review-view");
 
 function switchView(name) {
+    currentView = name;
     const views = {
         list:      [btnList, viewList],
         flashcard: [btnFlashcard, viewFlashcard],
@@ -136,9 +138,15 @@ async function loadLanguage(lang) {
         if (!res || !res.ok) throw new Error("Could not load vocab data");
         const data = await res.json();
         vocabularies = data.vocabularies || [];
-        
+
         populateFilters();
         applyFilters();
+        // Gói 10 (17/11): nếu đang ở tab "Khóa học AI" mà ngôn ngữ vừa
+        // đổi ⇒ nạp lại khóa học (trước đây bị race: ensureCourseLoaded chạy
+        // lúc currentLanguage còn RỖNG ⇒ "Chưa có khóa học AI").
+        if (currentView === "course") {
+            try { await ensureCourseLoaded(); } catch (e) { }
+        }
     } catch (e) {
         console.error(e);
         listContainer.innerHTML = (location.protocol === "file:")
@@ -477,13 +485,135 @@ function saveCourseProgress(p) {
 let courseIndex = null;      // [{day,title,phase,topic}]
 let courseDayCache = {};     // day → lesson
 
+// ─── BẢN ONLINE (Gói 10): nguồn dữ liệu tĩnh + gói media .zip ───────────────
+const VOCAB_DATA_CFG = (typeof window !== "undefined" && window.VOCAB_DATA) || null;
+let staticCourseMeta = null;              // index.json của khóa (chế độ static)
+let staticMediaMap = {};                  // ref → rel_path (của ngày đang xem)
+let currentLessonDay = 1;                 // ngày đang xem (để tìm gói media)
+let mediaBundles = {};                    // "slug|m01" → { "d0010/x.webp": BlobURL }
+let mediaBundlePromise = {};              // chống tải trùng gói
+
+function _cfgMode() {
+    return (VOCAB_DATA_CFG && VOCAB_DATA_CFG.mode) || "local";
+}
+
+/** Đường dẫn gói .zip của 1 (khóa, nhóm 30 ngày) trên GitHub Releases. */
+function _bundleUrl(slug, monthKey) {
+    if (!VOCAB_DATA_CFG || !VOCAB_DATA_CFG.releases) return "";
+    const tag = VOCAB_DATA_CFG.releases[slug];
+    if (!tag) return "";
+    return `https://github.com/${VOCAB_DATA_CFG.repo}/releases/download/${tag}/m${monthKey}.zip`;
+}
+
+/** Danh sách asset của 1 release (cache) — qua api.github.com (CORS OK). */
+let releaseCache = {};
+async function _releaseAssets(tag) {
+    if (releaseCache[tag]) return releaseCache[tag];
+    const r = await fetch(`https://api.github.com/repos/${VOCAB_DATA_CFG.repo}/releases/tags/${encodeURIComponent(tag)}`);
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    const j = await r.json();
+    releaseCache[tag] = j.assets || [];
+    return releaseCache[tag];
+}
+
+/**
+ * Tải 1 gói .zip từ GitHub Releases.
+ * ⚠ KHÔNG dùng `github.com/.../releases/download/...` — bị CORS chặn (đo thật:
+ *   "blocked by CORS policy: No 'Access-Control-Allow-Origin'"). Phải đi qua
+ *   api.github.com (có CORS) với header Accept: application/octet-stream.
+ */
+async function _fetchBundleBytes(slug, monthKey) {
+    const tag = VOCAB_DATA_CFG.releases[slug];
+    if (!tag) return null;
+    const assets = await _releaseAssets(tag);
+    const name = `m${monthKey}.zip`;
+    const a = assets.find(x => x.name === name);
+    if (!a) return null;
+    const r = await fetch(`https://api.github.com/repos/${VOCAB_DATA_CFG.repo}/releases/assets/${a.id}`,
+        { headers: { Accept: "application/octet-stream" } });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    return await r.arrayBuffer();
+}
+
+/** Tải + giải nén 1 gói media (nếu chưa có) → map đường dẫn → object URL. */
+async function ensureMediaBundle(slug, monthKey) {
+    if (_cfgMode() !== "static") return null;
+    const key = `${slug}|m${monthKey}`;
+    if (mediaBundles[key]) return mediaBundles[key];
+    if (mediaBundlePromise[key]) return mediaBundlePromise[key];
+    mediaBundlePromise[key] = (async () => {
+        try {
+            if (!(window.VOCAB_ZIP && VOCAB_ZIP.supported())) {
+                console.warn("Bộ giải nén ZIP không khả dụng (DecompressionStream)");
+                return null;
+            }
+            const buf = await _fetchBundleBytes(slug, monthKey);
+            if (!buf) return null;
+            const files = await VOCAB_ZIP.read(buf);
+            const map = {};
+            for (const [name, bytes] of Object.entries(files)) {
+                // "d0010/word_00_x.webp" → "media/<slug>/d0010/word_00_x.webp"
+                map[`media/${slug}/${name}`] = URL.createObjectURL(
+                    new Blob([bytes], { type: _mimeOf(name) }));
+            }
+            mediaBundles[key] = map;
+            return map;
+        } catch (e) {
+            console.warn("Không tải được gói media", key, e);
+            return null;
+        } finally {
+            delete mediaBundlePromise[key];
+        }
+    })();
+    return mediaBundlePromise[key];
+}
+
+function _mimeOf(name) {
+    if (name.endsWith(".webp")) return "image/webp";
+    if (name.endsWith(".png")) return "image/png";
+    if (name.endsWith(".jpg") || name.endsWith(".jpeg")) return "image/jpeg";
+    if (name.endsWith(".mp3")) return "audio/mpeg";
+    if (name.endsWith(".wav")) return "audio/wav";
+    return "application/octet-stream";
+}
+
+/** Ngày thuộc nhóm 30 ngày nào (trùng với tools/publish_online.py). */
+function _monthKeyOf(day) {
+    return String(Math.floor((Number(day) - 1) / 30) + 1).padStart(2, "0");
+}
+
+
 async function ensureCourseLoaded() {
     const slug = slugOf(currentLanguage);
+    if (!slug) {
+        // Gói 10: chưa chọn được ngôn ngữ (đang tải danh sách) ⇒ chờ, đừng
+        // báo "Chưa có khóa học AI" (sai lệch thông tin).
+        return;
+    }
     if (courseData && courseSlug === slug) { renderCourseShell(); return; }
     courseSlug = slug;
     courseData = null;
     courseIndex = null;
     courseDayCache = {};
+
+    // 0) BẢN ONLINE (GitHub Pages) — nội dung tĩnh theo ngày.
+    //    data/<slug>/index.json + data/<slug>/day/<n>.json  (~14 KB/ngày)
+    if (VOCAB_DATA_CFG && VOCAB_DATA_CFG.mode === "static") {
+        try {
+            const base = `${VOCAB_DATA_CFG.dataBase}/${encodeURIComponent(slug)}`;
+            const ir = await fetch(`${base}/index.json`).catch(() => null);
+            if (ir && ir.ok) {
+                const idx = await ir.json();
+                if (idx && Array.isArray(idx.days) && idx.days.length) {
+                    courseIndex = idx.days;
+                    staticCourseMeta = idx;
+                    courseData = { days: idx.days, level: idx.level || "" };
+                    renderCourseShell();
+                    return;
+                }
+            }
+        } catch (e) { /* không có dữ liệu tĩnh ⇒ thử API bên dưới */ }
+    }
 
     // 1) API nhẹ: index + tải từng ngày
     try {
@@ -578,6 +708,14 @@ async function loadMediaIndex(day) {
 
 function mediaEntry(ref) {
     if (!ref) return null;
+    // BẢN ONLINE: ref → đường dẫn file lấy từ `media_map` của ngày (đã tải).
+    if (_cfgMode() === "static") {
+        const rel = staticMediaMap[ref];
+        if (rel) return { rel_path: rel, _static: true };
+        // Chưa tải gói media ⇒ thử đường dẫn trực tiếp (nếu bản deploy có
+        // kèm media) — nếu không thì trả null ⇒ hiện "chưa có media".
+        return null;
+    }
     let r = (mediaIndex && mediaIndex.items) ? mediaIndex.items[ref] : null;
     if (r) return r;
     // Parity desktop: ref không phải m_* → chấp nhận rel_path kho data/
@@ -594,6 +732,14 @@ function mediaUrl(ref) {
     if (!e) return "";
     if (e.url) return e.url;
     if (!e.rel_path) return "";
+    // Bản ONLINE: file nằm trong gói .zip đã giải nén ⇒ dùng object URL.
+    if (e._static) {
+        const slug = slugOf(currentLanguage);
+        const mk = _monthKeyOf(currentLessonDay || 1);
+        const bundle = mediaBundles[`${slug}|m${mk}`];
+        if (bundle && bundle[e.rel_path]) return bundle[e.rel_path];
+        return "";      // chưa có gói media ⇒ không hiện ảnh/audio
+    }
     // rel_path = "media/<slug>/d0001/xxx.webp" ; web root chứa "data/"
     return "data/" + e.rel_path;
 }
@@ -673,22 +819,45 @@ async function renderCourseDay(dayNum) {
         } else if (courseIndex) {
             courseContent.innerHTML =
                 `<p style="color:var(--text-muted);padding:20px;text-align:center;">⏳ Đang tải Ngày ${dayNum}…</p>`;
-            try {
-                const r = await fetch(`api/vocab/course/${encodeURIComponent(slugOf(currentLanguage))}/day/${dayNum}`);
-                if (r.ok) {
-                    const j = await r.json();
-                    if (j && j.ok && j.lesson) {
-                        lesson = j.lesson;
-                        courseDayCache[dayNum] = lesson;
+            // Bản ONLINE: nội dung tĩnh theo ngày (data/<slug>/day/<n>.json)
+            if (_cfgMode() === "static") {
+                try {
+                    const base = `${VOCAB_DATA_CFG.dataBase}/${encodeURIComponent(slugOf(currentLanguage))}`;
+                    const r = await fetch(`${base}/day/${String(dayNum).padStart(4, "0")}.json`);
+                    if (r.ok) {
+                        const j = await r.json();
+                        if (j && (j.vocab || j.quiz || j.dialogue)) {
+                            lesson = j;
+                            courseDayCache[dayNum] = lesson;
+                            staticMediaMap = j.media_map || staticMediaMap;
+                        }
                     }
-                }
-            } catch (e) { /* giữ nguyên nội dung cũ */ }
+                } catch (e) { /* không có ⇒ thử API bên dưới */ }
+            }
+            if (!lesson) {
+                try {
+                    const r = await fetch(`api/vocab/course/${encodeURIComponent(slugOf(currentLanguage))}/day/${dayNum}`);
+                    if (r.ok) {
+                        const j = await r.json();
+                        if (j && j.ok && j.lesson) {
+                            lesson = j.lesson;
+                            courseDayCache[dayNum] = lesson;
+                        }
+                    }
+                } catch (e) { /* giữ nguyên nội dung cũ */ }
+            }
         }
     }
     if (!lesson) return;
+    currentLessonDay = Number(dayNum) || 1;
     // Gói 9 (17/11): nạp manifest media CỦA NGÀY NÀY (vài KB) trước khi vẽ
     // ⇒ không phải tải manifest 103 MB. Nếu API lỗi ⇒ fallback tải file.
-    try { await loadMediaIndex(dayNum); } catch (e) { /* bỏ qua */ }
+    if (_cfgMode() !== "static") {
+        try { await loadMediaIndex(dayNum); } catch (e) { /* bỏ qua */ }
+    } else if (VOCAB_DATA_CFG.autoFetchMedia) {
+        // Bản ONLINE: tải gói .zip của nhóm 30 ngày chứa ngày này (~11 MB)
+        try { await ensureMediaBundle(slugOf(currentLanguage), _monthKeyOf(dayNum)); } catch (e) { }
+    }
     const prog = getCourseProgress();
     const alreadyDone = new Set(prog.completed_days || []).has(Number(dayNum));
 
