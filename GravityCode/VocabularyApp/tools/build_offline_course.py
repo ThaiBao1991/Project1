@@ -205,6 +205,22 @@ def main() -> int:
     merged.sort(key=lambda d: int(d.get("day", 0)))
     course["days"] = merged
     course["total_days"] = len(merged)
+    # FIX 2026-11-17 (Gói 9): ĐỒNG BỘ `plan` theo số ngày mới.
+    # Trước đây tool chỉ ghi `days` mà QUÊN `plan` ⇒ plan còn số ngày CŨ
+    # (259/345/381/450) ⇒ pipeline chỉ xử lý được plan đó ⇒ log "PAUSED 0/0
+    # ngày" / "259/259 ngày" và media không bù được phần còn lại (đo thật 17/11).
+    _plan = []
+    for _d in merged:
+        try:
+            _n = int(_d.get("day", 0))
+        except Exception:
+            continue
+        _ph, _lvl, _ord = phase_for_day(_n, len(merged))
+        _plan.append({"day": _n, "title": _d.get("title") or f"{_ph} — Ngày {_n}",
+                      "phase": _ph, "level": _lvl,
+                      "words": [v.get("word") for v in (_d.get("vocab") or [])
+                                if isinstance(v, dict)]})
+    course["plan"] = _plan
     course_db.save_course(args.lang, course, backup=True)
 
     for d in day_list:

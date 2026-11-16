@@ -121,13 +121,23 @@ def state_path(language: str) -> str:
 
 # ─── Ghi/đọc atomic ───────────────────────────────────────────────────────────
 def atomic_write_json(path: str, data) -> None:
+    """Ghi atomic — tên tmp DUY NHẤT theo PID + thread.
+
+    FIX 2026-11-17 (Gói 9): tên tmp cố định ⇒ 2 process ghi cùng file ⇒ file
+    bị TRUNCATE (0 byte) hoặc JSON nối liền. Đo thật: course.json của 3 khóa
+    bị ghi thành 0 byte ⇒ mất trắng khóa học.
+    """
+    import threading
     with _WRITE_LOCK:
         os.makedirs(os.path.dirname(path), exist_ok=True)
-        tmp = path + ".tmp"
+        tmp = f"{path}.tmp.{os.getpid()}.{threading.get_ident()}"
         with open(tmp, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
             f.flush()
-            os.fsync(f.fileno())
+            try:
+                os.fsync(f.fileno())
+            except OSError:
+                pass
         import time as _t
     last = None
     for _i in range(12):
