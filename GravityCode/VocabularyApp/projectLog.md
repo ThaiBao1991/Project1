@@ -1705,3 +1705,18 @@ file 0 byte. (Đây là bug thứ 3 cùng loại với bug manifest — đã s�
 trung từ nguồn tốt.
 
 **Kết quả: 8/8 khóa — 2.520 ngày · plan 2.520 · 22,7k-24,8k từ · 100 % nghĩa Việt.**
+
+
+---
+
+## 2026-11-17 (sáng) — Manifest mất 150k entry ⇒ mất sạch audio ở cả 8 khóa
+
+**Hiện tượng:** check_done báo audio 0,0 % ở cả 8 khóa, nhưng **144.411 file mp3
+vẫn còn nguyên trên đĩa** ⇒ chỉ manifest bị ghi đè (169.560 → 18.323 entry, chỉ ảnh).
+
+**Nguyên nhân:** `save_index()` ghi thẳng cache RAM của từng tiến trình ⇒ mất
+entry của tiến trình khác. (Bug thứ 4 cùng loại "nhiều process ghi chung file".)
+
+**Đã sửa:** ① `save_index` LUÔN đọc đĩa → hợp nhất → ghi (đĩa là nguồn sự thật)
+② `_recover_index` luôn reindex từ đĩa ③ `reindex` đọc đĩa trực tiếp (tránh đệ quy).
+Test media_manifest **6/6** (thêm case "không được làm mất entry cũ trên đĩa").

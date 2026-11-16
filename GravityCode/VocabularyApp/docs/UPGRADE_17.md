@@ -1240,3 +1240,36 @@ Kết quả lúc 17/11 04:55: **8 khóa · 0 vấn đề**.
 
 Toàn bộ suite: atomic_write **5/5** · media_manifest **5/5** · ui_toolbar **7/7** ·
 study_sync **39/39** · gui_smoke **15/15** · day_nav_loop **930/930**.
+
+
+---
+
+## 7.34. GÓI 9 (tiếp) — MANIFEST MẤT 150K ENTRY ⇒ MẤT SẠCH TOÀN BỘ AUDIO (2026-11-17)
+
+**Hiện tượng (đo thật 05:07):** `check_done` báo **audio 0,0 %** ở **cả 8 khóa**
+(nhưng 12 phút trước `verify_integrity` thấy audio ref bình thường).
+
+**Chẩn đoán:**
+- File trên đĩa: **144.411 mp3 (2,4 GB)** + 66.164 ảnh ⇒ **file media còn nguyên**.
+- Manifest `index.json`: chỉ **18.323 entry, toàn bộ là `image`** (trước đó 169.560).
+⇒ **Manifest bị ghi đè**, không phải mất file.
+
+**Nguyên nhân:** `save_index()` ghi thẳng **cache RAM của tiến trình đó**.
+Mỗi tiến trình giữ cache riêng ⇒ khi tiến trình này ghi, các entry của tiến trình
+khác + entry đọc từ đĩa trước đó **bị mất**. Đây là bug thứ 4 cùng loại
+("nhiều tiến trình ghi chung 1 file").
+
+**Đã sửa (3 phần):**
+1. `save_index()` **LUÔN đọc đĩa → hợp nhất → ghi**. File đĩa là **nguồn sự thật
+   duy nhất**; không bao giờ ghi một bản nhỏ hơn bản đang có.
+2. `_recover_index()` **luôn reindex từ đĩa** (không dùng file dự phòng cũ —
+   dự phòng có thể là bản thiếu, chính là nguồn gây mất 150k entry).
+3. `reindex()` đọc đĩa **trực tiếp** (không qua `load_index()`) ⇒ tránh đệ quy
+   vô hạn `load_index → _recover_index → reindex`.
+
+**Test:** `tools/test_media_manifest.py` **6/6** (thêm case: `save_index` với bản
+nhỏ hơn **KHÔNG được làm mất** entry đang có trên đĩa).
+
+**Khôi phục:** rebuild manifest từ 211.000 file trên đĩa ⇒ ref tính lại bằng
+đúng công thức `m_ + hash(rel_path + sha256)` ⇒ **khớp với ref trong course.json**
+⇒ app hiện lại đủ ảnh + âm thanh.
