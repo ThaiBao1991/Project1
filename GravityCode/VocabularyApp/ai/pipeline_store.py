@@ -46,7 +46,9 @@ STATE_SCHEMA = "vocabapp.pipeline.state.v1"
 JOBS_SCHEMA = "vocabapp.jobs.v1"
 
 # Số bản backup giữ lại cho course.json / progress.json
-BACKUP_KEEP = 5
+# FIX 2026-11-17 (Gói 9): giữ 2 bản thay vì 5 — mỗi khóa ~50 MB ⇒ 5 bản ×
+# 8 khóa = ~2 GB rác. Đo thật: tmp+bak chiếm 1.057 MB (14 % data/).
+BACKUP_KEEP = 2
 
 # ─── Stage ────────────────────────────────────────────────────────────────────
 STAGE_PROFILE = "profile"

@@ -97,6 +97,52 @@ def integrity() -> None:
         _log(f"   verify_integrity lỗi: {e}")
 
 
+WATCHDOG_LOCK = os.path.join(LOG_DIR, "watchdog.lock")
+
+
+def _pid_alive(pid: int) -> bool:
+    try:
+        out = subprocess.run(["tasklist", "/FI", f"PID eq {pid}"],
+                             capture_output=True, text=True, timeout=25)
+        return str(pid) in (out.stdout or "")
+    except Exception:
+        return False
+
+
+def acquire_watchdog_lock() -> bool:
+    """Chỉ 1 watchdog chạy (Task Scheduler "chạy khi khởi động" + chạy tay
+    có thể trùng ⇒ 2 tiến trình cùng ghi course.json ⇒ race)."""
+    os.makedirs(LOG_DIR, exist_ok=True)
+    if os.path.isfile(WATCHDOG_LOCK):
+        try:
+            with open(WATCHDOG_LOCK, encoding="utf-8") as f:
+                old = int((f.read() or "0").strip() or 0)
+        except Exception:
+            old = 0
+        if old and old != os.getpid() and _pid_alive(old):
+            _log(f"⏭ Đã có watchdog khác đang chạy (PID {old}) — thoát.")
+            return False
+        try:
+            os.remove(WATCHDOG_LOCK)
+        except OSError:
+            pass
+    try:
+        with open(WATCHDOG_LOCK, "w", encoding="utf-8") as f:
+            f.write(str(os.getpid()))
+    except OSError:
+        pass
+    return True
+
+
+def release_watchdog_lock() -> None:
+    try:
+        with open(WATCHDOG_LOCK, encoding="utf-8") as f:
+            if int((f.read() or "0").strip() or 0) == os.getpid():
+                os.remove(WATCHDOG_LOCK)
+    except Exception:
+        pass
+
+
 def media_lock_busy() -> bool:
     """Job bù media đang chạy? (đọc lock PID của tools/fill_media.py)
 
@@ -131,7 +177,16 @@ def main() -> int:
     args = ap.parse_args()
     langs = [args.lang] if args.lang else ALL_LANGS
     os.makedirs(LOG_DIR, exist_ok=True)
+    if not acquire_watchdog_lock():
+        return 0
     _log(f"=== WATCHDOG bắt đầu · khóa: {', '.join(langs)} ===")
+    try:
+        return _loop(langs, args)
+    finally:
+        release_watchdog_lock()
+
+
+def _loop(langs, args) -> int:
     while True:
         t0 = time.time()
         _log("──────── VÒNG: AI + MEDIA XEN KẼ (mỗi khóa) ────────")
@@ -142,6 +197,13 @@ def main() -> int:
                  "(media 0 quota, làm được mọi lúc; AI chờ vòng sau).")
         else:
             for lg in langs:
+                # FIX 2026-11-17 (Gói 9): kiểm tra lock media TRƯỚC **MỖI KHÓA**
+                # (trước đây chỉ 1 lần đầu vòng ⇒ job media có thể khởi động
+                # giữa vòng ⇒ 2 tiến trình cùng ghi course.json của 1 khóa).
+                if media_lock_busy():
+                    _log(f"⏸ Job bù media đang chạy — bỏ qua AI {lg} "
+                         f"(media 0 quota, làm được mọi lúc).")
+                    break
                 # Timeout 45 phút/khóa: hết quota thì bỏ qua (checkpoint đã lưu,
                 # resume được) để watchdog KHÔNG bị kẹt chờ.
                 _run([sys.executable, "-X", "utf8", "-m", "ai.pipeline",
@@ -159,6 +221,10 @@ def main() -> int:
         _log("──────── VÒNG C: VERIFY + THÔNG BÁO ────────")
         verify(langs)
         integrity()
+        # Gói 9 (17/11): dọn file .tmp sót (job bị kill) + backup cũ ⇒ giải
+        # phóng ~400 MB mỗi lần máy bị tắt/kill.
+        _run([sys.executable, "-X", "utf8", "tools/cleanup_temp.py"],
+             10 * 60, "dọn file tạm + backup cũ")
         # Kiểm tra "đã đủ chưa" ⇒ TỰ THÔNG BÁO Windows cho người dùng
         try:
             subprocess.run([sys.executable, "-X", "utf8", "tools/check_done.py"],
