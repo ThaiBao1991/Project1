@@ -75,6 +75,28 @@ def verify(langs):
             _log("   " + line)
 
 
+def integrity() -> None:
+    """Gói 9 (17/11): kiểm tra TOÀN VẸN — bắt khóa học bị 0 byte / plan lệch.
+
+    Đo thật: 3 khóa bị mất trắng do 2 tiến trình ghi chung file tmp ⇒ file
+    0 byte ⇒ không có gì báo lỗi cho tới khi người dùng mở app. Công cụ này
+    chạy mỗi vòng watchdog ⇒ phát hiện NGAY và có thể khôi phục từ backup.
+    """
+    try:
+        p = subprocess.run([sys.executable, "-X", "utf8", "tools/verify_integrity.py"],
+                           capture_output=True, text=True, encoding="utf-8",
+                           errors="replace", cwd=BASE, timeout=1800)
+        bad = [ln for ln in (p.stdout or "").splitlines() if ln.strip().startswith("⚠")]
+        if bad:
+            _log(f"⚠ TOÀN VẸN: {len(bad)} vấn đề — cần khôi phục!")
+            for ln in bad[:10]:
+                _log("   " + ln.strip()[:160])
+        else:
+            _log("✅ Toàn vẹn: mọi khóa học OK (days/plan/nghĩa Việt)")
+    except Exception as e:
+        _log(f"   verify_integrity lỗi: {e}")
+
+
 def media_lock_busy() -> bool:
     """Job bù media đang chạy? (đọc lock PID của tools/fill_media.py)
 
@@ -136,6 +158,7 @@ def main() -> int:
              8 * 3600, "bù media SONG SONG (8 khóa)")
         _log("──────── VÒNG C: VERIFY + THÔNG BÁO ────────")
         verify(langs)
+        integrity()
         # Kiểm tra "đã đủ chưa" ⇒ TỰ THÔNG BÁO Windows cho người dùng
         try:
             subprocess.run([sys.executable, "-X", "utf8", "tools/check_done.py"],
