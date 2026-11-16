@@ -65,7 +65,7 @@ class VocabBridge:
 
     # ── Flask app ───────────────────────────────────────────────────────
     def _build_app(self):
-        from flask import Flask, request, jsonify
+        from flask import Flask, request, jsonify, send_file
         # Đảm bảo import được package `ai`, `database` cả khi chạy CLI
         # (python ai/bridge_server.py → sys.path[0] chỉ có thư mục ai/).
         _base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -394,6 +394,56 @@ class VocabBridge:
                 except Exception:
                     continue
             return jsonify({"ok": False, "error": "day_missing"}), 404
+
+        @app.get("/api/media/manifest")
+        def media_manifest():
+            """Manifest media LỌC theo khóa/ngày — nhẹ (KB) thay vì 103 MB.
+
+            Gói 9 (17/11): manifest đầy đủ = 211.524 entry ≈ 103 MB ⇒ web tải
+            mất **82 giây** (đo thật) ⇒ trang học gần như treo. Nay web gọi
+            API này theo từng NGÀY ⇒ chỉ vài chục entry.
+            """
+            from ai import media_store
+            slug = (request.args.get("slug") or "").strip()
+            day = request.args.get("day")
+            try:
+                day_n = int(day) if day not in (None, "") else None
+            except Exception:
+                day_n = None
+            try:
+                index = media_store.load_index() or {}
+            except Exception:
+                index = {}
+            items = index.get("items") or {}
+            out = {}
+            for ref, e in items.items():
+                if slug and str(e.get("lang") or "") != slug:
+                    continue
+                if day_n is not None:
+                    try:
+                        if int(e.get("day")) != day_n:
+                            continue
+                    except Exception:
+                        continue
+                out[ref] = {"rel_path": e.get("rel_path"), "type": e.get("type"),
+                            "kind": e.get("kind"), "credit": e.get("credit"),
+                            "license": e.get("license"), "alt": e.get("alt"),
+                            "source": e.get("source"), "day": e.get("day"),
+                            "lang": e.get("lang")}
+            return jsonify({"ok": True, "items": out,
+                            "total": len(items), "returned": len(out)})
+
+        @app.get("/api/media/<path:relpath>")
+        def media_file(relpath):
+            """Trả FILE media theo đường dẫn tương đối trong data/ (an toàn)."""
+            from ai import media_store
+            rel = (relpath or "").replace("\\", "/")
+            if ".." in rel.split("/") or rel.startswith("/"):
+                return jsonify({"ok": False, "error": "bad_path"}), 400
+            full = os.path.join(media_store.MEDIA_DIR, rel)
+            if not os.path.isfile(full):
+                return jsonify({"ok": False, "error": "not_found"}), 404
+            return send_file(full)
 
         @app.get("/api/vocab/srs/queue")
         def srs_queue():

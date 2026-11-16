@@ -493,7 +493,8 @@ async function ensureCourseLoaded() {
             if (j && j.ok && Array.isArray(j.days) && j.days.length) {
                 courseIndex = j.days;
                 courseData = { days: j.days, level: j.level || "" };
-                await loadMediaIndex();
+                // Gói 9: KHÔNG nạp manifest ở đây — renderCourseDay sẽ nạp
+                // manifest THEO NGÀY (vài KB) để trang mở nhanh.
                 renderCourseShell();
                 return;
             }
@@ -524,16 +525,41 @@ async function ensureCourseLoaded() {
             </p>`;
         return;
     }
-    // Nạp manifest media (ảnh + audio) — LAZY, chỉ khi khóa học có dữ liệu v4
-    await loadMediaIndex();
+    // Gói 9 (17/11): KHÔNG nạp manifest toàn bộ ở đây (103 MB) — renderCourseDay
+    // sẽ nạp manifest THEO NGÀY (vài KB) ⇒ trang mở nhanh.
     renderCourseShell();
 }
 
 // ─── Manifest media (ảnh minh họa + âm thanh) ───────────────────────────────
 let mediaIndex = null;
 let mediaIndexPromise = null;
+const mediaLoadedDays = new Set();
 
-async function loadMediaIndex() {
+// Gói 9 (17/11): manifest media đầy đủ = 211.524 entry ≈ 103 MB ⇒ tải file
+// mất **82 giây** (đo thật) ⇒ trang học như đứng hình. Nay nạp manifest
+// **theo ngày** qua API `/api/media/manifest?slug=..&day=..` ⇒ chỉ vài chục KB.
+async function loadMediaIndex(day) {
+    const slug = (typeof slugOf === "function" ? slugOf(currentLanguage) : (currentLanguage || ""));
+    const key = day ? `${slug}#${day}` : slug;
+    if (mediaLoadedDays.has(key)) return mediaIndex;
+
+    // 1) API theo ngày (nhanh)
+    try {
+        const q = day ? `?slug=${encodeURIComponent(slug)}&day=${encodeURIComponent(day)}`
+                      : `?slug=${encodeURIComponent(slug)}`;
+        const res = await fetch(`api/media/manifest${q}`).catch(() => null);
+        if (res && res.ok) {
+            const j = await res.json();
+            if (j && j.items) {
+                mediaIndex = mediaIndex || { items: {} };
+                Object.assign(mediaIndex.items, j.items);
+                mediaLoadedDays.add(key);
+                return mediaIndex;
+            }
+        }
+    } catch (e) { /* fallback xuống dưới */ }
+
+    // 2) Fallback: tải file manifest đầy đủ (chậm nhưng vẫn hoạt động)
     if (mediaIndexPromise) return mediaIndexPromise;
     mediaIndexPromise = (async () => {
         try {
@@ -660,6 +686,9 @@ async function renderCourseDay(dayNum) {
         }
     }
     if (!lesson) return;
+    // Gói 9 (17/11): nạp manifest media CỦA NGÀY NÀY (vài KB) trước khi vẽ
+    // ⇒ không phải tải manifest 103 MB. Nếu API lỗi ⇒ fallback tải file.
+    try { await loadMediaIndex(dayNum); } catch (e) { /* bỏ qua */ }
     const prog = getCourseProgress();
     const alreadyDone = new Set(prog.completed_days || []).has(Number(dayNum));
 
