@@ -1222,3 +1222,21 @@ không bù được phần còn lại (đo thật: log `PAUSED 0/0 ngày`, `259/
 > **Tên file `.tmp` phải DUY NHẤT theo PID + thread.** Tên cố định = 2 tiến trình
 > ghi chung = truncate chéo = mất dữ liệu. Đã áp dụng cho `course_db`,
 > `pipeline_store`, `media_store`.
+
+
+### ⑥ Lớp giám sát mới: `tools/verify_integrity.py`
+Chạy mỗi vòng watchdog (và kiểm tra thủ công) — phát hiện **NGAY**:
+- `course.json` 0 byte / JSON hỏng · `days = 0`
+- `plan` ≠ `days` (⇒ pipeline "PAUSED 0/0 ngày")
+- ngày không có từ vựng · từ thiếu nghĩa Việt (> 5 %)
+
+Kết quả lúc 17/11 04:55: **8 khóa · 0 vấn đề**.
+
+### ⑦ Test hồi quy cho lớp bug này: `tools/test_atomic_write.py` (**5/5**)
+- A: `course_db` / `pipeline_store` / `media_store` đều dùng tmp duy nhất theo PID.
+- B: **2 PROCESS thật ghi cùng file song song (4 vòng)** ⇒ file luôn JSON hợp lệ,
+  không 0 byte, không "Extra data".
+- C: `save_course` không ghi đè khóa học đã có dữ liệu bằng bản rỗng.
+
+Toàn bộ suite: atomic_write **5/5** · media_manifest **5/5** · ui_toolbar **7/7** ·
+study_sync **39/39** · gui_smoke **15/15** · day_nav_loop **930/930**.
