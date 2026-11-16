@@ -1163,3 +1163,62 @@ bằng dịch lô ⇒ còn lại 1.084 nghĩa **không dấu** ("Xe taxi", "em t
 `test_ui_toolbar` **7/7** · `test_day_nav_loop` (30 vòng, course thật 2.520 ngày) **930/930** ·
 `test_study_sync` **39/39** · `test_gui_smoke` **15/15** · `test_media_manifest` **5/5** ·
 `py_compile` toàn bộ file sửa → OK.
+
+
+---
+
+## 7.33. GÓI 9 — CỨU DỮ LIỆU 3 KHÓA BỊ MẤT + ĐỒNG BỘ `plan` (2026-11-17)
+
+**Phát hiện lúc 04:39 17/11** (sau 2 ngày chạy nền): khóa **tiếng_nhật · tiếng_pháp ·
+tiếng_trung** có `course.json` **0 byte** ⇒ mất trắng khóa học; log watchdog lộ
+`PAUSED 0/0 ngày` / `259/259 ngày`.
+
+### ① Nguyên nhân gốc: tên file `.tmp` CỐ ĐỊNH (giống hệt bug manifest)
+`course_db._atomic_write()` và `pipeline_store.atomic_write_json()` ghi vào
+**`path + ".tmp"` — cùng tên cho MỌI tiến trình**. Khi 2 tiến trình ghi cùng
+`course.json` (watchdog AI + job bù media):
+
+```
+P1 (AI)   : mở "course.json.tmp" ở chế độ "w" (truncate) → ghi 54 MB
+P2 (media) : mở "course.json.tmp" ở chế độ "w" ⇒ TRUNCATE phần P1 đang ghi
+P1        : os.replace(tmp → course.json)  ⇒ file = JSON bị cắt cụt / 0 byte
+```
+
+Đã sửa: **tên tmp DUY NHẤT theo PID + thread** (`course.json.tmp.<pid>.<tid>`) cho cả
+`course_db` lẫn `pipeline_store` — giống cách đã sửa `media_store.save_index`.
+
+### ② Lưới an toàn thứ 2: KHÔNG cho ghi đè khóa học bằng bản RỖNG
+`save_course()` giờ: nếu bản mới **không có ngày** mà file cũ **có ngày** ⇒ **bỏ qua
+ghi** + in cảnh báo (thay vì xóa trắng khóa học). Đây là lớp phòng thủ cuối cùng.
+
+### ③ `plan` lệch với `days` ⇒ pipeline làm "0/0 ngày"
+`build_offline_course.py` chỉ ghi `days` mà **quên ghi `plan`** ⇒ plan còn số ngày cũ
+(259 · 343 · 345 · 381 · 446 · 450 · 1260) ⇒ pipeline chỉ xử lý được plan đó ⇒ media
+không bù được phần còn lại (đo thật: log `PAUSED 0/0 ngày`, `259/259 ngày`).
+Đã sửa: tool ghi kèm `plan` 2.520 ngày (6 chặng, đúng cấp độ) + thêm
+**`tools/sync_course_plan.py`** để đồng bộ `plan` cho khóa có sẵn mà không đụng nội dung.
+
+### ④ Khôi phục
+- 3 khóa 0 byte ⇒ khôi phục từ `course.json.bak1` (2.520 ngày, giữ media refs).
+- `tiếng_anh` bị cắt còn 259 ngày ⇒ dựng lại 2.520 ngày (giữ 1.473 media ref).
+- `tiếng_pháp` (2.560 từ) + `tiếng_trung` (11.419 từ) bị backup cũ ⇒ dựng lại từ nguồn
+  tốt (26.000 từ) ⇒ 23.968 / 22.698 từ.
+
+### ⑤ Trạng thái sau khôi phục (đo thật 17/11 04:50)
+| khóa học | ngày | plan | từ khác nhau | nghĩa Việt |
+|---|---|---|---|---|
+| tiếng_nhật | 2.520 | 2.520 | 24.765 | 25.389 |
+| tiếng_trung | 2.520 | 2.520 | 22.698 | 25.200 |
+| tiếng_anh | 2.520 | 2.520 | 24.075 | 25.200 |
+| tiếng_hàn_quốc | 2.520 | 2.520 | 23.118 | 25.200 |
+| tiếng_nga | 2.520 | 2.520 | 23.805 | 25.201 |
+| tiếng_pháp | 2.520 | 2.520 | 23.968 | 25.200 |
+| tiếng_tây_ban_nha | 2.520 | 2.520 | 23.718 | 25.200 |
+| tiếng_đức | 2.520 | 2.520 | 23.763 | 25.200 |
+
+**8/8 khóa: 2.520 ngày · plan 2.520 · 100 % nghĩa tiếng Việt.**
+
+### Bài học rút ra (đã áp dụng cho MỌI file atomic)
+> **Tên file `.tmp` phải DUY NHẤT theo PID + thread.** Tên cố định = 2 tiến trình
+> ghi chung = truncate chéo = mất dữ liệu. Đã áp dụng cho `course_db`,
+> `pipeline_store`, `media_store`.

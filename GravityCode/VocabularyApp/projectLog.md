@@ -1683,3 +1683,25 @@ test_gui_smoke **15/15** · py_compile OK.
 - **`tools/fix_meaning_tags.py`**: sạch 792 nghĩa Nhật dính hậu tố nguồn (+312 từ dịch lại).
 - **Test**: ui_toolbar 7/7 · day_nav_loop 930/930 · study_sync 39/39 · gui_smoke 15/15 ·
   media_manifest 5/5.
+
+
+---
+
+## 2026-11-17 — Gói 9: cứu 3 khóa bị mất + đồng bộ plan
+
+**Sự cố:** 3 khóa (tiếng_nhật · tiếng_pháp · tiếng_trung) có `course.json` **0 byte**;
+`tiếng_anh` còn 259/2.520 ngày; log watchdog lộ `PAUSED 0/0 ngày`.
+
+**Nguyên nhân gốc:** `_atomic_write` / `atomic_write_json` dùng **tên `.tmp` CỐ ĐỊNH**
+⇒ 2 tiến trình (watchdog AI + job media) ghi chung `course.json` ⇒ truncate chéo ⇒
+file 0 byte. (Đây là bug thứ 3 cùng loại với bug manifest — đã sửa cả 3 nơi.)
+
+**Đã sửa:**
+1. tmp DUY NHẤT theo PID + thread (`course_db`, `pipeline_store`, `media_store`).
+2. `save_course` không cho ghi đè khóa học bằng bản RỖNG (lưới an toàn cuối).
+3. `build_offline_course` ghi kèm `plan`; thêm `tools/sync_course_plan.py`.
+
+**Khôi phục:** 3 khóa từ backup · dựng lại tiếng_anh (2.520 ngày) · dựng lại pháp +
+trung từ nguồn tốt.
+
+**Kết quả: 8/8 khóa — 2.520 ngày · plan 2.520 · 22,7k-24,8k từ · 100 % nghĩa Việt.**
