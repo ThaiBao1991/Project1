@@ -63,6 +63,23 @@ def main():
         ck("round-trip giữ nguyên entry", "m_a" in (got.get("items") or {}),
            f"items={list((got.get('items') or {}).keys())}")
 
+        # ── C2. KHÔNG được làm mất entry đang có trên đĩa ───────────────────
+        # Gói 9 (17/11): manifest bị ghi từ 169.560 → 18.323 entry (chỉ ảnh)
+        # trong khi 144.411 file mp3 vẫn còn trên đĩa ⇒ mất sạch audio.
+        # ⇒ save_index phải LUÔN hợp nhất với bản đĩa.
+        media_store.save_index({"items": {
+            "m_1": {"id": "m_1", "type": "image"},
+            "m_2": {"id": "m_2", "type": "audio"},
+            "m_3": {"id": "m_3", "type": "audio"},
+        }})
+        media_store.save_index({"items": {"m_new": {"id": "m_new", "type": "image"}}})
+        media_store._index_cache = None
+        after = media_store.load_index()
+        ids = set((after.get("items") or {}).keys())
+        keep = {"m_1", "m_2", "m_3", "m_new"}
+        ck("save_index KHÔNG làm mất entry cũ trên đĩa",
+           keep.issubset(ids), f"thiếu: {sorted(keep - ids)}")
+
         # ── B. manifest hỏng ⇒ tự khôi phục ────────────────────────────────
         # Tạo 1 file media thật trong thư mục tạm ⇒ reindex dựng lại được.
         os.makedirs(os.path.join(tmp_dir, "tiếng_nhật", "d0001"), exist_ok=True)

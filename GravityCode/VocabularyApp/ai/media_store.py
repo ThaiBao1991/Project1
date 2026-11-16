@@ -160,25 +160,14 @@ def load_index() -> dict:
 
 
 def _recover_index() -> dict:
-    """Khôi phục manifest: thử file dự phòng → reindex từ đĩa."""
-    import glob
-    for pat in (INDEX_PATH + ".tmp2", INDEX_PATH + ".bak_reindex",
-                INDEX_PATH + ".bak1", INDEX_PATH + ".bak2"):
-        for cand in sorted(glob.glob(pat)):
-            try:
-                with open(cand, "r", encoding="utf-8") as f:
-                    d = json.load(f)
-                if isinstance(d, dict) and isinstance(d.get("items"), dict):
-                    print(f"✅ Khôi phục manifest từ {os.path.basename(cand)} "
-                          f"({len(d['items'])} entry)")
-                    try:
-                        os.replace(cand, INDEX_PATH)
-                    except OSError:
-                        pass
-                    return d
-            except Exception:
-                continue
-    # Cuối cùng: dựng lại từ toàn bộ file media trên đĩa.
+    """Khôi phục manifest — LUÔN dựng lại từ FILE THẬT trên đĩa.
+
+    FIX 2026-11-17 (Gói 9): trước đây thử file dự phòng `.tmp2`/`.bak_reindex`
+    trước ⇒ có thể khôi phục bản **CŨ/THIẾU** (đo thật: manifest 169.560 entry
+    bị thay bằng 18.323 entry chỉ ảnh ⇒ mất toàn bộ audio trong khi 144.411
+    file mp3 vẫn còn nguyên trên đĩa).
+    ⇒ chỉ dùng reindex() (quét đĩa) là nguồn sự thật.
+    """
     try:
         res = reindex(log_fn=print)
         print(f"✅ Đã dựng lại manifest từ đĩa: {res['items']} entry")
@@ -189,25 +178,37 @@ def _recover_index() -> dict:
 
 
 def save_index(index: dict) -> None:
-    """Ghi manifest (atomic) — CÓ retry cho Windows + tên tmp DUY NHẤT.
+    """Ghi manifest (atomic) — LUÔN MERGE với file đĩa trước khi ghi.
 
-    Lý do retry: trên Windows, `os.replace` ném PermissionError nếu file đích
-    đang được tiến trình khác mở để đọc. Lỗi này làm MẤT entry manifest
-    trong khi file media đã ghi xong ⇒ file "mồ côi" (đo thật: 18.500 file ảnh
-    nhưng manifest chỉ còn 1.369 entry).
+    FIX 2026-11-17 (Gói 9): đo thật — manifest bị ghi đè từ **169.560 entry**
+    xuống còn **18.323 entry (chỉ ảnh)** trong khi **144.411 file mp3 vẫn còn
+    nguyên trên đĩa** ⇒ toàn bộ âm thanh biến mất khỏi app (audio 0 %).
+    Nguyên nhân: mỗi tiến trình giữ cache RAM riêng; khi 1 tiến trình ghi
+    manifest với cache của nó, các entry của tiến trình khác (và các entry
+    đọc từ đĩa trước đó) bị mất.
+    ⇒ **Nguồn sự thật duy nhất là file đĩa**: luôn đọc đĩa → hợp nhất → ghi.
+    Không bao giờ ghi một bản nhỏ hơn bản đang có trên đĩa.
 
-    FIX 2026-11-14 (Gói 8): tên file tmp PHẢI DUY NHẤT theo tiến trình.
-    Trước đây mọi process dùng chung `index.json.tmp` ⇒ 2 process mở file
-    đó ở chế độ "w" (truncate) rồi ghi ⇒ **file cuối chứa 2 JSON nối liền**
-    ⇒ `json.load` lỗi "Extra data" ⇒ **toàn bộ media biến mất khỏi app**
-    (đo thật 14/11 22:11: manifest 86 MB hỏng ⇒ mọi khóa báo ảnh 0.0 %).
+    Ngoài ra: tên file tmp PHẢI DUY NHẤT theo tiến trình (trước đây mọi
+    process dùng chung `index.json.tmp` ⇒ 2 JSON nối liền ⇒ json.load lỗi).
     """
     import time
     from datetime import datetime
     global _last_flush
     index["updated_at"] = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
     os.makedirs(MEDIA_DIR, exist_ok=True)
-    # tmp DUY NHẤT cho từng tiến trình/thread ⇒ không ai ghi đè của ai.
+    # 1) Hợp nhất với bản đang có trên đĩa (bản đĩa là nguồn sự thật).
+    try:
+        with open(INDEX_PATH, "r", encoding="utf-8") as f:
+            disk = json.load(f)
+        if isinstance(disk, dict) and isinstance(disk.get("items"), dict):
+            merged = dict(disk["items"])
+            merged.update(index.get("items") or {})
+            index = dict(index)
+            index["items"] = merged
+    except Exception:
+        pass          # đĩa hỏng/không có ⇒ ghi bản của mình (sẽ tự phục hồi)
+    # 2) Ghi atomic với tmp DUY NHẤT theo PID + thread.
     tmp = f"{INDEX_PATH}.tmp.{os.getpid()}.{threading.get_ident()}"
     try:
         with open(tmp, "w", encoding="utf-8") as f:
@@ -229,8 +230,6 @@ def save_index(index: dict) -> None:
             time.sleep(0.02 * (attempt + 1))
         except OSError:
             time.sleep(0.05)
-    # Hết cách retry → giữ file tmp (không xóa) để không mất dữ liệu, và
-    # giữ nguyên file live (mất entry còn hơn mất manifest).
     try:
         os.remove(tmp)
     except OSError:
@@ -318,8 +317,16 @@ def reindex(log_fn=None) -> dict:
     do race condition trước đây). Giữ lại entry cũ nếu có.
     """
     with _WRITE_LOCK:
-        old = load_index()
-        old_items = old.get("items") or {}
+        # ĐỌC ĐĨA TRỰC TIẾP — KHÔNG dùng load_index() vì load_index() gọi
+        # _recover_index() → reindex() ⇒ ĐỆ QUY VÔ HẠN khi manifest hỏng.
+        old_items = {}
+        try:
+            with open(INDEX_PATH, "r", encoding="utf-8") as f:
+                _old = json.load(f)
+            if isinstance(_old, dict) and isinstance(_old.get("items"), dict):
+                old_items = _old["items"]
+        except Exception:
+            old_items = {}
         new_items = {}
         scanned = 0
         if os.path.isdir(MEDIA_DIR):
