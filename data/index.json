@@ -1,0 +1,22 @@
+{
+ "languages": [
+  "tiếng_anh",
+  "tiếng_hàn_quốc",
+  "tiếng_nga",
+  "tiếng_nhật",
+  "tiếng_pháp",
+  "tiếng_trung",
+  "tiếng_tây_ban_nha",
+  "tiếng_đức"
+ ],
+ "names": {
+  "tiếng_anh": "Tiếng Anh",
+  "tiếng_hàn_quốc": "Tiếng Hàn Quốc",
+  "tiếng_nga": "Tiếng Nga",
+  "tiếng_nhật": "Tiếng Nhật",
+  "tiếng_pháp": "Tiếng Pháp",
+  "tiếng_trung": "Tiếng Trung",
+  "tiếng_tây_ban_nha": "Tiếng Tây Ban Nha",
+  "tiếng_đức": "Tiếng Đức"
+ }
+}

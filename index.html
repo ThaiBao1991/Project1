@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <!-- FIX 2026-11-12 (Gói 3): bỏ maximum-scale/user-scalable=no (chặn pinch-zoom = lỗi a11y) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocabulary App - Học Từ Vựng</title>
+    <meta name="description" content="Ứng dụng học từ vựng đa ngôn ngữ - Flashcard & Danh sách">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#121212">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Vocabulary">
+    <link rel="apple-touch-icon" href="icons/icon192.png">
+    <link rel="icon" type="image/png" href="icons/icon192.png">
+    <link rel="stylesheet" href="style.css">
+    <script src="paths.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            <h1>📚 Vocabulary</h1>
+            <select id="language-select">
+                <option value="">Loading...</option>
+            </select>
+        </div>
+        <div class="search-bar">
+            <div class="search-wrapper">
+                <input type="text" id="search-input" placeholder="Tìm từ, nghĩa..." aria-label="Tìm kiếm từ vựng">
+                <!-- FIX 2026-11-12 (Gói 3): <span> → <button> (bấm được bằng bàn phím, có nhãn cho screen reader) -->
+                <button type="button" id="clear-search" class="clear-btn" aria-label="Xoá tìm kiếm" hidden>&times;</button>
+            </div>
+        </div>
+        <div class="filters">
+            <select id="filter-topic" aria-label="Lọc theo chủ đề"><option value="">Tất cả chủ đề</option></select>
+            <select id="filter-type" aria-label="Lọc theo loại từ"><option value="">Tất cả loại</option></select>
+            <select id="filter-date" aria-label="Lọc theo ngày"><option value="">Tất cả ngày</option></select>
+        </div>
+        <div class="view-toggles" role="tablist" aria-label="Chế độ xem">
+            <button id="btn-list" class="active" role="tab" aria-selected="true">📋 Danh sách</button>
+            <button id="btn-flashcard" role="tab" aria-selected="false">🃏 Thẻ từ</button>
+            <button id="btn-course" role="tab" aria-selected="false">🎓 Khóa học AI</button>
+            <button id="btn-review" role="tab" aria-selected="false">🧠 Ôn tập</button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- List View -->
+        <div id="list-view" class="view-container active">
+            <div id="vocab-list"></div>
+            <div id="load-more-trigger" style="height: 20px; text-align: center; color: var(--text-muted); margin-bottom: 20px;"></div>
+        </div>
+
+        <!-- Flashcard View -->
+        <div id="flashcard-view" class="view-container">
+            <div class="flashcard-container">
+                <div id="flashcard" class="flashcard">
+                    <div class="front">
+                        <h2 id="fc-word">Word</h2>
+                        <p id="fc-pronunciation" class="pronunciation">Pronunciation</p>
+                        <span id="fc-type" class="badge">Type</span>
+                    </div>
+                    <div class="back">
+                        <p id="fc-meaning" class="fc-meaning-text">Meaning</p>
+                        <div class="example-box">
+                            <p id="fc-example">Example</p>
+                            <p id="fc-example-meaning" class="muted">Example meaning</p>
+                        </div>
+                        <div class="audio-box" id="fc-audio-box" style="display:none;">
+                            <button id="btn-play-audio" class="play-btn">🔊 Play Audio</button>
+                            <audio id="fc-audio" src=""></audio>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flashcard-controls">
+                <button id="btn-prev">⬅️ Prev</button>
+                <span id="fc-counter">1 / 10</span>
+                <button id="btn-next">Next ➡️</button>
+            </div>
+            <div class="flashcard-actions">
+                <button id="btn-flip" class="flip-btn">Flip Card</button>
+                <button id="btn-practice-write" class="flip-btn write-btn">✏️ Luyện viết</button>
+            </div>
+        </div>
+        <!-- AI Course View -->
+        <div id="course-view" class="view-container">
+            <div class="course-header">
+                <select id="course-day-select" aria-label="Chọn ngày học"><option value="">—</option></select>
+                <span id="course-progress-badge" class="badge"></span>
+            </div>
+            <div id="course-content" aria-live="polite">
+                <p style='color:var(--text-muted);padding:20px;text-align:center;'>
+                    Chưa có khóa học AI. Mở app desktop → tab 🎓 Học Tập → 🤖 Sinh khóa học AI.
+                </p>
+            </div>
+        </div>
+
+        <!-- ÔN TẬP (SM-2) — Gói 3: học từ online thật sự -->
+        <div id="review-view" class="view-container">
+            <div id="srs-stats" class="srs-stats"></div>
+            <div id="srs-card" class="srs-card">
+                <p class="srs-hint">Bấm 🧠 Ôn tập để bắt đầu.</p>
+            </div>
+            <div id="srs-actions" class="srs-actions" hidden>
+                <button class="srs-btn srs-again"   data-grade="again">😵 Quên hẳn</button>
+                <button class="srs-btn srs-hard"    data-grade="hard">😕 Khó</button>
+                <button class="srs-btn srs-good"    data-grade="good">🙂 Được</button>
+                <button class="srs-btn srs-easy"    data-grade="easy">😎 Rất dễ</button>
+            </div>
+            <div id="srs-feedback" class="srs-feedback" aria-live="polite"></div>
+        </div>
+    </main>
+    <!-- Writing Practice Modal -->
+    <div id="writing-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span id="close-writing-modal" class="close-btn">&times;</span>
+            <h3 id="writing-modal-title">Luyện viết</h3>
+            
+            <div id="writing-mode-selection" class="writing-modes">
+                <button id="btn-mode-hanzi" class="primary-btn">✏️ Có chấm điểm</button>
+                <button id="btn-mode-canvas" class="secondary-btn">🖊️ Bảng nháp (Tự do)</button>
+            </div>
+
+            <!-- Unified pixel-scoring practice canvas -->
+            <div id="canvas-practice-container" style="display:none;">
+                <div class="practice-wrapper">
+                    <canvas id="ref-canvas" width="280" height="280" style="display:none;"></canvas>
+                    <canvas id="bg-canvas" width="280" height="280"></canvas>
+                    <canvas id="draw-canvas" width="280" height="280"></canvas>
+                </div>
+
+                <div class="writer-controls">
+                    <button id="btn-char-prev">⬅️</button>
+                    <span id="char-indicator">1/1</span>
+                    <button id="btn-char-next">➡️</button>
+                    <button id="btn-clear-draw">🗑️ Xóa</button>
+                </div>
+
+                <div id="score-display" style="display:none;">
+                    <div class="score-ring">
+                        <span id="score-value">0%</span>
+                    </div>
+                    <p id="score-msg"></p>
+                </div>
+
+                <div style="text-align:center; margin-top:10px;">
+                    <button id="btn-score-check" class="primary-btn" style="display:none; width:auto; padding:10px 25px;">⭐ Chấm điểm</button>
+                </div>
+
+                <div class="writer-hint" id="practice-hint"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FIX 2026-11-12 (Gói 3): BỎ 2 script CDN (marked + DOMPurify).
+         Trước: mất mạng/CDN chặn ⇒ `marked` undefined ở top-level ⇒ script.js
+         CHẾT HOÀN TOÀN (trang trắng); thêm nữa nếu DOMPurify lỗi thì innerHTML
+         thô của nội dung AI (XSS). Nay: markdown mini-render TỰ escape trong
+         script.js ⇒ hoạt động offline + an toàn. -->
+    <!-- Gói 10 (17/11): bản deploy online — đọc ZIP + nguồn dữ liệu. -->
+    <script src="zipreader.js"></script>
+    <script src="data-config.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // PWA: đăng ký service worker để học được khi mất mạng (chỉ http/https)
+        if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) {
+            window.addEventListener("load", function () {
+                navigator.serviceWorker.register("sw.js").catch(function () { /* bỏ qua */ });
+            });
+        }
+    </script>
+</body>
+</html>
