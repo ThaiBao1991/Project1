@@ -65,11 +65,57 @@ def _slug_dirs(slug: str):
     return (os.path.join(MEDIA_DIR, cs), os.path.join(OUT, cs, "day"))
 
 
-def _day_media_map(slug: str, day: int) -> dict:
-    """{ref: rel_path} cho media của 1 ngày — đọc từ CHECKPOINT (nhỏ).
+_MANIFEST_DAYS = None
 
-    Không đọc manifest 103 MB (quá nặng + chậm); checkpoint `images.json` /
-    `audio.json` đã chứa id + rel_path của từng file.
+
+def _manifest_days() -> dict:
+    """{(slug, day): {ref: rel_path}} đọc MỘT LẦN từ data/media/index.json.
+
+    VÌ SAO CẦN (đo thật 17/11/2026): checkpoint `_pipeline/days/dXXXX/*.json`
+    chỉ có 14/31 ref của ngày 1 tiếng Trung (14/23 của tiếng Anh) ⇒ web thiếu
+    ảnh/audio dù file ĐÃ nằm trong gói zip. Manifest 103 MB có ĐỦ 211.636 entry
+    (ref → rel_path) nên là nguồn bản đồ chính xác.
+
+    Chỉ đọc 1 lần cho cả 8 khóa × 2.520 ngày (không đọc lại 2.520 lần).
+    """
+    global _MANIFEST_DAYS
+    if _MANIFEST_DAYS is not None:
+        return _MANIFEST_DAYS
+    out: dict = {}
+    p = os.path.join(MEDIA_DIR, "index.json")
+    if not os.path.isfile(p):
+        _log("⚠ không thấy data/media/index.json — chỉ dùng checkpoint")
+        _MANIFEST_DAYS = out
+        return out
+    t0 = time.time()
+    try:
+        with open(p, encoding="utf-8") as f:
+            m = json.load(f)
+        for ref, e in (m.get("items") or {}).items():
+            if not isinstance(e, dict):
+                continue
+            lang = e.get("lang") or ""
+            try:
+                day = int(e.get("day") or 0)
+            except Exception:
+                day = 0
+            rel = e.get("rel_path") or ""
+            if lang and day and rel:
+                out.setdefault((lang, day), {})[ref] = rel
+        _log(f"manifest: {len(m.get('items') or {})} entry · "
+             f"{len(out)} (khóa, ngày) · đọc {time.time()-t0:.1f}s")
+    except Exception as e:
+        _log(f"⚠ không đọc được manifest: {e}")
+    _MANIFEST_DAYS = out
+    return out
+
+
+def _day_media_map(slug: str, day: int) -> dict:
+    """{ref: rel_path} cho media của 1 ngày.
+
+    Nguồn 1: checkpoint `_pipeline/days/dXXXX/{images,audio}.json` (nhỏ, nhanh).
+    Nguồn 2: manifest `data/media/index.json` — GHI ĐÈ để bù các ref checkpoint
+             thiếu (bug 17/11: thiếu 17/31 ref ⇒ mất ảnh/audio trên web).
     """
     out = {}
     base = os.path.join(CD, slug, "_pipeline", "days", f"d{day:04d}")
@@ -93,6 +139,8 @@ def _day_media_map(slug: str, day: int) -> dict:
             rel = tr.get("file") or tr.get("rel_path")
             if rid and rel:
                 out[rid] = rel
+    # Bù từ manifest (nguồn đầy đủ) — ghi đè nếu trùng.
+    out.update(_manifest_days().get((slug, int(day)), {}))
     return out
 
 
@@ -221,10 +269,7 @@ def publish_pages() -> int:
 
 
 def _display_name(slug: str) -> str:
-    from ai.paths import LANG_ALIASES
-    for k, v in (LANG_ALIASES or {}).items():
-        if k == slug:
-            return v
+    """Tên hiển thị: 'tiếng_nhật' → 'Tiếng Nhật'."""
     return slug.replace("tiếng_", "Tiếng ").replace("_", " ").title()
 
 
@@ -259,8 +304,10 @@ def ascii_slug(slug: str) -> str:
     """Slug ASCII cho tag release (URL GitHub không nhận Unicode thoải mái).
 
     'tiếng_nhật' → 'tieng-nhat'  (bỏ dấu, space → '-')
+    Lưu ý: 'đ' KHÔNG tách được bằng NFD ⇒ phải thay tay thành 'd'.
     """
-    s = unicodedata.normalize("NFD", slug or "")
+    s = (slug or "").replace("đ", "d").replace("Đ", "D")
+    s = unicodedata.normalize("NFD", s)
     s = "".join(c for c in s if not unicodedata.combining(c))
     s = s.replace("_", "-").replace(" ", "-")
     s = re.sub(r"[^A-Za-z0-9-]", "", s).strip("-").lower()
@@ -272,43 +319,14 @@ def release_tag(slug: str, ver: str = "v1") -> str:
 
 
 def _github_token() -> str:
-    """Lấy token GitHub có quyền GHI lên repo.
+    """Lấy token GitHub có quyền GHI lên repo — KHÔNG bật hộp thoại đăng nhập.
 
-    ƯU TIÊN 1: credential git đã lưu (`git credential fill`) — đây là token
-    của chính user sở hữu repo ⇒ có scope `repo` (đo thật: token trong
-    settings.json thuộc user KHÁC ⇒ POST /releases trả 404).
-    ƯU TIÊN 2: settings.json (AskCpl) — dùng cho repo khác.
-    ƯU TIÊN 3: $env:GITHUB_TOKEN.
+    Xem tools/gh_token.py. Thứ tự: $env:GITHUB_TOKEN → file token cục bộ
+    (%LOCALAPPDATA%\\VocabularyApp\\github_token.txt) → settings.json →
+    `git credential fill` (chế độ không tương tác, 15 giây).
     """
-    import base64
-    import subprocess
-    try:
-        p = subprocess.run(["git", "credential", "fill"],
-                           input="protocol=https\nhost=github.com\n\n",
-                           capture_output=True, text=True, timeout=60)
-        for line in (p.stdout or "").splitlines():
-            if line.startswith("password="):
-                tok = line.split("=", 1)[1].strip()
-                if tok:
-                    return tok
-    except Exception:
-        pass
-    for p in (os.path.join(BASE, "..", "Download", "AskCpl", "settings.json"),
-              os.path.join(BASE, "settings.json")):
-        p = os.path.abspath(p)
-        if not os.path.isfile(p):
-            continue
-        try:
-            with open(p, encoding="utf-8") as f:
-                d = json.load(f)
-            raw = (d.get("github") or {}).get("token") or ""
-            if raw.startswith("ENC:"):
-                raw = base64.b64decode(raw[4:].encode("utf-8")).decode("utf-8")[::-1]
-            if raw:
-                return raw
-        except Exception:
-            continue
-    return os.environ.get("GITHUB_TOKEN", "")
+    from gh_token import get_token
+    return get_token()
 
 
 def upload_release(slug: str, tag: str, token: str) -> int:
@@ -333,18 +351,45 @@ def upload_release(slug: str, tag: str, token: str) -> int:
         with urllib.request.urlopen(r, timeout=180) as resp:
             return json.loads(resp.read().decode() or "{}")
 
-    # tạo (hoặc dùng lại) release
+    # Tìm release đã có. ⚠ KHÔNG dùng /releases/tags/<tag>: GitHub cho phép
+    # NHIỀU draft trùng tag (đo thật 17/11: 2 release `data-tieng-nhat-v1`,
+    # 1 rỗng + 1 có 43 asset) ⇒ endpoint đó trả bản rỗng ⇒ upload 404.
+    # Nay: liệt kê tất cả release, chọn bản cùng tag có NHIỀU asset nhất.
+    rel = None
     try:
-        rel = _req(f"{api}/releases/tags/{urllib.parse.quote(tag)}")
-        _log(f"release {tag} đã tồn tại — dùng lại")
-    except urllib.error.HTTPError:
+        all_rels = _req(f"{api}/releases?per_page=100")
+        same = [r for r in all_rels if r.get("tag_name") == tag]
+        if same:
+            same.sort(key=lambda r: len(r.get("assets") or []), reverse=True)
+            rel = same[0]
+            _log(f"release {tag} đã tồn tại — dùng lại "
+                 f"({len(rel.get('assets') or [])} asset)")
+            # dọn các bản trùng RỖNG (không có asset) để khỏi gây nhiễu
+            for r in same[1:]:
+                if not (r.get("assets") or []):
+                    try:
+                        _req(f"{api}/releases/{r['id']}", method="DELETE")
+                        _log(f"   đã xoá release trùng rỗng id={r['id']}")
+                    except Exception:
+                        pass
+    except Exception as e:
+        _log(f"⚠ không liệt kê được release: {e}")
+    if rel is None:
         rel = _req(f"{api}/releases", {
             "tag_name": tag, "name": f"Vocabulary data — {slug}",
             "body": f"Nội dung học + media của khóa {slug} (gói theo 30 ngày).",
-            "draft": True}, method="POST")
+            "draft": False}, method="POST")
         _log(f"đã tạo release {tag}")
 
     existing = {a.get("name") for a in (rel.get("assets") or [])}
+    # Draft ⇒ điện thoại KHÔNG tải được (chỉ user đã đăng nhập thấy).
+    # Luôn xuất bản release trước khi coi là xong.
+    if rel.get("draft"):
+        try:
+            rel = _req(f"{api}/releases/{rel['id']}", {"draft": False}, method="PATCH")
+            _log(f"đã xuất bản release {tag} (draft → public)")
+        except Exception as e:
+            _log(f"⚠ không xuất bản được release: {e}")
     n = 0
     for fn in sorted(os.listdir(zdir)):
         if fn in existing:

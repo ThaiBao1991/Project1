@@ -8,12 +8,11 @@ settings.local.json
 # Dữ liệu sinh tự động: khóa học AI, media, audio, log, cache
 data/
 !data/.gitkeep
-# Gói 10 (17/11): bản deploy ONLINE trên GitHub Pages — nội dung TĪNH
-# (data/<khóa>/index.json + data/<khóa>/day/<n>.json) ĐƯỢC commit để Pages
-# phục vụ cho điện thoại. (media nặng ⇒ để trên Release, không commit.)
-!web/data/
-!web/data/**
-# Thư mục đóng gói tạm (không commit — 3 GB)
+# Gói 10 (17/11): bản deploy ONLINE — `web/data/` là SẢN PHẨM BUILD
+# (sinh bởi tools/publish_online.py --pages), chỉ cần tồn tại lúc deploy
+# lên nhánh `gh-pages`. KHÔNG commit vào master (tránh phình repo ~400 MB).
+web/data/
+# Thư mục đóng gói tạm (không commit — vài GB)
 publish/
 
 # ─── Python ──────────────────────────────────────────────────────────────────

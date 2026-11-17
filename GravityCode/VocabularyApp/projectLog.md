@@ -1720,3 +1720,28 @@ entry của tiến trình khác. (Bug thứ 4 cùng loại "nhiều process ghi 
 **Đã sửa:** ① `save_index` LUÔN đọc đĩa → hợp nhất → ghi (đĩa là nguồn sự thật)
 ② `_recover_index` luôn reindex từ đĩa ③ `reindex` đọc đĩa trực tiếp (tránh đệ quy).
 Test media_manifest **6/6** (thêm case "không được làm mất entry cũ trên đĩa").
+
+---
+
+## 2026-11-17 (chiều) — Học trên điện thoại: Pages + repo media + SRS local
+
+**Đã làm thật:**
+- Deploy **20.168 file / 331 MB** lên nhánh `gh-pages`; Pages build **built**:
+  https://ThaiBao1991.github.io/Project1/ — đủ **8 khóa × 2.520 ngày**.
+- Media 8 khóa lên repo riêng `ThaiBao1991/VocabularyData` (raw CÓ CORS):
+  Nhật 80 gói/721 MB · Trung 21/162 · Anh 23/224 · Hàn 21/269 · Nga 21/254 ·
+  Pháp 21/212 · Tây 21/164 · Đức 21/166.
+- `verify_online.py`: **9/9 PASS**; test trình duyệt thật: Nhật tải zip 3,3 s,
+  giải nén 1.075 file, **10/10 ảnh 512×512**; Trung/Anh cũng render đúng.
+
+**Bug đã sửa:**
+1. `media_map` thiếu 17/31 ref (Trung ngày 1) ⇒ chỉ hiện 1/10 ảnh. Sửa:
+   `publish_online.py` đọc manifest 211.708 entry **một lần** và ghi đè checkpoint.
+2. Hộp thoại đăng nhập GitHub hiện liên tục: mỗi upload gọi `git credential fill`.
+   Sửa: `tools/gh_token.py` + `tools/save_gh_token.ps1` — đọc token đã lưu 1 lần,
+   fallback không tương tác 15 giây.
+3. SW cache-first ⇒ điện thoại chạy JS cũ. Sửa: network-first + `VERSION=v3`.
+4. `_monthKeyOf` lệch Python ⇒ tải sai gói tháng. Sửa: `floor(day/30)+1`.
+
+**Đang chạy nền:** `fill_media.py --all-days` theo thứ tự Nhật → Trung → Anh →
+Hàn → Tây Ban Nha → Đức → Pháp → Nga (bù media tới hết 2.520 ngày/khóa).

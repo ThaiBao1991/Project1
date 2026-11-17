@@ -18,17 +18,21 @@ import io
 import json
 import os
 import sys
+import urllib.parse
 import urllib.request
 import zipfile
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, BASE)
+sys.path.insert(0, os.path.join(BASE, "tools"))
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 REPO = os.environ.get("GITHUB_REPO", "ThaiBao1991/Project1")
 USER, NAME = REPO.split("/")
 PAGES = f"https://{USER}.github.io/{NAME}"
+MEDIA_REPO = os.environ.get("MEDIA_REPO", "ThaiBao1991/VocabularyData")
+RAW_MEDIA = f"https://raw.githubusercontent.com/{MEDIA_REPO}/main/media"
 
 
 def _get(url, timeout=60, raw=False):
@@ -90,33 +94,54 @@ def main() -> int:
     except Exception as e:
         ck(f"data/{slug}/day/{args.day:04d}.json", False, f"{type(e).__name__}: {e}")
 
-    # 4) Release + gói media
-    tag = args.tag or f"data-{slug}-v1"
+    # 4) Media: repo dữ liệu qua raw.githubusercontent.com (kênh CHÍNH)
+    #    (raw CÓ CORS — xem docs/ONLINE_PHONE.md §3)
     try:
-        rel = json.loads(_get(f"https://api.github.com/repos/{REPO}/releases/tags/{urllib.parse.quote(tag)}"))
-        assets = rel.get("assets") or []
-        ck(f"release '{tag}' tồn tại", len(assets) > 0, f"{len(assets)} asset")
-        name = f"m{mk}.zip"
-        a = next((x for x in assets if x.get("name") == name), None)
-        ck(f"asset {name}", a is not None,
-           f"{(a or {}).get('size', 0)/1024/1024:.1f} MB" if a else "không thấy")
-        if a:
+        mi = json.loads(_get(f"{RAW_MEDIA}/index.json"))
+        info = mi.get(slug) or {}
+        ck(f"raw media index có '{slug}'", bool(info), f"dir={info.get('dir')} months={info.get('months')}")
+        d = info.get("dir")
+        if d:
+            name = f"m{mk}.zip"
+            url = f"{RAW_MEDIA}/{d}/{name}"
             try:
-                rq = urllib.request.Request(
-                    f"https://api.github.com/repos/{REPO}/releases/assets/{a['id']}",
-                    headers={"Accept": "application/octet-stream",
-                             "User-Agent": "VocabularyApp-verify"})
-                with urllib.request.urlopen(rq, timeout=300) as r:
-                    blob = r.read()
+                blob = _get(url, timeout=300, raw=True)
                 zf = zipfile.ZipFile(io.BytesIO(blob))
                 names = zf.namelist()
-                ck(f"{name} giải nén được", len(names) > 0, f"{len(names)} file")
-                ck(f"{name} chứa media của ngày 1",
+                ck(f"raw {name} tải+giải nén được", len(names) > 0,
+                   f"{len(blob)/1024/1024:.1f} MB, {len(names)} file")
+                ck(f"raw {name} chứa media ngày {args.day}",
                    any(f"d{args.day:04d}/" in n for n in names))
             except Exception as e:
-                ck(f"{name} tải+giải nén được", False, f"{type(e).__name__}: {e}")
+                ck(f"raw {name} tải+giải nén được", False, f"{type(e).__name__}: {e}")
     except Exception as e:
-        ck(f"release '{tag}' tồn tại", False, f"{type(e).__name__}: {e}")
+        ck("raw media index", False, f"{type(e).__name__}: {e}")
+
+    # 4b) Fallback: GitHub Releases (chỉ để biết còn dùng được không)
+    try:
+        from publish_online import release_tag
+        tag = args.tag or release_tag(slug)
+    except Exception:
+        tag = args.tag or f"data-{slug}-v1"
+    try:
+        hdr = {"User-Agent": "VocabularyApp-verify",
+               "Accept": "application/vnd.github+json"}
+        try:
+            from gh_token import get_token
+            tok = get_token()
+            if tok:
+                hdr["Authorization"] = f"Bearer {tok}"
+        except Exception:
+            pass
+        rq = urllib.request.Request(
+            f"https://api.github.com/repos/{REPO}/releases/tags/{urllib.parse.quote(tag)}",
+            headers=hdr)
+        with urllib.request.urlopen(rq, timeout=60) as r:
+            rel = json.loads(r.read().decode())
+        assets = rel.get("assets") or []
+        ck(f"release '{tag}' (fallback) tồn tại", len(assets) > 0, f"{len(assets)} asset")
+    except Exception as e:
+        ck(f"release '{tag}' (fallback)", False, f"{type(e).__name__}: {e}")
 
     print(f"\nKIỂM TRA BẢN ONLINE {PAGES}")
     for name, passed, detail in res:
@@ -126,5 +151,4 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    import urllib.parse
     sys.exit(main())

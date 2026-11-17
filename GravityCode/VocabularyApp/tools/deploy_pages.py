@@ -43,34 +43,13 @@ def _log(m):
 
 
 def _token() -> str:
-    """Token GitHub có quyền ghi — ưu tiên credential git (đúng user sở hữu repo)."""
-    import os
-    import subprocess
-    try:
-        p = subprocess.run(["git", "credential", "fill"],
-                           input="protocol=https\nhost=github.com\n\n",
-                           capture_output=True, text=True, timeout=60)
-        for line in (p.stdout or "").splitlines():
-            if line.startswith("password="):
-                tok = line.split("=", 1)[1].strip()
-                if tok:
-                    return tok
-    except Exception:
-        pass
-    for p in (os.path.join(BASE, "..", "Download", "AskCpl", "settings.json"),
-              os.path.join(BASE, "settings.json")):
-        p = os.path.abspath(p)
-        if os.path.isfile(p):
-            try:
-                with open(p, encoding="utf-8") as f:
-                    raw = (json.load(f).get("github") or {}).get("token") or ""
-                if raw.startswith("ENC:"):
-                    raw = base64.b64decode(raw[4:].encode()).decode()[::-1]
-                if raw:
-                    return raw
-            except Exception:
-                pass
-    return os.environ.get("GITHUB_TOKEN", "")
+    """Token GitHub có quyền ghi — KHÔNG bật hộp thoại đăng nhập.
+
+    Xem tools/gh_token.py: đọc env → file token cục bộ → settings.json →
+    `git credential fill` (chế độ không tương tác, 15 giây).
+    """
+    from gh_token import get_token
+    return get_token()
 
 
 def _api(token: str):
@@ -129,31 +108,50 @@ def deploy(token: str, dry: bool = False) -> bool:
                                   text=True, timeout=900)
         r = git("init", "-q")
         r = git("remote", "add", "origin", f"https://github.com/{REPO}.git")
-        r = git("fetch", "--depth", "1", "origin", BRANCH)
+        r = git("fetch", "origin", BRANCH)
         if r.returncode == 0:
             git("checkout", "-q", "-B", BRANCH, "FETCH_HEAD")
+            _log("đã lấy nhánh " + BRANCH + " hiện có")
         else:
-            git("checkout", "-q", "-B", BRANCH)
-        # 2) copy nội dung web/ (loại data/ nếu quá lớn? giữ hết)
+            git("checkout", "-q", "--orphan", BRANCH)
+            _log("tạo nhánh " + BRANCH + " mới")
+        # 2) ĐỒNG BỘ TUYỆT ĐỐI: xoá hết file cũ (trừ .git) rồi copy web/
+        #    ⇒ file đã bỏ không còn sót trên Pages.
+        for item in os.listdir(tmp):
+            if item == ".git":
+                continue
+            p = os.path.join(tmp, item)
+            if os.path.isdir(p):
+                shutil.rmtree(p, ignore_errors=True)
+            else:
+                try:
+                    os.remove(p)
+                except OSError:
+                    pass
         for item in os.listdir(WEB):
             src = os.path.join(WEB, item)
             dst = os.path.join(tmp, item)
             if os.path.isdir(src):
-                if os.path.isdir(dst):
-                    shutil.rmtree(dst)
                 shutil.copytree(src, dst)
             else:
                 shutil.copy2(src, dst)
         # 3) commit + push
         git("add", "-A")
-        git("-c", "user.email=app@local", "-c", "user.name=VocabularyApp",
-            "commit", "-q", "-m",
-            f"deploy: web + du lieu tinh cho dien thoai ({datetime.now():%Y-%m-%d %H:%M})")
+        st = git("status", "--porcelain")
+        changed = bool((st.stdout or "").strip())
+        if changed:
+            git("-c", "user.email=app@local", "-c", "user.name=VocabularyApp",
+                "commit", "-q", "-m",
+                f"deploy: web + du lieu tinh cho dien thoai ({datetime.now():%Y-%m-%d %H:%M})")
+        else:
+            _log("không có thay đổi so với nhánh " + BRANCH)
         if dry:
             r = git("status", "--short")
             _log("DRY-RUN — chưa push. Thay đổi:")
             for line in (r.stdout or "").splitlines()[:15]:
                 _log("   " + line[:120])
+            return True
+        if not changed:
             return True
         # push bằng token (không lưu token trong .git/config lâu dài)
         url = f"https://x-access-token:{token}@github.com/{REPO}.git"
@@ -166,6 +164,30 @@ def deploy(token: str, dry: bool = False) -> bool:
         return False
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
+
+
+def wait_pages(token: str, timeout: int = 900) -> bool:
+    """Chờ GitHub build xong trang Pages (status 'built')."""
+    import time
+    req = _api(token)
+    t0 = time.time()
+    while time.time() - t0 < timeout:
+        try:
+            b = req("/pages/builds/latest")
+        except urllib.error.HTTPError as e:
+            if e.code == 404:
+                time.sleep(10)
+                continue
+            _log(f"⚠ đọc build: {e.code}")
+            return False
+        st = b.get("status")
+        _log(f"Pages build: {st}")
+        if st == "built":
+            return True
+        if st == "errored":
+            return False
+        time.sleep(15)
+    return False
 
 
 def main() -> int:
@@ -189,6 +211,7 @@ def main() -> int:
         return 1
     if not args.dry_run:
         enable_pages(tok)
+        wait_pages(tok)
         print(f"\n🌐 Trang học trên điện thoại: https://{REPO.split('/')[0]}.github.io/{REPO.split('/')[1]}/")
     return 0
 

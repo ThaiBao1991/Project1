@@ -1,0 +1,144 @@
+# Học trên điện thoại — kiến trúc, giới hạn, cách vận hành
+
+> Cập nhật: 17/11/2026. Áp dụng cho repo `ThaiBao1991/Project1` (nhánh `master` + `gh-pages`).
+
+## 1. Vì sao KHÔNG push thẳng dữ liệu lên git
+
+Đo thật ngày 17/11/2026:
+
+| Thành phần | Kích thước | Giới hạn GitHub |
+|---|---|---|
+| `data/ai_courses/<khóa>/course.json` | 8 file × 51–59 MB = **442,7 MB** | file > **100 MB bị chặn** push |
+| `data/media/` | **211.549 file / 2.626,7 MB** | repo khuyến nghị < 1 GB, cảnh báo > 5 GB |
+| `data/media/index.json` | **103,4 MB** | > 100 MB ⇒ **bị chặn** |
+| Toàn bộ `data/` | ~476.546 file / **7.377 MB** | — |
+
+⇒ Nếu commit trực tiếp: push thất bại (index.json 103 MB), repo phình > 10 GB,
+`git clone` không dùng nổi trên điện thoại.
+
+## 2. Kiến trúc 3 tầng đang dùng
+
+```
+┌──────────────────────────── ĐIỆN THOẠI ────────────────────────────┐
+│  PWA (web/index.html)                                              │
+│   • nội dung:  data/<khóa>/index.json + day/<n>.json   (~14 KB/ngày)│
+│   • media:     gói .zip 30 ngày  (m01..m85, ~8–10 MB/gói)           │
+│   • tiến độ:   localStorage (SRS SM-2 rút gọn)                     │
+└───────────────┬──────────────────────────┬─────────────────────────┘
+                │ HTTPS                    │ HTTPS (CORS)
+        ┌───────▼────────┐        ┌────────▼─────────────┐
+        │ GitHub Pages   │        │ GitHub Releases      │
+        │ nhánh gh-pages │        │ 1 release / khóa     │
+        │ ~360 MB, 20k file│      │ 85 asset, ~2,6 GB    │
+        └────────────────┘        └──────────────────────┘
+```
+
+- **Pages** phục vụ app + nội dung từng ngày. Mỗi ngày ~14 KB (nội dung) +
+  `media_map` (ref → đường dẫn file) ⇒ mở ngày rất nhanh, không tải 55 MB.
+- **Releases** chứa media đóng gói theo **30 ngày** (`m01.zip` … `m85.zip`).
+  Điện thoại chỉ tải gói của tháng đang học (~8–10 MB), giải nén **ngay trong
+  trình duyệt** bằng `DecompressionStream` (không cần thư viện ngoài).
+- **Tiến độ** nằm trên máy (localStorage), không cần server, không tốn băng thông.
+  Đánh đổi: máy tính và điện thoại **không tự đồng bộ** tiến độ với nhau.
+
+## 3. Vì sao dùng `api.github.com` để tải asset
+
+Đo thật: `https://github.com/<repo>/releases/download/<tag>/m01.zip` bị **CORS
+chặn** (`No 'Access-Control-Allow-Origin'`) khi fetch từ trình duyệt.
+Cách đúng:
+
+1. `GET https://api.github.com/repos/<repo>/releases/tags/<tag>` (có CORS) → lấy `asset.id`.
+2. `GET https://api.github.com/repos/<repo>/releases/assets/<id>` với header
+   `Accept: application/octet-stream` → nhận bytes.
+
+## 4. Giới hạn cần biết (2026)
+
+| Kênh | Giới hạn | Ta dùng |
+|---|---|---|
+| Git push | file ≤ 100 MB | mọi file Pages ≤ 60 MB |
+| Repo | khuyến nghị < 1 GB, cảnh báo > 5 GB | repo hiện ~5,9 GB (lịch sử cũ) |
+| Pages site | ≤ 1 GB, 100 GB/tháng (soft) | ~360 MB |
+| Release asset | ≤ 2 GiB/file, không giới hạn tổng | 85 file × ~10 MB |
+| API GitHub (không token) | 60 request/giờ/IP | 1 request/release (cache RAM) |
+
+Nếu sau này cần nhanh hơn / nhiều người dùng hơn: chuyển media sang
+Hugging Face Dataset hoặc Cloudflare R2 — chỉ cần sửa `web/data-config.js`
+(`releases` → URL khác) và `tools/publish_online.py`, không phải sửa app.
+
+## 5. Quy trình cập nhật (1 lệnh)
+
+```powershell
+cd GravityCode\VocabularyApp
+python -X utf8 tools\publish_online.py --pack --all     # tách ngày + nén media
+python -X utf8 tools\publish_online.py --upload --all   # đẩy media lên Releases
+python -X utf8 tools\publish_online.py --pages          # copy vào web/data
+python -X utf8 tools\deploy_pages.py                    # push nhánh gh-pages + bật Pages
+python -X utf8 tools\verify_online.py                   # kiểm tra thật (8 tầng)
+```
+
+- `--pack --lang <slug>` / `--upload --lang <slug>`: chỉ 1 khóa.
+- `--no-zip`: chỉ tách ngày (thử nhanh).
+- Upload **idempotent**: asset đã có thì bỏ qua; gói 0 byte bị bỏ qua.
+- Khi media được bù thêm, đổi `--tag data-<slug>-v2` (GitHub không cho trùng tên
+  asset trong cùng release) rồi sửa `web/data-config.js`.
+
+## 6. Sự cố đã gặp & cách xử lý
+
+| Triệu chứng | Nguyên nhân | Xử lý |
+|---|---|---|
+| `POST /releases/{id}/assets` → **404** | endpoint `api.github.com` không nhận upload cho repo này | dùng **`uploads.github.com`** |
+| `GET /releases/tags/<tag>` trả bản **rỗng** | GitHub cho phép nhiều draft trùng tag | liệt kê `/releases`, chọn bản nhiều asset nhất, xoá bản rỗng |
+| `UnicodeEncodeError` khi tạo release | tag chứa tiếng Việt | tag **ASCII**: `tiếng_nhật` → `data-tieng-nhat-v1` |
+| Fetch zip bị **CORS** | `github.com/.../releases/download` không có CORS | tải qua `api.github.com` + `Accept: application/octet-stream` |
+| Trang trắng / "Chưa có khóa học AI" | `ensureCourseLoaded` chạy khi `currentLanguage` rỗng | guard + nạp lại khi đổi ngôn ngữ |
+| Sửa JS mà điện thoại vẫn chạy bản cũ | service worker cache-first | SW dùng **network-first** cho html/js/css |
+
+## 7. Bảo mật & token GitHub
+
+- `web/data/` là **sản phẩm build** (gitignore ở `master`), chỉ tồn tại trên
+  nhánh `gh-pages`; nội dung học không chứa key/token.
+- `data/` (media gốc, log, settings) **không commit**.
+- Token GitHub **không** nằm trong repo. Thứ tự đọc của `tools/gh_token.py`:
+  1. `$env:GITHUB_TOKEN`
+  2. `%LOCALAPPDATA%\VocabularyApp\github_token.txt`
+  3. `settings.json` (nếu có)
+  4. `git credential fill` **chế độ không tương tác** (15 giây, không bật hộp thoại)
+- Lưu token 1 lần (không hỏi lại):
+  ```powershell
+  powershell -ExecutionPolicy Bypass -File tools\save_gh_token.ps1
+  # hoặc nếu chưa có credential:
+  powershell -ExecutionPolicy Bypass -File tools\save_gh_token.ps1 -Token "ghp_..."
+  ```
+  > Sự cố 17/11/2026: mỗi lần upload gọi `git credential fill` ⇒ Git Credential
+  > Manager bật hộp thoại đăng nhập GitHub liên tục. Nay tool chỉ đọc token đã
+  > lưu, tuyệt đối không bật hộp thoại.
+- Repo `ThaiBao1991/VocabularyData` chứa media (public) — **không** chứa token.
+- Repo `ThaiBao1991/Project1` đang **public** và còn lộ 197 key trong
+  `GravityCode/Download/AskCpl/settings.json` ⇒ nên chuyển private hoặc thu hồi
+  key (việc này chưa làm).
+
+## 8. Trạng thái nội dung & media (đo thật 17/11/2026)
+
+**Nội dung chữ: ĐỦ 100% ở cả 8 khóa** — 2.520 ngày/khóa, 25.200–25.389 từ,
+0 ngày thiếu từ / thiếu hội thoại / thiếu quiz (audit `course.json`).
+
+**Media (ảnh + audio) — đang bù tới hết 2.520 ngày theo thứ tự ưu tiên:**
+
+| Khóa | Ngày có media | Ảnh | Audio từ | Audio nghĩa | Hội thoại |
+|---|---:|---:|---:|---:|---:|
+| Tiếng Nhật | 2.351 / 2.520 | 85,1 % | 93,2 % | 93,1 % | 93,1 % |
+| Tiếng Trung | 600 / 2.520 | 26,3 % | 26,3 % | 26,3 % | 23,8 % |
+| Tiếng Anh | 600 / 2.520 | 25,2 % | 25,2 % | 25,2 % | 23,8 % |
+| Tiếng Hàn | 600 / 2.520 | 25,3 % | 25,3 % | 25,3 % | 23,8 % |
+| Tiếng Tây Ban Nha | 600 / 2.520 | 23,8 % | 23,8 % | 23,8 % | 23,8 % |
+| Tiếng Đức | 600 / 2.520 | 24,8 % | 24,8 % | 24,8 % | 23,8 % |
+| Tiếng Pháp | 600 / 2.520 | 24,8 % | 24,8 % | 24,8 % | 23,8 % |
+| Tiếng Nga | 600 / 2.520 | 23,8 % | 23,8 % | 23,8 % | 23,8 % |
+
+- Job nền `tools/fill_media.py --all-days` chạy đúng thứ tự **Nhật → Trung →
+  Anh → Hàn → Tây Ban Nha → Đức → Pháp → Nga**.
+- Khi một khóa bù xong: `publish_online.py --pack` (có zip) →
+  `upload_media_repo.py --lang <khóa>` → `publish_online.py --pages` →
+  `deploy_pages.py`. Khi đó điện thoại tải được gói tháng mới.
+- Trong lúc media chưa đủ, **nội dung chữ vẫn học bình thường**; ngày chưa có
+  media chỉ không hiện ảnh/audio (không lỗi).

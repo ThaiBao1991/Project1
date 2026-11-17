@@ -1273,3 +1273,91 @@ nhỏ hơn **KHÔNG được làm mất** entry đang có trên đĩa).
 **Khôi phục:** rebuild manifest từ 211.000 file trên đĩa ⇒ ref tính lại bằng
 đúng công thức `m_ + hash(rel_path + sha256)` ⇒ **khớp với ref trong course.json**
 ⇒ app hiện lại đủ ảnh + âm thanh.
+
+---
+
+## 7.35. GÓI 10 — HỌC TRÊN ĐIỆN THOẠI 24/7 (2026-11-17)
+
+**Mục tiêu:** mở app trên điện thoại mọi lúc, có **đủ 8 khóa × 2.520 ngày**,
+media tải theo nhu cầu, tiến độ lưu trên máy; cập nhật nội dung bằng **1 lệnh**.
+
+### ① Kiến trúc đã chốt (đo thật, không suy đoán)
+
+| Tầng | Nơi lưu | Dung lượng thật | Ghi chú |
+|---|---|---|---|
+| App + nội dung ngày | GitHub Pages (`gh-pages`) | **20.168 file / 331 MB** | mỗi ngày ~14 KB + `media_map` |
+| Media (ảnh/audio) | repo riêng `ThaiBao1991/VocabularyData` | **~2,2 GB / 8 khóa** | gói 30 ngày `m01..m85.zip` |
+| Tiến độ SRS | `localStorage` trên điện thoại | vài KB | SM-2 rút gọn, không cần server |
+
+**Vì sao repo dữ liệu riêng + `raw.githubusercontent.com`:**
+- `github.com/.../releases/download/...` → **KHÔNG có CORS** ⇒ `fetch()` bị chặn.
+- `api.github.com/.../releases/assets/<id>` → 302 sang
+  `release-assets.githubusercontent.com` → **CŨNG KHÔNG có CORS**.
+- `raw.githubusercontent.com` → **CÓ CORS** (đo thật: tải + giải nén 1.075 file
+  trong 1,4 giây) ⇒ kênh chính. Release chỉ còn là fallback.
+
+### ② Số liệu thật sau khi deploy
+
+- Pages: `https://ThaiBao1991.github.io/Project1/` — build **built**,
+  `data/index.json` đủ **8 khóa**, mỗi khóa **2.520 ngày**.
+- Media repo: Nhật **80 gói/721 MB** · Trung **21/162** · Anh **23/224** ·
+  Hàn **21/269** · Nga **21/254** · Pháp **21/212** · Tây Ban Nha **21/164** ·
+  Đức **21/166**.
+- Test trình duyệt thật (Pages + raw): tiếng Nhật tải gói `m01.zip` **3,3 giây**,
+  giải nén **1.075 file**, **10/10 ảnh 512×512** render; tiếng Trung + tiếng Anh
+  cũng tải + render đúng.
+- `tools/verify_online.py`: **9/9 PASS** (Pages, manifest PWA, 8 khóa, 2.520 ngày,
+  day JSON, raw media index, tải + giải nén zip, zip chứa media ngày 1, release fallback).
+
+### ③ Bug quan trọng đã sửa trong gói này
+
+1. **`media_map` thiếu 17/31 ref** (Trung ngày 1) ⇒ web chỉ hiện 1/10 ảnh dù
+   file đã có trong zip. Nguyên nhân: `publish_online.py` chỉ đọc checkpoint
+   `_pipeline/days/dXXXX/*.json` (không đầy đủ). **Sửa:** đọc manifest
+   `data/media/index.json` **một lần** (211.708 entry) và **ghi đè** lên
+   checkpoint ⇒ Trung ngày 1 đủ **34/34** ref.
+2. **Hộp thoại đăng nhập GitHub hiện liên tục** khi upload: mỗi tiến trình gọi
+   `git credential fill`; khi credential không đọc được, Git Credential Manager
+   bật UI. **Sửa:** `tools/gh_token.py` đọc token từ
+   `%LOCALAPPDATA%\VocabularyApp\github_token.txt` (lưu 1 lần bằng
+   `tools/save_gh_token.ps1`), chỉ fallback `git credential fill` ở chế độ
+   **không tương tác** (15 giây). Từ nay không còn hộp thoại.
+3. **Service worker cache-first** làm điện thoại chạy JS cũ. **Sửa:** network-first
+   cho html/js/css/json + `cache:"reload"`, `VERSION = vocab-v3`.
+4. **`_monthKeyOf` lệch Python** (`(day-1)//30` vs `day//30`) ⇒ tải sai gói tháng.
+   **Sửa:** `Math.floor(day/30)+1`.
+5. **Release trùng tag**: GitHub cho phép nhiều draft cùng tag ⇒
+   `/releases/tags/<tag>` trả bản rỗng ⇒ upload 404. **Sửa:** liệt kê `/releases`,
+   chọn bản nhiều asset nhất, xoá bản rỗng, PATCH `draft → public`.
+6. **Tag Unicode** gây `UnicodeEncodeError` ⇒ dùng slug ASCII (`tiếng_đức` →
+   `tieng-duc`).
+
+### ④ Quy trình cập nhật (1 lệnh)
+
+```powershell
+python -X utf8 tools\publish_all_online.py            # pack + upload + pages + deploy + verify
+python -X utf8 tools\publish_all_online.py --lang tiếng_nhật
+```
+
+Hoặc từng bước:
+
+```powershell
+python -X utf8 tools\publish_online.py --pack --no-zip   # chỉ cập nhật nội dung ngày
+python -X utf8 tools\publish_online.py --pages           # copy sang web/data
+python -X utf8 tools\deploy_pages.py                     # push gh-pages + bật Pages
+python -X utf8 tools\verify_online.py                    # kiểm tra thật
+python -X utf8 tools\upload_media_repo.py --lang tiếng_nhật
+```
+
+### ⑤ Việc còn chạy nền
+
+- `tools/fill_media.py --all-days` theo đúng thứ tự **Nhật → Trung → Anh → Hàn →
+  Tây Ban Nha → Đức → Pháp → Nga** (bù media tới hết 2.520 ngày/khóa).
+- Sau khi bù xong: `--pack` (có zip) → `--upload`/`upload_media_repo.py` →
+  `--pages` → `deploy_pages.py` để điện thoại nhận media mới.
+
+### ⑥ Bảo mật
+
+- Token GitHub **không** nằm trong repo; xem `docs/ONLINE_PHONE.md` §7.
+- Repo `Project1` đang public và còn lộ 197 key trong
+  `GravityCode/Download/AskCpl/settings.json` ⇒ cần chuyển private/thu hồi key.

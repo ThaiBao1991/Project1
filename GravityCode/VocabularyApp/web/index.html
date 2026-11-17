@@ -162,5 +162,13 @@
     <script src="zipreader.js"></script>
     <script src="data-config.js"></script>
     <script src="script.js"></script>
+    <script>
+        // PWA: đăng ký service worker để học được khi mất mạng (chỉ http/https)
+        if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) {
+            window.addEventListener("load", function () {
+                navigator.serviceWorker.register("sw.js").catch(function () { /* bỏ qua */ });
+            });
+        }
+    </script>
 </body>
 </html>

@@ -5,11 +5,11 @@
 //
 // BẢN CHẠY TRÊN ĐIỆN THOẠI (GitHub Pages): mode = "static" ⇒
 //   • nội dung: data/<slug>/index.json + data/<slug>/day/<n>.json  (GitHub Pages)
-//   • media   : gói .zip theo 30 ngày trên GitHub Releases
-//               https://github.com/<repo>/releases/download/<tag>/m01.zip
+//   • media   : gói .zip theo 30 ngày ở REPO DỮ LIỆU RIÊNG, tải qua
+//               raw.githubusercontent.com (CÓ CORS — xem docs/ONLINE_PHONE.md)
 //   • tiến độ: localStorage (không cần server)
 //
-// SỬA Ở ĐÂY khi đổi repo / release / khóa học.
+// SỬA Ở ĐÂY khi đổi repo / khóa học.
 (function () {
     // Tự nhận diện: chạy trên máy (localhost/127.0.0.1) ⇒ dùng API app
     // desktop (đầy đủ, nhanh); chạy trên GitHub Pages ⇒ dùng dữ liệu tĩnh.
@@ -31,8 +31,12 @@
         // Nội dung tĩnh (Pages). Bỏ trống ⇒ dùng đường dẫn tương đối.
         dataBase: "data",
 
-        // Media theo gói .zip trên GitHub Releases: slug → tag release
-        // (tag ASCII: "tiếng_nhật" → "data-tieng-nhat-v1")
+        // ── MEDIA: repo dữ liệu riêng + raw.githubusercontent.com ──────────
+        // (raw CÓ CORS; release asset thì KHÔNG — xem docs/ONLINE_PHONE.md §3)
+        mediaRepo: "ThaiBao1991/VocabularyData",
+        mediaRawBase: "https://raw.githubusercontent.com/ThaiBao1991/VocabularyData/main/media",
+
+        // Fallback: GitHub Releases (chỉ dùng khi raw lỗi; có thể bị CORS chặn)
         releases: {
             "tiếng_nhật": "data-tieng-nhat-v1",
             "tiếng_trung": "data-tieng-trung-v1",

@@ -505,15 +505,61 @@ function _bundleUrl(slug, monthKey) {
     return `https://github.com/${VOCAB_DATA_CFG.repo}/releases/download/${tag}/m${monthKey}.zip`;
 }
 
-/** Danh sách asset của 1 release (cache) — qua api.github.com (CORS OK). */
+/** index.json của repo dữ liệu: { "<slug>": {dir, months} } (cache localStorage). */
+let mediaIndexCfg = null;
+async function _mediaIndex() {
+    if (mediaIndexCfg) return mediaIndexCfg;
+    const ck = "vocab_media_index_v1";
+    try {
+        const raw = localStorage.getItem(ck);
+        if (raw) {
+            const o = JSON.parse(raw);
+            // TTL 1 ngày — để khóa mới thêm vào repo dữ liệu sớm được nhận.
+            if (o && o.d && (Date.now() - (o.t || 0)) < 24 * 3600 * 1000) {
+                mediaIndexCfg = o.d;
+                return o.d;
+            }
+        }
+    } catch (e) { }
+    const r = await fetch(`${VOCAB_DATA_CFG.mediaRawBase}/index.json`, { cache: "no-cache" });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    const d = await r.json();
+    mediaIndexCfg = d;
+    try { localStorage.setItem(ck, JSON.stringify({ t: Date.now(), d })); } catch (e) { }
+    return d;
+}
+
+/** Danh sách asset của 1 release (cache RAM + localStorage 7 ngày).
+ *  ⚠ GitHub API không token chỉ cho **60 request/giờ/IP** ⇒ phải cache để
+ *  mở app nhiều lần không bị 403. */
 let releaseCache = {};
 async function _releaseAssets(tag) {
     if (releaseCache[tag]) return releaseCache[tag];
+    const ck = "vocab_rel_" + tag;
+    const readCache = () => {
+        try {
+            const raw = localStorage.getItem(ck);
+            if (!raw) return null;
+            const o = JSON.parse(raw);
+            return (o && Array.isArray(o.a)) ? o : null;
+        } catch (e) { return null; }
+    };
+    const old = readCache();
+    if (old && (Date.now() - (old.t || 0)) < 7 * 24 * 3600 * 1000) {
+        releaseCache[tag] = old.a;
+        return old.a;
+    }
     const r = await fetch(`https://api.github.com/repos/${VOCAB_DATA_CFG.repo}/releases/tags/${encodeURIComponent(tag)}`);
-    if (!r.ok) throw new Error("HTTP " + r.status);
+    if (!r.ok) {
+        // 403 = hết quota 60/giờ ⇒ dùng cache cũ (nếu có) thay vì bỏ media.
+        if (old) { releaseCache[tag] = old.a; return old.a; }
+        throw new Error("HTTP " + r.status);
+    }
     const j = await r.json();
-    releaseCache[tag] = j.assets || [];
-    return releaseCache[tag];
+    const assets = (j.assets || []).map(a => ({ id: a.id, name: a.name, size: a.size }));
+    releaseCache[tag] = assets;
+    try { localStorage.setItem(ck, JSON.stringify({ t: Date.now(), a: assets })); } catch (e) { }
+    return assets;
 }
 
 /**
@@ -523,7 +569,39 @@ async function _releaseAssets(tag) {
  *   api.github.com (có CORS) với header Accept: application/octet-stream.
  */
 async function _fetchBundleBytes(slug, monthKey) {
-    const tag = VOCAB_DATA_CFG.releases[slug];
+    const cacheKey = `https://vocab.local/media/${encodeURIComponent(slug)}/m${monthKey}.zip`;
+    let cache = null;
+    try {
+        if (typeof caches !== "undefined") cache = await caches.open("vocab-media-v1");
+        if (cache) {
+            const hit = await cache.match(cacheKey);
+            if (hit) return await hit.arrayBuffer();
+        }
+    } catch (e) { cache = null; }
+
+    // 1) REPO DỮ LIỆU qua raw.githubusercontent.com — CÓ CORS, không giới hạn
+    //    60 request/giờ như api.github.com.
+    try {
+        const idx = await _mediaIndex();
+        const info = idx[slug];
+        if (info && info.dir) {
+            const url = `${VOCAB_DATA_CFG.mediaRawBase}/${info.dir}/m${monthKey}.zip`;
+            const r = await fetch(url);
+            if (r.ok) {
+                const buf = await r.arrayBuffer();
+                if (cache && buf.byteLength > 1024) {
+                    try { await cache.put(cacheKey, new Response(buf.slice(0))); } catch (e) { }
+                }
+                return buf;
+            }
+            if (r.status === 404) return null;   // tháng chưa có gói
+        }
+    } catch (e) {
+        console.warn("raw media lỗi, thử GitHub API", e);
+    }
+
+    // 2) Fallback: GitHub Releases qua API (có thể bị CORS ở bước tải bytes)
+    const tag = VOCAB_DATA_CFG.releases && VOCAB_DATA_CFG.releases[slug];
     if (!tag) return null;
     const assets = await _releaseAssets(tag);
     const name = `m${monthKey}.zip`;
@@ -532,7 +610,11 @@ async function _fetchBundleBytes(slug, monthKey) {
     const r = await fetch(`https://api.github.com/repos/${VOCAB_DATA_CFG.repo}/releases/assets/${a.id}`,
         { headers: { Accept: "application/octet-stream" } });
     if (!r.ok) throw new Error("HTTP " + r.status);
-    return await r.arrayBuffer();
+    const buf = await r.arrayBuffer();
+    if (cache && buf.byteLength > 1024) {
+        try { await cache.put(cacheKey, new Response(buf.slice(0))); } catch (e) { }
+    }
+    return buf;
 }
 
 /** Tải + giải nén 1 gói media (nếu chưa có) → map đường dẫn → object URL. */
@@ -560,12 +642,37 @@ async function ensureMediaBundle(slug, monthKey) {
             return map;
         } catch (e) {
             console.warn("Không tải được gói media", key, e);
+            const m = String(e && e.message || e);
+            if (m.includes("403")) {
+                _notifyMediaLimited("⚠ GitHub tạm giới hạn lượt tải (60 lượt/giờ cho mỗi IP). "
+                    + "Nội dung chữ vẫn học bình thường; ảnh/âm thanh sẽ tự có lại sau ít phút. "
+                    + "Gói media đã tải trước đó vẫn dùng được.");
+            } else if (m.includes("404")) {
+                _notifyMediaLimited("⚠ Gói media của tháng này chưa có trên GitHub Releases "
+                    + "(media đang được bổ sung dần). Nội dung chữ vẫn học được.");
+            }
             return null;
         } finally {
             delete mediaBundlePromise[key];
         }
     })();
     return mediaBundlePromise[key];
+}
+
+/** Cảnh báo 1 lần khi GitHub giới hạn lượt tải (60/giờ/IP). */
+let _mediaLimitWarned = false;
+function _notifyMediaLimited(msg) {
+    if (_mediaLimitWarned) return;
+    _mediaLimitWarned = true;
+    const box = document.getElementById("course-content");
+    if (!box) return;
+    const div = document.createElement("div");
+    div.className = "media-limit-note";
+    div.style.cssText = "margin:10px 0;padding:10px 12px;border-radius:10px;"
+        + "background:rgba(255,193,7,.12);border:1px solid rgba(255,193,7,.35);"
+        + "color:#ffd54f;font-size:.9em;line-height:1.45;";
+    div.textContent = msg;
+    box.insertBefore(div, box.firstChild);
 }
 
 function _mimeOf(name) {
@@ -579,7 +686,8 @@ function _mimeOf(name) {
 
 /** Ngày thuộc nhóm 30 ngày nào (trùng với tools/publish_online.py). */
 function _monthKeyOf(day) {
-    return String(Math.floor((Number(day) - 1) / 30) + 1).padStart(2, "0");
+    // Python: mkey = day // 30 + 1  ⇒ ngày 1-29 → 01, 30-59 → 02, 60-89 → 03
+    return String(Math.floor(Number(day) / 30) + 1).padStart(2, "0");
 }
 
 
@@ -734,10 +842,11 @@ function mediaUrl(ref) {
     if (!e.rel_path) return "";
     // Bản ONLINE: file nằm trong gói .zip đã giải nén ⇒ dùng object URL.
     if (e._static) {
-        const slug = slugOf(currentLanguage);
-        const mk = _monthKeyOf(currentLessonDay || 1);
-        const bundle = mediaBundles[`${slug}|m${mk}`];
-        if (bundle && bundle[e.rel_path]) return bundle[e.rel_path];
+        const rel = e.rel_path;
+        for (const k of Object.keys(mediaBundles)) {
+            const b = mediaBundles[k];
+            if (b && b[rel]) return b[rel];
+        }
         return "";      // chưa có gói media ⇒ không hiện ảnh/audio
     }
     // rel_path = "media/<slug>/d0001/xxx.webp" ; web root chứa "data/"
@@ -1296,6 +1405,133 @@ drawCanvas.addEventListener("touchend", () => { isPracticing = false; });
 // ════════════════════════════════════════════════════════════════════════════
 const srsState = { items: [], idx: 0, revealed: false, stats: null };
 
+// ════════════════════════════════════════════════════════════════════════════
+// SRS CỤC BỘ cho bản ONLINE (Gói 10): tiến độ nằm trong localStorage.
+// Thuật toán SM-2 rút gọn: again 10 phút · hard ×1.2 · good ×2.5 · easy ×3.2
+// ════════════════════════════════════════════════════════════════════════════
+function _srsKey(slug) { return "vocab_srs_v1_" + slug; }
+
+function _srsLoad(slug) {
+    try {
+        const raw = localStorage.getItem(_srsKey(slug));
+        const d = raw ? JSON.parse(raw) : null;
+        if (d && typeof d === "object") {
+            d.cards = d.cards || {};
+            d.days = d.days || {};
+            return d;
+        }
+    } catch (e) { }
+    return { cards: {}, days: {} };
+}
+
+function _srsSave(slug, data) {
+    try { localStorage.setItem(_srsKey(slug), JSON.stringify(data)); } catch (e) { }
+}
+
+function _todayKey() {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
+function _dayOfVocab(v) {
+    const m = /(\d+)/.exec(String(v.date_tag || ""));
+    return m ? Number(m[1]) : 0;
+}
+
+function _srsItemFromVocab(v) {
+    return {
+        word: v.word || "",
+        pronunciation: v.reading || "",
+        meaning_vi: v.meaning || "",
+        example_sentence: v.example || "",
+        example_meaning_vi: "",
+        image_ref: v.image_ref || "",
+        audio_ref: v.audio_ref || "",
+        meaning_audio_ref: "",
+        day: _dayOfVocab(v),
+    };
+}
+
+/** Hàng đợi ôn tập cục bộ: thẻ đến hạn trước, sau đó thẻ mới. */
+function localSrsQueue(slug, limit = 20) {
+    const data = _srsLoad(slug);
+    const now = Date.now();
+    const due = [];
+    const fresh = [];
+    for (const v of (vocabularies || [])) {
+        if (!v || !v.word) continue;
+        const c = data.cards[v.word];
+        if (!c) { fresh.push(v); continue; }
+        if ((c.due || 0) <= now) due.push(v);
+    }
+    due.sort((a, b) => (data.cards[a.word].due || 0) - (data.cards[b.word].due || 0));
+    const items = due.concat(fresh).slice(0, limit).map(_srsItemFromVocab);
+    return { items, stats: localSrsStats(slug) };
+}
+
+function localSrsStats(slug) {
+    const data = _srsLoad(slug);
+    const now = Date.now();
+    const cards = Object.values(data.cards || {});
+    const due = cards.filter(c => (c.due || 0) <= now).length;
+    const mastered = cards.filter(c => (c.interval || 0) >= 21).length;
+    // streak: số ngày liên tiếp có ôn (tính từ hôm nay/lùi về)
+    let streak = 0;
+    const d = new Date();
+    for (;;) {
+        const k = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+        if (data.days[k]) { streak += 1; d.setDate(d.getDate() - 1); }
+        else break;
+    }
+    return { total: cards.length, mastered, due, streak };
+}
+
+/** Chấm điểm 1 thẻ (localStorage) → { next_review_in_days }. */
+function localSrsGrade(slug, word, grade) {
+    const data = _srsLoad(slug);
+    const now = Date.now();
+    const c = data.cards[word] || { ef: 2.5, interval: 0, reps: 0, lapses: 0, due: now };
+    const g = String(grade || "good");
+    if (g === "again") {
+        c.ef = Math.max(1.3, (c.ef || 2.5) - 0.2);
+        c.interval = 10 / (24 * 60);      // 10 phút
+        c.lapses = (c.lapses || 0) + 1;
+    } else if (g === "hard") {
+        c.interval = Math.max(1, (c.interval || 0) * 1.2);
+    } else if (g === "easy") {
+        c.interval = Math.max(3, (c.interval || 0) * 3.2);
+    } else {
+        c.interval = (c.interval || 0) < 1 ? 1 : c.interval * 2.5;
+    }
+    c.reps = (c.reps || 0) + 1;
+    c.due = now + c.interval * 24 * 60 * 60 * 1000;
+    c.last = now;
+    data.cards[word] = c;
+    const tk = _todayKey();
+    data.days[tk] = (data.days[tk] || 0) + 1;
+    _srsSave(slug, data);
+    return { next_review_in_days: c.interval };
+}
+
+/** Nạp media_map + gói media của 1 ngày (dùng cho thẻ ôn tập ở bản online). */
+async function _staticPreloadSrsMedia(it) {
+    if (_cfgMode() !== "static" || !it || !it.day) return false;
+    const slug = slugOf(currentLanguage);
+    const day = Number(it.day);
+    if (!slug || !day) return false;
+    if (!courseDayCache[day]) {
+        try {
+            const base = `${VOCAB_DATA_CFG.dataBase}/${encodeURIComponent(slug)}`;
+            const r = await fetch(`${base}/day/${String(day).padStart(4, "0")}.json`);
+            if (r.ok) courseDayCache[day] = await r.json();
+        } catch (e) { }
+    }
+    const j = courseDayCache[day];
+    if (j && j.media_map) Object.assign(staticMediaMap, j.media_map);
+    try { await ensureMediaBundle(slug, _monthKeyOf(day)); } catch (e) { }
+    return true;
+}
+
 async function loadSrsQueue() {
     const slug = slugOf(currentLanguage);
     const card = document.getElementById("srs-card");
@@ -1307,6 +1543,24 @@ async function loadSrsQueue() {
         return;
     }
     card.innerHTML = '<p class="srs-hint">⏳ Đang tải hàng đợi ôn tập…</p>';
+    // BẢN ONLINE: hàng đợi + tiến độ nằm trong localStorage (không cần server)
+    if (_cfgMode() === "static") {
+        try {
+            const q = localSrsQueue(slug, 20);
+            srsState.items = q.items;
+            srsState.stats = q.stats;
+            srsState.idx = 0;
+            srsState.revealed = false;
+            renderSrsStats();
+            renderSrsCard();
+            if (q.items[0]) {
+                _staticPreloadSrsMedia(q.items[0]).then((ok) => { if (ok) renderSrsCard(); });
+            }
+        } catch (e) {
+            card.innerHTML = '<p class="srs-hint">⚠ Không đọc được tiến độ ôn tập trên máy.</p>';
+        }
+        return;
+    }
     try {
         const r = await fetch(`api/vocab/srs/queue?lang=${encodeURIComponent(slug)}&limit=20`);
         if (!r.ok) throw new Error("HTTP " + r.status);
@@ -1384,6 +1638,26 @@ async function srsGrade(grade) {
     const it = srsState.items[srsState.idx];
     const fb = document.getElementById("srs-feedback");
     if (!it) return;
+    // BẢN ONLINE: lưu vào localStorage, không gọi server.
+    if (_cfgMode() === "static") {
+        try {
+            const info = localSrsGrade(slugOf(currentLanguage), it.word, grade);
+            const d = info.next_review_in_days;
+            const when = (d == null) ? "?" :
+                (d < 1 ? Math.round(d * 24 * 60) + " phút" : Math.round(d) + " ngày");
+            if (fb) fb.textContent = `✅ Đã lưu — ôn lại sau ${when}.`;
+        } catch (e) {
+            if (fb) fb.textContent = "⚠ Không lưu được kết quả ôn tập.";
+        }
+        srsState.idx += 1;
+        srsState.revealed = false;
+        srsState.stats = localSrsStats(slugOf(currentLanguage));
+        renderSrsStats();
+        renderSrsCard();
+        const nx = srsState.items[srsState.idx];
+        if (nx) _staticPreloadSrsMedia(nx).then((ok) => { if (ok) renderSrsCard(); });
+        return;
+    }
     try {
         const r = await fetch("api/vocab/srs/review", {
             method: "POST",
