@@ -123,7 +123,7 @@ python -X utf8 tools\verify_online.py                   # kiểm tra thật (8 t
   `GravityCode/Download/AskCpl/settings.json` ⇒ nên chuyển private hoặc thu hồi
   key (việc này chưa làm).
 
-## 8. Trạng thái nội dung & media (đo lúc 23:35 18/11/2026)
+## 8. Trạng thái nội dung & media (đo lúc 00:05 19/11/2026)
 
 **Nội dung chữ: ĐỦ 100% ở cả 8 khóa** — 2.520 ngày/khóa, 25.200–25.389 từ,
 0 ngày thiếu từ / thiếu hội thoại / thiếu quiz (audit `course.json`).
@@ -133,13 +133,13 @@ python -X utf8 tools\verify_online.py                   # kiểm tra thật (8 t
 | Khóa | Ngày có media | Ghi chú |
 |---|---:|---|
 | Tiếng Nhật | **2.520 / 2.520** | 85 gói, commit `5a801263`, `verify_online.py` 9/9 PASS |
-| Tiếng Trung | 1.160 / 2.520 | đang chạy (ưu tiên 2) |
-| Tiếng Anh | 1.214 / 2.520 | chờ |
-| Tiếng Hàn | 1.156 / 2.520 | chờ |
-| Tiếng Tây Ban Nha | 926 / 2.520 | chờ |
-| Tiếng Đức | 600 / 2.520 | chờ |
-| Tiếng Pháp | 600 / 2.520 | chờ |
-| Tiếng Nga | 600 / 2.520 | chờ |
+| Tiếng Trung | 1.194 / 2.520 | đang chạy (ưu tiên 2), còn 1.326 ngày |
+| Tiếng Anh | 1.214 / 2.520 | chờ, còn 1.306 ngày |
+| Tiếng Hàn | 1.156 / 2.520 | chờ, còn 1.364 ngày |
+| Tiếng Tây Ban Nha | 926 / 2.520 | chờ, còn 1.594 ngày |
+| Tiếng Đức | 600 / 2.520 | chờ, còn 1.920 ngày |
+| Tiếng Pháp | 600 / 2.520 | chờ, còn 1.920 ngày |
+| Tiếng Nga | 600 / 2.520 | chờ, còn 1.920 ngày |
 
 - **Ảnh hiện là placeholder** 512×512 (thẻ chữ cái đầu, ~604 B/ảnh): tầng
   `dict` (Wikimedia) bị HTTP 429 hàng loạt, còn Gemini image free tier

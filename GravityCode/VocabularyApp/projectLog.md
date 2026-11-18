@@ -1782,3 +1782,42 @@ thành `RLock`, giữ lock khi ghi; test đa luồng 8 writer + 2 saver **PASS**
 **Đang chạy nền:** `fill_lite.py` khóa Trung (1.160/2.520) + watcher
 `finalize_lite.py`; ước tính ~1 phút/ngày.
 
+---
+
+## 2026-11-19 (00:05) — Kiểm tra 8 khóa + chốt tài khoản git + skill vận hành
+
+**Kiểm tra thật (đếm thư mục `data/media/<khóa>/dXXXX` có file):**
+
+| Khóa | Có media | Còn thiếu |
+|---|---:|---:|
+| Nhật | **2.520 / 2.520** | 0 — đã deploy, verify 9/9 PASS |
+| Trung | 1.194 / 2.520 | 1.326 |
+| Anh | 1.214 / 2.520 | 1.306 |
+| Hàn | 1.156 / 2.520 | 1.364 |
+| Tây Ban Nha | 926 / 2.520 | 1.594 |
+| Đức | 600 / 2.520 | 1.920 |
+| Pháp | 600 / 2.520 | 1.920 |
+| Nga | 600 / 2.520 | 1.920 |
+
+⇒ **Chỉ Nhật đủ; 7 khóa còn thiếu**, tổng cộng **11.350 ngày** chưa có media.
+Job `fill_lite` đang chạy khóa Trung (~551 MB RAM), watcher `finalize_lite`
+canh sẵn.
+
+**Tài khoản git — chỉ ThaiBao:**
+- Bỏ hẳn `x-access-token` khỏi URL ở `deploy_pages.py` + `upload_media_repo.py`.
+- Push bằng header `http.https://github.com/.extraheader` qua biến môi trường;
+  token không nằm trong URL / `.git/config` / argv.
+- Commit lấy `user.name`/`user.email` từ git config → `Thai Bao
+  <thaibao1991dn@gmail.com>`; không còn `VocabularyApp` / `app@local`.
+- Test push nhánh tạm bằng cơ chế mới: **PASS**, đã xoá nhánh (204).
+
+**Skill mới:** `C:\Users\games\.codex\skills\vocab-media-publish`
+- `SKILL.md`: bất biến 8 khóa × 2.520 ngày, thứ tự ưu tiên, lệnh kiểm tra,
+  fill_lite, finalize 4 bước, xử lý sự cố, cảnh báo ảnh placeholder.
+- `references/commands.md`: tham số script, số liệu đo thật, cấu trúc repo,
+  checklist trước khi commit, quy tắc tài khoản.
+- `quick_validate.py`: **Skill is valid!**
+
+**Docs:** cập nhật `docs/ONLINE_PHONE.md` §7–§9 theo trạng thái mới.
+
+
