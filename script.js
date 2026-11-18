@@ -917,7 +917,23 @@ function flattenQuiz(quizData) {
     return out;
 }
 
+/** Bao bọc render: lỗi dữ liệu không được để màn hình kẹt "Đang tải…". */
 async function renderCourseDay(dayNum) {
+    try {
+        return await _renderCourseDay(dayNum);
+    } catch (e) {
+        console.error("renderCourseDay lỗi", dayNum, e);
+        const box = document.getElementById("course-content");
+        if (box) {
+            box.innerHTML = `<p style="color:var(--danger);padding:20px;text-align:center;line-height:1.5;">
+                ⚠ Không hiển thị được Ngày ${escapeHtml(String(dayNum))}.<br>
+                <span style="font-size:.85em;color:var(--text-muted);">${escapeHtml(String(e && e.message || e))}</span>
+            </p>`;
+        }
+    }
+}
+
+async function _renderCourseDay(dayNum) {
     let lesson = (courseData.days || []).find(d => Number(d.day) === Number(dayNum));
     // Gói 3: khi dùng API theo ngày, `courseData.days` chỉ là metadata ⇒ phải
     // tải nội dung ngày đó (cache theo ngày).
@@ -1055,20 +1071,31 @@ async function renderCourseDay(dayNum) {
     if (grammarItems.length) {
         html += `<div class="section-title">📐 Ngữ pháp</div>`;
         grammarItems.forEach((g, gi) => {
+            // FIX 2026-11-19: `common_mistakes` trong dữ liệu có thể là CHUỖI
+            // (69.964 mục ở cả 8 khóa) chứ không phải mảng. Trước đây gọi
+            // `.map()` lên chuỗi ⇒ TypeError ⇒ màn hình kẹt "Đang tải…".
+            const mistakes = Array.isArray(g.common_mistakes)
+                ? g.common_mistakes
+                : (g.common_mistakes ? [g.common_mistakes] : []);
             html += `<div class="grammar-box">
                 <h4>Bài ${gi + 1}: ${escapeHtml(g.title || "")}</h4>
                 <div>${formatText(g.explanation || "")}</div>
-                ${(g.examples || []).map(ex => `
+                ${(Array.isArray(g.examples) ? g.examples : []).map(ex => `
                     <div style="margin-top:8px;">💬 ${formatText(ex.sentence || "")}
                         ${ex.meaning_vi ? `<div class="vocab-example-meaning">${formatText(ex.meaning_vi)}</div>` : ""}
                     </div>`).join("")}
                 ${g.pronunciation_focus ? `<div class="phonetic-note">👄 ${escapeHtml(g.pronunciation_focus)}</div>` : ""}
-                ${(g.common_mistakes || []).map(m => `
-                    <div class="mistake-box">
+                ${mistakes.map(m => {
+                    if (typeof m === "string") {
+                        return `<div class="mistake-box"><div class="mistake-note">⚠️ ${escapeHtml(m)}</div></div>`;
+                    }
+                    if (!m || typeof m !== "object") return "";
+                    return `<div class="mistake-box">
                         <div class="mistake-wrong">❌ ${escapeHtml(m.wrong || "")}</div>
                         <div class="mistake-right">✅ ${escapeHtml(m.right || "")}</div>
                         ${m.why_vi ? `<div class="vocab-example-meaning">${escapeHtml(m.why_vi)}</div>` : ""}
-                    </div>`).join("")}
+                    </div>`;
+                }).join("")}
             </div>`;
         });
     }
@@ -1112,7 +1139,7 @@ async function renderCourseDay(dayNum) {
             const catBadge = q._category ? `<span class="quiz-cat-badge">${escapeHtml(q._category)}</span>` : "";
             html += `<div class="quiz-q" data-qi="${qi}">
                 <b>${qi + 1}. ${catBadge} ${formatText(q.question)}</b>
-                ${q.options.map((opt, oi) =>
+                ${(q.options || []).map((opt, oi) =>
                     `<button class="quiz-opt" data-oi="${oi}">${String.fromCharCode(65 + oi)}. ${escapeHtml(opt)}</button>`
                 ).join("")}
                 <div class="quiz-exp"></div>

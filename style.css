@@ -932,6 +932,7 @@ tr:last-child td {
 
 .mistake-wrong { color: var(--danger); }
 .mistake-right { color: var(--success); }
+.mistake-note { color: #ffd54f; line-height: 1.45; }
 
 /* ── Dẫn chứng (Wikipedia / Wiktionary) — khớp render desktop VocabApp.py ── */
 .evidence-box {
