@@ -1810,6 +1810,8 @@ canh sẵn.
 - Commit lấy `user.name`/`user.email` từ git config → `Thai Bao
   <thaibao1991dn@gmail.com>`; không còn `VocabularyApp` / `app@local`.
 - Test push nhánh tạm bằng cơ chế mới: **PASS**, đã xoá nhánh (204).
+- Thêm `tools/push_master.py` — push `master` bằng token ThaiBao, không hộp
+  thoại; đã test thật (`0c0ee488..73f5e13d`).
 
 **Skill mới:** `C:\Users\games\.codex\skills\vocab-media-publish`
 - `SKILL.md`: bất biến 8 khóa × 2.520 ngày, thứ tự ưu tiên, lệnh kiểm tra,
