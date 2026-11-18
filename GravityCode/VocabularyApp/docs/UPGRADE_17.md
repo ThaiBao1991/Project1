@@ -1361,3 +1361,28 @@ python -X utf8 tools\upload_media_repo.py --lang tiếng_nhật
 - Token GitHub **không** nằm trong repo; xem `docs/ONLINE_PHONE.md` §7.
 - Repo `Project1` đang public và còn lộ 197 key trong
   `GravityCode/Download/AskCpl/settings.json` ⇒ cần chuyển private/thu hồi key.
+
+### ⑦ CHẾ ĐỘ NHẸ 18/11/2026 (máy chỉ chiếm ~1/3 RAM, CPU thấp)
+
+**Vấn đề:** `fill_media.py --jobs 4 --workers 2` giữ 4 tiến trình `ai.pipeline`
+(~1,2–1,5 GB RAM, ~20 % CPU) ⇒ máy 7,3 GB RAM bị đầy, người dùng không dùng được.
+
+**Giải pháp đã chạy thật:**
+
+| Thay đổi | Chi tiết |
+|---|---|
+| `tools/fill_lite.py` | 1 khóa × **1 luồng**, RAM trần **700 MB** (vượt → kill + chạy lại, checkpoint theo ngày), ưu tiên **Below Normal**, dừng khi đĩa < 6 GB |
+| `--from-day` tự động | mỗi pass bắt đầu từ **ngày nhỏ nhất còn thiếu media** (trước đây quét lại từ ngày 1, mất ~2 giờ vô ích) |
+| `tools/finalize_lite.py --watch` | khóa đủ 2.520 ngày → tự `--pack` → `upload_media_api.py` → `--pages` → `deploy_pages.py` → xoá `publish/<khóa>`; trạng thái ở `data/logs/finalize_done.json` |
+| `tools/upload_media_api.py` | GitHub **Git Data API** (blob→tree→commit→ref), **không clone**, chỉ đẩy gói mới/đổi |
+
+**Kết quả đo thật khóa Nhật (23:14 18/11):**
+
+- 31 ngày thiếu → **2.520/2.520** trong **32 phút**, RAM đỉnh **443 MB**,
+  **0 lần** bị kill vì RAM, đĩa còn 11–12 GB.
+- Pack 85 gói / **782 MB** (574 giây). Upload API: **43 gói mới/đổi**,
+  commit `5a801263`, 276 giây. `verify_online.py`: **9/9 PASS**
+  (gói `m01` và `m84/m85` tải + giải nén đúng, có `d2520`).
+- **Phát hiện:** toàn bộ ảnh hiện là **placeholder** 512×512 (~604 B) vì
+  Wikimedia 429 và Gemini image free tier `limit: 0`; audio TTS là thật.
+

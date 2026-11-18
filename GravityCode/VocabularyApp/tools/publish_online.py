@@ -260,11 +260,25 @@ def publish_pages() -> int:
         n += 1
         _log(f"  {slug}: index.json + day/*.json + {slug}.json ({len(vocab)} từ)")
 
-    # Danh sách khóa cho web (dropdown ngôn ngữ)
-    with open(os.path.join(dst, "index.json"), "w", encoding="utf-8") as f:
-        json.dump({"languages": langs, "names": names}, f, ensure_ascii=False,
-                  indent=1)
-    _log(f"✅ Pages: {n} file · {total/1024/1024:.0f} MB trong {dst}")
+    # Danh sách khóa cho web (dropdown ngôn ngữ) — MERGE với bản đang có.
+    # FIX 2026-11-18: trước đây ghi đè bằng đúng các khóa có trong `publish/`
+    # ⇒ pack lẻ 1 khóa rồi `--pages` sẽ làm web MẤT 7 khóa còn lại.
+    idx_path = os.path.join(dst, "index.json")
+    old = {}
+    if os.path.isfile(idx_path):
+        try:
+            with open(idx_path, encoding="utf-8") as f:
+                old = json.load(f) or {}
+        except Exception:
+            old = {}
+    all_langs = sorted(set(old.get("languages") or []) | set(langs))
+    all_names = dict(old.get("names") or {})
+    all_names.update(names)
+    with open(idx_path, "w", encoding="utf-8") as f:
+        json.dump({"languages": all_langs, "names": all_names}, f,
+                  ensure_ascii=False, indent=1)
+    _log(f"✅ Pages: {n} file · {total/1024/1024:.0f} MB trong {dst} · "
+         f"{len(all_langs)} khóa")
     return 0
 
 

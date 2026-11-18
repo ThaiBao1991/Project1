@@ -841,6 +841,15 @@ def _run_days_parallel(language, days_to_do, course, coord, log, budget, emit,
             # Nút Dừng được TÔN TRỌNG trong ngày (không biến thành day.fail)
             return dnum, None, "stopped"
         except Exception as e:
+            # Ghi traceback để lần sau biết CHÍNH XÁC dòng gây lỗi (trước đây
+            # chỉ có "RuntimeError: dictionary changed size during iteration"
+            # mà không biết dict nào ⇒ mất nhiều giờ truy).
+            try:
+                import traceback
+                log.error("day.fail.tb", day=dnum,
+                          msg=traceback.format_exc()[-1500:])
+            except Exception:
+                pass
             return dnum, None, f"{type(e).__name__}: {e}"
 
     try:

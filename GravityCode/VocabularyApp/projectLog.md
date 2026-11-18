@@ -1745,3 +1745,40 @@ Test media_manifest **6/6** (thêm case "không được làm mất entry cũ tr
 
 **Đang chạy nền:** `fill_media.py --all-days` theo thứ tự Nhật → Trung → Anh →
 Hàn → Tây Ban Nha → Đức → Pháp → Nga (bù media tới hết 2.520 ngày/khóa).
+
+---
+
+## 2026-11-18 (tối) — Chế độ nhẹ 1 khóa × 1 luồng + Nhật đủ 2.520 ngày
+
+**Yêu cầu:** chạy tiếp nhưng máy chỉ chiếm ~1/3 RAM, CPU thấp (máy 7,3 GB RAM).
+
+**Đã làm thật:**
+- Dừng job 4 khóa song song (`--jobs 4 --workers 2`, ~1,2–1,5 GB RAM) và
+  `ai_watchdog`; chuyển sang `tools/fill_lite.py` — **1 khóa × 1 luồng**,
+  RAM trần **700 MB**, ưu tiên Below Normal, dừng khi đĩa < 6 GB.
+- Thêm `--from-day` tự động = ngày nhỏ nhất còn thiếu media (trước đây quét lại
+  từ ngày 1 mất ~2 giờ vô ích).
+- Khóa **Nhật: 2.489 → 2.520/2.520** trong **32 phút**, RAM đỉnh **443 MB**,
+  **0 lần** kill vì RAM.
+- Pack 85 gói / **782 MB**; `tools/upload_media_api.py` (Git Data API, không
+  clone) đẩy **43 gói mới/đổi** trong 276 giây → commit `5a801263`.
+- `publish_online.py --pages` (giữ đủ 8 khóa nhờ merge `data/index.json`) →
+  `deploy_pages.py` → Pages build **built**.
+- `verify_online.py`: **9/9 PASS**; tải thật `m84.zip` (8,5 MB) + `m85.zip`
+  (0,3 MB, có `d2520`) từ `raw.githubusercontent.com` và giải nén OK.
+- Thêm `tools/finalize_lite.py --watch`: tự pack → upload → pages → deploy →
+  xoá gói tạm khi từng khóa đủ 2.520 ngày; trạng thái ở
+  `data/logs/finalize_done.json`.
+
+**Phát hiện quan trọng:** ảnh media hiện **100 % là placeholder** 512×512
+(~604 B/ảnh, thẻ chữ cái) — Wikimedia `dict` bị 429 hàng loạt, Gemini image
+free tier `limit: 0`. Audio TTS là thật. Muốn ảnh minh hoạ thật phải bật
+Gemini có billing hoặc tầng Web AI qua Chrome addon.
+
+**Bug đã sửa:** `dictionary changed size during iteration` trong
+`ai/dictionary_image.py` (thiếu lock khi `json.dump`) — đổi `_cache_lock`
+thành `RLock`, giữ lock khi ghi; test đa luồng 8 writer + 2 saver **PASS**.
+
+**Đang chạy nền:** `fill_lite.py` khóa Trung (1.160/2.520) + watcher
+`finalize_lite.py`; ước tính ~1 phút/ngày.
+

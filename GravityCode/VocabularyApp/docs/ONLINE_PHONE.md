@@ -117,28 +117,44 @@ python -X utf8 tools\verify_online.py                   # kiểm tra thật (8 t
   `GravityCode/Download/AskCpl/settings.json` ⇒ nên chuyển private hoặc thu hồi
   key (việc này chưa làm).
 
-## 8. Trạng thái nội dung & media (đo thật 17/11/2026)
+## 8. Trạng thái nội dung & media (đo lúc 23:35 18/11/2026)
 
 **Nội dung chữ: ĐỦ 100% ở cả 8 khóa** — 2.520 ngày/khóa, 25.200–25.389 từ,
 0 ngày thiếu từ / thiếu hội thoại / thiếu quiz (audit `course.json`).
 
-**Media (ảnh + audio) — đang bù tới hết 2.520 ngày theo thứ tự ưu tiên:**
+**Media (ảnh + audio) — job nhẹ đang bù tuần tự tới hết 2.520 ngày:**
 
-| Khóa | Ngày có media | Ảnh | Audio từ | Audio nghĩa | Hội thoại |
-|---|---:|---:|---:|---:|---:|
-| Tiếng Nhật | 2.351 / 2.520 | 85,1 % | 93,2 % | 93,1 % | 93,1 % |
-| Tiếng Trung | 600 / 2.520 | 26,3 % | 26,3 % | 26,3 % | 23,8 % |
-| Tiếng Anh | 600 / 2.520 | 25,2 % | 25,2 % | 25,2 % | 23,8 % |
-| Tiếng Hàn | 600 / 2.520 | 25,3 % | 25,3 % | 25,3 % | 23,8 % |
-| Tiếng Tây Ban Nha | 600 / 2.520 | 23,8 % | 23,8 % | 23,8 % | 23,8 % |
-| Tiếng Đức | 600 / 2.520 | 24,8 % | 24,8 % | 24,8 % | 23,8 % |
-| Tiếng Pháp | 600 / 2.520 | 24,8 % | 24,8 % | 24,8 % | 23,8 % |
-| Tiếng Nga | 600 / 2.520 | 23,8 % | 23,8 % | 23,8 % | 23,8 % |
+| Khóa | Ngày có media | Ghi chú |
+|---|---:|---|
+| Tiếng Nhật | **2.520 / 2.520** | 85 gói, commit `5a801263`, `verify_online.py` 9/9 PASS |
+| Tiếng Trung | 1.160 / 2.520 | đang chạy (ưu tiên 2) |
+| Tiếng Anh | 1.214 / 2.520 | chờ |
+| Tiếng Hàn | 1.156 / 2.520 | chờ |
+| Tiếng Tây Ban Nha | 926 / 2.520 | chờ |
+| Tiếng Đức | 600 / 2.520 | chờ |
+| Tiếng Pháp | 600 / 2.520 | chờ |
+| Tiếng Nga | 600 / 2.520 | chờ |
 
-- Job nền `tools/fill_media.py --all-days` chạy đúng thứ tự **Nhật → Trung →
-  Anh → Hàn → Tây Ban Nha → Đức → Pháp → Nga**.
-- Khi một khóa bù xong: `publish_online.py --pack` (có zip) →
-  `upload_media_repo.py --lang <khóa>` → `publish_online.py --pages` →
-  `deploy_pages.py`. Khi đó điện thoại tải được gói tháng mới.
+- **Ảnh hiện là placeholder** 512×512 (thẻ chữ cái đầu, ~604 B/ảnh): tầng
+  `dict` (Wikimedia) bị HTTP 429 hàng loạt, còn Gemini image free tier
+  `limit: 0`. **Audio TTS là thật** (từ / nghĩa / hội thoại). Muốn ảnh minh hoạ
+  thật phải bật Gemini có billing hoặc tầng Web AI qua Chrome addon.
+- Khóa nào đủ 2.520 ngày thì `tools/finalize_lite.py` tự động:
+  `publish_online.py --pack` → `upload_media_api.py` → `publish_online.py --pages`
+  → `deploy_pages.py` → xoá `publish/<khóa>`. Không cần canh tay.
 - Trong lúc media chưa đủ, **nội dung chữ vẫn học bình thường**; ngày chưa có
   media chỉ không hiện ảnh/audio (không lỗi).
+
+## 9. Chế độ nhẹ & tự động hoá (18/11/2026)
+
+- `tools/fill_lite.py`: **1 khóa × 1 luồng**, RAM trần 700 MB (vượt → kill và
+  chạy lại, checkpoint theo ngày nên không mất tiến độ), ưu tiên Below Normal,
+  dừng khi đĩa < 6 GB. Đo thật khóa Nhật (31 ngày thiếu): **32 phút, RAM đỉnh
+  443 MB, 0 lần kill** — máy vẫn mượt.
+- `tools/finalize_lite.py --watch`: canh `data/logs/fill_lite.log`; khóa nào
+  đủ 2.520 ngày thì tự chạy 4 bước nặng rồi xoá gói tạm. Trạng thái ở
+  `data/logs/finalize_done.json` (không làm lại).
+- `tools/upload_media_api.py`: đẩy media bằng GitHub **Git Data API**, không
+  clone. Lần chạy thật đầu tiên (Nhật): 43 gói mới/đổi · 782 MB · 276 giây,
+  commit `5a801263`.
+
