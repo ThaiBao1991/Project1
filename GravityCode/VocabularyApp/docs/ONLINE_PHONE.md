@@ -113,6 +113,12 @@ python -X utf8 tools\verify_online.py                   # kiểm tra thật (8 t
   > Manager bật hộp thoại đăng nhập GitHub liên tục. Nay tool chỉ đọc token đã
   > lưu, tuyệt đối không bật hộp thoại.
 - Repo `ThaiBao1991/VocabularyData` chứa media (public) — **không** chứa token.
+- **Push git (18/11/2026):** không còn nhúng token vào URL. `deploy_pages.py`
+  và `upload_media_repo.py` xác thực bằng header
+  `http.https://github.com/.extraheader` (biến môi trường), đăng nhập đúng
+  tài khoản **ThaiBao1991**; commit lấy `user.name/user.email` từ git config
+  (`Thai Bao <thaibao1991dn@gmail.com>`). Token không nằm trong URL,
+  `.git/config` hay argv.
 - Repo `ThaiBao1991/Project1` đang **public** và còn lộ 197 key trong
   `GravityCode/Download/AskCpl/settings.json` ⇒ nên chuyển private hoặc thu hồi
   key (việc này chưa làm).

@@ -98,10 +98,40 @@ def ensure_repo(repo: str, tok: str) -> bool:
         return False
 
 
-def git(*args, timeout=7200):
+def _push_env(tok: str) -> dict:
+    """Env xác thực git push bằng header — KHÔNG nhúng token vào URL.
+
+    FIX 2026-11-18: token trước đây nằm trong URL remote
+    ⇒ lộ trong `.git/config`, argv và log. Nay dùng extraheader qua env,
+    đăng nhập đúng tài khoản ThaiBao1991, không bật hộp thoại.
+    """
+    import base64
+    b64 = base64.b64encode(f"ThaiBao1991:{tok}".encode()).decode()
+    env = dict(os.environ)
+    env["GIT_TERMINAL_PROMPT"] = "0"
+    env["GCM_INTERACTIVE"] = "Never"
+    env["GIT_CONFIG_COUNT"] = "1"
+    env["GIT_CONFIG_KEY_0"] = "http.https://github.com/.extraheader"
+    env["GIT_CONFIG_VALUE_0"] = f"Authorization: Basic {b64}"
+    return env
+
+
+def _identity() -> tuple[str, str]:
+    """Tên/email commit lấy từ git config của repo (mặc định: Thai Bao)."""
+    def get(key: str, default: str) -> str:
+        try:
+            r = subprocess.run(["git", "-C", BASE, "config", key],
+                               capture_output=True, text=True, timeout=15)
+            return (r.stdout or "").strip() or default
+        except Exception:
+            return default
+    return get("user.name", "Thai Bao"), get("user.email", "thaibao1991dn@gmail.com")
+
+
+def git(*args, timeout=7200, env=None):
     return subprocess.run(["git", "-C", WORK, *args], capture_output=True,
                           text=True, encoding="utf-8", errors="replace",
-                          timeout=timeout)
+                          timeout=timeout, env=env)
 
 
 def prepare(repo: str, tok: str) -> bool:
@@ -109,7 +139,8 @@ def prepare(repo: str, tok: str) -> bool:
         shutil.rmtree(WORK, ignore_errors=True)
     os.makedirs(WORK, exist_ok=True)
     git("init", "-q", "-b", "main")
-    url = f"https://x-access-token:{tok}@github.com/{repo}.git"
+    # remote CÔNG KHAI, không nhúng token — fetch đọc ẩn danh được.
+    url = f"https://github.com/{repo}.git"
     git("remote", "add", "origin", url)
     r = git("fetch", "origin", "main", timeout=1800)
     if r.returncode == 0:
@@ -178,10 +209,11 @@ def main() -> int:
         if not (st.stdout or "").strip():
             log(f"{slug}: không có thay đổi")
             continue
-        git("-c", "user.email=app@local", "-c", "user.name=VocabularyApp",
+        name, email = _identity()
+        git("-c", f"user.email={email}", "-c", f"user.name={name}",
             "commit", "-q", "-m", f"media: {slug} ({n} gói, {total/1048576:.0f} MB)")
         t0 = time.time()
-        r = git("push", "origin", "main", timeout=21600)
+        r = git("push", "origin", "main", timeout=21600, env=_push_env(tok))
         if r.returncode != 0:
             log(f"⚠ push {slug} lỗi: {(r.stderr or '')[-300:]}")
             continue

@@ -95,6 +95,38 @@ def enable_pages(token: str) -> bool:
         return False
 
 
+def _push_env(token: str) -> dict:
+    """Env cho `git push`: xác thực bằng header, KHÔNG nhúng token vào URL.
+
+    FIX 2026-11-18 (yêu cầu người dùng): trước đây push bằng URL có nhúng
+    token và user giả trong URL ⇒ token nằm trong argv. Nay dùng
+    `http.https://github.com/.extraheader` qua biến môi trường:
+    • URL remote sạch, không còn user giả,
+    • token không nằm trong URL / .git/config / argv,
+    • vẫn đăng nhập đúng tài khoản ThaiBao1991, không bật hộp thoại.
+    """
+    b64 = base64.b64encode(f"ThaiBao1991:{token}".encode()).decode()
+    env = dict(os.environ)
+    env["GIT_TERMINAL_PROMPT"] = "0"
+    env["GCM_INTERACTIVE"] = "Never"
+    env["GIT_CONFIG_COUNT"] = "1"
+    env["GIT_CONFIG_KEY_0"] = "http.https://github.com/.extraheader"
+    env["GIT_CONFIG_VALUE_0"] = f"Authorization: Basic {b64}"
+    return env
+
+
+def _identity() -> tuple[str, str]:
+    """Tên/email commit lấy từ git config của repo (mặc định: Thai Bao)."""
+    def get(key: str, default: str) -> str:
+        try:
+            r = subprocess.run(["git", "-C", BASE, "config", key],
+                               capture_output=True, text=True, timeout=15)
+            return (r.stdout or "").strip() or default
+        except Exception:
+            return default
+    return get("user.name", "Thai Bao"), get("user.email", "thaibao1991dn@gmail.com")
+
+
 def deploy(token: str, dry: bool = False) -> bool:
     """Đẩy web/ lên nhánh gh-pages bằng git (không cần Actions)."""
     if not os.path.isfile(os.path.join(WEB, "index.html")):
@@ -103,9 +135,9 @@ def deploy(token: str, dry: bool = False) -> bool:
     tmp = tempfile.mkdtemp(prefix="vocab_pages_")
     try:
         # 1) checkout nhánh gh-pages (nếu có) vào thư mục tạm
-        def git(*a):
+        def git(*a, env=None):
             return subprocess.run(["git", "-C", tmp, *a], capture_output=True,
-                                  text=True, timeout=900)
+                                  text=True, timeout=900, env=env)
         r = git("init", "-q")
         r = git("remote", "add", "origin", f"https://github.com/{REPO}.git")
         r = git("fetch", "origin", BRANCH)
@@ -140,7 +172,8 @@ def deploy(token: str, dry: bool = False) -> bool:
         st = git("status", "--porcelain")
         changed = bool((st.stdout or "").strip())
         if changed:
-            git("-c", "user.email=app@local", "-c", "user.name=VocabularyApp",
+            name, email = _identity()
+            git("-c", f"user.email={email}", "-c", f"user.name={name}",
                 "commit", "-q", "-m",
                 f"deploy: web + du lieu tinh cho dien thoai ({datetime.now():%Y-%m-%d %H:%M})")
         else:
@@ -153,10 +186,11 @@ def deploy(token: str, dry: bool = False) -> bool:
             return True
         if not changed:
             return True
-        # push bằng token (không lưu token trong .git/config lâu dài)
-        url = f"https://x-access-token:{token}@github.com/{REPO}.git"
-        r = subprocess.run(["git", "-C", tmp, "push", url, f"{BRANCH}:{BRANCH}"],
-                           capture_output=True, text=True, timeout=7200)
+        # push bằng header xác thực (không nhúng token vào URL, không lưu .git/config)
+        r = subprocess.run(["git", "-C", tmp, "push", "origin",
+                            f"{BRANCH}:{BRANCH}"],
+                           capture_output=True, text=True, timeout=7200,
+                           env=_push_env(token))
         if r.returncode == 0:
             _log("✓ đã push lên nhánh " + BRANCH)
             return True
