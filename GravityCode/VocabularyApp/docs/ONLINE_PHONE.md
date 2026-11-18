@@ -165,3 +165,28 @@ python -X utf8 tools\verify_online.py                   # kiểm tra thật (8 t
   clone. Lần chạy thật đầu tiên (Nhật): 43 gói mới/đổi · 782 MB · 276 giây,
   commit `5a801263`.
 
+## 10. Sự cố 19/11/2026 — kẹt "Đang tải Ngày …"
+
+**Triệu chứng:** chọn ngày 2509 (Nhật) → màn hình đứng ở
+`⏳ Đang tải Ngày 2509…` mãi, không render nội dung.
+
+**Nguyên nhân:** `web/script.js` gọi `(g.common_mistakes || []).map(...)`,
+nhưng `grammar[].common_mistakes` trong dữ liệu là **chuỗi** ở **69.964 mục**
+trên cả 8 khóa. Gọi `.map()` trên chuỗi ⇒
+`TypeError: (g.common_mistakes || []).map is not a function` ⇒ hàm render dừng
+trước khi ghi HTML, nên dòng "Đang tải…" còn nguyên. **Không phải** lỗi mạng,
+ZIP hay GitHub rate limit (`m84.zip` vẫn hợp lệ: 8.914.512 B / 930 entry, có
+`d2509`).
+
+**Đã sửa:**
+- Chuẩn hoá `common_mistakes` về mảng (chuỗi → `[chuỗi]`); render chuỗi bằng
+  `⚠️`, object bằng `❌/✅` như cũ.
+- Bọc `renderCourseDay` bằng `try/catch` → lỗi dữ liệu hiện
+  "⚠ Không hiển thị được Ngày …" thay vì treo vô hạn.
+- Guard `(q.options || [])` cho quiz; `examples` chỉ map khi là mảng.
+- `sw.js`: `VERSION` `vocab-v3` → `vocab-v4`.
+
+**Kiểm chứng thật (local + Pages):** Nhật 2509/2519/2520/1, Anh 2509,
+Trung 1861, Hàn 1156 → render **0,3–2,5 giây**, 0 lỗi console;
+`verify_online.py` **9/9 PASS**.
+

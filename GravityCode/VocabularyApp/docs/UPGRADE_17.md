@@ -1386,3 +1386,30 @@ python -X utf8 tools\upload_media_repo.py --lang tiếng_nhật
 - **Phát hiện:** toàn bộ ảnh hiện là **placeholder** 512×512 (~604 B) vì
   Wikimedia 429 và Gemini image free tier `limit: 0`; audio TTS là thật.
 
+---
+
+## 7.36. Sửa lỗi kẹt "Đang tải Ngày …" (19/11/2026)
+
+**Triệu chứng:** chọn ngày 2509 (Nhật) → màn hình đứng ở
+`⏳ Đang tải Ngày 2509…` vĩnh viễn.
+
+**Nguyên nhân:** `web/script.js` gọi `(g.common_mistakes || []).map(...)`,
+nhưng `grammar[].common_mistakes` là **chuỗi** ở **69.964 mục** trên cả 8 khóa
+(quét toàn bộ `web/data/*/day/*.json`). `.map()` trên chuỗi ném
+`TypeError: ... .map is not a function`; hàm render dừng trước khi ghi HTML nên
+dòng "Đang tải…" không được thay. Không phải lỗi mạng/ZIP/rate limit.
+
+**Sửa:**
+- Chuẩn hoá `common_mistakes` về mảng; chuỗi render bằng `⚠️`, object bằng
+  `❌/✅` như cũ (`web/script.js`).
+- Bọc `renderCourseDay` bằng `try/catch` → lỗi dữ liệu hiện
+  "⚠ Không hiển thị được Ngày …" thay vì treo.
+- Guard `(q.options || [])` cho quiz; `examples` chỉ map khi là mảng.
+- `sw.js`: `VERSION` `vocab-v3` → `vocab-v4` (buộc cập nhật app shell).
+
+**Kiểm chứng thật:**
+- Local + Pages: Nhật 2509/2519/2520/1, Anh 2509, Trung 1861, Hàn 1156 →
+  render **0,3–2,5 giây**, không lỗi console, không còn "Đang tải".
+- `tools/verify_online.py`: **9/9 PASS**.
+- Trang deploy đã có `mistake-note`, `_renderCourseDay`, `VERSION = "vocab-v4"`.
+

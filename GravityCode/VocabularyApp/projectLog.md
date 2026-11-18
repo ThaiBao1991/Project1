@@ -1858,5 +1858,30 @@ của Cloudflare Pages free, nên không chuyển app sang đó; giữ GitHub Pa
 **Tài liệu mới:** `docs/REMOTE.md` — bảng so sánh, 3 kiến trúc (A: 0 đồng không
 thẻ; B: R2; C: Oracle), lý do loại dịch vụ khác, checklist kiểm chứng.
 
+---
+
+## 2026-11-19 (06:05) — Sửa lỗi kẹt "Đang tải Ngày …" trên web
+
+**Triệu chứng:** chọn Ngày 2509 (Nhật) → đứng ở "⏳ Đang tải Ngày 2509…" mãi.
+
+**Nguyên nhân thật:** `web/script.js` gọi
+`(g.common_mistakes || []).map(...)`, nhưng `grammar[].common_mistakes` là
+**chuỗi** ở **69.964 mục** trên cả 8 khóa (quét toàn bộ
+`web/data/*/day/*.json`). `.map()` trên chuỗi ném
+`TypeError: ... .map is not a function`; hàm render dừng trước khi ghi HTML
+nên dòng "Đang tải…" không được thay. Không phải mạng/ZIP/rate limit.
+
+**Đã sửa:**
+- `web/script.js`: chuẩn hoá `common_mistakes` về mảng; chuỗi render `⚠️`,
+  object render `❌/✅`; guard `(q.options || [])`; `examples` chỉ map khi mảng.
+- Bọc `renderCourseDay` bằng `try/catch` → hiện "⚠ Không hiển thị được Ngày …"
+  thay vì treo.
+- `web/style.css`: thêm `.mistake-note`.
+- `web/sw.js`: `VERSION` `vocab-v3` → `vocab-v4`.
+
+**Kiểm chứng thật:** local + Pages — Nhật 2509/2519/2520/1, Anh 2509,
+Trung 1861, Hàn 1156 → render 0,3–2,5 giây, 0 lỗi console;
+`deploy_pages.py` build `built`; `verify_online.py` **9/9 PASS**.
+
 
 
