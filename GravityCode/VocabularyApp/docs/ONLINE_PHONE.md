@@ -119,6 +119,7 @@ python -X utf8 tools\verify_online.py                   # kiểm tra thật (8 t
   tài khoản **ThaiBao1991**; commit lấy `user.name/user.email` từ git config
   (`Thai Bao <thaibao1991dn@gmail.com>`). Token không nằm trong URL,
   `.git/config` hay argv.
+- Push `master` (tránh GCM bật hộp thoại): `python -X utf8 tools\push_master.py`.
 - Repo `ThaiBao1991/Project1` đang **public** và còn lộ 197 key trong
   `GravityCode/Download/AskCpl/settings.json` ⇒ nên chuyển private hoặc thu hồi
   key (việc này chưa làm).
