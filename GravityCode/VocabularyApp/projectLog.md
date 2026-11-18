@@ -1822,4 +1822,41 @@ canh sẵn.
 
 **Docs:** cập nhật `docs/ONLINE_PHONE.md` §7–§9 theo trạng thái mới.
 
+---
+
+## 2026-11-19 (05:30) — So sánh dịch vụ miễn phí + tài liệu làm việc từ xa
+
+**Tiến độ lúc 05:29:** Trung **1.861/2.520** (từ 1.223 lúc 00:35 → +638 ngày
+trong ~4,9 giờ, ~130 ngày/giờ); tổng còn **10.683 ngày**. Pipeline ~397 MB RAM,
+đĩa trống 10,6 GB.
+
+**Đo lại dung lượng:**
+
+| Thành phần | Thật |
+|---|---:|
+| `Project1` (GitHub báo) | 5,36 GB |
+| `VocabularyData` | 2,40 GB / 234 gói |
+| `web/` | 340,0 MB / **20.189 file** |
+| `course.json` 8 khóa | 445 MB |
+| `data/media/index.json` | 149 MB |
+| `data/media` + `data/audio` | 6,4 GB (dựng lại được) |
+
+**Phát hiện:** `web/` có 20.189 file → **vượt nhẹ hạn mức 20.000 file/site**
+của Cloudflare Pages free, nên không chuyển app sang đó; giữ GitHub Pages.
+
+**Dịch vụ free đã kiểm tra:**
+- **Cloudflare R2**: 10 GB-month, 1M Class A / 10M Class B, egress 0đ — cần thẻ;
+  đủ chứa ~7 GB media.
+- **Hugging Face**: private **100 GB** free, không cần thẻ; CORS OK
+  (`ACAO` phản chiếu Origin, test HEAD 200) → hợp backup state.
+- **Oracle Cloud Always Free**: 2 OCPU/12 GB ARM, 200 GB đĩa, 10 TB egress/tháng
+  — cần thẻ, thu hồi instance idle 7 ngày, chỉ Linux.
+- **GitHub Releases**: 2 GB/asset nhưng **không CORS** → chỉ backup lạnh.
+- Loại: Google Drive/Dropbox (không CORS), Kaggle (cần đăng nhập), Git LFS
+  (1 GB/tháng), Codespaces/Cloud Shell (tự stop).
+
+**Tài liệu mới:** `docs/REMOTE.md` — bảng so sánh, 3 kiến trúc (A: 0 đồng không
+thẻ; B: R2; C: Oracle), lý do loại dịch vụ khác, checklist kiểm chứng.
+
+
 
