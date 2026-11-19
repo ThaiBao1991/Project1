@@ -1413,3 +1413,53 @@ dòng "Đang tải…" không được thay. Không phải lỗi mạng/ZIP/rate
 - `tools/verify_online.py`: **9/9 PASS**.
 - Trang deploy đã có `mistake-note`, `_renderCourseDay`, `VERSION = "vocab-v4"`.
 
+---
+
+## 7.37. Bổ sung giao tiếp: mẫu câu · câu thông dụng · hội thoại · quiz ngữ pháp (19/11/2026)
+
+**Vấn đề đo được (trước khi sửa):**
+- 2.070–2.417 ngày/khóa thiếu `sentence_patterns` + `common_sentences`.
+- 2.104–2.504 ngày/khóa có `dialogue` là template tiếng Nhật
+  (`Xを 使います` / `Y は 何ですか`), kể cả khóa Anh/Trung/Hàn/Pháp/Đức/Tây/Nga.
+- Quiz chỉ có `vocab` + `pattern`; `common`/`grammar` rỗng.
+- Nhiều khóa không phải Nhật bị gán ngữ pháp tiếng Nhật.
+
+**Cách sửa (0 quota AI):**
+- `tools/enrich_course_content.py`: rút thư viện bản ngữ từ chính các ngày gốc
+  đã có nội dung tốt; chọn theo cấp N5→N1 + độ dài câu + xoay theo ngày.
+- Tiếng Nhật: ngữ pháp lấy từ `ai/offline_grammar.py` +
+  `ai/offline_grammar_advanced.py` (N5→N1), ví dụ tiếng Nhật; mẫu câu lấy từ
+  ví dụ ngữ pháp.
+- Hội thoại: dùng hội thoại thật cùng ngôn ngữ nếu đủ; nếu ít thì dựng Q&A từ
+  mẫu câu + câu thông dụng của ngày, speaker xen kẽ A/B tuyệt đối.
+- Quiz: thêm 3 câu ngữ pháp + 3 câu thông dụng.
+- Đánh dấu `_gen` cho nội dung sinh; chỉ rút thư viện từ ngày gốc
+  (`source != "offline"`) ⇒ chạy lại **0 thay đổi**.
+- Sửa 8 ví dụ lỗi trong gói ngữ pháp Nhật (`学生です。→…`, `三rogensます`,
+  `Marines beaucoup`, `orphans`, `Residences`, `Sushi`, `artist`,
+  `wanakaru`); thay mục sai `〜makenai` bằng `〜わけがない`;
+  `明日は雨はず` → `明日は雨のはず`.
+- Bộ lọc tiếng Việt chỉ bắt ký tự/từ đặc trưng Việt (đ/ơ/ư/ă + thanh điệu),
+  không chặn nhầm tiếng Pháp (`ê/ô/â`).
+- Hội thoại đổi nội dung ⇒ xoá `media.dialogue_audio` cũ; giữ nguyên
+  `media_map` và audio từ vựng.
+
+**Kết quả thật (19/11 07:17):**
+- Nhật: 2.503/2.520 ngày đổi; +9.960 mẫu câu, +12.450 câu thông dụng,
+  +9.668 ngữ pháp, +2.463 hội thoại, +7.263 quiz ngữ pháp,
+  +7.263 quiz thông dụng; 0 câu sai hệ chữ, 0 template, 0 lỗi quiz;
+  `vocab`/`media.vocab_audio` không đổi.
+- 6 khóa Anh/Hàn/Nga/Pháp/Tây/Đức: 2.128–2.508 ngày đổi/khóa; mỗi ngày
+  4 mẫu câu + 5 câu thông dụng + 4 ngữ pháp + hội thoại + 16 quiz
+  (ngày rich giữ 10 mục/40 quiz).
+- Xuất web bằng `tools/export_days_keep_media.py`: 8 × 2.520 file ngày,
+  giữ nguyên `media_map`, **không nén lại 782 MB media**.
+- `sw.js`: `vocab-v4` → `vocab-v5`.
+- Kiểm chứng local + Pages: Nhật 1/100/500/1000/2509/2520;
+  Anh/Hàn/Nga/Pháp/Tây/Đức 1/500/2509 → đủ 6 mục, 0 lỗi console,
+  0,14–0,60 giây/ngày.
+- `deploy_pages.py` build `built`; `verify_online.py` **9/9 PASS**.
+
+**Còn lại:** tiếng Trung chờ pipeline bù media xong mới enrich (tránh ghi đè
+`course.json` đang chạy); media các khóa vẫn đang bù dần.
+

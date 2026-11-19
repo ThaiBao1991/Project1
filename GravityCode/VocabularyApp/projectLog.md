@@ -1884,4 +1884,35 @@ Trung 1861, Hàn 1156 → render 0,3–2,5 giây, 0 lỗi console;
 `deploy_pages.py` build `built`; `verify_online.py` **9/9 PASS**.
 
 
+## 2026-11-19 (07:17) — Bổ sung giao tiếp cho 8 khóa (0 quota AI)
+
+**Vấn đề:** 2.070–2.417 ngày/khóa thiếu `sentence_patterns` + `common_sentences`;
+2.104–2.504 ngày có hội thoại template tiếng Nhật (`Xを 使います` /
+`Y は 何ですか`); quiz thiếu nhóm `common`/`grammar`; khóa không phải Nhật bị
+gán ngữ pháp tiếng Nhật.
+
+**Đã làm:**
+- `tools/enrich_course_content.py`: rút thư viện bản ngữ từ ngày gốc, chọn theo
+  cấp N5→N1 + độ dài câu + xoay theo ngày; hội thoại thật hoặc Q&A xen kẽ A/B;
+  thêm quiz ngữ pháp/thông dụng.
+- Tiếng Nhật: ngữ pháp offline N5→N1, sửa 8 ví dụ lỗi + mục `〜makenai` sai
+  thành `〜わけがない`, sửa `明日は雨はず` → `明日は雨のはず`.
+- Bộ lọc tiếng Việt không còn chặn nhầm tiếng Pháp (`ê/ô/â`).
+- `tools/export_days_keep_media.py`: xuất `web/data` giữ `media_map`, không
+  nén lại 782 MB media.
+- `sw.js`: `vocab-v4` → `vocab-v5`.
+
+**Kết quả thật:** Nhật 2.503/2.520 ngày đổi; +9.960 mẫu câu, +12.450 câu
+thông dụng, +9.668 ngữ pháp, +2.463 hội thoại, +7.263 quiz ngữ pháp,
++7.263 quiz thông dụng; 0 câu sai hệ chữ/template/lỗi quiz; vocab + audio từ
+vựng không đổi. 6 khóa Anh/Hàn/Nga/Pháp/Tây/Đức: 2.128–2.508 ngày đổi/khóa.
+Chạy lại **0 thay đổi** (idempotent).
+
+**Kiểm chứng:** local + Pages — Nhật 1/100/500/1000/2509/2520,
+Anh/Hàn/Nga/Pháp/Tây/Đức 1/500/2509 → đủ 6 mục, 0 lỗi console,
+0,14–0,60 giây/ngày; `verify_online.py` **9/9 PASS**.
+
+**Còn lại:** tiếng Trung chờ pipeline bù media xong mới enrich.
+
+
 
