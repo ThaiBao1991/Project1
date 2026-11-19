@@ -21,9 +21,11 @@ import base64
 import json
 import os
 import shutil
+import stat
 import subprocess
 import sys
 import tempfile
+import time
 import urllib.error
 import urllib.request
 from datetime import datetime
@@ -40,6 +42,33 @@ BRANCH = "gh-pages"
 
 def _log(m):
     print(f"[{datetime.now().strftime('%H:%M:%S')}] {m}", flush=True)
+
+
+def _rmtree_force(path: str) -> None:
+    """Xoá cả file read-only (git checkout tạo file chỉ-đọc trên Windows)."""
+    for dp, _ds, fs in os.walk(path):
+        for name in fs:
+            try:
+                os.chmod(os.path.join(dp, name), stat.S_IWRITE)
+            except OSError:
+                pass
+    shutil.rmtree(path, ignore_errors=True)
+
+
+def _clean_stale_temp(max_age: int = 3600) -> None:
+    """Dọn thư mục vocab_pages_* còn sót do deploy timeout/bị kill."""
+    t = tempfile.gettempdir()
+    now = time.time()
+    for name in os.listdir(t):
+        if not name.startswith("vocab_pages_"):
+            continue
+        p = os.path.join(t, name)
+        try:
+            if now - os.path.getmtime(p) > max_age:
+                _rmtree_force(p)
+                _log(f"dọn temp deploy cũ: {name}")
+        except OSError:
+            pass
 
 
 def _token() -> str:
@@ -133,6 +162,7 @@ def deploy(token: str, dry: bool = False) -> bool:
         _log(f"⚠ không có {WEB}/index.html")
         return False
     tmp = tempfile.mkdtemp(prefix="vocab_pages_")
+    _clean_stale_temp()
     try:
         # 1) checkout nhánh gh-pages (nếu có) vào thư mục tạm
         def git(*a, env=None):
@@ -154,7 +184,7 @@ def deploy(token: str, dry: bool = False) -> bool:
                 continue
             p = os.path.join(tmp, item)
             if os.path.isdir(p):
-                shutil.rmtree(p, ignore_errors=True)
+                _rmtree_force(p)
             else:
                 try:
                     os.remove(p)
@@ -197,7 +227,7 @@ def deploy(token: str, dry: bool = False) -> bool:
         _log(f"⚠ push thất bại: {(r.stderr or '')[-300:]}")
         return False
     finally:
-        shutil.rmtree(tmp, ignore_errors=True)
+        _rmtree_force(tmp)
 
 
 def wait_pages(token: str, timeout: int = 900) -> bool:

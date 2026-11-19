@@ -1991,6 +1991,8 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
   enrich Trung → bù tiếp 6 khóa còn lại.
 - `fill_lite.py` thêm `--min-free-gb`; hàng đợi dùng ngưỡng 4 GB (thay 6 GB),
   vì cleanup xoá media từng khóa sau finalize, vẫn chừa ≥3 GB khi pack/upload.
+- `deploy_pages.py` dọn `vocab_pages_*` cũ + xoá force file read-only; phát hiện
+  2,05 GB temp deploy sót, đĩa lên 8,2 GB.
 
 
 

@@ -1581,4 +1581,6 @@ chạy enrich + export + deploy + verify cho tiếng Trung.
 - `fill_lite.py` có thêm `--min-free-gb`; hàng đợi 6 khóa dùng ngưỡng **4 GB**
   (thay vì 6 GB) vì đĩa dùng chung và `cleanup_done_media` xoá media từng khóa
   ngay sau finalize, vẫn chừa ≥3 GB cho lúc pack/upload.
+- `deploy_pages.py` dọn `vocab_pages_*` cũ và xoá force file read-only; phát hiện
+  **2,05 GB** temp deploy sót, đĩa lên **8,2 GB**.
 
