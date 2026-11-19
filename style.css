@@ -669,8 +669,61 @@ tr:last-child td {
     margin-bottom: 12px;
 }
 
-#course-day-select {
+.day-picker {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+#course-day-input {
+    width: 110px;
+    padding: 9px 11px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--card-bg);
+    color: var(--text-main);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+#course-day-input:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+}
+
+#course-day-go {
+    padding: 9px 14px;
+    border: none;
+    border-radius: 8px;
+    background: var(--accent);
+    color: #121212;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#course-day-go:active {
+    transform: scale(0.97);
+}
+
+#course-day-label {
+    color: var(--text-muted);
     flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+    .course-header { flex-wrap: wrap; }
+    #course-day-label { flex-basis: 100%; order: 3; white-space: normal; }
+}
+
+.course-rest-loading {
+    color: var(--text-muted);
+    text-align: center;
+    padding: 14px;
+    font-size: 0.9rem;
 }
 
 #course-progress-badge {

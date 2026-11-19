@@ -1,9 +1,18 @@
 let currentLanguage = "";
 // Tăng chuỗi này mỗi lần nội dung ngày thay đổi để bỏ qua HTTP/CDN cache cũ.
-const COURSE_DATA_VERSION = "2026-11-19-3";
+const COURSE_DATA_VERSION = "2026-11-19-4";
+const LAST_STATE_KEY = "vocabapp_last_state_v1";
+const LAST_VIEW_KEY = "vocabapp_last_view_v1";
+let languageLoadToken = 0;
+let courseLoadToken = 0;
+let courseRenderToken = 0;
+let pendingDay = 0;
+let courseTotalDays = 2520;
 let currentView = "list";   // view đang hiện (Gói 10: dùng để nạp lại khóa học khi đổi ngôn ngữ)
 let vocabularies = [];
 let filteredVocabs = [];
+let vocabCache = {};        // slug -> mảng từ vựng (cache RAM theo phiên)
+let vocabLoading = {};      // slug -> Promise đang tải
 let flashcardIndex = 0;
 
 // Pagination for Lazy Loading
@@ -38,8 +47,9 @@ const viewCourse = document.getElementById("course-view");
 const btnReview = document.getElementById("btn-review");
 const viewReview = document.getElementById("review-view");
 
-function switchView(name) {
+async function switchView(name, opts = {}) {
     currentView = name;
+    try { localStorage.setItem(LAST_VIEW_KEY, name); } catch (e) { }
     const views = {
         list:      [btnList, viewList],
         flashcard: [btnFlashcard, viewFlashcard],
@@ -52,8 +62,17 @@ function switchView(name) {
         v.classList.toggle("active", key === name);
         b.setAttribute("aria-selected", key === name ? "true" : "false");
     });
+    if (name === "course") {
+        if (!opts.skipEnsure) ensureCourseLoaded();
+        return;
+    }
+    // Các view còn lại mới cần danh sách từ vựng đầy đủ (5–7 MB) ⇒ tải lazy.
+    try { await ensureVocabLoaded(currentLanguage); } catch (e) { }
+    if (name === "list") {
+        populateFilters();
+        applyFilters();
+    }
     if (name === "flashcard") renderFlashcard();
-    if (name === "course") ensureCourseLoaded();
     if (name === "review") loadSrsQueue();
 }
 
@@ -93,6 +112,12 @@ function formatText(str) {
 }
 
 // Fetch languages list
+function getLastState() {
+    try {
+        return JSON.parse(localStorage.getItem(LAST_STATE_KEY) || "{}") || {};
+    } catch (e) { return {}; }
+}
+
 async function init() {
     try {
         let res = await fetch("data/index.json").catch(() => null);
@@ -112,7 +137,17 @@ async function init() {
                 opt.textContent = names[lang] || lang;
                 langSelect.appendChild(opt);
             });
-            loadLanguage(data.languages[0]);
+            // Khôi phục ngôn ngữ + view lần trước (nếu còn hợp lệ).
+            const last = getLastState();
+            const chosen = (last.lang && data.languages.includes(last.lang))
+                ? last.lang : data.languages[0];
+            const lastView = localStorage.getItem(LAST_VIEW_KEY) || "list";
+            if (lastView === "course") currentView = "course";
+            langSelect.value = chosen;
+            await loadLanguage(chosen);
+            if (lastView === "course") {
+                try { await switchView("course", { skipEnsure: true }); } catch (e) { }
+            }
         } else {
             langSelect.innerHTML = "<option>Chưa có khóa học nào</option>";
         }
@@ -126,29 +161,66 @@ async function init() {
     }
 }
 
-async function loadLanguage(lang) {
-    currentLanguage = lang;
-    const filename = slugOf(lang) + ".json";
-    // Reset cache khóa học AI theo ngôn ngữ mới
-    courseData = null;
-    courseSlug = "";
-    try {
-        let res = await fetch(`data/${filename}`).catch(() => null);
-        if (!res || !res.ok) {
-            res = await fetch(`../data/${filename}`).catch(() => null);
-        }
+/** Tải danh sách từ vựng đầy đủ theo nhu cầu (list/flashcard/review).
+ *  View "Khóa học AI" chỉ cần index + day JSON nên KHÔNG tải file 5–7 MB. */
+async function ensureVocabLoaded(lang) {
+    const key = slugOf(lang);
+    if (!key) return [];
+    if (vocabCache[key]) {
+        vocabularies = vocabCache[key];
+        return vocabCache[key];
+    }
+    if (vocabLoading[key]) {
+        const d = await vocabLoading[key];
+        if (slugOf(currentLanguage) === key) vocabularies = d;
+        return d;
+    }
+    vocabLoading[key] = (async () => {
+        let res = await fetch(`data/${key}.json`).catch(() => null);
+        if (!res || !res.ok) res = await fetch(`../data/${key}.json`).catch(() => null);
         if (!res || !res.ok) throw new Error("Could not load vocab data");
         const data = await res.json();
-        vocabularies = data.vocabularies || [];
+        const list = data.vocabularies || [];
+        vocabCache[key] = list;
+        return list;
+    })();
+    try {
+        const d = await vocabLoading[key];
+        if (slugOf(currentLanguage) === key) vocabularies = d;
+        return d;
+    } finally {
+        delete vocabLoading[key];
+    }
+}
 
+async function loadLanguage(lang) {
+    const token = ++languageLoadToken;
+    currentLanguage = lang;
+    try { localStorage.setItem("vocabapp_last_lang", lang); } catch (e) { }
+    if (langSelect) langSelect.value = lang;
+    // Reset cache khóa học AI theo ngôn ngữ mới (tránh dữ liệu khóa cũ).
+    courseData = null;
+    courseSlug = "";
+    courseIndex = null;
+    courseDayCache = {};
+    staticCourseMeta = null;
+    staticMediaMap = {};
+    pendingDay = 0;
+    const key = slugOf(lang);
+    vocabularies = vocabCache[key] || [];
+    filteredVocabs = [];
+    if (currentView === "course") {
+        // Chỉ tải index + 1 ngày; KHÔNG tải file từ vựng 5–7 MB.
+        try { await ensureCourseLoaded(); } catch (e) { console.error(e); }
+        return;
+    }
+    try {
+        await ensureVocabLoaded(lang);
+        if (token !== languageLoadToken) return;
         populateFilters();
         applyFilters();
-        // Gói 10 (17/11): nếu đang ở tab "Khóa học AI" mà ngôn ngữ vừa
-        // đổi ⇒ nạp lại khóa học (trước đây bị race: ensureCourseLoaded chạy
-        // lúc currentLanguage còn RỖNG ⇒ "Chưa có khóa học AI").
-        if (currentView === "course") {
-            try { await ensureCourseLoaded(); } catch (e) { }
-        }
+        if (currentView === "flashcard") renderFlashcard();
+        if (currentView === "review") loadSrsQueue();
     } catch (e) {
         console.error(e);
         listContainer.innerHTML = (location.protocol === "file:")
@@ -452,19 +524,55 @@ btnCourse.addEventListener("click", () => switchView("course"));
 btnReview.addEventListener("click", () => switchView("review"));
 
 // ─── Khóa học AI (lưu database kiểu AskCpl: data/ai_courses/<lang>/course.json) ─
-const daySelect = document.getElementById("course-day-select");
+const dayInput = document.getElementById("course-day-input");
+const dayGo = document.getElementById("course-day-go");
+const dayLabel = document.getElementById("course-day-label");
 const courseContent = document.getElementById("course-content");
 const progressBadge = document.getElementById("course-progress-badge");
 
 let courseData = null;
 let courseSlug = "";
 
-// FIX: dropdown chọn ngày trước đây KHÔNG có listener → đổi ngày nội dung
-// vẫn kẹt ở ngày đầu (renderCourseDay chỉ chạy 1 lần trong renderCourseShell).
-daySelect.addEventListener("change", (e) => {
-    const n = Number(e.target.value);
-    if (n && courseData) renderCourseDay(n);
-});
+function updateDayPicker(dayNum, lesson) {
+    const days = (courseData && courseData.days) || [];
+    const total = days.length || courseTotalDays || 2520;
+    courseTotalDays = total;
+    if (dayInput) {
+        dayInput.max = String(total);
+        dayInput.value = String(dayNum);
+    }
+    const meta = days.find(d => Number(d.day) === Number(dayNum));
+    const title = (lesson && lesson.title) || (meta && meta.title) || "";
+    if (dayLabel) {
+        dayLabel.textContent = `Ngày ${dayNum}${title ? " · " + title : ""}`;
+    }
+}
+
+function goToDay(n) {
+    n = Math.floor(Number(n));
+    if (!n || n < 1) {
+        if (dayInput) dayInput.value = String(currentLessonDay || 1);
+        return;
+    }
+    const total = courseTotalDays || ((courseData && courseData.days || []).length);
+    if (!courseData || !total) {
+        pendingDay = n;   // đang tải khóa — áp dụng sau khi renderCourseShell
+        return;
+    }
+    n = Math.min(total, n);
+    if (dayInput) dayInput.value = String(n);
+    renderCourseDay(n);
+}
+
+if (dayGo) dayGo.addEventListener("click", () => goToDay(dayInput && dayInput.value));
+if (dayInput) {
+    dayInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            goToDay(dayInput.value);
+        }
+    });
+}
 
 function courseProgressKey() {
     return `vocabapp_ai_progress_${courseSlug}`;
@@ -478,6 +586,20 @@ function getCourseProgress() {
 
 function saveCourseProgress(p) {
     localStorage.setItem(courseProgressKey(), JSON.stringify(p));
+}
+
+function saveLastDay(slug, day) {
+    if (!slug) return;
+    const n = Number(day) || 1;
+    try {
+        const prog = getCourseProgress();
+        prog.last_day = n;
+        prog.last_at = new Date().toISOString();
+        saveCourseProgress(prog);
+        localStorage.setItem(LAST_STATE_KEY, JSON.stringify({
+            lang: currentLanguage, day: n, at: Date.now()
+        }));
+    } catch (e) { }
 }
 
 // ─── Khóa học: tải THEO NGÀY thay vì cả file (Gói 3) ──────────────────────────
@@ -700,11 +822,16 @@ async function ensureCourseLoaded() {
         // báo "Chưa có khóa học AI" (sai lệch thông tin).
         return;
     }
-    if (courseData && courseSlug === slug) { renderCourseShell(); return; }
+    const token = ++courseLoadToken;
+    if (courseData && courseSlug === slug && courseIndex) {
+        renderCourseShell();
+        return;
+    }
     courseSlug = slug;
     courseData = null;
     courseIndex = null;
     courseDayCache = {};
+    if (dayInput) dayInput.disabled = true;
 
     // 0) BẢN ONLINE (GitHub Pages) — nội dung tĩnh theo ngày.
     //    data/<slug>/index.json + data/<slug>/day/<n>.json  (~14 KB/ngày)
@@ -714,6 +841,7 @@ async function ensureCourseLoaded() {
             const ir = await fetch(`${base}/index.json?v=${COURSE_DATA_VERSION}`, { cache: "no-store" }).catch(() => null);
             if (ir && ir.ok) {
                 const idx = await ir.json();
+                if (token !== courseLoadToken || slug !== slugOf(currentLanguage)) return;
                 if (idx && Array.isArray(idx.days) && idx.days.length) {
                     courseIndex = idx.days;
                     staticCourseMeta = idx;
@@ -730,6 +858,7 @@ async function ensureCourseLoaded() {
         const r = await fetch(`api/vocab/course/${encodeURIComponent(slug)}/index`);
         if (r.ok) {
             const j = await r.json();
+            if (token !== courseLoadToken || slug !== slugOf(currentLanguage)) return;
             if (j && j.ok && Array.isArray(j.days) && j.days.length) {
                 courseIndex = j.days;
                 courseData = { days: j.days, level: j.level || "" };
@@ -746,9 +875,13 @@ async function ensureCourseLoaded() {
         let res = await fetch(`data/ai_courses/${slug}/course.json`).catch(() => null);
         if (!res || !res.ok) res = await fetch(`../data/ai_courses/${slug}/course.json`).catch(() => null);
         if (!res || !res.ok) throw new Error("no course");
-        courseData = await res.json();
+        const full = await res.json();
+        if (token !== courseLoadToken || slug !== slugOf(currentLanguage)) return;
+        courseData = full;
     } catch (e) {
-        daySelect.innerHTML = "<option value=''>—</option>";
+        if (token !== courseLoadToken || slug !== slugOf(currentLanguage)) return;
+        if (dayInput) dayInput.disabled = false;
+        if (dayLabel) dayLabel.textContent = "";
         progressBadge.textContent = "";
         // Không còn nhắc việc đẩy dữ liệu lên git — dữ liệu nằm NGAY trên máy,
         // trang đọc trực tiếp từ data/ local qua server của app.
@@ -886,20 +1019,31 @@ function mediaAudioHtml(ref, label) {
 
 function renderCourseShell() {
     const days = (courseData.days || []).slice().sort((a, b) => a.day - b.day);
+    if (!days.length) {
+        courseContent.innerHTML = `<p style="color:var(--text-muted);padding:20px;text-align:center;">Khóa học chưa có ngày nào.</p>`;
+        return;
+    }
+    courseTotalDays = days.length || 2520;
+    if (dayInput) {
+        dayInput.disabled = false;
+        dayInput.max = String(courseTotalDays);
+    }
     const prog = getCourseProgress();
     const completed = new Set(prog.completed_days || []);
     const level = (courseData.level || "").trim();
     const levelTag = level ? ` · trình độ: ${escapeHtml(level)}` : "";
     progressBadge.textContent = `Hoàn thành ${completed.size}/${days.length} ngày${levelTag}`;
 
-    daySelect.innerHTML = days.map(d => {
-        const topic = (d.topic || d.title || "").trim();
-        const short = topic.length > 24 ? topic.slice(0, 24) + "…" : topic;
-        return `<option value="${d.day}">Ngày ${d.day}${short ? " · " + escapeHtml(short) : ""}${completed.has(d.day) ? " ✅" : ""}</option>`;
-    }).join("");
+    // Nhớ ngày đang học; nếu chưa có thì lấy ngày chưa hoàn thành đầu tiên.
+    const last = Number(prog.last_day || 0);
+    const hasLast = last >= 1 && days.some(d => Number(d.day) === last);
     const firstPending = days.find(d => !completed.has(d.day));
-    const initialDay = (firstPending || days[0]).day;
-    daySelect.value = String(initialDay);
+    let initialDay = hasLast ? last : (firstPending || days[0]).day;
+    if (pendingDay && pendingDay >= 1 && pendingDay <= courseTotalDays) {
+        initialDay = pendingDay;
+        pendingDay = 0;
+    }
+    updateDayPicker(initialDay, null);
     renderCourseDay(initialDay);
 }
 
@@ -936,6 +1080,9 @@ async function renderCourseDay(dayNum) {
 }
 
 async function _renderCourseDay(dayNum) {
+    const slug = slugOf(currentLanguage);
+    const token = ++courseRenderToken;
+    if (!courseData || !Array.isArray(courseData.days)) return;
     let lesson = (courseData.days || []).find(d => Number(d.day) === Number(dayNum));
     // Gói 3: khi dùng API theo ngày, `courseData.days` chỉ là metadata ⇒ phải
     // tải nội dung ngày đó (cache theo ngày).
@@ -949,10 +1096,12 @@ async function _renderCourseDay(dayNum) {
             // Bản ONLINE: nội dung tĩnh theo ngày (data/<slug>/day/<n>.json)
             if (_cfgMode() === "static") {
                 try {
-                    const base = `${VOCAB_DATA_CFG.dataBase}/${encodeURIComponent(slugOf(currentLanguage))}`;
+                    const base = `${VOCAB_DATA_CFG.dataBase}/${encodeURIComponent(slug)}`;
                     const r = await fetch(`${base}/day/${String(dayNum).padStart(4, "0")}.json?v=${COURSE_DATA_VERSION}`, { cache: "no-store" });
+                    if (token !== courseRenderToken || slug !== slugOf(currentLanguage)) return;
                     if (r.ok) {
                         const j = await r.json();
+                        if (token !== courseRenderToken || slug !== slugOf(currentLanguage)) return;
                         if (j && (j.vocab || j.quiz || j.dialogue)) {
                             lesson = j;
                             courseDayCache[dayNum] = lesson;
@@ -963,9 +1112,11 @@ async function _renderCourseDay(dayNum) {
             }
             if (!lesson) {
                 try {
-                    const r = await fetch(`api/vocab/course/${encodeURIComponent(slugOf(currentLanguage))}/day/${dayNum}`);
+                    const r = await fetch(`api/vocab/course/${encodeURIComponent(slug)}/day/${dayNum}`);
+                    if (token !== courseRenderToken || slug !== slugOf(currentLanguage)) return;
                     if (r.ok) {
                         const j = await r.json();
+                        if (token !== courseRenderToken || slug !== slugOf(currentLanguage)) return;
                         if (j && j.ok && j.lesson) {
                             lesson = j.lesson;
                             courseDayCache[dayNum] = lesson;
@@ -976,6 +1127,7 @@ async function _renderCourseDay(dayNum) {
         }
     }
     if (!lesson) return;
+    if (token !== courseRenderToken || slug !== slugOf(currentLanguage)) return;
     currentLessonDay = Number(dayNum) || 1;
     // Gói 9 (17/11): nạp manifest media CỦA NGÀY NÀY (vài KB) trước khi vẽ
     // ⇒ không phải tải manifest 103 MB. Nếu API lỗi ⇒ fallback tải file.
@@ -1070,6 +1222,10 @@ async function _renderCourseDay(dayNum) {
             </div>`;
         });
     }
+
+    // Phần lõi (tiêu đề + bảng chữ cái + từ vựng + mẫu câu) vẽ ngay;
+    // các phần nặng hơn (câu thông dụng/ngữ pháp/hội thoại/quiz) vẽ sau 1 nhịp.
+    const coreHtml = html;
 
     // ── Câu thông dụng ──
     const common = lesson.common_sentences || [];
@@ -1172,10 +1328,28 @@ async function _renderCourseDay(dayNum) {
         }
     }
 
-    courseContent.innerHTML = html;
+    if (token !== courseRenderToken || slug !== slugOf(currentLanguage)) return;
+    const restHtml = html.slice(coreHtml.length);
+    courseContent.innerHTML = coreHtml
+        + `<div id="course-rest" class="course-rest-loading">⏳ Đang tải phần còn lại…</div>`;
     window.scrollTo({ top: 0 });
+    if (dayInput) dayInput.disabled = false;
+    updateDayPicker(dayNum, lesson);
+    saveLastDay(slug, dayNum);
 
-    if (quiz.length) bindQuiz(lesson, quiz);
+    const renderRest = () => {
+        if (token !== courseRenderToken || slug !== slugOf(currentLanguage)) return;
+        const rest = document.getElementById("course-rest");
+        if (!rest) return;
+        if (restHtml) rest.outerHTML = restHtml;
+        else rest.remove();
+        if (quiz.length) bindQuiz(lesson, quiz);
+    };
+    if (window.requestIdleCallback) {
+        requestIdleCallback(renderRest, { timeout: 250 });
+    } else {
+        setTimeout(renderRest, 0);
+    }
 }
 
 function bindQuiz(lesson, quiz) {
@@ -1222,15 +1396,9 @@ function bindQuiz(lesson, quiz) {
         }
         saveCourseProgress(prog);
 
-        const badge = parseInt(progressBadge.textContent.replace(/\D/g, "").split(/\D+/)[1] || "0", 10);
         const totalDays = (courseData.days || []).length;
         progressBadge.textContent = `Hoàn thành ${prog.completed_days.length}/${totalDays} ngày`;
-        void badge;
-        daySelect.querySelectorAll("option").forEach(op => {
-            if (parseInt(op.value, 10) === lesson.day && !op.textContent.includes("✅")) {
-                op.textContent += " ✅";
-            }
-        });
+        updateDayPicker(lesson.day, lesson);
     });
 }
 
