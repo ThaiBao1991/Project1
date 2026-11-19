@@ -1566,3 +1566,16 @@ chạy enrich + export + deploy + verify cho tiếng Trung.
 
 **Deploy:** `sw.js` **v9**, `COURSE_DATA_VERSION=2026-11-19-4`.
 
+---
+
+## 7.42. Trung dừng lần 2 ở 2.446/2.520 (19/11/2026)
+
+- 11:55 pipeline dừng khóa Trung ở **2.446/2.520** vì đĩa còn **6,0 GB**.
+- Dọn **0,94 GB**: cache TTS tiếng Trung (538 MB) + backup `course.json.bak`
+  của 7 khóa đã enrich (401 MB); giữ `course.json` và `web/data`.
+- Đĩa còn **6,9 GB**; khởi động lại `fill_lite.py --lang tiếng_trung` từ ngày
+  2.446, còn 74 ngày.
+- Khi đủ 2.520: `finalize_lite` pack/upload `VocabularyData` + deploy Pages →
+  `cleanup_done_media` xoá media local → `enrich_after_finalize` enrich Trung →
+  `fill_remaining_after_chinese` bù 6 khóa còn lại.
+

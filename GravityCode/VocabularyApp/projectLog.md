@@ -1982,4 +1982,13 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
   `verify_online.py` 9/9. `sw.js` v9, `COURSE_DATA_VERSION=2026-11-19-4`.
 
 
+## 2026-11-19 (11:56) — Trung dừng lần 2 ở 2.446/2.520
+
+- 11:55 pipeline dừng vì đĩa còn 6,0 GB. Dọn 0,94 GB (cache TTS Trung + backup
+  `course.json.bak` của 7 khóa đã enrich), đĩa còn 6,9 GB.
+- Khởi động lại `fill_lite.py --lang tiếng_trung` từ ngày 2.446, còn 74 ngày.
+- Sau khi đủ 2.520: finalize upload GitHub + deploy → cleanup media local →
+  enrich Trung → bù tiếp 6 khóa còn lại.
+
+
 
