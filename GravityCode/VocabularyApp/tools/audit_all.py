@@ -105,38 +105,110 @@ def progress() -> dict:
     return out
 
 
-def storage() -> dict:
-    cats = {}
-    for name, p in (("data/media", MEDIA), ("data/audio", os.path.join(BASE, "data", "audio")),
-                    ("data/ai_courses", AI), ("web/data", WEB),
-                    ("web", os.path.join(BASE, "web")),
-                    ("publish", os.path.join(BASE, "publish"))):
-        cats[name] = dict(zip(("bytes", "files"), size_dir(p)))
-    per_lang = {}
-    for slug in LANGS + ["_cards"]:
+_MANIFEST_CACHE = None
+
+
+def _manifest(include_overlay: bool = False) -> dict:
+    """Đọc manifest một lần; overlay ref bù vào nếu cần."""
+    global _MANIFEST_CACHE
+    if _MANIFEST_CACHE is None:
+        with open(os.path.join(MEDIA, "index.json"), encoding="utf-8") as f:
+            _MANIFEST_CACHE = json.load(f)
+    items = dict((_MANIFEST_CACHE.get("items") or {}))
+    if include_overlay:
+        ovp = os.path.join(MEDIA, "webmap_overlay.json")
+        if os.path.isfile(ovp):
+            try:
+                with open(ovp, encoding="utf-8") as f:
+                    ov = json.load(f)
+                items.update(ov.get("items") or {})
+            except Exception:
+                pass
+    return {"items": items}
+
+
+def storage(full: bool = False) -> dict:
+    man = _manifest(False)
+    items = man.get("items") or {}
+    # Dung lượng media theo manifest (nhanh; không walk 169k file trên F:).
+    media_bytes = 0
+    per_lang = collections.defaultdict(lambda: {"bytes": 0, "files": 0, "days": 0})
+    ext = collections.defaultdict(lambda: [0, 0])
+    for ref, e in items.items():
+        if not isinstance(e, dict):
+            continue
+        b = int(e.get("bytes") or 0)
+        media_bytes += b
+        slug = e.get("lang") or ""
+        if slug:
+            per_lang[slug]["bytes"] += b
+            per_lang[slug]["files"] += 1
+        rel = e.get("rel_path") or ""
+        ex = os.path.splitext(rel)[1].lower() or "(none)"
+        ext[ex][0] += 1
+        ext[ex][1] += b
+    for slug in list(per_lang) + ["_cards"]:
         p = os.path.join(MEDIA, slug)
         if os.path.isdir(p):
-            b, n = size_dir(p)
-            days = sum(1 for d in os.listdir(p)
-                       if os.path.isdir(os.path.join(p, d))
-                       and os.listdir(os.path.join(p, d)))
-            per_lang[slug] = {"bytes": b, "files": n, "days": days}
-    ext = collections.defaultdict(lambda: [0, 0])
-    for dp, _d, fs in os.walk(MEDIA):
-        for f in fs:
-            e = os.path.splitext(f)[1].lower() or "(none)"
-            try:
-                sz = os.path.getsize(os.path.join(dp, f))
-            except OSError:
-                sz = 0
-            ext[e][0] += 1; ext[e][1] += sz
-    # bitrate mẫu
+            per_lang[slug]["days"] = sum(
+                1 for d in os.listdir(p)
+                if os.path.isdir(os.path.join(p, d)) and os.listdir(os.path.join(p, d)))
+    if full:
+        # Chế độ đầy đủ: walk file thật (chậm trên ổ F:).
+        media_bytes, media_files = size_dir(MEDIA)
+        ext = collections.defaultdict(lambda: [0, 0])
+        for dp, _d, fs in os.walk(MEDIA):
+            for f in fs:
+                ex = os.path.splitext(f)[1].lower() or "(none)"
+                try:
+                    sz = os.path.getsize(os.path.join(dp, f))
+                except OSError:
+                    sz = 0
+                ext[ex][0] += 1
+                ext[ex][1] += sz
+        for slug in list(per_lang) + ["_cards"]:
+            p = os.path.join(MEDIA, slug)
+            if os.path.isdir(p):
+                b, n = size_dir(p)
+                per_lang[slug]["bytes"] = b
+                per_lang[slug]["files"] = n
+    cats = {
+        "data/media": {"bytes": media_bytes,
+                       "files": sum(v["files"] for v in per_lang.values())},
+    }
+    cats["data/audio"] = dict(zip(("bytes", "files"),
+                                  size_dir(os.path.join(BASE, "data", "audio"))))
+    if full:
+        cats["data/ai_courses"] = dict(zip(("bytes", "files"), size_dir(AI)))
+    else:
+        # Nhanh: chỉ course.json/.gz + file cấp 1; _pipeline bỏ qua.
+        ab = an = 0
+        for dp, _ds, fs in os.walk(AI):
+            if os.path.basename(dp) == "_pipeline":
+                _ds[:] = []
+                continue
+            for f in fs:
+                if f.startswith("course.json") or f.endswith(".tmp"):
+                    try:
+                        ab += os.path.getsize(os.path.join(dp, f)); an += 1
+                    except OSError:
+                        pass
+        cats["data/ai_courses"] = {"bytes": ab, "files": an,
+                                   "note": "chưa gồm _pipeline (fast)"}
+    for name, p in (("web/data", WEB), ("web", os.path.join(BASE, "web")),
+                    ("publish", os.path.join(BASE, "publish"))):
+        cats[name] = dict(zip(("bytes", "files"), size_dir(p)))
+    # bitrate mẫu: chỉ đọc vài thư mục ngày đầu, không glob toàn bộ.
     bitrates = collections.Counter()
     try:
         from mutagen.mp3 import MP3
         mp3s = []
         for slug in ("tiếng_anh", "tiếng_hàn_quốc", "tiếng_tây_ban_nha"):
-            mp3s += glob.glob(os.path.join(MEDIA, slug, "**", "*.mp3"), recursive=True)[:80]
+            for day in ("d0001", "d0500", "d1000"):
+                p = os.path.join(MEDIA, slug, day)
+                if os.path.isdir(p):
+                    mp3s += [os.path.join(p, f) for f in sorted(os.listdir(p))
+                             if f.endswith(".mp3")][:5]
         for p in mp3s[:200]:
             try:
                 bitrates[MP3(p).info.bitrate // 1000] += 1
@@ -171,7 +243,7 @@ def storage() -> dict:
                          "User-Agent": "audit"})
             with urllib.request.urlopen(req, timeout=30) as resp:
                 j = json.load(resp)
-            repo[r] = round(j.get("size", 0) / 1024 / 1024, 2)  # KB → GB
+            repo[r] = round(j.get("size", 0) / 1024 / 1024, 2)
     except Exception as e:
         repo["error"] = str(e)
     git = {}
@@ -188,11 +260,13 @@ def storage() -> dict:
             capture_output=True, text=True, timeout=60).stdout.strip()
     except Exception as e:
         git["error"] = str(e)
-    return {"categories": cats, "per_lang": per_lang,
+    return {"categories": cats,
+            "per_lang": {k: v for k, v in per_lang.items()},
             "ext": {k: {"files": v[0], "bytes": v[1]} for k, v in ext.items()},
             "bitrate_khz": dict(bitrates), "avg_bitrate_bps": round(avg_bps),
             "projected_32k_saving_bytes": projected,
-            "junk": junk, "repo_gb": repo, "git": git}
+            "junk": junk, "repo_gb": repo, "git": git,
+            "fast": not full}
 
 
 def content() -> dict:
@@ -256,11 +330,7 @@ def content() -> dict:
 
 
 def integrity() -> dict:
-    p = os.path.join(MEDIA, "index.json")
-    if not os.path.isfile(p):
-        return {"error": "no manifest"}
-    with open(p, encoding="utf-8") as f:
-        m = json.load(f)
+    m = _manifest(True)
     refs = {}
     for ref, e in (m.get("items") or {}).items():
         if not isinstance(e, dict):
@@ -268,19 +338,6 @@ def integrity() -> dict:
         lang, day = e.get("lang"), e.get("day")
         if lang and day:
             refs.setdefault((lang, int(day)), set()).add(ref)
-    ovp = os.path.join(MEDIA, "webmap_overlay.json")
-    if os.path.isfile(ovp):
-        try:
-            with open(ovp, encoding="utf-8") as f:
-                ov = json.load(f)
-            for ref, e in (ov.get("items") or {}).items():
-                if not isinstance(e, dict):
-                    continue
-                lang, day = e.get("lang"), e.get("day")
-                if lang and day:
-                    refs.setdefault((lang, int(day)), set()).add(ref)
-        except Exception:
-            pass
     missing = days_map = 0
     total_refs = 0
     examples = []
@@ -364,10 +421,12 @@ def main() -> int:
     ap.add_argument("--no-online", action="store_true")
     ap.add_argument("--no-tests", action="store_true")
     ap.add_argument("--no-integrity", action="store_true")
+    ap.add_argument("--full-storage", action="store_true",
+                    help="walk toàn bộ media (chậm trên ổ F:)")
     args = ap.parse_args()
     t0 = time.time()
     prog = progress()
-    store = storage()
+    store = storage(args.full_storage)
     cont = content()
     integ = {} if args.no_integrity else integrity()
     online_data = {} if args.no_online else online()
@@ -430,6 +489,10 @@ def main() -> int:
         lines.append(f"| {name} | {v['bytes']/1e9:.2f} | {v['files']} |")
     for name, v in store["per_lang"].items():
         lines.append(f"| media/{name} | {v['bytes']/1e9:.2f} | {v['files']} |")
+    if store.get("fast"):
+        lines.append("")
+        lines.append("- Ghi chú: dung lượng media lấy từ manifest (fast); "
+                     "dùng `--full-storage` để walk toàn bộ file.")
     lines += ["", f"- MP3: {store['ext'].get('.mp3',{}).get('files',0)} file, "
               f"{store['ext'].get('.mp3',{}).get('bytes',0)/1e9:.2f} GB; "
               f"bitrate mẫu: {store['bitrate_khz']}",
