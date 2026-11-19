@@ -1,4 +1,6 @@
 let currentLanguage = "";
+// Tăng chuỗi này mỗi lần nội dung ngày thay đổi để bỏ qua HTTP/CDN cache cũ.
+const COURSE_DATA_VERSION = "2026-11-19-3";
 let currentView = "list";   // view đang hiện (Gói 10: dùng để nạp lại khóa học khi đổi ngôn ngữ)
 let vocabularies = [];
 let filteredVocabs = [];
@@ -709,7 +711,7 @@ async function ensureCourseLoaded() {
     if (VOCAB_DATA_CFG && VOCAB_DATA_CFG.mode === "static") {
         try {
             const base = `${VOCAB_DATA_CFG.dataBase}/${encodeURIComponent(slug)}`;
-            const ir = await fetch(`${base}/index.json`).catch(() => null);
+            const ir = await fetch(`${base}/index.json?v=${COURSE_DATA_VERSION}`, { cache: "no-store" }).catch(() => null);
             if (ir && ir.ok) {
                 const idx = await ir.json();
                 if (idx && Array.isArray(idx.days) && idx.days.length) {
@@ -948,7 +950,7 @@ async function _renderCourseDay(dayNum) {
             if (_cfgMode() === "static") {
                 try {
                     const base = `${VOCAB_DATA_CFG.dataBase}/${encodeURIComponent(slugOf(currentLanguage))}`;
-                    const r = await fetch(`${base}/day/${String(dayNum).padStart(4, "0")}.json`);
+                    const r = await fetch(`${base}/day/${String(dayNum).padStart(4, "0")}.json?v=${COURSE_DATA_VERSION}`, { cache: "no-store" });
                     if (r.ok) {
                         const j = await r.json();
                         if (j && (j.vocab || j.quiz || j.dialogue)) {
@@ -990,6 +992,22 @@ async function _renderCourseDay(dayNum) {
     const phase = (lesson.phase || "").trim();
     if (phase) {
         html += `<div style="margin:-4px 0 10px;"><span class="phase-badge">🏷️ ${escapeHtml(phase)}</span></div>`;
+    }
+
+    // ── Bảng chữ cái (Hiragana / Katakana / Hangul / Cyrillic…) ──
+    const alpha = lesson.alphabet;
+    if (alpha && Array.isArray(alpha.rows) && alpha.rows.length) {
+        html += `<div class="section-title">🔤 ${escapeHtml(alpha.title || "Bảng chữ cái")}</div>`;
+        if (alpha.note) html += `<div class="alphabet-note">${escapeHtml(alpha.note)}</div>`;
+        html += `<div class="alphabet-grid">`;
+        alpha.rows.forEach(r => {
+            const kana = String(r.kana || "").trim();
+            html += `<div class="kana-cell${kana ? "" : " kana-empty"}">
+                <div class="kana">${escapeHtml(kana)}</div>
+                <div class="romaji">${escapeHtml(r.romaji || "")}</div>
+            </div>`;
+        });
+        html += `</div>`;
     }
 
     // ── Từ vựng ──
@@ -1549,7 +1567,7 @@ async function _staticPreloadSrsMedia(it) {
     if (!courseDayCache[day]) {
         try {
             const base = `${VOCAB_DATA_CFG.dataBase}/${encodeURIComponent(slug)}`;
-            const r = await fetch(`${base}/day/${String(day).padStart(4, "0")}.json`);
+            const r = await fetch(`${base}/day/${String(day).padStart(4, "0")}.json?v=${COURSE_DATA_VERSION}`, { cache: "no-store" });
             if (r.ok) courseDayCache[day] = await r.json();
         } catch (e) { }
     }

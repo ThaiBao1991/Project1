@@ -199,4 +199,12 @@ Trung 1861, Hàn 1156 → render **0,3–2,5 giây**, 0 lỗi console;
   (stale-while-revalidate); đóng hẳn tab rồi mở lại để chắc chắn.
 - Không cần đăng nhập GitHub; dữ liệu đọc trực tiếp từ GitHub Pages.
 
+**Bổ sung 19/11 (08:35):**
+- Tiếng Anh: đã sạch chữ Hàn/Trung; dọn 21 từ tục + thay 4 từ rác ngày 650
+  bằng từ chủ đề thuê nhà; thêm IPA cho **97,6%** từ vựng
+  (`tools/add_ipa_english.py`, `tools/clean_english_vocab.py`).
+- Tiếng Nhật: ngày 1 có bảng Hiragana 46 âm, ngày 2 có Katakana 46 âm.
+- `sw.js` lên `vocab-v8`; app fetch dữ liệu ngày kèm `?v=…&cache=no-store`.
+  Nếu điện thoại vẫn thấy bản cũ, đóng hẳn tab và mở lại.
+
 

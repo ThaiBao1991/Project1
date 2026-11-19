@@ -1467,3 +1467,46 @@ dòng "Đang tải…" không được thay. Không phải lỗi mạng/ZIP/rate
 `tools/enrich_after_finalize.py` tự chờ `finalize_done.json` báo `done` rồi
 chạy enrich + export + deploy + verify cho tiếng Trung.
 
+---
+
+## 7.38. Tiếng Anh sạch nhiễm + IPA + bảng chữ cái Nhật (19/11/2026)
+
+**Tiếng Anh lẫn tiếng Trung/Hàn?**
+- Bản gốc `.bak` có **4.541 trường** dính template Nhật (`を 使います`) /
+  trace tiếng Hàn / câu Trung ở nhiều ngày. Enrich trước đó đã giảm còn
+  **2 ngày (95, 261)** dính "reasoning trace" tiếng Hàn trong trường `tone`.
+- Đã làm sạch: `tone` = `emotion`; audit lại **0 ngày** còn chữ Hàn/Trung trong
+  toàn bộ `course.json` tiếng Anh.
+- Ảnh chụp "10. shanghai" + mẫu câu Hàn là bản cache cũ. Đã thêm
+  `COURSE_DATA_VERSION` + fetch `?v=…&cache=no-store`, `sw.js` lên `vocab-v8`
+  để điện thoại không dùng lại bản cũ.
+
+**Dọn từ vựng tiếng Anh:**
+- `tools/clean_english_vocab.py`: ngày 650 thay 4 từ rác (`puerto`, `shanghai`,
+  `shitty`, `singh`) bằng từ đúng chủ đề thuê nhà: `landlord`, `deposit`,
+  `shabby`, `tenant`; tạo lại quiz từ vựng.
+- Bỏ **21 từ tục** ở các ngày khác + **34 câu quiz** chứa từ đó.
+- Mọi từ còn lại giữ nguyên media/audio của từ khác.
+
+**IPA tiếng Anh:**
+- `tools/add_ipa_english.py`: CMUdict 126.052 từ → ARPAbet → IPA (âm tiết +
+  trọng âm), bảng tay cho từ vay/viết tắt, chuẩn hoá `pronunciation` (bỏ `/`).
+- Kết quả: **24.575/25.179 = 97,6%** từ có IPA; 604 từ còn lại chủ yếu danh từ
+  riêng/slang/viết tắt. `pronunciation` 0 mục còn dấu `/`.
+- Ngày 1 vẫn bắt đầu bằng từ đơn giản: cat, dog, sun, pen, big, map, red, sit,
+  hot, run.
+
+**Bảng chữ cái Nhật:**
+- `tools/add_japanese_alphabet.py`: ngày 1 = Hiragana 46 âm, ngày 2 = Katakana
+  46 âm; lưới 5 cột (55 ô gồm ô trống giữ hàng).
+- `web/script.js` + `web/style.css`: section `🔤 Bảng chữ cái` trước phần từ
+  vựng, responsive mobile.
+
+**Test case:**
+- `tools/test_content_quality.py`: **11/11 PASS** — Anh 0 nhiễm, IPA 97,6%,
+  ngày 1 đơn giản, 0 từ tục; Nhật 46+46 kana; 17.640 ngày đủ mẫu câu/câu thông
+  dụng/ngữ pháp/hội thoại/quiz; 0 template; 0 câu sai hệ chữ.
+- Local + Pages: Nhật ngày 1/2 render 55 ô; Anh 650 render 10 từ mới + 10 IPA,
+  0 lỗi console.
+- `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
+

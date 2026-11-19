@@ -1918,4 +1918,32 @@ Anh/Hàn/Nga/Pháp/Tây/Đức 1/500/2509 → đủ 6 mục, 0 lỗi console,
 chạy enrich + export + deploy + verify cho tiếng Trung.
 
 
+## 2026-11-19 (08:21) — Tiếng Anh sạch nhiễm + IPA + bảng chữ cái Nhật
+
+**Tiếng Anh lẫn Trung/Hàn:** bản gốc có 4.541 trường dính template Nhật /
+trace Hàn / câu Trung; enrich giảm còn 2 ngày (95, 261) dính trace Hàn trong
+`tone`. Đã làm sạch; audit 0 ngày còn chữ Hàn/Trung. Ảnh "10. shanghai" +
+mẫu câu Hàn là cache cũ; thêm `COURSE_DATA_VERSION` + fetch `?v=…&cache=no-store`,
+`sw.js` lên `vocab-v8`.
+
+**Dọn từ vựng:** `tools/clean_english_vocab.py` thay 4 từ rác ngày 650
+(`puerto`, `shanghai`, `shitty`, `singh`) bằng `landlord`, `deposit`, `shabby`,
+`tenant`; bỏ 21 từ tục ở các ngày khác + 34 câu quiz chứa từ đó.
+
+**IPA tiếng Anh:** `tools/add_ipa_english.py` dùng CMUdict 126.052 từ →
+ARPAbet → IPA (âm tiết + trọng âm), bảng tay cho từ vay/viết tắt. Kết quả
+**24.575/25.179 = 97,6%** từ có IPA; `pronunciation` không còn dấu `/`.
+Ngày 1 vẫn là từ đơn giản: cat, dog, sun, pen, big, map, red, sit, hot, run.
+
+**Bảng chữ cái Nhật:** `tools/add_japanese_alphabet.py` thêm Hiragana 46 âm
+(ngày 1) và Katakana 46 âm (ngày 2); `web/script.js` + `style.css` render lưới
+5 cột trước phần từ vựng, responsive mobile.
+
+**Test case:** `tools/test_content_quality.py` **11/11 PASS** — Anh 0 nhiễm,
+IPA 97,6%, ngày 1 đơn giản, 0 từ tục; Nhật 46+46 kana; 17.640 ngày đủ mẫu câu/
+câu thông dụng/ngữ pháp/hội thoại/quiz; 0 template; 0 câu sai hệ chữ. Local +
+Pages: Nhật ngày 1/2 render 55 ô; Anh 650 render 10 từ mới + 10 IPA, 0 lỗi
+console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
+
+
 
