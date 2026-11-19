@@ -61,8 +61,8 @@ WARN chấp nhận được:
 ## 5. Tối ưu dung lượng
 
 ### Đã làm
-- **Chuyển dữ liệu lớn sang F:**: `data/media`, `data/audio`,
-  `data/ai_courses` → `F:\VocabularyAppData`, tạo junction tại chỗ cũ.
+- **Chuyển dữ liệu lớn sang D:**: `data/media`, `data/audio`,
+  `data/ai_courses` → `D:\VocabularyAppData`, tạo junction tại chỗ cũ.
   App/tool vẫn dùng đường dẫn cũ; C: được giải phóng ~3 GB, media tương lai
   không còn làm đầy C:.
 - **MP3 48/64 → 32 kbps mono**: giảm ~31–50%; giữ nguyên filename/ref.

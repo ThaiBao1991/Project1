@@ -2047,4 +2047,12 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
 - Restart cleanup/finalize/supervisor; tiếng Anh chạy lại từ 1.429 lúc 20:02.
 
 
+## 2026-11-19 (22:26) — Dời dữ liệu F: → D:
+
+- Theo yêu cầu, dời `data/media`, `data/audio`, `data/ai_courses` từ F: sang
+  `D:\VocabularyAppData`; tạo lại junction tại chỗ cũ.
+- C: 5,6 GB · D: 33 GB · F: 2,79 TB; F không còn dùng.
+- Kiểm tra đọc media qua junction; pipeline Anh chạy lại từ 1.537/2.520 lúc 22:26.
+
+
 

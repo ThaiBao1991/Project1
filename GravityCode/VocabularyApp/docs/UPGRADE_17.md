@@ -1664,3 +1664,15 @@ chạy enrich + export + deploy + verify cho tiếng Trung.
   **1.429/2.520** lúc 20:02.
 - Lưu ý: muốn sửa `course.json` Trung/Nhật phải giải nén `.gz` trước.
 
+---
+
+## 7.48. Dời dữ liệu F: → D: theo yêu cầu (19/11/2026)
+
+- D: còn **35,7 GB**; đã dời `data/media`, `data/audio`, `data/ai_courses`
+  từ `F:\VocabularyAppData` sang `D:\VocabularyAppData`.
+- Tạo lại junction tại đường dẫn cũ; app/tool không đổi code.
+- Kết quả: **C: 5,6 GB · D: 33 GB · F: 2,79 TB**; F không còn được dùng.
+- Đã kiểm tra đọc media qua junction; pipeline tiếng Anh chạy lại từ
+  **1.537/2.520** lúc 22:26.
+- Cleanup/finalize/supervisor đã khởi động lại.
+
