@@ -25,6 +25,10 @@ LOG = os.path.join(BASE, "data", "logs", "fill_remaining.log")
 FINAL = os.path.join(BASE, "data", "logs", "finalize_done.json")
 ENRICH_DONE = os.path.join(BASE, "data", "logs", "enrich_after_finalize_done.json")
 DONE = os.path.join(BASE, "data", "logs", "fill_remaining_done.json")
+MEDIA = os.path.join(BASE, "data", "media")
+TOTAL = 2520
+MIN_FREE = 3.0
+WAIT_FREE = 3.4
 LANGS = ["tiếng_anh", "tiếng_hàn_quốc", "tiếng_tây_ban_nha",
          "tiếng_đức", "tiếng_pháp", "tiếng_nga"]
 PY = sys.executable
@@ -66,25 +70,100 @@ def wait_ready() -> bool:
     return False
 
 
+def days_done(slug: str) -> int:
+    p = os.path.join(MEDIA, slug)
+    if not os.path.isdir(p):
+        return 0
+    return sum(1 for d in os.listdir(p)
+               if os.path.isdir(os.path.join(p, d))
+               and os.listdir(os.path.join(p, d)))
+
+
+def clean_stale() -> None:
+    """Dọn temp cũ (không đụng file đang được ghi)."""
+    import glob
+    import tempfile
+    import time as _t
+    now = _t.time()
+    for p in glob.glob(os.path.join(MEDIA, "index.json.tmp.*")):
+        try:
+            if now - os.path.getmtime(p) > 600:
+                os.remove(p)
+        except OSError:
+            pass
+    for p in glob.glob(os.path.join(BASE, "data", "ai_courses", "*", "course.json.tmp.*")):
+        try:
+            if now - os.path.getmtime(p) > 600:
+                os.remove(p)
+        except OSError:
+            pass
+    for p in glob.glob(os.path.join(tempfile.gettempdir(), "vocab_pages_*")):
+        try:
+            if now - os.path.getmtime(p) > 3600:
+                import shutil
+                for dp, _ds, fs in os.walk(p):
+                    for f in fs:
+                        try:
+                            os.chmod(os.path.join(dp, f), 0o666)
+                        except OSError:
+                            pass
+                shutil.rmtree(p, ignore_errors=True)
+        except OSError:
+            pass
+
+
+def wait_free() -> None:
+    t0 = time.time()
+    while free_gb() < WAIT_FREE and time.time() - t0 < 6 * 3600:
+        clean_stale()
+        try:
+            subprocess.run([PY, "-X", "utf8", "tools/cleanup_done_media.py", "--once"],
+                           cwd=BASE, stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, timeout=600)
+        except Exception:
+            pass
+        log(f"đĩa còn {free_gb():.1f} GB — chờ cleanup/finalize")
+        time.sleep(300)
+
+
 def main() -> int:
     if not wait_ready():
         return 1
-    while free_gb() < 4.5:
-        log(f"đĩa còn {free_gb():.1f} GB — chờ cleanup_done_media dọn bớt")
-        time.sleep(300)
-    args = [PY, "-X", "utf8", "tools/fill_lite.py", "--min-free-gb", "4.0"]
-    for s in LANGS:
-        args += ["--lang", s]
-    log("bắt đầu bù media: " + ", ".join(LANGS))
+    log("bắt đầu bù media từng khóa: " + ", ".join(LANGS))
     os.makedirs(os.path.dirname(LOG), exist_ok=True)
-    with open(LOG, "a", encoding="utf-8") as lf:
-        r = subprocess.run(args, cwd=BASE, stdout=lf, stderr=subprocess.STDOUT)
-    log(f"fill_lite kết thúc (mã {r.returncode})")
+    failed = []
+    for slug in LANGS:
+        for attempt in range(1, 121):
+            d = days_done(slug)
+            if d >= TOTAL:
+                break
+            wait_free()
+            log(f"▶ {slug}: {d}/{TOTAL} — lần {attempt}")
+            args = [PY, "-X", "utf8", "tools/fill_lite.py",
+                    "--lang", slug, "--min-free-gb", str(MIN_FREE)]
+            with open(LOG, "a", encoding="utf-8") as lf:
+                r = subprocess.run(args, cwd=BASE, stdout=lf,
+                                   stderr=subprocess.STDOUT)
+            d2 = days_done(slug)
+            log(f"◀ {slug}: {d2}/{TOTAL} (mã {r.returncode})")
+            if d2 >= TOTAL:
+                break
+            if d2 <= d:
+                time.sleep(300)
+        if days_done(slug) >= TOTAL:
+            log(f"✅ {slug}: đủ {TOTAL} ngày")
+        else:
+            log(f"⚠ {slug}: dừng ở {days_done(slug)}/{TOTAL}")
+            failed.append(slug)
+            break
+    status = "done" if not failed else "partial"
     with open(DONE, "w", encoding="utf-8") as f:
-        json.dump({"status": "done" if r.returncode == 0 else "failed",
+        json.dump({"status": status,
                    "at": f"{datetime.now():%Y-%m-%d %H:%M:%S}",
-                   "langs": LANGS}, f, ensure_ascii=False, indent=1)
-    return r.returncode
+                   "langs": LANGS,
+                   "days": {s: days_done(s) for s in LANGS}}, f,
+                  ensure_ascii=False, indent=1)
+    return 0 if status == "done" else 1
 
 
 if __name__ == "__main__":

@@ -2020,4 +2020,13 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
 - Quy trình kiểm + phương án giảm dung lượng: `docs/AUDIT_WORKFLOW.md`.
 
 
+## 2026-11-19 (16:00) — Sửa supervisor media báo done sai
+
+- 15:55 supervisor báo done dù `fill_lite` mới bù Anh 1.374/2.520 rồi dừng vì
+  đĩa 4,0 GB.
+- Sửa: chạy từng khóa, kiểm tra `days_done`, chỉ chuyển khi đủ 2.520; ngưỡng
+  fill 3,0 GB, chờ đĩa 3,4 GB; tự dọn temp; xoá done cũ.
+- 16:00 chạy lại Anh từ 1.374; shrink audio đã nén ~85k file, tiết kiệm ~504 MB.
+
+
 

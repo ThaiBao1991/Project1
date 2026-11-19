@@ -1622,3 +1622,17 @@ chạy enrich + export + deploy + verify cho tiếng Trung.
   phương án giảm dung lượng tiếp (Opus 24k, nén lại Trung/Nhật đã upload,
   gzip manifest, squash `gh-pages`, R2/tách repo).
 
+---
+
+## 7.45. Sửa supervisor media báo “done” sai (19/11/2026)
+
+- 15:55 `fill_remaining_after_chinese.py` báo done dù `fill_lite` mới bù
+  **Anh 1.374/2.520** rồi dừng vì đĩa 4,0 GB.
+- Đã sửa supervisor:
+  - Chạy **từng khóa**, kiểm tra `days_done` sau mỗi lần; chỉ chuyển khóa khi đủ 2.520.
+  - `fill_lite --min-free-gb 3.0`; trước mỗi lượt chờ đĩa ≥3,4 GB.
+  - Tự dọn `index.json.tmp.*`, `course.json.tmp.*`, `vocab_pages_*` cũ.
+  - Xoá trạng thái `fill_remaining_done.json` cũ để không báo done giả.
+- 16:00 chạy lại tiếng Anh từ **1.374/2.520**; shrink audio đã nén ~85k file,
+  tiết kiệm ~504 MB.
+
