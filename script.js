@@ -992,6 +992,22 @@ async function _renderCourseDay(dayNum) {
         html += `<div style="margin:-4px 0 10px;"><span class="phase-badge">🏷️ ${escapeHtml(phase)}</span></div>`;
     }
 
+    // ── Bảng chữ cái (Hiragana / Katakana / Hangul / Cyrillic…) ──
+    const alpha = lesson.alphabet;
+    if (alpha && Array.isArray(alpha.rows) && alpha.rows.length) {
+        html += `<div class="section-title">🔤 ${escapeHtml(alpha.title || "Bảng chữ cái")}</div>`;
+        if (alpha.note) html += `<div class="alphabet-note">${escapeHtml(alpha.note)}</div>`;
+        html += `<div class="alphabet-grid">`;
+        alpha.rows.forEach(r => {
+            const kana = String(r.kana || "").trim();
+            html += `<div class="kana-cell${kana ? "" : " kana-empty"}">
+                <div class="kana">${escapeHtml(kana)}</div>
+                <div class="romaji">${escapeHtml(r.romaji || "")}</div>
+            </div>`;
+        });
+        html += `</div>`;
+    }
+
     // ── Từ vựng ──
     (lesson.vocab || []).forEach((v, i) => {
         const ipa = v.ipa || v.pronunciation || "";

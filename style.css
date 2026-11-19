@@ -1153,3 +1153,44 @@ tr:last-child td {
 @media (prefers-reduced-motion: reduce) {
     * { animation: none !important; transition: none !important; }
 }
+
+/* ── Bảng chữ cái (Hiragana / Katakana) ── */
+.alphabet-note {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: -2px 0 10px;
+}
+.alphabet-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 8px;
+    margin: 8px 0 20px;
+}
+.kana-cell {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 8px 4px;
+    text-align: center;
+}
+.kana-cell.kana-empty {
+    background: transparent;
+    border-color: transparent;
+}
+.kana {
+    font-size: 1.55rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+.romaji {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    margin-top: 2px;
+}
+@media (max-width: 480px) {
+    .alphabet-grid { gap: 5px; }
+    .kana { font-size: 1.3rem; }
+    .kana-cell { padding: 6px 2px; border-radius: 8px; }
+    .romaji { font-size: 0.68rem; }
+}
