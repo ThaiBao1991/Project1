@@ -2008,4 +2008,16 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
 - `test_content_quality.py` kiểm tra 8 khóa / 20.160 ngày: **TẤT CẢ PASS**.
 
 
+## 2026-11-19 (14:16) — Audit toàn bộ + tối ưu dung lượng
+
+- `tools/audit_all.py`: **0 FAIL**; báo cáo `docs/AUDIT_REPORT.md`; 20.160 ngày,
+  online 9/9, test PASS.
+- Dung lượng: media 2,07 GB (MP3 1,80 GB/111k), ai_courses 1,06 GB,
+  web/data 0,58 GB; repo VocabularyData 2,82 GB, Project1 5,48 GB.
+- Dọn 2,05 GB temp deploy + 395 MB temp manifest; deploy tự dọn.
+- MP3 48/64 → 32 kbps mono, gắn vào finalize; ước tính giảm 0,6–0,7 GB.
+- Overlay 76.767 ref bù manifest; `publish_online` đọc overlay.
+- Quy trình kiểm + phương án giảm dung lượng: `docs/AUDIT_WORKFLOW.md`.
+
+
 

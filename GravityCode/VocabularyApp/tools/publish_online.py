@@ -83,29 +83,50 @@ def _manifest_days() -> dict:
         return _MANIFEST_DAYS
     out: dict = {}
     p = os.path.join(MEDIA_DIR, "index.json")
-    if not os.path.isfile(p):
-        _log("⚠ không thấy data/media/index.json — chỉ dùng checkpoint")
-        _MANIFEST_DAYS = out
-        return out
     t0 = time.time()
-    try:
-        with open(p, encoding="utf-8") as f:
-            m = json.load(f)
-        for ref, e in (m.get("items") or {}).items():
-            if not isinstance(e, dict):
-                continue
-            lang = e.get("lang") or ""
-            try:
-                day = int(e.get("day") or 0)
-            except Exception:
-                day = 0
-            rel = e.get("rel_path") or ""
-            if lang and day and rel:
-                out.setdefault((lang, day), {})[ref] = rel
-        _log(f"manifest: {len(m.get('items') or {})} entry · "
-             f"{len(out)} (khóa, ngày) · đọc {time.time()-t0:.1f}s")
-    except Exception as e:
-        _log(f"⚠ không đọc được manifest: {e}")
+    if os.path.isfile(p):
+        try:
+            with open(p, encoding="utf-8") as f:
+                m = json.load(f)
+            for ref, e in (m.get("items") or {}).items():
+                if not isinstance(e, dict):
+                    continue
+                lang = e.get("lang") or ""
+                try:
+                    day = int(e.get("day") or 0)
+                except Exception:
+                    day = 0
+                rel = e.get("rel_path") or ""
+                if lang and day and rel:
+                    out.setdefault((lang, day), {})[ref] = rel
+            _log(f"manifest: {len(m.get('items') or {})} entry · "
+                 f"{len(out)} (khóa, ngày) · đọc {time.time()-t0:.1f}s")
+        except Exception as e:
+            _log(f"⚠ không đọc được manifest: {e}")
+    else:
+        _log("⚠ không thấy data/media/index.json — chỉ dùng checkpoint/overlay")
+    # Overlay bù các ref media_map web bị thiếu trong manifest (Trung/Nhật…).
+    ovp = os.path.join(MEDIA_DIR, "webmap_overlay.json")
+    if os.path.isfile(ovp):
+        try:
+            with open(ovp, encoding="utf-8") as f:
+                ov = json.load(f)
+            n_ov = 0
+            for ref, e in (ov.get("items") or {}).items():
+                if not isinstance(e, dict):
+                    continue
+                lang = e.get("lang") or ""
+                try:
+                    day = int(e.get("day") or 0)
+                except Exception:
+                    day = 0
+                rel = e.get("rel_path") or ""
+                if lang and day and rel:
+                    out.setdefault((lang, day), {})[ref] = rel
+                    n_ov += 1
+            _log(f"overlay webmap: {n_ov} ref")
+        except Exception as e:
+            _log(f"⚠ không đọc được overlay: {e}")
     _MANIFEST_DAYS = out
     return out
 

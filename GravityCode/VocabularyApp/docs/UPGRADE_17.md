@@ -1603,3 +1603,22 @@ chạy enrich + export + deploy + verify cho tiếng Trung.
 - `tools/test_content_quality.py` cập nhật kiểm tra **8 khóa / 20.160 ngày**:
   **TẤT CẢ PASS**.
 
+---
+
+## 7.44. Audit toàn bộ + tối ưu dung lượng (19/11/2026)
+
+- `tools/audit_all.py`: **0 FAIL**; báo cáo `docs/AUDIT_REPORT.md` + JSON
+  `data/logs/audit.json`; 20.160 ngày nội dung, online **9/9**, test PASS.
+- Dung lượng lúc audit: `data/media` **2,07 GB** (MP3 1,80 GB/111k file,
+  WebP ~71 MB), `data/ai_courses` 1,06 GB, `web/data` 0,58 GB.
+  Repo GitHub: `VocabularyData` **2,82 GB**, `Project1` **5,48 GB**.
+- Đã dọn **2,05 GB** temp `vocab_pages_*` + **395 MB** `index.json.tmp.*`;
+  `deploy_pages.py` tự dọn về sau.
+- `tools/shrink_audio.py`: MP3 48/64 → **32 kbps mono**, gắn vào finalize
+  trước khi pack; ước tính giảm ~**0,6–0,7 GB** (audit còn 0,43 GB tại lúc chạy).
+- `tools/reconcile_manifest.py`: overlay **76.767 ref** (17,6 MB) bù `media_map`
+  bị thiếu/sai ngày trong manifest; `publish_online` đọc thêm overlay.
+- `docs/AUDIT_WORKFLOW.md`: quy trình kiểm PASS/WARN, cách xử lý FAIL, các
+  phương án giảm dung lượng tiếp (Opus 24k, nén lại Trung/Nhật đã upload,
+  gzip manifest, squash `gh-pages`, R2/tách repo).
+
