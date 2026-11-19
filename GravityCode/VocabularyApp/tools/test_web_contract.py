@@ -41,6 +41,8 @@ def main() -> int:
     sw = read("sw.js")
 
     check("HTML có ô nhập ngày nhanh", 'id="course-day-input"' in html)
+    check("Select ngôn ngữ có nhãn a11y",
+          'id="language-select"' in html and 'aria-label="Chọn ngôn ngữ"' in html)
     check("HTML có nút ngày trước/sau",
           'id="course-day-prev"' in html and 'id="course-day-next"' in html)
     check("HTML không còn select 2.520 dòng", 'id="course-day-select"' not in html)
