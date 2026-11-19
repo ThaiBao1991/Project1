@@ -1584,3 +1584,22 @@ chạy enrich + export + deploy + verify cho tiếng Trung.
 - `deploy_pages.py` dọn `vocab_pages_*` cũ và xoá force file read-only; phát hiện
   **2,05 GB** temp deploy sót, đĩa lên **8,2 GB**.
 
+---
+
+## 7.43. Trung hoàn tất 2.520 + upload GitHub (19/11/2026)
+
+- **12:54:53** Trung đạt **2.520/2.520** ngày media.
+- **13:11:00** `finalize_lite` xong: pack 85 gói → upload `VocabularyData`
+  → deploy Pages.
+- **13:13:22** `cleanup_done_media` xoá media local Trung, giải phóng **758 MB**.
+- **13:14–13:17** enrich nội dung Trung:
+  - 2.509 ngày đổi; +8.392 mẫu câu, +10.410 câu thông dụng, +8.300 ngữ pháp,
+    +2.504 hội thoại, +6.234 quiz ngữ pháp, +6.234 quiz thông dụng.
+  - Export 2.520 ngày (giữ `media_map`) → deploy Pages → `verify_online` **9/9**.
+- Live thử ngày 2509 Trung: 4 mẫu câu, 5 câu thông dụng, 4 ngữ pháp,
+  hội thoại 9 lượt, 16 quiz, 31 media ref.
+- **13:19** hàng đợi 6 khóa tự chạy: Anh (đang bù, 1.214/2.520) → Hàn → Tây
+  Ban Nha → Đức → Pháp → Nga, ngưỡng đĩa 4 GB.
+- `tools/test_content_quality.py` cập nhật kiểm tra **8 khóa / 20.160 ngày**:
+  **TẤT CẢ PASS**.
+

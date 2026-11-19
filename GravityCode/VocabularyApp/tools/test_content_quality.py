@@ -7,7 +7,7 @@ Kiểm tra trên SẢN PHẨM WEB (`web/data/<slug>/day/*.json`) + course.json:
   2. Tiếng Anh có IPA cho ≥97% từ vựng; `pronunciation` không còn dấu `/`.
   3. Tiếng Anh ngày 1 bắt đầu bằng từ đơn giản (≤5 ký tự, chữ thường).
   4. Tiếng Nhật ngày 1 có bảng Hiragana 46 âm; ngày 2 có Katakana 46 âm.
-  5. Mọi ngày của 7 khóa đã enrich có đủ: ≥4 mẫu câu, ≥5 câu thông dụng,
+  5. Mọi ngày của 8 khóa đã enrich có đủ: ≥4 mẫu câu, ≥5 câu thông dụng,
      ≥2 ngữ pháp, ≥1 hội thoại, ≥3 quiz ngữ pháp, ≥3 quiz thông dụng.
   6. Không còn hội thoại template `を 使います` / `は 何ですか`.
   7. Câu/mẫu câu/hội thoại đúng hệ chữ ngôn ngữ đích (dùng validator của
@@ -36,8 +36,8 @@ from tools.enrich_course_content import _valid_target  # noqa: E402
 WEB = os.path.join(BASE, "web", "data")
 CD = os.path.join(BASE, "data", "ai_courses")
 LANGS = ["tiếng_nhật", "tiếng_anh", "tiếng_hàn_quốc", "tiếng_nga",
-         "tiếng_pháp", "tiếng_tây_ban_nha", "tiếng_đức"]
-PENDING = ["tiếng_trung"]
+         "tiếng_pháp", "tiếng_tây_ban_nha", "tiếng_đức", "tiếng_trung"]
+PENDING = []
 HANGUL = re.compile(r"[\uac00-\ud7af]")
 HAN = re.compile(r"[\u4e00-\u9fff]")
 PROFANE = re.compile(
@@ -116,7 +116,7 @@ def main() -> int:
                       for v in (d1.get("vocab") or []))
         check("Nhật: từ vựng ngày 1 dùng kana", kana_ok)
 
-    # ── Cấu trúc nội dung 7 khóa ──
+    # ── Cấu trúc nội dung 8 khóa ──
     min_bad = {k: 0 for k in ("pat", "com", "gram", "dia", "qg", "qc")}
     template = 0
     script_bad = 0
@@ -151,10 +151,10 @@ def main() -> int:
                 for t in dl.get("turns") or []:
                     if not _valid_target(slug, t.get("line_target")):
                         script_bad += 1
-    check("7 khóa: đủ mẫu câu/câu thông dụng/ngữ pháp/hội thoại/quiz",
+    check("8 khóa: đủ mẫu câu/câu thông dụng/ngữ pháp/hội thoại/quiz",
           all(v == 0 for v in min_bad.values()), f"{n_days} ngày · {min_bad}")
-    check("7 khóa: không còn hội thoại template", template == 0, f"{template} mục")
-    check("7 khóa: câu đúng hệ chữ ngôn ngữ đích", script_bad == 0, f"{script_bad} mục")
+    check("8 khóa: không còn hội thoại template", template == 0, f"{template} mục")
+    check("8 khóa: câu đúng hệ chữ ngôn ngữ đích", script_bad == 0, f"{script_bad} mục")
 
     for slug in PENDING:
         done = os.path.isfile(os.path.join(BASE, "data", "logs",

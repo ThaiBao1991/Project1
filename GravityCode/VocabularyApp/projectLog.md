@@ -1995,4 +1995,17 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
   2,05 GB temp deploy sót, đĩa lên 8,2 GB.
 
 
+## 2026-11-19 (13:19) — Trung hoàn tất 2.520 + upload GitHub
+
+- 12:54 Trung đủ 2.520 ngày media; 13:11 finalize pack/upload `VocabularyData`
+  + deploy Pages; 13:13 cleanup xoá media local, giải phóng 758 MB.
+- 13:14–13:17 enrich Trung: 2.509 ngày đổi; +8.392 mẫu câu, +10.410 câu thông
+  dụng, +8.300 ngữ pháp, +2.504 hội thoại, +6.234 quiz G, +6.234 quiz C;
+  deploy + verify **9/9**.
+- Live ngày 2509 Trung: 4 mẫu câu, 5 câu thông dụng, 4 ngữ pháp, hội thoại 9
+  lượt, 16 quiz, 31 media ref.
+- 13:19 hàng đợi 6 khóa tự chạy: Anh → Hàn → Tây → Đức → Pháp → Nga (ngưỡng 4 GB).
+- `test_content_quality.py` kiểm tra 8 khóa / 20.160 ngày: **TẤT CẢ PASS**.
+
+
 
