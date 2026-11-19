@@ -1906,7 +1906,8 @@ gán ngữ pháp tiếng Nhật.
 thông dụng, +9.668 ngữ pháp, +2.463 hội thoại, +7.263 quiz ngữ pháp,
 +7.263 quiz thông dụng; 0 câu sai hệ chữ/template/lỗi quiz; vocab + audio từ
 vựng không đổi. 6 khóa Anh/Hàn/Nga/Pháp/Tây/Đức: 2.128–2.508 ngày đổi/khóa.
-Chạy lại **0 thay đổi** (idempotent).
+Chạy lại **0 thay đổi** (idempotent). Bổ sung nghĩa tiếng Việt cho 3 lượt kết
+Q&A (Nhật 1.311, Tây 2.504, Đức 1.990 hội thoại; 0 lượt trống).
 
 **Kiểm chứng:** local + Pages — Nhật 1/100/500/1000/2509/2520,
 Anh/Hàn/Nga/Pháp/Tây/Đức 1/500/2509 → đủ 6 mục, 0 lỗi console,

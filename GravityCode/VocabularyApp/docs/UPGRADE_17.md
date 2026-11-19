@@ -1443,6 +1443,8 @@ dòng "Đang tải…" không được thay. Không phải lỗi mạng/ZIP/rate
   không chặn nhầm tiếng Pháp (`ê/ô/â`).
 - Hội thoại đổi nội dung ⇒ xoá `media.dialogue_audio` cũ; giữ nguyên
   `media_map` và audio từ vựng.
+- Bổ sung nghĩa tiếng Việt cho 3 lượt kết của hội thoại Q&A (trước đây để trống):
+  Nhật 1.311, Tây Ban Nha 2.504, Đức 1.990 hội thoại; 0 lượt trống.
 
 **Kết quả thật (19/11 07:17):**
 - Nhật: 2.503/2.520 ngày đổi; +9.960 mẫu câu, +12.450 câu thông dụng,

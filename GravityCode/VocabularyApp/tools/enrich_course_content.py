@@ -158,6 +158,27 @@ _ACK = {
     "tiếng_tây_ban_nha": "Ya veo.",
     "tiếng_nga": "Понятно.",
 }
+# Nghĩa tiếng Việt của các lượt kết (trước đây để trống).
+_CLOSING_VI = {
+    "tiếng_nhật": ("Cảm ơn. Tôi sẽ liên lạc lại sau.", "Vâng, mong được hợp tác."),
+    "tiếng_anh": ("Cảm ơn. Tôi sẽ sớm liên lạc lại.", "Được, hẹn gặp lại."),
+    "tiếng_trung": ("Cảm ơn, tôi sẽ liên lạc lại sau.", "Được, hẹn gặp lại."),
+    "tiếng_hàn_quốc": ("Cảm ơn. Tôi sẽ liên lạc lại sau.", "Vâng, làm vậy nhé."),
+    "tiếng_pháp": ("Cảm ơn. Tôi sẽ sớm liên hệ lại.", "Tốt, hẹn gặp lại."),
+    "tiếng_đức": ("Cảm ơn. Tôi sẽ sớm liên lạc lại.", "Được, hẹn gặp sau."),
+    "tiếng_tây_ban_nha": ("Cảm ơn. Tôi sẽ liên hệ sớm.", "Tốt, hẹn gặp lại."),
+    "tiếng_nga": ("Cảm ơn. Tôi sẽ sớm liên lạc với bạn.", "Được, hẹn liên lạc lại."),
+}
+_ACK_VI = {
+    "tiếng_nhật": "Ra vậy, thế à.",
+    "tiếng_anh": "Tôi hiểu rồi.",
+    "tiếng_trung": "Ra là vậy.",
+    "tiếng_hàn_quốc": "Ra vậy nhỉ.",
+    "tiếng_pháp": "Tôi hiểu rồi.",
+    "tiếng_đức": "Tôi hiểu.",
+    "tiếng_tây_ban_nha": "Tôi hiểu rồi.",
+    "tiếng_nga": "Hiểu rồi.",
+}
 
 
 def _log(msg: str) -> None:
@@ -443,6 +464,28 @@ def _closing(slug: str) -> tuple:
     return _CLOSING.get(slug, _CLOSING["tiếng_anh"])
 
 
+def _closing_vi(slug: str) -> tuple:
+    return _CLOSING_VI.get(slug, _CLOSING_VI["tiếng_anh"])
+
+
+def _fill_closing_vi(slug: str, dlg: dict) -> bool:
+    """Điền nghĩa tiếng Việt cho 3 lượt kết của hội thoại Q&A đã sinh."""
+    if not isinstance(dlg, dict) or not dlg.get("_gen"):
+        return False
+    mapping = {
+        str(_ACK.get(slug) or ""): _ACK_VI.get(slug, ""),
+        str(_closing(slug)[0]): _closing_vi(slug)[0],
+        str(_closing(slug)[1]): _closing_vi(slug)[1],
+    }
+    changed = False
+    for t in dlg.get("turns") or []:
+        s = str(t.get("line_target") or "").strip()
+        if s in mapping and mapping[s] and not str(t.get("line_vi") or "").strip():
+            t["line_vi"] = mapping[s]
+            changed = True
+    return changed
+
+
 def _is_question(slug: str, s: str) -> bool:
     s = (s or "").strip()
     if not s:
@@ -485,7 +528,9 @@ def _build_dialogue(day: int, slug: str, level: str, patterns: list,
     qs = [x for x in lines if _is_question(slug, x[0])]
     ss = [x for x in lines if x not in qs]
     ack = _ACK.get(slug, _ACK["tiếng_anh"])
+    ack_vi = _ACK_VI.get(slug, _ACK_VI["tiếng_anh"])
     close_a, close_b = _closing(slug)
+    close_a_vi, close_b_vi = _closing_vi(slug)
     seq = []
 
     def _add(line):
@@ -510,9 +555,9 @@ def _build_dialogue(day: int, slug: str, level: str, patterns: list,
             break
     if not seq:
         seq = [("A", lines[0]), ("B", lines[1])]
-    _add((ack, ""))
-    _add((close_a, ""))
-    _add((close_b, ""))
+    _add((ack, ack_vi))
+    _add((close_a, close_a_vi))
+    _add((close_b, close_b_vi))
     turns = [{"speaker": sp, "line_target": s, "line_vi": vi, "focus_words": []}
              for sp, (s, vi) in seq]
     return [{
@@ -617,7 +662,7 @@ def enrich_day(d: dict, slug: str, libs: dict) -> dict:
     day = int(d.get("day") or 0)
     level = _level_of(d)
     st = {"day": day, "pattern": 0, "common": 0, "grammar": 0, "dialogue": 0,
-          "grammar_clean": 0, "quiz_g": 0, "quiz_c": 0, "quiz_p": 0}
+          "dialogue_vi": 0, "grammar_clean": 0, "quiz_g": 0, "quiz_c": 0, "quiz_p": 0}
 
     # ── NGỮ PHÁP ──
     old_g = [g for g in (d.get("grammar") or []) if isinstance(g, dict)]
@@ -741,6 +786,13 @@ def enrich_day(d: dict, slug: str, libs: dict) -> dict:
     for x in d.get("dialogue") or []:
         if isinstance(x, dict) and _is_template_dialogue(x):
             x["kind"] = "micro"
+    # Điền nghĩa tiếng Việt cho các lượt kết của hội thoại Q&A đã sinh.
+    vi_fixed = 0
+    for x in d.get("dialogue") or []:
+        if isinstance(x, dict) and _fill_closing_vi(slug, x):
+            vi_fixed += 1
+    if vi_fixed:
+        st["dialogue_vi"] = vi_fixed
     return st
 
 
@@ -753,16 +805,17 @@ def enrich_course(slug: str, apply: bool, limit: int = 0) -> dict:
     libs = build_libraries(course, slug)
     days = course.get("days") or []
     stats = {"slug": slug, "days": len(days), "changed": 0, "pattern": 0,
-             "common": 0, "grammar": 0, "dialogue": 0, "grammar_clean": 0,
-             "quiz_g": 0, "quiz_c": 0, "quiz_p": 0,
+             "common": 0, "grammar": 0, "dialogue": 0, "dialogue_vi": 0,
+             "grammar_clean": 0, "quiz_g": 0, "quiz_c": 0, "quiz_p": 0,
              "lib": {k: len(v) for k, v in libs.items()}}
     for d in days[:limit] if limit else days:
         st = enrich_day(d, slug, libs)
         if any(st[k] for k in ("pattern", "common", "grammar", "dialogue",
-                               "grammar_clean", "quiz_g", "quiz_c", "quiz_p")):
+                               "dialogue_vi", "grammar_clean", "quiz_g",
+                               "quiz_c", "quiz_p")):
             stats["changed"] += 1
-            for k in ("pattern", "common", "grammar", "dialogue", "grammar_clean",
-                      "quiz_g", "quiz_c", "quiz_p"):
+            for k in ("pattern", "common", "grammar", "dialogue", "dialogue_vi",
+                      "grammar_clean", "quiz_g", "quiz_c", "quiz_p"):
                 stats[k] += st[k]
     if apply and stats["changed"]:
         course["updated_at"] = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
@@ -798,6 +851,7 @@ def main() -> int:
         _log(f"  {slug:22} ngày {r['days']:5} | đổi {r['changed']:5} | "
              f"+mẫu câu {r['pattern']:5} | +câu thông dụng {r['common']:5} | "
              f"+ngữ pháp {r['grammar']:5} | +hội thoại {r['dialogue']:5} | "
+             f"+nghĩa kết {r['dialogue_vi']:5} | "
              f"sửa ví dụ {r['grammar_clean']:3} | "
              f"+quiz G {r['quiz_g']:4}/C {r['quiz_c']:4}/P {r['quiz_p']:4}"
              + ("" if not args.dry_run else "  (DRY-RUN)"))
