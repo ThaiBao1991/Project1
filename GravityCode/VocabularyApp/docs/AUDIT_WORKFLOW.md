@@ -61,11 +61,16 @@ WARN chấp nhận được:
 ## 5. Tối ưu dung lượng
 
 ### Đã làm
+- **Chuyển dữ liệu lớn sang F:**: `data/media`, `data/audio`,
+  `data/ai_courses` → `F:\VocabularyAppData`, tạo junction tại chỗ cũ.
+  App/tool vẫn dùng đường dẫn cũ; C: được giải phóng ~3 GB, media tương lai
+  không còn làm đầy C:.
 - **MP3 48/64 → 32 kbps mono**: giảm ~31–50%; giữ nguyên filename/ref.
 - **Dọn temp**: `deploy_pages.py` xoá `vocab_pages_*` cũ/read-only; đã giải phóng 2,05 GB.
 - **Xoá temp manifest**: `data/media/index.json.tmp.*` (~395 MB).
 - **Cleanup media local** sau finalize.
 - **Overlay manifest**: `data/media/webmap_overlay.json` bù 76.767 ref web bị thiếu/sai ngày.
+- **Gzip course.json** của Trung/Nhật (đã upload xong) để tiết kiệm ~140 MB.
 
 ### Có thể làm tiếp
 | Cách | Tiết kiệm | Ghi chú |

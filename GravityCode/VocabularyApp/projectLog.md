@@ -2038,4 +2038,13 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
 - Tiếp tục Anh → Hàn → Tây → Đức → Pháp → Nga.
 
 
+## 2026-11-19 (20:02) — Chuyển data lớn sang F:
+
+- C: có lúc 0 GB do dữ liệu ngoài app; pipeline dừng 16:57–20:02.
+- F: còn 2,79 TB; chuyển `data/media`, `data/audio`, `data/ai_courses` sang
+  `F:\VocabularyAppData`, tạo junction tại chỗ cũ. C: lên 5,6 GB.
+- Gzip course.json Trung/Nhật, tiết kiệm thêm 140 MB.
+- Restart cleanup/finalize/supervisor; tiếng Anh chạy lại từ 1.429 lúc 20:02.
+
+
 

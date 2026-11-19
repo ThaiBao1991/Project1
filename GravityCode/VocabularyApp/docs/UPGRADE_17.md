@@ -1648,3 +1648,19 @@ chạy enrich + export + deploy + verify cho tiếng Trung.
 - Supervisor vẫn chạy từng khóa, kiểm tra đủ 2.520 mới chuyển; cleanup xoá media
   từng khóa sau finalize để hồi đĩa.
 
+---
+
+## 7.47. Chuyển dữ liệu lớn sang ổ F: (19/11/2026)
+
+- C: có lúc còn **0 GB** do dữ liệu ngoài app; pipeline dừng 16:57–20:02.
+- Ổ **F: còn 2,79 TB**. Đã chuyển:
+  - `data/media` → `F:\VocabularyAppData\media`
+  - `data/audio` → `F:\VocabularyAppData\audio`
+  - `data/ai_courses` → `F:\VocabularyAppData\ai_courses`
+- Tạo **junction** tại đường dẫn cũ; app/tool không cần đổi code.
+- C: từ 2,7 GB → **5,6 GB**; media tương lai ghi sang F:.
+- Gzip `course.json` Trung/Nhật (đã upload) → tiết kiệm thêm **140 MB**.
+- Khởi động lại cleanup/finalize/supervisor; tiếng Anh chạy lại từ
+  **1.429/2.520** lúc 20:02.
+- Lưu ý: muốn sửa `course.json` Trung/Nhật phải giải nén `.gz` trước.
+
