@@ -1538,3 +1538,31 @@ chạy enrich + export + deploy + verify cho tiếng Trung.
 - Luồng tự động: khóa đủ 2.520 → `finalize_lite` pack/upload `VocabularyData`
   + deploy Pages → `cleanup_done_media` dọn media local → khóa tiếp theo.
 
+---
+
+## 7.41. Tối ưu UI học trên điện thoại (19/11/2026)
+
+**Lỗi/điểm chậm đã sửa:**
+- Đổi ngôn ngữ trong "Khóa học AI" từng tải file từ vựng **5–7 MB** và dựng
+  `<select>` **2.520 option** ⇒ menu chậm, bấm ngày không đổi.
+- Nay course view chỉ tải `index.json` + **1 file ngày**; file từ vựng chỉ tải
+  khi mở Danh sách / Thẻ từ / Ôn tập (`ensureVocabLoaded`, cache RAM theo khóa).
+- Bỏ select 2.520 dòng, thay bằng **ô nhập ngày + nút Đi + ←/→**; tự kẹp
+  1..2520, Enter để đi nhanh.
+- Nhớ **ngôn ngữ / ngày / view** lần trước (`vocabapp_last_state_v1`,
+  `vocabapp_last_view_v1`); mỗi khóa có `last_day` riêng.
+- Render lõi (tiêu đề + bảng chữ cái + từ vựng + mẫu câu) trước; câu thông dụng /
+  ngữ pháp / hội thoại / quiz render idle sau; token chống race khi đổi
+  ngôn ngữ/ngày liên tiếp.
+- Prefetch 2 ngày kế bên sau 1,2 giây; bấm ←/→ gần như tức thì.
+
+**Đo thật:**
+- Local: đổi Anh→Trung trong course **68ms**, không fetch `tiếng_trung.json`,
+  chỉ 1 day fetch; lõi **6ms**, phần còn lại **~268ms**.
+- Pages: đổi ngôn ngữ **~130ms** (sau khi trừ thời gian chờ test), ←/→ **~20ms**;
+  reload khôi phục đúng ngôn ngữ/ngày (Anh 650, Trung 2000, Nhật 1).
+- `tools/test_web_contract.py`: **11/11 PASS**;
+  `tools/test_content_quality.py`: PASS; `verify_online.py`: **9/9 PASS**.
+
+**Deploy:** `sw.js` **v9**, `COURSE_DATA_VERSION=2026-11-19-4`.
+

@@ -207,4 +207,12 @@ Trung 1861, Hàn 1156 → render **0,3–2,5 giây**, 0 lỗi console;
 - `sw.js` lên `vocab-v8`; app fetch dữ liệu ngày kèm `?v=…&cache=no-store`.
   Nếu điện thoại vẫn thấy bản cũ, đóng hẳn tab và mở lại.
 
+**Bổ sung 19/11 (10:53):**
+- Khóa học AI: bỏ dropdown 2.520 ngày, thay bằng **ô nhập ngày + Đi + ←/→**.
+- Nhớ **ngôn ngữ / ngày / view** lần trước; mỗi khóa nhớ ngày riêng.
+- Đổi ngôn ngữ không còn tải file từ vựng 5–7 MB (chỉ tải khi mở Danh sách /
+  Thẻ từ / Ôn tập) ⇒ chuyển khóa nhanh, bấm ngày ăn ngay.
+- Trang render phần lõi trước, phần còn lại tải sau; tự prefetch 2 ngày kế bên.
+- `sw.js` lên `vocab-v9`; `COURSE_DATA_VERSION=2026-11-19-4`.
+
 

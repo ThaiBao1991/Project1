@@ -86,7 +86,15 @@
         <!-- AI Course View -->
         <div id="course-view" class="view-container">
             <div class="course-header">
-                <select id="course-day-select" aria-label="Chọn ngày học"><option value="">—</option></select>
+                <div class="day-picker">
+                    <button id="course-day-prev" type="button" aria-label="Ngày trước">←</button>
+                    <input id="course-day-input" type="number" min="1" max="2520"
+                           inputmode="numeric" placeholder="Ngày"
+                           aria-label="Nhập ngày học">
+                    <button id="course-day-next" type="button" aria-label="Ngày sau">→</button>
+                    <button id="course-day-go" type="button">Đi</button>
+                </div>
+                <span id="course-day-label" class="badge"></span>
                 <span id="course-progress-badge" class="badge"></span>
             </div>
             <div id="course-content" aria-live="polite">

@@ -1967,4 +1967,19 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
   media local → khóa tiếp theo.
 
 
+## 2026-11-19 (10:53) — Tối ưu UI học trên điện thoại
+
+- Đổi ngôn ngữ trong course từng tải file từ vựng 5–7 MB + dựng select 2.520
+  option ⇒ chậm, bấm ngày không đổi. Nay chỉ tải index + 1 file ngày; file từ
+  vựng tải lazy khi mở Danh sách/Thẻ từ/Ôn tập.
+- Thay select bằng ô nhập ngày + nút Đi + ←/→; nhớ ngôn ngữ/ngày/view lần trước;
+  mỗi khóa có `last_day` riêng.
+- Render lõi trước, phần còn lại render idle; token chống race; prefetch 2 ngày
+  kế bên.
+- Đo thật: local đổi Anh→Trung 68ms, lõi 6ms, phần còn lại ~268ms; Pages ~130ms;
+  ←/→ ~20ms; reload khôi phục Anh 650 / Trung 2000 / Nhật 1.
+- `test_web_contract.py` 11/11 PASS; `test_content_quality.py` PASS;
+  `verify_online.py` 9/9. `sw.js` v9, `COURSE_DATA_VERSION=2026-11-19-4`.
+
+
 
