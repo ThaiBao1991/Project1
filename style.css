@@ -701,6 +701,19 @@ tr:last-child td {
     cursor: pointer;
 }
 
+#course-day-prev,
+#course-day-next {
+    padding: 9px 11px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--card-bg-alt);
+    color: var(--text-main);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#course-day-prev:active,
+#course-day-next:active,
 #course-day-go:active {
     transform: scale(0.97);
 }

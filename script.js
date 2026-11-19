@@ -526,6 +526,8 @@ btnReview.addEventListener("click", () => switchView("review"));
 // ─── Khóa học AI (lưu database kiểu AskCpl: data/ai_courses/<lang>/course.json) ─
 const dayInput = document.getElementById("course-day-input");
 const dayGo = document.getElementById("course-day-go");
+const dayPrev = document.getElementById("course-day-prev");
+const dayNext = document.getElementById("course-day-next");
 const dayLabel = document.getElementById("course-day-label");
 const courseContent = document.getElementById("course-content");
 const progressBadge = document.getElementById("course-progress-badge");
@@ -565,6 +567,8 @@ function goToDay(n) {
 }
 
 if (dayGo) dayGo.addEventListener("click", () => goToDay(dayInput && dayInput.value));
+if (dayPrev) dayPrev.addEventListener("click", () => goToDay((currentLessonDay || 1) - 1));
+if (dayNext) dayNext.addEventListener("click", () => goToDay((currentLessonDay || 1) + 1));
 if (dayInput) {
     dayInput.addEventListener("keydown", (e) => {
         if (e.key === "Enter") {
@@ -812,6 +816,30 @@ function _mimeOf(name) {
 function _monthKeyOf(day) {
     // Python: mkey = day // 30 + 1  ⇒ ngày 1-29 → 01, 30-59 → 02, 60-89 → 03
     return String(Math.floor(Number(day) / 30) + 1).padStart(2, "0");
+}
+
+// Tải trước ngày kế bên (1 file ~20 KB) để bấm ←/→ là hiện ngay.
+const prefetchingDays = new Set();
+function prefetchDay(dayNum) {
+    const n = Number(dayNum);
+    const slug = slugOf(currentLanguage);
+    if (!n || n < 1 || n > courseTotalDays || !slug || !courseIndex) return;
+    if (courseDayCache[n] || prefetchingDays.has(n)) return;
+    if (_cfgMode() !== "static" || !VOCAB_DATA_CFG) return;
+    if (navigator.connection && (navigator.connection.saveData
+            || /2g/.test(navigator.connection.effectiveType || ""))) return;
+    prefetchingDays.add(n);
+    const base = `${VOCAB_DATA_CFG.dataBase}/${encodeURIComponent(slug)}`;
+    fetch(`${base}/day/${String(n).padStart(4, "0")}.json?v=${COURSE_DATA_VERSION}`,
+          { cache: "no-store" })
+        .then(r => r.ok ? r.json() : null)
+        .then(j => {
+            if (j && (j.vocab || j.quiz || j.dialogue) && slug === slugOf(currentLanguage)) {
+                courseDayCache[n] = j;
+            }
+        })
+        .catch(() => { })
+        .finally(() => prefetchingDays.delete(n));
 }
 
 
@@ -1350,6 +1378,11 @@ async function _renderCourseDay(dayNum) {
     } else {
         setTimeout(renderRest, 0);
     }
+    // Tải trước 2 ngày kế bên sau khi trang đã rảnh.
+    setTimeout(() => {
+        prefetchDay(dayNum - 1);
+        prefetchDay(dayNum + 1);
+    }, 1200);
 }
 
 function bindQuiz(lesson, quiz) {
