@@ -1510,3 +1510,16 @@ chạy enrich + export + deploy + verify cho tiếng Trung.
   0 lỗi console.
 - `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
 
+---
+
+## 7.39. Sự cố đĩa 19/11/2026 (pipeline Trung dừng ở 2.135/2.520)
+
+- `fill_lite.py` dừng khóa Trung ở **2.135/2.520** vì đĩa còn **5,8 GB**
+  (< ngưỡng 6 GB). Không mất dữ liệu: `course.json` + media đã flush.
+- Dọn **1,73 GB** backup trung gian (`bak1`, `bak_ipa`, `bak_vocab`,
+  `first_apply`, `tmp`) + cache TTS tiếng Nhật (media Nhật đã đủ).
+- Dọn thêm cache TTS các khóa không hoạt động (Anh/Hàn/Pháp/Đức/Tây/Nga;
+  giữ cache Trung đang chạy) → đĩa còn **7,4 GB**.
+- Khởi động lại `fill_lite.py --lang tiếng_trung` từ ngày 2.135; watcher
+  `finalize_lite.py` + `enrich_after_finalize.py` vẫn chạy.
+

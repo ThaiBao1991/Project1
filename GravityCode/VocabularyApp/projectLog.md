@@ -1946,4 +1946,13 @@ Pages: Nhật ngày 1/2 render 55 ô; Anh 650 render 10 từ mới + 10 IPA, 0 l
 console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
 
 
+## 2026-11-19 (08:50) — Sự cố đĩa: pipeline Trung dừng ở 2.135/2.520
+
+- `fill_lite.py` dừng khóa Trung vì đĩa còn 5,8 GB (< 6 GB). Không mất dữ liệu.
+- Dọn 1,73 GB backup trung gian + cache TTS tiếng Nhật; dọn thêm cache TTS các
+  khóa không hoạt động (giữ cache Trung) → đĩa còn 7,4 GB.
+- Khởi động lại `fill_lite.py --lang tiếng_trung` từ ngày 2.135; watcher
+  `finalize_lite.py` + `enrich_after_finalize.py` vẫn chạy.
+
+
 
