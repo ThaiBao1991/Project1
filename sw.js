@@ -8,7 +8,7 @@
 //     trong CacheStorage "vocab-media-v1" (xem _fetchBundleBytes).
 //
 // Äá»•i VERSION khi sá»­a app shell Ä‘á»ƒ buá»™c cáº­p nháº­t.
-const VERSION = "vocab-v7";
+const VERSION = "vocab-v8";
 const SHELL = [
     "./",
     "./index.html",
