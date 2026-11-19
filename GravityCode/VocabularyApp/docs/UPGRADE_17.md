@@ -1523,3 +1523,18 @@ chạy enrich + export + deploy + verify cho tiếng Trung.
 - Khởi động lại `fill_lite.py --lang tiếng_trung` từ ngày 2.135; watcher
   `finalize_lite.py` + `enrich_after_finalize.py` vẫn chạy.
 
+---
+
+## 7.40. Hàng đợi hoàn tất 6 khóa còn lại (19/11/2026)
+
+- Trung đạt **2.176/2.520** lúc 09:09, tiếp tục bù (~29 giây/ngày).
+- Đã xoá media Nhật local (**948 MB**) + `_pipeline` (**89 MB**) sau khi xác nhận
+  bản GitHub/Pages đầy đủ; giải phóng đĩa để chạy tiếp.
+- `tools/cleanup_done_media.py --watch`: sau khi `finalize_done.json` báo `done`,
+  xoá `data/media/<khóa>`, `data/audio/<khóa>`, `_pipeline` của khóa đó;
+  **giữ** `course.json` + `web/data/<khóa>`.
+- `tools/fill_remaining_after_chinese.py`: chờ Trung finalize + enrich/deploy
+  xong rồi chạy `fill_lite.py` cho **Anh, Hàn, Tây Ban Nha, Đức, Pháp, Nga**.
+- Luồng tự động: khóa đủ 2.520 → `finalize_lite` pack/upload `VocabularyData`
+  + deploy Pages → `cleanup_done_media` dọn media local → khóa tiếp theo.
+

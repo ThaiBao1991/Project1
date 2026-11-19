@@ -1955,4 +1955,16 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
   `finalize_lite.py` + `enrich_after_finalize.py` vẫn chạy.
 
 
+## 2026-11-19 (09:10) — Hàng đợi hoàn tất 6 khóa còn lại
+
+- Trung đạt 2.176/2.520 lúc 09:09, tiếp tục bù.
+- Xoá media Nhật local (948 MB) + `_pipeline` (89 MB) sau khi xác nhận GitHub đủ.
+- `tools/cleanup_done_media.py --watch`: sau finalize done, xoá media/audio/
+  `_pipeline` của khóa đó, giữ `course.json` + `web/data`.
+- `tools/fill_remaining_after_chinese.py`: chờ Trung finalize + enrich xong rồi
+  bù media cho Anh, Hàn, Tây Ban Nha, Đức, Pháp, Nga.
+- Mỗi khóa đủ 2.520 → finalize upload `VocabularyData` + deploy Pages → dọn
+  media local → khóa tiếp theo.
+
+
 
