@@ -1636,3 +1636,15 @@ chạy enrich + export + deploy + verify cho tiếng Trung.
 - 16:00 chạy lại tiếng Anh từ **1.374/2.520**; shrink audio đã nén ~85k file,
   tiết kiệm ~504 MB.
 
+---
+
+## 7.46. Nén audio hoàn tất + hạ ngưỡng đĩa chặng cuối (19/11/2026)
+
+- `shrink_audio.py`: **110.500/110.522 file** MP3 → 32 kbps mono; tiết kiệm
+  **615,4 MB**; `data/media` còn **1,79 GB**.
+- Mẫu kiểm tra: 288/300 file 32 kbps (12 file mới do fill tạo sau đó).
+- Tiếng Anh dừng ở **1.407/2.520** vì đĩa 2,9 GB. Do đĩa dùng chung với dữ liệu
+  khác, supervisor chặng cuối hạ ngưỡng: fill **2,3 GB**, chờ **2,6 GB**.
+- Supervisor vẫn chạy từng khóa, kiểm tra đủ 2.520 mới chuyển; cleanup xoá media
+  từng khóa sau finalize để hồi đĩa.
+

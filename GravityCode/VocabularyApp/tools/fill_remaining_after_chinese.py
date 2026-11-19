@@ -27,8 +27,8 @@ ENRICH_DONE = os.path.join(BASE, "data", "logs", "enrich_after_finalize_done.jso
 DONE = os.path.join(BASE, "data", "logs", "fill_remaining_done.json")
 MEDIA = os.path.join(BASE, "data", "media")
 TOTAL = 2520
-MIN_FREE = 3.0
-WAIT_FREE = 3.4
+MIN_FREE = 2.3
+WAIT_FREE = 2.6
 LANGS = ["tiếng_anh", "tiếng_hàn_quốc", "tiếng_tây_ban_nha",
          "tiếng_đức", "tiếng_pháp", "tiếng_nga"]
 PY = sys.executable

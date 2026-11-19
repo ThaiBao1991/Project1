@@ -2029,4 +2029,13 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
 - 16:00 chạy lại Anh từ 1.374; shrink audio đã nén ~85k file, tiết kiệm ~504 MB.
 
 
+## 2026-11-19 (16:37) — Nén audio xong + hạ ngưỡng đĩa chặng cuối
+
+- Shrink audio xong: 110.500/110.522 file → 32 kbps; tiết kiệm **615,4 MB**;
+  media còn 1,79 GB.
+- Anh dừng ở 1.407 vì đĩa 2,9 GB. Supervisor chặng cuối hạ ngưỡng fill 2,3 GB,
+  chờ 2,6 GB; vẫn chạy từng khóa đến đủ 2.520, cleanup sau finalize.
+- Tiếp tục Anh → Hàn → Tây → Đức → Pháp → Nga.
+
+
 
