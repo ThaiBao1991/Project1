@@ -190,3 +190,13 @@ ZIP hay GitHub rate limit (`m84.zip` vẫn hợp lệ: 8.914.512 B / 930 entry, 
 Trung 1861, Hàn 1156 → render **0,3–2,5 giây**, 0 lỗi console;
 `verify_online.py` **9/9 PASS**.
 
+## 11. Cập nhật nội dung giao tiếp (19/11/2026)
+
+- Đã bổ sung mẫu câu / câu thông dụng / hội thoại / ngữ pháp / quiz cho 7 khóa
+  (Nhật, Anh, Hàn, Nga, Pháp, Tây Ban Nha, Đức). Tiếng Trung tự chạy sau khi
+  pipeline bù media xong (`tools/enrich_after_finalize.py`).
+- `sw.js` lên `vocab-v5`: lần mở đầu tiên có thể vẫn thấy bản cũ vài giây
+  (stale-while-revalidate); đóng hẳn tab rồi mở lại để chắc chắn.
+- Không cần đăng nhập GitHub; dữ liệu đọc trực tiếp từ GitHub Pages.
+
+
