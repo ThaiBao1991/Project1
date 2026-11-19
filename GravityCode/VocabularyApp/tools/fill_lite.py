@@ -93,7 +93,7 @@ def set_low_priority(pid: int | None = None) -> None:
 
 
 def run_once(slug: str, mem_mb: int, workers: int,
-             from_day: int = 1) -> tuple[int, int]:
+             from_day: int = 1, min_free_gb: float = 6.0) -> tuple[int, int]:
     """Chạy 1 lần pipeline cho 1 khóa. Trả (returncode, số lần bị kill vì RAM)."""
     cmd = [sys.executable, "-X", "utf8", "-m", "ai.pipeline",
            "--lang", slug, "--stages", "images,audio,media_verify",
@@ -129,8 +129,8 @@ def run_once(slug: str, mem_mb: int, workers: int,
                     return -9, kills
             except Exception:
                 ps = None
-        if free_gb() < 6.0:
-            log(f"   ⛔ đĩa còn {free_gb():.1f} GB (< 6 GB) — dừng khóa {slug}")
+        if free_gb() < min_free_gb:
+            log(f"   ⛔ đĩa còn {free_gb():.1f} GB (< {min_free_gb:g} GB) — dừng khóa {slug}")
             proc.terminate()
             try:
                 proc.wait(timeout=15)
@@ -147,6 +147,8 @@ def main() -> int:
     ap.add_argument("--workers", type=int, default=1)
     ap.add_argument("--max-passes", type=int, default=60,
                     help="số lần chạy lại tối đa cho 1 khóa")
+    ap.add_argument("--min-free-gb", type=float, default=6.0,
+                    help="dừng khi đĩa trống dưới mức này (GB)")
     args = ap.parse_args()
 
     if os.path.isfile(LOCK_PATH):
@@ -164,13 +166,14 @@ def main() -> int:
         f.write(str(os.getpid()))
     set_low_priority()
     log(f"BẮT ĐẦU chế độ nhẹ · RAM trần {args.mem_mb} MB · "
-        f"workers={args.workers} · đĩa {free_gb():.1f} GB")
+        f"workers={args.workers} · đĩa {free_gb():.1f} GB · "
+        f"ngưỡng dừng {args.min_free_gb:g} GB")
 
     targets = list(dict.fromkeys(args.lang)) if args.lang else list(LANGS)
     try:
         for slug in targets:
-            if free_gb() < 6.0:
-                log(f"⛔ đĩa còn {free_gb():.1f} GB — dừng toàn bộ")
+            if free_gb() < args.min_free_gb:
+                log(f"⛔ đĩa còn {free_gb():.1f} GB (< {args.min_free_gb:g} GB) — dừng toàn bộ")
                 break
             t0 = time.time()
             log(f"▶ {slug}: {days_done(slug)}/2520 ngày có media")
@@ -180,7 +183,7 @@ def main() -> int:
                 if before >= 2520:
                     break
                 rc, kills = run_once(slug, args.mem_mb, args.workers,
-                                     first_missing(slug))
+                                     first_missing(slug), args.min_free_gb)
                 after = days_done(slug)
                 log(f"   pass {p+1}: {before} → {after}/2520 "
                     f"(mã {rc}, kill RAM {kills}, {time.time()-t0:.0f}s)")

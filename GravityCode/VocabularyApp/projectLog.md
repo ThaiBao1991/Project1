@@ -1989,6 +1989,8 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
 - Khởi động lại `fill_lite.py --lang tiếng_trung` từ ngày 2.446, còn 74 ngày.
 - Sau khi đủ 2.520: finalize upload GitHub + deploy → cleanup media local →
   enrich Trung → bù tiếp 6 khóa còn lại.
+- `fill_lite.py` thêm `--min-free-gb`; hàng đợi dùng ngưỡng 4 GB (thay 6 GB),
+  vì cleanup xoá media từng khóa sau finalize, vẫn chừa ≥3 GB khi pack/upload.
 
 
 

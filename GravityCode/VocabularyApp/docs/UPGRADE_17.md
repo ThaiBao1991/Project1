@@ -1578,4 +1578,7 @@ chạy enrich + export + deploy + verify cho tiếng Trung.
 - Khi đủ 2.520: `finalize_lite` pack/upload `VocabularyData` + deploy Pages →
   `cleanup_done_media` xoá media local → `enrich_after_finalize` enrich Trung →
   `fill_remaining_after_chinese` bù 6 khóa còn lại.
+- `fill_lite.py` có thêm `--min-free-gb`; hàng đợi 6 khóa dùng ngưỡng **4 GB**
+  (thay vì 6 GB) vì đĩa dùng chung và `cleanup_done_media` xoá media từng khóa
+  ngay sau finalize, vẫn chừa ≥3 GB cho lúc pack/upload.
 

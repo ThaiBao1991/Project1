@@ -69,10 +69,10 @@ def wait_ready() -> bool:
 def main() -> int:
     if not wait_ready():
         return 1
-    while free_gb() < 6.5:
+    while free_gb() < 4.5:
         log(f"đĩa còn {free_gb():.1f} GB — chờ cleanup_done_media dọn bớt")
         time.sleep(300)
-    args = [PY, "-X", "utf8", "tools/fill_lite.py"]
+    args = [PY, "-X", "utf8", "tools/fill_lite.py", "--min-free-gb", "4.0"]
     for s in LANGS:
         args += ["--lang", s]
     log("bắt đầu bù media: " + ", ".join(LANGS))
