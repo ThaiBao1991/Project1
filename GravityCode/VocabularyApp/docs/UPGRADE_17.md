@@ -1462,4 +1462,6 @@ dòng "Đang tải…" không được thay. Không phải lỗi mạng/ZIP/rate
 
 **Còn lại:** tiếng Trung chờ pipeline bù media xong mới enrich (tránh ghi đè
 `course.json` đang chạy); media các khóa vẫn đang bù dần.
+`tools/enrich_after_finalize.py` tự chờ `finalize_done.json` báo `done` rồi
+chạy enrich + export + deploy + verify cho tiếng Trung.
 

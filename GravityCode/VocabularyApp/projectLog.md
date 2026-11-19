@@ -1913,6 +1913,8 @@ Anh/Hàn/Nga/Pháp/Tây/Đức 1/500/2509 → đủ 6 mục, 0 lỗi console,
 0,14–0,60 giây/ngày; `verify_online.py` **9/9 PASS**.
 
 **Còn lại:** tiếng Trung chờ pipeline bù media xong mới enrich.
+`tools/enrich_after_finalize.py` tự chờ `finalize_done.json` báo `done` rồi
+chạy enrich + export + deploy + verify cho tiếng Trung.
 
 
 
