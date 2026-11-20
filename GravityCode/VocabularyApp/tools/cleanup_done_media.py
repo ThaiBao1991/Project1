@@ -30,8 +30,13 @@ BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-STATE = os.path.join(BASE, "data", "logs", "finalize_done.json")
-CLEAN = os.path.join(BASE, "data", "logs", "cleanup_done_media.json")
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import statefile  # noqa: E402
+
+STATE_NAME = "finalize_done.json"
+CLEAN_NAME = "cleanup_done_media.json"
+STATE = statefile.path(STATE_NAME)
+CLEAN = statefile.path(CLEAN_NAME)
 LOG = os.path.join(BASE, "data", "logs", "cleanup_done_media.log")
 WEB = os.path.join(BASE, "web", "data")
 PUBLISH = os.path.join(BASE, "publish")
@@ -98,12 +103,13 @@ def cleanup_one(slug: str, dry: bool) -> int:
     for p in targets:
         if not os.path.exists(p):
             continue
-        freed += _size(p)
+        sz = _size(p)
+        freed += sz
         if dry:
-            log(f"[DRY] xoá {os.path.relpath(p, BASE)} ({_size(p)/1e6:.1f} MB)")
+            log(f"[DRY] xoá {os.path.relpath(p, BASE)} ({sz/1e6:.1f} MB)")
         else:
             shutil.rmtree(p, ignore_errors=True)
-            log(f"xoá {os.path.relpath(p, BASE)} ({_size(p)/1e6:.1f} MB)")
+            log(f"xoá {os.path.relpath(p, BASE)} ({sz/1e6:.1f} MB)")
     return freed
 
 
@@ -134,7 +140,7 @@ def main() -> int:
                         "at": f"{datetime.now():%Y-%m-%d %H:%M:%S}",
                         "freed_mb": round(freed / 1e6, 1),
                     }
-                    save(CLEAN, cleaned)
+                    statefile.save(CLEAN_NAME, cleaned)
                 n += 1
         return n
 

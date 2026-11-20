@@ -2056,3 +2056,23 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
 
 
 
+
+## 2026-11-20 (16:35) — Chống mất trạng thái pipeline (statefile 2 bản)
+
+- Hiện tượng: `finalize_done.json`, `cleanup_done_media.json`,
+  `enrich_after_finalize_done.json` biến mất lặp lại (đã khôi phục 2 lần), dù
+  không tool nào xoá. Hệ quả: finalize có thể pack/upload lại, cleanup không
+  xoá media local, supervisor chờ mốc cũ.
+- Thêm `tools/statefile.py`: lưu mỗi trạng thái ở **2 nơi**:
+  - `D:\VocabularyAppData\state\` (bản chính, ngoài repo)
+  - `data/logs/` (bản sao cho log/tool cũ)
+  Khi đọc, hai bản được **hợp nhất theo khóa + `at`** (không theo mtime, để tiến
+  trình cũ không ghi đè dữ liệu mới). Mỗi lần ghi tạo snapshot trong
+  `D:\VocabularyAppData\state\history\` (giữ 30 bản).
+- Áp dụng cho `finalize_lite.py`, `cleanup_done_media.py`,
+  `enrich_after_finalize.py`, `fill_remaining_after_chinese.py`, `audit_all.py`.
+- Khôi phục mốc đã upload: Nhật, Trung, Anh (`finalize` + `cleanup`).
+- Sửa log cleanup ghi 0,0 MB (đo dung lượng sau khi xoá).
+- `tools/test_statefile.py`: 10/10 PASS (mất bản chính/bản sao đều tự phục hồi).
+- Tiến độ lúc 16:35: Hàn **1.887/2.520** (~80 ngày/giờ); Tây Ban Nha 926;
+  Nga/Pháp/Đức 600. C: 12,6 GB · D: 24,9 GB.

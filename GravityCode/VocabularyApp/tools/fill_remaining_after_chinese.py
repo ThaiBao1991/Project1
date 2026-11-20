@@ -22,9 +22,15 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 LOG = os.path.join(BASE, "data", "logs", "fill_remaining.log")
-FINAL = os.path.join(BASE, "data", "logs", "finalize_done.json")
-ENRICH_DONE = os.path.join(BASE, "data", "logs", "enrich_after_finalize_done.json")
-DONE = os.path.join(BASE, "data", "logs", "fill_remaining_done.json")
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import statefile  # noqa: E402
+
+FINAL_NAME = "finalize_done.json"
+ENRICH_NAME = "enrich_after_finalize_done.json"
+DONE_NAME = "fill_remaining_done.json"
+FINAL = statefile.path(FINAL_NAME)
+ENRICH_DONE = statefile.path(ENRICH_NAME)
+DONE = statefile.path(DONE_NAME)
 MEDIA = os.path.join(BASE, "data", "media")
 TOTAL = 2520
 MIN_FREE = 2.0
@@ -61,8 +67,8 @@ def free_gb() -> float:
 def wait_ready() -> bool:
     log("chờ Trung finalize + enrich/deploy xong …")
     for _ in range(24 * 12):  # tối đa ~24 giờ, quét 5 phút/lần
-        fin = load(FINAL).get("tiếng_trung") or {}
-        if fin.get("status") == "done" and os.path.isfile(ENRICH_DONE):
+        fin = statefile.load(FINAL_NAME).get("tiếng_trung") or {}
+        if fin.get("status") == "done" and statefile.load(ENRICH_NAME):
             log("Trung đã finalize + enrich xong")
             return True
         time.sleep(300)
@@ -157,12 +163,10 @@ def main() -> int:
             failed.append(slug)
             break
     status = "done" if not failed else "partial"
-    with open(DONE, "w", encoding="utf-8") as f:
-        json.dump({"status": status,
-                   "at": f"{datetime.now():%Y-%m-%d %H:%M:%S}",
-                   "langs": LANGS,
-                   "days": {s: days_done(s) for s in LANGS}}, f,
-                  ensure_ascii=False, indent=1)
+    statefile.save(DONE_NAME, {"status": status,
+                               "at": f"{datetime.now():%Y-%m-%d %H:%M:%S}",
+                               "langs": LANGS,
+                               "days": {s: days_done(s) for s in LANGS}})
     return 0 if status == "done" else 1
 
 

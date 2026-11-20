@@ -40,7 +40,11 @@ if hasattr(sys.stdout, "reconfigure"):
 
 LOG_PATH = os.path.join(BASE, "data", "logs", "finalize_lite.log")
 FILL_LOG = os.path.join(BASE, "data", "logs", "fill_lite.log")
-STATE = os.path.join(BASE, "data", "logs", "finalize_done.json")
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import statefile  # noqa: E402  (kho trạng thái 2 bản, chống mất file)
+
+STATE_NAME = "finalize_done.json"
+STATE = statefile.path(STATE_NAME)
 MEDIA = os.path.join(BASE, "data", "media")
 PUBLISH = os.path.join(BASE, "publish")
 DONE_RE = re.compile(r"◀\s+(.+?)\s+xong:\s+(\d+)/2520")
@@ -66,19 +70,11 @@ def set_low_priority() -> None:
 
 
 def load_state() -> dict:
-    try:
-        with open(STATE, encoding="utf-8") as f:
-            return json.load(f) or {}
-    except Exception:
-        return {}
+    return statefile.load(STATE_NAME)
 
 
 def save_state(st: dict) -> None:
-    os.makedirs(os.path.dirname(STATE), exist_ok=True)
-    tmp = STATE + ".tmp"
-    with open(tmp, "w", encoding="utf-8") as f:
-        json.dump(st, f, ensure_ascii=False, indent=1, sort_keys=True)
-    os.replace(tmp, STATE)
+    statefile.save(STATE_NAME, st)
 
 
 def days_done(slug: str) -> int:

@@ -1676,3 +1676,17 @@ chạy enrich + export + deploy + verify cho tiếng Trung.
   **1.537/2.520** lúc 22:26.
 - Cleanup/finalize/supervisor đã khởi động lại.
 
+
+## 7.49. Kho trạng thái 2 bản — chống mất `*_done.json` (20/11/2026)
+
+- Nguyên nhân gián đoạn: các file trạng thái trong `data/logs` mất lặp lại
+  (không do tool nào trong repo xoá) ⇒ finalize có nguy cơ upload lại, cleanup
+  bỏ qua việc xoá media local, supervisor chờ mốc "Trung xong" vô ích.
+- Giải pháp: `tools/statefile.py` ghi song song
+  `D:\VocabularyAppData\state\<name>` và `data/logs/<name>`;
+  đọc thì hợp nhất theo khóa, ưu tiên bản có `at` mới hơn (không dùng mtime).
+  Snapshot lịch sử 30 bản trong `...\state\history\`.
+- Đã nối vào: `finalize_lite`, `cleanup_done_media`, `enrich_after_finalize`,
+  `fill_remaining_after_chinese`, `audit_all`.
+- Test: `tools/test_statefile.py` → 10/10 PASS.
+- Đã khôi phục mốc Nhật/Trung/Anh và khởi động lại watcher finalize + cleanup.

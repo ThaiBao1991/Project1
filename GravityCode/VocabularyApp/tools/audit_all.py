@@ -81,14 +81,11 @@ def add_warn(msg: str) -> None:
 
 
 def progress() -> dict:
-    fin = {}
-    clean = {}
-    for name, dst in (("finalize_done.json", fin), ("cleanup_done_media.json", clean)):
-        try:
-            with open(os.path.join(LOGS, name), encoding="utf-8") as f:
-                dst.update(json.load(f) or {})
-        except Exception:
-            pass
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import statefile  # noqa: E402
+
+    fin = statefile.load("finalize_done.json")
+    clean = statefile.load("cleanup_done_media.json")
     out = {}
     for slug in LANGS:
         p = os.path.join(MEDIA, slug)

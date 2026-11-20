@@ -25,9 +25,14 @@ BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-STATE = os.path.join(BASE, "data", "logs", "finalize_done.json")
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import statefile  # noqa: E402
+
+STATE_NAME = "finalize_done.json"
+DONE_NAME = "enrich_after_finalize_done.json"
+STATE = statefile.path(STATE_NAME)
 LOG = os.path.join(BASE, "data", "logs", "enrich_after_finalize.log")
-DONE = os.path.join(BASE, "data", "logs", "enrich_after_finalize_done.json")
+DONE = statefile.path(DONE_NAME)
 PY = sys.executable
 
 
@@ -111,11 +116,9 @@ def main() -> int:
         if not run(name, a):
             return 1
 
-    os.makedirs(os.path.dirname(DONE), exist_ok=True)
-    with open(DONE, "w", encoding="utf-8") as f:
-        json.dump({"slug": slug,
-                   "at": f"{datetime.now():%Y-%m-%d %H:%M:%S}",
-                   "status": "done"}, f, ensure_ascii=False, indent=1)
+    statefile.save(DONE_NAME, {"slug": slug,
+                               "at": f"{datetime.now():%Y-%m-%d %H:%M:%S}",
+                               "status": "done"})
     log(f"🎉 {slug}: enrich + export + deploy + verify hoàn tất")
     return 0
 
