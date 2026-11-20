@@ -130,10 +130,14 @@ def finalize(slug: str) -> bool:
     py = sys.executable
     log(f"▶ FINALIZE {slug}")
     # Giảm dung lượng audio trước khi pack (48/64 → 32 kbps mono).
-    rc, _ = run([py, "-X", "utf8", "tools/shrink_audio.py",
-                 "--lang", slug, "--workers", "2"], timeout=7200)
-    if rc != 0:
-        log(f"⚠ {slug}: nén audio lỗi (mã {rc}) — tiếp tục pack")
+    # SKIP_SHRINK=1 dùng khi đã nén riêng để tránh quét lại toàn bộ.
+    if os.environ.get("SKIP_SHRINK") != "1":
+        rc, _ = run([py, "-X", "utf8", "tools/shrink_audio.py",
+                     "--lang", slug, "--workers", "2"], timeout=7200)
+        if rc != 0:
+            log(f"⚠ {slug}: nén audio lỗi (mã {rc}) — tiếp tục pack")
+    else:
+        log("   bỏ qua nén audio (SKIP_SHRINK=1)")
     rc, _ = run([py, "-X", "utf8", "tools/publish_online.py",
                  "--pack", "--lang", slug])
     if rc != 0:
