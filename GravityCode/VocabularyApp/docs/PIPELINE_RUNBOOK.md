@@ -196,7 +196,7 @@ python -X utf8 GravityCode\VocabularyApp\tools\push_master.py
 | 8 | Deploy treo / hỏi mật khẩu | thiếu token/header auth | dùng `push_master.py` / `deploy_pages.py` (đã dùng `http.extraheader`), không nhúng token vào URL |
 | 9 | Console hiện `?` / mojibake | thiếu UTF-8 | `chcp 65001`, `$env:PYTHONIOENCODING='utf-8'`, `python -X utf8`; **file vẫn UTF-8**, chỉ console sai |
 | 10 | `ai.pipeline` không tăng ngày | hết quota/thời gian chờ, `--from-day` cũ | xem log pipeline; supervisor tự retry, hoặc chạy lại với `--from-day <ngày thiếu đầu>` |
-| 11 | Task `VocabularyApp-CheckDone` lỗi `2147942402` | `Execute` chứa đường dẫn có dấu cách, không quote | sửa task thành `cmd.exe /c "…check_done_task.cmd"` hoặc bỏ task (chưa sửa) |
+| 11 | Task `VocabularyApp-CheckDone` báo lỗi `2147942402` (0x80070002 = file not found) | `Execute` bị cắt tại dấu cách: `C:\...\Project\Python\Python` + phần còn lại nằm trong `Arguments` | **Đã xoá task ngày 20/11/2026** (chỉ là thông báo, không ảnh hưởng pipeline). Muốn có lại thì tạo task chạy `cmd.exe /c "<đường dẫn>\tools\check_done_task.cmd"`, hoặc chạy tay `python -X utf8 tools\check_done.py` |
 
 ---
 
@@ -243,8 +243,7 @@ python -X utf8 GravityCode\VocabularyApp\tools\push_master.py
 3. Sau mỗi khóa: `verify_online.py` (9/9) + ghi `projectLog.md`.
 4. Khi media xong toàn bộ: làm P0 UI theo `docs/UPGRADE_PLAN.md`
    (Settings, Progress dashboard, chọn ngày nâng cao, lịch sử quiz).
-5. Việc treo: sửa task `VocabularyApp-CheckDone`; rotate 197 key lộ trong
-   `GravityCode/Download/AskCpl/settings.json`.
+5. Việc treo: rotate 197 key lộ trong `GravityCode/Download/AskCpl/settings.json`.
 
 ---
 

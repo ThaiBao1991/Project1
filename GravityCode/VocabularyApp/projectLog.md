@@ -2098,3 +2098,16 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
   tool và tài liệu được nhắc trong runbook đều tồn tại.
 - Ghi chú: task `VocabularyApp-CheckDone` vẫn lỗi `2147942402` (Execute chứa dấu
   cách) — chưa sửa vì là cấu hình hệ thống, chờ người dùng đồng ý.
+
+## 2026-11-20 (19:20) — Xoá task hỏng VocabularyApp-CheckDone
+
+- Lỗi `2147942402` = `0x80070002` (ERROR_FILE_NOT_FOUND): task khai báo
+  `Execute = C:\Users\games\Desktop\Project\Python\Python` (bị cắt tại dấu
+  cách), phần còn lại `MyWork\Project1\...\check_done_task.cmd` nằm trong
+  `Arguments` ⇒ Windows tìm file tên `Python` và không thấy. Task chưa từng chạy
+  được lần nào (mỗi 30 phút đều fail), nên không có thông báo "đủ khóa".
+- Đây chỉ là tiện ích thông báo, không tham gia pipeline ⇒ đã **xoá task**
+  (`Unregister-ScheduledTask`), kiểm tra lại không còn task nào tên `*Vocabulary*`.
+- Script `tools/check_done.py` giữ nguyên; chạy tay khi cần:
+  `python -X utf8 tools\check_done.py`. `ai_watchdog.py` cũng có gọi script này.
+- `docs/PIPELINE_RUNBOOK.md` mục 8 (#11) đã cập nhật trạng thái "đã xoá".
