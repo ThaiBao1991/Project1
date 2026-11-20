@@ -45,6 +45,8 @@ import statefile  # noqa: E402  (kho trạng thái 2 bản, chống mất file)
 
 STATE_NAME = "finalize_done.json"
 STATE = statefile.path(STATE_NAME)
+LANGS = ["tiếng_anh", "tiếng_hàn_quốc", "tiếng_tây_ban_nha",
+         "tiếng_đức", "tiếng_pháp", "tiếng_nga", "tiếng_nhật", "tiếng_trung"]
 MEDIA = os.path.join(BASE, "data", "media")
 PUBLISH = os.path.join(BASE, "publish")
 DONE_RE = re.compile(r"◀\s+(.+?)\s+xong:\s+(\d+)/2520")
@@ -167,7 +169,13 @@ def one_round(explicit: list[str] | None = None) -> int:
     if explicit:
         todo = [s for s in explicit if st.get(s, {}).get("status") != "done"]
     else:
-        for slug in completed_from_log():
+        # Nguồn 1: dòng "◀ <slug> xong: 2520/2520" trong fill_lite.log.
+        # Nguồn 2: quét trực tiếp thư mục media — log có thể bị xoay/xoá ngoài ý muốn.
+        candidates = list(completed_from_log())
+        for slug in LANGS:
+            if slug not in candidates and days_done(slug) >= 2520:
+                candidates.append(slug)
+        for slug in candidates:
             if st.get(slug, {}).get("status") == "done":
                 continue
             if days_done(slug) >= 2520:

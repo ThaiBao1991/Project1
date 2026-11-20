@@ -2076,3 +2076,6 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
 - `tools/test_statefile.py`: 10/10 PASS (mất bản chính/bản sao đều tự phục hồi).
 - Tiến độ lúc 16:35: Hàn **1.887/2.520** (~80 ngày/giờ); Tây Ban Nha 926;
   Nga/Pháp/Đức 600. C: 12,6 GB · D: 24,9 GB.
+- Bổ sung: `finalize_lite` không chỉ dựa vào dòng "xong" trong `fill_lite.log`
+  (log từng bị xoá/ghi đè ngoài ý muốn) mà còn quét trực tiếp thư mục
+  `data/media/<khóa>` — khóa nào đủ 2.520 ngày là được đưa vào hàng đợi upload.

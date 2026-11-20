@@ -1690,3 +1690,6 @@ chạy enrich + export + deploy + verify cho tiếng Trung.
   `fill_remaining_after_chinese`, `audit_all`.
 - Test: `tools/test_statefile.py` → 10/10 PASS.
 - Đã khôi phục mốc Nhật/Trung/Anh và khởi động lại watcher finalize + cleanup.
+- Bổ sung: `finalize_lite` không chỉ dựa vào dòng "xong" trong `fill_lite.log`
+  (log từng bị xoá/ghi đè ngoài ý muốn) mà còn quét trực tiếp thư mục
+  `data/media/<khóa>` — khóa nào đủ 2.520 ngày là được đưa vào hàng đợi upload.
