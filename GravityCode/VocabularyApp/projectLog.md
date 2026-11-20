@@ -2079,3 +2079,22 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
 - Bổ sung: `finalize_lite` không chỉ dựa vào dòng "xong" trong `fill_lite.log`
   (log từng bị xoá/ghi đè ngoài ý muốn) mà còn quét trực tiếp thư mục
   `data/media/<khóa>` — khóa nào đủ 2.520 ngày là được đưa vào hàng đợi upload.
+
+## 2026-11-20 (19:05) — Tài liệu bàn giao: runbook + skill + AGENTS.md
+
+- Tiến độ lúc 19:04: Hàn **2.095/2.520**; Tây Ban Nha 926; Đức/Pháp/Nga 600.
+  Nhật/Trung/Anh đã upload, media local = 0. Còn **7.779 ngày** (~4–4,5 ngày).
+  Đĩa: **C: 9,9 GB** · D: 26,5 GB (C: đang giảm, cần theo dõi).
+- Thêm `docs/PIPELINE_RUNBOOK.md`: bức tranh tổng quan, bản đồ đường dẫn, sơ đồ
+  4 giai đoạn (fill → finalize → cleanup → verify), bảng 13 tool, lệnh kiểm tra
+  copy-paste, 11 sự cố kèm cách sửa, **9 lỗi đã từng làm**, quy tắc bất biến,
+  checklist trước khi báo xong.
+- Thêm skill `vocab_media_pipeline` (nguồn: `GravityCode/SKILL_RULE/skills/`,
+  runtime: `.agents/skills/`) để phiên sau tự nạp khi làm media/pipeline.
+- Thêm `AGENTS.md` ở gốc workspace: quy tắc chung (chỉ sửa đúng dự án, không
+  commit MyTiktokDownload/Game/gemini_keys.json, git identity ThaiBao, UTF-8,
+  không worktree trên C:) + trỏ tới runbook.
+- Không đổi code/logic pipeline trong lần này (chỉ tài liệu); đã kiểm tra toàn bộ
+  tool và tài liệu được nhắc trong runbook đều tồn tại.
+- Ghi chú: task `VocabularyApp-CheckDone` vẫn lỗi `2147942402` (Execute chứa dấu
+  cách) — chưa sửa vì là cấu hình hệ thống, chờ người dùng đồng ý.
