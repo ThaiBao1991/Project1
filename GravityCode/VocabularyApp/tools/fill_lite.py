@@ -35,6 +35,8 @@ if hasattr(sys.stdout, "reconfigure"):
 LANGS = ["tiếng_nhật", "tiếng_trung", "tiếng_anh", "tiếng_hàn_quốc",
          "tiếng_tây_ban_nha", "tiếng_đức", "tiếng_pháp", "tiếng_nga"]
 LOCK_PATH = os.path.join(BASE, "data", "logs", "fill_lite.lock")
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import proc_lock  # noqa: E402
 LOG_PATH = os.path.join(BASE, "data", "logs", "fill_lite.log")
 MEDIA = os.path.join(BASE, "data", "media")
 
@@ -151,19 +153,9 @@ def main() -> int:
                     help="dừng khi đĩa trống dưới mức này (GB)")
     args = ap.parse_args()
 
-    if os.path.isfile(LOCK_PATH):
-        try:
-            with open(LOCK_PATH, encoding="utf-8") as f:
-                old = int((f.read() or "0").strip() or 0)
-            import psutil
-            if old and psutil.pid_exists(old):
-                log(f"⚠ đã có fill_lite chạy (PID {old}) — thoát")
-                return 0
-        except Exception:
-            pass
-    os.makedirs(os.path.dirname(LOCK_PATH), exist_ok=True)
-    with open(LOCK_PATH, "w", encoding="utf-8") as f:
-        f.write(str(os.getpid()))
+    if not proc_lock.acquire("fill_lite"):
+        log(f"⚠ đã có fill_lite chạy (PID {proc_lock.holder('fill_lite')}) — thoát")
+        return 0
     set_low_priority()
     log(f"BẮT ĐẦU chế độ nhẹ · RAM trần {args.mem_mb} MB · "
         f"workers={args.workers} · đĩa {free_gb():.1f} GB · "
@@ -202,10 +194,7 @@ def main() -> int:
             log(f"◀ {slug} xong: {days_done(slug)}/2520 ngày "
                 f"({(time.time()-t0)/3600:.2f} giờ)")
     finally:
-        try:
-            os.remove(LOCK_PATH)
-        except OSError:
-            pass
+        proc_lock.release("fill_lite")
     log("HOÀN TẤT CHẾ ĐỘ NHẸ")
     return 0
 

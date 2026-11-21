@@ -169,6 +169,14 @@ def supervise_once(procs: dict, meta: dict) -> None:
             m.pop("backoff", None)
 
 
+def status_pid() -> int:
+    try:
+        with open(STATUS, encoding="utf-8") as f:
+            return int((json.load(f) or {}).get("pid") or 0)
+    except Exception:
+        return 0
+
+
 def cmd_status() -> int:
     try:
         with open(STATUS, encoding="utf-8") as f:
@@ -176,6 +184,11 @@ def cmd_status() -> int:
     except Exception:
         st = {}
     pid = proc_lock.holder(LOCK)
+    # Lock có thể bị xoá ngoài ý muốn; status JSON vẫn là nguồn dự phòng.
+    if not pid:
+        cand = int(st.get("pid") or 0)
+        if cand and proc_lock.alive(cand):
+            pid = cand
     print(f"daemon: {'chạy PID ' + str(pid) if pid else 'KHÔNG chạy'}")
     if st:
         print(f"cập nhật: {st.get('at')} · C: {st.get('disk', {}).get('c_gb')} GB"
@@ -260,6 +273,12 @@ def main() -> int:
     if args.uninstall_startup:
         return cmd_uninstall_startup()
 
+    # Nếu lock bị xoá ngoài ý muốn mà daemon cũ vẫn sống (status JSON),
+    # không được bật thêm daemon thứ hai.
+    sp = status_pid()
+    if sp and sp != os.getpid() and proc_lock.alive(sp):
+        print(f"daemon đã chạy (PID {sp}, theo status JSON) — thoát")
+        return 0
     if not proc_lock.acquire(LOCK):
         print(f"daemon đã chạy (PID {proc_lock.holder(LOCK)}) — thoát")
         return 0
@@ -274,6 +293,8 @@ def main() -> int:
     meta: dict = {}
     try:
         while True:
+            if proc_lock.holder(LOCK) != os.getpid():
+                proc_lock.acquire(LOCK)      # tự phục hồi nếu lock bị xoá
             supervise_once(procs, meta)
             disk_guard(meta)
             write_status(procs, meta)

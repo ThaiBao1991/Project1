@@ -3,12 +3,16 @@
 
 VÌ SAO: nhiều tool chạy nền (supervisor, finalize, cleanup, watchdog) từng chạy
 trùng nhau sau khi máy khởi động lại ⇒ 2 job cùng pack/upload/xoá một khóa.
-Mỗi tool chỉ cần `acquire("tên")`, nếu đã có tiến trình sống giữ khoá thì thoát.
 
-Đặc điểm:
-  • Lock chứa PID; PID không còn sống ⇒ tự coi là lock rác và ghi đè.
-  • Không cần quyền admin, không cần thư viện ngoài (psutil nếu có).
-  • `holder(name)` cho biết PID đang giữ khoá (0 nếu trống).
+VÌ SAO LOCK Ở D:: `data/logs/*.lock` từng bị xoá ngoài ý muốn (cùng hiện tượng
+với các file `*_done.json`), làm mất tác dụng chống trùng. Lock nay nằm ở
+`D:\\VocabularyAppData\\state\\locks` (ổ dữ liệu, state ở đây đã bền qua nhiều
+lần restart). Vẫn ĐỌC được lock cũ trong `data/logs` để nâng cấp không gián đoạn.
+
+API:
+  proc_lock.acquire("fill_lite") -> bool   (True nếu giành được)
+  proc_lock.release("fill_lite")
+  proc_lock.holder("fill_lite")  -> pid (0 nếu trống)
 """
 from __future__ import annotations
 
@@ -16,11 +20,33 @@ import os
 import subprocess
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-LOCK_DIR = os.path.join(BASE, "data", "logs")
+LEGACY_DIR = os.path.join(BASE, "data", "logs")
+LOCK_DIR = os.environ.get("VOCAB_LOCK_DIR") or r"D:\VocabularyAppData\state\locks"
+
+
+def _dir() -> str:
+    try:
+        os.makedirs(LOCK_DIR, exist_ok=True)
+        return LOCK_DIR
+    except OSError:
+        os.makedirs(LEGACY_DIR, exist_ok=True)
+        return LEGACY_DIR
 
 
 def path(name: str) -> str:
-    return os.path.join(LOCK_DIR, f"{name}.lock")
+    return os.path.join(_dir(), f"{name}.lock")
+
+
+def legacy_path(name: str) -> str:
+    return os.path.join(LEGACY_DIR, f"{name}.lock")
+
+
+def _read(p: str) -> int:
+    try:
+        with open(p, encoding="utf-8") as f:
+            return int((f.read() or "0").strip() or 0)
+    except Exception:
+        return 0
 
 
 def _alive(pid: int) -> bool:
@@ -39,42 +65,57 @@ def _alive(pid: int) -> bool:
         return False
 
 
-def holder(name: str) -> int:
-    """PID đang giữ khoá và còn sống; 0 nếu trống/lock rác."""
+def _write(p: str, pid: int) -> None:
     try:
-        with open(path(name), encoding="utf-8") as f:
-            pid = int((f.read() or "0").strip() or 0)
-    except Exception:
-        return 0
-    return pid if _alive(pid) else 0
+        with open(p, "w", encoding="utf-8") as f:
+            f.write(str(pid))
+    except OSError:
+        pass
+
+
+def alive(pid: int) -> bool:
+    return _alive(pid)
+
+
+def holder(name: str) -> int:
+    """PID đang giữ khoá và còn sống; 0 nếu trống/lock rác.
+
+    Tự "di cư" lock cũ trong `data/logs` sang thư mục mới nếu còn sống.
+    """
+    pid = _read(path(name))
+    if _alive(pid):
+        return pid
+    old = _read(legacy_path(name))
+    if _alive(old):
+        _write(path(name), old)
+        try:
+            os.remove(legacy_path(name))
+        except OSError:
+            pass
+        return old
+    return 0
 
 
 def acquire(name: str) -> bool:
     """True nếu giành được khoá; False nếu tiến trình khác đang giữ."""
-    os.makedirs(LOCK_DIR, exist_ok=True)
-    p = path(name)
+    os.makedirs(_dir(), exist_ok=True)
     old = holder(name)
     if old and old != os.getpid():
         return False
-    try:
-        if os.path.isfile(p):
-            os.remove(p)
-    except OSError:
-        pass
-    try:
-        with open(p, "w", encoding="utf-8") as f:
-            f.write(str(os.getpid()))
-    except OSError:
-        return True          # không ghi được lock thì vẫn chạy
+    for p in (path(name), legacy_path(name)):
+        try:
+            if os.path.isfile(p):
+                os.remove(p)
+        except OSError:
+            pass
+    _write(path(name), os.getpid())
     return True
 
 
 def release(name: str) -> None:
-    p = path(name)
-    try:
-        with open(p, encoding="utf-8") as f:
-            pid = int((f.read() or "0").strip() or 0)
-        if pid == os.getpid():
-            os.remove(p)
-    except Exception:
-        pass
+    for p in (path(name), legacy_path(name)):
+        if _read(p) == os.getpid():
+            try:
+                os.remove(p)
+            except OSError:
+                pass

@@ -27,6 +27,8 @@ from datetime import datetime
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, BASE)
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import proc_lock  # noqa: E402
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
@@ -144,35 +146,17 @@ def release_watchdog_lock() -> None:
 
 
 def media_lock_busy() -> bool:
-    """Job bù media đang chạy? (lock PID của fill_media / fill_lite / supervisor)
+    """Job bù media đang chạy? (dùng proc_lock: fill_media / fill_lite / supervisor)
 
     FIX 2026-11-15 (Gói 7): AI (watchdog) và media (fill_media) CÙNG ghi
-    `course.json` của một khóa ⇒ race (đo thật: cả 2 job chạy khóa Nhật).
+    `course.json` của một khóa ⇒ race.
     FIX 2026-11-21: chỉ kiểm `fill_media.lock` là thiếu — supervisor
-    (`fill_remaining_after_chinese`) và `fill_lite` dùng lock khác, nên watchdog
-    vẫn chạy `fill_media --jobs 4` song song (đo thật: 4 khóa bù cùng lúc,
-    tiếng Anh bị bù lại 99 ngày, C: tụt còn 3,9 GB).
+    (`fill_remaining`) và `fill_lite` dùng lock khác.
+    FIX 2026-11-22: lock chuyển sang `D:\\VocabularyAppData\\state\\locks`
+    (data/logs từng bị xoá ngoài ý muốn); proc_lock tự đọc cả lock cũ.
     """
-    names = ("fill_media.lock", "fill_lite.lock", "fill_remaining.lock")
-    for name in names:
-        p = os.path.join(LOG_DIR, name)
-        if not os.path.isfile(p):
-            continue
-        try:
-            with open(p, encoding="utf-8") as f:
-                pid = int((f.read() or "0").strip() or 0)
-        except Exception:
-            continue
-        if not pid:
-            continue
-        try:
-            out = subprocess.run(["tasklist", "/FI", f"PID eq {pid}"],
-                                 capture_output=True, text=True, timeout=25)
-            if str(pid) in (out.stdout or ""):
-                return True
-        except Exception:
-            continue
-    return False
+    return any(proc_lock.holder(n) for n in
+               ("fill_media", "fill_lite", "fill_remaining"))
 
 
 def main() -> int:

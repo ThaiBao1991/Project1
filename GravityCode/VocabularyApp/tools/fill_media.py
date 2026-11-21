@@ -45,6 +45,8 @@ PRIORITY_DAYS = 600
 # 2 job media cùng chạy ⇒ tranh ghi `data/media/index.json` + `course.json`
 # (đo thật 14/11: WinError 32 + mất entry manifest). Dùng file lock chứa PID.
 LOCK_PATH = os.path.join(BASE, "data", "logs", "fill_media.lock")
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import proc_lock  # noqa: E402
 
 _print_lock = threading.Lock()
 
@@ -65,35 +67,15 @@ def _pid_alive(pid: int) -> bool:
 
 def acquire_lock() -> bool:
     """Giữ 1 job media tại 1 thời điểm. Trả False nếu đã có job khác."""
-    os.makedirs(os.path.dirname(LOCK_PATH), exist_ok=True)
-    if os.path.isfile(LOCK_PATH):
-        try:
-            with open(LOCK_PATH, encoding="utf-8") as f:
-                old = int((f.read() or "0").strip() or 0)
-        except Exception:
-            old = 0
-        if old and old != os.getpid() and _pid_alive(old):
-            log(f"⏭ Đã có job bù media khác đang chạy (PID {old}) — bỏ qua.")
-            return False
-        try:
-            os.remove(LOCK_PATH)
-        except OSError:
-            pass
-    try:
-        with open(LOCK_PATH, "w", encoding="utf-8") as f:
-            f.write(str(os.getpid()))
-    except OSError:
-        return True          # không ghi được lock thì vẫn chạy (bỏ qua)
+    if not proc_lock.acquire("fill_media"):
+        log(f"⏭ Đã có job bù media khác đang chạy "
+            f"(PID {proc_lock.holder('fill_media')}) — bỏ qua.")
+        return False
     return True
 
 
 def release_lock() -> None:
-    try:
-        with open(LOCK_PATH, encoding="utf-8") as f:
-            if int((f.read() or "0").strip() or 0) == os.getpid():
-                os.remove(LOCK_PATH)
-    except Exception:
-        pass
+    proc_lock.release("fill_media")
 
 
 def log(msg: str) -> None:

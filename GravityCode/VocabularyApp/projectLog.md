@@ -2158,3 +2158,22 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
 - Cài tự chạy khi đăng nhập: `VocabularyApp_Pipeline.vbs` → `pipeline_daemon_task.cmd`
   (pythonw, ẩn). Gỡ bằng `--uninstall-startup`.
 - Test: `test_proc_lock` 6/6, `test_pipeline_daemon` 8/8.
+
+## 2026-11-22 (05:55) — Lock chuyển sang D:, daemon tự phục hồi; tiến độ Tây Ban Nha
+
+- Tiến độ 05:52: **Tây Ban Nha 1.684/2.520** (từ 926 lúc 21:11 ⇒ ~87 ngày/giờ);
+  Đức/Pháp/Nga 600; còn **6.596 ngày** (~3 ngày). C: 5,3 GB · D: 26,8 GB.
+- Phát hiện: toàn bộ `data/logs/*.lock` **biến mất** dù process vẫn sống (cùng
+  hiện tượng xoá file như `*_done.json` trước đây) ⇒ `--status` báo sai "daemon
+  không chạy", nguy cơ mở daemon thứ hai.
+- Đã sửa:
+  - `proc_lock` chuyển lock sang **`D:\VocabularyAppData\state\locks`**, vẫn
+    đọc + tự di cư lock cũ trong `data/logs`.
+  - `fill_lite`, `fill_media`, `ai_watchdog` dùng chung `proc_lock` (hết 4 kiểu
+    lock khác nhau).
+  - `pipeline_daemon` tự tạo lại lock mỗi vòng nếu bị xoá; `--status` lấy PID từ
+    `pipeline_status.json` khi lock mất; không cho mở daemon thứ hai.
+- Restart daemon (PID 18132) + 3 con: fill 30320, finalize 18140, cleanup 33116;
+  lock hiện đủ 5 file trong `D:\VocabularyAppData\state\locks`.
+- Tây Ban Nha chạy tiếp từ `--from-day 1687`.
+- Test lại: `test_proc_lock` 6/6, `test_pipeline_daemon` 8/8.

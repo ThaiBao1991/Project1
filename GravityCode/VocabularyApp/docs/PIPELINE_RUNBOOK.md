@@ -42,6 +42,7 @@ nhưng thay thế việc phải đọc 190 KB log.
 | `data/ai_courses/<slug>/course.json` | nội dung khóa học | junction → `D:\VocabularyAppData\ai_courses` |
 | `data/logs/` | log + **bản sao** state | không phải nguồn duy nhất nữa |
 | `D:\VocabularyAppData\state\` | **state chính** (`finalize_done.json`, `cleanup_done_media.json`, …) | có `history/` 30 bản |
+| `D:\VocabularyAppData\state\locks\` | **lock tiến trình** (`pipeline_daemon`, `fill_remaining`, …) | không đặt ở `data/logs` vì hay bị xoá |
 | `web/data/<slug>/index.json` | manifest ngày cho web | phải đủ 2.520 ngày mới cleanup |
 | `web/data/<slug>/day/NNNN.json` | dữ liệu 1 ngày cho web | có `media_map` |
 | `publish/<slug>/media/*.zip` | gói media tạm để upload | **junction → `D:\VocabularyAppData\publish`** (tránh đầy C:); xoá sau finalize |
@@ -128,6 +129,9 @@ pipeline_daemon.py  (lock: pipeline_daemon.lock)
   ├─ finalize_lite.py --watch          (lock: finalize_watch.lock)
   └─ cleanup_done_media.py --watch     (lock: cleanup_watch.lock)
 ```
+
+**Mọi lock nằm ở `D:\VocabularyAppData\state\locks\`** (không phải `data/logs` —
+thư mục đó từng bị xoá ngoài ý muốn, làm mất tác dụng chống trùng).
 
 - Con chết ⇒ tự bật lại (backoff 60→600 giây, không spam log).
 - Con thoát ngay mã 0 ⇒ hiểu là "đã có bản chạy tay giữ khoá" ⇒ thử lại sau 5 phút.
@@ -234,6 +238,7 @@ python -X utf8 GravityCode\VocabularyApp\tools\push_master.py
 | 10 | `ai.pipeline` không tăng ngày | hết quota/thời gian chờ, `--from-day` cũ | xem log pipeline; supervisor tự retry, hoặc chạy lại với `--from-day <ngày thiếu đầu>` |
 | 11 | Task `VocabularyApp-CheckDone` báo lỗi `2147942402` (0x80070002 = file not found) | `Execute` bị cắt tại dấu cách: `C:\...\Project\Python\Python` + phần còn lại nằm trong `Arguments` | **Đã xoá task ngày 20/11/2026** (chỉ là thông báo, không ảnh hưởng pipeline). Muốn có lại thì tạo task chạy `cmd.exe /c "<đường dẫn>\tools\check_done_task.cmd"`, hoặc chạy tay `python -X utf8 tools\check_done.py` |
 | 12 | Nhiều khóa bù media **cùng lúc**, C: tụt nhanh | `ai_watchdog` gọi `fill_media --jobs 4` song song và không thấy lock của supervisor (`fill_lite.lock`, `fill_remaining.lock`) | Đã sửa 21/11: `fill_media` bỏ khóa đã upload; watchdog coi 3 lock là "busy" và chạy `--jobs 1 --workers 1` |
+| 13 | Lock trong `data/logs` biến mất, `--status` báo daemon không chạy dù process còn sống | cùng hiện tượng xoá file ngoài ý muốn như `*_done.json` | Đã chuyển lock sang `D:\VocabularyAppData\state\locks`; daemon tự tạo lại lock mỗi vòng; `--status` đọc thêm PID trong `pipeline_status.json` |
 
 ---
 
