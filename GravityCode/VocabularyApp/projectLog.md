@@ -2139,3 +2139,22 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
   `cleanup_done_media --watch` (17264); `fill_lite` Hàn chạy từ `--from-day 2516`.
 - Đĩa: **C: 3,86 GB** (`pagefile.sys` 22,5 GB + `hiberfil.sys` 2,9 GB trên máy
   7,3 GB RAM) · **D: 23,4 GB**. Cần theo dõi; có thể tắt hibernation để lấy ~3 GB.
+
+## 2026-11-21 (21:15) — Hàn hoàn tất upload; bật daemon giữ pipeline; publish sang D:
+
+- **Hàn 2.520/2.520**: finalize tự chạy 20:17 → 21:10.
+  - Nén audio: 55.331 file · nén 30.859 · bỏ qua 24.472 · tiết kiệm **623,7 MB** (1.532s).
+  - Pack: **85 gói · 925 MB** (m80–m85 kiểm tra khớp).
+  - Upload: commit **`93220ee4`**, 85/85 gói trong 609s.
+  - Pages: 2.521 file · 81 MB; build `built` lúc 21:10:36.
+  - State `finalize_done[tiếng_hàn_quốc] = done` (21:10:37); raw m01/m42/m84 = HTTP 200.
+- Cleanup: xoá `data/media/tiếng_hàn_quốc` **1.154 MB**, ghi `cleanup_done_media`.
+- `verify_online.py`: **9/9 PASS**.
+- Chuyển sang **daemon**: dừng 3 watcher cũ, chạy `tools/pipeline_daemon.py` (PID 30760)
+  → 3 con sống: fill (29460), finalize (2040), cleanup (6264); status JSON ghi C/D + PID.
+- Supervisor mới **bỏ qua Anh/Hàn** (đã upload) → chạy **Tây Ban Nha** từ `--from-day 601`, 926/2.520.
+- Đĩa C: chỉ còn 3,4 GB (pagefile 22,5 + hiberfil 2,9) ⇒ đã tạo **junction
+  `publish/` → `D:\VocabularyAppData\publish`** để gói media tạm không ghi lên C:.
+- Cài tự chạy khi đăng nhập: `VocabularyApp_Pipeline.vbs` → `pipeline_daemon_task.cmd`
+  (pythonw, ẩn). Gỡ bằng `--uninstall-startup`.
+- Test: `test_proc_lock` 6/6, `test_pipeline_daemon` 8/8.

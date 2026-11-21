@@ -21,8 +21,8 @@ nhưng thay thế việc phải đọc 190 KB log.
 
 - App học từ vựng **8 ngôn ngữ × 2.520 ngày** (~20.160 ngày nội dung).
 - **Nội dung chữ: đã đủ 8/8 khóa** (mẫu câu, câu thông dụng, ngữ pháp, hội thoại, quiz).
-- **Media (ảnh + audio): mới xong 3 khóa** (Nhật, Trung, Anh) — đã upload và đã xoá local.
-  5 khóa còn lại đang bù dần: Hàn → Tây Ban Nha → Đức → Pháp → Nga.
+- **Media (ảnh + audio): xong 4 khóa** (Nhật, Trung, Anh, Hàn) — đã upload và đã xoá local.
+  4 khóa còn lại đang bù dần: Tây Ban Nha → Đức → Pháp → Nga.
 - Web tĩnh deploy lên **GitHub Pages** (`https://thaibao1991.github.io/Project1/`).
 - Media nằm ở **repo riêng** `ThaiBao1991/VocabularyData`, tải qua
   `https://raw.githubusercontent.com/ThaiBao1991/VocabularyData/main/media/<dir>/mNN.zip`.
@@ -44,7 +44,7 @@ nhưng thay thế việc phải đọc 190 KB log.
 | `D:\VocabularyAppData\state\` | **state chính** (`finalize_done.json`, `cleanup_done_media.json`, …) | có `history/` 30 bản |
 | `web/data/<slug>/index.json` | manifest ngày cho web | phải đủ 2.520 ngày mới cleanup |
 | `web/data/<slug>/day/NNNN.json` | dữ liệu 1 ngày cho web | có `media_map` |
-| `publish/<slug>/media/*.zip` | gói media tạm để upload | xoá sau khi finalize xong |
+| `publish/<slug>/media/*.zip` | gói media tạm để upload | **junction → `D:\VocabularyAppData\publish`** (tránh đầy C:); xoá sau finalize |
 | `tools/` | toàn bộ pipeline | xem bảng mục 5 |
 
 ---
@@ -56,11 +56,11 @@ nhưng thay thế việc phải đọc 190 KB log.
 | Nhật | 0/2.520 | ✅ đã upload + deploy (local đã dọn) |
 | Trung | 0/2.520 | ✅ đã upload + enrich + deploy |
 | Anh | 0/2.520 | ✅ đã upload + deploy (audio 32 kbps) |
-| **Hàn** | **2.515/2.520** | đang chạy, chỉ còn 5 ngày |
-| Tây Ban Nha | 926/2.520 | chờ |
+| **Hàn** | 0/2.520 | ✅ upload 85 gói 21/11 21:05 (commit `93220ee4`), local đã dọn |
+| Tây Ban Nha | 926/2.520 | đang chạy (daemon) |
 | Đức / Pháp / Nga | 600/2.520 | chờ |
 
-- Còn **7.359 ngày** media → khoảng **4 ngày** nếu giữ nhịp.
+- Còn **7.354 ngày** media → khoảng **4 ngày** nếu giữ nhịp.
 - Đĩa lúc ghi (21/11 20:15): **C: 3,86 GB** · **D: 23,4 GB** trống.
   → C: thấp vì `pagefile.sys` 22,5 GB + `hiberfil.sys` 2,9 GB trên ổ 7,3 GB RAM;
   pipeline tự dừng khi C: < 2 GB (xem sự cố #5).
