@@ -31,6 +31,7 @@ DONE_NAME = "fill_remaining_done.json"
 FINAL = statefile.path(FINAL_NAME)
 ENRICH_DONE = statefile.path(ENRICH_NAME)
 DONE = statefile.path(DONE_NAME)
+LOCK = os.path.join(BASE, "data", "logs", "fill_remaining.lock")
 MEDIA = os.path.join(BASE, "data", "media")
 TOTAL = 2520
 MIN_FREE = 2.0
@@ -132,13 +133,21 @@ def wait_free() -> None:
         time.sleep(300)
 
 
-def main() -> int:
+def _run_all() -> int:
     if not wait_ready():
         return 1
     log("bắt đầu bù media từng khóa: " + ", ".join(LANGS))
     os.makedirs(os.path.dirname(LOG), exist_ok=True)
+    # Khóa đã upload xong thì bỏ qua: cleanup đã xoá media local nên
+    # days_done = 0 — nếu không chặn sẽ bù lại từ đầu (lỗi đo thật 21/11).
+    fin = statefile.load(FINAL_NAME)
+    uploaded = {s for s, v in fin.items() if (v or {}).get("status") == "done"}
+    uploaded |= set(statefile.load("cleanup_done_media.json"))
     failed = []
     for slug in LANGS:
+        if slug in uploaded:
+            log(f"⏭ {slug}: đã upload xong — bỏ qua (không bù lại media local)")
+            continue
         for attempt in range(1, 121):
             d = days_done(slug)
             if d >= TOTAL:
@@ -168,6 +177,25 @@ def main() -> int:
                                "langs": LANGS,
                                "days": {s: days_done(s) for s in LANGS}})
     return 0 if status == "done" else 1
+
+
+def main() -> int:
+    """Giữ lock PID để watchdog (ai_watchdog) biết supervisor đang chạy."""
+    os.makedirs(os.path.dirname(LOCK), exist_ok=True)
+    try:
+        with open(LOCK, "w", encoding="utf-8") as f:
+            f.write(str(os.getpid()))
+    except OSError:
+        pass
+    try:
+        return _run_all()
+    finally:
+        try:
+            with open(LOCK, encoding="utf-8") as f:
+                if int((f.read() or "0").strip() or 0) == os.getpid():
+                    os.remove(LOCK)
+        except Exception:
+            pass
 
 
 if __name__ == "__main__":

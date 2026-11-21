@@ -2111,3 +2111,31 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
 - Script `tools/check_done.py` giữ nguyên; chạy tay khi cần:
   `python -X utf8 tools\check_done.py`. `ai_watchdog.py` cũng có gọi script này.
 - `docs/PIPELINE_RUNBOOK.md` mục 8 (#11) đã cập nhật trạng thái "đã xoá".
+
+## 2026-11-21 (20:15) — Server restart: mất tiến trình + sửa lỗi watchdog bù song song
+
+- 20:10: máy/phiên khởi động lại ⇒ **toàn bộ shell nền bị huỷ**, không còn
+  process python nào. Kiểm tra lại thì:
+  - Hàn **2.515/2.520** (thiếu 5 ngày).
+  - **tiếng Anh bị bù lại 99 ngày** (d001–d099) dù đã upload xong, vì `cleanup`
+    đã xoá media local ⇒ `days_done = 0`.
+  - Log 06:59–07:39 có **4 khóa bù song song** (Anh, Hàn, Đức, Tây Ban Nha).
+  - C: tụt còn **3,9 GB**.
+- Nguyên nhân: `VocabularyApp_Watchdog.vbs` (Startup) chạy `ai_watchdog.py`, gọi
+  `tools/fill_media.py --jobs 4 --workers 2` cho cả 8 khóa. Watchdog chỉ kiểm
+  `fill_media.lock`, không thấy `fill_lite.lock`/`fill_remaining.lock` của
+  supervisor ⇒ chạy song song, bù lại khóa đã upload.
+- Đã sửa:
+  - `fill_media.py`: **bỏ khóa đã upload** (`finalize_done == done` hoặc có
+    trong `cleanup_done_media`) — test `--dry-run` bỏ đúng Nhật/Trung/Anh.
+  - `ai_watchdog.py`: `media_lock_busy()` đọc cả 3 lock
+    (`fill_media`, `fill_lite`, `fill_remaining`); đổi bù media thành
+    `--jobs 1 --workers 1`. Test: trả `True` khi supervisor đang chạy.
+  - `fill_remaining_after_chinese.py`: ghi `fill_remaining.lock` (PID) và bỏ qua
+    khóa đã upload.
+- Dọn dẹp: xoá media/audio/_pipeline tiếng Anh còn sót (13,7 MB) sau khi xác
+  nhận raw `tieng-anh` m01/m21/m42/m43/m63/m84 = HTTP 200; dọn 207 MB temp/opencode.
+- Khởi động lại: supervisor (PID 15268), `finalize_lite --watch` (5704),
+  `cleanup_done_media --watch` (17264); `fill_lite` Hàn chạy từ `--from-day 2516`.
+- Đĩa: **C: 3,86 GB** (`pagefile.sys` 22,5 GB + `hiberfil.sys` 2,9 GB trên máy
+  7,3 GB RAM) · **D: 23,4 GB**. Cần theo dõi; có thể tắt hibernation để lấy ~3 GB.

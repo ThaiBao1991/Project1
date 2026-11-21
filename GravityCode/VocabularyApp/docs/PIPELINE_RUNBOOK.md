@@ -56,13 +56,14 @@ nhưng thay thế việc phải đọc 190 KB log.
 | Nhật | 0/2.520 | ✅ đã upload + deploy (local đã dọn) |
 | Trung | 0/2.520 | ✅ đã upload + enrich + deploy |
 | Anh | 0/2.520 | ✅ đã upload + deploy (audio 32 kbps) |
-| **Hàn** | **2.095/2.520** | đang chạy (~78 ngày/giờ) |
+| **Hàn** | **2.515/2.520** | đang chạy, chỉ còn 5 ngày |
 | Tây Ban Nha | 926/2.520 | chờ |
 | Đức / Pháp / Nga | 600/2.520 | chờ |
 
-- Còn **7.779 ngày** media → khoảng **4–4,5 ngày** nếu giữ nhịp.
-- Đĩa lúc ghi: **C: 9,9 GB** · **D: 26,5 GB** trống.
-  → C: đang giảm, cần theo dõi (xem sự cố #5). Pipeline tự dừng khi C: < 2 GB.
+- Còn **7.359 ngày** media → khoảng **4 ngày** nếu giữ nhịp.
+- Đĩa lúc ghi (21/11 20:15): **C: 3,86 GB** · **D: 23,4 GB** trống.
+  → C: thấp vì `pagefile.sys` 22,5 GB + `hiberfil.sys` 2,9 GB trên ổ 7,3 GB RAM;
+  pipeline tự dừng khi C: < 2 GB (xem sự cố #5).
 - Process đang chạy (kiểm tra bằng lệnh ở mục 6):
   `fill_remaining_after_chinese.py` → `fill_lite.py --lang tiếng_hàn_quốc` →
   `ai.pipeline ... --from-day …`, kèm `finalize_lite.py --watch` và
@@ -197,6 +198,7 @@ python -X utf8 GravityCode\VocabularyApp\tools\push_master.py
 | 9 | Console hiện `?` / mojibake | thiếu UTF-8 | `chcp 65001`, `$env:PYTHONIOENCODING='utf-8'`, `python -X utf8`; **file vẫn UTF-8**, chỉ console sai |
 | 10 | `ai.pipeline` không tăng ngày | hết quota/thời gian chờ, `--from-day` cũ | xem log pipeline; supervisor tự retry, hoặc chạy lại với `--from-day <ngày thiếu đầu>` |
 | 11 | Task `VocabularyApp-CheckDone` báo lỗi `2147942402` (0x80070002 = file not found) | `Execute` bị cắt tại dấu cách: `C:\...\Project\Python\Python` + phần còn lại nằm trong `Arguments` | **Đã xoá task ngày 20/11/2026** (chỉ là thông báo, không ảnh hưởng pipeline). Muốn có lại thì tạo task chạy `cmd.exe /c "<đường dẫn>\tools\check_done_task.cmd"`, hoặc chạy tay `python -X utf8 tools\check_done.py` |
+| 12 | Nhiều khóa bù media **cùng lúc**, C: tụt nhanh | `ai_watchdog` gọi `fill_media --jobs 4` song song và không thấy lock của supervisor (`fill_lite.lock`, `fill_remaining.lock`) | Đã sửa 21/11: `fill_media` bỏ khóa đã upload; watchdog coi 3 lock là "busy" và chạy `--jobs 1 --workers 1` |
 
 ---
 
@@ -220,6 +222,10 @@ python -X utf8 GravityCode\VocabularyApp\tools\push_master.py
    → Dùng `python -X utf8` để đọc/parse log.
 9. **Quên rằng `data/` bị `.gitignore`** → state không nằm trong git, không khôi phục bằng checkout được.
    → Đó là lý do phải có state 2 bản ngoài repo.
+10. **Để watchdog chạy song song với supervisor** (21/11): `ai_watchdog` gọi
+    `fill_media --jobs 4` cho cả 8 khóa, không thấy lock của `fill_lite`/supervisor
+    ⇒ 4 khóa bù cùng lúc, tiếng Anh bị bù lại 99 ngày, C: tụt còn 3,9 GB.
+    → Đã sửa: `fill_media` bỏ khóa đã upload; watchdog đọc cả 3 lock, chạy 1 job.
 
 ---
 

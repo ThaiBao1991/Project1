@@ -162,6 +162,22 @@ def main() -> int:
     # `--lang` lặp lại được ⇒ giữ đúng thứ tự, bỏ trùng.
     targets = list(dict.fromkeys(args.lang)) if args.lang else list(LANGS)
     targets = [t for t in targets if t]
+    # FIX 2026-11-21: khóa đã upload xong thì KHÔNG bù lại media local.
+    # cleanup xoá media local sau upload ⇒ days_done = 0; nếu không chặn,
+    # fill_media sẽ bù lại từ đầu (đo thật: tiếng Anh bị bù lại 99 ngày).
+    try:
+        import statefile
+        fin = statefile.load("finalize_done.json")
+        done = {s for s, v in fin.items() if (v or {}).get("status") == "done"}
+        done |= set(statefile.load("cleanup_done_media.json"))
+    except Exception:
+        done = set()
+    skipped = [t for t in targets if t in done]
+    if skipped:
+        log("⏭ bỏ qua khóa đã upload xong: " + ", ".join(skipped))
+        targets = [t for t in targets if t not in done]
+    if not targets:
+        return 0
     if args.dry_run:
         for t in targets:
             print(f"  media {t} (≤{None if args.all_days else PRIORITY_DAYS}) "

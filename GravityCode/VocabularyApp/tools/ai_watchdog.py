@@ -144,29 +144,35 @@ def release_watchdog_lock() -> None:
 
 
 def media_lock_busy() -> bool:
-    """Job bù media đang chạy? (đọc lock PID của tools/fill_media.py)
+    """Job bù media đang chạy? (lock PID của fill_media / fill_lite / supervisor)
 
     FIX 2026-11-15 (Gói 7): AI (watchdog) và media (fill_media) CÙNG ghi
     `course.json` của một khóa ⇒ race (đo thật: cả 2 job chạy khóa Nhật).
-    ⇒ Khi media đang chạy thì watchdog **nhường** vòng AI (media 0 quota, làm
-    được mọi lúc; AI chờ quota reset 00:00 hằng ngày vẫn được).
+    FIX 2026-11-21: chỉ kiểm `fill_media.lock` là thiếu — supervisor
+    (`fill_remaining_after_chinese`) và `fill_lite` dùng lock khác, nên watchdog
+    vẫn chạy `fill_media --jobs 4` song song (đo thật: 4 khóa bù cùng lúc,
+    tiếng Anh bị bù lại 99 ngày, C: tụt còn 3,9 GB).
     """
-    p = os.path.join(LOG_DIR, "fill_media.lock")
-    if not os.path.isfile(p):
-        return False
-    try:
-        with open(p, encoding="utf-8") as f:
-            pid = int((f.read() or "0").strip() or 0)
-    except Exception:
-        return False
-    if not pid:
-        return False
-    try:
-        out = subprocess.run(["tasklist", "/FI", f"PID eq {pid}"],
-                             capture_output=True, text=True, timeout=25)
-        return str(pid) in (out.stdout or "")
-    except Exception:
-        return False
+    names = ("fill_media.lock", "fill_lite.lock", "fill_remaining.lock")
+    for name in names:
+        p = os.path.join(LOG_DIR, name)
+        if not os.path.isfile(p):
+            continue
+        try:
+            with open(p, encoding="utf-8") as f:
+                pid = int((f.read() or "0").strip() or 0)
+        except Exception:
+            continue
+        if not pid:
+            continue
+        try:
+            out = subprocess.run(["tasklist", "/FI", f"PID eq {pid}"],
+                                 capture_output=True, text=True, timeout=25)
+            if str(pid) in (out.stdout or ""):
+                return True
+        except Exception:
+            continue
+    return False
 
 
 def main() -> int:
@@ -216,8 +222,8 @@ def _loop(langs, args) -> int:
         # ── VÒNG BÙ MEDIA SONG SONG (Gói 7) ──────────────────────────────────
         # tools/fill_media.py có LOCK ⇒ không tranh với job media thủ công.
         _run([sys.executable, "-X", "utf8", "tools/fill_media.py",
-              "--jobs", "4", "--workers", "2", "--rounds", "1"],
-             8 * 3600, "bù media SONG SONG (8 khóa)")
+              "--jobs", "1", "--workers", "1", "--rounds", "1"],
+             8 * 3600, "bù media TUẦN TỰ (an toàn đĩa)")
         _log("──────── VÒNG C: VERIFY + THÔNG BÁO ────────")
         verify(langs)
         integrity()
