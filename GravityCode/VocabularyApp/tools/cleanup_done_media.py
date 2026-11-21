@@ -32,6 +32,7 @@ if hasattr(sys.stdout, "reconfigure"):
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import statefile  # noqa: E402
+import proc_lock  # noqa: E402
 
 STATE_NAME = "finalize_done.json"
 CLEAN_NAME = "cleanup_done_media.json"
@@ -148,10 +149,16 @@ def main() -> int:
         n = one_round()
         log(f"một lượt: dọn {n} khóa")
         return 0
+    if not proc_lock.acquire("cleanup_watch"):
+        log("⏸ đã có watcher cleanup chạy — thoát")
+        return 0
     log(f"watch dọn media đã finalize (mỗi {args.interval}s)")
-    while True:
-        one_round()
-        time.sleep(max(60, args.interval))
+    try:
+        while True:
+            one_round()
+            time.sleep(max(60, args.interval))
+    finally:
+        proc_lock.release("cleanup_watch")
 
 
 if __name__ == "__main__":

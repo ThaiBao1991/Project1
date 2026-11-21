@@ -24,6 +24,7 @@ if hasattr(sys.stdout, "reconfigure"):
 LOG = os.path.join(BASE, "data", "logs", "fill_remaining.log")
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import statefile  # noqa: E402
+import proc_lock  # noqa: E402
 
 FINAL_NAME = "finalize_done.json"
 ENRICH_NAME = "enrich_after_finalize_done.json"
@@ -180,22 +181,13 @@ def _run_all() -> int:
 
 
 def main() -> int:
-    """Giữ lock PID để watchdog (ai_watchdog) biết supervisor đang chạy."""
-    os.makedirs(os.path.dirname(LOCK), exist_ok=True)
-    try:
-        with open(LOCK, "w", encoding="utf-8") as f:
-            f.write(str(os.getpid()))
-    except OSError:
-        pass
+    """Khoá `fill_remaining.lock` để không có 2 supervisor chạy song song."""
+    if not proc_lock.acquire("fill_remaining"):
+        return 0
     try:
         return _run_all()
     finally:
-        try:
-            with open(LOCK, encoding="utf-8") as f:
-                if int((f.read() or "0").strip() or 0) == os.getpid():
-                    os.remove(LOCK)
-        except Exception:
-            pass
+        proc_lock.release("fill_remaining")
 
 
 if __name__ == "__main__":

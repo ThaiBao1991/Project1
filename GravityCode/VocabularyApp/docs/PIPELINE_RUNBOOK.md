@@ -118,6 +118,39 @@ lặp gói không đổi (upload so SHA git-blob), media đã có thì bỏ qua.
 
 ---
 
+## 4.1. Daemon giữ pipeline sống (từ 21/11)
+
+`tools/pipeline_daemon.py` là **một tiến trình duy nhất** giữ 3 job nền:
+
+```
+pipeline_daemon.py  (lock: pipeline_daemon.lock)
+  ├─ fill_remaining_after_chinese.py   (lock: fill_remaining.lock)
+  ├─ finalize_lite.py --watch          (lock: finalize_watch.lock)
+  └─ cleanup_done_media.py --watch     (lock: cleanup_watch.lock)
+```
+
+- Con chết ⇒ tự bật lại (backoff 60→600 giây, không spam log).
+- Con thoát ngay mã 0 ⇒ hiểu là "đã có bản chạy tay giữ khoá" ⇒ thử lại sau 5 phút.
+- `finalize` chỉ chạy 1 lượt tại 1 thời điểm (`finalize_run.lock`) nên watcher và
+  chạy tay không bao giờ pack/upload trùng.
+- C: < 2,5 GB ⇒ tự chạy `cleanup_done_media --once` + `cleanup_temp.py` (10 phút/lần).
+- Trạng thái: `data/logs/pipeline_status.json`; log con: `data/logs/daemon_<tên>.log`
+  (tự xoay khi > 10 MB).
+
+Lệnh:
+
+```powershell
+python -X utf8 tools\pipeline_daemon.py --status
+python -X utf8 tools\pipeline_daemon.py                 # chạy nền
+python -X utf8 tools\pipeline_daemon.py --stop
+python -X utf8 tools\pipeline_daemon.py --install-startup    # tự chạy khi đăng nhập
+python -X utf8 tools\pipeline_daemon.py --uninstall-startup
+```
+
+Test: `python -X utf8 tools\test_proc_lock.py` và `tools\test_pipeline_daemon.py`.
+
+---
+
 ## 5. Bảng công cụ
 
 | Tool | Việc | Chạy khi nào |
@@ -135,6 +168,8 @@ lặp gói không đổi (upload so SHA git-blob), media đã có thì bỏ qua.
 | `tools/statefile.py` | state 2 bản + history, hợp nhất theo `at` | được import bởi các tool trên |
 | `tools/push_master.py` | push `master` bằng header auth (không hỏi mật khẩu) | sau khi commit |
 | `tools/test_statefile.py` | test kho state (10 case) | khi sửa statefile |
+| `tools/pipeline_daemon.py` | giữ 3 job nền luôn sống, tự restart, disk guard, tự chạy khi đăng nhập | chạy nền 1 lần |
+| `tools/proc_lock.py` | khoá 1 tiến trình theo tên (PID + lock rác) | import bởi các tool |
 
 ---
 

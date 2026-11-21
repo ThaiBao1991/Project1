@@ -41,7 +41,8 @@ if hasattr(sys.stdout, "reconfigure"):
 LOG_PATH = os.path.join(BASE, "data", "logs", "finalize_lite.log")
 FILL_LOG = os.path.join(BASE, "data", "logs", "fill_lite.log")
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import statefile  # noqa: E402  (kho trạng thái 2 bản, chống mất file)
+import statefile  # noqa: E402
+import proc_lock  # noqa: E402  (kho trạng thái 2 bản, chống mất file)
 
 STATE_NAME = "finalize_done.json"
 STATE = statefile.path(STATE_NAME)
@@ -182,19 +183,26 @@ def one_round(explicit: list[str] | None = None) -> int:
                 todo.append(slug)
     if not todo:
         return 0
+    # Chỉ 1 tiến trình finalize tại 1 thời điểm (watcher + chạy tay có thể trùng).
+    if not proc_lock.acquire("finalize_run"):
+        log("⏸ đang có tiến trình finalize khác — bỏ qua lượt này")
+        return 0
     n_ok = 0
-    for slug in dict.fromkeys(todo):
-        ok = False
-        for attempt in range(1, 4):
-            if finalize(slug):
-                ok = True
-                break
-            log(f"   ↻ thử lại {slug} lần {attempt}/3 sau 10 phút")
-            time.sleep(600)
-        st[slug] = {"status": "done" if ok else "failed",
-                    "at": f"{datetime.now():%Y-%m-%d %H:%M:%S}"}
-        save_state(st)
-        n_ok += 1 if ok else 0
+    try:
+        for slug in dict.fromkeys(todo):
+            ok = False
+            for attempt in range(1, 4):
+                if finalize(slug):
+                    ok = True
+                    break
+                log(f"   ↻ thử lại {slug} lần {attempt}/3 sau 10 phút")
+                time.sleep(600)
+            st[slug] = {"status": "done" if ok else "failed",
+                        "at": f"{datetime.now():%Y-%m-%d %H:%M:%S}"}
+            save_state(st)
+            n_ok += 1 if ok else 0
+    finally:
+        proc_lock.release("finalize_run")
     return n_ok
 
 
@@ -215,13 +223,19 @@ def main() -> int:
         n = one_round()
         log(f"lượt này xong {n} khóa")
         return 0
+    if not proc_lock.acquire("finalize_watch"):
+        log("⏸ đã có watcher finalize chạy — thoát")
+        return 0
     log("BẮT ĐẦU canh fill_lite.log (Ctrl+C để dừng)")
-    while True:
-        try:
-            one_round()
-        except Exception as e:
-            log(f"⚠ lỗi vòng quét: {e}")
-        time.sleep(max(60, args.interval))
+    try:
+        while True:
+            try:
+                one_round()
+            except Exception as e:
+                log(f"⚠ lỗi vòng quét: {e}")
+            time.sleep(max(60, args.interval))
+    finally:
+        proc_lock.release("finalize_watch")
 
 
 if __name__ == "__main__":
