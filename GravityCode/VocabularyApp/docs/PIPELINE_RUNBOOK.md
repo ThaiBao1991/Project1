@@ -293,6 +293,21 @@ python -X utf8 GravityCode\VocabularyApp\tools\push_master.py
 
 ---
 
+## 11.1. Tạm dừng / chạy lại toàn bộ
+
+Dừng (không xoá dữ liệu, không mất tiến độ):
+
+```powershell
+python -X utf8 tools\pipeline_daemon.py --stop
+python -X utf8 tools\pipeline_daemon.py --uninstall-startup   # bỏ tự chạy khi đăng nhập
+python -X utf8 tools\pipeline_daemon.py --status               # phải ghi "KHÔNG chạy"
+```
+
+Chạy lại: xem `docs/PAUSE_STATE.md` (mốc tiến độ + lệnh + ngày thiếu đầu tiên).
+Tóm tắt: `--install-startup` rồi `python -X utf8 tools\pipeline_daemon.py`.
+
+---
+
 ## 12. Checklist trước khi báo "xong"
 
 - [ ] `python -m py_compile` các file vừa sửa.

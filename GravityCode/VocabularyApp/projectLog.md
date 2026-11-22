@@ -2177,3 +2177,17 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
   lock hiện đủ 5 file trong `D:\VocabularyAppData\state\locks`.
 - Tây Ban Nha chạy tiếp từ `--from-day 1687`.
 - Test lại: `test_proc_lock` 6/6, `test_pipeline_daemon` 8/8.
+
+## 2026-11-22 (07:50) — TẠM DỪNG pipeline theo yêu cầu, lưu mốc tiến độ
+
+- Đã dừng: `pipeline_daemon` (PID 18132) + 3 con (fill/finalize/cleanup) + cây
+  `fill_lite`/`ai.pipeline`; **0 process python** của app còn chạy.
+- Đã bỏ tự chạy khi đăng nhập: xoá `VocabularyApp_Pipeline.vbs`; đổi tên
+  `VocabularyApp_Watchdog.vbs` → `.vbs.disabled` (khôi phục bằng cách đổi lại tên).
+- Dọn 5 lock rác trong `D:\VocabularyAppData\state\locks`; `--status` sửa để
+  kiểm tra PID thật (trước đó báo sai "alive" với PID đã chết).
+- Mốc tiến độ 07:49: Nhật/Trung/Anh/Hàn **đã upload xong** (local = 0);
+  **Tây Ban Nha 1.866/2.520** (thiếu từ ngày **1867**); Đức/Pháp/Nga 600.
+  Còn **6.414 ngày** (~71 giờ nếu chạy lại). C: 4,48 GB · D: 26,59 GB.
+- Thêm `docs/PAUSE_STATE.md`: trạng thái chính xác + lệnh chạy lại + cách kiểm tra.
+- Không xoá dữ liệu, không đổi state; chạy lại sẽ tiếp tục từ ngày 1867.

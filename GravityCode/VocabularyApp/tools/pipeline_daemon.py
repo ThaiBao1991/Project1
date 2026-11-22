@@ -194,7 +194,9 @@ def cmd_status() -> int:
         print(f"cập nhật: {st.get('at')} · C: {st.get('disk', {}).get('c_gb')} GB"
               f" · D: {st.get('disk', {}).get('d_gb')} GB")
         for name, c in (st.get("children") or {}).items():
-            print(f"  {name:9} pid={c.get('pid') or '-':>6} alive={c.get('alive')}"
+            cp = int(c.get("pid") or 0)
+            live = proc_lock.alive(cp)
+            print(f"  {name:9} pid={cp or '-':>6} alive={live}"
                   f" restarts={c.get('restarts')} last_exit={c.get('last_exit')}")
     return 0
 
@@ -215,6 +217,17 @@ def cmd_stop() -> int:
             subprocess.run(["taskkill", "/PID", str(cp), "/T", "/F"],
                            capture_output=True)
     subprocess.run(["taskkill", "/PID", str(pid), "/T", "/F"], capture_output=True)
+    cleared = {
+        "pid": 0,
+        "at": f"{datetime.now():%Y-%m-%d %H:%M:%S}",
+        "disk": {"c_gb": round(free_gb("C:\\"), 2), "d_gb": round(free_gb("D:\\"), 2)},
+        "children": {n: {"pid": 0, "alive": False} for n in CHILDREN},
+    }
+    try:
+        with open(STATUS, "w", encoding="utf-8") as f:
+            json.dump(cleared, f, ensure_ascii=False, indent=1)
+    except OSError:
+        pass
     print(f"đã dừng daemon PID {pid} và các con")
     return 0
 
