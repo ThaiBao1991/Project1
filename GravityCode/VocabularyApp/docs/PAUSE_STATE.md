@@ -1,5 +1,9 @@
 # TRẠNG THÁI TẠM DỪNG — 22/11/2026 07:50
 
+> **ĐÃ CHẠY LẠI lúc 22/11 16:01.** File này chỉ còn là mốc lịch sử của lần tạm dừng.
+> Tiến độ hiện tại: xem `python -X utf8 tools\progress.py` hoặc cuối `projectLog.md`.
+> Tây Ban Nha đã xong + upload (commit `2d928f32`, 23/11 01:54); đang chạy Đức.
+
 > Mục đích: lưu mốc tiến độ + cách khôi phục sau khi người dùng yêu cầu **dừng mọi
 > task chạy ẩn**. Đọc file này trước khi chạy lại pipeline.
 

@@ -2204,3 +2204,19 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
 - D: còn 13,25 GB; dữ liệu app chỉ 3,26 GB (media 1,84 + audio 0,64 + ai_courses 0,78),
   phần còn lại là dữ liệu khác của ổ D.
 - Daemon vẫn ổn: 33700 + fill 25868 + finalize 31148 + cleanup 7788.
+
+## 2026-11-23 (06:50) — Tây Ban Nha hoàn tất; thêm tool xem tiến độ
+
+- **Tây Ban Nha 2.520/2.520** — finalize xong 01:59:
+  - Pack + upload **85 gói**, commit **`2d928f32`** (669s).
+  - Pages 2.521 file · **70 MB**; build `built` lúc 01:59:00.
+  - Raw `m01/m42/m84` = HTTP 200; day 2509 live: 33 media ref, 4 mẫu câu,
+    5 câu thông dụng, 16 quiz.
+  - Cleanup 02:02 xoá media 779,3 MB + audio 716,0 MB + pipeline 73,4 MB
+    = **1.568,7 MB**.
+- **Đức** đang chạy: 02:00 bắt đầu từ 600 → **1.023/2.520** lúc 06:49 (~88 ngày/giờ).
+- Còn **5.337 ngày** → ~2,6 ngày; Đức dự kiến xong ~24/11 00:30.
+- Đĩa: **C: 10,6 GB** · **D: 15,5 GB** (đã hồi nhờ cleanup Tây + `web/data` sang D).
+- Thêm `tools/progress.py`: in tiến độ 8 khóa, %, tốc độ 1 giờ gần nhất, ETA,
+  dung lượng đĩa và PID daemon/job. Chỉ đọc, không ảnh hưởng pipeline.
+  Kết quả thật lúc 06:49: 5 khóa xong, Đức 40,6%, Pháp/Nga 23,8%, 85 ngày/giờ.

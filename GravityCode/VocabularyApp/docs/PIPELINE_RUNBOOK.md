@@ -21,8 +21,8 @@ nhưng thay thế việc phải đọc 190 KB log.
 
 - App học từ vựng **8 ngôn ngữ × 2.520 ngày** (~20.160 ngày nội dung).
 - **Nội dung chữ: đã đủ 8/8 khóa** (mẫu câu, câu thông dụng, ngữ pháp, hội thoại, quiz).
-- **Media (ảnh + audio): xong 4 khóa** (Nhật, Trung, Anh, Hàn) — đã upload và đã xoá local.
-  4 khóa còn lại đang bù dần: Tây Ban Nha → Đức → Pháp → Nga.
+- **Media (ảnh + audio): xong 5 khóa** (Nhật, Trung, Anh, Hàn, Tây Ban Nha) — đã upload và đã xoá local.
+  3 khóa còn lại đang bù dần: Đức → Pháp → Nga.
 - Web tĩnh deploy lên **GitHub Pages** (`https://thaibao1991.github.io/Project1/`).
 - Media nằm ở **repo riêng** `ThaiBao1991/VocabularyData`, tải qua
   `https://raw.githubusercontent.com/ThaiBao1991/VocabularyData/main/media/<dir>/mNN.zip`.
@@ -58,10 +58,12 @@ nhưng thay thế việc phải đọc 190 KB log.
 | Trung | 0/2.520 | ✅ đã upload + enrich + deploy |
 | Anh | 0/2.520 | ✅ đã upload + deploy (audio 32 kbps) |
 | **Hàn** | 0/2.520 | ✅ upload 85 gói 21/11 21:05 (commit `93220ee4`), local đã dọn |
-| Tây Ban Nha | 926/2.520 | đang chạy (daemon) |
-| Đức / Pháp / Nga | 600/2.520 | chờ |
+| **Tây Ban Nha** | 0/2.520 | ✅ upload 85 gói 23/11 01:54 (commit `2d928f32`), local đã dọn |
+| **Đức** | **1.023/2.520** | đang chạy |
+| Pháp / Nga | 600/2.520 | chờ |
 
-- Còn **7.354 ngày** media → khoảng **4 ngày** nếu giữ nhịp.
+- Còn **5.337 ngày** media → khoảng **2,6 ngày** (85 ngày/giờ).
+- Xem nhanh: `python -X utf8 tools\progress.py`.
 - Đĩa lúc ghi (21/11 20:15): **C: 3,86 GB** · **D: 23,4 GB** trống.
   → C: thấp vì `pagefile.sys` 22,5 GB + `hiberfil.sys` 2,9 GB trên ổ 7,3 GB RAM;
   pipeline tự dừng khi C: < 2 GB (xem sự cố #5).
@@ -173,6 +175,7 @@ Test: `python -X utf8 tools\test_proc_lock.py` và `tools\test_pipeline_daemon.p
 | `tools/push_master.py` | push `master` bằng header auth (không hỏi mật khẩu) | sau khi commit |
 | `tools/test_statefile.py` | test kho state (10 case) | khi sửa statefile |
 | `tools/pipeline_daemon.py` | giữ 3 job nền luôn sống, tự restart, disk guard, tự chạy khi đăng nhập | chạy nền 1 lần |
+| `tools/progress.py` | in tiến độ + tốc độ + ETA + đĩa + trạng thái daemon (chỉ đọc) | bất cứ lúc nào |
 | `tools/proc_lock.py` | khoá 1 tiến trình theo tên (PID + lock rác) | import bởi các tool |
 
 ---
@@ -284,8 +287,8 @@ python -X utf8 GravityCode\VocabularyApp\tools\push_master.py
 
 ## 11. Việc còn lại (theo thứ tự)
 
-1. **Hàn** đủ 2.520 → tự finalize/upload/deploy → cleanup.
-2. **Tây Ban Nha** → **Đức** → **Pháp** → **Nga** (cùng quy trình).
+1. **Đức** (1.023/2.520) → tự finalize/upload/deploy → cleanup.
+2. **Pháp** → **Nga** (cùng quy trình).
 3. Sau mỗi khóa: `verify_online.py` (9/9) + ghi `projectLog.md`.
 4. Khi media xong toàn bộ: làm P0 UI theo `docs/UPGRADE_PLAN.md`
    (Settings, Progress dashboard, chọn ngày nâng cao, lịch sử quiz).
