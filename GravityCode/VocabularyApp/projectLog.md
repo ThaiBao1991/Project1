@@ -2191,3 +2191,16 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
   Còn **6.414 ngày** (~71 giờ nếu chạy lại). C: 4,48 GB · D: 26,59 GB.
 - Thêm `docs/PAUSE_STATE.md`: trạng thái chính xác + lệnh chạy lại + cách kiểm tra.
 - Không xoá dữ liệu, không đổi state; chạy lại sẽ tiếp tục từ ngày 1867.
+
+## 2026-11-22 (23:40) — Giải phóng C:, Tây Ban Nha gần xong
+
+- Tiến độ 23:34: **Tây Ban Nha 2.395/2.520** (pass 1 dừng 2.276, pass 2 từ 2.277).
+  Còn 125 ngày ⇒ dự kiến xong ~01:30.
+- C: xuống 2,64 GB (ngưỡng pipeline tự dừng 2 GB) ⇒ đã xử lý:
+  - Dời `web/data` (0,59 GB) sang **`D:\VocabularyAppData\web_data`** + junction
+    (deploy vẫn đọc qua `web/data` bình thường; đã kiểm tra đọc 2.520 ngày của Tây).
+  - Dọn `%TEMP%` cũ: 208 MB.
+  - Kết quả: **C: 2,64 → 3,47 GB**.
+- D: còn 13,25 GB; dữ liệu app chỉ 3,26 GB (media 1,84 + audio 0,64 + ai_courses 0,78),
+  phần còn lại là dữ liệu khác của ổ D.
+- Daemon vẫn ổn: 33700 + fill 25868 + finalize 31148 + cleanup 7788.

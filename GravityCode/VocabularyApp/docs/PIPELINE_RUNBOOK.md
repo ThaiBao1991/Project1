@@ -43,7 +43,7 @@ nhưng thay thế việc phải đọc 190 KB log.
 | `data/logs/` | log + **bản sao** state | không phải nguồn duy nhất nữa |
 | `D:\VocabularyAppData\state\` | **state chính** (`finalize_done.json`, `cleanup_done_media.json`, …) | có `history/` 30 bản |
 | `D:\VocabularyAppData\state\locks\` | **lock tiến trình** (`pipeline_daemon`, `fill_remaining`, …) | không đặt ở `data/logs` vì hay bị xoá |
-| `web/data/<slug>/index.json` | manifest ngày cho web | phải đủ 2.520 ngày mới cleanup |
+| `web/data/<slug>/index.json` | manifest ngày cho web | **junction → `D:\VocabularyAppData\web_data`**; phải đủ 2.520 ngày mới cleanup |
 | `web/data/<slug>/day/NNNN.json` | dữ liệu 1 ngày cho web | có `media_map` |
 | `publish/<slug>/media/*.zip` | gói media tạm để upload | **junction → `D:\VocabularyAppData\publish`** (tránh đầy C:); xoá sau finalize |
 | `tools/` | toàn bộ pipeline | xem bảng mục 5 |
