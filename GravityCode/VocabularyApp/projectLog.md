@@ -2246,3 +2246,17 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
 - Test: `test_srs_api.py` **17/17 PASS**, `test_web_contract.py` PASS (xác nhận
   SW v10), E2E trình duyệt: Hàn → Trung → Hàn, chọn ngày 2509 OK.
 - Pipeline vẫn chạy: Đức **1.487/2.520** (59%), 67 ngày/giờ; C: 8,2 GB · D: 10,3 GB.
+
+## 2026-11-23 (15:03) — Tạm dừng lần 2, lưu mốc tiến độ
+
+- Đã dừng: `pipeline_daemon` (PID 33700) + fill/finalize/cleanup + cây
+  `fill_lite`/`ai.pipeline`; gỡ `VocabularyApp_Pipeline.vbs` khỏi Startup;
+  dọn 5 lock trong `D:\VocabularyAppData\state\locks`.
+- Còn `python main.py` (app desktop người dùng đang mở) — không phải task nền.
+- Mốc 15:02: Nhật/Trung/Anh/Hàn/Tây **đã upload xong** (local = 0);
+  **Đức 1.592/2.520** (thiếu từ ngày **1.593**, chưa upload); Pháp/Nga 600.
+  Còn **4.768 ngày** (~68 giờ). C: 7,1 GB · D: 10,2 GB.
+- Cập nhật `docs/PAUSE_STATE.md` với mốc mới + lệnh chạy lại.
+- Trước khi dừng đã xong việc tối ưu tốc độ trang học (commit `6187a6a59`):
+  đổi khóa ~0,45 s lần đầu / 1–2 ms lần sau; Nhật–Trung chọn ngày được;
+  đã deploy Pages (SW v10).
