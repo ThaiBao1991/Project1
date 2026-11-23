@@ -102,7 +102,7 @@ def _wiki_get(url: str, params: dict, tries: int = 2, timeout: int = TIMEOUT):
 # 30.102 từ nhưng nhiều từ LẶP LẠI giữa các ngày (và cả giữa các khóa học).
 # Không có cache ⇒ hàng chục nghìn request thừa ⇒ Wikimedia 429 ⇒ 96% placeholder.
 CACHE_PATH = os.path.join(BASE_DIR, "data", "media", "image_cache.json")
-_cache_lock = threading.Lock()
+_cache_lock = threading.RLock()
 _cache = None
 _cache_dirty = 0
 
@@ -121,18 +121,27 @@ def _load_cache() -> dict:
 
 
 def _save_cache() -> None:
+    """Ghi cache xuống đĩa — GIỮ LOCK để json.dump không duyệt dict đang bị sửa.
+
+    FIX 2026-11-18 (bug đo thật): `find_images_for_words()` gọi hàm này KHÔNG
+    giữ lock trong khi luồng khác vẫn `_cache_put` ⇒
+    `RuntimeError: dictionary changed size during iteration` ⇒ mỗi run mất
+    ~3-6 ngày media (day.fail) ở MỌI khóa. Dùng RLock vì `_cache_put` đã giữ
+    lock rồi mới gọi hàm này (tái nhập cùng luồng).
+    """
     global _cache_dirty
-    if not _cache_dirty:
-        return
-    try:
-        os.makedirs(os.path.dirname(CACHE_PATH), exist_ok=True)
-        tmp = CACHE_PATH + ".tmp"
-        with open(tmp, "w", encoding="utf-8") as f:
-            json.dump(_cache, f, ensure_ascii=False, indent=1)
-        os.replace(tmp, CACHE_PATH)
-        _cache_dirty = 0
-    except OSError:
-        pass
+    with _cache_lock:
+        if not _cache_dirty or _cache is None:
+            return
+        try:
+            os.makedirs(os.path.dirname(CACHE_PATH), exist_ok=True)
+            tmp = CACHE_PATH + ".tmp"
+            with open(tmp, "w", encoding="utf-8") as f:
+                json.dump(_cache, f, ensure_ascii=False, indent=1)
+            os.replace(tmp, CACHE_PATH)
+            _cache_dirty = 0
+        except OSError:
+            pass
 
 
 # Tăng version khi logic tìm ảnh thay đổi (vd sửa map host ngôn ngữ) để

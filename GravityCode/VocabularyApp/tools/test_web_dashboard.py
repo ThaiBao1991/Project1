@@ -264,6 +264,72 @@ if TOK:
     ck("stop khi idle → stopped=false",
        r.get_json().get("stopped") is False, r.get_json())
 
+    print("\n=== 6. Trang học /index + static + data ===")
+    r = client.get("/index")
+    body = r.get_data(as_text=True)
+    ck("/index → 200 là index.html thật (không trỏ nhầm static generic)",
+       r.status_code == 200 and "<title>" in body and "script.js" in body
+       and "Vocabulary" in body, r.status_code)
+    r = client.get("/script.js")
+    sj = r.get_data(as_text=True)
+    ck("/script.js → 200 + có init()", r.status_code == 200
+       and "async function init" in sj, r.status_code)
+    ck("/script.js hết nhắc 'Đồng Bộ lên GitHub' (dữ liệu LOCAL, không cần GitHub)",
+       "Đồng Bộ lên GitHub" not in sj, sj.find("GitHub"))
+    ck("/script.js hướng dẫn mở 127.0.0.1:5690/index khi load lỗi + phân biệt file://",
+       "127.0.0.1:5690/index" in sj and 'location.protocol === "file:"' in sj, None)
+    ck("/script.js có listener đổi ngày khóa học (change → renderCourseDay)",
+       'daySelect.addEventListener("change"' in sj, None)
+    ck("/style.css → 200", client.get("/style.css").status_code == 200)
+    ck("/paths.js → 200 + VOCAB_LANGS", client.get("/paths.js").status_code == 200
+       and "VOCAB_LANGS" in client.get("/paths.js").get_data(as_text=True))
+    ck("/manifest.json → 200", client.get("/manifest.json").status_code == 200)
+
+    r = client.get("/data/index.json")
+    j = r.get_json()
+    langs = (j.get("languages") or []) if r.status_code == 200 else []
+    ck("data/index.json → 200 + languages KHÔNG rỗng (file thật hoặc synth khóa AI)",
+       r.status_code == 200 and isinstance(j.get("languages"), list)
+       and len(langs) >= 1, j)
+    # Môi trường thích ứng: file THẬT có (đã export) → nội dung do nó quyết
+    # định; file THIẾU → route synth từ dir khóa AI. Tên dir KHÁC NHAU giữa
+    # máy (worktree 'tiếng_nhật' vs Desktop 'nhật') → KHÔNG hardcode slug,
+    # chỉ bắt buộc: mọi slug synth đều trỏ tới course.json THẬT trên đĩa.
+    _idx_real = os.path.isfile(os.path.join(BASE, "data", "index.json"))
+    if not _idx_real:
+        _all_real = bool(langs) and all(
+            os.path.isfile(os.path.join(BASE, "data", "ai_courses",
+                                        s, "course.json"))
+            for s in langs)
+        ck("index.json THIẾU → synth từ khóa AI có course.json THẬT trên đĩa",
+           _all_real, langs[:5])
+
+    slug0 = langs[0] if langs else "tiếng_nhật"
+    r = client.get(f"/data/ai_courses/{slug0}/course.json")
+    cj = r.get_json() if r.status_code == 200 else None
+    ck("course.json THẬT → 200 + có mảng days (tab Khóa học AI render)",
+       r.status_code == 200 and isinstance((cj or {}).get("days"), list),
+       r.status_code)
+
+    _vocab_real = os.path.isfile(os.path.join(BASE, "data", f"{slug0}.json"))
+    r = client.get(f"/data/{slug0}.json")
+    if _vocab_real:
+        ck("vocab <slug>.json THẬT đã export → 200 + có vocabularies",
+           r.status_code == 200
+           and isinstance(r.get_json().get("vocabularies"), list),
+           r.status_code)
+    else:
+        ck("vocab <slug>.json chưa export → {vocabularies:[]} 200 (UI sạch)",
+           r.status_code == 200 and r.get_json().get("vocabularies") == [],
+           r.get_json())
+    ck("data thiếu (có '/') → 404 JSON",
+       client.get("/data/nonexistent_dir/xx.json").status_code == 404)
+    rt = client.get("/data/../../settings.json")
+    ck("path traversal /data/../../ → KHÔNG lộ file ngoài (4xx)",
+       rt.status_code in (400, 404), rt.status_code)
+    ck("media manifest thật → 200 (data/media/index.json)",
+       client.get("/data/media/index.json").status_code == 200)
+
 # ── kết thúc (restore nguyên trạng) ─────────────────────────────────────────
 pc.STOP_EVENT.set()
 wait_for(lambda: not pc.is_running(), timeout=15.0)   # chắc thread fake đã thoát

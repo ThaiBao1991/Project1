@@ -177,8 +177,11 @@ def _rotate_keys(keys: list) -> list:
 # ─── Đường dẫn & cache ───────────────────────────────────────────────────────
 def audio_dir(language: str) -> str:
     # BUG ĐÃ SỬA (L-67): dùng chung slug từ ai/paths.py
-    from ai.paths import lang_slug
-    return os.path.join(AUDIO_DIR, lang_slug(language))
+    # FIX 2026-11-12 (Gói 2): canonical_slug (KHÔNG lang_slug) — alias
+    # ('nhật'/'ja') sẽ ghi TTS vào thư mục riêng ⇒ cache tách rời, web đọc
+    # media của slug canonical không thấy audio của alias.
+    from ai.paths import canonical_slug
+    return os.path.join(AUDIO_DIR, canonical_slug(language))
 
 
 def audio_path(language: str, name: str) -> str:

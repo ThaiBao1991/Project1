@@ -130,42 +130,97 @@ FLUSH_EVERY_SECONDS = 15.0
 
 
 def load_index() -> dict:
-    """Manifest (có cache trong RAM — file có thể tới 20 MB)."""
+    """Manifest (có cache trong RAM — file có thể tới 20 MB).
+
+    FIX 2026-11-14 (Gói 8): nếu file manifest HỎNG (JSON lỗi) ⇒ KHÔNG được
+    âm thầm trả về index rỗng (⇒ app mất sạch media) mà phải:
+      ① thử các file dự phòng (`.tmp2`, `.bak_reindex`) rồi
+      ② tự `reindex()` dựng lại manifest từ file thật trên đĩa.
+    Đo thật 14/11 22:11: manifest 86 MB hỏng ⇒ mọi khóa báo "ảnh 0.0 %".
+    """
     global _index_cache
     if _index_cache is not None:
         return _index_cache
     if not os.path.exists(INDEX_PATH):
         _index_cache = {"format_version": INDEX_FORMAT_VERSION, "items": {}}
         return _index_cache
+    data = None
     try:
         with open(INDEX_PATH, "r", encoding="utf-8") as f:
             data = json.load(f)
         if not isinstance(data, dict):
-            raise ValueError
-    except Exception:
-        data = {"format_version": INDEX_FORMAT_VERSION, "items": {}}
+            raise ValueError("not a dict")
+    except Exception as e:
+        print(f"⚠ Manifest media HỎNG ({type(e).__name__}: {e}) — khôi phục…")
+        data = _recover_index()
     data.setdefault("format_version", INDEX_FORMAT_VERSION)
     data.setdefault("items", {})
     _index_cache = data
     return data
 
 
-def save_index(index: dict) -> None:
-    """Ghi manifest (atomic) — CÓ retry cho Windows.
+def _recover_index() -> dict:
+    """Khôi phục manifest — LUÔN dựng lại từ FILE THẬT trên đĩa.
 
-    Lý do retry: trên Windows, `os.replace` ném PermissionError nếu file đích
-    đang được tiến trình khác mở để đọc. Lỗi này làm MẤT entry manifest
-    trong khi file media đã ghi xong ⇒ file "mồ côi" (đo thật: 18.500 file ảnh
-    nhưng manifest chỉ còn 1.369 entry).
+    FIX 2026-11-17 (Gói 9): trước đây thử file dự phòng `.tmp2`/`.bak_reindex`
+    trước ⇒ có thể khôi phục bản **CŨ/THIẾU** (đo thật: manifest 169.560 entry
+    bị thay bằng 18.323 entry chỉ ảnh ⇒ mất toàn bộ audio trong khi 144.411
+    file mp3 vẫn còn nguyên trên đĩa).
+    ⇒ chỉ dùng reindex() (quét đĩa) là nguồn sự thật.
+    """
+    try:
+        res = reindex(log_fn=print)
+        print(f"✅ Đã dựng lại manifest từ đĩa: {res['items']} entry")
+        return load_index()
+    except Exception as e:
+        print(f"⚠ Không dựng lại được manifest: {e}")
+        return {"format_version": INDEX_FORMAT_VERSION, "items": {}}
+
+
+def save_index(index: dict) -> None:
+    """Ghi manifest (atomic) — LUÔN MERGE với file đĩa trước khi ghi.
+
+    FIX 2026-11-17 (Gói 9): đo thật — manifest bị ghi đè từ **169.560 entry**
+    xuống còn **18.323 entry (chỉ ảnh)** trong khi **144.411 file mp3 vẫn còn
+    nguyên trên đĩa** ⇒ toàn bộ âm thanh biến mất khỏi app (audio 0 %).
+    Nguyên nhân: mỗi tiến trình giữ cache RAM riêng; khi 1 tiến trình ghi
+    manifest với cache của nó, các entry của tiến trình khác (và các entry
+    đọc từ đĩa trước đó) bị mất.
+    ⇒ **Nguồn sự thật duy nhất là file đĩa**: luôn đọc đĩa → hợp nhất → ghi.
+    Không bao giờ ghi một bản nhỏ hơn bản đang có trên đĩa.
+
+    Ngoài ra: tên file tmp PHẢI DUY NHẤT theo tiến trình (trước đây mọi
+    process dùng chung `index.json.tmp` ⇒ 2 JSON nối liền ⇒ json.load lỗi).
     """
     import time
     from datetime import datetime
     global _last_flush
     index["updated_at"] = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
     os.makedirs(MEDIA_DIR, exist_ok=True)
-    tmp = INDEX_PATH + ".tmp"
-    with open(tmp, "w", encoding="utf-8") as f:
-        json.dump(index, f, ensure_ascii=False, indent=2)
+    # 1) Hợp nhất với bản đang có trên đĩa (bản đĩa là nguồn sự thật).
+    try:
+        with open(INDEX_PATH, "r", encoding="utf-8") as f:
+            disk = json.load(f)
+        if isinstance(disk, dict) and isinstance(disk.get("items"), dict):
+            merged = dict(disk["items"])
+            merged.update(index.get("items") or {})
+            index = dict(index)
+            index["items"] = merged
+    except Exception:
+        pass          # đĩa hỏng/không có ⇒ ghi bản của mình (sẽ tự phục hồi)
+    # 2) Ghi atomic với tmp DUY NHẤT theo PID + thread.
+    tmp = f"{INDEX_PATH}.tmp.{os.getpid()}.{threading.get_ident()}"
+    try:
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(index, f, ensure_ascii=False, indent=2)
+            f.flush()
+            os.fsync(f.fileno())
+    except OSError:
+        try:
+            os.remove(tmp)
+        except OSError:
+            pass
+        return
     for attempt in range(10):
         try:
             os.replace(tmp, INDEX_PATH)
@@ -175,17 +230,23 @@ def save_index(index: dict) -> None:
             time.sleep(0.02 * (attempt + 1))
         except OSError:
             time.sleep(0.05)
-    # Hết cách retry → ghi trực tiếp (chấp nhận rủi ro, tốt hơn mất entry)
     try:
-        with open(INDEX_PATH, "w", encoding="utf-8") as f:
-            json.dump(index, f, ensure_ascii=False, indent=2)
+        os.remove(tmp)
     except OSError:
         pass
 
 
 
 def _upsert_index(entry: dict) -> None:
-    """Thêm/cập nhật 1 entry manifest — ghi theo LÔ (không ghi lại 20 MB mỗi lần)."""
+    """Thêm/cập nhật 1 entry manifest — ghi theo LÔ (không ghi lại 20 MB mỗi lần).
+
+    FIX 2026-11-14 (Gói 8): khi flush theo lô, PHẢI ĐỌC ĐĨA + MERGE trước khi
+    ghi (giống `flush_index`). Trước đây ghi thẳng cache RAM ⇒ khi 2 tiến
+    trình cùng sinh media (ví dụ 8 ngôn ngữ chạy song song) thì tiến trình
+    này **xoá entry của tiến trình kia** ⇒ file media có trên đĩa nhưng mất
+    manifest ⇒ app không hiện (đo thật: 157.091 file media nhưng manifest
+    chỉ còn ~39.000 entry).
+    """
     global _unsaved
     with _WRITE_LOCK:
         index = load_index()
@@ -194,16 +255,49 @@ def _upsert_index(entry: dict) -> None:
         import time
         if (_unsaved >= FLUSH_EVERY_ITEMS
                 or (time.time() - _last_flush) >= FLUSH_EVERY_SECONDS):
-            save_index(index)
+            _flush_merged(index)
             _unsaved = 0
 
 
+def _flush_merged(index: dict) -> None:
+    """Ghi manifest: đọc đĩa → merge với cache RAM → ghi atomic."""
+    try:
+        with open(INDEX_PATH, "r", encoding="utf-8") as f:
+            disk = json.load(f)
+    except Exception:
+        disk = None
+    if isinstance(disk, dict) and isinstance(disk.get("items"), dict):
+        merged = dict(disk["items"])
+        merged.update(index.get("items") or {})
+        index = dict(index)
+        index["items"] = merged
+    save_index(index)
+
+
 def flush_index() -> int:
-    """Ghi ngay manifest ra đĩa. Trả số entry chưa được ghi trước đó."""
+    """Ghi ngay manifest ra đĩa. Trả số entry chưa được ghi trước đó.
+
+    FIX 2026-11-12 (Gói 6): **ĐỌC ĐĨA + MERGE** trước khi ghi. Trước đây
+    ghi thẳng cache của process ⇒ khi 2 tiến trình cùng sinh media (pipeline +
+    bù media) thì tiến trình này **xoá entry của tiến trình kia** ⇒ ảnh/âm
+    thanh "biến mất" khỏi web dù file vẫn trên đĩa (đo thật: khóa Nhật còn
+    930 audio → 0 sau khi job khác ghi manifest).
+    """
     global _unsaved
     with _WRITE_LOCK:
         n = _unsaved
-        save_index(load_index())
+        idx = load_index()
+        try:
+            with open(INDEX_PATH, "r", encoding="utf-8") as f:
+                disk = json.load(f)
+        except Exception:
+            disk = None
+        if isinstance(disk, dict) and isinstance(disk.get("items"), dict):
+            merged = dict(disk["items"])
+            merged.update(idx.get("items") or {})
+            idx = dict(idx)
+            idx["items"] = merged
+        save_index(idx)
         _unsaved = 0
     return n
 
@@ -223,8 +317,16 @@ def reindex(log_fn=None) -> dict:
     do race condition trước đây). Giữ lại entry cũ nếu có.
     """
     with _WRITE_LOCK:
-        old = load_index()
-        old_items = old.get("items") or {}
+        # ĐỌC ĐĨA TRỰC TIẾP — KHÔNG dùng load_index() vì load_index() gọi
+        # _recover_index() → reindex() ⇒ ĐỆ QUY VÔ HẠN khi manifest hỏng.
+        old_items = {}
+        try:
+            with open(INDEX_PATH, "r", encoding="utf-8") as f:
+                _old = json.load(f)
+            if isinstance(_old, dict) and isinstance(_old.get("items"), dict):
+                old_items = _old["items"]
+        except Exception:
+            old_items = {}
         new_items = {}
         scanned = 0
         if os.path.isdir(MEDIA_DIR):

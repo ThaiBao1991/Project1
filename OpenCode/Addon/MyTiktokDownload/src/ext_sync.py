@@ -20,12 +20,22 @@ class ExtensionSync:
     """
 
     def __init__(self, ext_data_path: str = r"D:\dlvideott\data\.appdata"):
-        self.ext_path = Path(ext_data_path)
-        # archive_root thường là thư mục cha của 'data/.appdata'
-        if self.ext_path.name == ".appdata" and self.ext_path.parent.name == "data":
-            self.archive_root = self.ext_path.parent.parent
+        p = Path(ext_data_path)
+        # Hỗ trợ linh hoạt mọi định dạng thư mục người dùng nhập vào (D:\dltiktok, D:\dlvideott, data, .appdata):
+        if p.name == ".appdata" and p.parent.name == "data":
+            self.archive_root = p.parent.parent
+            self.ext_path = p
+        elif p.name == "data":
+            self.archive_root = p.parent
+            self.ext_path = p / ".appdata"
         else:
-            self.archive_root = self.ext_path.parent
+            self.archive_root = p
+            self.ext_path = p / "data" / ".appdata"
+
+        try:
+            self.ext_path.mkdir(parents=True, exist_ok=True)
+        except Exception:
+            pass
 
         self.files = {
             'authors': self.ext_path / 'db_authors.js',       # window.dba_base64

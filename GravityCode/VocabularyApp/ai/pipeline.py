@@ -64,6 +64,9 @@ MAX_IMAGES_PER_LANGUAGE = 5000
 MAX_TTS_PER_DAY = 3000
 MAX_TTS_PER_LANGUAGE = 40000
 MAX_RUN_SECONDS = 6 * 3600
+# Gói 5.1 (2026-11-12): số từ MỚI tối thiểu mỗi ngày — đo thật trước đó
+# 24-48 % từ là lặp ⇒ "1.260 ngày" chỉ ~630 từ khác nhau.
+MIN_NEW_WORDS_PER_DAY = 5
 MAX_STAGE_ATTEMPTS = {
     STAGE_CONTENT: 3, STAGE_QUIZ_AB: 3, STAGE_QUIZ_CD: 3,
     STAGE_IMAGES: 3, STAGE_AUDIO: 2, STAGE_DIALOGUE: 2,
@@ -236,6 +239,7 @@ def run_pipeline(language: str, *,
                  force_new: bool = False,
                  media: bool = True,
                  allow_degraded: bool = False,
+                 source: str = "auto",
                  budget: PipelineBudget = None,
                  chain=None,
                  flush_every_days: int = 10,
@@ -244,7 +248,7 @@ def run_pipeline(language: str, *,
                  on_progress=None,
                  stop_check=None,
                  coordinator_cls=None,
-                 max_images_per_day: int = 10,
+                 max_images_per_day: int = 0,
                  max_audio_per_day: int = 12,
                  max_run_seconds: int = MAX_RUN_SECONDS,
                  evidence: bool = False,
@@ -357,6 +361,11 @@ def run_pipeline(language: str, *,
     _prov_ok, _prov_reason = (chain.providers[0].available() if chain.providers
                               else (False, "no provider"))
     coord = chain.providers[0].coord if (_prov_ok and chain.providers) else None
+    # Gói 6 (2026-11-13): --source offline ⇒ KHÔNG gọi Gemini (0 quota).
+    # coord = None ⇒ _ask_with_retry trả lỗi ngay ⇒ stage content rơi vào
+    # nhánh fallback offline (EDICT/Wiktionary + ngữ pháp tự soạn).
+    if (source or "auto") == "offline":
+        coord = None
     # BUG ĐÃ SỬA (L-C/L-F): các biến dùng ở `return` cuối PHẢI khởi tạo trước
     # `try` — nếu exception xảy ra sớm thì `plan`/`done_days` chưa gán ⇒
     # UnboundLocalError che mất nguyên nhân thật.
@@ -482,6 +491,21 @@ def run_pipeline(language: str, *,
             plan = _plan_from_existing_days(course)
             emit(f"📋 Dùng plan có sẵn: {len(plan)} ngày (chế độ {mode}).")
 
+        # Gói 6 (2026-11-13): --source offline ⇒ KHÔNG cần AI ⇒ tự dựng plan
+        # theo 6 chặng (không gọi stage plan/backbone/profile của Gemini).
+        if source == "offline" and not plan:
+            try:
+                from ai.offline_content import phase_for_day as _pfd
+                _n = int(target_days or 100)
+                plan = []
+                for _i in range(1, _n + 1):
+                    _ph, _lvl, _o = _pfd(_i, _n)
+                    plan.append({"day": _i, "title": f"{_ph} — Ngày {_i}",
+                                 "phase": _ph, "level": _lvl, "words": []})
+                emit(f"📋 Plan OFFLINE: {_n} ngày theo 6 chặng (0 call AI).")
+            except Exception as _e:
+                log.warn("stage.fail", msg=f"Không dựng được plan offline: {_e}")
+
         # ── Áp dụng target_days nếu người dùng chọn số ngày cụ thể ──
         if target_days and int(target_days) > 0 and plan:
             want = int(target_days)
@@ -504,14 +528,14 @@ def run_pipeline(language: str, *,
                 language, days_to_do, course, coord, log, budget, emit, stages,
                 level, allow_degraded, max_images_per_day, max_audio_per_day,
                 chain, resume, total, progress, stop_check, t0, max_run_seconds,
-                workers, wait_quota=wait_quota)
+                workers, wait_quota=wait_quota, source=source)
         else:
             for idx, pday in enumerate(days_to_do):
                 if stop_check and stop_check():
                     raise GenerationStopped()
                 if time.time() - t0 > max_run_seconds:
                     raise PipelinePause("Đạt giới hạn thời gian chạy.", "max_run_seconds")
-                if not offline and not budget.can_call(4):
+                if not offline and _needs_ai_budget(stages) and not budget.can_call(4):
                     if wait_quota:
                         wait_s = _seconds_until_quota_reset()
                         mins = wait_s // 60
@@ -528,13 +552,24 @@ def run_pipeline(language: str, *,
                 lesson = _run_day(language, dnum, pday, course, coord, log, budget, emit,
                                    stages, level, allow_degraded, max_images_per_day,
                                    max_audio_per_day, chain, resume,
-                                   wait_quota=wait_quota)
+                                   wait_quota=wait_quota, stop_check=stop_check, source=source)
                 if lesson:
                     done_days += 1
                 progress(12 + int(80 * (idx + 1) / total), STAGE_CONTENT, dnum)
                 if (idx + 1) % flush_every_days == 0:
                     course_db.save_course(language, course)
                     log.event("course.flush", msg=f"Đã flush course.json ({idx+1}/{total})")
+
+        # ── PASS BÙ TRONG CÙNG RUN (Fix 2026-11-11) ─────────────────────────
+        # media_verify vừa đánh dấu PENDING cho ngày thiếu ảnh/audio/hội thoại
+        # — bù NGAY (tối đa 2 vòng) thay vì để "sinh bù lần sau". Chỉ chạy khi
+        # vòng ngày chính kết thúc bình thường; bấm Dừng / hết quota thì
+        # except bên dưới nhảy qua đây (không bù thêm).
+        done_days += _makeup_pending_days(
+            language, course, stages, coord, log, budget, emit, level,
+            allow_degraded, max_images_per_day, max_audio_per_day, chain,
+            resume, stop_check, wait_quota, t0, max_run_seconds, progress,
+            source=source)
 
         # ── Commit ─────────────────────────────────────────────────────────
         course_db.save_course(language, course)
@@ -568,6 +603,15 @@ def run_pipeline(language: str, *,
         errors.append(f"{type(e).__name__}: {e}")
         log.event("run.abort", msg=f"{type(e).__name__}: {e}")
     finally:
+        # FIX 2026-11-12 (Gói 2): flush `course.json` Ở MỌI ĐƯỜNG THOÁT.
+        # Trước đây chỉ flush trong vòng ngày (mỗi 10 ngày) ⇒ bấm ⏹ giữa
+        # chừng mất ≤9 ngày đã hoàn thành: checkpoint có nhưng course.json chưa
+        # ⇒ WEB KHÔNG THẤY (đo thật: 4 checkpoint mới hơn course.json).
+        try:
+            if course:
+                course_db.save_course(language, course)
+        except Exception:
+            pass
         # Lưu trạng thái + job
         try:
             from ai import media_store
@@ -761,7 +805,8 @@ def _plan_from_existing_days(course: dict) -> list:
 def _run_days_parallel(language, days_to_do, course, coord, log, budget, emit,
                        stages, level, allow_degraded, max_images, max_audio,
                        chain, resume, total, progress, stop_check, t0,
-                       max_run_seconds, workers=1, wait_quota=False):
+                       max_run_seconds, workers=1, wait_quota=False,
+                       source: str = "auto"):
     """Xử lý N ngày SONG SONG. Mỗi ngày độc lập; chỉ save course.json có lock."""
     import threading
     from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -776,7 +821,7 @@ def _run_days_parallel(language, days_to_do, course, coord, log, budget, emit,
             return dnum, None, "stopped"
         if time.time() - t0 > max_run_seconds:
             return dnum, None, "timeout"
-        if not budget.can_call(4):
+        if _needs_ai_budget(stages) and not budget.can_call(4):
             if wait_quota:
                 wait_s = _seconds_until_quota_reset()
                 mins = wait_s // 60
@@ -789,54 +834,204 @@ def _run_days_parallel(language, days_to_do, course, coord, log, budget, emit,
         try:
             lesson = _run_day(language, dnum, pday, course, coord, log, budget,
                               emit_safe, stages, level, allow_degraded, max_images,
-                              max_audio, chain, resume, save_each_day=False)
+                              max_audio, chain, resume, save_each_day=False,
+                              stop_check=stop_check, source=source)
             return dnum, lesson, ""
+        except GenerationStopped:
+            # Nút Dừng được TÔN TRỌNG trong ngày (không biến thành day.fail)
+            return dnum, None, "stopped"
         except Exception as e:
+            # Ghi traceback để lần sau biết CHÍNH XÁC dòng gây lỗi (trước đây
+            # chỉ có "RuntimeError: dictionary changed size during iteration"
+            # mà không biết dict nào ⇒ mất nhiều giờ truy).
+            try:
+                import traceback
+                log.error("day.fail.tb", day=dnum,
+                          msg=traceback.format_exc()[-1500:])
+            except Exception:
+                pass
             return dnum, None, f"{type(e).__name__}: {e}"
 
-    with ThreadPoolExecutor(max_workers=max(1, min(workers, 8))) as ex:
-        futs = {ex.submit(_one, p): p for p in days_to_do}
-        for fut in as_completed(futs):
-            dnum, lesson, err = fut.result()
-            if err == "stopped":
-                raise GenerationStopped()
-            if err == "timeout":
-                raise PipelinePause("Đạt giới hạn thời gian chạy.", "max_run_seconds")
-            if err == "budget":
-                raise PipelinePause("Đạt ngân sách call hôm nay.", "budget")
-            if err:
-                log.error("day.fail", msg=f"Ngày {dnum} lỗi: {err}", day=dnum)
-                continue
-            with save_lock:
-                state["done"] += 1
-                if lesson:
-                    state["completed"] += 1
-                done = state["done"]
-                if done % 10 == 0:
-                    try:
-                        course_db.save_course(language, course)
-                    except Exception:
-                        pass
-            progress(12 + int(80 * done / total), STAGE_CONTENT, dnum)
-            log.event("day.ok", msg=f"Ngày {dnum} hoàn tất", day=dnum)
-
-    with save_lock:
-        course_db.save_course(language, course)
-        # Sort 1 lần khi kết thúc lô (không sort từng ngày — xem L-J)
-        try:
-            days = course.get("days") or []
-            days.sort(key=lambda d: int(d.get("day", 0)))
-        except Exception:
-            pass
-        course_db.save_course(language, course)
+    try:
+        with ThreadPoolExecutor(max_workers=max(1, min(workers, 8))) as ex:
+            futs = {ex.submit(_one, p): p for p in days_to_do}
+            for fut in as_completed(futs):
+                dnum, lesson, err = fut.result()
+                if err == "stopped":
+                    # FIX nút Dừng: hủy MỌI ngày còn trong hàng đợi NGAY (chưa
+                    # bắt đầu thì không chạy), các luồng đang chạy thoát nhanh
+                    # nhờ stop_check giữa stage trong _run_day.
+                    for f in futs:
+                        f.cancel()
+                    raise GenerationStopped()
+                if err == "timeout":
+                    raise PipelinePause("Đạt giới hạn thời gian chạy.", "max_run_seconds")
+                if err == "budget":
+                    raise PipelinePause("Đạt ngân sách call hôm nay.", "budget")
+                if err:
+                    log.error("day.fail", msg=f"Ngày {dnum} lỗi: {err}", day=dnum)
+                    continue
+                with save_lock:
+                    state["done"] += 1
+                    if lesson:
+                        state["completed"] += 1
+                    done = state["done"]
+                    if done % 10 == 0:
+                        try:
+                            course_db.save_course(language, course)
+                        except Exception:
+                            pass
+                progress(12 + int(80 * done / total), STAGE_CONTENT, dnum)
+                log.event("day.ok", msg=f"Ngày {dnum} hoàn tất", day=dnum)
+    finally:
+        # FIX mất dữ liệu khi Dừng: trước đây GenerationStopped được raise
+        # TRONG vòng as_completed ⇒ bỏ qua save cuối ⇒ tới 9 ngày xong mà
+        # chưa flush mất khỏi course.json (checkpoint có nhưng web không thấy).
+        with save_lock:
+            try:
+                course_db.save_course(language, course)
+                # Sort 1 lần khi kết thúc lô (không sort từng ngày — xem L-J)
+                days = course.get("days") or []
+                days.sort(key=lambda d: int(d.get("day", 0)))
+                course_db.save_course(language, course)
+            except Exception:
+                pass
     emit(f"✅ Đã xử lý {state['done']}/{total} ngày ({workers} luồng song song).")
     return state["completed"]
 
 
+def _media_pending_days(language, course, stages):
+    """Các ngày có stage media đang PENDING (run_media_verify_stage đánh dấu)."""
+    pend = [s for s in (STAGE_IMAGES, STAGE_AUDIO, STAGE_DIALOGUE) if s in stages]
+    out = []
+    for d in (course.get("days") or []):
+        try:
+            dn = int(d.get("day", 0))
+        except Exception:
+            continue
+        for stg in pend:
+            cp = load_checkpoint(language, stg, dn)
+            if isinstance(cp, dict) and cp.get("status") == STATUS_PENDING:
+                out.append(dn)
+                break
+    return sorted(out)
+
+
+def _makeup_pending_days(language, course, stages, coord, log, budget, emit,
+                         level, allow_degraded, max_images, max_audio, chain,
+                         resume, stop_check, wait_quota, t0, max_run_seconds,
+                         progress=None, max_passes=2, source: str = "auto") -> int:
+    """PASS BÙ NGAY TRONG RUN (Fix 2026-11-11: không để "sinh bù lần sau").
+
+    Trước đây chỉ CLI `--all` mới quét vòng 2 (dòng passes=2) — GUI bấm ▶
+    chạy ĐÚNG 1 vòng ⇒ ngày media thiếu bị đánh dấu PENDING luôn chờ lần chạy
+    sau. Giờ MỌI run tự bù tối đa `max_passes` vòng, dừng khi: hết ngày cần
+    bù · đã bấm Dừng · hết quota · vượt thời gian · không ngày nào tiến triển.
+    """
+    media_stages = [s for s in (STAGE_IMAGES, STAGE_AUDIO, STAGE_DIALOGUE,
+                                STAGE_MEDIA_VERIFY) if s in stages]
+    if not media_stages:
+        return 0
+    n_done = 0
+    for p in range(max_passes):
+        if stop_check and stop_check():
+            break
+        if time.time() - t0 > max_run_seconds:
+            emit("⏸ Pass bù: đạt giới hạn thời gian — ▶ chạy lại để tiếp tục.")
+            break
+        pending = _media_pending_days(language, course, media_stages)
+        if not pending:
+            break
+        # Job media (ảnh/audio) KHÔNG tốn call Gemini ⇒ không được chặn bởi
+        # budget AI (đo được: "đã bù 0/1157 ngày" vì budget đã hết).
+        if _needs_ai_budget(stages) and not budget.can_call(1):
+            emit(f"⏸ Hết ngân sách — dừng pass bù ({len(pending)} ngày còn thiếu, "
+                 f"▶ chạy lại để tiếp tục).")
+            break
+        emit(f"🔁 Pass bù {p + 1}: {len(pending)} ngày media còn thiếu — "
+             f"sinh bù NGAY trong run này...")
+        ran = 0
+        for dn in pending:
+            if stop_check and stop_check():
+                break
+            if time.time() - t0 > max_run_seconds:
+                break
+            pday = {"day": dn}
+            for x in (course.get("plan") or []):
+                try:
+                    if int(x.get("day", 0)) == dn:
+                        pday = x
+                        break
+                except Exception:
+                    continue
+            log.context(lang=language, stage=STAGE_AUDIO, day=dn)
+            try:
+                lesson = _run_day(language, dn, pday, course, coord, log, budget,
+                                  emit, media_stages, level, allow_degraded,
+                                  max_images, max_audio, chain, resume,
+                                  save_each_day=True, wait_quota=wait_quota,
+                                  stop_check=stop_check, source=source)
+            except (GenerationStopped, PipelinePause):
+                raise
+            except Exception as e:
+                log.error("day.fail", msg=f"Pass bù Ngày {dn} lỗi: {e}", day=dn)
+                continue
+            if lesson:
+                ran += 1
+            n_done += 1
+        emit(f"   ✔ Pass bù {p + 1}: đã bù {ran}/{len(pending)} ngày.")
+        if ran == 0:
+            break            # không tiến triển → dừng (tránh quay vô hạn)
+    return n_done
+
+
+def _needs_ai_budget(stages) -> bool:
+    """Các stage này có TỐN call Gemini ⇒ mới cần budget call.
+
+    FIX 2026-11-14 (Gói 4): job **media** (ảnh Wikipedia + audio edge-TTS) không
+    tốn 1 call Gemini nào, nhưng trước đây vẫn bị chặn bởi `budget.can_call(4)`
+    trước mỗi ngày ⇒ khi budget AI đã hết (1.400 call/ngày) thì **media
+    không sinh được gì cả** (đo thật: 8 khóa chạy media 1-5 phút rồi dừng,
+    media vẫn 12-33 %).
+    """
+    return bool({STAGE_CONTENT, STAGE_QUIZ_AB, STAGE_QUIZ_CD,
+                 STAGE_DIALOGUE} & set(stages or []))
+
+
+def _known_words(course: dict, day_num: int, limit: int = 150) -> list:
+    """Danh sách TỪ ĐÃ DÙNG ở các ngày trước (Gói 5.1 — chống AI lặp từ).
+
+    Đo thật (2026-11-12): 24-48 % từ giữa các ngày là TRÙNG ⇒ "1.260 ngày"
+    hoá ra chỉ ~630 từ khác nhau. Đưa danh sách này vào prompt content để
+    AI tạo tối thiểu `MIN_NEW_WORDS_PER_DAY` từ MỚI mỗi ngày.
+    """
+    out = []
+    try:
+        for d in course.get("days") or []:
+            try:
+                if int(d.get("day", 0)) >= int(day_num):
+                    continue
+            except Exception:
+                continue
+            for v in (d.get("vocab") or []):
+                if isinstance(v, dict):
+                    w = str(v.get("word") or "").strip()
+                    if w:
+                        out.append(w)
+    except Exception:
+        pass
+    return out[-limit:] if limit else out
+
+
 def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
              level, allow_degraded, max_images, max_audio, chain, resume,
-             save_each_day=True, wait_quota=False):
-    """Chạy 7 stage của 1 ngày. Trả lesson dict hoặc None."""
+             save_each_day=True, wait_quota=False, stop_check=None,
+             source: str = "auto"):
+    """Chạy 7 stage của 1 ngày. Trả lesson dict hoặc None.
+
+    FIX nút Dừng (2026-11-11): nhận `stop_check` — kiểm tra TRƯỚC MỖI stage
+    (trước đây 1 ngày đã bắt đầu là chạy hết cả 7 stage dù đã bấm Dừng).
+    """
     from ai.course_generator import (DIALOGUE_SCHEMA, MIN_VOCAB, VOCAB_FILL_SCHEMA,
                                      build_content_prompt, build_dialogue_prompt,
                                      build_quiz_prompt_ab, build_quiz_prompt_cd,
@@ -848,6 +1043,10 @@ def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
 
     days = course.setdefault("days", [])
     lesson = next((d for d in days if int(d.get("day", 0)) == day_num), None)
+    # FIX 2026-11-12 (Gói 2): đánh dấu ngày VỪA tạo (skeleton rỗng) — nếu
+    # stage content thất bại thì XOÁ skeleton khỏi course, không để lại
+    # "ngày rỗng" trên web (đo thật: 8 ngày không có key "vocab").
+    lesson_created = False
     if lesson is None:
         if STAGE_CONTENT not in stages:
             # Chế độ media: ngày chưa có content → bỏ qua (không tạo rỗng)
@@ -859,13 +1058,34 @@ def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
                   "topic": pday.get("title", ""), "words": [],
                   "format_version": 4}
         days.append(lesson)
+        lesson_created = True
     lesson.setdefault("quiz", {})
     for k in ("vocab", "pattern", "common", "grammar", "mixed"):
         lesson["quiz"].setdefault(k, [])
 
+    def _stop():
+        """FIX nút Dừng: kiểm tra giữa CÁC STAGE trong ngày → thoát ngay."""
+        if stop_check and stop_check():
+            raise GenerationStopped()
+
+    def _drop_empty_lesson():
+        """FIX 2026-11-12 (Gói 2): xoá skeleton ngày RỖNG khỏi course.
+
+        Trước đây lesson được append vào `days` TRƯỚC khi content chạy ⇒ khi
+        content fail, ngày rỗng vẫn còn trong course.json ⇒ web hiện "ngày
+        trống" cho người dùng (đo thật: 8/114 ngày).
+        """
+        if not lesson_created:
+            return
+        try:
+            days.remove(lesson)
+        except ValueError:
+            pass
+
     # ── STAGE CONTENT ─────────────────────────────────────────────────────────
+    _stop()
     if STAGE_CONTENT in stages and not stage_is_done(language, STAGE_CONTENT, day_num):
-        if not budget.can_call(2):
+        if source != "offline" and not budget.can_call(2):
             if wait_quota:
                 wait_s = _seconds_until_quota_reset()
                 mins = wait_s // 60
@@ -875,10 +1095,13 @@ def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
                     raise PipelinePause("Vẫn hết ngân sách sau khi chờ reset.", "budget")
             else:
                 raise PipelinePause("Hết ngân sách call — dừng trước khi sinh content.", "budget")
+        # Gói 5.1: đưa TỪ ĐÃ DÙNG vào prompt + yêu cầu ≥5 từ MỚI (chống lặp).
+        _known = _known_words(course, day_num)
         ok, data, err = _ask_with_retry(
             coord, build_content_prompt(language, day_num, len(course.get("plan") or [day_num]),
                                         pday.get("words") or [], pday.get("title", ""),
-                                        level, pday.get("phase", "")),
+                                        level, pday.get("phase", ""),
+                                        known_words=_known, min_new=MIN_NEW_WORDS_PER_DAY),
             None, parse_content_json, log, STAGE_CONTENT, budget, 3)
         if ok:
             vocab = list(data.get("vocab") or [])
@@ -919,6 +1142,7 @@ def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
                 log.error("stage.fail",
                           msg=f"Content Ngày {day_num} không có vocab — bỏ qua ngày.",
                           stage=STAGE_CONTENT, day=day_num)
+                _drop_empty_lesson()
                 return None
             # Fix 3: content sinh lại ĐỔI danh sách từ ⇒ ref media/dialogue cũ
             # trỏ sai từ mới → invalidate checkpoint để stage media chạy lại
@@ -940,14 +1164,67 @@ def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
             lesson["topic"] = pday.get("title", lesson.get("topic", ""))
             lesson["level"] = level
             lesson["format_version"] = 4
-            save_checkpoint(language, STAGE_CONTENT, data, day=day_num, status=STATUS_DONE)
+            # Gói 5.1: đo TỈ LỆ TỪ MỚI (chống AI lặp từ) — ghi vào
+            # checkpoint + log cảnh báo khi thấp.
+            _known_set = {str(w).strip() for w in _known}
+            _n_new = sum(1 for v in vocab
+                         if str(v.get("word") or "").strip() not in _known_set)
+            _ratio = round(_n_new / max(1, len(vocab)), 3)
+            _ck_data = dict(data)
+            _ck_data["new_words"] = _n_new
+            _ck_data["new_word_ratio"] = _ratio
+            if _ratio < 0.4:
+                log.warn("stage.low_new_ratio",
+                         msg=f"Ngày {day_num} chỉ có {_n_new}/{len(vocab)} từ MỚI "
+                             f"({_ratio:.0%}) — nhiều từ bị lặp từ ngày trước.",
+                         stage=STAGE_CONTENT, day=day_num)
+            save_checkpoint(language, STAGE_CONTENT, _ck_data, day=day_num,
+                            status=STATUS_DONE)
             if save_each_day:
                 course_db.save_course(language, course)
             log.event("stage.ok", msg=f"Content Ngày {day_num} OK", stage=STAGE_CONTENT, day=day_num)
         else:
-            log.error("stage.fail", msg=f"Content Ngày {day_num} thất bại: {err}",
+            # Gói 6 (2026-11-12): AI thất bại (hết quota / lỗi mạng) ⇒ FALLBACK
+            # sang nguồn OFFLINE (EDICT + Wiktionary + bảng ngữ pháp tự soạn) để
+            # khóa học VẪN học được. Không tốn quota Gemini.
+            log.warn("stage.fallback_offline",
+                     msg=f"Content Ngày {day_num} thất bại ({err}) — dùng nguồn "
+                         f"OFFLINE (EDICT/Wiktionary, không tốn quota AI).",
+                     stage=STAGE_CONTENT, day=day_num)
+            try:
+                from ai import offline_content as _off
+                data = _off.build_offline_day(day_num)
+            except Exception as _e:
+                log.error("stage.fail",
+                          msg=f"Content Ngày {day_num} thất bại: {err} "
+                              f"(và fallback offline lỗi: {_e})",
+                          stage=STAGE_CONTENT, day=day_num)
+                _drop_empty_lesson()
+                return None
+            # Ghi thẳng lesson (không đi qua nhánh `if ok:` phía trên — Python
+            # không quay lại nhánh if sau khi vào else).
+            lesson.update({
+                "title": data.get("title") or lesson.get("title", ""),
+                "phase": pday.get("phase", lesson.get("phase", "")),
+                "topic": data.get("title") or lesson.get("topic", ""),
+                "level": level,
+                "format_version": 4,
+                "vocab": data.get("vocab") or [],
+                "sentence_patterns": data.get("sentence_patterns") or [],
+                "common_sentences": data.get("common_sentences") or [],
+                "grammar": data.get("grammar") or [],
+                "quiz": data.get("quiz") or {},
+                "dialogue": data.get("dialogue") or [],
+            })
+            save_checkpoint(language, STAGE_CONTENT, data, day=day_num,
+                            status=STATUS_DONE)
+            if save_each_day:
+                course_db.save_course(language, course)
+            log.event("stage.ok",
+                      msg=f"Content Ngày {day_num} OK (nguồn OFFLINE — "
+                          f"{len(data.get('vocab') or [])} từ)",
                       stage=STAGE_CONTENT, day=day_num)
-            return None
+            return lesson
     elif not lesson.get("vocab"):
         # Resume: lấy từ checkpoint
         cp = load_checkpoint(language, STAGE_CONTENT, day_num) or {}
@@ -961,6 +1238,7 @@ def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
     # Stage TÙY CHỌN (--evidence): KHÔNG tốn quota Gemini, nhưng Wikimedia
     # chặn IP sau ~30.000 request ⇒ giới hạn số từ/ngày + cache bền.
     if STAGE_EVIDENCE in stages:
+        _stop()
         try:
             from ai.pipeline_evidence import run_evidence_stage
             run_evidence_stage(language, day_num, lesson, log_fn=emit)
@@ -970,6 +1248,7 @@ def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
 
     # ── QUIZ AB ──────────────────────────────────────────────────────────
     if STAGE_QUIZ_AB in stages and not stage_is_done(language, STAGE_QUIZ_AB, day_num):
+        _stop()
         ok, data, err = _ask_with_retry(
             coord, build_quiz_prompt_ab(language, lesson), None,
             lambda t: parse_quiz_json(t, keys=("vocab_quiz", "pattern_quiz")),
@@ -980,9 +1259,20 @@ def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
         else:
             log.error("stage.fail", msg=f"Quiz AB Ngày {day_num}: {err}",
                       stage=STAGE_QUIZ_AB, day=day_num)
+    elif STAGE_QUIZ_AB in stages:
+        # FIX 2026-11-12 (Gói 2): RESUME — checkpoint quiz đã "done" nhưng
+        # course.json chưa có ⇒ khôi phục từ checkpoint. Trước đây KHÔNG có
+        # nhánh này ⇒ 14 ngày mất quiz VĨNH VIỄN (dữ liệu còn trên đĩa!).
+        _cp = load_checkpoint(language, STAGE_QUIZ_AB, day_num) or {}
+        _d = _cp.get("data") or {}
+        if _d and not (lesson.get("quiz") or {}).get("vocab"):
+            for _src, _dst in (("vocab_quiz", "vocab"), ("pattern_quiz", "pattern")):
+                if _d.get(_src):
+                    lesson["quiz"][_dst] = _d[_src]
 
     # ── QUIZ CD ──────────────────────────────────────────────────────────
     if STAGE_QUIZ_CD in stages and not stage_is_done(language, STAGE_QUIZ_CD, day_num):
+        _stop()
         ok, data, err = _ask_with_retry(
             coord, build_quiz_prompt_cd(language, lesson), None,
             lambda t: parse_quiz_json(t, keys=("common_quiz", "grammar_quiz")),
@@ -993,11 +1283,20 @@ def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
         else:
             log.error("stage.fail", msg=f"Quiz CD Ngày {day_num}: {err}",
                       stage=STAGE_QUIZ_CD, day=day_num)
+    elif STAGE_QUIZ_CD in stages:
+        # FIX 2026-11-12 (Gói 2): resume — khôi phục quiz CD từ checkpoint.
+        _cp = load_checkpoint(language, STAGE_QUIZ_CD, day_num) or {}
+        _d = _cp.get("data") or {}
+        if _d and not (lesson.get("quiz") or {}).get("common"):
+            for _src, _dst in (("common_quiz", "common"), ("grammar_quiz", "grammar")):
+                if _d.get(_src):
+                    lesson["quiz"][_dst] = _d[_src]
 
     # ── NGỮ PHÁP BỔ SUNG (call AI RIÊNG) ─────────────────────────────────
     # Stage TÙY CHỌN (--grammar): Gemini hay BỎ mảng lồng optional khi output
     # lớn ⇒ call riêng chỉ sinh common_mistakes / mini_quiz và gộp vào lesson.
     if STAGE_GRAMMAR_ENRICH in stages:
+        _stop()
         try:
             from ai.pipeline_grammar import run_grammar_enrich_stage
             run_grammar_enrich_stage(language, day_num, lesson, coord, log_fn=emit,
@@ -1008,19 +1307,23 @@ def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
 
     # ── MEDIA ────────────────────────────────────────────────────────────
     if STAGE_IMAGES in stages:
+        _stop()
         run_images_stage(language, day_num, lesson, chain, log_fn=emit,
                          max_images=max_images, budget=budget,
                          dead_models=load_dead_models(language),
-                         allow_degraded=allow_degraded)
+                         allow_degraded=allow_degraded, stop_check=stop_check)
     if STAGE_AUDIO in stages:
+        _stop()
         run_audio_stage(language, day_num, lesson, chain, log_fn=emit,
                         max_items=max_audio, budget=budget,
-                        allow_degraded=allow_degraded)
+                        allow_degraded=allow_degraded, stop_check=stop_check)
     if STAGE_DIALOGUE in stages:
+        _stop()
         run_dialogue_stage(language, day_num, lesson, coord, log_fn=emit,
                            level=level, budget=budget,
                            allow_degraded=allow_degraded)
     if STAGE_MEDIA_VERIFY in stages:
+        _stop()
         run_media_verify_stage(language, day_num, lesson, log_fn=emit,
                                allow_degraded=allow_degraded)
 
@@ -1039,7 +1342,12 @@ def _run_day(language, day_num, pday, course, coord, log, budget, emit, stages,
 
 
 def _ask_with_retry(coord, prompt, schema, parser, log, stage, budget, attempts):
-    """Gọi AI + parse, thử lại N lần. Trả (ok, data, error)."""
+    """Gọi AI + parse, thử lại N lần. Trả (ok, data, error).
+
+    FIX nút Dừng (2026-11-11): `kind="stopped"` hoặc exception
+    `GenerationStopped` phải thoát NGAY — trước đây retry 3 lần rồi đánh dấu
+    failed → ngày vẫn chạy tiếp các stage sau → cảm giác "bấm Dừng không ăn".
+    """
     if coord is None:
         return False, None, "không có coordinator"
     last_err = ""
@@ -1048,6 +1356,8 @@ def _ask_with_retry(coord, prompt, schema, parser, log, stage, budget, attempts)
             raise PipelinePause("Hết ngân sách call.", "budget")
         try:
             res = coord.request(prompt, response_schema=schema)
+        except GenerationStopped:
+            raise
         except Exception as e:
             last_err = f"{type(e).__name__}: {e}"
             log.error("llm.error", msg=last_err, stage=stage, attempt=attempt)
@@ -1055,6 +1365,9 @@ def _ask_with_retry(coord, prompt, schema, parser, log, stage, budget, attempts)
         budget.consume_call()
         if not res.get("ok"):
             err = res.get("error", {})
+            if err.get("kind") == "stopped":
+                # Người dùng bấm Dừng → dừng NGAY, không retry, không đánh dấu failed.
+                raise GenerationStopped()
             last_err = f"[{err.get('kind')}] {str(err.get('message',''))[:150]}"
             log.warn("llm.error", msg=last_err, stage=stage, attempt=attempt)
             if err.get("kind") == "no_key":
@@ -1125,6 +1438,10 @@ def _parse_args(argv):
     ap.add_argument("--offline", action="store_true",
                     help="0 API call — chỉ chạy stage media_verify (so khớp manifest ↔ course)")
     ap.add_argument("--stages", help="Chọn subset stage (csv)")
+    ap.add_argument("--source", default="auto", choices=("auto", "ai", "offline"),
+                    help="Nguồn nội dung: auto = AI trước, tự rơi về OFFLINE khi "
+                         "hết quota/lỗi; ai = chỉ Gemini; offline = chỉ nguồn "
+                         "offline (EDICT/Wiktionary, 0 quota)")
     ap.add_argument("--from-day", type=int, default=1)
     ap.add_argument("--to-day", type=int)
     ap.add_argument("--words-per-day", type=int, default=10)
@@ -1252,6 +1569,7 @@ def main(argv=None) -> int:
                 evidence=args.evidence,
                 grammar_enrich=args.grammar,
                 workers=args.workers,
+                source=args.source,
                 offline=args.offline,
             )
             results.append(res)

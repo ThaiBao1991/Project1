@@ -1,9 +1,3 @@
-# ==============================================================================
-# Danh sách thư viện cần thiết cho ứng dụng File Encrypt & Converter
-# Cài đặt tự động bằng lệnh: pip install -r requirements.txt
-# Hoặc click đúp file: CAI_DAT_THU_VIEN.bat
-# ==============================================================================
-
 pandas>=2.0.0
-pycryptodome>=3.18.0
 pyxlsb>=1.0.10
+pycryptodome>=3.19.0

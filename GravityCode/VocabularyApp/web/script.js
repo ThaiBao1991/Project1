@@ -1,16 +1,29 @@
 let currentLanguage = "";
+// Tăng chuỗi này mỗi lần nội dung ngày thay đổi để bỏ qua HTTP/CDN cache cũ.
+const COURSE_DATA_VERSION = "2026-11-19-4";
+const LAST_STATE_KEY = "vocabapp_last_state_v1";
+const LAST_VIEW_KEY = "vocabapp_last_view_v1";
+let languageLoadToken = 0;
+let courseLoadToken = 0;
+let courseRenderToken = 0;
+let pendingDay = 0;
+let courseTotalDays = 2520;
+let currentView = "list";   // view đang hiện (Gói 10: dùng để nạp lại khóa học khi đổi ngôn ngữ)
 let vocabularies = [];
 let filteredVocabs = [];
+let vocabCache = {};        // slug -> mảng từ vựng (cache RAM theo phiên)
+let vocabLoading = {};      // slug -> Promise đang tải
 let flashcardIndex = 0;
 
 // Pagination for Lazy Loading
 let currentPage = 1;
-// paths.js cung cấp VOCAB_SLUG — nếu load lỗi thì dùng fallback tại đây
-if (typeof VOCAB_SLUG !== 'function') {
-    var VOCAB_SLUG = function (s) {
-        return String(s || '').trim().toLowerCase().replace(/\s+/g, '_');
-    };
-}
+// paths.js (script load TRƯỚC) đã khai `const VOCAB_SLUG` toàn cục.
+// KHÔNG được khai lại cùng tên bằng var/const/function — mọi cách đều ném
+// SyntaxError "Identifier 'VOCAB_SLUG' has already been declared" NGAY khi
+// instantiate ⇒ toàn bộ script.js chết (mọi hàm undefined). Dùng alias nội bộ.
+const slugOf = (typeof VOCAB_SLUG === "function")
+    ? VOCAB_SLUG
+    : (s) => String(s || "").trim().toLowerCase().replace(/\s+/g, "_");
 
 const ITEMS_PER_PAGE = 30;
 
@@ -30,19 +43,37 @@ const viewList = document.getElementById("list-view");
 const viewFlashcard = document.getElementById("flashcard-view");
 const viewCourse = document.getElementById("course-view");
 
-// ─── Chuyển đổi view 3 chiều ──────────────────────────────────────────────────
-function switchView(name) {
+// ─── Chuyển đổi view 4 chiều (+ Ôn tập SM-2 — Gói 3) ─────────────────────────
+const btnReview = document.getElementById("btn-review");
+const viewReview = document.getElementById("review-view");
+
+async function switchView(name, opts = {}) {
+    currentView = name;
+    try { localStorage.setItem(LAST_VIEW_KEY, name); } catch (e) { }
     const views = {
         list:      [btnList, viewList],
         flashcard: [btnFlashcard, viewFlashcard],
         course:    [btnCourse, viewCourse],
+        review:    [btnReview, viewReview],
     };
     Object.entries(views).forEach(([key, [b, v]]) => {
+        if (!b || !v) return;
         b.classList.toggle("active", key === name);
         v.classList.toggle("active", key === name);
+        b.setAttribute("aria-selected", key === name ? "true" : "false");
     });
+    if (name === "course") {
+        if (!opts.skipEnsure) ensureCourseLoaded();
+        return;
+    }
+    // Các view còn lại mới cần danh sách từ vựng đầy đủ (5–7 MB) ⇒ tải lazy.
+    try { await ensureVocabLoaded(currentLanguage); } catch (e) { }
+    if (name === "list") {
+        populateFilters();
+        applyFilters();
+    }
     if (name === "flashcard") renderFlashcard();
-    if (name === "course") ensureCourseLoaded();
+    if (name === "review") loadSrsQueue();
 }
 
 // ─── Helper: escape HTML để an toàn khi dùng innerHTML ───────────────────────
@@ -55,20 +86,38 @@ function escapeHtml(str) {
         .replace(/"/g, "&quot;");
 }
 
-// ─── Cấu hình Marked.js để hỗ trợ Markdown Table và Line breaks ──────────────────
-marked.setOptions({
-    breaks: true,
-    gfm: true
-});
-
-// ─── Helper: parse Markdown (sanitize bằng DOMPurify nếu có) ──────────────────
+// ─── Markdown mini-renderer (Gói 3 — 2026-11-12) ────────────────────────────────
+// TRƯỚC: `marked.parse()` + `DOMPurify.sanitize()` tải từ CDN jsdelivr.
+//   ① Mất mạng / CDN bị chặn ⇒ `marked` undefined ở top-level ⇒ script.js CHẾT
+//      HOÀN TOÀN ⇒ trang trắng (app local-first lại phụ thuộc mạng ngoài).
+//   ② Nếu DOMPurify lỗi nhưng marked tải được ⇒ innerHTML THÔ của nội dung AI
+//      (stored XSS trong app local).
+// NAY: tự escape trước, rồi áp markdown cơ bản ⇒ không mạng, không XSS.
 function formatText(str) {
     if (!str) return "";
-    const html = marked.parse(str);
-    return window.dompurify ? DOMPurify.sanitize(html) : html;
+    let t = escapeHtml(String(str));
+    // code inline
+    t = t.replace(/`([^`\n]+)`/g, "<code>$1</code>");
+    // **đậm** / *nghiêng*
+    t = t.replace(/\*\*([^*\n]+)\*\*/g, "<strong>$1</strong>");
+    t = t.replace(/(^|[\s(])\*([^*\n]+)\*(?=[\s).,;:!?]|$)/g, "$1<em>$2</em>");
+    // gạch ngang
+    t = t.replace(/~~([^~\n]+)~~/g, "<del>$1</del>");
+    // link an toàn (chỉ http/https)
+    t = t.replace(/\[([^\]\n]+)\]\((https?:\/\/[^)\s]+)\)/g,
+                  '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+    // dòng mới → <br>
+    t = t.replace(/\r\n/g, "\n").replace(/\n/g, "<br>");
+    return t;
 }
 
 // Fetch languages list
+function getLastState() {
+    try {
+        return JSON.parse(localStorage.getItem(LAST_STATE_KEY) || "{}") || {};
+    } catch (e) { return {}; }
+}
+
 async function init() {
     try {
         let res = await fetch("data/index.json").catch(() => null);
@@ -80,42 +129,103 @@ async function init() {
         
         langSelect.innerHTML = "";
         if (data.languages && data.languages.length > 0) {
+            // Gói 3: dùng tên hiển thị đẹp nếu server có ("names").
+            const names = data.names || {};
             data.languages.forEach(lang => {
                 const opt = document.createElement("option");
                 opt.value = lang;
-                opt.textContent = lang;
+                opt.textContent = names[lang] || lang;
                 langSelect.appendChild(opt);
             });
-            loadLanguage(data.languages[0]);
+            // Khôi phục ngôn ngữ + view lần trước (nếu còn hợp lệ).
+            const last = getLastState();
+            const chosen = (last.lang && data.languages.includes(last.lang))
+                ? last.lang : data.languages[0];
+            const lastView = localStorage.getItem(LAST_VIEW_KEY) || "list";
+            if (lastView === "course") currentView = "course";
+            langSelect.value = chosen;
+            await loadLanguage(chosen);
+            if (lastView === "course") {
+                try { await switchView("course", { skipEnsure: true }); } catch (e) { }
+            }
         } else {
-            langSelect.innerHTML = "<option>No languages found</option>";
+            langSelect.innerHTML = "<option>Chưa có khóa học nào</option>";
         }
     } catch (e) {
-        langSelect.innerHTML = "<option>Failed to load data</option>";
+        // Dữ liệu (từ vựng/ảnh/audio) nằm LOCAL trong data/ của máy — trang
+        // phải qua server nội bộ app (127.0.0.1:5690). KHÔNG cần GitHub.
+        langSelect.innerHTML = (location.protocol === "file:")
+            ? "<option>⚠ Mở sai cách (file://) — mở app VocabApp rồi vào 127.0.0.1:5690/index</option>"
+            : "<option>⚠ Không tải được dữ liệu local — mở qua app VocabApp (127.0.0.1:5690)</option>";
         console.error(e);
     }
 }
 
-async function loadLanguage(lang) {
-    currentLanguage = lang;
-    const filename = VOCAB_SLUG(lang) + ".json";
-    // Reset cache khóa học AI theo ngôn ngữ mới
-    courseData = null;
-    courseSlug = "";
-    try {
-        let res = await fetch(`data/${filename}`).catch(() => null);
-        if (!res || !res.ok) {
-            res = await fetch(`../data/${filename}`).catch(() => null);
-        }
+/** Tải danh sách từ vựng đầy đủ theo nhu cầu (list/flashcard/review).
+ *  View "Khóa học AI" chỉ cần index + day JSON nên KHÔNG tải file 5–7 MB. */
+async function ensureVocabLoaded(lang) {
+    const key = slugOf(lang);
+    if (!key) return [];
+    if (vocabCache[key]) {
+        vocabularies = vocabCache[key];
+        return vocabCache[key];
+    }
+    if (vocabLoading[key]) {
+        const d = await vocabLoading[key];
+        if (slugOf(currentLanguage) === key) vocabularies = d;
+        return d;
+    }
+    vocabLoading[key] = (async () => {
+        let res = await fetch(`data/${key}.json`).catch(() => null);
+        if (!res || !res.ok) res = await fetch(`../data/${key}.json`).catch(() => null);
         if (!res || !res.ok) throw new Error("Could not load vocab data");
         const data = await res.json();
-        vocabularies = data.vocabularies || [];
-        
+        const list = data.vocabularies || [];
+        vocabCache[key] = list;
+        return list;
+    })();
+    try {
+        const d = await vocabLoading[key];
+        if (slugOf(currentLanguage) === key) vocabularies = d;
+        return d;
+    } finally {
+        delete vocabLoading[key];
+    }
+}
+
+async function loadLanguage(lang) {
+    const token = ++languageLoadToken;
+    currentLanguage = lang;
+    try { localStorage.setItem("vocabapp_last_lang", lang); } catch (e) { }
+    if (langSelect) langSelect.value = lang;
+    // Reset cache khóa học AI theo ngôn ngữ mới (tránh dữ liệu khóa cũ).
+    courseData = null;
+    courseSlug = "";
+    courseIndex = null;
+    courseDayCache = {};
+    staticCourseMeta = null;
+    staticMediaMap = {};
+    pendingDay = 0;
+    const key = slugOf(lang);
+    vocabularies = vocabCache[key] || [];
+    filteredVocabs = [];
+    if (currentView === "course") {
+        // Chỉ tải index + 1 ngày; KHÔNG tải file từ vựng 5–7 MB.
+        try { await ensureCourseLoaded(); } catch (e) { console.error(e); }
+        return;
+    }
+    try {
+        await ensureVocabLoaded(lang);
+        if (token !== languageLoadToken) return;
         populateFilters();
         applyFilters();
+        if (currentView === "flashcard") renderFlashcard();
+        if (currentView === "review") loadSrsQueue();
     } catch (e) {
         console.error(e);
-        listContainer.innerHTML = "<p>Error loading vocabulary data.</p>";
+        listContainer.innerHTML = (location.protocol === "file:")
+            ? "<p>⚠ Mở sai cách (file://) — dữ liệu đọc từ máy qua app VocabApp: vào <b>http://127.0.0.1:5690/index</b></p>"
+            : "<p>⚠ Không tải được dữ liệu local — mở app VocabApp rồi vào <b>http://127.0.0.1:5690/index</b></p>";
     }
 }
 
@@ -142,7 +252,8 @@ function applyFilters() {
     const tDate = filterDate.value;
     
     // Toggle Clear button visibility
-    clearSearchBtn.style.display = q.length > 0 ? "block" : "none";
+    // Gói 3: <button> dùng thuộc tính `hidden` (đúng ngữ nghĩa) thay vì display.
+    clearSearchBtn.hidden = !(q.length > 0);
     
     filteredVocabs = vocabularies.filter(v => {
         if (tTopic && v.topic !== tTopic) return false;
@@ -410,13 +521,62 @@ btnFlashcard.addEventListener("click", () => switchView("flashcard"));
 
 btnCourse.addEventListener("click", () => switchView("course"));
 
+btnReview.addEventListener("click", () => switchView("review"));
+
 // ─── Khóa học AI (lưu database kiểu AskCpl: data/ai_courses/<lang>/course.json) ─
-const daySelect = document.getElementById("course-day-select");
+const dayInput = document.getElementById("course-day-input");
+const dayGo = document.getElementById("course-day-go");
+const dayPrev = document.getElementById("course-day-prev");
+const dayNext = document.getElementById("course-day-next");
+const dayLabel = document.getElementById("course-day-label");
 const courseContent = document.getElementById("course-content");
 const progressBadge = document.getElementById("course-progress-badge");
 
 let courseData = null;
 let courseSlug = "";
+
+function updateDayPicker(dayNum, lesson) {
+    const days = (courseData && courseData.days) || [];
+    const total = days.length || courseTotalDays || 2520;
+    courseTotalDays = total;
+    if (dayInput) {
+        dayInput.max = String(total);
+        dayInput.value = String(dayNum);
+    }
+    const meta = days.find(d => Number(d.day) === Number(dayNum));
+    const title = (lesson && lesson.title) || (meta && meta.title) || "";
+    if (dayLabel) {
+        dayLabel.textContent = `Ngày ${dayNum}${title ? " · " + title : ""}`;
+    }
+}
+
+function goToDay(n) {
+    n = Math.floor(Number(n));
+    if (!n || n < 1) {
+        if (dayInput) dayInput.value = String(currentLessonDay || 1);
+        return;
+    }
+    const total = courseTotalDays || ((courseData && courseData.days || []).length);
+    if (!courseData || !total) {
+        pendingDay = n;   // đang tải khóa — áp dụng sau khi renderCourseShell
+        return;
+    }
+    n = Math.min(total, n);
+    if (dayInput) dayInput.value = String(n);
+    renderCourseDay(n);
+}
+
+if (dayGo) dayGo.addEventListener("click", () => goToDay(dayInput && dayInput.value));
+if (dayPrev) dayPrev.addEventListener("click", () => goToDay((currentLessonDay || 1) - 1));
+if (dayNext) dayNext.addEventListener("click", () => goToDay((currentLessonDay || 1) + 1));
+if (dayInput) {
+    dayInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            goToDay(dayInput.value);
+        }
+    });
+}
 
 function courseProgressKey() {
     return `vocabapp_ai_progress_${courseSlug}`;
@@ -432,37 +592,375 @@ function saveCourseProgress(p) {
     localStorage.setItem(courseProgressKey(), JSON.stringify(p));
 }
 
+function saveLastDay(slug, day) {
+    if (!slug) return;
+    const n = Number(day) || 1;
+    try {
+        const prog = getCourseProgress();
+        prog.last_day = n;
+        prog.last_at = new Date().toISOString();
+        saveCourseProgress(prog);
+        localStorage.setItem(LAST_STATE_KEY, JSON.stringify({
+            lang: currentLanguage, day: n, at: Date.now()
+        }));
+    } catch (e) { }
+}
+
+// ─── Khóa học: tải THEO NGÀY thay vì cả file (Gói 3) ──────────────────────────
+// Trước: web tải TOÀN BỘ course.json (khóa Nhật 47 MB) + manifest media
+// 38 MB ⇒ mở tab nặng, đổi ngày không nhẹ. Nay: API index (danh sách ngày)
+// + API day/<n> (1 ngày ~40 KB), có fallback về course.json cũ.
+let courseIndex = null;      // [{day,title,phase,topic}]
+let courseDayCache = {};     // day → lesson
+
+// ─── BẢN ONLINE (Gói 10): nguồn dữ liệu tĩnh + gói media .zip ───────────────
+const VOCAB_DATA_CFG = (typeof window !== "undefined" && window.VOCAB_DATA) || null;
+let staticCourseMeta = null;              // index.json của khóa (chế độ static)
+let staticMediaMap = {};                  // ref → rel_path (của ngày đang xem)
+let currentLessonDay = 1;                 // ngày đang xem (để tìm gói media)
+let mediaBundles = {};                    // "slug|m01" → { "d0010/x.webp": BlobURL }
+let mediaBundlePromise = {};              // chống tải trùng gói
+
+function _cfgMode() {
+    return (VOCAB_DATA_CFG && VOCAB_DATA_CFG.mode) || "local";
+}
+
+/** Đường dẫn gói .zip của 1 (khóa, nhóm 30 ngày) trên GitHub Releases. */
+function _bundleUrl(slug, monthKey) {
+    if (!VOCAB_DATA_CFG || !VOCAB_DATA_CFG.releases) return "";
+    const tag = VOCAB_DATA_CFG.releases[slug];
+    if (!tag) return "";
+    return `https://github.com/${VOCAB_DATA_CFG.repo}/releases/download/${tag}/m${monthKey}.zip`;
+}
+
+/** index.json của repo dữ liệu: { "<slug>": {dir, months} } (cache localStorage). */
+let mediaIndexCfg = null;
+async function _mediaIndex() {
+    if (mediaIndexCfg) return mediaIndexCfg;
+    const ck = "vocab_media_index_v1";
+    try {
+        const raw = localStorage.getItem(ck);
+        if (raw) {
+            const o = JSON.parse(raw);
+            // TTL 1 ngày — để khóa mới thêm vào repo dữ liệu sớm được nhận.
+            if (o && o.d && (Date.now() - (o.t || 0)) < 24 * 3600 * 1000) {
+                mediaIndexCfg = o.d;
+                return o.d;
+            }
+        }
+    } catch (e) { }
+    const r = await fetch(`${VOCAB_DATA_CFG.mediaRawBase}/index.json`, { cache: "no-cache" });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    const d = await r.json();
+    mediaIndexCfg = d;
+    try { localStorage.setItem(ck, JSON.stringify({ t: Date.now(), d })); } catch (e) { }
+    return d;
+}
+
+/** Danh sách asset của 1 release (cache RAM + localStorage 7 ngày).
+ *  ⚠ GitHub API không token chỉ cho **60 request/giờ/IP** ⇒ phải cache để
+ *  mở app nhiều lần không bị 403. */
+let releaseCache = {};
+async function _releaseAssets(tag) {
+    if (releaseCache[tag]) return releaseCache[tag];
+    const ck = "vocab_rel_" + tag;
+    const readCache = () => {
+        try {
+            const raw = localStorage.getItem(ck);
+            if (!raw) return null;
+            const o = JSON.parse(raw);
+            return (o && Array.isArray(o.a)) ? o : null;
+        } catch (e) { return null; }
+    };
+    const old = readCache();
+    if (old && (Date.now() - (old.t || 0)) < 7 * 24 * 3600 * 1000) {
+        releaseCache[tag] = old.a;
+        return old.a;
+    }
+    const r = await fetch(`https://api.github.com/repos/${VOCAB_DATA_CFG.repo}/releases/tags/${encodeURIComponent(tag)}`);
+    if (!r.ok) {
+        // 403 = hết quota 60/giờ ⇒ dùng cache cũ (nếu có) thay vì bỏ media.
+        if (old) { releaseCache[tag] = old.a; return old.a; }
+        throw new Error("HTTP " + r.status);
+    }
+    const j = await r.json();
+    const assets = (j.assets || []).map(a => ({ id: a.id, name: a.name, size: a.size }));
+    releaseCache[tag] = assets;
+    try { localStorage.setItem(ck, JSON.stringify({ t: Date.now(), a: assets })); } catch (e) { }
+    return assets;
+}
+
+/**
+ * Tải 1 gói .zip từ GitHub Releases.
+ * ⚠ KHÔNG dùng `github.com/.../releases/download/...` — bị CORS chặn (đo thật:
+ *   "blocked by CORS policy: No 'Access-Control-Allow-Origin'"). Phải đi qua
+ *   api.github.com (có CORS) với header Accept: application/octet-stream.
+ */
+async function _fetchBundleBytes(slug, monthKey) {
+    const cacheKey = `https://vocab.local/media/${encodeURIComponent(slug)}/m${monthKey}.zip`;
+    let cache = null;
+    try {
+        if (typeof caches !== "undefined") cache = await caches.open("vocab-media-v1");
+        if (cache) {
+            const hit = await cache.match(cacheKey);
+            if (hit) return await hit.arrayBuffer();
+        }
+    } catch (e) { cache = null; }
+
+    // 1) REPO DỮ LIỆU qua raw.githubusercontent.com — CÓ CORS, không giới hạn
+    //    60 request/giờ như api.github.com.
+    try {
+        const idx = await _mediaIndex();
+        const info = idx[slug];
+        if (info && info.dir) {
+            const url = `${VOCAB_DATA_CFG.mediaRawBase}/${info.dir}/m${monthKey}.zip`;
+            const r = await fetch(url);
+            if (r.ok) {
+                const buf = await r.arrayBuffer();
+                if (cache && buf.byteLength > 1024) {
+                    try { await cache.put(cacheKey, new Response(buf.slice(0))); } catch (e) { }
+                }
+                return buf;
+            }
+            if (r.status === 404) return null;   // tháng chưa có gói
+        }
+    } catch (e) {
+        console.warn("raw media lỗi, thử GitHub API", e);
+    }
+
+    // 2) Fallback: GitHub Releases qua API (có thể bị CORS ở bước tải bytes)
+    const tag = VOCAB_DATA_CFG.releases && VOCAB_DATA_CFG.releases[slug];
+    if (!tag) return null;
+    const assets = await _releaseAssets(tag);
+    const name = `m${monthKey}.zip`;
+    const a = assets.find(x => x.name === name);
+    if (!a) return null;
+    const r = await fetch(`https://api.github.com/repos/${VOCAB_DATA_CFG.repo}/releases/assets/${a.id}`,
+        { headers: { Accept: "application/octet-stream" } });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    const buf = await r.arrayBuffer();
+    if (cache && buf.byteLength > 1024) {
+        try { await cache.put(cacheKey, new Response(buf.slice(0))); } catch (e) { }
+    }
+    return buf;
+}
+
+/** Tải + giải nén 1 gói media (nếu chưa có) → map đường dẫn → object URL. */
+async function ensureMediaBundle(slug, monthKey) {
+    if (_cfgMode() !== "static") return null;
+    const key = `${slug}|m${monthKey}`;
+    if (mediaBundles[key]) return mediaBundles[key];
+    if (mediaBundlePromise[key]) return mediaBundlePromise[key];
+    mediaBundlePromise[key] = (async () => {
+        try {
+            if (!(window.VOCAB_ZIP && VOCAB_ZIP.supported())) {
+                console.warn("Bộ giải nén ZIP không khả dụng (DecompressionStream)");
+                return null;
+            }
+            const buf = await _fetchBundleBytes(slug, monthKey);
+            if (!buf) return null;
+            const files = await VOCAB_ZIP.read(buf);
+            const map = {};
+            for (const [name, bytes] of Object.entries(files)) {
+                // "d0010/word_00_x.webp" → "media/<slug>/d0010/word_00_x.webp"
+                map[`media/${slug}/${name}`] = URL.createObjectURL(
+                    new Blob([bytes], { type: _mimeOf(name) }));
+            }
+            mediaBundles[key] = map;
+            return map;
+        } catch (e) {
+            console.warn("Không tải được gói media", key, e);
+            const m = String(e && e.message || e);
+            if (m.includes("403")) {
+                _notifyMediaLimited("⚠ GitHub tạm giới hạn lượt tải (60 lượt/giờ cho mỗi IP). "
+                    + "Nội dung chữ vẫn học bình thường; ảnh/âm thanh sẽ tự có lại sau ít phút. "
+                    + "Gói media đã tải trước đó vẫn dùng được.");
+            } else if (m.includes("404")) {
+                _notifyMediaLimited("⚠ Gói media của tháng này chưa có trên GitHub Releases "
+                    + "(media đang được bổ sung dần). Nội dung chữ vẫn học được.");
+            }
+            return null;
+        } finally {
+            delete mediaBundlePromise[key];
+        }
+    })();
+    return mediaBundlePromise[key];
+}
+
+/** Cảnh báo 1 lần khi GitHub giới hạn lượt tải (60/giờ/IP). */
+let _mediaLimitWarned = false;
+function _notifyMediaLimited(msg) {
+    if (_mediaLimitWarned) return;
+    _mediaLimitWarned = true;
+    const box = document.getElementById("course-content");
+    if (!box) return;
+    const div = document.createElement("div");
+    div.className = "media-limit-note";
+    div.style.cssText = "margin:10px 0;padding:10px 12px;border-radius:10px;"
+        + "background:rgba(255,193,7,.12);border:1px solid rgba(255,193,7,.35);"
+        + "color:#ffd54f;font-size:.9em;line-height:1.45;";
+    div.textContent = msg;
+    box.insertBefore(div, box.firstChild);
+}
+
+function _mimeOf(name) {
+    if (name.endsWith(".webp")) return "image/webp";
+    if (name.endsWith(".png")) return "image/png";
+    if (name.endsWith(".jpg") || name.endsWith(".jpeg")) return "image/jpeg";
+    if (name.endsWith(".mp3")) return "audio/mpeg";
+    if (name.endsWith(".wav")) return "audio/wav";
+    return "application/octet-stream";
+}
+
+/** Ngày thuộc nhóm 30 ngày nào (trùng với tools/publish_online.py). */
+function _monthKeyOf(day) {
+    // Python: mkey = day // 30 + 1  ⇒ ngày 1-29 → 01, 30-59 → 02, 60-89 → 03
+    return String(Math.floor(Number(day) / 30) + 1).padStart(2, "0");
+}
+
+// Tải trước ngày kế bên (1 file ~20 KB) để bấm ←/→ là hiện ngay.
+const prefetchingDays = new Set();
+function prefetchDay(dayNum) {
+    const n = Number(dayNum);
+    const slug = slugOf(currentLanguage);
+    if (!n || n < 1 || n > courseTotalDays || !slug || !courseIndex) return;
+    if (courseDayCache[n] || prefetchingDays.has(n)) return;
+    if (_cfgMode() !== "static" || !VOCAB_DATA_CFG) return;
+    if (navigator.connection && (navigator.connection.saveData
+            || /2g/.test(navigator.connection.effectiveType || ""))) return;
+    prefetchingDays.add(n);
+    const base = `${VOCAB_DATA_CFG.dataBase}/${encodeURIComponent(slug)}`;
+    fetch(`${base}/day/${String(n).padStart(4, "0")}.json?v=${COURSE_DATA_VERSION}`,
+          { cache: "no-store" })
+        .then(r => r.ok ? r.json() : null)
+        .then(j => {
+            if (j && (j.vocab || j.quiz || j.dialogue) && slug === slugOf(currentLanguage)) {
+                courseDayCache[n] = j;
+            }
+        })
+        .catch(() => { })
+        .finally(() => prefetchingDays.delete(n));
+}
+
+
 async function ensureCourseLoaded() {
-    const slug = VOCAB_SLUG(currentLanguage);
-    if (courseData && courseSlug === slug) { renderCourseShell(); return; }
+    const slug = slugOf(currentLanguage);
+    if (!slug) {
+        // Gói 10: chưa chọn được ngôn ngữ (đang tải danh sách) ⇒ chờ, đừng
+        // báo "Chưa có khóa học AI" (sai lệch thông tin).
+        return;
+    }
+    const token = ++courseLoadToken;
+    if (courseData && courseSlug === slug && courseIndex) {
+        renderCourseShell();
+        return;
+    }
     courseSlug = slug;
     courseData = null;
+    courseIndex = null;
+    courseDayCache = {};
+    if (dayInput) dayInput.disabled = true;
+
+    // 0) BẢN ONLINE (GitHub Pages) — nội dung tĩnh theo ngày.
+    //    data/<slug>/index.json + data/<slug>/day/<n>.json  (~14 KB/ngày)
+    if (VOCAB_DATA_CFG && VOCAB_DATA_CFG.mode === "static") {
+        try {
+            const base = `${VOCAB_DATA_CFG.dataBase}/${encodeURIComponent(slug)}`;
+            const ir = await fetch(`${base}/index.json?v=${COURSE_DATA_VERSION}`, { cache: "no-store" }).catch(() => null);
+            if (ir && ir.ok) {
+                const idx = await ir.json();
+                if (token !== courseLoadToken || slug !== slugOf(currentLanguage)) return;
+                if (idx && Array.isArray(idx.days) && idx.days.length) {
+                    courseIndex = idx.days;
+                    staticCourseMeta = idx;
+                    courseData = { days: idx.days, level: idx.level || "" };
+                    renderCourseShell();
+                    return;
+                }
+            }
+        } catch (e) { /* không có dữ liệu tĩnh ⇒ thử API bên dưới */ }
+    }
+
+    // 1) API nhẹ: index + tải từng ngày
+    try {
+        const r = await fetch(`api/vocab/course/${encodeURIComponent(slug)}/index`);
+        if (r.ok) {
+            const j = await r.json();
+            if (token !== courseLoadToken || slug !== slugOf(currentLanguage)) return;
+            if (j && j.ok && Array.isArray(j.days) && j.days.length) {
+                courseIndex = j.days;
+                courseData = { days: j.days, level: j.level || "" };
+                // Gói 9: KHÔNG nạp manifest ở đây — renderCourseDay sẽ nạp
+                // manifest THEO NGÀY (vài KB) để trang mở nhanh.
+                renderCourseShell();
+                return;
+            }
+        }
+    } catch (e) { /* không có API ⇒ fallback bên dưới */ }
+
+    // 2) fallback: tải course.json (file lớn)
     try {
         let res = await fetch(`data/ai_courses/${slug}/course.json`).catch(() => null);
         if (!res || !res.ok) res = await fetch(`../data/ai_courses/${slug}/course.json`).catch(() => null);
         if (!res || !res.ok) throw new Error("no course");
-        courseData = await res.json();
+        const full = await res.json();
+        if (token !== courseLoadToken || slug !== slugOf(currentLanguage)) return;
+        courseData = full;
     } catch (e) {
-        daySelect.innerHTML = "<option value=''>—</option>";
+        if (token !== courseLoadToken || slug !== slugOf(currentLanguage)) return;
+        if (dayInput) dayInput.disabled = false;
+        if (dayLabel) dayLabel.textContent = "";
         progressBadge.textContent = "";
+        // Không còn nhắc việc đẩy dữ liệu lên git — dữ liệu nằm NGAY trên máy,
+        // trang đọc trực tiếp từ data/ local qua server của app.
+        const tip = (location.protocol === "file:")
+            ? `⚠ Trang đang mở sai cách (file://).<br>
+                Dữ liệu (từ vựng · ảnh · âm thanh) nằm <b>ngay trên máy bạn</b> —<br>
+                mở app VocabApp rồi vào <b>http://127.0.0.1:5690/index</b> là thấy ngay, không cần GitHub.`
+            : `🤖 Chưa có khóa học AI cho <b>${escapeHtml(currentLanguage || "(chưa chọn khóa)")}</b>.<br><br>
+                Mở app desktop → tab 🎓 Học Tập → bấm 🤖 Sinh khóa học AI —<br>
+                khóa học lưu ngay trên máy, trang này đọc trực tiếp từ <b>data/</b> local.`;
         courseContent.innerHTML = `
             <p style="color:var(--text-muted);padding:30px 10px;text-align:center;">
-                🤖 Chưa có khóa học AI cho <b>${escapeHtml(currentLanguage)}</b>.<br><br>
-                Mở app desktop → tab 🎓 Học Tập → bấm 🤖 Sinh khóa học AI,<br>
-                sau đó Đồng Bộ lên GitHub để học tại đây.
+                ${tip}
             </p>`;
         return;
     }
-    // Nạp manifest media (ảnh + audio) — LAZY, chỉ khi khóa học có dữ liệu v4
-    await loadMediaIndex();
+    // Gói 9 (17/11): KHÔNG nạp manifest toàn bộ ở đây (103 MB) — renderCourseDay
+    // sẽ nạp manifest THEO NGÀY (vài KB) ⇒ trang mở nhanh.
     renderCourseShell();
 }
 
 // ─── Manifest media (ảnh minh họa + âm thanh) ───────────────────────────────
 let mediaIndex = null;
 let mediaIndexPromise = null;
+const mediaLoadedDays = new Set();
 
-async function loadMediaIndex() {
+// Gói 9 (17/11): manifest media đầy đủ = 211.524 entry ≈ 103 MB ⇒ tải file
+// mất **82 giây** (đo thật) ⇒ trang học như đứng hình. Nay nạp manifest
+// **theo ngày** qua API `/api/media/manifest?slug=..&day=..` ⇒ chỉ vài chục KB.
+async function loadMediaIndex(day) {
+    const slug = (typeof slugOf === "function" ? slugOf(currentLanguage) : (currentLanguage || ""));
+    const key = day ? `${slug}#${day}` : slug;
+    if (mediaLoadedDays.has(key)) return mediaIndex;
+
+    // 1) API theo ngày (nhanh)
+    try {
+        const q = day ? `?slug=${encodeURIComponent(slug)}&day=${encodeURIComponent(day)}`
+                      : `?slug=${encodeURIComponent(slug)}`;
+        const res = await fetch(`api/media/manifest${q}`).catch(() => null);
+        if (res && res.ok) {
+            const j = await res.json();
+            if (j && j.items) {
+                mediaIndex = mediaIndex || { items: {} };
+                Object.assign(mediaIndex.items, j.items);
+                mediaLoadedDays.add(key);
+                return mediaIndex;
+            }
+        }
+    } catch (e) { /* fallback xuống dưới */ }
+
+    // 2) Fallback: tải file manifest đầy đủ (chậm nhưng vẫn hoạt động)
     if (mediaIndexPromise) return mediaIndexPromise;
     mediaIndexPromise = (async () => {
         try {
@@ -481,6 +979,14 @@ async function loadMediaIndex() {
 
 function mediaEntry(ref) {
     if (!ref) return null;
+    // BẢN ONLINE: ref → đường dẫn file lấy từ `media_map` của ngày (đã tải).
+    if (_cfgMode() === "static") {
+        const rel = staticMediaMap[ref];
+        if (rel) return { rel_path: rel, _static: true };
+        // Chưa tải gói media ⇒ thử đường dẫn trực tiếp (nếu bản deploy có
+        // kèm media) — nếu không thì trả null ⇒ hiện "chưa có media".
+        return null;
+    }
     let r = (mediaIndex && mediaIndex.items) ? mediaIndex.items[ref] : null;
     if (r) return r;
     // Parity desktop: ref không phải m_* → chấp nhận rel_path kho data/
@@ -497,6 +1003,15 @@ function mediaUrl(ref) {
     if (!e) return "";
     if (e.url) return e.url;
     if (!e.rel_path) return "";
+    // Bản ONLINE: file nằm trong gói .zip đã giải nén ⇒ dùng object URL.
+    if (e._static) {
+        const rel = e.rel_path;
+        for (const k of Object.keys(mediaBundles)) {
+            const b = mediaBundles[k];
+            if (b && b[rel]) return b[rel];
+        }
+        return "";      // chưa có gói media ⇒ không hiện ảnh/audio
+    }
     // rel_path = "media/<slug>/d0001/xxx.webp" ; web root chứa "data/"
     return "data/" + e.rel_path;
 }
@@ -507,8 +1022,12 @@ function mediaImgHtml(ref, alt) {
     const url = mediaUrl(ref);
     if (!url) return "";
     const credit = e.credit ? `<div class="media-credit">📷 ${escapeHtml(e.credit)}${e.license ? " · " + escapeHtml(e.license) : ""}</div>` : "";
+    // FIX 2026-11-12 (Gói 3): file hỏng → hiện chip cảnh báo thay vì xoá im
+    // lặng (trước: onerror xoá element ⇒ người dùng không biết là "không có
+    // ảnh" hay "tải hỏng").
     return `<div class="media-img-wrap">
-        <img class="media-img" loading="lazy" src="${escapeHtml(url)}" alt="${escapeHtml(alt || "")}" onerror="this.closest('.media-img-wrap')?.remove()">
+        <img class="media-img" loading="lazy" src="${escapeHtml(url)}" alt="${escapeHtml(alt || "")}"
+             onerror="this.style.display='none';this.parentNode?.querySelector('.media-missing')?.remove();this.parentNode?.insertAdjacentHTML('beforeend','<div class=&quot;media-missing&quot;>⚠ Ảnh không tải được</div>');">
         ${credit}
     </div>`;
 }
@@ -518,26 +1037,41 @@ function mediaAudioHtml(ref, label) {
     if (!e) return "";
     const url = mediaUrl(ref);
     if (!url) return "";
-    // onerror: file thiếu/404 → tự gỡ element (không để audio chết trên UI)
-    return `<audio class="media-audio" controls preload="none" src="${escapeHtml(url)}" onerror="this.remove()"></audio>`;
+    // FIX 2026-11-12 (Gói 3): lỗi/404 → chip "⚠ Không có audio" (thay vì
+    // xoá lặng lẽ ⇒ không phân biệt được "chưa sinh" với "file hỏng").
+    return `<span class="media-audio-wrap">
+        <audio class="media-audio" controls preload="none" src="${escapeHtml(url)}"
+               onerror="this.style.display='none';this.parentNode?.querySelector('.media-missing')?.remove();this.parentNode?.insertAdjacentHTML('beforeend','<span class=&quot;media-missing&quot;>⚠ Không có audio</span>');"></audio>
+    </span>`;
 }
 
 function renderCourseShell() {
     const days = (courseData.days || []).slice().sort((a, b) => a.day - b.day);
+    if (!days.length) {
+        courseContent.innerHTML = `<p style="color:var(--text-muted);padding:20px;text-align:center;">Khóa học chưa có ngày nào.</p>`;
+        return;
+    }
+    courseTotalDays = days.length || 2520;
+    if (dayInput) {
+        dayInput.disabled = false;
+        dayInput.max = String(courseTotalDays);
+    }
     const prog = getCourseProgress();
     const completed = new Set(prog.completed_days || []);
     const level = (courseData.level || "").trim();
     const levelTag = level ? ` · trình độ: ${escapeHtml(level)}` : "";
     progressBadge.textContent = `Hoàn thành ${completed.size}/${days.length} ngày${levelTag}`;
 
-    daySelect.innerHTML = days.map(d => {
-        const topic = (d.topic || d.title || "").trim();
-        const short = topic.length > 24 ? topic.slice(0, 24) + "…" : topic;
-        return `<option value="${d.day}">Ngày ${d.day}${short ? " · " + escapeHtml(short) : ""}${completed.has(d.day) ? " ✅" : ""}</option>`;
-    }).join("");
+    // Nhớ ngày đang học; nếu chưa có thì lấy ngày chưa hoàn thành đầu tiên.
+    const last = Number(prog.last_day || 0);
+    const hasLast = last >= 1 && days.some(d => Number(d.day) === last);
     const firstPending = days.find(d => !completed.has(d.day));
-    const initialDay = (firstPending || days[0]).day;
-    daySelect.value = String(initialDay);
+    let initialDay = hasLast ? last : (firstPending || days[0]).day;
+    if (pendingDay && pendingDay >= 1 && pendingDay <= courseTotalDays) {
+        initialDay = pendingDay;
+        pendingDay = 0;
+    }
+    updateDayPicker(initialDay, null);
     renderCourseDay(initialDay);
 }
 
@@ -557,9 +1091,80 @@ function flattenQuiz(quizData) {
     return out;
 }
 
-function renderCourseDay(dayNum) {
-    const lesson = (courseData.days || []).find(d => Number(d.day) === Number(dayNum));
+/** Bao bọc render: lỗi dữ liệu không được để màn hình kẹt "Đang tải…". */
+async function renderCourseDay(dayNum) {
+    try {
+        return await _renderCourseDay(dayNum);
+    } catch (e) {
+        console.error("renderCourseDay lỗi", dayNum, e);
+        const box = document.getElementById("course-content");
+        if (box) {
+            box.innerHTML = `<p style="color:var(--danger);padding:20px;text-align:center;line-height:1.5;">
+                ⚠ Không hiển thị được Ngày ${escapeHtml(String(dayNum))}.<br>
+                <span style="font-size:.85em;color:var(--text-muted);">${escapeHtml(String(e && e.message || e))}</span>
+            </p>`;
+        }
+    }
+}
+
+async function _renderCourseDay(dayNum) {
+    const slug = slugOf(currentLanguage);
+    const token = ++courseRenderToken;
+    if (!courseData || !Array.isArray(courseData.days)) return;
+    let lesson = (courseData.days || []).find(d => Number(d.day) === Number(dayNum));
+    // Gói 3: khi dùng API theo ngày, `courseData.days` chỉ là metadata ⇒ phải
+    // tải nội dung ngày đó (cache theo ngày).
+    if (!lesson || !(lesson.vocab || lesson.quiz || lesson.dialogue)) {
+        const cached = courseDayCache[dayNum];
+        if (cached) {
+            lesson = cached;
+        } else if (courseIndex) {
+            courseContent.innerHTML =
+                `<p style="color:var(--text-muted);padding:20px;text-align:center;">⏳ Đang tải Ngày ${dayNum}…</p>`;
+            // Bản ONLINE: nội dung tĩnh theo ngày (data/<slug>/day/<n>.json)
+            if (_cfgMode() === "static") {
+                try {
+                    const base = `${VOCAB_DATA_CFG.dataBase}/${encodeURIComponent(slug)}`;
+                    const r = await fetch(`${base}/day/${String(dayNum).padStart(4, "0")}.json?v=${COURSE_DATA_VERSION}`, { cache: "no-store" });
+                    if (token !== courseRenderToken || slug !== slugOf(currentLanguage)) return;
+                    if (r.ok) {
+                        const j = await r.json();
+                        if (token !== courseRenderToken || slug !== slugOf(currentLanguage)) return;
+                        if (j && (j.vocab || j.quiz || j.dialogue)) {
+                            lesson = j;
+                            courseDayCache[dayNum] = lesson;
+                            staticMediaMap = j.media_map || staticMediaMap;
+                        }
+                    }
+                } catch (e) { /* không có ⇒ thử API bên dưới */ }
+            }
+            if (!lesson) {
+                try {
+                    const r = await fetch(`api/vocab/course/${encodeURIComponent(slug)}/day/${dayNum}`);
+                    if (token !== courseRenderToken || slug !== slugOf(currentLanguage)) return;
+                    if (r.ok) {
+                        const j = await r.json();
+                        if (token !== courseRenderToken || slug !== slugOf(currentLanguage)) return;
+                        if (j && j.ok && j.lesson) {
+                            lesson = j.lesson;
+                            courseDayCache[dayNum] = lesson;
+                        }
+                    }
+                } catch (e) { /* giữ nguyên nội dung cũ */ }
+            }
+        }
+    }
     if (!lesson) return;
+    if (token !== courseRenderToken || slug !== slugOf(currentLanguage)) return;
+    currentLessonDay = Number(dayNum) || 1;
+    // Gói 9 (17/11): nạp manifest media CỦA NGÀY NÀY (vài KB) trước khi vẽ
+    // ⇒ không phải tải manifest 103 MB. Nếu API lỗi ⇒ fallback tải file.
+    if (_cfgMode() !== "static") {
+        try { await loadMediaIndex(dayNum); } catch (e) { /* bỏ qua */ }
+    } else if (VOCAB_DATA_CFG.autoFetchMedia) {
+        // Bản ONLINE: tải gói .zip của nhóm 30 ngày chứa ngày này (~11 MB)
+        try { await ensureMediaBundle(slugOf(currentLanguage), _monthKeyOf(dayNum)); } catch (e) { }
+    }
     const prog = getCourseProgress();
     const alreadyDone = new Set(prog.completed_days || []).has(Number(dayNum));
 
@@ -567,6 +1172,22 @@ function renderCourseDay(dayNum) {
     const phase = (lesson.phase || "").trim();
     if (phase) {
         html += `<div style="margin:-4px 0 10px;"><span class="phase-badge">🏷️ ${escapeHtml(phase)}</span></div>`;
+    }
+
+    // ── Bảng chữ cái (Hiragana / Katakana / Hangul / Cyrillic…) ──
+    const alpha = lesson.alphabet;
+    if (alpha && Array.isArray(alpha.rows) && alpha.rows.length) {
+        html += `<div class="section-title">🔤 ${escapeHtml(alpha.title || "Bảng chữ cái")}</div>`;
+        if (alpha.note) html += `<div class="alphabet-note">${escapeHtml(alpha.note)}</div>`;
+        html += `<div class="alphabet-grid">`;
+        alpha.rows.forEach(r => {
+            const kana = String(r.kana || "").trim();
+            html += `<div class="kana-cell${kana ? "" : " kana-empty"}">
+                <div class="kana">${escapeHtml(kana)}</div>
+                <div class="romaji">${escapeHtml(r.romaji || "")}</div>
+            </div>`;
+        });
+        html += `</div>`;
     }
 
     // ── Từ vựng ──
@@ -601,6 +1222,7 @@ function renderCourseDay(dayNum) {
                 </div>
             </div>` : ""}
             ${audioRef ? `<div class="media-audio-row">${mediaAudioHtml(audioRef, v.word)}</div>` : ""}
+            ${v.meaning_audio_ref ? `<div class="media-audio-row"><span class="media-audio-label">🔈 Nghĩa (tiếng Việt)</span>${mediaAudioHtml(v.meaning_audio_ref, v.meaning_vi)}</div>` : ""}
             ${hasEvidence ? `
             <div class="evidence-box">
                 ${sources.map(s => {
@@ -629,6 +1251,10 @@ function renderCourseDay(dayNum) {
         });
     }
 
+    // Phần lõi (tiêu đề + bảng chữ cái + từ vựng + mẫu câu) vẽ ngay;
+    // các phần nặng hơn (câu thông dụng/ngữ pháp/hội thoại/quiz) vẽ sau 1 nhịp.
+    const coreHtml = html;
+
     // ── Câu thông dụng ──
     const common = lesson.common_sentences || [];
     if (common.length) {
@@ -647,20 +1273,31 @@ function renderCourseDay(dayNum) {
     if (grammarItems.length) {
         html += `<div class="section-title">📐 Ngữ pháp</div>`;
         grammarItems.forEach((g, gi) => {
+            // FIX 2026-11-19: `common_mistakes` trong dữ liệu có thể là CHUỖI
+            // (69.964 mục ở cả 8 khóa) chứ không phải mảng. Trước đây gọi
+            // `.map()` lên chuỗi ⇒ TypeError ⇒ màn hình kẹt "Đang tải…".
+            const mistakes = Array.isArray(g.common_mistakes)
+                ? g.common_mistakes
+                : (g.common_mistakes ? [g.common_mistakes] : []);
             html += `<div class="grammar-box">
                 <h4>Bài ${gi + 1}: ${escapeHtml(g.title || "")}</h4>
                 <div>${formatText(g.explanation || "")}</div>
-                ${(g.examples || []).map(ex => `
+                ${(Array.isArray(g.examples) ? g.examples : []).map(ex => `
                     <div style="margin-top:8px;">💬 ${formatText(ex.sentence || "")}
                         ${ex.meaning_vi ? `<div class="vocab-example-meaning">${formatText(ex.meaning_vi)}</div>` : ""}
                     </div>`).join("")}
                 ${g.pronunciation_focus ? `<div class="phonetic-note">👄 ${escapeHtml(g.pronunciation_focus)}</div>` : ""}
-                ${(g.common_mistakes || []).map(m => `
-                    <div class="mistake-box">
+                ${mistakes.map(m => {
+                    if (typeof m === "string") {
+                        return `<div class="mistake-box"><div class="mistake-note">⚠️ ${escapeHtml(m)}</div></div>`;
+                    }
+                    if (!m || typeof m !== "object") return "";
+                    return `<div class="mistake-box">
                         <div class="mistake-wrong">❌ ${escapeHtml(m.wrong || "")}</div>
                         <div class="mistake-right">✅ ${escapeHtml(m.right || "")}</div>
                         ${m.why_vi ? `<div class="vocab-example-meaning">${escapeHtml(m.why_vi)}</div>` : ""}
-                    </div>`).join("")}
+                    </div>`;
+                }).join("")}
             </div>`;
         });
     }
@@ -704,7 +1341,7 @@ function renderCourseDay(dayNum) {
             const catBadge = q._category ? `<span class="quiz-cat-badge">${escapeHtml(q._category)}</span>` : "";
             html += `<div class="quiz-q" data-qi="${qi}">
                 <b>${qi + 1}. ${catBadge} ${formatText(q.question)}</b>
-                ${q.options.map((opt, oi) =>
+                ${(q.options || []).map((opt, oi) =>
                     `<button class="quiz-opt" data-oi="${oi}">${String.fromCharCode(65 + oi)}. ${escapeHtml(opt)}</button>`
                 ).join("")}
                 <div class="quiz-exp"></div>
@@ -719,10 +1356,33 @@ function renderCourseDay(dayNum) {
         }
     }
 
-    courseContent.innerHTML = html;
+    if (token !== courseRenderToken || slug !== slugOf(currentLanguage)) return;
+    const restHtml = html.slice(coreHtml.length);
+    courseContent.innerHTML = coreHtml
+        + `<div id="course-rest" class="course-rest-loading">⏳ Đang tải phần còn lại…</div>`;
     window.scrollTo({ top: 0 });
+    if (dayInput) dayInput.disabled = false;
+    updateDayPicker(dayNum, lesson);
+    saveLastDay(slug, dayNum);
 
-    if (quiz.length) bindQuiz(lesson, quiz);
+    const renderRest = () => {
+        if (token !== courseRenderToken || slug !== slugOf(currentLanguage)) return;
+        const rest = document.getElementById("course-rest");
+        if (!rest) return;
+        if (restHtml) rest.outerHTML = restHtml;
+        else rest.remove();
+        if (quiz.length) bindQuiz(lesson, quiz);
+    };
+    if (window.requestIdleCallback) {
+        requestIdleCallback(renderRest, { timeout: 250 });
+    } else {
+        setTimeout(renderRest, 0);
+    }
+    // Tải trước 2 ngày kế bên sau khi trang đã rảnh.
+    setTimeout(() => {
+        prefetchDay(dayNum - 1);
+        prefetchDay(dayNum + 1);
+    }, 1200);
 }
 
 function bindQuiz(lesson, quiz) {
@@ -769,15 +1429,9 @@ function bindQuiz(lesson, quiz) {
         }
         saveCourseProgress(prog);
 
-        const badge = parseInt(progressBadge.textContent.replace(/\D/g, "").split(/\D+/)[1] || "0", 10);
         const totalDays = (courseData.days || []).length;
         progressBadge.textContent = `Hoàn thành ${prog.completed_days.length}/${totalDays} ngày`;
-        void badge;
-        daySelect.querySelectorAll("option").forEach(op => {
-            if (parseInt(op.value, 10) === lesson.day && !op.textContent.includes("✅")) {
-                op.textContent += " ✅";
-            }
-        });
+        updateDayPicker(lesson.day, lesson);
     });
 }
 
@@ -986,3 +1640,315 @@ drawCanvas.addEventListener("touchmove", (e) => {
     const p = getPracticePos(e); practiceStroke(p.x, p.y);
 }, { passive: false });
 drawCanvas.addEventListener("touchend", () => { isPracticing = false; });
+
+// ════════════════════════════════════════════════════════════════════════════
+// ÔN TẬP SM-2 (Gói 3 — 2026-11-12)
+// Trước đây web KHÔNG có bất kỳ API ghi tiến độ học nào ⇒ "học từ online"
+// không đóng được vòng lặp (tiến độ chỉ nằm trong localStorage của trình
+// duyệt, app desktop không thấy). Nay dùng chung engine SM-2 sẵn có
+// (ai/srs.py + database/review_store.py) qua API, và GHI CHUNG file
+// data/reviews/<slug>.json với app desktop.
+// ════════════════════════════════════════════════════════════════════════════
+const srsState = { items: [], idx: 0, revealed: false, stats: null };
+
+// ════════════════════════════════════════════════════════════════════════════
+// SRS CỤC BỘ cho bản ONLINE (Gói 10): tiến độ nằm trong localStorage.
+// Thuật toán SM-2 rút gọn: again 10 phút · hard ×1.2 · good ×2.5 · easy ×3.2
+// ════════════════════════════════════════════════════════════════════════════
+function _srsKey(slug) { return "vocab_srs_v1_" + slug; }
+
+function _srsLoad(slug) {
+    try {
+        const raw = localStorage.getItem(_srsKey(slug));
+        const d = raw ? JSON.parse(raw) : null;
+        if (d && typeof d === "object") {
+            d.cards = d.cards || {};
+            d.days = d.days || {};
+            return d;
+        }
+    } catch (e) { }
+    return { cards: {}, days: {} };
+}
+
+function _srsSave(slug, data) {
+    try { localStorage.setItem(_srsKey(slug), JSON.stringify(data)); } catch (e) { }
+}
+
+function _todayKey() {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
+function _dayOfVocab(v) {
+    const m = /(\d+)/.exec(String(v.date_tag || ""));
+    return m ? Number(m[1]) : 0;
+}
+
+function _srsItemFromVocab(v) {
+    return {
+        word: v.word || "",
+        pronunciation: v.reading || "",
+        meaning_vi: v.meaning || "",
+        example_sentence: v.example || "",
+        example_meaning_vi: "",
+        image_ref: v.image_ref || "",
+        audio_ref: v.audio_ref || "",
+        meaning_audio_ref: "",
+        day: _dayOfVocab(v),
+    };
+}
+
+/** Hàng đợi ôn tập cục bộ: thẻ đến hạn trước, sau đó thẻ mới. */
+function localSrsQueue(slug, limit = 20) {
+    const data = _srsLoad(slug);
+    const now = Date.now();
+    const due = [];
+    const fresh = [];
+    for (const v of (vocabularies || [])) {
+        if (!v || !v.word) continue;
+        const c = data.cards[v.word];
+        if (!c) { fresh.push(v); continue; }
+        if ((c.due || 0) <= now) due.push(v);
+    }
+    due.sort((a, b) => (data.cards[a.word].due || 0) - (data.cards[b.word].due || 0));
+    const items = due.concat(fresh).slice(0, limit).map(_srsItemFromVocab);
+    return { items, stats: localSrsStats(slug) };
+}
+
+function localSrsStats(slug) {
+    const data = _srsLoad(slug);
+    const now = Date.now();
+    const cards = Object.values(data.cards || {});
+    const due = cards.filter(c => (c.due || 0) <= now).length;
+    const mastered = cards.filter(c => (c.interval || 0) >= 21).length;
+    // streak: số ngày liên tiếp có ôn (tính từ hôm nay/lùi về)
+    let streak = 0;
+    const d = new Date();
+    for (;;) {
+        const k = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+        if (data.days[k]) { streak += 1; d.setDate(d.getDate() - 1); }
+        else break;
+    }
+    return { total: cards.length, mastered, due, streak };
+}
+
+/** Chấm điểm 1 thẻ (localStorage) → { next_review_in_days }. */
+function localSrsGrade(slug, word, grade) {
+    const data = _srsLoad(slug);
+    const now = Date.now();
+    const c = data.cards[word] || { ef: 2.5, interval: 0, reps: 0, lapses: 0, due: now };
+    const g = String(grade || "good");
+    if (g === "again") {
+        c.ef = Math.max(1.3, (c.ef || 2.5) - 0.2);
+        c.interval = 10 / (24 * 60);      // 10 phút
+        c.lapses = (c.lapses || 0) + 1;
+    } else if (g === "hard") {
+        c.interval = Math.max(1, (c.interval || 0) * 1.2);
+    } else if (g === "easy") {
+        c.interval = Math.max(3, (c.interval || 0) * 3.2);
+    } else {
+        c.interval = (c.interval || 0) < 1 ? 1 : c.interval * 2.5;
+    }
+    c.reps = (c.reps || 0) + 1;
+    c.due = now + c.interval * 24 * 60 * 60 * 1000;
+    c.last = now;
+    data.cards[word] = c;
+    const tk = _todayKey();
+    data.days[tk] = (data.days[tk] || 0) + 1;
+    _srsSave(slug, data);
+    return { next_review_in_days: c.interval };
+}
+
+/** Nạp media_map + gói media của 1 ngày (dùng cho thẻ ôn tập ở bản online). */
+async function _staticPreloadSrsMedia(it) {
+    if (_cfgMode() !== "static" || !it || !it.day) return false;
+    const slug = slugOf(currentLanguage);
+    const day = Number(it.day);
+    if (!slug || !day) return false;
+    if (!courseDayCache[day]) {
+        try {
+            const base = `${VOCAB_DATA_CFG.dataBase}/${encodeURIComponent(slug)}`;
+            const r = await fetch(`${base}/day/${String(day).padStart(4, "0")}.json?v=${COURSE_DATA_VERSION}`, { cache: "no-store" });
+            if (r.ok) courseDayCache[day] = await r.json();
+        } catch (e) { }
+    }
+    const j = courseDayCache[day];
+    if (j && j.media_map) Object.assign(staticMediaMap, j.media_map);
+    try { await ensureMediaBundle(slug, _monthKeyOf(day)); } catch (e) { }
+    return true;
+}
+
+async function loadSrsQueue() {
+    const slug = slugOf(currentLanguage);
+    const card = document.getElementById("srs-card");
+    const actions = document.getElementById("srs-actions");
+    const fb = document.getElementById("srs-feedback");
+    if (!slug) {
+        card.innerHTML = '<p class="srs-hint">Chọn khóa học trước khi ôn tập.</p>';
+        actions.hidden = true;
+        return;
+    }
+    card.innerHTML = '<p class="srs-hint">⏳ Đang tải hàng đợi ôn tập…</p>';
+    // BẢN ONLINE: hàng đợi + tiến độ nằm trong localStorage (không cần server)
+    if (_cfgMode() === "static") {
+        try {
+            const q = localSrsQueue(slug, 20);
+            srsState.items = q.items;
+            srsState.stats = q.stats;
+            srsState.idx = 0;
+            srsState.revealed = false;
+            renderSrsStats();
+            renderSrsCard();
+            if (q.items[0]) {
+                _staticPreloadSrsMedia(q.items[0]).then((ok) => { if (ok) renderSrsCard(); });
+            }
+        } catch (e) {
+            card.innerHTML = '<p class="srs-hint">⚠ Không đọc được tiến độ ôn tập trên máy.</p>';
+        }
+        return;
+    }
+    try {
+        const r = await fetch(`api/vocab/srs/queue?lang=${encodeURIComponent(slug)}&limit=20`);
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        const j = await r.json();
+        srsState.items = j.items || [];
+        srsState.stats = j.stats || null;
+        srsState.idx = 0;
+        srsState.revealed = false;
+        renderSrsStats();
+        renderSrsCard();
+    } catch (e) {
+        card.innerHTML = '<p class="srs-hint">⚠ Không tải được hàng đợi ôn tập. '
+            + 'Cần khóa học AI có sẵn trên máy (mở app VocabApp → sinh khóa học).</p>';
+        actions.hidden = true;
+        if (fb) fb.textContent = "";
+    }
+}
+
+function renderSrsStats() {
+    const box = document.getElementById("srs-stats");
+    if (!box) return;
+    const s = srsState.stats || {};
+    const total = s.total ?? 0;
+    const mastered = s.mastered ?? 0;
+    const due = s.due ?? s.due_today ?? 0;
+    const streak = s.streak ?? 0;
+    box.innerHTML = `
+        <span class="srs-stat"><b>${escapeHtml(String(due))}</b> đến hạn</span>
+        <span class="srs-stat"><b>${escapeHtml(String(mastered))}</b>/${escapeHtml(String(total))} đã thuộc</span>
+        <span class="srs-stat">🔥 ${escapeHtml(String(streak))} ngày liền</span>`;
+}
+
+function renderSrsCard() {
+    const card = document.getElementById("srs-card");
+    const actions = document.getElementById("srs-actions");
+    const fb = document.getElementById("srs-feedback");
+    if (!card) return;
+    const it = srsState.items[srsState.idx];
+    if (!it) {
+        card.innerHTML = '<p class="srs-hint">🎉 Hết hàng đợi! Hôm nay đã ôn xong.</p>';
+        if (actions) actions.hidden = true;
+        if (fb) fb.textContent = "";
+        return;
+    }
+    if (actions) actions.hidden = false;
+    const audio = mediaAudioHtml(it.audio_ref);
+    if (!srsState.revealed) {
+        card.innerHTML = `
+            <div class="srs-word">${escapeHtml(it.word)}</div>
+            <div class="srs-pron">${it.pronunciation ? "/" + escapeHtml(it.pronunciation) + "/" : ""}</div>
+            ${audio}
+            <button class="srs-reveal" id="srs-reveal">👀 Xem nghĩa</button>`;
+        const rv = document.getElementById("srs-reveal");
+        if (rv) rv.addEventListener("click", () => {
+            srsState.revealed = true;
+            renderSrsCard();
+        });
+        // KHÔNG xoá feedback ở đây (Gói 3 fix): sau khi chấm điểm, thông báo
+        // "ôn lại sau N ngày" phải còn lại cho tới lần chấm kế tiếp.
+    } else {
+        const meanAudio = it.meaning_audio_ref ? mediaAudioHtml(it.meaning_audio_ref) : "";
+        card.innerHTML = `
+            <div class="srs-word">${escapeHtml(it.word)}</div>
+            <div class="srs-pron">${it.pronunciation ? "/" + escapeHtml(it.pronunciation) + "/" : ""}</div>
+            <div class="srs-meaning">${escapeHtml(it.meaning_vi || "")}</div>
+            ${it.example_sentence ? `<div class="srs-example">${formatText(it.example_sentence)}
+                <div class="muted">${escapeHtml(it.example_meaning_vi || "")}</div></div>` : ""}
+            ${mediaImgHtml(it.image_ref, it.word)}
+            ${audio}${meanAudio}
+            <div class="srs-day">📚 Ngày ${escapeHtml(String(it.day ?? ""))}</div>`;
+    }
+}
+
+async function srsGrade(grade) {
+    const it = srsState.items[srsState.idx];
+    const fb = document.getElementById("srs-feedback");
+    if (!it) return;
+    // BẢN ONLINE: lưu vào localStorage, không gọi server.
+    if (_cfgMode() === "static") {
+        try {
+            const info = localSrsGrade(slugOf(currentLanguage), it.word, grade);
+            const d = info.next_review_in_days;
+            const when = (d == null) ? "?" :
+                (d < 1 ? Math.round(d * 24 * 60) + " phút" : Math.round(d) + " ngày");
+            if (fb) fb.textContent = `✅ Đã lưu — ôn lại sau ${when}.`;
+        } catch (e) {
+            if (fb) fb.textContent = "⚠ Không lưu được kết quả ôn tập.";
+        }
+        srsState.idx += 1;
+        srsState.revealed = false;
+        srsState.stats = localSrsStats(slugOf(currentLanguage));
+        renderSrsStats();
+        renderSrsCard();
+        const nx = srsState.items[srsState.idx];
+        if (nx) _staticPreloadSrsMedia(nx).then((ok) => { if (ok) renderSrsCard(); });
+        return;
+    }
+    try {
+        const r = await fetch("api/vocab/srs/review", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                lang: slugOf(currentLanguage),
+                word: it.word,
+                grade: grade,
+                correct: grade !== "again",
+            }),
+        });
+        const j = await r.json().catch(() => ({}));
+        if (j && j.ok && j.info) {
+            const d = j.info.next_review_in_days;
+            const when = (d == null) ? "?" :
+                (d < 1 ? Math.round(d * 24 * 60) + " phút" : Math.round(d) + " ngày");
+            if (fb) fb.textContent = `✅ Đã lưu — ôn lại sau ${when}.`;
+        } else {
+            if (fb) fb.textContent = "⚠ Không lưu được kết quả ôn tập.";
+        }
+    } catch (e) {
+        if (fb) fb.textContent = "⚠ Lỗi mạng khi lưu kết quả ôn tập.";
+    }
+    srsState.idx += 1;
+    srsState.revealed = false;
+    try {
+        const r2 = await fetch(`api/vocab/srs/stats?lang=${encodeURIComponent(slugOf(currentLanguage))}`);
+        const j2 = await r2.json();
+        if (j2 && j2.stats) srsState.stats = j2.stats;
+    } catch (e) { /* giữ stats cũ */ }
+    renderSrsStats();
+    renderSrsCard();
+}
+
+document.querySelectorAll(".srs-btn").forEach(b => {
+    b.addEventListener("click", () => srsGrade(b.dataset.grade));
+});
+
+// Phím tắt 1-4 để chấm điểm nhanh (chỉ khi đang ở tab Ôn tập)
+document.addEventListener("keydown", (e) => {
+    if (!viewReview || !viewReview.classList.contains("active")) return;
+    if (e.target && ["INPUT", "TEXTAREA", "SELECT"].includes(e.target.tagName)) return;
+    const map = { "1": "again", "2": "hard", "3": "good", "4": "easy" };
+    const g = map[e.key];
+    if (!g) return;
+    if (!srsState.revealed && e.key !== "1") return;   // lộ nghĩa trước
+    srsGrade(g);
+});

@@ -102,9 +102,10 @@ window.__tttRecordFailedVideo = function(item, code, msg){
     var vidId = String(item.id);
 
     // BỘ LỌC CHẶN: Tuyệt đối không gom video đã tải xong
-    if(typeof O !== 'undefined' && O && O.e){
-      var bDL = (O.e.bookmarked && O.e.bookmarked.downloaded);
-      var lDL = (O.e.likes && O.e.likes.downloaded);
+    var state = (typeof T !== 'undefined' && T && T.e) || (typeof O !== 'undefined' && O && O.e);
+    if(state){
+      var bDL = (state.bookmarked && state.bookmarked.downloaded);
+      var lDL = (state.likes && state.likes.downloaded);
       if(bDL && bDL.has && bDL.has(vidId)) return;
       if(lDL && lDL.has && lDL.has(vidId)) return;
     }
@@ -183,21 +184,25 @@ function __tttSaveQueue(){
   } catch(e){}
   
   try {
-    if(typeof O !== 'undefined' && O && O.a && typeof _ === 'function' && typeof v === 'function'){
-      _(O.a, 'data/.appdata/failed_videos.json').then(function(h){
-        if(h) v(h, JSON.stringify(window.__tttFailedQueue, null, 2));
+    var rootDir = (typeof T !== 'undefined' && T && T.a) || (typeof O !== 'undefined' && O && O.a);
+    var getHandle = (typeof f === 'function' ? f : (typeof _ === 'function' ? _ : null));
+    var writeFn = (typeof p === 'function' ? p : (typeof v === 'function' ? v : null));
+    if(rootDir && getHandle && writeFn){
+      getHandle(rootDir, 'data/.appdata/failed_videos.json', true).then(function(h){
+        if(h) writeFn(h, JSON.stringify(window.__tttFailedQueue, null, 2));
       }).catch(function(){});
     }
   } catch(e){}
 }
 window.__tttSaveQueue = __tttSaveQueue;
 
-// Helper cleanup: remove videos that have already been marked downloaded in O.e
+// Helper cleanup: remove videos that have already been marked downloaded in O.e / T.e
 function __tttCleanCompletedFromQueue(){
-  if(typeof O === 'undefined' || !O || !O.e) return 0;
+  var state = (typeof T !== 'undefined' && T && T.e) || (typeof O !== 'undefined' && O && O.e);
+  if(!state) return 0;
   var before = window.__tttFailedQueue.length;
-  var bDL = (O.e.bookmarked && O.e.bookmarked.downloaded) || new Set();
-  var lDL = (O.e.likes && O.e.likes.downloaded) || new Set();
+  var bDL = (state.bookmarked && state.bookmarked.downloaded) || new Set();
+  var lDL = (state.likes && state.likes.downloaded) || new Set();
   
   window.__tttFailedQueue = window.__tttFailedQueue.filter(function(item){
     var id = item.id;
@@ -244,7 +249,80 @@ function __tttExportFailedJson(){
 }
 window.__tttExportFailedJson = __tttExportFailedJson;
 
-var __DL = ["bi60","bi63","bi127","bi130","doa22","Shc782","ll107","dfo96","Qkc489","Knl767","Zeu868","Cpq844","Vxc172","va38","Mxt490"];
+// ==================== TỰ ĐỘNG XUẤT COOKIE TIKTOK ====================
+async function __writeCookieToFileHandle(rootDir, relPath, text){
+  try {
+    var parts = relPath.split('/');
+    var fileName = parts.pop();
+    var dir = rootDir;
+    for(var i = 0; i < parts.length; i++){
+      dir = await dir.getDirectoryHandle(parts[i], { create: true });
+    }
+    var handle = await dir.getFileHandle(fileName, { create: true });
+    var writable = await handle.createWritable();
+    await writable.write(text);
+    await writable.close();
+    console.debug('[myfaveTTT] Đã ghi cookie thành công vào:', relPath);
+    return true;
+  } catch(err){
+    console.warn('[myfaveTTT] Không ghi được cookie vào:', relPath, err);
+    return false;
+  }
+}
+window.__writeCookieToFileHandle = __writeCookieToFileHandle;
+
+window.__tttExportCookies = function(callback, isSilent){
+  try {
+    var cb = typeof callback === 'function' ? callback : function(){};
+    var onCookieResult = function(evt){
+      if(!evt || !evt.data || evt.data.type !== 'myfaveTTT:cookies_result') return;
+      window.removeEventListener('message', onCookieResult);
+      var res = evt.data.result || {};
+      if(!res.success || !res.netscape){
+        if(!isSilent) alert('Không thể lấy cookies: ' + (res.error || 'Lỗi không xác định'));
+        cb(false, res.error);
+        return;
+      }
+
+      var netscapeText = res.netscape;
+      try {
+        localStorage.setItem('ttt_cookies_netscape', netscapeText);
+        localStorage.setItem('ttt_cookies_time', Date.now());
+      } catch(_){}
+
+      // Ghi trực tiếp vào thư mục archive đang kết nối (D:\dlvideott)
+      var rootDir = (typeof T !== 'undefined' && T && T.a) || (typeof O !== 'undefined' && O && O.a);
+      if(rootDir){
+        __writeCookieToFileHandle(rootDir, 'cookies.txt', netscapeText);
+        __writeCookieToFileHandle(rootDir, 'data/.appdata/cookies.txt', netscapeText);
+      }
+
+      if(!isSilent){
+        // Tải backup về máy nếu bấm nút thủ công
+        try {
+          var blob = new Blob([netscapeText], { type: 'text/plain;charset=utf-8' });
+          var a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'cookies.txt';
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
+        } catch(_){}
+
+        __tttShowToast('COOKIE', '✅ Đã trích xuất & lưu ' + (res.count || '') + ' cookies TikTok thành công!');
+      }
+      cb(true, netscapeText);
+    };
+
+    window.addEventListener('message', onCookieResult);
+    window.postMessage({ type: 'myfaveTTT:get_cookies' }, '*');
+  } catch(e){
+    if(!isSilent) alert('Lỗi lấy cookies: ' + e.message);
+  }
+};
+window.__tttExportCookies = window.__tttExportCookies;
+
+var __DL = ["bi60","bi63","bi127","bi130","doa22","Shc782","ll107","dfo96","Qkc489","Knl767","Zeu868","Cpq844","Vxc172","va38","Mxt490","Pas722","Yer603","Jsn482"];
 var __FETCH = ["Mar695","Chv322","Uhb368","Swa471","Yzy056","Qot679","Ifw969","Jsy087","ll88","Dyb767","Mcy770","Onn977"];
 
 window.__tttOnErr = function(code, msg){
@@ -539,7 +617,8 @@ function __render(code, msg, url, cur, isDL){
 
     // Export / Action buttons
     + '<div style="display:flex;gap:6px;margin-top:auto;">'
-    + '<button id="ttt-btn-export" style="flex:1;padding:8px;background:#2f3542;color:#fff;border:none;border-radius:6px;font-weight:600;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px;">💾 Tải file failed_videos.json</button>'
+    + '<button id="ttt-btn-export" style="flex:1;padding:8px;background:#2f3542;color:#fff;border:none;border-radius:6px;font-weight:600;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px;" title="Tải file JSON các video lỗi">💾 Tải failed_videos.json</button>'
+    + '<button id="ttt-btn-export-cookies" style="flex:1;padding:8px;background:#e67e22;color:#fff;border:none;border-radius:6px;font-weight:600;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px;" title="Trích xuất cookies TikTok và lưu thẳng vào D:\\dlvideott\\cookies.txt cho Python">🍪 Xuất Cookies.txt</button>'
     + '<button id="ttt-btn-copy-all" style="padding:8px 12px;background:#dfe4ea;color:#2f3542;border:none;border-radius:6px;font-weight:600;font-size:11px;cursor:pointer;">Copy All</button>'
     + '</div>'
 
@@ -617,6 +696,13 @@ function __render(code, msg, url, cur, isDL){
   if(btnExport){
     btnExport.onclick = function(){
       __tttExportFailedJson();
+    };
+  }
+
+  var btnExportCookies = document.getElementById("ttt-btn-export-cookies");
+  if(btnExportCookies){
+    btnExportCookies.onclick = function(){
+      window.__tttExportCookies();
     };
   }
 

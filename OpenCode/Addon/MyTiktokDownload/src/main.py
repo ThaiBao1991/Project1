@@ -140,10 +140,12 @@ def print_header(title: str):
 def get_downloader() -> HybridDownloader:
     settings = load_settings()
     cookies = settings.get("cookies", "")
+    cookies_file = settings.get("cookies_file", "")
     return HybridDownloader(
         output_dir=settings.get("output_dir", "downloads"),
         db_path=str(Path(settings.get("output_dir", "downloads")) / "video_index.db"),
         cookies=cookies,
+        cookies_file=cookies_file,
         rate_limit=settings.get("rate_limit", "1M"),
         max_retries=settings.get("retries", 3),
         skip_existing=settings.get("skip_existing", True),
@@ -329,10 +331,25 @@ def mode_export(args):
 
 # ===== MODE: COOKIES =====
 def mode_cookies(args):
-    """Auto-detect cookies from Chrome"""
-    print_header("🔑 AUTO-DETECT TIKTOK COOKIES")
+    """Auto-detect hoặc thiết lập cookies từ Chrome / file cookies.txt"""
+    print_header("🔑 THIẾT LẬP TIKTOK COOKIES (DÙNG CHO VIDEO 18+ / NHẠY CẢM)")
     
-    print("🔍 Đang tìm cookie TikTok từ Chrome...")
+    settings = load_settings()
+    cur_file = settings.get("cookies_file", "")
+    
+    # 1. Kiểm tra nếu đã có file cookies.txt
+    from src.downloader import resolve_cookies_file
+    detected_file = resolve_cookies_file(cur_file)
+    if detected_file:
+        print(f"✅ Đã tìm thấy file cookies: {detected_file}")
+        settings["cookies_file"] = detected_file
+        save_settings(settings)
+        print("💡 File cookies đã sẵn sàng hoạt động cho các video 18+!")
+        choice = input("\nBạn có muốn cập nhật lại file cookies khác không? (y/n) [n]: ").strip().lower()
+        if choice not in ('y', 'yes'):
+            return
+
+    print("\n🔍 Đang thử tìm cookie TikTok trực tiếp từ Chrome...")
     cookies = get_chrome_cookies("tiktok.com")
     
     if cookies:
@@ -340,18 +357,27 @@ def mode_cookies(args):
         print(f"Preview: {cookies[:80]}...")
         
         # Save to settings
-        settings = load_settings()
         settings["cookies"] = cookies
-        save_settings(settings)
-        print("✅ Đã lưu vào settings.json")
-        
-        # Also export Netscape format
         filepath = Path(__file__).parent / "cookies_tiktok.txt"
         save_cookies_to_file(cookies, str(filepath))
-        print(f"✅ Đã export Netscape format: {filepath}")
+        settings["cookies_file"] = str(filepath.resolve())
+        save_settings(settings)
+        print(f"✅ Đã lưu vào settings.json và export: {filepath}")
     else:
-        print("\n❌ Không tìm thấy cookie TikTok")
-        print("💡 Hãy đăng nhập TikTok trên Chrome trước, sau đó chạy lại.")
+        print("\n⚠️ Không thể trích xuất cookie tự động từ Chrome (do Chrome đang mở hoặc bảo mật Windows).")
+        print("💡 CÁCH XUẤT COOKIES.TXT DỄ DÀNG TRONG 10 GIÂY:")
+        print("   1. Cài extension 'Get cookies.txt LOCALLY' trên Chrome.")
+        print("   2. Vào tab tiktok.com đã đăng nhập -> Bấm vào extension -> Bấm 'Export'.")
+        print("   3. Đổi tên file thành 'cookies.txt' và đặt vào thư mục dự án này,")
+        print("      HOẶC nhập đường dẫn file bên dưới.")
+        
+        manual_path = input("\nĐường dẫn tới file cookies.txt (Enter để bỏ qua): ").strip().strip('"')
+        if manual_path and Path(manual_path).exists():
+            settings["cookies_file"] = str(Path(manual_path).resolve())
+            save_settings(settings)
+            print(f"✅ Đã lưu đường dẫn cookies: {settings['cookies_file']}")
+        else:
+            print("ℹ️ Bạn có thể copy file 'cookies.txt' vào thư mục dự án bất kỳ lúc nào, hệ thống sẽ tự nhận diện!")
 
 
 # ===== MODE: SETTINGS =====
@@ -369,6 +395,16 @@ def mode_settings(args):
             print(f"  {k}: {v}")
     
     print("\nThay đổi (Enter để giữ nguyên):")
+    
+    # Extension / Archive dir
+    cur_ext = settings.get("ext_data_path", r"D:\dlvideott\data\.appdata")
+    new = input(f"Thư mục lưu trữ / Extension data [{cur_ext}] (ví dụ D:\\dltiktok): ").strip()
+    if new: settings["ext_data_path"] = new
+
+    # Cookies file
+    cur_cf = settings.get("cookies_file", "")
+    new = input(f"File Cookies (.txt cho video 18+/nhạy cảm) [{cur_cf or 'chưa đặt'}]: ").strip().strip('"')
+    if new: settings["cookies_file"] = new
     
     # Output dir
     new = input(f"Output dir [{settings.get('output_dir', 'downloads')}]: ").strip()

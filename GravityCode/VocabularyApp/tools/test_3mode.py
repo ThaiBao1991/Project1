@@ -12,6 +12,52 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 COURSE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                       "data", "ai_courses", "tiếng_nhật", "course.json")
 
+# FIX 2026-11-12 (Gói 2): test phải ổn định, KHÔNG phụ thuộc data thật đang
+# được sinh dần. Trước đây test đọc course của 1 khóa cụ thể: nếu khóa đó
+# chưa có hội thoại (đang trong lúc sinh dần) ⇒ 3 FAIL vì lý do KHÔNG liên
+# quan code. Nay: dựng lesson MẪU (vocab + grammar + hội thoại) — kiểm chứng
+# đúng hành vi GUI; nếu muốn test với data thật thì đặt VOCAB_TEST_REAL=1.
+_COURSES_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                            "data", "ai_courses")
+
+
+def _sample_lesson():
+    return {
+        "day": 1, "title": "Bài 1", "phase": "P", "level": "L", "topic": "T",
+        "vocab": [{"word": "猫", "pronunciation": "neko", "meaning_vi": "mèo"}],
+        "sentence_patterns": [{"pattern": "〜ています", "meaning_vi": "đang ..."}],
+        "common_sentences": [{"sentence": "猫です", "meaning_vi": "là mèo"}],
+        "grammar": [{"title": "Động từ", "explanation": "…", "examples": []}],
+        "dialogue": [{"title": "T", "situation": "S", "level_tag": "A1",
+                      "turns": [{"speaker": "A", "line_target": "猫です"},
+                                {"speaker": "B", "line_target": "犬です"}]}],
+        "quiz": {"vocab": [], "pattern": [], "common": [], "grammar": [], "mixed": []},
+    }
+
+
+def _pick_lesson():
+    """Lesson có hội thoại từ data thật (nếu có), không thì dùng mẫu."""
+    if os.environ.get("VOCAB_TEST_REAL") == "1" and os.path.isfile(COURSE):
+        try:
+            c = json.load(open(COURSE, encoding="utf-8"))
+            for d in c.get("days") or []:
+                if (d.get("dialogue") or []) and (d.get("vocab") or []):
+                    return d
+        except Exception:
+            pass
+    for name in sorted(os.listdir(_COURSES_DIR)):
+        p = os.path.join(_COURSES_DIR, name, "course.json")
+        if not os.path.isfile(p):
+            continue
+        try:
+            c = json.load(open(p, encoding="utf-8"))
+        except Exception:
+            continue
+        for d in c.get("days") or []:
+            if (d.get("dialogue") or []) and (d.get("vocab") or []):
+                return d
+    return _sample_lesson()
+
 
 class _Stub:
     """Mô phỏng StudyTab — chỉ có phần render text (không tạo widget Tk)."""
@@ -37,11 +83,10 @@ def render(lesson, mode):
 
 
 def main():
-    if not os.path.isfile(COURSE):
-        print(f"[SKIP] Không thấy {COURSE}")
+    lesson = _pick_lesson()
+    if not lesson:
+        print("[SKIP] Không có lesson nào để test")
         return 0
-    c = json.load(open(COURSE, encoding="utf-8"))
-    lesson = next(d for d in c["days"] if int(d.get("day")) == 1)
     fails = []
     total = [0]
 

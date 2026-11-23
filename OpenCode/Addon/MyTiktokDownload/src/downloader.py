@@ -278,6 +278,53 @@ class VideoIndex:
         return len(videos)
 
 
+def resolve_cookies_file(cookies_file: str = None, ext_path: Path = None) -> Optional[str]:
+    """
+    Tự động tìm kiếm file cookies.txt ở các vị trí khả thi:
+    1. cookies_file chỉ định rõ ràng nếu file tồn tại
+    2. settings.json ('cookies_file')
+    3. Thư mục hiện tại (cookies.txt, cookies_tiktok.txt)
+    4. Thư mục src (src/cookies.txt)
+    5. Thư mục lưu trữ extension (D:\\dlvideott\\cookies.txt, D:\\dltiktok\\cookies.txt)
+    """
+    if cookies_file and Path(cookies_file).exists() and Path(cookies_file).is_file():
+        return str(Path(cookies_file).resolve())
+
+    # Check settings.json
+    try:
+        s_file = Path(__file__).parent / "settings.json"
+        if s_file.exists():
+            s = json.loads(s_file.read_text(encoding="utf-8"))
+            cf = s.get("cookies_file")
+            if cf and Path(cf).exists() and Path(cf).is_file():
+                return str(Path(cf).resolve())
+    except Exception:
+        pass
+
+    candidates = [
+        Path("cookies.txt"),
+        Path("cookies_tiktok.txt"),
+        Path(__file__).parent / "cookies.txt",
+        Path(__file__).parent / "cookies_tiktok.txt",
+        Path(r"D:\dlvideott\cookies.txt"),
+        Path(r"D:\dlvideott\data\.appdata\cookies.txt"),
+        Path(r"D:\dltiktok\cookies.txt"),
+        Path(r"D:\dltiktok\data\.appdata\cookies.txt"),
+    ]
+    if ext_path:
+        p = Path(ext_path)
+        candidates.extend([p / "cookies.txt", p.parent / "cookies.txt", p.parent.parent / "cookies.txt"])
+
+    for c in candidates:
+        try:
+            if c.exists() and c.is_file() and c.stat().st_size > 10:
+                return str(c.resolve())
+        except Exception:
+            pass
+
+    return None
+
+
 class TikTokDownloader:
     def __init__(self, 
                  output_dir: str = "downloads",
@@ -289,7 +336,7 @@ class TikTokDownloader:
                  skip_existing: bool = True):
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
-        self.cookies_file = cookies_file
+        self.cookies_file = resolve_cookies_file(cookies_file)
         self.proxy = proxy
         self.rate_limit = rate_limit
         self.max_retries = max_retries
@@ -317,8 +364,8 @@ class TikTokDownloader:
             ],
         }
         
-        if cookies_file and os.path.exists(cookies_file):
-            self.ydl_opts['cookiefile'] = cookies_file
+        if self.cookies_file and os.path.exists(self.cookies_file):
+            self.ydl_opts['cookiefile'] = self.cookies_file
             
         if proxy:
             self.ydl_opts['proxy'] = proxy
@@ -532,6 +579,8 @@ class TikTokDownloader:
                 break
                 
         if not found_video:
+            if "comfortable for some audiences" in last_error or "Log in for access" in last_error:
+                last_error = f"[18+/Cần đăng nhập] {last_error} -> Vui lòng nạp file cookies.txt để xác thực tài khoản!"
             return DownloadResult(False, VideoInfo(id="", url=url, title="", author="", author_id="", duration=0, view_count=0, like_count=0, comment_count=0, create_time=0, thumbnail=""), last_error or "Không tìm thấy file sau khi tải")
             
         # Đảm bảo file đích là video_target (.mp4)
@@ -757,6 +806,7 @@ class HybridDownloader:
                  output_dir: str = "downloads",
                  db_path: str = "downloads/video_index.db",
                  cookies: str = "",
+                 cookies_file: str = None,
                  proxy: str = None,
                  rate_limit: str = "1M",
                  max_retries: int = 3,
@@ -765,6 +815,7 @@ class HybridDownloader:
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
         self.cookies = cookies
+        self.cookies_file = resolve_cookies_file(cookies_file)
         self.proxy = proxy
         self.rate_limit = rate_limit
         self.max_retries = max_retries
@@ -777,7 +828,7 @@ class HybridDownloader:
         self._yt_downloader = TikTokDownloader(
             output_dir=output_dir,
             db_path=db_path,
-            cookies_file=None,
+            cookies_file=self.cookies_file,
             proxy=proxy,
             rate_limit=rate_limit,
             max_retries=max_retries,

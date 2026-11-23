@@ -564,7 +564,8 @@ def build_curriculum_prompt(lang_name: str, level: str, words_per_day: int,
 
 
 def build_content_prompt(lang_name: str, day_num: int, total_days: int, words: list,
-                         topic: str = "", level: str = "", phase: str = "") -> str:
+                         topic: str = "", level: str = "", phase: str = "",
+                         known_words: list = None, min_new: int = 5) -> str:
     lang_name = ai_lang_name(lang_name)
     lines = [f"- {v.get('word', '')} ({v.get('pronunciation') or 'chưa có phát âm'})"
              f" — nghĩa hiện có: {(v.get('meaning') or '')[:200]}" for v in words]
@@ -620,10 +621,31 @@ def build_content_prompt(lang_name: str, day_num: int, total_days: int, words: l
             "- Trong phần giải thích: Nêu rõ sắc thái ngữ cảnh thực tế (khi nào dùng trang trọng, khi nào dùng thân mật, cách diễn đạt tự nhiên của người bản xứ thay vì dịch thô từ tiếng Việt).\n"
         )
 
+    # ── TỪ ĐÃ HỌC (Gói 5.1 — 2026-11-12) ─────────────────────────────────
+    # Đo thật: AI hay LẶP từ (24-48 % từ trùng giữa các ngày) ⇒ "200+ ngày"
+    # hoá ra chỉ ~200 ngày nội dung mới. Nay đưa danh sách từ đã dùng gần
+    # đây vào prompt + yêu cầu tối thiểu `min_new` từ MỚI, phần còn lại ôn lại.
+    known_block = ""
+    if known_words:
+        kw = [str(w).strip() for w in known_words if str(w).strip()]
+        if kw:
+            known_block = (
+                "\n🧠 CÁC TỪ ĐÃ DÙNG Ở NHỮNG NGÀY TRƯỚC (tránh lặp, "
+                "dùng để ôn lại):\n"
+                + ", ".join(kw[-150:]) + "\n"
+                + f"\n⚠️ YÊU CẦU VỀ SỐ TỪ MỚI:\n"
+                f"- ÍT NHẤT {max(1, int(min_new))} từ trong 'vocab' phải là TỪ MỚI "
+                f"(chưa xuất hiện trong danh sách trên).\n"
+                f"- TỐI ĐA {max(0, MIN_VOCAB - max(1, int(min_new)))} từ được phép lặp lại "
+                f"từ danh sách trên (phần ÔN LẠI — kèm ví dụ câu khác để thấy ngữ cảnh mới).\n"
+                f"- Mỗi từ mới PHẢI thuộc đúng chủ đề ngày này và có thể dùng trong "
+                f"câu giao tiếp thật.\n"
+            )
+
     return (
         f"Bạn là gia sư {lang_name} chuyên nghiệp, dạy người Việt từ gốc đến chuyên sâu như người bản xứ.\n"
         f"Hôm nay là Ngày {day_num}/{total_days} của khóa học.{level_line}{topic_line}"
-        f"Từ vựng gốc của ngày này:\n{word_list}\n{auto_pick}{stage_guide}\n"
+        f"Từ vựng gốc của ngày này:\n{word_list}\n{auto_pick}{known_block}{stage_guide}\n"
         f"Hãy tạo bài học hoàn chỉnh dạng JSON, ĐỦ tuyệt đối số lượng như sau:\n\n"
         f"1. title: tên bài học (tiếng Việt) nêu rõ chủ đề nhóm từ.\n\n"
         f"2. vocab: ÍT NHẤT {MIN_VOCAB} từ vựng. Ưu tiên dùng đủ các từ gốc ở trên; "

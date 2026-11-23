@@ -28,11 +28,38 @@ _WRITE_LOCK = threading.RLock()
 
 
 def _atomic_write(path: str, data: dict):
+    """Ghi atomic — tên file tmp DUY NHẤT theo PID + thread.
+
+    FIX 2026-11-17 (Gói 9): trước đây mọi process dùng CHUNG `path + ".tmp"`
+    ⇒ 2 tiến trình ghi cùng course.json (watchdog AI + job bù media):
+      P1 mở tmp ở chế độ "w" (truncate) rồi ghi 54 MB
+      P2 mở tmp ở chế độ "w" ⇒ TRUNCATE phần P1 đang ghi
+      ⇒ file cuối = JSON bị cắt cụt / **0 byte**
+    Đo thật 17/11: khóa tiếng_nhật · tiếng_pháp · tiếng_trung bị ghi thành
+    file 0 byte ⇒ **mất trắng toàn bộ khóa học**.
+    ⇒ tmp phải DUY NHẤT cho từng process/thread.
+    """
+    import threading
+    import time as _t
     with _WRITE_LOCK:
         os.makedirs(os.path.dirname(path), exist_ok=True)
-        tmp = path + ".tmp"
+        tmp = f"{path}.tmp.{os.getpid()}.{threading.get_ident()}"
         with open(tmp, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
+            f.flush()
+            try:
+                os.fsync(f.fileno())
+            except OSError:
+                pass
+        # Retry khi file đang bị PROCESS KHÁC mở (WinError 32).
+        last = None
+        for _i in range(12):
+            try:
+                os.replace(tmp, path)
+                return
+            except OSError as e:
+                last = e
+                _t.sleep(0.25 * (_i + 1))
         os.replace(tmp, path)
 
 
@@ -171,13 +198,59 @@ def save_course(language: str, course: dict, backup: bool = False):
     backup=True → tạo bản .bak1..bak5 trước khi ghi (chỉ dùng khi thao tác
     nguy hiểm như force_new / migrate). Mặc định KHÔNG backup vì 8 file
     21 MB × 5 bản = ~840 MB không cần thiết cho mỗi lần lưu.
+
+    LƯỚI AN TOÀN (Gói 9, 17/11): KHÔNG được ghi đè một khóa học đã có dữ liệu
+    bằng bản RỖNG. Đo thật: do 2 process ghi chung file tmp, `course.json`
+    của 3 khóa bị đọc lỗi ⇒ `get_course()` trả None ⇒ pipeline dựng lại từ
+    đầu ⇒ ghi file rỗng ⇒ **mất trắng khóa học**.
+    ⇒ Nếu file đích ĐANG CÓ ngày mà dữ liệu mới rỗng ⇒ KHÔNG ghi, cảnh báo.
     """
     course["updated_at"] = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
     path = course_path(language)
+    new_days = course.get("days")
+    if not new_days:
+        # Bản rỗng ⇒ chỉ cho phép khi file đích cũng rỗng/không tồn tại.
+        try:
+            old = get_course(language, persist=False)
+        except Exception:
+            old = None
+        if old and (old.get("days") or []):
+            print(f"⚠ BỎ QUA ghi {language}: bản mới KHÔNG có ngày nhưng file cũ có "
+                  f"{len(old.get('days') or [])} ngày — không được làm mất khóa học!")
+            return
     if backup:
         from ai.pipeline_store import rotate_backup
         rotate_backup(path)
     _atomic_write(path, course)
+
+
+def update_day(language: str, day_num: int, lesson: dict) -> bool:
+    """Cập nhật 1 ngày trong `course.json` (đọc bản MỚI NHẤT trước khi ghi).
+
+    FIX 2026-11-12 (Gói 2): GUI từng ghi lại `self._course` — một SNAPSHOT có
+    thể đã cũ (đọc lúc mở app). Nếu pipeline đã chạy trong lúc đó, toàn bộ
+    ngày mới bị GHI ĐÈ ⇒ mất dữ liệu. Hàm này đọc file hiện tại trên đĩa,
+    thay đúng 1 ngày, rồi ghi ⇒ không đụng phần còn lại.
+    """
+    path = course_path(language)
+    course = get_course(language, persist=False) or {}
+    if not course:
+        return False
+    days = course.setdefault("days", [])
+    target = None
+    for d in days:
+        try:
+            if int(d.get("day", 0)) == int(day_num):
+                target = d
+                break
+        except Exception:
+            continue
+    if target is not None:
+        days[days.index(target)] = lesson
+    else:
+        days.append(lesson)
+    save_course(language, course)
+    return True
 
 
 def new_course(language: str, vocabs: list, words_per_day: int) -> dict:

@@ -1,10 +1,10 @@
 {
-  "name": "myfaveTTT Custom (Stop on Error)",
-  "version": "1.12.70.1",
-  "description": "myfaveTT with stop-on-error + failing-video link (custom copy)",
+  "name": "Custom TikTok Downloader (Stop on Error)",
+  "version": "1.12.84.1",
+  "description": "Custom TikTok Downloader with Fast Auto-Skip & Python Queue (Side-by-Side Edition)",
   "manifest_version": 3,
   "action": {
-    "default_title": "myfaveTTT"
+    "default_title": "Custom TikTok Downloader"
   },
   "background": {
     "service_worker": "b.js"
@@ -40,9 +40,14 @@
     "256": "icon-256.png"
   },
   "permissions": [
-    "webRequest"
+    "webRequest",
+    "cookies"
   ],
   "host_permissions": [
-    "https://*.tiktok.com/api/post/item_list/"
+    "https://*.tiktok.com/*",
+    "https://*.tiktok.com/api/*favorite/item_list*",
+    "https://*.tiktok.com/api/*user/collect/item_list*",
+    "https://*.tiktok.com/api/*user/list*",
+    "https://*.tiktok.com/api/*post/item_list*"
   ]
 }

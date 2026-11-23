@@ -21,7 +21,7 @@ Nguyên tắc:
 
 import json
 
-from ai.paths import lang_slug
+from ai.paths import canonical_slug, lang_slug
 import os
 import shutil
 import threading
@@ -46,7 +46,9 @@ STATE_SCHEMA = "vocabapp.pipeline.state.v1"
 JOBS_SCHEMA = "vocabapp.jobs.v1"
 
 # Số bản backup giữ lại cho course.json / progress.json
-BACKUP_KEEP = 5
+# FIX 2026-11-17 (Gói 9): giữ 2 bản thay vì 5 — mỗi khóa ~50 MB ⇒ 5 bản ×
+# 8 khóa = ~2 GB rác. Đo thật: tmp+bak chiếm 1.057 MB (14 % data/).
+BACKUP_KEEP = 2
 
 # ─── Stage ────────────────────────────────────────────────────────────────────
 STAGE_PROFILE = "profile"
@@ -87,7 +89,12 @@ STATUS_FAILED = "failed"
 
 
 def pipeline_dir(language: str) -> str:
-    return os.path.join(COURSES_DIR, lang_slug(language), "_pipeline")
+    # FIX 2026-11-12 (Gói 2): dùng canonical_slug (KHÔNG lang_slug) — trước đây
+    # `--lang ja`/`Japanese` ghi checkpoint vào data/ai_courses/ja/_pipeline
+    # trong khi course.json nằm ở .../tiếng_nhật/ ⇒ resume đọc sai thư mục ⇒
+    # mọi stage chạy lại từ đầu + đốt quota. Đo thật: course "nhật" (alias)
+    # và checkpoint "tiếng_nhật" nằm ở 2 thư mục khác nhau.
+    return os.path.join(COURSES_DIR, canonical_slug(language), "_pipeline")
 
 
 def stage_path(language: str, stage: str) -> str:
@@ -116,14 +123,33 @@ def state_path(language: str) -> str:
 
 # ─── Ghi/đọc atomic ───────────────────────────────────────────────────────────
 def atomic_write_json(path: str, data) -> None:
+    """Ghi atomic — tên tmp DUY NHẤT theo PID + thread.
+
+    FIX 2026-11-17 (Gói 9): tên tmp cố định ⇒ 2 process ghi cùng file ⇒ file
+    bị TRUNCATE (0 byte) hoặc JSON nối liền. Đo thật: course.json của 3 khóa
+    bị ghi thành 0 byte ⇒ mất trắng khóa học.
+    """
+    import threading
     with _WRITE_LOCK:
         os.makedirs(os.path.dirname(path), exist_ok=True)
-        tmp = path + ".tmp"
+        tmp = f"{path}.tmp.{os.getpid()}.{threading.get_ident()}"
         with open(tmp, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
             f.flush()
-            os.fsync(f.fileno())
-        os.replace(tmp, path)
+            try:
+                os.fsync(f.fileno())
+            except OSError:
+                pass
+        import time as _t
+    last = None
+    for _i in range(12):
+        try:
+            os.replace(tmp, path)
+            return
+        except OSError as e:
+            last = e
+            _t.sleep(0.25 * (_i + 1))
+    os.replace(tmp, path)
 
 
 def read_json(path: str, default=None):

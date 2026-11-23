@@ -275,6 +275,92 @@
 **KHÔNG làm:** P6b (rate-limiter chia sẻ 2 tiến trình) · chưa trả lời câu hỏi 10 key/account tạo cùng 1 project hay 10 project riêng (ảnh hưởng lock_key vs lock_account dài hạn).
 
 ---
+## 📋 Cập nhật mới nhất — 2026-11-12d (Gộp 1 bản chuẩn mỗi ngôn ngữ · làm lại hàng nút + panel rỗng)
+
+**Yêu cầu (user):** *"quá nhiều bản tiếng Nhật — thống nhất 1 bản chuẩn; cần từ vựng, ngữ pháp, phát âm, hình ảnh; giao diện các nút Sinh AI / Xóa tiến độ đang quá xấu."*
+
+**① Gộp khóa học** — tool mới `tools/consolidate_courses.py` (dry-run mặc định; `--apply` dọn; `--apply --purge-trash` xoá hẳn). Trước: 8 thư mục Nhật + 6 artifact test (`nhật` 1.414 ngày/59 có nội dung, `_alias_nhat_cu`, `_nhat_placeholder_cu` 1.260 ngày **placeholder**, `tiếng_nhật_smoke`, `zz*`). Sau: **8 khóa chuẩn** (`tiếng_anh · hàn_quốc · nga · nhật · pháp · trung · tây_ban_nha · đức`) + `__global__` (giữ `dead_models.json`); dọn media trùng (`media/nhật`, `media/_nhat_placeholder_cu` 352,6 MB, smoke, zztest) + review của alias ⇒ **giải phóng ~438 MB**, bản bị loại nằm trong `data/_trash/<ts>/` (hoàn tác được).
+
+**② Giao diện** — hàng nút hành động bị **cắt chữ** ("Iron the…") vì 3 nút pack `side="right"` vào `head` bị `head_inner` đẩy ⇒ chuyển sang **hàng riêng "Thao tác:"** + thêm `🔄 Tải lại` và `📚 Trang học (web)`. Panel Trắc nghiệm rỗng ⇒ **ẩn 4 nút chấm** (Quên/Khó/Được/Dễ) + bỏ dòng "không xác định được từ của câu này".
+
+**Test:** `tools/test_study_sync.py` → **30/30** (thêm layout: 5 nút không nén/không tràn ở 1400×900; panel rỗng: ẩn/hiện 4 nút chấm). Full suite **2 vòng: FAILs = 0** · compile0.
+
+**Vận hành:** đang chạy **2 tiến trình VocabApp.py** ⇒ đóng 1; **restart app** để nạp code GUI mới.
+
+---
+## 📋 Cập nhật mới nhất — 2026-11-12c (Gói 4b — fix UX "không thấy nội dung" + độ đầy đủ ngày)
+
+**Triệu chứng (ảnh user):** tab Học Tập hiện "0/0 · 0/0", "nội dung đã lọc", ôn tập 0/0, tiến độ 0/1414 — trong khi `course.json` **trên đĩa đã đầy**; bấm "Sinh khóa học AI" mà không thấy nội dung.
+
+**Nguyên nhân (3, đều là cache/slug — KHÔNG phải lỗi sinh nội dung):** ① GUI giữ `self._course` trong RAM ⇒ không tự nạp lại khi pipeline sinh xong/khóa học đổi tên, không có nút làm mới; ② `App.set_language()` lưu slug thô ("nhật") trong khi file ở thư mục canonical ("tiếng_nhật") ⇒ đọc nhầm file rỗng; ③ `refresh_language()` xoá `_srs_pool_cache` mà **không nạp lại** ⇒ panel ôn tập luôn 0/0.
+
+**Đã sửa (`VocabApp.py`):** tự đồng bộ **5s/lần** (thấy `course.json` đổi ⇒ nạp lại khóa học + vẽ lại ngày + nạp lại pool ôn tập + cập nhật thống kê) · canonical slug cho `set_language` · empty state nêu 3 cách làm tiếp (Sinh khóa học AI · tự hiện khi pipeline chạy · mở 📚 Trang học) · ngày rỗng nêu rõ "Ngày N chưa có nội dung" · badge độ đầy đủ ("12 từ · 2 ngữ pháp · 1 hội thoại · 12 audio · 10 ảnh") thay cho "0/0 · 0/0".
+
+**Tool mới:** `tools/verify_courses.py` — báo cáo độ đầy đủ mọi khóa (từ · ngữ pháp · hội thoại · quiz · ảnh · audio từ/nghĩa/hội thoại · từ placeholder) đo trên `course.json` + file media thật.
+
+**Test:** `tools/test_study_sync.py` mới **16/16**; **full suite 2 vòng liên tiếp: FAILs = 0** (media25 · stop_makeup37 · recovery18 · srs_api17 · study_sync16 · dashboard57 · quota94 · keymgr111 · 3mode41 · slug6 · ai_rich85 · smoke15 · media_resolver6 · media_card6 · compile0). **Cần restart app 1 lần** để nạp code GUI mới.
+
+---
+## 📋 Cập nhật mới nhất — 2026-11-12b (Gói 3 — web học thật: ôn tập SM-2 · tải theo ngày · offline · an toàn)
+
+**Vấn đề (đo thật):** web là **trình xem read-only** — không có API nào ghi tiến độ học ⇒ "học từ online" không đóng được vòng lặp (SM-2 `ai/srs.py` + `database/review_store.py` đã có nhưng **chỉ app desktop gọi**). Thêm: web tải cả `course.json` 47 MB + manifest 38 MB; phụ thuộc 2 script CDN (mất mạng ⇒ trang chết; DOMPurify lỗi ⇒ innerHTML thô của nội dung AI); `/data/*` mở toàn bộ (đọc được tiến độ ôn tập + log pipeline).
+
+**Đã sửa:** ① **3 API ôn tập SM-2** (`/api/vocab/srs/queue|review|stats`) ghi **chung `data/reviews/<slug>.json`** với app desktop, có **Origin check** (Origin lạ → 403); ② **tab 🧠 Ôn tập** (thẻ từ + 4 nút chấm điểm + lịch ôn tới + streak + phím 1-4); ③ **tải khóa học theo ngày** (`/api/vocab/course/<slug>/index|day/<n>`, cache theo mtime) — không còn tải 47 MB; ④ **bỏ CDN** `marked`+`DOMPurify` → `formatText()` tự escape ⇒ chạy offline + hết đường XSS; ⑤ media lỗi hiện chip `⚠ Không có audio` (thay vì xoá im lặng) + thêm audio **nghĩa**; ⑥ a11y/responsive (bỏ `user-scalable=no`, `#clear-search` → button, `role=tab`, `aria-live`, `:focus-visible`, `@media 720px`, nhãn tiếng Việt); ⑦ bridge hardening (`/data/*` chặn `reviews|logs|_pipeline`, `/next` không echo token); ⑧ GUI có nút **📚 Trang học** + **🎛️ Dashboard** + che token.
+
+**Test:** `tools/test_srs_api.py` mới **17/17**; test thật bằng trình duyệt: tên khóa đẹp · **1.260 ngày** trong dropdown · Ngày 1 có 10 audio + 10 ảnh · Ôn tập hàng đợi **1.956 từ** · chấm "Được" ⇒ streak 1, đến hạn 1956→1955, file review ghi đúng (`cat`: state=review, interval≈4h) · 0 lỗi console. Suite xanh: media25 · stop_makeup37 · recovery18 · srs_api17 · dashboard57 · quota94 · keymgr111 · 3mode41 · slug6 · ai_rich85 · smoke15 · compile0.
+
+**Cần quyết (Gói 4):** đo nội dung cho thấy **100% khóa Nhật là dữ liệu giả** (`単語10`/`tango10`) ⇒ phải sinh lại bằng Gemini (≈5.000 call) hoặc bỏ khóa này; 6 khóa còn lại là nội dung thật nhưng thiếu **hội thoại (~130 ngày)** + **ảnh (~1.300 ngày)** ⇒ bù media bằng edge-TTS/Wikipedia (0 quota Gemini). Chi tiết: `docs/UPGRADE_17.md` mục **7.21**.
+
+---
+## 📋 Cập nhật mới nhất — 2026-11-12 (Gói 2 — khôi phục & bảo toàn khóa học)
+
+**Bối cảnh:** rà soát toàn app (web UI · logic pipeline · key/anti-block · server/SRS) → chốt 4 gói cải tiến; user duyệt thứ tự **2 → 3 → 4** (gói key để sau).
+
+**Chẩn thật (đo trên data Desktop):** **1.260 ngày Nhật đã sinh xong** (content + quiz `done` trong `_pipeline`) nhưng **KHÔNG có `course.json`** ⇒ web không hiển thị; khóa alias `nhật` là 1.414 ngày mà **1.410 ngày rỗng**; manifest media 32.8 MB / 65.013 entry vs **77.626 file trên đĩa** ⇒ 12.655 file mồ côi; ~1.200 ngày thiếu hội thoại; ~2.000 ngày ảnh `degraded`; 0 audio nghĩa; 0 audio hội thoại.
+
+**Đã sửa (10 mục):** ① tool `tools/rebuild_course_from_checkpoints.py` dựng `course.json` **từ checkpoint** (0 call AI) → **1.260 ngày · 12.600 từ · 50.400 câu hỏi · 46.9 MB**; ② tool `tools/reindex_media.py` khôi phục manifest từ file thật; ③ flush `course.json` ở **mọi đường thoát** (hết mất ≤9 ngày khi bấm ⏹); ④ **khôi phục quiz từ checkpoint** khi resume (14 ngày mất quiz vĩnh viễn); ⑤ **xoá skeleton ngày rỗng** khi content fail; ⑥ `canonical_slug` thống nhất cho `pipeline_dir`/`audio_dir`/`reviews_path` (hết split-brain `--lang ja`); ⑦ **call hội thoại tính quota** (~1.400 call lọt khỏi bộ đếm bền); ⑧ ảnh phủ hết số từ (`max_images_per_day=0`) — hết 25 ngày kẹt PENDING; ⑨ **pass bù hội tụ** (`MAX_PENDING_MAKES=3`) — hết 12 call Gemini mỗi run; ⑩ `course_db.update_day()` chống GUI ghi đè `course.json` · `save_index` không ghi thẳng file live · `bridge_server` bỏ thư mục dự phòng + tên hiển thị đẹp.
+
+**Test:** `tools/test_course_recovery.py` mới **18/18** · `test_3mode.py` chuyển sang lesson mẫu khi khóa canonical chưa có hội thoại → 41/41. Suite xanh: media25 · stop_makeup37 · recovery18 · dashboard57 · quota94 · keymgr111 · 3mode41 · slug6 · ai_rich85 · smoke15 · compile0.
+
+**Chưa làm (user chọn để sau):** gói key (repo public đang lộ 197 key — khuyến nghị đổi repo sang **private** trước). Chi tiết: `docs/UPGRADE_17.md` mục **7.20**.
+
+---
+## 📋 Cập nhật mới nhất — 2026-11-11b (Fix 3 lỗi pipeline: ⏹ Dừng ăn ngay · bù trong cùng run · audio nghĩa/hội thoại)
+
+**Yêu cầu (user):** ① nút Dừng không hoạt động; ② pipeline "đánh dấu sinh bù lần sau" thay vì chạy hết trong 1 run; ③ nhiều ngày chưa đủ âm thanh. Đã duyệt plan A+B+C.
+
+**Chẩn thật (data Desktop):** ③ **1.302 hội thoại → 0 có `audio_ref`** + `media.dialogue_audio={}` rỗng (không stage nào từng sinh audio hội thoại) · `meaning_audio_ref` = **0/1.414** dù `tts_bilingual_mode: true` · `tiếng_nhật` 1.260 ngày media 0 file audio. ① stop chỉ check đầu ngày → `_ask_with_retry` retry 3 lần khi `kind="stopped"`, `run_dialogue_stage` nuốt stopped → vẫn verify/mark makeup; `_run_days_parallel` không cancel futures, không save khi dừng (mất ≤9 ngày). ② GUI single-pass (`passes=2` chỉ khi CLI `--all`).
+
+**Đã sửa:** **A** — `_ask_with_retry` raise `GenerationStopped` ngay · `_run_day` `_stop()` trước mỗi stage · images/audio dừng giữa chừng → save PENDING + raise (giữ phần đã sinh) · dialogue raise thay nuốt · parallel cancel futures + `try/finally` flush `course.json`. **B** — `_media_pending_days` + `_makeup_pending_days(max_passes=2)`: mọi run (kể cả GUI ▶) tự bù ngày media PENDING sau day loop, dừng khi Dừng/hết quota/hết giờ/không tiến triển. **C** — sinh **audio hội thoại** (edge-TTS 1 file/hội thoại → `media.dialogue_audio[di]` + `dlg.audio_ref`, ckpt `dialogue_tracks`, reattach guard TITLE) · makeup skip-existing từng variant + audio nghĩa đọc `meaning_vi` thật · verify đếm audio nghĩa + audio hội thoại → mark AUDIO pending · fix crash `chain=None`.
+
+**Test:** `tools/test_stop_makeup.py` mới **37/37** (dừng A1–A5 · makeup B6–B7 · **B8 integration `run_pipeline` bù 2 lần** · audio C8–C9). Suite xanh: dashboard57 · quota94 · media25 · keymgr111 · 3mode41 · slug6 · ai_rich85 · smoke15 · compile0. **Cần restart app** để fix GUI hiệu lực. Chi tiết: `docs/UPGRADE_17.md` mục **7.19**.
+
+---
+## 📋 Cập nhật mới nhất — 2026-11-11 (Trang học hết nhắc "Đồng Bộ lên GitHub" + hướng dẫn mở đúng cách)
+
+**Yêu cầu (user):** dữ liệu (từ vựng/ảnh/audio) đã có sẵn trên máy — sao phải đẩy lên GitHub mới xem được web; đảm bảo toàn bộ tính năng chạy ổn.
+
+**Sự thật:** trang **KHÔNG cần GitHub** — đọc trực tiếp `data/` local qua server nội bộ app (`127.0.0.1:5690/index`). Dòng "Đồng Bộ lên GitHub" là copy placeholder cũ. Chẩn nhật screenshot (`Failed to load data` + ngày trống + "cho ."): 5690 trống → mở thẳng `web/index.html` bằng `file://` → trình duyệt chặn `fetch`.
+
+**Đã sửa (`web/script.js`, 4 chỗ):** ① `init()` catch → thay "Failed to load data" bằng hướng dẫn phân biệt `file://` ("Mở sai cách… mở app VocabApp rồi vào 127.0.0.1:5690/index") vs server khác; ② `loadLanguage()` catch → cùng thông báo thay "Error loading vocabulary data."; ③ placeholder khóa học → bỏ "Đồng Bộ lên GitHub", nói dữ liệu nằm ngay trên máy đọc từ `data/` local + fix "cho ." (language rỗng → "(chưa chọn khóa)"); ④ **fix dropdown chọn ngày không có listener** → đổi ngày nội dung kẹt ở ngày đầu → thêm `daySelect.addEventListener("change", …)`.
+
+**Test:** `test_web_dashboard.py` 54 → **57/57** (3 check regression mới). Thật browser: `/index` init OK · List/Flashcard/AI Course render · 114 ngày + 12 ảnh + 12 audio · chặn fetch giả lập → catch hiện đúng thông báo · dashboard `?token=` IDLE + 2 khóa + link 📚. Suite xanh: dashboard57 · quota94 · media25 · keymgr111 · 3mode41 · slug6 · ai_rich85 · smoke PASS · compile0. Chi tiết: `docs/UPGRADE_17.md` mục **7.18**.
+
+---
+## 📋 Cập nhật mới nhất — 2026-11-10 (Fix dashboard: dropdown sau auth · trạng thái CHƯA KẾT NỐI · trang học `/index` hiển thị nội dung)
+
+**Triệu chứng:** dashboard mở lên "không chạy ra kết quả gì" (log 0 dòng, dropdown khóa trống); `web/index.html` trắng/chưa có nội dung khi serve qua server.
+
+**Nguyên nhân (4):** ① `loadCourses()` chỉ gọi **1 lần lúc boot** — token chưa đúng lúc mở → 401 bị nuốt → dán token xong không nạp lại → dropdown trống vĩnh viễn, không Start được; ② chưa kết nối vẫn hiện `IDLE · 0% · chưa có run` (mặc định giả gây hiểu nhầm), mọi lỗi poll bị `catch{return}` nuốt im lặng; ③ server **không có route `/index`**; ④ `script.js` chết toàn bộ (pre-existing, chỉ lộ khi serve HTTP): `paths.js` khai `const VOCAB_SLUG` toàn cục, `script.js` khai `var VOCAB_SLUG` cùng tên → **SyntaxError "already been declared"** → mọi hàm (`init`, `switchView`, `loadLanguage`, `ensureCourseLoaded`) undefined → trang trắng.
+
+**Đã sửa:**
+1. **`web/dashboard.html`** — `setAuth` chuyển chưa auth → auth → tự gọi `loadCourses()` (dropdown nạp ngay sau token đúng) + log `🔗 Đã kết nối bridge — N khóa học sẵn sàng.`; chưa auth → pill **`CHƯA KẾT NỐI`** đỏ + phase "cần dán token…"; poll lỗi mạng → pill **`MẤT KẾT NỐI`** (hết im lặng); thêm nút header **📚 Trang học → `/index`**.
+2. **`ai/bridge_server.py`** — route `GET /index` (serve `web/index.html`) · `GET /<path:fn>` static trong `web/` · `GET /data/<path:fn>` (serve `data/`: course.json, media, ảnh/audio; **fallback**: `data/index.json` thiếu → **synth** danh sách khóa AI có `course.json` thật; `<slug>.json` chưa export → `{"vocabularies":[]}` để UI sạch; traversal → 4xx). Không auth (chỉ đọc, bind 127.0.0.1).
+3. **`web/script.js`** — bỏ `var VOCAB_SLUG` trùng tên → alias `slugOf` (typeof-guard + fallback) + 2 chỗ gọi (`loadLanguage`, `ensureCourseLoaded`). *(Không sửa `paths.js` — file sinh tự động.)*
+
+**Test:** `tools/test_web_dashboard.py` **42 → 54/54** (section 6: `/index` thật, static 200, index.json synth có `tiếng_nhật`, course.json thật có `days`, vocab fallback, thiếu 404, traversal 4xx, media manifest 200). Test thật server CLI + browser: chưa token → `CHƯA KẾT NỐI` + ô token hiện + Start disabled; `?token=` → dropdown 2 khóa + log kết nối; `/index` → badge `Hoàn thành 0/114 ngày`, **Ngày 1** render từ `course.json` thật với **12 ảnh + 12 audio** + quiz, tab List sạch. Suite xanh: dashboard54 · quota94 · media25 · keymgr111 · 3mode41 · slug6 · ai_rich85 · smoke PASS · compile0. Chi tiết: `docs/UPGRADE_17.md` mục **7.17**.
+
+---
 ## 📋 Cập nhật mới nhất — 2026-11-08 (Dashboard web localhost: Start/Dừng · log realtime · tiến độ từ trình duyệt)
 
 **Yêu cầu:** giao diện web HTML trên CÙNG máy để điều khiển pipeline (Start/Dừng, xem log realtime + tiến độ) từ trình duyệt.
@@ -1538,3 +1624,599 @@ python -m ai.pipeline --all --mode enrich --full     # IPA/khẩu hình (cần q
 # Trước khi migrate: dừng process cũ đang ghi log rác data/logs\mật_* (PID 25072 theo plan).
 ```
 
+
+
+---
+
+## 2026-11-14 — Gói 6/7/8: 1 lệnh "0 → bản xứ" cho mọi ngôn ngữ + 6 lỗi media + làm lại UI
+
+**Kết quả chính:**
+- **8 khóa đều có 2.520 ngày** nội dung "0 → bản xứ" (từ vựng · ngữ pháp theo cấp độ ·
+  hội thoại · trắc nghiệm · 100 % nghĩa tiếng Việt).
+- **1 lệnh** dựng/bổ sung mọi ngôn ngữ, idempotent, lặp tới khi đủ:
+  `python tools\build_all_courses.py` (ngôn ngữ mới = thêm 1 dòng `ISO_BY_LANG`).
+- **Dịch lô 25 từ/request**: 231 từ/giờ → **300 từ/giây** (26.000 từ = 90 giây).
+
+**6 lỗi media đã tìm & sửa (đều có số liệu):**
+1. `_makeup_pending_days` thiếu tham số `source` ⇒ NameError ⇒ "đã bù 0/1157 ngày".
+2. `_run_days_parallel` thiếu tham số `source` ⇒ **600 day.fail** khi `--workers > 1`.
+3. `budget.can_call(4)` chặn cả job media **0 quota Gemini** ⇒ media đứng ở 12-33 %.
+4. ảnh/audio `skipped` bị coi là "đã xong" ⇒ **không bao giờ sinh lại** (tiếng_trung 439/446 ngày).
+5. `MAX_PENDING_MAKES=3` "chốt" media ⇒ 1.157 ngày Nhật mất vĩnh viễn.
+6. `_upsert_index` ghi manifest không merge ⇒ **mất entry** khi nhiều process (157k file / 39k entry).
+
+**UI (Gói 8):** thanh công cụ gom 3 nhóm (Học · Khóa học · Nguy hiểm) · nhãn ngắn <= 16 ký tự ·
+**tooltip mới** (class `ToolTip`) · ẩn panel rỗng (phải `grid_remove()` `_parent_canvas` của
+`CTkScrollableFrame`, `pack_forget()` không có tác dụng) · nhãn "Chưa hoàn thành" → "Chưa học ngày này".
+
+**Test:** test_ui_toolbar **7/7** · test_day_nav_loop **310/310** · test_study_sync **39/39** ·
+test_gui_smoke **15/15** · py_compile OK.
+
+**Commit:** `7.39` → `7.40` (media) → `7.41` (pipeline+ui) → `7.42` (ui+test) — đã push `master`.
+
+
+---
+
+## 2026-11-14 (buổi tối) — Đồng bộ nội dung 8 khóa + fix manifest media hỏng
+
+- **Nguồn từ bị hỏng ở 4 khóa** (Pháp chỉ còn 10 từ!) ⇒ fetch lại bằng bản dịch lô đã sửa:
+  **en · zh · fr · ko · ru · es = 26.000 từ, 100 % nghĩa Việt**.
+- **Khóa Hàn 450 → 2.520 ngày** (23.118 từ, 3,7 ngữ pháp/ngày).
+- **`build_offline_course.py` giữ lại media ref** khi dựng lại (không mất ảnh/audio đã sinh).
+- **Kết quả: 8 khóa ĐỒNG ĐỀU** — mỗi khóa 2.520 ngày · 22.7k-24.8k từ khác nhau ·
+  11-15 câu/ngày · 3,7-3,9 ngữ pháp/ngày.
+- **BUG manifest nghiêm trọng**: `save_index` dùng chung tên `.tmp` cho mọi process ⇒ 2 JSON
+  nối liền ⇒ `json.load` lỗi ⇒ `load_index` trả index rỗng ⇒ **mất sạch media** (mọi khóa
+  báo 0,0 %). Đã sửa: tmp duy nhất theo PID + **tự phục hồi** (file dự phòng → reindex từ đĩa).
+  Đã phục hồi **169.560 entry**. Test mới `tools/test_media_manifest.py`.
+- `fill_media.py --lang` nhận nhiều khóa; `build_all_courses.py` thêm tiếng Nhật (EDICT).
+
+
+---
+
+## 2026-11-15 — Hệ thống tự chạy 24/7 + dữ liệu 8 khóa đồng đều + nghĩa Nhật sạch
+
+- **4 tiến trình nền tự chạy**: bù media (4 khóa song song) · watchdog AI + toast Windows ·
+  Task Scheduler check_done mỗi 30' · 1 lệnh `build_all_courses.py` để bổ sung.
+- **Race AI vs media** đã xử lý: watchdog nhường vòng AI khi job media giữ lock.
+- **8 khóa đều 2.520 ngày**, 22,7k-24,8k từ khác nhau, 11-15 câu/ngày, 3,7-3,9 ngữ pháp/ngày.
+- **`tools/fix_meaning_tags.py`**: sạch 792 nghĩa Nhật dính hậu tố nguồn (+312 từ dịch lại).
+- **Test**: ui_toolbar 7/7 · day_nav_loop 930/930 · study_sync 39/39 · gui_smoke 15/15 ·
+  media_manifest 5/5.
+
+
+---
+
+## 2026-11-17 — Gói 9: cứu 3 khóa bị mất + đồng bộ plan
+
+**Sự cố:** 3 khóa (tiếng_nhật · tiếng_pháp · tiếng_trung) có `course.json` **0 byte**;
+`tiếng_anh` còn 259/2.520 ngày; log watchdog lộ `PAUSED 0/0 ngày`.
+
+**Nguyên nhân gốc:** `_atomic_write` / `atomic_write_json` dùng **tên `.tmp` CỐ ĐỊNH**
+⇒ 2 tiến trình (watchdog AI + job media) ghi chung `course.json` ⇒ truncate chéo ⇒
+file 0 byte. (Đây là bug thứ 3 cùng loại với bug manifest — đã sửa cả 3 nơi.)
+
+**Đã sửa:**
+1. tmp DUY NHẤT theo PID + thread (`course_db`, `pipeline_store`, `media_store`).
+2. `save_course` không cho ghi đè khóa học bằng bản RỖNG (lưới an toàn cuối).
+3. `build_offline_course` ghi kèm `plan`; thêm `tools/sync_course_plan.py`.
+
+**Khôi phục:** 3 khóa từ backup · dựng lại tiếng_anh (2.520 ngày) · dựng lại pháp +
+trung từ nguồn tốt.
+
+**Kết quả: 8/8 khóa — 2.520 ngày · plan 2.520 · 22,7k-24,8k từ · 100 % nghĩa Việt.**
+
+
+---
+
+## 2026-11-17 (sáng) — Manifest mất 150k entry ⇒ mất sạch audio ở cả 8 khóa
+
+**Hiện tượng:** check_done báo audio 0,0 % ở cả 8 khóa, nhưng **144.411 file mp3
+vẫn còn nguyên trên đĩa** ⇒ chỉ manifest bị ghi đè (169.560 → 18.323 entry, chỉ ảnh).
+
+**Nguyên nhân:** `save_index()` ghi thẳng cache RAM của từng tiến trình ⇒ mất
+entry của tiến trình khác. (Bug thứ 4 cùng loại "nhiều process ghi chung file".)
+
+**Đã sửa:** ① `save_index` LUÔN đọc đĩa → hợp nhất → ghi (đĩa là nguồn sự thật)
+② `_recover_index` luôn reindex từ đĩa ③ `reindex` đọc đĩa trực tiếp (tránh đệ quy).
+Test media_manifest **6/6** (thêm case "không được làm mất entry cũ trên đĩa").
+
+---
+
+## 2026-11-17 (chiều) — Học trên điện thoại: Pages + repo media + SRS local
+
+**Đã làm thật:**
+- Deploy **20.168 file / 331 MB** lên nhánh `gh-pages`; Pages build **built**:
+  https://ThaiBao1991.github.io/Project1/ — đủ **8 khóa × 2.520 ngày**.
+- Media 8 khóa lên repo riêng `ThaiBao1991/VocabularyData` (raw CÓ CORS):
+  Nhật 80 gói/721 MB · Trung 21/162 · Anh 23/224 · Hàn 21/269 · Nga 21/254 ·
+  Pháp 21/212 · Tây 21/164 · Đức 21/166.
+- `verify_online.py`: **9/9 PASS**; test trình duyệt thật: Nhật tải zip 3,3 s,
+  giải nén 1.075 file, **10/10 ảnh 512×512**; Trung/Anh cũng render đúng.
+
+**Bug đã sửa:**
+1. `media_map` thiếu 17/31 ref (Trung ngày 1) ⇒ chỉ hiện 1/10 ảnh. Sửa:
+   `publish_online.py` đọc manifest 211.708 entry **một lần** và ghi đè checkpoint.
+2. Hộp thoại đăng nhập GitHub hiện liên tục: mỗi upload gọi `git credential fill`.
+   Sửa: `tools/gh_token.py` + `tools/save_gh_token.ps1` — đọc token đã lưu 1 lần,
+   fallback không tương tác 15 giây.
+3. SW cache-first ⇒ điện thoại chạy JS cũ. Sửa: network-first + `VERSION=v3`.
+4. `_monthKeyOf` lệch Python ⇒ tải sai gói tháng. Sửa: `floor(day/30)+1`.
+
+**Đang chạy nền:** `fill_media.py --all-days` theo thứ tự Nhật → Trung → Anh →
+Hàn → Tây Ban Nha → Đức → Pháp → Nga (bù media tới hết 2.520 ngày/khóa).
+
+---
+
+## 2026-11-18 (tối) — Chế độ nhẹ 1 khóa × 1 luồng + Nhật đủ 2.520 ngày
+
+**Yêu cầu:** chạy tiếp nhưng máy chỉ chiếm ~1/3 RAM, CPU thấp (máy 7,3 GB RAM).
+
+**Đã làm thật:**
+- Dừng job 4 khóa song song (`--jobs 4 --workers 2`, ~1,2–1,5 GB RAM) và
+  `ai_watchdog`; chuyển sang `tools/fill_lite.py` — **1 khóa × 1 luồng**,
+  RAM trần **700 MB**, ưu tiên Below Normal, dừng khi đĩa < 6 GB.
+- Thêm `--from-day` tự động = ngày nhỏ nhất còn thiếu media (trước đây quét lại
+  từ ngày 1 mất ~2 giờ vô ích).
+- Khóa **Nhật: 2.489 → 2.520/2.520** trong **32 phút**, RAM đỉnh **443 MB**,
+  **0 lần** kill vì RAM.
+- Pack 85 gói / **782 MB**; `tools/upload_media_api.py` (Git Data API, không
+  clone) đẩy **43 gói mới/đổi** trong 276 giây → commit `5a801263`.
+- `publish_online.py --pages` (giữ đủ 8 khóa nhờ merge `data/index.json`) →
+  `deploy_pages.py` → Pages build **built**.
+- `verify_online.py`: **9/9 PASS**; tải thật `m84.zip` (8,5 MB) + `m85.zip`
+  (0,3 MB, có `d2520`) từ `raw.githubusercontent.com` và giải nén OK.
+- Thêm `tools/finalize_lite.py --watch`: tự pack → upload → pages → deploy →
+  xoá gói tạm khi từng khóa đủ 2.520 ngày; trạng thái ở
+  `data/logs/finalize_done.json`.
+
+**Phát hiện quan trọng:** ảnh media hiện **100 % là placeholder** 512×512
+(~604 B/ảnh, thẻ chữ cái) — Wikimedia `dict` bị 429 hàng loạt, Gemini image
+free tier `limit: 0`. Audio TTS là thật. Muốn ảnh minh hoạ thật phải bật
+Gemini có billing hoặc tầng Web AI qua Chrome addon.
+
+**Bug đã sửa:** `dictionary changed size during iteration` trong
+`ai/dictionary_image.py` (thiếu lock khi `json.dump`) — đổi `_cache_lock`
+thành `RLock`, giữ lock khi ghi; test đa luồng 8 writer + 2 saver **PASS**.
+
+**Đang chạy nền:** `fill_lite.py` khóa Trung (1.160/2.520) + watcher
+`finalize_lite.py`; ước tính ~1 phút/ngày.
+
+---
+
+## 2026-11-19 (00:05) — Kiểm tra 8 khóa + chốt tài khoản git + skill vận hành
+
+**Kiểm tra thật (đếm thư mục `data/media/<khóa>/dXXXX` có file):**
+
+| Khóa | Có media | Còn thiếu |
+|---|---:|---:|
+| Nhật | **2.520 / 2.520** | 0 — đã deploy, verify 9/9 PASS |
+| Trung | 1.194 / 2.520 | 1.326 |
+| Anh | 1.214 / 2.520 | 1.306 |
+| Hàn | 1.156 / 2.520 | 1.364 |
+| Tây Ban Nha | 926 / 2.520 | 1.594 |
+| Đức | 600 / 2.520 | 1.920 |
+| Pháp | 600 / 2.520 | 1.920 |
+| Nga | 600 / 2.520 | 1.920 |
+
+⇒ **Chỉ Nhật đủ; 7 khóa còn thiếu**, tổng cộng **11.350 ngày** chưa có media.
+Job `fill_lite` đang chạy khóa Trung (~551 MB RAM), watcher `finalize_lite`
+canh sẵn.
+
+**Tài khoản git — chỉ ThaiBao:**
+- Bỏ hẳn `x-access-token` khỏi URL ở `deploy_pages.py` + `upload_media_repo.py`.
+- Push bằng header `http.https://github.com/.extraheader` qua biến môi trường;
+  token không nằm trong URL / `.git/config` / argv.
+- Commit lấy `user.name`/`user.email` từ git config → `Thai Bao
+  <thaibao1991dn@gmail.com>`; không còn `VocabularyApp` / `app@local`.
+- Test push nhánh tạm bằng cơ chế mới: **PASS**, đã xoá nhánh (204).
+- Thêm `tools/push_master.py` — push `master` bằng token ThaiBao, không hộp
+  thoại; đã test thật (`0c0ee488..73f5e13d`).
+
+**Skill mới:** `C:\Users\games\.codex\skills\vocab-media-publish`
+- `SKILL.md`: bất biến 8 khóa × 2.520 ngày, thứ tự ưu tiên, lệnh kiểm tra,
+  fill_lite, finalize 4 bước, xử lý sự cố, cảnh báo ảnh placeholder.
+- `references/commands.md`: tham số script, số liệu đo thật, cấu trúc repo,
+  checklist trước khi commit, quy tắc tài khoản.
+- `quick_validate.py`: **Skill is valid!**
+
+**Docs:** cập nhật `docs/ONLINE_PHONE.md` §7–§9 theo trạng thái mới.
+
+---
+
+## 2026-11-19 (05:30) — So sánh dịch vụ miễn phí + tài liệu làm việc từ xa
+
+**Tiến độ lúc 05:29:** Trung **1.861/2.520** (từ 1.223 lúc 00:35 → +638 ngày
+trong ~4,9 giờ, ~130 ngày/giờ); tổng còn **10.683 ngày**. Pipeline ~397 MB RAM,
+đĩa trống 10,6 GB.
+
+**Đo lại dung lượng:**
+
+| Thành phần | Thật |
+|---|---:|
+| `Project1` (GitHub báo) | 5,36 GB |
+| `VocabularyData` | 2,40 GB / 234 gói |
+| `web/` | 340,0 MB / **20.189 file** |
+| `course.json` 8 khóa | 445 MB |
+| `data/media/index.json` | 149 MB |
+| `data/media` + `data/audio` | 6,4 GB (dựng lại được) |
+
+**Phát hiện:** `web/` có 20.189 file → **vượt nhẹ hạn mức 20.000 file/site**
+của Cloudflare Pages free, nên không chuyển app sang đó; giữ GitHub Pages.
+
+**Dịch vụ free đã kiểm tra:**
+- **Cloudflare R2**: 10 GB-month, 1M Class A / 10M Class B, egress 0đ — cần thẻ;
+  đủ chứa ~7 GB media.
+- **Hugging Face**: private **100 GB** free, không cần thẻ; CORS OK
+  (`ACAO` phản chiếu Origin, test HEAD 200) → hợp backup state.
+- **Oracle Cloud Always Free**: 2 OCPU/12 GB ARM, 200 GB đĩa, 10 TB egress/tháng
+  — cần thẻ, thu hồi instance idle 7 ngày, chỉ Linux.
+- **GitHub Releases**: 2 GB/asset nhưng **không CORS** → chỉ backup lạnh.
+- Loại: Google Drive/Dropbox (không CORS), Kaggle (cần đăng nhập), Git LFS
+  (1 GB/tháng), Codespaces/Cloud Shell (tự stop).
+
+**Tài liệu mới:** `docs/REMOTE.md` — bảng so sánh, 3 kiến trúc (A: 0 đồng không
+thẻ; B: R2; C: Oracle), lý do loại dịch vụ khác, checklist kiểm chứng.
+
+---
+
+## 2026-11-19 (06:05) — Sửa lỗi kẹt "Đang tải Ngày …" trên web
+
+**Triệu chứng:** chọn Ngày 2509 (Nhật) → đứng ở "⏳ Đang tải Ngày 2509…" mãi.
+
+**Nguyên nhân thật:** `web/script.js` gọi
+`(g.common_mistakes || []).map(...)`, nhưng `grammar[].common_mistakes` là
+**chuỗi** ở **69.964 mục** trên cả 8 khóa (quét toàn bộ
+`web/data/*/day/*.json`). `.map()` trên chuỗi ném
+`TypeError: ... .map is not a function`; hàm render dừng trước khi ghi HTML
+nên dòng "Đang tải…" không được thay. Không phải mạng/ZIP/rate limit.
+
+**Đã sửa:**
+- `web/script.js`: chuẩn hoá `common_mistakes` về mảng; chuỗi render `⚠️`,
+  object render `❌/✅`; guard `(q.options || [])`; `examples` chỉ map khi mảng.
+- Bọc `renderCourseDay` bằng `try/catch` → hiện "⚠ Không hiển thị được Ngày …"
+  thay vì treo.
+- `web/style.css`: thêm `.mistake-note`.
+- `web/sw.js`: `VERSION` `vocab-v3` → `vocab-v4`.
+
+**Kiểm chứng thật:** local + Pages — Nhật 2509/2519/2520/1, Anh 2509,
+Trung 1861, Hàn 1156 → render 0,3–2,5 giây, 0 lỗi console;
+`deploy_pages.py` build `built`; `verify_online.py` **9/9 PASS**.
+
+
+## 2026-11-19 (07:17) — Bổ sung giao tiếp cho 8 khóa (0 quota AI)
+
+**Vấn đề:** 2.070–2.417 ngày/khóa thiếu `sentence_patterns` + `common_sentences`;
+2.104–2.504 ngày có hội thoại template tiếng Nhật (`Xを 使います` /
+`Y は 何ですか`); quiz thiếu nhóm `common`/`grammar`; khóa không phải Nhật bị
+gán ngữ pháp tiếng Nhật.
+
+**Đã làm:**
+- `tools/enrich_course_content.py`: rút thư viện bản ngữ từ ngày gốc, chọn theo
+  cấp N5→N1 + độ dài câu + xoay theo ngày; hội thoại thật hoặc Q&A xen kẽ A/B;
+  thêm quiz ngữ pháp/thông dụng.
+- Tiếng Nhật: ngữ pháp offline N5→N1, sửa 8 ví dụ lỗi + mục `〜makenai` sai
+  thành `〜わけがない`, sửa `明日は雨はず` → `明日は雨のはず`.
+- Bộ lọc tiếng Việt không còn chặn nhầm tiếng Pháp (`ê/ô/â`).
+- `tools/export_days_keep_media.py`: xuất `web/data` giữ `media_map`, không
+  nén lại 782 MB media.
+- `sw.js`: `vocab-v4` → `vocab-v5`.
+
+**Kết quả thật:** Nhật 2.503/2.520 ngày đổi; +9.960 mẫu câu, +12.450 câu
+thông dụng, +9.668 ngữ pháp, +2.463 hội thoại, +7.263 quiz ngữ pháp,
++7.263 quiz thông dụng; 0 câu sai hệ chữ/template/lỗi quiz; vocab + audio từ
+vựng không đổi. 6 khóa Anh/Hàn/Nga/Pháp/Tây/Đức: 2.128–2.508 ngày đổi/khóa.
+Chạy lại **0 thay đổi** (idempotent). Bổ sung nghĩa tiếng Việt cho 3 lượt kết
+Q&A (Nhật 1.311, Tây 2.504, Đức 1.990 hội thoại; 0 lượt trống).
+
+**Kiểm chứng:** local + Pages — Nhật 1/100/500/1000/2509/2520,
+Anh/Hàn/Nga/Pháp/Tây/Đức 1/500/2509 → đủ 6 mục, 0 lỗi console,
+0,14–0,60 giây/ngày; `verify_online.py` **9/9 PASS**.
+
+**Còn lại:** tiếng Trung chờ pipeline bù media xong mới enrich.
+`tools/enrich_after_finalize.py` tự chờ `finalize_done.json` báo `done` rồi
+chạy enrich + export + deploy + verify cho tiếng Trung.
+
+
+## 2026-11-19 (08:21) — Tiếng Anh sạch nhiễm + IPA + bảng chữ cái Nhật
+
+**Tiếng Anh lẫn Trung/Hàn:** bản gốc có 4.541 trường dính template Nhật /
+trace Hàn / câu Trung; enrich giảm còn 2 ngày (95, 261) dính trace Hàn trong
+`tone`. Đã làm sạch; audit 0 ngày còn chữ Hàn/Trung. Ảnh "10. shanghai" +
+mẫu câu Hàn là cache cũ; thêm `COURSE_DATA_VERSION` + fetch `?v=…&cache=no-store`,
+`sw.js` lên `vocab-v8`.
+
+**Dọn từ vựng:** `tools/clean_english_vocab.py` thay 4 từ rác ngày 650
+(`puerto`, `shanghai`, `shitty`, `singh`) bằng `landlord`, `deposit`, `shabby`,
+`tenant`; bỏ 21 từ tục ở các ngày khác + 34 câu quiz chứa từ đó.
+
+**IPA tiếng Anh:** `tools/add_ipa_english.py` dùng CMUdict 126.052 từ →
+ARPAbet → IPA (âm tiết + trọng âm), bảng tay cho từ vay/viết tắt. Kết quả
+**24.575/25.179 = 97,6%** từ có IPA; `pronunciation` không còn dấu `/`.
+Ngày 1 vẫn là từ đơn giản: cat, dog, sun, pen, big, map, red, sit, hot, run.
+
+**Bảng chữ cái Nhật:** `tools/add_japanese_alphabet.py` thêm Hiragana 46 âm
+(ngày 1) và Katakana 46 âm (ngày 2); `web/script.js` + `style.css` render lưới
+5 cột trước phần từ vựng, responsive mobile.
+
+**Test case:** `tools/test_content_quality.py` **11/11 PASS** — Anh 0 nhiễm,
+IPA 97,6%, ngày 1 đơn giản, 0 từ tục; Nhật 46+46 kana; 17.640 ngày đủ mẫu câu/
+câu thông dụng/ngữ pháp/hội thoại/quiz; 0 template; 0 câu sai hệ chữ. Local +
+Pages: Nhật ngày 1/2 render 55 ô; Anh 650 render 10 từ mới + 10 IPA, 0 lỗi
+console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
+
+
+## 2026-11-19 (08:50) — Sự cố đĩa: pipeline Trung dừng ở 2.135/2.520
+
+- `fill_lite.py` dừng khóa Trung vì đĩa còn 5,8 GB (< 6 GB). Không mất dữ liệu.
+- Dọn 1,73 GB backup trung gian + cache TTS tiếng Nhật; dọn thêm cache TTS các
+  khóa không hoạt động (giữ cache Trung) → đĩa còn 7,4 GB.
+- Khởi động lại `fill_lite.py --lang tiếng_trung` từ ngày 2.135; watcher
+  `finalize_lite.py` + `enrich_after_finalize.py` vẫn chạy.
+
+
+## 2026-11-19 (09:10) — Hàng đợi hoàn tất 6 khóa còn lại
+
+- Trung đạt 2.176/2.520 lúc 09:09, tiếp tục bù.
+- Xoá media Nhật local (948 MB) + `_pipeline` (89 MB) sau khi xác nhận GitHub đủ.
+- `tools/cleanup_done_media.py --watch`: sau finalize done, xoá media/audio/
+  `_pipeline` của khóa đó, giữ `course.json` + `web/data`.
+- `tools/fill_remaining_after_chinese.py`: chờ Trung finalize + enrich xong rồi
+  bù media cho Anh, Hàn, Tây Ban Nha, Đức, Pháp, Nga.
+- Mỗi khóa đủ 2.520 → finalize upload `VocabularyData` + deploy Pages → dọn
+  media local → khóa tiếp theo.
+
+
+## 2026-11-19 (10:53) — Tối ưu UI học trên điện thoại
+
+- Đổi ngôn ngữ trong course từng tải file từ vựng 5–7 MB + dựng select 2.520
+  option ⇒ chậm, bấm ngày không đổi. Nay chỉ tải index + 1 file ngày; file từ
+  vựng tải lazy khi mở Danh sách/Thẻ từ/Ôn tập.
+- Thay select bằng ô nhập ngày + nút Đi + ←/→; nhớ ngôn ngữ/ngày/view lần trước;
+  mỗi khóa có `last_day` riêng.
+- Render lõi trước, phần còn lại render idle; token chống race; prefetch 2 ngày
+  kế bên.
+- Đo thật: local đổi Anh→Trung 68ms, lõi 6ms, phần còn lại ~268ms; Pages ~130ms;
+  ←/→ ~20ms; reload khôi phục Anh 650 / Trung 2000 / Nhật 1.
+- `test_web_contract.py` 11/11 PASS; `test_content_quality.py` PASS;
+  `verify_online.py` 9/9. `sw.js` v9, `COURSE_DATA_VERSION=2026-11-19-4`.
+
+
+## 2026-11-19 (11:56) — Trung dừng lần 2 ở 2.446/2.520
+
+- 11:55 pipeline dừng vì đĩa còn 6,0 GB. Dọn 0,94 GB (cache TTS Trung + backup
+  `course.json.bak` của 7 khóa đã enrich), đĩa còn 6,9 GB.
+- Khởi động lại `fill_lite.py --lang tiếng_trung` từ ngày 2.446, còn 74 ngày.
+- Sau khi đủ 2.520: finalize upload GitHub + deploy → cleanup media local →
+  enrich Trung → bù tiếp 6 khóa còn lại.
+- `fill_lite.py` thêm `--min-free-gb`; hàng đợi dùng ngưỡng 4 GB (thay 6 GB),
+  vì cleanup xoá media từng khóa sau finalize, vẫn chừa ≥3 GB khi pack/upload.
+- `deploy_pages.py` dọn `vocab_pages_*` cũ + xoá force file read-only; phát hiện
+  2,05 GB temp deploy sót, đĩa lên 8,2 GB.
+
+
+## 2026-11-19 (13:19) — Trung hoàn tất 2.520 + upload GitHub
+
+- 12:54 Trung đủ 2.520 ngày media; 13:11 finalize pack/upload `VocabularyData`
+  + deploy Pages; 13:13 cleanup xoá media local, giải phóng 758 MB.
+- 13:14–13:17 enrich Trung: 2.509 ngày đổi; +8.392 mẫu câu, +10.410 câu thông
+  dụng, +8.300 ngữ pháp, +2.504 hội thoại, +6.234 quiz G, +6.234 quiz C;
+  deploy + verify **9/9**.
+- Live ngày 2509 Trung: 4 mẫu câu, 5 câu thông dụng, 4 ngữ pháp, hội thoại 9
+  lượt, 16 quiz, 31 media ref.
+- 13:19 hàng đợi 6 khóa tự chạy: Anh → Hàn → Tây → Đức → Pháp → Nga (ngưỡng 4 GB).
+- `test_content_quality.py` kiểm tra 8 khóa / 20.160 ngày: **TẤT CẢ PASS**.
+
+
+## 2026-11-19 (14:16) — Audit toàn bộ + tối ưu dung lượng
+
+- `tools/audit_all.py`: **0 FAIL**; báo cáo `docs/AUDIT_REPORT.md`; 20.160 ngày,
+  online 9/9, test PASS.
+- Dung lượng: media 2,07 GB (MP3 1,80 GB/111k), ai_courses 1,06 GB,
+  web/data 0,58 GB; repo VocabularyData 2,82 GB, Project1 5,48 GB.
+- Dọn 2,05 GB temp deploy + 395 MB temp manifest; deploy tự dọn.
+- MP3 48/64 → 32 kbps mono, gắn vào finalize; ước tính giảm 0,6–0,7 GB.
+- Overlay 76.767 ref bù manifest; `publish_online` đọc overlay.
+- Quy trình kiểm + phương án giảm dung lượng: `docs/AUDIT_WORKFLOW.md`.
+
+
+## 2026-11-19 (16:00) — Sửa supervisor media báo done sai
+
+- 15:55 supervisor báo done dù `fill_lite` mới bù Anh 1.374/2.520 rồi dừng vì
+  đĩa 4,0 GB.
+- Sửa: chạy từng khóa, kiểm tra `days_done`, chỉ chuyển khi đủ 2.520; ngưỡng
+  fill 3,0 GB, chờ đĩa 3,4 GB; tự dọn temp; xoá done cũ.
+- 16:00 chạy lại Anh từ 1.374; shrink audio đã nén ~85k file, tiết kiệm ~504 MB.
+
+
+## 2026-11-19 (16:37) — Nén audio xong + hạ ngưỡng đĩa chặng cuối
+
+- Shrink audio xong: 110.500/110.522 file → 32 kbps; tiết kiệm **615,4 MB**;
+  media còn 1,79 GB.
+- Anh dừng ở 1.407 vì đĩa 2,9 GB. Supervisor chặng cuối hạ ngưỡng fill 2,3 GB,
+  chờ 2,6 GB; vẫn chạy từng khóa đến đủ 2.520, cleanup sau finalize.
+- Tiếp tục Anh → Hàn → Tây → Đức → Pháp → Nga.
+
+
+## 2026-11-19 (20:02) — Chuyển data lớn sang F:
+
+- C: có lúc 0 GB do dữ liệu ngoài app; pipeline dừng 16:57–20:02.
+- F: còn 2,79 TB; chuyển `data/media`, `data/audio`, `data/ai_courses` sang
+  `F:\VocabularyAppData`, tạo junction tại chỗ cũ. C: lên 5,6 GB.
+- Gzip course.json Trung/Nhật, tiết kiệm thêm 140 MB.
+- Restart cleanup/finalize/supervisor; tiếng Anh chạy lại từ 1.429 lúc 20:02.
+
+
+## 2026-11-19 (22:26) — Dời dữ liệu F: → D:
+
+- Theo yêu cầu, dời `data/media`, `data/audio`, `data/ai_courses` từ F: sang
+  `D:\VocabularyAppData`; tạo lại junction tại chỗ cũ.
+- C: 5,6 GB · D: 33 GB · F: 2,79 TB; F không còn dùng.
+- Kiểm tra đọc media qua junction; pipeline Anh chạy lại từ 1.537/2.520 lúc 22:26.
+
+
+
+
+## 2026-11-20 (16:35) — Chống mất trạng thái pipeline (statefile 2 bản)
+
+- Hiện tượng: `finalize_done.json`, `cleanup_done_media.json`,
+  `enrich_after_finalize_done.json` biến mất lặp lại (đã khôi phục 2 lần), dù
+  không tool nào xoá. Hệ quả: finalize có thể pack/upload lại, cleanup không
+  xoá media local, supervisor chờ mốc cũ.
+- Thêm `tools/statefile.py`: lưu mỗi trạng thái ở **2 nơi**:
+  - `D:\VocabularyAppData\state\` (bản chính, ngoài repo)
+  - `data/logs/` (bản sao cho log/tool cũ)
+  Khi đọc, hai bản được **hợp nhất theo khóa + `at`** (không theo mtime, để tiến
+  trình cũ không ghi đè dữ liệu mới). Mỗi lần ghi tạo snapshot trong
+  `D:\VocabularyAppData\state\history\` (giữ 30 bản).
+- Áp dụng cho `finalize_lite.py`, `cleanup_done_media.py`,
+  `enrich_after_finalize.py`, `fill_remaining_after_chinese.py`, `audit_all.py`.
+- Khôi phục mốc đã upload: Nhật, Trung, Anh (`finalize` + `cleanup`).
+- Sửa log cleanup ghi 0,0 MB (đo dung lượng sau khi xoá).
+- `tools/test_statefile.py`: 10/10 PASS (mất bản chính/bản sao đều tự phục hồi).
+- Tiến độ lúc 16:35: Hàn **1.887/2.520** (~80 ngày/giờ); Tây Ban Nha 926;
+  Nga/Pháp/Đức 600. C: 12,6 GB · D: 24,9 GB.
+- Bổ sung: `finalize_lite` không chỉ dựa vào dòng "xong" trong `fill_lite.log`
+  (log từng bị xoá/ghi đè ngoài ý muốn) mà còn quét trực tiếp thư mục
+  `data/media/<khóa>` — khóa nào đủ 2.520 ngày là được đưa vào hàng đợi upload.
+
+## 2026-11-20 (19:05) — Tài liệu bàn giao: runbook + skill + AGENTS.md
+
+- Tiến độ lúc 19:04: Hàn **2.095/2.520**; Tây Ban Nha 926; Đức/Pháp/Nga 600.
+  Nhật/Trung/Anh đã upload, media local = 0. Còn **7.779 ngày** (~4–4,5 ngày).
+  Đĩa: **C: 9,9 GB** · D: 26,5 GB (C: đang giảm, cần theo dõi).
+- Thêm `docs/PIPELINE_RUNBOOK.md`: bức tranh tổng quan, bản đồ đường dẫn, sơ đồ
+  4 giai đoạn (fill → finalize → cleanup → verify), bảng 13 tool, lệnh kiểm tra
+  copy-paste, 11 sự cố kèm cách sửa, **9 lỗi đã từng làm**, quy tắc bất biến,
+  checklist trước khi báo xong.
+- Thêm skill `vocab_media_pipeline` (nguồn: `GravityCode/SKILL_RULE/skills/`,
+  runtime: `.agents/skills/`) để phiên sau tự nạp khi làm media/pipeline.
+- Thêm `AGENTS.md` ở gốc workspace: quy tắc chung (chỉ sửa đúng dự án, không
+  commit MyTiktokDownload/Game/gemini_keys.json, git identity ThaiBao, UTF-8,
+  không worktree trên C:) + trỏ tới runbook.
+- Không đổi code/logic pipeline trong lần này (chỉ tài liệu); đã kiểm tra toàn bộ
+  tool và tài liệu được nhắc trong runbook đều tồn tại.
+- Ghi chú: task `VocabularyApp-CheckDone` vẫn lỗi `2147942402` (Execute chứa dấu
+  cách) — chưa sửa vì là cấu hình hệ thống, chờ người dùng đồng ý.
+
+## 2026-11-20 (19:20) — Xoá task hỏng VocabularyApp-CheckDone
+
+- Lỗi `2147942402` = `0x80070002` (ERROR_FILE_NOT_FOUND): task khai báo
+  `Execute = C:\Users\games\Desktop\Project\Python\Python` (bị cắt tại dấu
+  cách), phần còn lại `MyWork\Project1\...\check_done_task.cmd` nằm trong
+  `Arguments` ⇒ Windows tìm file tên `Python` và không thấy. Task chưa từng chạy
+  được lần nào (mỗi 30 phút đều fail), nên không có thông báo "đủ khóa".
+- Đây chỉ là tiện ích thông báo, không tham gia pipeline ⇒ đã **xoá task**
+  (`Unregister-ScheduledTask`), kiểm tra lại không còn task nào tên `*Vocabulary*`.
+- Script `tools/check_done.py` giữ nguyên; chạy tay khi cần:
+  `python -X utf8 tools\check_done.py`. `ai_watchdog.py` cũng có gọi script này.
+- `docs/PIPELINE_RUNBOOK.md` mục 8 (#11) đã cập nhật trạng thái "đã xoá".
+
+## 2026-11-21 (20:15) — Server restart: mất tiến trình + sửa lỗi watchdog bù song song
+
+- 20:10: máy/phiên khởi động lại ⇒ **toàn bộ shell nền bị huỷ**, không còn
+  process python nào. Kiểm tra lại thì:
+  - Hàn **2.515/2.520** (thiếu 5 ngày).
+  - **tiếng Anh bị bù lại 99 ngày** (d001–d099) dù đã upload xong, vì `cleanup`
+    đã xoá media local ⇒ `days_done = 0`.
+  - Log 06:59–07:39 có **4 khóa bù song song** (Anh, Hàn, Đức, Tây Ban Nha).
+  - C: tụt còn **3,9 GB**.
+- Nguyên nhân: `VocabularyApp_Watchdog.vbs` (Startup) chạy `ai_watchdog.py`, gọi
+  `tools/fill_media.py --jobs 4 --workers 2` cho cả 8 khóa. Watchdog chỉ kiểm
+  `fill_media.lock`, không thấy `fill_lite.lock`/`fill_remaining.lock` của
+  supervisor ⇒ chạy song song, bù lại khóa đã upload.
+- Đã sửa:
+  - `fill_media.py`: **bỏ khóa đã upload** (`finalize_done == done` hoặc có
+    trong `cleanup_done_media`) — test `--dry-run` bỏ đúng Nhật/Trung/Anh.
+  - `ai_watchdog.py`: `media_lock_busy()` đọc cả 3 lock
+    (`fill_media`, `fill_lite`, `fill_remaining`); đổi bù media thành
+    `--jobs 1 --workers 1`. Test: trả `True` khi supervisor đang chạy.
+  - `fill_remaining_after_chinese.py`: ghi `fill_remaining.lock` (PID) và bỏ qua
+    khóa đã upload.
+- Dọn dẹp: xoá media/audio/_pipeline tiếng Anh còn sót (13,7 MB) sau khi xác
+  nhận raw `tieng-anh` m01/m21/m42/m43/m63/m84 = HTTP 200; dọn 207 MB temp/opencode.
+- Khởi động lại: supervisor (PID 15268), `finalize_lite --watch` (5704),
+  `cleanup_done_media --watch` (17264); `fill_lite` Hàn chạy từ `--from-day 2516`.
+- Đĩa: **C: 3,86 GB** (`pagefile.sys` 22,5 GB + `hiberfil.sys` 2,9 GB trên máy
+  7,3 GB RAM) · **D: 23,4 GB**. Cần theo dõi; có thể tắt hibernation để lấy ~3 GB.
+
+## 2026-11-21 (21:15) — Hàn hoàn tất upload; bật daemon giữ pipeline; publish sang D:
+
+- **Hàn 2.520/2.520**: finalize tự chạy 20:17 → 21:10.
+  - Nén audio: 55.331 file · nén 30.859 · bỏ qua 24.472 · tiết kiệm **623,7 MB** (1.532s).
+  - Pack: **85 gói · 925 MB** (m80–m85 kiểm tra khớp).
+  - Upload: commit **`93220ee4`**, 85/85 gói trong 609s.
+  - Pages: 2.521 file · 81 MB; build `built` lúc 21:10:36.
+  - State `finalize_done[tiếng_hàn_quốc] = done` (21:10:37); raw m01/m42/m84 = HTTP 200.
+- Cleanup: xoá `data/media/tiếng_hàn_quốc` **1.154 MB**, ghi `cleanup_done_media`.
+- `verify_online.py`: **9/9 PASS**.
+- Chuyển sang **daemon**: dừng 3 watcher cũ, chạy `tools/pipeline_daemon.py` (PID 30760)
+  → 3 con sống: fill (29460), finalize (2040), cleanup (6264); status JSON ghi C/D + PID.
+- Supervisor mới **bỏ qua Anh/Hàn** (đã upload) → chạy **Tây Ban Nha** từ `--from-day 601`, 926/2.520.
+- Đĩa C: chỉ còn 3,4 GB (pagefile 22,5 + hiberfil 2,9) ⇒ đã tạo **junction
+  `publish/` → `D:\VocabularyAppData\publish`** để gói media tạm không ghi lên C:.
+- Cài tự chạy khi đăng nhập: `VocabularyApp_Pipeline.vbs` → `pipeline_daemon_task.cmd`
+  (pythonw, ẩn). Gỡ bằng `--uninstall-startup`.
+- Test: `test_proc_lock` 6/6, `test_pipeline_daemon` 8/8.
+
+## 2026-11-22 (05:55) — Lock chuyển sang D:, daemon tự phục hồi; tiến độ Tây Ban Nha
+
+- Tiến độ 05:52: **Tây Ban Nha 1.684/2.520** (từ 926 lúc 21:11 ⇒ ~87 ngày/giờ);
+  Đức/Pháp/Nga 600; còn **6.596 ngày** (~3 ngày). C: 5,3 GB · D: 26,8 GB.
+- Phát hiện: toàn bộ `data/logs/*.lock` **biến mất** dù process vẫn sống (cùng
+  hiện tượng xoá file như `*_done.json` trước đây) ⇒ `--status` báo sai "daemon
+  không chạy", nguy cơ mở daemon thứ hai.
+- Đã sửa:
+  - `proc_lock` chuyển lock sang **`D:\VocabularyAppData\state\locks`**, vẫn
+    đọc + tự di cư lock cũ trong `data/logs`.
+  - `fill_lite`, `fill_media`, `ai_watchdog` dùng chung `proc_lock` (hết 4 kiểu
+    lock khác nhau).
+  - `pipeline_daemon` tự tạo lại lock mỗi vòng nếu bị xoá; `--status` lấy PID từ
+    `pipeline_status.json` khi lock mất; không cho mở daemon thứ hai.
+- Restart daemon (PID 18132) + 3 con: fill 30320, finalize 18140, cleanup 33116;
+  lock hiện đủ 5 file trong `D:\VocabularyAppData\state\locks`.
+- Tây Ban Nha chạy tiếp từ `--from-day 1687`.
+- Test lại: `test_proc_lock` 6/6, `test_pipeline_daemon` 8/8.
+
+## 2026-11-22 (07:50) — TẠM DỪNG pipeline theo yêu cầu, lưu mốc tiến độ
+
+- Đã dừng: `pipeline_daemon` (PID 18132) + 3 con (fill/finalize/cleanup) + cây
+  `fill_lite`/`ai.pipeline`; **0 process python** của app còn chạy.
+- Đã bỏ tự chạy khi đăng nhập: xoá `VocabularyApp_Pipeline.vbs`; đổi tên
+  `VocabularyApp_Watchdog.vbs` → `.vbs.disabled` (khôi phục bằng cách đổi lại tên).
+- Dọn 5 lock rác trong `D:\VocabularyAppData\state\locks`; `--status` sửa để
+  kiểm tra PID thật (trước đó báo sai "alive" với PID đã chết).
+- Mốc tiến độ 07:49: Nhật/Trung/Anh/Hàn **đã upload xong** (local = 0);
+  **Tây Ban Nha 1.866/2.520** (thiếu từ ngày **1867**); Đức/Pháp/Nga 600.
+  Còn **6.414 ngày** (~71 giờ nếu chạy lại). C: 4,48 GB · D: 26,59 GB.
+- Thêm `docs/PAUSE_STATE.md`: trạng thái chính xác + lệnh chạy lại + cách kiểm tra.
+- Không xoá dữ liệu, không đổi state; chạy lại sẽ tiếp tục từ ngày 1867.
+
+## 2026-11-22 (23:40) — Giải phóng C:, Tây Ban Nha gần xong
+
+- Tiến độ 23:34: **Tây Ban Nha 2.395/2.520** (pass 1 dừng 2.276, pass 2 từ 2.277).
+  Còn 125 ngày ⇒ dự kiến xong ~01:30.
+- C: xuống 2,64 GB (ngưỡng pipeline tự dừng 2 GB) ⇒ đã xử lý:
+  - Dời `web/data` (0,59 GB) sang **`D:\VocabularyAppData\web_data`** + junction
+    (deploy vẫn đọc qua `web/data` bình thường; đã kiểm tra đọc 2.520 ngày của Tây).
+  - Dọn `%TEMP%` cũ: 208 MB.
+  - Kết quả: **C: 2,64 → 3,47 GB**.
+- D: còn 13,25 GB; dữ liệu app chỉ 3,26 GB (media 1,84 + audio 0,64 + ai_courses 0,78),
+  phần còn lại là dữ liệu khác của ổ D.
+- Daemon vẫn ổn: 33700 + fill 25868 + finalize 31148 + cleanup 7788.
+
+## 2026-11-23 (06:50) — Tây Ban Nha hoàn tất; thêm tool xem tiến độ
+
+- **Tây Ban Nha 2.520/2.520** — finalize xong 01:59:
+  - Pack + upload **85 gói**, commit **`2d928f32`** (669s).
+  - Pages 2.521 file · **70 MB**; build `built` lúc 01:59:00.
+  - Raw `m01/m42/m84` = HTTP 200; day 2509 live: 33 media ref, 4 mẫu câu,
+    5 câu thông dụng, 16 quiz.
+  - Cleanup 02:02 xoá media 779,3 MB + audio 716,0 MB + pipeline 73,4 MB
+    = **1.568,7 MB**.
+- **Đức** đang chạy: 02:00 bắt đầu từ 600 → **1.023/2.520** lúc 06:49 (~88 ngày/giờ).
+- Còn **5.337 ngày** → ~2,6 ngày; Đức dự kiến xong ~24/11 00:30.
+- Đĩa: **C: 10,6 GB** · **D: 15,5 GB** (đã hồi nhờ cleanup Tây + `web/data` sang D).
+- Thêm `tools/progress.py`: in tiến độ 8 khóa, %, tốc độ 1 giờ gần nhất, ETA,
+  dung lượng đĩa và PID daemon/job. Chỉ đọc, không ảnh hưởng pipeline.
+  Kết quả thật lúc 06:49: 5 khóa xong, Đức 40,6%, Pháp/Nga 23,8%, 85 ngày/giờ.
