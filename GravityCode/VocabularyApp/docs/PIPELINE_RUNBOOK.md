@@ -64,6 +64,15 @@ nhưng thay thế việc phải đọc 190 KB log.
 
 - Còn **5.337 ngày** media → khoảng **2,6 ngày** (85 ngày/giờ).
 - Xem nhanh: `python -X utf8 tools\progress.py`.
+
+### 3.1. Hiệu năng trang học (tối ưu 23/11)
+
+- Web ưu tiên file tĩnh `web/data/<slug>/index.json` + `day/<n>.json` ở **cả local**,
+  chỉ fallback API. Đo thật: đổi khóa lần đầu **~0,45 s** (index 432 KB), lần sau
+  **1–2 ms**; mở 1 ngày **~50 ms** lần đầu, **1–2 ms** khi đã cache.
+- `bridge_server` đọc được `course.json.gz` (Nhật/Trung) và cache **LRU 3 khóa**
+  (trước: 1 khóa ⇒ đổi qua lại parse lại 87–101 MB, 1,2–2,1 s/lần).
+- Ô ngày **không còn kẹt disabled**: timeout 10 s, tự mở khóa khi lỗi/rỗng.
 - Đĩa lúc ghi (21/11 20:15): **C: 3,86 GB** · **D: 23,4 GB** trống.
   → C: thấp vì `pagefile.sys` 22,5 GB + `hiberfil.sys` 2,9 GB trên ổ 7,3 GB RAM;
   pipeline tự dừng khi C: < 2 GB (xem sự cố #5).

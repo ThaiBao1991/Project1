@@ -277,15 +277,43 @@ class VocabBridge:
         # Mục tiêu "học từ online": (1) web tải đúng 1 NGÀY thay vì cả file
         # 47 MB; (2) ôn tập SM-2 dùng CHUNG file data/reviews/<slug>.json với
         # app desktop (trước đây web không có API nào ⇒ không học được).
-        _course_cache = {"key": None, "data": None}
+        _course_cache = {}          # (path, mtime) -> data, LRU vài khóa
+        _COURSE_CACHE_MAX = 3
         _word_cache = {"key": None, "index": {}}
 
         def _course_path(slug):
+            """Đường dẫn course.json THẬT: dùng bản .gz nếu .json chỉ là stub.
+
+            Nhật/Trung lưu `course.json` 372 B (stub) + `course.json.gz` 7–17 MB.
+            Trước đây chỉ đọc `.json` ⇒ `days` rỗng ⇒ web không chọn được ngày.
+            """
             from ai.paths import canonical_slug
-            return os.path.join(bridge.out_root, canonical_slug(slug), "course.json")
+            base = os.path.join(bridge.out_root, canonical_slug(slug))
+            plain = os.path.join(base, "course.json")
+            gz = plain + ".gz"
+            try:
+                if os.path.getsize(plain) < 2048 and os.path.isfile(gz):
+                    return gz
+            except OSError:
+                if os.path.isfile(gz):
+                    return gz
+            return plain
+
+        def _read_course_file(path):
+            import json
+            if path.endswith(".gz"):
+                import gzip
+                with gzip.open(path, "rt", encoding="utf-8") as f:
+                    return json.load(f)
+            with open(path, "r", encoding="utf-8") as f:
+                return json.load(f)
 
         def _load_course(slug):
-            """Nạp course.json — cache theo mtime (đọc 1 lần, không mỗi request)."""
+            """Nạp course.json — cache LRU theo (đường dẫn, mtime).
+
+            Giữ 4 khóa gần nhất: đổi ngôn ngữ qua lại không phải parse lại
+            87–101 MB mỗi lần (trước chỉ giữ 1 khóa ⇒ thrash 1,2–2,1 giây/lần).
+            """
             path = _course_path(slug)
             try:
                 mt = os.path.getmtime(path)
@@ -293,17 +321,25 @@ class VocabBridge:
                 return None
             key = (path, mt)
             with bridge._lock:
-                if _course_cache.get("key") == key:
-                    return _course_cache.get("data")
+                if key in _course_cache:
+                    _course_cache[key] = _course_cache.pop(key)   # LRU touch
+                    return _course_cache[key]
             try:
-                import json
-                with open(path, "r", encoding="utf-8") as f:
-                    data = json.load(f)
+                data = _read_course_file(path)
+            except MemoryError:
+                # Máy ít RAM (7 GB): nhả cache rồi thử lại 1 lần thay vì trả 404.
+                with bridge._lock:
+                    _course_cache.clear()
+                try:
+                    data = _read_course_file(path)
+                except Exception:
+                    return None
             except Exception:
                 return None
             with bridge._lock:
-                _course_cache["key"] = key
-                _course_cache["data"] = data
+                _course_cache[key] = data
+                while len(_course_cache) > _COURSE_CACHE_MAX:
+                    _course_cache.pop(next(iter(_course_cache)))
             return data
 
         def _word_index(slug):
@@ -577,6 +613,13 @@ class VocabBridge:
             real = _safe_join(_data_dir, fn)
             if real and os.path.isfile(real):
                 return send_from_directory(_data_dir, fn)
+            # Fallback 2 (22/11): nội dung tĩnh đã export nằm ở `web/data/`
+            # (index.json + day/<n>.json của 8 khóa). Nhờ vậy trang học local
+            # đọc file tĩnh ~30–450 KB thay vì gọi API parse course.json 90 MB.
+            _web_data = os.path.join(_web_dir, "data")
+            real2 = _safe_join(_web_data, fn)
+            if real2 and os.path.isfile(real2):
+                return send_from_directory(_web_data, fn)
             # Fallback: data/index.json CHƯA CÓ (chưa export) → synth danh sách
             # khóa AI CÓ THẬT trên đĩa → tab "Khóa học AI" hiển thị ngay.
             # FIX 2026-11-12 (Gói 2): bỏ qua thư mục dự phòng (prefix "_",

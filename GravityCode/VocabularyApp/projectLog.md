@@ -2220,3 +2220,29 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
 - Thêm `tools/progress.py`: in tiến độ 8 khóa, %, tốc độ 1 giờ gần nhất, ETA,
   dung lượng đĩa và PID daemon/job. Chỉ đọc, không ảnh hưởng pipeline.
   Kết quả thật lúc 06:49: 5 khóa xong, Đức 40,6%, Pháp/Nga 23,8%, 85 ngày/giờ.
+
+## 2026-11-23 (13:20) — Tối ưu tốc độ trang học + sửa lỗi không chọn được ngày
+
+- Nguyên nhân đo được:
+  - `course.json` 87–101 MB, `json.load` **1,2–2,1 s**; bridge chỉ cache **1 khóa**
+    ⇒ đổi ngôn ngữ qua lại parse lại mỗi lần.
+  - Nhật/Trung lưu `course.json` 372 B (stub) + `course.json.gz`; bridge chỉ đọc
+    `.json` ⇒ `days: []` ⇒ `renderCourseShell()` return sớm, ô ngày bị khoá.
+  - Web chỉ dùng file tĩnh khi `mode=static`; trên máy (local) lại gọi API, dù
+    `web/data/<slug>/index.json` (424–456 KB) và `day/<n>.json` đã có đủ.
+  - `index.json`/`day` tải với `cache: "no-store"` ⇒ tải lại mỗi lần đổi khóa.
+- Đã sửa:
+  - `ai/bridge_server.py`: `_course_path` chọn `.gz` khi `.json` là stub;
+    `_load_course` cache **LRU 3 khóa**, đọc gzip, gặp `MemoryError` thì nhả cache
+    thử lại; route `/data/<fn>` fallback sang `web/data/<fn>`.
+  - `web/script.js`: ưu tiên dữ liệu tĩnh ở cả local; cache index theo slug trong
+    RAM; `fetchWithTimeout` 10 s; mở khoá ô ngày khi lỗi/rỗng; kiểm token sau
+    `await`; prefetch ngày dùng `cache: "default"`.
+  - `web/sw.js`: `vocab-v9 → v10`.
+- Đo lại thật (trình duyệt, local):
+  - Đổi khóa lần đầu **~450 ms** (index Trung 432 KB), các lần sau **1–2 ms**.
+  - Mở ngày 2509 của Trung: **50 ms** lần đầu, **1–2 ms** khi cache; nội dung đúng.
+  - Nhật/Trung: ô ngày **enabled**, chọn 2509 OK (trước đây khoá).
+- Test: `test_srs_api.py` **17/17 PASS**, `test_web_contract.py` PASS (xác nhận
+  SW v10), E2E trình duyệt: Hàn → Trung → Hàn, chọn ngày 2509 OK.
+- Pipeline vẫn chạy: Đức **1.487/2.520** (59%), 67 ngày/giờ; C: 8,2 GB · D: 10,3 GB.

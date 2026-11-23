@@ -63,7 +63,12 @@ async function switchView(name, opts = {}) {
         b.setAttribute("aria-selected", key === name ? "true" : "false");
     });
     if (name === "course") {
-        if (!opts.skipEnsure) ensureCourseLoaded();
+        if (!opts.skipEnsure) {
+            // Không await: chuyển view phải tức thì; lỗi cũng phải mở khoá ô ngày.
+            ensureCourseLoaded().catch(() => {
+                if (dayInput) dayInput.disabled = false;
+            });
+        }
         return;
     }
     // Các view còn lại mới cần danh sách từ vựng đầy đủ (5–7 MB) ⇒ tải lazy.
@@ -116,6 +121,15 @@ function getLastState() {
     try {
         return JSON.parse(localStorage.getItem(LAST_STATE_KEY) || "{}") || {};
     } catch (e) { return {}; }
+}
+
+/** fetch có timeout — tránh UI kẹt "đang tải" khi mạng/server chậm. */
+function fetchWithTimeout(url, opts = {}, timeoutMs = 10000) {
+    if (typeof AbortController === "undefined") return fetch(url, opts);
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+    return fetch(url, Object.assign({}, opts, { signal: ctrl.signal }))
+        .finally(() => clearTimeout(timer));
 }
 
 async function init() {
@@ -211,7 +225,10 @@ async function loadLanguage(lang) {
     filteredVocabs = [];
     if (currentView === "course") {
         // Chỉ tải index + 1 ngày; KHÔNG tải file từ vựng 5–7 MB.
-        try { await ensureCourseLoaded(); } catch (e) { console.error(e); }
+        try { await ensureCourseLoaded(); } catch (e) {
+            console.error(e);
+            if (dayInput) dayInput.disabled = false;
+        }
         return;
     }
     try {
@@ -612,6 +629,8 @@ function saveLastDay(slug, day) {
 // + API day/<n> (1 ngày ~40 KB), có fallback về course.json cũ.
 let courseIndex = null;      // [{day,title,phase,topic}]
 let courseDayCache = {};     // day → lesson
+// slug → {days, level, meta}: đổi ngôn ngữ qua lại không phải tải lại index.
+const courseIndexCache = {};
 
 // ─── BẢN ONLINE (Gói 10): nguồn dữ liệu tĩnh + gói media .zip ───────────────
 const VOCAB_DATA_CFG = (typeof window !== "undefined" && window.VOCAB_DATA) || null;
@@ -825,13 +844,13 @@ function prefetchDay(dayNum) {
     const slug = slugOf(currentLanguage);
     if (!n || n < 1 || n > courseTotalDays || !slug || !courseIndex) return;
     if (courseDayCache[n] || prefetchingDays.has(n)) return;
-    if (_cfgMode() !== "static" || !VOCAB_DATA_CFG) return;
+    if (!VOCAB_DATA_CFG) return;
     if (navigator.connection && (navigator.connection.saveData
             || /2g/.test(navigator.connection.effectiveType || ""))) return;
     prefetchingDays.add(n);
     const base = `${VOCAB_DATA_CFG.dataBase}/${encodeURIComponent(slug)}`;
     fetch(`${base}/day/${String(n).padStart(4, "0")}.json?v=${COURSE_DATA_VERSION}`,
-          { cache: "no-store" })
+          { cache: "default" })
         .then(r => r.ok ? r.json() : null)
         .then(j => {
             if (j && (j.vocab || j.quiz || j.dialogue) && slug === slugOf(currentLanguage)) {
@@ -855,18 +874,32 @@ async function ensureCourseLoaded() {
         renderCourseShell();
         return;
     }
+    // Cache index theo khóa: đổi đi đổi lại gần như tức thì.
+    const cached = courseIndexCache[slug];
+    if (cached && Array.isArray(cached.days) && cached.days.length) {
+        courseSlug = slug;
+        courseIndex = cached.days;
+        staticCourseMeta = cached.meta || null;
+        courseData = { days: cached.days, level: cached.level || "" };
+        if (dayInput) dayInput.disabled = false;
+        renderCourseShell();
+        return;
+    }
     courseSlug = slug;
     courseData = null;
     courseIndex = null;
     courseDayCache = {};
     if (dayInput) dayInput.disabled = true;
 
-    // 0) BẢN ONLINE (GitHub Pages) — nội dung tĩnh theo ngày.
-    //    data/<slug>/index.json + data/<slug>/day/<n>.json  (~14 KB/ngày)
-    if (VOCAB_DATA_CFG && VOCAB_DATA_CFG.mode === "static") {
+    // 0) DỮ LIỆU TĨNH (data/<slug>/index.json) — có sẵn cho cả 8 khóa, dùng
+    //    cho CẢ local lẫn static để không phải parse course.json 87–101 MB.
+    if (VOCAB_DATA_CFG) {
         try {
             const base = `${VOCAB_DATA_CFG.dataBase}/${encodeURIComponent(slug)}`;
-            const ir = await fetch(`${base}/index.json?v=${COURSE_DATA_VERSION}`, { cache: "no-store" }).catch(() => null);
+            const ir = await fetchWithTimeout(
+                `${base}/index.json?v=${COURSE_DATA_VERSION}`,
+                { cache: "default" }, 10000).catch(() => null);
+            if (token !== courseLoadToken || slug !== slugOf(currentLanguage)) return;
             if (ir && ir.ok) {
                 const idx = await ir.json();
                 if (token !== courseLoadToken || slug !== slugOf(currentLanguage)) return;
@@ -874,6 +907,10 @@ async function ensureCourseLoaded() {
                     courseIndex = idx.days;
                     staticCourseMeta = idx;
                     courseData = { days: idx.days, level: idx.level || "" };
+                    courseIndexCache[slug] = {
+                        days: idx.days, level: idx.level || "", meta: idx
+                    };
+                    if (dayInput) dayInput.disabled = false;
                     renderCourseShell();
                     return;
                 }
@@ -883,13 +920,18 @@ async function ensureCourseLoaded() {
 
     // 1) API nhẹ: index + tải từng ngày
     try {
-        const r = await fetch(`api/vocab/course/${encodeURIComponent(slug)}/index`);
+        const r = await fetchWithTimeout(
+            `api/vocab/course/${encodeURIComponent(slug)}/index`, {}, 15000);
         if (r.ok) {
             const j = await r.json();
             if (token !== courseLoadToken || slug !== slugOf(currentLanguage)) return;
             if (j && j.ok && Array.isArray(j.days) && j.days.length) {
                 courseIndex = j.days;
                 courseData = { days: j.days, level: j.level || "" };
+                courseIndexCache[slug] = {
+                    days: j.days, level: j.level || "", meta: null
+                };
+                if (dayInput) dayInput.disabled = false;
                 // Gói 9: KHÔNG nạp manifest ở đây — renderCourseDay sẽ nạp
                 // manifest THEO NGÀY (vài KB) để trang mở nhanh.
                 renderCourseShell();
@@ -1048,6 +1090,9 @@ function mediaAudioHtml(ref, label) {
 function renderCourseShell() {
     const days = (courseData.days || []).slice().sort((a, b) => a.day - b.day);
     if (!days.length) {
+        // Không có ngày (dữ liệu lỗi/stub) ⇒ vẫn phải mở khoá ô ngày để người
+        // dùng thử khóa khác, không được để kẹt disabled.
+        if (dayInput) dayInput.disabled = false;
         courseContent.innerHTML = `<p style="color:var(--text-muted);padding:20px;text-align:center;">Khóa học chưa có ngày nào.</p>`;
         return;
     }
@@ -1121,11 +1166,14 @@ async function _renderCourseDay(dayNum) {
         } else if (courseIndex) {
             courseContent.innerHTML =
                 `<p style="color:var(--text-muted);padding:20px;text-align:center;">⏳ Đang tải Ngày ${dayNum}…</p>`;
-            // Bản ONLINE: nội dung tĩnh theo ngày (data/<slug>/day/<n>.json)
-            if (_cfgMode() === "static") {
+            // Nội dung tĩnh theo ngày (data/<slug>/day/<n>.json) — dùng cho cả
+            // local lẫn static; thiếu/lỗi mới gọi API (tránh parse 90 MB).
+            if (VOCAB_DATA_CFG) {
                 try {
                     const base = `${VOCAB_DATA_CFG.dataBase}/${encodeURIComponent(slug)}`;
-                    const r = await fetch(`${base}/day/${String(dayNum).padStart(4, "0")}.json?v=${COURSE_DATA_VERSION}`, { cache: "no-store" });
+                    const r = await fetchWithTimeout(
+                        `${base}/day/${String(dayNum).padStart(4, "0")}.json?v=${COURSE_DATA_VERSION}`,
+                        { cache: "default" }, 10000);
                     if (token !== courseRenderToken || slug !== slugOf(currentLanguage)) return;
                     if (r.ok) {
                         const j = await r.json();
@@ -1133,7 +1181,9 @@ async function _renderCourseDay(dayNum) {
                         if (j && (j.vocab || j.quiz || j.dialogue)) {
                             lesson = j;
                             courseDayCache[dayNum] = lesson;
-                            staticMediaMap = j.media_map || staticMediaMap;
+                            if (_cfgMode() === "static") {
+                                staticMediaMap = j.media_map || staticMediaMap;
+                            }
                         }
                     }
                 } catch (e) { /* không có ⇒ thử API bên dưới */ }
