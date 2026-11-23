@@ -2260,3 +2260,15 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
 - Trước khi dừng đã xong việc tối ưu tốc độ trang học (commit `6187a6a59`):
   đổi khóa ~0,45 s lần đầu / 1–2 ms lần sau; Nhật–Trung chọn ngày được;
   đã deploy Pages (SW v10).
+
+## 2026-11-24 (05:02) — Tạm dừng lần 3; Đức đủ media nhưng upload bị ngắt
+
+- Đã dừng daemon (PID 27788) + fill/finalize/cleanup + cây fill_lite/ai.pipeline;
+  gỡ `VocabularyApp_Pipeline.vbs`; dọn 6 lock (kể cả `finalize_run`).
+- Mốc: 5 khóa đã upload xong. **Đức 2.520/2.520**, đã shrink + pack **85 gói
+  758 MB** lúc 04:55:40, nhưng `upload_media_api` bị dừng giữa chừng ⇒ **chưa
+  có commit**, `finalize_done` chưa ghi Đức. Lần chạy lại sẽ pack + upload lại
+  (~10 phút) rồi pages/deploy/cleanup.
+- Pháp 600, Nga 600 (thiếu từ 601). Còn 3.840 ngày (~2,4 ngày nếu chạy lại).
+- Đĩa: C: 5,8 GB · D: 9,2 GB. `publish/tiếng_đức` giữ nguyên 758 MB.
+- Cập nhật `docs/PAUSE_STATE.md` (mốc mới + lưu ý upload dở + lệnh chạy lại).

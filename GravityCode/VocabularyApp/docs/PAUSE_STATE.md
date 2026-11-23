@@ -1,41 +1,46 @@
-# TRẠNG THÁI TẠM DỪNG — cập nhật 23/11/2026 15:03
+# TRẠNG THÁI TẠM DỪNG — cập nhật 24/11/2026 05:02
 
-> Người dùng yêu cầu **tạm dừng** toàn bộ task chạy ẩn. Không xoá dữ liệu,
-> không đổi state. Chạy lại sẽ tiếp tục đúng ngày đang thiếu.
+> Người dùng yêu cầu **dừng**. Không xoá dữ liệu, không đổi state.
+> Chạy lại sẽ tiếp tục đúng chỗ đang dở.
 
 ## 1. Đã dừng
 
 | Thứ | Trạng thái |
 |---|---|
-| `pipeline_daemon` (PID 33700) | đã dừng |
-| `fill_remaining` / `fill_lite` / `ai.pipeline` (Đức) | đã dừng |
+| `pipeline_daemon` (PID 27788) | đã dừng |
+| `fill_remaining` / `fill_lite` / `ai.pipeline` | đã dừng |
 | `finalize_lite --watch` | đã dừng |
 | `cleanup_done_media --watch` | đã dừng |
+| `upload_media_api --lang tiếng_đức` | **bị dừng giữa lúc upload** (xem mục 3) |
 | Tự chạy khi đăng nhập `VocabularyApp_Pipeline.vbs` | đã gỡ |
-| `VocabularyApp_Watchdog.vbs` | vẫn ở trạng thái `.disabled` từ 22/11 |
 | Lock trong `D:\VocabularyAppData\state\locks` | đã dọn (0 file) |
 
-Còn 1 process `python main.py` — đó là **app desktop đang mở** của người dùng,
-không phải task nền; không đụng vào.
+Còn `python main.py` — app desktop người dùng đang mở, không phải task nền.
 
-## 2. Mốc tiến độ (chính xác lúc 15:02)
+## 2. Mốc tiến độ (05:01 ngày 24/11)
 
-| Khóa | Media | Thiếu từ ngày | Ghi chú |
-|---|---:|---:|---|
-| Nhật | 2.520 | — | ✅ upload, local đã dọn |
-| Trung | 2.520 | — | ✅ upload, local đã dọn |
-| Anh | 2.520 | — | ✅ upload, local đã dọn |
-| Hàn | 2.520 | — | ✅ upload (commit `93220ee4`), local đã dọn |
-| Tây Ban Nha | 2.520 | — | ✅ upload (commit `2d928f32`), local đã dọn |
-| **Đức** | **1.592/2.520** | **1.593** | đang bù dở, **chưa upload** |
-| Pháp | 600 | 601 | chờ |
-| Nga | 600 | 601 | chờ |
+| Khóa | Media | Ghi chú |
+|---|---:|---|
+| Nhật | 2.520 | ✅ upload, local đã dọn |
+| Trung | 2.520 | ✅ upload, local đã dọn |
+| Anh | 2.520 | ✅ upload, local đã dọn |
+| Hàn | 2.520 | ✅ upload (`93220ee4`), local đã dọn |
+| Tây Ban Nha | 2.520 | ✅ upload (`2d928f32`), local đã dọn |
+| **Đức** | **2.520** | ⚠️ **đã đủ media + đã pack 85 gói (758 MB) nhưng upload bị dừng giữa chừng** — chưa có trong `finalize_done` |
+| Pháp | 600 | chờ (thiếu từ ngày 601) |
+| Nga | 600 | chờ (thiếu từ ngày 601) |
 
-- Còn **4.768 ngày** media (928 của Đức + 1.920 × 2).
-- Tốc độ gần nhất: ~67–73 ngày/giờ ⇒ **~68 giờ (2,8 ngày)** nếu chạy lại.
-- Đĩa lúc dừng: **C: 7,1 GB · D: 10,2 GB**.
+- Còn **3.840 ngày** media (1.920 × 2 khóa Pháp + Nga).
+- Đĩa: **C: 5,8 GB · D: 9,2 GB**.
+- `publish/tiếng_đức` vẫn còn 85 gói (758 MB) — giữ lại, lần chạy lại sẽ pack lại rồi upload.
 
-## 3. Chạy lại
+## 3. Lưu ý về Đức
+
+- Pack đã xong lúc **04:55:40** (85 gói, 758 MB), upload đang chạy thì bị dừng.
+- Upload dở không tạo commit ⇒ **chưa có gì trên GitHub**; lần chạy lại sẽ upload lại 85 gói (~10 phút), rồi pages + deploy + cleanup.
+- Không cần làm lại media (đã đủ 2.520 ngày).
+
+## 4. Chạy lại
 
 ```powershell
 cd "C:\Users\games\Desktop\Project\Python\Python MyWork\Project1\GravityCode\VocabularyApp"
@@ -43,7 +48,7 @@ python -X utf8 tools\pipeline_daemon.py --install-startup
 python -X utf8 tools\pipeline_daemon.py
 ```
 
-Chỉ chạy thủ công, không cài tự chạy:
+Chỉ chạy thủ công:
 
 ```powershell
 python -X utf8 tools\fill_remaining_after_chinese.py
@@ -51,19 +56,18 @@ python -X utf8 tools\finalize_lite.py --watch --interval 300
 python -X utf8 tools\cleanup_done_media.py --watch --interval 300
 ```
 
-## 4. Kiểm tra sau khi chạy lại
+## 5. Kiểm tra sau khi chạy lại
 
 ```powershell
 python -X utf8 tools\progress.py
 python -X utf8 tools\pipeline_daemon.py --status
 ```
 
-- Đức phải tiếp tục từ **ngày 1.593** (không làm lại từ đầu).
-- Ngày dở dang sẽ được `media_verify` bổ sung ở lượt kế tiếp.
+- Trong ~15 phút đầu, `finalize` sẽ tự xử lý **Đức** (pack → upload → deploy → dọn local).
+- Sau đó `fill_remaining` chạy **Pháp** từ ngày 601, rồi **Nga**.
 
-## 5. Lưu ý
+## 6. Lưu ý chung
 
-- Không xoá `data/media`, `data/audio`, `data/ai_courses` (junction → D:).
-- `web/data`, `publish` cũng là junction → D:; giữ nguyên.
+- Không xoá `data/media`, `data/audio`, `data/ai_courses`, `web/data`, `publish`
+  (đều là junction → D:).
 - State ở `D:\VocabularyAppData\state` (2 bản + history) — không sửa tay.
-- Đức chưa upload: lần chạy lại sẽ tự finalize khi đủ 2.520.
