@@ -1,0 +1,2 @@
+# Split_File hien chi su dung thu vien chuan Python (tkinter, os).
+# Them cac goi pip can thiet tai day neu bo sung tinh nang moi trong tuong lai.

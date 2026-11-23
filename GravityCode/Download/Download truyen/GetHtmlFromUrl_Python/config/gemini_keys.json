@@ -663,7 +663,10 @@
     "email": "gamesvendn16@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_72",
@@ -687,7 +690,10 @@
     "email": "gamesvendn16@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_75",
@@ -1138,7 +1144,10 @@
     "email": "gamesvendn20@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_128",
@@ -1194,7 +1203,10 @@
     "email": "gamesvendn22@gmail.com",
     "status": "active",
     "note": "Nhập từ AskCpl",
-    "cooldown_until": 0
+    "cooldown_until": 0,
+    "reset_time": 0,
+    "next_check_time": 0,
+    "error_msg": ""
   },
   {
     "id": "key_1793493334756_135",

@@ -12,6 +12,10 @@ settings.json
 credentials.json
 token.json
 secret_vault.dat
+*cookie*
+*.cookies
+cookies.txt
+cookies_tiktok.txt
 
 # Media & Downloads (File cá nhân & dung lượng lớn)
 downloads/

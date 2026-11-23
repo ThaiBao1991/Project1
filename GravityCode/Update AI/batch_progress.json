@@ -1,0 +1,68 @@
+{
+  "svendn03@gmail.com": {
+    "status": "success_24m",
+    "success": true,
+    "note": "Hạn 2028-11-20 (Thẻ 1)",
+    "time": "2026-11-20 23:59:15"
+  },
+  "gamesvendn@gmail.com": {
+    "status": "success_24m",
+    "success": true,
+    "note": "Hạn 2028-11-21 (Thẻ 1)",
+    "time": "2026-11-21 06:35:23"
+  },
+  "gamesvendn01@gmail.com": {
+    "status": "success_24m",
+    "success": true,
+    "note": "Hạn 2028-11-21 (Thẻ 1)",
+    "time": "2026-11-21 08:05:09"
+  },
+  "gamesvendn07@gmail.com": {
+    "status": "success_24m",
+    "success": true,
+    "note": "Hạn 2028-11-21 (Thẻ 1)",
+    "time": "2026-11-21 08:21:23"
+  },
+  "gamesvendn08@gmail.com": {
+    "status": "success_24m",
+    "success": true,
+    "note": "Hạn 2028-11-21 (Thẻ 1)",
+    "time": "2026-11-21 08:38:58"
+  },
+  "gamesvendn06@gmail.com": {
+    "status": "failed_risk",
+    "success": false,
+    "note": "Lỗi rà soát OR-REH-04",
+    "time": "2026-11-21 01:30:00"
+  },
+  "gamesvendn09@gmail.com": {
+    "status": "google_blocked",
+    "success": false,
+    "note": "Mặt hàng không sẵn có (Google chặn ưu đãi)",
+    "time": "2026-11-21 13:30:00"
+  },
+  "gamesvendn20@gmail.com": {
+    "status": "both_cards_failed",
+    "success": false,
+    "note": "Cả Thẻ 1 và Thẻ 2 đều bị Google chặn ưu đãi (Mặt hàng không sẵn có)",
+    "time": "2026-11-21 15:21:18"
+  },
+  "gamesvendn21@gmail.com": {
+    "status": "login_failed",
+    "success": false,
+    "note": "Không đăng nhập được tài khoản",
+    "time": "2026-11-21 14:48:42"
+  },
+  "gamesvendn22@gmail.com": {
+    "status": "both_cards_failed",
+    "success": false,
+    "note": "Cả Thẻ 1 (Visa-2646) và Thẻ 2 (Visa-0841) đều bị Google từ chối ưu đãi (Mặt hàng không sẵn có). Đã gỡ sạch thẻ và xóa tài khoản.",
+    "time": "2026-11-21 19:44:00"
+  },
+  "gamesvendn23@gmail.com": {
+    "status": "both_cards_failed",
+    "success": false,
+    "note": "Cả Thẻ 1 (Visa-2646) và Thẻ 2 (Visa-0841) đều bị Google từ chối ưu đãi (Mặt hàng không sẵn có). Đã gỡ sạch thẻ và xóa tài khoản an toàn.",
+    "time": "2026-11-22 08:11:00"
+  }
+}

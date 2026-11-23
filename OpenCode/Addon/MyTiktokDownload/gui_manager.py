@@ -374,6 +374,7 @@ class TikTokDownloadManagerApp(ctk.CTk):
         self._s_out   = ctk.StringVar(value=self.settings.get("output_dir", "downloads"))
         self._s_rate  = ctk.StringVar(value=self.settings.get("rate_limit", "1M"))
         self._s_retry = ctk.StringVar(value=str(self.settings.get("retries", 3)))
+        self._s_cookie = ctk.StringVar(value=self.settings.get("cookies_file", ""))
 
         def make_row(lbl, var, r, browse=None):
             ctk.CTkLabel(frm, text=lbl, font=ctk.CTkFont("Segoe UI", 12), anchor="w"
@@ -384,24 +385,29 @@ class TikTokDownloadManagerApp(ctk.CTk):
                 ctk.CTkButton(frm, text="...", width=40, command=browse
                               ).grid(row=r, column=2, padx=4)
 
-        make_row("Extension Data Path (.appdata):", self._s_ext, 0,
-                 lambda: self._s_ext.set(filedialog.askdirectory(title="Chon thu muc .appdata") or self._s_ext.get()))
+        make_row("Thu muc luu tru Extension (vd D:\\dltiktok):", self._s_ext, 0,
+                 lambda: self._s_ext.set(filedialog.askdirectory(title="Chon thu muc luu tru (vd: D:\\dltiktok hoac D:\\dlvideott)") or self._s_ext.get()))
         make_row("Thu muc tai ve (mac dinh):", self._s_out, 1,
                  lambda: self._s_out.set(filedialog.askdirectory() or self._s_out.get()))
         make_row("Rate limit (vd: 1M, 500K, 0=unlimited):", self._s_rate, 2)
         make_row("So lan thu lai:", self._s_retry, 3)
+        make_row("File Cookies (.txt cho video 18+/nhay cam):", self._s_cookie, 4,
+                 lambda: self._s_cookie.set(filedialog.askopenfilename(
+                     title="Chon file cookies.txt",
+                     filetypes=[("Text files", "*.txt"), ("All files", "*.*")]) or self._s_cookie.get()))
 
         ctk.CTkButton(frm, text="Luu cai dat", width=160, fg_color="#00b894", hover_color="#00a381",
                       command=self._save_settings
-                      ).grid(row=4, column=0, columnspan=3, pady=16)
+                      ).grid(row=5, column=0, columnspan=3, pady=16)
 
-        info = ctk.CTkTextbox(frm, height=110, font=ctk.CTkFont("Segoe UI", 10), state="normal", corner_radius=6)
-        info.grid(row=5, column=0, columnspan=3, padx=10, sticky="ew")
+        info = ctk.CTkTextbox(frm, height=130, font=ctk.CTkFont("Segoe UI", 10), state="normal", corner_radius=6)
+        info.grid(row=6, column=0, columnspan=3, padx=10, sticky="ew")
         info.insert("end",
-            "Extension Data Path: Thu muc .appdata cua extension (chua db_*.js va failed_videos.json)\n"
-            "  Mac dinh: D:\\dlvideott\\data\\.appdata\n\n"
+            "Thu muc luu tru Extension: Thu muc chua data cua extension (ho tro nhan dien tu dong)\n"
+            "  Vi du: D:\\dltiktok hoac D:\\dlvideott (tu dong quan ly data/Favorites va failed_videos.json)\n\n"
+            "File Cookies: File cookies.txt (Netscape format) de vuot qua cac video 18+/nhay cam can dang nhap.\n"
+            "  Co the xuat nhanh bang extension 'Get cookies.txt LOCALLY' tren Chrome.\n\n"
             "Thu muc tai ve: Khi tai lai (tab 'Da tai'), video luu vao day.\n"
-            "  Cau truc: <thu_muc>/Favorites/videos/<id>.mp4 va /Likes/videos/<id>.mp4\n\n"
             "Rate limit: Gioi han bang thong tai. Vi du: 2M = 2MB/s, 0 = khong gioi han."
         )
         info.configure(state="disabled")
@@ -543,6 +549,7 @@ class TikTokDownloadManagerApp(ctk.CTk):
         dl = HybridDownloader(
             output_dir=s.get("output_dir", "downloads"),
             db_path=str(Path(s.get("output_dir", "downloads")) / "video_index.db"),
+            cookies_file=s.get("cookies_file", ""),
             rate_limit=rl, max_retries=int(s.get("retries", 3)))
         total = len(items)
         ok = 0
@@ -626,6 +633,7 @@ class TikTokDownloadManagerApp(ctk.CTk):
         s = load_settings()
         dl = HybridDownloader(output_dir=out_dir,
                               db_path=str(Path(out_dir) / "video_index.db"),
+                              cookies_file=s.get("cookies_file", ""),
                               rate_limit=s.get("rate_limit", "1M"),
                               max_retries=int(s.get("retries", 3)))
         total = len(items); ok = 0
@@ -699,6 +707,7 @@ class TikTokDownloadManagerApp(ctk.CTk):
             "output_dir": self._s_out.get(),
             "rate_limit": self._s_rate.get(),
             "retries": int(self._s_retry.get() or "3"),
+            "cookies_file": self._s_cookie.get().strip() if hasattr(self, "_s_cookie") else "",
         })
         if hasattr(self, "_w_user") and self._w_user.get().strip():
             self.settings["github_user"] = self._w_user.get().strip()
