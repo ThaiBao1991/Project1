@@ -92,3 +92,24 @@ Tất cả các AI khi làm việc trên máy tính này trong tương lai đề
 - Nâng cấp `sync_skills_rules.py` hỗ trợ thuật toán đồng bộ 2 chiều `sync_directory_bidirectional` (mtime resolution).
 - Thiết lập đầy đủ 25 Skills, 10 Rules, `README.md`, `ProjectLog.md`, `SkillRuleApp.py` và thư mục runtime `.agents` tại Project 2.
 - Cập nhật quy chuẩn toàn cục `skill_rule_sync_protocol.md`, `workflow_rules.md`, `AGENTS.md`.
+
+
+---
+
+## 2026-11-17 — Thiết Lập Môi Trường Project 2 & Ra Mắt Dự Án `JobDetail`
+
+### 1. Bối Cảnh & Mục Tiêu
+- Đồng bộ toàn bộ hệ thống Kỹ Năng và Quy Chuẩn từ `GravityCode` sang `Project 2` (`.../W3schools/Project 2`).
+- Chuẩn hóa đường dẫn động trong `sync_skills_rules.py` để tương thích hoàn toàn trên môi trường máy tính người dùng `12953 Bao`.
+- Thiết lập quy chuẩn và kỹ năng mới phục vụ phân tích Hồ sơ công việc (Job Description - JD):
+  * **Rule mới**: `job_detail_analysis_rules.md` (Mô hình 5 Tầng Kiến Thức).
+  * **Skill mới**: `job_detail_analyzer` (Bóc tách JD thành 5 tầng kiến thức thực chiến).
+- Xây dựng hoàn chỉnh dự án mới `JobDetail` trong `Project 2\JobDetail` đáp ứng mục tiêu: nhập JD, phân tích từ đơn giản đến chi tiết, cung cấp tài liệu cần nắm và tra cứu.
+
+### 2. Triển Khai & Kết Quả
+- Chạy đồng bộ `sync_skills_rules.py --push-all`: Nâng tổng số kỹ năng lên **27 Skills** và **11 Rules**, đồng bộ 100% nhất quán giữa GravityCode Hub, Project 2 Hub (SettingAILocal), Global (`~/.gemini/config`) và các thư mục runtime `.agents`.
+- Hoàn thành ứng dụng Desktop `JobDetailApp.py` (CustomTkinter + SQLite):
+  * Dual-Engine: Offline Smart NLP + Gemini AI.
+  * 6 Tab chi tiết: Tổng quan, Ma trận kỹ năng, Lộ trình Onboarding, Kho tài liệu & từ khóa vàng, Câu hỏi phỏng vấn, Ghi chú & JD gốc.
+  * Tìm kiếm tức thì, lọc đa chiều, xuất báo cáo Markdown.
+- Kiểm thử: 100% Unit Tests passed (`test_job_storage.py`, `test_job_analyzer.py`), `py_compile` không lỗi.

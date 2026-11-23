@@ -425,7 +425,7 @@
       "planEndDate": "2028-01-04",
       "actualEndDate": "",
       "status": "Đang làm",
-      "link": "",
+      "link": "\\\\vdm-fsvr\\6. BAN BAO HANH CHAT LUONG\\3. KIEM TRA\\4. DUNG CHUNG\\11. CAC DU AN PHONG KIEM TRA\\2026\\2. CẢI THIỆN  SỐ CÔNG KIỂM TRA, NGHIỆP VỤ LÃNG PHÍ\\8. TAO CT MAY DO TRON TD( Q Thảo) - Mục tiêu năm",
       "note": "",
       "statusLogs": [
         {
@@ -434,9 +434,15 @@
           "status": "Đang làm",
           "author": "Quản trị viên (Admin)",
           "progress": 6
+        },
+        {
+          "date": "2026-11-10",
+          "note": "Tiến độ 6%\n=> Mới thực hiện cho comi , chưa thực hiện tại chương trình cho rotor",
+          "status": "Đang làm",
+          "author": "Quản trị viên (Admin)"
         }
       ],
-      "lastStatusUpdate": "2026-10-13"
+      "lastStatusUpdate": "2026-11-10"
     },
     {
       "id": "CV-2026-0012",
@@ -479,7 +485,7 @@
       "planEndDate": "2027-06-30",
       "actualEndDate": "",
       "status": "Đang làm",
-      "link": "\\\\vdm-fsvr\\KIEMTRA\\4. DUNG CHUNG\\11. CAC DU AN PHONG KIEM TRA\\2026\\2. CẢI THIỆN  SỐ CÔNG KIỂM TRA, NGHIỆP VỤ LÃNG PHÍ\\10. Nâng cao hiệu suất sử dụng máy INExiv (Mr Thảo) - Mục tiêu năm",
+      "link": "\\\\vdm-fsvr\\6. BAN BAO HANH CHAT LUONG\\3. KIEM TRA\\4. DUNG CHUNG\\11. CAC DU AN PHONG KIEM TRA\\2026\\2. CẢI THIỆN  SỐ CÔNG KIỂM TRA, NGHIỆP VỤ LÃNG PHÍ\\10. Nâng cao hiệu suất sử dụng máy INExiv (Mr Thảo) - Mục tiêu năm",
       "note": "",
       "statusLogs": [
         {
@@ -658,7 +664,7 @@
       "link": "",
       "note": "",
       "statusLogs": [],
-      "lastStatusUpdate": "2026-10-28"
+      "lastStatusUpdate": "2026-11-10"
     },
     {
       "id": "CV-2026-0020",
@@ -678,10 +684,17 @@
       "planEndDate": "2026-12-31",
       "actualEndDate": "",
       "status": "Đang làm",
-      "link": "",
+      "link": "\\\\vdm-fsvr\\6. BAN BAO HANH CHAT LUONG\\3. KIEM TRA\\4. DUNG CHUNG\\11. CAC DU AN PHONG KIEM TRA\\2026\\3. CẢI THIỆN ĐỘ CHÍNH XÁC KIỂM TRA\\1. Giám tra  phương pháp kiểm tra phòng kiểm tra, XNCD (Ms Na) - Mục tiêu năm",
       "note": "",
-      "statusLogs": [],
-      "lastStatusUpdate": "2026-10-14"
+      "statusLogs": [
+        {
+          "date": "2026-11-10",
+          "note": "Tổng 256 Hạng mục\nTháng 11: Thực tich 207 / Kế hoạch 232\nSố kiện : Thực tích 22/ Tổng 23 kiện",
+          "status": "Đang làm",
+          "author": "Quản trị viên (Admin)"
+        }
+      ],
+      "lastStatusUpdate": "2026-11-10"
     },
     {
       "id": "CV-2026-0021",
@@ -701,7 +714,7 @@
       "planEndDate": "2026-12-31",
       "actualEndDate": "",
       "status": "Đang làm",
-      "link": "\\\\vdm-fsvr\\KIEMTRA\\4. DUNG CHUNG\\11. CAC DU AN PHONG KIEM TRA\\2026\\3. CẢI THIỆN ĐỘ CHÍNH XÁC KIỂM TRA\\2. Rà soát bản thuyết minh kiểm tra, cải thiện điểm không phù hợp thực tế VDM (Ms Lieu) - Mục tiêu năm",
+      "link": "\\\\vdm-fsvr\\6. BAN BAO HANH CHAT LUONG\\3. KIEM TRA\\4. DUNG CHUNG\\11. CAC DU AN PHONG KIEM TRA\\2026\\3. CẢI THIỆN ĐỘ CHÍNH XÁC KIỂM TRA\\2. Rà soát bản thuyết minh kiểm tra, cải thiện điểm không phù hợp thực tế VDM (Ms Lieu) - Mục tiêu năm",
       "note": "",
       "statusLogs": [
         {
@@ -732,7 +745,7 @@
       "planEndDate": "2026-12-31",
       "actualEndDate": "",
       "status": "Đang làm",
-      "link": "\\\\vdm-fsvr\\Du lieu dung chung VDM\\PHONG KIEM TRA\\Ghi nhận ý kiến phản hồi về phương pháp đo dụng cụ đo XNCD\\FORM Y KIEN DIEM VAN DE LIEN QUAN DEN DO DAC XNCD.xlsx",
+      "link": "\\\\vdm-fsvr\\6. BAN BAO HANH CHAT LUONG\\3. KIEM TRA\\4. DUNG CHUNG\\11. CAC DU AN PHONG KIEM TRA\\2026\\3. CẢI THIỆN ĐỘ CHÍNH XÁC KIỂM TRA\\3. Lấy ý kiến XNCD, cải thiện ( Ms Liễu) - Mục tiêu năm",
       "note": "",
       "statusLogs": [
         {
@@ -924,7 +937,7 @@
       "link": "",
       "note": "",
       "statusLogs": [],
-      "lastStatusUpdate": "2026-10-13"
+      "lastStatusUpdate": "2026-11-10"
     },
     {
       "id": "CV-2026-0029",
@@ -1146,7 +1159,7 @@
       "planEndDate": "2026-12-31",
       "actualEndDate": "",
       "status": "Đang làm",
-      "link": "",
+      "link": "\\\\vdm-fsvr\\6. BAN BAO HANH CHAT LUONG\\3. KIEM TRA\\4. DUNG CHUNG\\11. CAC DU AN PHONG KIEM TRA\\2026\\2. CẢI THIỆN  SỐ CÔNG KIỂM TRA, NGHIỆP VỤ LÃNG PHÍ\\9. Đưa vào sử dụng máy IMX (Ms Lý) - Mục tiêu năm\\HOAT DONG IMX PHONG KIEM TRA",
       "note": "",
       "statusLogs": [],
       "lastStatusUpdate": "2026-10-14"
@@ -1221,8 +1234,8 @@
       "planUnit": "ngày",
       "planDays": 127,
       "planEndDate": "2026-09-23",
-      "actualEndDate": "",
-      "status": "Đang làm",
+      "actualEndDate": "2026-11-10",
+      "status": "Hoàn thành",
       "link": "",
       "note": "",
       "statusLogs": [
@@ -1232,9 +1245,16 @@
           "status": "Đang làm",
           "author": "Quản trị viên (Admin)",
           "progress": 70
+        },
+        {
+          "date": "2026-11-10",
+          "note": "Đã hoàn tất bổ sung vào tiêu chuẩn giáo duc",
+          "status": "Hoàn thành",
+          "author": "Quản trị viên (Admin)",
+          "progress": 100
         }
       ],
-      "lastStatusUpdate": "2026-10-16"
+      "lastStatusUpdate": "2026-11-10"
     },
     {
       "id": "CV-2026-0040",
@@ -1284,7 +1304,7 @@
       "planDays": 1,
       "planEndDate": "2026-05-20",
       "actualEndDate": "",
-      "status": "Đang làm",
+      "status": "Tạm dừng",
       "link": "",
       "note": "",
       "statusLogs": [
@@ -1345,12 +1365,19 @@
       "planUnit": "ngày",
       "planDays": 155,
       "planEndDate": "2026-12-21",
-      "actualEndDate": "",
-      "status": "Đang làm",
+      "actualEndDate": "2026-11-10",
+      "status": "Hoàn thành",
       "link": "",
       "note": "",
-      "statusLogs": [],
-      "lastStatusUpdate": "2026-10-14"
+      "statusLogs": [
+        {
+          "date": "2026-11-10",
+          "note": "",
+          "status": "Hoàn thành",
+          "author": "Quản trị viên (Admin)"
+        }
+      ],
+      "lastStatusUpdate": "2026-11-10"
     },
     {
       "id": "CV-2026-0044",
@@ -1391,8 +1418,8 @@
       "planUnit": "tuần",
       "planDays": 21,
       "planEndDate": "2026-09-21",
-      "actualEndDate": "",
-      "status": "Đang làm",
+      "actualEndDate": "2026-11-10",
+      "status": "Hoàn thành",
       "link": "",
       "note": "",
       "statusLogs": [
@@ -1402,9 +1429,16 @@
           "status": "Đang làm",
           "author": "Quản trị viên (Admin)",
           "progress": 40
+        },
+        {
+          "date": "2026-11-10",
+          "note": "Đã hoàn thành",
+          "status": "Hoàn thành",
+          "author": "Quản trị viên (Admin)",
+          "progress": 100
         }
       ],
-      "lastStatusUpdate": "2026-10-13"
+      "lastStatusUpdate": "2026-11-10"
     },
     {
       "id": "CV-2026-0046",
@@ -1689,8 +1723,8 @@
       "planUnit": "ngày",
       "planDays": 4,
       "planEndDate": "2026-09-24",
-      "actualEndDate": "",
-      "status": "Đang làm",
+      "actualEndDate": "2026-11-10",
+      "status": "Hoàn thành",
       "link": "\\\\192.168.40.5\\bbcl-品質記録書\\10.KIEM TRA検査課\\01. DU LIEU KIEM TRA\\05. DANH GIA DO DAC\\1.KET QUA GRR HE THONG DO\\SHEET DU LIEU GRR TIEU CHUAN HE THONG DO.xlsx",
       "note": "",
       "statusLogs": [
@@ -1700,9 +1734,15 @@
           "status": "Đang làm",
           "author": "Quản trị viên (Admin)",
           "progress": 90
+        },
+        {
+          "date": "2026-11-10",
+          "note": "",
+          "status": "Hoàn thành",
+          "author": "Quản trị viên (Admin)"
         }
       ],
-      "lastStatusUpdate": "2026-10-13"
+      "lastStatusUpdate": "2026-11-10"
     },
     {
       "id": "CV-2026-0060",
@@ -1908,6 +1948,43 @@
       "note": "",
       "taskSource": "Cải thiện nội bộ",
       "lastStatusUpdate": "2026-10-09"
+    },
+    {
+      "id": "CV-2026-0067",
+      "mainTaskId": "CV-2026-0067",
+      "mainTaskTitle": "Đối ứng 2026",
+      "title": "Đối ứng 2026",
+      "detail": "Sau khi giám tra brose phát hiện máy đo cân bằng có trước và sau cắt gọt nhưng chỉ đo sau cắt gọt\n=> Kiểm tra toàn bộ hạng mục đo và đánh giá lại nếu thiếu",
+      "empId": "NV07",
+      "empName": "Nguyễn Thị Thoa",
+      "supportEmpIds": [],
+      "supportEmpNames": [],
+      "startDate": "2026-10-29",
+      "planDuration": 30,
+      "planUnit": "ngày",
+      "planDays": 30,
+      "planEndDate": "2026-11-27",
+      "actualEndDate": "",
+      "status": "Đang làm",
+      "link": "",
+      "statusLogs": [
+        {
+          "date": "2026-11-10",
+          "note": "",
+          "status": "Hoàn thành",
+          "author": "Quản trị viên (Admin)",
+          "progress": 100
+        },
+        {
+          "date": "2026-11-10",
+          "note": "",
+          "status": "Đang làm",
+          "author": "Quản trị viên (Admin)"
+        }
+      ],
+      "note": "",
+      "taskSource": "Cải thiện nội bộ",
+      "lastStatusUpdate": "2026-11-10"
     }
   ],
   "projects": [
@@ -1954,6 +2031,10 @@
     {
       "id": "CV-2026-0064",
       "title": "Thay đổi hóa chất cấp 2 (9/2026)"
+    },
+    {
+      "id": "CV-2026-0067",
+      "title": "Đối ứng 2026"
     }
   ]
 }

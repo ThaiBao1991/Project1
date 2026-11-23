@@ -60,6 +60,7 @@ python sync_skills_rules.py --harvest
 | **`vocab_ai_content_rules.md`** | Nguyên tắc schema additive-only, AI Profiler phân bổ số ngày FSI bản xứ C2, kiến trúc giáo trình 3 lớp, cascade TTS/Image. | `VocabularyApp` |
 | **`pdf_precision_standards.md`** | Hệ tọa độ Canvas pixels vs PDF points vector (1 pt = 1/72 inch), chèn ảnh bảo toàn tỷ lệ, khử lệch chiều cao dòng Excel. | `StampByAntigravity`, `MBC_IntramartSignal` |
 | **`enterprise_addon_standards.md`** | Chuẩn tự động hóa ERP/Intramart: Vượt bảo mật CSP khắt khe, lồng đa tầng iframe `all_frames`, vòng lặp duyệt hàng loạt an toàn. | `HangMauIntramart` |
+| **`job_detail_analysis_rules.md`** | **Mới:** Quy chuẩn phân tích JD mô hình 5 tầng kiến thức, phân định rõ thực tế vs khuyến nghị, schema tra cứu. | `JobDetail` |
 
 ---
 
@@ -84,6 +85,7 @@ python sync_skills_rules.py --harvest
 | **`pdf_coordinate_stamping`** | **Mới:** Quy đổi ma trận tọa độ Canvas pixels $\leftrightarrow$ PDF points, template offset. | `StampByAntigravity`, `IntramartSignal` |
 | **`enterprise_intramart_automation`** | **Mới:** Tự động hóa đa tầng iframe ERP, vượt rào cản CSP, duyệt hàng loạt liên tục. | `HangMauIntramart` |
 | **`web_gantt_excel_exporter`** | **Mới:** Xuất Excel XML SpreadsheetML thuần 0 dependency, định dạng màu sắc & Gantt. | `QuanLyCongViecNhom` |
+| **`job_detail_analyzer`** | **Mới:** Bóc tách JD thành 5 tầng kiến thức (Tổng quan, Kỹ năng, Lộ trình, Tài liệu, Phỏng vấn). | `JobDetail` |
 | **`imagegen`** | Tự động hóa sinh và xử lý ảnh (remove chroma key, prompting guide). | System tools |
 | **`openai-docs`** | Hướng dẫn tra cứu tài liệu và mô hình OpenAI / Codex. | System tools |
 | **`plugin-creator`** | Khởi tạo, xác thực và đóng gói Antigravity Plugins chuẩn JSON. | System tools |
