@@ -25,6 +25,7 @@ LOG = os.path.join(BASE, "data", "logs", "fill_remaining.log")
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import statefile  # noqa: E402
 import proc_lock  # noqa: E402
+import media_index_swap  # noqa: E402
 
 FINAL_NAME = "finalize_done.json"
 ENRICH_NAME = "enrich_after_finalize_done.json"
@@ -153,6 +154,11 @@ def _run_all() -> int:
             d = days_done(slug)
             if d >= TOTAL:
                 break
+            # Chỉ nạp manifest của khóa đang làm (333 MB → ~40 MB) để giảm RAM.
+            try:
+                media_index_swap.begin(slug)
+            except Exception as e:
+                log(f"⚠ shard manifest lỗi: {e}")
             wait_free()
             log(f"▶ {slug}: {d}/{TOTAL} — lần {attempt}")
             args = [PY, "-X", "utf8", "tools/fill_lite.py",
@@ -168,6 +174,11 @@ def _run_all() -> int:
                 time.sleep(300)
         if days_done(slug) >= TOTAL:
             log(f"✅ {slug}: đủ {TOTAL} ngày")
+            # Gộp shard trở lại manifest đầy đủ để finalize/publish thấy đủ entry.
+            try:
+                media_index_swap.end(slug)
+            except Exception as e:
+                log(f"⚠ gộp manifest lỗi: {e}")
         else:
             log(f"⚠ {slug}: dừng ở {days_done(slug)}/{TOTAL}")
             failed.append(slug)

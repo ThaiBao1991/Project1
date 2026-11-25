@@ -42,7 +42,8 @@ LOG_PATH = os.path.join(BASE, "data", "logs", "finalize_lite.log")
 FILL_LOG = os.path.join(BASE, "data", "logs", "fill_lite.log")
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import statefile  # noqa: E402
-import proc_lock  # noqa: E402  (kho trạng thái 2 bản, chống mất file)
+import proc_lock  # noqa: E402
+import media_index_swap  # noqa: E402  (kho trạng thái 2 bản, chống mất file)
 
 STATE_NAME = "finalize_done.json"
 STATE = statefile.path(STATE_NAME)
@@ -128,6 +129,13 @@ def run(cmd: list[str], timeout: int = 7200) -> tuple[int, str]:
 def finalize(slug: str) -> bool:
     py = sys.executable
     log(f"▶ FINALIZE {slug}")
+    # Nếu manifest đang ở chế độ shard (chỉ 1 khóa) thì gộp lại TRƯỚC khi pack:
+    # publish --pages ghi web/data cho cả 8 khóa; thiếu entry sẽ mất media_map
+    # của các khóa khác.
+    try:
+        media_index_swap.end(slug)
+    except Exception as e:
+        log(f"⚠ gộp manifest trước finalize: {e}")
     # Giảm dung lượng audio trước khi pack (48/64 → 32 kbps mono).
     # SKIP_SHRINK=1 dùng khi đã nén riêng để tránh quét lại toàn bộ.
     if os.environ.get("SKIP_SHRINK") != "1":

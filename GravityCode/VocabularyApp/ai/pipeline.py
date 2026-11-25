@@ -23,6 +23,7 @@ Luồng stage:
 from __future__ import annotations
 
 import argparse
+import gc
 import json
 import os
 import sys
@@ -559,6 +560,12 @@ def run_pipeline(language: str, *,
                 if (idx + 1) % flush_every_days == 0:
                     course_db.save_course(language, course)
                     log.event("course.flush", msg=f"Đã flush course.json ({idx+1}/{total})")
+                    # Máy 7 GB RAM: process từng phình ~958 MB. Dọn rác định kỳ
+                    # để giữ RSS thấp (kết hợp guard 450 MB trong fill_lite).
+                    try:
+                        gc.collect()
+                    except Exception:
+                        pass
 
         # ── PASS BÙ TRONG CÙNG RUN (Fix 2026-11-11) ─────────────────────────
         # media_verify vừa đánh dấu PENDING cho ngày thiếu ảnh/audio/hội thoại

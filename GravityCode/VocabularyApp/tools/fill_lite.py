@@ -37,6 +37,7 @@ LANGS = ["tiếng_nhật", "tiếng_trung", "tiếng_anh", "tiếng_hàn_quốc"
 LOCK_PATH = os.path.join(BASE, "data", "logs", "fill_lite.lock")
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import proc_lock  # noqa: E402
+import meminfo  # noqa: E402
 LOG_PATH = os.path.join(BASE, "data", "logs", "fill_lite.log")
 MEDIA = os.path.join(BASE, "data", "media")
 
@@ -107,30 +108,26 @@ def run_once(slug: str, mem_mb: int, workers: int,
                             stderr=subprocess.DEVNULL)
     set_low_priority(proc.pid)
     kills = 0
-    try:
-        import psutil
-        ps = psutil.Process(proc.pid)
-    except Exception:
-        ps = None
+    over = 0
     while True:
         rc = proc.poll()
         if rc is not None:
             return rc, kills
-        if ps is not None:
-            try:
-                rss_mb = ps.memory_info().rss / (1024 ** 2)
-                if rss_mb > mem_mb:
-                    log(f"   ⚠ {slug}: RAM {rss_mb:.0f} MB > {mem_mb} MB "
-                        f"⇒ khởi động lại tiến trình (giữ checkpoint)")
-                    kills += 1
-                    proc.terminate()
-                    try:
-                        proc.wait(timeout=15)
-                    except subprocess.TimeoutExpired:
-                        proc.kill()
-                    return -9, kills
-            except Exception:
-                ps = None
+        rss_mb = meminfo.rss_mb(proc.pid)
+        if rss_mb > mem_mb:
+            over += 1
+            log(f"   ⚠ {slug}: RAM {rss_mb:.0f} MB > {mem_mb} MB (lần {over}/2)")
+            if over >= 2:
+                log(f"   ⇒ khởi động lại tiến trình (giữ checkpoint)")
+                kills += 1
+                proc.terminate()
+                try:
+                    proc.wait(timeout=15)
+                except subprocess.TimeoutExpired:
+                    proc.kill()
+                return -9, kills
+        else:
+            over = 0
         if free_gb() < min_free_gb:
             log(f"   ⛔ đĩa còn {free_gb():.1f} GB (< {min_free_gb:g} GB) — dừng khóa {slug}")
             proc.terminate()
@@ -145,7 +142,7 @@ def run_once(slug: str, mem_mb: int, workers: int,
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--lang", action="append", default=[])
-    ap.add_argument("--mem-mb", type=int, default=700)
+    ap.add_argument("--mem-mb", type=int, default=450)
     ap.add_argument("--workers", type=int, default=1)
     ap.add_argument("--max-passes", type=int, default=60,
                     help="số lần chạy lại tối đa cho 1 khóa")

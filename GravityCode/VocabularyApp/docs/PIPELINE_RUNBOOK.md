@@ -73,6 +73,17 @@ nhưng thay thế việc phải đọc 190 KB log.
 - `bridge_server` đọc được `course.json.gz` (Nhật/Trung) và cache **LRU 3 khóa**
   (trước: 1 khóa ⇒ đổi qua lại parse lại 87–101 MB, 1,2–2,1 s/lần).
 - Ô ngày **không còn kẹt disabled**: timeout 10 s, tự mở khóa khi lỗi/rỗng.
+
+### 3.2. RAM pipeline (tối ưu 25/11)
+
+- Nguyên nhân: `data/media/index.json` **333 MB / 606.418 entry**; `media_store`
+  nạp cả file ⇒ `ai.pipeline` ~**958 MB** RSS (máy 7,3 GB).
+- Giải pháp: `tools/media_index_swap.py` tách manifest theo khóa đang làm
+  (`index.json` còn ~6–8 MB), `fill_remaining` tự `begin`/`end`, `finalize` gộp
+  lại trước khi publish. Kèm guard RAM **450 MB** trong `fill_lite` (đọc RSS bằng
+  ctypes, không cần psutil) và `gc.collect()` mỗi 10 ngày.
+- Kết quả đo: **958 MB → 230–305 MB** (~70% giảm); tổng Python ~356 MB.
+- Kiểm tra: `python -X utf8 tools\media_index_swap.py status` (SHARD/FULL).
 - Đĩa lúc ghi (21/11 20:15): **C: 3,86 GB** · **D: 23,4 GB** trống.
   → C: thấp vì `pagefile.sys` 22,5 GB + `hiberfil.sys` 2,9 GB trên ổ 7,3 GB RAM;
   pipeline tự dừng khi C: < 2 GB (xem sự cố #5).
@@ -251,6 +262,7 @@ python -X utf8 GravityCode\VocabularyApp\tools\push_master.py
 | 11 | Task `VocabularyApp-CheckDone` báo lỗi `2147942402` (0x80070002 = file not found) | `Execute` bị cắt tại dấu cách: `C:\...\Project\Python\Python` + phần còn lại nằm trong `Arguments` | **Đã xoá task ngày 20/11/2026** (chỉ là thông báo, không ảnh hưởng pipeline). Muốn có lại thì tạo task chạy `cmd.exe /c "<đường dẫn>\tools\check_done_task.cmd"`, hoặc chạy tay `python -X utf8 tools\check_done.py` |
 | 12 | Nhiều khóa bù media **cùng lúc**, C: tụt nhanh | `ai_watchdog` gọi `fill_media --jobs 4` song song và không thấy lock của supervisor (`fill_lite.lock`, `fill_remaining.lock`) | Đã sửa 21/11: `fill_media` bỏ khóa đã upload; watchdog coi 3 lock là "busy" và chạy `--jobs 1 --workers 1` |
 | 13 | Lock trong `data/logs` biến mất, `--status` báo daemon không chạy dù process còn sống | cùng hiện tượng xoá file ngoài ý muốn như `*_done.json` | Đã chuyển lock sang `D:\VocabularyAppData\state\locks`; daemon tự tạo lại lock mỗi vòng; `--status` đọc thêm PID trong `pipeline_status.json` |
+| 14 | `media/index.json` chỉ còn vài MB, audit/publish thiếu media_map của khóa khác | đang ở **chế độ shard** (`index_full.json` tồn tại) | Chạy `python -X utf8 tools\media_index_swap.py end`; finalize cũng tự gộp trước khi publish |
 
 ---
 

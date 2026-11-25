@@ -278,7 +278,7 @@ class VocabBridge:
         # 47 MB; (2) ôn tập SM-2 dùng CHUNG file data/reviews/<slug>.json với
         # app desktop (trước đây web không có API nào ⇒ không học được).
         _course_cache = {}          # (path, mtime) -> data, LRU vài khóa
-        _COURSE_CACHE_MAX = 3
+        _COURSE_CACHE_MAX = 2       # 2 khóa (~190 MB) thay vì 3, giảm RAM máy 7 GB
         _word_cache = {"key": None, "index": {}}
 
         def _course_path(slug):

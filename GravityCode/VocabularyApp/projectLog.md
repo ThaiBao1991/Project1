@@ -2282,3 +2282,27 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
 - Mốc: **7/8 khóa đã upload xong**. **Nga 695/2.520** (thiếu từ ngày 696).
   Còn 1.825 ngày (~23–29 giờ). C: 16,4 GB · D: 41,7 GB.
 - Cập nhật `docs/PAUSE_STATE.md` với mốc mới + lệnh chạy lại.
+
+## 2026-11-25 (18:15) — Giảm RAM pipeline ~70% (958 MB → ~230–305 MB)
+
+- Nguyên nhân đo được: `data/media/index.json` = **333 MB / 606.418 entry**
+  (8 khóa); `media_store` nạp cả file ⇒ `ai.pipeline` **958 MB** RSS. Guard RAM
+  trong `fill_lite` không hoạt động vì máy **không cài psutil** (`ps=None`).
+- Đã sửa:
+  - `tools/meminfo.py`: đọc RSS qua `psapi.GetProcessMemoryInfo` (ctypes),
+    fallback psutil. Không cần cài thêm gì.
+  - `fill_lite.py`: guard dùng meminfo, cần **2 lần liên tiếp** vượt ngưỡng mới
+    kill, hạ trần **700 → 450 MB**; kill xong tự chạy lại (giữ checkpoint).
+  - `tools/media_index_swap.py`: `begin` tách manifest chỉ còn khóa đang làm
+    (333 MB → **5,7–8 MB**), `end` gộp lại; `fill_remaining` tự gọi
+    begin/end, `finalize` gộp trước khi pack (tránh mất media_map 7 khóa khác).
+  - `ai/pipeline.py`: `gc.collect()` mỗi 10 ngày (flush).
+  - `ai/bridge_server.py`: LRU course cache 3 → 2 khóa (bớt ~90 MB khi mở app).
+- Đo sau khi sửa (Nga đang chạy): `ai.pipeline` **297 MB**, sau đó **231 MB**;
+  tổng Python ~356 MB (trước ~1.011 MB). Nga tiếp tục từ 1.283 → 1.293.
+- Test: `test_media_index_swap.py` **8/8 PASS**; `test_statefile`, `test_proc_lock`
+  vẫn PASS; JS/PY compile OK.
+- Lưu ý: manifest đang ở chế độ SHARD (`index_full.json` 333 MB). Khi Nga đủ
+  2.520, supervisor tự `end` gộp lại; nếu cần gộp tay:
+  `python -X utf8 tools\media_index_swap.py end`.
+- Đĩa: C: 33,4 GB · D: 41,0 GB.
