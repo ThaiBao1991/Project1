@@ -1092,6 +1092,25 @@ tr:last-child td {
     margin-top: 3px;
 }
 
+/* Audio từng lượt: câu gốc + bản dịch Việt */
+.dialogue-audio-inline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 6px;
+}
+.dialogue-audio-inline .dlg-audio-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--text-muted);
+}
+.dialogue-audio-inline .media-audio {
+    height: 30px;
+    width: 168px;
+}
+
 .dialogue-culture {
     margin-top: 10px;
     padding: 8px 10px;

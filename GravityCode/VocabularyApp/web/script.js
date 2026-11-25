@@ -1372,6 +1372,10 @@ async function _renderCourseDay(dayNum) {
                         <div class="dialogue-line">
                             <div class="dialogue-target">${formatText(t.line_target || "")}</div>
                             ${t.line_vi ? `<div class="vocab-example-meaning">${formatText(t.line_vi)}</div>` : ""}
+                            ${(t.audio_ref || t.vi_audio_ref) ? `<div class="dialogue-audio-inline">
+                                ${t.audio_ref ? `<span class="dlg-audio-chip">🔊 Gốc ${mediaAudioHtml(t.audio_ref, "gốc")}</span>` : ""}
+                                ${t.vi_audio_ref ? `<span class="dlg-audio-chip">🔊 Việt ${mediaAudioHtml(t.vi_audio_ref, "vi")}</span>` : ""}
+                            </div>` : ""}
                             ${t.tone || t.emotion ? `<div class="dialogue-tone">🎭 ${escapeHtml([t.emotion, t.tone].filter(Boolean).join(" · "))}</div>` : ""}
                         </div>
                     </div>`).join("")}

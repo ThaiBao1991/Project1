@@ -2354,3 +2354,15 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
   hội thoại hỏi–đáp thật.
 - Bắt đầu chạy nền sinh lại 1.300 ngày còn lại; sau đó sinh audio từng lượt
   (Nhật + Việt) và cập nhật web.
+
+## 2026-11-26 (06:57) — Audio từng lượt (Nhật + Việt) + web phát 2 giọng
+
+- Thêm `tools/dialogue_audio_turns.py`: mỗi lượt hội thoại sinh 2 audio
+  (`audio_ref` = tiếng đích ja-JP, `vi_audio_ref` = tiếng Việt vi-VN), idempotent,
+  resume theo state; tự tách manifest theo khóa khi ghi.
+- Web: mỗi lượt hiện 2 player nhỏ "🔊 Gốc" và "🔊 Việt" (ẩn nếu thiếu ref);
+  CSS `.dialogue-audio-inline`. SW `v10 → v11`.
+- Chưa chạy audio: đang chờ batch sinh lại hội thoại xong để tránh ghi chồng
+  `course.json.gz`.
+- Batch sinh hội thoại tiếng Nhật đang chạy nền (`data/logs/regen_dialogue_ja.log`),
+  đã tới ngày 86, tốc độ ~2–4 giây/ngày, resume được.
