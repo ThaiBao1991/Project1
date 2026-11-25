@@ -2272,3 +2272,13 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
 - Pháp 600, Nga 600 (thiếu từ 601). Còn 3.840 ngày (~2,4 ngày nếu chạy lại).
 - Đĩa: C: 5,8 GB · D: 9,2 GB. `publish/tiếng_đức` giữ nguyên 758 MB.
 - Cập nhật `docs/PAUSE_STATE.md` (mốc mới + lưu ý upload dở + lệnh chạy lại).
+
+## 2026-11-25 (09:18) — Tạm dừng lần 4; chỉ còn Nga
+
+- Pháp đã xong trước khi dừng: upload 85 gói, Pages built 08:24, cleanup
+  1.393 MB; raw `tieng-phap` m01/m42/m84 = HTTP 200.
+- Đã dừng daemon (PID 10664) + fill/finalize/cleanup + fill_lite/ai.pipeline;
+  gỡ `VocabularyApp_Pipeline.vbs`; dọn 5 lock.
+- Mốc: **7/8 khóa đã upload xong**. **Nga 695/2.520** (thiếu từ ngày 696).
+  Còn 1.825 ngày (~23–29 giờ). C: 16,4 GB · D: 41,7 GB.
+- Cập nhật `docs/PAUSE_STATE.md` với mốc mới + lệnh chạy lại.
