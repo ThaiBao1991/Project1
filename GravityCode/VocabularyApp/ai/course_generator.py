@@ -791,6 +791,11 @@ def build_dialogue_prompt(lang_name: str, lesson: dict, level: str = "",
         f"khoảng {max_turns} lượt, mỗi lượt một câu ngắn.\n"
         f"- Mỗi lượt: speaker (nhãn A/B hoặc vai người nói), line_target (câu NGÔN NGỮ ĐÍCH), "
         f"line_vi (dịch nghĩa tiếng Việt).\n"
+        f"- line_target PHẢI 100% là {lang_name}: TUYỆT ĐỐI KHÔNG chèn tiếng Việt "
+        f"(không 'Vâng', 'Nhưng', 'Trời'…). Chỉ line_vi mới viết tiếng Việt.\n"
+        f"- line_target phải viết bằng CHỮ VIẾT BẢN XỨ của {lang_name} "
+        f"(Nhật: kanji/kana; Trung: Hán tự; Hàn: Hangul; Nga: Kirin; Ả Rập: chữ Ả Rập…). "
+        f"TUYỆT ĐỐI KHÔNG dùng romaji/phiên âm Latin.\n"
         f"- focus_words: 1-3 từ/cụm trong câu mà người học cần chú ý (mảng).\n"
         f"- emotion: cảm xúc của lượt nói (VD: thân thiện, nghiêm túc, bối rối, tức giận nhẹ).\n"
         f"- tone: sắc thái/giọng điệu (VD: lịch sự, thân mật, gấp gáp, nhẹ nhàng).\n"
@@ -806,6 +811,11 @@ def build_dialogue_prompt(lang_name: str, lesson: dict, level: str = "",
         f"khó dùng trong câu ngắn.\n"
         f"- Câu phải là TIẾNG NÓI ĐỜI THƯỜNG, đơn giản, tự nhiên: không thành ngữ phức tạp, "
         f"không câu dài dồn nhiều mệnh đề, không từ hiếm.\n"
+        f"- ĐÂY LÀ HỘI THOẠI, KHÔNG phải danh sách câu: mỗi lượt phải phản hồi trực tiếp "
+        f"lượt trước (trả lời câu hỏi, hỏi lại, hoặc bình luận), không liệt kê câu rời.\n"
+        f"- Phải có ÍT NHẤT 2 cặp hỏi–đáp: lượt 'question' rồi lượt 'answer' ngay sau.\n"
+        f"- Mỗi lượt ghi thêm turn_type: 'question' | 'answer' | 'statement'.\n"
+        f"- Không mở đầu nhiều lượt bằng cùng một cụm (ví dụ lặp '私は…').\n"
         f"- Dùng ÍT NHẤT 1 cấu trúc ngữ pháp nêu trên.\n"
         f"{extra}"
         f"- KHÔNG thêm chữ ngoài JSON."
@@ -2321,6 +2331,7 @@ def parse_dialogue_json(text: str) -> list:
                                 if _s(w)][:6],
                 "emotion": _s(t.get("emotion", "")),
                 "tone": _s(t.get("tone", "")),
+                "turn_type": _s(t.get("turn_type", "")).lower(),
             })
         if len(turns) < 2:      # hội thoại tối thiểu 2 lượt
             continue

@@ -27,6 +27,56 @@ COURSES_DIR = os.path.join(BASE_DIR, "data", "ai_courses")
 _WRITE_LOCK = threading.RLock()
 
 
+def _course_file(path: str) -> str:
+    """File THẬT: dùng `.gz` nếu `.json` là stub (< 2 KB) hoặc không tồn tại."""
+    gz = path + ".gz"
+    try:
+        if os.path.isfile(gz) and (not os.path.isfile(path)
+                                   or os.path.getsize(path) < 2048):
+            return gz
+    except OSError:
+        pass
+    return path
+
+
+def _read_course(path: str) -> dict:
+    real = _course_file(path)
+    if real.endswith(".gz"):
+        import gzip
+        with gzip.open(real, "rt", encoding="utf-8") as f:
+            return json.load(f)
+    with open(real, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def _atomic_write_course(path: str, data: dict) -> None:
+    """Ghi atomic vào đúng file đang dùng (json hoặc json.gz)."""
+    real = _course_file(path)
+    if not real.endswith(".gz"):
+        _atomic_write(real, data)
+        return
+    import gzip
+    import threading
+    import time as _t
+    with _WRITE_LOCK:
+        tmp = f"{real}.tmp.{os.getpid()}.{threading.get_ident()}"
+        with gzip.open(tmp, "wt", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, separators=(",", ":"))
+        last = None
+        for _i in range(12):
+            try:
+                os.replace(tmp, real)
+                return
+            except OSError as e:
+                last = e
+                _t.sleep(0.25 * (_i + 1))
+        try:
+            os.remove(tmp)
+        except OSError:
+            pass
+        raise last
+
+
 def _atomic_write(path: str, data: dict):
     """Ghi atomic — tên file tmp DUY NHẤT theo PID + thread.
 
@@ -100,14 +150,13 @@ def get_course(language: str, *, apply_v4: bool = True, persist: bool = None):
                   False = không ghi (chế độ chỉ-đọc)
     """
     path = course_path(language)
-    if not os.path.exists(path):
+    if not os.path.exists(path) and not os.path.exists(path + ".gz"):
         return None
     try:
         # Đọc cũng phải nằm trong khoá: trên Windows, os.replace() sẽ FAIL
         # (Access is denied) nếu đích đang được mở để đọc ở thread khác.
         with _WRITE_LOCK:
-            with open(path, "r", encoding="utf-8") as f:
-                course = json.load(f)
+            course = _read_course(path)
     except Exception:
         return None
     migrated = False
@@ -220,8 +269,8 @@ def save_course(language: str, course: dict, backup: bool = False):
             return
     if backup:
         from ai.pipeline_store import rotate_backup
-        rotate_backup(path)
-    _atomic_write(path, course)
+        rotate_backup(_course_file(path))
+    _atomic_write_course(path, course)
 
 
 def update_day(language: str, day_num: int, lesson: dict) -> bool:

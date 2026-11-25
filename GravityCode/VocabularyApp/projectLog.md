@@ -2332,3 +2332,25 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
 - Đĩa: C: 30,0 GB · D: 41,9 GB.
 - Việc còn lại: chạy `audit_all.py` toàn bộ (báo cáo cuối), P0 UI theo
   `docs/UPGRADE_PLAN.md`, rotate 197 key lộ trong `AskCpl/settings.json`.
+
+## 2026-11-26 (06:55) — Hội thoại: sửa lỗi nền + pilot sinh lại (tiếng Nhật)
+
+- Phát hiện: `course_db` KHÔNG đọc `course.json.gz` ⇒ Nhật/Trung trả 0 ngày
+  (dù file .gz có 2.520 ngày). Đã thêm `_read_course`/`_atomic_write_course`
+  (đọc/ghi gzip atomic) — test lại: Nhật/Trung/Anh đều 2.520 ngày.
+- Hội thoại Nhật: **1.311/2.520 ngày là "Hội thoại mẫu" offline** (câu rời rạc,
+  0–1 từ khoá); chỉ **57/2.520 ngày có audio**; audio cũ 1 file/đoạn, chỉ tiếng Nhật.
+- Sửa validator (`media_schema`):
+  - `_contains_word`: CJK dùng so khớp chuỗi con (trước đây word-boundary luôn fail
+    với tiếng Nhật ⇒ báo "0 từ" dù câu có từ).
+  - Chặn `line_target` lẫn tiếng Việt; bắt buộc có câu hỏi; thêm `turn_type`
+    (question/answer/statement), yêu cầu ≥2 cặp hỏi–đáp.
+- Prompt hội thoại: cấm chèn tiếng Việt/romaji, bắt buộc chữ bản xứ, mỗi lượt phản hồi
+  lượt trước, ≥2 cặp hỏi–đáp, ghi `turn_type`.
+- Thêm `tools/regen_dialogues.py` (resume state, backup `dialogue_backup`, retry 1 lần
+  kèm phản hồi từ thiếu).
+- Pilot 18 ngày: **12 ngày đạt** (6 lượt, 4–11 từ khoá); các ngày còn lại bị AI trả
+  romaji/không có câu hỏi nên bị loại, giữ bản cũ. Chất lượng mẫu ngày 49/52 đã thành
+  hội thoại hỏi–đáp thật.
+- Bắt đầu chạy nền sinh lại 1.300 ngày còn lại; sau đó sinh audio từng lượt
+  (Nhật + Việt) và cập nhật web.

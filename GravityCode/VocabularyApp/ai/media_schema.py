@@ -190,8 +190,11 @@ DIALOGUE_SCHEMA = {
                         "focus_words": {"type": "ARRAY", "items": {"type": "STRING"}},
                         "emotion":     {"type": "STRING"},
                         "tone":        {"type": "STRING"},
+                        "turn_type":   {"type": "STRING",
+                                        "enum": ["question", "answer", "statement"],
+                                        "description": "question = câu hỏi; answer = trả lời câu hỏi ngay trước; statement = câu nói/bình luận"},
                     },
-                    "required": ["speaker", "line_target", "line_vi"],
+                    "required": ["speaker", "line_target", "line_vi", "turn_type"],
                 }},
             },
             "required": ["situation", "level_tag", "turns"],
@@ -222,11 +225,18 @@ def _split_words(text: str) -> list:
 
 
 def _contains_word(line: str, word: str) -> bool:
-    """Kiểm tra 1 từ/cụm từ có xuất hiện trong câu (không phân biệt hoa thường)."""
+    """Kiểm tra 1 từ/cụm từ có xuất hiện trong câu (không phân biệt hoa thường).
+
+    FIX 26/11: tiếng Nhật/Trung không có khoảng trắng; `\\w` của Python khớp cả
+    kana/kanji nên word-boundary luôn fail ⇒ validator báo "0 từ" dù câu có từ.
+    Với ký tự non-ASCII dùng so khớp chuỗi con.
+    """
     lw = (line or "").lower()
     ww = (word or "").strip().lower()
     if not lw or not ww:
         return False
+    if re.search(r"[^\x00-\x7F]", ww):
+        return ww in lw
     return re.search(r"(?<!\w)" + re.escape(ww) + r"(?!\w)", lw) is not None
 
 
@@ -296,6 +306,26 @@ def validate_dialogue(dialogue: dict, vocab_words: list, limits: dict = None) ->
         errors.append(f"Có lượt quá dài: {max_line_words} từ > tối đa {max_wpl} từ/lượt.")
     if n_hits < min_hits:
         errors.append(f"Thiếu từ vựng của ngày: chỉ khớp {n_hits} từ, cần ≥ {min_hits}.")
+    # line_target KHÔNG được lẫn tiếng Việt (AI hay chèn "Vâng, ..." vào câu Nhật).
+    _vi = re.compile(r"[ăâđêôơư]")
+    mixed = [l for l in lines if _vi.search((l or "").lower())]
+    if mixed:
+        errors.append(f"line_target lẫn tiếng Việt: '{mixed[0][:40]}'")
+    # Hội thoại phải có tương tác hỏi–đáp, không phải danh sách câu rời.
+    if len(turns) >= 3:
+        has_q = any(("?" in l or "？" in l or l.rstrip().endswith("か。"))
+                    for l in lines)
+        if not has_q:
+            errors.append("Hội thoại không có câu hỏi nào — không phải hội thoại.")
+    # Ưu tiên turn_type nếu AI có trả: bắt buộc ≥2 câu hỏi, mỗi câu hỏi có lượt trả lời ngay sau.
+    types = [str(t.get("turn_type") or "").strip().lower() for t in turns]
+    if any(types):
+        q_idx = [i for i, x in enumerate(types) if x == "question"]
+        if len(q_idx) < 2:
+            errors.append(f"Chỉ có {len(q_idx)} câu hỏi — cần ≥ 2 cặp hỏi–đáp.")
+        for i in q_idx:
+            if i + 1 >= len(types) or types[i + 1] == "question":
+                errors.append("Câu hỏi không có lượt trả lời ngay sau.")
 
     return {
         "ok": not errors,
