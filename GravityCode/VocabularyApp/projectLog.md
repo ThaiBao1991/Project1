@@ -2306,3 +2306,13 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
   2.520, supervisor tự `end` gộp lại; nếu cần gộp tay:
   `python -X utf8 tools\media_index_swap.py end`.
 - Đĩa: C: 33,4 GB · D: 41,0 GB.
+
+## 2026-11-25 (18:21) — Chốt an toàn cho thay đổi RAM (không giảm logic)
+
+- `fill_lite` tự gọi `media_index_swap.begin(slug)` ⇒ chạy tay `fill_lite`
+  cũng không nạp manifest 333 MB (trước đó chỉ supervisor gọi).
+- `fill_lite` tự `end(slug)` khi khóa đủ 2.520 (phòng trường hợp chạy tay).
+- `progress.py` in cảnh báo khi manifest đang SHARD.
+- `audit_all.py` thêm WARN nhắc gộp manifest trước khi audit/publish.
+- Không đổi logic sinh nội dung/media; chỉ thêm chốt an toàn.
+- Nga 1.328/2.520 (52,7%), ~200 ngày/giờ.

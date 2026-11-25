@@ -38,6 +38,7 @@ LOCK_PATH = os.path.join(BASE, "data", "logs", "fill_lite.lock")
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import proc_lock  # noqa: E402
 import meminfo  # noqa: E402
+import media_index_swap  # noqa: E402
 LOG_PATH = os.path.join(BASE, "data", "logs", "fill_lite.log")
 MEDIA = os.path.join(BASE, "data", "media")
 
@@ -166,6 +167,12 @@ def main() -> int:
                 break
             t0 = time.time()
             log(f"▶ {slug}: {days_done(slug)}/2520 ngày có media")
+            # Tự tách manifest theo khóa ở ĐÂY để chạy tay `fill_lite` cũng an
+            # toàn (không phụ thuộc supervisor); begin là idempotent.
+            try:
+                media_index_swap.begin(slug)
+            except Exception as e:
+                log(f"⚠ shard manifest: {e}")
             stall = 0
             for p in range(args.max_passes):
                 before = days_done(slug)
@@ -190,6 +197,11 @@ def main() -> int:
                     break
             log(f"◀ {slug} xong: {days_done(slug)}/2520 ngày "
                 f"({(time.time()-t0)/3600:.2f} giờ)")
+            if days_done(slug) >= 2520:
+                try:
+                    media_index_swap.end(slug)
+                except Exception as e:
+                    log(f"⚠ gộp manifest: {e}")
     finally:
         proc_lock.release("fill_lite")
     log("HOÀN TẤT CHẾ ĐỘ NHẸ")

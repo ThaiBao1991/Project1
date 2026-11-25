@@ -58,6 +58,9 @@ def main() -> int:
     done |= set(clean)
 
     print(f"TIẾN ĐỘ {time.strftime('%Y-%m-%d %H:%M:%S')}")
+    if os.path.isfile(os.path.join(MEDIA, "index_full.json")):
+        print("⚠ manifest đang ở chế độ SHARD (chỉ khóa đang làm) — gộp bằng: "
+              "python -X utf8 tools\\media_index_swap.py end")
     print(f"{'khóa':22}{'media':>10}  {'%':>6}  trạng thái")
     remaining = 0
     current = ""

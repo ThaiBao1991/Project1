@@ -84,6 +84,8 @@ nhưng thay thế việc phải đọc 190 KB log.
   ctypes, không cần psutil) và `gc.collect()` mỗi 10 ngày.
 - Kết quả đo: **958 MB → 230–305 MB** (~70% giảm); tổng Python ~356 MB.
 - Kiểm tra: `python -X utf8 tools\media_index_swap.py status` (SHARD/FULL).
+- `fill_lite` tự gọi `begin` (chạy tay cũng an toàn); `progress.py` và `audit_all.py`
+  cảnh báo khi đang SHARD; `finalize` tự gộp trước khi publish.
 - Đĩa lúc ghi (21/11 20:15): **C: 3,86 GB** · **D: 23,4 GB** trống.
   → C: thấp vì `pagefile.sys` 22,5 GB + `hiberfil.sys` 2,9 GB trên ổ 7,3 GB RAM;
   pipeline tự dừng khi C: < 2 GB (xem sự cố #5).

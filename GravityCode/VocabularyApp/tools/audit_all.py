@@ -422,6 +422,10 @@ def main() -> int:
                     help="walk toàn bộ media (chậm trên ổ F:)")
     args = ap.parse_args()
     t0 = time.time()
+    if os.path.isfile(os.path.join(MEDIA, "index_full.json")):
+        add_warn("manifest đang ở chế độ SHARD (index_full.json tồn tại) — "
+                 "chạy `python -X utf8 tools/media_index_swap.py end` trước khi "
+                 "audit/publish để thấy đủ entry của 8 khóa")
     prog = progress()
     store = storage(args.full_storage)
     cont = content()
