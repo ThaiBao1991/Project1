@@ -21,8 +21,8 @@ nhưng thay thế việc phải đọc 190 KB log.
 
 - App học từ vựng **8 ngôn ngữ × 2.520 ngày** (~20.160 ngày nội dung).
 - **Nội dung chữ: đã đủ 8/8 khóa** (mẫu câu, câu thông dụng, ngữ pháp, hội thoại, quiz).
-- **Media (ảnh + audio): xong 5 khóa** (Nhật, Trung, Anh, Hàn, Tây Ban Nha) — đã upload và đã xoá local.
-  3 khóa còn lại đang bù dần: Đức → Pháp → Nga.
+- **Media (ảnh + audio): xong 8/8 khóa** (Nhật, Trung, Anh, Hàn, Tây Ban Nha, Đức, Pháp, Nga)
+  — đã upload lên `VocabularyData`, deploy Pages và xoá local.
 - Web tĩnh deploy lên **GitHub Pages** (`https://thaibao1991.github.io/Project1/`).
 - Media nằm ở **repo riêng** `ThaiBao1991/VocabularyData`, tải qua
   `https://raw.githubusercontent.com/ThaiBao1991/VocabularyData/main/media/<dir>/mNN.zip`.
@@ -50,19 +50,21 @@ nhưng thay thế việc phải đọc 190 KB log.
 
 ---
 
-## 3. Trạng thái hiện tại (20/11/2026 19:04)
+## 3. Trạng thái hiện tại (26/11/2026 06:05) — HOÀN TẤT 8/8
 
 | Khóa | Media local | Trạng thái |
 |---|---:|---|
-| Nhật | 0/2.520 | ✅ đã upload + deploy (local đã dọn) |
-| Trung | 0/2.520 | ✅ đã upload + enrich + deploy |
-| Anh | 0/2.520 | ✅ đã upload + deploy (audio 32 kbps) |
-| **Hàn** | 0/2.520 | ✅ upload 85 gói 21/11 21:05 (commit `93220ee4`), local đã dọn |
-| **Tây Ban Nha** | 0/2.520 | ✅ upload 85 gói 23/11 01:54 (commit `2d928f32`), local đã dọn |
-| **Đức** | **1.023/2.520** | đang chạy |
-| Pháp / Nga | 600/2.520 | chờ |
+| Nhật | 0/2.520 | ✅ upload + deploy, local đã dọn |
+| Trung | 0/2.520 | ✅ upload + enrich + deploy |
+| Anh | 0/2.520 | ✅ upload + deploy (audio 32 kbps) |
+| Hàn | 0/2.520 | ✅ upload (`93220ee4`), local đã dọn |
+| Tây Ban Nha | 0/2.520 | ✅ upload (`2d928f32`), local đã dọn |
+| Đức | 0/2.520 | ✅ upload 24/11, local đã dọn |
+| Pháp | 0/2.520 | ✅ upload 25/11 08:24, local đã dọn |
+| Nga | 0/2.520 | ✅ upload 26/11 01:50 (85 gói, Pages 82 MB), local đã dọn |
 
-- Còn **5.337 ngày** media → khoảng **2,6 ngày** (85 ngày/giờ).
+- **Còn 0 ngày.** Manifest đã gộp lại FULL: **262 MB / 647.001 entry**.
+- `verify_online.py`: **9/9 PASS**.
 - Xem nhanh: `python -X utf8 tools\progress.py`.
 
 ### 3.1. Hiệu năng trang học (tối ưu 23/11)
@@ -310,12 +312,11 @@ python -X utf8 GravityCode\VocabularyApp\tools\push_master.py
 
 ## 11. Việc còn lại (theo thứ tự)
 
-1. **Đức** (1.023/2.520) → tự finalize/upload/deploy → cleanup.
-2. **Pháp** → **Nga** (cùng quy trình).
-3. Sau mỗi khóa: `verify_online.py` (9/9) + ghi `projectLog.md`.
-4. Khi media xong toàn bộ: làm P0 UI theo `docs/UPGRADE_PLAN.md`
+1. **Đã xong 8/8 khóa** (Nga upload xong 01:50 ngày 26/11; `verify_online` 9/9).
+2. Chạy `audit_all.py` toàn bộ để có báo cáo cuối (0 FAIL) — nên chạy khi pipeline rảnh.
+3. Làm P0 UI theo `docs/UPGRADE_PLAN.md`
    (Settings, Progress dashboard, chọn ngày nâng cao, lịch sử quiz).
-5. Việc treo: rotate 197 key lộ trong `GravityCode/Download/AskCpl/settings.json`.
+4. Việc treo: rotate 197 key lộ trong `GravityCode/Download/AskCpl/settings.json`.
 
 ---
 

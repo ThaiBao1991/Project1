@@ -152,10 +152,11 @@ def supervise_once(procs: dict, meta: dict) -> None:
             lived = now - (m.get("started") or now)
             m["last_exit"] = {"at": f"{datetime.now():%H:%M:%S}", "code": rc,
                               "lived_s": round(lived)}
-            # Thoát nhanh mã 0 ⇒ có tiến trình khác đang giữ khoá (chạy tay).
-            if rc == 0 and lived < 20:
-                m["next_start"] = now + 300
-                log(f"⏸ {name} thoát ngay (đã có tiến trình khác giữ khoá) — thử lại sau 5 phút")
+            # Thoát mã 0 = xong việc (hoặc đã có bản khác giữ khoá) ⇒ không cần
+            # bật lại liên tục; kiểm tra lại mỗi 60 phút (phòng khi có khóa mới).
+            if rc == 0:
+                m["next_start"] = now + 3600
+                log(f"✓ {name} kết thúc bình thường — kiểm tra lại sau 60 phút")
                 procs[name] = None
                 continue
             m["backoff"] = min(600, (m.get("backoff") or 30) * 2)

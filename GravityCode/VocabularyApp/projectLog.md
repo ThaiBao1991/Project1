@@ -2316,3 +2316,19 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
 - `audit_all.py` thêm WARN nhắc gộp manifest trước khi audit/publish.
 - Không đổi logic sinh nội dung/media; chỉ thêm chốt an toàn.
 - Nga 1.328/2.520 (52,7%), ~200 ngày/giờ.
+
+## 2026-11-26 (06:05) — HOÀN TẤT 8/8 khóa media
+
+- **Nga xong**: media 2.520/2.520, upload **85 gói** lúc 01:50, Pages **82 MB**
+  build `built` 01:50:39, cleanup dọn local. Raw `tieng-nga` m01/m42/m84 = 200.
+- Tổng kết: 8/8 khóa đã upload lên `VocabularyData`, deploy Pages, xoá media local.
+  `finalize_done` + `cleanup_done` đủ 8 khóa; `fill_remaining_done.status = done`.
+- Manifest đã gộp lại **FULL**: 262 MB / **647.001 entry** (trước shard 5,7 MB);
+  `media_index_swap.py status` = FULL, không còn `index_full.json`.
+- `verify_online.py`: **9/9 PASS**.
+- Sửa lỗi daemon: sau khi xong, `fill_remaining` thoát mã 0 nhưng daemon bật lại
+  **206 lần** (mỗi 60s). Nay thoát mã 0 ⇒ coi là xong, kiểm tra lại sau **60 phút**.
+  Test `test_pipeline_daemon` 8/8 PASS; daemon mới PID 29236.
+- Đĩa: C: 30,0 GB · D: 41,9 GB.
+- Việc còn lại: chạy `audit_all.py` toàn bộ (báo cáo cuối), P0 UI theo
+  `docs/UPGRADE_PLAN.md`, rotate 197 key lộ trong `AskCpl/settings.json`.
