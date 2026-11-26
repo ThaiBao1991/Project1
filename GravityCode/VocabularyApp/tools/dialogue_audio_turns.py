@@ -65,6 +65,8 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--lang", required=True)
     ap.add_argument("--limit", type=int, default=0, help="số NGÀY tối đa")
+    ap.add_argument("--only-new", action="store_true",
+                    help="chỉ ngày đã có hội thoại kiểu mới (turn_type)")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
@@ -97,6 +99,10 @@ def main() -> int:
         except Exception:
             continue
         if dn in done or not les.get("dialogue"):
+            continue
+        if args.only_new and not any(t.get("turn_type")
+                                     for d in les["dialogue"]
+                                     for t in (d.get("turns") or [])):
             continue
         turns = [t for d in les["dialogue"] for t in (d.get("turns") or [])]
         if turns and all(t.get("audio_ref") and t.get("vi_audio_ref") for t in turns):

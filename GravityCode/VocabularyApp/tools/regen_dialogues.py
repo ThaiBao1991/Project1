@@ -195,6 +195,15 @@ def main() -> int:
                 log(f"  ✗ ngày {dn}: hits={hits} invalid={invalid[:2]} missing_vi={missing_vi}")
                 continue
             les["dialogue_backup"] = les.get("dialogue_backup") or les.get("dialogue")
+            # Audio cũ gắn với câu cũ ⇒ bỏ ref để bước audio sinh lại đúng câu mới.
+            for d in dialogues:
+                d.pop("audio_ref", None)
+                for t in (d.get("turns") or []):
+                    t.pop("audio_ref", None)
+                    t.pop("vi_audio_ref", None)
+            mm = les.get("media") or {}
+            for k in ("dialogue_audio", "dialogue_turn_audio", "dialogue_turn_vi_audio"):
+                mm.pop(k, None)
             les["dialogue"] = dialogues
             changed += 1
             done.add(dn)

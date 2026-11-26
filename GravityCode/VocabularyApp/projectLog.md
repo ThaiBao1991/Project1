@@ -2366,3 +2366,15 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
   `course.json.gz`.
 - Batch sinh hội thoại tiếng Nhật đang chạy nền (`data/logs/regen_dialogue_ja.log`),
   đã tới ngày 86, tốc độ ~2–4 giây/ngày, resume được.
+
+## 2026-11-26 (13:47) — Tạm dừng sinh lại hội thoại (hết quota)
+
+- Batch sinh hội thoại Nhật dừng vì **197 key hết quota ngày** (`no_key`); đã dừng
+  cả audio và daemon, gỡ tự chạy, dọn lock.
+- Kết quả dở: **112/1.311 ngày** đã sinh lại; **104 ngày** hội thoại kiểu mới
+  (`turn_type`, ≥2 cặp hỏi–đáp); **10 ngày có audio 2 giọng**, **123 file** audio lượt.
+- Manifest đã gộp **FULL 262 MB / 647.123 entry** (audio thêm 104 entry).
+- Sửa thêm: khi thay hội thoại, tool xoá `audio_ref`/`vi_audio_ref` cũ để audio
+  không phát sai câu.
+- `docs/PAUSE_STATE.md` cập nhật lệnh chạy tiếp (sau 00:05 khi quota reset).
+- Media 8/8 khóa vẫn nguyên, đã upload + deploy.

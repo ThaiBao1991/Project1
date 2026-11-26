@@ -1,65 +1,68 @@
-# TRẠNG THÁI TẠM DỪNG — cập nhật 25/11/2026 09:18
+# TRẠNG THÁI TẠM DỪNG — 26/11/2026 13:47
 
-> Người dùng yêu cầu **tạm dừng**. Không xoá dữ liệu, không đổi state.
-> Chạy lại sẽ tiếp tục đúng ngày đang thiếu.
+> Dừng theo yêu cầu. Không xoá dữ liệu; chạy lại tiếp tục đúng chỗ dở.
 
 ## 1. Đã dừng
 
 | Thứ | Trạng thái |
 |---|---|
-| `pipeline_daemon` (PID 10664) | đã dừng |
-| `fill_remaining` / `fill_lite` / `ai.pipeline` (Nga) | đã dừng |
-| `finalize_lite --watch` | đã dừng |
-| `cleanup_done_media --watch` | đã dừng |
-| Tự chạy khi đăng nhập `VocabularyApp_Pipeline.vbs` | đã gỡ |
-| Lock trong `D:\VocabularyAppData\state\locks` | đã dọn (0 file) |
+| Batch sinh lại hội thoại tiếng Nhật | đã dừng (hết quota ngày) |
+| `dialogue_audio_turns.py` (audio từng lượt) | đã dừng |
+| `pipeline_daemon` + 3 watcher | đã dừng |
+| Tự chạy khi đăng nhập | đã gỡ |
+| Lock | đã dọn (0 file) |
+| Manifest | đã gộp **FULL** (262 MB, 647.123 entry) |
 
-Còn `python main.py` — app desktop người dùng đang mở, không phải task nền.
+## 2. Trạng thái công việc
 
-## 2. Mốc tiến độ (09:17)
+### Media 8/8 khóa
+Đã upload + deploy + dọn local từ 26/11 01:50 (Nga là khóa cuối).
 
-| Khóa | Trạng thái |
+### Hội thoại tiếng Nhật (đang làm dở)
+| Hạng mục | Số liệu |
 |---|---|
-| Nhật | ✅ upload, local đã dọn |
-| Trung | ✅ upload, local đã dọn |
-| Anh | ✅ upload, local đã dọn |
-| Hàn | ✅ upload (`93220ee4`), local đã dọn |
-| Tây Ban Nha | ✅ upload (`2d928f32`), local đã dọn |
-| Đức | ✅ upload (24/11), local đã dọn |
-| Pháp | ✅ upload 08:24 25/11 (raw 200), local đã dọn |
-| **Nga** | **695/2.520** — thiếu từ ngày **696**, chưa upload |
+| Ngày cần sinh lại (offline) | 1.311 |
+| Đã sinh lại đạt chuẩn | **112 ngày** |
+| Trong đó hội thoại kiểu mới (có `turn_type`, ≥2 cặp hỏi–đáp) | **104 ngày** |
+| Ngày đã có audio 2 giọng (Nhật + Việt) | **10 ngày** |
+| File audio lượt đã sinh | **123 file** (`dlg_*`, `dlgvi_*`) |
 
-- Còn **1.825 ngày** (~27,6%) → khoảng **23–29 giờ** nếu chạy lại.
-- Đĩa: **C: 16,4 GB · D: 41,7 GB**.
+- Bản hội thoại cũ được giữ ở `lesson["dialogue_backup"]`.
+- Nguyên nhân dừng batch: **toàn bộ 197 key hết quota ngày** (`no_key`).
 
-## 3. Chạy lại
+## 3. Chạy tiếp
 
 ```powershell
 cd "C:\Users\games\Desktop\Project\Python\Python MyWork\Project1\GravityCode\VocabularyApp"
-python -X utf8 tools\pipeline_daemon.py --install-startup
-python -X utf8 tools\pipeline_daemon.py
+
+# 1) Sinh lại hội thoại (sau 00:05 khi quota reset, hoặc khi có key mới)
+python -X utf8 tools\regen_dialogues.py --lang "tiếng_nhật" --scope offline
+
+# 2) Audio từng lượt cho các ngày đã sinh lại
+python -X utf8 tools\dialogue_audio_turns.py --lang "tiếng_nhật" --only-new
+
+# 3) Khi xong toàn bộ: audio cho tất cả ngày
+python -X utf8 tools\dialogue_audio_turns.py --lang "tiếng_nhật"
 ```
 
-Chỉ chạy thủ công:
+- Tiến độ tự lưu: `data/logs/dialogue_regen_tiếng_nhật.json`,
+  `data/logs/dialogue_audio_tiếng_nhật.json`.
+- Sau khi xong Nhật: export → pack → upload → deploy → `verify_online.py`
+  (dùng `finalize_lite.py --once --lang "tiếng_nhật"`, `SKIP_SHRINK=1` nếu audio đã 32 kbps).
+- Sau đó lặp cho 7 ngôn ngữ còn lại.
+
+## 4. Kiểm tra
 
 ```powershell
-python -X utf8 tools\fill_remaining_after_chinese.py
-python -X utf8 tools\finalize_lite.py --watch --interval 300
-python -X utf8 tools\cleanup_done_media.py --watch --interval 300
+python -X utf8 tools\progress.py                 # 8/8 media
+python -X utf8 tools\media_index_swap.py status  # phải là FULL
+python -X utf8 tools\pipeline_daemon.py --status # phải "KHÔNG chạy"
 ```
-
-## 4. Kiểm tra sau khi chạy lại
-
-```powershell
-python -X utf8 tools\progress.py
-python -X utf8 tools\pipeline_daemon.py --status
-```
-
-- Nga phải tiếp tục từ **ngày 696**, không làm lại từ đầu.
-- Khi Nga đủ 2.520: tự pack → upload 85 gói → deploy → dọn local → **hoàn tất 8/8 khóa**.
 
 ## 5. Lưu ý
 
-- Không xoá `data/media`, `data/audio`, `data/ai_courses`, `web/data`, `publish`
-  (đều là junction → D:).
-- State ở `D:\VocabularyAppData\state` (2 bản + history) — không sửa tay.
+- Chạy lại `regen_dialogues` sẽ bỏ qua ngày đã có trong state; muốn làm lại
+  ngày cụ thể thì xoá ngày đó khỏi `done_days`.
+- Audio cũ của hội thoại bị thay sẽ tự bị bỏ ref (không phát sai câu).
+- Không chạy `regen_dialogues` và `dialogue_audio_turns` **cùng lúc** (cùng ghi
+  `course.json.gz`).
