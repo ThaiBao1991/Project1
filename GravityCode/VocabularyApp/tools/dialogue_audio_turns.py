@@ -61,14 +61,37 @@ def target_locale(lang: str) -> str:
     return "-".join(parts[:2]) if len(parts) >= 2 else ""
 
 
+def _safe_tts(job) -> dict:
+    """job = (kind, di, ti, text, lang, voice) → dict synthesize (rỗng nếu lỗi)."""
+    try:
+        from ai.tts_generator import synthesize
+        _k, _di, _ti, text, lang, voice = job
+        return synthesize(lang, text, voice=voice) or {}
+    except Exception:
+        return {}
+
+
+def _low_priority() -> None:
+    try:
+        import ctypes
+        h = ctypes.windll.kernel32.GetCurrentProcess()
+        ctypes.windll.kernel32.SetPriorityClass(h, 0x4000)   # BELOW_NORMAL
+    except Exception:
+        pass
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--lang", required=True)
     ap.add_argument("--limit", type=int, default=0, help="số NGÀY tối đa")
     ap.add_argument("--only-new", action="store_true",
                     help="chỉ ngày đã có hội thoại kiểu mới (turn_type)")
+    ap.add_argument("--workers", type=int, default=2,
+                    help="số luồng synth song song (1-6; mặc định 2 cho máy yếu)")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
+    args.workers = max(1, min(6, int(args.workers)))
+    _low_priority()
 
     from ai import course_db, media_store
     from ai.paths import canonical_slug
@@ -120,42 +143,48 @@ def main() -> int:
     changed = 0
     for les in days:
         dn = int(les.get("day", 0))
-        n_ok = 0
+        # Gom việc synth (mạng) rồi lưu tuần tự — tránh tranh ghi manifest.
+        jobs = []
         for di, d in enumerate(les.get("dialogue") or []):
             for ti, t in enumerate(d.get("turns") or []):
                 text = str(t.get("line_target") or "").strip()
                 vi = str(t.get("line_vi") or "").strip()
-                try:
-                    if text and not t.get("audio_ref"):
-                        r = synthesize(args.lang, text, voice=loc, log_fn=log)
-                        if r.get("path"):
-                            with open(r["path"], "rb") as f:
-                                data = f.read()
-                            e = media_store.save_audio(
-                                args.lang, dn,
-                                f"dlg_{di:02d}_{ti:02d}_{media_store.hash_key(text, r.get('engine'))}",
-                                data, mime="audio/mpeg" if r["path"].endswith(".mp3") else "audio/wav",
-                                source="tts", text=text, engine=r.get("engine", ""),
-                                voice=r.get("voice", ""), rate=r.get("rate", ""),
-                                kind="dialogue_turn_audio")
-                            if e:
-                                t["audio_ref"] = e.get("id"); n_ok += 1
-                    if vi and not t.get("vi_audio_ref"):
-                        r2 = synthesize("vi", vi, voice="vi-VN", log_fn=log)
-                        if r2.get("path"):
-                            with open(r2["path"], "rb") as f:
-                                data = f.read()
-                            e2 = media_store.save_audio(
-                                args.lang, dn,
-                                f"dlgvi_{di:02d}_{ti:02d}_{media_store.hash_key(vi, r2.get('engine'))}",
-                                data, mime="audio/mpeg" if r2["path"].endswith(".mp3") else "audio/wav",
-                                source="tts", text=vi, engine=r2.get("engine", ""),
-                                voice=r2.get("voice", ""), rate=r2.get("rate", ""),
-                                kind="dialogue_turn_vi_audio")
-                            if e2:
-                                t["vi_audio_ref"] = e2.get("id"); n_ok += 1
-                except Exception as ex:
-                    log(f"  ⚠ ngày {dn} lượt {di}:{ti}: {type(ex).__name__}: {ex}")
+                if text and not t.get("audio_ref"):
+                    jobs.append(("t", di, ti, text, args.lang, loc))
+                if vi and not t.get("vi_audio_ref"):
+                    jobs.append(("v", di, ti, vi, "vi", "vi-VN"))
+        if not jobs:
+            continue
+        if args.workers > 1:
+            from concurrent.futures import ThreadPoolExecutor
+            with ThreadPoolExecutor(max_workers=args.workers) as ex:
+                results = list(ex.map(_safe_tts, jobs))
+        else:
+            results = [_safe_tts(j) for j in jobs]
+
+        n_ok = 0
+        for (kind, di, ti, text, lg, voice), r in zip(jobs, results):
+            if not r or not r.get("path"):
+                continue
+            try:
+                with open(r["path"], "rb") as f:
+                    data = f.read()
+                prefix = "dlg" if kind == "t" else "dlgvi"
+                e = media_store.save_audio(
+                    args.lang, dn,
+                    f"{prefix}_{di:02d}_{ti:02d}_{media_store.hash_key(text, r.get('engine'))}",
+                    data, mime="audio/mpeg" if r["path"].endswith(".mp3") else "audio/wav",
+                    source="tts", text=text, engine=r.get("engine", ""),
+                    voice=r.get("voice", ""), rate=r.get("rate", ""),
+                    kind="dialogue_turn_audio" if kind == "t" else "dialogue_turn_vi_audio")
+                if not e:
+                    continue
+                turns = les["dialogue"][di].get("turns") or []
+                if ti < len(turns):
+                    turns[ti]["audio_ref" if kind == "t" else "vi_audio_ref"] = e.get("id")
+                    n_ok += 1
+            except Exception as ex:
+                log(f"  ⚠ ngày {dn} lượt {di}:{ti}: {type(ex).__name__}: {ex}")
         if n_ok:
             changed += 1
             done.add(dn)

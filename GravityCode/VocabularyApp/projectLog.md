@@ -2378,3 +2378,13 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
   không phát sai câu.
 - `docs/PAUSE_STATE.md` cập nhật lệnh chạy tiếp (sau 00:05 khi quota reset).
 - Media 8/8 khóa vẫn nguyên, đã upload + deploy.
+
+## 2026-11-27 (11:40) — Audio đa luồng (nhẹ RAM) + chạy lại batch hội thoại
+
+- Batch sinh hội thoại chạy lại từ 11:30 (quota đã hồi một phần); tiếp tục từ 112 ngày.
+- `dialogue_audio_turns.py`: thêm `--workers N` (mặc định **2**, tối đa 6):
+  - Chỉ **synth TTS chạy song song**; `save_audio` + ghi `course.json` vẫn TUẦN TỰ
+    ⇒ không tranh manifest, RAM tăng rất ít (~30–60 MB ở 4 luồng cho máy 7 GB).
+  - Đặt tiến trình **BelowNormal** để không giành CPU với app khác.
+  - Dự kiến nhanh gấp 4–6 lần (từ ~45s/ngày còn ~8–12s/ngày ở 4 luồng).
+- Chưa chạy audio để tránh ghi chồng course.json trong lúc batch hội thoại đang chạy.
