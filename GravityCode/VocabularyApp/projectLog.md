@@ -2388,3 +2388,16 @@ console; `verify_online.py` **9/9 PASS**; live `sw.js` = `vocab-v8`.
   - Đặt tiến trình **BelowNormal** để không giành CPU với app khác.
   - Dự kiến nhanh gấp 4–6 lần (từ ~45s/ngày còn ~8–12s/ngày ở 4 luồng).
 - Chưa chạy audio để tránh ghi chồng course.json trong lúc batch hội thoại đang chạy.
+
+## 2026-11-27 (18:00) — Tạm dừng sinh hội thoại theo yêu cầu
+
+- Đã dừng batch regen (PID 22480) + job nền chờ chạy audio; audio chưa chạy.
+- Tiến độ: **284/1.311 ngày** hội thoại đã sinh lại (21,7%); **10 ngày** đủ audio
+  2 giọng; ngày cao nhất xử lý 1.046.
+- Đối soát state: bỏ 8 ngày "done" nhưng chưa kịp ghi `course.json`
+  (8,16,26,28,29,37,38,47) để lần sau làm lại.
+- Manifest FULL 262 MB (không shard); lock 0; daemon tắt; startup đã gỡ.
+- Audio đa luồng đã sẵn (`--workers 1..6`, mặc định 2, chỉ synth song song,
+  lưu tuần tự, ưu tiên BelowNormal).
+- `docs/PAUSE_STATE.md` cập nhật lệnh chạy tiếp.
+- Đĩa: C: 35,8 GB · D: 39,0 GB.

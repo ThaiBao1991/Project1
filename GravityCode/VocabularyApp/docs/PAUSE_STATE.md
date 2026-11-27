@@ -1,4 +1,4 @@
-# TRẠNG THÁI TẠM DỪNG — 26/11/2026 13:47
+# TRẠNG THÁI TẠM DỪNG — 27/11/2026 18:00
 
 > Dừng theo yêu cầu. Không xoá dữ liệu; chạy lại tiếp tục đúng chỗ dở.
 
@@ -6,63 +6,56 @@
 
 | Thứ | Trạng thái |
 |---|---|
-| Batch sinh lại hội thoại tiếng Nhật | đã dừng (hết quota ngày) |
-| `dialogue_audio_turns.py` (audio từng lượt) | đã dừng |
-| `pipeline_daemon` + 3 watcher | đã dừng |
+| Batch sinh hội thoại tiếng Nhật (PID 22480) | đã dừng |
+| Job nền chờ-rồi-chạy-audio | đã dừng (không chạy audio) |
+| Audio từng lượt | không chạy |
+| `pipeline_daemon` + watcher | đang tắt từ 26/11 |
 | Tự chạy khi đăng nhập | đã gỡ |
-| Lock | đã dọn (0 file) |
-| Manifest | đã gộp **FULL** (262 MB, 647.123 entry) |
+| Lock | 0 file |
+| Manifest | **FULL** 262 MB (không ở chế độ shard) |
 
-## 2. Trạng thái công việc
+Process còn lại: chỉ app bạn đang mở (`AskCpl.py`).
 
-### Media 8/8 khóa
-Đã upload + deploy + dọn local từ 26/11 01:50 (Nga là khóa cuối).
+## 2. Tiến độ
 
-### Hội thoại tiếng Nhật (đang làm dở)
+### Media: 8/8 khóa
+Đã upload + deploy + dọn local (xong 26/11).
+
+### Hội thoại tiếng Nhật
 | Hạng mục | Số liệu |
-|---|---|
-| Ngày cần sinh lại (offline) | 1.311 |
-| Đã sinh lại đạt chuẩn | **112 ngày** |
-| Trong đó hội thoại kiểu mới (có `turn_type`, ≥2 cặp hỏi–đáp) | **104 ngày** |
-| Ngày đã có audio 2 giọng (Nhật + Việt) | **10 ngày** |
-| File audio lượt đã sinh | **123 file** (`dlg_*`, `dlgvi_*`) |
+|---|---:|
+| Ngày cần sinh lại | 1.311 |
+| Đã sinh lại đạt chuẩn | **284** (21,7%) |
+| Ngày đủ audio 2 giọng (Nhật + Việt) | 10 |
+| Ngày cao nhất đã xử lý | 1.046 |
 
-- Bản hội thoại cũ được giữ ở `lesson["dialogue_backup"]`.
-- Nguyên nhân dừng batch: **toàn bộ 197 key hết quota ngày** (`no_key`).
+- Bản cũ giữ ở `dialogue_backup`.
+- State đã đối soát: bỏ 8 ngày đánh dấu "done" nhưng chưa kịp ghi vào `course.json`
+  (8, 16, 26, 28, 29, 37, 38, 47) ⇒ lần sau sẽ làm lại các ngày này.
 
 ## 3. Chạy tiếp
 
 ```powershell
 cd "C:\Users\games\Desktop\Project\Python\Python MyWork\Project1\GravityCode\VocabularyApp"
 
-# 1) Sinh lại hội thoại (sau 00:05 khi quota reset, hoặc khi có key mới)
+# 1) Hội thoại (tiếp tục từ ngày chưa xong)
 python -X utf8 tools\regen_dialogues.py --lang "tiếng_nhật" --scope offline
 
-# 2) Audio từng lượt cho các ngày đã sinh lại
-python -X utf8 tools\dialogue_audio_turns.py --lang "tiếng_nhật" --only-new
-
-# 3) Khi xong toàn bộ: audio cho tất cả ngày
-python -X utf8 tools\dialogue_audio_turns.py --lang "tiếng_nhật"
+# 2) Audio cho các ngày đã sinh lại (đa luồng, nhẹ RAM)
+python -X utf8 tools\dialogue_audio_turns.py --lang "tiếng_nhật" --only-new --workers 4
 ```
 
-- Tiến độ tự lưu: `data/logs/dialogue_regen_tiếng_nhật.json`,
+- State: `data/logs/dialogue_regen_tiếng_nhật.json`,
   `data/logs/dialogue_audio_tiếng_nhật.json`.
-- Sau khi xong Nhật: export → pack → upload → deploy → `verify_online.py`
-  (dùng `finalize_lite.py --once --lang "tiếng_nhật"`, `SKIP_SHRINK=1` nếu audio đã 32 kbps).
-- Sau đó lặp cho 7 ngôn ngữ còn lại.
+- Không chạy 2 lệnh trên cùng lúc (cùng ghi `course.json.gz`).
 
-## 4. Kiểm tra
+## 4. Khi xong tiếng Nhật
 
-```powershell
-python -X utf8 tools\progress.py                 # 8/8 media
-python -X utf8 tools\media_index_swap.py status  # phải là FULL
-python -X utf8 tools\pipeline_daemon.py --status # phải "KHÔNG chạy"
-```
+1. `finalize_lite.py --once --lang "tiếng_nhật"` với `SKIP_SHRINK=1`
+   (nếu audio đã 32 kbps) để pack → upload → deploy.
+2. `verify_online.py` (9/9) + nghe thử 20 ngày mẫu.
+3. Lặp quy trình cho 7 ngôn ngữ còn lại.
 
-## 5. Lưu ý
+## 5. Đĩa
 
-- Chạy lại `regen_dialogues` sẽ bỏ qua ngày đã có trong state; muốn làm lại
-  ngày cụ thể thì xoá ngày đó khỏi `done_days`.
-- Audio cũ của hội thoại bị thay sẽ tự bị bỏ ref (không phát sai câu).
-- Không chạy `regen_dialogues` và `dialogue_audio_turns` **cùng lúc** (cùng ghi
-  `course.json.gz`).
+- **C: 35,8 GB** · **D: 39,0 GB**.
